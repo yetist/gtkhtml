@@ -1,3 +1,72 @@
+2000-02-26  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine-edit-paste.c (html_engine_paste) [! PARANOID_DEBUG]:
+	Removed ultra-verbose debugging messages.
+
+	* gtkhtml.c (class_init): Setup
+	"current_paragraph_alignment_changed".
+	(update_styles): Emit it if the current paragraph alignment is
+	changed.
+	(init): Initialize `paragraph_alignment' to
+	`GTK_HTML_PARAGRAPH_ALIGNMENT_LEFT'.
+	(gtk_html_align_paragraph): New function.
+	(paragraph_alignment_to_html): New helper function.
+	(html_alignment_to_paragraph): New helper function.
+	(gtk_html_cut): New function.
+	(gtk_html_copy): New function.
+	(gtk_html_paste): New function.
+	(gtk_html_undo): New function.
+	(gtk_html_redo): New function.
+	(key_press_event): Use `gtk_html_{cut,copy,paste,undo,redo}'
+	instead of `html_engine_{cut,copy,paste,undo,redo}'.
+
+	* gtkhtml.h: New enum `GtkHTMLParagraphAlignment'. New signal
+	"current_paragraph_alignment_changed".  New member
+	`paragraph_alignment' in `GtkHTML'.
+
+	* htmlengine-edit-clueflowstyle.c
+	(html_engine_get_current_clueflow_alignment): New function.
+
+	* gtkhtml.h: New enum `GtkHTMLParagraphAlignment'.
+
+	* gtkhtml.c (update_styles): Emit "paragraph_indentation_changed"
+	if the indentation changes.
+	(class_init): Setup "paragraph_indentation_changed".
+	(init): Initialize `paragraph_indentation' to 0.
+	(gtk_html_indent): New functon.
+
+	* gtkhtml.h: New signal "paragraph_indentation_changed".  New
+	member `paragraph_indentation' in `GtkHTML'.
+
+	* htmlengine-edit-clueflowstyle.c
+	(html_engine_set_clueflow_style): New parameters `indentation',
+	`alignment', `mask'.
+	(set_clueflow_style_in_region_redo): Likewise.
+	(set_clueflow_style): Likewise.  Handle indentation.
+	(html_engine_get_current_clueflow_indentation): New function.
+
+	* htmlclueflow.c (html_clueflow_indent): New function.
+	(html_clueflow_set_halignment): New function.
+	(html_clueflow_set_properties): New function.
+	(html_clueflow_get_properties): New function.
+
+	* htmlclueflow.c (write_indentation_tags_helper): New helper
+	function.
+	(write_indentation_tags): New helper function.
+	(save): Use it to write the proper indentation tags.  Also, output
+	a BR for everything except headers and paragraphs containting
+	rulers.
+
+	* htmlengine-save.c (html_engine_save): Initialize
+	`last_quote_level' and `last_list_level' in the
+	`HTMLEngineSaveState' struct to zero.
+
+	* htmlengine-save.h: New members `last_quote_level' and
+	`last_list_level' in `HTMLEngineSaveState'.
+
+	* htmltextmaster.c (split): Set `select_length' and `select_start'
+	to zero in the new element.
+
 2000-02-25  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlengine-edit-insert (html_engine_insert_para): Removed some

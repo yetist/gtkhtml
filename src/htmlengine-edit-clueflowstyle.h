@@ -25,9 +25,24 @@
 #include "htmlengine.h"
 #include "htmlclueflow.h"
 
+enum _HTMLEngineSetClueFlowStyleMask {
+	HTML_ENGNIE_SET_CLUEFLOW_NONE = 0,
+	HTML_ENGINE_SET_CLUEFLOW_STYLE = 1 << 0,
+	HTML_ENGINE_SET_CLUEFLOW_ALIGNMENT = 1 << 1,
+	HTML_ENGINE_SET_CLUEFLOW_INDENTATION = 1 << 2
+};
+typedef enum _HTMLEngineSetClueFlowStyleMask HTMLEngineSetClueFlowStyleMask;
+
+
 
-HTMLClueFlowStyle  html_engine_get_current_clueflow_style  (HTMLEngine        *engine);
-gboolean           html_engine_set_clueflow_style          (HTMLEngine        *engine,
-							    HTMLClueFlowStyle  style);
+HTMLClueFlowStyle  html_engine_get_current_clueflow_style        (HTMLEngine *engine);
+guint              html_engine_get_current_clueflow_indentation  (HTMLEngine *engine);
+HTMLHAlignType     html_engine_get_current_clueflow_alignment    (HTMLEngine *engine);
+
+gboolean           html_engine_set_clueflow_style                (HTMLEngine                     *engine,
+								  HTMLClueFlowStyle               style,
+								  HTMLHAlignType                  alignment,
+								  gint                            indentation,
+								  HTMLEngineSetClueFlowStyleMask  mask);
 
 #endif /* _HTMLENGINE_EDIT_CLUEFLOW_STYLE_H */

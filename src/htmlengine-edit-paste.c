@@ -28,6 +28,8 @@
 
 #include "htmlengine-edit-paste.h"
 
+/* #define PARANOID_DEBUG */
+
 
 /* This split text at the current cursor position to prepare it for insertion
    of new elements.  */
@@ -278,24 +280,30 @@ html_engine_paste (HTMLEngine *engine)
 
 	html_engine_freeze (engine);
 
+#ifdef PARANOID_DEBUG
 	g_print ("\n**** Tree before pasting:\n\n");
 	gtk_html_debug_dump_tree (engine->clue, 2);
+#endif
 
 	/* 2. Split the first paragraph at the cursor position, to allow insertion
               of the elements.  */
 
 	append = split_at_cursor (engine);
 
+#ifdef PARANOID_DEBUG
 	g_print ("\n**** Tree after splitting first para:\n\n");
 	gtk_html_debug_dump_tree (engine->clue, 2);
+#endif
 
 	/* 3. Prepare the HTMLClueFlows to hold the elements we want to paste.  */
 
 	if (prepare_clueflows (engine))
 		append = TRUE;
 
+#ifdef PARANOID_DEBUG
 	g_print ("\n**** Tree after clueflow preparation:\n\n");
 	gtk_html_debug_dump_tree (engine->clue, 2);
+#endif
 
 	/* 4. Duplicate the objects in the cut buffer, one by one, and insert
               them into the document.  */
@@ -306,8 +314,11 @@ html_engine_paste (HTMLEngine *engine)
 		obj = (HTMLObject *) p->data;
 
 		if (HTML_OBJECT_TYPE (obj) != HTML_TYPE_CLUEFLOW) {
+#ifdef PARANOID_DEBUG
 			if (html_object_is_text (obj))
 				g_print ("*** Pasting `%s'\n", HTML_TEXT (obj)->text);
+#endif
+
 			if (append)
 				append_object (engine, html_object_dup (obj));
 			else
@@ -316,7 +327,9 @@ html_engine_paste (HTMLEngine *engine)
 			HTMLObject *next_clueflow;
 			HTMLObject *obj_copy;
 
+#ifdef PARANOID_DEBUG
 			g_print ("*** Pasting HTMLClueFlow\n");
+#endif
 
 			/* This is an HTMLClueFlow, which we have already added
                            to the tree: move to the next element in the cut
@@ -327,7 +340,9 @@ html_engine_paste (HTMLEngine *engine)
                            ClueFlows are never empty.  */
 			p = p->next;
 			if (p == NULL) {
+#ifdef PARANOID_DEBUG
 				g_print ("    next is NULL: bailing out\n");
+#endif
 				break;
 			}
 
@@ -347,7 +362,9 @@ html_engine_paste (HTMLEngine *engine)
 			g_assert (next_clueflow != NULL);
 			g_assert (HTML_OBJECT_TYPE (next_clueflow) == HTML_TYPE_CLUEFLOW);
 
+#ifdef PARANOID_DEBUG
 			g_print ("*** Appending %s to %p\n", html_type_name (HTML_OBJECT_TYPE (obj)), next_clueflow);
+#endif
 
 			obj_copy = html_object_dup (obj);
 			html_clue_prepend (HTML_CLUE (next_clueflow), obj_copy);
@@ -362,8 +379,10 @@ html_engine_paste (HTMLEngine *engine)
 	if (append)
 		skip (engine);
 
+#ifdef PARANOID_DEBUG
 	g_print ("\n**** Tree after pasting:\n\n");
 	gtk_html_debug_dump_tree (engine->clue, 2);
+#endif
 
 	/* Thaw the engine so that things are re-laid out again.  FIXME: this
            might be a bit inefficient for cut & paste.  */

@@ -25,58 +25,165 @@
    (Indentation *might* be invalid with certain styles.)  */
 
 
-HTMLClueFlowStyle
-html_engine_get_current_clueflow_style (HTMLEngine *engine)
+/* Undo/redo data for setting the style of a single paragraph.  */
+
+struct _OriginalClueFlowProps {
+	HTMLClueFlowStyle style;
+	guint8 list_level;
+	guint8 quote_level;
+	HTMLHAlignType alignment;
+};
+typedef struct _OriginalClueFlowProps OriginalClueFlowProps;
+
+static OriginalClueFlowProps *
+get_props (HTMLClueFlow *flow)
+{
+	OriginalClueFlowProps *props;
+
+	props = g_new (OriginalClueFlowProps, 1);
+
+	html_clueflow_get_properties (flow, &props->style, &props->list_level, &props->quote_level, &props->alignment);
+
+	return props;
+}
+
+static void
+set_props (HTMLClueFlow *flow,
+		HTMLEngine *engine,
+		const OriginalClueFlowProps *props)
+{
+	html_clueflow_set_properties (flow,
+				      engine,
+				      props->style,
+				      props->list_level,
+				      props->quote_level,
+				      props->alignment);
+}
+
+static void
+free_props (OriginalClueFlowProps *props)
+{
+	g_free (props);
+}
+
+
+/* Helper function to retrieve the current paragraph.  */
+
+static HTMLClueFlow *
+get_current_para (HTMLEngine *engine)
 {
 	HTMLObject *current;
 	HTMLObject *parent;
 
-	g_return_val_if_fail (engine != NULL, HTML_CLUEFLOW_STYLE_NORMAL);
-	g_return_val_if_fail (HTML_IS_ENGINE (engine), HTML_CLUEFLOW_STYLE_NORMAL);
-
 	current = engine->cursor->object;
 	if (current == NULL)
-		return HTML_CLUEFLOW_STYLE_NORMAL;
+		return NULL;
 
 	parent = current->parent;
 	if (parent == NULL)
-		return HTML_CLUEFLOW_STYLE_NORMAL;
+		return NULL;
 
 	if (HTML_OBJECT_TYPE (parent) != HTML_TYPE_CLUEFLOW)
-		return HTML_CLUEFLOW_STYLE_NORMAL;
+		return NULL;
 
-	return HTML_CLUEFLOW (parent)->style;
+	return HTML_CLUEFLOW (parent);
 }
 
 
+/* Retrieving the current paragraph style to show in the toolbar.  */
+
+HTMLClueFlowStyle
+html_engine_get_current_clueflow_style (HTMLEngine *engine)
+{
+	HTMLClueFlow *para;
+
+	/* FIXME TODO region */
+
+	g_return_val_if_fail (engine != NULL, HTML_CLUEFLOW_STYLE_NORMAL);
+	g_return_val_if_fail (HTML_IS_ENGINE (engine), HTML_CLUEFLOW_STYLE_NORMAL);
+
+	para = get_current_para (engine);
+	if (para == NULL)
+		return HTML_CLUEFLOW_STYLE_NORMAL;
+
+	return para->style;
+}
+ 
+
+/* Retrieving the current paragraph indentation to show in the toolbar.  */
+
+guint
+html_engine_get_current_clueflow_indentation (HTMLEngine *engine)
+{
+	HTMLClueFlow *para;
+
+	/* FIXME TODO region */
+
+	g_return_val_if_fail (engine != NULL, 0);
+	g_return_val_if_fail (HTML_IS_ENGINE (engine), 0);
+
+	para = get_current_para (engine);
+	if (para == NULL)
+		return 0;
+
+	return para->quote_level + para->list_level;
+}
+
+
+/* Retrieving the current paragraph alignment to show in the toolbar.  */
+
+HTMLHAlignType
+html_engine_get_current_clueflow_alignment (HTMLEngine *engine)
+{
+	HTMLClueFlow *para;
+
+	/* FIXME TODO region */
+
+	g_return_val_if_fail (engine != NULL, HTML_HALIGN_LEFT);
+	g_return_val_if_fail (HTML_IS_ENGINE (engine), HTML_HALIGN_LEFT);
+
+	para = get_current_para (engine);
+	if (para == NULL)
+		return 0;
+
+	return HTML_CLUE (para)->halign;
+}
+
+
+static void set_clueflow_style_undo (HTMLEngine *engine, gpointer closure);
+static void set_clueflow_style_undo_closure_destroy (gpointer closure);
+
 /* Setting style of a single paragraph -- redo.  */
 
 static void
 set_clueflow_style_redo_closure_destroy (gpointer closure)
 {
-	/* Nothing to do here, as the closure is actually an int.  */
+	free_props ((OriginalClueFlowProps *) closure);
 }
 
 static void
 set_clueflow_style_redo (HTMLEngine *engine,
 			 gpointer closure)
 {
-	HTMLObject *current;
-	HTMLObject *parent;
-	HTMLClueFlowStyle style;
+	HTMLClueFlow *para;
+	OriginalClueFlowProps *undo_props;
+	HTMLUndoAction *undo_action;
 
-	style = GPOINTER_TO_INT (closure);
+	para = get_current_para (engine);
 
-	current = engine->cursor->object;
-	g_return_if_fail (current != NULL);
-
-	parent = current->parent;
-	g_return_if_fail (parent != NULL);
-	g_return_if_fail (HTML_OBJECT_TYPE (parent) == HTML_TYPE_CLUEFLOW);
-
-	html_clueflow_set_style (HTML_CLUEFLOW (parent), engine, style);
+	undo_props = get_props (para);
+	set_props (para, engine, (OriginalClueFlowProps *) closure);
 
 	html_engine_make_cursor_visible (engine);
+
+	undo_action = html_undo_action_new ("paragraph style change",
+					    set_clueflow_style_undo,
+					    set_clueflow_style_undo_closure_destroy,
+					    undo_props,
+					    html_cursor_get_relative (engine->cursor));
+	html_undo_add_undo_action (engine->undo, undo_action);
+
+	html_cursor_reset_relative (engine->cursor);
 }
 
 
@@ -85,38 +192,32 @@ set_clueflow_style_redo (HTMLEngine *engine,
 static void
 set_clueflow_style_undo_closure_destroy (gpointer closure)
 {
-	/* Nothing to do here, as the closure is actually an int.  */
+	free_props ((OriginalClueFlowProps *) closure);
 }
 
 static void
 set_clueflow_style_undo (HTMLEngine *engine,
 			 gpointer closure)
 {
-	HTMLObject *current;
-	HTMLObject *parent;
-	HTMLClueFlowStyle orig_style;
-	HTMLClueFlowStyle style;
+	HTMLClueFlow *para;
 	HTMLUndoAction *redo_action;
+	OriginalClueFlowProps *redo_props;
 
-	style = GPOINTER_TO_INT (closure);
+	para = get_current_para (engine);
+	g_return_if_fail (para != NULL);
 
-	current = engine->cursor->object;
-	g_return_if_fail (current != NULL);
+	redo_props = get_props (para);
 
-	parent = current->parent;
-	g_return_if_fail (parent != NULL);
-	g_return_if_fail (HTML_OBJECT_TYPE (parent) == HTML_TYPE_CLUEFLOW);
-
-	orig_style = HTML_CLUEFLOW (parent)->style;
-	html_clueflow_set_style (HTML_CLUEFLOW (parent), engine, style);
+	set_props (para,  engine, (OriginalClueFlowProps *) closure);
 
 	html_engine_make_cursor_visible (engine);
 
 	redo_action = html_undo_action_new ("paragraph style change",
 					    set_clueflow_style_redo,
 					    set_clueflow_style_redo_closure_destroy,
-					    GINT_TO_POINTER (orig_style),
+					    redo_props,
 					    html_cursor_get_relative (engine->cursor));
+
 	html_undo_add_redo_action (engine->undo, redo_action);
 	html_cursor_reset_relative (engine->cursor);
 }
@@ -126,34 +227,35 @@ set_clueflow_style_undo (HTMLEngine *engine,
 
 static gboolean
 set_clueflow_style (HTMLEngine *engine,
-		    HTMLClueFlowStyle style)
+		    HTMLClueFlowStyle style,
+		    HTMLHAlignType alignment,
+		    gint indentation,
+		    HTMLEngineSetClueFlowStyleMask mask)
 {
-	HTMLObject *current;
-	HTMLObject *parent;
-	HTMLClueFlowStyle orig_style;
+	HTMLClueFlow *para;
 	HTMLUndoAction *undo_action;
+	OriginalClueFlowProps *undo_props;
 
-	current = engine->cursor->object;
-	if (current == NULL)
-		return FALSE;
+	para = get_current_para (engine);
+	g_return_val_if_fail (para != NULL, FALSE);
 
-	parent = current->parent;
-	if (parent == NULL)
-		return FALSE;
+	undo_props = get_props (para);
 
-	if (HTML_OBJECT_TYPE (parent) != HTML_TYPE_CLUEFLOW)
-		return FALSE;
+	if (mask & HTML_ENGINE_SET_CLUEFLOW_STYLE)
+		html_clueflow_set_style (para, engine, style);
 
-	orig_style = HTML_CLUEFLOW (parent)->style;
+	if (mask & HTML_ENGINE_SET_CLUEFLOW_ALIGNMENT)
+		html_clueflow_set_halignment (para, engine, alignment);
 
-	html_clueflow_set_style (HTML_CLUEFLOW (parent), engine, style);
+	if (mask & HTML_ENGINE_SET_CLUEFLOW_INDENTATION)
+		html_clueflow_indent (para, engine, indentation);
 
 	html_engine_make_cursor_visible (engine);
 
 	undo_action = html_undo_action_new ("paragraph style change",
 					    set_clueflow_style_undo,
 					    set_clueflow_style_undo_closure_destroy,
-					    GINT_TO_POINTER (orig_style),
+					    undo_props,
 					    html_cursor_get_relative (engine->cursor));
 	html_undo_add_undo_action (engine->undo, undo_action);
 	html_cursor_reset_relative (engine->cursor);
@@ -412,6 +514,9 @@ struct _SetClueFlowStyleForallData {
 	/* Style to set.  */
 	HTMLClueFlowStyle style;
 
+	/* Indentation delta.  */
+	gint indentation;
+
 	/* Previous parent checked.  */
 	HTMLObject *previous_clueflow;
 
@@ -452,7 +557,10 @@ set_clueflow_style_in_region_forall (HTMLObject *object,
 
 static gboolean
 set_clueflow_style_in_region (HTMLEngine *engine,
-			      HTMLClueFlowStyle style)
+			      HTMLClueFlowStyle style,
+			      HTMLHAlignType alignment,
+			      gint indentation,
+			      HTMLEngineSetClueFlowStyleMask mask)
 {
 	HTMLUndoAction *undo_action;
 	SetClueFlowStyleForallData *data;
@@ -465,6 +573,7 @@ set_clueflow_style_in_region (HTMLEngine *engine,
 	data = g_new (SetClueFlowStyleForallData, 1);
 	data->engine = engine;
 	data->style = style;
+	data->indentation = indentation;
 	data->previous_clueflow = NULL;
 	data->undo_data = undo_data;
 
@@ -486,16 +595,33 @@ set_clueflow_style_in_region (HTMLEngine *engine,
 }
 
 
+/**
+ * html_engine_set_clueflow_style:
+ * @engine: An HTMLEngine
+ * @style: Paragraph style to set
+ * @indentation: Indentation delta: if the value is positive, all the paragraphs
+ * increase their indentation by the specified amount.  If the value is negative,
+ * they decrease their indentation by the specified amount.
+ * 
+ * Set the paragraph style.  This works as in an editor: if there is a
+ * selection, the paragraphs in the whole selection changes style.  If there is
+ * no selection, only the current paragraph changes style.
+ * 
+ * Return value: %TRUE if the style actually changed; %FALSE otherwise.
+ **/
 gboolean
 html_engine_set_clueflow_style (HTMLEngine *engine,
-				HTMLClueFlowStyle style)
+				HTMLClueFlowStyle style,
+				HTMLHAlignType alignment,
+				gint indentation,
+				HTMLEngineSetClueFlowStyleMask mask)
 {
 	g_return_val_if_fail (engine != NULL, FALSE);
 	g_return_val_if_fail (HTML_IS_ENGINE (engine), FALSE);
 	g_return_val_if_fail (engine->clue != NULL, FALSE);
 
 	if (engine->active_selection)
-		return set_clueflow_style_in_region (engine, style);
+		return set_clueflow_style_in_region (engine, style, alignment, indentation, mask);
 	else
-		return set_clueflow_style (engine, style);
+		return set_clueflow_style (engine, style, alignment, indentation, mask);
 }

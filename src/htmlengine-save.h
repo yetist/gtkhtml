@@ -37,6 +37,9 @@ struct _HTMLEngineSaveState {
 
 	gboolean error : 1;
 
+	guint last_quote_level;
+	guint last_list_level;
+
 	gpointer user_data;
 };
 typedef struct _HTMLEngineSaveState HTMLEngineSaveState;

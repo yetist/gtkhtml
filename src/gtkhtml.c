@@ -47,6 +47,8 @@ enum {
 	SUBMIT,
 	OBJECT_REQUESTED,
 	CURRENT_PARAGRAPH_STYLE_CHANGED,
+	CURRENT_PARAGRAPH_INDENTATION_CHANGED,
+	CURRENT_PARAGRAPH_ALIGNMENT_CHANGED,
 	INSERTION_FONT_STYLE_CHANGED,
 	LAST_SIGNAL
 };
@@ -119,12 +121,44 @@ paragraph_style_to_clueflow_style (GtkHTMLParagraphStyle style)
 	}
 }
 
+static HTMLHAlignType
+paragraph_alignment_to_html (GtkHTMLParagraphAlignment alignment)
+{
+	switch (alignment) {
+	case GTK_HTML_PARAGRAPH_ALIGNMENT_LEFT:
+		return HTML_HALIGN_LEFT;
+	case GTK_HTML_PARAGRAPH_ALIGNMENT_RIGHT:
+		return HTML_HALIGN_RIGHT;
+	case GTK_HTML_PARAGRAPH_ALIGNMENT_CENTER:
+		return HTML_HALIGN_CENTER;
+	default:
+		return HTML_HALIGN_LEFT;
+	}
+}
+
+static GtkHTMLParagraphAlignment
+html_alignment_to_paragraph (HTMLHAlignType alignment)
+{
+	switch (alignment) {
+	case HTML_HALIGN_LEFT:
+		return GTK_HTML_PARAGRAPH_ALIGNMENT_LEFT;
+	case HTML_HALIGN_CENTER:
+		return GTK_HTML_PARAGRAPH_ALIGNMENT_CENTER;
+	case HTML_HALIGN_RIGHT:
+		return GTK_HTML_PARAGRAPH_ALIGNMENT_RIGHT;
+	default:
+		return GTK_HTML_PARAGRAPH_ALIGNMENT_LEFT;
+	}
+}
+
 static void
 update_styles (GtkHTML *html)
 {
 	GtkHTMLParagraphStyle paragraph_style;
+	GtkHTMLParagraphAlignment alignment;
 	HTMLClueFlowStyle clueflow_style;
 	HTMLEngine *engine;
+	guint indentation;
 
 	engine = html->engine;
 
@@ -137,10 +171,20 @@ update_styles (GtkHTML *html)
 				 paragraph_style);
 	}
 
+	indentation = html_engine_get_current_clueflow_indentation (engine);
+	if (indentation != html->paragraph_indentation) {
+		html->paragraph_style = paragraph_style;
+		gtk_signal_emit (GTK_OBJECT (html), signals[CURRENT_PARAGRAPH_STYLE_CHANGED], paragraph_style);
+	}
+
+	alignment = html_alignment_to_paragraph (html_engine_get_current_clueflow_alignment (engine));
+	if (alignment != html->paragraph_alignment) {
+		html->paragraph_alignment = alignment;
+		gtk_signal_emit (GTK_OBJECT (html), signals[CURRENT_PARAGRAPH_ALIGNMENT_CHANGED], alignment);
+	}
+
 	if (html_engine_update_insertion_font_style (engine))
-		gtk_signal_emit (GTK_OBJECT (html),
-				 signals[INSERTION_FONT_STYLE_CHANGED],
-				 engine->insertion_font_style);
+		gtk_signal_emit (GTK_OBJECT (html), signals[INSERTION_FONT_STYLE_CHANGED], engine->insertion_font_style);
 }
 
 
@@ -411,23 +455,23 @@ key_press_event (GtkWidget *widget,
 
 		/* FIXME these are temporary bindings.  */
 	case GDK_F1:
-		html_engine_undo (engine);
+		gtk_html_undo (html);
 		retval = TRUE;
 		break;
 	case GDK_F2:
-		html_engine_redo (engine);
+		gtk_html_redo (html);
 		retval = TRUE;
 		break;
 	case GDK_F3:
-		html_engine_cut (engine);
+		gtk_html_cut (html);
 		retval = TRUE;
 		break;
 	case GDK_F4:
-		html_engine_copy (engine);
+		gtk_html_copy (html);
 		retval = TRUE;
 		break;
 	case GDK_F5:
-		html_engine_paste (engine);
+		gtk_html_paste (html);
 		retval = TRUE;
 		break;
 
@@ -825,6 +869,24 @@ class_init (GtkHTMLClass *klass)
 				GTK_TYPE_NONE, 1,
 				GTK_TYPE_INT);
 
+	signals [CURRENT_PARAGRAPH_INDENTATION_CHANGED] =
+		gtk_signal_new ("current_paragraph_indentation_changed",
+				GTK_RUN_FIRST,
+				object_class->type,
+				GTK_SIGNAL_OFFSET (GtkHTMLClass, current_paragraph_indentation_changed),
+				gtk_marshal_NONE__INT,
+				GTK_TYPE_NONE, 1,
+				GTK_TYPE_INT);
+
+	signals [CURRENT_PARAGRAPH_ALIGNMENT_CHANGED] =
+		gtk_signal_new ("current_paragraph_alignment_changed",
+				GTK_RUN_FIRST,
+				object_class->type,
+				GTK_SIGNAL_OFFSET (GtkHTMLClass, current_paragraph_alignment_changed),
+				gtk_marshal_NONE__INT,
+				GTK_TYPE_NONE, 1,
+				GTK_TYPE_INT);
+
 	signals [INSERTION_FONT_STYLE_CHANGED] =
 		gtk_signal_new ("insertion_font_style_changed",
 				GTK_RUN_FIRST,
@@ -880,6 +942,9 @@ init (GtkHTML* html)
 	html->idle_handler_id = 0;
 
 	html->paragraph_style = GTK_HTML_PARAGRAPH_STYLE_NORMAL;
+	html->paragraph_alignment = GTK_HTML_PARAGRAPH_ALIGNMENT_LEFT;
+	html->paragraph_indentation = 0;
+
 	html->insertion_font_style = GTK_HTML_FONT_STYLE_DEFAULT;
 }
 
@@ -1101,13 +1166,27 @@ gtk_html_set_paragraph_style (GtkHTML *html,
 	if (current_style == clueflow_style)
 		return;
 
-	if (! html_engine_set_clueflow_style (html->engine, clueflow_style))
+	if (! html_engine_set_clueflow_style (html->engine, clueflow_style, 0, 0,
+					      HTML_ENGINE_SET_CLUEFLOW_STYLE))
 		return;
 
 	html->paragraph_style = style;
 
 	gtk_signal_emit (GTK_OBJECT (html), signals[CURRENT_PARAGRAPH_STYLE_CHANGED],
 			 style);
+}
+
+void
+gtk_html_indent (GtkHTML *html,
+		 gint delta)
+{
+	g_return_if_fail (html != NULL);
+	g_return_if_fail (GTK_IS_HTML (html));
+
+	html_engine_set_clueflow_style (html->engine, 0, 0, delta,
+					HTML_ENGINE_SET_CLUEFLOW_INDENTATION);
+
+	update_styles (html);
 }
 
 void
@@ -1120,3 +1199,70 @@ gtk_html_set_font_style (GtkHTML *html,
 
 	html_engine_set_font_style (html->engine, and_mask, or_mask);
 }
+
+void
+gtk_html_align_paragraph (GtkHTML *html,
+			  GtkHTMLParagraphAlignment alignment)
+{
+	HTMLHAlignType align;
+
+	g_return_if_fail (html != NULL);
+	g_return_if_fail (GTK_IS_HTML (html));
+
+	align = paragraph_alignment_to_html (alignment);
+
+	html_engine_set_clueflow_style (html->engine, 0, align, 0,
+					HTML_ENGINE_SET_CLUEFLOW_ALIGNMENT);
+}
+
+
+/* Clipboard operations.  */
+
+void
+gtk_html_cut (GtkHTML *html)
+{
+	g_return_if_fail (html != NULL);
+	g_return_if_fail (GTK_IS_HTML (html));
+
+	html_engine_cut (html->engine);
+}
+
+void
+gtk_html_copy (GtkHTML *html)
+{
+	g_return_if_fail (html != NULL);
+	g_return_if_fail (GTK_IS_HTML (html));
+
+	html_engine_copy (html->engine);
+}
+
+void
+gtk_html_paste (GtkHTML *html)
+{
+	g_return_if_fail (html != NULL);
+	g_return_if_fail (GTK_IS_HTML (html));
+
+	html_engine_paste (html->engine);
+}
+
+
+/* Undo/redo.  */
+
+void
+gtk_html_undo (GtkHTML *html)
+{
+	g_return_if_fail (html != NULL);
+	g_return_if_fail (GTK_IS_HTML (html));
+
+	html_engine_undo (html->engine);
+}
+
+void
+gtk_html_redo (GtkHTML *html)
+{
+	g_return_if_fail (html != NULL);
+	g_return_if_fail (GTK_IS_HTML (html));
+
+	html_engine_redo (html->engine);
+}
+

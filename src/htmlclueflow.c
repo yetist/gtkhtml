@@ -215,38 +215,6 @@ get_indent (HTMLClueFlow *flow,
 	return indent;
 }
 
-static const gchar *
-get_tag_for_style (const HTMLClueFlow *flow)
-{
-	switch (flow->style) {
-	case HTML_CLUEFLOW_STYLE_NORMAL:
-		return NULL;
-	case HTML_CLUEFLOW_STYLE_H1:
-		return "H1";
-	case HTML_CLUEFLOW_STYLE_H2:
-		return "H2";
-	case HTML_CLUEFLOW_STYLE_H3:
-		return "H3";
-	case HTML_CLUEFLOW_STYLE_H4:
-		return "H4";
-	case HTML_CLUEFLOW_STYLE_H5:
-		return "H5";
-	case HTML_CLUEFLOW_STYLE_H6:
-		return "H6";
-	case HTML_CLUEFLOW_STYLE_ADDRESS:
-		return "ADDRESS";
-	case HTML_CLUEFLOW_STYLE_PRE:
-		return "PRE";
-	case HTML_CLUEFLOW_STYLE_ITEMDOTTED:
-	case HTML_CLUEFLOW_STYLE_ITEMROMAN:
-	case HTML_CLUEFLOW_STYLE_ITEMDIGIT:
-		return "LI";
-	default:
-		g_warning ("Unknown HTMLClueFlowStyle %d", flow->style);
-		return NULL;
-	}
-}
-	
 
 /* HTMLObject methods.  */
 static void
@@ -687,6 +655,106 @@ draw (HTMLObject *self,
 							tx, ty);
 }
 
+
+/* Saving support.  */
+
+static gboolean
+write_indentation_tags_helper (HTMLEngineSaveState *state,
+			       guint last_value,
+			       guint new_value,
+			       const gchar *tag)
+{
+	guint i, j;
+
+	if (new_value > last_value) {
+		for (i = last_value; i < new_value; i++) {
+			for (j = 0; j < i; j++) {
+				if (! html_engine_save_output_string (state, "    "))
+					return FALSE;
+			}
+
+			if (! html_engine_save_output_string (state, "<")
+			    || ! html_engine_save_output_string (state, tag)
+			    || ! html_engine_save_output_string (state, ">\n"))
+				return FALSE;
+		}
+	} else {
+		for (i = last_value; i > new_value; i--) {
+			if (i > 1) {
+				for (j = 0; j < i - 1; j++) {
+					if (! html_engine_save_output_string (state, "    "))
+						return FALSE;
+				}
+			}
+
+			if (! html_engine_save_output_string (state, "</")
+			    || ! html_engine_save_output_string (state, tag)
+			    || ! html_engine_save_output_string (state, ">\n"))
+				return FALSE;
+		}
+	}
+
+	return TRUE;
+}
+
+static gboolean
+write_indentation_tags (HTMLClueFlow *self,
+			HTMLEngineSaveState *state)
+{
+	if (state->last_quote_level == self->quote_level
+	    && state->last_list_level == self->list_level)
+		return TRUE;
+
+	if (! write_indentation_tags_helper (state,
+					     state->last_quote_level,
+					     self->quote_level,
+					     "BLOCKQUOTE"))
+		return FALSE;
+
+	if (! write_indentation_tags_helper (state,
+					     state->last_list_level,
+					     self->list_level,
+					     "UL"))
+		return FALSE;
+	
+	state->last_quote_level = self->quote_level;
+	state->last_list_level = self->list_level;
+
+	return TRUE;
+}
+
+static const gchar *
+get_tag_for_style (const HTMLClueFlow *flow)
+{
+	switch (flow->style) {
+	case HTML_CLUEFLOW_STYLE_NORMAL:
+		return NULL;
+	case HTML_CLUEFLOW_STYLE_H1:
+		return "H1";
+	case HTML_CLUEFLOW_STYLE_H2:
+		return "H2";
+	case HTML_CLUEFLOW_STYLE_H3:
+		return "H3";
+	case HTML_CLUEFLOW_STYLE_H4:
+		return "H4";
+	case HTML_CLUEFLOW_STYLE_H5:
+		return "H5";
+	case HTML_CLUEFLOW_STYLE_H6:
+		return "H6";
+	case HTML_CLUEFLOW_STYLE_ADDRESS:
+		return "ADDRESS";
+	case HTML_CLUEFLOW_STYLE_PRE:
+		return "PRE";
+	case HTML_CLUEFLOW_STYLE_ITEMDOTTED:
+	case HTML_CLUEFLOW_STYLE_ITEMROMAN:
+	case HTML_CLUEFLOW_STYLE_ITEMDIGIT:
+		return "LI";
+	default:
+		g_warning ("Unknown HTMLClueFlowStyle %d", flow->style);
+		return NULL;
+	}
+}
+	
 static gboolean
 save (HTMLObject *self,
       HTMLEngineSaveState *state)
@@ -696,9 +764,10 @@ save (HTMLObject *self,
 
 	clueflow = HTML_CLUEFLOW (self);
 
-	tag = get_tag_for_style (clueflow);
+	if (! write_indentation_tags (clueflow, state))
+		return FALSE;
 
-	/* FIXME: Indentation must be handled specially.  */
+	tag = get_tag_for_style (clueflow);
 
 	/* Start tag.  */
 	if (tag != NULL
@@ -717,16 +786,21 @@ save (HTMLObject *self,
 		    || ! html_engine_save_output_string (state, tag)
 		    || ! html_engine_save_output_string (state, ">\n"))
 			return FALSE;
-	} else if (HTML_OBJECT_TYPE (HTML_CLUE (self)->tail) != HTML_TYPE_RULE) {
+	}
+
+	if (HTML_OBJECT_TYPE (HTML_CLUE (self)->tail) != HTML_TYPE_RULE
+	    && ! is_header (HTML_CLUEFLOW (self))) {
 		/* This comparison is a nasty hack: the rule takes all of the
                    space, so we don't want it to create a new newline if it's
-                   the last element on the paragraph.  */
+                   the last element on the paragraph.  Also, headers would get
+                   extra space if we add a BR.  */
 		html_engine_save_output_string (state, "<BR>\n");
 	}
 
 	return TRUE;
 }
 
+
 static gint
 check_page_split (HTMLObject *self,
 		  gint y)
@@ -928,6 +1002,17 @@ html_clueflow_split (HTMLClueFlow *clue,
 }
 
 
+static void
+relayout_and_draw (HTMLClueFlow *flow,
+		   HTMLEngine *engine)
+{
+	if (engine == NULL)
+		return;
+
+	html_object_relayout (HTML_OBJECT (flow)->parent, engine, HTML_OBJECT (flow));
+	html_engine_queue_draw (engine, HTML_OBJECT (flow));
+}
+
 void
 html_clueflow_set_style (HTMLClueFlow *flow,
 			 HTMLEngine *engine,
@@ -937,6 +1022,86 @@ html_clueflow_set_style (HTMLClueFlow *flow,
 
 	flow->style = style;
 
-	html_object_relayout (HTML_OBJECT (flow)->parent, engine, HTML_OBJECT (flow));
-	html_engine_queue_draw (engine, HTML_OBJECT (flow));
+	relayout_and_draw (flow, engine);
+}
+
+void
+html_clueflow_set_halignment (HTMLClueFlow *flow,
+			      HTMLEngine *engine,
+			      HTMLHAlignType alignment)
+{
+	g_return_if_fail (flow != NULL);
+
+	HTML_CLUE (flow)->halign = alignment;
+
+	relayout_and_draw (flow, engine);
+}
+
+void
+html_clueflow_indent (HTMLClueFlow *flow,
+		      HTMLEngine *engine,
+		      gint indentation)
+{
+	g_return_if_fail (flow != NULL);
+
+	if (indentation != 0 && flow->quote_level > 0) {
+		if (indentation > 0) {
+			flow->quote_level += indentation;
+		} else if (flow->quote_level < -indentation) {
+			indentation -= flow->quote_level;
+			flow->quote_level = 0;
+		} else {
+			flow->quote_level += indentation;
+		}
+	}
+
+	if (indentation != 0) {
+		if (indentation > 0) {
+			flow->list_level += indentation;
+		} else if (flow->list_level < -indentation) {
+			flow->list_level = 0;
+		} else {
+			flow->list_level += indentation;
+		}
+	}
+
+	relayout_and_draw (flow, engine);
+}
+
+void
+html_clueflow_set_properties (HTMLClueFlow *flow,
+			      HTMLEngine *engine,
+			      HTMLClueFlowStyle style,
+			      guint8 list_level,
+			      guint8 quote_level,
+			      HTMLHAlignType alignment)
+{
+	g_return_if_fail (flow != NULL);
+
+	HTML_CLUE (flow)->halign = alignment;
+
+	flow->style = style;
+	flow->list_level = list_level;
+	flow->quote_level = quote_level;
+
+	relayout_and_draw (flow, engine);
+}
+
+void
+html_clueflow_get_properties (HTMLClueFlow *flow,
+			      HTMLClueFlowStyle *style_return,
+			      guint8 *list_level_return,
+			      guint8 *quote_level_return,
+			      HTMLHAlignType *alignment_return)
+{
+	g_return_if_fail (flow != NULL);
+
+	if (style_return != NULL)
+		*style_return = flow->style;
+	if (list_level_return != NULL)
+		*list_level_return = flow->list_level;
+	if (quote_level_return != NULL)
+		*quote_level_return = flow->quote_level;
+	if (alignment_return != NULL)
+		*alignment_return = HTML_CLUE (flow)->halign;
 }

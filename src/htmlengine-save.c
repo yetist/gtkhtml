@@ -121,10 +121,7 @@ html_engine_save_encode (HTMLEngineSaveState *state,
 
 	encoded_buffer = encode_entities ((const guchar *) buffer, length, &encoded_length);
 
-	return state->receiver (state->engine,
-				encoded_buffer,
-				encoded_length,
-				state->user_data);
+	return state->receiver (state->engine, encoded_buffer, encoded_length, state->user_data);
 }
 
 gboolean
@@ -214,6 +211,8 @@ html_engine_save (const HTMLEngine *engine,
 	state.br_count = 0;
 	state.error = FALSE;
 	state.user_data = user_data;
+	state.last_quote_level = 0;
+	state.last_list_level = 0;
 
 	if (! write_header (&state))
 		return FALSE;

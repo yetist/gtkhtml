@@ -92,8 +92,27 @@ GtkHTMLFontStyle  html_clueflow_get_default_font_style  (const HTMLClueFlow *sel
 HTMLClueFlow     *html_clueflow_split                   (HTMLClueFlow       *clue,
 							 HTMLObject         *child);
 
-void  html_clueflow_set_style  (HTMLClueFlow      *flow,
-				HTMLEngine        *engine,
-				HTMLClueFlowStyle  style);
+void  html_clueflow_set_style       (HTMLClueFlow      *flow,
+				     HTMLEngine        *engine,
+				     HTMLClueFlowStyle  style);
+void  html_clueflow_set_halignment  (HTMLClueFlow      *flow,
+				     HTMLEngine        *engine,
+				     HTMLHAlignType     alignment);
+
+void  html_clueflow_indent  (HTMLClueFlow *flow,
+			     HTMLEngine   *engine,
+			     gint          indentation);
+
+void  html_clueflow_set_properties  (HTMLClueFlow      *flow,
+				     HTMLEngine        *engine,
+				     HTMLClueFlowStyle  style,
+				     guint8             list_level,
+				     guint8             quote_level,
+				     HTMLHAlignType     alignment);
+void  html_clueflow_get_properties  (HTMLClueFlow      *flow,
+				     HTMLClueFlowStyle *style_return,
+				     guint8            *list_level_return,
+				     guint8            *quote_level_return,
+				     HTMLHAlignType    *alignment_return);
 
 #endif /* _HTMLCLUEFLOW_H_ */

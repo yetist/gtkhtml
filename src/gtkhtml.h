@@ -60,6 +60,13 @@ enum _GtkHTMLParagraphStyle {
 };
 typedef enum _GtkHTMLParagraphStyle GtkHTMLParagraphStyle;
 
+enum _GtkHTMLParagraphAlignment {
+	GTK_HTML_PARAGRAPH_ALIGNMENT_LEFT,
+	GTK_HTML_PARAGRAPH_ALIGNMENT_RIGHT,
+	GTK_HTML_PARAGRAPH_ALIGNMENT_CENTER
+};
+typedef enum _GtkHTMLParagraphAlignment GtkHTMLParagraphAlignment;
+
 
 #include "gtkhtml-embedded.h"
 
@@ -99,6 +106,9 @@ struct _GtkHTML {
 	guint idle_handler_id;
 
 	GtkHTMLParagraphStyle paragraph_style;
+	guint paragraph_indentation;
+	GtkHTMLParagraphAlignment paragraph_alignment;
+
 	GtkHTMLFontStyle insertion_font_style;
 };
 
@@ -120,7 +130,9 @@ struct _GtkHTMLClass {
 	void (* submit)          (GtkHTML *html, const gchar *method, const gchar *url, const gchar *encoding);
 	void (* object_requested)(GtkHTML *html, GtkHTMLEmbedded *);
 
-	void (* current_paragraph_style_changed) (GtkHTML *html, GtkHTMLParagraphStyle style);
+	void (* current_paragraph_style_changed) (GtkHTML *html, GtkHTMLParagraphStyle new_style);
+	void (* current_paragraph_alignment_changed) (GtkHTML *html, GtkHTMLParagraphAlignment new_alignment);
+	void (* current_paragraph_indentation_changed) (GtkHTML *html, guint new_indentation);
 	void (* insertion_font_style_changed) (GtkHTML *html, GtkHTMLFontStyle style);
 };
 
@@ -174,11 +186,24 @@ void  gtk_html_parse  (GtkHTML *html);
 /* FIXME?  Deprecated? */
 void  gtk_html_calc_scrollbars  (GtkHTML *html);
 
+
 /* Editing functions.  */
-void  gtk_html_set_paragraph_style  (GtkHTML               *html,
-				     GtkHTMLParagraphStyle  style);
-void  gtk_html_set_font_style       (GtkHTML               *html,
-				     GtkHTMLFontStyle       and_mask,
-				     GtkHTMLFontStyle       or_mask);
+
+void  gtk_html_set_paragraph_style  (GtkHTML                   *html,
+				     GtkHTMLParagraphStyle      style);
+void  gtk_html_indent               (GtkHTML                   *html,
+				     gint                       delta);
+void  gtk_html_set_font_style       (GtkHTML                   *html,
+				     GtkHTMLFontStyle           and_mask,
+				     GtkHTMLFontStyle           or_mask);
+void  gtk_html_align_paragraph      (GtkHTML                   *html,
+				     GtkHTMLParagraphAlignment  alignment);
+
+void  gtk_html_cut    (GtkHTML *html);
+void  gtk_html_copy   (GtkHTML *html);
+void  gtk_html_paste  (GtkHTML *html);
+
+void  gtk_html_undo  (GtkHTML *html);
+void  gtk_html_redo  (GtkHTML *html);
 
 #endif /* _GTKHTML_H_ */

@@ -431,6 +431,9 @@ split (HTMLText *self,
 			/* If the offset is past the selection, the new element
                            gets no selection and the selection in this element
                            is unchanged.  */
+
+			HTML_TEXT_MASTER (new)->select_start = 0;
+			HTML_TEXT_MASTER (new)->select_length = 0;
 		}
 	}
 
