@@ -306,8 +306,14 @@ table_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
 	GtkHTMLEditTableProperties *d = (GtkHTMLEditTableProperties *) get_data;
 
-	html_engine_table_set_bg_color (d->cd->html->engine, d->table, &d->bg_color);
-	/* html_table_set (d->rule, cd->html->engine, VAL (WIDTH), d->percent ? VAL (WIDTH) : 0, VAL (SIZE), d->shaded, d->align); */
+	if (d->changed_bg_color)
+		html_engine_table_set_bg_color (d->cd->html->engine, d->table, &d->bg_color);
+	if (d->changed_bg_pixmap) {
+		gchar *url = g_strconcat ("file://", d->bg_pixmap, NULL);
+
+		html_engine_table_set_bg_pixmap (d->cd->html->engine, d->table, url);
+		g_free (url);
+	}
 }
 
 void
