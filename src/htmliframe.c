@@ -94,7 +94,19 @@ iframe_object_requested (GtkHTML *html, GtkHTMLEmbedded *eb, gpointer data)
 	gtk_signal_emit_by_name (GTK_OBJECT (parent), "object_requested", eb, &ret_val);
 	return ret_val;
 }
-		
+
+static void
+iframe_set_gdk_painter (HTMLIFrame *iframe, HTMLPainter *painter)
+{
+	if (painter)
+		gtk_object_ref (GTK_OBJECT (painter));
+	
+	if (iframe->gdk_painter)
+		gtk_object_unref (GTK_OBJECT (iframe->gdk_painter));
+
+	iframe->gdk_painter = painter;
+}
+
 HTMLObject *
 html_iframe_new (GtkWidget *parent, 
 		 char *src, 
@@ -195,10 +207,12 @@ set_painter (HTMLObject *o, HTMLPainter *painter, gint max_width)
 	HTMLIFrame *iframe;
 
 	iframe = HTML_IFRAME (o);
-	if (GTK_OBJECT_TYPE (GTK_HTML (iframe->html)->engine->painter) == HTML_TYPE_GDK_PAINTER)
-		iframe->gdk_painter = GTK_HTML (iframe->html)->engine->painter;
+	if (GTK_OBJECT_TYPE (GTK_HTML (iframe->html)->engine->painter) != HTML_TYPE_PRINTER) {
+		iframe_set_gdk_painter (iframe, GTK_HTML (iframe->html)->engine->painter);
+	}
+	
 	html_engine_set_painter (GTK_HTML (iframe->html)->engine,
-				 GTK_OBJECT_TYPE (painter) == HTML_TYPE_GDK_PAINTER ? iframe->gdk_painter : painter,
+				 GTK_OBJECT_TYPE (painter) != HTML_TYPE_PRINTER ? iframe->gdk_painter : painter,
 				 max_width);
 }
 
@@ -369,6 +383,8 @@ destroy (HTMLObject *o)
 {
 	HTMLIFrame *iframe = HTML_IFRAME (o);
 
+	iframe_set_gdk_painter (iframe, NULL);
+
 	if (iframe->html) {
 		gtk_signal_disconnect_by_data (GTK_OBJECT (iframe->html), o);
 		iframe->html = NULL;
@@ -416,6 +432,7 @@ html_iframe_init (HTMLIFrame *iframe,
 	iframe->url = src;
 	iframe->width = width;
 	iframe->height = height;
+	iframe->gdk_painter = NULL;
 
 	handle = gtk_html_begin (new_html);
 	new_html->engine->clue->parent = HTML_OBJECT (iframe);

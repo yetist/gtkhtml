@@ -1,3 +1,12 @@
+2001-04-16  Larry Ewing  <lewing@ximian.com>
+
+	* htmliframe.c (html_iframe_init): initialize iframe->gdk_painter
+	to NULL.  
+	(set_painter): do proper refcounting of the iframe->gdk_painter.
+	(iframe_set_gdk_painter): helper function to handle setting the painter.
+	(destroy): use the helper funtion to make sure we remove the last
+	reference to the the painter.
+
 2001-04-14  Larry Ewing  <lewing@ximian.com>
 
 	* htmlfontmanager.c (html_font_manager_finalize): free the face.
