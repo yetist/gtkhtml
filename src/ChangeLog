@@ -1,3 +1,8 @@
+2001-10-24  Radek Doulik  <rodo@ximian.com>
+
+	* htmltable.c (op_copy): fill empty cells with cells with empty
+	texts, fix copying start condition
+
 2001-10-23  Radek Doulik  <rodo@ximian.com>
 
 	* htmltable.c (split): redo splits on table boundaries
