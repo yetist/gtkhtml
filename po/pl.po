@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2002-10-28 05:26-0600\n"
+"POT-Creation-Date: 2002-10-28 10:28-0600\n"
 "PO-Revision-Date: 2002-07-24 23:07+0200\n"
 "Last-Translator: GNOME PL Team <translators@gnome.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
