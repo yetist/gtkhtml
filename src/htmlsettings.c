@@ -137,8 +137,10 @@ html_settings_free_colors (HTMLSettings *s, HTMLPainter *painter, gboolean all)
 		HTMLSettingsColor i = 0;
 
 		for (; i < HTMLColors; i++) {
-			html_painter_free_color (painter, &s->color [i]);
-			s->color_allocated [i] = FALSE;
+			if (s->color_allocated [i]) {
+				html_painter_free_color (painter, &s->color [i]);
+				s->color_allocated [i] = FALSE;
+			}
 		}
 	}
 }

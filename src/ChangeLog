@@ -1,5 +1,8 @@
 2000-04-30  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlsettings.c (html_settings_free_colors): free colors only
+	when they've been allocated
+
 	* gtkhtml.c (gtk_html_set_default_background_color): set bgcolor
 	in default settings
 
