@@ -48,7 +48,7 @@ size_allocate (GtkWidget *w, GtkAllocation *allocation, GtkHTMLInputLine *il)
 {
 	if (!il->landed) {
 		il->landed = TRUE;
-		printf ("size_allocate %d %d\n", allocation->width, allocation->height);
+		/* printf ("size_allocate %d %d\n", allocation->width, allocation->height); */
 		gtk_widget_set_usize (w, GTK_WIDGET (il->html)->allocation.width, -1);
 		gtk_layout_move (GTK_LAYOUT (il->html), il->ebox, 0, HEIGHT (il->html) - HEIGHT (il->ebox));
 	}
@@ -65,17 +65,17 @@ get_xy (GtkHTMLInputLine *il, gint *x, gint *y)
 static void
 html_size_allocate (GtkWidget *w, GtkAllocation *allocation, GtkHTMLInputLine *il)
 {
-	printf ("html_size_allocate\n");
+	/* printf ("html_size_allocate\n"); */
 	if (il->activated && !il->allocated) {
 		gint x, y;
 		il->landed = TRUE;
 		il->allocated = TRUE;
 		get_xy (il, &x, &y);
-		printf ("x: %d %d\n", il->ebox->allocation.x, x);
-		printf ("y: %d %d\n", il->ebox->allocation.y, y);
+		/* printf ("x: %d %d\n", il->ebox->allocation.x, x);
+		   printf ("y: %d %d\n", il->ebox->allocation.y, y); */
 		if (il->ebox->allocation.y != y || il->ebox->allocation.x != x)
 			gtk_layout_move (GTK_LAYOUT (w), il->ebox, x, y);
-		printf ("w: %d %d\n", il->ebox->allocation.width, allocation->width);
+		/* printf ("w: %d %d\n", il->ebox->allocation.width, allocation->width); */
 		if (il->ebox->allocation.width != allocation->width)
 			gtk_widget_set_usize (il->ebox, allocation->width, -1);
 	} else
@@ -87,7 +87,7 @@ value_changed (GtkAdjustment *adjustment, GtkHTMLInputLine *il)
 {
 	gint x, y;
 	get_xy (il, &x, &y);
-	printf ("value_changed %d %d\n", x, y);
+	/* printf ("value_changed %d %d\n", x, y); */
 	gtk_layout_move (GTK_LAYOUT (il->html), il->ebox, x, y);
 }
 
@@ -96,7 +96,7 @@ key_press_event (GtkWidget *widget, GdkEventKey *event, GtkHTMLInputLine *il)
 {
 	gint retval = FALSE;
 
-	printf ("key press\n");
+	/* printf ("key press\n"); */
 
 	if (!event->state && event->keyval == GDK_Escape) {
 		gtk_html_input_line_deactivate (il);
