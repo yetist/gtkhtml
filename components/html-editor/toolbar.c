@@ -56,9 +56,10 @@ static struct {
 	{ GTK_HTML_PARAGRAPH_STYLE_H5, N_("Header 5") },
 	{ GTK_HTML_PARAGRAPH_STYLE_H6, N_("Header 6") },
 	{ GTK_HTML_PARAGRAPH_STYLE_ADDRESS, N_("Address") },
-	{ GTK_HTML_PARAGRAPH_STYLE_ITEMDIGIT, N_("List item (digit)") },
-	{ GTK_HTML_PARAGRAPH_STYLE_ITEMDOTTED, N_("List item (unnumbered)") },
-	{ GTK_HTML_PARAGRAPH_STYLE_ITEMROMAN, N_("List item (roman)") },
+	{ GTK_HTML_PARAGRAPH_STYLE_ITEMDOTTED, N_("Dot item") },
+	{ GTK_HTML_PARAGRAPH_STYLE_ITEMDIGIT, N_("Number item") },
+	{ GTK_HTML_PARAGRAPH_STYLE_ITEMROMAN, N_("Roman item") },
+	{ GTK_HTML_PARAGRAPH_STYLE_ITEMALPHA, N_("Alphabeta item") },
 	{ GTK_HTML_PARAGRAPH_STYLE_NORMAL, NULL },
 };
 

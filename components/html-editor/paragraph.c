@@ -130,9 +130,10 @@ paragraph_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	ADD_ITEM (_("Header 5"),     GTK_HTML_PARAGRAPH_STYLE_H5);
 	ADD_ITEM (_("Header 6"),     GTK_HTML_PARAGRAPH_STYLE_H6);
 	ADD_ITEM (_("Address"),      GTK_HTML_PARAGRAPH_STYLE_ADDRESS);
-	ADD_ITEM (_("Item dot"),     GTK_HTML_PARAGRAPH_STYLE_ITEMDOTTED);
-	ADD_ITEM (_("Item roman"),   GTK_HTML_PARAGRAPH_STYLE_ITEMROMAN);
-	ADD_ITEM (_("Item digit"),   GTK_HTML_PARAGRAPH_STYLE_ITEMDIGIT);
+	ADD_ITEM (_("Dot item"),     GTK_HTML_PARAGRAPH_STYLE_ITEMDOTTED);
+	ADD_ITEM (_("Number item"),   GTK_HTML_PARAGRAPH_STYLE_ITEMDIGIT);
+	ADD_ITEM (_("Roman item"),   GTK_HTML_PARAGRAPH_STYLE_ITEMROMAN);
+	ADD_ITEM (_("Alphabeta item"),   GTK_HTML_PARAGRAPH_STYLE_ITEMALPHA);
 
 	data->style_option = gtk_option_menu_new ();
 	gtk_option_menu_set_menu (GTK_OPTION_MENU (data->style_option), menu);
