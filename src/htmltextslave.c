@@ -173,6 +173,17 @@ fit_line (HTMLObject *o,
 
 	text += textslave->posStart;
 
+	/* FIXME does it really have to be this sick? and should we also eat trailing spaces */
+	/* eat up spaces at the begining of lines */
+
+	if (startOfLine) {
+		while (*text == ' ') {
+			text++;
+			textslave->posLen--;
+			textslave->posStart++;
+		}		
+	}
+	
 	o->width = html_painter_calc_text_width (painter, text, textslave->posLen, font_style);
 	if (o->width <= widthLeft || textslave->posLen <= 1 || widthLeft < 0) {
 		/* Text fits completely */

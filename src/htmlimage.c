@@ -129,7 +129,7 @@ calc_preferred_width (HTMLObject *o,
 	width = (get_actual_width (HTML_IMAGE (o), painter)
 		 + HTML_IMAGE (o)->border * 2 * pixel_size);
 
-	return pixel_size;
+	return width;
 }
 
 static gboolean

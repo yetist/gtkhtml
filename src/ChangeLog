@@ -1,3 +1,10 @@
+2000-02-27  Larry Ewing  <lewing@helixcode.com>
+
+	* htmlimage.c (calc_preferred_width): return the width we calculate not
+	the pixel_size.
+
+	* htmltextslave.c (fit_line): eat up space we find at the start of lines.
+
 2000-02-27  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* gtkhtml-keybinding.c (beginning_of_line): New function.
