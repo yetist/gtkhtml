@@ -917,7 +917,9 @@ draw_spell_error (HTMLPainter *painter, gint x, gint y, const gchar *text, gint 
 	gchar dash [2];
 	GList *gl, *il;
 	PangoRectangle log_rect;
+	PangoGlyphString *str;
 	gint width;
+	const gchar *c_text = text;
 
 	if (!items || !glyphs)
 		return;
@@ -927,8 +929,13 @@ draw_spell_error (HTMLPainter *painter, gint x, gint y, const gchar *text, gint 
 	x -= gdk_painter->x1;
 	y -= gdk_painter->y1;
 
-	for (gl = glyphs, il = items; gl && il; gl = gl->next, il = il->next)
-		pango_glyph_string_extents ((PangoGlyphString *) gl->data, ((PangoItem *) il->data)->analysis.font, NULL, &log_rect);
+	il = shift_items (items, start_byte_offset);
+	for (gl = glyphs; gl; gl = gl->next) {
+		str = (PangoGlyphString *) gl->data;
+		pango_glyph_string_extents (str, ((PangoItem *) il->data)->analysis.font, NULL, &log_rect);
+		c_text = g_utf8_offset_to_pointer (c_text, str->num_glyphs);
+		il = shift_items (il, start_byte_offset + (c_text - text));
+	}
 
 	width = PANGO_PIXELS (log_rect.width);
 
