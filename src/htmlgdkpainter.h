@@ -19,8 +19,8 @@
    Boston, MA 02111-1307, USA.
 */
 
-#ifndef _HTMLPAINTER_H
-#define _HTMLPAINTER_H
+#ifndef _HTMLGDKPAINTER_H
+#define _HTMLGDKPAINTER_H
 
 #include "htmlpainter.h"
 #include "htmlgdkfontmanager.h"
@@ -73,4 +73,4 @@ void         html_gdk_painter_realize    (HTMLGdkPainter *painter,
 					  GdkWindow      *window);
 void         html_gdk_painter_unrealize  (HTMLGdkPainter *painter);
 
-#endif
+#endif /* _HTMLGDKPAINTER_H */
