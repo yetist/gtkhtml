@@ -73,7 +73,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-, root, root)
-%{config} /etc/CORBA/servers/*.gnorba
+%config /etc/CORBA/servers/*.gnorba
 %{prefix}/bin/gtkhtml-properties-capplet
 %{prefix}/bin/html-editor-control
 %{prefix}/lib/*.0
