@@ -1,7 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8 -*- */
 /* htmltype.h
 
-   Copyright (C) 1999 Helix Code, Inc.
+   Copyright (C) 1999, 2000 Helix Code, Inc.
 
    The Gnome Library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public License as
@@ -33,6 +33,7 @@
 #include "htmlcluev.h"
 #include "htmlembedded.h"
 #include "htmlhidden.h"
+#include "htmliframe.h"
 #include "htmlimage.h"
 #include "htmlimageinput.h"
 #include "htmllinktext.h"

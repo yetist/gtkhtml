@@ -1412,7 +1412,9 @@ gtk_html_export (GtkHTML *html,
 		return html_engine_save (html->engine, receiver, data);
 	} else if (strcmp (type, "text/plain") == 0) {
 		return html_engine_save_plain (html->engine, receiver,
-						 data);  
+					       data);  
+	} else {
+		return FALSE;
 	}
 }
 

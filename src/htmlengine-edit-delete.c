@@ -557,6 +557,7 @@ html_engine_delete (HTMLEngine *e,
 	GList *save_buffer;
 	GList *save_buffer_tail;
 	HTMLObject *obj;
+	gboolean different_parent;
 
 	g_return_if_fail (e != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (e));
@@ -582,17 +583,21 @@ html_engine_delete (HTMLEngine *e,
 	/* Find the other end.  */
 	html_engine_move_cursor (e, HTML_ENGINE_CURSOR_RIGHT, count);
 
+	different_parent = FALSE;
+
 	if (e->cursor->object == start_object) {
 		obj = delete_in_object (e, start_object, start_offset, e->cursor->offset);
 		if (obj != NULL)
 			append (&save_buffer, &save_buffer_tail, obj);
 	} else {
-		if (start_object->parent != e->cursor->object->parent)
+		if (start_object->parent != e->cursor->object->parent) {
+			different_parent = TRUE;
 			delete_different_parent (e, start_object, FALSE,
 						 &save_buffer, &save_buffer_tail);
-		else
+		} else {
 			delete_same_parent (e, start_object, FALSE,
 					    &save_buffer, &save_buffer_tail);
+		}
 
 		obj = delete_in_object (e, start_object, start_offset, (guint) -1);
 		if (obj != NULL) {
@@ -621,6 +626,23 @@ html_engine_delete (HTMLEngine *e,
 	html_cursor_normalize (e->cursor);
 	html_engine_show_cursor (e);
 
-	if (do_undo)
+	if (do_undo) {
+		/* FIXME this is a nasty workaround for the common case.  The above code
+                   to set up the save buffer is utterly broken and we should use the code
+                   in htmlengine-edit-copy instead.  */
+		if (count == 1 && different_parent) {
+			HTMLClueFlow *clueflow_orig;
+			HTMLObject *clueflow_copy;
+
+			html_engine_cut_buffer_destroy (save_buffer);
+
+			clueflow_orig = HTML_CLUEFLOW (start_object->parent);
+			clueflow_copy = html_clueflow_new (clueflow_orig->style,
+							   clueflow_orig->level);
+
+			save_buffer = g_list_prepend (NULL, clueflow_copy);
+		}
+
 		setup_undo (e, create_action_data (save_buffer, backwards));
+	}
 }

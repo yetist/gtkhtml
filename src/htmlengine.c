@@ -1239,7 +1239,7 @@ parse_object (HTMLEngine *e, HTMLObject *clue, gint max_width,
 			}
 			str = discard_body (e, end);
 		} else {
-			html_object_destroy (el);
+			html_object_destroy (HTML_OBJECT (el));
 			str = parse_body (e, clue, end, FALSE);
 		}
 	} else {
@@ -1256,10 +1256,10 @@ parse_object (HTMLEngine *e, HTMLObject *clue, gint max_width,
 }
 
 static void
-parse_input (HTMLEngine *e, const gchar *str, HTMLObject *_clue) {
+parse_input (HTMLEngine *e, const gchar *str, HTMLObject *_clue)
+{
 	enum InputType { CheckBox, Hidden, Radio, Reset, Submit, Text, Image,
 			 Button, Password, Undefined };
-
 	HTMLObject *element = NULL;
 	const char *p;
 	enum InputType type = Text;

@@ -1,3 +1,17 @@
+2000-06-01  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmltype.c: #include "htmliframe.h".
+
+	* htmlengine.c (parse_object): Added missing `HTML_OBJECT()' cast.
+
+	* gtkhtml.c (gtk_html_export): Return FALSE if the type is not
+	either `text/html" or "text/plain".
+
+	* htmlengine-edit-delete.c (html_engine_delete): Added a nasty
+	workaround to make deletion of an end-of-paragraph correctly
+	undoable.  The deletion undo code should be changed to use
+	`html_engine_copy()' somehow instead.
+
 2000-05-31  Larry Ewing  <lewing@helixcode.com>
 
 	* htmlengine.c (parse_object): make sure we don't leak the object
