@@ -427,7 +427,9 @@ motion_notify_event (GtkWidget *widget,
 
 		gtk_widget_queue_draw (widget);
 	} else {
-		url = html_engine_get_link_at (engine, event->x, event->y);
+		url = html_engine_get_link_at (engine,
+					       event->x + engine->x_offset,
+					       event->y + engine->y_offset);
 
 		if (url == NULL) {
 			if (html->pointer_url != NULL) {

@@ -2,6 +2,8 @@
 
 	* gtkhtml.c (button_press_event): Sum the X/Y offsets before
 	passing the coordinates to `html_engine_jump_at'.
+	(motion_notify_event): Sum the X/Y offsets before calling
+	`html_engine_get_link_at' too.
 
 	* htmlengine.c (html_engine_get_object_at): Do not add the X/Y
 	offsets when calling the `check_point' method on the parent clue.
