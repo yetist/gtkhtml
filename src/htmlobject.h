@@ -260,8 +260,8 @@ struct _HTMLObjectClass {
 	gboolean     (* search_next)     (HTMLObject *self, HTMLSearch *info);
 
 	/* links */
-	HTMLObject * (* set_link)        (HTMLObject *self, GdkColor *color, const gchar *url, const gchar *target);
-	HTMLObject * (* remove_link)     (HTMLObject *self, GdkColor *color);
+	HTMLObject * (* set_link)        (HTMLObject *self, HTMLColor *color, const gchar *url, const gchar *target);
+	HTMLObject * (* remove_link)     (HTMLObject *self, HTMLColor *color);
 
 	/* length */
 	guint        (* get_length)      (HTMLObject *self);
@@ -368,11 +368,11 @@ HTMLAnchor  *html_object_find_anchor  (HTMLObject  *o,
 				       gint        *y);
 
 HTMLObject  *html_object_set_link     (HTMLObject  *self,
-				       GdkColor    *color,
+				       HTMLColor   *color,
 				       const gchar *url,
 				       const gchar *target);
 HTMLObject  *html_object_remove_link  (HTMLObject  *self,
-				       GdkColor    *color);
+				       HTMLColor   *color);
 
 /* Cursor.  */
 gboolean    html_object_accepts_cursor   (HTMLObject  *obj);

@@ -329,7 +329,7 @@ get_selection (HTMLObject *self,
 	text_self = HTML_TEXT (self);
 
 	new = html_text_master_new_with_len (text_self->text + select_start,
-					     select_length, text_self->font_style, & text_self->color);
+					     select_length, text_self->font_style, text_self->color);
 
 	if (size_return != NULL)
 		*size_return = select_length;
@@ -338,7 +338,7 @@ get_selection (HTMLObject *self,
 }
 
 static HTMLObject *
-set_link (HTMLObject *self, GdkColor *color, const gchar *url, const gchar *target)
+set_link (HTMLObject *self, HTMLColor *color, const gchar *url, const gchar *target)
 {
 	HTMLText *text = HTML_TEXT (self);
 
@@ -564,8 +564,9 @@ merge (HTMLText *self,
 
 	if (self->text_len == 0) {
 		self->font_style = other->font_style;
+		html_color_unref (self->color);
 		self->color = other->color;
-		self->color_allocated = other->color_allocated;
+		html_color_ref (self->color);
 	}
 
 	if (prepend)
@@ -703,7 +704,7 @@ html_text_master_init (HTMLTextMaster *master,
 		       const gchar *text,
 		       gint len,
 		       GtkHTMLFontStyle font_style,
-		       const GdkColor *color)
+		       HTMLColor *color)
 {
 	HTMLText* html_text;
 	HTMLObject *object;
@@ -721,7 +722,7 @@ HTMLObject *
 html_text_master_new_with_len (const gchar *text,
 			       gint len,
 			       GtkHTMLFontStyle font_style,
-			       const GdkColor *color)
+			       HTMLColor *color)
 {
 	HTMLTextMaster *master;
 
@@ -734,7 +735,7 @@ html_text_master_new_with_len (const gchar *text,
 HTMLObject *
 html_text_master_new (const gchar *text,
 		      GtkHTMLFontStyle font_style,
-		      const GdkColor *color)
+		      HTMLColor *color)
 {
 	return html_text_master_new_with_len (text, -1, font_style, color);
 }

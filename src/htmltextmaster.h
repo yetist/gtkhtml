@@ -58,14 +58,14 @@ void        html_text_master_init         (HTMLTextMaster      *master,
 					   const gchar         *text,            
 					   gint                 len,             
 					   GtkHTMLFontStyle     font_style,      
-					   const GdkColor      *color);          
+					   HTMLColor           *color);          
 HTMLObject *html_text_master_new          (const gchar         *text,            
 					   GtkHTMLFontStyle     font_style,      
-					   const GdkColor      *color);          
+					   HTMLColor           *color);          
 HTMLObject *html_text_master_new_with_len (const gchar         *text,
 					   gint                 len,
 					   GtkHTMLFontStyle     font_style,      
-					   const GdkColor      *color);          
+					   HTMLColor           *color);          
 HTMLObject *html_text_master_get_slave    (HTMLTextMaster      *master,          
 					   guint                offset);
 

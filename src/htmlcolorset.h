@@ -22,13 +22,14 @@
 #ifndef _HTMLCOLORSET_H_
 #define _HTMLCOLORSET_H_
 
-typedef enum   _HTMLColor HTMLColor;
+typedef enum   _HTMLColorId HTMLColorId;
 typedef struct _HTMLColorSet HTMLColorSet;
 
 #include <gdk/gdk.h>
 #include "htmlpainter.h"
+#include "htmlcolor.h"
 
-enum _HTMLColor
+enum _HTMLColorId
 {
 	HTMLBgColor = 0,
 	HTMLTextColor,
@@ -43,10 +44,8 @@ enum _HTMLColor
 
 struct _HTMLColorSet
 {
-	GdkColor color [HTMLColors];
-	gboolean color_allocated [HTMLColors];
+	HTMLColor *color [HTMLColors];
 	gboolean changed [HTMLColors];
-	GSList  *colors_to_free;
 
 	/* slave sets - they must be updated when setting this one
 	   engine has master set and painters have slave ones
@@ -66,16 +65,11 @@ void              html_colorset_add_slave             (HTMLColorSet *set,
 /* colors set/get */
 void              html_colorset_set_color             (HTMLColorSet *set,
 						       GdkColor *color,
-						       HTMLColor idx);
-GdkColor         *html_colorset_get_color             (HTMLColorSet *set,
-						       HTMLColor idx);
-GdkColor         *html_colorset_get_color_allocated   (HTMLPainter *painter,
-						       HTMLColor idx);
-
-/* frees allocated colors */
-void              html_colorset_free_colors           (HTMLColorSet *set,
-						       HTMLPainter *painter,
-						       gboolean all);
+						       HTMLColorId idx);
+HTMLColor        *html_colorset_get_color             (HTMLColorSet *set,
+						       HTMLColorId idx);
+HTMLColor        *html_colorset_get_color_allocated   (HTMLPainter *painter,
+						       HTMLColorId idx);
 
 /* copy colors from one se to another, used for resetting to default values */
 void              html_colorset_set_by                (HTMLColorSet *s, HTMLColorSet *o);

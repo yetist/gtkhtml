@@ -56,12 +56,12 @@ void        html_link_text_init        (HTMLLinkText      *link_text_object,
 					HTMLLinkTextClass *klass,
 					const gchar       *text,
 					GtkHTMLFontStyle   font_style,
-					const GdkColor    *color,
+					HTMLColor         *color,
 					const gchar       *url,
 					const gchar       *target);
 HTMLObject *html_link_text_new         (const gchar       *text,
 					GtkHTMLFontStyle   font_style,
-					const GdkColor    *color,
+					HTMLColor         *color,
 					const gchar       *url,
 					const gchar       *target);
 

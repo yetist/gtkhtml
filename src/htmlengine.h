@@ -222,8 +222,8 @@ struct _HTMLEngine {
 
 	/* Font style for insertion.  If HTML_FONT_STYLE_DEFAULT, use that of
            the text we are in.  */
-	GtkHTMLFontStyle insertion_font_style;
-	GdkColor         insertion_color;
+	GtkHTMLFontStyle  insertion_font_style;
+	HTMLColor        *insertion_color;
 
 	/* This is set to TRUE when at least one element is selected (in whole
            or in part), to FALSE when no item is selected at all.  */

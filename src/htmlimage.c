@@ -197,18 +197,10 @@ destroy (HTMLObject *o)
 	g_free (image->url);
 	g_free (image->target);
 
+	if (image->color)
+		html_color_unref (image->color);
+
 	HTML_OBJECT_CLASS (parent_class)->destroy (o);
-}
-
-static void
-reset (HTMLObject *self)
-{
-	HTMLImage *image;
-	
-	image = HTML_IMAGE (self);
-	image->color_allocated = FALSE;
-
-	(* HTML_OBJECT_CLASS (parent_class)->reset) (self);
 }
 
 static void
@@ -229,8 +221,8 @@ copy (HTMLObject *self,
 	dimg->url = g_strdup (simg->url);
 	dimg->target = g_strdup (simg->target);
 	dimg->color = simg->color;
+	html_color_ref (dimg->color);
 	dimg->have_color = simg->have_color;
-	dimg->color_allocated = FALSE;
 	dimg->valign = simg->valign;
 	dimg->animation = NULL;          /* don't bother with animation copying now. TODO */
 	dimg->hspace = simg->hspace;
@@ -353,17 +345,14 @@ draw (HTMLObject *o,
 	scale_height = get_actual_height (image, painter);
 
 	if (o->selected)
-		highlight_color = html_colorset_get_color (painter->color_set, HTMLHighlightColor);
+		highlight_color = &html_colorset_get_color (painter->color_set, HTMLHighlightColor)->color;
 	else
 		highlight_color = NULL;
 
 	if (image->border) {
 		if (image->have_color) {
-			if (!image->color_allocated) {
-				html_painter_alloc_color (painter, &image->color);
-				image->color_allocated = TRUE;
-			}
-			html_painter_set_pen (painter, &image->color);
+			html_color_alloc (image->color, painter);
+			html_painter_set_pen (painter, &image->color->color);
 		}
 		
 		html_painter_draw_panel (painter, 
@@ -467,7 +456,7 @@ get_target (HTMLObject *o)
 }
 
 static HTMLObject *
-set_link (HTMLObject *self, GdkColor *color, const gchar *url, const gchar *target)
+set_link (HTMLObject *self, HTMLColor *color, const gchar *url, const gchar *target)
 {
 	HTMLImage *image = HTML_IMAGE (self);
 
@@ -481,7 +470,7 @@ set_link (HTMLObject *self, GdkColor *color, const gchar *url, const gchar *targ
 }
 
 static HTMLObject *
-remove_link (HTMLObject *self, GdkColor *color)
+remove_link (HTMLObject *self, HTMLColor *color)
 {
 	HTMLImage *image = HTML_IMAGE (self);
 
@@ -529,7 +518,6 @@ html_image_class_init (HTMLImageClass *image_class,
 	html_object_class_init (object_class, type, size);
 
 	object_class->copy = copy;
-	object_class->reset = reset;
 	object_class->draw = draw;	
 	object_class->destroy = destroy;
 	object_class->calc_min_width = calc_min_width;
@@ -555,7 +543,7 @@ html_image_init (HTMLImage *image,
 		 const gchar *target,
 		 gint16 width, gint16 height,
 		 gint8 percent, gint8 border,
-		 const GdkColor *color,
+		 HTMLColor *color,
 		 HTMLVAlignType valign)
 {
 	HTMLObject *object;
@@ -573,10 +561,10 @@ html_image_init (HTMLImage *image,
 	image->specified_height = height;
 	image->border = border;
 
-	image->color_allocated = FALSE;
 	if (color) {
-		image->color = *color;
+		image->color = color;
 		image->have_color = TRUE;
+		html_color_ref (color);
 	}
 
 	image->animation = NULL;
@@ -600,7 +588,7 @@ html_image_new (HTMLImageFactory *imf,
 		const gchar *target,
 		gint16 width, gint16 height,
 		gint8 percent, gint8 border,	
-		const GdkColor *color,
+		HTMLColor *color,
 		HTMLVAlignType valign)
 {
 	HTMLImage *image;

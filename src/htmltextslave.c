@@ -291,7 +291,8 @@ draw_normal (HTMLTextSlave *self,
 	obj = HTML_OBJECT (self);
 
 	html_painter_set_font_style (p, font_style);
-	html_painter_set_pen (p, html_text_get_color (HTML_TEXT (self->owner), p));
+	html_color_alloc (HTML_TEXT (self->owner)->color, p);
+	html_painter_set_pen (p, &HTML_TEXT (self->owner)->color->color);
 	html_painter_draw_text (p,
 				obj->x + tx, obj->y + ty, 
 				HTML_TEXT (self->owner)->text + self->posStart,
@@ -333,15 +334,16 @@ draw_highlighted (HTMLTextSlave *slave,
 
 	/* Draw the highlighted part with a highlight background.  */
 
-	html_painter_set_pen (p, html_colorset_get_color_allocated (p, HTMLHighlightColor));
+	html_painter_set_pen (p, &html_colorset_get_color_allocated (p, HTMLHighlightColor)->color);
 	html_painter_fill_rect (p, obj->x + tx + offset_width, obj->y + ty - obj->ascent,
 				text_width, obj->ascent + obj->descent);
-	html_painter_set_pen (p, html_colorset_get_color_allocated (p, HTMLHighlightTextColor));
+	html_painter_set_pen (p, &html_colorset_get_color_allocated (p, HTMLHighlightTextColor)->color);
 	html_painter_draw_text (p, obj->x + tx + offset_width, obj->y + ty, text + start, len);
 
 	/* Draw the non-highlighted part.  */
 
-	html_painter_set_pen (p, html_text_get_color (HTML_TEXT (owner), p));
+	html_color_alloc (HTML_TEXT (owner)->color, p);
+	html_painter_set_pen (p, &HTML_TEXT (owner)->color->color);
 
 	/* 1. Draw the leftmost non-highlighted part, if any.  */
 

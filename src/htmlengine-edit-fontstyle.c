@@ -723,10 +723,10 @@ get_font_style_from_selection (HTMLEngine *engine)
 	return style & ~conflicts;
 }
 
-static GdkColor *
+static HTMLColor *
 get_color_from_selection (HTMLEngine *engine)
 {
-	GdkColor *color = NULL;
+	HTMLColor *color = NULL;
 	gboolean backwards;
 	HTMLObject *p;
 
@@ -738,7 +738,7 @@ get_color_from_selection (HTMLEngine *engine)
 	p = engine->cursor->object;
 	while (1) {
 		if (html_object_is_text (p) && p->selected) {
-			color = &HTML_TEXT (p)->color;
+			color = HTML_TEXT (p)->color;
 			break;
 		}
 
@@ -777,7 +777,7 @@ html_engine_get_document_font_style (HTMLEngine *engine)
 		return get_font_style_from_selection (engine);
 }
 
-GdkColor *
+HTMLColor *
 html_engine_get_document_color (HTMLEngine *engine)
 {
 	HTMLObject *curr;
@@ -793,7 +793,7 @@ html_engine_get_document_color (HTMLEngine *engine)
 	else if (! html_object_is_text (curr))
 		return NULL;
 	else if (! engine->active_selection)
-		return &HTML_TEXT (curr)->color;
+		return HTML_TEXT (curr)->color;
 	else
 		return get_color_from_selection (engine);
 }
@@ -806,10 +806,10 @@ html_engine_get_font_style (HTMLEngine *engine)
 		: engine->insertion_font_style;
 }
 
-GdkColor *
+HTMLColor *
 html_engine_get_color (HTMLEngine *engine)
 {
-	return &engine->insertion_color;
+	return engine->insertion_color;
 }
 
 /**
@@ -848,12 +848,14 @@ html_engine_update_insertion_font_style (HTMLEngine *engine)
 gboolean
 html_engine_update_insertion_color (HTMLEngine *engine)
 {
-	GdkColor *new_color;
+	HTMLColor *new_color;
 
 	new_color = html_engine_get_document_color (engine);
 
-	if (new_color && !gdk_color_equal (new_color, &engine->insertion_color)) {
-		engine->insertion_color = *new_color;
+	if (new_color && !html_color_equal (new_color, engine->insertion_color)) {
+		html_color_unref (engine->insertion_color);
+		engine->insertion_color = new_color;
+		html_color_ref (engine->insertion_color);
 		return TRUE;
 	}
 
@@ -916,20 +918,22 @@ html_engine_font_style_toggle (HTMLEngine *engine, GtkHTMLFontStyle style)
 }
 
 static void
-set_color (HTMLObject *o, GdkColor *color)
+set_color (HTMLObject *o, HTMLColor *color)
 {
 	if (html_object_is_text (o))
-		HTML_TEXT (o)->color = *color;
+		html_text_set_color (HTML_TEXT (o), NULL, color);
 }
 
 void
-html_engine_set_color (HTMLEngine *e, GdkColor *color)
+html_engine_set_color (HTMLEngine *e, HTMLColor *color)
 {
 	if (e->active_selection) {
 		html_engine_cut_and_paste_begin (e, "Set color");
 		g_list_foreach (e->cut_buffer, (GFunc) set_color, color);
 		html_engine_cut_and_paste_end (e);
+	} else {
+		html_color_unref (e->insertion_color);
+		e->insertion_color = color;
+		html_color_ref (e->insertion_color);
 	}
-
-	e->insertion_color = *color;
 }

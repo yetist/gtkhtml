@@ -57,15 +57,13 @@ get_flow (HTMLObject *object)
 
 static HTMLObject *
 split_object (HTMLObject *object,
-	      guint offset)
+	      guint offset,
+	      HTMLEngine *e)
 {
-	GdkColor black = { 0, 0, 0, 0 };
-
 	if (html_object_is_text (object))
 		return HTML_OBJECT (html_text_split (HTML_TEXT (object), offset));
 
-	/* FIXME black */
-	return html_text_master_new ("", GTK_HTML_FONT_STYLE_DEFAULT, &black);
+	return html_text_master_new ("", GTK_HTML_FONT_STYLE_DEFAULT, e->insertion_color);
 }
 
 static void
@@ -105,14 +103,14 @@ insert_para (HTMLEngine *engine)
 		if (current->prev == NULL) {
 			HTMLObject *empty_text_element;
 			GtkHTMLFontStyle font_style;
-			GdkColor *color;
+			HTMLColor *color;
 
 			if (html_object_is_text (current)) {
 				font_style = HTML_TEXT (current)->font_style;
-				color = & HTML_TEXT (current)->color;
+				color = HTML_TEXT (current)->color;
 			} else {
 				font_style = GTK_HTML_FONT_STYLE_DEFAULT;
-				color = &engine->insertion_color;
+				color = engine->insertion_color;
 			}
 
 			empty_text_element = html_text_master_new ("", font_style, color);
@@ -125,7 +123,7 @@ insert_para (HTMLEngine *engine)
 	if (offset > 0) {
 		HTMLObject *second_half;
 
-		second_half = split_object (current, offset);
+		second_half = split_object (current, offset, engine);
 		html_clue_prepend (HTML_CLUE (next_flow), second_half);
 
 		engine->cursor->object = second_half;
@@ -153,7 +151,7 @@ insert_chars_different_style (HTMLEngine *e,
 			      const gchar *text,
 			      guint len,
 			      GtkHTMLFontStyle style,
-			      GdkColor *color)
+			      HTMLColor *color)
 {
 	HTMLText *right_side;
 	HTMLObject *new;
@@ -176,7 +174,7 @@ insert_chars_different_style (HTMLEngine *e,
 		if (p != NULL
 		    && HTML_OBJECT_TYPE (p) == HTML_OBJECT_TYPE (curr)
 		    && HTML_TEXT (p)->font_style == style
-		    && gdk_color_equal (&(HTML_TEXT (p)->color), color)) {
+		    && html_color_equal (HTML_TEXT (p)->color, color)) {
 			e->cursor->object = p;
 			e->cursor->offset = HTML_TEXT (p)->text_len;
 			return html_text_insert_text (HTML_TEXT (p), e, e->cursor->offset, text, len);
@@ -230,14 +228,13 @@ insert_chars_at_not_text (HTMLEngine *e,
 			  const gchar *text,
 			  guint len,
 			  GtkHTMLFontStyle style,
-			  GdkColor *color)
+			  HTMLColor *color)
 {
 	HTMLObject *curr;
 	HTMLObject *new_text;
 
 	curr = e->cursor->object;
 
-	/* FIXME Color */
 	new_text = html_text_master_new_with_len (text, len, style, color);
 
 	if (e->cursor->offset == 0) {
@@ -263,7 +260,7 @@ insert_chars (HTMLEngine *e,
 	      const gchar *text,
 	      guint len,
 	      GtkHTMLFontStyle style,
-	      GdkColor *color)
+	      HTMLColor *color)
 {
 	HTMLObject *curr;
 
@@ -288,7 +285,7 @@ insert_chars (HTMLEngine *e,
            different.  This means that we possibly have to split the
            element.  */
 	if (HTML_TEXT (curr)->font_style != style
-	    || !gdk_color_equal (&(HTML_TEXT (curr)->color), color))
+	    || !html_color_equal (HTML_TEXT (curr)->color, color))
 		return insert_chars_different_style (e, text, len, style, color);
 
 	/* Case #3: we can simply add the text to the current element.  */
@@ -300,7 +297,7 @@ do_insert (HTMLEngine *engine,
 	   const gchar *text,
 	   guint len,
 	   GtkHTMLFontStyle style,
-	   GdkColor *color)
+	   HTMLColor *color)
 {
 	const gchar *p, *q;
 	guint count;
@@ -352,7 +349,7 @@ struct _ActionData {
 
 	/* The font style.  */
 	GtkHTMLFontStyle style;
-	GdkColor color;
+	HTMLColor *color;
 };
 typedef struct _ActionData ActionData;
 
@@ -374,6 +371,8 @@ closure_destroy (gpointer closure)
 	if (data->ref_count > 0)
 		return;
 
+	html_color_unref (data->color);
+
 	g_free (data->chars);
 	g_free (data);
 }
@@ -387,7 +386,7 @@ do_redo (HTMLEngine *engine,
 
 	data = (ActionData *) closure;
 
-	n = do_insert (engine, data->chars, data->num_chars, data->style, &data->color);
+	n = do_insert (engine, data->chars, data->num_chars, data->style, data->color);
 	setup_undo (engine, data);
 }
 
@@ -446,7 +445,7 @@ create_action_data (HTMLEngine *engine,
 		    const gchar *chars,
 		    gint num_chars,
 		    GtkHTMLFontStyle style,
-		    GdkColor *color)
+		    HTMLColor *color)
 {
 	ActionData *data;
 
@@ -455,7 +454,8 @@ create_action_data (HTMLEngine *engine,
 	data->chars = g_strndup (chars, num_chars);
 	data->num_chars = num_chars;
 	data->style = style;
-	data->color = *color;
+	data->color = color;
+	html_color_ref (color);
 
 	return data;
 }
@@ -488,9 +488,9 @@ html_engine_insert (HTMLEngine *e,
 
 	html_engine_hide_cursor (e);
 
-	n = do_insert (e, text, len, e->insertion_font_style, &e->insertion_color);
+	n = do_insert (e, text, len, e->insertion_font_style, e->insertion_color);
 
-	setup_undo (e, create_action_data (e, text, len, e->insertion_font_style, &e->insertion_color));
+	setup_undo (e, create_action_data (e, text, len, e->insertion_font_style, e->insertion_color));
 
 	/* printf ("text '%s' len %d type %d\n", text, len, HTML_OBJECT_TYPE (current_object)); */
 
@@ -510,7 +510,7 @@ void
 html_engine_insert_link (HTMLEngine *e, const gchar *url, const gchar *target)
 {
 	HTMLObject *linked;
-	GdkColor *color = html_colorset_get_color (e->settings->color_set, HTMLLinkColor);
+	HTMLColor *color = html_colorset_get_color (e->settings->color_set, HTMLLinkColor);
 
 	html_engine_selection_push (e);
 	html_engine_cut_buffer_push (e);
@@ -547,7 +547,7 @@ void
 html_engine_remove_link (HTMLEngine *e)
 {
 	HTMLObject *unlinked;
-	GdkColor *color = html_colorset_get_color (e->settings->color_set, HTMLTextColor);
+	HTMLColor *color = html_colorset_get_color (e->settings->color_set, HTMLTextColor);
 	GList *cur;
 
 	html_engine_cut_and_paste_begin (e, "Remove link");
@@ -568,7 +568,7 @@ void
 html_engine_remove_link_object (HTMLEngine *e, HTMLObject *obj)
 {
 	HTMLObject *unlinked;
-	GdkColor *color = html_colorset_get_color (e->settings->color_set, HTMLTextColor);
+	HTMLColor *color = html_colorset_get_color (e->settings->color_set, HTMLTextColor);
 
 	unlinked = html_object_remove_link (obj, color);
 	if (unlinked) {

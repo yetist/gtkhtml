@@ -68,7 +68,7 @@ get_target (HTMLObject *object)
 }
 
 static HTMLObject *
-set_link (HTMLObject *self, GdkColor *color, const gchar *url, const gchar *target)
+set_link (HTMLObject *self, HTMLColor *color, const gchar *url, const gchar *target)
 {
 	HTMLLinkText *link = HTML_LINK_TEXT (self);
 
@@ -78,7 +78,7 @@ set_link (HTMLObject *self, GdkColor *color, const gchar *url, const gchar *targ
 	link->url = g_strdup (url);
 	link->target = g_strdup (target);
 
-	HTML_TEXT (self)->color = *color;
+	html_text_set_color (HTML_TEXT (self), NULL, color);
 
 	return NULL;
 }
@@ -97,7 +97,7 @@ split (HTMLText *self,
 
 	new = HTML_TEXT (html_link_text_new (self->text + offset,
 					     self->font_style,
-					     &self->color,
+					     self->color,
 					     link_text->url,
 					     link_text->target));
 
@@ -175,7 +175,7 @@ html_link_text_init (HTMLLinkText *link_text_object,
 		     HTMLLinkTextClass *klass,
 		     const gchar *text,
 		     GtkHTMLFontStyle font_style,
-		     const GdkColor *color,
+		     HTMLColor *color,
 		     const gchar *url,
 		     const gchar *target)
 {
@@ -191,7 +191,7 @@ html_link_text_init (HTMLLinkText *link_text_object,
 HTMLObject *
 html_link_text_new (const gchar *text,
 		    GtkHTMLFontStyle font_style,
-		    const GdkColor *color,
+		    HTMLColor *color,
 		    const gchar *url,
 		    const gchar *target)
 {

@@ -57,18 +57,18 @@ void        html_link_text_master_init          (HTMLLinkTextMaster      *link_t
 						 const gchar             *text,
 						 gint			  len,
 						 GtkHTMLFontStyle         font_style,
-						 const GdkColor          *color,
+						 HTMLColor               *color,
 						 const gchar             *url,
 						 const gchar             *target);
 HTMLObject *html_link_text_master_new           (const gchar             *text,
 						 GtkHTMLFontStyle         font_style,
-						 const GdkColor          *color,
+						 HTMLColor               *color,
 						 const gchar             *url,
 						 const gchar             *target);
 HTMLObject *html_link_text_master_new_with_len  (const gchar             *text,
 						 gint                     len,
 						 GtkHTMLFontStyle         font_style,
-						 const GdkColor          *color,
+						 HTMLColor               *color,
 						 const gchar             *url,
 						 const gchar             *target);
 

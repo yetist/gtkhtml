@@ -956,7 +956,7 @@ html_object_search_next (HTMLObject *self, HTMLSearch *info)
 
 HTMLObject *
 html_object_set_link (HTMLObject *self,
-		      GdkColor *color,
+		      HTMLColor *color,
 		      const gchar *url,
 		      const gchar *target)
 {
@@ -965,7 +965,7 @@ html_object_set_link (HTMLObject *self,
 
 HTMLObject *
 html_object_remove_link (HTMLObject *self,
-			 GdkColor *color)
+			 HTMLColor *color)
 {
 	return (HO_CLASS (self)->remove_link) ? (* HO_CLASS (self)->remove_link) (self, color) : NULL;
 }

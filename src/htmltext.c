@@ -120,22 +120,11 @@ copy_helper (HTMLText *src,
 
 	dest->font_style = src->font_style;
 	dest->color = src->color;
-	dest->color_allocated = src->color_allocated;
+	html_color_ref (dest->color);
 }
 
 
 /* HTMLObject methods.  */
-
-static void
-reset (HTMLObject *self)
-{
-	HTMLText *text;
-
-	text = HTML_TEXT (self);
-	text->color_allocated = FALSE;
-
-	(* HTML_OBJECT_CLASS (parent_class)->reset) (self);
-}
 
 static void
 copy (HTMLObject *self,
@@ -190,18 +179,17 @@ draw (HTMLObject *o,
       gint tx, gint ty)
 {
 	GtkHTMLFontStyle font_style;
-	HTMLText *htmltext;
-
-	htmltext = HTML_TEXT (o);
+	HTMLText *text = HTML_TEXT (o);
 
 	if (y + height < o->y - o->ascent || y > o->y + o->descent)
 		return;
 
-	font_style = html_text_get_font_style (htmltext);
+	font_style = html_text_get_font_style (text);
 	html_painter_set_font_style (p, font_style);
 
-	html_painter_set_pen (p, html_text_get_color (htmltext, p));
-	html_painter_draw_text (p, o->x + tx, o->y + ty, htmltext->text, -1);
+	html_color_alloc (text->color, p);
+	html_painter_set_pen (p, &text->color->color);
+	html_painter_draw_text (p, o->x + tx, o->y + ty, text->text, -1);
 }
 
 static gboolean
@@ -465,7 +453,7 @@ split (HTMLText *self,
 
 	new = g_malloc (HTML_OBJECT (self)->klass->object_size);
 	html_text_init (new, HTML_TEXT_CLASS (HTML_OBJECT (self)->klass),
-			self->text + offset, -1, self->font_style, &self->color);
+			self->text + offset, -1, self->font_style, self->color);
 
 	self->text = g_realloc (self->text, offset + 1);
 	self->text[offset] = '\0';
@@ -493,7 +481,7 @@ check_merge (HTMLText *self,
 		return TRUE;
 	if (self->font_style != text->font_style)
 		return FALSE;
-	if (! gdk_color_equal (&self->color, &text->color))
+	if (! html_color_equal (self->color, text->color))
 		return FALSE;
 
 	return TRUE;
@@ -521,14 +509,11 @@ get_font_style (const HTMLText *text)
 	return font_style;
 }
 
-static const GdkColor *
+static HTMLColor *
 get_color (HTMLText *text,
 	   HTMLPainter *painter)
 {
-	if (! text->color_allocated)
-		html_painter_alloc_color (painter, &text->color);
-
-	return &text->color;
+	return text->color;
 }
 
 static void
@@ -552,13 +537,14 @@ set_font_style (HTMLText *text,
 static void
 set_color (HTMLText *text,
 	   HTMLEngine *engine,
-	   const GdkColor *color)
+	   HTMLColor *color)
 {
-	if (gdk_color_equal (&text->color, color))
+	if (html_color_equal (text->color, color))
 		return;
 
-	text->color = *color;
-	text->color_allocated = FALSE;
+	html_color_unref (text->color);
+	html_color_ref (color);
+	text->color = color;
 
 	if (engine != NULL) {
 		html_object_relayout (HTML_OBJECT (text)->parent, engine, HTML_OBJECT (text));
@@ -569,7 +555,9 @@ set_color (HTMLText *text,
 static void
 destroy (HTMLObject *obj)
 {
-	g_free (HTML_TEXT (obj)->text);
+	HTMLText *text = HTML_TEXT (obj);
+	html_color_unref (text->color);
+	g_free (text->text);
 	HTML_OBJECT_CLASS (parent_class)->destroy (obj);
 }
 
@@ -592,7 +580,6 @@ html_text_class_init (HTMLTextClass *klass,
 	html_object_class_init (object_class, type, object_size);
 
 	object_class->destroy = destroy;
-	object_class->reset = reset;
 	object_class->copy = copy;
 	object_class->draw = draw;
 	object_class->accepts_cursor = accepts_cursor;
@@ -626,9 +613,11 @@ html_text_init (HTMLText *text_object,
 		const gchar *text,
 		gint len,
 		GtkHTMLFontStyle font_style,
-		const GdkColor *color)
+		HTMLColor *color)
 {
 	HTMLObject *object;
+
+	g_assert (color);
 
 	object = HTML_OBJECT (text_object);
 
@@ -646,23 +635,15 @@ html_text_init (HTMLText *text_object,
 	convert_nbsp (text_object->text, text_object->text_len);
 
 	text_object->font_style = font_style;
-
-	if (color != NULL) {
-		text_object->color = *color;
-	} else {
-		text_object->color.red = 0;
-		text_object->color.green = 0;
-		text_object->color.blue = 0;
-	}
-
-	text_object->color_allocated = FALSE;
+	html_color_ref (color);
+	text_object->color = color;
 }
 
 HTMLObject *
 html_text_new_with_len (const gchar *text,
 			gint len,
 			GtkHTMLFontStyle font,
-			const GdkColor *color)
+			HTMLColor *color)
 {
 	HTMLText *text_object;
 
@@ -676,7 +657,7 @@ html_text_new_with_len (const gchar *text,
 HTMLObject *
 html_text_new (const gchar *text,
 	       GtkHTMLFontStyle font,
-	       const GdkColor *color)
+	       HTMLColor *color)
 {
 	return html_text_new_with_len (text, -1, font, color);
 }
@@ -774,7 +755,7 @@ html_text_get_font_style (const HTMLText *text)
 	return (* HT_CLASS (text)->get_font_style) (text);
 }
 
-const GdkColor *
+HTMLColor *
 html_text_get_color (HTMLText *text,
 		     HTMLPainter *painter)
 {
@@ -797,7 +778,7 @@ html_text_set_font_style (HTMLText *text,
 void
 html_text_set_color (HTMLText *text,
 		     HTMLEngine *engine,
-		     const GdkColor *color)
+		     HTMLColor *color)
 {
 	g_return_if_fail (text != NULL);
 	g_return_if_fail (color != NULL);

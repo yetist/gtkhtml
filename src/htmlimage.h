@@ -74,9 +74,8 @@ struct _HTMLImage {
         HTMLImagePointer *image_ptr;
 	HTMLImageAnimation *animation;
 
-	GdkColor color;
+	HTMLColor *color;
 
-	guint color_allocated: 1;
 	guint have_color: 1;
 
 	gint8 border;
@@ -115,7 +114,7 @@ void        html_image_init        (HTMLImage        *image,
 				    gint16            height,
 				    gint8             percent,
 				    gint8             border,
-				    const GdkColor   *border_color,
+				    HTMLColor        *border_color,
 				    HTMLVAlignType    valign);
 HTMLObject *html_image_new         (HTMLImageFactory *imf,
 				    const gchar      *filename,
@@ -125,7 +124,7 @@ HTMLObject *html_image_new         (HTMLImageFactory *imf,
 				    gint16            height,
 				    gint8             percent,
 				    gint8             border,
-				    const GdkColor   *border_color,
+				    HTMLColor        *border_color,
 				    HTMLVAlignType    valign);
 
 void         html_image_set_size           (HTMLImage *image, gint w, gint percent, gint h);

@@ -24,6 +24,7 @@
 #define _HTMLTEXT_H_
 
 #include "htmlobject.h"
+#include "htmlcolor.h"
 
 typedef struct _HTMLText HTMLText;
 typedef struct _HTMLTextClass HTMLTextClass;
@@ -38,9 +39,7 @@ struct _HTMLText {
 	guint text_len;
 
 	GtkHTMLFontStyle font_style;
-	GdkColor color;
-
-	guint color_allocated : 1;
+	HTMLColor *color;
 };
 
 struct _HTMLTextClass {
@@ -59,10 +58,10 @@ struct _HTMLTextClass {
         gboolean     	   (* check_merge)    (HTMLText *self, HTMLText *text);
 
 	GtkHTMLFontStyle   (* get_font_style) (const HTMLText *text);
-	const GdkColor   * (* get_color)      (HTMLText *text, HTMLPainter *painter);
+	HTMLColor        * (* get_color)      (HTMLText *text, HTMLPainter *painter);
 
 	void               (* set_font_style) (HTMLText *text, HTMLEngine *engine, GtkHTMLFontStyle style);
-	void               (* set_color)      (HTMLText *text, HTMLEngine *engine, const GdkColor *color);
+	void               (* set_color)      (HTMLText *text, HTMLEngine *engine, HTMLColor *color);
 };
 
 
@@ -78,14 +77,14 @@ void        html_text_init         (HTMLText         *text_object,
 				    const gchar      *text,
 				    gint              len,
 				    GtkHTMLFontStyle  font_style,
-				    const GdkColor   *color);
+				    HTMLColor        *color);
 HTMLObject *html_text_new          (const gchar      *text,
 				    GtkHTMLFontStyle  font_style,
-				    const GdkColor   *color);
+				    HTMLColor        *color);
 HTMLObject *html_text_new_with_len (const gchar      *text,
 				    gint              len,
 				    GtkHTMLFontStyle  font_style,
-				    const GdkColor   *color);
+				    HTMLColor        *color);
 
 guint     html_text_insert_text   (HTMLText    *text,
 				   HTMLEngine  *engine,
@@ -114,7 +113,7 @@ gboolean  html_text_check_merge  (HTMLText  *self,
 				  HTMLText  *text);
 
 GtkHTMLFontStyle  html_text_get_font_style  (const HTMLText *text);
-const GdkColor   *html_text_get_color       (HTMLText       *text,
+HTMLColor        *html_text_get_color       (HTMLText       *text,
 					     HTMLPainter    *painter);
 
 void  html_text_set_font_style  (HTMLText             *text,
@@ -122,7 +121,7 @@ void  html_text_set_font_style  (HTMLText             *text,
 				 GtkHTMLFontStyle      style);
 void  html_text_set_color       (HTMLText             *text,
 				 HTMLEngine           *engine,
-				 const GdkColor       *color);
+				 HTMLColor            *color);
 void  html_text_set_text        (HTMLText             *text,
 				 const gchar          *new_text);
 

@@ -23,16 +23,6 @@
 
 
 
-#define SET_COLOR(w,r,g,b) \
-        s->color [HTML ## w ## Color].red   = r; \
-        s->color [HTML ## w ## Color].green = g; \
-        s->color [HTML ## w ## Color].blue  = b
-
-#define SET_GCOLOR(t,c) \
-        s->color [HTML ## t ## Color].red   = c.red; \
-        s->color [HTML ## t ## Color].green = c.green; \
-        s->color [HTML ## t ## Color].blue  = c.blue
-
 HTMLColorSet *
 html_colorset_new (GtkWidget *w)
 {
@@ -41,17 +31,18 @@ html_colorset_new (GtkWidget *w)
 	s = g_new0 (HTMLColorSet, 1);
 
 	/* these are default color settings */
-	SET_COLOR  (Link,  0, 0, 0xffff);
-	SET_COLOR  (ALink, 0, 0, 0xffff);
-	SET_COLOR  (VLink, 0, 0, 0xffff);
+	s->color [HTMLLinkColor]  = html_color_new_from_rgb (0, 0, 0xffff);
+	s->color [HTMLALinkColor] = html_color_new_from_rgb (0, 0, 0xffff);
+	s->color [HTMLVLinkColor] = html_color_new_from_rgb (0, 0, 0xffff);
 
 	if (w) {
 		GtkStyle *style = gtk_widget_get_style (w);
 		html_colorset_set_style (s, style);
 	} else {
-		SET_COLOR  (Bg, 0xffff, 0xffff, 0xffff);
-		SET_COLOR  (Highlight, 0x7fff, 0x7fff, 0xffff);
-		SET_COLOR  (HighlightText, 0, 0, 0);
+		s->color [HTMLBgColor]            = html_color_new_from_rgb (0xffff, 0xffff, 0xffff);
+		s->color [HTMLHighlightColor]     = html_color_new_from_rgb (0x7fff, 0x7fff, 0xffff);
+		s->color [HTMLHighlightTextColor] = html_color_new ();
+		s->color [HTMLTextColor]          = html_color_new ();
 	}
 
 	return s;
@@ -76,15 +67,12 @@ html_colorset_add_slave (HTMLColorSet *set, HTMLColorSet *slave)
 }
 
 void
-html_colorset_set_color (HTMLColorSet *s, GdkColor *color, HTMLColor idx)
+html_colorset_set_color (HTMLColorSet *s, GdkColor *color, HTMLColorId idx)
 {
 	GSList *cur;
 	HTMLColorSet *cs;
 
-	if (s->color_allocated [idx])
-		s->colors_to_free = g_slist_prepend (s->colors_to_free, gdk_color_copy (&s->color [idx]));
-	s->color [idx] = *color;
-	s->color_allocated [idx] = FALSE;
+	html_color_set (s->color [idx], color);
 	s->changed [idx] = TRUE;
 
 	/* forward change to slaves */
@@ -96,35 +84,28 @@ html_colorset_set_color (HTMLColorSet *s, GdkColor *color, HTMLColor idx)
 	}
 }
 
-GdkColor *
-html_colorset_get_color (HTMLColorSet *s, HTMLColor idx)
+HTMLColor *
+html_colorset_get_color (HTMLColorSet *s, HTMLColorId idx)
 {
-	return &s->color [idx];
+	return s->color [idx];
 }
 
-GdkColor *
-html_colorset_get_color_allocated (HTMLPainter *painter, HTMLColor idx)
+HTMLColor *
+html_colorset_get_color_allocated (HTMLPainter *painter, HTMLColorId idx)
 {
 	HTMLColorSet *s = painter->color_set;
 
-	if (s->colors_to_free)
-		html_colorset_free_colors (s, painter, FALSE);
-
-	if (!s->color_allocated [idx]) {
-		html_painter_alloc_color (painter, &s->color [idx]);
-		s->color_allocated [idx] = TRUE;
-	}
-
-	return &s->color [idx];
+	html_color_alloc (s->color [idx], painter);
+	return s->color [idx];
 }
 
 void
 html_colorset_set_by (HTMLColorSet *s, HTMLColorSet *o)
 {
-	HTMLColor i;
+	HTMLColorId i;
 
 	for (i=0; i < HTMLColors; i++) {
-		html_colorset_set_color (s, &o->color [i], i);
+		html_colorset_set_color (s, &o->color [i]->color, i);
 		/* unset the changed flag */
 		s->changed [i] = FALSE;
 	}
@@ -133,15 +114,19 @@ html_colorset_set_by (HTMLColorSet *s, HTMLColorSet *o)
 void
 html_colorset_set_unchanged (HTMLColorSet *s, HTMLColorSet *o)
 {
-	HTMLColor i;
+	HTMLColorId i;
 
 	for (i=0; i < HTMLColors; i++) {
 		if (!s->changed[i]) {
-			html_colorset_set_color (s, &o->color [i], i);
+			html_colorset_set_color (s, &o->color [i]->color, i);
 			s->changed [i] = FALSE;
 		}
 	}
 }	
+
+#define SET_GCOLOR(t,c) \
+        if (s->color [HTML ## t ## Color]) html_color_unref (s->color [HTML ## t ## Color]); \
+        s->color [HTML ## t ## Color] = html_color_new_from_gdk_color (&c);
 
 void
 html_colorset_set_style (HTMLColorSet *s, GtkStyle *style)
@@ -151,34 +136,3 @@ html_colorset_set_style (HTMLColorSet *s, GtkStyle *style)
 	SET_GCOLOR (Highlight,     style->bg   [GTK_STATE_SELECTED]);
 	SET_GCOLOR (HighlightText, style->text [GTK_STATE_SELECTED]);	
 }	
-
-void
-html_colorset_free_colors (HTMLColorSet *s, HTMLPainter *painter, gboolean all)
-{
-	GSList *cur = s->colors_to_free;
-	GdkColor *c;
-
-	/* free colors to free */
-	if (cur) {
-		while (cur) {
-			c = (GdkColor *) cur->data;
-			html_painter_free_color (painter, c);
-			gdk_color_free (c);
-			cur = cur->next;
-		}
-		g_slist_free (s->colors_to_free);
-		s->colors_to_free = NULL;
-	}
-
-	/* all means that we free all allocated colors */
-	if (all) {
-		HTMLColor i;
-
-		for (i=0; i < HTMLColors; i++) {
-			if (s->color_allocated [i]) {
-				html_painter_free_color (painter, &s->color [i]);
-				s->color_allocated [i] = FALSE;
-			}
-		}
-	}
-}

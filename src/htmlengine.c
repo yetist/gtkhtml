@@ -165,10 +165,10 @@ pop_font_style (HTMLEngine *e)
 
 /* Color handling.  */
 
-static const GdkColor *
+static HTMLColor *
 current_color (HTMLEngine *e)
 {
-	const GdkColor *color;
+	HTMLColor *color;
 
 	if (html_stack_is_empty (e->color_stack))
 		color = html_colorset_get_color (e->settings->color_set, HTMLTextColor);
@@ -180,15 +180,15 @@ current_color (HTMLEngine *e)
 
 static void
 push_color (HTMLEngine *e,
-	   const  GdkColor *color)
+	    HTMLColor *color)
 {
-	html_stack_push (e->color_stack, (gpointer) color);
+	html_stack_push (e->color_stack, color);
 }
 
 static void
 pop_color (HTMLEngine *e)
 {
-	html_stack_pop (e->color_stack);
+	html_color_unref ((HTMLColor *) html_stack_pop (e->color_stack));
 }
 
 static gboolean
@@ -360,7 +360,7 @@ static gboolean
 check_prev (const HTMLObject *p,
 	    HTMLType type,
 	    GtkHTMLFontStyle font_style,
-	    const GdkColor *color)
+	    HTMLColor *color)
 {
 	if (p == NULL)
 		return FALSE;
@@ -371,7 +371,7 @@ check_prev (const HTMLObject *p,
 	if (HTML_TEXT (p)->font_style != font_style)
 		return FALSE;
 
-	if (! gdk_color_equal (&HTML_TEXT (p)->color, color))
+	if (! html_color_equal (HTML_TEXT (p)->color, color))
 		return FALSE;
 
 	return TRUE;
@@ -385,7 +385,7 @@ insert_text (HTMLEngine *e,
 	GtkHTMLFontStyle font_style;
 	HTMLObject *prev;
 	HTMLType type;
-	const GdkColor *color;
+	HTMLColor *color;
 	gboolean create_link;
 
 	if (e->url != NULL || e->target != NULL)
@@ -1594,8 +1594,7 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 			}
 
 			if (e->url != NULL || e->target != NULL)
-				push_color (e, gdk_color_copy ((GdkColor *) html_colorset_get_color
-							       (e->settings->color_set, HTMLLinkColor)));
+				push_color (e, html_colorset_get_color (e->settings->color_set, HTMLLinkColor));
 		} else if ( strncmp( str, "/a", 2 ) == 0 ) {
 			close_anchor (e);
 		}
@@ -1677,7 +1676,7 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 					if (! html_stack_is_empty (e->color_stack))
 						pop_color (e);
 					html_colorset_set_color (e->settings->color_set, &color, HTMLTextColor);
-					push_color (e, gdk_color_copy (&color));
+					push_color (e, html_colorset_get_color (e->settings->color_set, HTMLTextColor));
 				}
 			} else if ( strncasecmp( token, "link=", 5 ) == 0
 				    && !e->defaultSettings->forceDefault ) {
@@ -1923,7 +1922,7 @@ parse_f (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 			}
 		}
 
-		push_color (p, color);
+		push_color (p, html_color_new_from_gdk_color (color));
 		push_font_style (p, newSize);
 
 		push_block  (p, ID_FONT, 1, block_end_color_font, FALSE, FALSE);
@@ -2084,7 +2083,7 @@ parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 		HTMLHAlignType align = HTML_HALIGN_NONE;
 		gint border = 0;
 		HTMLVAlignType valign = HTML_VALIGN_NONE;
-		const GdkColor *color = NULL;
+		HTMLColor *color = NULL;
 		
 		color = current_color (p);
 
@@ -2886,7 +2885,8 @@ html_engine_set_arg (GtkObject        *object,
 		engine->defaultSettings = html_settings_new (GTK_WIDGET (engine->widget));
 		html_colorset_add_slave (engine->settings->color_set, engine->painter->color_set);
 
-		engine->insertion_color = *html_colorset_get_color (engine->settings->color_set, HTMLTextColor);
+		engine->insertion_color = html_colorset_get_color (engine->settings->color_set, HTMLTextColor);
+		html_color_ref (engine->insertion_color);
 	}
 }
 
@@ -3025,7 +3025,7 @@ html_engine_init (HTMLEngine *engine)
 	engine->undo = html_undo_new ();
 
 	engine->font_style_stack = html_stack_new (NULL);
-	engine->color_stack = html_stack_new ((HTMLStackFreeFunc) gdk_color_free);
+	engine->color_stack = html_stack_new ((HTMLStackFreeFunc) html_color_unref);
 	engine->clueflow_style_stack = html_stack_new (NULL);
 
 	engine->listStack = html_stack_new ((HTMLStackFreeFunc) html_list_destroy);
@@ -3133,10 +3133,9 @@ ensure_editable (HTMLEngine *engine)
 	child = HTML_CLUE (head)->head;
 	if (child == NULL) {
 		HTMLObject *text_master;
-		GdkColor black = { 0, 0, 0, 0 }; /* FIXME */
 
 		text_master = html_text_master_new ("", GTK_HTML_FONT_STYLE_DEFAULT,
-						    &black);
+						    engine->insertion_color);
 		html_clue_prepend (HTML_CLUE (head), text_master);
 	}
 }
@@ -3156,7 +3155,7 @@ html_engine_draw_background (HTMLEngine *e,
 	}
 
 	html_painter_draw_background (e->painter, 
-				      html_colorset_get_color_allocated (e->painter, HTMLBgColor),
+				      &html_colorset_get_color_allocated (e->painter, HTMLBgColor)->color,
 				      pixbuf,
 				      x, y,
 				      w, h,
@@ -3761,7 +3760,7 @@ html_engine_queue_clear (HTMLEngine *e,
 
 	if (e->freeze_count == 0)
 		html_draw_queue_add_clear (e->draw_queue, x, y, width, height,
-					   html_colorset_get_color_allocated (e->painter, HTMLBgColor));
+					   &html_colorset_get_color_allocated (e->painter, HTMLBgColor)->color);
 }
 
 
@@ -4261,7 +4260,7 @@ replace (HTMLEngine *e)
 
 	new_text = html_text_master_new (e->replace_info->text,
 					 HTML_TEXT (first)->font_style,
-					 &HTML_TEXT (first)->color);
+					 HTML_TEXT (first)->color);
 	html_engine_paste_object (e, new_text, TRUE);
 
 	/* update search info to point just behind replaced text */

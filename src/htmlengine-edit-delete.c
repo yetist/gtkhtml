@@ -72,12 +72,10 @@ safe_remove (HTMLEngine *e,
 				e->cursor->offset = 0;
 			} else {
 				HTMLObject *master;
-				GdkColor black = { 0, 0, 0 };
 
-				/* FIXME black.  */
 				master = html_text_master_new ("",
 							       GTK_HTML_FONT_STYLE_DEFAULT,
-							       &black);
+							       e->insertion_color);
 				html_clue_prepend (HTML_CLUE (object->parent), master);
 
 				e->cursor->object = master;

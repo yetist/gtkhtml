@@ -68,7 +68,7 @@ get_target (HTMLObject *object)
 }
 
 static HTMLObject *
-remove_link (HTMLObject *self, GdkColor *color)
+remove_link (HTMLObject *self, HTMLColor *color)
 {
 	HTMLText *text = HTML_TEXT (self);
 
@@ -137,7 +137,7 @@ get_selection (HTMLObject *self,
 	new = html_link_text_master_new_with_len (HTML_TEXT(self)->text + select_start,
 						  select_length,
 						  HTML_TEXT (self)->font_style,
-						  & HTML_TEXT (self)->color,
+						  HTML_TEXT (self)->color,
 						  HTML_LINK_TEXT_MASTER (self)->url,
 						  HTML_LINK_TEXT_MASTER (self)->target);
 
@@ -191,7 +191,7 @@ html_link_text_master_init (HTMLLinkTextMaster *link_text_master_object,
 			    const gchar *text,
 			    gint len,
 			    GtkHTMLFontStyle font_style,
-			    const GdkColor *color,
+			    HTMLColor *color,
 			    const gchar *url,
 			    const gchar *target)
 {
@@ -213,7 +213,7 @@ HTMLObject *
 html_link_text_master_new_with_len (const gchar *text,
 				    gint len,
 				    GtkHTMLFontStyle font_style,
-				    const GdkColor *color,
+				    HTMLColor *color,
 				    const gchar *url,
 				    const gchar *target)
 {
@@ -238,7 +238,7 @@ html_link_text_master_new_with_len (const gchar *text,
 HTMLObject *
 html_link_text_master_new (const gchar *text,
 			   GtkHTMLFontStyle font_style,
-			   const GdkColor *color,
+			   HTMLColor *color,
 			   const gchar *url,
 			   const gchar *target)
 {

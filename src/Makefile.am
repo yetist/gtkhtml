@@ -32,6 +32,7 @@ libgtkhtml_HEADERS =				\
 	htmlclueflow.h				\
 	htmlclueh.h				\
 	htmlcluev.h				\
+	htmlcolor.h				\
 	htmlcolorset.h				\
 	htmlcursor.h				\
 	htmldrawqueue.h				\
@@ -107,6 +108,7 @@ libgtkhtml_la_SOURCES =				\
 	htmlclueflow.c				\
 	htmlclueh.c				\
 	htmlcluev.c				\
+	htmlcolor.c				\
 	htmlcolorset.c				\
 	htmlcursor.c				\
 	htmldrawqueue.c				\
