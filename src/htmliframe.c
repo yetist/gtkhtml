@@ -65,7 +65,7 @@ iframe_link_clicked (GtkHTML *html, const gchar *url, gpointer data)
 }
 
 static void
-iframe_size_changed (GtkAdjustment *adj, gpointer data)
+iframe_size_changed (GtkHTML *html, gpointer data)
 {
 	HTMLIFrame *iframe = HTML_IFRAME (data);
 	GtkHTML *parent = GTK_HTML (HTML_EMBEDDED(iframe)->parent);
@@ -352,15 +352,9 @@ html_iframe_init (HTMLIFrame *iframe,
 	if ((width > 0) && (height > 0))
 		gtk_widget_set_usize (scrolled_window, width, height);
 
-	/* 
-	   FIXME: huge hack to get the widget to allocate it's size 
-	   before it is actually drawn.  Place it in the gtklayout but offscreen
-	   it will be moved to the proper place in the draw routine, but it's size
-	   allocation needs to happen now.
-	*/
-	gtk_widget_show (scrolled_window);
-	
+	gtk_widget_show (scrolled_window);	
 	iframe->scroll = scrolled_window;
+
 	html_embedded_set_widget (em, scrolled_window);
 	html_embedded_size_recalc(em);
 

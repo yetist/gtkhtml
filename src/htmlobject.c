@@ -86,6 +86,7 @@ copy (HTMLObject *self,
 	dest->free_pending = FALSE;
 	dest->change = self->change;
 
+	g_datalist_init (&dest->object_data);
 	html_object_copy_data_from_object (dest, self);
 }
 
