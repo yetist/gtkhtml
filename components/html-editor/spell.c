@@ -482,31 +482,36 @@ spell_create_language_menu (GtkHTMLControlData *cd)
 
 	CORBA_exception_init (&ev);
 	cd->languages = seq = GNOME_Spell_Dictionary_getLanguages (cd->dict, &ev);
-	CORBA_exception_free (&ev);
 
-	if (seq && seq->_length > 0) {
-		GString *str;
-		gchar *line;
-		gint i;
+	if (ev._major == CORBA_NO_EXCEPTION) {
+		if (seq && seq->_length > 0) {
+			GString *str;
+			gchar *line;
+			gint i;
 
-		str = g_string_new ("<submenu name=\"EditSpellLanguagesSubmenu\" _label=\"");
-		g_string_append (str, _("Spell Checking _Languages"));
-		g_string_append (str, "\">\n");
-		for (i = 0; i < seq->_length; i ++) {
-			line = g_strdup_printf ("<menuitem name=\"SpellLanguage%d\" _label=\"%s\""
-						" verb=\"SpellLanguage%d\" type=\"toggle\"/>\n",
-						i + 1, seq->_buffer [i].name, i + 1);
-			g_string_append (str, line);
-			g_free (line);
+			str = g_string_new ("<submenu name=\"EditSpellLanguagesSubmenu\" _label=\"");
+			g_string_append (str, _("Spell Checking _Languages"));
+			g_string_append (str, "\">\n");
+			for (i = 0; i < seq->_length; i ++) {
+				line = g_strdup_printf ("<menuitem name=\"SpellLanguage%d\" _label=\"%s\""
+							" verb=\"SpellLanguage%d\" type=\"toggle\"/>\n",
+							i + 1, seq->_buffer [i].name, i + 1);
+				g_string_append (str, line);
+				g_free (line);
+			}
+			g_string_append (str, "</submenu>\n");
+
+			bonobo_ui_component_set_translate (cd->uic, "/menu/Edit/EditMisc/EditSpellLanguages/",
+							   str->str, NULL);
+
+			for (i = 0; i < seq->_length; i ++) {
+				g_string_sprintf (str, "SpellLanguage%d", i + 1);
+				bonobo_ui_component_add_listener (cd->uic, str->str, language_cb, cd);
+			}
+			g_string_free (str, TRUE);
 		}
-		g_string_append (str, "</submenu>\n");
-
-		bonobo_ui_component_set_translate (cd->uic, "/menu/Edit/EditMisc/EditSpellLanguages/", str->str, NULL);
-
-		for (i = 0; i < seq->_length; i ++) {
-			g_string_sprintf (str, "SpellLanguage%d", i + 1);
-			bonobo_ui_component_add_listener (cd->uic, str->str, language_cb, cd);
-		}
-		g_string_free (str, TRUE);
+	} else {
+		g_warning ("CORBA exception: %s\n", bonobo_exception_get_text (&ev));
 	}
+	CORBA_exception_free (&ev);
 }
