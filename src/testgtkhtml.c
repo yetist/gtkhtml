@@ -998,6 +998,9 @@ main (gint argc, gchar *argv[])
 	GtkWidget *scrolled_window;
 	GdkColor   bgColor = {0, 0xdfff, 0xdfff, 0xffff};
 	poptContext ctx;
+#ifdef GTKHTML_HAVE_GCONF
+	GConfError  *gconf_error  = NULL;
+#endif
 
 #ifdef MEMDEBUG
 	void *p = malloc (1024);	/* to make linker happy with ccmalloc */
@@ -1005,6 +1008,13 @@ main (gint argc, gchar *argv[])
 	gnome_init_with_popt_table (PACKAGE, VERSION,
 				    argc, argv, options, 0, &ctx);
 	glibwww_init (PACKAGE, VERSION);
+#ifdef GTKHTML_HAVE_GCONF
+	if (!gconf_init (argc, argv, &gconf_error)) {
+		g_assert (gconf_error != NULL);
+		g_error ("GConf init failed:\n  %s", gconf_error->str);
+		return FALSE;
+	}
+#endif
 
 	HTNet_addAfter(request_terminater, NULL, NULL, HT_ALL, HT_FILTER_LAST);
 
