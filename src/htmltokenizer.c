@@ -304,7 +304,7 @@ html_tokenizer_begin (HTMLTokenizer *t)
 {
 	html_tokenizer_reset (t);
 
-	t->buffer = g_malloc (1024);
+	t->buffer = g_malloc (10240);
 	t->dest = t->buffer;
 	t->size = 1000;
 
@@ -511,13 +511,11 @@ prepare_enough_space (HTMLTokenizer *t)
 {
 	/* I really do not understand it, but I added 5 for UTF-8 (Lauris) */
 	if ((t->dest - t->buffer + 5) > t->size) {
-		gchar *newbuf = g_malloc (t->size + 1024 + 20);
-		memcpy (newbuf, t->buffer, 
-			t->dest - t->buffer + 1);
-		t->dest = newbuf + (t->dest - t->buffer);
-		g_free (t->buffer);
-		t->buffer = newbuf;
-		t->size += 1024;
+		guint off = t->dest - t->buffer;
+
+		t->size  += 10240;
+		t->buffer = g_realloc (t->buffer, t->size);
+		t->dest   = t->buffer + off;
 	}
 }
 

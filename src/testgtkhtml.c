@@ -659,14 +659,13 @@ object_timeout(GtkHTMLEmbedded *eb)
 {
 	GtkWidget *w;
 
-	w = gnome_color_picker_new();
+	w = gtk_check_button_new();
 	gtk_widget_show(w);
 
-	printf("inserting custom widget after a delay ...\n");
-
-	gtk_html_embedded_set_descent(eb, rand()%8);
-	gtk_container_add(GTK_CONTAINER(eb), w);
-	gtk_widget_unref(GTK_WIDGET (eb));
+	/* printf("inserting custom widget after a delay ...\n");
+	gtk_html_embedded_set_descent(eb, rand()%8); */
+	gtk_container_add (GTK_CONTAINER(eb), w);
+	gtk_widget_unref (GTK_WIDGET (eb));
 
 	return FALSE;
 }
@@ -674,13 +673,14 @@ object_timeout(GtkHTMLEmbedded *eb)
 static gboolean
 object_requested_cmd (GtkHTML *html, GtkHTMLEmbedded *eb, void *data)
 {
-	printf("object requested, wiaint a bit before creating it ...\n");
+	/* printf("object requested, wiaint a bit before creating it ...\n"); */
 
 	if (strcmp (eb->classid, "mine:NULL") == 0)
 		return FALSE;
 
 	gtk_widget_ref (GTK_WIDGET (eb));
-	gtk_timeout_add(rand() % 5000 + 1000, (GtkFunction) object_timeout, eb);
+	/* gtk_timeout_add(rand() % 5000 + 1000, (GtkFunction) object_timeout, eb); */
+	object_timeout (eb);
 	return TRUE;
 }
 
@@ -1165,7 +1165,7 @@ main (gint argc, gchar *argv[])
 
 #ifdef MEMDEBUG
 
-	// gtk_widget_unref (html_widget);
+	/* gtk_widget_unref (html_widget); */
 	free (p);
 #endif
 

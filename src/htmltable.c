@@ -1143,6 +1143,36 @@ calc_size (HTMLObject *o,
 	return FALSE;
 }
 
+#define NEW_INDEX(l,h) ((l+h) >> 1);
+#define ARR(i) g_array_index (a, gint, i-1)
+
+static gint
+bin_search_eq_or_lower_index (GArray *a, gint range, gint val, gint offset)
+{
+	gint l,h;
+	gint i;
+
+	l = offset ? offset + 1 : 1;
+	h = range;
+	i = NEW_INDEX (l, h);
+
+	while (val != ARR (i) && l < h) {
+		if (val < ARR (i))
+			h = i - 1;
+		else
+			l = i + 1;
+		i = NEW_INDEX (l, h);
+	}
+
+	if (val == ARR (i))
+		return i - 1;
+
+	if (val < ARR (l) && l > 1)
+		return l - 2;
+	else
+		return l - 1;
+}
+
 static void
 draw (HTMLObject *o,
       HTMLPainter *p, 
@@ -1153,7 +1183,7 @@ draw (HTMLObject *o,
 	HTMLTableCell *cell;
 	HTMLTable *table = HTML_TABLE (o);
 	gint pixel_size;
-	gint r, c;
+	gint r, c, start_row, end_row, start_col, end_col;
 	ArtIRect paint;
 
 	html_object_calc_intersection (o, &paint, x, y, width, height);
@@ -1166,16 +1196,23 @@ draw (HTMLObject *o,
 	tx += o->x;
 	ty += o->y - o->ascent;
 
+	start_row = bin_search_eq_or_lower_index (table->rowHeights, table->totalRows + 1, y, 0);
+	end_row   = MIN (bin_search_eq_or_lower_index (table->rowHeights, table->totalRows + 1, y + height, start_row) + 1,
+			 table->totalRows);
+	start_col = bin_search_eq_or_lower_index (table->columnOpt, table->totalCols + 1, x, 0);
+	end_col   = MIN (bin_search_eq_or_lower_index (table->columnOpt, table->totalCols + 1, x + width, start_col) + 1,
+			 table->totalCols);
+
 	/* Draw the cells */
-	for (r = 0; r < table->totalRows; r++) {
-		for (c = 0; c < table->totalCols; c++) {
+	for (r = start_row; r < end_row; r++) {
+		for (c = start_col; c < end_col; c++) {
 			cell = table->cells[r][c];
 
 			if (cell == NULL)
 				continue;
-			if (c < table->totalCols - 1 && cell == table->cells[r][c + 1])
+			if (c < end_col - 1 && cell == table->cells [r][c + 1])
 				continue;
-			if (r < table->totalRows - 1 && table->cells[r + 1][c] == cell)
+			if (r < end_row - 1 && table->cells [r + 1][c] == cell)
 				continue;
 
 			html_object_draw (HTML_OBJECT (cell), p, 

@@ -741,10 +741,14 @@ size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 
 	if (html->engine->width != allocation->width
 	    || html->engine->height != allocation->height) {
-		html->engine->width = allocation->width;
-		html->engine->height = allocation->height;
+		HTMLEngine *e = html->engine;
 
-		html_engine_calc_size (html->engine);
+		e->width  = allocation->width;
+		e->height = allocation->height;
+
+		if (e->clue && e->painter
+		    && html_object_calc_min_width (e->clue, e->painter) < e->width - e->leftBorder - e->rightBorder)
+			html_engine_calc_size (html->engine);
 
 		gtk_html_private_calc_scrollbars (html);
 	}

@@ -1,3 +1,19 @@
+2000-10-06  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlembedded.c (calc_min_width): calc it only if widget is
+	already realized, use allocation
+	(calc_size): likewise
+
+	* gtkhtml.c (size_allocate): call calc_size only when clue
+	min_width is less than available width
+
+	* htmltable.c (draw): optimized drawing, hopefully call draw
+	method only on cells in drawed area, use bin_search_eq_or_lower_index
+	(bin_search_eq_or_lower_index): helper function
+
+	* htmltokenizer.c (prepare_enough_space): inc tokenizer buffer in
+	bigger steps + use realloc
+
 2000-10-04  Radek Doulik  <rodo@helixcode.com>
 
 	* gtkhtml.c (set_editor_keybindings): new helper function

@@ -119,26 +119,14 @@ calc_min_width (HTMLObject *self,
 	gint min_width;
 
 	widget = HTML_EMBEDDED (self)->widget;
-	if (widget == NULL)
+	if (widget == NULL || !GTK_WIDGET_REALIZED (widget))
 		return 0;
 
 	pixel_size = html_painter_get_pixel_size (painter);
 
-	if (HTML_EMBEDDED (self)->allocated) {
-		/* set width and height to minimize updates */
-		emb->width  = widget->allocation.width;
-		emb->height = widget->allocation.height;
-		min_width = widget->allocation.width * pixel_size;
-	} else {
-		GtkRequisition req;
-
-		gtk_widget_size_request (widget, &req);
-
-		/* set width and height to minimize updates */
-		emb->width   = req.width;
-		emb->height  = req.height;
-		min_width = req.width * pixel_size;
-	}
+	emb->width  = widget->allocation.width;
+	emb->height = widget->allocation.height;
+	min_width   = widget->allocation.width * pixel_size;
 
 	return min_width;
 }
@@ -153,7 +141,7 @@ calc_size (HTMLObject *self,
 	gint old_width, old_ascent;
 
 	widget = emb->widget;
-	if (widget == NULL)
+	if (widget == NULL || !GTK_WIDGET_REALIZED (widget))
 		return FALSE;
 
 	pixel_size = html_painter_get_pixel_size (painter);
@@ -161,22 +149,10 @@ calc_size (HTMLObject *self,
 	old_width = self->width;
 	old_ascent = self->ascent;
 
-	if (HTML_EMBEDDED (self)->allocated) {
-		/* set width and height to minimize updates */
-		emb->width   = widget->allocation.width;
-		emb->height  = widget->allocation.height;
-		self->width  = widget->allocation.width * pixel_size;
-		self->ascent = widget->allocation.height * pixel_size;
-	} else {
-		GtkRequisition req;
-
-		gtk_widget_size_request (widget, &req);
-		/* set width and height to minimize updates */
-		emb->width   = req.width;
-		emb->height  = req.height;
-		self->width  = req.width * pixel_size;
-		self->ascent = req.height * pixel_size;
-	}
+	emb->width   = widget->allocation.width;
+	emb->height  = widget->allocation.height;
+	self->width  = widget->allocation.width * pixel_size;
+	self->ascent = widget->allocation.height * pixel_size;
 
 	/* This never changes.  */
 	self->descent = 0;
@@ -197,7 +173,7 @@ html_embedded_reset (HTMLEmbedded *e)
 static gchar *
 encode (HTMLEmbedded *e)
 {
-	return g_strdup("");
+	return g_strdup ("");
 }
 
 gchar *
@@ -314,17 +290,15 @@ html_embedded_init (HTMLEmbedded *element,
 	element->parent = parent;
 	element->width  = 0;
 	element->height = 0;
-	element->allocated = FALSE;
-
-	element->abs_x = element->abs_y = -1;
+	element->abs_x  = element->abs_y = -1;
 }
 
 void
-html_embedded_size_recalc(HTMLEmbedded *em)
+html_embedded_size_recalc (HTMLEmbedded *em)
 {
 	HTMLObject *o;
-	GtkRequisition req;
 	GtkHTMLEmbedded *eb;
+	GtkRequisition req;
 
 	o = HTML_OBJECT (em);
 
@@ -332,7 +306,7 @@ html_embedded_size_recalc(HTMLEmbedded *em)
 		return;
 	eb = (GtkHTMLEmbedded *)em->widget;
 
-	gtk_widget_size_request(em->widget, &req);
+	gtk_widget_size_request (em->widget, &req);
 
 	o->width = req.width;
 	if (GTK_IS_HTML_EMBEDDED(eb)) {
@@ -352,16 +326,15 @@ html_embedded_grab_cursor(GtkWidget *eb, GdkEvent *event)
 }
 
 HTMLEmbedded *
-html_embedded_new_widget(GtkWidget *parent, GtkHTMLEmbedded *eb)
+html_embedded_new_widget (GtkWidget *parent, GtkHTMLEmbedded *eb)
 {
 	HTMLEmbedded *em;
 
 	em = g_new0(HTMLEmbedded, 1);
 	html_embedded_init (em, HTML_EMBEDDED_CLASS (&html_embedded_class), parent, eb->name, "");
-
 	html_embedded_set_widget (em, GTK_WIDGET (eb));
 
-	html_embedded_size_recalc(em);
+	html_embedded_size_recalc (em);
 	gtk_signal_connect(GTK_OBJECT(eb), "button_press_event",
 			   GTK_SIGNAL_FUNC(html_embedded_grab_cursor), NULL);
 
@@ -381,14 +354,6 @@ allocate (GtkWidget *w, GtkAllocation  *allocation, HTMLEmbedded *e)
 		g_assert (GTK_IS_HTML (w->parent));
 		html_engine_schedule_update (GTK_HTML (w->parent)->engine);
 	}
-
-	e->allocated = TRUE;
-}
-
-static void
-request (GtkWidget *w, GtkRequisition *req, HTMLEmbedded *e)
-{
-	e->allocated = FALSE;
 }
 
 /* 
@@ -403,9 +368,8 @@ force_placement (HTMLEmbedded *element)
 	g_return_if_fail (element->widget != NULL);
 
 	gtk_widget_show (element->widget);			
-
-	gtk_layout_put(GTK_LAYOUT(element->parent), element->widget,
-		       10000, 10000);
+	gtk_layout_put (GTK_LAYOUT(element->parent), element->widget,
+			10000, 10000);
 
 	element->abs_x = 10000;
 	element->abs_y = 10000;
@@ -417,10 +381,6 @@ html_embedded_set_widget (HTMLEmbedded *e, GtkWidget *w)
 	e->widget = w;
 	
 	force_placement (e);
-
 	gtk_signal_connect (GTK_OBJECT (w), "size_allocate",
 			    GTK_SIGNAL_FUNC (allocate), e);
-	gtk_signal_connect (GTK_OBJECT (w), "size_request",
-			    GTK_SIGNAL_FUNC (request), e);
-
 }
