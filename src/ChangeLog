@@ -1,4 +1,9 @@
-2002-05-22  Radek Doulik  <rodo@ximian.com>
+22002-05-23  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml.c (selection_received): allow text/html selections.
+	(gtk_html_request_paste): request text/html selections.
+
+002-05-22  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (gtk_html_set_paragraph_style): fix the styles equal
 	condition

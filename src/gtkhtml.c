@@ -1707,13 +1707,26 @@ selection_received (GtkWidget *widget,
 	/* Make sure we got the data in the expected form */
 	if ((selection_data->type != gdk_atom_intern ("UTF8_STRING", FALSE))
 	    && (selection_data->type != GDK_SELECTION_TYPE_STRING)
-	    && (selection_data->type != gdk_atom_intern ("UTF-8", FALSE))) {
+	    && (selection_data->type != gdk_atom_intern ("UTF-8", FALSE))
+	    && (selection_data->type != gdk_atom_intern ("text/html", FALSE))) {
 		g_warning ("Selection \"STRING\" was not returned as strings!\n");
 	} else if (selection_data->length > 0) {
 		/* printf ("selection text \"%.*s\"\n", 
 			selection_data->length, selection_data->data); 
 		*/
-		if (selection_data->type != GDK_SELECTION_TYPE_STRING) {
+		if (selection_data->type == gdk_atom_intern ("text/html", FALSE)) {
+			gchar *utf8 = NULL;
+			
+			/* FIXME we need to make sure this is the right charset for all
+			   cases */
+			utf8 = e_utf8_from_charset_string_sized ("ucs2",
+								 selection_data->data,
+								 (guint) selection_data->length);
+
+			gtk_html_insert_html (GTK_HTML (widget), utf8);
+
+			g_free (utf8);			
+		} else if (selection_data->type != GDK_SELECTION_TYPE_STRING) {
 			html_engine_paste_text (e, selection_data->data,
 						g_utf8_strlen (selection_data->data, 
 							       selection_data->length));
@@ -1721,8 +1734,8 @@ selection_received (GtkWidget *widget,
 			gchar *utf8 = NULL;
 			
 			utf8 = e_utf8_from_gtk_string_sized (widget, 
-						       selection_data->data,
-						       (guint) selection_data->length);
+							     selection_data->data,
+							     (guint) selection_data->length);
 
 			html_engine_paste_text (e, utf8, g_utf8_strlen (utf8, -1));
 
@@ -1743,7 +1756,7 @@ gint
 gtk_html_request_paste (GtkHTML *html, GdkAtom selection, gint type, gint32 time)
 {
 	GdkAtom format_atom;
-	static char *formats[] = {"UTF8_STRING", "UTF-8", "STRING"};
+	static char *formats[] = {"text/html", "UTF8_STRING", "UTF-8", "STRING"};
 
 	if (type >= sizeof (formats) / sizeof (formats[0])) {
 		/* we have now tried all the slection types we support */
