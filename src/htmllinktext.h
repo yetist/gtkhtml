@@ -52,10 +52,9 @@ void html_link_text_type_init (void);
 void html_link_text_class_init (HTMLLinkTextClass *klass, HTMLType type);
 void html_link_text_init (HTMLLinkText *link_text_object,
 			  HTMLLinkTextClass *klass,
-			  gchar *text, HTMLFont *font, HTMLPainter *painter,
+			  gchar *text, HTMLFont *font,
 			  const gchar *url, const gchar *target);
 HTMLObject *html_link_text_new (gchar *text, HTMLFont *font,
-				HTMLPainter *painter,
 				const gchar *url, const gchar *target);
 
 #endif /* _HTMLLINKTEXT_H_ */

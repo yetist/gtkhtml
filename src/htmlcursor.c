@@ -178,7 +178,7 @@ forward (HTMLCursor *cursor,
 			const gchar *text;
 
 			text = HTML_TEXT (obj)->text;
-			if (text[offset] != 0) {
+			if (text[offset + 1] != 0) {
 				offset++;
 				goto end;
 			}
@@ -317,6 +317,10 @@ backward (HTMLCursor *cursor,
 			case HTML_TYPE_TEXTMASTER:
 			case HTML_TYPE_LINKTEXTMASTER:
 				offset = strlen (HTML_TEXT (obj)->text);
+				if (offset > 0)
+					offset--;
+				else
+					g_warning ("Zero-length text element.");
 				goto end;
 
 			case HTML_TYPE_TEXTSLAVE:

@@ -22,6 +22,7 @@
 #include <glib.h>
 
 #include "htmlobject.h"
+#include "htmlclueflow.h"
 #include "htmlcursor.h"
 #include "htmltext.h"
 #include "htmltextslave.h"
@@ -90,6 +91,95 @@ html_engine_move_cursor (HTMLEngine *e,
 	queue_draw_for_cursor (e);
 
 	return c;
+}
+
+
+/* Paragraph insertion.  */
+
+static HTMLObject *
+get_flow (HTMLObject *object)
+{
+	HTMLObject *p;
+
+	for (p = object->parent; p != NULL; p = p->parent) {
+		if (HTML_OBJECT_TYPE (p) == HTML_TYPE_CLUEFLOW)
+			break;
+	}
+
+	return p;
+}
+
+void
+html_engine_insert_para (HTMLEngine *e,
+			 gboolean vskip)
+{
+	HTMLObject *flow;
+	HTMLObject *flow_next;
+	HTMLObject *current;
+	guint offset;
+
+	g_return_if_fail (e != NULL);
+	g_return_if_fail (HTML_IS_ENGINE (e));
+	g_return_if_fail (e->cursor != NULL);
+	g_return_if_fail (e->cursor->object != NULL);
+
+	current = e->cursor->object;
+	offset = e->cursor->offset;
+
+	flow = get_flow (current);
+	if (flow == NULL) {
+		g_warning ("%s: Object %p (%s) is not contained in an HTMLClueFlow\n",
+			   __FUNCTION__, current, html_type_name (HTML_OBJECT_TYPE (current)));
+		return;
+	}
+
+	/* Remove text slaves, if any.  */
+
+	if (html_object_is_text (current) && current->next != NULL) {
+		HTMLObject *p;
+		HTMLObject *pnext;
+
+		for (p = current->next;
+		     p != NULL && HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE;
+		     p = pnext) {
+			pnext = p->next;
+			html_object_destroy (p);
+		}
+
+		current->next = p;
+		if (p != NULL)
+			p->prev = current;
+	}
+
+	if (current->next != NULL) {
+		flow_next = HTML_OBJECT (html_clueflow_split (HTML_CLUEFLOW (flow),
+							      current->next));
+	} else {
+		/* FIXME not sure about the values to pass here.  */
+		flow_next = html_clueflow_new (0, 0, 100, 100);
+	}
+
+	html_clue_append_after (HTML_CLUE (flow->parent), flow_next, flow);
+
+	if (html_object_is_text (current)) {
+		HTMLObject *text_next;
+
+		text_next = HTML_OBJECT (html_text_split (HTML_TEXT (current), offset));
+		html_clue_prepend (HTML_CLUE (flow_next), text_next);
+		e->cursor->object = text_next;
+		e->cursor->offset = 0;
+		e->cursor->have_target_x = FALSE;
+	} else {
+		/* FIXME */
+	}
+
+	if (flow->parent == NULL) {
+		html_object_relayout (flow, e, NULL);
+		html_engine_queue_draw (e, flow);
+	} else {
+		html_object_relayout (flow->parent, e, flow);
+		html_engine_queue_draw (e, flow->parent);
+	}
 }
 
 

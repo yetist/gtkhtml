@@ -54,9 +54,8 @@ void html_link_text_master_class_init (HTMLLinkTextMasterClass *klass,
 void html_link_text_master_init (HTMLLinkTextMaster *link_text_master_object,
 				 HTMLLinkTextMasterClass *klass,
 				 gchar *text, HTMLFont *font,
-				 HTMLPainter *painter,
 				 const gchar *url, const gchar *target);
 HTMLObject *html_link_text_master_new (gchar *text, HTMLFont *font,
-				       HTMLPainter *painter, const gchar *url, const gchar *target);
+				       const gchar *url, const gchar *target);
 
 #endif /* _HTMLLINKTEXTMASTER_H_ */

@@ -93,7 +93,7 @@ struct _HTMLObject {
 	gint x, y;
 
 	gint ascent, descent;
-	HTMLFont *font;
+	/*  HTMLFont *font; */
 
 	/* FIXME unsigned? */
 	gshort width;

@@ -176,6 +176,27 @@ calc_char_position (HTMLText *self,
 				     offset);
 }
 
+static HTMLText *
+split (HTMLText *self,
+       guint offset)
+{
+	HTMLText *new;
+	guint len;
+	gchar *s;
+
+	len = strlen (self->text);
+	if (offset >= len || offset == 0)
+		return NULL;
+
+	s = g_strdup (self->text + offset);
+	new = HTML_TEXT (html_text_new (s, self->font));
+
+	self->text = g_realloc (self->text, offset + 1);
+	self->text[offset] = '\0';
+
+	return new;
+}
+
 
 void
 html_text_type_init (void)
@@ -204,16 +225,18 @@ html_text_class_init (HTMLTextClass *klass,
 	klass->remove_text = remove_text;
 	klass->queue_draw = queue_draw;
 	klass->calc_char_position = calc_char_position;
+	klass->split = split;
 }
 
 void
 html_text_init (HTMLText *text_object,
 		HTMLTextClass *klass,
 		gchar *text,
-		HTMLFont *font,
-		HTMLPainter *painter)
+		HTMLFont *font)
 {
 	HTMLObject *object;
+
+	g_return_if_fail (font != NULL);
 
 	object = HTML_OBJECT (text_object);
 
@@ -228,13 +251,13 @@ html_text_init (HTMLText *text_object,
 }
 
 HTMLObject *
-html_text_new (gchar *text, HTMLFont *font, HTMLPainter *painter)
+html_text_new (gchar *text, HTMLFont *font)
 {
 	HTMLText *text_object;
 
 	text_object = g_new (HTMLText, 1);
 
-	html_text_init (text_object, &html_text_class, text, font, painter);
+	html_text_init (text_object, &html_text_class, text, font);
 
 	return HTML_OBJECT (text_object);
 }
@@ -291,4 +314,14 @@ html_text_calc_char_position (HTMLText *text,
 
 	(* HT_CLASS (text)->calc_char_position) (text, offset,
 						 x_return, y_return);
+}
+
+HTMLText *
+html_text_split (HTMLText *text,
+		 guint offset)
+{
+	g_return_val_if_fail (text != NULL, NULL);
+	g_return_val_if_fail (offset > 0, NULL);
+
+	return (* HT_CLASS (text)->split) (text, offset);
 }

@@ -38,6 +38,14 @@ draw (HTMLObject *o, HTMLPainter *p, HTMLCursor *cursor,
 	/* FIXME: Sane Check */
 	
 	html_painter_draw_text (p, o->x + tx, o->y + ty, " ", 1);
+
+	(* html_object_class.draw) (o, p, cursor, x, y, width, height, tx, ty);
+}
+
+static gboolean
+accepts_cursor (HTMLObject *self)
+{
+	return TRUE;
 }
 
 
@@ -60,13 +68,13 @@ html_hspace_class_init (HTMLHSpaceClass *klass,
 	/* FIXME destroy? */
 
 	object_class->draw = draw;
+	object_class->accepts_cursor = accepts_cursor;
 }
 
 void
 html_hspace_init (HTMLHSpace *hspace,
 		  HTMLHSpaceClass *klass,
 		  HTMLFont *font,
-		  HTMLPainter *painter,
 		  gboolean hidden)
 {
 	HTMLObject *object;
@@ -83,19 +91,19 @@ html_hspace_init (HTMLHSpace *hspace,
 	if (!hidden)
 		object->width = html_font_calc_width (font, " ", -1);
 	else
-		object->width = 0;
+		object->width = 1;
 
 	object->flags |= HTML_OBJECT_FLAG_SEPARATOR;
 	object->flags &= ~HTML_OBJECT_FLAG_HIDDEN;
 }
 
 HTMLObject *
-html_hspace_new (HTMLFont *font, HTMLPainter *painter, gboolean hidden)
+html_hspace_new (HTMLFont *font, gboolean hidden)
 {
 	HTMLHSpace *hspace;
 
 	hspace = g_new0 (HTMLHSpace, 1);
-	html_hspace_init (hspace, &html_hspace_class, font, painter, hidden);
+	html_hspace_init (hspace, &html_hspace_class, font, hidden);
 
 	return HTML_OBJECT (hspace);
 }

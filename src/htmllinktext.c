@@ -55,6 +55,32 @@ get_target (HTMLObject *object)
 	return HTML_LINK_TEXT (object)->target;
 }
 
+static HTMLText *
+split (HTMLText *self,
+       guint offset)
+{
+	HTMLText *new;
+	HTMLLinkText *link_text;
+	guint len;
+	gchar *s;
+
+	link_text = HTML_LINK_TEXT (self);
+
+	len = strlen (self->text);
+	if (offset >= len || offset == 0)
+		return NULL;
+
+	s = g_strdup (self->text + offset);
+	new = HTML_TEXT (html_link_text_new (s, self->font,
+					     link_text->url,
+					     link_text->target));
+
+	self->text = g_realloc (self->text, offset + 1);
+	self->text[offset] = '\0';
+
+	return new;
+}
+
 
 void
 html_link_text_type_init (void)
@@ -78,6 +104,8 @@ html_link_text_class_init (HTMLLinkTextClass *klass,
 	object_class->get_url = get_url;
 	object_class->get_target = get_target;
 
+	text_class->split = split;
+
 	parent_class = &html_text_class;
 }
 
@@ -86,23 +114,22 @@ html_link_text_init (HTMLLinkText *link_text_object,
 		     HTMLLinkTextClass *klass,
 		     gchar *text,
 		     HTMLFont *font,
-		     HTMLPainter *painter,
 		     const gchar *url,
 		     const gchar *target)
 {
 	HTMLText *text_object;
 
 	text_object = HTML_TEXT (link_text_object);
-	html_text_init (text_object, HTML_TEXT_CLASS (klass), text,
-			font, painter);
+	html_text_init (text_object, HTML_TEXT_CLASS (klass), text, font);
 
 	link_text_object->url = g_strdup (url);
 	link_text_object->target = g_strdup (target);
 }
 
 HTMLObject *
-html_link_text_new (gchar *text, HTMLFont *font,
-		    HTMLPainter *painter, const gchar *url,
+html_link_text_new (gchar *text,
+		    HTMLFont *font,
+		    const gchar *url,
 		    const gchar *target)
 {
 	HTMLLinkText *link_text_object;
@@ -117,7 +144,7 @@ html_link_text_new (gchar *text, HTMLFont *font,
 	g_print (")\n");
 
 	html_link_text_init (link_text_object, &html_link_text_class,
-			     text, font, painter, url, target);
+			     text, font, url, target);
 
 	return HTML_OBJECT (link_text_object);
 }

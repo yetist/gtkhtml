@@ -47,9 +47,6 @@ HTMLObjectClass html_object_class;
 static void
 destroy (HTMLObject *o)
 {
-	if (o->font != NULL)
-		html_font_destroy (o->font);
-
 	if (o->redraw_pending) {
 		g_warning ("Object %p (type %s) has a redraw pending and is being destroyed.",
 			   o, html_type_name (HTML_OBJECT_TYPE (o)));
@@ -272,7 +269,6 @@ html_object_init (HTMLObject *o,
 
 	o->ascent = 0;
 	o->descent = 0;
-	o->font = NULL;
 
 	o->width = 0;
 	o->max_width = 0;
@@ -299,10 +295,6 @@ void
 html_object_set_parent (HTMLObject *o,
 			HTMLObject *parent)
 {
-	/* If this happens, something must be broken: we are not moving
-           elements around at the moment.  */
-	g_return_if_fail (o->parent == NULL);
-
 	o->parent = parent;
 }
 

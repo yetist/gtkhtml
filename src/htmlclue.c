@@ -420,19 +420,100 @@ html_clue_appended (HTMLClue *clue, HTMLClue *aclue)
 }
 
 
-/* Utility function.  */
+/* Utility functions.  */
+
+static HTMLObject *
+get_tail (HTMLObject *p)
+{
+	if (p == NULL)
+		return NULL;
+
+	while (p->next != NULL)
+		p = p->next;
+
+	return p;
+}
+
+static void
+set_parent (HTMLObject *o,
+	    HTMLObject *tail,
+	    HTMLObject *parent)
+{
+	while (1) {
+		html_object_set_parent (o, parent);
+		if (o == tail)
+			break;
+		o = o->next;
+	}
+}
 
 void
-html_clue_append (HTMLClue *clue, HTMLObject *o)
+html_clue_append_after (HTMLClue *clue,
+			HTMLObject *o,
+			HTMLObject *where)
 {
+	HTMLObject *tail;
+
+	g_return_if_fail (where->parent == HTML_OBJECT (clue));
+
+	tail = get_tail (o);
+
+	if (where->next != NULL)
+		where->next->prev = tail;
+	tail->next = where->next;
+
+	where->next = o;
+	o->prev = where;
+
+	if (where == clue->tail)
+		clue->tail = tail;
+
+	set_parent (o, tail, HTML_OBJECT (clue));
+}
+
+void
+html_clue_append (HTMLClue *clue,
+		  HTMLObject *o)
+{
+	HTMLObject *tail;
+
+	tail = get_tail (o);
+
 	if (! clue->head) {
-		clue->head = clue->tail = o;
+		clue->head = o;
 		o->prev = NULL;
 	} else {
 		clue->tail->next = o;
 		o->prev = clue->tail;
-		clue->tail = o;
 	}
 
+	clue->tail = tail;
+	tail->next = NULL;
+
 	html_object_set_parent (o, HTML_OBJECT (clue));
+
+	set_parent (o, tail, HTML_OBJECT (clue));
+}
+
+void
+html_clue_prepend (HTMLClue *clue,
+		   HTMLObject *o)
+{
+	HTMLObject *tail;
+
+	tail = get_tail (o);
+
+	if (! clue->head) {
+		clue->head = o;
+		clue->tail = tail;
+		o->prev = NULL;
+	} else {
+		o->next = clue->head;
+		clue->head->prev = o;
+		clue->head = o;
+	}
+
+	o->prev = NULL;
+
+	set_parent (o, tail, HTML_OBJECT (clue));
 }

@@ -89,6 +89,29 @@ fit_line (HTMLObject *o,
 	return HTML_FIT_COMPLETE;
 }
 
+static HTMLText *
+split (HTMLText *self,
+       guint offset)
+{
+	HTMLTextMaster *master;
+	HTMLObject *new;
+	gchar *s;
+
+	master = HTML_TEXT_MASTER (self);
+
+	if (offset >= master->strLen || offset == 0)
+		return NULL;
+
+	s = g_strdup (self->text + offset);
+	new = html_text_master_new (s, self->font);
+
+	self->text = g_realloc (self->text, offset + 1);
+	self->text[offset] = '\0';
+	master->strLen = offset;
+
+	return HTML_TEXT (new);
+}
+
 
 /* HTMLText methods.  */
 
@@ -212,14 +235,14 @@ html_text_master_class_init (HTMLTextMasterClass *klass,
 	text_class->remove_text = remove_text;
 	text_class->queue_draw = queue_draw;
 	text_class->calc_char_position = calc_char_position;
+	text_class->split = split;
 }
 
 void
 html_text_master_init (HTMLTextMaster *master,
 		       HTMLTextMasterClass *klass,
 		       gchar *text,
-		       HTMLFont *font,
-		       HTMLPainter *painter)
+		       HTMLFont *font)
 {
 	HTMLText* html_text;
 	HTMLObject *object;
@@ -229,8 +252,7 @@ html_text_master_init (HTMLTextMaster *master,
 	html_text = HTML_TEXT (master);
 	object = HTML_OBJECT (master);
 
-	html_text_init (html_text, HTML_TEXT_CLASS (klass),
-			text, font, painter);
+	html_text_init (html_text, HTML_TEXT_CLASS (klass), text, font);
 
 	object->width = 0;	/* FIXME why? */
 	object->ascent = html_font_calc_ascent (font);
@@ -260,13 +282,12 @@ html_text_master_init (HTMLTextMaster *master,
 }
 
 HTMLObject *
-html_text_master_new (gchar *text, HTMLFont *font, HTMLPainter *painter)
+html_text_master_new (gchar *text, HTMLFont *font)
 {
 	HTMLTextMaster *master;
 
 	master = g_new (HTMLTextMaster, 1);
-	html_text_master_init (master, &html_text_master_class,
-			       text, font, painter);
+	html_text_master_init (master, &html_text_master_class, text, font);
 
 	return HTML_OBJECT (master);
 }

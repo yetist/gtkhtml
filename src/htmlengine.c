@@ -91,6 +91,147 @@ enum ID {
 };
 
 
+/* Utility functions.  */
+
+static void
+close_anchor (HTMLEngine *e)
+{
+	if (e->url != NULL) {
+		html_engine_pop_color (e);
+		html_engine_pop_font (e);
+		html_url_destroy (e->url);
+	}
+
+	/* FIXME */
+	e->url = NULL;
+
+	g_free (e->target);
+	e->target = NULL;
+}
+
+static void
+select_font_relative (HTMLEngine *e,
+		      gint _relative_font_size)
+{
+	HTMLFont *top;
+	HTMLFont *f;
+	gint fontsize;
+
+	e->fontsize = e->settings->fontBaseSize + _relative_font_size;
+
+	top = html_stack_top (e->fs);
+	if ( top == NULL) {
+		fontsize = e->settings->fontBaseSize;
+		return;
+	}
+
+	if ( e->fontsize < 0 )
+		e->fontsize = 0;
+	else if ( e->fontsize >= HTML_NUM_FONT_SIZES )
+		e->fontsize = HTML_NUM_FONT_SIZES - 1;
+
+	f = html_font_new ( top->family, e->fontsize,
+			    e->settings->fontSizes,
+			    e->bold, e->italic, e->underline);
+	html_font_set_color (f, html_stack_top (e->cs));
+
+	html_stack_push (e->fs, f);
+	html_painter_set_font (e->painter, f);
+}
+
+static void
+select_font_full (HTMLEngine *e,
+		  const gchar *_fontfamily,
+		  guint _fontsize,
+		  guint _bold,
+		  gboolean _italic,
+		  gboolean _underline)
+{
+
+	HTMLFont *f;
+
+	if ( _fontsize < 0 )
+		_fontsize = 0;
+	else if ( _fontsize >= HTML_NUM_FONT_SIZES )
+		_fontsize = HTML_NUM_FONT_SIZES - 1;
+
+	f = html_font_new ( _fontfamily, _fontsize, e->settings->fontSizes,
+			    _bold, _italic, _underline);
+
+	html_font_set_color (f, html_stack_top (e->cs));
+
+	html_stack_push (e->fs, f);
+	html_painter_set_font (e->painter, f);
+}
+
+/* FIXME this implementation is a bit lame.  :-) */
+static gchar *
+to_roman ( gint number, gboolean upper )
+{
+	GString *roman;
+	char ldigits[] = { 'i', 'v', 'x', 'l', 'c', 'd', 'm' };
+	char udigits[] = { 'I', 'V', 'X', 'L', 'C', 'D', 'M' };
+	char *digits = upper ? udigits : ldigits;
+	int i, d = 0;
+	gchar *s;
+
+	roman = g_string_new (NULL);
+
+	do {   
+		int num = number % 10;
+
+		if ( num % 5 < 4 )
+			for ( i = num % 5; i > 0; i-- )
+				g_string_insert_c( roman, 0, digits[ d ] );
+
+		if ( num >= 4 && num <= 8)
+			g_string_insert_c( roman, 0, digits[ d+1 ] );
+
+		if ( num == 9 )
+			g_string_insert_c( roman, 0, digits[ d+2 ] );
+
+		if ( num % 5 == 4 )
+			g_string_insert_c( roman, 0, digits[ d ] );
+
+		number /= 10;
+		d += 2;
+	} while ( number );
+
+	/* WARNING: Unlike the KDE implementation, this one appends the dot and the
+	   space as well, to save extra copying and allocation. */
+	g_string_append (roman, ". ");
+
+	s = roman->str;
+	g_string_free (roman, FALSE);
+
+	return s;
+}
+
+static void
+close_flow (HTMLEngine *e)
+{
+	HTMLObject *prev;
+
+	if (e->flow == NULL)
+		return;
+
+	/* The following kludgy code makes sure there is always an hspace at
+           the end of a clueflow, for editing.  */
+
+	prev = HTML_CLUE (e->flow)->tail;
+
+	/* FIXME: is_a */
+	if (HTML_OBJECT_TYPE (prev) != HTML_TYPE_HSPACE) {
+		HTMLObject *hspace;
+
+		hspace = html_hspace_new (html_engine_get_current_font (e), TRUE);
+		html_clue_append (HTML_CLUE (e->flow), hspace);
+	}
+
+	e->flow = NULL;
+}
+
+
 /* Block stack.  */
 
 typedef void (*BlockFunc)(HTMLEngine *e, HTMLObject *clue, HTMLBlockStackElement *el);
@@ -211,14 +352,11 @@ block_end_pre ( HTMLEngine *e, HTMLObject *_clue, HTMLBlockStackElement *elem)
 	if (!e->flow)
 		html_engine_new_flow (e, _clue );
 
-	html_clue_append (HTML_CLUE (e->flow),
-			  html_hspace_new ( html_engine_get_current_font (e),
-					    e->painter, TRUE ));
+	close_flow (e);
 
 	html_engine_pop_font (e);
 
 	e->vspace_inserted = html_engine_insert_vspace(e, _clue, e->vspace_inserted );
-	e->flow = 0;
 	e->inPre = FALSE;
 }
 
@@ -238,16 +376,18 @@ block_end_list (HTMLEngine *e, HTMLObject *clue, HTMLBlockStackElement *elem)
 	}
 
 	html_list_destroy (html_stack_pop (e->listStack));
+
+	close_flow (e);
 	
 	e->indent = elem->miscData1;
-	e->flow = 0;
 }
 
 static void
 block_end_indent (HTMLEngine *e, HTMLObject *clue, HTMLBlockStackElement *elem)
 {
+	close_flow (e);
+
 	e->indent = elem->miscData1;
-	e->flow = 0;
 }
 
 static void
@@ -255,124 +395,6 @@ block_end_div (HTMLEngine *e, HTMLObject *clue, HTMLBlockStackElement *elem)
 {
 	e->divAlign =  (HTMLHAlignType) elem->miscData1;
 	e->flow = 0;
-}
-
-
-/* Utility functions.  */
-
-static void
-close_anchor (HTMLEngine *e)
-{
-	if (e->url != NULL) {
-		html_engine_pop_color (e);
-		html_engine_pop_font (e);
-		html_url_destroy (e->url);
-	}
-
-	/* FIXME */
-	e->url = NULL;
-
-	g_free (e->target);
-	e->target = NULL;
-}
-
-/* FIXME FIXME FIXME this is just a dummy.  */
-static void
-select_font_relative (HTMLEngine *e,
-		      gint _relative_font_size)
-{
-	HTMLFont *top;
-	HTMLFont *f;
-	gint fontsize;
-
-	e->fontsize = e->settings->fontBaseSize + _relative_font_size;
-
-	top = html_stack_top (e->fs);
-	if ( top == NULL) {
-		fontsize = e->settings->fontBaseSize;
-		return;
-	}
-
-	if ( e->fontsize < 0 )
-		e->fontsize = 0;
-	else if ( e->fontsize >= HTML_NUM_FONT_SIZES )
-		e->fontsize = HTML_NUM_FONT_SIZES - 1;
-
-	f = html_font_new ( top->family, e->fontsize,
-			    e->settings->fontSizes,
-			    e->bold, e->italic, e->underline);
-	html_font_set_color (f, html_stack_top (e->cs));
-
-	html_stack_push (e->fs, f);
-	html_painter_set_font (e->painter, f);
-}
-
-static void
-select_font_full (HTMLEngine *e,
-		  const gchar *_fontfamily,
-		  guint _fontsize,
-		  guint _bold,
-		  gboolean _italic,
-		  gboolean _underline)
-{
-
-	HTMLFont *f;
-
-	if ( _fontsize < 0 )
-		_fontsize = 0;
-	else if ( _fontsize >= HTML_NUM_FONT_SIZES )
-		_fontsize = HTML_NUM_FONT_SIZES - 1;
-
-	f = html_font_new ( _fontfamily, _fontsize, e->settings->fontSizes,
-			    _bold, _italic, _underline);
-
-	html_font_set_color (f, html_stack_top (e->cs));
-
-	html_stack_push (e->fs, f);
-	html_painter_set_font (e->painter, f);
-}
-
-/* FIXME this implementation is a bit lame.  :-) */
-static gchar *
-to_roman ( gint number, gboolean upper )
-{
-	GString *roman;
-	char ldigits[] = { 'i', 'v', 'x', 'l', 'c', 'd', 'm' };
-	char udigits[] = { 'I', 'V', 'X', 'L', 'C', 'D', 'M' };
-	char *digits = upper ? udigits : ldigits;
-	int i, d = 0;
-	gchar *s;
-
-	roman = g_string_new (NULL);
-
-	do {   
-		int num = number % 10;
-
-		if ( num % 5 < 4 )
-			for ( i = num % 5; i > 0; i-- )
-				g_string_insert_c( roman, 0, digits[ d ] );
-
-		if ( num >= 4 && num <= 8)
-			g_string_insert_c( roman, 0, digits[ d+1 ] );
-
-		if ( num == 9 )
-			g_string_insert_c( roman, 0, digits[ d+2 ] );
-
-		if ( num % 5 == 4 )
-			g_string_insert_c( roman, 0, digits[ d ] );
-
-		number /= 10;
-		d += 2;
-	} while ( number );
-
-	/* WARNING: Unlike the KDE implementation, this one appends the dot and the
-	   space as well, to save extra copying and allocation. */
-	g_string_append (roman, ". ");
-
-	s = roman->str;
-	g_string_free (roman, FALSE);
-
-	return s;
 }
 
 
@@ -433,7 +455,7 @@ parse_body (HTMLEngine *p, HTMLObject *clue, const gchar *end[], gboolean toplev
 
 				/* Add a hidden space to get the line-height right */
 				html_clue_append (HTML_CLUE (p->flow),
-						  html_hspace_new (html_engine_get_current_font (p), p->painter, TRUE));
+						  html_hspace_new (html_engine_get_current_font (p), TRUE));
 				p->vspace_inserted = TRUE;
 				
 				html_engine_new_flow (p, clue);
@@ -1214,8 +1236,8 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	} else if ( strncmp(str, "blockquote", 10 ) == 0 ) {
 		push_block (e, ID_BLOCKQUOTE, 2,
 			    block_end_indent, e->indent, 0);
+		close_flow (e);
 		e->indent += INDENT_SIZE;
-		e->flow = NULL;
 	} else if ( strncmp(str, "/blockquote", 11 ) == 0 ) {
 		pop_block (e, ID_BLOCKQUOTE, clue);
 	} else if (strncmp (str, "body", 4) == 0) {
@@ -1933,8 +1955,7 @@ parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 
 			p->tempStrings = g_list_prepend (p->tempStrings, item);
 
-			text = html_text_new (item, html_engine_get_current_font (p),
-					      p->painter);
+			text = html_text_new (item, html_engine_get_current_font (p));
 
 			html_clue_append (HTML_CLUE (p->flow), text);
 			break;
@@ -2842,6 +2863,7 @@ html_engine_insert_vspace (HTMLEngine *e, HTMLObject *clue, gboolean vspace_inse
 
 	if (!vspace_inserted) {
 		f = html_clueflow_new (0, 0, clue->max_width, 100);
+
 		html_clue_append (HTML_CLUE (clue), f);
 
 		/* FIXME: correct font size */
@@ -2849,7 +2871,7 @@ html_engine_insert_vspace (HTMLEngine *e, HTMLObject *clue, gboolean vspace_inse
 				     HTML_CLEAR_NONE);
 		html_clue_append (HTML_CLUE (f), t);
 		
-		e->flow = NULL;
+		close_flow (e);
 	}
 	
 	return TRUE;
@@ -2997,17 +3019,17 @@ html_engine_insert_text (HTMLEngine *e, const gchar *str, HTMLFont *f)
 				if (textType == variable) {
 					if (e->url || e->target)
 						obj = html_link_text_master_new
-							(g_strdup (s), f, e->painter, url_string, e->target);
+							(g_strdup (s), f, url_string, e->target);
 					else
-						obj = html_text_master_new (g_strdup (s), f, e->painter);
+						obj = html_text_master_new (g_strdup (s), f);
 					html_clue_append (HTML_CLUE (e->flow), obj);
 				}
 				else {
 					if (e->url || e->target)
 						obj = html_link_text_new (g_strdup (s), f,
-									  e->painter, url_string, e->target);
+									  url_string, e->target);
 					else
-						obj = html_text_new (g_strdup (s), f, e->painter);
+						obj = html_text_new (g_strdup (s), f);
 					html_clue_append (HTML_CLUE (e->flow), obj);
 				}
 
@@ -3019,13 +3041,13 @@ html_engine_insert_text (HTMLEngine *e, const gchar *str, HTMLFont *f)
 					gchar *url_string;
 
 					url_string = html_url_to_string (e->url);
-					obj = html_link_text_new (g_strdup (" "), f, e->painter,
+					obj = html_link_text_new (g_strdup (" "), f,
 								  url_string, e->target);
 					obj->flags |= HTML_OBJECT_FLAG_SEPARATOR;
 					html_clue_append (HTML_CLUE (e->flow), obj);
 					g_free (url_string);
 				} else {
-					obj = html_hspace_new (f, e->painter, FALSE);
+					obj = html_hspace_new (f, FALSE);
 					html_clue_append (HTML_CLUE (e->flow), obj);
 				}
 			}
@@ -3035,13 +3057,13 @@ html_engine_insert_text (HTMLEngine *e, const gchar *str, HTMLFont *f)
 
 					/* FIXME this sucks */
 					url_string = html_url_to_string (e->url);
-					obj = html_link_text_new (g_strdup (" "), f, e->painter,
-								  url_string, e->target);
+					obj = html_link_text_new (g_strdup (" "), f, url_string,
+								  e->target);
 					obj->flags &= ~HTML_OBJECT_FLAG_SEPARATOR;
 					html_clue_append (HTML_CLUE (e->flow), obj);
 					g_free (url_string);
 				} else {
-					obj = html_hspace_new (f, e->painter, FALSE);
+					obj = html_hspace_new (f, FALSE);
 					obj->flags &= ~HTML_OBJECT_FLAG_SEPARATOR;
 					html_clue_append (HTML_CLUE (e->flow), obj);
 				}

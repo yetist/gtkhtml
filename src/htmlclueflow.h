@@ -22,6 +22,7 @@
 #define _HTMLCLUEFLOW_H_
 
 #include "htmlobject.h"
+#include "htmlclue.h"
 
 #define HTML_CLUEFLOW(x) ((HTMLClueFlow *)(x))
 #define HTML_CLUEFLOW_CLASS(x) ((HTMLClueFlow *)(x))
@@ -48,5 +49,7 @@ void html_clueflow_class_init (HTMLClueFlowClass *klass, HTMLType type);
 void html_clueflow_init (HTMLClueFlow *flow, HTMLClueFlowClass *klass,
 			 gint x, gint y, gint max_width, gint percent);
 HTMLObject *html_clueflow_new (gint x, gint y, gint max_width, gint percent);
+
+HTMLClueFlow *html_clueflow_split (HTMLClueFlow *clue, HTMLObject *child);
 
 #endif /* _HTMLCLUEFLOW_H_ */

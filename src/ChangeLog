@@ -1,5 +1,79 @@
 1999-12-30  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlobject.c (destroy): Do not deal with the font anymore.
+
+	* htmlobject.h: Removed member `font' from `HTMLObject'.  Bleargh.
+	This was truly awful and caused a lot of confusion in the code (as
+	`HTML_{TEXT,HSPACE} (obj)->font' was used and `obj->font' was
+	always NULL).  It also wasted 4 bytes per object just for nothing.
+
+	* htmltext.c (html_text_init): Precondition: the font pointer must
+	not be NULL.
+
+	* htmllinktext.c (split): New function, implementation for
+	`HTMLText::split'.
+	(html_link_text_class_init): Install it.
+
+	* htmllinktextmaster.c (split): New function, implementation for
+	`HTMLText::split'.
+	(html_link_text_master_class_init): Install it.
+
+	* htmltextmaster.c (split): New function, implementation for
+	`HTMLText::split'.
+	(html_text_master_class_init): Install it.
+
+	* htmltext.c (html_text_split): New function.
+	(split): New function, default implementation for
+	`HTMLText::split()'.
+	(html_text_class_init): Install it.
+
+	* htmltext.h: New virtual method `split'.
+
+	* htmlclue.c (html_clue_prepend): New function.
+	(html_clue_append_after): New function.
+
+	* htmllinktextmaster.c (html_link_text_master_init): Removed
+	parameter `painter'.
+	(html_link_text_master_new): Likewise.
+
+	* htmlclue.c (html_clue_append): Set the child's `next' pointer to
+	NULL.
+
+	* htmltextmaster.c (html_text_master_init): Removed parameter
+	`painter'.
+	(html_text_master_new): Likewise.
+
+	* htmltext.c (html_text_init): Removed parameter `painter'.
+	(html_text_new): Likewise.
+
+	* htmlhspace.c (html_hspace_init): Removed parameter `painter'.
+	(html_hspace_new): Likewise.
+
+	* htmlclue.c (html_clue_split): New function.
+
+	* htmlobject.c (html_object_set_parent): Allow setting a NULL
+	parent.
+
+	* htmlcursor.c (forward): Never put the cursor after the last
+	character of the text.
+	(backward): Likewise.
+
+	* htmlengine.c: Moved helper functions on top.
+	(close_flow): New helper function for closing the current
+	ClueFlow.
+	(block_end_pre): Use it.
+	(html_engine_insert_vspace): Use it.
+	(block_end_list): Use it.
+	(block_end_indent): Use it.
+	(parse_b): Use it.
+
+	* htmlhspace.c (draw): Call `HTMLObject::draw()' so that we can
+	have the cursor on this.
+	(accepts_cursor): New function, implementation for
+	`HTMLObject::accepts_cursor()'.
+	(html_hspace_class_init): Install it.
+	(html_hspace_init): Set the width to 1 if the hspace is invisible.
+
 	* htmlengine.c (html_engine_end): Move the cursor to the home
 	position only if the engine is in the editable state.
 

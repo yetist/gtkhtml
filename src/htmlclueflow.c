@@ -1,7 +1,9 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
-/* This file is part of the KDE libraries
+/* This file is part of the GtkHTML library.
+
    Copyright (C) 1997 Martin Jones (mjones@kde.org)
-   (C) 1997 Torben Weis (weis@kde.org)
+   Copyright (C) 1997 Torben Weis (weis@kde.org)
+   Copyright (C) 1999 Helix Code, Inc.
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -18,9 +20,12 @@
    the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
    Boston, MA 02111-1307, USA.
 */
+
 #include "htmlclue.h"
 #include "htmlclueflow.h"
 #include "htmlcluealigned.h"
+#include "htmltext.h"
+#include "htmlhspace.h"
 #include "htmlvspace.h"
 
 
@@ -426,4 +431,61 @@ html_clueflow_new (gint x, gint y, gint max_width, gint percent)
 			    x, y, max_width, percent);
 
 	return HTML_OBJECT (clueflow);
+}
+
+
+/* Clue splitting (for editing).  */
+
+/**
+ * html_clue_split:
+ * @clue: 
+ * @child: 
+ * 
+ * Remove @child and its successors from @clue, and create a new clue
+ * containing them.  The new clue has the same properties as the original clue.
+ * 
+ * Return value: A pointer to the new clue.
+ **/
+HTMLClueFlow *
+html_clueflow_split (HTMLClueFlow *clue,
+		     HTMLObject *child)
+{
+	HTMLClueFlow *new;
+	HTMLObject *prev;
+
+	g_return_val_if_fail (clue != NULL, NULL);
+	g_return_val_if_fail (child != NULL, NULL);
+
+	/* Create the new clue.  */
+
+	new = HTML_CLUEFLOW (html_clueflow_new (0, 0,
+						HTML_OBJECT (clue)->max_width,
+						HTML_OBJECT (clue)->percent));
+
+	new->indent = clue->indent;
+
+	/* Remove the children from the original clue.  */
+
+	prev = child->prev;
+
+	child->prev->next = NULL;
+	child->prev = NULL;
+
+	/* The last text element in an HTMLClueFlow must be followed by an
+           hidden hspace.  */
+
+	if (html_object_is_text (prev)) {
+		HTMLObject *hspace;
+
+		hspace = html_hspace_new (HTML_TEXT (prev)->font, TRUE);
+		html_clue_append (HTML_CLUE (clue), hspace);
+	}
+
+	/* Put the children into the new clue.  */
+
+	html_clue_append (HTML_CLUE (new), child);
+
+	/* Return the new clue.  */
+
+	return new;
 }

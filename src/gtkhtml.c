@@ -248,6 +248,10 @@ key_press_event (GtkWidget *widget,
 		html_engine_delete (engine, 1);
 		retval = TRUE;
 		break;
+	case GDK_Return:
+		html_engine_insert_para (engine, TRUE);
+		retval = TRUE;
+		break;
 	case GDK_BackSpace:
 		if (html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_LEFT, 1) == 1)
 			html_engine_delete (engine, 1);
