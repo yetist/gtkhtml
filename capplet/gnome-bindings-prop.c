@@ -146,7 +146,8 @@ keymap_entry_destroy (KeymapEntry *ke)
 static gchar *
 string_from_key (guint keyval, guint mods)
 {
-	return (keyval) ? g_strconcat ((mods & GDK_CONTROL_MASK) ? "C-" : "",
+	return (keyval) ? g_strconcat ((mods & GDK_SHIFT_MASK) ? "S-" : "",
+				       (mods & GDK_CONTROL_MASK) ? "C-" : "",
 				       (mods & GDK_MOD1_MASK) ? "M-" : "",
 				       gdk_keyval_name (keyval), NULL)
 		: g_strdup (_("<None>"));
@@ -162,6 +163,8 @@ key_from_string (gchar *str, guint *keyval, guint *modifiers)
 			*modifiers |= GDK_CONTROL_MASK;
 		} else if (str [0] == 'm' || str [0] == 'M') {
 			*modifiers |= GDK_MOD1_MASK;
+		} else if (str [0] == 's' || str [0] == 'S') {
+			*modifiers |= GDK_SHIFT_MASK;
 		} else
 			return FALSE;
 		str += 2;
@@ -170,9 +173,22 @@ key_from_string (gchar *str, guint *keyval, guint *modifiers)
 				*modifiers |= GDK_CONTROL_MASK;
 			} else if (str [0] == 'm' || str [0] == 'M') {
 				*modifiers |= GDK_MOD1_MASK;
+			} else if (str [0] == 's' || str [0] == 'S') {
+				*modifiers |= GDK_SHIFT_MASK;
 			} else
 				return FALSE;
 			str += 2;
+			if (len > 5 && str [1] == '-') {
+				if (str [0] == 'c' || str [0] == 'C') {
+					*modifiers |= GDK_CONTROL_MASK;
+				} else if (str [0] == 'm' || str [0] == 'M') {
+					*modifiers |= GDK_MOD1_MASK;
+				} else if (str [0] == 's' || str [0] == 'S') {
+					*modifiers |= GDK_SHIFT_MASK;
+				} else
+					return FALSE;
+				str += 2;
+			}
 		}
 	}
 
@@ -341,6 +357,7 @@ key_entry_changed (GtkEntry *entry, GnomeBindingsProperties *prop)
 			key_text = string_from_key (keyval, modifiers);
 
 			gtk_clist_set_text (GTK_CLIST (prop->bindings_clist), binding_row, 0, key_text);
+			gtk_clist_columns_autosize (GTK_CLIST (prop->bindings_clist));
 			gtk_signal_emit (GTK_OBJECT (prop), gnome_bindings_properties_signals [CHANGED]);
 		}
 	}
@@ -692,7 +709,8 @@ gnome_bindings_properties_select_keymap (GnomeBindingsProperties *prop,
 static gchar *
 bind_from_key (guint keyval, guint modifiers)
 {
-	return g_strconcat ((modifiers & GDK_CONTROL_MASK) ? "<Ctrl>" : "",
+	return g_strconcat ((modifiers & GDK_SHIFT_MASK) ? "<Shift>" : "",
+			    (modifiers & GDK_CONTROL_MASK) ? "<Ctrl>" : "",
 			    (modifiers & GDK_MOD1_MASK) ? "<Alt>" : "",
 			    gdk_keyval_name (keyval), NULL);
 }
