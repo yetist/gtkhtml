@@ -94,7 +94,7 @@ static gint
 release (GtkWidget *widget, GdkEventButton *event, GtkHTMLControlData *cd)
 {
 	HTMLEngine *e = cd->html->engine;
-	GtkHTMLEditPropertyType start;
+	GtkHTMLEditPropertyType start = GTK_HTML_EDIT_PROPERTY_BODY;
 	gboolean run_dialog = FALSE;
 
 	if (cd->obj) {
