@@ -1,39 +1,41 @@
 # Turkish translations for gtkhtml messages.
-# Copyright (C) 1999-2002, 2004 Free Software Foundation, Inc.
-# Onur Can ÇAKMAK <onur.cakmak@gmail.com>, 2004.
+# Copyright (C) 1999-2002, 2004, 2005 Free Software Foundation, Inc.
+# Onur Can ÇAKMAK <onur.cakmak@gmail.com>, 2004, 2005.
 # Nilgün Belma Bugüner <nilgun@fide.org>, 2001, 2002.
 # Fatih Demir <kabalak@gtranslator.org>, 2001.
+# Baris Cicek <baris@teamforce.name.tr>, 2005.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml.gnome-2-8.tr\n"
+"Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-28 19:13+0100\n"
-"PO-Revision-Date: 2004-09-10 17:26+0300\n"
-"Last-Translator: Onur Can ÇAKMAK <onur.cakmak@gmail.com>\n"
+"POT-Creation-Date: 2005-03-13 18:15+0200\n"
+"PO-Revision-Date: 2005-03-13 18:18+0200\n"
+"Last-Translator: Onur Can Cakmak <onur.cakmak@gmail.com>\n"
 "Language-Team: Turkish <gnome-turk@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms:  nplurals=1; plural=0;\n"
+"X-Generator: KBabel 1.9.1\n"
 
 #: a11y/image.c:150
 #, c-format
 msgid "URL is %s, Alternative Text is %s"
-msgstr ""
+msgstr "URL %s, Alternatif Yazı %s"
 
 #: a11y/image.c:152
 #, c-format
 msgid "URL is %s"
-msgstr ""
+msgstr "URL %s"
 
 #: a11y/object.c:50 a11y/object.c:59 a11y/text.c:111
 msgid "grab focus"
-msgstr ""
+msgstr "odağı al"
 
 #: a11y/object.c:256
 msgid "Panel containing HTML"
-msgstr ""
+msgstr "HTML içeren Panel"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:1
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
@@ -99,7 +101,7 @@ msgstr "İmli Liste"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:12
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
-#: components/html-editor/toolbar.c:515
+#: components/html-editor/toolbar.c:523
 msgid "Center justifies the paragraphs"
 msgstr "Paragrafı ortalar"
 
@@ -310,7 +312,7 @@ msgstr "Belgeye metin dosyası ekle..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:53
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
-#: components/html-editor/toolbar.c:513
+#: components/html-editor/toolbar.c:521
 msgid "Left justifies the paragraphs"
 msgstr "Paragrafı sol kenara yaslar"
 
@@ -470,7 +472,7 @@ msgstr "Yeniden yap"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:84
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
 msgid "Redo previously undone change"
-msgstr "Son geri alınan değişiklikleri yeniden yap."
+msgstr "Son geri alınan değişiklikleri yeniden yap"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:85
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
@@ -486,7 +488,7 @@ msgstr "Değiştir"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:87
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
-#: components/html-editor/toolbar.c:517
+#: components/html-editor/toolbar.c:525
 msgid "Right justifies the paragraphs"
 msgstr "Paragrafı sağa yaslar"
 
@@ -515,7 +517,7 @@ msgstr "Belgenin tüm içeriğini seç"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:92
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
-#: components/html-editor/toolbar.c:545
+#: components/html-editor/toolbar.c:553
 msgid "Strikeout"
 msgstr "Üstü çizili"
 
@@ -555,7 +557,7 @@ msgstr "Tablo"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:99
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
 msgid "Te_mplate..."
-msgstr "Şa_blon"
+msgstr "Şa_blon..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:100
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
@@ -564,7 +566,7 @@ msgstr "_Metin dosyası..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:101
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
-#: components/html-editor/toolbar.c:537
+#: components/html-editor/toolbar.c:545
 msgid "Typewriter"
 msgstr "Daktilo"
 
@@ -904,7 +906,7 @@ msgid "General"
 msgstr "Genel"
 
 #: components/html-editor/body.c:268 components/html-editor/text.c:162
-#: components/html-editor/toolbar.c:301
+#: components/html-editor/toolbar.c:308
 msgid "Automatic"
 msgstr "Otomatik"
 
@@ -931,9 +933,8 @@ msgid "Background Image"
 msgstr "Arkaplan Resmi"
 
 #: components/html-editor/body.c:298
-#, fuzzy
 msgid "Background Image File Path"
-msgstr "Arkaplan Resmi"
+msgstr "Arkaplan Resmi Dosya Yolu"
 
 #: components/html-editor/body.c:301
 #: components/html-editor/gtkhtml-editor-properties.glade.h:71
@@ -976,9 +977,8 @@ msgid "Page"
 msgstr "Sayfa"
 
 #: components/html-editor/gi-color-combo.c:187
-#, fuzzy
 msgid "color preview"
-msgstr "Baskı önizleme"
+msgstr "renk önizleme"
 
 #. This is the default custom color
 #: components/html-editor/gi-color-palette.c:395
@@ -1182,7 +1182,7 @@ msgstr "gökyüzü mavisi"
 #. set the a11y name
 #: components/html-editor/gi-combo-box.c:419
 msgid "Popup"
-msgstr ""
+msgstr "Açılır Pencere"
 
 #: components/html-editor/gnome-gtkhtml-editor.c:68
 msgid "GtkHTML Editor Control"
@@ -1272,7 +1272,7 @@ msgid "Cell"
 msgstr "Hücre"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:28
-#: components/html-editor/paragraph.c:128 components/html-editor/toolbar.c:515
+#: components/html-editor/paragraph.c:128 components/html-editor/toolbar.c:523
 msgid "Center"
 msgstr "Merkez"
 
@@ -1447,14 +1447,12 @@ msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
 #: components/html-editor/link.c:194
-#, fuzzy
 msgid "URL:"
-msgstr "_URL:"
+msgstr "URL:"
 
 #: components/html-editor/link.c:198
-#, fuzzy
 msgid "Description:"
-msgstr "_Açıklama:"
+msgstr "Açıklama:"
 
 #: components/html-editor/menubar.c:96 components/html-editor/menubar.c:104
 msgid "Insert image"
@@ -1554,7 +1552,7 @@ msgstr "Paragraf Stili..."
 
 #: components/html-editor/popup.c:465
 msgid "Link Style..."
-msgstr "Bağlantı Stili.."
+msgstr "Bağlantı Stili..."
 
 #: components/html-editor/popup.c:471
 msgid "Rule Style..."
@@ -1663,14 +1661,12 @@ msgid "Case _sensitive"
 msgstr "Büyük-küçük harf _duyarlı"
 
 #: components/html-editor/replace.c:182
-#, fuzzy
 msgid "R_eplace:"
-msgstr "Değiştir:"
+msgstr "D_eğiştir:"
 
 #: components/html-editor/replace.c:186
-#, fuzzy
 msgid "_With:"
-msgstr "_Genişlik:"
+msgstr "_Beraber:"
 
 #: components/html-editor/search.c:112
 msgid "_Backward"
@@ -1682,13 +1678,15 @@ msgstr "_Düzenli ifade"
 
 #: components/html-editor/search.c:118
 msgid "Input the words you want to search here"
-msgstr ""
+msgstr "Aramak istediğiniz kelimeleri buraya girin"
 
 #: components/html-editor/spellchecker.c:110
 msgid ""
 "Unable to add word to dictionary,\n"
 "language settings are broken.\n"
 msgstr ""
+"Kelime sözlüğe eklenemedi,\n"
+"dil ayarları bozuk.\n"
 
 #: components/html-editor/spellchecker.c:298
 msgid "No misspelled word found"
@@ -1715,9 +1713,8 @@ msgid "Image frame"
 msgstr "Resim çerçevesi"
 
 #: components/html-editor/template.c:280
-#, fuzzy
 msgid "Template Labels"
-msgstr "Şablon"
+msgstr "Şablon Etiketleri"
 
 #: components/html-editor/test-html-editor-control.c:333
 msgid "Open file..."
@@ -1735,59 +1732,59 @@ msgstr "GtkHTML Düzenleyicisi Deneme Taşıyıcısı"
 msgid "Roman List"
 msgstr "Romen Rakamlı Liste"
 
-#: components/html-editor/toolbar.c:513
+#: components/html-editor/toolbar.c:521
 msgid "Left align"
 msgstr "Sola yasla"
 
-#: components/html-editor/toolbar.c:517
+#: components/html-editor/toolbar.c:525
 msgid "Right align"
 msgstr "Sağa yasla"
 
-#: components/html-editor/toolbar.c:537
+#: components/html-editor/toolbar.c:545
 msgid "Toggle typewriter font style"
 msgstr "Daktilo yazısı yazı tipini aç/kapa"
 
-#: components/html-editor/toolbar.c:539
+#: components/html-editor/toolbar.c:547
 msgid "Bold"
 msgstr "Kalın"
 
-#: components/html-editor/toolbar.c:539
+#: components/html-editor/toolbar.c:547
 msgid "Makes the text bold"
 msgstr "Harfleri kalınlaştırır"
 
-#: components/html-editor/toolbar.c:541
+#: components/html-editor/toolbar.c:549
 msgid "Italic"
 msgstr "Eğik"
 
-#: components/html-editor/toolbar.c:541
+#: components/html-editor/toolbar.c:549
 msgid "Makes the text italic"
 msgstr "Harfleri eğik yapar"
 
-#: components/html-editor/toolbar.c:543
+#: components/html-editor/toolbar.c:551
 msgid "Underline"
 msgstr "Alt çizgili"
 
-#: components/html-editor/toolbar.c:543
+#: components/html-editor/toolbar.c:551
 msgid "Underlines the text"
 msgstr "Metni alt çizgili yapar"
 
-#: components/html-editor/toolbar.c:545
+#: components/html-editor/toolbar.c:553
 msgid "Strikes out the text"
 msgstr "Metnin üstünü çizer"
 
-#: components/html-editor/toolbar.c:554
+#: components/html-editor/toolbar.c:562
 msgid "Unindent"
 msgstr "Girintiyi azalt"
 
-#: components/html-editor/toolbar.c:554
+#: components/html-editor/toolbar.c:562
 msgid "Indents the paragraphs less"
 msgstr "Paragraf girintisini azaltır"
 
-#: components/html-editor/toolbar.c:556
+#: components/html-editor/toolbar.c:564
 msgid "Indent"
 msgstr "Girintile"
 
-#: components/html-editor/toolbar.c:556
+#: components/html-editor/toolbar.c:564
 msgid "Indents the paragraphs more"
 msgstr "Paragraf girintisini arttırır"
 
@@ -1797,7 +1794,7 @@ msgstr "Örnek"
 
 #: components/html-editor/utils.c:192
 msgid "_Visit..."
-msgstr "_Ziyaret Et.."
+msgstr "_Ziyaret Et..."
 
 #: components/html-editor/utils.c:232
 msgid ""
@@ -1971,99 +1968,3 @@ msgstr "Baskı önizleme"
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML Test Uygulaması"
 
-#~ msgid "<None>"
-#~ msgstr "<Yok>"
-
-#~ msgid "\n"
-#~ msgstr "\n"
-
-#~ msgid "*********************"
-#~ msgstr "*********************"
-
-#~ msgid "Add Keyboard Shortcuts"
-#~ msgstr "Kısayol Tuşu Ekle"
-
-#~ msgid "Automatically detect links"
-#~ msgstr "Bağları otomatik sapta"
-
-#~ msgid "Behavior"
-#~ msgstr "Davranış"
-
-#~ msgid "Composer Properties"
-#~ msgstr "Düzenleyici Özellikleri"
-
-#~ msgid "Composer Properties planned"
-#~ msgstr "Planlanmış Düzenleyici Özellikleri"
-
-#~ msgid "Configure spell checking"
-#~ msgstr "Sözel denetim yapılandırması"
-
-#~ msgid "Enable spell checking"
-#~ msgstr "Sözel denetimini etkinleştir"
-
-#~ msgid "Fixed width"
-#~ msgstr "Sabit genişlik"
-
-#~ msgid "Fonts"
-#~ msgstr "Yazıtipleri"
-
-#~ msgid "For printing"
-#~ msgstr "Yazdırma için"
-
-#~ msgid "Grab keys"
-#~ msgstr "Tuş yakala"
-
-#~ msgid "Information"
-#~ msgstr "Bilgi"
-
-#~ msgid "Keyboard Shortcuts"
-#~ msgstr "Tuş kısayolları"
-
-#~ msgid "Miscellaneous"
-#~ msgstr "Çeşitli"
-
-#~ msgid "New shortcut:"
-#~ msgstr "Yeni kısayol:"
-
-#~ msgid "On screen"
-#~ msgstr "Ekranda"
-
-#~ msgid "Select HTML fixed width font"
-#~ msgstr "HTML için sabit genişlikli yazıtipi seç"
-
-#~ msgid "Select HTML fixed width font for printing"
-#~ msgstr "Yazdırma için HTML sabit genişlikli yazıtipini seç"
-
-#~ msgid "Select HTML variable width font"
-#~ msgstr "HTML değişken genişlikli yazıtipini seç"
-
-#~ msgid "Select HTML variable width font for printing"
-#~ msgstr "Yazdırma için HTML değişken genişlikli yazıtipi seç"
-
-#~ msgid "Shortcuts _type:"
-#~ msgstr "Kısayol _türü:"
-
-#~ msgid "Show animated images"
-#~ msgstr "Canlandırmaları göster"
-
-#~ msgid "Variable width"
-#~ msgstr "Değişken genişlikli"
-
-#~ msgid "_Add"
-#~ msgstr "_Ekle"
-
-#~ msgid "_Delete"
-#~ msgstr "_Sil"
-
-#~ msgid ""
-#~ "Cannot execute GNOME Spell control applet\n"
-#~ "Try to install GNOME Spell if you don't have it installed."
-#~ msgstr ""
-#~ "GNOME sözdizim denetimi programcığı çalıştırılamıyor\n"
-#~ "Eğer kurulu değilse GNOME Spell uygulamasını kurmayı deneyin."
-
-#~ msgid "With:"
-#~ msgstr "Değiştirilecek:"
-
-#~ msgid "Labels"
-#~ msgstr "Etiketler"
