@@ -1,5 +1,12 @@
 2001-04-25  Radek Doulik  <rodo@ximian.com>
 
+	* htmlengine.c (html_engine_schedule_redraw): new functions,
+	schedules redraw to be done in idle time
+	(html_engine_block_redraw): block redraw until unblock is called
+	(html_engine_unblock_redraw): unblock redraws, redraw if needed
+
+	* gtkhtml.c (command): new commands - block/unblock redraw
+
 	* htmlselection.c (html_engine_activate_selection): activate only
 	if widget is already realized
 

@@ -74,6 +74,8 @@ struct _HTMLEngine {
            repaint everything.  */
 	guint freeze_count;
 	guint thaw_idle_id;
+	gint block_redraw;
+	gboolean need_redraw;
 
 	gboolean parsing;
 	HTMLTokenizer *ht;
@@ -126,6 +128,8 @@ struct _HTMLEngine {
 
 	/* timer id for parsing routine */
 	guint timerId;
+
+	guint redraw_idle_id;
 
 	/* FIXME: replace with a `gchar *'?  */
 	GString *title;
@@ -298,7 +302,10 @@ void  html_engine_draw_background      (HTMLEngine *e,
 					gint        height);
 
 /* Scrolling.  */
-void      html_engine_schedule_update      (HTMLEngine  *p);
+void      html_engine_schedule_update      (HTMLEngine  *e);
+void      html_engine_schedule_redraw      (HTMLEngine  *e);
+void      html_engine_block_redraw         (HTMLEngine  *e);
+void      html_engine_unblock_redraw       (HTMLEngine  *e);
 gboolean  html_engine_make_cursor_visible  (HTMLEngine  *e);
 gboolean  html_engine_goto_anchor          (HTMLEngine  *e,
 					    const gchar *anchor);

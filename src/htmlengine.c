@@ -3810,7 +3810,7 @@ html_engine_draw (HTMLEngine *e,
 	/* This case happens when the widget has not been shown yet.  */
 	if (width == 0 || height == 0)
 		return;
-	
+
 	tx = -e->x_offset + e->leftBorder;
 	ty = -e->y_offset + e->topBorder;
 
@@ -3831,6 +3831,42 @@ html_engine_draw (HTMLEngine *e,
 
 	if (e->editable)
 		html_engine_draw_cursor_in_area (e, x, y, width, height);
+}
+
+static gint
+redraw_idle (HTMLEngine *e)
+{
+	e->redraw_idle_id = 0;
+	html_engine_draw (e, 0, 0, e->width, e->height);
+
+	return FALSE;
+}
+
+void
+html_engine_schedule_redraw (HTMLEngine *e)
+{
+	if (e->block_redraw)
+		e->need_redraw = TRUE;
+	else if (e->redraw_idle_id == 0)
+		e->redraw_idle_id = gtk_idle_add ((GtkFunction) redraw_idle, e);
+}
+
+void
+html_engine_block_redraw (HTMLEngine *e)
+{
+	e->block_redraw ++;
+}
+
+void
+html_engine_unblock_redraw (HTMLEngine *e)
+{
+	g_assert (e->block_redraw > 0);
+
+	e->block_redraw --;
+	if (!e->block_redraw && e->need_redraw) {
+		html_engine_draw (e, 0, 0, e->width, e->height);
+		e->need_redraw = FALSE;
+	}
 }
 
 
@@ -4263,7 +4299,7 @@ thaw_idle (gpointer data)
 	gtk_adjustment_set_value (GTK_LAYOUT (e->widget)->vadjustment, (gfloat) e->y_offset);
 	*/
 	html_draw_queue_clear (e->draw_queue);
-	html_engine_draw (e, 0, 0, e->width, e->height);	
+	html_engine_schedule_redraw (e);
 	html_engine_show_cursor (e);
 
 

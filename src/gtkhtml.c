@@ -2934,7 +2934,13 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		html_engine_beginning_of_document (e);		
 		break;
 	case GTK_HTML_COMMAND_CURSOR_EOD:
-		html_engine_end_of_document (e);		
+		html_engine_end_of_document (e);
+		break;
+	case GTK_HTML_COMMAND_BLOCK_REDRAW:
+		html_engine_block_redraw (e);
+		break;
+	case GTK_HTML_COMMAND_UNBLOCK_REDRAW:
+		html_engine_unblock_redraw (e);
 		break;
 
 	default:
