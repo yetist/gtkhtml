@@ -1,3 +1,7 @@
+2002-03-27  Larry Ewing  <lewing@ximian.com>
+
+	* Makefile.am (gladedir): add the version to the glad path.
+
 2002-01-08  Radek Doulik  <rodo@ximian.com>
 
 	* main.c: remove spell checking options and add button to call
