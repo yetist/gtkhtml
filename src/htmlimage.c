@@ -764,7 +764,7 @@ html_image_set_spacing (HTMLImage *image, gint hspace, gint vspace)
 }
 
 void
-html_image_set_url (HTMLImage *image, const gchar *url)
+html_image_edit_set_url (HTMLImage *image, const gchar *url)
 {
 	if (url) {
 		HTMLImageFactory *imf = image->image_ptr->factory;
@@ -774,6 +774,17 @@ html_image_set_url (HTMLImage *image, const gchar *url)
 		image->image_ptr = html_image_factory_register (imf, image, url, TRUE);
 		html_object_change_set (HTML_OBJECT (image), HTML_CHANGE_ALL_CALC);
 		html_engine_schedule_update (imf->engine);
+	}
+}
+
+void
+html_image_set_url (HTMLImage *image, const gchar *url)
+{
+	if (url && strcmp (image->image_ptr->url, url)) {
+		HTMLImageFactory *imf = image->image_ptr->factory;
+
+		html_image_factory_unregister (imf, image->image_ptr, HTML_IMAGE (image));
+		image->image_ptr = html_image_factory_register (imf, image, url, FALSE);
 	}
 }
 
@@ -1236,6 +1247,24 @@ html_image_pointer_ref (HTMLImagePointer *ip)
 }
 
 static void
+free_image_ptr_data (HTMLImagePointer *ip)
+{
+	if (ip->loader) {
+		gtk_object_unref (GTK_OBJECT (ip->loader));
+		ip->loader = NULL;
+	}
+	if (ip->animation) {
+		gdk_pixbuf_animation_unref (ip->animation);
+		ip->animation = NULL;
+	}
+	if (ip->pixbuf) {
+		gdk_pixbuf_unref (ip->pixbuf);
+		ip->pixbuf = NULL;
+	}
+
+}
+
+static void
 html_image_pointer_unref (HTMLImagePointer *ip)
 {
 	g_return_if_fail (ip != NULL);
@@ -1247,15 +1276,7 @@ html_image_pointer_unref (HTMLImagePointer *ip)
 			ip->stall_timeout = 0;
 		}
 		g_free (ip->url);
-		if (ip->loader) {
-			gtk_object_unref (GTK_OBJECT (ip->loader));
-		}
-		if (ip->animation) {
-			gdk_pixbuf_animation_unref (ip->animation);
-		}
-		if (ip->pixbuf) {
-			gdk_pixbuf_unref (ip->pixbuf);
-		}
+		free_image_ptr_data (ip);
 		g_free (ip);
 	}
 }
@@ -1309,8 +1330,11 @@ html_image_factory_register (HTMLImageFactory *factory, HTMLImage *i, const char
 			g_hash_table_insert (factory->loaded_images, retval->url, retval);
 			html_image_pointer_load (retval);
 		}
-	} else if (reload)
+	} else if (reload) {
+		free_image_ptr_data (retval);
+		retval->loader = gdk_pixbuf_loader_new ();
 		html_image_pointer_load (retval);
+	}
 
 	html_image_pointer_ref (retval);
 

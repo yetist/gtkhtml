@@ -3,6 +3,12 @@
 	* htmlimage.c (html_image_factory_end_pixbuf): call
 	gdk_pixbuf_loader_close and get pixbuf from loader if we don't
 	have it yet
+	(html_image_edit_set_url): renamed from html_image_set_url, editor
+	will use this one
+	(html_image_set_url): reincarnate old one
+	(free_image_ptr_data): new helper function
+	(html_image_pointer_unref): use free_image_ptr_data
+	(html_image_factory_register): ditto, fixed reload
 
 2001-10-03  Larry Ewing  <lewing@ximian.com>
 

@@ -156,6 +156,9 @@ void        html_image_set_map            (HTMLImage        *image,
 gchar      *html_image_resolve_image_url  (GtkHTML          *html,
 					   gchar            *image_url);
 
+void        html_image_edit_set_url        (HTMLImage       *image,
+					    const gchar     *url);
+
 /* FIXME move to htmlimagefactory.c */
 HTMLImageFactory *html_image_factory_new      (HTMLEngine       *e);
 void              html_image_factory_free     (HTMLImageFactory *factory);
