@@ -1145,8 +1145,14 @@ get_cursor (HTMLObject *self,
 	    gint *x1, gint *y1,
 	    gint *x2, gint *y2)
 {
-	HTMLObject *slave;
+	HTMLObject *slave, *next;
 	guint ascent, descent;
+
+	next = html_object_next_not_slave (self);
+	if (offset == HTML_TEXT (self)->text_len && next && html_object_is_text (next)) {
+		html_object_get_cursor (next, painter, 0, x1, y1, x2, y2);
+		return;
+	}
 
 	html_object_get_cursor_base (self, painter, offset, x2, y2);
 
@@ -1170,7 +1176,13 @@ get_cursor_base (HTMLObject *self,
 		 guint offset,
 		 gint *x, gint *y)
 {
-	HTMLObject *obj;
+	HTMLObject *obj, *next;
+
+	next = html_object_next_not_slave (self);
+	if (offset == HTML_TEXT (self)->text_len && next && html_object_is_text (next)) {
+		html_object_get_cursor_base (next, painter, 0, x, y);
+		return;
+	}
 
 	for (obj = self->next; obj != NULL; obj = obj->next) {
 		HTMLTextSlave *slave;

@@ -1,3 +1,8 @@
+2001-11-02  Radek Doulik  <rodo@ximian.com>
+
+	* htmltext.c (get_cursor): if we are between two text objects, use
+	the second one fixes #14153
+
 2001-11-03  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine-print.c (html_engine_print_with_header_footer): set
