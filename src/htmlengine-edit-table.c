@@ -290,7 +290,7 @@ html_engine_insert_table_column (HTMLEngine *e, gboolean after)
 	table = html_engine_get_table (e);
 	cell = html_engine_get_table_cell (e);
 	if (table && cell)
-		html_table_insert_column (table, e, cell->col + (after ? 1 : 0), NULL, HTML_UNDO_UNDO);
+		html_table_insert_column (table, e, cell->col + (after ? cell->cspan : 0), NULL, HTML_UNDO_UNDO);
 }
 
 /*
@@ -525,7 +525,7 @@ html_engine_insert_table_row (HTMLEngine *e, gboolean after)
 	table = html_engine_get_table (e);
 	cell = html_engine_get_table_cell (e);
 	if (table && cell)
-		html_table_insert_row (table, e, cell->row + (after ? 1 : 0), NULL, HTML_UNDO_UNDO);
+		html_table_insert_row (table, e, cell->row + (after ? cell->rspan : 0), NULL, HTML_UNDO_UNDO);
 }
 
 /*
