@@ -1,3 +1,13 @@
+2002-10-24  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine-edit-fontstyle.c (get_color_from_selection): change
+	assertion to warning.  (these cases are bad but shouldn't be fatal).
+	(get_font_style_from_selection): same.
+	(get_url_or_target_from_selection): same.
+
+	* htmlembedded.c (html_embedded_class_init): make embedded objects
+	accept the cursor.
+
 2002-10-22  Larry Ewing  <lewing@localhost.localdomain>
 
 	* htmlengine.c (check_prev): use strcasecmp rather than strcmp

@@ -182,6 +182,12 @@ calc_size (HTMLObject *self, HTMLPainter *painter, GList **changed_objs)
 	return FALSE;
 }
 
+static gboolean
+accepts_cursor (HTMLObject *o)
+{
+	return TRUE;
+}
+
 static void
 reparent (HTMLEmbedded *e, GtkWidget *new_parent)
 {
@@ -293,6 +299,7 @@ html_embedded_class_init (HTMLEmbeddedClass *klass,
 	object_class->destroy = destroy;
 	object_class->copy = copy;
 	object_class->draw = draw;
+	object_class->accepts_cursor = accepts_cursor;
 	object_class->calc_size = calc_size;
 	object_class->calc_min_width = calc_min_width;
 

@@ -47,7 +47,7 @@ get_font_style_from_selection (HTMLEngine *engine)
 	HTMLPoint p;
 
 	g_return_val_if_fail (engine->clue != NULL, GTK_HTML_FONT_STYLE_DEFAULT);
-	g_assert (html_engine_is_selection_active (engine));
+	g_return_val_if_fail (html_engine_is_selection_active (engine), GTK_HTML_FONT_STYLE_DEFAULT);
 
 	/* printf ("%s mark %p,%d cursor %p,%d\n",
 		__FUNCTION__,
@@ -74,7 +74,11 @@ get_font_style_from_selection (HTMLEngine *engine)
 			break;
 
 		html_point_next_cursor (&p);
-		g_assert (p.object != NULL);
+
+		if (p.object == NULL) {
+			g_warning ("Unable to find style for end of selection");
+			return style;
+		}
 	}
 
 	return style & ~conflicts;
@@ -87,7 +91,7 @@ get_color_from_selection (HTMLEngine *engine)
 	HTMLPoint p;
 
 	g_return_val_if_fail (engine->clue != NULL, NULL);
-	g_assert (html_engine_is_selection_active (engine));
+	g_return_val_if_fail (html_engine_is_selection_active (engine), NULL);
 
 	p = engine->selection->from;
 	while (1) {
@@ -99,7 +103,11 @@ get_color_from_selection (HTMLEngine *engine)
 		if (html_point_cursor_object_eq (&p, &engine->selection->to))
 			break;
 		html_point_next_cursor (&p);
-		g_assert (p.object != NULL);
+
+		if (p.object == NULL) {
+			g_warning ("Unable to find color for end of selection");
+			return color;
+		}
 	}
 
 	return color;
@@ -522,7 +530,7 @@ get_url_or_target_from_selection (HTMLEngine *e, gboolean get_url)
 	HTMLPoint p;
 
 	g_return_val_if_fail (e->clue != NULL, NULL);
-	g_assert (html_engine_is_selection_active (e));
+	g_return_val_if_fail (html_engine_is_selection_active (e), NULL);
 
 	p = e->selection->from;
 	while (1) {
@@ -530,7 +538,11 @@ get_url_or_target_from_selection (HTMLEngine *e, gboolean get_url)
 		if (str || html_point_cursor_object_eq (&p, &e->selection->to))
 			break;
 		html_point_next_cursor (&p);
-		g_assert (p.object != NULL);
+		
+		if (p.object == NULL) {
+			g_warning ("Unable to find url by end of selection");
+			return str;
+		}
 	}
 
 	return str;
