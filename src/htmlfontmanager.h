@@ -37,7 +37,8 @@ struct _HTMLFont {
 	guint    tab_width;
 	guint    e_width;
 	guint    indent_width;
-	guint    cite_width;
+	guint    cite_width_ltr;
+	guint    cite_width_rtl;
 	gint     ref_count;
 };
 
@@ -92,7 +93,8 @@ HTMLFont *html_font_new      (gpointer     data,
 			      guint        tab_width,
 			      guint        e_width,
 			      guint        indent_width,
-			      guint        cite_width);
+			      guint        cite_width_ltr,
+			      guint        cite_width_rtl);
 void      html_font_destroy  (HTMLFont    *font);
 void      html_font_ref      (HTMLFont    *font,
 			      HTMLPainter *painter);

@@ -856,7 +856,8 @@ html_painter_alloc_font (HTMLPainter *painter, gchar *face, gdouble size, gboole
 			      text_width (painter, desc, "\t", 1),
 			      text_width (painter, desc, "e", 1),
 			      text_width (painter, desc, HTML_BLOCK_INDENT, strlen (HTML_BLOCK_INDENT)),
-			      text_width (painter, desc, HTML_BLOCK_CITE, strlen (HTML_BLOCK_CITE)));
+			      text_width (painter, desc, HTML_BLOCK_CITE_LTR, strlen (HTML_BLOCK_CITE_LTR)),
+			      text_width (painter, desc, HTML_BLOCK_CITE_RTL, strlen (HTML_BLOCK_CITE_RTL)));
 }
 
 void
@@ -904,9 +905,10 @@ html_painter_get_block_indent_width (HTMLPainter *painter, GtkHTMLFontStyle styl
 }
 
 guint
-html_painter_get_block_cite_width (HTMLPainter *painter, GtkHTMLFontStyle style, HTMLFontFace *face)
+html_painter_get_block_cite_width (HTMLPainter *painter, GtkHTMLFontStyle style, HTMLFontFace *face, HTMLDirection dir)
 {
-	return html_font_manager_get_font (&painter->font_manager, face, style)->cite_width;
+	HTMLFont *font = html_font_manager_get_font (&painter->font_manager, face, style);
+	return dir == HTML_DIRECTION_RTL ? font->cite_width_rtl : font->cite_width_ltr ;
 }
 
 guint

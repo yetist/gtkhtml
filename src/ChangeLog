@@ -1,3 +1,10 @@
+2005-02-07  Radek Doulik  <rodo@novell.com>
+
+	* htmlclueflow.c (draw_item): fixed RTL rendering
+	(draw_quotes): ditto
+	(html_clueflow_real_get_direction): for flows beginning with empty
+	text use direction of previous flow
+
 2005-02-03  Radek Doulik  <rodo@novell.com>
 
 	* test-suite.c (test_delete_nested_cluevs_and_undo): added new

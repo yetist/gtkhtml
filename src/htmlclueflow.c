@@ -585,13 +585,14 @@ get_level_indent (HTMLClueFlow *flow,
 		  gint level,
 		  HTMLPainter *painter)
 {
+	HTMLDirection dir = html_object_get_direction (HTML_OBJECT (flow));
 	guint indent = 0;
 	gint i = 0;
 
 	if (flow->levels->len > 0 || ! is_item (flow)) {
 		guint cite_width, indent_width;
 
-		cite_width   = html_painter_get_block_cite_width (painter, GTK_HTML_FONT_STYLE_SIZE_3, NULL);
+		cite_width   = html_painter_get_block_cite_width (painter, GTK_HTML_FONT_STYLE_SIZE_3, NULL, dir);
 		indent_width = html_painter_get_block_indent_width (painter, GTK_HTML_FONT_STYLE_SIZE_3, NULL);
 		
 		while (i <= level) {
@@ -1150,25 +1151,25 @@ get_item_marker_str (HTMLClueFlow *flow, gboolean ascii_only)
 }
 
 static void
-draw_gt_line (HTMLObject *cur, HTMLPainter *p, gint offset, gint x, gint y)
+draw_cite_line (HTMLObject *cur, HTMLPainter *p, char *cite_str, gint offset, gint x, gint y)
 {
 	gint cy, w, a, d;
 
 	/* FIXME: cache items and glyphs? */
-	html_painter_calc_text_size (p, HTML_BLOCK_CITE, strlen (HTML_BLOCK_CITE),
+	html_painter_calc_text_size (p, cite_str, strlen (cite_str),
 				     &w, &a, &d);
 
 	cy = offset;
 	while (cy + a <= cur->ascent) {
 		/* FIXME: cache items and glyphs? */
-		html_painter_draw_text (p, x, y + cur->y - cy, HTML_BLOCK_CITE, 1);
+		html_painter_draw_text (p, x, y + cur->y - cy, cite_str, 1);
 		cy += a + d;
 	}
 
 	cy = - offset + a + d;
 	while (cy + d <= cur->descent) {
 		/* FIXME: cache items and glyphs? */
-		html_painter_draw_text (p, x, y + cur->y + cy, HTML_BLOCK_CITE, 1);
+		html_painter_draw_text (p, x, y + cur->y + cy, cite_str, 1);
 		cy += a + d;
 	}
 }
@@ -1185,7 +1186,9 @@ draw_quotes (HTMLObject *self, HTMLPainter *painter,
 	int last_indent = 0;
 	gint pixel_size = html_painter_get_pixel_size (painter);
 	gboolean is_plain = HTML_IS_PLAIN_PAINTER (painter);
+	HTMLDirection dir = html_object_get_direction (self);
 	HTMLEngine *e;
+	int space_width;
 
 	if (painter->widget && GTK_IS_HTML (painter->widget))
 		e = GTK_HTML (painter->widget)->engine;
@@ -1193,6 +1196,7 @@ draw_quotes (HTMLObject *self, HTMLPainter *painter,
 		return;
 	
 	flow = HTML_CLUEFLOW (self);
+	space_width = html_painter_get_space_width (painter, html_clueflow_get_default_font_style (flow), NULL);
 
 	for (i = 0; i < flow->levels->len; i++, last_indent = indent) {
 		indent = get_level_indent (flow, i, painter);
@@ -1201,7 +1205,10 @@ draw_quotes (HTMLObject *self, HTMLPainter *painter,
 										   painter, HTMLLinkColor)->color);
 		if (is_cite (flow, i)) {
 			if (!is_plain) {
-				area.x = self->x + indent - 5 * pixel_size;
+				if (dir == HTML_DIRECTION_RTL)
+					area.x = self->x + self->width - indent + 3 * pixel_size;
+				else
+					area.x = self->x + indent - 5 * pixel_size;
 				area.width = 2 * pixel_size;
 				area.y = self->y - self->ascent;
 				area.height = self->ascent + self->descent;
@@ -1219,7 +1226,9 @@ draw_quotes (HTMLObject *self, HTMLPainter *painter,
 							paint.width, paint.height);
 			} else {
 				HTMLObject *cur = HTML_CLUE (self)->head;
-				gint baseline = 0;
+				int x_pos, baseline = 0;
+				char *cite_str = dir == HTML_DIRECTION_RTL ? HTML_BLOCK_CITE_RTL : HTML_BLOCK_CITE_LTR;
+
 				while (cur) {
 					if (cur->y != 0) {
 						baseline = cur->y;
@@ -1232,10 +1241,16 @@ draw_quotes (HTMLObject *self, HTMLPainter *painter,
 				/* draw "> " quote characters in the plain case */ 
 				html_painter_set_font_style (painter, 
 							     html_clueflow_get_default_font_style (flow));
-						
+
 				html_painter_set_font_face  (painter, NULL);
-				draw_gt_line (self, painter, self->ascent - baseline,
-					      self->x + tx + last_indent, ty);
+
+				if (dir == HTML_DIRECTION_RTL)
+					x_pos = self->x + self->width + space_width - last_indent;
+				else
+					x_pos = self->x + last_indent - space_width;
+
+				draw_cite_line (self, painter, cite_str, self->ascent - baseline,
+						x_pos + tx, ty);
 			}
 		}
 	}
@@ -1269,16 +1284,20 @@ draw_item (HTMLObject *self, HTMLPainter *painter, gint x, gint y, gint width, g
 
 	marker = get_item_marker_str (flow, HTML_IS_PLAIN_PAINTER (painter));
 	if (marker) {
-		gint width, len, asc, dsc;
+		gint width, len, asc, dsc, x_pos, space_width;
 		
 		len   = g_utf8_strlen (marker, -1);
 		html_painter_set_font_style (painter, html_clueflow_get_default_font_style (flow));
 		html_painter_set_font_face  (painter, NULL);
 		/* FIXME: cache items and glyphs? */
 		html_painter_calc_text_size (painter, marker, len, &width, &asc, &dsc);
-		width += html_painter_get_space_width (painter, html_clueflow_get_default_font_style (flow), NULL);
+		space_width = html_painter_get_space_width (painter, html_clueflow_get_default_font_style (flow), NULL);
 		/* FIXME: cache items and glyphs? */
-		html_painter_draw_text (painter, self->x + first->x - width + tx,
+		if (html_object_get_direction (self) == HTML_DIRECTION_RTL)
+			x_pos = self->x + first->x + first->width + space_width;
+		else
+			x_pos = self->x + first->x - width - space_width;
+		html_painter_draw_text (painter, x_pos + tx,
 					self->y - self->ascent + first->y + ty,
 					marker, len);
 	}
@@ -1758,7 +1777,7 @@ plain_padding (HTMLClueFlow *flow, GString *out, gboolean firstline)
 		for (i = 0; i < flow->levels->len; i++) {
 			switch (flow->levels->data[i]) {
 			case HTML_LIST_TYPE_BLOCKQUOTE_CITE:
-				APPEND_PLAIN (HTML_BLOCK_CITE);
+				APPEND_PLAIN (html_object_get_direction (HTML_OBJECT (flow)) == HTML_DIRECTION_RTL ? HTML_BLOCK_CITE_RTL : HTML_BLOCK_CITE_LTR);
 				break;
 			case HTML_LIST_TYPE_GLOSSARY_DL:
 				break;
@@ -2343,6 +2362,9 @@ html_clueflow_real_get_direction (HTMLObject *o)
 		HTMLObject *child;
 		for (child = HTML_CLUE (o)->head; child; child = child->next) {
 			if (HTML_IS_TEXT (child)) {
+				if (child == HTML_CLUE (o)->head && html_object_get_length (child) == 0 && o->prev)
+					return html_object_get_direction (o->prev);
+
 				PangoDirection pdir = html_text_get_pango_direction (HTML_TEXT (child));
 				switch (pdir) {
 				case PANGO_DIRECTION_RTL:

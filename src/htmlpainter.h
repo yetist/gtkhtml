@@ -282,7 +282,8 @@ guint             html_painter_get_block_indent_width                  (HTMLPain
 									HTMLFontFace      *face);
 guint             html_painter_get_block_cite_width                    (HTMLPainter       *painter,
 									GtkHTMLFontStyle   font_style,
-									HTMLFontFace      *face);
+									HTMLFontFace      *face,
+									HTMLDirection      dir);
 void              html_painter_draw_embedded                           (HTMLPainter       *painter,
 									HTMLEmbedded      *element,
 									gint               x,
@@ -316,7 +317,8 @@ void               html_painter_glyphs_destroy                   (GList         
 void html_pango_get_item_properties (PangoItem *item, HTMLPangoProperties *properties);
 
 #define HTML_BLOCK_INDENT   "        "
-#define HTML_BLOCK_CITE     "> "
+#define HTML_BLOCK_CITE_LTR ">"
+#define HTML_BLOCK_CITE_RTL "<"
 #define HTML_ALLOCA_MAX     2048
 
 #endif /* _HTMLPAINTER_H_ */

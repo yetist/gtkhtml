@@ -374,7 +374,8 @@ html_font_new (gpointer data,
 	       guint tab_width,
 	       guint e_width,
 	       guint indent_width,
-	       guint cite_width)
+	       guint cite_width_ltr,
+	       guint cite_width_rtl)
 {
 	HTMLFont *font = g_new (HTMLFont, 1);
 
@@ -386,7 +387,8 @@ html_font_new (gpointer data,
 	font->tab_width = tab_width;
 	font->e_width = e_width;
 	font->indent_width = indent_width;
-	font->cite_width = cite_width;
+	font->cite_width_ltr = cite_width_ltr;
+	font->cite_width_rtl = cite_width_rtl;
 	font->ref_count = 1;
 
 	return font;
