@@ -1,12 +1,12 @@
 # Danish translation of gtkhtml.
 # Copyright (C) 2000 Free Software Foundation, Inc.
-# Keld Simonsen, <keld@dkuug.dk>, 2000
+# Keld Simonsen, <keld@dkuug.dk>, 2000-2001
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.5\n"
 "POT-Creation-Date: 2000-12-14 12:56-0600\n"
-"PO-Revision-Date: 2000-12-23 01:30+0100\n"
+"PO-Revision-Date: 2001-01-19 11:30+0100\n"
 "Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
@@ -51,7 +51,7 @@ msgstr "Slet"
 msgid "Grab key"
 msgstr "Gribetast"
 
-#: capplet/main.c:224
+#: capplet/main.c:222
 msgid "Could not load glade file."
 msgstr "Kunne ikke indlæse galde fil."
 
@@ -219,8 +219,8 @@ msgid "Redo"
 msgstr "Omgør"
 
 #: po/tmp/GNOME_GtkHTML_Editor.xml.h:24
-msgid "Redo previously undoed changes"
-msgstr "Omgør tidligere fortrudte ændringer"
+msgid "Redo previously undone change"
+msgstr "Omgør tidligere fortrudte ændring"
 
 #: po/tmp/GNOME_GtkHTML_Editor.xml.h:25
 msgid "Redo the undone action"
@@ -328,38 +328,38 @@ msgid "Colors"
 msgstr "Farver"
 
 #: components/html-editor/editor-control-factory.c:136
-#: components/html-editor/popup.c:77
+#: components/html-editor/popup.c:78
 msgid "Properties"
 msgstr "Egenskaber"
 
 #: components/html-editor/editor-control-factory.c:147
-#: components/html-editor/menubar.c:97 components/html-editor/popup.c:92
+#: components/html-editor/menubar.c:97 components/html-editor/popup.c:93
 msgid "Image"
 msgstr "Billede"
 
 #: components/html-editor/editor-control-factory.c:156
-#: components/html-editor/menubar.c:118 components/html-editor/popup.c:85
+#: components/html-editor/menubar.c:118 components/html-editor/popup.c:86
 msgid "Text"
 msgstr "Tekst"
 
 #: components/html-editor/editor-control-factory.c:167
-#: components/html-editor/menubar.c:141 components/html-editor/popup.c:120
+#: components/html-editor/menubar.c:141 components/html-editor/popup.c:121
 msgid "Rule"
 msgstr "Regel"
 
 #: components/html-editor/editor-control-factory.c:176
-#: components/html-editor/popup.c:99
+#: components/html-editor/popup.c:100
 msgid "Paragraph"
 msgstr "Afsnit"
 
 #: components/html-editor/editor-control-factory.c:181
 #: components/html-editor/menubar.c:102 components/html-editor/menubar.c:123
-#: components/html-editor/popup.c:106
+#: components/html-editor/popup.c:107
 msgid "Link"
 msgstr "Lænke"
 
 #: components/html-editor/editor-control-factory.c:186
-#: components/html-editor/popup.c:113
+#: components/html-editor/popup.c:114
 msgid "Page"
 msgstr "Side"
 
@@ -462,7 +462,7 @@ msgstr "Venstre"
 msgid "Right"
 msgstr "Højre"
 
-#: components/html-editor/popup.c:197
+#: components/html-editor/popup.c:216
 msgid "Remove link"
 msgstr "Fjern lænke"
 
@@ -587,52 +587,52 @@ msgid "Left align"
 msgstr "Venstrejustér"
 
 #: components/html-editor/toolbar.c:401
-msgid "Left justify paragraphs"
-msgstr "Venstrejustér afsnit"
+msgid "Left justifies the paragraphs"
+msgstr "Venstrejusterer afsnittene"
 
 #: components/html-editor/toolbar.c:403
-msgid "Centers paragraphs"
-msgstr "Midtstiller afsnit"
+msgid "Centers justifies the paragraphs"
+msgstr "Centrerer afsnittene"
 
 #: components/html-editor/toolbar.c:405
 msgid "Right align"
 msgstr "Højrejustér"
 
 #: components/html-editor/toolbar.c:405
-msgid "Right justify paragraphs"
-msgstr "Højrejustér afsnit"
+msgid "Right justifies the paragraphs"
+msgstr "Højrejusterer afsnittene"
 
 #: components/html-editor/toolbar.c:412
-msgid "Sets the bold font"
-msgstr "Sætter fremhævet skrifttype"
+msgid "Makes the text bold"
+msgstr "Gør det udvalgte fed"
 
 #: components/html-editor/toolbar.c:414
-msgid "Make the selection italic"
+msgid "Makes the text italic"
 msgstr "Gør det udvalgte kursiveret"
 
 #: components/html-editor/toolbar.c:416
-msgid "Make the selection underlined"
-msgstr "Gør det udvalgte understreget"
+msgid "Underlines the text"
+msgstr "Understreger det udvalgte"
 
 #: components/html-editor/toolbar.c:418
-msgid "Make the selection striked out"
-msgstr "Gør det udvalgte gennemstreget"
+msgid "Strikes out the text"
+msgstr "Gennemstreger det udvalgte"
 
 #: components/html-editor/toolbar.c:427
 msgid "Unindent"
 msgstr "Indryk ikke"
 
 #: components/html-editor/toolbar.c:427
-msgid "Indent paragraphs less"
-msgstr "Indryk afsnit mindre"
+msgid "Indents the paragraphs less"
+msgstr "Indrykker afsnittene mindre"
 
 #: components/html-editor/toolbar.c:429
 msgid "Indent"
 msgstr "Indryk"
 
 #: components/html-editor/toolbar.c:429
-msgid "Indent paragraphs more"
-msgstr "Indryk afsnit mere"
+msgid "Indents the paragraphs more"
+msgstr "Indrykker afsnittene mere"
 
 #: components/html-editor/utils.c:104
 msgid "Sample"
@@ -645,6 +645,18 @@ msgstr "Udskriv _smugkig"
 #: src/testgtkhtml.c:112
 msgid "Print preview"
 msgstr "Udskriv smugkig"
+
+#~ msgid "Centers paragraphs"
+#~ msgstr "Midtstiller afsnit"
+
+#~ msgid "Sets the bold font"
+#~ msgstr "Sætter fremhævet skrifttype"
+
+#~ msgid "Make the selection underlined"
+#~ msgstr "Gør det udvalgte understreget"
+
+#~ msgid "Make the selection striked out"
+#~ msgstr "Gør det udvalgte gennemstreget"
 
 #~ msgid "live spell checking"
 #~ msgstr "Løbende stavekontrol"
