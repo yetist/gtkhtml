@@ -444,7 +444,7 @@ cell_widget (GtkHTMLEditCellProperties *d)
 
 	d->spin_width   = glade_xml_get_widget (xml, "spin_cell_width");
 	UPPER_FIX (width);
-	g_signal_connect (d->spin_width, "changed", G_CALLBACK (changed_width), d);
+	g_signal_connect (d->spin_width, "value_changed", G_CALLBACK (changed_width), d);
 	d->check_width  = glade_xml_get_widget (xml, "check_cell_width");
 	g_signal_connect (d->check_width, "toggled", G_CALLBACK (set_has_width), d);
 	d->option_width = glade_xml_get_widget (xml, "option_cell_width");
@@ -453,7 +453,7 @@ cell_widget (GtkHTMLEditCellProperties *d)
 
 	d->spin_height   = glade_xml_get_widget (xml, "spin_cell_height");
 	UPPER_FIX (height);
-	g_signal_connect (d->spin_height, "changed", G_CALLBACK (changed_height), d);
+	g_signal_connect (d->spin_height, "value_changed", G_CALLBACK (changed_height), d);
 	d->check_height  = glade_xml_get_widget (xml, "check_cell_height");
 	g_signal_connect (d->check_height, "toggled", G_CALLBACK (set_has_height), d);
 	d->option_height = glade_xml_get_widget (xml, "option_cell_height");
@@ -473,8 +473,8 @@ cell_widget (GtkHTMLEditCellProperties *d)
 
 	d->spin_cspan   = glade_xml_get_widget (xml, "spin_cell_cspan");
 	d->spin_rspan   = glade_xml_get_widget (xml, "spin_cell_rspan");
-	g_signal_connect (d->spin_cspan, "changed", G_CALLBACK (changed_cspan), d);
-	g_signal_connect (d->spin_rspan, "changed", G_CALLBACK (changed_rspan), d);
+	g_signal_connect (d->spin_cspan, "value_changed", G_CALLBACK (changed_cspan), d);
+	g_signal_connect (d->spin_rspan, "value_changed", G_CALLBACK (changed_rspan), d);
 
 	gtk_box_pack_start_defaults (GTK_BOX (cell_page), sample_frame (&d->sample));
 

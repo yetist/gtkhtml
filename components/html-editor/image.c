@@ -547,19 +547,19 @@ image_widget (GtkHTMLEditImageProperties *d, gboolean insert)
 
 	d->spin_border = glade_xml_get_widget (xml, "spin_image_border");
 	UPPER_FIX (border);
-	g_signal_connect (d->spin_border, "changed", G_CALLBACK (changed_border), d);
+	g_signal_connect (d->spin_border, "value_changed", G_CALLBACK (changed_border), d);
 	d->spin_width = glade_xml_get_widget (xml, "spin_image_width");
 	UPPER_FIX (width);
-	g_signal_connect (d->spin_width, "changed", G_CALLBACK (changed_width), d);
+	g_signal_connect (d->spin_width, "value_changed", G_CALLBACK (changed_width), d);
 	d->spin_height = glade_xml_get_widget (xml, "spin_image_height");
 	UPPER_FIX (height);
-	g_signal_connect (d->spin_height, "changed", G_CALLBACK (changed_height), d);
+	g_signal_connect (d->spin_height, "value_changed", G_CALLBACK (changed_height), d);
 	d->spin_padh = glade_xml_get_widget (xml, "spin_image_padh");
 	UPPER_FIX (padh);
-	g_signal_connect (d->spin_padh, "changed", G_CALLBACK (changed_padh), d);
+	g_signal_connect (d->spin_padh, "value_changed", G_CALLBACK (changed_padh), d);
 	d->spin_padv = glade_xml_get_widget (xml, "spin_image_padv");
 	UPPER_FIX (padv);
-	g_signal_connect (d->spin_padv, "changed", G_CALLBACK (changed_padv), d);
+	g_signal_connect (d->spin_padv, "value_changed", G_CALLBACK (changed_padv), d);
 
 	d->option_template = glade_xml_get_widget (xml, "option_image_template");
 	g_signal_connect (gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_template)),

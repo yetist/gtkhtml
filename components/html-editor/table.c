@@ -549,11 +549,11 @@ table_widget (GtkHTMLEditTableProperties *d)
 			  "changed", G_CALLBACK (changed_bg_pixmap), d);
 
 	d->spin_spacing = glade_xml_get_widget (xml, "spin_spacing");
-	g_signal_connect (d->spin_spacing, "changed", G_CALLBACK (changed_spacing), d);
+	g_signal_connect (d->spin_spacing, "value_changed", G_CALLBACK (changed_spacing), d);
 	d->spin_padding = glade_xml_get_widget (xml, "spin_padding");
-	g_signal_connect (d->spin_padding, "changed", G_CALLBACK (changed_padding), d);
+	g_signal_connect (d->spin_padding, "value_changed", G_CALLBACK (changed_padding), d);
 	d->spin_border  = glade_xml_get_widget (xml, "spin_border");
-	g_signal_connect (d->spin_border, "changed", G_CALLBACK (changed_border), d);
+	g_signal_connect (d->spin_border, "value_changed", G_CALLBACK (changed_border), d);
 	UPPER_FIX (padding);
 	UPPER_FIX (spacing);
 	UPPER_FIX (border);
@@ -563,7 +563,7 @@ table_widget (GtkHTMLEditTableProperties *d)
 			  G_CALLBACK (changed_align), d);
 
 	d->spin_width   = glade_xml_get_widget (xml, "spin_table_width");
-	g_signal_connect (d->spin_width, "changed", G_CALLBACK (changed_width), d);
+	g_signal_connect (d->spin_width, "value_changed", G_CALLBACK (changed_width), d);
 	UPPER_FIX (width);
 	d->check_width  = glade_xml_get_widget (xml, "check_table_width");
 	g_signal_connect (d->check_width, "toggled", G_CALLBACK (set_has_width), d);
@@ -572,9 +572,9 @@ table_widget (GtkHTMLEditTableProperties *d)
 			  G_CALLBACK (changed_width_percent), d);
 
 	d->spin_cols = glade_xml_get_widget (xml, "spin_table_columns");
-	g_signal_connect (d->spin_cols, "changed", G_CALLBACK (changed_cols), d);
+	g_signal_connect (d->spin_cols, "value_changed", G_CALLBACK (changed_cols), d);
 	d->spin_rows = glade_xml_get_widget (xml, "spin_table_rows");
-	g_signal_connect (d->spin_rows, "changed", G_CALLBACK (changed_rows), d);
+	g_signal_connect (d->spin_rows, "value_changed", G_CALLBACK (changed_rows), d);
 	UPPER_FIX (cols);
 	UPPER_FIX (rows);
 
@@ -615,15 +615,15 @@ table_insert_widget (GtkHTMLEditTableProperties *d)
 	table_page = glade_xml_get_widget (xml, "table_insert_page");
 
 	d->spin_cols = glade_xml_get_widget (xml, "spin_table_columns");
-	g_signal_connect (d->spin_cols, "changed", G_CALLBACK (changed_cols), d);
+	g_signal_connect (d->spin_cols, "value_changed", G_CALLBACK (changed_cols), d);
 	d->spin_rows = glade_xml_get_widget (xml, "spin_table_rows");
-	g_signal_connect (d->spin_rows, "changed", G_CALLBACK (changed_rows), d);
+	g_signal_connect (d->spin_rows, "value_changed", G_CALLBACK (changed_rows), d);
 	UPPER_FIX (cols);
 	UPPER_FIX (rows);
 
 	d->spin_width   = glade_xml_get_widget (xml, "spin_table_width");
 	UPPER_FIX (width);
-	g_signal_connect (d->spin_width, "changed", G_CALLBACK (changed_width), d);
+	g_signal_connect (d->spin_width, "value_changed", G_CALLBACK (changed_width), d);
 	d->check_width  = glade_xml_get_widget (xml, "check_table_width");
 	g_signal_connect (d->check_width, "toggled", G_CALLBACK (set_has_width), d);
 	d->option_width = glade_xml_get_widget (xml, "option_table_width");
@@ -631,11 +631,11 @@ table_insert_widget (GtkHTMLEditTableProperties *d)
 			  G_CALLBACK (changed_width_percent), d);
 
 	d->spin_spacing = glade_xml_get_widget (xml, "spin_spacing");
-	g_signal_connect (d->spin_spacing, "changed", G_CALLBACK (changed_spacing), d);
+	g_signal_connect (d->spin_spacing, "value_changed", G_CALLBACK (changed_spacing), d);
 	d->spin_padding = glade_xml_get_widget (xml, "spin_padding");
-	g_signal_connect (d->spin_padding, "changed", G_CALLBACK (changed_padding), d);
+	g_signal_connect (d->spin_padding, "value_changed", G_CALLBACK (changed_padding), d);
 	d->spin_border  = glade_xml_get_widget (xml, "spin_border");
-	g_signal_connect (d->spin_border, "changed", G_CALLBACK (changed_border), d);
+	g_signal_connect (d->spin_border, "value_changed", G_CALLBACK (changed_border), d);
 	UPPER_FIX (padding);
 	UPPER_FIX (spacing);
 	UPPER_FIX (border);

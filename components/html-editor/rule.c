@@ -317,10 +317,10 @@ rule_widget (GtkHTMLEditRuleProperties *d, gboolean insert)
 	rule_page = glade_xml_get_widget (xml, "rule_page");
 
 	d->spin_length   = glade_xml_get_widget (xml, "spin_rule_length");
-	g_signal_connect (d->spin_length, "changed", G_CALLBACK (changed_length), d);
+	g_signal_connect (d->spin_length, "value_changed", G_CALLBACK (changed_length), d);
 	UPPER_FIX (length);
 	d->spin_width   = glade_xml_get_widget (xml, "spin_rule_width");
-	g_signal_connect (d->spin_width, "changed", G_CALLBACK (changed_width), d);
+	g_signal_connect (d->spin_width, "value_changed", G_CALLBACK (changed_width), d);
 	UPPER_FIX (width);
 	d->option_length_percent = glade_xml_get_widget (xml, "option_rule_percent");
 	g_signal_connect (gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_length_percent)),

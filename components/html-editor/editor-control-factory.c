@@ -231,10 +231,8 @@ load_from_file (GtkHTML *html,
 	int fd;
         const char *path;
 
-        if (strncmp (url, "file:", 5) != 0) {
-		return FALSE;
-	} 
-	path = url + 5; 
+        if (strncmp (url, "file:", 5) == 0)
+		path = url + 5; 
 
 	if ((fd = open (path, O_RDONLY)) == -1) {
 		g_warning ("%s", g_strerror (errno));
