@@ -5027,10 +5027,12 @@ html_engine_set_painter (HTMLEngine *e, HTMLPainter *painter)
 	gtk_object_unref (GTK_OBJECT (e->painter));
 	e->painter = painter;
 	
-	html_object_set_painter (e->clue, painter);
-	html_object_change_set_down (e->clue, HTML_CHANGE_ALL);
-	html_object_reset (e->clue);
-	html_engine_calc_size (e, FALSE);
+	if (e->clue) {
+		html_object_set_painter (e->clue, painter);
+		html_object_change_set_down (e->clue, HTML_CHANGE_ALL);
+		html_object_reset (e->clue);
+		html_engine_calc_size (e, FALSE);
+	}
 }
 
 gint

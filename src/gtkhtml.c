@@ -1853,7 +1853,7 @@ set_fonts_idle (GtkHTML *html)
 	GtkHTMLClassProperties *prop = GTK_HTML_CLASS (GTK_OBJECT (html)->klass)->properties;
 
 	if (html->engine) {
-		html_font_manager_set_default (&html->engine->painter->font_manager,
+		html_font_manager_set_default (html->engine->painter->font_manager,
 					       prop->font_var,      prop->font_fix,
 					       prop->font_var_size, prop->font_var_points,
 					       prop->font_fix_size, prop->font_fix_points);
@@ -3340,9 +3340,9 @@ gtk_html_get_object_by_id (GtkHTML *html, const gchar *id)
 static gint
 get_line_height (GtkHTML *html)
 {
-	return html->engine->painter->font_manager.var_points
-		? html->engine->painter->font_manager.var_size / 10
-		:html->engine->painter->font_manager.var_size;
+	return html->engine->painter->font_manager->var_points
+		? html->engine->painter->font_manager->var_size / 10
+		: html->engine->painter->font_manager->var_size;
 }
 
 static void
@@ -4513,10 +4513,10 @@ static void
 set_magnification (HTMLObject *o, HTMLEngine *e, gpointer data)
 {
 	if (HTML_IS_FRAME (o)) {
-		html_font_manager_set_magnification (&GTK_HTML (HTML_FRAME (o)->html)->engine->painter->font_manager,
+		html_font_manager_set_magnification (GTK_HTML (HTML_FRAME (o)->html)->engine->painter->font_manager,
 						     *(gdouble *) data);
 	} else if (HTML_IS_IFRAME (o)) {
-		html_font_manager_set_magnification (&GTK_HTML (HTML_IFRAME (o)->html)->engine->painter->font_manager,
+		html_font_manager_set_magnification (GTK_HTML (HTML_IFRAME (o)->html)->engine->painter->font_manager,
 						     *(gdouble *) data);
 	}
 }
@@ -4527,10 +4527,10 @@ gtk_html_set_magnification (GtkHTML *html, gdouble magnification)
 	g_return_if_fail (GTK_IS_HTML (html));
 
 	if (magnification > 0.05 && magnification < 20.0
-	    && magnification * html->engine->painter->font_manager.var_size >= 4
-	    && magnification * html->engine->painter->font_manager.fix_size >= 4) {
+	    && magnification * html->engine->painter->font_manager->var_size >= 4
+	    && magnification * html->engine->painter->font_manager->fix_size >= 4) {
 		html_object_forall (html->engine->clue, html->engine, set_magnification, &magnification);
-		html_font_manager_set_magnification (&html->engine->painter->font_manager, magnification);
+		html_font_manager_set_magnification (html->engine->painter->font_manager, magnification);
 		html_object_change_set_down (html->engine->clue, HTML_CHANGE_ALL);
 		html_engine_schedule_update (html->engine);
 	}
@@ -4543,7 +4543,7 @@ gtk_html_zoom_in (GtkHTML *html)
 {
 	g_return_if_fail (GTK_IS_HTML (html));
 
-	gtk_html_set_magnification (html, html->engine->painter->font_manager.magnification * MAG_STEP);
+	gtk_html_set_magnification (html, html->engine->painter->font_manager->magnification * MAG_STEP);
 }
 
 void
@@ -4552,7 +4552,7 @@ gtk_html_zoom_out (GtkHTML *html)
 	g_return_if_fail (GTK_IS_HTML (html));
 	g_return_if_fail (HTML_IS_ENGINE (html->engine));
 
-	gtk_html_set_magnification (html, html->engine->painter->font_manager.magnification * (1.0/MAG_STEP));
+	gtk_html_set_magnification (html, html->engine->painter->font_manager->magnification * (1.0/MAG_STEP));
 }
 
 void

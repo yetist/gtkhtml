@@ -1,3 +1,10 @@
+2002-06-05  Radek Doulik  <rodo@ximian.com>
+
+	* htmlpainter.h: make font_manager pointer
+
+	* htmliframe.c (html_iframe_init): use parent's font manager
+	(destroy): reset filemanager and unref painters
+
 2002-06-03  Larry Ewing  <lewing@ximian.com>
 
 	* htmltablecell.c (draw_background_helper): only draw the

@@ -180,6 +180,8 @@ alloc_e_font_try (gchar *face, gdouble size, gboolean points, GtkHTMLFontStyle s
 	EFont *font;
 	gchar *name;
 
+	/* printf ("alloc font %s %f\n", face, size); */
+
 	if (face) {
 		GdkFont *gdk_font;
 		gchar *n1, *n2, *n3, *s;
@@ -1148,7 +1150,7 @@ calc_text_width (HTMLPainter *painter,
 	gint width;
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
-	font = html_font_manager_get_font (&painter->font_manager, face, style);
+	font = html_font_manager_get_font (painter->font_manager, face, style);
 	e_font = font->data;
 
 	width = e_font_utf8_text_width (e_font, e_style (style), text, g_utf8_offset_to_pointer (text, len) - text);

@@ -162,7 +162,7 @@ print_with_header_footer (HTMLEngine *engine,
 	g_return_val_if_fail (engine->clue != NULL, 0);
 
 	printer = html_printer_new (print_context, GTK_HTML (engine->widget)->priv->print_master);
-	html_font_manager_set_default (&printer->font_manager,
+	html_font_manager_set_default (printer->font_manager,
 				       prop->font_var_print,      prop->font_fix_print,
 				       prop->font_var_size_print, prop->font_var_print_points,
 				       prop->font_fix_size_print, prop->font_fix_print_points);
@@ -180,7 +180,7 @@ print_with_header_footer (HTMLEngine *engine,
 		/* printf ("min_width %d page %d\n", min_width, page_width); */
 		if (min_width > page_width) {
 			HTML_PRINTER (printer)->scale = MAX (0.5, ((gdouble) page_width) / min_width);
-			html_font_manager_clear_font_cache (&printer->font_manager);
+			html_font_manager_clear_font_cache (printer->font_manager);
 			html_object_change_set_down (engine->clue, HTML_CHANGE_ALL);
 			html_engine_calc_size (engine, NULL);
 			/* printf ("scale %lf\n", HTML_PRINTER (printer)->scale);

@@ -52,7 +52,8 @@ finalize (GtkObject *object)
 	HTMLPainter *painter;
 
 	painter = HTML_PAINTER (object);
-	html_font_manager_finalize (&painter->font_manager);
+	html_font_manager_finalize (painter->font_manager);
+	g_free (painter->font_manager);
 
 	html_colorset_destroy (painter->color_set);
 
@@ -117,7 +118,8 @@ init (GtkObject *object, HTMLPainterClass *real_klass)
 	painter = HTML_PAINTER (object);
 	painter->color_set = html_colorset_new (NULL);
 
-	html_font_manager_init (&painter->font_manager, painter);
+	painter->font_manager = g_new0 (HTMLFontManager, 1);
+	html_font_manager_init (painter->font_manager, painter);
 	painter->font_style = GTK_HTML_FONT_STYLE_DEFAULT;
 	painter->font_face = NULL;
 }
@@ -289,7 +291,7 @@ html_painter_get_font (HTMLPainter *painter, HTMLFontFace *face, GtkHTMLFontStyl
 {
 	HTMLFont *font;
 
-	font = html_font_manager_get_font (&painter->font_manager, face, style);
+	font = html_font_manager_get_font (painter->font_manager, face, style);
 	return font ? font->data : NULL;
 }
 
@@ -720,7 +722,7 @@ html_painter_unref_font (HTMLPainter *painter, HTMLFont *font)
 guint
 html_painter_get_space_width (HTMLPainter *painter, GtkHTMLFontStyle style, HTMLFontFace *face)
 {
-	return html_font_manager_get_font (&painter->font_manager, face, style)->space_width;
+	return html_font_manager_get_font (painter->font_manager, face, style)->space_width;
 }
 
 guint

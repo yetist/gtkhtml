@@ -42,7 +42,7 @@
 struct _HTMLPainter {
 	GtkObject base;
 
-	HTMLFontManager     font_manager;
+	HTMLFontManager    *font_manager;
 	HTMLColorSet       *color_set;
 	HTMLFontFace       *font_face;
 	GtkHTMLFontStyle    font_style;

@@ -399,6 +399,11 @@ destroy (HTMLObject *o)
 	g_free (iframe->url);
 
 	if (iframe->html) {
+		GTK_HTML (iframe->html)->engine->painter->font_manager = iframe->old_font_manager;
+		gtk_object_unref (GTK_OBJECT (iframe->old_painter));
+		gtk_object_unref (GTK_OBJECT (iframe->parent_painter));
+		iframe->old_painter = iframe->parent_painter = NULL;
+
 		gtk_signal_disconnect_by_data (GTK_OBJECT (iframe->html), o);
 		iframe->html = NULL;
 	}
@@ -443,6 +448,14 @@ html_iframe_init (HTMLIFrame *iframe,
 
 	new_widget = gtk_html_new ();
 	new_html = GTK_HTML (new_widget);
+
+	/* use parent_html font_manager */
+	gtk_object_ref (GTK_OBJECT (new_html->engine->painter));
+	gtk_object_ref (GTK_OBJECT (parent_html->engine->painter));
+	iframe->old_painter = new_html->engine->painter;
+	iframe->parent_painter = parent_html->engine->painter;
+	iframe->old_font_manager = new_html->engine->painter->font_manager;
+	new_html->engine->painter->font_manager = parent_html->engine->painter->font_manager;
 
 	new_tokenizer = html_tokenizer_clone (parent_html->engine->ht);
 

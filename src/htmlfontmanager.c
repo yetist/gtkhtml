@@ -127,6 +127,8 @@ clear_additional_font_sets (HTMLFontManager *manager)
 void
 html_font_manager_clear_font_cache (HTMLFontManager *manager)
 {
+	/* printf ("html_font_manager_clear_font_cache\n"); */
+
 	html_font_set_release (&manager->variable, manager->painter);
 	html_font_set_release (&manager->fixed, manager->painter);
 	clear_additional_font_sets (manager);
@@ -353,6 +355,7 @@ html_font_manager_get_font (HTMLFontManager *manager, gchar *face_list, GtkHTMLF
 	HTMLFontSet *set;
 	HTMLFont *font = NULL;
 
+	/* printf ("get font %s (%p)\n", face_list, manager); */
 	font = get_font (manager, &set, face_list, style);
 
 	if (!font) {

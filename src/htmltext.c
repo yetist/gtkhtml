@@ -505,7 +505,7 @@ calc_word_width (HTMLText *text, HTMLPainter *painter, gint line_offset)
 		g_free (text->word_width);
 	text->word_width = g_new (guint, text->words);
 	style = html_text_get_font_style (text);
-	font = html_font_manager_get_font (&painter->font_manager, text->face, style);
+	font = html_font_manager_get_font (painter->font_manager, text->face, style);
 
 	begin            = text->text;
 	for (i = 0; i < text->words; i++) {
