@@ -22,6 +22,76 @@
 #include "htmldrawqueue.h"
 
 
+/* HTMLDrawQueueClearElement handling.  */
+
+static HTMLDrawQueueClearElement *
+clear_element_new (gint            x,
+		   gint            y,
+		   guint           width,
+		   guint           height,
+		   const GdkColor *background_color)
+{
+	HTMLDrawQueueClearElement *new;
+
+	new = g_new (HTMLDrawQueueClearElement, 1);
+
+	new->x = x;
+	new->y = y;
+	new->width = width;
+	new->height = height;
+
+	/* GDK color API non const-correct.  */
+	new->background_color = gdk_color_copy ((GdkColor *) background_color);
+
+	new->background_image = NULL;
+	new->background_image_x_offset = 0;
+	new->background_image_y_offset = 0;
+
+	return new;
+}
+
+static HTMLDrawQueueClearElement *
+clear_element_new_with_background (gint       x,
+				   gint       y,
+				   guint      width,
+				   guint      height,
+				   GdkPixbuf *background_image,
+				   guint      background_image_x_offset,
+				   guint      background_image_y_offset)
+{
+	HTMLDrawQueueClearElement *new;
+
+	new = g_new (HTMLDrawQueueClearElement, 1);
+
+	new->x = x;
+	new->y = y;
+	new->width = width;
+	new->height = height;
+
+	new->background_image = gdk_pixbuf_ref (background_image);
+	new->background_image_x_offset = background_image_x_offset;
+	new->background_image_y_offset = background_image_y_offset;
+
+	new->background_color = NULL;
+
+	return new;
+}
+
+static void
+clear_element_destroy (HTMLDrawQueueClearElement *elem)
+{
+	g_return_if_fail (elem != NULL);
+
+	if (elem->background_color != NULL)
+		gdk_color_free (elem->background_color);
+
+	if (elem->background_image != NULL)
+		gdk_pixbuf_unref (elem->background_image);
+
+	g_free (elem);
+}
+
+
 HTMLDrawQueue *
 html_draw_queue_new (HTMLEngine *engine)
 {
@@ -32,8 +102,12 @@ html_draw_queue_new (HTMLEngine *engine)
 	new = g_new (HTMLDrawQueue, 1);
 
 	new->engine = engine;
+
 	new->elems = NULL;
 	new->last = NULL;
+
+	new->clear_elems = NULL;
+	new->clear_last = NULL;
 
 	return new;
 }
@@ -69,12 +143,65 @@ html_draw_queue_add (HTMLDrawQueue *queue, HTMLObject *object)
 	object->redraw_pending = TRUE;
 
 	queue->last = g_list_append (queue->last, object);
-	if (queue->elems == NULL) {
+	if (queue->elems == NULL && queue->clear_elems == NULL)
 		gtk_signal_emit_by_name (GTK_OBJECT (queue->engine), "draw_pending");
+
+	if (queue->elems == NULL)
 		queue->elems = queue->last;
-	} else {
+	else
 		queue->last = queue->last->next;
-	}
+}
+
+
+static void
+add_clear (HTMLDrawQueue *queue,
+	   HTMLDrawQueueClearElement *elem)
+{
+	queue->clear_last = g_list_append (queue->clear_last, elem);
+	if (queue->elems == NULL && queue->clear_elems == NULL)
+		gtk_signal_emit_by_name (GTK_OBJECT (queue->engine), "draw_pending");
+
+	if (queue->clear_elems == NULL)
+		queue->clear_elems = queue->clear_last;
+	else
+		queue->clear_last = queue->clear_last->next;
+}
+
+void
+html_draw_queue_add_clear (HTMLDrawQueue *queue,
+			   gint x,
+			   gint y,
+			   guint width,
+			   guint height,
+			   const GdkColor *background_color)
+{
+	HTMLDrawQueueClearElement *new;
+
+	g_return_if_fail (queue != NULL);
+	g_return_if_fail (background_color != NULL);
+
+	new = clear_element_new (x, y, width, height, background_color);
+	add_clear (queue, new);
+}
+
+void
+html_draw_queue_add_clear_with_background  (HTMLDrawQueue *queue,
+					    gint x,
+					    gint y,
+					    guint width,
+					    guint height,
+					    GdkPixbuf *background_image,
+					    guint background_image_x_offset,
+					    guint background_image_y_offset)
+{
+	HTMLDrawQueueClearElement *new;
+
+	g_return_if_fail (queue != NULL);
+	g_return_if_fail (background_image != NULL);
+
+	new = clear_element_new_with_background (x, y, width, height, background_image,
+						 background_image_x_offset, background_image_y_offset);
+	add_clear (queue, new);
 }
 
 
@@ -135,8 +262,8 @@ draw_obj (HTMLDrawQueue *queue,
 			  obj->width, obj->ascent + obj->descent,
 			  tx, ty);
 #if 0
-	html_painter_draw_line (e->painter, x1, y1, x2, y2);
-	html_painter_draw_line (e->painter, x2, y1, x1, y2);
+	html_painter_draw_line (e->painter, x1, y1, x2 - 1, y2 - 1);
+	html_painter_draw_line (e->painter, x2 - 1, y1, x1, y2 - 1);
 #endif
 	/* Done.  */
 
@@ -146,10 +273,45 @@ draw_obj (HTMLDrawQueue *queue,
 		html_engine_draw_cursor_in_area (e, x1, y1, x2 - x1, y2 - y1);
 }
 
+static void
+clear (HTMLDrawQueue *queue,
+       HTMLDrawQueueClearElement *elem)
+{
+	HTMLEngine *e;
+	gint x1, y1, x2, y2;
+
+	e = queue->engine;
+
+	x1 = elem->x + e->leftBorder - e->x_offset;
+	y1 = elem->y + e->topBorder - e->y_offset;
+
+	x2 = x1 + elem->width;
+	y2 = y1 + elem->height;
+
+	html_painter_begin (e->painter, x1, y1, x2, y2);
+
+	if (elem->background_color != NULL) {
+		html_painter_set_pen (e->painter, elem->background_color);
+		html_painter_fill_rect (e->painter, x1, y1, x2, y2);
+	}
+
+	/* TODO: Background pixmap.  */
+
+#if 0
+	html_painter_set_pen (e->painter, html_painter_get_black (e->painter));
+	html_painter_draw_line (e->painter, x1, y1, x2 - 1, y2 - 1);
+	html_painter_draw_line (e->painter, x2 - 1, y1, x1, y2 - 1);
+#endif
+
+	html_painter_end (e->painter);
+}
+
 void
 html_draw_queue_flush (HTMLDrawQueue *queue)
 {
 	GList *p;
+
+	/* Draw objects.  */
 
 	for (p = queue->elems; p != NULL; p = p->next) {
 		HTMLObject *obj;
@@ -168,4 +330,19 @@ html_draw_queue_flush (HTMLDrawQueue *queue)
 
 	queue->elems = NULL;
 	queue->last = NULL;
+
+	/* Draw clear areas.  */
+
+	for (p = queue->clear_elems; p != NULL; p = p->next) {
+		HTMLDrawQueueClearElement *clear_elem;
+
+		clear_elem = p->data;
+		clear (queue, clear_elem);
+		clear_element_destroy (clear_elem);
+	}
+
+	g_list_free (queue->clear_elems);
+
+	queue->clear_elems = NULL;
+	queue->clear_last = NULL;
 }

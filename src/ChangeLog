@@ -1,5 +1,28 @@
 2000-01-24  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlobject.c (relayout): If the object has no parent and has
+	shrunk, queue a clear for the area that is not covered by the
+	object anymore.
+
+	* htmlengine.c (html_engine_queue_clear): New function.
+
+	* htmldrawqueue.c (html_draw_queue_add_clear): New function.
+	(html_draw_queue_add_clear_with_background): New function.
+	(clear): New static function to clear an area specified by an
+	HTMLClearElement.
+	(html_draw_queue_flush): Flush the clear queue as well.
+	(html_draw_queue_add): Emit the "draw_pending" signal only if the
+	clear queue is empty too.
+	(clear_element_new): New static function to create a clear element
+	with a solid color background.
+	(clear_element_new_with_background): New static function to create
+	a clear element with a pixmap background.
+	(clear_element_destroy): New static function to destroy a clear
+	element.
+
+	* htmldrawqueue.h: Added an HTMLClearElement queue for erasing
+	parts of the window.
+
 	* htmltextslave.c (fit_line): Do not chop the last word if there
 	is enough space, even if there is another object after this one.
 

@@ -237,11 +237,18 @@ void  html_engine_draw_cursor_in_area  (HTMLEngine *e,
 					gint        y,
 					gint        width,
 					gint        height);
-void  html_engine_flush_draw_queue     (HTMLEngine *e);
-void  html_engine_queue_draw           (HTMLEngine *e,
-					HTMLObject *o);
 void  html_engine_schedule_update      (HTMLEngine *p);
 void  html_engine_make_cursor_visible  (HTMLEngine *e);
+
+/* Draw/clear queue.  */
+void  html_engine_flush_draw_queue  (HTMLEngine *e);
+void  html_engine_queue_draw        (HTMLEngine *e,
+				     HTMLObject *o);
+void  html_engine_queue_clear       (HTMLEngine *e,
+				     gint        x,
+				     gint        y,
+				     guint       width,
+				     guint       height);
 
 /* Getting objects through pointer positions.  */
 HTMLObject  *html_engine_get_object_at  (HTMLEngine *e,

@@ -28,21 +28,55 @@ typedef struct _HTMLDrawQueue HTMLDrawQueue;
 #include "htmlengine.h"
 #include "htmlobject.h"
 
+
+struct _HTMLDrawQueueClearElement {
+	gint x, y;
+	guint width, height;
+	GdkColor *background_color;
+	GdkPixbuf *background_image;
+	guint background_image_x_offset, background_image_y_offset;
+};
+typedef struct _HTMLDrawQueueClearElement HTMLDrawQueueClearElement;
+
 struct _HTMLDrawQueue {
 	/* The associated engine.  */
 	HTMLEngine *engine;
 
 	/* Elements to be drawn.  */
 	GList *elems;
-
 	/* Pointer to the last element in the list, for faster appending.  */
 	GList *last;
+
+	/* Elements to be cleared (HTMLDrawQueueClearElement).  */
+	GList *clear_elems;
+	/* Pointer to the last element.  */
+	GList *clear_last;
 };
 
 
-HTMLDrawQueue *html_draw_queue_new (HTMLEngine *engine);
-void html_draw_queue_destroy (HTMLDrawQueue *queue);
-void html_draw_queue_add (HTMLDrawQueue *queue, HTMLObject *object);
-void html_draw_queue_flush (HTMLDrawQueue *queue);
+/* Creation/destruction.  */
+HTMLDrawQueue *html_draw_queue_new      (HTMLEngine    *engine);
+void           html_draw_queue_destroy  (HTMLDrawQueue *queue);
+void           html_draw_queue_flush    (HTMLDrawQueue *queue);
+
+/* Adding objects.  */
+void           html_draw_queue_add      (HTMLDrawQueue *queue,
+					 HTMLObject    *object);
+
+/* Adding clear areas.  */
+void  html_draw_queue_add_clear                  (HTMLDrawQueue  *queue,
+						  gint            x,
+						  gint            y,
+						  guint           width,
+						  guint           height,
+						  const GdkColor *background_color);
+void  html_draw_queue_add_clear_with_background  (HTMLDrawQueue  *queue,
+						  gint            x,
+						  gint            y,
+						  guint           width,
+						  guint           height,
+						  GdkPixbuf      *background_image,
+						  guint           image_x_offset,
+						  guint           image_y_offset);
 
 #endif /* _HTMLDRAWQUEUE_H */

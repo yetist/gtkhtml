@@ -3342,6 +3342,17 @@ html_engine_queue_draw (HTMLEngine *e, HTMLObject *o)
 }
 
 void
+html_engine_queue_clear (HTMLEngine *e,
+			 gint x, gint y,
+			 guint width, guint height)
+{
+	g_return_if_fail (e != NULL);
+
+	html_draw_queue_add_clear (e->draw_queue, x, y, width, height, &e->bgColor);
+}
+
+
+void
 html_engine_form_submitted (HTMLEngine *e,
 			    const gchar *method,
 			    const gchar *action,
