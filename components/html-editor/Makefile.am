@@ -161,7 +161,6 @@ EXTRA_DIST =					\
 	$(IDLS)					\
 	$(SPELL_IDLS)				\
 	ChangeLog				\
-	tt.xpm					\
 	$(ui_DATA)				\
 	GNOME_GtkHTML_Editor.xml.in		\
 	gtkhtml-editor-properties.glade		\
