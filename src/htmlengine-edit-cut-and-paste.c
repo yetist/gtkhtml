@@ -1272,13 +1272,13 @@ use_pictograms (HTMLEngine *e)
 }
 
 void
-html_engine_insert_text_with_extra_attributes (HTMLEngine *e, const gchar *text, gint len, PangoAttrList *attrs)
+html_engine_insert_text_with_extra_attributes (HTMLEngine *e, const gchar *text, guint len, PangoAttrList *attrs)
 {
 	gchar *nl;
 	gint alen;
-	gsize bytes;
 
-	bytes = html_text_sanitize (&text, &len);
+	if (len == -1)
+		len = g_utf8_strlen (text, -1);
 	if (!len)
 		return;
 
@@ -1287,7 +1287,7 @@ html_engine_insert_text_with_extra_attributes (HTMLEngine *e, const gchar *text,
 	gtk_html_editor_event_command (e->widget, GTK_HTML_COMMAND_INSERT_PARAGRAPH, TRUE);
 
 	do {
-		nl   = memchr (text, '\n', bytes);
+		nl   = g_utf8_strchr (text, -1, '\n');
 		alen = nl ? g_utf8_pointer_to_offset (text, nl) : len;
 		if (alen) {
 			HTMLObject *o;
@@ -1318,8 +1318,7 @@ html_engine_insert_text_with_extra_attributes (HTMLEngine *e, const gchar *text,
 		}
 		if (nl) {
 			html_engine_insert_empty_paragraph (e);
-			len -= alen + 1;
-			bytes -= (nl - text) + 1;
+			len -= g_utf8_pointer_to_offset (text, nl) + 1;
 			text = nl + 1;
 		}
 	} while (nl);
@@ -1327,7 +1326,7 @@ html_engine_insert_text_with_extra_attributes (HTMLEngine *e, const gchar *text,
 }
 
 void
-html_engine_insert_text (HTMLEngine *e, const gchar *text, gint len)
+html_engine_insert_text (HTMLEngine *e, const gchar *text, guint len)
 {
 	html_engine_insert_text_with_extra_attributes (e, text, len, NULL);
 }

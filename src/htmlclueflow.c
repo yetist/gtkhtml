@@ -1125,23 +1125,27 @@ get_item_marker_str (HTMLClueFlow *flow, gboolean ascii_only)
 static void
 draw_gt_line (HTMLObject *cur, HTMLPainter *p, gint offset, gint x, gint y)
 {
-	gint cy, w, a, d;
+	gint cy, w, a, d, line_offset = 0;
 
 	/* FIXME: cache items and glyphs? */
-	html_painter_calc_text_size (p, HTML_BLOCK_CITE, strlen (HTML_BLOCK_CITE),
+	html_painter_calc_text_size (p, HTML_BLOCK_CITE, 
+				     strlen (HTML_BLOCK_CITE), NULL, NULL, NULL, 0, &line_offset,
+				     GTK_HTML_FONT_STYLE_SIZE_3, NULL,
 				     &w, &a, &d);
 
 	cy = offset;
 	while (cy + a <= cur->ascent) {
 		/* FIXME: cache items and glyphs? */
-		html_painter_draw_text (p, x, y + cur->y - cy, HTML_BLOCK_CITE, 1);
+		html_painter_draw_text (p, x, y + cur->y - cy,
+					HTML_BLOCK_CITE, 1, NULL, NULL, NULL, 0, 0);
 		cy += a + d;
 	}
 
 	cy = - offset + a + d;
 	while (cy + d <= cur->descent) {
 		/* FIXME: cache items and glyphs? */
-		html_painter_draw_text (p, x, y + cur->y + cy, HTML_BLOCK_CITE, 1);
+		html_painter_draw_text (p, x, y + cur->y + cy,
+					HTML_BLOCK_CITE, 1, NULL, NULL, NULL, 0, 0);
 		cy += a + d;
 	}
 }
@@ -1242,18 +1246,19 @@ draw_item (HTMLObject *self, HTMLPainter *painter, gint x, gint y, gint width, g
 
 	marker = get_item_marker_str (flow, HTML_IS_PLAIN_PAINTER (painter));
 	if (marker) {
-		gint width, len, asc, dsc;
+		gint width, len, line_offset = 0, asc, dsc;
 		
 		len   = g_utf8_strlen (marker, -1);
+		/* FIXME: cache items and glyphs? */
+		html_painter_calc_text_size (painter, marker, len, NULL, NULL, NULL, 0, &line_offset,
+					     html_clueflow_get_default_font_style (flow), NULL, &width, &asc, &dsc);
+		width += html_painter_get_space_width (painter, html_clueflow_get_default_font_style (flow), NULL);
 		html_painter_set_font_style (painter, html_clueflow_get_default_font_style (flow));
 		html_painter_set_font_face  (painter, NULL);
 		/* FIXME: cache items and glyphs? */
-		html_painter_calc_text_size (painter, marker, len, &width, &asc, &dsc);
-		width += html_painter_get_space_width (painter, html_clueflow_get_default_font_style (flow), NULL);
-		/* FIXME: cache items and glyphs? */
 		html_painter_draw_text (painter, self->x + first->x - width + tx,
 					self->y - self->ascent + first->y + ty,
-					marker, len);
+					marker, len, NULL, NULL, NULL, 0, 0);
 	}
 	g_free (marker);
 }
@@ -1849,7 +1854,7 @@ save_plain (HTMLObject *self,
 			PangoAttrList *attrs = pango_attr_list_new ();
 			gint bytes = html_engine_save_buffer_peek_text_bytes (buffer_state), slen = g_utf8_strlen (s, -1), i, clen, n_items;
 			GList *items_list, *cur;
-			PangoContext *pc = state->engine->painter->pango_context;
+			PangoContext *pc = gtk_widget_get_pango_context (GTK_WIDGET (state->engine->widget));
 			PangoLogAttr *lattrs;
 			PangoItem **items;
 			gint len, width, skip;

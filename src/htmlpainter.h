@@ -48,9 +48,7 @@ struct _HTMLPainter {
 	HTMLFontManager     font_manager;
 	HTMLFontFace       *font_face;
 	GtkHTMLFontStyle    font_style;
-	PangoContext       *pango_context;
-	
-	gdouble  engine_to_pango; /* Scale factor for engine coordinates => Pango coordinates */
+
 	gboolean focus;
 };
 
@@ -68,12 +66,17 @@ struct _HTMLPainterClass {
 	void (* alloc_color)      (HTMLPainter *painter, GdkColor *color);
 	void (* free_color)       (HTMLPainter *painter, GdkColor *color);
 
+	void (* calc_text_size) (HTMLPainter *p, const gchar *text, guint len, HTMLTextPangoInfo *pi, PangoAttrList *attrs, GList *glyphs, gint start_byte_offset,
+				 GtkHTMLFontStyle font_style, HTMLFontFace *face, gint *width, gint *asc, gint *dsc);
+	void (* calc_text_size_bytes) (HTMLPainter *p, const gchar *text, guint len, HTMLTextPangoInfo *pi, PangoAttrList *attrs, GList *glyphs, gint start_byte_offset,
+				       HTMLFont *font, GtkHTMLFontStyle font_style, gint *width, gint *asc, gint *dsc);
+
 	void (* set_pen)          (HTMLPainter *painter, const GdkColor *color);
 	const GdkColor * (* get_black) (const HTMLPainter *painter);
 	void (* draw_line)        (HTMLPainter *painter, gint x1, gint y1, gint x2, gint y2);
 	void (* draw_rect)        (HTMLPainter *painter, gint x, gint y, gint width, gint height);
-	gint (* draw_glyphs)      (HTMLPainter *painter, gint x, gint y, PangoItem *item, PangoGlyphString *glyphs);
-	gint (* draw_spell_error) (HTMLPainter *painter, gint x, gint y, HTMLTextPangoInfo *pi, GList *glyphs);
+	gint (* draw_text)        (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, HTMLTextPangoInfo *pi, PangoAttrList *attrs, GList *glyphs, gint start_byte_offset);
+	gint (* draw_spell_error) (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, HTMLTextPangoInfo *pi, GList *glyphs, gint start_byte_offset);
 	void (* fill_rect)        (HTMLPainter *painter, gint x, gint y, gint width, gint height);
 	void (* draw_pixmap)      (HTMLPainter *painter, GdkPixbuf *pixbuf, 
 				   gint x, gint y,
@@ -96,13 +99,6 @@ struct _HTMLPainterClass {
 
 	guint (*get_page_width)     (HTMLPainter *painter, HTMLEngine *e);
 	guint (*get_page_height)    (HTMLPainter *painter, HTMLEngine *e);
-};
-
-struct _HTMLPangoProperties {
-	gboolean        underline;
-	gboolean        strikethrough;
-	PangoColor     *fg_color;
-	PangoColor     *bg_color;
 };
 
 
@@ -145,18 +141,29 @@ void              html_painter_set_font_face                           (HTMLPain
 gpointer          html_painter_get_font                                (HTMLPainter       *painter,
 									HTMLFontFace      *face,
 									GtkHTMLFontStyle   style);
-void              html_painter_calc_entries_size                       (HTMLPainter       *p,
-									const gchar       *text,
-									guint              len,
-									HTMLTextPangoInfo *pi,
-									GList             *glyphs,
-									gint              *line_offset,
-									gint              *width,
-									gint              *asc,
-									gint              *dsc);
 void              html_painter_calc_text_size                          (HTMLPainter       *p,
 									const gchar       *text,
 									guint              len,
+									HTMLTextPangoInfo *pi,
+									PangoAttrList     *attrs,
+									GList             *glyphs,
+									gint               start_byte_offset,
+									gint              *line_offset,
+									GtkHTMLFontStyle   font_style,
+									HTMLFontFace      *face,
+									gint              *width,
+									gint              *asc,
+									gint              *dsc);
+void              html_painter_calc_text_size_bytes                    (HTMLPainter       *p,
+									const gchar       *text,
+									guint              len,
+									HTMLTextPangoInfo *pi,
+									PangoAttrList     *attrs,
+									GList             *glyphs,
+									gint               start_byte_offset,
+									gint              *line_offset,
+									HTMLFont          *font,
+									GtkHTMLFontStyle   font_style,
 									gint              *width,
 									gint              *asc,
 									gint              *dsc);
@@ -174,18 +181,15 @@ void              html_painter_draw_rect                               (HTMLPain
 									gint               y,
 									gint               width,
 									gint               height);
-void              html_painter_draw_text                               (HTMLPainter       *painter,
-									gint               x,
-									gint               y,
-									const gchar       *text,
-									gint               len);
-void              html_painter_draw_entries                            (HTMLPainter       *painter,
+gint              html_painter_draw_text                               (HTMLPainter       *painter,
 									gint               x,
 									gint               y,
 									const gchar       *text,
 									gint               len,
 									HTMLTextPangoInfo *pi,
+									PangoAttrList     *attrs,
 									GList             *glyphs,
+									gint               start_byte_offset,
 									gint               line_offset);
 void              html_painter_fill_rect                               (HTMLPainter       *painter,
 									gint               x,
@@ -241,8 +245,11 @@ guint             html_painter_get_pixel_size                          (HTMLPain
 gint              html_painter_draw_spell_error                        (HTMLPainter       *painter,
 									gint               x,
 									gint               y,
+									const gchar       *text,
+									gint               len,
 									HTMLTextPangoInfo *pi,
-									GList             *glyphs);
+									GList             *glyphs,
+									gint               start_byte_offset);
 HTMLFont         *html_painter_alloc_font                              (HTMLPainter       *painter,
 									gchar             *face_name,
 									gdouble            size,
@@ -278,10 +285,6 @@ guint             html_painter_get_page_width                          (HTMLPain
 								        HTMLEngine        *e);
 guint             html_painter_get_page_height                         (HTMLPainter       *painter,
 								        HTMLEngine        *e);
-gint              html_painter_pango_to_engine                         (HTMLPainter       *painter,
-									gint               pango_units);
-gint              html_painter_engine_to_pango                         (HTMLPainter       *painter,
-									gint               engine_units);
 void              html_painter_set_focus                               (HTMLPainter       *painter,
 									gboolean           focus);
 void              html_replace_tabs                                    (const gchar       *text,
@@ -295,12 +298,6 @@ HTMLTextPangoInfo *html_painter_text_itemize_and_prepare_glyphs  (HTMLPainter   
 								  GList                **glyphs,
 								  PangoAttrList         *attrs);
 void               html_painter_glyphs_destroy                   (GList                 *glyphs);
-
-
-/* Retrieves the properties we care about for a single run in an
- * easily accessible structure rather than a list of attributes
- */
-void html_pango_get_item_properties (PangoItem *item, HTMLPangoProperties *properties);
 
 #define HTML_BLOCK_INDENT   "        "
 #define HTML_BLOCK_CITE     "> "
