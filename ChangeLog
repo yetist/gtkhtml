@@ -1,3 +1,8 @@
+2000-12-11  Radek Doulik  <rodo@helixcode.com>
+
+	* Makefile.am (SUBDIRS): moved po subdir after capplet as we need
+	capplet/gtkhtml-capplet.glade.h
+
 2000-12-11  Jacob "Ulysses" Berkman  <jacob@helixcode.com>
 
 	* configure.in: add glade for the capplet

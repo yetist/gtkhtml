@@ -25,7 +25,8 @@ LDADD = \
 	$(top_builddir)/src/libgtkhtml.la
 
 EXTRA_DIST = \
-	gtkhtml-properties.desktop
+	gtkhtml-properties.desktop	\
+	gtkhtml-capplet.glade
 
 sysdir = $(datadir)/control-center/Documents/
 sys_DATA = gtkhtml-properties.desktop

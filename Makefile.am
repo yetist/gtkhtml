@@ -21,10 +21,10 @@ gtkhtmlConf.sh: gtkhtmlConf.sh.in Makefile
 	  && mv gtkhtmlConf.tmp gtkhtmlConf.sh
 
 SUBDIRS =					\
-	po					\
 	macros					\
 	src					\
 	capplet					\
+	po					\
 	$(DIR_COMPONENTS)
 
 EXTRA_DIST =					\
