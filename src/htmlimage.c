@@ -1071,8 +1071,10 @@ html_image_pointer_timeout (HTMLImagePointer *ip)
 	if (ip->pixbuf == NULL) {
 		while (list) {
 			image = (HTMLImage *)list->data;
-			html_engine_queue_draw (ip->factory->engine,
-						HTML_OBJECT (image));
+
+			if (image)
+				html_engine_queue_draw (ip->factory->engine,
+							HTML_OBJECT (image));
 			
 			list = list->next;
 		}

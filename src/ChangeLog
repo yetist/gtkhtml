@@ -1,3 +1,8 @@
+2001-01-25  Larry Ewing  <lewing@ximian.com>
+
+	* htmlimage.c (html_image_pointer_timeout): only queue a redraw if
+	there is an image object to queue it on (not a background).
+
 2001-01-24  Larry Ewing  <lewing@ximian.com>
 
 	* htmlimage.c (html_image_pointer_timeout): draw the borders now
