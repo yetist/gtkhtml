@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.8\n"
-"POT-Creation-Date: 2001-07-13 16:38-0500\n"
+"POT-Creation-Date: 2001-07-13 17:48-0500\n"
 "PO-Revision-Date: 2001-04-28 14:12GMT +0200\n"
 "Last-Translator: Vasif İsmayıloğlu MD <azerb_linux@hotmail.com>\n"
 "Language-Team: Azerbaijani Turkish <linuxaz@azerimail.net>\n"
@@ -42,7 +42,7 @@ msgstr "Əlavə Et"
 
 #: capplet/gnome-bindings-prop.c:553
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:2
-#: components/html-editor/popup.c:249
+#: components/html-editor/popup.c:251
 msgid "Copy"
 msgstr "Köçürt"
 
@@ -64,38 +64,38 @@ msgid "Animated images"
 msgstr "Hərəkətli şəkillər"
 
 #: capplet/gtkhtml-capplet.glade.h:2
+msgid "Automatic Link Detection"
+msgstr ""
+
+#: capplet/gtkhtml-capplet.glade.h:3
 msgid "Behavior"
 msgstr "Davranış"
 
 #. color selection
-#: capplet/gtkhtml-capplet.glade.h:3 components/html-editor/text.c:218
+#: capplet/gtkhtml-capplet.glade.h:4 components/html-editor/text.c:218
 msgid "Color"
 msgstr "Rəng"
 
-#: capplet/gtkhtml-capplet.glade.h:4
+#: capplet/gtkhtml-capplet.glade.h:5
 msgid "Fixed width"
 msgstr "Sabit en"
 
-#: capplet/gtkhtml-capplet.glade.h:5
+#: capplet/gtkhtml-capplet.glade.h:6
 msgid "Fonts"
 msgstr "Yazıtipləri"
 
-#: capplet/gtkhtml-capplet.glade.h:6
+#: capplet/gtkhtml-capplet.glade.h:7
 msgid "For printing"
 msgstr "Çap etmək üçün"
 
-#: capplet/gtkhtml-capplet.glade.h:7
+#: capplet/gtkhtml-capplet.glade.h:8
 #, fuzzy
 msgid "Keyboard Shortcuts"
 msgstr "Klaviatura qısa yolları"
 
-#: capplet/gtkhtml-capplet.glade.h:8
+#: capplet/gtkhtml-capplet.glade.h:9
 msgid "Language"
 msgstr "Dil"
-
-#: capplet/gtkhtml-capplet.glade.h:9
-msgid "Magic links (FIXME: better label)"
-msgstr "Sehirli baǧlar"
 
 #: capplet/gtkhtml-capplet.glade.h:10
 msgid "Miscellaneous"
@@ -182,7 +182,7 @@ msgid "Copy the selection"
 msgstr "Seçili bölməyi al"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:5
-#: components/html-editor/popup.c:250
+#: components/html-editor/popup.c:252
 msgid "Cut"
 msgstr "Kəs"
 
@@ -249,7 +249,7 @@ msgid "Modify the file's properties"
 msgstr "Sənəd xüsusiyyətlərini təkmilləşdir"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:20
-#: components/html-editor/popup.c:256
+#: components/html-editor/popup.c:258
 msgid "Paste"
 msgstr "Yapışdır"
 
@@ -698,51 +698,51 @@ msgstr "Siyahı üzvü ( rəqəm)"
 msgid "Align"
 msgstr "Tərəflə"
 
-#: components/html-editor/popup.c:235
+#: components/html-editor/popup.c:237
 msgid "Suggest word"
 msgstr ""
 
-#: components/html-editor/popup.c:244
+#: components/html-editor/popup.c:246
 msgid "Remove link"
 msgstr "Baǧı sil"
 
-#: components/html-editor/popup.c:260 components/html-editor/popup.c:286
+#: components/html-editor/popup.c:262 components/html-editor/popup.c:288
 #, fuzzy
 msgid "Text..."
 msgstr "Mətn"
 
-#: components/html-editor/popup.c:262 components/html-editor/popup.c:277
-#: components/html-editor/popup.c:288
+#: components/html-editor/popup.c:264 components/html-editor/popup.c:279
+#: components/html-editor/popup.c:290
 #, fuzzy
 msgid "Paragraph..."
 msgstr "Paraqraf"
 
-#: components/html-editor/popup.c:264 components/html-editor/popup.c:279
-#: components/html-editor/popup.c:290
+#: components/html-editor/popup.c:266 components/html-editor/popup.c:281
+#: components/html-editor/popup.c:292
 #, fuzzy
 msgid "Link..."
 msgstr "_Baǧ..."
 
-#: components/html-editor/popup.c:270
+#: components/html-editor/popup.c:272
 #, fuzzy
 msgid "Rule..."
 msgstr "_Çubuq..."
 
-#: components/html-editor/popup.c:275
+#: components/html-editor/popup.c:277
 #, fuzzy
 msgid "Image..."
 msgstr "_Rəsm..."
 
-#: components/html-editor/popup.c:295 components/html-editor/popup.c:304
+#: components/html-editor/popup.c:297 components/html-editor/popup.c:306
 #, fuzzy
 msgid "Table..."
 msgstr "_Çubuq..."
 
-#: components/html-editor/popup.c:301
+#: components/html-editor/popup.c:303
 msgid "Cell..."
 msgstr ""
 
-#: components/html-editor/popup.c:311
+#: components/html-editor/popup.c:313
 #, fuzzy
 msgid "Page..."
 msgstr "_Rəsm..."
@@ -899,6 +899,9 @@ msgstr "Önizləməyi _çap et"
 #: src/testgtkhtml.c:112
 msgid "Print preview"
 msgstr "Çap etmə önizləməsi"
+
+#~ msgid "Magic links (FIXME: better label)"
+#~ msgstr "Sehirli baǧlar"
 
 #~ msgid "Factory for the HTML Editor control"
 #~ msgstr "HTML Editor idarəsi e'malatxanası"

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.8.1\n"
-"POT-Creation-Date: 2001-07-13 16:38-0500\n"
+"POT-Creation-Date: 2001-07-13 17:48-0500\n"
 "PO-Revision-Date: 2001-01-30 15:55:46+0900\n"
 "Last-Translator: Simos Xenitellis <simos@hellug.gr>\n"
 "Language-Team: Greek <nls@tux.hellug.gr>\n"
@@ -44,7 +44,7 @@ msgstr "Προσθήκη"
 #
 #: capplet/gnome-bindings-prop.c:553
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:2
-#: components/html-editor/popup.c:249
+#: components/html-editor/popup.c:251
 msgid "Copy"
 msgstr "Αντιγραφή"
 
@@ -67,41 +67,41 @@ msgid "Animated images"
 msgstr "Κινούμενες εικόνες"
 
 #: capplet/gtkhtml-capplet.glade.h:2
+msgid "Automatic Link Detection"
+msgstr ""
+
+#: capplet/gtkhtml-capplet.glade.h:3
 msgid "Behavior"
 msgstr "Συμπεριφορά"
 
 #
 #. color selection
-#: capplet/gtkhtml-capplet.glade.h:3 components/html-editor/text.c:218
+#: capplet/gtkhtml-capplet.glade.h:4 components/html-editor/text.c:218
 msgid "Color"
 msgstr "Χρώμα"
 
-#: capplet/gtkhtml-capplet.glade.h:4
+#: capplet/gtkhtml-capplet.glade.h:5
 msgid "Fixed width"
 msgstr "Σταθερό πλάτος"
 
-#: capplet/gtkhtml-capplet.glade.h:5
+#: capplet/gtkhtml-capplet.glade.h:6
 msgid "Fonts"
 msgstr "Γραμματοσειρές"
 
 #
-#: capplet/gtkhtml-capplet.glade.h:6
+#: capplet/gtkhtml-capplet.glade.h:7
 msgid "For printing"
 msgstr "Για εκτύπωση"
 
-#: capplet/gtkhtml-capplet.glade.h:7
+#: capplet/gtkhtml-capplet.glade.h:8
 #, fuzzy
 msgid "Keyboard Shortcuts"
 msgstr "Συντομεύσεις πληκτρολογίου"
 
 #
-#: capplet/gtkhtml-capplet.glade.h:8
+#: capplet/gtkhtml-capplet.glade.h:9
 msgid "Language"
 msgstr "Γλώσσα"
-
-#: capplet/gtkhtml-capplet.glade.h:9
-msgid "Magic links (FIXME: better label)"
-msgstr ""
 
 #: capplet/gtkhtml-capplet.glade.h:10
 msgid "Miscellaneous"
@@ -188,7 +188,7 @@ msgstr "Αντιγραφή του επιλεγμένου"
 
 #
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:5
-#: components/html-editor/popup.c:250
+#: components/html-editor/popup.c:252
 msgid "Cut"
 msgstr "Αποκοπή"
 
@@ -257,7 +257,7 @@ msgstr ""
 
 #
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:20
-#: components/html-editor/popup.c:256
+#: components/html-editor/popup.c:258
 msgid "Paste"
 msgstr "Επικόλληση"
 
@@ -716,54 +716,54 @@ msgstr ""
 msgid "Align"
 msgstr "Στοίχιση"
 
-#: components/html-editor/popup.c:235
+#: components/html-editor/popup.c:237
 msgid "Suggest word"
 msgstr ""
 
-#: components/html-editor/popup.c:244
+#: components/html-editor/popup.c:246
 msgid "Remove link"
 msgstr "Διαγραφή συνδέσμου"
 
 #
-#: components/html-editor/popup.c:260 components/html-editor/popup.c:286
+#: components/html-editor/popup.c:262 components/html-editor/popup.c:288
 #, fuzzy
 msgid "Text..."
 msgstr "Κείμενο"
 
-#: components/html-editor/popup.c:262 components/html-editor/popup.c:277
-#: components/html-editor/popup.c:288
+#: components/html-editor/popup.c:264 components/html-editor/popup.c:279
+#: components/html-editor/popup.c:290
 #, fuzzy
 msgid "Paragraph..."
 msgstr "Παράγραφος"
 
-#: components/html-editor/popup.c:264 components/html-editor/popup.c:279
-#: components/html-editor/popup.c:290
+#: components/html-editor/popup.c:266 components/html-editor/popup.c:281
+#: components/html-editor/popup.c:292
 #, fuzzy
 msgid "Link..."
 msgstr "_Σύνδεσμος..."
 
-#: components/html-editor/popup.c:270
+#: components/html-editor/popup.c:272
 #, fuzzy
 msgid "Rule..."
 msgstr "_Κανόνας..."
 
 #
-#: components/html-editor/popup.c:275
+#: components/html-editor/popup.c:277
 #, fuzzy
 msgid "Image..."
 msgstr "_Εικόνα..."
 
-#: components/html-editor/popup.c:295 components/html-editor/popup.c:304
+#: components/html-editor/popup.c:297 components/html-editor/popup.c:306
 #, fuzzy
 msgid "Table..."
 msgstr "_Κανόνας..."
 
-#: components/html-editor/popup.c:301
+#: components/html-editor/popup.c:303
 msgid "Cell..."
 msgstr ""
 
 #
-#: components/html-editor/popup.c:311
+#: components/html-editor/popup.c:313
 #, fuzzy
 msgid "Page..."
 msgstr "_Εικόνα..."

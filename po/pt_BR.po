@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.8.2\n"
-"POT-Creation-Date: 2001-07-13 16:38-0500\n"
+"POT-Creation-Date: 2001-07-13 17:48-0500\n"
 "PO-Revision-Date: 2001-02-17 20:10-02:00\n"
 "Last-Translator: Gustavo Maciel Dias Vieira <gdvieira@zaz.com.br>\n"
 "Language-Team: Brazilian Portuguese <ldp-br@bazar.conectiva.com.br>\n"
@@ -41,7 +41,7 @@ msgstr "Incluir"
 
 #: capplet/gnome-bindings-prop.c:553
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:2
-#: components/html-editor/popup.c:249
+#: components/html-editor/popup.c:251
 msgid "Copy"
 msgstr "Copiar"
 
@@ -63,38 +63,38 @@ msgid "Animated images"
 msgstr "Imagens animadas"
 
 #: capplet/gtkhtml-capplet.glade.h:2
+msgid "Automatic Link Detection"
+msgstr ""
+
+#: capplet/gtkhtml-capplet.glade.h:3
 msgid "Behavior"
 msgstr "Comportamento"
 
 #. color selection
-#: capplet/gtkhtml-capplet.glade.h:3 components/html-editor/text.c:218
+#: capplet/gtkhtml-capplet.glade.h:4 components/html-editor/text.c:218
 msgid "Color"
 msgstr "Cor"
 
-#: capplet/gtkhtml-capplet.glade.h:4
+#: capplet/gtkhtml-capplet.glade.h:5
 msgid "Fixed width"
 msgstr "Largura fixa"
 
-#: capplet/gtkhtml-capplet.glade.h:5
+#: capplet/gtkhtml-capplet.glade.h:6
 msgid "Fonts"
 msgstr "Fontes"
 
-#: capplet/gtkhtml-capplet.glade.h:6
+#: capplet/gtkhtml-capplet.glade.h:7
 msgid "For printing"
 msgstr "Para impressão"
 
-#: capplet/gtkhtml-capplet.glade.h:7
+#: capplet/gtkhtml-capplet.glade.h:8
 #, fuzzy
 msgid "Keyboard Shortcuts"
 msgstr "Atalhos de teclado"
 
-#: capplet/gtkhtml-capplet.glade.h:8
+#: capplet/gtkhtml-capplet.glade.h:9
 msgid "Language"
 msgstr "Língua"
-
-#: capplet/gtkhtml-capplet.glade.h:9
-msgid "Magic links (FIXME: better label)"
-msgstr "Vínculos mágicos (FIXME)"
 
 #: capplet/gtkhtml-capplet.glade.h:10
 msgid "Miscellaneous"
@@ -177,7 +177,7 @@ msgid "Copy the selection"
 msgstr "Copia a seleção"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:5
-#: components/html-editor/popup.c:250
+#: components/html-editor/popup.c:252
 msgid "Cut"
 msgstr "Recortar"
 
@@ -244,7 +244,7 @@ msgid "Modify the file's properties"
 msgstr "Modifica as propriedades do arquivo"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:20
-#: components/html-editor/popup.c:256
+#: components/html-editor/popup.c:258
 msgid "Paste"
 msgstr "Colar"
 
@@ -693,51 +693,51 @@ msgstr "Item de lista (dígito)"
 msgid "Align"
 msgstr "Alinhamento"
 
-#: components/html-editor/popup.c:235
+#: components/html-editor/popup.c:237
 msgid "Suggest word"
 msgstr ""
 
-#: components/html-editor/popup.c:244
+#: components/html-editor/popup.c:246
 msgid "Remove link"
 msgstr "Excluir vínculo"
 
-#: components/html-editor/popup.c:260 components/html-editor/popup.c:286
+#: components/html-editor/popup.c:262 components/html-editor/popup.c:288
 #, fuzzy
 msgid "Text..."
 msgstr "Texto"
 
-#: components/html-editor/popup.c:262 components/html-editor/popup.c:277
-#: components/html-editor/popup.c:288
+#: components/html-editor/popup.c:264 components/html-editor/popup.c:279
+#: components/html-editor/popup.c:290
 #, fuzzy
 msgid "Paragraph..."
 msgstr "Parágrafo"
 
-#: components/html-editor/popup.c:264 components/html-editor/popup.c:279
-#: components/html-editor/popup.c:290
+#: components/html-editor/popup.c:266 components/html-editor/popup.c:281
+#: components/html-editor/popup.c:292
 #, fuzzy
 msgid "Link..."
 msgstr "_Vínculo..."
 
-#: components/html-editor/popup.c:270
+#: components/html-editor/popup.c:272
 #, fuzzy
 msgid "Rule..."
 msgstr "_Régua..."
 
-#: components/html-editor/popup.c:275
+#: components/html-editor/popup.c:277
 #, fuzzy
 msgid "Image..."
 msgstr "_Imagem..."
 
-#: components/html-editor/popup.c:295 components/html-editor/popup.c:304
+#: components/html-editor/popup.c:297 components/html-editor/popup.c:306
 #, fuzzy
 msgid "Table..."
 msgstr "_Régua..."
 
-#: components/html-editor/popup.c:301
+#: components/html-editor/popup.c:303
 msgid "Cell..."
 msgstr ""
 
-#: components/html-editor/popup.c:311
+#: components/html-editor/popup.c:313
 #, fuzzy
 msgid "Page..."
 msgstr "_Imagem..."
@@ -894,6 +894,9 @@ msgstr "_Visualizar impressão"
 #: src/testgtkhtml.c:112
 msgid "Print preview"
 msgstr "Visualizar impressão"
+
+#~ msgid "Magic links (FIXME: better label)"
+#~ msgstr "Vínculos mágicos (FIXME)"
 
 #~ msgid "Replace a string"
 #~ msgstr "Substitui uma expressão"

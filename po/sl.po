@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2001-07-13 16:38-0500\n"
+"POT-Creation-Date: 2001-07-13 17:48-0500\n"
 "PO-Revision-Date: 2000-08-06 22:43+0200\n"
 "Last-Translator: Andraz Tori <andraz.tori1@guest.arnes.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
@@ -41,7 +41,7 @@ msgstr "Dodaj"
 
 #: capplet/gnome-bindings-prop.c:553
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:2
-#: components/html-editor/popup.c:249
+#: components/html-editor/popup.c:251
 msgid "Copy"
 msgstr "Kopiraj"
 
@@ -63,37 +63,37 @@ msgid "Animated images"
 msgstr "Animirane slike"
 
 #: capplet/gtkhtml-capplet.glade.h:2
+msgid "Automatic Link Detection"
+msgstr ""
+
+#: capplet/gtkhtml-capplet.glade.h:3
 msgid "Behavior"
 msgstr "Obna¹anje"
 
 #. color selection
-#: capplet/gtkhtml-capplet.glade.h:3 components/html-editor/text.c:218
+#: capplet/gtkhtml-capplet.glade.h:4 components/html-editor/text.c:218
 msgid "Color"
 msgstr "Barva"
 
-#: capplet/gtkhtml-capplet.glade.h:4
+#: capplet/gtkhtml-capplet.glade.h:5
 msgid "Fixed width"
 msgstr "Nespremenljiva ¹irina"
 
-#: capplet/gtkhtml-capplet.glade.h:5
+#: capplet/gtkhtml-capplet.glade.h:6
 msgid "Fonts"
 msgstr "Pisave"
 
-#: capplet/gtkhtml-capplet.glade.h:6
+#: capplet/gtkhtml-capplet.glade.h:7
 msgid "For printing"
 msgstr "Za tiskanje"
 
-#: capplet/gtkhtml-capplet.glade.h:7
+#: capplet/gtkhtml-capplet.glade.h:8
 msgid "Keyboard Shortcuts"
 msgstr "Bli¾njice tipkovnice"
 
-#: capplet/gtkhtml-capplet.glade.h:8
+#: capplet/gtkhtml-capplet.glade.h:9
 msgid "Language"
 msgstr "Jezik"
-
-#: capplet/gtkhtml-capplet.glade.h:9
-msgid "Magic links (FIXME: better label)"
-msgstr "Èarobne povezave (POPRAVI: bolj¹e polja)"
 
 #: capplet/gtkhtml-capplet.glade.h:10
 msgid "Miscellaneous"
@@ -176,7 +176,7 @@ msgid "Copy the selection"
 msgstr "Kopiraj izbrano"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:5
-#: components/html-editor/popup.c:250
+#: components/html-editor/popup.c:252
 msgid "Cut"
 msgstr "Izre¾i"
 
@@ -238,7 +238,7 @@ msgid "Modify the file's properties"
 msgstr "Spremeni lastnosti datoteke"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:20
-#: components/html-editor/popup.c:256
+#: components/html-editor/popup.c:258
 msgid "Paste"
 msgstr "Prilepi"
 
@@ -671,45 +671,45 @@ msgstr "Predmet seznama (o¹tevilèenega)"
 msgid "Align"
 msgstr "Poravnaj"
 
-#: components/html-editor/popup.c:235
+#: components/html-editor/popup.c:237
 msgid "Suggest word"
 msgstr "Predlagaj besedo"
 
-#: components/html-editor/popup.c:244
+#: components/html-editor/popup.c:246
 msgid "Remove link"
 msgstr "Odstrani povezavo"
 
-#: components/html-editor/popup.c:260 components/html-editor/popup.c:286
+#: components/html-editor/popup.c:262 components/html-editor/popup.c:288
 msgid "Text..."
 msgstr "Besedilo..."
 
-#: components/html-editor/popup.c:262 components/html-editor/popup.c:277
-#: components/html-editor/popup.c:288
+#: components/html-editor/popup.c:264 components/html-editor/popup.c:279
+#: components/html-editor/popup.c:290
 msgid "Paragraph..."
 msgstr "Odstavek..."
 
-#: components/html-editor/popup.c:264 components/html-editor/popup.c:279
-#: components/html-editor/popup.c:290
+#: components/html-editor/popup.c:266 components/html-editor/popup.c:281
+#: components/html-editor/popup.c:292
 msgid "Link..."
 msgstr "Povezava..."
 
-#: components/html-editor/popup.c:270
+#: components/html-editor/popup.c:272
 msgid "Rule..."
 msgstr "Pravilo..."
 
-#: components/html-editor/popup.c:275
+#: components/html-editor/popup.c:277
 msgid "Image..."
 msgstr "Slika..."
 
-#: components/html-editor/popup.c:295 components/html-editor/popup.c:304
+#: components/html-editor/popup.c:297 components/html-editor/popup.c:306
 msgid "Table..."
 msgstr "Tabela..."
 
-#: components/html-editor/popup.c:301
+#: components/html-editor/popup.c:303
 msgid "Cell..."
 msgstr "Celica..."
 
-#: components/html-editor/popup.c:311
+#: components/html-editor/popup.c:313
 msgid "Page..."
 msgstr "Stran..."
 
@@ -864,6 +864,9 @@ msgstr "_Predogled tiskanja"
 #: src/testgtkhtml.c:112
 msgid "Print preview"
 msgstr "Predogled tiskanja"
+
+#~ msgid "Magic links (FIXME: better label)"
+#~ msgstr "Èarobne povezave (POPRAVI: bolj¹e polja)"
 
 #~ msgid "Factory for the HTML Editor control"
 #~ msgstr "Tovarna za kontrolo urejevalnika HTML"

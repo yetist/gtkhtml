@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.6\n"
-"POT-Creation-Date: 2001-07-13 16:38-0500\n"
+"POT-Creation-Date: 2001-07-13 17:48-0500\n"
 "PO-Revision-Date: 2001-02-19 14:00+0900\n"
 "Last-Translator: Yukihiro Nakai <nakai@gnome.gr.jp>\n"
 "Language-Team: Japanese <translation@gnome.gr.jp>\n"
@@ -42,7 +42,7 @@ msgstr "追加"
 
 #: capplet/gnome-bindings-prop.c:553
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:2
-#: components/html-editor/popup.c:249
+#: components/html-editor/popup.c:251
 msgid "Copy"
 msgstr "コピー"
 
@@ -64,38 +64,38 @@ msgid "Animated images"
 msgstr "アニメーション画像"
 
 #: capplet/gtkhtml-capplet.glade.h:2
+msgid "Automatic Link Detection"
+msgstr ""
+
+#: capplet/gtkhtml-capplet.glade.h:3
 msgid "Behavior"
 msgstr "動作"
 
 #. color selection
-#: capplet/gtkhtml-capplet.glade.h:3 components/html-editor/text.c:218
+#: capplet/gtkhtml-capplet.glade.h:4 components/html-editor/text.c:218
 msgid "Color"
 msgstr "色"
 
-#: capplet/gtkhtml-capplet.glade.h:4
+#: capplet/gtkhtml-capplet.glade.h:5
 msgid "Fixed width"
 msgstr "等幅フォント"
 
-#: capplet/gtkhtml-capplet.glade.h:5
+#: capplet/gtkhtml-capplet.glade.h:6
 msgid "Fonts"
 msgstr "フォント"
 
-#: capplet/gtkhtml-capplet.glade.h:6
+#: capplet/gtkhtml-capplet.glade.h:7
 msgid "For printing"
 msgstr "印刷用"
 
-#: capplet/gtkhtml-capplet.glade.h:7
+#: capplet/gtkhtml-capplet.glade.h:8
 #, fuzzy
 msgid "Keyboard Shortcuts"
 msgstr "キーボードショートカット"
 
-#: capplet/gtkhtml-capplet.glade.h:8
+#: capplet/gtkhtml-capplet.glade.h:9
 msgid "Language"
 msgstr "言語"
-
-#: capplet/gtkhtml-capplet.glade.h:9
-msgid "Magic links (FIXME: better label)"
-msgstr "マジックリンク(FIXME: もっといい名前に)"
 
 #: capplet/gtkhtml-capplet.glade.h:10
 msgid "Miscellaneous"
@@ -178,7 +178,7 @@ msgid "Copy the selection"
 msgstr "選択範囲のコピー"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:5
-#: components/html-editor/popup.c:250
+#: components/html-editor/popup.c:252
 msgid "Cut"
 msgstr "カット"
 
@@ -245,7 +245,7 @@ msgid "Modify the file's properties"
 msgstr "ファイルプロパティの編集"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:20
-#: components/html-editor/popup.c:256
+#: components/html-editor/popup.c:258
 msgid "Paste"
 msgstr "貼り付け"
 
@@ -694,51 +694,51 @@ msgstr "一覧項目 (数字)"
 msgid "Align"
 msgstr "位置"
 
-#: components/html-editor/popup.c:235
+#: components/html-editor/popup.c:237
 msgid "Suggest word"
 msgstr ""
 
-#: components/html-editor/popup.c:244
+#: components/html-editor/popup.c:246
 msgid "Remove link"
 msgstr "リンクを削除"
 
-#: components/html-editor/popup.c:260 components/html-editor/popup.c:286
+#: components/html-editor/popup.c:262 components/html-editor/popup.c:288
 #, fuzzy
 msgid "Text..."
 msgstr "テキスト"
 
-#: components/html-editor/popup.c:262 components/html-editor/popup.c:277
-#: components/html-editor/popup.c:288
+#: components/html-editor/popup.c:264 components/html-editor/popup.c:279
+#: components/html-editor/popup.c:290
 #, fuzzy
 msgid "Paragraph..."
 msgstr "段落"
 
-#: components/html-editor/popup.c:264 components/html-editor/popup.c:279
-#: components/html-editor/popup.c:290
+#: components/html-editor/popup.c:266 components/html-editor/popup.c:281
+#: components/html-editor/popup.c:292
 #, fuzzy
 msgid "Link..."
 msgstr "リンク(_L)..."
 
-#: components/html-editor/popup.c:270
+#: components/html-editor/popup.c:272
 #, fuzzy
 msgid "Rule..."
 msgstr "罫線(_R)..."
 
-#: components/html-editor/popup.c:275
+#: components/html-editor/popup.c:277
 #, fuzzy
 msgid "Image..."
 msgstr "画像(_I)..."
 
-#: components/html-editor/popup.c:295 components/html-editor/popup.c:304
+#: components/html-editor/popup.c:297 components/html-editor/popup.c:306
 #, fuzzy
 msgid "Table..."
 msgstr "罫線(_R)..."
 
-#: components/html-editor/popup.c:301
+#: components/html-editor/popup.c:303
 msgid "Cell..."
 msgstr ""
 
-#: components/html-editor/popup.c:311
+#: components/html-editor/popup.c:313
 #, fuzzy
 msgid "Page..."
 msgstr "画像(_I)..."
@@ -895,6 +895,9 @@ msgstr "印刷プレビュー(_V)"
 #: src/testgtkhtml.c:112
 msgid "Print preview"
 msgstr "印刷プレビュー"
+
+#~ msgid "Magic links (FIXME: better label)"
+#~ msgstr "マジックリンク(FIXME: もっといい名前に)"
 
 #~ msgid "Replace a string"
 #~ msgstr "文字列の置換"

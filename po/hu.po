@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml VERSION\n"
-"POT-Creation-Date: 2001-07-13 16:38-0500\n"
+"POT-Creation-Date: 2001-07-13 17:48-0500\n"
 "PO-Revision-Date: 2001-06-15 09:54+0200\n"
 "Last-Translator: András TÍmár <timar@gnome.hu>\n"
 "Language-Team: Hungarian <hu@gnome.hu>\n"
@@ -41,7 +41,7 @@ msgstr "Hozzáadás"
 
 #: capplet/gnome-bindings-prop.c:553
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:2
-#: components/html-editor/popup.c:249
+#: components/html-editor/popup.c:251
 msgid "Copy"
 msgstr "Másolás"
 
@@ -63,37 +63,37 @@ msgid "Animated images"
 msgstr "Animált képek"
 
 #: capplet/gtkhtml-capplet.glade.h:2
+msgid "Automatic Link Detection"
+msgstr ""
+
+#: capplet/gtkhtml-capplet.glade.h:3
 msgid "Behavior"
 msgstr "Viselkedés"
 
 #. color selection
-#: capplet/gtkhtml-capplet.glade.h:3 components/html-editor/text.c:218
+#: capplet/gtkhtml-capplet.glade.h:4 components/html-editor/text.c:218
 msgid "Color"
 msgstr "Szín"
 
-#: capplet/gtkhtml-capplet.glade.h:4
+#: capplet/gtkhtml-capplet.glade.h:5
 msgid "Fixed width"
 msgstr "Fix szélesség"
 
-#: capplet/gtkhtml-capplet.glade.h:5
+#: capplet/gtkhtml-capplet.glade.h:6
 msgid "Fonts"
 msgstr "Betûkészletek"
 
-#: capplet/gtkhtml-capplet.glade.h:6
+#: capplet/gtkhtml-capplet.glade.h:7
 msgid "For printing"
 msgstr "Nyomtatáshoz"
 
-#: capplet/gtkhtml-capplet.glade.h:7
+#: capplet/gtkhtml-capplet.glade.h:8
 msgid "Keyboard Shortcuts"
 msgstr "Billentyûparancsok"
 
-#: capplet/gtkhtml-capplet.glade.h:8
+#: capplet/gtkhtml-capplet.glade.h:9
 msgid "Language"
 msgstr "Nyelv"
-
-#: capplet/gtkhtml-capplet.glade.h:9
-msgid "Magic links (FIXME: better label)"
-msgstr "Varázslinkek (FIXME: jobb felirat)"
 
 #: capplet/gtkhtml-capplet.glade.h:10
 msgid "Miscellaneous"
@@ -179,7 +179,7 @@ msgid "Copy the selection"
 msgstr "Kijelölés másolása"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:5
-#: components/html-editor/popup.c:250
+#: components/html-editor/popup.c:252
 msgid "Cut"
 msgstr "Kivágás"
 
@@ -241,7 +241,7 @@ msgid "Modify the file's properties"
 msgstr "Fájl tulajdonságainak módosítása"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:20
-#: components/html-editor/popup.c:256
+#: components/html-editor/popup.c:258
 msgid "Paste"
 msgstr "Beillesztés"
 
@@ -674,45 +674,45 @@ msgstr "Listaelem (számjegy)"
 msgid "Align"
 msgstr "Igazítás"
 
-#: components/html-editor/popup.c:235
+#: components/html-editor/popup.c:237
 msgid "Suggest word"
 msgstr "Javasolt szó"
 
-#: components/html-editor/popup.c:244
+#: components/html-editor/popup.c:246
 msgid "Remove link"
 msgstr "Hivatkozás eltávolítása"
 
-#: components/html-editor/popup.c:260 components/html-editor/popup.c:286
+#: components/html-editor/popup.c:262 components/html-editor/popup.c:288
 msgid "Text..."
 msgstr "Szöveg..."
 
-#: components/html-editor/popup.c:262 components/html-editor/popup.c:277
-#: components/html-editor/popup.c:288
+#: components/html-editor/popup.c:264 components/html-editor/popup.c:279
+#: components/html-editor/popup.c:290
 msgid "Paragraph..."
 msgstr "Bekezdés..."
 
-#: components/html-editor/popup.c:264 components/html-editor/popup.c:279
-#: components/html-editor/popup.c:290
+#: components/html-editor/popup.c:266 components/html-editor/popup.c:281
+#: components/html-editor/popup.c:292
 msgid "Link..."
 msgstr "Hivatkozás..."
 
-#: components/html-editor/popup.c:270
+#: components/html-editor/popup.c:272
 msgid "Rule..."
 msgstr "Szabály..."
 
-#: components/html-editor/popup.c:275
+#: components/html-editor/popup.c:277
 msgid "Image..."
 msgstr "Kép..."
 
-#: components/html-editor/popup.c:295 components/html-editor/popup.c:304
+#: components/html-editor/popup.c:297 components/html-editor/popup.c:306
 msgid "Table..."
 msgstr "Táblázat..."
 
-#: components/html-editor/popup.c:301
+#: components/html-editor/popup.c:303
 msgid "Cell..."
 msgstr "Cella..."
 
-#: components/html-editor/popup.c:311
+#: components/html-editor/popup.c:313
 msgid "Page..."
 msgstr "Oldal..."
 
@@ -867,6 +867,9 @@ msgstr "Nyomtatási _kép"
 #: src/testgtkhtml.c:112
 msgid "Print preview"
 msgstr "Nyomtatási kép"
+
+#~ msgid "Magic links (FIXME: better label)"
+#~ msgstr "Varázslinkek (FIXME: jobb felirat)"
 
 #~ msgid "Factory for the HTML Editor control"
 #~ msgstr "Factory a HTML Editor controlhoz"

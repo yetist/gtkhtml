@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.8.2\n"
-"POT-Creation-Date: 2001-07-13 16:38-0500\n"
+"POT-Creation-Date: 2001-07-13 17:48-0500\n"
 "PO-Revision-Date: 2001-04-09 17:10+0100\n"
 "Last-Translator: Pier Luigi Fiorini <plfiorini@libero.it>\n"
 "Language-Team: Italiano <it@li.org>\n"
@@ -41,7 +41,7 @@ msgstr "Aggiungi"
 
 #: capplet/gnome-bindings-prop.c:553
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:2
-#: components/html-editor/popup.c:249
+#: components/html-editor/popup.c:251
 msgid "Copy"
 msgstr "Copia"
 
@@ -63,38 +63,38 @@ msgid "Animated images"
 msgstr "Immagini animate"
 
 #: capplet/gtkhtml-capplet.glade.h:2
+msgid "Automatic Link Detection"
+msgstr ""
+
+#: capplet/gtkhtml-capplet.glade.h:3
 msgid "Behavior"
 msgstr "Comportamento"
 
 #. color selection
-#: capplet/gtkhtml-capplet.glade.h:3 components/html-editor/text.c:218
+#: capplet/gtkhtml-capplet.glade.h:4 components/html-editor/text.c:218
 msgid "Color"
 msgstr "Colore"
 
-#: capplet/gtkhtml-capplet.glade.h:4
+#: capplet/gtkhtml-capplet.glade.h:5
 msgid "Fixed width"
 msgstr "Larghezza fissa"
 
-#: capplet/gtkhtml-capplet.glade.h:5
+#: capplet/gtkhtml-capplet.glade.h:6
 msgid "Fonts"
 msgstr "Caratteri"
 
-#: capplet/gtkhtml-capplet.glade.h:6
+#: capplet/gtkhtml-capplet.glade.h:7
 msgid "For printing"
 msgstr "Per la stampa"
 
-#: capplet/gtkhtml-capplet.glade.h:7
+#: capplet/gtkhtml-capplet.glade.h:8
 #, fuzzy
 msgid "Keyboard Shortcuts"
 msgstr "Scorciatoie tastiera"
 
-#: capplet/gtkhtml-capplet.glade.h:8
+#: capplet/gtkhtml-capplet.glade.h:9
 msgid "Language"
 msgstr "Lingua"
-
-#: capplet/gtkhtml-capplet.glade.h:9
-msgid "Magic links (FIXME: better label)"
-msgstr "Link magici"
 
 #: capplet/gtkhtml-capplet.glade.h:10
 msgid "Miscellaneous"
@@ -181,7 +181,7 @@ msgid "Copy the selection"
 msgstr "Copia la selezione"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:5
-#: components/html-editor/popup.c:250
+#: components/html-editor/popup.c:252
 msgid "Cut"
 msgstr "Taglia"
 
@@ -248,7 +248,7 @@ msgid "Modify the file's properties"
 msgstr "Modifica le proprietà del file"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:20
-#: components/html-editor/popup.c:256
+#: components/html-editor/popup.c:258
 msgid "Paste"
 msgstr "Incolla"
 
@@ -697,51 +697,51 @@ msgstr "Voce elenco (numerico)"
 msgid "Align"
 msgstr "Allinea"
 
-#: components/html-editor/popup.c:235
+#: components/html-editor/popup.c:237
 msgid "Suggest word"
 msgstr ""
 
-#: components/html-editor/popup.c:244
+#: components/html-editor/popup.c:246
 msgid "Remove link"
 msgstr "Rimuovi collegamento"
 
-#: components/html-editor/popup.c:260 components/html-editor/popup.c:286
+#: components/html-editor/popup.c:262 components/html-editor/popup.c:288
 #, fuzzy
 msgid "Text..."
 msgstr "Testo"
 
-#: components/html-editor/popup.c:262 components/html-editor/popup.c:277
-#: components/html-editor/popup.c:288
+#: components/html-editor/popup.c:264 components/html-editor/popup.c:279
+#: components/html-editor/popup.c:290
 #, fuzzy
 msgid "Paragraph..."
 msgstr "Paragrafo"
 
-#: components/html-editor/popup.c:264 components/html-editor/popup.c:279
-#: components/html-editor/popup.c:290
+#: components/html-editor/popup.c:266 components/html-editor/popup.c:281
+#: components/html-editor/popup.c:292
 #, fuzzy
 msgid "Link..."
 msgstr "_Link..."
 
-#: components/html-editor/popup.c:270
+#: components/html-editor/popup.c:272
 #, fuzzy
 msgid "Rule..."
 msgstr "_Linea orizzontale..."
 
-#: components/html-editor/popup.c:275
+#: components/html-editor/popup.c:277
 #, fuzzy
 msgid "Image..."
 msgstr "_Immagine..."
 
-#: components/html-editor/popup.c:295 components/html-editor/popup.c:304
+#: components/html-editor/popup.c:297 components/html-editor/popup.c:306
 #, fuzzy
 msgid "Table..."
 msgstr "_Linea orizzontale..."
 
-#: components/html-editor/popup.c:301
+#: components/html-editor/popup.c:303
 msgid "Cell..."
 msgstr ""
 
-#: components/html-editor/popup.c:311
+#: components/html-editor/popup.c:313
 #, fuzzy
 msgid "Page..."
 msgstr "_Immagine..."
@@ -899,6 +899,9 @@ msgstr "Antepri_ma di stampa"
 #: src/testgtkhtml.c:112
 msgid "Print preview"
 msgstr "Anteprima di stampa"
+
+#~ msgid "Magic links (FIXME: better label)"
+#~ msgstr "Link magici"
 
 #~ msgid "Factory for the HTML Editor control"
 #~ msgstr "Fabbrica del controllo Editor HTML"
