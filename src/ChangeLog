@@ -1,6 +1,12 @@
 2003-11-07  Radek Doulik  <rodo@ximian.com>
 
 	* htmltext.c (paste_link): set link color and underline
+	(html_text_append_link): new method, adds link and sets style and
+	color, use that new method where appropriate, old add_link was
+	renamed to append_link as it may be called only on text object
+	creation and it just appends link to list of links, doesn't care
+	about placing it at the right place in the list and trimming
+	surrounding links
 
 2003-10-22  Radek Doulik  <rodo@ximian.com>
 

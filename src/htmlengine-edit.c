@@ -345,7 +345,7 @@ html_engine_new_text (HTMLEngine *e, const gchar *text, gint len)
 	     || (e->insertion_url && e->insertion_color != html_colorset_get_color (e->settings->color_set, HTMLLinkColor))))
 		html_text_set_color_in_range (HTML_TEXT (to), e->insertion_color, 0, HTML_TEXT (to)->text_bytes);
 	if (e->insertion_url)
-		html_text_add_link (HTML_TEXT (to), e->insertion_url, e->insertion_target, 0, HTML_TEXT (to)->text_len);
+		html_text_append_link (HTML_TEXT (to), e->insertion_url, e->insertion_target, 0, HTML_TEXT (to)->text_len);
 
 	return to;
 }
@@ -365,7 +365,7 @@ html_engine_new_link (HTMLEngine *e, const gchar *text, gint len, gchar *url)
 		
 	link = html_text_new_with_len (text, len, e->insertion_font_style,
 				       html_colorset_get_color (e->settings->color_set, HTMLLinkColor));
-	html_text_add_link (HTML_TEXT (link), real_url, real_target, 0, HTML_TEXT (link)->text_len);
+	html_text_append_link (HTML_TEXT (link), real_url, real_target, 0, HTML_TEXT (link)->text_len);
 
 	if (real_target)
 		g_free (real_url);

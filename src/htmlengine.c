@@ -933,7 +933,7 @@ insert_text (HTMLEngine *e,
 
 		apply_attributes (HTML_TEXT (prev), e, font_style, color, current_bg_color (e), last_bytes, create_link);
 		if (create_link)
-			html_text_add_link (HTML_TEXT (prev), e->url, e->target, last_pos, HTML_TEXT (prev)->text_len);
+			html_text_append_link (HTML_TEXT (prev), e->url, e->target, last_pos, HTML_TEXT (prev)->text_len);
 	}
 }
 

@@ -183,16 +183,30 @@ gint              html_text_tail_white_space             (HTMLText           *te
 							  gint               *white_len,
 							  gint                line_offset,
 							  gchar              *s);
+void              html_text_append_link                  (HTMLText           *text,
+							  gchar              *url,
+							  gchar              *target,
+							  gint                start_offset,
+							  gint                end_offset);
+void              html_text_append_link_full             (HTMLText           *text,
+							  gchar              *url,
+							  gchar              *target,
+							  gint                start_index,
+							  gint                end_index,
+							  gint                start_offset,
+							  gint                end_offset);
 void              html_text_add_link                     (HTMLText           *text,
+							  HTMLEngine         *e,
 							  gchar              *url,
 							  gchar              *target,
 							  gint                start_offset,
 							  gint                end_offset);
 void              html_text_add_link_full                (HTMLText           *text,
+							  HTMLEngine         *e,
 							  gchar              *url,
 							  gchar              *target,
-							  guint               start_index,
-							  guint               end_index,
+							  gint                start_index,
+							  gint                end_index,
 							  gint                start_offset,
 							  gint                end_offset);
 gboolean          html_text_get_link_rectangle           (HTMLText           *text,

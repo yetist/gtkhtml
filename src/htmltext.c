@@ -2310,26 +2310,7 @@ paste_link (HTMLEngine *engine, HTMLText *text, gint so, gint eo, gchar *prefix)
 	href = (prefix) ? g_strconcat (prefix, base, NULL) : g_strdup (base);
 	g_free (base);
 
-	new_obj = html_text_new_with_len
-		(html_text_get_text (text, so),
-		 eo - so,
-		 text->font_style,
-		 html_colorset_get_color (engine->settings->color_set, HTMLLinkColor));
-	new_text = HTML_TEXT (new_obj);
-	html_text_add_link (new_text, href, NULL, 0, new_text->text_len);
-	html_text_set_color_in_range (new_text, html_colorset_get_color (engine->settings->color_set, HTMLLinkColor),
-				      0, new_text->text_bytes);
-	html_text_set_style_in_range (new_text, GTK_HTML_FONT_STYLE_UNDERLINE, engine, 0, new_text->text_bytes);
-
-	offset   = HTML_OBJECT (text) == engine->cursor->object ? engine->cursor->offset : 0;
-	position = engine->cursor->position;
-
-	html_cursor_jump_to_position (engine->cursor, engine, position + so - offset);
-	html_engine_set_mark (engine);
-	html_cursor_jump_to_position (engine->cursor, engine, position + eo - offset);
-
-	html_engine_paste_object (engine, new_obj, eo - so);
-
+	html_text_add_link (text, engine, href, NULL, so, eo);
 	g_free (href);
 }
 
@@ -2422,20 +2403,75 @@ html_text_append (HTMLText *text, const gchar *str, gint len)
 }
 
 void
-html_text_add_link_full (HTMLText *text, gchar *url, gchar *target, guint start_index, guint end_index, gint start_offset, gint end_offset)
+html_text_append_link_full (HTMLText *text, gchar *url, gchar *target, gint start_index, gint end_index, gint start_offset, gint end_offset)
 {
 	text->links = g_slist_prepend (text->links, html_link_new (url, target, start_index, end_index, start_offset, end_offset));
 }
 
-void
-html_text_add_link (HTMLText *text, gchar *url, gchar *target, gint start_offset, gint end_offset)
+static void
+html_text_offsets_to_indexes (HTMLText *text, gint so, gint eo, gint *si, gint *ei)
 {
-	guint start_index, end_index;
+	*si = html_text_get_index (text, so);
+	*ei = g_utf8_offset_to_pointer (text->text + *si, eo - so) - text->text;
+}
 
-	start_index = html_text_get_index (text, start_offset);
-	end_index = (g_utf8_offset_to_pointer (text->text + start_index, end_offset - start_offset) - text->text);
+void
+html_text_append_link (HTMLText *text, gchar *url, gchar *target, gint start_offset, gint end_offset)
+{
+	gint start_index, end_index;
 
-	html_text_add_link_full (text, url, target, start_index, end_index, start_offset, end_offset);
+	html_text_offsets_to_indexes (text, start_offset, end_offset, &start_index, &end_index);
+	html_text_append_link_full (text, url, target, start_index, end_index, start_offset, end_offset);
+}
+
+void
+html_text_add_link_full (HTMLText *text, HTMLEngine *e, gchar *url, gchar *target, gint start_index, gint end_index, gint start_offset, gint end_offset)
+{
+	GSList *l, *lnext, *lprev = NULL;
+	Link *link;
+
+	if (text->links == NULL)
+		html_text_append_link_full (text, url, target, start_index, end_index, start_offset, end_offset);
+	else
+		for (l = text->links; l; l = lnext) {
+			lnext = l->next;
+			link = (Link *) l->data;
+			if (link->start_offset >= start_offset && link->end_index <= end_index) {
+				if (lprev)
+					lprev->next = g_slist_delete_link (l, l);
+				else
+					text->links = g_slist_delete_link (l, l);
+				html_link_free (link);
+				continue;
+			}
+			if (link->start_offset < end_offset && link->end_offset > end_offset)
+				link->start_offset = end_offset;
+			else if (link->end_offset > start_offset && link->end_offset <= end_offset)
+				link->end_offset = start_offset;
+
+			if (link->end_offset <= start_offset) {
+				if (lprev)
+					lprev = g_slist_prepend (l, html_link_new (url, target, start_index, end_index, start_offset, end_offset));
+				else
+					text->links = g_slist_prepend (l, html_link_new (url, target, start_index, end_index, start_offset, end_offset));
+				break;
+			}
+
+			lprev = l;
+		}
+
+	html_text_set_color_in_range (text, html_colorset_get_color (e->settings->color_set, HTMLLinkColor),
+				      start_offset, end_offset);
+	html_text_set_style_in_range (text, GTK_HTML_FONT_STYLE_UNDERLINE, e, start_index, end_index);
+}
+
+void
+html_text_add_link (HTMLText *text, HTMLEngine *e, gchar *url, gchar *target, gint start_offset, gint end_offset)
+{
+	gint start_index, end_index;
+
+	html_text_offsets_to_indexes (text, start_offset, end_offset, &start_index, &end_index);
+	html_text_add_link_full (text, e, url, target, start_index, end_index, start_offset, end_offset);
 }
 
 HTMLTextSlave *
