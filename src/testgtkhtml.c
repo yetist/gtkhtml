@@ -390,7 +390,9 @@ stop_cb (GtkWidget *widget, gpointer data)
 	if (html_stream_handle != NULL) {
 		gtk_html_end (html, html_stream_handle, GTK_HTML_STREAM_OK);
 		html_stream_handle = NULL;
-	}	
+	}
+	/* Kill all requests */
+	HTNet_killAll();
 }
 
 static void
@@ -693,6 +695,9 @@ goto_url(const char *url, int back_or_forward)
 	int tmp, i;
 	go_item *item;
 	GSList *group = NULL;
+
+	/* Kill all requests */
+	HTNet_killAll();
 
 	gnome_animator_start (GNOME_ANIMATOR (animator));
 	html_stream_handle = gtk_html_begin (html, url);
