@@ -2725,7 +2725,7 @@ html_text_set_style_in_range (HTMLText *text, GtkHTMLFontStyle style, HTMLEngine
 	}
 
 	if (style & GTK_HTML_FONT_STYLE_FIXED) {
-		attr = pango_attr_family_new (e->painter->font_manager.fixed.face);
+		attr = pango_attr_family_new (e->painter->font_manager.fixed.face ? e->painter->font_manager.fixed.face : "Monospace");
 		attr->start_index = start_index;
 		attr->end_index = end_index;
 		pango_attr_list_change (text->attr_list, attr);
