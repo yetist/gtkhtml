@@ -486,8 +486,8 @@ vertical_scroll_cb (GtkAdjustment *adjustment, gpointer data)
 	   Layout::size_allocate and we can't do anything about it,
 	   because it uses private fields we cannot access, so we have
 	   to use it*/
-	if (html->engine->height !=
-	    adjustment->page_increment) return;
+	if (html->engine->height != adjustment->page_increment)
+		return;
 		
 	html->engine->y_offset = (gint)adjustment->value;
 	scroll_update_mouse (GTK_WIDGET (data));
