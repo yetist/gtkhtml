@@ -298,9 +298,9 @@ draw_highlighted (HTMLTextSlave *slave,
 
 	if (start < slave->posStart)
 		start = slave->posStart;
-	if (end >= slave->posStart + slave->posLen)
-		end = slave->posStart + slave->posLen - 1;
-	len = end - start + 1;
+	if (end > slave->posStart + slave->posLen)
+		end = slave->posStart + slave->posLen;
+	len = end - start;
 
 	offset_width = html_painter_calc_text_width (p, text + slave->posStart, start - slave->posStart,
 						     font_style);
@@ -330,11 +330,11 @@ draw_highlighted (HTMLTextSlave *slave,
 
 	/* 2. Draw the rightmost non-highlighted part, if any.  */
 
-	if (end < slave->posStart + slave->posLen - 1)
+	if (end < slave->posStart + slave->posLen)
 		html_painter_draw_text (p,
 					obj->x + tx + offset_width + text_width, obj->y + ty,
-					text + end + 1,
-					slave->posStart + slave->posLen - 1 - end);
+					text + end,
+					slave->posStart + slave->posLen - end);
 }
 
 static void
@@ -467,13 +467,13 @@ html_text_slave_get_offset_for_pointer (HTMLTextSlave *slave,
 
 	x -= HTML_OBJECT (slave)->x;
 
-	for (i = 1; i < slave->posLen; i++) {
+	for (i = 1; i <= slave->posLen; i++) {
 		width = html_painter_calc_text_width (painter,
 						      owner->text + slave->posStart,
 						      i,
 						      font_style);
 
-		if (width > x)
+		if (width >= x)
 			return i - 1;
 	}
 

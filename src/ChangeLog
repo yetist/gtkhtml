@@ -1,4 +1,12 @@
+2000-01-24  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmltextslave.c (draw_highlighted): Fix off-by-one selection
+	highlight.
+	(html_text_slave_get_offset_for_pointer): Consider the last
+	character too.
+
 2000-01-24 Elliot Lee  <sopwith@redhat.com>
+
 	* htmlform.c: Include string.h to eliminate warning.
 
 2000-01-24  Ettore Perazzoli  <ettore@helixcode.com>

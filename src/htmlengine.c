@@ -3466,7 +3466,8 @@ html_engine_select_region (HTMLEngine *e,
 	data->select = FALSE;
 	data->queue_draw = queue_draw;
 
-	if (data->obj1 == NULL || data->obj2 == NULL) {
+	if (data->obj1 == NULL || data->obj2 == NULL
+	    || (data->obj1 == data->obj2 && data->offset1 == data->offset2)) {
 		html_engine_unselect_all (e, queue_draw);
 		return;
 	}
