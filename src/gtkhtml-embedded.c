@@ -199,7 +199,7 @@ gtk_html_embedded_init (GtkHTMLEmbedded *ge)
  * Return value: A new GtkHTMLEmbedded widget.
  **/
 GtkWidget *
-gtk_html_embedded_new (char *classid, char *name, char *type, int width, int height)
+gtk_html_embedded_new (char *classid, char *name, char *type, char *data, int width, int height)
 {
 	GtkHTMLEmbedded *em;
 
@@ -209,7 +209,7 @@ gtk_html_embedded_new (char *classid, char *name, char *type, int width, int hei
 	em->type = type ? g_strdup(type) : NULL;
 	em->classid = g_strdup(classid);
 	em->name = g_strdup(name);
-
+	em->data = g_strdup(data);
 	return (GtkWidget *)em;
 }
 

@@ -39,6 +39,7 @@ struct _GtkHTMLEmbedded {
 	char *classid;
 	char *name;
         char *type;
+        char *data;
 
 	/* parameters to class */
 	int width, height;
@@ -59,7 +60,7 @@ struct _GtkHTMLEmbeddedClass {
    themselves for a form */
 
 guint		gtk_html_embedded_get_type	(void);
-GtkWidget	*gtk_html_embedded_new (char *classid, char *name, char *type, int width, int height);
+GtkWidget	*gtk_html_embedded_new (char *classid, char *name, char *type, char *data, int width, int height);
 
 void gtk_html_embedded_set_parameter (GtkHTMLEmbedded *ge, char *param, char *value);
 char *gtk_html_embedded_get_parameter (GtkHTMLEmbedded *ge, char *param);
