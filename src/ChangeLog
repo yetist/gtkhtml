@@ -1,5 +1,11 @@
 2000-01-18  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlengine-edit.c (merge_text_at_cursor): New function,
+	attempting to merge the text element at the cursor with the
+	previous text element, if any and if of the same type and with the
+	same attributes.
+	(html_engine_delete): Call it.
+
 	* htmlengine-edit.c (delete_different_parent): New param
 	`destroy_start'.  If `FALSE', do not destroy the `start_object'.
 	(delete_same_parent): Likewise.
