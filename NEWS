@@ -1,4 +1,4 @@
-gtkhtml-3.0.4 "I am not your broom" 2003-04-11
+gtkhtml-3.0.4 "I am not your broom" 2003-05-21
 ------------------------------------------------
 
 New in this release
@@ -7,13 +7,13 @@ New in this release
   * fixed a bug in image url replacement.
   * added new options for animations magic links/smileys and inline
     spelling.
-  * editor prefernces now bonobo properties.
-  * fixed the drawng of alt text in the plain painter.
+  * editor preferences now bonobo properties.
+  * fixed the drawing of alt text in the plain painter.
   * fixed flag definition for gtk_html_begin_full.
   * fixed crashes if spelling languages no set.
   * printing margins corrected for new gnome-print.
   * made keybindings listen to gnome-wide gconf setting.
-  * unbreak font manager defautl setting.
+  * unbreak font manager default setting.
   * made shift-tab traverse backwards in the tab order.
   * fixed idle crash.
   * make tab drawing work in all cases.
