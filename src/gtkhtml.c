@@ -375,30 +375,37 @@ key_press_event (GtkWidget *widget,
 	switch (event->keyval) {
 	case GDK_Right:
 		html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_RIGHT, 1);
+		html_engine_unselect_all (engine, TRUE);
 		retval = TRUE;
 		break;
 	case GDK_Left:
 		html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_LEFT, 1);
+		html_engine_unselect_all (engine, TRUE);
 		retval = TRUE;
 		break;
 	case GDK_Up:
 		html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_UP, 1);
+		html_engine_unselect_all (engine, TRUE);
 		retval = TRUE;
 		break;
 	case GDK_Down:
 		html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_DOWN, 1);
+		html_engine_unselect_all (engine, TRUE);
 		retval = TRUE;
 		break;
 	case GDK_Delete:
 	case GDK_KP_Delete:
+		html_engine_unselect_all (engine, TRUE);
 		html_engine_delete (engine, 1);
 		retval = TRUE;
 		break;
 	case GDK_Return:
+		html_engine_unselect_all (engine, TRUE);
 		html_engine_insert_para (engine, TRUE);
 		retval = TRUE;
 		break;
 	case GDK_BackSpace:
+		html_engine_unselect_all (engine, TRUE);
 		if (html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_LEFT, 1) == 1)
 			html_engine_delete (engine, 1);
 		retval = TRUE;

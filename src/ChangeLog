@@ -1,5 +1,8 @@
 2000-02-24  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* gtkhtml.c (key_press_event): Unselect all when moving, inserting
+	or deleting stuff.
+
 	* htmlengine-edit-fontstyle.c (merge_safely): New function to
 	merge, destroy and update the cursor if necessary.
 	(merge_backward): Use it.
