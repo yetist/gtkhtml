@@ -2857,6 +2857,8 @@ parse_o (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 
 		html_select_add_option (e->formSelect, value, selected );
 
+		g_free (value);
+
 		e->inOption = TRUE;
 		g_string_assign (e->formText, "");
 	} else if ( strncmp( str, "/option", 7 ) == 0 ) {

@@ -1,5 +1,10 @@
 2002-11-07  Larry Ewing  <lewing@ximian.com>
 
+	* htmlengine.c (parse_o): free the value.
+
+	* htmlselect.c (html_select_set_text): free the placeholder before
+	we overwrite it.
+
 	* htmlgdkpainter.c (draw_text): free the glyphs and items we
 	create.
 
