@@ -235,7 +235,6 @@ prepare_clueflows (HTMLEngine *engine,
 }
 
 
-/* FIXME this is evil.  */
 static void
 skip (HTMLEngine *engine)
 {
@@ -249,22 +248,31 @@ skip (HTMLEngine *engine)
 
 	if (curr->next != NULL ) {
 		cursor->object = curr->next;
-	} else if (curr->parent->next != NULL) {
-		HTMLObject *next_clueflow;
-
-		next_clueflow = curr->parent->next;
-		if (HTML_CLUE (next_clueflow)->head == NULL)
-			add_empty_text_master_to_clueflow (HTML_CLUEFLOW (next_clueflow));
-
-		cursor->object = HTML_CLUE (next_clueflow)->head;
-		g_assert (cursor->object != NULL);
-
-		cursor->offset = 0;
 	} else {
+		guint new_offset;
+
 		if (html_object_is_text (cursor->object))
-			cursor->offset = HTML_TEXT (cursor->object)->text_len;
+			new_offset = HTML_TEXT (cursor->object)->text_len;
 		else
-			cursor->offset = 1;
+			new_offset = 1;
+
+		if (new_offset < cursor->offset) {
+			cursor->offset = new_offset;
+			return;
+		}
+
+		if (curr->parent != NULL && curr->parent->next != NULL) {
+			HTMLObject *next_clueflow;
+
+			next_clueflow = curr->parent->next;
+			if (HTML_CLUE (next_clueflow)->head == NULL)
+				add_empty_text_master_to_clueflow (HTML_CLUEFLOW (next_clueflow));
+
+			cursor->object = HTML_CLUE (next_clueflow)->head;
+			g_assert (cursor->object != NULL);
+
+			cursor->offset = 0;
+		}
 	}
 }
 

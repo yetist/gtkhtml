@@ -1,5 +1,11 @@
 2000-04-24  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlengine-edit-paste.c
+	(skip): Fixed so that it does not skip more than needed when at
+	the end of a paragraph.
+
+2000-04-24  Ettore Perazzoli  <ettore@helixcode.com>
+
 	* htmlengine-edit-images.c
 	(html_engine_insert_image): We cannot support editing of haligned
 	images, so avoid doing that.
