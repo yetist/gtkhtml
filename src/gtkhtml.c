@@ -4845,7 +4845,7 @@ gtk_html_get_allow_frameset (GtkHTML *html)
 }
 
 void
-gtk_html_print_set_master (GtkHTML *html, GnomePrintMaster *print_master)
+gtk_html_print_set_master (GtkHTML *html, GnomePrintJob *print_master)
 {
 	html->priv->print_master = print_master;
 }

@@ -23,7 +23,7 @@
 #define _GTKHTML_PRIVATE_H
 
 #include <libgnomeprint/gnome-print.h>
-#include <libgnomeprint/gnome-print-master.h>
+#include <libgnomeprint/gnome-print-job.h>
 #include <gtk/gtkwidget.h>
 #include "gtkhtml-types.h"
 #include "htmltypes.h"
@@ -47,7 +47,7 @@ struct _GtkHTMLPrivate {
 
 	GtkWidget *search_input_line;
 
-	GnomePrintMaster *print_master;
+	GnomePrintJob *print_master;
 
 	guint set_font_id;
 	guint notify_id;

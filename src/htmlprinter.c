@@ -48,7 +48,7 @@ static void
 insure_config (HTMLPrinter *p)
 {
 	if (!p->config)
-		p->config = p->master ? gnome_print_master_get_config (p->master) : gnome_print_config_default ();
+		p->config = p->master ? gnome_print_job_get_config (p->master) : gnome_print_config_default ();
 }
 
 static gdouble
@@ -57,7 +57,7 @@ printer_get_page_height (HTMLPrinter *printer)
 	gdouble width, height = 0.0;
 
 	insure_config (printer);
-	gnome_print_master_get_page_size_from_config (printer->config, &width, &height);
+	gnome_print_job_get_page_size_from_config (printer->config, &width, &height);
 
 	return height;
 }
@@ -68,56 +68,65 @@ printer_get_page_width (HTMLPrinter *printer)
 	gdouble width = 0.0, height;
 
 	insure_config (printer);
-	gnome_print_master_get_page_size_from_config (printer->config, &width, &height);
+	gnome_print_job_get_page_size_from_config (printer->config, &width, &height);
 	gnome_print_convert_distance (&width, gnome_print_unit_get_identity (GNOME_PRINT_UNIT_DEVICE), GNOME_PRINT_PS_UNIT);
 
-	printf ("lmargin %f\n", width);
 	return width;
 }
+
+#define TEMP_MARGIN .05
 
 static gdouble
 get_lmargin (HTMLPrinter *printer)
 {
-	gdouble lmargin = 0.0;
+	/*gdouble lmargin = 0.0;
 
 	insure_config (printer);
 	gnome_print_config_get_double (printer->config, GNOME_PRINT_KEY_PAGE_MARGIN_LEFT, &lmargin);
 
 	printf ("lmargin %f\n", lmargin);
-	return lmargin;
+	return lmargin;*/
+
+	return printer_get_page_width (printer)*TEMP_MARGIN;
 }
 
 static gdouble
 get_rmargin (HTMLPrinter *printer)
 {
-	gdouble rmargin = 0.0;
+	/*gdouble rmargin = 0.0;
 
 	insure_config (printer);
 	gnome_print_config_get_double (printer->config, GNOME_PRINT_KEY_PAGE_MARGIN_RIGHT, &rmargin);
 
-	return rmargin;
+	return rmargin;*/
+
+	return printer_get_page_width (printer)*TEMP_MARGIN;
 }
 
 static gdouble
 get_tmargin (HTMLPrinter *printer)
 {
-	gdouble tmargin = 0.0;
+	/* gdouble tmargin = 0.0;
 
 	insure_config (printer);
 	gnome_print_config_get_double (printer->config, GNOME_PRINT_KEY_PAGE_MARGIN_TOP, &tmargin);
 
-	return tmargin;
+	return tmargin; */
+
+	return printer_get_page_width (printer)*TEMP_MARGIN;
 }
 
 static gdouble
 get_bmargin (HTMLPrinter *printer)
 {
-	gdouble bmargin = 0.0;
+	/* gdouble bmargin = 0.0;
 
 	insure_config (printer);
 	gnome_print_config_get_double (printer->config, GNOME_PRINT_KEY_PAGE_MARGIN_BOTTOM, &bmargin);
 
-	return bmargin;
+	return bmargin; */
+
+	return printer_get_page_width (printer)*TEMP_MARGIN;
 }
 
 gdouble
@@ -825,7 +834,7 @@ html_printer_get_type (void)
 }
 
 HTMLPainter *
-html_printer_new (GnomePrintContext *context, GnomePrintMaster *master)
+html_printer_new (GnomePrintContext *context, GnomePrintJob *master)
 {
 	HTMLPrinter *new;
 

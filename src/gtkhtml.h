@@ -26,7 +26,7 @@
 #include <gtk/gtkbindings.h>
 #include <gtk/gtklayout.h>
 #include <libgnomeprint/gnome-print.h>
-#include <libgnomeprint/gnome-print-master.h>
+#include <libgnomeprint/gnome-print-job.h>
 
 #include "gtkhtml-types.h"
 #include "gtkhtml-enums.h"
@@ -201,7 +201,7 @@ gint                       gtk_html_print_get_pages_num           (GtkHTML      
 								   gdouble                    header_height,
 								   gdouble                    footer_height);
 void                       gtk_html_print_set_master              (GtkHTML                   *html,
-								   GnomePrintMaster          *print_master);
+								   GnomePrintJob             *print_master);
 
 /* Title.  */
 const gchar               *gtk_html_get_title                     (GtkHTML                   *html);

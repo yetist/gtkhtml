@@ -25,8 +25,8 @@
 #include <gtk/gtkbutton.h>
 
 #include <libgnomeprint/gnome-print.h>
-#include <libgnomeprint/gnome-print-master.h>
-#include <libgnomeprintui/gnome-print-master-preview.h>
+#include <libgnomeprint/gnome-print-job.h>
+#include <libgnomeprintui/gnome-print-job-preview.h>
 
 #include <libsoup/soup.h>
 #include <sys/stat.h>
@@ -295,15 +295,15 @@ static void
 print_preview_cb (GtkWidget *widget,
 		  gpointer data)
 {
-	GnomePrintMaster *print_master;
+	GnomePrintJob *print_master;
 	GnomePrintContext *print_context;
 	GtkWidget *preview;
 
-	print_master = gnome_print_master_new ();
+	print_master = gnome_print_job_new (NULL);
 	/* FIX2 gnome_print_master_set_paper (print_master, gnome_paper_with_name ("US-Letter")); */
 	gtk_html_print_set_master (html, print_master);
 
-	print_context = gnome_print_master_get_context (print_master);
+	print_context = gnome_print_job_get_context (print_master);
 	font = gnome_font_find_closest ("Helvetica", 12);
 
 	page_num = 1;
@@ -315,7 +315,7 @@ print_preview_cb (GtkWidget *widget,
 	if (font)
 		g_object_unref (font);
 	
-	preview = gnome_print_master_preview_new (print_master, "Print Preview");
+	preview = gnome_print_job_preview_new (print_master, "Print Preview");
 	gtk_widget_show (preview);
 
 	g_object_unref (print_master);
