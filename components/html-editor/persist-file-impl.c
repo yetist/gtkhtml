@@ -47,6 +47,7 @@
 static int
 impl_load (BonoboPersistFile *pf,
 	   const CORBA_char *filename,
+	   CORBA_Environment *ev,
 	   void *closure)
 {
 	GtkHTML *html;
@@ -126,6 +127,7 @@ save_receiver  (const HTMLEngine *engine,
 static int
 impl_save (BonoboPersistFile *pf,
 	   const CORBA_char *filename,
+	   CORBA_Environment *ev,
 	   void *closure)
 {
 	GtkHTML *html;

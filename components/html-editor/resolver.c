@@ -73,7 +73,7 @@ resolver_load_from_file (const Bonobo_ProgressiveDataSink sink,
 		buf->_buffer = buffer;
 		buf->_length = len;
 		buf->_maximum = CORBA_BLOCK_SIZE;
-		Bonobo_ProgressiveDataSink_add_data (sink, buf, ev);
+		Bonobo_ProgressiveDataSink_addData (sink, buf, ev);
 	}
 
 	if (len < 0) {

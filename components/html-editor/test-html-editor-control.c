@@ -220,13 +220,13 @@ file_selection_ok_cb (GtkWidget *widget,
 
 
 static void
-open_or_save_as_dialog (BonoboWin *app,
+open_or_save_as_dialog (BonoboWindow *app,
 			FileSelectionOperation op)
 {
 	GtkWidget    *widget;
 	BonoboWidget *control;
 
-	control = BONOBO_WIDGET (bonobo_win_get_contents (app));
+	control = BONOBO_WIDGET (bonobo_window_get_contents (app));
 
 	if (file_selection_info.widget != NULL) {
 		gdk_window_show (GTK_WIDGET (file_selection_info.widget)->window);
@@ -265,7 +265,7 @@ static void
 open_through_persist_stream_cb (GtkWidget *widget,
 				gpointer data)
 {
-	open_or_save_as_dialog (BONOBO_WIN (data), OP_LOAD_THROUGH_PERSIST_STREAM);
+	open_or_save_as_dialog (BONOBO_WINDOW (data), OP_LOAD_THROUGH_PERSIST_STREAM);
 }
 
 /* "Save through persist stream" dialog.  */
@@ -273,7 +273,7 @@ static void
 save_through_persist_stream_cb (GtkWidget *widget,
 				gpointer data)
 {
-	open_or_save_as_dialog (BONOBO_WIN (data), OP_SAVE_THROUGH_PERSIST_STREAM);
+	open_or_save_as_dialog (BONOBO_WINDOW (data), OP_SAVE_THROUGH_PERSIST_STREAM);
 }
 
 /* "Open through persist file" dialog.  */
@@ -281,7 +281,7 @@ static void
 open_through_persist_file_cb (GtkWidget *widget,
 			      gpointer data)
 {
-	open_or_save_as_dialog (BONOBO_WIN (data), OP_LOAD_THROUGH_PERSIST_FILE);
+	open_or_save_as_dialog (BONOBO_WINDOW (data), OP_LOAD_THROUGH_PERSIST_FILE);
 }
 
 /* "Save through persist file" dialog.  */
@@ -289,7 +289,7 @@ static void
 save_through_persist_file_cb (GtkWidget *widget,
 			      gpointer data)
 {
-	open_or_save_as_dialog (BONOBO_WIN (data), OP_SAVE_THROUGH_PERSIST_FILE);
+	open_or_save_as_dialog (BONOBO_WINDOW (data), OP_SAVE_THROUGH_PERSIST_FILE);
 }
 
 
@@ -349,7 +349,7 @@ container_create (void)
 	BonoboControlFrame *frame;
 	HTMLEditorResolver *resolver;
 
-	win = bonobo_win_new ("test-html-editor-control",
+	win = bonobo_window_new ("test-html-editor-control",
 			      "HTML Editor Control Test");
 	window = GTK_WINDOW (win);
 	gtk_window_set_default_size (window, 500, 440);
@@ -358,7 +358,7 @@ container_create (void)
 	component = bonobo_ui_component_new ("test-html-editor-control");
 
 	container = bonobo_ui_container_new ();
-	bonobo_ui_container_set_win (container, BONOBO_WIN (win));
+	bonobo_ui_container_set_win (container, BONOBO_WINDOW (win));
 
 	bonobo_ui_component_set_container (
 		component,
@@ -379,7 +379,7 @@ container_create (void)
 	if (control == NULL)
 		g_error ("Cannot get `%s'.", HTML_EDITOR_CONTROL_ID);
 
-	bonobo_win_set_contents (BONOBO_WIN (win), control);
+	bonobo_window_set_contents (BONOBO_WINDOW (win), control);
 
 	gtk_widget_show_all (GTK_WIDGET (window));
 

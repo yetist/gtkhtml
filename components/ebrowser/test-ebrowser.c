@@ -200,16 +200,16 @@ open_browser (GtkButton * button, gpointer data)
 	GtkWidget * bwin;
 	GtkWidget * vb, * t, * entry, * hb, * w, * c;
 
-	/* BonoboWin */
+	/* BonoboWindow */
 
-	bwin = bonobo_win_new ("test-ebrowser", "Test EBrowser");
+	bwin = bonobo_window_new ("test-ebrowser", "Test EBrowser");
 	gtk_window_set_default_size (GTK_WINDOW (bwin), 320, 240);
 
 	/* UI Container */
 
 	component = bonobo_ui_component_new ("test-ebrowser");
 	container = bonobo_ui_container_new ();
-	bonobo_ui_container_set_win (container, BONOBO_WIN (bwin));
+	bonobo_ui_container_set_win (container, BONOBO_WINDOW (bwin));
 	bonobo_ui_component_set_container (component, bonobo_object_corba_objref (BONOBO_OBJECT (container)));
 
 #if 0
@@ -225,7 +225,7 @@ open_browser (GtkButton * button, gpointer data)
 			    GTK_SIGNAL_FUNC (destroy_browser), container);
 
 	vb = gtk_vbox_new (FALSE, 0);
-	bonobo_win_set_contents (BONOBO_WIN (bwin), vb);
+	bonobo_window_set_contents (BONOBO_WINDOW (bwin), vb);
 
 	/* Create URL entry */
 

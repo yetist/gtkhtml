@@ -197,7 +197,7 @@ ebrowser_factory (BonoboGenericFactory * factory, void * closure)
 	bonobo_object_add_interface (BONOBO_OBJECT (control), BONOBO_OBJECT (stream));
 
 	pbag = bonobo_property_bag_new (get_prop, set_prop, browser);
-	bonobo_control_set_property_bag (control, pbag);
+	bonobo_control_set_properties (control, pbag);
 
 	bonobo_property_bag_add (pbag, "url", ARG_URL, BONOBO_ARG_STRING, NULL,
 				 "Main URL to display", 0);
