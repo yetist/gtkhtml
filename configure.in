@@ -25,7 +25,7 @@ AC_SUBST(LDFLAGS)
 dnl ******************************
 dnl Check for Bonobo
 dnl ******************************
-try_bonobo=true
+try_bonobo=false
 bonobo=
 bonobo_msg=no
 have_bonobo=false
