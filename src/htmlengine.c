@@ -3441,6 +3441,10 @@ html_engine_parse (HTMLEngine *p)
 		p->bgPixmapPtr = NULL;
 	}
 
+	if (p->bgColor_allocated) {
+		html_painter_free_color (p->painter, &p->bgColor);
+		p->bgColor_allocated = FALSE;
+	}
 	p->bgColor = p->settings->bgColor;
 
 	p->parsing = TRUE;

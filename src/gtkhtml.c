@@ -576,10 +576,6 @@ realize (GtkWidget *widget)
 				| GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK
 				| GDK_KEY_PRESS_MASK | GDK_KEY_RELEASE_MASK));
 
-	/* FIXME */
-	html_settings_set_bgcolor (html->engine->settings, 
-				   &widget->style->bg[GTK_STATE_NORMAL]);
-
 	html_engine_realize (html->engine, html->layout.bin_window);
 
 	gdk_window_set_cursor (widget->window, html->arrow_cursor);
@@ -1498,4 +1494,12 @@ gtk_html_redo (GtkHTML *html)
 	g_return_if_fail (GTK_IS_HTML (html));
 
 	html_engine_redo (html->engine);
+}
+
+/* misc utils */
+
+void
+gtk_html_set_default_background_color (GtkHTML *html, GdkColor *c)
+{
+	html_settings_set_bgcolor (html->engine->settings, c);
 }

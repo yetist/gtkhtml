@@ -989,6 +989,7 @@ main (gint argc, gchar *argv[])
 	GtkWidget *app, *bar;
 	GtkWidget *html_widget;
 	GtkWidget *scrolled_window;
+	GdkColor   bgColor = {0, 0xdfff, 0xdfff, 0xffff};
 	poptContext ctx;
 
 #ifdef MEMDEBUG
@@ -1032,6 +1033,7 @@ main (gint argc, gchar *argv[])
 	html_widget = gtk_html_new ();
 	html = GTK_HTML (html_widget);
 	gtk_html_load_empty (html);
+	gtk_html_set_default_background_color (GTK_HTML (html_widget), &bgColor);
 	/* gtk_html_set_editable (GTK_HTML (html_widget), TRUE); */
 	
 	gtk_container_add (GTK_CONTAINER (scrolled_window), html_widget);

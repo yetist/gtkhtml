@@ -1,3 +1,15 @@
+2000-04-27  Radek Doulik  <rodo@helixcode.com>
+
+	* testgtkhtml.c (main): test gtk_html_set_default_background_color
+	- set light blue background
+
+	* htmlengine.c (html_engine_parse): free allocated bgColor
+
+	* gtkhtml.c (gtk_html_set_default_background_color): new function
+	for Dan :)
+	(realize): removed setting of bgcolor to gtk bg[NORMAL] color,
+	when needed use gtk_html_set_default_background_color instead
+
 2000-04-26  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlengine-edit-paste.c (skip): removed

@@ -209,4 +209,8 @@ void  gtk_html_paste  (GtkHTML *html);
 void  gtk_html_undo  (GtkHTML *html);
 void  gtk_html_redo  (GtkHTML *html);
 
+/* misc utils */
+
+void  gtk_html_set_default_background_color (GtkHTML *html, GdkColor *c);
+
 #endif /* _GTKHTML_H_ */
