@@ -1,3 +1,8 @@
+2000-12-10 Anna Marie Dirks  <anna@helixcode.com>
+	* html-editor-control.xml: Changed keybindings to comply 
+	with GNOME standards; removed unnecessary bindings and all uses
+	of "Alt". 
+	
 2000-12-07  Radek Doulik  <rodo@helixcode.com>
 
 	* editor-control-factory.c (editor_api_create_input_line): new
@@ -41,6 +46,7 @@
 
 	* toolbar.c: use N_ instead of _ for paragraph_style_items
 	(setup_paragraph_style_option_menu): use _() here
+
 
 2000-11-22  Radek Doulik  <rodo@helixcode.com>
 

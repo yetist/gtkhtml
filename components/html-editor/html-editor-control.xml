@@ -1,0 +1,95 @@
+<Root>
+		<commands>
+
+			<cmd name="EditUndo" _label="_Undo" _tip="Undo the last action"
+			pixtype="stock" pixname="Undo"/>
+
+			<cmd name="EditRedo" _label="_Redo" _tip="Redo the undone action"
+			pixtype="stock" pixname="Redo"/>
+
+			<cmd name="EditCut" _label="C_ut" _tip="Cut the selection"
+			pixtype="stock" pixname="Cut"/>
+	
+			<cmd name="EditCopy" _label="_Copy"
+			_tip="Copy the selection" pixtype="stock" pixname="Copy"/>
+	
+			<cmd name="EditPaste" _label="_Paste"
+			_tip="Paste the clipboard" pixtype="stock" pixname="Paste"/>
+	
+			<cmd name="EditFind" _label="_Find..." _tip="Search for a string"
+			pixtype="stock" pixname="Search"/>
+
+			<cmd name="EditFindRegex" _label="Find Rege_x..." _tip="Regular expression search"/>
+	
+			<cmd name="EditFindAgain" _label="Find _Again" _tip="Search again for the same string"
+			pixtype="stock" pixname="Search"/>
+	
+			<cmd name="EditReplace" _label="_Replace..." _tip="Replace a string"
+			pixtype="stock" pixname="Search/Replace"/>
+
+			<cmd name="EditProperties" _label="_Properties..." _tip="Modify the file's properties"
+			pixtype="stock" pixname="Properties"/>
+
+			<cmd name="InsertImage" _label="_Image..." _tip="Insert image into document..."/>
+			<cmd name="InsertLink"  _label="_Link..." _tip="Insert HTML link into document..."/>
+			<cmd name="InsertRule"  _label="_Rule..." _tip="Insert rule into document..."/>
+
+		</commands>
+
+	<menu>
+		<submenu name="Edit" _label="_Edit">
+
+		        <menuitem name="EditUndo" verb="" accel="*Control*z"/>
+			<menuitem name="EditRedo" verb="" accel="*Control*r"/>
+
+			<separator/>
+
+			<menuitem name="EditCut" verb="" accel="*Control*x"/>
+			<menuitem name="EditCopy" verb="" accel="*Control*C"/>
+			<menuitem name="EditPaste" verb="" accel="*Control*v"/>
+	
+			<separator/>
+
+			<menuitem name="EditFind" verb="" accel="*Control*F"/>
+			<menuitem name="EditFindRegex" verb="" accel="*Control**Shift*F"/>
+			<menuitem name="EditFindAgain" verb="" accel=""/>
+			<menuitem name="EditReplace" verb=""/>
+
+			<separator/>
+                        <menuitem name="EditProperties" verb=""/>
+
+		</submenu>
+
+		<submenu name="Insert" _label="_Insert">
+                        <meniterm name="InsertFile" verb="" _label="_Insert text file... (FIXME)"/>
+			<menuitem name="InsertImage" verb="" accel="*Control**Shift*i"/>
+			<menuitem name="InsertLink"  verb="" accel="*Control**Shift*l"/>
+			<menuitem name="InsertRule"  verb="" accel="*Control**Shift*r"/>
+		</submenu>
+	</menu>
+</Root>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
