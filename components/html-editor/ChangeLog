@@ -2,6 +2,7 @@
 
 	* editor-control-factory.c (html_button_pressed): jump to mouse
 	cursor position on button 3
+	(editor_api_event): set return value
 
 2001-08-10  Anna Marie Dirks <anna@ximian.com>	
 	*search.c : Changed the title of the Regex Find dialog to 
