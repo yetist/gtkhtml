@@ -1101,6 +1101,9 @@ get_bounds (HTMLTable *table, gint x, gint y, gint width, gint height, gint *sc,
 {
 	g_return_if_fail (table->rowHeights);
 	g_return_if_fail (table->columnOpt);
+	g_return_if_fail (table->rowHeights->data);
+	g_return_if_fail (table->columnOpt->data);
+
 
 	*sr = to_index (bin_search_index (table->rowHeights, 0, table->totalRows, y), 0, table->totalRows - 1);
 	if (y < ROW_HEIGHT (table, *sr) && (*sr) > 0)
@@ -1735,9 +1738,14 @@ check_point (HTMLObject *self,
 	if (x < self->x || x >= self->x + self->width
 	    || y >= self->y + self->descent || y < self->y - self->ascent)
 		return NULL;
-
+	
 	table = HTML_TABLE (self);
 
+	if (!table->rowHeights->data || !table->columnOpt->data) {
+		g_warning ("HTMLTable::get_point called before HTMLTable::calc_size");
+		return NULL;
+	}
+	
 	x -= self->x;
 	y -= self->y - self->ascent;
 

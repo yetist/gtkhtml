@@ -1,3 +1,8 @@
+2002-10-27  Larry Ewing  <lewing@ximian.com>
+
+	* htmltable.c (check_point): return with warning if we haven't had
+	calc_size called yet.
+
 2002-10-25  Larry Ewing  <lewing@ximian.com>
 
 	* keybindingsrc.ms: remove C-s binding for strikethrough.
