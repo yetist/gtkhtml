@@ -493,6 +493,25 @@ calc_size (HTMLObject *self, HTMLPainter *painter, GList **changed_objs)
 	return FALSE;
 }
 
+const gchar *
+html_utf8_strnchr (const gchar *s, gchar c, gint len, gint *offset)
+{
+	const gchar *res = NULL;
+	gchar *next;
+
+	*offset = 0;
+	while (s && *s && *offset < len) {
+		if (*s == c) {
+			res = s;
+			break;
+		}
+		s = g_utf8_next_char (s);
+		(*offset) ++;
+	}
+
+	return res;
+}
+
 gint
 html_text_text_line_length (const gchar *text, gint *line_offset, guint len)
 {
@@ -503,8 +522,7 @@ html_text_text_line_length (const gchar *text, gint *line_offset, guint len)
 	l = 0;
 	sum_skip = 0;
 	tab = text;
-	while (tab && (found_tab = strchr (tab, '\t')) && l < len) {
-		cl   = g_utf8_pointer_to_offset (tab, found_tab);
+	while (tab && (found_tab = html_utf8_strnchr (tab, '\t', len - l, &cl)) && l < len) {
 		l   += cl;
 		if (l >= len)
 			break;
@@ -569,7 +587,7 @@ get_glyphs (HTMLText *text, HTMLPainter *painter, gint line_offset)
 }
 
 
-static gint
+static inline gint
 translated_len (gchar *begin, gchar *end, gint *line_offset)
 {
 	gint len = end ? g_utf8_pointer_to_offset (begin, end) : g_utf8_strlen (begin, -1);
@@ -588,6 +606,8 @@ calc_word_width (HTMLText *text, HTMLPainter *painter, gint line_offset)
 	gchar *begin, *end;
 	gint i, width, asc, dsc, start_offset, end_offset;
 
+	/* printf ("calc ww begin\n"); */
+
 	text->words      = get_words (text->text);
 	if (text->word_width)
 		g_free (text->word_width);
@@ -603,6 +623,7 @@ calc_word_width (HTMLText *text, HTMLPainter *painter, gint line_offset)
 			glyphs = get_glyphs (text, painter, line_offset);
 	}
 
+	/* printf ("calc ww m1\n"); */
 	begin = text->text;
 	start_offset = end_offset = 0;
 	for (i = 0; i < text->words; i++) {
@@ -611,7 +632,9 @@ calc_word_width (HTMLText *text, HTMLPainter *painter, gint line_offset)
 		if (items && glyphs) {
 			PangoRectangle log_rect;
 
+			/* end_offset = start_offset + (end ? g_utf8_pointer_to_offset (begin, end) : g_utf8_strlen (begin, -1)); */
 			end_offset = start_offset + translated_len (begin, end, &line_offset);
+			/* printf ("start offset: %d (%d)\n", start_offset, end_offset - start_offset); */
 			pango_glyph_string_extents_range (glyphs, start_offset, end_offset,
 							  ((PangoItem *) items->data)->analysis.font, NULL, &log_rect);
 			width = PANGO_PIXELS (log_rect.width);
@@ -630,6 +653,8 @@ calc_word_width (HTMLText *text, HTMLPainter *painter, gint line_offset)
 		begin = end;
 		start_offset = end_offset;
 	}
+	/* printf ("calc ww m2\n"); */
+
 	if (glyphs) {
 		pango_glyph_string_free (glyphs);
 		glyphs = NULL;
@@ -641,6 +666,8 @@ calc_word_width (HTMLText *text, HTMLPainter *painter, gint line_offset)
 	}
 
 	HTML_OBJECT (text)->change &= ~HTML_CHANGE_WORD_WIDTH;
+
+	/* printf ("calc ww end\n"); */
 }
 
 void
