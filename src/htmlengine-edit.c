@@ -206,7 +206,7 @@ gboolean
 html_is_in_word (unicode_char_t uc)
 {
 	/* printf ("test %d %c => %d\n", uc, uc, unicode_isalnum (uc) || uc == '\''); */
-	return unicode_isalnum (uc) || uc == '\'';
+	return unicode_isalpha (uc) || uc == '\'';
 }
 
 void

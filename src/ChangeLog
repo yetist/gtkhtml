@@ -1,3 +1,8 @@
+2000-10-20  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlengine-edit.c (html_is_in_word): changed back from isalnum
+	to isalpha
+
 2000-10-19  Radek Doulik  <rodo@helixcode.com>
 
 	* htmltable.c (bin_search_eq_or_lower_index): fixed to not access
