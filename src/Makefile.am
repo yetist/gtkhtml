@@ -24,7 +24,6 @@ libgtkhtml_HEADERS =				\
 	htmlclue.h				\
 	htmlclueh.h				\
 	htmlcluev.h				\
-	htmlcolor.h				\
 	htmlengine.h				\
 	htmlfont.h				\
 	htmlhspace.h				\
@@ -58,7 +57,6 @@ libgtkhtml_la_SOURCES =				\
 	htmlclueflow.c				\
 	htmlclueh.c				\
 	htmlcluev.c				\
-	htmlcolor.c				\
 	htmlengine.c				\
 	htmlfont.c				\
 	htmlhspace.c				\

@@ -1,5 +1,84 @@
 1999-11-26  Ettore Perazzoli  <ettore@gnu.org>
 
+	* htmlengine.h: Replaced `HTMLListStack' with an `HTMLStack'.
+	* htmlengine.c: Updated accordingly.
+
+	* htmllist.h: `ListType' renamed to `HTMLListType', `ListNumType'
+	renamed to `HTMLListNumType'.  Also, changed the values to upper
+	case, and prefixed them with `HTML_LIST_TYPE' and
+	`HTML_LIST_NUM_TYPE' respectively.  Occurrences updated.
+
+	* htmllist.c, htmllist.h: Removed `HTMLListStack' implementation.
+
+	* htmlengine.c (parse_a): Get `<address>' to work.
+
+	* htmlengine.h: Replaced the `HTMLFontStack' with an `HTMLStack'.
+	* htmlengine.c: Updated accordingly.
+
+	* htmlfont.c, htmlfont.h: Removed the `HTMLFontStack'
+	implementation.
+
+	* htmlfont.c (html_font_new): Init `textColor'.
+	(html_font_destroy): Free `textColor' if not NULL.
+	(html_font_set_color): New function.
+	* htmlengine.c (html_engine_parse): Use it.
+	(html_engine_select_font): Use it.
+
+	* htmlengine.h: Replaced the `HTMLColorStack' stack with a
+	`HTMLStack'.
+	* htmlengine.c: All the functions updated accordingly.
+	(html_engine_pop_color): Free the popped color.
+
+	* htmlcolor.c, htmlcolor.h: Removed.  #inclusions from other
+	source files removed as well.
+
+	* htmlstack.c, htmlstack.h: Implementation of a generic
+	`HTMLStack' type.
+
+	* htmlengine.c: New typedef `BlockStackElement'.
+	(block_stack_element_new): New static function, derived from
+	`html_stack_element_new()'.
+	(html_engine_push_block): Updated to use it.
+	(html_block_stack_element_free): New function.
+	(html_engine_free_block): Updated to use it.
+	(html_engine_push_block): Removed.
+	(push_block): New static function replacing it.  Former callers of
+	`html_engine_push_block' updated to use it.
+	(html_engine_free_block): Removed.
+	(free_block): New static function replacing it.  Former callers of
+	`html_engine_free_block' updated to use it.
+	(html_engine_pop_block): Removed.
+	(pop_block): New static function replacing it.  Former callers of
+	`html_engine_pop_block' updated to use it.
+	(html_engine_block_end_font): Removed.
+	(block_end_font): New static function replacing it.  Former
+	callers of `html_engine_block_end_font' updated to use it.
+	(html_engine_block_end_color_font): Removed.
+	(block_end_color_font): New static function replacing it.  Former
+	callers of `html_engine_block_end_color_font' updated to use it.
+	(html_engine_block_end_list): Removed.
+	(block_end_list): New static function replacing it.  Former
+	callers of `html_engine_block_end_list' updated to use it.
+	(html_engine_block_end_indent): Removed.
+	(block_end_indent): New static function replacing it.  Former
+	callers of `html_block_end_indent' updated to use it.
+	(html_engine_block_end_div): Removed.
+	(block_end_div): New static function replacing it.  Former callers
+	of `html_engine_block_end_div' updated to use it.
+	* htmlengine.h: Updated prototypes accordingly.
+
+	* htmlengine.h: New typedef `HTMLBlockStackElement' that will
+	replace former `HTMLStackElement'.
+
+	* htmlstack.c (html_stack_element_new): Removed.  This function is
+	only used by `htmlengine.c' for the block stack, so the name is
+	misleading.
+
+	* htmlengine.c (parse_d): Enable code for `</div>' which was `#if
+	0'ed by mistake.
+
+1999-11-26  Ettore Perazzoli  <ettore@gnu.org>
+
 	* htmlengine.c (parse_table): Call `close_anchor()' when `</table'
 	is encountered.  Added support for `<caption>'.  Handle headings.
 	Destroy objects correctly.  Handle Left/Right alignment.  With all

@@ -21,25 +21,23 @@
 #ifndef _HTMLSTACK_H_
 #define _HTMLSTACK_H_
 
-typedef struct _HTMLStackElement HTMLStackElement;
+typedef void (* HTMLStackFreeFunc) (gpointer data);
 
-#include "htmlengine.h"
-#include "htmlobject.h"
+struct _HTMLStack {
+	HTMLStackFreeFunc free_func;
 
-typedef void (*HTMLBlockFunc)(HTMLEngine *e, HTMLObject *clue, HTMLStackElement *el);
-
-
-
-struct _HTMLStackElement {
-	HTMLBlockFunc exitFunc;
-
-	gint id;
-	gint level;
-	gint miscData1;
-	gint miscData2;
-	HTMLStackElement *next;
+	GList *list;
 };
+typedef struct _HTMLStack HTMLStack;
 
-HTMLStackElement *html_stack_element_new (gint id, gint level, HTMLBlockFunc exitFunc, gint miscData1, gint miscData2, HTMLStackElement *next);
+
+HTMLStack *html_stack_new (HTMLStackFreeFunc free_func);
+void html_stack_clear (HTMLStack *stack);
+void html_stack_destroy (HTMLStack *stack);
+gpointer html_stack_pop (HTMLStack *stack);
+gpointer html_stack_top (HTMLStack *stack);
+void html_stack_push (HTMLStack *stack, gpointer data);
+gboolean html_stack_is_empty (HTMLStack *stack);
+guint html_stack_count (HTMLStack *stack);
 
 #endif /* _HTMLSTACK_H_ */

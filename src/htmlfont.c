@@ -44,6 +44,8 @@ html_font_new (gchar *family, gint size, gint *fontSizes, gboolean bold, gboolea
 
 	f->gdk_font = create_gdk_font (family, fontSizes[size], bold, italic);
 
+	f->textColor = NULL;
+
 	return f;
 }
 
@@ -94,28 +96,25 @@ html_font_destroy (HTMLFont *html_font)
 
 	gdk_font_unref (html_font->gdk_font);
 	g_free (html_font->family);
+
+	if (html_font->textColor)
+		gdk_color_free (html_font->textColor);
+
 	g_free (html_font);
 }
 
-HTMLFontStack *
-html_font_stack_new (void)
-{
-	HTMLFontStack *fs;
-	
-	fs = g_new0 (HTMLFontStack, 1);
-
-	return fs;
-}
-
 void
-html_font_stack_destroy (HTMLFontStack *stack)
+html_font_set_color (HTMLFont *html_font,
+		     const GdkColor *color)
 {
-	g_return_if_fail (stack != NULL);
-	
-	html_font_stack_clear (stack);
-	g_free (stack);
+	if (html_font->textColor != NULL)
+		gdk_color_free (html_font->textColor);
+
+	/* Evil but safe cast: the prototype for `GdkColor' is wrong.  */
+	html_font->textColor = gdk_color_copy ((GdkColor *) color);
 }
 
+
 gint
 html_font_calc_ascent (HTMLFont *f)
 {
@@ -146,55 +145,4 @@ html_font_calc_width (HTMLFont *f, gchar *text, gint len)
 		width = gdk_text_width (f->gdk_font, text, len);
 
 	return width;
-}
-
-void
-html_font_stack_push (HTMLFontStack *fs, HTMLFont *f)
-{
-	g_return_if_fail (fs != NULL);
-	g_return_if_fail (f != NULL);
-	
-	fs->list = g_list_prepend (fs->list, (gpointer) f);
-}
-
-void
-html_font_stack_clear (HTMLFontStack *fs)
-{
-	GList *stack;
-
-	g_return_if_fail (fs != NULL);
-	
-	for (stack = fs->list; stack; stack = stack->next){
-		HTMLFont *html_font = stack->data;
-
-		html_font_destroy (html_font);
-	}
-	g_list_free (fs->list);
-	fs->list = NULL;
-}
-
-HTMLFont *
-html_font_stack_top (HTMLFontStack *fs)
-{
-	HTMLFont *f;
-
-	g_return_val_if_fail (fs != NULL, NULL);
-	
-	f = (HTMLFont *)(g_list_first (fs->list))->data;
-
-	return f;
-}
-
-HTMLFont *
-html_font_stack_pop (HTMLFontStack *fs)
-{
-	HTMLFont *f;
-
-	g_return_val_if_fail (fs != NULL, NULL);
-	
-	f = html_font_stack_top (fs);
-
-	fs->list = g_list_remove (fs->list, f);
-
-	return f;
 }

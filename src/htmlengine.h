@@ -30,8 +30,6 @@ typedef struct _HTMLEngineClass HTMLEngineClass;
 #include "htmltokenizer.h"
 #include "htmlclue.h"
 #include "htmlfont.h"
-#include "htmllist.h"
-#include "htmlcolor.h"
 #include "htmlstack.h"
 #include "htmlsettings.h"
 #include "htmlpainter.h"
@@ -49,6 +47,7 @@ typedef struct _HTMLEngineClass HTMLEngineClass;
 #define BOTTOM_BORDER 10
 
 typedef void (*HTMLParseFunc)(HTMLEngine *p, HTMLObject *clue, const gchar *str);
+typedef struct _HTMLBlockStackElement HTMLBlockStackElement;
 
 struct _HTMLEngine {
 	GtkObject parent;
@@ -92,15 +91,15 @@ struct _HTMLEngine {
  
 	gint fontsize;
 	
-	HTMLFontStack *fs;
-	HTMLColorStack *cs;
+	HTMLStack *fs;		/* Font stack, elements are HTMLFonts.  */
+	HTMLStack *cs;		/* Color stack, elements are GdkColors.  */
 
 	gchar *url;
 	gchar *target;
 
 	HTMLParseFunc parseFuncArray[26]; /* FIXME move to `.c'.  */
 	HTMLPainter *painter;
-	HTMLStackElement *blockStack;
+	HTMLBlockStackElement *blockStack;
 	HTMLSettings *settings;
 
 	/* timer id to schedule paint events */
@@ -111,7 +110,6 @@ struct _HTMLEngine {
 
 	/* Should the background be painted? */
 	gboolean bDrawBackground;
-
 
 	GString *title;
 
@@ -133,7 +131,7 @@ struct _HTMLEngine {
 	GdkColor bgColor;
 
 	/* Stack of lists currently active */
-	HTMLListStack *listStack;
+	HTMLStack *listStack;
 
 	/* the widget, used for signal emission*/
 	GtkHTML *widget;
@@ -158,24 +156,16 @@ void        html_engine_parse (HTMLEngine *p);
 HTMLFont *  html_engine_get_current_font (HTMLEngine *p);
 void        html_engine_select_font (HTMLEngine *e);
 void        html_engine_pop_font (HTMLEngine *e);
-void        html_engine_block_end_font (HTMLEngine *e, HTMLObject *clue, HTMLStackElement *elem);
-void        html_engine_block_end_indent (HTMLEngine *e, HTMLObject *clue, HTMLStackElement *elem);
-void        html_engine_block_end_div (HTMLEngine *e, HTMLObject *clue, HTMLStackElement *elem);
-void        html_engine_push_block (HTMLEngine *e, gint id, gint level, HTMLBlockFunc exitFunc, gint miscData1, gint miscData2);
-void        html_engine_pop_block (HTMLEngine *e, gint id, HTMLObject *clue);
 void        html_engine_insert_text (HTMLEngine *e, gchar *str, HTMLFont *f);
 void        html_engine_calc_size (HTMLEngine *p);
 void        html_engine_new_flow (HTMLEngine *p, HTMLObject *clue);
 void        html_engine_draw (HTMLEngine *e, gint x, gint y, gint width, gint height);
 gboolean    html_engine_insert_vspace (HTMLEngine *e, HTMLObject *clue, gboolean vspace_inserted);
-void        html_engine_block_end_color_font (HTMLEngine *e, HTMLObject *clue, HTMLStackElement *elem);
 void        html_engine_pop_color (HTMLEngine *e);
 gboolean    html_engine_set_named_color (HTMLEngine *p, GdkColor *c, const gchar *name);
 void        html_painter_set_background_color (HTMLPainter *painter, GdkColor *color);
 gint        html_engine_get_doc_height (HTMLEngine *p);
 void        html_engine_stop_parser (HTMLEngine *e);
-void        html_engine_block_end_list (HTMLEngine *e, HTMLObject *clue, HTMLStackElement *elem);
-void        html_engine_free_block (HTMLEngine *e);
 void        html_engine_calc_absolute_pos (HTMLEngine *e);
 char       *html_engine_canonicalize_url (HTMLEngine *e, const char *in_url);
 

@@ -23,37 +23,31 @@
 
 #include "htmlobject.h"
 
-typedef struct _HTMLList HTMLList;
-typedef struct _HTMLListStack HTMLListStack;
+typedef enum {
+	HTML_LIST_TYPE_UNORDERED,
+	HTML_LIST_TYPE_UNORDEREDPLAIN,
+	HTML_LIST_TYPE_ORDERED,
+	HTML_LIST_TYPE_MENU,
+	HTML_LIST_TYPE_DIR
+} HTMLListType;
 
-typedef enum { Unordered, UnorderedPlain, Ordered, Menu, Dir } ListType;
-typedef enum { Numeric = 0, LowAlpha, UpAlpha, LowRoman, UpRoman } ListNumType;
+typedef enum {
+	HTML_LIST_NUM_TYPE_NUMERIC,
+	HTML_LIST_NUM_TYPE_LOWALPHA,
+	HTML_LIST_NUM_TYPE_UPALPHA,
+	HTML_LIST_NUM_TYPE_LOWROMAN,
+	HTML_LIST_NUM_TYPE_UPROMAN
+} HTMLListNumType;
 
 struct _HTMLList {
-	ListType type;
-	ListNumType numType;
+	HTMLListType type;
+	HTMLListNumType numType;
 	gint itemNumber;
 };
+typedef struct _HTMLList HTMLList;
 
-struct _HTMLListStack {
-	GList *list;
-};
-
-HTMLListStack *html_list_stack_new      (void);
-void           html_list_stack_destroy  (HTMLListStack *ls);
-gboolean       html_list_stack_is_empty (HTMLListStack *ls);
-gint           html_list_stack_count    (HTMLListStack *ls);
-void           html_list_stack_push     (HTMLListStack *ls, HTMLList *l);
-void           html_list_stack_clear    (HTMLListStack *ls);
-HTMLList      *html_list_stack_top      (HTMLListStack *ls);
-HTMLList      *html_list_stack_pop      (HTMLListStack *ls);
-
-HTMLList      *html_list_new     (ListType t, ListNumType nt);
-void           html_list_destroy (HTMLList *list);
+
+HTMLList *html_list_new (HTMLListType t, HTMLListNumType nt);
+void html_list_destroy (HTMLList *list);
 
 #endif /* _HTMLLIST_H_ */
-
-
-
-
-
