@@ -344,7 +344,7 @@ insert_or_apply (GtkHTMLControlData *cd, gpointer get_data, gboolean insert)
 	HTMLHAlignType halign = HTML_HALIGN_NONE;
 	HTMLVAlignType valign = HTML_VALIGN_BOTTOM;
 
-	file    = g_strconcat ("file:", gnome_pixmap_entry_get_filename (GNOME_PIXMAP_ENTRY (data->pentry)), NULL);
+	file    = g_strconcat ("file://", gnome_pixmap_entry_get_filename (GNOME_PIXMAP_ENTRY (data->pentry)), NULL);
 	width   = -1;
 	percent =  0;
 	if (data->set [GTK_HTML_EDIT_IMAGE_WIDTH]) {

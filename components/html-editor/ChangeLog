@@ -1,3 +1,7 @@
+2000-11-22  Radek Doulik  <rodo@helixcode.com>
+
+	* image.c (insert_or_apply): use file:// rather than file:
+
 2000-11-15  Radek Doulik  <rodo@helixcode.com>
 
 	* editor-control-factory.c (load_from_corba): update namespace
