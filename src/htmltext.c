@@ -1238,7 +1238,7 @@ get_cursor (HTMLObject *self,
 	guint ascent, descent;
 
 	next = html_object_next_not_slave (self);
-	if (offset == HTML_TEXT (self)->text_len && next && html_object_is_text (next)) {
+	if (offset == HTML_TEXT (self)->text_len && next && html_object_is_text (next) && HTML_TEXT (next)->text [0] != ' ') {
 		html_object_get_cursor (next, painter, 0, x1, y1, x2, y2);
 		return;
 	}
@@ -1268,7 +1268,7 @@ get_cursor_base (HTMLObject *self,
 	HTMLObject *obj, *next;
 
 	next = html_object_next_not_slave (self);
-	if (offset == HTML_TEXT (self)->text_len && next && html_object_is_text (next)) {
+	if (offset == HTML_TEXT (self)->text_len && next && html_object_is_text (next) && HTML_TEXT (next)->text [0] != ' ') {
 		html_object_get_cursor_base (next, painter, 0, x, y);
 		return;
 	}
@@ -1285,7 +1285,7 @@ get_cursor_base (HTMLObject *self,
 		    || obj->next == NULL
 		    || HTML_OBJECT_TYPE (obj->next) != HTML_TYPE_TEXTSLAVE) {
 			html_object_calc_abs_position (obj, x, y);
-			if (offset != slave->posStart) {
+			if (offset > slave->posStart) {
 				HTMLText *text;
 				GtkHTMLFontStyle font_style;
 				gint line_offset, width, asc, dsc;

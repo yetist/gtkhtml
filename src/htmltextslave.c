@@ -795,8 +795,8 @@ get_offset_for_pointer (HTMLTextSlave *slave, HTMLPainter *painter, gint x, gint
 
 	i = 1;
 	word = 1;
-	space = strchr (owner->text + slave->posStart, ' ');
 	text = html_text_slave_get_text (slave);
+	space = strchr (text, ' ');
 	if (space && g_utf8_pointer_to_offset (text, space) <= slave->posLen) {
 		html_text_request_word_width (owner, painter);
 
