@@ -43,6 +43,7 @@ void
 html_engine_select_interval (HTMLEngine *e, HTMLInterval *i)
 {
 	e = html_engine_get_top_html_engine (e);
+	html_engine_hide_cursor (e);
 	if (e->selection && html_interval_eq (e->selection, i))
 		html_interval_destroy (i);
 	else {
@@ -52,6 +53,7 @@ html_engine_select_interval (HTMLEngine *e, HTMLInterval *i)
 	}
 
 	html_engine_activate_selection (e, html_selection_current_time ());
+	html_engine_show_cursor (e);
 }
 
 void
@@ -105,8 +107,10 @@ html_engine_unselect_all (HTMLEngine *e)
 {
 	e = html_engine_get_top_html_engine (e);
 	if (e->selection) {
+		html_engine_hide_cursor (e);
 		html_interval_unselect (e->selection, e);
 		html_engine_clear_selection (e);
+		html_engine_show_cursor (e);
 	}
 }
 
@@ -135,9 +139,11 @@ html_engine_disable_selection (HTMLEngine *e)
 	g_return_if_fail (e != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
+	html_engine_hide_cursor (e);
 	remove_mark (e);
 	html_engine_unselect_all (e);
 	e->selection_mode = FALSE;
+	html_engine_show_cursor (e);
 }
 
 static gboolean

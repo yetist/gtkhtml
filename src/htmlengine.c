@@ -4700,15 +4700,20 @@ static void
 replace (HTMLEngine *e)
 {
 	HTMLObject *first = HTML_OBJECT (e->search_info->found->data);
-	HTMLObject *new_text;
 
 	html_engine_edit_selection_updater_update_now (e->selection_updater);
 
-	new_text = text_new (e, e->replace_info->text,
-			     HTML_TEXT (first)->font_style,
-			     HTML_TEXT (first)->color);
-	html_text_set_font_face (HTML_TEXT (new_text), HTML_TEXT (first)->face);
-	html_engine_paste_object (e, new_text, html_object_get_length (HTML_OBJECT (new_text)));
+	if (e->replace_info->text && *e->replace_info->text) {
+		HTMLObject *new_text;
+
+		new_text = text_new (e, e->replace_info->text,
+				     HTML_TEXT (first)->font_style,
+				     HTML_TEXT (first)->color);
+		html_text_set_font_face (HTML_TEXT (new_text), HTML_TEXT (first)->face);
+		html_engine_paste_object (e, new_text, html_object_get_length (HTML_OBJECT (new_text)));
+	} else {
+		html_engine_delete (e);
+	}
 
 	/* update search info to point just behind replaced text */
 	g_list_free (e->search_info->found);

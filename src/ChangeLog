@@ -1,3 +1,19 @@
+2001-11-19  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine-search.c (display_search_results): hide/show cursor
+
+	* htmlselection.c (html_engine_select_interval): wrap in hide/show
+	cursor
+	(html_engine_unselect_all): ditto
+	(html_engine_disable_selection): ditto
+
+	* htmlengine-search.c (html_engine_search_next): if engine is
+	editable, use html_engine_search rather than
+	html_engine_search_next to respect cursor position 
+
+	* htmlengine.c (replace): don't replace with empty text's, just
+	delete selection in such case
+
 2001-11-15  Radek Doulik  <rodo@ximian.com>
 
 	* htmlcluev.c (do_layout): test if it's new flow by old_y and not
