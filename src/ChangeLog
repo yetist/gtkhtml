@@ -1,3 +1,13 @@
+2001-09-12  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine.c (html_engine_make_cursor_visible): allow cursor to
+	be 1 pixel outside view - it doesn't matter now, as we don't allow
+	edit margin widths in editor, once we do, we must take care about
+	case when rightBorder == 0
+
+	* htmlengine-edit-cursor.c (refresh_under_cursor): left and top
+	border widths were interchanged
+
 2001-09-10  Larry Ewing  <lewing@ximian.com>
 
 	* htmlframe.c (html_frame_init): handle NULL and empty urls by

@@ -130,7 +130,7 @@ static inline void
 refresh_under_cursor (HTMLEngine *e, HTMLCursorRectangle *cr, gboolean *enabled)
 {
 	*enabled = cursor_enabled = FALSE;
-	html_engine_draw (e, e->topBorder + cr->x1 - e->x_offset, e->leftBorder + cr->y1 - e->y_offset,
+	html_engine_draw (e, e->leftBorder + cr->x1 - e->x_offset, e->topBorder + cr->y1 - e->y_offset,
 			  cr->x2 - cr->x1 + 1, cr->y2 - cr->y1 + 1);
 	*enabled = cursor_enabled = TRUE;
 }

@@ -4244,8 +4244,8 @@ html_engine_make_cursor_visible (HTMLEngine *e)
 
 	if (x1 < e->x_offset + e->leftBorder)
 		e->x_offset = x1 - e->leftBorder;
-	if (x1 + e->leftBorder >= e->x_offset + e->width)
-		e->x_offset = x1 + e->leftBorder - e->width + 1;
+	if (x1 + e->leftBorder > e->x_offset + e->width)
+		e->x_offset = x1 + e->leftBorder - e->width;
 
 	if (y1 < e->y_offset + e->topBorder)
 		e->y_offset = y1 - e->topBorder;
