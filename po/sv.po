@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2000-09-18 12:45+0200\n"
-"PO-Revision-Date: 2000-09-18 12:46+0200\n"
+"POT-Creation-Date: 2000-10-13 18:42+0200\n"
+"PO-Revision-Date: 2000-10-13 18:44+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -133,53 +133,65 @@ msgstr "Bakgrundsbild"
 msgid "Colors"
 msgstr "Färger"
 
-#: components/html-editor/editor-control-factory.c:133
-#: components/html-editor/popup.c:86
+#: components/html-editor/editor-control-factory.c:129
+#: components/html-editor/popup.c:73
+msgid "Properties"
+msgstr "Egenskaper"
+
+#: components/html-editor/editor-control-factory.c:140
+#: components/html-editor/menubar.c:96 components/html-editor/popup.c:88
 msgid "Image"
 msgstr "Bild"
 
-#: components/html-editor/editor-control-factory.c:142
-#: components/html-editor/popup.c:79
+#: components/html-editor/editor-control-factory.c:149
+#: components/html-editor/menubar.c:117 components/html-editor/popup.c:81
 msgid "Text"
 msgstr "Text"
 
-#: components/html-editor/editor-control-factory.c:154
-#: components/html-editor/popup.c:93
+#: components/html-editor/editor-control-factory.c:160
+#: components/html-editor/menubar.c:140 components/html-editor/popup.c:116
+msgid "Rule"
+msgstr "Linje"
+
+#: components/html-editor/editor-control-factory.c:169
+#: components/html-editor/popup.c:95
 msgid "Paragraph"
 msgstr "Stycke"
 
-#: components/html-editor/editor-control-factory.c:159
-#: components/html-editor/menubar.c:109 components/html-editor/popup.c:100
+#: components/html-editor/editor-control-factory.c:174
+#: components/html-editor/menubar.c:101 components/html-editor/menubar.c:122
+#: components/html-editor/popup.c:102
 msgid "Link"
 msgstr "Länk"
 
-#: components/html-editor/editor-control-factory.c:164
-#: components/html-editor/popup.c:107
+#: components/html-editor/editor-control-factory.c:179
+#: components/html-editor/popup.c:109
 msgid "Page"
 msgstr "Sida"
 
-#: components/html-editor/image.c:409
+#: components/html-editor/image.c:149
 msgid "Image selection"
 msgstr "Val av bild"
 
-#: components/html-editor/image.c:417
-msgid "Border"
-msgstr "Kant"
-
 #. ADD_ITEM("Left",   GDK_F4);
 #. ADD_ITEM("Right",  GDK_F5);
-#: components/html-editor/image.c:450
+#: components/html-editor/image.c:176
 msgid "Alignment"
 msgstr "Justering"
 
-#: components/html-editor/image.c:462 components/html-editor/rule.c:124
+#: components/html-editor/image.c:184
+msgid "Border"
+msgstr "Kant"
+
+#: components/html-editor/image.c:201
+msgid "Padding"
+msgstr "Utfyllnad"
+
+#. size
+#: components/html-editor/image.c:221 components/html-editor/rule.c:235
 #: components/html-editor/text.c:160
 msgid "Size"
 msgstr "Storlek"
-
-#: components/html-editor/image.c:489
-msgid "Padding"
-msgstr "Utfyllnad"
 
 #: components/html-editor/link.c:72
 msgid "Clear"
@@ -197,19 +209,24 @@ msgstr "Kunde inte initiera GNORBA"
 msgid "Could not initialize Bonobo"
 msgstr "Kunde inte initiera Bonobo"
 
-#: components/html-editor/menubar.c:93
-msgid "Insert image"
-msgstr "Infoga bild"
+#: components/html-editor/menubar.c:94 components/html-editor/menubar.c:114
+#: components/html-editor/menubar.c:137
+#: components/html-editor/properties.c:110
+msgid "Insert"
+msgstr "Infoga"
 
-#: components/html-editor/menubar.c:128
+#: components/html-editor/menubar.c:153
 msgid "Cannot execute gtkhtml properties"
 msgstr "Kunde inte plocka fram egenskaperna för gtkhtml"
 
-#: components/html-editor/paragraph.c:74 components/html-editor/text.c:138
+#. style
+#: components/html-editor/paragraph.c:74 components/html-editor/rule.c:223
+#: components/html-editor/text.c:138
 msgid "Style"
 msgstr "Stil"
 
-#: components/html-editor/paragraph.c:108
+#. align
+#: components/html-editor/paragraph.c:108 components/html-editor/rule.c:259
 msgid "Align"
 msgstr "Justera"
 
@@ -225,16 +242,7 @@ msgstr "Centrera"
 msgid "Right"
 msgstr "Höger"
 
-#: components/html-editor/properties.c:92
-#: components/html-editor/properties.c:93
-msgid "Insert"
-msgstr "Infoga"
-
-#: components/html-editor/properties.c:95
-msgid "Properties"
-msgstr "Egenskaper"
-
-#: components/html-editor/popup.c:178
+#: components/html-editor/popup.c:185
 msgid "Remove link"
 msgstr "Ta bort länk"
 
@@ -255,11 +263,11 @@ msgstr "Ersätt alla"
 msgid "Next"
 msgstr "Nästa"
 
-#: components/html-editor/replace.c:152 components/html-editor/search.c:66
+#: components/html-editor/replace.c:152 components/html-editor/search.c:67
 msgid "search backward"
 msgstr "sök baklänges"
 
-#: components/html-editor/replace.c:153 components/html-editor/search.c:67
+#: components/html-editor/replace.c:153 components/html-editor/search.c:68
 msgid "case sensitive"
 msgstr "gör skillnad på gemener/VERSALER"
 
@@ -267,43 +275,25 @@ msgstr "gör skillnad på gemener/VERSALER"
 msgid "with"
 msgstr "med"
 
-#: components/html-editor/rule.c:124
-msgid "Length"
-msgstr "Längd"
+#: components/html-editor/rule.c:227
+msgid "shaded"
+msgstr "skuggad"
 
-#: components/html-editor/rule.c:124
-msgid "Percent"
-msgstr "Procent"
+#. weight
+#: components/html-editor/rule.c:275
+msgid "Weight"
+msgstr "Vikt"
 
-#: components/html-editor/rule.c:125
-msgid "Left Align"
-msgstr "Vänsterjustera"
+#. sample
+#: components/html-editor/rule.c:287
+msgid "Sample"
+msgstr "Prov"
 
-#: components/html-editor/rule.c:125
-msgid "Center Align"
-msgstr "Centrera"
-
-#: components/html-editor/rule.c:125
-msgid "Right Align"
-msgstr "Högerjustera"
-
-#: components/html-editor/rule.c:125
-msgid "None"
-msgstr "Ingen"
-
-#: components/html-editor/rule.c:129
-msgid "Rule"
-msgstr "Linje"
-
-#: components/html-editor/rule.c:132
-msgid "Set Shade"
-msgstr "Sätt skuggning"
-
-#: components/html-editor/search.c:63
+#: components/html-editor/search.c:64
 msgid "Regex search"
 msgstr "Sökning med reg. uttryck"
 
-#: components/html-editor/search.c:63
+#: components/html-editor/search.c:64
 msgid "Search"
 msgstr "Sök"
 
@@ -530,6 +520,30 @@ msgstr "Förhands_granska"
 #: src/testgtkhtml.c:111
 msgid "Print preview"
 msgstr "Förhandsgranska"
+
+#~ msgid "Insert image"
+#~ msgstr "Infoga bild"
+
+#~ msgid "Length"
+#~ msgstr "Längd"
+
+#~ msgid "Percent"
+#~ msgstr "Procent"
+
+#~ msgid "Left Align"
+#~ msgstr "Vänsterjustera"
+
+#~ msgid "Center Align"
+#~ msgstr "Centrera"
+
+#~ msgid "Right Align"
+#~ msgstr "Högerjustera"
+
+#~ msgid "None"
+#~ msgstr "Ingen"
+
+#~ msgid "Set Shade"
+#~ msgstr "Sätt skuggning"
 
 #~ msgid "Find Rege_x..."
 #~ msgstr "Sök _reguljärt uttryck..."
