@@ -163,7 +163,9 @@ alloc_font (HTMLPainter *painter, gchar *face, gdouble size, gboolean points, Gt
 	return html_font_new (desc,
 			      text_width (HTML_GDK_PAINTER (painter)->pc, desc, " ", 1),
 			      text_width (HTML_GDK_PAINTER (painter)->pc, desc, "\xc2\xa0", 2),
-			      text_width (HTML_GDK_PAINTER (painter)->pc, desc, "\t", 1));
+			      text_width (HTML_GDK_PAINTER (painter)->pc, desc, "\t", 1),
+			      text_width (HTML_GDK_PAINTER (painter)->pc, desc, HTML_BLOCK_INDENT, strlen (HTML_BLOCK_INDENT)),
+			      text_width (HTML_GDK_PAINTER (painter)->pc, desc, HTML_BLOCK_CITE, strlen (HTML_BLOCK_CITE)));
 }
 
 static void

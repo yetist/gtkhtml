@@ -245,6 +245,12 @@ void              html_painter_unref_font                              (HTMLPain
 guint             html_painter_get_space_width                         (HTMLPainter       *painter,
 									GtkHTMLFontStyle   font_style,
 									HTMLFontFace      *face);
+guint             html_painter_get_block_indent_width                  (HTMLPainter       *painter,
+									GtkHTMLFontStyle   font_style,
+									HTMLFontFace      *face);
+guint             html_painter_get_block_cite_width                    (HTMLPainter       *painter,
+									GtkHTMLFontStyle   font_style,
+									HTMLFontFace      *face);
 void              html_painter_draw_embedded                           (HTMLPainter       *painter,
 									HTMLEmbedded      *element,
 									gint               x,
@@ -255,4 +261,8 @@ guint             html_painter_get_page_height                         (HTMLPain
 								        HTMLEngine        *e);
 void              html_painter_set_focus                               (HTMLPainter       *painter,
 									gboolean           focus);
+
+#define HTML_BLOCK_INDENT   "        "
+#define HTML_BLOCK_CITE     "> "
+
 #endif /* _HTMLPAINTER_H_ */

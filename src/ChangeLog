@@ -1,3 +1,20 @@
+2003-02-05  Larry Ewing  <lewing@ximian.com>
+
+	* htmlclueflow.c: use new painter methods that cache the indent
+	widths.
+	
+	* htmlfontmanager.h: add cache for indent memebers.
+
+	* htmlfontmanger.c: add cache members to html_font_new.
+
+	* htmlpainter.h: add accessors for indent caches.
+
+	* htmlpainter.c: add accessors for indent caches.
+
+	* htmlgdkpainter.c: calc widths of block indents.
+
+	* htmlprinter.c: calc widths of block indents.
+	
 2003-02-04  Larry Ewing  <lewing@ximian.com>
 
 	* htmlclueflow.c (get_indent): cache the indent level since this

@@ -61,11 +61,6 @@ static guint          get_post_padding                      (HTMLClueFlow *flow,
 							     guint pad);
 static int            get_similar_depth                     (HTMLClueFlow *self, 
 							     HTMLClueFlow *neighbor);
-
-
-#define CLUEFLOW_INDENT             "        "
-#define CLUEFLOW_BLOCKQUOTE_CITE    "> "
-          
 
 static void
 copy_levels (GByteArray *dst, GByteArray *src)
@@ -573,20 +568,10 @@ get_level_indent (HTMLClueFlow *flow,
 	gint i = 0;
 
 	if (flow->levels->len > 0 || ! is_item (flow)) {
-		static gint cite_width = -1, indent_width = -1;
-		gint asc, dsc;
+		guint cite_width, indent_width;
 
-		html_painter_calc_text_size (painter, 
-					     CLUEFLOW_BLOCKQUOTE_CITE, 
-					     strlen (CLUEFLOW_BLOCKQUOTE_CITE), &line_offset,
-					     GTK_HTML_FONT_STYLE_SIZE_3, NULL,
-					     &cite_width, &asc, &dsc);
-
-		html_painter_calc_text_size (painter, 
-					     CLUEFLOW_INDENT, 
-					     strlen (CLUEFLOW_INDENT), &line_offset,
-					     GTK_HTML_FONT_STYLE_SIZE_3, NULL,
-					     &indent_width, &asc, &dsc);
+		cite_width   = html_painter_get_block_cite_width (painter, GTK_HTML_FONT_STYLE_SIZE_3, NULL);
+		indent_width = html_painter_get_block_indent_width (painter, GTK_HTML_FONT_STYLE_SIZE_3, NULL);
 		
 		while (i <= level) {
 			switch (flow->levels->data[i]) {
@@ -1120,22 +1105,22 @@ draw_gt_line (HTMLObject *cur, HTMLPainter *p, gint offset, gint x, gint y)
 {
 	gint cy, w, a, d, line_offset = 0;
 
-	html_painter_calc_text_size (p, CLUEFLOW_BLOCKQUOTE_CITE, 
-				     strlen (CLUEFLOW_BLOCKQUOTE_CITE), &line_offset,
+	html_painter_calc_text_size (p, HTML_BLOCK_CITE, 
+				     strlen (HTML_BLOCK_CITE), &line_offset,
 				     GTK_HTML_FONT_STYLE_SIZE_3, NULL,
 				     &w, &a, &d);
 
 	cy = offset;
 	while (cy + a <= cur->ascent) {
 		html_painter_draw_text (p, x, y + cur->y - cy,
-					CLUEFLOW_BLOCKQUOTE_CITE, 1, 0);
+					HTML_BLOCK_CITE, 1, 0);
 		cy += a + d;
 	}
 
 	cy = - offset + a + d;
 	while (cy + d <= cur->descent) {
 		html_painter_draw_text (p, x, y + cur->y + cy,
-					CLUEFLOW_BLOCKQUOTE_CITE, 1, 0);
+					HTML_BLOCK_CITE, 1, 0);
 		cy += a + d;
 	}
 }
@@ -1775,12 +1760,12 @@ plain_padding (HTMLClueFlow *flow, GString *out, gboolean firstline)
 		for (i = 0; i < flow->levels->len; i++) {
 			switch (flow->levels->data[i]) {
 			case HTML_LIST_TYPE_BLOCKQUOTE_CITE:
-				APPEND_PLAIN (CLUEFLOW_BLOCKQUOTE_CITE);
+				APPEND_PLAIN (HTML_BLOCK_CITE);
 				break;
 			case HTML_LIST_TYPE_GLOSSARY_DL:
 				break;
 			default:
-				APPEND_PLAIN (CLUEFLOW_INDENT);
+				APPEND_PLAIN (HTML_BLOCK_INDENT);
 				break;
 			}
 		}
