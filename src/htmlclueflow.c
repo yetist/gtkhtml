@@ -2303,6 +2303,16 @@ html_clueflow_type_init (void)
 	html_clueflow_class_init (&html_clueflow_class, HTML_TYPE_CLUEFLOW, sizeof (HTMLClueFlow));
 }
 
+static HTMLDirection
+html_clueflow_real_get_direction (HTMLObject *o)
+{
+	if (HTML_CLUEFLOW (o)->dir == HTML_DIRECTION_DERIVED && o->parent) {
+		return html_object_get_direction (o->parent);
+	}
+
+	return HTML_CLUEFLOW (o)->dir;
+}
+
 void
 html_clueflow_class_init (HTMLClueFlowClass *klass,
 			  HTMLType type,
@@ -2338,6 +2348,7 @@ html_clueflow_class_init (HTMLClueFlowClass *klass,
 	object_class->get_recursive_length = get_recursive_length;
 	object_class->get_clear = get_clear;
 	object_class->set_painter = set_painter;
+	object_class->get_direction = html_clueflow_real_get_direction;
 
 	klass->get_default_font_style = get_default_font_style;
 
@@ -2361,6 +2372,7 @@ html_clueflow_init (HTMLClueFlow *clueflow, HTMLClueFlowClass *klass,
 
 	clue->valign = HTML_VALIGN_BOTTOM;
 	clue->halign = HTML_HALIGN_NONE;
+	clueflow->dir = HTML_DIRECTION_DERIVED;
 
 	clueflow->style = style;
 	clueflow->levels = levels; 
@@ -2598,13 +2610,30 @@ html_clueflow_get_halignment (HTMLClueFlow *flow)
 	g_return_val_if_fail (flow != NULL, HTML_HALIGN_NONE);
 
 	if (HTML_CLUE (flow)->halign == HTML_HALIGN_NONE) {
+		HTMLHAlignType halign;
+
 		if (HTML_OBJECT (flow)->parent && HTML_IS_TABLE_CELL (HTML_OBJECT (flow)->parent))
-			return HTML_CLUE (HTML_OBJECT (flow)->parent)->halign == HTML_HALIGN_NONE
-				? HTML_TABLE_CELL (HTML_OBJECT (flow)->parent)->heading ? HTML_HALIGN_CENTER : HTML_HALIGN_LEFT
+			halign = HTML_CLUE (HTML_OBJECT (flow)->parent)->halign == HTML_HALIGN_NONE
+				? HTML_TABLE_CELL (HTML_OBJECT (flow)->parent)->heading ? HTML_HALIGN_CENTER : HTML_HALIGN_NONE
 				: HTML_CLUE (HTML_OBJECT (flow)->parent)->halign;
 		else
-			return HTML_CLUE (HTML_OBJECT (flow)->parent)->halign == HTML_HALIGN_NONE
-				? HTML_HALIGN_LEFT : HTML_CLUE (HTML_OBJECT (flow)->parent)->halign;
+			halign = HTML_CLUE (HTML_OBJECT (flow)->parent)->halign;
+
+		if (halign == HTML_HALIGN_NONE) {
+			switch (html_object_get_direction (HTML_OBJECT (flow))) {
+			case HTML_DIRECTION_LTR:
+				halign = HTML_HALIGN_LEFT;
+				break;
+			case HTML_DIRECTION_RTL:
+				halign = HTML_HALIGN_RIGHT;
+				break;
+			default:
+				break;
+			}
+		}
+
+		return halign;
+
 	} else
 		return HTML_CLUE (flow)->halign;
 }

@@ -41,6 +41,8 @@ struct _HTMLClueV {
 	HTMLColor *border_color;
 
 	HTMLColor *background_color;
+
+	HTMLDirection dir;
 };
 
 struct _HTMLClueVClass {

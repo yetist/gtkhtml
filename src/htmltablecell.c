@@ -314,6 +314,16 @@ save (HTMLObject *self,
 	return TRUE;
 }
 
+static HTMLDirection
+html_table_cell_real_get_direction (HTMLObject *o)
+{
+	if (HTML_TABLE_CELL (o)->dir == HTML_DIRECTION_DERIVED && o->parent) {
+		return html_object_get_direction (o->parent);
+	}
+
+	return HTML_TABLE_CELL (o)->dir;
+}
+
 
 void
 html_table_cell_type_init (void)
@@ -344,6 +354,7 @@ html_table_cell_class_init (HTMLTableCellClass *klass,
 	object_class->get_bg_color = get_bg_color;
 	object_class->save = save;
 	object_class->merge = merge;
+	object_class->get_direction = html_table_cell_real_get_direction;
 
 	parent_class = &html_cluev_class;
 }
@@ -386,6 +397,8 @@ html_table_cell_init (HTMLTableCell *cell,
 
 	cell->no_wrap = FALSE;
 	cell->heading = FALSE;
+
+	cell->dir = HTML_DIRECTION_DERIVED;
 }
 
 HTMLObject *

@@ -259,6 +259,8 @@ struct _HTMLObjectClass {
 	gint (* get_n_children)          (HTMLObject *self);
 	HTMLObject * (* get_child)       (HTMLObject *self, gint index);
 	gint (* get_child_index)         (HTMLObject *self, HTMLObject *child);
+
+	HTMLDirection (*get_direction)   (HTMLObject *self);
 };
 
 
@@ -600,4 +602,7 @@ HTMLObject *html_object_prev_cursor_leaf    (HTMLObject *o,
 const char *html_object_get_id  (HTMLObject *o);
 void        html_object_set_id  (HTMLObject *o,
 				 const char *id);
+
+HTMLDirection html_object_get_direction (HTMLObject *o);
+
 #endif /* _HTMLOBJECT_H_ */

@@ -1314,6 +1314,7 @@ html_text_get_pango_info (HTMLText *text, HTMLPainter *painter)
 			pango_glyph_string_get_logical_widths (glyphs, translated + item->offset, item->length, item->analysis.level, text->pi->entries [i].widths);
 			pango_glyph_string_free (glyphs);
 		}
+
 		g_free (heap);
 		g_list_free (items);
 	}

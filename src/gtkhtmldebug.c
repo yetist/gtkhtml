@@ -100,6 +100,21 @@ clueflow_style_to_string (HTMLClueFlowStyle style)
 	}
 }
 
+static char *
+direction_to_string (HTMLDirection dir)
+{
+	switch (dir) {
+	case HTML_DIRECTION_DERIVED:
+		return "derived";
+	case HTML_DIRECTION_RTL:
+		return "rtl";
+	case HTML_DIRECTION_LTR:
+		return "ltr";
+	default:
+		return "UNKNOWN";
+	}
+}
+
 
 void
 gtk_html_debug_dump_table (HTMLObject *o,
@@ -138,9 +153,10 @@ gtk_html_debug_dump_object (HTMLObject *obj,
 	for (i = 0; i < level; i++)
 		g_print (" ");
 
-	g_print ("ObjectType: %s Pos: %d, %d, MinWidth: %d, Width: %d PrefWidth: %d MaxWidth: %d Ascent %d Descent %d",
+	g_print ("ObjectType: %s Pos: %d, %d, MinWidth: %d, Width: %d PrefWidth: %d MaxWidth: %d Ascent %d Descent %d Direction %s",
 		 html_type_name (HTML_OBJECT_TYPE (obj)),
-		 obj->x, obj->y, obj->min_width, obj->width, obj->pref_width, obj->max_width, obj->ascent, obj->descent);
+		 obj->x, obj->y, obj->min_width, obj->width, obj->pref_width, obj->max_width, obj->ascent, obj->descent,
+		 direction_to_string (html_object_get_direction (obj)));
 
 	if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_CLUEFLOW) {
 		g_print (" [%s, %d]",
@@ -218,8 +234,9 @@ gtk_html_debug_dump_object (HTMLObject *obj,
 		}
 		break;
 	}
-	case HTML_TYPE_CLUEH:
 	case HTML_TYPE_CLUEV:
+		g_print ("Direction: %s\n", direction_to_string (HTML_CLUEV (obj)->dir));
+	case HTML_TYPE_CLUEH:
 	case HTML_TYPE_CLUEFLOW:
 		/* g_print ("Head: %p Tail: %p\n", HTML_CLUE (obj)->head, HTML_CLUE (obj)->tail); */
 	case HTML_TYPE_CLUEALIGNED:

@@ -874,6 +874,16 @@ get_right_clear (HTMLClue *self,
 	return y;
 }
 
+static HTMLDirection
+html_cluev_real_get_direction (HTMLObject *o)
+{
+	if (HTML_CLUEV (o)->dir == HTML_DIRECTION_DERIVED && o->parent) {
+		return html_object_get_direction (o->parent);
+	}
+
+	return HTML_CLUEV (o)->dir;
+}
+
 
 void
 html_cluev_type_init (void)
@@ -906,6 +916,7 @@ html_cluev_class_init (HTMLClueVClass *klass,
 	object_class->check_point = check_point;
 	object_class->get_left_margin = get_left_margin;
 	object_class->get_right_margin = get_right_margin;
+	object_class->get_direction = html_cluev_real_get_direction;
 
 	clue_class->get_left_clear = get_left_clear;
 	clue_class->get_right_clear = get_right_clear;
@@ -936,7 +947,8 @@ html_cluev_init (HTMLClueV *cluev,
 	object->percent = percent;
 
 	clue->valign = HTML_VALIGN_BOTTOM;
-	clue->halign = HTML_HALIGN_LEFT;
+	clue->halign = HTML_HALIGN_NONE;
+	cluev->dir = HTML_DIRECTION_DERIVED;
 	clue->head = clue->tail = clue->curr = 0;
 
 	cluev->align_left_list = 0;

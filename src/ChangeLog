@@ -1,3 +1,17 @@
+2004-11-11  Radek Doulik  <rodo@ximian.com>
+
+	* htmltablecell.c: handle direction
+
+	* htmlobject.c: added virtual direction property
+
+	* htmlengine.c: added direction property, added HTML tag
+
+	* htmlclueflow.c: handle direction, align accordingly to direction
+
+	* htmlcluev.c: added direction property
+
+	* gtkhtmldebug.c (gtk_html_debug_log): display direction info
+
 2004-11-10  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (gtk_html_im_commit_cb): reverted patch from Leon Ho

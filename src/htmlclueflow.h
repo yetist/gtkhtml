@@ -48,6 +48,8 @@ struct _HTMLClueFlow {
 	HTMLListType item_type;
 	gint         item_number;
 	HTMLColor   *item_color;
+
+	HTMLDirection dir;
 };
 
 struct _HTMLClueFlowClass {

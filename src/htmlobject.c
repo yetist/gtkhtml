@@ -591,6 +591,23 @@ get_clear (HTMLObject *self)
 	return HTML_CLEAR_NONE;
 }
 
+static HTMLDirection
+html_object_real_get_direction (HTMLObject *o)
+{
+	if (o->parent) {
+		while (o->parent) {
+			HTMLDirection dir = html_object_get_direction (o->parent);
+
+			if (dir != HTML_DIRECTION_DERIVED)
+				return dir;
+
+			o = o->parent;
+		}
+	}
+
+	return HTML_DIRECTION_DERIVED;
+}
+
 /* Class initialization.  */
 
 void
@@ -661,6 +678,7 @@ html_object_class_init (HTMLObjectClass *klass,
 	klass->tail = tail;
 	klass->get_engine = get_engine;
 	klass->get_clear = get_clear;
+	klass->get_direction = html_object_real_get_direction;
 }
 
 void
@@ -2060,6 +2078,12 @@ html_object_prev_cursor_leaf (HTMLObject *o, HTMLEngine *e)
 		o = html_object_prev_cursor_object (o, e, &offset);
 
 	return o;
+}
+
+HTMLDirection
+html_object_get_direction (HTMLObject *o)
+{
+	return (* HO_CLASS (o)->get_direction) (o);
 }
 
 const char *

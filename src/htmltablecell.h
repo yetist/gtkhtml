@@ -54,6 +54,8 @@ struct _HTMLTableCell {
 
 	HTMLImagePointer *bgPixmap;
 	gboolean have_bgPixmap;
+
+	HTMLDirection dir;
 };
 
 struct _HTMLTableCellClass {

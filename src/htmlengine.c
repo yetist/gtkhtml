@@ -1880,6 +1880,22 @@ element_parse_center (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 }
 
 static void
+element_parse_html (HTMLEngine *e, HTMLObject *clue, const char *str)
+{
+	HTMLElement *element;
+	char *value;
+
+	element = html_element_new (e, str);
+	
+	if (e->clue && html_element_get_attr (element, "dir", &value)) {
+		if (!strcasecmp (value, "ltr"))
+			HTML_CLUEV (e->clue)->dir = HTML_DIRECTION_LTR;
+		else if (!strcasecmp (value, "rtl"))
+			HTML_CLUEV (e->clue)->dir = HTML_DIRECTION_RTL;
+	}
+}
+
+static void
 element_parse_div (HTMLEngine *e, HTMLObject *clue, const char *str)
 {
 	HTMLElement *element;
@@ -3228,6 +3244,7 @@ element_parse_cell (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	HTMLElement *element;
 	char *value;
 	HTMLLength *len;
+	HTMLDirection dir = HTML_DIRECTION_DERIVED;
 	
 	element = html_element_new (e, str);
 
@@ -3290,6 +3307,13 @@ element_parse_cell (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	if (html_element_has_attr (element, "nowrap"))
 			no_wrap = TRUE;
 	
+	if (html_element_get_attr (element, "dir", &value)) {
+		if (!strcasecmp (value, "rtl"))
+			dir = HTML_DIRECTION_RTL;
+		else if (!strcasecmp (value, "ltr"))
+			dir = HTML_DIRECTION_LTR;
+	}
+
 	html_element_parse_coreattrs (element);
 
 	if (!table)
@@ -3302,6 +3326,7 @@ element_parse_cell (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 
 	cell->no_wrap = no_wrap;
 	cell->heading = heading;
+	cell->dir = dir;
 
 	pop_element_by_type (e, DISPLAY_TABLE_CELL);
 	pop_element_by_type (e, DISPLAY_TABLE_CAPTION);
@@ -3575,6 +3600,7 @@ HTMLDispatchEntry basic_table[] = {
 	{ID_FORM,             element_parse_form},
 	{"frameset",          element_parse_frameset},
 	{"frame",             element_parse_frame},
+	{ID_HTML,             element_parse_html},
 	{ID_MAP,              element_parse_map},
 	{"meta",              element_parse_meta},
 	{"noframe",           element_parse_noframe},
@@ -4956,7 +4982,7 @@ html_engine_parse (HTMLEngine *e)
 
 	e->clue = e->parser_clue = html_cluev_new (html_engine_get_left_border (e), html_engine_get_top_border (e), 100);
 	HTML_CLUE (e->clue)->valign = HTML_VALIGN_TOP;
-	HTML_CLUE (e->clue)->halign = HTML_HALIGN_LEFT;
+	HTML_CLUE (e->clue)->halign = HTML_HALIGN_NONE;
 
 	e->cursor->object = e->clue;
 
