@@ -1,3 +1,11 @@
+2002-10-13  Larry Ewing  <lewing@ximian.com>
+
+	* text.c (fill_sample): always draw the current color and mark the
+	string for translation.
+	(text_properties): Set the color to the current insertion color.
+	Silence a critical warning in g_strconcat.
+	(set_style): clear styles if they have been unselected.
+
 2002-10-10  Larry Ewing  <lewing@ximian.com>
 
 	* GNOME_GtkHTML_Editor.xml.in: remove bogus accelerator for strikeout.
