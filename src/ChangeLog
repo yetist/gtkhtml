@@ -1,3 +1,8 @@
+2001-03-12  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml-search.c (destroy): don't set gtkhtml's data here, as
+	gtkhtml is already destroyed
+
 2001-03-11  Larry Ewing  <lewing@ximian.com>
 
 	* htmlinterval.h: fix harmless typo in copyright header.
