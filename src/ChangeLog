@@ -1,5 +1,8 @@
 2003-03-17  Radek Doulik  <rodo@ximian.com>
 
+	* htmlclueflow.c (html_clueflow_get_line_offset): pass line_offset
+	to html_text_text_line_length
+
 	* htmltextslave.c (html_get_glyphs_non_tab): make this function
 	public
 

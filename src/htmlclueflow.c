@@ -2890,8 +2890,9 @@ html_clueflow_get_line_offset (HTMLClueFlow *flow, HTMLPainter *painter, HTMLObj
 
 	if (HTML_IS_TEXT_SLAVE (head)) {
 		HTMLTextSlave *bol = HTML_TEXT_SLAVE (head);
-		line_offset = html_text_text_line_length (html_text_get_text (bol->owner, bol->posStart),
-							  0, bol->owner->text_len - bol->posStart, NULL);
+
+		html_text_text_line_length (html_text_get_text (bol->owner, bol->posStart),
+					    &line_offset, bol->owner->text_len - bol->posStart, NULL);
 		head = html_object_next_not_slave (head);
 	}
 
