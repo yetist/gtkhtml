@@ -66,6 +66,8 @@ struct _GtkHTMLPrivate {
 	gboolean    magic_smileys;
 	gboolean    inline_spelling;
 
+	gulong      toplevel_unmap_handler;
+
 	gboolean in_object_resize;
 	GdkCursor *resize_cursor;
 	HTMLObject *resize_object;
