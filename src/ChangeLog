@@ -1,3 +1,7 @@
+2003-08-23  Larry Ewing  <lewing@ximian.com>
+
+	* htmlstyle.c (parse_color): fix copy length.
+
 2003-08-15  Antonio Xu  <antonio.xu@sun.com>
 
 	* htmlengine-edit-movement.c (html_engine_jump_at): add

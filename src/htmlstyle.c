@@ -36,7 +36,7 @@ parse_color (const gchar *text,
 	c [7] = 0;
 	if (*text != '#') {
 		c[0] = '#'; 
-		strncpy (c + 1, text, len);
+		strncpy (c + 1, text, 6);
 		len++;
 	} else {
 		strncpy (c, text, len);
@@ -201,11 +201,7 @@ html_style_add_attribute (HTMLStyle *style, const char *attr)
 {
 	gchar **prop;
 
-	if (!style)
-		style = html_style_new ();
-
 	prop = g_strsplit (attr, ";", 100);
-
 	if (prop) {
 		gint i;
 		for (i = 0; prop[i]; i++) {
@@ -214,14 +210,14 @@ html_style_add_attribute (HTMLStyle *style, const char *attr)
 			text = g_strstrip (prop[i]);
 			if (!strncasecmp ("color: ", text, 7)) {
 				GdkColor color;
-				
+
 				if (parse_color (g_strstrip (text + 7), &color)) {
 					HTMLColor *hc = html_color_new_from_gdk_color (&color);
-					html_style_add_color (style, hc);
+					style = html_style_add_color (style, hc);
 				        html_color_unref (hc);
 				}
 			} else if (!strncasecmp ("text-decoration: none", text, 21)) {
-				html_style_unset_decoration (style, ~GTK_HTML_FONT_STYLE_SIZE_MASK);
+				style = html_style_unset_decoration (style, ~GTK_HTML_FONT_STYLE_SIZE_MASK);
 			}
 		}
 		g_strfreev (prop);
