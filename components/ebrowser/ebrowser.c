@@ -26,6 +26,7 @@
 #include <liboaf/liboaf.h>
 #include <bonobo.h>
 #include "ebrowser-widget.h"
+#include "ebrowser-stream.h"
 #include "ebrowser.h"
 
 static gint refcount = 0;
@@ -196,6 +197,7 @@ static BonoboObject *
 ebrowser_factory (BonoboGenericFactory * factory, void * closure)
 {
 	BonoboControl * control;
+	BonoboPersistStream * stream;
 	BonoboPropertyBag * pbag;
 	GtkWidget * w, * browser;
 
@@ -217,6 +219,9 @@ ebrowser_factory (BonoboGenericFactory * factory, void * closure)
 		gtk_object_destroy (GTK_OBJECT (w));
 		return NULL;
 	}
+
+	stream = bonobo_persist_stream_new (ebrowser_ps_load, NULL, NULL, ebrowser_ps_types, browser);
+	bonobo_object_add_interface (BONOBO_OBJECT (control), BONOBO_OBJECT (stream));
 
 	pbag = bonobo_property_bag_new (get_prop, set_prop, browser);
 	bonobo_control_set_property_bag (control, pbag);

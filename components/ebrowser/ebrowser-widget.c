@@ -825,3 +825,35 @@ ebrowser_concat (const gchar * url, const gchar * relative)
 	return fresh;
 }
 
+gpointer
+ebrowser_base_stream (EBrowser * ebr)
+{
+	GtkHTMLStream * stream;
+
+	ebrowser_stop_loading (ebr);
+
+	if (ebr->url) {
+		g_free (ebr->url);
+		ebr->url = NULL;
+	}
+
+	if (ebr->baseroot) {
+		g_free (ebr->baseroot);
+		ebr->baseroot = NULL;
+	}
+
+	if (ebr->basedir) {
+		g_free (ebr->basedir);
+		ebr->basedir = NULL;
+	}
+
+	ebr->baseprotocol = EBROWSER_PROTOCOL_UNKNOWN;
+
+	ebr->url = g_strdup ("Bonobo:");
+
+	stream = gtk_html_begin (GTK_HTML (ebr));
+
+	return stream;
+}
+
+

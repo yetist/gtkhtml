@@ -1,3 +1,15 @@
+2000-10-27  Lauris Kaplinski  <lauris@helixcode.com>
+
+	* ebrowser-stream.*: PersistStream implementation - for example
+	to grab output from client-side scripts
+
+	* ebrowser.c (ebrowser-factory): Register PersistStream
+
+	* ebrowser-widget.* (ebrowser_base_stream): Temporary solution
+	for getting GtkHTMLStream
+
+	* test-ebrowser.c: Add file uploading entry
+
 2000-10-25  Miguel de Icaza  <miguel@helixcode.com>
 
 	* ebrowser-widget.c (ebrowser_unregister_loader): Emit signal

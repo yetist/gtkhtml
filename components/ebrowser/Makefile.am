@@ -17,6 +17,7 @@ EBROWSER_ENGINE_FILES = \
 
 ebrowser_SOURCES = \
 	$(EBROWSER_ENGINE_FILES) \
+	ebrowser-stream.c ebrowser-stream.h \
 	ebrowser.c ebrowser.h
 
 LDADD = \

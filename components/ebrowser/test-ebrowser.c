@@ -126,6 +126,46 @@ prop_changed_cb (BonoboPropertyListener * listener, gchar * name,
 }
 
 static void
+load_file (GtkWidget * widget, gpointer data)
+{
+	CORBA_Object interface;
+	BonoboObjectClient * object_client;
+	const gchar * name;
+	BonoboStream * stream;
+	CORBA_Environment ev;
+
+	name = gtk_entry_get_text (GTK_ENTRY (widget));
+
+	object_client = bonobo_widget_get_server (BONOBO_WIDGET (data));
+
+	interface = bonobo_object_client_query_interface (object_client, "IDL:Bonobo/PersistStream:1.0", NULL);
+	if (interface == CORBA_OBJECT_NIL) {
+		g_warning ("EBrowser does not give us PersistStream interface");
+		return;
+	}
+
+	CORBA_exception_init (&ev);
+
+	stream = bonobo_stream_open (BONOBO_IO_DRIVER_FS, name, Bonobo_Storage_READ, 0);
+
+	if (stream == NULL) {
+		g_warning ("Couldn't load %s", name);
+	} else {
+		BonoboObject * stream_object;
+		Bonobo_Stream corba_stream;
+
+		stream_object = BONOBO_OBJECT (stream);
+		corba_stream = bonobo_object_corba_objref (stream_object);
+		Bonobo_PersistStream_load (interface, corba_stream, "text/html", &ev);
+	}
+
+	Bonobo_Unknown_unref (interface, &ev);
+	CORBA_Object_release (interface, &ev);
+
+	CORBA_exception_free (&ev);
+}
+
+static void
 stop_loading (GtkWidget * widget, gpointer data)
 {
 	g_print ("Stop loading\n");
@@ -254,6 +294,14 @@ open_browser (GtkButton * button, gpointer data)
 	gtk_box_pack_start (GTK_BOX (hb), w, FALSE, FALSE, 4);
 	gtk_signal_connect (GTK_OBJECT (w), "toggled", GTK_SIGNAL_FUNC (property_toggled), "allow_submit");
 	gtk_widget_show (w);
+
+	/* Client side file picker */
+
+	w = gnome_file_entry_new ("ebrowser", "Select client-side file");
+	gtk_box_pack_start (GTK_BOX (hb), w, FALSE, FALSE, 4);
+	gtk_widget_show (w);
+	w = gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY (w));
+	gtk_signal_connect (GTK_OBJECT (w), "activate", GTK_SIGNAL_FUNC (load_file), c);
 
 	/* Pack ebrowser */
 

@@ -72,6 +72,12 @@ GtkWidget * ebrowser_new (void);
 
 void ebrowser_stop (EBrowser * ebrowser);
 
+/*
+ * fixme: Implement via loaders?
+ */
+
+gpointer ebrowser_base_stream (EBrowser * ebr);
+
 END_GNOME_DECLS
 
 #endif
