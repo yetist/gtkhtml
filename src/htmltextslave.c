@@ -144,7 +144,8 @@ get_next_nb_width (HTMLTextSlave *slave, HTMLPainter *painter)
 	
 	gint width = 0;
 
-	if (HTML_TEXT (slave->owner)->text [slave->posStart + slave->posLen - 1] != ' ') {
+	if (HTML_TEXT (slave->owner)->text_len == 0
+	    || HTML_TEXT (slave->owner)->text [slave->posStart + slave->posLen - 1] != ' ') {
 		HTMLObject *obj;
 		obj = html_object_next_not_slave (HTML_OBJECT (slave));
 		if (obj && html_object_is_text (obj)

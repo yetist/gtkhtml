@@ -246,25 +246,26 @@ calc_min_width (HTMLObject *self,
 	font_style = html_text_get_font_style (text);
 	t          = text->text;
 
-	if (t [0] != ' ') {
+	if (text->text->len == 0 || t [0] != ' ') {
 		obj = html_object_prev_not_slave (self);
 		w = (obj && html_object_is_text (obj)) ? html_text_get_nb_width (HTML_TEXT (obj), painter, FALSE) : 0;
 	}
 
-	do {
-		space = strchr (t, ' ');
-		if (!space)
-			space = text->text + text->text_len;
-		w += html_painter_calc_text_width (painter, t, space - t, font_style);
-		t = (*space) ? space + 1 : space;
-		if (!(*t))
-			break;
-		if (w > min_width)
-			min_width = w;
-		w = 0;
-	} while (1);
+	if (text->text->len)
+		do {
+			space = strchr (t, ' ');
+			if (!space)
+				space = text->text + text->text_len;
+			w += html_painter_calc_text_width (painter, t, space - t, font_style);
+			t = (*space) ? space + 1 : space;
+			if (!(*t))
+				break;
+			if (w > min_width)
+				min_width = w;
+			w = 0;
+		} while (1);
 
-	if (text->text [text->text_len - 1] != ' ') {
+	if (text->text->len == 0 || text->text [text->text_len - 1] != ' ') {
 		obj = html_object_next_not_slave (self);
 		w += (obj && html_object_is_text (obj)) ? html_text_get_nb_width (HTML_TEXT (obj), painter, TRUE) : 0;
 	}

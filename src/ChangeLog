@@ -1,3 +1,9 @@
+2000-08-05  Radek Doulik  <rodo@helixcode.com>
+
+	* htmltextslave.c (get_next_nb_width): fixed "" case
+
+	* htmltext.c (calc_min_width): fixed "" case
+
 2000-08-04  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlengine.c (insert_text): don't eat leading spaces in <PRE>
