@@ -26,6 +26,8 @@
 
 #include "spell.h"
 
+#define DICTIONARY_IID "OAFIID:GNOME_Spell_Dictionary:0.1"
+
 struct _SpellPopup {
 	GtkHTMLControlData *cd;
 
@@ -170,14 +172,10 @@ spell_suggestion_request (GtkHTML *html, const gchar *word, gpointer data)
 BonoboObjectClient *
 spell_new_dictionary (void)
 {
-	BonoboObjectClient      *dictionary_client;
-	gchar                   *id;
-
-	id = "OAFIID:gnome_spell_dictionary:9ef8e842-525e-454a-bcf5-e269593289ac";
-	dictionary_client = bonobo_object_activate (id, 0);
+	BonoboObjectClient *dictionary_client = bonobo_object_activate (DICTIONARY_IID, 0);
 
 	if (!dictionary_client) {
-		g_warning ("Cannot activate spell dictionary (id:%s)", id);
+		g_warning ("Cannot activate spell dictionary (iid:%s)", DICTIONARY_IID);
 		return NULL;
 	}
 

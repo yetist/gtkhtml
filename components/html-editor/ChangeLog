@@ -1,3 +1,7 @@
+2000-12-03  Radek Doulik  <rodo@helixcode.com>
+
+	* spell.c (DICTIONARY_IID): updated to changed IID
+
 2000-12-02  Radek Doulik  <rodo@helixcode.com>
 
 	* toolbar.c: use N_ instead of _ for paragraph_style_items
