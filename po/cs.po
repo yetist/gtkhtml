@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml VERSION\n"
 "POT-Creation-Date: 2003-04-09 17:04-0400\n"
-"PO-Revision-Date: 2003-03-06 19:07+0100\n"
+"PO-Revision-Date: 2003-04-10 19:28+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1320,45 +1320,37 @@ msgid "Remove link"
 msgstr "Odstranit odkaz"
 
 #: components/html-editor/popup.c:474
-#, fuzzy
 msgid "Text Style..."
-msgstr "Te_xtový soubor..."
+msgstr "Styl textu..."
 
 #: components/html-editor/popup.c:476 components/html-editor/popup.c:482
 #: components/html-editor/popup.c:492
-#, fuzzy
 msgid "Paragraph Style..."
-msgstr "Odstavec..."
+msgstr "Styl odstavce..."
 
 #: components/html-editor/popup.c:480
-#, fuzzy
 msgid "Link Style..."
-msgstr "Odkaz..."
+msgstr "Styl odkazu..."
 
 #: components/html-editor/popup.c:486
-#, fuzzy
 msgid "Rule Style..."
-msgstr "Čára..."
+msgstr "Styl čáry..."
 
 #: components/html-editor/popup.c:490
-#, fuzzy
 msgid "Image Style..."
-msgstr "Obrázek..."
+msgstr "Styl obrázku..."
 
 #: components/html-editor/popup.c:501
-#, fuzzy
 msgid "Cell Style..."
-msgstr "Políčko tabulky..."
+msgstr "Styl políčka tabulky..."
 
 #: components/html-editor/popup.c:504
-#, fuzzy
 msgid "Table Style..."
-msgstr "Tabulka..."
+msgstr "Styl tabulky..."
 
 #: components/html-editor/popup.c:510
-#, fuzzy
 msgid "Page Style..."
-msgstr "Stránka..."
+msgstr "Styl stránky..."
 
 #: components/html-editor/popup.c:515
 msgid "Table insert"
@@ -1389,9 +1381,9 @@ msgid "Cell contents"
 msgstr "Obsah políčka"
 
 #: components/html-editor/popup.c:547
-#, fuzzy, c-format
+#, c-format
 msgid "%s Dictionary"
-msgstr "Přidat '%s' do slovníku"
+msgstr "Slovník %s"
 
 #: components/html-editor/replace.c:74
 msgid "Replace confirmation"
@@ -1446,9 +1438,8 @@ msgid "Spell checker"
 msgstr "Kontrola pravopisu"
 
 #: components/html-editor/spell.c:358
-#, fuzzy
 msgid "Current _Languages"
-msgstr "_Jazyky"
+msgstr "Aktuální _jazyky"
 
 #: components/html-editor/table.c:199
 msgid "Flat gray"
@@ -1487,9 +1478,8 @@ msgid "Save file as..."
 msgstr "Uložit soubor jako..."
 
 #: components/html-editor/test-html-editor-control.c:554
-#, fuzzy
 msgid "GtkHTML Editor Test Container"
-msgstr "Ovládací prvek GtkHTML Editor"
+msgstr "Testovací kontejner editoru GtkHTML"
 
 #. color selection
 #: components/html-editor/text.c:291
@@ -1705,9 +1695,6 @@ msgstr "Náhled tisku"
 
 #~ msgid "Suggest word"
 #~ msgstr "Navrhnout slovo"
-
-#~ msgid "Text..."
-#~ msgstr "Text..."
 
 #~ msgid "I could not initialize Bonobo"
 #~ msgstr "Nemohu inicializovat Bonobo"
