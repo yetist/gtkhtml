@@ -1050,22 +1050,22 @@ find_anchor (HTMLObject *self, const char *name, gint *x, gint *y)
 	*x += self->x;
 	*y += self->y - self->ascent;
 
-	for ( r = 0; r < table->totalRows; r++ ) {
-		for ( c = 0; c < table->totalCols; c++ ) {
-			if ( ( cell = table->cells[r][c] ) == 0 )
+	for (r = 0; r < table->totalRows; r++) {
+		for (c = 0; c < table->totalCols; c++) {
+			if ((cell = table->cells[r][c]) == 0)
 				continue;
 
-			if ( c < table->totalCols - 1
-			     && cell == table->cells[r][c+1] )
+			if (c < table->totalCols - 1
+			     && cell == table->cells[r][c+1])
 				continue;
-			if ( r < table->totalRows - 1
-			     && table->cells[r+1][c] == cell )
+			if (r < table->totalRows - 1
+			     && table->cells[r+1][c] == cell)
 				continue;
 
-			anchor = html_object_find_anchor ( HTML_OBJECT (cell), 
+			anchor = html_object_find_anchor (HTML_OBJECT (cell), 
 							   name, x, y);
 
-			if (anchor != NULL )
+			if (anchor != NULL)
 				return anchor;
 		}
 	}
@@ -1076,7 +1076,7 @@ find_anchor (HTMLObject *self, const char *name, gint *x, gint *y)
 }
 
 static HTMLObject *
-mouse_event ( HTMLObject *self, gint _x, gint _y, gint button, gint state )
+mouse_event (HTMLObject *self, gint _x, gint _y, gint button, gint state)
 {
 	unsigned int r, c;
 	HTMLTable *table;
@@ -1085,28 +1085,28 @@ mouse_event ( HTMLObject *self, gint _x, gint _y, gint button, gint state )
 
 	table = HTML_TABLE (self);
 
-	if ( _x < self->x || _x > self->x + self->width
-	     || _y > self->y + self->descent || _y < self->y - self->ascent)
+	if (_x < self->x || _x > self->x + self->width
+	    || _y > self->y + self->descent || _y < self->y - self->ascent)
 		return 0;
 
-	for ( r = 0; r < table->totalRows; r++ ) {
-		for ( c = 0; c < table->totalCols; c++ ) {
-			if ( ( cell = table->cells[r][c] ) == 0 )
+	for (r = 0; r < table->totalRows; r++) {
+		for (c = 0; c < table->totalCols; c++) {
+			if ((cell = table->cells[r][c]) == 0)
 				continue;
 
-			if ( c < table->totalCols - 1
-			     && cell == table->cells[r][c+1] )
+			if (c < table->totalCols - 1
+			    && cell == table->cells[r][c+1])
 				continue;
-			if ( r < table->totalRows - 1
-			     && table->cells[r+1][c] == cell )
+			if (r < table->totalRows - 1
+			    && table->cells[r+1][c] == cell)
 				continue;
 
-			obj = html_object_mouse_event(HTML_OBJECT (cell),
-						      _x - self->x,
-						      _y - (self->y - self->ascent),
-						      button,
-						      state );
-			if (obj != NULL )
+			obj = html_object_mouse_event (HTML_OBJECT (cell),
+						       _x - self->x,
+						       _y - (self->y - self->ascent),
+						       button,
+						       state);
+			if (obj != NULL)
 				return obj;
 		}
 	}
@@ -1114,39 +1114,39 @@ mouse_event ( HTMLObject *self, gint _x, gint _y, gint button, gint state )
 	return 0;
 }
 
-static
-HTMLObject *check_point ( HTMLObject *o,
-			  gint _x, gint _y )
+static HTMLObject *
+check_point (HTMLObject *o,
+	     gint _x, gint _y)
 {
-    unsigned int r, c;
-    HTMLTable *table;
-    HTMLObject *obj;
-    HTMLTableCell *cell;
+	unsigned int r, c;
+	HTMLTable *table;
+	HTMLObject *obj;
+	HTMLTableCell *cell;
 
-    if ( _x < o->x || _x > o->x + o->width
-	 || _y > o->y + o->descent || _y < o->y - o->ascent)
-	return NULL;
+	if (_x < o->x || _x > o->x + o->width
+	    || _y > o->y + o->descent || _y < o->y - o->ascent)
+		return NULL;
 
-    table = HTML_TABLE (o);
+	table = HTML_TABLE (o);
 
-    for ( r = 0; r < table->totalRows; r++ ) {
-	for ( c = 0; c < table->totalCols; c++ ) {
-	    if ( ( cell = table->cells[r][c] ) == 0 )
-		continue;
+	for (r = 0; r < table->totalRows; r++) {
+		for (c = 0; c < table->totalCols; c++) {
+			if ((cell = table->cells[r][c]) == 0)
+				continue;
 
-	    if ( c < table->totalCols - 1 && cell == table->cells[r][c+1] )
-		continue;
-	    if ( r < table->totalRows - 1 && table->cells[r+1][c] == cell )
-		continue;
+			if (c < table->totalCols - 1 && cell == table->cells[r][c+1])
+				continue;
+			if (r < table->totalRows - 1 && table->cells[r+1][c] == cell)
+				continue;
 
-	    if ((obj = html_object_check_point( HTML_OBJECT (cell),
-						_x - o->x,
-						_y - (o->y - o->ascent) )) != NULL)
-		return obj;
+			if ((obj = html_object_check_point (HTML_OBJECT (cell),
+							    _x - o->x,
+							    _y - (o->y - o->ascent))) != NULL)
+				return obj;
+		}
 	}
-    }
 
-    return NULL;
+	return NULL;
 }
 
 
