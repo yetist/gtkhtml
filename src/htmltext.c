@@ -908,16 +908,18 @@ html_text_get_attr_list (HTMLText *text, gint start_index, gint end_index)
 
 void
 html_text_calc_text_size (HTMLText *t, HTMLPainter *painter,
-			  const gchar *text,
-			  guint len, HTMLTextPangoInfo *pi, GList *glyphs, gint start_byte_offset, gint *line_offset,
+			  gint start_byte_offset,
+			  guint len, HTMLTextPangoInfo *pi, GList *glyphs, gint *line_offset,
 			  GtkHTMLFontStyle font_style,
 			  HTMLFontFace *face,
 			  gint *width, gint *asc, gint *dsc)
 {
 		PangoAttrList *attrs = NULL;
+		char *text = t->text + start_byte_offset;
 
-		if (HTML_IS_PRINTER (painter))
+		if (HTML_IS_PRINTER (painter)) {
 			attrs = html_text_get_attr_list (t, start_byte_offset, start_byte_offset + (g_utf8_offset_to_pointer (text, len) - text));
+		}
 		
 		html_painter_calc_text_size (painter, text, len, pi, attrs, glyphs,
 					     start_byte_offset, line_offset, font_style, face, width, asc, dsc);
@@ -983,7 +985,7 @@ html_text_calc_part_width (HTMLText *text, HTMLPainter *painter, char *start, gi
 		}
 		width = PANGO_PIXELS (width);
 	} else {
-		html_text_calc_text_size (text, painter, start, len, NULL, NULL, 0, &line_offset,
+		html_text_calc_text_size (text, painter, start - text->text, len, NULL, NULL, &line_offset,
 					  html_text_get_font_style (text), text->face, &width, asc, dsc);
 	}
 
@@ -1371,10 +1373,11 @@ html_text_tail_white_space (HTMLText *text, HTMLPainter *painter, gint offset, g
 		}
 	}
 
-	if (!HTML_IS_GDK_PAINTER (painter) && !HTML_IS_PLAIN_PAINTER (painter) && wl)
-		html_text_calc_text_size (text, painter, html_text_get_text (text, offset - wl),
-					  wl, NULL, NULL, 0, &line_offset, html_text_get_font_style (text), text->face,
+	if (!HTML_IS_GDK_PAINTER (painter) && !HTML_IS_PLAIN_PAINTER (painter) && wl) {
+		html_text_calc_text_size (text, painter, html_text_get_text (text, offset - wl) - text->text,
+					  wl, NULL, NULL, &line_offset, html_text_get_font_style (text), text->face,
 					  &ww, NULL, NULL);
+	}
 
 	if (white_len)
 		*white_len = wl;
@@ -1386,8 +1389,8 @@ static void
 update_mw (HTMLText *text, HTMLPainter *painter, gint offset, gint *last_offset, gint *ww, gint *mw, gint ii, gint io, gchar *s, gint line_offset) {
 	if (!HTML_IS_GDK_PAINTER (painter) && !HTML_IS_PLAIN_PAINTER (painter)) {
 		gint w;
-		html_text_calc_text_size (text, painter, html_text_get_text (text, *last_offset),
-					  offset - *last_offset, NULL, NULL, 0, NULL, html_text_get_font_style (text), text->face,
+		html_text_calc_text_size (text, painter, html_text_get_text (text, *last_offset) - text->text,
+					  offset - *last_offset, NULL, NULL, NULL, html_text_get_font_style (text), text->face,
 					  &w, NULL, NULL);
 		*ww += w;
 	}
@@ -1445,8 +1448,8 @@ calc_min_width (HTMLObject *self, HTMLPainter *painter)
 
 	
 	if (!HTML_IS_GDK_PAINTER (painter) && !HTML_IS_PLAIN_PAINTER (painter))
-		html_text_calc_text_size (text, painter, html_text_get_text (text, last_offset),
-					  offset - last_offset, NULL, NULL, 0, NULL, html_text_get_font_style (text), text->face,
+		html_text_calc_text_size (text, painter, html_text_get_text (text, last_offset) - text->text,
+					  offset - last_offset, NULL, NULL, NULL, html_text_get_font_style (text), text->face,
 					  &ww, NULL, NULL);
 
 	if (ww > mw)

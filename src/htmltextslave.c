@@ -140,8 +140,8 @@ get_offset_for_bounded_width (HTMLTextSlave *slave, HTMLPainter *painter, gint *
 	char *buffer = html_text_slave_get_text (slave);
 
 	len = (lower + upper) / 2;
-	html_text_calc_text_size (slave->owner, painter, buffer, len, html_text_get_pango_info (text, painter),
-				  get_glyphs (slave, painter), html_text_slave_get_start_byte_offset (slave),
+	html_text_calc_text_size (slave->owner, painter, buffer - slave->owner->text, len, html_text_get_pango_info (text, painter),
+				  get_glyphs (slave, painter),
 				  &line_offset, html_text_get_font_style (text), text->face, &width, &asc, &dsc);
 	while (lower < upper) {
 		if (width > max_width)
@@ -150,8 +150,7 @@ get_offset_for_bounded_width (HTMLTextSlave *slave, HTMLPainter *painter, gint *
 			lower = len + 1;
 		len = (lower + upper) / 2;
 		line_offset = -1;
-		html_text_calc_text_size (slave->owner, painter, buffer, len, html_text_get_pango_info (text, painter), get_glyphs (slave, painter),
-					  html_text_slave_get_start_byte_offset (slave),
+		html_text_calc_text_size (slave->owner, painter, buffer - slave->owner->text, len, html_text_get_pango_info (text, painter), get_glyphs (slave, painter),
 					  &line_offset, html_text_get_font_style (text), text->face, &width, &asc, &dsc);
 	}
 
@@ -327,8 +326,8 @@ update_lb (HTMLTextSlave *slave, HTMLPainter *painter, gint widthLeft, gint offs
 		gint lo = html_text_get_line_offset (slave->owner, painter, *lbo);
 		gint width;
 				/* printf ("s: %s l: %d\n", html_text_get_text (slave->owner, lbo - lwl), offset - new_lwl - lbo + lwl); */
-		html_text_calc_text_size (slave->owner, painter, html_text_get_text (slave->owner, *lbo),
-					  offset - *lbo, NULL, NULL, 0, &lo,
+		html_text_calc_text_size (slave->owner, painter, html_text_get_text (slave->owner, *lbo) - slave->owner->text,
+					  offset - *lbo, NULL, NULL, &lo,
 					  html_text_get_font_style (slave->owner), slave->owner->face,
 					  &width, NULL, NULL);
 		*w += width;
@@ -398,8 +397,8 @@ hts_fit_line (HTMLObject *o, HTMLPainter *painter,
 		gint lo = html_text_get_line_offset (slave->owner, painter, lbo);
 
 		/* printf ("s: %s l: %d\n", html_text_get_text (slave->owner, lbo - lwl), offset - lbo + lwl); */
-		html_text_calc_text_size (slave->owner, painter, html_text_get_text (slave->owner, lbo),
-					  offset - lbo, NULL, NULL, 0, &lo,
+		html_text_calc_text_size (slave->owner, painter, html_text_get_text (slave->owner, lbo) - slave->owner->text,
+					  offset - lbo, NULL, NULL, &lo,
 					  html_text_get_font_style (slave->owner), slave->owner->face,
 					  &aw, NULL, NULL);
 		w += aw;
@@ -487,8 +486,8 @@ draw_spell_errors (HTMLTextSlave *slave, HTMLPainter *p, gint tx, gint ty)
 			lo = line_offset;
 			
 			glyphs = get_glyphs_part (slave, p, last_off, off - last_off);
-			html_text_calc_text_size (slave->owner, p, text,
-						  off - last_off, html_text_get_pango_info (slave->owner, p), glyphs, text - slave->owner->text,
+			html_text_calc_text_size (slave->owner, p, text - slave->owner->text,
+						  off - last_off, html_text_get_pango_info (slave->owner, p), glyphs,
 						  &line_offset,
 						  p->font_style,
 						  p->font_face, &width, &asc, &dsc);
@@ -803,8 +802,7 @@ calc_offset (HTMLTextSlave *slave, HTMLPainter *painter, gint x, gint y)
 
 		if (len) {
 			glyphs = get_glyphs_part (slave, painter, 0, len);
-			html_text_calc_text_size (slave->owner, painter, text, len, html_text_get_pango_info (owner, painter), glyphs,
-						  html_text_slave_get_start_byte_offset (slave), 
+			html_text_calc_text_size (slave->owner, painter, text - slave->owner->text, len, html_text_get_pango_info (owner, painter), glyphs,
 						  &lo, font_style, owner->face, &width, &asc, &dsc);
 			glyphs_destroy (glyphs);
 		} else {
