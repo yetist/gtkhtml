@@ -120,7 +120,8 @@ copy (HTMLObject *self,
 	HTML_CLUEFLOW (dest)->item_number = HTML_CLUEFLOW (self)->item_number;
 	HTML_CLUEFLOW (dest)->clear = HTML_CLUEFLOW (self)->clear;
 	HTML_CLUEFLOW (dest)->item_color = HTML_CLUEFLOW (self)->item_color;
-
+	HTML_CLUEFLOW (dest)->indent_width = HTML_CLUEFLOW (self)->indent_width;
+	
 	if (HTML_CLUEFLOW (dest)->item_color)
 		html_color_ref (HTML_CLUEFLOW (dest)->item_color);
 }
