@@ -1,18 +1,17 @@
-# Slovenian translation file for Balsa.
+# Slovenian translation file for gtkhtml.
 # Copyright (C) 2000 Free Software Foundation, Inc.
 # Andraz Tori <andraz.tori1@guest.arnes.si> 2000
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: balsa\n"
-"POT-Creation-Date: 2000-08-06 22:43+0200\n"
+"Project-Id-Version: gtkhtml\n"
+"POT-Creation-Date: 2000-08-10 22:57+0200\n"
 "PO-Revision-Date: 2000-08-06 22:43+0200\n"
 "Last-Translator: Andraz Tori <andraz.tori1@guest.arnes.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso8859-2\n"
 "Content-Transfer-Encoding: 8bit\n"
-
 
 #: components/html-editor/body.c:107
 msgid "use background image"
@@ -26,27 +25,27 @@ msgstr "Slika ozadja"
 msgid "Colors"
 msgstr "Barve"
 
-#: components/html-editor/editor-control-factory.c:132
+#: components/html-editor/editor-control-factory.c:133
 #: components/html-editor/popup.c:86
 msgid "Image"
 msgstr "Slika"
 
-#: components/html-editor/editor-control-factory.c:141
+#: components/html-editor/editor-control-factory.c:142
 #: components/html-editor/popup.c:79
 msgid "Text"
 msgstr "Besedilo"
 
-#: components/html-editor/editor-control-factory.c:153
+#: components/html-editor/editor-control-factory.c:154
 #: components/html-editor/popup.c:93
 msgid "Paragraph"
 msgstr "Odstavek"
 
-#: components/html-editor/editor-control-factory.c:158
+#: components/html-editor/editor-control-factory.c:159
 #: components/html-editor/menubar.c:157 components/html-editor/popup.c:100
 msgid "Link"
 msgstr "Povezava"
 
-#: components/html-editor/editor-control-factory.c:163
+#: components/html-editor/editor-control-factory.c:164
 #: components/html-editor/popup.c:107
 msgid "Page"
 msgstr "Stran"
@@ -163,7 +162,7 @@ msgstr "Vstavi"
 msgid "Properties"
 msgstr "Lastnosti"
 
-#: components/html-editor/popup.c:161
+#: components/html-editor/popup.c:178
 msgid "Remove link"
 msgstr "Odstrani povezavo"
 
@@ -235,10 +234,6 @@ msgstr "Iskanje z reg. izrazom"
 #: components/html-editor/search.c:63
 msgid "Search"
 msgstr "Iskanje"
-
-#: components/html-editor/table.c:80
-msgid "Table"
-msgstr "Tabela"
 
 #: components/html-editor/test-html-editor-control.c:234
 msgid "Open file..."
@@ -537,59 +532,6 @@ msgstr "Vnesite besedilo"
 msgid "Enter Password"
 msgstr "Vnesi Geslo"
 
-#: src/gtkhtml.c:2355
-#, c-format
-msgid "Couldn't find keybinding file -- %s"
-msgstr "Ni moè najti datoteke z povezavami tipk -- %s"
-
-#: src/html-component.c:219
-msgid "Html"
-msgstr "Html"
-
-#: src/html-component.c:220
-msgid "Html test"
-msgstr "Html preizkus"
-
-#: src/html-component.c:226
-msgid "Test1"
-msgstr "Test1"
-
-#: src/html-component.c:233
-msgid "Test2"
-msgstr "Test2"
-
-#: src/html-component.c:239
-msgid "Test3"
-msgstr "Test3"
-
-#: src/html-component.c:245
-msgid "Test4"
-msgstr "Test4"
-
-#: src/html-component.c:251
-msgid "Test5"
-msgstr "Test5"
-
-#: src/html-component.c:257
-msgid "Test6"
-msgstr "Test6"
-
-#: src/html-component.c:263
-msgid "Test7"
-msgstr "Test7"
-
-#: src/html-component.c:617
-msgid "_Refresh"
-msgstr "_Osve¾i"
-
-#: src/html-component.c:618
-msgid "Reload the page"
-msgstr "Znova nalo¾i stran"
-
-#: src/html-component.c:669
-msgid "Could not initialize Bonobo!"
-msgstr "Nisem mogel inicializirati Bonoba!"
-
 #: src/testgtkhtml.c:110
 msgid "Print pre_view"
 msgstr "_Predogled tiskanja"
@@ -598,13 +540,44 @@ msgstr "_Predogled tiskanja"
 msgid "Print preview"
 msgstr "Predogled tiskanja"
 
+#~ msgid "Table"
+#~ msgstr "Tabela"
 
-# Smart report:
-# Total untranslated messages in file: 141 
-# Translations made:
-# full: 71
-# smart: 2
-# cond: 44
-# total: 117 ; distinct: 76
+#~ msgid "Couldn't find keybinding file -- %s"
+#~ msgstr "Ni moè najti datoteke z povezavami tipk -- %s"
 
+#~ msgid "Html"
+#~ msgstr "Html"
 
+#~ msgid "Html test"
+#~ msgstr "Html preizkus"
+
+#~ msgid "Test1"
+#~ msgstr "Test1"
+
+#~ msgid "Test2"
+#~ msgstr "Test2"
+
+#~ msgid "Test3"
+#~ msgstr "Test3"
+
+#~ msgid "Test4"
+#~ msgstr "Test4"
+
+#~ msgid "Test5"
+#~ msgstr "Test5"
+
+#~ msgid "Test6"
+#~ msgstr "Test6"
+
+#~ msgid "Test7"
+#~ msgstr "Test7"
+
+#~ msgid "_Refresh"
+#~ msgstr "_Osve¾i"
+
+#~ msgid "Reload the page"
+#~ msgstr "Znova nalo¾i stran"
+
+#~ msgid "Could not initialize Bonobo!"
+#~ msgstr "Nisem mogel inicializirati Bonoba!"
