@@ -76,6 +76,24 @@ paste (GtkWidget *mi, GtkHTMLControlData *cd)
 }
 
 static void
+insert_link (GtkWidget *mi, GtkHTMLControlData *cd)
+{
+	if (cd->properties_dialog)
+		gtk_html_edit_properties_dialog_close (cd->properties_dialog);
+
+	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, TRUE, _("Insert"));
+
+	gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
+						   GTK_HTML_EDIT_PROPERTY_LINK, _("Link"),
+						   link_insert,
+						   link_insert_cb,
+						   link_close_cb);
+
+	gtk_html_edit_properties_dialog_show (cd->properties_dialog);
+	gtk_html_edit_properties_dialog_set_page (cd->properties_dialog, GTK_HTML_EDIT_PROPERTY_LINK);
+}
+
+static void
 remove_link (GtkWidget *mi, GtkHTMLControlData *cd)
 {
 	html_engine_selection_push (cd->html->engine);
@@ -403,13 +421,16 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items)
 		g_free (word);
 	}
 
-	if (cd->format_html && (html_engine_is_selection_active (e)
-				|| (obj
-				    && (HTML_OBJECT_TYPE (obj) == HTML_TYPE_LINKTEXT
-					|| (HTML_OBJECT_TYPE (obj) == HTML_TYPE_IMAGE
-					    && (HTML_IMAGE (obj)->url
-						|| HTML_IMAGE (obj)->target)))))) {
-		ADD_SEP;
+	ADD_SEP;
+	ADD_ITEM (_("Insert link"), insert_link, NONE);
+
+	if (cd->format_html
+	    && ((html_engine_is_selection_active (e) && html_engine_selection_contains_link (e))
+		|| (obj
+		    && (HTML_OBJECT_TYPE (obj) == HTML_TYPE_LINKTEXT
+			|| (HTML_OBJECT_TYPE (obj) == HTML_TYPE_IMAGE
+			    && (HTML_IMAGE (obj)->url
+				|| HTML_IMAGE (obj)->target)))))) {
 		ADD_ITEM (_("Remove link"), remove_link, NONE);
 	}
 

@@ -1,3 +1,10 @@
+2002-09-16  Radek Doulik  <rodo@ximian.com>
+
+	* popup.c (prepare_properties_and_menu): check if selection
+	contains link before including remove link
+	(prepare_properties_and_menu): always include "Insert link" menu
+	item
+
 2002-09-10  Larry Ewing  <lewing@ximian.com>
 
 	* test-html-editor-control.c (view_html_source_html_cb): add
