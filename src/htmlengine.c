@@ -2921,6 +2921,15 @@ html_engine_get_type (void)
 }
 
 static void
+clear_selection (HTMLEngine *e)
+{
+	if (e->selection) {
+		html_interval_destroy (e->selection);
+		e->selection = NULL;
+	}
+}
+
+static void
 html_engine_destroy (GtkObject *object)
 {
 	HTMLEngine *engine;
@@ -2969,6 +2978,7 @@ html_engine_destroy (GtkObject *object)
 
 	if (engine->search_info)
 		html_search_destroy (engine->search_info);
+	clear_selection (engine);
 
         /* Finally, destroy timers.  */
 
@@ -3348,6 +3358,7 @@ html_engine_begin (HTMLEngine *e)
 					  e);
 
 	e->newPage = TRUE;
+	clear_selection (e);
 
 	return new_stream;
 }

@@ -1,5 +1,9 @@
 2000-11-21  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine.c (clear_selection): new helper function
+	(html_engine_destroy): use clear_selection
+	(html_engine_begin): use clear_selection
+
 	* gtkhtml.c (mouse_change_pos): added window parameter
 	(on_object): likewise
 	(scroll_update_mouse): updated
