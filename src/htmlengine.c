@@ -455,7 +455,8 @@ block_stack_element_free (HTMLBlockStackElement *elem)
 static void
 push_block (HTMLEngine *e, gint id, gint level,
 	    BlockFunc exitFunc,
-	    gint miscData1, gint miscData2)
+	    gint miscData1,
+	    gint miscData2)
 {
 	HTMLBlockStackElement *elem;
 
@@ -531,6 +532,8 @@ block_end_clueflow_style (HTMLEngine *e,
 {
 	close_flow (e, clue);
 	pop_clueflow_style (e);
+
+	e->divAlign = elem->miscData1;
 }
 
 static void
@@ -1360,7 +1363,8 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 		if ( strncmp( str, "address", 7) == 0 ) {
 			push_clueflow_style (e, HTML_CLUEFLOW_STYLE_ADDRESS);
 			close_flow (e, _clue);
-			push_block (e, ID_ADDRESS, 2, block_end_clueflow_style, TRUE, 0);
+			push_block (e, ID_ADDRESS, 2, block_end_clueflow_style,
+				    e->divAlign, 0);
 		} else if ( strncmp( str, "/address", 8) == 0 ) {
 			pop_block (e, ID_ADDRESS, _clue);
 		} else if ( strncmp( str, "a ", 2 ) == 0 ) {
@@ -1875,10 +1879,9 @@ parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		push_clueflow_style (p, HTML_CLUEFLOW_STYLE_H1 + (str[1] - '1'));
 		close_flow (p, clue);
 
-		/* HTML_CLUE (p->flow)->halign = align; FIXME this has to be
-                    redone differently */
+		push_block (p, ID_HEADER, 2, block_end_clueflow_style, p->divAlign, 0);
 
-		push_block (p, ID_HEADER, 2, block_end_clueflow_style, TRUE, 0);
+		p->divAlign = align;
 
 		p->pending_para = FALSE;
 		p->avoid_para = TRUE;
@@ -2366,7 +2369,7 @@ parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		close_flow (e, clue);
 		push_clueflow_style (e, HTML_CLUEFLOW_STYLE_PRE);
 		e->inPre = TRUE;
-		push_block (e, ID_PRE, 2, block_end_pre, 0, 0);
+		push_block (e, ID_PRE, 2, block_end_pre, e->divAlign, 0);
 	} else if ( strncmp( str, "/pre", 4 ) == 0 ) {
 		pop_block (e, ID_PRE, clue);
 		close_flow (e, clue);
@@ -3017,7 +3020,7 @@ ensure_editable (HTMLEngine *engine)
 }
 
 
-void
+static void
 draw_background (HTMLEngine *e,
 		 gint xval, gint yval,
 		 gint x, gint y, gint w, gint h)

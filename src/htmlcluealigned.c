@@ -145,15 +145,8 @@ html_cluealigned_init (HTMLClueAligned *aligned,
 	object->max_width = max_width;
 	object->percent = percent;
 
-	if (percent > 0) {
-		object->width = max_width * percent / 100;
-		object->flags &= ~ HTML_OBJECT_FLAG_FIXEDWIDTH;
-	} else if (percent < 0) {
-		object->width = max_width;
-		object->flags |= ~ HTML_OBJECT_FLAG_FIXEDWIDTH;
-	} else {
-		object->width = max_width;
-	}
+	if (percent > 0)
+		object->flags &= ~HTML_OBJECT_FLAG_FIXEDWIDTH;
 
 	clue->valign = HTML_VALIGN_BOTTOM;
 	clue->halign = HTML_HALIGN_LEFT;

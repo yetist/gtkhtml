@@ -206,9 +206,9 @@ calc_col_info (HTMLTable *table,
 
 			if (cell == 0)
 				continue;
-			if ((c > 0) && (table->cells[r][c-1] == cell))
+			if (c > 0 && table->cells[r][c-1] == cell)
 				continue;
-			if ((r > 0) && (table->cells[r-1][c] == cell))
+			if (r > 0 && table->cells[r-1][c] == cell)
 				continue;
 
 			/* calculate minimum size */
@@ -220,21 +220,22 @@ calc_col_info (HTMLTable *table,
 
 			/* calculate preferred pos */
 			if (HTML_OBJECT (cell)->percent > 0) {
-				pref_size = (HTML_OBJECT (table)->max_width * 
-					     HTML_OBJECT (cell)->percent / 100);
+				pref_size = (HTML_OBJECT (table)->max_width
+					     * HTML_OBJECT (cell)->percent / 100);
 				pref_size += pixel_size * (table->padding * 2
 							   + table->spacing
 							   + borderExtra);
 				col_type = COLUMN_TYPE_PERCENT;
 			} else if (HTML_OBJECT (cell)->flags
-				 & HTML_OBJECT_FLAG_FIXEDWIDTH) {
+				   & HTML_OBJECT_FLAG_FIXEDWIDTH) {
 				pref_size = HTML_OBJECT (cell)->width;
 				pref_size += pixel_size * (table->padding * 2
 							   + table->spacing
 							   + borderExtra);
 				col_type = COLUMN_TYPE_FIXED;
 			} else {
-				pref_size = html_object_calc_preferred_width (HTML_OBJECT (cell), painter);
+				pref_size = html_object_calc_preferred_width (HTML_OBJECT (cell),
+									      painter);
 				pref_size += pixel_size * (table->padding * 2
 							   + table->spacing
 							   + borderExtra);
@@ -247,7 +248,6 @@ calc_col_info (HTMLTable *table,
 								col_type);
 			add_row_info (table, r, colInfoIndex);
 		}
-					
 	}
 
 	/* Remove redundant rows */
@@ -292,6 +292,7 @@ calc_col_info (HTMLTable *table,
 		gint min = 0;
 		gint pref = 0;
 		gint j;
+
 		for (j = 0; j < table->rowInfo[i].nrEntries; j++) {
 			gint index;
 
@@ -299,6 +300,7 @@ calc_col_info (HTMLTable *table,
 			min += COLUMN_INFO (table, index).minSize;
 			pref += COLUMN_INFO (table, index).prefSize;
 		}
+
 		table->rowInfo[i].minSize = min;
 		table->rowInfo[i].prefSize = pref;
 
@@ -314,12 +316,6 @@ calc_col_info (HTMLTable *table,
 		/* Our minimum width is at least our fixed width */
 		if (table->specified_width > table->_minWidth)
 			table->_minWidth = table->specified_width;
-	} else if (HTML_OBJECT (table)->percent > 0) {
-		gint min;
-
-		min = HTML_OBJECT (table)->width * HTML_OBJECT (table)->percent / 100;
-		if (table->_minWidth < min)
-			table->_minWidth = min;
 	}
 
 	if (table->_minWidth > table->_prefWidth)
@@ -1170,13 +1166,6 @@ set_max_width (HTMLObject *o,
 	       gint max_width)
 {
 	o->max_width = max_width;
-	
-	if (!(o->flags & HTML_OBJECT_FLAG_FIXEDWIDTH)) {
-		if (o->percent > 0)
-			o->width = o->max_width * o->percent / 100;
-		else
-			o->width = o->max_width;
-	}
 }
 
 static void
@@ -1452,8 +1441,7 @@ html_table_add_col_info (HTMLTable *table, gint startCol, gint colSpan,
 		COLUMN_INFO (table, indx).maxSize = maxSize;
 		COLUMN_INFO (table, indx).colType = coltype;
 
-	}
-	else {
+	} else {
 		if (minSize > (COLUMN_INFO (table, indx).minSize))
 			COLUMN_INFO (table, indx).minSize = minSize;
 

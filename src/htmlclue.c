@@ -183,9 +183,6 @@ calc_preferred_width (HTMLObject *o,
 	gint prefWidth = 0;
 	HTMLObject *obj;
 	
-	if (o->flags & HTML_OBJECT_FLAG_FIXEDWIDTH)
-		return o->width;
-
 	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next) {
 		gint w;
 
@@ -197,6 +194,7 @@ calc_preferred_width (HTMLObject *o,
 	return prefWidth;
 }
 
+/* FIXME: This should be in HTMLClueV.  */
 static gint
 calc_min_width (HTMLObject *o,
 		HTMLPainter *painter)
@@ -210,11 +208,6 @@ calc_min_width (HTMLObject *o,
 		w = html_object_calc_min_width (obj, painter);
 		if (w > minWidth)
 			minWidth = w;
-	}
-	
-	if ((o->flags & HTML_OBJECT_FLAG_FIXEDWIDTH)) {
-		if (o->width > minWidth)
-			minWidth = o->width;
 	}
 	
 	return minWidth;

@@ -227,15 +227,8 @@ static void
 set_max_width (HTMLObject *o, HTMLPainter *painter, gint max_width)
 {
 	HTMLObject *obj;
-	
-	if (!(o->flags & HTML_OBJECT_FLAG_FIXEDWIDTH)) {
-		o->max_width = max_width;
-		if (o->percent > 0)
-			o->width = max_width * o->percent / 100;
-		else 
-			o->width = o->max_width;
-	}
 
+	o->max_width = max_width;
 	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next)
 		html_object_set_max_width (obj, painter, o->width);
 }
@@ -489,13 +482,12 @@ get_right_margin (HTMLObject *self, gint y)
 	gint margin;
 	
 	cluev = HTML_CLUEV (self);
-	margin = MAX (self->max_width, self->width);
+	margin = self->max_width;
 
 	for (aclue = cluev->align_right_list;
 	     aclue != NULL;
 	     aclue = cluev_next_aligned (aclue)) {
-		if ((aclue->y - aclue->ascent + aclue->parent->y
-		     - aclue->parent->ascent) <= y
+		if ((aclue->y - aclue->ascent + aclue->parent->y - aclue->parent->ascent) <= y
 		    && aclue->y + aclue->parent->y - aclue->parent->ascent > y)
 			margin = aclue->x;
 	}

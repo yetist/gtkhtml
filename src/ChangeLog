@@ -1,5 +1,50 @@
 2000-04-05  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmltable.c
+	(calc_col_info): If the size is specified as a percent value, then
+	we *don't* want to set the minimum size as the percentage of the
+	maximum width!
+
+	* htmltablecell.c
+	(set_max_width): Don't set the width.
+
+	* htmltable.c
+	(set_max_width): Don't set the width.
+
+	* htmlrule.c
+	(set_max_width): Don't set the width.
+
+	* htmlcluev.c
+	(set_max_width): Don't set the width.
+
+	* htmlcluealigned.c
+	(html_cluealigned_init): Don't set the width.  Broken!
+
+	* htmlclue.c
+	(calc_min_width): Don't be stupid and don't set the minimum width
+	to the current width when you are a fixed width object.
+	(calc_preferred_width): Likewise for the preferred width.
+
+	* htmlcluev.c
+	(get_right_margin): Use the maximum width instead of the max
+	between the maximum width and the effective one for calculating
+	the margin.
+	(set_max_width): Always set `max_width', even if we are a
+	fixed-width object.
+
+	* htmlengine.c
+	(parse_h): Set `divAlign' according to the value of the "align="
+	attribute, and save the old value through the first arg in
+	`push_block'.
+	(block_end_clueflow_style): Set `divAlign' from `miscData1'.
+	(parse_p): Pass the current `divAlign' as the first misc arg in
+	`push_block'.
+	(parse_a): Likewise.
+	(parse_h): Likewise.
+	(draw_background): Made static.
+
+2000-04-05  Ettore Perazzoli  <ettore@helixcode.com>
+
 	* testgtkhtml.c
 	(parse_href): Make sure `tmpurl' is always destroyed.
 

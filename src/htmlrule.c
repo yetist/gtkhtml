@@ -44,10 +44,6 @@ static void
 set_max_width (HTMLObject *o, HTMLPainter *painter, gint max_width)
 {
 	o->max_width = max_width;
-
-	/* FIXME why the `if'? */
-	if (! (o->flags & HTML_OBJECT_FLAG_FIXEDWIDTH))
-		o->width = max_width;
 }
 
 static gint
