@@ -1027,6 +1027,16 @@ gtk_html_end (GtkHTML *html,
 }
 
 
+const gchar *
+gtk_html_get_title (GtkHTML *html)
+{
+	g_return_val_if_fail (html != NULL, NULL);
+	g_return_val_if_fail (GTK_IS_HTML (html), NULL);
+
+	return html->engine->title->str;
+}
+
+
 gboolean
 gtk_html_save (GtkHTML *html,
 	       GtkHTMLSaveReceiverFn receiver,

@@ -150,15 +150,16 @@ void  gtk_html_allow_selection  (GtkHTML  *html,
 				 gboolean  allow);
 
 /* Loading.  */
-GtkHTMLStreamHandle  gtk_html_begin  (GtkHTML             *html,
-				      const char          *url);
-void                 gtk_html_write  (GtkHTML             *html,
-				      GtkHTMLStreamHandle  handle,
-				      const char          *buffer,
-				      size_t               size);
-void                 gtk_html_end    (GtkHTML             *html,
-				      GtkHTMLStreamHandle  handle,
-				      GtkHTMLStreamStatus  status);
+GtkHTMLStreamHandle  gtk_html_begin       (GtkHTML             *html,
+					   const char          *url);
+void                 gtk_html_write       (GtkHTML             *html,
+					   GtkHTMLStreamHandle  handle,
+					   const char          *buffer,
+					   size_t               size);
+void                 gtk_html_end         (GtkHTML             *html,
+					   GtkHTMLStreamHandle  handle,
+					   GtkHTMLStreamStatus  status);
+void                 gtk_html_load_empty  (GtkHTML             *html);
 
 /* Saving.  */
 gboolean  gtk_html_save  (GtkHTML               *html,
@@ -179,14 +180,15 @@ gboolean  gtk_html_get_editable  (const GtkHTML *html);
 void  gtk_html_print  (GtkHTML           *html,
 		       GnomePrintContext *print_context);
 
+/* Title.  */
+const gchar *gtk_html_get_title  (GtkHTML *html);
+
 /* DEPRECATED.  We'll keep it around for a while just to prevent code from
    being broken.  */
 void  gtk_html_parse  (GtkHTML *html);
 
 /* FIXME?  Deprecated? */
 void  gtk_html_calc_scrollbars  (GtkHTML *html);
-
-void  gtk_html_load_empty  (GtkHTML *html);
 
 
 /* Editing functions.  */
