@@ -54,10 +54,12 @@ void       html_engine_table_set_bg_pixmap     (HTMLEngine     *e,
 						gchar          *url);
 void       html_engine_table_set_spacing       (HTMLEngine     *e,
 						HTMLTable      *t,
-						gint            spacing);
+						gint            spacing,
+						gboolean        relative);
 void       html_engine_table_set_padding       (HTMLEngine     *e,
 						HTMLTable      *t,
-						gint            padding);
+						gint            padding,
+						gboolean        relative);
 void       html_engine_table_set_align         (HTMLEngine     *e,
 						HTMLTable      *t,
 						HTMLHAlignType  align);

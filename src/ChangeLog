@@ -1,3 +1,15 @@
+2001-07-25  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine-edit-table.c (html_engine_table_set_spacing): added
+	relative parameter
+	(html_engine_table_set_padding): ditto
+
+	* keybindingsrc.ms: added bindings for table spacing/padding, I
+	must change spell checking bindings to avoid conflicts :-(
+
+	* gtkhtml-enums.h: added new command for table spacing/padding
+	change
+
 2001-07-25  Jon Trowbridge  <trow@ximian.com>
 
 	* htmlsearch.c (html_search_set_forward): Check that

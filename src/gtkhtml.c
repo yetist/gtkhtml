@@ -3099,6 +3099,24 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 	case GTK_HTML_COMMAND_TABLE_BORDER_WIDTH_ZERO:
 		html_engine_table_set_border_width (e, html_engine_get_table (e), 0, FALSE);
 		break;
+	case GTK_HTML_COMMAND_TABLE_SPACING_INC:
+		html_engine_table_set_spacing (e, html_engine_get_table (e), 1, TRUE);
+		break;
+	case GTK_HTML_COMMAND_TABLE_SPACING_DEC:
+		html_engine_table_set_spacing (e, html_engine_get_table (e), -1, TRUE);
+		break;
+	case GTK_HTML_COMMAND_TABLE_SPACING_ZERO:
+		html_engine_table_set_spacing (e, html_engine_get_table (e), 0, FALSE);
+		break;
+	case GTK_HTML_COMMAND_TABLE_PADDING_INC:
+		html_engine_table_set_padding (e, html_engine_get_table (e), 1, TRUE);
+		break;
+	case GTK_HTML_COMMAND_TABLE_PADDING_DEC:
+		html_engine_table_set_padding (e, html_engine_get_table (e), -1, TRUE);
+		break;
+	case GTK_HTML_COMMAND_TABLE_PADDING_ZERO:
+		html_engine_table_set_padding (e, html_engine_get_table (e), 0, FALSE);
+		break;
 	case GTK_HTML_COMMAND_TEXT_SET_DEFAULT_COLOR:
 		html_engine_set_color (e, NULL);
 		break;

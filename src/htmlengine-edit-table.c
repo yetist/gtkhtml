@@ -778,35 +778,45 @@ html_engine_table_set_bg_pixmap (HTMLEngine *e, HTMLTable *t, gchar *url)
  *
  */
 
-static void table_set_spacing (HTMLEngine *e, HTMLTable *t, gint spacing, HTMLUndoDirection dir);
+static void table_set_spacing (HTMLEngine *e, HTMLTable *t, gint spacing, gboolean relative, HTMLUndoDirection dir);
 
 static void
 table_set_spacing_undo_action (HTMLEngine *e, HTMLUndoData *undo_data, HTMLUndoDirection dir)
 {
 	HTMLTableSetAttrUndo *data = (HTMLTableSetAttrUndo *) undo_data;
 
-	table_set_spacing (e, html_engine_get_table (e), data->attr.spacing, html_undo_direction_reverse (dir));
+	table_set_spacing (e, html_engine_get_table (e), data->attr.spacing, FALSE, html_undo_direction_reverse (dir));
 }
 
 static void
-table_set_spacing (HTMLEngine *e, HTMLTable *t, gint spacing, HTMLUndoDirection dir)
+table_set_spacing (HTMLEngine *e, HTMLTable *t, gint spacing, gboolean relative, HTMLUndoDirection dir)
 {
 	HTMLTableSetAttrUndo *undo;
+	gint new_spacing;
+
+	if (relative)
+		new_spacing = t->spacing + spacing;
+	else
+		new_spacing = spacing;
+	if (new_spacing < 0)
+		new_spacing = 0;
+	if (new_spacing == t->spacing)
+		return;
 
 	undo = attr_undo_new (HTML_TABLE_SPACING);
 	undo->attr.spacing = t->spacing;
 	html_undo_add_action (e->undo,
 			      html_undo_action_new ("Set table spacing", table_set_spacing_undo_action,
 						    HTML_UNDO_DATA (undo), html_cursor_get_position (e->cursor)), dir);
-	t->spacing = spacing;
+	t->spacing = new_spacing;
 	html_object_change_set (HTML_OBJECT (t), HTML_CHANGE_ALL_CALC);
 	html_engine_schedule_update (e);
 }
 
 void
-html_engine_table_set_spacing (HTMLEngine *e, HTMLTable *t, gint spacing)
+html_engine_table_set_spacing (HTMLEngine *e, HTMLTable *t, gint spacing, gboolean relative)
 {
-	table_set_spacing (e, t, spacing, HTML_UNDO_UNDO);
+	table_set_spacing (e, t, spacing, relative, HTML_UNDO_UNDO);
 }
 
 /*
@@ -814,21 +824,32 @@ html_engine_table_set_spacing (HTMLEngine *e, HTMLTable *t, gint spacing)
  *
  */
 
-static void table_set_padding (HTMLEngine *e, HTMLTable *t, gint padding, HTMLUndoDirection dir);
+static void table_set_padding (HTMLEngine *e, HTMLTable *t, gint padding, gboolean relative, HTMLUndoDirection dir);
 
 static void
 table_set_padding_undo_action (HTMLEngine *e, HTMLUndoData *undo_data, HTMLUndoDirection dir)
 {
 	HTMLTableSetAttrUndo *data = (HTMLTableSetAttrUndo *) undo_data;
 
-	table_set_padding (e, html_engine_get_table (e), data->attr.padding, html_undo_direction_reverse (dir));
+	table_set_padding (e, html_engine_get_table (e), data->attr.padding, FALSE, html_undo_direction_reverse (dir));
 }
 
 static void
-table_set_padding (HTMLEngine *e, HTMLTable *t, gint padding, HTMLUndoDirection dir)
+table_set_padding (HTMLEngine *e, HTMLTable *t, gint padding, gboolean relative, HTMLUndoDirection dir)
 {
 	HTMLTableSetAttrUndo *undo;
 	gint r, c;
+
+	gint new_padding;
+
+	if (relative)
+		new_padding = t->padding + padding;
+	else
+		new_padding = padding;
+	if (new_padding < 0)
+		new_padding = 0;
+	if (new_padding == t->padding)
+		return;
 
 	undo = attr_undo_new (HTML_TABLE_PADDING);
 	undo->attr.padding = t->padding;
@@ -836,11 +857,11 @@ table_set_padding (HTMLEngine *e, HTMLTable *t, gint padding, HTMLUndoDirection 
 			      html_undo_action_new ("Set table padding", table_set_padding_undo_action,
 						    HTML_UNDO_DATA (undo), html_cursor_get_position (e->cursor)), dir);
 
-	t->padding = padding;
+	t->padding = new_padding;
 	for (r = 0; r < t->totalRows; r ++)
 		for (c = 0; c < t->totalCols; c ++)
 			if (t->cells [r][c]->col == c && t->cells [r][c]->row == r) {
-				HTML_CLUEV (t->cells [r][c])->padding = padding;
+				HTML_CLUEV (t->cells [r][c])->padding = new_padding;
 				HTML_OBJECT (t->cells [r][c])->change |= HTML_CHANGE_ALL_CALC;
 			}
 	html_object_change_set (HTML_OBJECT (t), HTML_CHANGE_ALL_CALC);
@@ -848,9 +869,9 @@ table_set_padding (HTMLEngine *e, HTMLTable *t, gint padding, HTMLUndoDirection 
 }
 
 void
-html_engine_table_set_padding (HTMLEngine *e, HTMLTable *t, gint padding)
+html_engine_table_set_padding (HTMLEngine *e, HTMLTable *t, gint padding, gboolean relative)
 {
-	table_set_padding (e, t, padding, HTML_UNDO_UNDO);
+	table_set_padding (e, t, padding, relative, HTML_UNDO_UNDO);
 }
 
 /*

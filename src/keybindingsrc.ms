@@ -89,9 +89,9 @@ binding "gtkhtml-bindings-ms"
   bind "<Alt>l"               { "command" (downcase-word) }
   bind "<Alt>u"               { "command" (upcase-word) }
 
-  bind "<Ctrl><Shift>s"       { "command" (spell-suggest) }
-  bind "<Ctrl><Shift>p"       { "command" (spell-personal-add) }
-  bind "<Ctrl><Shift>n"       { "command" (spell-session-add) }
+  bind "<Ctrl><Alt><Shift>s"       { "command" (spell-suggest) }
+  bind "<Ctrl><Alt><Shift>p"       { "command" (spell-personal-add) }
+  bind "<Ctrl><Alt><Shift>n"       { "command" (spell-session-add) }
 
   bind "<Ctrl><Shift>r"       { "command" (insert-rule) }
 
@@ -114,4 +114,12 @@ binding "gtkhtml-bindings-ms"
   bind "<Ctrl><Shift>b"       { "command" (inc-border) }
   bind "<Ctrl><Alt>b"         { "command" (dec-border) }
   bind "<Alt><Shift>b"        { "command" (zero-border) }
+
+  bind "<Ctrl><Shift>s"       { "command" (inc-spacing) }
+  bind "<Ctrl><Alt>s"         { "command" (dec-spacing) }
+  bind "<Alt><Shift>s"        { "command" (zero-spacing) }
+
+  bind "<Ctrl><Shift>p"       { "command" (inc-padding) }
+  bind "<Ctrl><Alt>p"         { "command" (dec-padding) }
+  bind "<Alt><Shift>p"        { "command" (zero-padding) }
 }
