@@ -882,7 +882,7 @@ html_image_factory_write_pixbuf (GtkHTMLStream *stream,
 static void
 html_image_factory_area_updated (GdkPixbufLoader *loader, guint x, guint y, guint width, guint height)
 {
-	g_warning ("AREA_UPDATED x=%d, y=%d, w=%d, h=%d", x, y, width, height);
+
 }
 
 static void

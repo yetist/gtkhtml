@@ -4,6 +4,7 @@ glade_DATA = gtkhtml-capplet.glade
 INCLUDES =					\
 	-I$(top_srcdir)/src			\
 	-I$(includedir)				\
+	$(GNOME_CAPPLET_CFLAGS) 		\
 	$(GNOME_INCLUDEDIR)			\
 	$(EXTRA_GNOME_CFLAGS)			\
 	-DGNOMELOCALEDIR=\"$(datadir)/locale\"	\

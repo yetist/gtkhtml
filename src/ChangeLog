@@ -1,3 +1,8 @@
+2001-07-26  Chema Celorio  <chema@celorio.com>
+
+	* htmlimage.c (html_image_factory_area_updated): remove a
+	g_warning
+
 2001-07-27  Radek Doulik  <rodo@ximian.com>
 
 	* htmlclueflow.c (write_pre_tags): test if flow doesn't contain
