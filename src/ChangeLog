@@ -1,3 +1,12 @@
+2003-04-07  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml.c (style_set): pass the widget instead of the style.
+
+	* htmlcolorset.h: fixup prototype.
+
+	* htmlcolorset.c (html_colorset_set_style): retrieve the color of
+	the links and spell error from the style properties.h
+
 2003-04-07  Radek Doulik  <rodo@ximian.com>
 
 	* keybindingsrc.emacs: change Home/End bindings

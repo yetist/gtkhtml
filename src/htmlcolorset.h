@@ -58,6 +58,6 @@ HTMLColor        *html_colorset_get_color_allocated   (HTMLPainter *painter,
 /* copy colors from one se to another, used for resetting to default values */
 void              html_colorset_set_by                (HTMLColorSet *s, HTMLColorSet *o);
 void              html_colorset_set_unchanged         (HTMLColorSet *s, HTMLColorSet *o);
-void              html_colorset_set_style             (HTMLColorSet *s, GtkStyle *style);
+void              html_colorset_set_style             (HTMLColorSet *s, GtkWidget *w);
 
 #endif

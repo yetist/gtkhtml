@@ -72,13 +72,14 @@
 #include "math.h"
 #include <libgnome/gnome-util.h>
 
-static enum DndTargetType {
+enum DndTargetType {
 	DND_TARGET_TYPE_TEXT_URI_LIST,
 	DND_TARGET_TYPE__NETSCAPE_URL,
 	DND_TARGET_TYPE_UTF8_STRING,
 	DND_TARGET_TYPE_TEXT_PLAIN,
 	DND_TARGET_TYPE_STRING,
 };
+
 static GtkTargetEntry dnd_link_sources [] = {
 	{ "text/uri-list", 0, DND_TARGET_TYPE_TEXT_URI_LIST },
 	{ "_NETSCAPE_URL", 0, DND_TARGET_TYPE__NETSCAPE_URL },
@@ -739,18 +740,19 @@ style_set (GtkWidget *widget, GtkStyle  *previous_style)
        	GtkHTMLClass *klass = GTK_HTML_CLASS (GTK_WIDGET_GET_CLASS (widget));
 	GtkHTMLClassProperties *prop = klass->properties;	
 
+
 	g_free (prop->font_var);
 	prop->font_var = pango_font_description_to_string (widget->style->font_desc);
 	prop->font_var_size = PANGO_PIXELS (pango_font_description_get_size (widget->style->font_desc));
 	prop->font_fix_size = PANGO_PIXELS (pango_font_description_get_size (widget->style->font_desc));
+
 
 	/* we don't need to set font's in idle time so call idle callback directly to avoid
 	   recalculating whole document
 	*/
 	set_fonts_idle (GTK_HTML (widget));
 
-	html_colorset_set_style (engine->defaultSettings->color_set,
-				 widget->style);
+	html_colorset_set_style (engine->defaultSettings->color_set, widget);
 	html_colorset_set_unchanged (engine->settings->color_set,
 				     engine->defaultSettings->color_set);
 	html_engine_schedule_update (engine);
