@@ -4,6 +4,8 @@
 	save all 8bit range instead of encoding it as #-1; it's wrong
 	here, but it may work at least with iso-latin-1 I hope,
 	new painter should replace it soon
+	(write_header): set charset to UTF-8
+	(encode_entities): reverted last change
 
 2000-10-15  Radek Doulik  <rodo@helixcode.com>
 
