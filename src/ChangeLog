@@ -1,3 +1,7 @@
+2000-04-07  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlimage.c (draw): use 1st frame when printing
+
 2000-04-06  Radek Doulik  <rodo@helixcode.com>
 
 	* htmltokenizer.c (html_tokenizer_end): destroy blocking tokens to

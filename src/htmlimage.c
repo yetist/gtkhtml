@@ -38,6 +38,7 @@
 #include "htmlimage.h"
 #include "htmlengine.h"
 #include "htmlpainter.h"
+#include "htmlprinter.h"
 #include "gtkhtml-private.h"
 
 
@@ -307,7 +308,7 @@ draw (HTMLObject *o,
 	else
 		color = NULL;
 
-	if (image->animation) {
+	if (image->animation && HTML_OBJECT_TYPE (HTML_OBJECT (painter)) != HTML_TYPE_PRINTER) {
 		image->animation->active = TRUE;
 		image->animation->x = base_x;
 		image->animation->y = base_y;
