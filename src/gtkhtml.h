@@ -237,7 +237,8 @@ struct _GtkHTMLClass {
 
 
 
-gboolean gtkhtmllib_init  (gint argc, gchar **argv);
+gboolean gtkhtmllib_is_initialized (void);
+gboolean gtkhtmllib_init           (gint argc, gchar **argv);
 
 /* Creation.  */
 GtkType    gtk_html_get_type  (void);

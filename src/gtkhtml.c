@@ -49,6 +49,8 @@
 
 static GtkLayoutClass *parent_class = NULL;
 
+static gboolean gconf_initialized = FALSE;
+
 #ifdef GTKHTML_HAVE_GCONF
 GConfClient *gconf_client = NULL;
 GConfError  *gconf_error  = NULL;
@@ -2324,10 +2326,17 @@ load_keybindings (GtkHTMLClass *klass)
 }
 
 gboolean
+gtkhtmllib_is_initialized (void)
+{
+	return gconf_initialized;
+}
+
+gboolean
 gtkhtmllib_init (gint argc, gchar **argv)
 {
 #ifdef GTKHTML_HAVE_GCONF
-	if (!gconf_init (argc, argv, &gconf_error)) {
+	if (!gconf_is_initialized() &&
+	    !gconf_init (argc, argv, &gconf_error)) {
 		g_assert (gconf_error != NULL);
 		g_warning ("GConf init failed:\n  %s", gconf_error->str);
 		return FALSE;
@@ -2336,6 +2345,8 @@ gtkhtmllib_init (gint argc, gchar **argv)
 	gconf_client = gconf_client_new ();
 	gconf_client_add_dir (gconf_client, GTK_HTML_GCONF_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, NULL);
 #endif
+
+	gconf_initialized = TRUE;
 
 	return TRUE;
 }

@@ -1,3 +1,9 @@
+Sat Jul 01 11:50:30 2000  George Lebl <jirka@5z.com>
+
+	* gtkhtml.[ch]:  Add a gtkhtmllib_is_initialized call to find out if
+	  we have been initialized.  Also don't initialize gconf if it has
+	  already been initialized.
+
 2000-07-01  Radek Doulik  <rodo@helixcode.com>
 
 	* keybindingsrc.ms: added new bindings for inc/dec font size
