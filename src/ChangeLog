@@ -1,5 +1,10 @@
 2000-04-06  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlimage.c (html_image_factory_area_prepared): ref pixbuf
+	(html_image_factory_frame_done): ref animation
+	(html_image_factory_end_pixbuf): unref loader instead of only
+	closing it
+
 	* htmlcluev.c (html_cluev_class_init): removed FIXME as it don't
 	need destroy
 

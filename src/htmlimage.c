@@ -471,7 +471,7 @@ html_image_factory_end_pixbuf (GtkHTMLStreamHandle handle, GtkHTMLStreamStatus s
 
 	html_engine_schedule_update (ip->factory->engine);
 	
-	gdk_pixbuf_loader_close (ip->loader);
+	gtk_object_unref (GTK_OBJECT (ip->loader));
 	ip->loader = NULL;
 }
 
@@ -487,10 +487,13 @@ html_image_factory_write_pixbuf (GtkHTMLStreamHandle handle, const guchar *buffe
 static void
 html_image_factory_area_prepared (GdkPixbufLoader *loader, HTMLImagePointer *ip)
 {
-	ip->pixbuf    = gdk_pixbuf_loader_get_pixbuf (ip->loader);
-	g_assert (ip->pixbuf);
+	if (!ip->animation) {
+		ip->pixbuf    = gdk_pixbuf_loader_get_pixbuf (ip->loader);
+		g_assert (ip->pixbuf);
 
-	html_engine_schedule_update (ip->factory->engine);
+		gdk_pixbuf_ref (ip->pixbuf);
+		html_engine_schedule_update (ip->factory->engine);
+	}
 }
 
 static void
@@ -635,6 +638,7 @@ html_image_factory_frame_done (GdkPixbufLoader *loader, HTMLImagePointer *ip)
 {
 	if (!ip->animation) {
 		ip->animation = gdk_pixbuf_loader_get_animation (loader);
+		gdk_pixbuf_animation_ref (ip->animation);
 	}
 	g_assert (ip->animation);
 
@@ -757,12 +761,12 @@ html_image_pointer_destroy (HTMLImagePointer *ip)
 {
 	g_free (ip->url);
 	if (ip->loader) {
-		gdk_pixbuf_loader_close (ip->loader);
 		gtk_object_unref (GTK_OBJECT (ip->loader));
 	}
 	if (ip->animation) {
 		gdk_pixbuf_animation_unref (ip->animation);
-	} else 	if (ip->pixbuf) {
+	}
+	if (ip->pixbuf) {
 		gdk_pixbuf_unref (ip->pixbuf);
 	}
 
