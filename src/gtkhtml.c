@@ -4630,9 +4630,12 @@ gtk_html_editor_event (GtkHTML *html, GtkHTMLEditorEventType event, GValue *args
 gboolean
 gtk_html_command (GtkHTML *html, const gchar *command_name)
 {
+	GEnumClass *class;
 	GEnumValue *val;
 
-	val = g_enum_get_value_by_nick (g_type_class_peek (GTK_TYPE_HTML_COMMAND), command_name);
+	class = G_ENUM_CLASS (g_type_class_ref (GTK_TYPE_HTML_COMMAND));
+	val = g_enum_get_value_by_nick (class, command_name);
+	g_type_class_unref (class);
 	if (val) {
 		if (command (html, val->value)) {
 			if (html->priv->update_styles)
