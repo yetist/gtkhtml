@@ -31,7 +31,7 @@ msgstr "*********************"
 
 #: capplet/gtkhtml-capplet.glade.h:2
 msgid "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz"
-msgstr ""
+msgstr "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz"
 
 #: capplet/gtkhtml-capplet.glade.h:3
 msgid "Add Keyboard Shortcuts"
@@ -58,9 +58,8 @@ msgid "Composer Properties planned"
 msgstr "Propiedades planeadas del compositor"
 
 #: capplet/gtkhtml-capplet.glade.h:9
-#, fuzzy
 msgid "Configure spell checking"
-msgstr "Activar corrección ortográfica"
+msgstr "Configurar corrección ortográfica"
 
 #: capplet/gtkhtml-capplet.glade.h:10
 msgid "Enable spell checking"
@@ -152,6 +151,8 @@ msgid ""
 "Cannot execute GNOME Spell control applet\n"
 "Try to install GNOME Spell if you don't have it installed."
 msgstr ""
+"No puedo ejecutar el applet de control GNOME Spell\n"
+"Prueba a instalar GNOME Spell si no lo tienes instalado."
 
 #: components/ebrowser/GNOME_GtkHTML_EBrowser.oaf.in.h:1
 msgid "EBrowser control"
@@ -376,9 +377,8 @@ msgid "Make the current Paragraph style Normal"
 msgstr "Convierte el párrafo actual a estilo Normal"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
-#, fuzzy
 msgid "Make the current Paragraph style Preformat"
-msgstr "Convierte el párrafo actual a estilo Normal"
+msgstr "Convierte el párrafo actual a estilo Preformato"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
 msgid "Make the current paragraph a bulleted list"
@@ -657,14 +657,12 @@ msgid "_Normal"
 msgstr "_Normal"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
-#, fuzzy
 msgid "_Page..."
-msgstr "Página..."
+msgstr "_Página..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
-#, fuzzy
 msgid "_Paragraph..."
-msgstr "Párrafo..."
+msgstr "_Párrafo..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
 msgid "_Paste"
@@ -699,9 +697,8 @@ msgid "_Rule..."
 msgstr "_Regla..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
-#, fuzzy
 msgid "_Spell Check Document..."
-msgstr "Comprobar la ortográfica del documento..."
+msgstr "_Comprobar la ortográfica del documento..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
 msgid "_Strikeout"
@@ -716,9 +713,8 @@ msgid "_Table..."
 msgstr "_Tabla..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
-#, fuzzy
 msgid "_Text..."
-msgstr "Texto..."
+msgstr "_Texto..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
 msgid "_Underline"
@@ -738,19 +734,16 @@ msgid "None"
 msgstr "Nada"
 
 #: components/html-editor/body.c:70
-#, fuzzy
 msgid "Test"
-msgstr "Texto"
+msgstr "Prueba"
 
 #: components/html-editor/body.c:77
-#, fuzzy
 msgid "Test 1"
-msgstr "Texto"
+msgstr "Prueba 1"
 
 #: components/html-editor/body.c:251
-#, fuzzy
 msgid "Document Title"
-msgstr "Elemento punto"
+msgstr "Título del documento"
 
 #: components/html-editor/body.c:255 components/html-editor/body.c:258
 #: components/html-editor/gtkhtml-editor-properties.glade.h:14
@@ -1120,13 +1113,12 @@ msgid "The quick brown fox jumped over the lazy dog."
 msgstr ""
 
 #: components/html-editor/link.c:97
-#, fuzzy
 msgid "Link text"
-msgstr "Texto _plano"
+msgstr "Asociar texto"
 
 #: components/html-editor/link.c:120
 msgid "Test URL"
-msgstr ""
+msgstr "Probar URL"
 
 #: components/html-editor/menubar.c:105 components/html-editor/menubar.c:120
 #: components/html-editor/menubar.c:138 components/html-editor/menubar.c:155
@@ -1324,9 +1316,8 @@ msgid "No misspelled word found"
 msgstr "No se encontró ninguna palabra errónea"
 
 #: components/html-editor/spell.c:493
-#, fuzzy
 msgid "Spell Checking _Languages"
-msgstr "Corrección ortográfica"
+msgstr "Lenguajes de la corrección ortográfica"
 
 #: components/html-editor/table.c:198
 msgid "Flat gray"
@@ -1433,59 +1424,51 @@ msgstr "Ejemplo"
 
 #: src/html-component.c:219
 msgid "Html"
-msgstr ""
+msgstr "Html"
 
 #: src/html-component.c:220
 msgid "Html test"
-msgstr ""
+msgstr "Probar html"
 
 #: src/html-component.c:226
-#, fuzzy
 msgid "Test1"
-msgstr "Texto"
+msgstr "Prueba1"
 
 #: src/html-component.c:233
-#, fuzzy
 msgid "Test2"
-msgstr "Texto"
+msgstr "Prueba2"
 
 #: src/html-component.c:239
-#, fuzzy
 msgid "Test3"
-msgstr "Texto"
+msgstr "Prueba2"
 
 #: src/html-component.c:245
-#, fuzzy
 msgid "Test4"
-msgstr "Texto"
+msgstr "Prueba4"
 
 #: src/html-component.c:251
-#, fuzzy
 msgid "Test5"
-msgstr "Texto"
+msgstr "Prueba5"
 
 #: src/html-component.c:257
-#, fuzzy
 msgid "Test6"
-msgstr "Texto"
+msgstr "Prueba6"
 
 #: src/html-component.c:263
-#, fuzzy
 msgid "Test7"
-msgstr "Texto"
+msgstr "Prueba7"
 
 #: src/html-component.c:617
 msgid "_Refresh"
-msgstr ""
+msgstr "Actualiza_r"
 
 #: src/html-component.c:618
 msgid "Reload the page"
-msgstr ""
+msgstr "Recargar la página"
 
 #: src/html-component.c:669
-#, fuzzy
 msgid "Could not initialize Bonobo!"
-msgstr "No se puede inicializar Bonobo"
+msgstr "¡No pude inicializar Bonobo!"
 
 #: src/htmlengine-print.c:198
 msgid "Cannot allocate default font for printing\n"
