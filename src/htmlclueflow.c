@@ -1847,8 +1847,9 @@ get_text_bytes (HTMLClue *clue, HTMLInterval *i)
 	obj = html_interval_get_head (i, HTML_OBJECT (clue));
 	while (obj) {
 		bytes += html_interval_get_bytes (i, obj);
-		if (obj == i->to.object) break;
-		obj = obj->next;
+		if (obj == i->to.object)
+			break;
+		obj = html_object_next_not_slave (obj);
 	}
 
 	return bytes;
@@ -1874,11 +1875,12 @@ get_text (HTMLClue *clue, HTMLInterval *i)
 			if (cb == 1) *ct = ' ';
 			else memset (ct, ' ', cb);
 		ct += cb;
-		if (obj == i->to.object) break;
-		obj = obj->next;
+		if (obj == i->to.object)
+			break;
+		obj = html_object_next_not_slave (obj);
 	}
 
-	/* printf ("get_text: \"%s\"\n", text); */
+	/* printf ("get_text: %d \"%s\"\n", bytes, text); */
 
 	return text;
 }

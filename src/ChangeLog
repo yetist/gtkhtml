@@ -1,5 +1,10 @@
 2001-01-05  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlclueflow.c (get_text): use html_object_next_not_slave
+	(get_text_bytes): ditto
+
+	* htmlengine.c (thaw_idle): don't reset blinking
+
 	* htmlengine-edit-cursor.c (html_engine_draw_cursor_in_area):
 	don't draw cursor if engine is freezed
 

@@ -4075,7 +4075,6 @@ thaw_idle (gpointer data)
 
 	html_engine_calc_size (e);
 	html_draw_queue_clear (e->draw_queue);
-	html_engine_reset_blinking_cursor (e);
 	html_engine_draw (e, 0, 0, e->width, e->height);	
 
 	e->thaw_idle_id = 0;
