@@ -191,7 +191,7 @@ libgtkhtml_3_1_la_SOURCES =			\
 	$(NULL)
 
 libgtkhtml_3_1_la_LDFLAGS = -version-info $(GTKHTML_CURRENT):$(GTKHTML_REVISION):$(GTKHTML_AGE)
-libgtkhtml_3_1_la_LIBADD = $(GTKHTML_LIBS) ../a11y/libgtkhtml-a11y-3.1.la
+libgtkhtml_3_1_la_LIBADD = $(GTKHTML_LIBS) ../a11y/libgtkhtml-a11y.la $(GAIL_LIBS)
 
 dist-hook:
 	mkdir $(distdir)/tests
@@ -209,14 +209,13 @@ testgtkhtml_SOURCES = 		\
 	htmlurl.c
 testgtkhtml_LDADD =					\
 	libgtkhtml-@GTKHTML_RELEASE@.la			\
-	../a11y/libgtkhtml-a11y-@GTKHTML_RELEASE@.la 	\
 	$(SOUP_LIBS)
 
 gtest_SOURCES = \
 	test.c
 gtest_LDFLAGS =
 gtest_LDADD =	\
-	libgtkhtml-@GTKHTML_RELEASE@.la ../a11y/libgtkhtml-a11y-@GTKHTML_RELEASE@.la
+	libgtkhtml-@GTKHTML_RELEASE@.la
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = libgtkhtml.pc

@@ -1,3 +1,10 @@
+2003-09-22  Radek Doulik  <rodo@ximian.com>
+
+	* libgtkhtml.pc.in (Cflags): remove a11y lib reference
+
+	* Makefile.am (libgtkhtml_3_1_la_LIBADD): link against a11y lib,
+	use GAIL libs
+
 2003-09-19  Jeremy Katz  <katzj@redhat.com>
 
 	* htmlengine.c (html_engine_get_type): Use GType instead of guint.

@@ -1,3 +1,8 @@
+2003-09-22  Radek Doulik  <rodo@ximian.com>
+
+	* configure.in: increase GTKHTML_CURRENT again, as we don't
+	install a11y lib anymore, we link it to libgtkhtml
+
 2003-09-19  Radek Doulik  <rodo@ximian.com>
 
 	* configure.in: incremented GTKHTML_CURRENT as GtkHTML struct

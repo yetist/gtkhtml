@@ -1,3 +1,8 @@
+2003-09-22  Radek Doulik  <rodo@ximian.com>
+
+	* Makefile.am (glade_DATA): don't link with a11y, it's already in
+	libgtkhtml
+
 2003-09-03  Larry Ewing  <lewing@ximian.com>
 
 	* menubar.c: revert the destach changes

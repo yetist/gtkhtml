@@ -56,7 +56,6 @@ $(SPELL_IDL_GENERATED_C): $(SPELL_IDL_GENERATED_H)
 
 LDADD =	\
 	$(top_builddir)/src/libgtkhtml-@GTKHTML_RELEASE@.la	\
-	$(top_builddir)/a11y/libgtkhtml-a11y-@GTKHTML_RELEASE@.la	\
 	$(EDITOR_LIBS)
 
 # -lpspell-modules -lpspell_aspell -laspell -lpspell -lstdc++
