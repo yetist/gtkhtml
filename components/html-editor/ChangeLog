@@ -1,5 +1,7 @@
 2001-08-21  Larry Ewing  <lewing@ximian.com>
 
+	* menubar.c: warning cleanups.
+
 	* GNOME_GtkHTML_Editor.xml.in: comment out subscript and
 	superscript until they can be fixed.  Clean up accelerators.
 

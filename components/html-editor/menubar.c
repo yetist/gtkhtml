@@ -216,12 +216,6 @@ indent_less_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cnam
 }
 
 static void 
-font_style_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
-{
-	g_warning ("wee %s\n", cname);
-}
-
-static void 
 spell_check_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
 	spell_check_document (cd);
@@ -404,7 +398,6 @@ menubar_update_font_style (GtkWidget *widget,
 {
 	BonoboUIComponent *uic;
 	int size, i;
-	char *path = NULL;
 	CORBA_Environment ev;
 	
 	CORBA_exception_init (&ev);
@@ -436,7 +429,7 @@ menubar_update_font_style (GtkWidget *widget,
 	CORBA_exception_free (&ev);
 }
 
-void
+static void
 menubar_update_paragraph_alignment (GtkHTML *html, 
 				    GtkHTMLParagraphAlignment style, 
 				    GtkHTMLControlData *cd)
@@ -451,7 +444,7 @@ menubar_update_paragraph_alignment (GtkHTML *html,
 
 	for (i = 0; paragraph_align_assoc[i].verb != NULL; i++) {
 		if (paragraph_align_assoc[i].style == style) {
-			path = paragraph_align_assoc[i].verb;
+			path = (char *)paragraph_align_assoc[i].verb;
 			break;
 		}
 	}
