@@ -1,3 +1,8 @@
+2004-04-23  Radek Doulik  <rodo@ximian.com>
+
+	* htmltext.c (html_text_get_pango_info): do not use
+	pango_attr_list_splice and use pango_attr_list_change directly
+
 2004-04-22  Radek Doulik  <rodo@ximian.com>
 
 	* htmltext.c (save_text): use <= end_index in last part - bad typo
