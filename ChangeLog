@@ -1,3 +1,12 @@
+2002-03-26  Larry Ewing  <lewing@ximian.com>
+
+	* Makefile.am: remove references to gnorba and
+	html-component.gnorba.
+
+	* configure.in: fix GTKHTML_INCLUDEDIR to add version.
+
+	* html-component.gnorba: removed.
+	
 2002-03-15  Radek Doulik  <rodo@ximian.com>
 
 	* configure.in: added EDITOR_API_VERSION

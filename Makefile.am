@@ -27,7 +27,6 @@ SUBDIRS =					\
 	po
 
 EXTRA_DIST =					\
-	html-component.gnorba			\
 	gtkhtml.spec.in				\
 	gtkhtml.spec                            \
 	COPYING.LIB				\
@@ -36,8 +35,3 @@ EXTRA_DIST =					\
 	xml-i18n-extract.in			\
 	xml-i18n-update.in			\
 	xml-i18n-merge.in
-
-if BONOBO
-gnorbadir = $(sysconfdir)/CORBA/servers
-gnorba_DATA = html-component.gnorba
-endif
