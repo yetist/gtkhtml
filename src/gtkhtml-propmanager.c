@@ -57,8 +57,8 @@ struct _GtkHTMLPropmanagerPrivate {
 	GtkWidget *fixed_print;
 	GtkWidget *anim_check;
 	GtkWidget *live_spell_check;
+	GtkWidget *live_spell_options;
 	GtkWidget *magic_check;
-	GtkWidget *button_cfg_spell;
 	GtkWidget *keymap;
 	
 	GtkHTMLClassProperties *saved_prop;
@@ -119,8 +119,9 @@ gtk_html_propmanager_sync_gui (GtkHTMLPropmanager *pman)
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->live_spell_check),
 					      priv->actual_prop->live_spell_check);
 
-	if (priv->button_cfg_spell) {	
-		gtk_widget_set_sensitive (GTK_WIDGET (priv->button_cfg_spell), priv->actual_prop->live_spell_check);
+	if (priv->live_spell_options) {	
+		gtk_widget_set_sensitive (GTK_WIDGET (priv->live_spell_options),
+					  priv->actual_prop->live_spell_check);
 	}
 
 	if (priv->keymap) {
@@ -142,13 +143,9 @@ propmanager_client_notify (GConfClient *client, guint cnxn_id, GConfEntry *entry
 	GtkHTMLPropmanager *pman = data;
 
 	if (!pman->priv->active) {
-		d (g_warning ("GOT MILK?? %p", pman));
-
 		gtk_html_class_properties_load (pman->priv->actual_prop, client);
 		gtk_html_propmanager_sync_gui (pman);
-	} else {
-		d (g_warning ("NEED MILK!!"));
-	}
+	} 
 }
 
 static void
@@ -173,17 +170,6 @@ propmanager_font_changed (GtkWidget *picker, char *font_name, GtkHTMLPropmanager
 	g_return_if_fail (GTK_IS_HTML_PROPMANAGER (pman));
 
 	gtk_signal_emit (GTK_OBJECT (pman), signals[CHANGED]);
-}
-
-static void
-propmanager_spell_change_sensitivity (GtkWidget *widget, GtkHTMLPropmanager *pman)
-{
-	GtkHTMLPropmanagerPrivate *priv;
-	g_return_if_fail (pman != NULL);
-
-	priv = pman->priv;
-	gtk_widget_set_sensitive (priv->button_cfg_spell,
-				  gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->live_spell_check)));
 }
 
 #define SELECTOR(x) GTK_FONT_SELECTION_DIALOG (GNOME_FONT_PICKER (x)->font_dialog)
@@ -219,7 +205,7 @@ propmanager_child_destroyed (GtkWidget *w, GtkHTMLPropmanager *pman)
 	MAYBE_CLEAR (anim_check);
 	MAYBE_CLEAR (live_spell_check);
 	MAYBE_CLEAR (magic_check);
-	MAYBE_CLEAR (button_cfg_spell);
+	MAYBE_CLEAR (live_spell_options);
 	MAYBE_CLEAR (keymap);
 
 	gtk_object_unref (GTK_OBJECT (pman));
@@ -241,7 +227,8 @@ propmanager_get_widget (GtkHTMLPropmanager *pman, char *name)
 
 	if (widget) {
 		gtk_object_ref (GTK_OBJECT (pman));
-		gtk_object_sink (GTK_OBJECT (pman));
+
+		d(g_warning ("found_widget: %s", name));
 
 		gtk_signal_connect (GTK_OBJECT (widget), "destroy", 
 				    propmanager_child_destroyed, pman);
@@ -265,6 +252,7 @@ propmanager_add_toggle (GtkHTMLPropmanager *pman,
 
 		gtk_signal_connect (GTK_OBJECT (toggle), "toggled", propmanager_toggle_changed,
 				    pman);
+
 		*found = TRUE;
 	}
 
@@ -388,7 +376,7 @@ gtk_html_propmanager_set_gui (GtkHTMLPropmanager *pman, GladeXML *xml, GHashTabl
 	priv->magic_check = propmanager_add_toggle (pman, "magic_check", &found_widget);
 	priv->live_spell_check = propmanager_add_toggle (pman, "live_spell_check", &found_widget);
 
-	if ((priv->button_cfg_spell = propmanager_get_widget (pman, "button_configure_spell_checking"))) {
+	if ((priv->live_spell_options = propmanager_get_widget (pman, "button_configure_spell_checking"))) {
 		found_widget = TRUE;
 	}
 
@@ -475,8 +463,6 @@ gtk_html_propmanager_apply (GtkHTMLPropmanager *pman)
 	        g_free (size_str); \
 	}
 
-	
-
 	APPLY (font_var,       font_var_size,       priv->variable);
 	APPLY (font_fix,       font_fix_size,       priv->fixed);
 	APPLY (font_var_print, font_var_size_print, priv->variable_print);
@@ -508,8 +494,14 @@ static void
 gtk_html_propmanager_real_changed (GtkHTMLPropmanager *pman)
 {
 	GtkHTMLPropmanagerPrivate *priv = pman->priv;
-	if (priv->button_cfg_spell) {	
-		gtk_widget_set_sensitive (GTK_WIDGET (priv->button_cfg_spell), priv->actual_prop->live_spell_check);
+
+	if (priv->live_spell_options) {	
+		gboolean sensitive;
+
+		d (g_warning ("spell sensitivity changed = %d", priv->actual_prop->live_spell_check));
+
+		sensitive = gtk_toggle_button_get_active (priv->live_spell_check);
+		gtk_widget_set_sensitive (GTK_WIDGET (priv->button_cfg_spell), sensitive);
 	}
 }
 
@@ -521,6 +513,9 @@ gtk_html_propmanager_init (GtkHTMLPropmanager *pman)
 	priv = g_new0 (GtkHTMLPropmanagerPrivate, 1);
 	
 	pman->priv = priv;
+
+	gtk_object_ref (GTK_OBJECT (pman));
+	gtk_object_sink (GTK_OBJECT (pman));
 }
 
 GtkObject *
