@@ -1,6 +1,9 @@
 2003-10-22  Radek Doulik  <rodo@ximian.com>
 
+	* htmltext.c (save_open_attrs): save text size
+
 	* htmlengine-edit.c (html_engine_new_text): apply text attributes
+	(html_engine_new_text): set only non-default colors/styles
 
 2003-10-21  Radek Doulik  <rodo@ximian.com>
 

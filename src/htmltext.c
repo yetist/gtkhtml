@@ -56,6 +56,11 @@ static void         move_spell_errors       (GList *spell_errors, guint offset, 
 static GList *      remove_spell_errors     (GList *spell_errors, guint offset, guint len);
 static void         remove_text_slaves      (HTMLObject *self);
 
+struct _HTMLPangoAttrFontSize {
+        PangoAttrInt attr_int;
+	GtkHTMLFontStyle style;
+};
+
 /* static void
 debug_spell_errors (GList *se)
 {
@@ -1219,9 +1224,14 @@ save_open_attrs (HTMLEngineSaveState *state, GSList *attrs)
 		case PANGO_ATTR_STRIKETHROUGH:
 			tag = "<S>";
 			break;
-		case PANGO_ATTR_SIZE:
-			/* TODO */
-			break;
+		case PANGO_ATTR_SIZE: {
+			HTMLPangoAttrFontSize *size = (HTMLPangoAttrFontSize *) attr;
+			if ((size->style & GTK_HTML_FONT_STYLE_SIZE_MASK) != GTK_HTML_FONT_STYLE_SIZE_3) {
+				tag = g_strdup_printf ("<FONT SIZE=\"%d\">", size->style & GTK_HTML_FONT_STYLE_SIZE_MASK);
+				free_tag = TRUE;
+			}
+		}
+		break;
 		case PANGO_ATTR_FAMILY:
 			/* TODO */
 			break;
@@ -1268,9 +1278,11 @@ save_close_attrs (HTMLEngineSaveState *state, GSList *attrs)
 			tag = "</S>";
 			break;
 		case PANGO_ATTR_SIZE:
-		case PANGO_ATTR_FAMILY:
 		case PANGO_ATTR_FOREGROUND:
 			tag = "</FONT>";
+			break;
+		case PANGO_ATTR_FAMILY:
+			break;
 		}
 
 		if (tag)
@@ -2564,11 +2576,6 @@ html_link_new (gchar *url, gchar *target, guint start_index, guint end_index, gi
 }
 
 /* extended pango attributes */
-
-struct _HTMLPangoAttrFontSize {
-        PangoAttrInt attr_int;
-	GtkHTMLFontStyle style;
-};
 
 static PangoAttribute *
 html_pango_attr_font_size_copy (const PangoAttribute *attr)
