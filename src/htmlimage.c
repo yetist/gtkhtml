@@ -840,7 +840,19 @@ html_image_set_size (HTMLImage *image, gint w, gint h, gboolean pw, gboolean ph)
 		html_engine_schedule_update (image->image_ptr->factory->engine);
 }
 
+char *image_content_types[] = {"image/*", NULL};
 
+static char **
+html_image_factory_types (GtkHTMLStream *stream,
+			  gpointer user_data)
+{
+	/* FIXME: this should use the not currently existant function
+	 * in gdk-pixbuf that tells us what mime types are supported 
+	 * by the modules it has loaded.
+	 */
+	return image_content_types;
+}
+
 static void
 html_image_factory_end_pixbuf (GtkHTMLStream *stream,
 			       GtkHTMLStreamStatus status,
@@ -1207,6 +1219,7 @@ html_image_pointer_load (HTMLImagePointer *ip)
 
 	html_image_pointer_ref (ip);
 	handle = gtk_html_stream_new (GTK_HTML (ip->factory->engine->widget),
+				      html_image_factory_types,
 				      html_image_factory_write_pixbuf,
 				      html_image_factory_end_pixbuf,
 				      ip);

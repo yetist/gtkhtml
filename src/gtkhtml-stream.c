@@ -29,6 +29,7 @@
 
 GtkHTMLStream *
 gtk_html_stream_new (GtkHTML *html,
+		     GtkHTMLStreamTypesFunc types_func,
 		     GtkHTMLStreamWriteFunc write_func,
 		     GtkHTMLStreamCloseFunc close_func,
 		     gpointer user_data)
@@ -36,7 +37,8 @@ gtk_html_stream_new (GtkHTML *html,
 	GtkHTMLStream *new_stream;
 	
 	new_stream = g_new (GtkHTMLStream, 1);
-
+	
+	new_stream->types_func = types_func;
 	new_stream->write_func = write_func;
 	new_stream->close_func = close_func;
 	new_stream->user_data = user_data;
@@ -55,7 +57,7 @@ gtk_html_stream_destroy (GtkHTMLStream *stream)
 void
 gtk_html_stream_write (GtkHTMLStream *stream,
 		       const gchar *buffer,
-		       size_t size)
+		       guint size)
 {
 	g_return_if_fail (stream != NULL);
 	g_return_if_fail (buffer != NULL);
@@ -77,11 +79,29 @@ gtk_html_stream_close (GtkHTMLStream *stream,
 	gtk_html_stream_destroy (stream);
 }
 
+char **
+gtk_html_stream_get_types (GtkHTMLStream *stream)
+{
+	if (stream->types_func != NULL)
+		return stream->types_func (stream, stream->user_data);
+
+	return NULL;
+}
+				 
 typedef struct _GtkHTMLLog GtkHTMLLog;
 struct _GtkHTMLLog {
 	GtkHTMLStream *stream;
 	FILE *file;
 };
+
+static char **
+stream_log_types (GtkHTMLStream *stream,
+		  gpointer user_data)
+{
+	GtkHTMLLog *log = user_data;
+
+	return gtk_html_stream_get_types (log->stream);
+}
 
 static void
 stream_log_write (GtkHTMLStream *stream,
@@ -113,10 +133,7 @@ stream_log_close (GtkHTMLStream *stream,
 }
 
 GtkHTMLStream *
-gtk_html_stream_log_new (GtkHTML *html,
-			 GtkHTMLStreamWriteFunc write_func,
-			 GtkHTMLStreamCloseFunc close_func,
-			 gpointer user_data)
+gtk_html_stream_log_new (GtkHTML *html, GtkHTMLStream *stream)
 {
 	GtkHTMLLog *log;
 	GtkHTMLStream *new_stream;
@@ -124,10 +141,7 @@ gtk_html_stream_log_new (GtkHTML *html,
 	static int log_num = 0;
 
 	log = g_new (GtkHTMLLog, 1);
-	log->stream = gtk_html_stream_new (html,
-					   write_func,
-					   close_func,
-					   user_data);
+	log->stream = stream;
 	
 	
 	fname = g_strdup_printf ("gtkhtml.log.%d", log_num);
@@ -137,9 +151,14 @@ gtk_html_stream_log_new (GtkHTML *html,
 	log_num ++;
 
 	new_stream = gtk_html_stream_new (html,
+					  stream_log_types,
 					  stream_log_write,
 					  stream_log_close,
 					  log);
 					  
 	return new_stream;
 }
+
+
+
+

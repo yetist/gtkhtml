@@ -1,3 +1,31 @@
+2001-07-19  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml-stream.c (gtk_html_stream_new): add a types function
+	that returns the supported content types on the stream.  Now it is
+	possible for the app to figure out wether or not it should wrap
+	image data in html for display.
+	(stream_log_types): add a log implementation of the types function.
+	(gtk_html_stream_log_new): take an already existing stream instead
+	of all the component parts, this makes it slightly easier to log
+	random streams.
+	(gtk_html_stream_get_types): get the supported content types of a
+	given stream.
+
+	* gtkhtml-stream.h: add gtk_html_stream_get_types and fixup other
+	prototypes.
+
+	* gtkhtml-types.h: add GtkHTMLStreamTypesFunc typedef.
+
+	* htmlengine.c (html_engine_stream_types): add engine
+	stream_types.
+	(html_engine_stream_write): renamed from html_engine_write.
+	(html_engine_strean_end): renamed from html_engine_end.
+	(html_engine_begin): use the reworked html_stream_log_new function.
+
+	* htmlimage.c (html_image_factory_types): add a simple stream type
+	function.
+	(html_image_pointer_load): add the types function.
+
 2001-07-18  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine.c (html_engine_get_max_width): change return value to

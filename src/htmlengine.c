@@ -105,11 +105,13 @@ static void      html_engine_class_init       (HTMLEngineClass     *klass);
 static void      html_engine_init             (HTMLEngine          *engine);
 static gboolean  html_engine_timer_event      (HTMLEngine          *e);
 static gboolean  html_engine_update_event     (HTMLEngine          *e);
-static void      html_engine_write            (GtkHTMLStream       *stream,
+static char **   html_engine_stream_types     (GtkHTMLStream       *stream,
+					       gpointer            data);
+static void      html_engine_stream_write     (GtkHTMLStream       *stream,
 					       const gchar         *buffer,
 					       guint                size,
 					       gpointer             data);
-static void      html_engine_end              (GtkHTMLStream       *stream,
+static void      html_engine_stream_end       (GtkHTMLStream       *stream,
 					       GtkHTMLStreamStatus  status,
 					       gpointer             data);
 static void      html_engine_set_class_data   (HTMLEngine          *e,
@@ -3558,16 +3560,14 @@ html_engine_begin (HTMLEngine *e, char *content_type)
 	html_image_factory_stop_animations (e->image_factory);
 	html_image_factory_cleanup (e->image_factory);
 
-#ifdef LOG_INPUT
-	new_stream = gtk_html_stream_log_new (GTK_HTML (e->widget),
-					      html_engine_write,
-					      html_engine_end,
-					      e);
-#else
+
 	new_stream = gtk_html_stream_new (GTK_HTML (e->widget),
-					  html_engine_write,
-					  html_engine_end,
+					  html_engine_stream_types,
+					  html_engine_stream_write,
+					  html_engine_stream_end,
 					  e);
+#ifdef LOG_INPUT
+	new_stream = gtk_html_stream_log_new (GTK_HTML (e->widget), new_stream);
 #endif
 	
 	e->newPage = TRUE;
@@ -3581,11 +3581,20 @@ html_engine_begin (HTMLEngine *e, char *content_type)
 	return new_stream;
 }
 
-void
-html_engine_write (GtkHTMLStream *handle,
-		   const gchar *buffer,
-		   guint size,
-		   gpointer data)
+char *engine_content_types[]= {"text/html", NULL};
+
+static char **
+html_engine_stream_types (GtkHTMLStream *handle,
+			  gpointer data)
+{
+	return engine_content_types;
+}
+
+static void
+html_engine_stream_write (GtkHTMLStream *handle,
+			  const gchar *buffer,
+			  guint size,
+			  gpointer data)
 {
 	HTMLEngine *e;
 
@@ -3735,6 +3744,32 @@ html_engine_goto_anchor (HTMLEngine *e,
 	return TRUE;
 }
 
+#if 0
+struct {
+	HTMLEngine *e;
+	HTMLObject *o;
+} respon
+
+static void 
+find_engine (HTMLObject *o, HTMLEngine *e, HTMLEngine **parent_engine)
+{
+	
+}
+
+gchar *
+html_engine_get_object_base (HTMLEngine *e, HTMLObject *o) 
+{
+	HTMLEngine *parent_engine = NULL;
+	
+	g_return_if_fail (e != NULL);
+	g_return_if_fail (o != NULL);
+	
+	html_object_forall (o, e, find_engine, &parent_engine);
+
+	
+}
+#endif 
+
 static gboolean
 html_engine_timer_event (HTMLEngine *e)
 {
@@ -3801,9 +3836,9 @@ ensure_last_clueflow (HTMLEngine *engine)
 }
 
 static void
-html_engine_end (GtkHTMLStream *stream,
-		 GtkHTMLStreamStatus status,
-		 gpointer data)
+html_engine_stream_end (GtkHTMLStream *stream,
+			GtkHTMLStreamStatus status,
+			gpointer data)
 {
 	HTMLEngine *e;
 

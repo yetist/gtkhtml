@@ -28,24 +28,24 @@
 struct _GtkHTMLStream {
 	GtkHTMLStreamWriteFunc write_func;
 	GtkHTMLStreamCloseFunc close_func;
+	GtkHTMLStreamTypesFunc types_func;
 	gpointer user_data;
 };
 
 
-GtkHTMLStream *gtk_html_stream_new      (GtkHTML                *html,
-					 GtkHTMLStreamWriteFunc  write_func,
-					 GtkHTMLStreamCloseFunc  close_func,
-					 gpointer                user_data);
-void           gtk_html_stream_write    (GtkHTMLStream          *stream,
-					 const gchar            *buffer,
-					 size_t                  size);
-void           gtk_html_stream_destroy  (GtkHTMLStream          *stream);
-void           gtk_html_stream_close    (GtkHTMLStream          *stream,
-					 GtkHTMLStreamStatus     status);
+GtkHTMLStream *gtk_html_stream_new       (GtkHTML                *html,
+					  GtkHTMLStreamTypesFunc  type_func,
+					  GtkHTMLStreamWriteFunc  write_func,
+					  GtkHTMLStreamCloseFunc  close_func,
+					  gpointer                user_data);
+void           gtk_html_stream_write     (GtkHTMLStream          *stream,
+					  const gchar            *buffer,
+					  size_t                  size);
+void           gtk_html_stream_destroy   (GtkHTMLStream          *stream);
+void           gtk_html_stream_close     (GtkHTMLStream          *stream,
+					  GtkHTMLStreamStatus     status);
+char **        gtk_html_stream_get_types (GtkHTMLStream *stream);
 
-GtkHTMLStream *gtk_html_stream_log_new  (GtkHTML                *html,
-					 GtkHTMLStreamWriteFunc  write_func,
-					 GtkHTMLStreamCloseFunc  close_func,
-					 gpointer                user_data);
+GtkHTMLStream *gtk_html_stream_log_new   (GtkHTML *html, GtkHTMLStream *stream);
 
 #endif /* _GTKHTML_STREAM_H */

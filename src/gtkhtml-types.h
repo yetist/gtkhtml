@@ -36,13 +36,15 @@ typedef struct _GtkHTMLEmbeddedPrivate GtkHTMLEmbeddedPrivate;
 typedef struct _GtkHTMLPrivate GtkHTMLPrivate;
 typedef struct _GtkHTMLStream GtkHTMLStream;
 
-typedef void (* GtkHTMLStreamCloseFunc) (GtkHTMLStream *stream,
-					 GtkHTMLStreamStatus status,
-					 gpointer user_data);
-typedef void (* GtkHTMLStreamWriteFunc) (GtkHTMLStream *stream,
-					 const gchar *buffer,
-					 guint size,
-					 gpointer user_data);
+typedef char **(* GtkHTMLStreamTypesFunc) (GtkHTMLStream *stream, 
+					   gpointer user_data);
+typedef void   (* GtkHTMLStreamCloseFunc) (GtkHTMLStream *stream,
+					   GtkHTMLStreamStatus status,
+					   gpointer user_data);
+typedef void   (* GtkHTMLStreamWriteFunc) (GtkHTMLStream *stream,
+					   const gchar *buffer,
+					   guint size,
+					   gpointer user_data);
 
 /* FIXME 1st param should be Engine */
 typedef gboolean (* GtkHTMLSaveReceiverFn)   (gpointer     engine,
