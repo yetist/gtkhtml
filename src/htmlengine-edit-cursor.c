@@ -21,6 +21,8 @@
 
 #include <config.h>
 #include <gtk/gtkmain.h>
+#include "gtkhtml.h"
+#include "gtkhtml-private.h"
 #include "htmlcursor.h"
 #include "htmlengine.h"
 #include "htmlengine-edit-cursor.h"
@@ -261,6 +263,7 @@ html_engine_draw_cursor_in_area (HTMLEngine *engine,
 	HTMLObject *obj;
 	guint offset;
 	gint x1, y1, x2, y2;
+	GdkRectangle pos;
 
 	g_assert (engine->editable);
 
@@ -286,12 +289,17 @@ html_engine_draw_cursor_in_area (HTMLEngine *engine,
 		y = 0;
 	}
 
+	
 	html_object_get_cursor (obj, engine->painter, offset, &x1, &y1, &x2, &y2);
+	
+	pos.x = x1; 
+	pos.y = y1;
+	pos.width = x2 - x1;
+	pos.height = x2 - x1;
+	gtk_im_context_set_cursor_location (GTK_HTML (engine->widget)->priv->im_context, &pos);
+
 	if (clip_rect (engine, x, y, width, height, &x1, &y1, &x2, &y2)) {
 		gdk_draw_line (engine->window, engine->invert_gc, x1, y1, x2, y2);
-#ifdef GTK_HTML_USE_XIM
-		gtk_html_im_position_update (engine->widget, x2, y2);
-#endif
 	}
 }
 

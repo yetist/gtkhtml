@@ -1,3 +1,8 @@
+2003-04-01  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine-edit-cursor.c (html_engine_draw_cursor_in_area):
+	update the im_context cursor location as it moves.
+
 2003-04-01  Radek Doulik  <rodo@ximian.com>
 
 	* htmltextslave.c (hts_fit_line): fix breaking
