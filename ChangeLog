@@ -1,3 +1,8 @@
+2001-10-12  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml.spec: remove the Maintainer: line as it was breaking
+	things for people (sorry Chipzz).  Fixes Ximian #9168
+
 2001-10-09  Larry Ewing  <lewing@ximian.com>
 
 	* configure.in: bump versions for snapshots.
