@@ -1,4 +1,17 @@
 2000-01-03  Jonas Borgström <jonas_b@bitsmart.com>
+	
+	* Makefile.am : Added htmlimageinput.c and htmlimageinput.h
+
+	* gtkhtml.c (button_press_event): Call html_engine_mouse_event
+
+	* htmlengine.c (html_engine_mouse_event): New function.
+	(parse_input): Added imageinput support.
+
+	* htmltype.[ch]: Added class HTMLImageInput.
+	
+	* htmlimageinput.[ch]: New files.
+
+2000-01-03  Jonas Borgström <jonas_b@bitsmart.com>
 
 	* Makefile.am : Added htmltextarea and htmlselect
 	

@@ -36,6 +36,7 @@
 #include "htmlhidden.h"
 #include "htmlhspace.h"
 #include "htmlimage.h"
+#include "htmlimageinput.h"
 #include "htmllinktext.h"
 #include "htmllinktextmaster.h"
 #include "htmlobject.h"
@@ -75,6 +76,7 @@ html_types_init (void)
 	html_hidden_type_init ();
 	html_hspace_type_init ();
 	html_image_type_init ();
+	html_imageinput_type_init ();
 	html_link_text_type_init ();
 	html_link_text_master_type_init ();
 	html_object_type_init ();
@@ -127,6 +129,8 @@ html_type_name (HTMLType type)
  		return "HSpace";
 	case HTML_TYPE_IMAGE:
  		return "Image";
+	case HTML_TYPE_IMAGEINPUT:
+ 		return "ImageInput";
 	case HTML_TYPE_LINKTEXT:
  		return "LinkText";
 	case HTML_TYPE_LINKTEXTMASTER:

@@ -62,6 +62,7 @@
 #include "htmlhidden.h"
 #include "htmlselect.h"
 #include "htmltextarea.h"
+#include "htmlimageinput.h"
 
 
 static void     html_engine_class_init (HTMLEngineClass *klass);
@@ -1040,11 +1041,15 @@ parse_input (HTMLEngine *e, const gchar *str) {
 	case Image:
 		{
 		gchar *url = NULL;
+		HTMLObject *image;
 
 		if(imgSrc)
 			url = html_url_to_string(imgSrc);
 
-		g_warning("Image: imgsrc = '%s' IMPLEMENT!!!!!!\n", url);
+		image = html_imageinput_new (e->image_factory, name, url);
+		html_clue_append (HTML_CLUE (e->flow), image);
+
+		html_form_add_element (e->form, HTML_ELEMENT (image));
 
 		if(url)
 			g_free(url);
@@ -3418,6 +3423,21 @@ html_engine_get_link_at (HTMLEngine *e, gint x, gint y)
 		return html_object_get_url (obj);
 
 	return NULL;
+}
+
+HTMLObject *
+html_engine_mouse_event (HTMLEngine *e,
+	     gint x, gint y, gint button, gint state)
+{
+	HTMLObject *obj;
+	if ( e->clue == NULL )
+		return NULL;
+
+	obj = html_object_mouse_event (HTML_OBJECT (e->clue),
+				       x + e->x_offset - e->leftBorder,
+				       y + e->y_offset - e->topBorder, button, state);
+
+	return obj;
 }
 
 void
