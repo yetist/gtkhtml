@@ -264,11 +264,11 @@ search (HTMLObject *self, HTMLSearch *info)
 {
 	HTMLEngine *e = GTK_HTML (HTML_IFRAME (self)->html)->engine;
 
-	printf ("search\n");
+	/* printf ("search\n"); */
 
 	/* search_next? */
 	if (info->stack && HTML_OBJECT (info->stack->data) == e->clue) {
-		printf ("next\n");
+		/* printf ("next\n"); */
 		info->engine = GTK_HTML (GTK_HTML (HTML_IFRAME (self)->html)->iframe_parent)->engine;
 		html_search_pop (info);
 		html_engine_unselect_all (e);
@@ -282,7 +282,7 @@ search (HTMLObject *self, HTMLSearch *info)
 	html_search_pop (info);
 
 	info->engine = GTK_HTML (GTK_HTML (HTML_IFRAME (self)->html)->iframe_parent)->engine;
-	printf ("FALSE\n");
+	/* printf ("FALSE\n"); */
 
 	return FALSE;
 }

@@ -1737,8 +1737,6 @@ html_table_end_row (HTMLTable *table)
 void
 html_table_end_table (HTMLTable *table)
 {
-	/* if (table->row)
-	   prev_col_do_cspan (table, table->row - 1); */
 }
 
 gint

@@ -1,5 +1,8 @@
 2000-09-29  Radek Doulik  <rodo@helixcode.com>
 
+	* gtkhtml-search.c (changed): call html_engine_search_incremental
+	only for non "" texts
+
 	* htmltable.c (html_table_end_table): don't cal lprev_col_do_cspan
 	anymore
 
