@@ -2066,8 +2066,16 @@ html_object_get_insert_level (HTMLObject *o)
 {
 	switch (HTML_OBJECT_TYPE (o)) {
 	case HTML_TYPE_TABLECELL:
-	case HTML_TYPE_CLUEV:
-		return 3;
+	case HTML_TYPE_CLUEV: {
+		int level = 3;
+
+		while (o && HTML_IS_CLUEV (o) && HTML_CLUE (o)->head && HTML_IS_CLUEV (HTML_CLUE (o)->head)) {
+			level ++;
+			o = HTML_CLUE (o)->head;
+		}
+
+		return level;
+	}
 	case HTML_TYPE_CLUEFLOW:
 		return 2;
 	default:

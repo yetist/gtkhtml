@@ -121,6 +121,7 @@ copy (HTMLObject *self,
 	HTML_CLUEFLOW (dest)->clear = HTML_CLUEFLOW (self)->clear;
 	HTML_CLUEFLOW (dest)->item_color = HTML_CLUEFLOW (self)->item_color;
 	HTML_CLUEFLOW (dest)->indent_width = HTML_CLUEFLOW (self)->indent_width;
+	HTML_CLUEFLOW (dest)->dir = HTML_CLUEFLOW (self)->dir;
 	
 	if (HTML_CLUEFLOW (dest)->item_color)
 		html_color_ref (HTML_CLUEFLOW (dest)->item_color);
@@ -226,6 +227,32 @@ get_recursive_length (HTMLObject *self)
 	return (*HTML_OBJECT_CLASS (parent_class)->get_recursive_length) (self) + (self->next ? 1 : 0);
 }
 
+static gboolean
+prev_flow_in_cluevs (HTMLObject *o)
+{
+	if (o->prev)
+		return TRUE;
+
+	o = o->parent;
+
+	/* go up the tree to find cluev with prev */
+	while (o && HTML_IS_CLUEV (o) && !o->prev)
+		o = o->parent;
+
+	/* go down the tree to find last clueflow */
+	if (o && o->prev) {
+		o = o->prev;
+
+		while (o && HTML_IS_CLUEV (o))
+			o = HTML_CLUE (o)->tail;
+
+		if (o && HTML_IS_CLUEFLOW (o))
+			return TRUE;
+	}
+
+	return FALSE;
+}
+
 static HTMLObject *
 op_helper (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GList *right, guint *len, gboolean cut)
 {
@@ -237,7 +264,7 @@ op_helper (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left,
 		return NULL; 
 	if (!from && (*len || !(self->prev && HTML_IS_CLUEFLOW (self->prev) && HTML_IS_TABLE (HTML_CLUE (self->prev)->tail))))
 	(*len) ++; */
-	if (!from && self->prev) {
+	if (!from && prev_flow_in_cluevs (self)) {
 		(*len) ++;
 		/* if (cut)
 		   e->cursor->position --; */

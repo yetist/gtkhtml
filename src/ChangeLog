@@ -1,5 +1,23 @@
 2005-02-03  Radek Doulik  <rodo@novell.com>
 
+	* test-suite.c (test_delete_nested_cluevs_and_undo): added new
+	test for deletion across nested cluev's
+
+	* htmlobject.c (html_object_get_insert_level): fix level
+	calculation for nested cluev's
+
+	* htmlengine-edit-cut-and-paste.c (html_engine_delete): do the
+	"simple" delete for nested cluev's
+
+	* htmlclueflow.c (op_helper): update length calculation logic to
+	work with nested cluev's
+
+	* htmlcluev.c (copy): copy direction and background color
+
+	* htmltext.c (copy): copy direction
+
+	* htmlclueflow.c (copy): copy direction
+
 	* htmlcluealigned.h: removed declaration of html_cluealigned_class
 	to fix compilation with gcc 4.0.0 (fix by amd)
 

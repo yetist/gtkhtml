@@ -301,9 +301,14 @@ copy (HTMLObject *self,
 	HTML_CLUEV (dest)->border_color = HTML_CLUEV (self)->border_color;
 	if (HTML_CLUEV (dest)->border_color)
 		html_color_ref (HTML_CLUEV (dest)->border_color);
+	HTML_CLUEV (dest)->background_color = HTML_CLUEV (self)->background_color;
+	if (HTML_CLUEV (dest)->background_color)
+		html_color_ref (HTML_CLUEV (dest)->background_color);
 
 	HTML_CLUEV (dest)->align_left_list = NULL;
 	HTML_CLUEV (dest)->align_right_list = NULL;
+
+	HTML_CLUEV (dest)->dir = HTML_CLUEV (self)->dir;
 }
 
 static gboolean

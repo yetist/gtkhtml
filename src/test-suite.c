@@ -8,6 +8,8 @@
 #include "htmlcluev.h"
 #include "htmlcursor.h"
 #include "htmlengine.h"
+#include "htmlengine-edit.h"
+#include "htmlengine-edit-cut-and-paste.h"
 #include "htmlengine-edit-movement.h"
 #include "htmlengine-edit-text.h"
 #include "htmltext.h"
@@ -26,6 +28,7 @@ static int test_cursor_around_containers (GtkHTML *html);
 
 static int test_quotes_in_div_block (GtkHTML *html);
 static int test_capitalize_upcase_lowcase_word (GtkHTML *html);
+static int test_delete_nested_cluevs_and_undo (GtkHTML *html);
 
 static Test tests[] = {
 	{ "cursor movement", NULL },
@@ -38,6 +41,7 @@ static Test tests[] = {
 	{ "various fixed bugs", NULL },
 	{ "outer quotes inside div block", test_quotes_in_div_block },
 	{ "capitalize, upcase/lowcase word", test_capitalize_upcase_lowcase_word },
+	{ "delete across nested cluev's and undo", test_delete_nested_cluevs_and_undo },
 	{ NULL, NULL }
 };
 
@@ -47,6 +51,38 @@ static void load_editable (GtkHTML *html, char *s)
 	gtk_html_load_from_string (html, s, -1);
 /* 	gtk_html_debug_dump_tree_simple (html->engine->clue, 0); */
 	gtk_html_set_editable (html, TRUE);
+}
+
+static int test_delete_nested_cluevs_and_undo (GtkHTML *html)
+{
+	load_editable (html, "<div>abc</div><div>efg</div>");
+
+	html_cursor_jump_to_position (html->engine->cursor, html->engine, 1);
+	if (html->engine->cursor->offset != 1
+	    || html->engine->cursor->position != 1)
+		return FALSE;
+
+	html_engine_set_mark (html->engine);
+	html_cursor_jump_to_position (html->engine->cursor, html->engine, 6);
+	if (html->engine->cursor->offset != 2
+	    || html->engine->cursor->position != 6)
+		return FALSE;
+
+	html_engine_delete (html->engine);
+
+	html_engine_end_of_document (html->engine);
+	if (html->engine->cursor->offset != 2
+	    || html->engine->cursor->position != 2)
+		return FALSE;
+
+	html_engine_undo (html->engine);
+
+	html_engine_end_of_document (html->engine);
+	if (html->engine->cursor->offset != 3
+	    || html->engine->cursor->position != 7)
+		return FALSE;
+
+	return TRUE;
 }
 
 static int test_cursor_around_containers (GtkHTML *html)

@@ -177,6 +177,7 @@ copy (HTMLObject *s,
 		csl->data = html_link_dup ((Link *) csl->data);
 
 	dest->pi = NULL;
+	dest->direction = src->direction;
 }
 
 /* static void

@@ -263,6 +263,8 @@ gtk_html_debug_dump_object (HTMLObject *obj,
 				g_print ("\n");
 			}
 		}
+		gtk_html_debug_list_links (text);
+		gtk_html_debug_list_text_attrs (text);
 		break;
 	}
 	case HTML_TYPE_CLUEV:
@@ -338,9 +340,7 @@ dump_object_simple (HTMLObject *obj,
 		g_print ("%s `%s'\n",
 			 html_type_name (HTML_OBJECT_TYPE (obj)),
 			 text->text);
-		g_print ("len %d bytes %d\n", text->text_len, text->text_bytes);
-		gtk_html_debug_list_links (text);
-		gtk_html_debug_list_text_attrs (text);
+/* 		g_print ("len %d bytes %d\n", text->text_len, text->text_bytes); */
 	} else if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_TEXTSLAVE) {
 		HTMLTextSlave *slave = HTML_TEXT_SLAVE (obj);
 		gchar *text;

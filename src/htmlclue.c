@@ -245,8 +245,8 @@ split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint lev
 	*left  = g_list_prepend (*left, self);
 	*right = g_list_prepend (*right, dup);
 
-	level--;
-	if (level)
+	level --;
+	if (level > 0)
 		html_object_split (self->parent, e, dup, 0, level, left, right);
 }
 

@@ -195,8 +195,9 @@ prepare_delete_bounds (HTMLEngine *e, GList **from_list, GList **to_list,
 
 	common_parent = get_common_parent (begin.object, end.object);
 	ret_level     = html_object_get_parent_level (common_parent);
-	/* printf ("common parent level: %d\n", ret_level); */
-
+#ifdef OP_DEBUG
+	printf ("common parent level: %d\n", ret_level);
+#endif
 	*from_list = point_get_parent_list (&begin, get_parent_depth (begin.object, common_parent), TRUE);
 	*to_list   = point_get_parent_list (&end,   get_parent_depth (end.object, common_parent),   TRUE);
 
@@ -336,22 +337,22 @@ static void
 split_and_add_empty_texts (HTMLEngine *e, gint level, GList **left, GList **right)
 {
 #ifdef OP_DEBUG
-	printf ("-- SPLIT begin\n");
+	printf ("-- SPLIT begin\ne->clue:\n");
 	gtk_html_debug_dump_tree_simple (e->clue, 0);
 	printf ("-- SPLIT middle\n");
 #endif
 	html_object_split (e->cursor->object, e, *right ? HTML_OBJECT ((*right)->data) : NULL,
 			   e->cursor->offset, level, left, right);
 #ifdef OP_DEBUG
-	printf ("-- SPLIT middle\n");
+	printf ("-- SPLIT middle\ne->clue:\n");
 	gtk_html_debug_dump_tree_simple (e->clue, 0);
 	printf ("-- SPLIT finish\n");
 	if (*left && (*left)->data) {
-		printf ("left\n");
+		printf ("left:\n");
 		gtk_html_debug_dump_tree_simple (HTML_OBJECT ((*left)->data), 0);
 	}
 	if (*right && (*right)->data) {
-		printf ("right\n");
+		printf ("right:\n");
 		gtk_html_debug_dump_tree_simple (HTML_OBJECT ((*right)->data), 0);
 	}
 	printf ("-- SPLIT end\n");
@@ -423,15 +424,18 @@ delete_setup_undo (HTMLEngine *e, HTMLObject *buffer, guint len, guint position_
 
 	undo = g_new (DeleteUndo, 1);
 
-	/* printf ("cursor level: %d undo level: %d\n", html_object_get_parent_level (e->cursor->object), level); */
+#ifdef OP_DEBUG
+	printf ("cursor level: %d undo level: %d\n", html_object_get_parent_level (e->cursor->object), level);
+#endif
 	html_undo_data_init (HTML_UNDO_DATA (undo));
 	undo->data.destroy = delete_undo_destroy;
 	undo->buffer       = buffer;
 	undo->buffer_len   = len;
 	undo->level        = level;
 
-	/* printf ("delete undo len %d\n", len); */
-
+#ifdef OP_DEBUG
+	printf ("delete undo len %d\n", len);
+#endif
 	html_undo_add_action (e->undo,
 			      html_undo_action_new ("Delete object", delete_undo_action,
 						    HTML_UNDO_DATA (undo), html_cursor_get_position (e->cursor),
@@ -1702,6 +1706,36 @@ delete_upto (HTMLEngine *e, HTMLCursor **start, HTMLCursor **end, HTMLObject *ob
 	(*end)->position -= position - e->cursor->position;
 }
 
+static gboolean
+check_for_simple_containers (HTMLObject *child, HTMLObject *parent)
+{
+	while (child && child != parent) {
+		if (html_object_is_container (child)) {
+			switch (child->klass->type) {
+			case HTML_TYPE_CLUEFLOW:
+			case HTML_TYPE_CLUEV:
+				break;
+			default:
+				return FALSE;
+			}
+		}
+		child = child->parent;
+	}
+
+	return TRUE;
+}
+
+static gboolean
+check_for_simple_delete (HTMLObject *start, HTMLObject *end)
+{
+	HTMLObject *common_parent = get_common_parent (start, end);
+
+	if (common_parent && check_for_simple_containers (start, common_parent) && check_for_simple_containers (end, common_parent))
+		return TRUE;
+
+	return FALSE;
+}
+
 void
 html_engine_delete (HTMLEngine *e)
 {
@@ -1715,7 +1749,7 @@ html_engine_delete (HTMLEngine *e)
 
 
 		while (start->position < end->position) {
-			if (start->object->parent->parent == end->object->parent->parent) {
+			if (check_for_simple_delete (start->object, end->object)) {
 				if (e->mark)
 					html_cursor_destroy (e->mark);
 				html_cursor_destroy (e->cursor);
