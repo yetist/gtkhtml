@@ -1,5 +1,16 @@
 2000-06-23  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine-edit-fontstyle.c
+	(html_engine_update_insertion_color): new function, used in
+	update_styles
+	(html_engine_get_color): new function, simply returns engine
+	insertion color
+	(html_engine_get_document_color): new function, returns color of
+	text under cursor or in selection
+
+	* gtkhtml.c: added signal insertion_color_changed
+	(update_styles): emit insertion_color_changed signal when needed
+
 	* htmlengine-edit-insert.c (html_engine_insert): use insertion color
 	(create_action_data): remember color
 	(do_redo): use remebered color

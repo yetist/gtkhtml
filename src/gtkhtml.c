@@ -67,6 +67,7 @@ enum {
 	CURRENT_PARAGRAPH_INDENTATION_CHANGED,
 	CURRENT_PARAGRAPH_ALIGNMENT_CHANGED,
 	INSERTION_FONT_STYLE_CHANGED,
+	INSERTION_COLOR_CHANGED,
 	SIZE_CHANGED,
 	/* keybindings signals */
 	SCROLL,
@@ -230,6 +231,9 @@ update_styles (GtkHTML *html)
 
 	if (html_engine_update_insertion_font_style (engine))
 		gtk_signal_emit (GTK_OBJECT (html), signals[INSERTION_FONT_STYLE_CHANGED], engine->insertion_font_style);
+
+	if (html_engine_update_insertion_color (engine))
+		gtk_signal_emit (GTK_OBJECT (html), signals[INSERTION_COLOR_CHANGED], engine->insertion_color);
 }
 
 
@@ -1252,6 +1256,15 @@ class_init (GtkHTMLClass *klass)
 				gtk_marshal_NONE__INT,
 				GTK_TYPE_NONE, 1,
 				GTK_TYPE_INT);
+	
+	signals [INSERTION_COLOR_CHANGED] =
+		gtk_signal_new ("insertion_color_changed",
+				GTK_RUN_FIRST,
+				object_class->type,
+				GTK_SIGNAL_OFFSET (GtkHTMLClass, insertion_color_changed),
+				gtk_marshal_NONE__POINTER,
+				GTK_TYPE_NONE, 1,
+				GTK_TYPE_POINTER);
 	
 	signals [SIZE_CHANGED] = 
 		gtk_signal_new ("size_changed",

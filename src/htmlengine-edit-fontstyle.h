@@ -38,4 +38,7 @@ void               html_engine_font_style_toggle            (HTMLEngine *engine,
 /* colors */
 void               html_engine_set_color                    (HTMLEngine *engine,
 							     GdkColor *color);
+GdkColor *         html_engine_get_color                    (HTMLEngine *engine);
+GdkColor *         html_engine_get_document_color           (HTMLEngine *engine);
+
 #endif

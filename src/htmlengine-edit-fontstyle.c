@@ -723,6 +723,39 @@ get_font_style_from_selection (HTMLEngine *engine)
 	return style & ~conflicts;
 }
 
+static GdkColor *
+get_color_from_selection (HTMLEngine *engine)
+{
+	GdkColor *color = NULL;
+	gboolean backwards;
+	HTMLObject *p;
+
+	g_return_val_if_fail (engine->clue != NULL, NULL);
+	g_assert (engine->mark != NULL);
+
+	backwards = (engine->mark->position < engine->cursor->position) ? TRUE : FALSE;
+
+	p = engine->cursor->object;
+	while (1) {
+		if (html_object_is_text (p) && p->selected) {
+			color = &HTML_TEXT (p)->color;
+			break;
+		}
+
+		if (p == engine->mark->object)
+			break;
+
+		if (backwards)
+			p = html_object_prev_for_cursor (p);
+		else
+			p = html_object_next_for_cursor (p);
+
+		g_assert (p != NULL);
+	}
+
+	return color;
+}
+
 GtkHTMLFontStyle
 html_engine_get_document_font_style (HTMLEngine *engine)
 {
@@ -744,12 +777,39 @@ html_engine_get_document_font_style (HTMLEngine *engine)
 		return get_font_style_from_selection (engine);
 }
 
+GdkColor *
+html_engine_get_document_color (HTMLEngine *engine)
+{
+	HTMLObject *curr;
+
+	g_return_val_if_fail (engine != NULL, NULL);
+	g_return_val_if_fail (HTML_IS_ENGINE (engine), NULL);
+	g_return_val_if_fail (engine->editable, NULL);
+
+	curr = engine->cursor->object;
+
+	if (curr == NULL)
+		return NULL;
+	else if (! html_object_is_text (curr))
+		return NULL;
+	else if (! engine->active_selection)
+		return &HTML_TEXT (curr)->color;
+	else
+		return get_color_from_selection (engine);
+}
+
 GtkHTMLFontStyle
 html_engine_get_font_style (HTMLEngine *engine)
 {
 	return (engine->insertion_font_style == GTK_HTML_FONT_STYLE_DEFAULT)
 		? html_engine_get_document_font_style (engine)
 		: engine->insertion_font_style;
+}
+
+GdkColor *
+html_engine_get_color (HTMLEngine *engine)
+{
+	return &engine->insertion_color;
 }
 
 /**
@@ -770,6 +830,30 @@ html_engine_update_insertion_font_style (HTMLEngine *engine)
 
 	if (new_style != engine->insertion_font_style) {
 		engine->insertion_font_style = new_style;
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
+/**
+ * html_engine_update_insertion_style:
+ * @engine: An HTMLEngine
+ * 
+ * Update @engine's current insertion font style/color according to the
+ * current selection and cursor position.
+ * 
+ * Return value: 
+ **/
+gboolean
+html_engine_update_insertion_color (HTMLEngine *engine)
+{
+	GdkColor *new_color;
+
+	new_color = html_engine_get_document_color (engine);
+
+	if (!gdk_color_equal (new_color, engine->insertion_color))
+		engine->insertion_color = *new_style;
 		return TRUE;
 	}
 
