@@ -17,7 +17,7 @@ AM_CFLAGS = 								\
 	-DG_DISABLE_DEPRECATED=1					\
 	-DGNOME_DISABLE_DEPRECATED=1
 
-lib_LTLIBRARIES = libgtkhtml-3.0.la
+lib_LTLIBRARIES = libgtkhtml-3.1.la
 
 libgtkhtmldir = $(includedir)/libgtkhtml-@GTKHTML_RELEASE@/gtkhtml
 
@@ -112,7 +112,7 @@ libgtkhtml_HEADERS =				\
 	htmlengine-edit-table.h			\
 	$(NULL)
 
-libgtkhtml_3_0_la_SOURCES =			\
+libgtkhtml_3_1_la_SOURCES =			\
 	gtkhtml-embedded.c			\
 	gtkhtml-properties.c			\
 	gtkhtml-search.c			\
@@ -192,8 +192,8 @@ libgtkhtml_3_0_la_SOURCES =			\
 	htmlframeset.c				\
 	$(NULL)
 
-libgtkhtml_3_0_la_LDFLAGS = -version-info $(GTKHTML_CURRENT):$(GTKHTML_REVISION):$(GTKHTML_AGE)
-libgtkhtml_3_0_la_LIBADD = $(GTKHTML_LIBS) ../a11y/libgtkhtml-a11y-3.0.la
+libgtkhtml_3_1_la_LDFLAGS = -version-info $(GTKHTML_CURRENT):$(GTKHTML_REVISION):$(GTKHTML_AGE)
+libgtkhtml_3_1_la_LIBADD = $(GTKHTML_LIBS) ../a11y/libgtkhtml-a11y-3.1.la
 
 dist-hook:
 	mkdir $(distdir)/tests

@@ -1,3 +1,8 @@
+2003-07-25  Larry Ewing  <lewing@ximian.com>
+
+	* configure.in: bump interface version from 3.0 to 3.1 clear .so
+	version
+
 2003-06-26  Larry Ewing  <lewing@ximian.com>
 
 	* configure.in: bump versions for release.
