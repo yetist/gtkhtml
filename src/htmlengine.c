@@ -4395,10 +4395,7 @@ html_engine_add_object_with_id (HTMLEngine *e, const gchar *id, HTMLObject *obj)
 	if (!g_hash_table_lookup_extended (e->id_table, id, &old_key, &old_val))
 		old_key = NULL;
 
-	g_hash_table_insert (e->id_table, g_strdup (id), obj);
-
-	if (old_key)
-		g_free (old_key);
+	g_hash_table_insert (e->id_table, old_key ? old_key : g_strdup (id), obj);
 }
 
 HTMLObject *

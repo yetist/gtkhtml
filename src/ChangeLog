@@ -1,3 +1,12 @@
+2001-01-29  Radek Doulik  <rodo@ximian.com>
+
+	* htmltable.c (destroy): reversed order of walk thru table as we
+	don't want access freed memory
+
+	* htmlengine.c (html_engine_add_object_with_id): strdup key only
+	if it's a new one, else pass old_key (take a look in glib sources
+	if you don't beleive it's right :)
+
 2001-01-26  Radek Doulik  <rodo@ximian.com>
 
 	* htmlclueflow.c (html_clueflow_spell_check): draw spelled range

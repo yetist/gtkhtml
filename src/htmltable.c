@@ -74,7 +74,7 @@ destroy (HTMLObject *o)
 	HTMLTableCell *cell;
 	guint r, c;
 
-	for (r = 0; r < table->allocRows; r++) {
+	/* for (r = 0; r < table->allocRows; r++) {
 		for (c = 0; c < table->totalCols; c++) {
 			if ((cell = table->cells[r][c]) == 0)
 				continue;
@@ -84,7 +84,19 @@ destroy (HTMLObject *o)
 			html_object_destroy (HTML_OBJECT (cell));
 		}
 		g_free (table->cells [r]);
-	}
+		} */
+	if (table->allocRows && table->totalCols)
+		for (r = table->allocRows - 1; ; r--) {
+			for (c = table->totalCols - 1; ; c--) {
+				if ((cell = table->cells[r][c]) && cell->row == r && cell->col == c)
+					html_object_destroy (HTML_OBJECT (cell));
+				if (c == 0)
+					break;
+			}
+			g_free (table->cells [r]);
+			if (r == 0)
+				break;
+		}
 	g_free (table->cells);
 
 	g_array_free (table->columnMin, TRUE);
