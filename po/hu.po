@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml VERSION\n"
-"POT-Creation-Date: 2001-07-31 18:02+0200\n"
+"POT-Creation-Date: 2001-07-31 10:05-0500\n"
 "PO-Revision-Date: 2001-07-31 18:03+0200\n"
 "Last-Translator: András TÍmár <timar@gnome.hu>\n"
 "Language-Team: Hungarian <hu@gnome.hu>\n"
@@ -379,12 +379,6 @@ msgstr "Engedélyezés"
 msgid "Colors"
 msgstr "Színek"
 
-#: components/html-editor/body.c:169 components/html-editor/cell.c:392
-#: components/html-editor/table.c:539 components/html-editor/text.c:221
-#: components/html-editor/toolbar.c:286
-msgid "Automatic"
-msgstr "Automatikus"
-
 #: components/html-editor/body.c:180
 #: components/html-editor/editor-control-factory.c:172
 #: components/html-editor/menubar.c:125 components/html-editor/popup.c:150
@@ -395,6 +389,11 @@ msgstr "Szöveg"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:4
 msgid "Background"
 msgstr "Háttér"
+
+#: components/html-editor/cell.c:392 components/html-editor/table.c:539
+#: components/html-editor/text.c:221 components/html-editor/toolbar.c:286
+msgid "Automatic"
+msgstr "Automatikus"
 
 #: components/html-editor/editor-control-factory.c:152
 #: components/html-editor/popup.c:142
