@@ -334,6 +334,10 @@ create_editor_toolbar (GtkHTML *html)
 	toolbar = gtk_toolbar_new (GTK_ORIENTATION_HORIZONTAL, GTK_TOOLBAR_ICONS);
 	gtk_widget_show (toolbar);
 
+	gtk_toolbar_prepend_widget (GTK_TOOLBAR (toolbar),
+				    setup_paragraph_style_option_menu (html),
+				    NULL, NULL);
+
 	data = g_new (ToolbarFontStyleData, 1);
 
 	gnome_app_fill_toolbar_with_data (GTK_TOOLBAR (toolbar), editor_toolbar_uiinfo, NULL, data);
@@ -349,13 +353,10 @@ create_editor_toolbar (GtkHTML *html)
 	data->italic_button = editor_toolbar_uiinfo[1].widget;
 	data->underline_button = editor_toolbar_uiinfo[2].widget;
 	data->strikeout_button = editor_toolbar_uiinfo[3].widget;
+	/* FIXME TODO: Button for "fixed" style.  */
 
 	gtk_signal_connect (GTK_OBJECT (toolbar), "destroy",
 			    GTK_SIGNAL_FUNC (toolbar_destroy_cb), data);
-
-	gtk_toolbar_prepend_widget (GTK_TOOLBAR (toolbar),
-				    setup_paragraph_style_option_menu (html),
-				    NULL, NULL);
 
 	toolbar_control = bonobo_control_new (toolbar);
 	return (Bonobo_Control) bonobo_object_corba_objref (BONOBO_OBJECT (toolbar_control));
