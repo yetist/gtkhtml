@@ -252,7 +252,7 @@
 
 	  <widget>
 	    <class>GtkSpinButton</class>
-	    <name>spinbutton1</name>
+	    <name>spin_table_rows</name>
 	    <can_focus>True</can_focus>
 	    <climb_rate>1</climb_rate>
 	    <digits>0</digits>
@@ -284,7 +284,7 @@
 
 	  <widget>
 	    <class>GtkSpinButton</class>
-	    <name>spinbutton2</name>
+	    <name>spin_table_columns</name>
 	    <can_focus>True</can_focus>
 	    <climb_rate>1</climb_rate>
 	    <digits>0</digits>

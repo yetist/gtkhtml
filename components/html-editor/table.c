@@ -102,7 +102,9 @@ typedef struct
 static void
 fill_sample (GtkHTMLEditTableProperties *d)
 {
+	GString *cells;
 	gchar *body, *html, *bg_color, *bg_pixmap, *spacing, *align, *width;
+	gint r, c;
 
 	body      = html_engine_save_get_sample_body (d->cd->html->engine, NULL);
 	bg_color  = d->has_bg_color
@@ -124,12 +126,25 @@ fill_sample (GtkHTMLEditTableProperties *d)
 	width   = d->width != 0 && d->has_width
 		? g_strdup_printf (" width=\"%d%s\"", d->width, d->width_percent ? "%" : "") : g_strdup ("");
 
-	html      = g_strconcat (body, "<table", bg_color, bg_pixmap, spacing, align, width, ">"
-				 "<tr><th>Header</th><th>1</th></tr>"
-				 "<tr><td>Normal</td><td>2</td></tr></table>", NULL);
+	cells  = g_string_new (NULL);
+	for (r = 0; r < d->rows; r ++) {
+		g_string_append (cells, "<tr>");
+		for (c = 0; c < d->cols; c ++) {
+			gchar *cell;
+
+			cell = g_strdup_printf ("<td>%d</td>", d->cols*r + c + 1);
+			g_string_append (cells, cell);
+			g_free (cell);
+		}
+		g_string_append (cells, "</tr>");
+	}
+			
+	html      = g_strconcat (body, "<table", bg_color, bg_pixmap, spacing, align, width, ">",
+				 cells->str, "</table>", NULL);
 	/* printf ("html: %s\n", html); */
 	gtk_html_load_from_string (d->sample, html, -1);
 
+	g_string_free (cells, TRUE);
 	g_free (body);
 	g_free (bg_color);
 	g_free (bg_pixmap);
@@ -355,6 +370,11 @@ table_widget (GtkHTMLEditTableProperties *d)
 	gtk_signal_connect (GTK_OBJECT (gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_width))), "selection-done",
 			    changed_width_percent, d);
 
+	d->spin_cols = glade_xml_get_widget (xml, "spin_table_columns");
+	gtk_signal_connect (GTK_OBJECT (d->spin_cols), "changed", changed_cols, d);
+	d->spin_rows = glade_xml_get_widget (xml, "spin_table_rows");
+	gtk_signal_connect (GTK_OBJECT (d->spin_rows), "changed", changed_rows, d);
+
 	gtk_box_pack_start (GTK_BOX (table_page), sample_frame (&d->sample), FALSE, FALSE, 0);
 
 	gtk_widget_show_all (table_page);
@@ -420,6 +440,9 @@ set_ui (GtkHTMLEditTableProperties *d)
 	gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_width), d->width_percent ? 1 : 0);
 	gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_width), d->width_percent ? 1 : 0);
 
+	gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_cols),  d->cols);
+	gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_rows),  d->rows);
+
 	d->disable_change = FALSE;
 
 	FILL;
@@ -462,6 +485,8 @@ get_data (GtkHTMLEditTableProperties *d)
 	d->spacing = d->table->spacing;
 	d->padding = d->table->padding;
 	d->border  = d->table->border;
+	d->cols    = d->table->totalCols;
+	d->rows    = d->table->totalRows;
 
 	g_return_if_fail (HTML_OBJECT (d->table)->parent);
 	d->align   = HTML_CLUE (HTML_OBJECT (d->table)->parent)->halign;
