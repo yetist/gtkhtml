@@ -764,7 +764,7 @@ key_press_event (GtkWidget *widget,
 		*/
 
 		/* printf ("len: %d str: %s\n", str ? g_utf8_strlen (str, -1) : -1, str); */
-		if (event->string) {
+		if (event->string && event->length) {
 			html_engine_paste_text (html->engine, event->string, event->length);
 			retval = TRUE;
 		}
