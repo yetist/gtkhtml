@@ -2747,18 +2747,17 @@ parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 			token = html_string_tokenizer_next_token (e->st);
 			if (strncasecmp (token, "align=", 6) == 0) {
 				//e->pAlign = parse_halign (token + 6, e->pAlign);
+
 				style = html_style_add_text_align (style, parse_halign (token + 6, HTML_HALIGN_NONE));
 			} else if (strncasecmp (token, "class=", 6) == 0) {
 				class = g_strdup (token + 6);
 			}
 		}
 		
-		if (! e->avoid_para) {
-			close_anchor (e);
-			
-			push_block_element (e, ID_P, style, 0, NULL, 0, 0);
-			g_free (class);
-			
+		close_anchor (e);
+		push_block_element (e, ID_P, style, 0, NULL, 0, 0);
+		g_free (class);
+		if (! e->avoid_para) {	
 			new_flow (e, clue, NULL, HTML_CLEAR_NONE);
 			new_flow (e, clue, NULL, HTML_CLEAR_NONE);
 			e->avoid_para = TRUE;

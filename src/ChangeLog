@@ -1,3 +1,8 @@
+2003-07-17  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c (parse_p): still push the element if avoid para is
+	true since we want to pick up alignment changes etc.
+
 2003-07-16  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine.c (parse_color): no longer zero fill to match
