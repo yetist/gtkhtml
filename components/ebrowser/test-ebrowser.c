@@ -27,7 +27,9 @@ destroy_browser (GtkObject * object, gpointer data)
 {
 	BonoboUIContainer * uic;
 	Bonobo_PropertyBag pb;
+#ifdef TEST_LISTENER
 	BonoboPropertyListener * listener;
+#endif
 
 	g_print ("destroy\n");
 
@@ -39,10 +41,12 @@ destroy_browser (GtkObject * object, gpointer data)
 		bonobo_object_release_unref (pb, NULL);
 	}
 
+#ifdef TEST_LISTENER
 	listener = gtk_object_get_data (object, "listener");
 	if (listener) {
 		bonobo_object_unref (BONOBO_OBJECT (listener));
 	}
+#endif
 }
 
 static void
@@ -109,6 +113,7 @@ property_toggled (GtkToggleButton * tb, gpointer data)
 	}
 }
 
+#ifdef TEST_LISTENER
 static void
 prop_changed_cb (BonoboPropertyListener * listener, gchar * name,
 		 BonoboArg * arg, gpointer data)
@@ -119,6 +124,7 @@ prop_changed_cb (BonoboPropertyListener * listener, gchar * name,
 
 	gtk_entry_set_text (entry, BONOBO_ARG_GET_STRING (arg));
 }
+#endif
 
 static void
 load_file (GtkWidget * widget, gpointer data)
@@ -306,7 +312,7 @@ open_browser (GtkButton * button, gpointer data)
 	/* fixme */
 	gtk_object_set_data (GTK_OBJECT (bwin), "control", c);
 
-#if 1
+#ifdef TEST_LISTENER
 	/* Test listener */
 	{
 		/* fixme: unref */
