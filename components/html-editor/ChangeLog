@@ -6,6 +6,8 @@
 	starting properties dialog (we wand release event of html widget
 	to be processed and it wasn't because of properties dialog
 	modality)
+	(html_button_pressed): use object at under cursor rather than
+	engine->cursor->object
 
 2000-07-01  Radek Doulik  <rodo@helixcode.com>
 
