@@ -79,7 +79,6 @@ gnome_gtkhtml_editor_SOURCES =			\
 	editor-control-factory.h		\
 	engine.h				\
 	engine.c				\
-	gtkhtml-editor-properties.c		\
 	image.c					\
 	image.h					\
 	link.c					\
