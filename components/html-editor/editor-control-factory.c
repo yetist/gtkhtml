@@ -125,8 +125,6 @@ set_frame_cb (BonoboControl *control,
 	GtkWidget *scrolled_window;
 	Bonobo_ControlFrame frame;
 
-	/* printf ("set_frame_cb\n"); */
-
 	control_data = (GtkHTMLControlData *) data;
 
 	frame = bonobo_control_get_control_frame (control, NULL);

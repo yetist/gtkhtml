@@ -760,31 +760,6 @@ gtk_html_set_fonts (GtkHTML *html, HTMLPainter *painter)
 	g_free (fixed_name);
 }
 
-static void
-set_caret_mode(HTMLEngine *engine, gboolean caret_mode)
-{
-	if (engine->editable)
-		return;
-
-	if (!caret_mode && engine->blinking_timer_id)
-		html_engine_stop_blinking_cursor (engine);
-
-	engine->caret_mode = caret_mode;
-
-	if (caret_mode && !engine->parsing && !engine->timerId == 0)
-		gtk_html_edit_make_cursor_visible(engine->widget);
-
-	/* Normally, blink cursor handler is setup in focus in event.
-	 * However, in the case focus already in this engine, and user
-	 * type F7 to enable cursor, we must setup the handler by
-	 * ourselves.
-	 */
-	if (caret_mode && !engine->blinking_timer_id && engine->have_focus)
-		html_engine_setup_blinking_cursor (engine);
-
-	return;
-}
-
 /* GtkWidget methods.  */
 static void
 style_set (GtkWidget *widget, GtkStyle  *previous_style)
@@ -873,7 +848,7 @@ key_press_event (GtkWidget *widget, GdkEventKey *event)
 		}
 	}
 
-	if (retval && (html_engine_get_editable (html->engine) || html->engine->caret_mode))
+	if (retval)
 		html_engine_reset_blinking_cursor (html->engine);
 
 	/* printf ("retval: %d\n", retval); */
@@ -1513,11 +1488,8 @@ button_press_event (GtkWidget *widget,
 				if (obj && ((HTML_IS_IMAGE (obj) && HTML_IMAGE (obj)->url && *HTML_IMAGE (obj)->url)
 					    || HTML_IS_LINK_TEXT (obj)))
 					html_engine_set_focus_object (orig_e, obj);
-				else {
+				else
 					html_engine_set_focus_object (orig_e, NULL);
-					if (orig_e->caret_mode)
-						html_engine_jump_at (engine, x, y);
-				}
 			}
 			if (html->allow_selection) {
 				if (event->state & GDK_SHIFT_MASK)
@@ -2637,7 +2609,6 @@ gtk_html_class_init (GtkHTMLClass *klass)
 								     GDK_TYPE_COLOR,
 								     G_PARAM_READABLE));
 
-
 	widget_class->realize = realize;
 	widget_class->unrealize = unrealize;
 	widget_class->style_set = style_set;
@@ -3435,24 +3406,6 @@ frame_set_animate (HTMLObject *o, HTMLEngine *e, gpointer data)
 }
 
 void
-gtk_html_set_caret_mode(GtkHTML * html, gboolean caret_mode)
-{
-	g_return_if_fail (GTK_IS_HTML (html));
-	g_return_if_fail (HTML_IS_ENGINE (html->engine));
-
-	set_caret_mode(html->engine, caret_mode);
-}
-
-gboolean
-gtk_html_get_caret_mode(const GtkHTML *html)
-{
-	g_return_val_if_fail (GTK_IS_HTML (html), FALSE);
-	g_return_val_if_fail (HTML_IS_ENGINE (html->engine), FALSE);
-
-	return html->engine->caret_mode;
-}
-
-void
 gtk_html_set_animate (GtkHTML *html, gboolean animate)
 {
 	g_return_if_fail (GTK_IS_HTML (html));
@@ -3844,6 +3797,9 @@ static void
 cursor_move (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType skip)
 {
 	gint amount;
+
+	if (!html_engine_get_editable (html->engine))
+		return;
 
 	if (html->engine->selection_mode) {
 		if (!html->engine->mark)
