@@ -67,7 +67,7 @@ html_clue_draw (HTMLObject *o, HTMLPainter *p,
 		gint x, gint y, gint width, gint height, gint tx, gint ty)
 {
 	HTMLObject *obj;
-	static GdkColor red, green, blue;
+	static GdkColor red = {0}, green = {0}, blue = {0};
 	
 	if (y + height < o->y - o->ascent || y > o->y + o->descent)
 		return;

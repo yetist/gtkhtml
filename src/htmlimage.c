@@ -229,6 +229,8 @@ html_image_draw (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gint
 	  clip_width = width;
 	  clip_height = height;
 
+	  g_print("Redrawing image %p\n", o);
+
 	  html_painter_draw_pixmap (p, base_x, base_y,
 				    HTML_IMAGE (o)->pixmap,
 				    clip_x, clip_y,
@@ -245,6 +247,4 @@ html_image_calc_preferred_width (HTMLObject *o)
 static void
 html_image_calc_size (HTMLObject *o, HTMLObject *parent)
 {
-	/* Do nothing */
-  g_print("image_calc_size - our size is now (%d, %d)\n", o->width, o->ascent);
 }

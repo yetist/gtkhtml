@@ -71,7 +71,7 @@ struct _HTMLTokenizer {
 	} pending;
 
 
-	gchar searchBuffer[10];
+	gchar searchBuffer[20];
 	gint searchCount;
 
 	gchar *scriptCode;

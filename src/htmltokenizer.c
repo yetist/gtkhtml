@@ -408,8 +408,11 @@ html_tokenizer_write (HTMLTokenizer *t, const gchar *string, size_t size)
 					if ((t->searchBuffer [t->searchCount + 1] == ';') ||
 					    (!t->tag)) {
 						t->searchBuffer [t->searchCount + 1] = '\0';
-						
-						printf ("Found: %s\b", t->searchBuffer);
+
+						if (!strcasecmp(t->searchBuffer + 2, "nbsp"))
+						  entityValue = 32;
+
+						g_print ("Found: %s\n", t->searchBuffer + 1);
 						len = 0;
 					}
 				}
