@@ -295,6 +295,7 @@ set_font_style (HTMLEngine *engine,
 							       engine->cursor, engine->mark));
 			g_print ("Splitting at start %p -> %p\n", p, curr);
 			html_clue_append_after (HTML_CLUE (p->parent), HTML_OBJECT (curr), p);
+			p = HTML_OBJECT (curr);
 			end -= start;
 			start = 0;
 		}

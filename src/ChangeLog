@@ -1,3 +1,11 @@
+2000-05-17  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine-edit-clueflowstyle.c (set_clueflow_style_in_region):
+	Prevent segfault by stopping at the last element.
+
+	* htmlengine-edit-fontstyle.c (set_font_style): Update `p' when
+	splitting at start.
+
 2000-05-17  Larry Ewing  <lewing@helixcode.com>
 
 	* htmlclueflow.c (save): fixup the save code for lists a little,

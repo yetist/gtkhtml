@@ -32,6 +32,9 @@ typedef struct _ClueFlowProps ClueFlowProps;
 
 /* Data for the redo/undo operation.  */
 struct _ClueFlowStyleOperation {
+	/* Reference count.  */
+	guint ref_count;
+	
 	/* Whether this is an undo or a redo operation.  */
 	gboolean undo;
 
@@ -245,7 +248,7 @@ set_clueflow_style_in_region (HTMLEngine *engine,
 	prop_list = NULL;
 
 	p = start;
-	while (1) {
+	while (p != NULL) {
 		if (HTML_OBJECT_TYPE (p->parent) != HTML_TYPE_CLUEFLOW) {
 			g_warning ("(%s:%s)  Eeeek!  Unknown parent type `%s'.",
 				   __FILE__, G_GNUC_FUNCTION,
