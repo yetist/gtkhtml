@@ -1117,6 +1117,14 @@ selection_get (GtkWidget        *widget,
 	html = GTK_HTML (widget);
 	selection_string = html_engine_get_selection_string (html->engine);
 	
+	/*
+	 * FIXME we should make e_utf8_to/from_string_target and 
+	 * e_utf8_to/from_compound_string in e-unicode.c but I'll wait until
+	 * more severe bugs have been fixed.  NOTE: by the conventions we should
+	 * follow (gtk+-2.0) STRING should _allways_ be iso-8859-1 and COMPOUND_TEXT
+	 * should be localized.
+	 */
+	
 	if (selection_string != NULL) {
 		if (info == TARGET_UTF8_STRING) {
 			gtk_selection_data_set (selection_data,
@@ -1144,7 +1152,10 @@ selection_get (GtkWidget        *widget,
 			gint format;
 			gint new_length;
 			
-			gdk_string_to_compound_text (selection_string, 
+			localized_string = e_utf8_to_gtk_string (widget,
+								 selection_string);
+			
+			gdk_string_to_compound_text (localized_string, 
 						     &encoding, &format,
 						     &text, &new_length);
 			

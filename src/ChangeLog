@@ -1,3 +1,8 @@
+2000-12-07  Larry Ewing  <lewing@helixcode.com>
+
+	* gtkhtml.c (selection_get): whoops encode COMPOUND_TEXT as well
+	see comments.
+
 2000-12-07  Radek Doulik  <rodo@helixcode.com>
 
 	* gtkhtml-search.c: reworked, use new API
