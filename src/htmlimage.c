@@ -931,6 +931,9 @@ update_or_redraw (HTMLImagePointer *ip)
 		}
 	}
 
+	if (ip->factory->engine->block && ip->factory->engine->opened_streams)
+		return;
+
 	if (!update) {
 		/* printf ("REDRAW\n"); */
 		for (list = ip->interests; list; list = list->next)

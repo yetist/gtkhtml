@@ -1,3 +1,8 @@
+2002-02-22  Radek Doulik  <rodo@ximian.com>
+
+	* htmlimage.c (update_or_redraw): don't draw or schedule engine
+	update in blocking mode
+
 2002-02-15  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (new_obj_from_uri): don't remove http:// from link text
