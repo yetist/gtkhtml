@@ -1,3 +1,9 @@
+2001-10-16  Radek Doulik  <rodo@ximian.com>
+
+	* htmltext.c (html_text_get_nb_width): fix for case where more
+	than 2 non-breakable texts are in line, use get_next_nb_width
+	(get_next_nb_width): new helper function
+
 2001-10-16  Larry Ewing  <lewing@ximian.com>
 
 	* htmlclueflow.c: include <stdlib.h> for abs definition.

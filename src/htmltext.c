@@ -569,9 +569,30 @@ forward_get_nb_width (HTMLText *text, HTMLPainter *painter, gboolean begin)
 	g_assert (text->text_len == 0);
 
 	/* find prev/next object */
-	obj = (begin)
+	obj = begin
 		? html_object_prev_not_slave (HTML_OBJECT (text))
 		: html_object_next_not_slave (HTML_OBJECT (text));
+
+	/* if not found or not text return 0, otherwise forward get_nb_with there */
+	if (!obj || !html_object_is_text (obj))
+		return 0;
+	else
+		return html_text_get_nb_width (HTML_TEXT (obj), painter, begin);
+}
+
+static gint
+get_next_nb_width (HTMLText *text, HTMLPainter *painter, gboolean begin)
+{
+	HTMLObject *obj;
+
+	g_assert (text);
+	g_assert (html_object_is_text (HTML_OBJECT (text)));
+	g_assert (text->words == 1);
+
+	/* find prev/next object */
+	obj = begin
+		? html_object_next_not_slave (HTML_OBJECT (text))
+		: html_object_prev_not_slave (HTML_OBJECT (text));
 
 	/* if not found or not text return 0, otherwise forward get_nb_with there */
 	if (!obj || !html_object_is_text (obj))
@@ -605,7 +626,8 @@ html_text_get_nb_width (HTMLText *text, HTMLPainter *painter, gboolean begin)
 
 	html_text_request_word_width (text, painter);
 
-	return word_width (text, painter, begin ? 0 : text->words - 1);
+	return word_width (text, painter, begin ? 0 : text->words - 1)
+		+ (text->words == 1 ? get_next_nb_width (text, painter, begin) : 0);
 }
 
 static gint
