@@ -18,12 +18,21 @@
 
 #define MEMDEBUG
 
+#include "config.h"
+
 #include <gnome.h>
 #include <gtk/gtk.h>
+#include <gtk/gtkbutton.h>
 
 #include <libgnomeprint/gnome-print.h>
 #include <libgnomeprint/gnome-print-master.h>
-#include <libgnomeprint/gnome-print-master-preview.h>
+/* TODO2 #include <libgnomeprint/gnome-print-master-preview.h> */
+
+#include <libsoup/soup.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <errno.h>
+#include <unistd.h>
 
 #include "config.h"
 #include "gtkhtml.h"
@@ -33,20 +42,6 @@
 #include "gtkhtml-properties.h"
 
 #include "gtkhtmldebug.h"
-
-#undef PACKAGE
-#undef VERSION
-
-#include <WWWApp.h>
-#include <WWWLib.h>
-#include <WWWStream.h>
-#include <WWWInit.h>
-#undef PACKAGE
-#undef VERSION
-
-#include "config.h"
-
-#include <glibwww/glibwww.h>
 
 typedef struct {
   FILE *fil;
@@ -82,14 +77,6 @@ static void entry_goto_url(GtkWidget *widget, gpointer data);
 static void goto_url(const char *url, int back_or_forward);
 static void on_set_base (GtkHTML *html, const gchar *url, gpointer data);
 
-static int netin_stream_put_character (HTStream * me, char c);
-static int netin_stream_put_string (HTStream * me, const char * s);;
-static int netin_stream_write (HTStream * me, const char * s, int l);
-static int netin_stream_flush (HTStream * me);
-static int netin_stream_free (HTStream * me);
-static int netin_stream_abort (HTStream * me, HTList * e);
-static HTStream *netin_stream_new (GtkHTMLStream *handle, HTRequest *request);
-static int redirectFilter(HTRequest *request, HTResponse *response, void *param, int status);
 static gchar *parse_href (const gchar *s);
 
 static GtkHTML *html;
@@ -97,7 +84,7 @@ static GtkHTMLStream *html_stream_handle = NULL;
 static GtkWidget *animator, *entry;
 static GtkWidget *popup_menu, *popup_menu_back, *popup_menu_forward, *popup_menu_home;
 static GtkWidget *toolbar_back, *toolbar_forward;
-static HTMLURL *baseURL;
+static HTMLURL *baseURL = NULL;
 
 static GList *go_list;
 static int go_position;
@@ -189,58 +176,56 @@ create_toolbars (GtkWidget *app)
 	GtkWidget *toolbar;
 	char *imgloc;
 
-	dock = gnome_dock_item_new ("testgtkhtml-toolbar1",
-				    (GNOME_DOCK_ITEM_BEH_EXCLUSIVE));
+	dock = bonobo_dock_item_new ("testgtkhtml-toolbar1",
+				    (BONOBO_DOCK_ITEM_BEH_EXCLUSIVE));
 	hbox = gtk_hbox_new (FALSE, 0);
 	gtk_container_add (GTK_CONTAINER (dock), hbox);
-	gtk_container_border_width (GTK_CONTAINER (dock), 2);
+	gtk_container_set_border_width (GTK_CONTAINER (dock), 2);
 	
-	toolbar = gtk_toolbar_new (GTK_ORIENTATION_HORIZONTAL,
-				   GTK_TOOLBAR_ICONS);
-	gtk_toolbar_set_style (GTK_TOOLBAR (toolbar),
-			       GTK_TOOLBAR_ICONS);
-	gtk_toolbar_set_space_style (GTK_TOOLBAR (toolbar), GTK_TOOLBAR_SPACE_LINE);
+	toolbar = gtk_toolbar_new ();
+	gtk_toolbar_set_style (GTK_TOOLBAR (toolbar), GTK_TOOLBAR_ICONS);
+	/* RM2 gtk_toolbar_set_space_style (GTK_TOOLBAR (toolbar), GTK_TOOLBAR_SPACE_LINE);
 	gtk_toolbar_set_button_relief (GTK_TOOLBAR (toolbar),
-				       GTK_RELIEF_NONE);
+	GTK_RELIEF_NONE); */
 	gtk_box_pack_start (GTK_BOX (hbox), toolbar, FALSE, FALSE, 0);
 
 	toolbar_back = gtk_toolbar_append_item (GTK_TOOLBAR (toolbar),
-				 NULL,
-				 "Move back",
-				 "Back",
-				 gnome_stock_new_with_icon (GNOME_STOCK_PIXMAP_BACK),
-				 back_cb, NULL);
+						NULL,
+						"Move back",
+						"Back",
+						gtk_image_new_from_stock ("gtk-go-back", GTK_ICON_SIZE_LARGE_TOOLBAR),
+						GTK_SIGNAL_FUNC (back_cb), NULL);
 	gtk_widget_set_sensitive(toolbar_back, FALSE);
 	toolbar_forward = gtk_toolbar_append_item (GTK_TOOLBAR (toolbar),
-				 NULL,
-				 "Move forward",
-				 "Forward",
-				 gnome_stock_new_with_icon (GNOME_STOCK_PIXMAP_FORWARD),
-				 forward_cb, NULL);
+						   NULL,
+						   "Move forward",
+						   "Forward",
+						   gtk_image_new_from_stock ("gtk-go-forward", GTK_ICON_SIZE_LARGE_TOOLBAR),
+						   GTK_SIGNAL_FUNC (forward_cb), NULL);
 	gtk_widget_set_sensitive(toolbar_forward, FALSE);
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar));
 	gtk_toolbar_append_item (GTK_TOOLBAR (toolbar),
 				 NULL,
 				 "Stop loading",
 				 "Stop",
-				 gnome_stock_new_with_icon (GNOME_STOCK_PIXMAP_STOP),
-				 stop_cb,
+				 gtk_image_new_from_stock ("gtk-stop", GTK_ICON_SIZE_LARGE_TOOLBAR),
+				 GTK_SIGNAL_FUNC (stop_cb),
 				 NULL);
 	gtk_toolbar_append_item (GTK_TOOLBAR (toolbar),
 				 NULL,
 				 "Reload page",
 				 "Reload",
-				 gnome_stock_new_with_icon (GNOME_STOCK_PIXMAP_REFRESH),
-				 reload_cb, NULL);
+				 gtk_image_new_from_stock ("gtk-refresh", GTK_ICON_SIZE_LARGE_TOOLBAR),
+				 GTK_SIGNAL_FUNC (reload_cb), NULL);
 	gtk_toolbar_append_item (GTK_TOOLBAR (toolbar),
 				 NULL,
 				 "Home page",
 				 "Home",
-				 gnome_stock_new_with_icon (GNOME_STOCK_PIXMAP_HOME),
-				 home_cb, NULL);
+				 gtk_image_new_from_stock ("gtk-home", GTK_ICON_SIZE_LARGE_TOOLBAR),
+				 GTK_SIGNAL_FUNC (home_cb), NULL);
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar));
 
-	animator = gnome_animator_new_with_size (32, 32);
+	/* animator = gnome_animator_new_with_size (32, 32);
 
 	if (g_file_exists("32.png"))
 	  imgloc = "32.png";
@@ -253,40 +238,32 @@ create_toolbars (GtkWidget *app)
 							0, 0,
 							25,
 							32, 
-							32, 32);
+							32, 32); */
 
 	frame = gtk_frame_new (NULL);
-	gtk_container_add (GTK_CONTAINER (frame), animator);
+	/* TODO2 gtk_container_add (GTK_CONTAINER (frame), animator); */
 	gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_IN);
 	gtk_box_pack_end (GTK_BOX (hbox), frame, FALSE, FALSE, 0);
-	gnome_animator_set_loop_type (GNOME_ANIMATOR (animator), 
-				      GNOME_ANIMATOR_LOOP_RESTART);
+	/* gnome_animator_set_loop_type (GNOME_ANIMATOR (animator), 
+	   GNOME_ANIMATOR_LOOP_RESTART); */
 	gtk_widget_show_all (dock);
-	gnome_dock_add_item (GNOME_DOCK (GNOME_APP (app)->dock),
-			     GNOME_DOCK_ITEM (dock), GNOME_DOCK_TOP, 1, 0, 0, FALSE);
+	bonobo_dock_add_item (BONOBO_DOCK (GNOME_APP (app)->dock),
+			      BONOBO_DOCK_ITEM (dock), BONOBO_DOCK_TOP, 1, 0, 0, FALSE);
 
 	/* Create the location bar */
-	dock = gnome_dock_item_new ("testgtkhtml-toolbar2",
-				    (GNOME_DOCK_ITEM_BEH_EXCLUSIVE));
+	dock = bonobo_dock_item_new ("testgtkhtml-toolbar2",
+				     (BONOBO_DOCK_ITEM_BEH_EXCLUSIVE));
 	hbox = gtk_hbox_new (FALSE, 2);
 	gtk_container_add (GTK_CONTAINER (dock), hbox);
-	gtk_container_border_width (GTK_CONTAINER (dock), 2);
-	hbox2 = gtk_hbox_new (FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (hbox2), gtk_label_new ("Goto"), FALSE, FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (hbox2), gnome_stock_new_with_icon (GNOME_STOCK_PIXMAP_REDO), FALSE, FALSE, 0);
-	button = gtk_button_new ();
-	GTK_WIDGET_UNSET_FLAGS (button, GTK_CAN_FOCUS);
-	gtk_button_set_relief (GTK_BUTTON (button), GTK_RELIEF_NONE);
-	gtk_container_add (GTK_CONTAINER (button), hbox2);
-	gtk_box_pack_end (GTK_BOX (hbox), button, FALSE, FALSE, 0);
+	gtk_container_set_border_width (GTK_CONTAINER (dock), 2);
 	gtk_box_pack_start (GTK_BOX (hbox),
 			    gtk_label_new ("Location:"), FALSE, FALSE, 0);
 	entry = gtk_entry_new ();
-	gtk_signal_connect(GTK_OBJECT(entry), "activate", GTK_SIGNAL_FUNC(entry_goto_url), NULL);
+	g_signal_connect (entry, "activate", G_CALLBACK (entry_goto_url), NULL);
 	gtk_box_pack_start (GTK_BOX (hbox),
 			    entry, TRUE, TRUE, 0);
-	gnome_dock_add_item (GNOME_DOCK (GNOME_APP (app)->dock),
-			     GNOME_DOCK_ITEM (dock), GNOME_DOCK_TOP, 2, 0, 0, FALSE);
+	bonobo_dock_add_item (BONOBO_DOCK (GNOME_APP (app)->dock),
+			      BONOBO_DOCK_ITEM (dock), BONOBO_DOCK_TOP, 2, 0, 0, FALSE);
 
 }
 
@@ -297,7 +274,7 @@ static void
 print_footer (GtkHTML *html, GnomePrintContext *context,
 	      gdouble x, gdouble y, gdouble width, gdouble height, gpointer user_data)
 {
-	gchar *text = g_strdup_printf ("- %d of %d -", page_num, pages);
+	/* TODO2 gchar *text = g_strdup_printf ("- %d of %d -", page_num, pages);
 	gdouble tw = gnome_font_get_width_string (font, "text");
 
 	if (font) {
@@ -309,14 +286,14 @@ print_footer (GtkHTML *html, GnomePrintContext *context,
 	}
 
 	g_free (text);
-	page_num++;
+	page_num++; */
 }
 
 static void
 print_preview_cb (GtkWidget *widget,
 		  gpointer data)
 {
-	GnomePrintMaster *print_master;
+	/* TODO2 GnomePrintMaster *print_master;
 	GnomePrintContext *print_context;
 	GtkWidget *preview;
 
@@ -338,7 +315,7 @@ print_preview_cb (GtkWidget *widget,
 	preview = GTK_WIDGET (gnome_print_master_preview_new (print_master, "HTML Print Preview"));
 	gtk_widget_show (preview);
 
-	gtk_object_unref (GTK_OBJECT (print_master));
+	gtk_object_unref (GTK_OBJECT (print_master)); */
 }
 
 static void
@@ -404,9 +381,10 @@ entry_goto_url(GtkWidget *widget, gpointer data)
 	tmpurl = g_strdup (gtk_entry_get_text (GTK_ENTRY (widget)));
 
 	/* Add "http://" if no protocol is specified */
-	if(strchr(tmpurl, ':'))
+	if(strchr(tmpurl, ':')) {
+		on_set_base (NULL, tmpurl, NULL);
 		goto_url (tmpurl, 0);
-	else {
+	} else {
 		gchar *url;
 
 		url = g_strdup_printf("http://%s", tmpurl);
@@ -487,18 +465,18 @@ static void
 stop_cb (GtkWidget *widget, gpointer data)
 {
 	/* Kill all requests */
-	HTNet_killAll();
+	soup_shutdown ();
 	html_stream_handle = NULL;
 }
 
 static void
 load_done (GtkHTML *html)
 {
-	gnome_animator_stop (GNOME_ANIMATOR (animator));
+	/* TODO2 gnome_animator_stop (GNOME_ANIMATOR (animator));
 	gnome_animator_goto_frame (GNOME_ANIMATOR (animator), 1);
 
 	if (exit_when_done)
-		gtk_main_quit();
+	gtk_main_quit(); */
 }
 
 static int
@@ -599,78 +577,6 @@ on_link_clicked (GtkHTML *html, const gchar *url, gpointer data)
 	goto_url (url, 0);
 }
 
-/* Lame hack */
-struct _HTStream {
-	const HTStreamClass *	isa;
-	GtkHTMLStream *handle;
-};
-
-static int
-netin_stream_put_character (HTStream * me, char c)
-{
-	return netin_stream_write(me, &c, 1);
-}
-
-static int
-netin_stream_put_string (HTStream * me, const char * s)
-{
-	return netin_stream_write(me, s, strlen(s));
-}
-
-static int
-netin_stream_write (HTStream * me, const char * s, int l)
-{
-	printf ("*** %s (%d)\n",__FUNCTION__, l);
-	gtk_html_write(html, me->handle, s, l);
-
-	return HT_OK;
-}
-
-static int
-netin_stream_flush (HTStream * me)
-{
-	return HT_OK;
-}
-
-static int
-netin_stream_free (HTStream * me)
-{
-	gtk_html_end(html, me->handle, GTK_HTML_STREAM_OK);
-	g_free(me);
-	
-	return HT_OK;
-}
-
-static int
-netin_stream_abort (HTStream * me, HTList * e)
-{
-	return HT_OK;
-}
-
-static const HTStreamClass netin_stream_class =
-{		
-	"netin_stream",
-	netin_stream_flush,
-	netin_stream_free,
-	netin_stream_abort,
-	netin_stream_put_character,
-	netin_stream_put_string,
-	netin_stream_write
-}; 
-
-static HTStream *
-netin_stream_new (GtkHTMLStream *handle, HTRequest *request)
-{
-	HTStream *retval;
-	
-	retval = g_new0(HTStream, 1);
-	
-	retval->isa = &netin_stream_class;
-	retval->handle = handle;
-
-	return retval;
-}
-
 /* simulate an async object isntantiation */
 static int
 object_timeout(GtkHTMLEmbedded *eb)
@@ -704,40 +610,66 @@ object_requested_cmd (GtkHTML *html, GtkHTMLEmbedded *eb, void *data)
 }
 
 static void
+got_data (SoupMessage *msg, gpointer user_data)
+{
+	GtkHTMLStream *handle = user_data;
+
+	if (!SOUP_ERROR_IS_SUCCESSFUL (msg->errorcode)) {
+		g_warning ("%d - %s", msg->errorcode, msg->errorphrase);
+		gtk_html_end (html, handle, GTK_HTML_STREAM_ERROR);
+		return;
+	}
+
+	gtk_html_write (html, handle, msg->response.body, msg->response.length);
+	gtk_html_end (html, handle, GTK_HTML_STREAM_OK);
+}
+
+static void
 url_requested (GtkHTML *html, const char *url, GtkHTMLStream *handle, gpointer data)
 {
 	gchar *full_url = NULL;
-	HTRequest *newreq;
-	BOOL status;
 
-	newreq = HTRequest_new();
-	g_assert(newreq);
-	
- 	/* Need to catch redirections */
- 	/* Remove old filter if any */
- 	HTNet_deleteAfter(redirectFilter);
- 	/* Add new filters */
 	full_url = parse_href (url);
 
-	if (use_redirect_filter) {
-		
-		use_redirect_filter = FALSE;
-		
-		HTNet_addAfter(redirectFilter, full_url, NULL, HT_PERM_REDIRECT, HT_FILTER_FIRST);
-		HTNet_addAfter(redirectFilter, full_url, NULL, HT_TEMP_REDIRECT, HT_FILTER_FIRST);
-		HTNet_addAfter(redirectFilter, full_url, NULL, HT_SEE_OTHER, HT_FILTER_FIRST);
-		HTNet_addAfter(redirectFilter, full_url, NULL, HT_FOUND, HT_FILTER_FIRST);
-	}
+	if (full_url && !strncmp (full_url, "http", 4)) {
+		SoupContext *ctx;
+		SoupMessage *msg;
 
-	HTRequest_setOutputFormat(newreq, WWW_SOURCE);
-	{
-		HTStream *newstream = netin_stream_new(handle, newreq);
-		status = HTLoadToStream(full_url, newstream, newreq);
-		g_message("Loading URL %s to stream %p (status %d)", full_url, handle, status);
-	}
-	if (full_url)
-		g_free (full_url);
-	return;
+		ctx = soup_context_get (full_url);
+		msg = soup_message_new (ctx, SOUP_METHOD_GET);
+
+		soup_message_queue (msg, got_data, handle);
+	} else if (full_url && !strncmp (full_url, "file:", 5)) {
+		struct stat st;
+		char *buf;
+		int fd, nread, total;
+
+		fd = open (full_url + 5, O_RDONLY);
+		if (fd != -1 && fstat (fd, &st) != -1) {
+			buf = g_malloc (st.st_size);
+			for (nread = total = 0; total < st.st_size; total += nread) {
+				nread = read (fd, buf + total, st.st_size - total);
+				if (nread == -1) {
+					if (errno == EINTR)
+						continue;
+
+					g_warning ("read error: %s", g_strerror (errno));
+					gtk_html_end (html, handle, GTK_HTML_STREAM_ERROR);
+					break;
+				}
+				gtk_html_write (html, handle, buf + total, nread);
+			}
+			g_free (buf);
+			if (nread != -1)
+				gtk_html_end (html, handle, GTK_HTML_STREAM_OK);
+		} else
+			gtk_html_end (html, handle, GTK_HTML_STREAM_OK);
+		if (fd != -1)
+			close (fd);
+	} else
+		g_warning ("Unrecognized URL %s", full_url);
+
+	g_free (full_url);
 }
 
 static gchar *
@@ -855,7 +787,7 @@ goto_url(const char *url, int back_or_forward)
 	gchar *full_url;
 
 	/* Kill all requests */
-	HTNet_killAll();
+	soup_shutdown ();
 
 	/* Remove any pending redirection */
 	if(redirect_timerId) {
@@ -864,11 +796,11 @@ goto_url(const char *url, int back_or_forward)
 		redirect_timerId = 0;
 	}
 
-	gnome_animator_start (GNOME_ANIMATOR (animator));
+	/* TODO2 gnome_animator_start (GNOME_ANIMATOR (animator)); */
 
 	use_redirect_filter = TRUE;
 
-	html_stream_handle = gtk_html_begin (html);
+	html_stream_handle = gtk_html_begin_content (html, "text/html; charset=utf-8");
 
 	/* Yuck yuck yuck.  Well this code is butt-ugly already
 	anyway.  */
@@ -932,15 +864,15 @@ goto_url(const char *url, int back_or_forward)
 			item = g_list_nth_data(go_list, i);
 			item->widget = gtk_radio_menu_item_new_with_label(group, item->url);
 
-			gtk_signal_connect (GTK_OBJECT (item->widget), "activate",
-					    GTK_SIGNAL_FUNC (go_list_cb), GINT_TO_POINTER (i));
+			g_signal_connect (item->widget, "activate",
+					  G_CALLBACK (go_list_cb), GINT_TO_POINTER (i));
 
 			group = gtk_radio_menu_item_group(GTK_RADIO_MENU_ITEM(item->widget));
 
 			if(i == 0)
 				gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item->widget), TRUE);
 
-			gtk_menu_append(GTK_MENU(GTK_MENU_ITEM(main_menu[3].widget)->submenu), item->widget);
+			gtk_menu_shell_append (GTK_MENU_SHELL (GTK_MENU_ITEM(main_menu[3].widget)->submenu), item->widget);
 			gtk_widget_show(item->widget);
 			
 		}
@@ -968,19 +900,22 @@ goto_url(const char *url, int back_or_forward)
 static void
 bug_cb (GtkWidget *widget, gpointer data)
 {
-	gchar *filename;
+	gchar cwd[PATH_MAX], *filename;
 
-	filename = g_strdup_printf ("%s/tests/bugs.html", HTGetCurrentDirectoryURL());
-	goto_url (filename, 0);
-	g_free (filename);
+	getcwd(cwd, sizeof (cwd));
+	filename = g_strdup_printf("file:%s/bugs.html", cwd);
+	goto_url(filename, 0);
+	g_free(filename);
 }
 
 static void
 test_cb (GtkWidget *widget, gpointer data)
 {
-	gchar *filename;
-	
-	filename = g_strdup_printf ("%s/tests/test%d.html", HTGetCurrentDirectoryURL(), GPOINTER_TO_INT (data));
+	gchar cwd[PATH_MAX], *filename;
+
+	getcwd(cwd, sizeof (cwd));
+	filename = g_strdup_printf ("file:%s/tests/test%d.html", cwd,
+				    GPOINTER_TO_INT (data));
 	goto_url(filename, 0);
 	g_free(filename);
 }
@@ -989,56 +924,6 @@ static void
 exit_cb (GtkWidget *widget, gpointer data)
 {
 	gtk_main_quit ();
-}
-
-static int request_terminater (HTRequest * request, HTResponse * response, void * param, int status) {
-	if (status!=HT_LOADED) 
-		g_print("Load couldn't be completed successfully (%p)\n", request);
-	
-	HTRequest_delete(request);
-	return HT_OK;
-}
-static int redirectFilter(HTRequest *request, HTResponse *response,
-		 void *param, int status)
-{
-	HTMethod method = HTRequest_method(request);
-	HTAnchor *new_anchor = HTResponse_redirection(response);
-	gchar *new_location;
-
-	if (!new_anchor)
-		return HT_OK;
-
-	if (!HTMethod_isSafe(method))
-		return HT_OK;
-
-	HTRequest_deleteCredentialsAll(request);
-	if (HTRequest_doRetry(request)) {
-		HTRequest_setAnchor(request, new_anchor);
-		HTLoad(request, NO);
-
-		new_location = HTAnchor_address(new_anchor);
-
-		g_print("******* Redirected to '%s' *****\n", new_location);
-
-		/* Update BASE url */
-
-		on_set_base (NULL, new_location, NULL);
-
-		/* Update filters */
-		HTNet_deleteAfter(redirectFilter);
-		HTNet_addAfter(redirectFilter, new_location, NULL, HT_PERM_REDIRECT, HT_FILTER_FIRST);
-		HTNet_addAfter(redirectFilter, new_location, NULL, HT_TEMP_REDIRECT, HT_FILTER_FIRST);
-		HTNet_addAfter(redirectFilter, new_location, NULL, HT_FOUND, HT_FILTER_FIRST);
-		HTNet_addAfter(redirectFilter, new_location, NULL, HT_SEE_OTHER, HT_FILTER_FIRST);
-		
-		free(new_location);
-
-	} else {
-		HTRequest_addError(request, ERR_FATAL, NO, HTERR_MAX_REDIRECT,
-				   NULL, 0, "HTRedirectFilter");
-		return HT_OK;
-	}
-	return HT_ERROR;
 }
 
 static struct poptOption options[] = {
@@ -1064,7 +949,6 @@ main (gint argc, gchar *argv[])
 #endif
 	gnome_init_with_popt_table (PACKAGE, VERSION,
 				    argc, argv, options, 0, &ctx);
-	glibwww_init (PACKAGE, VERSION);
 #ifdef GTKHTML_HAVE_GCONF
 	if (!gconf_init (argc, argv, &gconf_error)) {
 		g_assert (gconf_error != NULL);
@@ -1073,17 +957,14 @@ main (gint argc, gchar *argv[])
 	}
 #endif
 
-	HTNet_addAfter(request_terminater, NULL, NULL, HT_ALL, HT_FILTER_LAST);
-
 	gdk_rgb_init ();
 	
-	gtk_widget_set_default_colormap (gdk_rgb_get_cmap ());
-	gtk_widget_set_default_visual (gdk_rgb_get_visual ());
-	
+	/* RM2 gtk_widget_set_default_colormap (gdk_rgb_get_cmap ());
+	   gtk_widget_set_default_visual (gdk_rgb_get_visual ()); */
+
 	app = gnome_app_new ("testgtkhtml", "GtkHTML: testbed application");
 
-	gtk_signal_connect (GTK_OBJECT (app), "delete_event",
-			    GTK_SIGNAL_FUNC (exit_cb), NULL);
+	g_signal_connect (app, "delete_event", G_CALLBACK (exit_cb), NULL);
 
 	create_toolbars (app);
 	bar = gnome_appbar_new (FALSE, TRUE, GNOME_PREFERENCES_USER);
@@ -1105,8 +986,8 @@ main (gint argc, gchar *argv[])
 	gnome_app_set_contents (GNOME_APP (app), scrolled_window);
 
 	html_widget = gtk_html_new ();
-	gtk_html_set_allow_frameset (html_widget, TRUE);
 	html = GTK_HTML (html_widget);
+	gtk_html_set_allow_frameset (html, TRUE);
 	gtk_html_load_empty (html);
 	/* gtk_html_set_default_background_color (GTK_HTML (html_widget), &bgColor); */
 	/* gtk_html_set_editable (GTK_HTML (html_widget), TRUE); */
@@ -1116,50 +997,37 @@ main (gint argc, gchar *argv[])
 	/* Create a popup menu with disabled back and forward items */
 	popup_menu = gtk_menu_new();
 
-	popup_menu_back = gtk_menu_item_new_with_label("Back");
-	gtk_widget_set_sensitive(popup_menu_back, FALSE);
-	gtk_menu_append(GTK_MENU(popup_menu), popup_menu_back);
-	gtk_widget_show(popup_menu_back);
-	gtk_signal_connect (GTK_OBJECT (popup_menu_back), "activate",
-			    GTK_SIGNAL_FUNC (back_cb), NULL);
+	popup_menu_back = gtk_menu_item_new_with_label ("Back");
+	gtk_widget_set_sensitive (popup_menu_back, FALSE);
+	gtk_menu_shell_append (GTK_MENU_SHELL (popup_menu), popup_menu_back);
+	gtk_widget_show (popup_menu_back);
+	g_signal_connect (popup_menu_back, "activate", G_CALLBACK (back_cb), NULL);
 
-	popup_menu_forward = gtk_menu_item_new_with_label("Forward");
-	gtk_widget_set_sensitive(popup_menu_forward, FALSE);
-	gtk_menu_append(GTK_MENU(popup_menu), popup_menu_forward);
-	gtk_widget_show(popup_menu_forward);
-	gtk_signal_connect (GTK_OBJECT (popup_menu_forward), "activate",
-			    GTK_SIGNAL_FUNC (forward_cb), NULL);
+	popup_menu_forward = gtk_menu_item_new_with_label ("Forward");
+	gtk_widget_set_sensitive (popup_menu_forward, FALSE);
+	gtk_menu_shell_append (GTK_MENU_SHELL (popup_menu), popup_menu_forward);
+	gtk_widget_show (popup_menu_forward);
+	g_signal_connect (popup_menu_forward, "activate", G_CALLBACK (forward_cb), NULL);
 
-	popup_menu_home = gtk_menu_item_new_with_label("Home");
-	gtk_menu_append(GTK_MENU(popup_menu), popup_menu_home);
-	gtk_widget_show(popup_menu_home);
-	gtk_signal_connect (GTK_OBJECT (popup_menu_home), "activate",
-			    GTK_SIGNAL_FUNC (home_cb), NULL);
+	popup_menu_home = gtk_menu_item_new_with_label ("Home");
+	gtk_menu_shell_append (GTK_MENU_SHELL (popup_menu), popup_menu_home);
+	gtk_widget_show (popup_menu_home);
+	g_signal_connect (popup_menu_home, "activate", G_CALLBACK (home_cb), NULL);
 
 	/* End of menu creation */
 
 	gtk_widget_set_events (html_widget, GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK);
 
-	gtk_signal_connect (GTK_OBJECT (html), "title_changed",
-			    GTK_SIGNAL_FUNC (title_changed_cb), (gpointer)app);
-	gtk_signal_connect (GTK_OBJECT (html), "url_requested",
-			    GTK_SIGNAL_FUNC (url_requested), (gpointer)app);
-	gtk_signal_connect (GTK_OBJECT (html), "load_done",
-			    GTK_SIGNAL_FUNC (load_done), (gpointer)app);
-	gtk_signal_connect (GTK_OBJECT (html), "on_url",
-			    GTK_SIGNAL_FUNC (on_url), (gpointer)app);
-	gtk_signal_connect (GTK_OBJECT (html), "set_base",
-			    GTK_SIGNAL_FUNC (on_set_base), (gpointer)app);
-	gtk_signal_connect (GTK_OBJECT (html), "button_press_event",
-			    GTK_SIGNAL_FUNC (on_button_press_event), popup_menu);
-	gtk_signal_connect (GTK_OBJECT (html), "link_clicked",
-			    GTK_SIGNAL_FUNC (on_link_clicked), NULL);
-	gtk_signal_connect (GTK_OBJECT (html), "redirect",
-			    GTK_SIGNAL_FUNC (on_redirect), NULL);
-	gtk_signal_connect (GTK_OBJECT (html), "submit",
-			    GTK_SIGNAL_FUNC (on_submit), NULL);
-	gtk_signal_connect (GTK_OBJECT (html), "object_requested",
-			    GTK_SIGNAL_FUNC (object_requested_cmd), NULL);
+	g_signal_connect (html, "title_changed", G_CALLBACK (title_changed_cb), (gpointer)app);
+	g_signal_connect (html, "url_requested", G_CALLBACK (url_requested), (gpointer)app);
+	g_signal_connect (html, "load_done", G_CALLBACK (load_done), (gpointer)app);
+	g_signal_connect (html, "on_url", G_CALLBACK (on_url), (gpointer)app);
+	g_signal_connect (html, "set_base", G_CALLBACK (on_set_base), (gpointer)app);
+	g_signal_connect (html, "button_press_event", G_CALLBACK (on_button_press_event), popup_menu);
+	g_signal_connect (html, "link_clicked", G_CALLBACK (on_link_clicked), NULL);
+	g_signal_connect (html, "redirect", G_CALLBACK (on_redirect), NULL);
+	g_signal_connect (html, "submit", G_CALLBACK (on_submit), NULL);
+	g_signal_connect (html, "object_requested", G_CALLBACK (object_requested_cmd), NULL);
 
 #if 0
 	gtk_box_pack_start_defaults (GTK_BOX (hbox), GTK_WIDGET (html));

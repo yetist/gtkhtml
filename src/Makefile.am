@@ -1,6 +1,6 @@
 NULL=
 
-INCLUDES = -I$(top_srcdir) -I$(srcdir) -I$(includedir) $(GTKHTML_CFLAGS) \
+INCLUDES = -I$(top_srcdir) -I$(srcdir) -I$(includedir) $(GTKHTML_CFLAGS) $(SOUP_CFLAGS) \
 	-DG_LOG_DOMAIN=\"gtkhtml\" \
 	-DSRCDIR=\"$(srcdir)\" \
 	-DPREFIX=\"$(prefix)\"
@@ -196,7 +196,19 @@ keybindings_DATA =		\
 	keybindingsrc.xemacs	\
 	keybindingsrc.ms
 
-noinst_PROGRAMS = gtest
+if HAVE_SOUP
+test_programs = testgtkhtml
+endif
+noinst_PROGRAMS = $(test_programs) gtest
+
+testgtkhtml_SOURCES = 		\
+	testgtkhtml.c		\
+	htmlurl.h		\
+	htmlurl.c
+testgtkhtml_LDADD =					\
+	libgtkhtml-@GTKHTML_RELEASE@.la			\
+	../a11y/libgtkhtml-a11y-@GTKHTML_RELEASE@.la 	\
+	$(SOUP_LIBS)
 
 gtest_SOURCES = \
 	test.c
