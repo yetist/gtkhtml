@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.6\n"
-"POT-Creation-Date: 2000-10-18 17:19+0200\n"
+"POT-Creation-Date: 2000-11-06 23:50+0100\n"
 "PO-Revision-Date: 2000-10-13 13:23+0200\n"
 "Last-Translator: Héctor García Álvarez <hector@scouts-es.org>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -40,8 +40,7 @@ msgid "Add"
 msgstr "Añadir"
 
 #: capplet/gnome-bindings-prop.c:548
-#: components/html-editor/test-html-editor-control.c:323
-#: components/html-editor/toolbar.c:495
+#: components/html-editor/html-editor-control.xml.h:8
 msgid "Copy"
 msgstr "Copiar"
 
@@ -121,15 +120,15 @@ msgstr "Seleccionar letra para imprimir, de anchura fija en HTML"
 msgid "Animations"
 msgstr "Animaciones"
 
-#: components/html-editor/body.c:107
-msgid "use background image"
-msgstr "usar imagen de fondo"
-
-#: components/html-editor/body.c:109
-msgid "Background image"
-msgstr "Imagen de fondo"
+#: components/html-editor/body.c:123 components/html-editor/body.c:127
+msgid "Background Image"
+msgstr "Imagen del fondo"
 
 #: components/html-editor/body.c:126
+msgid "Enable"
+msgstr "Permitir"
+
+#: components/html-editor/body.c:149
 msgid "Colors"
 msgstr "Colores"
 
@@ -169,27 +168,27 @@ msgstr "Enlace"
 msgid "Page"
 msgstr "Página"
 
-#: components/html-editor/image.c:149
+#: components/html-editor/image.c:156
 msgid "Image selection"
 msgstr "Selección de imagen"
 
 #. ADD_ITEM("Left",   GDK_F4);
 #. ADD_ITEM("Right",  GDK_F5);
-#: components/html-editor/image.c:176
+#: components/html-editor/image.c:183
 msgid "Alignment"
 msgstr "Alineación"
 
-#: components/html-editor/image.c:184
+#: components/html-editor/image.c:191
 msgid "Border"
 msgstr "Borde"
 
-#: components/html-editor/image.c:201
+#: components/html-editor/image.c:208
 msgid "Padding"
 msgstr "Relleno"
 
 #. size
-#: components/html-editor/image.c:221 components/html-editor/rule.c:235
-#: components/html-editor/text.c:160
+#: components/html-editor/image.c:228 components/html-editor/rule.c:222
+#: components/html-editor/text.c:177
 msgid "Size"
 msgstr "Tamaño"
 
@@ -220,29 +219,28 @@ msgid "Cannot execute gtkhtml properties"
 msgstr "No pude ejecutar las propiedades de gtkhtml"
 
 #. style
-#: components/html-editor/paragraph.c:74 components/html-editor/rule.c:223
-#: components/html-editor/text.c:138
+#: components/html-editor/paragraph.c:108 components/html-editor/rule.c:246
+#: components/html-editor/text.c:157
 msgid "Style"
 msgstr "Estilo"
 
-#. align
-#: components/html-editor/paragraph.c:108 components/html-editor/rule.c:259
+#: components/html-editor/paragraph.c:142
 msgid "Align"
 msgstr "Alineación"
 
-#: components/html-editor/paragraph.c:121
+#: components/html-editor/paragraph.c:155
 msgid "Left"
 msgstr "Izquierda"
 
-#: components/html-editor/paragraph.c:122 components/html-editor/toolbar.c:485
+#: components/html-editor/paragraph.c:156 components/html-editor/toolbar.c:395
 msgid "Center"
 msgstr "Centro"
 
-#: components/html-editor/paragraph.c:123
+#: components/html-editor/paragraph.c:157
 msgid "Right"
 msgstr "Derecha"
 
-#: components/html-editor/popup.c:185
+#: components/html-editor/popup.c:193
 msgid "Remove link"
 msgstr "Borrer enlaze"
 
@@ -275,19 +273,9 @@ msgstr "sensible a mayusculas"
 msgid "with"
 msgstr "con"
 
-#: components/html-editor/rule.c:227
+#: components/html-editor/rule.c:270
 msgid "shaded"
 msgstr "sombreado"
-
-#. weight
-#: components/html-editor/rule.c:275
-msgid "Weight"
-msgstr "Peso"
-
-#. sample
-#: components/html-editor/rule.c:287
-msgid "Sample"
-msgstr "Ejemplo"
 
 #: components/html-editor/search.c:64
 msgid "Regex search"
@@ -297,93 +285,38 @@ msgstr "Busqueda por expresiones regulares"
 msgid "Search"
 msgstr "Buscar"
 
-#: components/html-editor/test-html-editor-control.c:232
+#: components/html-editor/test-html-editor-control.c:237
 msgid "Open file..."
 msgstr "Abrir archivo..."
 
-#: components/html-editor/test-html-editor-control.c:234
+#: components/html-editor/test-html-editor-control.c:239
 msgid "Save file as..."
 msgstr "Guardar archivo como..."
 
-#: components/html-editor/test-html-editor-control.c:300
-msgid "Open (PersistFile)"
-msgstr "Abrir (Archivo Persistente)"
-
-#: components/html-editor/test-html-editor-control.c:300
-msgid "Open using the PersistFile interface"
-msgstr "Abrir usando la interface de Archivo Persistente"
-
-#: components/html-editor/test-html-editor-control.c:302
-msgid "Save as... (PersistFile)"
-msgstr "Guardar como... (Archivo Persistente)"
-
-#: components/html-editor/test-html-editor-control.c:302
-msgid "Save using the PersistFile interface"
-msgstr "Guardar usando la interface de Archivo Persistente"
-
-#: components/html-editor/test-html-editor-control.c:305
-msgid "Open (PersistStream)"
-msgstr "Abrir (Linea Persistente)"
-
-#: components/html-editor/test-html-editor-control.c:305
-msgid "Open using the PersistStream interface"
-msgstr "Abrir usando la interface de Linea Persistente"
-
-#: components/html-editor/test-html-editor-control.c:307
-msgid "Save as... (PersistStream)"
-msgstr "Guardar como... (Linea Persistente)"
-
-#: components/html-editor/test-html-editor-control.c:307
-msgid "Save using the PersistStream interface"
-msgstr "Guardar usando la interface de Linea Persistente"
-
-#: components/html-editor/test-html-editor-control.c:321
-#: components/html-editor/toolbar.c:493
-msgid "Cut"
-msgstr "Cortar"
-
-#: components/html-editor/test-html-editor-control.c:321
-msgid "Cut selection to the clipboard"
-msgstr "Cortar la selección al porta papeles"
-
-#: components/html-editor/test-html-editor-control.c:323
-msgid "Copy selection to the clipboard"
-msgstr "Copiar la selección al porta papeles"
-
-#: components/html-editor/test-html-editor-control.c:325
-#: components/html-editor/toolbar.c:497
-msgid "Paste"
-msgstr "Pegar"
-
-#: components/html-editor/test-html-editor-control.c:325
-#: components/html-editor/toolbar.c:497
-msgid "Paste contents of the clipboard"
-msgstr "Pegar el contenido del porta papeles"
-
-#: components/html-editor/text.c:152 components/html-editor/toolbar.c:511
+#: components/html-editor/text.c:169 components/html-editor/toolbar.c:404
 msgid "Bold"
 msgstr "Destacado"
 
-#: components/html-editor/text.c:153 components/html-editor/toolbar.c:513
+#: components/html-editor/text.c:170 components/html-editor/toolbar.c:406
 msgid "Italic"
 msgstr "Itálica"
 
-#: components/html-editor/text.c:154 components/html-editor/toolbar.c:515
+#: components/html-editor/text.c:171 components/html-editor/toolbar.c:408
 msgid "Underline"
 msgstr "Subrayado"
 
-#: components/html-editor/text.c:155 components/html-editor/toolbar.c:517
+#: components/html-editor/text.c:172 components/html-editor/toolbar.c:410
 msgid "Strikeout"
 msgstr ""
 
 #. color selection
-#: components/html-editor/text.c:187
+#: components/html-editor/text.c:207
 msgid "Color"
 msgstr "Color"
 
-#: components/html-editor/text.c:201
-msgid "text color"
-msgstr "color del texto"
+#: components/html-editor/text.c:210 components/html-editor/toolbar.c:204
+msgid "Automatic"
+msgstr "Automático"
 
 #: components/html-editor/toolbar.c:45
 msgid "Normal"
@@ -433,85 +366,61 @@ msgstr "Listar elementos (sin numerar)"
 msgid "List item (roman)"
 msgstr "List item (romano)"
 
-#: components/html-editor/toolbar.c:236
-msgid "Default"
-msgstr "Valor por defecto"
-
-#: components/html-editor/toolbar.c:483
+#: components/html-editor/toolbar.c:393
 msgid "Left align"
 msgstr "Alineación izquierda"
 
-#: components/html-editor/toolbar.c:483
+#: components/html-editor/toolbar.c:393
 msgid "Left justify paragraphs"
 msgstr "Justificar párrafos a la izquierda"
 
-#: components/html-editor/toolbar.c:485
+#: components/html-editor/toolbar.c:395
 msgid "Centers paragraphs"
 msgstr "Centrar párrafos"
 
-#: components/html-editor/toolbar.c:487
+#: components/html-editor/toolbar.c:397
 msgid "Right align"
 msgstr "Alineación derecha"
 
-#: components/html-editor/toolbar.c:487
+#: components/html-editor/toolbar.c:397
 msgid "Right justify paragraphs"
 msgstr "Justificar párrafos a la derecha"
 
-#: components/html-editor/toolbar.c:493
-msgid "Cut the selected region to the clipboard"
-msgstr "Cortar la región seleccionada al porta papeles"
-
-#: components/html-editor/toolbar.c:495
-msgid "Copy the selected region to the clipboard"
-msgstr "Copiar la región seleccionada al porta papeles"
-
-#: components/html-editor/toolbar.c:501
-msgid "Undo"
-msgstr "Deshacer"
-
-#: components/html-editor/toolbar.c:501
-msgid "Undo last editor operation"
-msgstr "Deshacer la última operación del editor"
-
-#: components/html-editor/toolbar.c:503
-msgid "Redo"
-msgstr "Rehacer"
-
-#: components/html-editor/toolbar.c:503
-msgid "Redo undone editor operation"
-msgstr "Rehacer la operación del editor deshecha"
-
-#: components/html-editor/toolbar.c:511
+#: components/html-editor/toolbar.c:404
 msgid "Sets the bold font"
 msgstr "Poner la fuente destacada"
 
-#: components/html-editor/toolbar.c:513
+#: components/html-editor/toolbar.c:406
 msgid "Make the selection italic"
 msgstr "Poner en itálica la selección"
 
-#: components/html-editor/toolbar.c:515
+#: components/html-editor/toolbar.c:408
 msgid "Make the selection underlined"
 msgstr "Subrayar la selección"
 
-#: components/html-editor/toolbar.c:517
+#: components/html-editor/toolbar.c:410
 msgid "Make the selection striked out"
 msgstr ""
 
-#: components/html-editor/toolbar.c:526
+#: components/html-editor/toolbar.c:419
 msgid "Unindent"
 msgstr "No indentar"
 
-#: components/html-editor/toolbar.c:526
+#: components/html-editor/toolbar.c:419
 msgid "Indent paragraphs less"
 msgstr "Indentar menos el parrafo"
 
-#: components/html-editor/toolbar.c:528
+#: components/html-editor/toolbar.c:421
 msgid "Indent"
 msgstr "Indentar"
 
-#: components/html-editor/toolbar.c:528
+#: components/html-editor/toolbar.c:421
 msgid "Indent paragraphs more"
 msgstr "Indentar más los párrafos"
+
+#: components/html-editor/utils.c:101
+msgid "Sample"
+msgstr "Ejemplo"
 
 #: src/testgtkhtml.c:111
 msgid "Print pre_view"
@@ -520,3 +429,136 @@ msgstr "Vista pre_via"
 #: src/testgtkhtml.c:111
 msgid "Print preview"
 msgstr "Vista previa"
+
+#.
+#. * Translatable strings file generated by extract-ui.
+#. * Add this file to your project's POTFILES.in
+#. * DO NOT compile it as part of your application.
+#.
+#: components/html-editor/html-editor-control.xml.h:7
+msgid "C_ut"
+msgstr "C_ortar"
+
+#: components/html-editor/html-editor-control.xml.h:9
+msgid "Copy the selection"
+msgstr "Copiar la selección"
+
+#: components/html-editor/html-editor-control.xml.h:10
+msgid "Cut"
+msgstr "Cortar"
+
+#: components/html-editor/html-editor-control.xml.h:11
+msgid "Cut the selection"
+msgstr "Cortar la selección"
+
+#: components/html-editor/html-editor-control.xml.h:12
+msgid "Find Rege_x..."
+msgstr "Buscar e_xpresion..."
+
+#: components/html-editor/html-editor-control.xml.h:13
+msgid "Find _Again"
+msgstr "Buscar otr_a vez"
+
+#: components/html-editor/html-editor-control.xml.h:14
+msgid "Insert HTML link into document..."
+msgstr "Insertar link HTML en el documento..."
+
+#: components/html-editor/html-editor-control.xml.h:15
+msgid "Insert image into document..."
+msgstr "Insertar imagen en el documento..."
+
+#: components/html-editor/html-editor-control.xml.h:16
+msgid "Insert rule into document..."
+msgstr "Insertar regla en el documento..."
+
+#: components/html-editor/html-editor-control.xml.h:17
+msgid "Modify the file's properties"
+msgstr "Modificar las propiedades del archivo"
+
+#: components/html-editor/html-editor-control.xml.h:18
+msgid "Paste"
+msgstr "Pegar"
+
+#: components/html-editor/html-editor-control.xml.h:19
+msgid "Paste the clipboard"
+msgstr "Pegar el contenido del portapapeles"
+
+#: components/html-editor/html-editor-control.xml.h:20
+msgid "Redo"
+msgstr "Rehacer"
+
+#: components/html-editor/html-editor-control.xml.h:21
+msgid "Redo the undone action"
+msgstr "Rehacer la operación deshecha"
+
+#: components/html-editor/html-editor-control.xml.h:22
+msgid "Regular expression search"
+msgstr "Busqueda por expresiones regulares"
+
+#: components/html-editor/html-editor-control.xml.h:23
+msgid "Replace a string"
+msgstr "Remplazar una cadena"
+
+#: components/html-editor/html-editor-control.xml.h:24
+msgid "Search again for the same string"
+msgstr "Buscar otra vez la misma cadena"
+
+#: components/html-editor/html-editor-control.xml.h:25
+msgid "Search for a string"
+msgstr "Buscar una cadena"
+
+#: components/html-editor/html-editor-control.xml.h:26
+msgid "Undo"
+msgstr "Deshacer"
+
+#: components/html-editor/html-editor-control.xml.h:27
+msgid "Undo the last action"
+msgstr "Deshacer la última acción"
+
+#: components/html-editor/html-editor-control.xml.h:28
+msgid "_Copy"
+msgstr "_Copiar"
+
+#: components/html-editor/html-editor-control.xml.h:29
+msgid "_Edit"
+msgstr "_Editar"
+
+#: components/html-editor/html-editor-control.xml.h:30
+msgid "_Find..."
+msgstr "_Buscar..."
+
+#: components/html-editor/html-editor-control.xml.h:31
+msgid "_Image..."
+msgstr "_Imagen..."
+
+#: components/html-editor/html-editor-control.xml.h:32
+msgid "_Insert"
+msgstr "_Insertar"
+
+#: components/html-editor/html-editor-control.xml.h:33
+msgid "_Link..."
+msgstr "_Enlazar..."
+
+#: components/html-editor/html-editor-control.xml.h:34
+msgid "_Paste"
+msgstr "_Pegar"
+
+#: components/html-editor/html-editor-control.xml.h:35
+msgid "_Properties..."
+msgstr "_Propiedades..."
+
+#: components/html-editor/html-editor-control.xml.h:36
+msgid "_Redo"
+msgstr "_Rehacer"
+
+#: components/html-editor/html-editor-control.xml.h:37
+msgid "_Replace..."
+msgstr "_Remplazar..."
+
+#: components/html-editor/html-editor-control.xml.h:38
+msgid "_Rule..."
+msgstr "_Regla..."
+
+#: components/html-editor/html-editor-control.xml.h:39
+msgid "_Undo"
+msgstr "_Deshacer"
