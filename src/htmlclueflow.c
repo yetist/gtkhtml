@@ -847,8 +847,7 @@ layout_line (HTMLObject *o, HTMLPainter *painter, HTMLObject *begin,
 	x = start_lmargin = *lmargin;
 	o->ascent += o->y - old_y;
 
-	while (cur && !(cur->flags & HTML_OBJECT_FLAG_ALIGNED) && (HTML_CLUEFLOW (o)->style == HTML_CLUEFLOW_STYLE_PRE
-								   || (x < *rmargin || first))) {
+	while (cur && !(cur->flags & HTML_OBJECT_FLAG_ALIGNED)) {
 		HTMLFitType fit;
 		HTMLVAlignType valign;
 

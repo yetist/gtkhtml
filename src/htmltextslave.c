@@ -440,21 +440,30 @@ hts_fit_line (HTMLObject *o, HTMLPainter *painter,
 	HTMLFitType rv = HTML_FIT_PARTIAL;
 	HTMLTextSlave *slave;
 	HTMLText *text;
+	HTMLObject *prev;
 	guint  pos = 0;
 	gchar *sep = NULL, *lsep;
 	gchar *begin;
 	guint words = 0;
+	gint orig_start_word;
+	gboolean forceFit;
 
 	slave = HTML_TEXT_SLAVE (o);
 	text  = HTML_TEXT (slave->owner);
+	orig_start_word = slave->start_word;
 
 	begin = html_text_slave_remove_leading_space (slave, painter, lineBegin);
 
 	/* printf ("fit_line %d left: %d lspacetext: \"%s\"\n", firstRun, widthLeft, begin); */
 
+	prev = html_object_prev_not_slave (HTML_OBJECT (text));
+	forceFit = orig_start_word == slave->start_word
+		&& prev && html_object_is_text (prev) && HTML_TEXT (prev)->text_len && HTML_TEXT (prev)->text [strlen (HTML_TEXT (prev)->text) - 1] != ' ';
+
 	sep = begin;
-	while (sep && *sep
-	       && widthLeft >= html_text_slave_nb_width (slave, painter, words + 1)) {
+	while ((sep && *sep
+		&& widthLeft >= html_text_slave_nb_width (slave, painter, words + 1))
+	       || (words == 0 && text->words - slave->start_word > 0 && forceFit)) {
 		words ++;
 		lsep   = sep;
 		sep    = strchr (lsep + (words > 1 ? 1 : 0), ' ');

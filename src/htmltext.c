@@ -927,7 +927,7 @@ static gint
 calc_min_width (HTMLObject *self, HTMLPainter *painter)
 {
 	HTMLText *text = HTML_TEXT (self);
-	HTMLObject *obj;
+	HTMLObject *prev, *next, *obj;
 	guint i, w, mw;
 
 	items_destroy (text);
@@ -937,15 +937,27 @@ calc_min_width (HTMLObject *self, HTMLPainter *painter)
 
 	for (i = 0; i < text->words; i++) {
 		w = word_width (text, painter, i);
+		prev = next = NULL;
 		if (i == 0) {
 			obj = html_object_prev_not_slave (self);
-			if (obj && html_object_is_text (obj))
+			if (obj && html_object_is_text (obj)) {
 				w += html_text_get_nb_width (HTML_TEXT (obj), painter, FALSE);
-		} else if (i == text->words - 1) {
-			obj = html_object_next_not_slave (self);
-			if (obj && html_object_is_text (obj))
-				w += html_text_get_nb_width (HTML_TEXT (obj), painter, TRUE);
+				prev = obj;
+			}
 		}
+		if (i == text->words - 1) {
+			obj = html_object_next_not_slave (self);
+			if (obj && html_object_is_text (obj)) {
+				w += html_text_get_nb_width (HTML_TEXT (obj), painter, TRUE);
+				next = obj;
+			}
+		}
+
+		if (prev && prev->min_width < w)
+			prev->min_width = w;
+		if (next && next->min_width < w)
+			next->min_width = w;
+
 		if (w > mw)
 			mw = w;
 	}
