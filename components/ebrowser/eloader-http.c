@@ -377,7 +377,6 @@ client_done (EHTTPClient * client, EHTTPClientStatus status, gpointer data)
 
 	elh = ELOADER_HTTP (data);
 
-	gtk_html_stream_close (elh->loader.stream, GTK_HTML_STREAM_OK);
 	eloader_done (ELOADER (elh), (status == E_HTTP_CLIENT_OK) ? ELOADER_OK : ELOADER_ERROR);
 }
 
