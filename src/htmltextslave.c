@@ -472,7 +472,7 @@ hts_fit_line (HTMLObject *o, HTMLPainter *painter,
 	lbsp = s = html_text_get_text (slave->owner, offset);
 
 	while ((force_fit || widthLeft > lbw) && offset < slave->posStart + slave->posLen) {
-		if (offset > slave->posStart && pi->entries [ii].attrs [io].is_line_break) {
+		if (offset > slave->posStart && (pi->entries [ii].attrs [io].is_line_break || io == pi->entries [ii].item->num_chars - 1)) {
 			gint new_ltw, new_lwl, aw;
 
 			new_ltw = PANGO_PIXELS (html_text_tail_white_space (slave->owner, painter, offset, ii, io, &new_lwl, line_offset, s));

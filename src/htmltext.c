@@ -909,6 +909,8 @@ html_text_get_pango_info (HTMLText *text, HTMLPainter *painter)
 
 			item = text->pi->entries [i].item = (PangoItem *) cur->data;
 
+			/* printf ("item pos %d len %d\n", item->offset, item->length); */
+
 			text->pi->entries [i].attrs = g_new (PangoLogAttr, item->num_chars + 1);;
 			pango_break (translated + item->offset, item->length, &item->analysis, text->pi->entries [i].attrs, item->num_chars + 1);
 
@@ -1092,7 +1094,7 @@ calc_min_width (HTMLObject *self, HTMLPainter *painter)
 	while (offset < text->text_len) {
 		gint skip;
 
-		if (offset > 0 && pi->entries [ii].attrs [io].is_line_break) {
+		if (offset > 0 && (pi->entries [ii].attrs [io].is_line_break || io == pi->entries [ii].item->num_chars - 1)) {
 			if (!HTML_IS_GDK_PAINTER (painter) && !HTML_IS_PLAIN_PAINTER (painter))
 				html_painter_calc_text_size (painter, html_text_get_text (text, last_offset),
 							     offset - last_offset, NULL, NULL, 0, NULL, html_text_get_font_style (text), text->face,
