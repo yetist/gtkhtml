@@ -1,5 +1,8 @@
 2003-04-15  Larry Ewing  <lewing@ximian.com>
 
+	* htmldrawqueue.c (clear): clip the cleared area to the visible
+	area.
+
 	* htmliframe.c (calc_size): let the engine know what size we
 	decided it was (for later clipping).
 

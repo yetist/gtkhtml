@@ -346,8 +346,10 @@ clear (HTMLDrawQueue *queue,
 	x2 = x1 + elem->width;
 	y2 = y1 + elem->height;
 
+	if (!html_engine_intersection (e, &x1, &y1, &x2, &y2))
+		return;
+				      
 	html_painter_begin (e->painter, x1, y1, x2, y2);
-
 	if (elem->background_color != NULL) {
 		html_engine_draw_background (e, x1, y1, x2 - x1, y2 - y1);
 	}
