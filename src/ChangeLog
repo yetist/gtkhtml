@@ -1,5 +1,8 @@
 2000-01-28  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlengine.c (parse_table): Restore quote and list level and
+	flow pointer before adding the table to the tree.
+
 	* debug.c (debug_dump_tree): Also print the list/quote level for
 	HTMLClueFlows.
 

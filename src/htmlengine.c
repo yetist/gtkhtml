@@ -1060,6 +1060,13 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 		}
 	}
 		
+	e->quote_level = old_quote_level;
+	e->list_level = old_list_level;
+
+	e->divAlign = olddivalign;
+
+	e->flow = HTML_OBJECT (oldflow);
+
 	if (has_cell) {
 		/* The ending "</table>" might be missing, so we close the table
 		   here...  */
@@ -1090,12 +1097,6 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 		html_object_destroy (HTML_OBJECT (table));
 	}
 	
-	e->quote_level = old_quote_level;
-	e->list_level = old_list_level;
-
-	e->divAlign = olddivalign;
-	e->flow = HTML_OBJECT (oldflow);
-
 	g_print ("Returning: %s\n", str);
 	return str;
 }
