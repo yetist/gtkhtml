@@ -8,15 +8,23 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-26 20:37+0100\n"
-"PO-Revision-Date: 2004-12-26 23:49+0100\n"
+"POT-Creation-Date: 2005-01-02 12:26+0100\n"
+"PO-Revision-Date: 2005-01-02 15:09+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: a11y/object.c:50 a11y/object.c:59
+#: a11y/image.c:149
+msgid "URL is "
+msgstr "URL je "
+
+#: a11y/image.c:152
+msgid ", Alternative Text is "
+msgstr ", alternativní text je "
+
+#: a11y/object.c:50 a11y/object.c:59 a11y/text.c:105
 msgid "grab focus"
 msgstr "aktivovat"
 
