@@ -59,11 +59,11 @@
 			<cmd name="HeadingNumberedList" 
 			_label="Numbered List"
 		        _tip="Make the current paragraph a numbered list"
-		        type="radio" group="paragraph_heading" accel="*Ctrl**Alt*2"/>
+		        type="radio" group="paragraph_heading" accel="*Ctrl**Alt*3"/>
 			<cmd name="HeadingRoman" 
 			_label="Roman Numeral List"
 		        _tip="Make the current paragraph a list with roman numerals"
-		        type="radio" group="paragraph_heading" accel="*Ctrl**Alt*3"/>
+		        type="radio" group="paragraph_heading" accel="*Ctrl**Alt*2"/>
 			<cmd name="HeadingAlphabeticalList" 
 			_label="Alphabetical List"
 		        _tip="Make the current paragraph an alphabetical list"
@@ -208,9 +208,8 @@
 					<menuitem name="HeadingH6" verb="" _label="Header _6"/>
 					<menuitem name="HeadingAddress" verb="" _label="A_ddress"/>
 					<menuitem name="HeadingBulletedList" verb="" _label="_Bulleted List"/>
- 					<menuitem name="HeadingNumberedList" verb="" _label="Numbered _List"/> 
-
 					<menuitem name="HeadingRomanList" verb="" _label="_Roman Numeral List"/> 
+ 					<menuitem name="HeadingNumberedList" verb="" _label="Numbered _List"/> 
 					<menuitem name="HeadingAlphabeticalList" verb="" _label="_Alphabetical List"/>
 				</submenu>
                 
