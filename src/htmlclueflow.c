@@ -877,6 +877,7 @@ layout_line (HTMLObject *o, HTMLPainter *painter, HTMLObject *begin,
 			need_update_height = TRUE;
 		}
 
+		cur->y = o->ascent + a;
 		fit = html_object_fit_line (cur, painter, first, first, FALSE, width_left (o, x, *rmargin));
 		first = FALSE;
 		if (fit == HTML_FIT_NONE)
@@ -1319,7 +1320,8 @@ check_point (HTMLObject *self,
 	 * shift any selection inside the indent block to the 
 	 * left edge of the flow.
 	 */
-	x = MAX (x, get_indent (HTML_CLUEFLOW (self), painter));
+	if (for_cursor)
+		x = MAX (x, get_indent (HTML_CLUEFLOW (self), painter));
 
 	for (p = clue->head; p; ) {
 
@@ -2887,7 +2889,7 @@ html_clueflow_get_line_offset (HTMLClueFlow *flow, HTMLPainter *painter, HTMLObj
 		if (head == child)
 			break;
 		line_offset += html_object_get_line_length (head, painter, line_offset);
-		head = html_object_prev_not_slave (head);
+		head = html_object_next_not_slave (head);
 	}
 	/* printf ("lo: %d\n", line_offset); */
 	return line_offset;

@@ -107,20 +107,22 @@ get_words_width (HTMLTextSlave *slave, HTMLPainter *p, guint words)
 
 	if (html_clueflow_tabs (HTML_CLUEFLOW (HTML_OBJECT (slave)->parent), p)) {
 		gchar *space, *str = html_text_slave_get_text (slave);
-		gint tabs, len, line_offset = html_text_slave_get_line_offset (slave, 0, p);
+		gint line_offset = html_text_slave_get_line_offset (slave, 0, p);
+		gint tabs, len = 0; 
 
 		space = str;
-		while (words && space && *space) {
-			space = strchr (space, ' ');
-			words --;
+		while (words && *space && len < slave->posLen) {
+			if (*space == ' ')
+				words --;
+
+			if (words) {
+				space = g_utf8_next_char (space);
+				len++;
+			}
 		}
 
-		if (!space || !*space)
-			len = slave->posLen;
-		else
-			len = g_utf8_pointer_to_offset (str, space);
 		/* printf ("width %d --> ", width); */
-		width += html_painter_get_space_width (p, html_text_get_font_style (text), text->face)*(html_text_text_line_length (str, &line_offset, len, &tabs) - len - tabs);
+		width += html_painter_get_space_width (p, html_text_get_font_style (text), text->face)*(html_text_text_line_length (str, &line_offset, len, &tabs) - len);
 		/* printf ("%d\n", width); */
 	}
 
@@ -195,6 +197,7 @@ get_offset_for_bounded_width (HTMLTextSlave *slave, HTMLPainter *painter, gint *
 	HTMLText *text = slave->owner;
 	gint upper = slave->posLen;
 	gint lower = 0;
+	gint off = 0;
 	gint len, width, asc, dsc;
 	gint line_offset = -1;
 	gchar *sep, *str;
@@ -220,12 +223,12 @@ get_offset_for_bounded_width (HTMLTextSlave *slave, HTMLPainter *painter, gint *
 	*words = 0;
 	str = sep = buffer;
 
-	while ((sep = strchr (sep, ' '))) {
-		if (g_utf8_pointer_to_offset (str, sep) < len)
+	while (off < len && *sep) {
+		if (*sep == ' ') 
 			(*words) ++;
-		else
-			break;
-		sep = sep + 1;
+
+		sep = g_utf8_next_char (sep);
+		off++;
 	}
 
 	return len;
@@ -442,7 +445,7 @@ hts_fit_line (HTMLObject *o, HTMLPainter *painter,
 	HTMLText *text;
 	HTMLObject *prev;
 	guint  pos = 0;
-	gchar *sep = NULL, *lsep;
+	gchar *sep = NULL;
 	gchar *begin;
 	guint words = 0;
 	gint orig_start_word;
@@ -464,10 +467,17 @@ hts_fit_line (HTMLObject *o, HTMLPainter *painter,
 	while ((sep && *sep
 		&& widthLeft >= html_text_slave_nb_width (slave, painter, words + 1))
 	       || (words == 0 && text->words - slave->start_word > 0 && forceFit)) {
+		if (words) {
+			sep = g_utf8_next_char (sep);
+			pos++;
+		}
+		
 		words ++;
-		lsep   = sep;
-		sep    = strchr (lsep + (words > 1 ? 1 : 0), ' ');
-		pos    = sep ? g_utf8_pointer_to_offset (begin, sep) : g_utf8_strlen (begin, -1);
+		while (*sep && *sep != ' ') {
+			sep = g_utf8_next_char (sep);
+			pos++;
+		}
+
 		if (words + slave->start_word >= text->words)
 			break;
 	}
@@ -489,18 +499,23 @@ hts_fit_line (HTMLObject *o, HTMLPainter *painter,
 		} else if (slave->start_word + 1 == text->words)
 			rv = next_to_floating ? HTML_FIT_NONE : HTML_FIT_COMPLETE;
 		else {
+			if (words && *sep) {
+				sep = g_utf8_next_char (sep);
+				pos++;
+			}
+
 			words ++;
 
-			if (sep)
-				sep = strchr (sep + (words > 1 ? 0 : 1), ' ');
-
-			pos = sep ? g_utf8_pointer_to_offset (begin, sep) : g_utf8_strlen (begin, -1);
+			while (*sep && *sep != ' ') {
+				sep = g_utf8_next_char (sep);
+				pos ++;
+			}
 		}
 	}
 
 	if (rv == HTML_FIT_PARTIAL)
 		if (pos < slave->posLen) {
-			split (slave, pos, slave->start_word + words, sep);
+			split (slave, pos, slave->start_word + words, *sep ? sep : NULL);
 		o->width = get_words_width (slave, painter, words);
 	}
 
@@ -748,7 +763,7 @@ draw_highlighted (HTMLTextSlave *slave,
 {
 	HTMLText *owner;
 	HTMLObject *obj;
-	GList *glyphs1, *glyphs2, *glyphs3, *items1, *items2, *items3;
+	GList *items1, *items2, *items3;
 	guint start, end, len;
 	gint offset_width, text_width, lo, lo_start, lo_sel, asc, dsc;
 	const gchar *text;
@@ -774,64 +789,77 @@ draw_highlighted (HTMLTextSlave *slave,
 
 	lo_start = lo = html_text_slave_get_line_offset (slave, 0, p);
 
+	html_painter_set_font_style (p, font_style);
+	html_painter_set_font_face  (p, HTML_TEXT (owner)->face);
+	html_color_alloc (HTML_TEXT (owner)->color, p);
+
+	/* 1. Draw the leftmost non-highlighted part, if any.  */
 	if (start > slave->posStart) {
+		GList *glyphs1;
+
 		glyphs1 = get_glyphs_part (slave, p, 0, start - slave->posStart, &items1);
 		html_painter_calc_text_size (p, slave_begin, start - slave->posStart, items1, glyphs1, slave_begin - text, &lo,
 					     font_style, HTML_TEXT (owner)->face, &offset_width, &asc, &dsc);
+
+		html_painter_set_pen (p, &HTML_TEXT (owner)->color->color);
+
+		if (obj->x + offset_width >= x)
+			html_painter_draw_text (p,
+						obj->x + tx, obj->y + ty + get_ys (HTML_TEXT (slave->owner), p),
+						slave_begin,
+						start - slave->posStart, items1, glyphs1, slave_begin - slave->owner->text,
+						lo_start);
+
+		if (glyphs1)
+			glyphs_destroy (glyphs1);
+
 	} else
 		offset_width = 0;
-	lo_sel = lo;
 
+	lo_sel = lo;
+	
+	/* Check bounds again */
+	if (obj->x + offset_width > x + width)
+		return;
+
+	/* Draw the highlighted part with a highlight background.  */
 	if (len) {
+		GList *glyphs2;
+
 		glyphs2 = get_glyphs_part (slave, p, start - slave->posStart, len, &items2);
 
 		html_painter_calc_text_size (p, highlight_begin, len, items2, glyphs2, highlight_begin - text, &lo,
 					     font_style, HTML_TEXT (owner)->face, &text_width, &asc, &dsc);
 		/* printf ("s: %d l: %d - %d %d\n", start, len, offset_width, text_width); */
+
+		html_painter_set_pen (p, &html_colorset_get_color_allocated
+				      (p, p->focus ? HTMLHighlightColor : HTMLHighlightNFColor)->color);
+		html_painter_fill_rect (p, obj->x + tx + offset_width, obj->y + ty - obj->ascent,
+					text_width, obj->ascent + obj->descent);
+		html_painter_set_pen (p, &html_colorset_get_color_allocated
+				      (p, p->focus ? HTMLHighlightTextColor : HTMLHighlightTextNFColor)->color);
+		
+		if (obj->x + offset_width + text_width >= x)
+			html_painter_draw_text (p, obj->x + tx + offset_width, 
+						obj->y + ty + get_ys (HTML_TEXT (slave->owner), p),
+						highlight_begin, len, items2, glyphs2, highlight_begin - slave->owner->text,
+						lo_sel);
+		if (glyphs2)
+			glyphs_destroy (glyphs2);
 	} else
 		text_width = 0;
 
-	/* printf ("lo %d - %d(%d) - %d(%d)\n", lo_start, lo_sel, start, lo, end); */
-
-	html_painter_set_font_style (p, font_style);
-	html_painter_set_font_face  (p, HTML_TEXT (owner)->face);
-
-	/* Draw the highlighted part with a highlight background.  */
-
-	html_color_alloc (HTML_TEXT (owner)->color, p);
-	html_painter_set_pen (p, &html_colorset_get_color_allocated
-			      (p, p->focus ? HTMLHighlightColor : HTMLHighlightNFColor)->color);
-	html_painter_fill_rect (p, obj->x + tx + offset_width, obj->y + ty - obj->ascent,
-				text_width, obj->ascent + obj->descent);
-	html_painter_set_pen (p, &html_colorset_get_color_allocated
-			      (p, p->focus ? HTMLHighlightTextColor : HTMLHighlightTextNFColor)->color);
-
-	if (len) {
-		html_painter_draw_text (p, obj->x + tx + offset_width, 
-					obj->y + ty + get_ys (HTML_TEXT (slave->owner), p),
-					highlight_begin, len, items2, glyphs2, highlight_begin - slave->owner->text,
-					lo_sel);
-		if (glyphs2)
-			glyphs_destroy (glyphs2);
-	}
-	/* Draw the non-highlighted part.  */
-	html_painter_set_pen (p, &HTML_TEXT (owner)->color->color);
-
-	/* 1. Draw the leftmost non-highlighted part, if any.  */
-	if (start > slave->posStart) {
-		html_painter_draw_text (p,
-					obj->x + tx, obj->y + ty + get_ys (HTML_TEXT (slave->owner), p),
-					slave_begin,
-					start - slave->posStart, items1, glyphs1, slave_begin - slave->owner->text,
-					lo_start);
-		if (glyphs1)
-			glyphs_destroy (glyphs1);
-	}
+	/* Check bounds one last time */
+	if (obj->x + offset_width + text_width > x + width)
+		return;
 
 	/* 2. Draw the rightmost non-highlighted part, if any.  */
 	if (end < slave->posStart + slave->posLen) {
 		gchar *end_text;
+		GList *glyphs3;
+
 		glyphs3 = get_glyphs_part (slave, p, start + len - slave->posStart, slave->posLen - start - len + slave->posStart, &items3);
+		html_painter_set_pen (p, &HTML_TEXT (owner)->color->color);
 		end_text = g_utf8_offset_to_pointer (highlight_begin, end - start);
 		html_painter_draw_text (p,
 					obj->x + tx + offset_width + text_width,
@@ -908,9 +936,15 @@ get_offset_for_pointer (HTMLTextSlave *slave, HTMLPainter *painter, gint x, gint
 	HTMLText *owner;
 	GtkHTMLFontStyle font_style;
 	guint width, prev_width;
-	guint i;
-	gint line_offset, lo, word;
+	gint line_offset;
 	gchar *text;
+	guint upper;
+	guint len;
+	guint lower;
+	GList *items;
+	GList *glyphs;
+	gint lo;
+	gint asc, dsc;
 
 	g_return_val_if_fail (slave != NULL, 0);
 
@@ -919,45 +953,47 @@ get_offset_for_pointer (HTMLTextSlave *slave, HTMLPainter *painter, gint x, gint
 
 	x -= HTML_OBJECT (slave)->x;
 
+	if (x <= 0)
+		return 0;
+
+	if (x >= HTML_OBJECT (slave)->width)
+		return slave->posLen;
+				      
+	len = 0;
+	width = 0;
 	prev_width  = 0;
-	line_offset = html_text_slave_get_line_offset (slave, 0, painter);
+	lower = 0;
+	upper = slave->posLen;
 
-	i = 1;
-	word = 1;
 	text = html_text_slave_get_text (slave);
-	/*space = strchr (text, ' ');
-	if (space && g_utf8_pointer_to_offset (text, space) <= slave->posLen) {
-		html_text_request_word_width (owner, painter);
+	line_offset = html_text_slave_get_line_offset (slave, 0, painter);	
 
-		ww = get_words_width (owner, painter, slave->start_word, word);
-		while (ww < x && space) {
-			i = g_utf8_pointer_to_offset (text, space);
-			space = strchr (space + 1, ' ');
-			if (space && g_utf8_pointer_to_offset (text, space) >= slave->posLen) {
-				break;
-			}
-			word ++;
-			ww = get_words_width (owner, painter, slave->start_word, word);
-		}
-		}*/
 
-	for ( ; i <= slave->posLen; i++) {
-		GList *items;
-		GList *glyphs;
-		gint asc, dsc;
-
+	while (upper - lower > 1) {
 		lo = line_offset;
-		glyphs = get_glyphs_part (slave, painter, 0, i, &items);
-		html_painter_calc_text_size (painter, text, i, items, glyphs, html_text_slave_get_start_byte_offset (slave), &lo, font_style, owner->face, &width, &asc, &dsc);
-		glyphs_destroy (glyphs);
-
-		if ((width + prev_width) / 2 >= x)
-			return i - 1;
-
 		prev_width = width;
+
+		if (width > x)
+			upper = len;
+		else 
+			lower = len;
+	
+		len = (lower + upper + 1) / 2;
+
+		if (len) {
+			glyphs = get_glyphs_part (slave, painter, 0, len, &items);
+			html_painter_calc_text_size (painter, text, len, items, glyphs, html_text_slave_get_start_byte_offset (slave), 
+						     &lo, font_style, owner->face, &width, &asc, &dsc);
+			glyphs_destroy (glyphs);
+		} else {
+			width = 0;
+		}
 	}
 
-	return slave->posLen;
+	if ((width + prev_width) / 2 >= x)
+		len--;
+
+	return len;
 }
 
 static HTMLObject *

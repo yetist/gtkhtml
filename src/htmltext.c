@@ -1,4 +1,4 @@
-/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
+ /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /* This file is part of the GtkHTML library.
 
    Copyright (C) 1997 Martin Jones (mjones@kde.org)
@@ -549,6 +549,7 @@ html_text_text_line_length (const gchar *text, gint *line_offset, guint len, gin
 			skip = 8 - (*line_offset % 8);
 		}
 		tab  = found_tab + 1;
+
 		*line_offset  += skip;
 		if (*line_offset != -1)
 			sum_skip += skip - 1;
@@ -557,7 +558,8 @@ html_text_text_line_length (const gchar *text, gint *line_offset, guint len, gin
 			(*tabs) ++;
 	}
 
-	(*line_offset) += len - l;
+	if (*line_offset != -1)
+		(*line_offset) += len - l;
 	/* printf ("ll: %d\n", len + sum_skip); */
 
 	return len + sum_skip;
@@ -652,31 +654,38 @@ calc_word_width (HTMLText *text, HTMLPainter *painter, gint line_offset)
 	}
 
 	/* printf ("calc ww m1\n"); */
-	begin = text->text;
+	begin = end = text->text;
 	start_offset = end_offset = 0;
 	il = items;
 	gl = glyphs;
 	cl = 0;
 	for (i = 0; i < text->words; i++) {
-		end   = strchr (begin + (i ? 1 : 0), ' ');
+		while (*end && *end != ' ') {
+			end = g_utf8_next_char (end);
+			end_offset++;
+		}			
 
 		if (il && gl) {
-			/* end_offset = start_offset + (end ? g_utf8_pointer_to_offset (begin, end) : g_utf8_strlen (begin, -1)); */
-			end_offset = start_offset + (end ? g_utf8_pointer_to_offset (begin, end) : g_utf8_strlen (begin, -1));
-			/* printf ("start offset: %d (%d)\n", start_offset, end_offset - start_offset); */
 			cl = word_size (cl, start_offset, end_offset, &il, &gl, &width, &asc, &dsc);
 		} else
 			html_painter_calc_text_size_bytes (painter,
-							   begin, end ? end - begin : strlen (begin), NULL, NULL, 0,
+							   begin, end - begin, NULL, NULL, 0,
 							   NULL, font, style, &width, &asc, &dsc);
+
 		text->word_width [i] = (i ? text->word_width [i - 1] : 0) + width;
 
 		if (obj->ascent < asc)
 			obj->ascent = asc;
 		if (obj->descent < dsc)
 			obj->descent = dsc;
+
 		begin = end;
 		start_offset = end_offset;
+
+		if (*end) {
+			end = g_utf8_next_char (end);
+			end_offset++;
+		}
 	}
 	/* printf ("calc ww m2\n"); */
 
@@ -801,49 +810,77 @@ get_next_nb_width (HTMLText *text, HTMLPainter *painter, gboolean begin)
 		return html_text_get_nb_width (HTML_TEXT (obj), painter, begin);
 }
 
-static inline gint
-word_tabs (HTMLText *text, HTMLPainter *p, gint idx)
+static gint
+min_word_width_calc_tabs (HTMLText *text, HTMLPainter *p, gint idx, gint *len)
 {
 	gchar *str, *end;
-	gint rv = 0, line_offset, t1, t2, l1, l2;
-
+	gint rv = 0, line_offset, wt, wl, i;
+	gint epos;
+	gboolean tab = FALSE;
+	
 	if (!html_clueflow_tabs (HTML_CLUEFLOW (HTML_OBJECT (text)->parent), p))
 		return 0;
 
+	/* printf ("tabs %d\n", idx); */
+
 	str = text->text;
-	while (idx > 0 && str && *str) {
-		str = strchr (str, ' ');
-		if (str)
-			str ++;
-		idx --;
+	i = idx;
+	while (i > 0 && *str) {
+		if (*str == ' ')
+			i--;
+
+		str = g_utf8_next_char (str);
 	}
 
-	if (!str || !*str)
+	if (!*str)
 		return 0;
 
-	end = strchr (str, ' ');
-	if (!end)
-		end = str + strlen (str);
+	epos = 0;
+	end = str;
+	while (*end && *end != ' ') {
+		tab |= *end == '\t';
 
-	line_offset = html_text_get_line_offset (text, p);
-	l1 = html_text_text_line_length (text->text, &line_offset, g_utf8_pointer_to_offset (text->text, str), &t1);
-	l2 = html_text_text_line_length (text->text, &line_offset, g_utf8_pointer_to_offset (str, end), &t2);
+		end = g_utf8_next_char (end);
+		epos++;
+	}
+	
 
-	rv = l2 - l1 - g_utf8_pointer_to_offset (str, end);
+	if (tab) {
+		line_offset = 0;
+		
+		if (idx == 0) {
+			HTMLObject *prev;
+			
+			prev = html_object_prev_not_slave (HTML_OBJECT (text));
+			if (prev && html_object_is_text (prev) && HTML_TEXT (prev)->words > 0) {
+				min_word_width_calc_tabs (HTML_TEXT (prev), p, HTML_TEXT (prev)->words - 1, &line_offset);
+				/* printf ("lo: %d\n", line_offset); */
+			}
+		}
+
+		wl = html_text_text_line_length (str, &line_offset, epos, &wt);
+	} else {
+		wl = epos;
+	}
+	
+	rv = wl - epos;
+		
+	if (len)
+		*len = wl;
 
 	/* printf ("tabs delta %d\n", rv); */
 	return rv;
 }
 
 static guint
-word_width (HTMLText *text, HTMLPainter *p, guint i)
+min_word_width (HTMLText *text, HTMLPainter *p, guint i)
 {
 	g_assert (i < text->words);
 
 	return text->word_width [i]
 		- (i > 0 ? text->word_width [i - 1]
 		   + html_painter_get_space_width (p, html_text_get_font_style (text), text->face) : 0)
-		+ word_tabs (text, p, i)*html_painter_get_space_width (p, html_text_get_font_style (text), text->face);
+		+ min_word_width_calc_tabs (text, p, i, NULL)*html_painter_get_space_width (p, html_text_get_font_style (text), text->face);
 }
 
 /* return non-breakable text width on begin/end of this text */
@@ -861,7 +898,7 @@ html_text_get_nb_width (HTMLText *text, HTMLPainter *painter, gboolean begin)
 
 	html_text_request_word_width (text, painter);
 
-	return word_width (text, painter, begin ? 0 : text->words - 1)
+	return min_word_width (text, painter, begin ? 0 : text->words - 1)
 		+ (text->words == 1 ? get_next_nb_width (text, painter, begin) : 0);
 }
 
@@ -939,7 +976,7 @@ calc_min_width (HTMLObject *self, HTMLPainter *painter)
 	mw = 0;
 
 	for (i = 0; i < text->words; i++) {
-		w = word_width (text, painter, i);
+		w = min_word_width (text, painter, i);
 		prev = next = NULL;
 		if (i == 0) {
 			obj = html_object_prev_not_slave (self);
@@ -1944,18 +1981,14 @@ html_text_magic_link (HTMLText *text, HTMLEngine *engine, guint offset)
 	}
 
 	if (exec) {
-		while (offset < text->text_len && !rv) {
-			for (i=0; i<MIM_N; i++) {
-				if (mim [i].preg && !regexec (mim [i].preg, str, 2, pmatch, 0)) {
-					paste_link (engine, text,
-						    g_utf8_pointer_to_offset (text->text, str + pmatch [0].rm_so),
-						    g_utf8_pointer_to_offset (text->text, str + pmatch [0].rm_eo), mim [i].prefix);
+		for (i=0; i<MIM_N; i++) {
+			if (mim [i].preg && !regexec (mim [i].preg, str, 2, pmatch, 0)) {
+				paste_link (engine, text,
+					    g_utf8_pointer_to_offset (text->text, str + pmatch [0].rm_so),
+					    g_utf8_pointer_to_offset (text->text, str + pmatch [0].rm_eo), mim [i].prefix);
 					rv = TRUE;
 					break;
-				}
 			}
-			str = g_utf8_next_char (str);
-			offset++;
 		}
 	}
 

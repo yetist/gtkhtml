@@ -1,3 +1,53 @@
+2003-04-29  Larry Ewing  <lewing@ximian.com>
+
+	* htmltext.c (calc_word_width): walk the string in our own loop
+	and use the offsets directly rather than calulating them from the
+	pointer.
+	(min_word_width_calc_tabs): only calc the tabs in the segment if
+	we find a tab in the segment while walking it. 
+	(html_text_magic_link): remove broken logic that was running the
+	regex over and over and over.
+
+	* htmltextslave.c (get_offset_for_pointer): don't do a linear
+	search for the cursor position, measuring the strings is too
+	expensive.
+	(get_words_width): replace strchr with our own walking loops so
+	that we don't have to walk the string twice.
+	(get_offset_for_bounded_width): ditto.
+	(hts_fit_line): same as above, and make the logic a little easier
+	to read.
+	(draw_highlighted): only do the measurments and drawing that is
+	actually on screen and within this slave.
+
+2003-04-23  Radek Doulik  <rodo@ximian.com>
+	
+	* htmltextslave.c (get_words_width): fix len calculation, we are
+	incrementing the space now so we have to substract 1 here
+
+	* htmlclueflow.c (layout_line): set current object y to let object
+	know on what line it lives
+
+2003-04-21  Radek Doulik  <rodo@ximian.com>
+
+	* htmlclueflow.c (html_clueflow_get_line_offset): go forward
+	instead of backward from head of line when calculating line offset
+
+	* htmltext.c (html_text_text_line_length): modify line_offset only
+	if != -1
+
+2003-04-18  Radek Doulik  <rodo@ximian.com>
+ 
+	* htmltext.c (min_word_width): renamed to express the
+	functionality better
+	(min_word_width_calc_tabs): renamed as well, fix the
+	calculation. the minimal word width is the width of word idx (with
+	optional non-breaking prefix) on begin of line
+
+	* htmltextslave.c (get_words_width): locate the right word, do not
+	stay at first space
+	(get_words_width): don't substract tabs, they are already included
+	in len and width has already one space width for each of them
+
 2003-04-24  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine.c (html_engine_freeze): call gtk_html_im_reset when
