@@ -25,6 +25,7 @@
 #include "properties.h"
 #include "dialog.h"
 #include "link.h"
+#include "htmlengine-edit-fontstyle.h"
 #include "htmlengine-edit-insert.h"
 
 static void
@@ -85,6 +86,7 @@ link_properties (GtkHTMLControlData *cd, gpointer *set_data)
 {
 	GtkWidget *vbox, *hbox;
 	GtkHTMLEditLinkProperties *data = g_new (GtkHTMLEditLinkProperties, 1);
+	const gchar *url;
 
 	*set_data = data;
 	data->cd = cd;
@@ -95,9 +97,11 @@ link_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	hbox = gtk_hbox_new (FALSE, 3);
 
 	data->entry = gtk_entry_new ();
-	gtk_entry_set_text (GTK_ENTRY (data->entry), (cd->html->engine->active_selection)
-			    ? html_engine_get_document_url (cd->html->engine)
-			    : html_engine_get_url (cd->html->engine));
+	url = (cd->html->engine->active_selection)
+		? html_engine_get_document_url (cd->html->engine)
+		: html_engine_get_url (cd->html->engine);
+	if (url)
+		gtk_entry_set_text (GTK_ENTRY (data->entry), url);
 	gtk_signal_connect (GTK_OBJECT (data->entry), "changed", set_link, data);
 	gtk_box_pack_start (GTK_BOX (hbox), gtk_label_new (_("URL")), FALSE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (hbox), data->entry, FALSE, FALSE, 0);
