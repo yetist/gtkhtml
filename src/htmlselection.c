@@ -168,11 +168,15 @@ html_engine_select_region (HTMLEngine *e,
 	if (e->clue == NULL)
 		return;
 
+	/* printf ("selection %d,%d x %d,%d\n", x1, y1, x2, y2); */
+
 	a = html_engine_get_point_at (e, x1, y1, TRUE);
 	b = html_engine_get_point_at (e, x2, y2, TRUE);
 
 	if (a && b) {
 		HTMLInterval *new_selection;
+
+		/* printf ("points offsets %d, %d\n", a->offset, b->offset); */
 
 		new_selection = html_interval_new_from_points (a, b);
 		html_interval_validate (new_selection);

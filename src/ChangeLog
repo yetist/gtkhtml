@@ -1,3 +1,38 @@
+2005-01-04  Radek Doulik  <rodo@ximian.com>
+
+	* htmltextslave.c: size calculation rewritten, updated line
+	breaking, create new glyph items for line broken items, drawing
+	rewritten, offset calculation rewritten
+
+	* htmltext.c: use pango glyph items instead of just items
+	(prepare_attrs): do not set selection colors by pango attributes,
+	it breaks graphemes in some languages. selection colors are
+	applied at draw time
+	(html_tmp_fix_pango_glyph_string_get_logical_widths): temporary
+	function to replace pango function with bug
+	(html_text_tail_white_space): fixed offset calculation
+	(select_range): use pango cursor position attribute
+
+	* htmlpainter.c: remember clip rectangle, added function to query
+	clip rectangle
+	added new function to draw glyphs directly
+
+	* htmlobject.c (select_object): pass engine to avoid crash in
+	underlying functions
+
+	* htmlgdkpainter.c (begin): reset clip rectangle
+	(set_clip_rectangle): transform painters coordinates to gdk ones,
+	clamp values
+	(draw_glyphs): added fg/bg colors to override style/text colors -
+	selection uses that to force selection foreground color to all
+	texts
+
+	* htmlclueflow.c (html_clueflow_real_get_direction): derive
+	direction from text children
+
+	* gtkhtmldebug.c: print out more information regarding pango info
+	structure
+
 2004-12-27  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine.c (html_engine_get_cursor): check for cursor object,

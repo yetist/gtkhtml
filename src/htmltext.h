@@ -44,7 +44,7 @@ struct _Link {
 };
 
 struct _HTMLTextPangoInfoEntry {
-	PangoItem *item;
+	PangoGlyphItem glyph_item;
 	PangoGlyphUnit *widths;
 };
 
@@ -172,23 +172,23 @@ gint              html_text_calc_part_width              (HTMLText           *te
 							  gint               *dsc);
 gint              html_text_get_item_index               (HTMLText           *text,
 							  HTMLPainter        *painter,
-							  gint                offset,
-							  gint               *item_offset);
+							  int                 offset,
+							  int                *item_offset);
 gboolean          html_text_pi_backward                  (HTMLTextPangoInfo  *pi,
-							  gint               *ii,
-							  gint               *io);
+							  int                *ii,
+							  int                *io);
 gboolean          html_text_pi_forward                   (HTMLTextPangoInfo  *pi,
-							  gint               *ii,
-							  gint               *io);
+							  int                *ii,
+							  int                *io);
 void              html_text_free_attrs                   (GSList             *attrs);
 gint              html_text_tail_white_space             (HTMLText           *text,
 							  HTMLPainter        *painter,
-							  gint                offset,
-							  gint                ii,
-							  gint                io,
-							  gint               *white_len,
-							  gint                line_offset,
-							  gchar              *s);
+							  int                 offset,
+							  int                 ii,
+							  int                 io,
+							  int                *white_len,
+							  int                 line_offset,
+							  char               *s);
 void              html_text_append_link                  (HTMLText           *text,
 							  gchar              *url,
 							  gchar              *target,
@@ -321,6 +321,7 @@ void               html_text_change_attrs          (PangoAttrList         *attr_
 						    gint                   start_index,
 						    gint                   end_index,
 						    gboolean               avoid_default_size);
+PangoDirection     html_text_get_pango_direction   (HTMLText              *text);
 
 gboolean  html_text_is_line_break                (PangoLogAttr  attr);
 void      html_text_remove_unwanted_line_breaks  (char         *s,
@@ -339,4 +340,10 @@ HTMLObject *html_text_op_cut_helper     (HTMLText           *text,
 					 GList              *left,
 					 GList              *right,
 					 guint              *len);
+void
+html_tmp_fix_pango_glyph_string_get_logical_widths (PangoGlyphString *glyphs,
+						    const char       *text,
+						    int               length,
+						    int               embedding_level,
+						    int              *logical_widths);
 #endif /* _HTMLTEXT_H_ */

@@ -52,6 +52,8 @@ struct _HTMLPainter {
 	
 	gdouble  engine_to_pango; /* Scale factor for engine coordinates => Pango coordinates */
 	gboolean focus;
+
+	gint clip_x, clip_y, clip_width, clip_height;
 };
 
 struct _HTMLPainterClass {
@@ -72,7 +74,7 @@ struct _HTMLPainterClass {
 	const GdkColor * (* get_black) (const HTMLPainter *painter);
 	void (* draw_line)        (HTMLPainter *painter, gint x1, gint y1, gint x2, gint y2);
 	void (* draw_rect)        (HTMLPainter *painter, gint x, gint y, gint width, gint height);
-	gint (* draw_glyphs)      (HTMLPainter *painter, gint x, gint y, PangoItem *item, PangoGlyphString *glyphs);
+	gint (* draw_glyphs)      (HTMLPainter *painter, gint x, gint y, PangoItem *item, PangoGlyphString *glyphs, GdkColor *fg, GdkColor *bg);
 	gint (* draw_spell_error) (HTMLPainter *painter, gint x, gint y, HTMLTextPangoInfo *pi, GList *glyphs);
 	void (* fill_rect)        (HTMLPainter *painter, gint x, gint y, gint width, gint height);
 	void (* draw_pixmap)      (HTMLPainter *painter, GdkPixbuf *pixbuf, 
@@ -179,6 +181,13 @@ void              html_painter_draw_text                               (HTMLPain
 									gint               y,
 									const gchar       *text,
 									gint               len);
+int               html_painter_draw_glyphs                             (HTMLPainter       *painter,
+									int                x,
+									int                y,
+									PangoItem         *item,
+									PangoGlyphString  *glyphs,
+									GdkColor          *fg,
+									GdkColor          *bg);
 void              html_painter_draw_entries                            (HTMLPainter       *painter,
 									gint               x,
 									gint               y,
@@ -226,6 +235,11 @@ void              html_painter_set_clip_rectangle                      (HTMLPain
 									gint               y,
 									gint               width,
 									gint               height);
+void              html_painter_get_clip_rectangle                      (HTMLPainter       *painter,
+									gint              *x,
+									gint              *y,
+									gint              *width,
+									gint              *height);
 
 /* Passing 0 for pix_width / pix_height makes it use the image width */
 void              html_painter_draw_background                         (HTMLPainter       *painter,

@@ -2306,11 +2306,34 @@ html_clueflow_type_init (void)
 static HTMLDirection
 html_clueflow_real_get_direction (HTMLObject *o)
 {
-	if (HTML_CLUEFLOW (o)->dir == HTML_DIRECTION_DERIVED && o->parent) {
-		return html_object_get_direction (o->parent);
+	HTMLDirection dir = HTML_CLUEFLOW (o)->dir;
+
+	if (dir == HTML_DIRECTION_DERIVED && o->parent) {
+		dir = html_object_get_direction (o->parent);
 	}
 
-	return HTML_CLUEFLOW (o)->dir;
+	if (dir == HTML_DIRECTION_DERIVED) {
+		HTMLObject *child;
+		for (child = HTML_CLUE (o)->head; child; child = child->next) {
+			if (HTML_IS_TEXT (child)) {
+				PangoDirection pdir = html_text_get_pango_direction (HTML_TEXT (child));
+				switch (pdir) {
+				case PANGO_DIRECTION_RTL:
+					dir = HTML_DIRECTION_RTL;
+					break;
+				case PANGO_DIRECTION_LTR:
+					dir = HTML_DIRECTION_LTR;
+					break;
+				default:
+					break;
+				}
+
+				break;
+			}
+		}
+	}
+
+	return dir;
 }
 
 void

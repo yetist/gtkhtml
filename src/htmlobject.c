@@ -1781,7 +1781,7 @@ select_object (HTMLObject *o, HTMLEngine *e, gpointer data)
 	if (o == d->i->from.object)
 		d->in = TRUE;
 	if (d->in)
-		html_object_select_range (o, NULL,
+		html_object_select_range (o, e,
 					  html_interval_get_start (d->i, o),
 					  html_interval_get_length (d->i, o), FALSE);
 

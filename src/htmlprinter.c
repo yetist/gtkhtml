@@ -599,7 +599,7 @@ draw_lines (HTMLPrinter *printer, double x, double y, double width, PangoAnalysi
 }
 
 static gint
-draw_glyphs (HTMLPainter *painter, gint x, gint y, PangoItem *item, PangoGlyphString *glyphs)
+draw_glyphs (HTMLPainter *painter, gint x, gint y, PangoItem *item, PangoGlyphString *glyphs, GdkColor *fg, GdkColor *bg)
 {
 	HTMLPrinter *printer;
 	gdouble print_x, print_y;

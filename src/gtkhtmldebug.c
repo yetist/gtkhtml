@@ -170,6 +170,9 @@ gtk_html_debug_dump_object (HTMLObject *obj,
 		g_print ("]");
 	}
 	else if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_TEXTSLAVE) {
+		GSList *cur;
+		int width;
+		int ii, io, tw, offset;
 		gchar *sl_text = g_strndup (html_text_get_text (HTML_TEXT (HTML_TEXT_SLAVE (obj)->owner),
 								HTML_TEXT_SLAVE (obj)->posStart),
 					    html_text_get_index (HTML_TEXT (HTML_TEXT_SLAVE (obj)->owner),
@@ -177,11 +180,38 @@ gtk_html_debug_dump_object (HTMLObject *obj,
 								 + HTML_TEXT_SLAVE (obj)->posLen)
 					    - html_text_get_index (HTML_TEXT (HTML_TEXT_SLAVE (obj)->owner),
 								   HTML_TEXT_SLAVE (obj)->posStart));
-		g_print ("[start %d end %d] \"%s\" ",
+		g_print ("[start %d end %d len %d] \"%s\"\n",
 			 HTML_TEXT_SLAVE (obj)->posStart,
 			 HTML_TEXT_SLAVE (obj)->posStart + HTML_TEXT_SLAVE (obj)->posLen - 1,
+			 HTML_TEXT_SLAVE (obj)->posLen,
 			 sl_text);
 		g_free (sl_text);
+
+		width = 0;
+		for (cur = HTML_TEXT_SLAVE (obj)->glyph_items; cur; cur = cur->next) {
+			HTMLTextSlaveGlyphItem *sgi = (HTMLTextSlaveGlyphItem *) cur->data;
+			PangoItem *item = sgi->glyph_item.item;
+			PangoRectangle log_rect;
+
+			pango_glyph_string_extents (sgi->glyph_item.glyphs, sgi->glyph_item.item->analysis.font, NULL, &log_rect);
+			g_print ("type: %d item level: %d offset: %d length: %d width: %d chars %d glyphs %d\n", sgi->type, item->analysis.level, item->offset, item->length, log_rect.width, item->num_chars, sgi->glyph_item.glyphs->num_glyphs);
+			width += log_rect.width;
+
+		}
+
+		g_print ("total width by glyph string extents (in engine units): %d\n", (int)(0.5 + width / PANGO_SCALE));
+
+		ii = html_text_get_item_index (HTML_TEXT_SLAVE (obj)->owner, NULL, HTML_TEXT_SLAVE (obj)->posStart, &io);
+		tw = 0;
+		offset = 0;
+		while (offset < HTML_TEXT_SLAVE (obj)->posLen) {
+			tw += HTML_TEXT_SLAVE (obj)->owner->pi->entries [ii].widths [io];
+			g_print ("%d ", HTML_TEXT_SLAVE (obj)->owner->pi->entries [ii].widths [io]);
+			html_text_pi_forward (HTML_TEXT_SLAVE (obj)->owner->pi, &ii, &io);
+			offset ++;
+		}
+
+		g_print ("\ntotal width by widths in entries (in engine units): %d", (int)(0.5 + tw / PANGO_SCALE));
 	}
 
 	g_print ("\n");
@@ -200,7 +230,7 @@ gtk_html_debug_dump_object (HTMLObject *obj,
 /* 		debug_spell_errors (text->spell_errors); */
 		if (text->pi) {
 			for (i =0; i < text->pi->n; i ++)
-				g_print ("item %d offset: %d length: %d\n", i, text->pi->entries [i].item->offset, text->pi->entries [i].item->length);
+				g_print ("item %d offset: %d length: %d\n", i, text->pi->entries [i].glyph_item.item->offset, text->pi->entries [i].glyph_item.item->length);
 				
 			for (i = 0; i < text->text_len; i ++) {
 				union {

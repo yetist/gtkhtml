@@ -268,4 +268,9 @@ typedef enum {
 	HTML_BORDER_OUTSET
 } HTMLBorderStyle;
 
+typedef enum {
+	HTML_TEXT_SLAVE_GLYPH_ITEM_CREATED,
+	HTML_TEXT_SLAVE_GLYPH_ITEM_PARENTAL
+} HTMLTextSlaveGlyphItemType;
+
 #endif

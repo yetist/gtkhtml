@@ -46,6 +46,8 @@
 
 static HTMLPainterClass *parent_class = NULL;
 
+static void set_clip_rectangle (HTMLPainter *painter, gint x, gint y, gint width, gint height);
+
 /* GObject methods.  */
 
 static void
@@ -100,6 +102,8 @@ begin (HTMLPainter *painter, int x1, int y1, int x2, int y2)
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
 	g_return_if_fail (gdk_painter->window != NULL);
+
+	set_clip_rectangle (painter, 0, 0, 0, 0);
 
 	if (gdk_painter->double_buffer){
 		const int width = x2 - x1 + 1;
@@ -190,11 +194,11 @@ set_clip_rectangle (HTMLPainter *painter,
 		return;
 	}
 
-	rect.x = x;
-	rect.y = y;
-	rect.width = width;
-	rect.height = height;
-	
+	rect.x = CLAMP (x - gdk_painter->x1, 0, gdk_painter->x2 - gdk_painter->x1);
+	rect.y = CLAMP (y - gdk_painter->y1, 0, gdk_painter->y2 - gdk_painter->y1);
+	rect.width = CLAMP (width, 0, gdk_painter->x2 - gdk_painter->x1 - rect.x);
+	rect.height = CLAMP (height, 0, gdk_painter->y2 - gdk_painter->y1 - rect.y);
+
 	gdk_gc_set_clip_rectangle (gdk_painter->gc, &rect);
 }
 
@@ -688,7 +692,7 @@ draw_spell_error (HTMLPainter *painter, gint x, gint y, HTMLTextPangoInfo *pi, G
 		str = (PangoGlyphString *) gl->data;
 		gl = gl->next;
 		ii = GPOINTER_TO_INT (gl->data);
-		pango_glyph_string_extents (str, pi->entries [ii].item->analysis.font, NULL, &log_rect);
+		pango_glyph_string_extents (str, pi->entries [ii].glyph_item.item->analysis.font, NULL, &log_rect);
 		width += PANGO_PIXELS (log_rect.width);
 	}
 
@@ -724,49 +728,32 @@ draw_embedded (HTMLPainter * p, HTMLEmbedded *o, gint x, gint y)
 }
 
 static void
-set_gc_from_pango_color (GdkGC      *gc,
-			 PangoColor *pc)
+set_gdk_color_from_pango_color (GdkColor   *gdkc,
+				PangoColor *pc)
 {
-	GdkColor color;
-	
-	color.red = pc->red;
-	color.green = pc->green;
-	color.blue = pc->blue;
-	
-	gdk_gc_set_rgb_fg_color (gc, &color);
+	gdkc->red = pc->red;
+	gdkc->green = pc->green;
+	gdkc->blue = pc->blue;
 }
      
-static GdkGC *
-item_gc (HTMLPainter *p, PangoItem *item, GdkDrawable *drawable, GdkGC *orig_gc, HTMLPangoProperties *properties, GdkGC **bg_gc)
+static void
+set_item_gc (HTMLPainter *p, HTMLPangoProperties *properties, GdkColor *fg_color, GdkColor **bg_color)
 {
-	GdkGC *new_gc = NULL;
-	html_pango_get_item_properties (item, properties);
-
 	HTMLEngine *e = GTK_HTML (p->widget)->engine;
 
-	*bg_gc = NULL;
-
-	new_gc = gdk_gc_new (drawable);
-	gdk_gc_copy (new_gc, orig_gc);
 	if (properties->fg_color) {
-		set_gc_from_pango_color (new_gc, properties->fg_color);
-		
+		set_gdk_color_from_pango_color (fg_color, properties->fg_color);
 	} else {
-		gdk_gc_set_foreground (new_gc,
-				       &html_colorset_get_color_allocated (e->settings->color_set,
-
-									   e->painter, HTMLTextColor)->color);
+		*fg_color = html_colorset_get_color_allocated (e->settings->color_set,
+							       e->painter, HTMLTextColor)->color;
 	}
 
 	if (properties->bg_color) {
-		*bg_gc = gdk_gc_new (drawable);
-		gdk_gc_copy (*bg_gc, orig_gc);
-		set_gc_from_pango_color (*bg_gc, properties->bg_color);
+		*bg_color = g_new0 (GdkColor, 1);
+		set_gdk_color_from_pango_color (*bg_color, properties->bg_color);
 	} else {
-		*bg_gc = NULL;
+		*bg_color = NULL;
 	}
-
-	return new_gc;
 }
 
 static gint
@@ -791,12 +778,13 @@ draw_lines (PangoGlyphString *str, gint x, gint y, GdkDrawable *drawable, GdkGC 
 }
 
 static gint
-draw_glyphs (HTMLPainter *painter, gint x, gint y, PangoItem *item, PangoGlyphString *glyphs)
+draw_glyphs (HTMLPainter *painter, gint x, gint y, PangoItem *item, PangoGlyphString *glyphs, GdkColor *fg, GdkColor *bg)
 {
 	HTMLGdkPainter *gdk_painter;
 	guint i;
-	GdkGC *gc, *bg_gc;
 	HTMLPangoProperties properties;
+	GdkColor fg_text_color;
+	GdkColor *bg_text_color;
 	gint cw = 0;
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
@@ -804,25 +792,40 @@ draw_glyphs (HTMLPainter *painter, gint x, gint y, PangoItem *item, PangoGlyphSt
 	x -= gdk_painter->x1;
 	y -= gdk_painter->y1;
 
-	bg_gc = NULL;
-	gc = item_gc (painter, item, gdk_painter->pixmap, painter->widget->style->text_gc [painter->widget->state],
-		      &properties, &bg_gc);
-	if (bg_gc) {
+	html_pango_get_item_properties (item, &properties);
+
+	set_item_gc (painter, &properties, &fg_text_color, &bg_text_color);
+
+	if (fg)
+		gdk_gc_set_rgb_fg_color (gdk_painter->gc, fg);
+
+	if (bg_text_color || bg) {
 		PangoRectangle log_rect;
+
 		
+		if (bg)
+			gdk_gc_set_rgb_fg_color (gdk_painter->gc, bg);
+		else
+			gdk_gc_set_rgb_fg_color (gdk_painter->gc, bg_text_color);
 		pango_glyph_string_extents (glyphs, item->analysis.font, NULL, &log_rect);
-		gdk_draw_rectangle (gdk_painter->pixmap, bg_gc, TRUE, x, y - PANGO_PIXELS (PANGO_ASCENT (log_rect)),
+		gdk_draw_rectangle (gdk_painter->pixmap, gdk_painter->gc, TRUE, x, y - PANGO_PIXELS (PANGO_ASCENT (log_rect)),
 				    PANGO_PIXELS (log_rect.width), PANGO_PIXELS (log_rect.height));
-		g_object_unref (bg_gc);
 	}
-	gdk_draw_glyphs (gdk_painter->pixmap, gc,
+	if (fg)
+		gdk_gc_set_rgb_fg_color (gdk_painter->gc, fg);
+	else
+		gdk_gc_set_rgb_fg_color (gdk_painter->gc, &fg_text_color);
+
+	gdk_draw_glyphs (gdk_painter->pixmap, gdk_painter->gc,
 			 item->analysis.font, x, y, glyphs);
 	if (properties.strikethrough || properties.underline)
-		cw = draw_lines (glyphs, x, y, gdk_painter->pixmap, gc, item, &properties);
+		cw = draw_lines (glyphs, x, y, gdk_painter->pixmap, gdk_painter->gc, item, &properties);
 	else
 		for (i=0; i < glyphs->num_glyphs; i ++)
 			cw += PANGO_PIXELS (glyphs->glyphs [i].geometry.width);
-	g_object_unref (gc);
+
+	if (bg_text_color)
+		g_free (bg_text_color);
 
 	return cw;
 }

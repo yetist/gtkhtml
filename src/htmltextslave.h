@@ -37,12 +37,21 @@ struct _HTMLTextSlave {
 	gchar *charStart;
 
 	HTMLTextPangoInfo *pi;
-	GList *glyphs;
+	GList *glyphs; /* deprecated */
+	GSList *glyph_items;
 };
 
 struct _HTMLTextSlaveClass {
 	HTMLObjectClass object_class;
 };
+
+struct _HTMLTextSlaveGlyphItem {
+	PangoGlyphItem glyph_item;
+	PangoGlyphUnit *widths;
+
+	HTMLTextSlaveGlyphItemType type;
+};
+
 
 void        html_text_slave_type_init             (void);
 void        html_text_slave_class_init            (HTMLTextSlaveClass *klass,
@@ -75,4 +84,6 @@ GList      *html_get_glyphs_non_tab               (GList              *glyphs,
 						   const gchar        *text,
 						   gint                bytes,
 						   gint                len);
+GSList     *html_text_slave_get_glyph_items       (HTMLTextSlave      *slave,
+						   HTMLPainter        *painter);
 #endif /* _HTMLTEXTSLAVE_H_ */

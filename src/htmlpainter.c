@@ -116,6 +116,7 @@ html_painter_init (GObject *object, HTMLPainterClass *real_klass)
 	painter->font_style = GTK_HTML_FONT_STYLE_DEFAULT;
 	painter->font_face = NULL;
 	painter->widget = NULL;
+	painter->clip_width = painter->clip_height = 0;
 }
 
 static void
@@ -181,7 +182,7 @@ text_size (HTMLPainter *painter, PangoFontDescription *desc, const gchar *text, 
 			str = (PangoGlyphString *) gl->data;
 			gl = gl->next;
 			ii = GPOINTER_TO_INT (gl->data);
-			item = pi->entries [ii].item;
+			item = pi->entries [ii].glyph_item.item;
 			pango_glyph_string_extents (str, item->analysis.font, NULL, &log_rect);
 			width += log_rect.width;
 
@@ -288,6 +289,8 @@ html_painter_begin (HTMLPainter *painter,
 {
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
+
+	painter->clip_height = painter->clip_width = 0;
 
 	(* HP_CLASS (painter)->begin) (painter, x1, y1, x2, y2);
 }
@@ -586,7 +589,7 @@ html_painter_draw_entries (HTMLPainter *painter, gint x, gint y,
 	 */
 	while (gl) {
 		gint ii = GPOINTER_TO_INT (gl->next->data);
-		PangoItem *item = pi->entries[ii].item;
+		PangoItem *item = pi->entries[ii].glyph_item.item;
 		const gchar *item_end;
 		const gchar *next;
 
@@ -615,7 +618,7 @@ html_painter_draw_entries (HTMLPainter *painter, gint x, gint y,
 			
 			tab = memchr (c_text + 1, (unsigned char) '\t', bytes - 1);
 		} else {
-			x += (* HP_CLASS (painter)->draw_glyphs) (painter, x, y, item, gl->data);
+			x += (* HP_CLASS (painter)->draw_glyphs) (painter, x, y, item, gl->data, NULL, NULL);
 
 			if (line_offset != -1)
 				line_offset += g_utf8_pointer_to_offset (c_text, next);
@@ -626,6 +629,12 @@ html_painter_draw_entries (HTMLPainter *painter, gint x, gint y,
 		bytes -= next - c_text;
 		c_text = next;
 	}
+}
+
+int
+html_painter_draw_glyphs (HTMLPainter *painter, int x, int y, PangoItem *item, PangoGlyphString *glyphs, GdkColor *fg, GdkColor *bg)
+{
+	return (* HP_CLASS (painter)->draw_glyphs) (painter, x, y, item, glyphs, fg, bg);
 }
 
 /**
@@ -765,7 +774,25 @@ html_painter_set_clip_rectangle (HTMLPainter *painter,
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
 
+	painter->clip_x = x;
+	painter->clip_y = y;
+	painter->clip_width = width;
+	painter->clip_height = height;
+
+	/* printf ("clip rect: %d,%d %dx%d\n", x, y, width, height); */
+
 	(* HP_CLASS (painter)->set_clip_rectangle) (painter, x, y, width, height);
+}
+
+void
+html_painter_get_clip_rectangle (HTMLPainter *painter,
+				 gint *x, gint *y,
+				 gint *width, gint *height)
+{
+	*x = painter->clip_x;
+	*y = painter->clip_y;
+	*width = painter->clip_width;
+	*height = painter->clip_height;
 }
 
 /* Passing 0 for pix_width / pix_height makes it use the image width */
@@ -981,7 +1008,7 @@ html_painter_text_itemize_and_prepare_glyphs (HTMLPainter *painter, PangoFontDes
 
 		for (il = items; il; il = il->next) {
 			item = (PangoItem *) il->data;
-			pi->entries [i].item = item;
+			pi->entries [i].glyph_item.item = item;
 			end = g_utf8_offset_to_pointer (text, item->num_chars);
 			*glyphs = html_get_glyphs_non_tab (*glyphs, item, i, text, end - text, item->num_chars);
 			text = end;
