@@ -1,13 +1,13 @@
 # gtkhtml's Portuguese translation
-# Copyright (C) 1999-2001 Free Software Foundation, Inc.
+# Copyright (C) 1999-2001 gtkhtml
 # Distributed under the same licence as the gtkhtml package
 # Duarte Loreto <happyguy_pt@hotmail.com>, 2001, 2002, 2003
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: 2.4\n"
-"POT-Creation-Date: 2003-05-21 08:59-0500\n"
-"PO-Revision-Date: 2003-05-08 01:18+0100\n"
+"POT-Creation-Date: 2003-05-22 01:46+0000\n"
+"PO-Revision-Date: 2003-05-22 01:48+0100\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -1241,7 +1241,7 @@ msgstr "Inserir"
 #: components/html-editor/menubar.c:252
 #, c-format
 msgid "Error loading file '%s': %s"
-msgstr ""
+msgstr "Erro ao ler ficheiro '%s': %s"
 
 #: components/html-editor/menubar.c:279
 msgid "Insert: HTML File"
@@ -1681,7 +1681,7 @@ msgstr "Reiniciar"
 #. TODO2 dialog instead of warning
 #: src/htmlengine-print.c:196
 msgid "Cannot allocate default font for printing\n"
-msgstr "Incapaz de alocar fonte de defeito para impressão\n"
+msgstr "Incapaz de alocar fonte por omissão para impressão\n"
 
 #: src/test.c:191
 msgid "GtkHTML Test"
@@ -1689,16 +1689,15 @@ msgstr "Teste GtkHTML"
 
 #: src/testgtkhtml.c:110
 msgid "Print pre_view"
-msgstr "Pre_ver impressão"
+msgstr "Ante_ver impressão"
 
 #: src/testgtkhtml.c:110
 msgid "Print preview"
-msgstr "Prever impressão"
+msgstr "Antever impressão"
 
 #: src/testgtkhtml.c:973
-#, fuzzy
 msgid "GtkHTML Test Application"
-msgstr "Teste GtkHTML"
+msgstr "Aplicação Teste GtkHTML"
 
 #~ msgid "The quick brown fox jumped over the lazy dog."
 #~ msgstr "The quick brown fox jumped over the lazy dog."
