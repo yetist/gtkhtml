@@ -1,5 +1,8 @@
 2002-07-30  Larry Ewing  <lewing@ximian.com>
 
+	* htmlembedded.c (reparent): protect against NULL widgets in the
+	embedded element.
+
 	* htmlframe.c (html_frame_class_init): overide reparent.
 	(reparent): set the html on reparent.
 
