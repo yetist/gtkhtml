@@ -1,5 +1,7 @@
 2001-04-27  Radek Doulik  <rodo@ximian.com>
 
+	* htmltable.c (cut_partial): don't merge if start == end
+
 	* htmlobject.c (html_object_get_bound_list): test for list->next
 	also to avoid leafs
 

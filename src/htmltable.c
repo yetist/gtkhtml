@@ -307,7 +307,7 @@ cut_partial (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *lef
 	/* move remaining cells in old table */
 	if (start_col > end_col)
 		start_row ++;
-	else if (start_col == end_col) {
+	else if (start_col == end_col && start != end) {
 		html_object_merge_down (HTML_OBJECT (start), HTML_OBJECT (end), e);
 	}
 	if (start_row != end_row)
