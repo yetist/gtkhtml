@@ -1,3 +1,8 @@
+2003-03-04  Radek Doulik  <rodo@ximian.com>
+
+	* htmltext.c (html_text_request_word_width): destroy cached items
+	when HTML_CHANGE_WORD_WIDTH
+
 2003-03-03  Radek Doulik  <rodo@ximian.com>
 
 	* htmltextslave.c (draw_spell_errors): use items cache

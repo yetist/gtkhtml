@@ -693,6 +693,9 @@ html_text_request_word_width (HTMLText *text, HTMLPainter *painter)
 	if (!text->word_width || (HTML_OBJECT (text)->change & HTML_CHANGE_WORD_WIDTH)) {
 		gint offset;
 
+		if (HTML_OBJECT (text)->change & HTML_CHANGE_WORD_WIDTH)
+			items_destroy (text);
+
 		offset = html_text_get_line_offset (text, painter);
 		calc_word_width (text, painter, offset);
 	}
