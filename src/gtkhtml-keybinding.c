@@ -223,7 +223,7 @@ handle_ctrl (GtkHTML *html,
 		backward (html);
 		break;
 	case 'd':
-		delete (html, TRUE);
+		delete (html, FALSE);
 		break;
 	case 'e':
 		end_of_line (html);

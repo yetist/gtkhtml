@@ -1,3 +1,8 @@
+2000-05-21  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* gtkhtml-keybinding.c (handle_ctrl): Make `C-d' delete forwards
+	instead of backwards.
+
 2000-05-18  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlengine-edit-paste.c (prepare_clueflows): Make sure `first'
