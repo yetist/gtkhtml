@@ -60,6 +60,8 @@
 #include "htmlradio.h"
 #include "htmlcheckbox.h"
 #include "htmlhidden.h"
+#include "htmlselect.h"
+#include "htmltextarea.h"
 
 
 static void     html_engine_class_init (HTMLEngineClass *klass);
@@ -95,7 +97,7 @@ static guint signals [LAST_SIGNAL] = { 0 };
 enum ID {
 	ID_ADDRESS, ID_B, ID_BIG, ID_BLOCKQUOTE, ID_CAPTION, ID_CITE, ID_CODE,
 	ID_DIR, ID_DIV, ID_EM, ID_FONT, ID_HEADER, ID_I, ID_KBD, ID_OL, ID_PRE,
-	ID_SMALL, ID_U, ID_UL, ID_TD, ID_TH, ID_TT, ID_VAR
+	ID_SMALL, ID_U, ID_UL, ID_TEXTAREA, ID_TD, ID_TH, ID_TT, ID_VAR
 };
 
 
@@ -375,14 +377,10 @@ parse_body (HTMLEngine *p, HTMLObject *clue, const gchar *end[], gboolean toplev
 			continue;
 
 		if ( *str == ' ' && *(str+1) == '\0' ) {
-#if 0 /* FIXME!!! */
 			/* if in* is set this text belongs in a form element */
 			if (p->inOption || p->inTextArea)
-				formText += " ";
-			else
-				;
-#endif
-			if (p->inTitle) {
+				p->formText = g_string_append (p->formText, " ");
+			else if (p->inTitle) {
 				g_string_append (p->title, " ");
 			} else if (p->flow != NULL) {
 				html_engine_insert_text
@@ -390,7 +388,9 @@ parse_body (HTMLEngine *p, HTMLObject *clue, const gchar *end[], gboolean toplev
 					 html_engine_get_current_font (p));
 			}
 		} else if (*str != TAG_ESCAPE) {
-			if (p->inTitle) {
+			if (p->inOption || p->inTextArea)
+				g_string_append (p->formText, str);
+			else if (p->inTitle) {
 				g_string_append (p->title, str);
 			}
 			else {
@@ -980,19 +980,14 @@ parse_input (HTMLEngine *e, const gchar *str) {
 
 		html_form_add_element (e->form, HTML_ELEMENT (checkbox));
 
-		g_print("CheckBox: name = '%s' value = '%s' checked = '%d'\n", name, value, checked);
-		
 		break;
 		}
 	case Hidden:
 		{
 		HTMLObject *hidden = html_hidden_new(name, value);
-		/* html_clue_append (HTML_CLUE (e->flow), hidden); */
 
 		html_form_add_hidden (e->form, HTML_HIDDEN (hidden));
 
-		g_print("Hidden: name = '%s' value = '%s'\n", name, value);
-		
 		break;
 		}
 	case Radio:
@@ -1002,8 +997,6 @@ parse_input (HTMLEngine *e, const gchar *str) {
 
 		html_form_add_element (e->form, HTML_ELEMENT (radio));
 
-		g_print("Radio: name = '%s' value = '%s' checked = '%d'\n", name, value, checked);
-		
 		break;
 		}
 	case Reset:
@@ -1013,8 +1006,6 @@ parse_input (HTMLEngine *e, const gchar *str) {
 
 		html_form_add_element (e->form, HTML_ELEMENT (reset));
 
-		g_print("Reset: name = '%s' value = '%s'\n", name, value);
-		
 		break;
 		}
 	case Submit:
@@ -1025,8 +1016,6 @@ parse_input (HTMLEngine *e, const gchar *str) {
 
 		html_form_add_element (e->form, HTML_ELEMENT (submit));
 
-		g_print("Button: name = '%s' value = '%s'\n", name, value);
-		
 		break;
 		}
 	case Button:
@@ -1036,8 +1025,6 @@ parse_input (HTMLEngine *e, const gchar *str) {
 
 		html_form_add_element (e->form, HTML_ELEMENT (button));
 
-		g_print("Button: name = '%s' value = '%s'\n", name, value);
-		
 		break;
 		}
 	case Text:
@@ -1048,8 +1035,6 @@ parse_input (HTMLEngine *e, const gchar *str) {
 
 		html_form_add_element (e->form, HTML_ELEMENT (input));
 
-		g_print("text/password: name = '%s' value = '%s'\n", name, value);
-		
 		break;
 		}
 	case Image:
@@ -2226,42 +2211,43 @@ parse_o (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 	else if ( strncmp( str, "/ol", 3 ) == 0 ) {
 		pop_block (e, ID_OL, _clue);
 	}
-#if 0
 	else if ( strncmp( str, "option", 6 ) == 0 ) {
-		if ( !formSelect )
+		gchar *value = NULL;
+		gboolean selected = FALSE;
+
+		if ( !e->formSelect )
 			return;
 
-		QString value = 0;
-		bool selected = false;
+		string_tokenizer_tokenize( e->st, str + 3, " >" );
 
-		stringTok->tokenize( str + 7, " >" );
-		while ( stringTok->hasMoreTokens() )
-		{
-			const char* token = stringTok->nextToken();
-			if ( strncasecmp( token, "value=", 6 ) == 0 )
-			{
-				const char *p = token + 6;
-				value = p;
+		while ( string_tokenizer_has_more_tokens (e->st) ) {
+			const char* token;
+			
+			token = string_tokenizer_next_token (e->st);
+			
+			if ( strncasecmp( token, "value=", 6 ) == 0 ) {
+
+				value = g_strdup (token + 6);
 			}
-			else if ( strncasecmp( token, "selected", 8 ) == 0 )
-			{
-				selected = true;
+			else if ( strncasecmp( token, "selected", 8 ) == 0 ) {
+
+				selected = TRUE;
 			}
 		}
 
-		if ( inOption )
-			formSelect->setText( formText );
+		if ( e->inOption )
+			html_select_set_text (e->formSelect, e->formText->str);
 
-		formSelect->addOption( value, selected );
+		html_select_add_option (e->formSelect, value, selected );
 
-		inOption = true;
-		formText = "";
+		e->inOption = TRUE;
+		g_string_assign (e->formText, "");
 	} else if ( strncmp( str, "/option", 7 ) == 0 ) {
-		if ( inOption )
-			formSelect->setText( formText );
-		inOption = false;
+		if ( e->inOption )
+			html_select_set_text (e->formSelect, e->formText->str);
+
+		e->inOption = FALSE;
 	}
-#endif
 }
 
 
@@ -2333,7 +2319,51 @@ parse_s (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	} else if ( strncmp(str, "/small", 4 ) == 0 ) {
 		pop_block (e, ID_BIG, clue);
 	}
-	
+	else if (strncmp (str, "select", 6) == 0) {
+                gchar *name = NULL;
+		gint size = 0;
+		gboolean multi = FALSE;
+
+		if (!e->form)
+			return;
+                    
+		string_tokenizer_tokenize (e->st, str + 7, " >");
+		while (string_tokenizer_has_more_tokens (e->st)) {
+			const gchar *token = string_tokenizer_next_token (e->st);
+
+                        if ( strncasecmp( token, "name=", 5 ) == 0 )
+                        {
+				name = g_strdup(token + 5);
+                        }
+                        else if ( strncasecmp( token, "size=", 5 ) == 0 )
+                        {
+				size = atoi (token + 5);
+                        }
+                        else if ( strncasecmp( token, "multiple", 8 ) == 0 )
+                        {
+				multi = TRUE;
+                        }
+                }
+                
+                e->formSelect = HTML_SELECT (html_select_new (GTK_WIDGET(e->widget), name, size, multi));
+                html_form_add_element (e->form, HTML_ELEMENT ( e->formSelect ));
+
+		if (!e->flow)
+			html_engine_new_flow (e, clue);
+
+		html_clue_append (HTML_CLUE (e->flow), HTML_OBJECT ( e->formSelect ));
+		
+		if(name)
+			g_free(name);
+	}
+	else if (strncmp (str, "/select", 7) == 0) {
+		if ( e->inOption )
+			html_select_set_text (e->formSelect, e->formText->str);
+
+		e->inOption = FALSE;
+		e->vspace_inserted = FALSE;
+		e->formSelect = NULL;
+	}
 }
 
 
@@ -2375,6 +2405,58 @@ parse_t (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	} else if ( strncmp( str, "/tt", 3 ) == 0 ) {
 		pop_block (e, ID_TT, clue);
 	}
+	else if (strncmp (str, "textarea", 8) == 0) {
+                gchar *name = NULL;
+		gint rows = 5, cols = 40;
+
+		if (!e->form)
+			return;
+                    
+		string_tokenizer_tokenize (e->st, str + 9, " >");
+		while (string_tokenizer_has_more_tokens (e->st)) {
+			const gchar *token = string_tokenizer_next_token (e->st);
+
+                        if ( strncasecmp( token, "name=", 5 ) == 0 )
+                        {
+				name = g_strdup(token + 5);
+                        }
+                        else if ( strncasecmp( token, "rows=", 5 ) == 0 )
+                        {
+				rows = atoi (token + 5);
+                        }
+                        else if ( strncasecmp( token, "cols=", 5 ) == 0 )
+                        {
+				cols = atoi (token + 5);
+                        }
+                }
+                
+                e->formTextArea = HTML_TEXTAREA (html_textarea_new (GTK_WIDGET(e->widget), name, rows, cols));
+                html_form_add_element (e->form, HTML_ELEMENT ( e->formTextArea ));
+
+		if (!e->flow)
+			html_engine_new_flow (e, clue);
+
+		html_clue_append (HTML_CLUE (e->flow), HTML_OBJECT ( e->formTextArea ));
+
+		g_string_assign (e->formText, "");
+		e->inTextArea = TRUE;
+
+		push_block(e, ID_TEXTAREA, 3, NULL, 0, 0);
+		
+		if(name)
+			g_free(name);
+	}
+	else if (strncmp (str, "/textarea", 9) == 0) {
+		pop_block(e, ID_TEXTAREA, clue);
+
+		if ( e->inTextArea )
+			html_textarea_set_text (e->formTextArea, e->formText->str);
+
+		e->inTextArea = FALSE;
+		e->vspace_inserted = FALSE;
+		e->formTextArea = NULL;
+	}
+
 }
 
 
@@ -3011,6 +3093,11 @@ html_engine_parse (HTMLEngine *p)
 
 	p->formList = NULL;
 	p->form = NULL;
+	p->formSelect = NULL;
+	p->formTextArea = NULL;
+	p->inOption = FALSE;
+	p->inTextArea = FALSE;
+	p->formText = g_string_new ("");
 
 	p->flow = 0;
 

@@ -504,7 +504,7 @@ on_submit (GtkHTML *html, const gchar *method, const gchar *action, const gchar 
 		
 		g_string_free (tmpstr, TRUE);
 	} else {
-		g_warning ("Unsuported submit method '%s'\n", method);
+		g_warning ("Unsupported submit method '%s'\n", method);
 	}
 
 }

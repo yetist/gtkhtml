@@ -24,29 +24,6 @@
 HTMLButtonClass html_button_class;
 
 static void
-draw (HTMLObject *o, 
-      HTMLPainter *p, 
-      HTMLCursor *cursor, 
-      gint x, gint y, 
-      gint width, gint height, 
-      gint tx, gint ty)
-{
-	HTMLElement *element = HTML_ELEMENT(o);
-	gint new_x, new_y;
-
-	new_x = GTK_LAYOUT (element->parent)->hadjustment->value + o->x + tx;
-	new_y = GTK_LAYOUT (element->parent)->vadjustment->value + o->y + ty - o->ascent;
-
-	if(new_x != element->abs_x || new_y != element->abs_y) {
-
-		gtk_layout_move(GTK_LAYOUT(element->parent), element->widget, new_x, new_y);
-
-		element->abs_x = new_x;
-		element->abs_y = new_y;
-	}
-}
-
-static void
 clicked_event (GtkWidget *widget, gpointer data)
 {
 	HTMLButton *b = HTML_BUTTON (data);
@@ -83,9 +60,6 @@ html_button_class_init (HTMLButtonClass *klass,
 	object_class = HTML_OBJECT_CLASS (klass);
 
 	html_element_class_init (element_class, type);
-
-	/* HTMLObject methods.   */
-	object_class->draw = draw;
 }
 
 void
@@ -131,8 +105,8 @@ html_button_init (HTMLButton *button,
 
 	button->type = type;
 
-	gtk_widget_show(element->widget);
-	gtk_layout_put(GTK_LAYOUT(parent), element->widget, 0, 0);
+	/*	gtk_widget_show(element->widget);
+		gtk_layout_put(GTK_LAYOUT(parent), element->widget, 0, 0);*/
 }
 
 HTMLObject *

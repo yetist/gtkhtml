@@ -23,29 +23,6 @@
 HTMLRadioClass html_radio_class;
 
 static void
-draw (HTMLObject *o, 
-      HTMLPainter *p, 
-      HTMLCursor *cursor, 
-      gint x, gint y, gint width, 
-      gint height, 
-      gint tx, gint ty)
-{
-	HTMLElement *element = HTML_ELEMENT(o);
-	gint new_x, new_y;
-
-	new_x = GTK_LAYOUT (element->parent)->hadjustment->value + o->x + tx;
-	new_y = GTK_LAYOUT (element->parent)->vadjustment->value + o->y + ty - o->ascent;
-
-	if(new_x != element->abs_x || new_y != element->abs_y) {
-
-		gtk_layout_move(GTK_LAYOUT(element->parent), element->widget, new_x, new_y);
-
-		element->abs_x = new_x;
-		element->abs_y = new_y;
-	}
-}
-
-static void
 reset (HTMLElement *e)
 {
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(e->widget), HTML_RADIO(e)->default_checked);
@@ -72,9 +49,6 @@ html_radio_class_init (HTMLRadioClass *klass,
 
 	/* HTMLElement methods.   */
 	element_class->reset = reset;
-
-	/* HTMLObject methods.   */
-	object_class->draw = draw;
 }
 
 void
@@ -106,8 +80,8 @@ html_radio_init (HTMLRadio *radio,
 	object->width = req.width;
 	object->ascent = req.height;
 
-	gtk_widget_show(element->widget);
-	gtk_layout_put(GTK_LAYOUT(parent), element->widget, 0, 0);
+	/*	gtk_widget_show(element->widget);
+		gtk_layout_put(GTK_LAYOUT(parent), element->widget, 0, 0);*/
 }
 
 HTMLObject *

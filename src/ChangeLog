@@ -1,3 +1,29 @@
+2000-01-03  Jonas Borgström <jonas_b@bitsmart.com>
+
+	* Makefile.am : Added htmltextarea and htmlselect
+	
+	* htmlbutton.c (draw): Removed function.
+	
+	* htmltextinput.c (draw): Removed function.
+	
+	* htmlradio.c (draw): Removed function.
+	
+	* htmlcheckbox.c (draw): Removed function.
+	
+	* htmlselect.[ch]: New file.
+
+	* htmltextarea.[ch]: New file.
+
+	* htmlelement.c (draw): Added function.
+
+	* htmlengine.c (parse_t): Added <textarea> support.
+	
+	* htmlengine.h: Added inTextArea and formTextArea.
+
+	* htmltype.[ch]: Added class HTMLTextArea.
+
+	* tests/test9.html: Extended test.
+
 2000-01-02  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlengine-edit.c (delete_same_parent): Save the parent before

@@ -106,6 +106,8 @@ struct _HTMLEngine {
 
 	gboolean inTitle;
 	gboolean inPre;
+	gboolean inOption;
+	gboolean inTextArea;
 
 	gboolean bold;
 	gboolean italic;
@@ -167,7 +169,10 @@ struct _HTMLEngine {
 	HTMLDrawQueue *draw_queue;
 
 	HTMLForm *form;
+	HTMLSelect *formSelect;
+	HTMLTextArea *formTextArea;
 	GList *formList;
+	GString *formText;
 };
 
 struct _HTMLEngineClass {

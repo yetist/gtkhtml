@@ -41,9 +41,11 @@
 #include "htmlobject.h"
 #include "htmlradio.h"
 #include "htmlrule.h"
+#include "htmlselect.h"
 #include "htmltable.h"
 #include "htmltablecell.h"
 #include "htmltext.h"
+#include "htmltextarea.h"
 #include "htmltextinput.h"
 #include "htmltextmaster.h"
 #include "htmltextslave.h"
@@ -78,8 +80,10 @@ html_types_init (void)
 	html_object_type_init ();
 	html_radio_type_init ();
 	html_rule_type_init ();
+	html_select_type_init ();
 	html_table_cell_type_init ();
 	html_table_type_init ();
+	html_textarea_type_init ();
 	html_text_input_type_init ();
 	html_text_master_type_init ();
 	html_text_slave_type_init ();
@@ -133,12 +137,16 @@ html_type_name (HTMLType type)
  		return "Radio";
 	case HTML_TYPE_RULE:
  		return "Rule";
+	case HTML_TYPE_SELECT:
+ 		return "Select";
 	case HTML_TYPE_TABLE:
- 		return "TableCell";
+ 		return "Table";
 	case HTML_TYPE_TABLECELL:
  		return "TableCell";
 	case HTML_TYPE_TEXT:
  		return "Text";
+	case HTML_TYPE_TEXTAREA:
+ 		return "TextArea";
 	case HTML_TYPE_TEXTINPUT:
  		return "TextInput";
 	case HTML_TYPE_TEXTMASTER:

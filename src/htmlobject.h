@@ -34,6 +34,10 @@ typedef struct _HTMLObject HTMLObject;
 typedef struct _HTMLCursor HTMLCursor;
 /* FIXME fix ugly dependency on HTMLForm.  */
 typedef struct _HTMLForm HTMLForm;
+/* FIXME fix ugly dependency on HTMLSelect.  */
+typedef struct _HTMLSelect HTMLSelect;
+/* FIXME fix ugly dependency on HTMLTextArea.  */
+typedef struct _HTMLTextArea HTMLTextArea;
 
 typedef enum {
 	HTML_FIT_NONE,

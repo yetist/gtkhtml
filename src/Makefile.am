@@ -57,7 +57,9 @@ libgtkhtml_HEADERS =				\
 	htmltextinput.h				\
 	htmlradio.h				\
 	htmlcheckbox.h				\
-	htmlhidden.h
+	htmlhidden.h				\
+	htmlselect.h				\
+	htmltextarea.h
 
 libgtkhtml_la_SOURCES =				\
 	debug.c					\
@@ -102,7 +104,9 @@ libgtkhtml_la_SOURCES =				\
 	htmltextinput.c				\
 	htmlradio.c				\
 	htmlcheckbox.c				\
-	htmlhidden.c
+	htmlhidden.c				\
+	htmlselect.c				\
+	htmltextarea.c
 
 testgtkhtml_SOURCES = 		\
 	testgtkhtml.c

@@ -26,6 +26,39 @@
 HTMLElementClass html_element_class;
 
 static void
+draw (HTMLObject *o,
+      HTMLPainter *p,
+      HTMLCursor *cursor,
+      gint x, gint y,
+      gint width, gint height,
+      gint tx, gint ty)
+{
+
+	HTMLElement *element = HTML_ELEMENT(o);
+	gint new_x, new_y;
+
+	if (element->widget) {
+
+		new_x = GTK_LAYOUT (element->parent)->hadjustment->value + o->x + tx;
+		new_y = GTK_LAYOUT (element->parent)->vadjustment->value + o->y + ty - o->ascent;
+		
+		if(element->abs_x == -1 && element->abs_y == -1) {
+			gtk_layout_put(GTK_LAYOUT(element->parent), element->widget,
+					new_x, new_y);
+
+			gtk_widget_show (element->widget);			
+		}
+		else if(new_x != element->abs_x || new_y != element->abs_y) {
+			
+			gtk_layout_move(GTK_LAYOUT(element->parent), element->widget,
+					new_x, new_y);
+		}
+		element->abs_x = new_x;
+		element->abs_y = new_y;
+	}
+}
+
+static void
 destroy (HTMLObject *o)
 {
 	HTMLElement *element;
@@ -140,6 +173,7 @@ html_element_class_init (HTMLElementClass *klass,
 
 	/* HTMLObject methods.   */
 	object_class->destroy = destroy;
+	object_class->draw = draw;
 }
 
 void
@@ -166,6 +200,6 @@ html_element_init (HTMLElement *element,
 	element->widget = NULL;
 	element->parent = parent;
 
-	element->abs_x = element->abs_y = 0;
+	element->abs_x = element->abs_y = -1;
 }
 

@@ -19,19 +19,19 @@
     Boston, MA 02111-1307, USA.
 */
 
-#include "htmltextinput.h"
+#include "htmltextarea.h"
 
-HTMLTextInputClass html_text_input_class;
+HTMLTextAreaClass html_textarea_class;
 
 static void
 destroy (HTMLObject *o)
 {
-	HTMLTextInput *ti;
+	HTMLTextArea *ta;
 
-	ti = HTML_TEXTINPUT (o);
+	ta = HTML_TEXTAREA (o);
 
-	if (ti->default_text)
-		g_free (ti->default_text);
+	if (ta->default_text)
+		g_free (ta->default_text);
 
 	HTML_OBJECT_CLASS (&html_element_class)->destroy (o);
 }
@@ -39,14 +39,14 @@ destroy (HTMLObject *o)
 static void
 reset (HTMLElement *e)
 {
-	gtk_entry_set_text (GTK_ENTRY(e->widget), HTML_TEXTINPUT(e)->default_text);
+	html_textarea_set_text ( HTML_TEXTAREA (e), HTML_TEXTAREA (e)->default_text);
 }
 
 static gchar *
 encode (HTMLElement *e)
 {
 	GString *encoding = g_string_new ("");
-	gchar *ptr;
+	gchar *ptr, *ptr2;
 
 	if(strlen (e->name)) {
 		ptr = html_element_encode_string (e->name);
@@ -55,9 +55,12 @@ encode (HTMLElement *e)
 
 		encoding = g_string_append_c (encoding, '=');
 
-		ptr = html_element_encode_string (gtk_entry_get_text (GTK_ENTRY (e->widget)));
+		ptr2 = gtk_editable_get_chars (GTK_EDITABLE (HTML_TEXTAREA(e)->text), 0, -1);
+
+		ptr = html_element_encode_string ( ptr2 );
 		encoding = g_string_append (encoding, ptr);
 		g_free (ptr);
+		g_free (ptr2);
 	}
 
 	ptr = encoding->str;
@@ -67,13 +70,13 @@ encode (HTMLElement *e)
 }
 
 void
-html_text_input_type_init (void)
+html_textarea_type_init (void)
 {
-	html_text_input_class_init (&html_text_input_class, HTML_TYPE_TEXTINPUT);
+	html_textarea_class_init (&html_textarea_class, HTML_TYPE_TEXTAREA);
 }
 
 void
-html_text_input_class_init (HTMLTextInputClass *klass,
+html_textarea_class_init (HTMLTextAreaClass *klass,
 			    HTMLType type)
 {
 	HTMLElementClass *element_class;
@@ -94,42 +97,41 @@ html_text_input_class_init (HTMLTextInputClass *klass,
 }
 
 void
-html_text_input_init (HTMLTextInput *ti,
-		      HTMLTextInputClass *klass,
+html_textarea_init (HTMLTextArea *ta,
+		      HTMLTextAreaClass *klass,
 		      GtkWidget *parent,
 		      gchar *name,
-		      gchar *value,
-		      gint size,
-		      gint maxlen,
-		      gboolean password)
+		      gint row,
+		      gint col)
 {
-
 	HTMLElement *element;
 	HTMLObject *object;
 	GtkRequisition req;
 
-	element = HTML_ELEMENT (ti);
-	object = HTML_OBJECT (ti);
+	element = HTML_ELEMENT (ta);
+	object = HTML_OBJECT (ta);
 
 	html_element_init (element, HTML_ELEMENT_CLASS (klass),
-			   parent, name, value);
+			   parent, name, NULL);
 
-	element->widget = gtk_entry_new();
+	ta->text = gtk_text_new (NULL, NULL);
+	gtk_widget_show(ta->text);
+	gtk_text_set_editable (GTK_TEXT (ta->text), TRUE);
+
+	element->widget = gtk_scrolled_window_new (NULL, NULL);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (element->widget),
+					GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+	gtk_container_add (GTK_CONTAINER (element->widget), ta->text);
+
+#define FONT_HEIGHT(f)              ((f)->ascent + (f)->descent)
+
+	gtk_widget_set_usize ( GTK_WIDGET (element->widget), 
+			       gdk_char_width(element->widget->style->font, '0') * col + 8,
+			       FONT_HEIGHT(ta->text->style->font) * row + 4);
+
+#undef FONT_HEIGHT
+
 	gtk_widget_size_request(element->widget, &req);
-
-	if(strlen (element->value))	
-		gtk_entry_set_text(GTK_ENTRY(element->widget), element->value);
-
-	ti->default_text = g_strdup (element->value);
-
-	if(maxlen != -1)
-		gtk_entry_set_max_length(GTK_ENTRY(element->widget), maxlen);
-
-	gtk_entry_set_visibility (GTK_ENTRY(element->widget), !password);
-	
-	req.width = gdk_char_width(element->widget->style->font, '0') * size + 8;
-
-	gtk_widget_set_usize(element->widget, req.width, req.height);
 
 	object->descent = 0;
 	object->width = req.width;
@@ -138,24 +140,30 @@ html_text_input_init (HTMLTextInput *ti,
 	/*	gtk_widget_show(element->widget);
 		gtk_layout_put(GTK_LAYOUT(parent), element->widget, 0, 0);*/
 
-	ti->size = size;
-	ti->maxlen = maxlen;
+	ta->default_text = NULL;
 }
 
 HTMLObject *
-html_text_input_new (GtkWidget *parent,
+html_textarea_new (GtkWidget *parent,
 		     gchar *name,
-		     gchar *value,
-		     gint size,
-		     gint maxlen,
-		     gboolean password)
+		     gint row,
+		     gint col)
 {
-	HTMLTextInput *ti;
+	HTMLTextArea *ta;
 
-	ti = g_new0 (HTMLTextInput, 1);
-	html_text_input_init (ti, &html_text_input_class,
-			      parent, name, value, size,
-			      maxlen, password);
+	ta = g_new0 (HTMLTextArea, 1);
+	html_textarea_init (ta, &html_textarea_class,
+			      parent, name, row, col);
 
-	return HTML_OBJECT (ti);
+	return HTML_OBJECT (ta);
+}
+
+void html_textarea_set_text (HTMLTextArea *ta, 
+			   gchar *text) 
+{
+	if (!ta->default_text)
+		ta->default_text = g_strdup (text);
+
+	gtk_editable_delete_text (GTK_EDITABLE (ta->text), 0, -1);
+	gtk_text_insert (GTK_TEXT (ta->text), NULL, NULL, NULL, text, strlen (text));
 }
