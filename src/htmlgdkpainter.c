@@ -20,6 +20,9 @@
 */
 
 #include <config.h>
+#include <glib.h>
+#include <libgnome/gnome-defs.h>
+#include <libgnome/gnome-i18n.h>
 #include "gtkhtml-compat.h"
 
 #include <string.h>
@@ -106,7 +109,8 @@ find_font (gchar *font_name, gdouble req_size, gint *font_size, GtkHTMLFontStyle
 		else if (size > req_size && (size < bigger || bigger == .0))
 			bigger = size;
 	}
-	XFreeFontNames (list);
+	if (n && list)
+		XFreeFontNames (list);
 
 	/* if not found use closest one */
 	if (!rv && (bigger || smaller)) {
@@ -165,7 +169,7 @@ font_name_substitute_attr (const gchar *name, gint nth, gchar *val)
 }
 
 static gpointer
-alloc_e_font_it (gchar *face, gdouble size, GtkHTMLFontStyle style, gchar *it)
+alloc_e_font_it_known (gchar *face, gdouble size, GtkHTMLFontStyle style, gchar *it, gboolean known_size)
 {
 	EFont *font;
 	gchar *name;
@@ -179,19 +183,30 @@ alloc_e_font_it (gchar *face, gdouble size, GtkHTMLFontStyle style, gchar *it)
 		n2 = font_name_substitute_attr (n1,   4, style & GTK_HTML_FONT_STYLE_ITALIC ? it : "r");
 		n3 = font_name_substitute_attr (n2,   7, "*");
 
-		if (!find_font (n3, size, &tsize, style))
+		if (known_size) {
+			if (!find_font (n3, size, &tsize, style))
+				return NULL;
+		} else
 			tsize = size;
+
 		g_free (n1);
 		g_free (n2);
 		s    = g_strdup_printf ("%d", tsize);
 		name = font_name_substitute_attr (n3,   7, s);
 		g_free (n3);
 		g_free (s);
-	} else
-		name = g_strdup ("fixed");
 
-	font = e_font_from_gdk_name (name);
-	g_free (name);
+		font = e_font_from_gdk_name (name);
+		g_free (name);
+	} else {
+		GdkFont *fixed = gdk_font_load ("fixed");
+
+		if (!fixed)
+			g_error (_("Can't load fixed font."));
+		font = e_font_from_gdk_font (fixed);
+		gdk_font_unref (fixed);
+	}
+
 
 	if (face) {
 		gchar *c [14];
@@ -208,6 +223,18 @@ alloc_e_font_it (gchar *face, gdouble size, GtkHTMLFontStyle style, gchar *it)
 	}
 
 	return font;
+}
+
+static gpointer
+alloc_e_font_it (gchar *face, gdouble size, GtkHTMLFontStyle style, gchar *it)
+{
+	gpointer result;
+
+	result = alloc_e_font_it_known (face, size, style, it, FALSE);
+	if (!result)
+		result = alloc_e_font_it_known (face, size, style, it, TRUE);
+
+	return result;
 }
 
 static HTMLFont *
