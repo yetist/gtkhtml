@@ -1,3 +1,7 @@
+2001-08-10  Anna Marie Dirks <anna@ximian.com>	
+	*search.c : Changed the title of the Regex Find dialog to 
+	"Find Regular Expression" as per bug #2658.
+
 2001-08-10  Anna Marie Dirks <anna@ximian.com>
 	* GNOME_GtkHTML_Editor.xml.in: Changed label for "Find Regex"
 	to "Find Regular Expression (as per bug #2658 ). Also fixed duplicate

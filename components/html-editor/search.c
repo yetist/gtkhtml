@@ -104,7 +104,7 @@ search (GtkHTMLControlData *cd, gboolean regular)
 	if (cd->search_dialog)
 		cd->search_dialog->regular = regular;
 
-	RUN_DIALOG (search, regular ? _("Regex find") :  _("Find"));
+	RUN_DIALOG (search, regular ? _("Find Regular Expression") :  _("Find"));
 
 	if (cd->search_dialog)
 		gtk_widget_grab_focus (cd->search_dialog->entry);
