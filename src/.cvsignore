@@ -5,3 +5,5 @@ Makefile.in
 gtkhtml
 testgtkhtml
 html-component
+*.lo
+*.la
