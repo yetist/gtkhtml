@@ -223,6 +223,13 @@ html_embedded_size_recalc(HTMLEmbedded *em)
 	o->ascent = req.height - o->descent;
 }
 
+static gboolean
+html_embedded_grab_cursor(GtkWidget *eb, GdkEvent *event)
+{
+	/* Keep the focus! Fight the power */
+	return FALSE;
+}
+
 HTMLEmbedded *
 html_embedded_new_widget(GtkWidget *parent, GtkHTMLEmbedded *eb)
 {
@@ -233,6 +240,8 @@ html_embedded_new_widget(GtkWidget *parent, GtkHTMLEmbedded *eb)
 
 	em->widget = (GtkWidget *)eb;
 	html_embedded_size_recalc(em);
+	gtk_signal_connect(GTK_OBJECT(eb), "button_press_event",
+			   GTK_SIGNAL_FUNC(html_embedded_grab_cursor), NULL);
 
 	return em;
 }

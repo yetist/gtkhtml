@@ -490,14 +490,14 @@ draw (GtkWidget *widget, GdkRectangle *area)
 	GtkHTML *html = GTK_HTML (widget);
 	HTMLPainter *painter = html->engine->painter;
 
-	if (GTK_WIDGET_CLASS (parent_class)->draw)
-		(* GTK_WIDGET_CLASS (parent_class)->draw) (widget, area);
-	
 	html_painter_clear (painter);
 
 	html_engine_draw (GTK_HTML (widget)->engine,
 			  area->x, area->y,
 			  area->width, area->height);
+
+	if (GTK_WIDGET_CLASS (parent_class)->draw)
+		(* GTK_WIDGET_CLASS (parent_class)->draw) (widget, area);
 }
 
 static void
