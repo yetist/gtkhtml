@@ -460,31 +460,29 @@ render_cur_frame (HTMLImage *image, gint nx, gint ny)
 	frame = (GdkPixbufFrame *) anim->cur_frame->data;
 	/* printf ("w: %d h: %d action: %d\n", w, h, frame->action); */
 
-	if (frame->action == GDK_PIXBUF_FRAME_DISPOSE) {
+	do {
+		frame = (GdkPixbufFrame *) cur->data;
 		w = gdk_pixbuf_get_width (frame->pixbuf);
 		h = gdk_pixbuf_get_height (frame->pixbuf);
-		html_painter_draw_pixmap (painter, frame->pixbuf,
-					  nx + frame->x_offset,
-					  ny + frame->y_offset,
-					  w, h,
-					  NULL);
-	} else {
-		do {
-			frame = (GdkPixbufFrame *) cur->data;
-			if (frame->action == GDK_PIXBUF_FRAME_RETAIN) {
-				w = gdk_pixbuf_get_width (frame->pixbuf);
-				h = gdk_pixbuf_get_height (frame->pixbuf);
-				html_painter_draw_pixmap (painter, frame->pixbuf,
-							  nx + frame->x_offset,
-							  ny + frame->y_offset,
-							  w, h,
-							  NULL);
-			}
-			if (anim->cur_frame == cur)
-				break;
-			cur = cur->next;
-		} while (1);
-	}
+		if (anim->cur_frame == cur) {
+			html_painter_draw_pixmap (painter, frame->pixbuf,
+						  nx + frame->x_offset,
+						  ny + frame->y_offset,
+						  w, h,
+						  NULL);
+			break;
+		} else if (frame->action == GDK_PIXBUF_FRAME_RETAIN) {
+			html_painter_draw_pixmap (painter, frame->pixbuf,
+						  nx + frame->x_offset,
+						  ny + frame->y_offset,
+						  w, h,
+						  NULL);
+		} else if (frame->action == GDK_PIXBUF_FRAME_DISPOSE) {
+			html_painter_set_pen (painter, &image->image_ptr->factory->engine->bgColor);
+			html_painter_fill_rect (painter, nx, ny, w, h);
+		}
+		cur = cur->next;
+	} while (1);
 }
 
 static gint

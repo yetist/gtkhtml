@@ -3,6 +3,8 @@
 	* htmlimage.c (html_image_animation_timeout): increment the
 	current frame after the timeout has expired so that if there is an
 	expose event before the time is out we have the proper current image.
+	(render_cur_frame): fix the rendering for frame->action ==  ==
+	GDK_PIXBUF_FRAME_DISPOSE.	
 
 2000-04-04  Ettore Perazzoli  <ettore@helixcode.com>
 
