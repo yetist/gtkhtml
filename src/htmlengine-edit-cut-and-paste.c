@@ -43,6 +43,7 @@
 #include "htmlinterval.h"
 #include "htmllinktext.h"
 #include "htmlobject.h"
+#include "htmlplainpainter.h"
 #include "htmltable.h"
 #include "htmlselection.h"
 #include "htmlsettings.h"
@@ -898,7 +899,7 @@ html_engine_insert_text (HTMLEngine *e, const gchar *text, guint len)
 			}
 			insert_object (e, o, html_object_get_length (o), e->cursor->position + html_object_get_length (o),
 				       1, HTML_UNDO_UNDO, check);
-			if (alen == 1)
+			if (alen == 1 && !HTML_IS_PLAIN_PAINTER (e->painter))
 				use_pictograms (e);
 		}
 		if (nl) {

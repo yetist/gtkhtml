@@ -2,6 +2,7 @@
 
 	* htmlengine-edit-cut-and-paste.c (use_pictograms): set ALT text
 	to picto image
+	(html_engine_insert_text): don't use smiley's in plain text mode
 
 	* htmlimage.c (calc_size): draw ALT text with PLAIN painter
 	(calc_size): update for ALT text and PLAIN painter
