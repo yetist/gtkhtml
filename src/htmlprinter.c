@@ -29,6 +29,7 @@
 #include <libgnomeprint/gnome-print-paper.h>
 
 #include "htmlembedded.h"
+#include "htmlentity.h"
 #include "gtkhtml-embedded.h"
 #include "htmlfontmanager.h"
 #include "htmlprinter.h"
@@ -603,6 +604,43 @@ process_attrs (HTMLPrinter *printer, GSList *attrs, GtkHTMLFontStyle *style, gbo
 		gnome_print_setrgbcolor (printer->context, 0.0, 0.0, 0.0);
 }
 
+static void
+show_sized_with_nbsps_replaced (GnomePrintContext *pc, const char *text, int bytes)
+{
+	const char *cur_text;
+	char *cur_replaced, *match, *replaced, *to_free = NULL;
+	int replaced_bytes;
+
+	if (bytes < 8192)
+		replaced = alloca (bytes);
+	else
+		to_free = replaced = g_malloc (bytes);
+
+	cur_text = text;
+	cur_replaced = replaced;
+	replaced_bytes = bytes;
+	while (cur_text < text + bytes) {
+		/* look for begining of 0xc2 0xa0 sequence - utf8 nbsp; */
+		match = memchr (cur_text, 0xc2, bytes - (cur_text - text));
+		if (match != NULL && match - text < bytes && IS_UTF8_NBSP ((guchar *)match)) {
+			strncpy (cur_replaced, cur_text, match - cur_text);
+			cur_replaced += match - cur_text;
+			*cur_replaced = ' ';
+			cur_replaced ++;
+			cur_text = match + 2;
+			replaced_bytes --;
+		} else {
+			strncpy (cur_replaced, cur_text, bytes - (cur_text - text));
+			break;
+		}
+	}
+
+	replaced [replaced_bytes] = 0;
+	gnome_print_show_sized (pc, replaced, replaced_bytes);
+
+	g_free (to_free);
+}
+
 static gint
 draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, HTMLTextPangoInfo *pi, PangoAttrList *attrs, GList *glyphs, gint start_byte_offset)
 {
@@ -687,7 +725,7 @@ draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, HT
 			gnome_print_newpath (printer->context);
 			gnome_print_moveto (printer->context, print_x, print_y);
 			gnome_print_setfont (printer->context, c_font);
-			gnome_print_show_sized (printer->context, c_text, c_bytes);
+			show_sized_with_nbsps_replaced (printer->context, c_text, c_bytes);
 
 			cw = gnome_font_get_width_utf8_sized (c_font, c_text, c_bytes);
 			if (strikethrough || underline) {

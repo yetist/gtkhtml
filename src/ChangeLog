@@ -1,3 +1,12 @@
+2004-06-24  Radek Doulik  <rodo@ximian.com>
+
+	* htmlprinter.c (show_sized_with_nbsps_replaced): helper function
+	to replace nbsp's before passing text to gnome print as it has
+	problems with printing nbsp;'s to pdf
+	(draw_text): use show_sized_with_nbsps_replaced
+
+	Fixes #60549
+
 2004-06-21  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (reparent_embedded): new helper function to reparent
