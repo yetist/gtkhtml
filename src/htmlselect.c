@@ -356,7 +356,7 @@ html_select_set_text (HTMLSelect *select, gchar *text)
 		char *gtk_text;
 		item = GTK_CLIST(select->clist)->rows - 1;
 
-		gtk_text = e_utf8_from_gtk_string (select->clist, text);
+		gtk_text = e_utf8_to_gtk_string (select->clist, text);
 		gtk_clist_set_text (GTK_CLIST(select->clist), item, 0, gtk_text);
 		g_free (gtk_text);
 

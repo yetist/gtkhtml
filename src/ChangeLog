@@ -1,5 +1,8 @@
 2002-07-05  Radek Doulik  <rodo@ximian.com>
 
+	* htmlselect.c (html_select_set_text): use e_utf8_to_gtk_string
+	and not e_utf8_from_gtk_string
+
 	* keybindingsrc.ms: added C-backspace and C-delete for delete
 	{forward,backward} word
 
