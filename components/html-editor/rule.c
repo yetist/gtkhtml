@@ -70,8 +70,9 @@ typedef struct _GtkHTMLEditRuleProperties GtkHTMLEditRuleProperties;
 static void
 fill_sample (GtkHTMLEditRuleProperties *d)
 {
-	gchar *body, *width, *size, *align, *noshade;
+	gchar *body, *width, *size, *align, *noshade, *bg;
 
+	bg      = html_engine_save_get_sample_body (d->cd->html->engine, NULL);
 	width   = d->set [GTK_HTML_EDIT_RULE_WIDTH]
 		? g_strdup_printf (" width=%d%s", VAL (WIDTH),
 				   d->percent ? "%" : "") : g_strdup ("");
@@ -82,12 +83,13 @@ fill_sample (GtkHTMLEditRuleProperties *d)
 	align   = d->align != HTML_HALIGN_CENTER ? g_strdup_printf (" align=%s",
 								    d->align == HTML_HALIGN_LEFT ? "left" : "right")
 		: g_strdup ("");
-	body    = g_strconcat ("<br><hr", width, size, align, noshade, ">", NULL);
+	body    = g_strconcat (bg, "<br><hr", width, size, align, noshade, ">", NULL);
 
 	printf ("body: %s\n", body);
 
 	gtk_html_load_from_string (d->sample, body, -1);
 
+	g_free (bg);
 	g_free (width);
 	g_free (size);
 	g_free (noshade);

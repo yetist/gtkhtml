@@ -22,6 +22,7 @@
 
 #include "htmlengine-edit.h"
 #include "htmlengine-edit-fontstyle.h"
+#include "htmlengine-save.h"
 #include "text.h"
 #include "properties.h"
 #include "utils.h"
@@ -61,14 +62,16 @@ static gint get_size (GtkHTMLFontStyle s);
 static void
 fill_sample (GtkHTMLEditTextProperties *d)
 {
-	gchar *body, *size, *color;
+	gchar *body, *size, *color, *bg;
 
+	bg    = html_engine_save_get_sample_body (d->cd->html->engine, NULL);
 	size  = g_strdup_printf ("<font size=%d>", get_size (d->style_or) + 1);
 	color = g_strdup_printf ("<font color=#%2x%2x%2x>",
 				 d->color.red >> 8,
 				 d->color.green >> 8,
 				 d->color.blue >> 8);
-	body  = g_strconcat (CVAL (0) ? "<b>" : "",
+	body  = g_strconcat (bg,
+			     CVAL (0) ? "<b>" : "",
 			     CVAL (1) ? "<i>" : "",
 			     CVAL (2) ? "<u>" : "",
 			     CVAL (3) ? "<s>" : "",
@@ -77,7 +80,9 @@ fill_sample (GtkHTMLEditTextProperties *d)
 			     "The quick brown fox jumps over the lazy dog.", NULL);
 	printf ("body: %s\n", body);
 	gtk_html_load_from_string (d->sample, body, -1);
+	g_free (color);
 	g_free (size);
+	g_free (bg);
 	g_free (body);
 }
 

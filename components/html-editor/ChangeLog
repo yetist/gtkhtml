@@ -1,3 +1,9 @@
+2000-10-20  Radek Doulik  <rodo@helixcode.com>
+
+	* rule.c (fill_sample): set bg for sample view
+
+	* text.c (fill_sample): set bg for sample view
+
 2000-10-17  Radek Doulik  <rodo@helixcode.com>
 
 	* properties.c (gtk_html_edit_properties_dialog_show): don't show
