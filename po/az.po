@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.16.1\n"
-"POT-Creation-Date: 2003-04-29 14:20-0500\n"
+"POT-Creation-Date: 2003-05-21 08:59-0500\n"
 "PO-Revision-Date: 2001-12-19 19:38GMT+0200\n"
 "Last-Translator: Vasif İsmayıloğlu MD <azerb_linux@hotmail.com>\n"
 "Language-Team: Azerbaijani Turkic <linuxaz@azerimail.net>\n"
@@ -19,9 +19,9 @@ msgid "<None>"
 msgstr "<HeçBiri>"
 
 #: capplet/gnome-bindings-prop.c:211 capplet/main.c:241
-#: components/html-editor/cell.c:417 components/html-editor/image.c:530
-#: components/html-editor/rule.c:315 components/html-editor/table.c:529
-#: components/html-editor/table.c:613 components/html-editor/template.c:271
+#: components/html-editor/cell.c:418 components/html-editor/image.c:531
+#: components/html-editor/rule.c:316 components/html-editor/table.c:530
+#: components/html-editor/table.c:614 components/html-editor/template.c:272
 msgid "Could not load glade file."
 msgstr "Glade soyesini yükləyə bilmədim"
 
@@ -193,7 +193,7 @@ msgid "A_ddress"
 msgstr "Ü_nvan"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:8
-#: components/html-editor/toolbar.c:52
+#: components/html-editor/toolbar.c:53
 msgid "Alphabetical List"
 msgstr "Əlifba Sıralı"
 
@@ -206,12 +206,12 @@ msgid "Blue"
 msgstr "Göy"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:11
-#: components/html-editor/toolbar.c:49
+#: components/html-editor/toolbar.c:50
 msgid "Bulleted List"
 msgstr "Düyməli Siyahı"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
-#: components/html-editor/toolbar.c:510
+#: components/html-editor/toolbar.c:511
 msgid "Center justifies the paragraphs"
 msgstr "Paraqrafları ortaya yayar"
 
@@ -252,7 +252,7 @@ msgid "Cut the selection"
 msgstr "Seçkini kəs"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
-#: components/html-editor/search.c:73 components/html-editor/search.c:121
+#: components/html-editor/search.c:74 components/html-editor/search.c:126
 msgid "Find"
 msgstr "Axtar"
 
@@ -313,9 +313,9 @@ msgid "Header _6"
 msgstr "Başlıq _6"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
-#: components/html-editor/editor-control-factory.c:197
+#: components/html-editor/editor-control-factory.c:198
 #: components/html-editor/gtkhtml-editor-properties.glade.h:39
-#: components/html-editor/menubar.c:90 components/html-editor/popup.c:207
+#: components/html-editor/menubar.c:91 components/html-editor/popup.c:208
 msgid "Image"
 msgstr "Rəsm"
 
@@ -400,7 +400,7 @@ msgid "Insert text file into document..."
 msgstr "Sənədə cədvəl daxil et..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
-#: components/html-editor/toolbar.c:508
+#: components/html-editor/toolbar.c:509
 msgid "Left justifies the paragraphs"
 msgstr "Paraqrafları sola sütunlaşdır"
 
@@ -410,9 +410,9 @@ msgid "Li_ck"
 msgstr "Baǧ"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
-#: components/html-editor/body.c:326 components/html-editor/menubar.c:106
-#: components/html-editor/popup.c:104 components/html-editor/popup.c:200
-#: components/html-editor/popup.c:273
+#: components/html-editor/body.c:327 components/html-editor/menubar.c:107
+#: components/html-editor/popup.c:105 components/html-editor/popup.c:201
+#: components/html-editor/popup.c:274
 msgid "Link"
 msgstr "Baǧ"
 
@@ -471,12 +471,12 @@ msgstr "Hazırkı paraqrafı əlifba sıralı siyahı et"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
 #: components/html-editor/gtkhtml-editor-properties.glade.h:49
-#: components/html-editor/paragraph.c:128 components/html-editor/toolbar.c:47
+#: components/html-editor/paragraph.c:129 components/html-editor/toolbar.c:48
 msgid "Normal"
 msgstr "Normal"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
-#: components/html-editor/toolbar.c:50
+#: components/html-editor/toolbar.c:51
 msgid "Numbered List"
 msgstr "Nömrələnmiş Siyahı"
 
@@ -518,7 +518,7 @@ msgid "Paste the clipboard as a quotation"
 msgstr "Ara yaddaşı yapışdır"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
-#: components/html-editor/toolbar.c:48
+#: components/html-editor/toolbar.c:49
 msgid "Preformat"
 msgstr "Ön format"
 
@@ -543,13 +543,13 @@ msgid "Redo the undone action"
 msgstr "Arxaya döndüyünüz əməliyyatı yenidən edin"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
-#: components/html-editor/replace.c:78 components/html-editor/replace.c:152
-#: components/html-editor/replace.c:210
+#: components/html-editor/replace.c:79 components/html-editor/replace.c:153
+#: components/html-editor/replace.c:215
 msgid "Replace"
 msgstr "Yerinə qoy"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
-#: components/html-editor/toolbar.c:512
+#: components/html-editor/toolbar.c:513
 msgid "Right justifies the paragraphs"
 msgstr "Paraqrafları sağa sütunlaşdır"
 
@@ -558,9 +558,9 @@ msgid "Roman Numeral List"
 msgstr "Rəma Rəqəmli Siyahı"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
-#: components/html-editor/editor-control-factory.c:217
+#: components/html-editor/editor-control-factory.c:218
 #: components/html-editor/gtkhtml-editor-properties.glade.h:63
-#: components/html-editor/menubar.c:124 components/html-editor/popup.c:228
+#: components/html-editor/menubar.c:125 components/html-editor/popup.c:229
 msgid "Rule"
 msgstr "Çubuq"
 
@@ -574,7 +574,7 @@ msgstr "Sənədin bütün məzmununu seç"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
 #: components/html-editor/gtkhtml-editor-properties.glade.h:69
-#: components/html-editor/text.c:237 components/html-editor/toolbar.c:527
+#: components/html-editor/text.c:238 components/html-editor/toolbar.c:528
 msgid "Strikeout"
 msgstr "Qaralanmış"
 
@@ -600,8 +600,8 @@ msgstr "Üst xarakter"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
-#: components/html-editor/menubar.c:141 components/html-editor/popup.c:235
-#: components/html-editor/popup.c:516 components/html-editor/popup.c:525
+#: components/html-editor/menubar.c:142 components/html-editor/popup.c:236
+#: components/html-editor/popup.c:517 components/html-editor/popup.c:526
 msgid "Table"
 msgstr "Cədvəl"
 
@@ -615,14 +615,14 @@ msgid "Te_xt file..."
 msgstr "Dosyeyi Aç ..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
-#: components/html-editor/body.c:256
+#: components/html-editor/body.c:257
 #: components/html-editor/gtkhtml-editor-properties.glade.h:74
-#: components/html-editor/menubar.c:164
+#: components/html-editor/menubar.c:165
 msgid "Template"
 msgstr "Nümunə"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
-#: components/html-editor/toolbar.c:519
+#: components/html-editor/toolbar.c:520
 msgid "Typewriter"
 msgstr "Yazma"
 
@@ -828,92 +828,93 @@ msgstr "Baǧ"
 msgid "etc..."
 msgstr "vs..."
 
-#: components/html-editor/body.c:65
+#: components/html-editor/body.c:66
 #: components/html-editor/gtkhtml-editor-properties.glade.h:48
 msgid "None"
 msgstr "Heç Biri"
 
-#: components/html-editor/body.c:73
+#: components/html-editor/body.c:74
 msgid "Perforated Paper"
 msgstr ""
 
-#: components/html-editor/body.c:81
+#: components/html-editor/body.c:82
 #, fuzzy
 msgid "Blue Ink"
 msgstr "Göy 3D"
 
-#: components/html-editor/body.c:89
+#: components/html-editor/body.c:90
 msgid "Rectangles"
 msgstr ""
 
-#: components/html-editor/body.c:274 src/gtkhtml.c:2601
+#: components/html-editor/body.c:275 src/gtkhtml.c:2543
 #, fuzzy
 msgid "Document Title"
 msgstr "Nöqtə üzvü"
 
-#: components/html-editor/body.c:278 components/html-editor/body.c:281
+#: components/html-editor/body.c:279 components/html-editor/body.c:282
 #: components/html-editor/gtkhtml-editor-properties.glade.h:15
 msgid "Background Image"
 msgstr "Arxaplan Rəsmi"
 
-#: components/html-editor/body.c:303
+#: components/html-editor/body.c:304
 #: components/html-editor/gtkhtml-editor-properties.glade.h:25
 msgid "Colors"
 msgstr "Rənglər"
 
-#: components/html-editor/body.c:313 components/html-editor/cell.c:423
-#: components/html-editor/table.c:535 components/html-editor/text.c:295
-#: components/html-editor/toolbar.c:299
+#: components/html-editor/body.c:314 components/html-editor/cell.c:424
+#: components/html-editor/table.c:536 components/html-editor/text.c:296
+#: components/html-editor/toolbar.c:300
 msgid "Automatic"
 msgstr "Avtomatik"
 
-#: components/html-editor/body.c:325
-#: components/html-editor/editor-control-factory.c:206
+#: components/html-editor/body.c:326
+#: components/html-editor/editor-control-factory.c:207
 #: components/html-editor/gtkhtml-editor-properties.glade.h:76
-#: components/html-editor/menubar.c:287 components/html-editor/popup.c:193
+#: components/html-editor/menubar.c:338 components/html-editor/popup.c:194
 msgid "Text"
 msgstr "Mətn"
 
-#: components/html-editor/body.c:327
+#: components/html-editor/body.c:328
 #: components/html-editor/gtkhtml-editor-properties.glade.h:14
 msgid "Background"
 msgstr "Arxa plan"
 
-#: components/html-editor/cell.c:172 components/html-editor/cell.c:174
-#: components/html-editor/text.c:107
+#: components/html-editor/cell.c:173 components/html-editor/cell.c:175
+#: components/html-editor/image.c:257 components/html-editor/image.c:260
+#: components/html-editor/text.c:108
 msgid "The quick brown fox jumps over the lazy dog."
 msgstr ""
 
-#: components/html-editor/cell.c:177
+#: components/html-editor/cell.c:178
 #, fuzzy
 msgid "Other"
 msgstr "Başqa..."
 
-#: components/html-editor/cell.c:678
+#: components/html-editor/cell.c:679
 msgid ""
 "The editted cell was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
 
-#: components/html-editor/editor-control-factory.c:186
-#: components/html-editor/menubar.c:266 components/html-editor/menubar.c:284
-#: components/html-editor/menubar.c:302 components/html-editor/popup.c:185
-#: components/html-editor/popup.c:270
+#: components/html-editor/editor-control-factory.c:187
+#: components/html-editor/menubar.c:317 components/html-editor/menubar.c:335
+#: components/html-editor/menubar.c:353 components/html-editor/popup.c:186
+#: components/html-editor/popup.c:271
 msgid "Properties"
 msgstr "Xüsusiyyətler"
 
-#: components/html-editor/editor-control-factory.c:227
-#: components/html-editor/menubar.c:305 components/html-editor/popup.c:214
+#: components/html-editor/editor-control-factory.c:228
+#: components/html-editor/menubar.c:356 components/html-editor/popup.c:215
 msgid "Paragraph"
 msgstr "Paraqraf"
 
-#: components/html-editor/editor-control-factory.c:232
+#: components/html-editor/editor-control-factory.c:233
 #: components/html-editor/gtkhtml-editor-properties.glade.h:52
-#: components/html-editor/menubar.c:269 components/html-editor/popup.c:221
+#: components/html-editor/menubar.c:320 components/html-editor/popup.c:222
 msgid "Page"
 msgstr "Səhifə"
 
-#: components/html-editor/gnome-gtkhtml-editor.c:67
+#: components/html-editor/gnome-gtkhtml-editor.c:68
 #, fuzzy
 msgid "GtkHTML Editor Control"
 msgstr "GNOME HTML Editor İdarəsi"
@@ -943,7 +944,7 @@ msgid "Apply changes to:"
 msgstr "Dəyişiklikləri əlavə et:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:16
-#: components/html-editor/text.c:234 components/html-editor/toolbar.c:521
+#: components/html-editor/text.c:235 components/html-editor/toolbar.c:522
 msgid "Bold"
 msgstr "Qalın"
 
@@ -960,17 +961,17 @@ msgid "Bottom"
 msgstr "Alt"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:20
-#: components/html-editor/popup.c:242
+#: components/html-editor/popup.c:243
 msgid "Cell"
 msgstr "Hücrə"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:21
-#: components/html-editor/paragraph.c:163 components/html-editor/toolbar.c:510
+#: components/html-editor/paragraph.c:164 components/html-editor/toolbar.c:511
 msgid "Center"
 msgstr "Orta"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:22
-#: components/html-editor/link.c:107 components/html-editor/text.c:245
+#: components/html-editor/link.c:137 components/html-editor/text.c:246
 msgid "Click will follow this URL"
 msgstr ""
 
@@ -983,7 +984,7 @@ msgid "Color:"
 msgstr "Rəng:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:26
-#: components/html-editor/popup.c:527
+#: components/html-editor/popup.c:528
 msgid "Column"
 msgstr "Sütun"
 
@@ -1040,12 +1041,12 @@ msgid "Horizontal:"
 msgstr "Üfüqi:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:40
-#: components/html-editor/text.c:235 components/html-editor/toolbar.c:523
+#: components/html-editor/text.c:236 components/html-editor/toolbar.c:524
 msgid "Italic"
 msgstr "Meyilli"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:41
-#: components/html-editor/paragraph.c:162
+#: components/html-editor/paragraph.c:163
 msgid "Left"
 msgstr "Sol"
 
@@ -1102,12 +1103,12 @@ msgid "Points"
 msgstr "Nöqtələr"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:59
-#: components/html-editor/paragraph.c:164
+#: components/html-editor/paragraph.c:165
 msgid "Right"
 msgstr "Saǧ"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:60
-#: components/html-editor/popup.c:526
+#: components/html-editor/popup.c:527
 msgid "Row"
 msgstr "Sətir"
 
@@ -1128,7 +1129,7 @@ msgid "Shaded"
 msgstr "Kölgəli:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:66
-#: components/html-editor/text.c:261
+#: components/html-editor/text.c:262
 msgid "Size"
 msgstr "Böyüklük"
 
@@ -1141,7 +1142,7 @@ msgid "Spacing:"
 msgstr "Fasilə:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:70
-#: components/html-editor/paragraph.c:114 components/html-editor/text.c:221
+#: components/html-editor/paragraph.c:115 components/html-editor/text.c:222
 msgid "Style"
 msgstr "Tərz"
 
@@ -1154,7 +1155,7 @@ msgid "Table Insert"
 msgstr "Cədvəl Daxil Etmə"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:75
-#: components/html-editor/link.c:112
+#: components/html-editor/link.c:85
 #, fuzzy
 msgid "Test URL..."
 msgstr "Mətn..."
@@ -1168,7 +1169,7 @@ msgid "Top"
 msgstr "Təpə"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:79
-#: components/html-editor/text.c:236 components/html-editor/toolbar.c:525
+#: components/html-editor/text.c:237 components/html-editor/toolbar.c:526
 msgid "Underline"
 msgstr "Alt çizgili"
 
@@ -1196,22 +1197,22 @@ msgstr ""
 msgid "xxxxxxxxxxxxxx"
 msgstr ""
 
-#: components/html-editor/image.c:117 components/html-editor/rule.c:92
-#: components/html-editor/table.c:191
+#: components/html-editor/image.c:118 components/html-editor/rule.c:93
+#: components/html-editor/table.c:192
 msgid "Plain"
 msgstr "Düz"
 
-#: components/html-editor/image.c:119
+#: components/html-editor/image.c:120
 msgid ""
 "@link_begin@<img@alt@@width@@height@@align@ "
 "border=@border@@padh@@padv@@src@>@link_end@"
 msgstr ""
 
-#: components/html-editor/image.c:122
+#: components/html-editor/image.c:123
 msgid "Frame"
 msgstr ""
 
-#: components/html-editor/image.c:124
+#: components/html-editor/image.c:125
 #, fuzzy
 msgid ""
 "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
@@ -1224,11 +1225,11 @@ msgstr ""
 "bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%"
 "\"><tr><td align=\"center\"><img src=\"file://"
 
-#: components/html-editor/image.c:132
+#: components/html-editor/image.c:133
 msgid "Caption"
 msgstr ""
 
-#: components/html-editor/image.c:134
+#: components/html-editor/image.c:135
 #, fuzzy
 msgid ""
 "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
@@ -1241,239 +1242,241 @@ msgstr ""
 "bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%"
 "\"><tr><td align=\"center\"><img src=\"file://"
 
-#: components/html-editor/image.c:256 components/html-editor/image.c:259
-msgid "The quick brown fox jumped over the lazy dog."
-msgstr ""
-
-#: components/html-editor/image.c:690
+#: components/html-editor/image.c:691
 msgid ""
 "The editted image was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
 
-#: components/html-editor/link.c:91
+#: components/html-editor/link.c:121
 #, fuzzy
 msgid "Link text"
 msgstr "_Düz mətn"
 
-#: components/html-editor/link.c:180
+#: components/html-editor/link.c:210
 msgid ""
 "The editted link was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
 
-#: components/html-editor/menubar.c:87 components/html-editor/menubar.c:103
-#: components/html-editor/menubar.c:121 components/html-editor/menubar.c:138
-#: components/html-editor/menubar.c:161 components/html-editor/popup.c:101
-#: components/html-editor/properties.c:129
+#: components/html-editor/menubar.c:88 components/html-editor/menubar.c:104
+#: components/html-editor/menubar.c:122 components/html-editor/menubar.c:139
+#: components/html-editor/menubar.c:162 components/html-editor/popup.c:102
+#: components/html-editor/properties.c:121
 msgid "Insert"
 msgstr "Daxil Et"
 
-#: components/html-editor/menubar.c:228
-msgid "Insert HTML file"
+#: components/html-editor/menubar.c:252
+#, c-format
+msgid "Error loading file '%s': %s"
 msgstr ""
 
-#: components/html-editor/menubar.c:228
-msgid "Insert text file"
+#: components/html-editor/menubar.c:279
+#, fuzzy
+msgid "Insert: HTML File"
+msgstr "Sənədə HTML körpüsü daxil et..."
+
+#: components/html-editor/menubar.c:279
+msgid "Insert: Text File"
 msgstr ""
 
-#: components/html-editor/paragraph.c:129
+#: components/html-editor/paragraph.c:130
 msgid "Pre"
 msgstr "Əvl"
 
-#: components/html-editor/paragraph.c:130 components/html-editor/toolbar.c:53
+#: components/html-editor/paragraph.c:131 components/html-editor/toolbar.c:54
 msgid "Header 1"
 msgstr "Başlıq 1"
 
-#: components/html-editor/paragraph.c:131 components/html-editor/toolbar.c:54
+#: components/html-editor/paragraph.c:132 components/html-editor/toolbar.c:55
 msgid "Header 2"
 msgstr "Başlıq 2"
 
-#: components/html-editor/paragraph.c:132 components/html-editor/toolbar.c:55
+#: components/html-editor/paragraph.c:133 components/html-editor/toolbar.c:56
 msgid "Header 3"
 msgstr "Başlıq 3"
 
-#: components/html-editor/paragraph.c:133 components/html-editor/toolbar.c:56
+#: components/html-editor/paragraph.c:134 components/html-editor/toolbar.c:57
 msgid "Header 4"
 msgstr "Başlıq 4"
 
-#: components/html-editor/paragraph.c:134 components/html-editor/toolbar.c:57
+#: components/html-editor/paragraph.c:135 components/html-editor/toolbar.c:58
 msgid "Header 5"
 msgstr "Başlıq 5"
 
-#: components/html-editor/paragraph.c:135 components/html-editor/toolbar.c:58
+#: components/html-editor/paragraph.c:136 components/html-editor/toolbar.c:59
 msgid "Header 6"
 msgstr "Başlıq 6"
 
-#: components/html-editor/paragraph.c:136 components/html-editor/toolbar.c:59
+#: components/html-editor/paragraph.c:137 components/html-editor/toolbar.c:60
 msgid "Address"
 msgstr "Ünvan"
 
-#: components/html-editor/paragraph.c:137
+#: components/html-editor/paragraph.c:138
 msgid "Dot item"
 msgstr "Nöqtə üzvü"
 
-#: components/html-editor/paragraph.c:138
+#: components/html-editor/paragraph.c:139
 msgid "Number item"
 msgstr "Rəqəm üzvü"
 
-#: components/html-editor/paragraph.c:139
+#: components/html-editor/paragraph.c:140
 msgid "Roman item"
 msgstr "Roma üzvü"
 
-#: components/html-editor/paragraph.c:140
+#: components/html-editor/paragraph.c:141
 msgid "Alphabeta item"
 msgstr "Əlifba üzvü"
 
-#: components/html-editor/paragraph.c:149
+#: components/html-editor/paragraph.c:150
 msgid "Align"
 msgstr "Tərəflə"
 
-#: components/html-editor/paragraph.c:193
+#: components/html-editor/paragraph.c:194
 msgid ""
 "The editted paragraph was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
 
-#: components/html-editor/popup.c:455
+#: components/html-editor/popup.c:456
 msgid "Paste Quotation"
 msgstr ""
 
-#: components/html-editor/popup.c:458
+#: components/html-editor/popup.c:459
 #, fuzzy
 msgid "Insert link"
 msgstr "Daxil Et"
 
-#: components/html-editor/popup.c:466
+#: components/html-editor/popup.c:467
 msgid "Remove link"
 msgstr "Baǧı sil"
 
-#: components/html-editor/popup.c:474
+#: components/html-editor/popup.c:475
 #, fuzzy
 msgid "Text Style..."
 msgstr "Dosyeyi Aç ..."
 
-#: components/html-editor/popup.c:476 components/html-editor/popup.c:482
-#: components/html-editor/popup.c:492
+#: components/html-editor/popup.c:477 components/html-editor/popup.c:483
+#: components/html-editor/popup.c:493
 #, fuzzy
 msgid "Paragraph Style..."
 msgstr "Paraqraf..."
 
-#: components/html-editor/popup.c:480
+#: components/html-editor/popup.c:481
 #, fuzzy
 msgid "Link Style..."
 msgstr "Körpü ..."
 
-#: components/html-editor/popup.c:486
+#: components/html-editor/popup.c:487
 #, fuzzy
 msgid "Rule Style..."
 msgstr "Rol..."
 
-#: components/html-editor/popup.c:490
+#: components/html-editor/popup.c:491
 #, fuzzy
 msgid "Image Style..."
 msgstr "Rəsm ..."
 
-#: components/html-editor/popup.c:501
+#: components/html-editor/popup.c:502
 #, fuzzy
 msgid "Cell Style..."
 msgstr "Hücrə..."
 
-#: components/html-editor/popup.c:504
+#: components/html-editor/popup.c:505
 #, fuzzy
 msgid "Table Style..."
 msgstr "Cədvəl ..."
 
-#: components/html-editor/popup.c:510
+#: components/html-editor/popup.c:511
 #, fuzzy
 msgid "Page Style..."
 msgstr "Səhifə..."
 
-#: components/html-editor/popup.c:515
+#: components/html-editor/popup.c:516
 msgid "Table insert"
 msgstr "Cədvəl daxil et"
 
-#: components/html-editor/popup.c:518
+#: components/html-editor/popup.c:519
 msgid "Row above"
 msgstr "Üstdəki sətir"
 
-#: components/html-editor/popup.c:519
+#: components/html-editor/popup.c:520
 msgid "Row below"
 msgstr "Altakı sətir"
 
-#: components/html-editor/popup.c:521
+#: components/html-editor/popup.c:522
 msgid "Column before"
 msgstr "Əvvəlki sütun"
 
-#: components/html-editor/popup.c:522
+#: components/html-editor/popup.c:523
 msgid "Column after"
 msgstr "Sonrakı sütun"
 
-#: components/html-editor/popup.c:524
+#: components/html-editor/popup.c:525
 msgid "Table delete"
 msgstr "Cədvəl sil"
 
-#: components/html-editor/popup.c:528
+#: components/html-editor/popup.c:529
 msgid "Cell contents"
 msgstr "Hücrə məzmunu"
 
-#: components/html-editor/popup.c:547
+#: components/html-editor/popup.c:548
 #, fuzzy, c-format
 msgid "%s Dictionary"
 msgstr "'%s' sözlüyə əlavə et"
 
-#: components/html-editor/replace.c:74
+#: components/html-editor/replace.c:75
 msgid "Replace confirmation"
 msgstr "Doǧrulamayı dəyişdir"
 
-#: components/html-editor/replace.c:75
+#: components/html-editor/replace.c:76
 msgid "Replace all"
 msgstr "Hamısını yerinə qoy"
 
-#: components/html-editor/replace.c:76
+#: components/html-editor/replace.c:77
 msgid "Next"
 msgstr "Sonrakı"
 
-#: components/html-editor/replace.c:160
+#: components/html-editor/replace.c:161
 #, fuzzy
 msgid "Search _backward"
 msgstr "arxaya doǧru axtar"
 
-#: components/html-editor/replace.c:161 components/html-editor/search.c:79
+#: components/html-editor/replace.c:162 components/html-editor/search.c:80
 #, fuzzy
 msgid "Case _sensitive"
 msgstr "imlaya diqqət et"
 
-#: components/html-editor/replace.c:171
+#: components/html-editor/replace.c:172
 #, fuzzy
 msgid "Replace:"
 msgstr "Yerinə qoy"
 
-#: components/html-editor/replace.c:174
+#: components/html-editor/replace.c:175
 #, fuzzy
 msgid "With:"
 msgstr "En:"
 
-#: components/html-editor/rule.c:97
+#: components/html-editor/rule.c:98
 msgid "Blue 3D"
 msgstr "Göy 3D"
 
-#: components/html-editor/rule.c:109
+#: components/html-editor/rule.c:110
 msgid "Yellow, flowers"
 msgstr "Sarı, güllər"
 
-#: components/html-editor/rule.c:421
+#: components/html-editor/rule.c:422
 msgid ""
 "The editted rule was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
 
-#: components/html-editor/search.c:78
+#: components/html-editor/search.c:79
 #, fuzzy
 msgid "_Backward"
 msgstr "arxaya tərəf"
 
-#: components/html-editor/search.c:121
+#: components/html-editor/search.c:126
 msgid "Find Regular Expression"
 msgstr "Qaydalı İfadə Axtar"
 
@@ -1486,177 +1489,177 @@ msgstr "İmla yoxlaması"
 msgid "Current _Languages"
 msgstr "İmla Yoxlaması"
 
-#: components/html-editor/table.c:199
+#: components/html-editor/table.c:200
 msgid "Flat gray"
 msgstr "Bulanıq boz"
 
-#: components/html-editor/table.c:208
+#: components/html-editor/table.c:209
 msgid "Dark header"
 msgstr "Tünd başlıq"
 
-#: components/html-editor/table.c:812
+#: components/html-editor/table.c:813
 msgid ""
 "The editted table was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
 
-#: components/html-editor/template.c:83
+#: components/html-editor/template.c:84
 msgid "Note"
 msgstr "Qeyd"
 
-#: components/html-editor/template.c:93 components/html-editor/template.c:112
+#: components/html-editor/template.c:94 components/html-editor/template.c:113
 msgid "Place your text here"
 msgstr ""
 
-#: components/html-editor/template.c:96
+#: components/html-editor/template.c:97
 msgid "Image frame"
 msgstr "Rəsm çərçivəsi"
 
-#: components/html-editor/test-html-editor-control.c:316
+#: components/html-editor/test-html-editor-control.c:317
 msgid "Open file..."
 msgstr "Dosyeyi Aç ..."
 
-#: components/html-editor/test-html-editor-control.c:318
+#: components/html-editor/test-html-editor-control.c:319
 msgid "Save file as..."
 msgstr "Fərqli qeyd et ..."
 
-#: components/html-editor/test-html-editor-control.c:540
+#: components/html-editor/test-html-editor-control.c:541
 #, fuzzy
 msgid "GtkHTML Editor Test Container"
 msgstr "GNOME HTML Editor İdarəsi"
 
 #. color selection
-#: components/html-editor/text.c:291
+#: components/html-editor/text.c:292
 msgid "Color"
 msgstr "Rəng"
 
-#: components/html-editor/text.c:333
+#: components/html-editor/text.c:334
 msgid ""
 "The editted text was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
 
-#: components/html-editor/toolbar.c:51
+#: components/html-editor/toolbar.c:52
 msgid "Roman List"
 msgstr "Roma Siyahısı"
 
-#: components/html-editor/toolbar.c:508
+#: components/html-editor/toolbar.c:509
 msgid "Left align"
 msgstr "Sola tərəflə"
 
-#: components/html-editor/toolbar.c:512
+#: components/html-editor/toolbar.c:513
 msgid "Right align"
 msgstr "Ortaya tərəflə"
 
-#: components/html-editor/toolbar.c:519
+#: components/html-editor/toolbar.c:520
 msgid "Toggle typewriter font style"
 msgstr "Yazma yazı növü tərzini dəyişdir"
 
-#: components/html-editor/toolbar.c:521
+#: components/html-editor/toolbar.c:522
 msgid "Makes the text bold"
 msgstr "Mətni qalınlaşdırar"
 
-#: components/html-editor/toolbar.c:523
+#: components/html-editor/toolbar.c:524
 msgid "Makes the text italic"
 msgstr "Mətni italikləşdirər"
 
-#: components/html-editor/toolbar.c:525
+#: components/html-editor/toolbar.c:526
 msgid "Underlines the text"
 msgstr "Mətn altını cızar"
 
-#: components/html-editor/toolbar.c:527
+#: components/html-editor/toolbar.c:528
 msgid "Strikes out the text"
 msgstr "Mətni qaralayar"
 
-#: components/html-editor/toolbar.c:536
+#: components/html-editor/toolbar.c:537
 msgid "Unindent"
 msgstr "Daha az arala"
 
-#: components/html-editor/toolbar.c:536
+#: components/html-editor/toolbar.c:537
 msgid "Indents the paragraphs less"
 msgstr "Paraqrafları daha az aralayar"
 
-#: components/html-editor/toolbar.c:538
+#: components/html-editor/toolbar.c:539
 msgid "Indent"
 msgstr "Arala"
 
-#: components/html-editor/toolbar.c:538
+#: components/html-editor/toolbar.c:539
 msgid "Indents the paragraphs more"
 msgstr "Paraqrafları daha çox aralayar"
 
-#: components/html-editor/utils.c:105
+#: components/html-editor/utils.c:106
 msgid "Sample"
 msgstr "Nümunə"
 
-#: src/gtkhtml.c:2594
+#: src/gtkhtml.c:2536
 #, fuzzy
 msgid "Editable"
 msgstr "Aç"
 
-#: src/gtkhtml.c:2595
+#: src/gtkhtml.c:2537
 msgid "Whether the html can be edited"
 msgstr ""
 
-#: src/gtkhtml.c:2602
+#: src/gtkhtml.c:2544
 #, fuzzy
 msgid "The title of the current document"
 msgstr "Sənədə imla yoxlaması apar"
 
-#: src/gtkhtml.c:2608
+#: src/gtkhtml.c:2550
 #, fuzzy
 msgid "Document Base"
 msgstr "Nöqtə üzvü"
 
-#: src/gtkhtml.c:2609
+#: src/gtkhtml.c:2551
 msgid "The base URL for relative references"
 msgstr ""
 
-#: src/gtkhtml.c:2615
+#: src/gtkhtml.c:2557
 msgid "Target Base"
 msgstr ""
 
-#: src/gtkhtml.c:2616
+#: src/gtkhtml.c:2558
 msgid "The base URL of the targe frame"
 msgstr ""
 
-#: src/gtkhtml.c:2625
+#: src/gtkhtml.c:2567
 #, fuzzy
 msgid "Fixed Width Font"
 msgstr "Sabit en"
 
-#: src/gtkhtml.c:2626
+#: src/gtkhtml.c:2568
 msgid "The Monospace font to use for typewriter text"
 msgstr ""
 
-#: src/gtkhtml.c:2632
+#: src/gtkhtml.c:2574
 msgid "New Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2633
+#: src/gtkhtml.c:2575
 msgid "The color of new link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2638
+#: src/gtkhtml.c:2580
 msgid "Visited Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2639
+#: src/gtkhtml.c:2581
 msgid "The color of visited link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2644
+#: src/gtkhtml.c:2586
 msgid "Active Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2645
+#: src/gtkhtml.c:2587
 msgid "The color of active link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2650
+#: src/gtkhtml.c:2592
 msgid "Spelling Error Color"
 msgstr ""
 
-#: src/gtkhtml.c:2651
+#: src/gtkhtml.c:2593
 msgid "The color of the spelling error markers"
 msgstr ""
 
@@ -1726,7 +1729,7 @@ msgid "Reset"
 msgstr "Mətn"
 
 #. TODO2 dialog instead of warning
-#: src/htmlengine-print.c:198
+#: src/htmlengine-print.c:196
 #, fuzzy
 msgid "Cannot allocate default font for printing\n"
 msgstr "Çap etmək üçün dəyişgən en yazıtipini seç"
@@ -1735,13 +1738,18 @@ msgstr "Çap etmək üçün dəyişgən en yazıtipini seç"
 msgid "GtkHTML Test"
 msgstr ""
 
-#: src/testgtkhtml.c:103
+#: src/testgtkhtml.c:110
 msgid "Print pre_view"
 msgstr "Önizləməyi _çap et"
 
-#: src/testgtkhtml.c:103
+#: src/testgtkhtml.c:110
 msgid "Print preview"
 msgstr "Çap etmə önizləməsi"
+
+#: src/testgtkhtml.c:973
+#, fuzzy
+msgid "GtkHTML Test Application"
+msgstr "GNOME HTML Editor İdarəsi"
 
 #~ msgid "with"
 #~ msgstr "birlikdə"

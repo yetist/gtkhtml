@@ -3,12 +3,12 @@
 # Christian Rose <menthos@menthos.com>, 2000, 2001, 2002, 2003.
 # Martin Norbäck <d95mback@dtek.chalmers.se>, 2000.
 #
-# $Id: sv.po,v 1.68 2003/05/19 21:10:03 menthos Exp $
+# $Id: sv.po,v 1.69 2003/05/21 16:01:30 lewing Exp $
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2003-05-19 23:08+0200\n"
+"POT-Creation-Date: 2003-05-21 08:59-0500\n"
 "PO-Revision-Date: 2003-05-19 23:09+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -824,7 +824,7 @@ msgstr "Blått bläck"
 msgid "Rectangles"
 msgstr "Rektanglar"
 
-#: components/html-editor/body.c:275 src/gtkhtml.c:2601
+#: components/html-editor/body.c:275 src/gtkhtml.c:2543
 msgid "Document Title"
 msgstr "Dokumenttitel"
 
@@ -1558,71 +1558,71 @@ msgstr "Drar in styckena mer"
 msgid "Sample"
 msgstr "Prov"
 
-#: src/gtkhtml.c:2594
+#: src/gtkhtml.c:2536
 msgid "Editable"
 msgstr "Redigerbar"
 
-#: src/gtkhtml.c:2595
+#: src/gtkhtml.c:2537
 msgid "Whether the html can be edited"
 msgstr "Huruvida html-koden kan redigeras"
 
-#: src/gtkhtml.c:2602
+#: src/gtkhtml.c:2544
 msgid "The title of the current document"
 msgstr "Titeln på det aktuella dokumentet"
 
-#: src/gtkhtml.c:2608
+#: src/gtkhtml.c:2550
 msgid "Document Base"
 msgstr "Dokumentbas"
 
-#: src/gtkhtml.c:2609
+#: src/gtkhtml.c:2551
 msgid "The base URL for relative references"
 msgstr "Bas-URL:en för relativa referenser"
 
-#: src/gtkhtml.c:2615
+#: src/gtkhtml.c:2557
 msgid "Target Base"
 msgstr "Målbas"
 
-#: src/gtkhtml.c:2616
+#: src/gtkhtml.c:2558
 msgid "The base URL of the targe frame"
 msgstr "Bas-URL:en för målramen"
 
-#: src/gtkhtml.c:2625
+#: src/gtkhtml.c:2567
 msgid "Fixed Width Font"
 msgstr "Typsnitt med fast breddsteg"
 
-#: src/gtkhtml.c:2626
+#: src/gtkhtml.c:2568
 msgid "The Monospace font to use for typewriter text"
 msgstr "Typsnittet med fast breddsteg som ska användas för skrivmaskinstext"
 
-#: src/gtkhtml.c:2632
+#: src/gtkhtml.c:2574
 msgid "New Link Color"
 msgstr "Färg för ny länk"
 
-#: src/gtkhtml.c:2633
+#: src/gtkhtml.c:2575
 msgid "The color of new link elements"
 msgstr "Färgen på nya länkelement"
 
-#: src/gtkhtml.c:2638
+#: src/gtkhtml.c:2580
 msgid "Visited Link Color"
 msgstr "Färg för besökt länk"
 
-#: src/gtkhtml.c:2639
+#: src/gtkhtml.c:2581
 msgid "The color of visited link elements"
 msgstr "Färgen på besökta länkelement"
 
-#: src/gtkhtml.c:2644
+#: src/gtkhtml.c:2586
 msgid "Active Link Color"
 msgstr "Färg för aktiv länk"
 
-#: src/gtkhtml.c:2645
+#: src/gtkhtml.c:2587
 msgid "The color of active link elements"
 msgstr "Färgen på aktiva länkelement"
 
-#: src/gtkhtml.c:2650
+#: src/gtkhtml.c:2592
 msgid "Spelling Error Color"
 msgstr "Stavfelsfärg"
 
-#: src/gtkhtml.c:2651
+#: src/gtkhtml.c:2593
 msgid "The color of the spelling error markers"
 msgstr "Färgen på markörerna för stavfel"
 

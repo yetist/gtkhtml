@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 3.0.3\n"
-"POT-Creation-Date: 2003-05-13 19:51+0800\n"
+"POT-Creation-Date: 2003-05-21 08:59-0500\n"
 "PO-Revision-Date: 2003-05-17 05:23+0800\n"
 "Last-Translator: Abel Cheung <maddog@linux.org.hk>\n"
 "Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
@@ -820,7 +820,7 @@ msgstr ""
 msgid "Rectangles"
 msgstr "矩形"
 
-#: components/html-editor/body.c:275 src/gtkhtml.c:2601
+#: components/html-editor/body.c:275 src/gtkhtml.c:2543
 msgid "Document Title"
 msgstr "文件標題"
 
@@ -843,7 +843,7 @@ msgstr "自動"
 #: components/html-editor/body.c:326
 #: components/html-editor/editor-control-factory.c:207
 #: components/html-editor/gtkhtml-editor-properties.glade.h:76
-#: components/html-editor/menubar.c:288 components/html-editor/popup.c:194
+#: components/html-editor/menubar.c:338 components/html-editor/popup.c:194
 msgid "Text"
 msgstr "文字"
 
@@ -871,20 +871,20 @@ msgstr ""
 "無法寫入更改後的內容。"
 
 #: components/html-editor/editor-control-factory.c:187
-#: components/html-editor/menubar.c:267 components/html-editor/menubar.c:285
-#: components/html-editor/menubar.c:303 components/html-editor/popup.c:186
+#: components/html-editor/menubar.c:317 components/html-editor/menubar.c:335
+#: components/html-editor/menubar.c:353 components/html-editor/popup.c:186
 #: components/html-editor/popup.c:271
 msgid "Properties"
 msgstr "屬性"
 
 #: components/html-editor/editor-control-factory.c:228
-#: components/html-editor/menubar.c:306 components/html-editor/popup.c:215
+#: components/html-editor/menubar.c:356 components/html-editor/popup.c:215
 msgid "Paragraph"
 msgstr "段落"
 
 #: components/html-editor/editor-control-factory.c:233
 #: components/html-editor/gtkhtml-editor-properties.glade.h:52
-#: components/html-editor/menubar.c:270 components/html-editor/popup.c:222
+#: components/html-editor/menubar.c:320 components/html-editor/popup.c:222
 msgid "Page"
 msgstr "頁面"
 
@@ -1238,11 +1238,16 @@ msgstr ""
 msgid "Insert"
 msgstr "插入"
 
-#: components/html-editor/menubar.c:229
+#: components/html-editor/menubar.c:252
+#, c-format
+msgid "Error loading file '%s': %s"
+msgstr ""
+
+#: components/html-editor/menubar.c:279
 msgid "Insert: HTML File"
 msgstr "插入：HTML 檔案"
 
-#: components/html-editor/menubar.c:229
+#: components/html-editor/menubar.c:279
 msgid "Insert: Text File"
 msgstr "插入：文字檔"
 
@@ -1549,71 +1554,71 @@ msgstr "增加段落的縮排"
 msgid "Sample"
 msgstr "範例"
 
-#: src/gtkhtml.c:2594
+#: src/gtkhtml.c:2536
 msgid "Editable"
 msgstr "可編輯"
 
-#: src/gtkhtml.c:2595
+#: src/gtkhtml.c:2537
 msgid "Whether the html can be edited"
 msgstr "可否編輯 html"
 
-#: src/gtkhtml.c:2602
+#: src/gtkhtml.c:2544
 msgid "The title of the current document"
 msgstr "目前的文件的標題"
 
-#: src/gtkhtml.c:2608
+#: src/gtkhtml.c:2550
 msgid "Document Base"
 msgstr ""
 
-#: src/gtkhtml.c:2609
+#: src/gtkhtml.c:2551
 msgid "The base URL for relative references"
 msgstr ""
 
-#: src/gtkhtml.c:2615
+#: src/gtkhtml.c:2557
 msgid "Target Base"
 msgstr ""
 
-#: src/gtkhtml.c:2616
+#: src/gtkhtml.c:2558
 msgid "The base URL of the targe frame"
 msgstr ""
 
-#: src/gtkhtml.c:2625
+#: src/gtkhtml.c:2567
 msgid "Fixed Width Font"
 msgstr "固定寬度字型"
 
-#: src/gtkhtml.c:2626
+#: src/gtkhtml.c:2568
 msgid "The Monospace font to use for typewriter text"
 msgstr "作為打字機字型使用的固定寬度字型"
 
-#: src/gtkhtml.c:2632
+#: src/gtkhtml.c:2574
 msgid "New Link Color"
 msgstr "未瀏覽鏈結顏色"
 
-#: src/gtkhtml.c:2633
+#: src/gtkhtml.c:2575
 msgid "The color of new link elements"
 msgstr "未瀏覽的鏈結的顏色"
 
-#: src/gtkhtml.c:2638
+#: src/gtkhtml.c:2580
 msgid "Visited Link Color"
 msgstr "已瀏覽鏈結顏色"
 
-#: src/gtkhtml.c:2639
+#: src/gtkhtml.c:2581
 msgid "The color of visited link elements"
 msgstr "已瀏覽的鏈結的顏色"
 
-#: src/gtkhtml.c:2644
+#: src/gtkhtml.c:2586
 msgid "Active Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2645
+#: src/gtkhtml.c:2587
 msgid "The color of active link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2650
+#: src/gtkhtml.c:2592
 msgid "Spelling Error Color"
 msgstr "拼字錯誤顏色"
 
-#: src/gtkhtml.c:2651
+#: src/gtkhtml.c:2593
 msgid "The color of the spelling error markers"
 msgstr "表示拼字錯誤的標記的顏色"
 
@@ -1674,7 +1679,7 @@ msgid "Reset"
 msgstr ""
 
 #. TODO2 dialog instead of warning
-#: src/htmlengine-print.c:198
+#: src/htmlengine-print.c:196
 msgid "Cannot allocate default font for printing\n"
 msgstr "無法配置預設字型作為列印使用\n"
 
@@ -1682,13 +1687,18 @@ msgstr "無法配置預設字型作為列印使用\n"
 msgid "GtkHTML Test"
 msgstr "GtkHTML 測試"
 
-#: src/testgtkhtml.c:103
+#: src/testgtkhtml.c:110
 msgid "Print pre_view"
 msgstr "預覽列印(_V)"
 
-#: src/testgtkhtml.c:103
+#: src/testgtkhtml.c:110
 msgid "Print preview"
 msgstr "預覽列印"
+
+#: src/testgtkhtml.c:973
+#, fuzzy
+msgid "GtkHTML Test Application"
+msgstr "GtkHTML 測試"
 
 #~ msgid "Text..."
 #~ msgstr "文字..."

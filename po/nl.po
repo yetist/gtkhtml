@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml cvs\n"
-"POT-Creation-Date: 2003-05-16 20:56+0200\n"
+"POT-Creation-Date: 2003-05-21 08:59-0500\n"
 "PO-Revision-Date: 2003-05-17 00:52+0200\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
@@ -824,7 +824,7 @@ msgstr "Blauwe inkt"
 msgid "Rectangles"
 msgstr "Rechthoeken"
 
-#: components/html-editor/body.c:275 src/gtkhtml.c:2601
+#: components/html-editor/body.c:275 src/gtkhtml.c:2543
 msgid "Document Title"
 msgstr "Documenttitel"
 
@@ -847,7 +847,7 @@ msgstr "Automatisch"
 #: components/html-editor/body.c:326
 #: components/html-editor/editor-control-factory.c:207
 #: components/html-editor/gtkhtml-editor-properties.glade.h:76
-#: components/html-editor/menubar.c:288 components/html-editor/popup.c:194
+#: components/html-editor/menubar.c:338 components/html-editor/popup.c:194
 msgid "Text"
 msgstr "Tekst"
 
@@ -875,20 +875,20 @@ msgstr ""
 "Kan uw veranderingen niet toepassen."
 
 #: components/html-editor/editor-control-factory.c:187
-#: components/html-editor/menubar.c:267 components/html-editor/menubar.c:285
-#: components/html-editor/menubar.c:303 components/html-editor/popup.c:186
+#: components/html-editor/menubar.c:317 components/html-editor/menubar.c:335
+#: components/html-editor/menubar.c:353 components/html-editor/popup.c:186
 #: components/html-editor/popup.c:271
 msgid "Properties"
 msgstr "Eigenschappen"
 
 #: components/html-editor/editor-control-factory.c:228
-#: components/html-editor/menubar.c:306 components/html-editor/popup.c:215
+#: components/html-editor/menubar.c:356 components/html-editor/popup.c:215
 msgid "Paragraph"
 msgstr "Paragraaf"
 
 #: components/html-editor/editor-control-factory.c:233
 #: components/html-editor/gtkhtml-editor-properties.glade.h:52
-#: components/html-editor/menubar.c:270 components/html-editor/popup.c:222
+#: components/html-editor/menubar.c:320 components/html-editor/popup.c:222
 msgid "Page"
 msgstr "Pagina"
 
@@ -1243,11 +1243,16 @@ msgstr ""
 msgid "Insert"
 msgstr "Invoegen"
 
-#: components/html-editor/menubar.c:229
+#: components/html-editor/menubar.c:252
+#, c-format
+msgid "Error loading file '%s': %s"
+msgstr ""
+
+#: components/html-editor/menubar.c:279
 msgid "Insert: HTML File"
 msgstr "Invoegen: HTML-bestand"
 
-#: components/html-editor/menubar.c:229
+#: components/html-editor/menubar.c:279
 msgid "Insert: Text File"
 msgstr "Invoegen: Tekstbestand"
 
@@ -1559,71 +1564,71 @@ msgid "Sample"
 msgstr "Voorbeeld"
 
 # Bewerkbaar? Kan bewerkt/aangepast worden?
-#: src/gtkhtml.c:2594
+#: src/gtkhtml.c:2536
 msgid "Editable"
 msgstr "Kan bewerken"
 
-#: src/gtkhtml.c:2595
+#: src/gtkhtml.c:2537
 msgid "Whether the html can be edited"
 msgstr "Of de html bewerkt kan worden"
 
-#: src/gtkhtml.c:2602
+#: src/gtkhtml.c:2544
 msgid "The title of the current document"
 msgstr "De titel van het huidige document"
 
-#: src/gtkhtml.c:2608
+#: src/gtkhtml.c:2550
 msgid "Document Base"
 msgstr "Documentbasis"
 
-#: src/gtkhtml.c:2609
+#: src/gtkhtml.c:2551
 msgid "The base URL for relative references"
 msgstr "De basis-URL voor relatieve verwijzingen"
 
-#: src/gtkhtml.c:2615
+#: src/gtkhtml.c:2557
 msgid "Target Base"
 msgstr "Doelbasis"
 
-#: src/gtkhtml.c:2616
+#: src/gtkhtml.c:2558
 msgid "The base URL of the targe frame"
 msgstr "De basis-URL van het doelframe"
 
-#: src/gtkhtml.c:2625
+#: src/gtkhtml.c:2567
 msgid "Fixed Width Font"
 msgstr "Lettertype met vaste breedte"
 
-#: src/gtkhtml.c:2626
+#: src/gtkhtml.c:2568
 msgid "The Monospace font to use for typewriter text"
 msgstr "Het lettertype (monospace) voor typemachine-tekst"
 
-#: src/gtkhtml.c:2632
+#: src/gtkhtml.c:2574
 msgid "New Link Color"
 msgstr "Kleur nieuwe link"
 
-#: src/gtkhtml.c:2633
+#: src/gtkhtml.c:2575
 msgid "The color of new link elements"
 msgstr "De kleur van nieuwe links"
 
-#: src/gtkhtml.c:2638
+#: src/gtkhtml.c:2580
 msgid "Visited Link Color"
 msgstr "Kleur bezochte link"
 
-#: src/gtkhtml.c:2639
+#: src/gtkhtml.c:2581
 msgid "The color of visited link elements"
 msgstr "De kleur van bezochte links"
 
-#: src/gtkhtml.c:2644
+#: src/gtkhtml.c:2586
 msgid "Active Link Color"
 msgstr "Kleur actieve link"
 
-#: src/gtkhtml.c:2645
+#: src/gtkhtml.c:2587
 msgid "The color of active link elements"
 msgstr "De kleur van een actieve link"
 
-#: src/gtkhtml.c:2650
+#: src/gtkhtml.c:2592
 msgid "Spelling Error Color"
 msgstr "Kleur van spelfout"
 
-#: src/gtkhtml.c:2651
+#: src/gtkhtml.c:2593
 msgid "The color of the spelling error markers"
 msgstr "De kleur van de markering voor spelfouten"
 
@@ -1684,7 +1689,7 @@ msgid "Reset"
 msgstr "Resetten"
 
 #. TODO2 dialog instead of warning
-#: src/htmlengine-print.c:198
+#: src/htmlengine-print.c:196
 msgid "Cannot allocate default font for printing\n"
 msgstr "Kon standaard lettertype voor printen niet alloceren\n"
 
@@ -1692,13 +1697,18 @@ msgstr "Kon standaard lettertype voor printen niet alloceren\n"
 msgid "GtkHTML Test"
 msgstr "GtkHTML Test"
 
-#: src/testgtkhtml.c:103
+#: src/testgtkhtml.c:110
 msgid "Print pre_view"
 msgstr "Afdruk_voorbeeld"
 
-#: src/testgtkhtml.c:103
+#: src/testgtkhtml.c:110
 msgid "Print preview"
 msgstr "Afdrukvoorbeeld"
+
+#: src/testgtkhtml.c:973
+#, fuzzy
+msgid "GtkHTML Test Application"
+msgstr "GtkHTML Test"
 
 #~ msgid "The quick brown fox jumped over the lazy dog."
 #~ msgstr "Pa's wijze lynx bezag vroom het fikse aquaduct."

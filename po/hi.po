@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GtkHTML 2.x\n"
-"POT-Creation-Date: 2003-04-29 14:20-0500\n"
+"POT-Creation-Date: 2003-05-21 08:59-0500\n"
 "PO-Revision-Date: 2003-01-03 18:29+0530\n"
 "Last-Translator: Bhopal team  <anuragseetha@yahoo.com>\n"
 "Language-Team: Gnome Hindi Team<indlinux-hindi-gnome@lists.sourceforge.net>\n"
@@ -18,9 +18,9 @@ msgid "<None>"
 msgstr "कोई नहीं"
 
 #: capplet/gnome-bindings-prop.c:211 capplet/main.c:241
-#: components/html-editor/cell.c:417 components/html-editor/image.c:530
-#: components/html-editor/rule.c:315 components/html-editor/table.c:529
-#: components/html-editor/table.c:613 components/html-editor/template.c:271
+#: components/html-editor/cell.c:418 components/html-editor/image.c:531
+#: components/html-editor/rule.c:316 components/html-editor/table.c:530
+#: components/html-editor/table.c:614 components/html-editor/template.c:272
 msgid "Could not load glade file."
 msgstr "ग्लेड फाईल लोड करने में असमर्थ"
 
@@ -194,7 +194,7 @@ msgid "A_ddress"
 msgstr "पता (A)"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:8
-#: components/html-editor/toolbar.c:52
+#: components/html-editor/toolbar.c:53
 msgid "Alphabetical List"
 msgstr "अक्षर सूची"
 
@@ -207,12 +207,12 @@ msgid "Blue"
 msgstr "नीला"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:11
-#: components/html-editor/toolbar.c:49
+#: components/html-editor/toolbar.c:50
 msgid "Bulleted List"
 msgstr ""
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
-#: components/html-editor/toolbar.c:510
+#: components/html-editor/toolbar.c:511
 msgid "Center justifies the paragraphs"
 msgstr "पैराग्राफ को मध्य से क्रमबद्ध करें"
 
@@ -253,7 +253,7 @@ msgid "Cut the selection"
 msgstr "चुने हुए को काटो"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
-#: components/html-editor/search.c:73 components/html-editor/search.c:121
+#: components/html-editor/search.c:74 components/html-editor/search.c:126
 msgid "Find"
 msgstr "ढूंडो"
 
@@ -314,9 +314,9 @@ msgid "Header _6"
 msgstr "शीर्ष-6 (6)"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
-#: components/html-editor/editor-control-factory.c:197
+#: components/html-editor/editor-control-factory.c:198
 #: components/html-editor/gtkhtml-editor-properties.glade.h:39
-#: components/html-editor/menubar.c:90 components/html-editor/popup.c:207
+#: components/html-editor/menubar.c:91 components/html-editor/popup.c:208
 msgid "Image"
 msgstr "चित्र"
 
@@ -396,7 +396,7 @@ msgid "Insert text file into document..."
 msgstr "पाठ्य को दस्तावेज में डालो..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
-#: components/html-editor/toolbar.c:508
+#: components/html-editor/toolbar.c:509
 msgid "Left justifies the paragraphs"
 msgstr "पैराग्राफ को बाएँ से लगाता है"
 
@@ -406,9 +406,9 @@ msgid "Li_ck"
 msgstr "कड़ी"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
-#: components/html-editor/body.c:326 components/html-editor/menubar.c:106
-#: components/html-editor/popup.c:104 components/html-editor/popup.c:200
-#: components/html-editor/popup.c:273
+#: components/html-editor/body.c:327 components/html-editor/menubar.c:107
+#: components/html-editor/popup.c:105 components/html-editor/popup.c:201
+#: components/html-editor/popup.c:274
 msgid "Link"
 msgstr "कड़ी"
 
@@ -466,12 +466,12 @@ msgstr "करेण्ट पैराग्राफ को एक एल्�
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
 #: components/html-editor/gtkhtml-editor-properties.glade.h:49
-#: components/html-editor/paragraph.c:128 components/html-editor/toolbar.c:47
+#: components/html-editor/paragraph.c:129 components/html-editor/toolbar.c:48
 msgid "Normal"
 msgstr "सामान्य"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
-#: components/html-editor/toolbar.c:50
+#: components/html-editor/toolbar.c:51
 msgid "Numbered List"
 msgstr "नम्बर की गयी सूची"
 
@@ -513,7 +513,7 @@ msgid "Paste the clipboard as a quotation"
 msgstr "क्लिपबोर्ड को चिपकाओ"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
-#: components/html-editor/toolbar.c:48
+#: components/html-editor/toolbar.c:49
 msgid "Preformat"
 msgstr ""
 
@@ -538,13 +538,13 @@ msgid "Redo the undone action"
 msgstr ""
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
-#: components/html-editor/replace.c:78 components/html-editor/replace.c:152
-#: components/html-editor/replace.c:210
+#: components/html-editor/replace.c:79 components/html-editor/replace.c:153
+#: components/html-editor/replace.c:215
 msgid "Replace"
 msgstr "बदलो"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
-#: components/html-editor/toolbar.c:512
+#: components/html-editor/toolbar.c:513
 msgid "Right justifies the paragraphs"
 msgstr ""
 
@@ -553,9 +553,9 @@ msgid "Roman Numeral List"
 msgstr ""
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
-#: components/html-editor/editor-control-factory.c:217
+#: components/html-editor/editor-control-factory.c:218
 #: components/html-editor/gtkhtml-editor-properties.glade.h:63
-#: components/html-editor/menubar.c:124 components/html-editor/popup.c:228
+#: components/html-editor/menubar.c:125 components/html-editor/popup.c:229
 msgid "Rule"
 msgstr "लाईन"
 
@@ -569,7 +569,7 @@ msgstr "दस्तावेज को पूरी तरह से सिल�
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
 #: components/html-editor/gtkhtml-editor-properties.glade.h:69
-#: components/html-editor/text.c:237 components/html-editor/toolbar.c:527
+#: components/html-editor/text.c:238 components/html-editor/toolbar.c:528
 msgid "Strikeout"
 msgstr ""
 
@@ -595,8 +595,8 @@ msgstr ""
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
-#: components/html-editor/menubar.c:141 components/html-editor/popup.c:235
-#: components/html-editor/popup.c:516 components/html-editor/popup.c:525
+#: components/html-editor/menubar.c:142 components/html-editor/popup.c:236
+#: components/html-editor/popup.c:517 components/html-editor/popup.c:526
 msgid "Table"
 msgstr "सारणी"
 
@@ -610,14 +610,14 @@ msgid "Te_xt file..."
 msgstr "फाईल खोलो... (x)"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
-#: components/html-editor/body.c:256
+#: components/html-editor/body.c:257
 #: components/html-editor/gtkhtml-editor-properties.glade.h:74
-#: components/html-editor/menubar.c:164
+#: components/html-editor/menubar.c:165
 msgid "Template"
 msgstr ""
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
-#: components/html-editor/toolbar.c:519
+#: components/html-editor/toolbar.c:520
 msgid "Typewriter"
 msgstr "टाइपराइटर"
 
@@ -815,91 +815,92 @@ msgstr ""
 msgid "etc..."
 msgstr "आदि..."
 
-#: components/html-editor/body.c:65
+#: components/html-editor/body.c:66
 #: components/html-editor/gtkhtml-editor-properties.glade.h:48
 msgid "None"
 msgstr "कोई नहीं"
 
-#: components/html-editor/body.c:73
+#: components/html-editor/body.c:74
 msgid "Perforated Paper"
 msgstr ""
 
-#: components/html-editor/body.c:81
+#: components/html-editor/body.c:82
 #, fuzzy
 msgid "Blue Ink"
 msgstr "नीला 3D"
 
-#: components/html-editor/body.c:89
+#: components/html-editor/body.c:90
 msgid "Rectangles"
 msgstr ""
 
-#: components/html-editor/body.c:274 src/gtkhtml.c:2601
+#: components/html-editor/body.c:275 src/gtkhtml.c:2543
 msgid "Document Title"
 msgstr "दस्तावेज शीर्षक"
 
-#: components/html-editor/body.c:278 components/html-editor/body.c:281
+#: components/html-editor/body.c:279 components/html-editor/body.c:282
 #: components/html-editor/gtkhtml-editor-properties.glade.h:15
 msgid "Background Image"
 msgstr "पार्श्व चित्र"
 
-#: components/html-editor/body.c:303
+#: components/html-editor/body.c:304
 #: components/html-editor/gtkhtml-editor-properties.glade.h:25
 msgid "Colors"
 msgstr "रंग"
 
-#: components/html-editor/body.c:313 components/html-editor/cell.c:423
-#: components/html-editor/table.c:535 components/html-editor/text.c:295
-#: components/html-editor/toolbar.c:299
+#: components/html-editor/body.c:314 components/html-editor/cell.c:424
+#: components/html-editor/table.c:536 components/html-editor/text.c:296
+#: components/html-editor/toolbar.c:300
 msgid "Automatic"
 msgstr "आटोमेटिक"
 
-#: components/html-editor/body.c:325
-#: components/html-editor/editor-control-factory.c:206
+#: components/html-editor/body.c:326
+#: components/html-editor/editor-control-factory.c:207
 #: components/html-editor/gtkhtml-editor-properties.glade.h:76
-#: components/html-editor/menubar.c:287 components/html-editor/popup.c:193
+#: components/html-editor/menubar.c:338 components/html-editor/popup.c:194
 msgid "Text"
 msgstr "पाठ्य"
 
-#: components/html-editor/body.c:327
+#: components/html-editor/body.c:328
 #: components/html-editor/gtkhtml-editor-properties.glade.h:14
 msgid "Background"
 msgstr "पार्श्व"
 
-#: components/html-editor/cell.c:172 components/html-editor/cell.c:174
-#: components/html-editor/text.c:107
+#: components/html-editor/cell.c:173 components/html-editor/cell.c:175
+#: components/html-editor/image.c:257 components/html-editor/image.c:260
+#: components/html-editor/text.c:108
 msgid "The quick brown fox jumps over the lazy dog."
 msgstr ""
 
-#: components/html-editor/cell.c:177
+#: components/html-editor/cell.c:178
 #, fuzzy
 msgid "Other"
 msgstr "अन्य..."
 
-#: components/html-editor/cell.c:678
+#: components/html-editor/cell.c:679
 msgid ""
 "The editted cell was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
 
-#: components/html-editor/editor-control-factory.c:186
-#: components/html-editor/menubar.c:266 components/html-editor/menubar.c:284
-#: components/html-editor/menubar.c:302 components/html-editor/popup.c:185
-#: components/html-editor/popup.c:270
+#: components/html-editor/editor-control-factory.c:187
+#: components/html-editor/menubar.c:317 components/html-editor/menubar.c:335
+#: components/html-editor/menubar.c:353 components/html-editor/popup.c:186
+#: components/html-editor/popup.c:271
 msgid "Properties"
 msgstr "विशेषताएँ"
 
-#: components/html-editor/editor-control-factory.c:227
-#: components/html-editor/menubar.c:305 components/html-editor/popup.c:214
+#: components/html-editor/editor-control-factory.c:228
+#: components/html-editor/menubar.c:356 components/html-editor/popup.c:215
 msgid "Paragraph"
 msgstr "पैराग्राफ"
 
-#: components/html-editor/editor-control-factory.c:232
+#: components/html-editor/editor-control-factory.c:233
 #: components/html-editor/gtkhtml-editor-properties.glade.h:52
-#: components/html-editor/menubar.c:269 components/html-editor/popup.c:221
+#: components/html-editor/menubar.c:320 components/html-editor/popup.c:222
 msgid "Page"
 msgstr "पेज"
 
-#: components/html-editor/gnome-gtkhtml-editor.c:67
+#: components/html-editor/gnome-gtkhtml-editor.c:68
 #, fuzzy
 msgid "GtkHTML Editor Control"
 msgstr "गनोम एचटीएमएल संपादक नियंत्रण"
@@ -929,7 +930,7 @@ msgid "Apply changes to:"
 msgstr ""
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:16
-#: components/html-editor/text.c:234 components/html-editor/toolbar.c:521
+#: components/html-editor/text.c:235 components/html-editor/toolbar.c:522
 msgid "Bold"
 msgstr "गाढ़ा"
 
@@ -946,17 +947,17 @@ msgid "Bottom"
 msgstr "नीचे"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:20
-#: components/html-editor/popup.c:242
+#: components/html-editor/popup.c:243
 msgid "Cell"
 msgstr "सेल"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:21
-#: components/html-editor/paragraph.c:163 components/html-editor/toolbar.c:510
+#: components/html-editor/paragraph.c:164 components/html-editor/toolbar.c:511
 msgid "Center"
 msgstr "बीच में"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:22
-#: components/html-editor/link.c:107 components/html-editor/text.c:245
+#: components/html-editor/link.c:137 components/html-editor/text.c:246
 msgid "Click will follow this URL"
 msgstr ""
 
@@ -969,7 +970,7 @@ msgid "Color:"
 msgstr "रंग:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:26
-#: components/html-editor/popup.c:527
+#: components/html-editor/popup.c:528
 msgid "Column"
 msgstr ""
 
@@ -1022,12 +1023,12 @@ msgid "Horizontal:"
 msgstr "क्षितिज"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:40
-#: components/html-editor/text.c:235 components/html-editor/toolbar.c:523
+#: components/html-editor/text.c:236 components/html-editor/toolbar.c:524
 msgid "Italic"
 msgstr "इटालिक"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:41
-#: components/html-editor/paragraph.c:162
+#: components/html-editor/paragraph.c:163
 msgid "Left"
 msgstr "बांया"
 
@@ -1081,12 +1082,12 @@ msgid "Points"
 msgstr "बिंदु"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:59
-#: components/html-editor/paragraph.c:164
+#: components/html-editor/paragraph.c:165
 msgid "Right"
 msgstr "दांया"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:60
-#: components/html-editor/popup.c:526
+#: components/html-editor/popup.c:527
 msgid "Row"
 msgstr "पंक्ति"
 
@@ -1107,7 +1108,7 @@ msgid "Shaded"
 msgstr "छायांकित"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:66
-#: components/html-editor/text.c:261
+#: components/html-editor/text.c:262
 msgid "Size"
 msgstr "आकार"
 
@@ -1120,7 +1121,7 @@ msgid "Spacing:"
 msgstr "स्पेसिंग:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:70
-#: components/html-editor/paragraph.c:114 components/html-editor/text.c:221
+#: components/html-editor/paragraph.c:115 components/html-editor/text.c:222
 msgid "Style"
 msgstr "स्टाइल"
 
@@ -1133,7 +1134,7 @@ msgid "Table Insert"
 msgstr "सारणी बनाओ"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:75
-#: components/html-editor/link.c:112
+#: components/html-editor/link.c:85
 #, fuzzy
 msgid "Test URL..."
 msgstr "टेस्ट यूआरएल"
@@ -1147,7 +1148,7 @@ msgid "Top"
 msgstr "ऊपर"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:79
-#: components/html-editor/text.c:236 components/html-editor/toolbar.c:525
+#: components/html-editor/text.c:237 components/html-editor/toolbar.c:526
 msgid "Underline"
 msgstr ""
 
@@ -1175,22 +1176,22 @@ msgstr ""
 msgid "xxxxxxxxxxxxxx"
 msgstr ""
 
-#: components/html-editor/image.c:117 components/html-editor/rule.c:92
-#: components/html-editor/table.c:191
+#: components/html-editor/image.c:118 components/html-editor/rule.c:93
+#: components/html-editor/table.c:192
 msgid "Plain"
 msgstr "सादा"
 
-#: components/html-editor/image.c:119
+#: components/html-editor/image.c:120
 msgid ""
 "@link_begin@<img@alt@@width@@height@@align@ "
 "border=@border@@padh@@padv@@src@>@link_end@"
 msgstr ""
 
-#: components/html-editor/image.c:122
+#: components/html-editor/image.c:123
 msgid "Frame"
 msgstr "फ्रेम"
 
-#: components/html-editor/image.c:124
+#: components/html-editor/image.c:125
 msgid ""
 "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
 "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
@@ -1199,11 +1200,11 @@ msgid ""
 "table></center>"
 msgstr ""
 
-#: components/html-editor/image.c:132
+#: components/html-editor/image.c:133
 msgid "Caption"
 msgstr "कैप्शन"
 
-#: components/html-editor/image.c:134
+#: components/html-editor/image.c:135
 msgid ""
 "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
 "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
@@ -1212,237 +1213,239 @@ msgid ""
 "comment here]</td></tr></table></td></tr></table></center>"
 msgstr ""
 
-#: components/html-editor/image.c:256 components/html-editor/image.c:259
-msgid "The quick brown fox jumped over the lazy dog."
-msgstr ""
-
-#: components/html-editor/image.c:690
+#: components/html-editor/image.c:691
 msgid ""
 "The editted image was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
 
-#: components/html-editor/link.c:91
+#: components/html-editor/link.c:121
 msgid "Link text"
 msgstr "कड़ी पाठ्य"
 
-#: components/html-editor/link.c:180
+#: components/html-editor/link.c:210
 msgid ""
 "The editted link was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
 
-#: components/html-editor/menubar.c:87 components/html-editor/menubar.c:103
-#: components/html-editor/menubar.c:121 components/html-editor/menubar.c:138
-#: components/html-editor/menubar.c:161 components/html-editor/popup.c:101
-#: components/html-editor/properties.c:129
+#: components/html-editor/menubar.c:88 components/html-editor/menubar.c:104
+#: components/html-editor/menubar.c:122 components/html-editor/menubar.c:139
+#: components/html-editor/menubar.c:162 components/html-editor/popup.c:102
+#: components/html-editor/properties.c:121
 msgid "Insert"
 msgstr "डालो"
 
-#: components/html-editor/menubar.c:228
-msgid "Insert HTML file"
+#: components/html-editor/menubar.c:252
+#, c-format
+msgid "Error loading file '%s': %s"
 msgstr ""
 
-#: components/html-editor/menubar.c:228
-msgid "Insert text file"
+#: components/html-editor/menubar.c:279
+#, fuzzy
+msgid "Insert: HTML File"
+msgstr "दस्तावेज में एच टी एम एल की कड़ी जोड़ो..."
+
+#: components/html-editor/menubar.c:279
+msgid "Insert: Text File"
 msgstr ""
 
-#: components/html-editor/paragraph.c:129
+#: components/html-editor/paragraph.c:130
 msgid "Pre"
 msgstr ""
 
-#: components/html-editor/paragraph.c:130 components/html-editor/toolbar.c:53
+#: components/html-editor/paragraph.c:131 components/html-editor/toolbar.c:54
 msgid "Header 1"
 msgstr "हैडर"
 
-#: components/html-editor/paragraph.c:131 components/html-editor/toolbar.c:54
+#: components/html-editor/paragraph.c:132 components/html-editor/toolbar.c:55
 msgid "Header 2"
 msgstr "हैडर"
 
-#: components/html-editor/paragraph.c:132 components/html-editor/toolbar.c:55
+#: components/html-editor/paragraph.c:133 components/html-editor/toolbar.c:56
 msgid "Header 3"
 msgstr "हैडर"
 
-#: components/html-editor/paragraph.c:133 components/html-editor/toolbar.c:56
+#: components/html-editor/paragraph.c:134 components/html-editor/toolbar.c:57
 msgid "Header 4"
 msgstr "हैडर"
 
-#: components/html-editor/paragraph.c:134 components/html-editor/toolbar.c:57
+#: components/html-editor/paragraph.c:135 components/html-editor/toolbar.c:58
 msgid "Header 5"
 msgstr "हैडर"
 
-#: components/html-editor/paragraph.c:135 components/html-editor/toolbar.c:58
+#: components/html-editor/paragraph.c:136 components/html-editor/toolbar.c:59
 msgid "Header 6"
 msgstr "हैडर"
 
-#: components/html-editor/paragraph.c:136 components/html-editor/toolbar.c:59
+#: components/html-editor/paragraph.c:137 components/html-editor/toolbar.c:60
 msgid "Address"
 msgstr "पता"
 
-#: components/html-editor/paragraph.c:137
+#: components/html-editor/paragraph.c:138
 msgid "Dot item"
 msgstr "डाट वस्तु"
 
-#: components/html-editor/paragraph.c:138
+#: components/html-editor/paragraph.c:139
 msgid "Number item"
 msgstr ""
 
-#: components/html-editor/paragraph.c:139
+#: components/html-editor/paragraph.c:140
 msgid "Roman item"
 msgstr ""
 
-#: components/html-editor/paragraph.c:140
+#: components/html-editor/paragraph.c:141
 msgid "Alphabeta item"
 msgstr ""
 
-#: components/html-editor/paragraph.c:149
+#: components/html-editor/paragraph.c:150
 msgid "Align"
 msgstr ""
 
-#: components/html-editor/paragraph.c:193
+#: components/html-editor/paragraph.c:194
 msgid ""
 "The editted paragraph was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
 
-#: components/html-editor/popup.c:455
+#: components/html-editor/popup.c:456
 msgid "Paste Quotation"
 msgstr ""
 
-#: components/html-editor/popup.c:458
+#: components/html-editor/popup.c:459
 #, fuzzy
 msgid "Insert link"
 msgstr "डालो"
 
-#: components/html-editor/popup.c:466
+#: components/html-editor/popup.c:467
 msgid "Remove link"
 msgstr "कड़ी हटा दो"
 
-#: components/html-editor/popup.c:474
+#: components/html-editor/popup.c:475
 #, fuzzy
 msgid "Text Style..."
 msgstr "फाईल खोलो... (x)"
 
-#: components/html-editor/popup.c:476 components/html-editor/popup.c:482
-#: components/html-editor/popup.c:492
+#: components/html-editor/popup.c:477 components/html-editor/popup.c:483
+#: components/html-editor/popup.c:493
 #, fuzzy
 msgid "Paragraph Style..."
 msgstr "पैराग्राफ....."
 
-#: components/html-editor/popup.c:480
+#: components/html-editor/popup.c:481
 #, fuzzy
 msgid "Link Style..."
 msgstr "कड़ी...."
 
-#: components/html-editor/popup.c:486
+#: components/html-editor/popup.c:487
 #, fuzzy
 msgid "Rule Style..."
 msgstr "नियम....."
 
-#: components/html-editor/popup.c:490
+#: components/html-editor/popup.c:491
 #, fuzzy
 msgid "Image Style..."
 msgstr "चित्र......"
 
-#: components/html-editor/popup.c:501
+#: components/html-editor/popup.c:502
 #, fuzzy
 msgid "Cell Style..."
 msgstr "सोल....."
 
-#: components/html-editor/popup.c:504
+#: components/html-editor/popup.c:505
 #, fuzzy
 msgid "Table Style..."
 msgstr "सारणी...."
 
-#: components/html-editor/popup.c:510
+#: components/html-editor/popup.c:511
 #, fuzzy
 msgid "Page Style..."
 msgstr "पेज"
 
-#: components/html-editor/popup.c:515
+#: components/html-editor/popup.c:516
 msgid "Table insert"
 msgstr "सारणी"
 
-#: components/html-editor/popup.c:518
+#: components/html-editor/popup.c:519
 msgid "Row above"
 msgstr "ऊपर वाली पंक्ति"
 
-#: components/html-editor/popup.c:519
+#: components/html-editor/popup.c:520
 msgid "Row below"
 msgstr "नीचे बाली पंक्ति"
 
-#: components/html-editor/popup.c:521
+#: components/html-editor/popup.c:522
 msgid "Column before"
 msgstr "पहले वाली पंक्ति"
 
-#: components/html-editor/popup.c:522
+#: components/html-editor/popup.c:523
 msgid "Column after"
 msgstr "बाद वाला स्तंभ"
 
-#: components/html-editor/popup.c:524
+#: components/html-editor/popup.c:525
 msgid "Table delete"
 msgstr "सारणी हटाओ"
 
-#: components/html-editor/popup.c:528
+#: components/html-editor/popup.c:529
 msgid "Cell contents"
 msgstr ""
 
-#: components/html-editor/popup.c:547
+#: components/html-editor/popup.c:548
 #, fuzzy, c-format
 msgid "%s Dictionary"
 msgstr "%s को शब्दकोष में जोड़ो"
 
-#: components/html-editor/replace.c:74
+#: components/html-editor/replace.c:75
 msgid "Replace confirmation"
 msgstr ""
 
-#: components/html-editor/replace.c:75
+#: components/html-editor/replace.c:76
 msgid "Replace all"
 msgstr "सब बदलना"
 
-#: components/html-editor/replace.c:76
+#: components/html-editor/replace.c:77
 msgid "Next"
 msgstr "अगला"
 
-#: components/html-editor/replace.c:160
+#: components/html-editor/replace.c:161
 #, fuzzy
 msgid "Search _backward"
 msgstr "पीछे खोजना"
 
-#: components/html-editor/replace.c:161 components/html-editor/search.c:79
+#: components/html-editor/replace.c:162 components/html-editor/search.c:80
 msgid "Case _sensitive"
 msgstr ""
 
-#: components/html-editor/replace.c:171
+#: components/html-editor/replace.c:172
 #, fuzzy
 msgid "Replace:"
 msgstr "बदलो"
 
-#: components/html-editor/replace.c:174
+#: components/html-editor/replace.c:175
 #, fuzzy
 msgid "With:"
 msgstr "चौड़ाई"
 
-#: components/html-editor/rule.c:97
+#: components/html-editor/rule.c:98
 msgid "Blue 3D"
 msgstr "नीला 3D"
 
-#: components/html-editor/rule.c:109
+#: components/html-editor/rule.c:110
 msgid "Yellow, flowers"
 msgstr "पीला, फूल"
 
-#: components/html-editor/rule.c:421
+#: components/html-editor/rule.c:422
 msgid ""
 "The editted rule was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
 
-#: components/html-editor/search.c:78
+#: components/html-editor/search.c:79
 #, fuzzy
 msgid "_Backward"
 msgstr "पीछे की तरफ"
 
-#: components/html-editor/search.c:121
+#: components/html-editor/search.c:126
 msgid "Find Regular Expression"
 msgstr "रेग्युलर एक्सप्रेशन खोजना"
 
@@ -1454,177 +1457,177 @@ msgstr "स्पेल चेकर"
 msgid "Current _Languages"
 msgstr ""
 
-#: components/html-editor/table.c:199
+#: components/html-editor/table.c:200
 msgid "Flat gray"
 msgstr ""
 
-#: components/html-editor/table.c:208
+#: components/html-editor/table.c:209
 msgid "Dark header"
 msgstr ""
 
-#: components/html-editor/table.c:812
+#: components/html-editor/table.c:813
 msgid ""
 "The editted table was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
 
-#: components/html-editor/template.c:83
+#: components/html-editor/template.c:84
 msgid "Note"
 msgstr ""
 
-#: components/html-editor/template.c:93 components/html-editor/template.c:112
+#: components/html-editor/template.c:94 components/html-editor/template.c:113
 msgid "Place your text here"
 msgstr ""
 
-#: components/html-editor/template.c:96
+#: components/html-editor/template.c:97
 msgid "Image frame"
 msgstr "चित्र का फ्रेम"
 
-#: components/html-editor/test-html-editor-control.c:316
+#: components/html-editor/test-html-editor-control.c:317
 msgid "Open file..."
 msgstr "फाईल खोलो"
 
-#: components/html-editor/test-html-editor-control.c:318
+#: components/html-editor/test-html-editor-control.c:319
 msgid "Save file as..."
 msgstr ""
 
-#: components/html-editor/test-html-editor-control.c:540
+#: components/html-editor/test-html-editor-control.c:541
 #, fuzzy
 msgid "GtkHTML Editor Test Container"
 msgstr "गनोम एचटीएमएल संपादक नियंत्रण"
 
 #. color selection
-#: components/html-editor/text.c:291
+#: components/html-editor/text.c:292
 msgid "Color"
 msgstr "रंग"
 
-#: components/html-editor/text.c:333
+#: components/html-editor/text.c:334
 msgid ""
 "The editted text was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
 
-#: components/html-editor/toolbar.c:51
+#: components/html-editor/toolbar.c:52
 msgid "Roman List"
 msgstr ""
 
-#: components/html-editor/toolbar.c:508
+#: components/html-editor/toolbar.c:509
 msgid "Left align"
 msgstr ""
 
-#: components/html-editor/toolbar.c:512
+#: components/html-editor/toolbar.c:513
 msgid "Right align"
 msgstr ""
 
-#: components/html-editor/toolbar.c:519
+#: components/html-editor/toolbar.c:520
 msgid "Toggle typewriter font style"
 msgstr ""
 
-#: components/html-editor/toolbar.c:521
+#: components/html-editor/toolbar.c:522
 msgid "Makes the text bold"
 msgstr "टेक्स्ट को बोल्ड बनाना है"
 
-#: components/html-editor/toolbar.c:523
+#: components/html-editor/toolbar.c:524
 msgid "Makes the text italic"
 msgstr "टेक्स्ट को इटालिक बनाना है"
 
-#: components/html-editor/toolbar.c:525
+#: components/html-editor/toolbar.c:526
 msgid "Underlines the text"
 msgstr "टेक्स्ट को अण्डरलाइन करना है"
 
-#: components/html-editor/toolbar.c:527
+#: components/html-editor/toolbar.c:528
 msgid "Strikes out the text"
 msgstr ""
 
-#: components/html-editor/toolbar.c:536
+#: components/html-editor/toolbar.c:537
 msgid "Unindent"
 msgstr ""
 
-#: components/html-editor/toolbar.c:536
+#: components/html-editor/toolbar.c:537
 msgid "Indents the paragraphs less"
 msgstr ""
 
-#: components/html-editor/toolbar.c:538
+#: components/html-editor/toolbar.c:539
 msgid "Indent"
 msgstr ""
 
-#: components/html-editor/toolbar.c:538
+#: components/html-editor/toolbar.c:539
 msgid "Indents the paragraphs more"
 msgstr ""
 
-#: components/html-editor/utils.c:105
+#: components/html-editor/utils.c:106
 msgid "Sample"
 msgstr "नमूना"
 
-#: src/gtkhtml.c:2594
+#: src/gtkhtml.c:2536
 #, fuzzy
 msgid "Editable"
 msgstr "इनेबल"
 
-#: src/gtkhtml.c:2595
+#: src/gtkhtml.c:2537
 msgid "Whether the html can be edited"
 msgstr ""
 
-#: src/gtkhtml.c:2602
+#: src/gtkhtml.c:2544
 #, fuzzy
 msgid "The title of the current document"
 msgstr "दस्तावेज में मात्रा की जांच"
 
-#: src/gtkhtml.c:2608
+#: src/gtkhtml.c:2550
 #, fuzzy
 msgid "Document Base"
 msgstr "दस्तावेज शीर्षक"
 
-#: src/gtkhtml.c:2609
+#: src/gtkhtml.c:2551
 msgid "The base URL for relative references"
 msgstr ""
 
-#: src/gtkhtml.c:2615
+#: src/gtkhtml.c:2557
 msgid "Target Base"
 msgstr ""
 
-#: src/gtkhtml.c:2616
+#: src/gtkhtml.c:2558
 msgid "The base URL of the targe frame"
 msgstr ""
 
-#: src/gtkhtml.c:2625
+#: src/gtkhtml.c:2567
 #, fuzzy
 msgid "Fixed Width Font"
 msgstr "निर्धारित चौड़ाई"
 
-#: src/gtkhtml.c:2626
+#: src/gtkhtml.c:2568
 msgid "The Monospace font to use for typewriter text"
 msgstr ""
 
-#: src/gtkhtml.c:2632
+#: src/gtkhtml.c:2574
 msgid "New Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2633
+#: src/gtkhtml.c:2575
 msgid "The color of new link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2638
+#: src/gtkhtml.c:2580
 msgid "Visited Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2639
+#: src/gtkhtml.c:2581
 msgid "The color of visited link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2644
+#: src/gtkhtml.c:2586
 msgid "Active Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2645
+#: src/gtkhtml.c:2587
 msgid "The color of active link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2650
+#: src/gtkhtml.c:2592
 msgid "Spelling Error Color"
 msgstr ""
 
-#: src/gtkhtml.c:2651
+#: src/gtkhtml.c:2593
 msgid "The color of the spelling error markers"
 msgstr ""
 
@@ -1685,7 +1688,7 @@ msgid "Reset"
 msgstr "रिसेट करो"
 
 #. TODO2 dialog instead of warning
-#: src/htmlengine-print.c:198
+#: src/htmlengine-print.c:196
 msgid "Cannot allocate default font for printing\n"
 msgstr ""
 
@@ -1693,13 +1696,18 @@ msgstr ""
 msgid "GtkHTML Test"
 msgstr "जीटीके एच टी एम एल टेस्ट"
 
-#: src/testgtkhtml.c:103
+#: src/testgtkhtml.c:110
 msgid "Print pre_view"
 msgstr ""
 
-#: src/testgtkhtml.c:103
+#: src/testgtkhtml.c:110
 msgid "Print preview"
 msgstr ""
+
+#: src/testgtkhtml.c:973
+#, fuzzy
+msgid "GtkHTML Test Application"
+msgstr "जीटीके एच टी एम एल टेस्ट"
 
 #~ msgid "with"
 #~ msgstr "के साथ"
