@@ -86,22 +86,22 @@
 		pixtype="stock" pixname="Redo"/>
 		<separator/>
 		<toolitem name="EditCut" verb=""  _label="Cut" _tip="Cut selection to clipboard"
-		pixtype="stock" pixname="Cut"/>
+		pixtype="filename" pixname="@ICONSDIR@/16_cut.png"/>
                 <toolitem name="EditCopy" verb=""  _label="Copy" _tip="Copy selection to clipboard"
-		pixtype="stock" pixname="Copy"/>
+		pixtype="filename" pixname="@ICONSDIR@/16_copy.png"/>
 		<toolitem name="EditPaste" verb=""  _label="Paste" _tip="Paste from clipboard"
-		pixtype="stock" pixname="Paste"/>
+		pixtype="filename" pixname="@ICONSDIR@/16_paste.png"/>
 		<separator/>
 		<toolitem name="EditFind" verb=""  _label="Find" _tip="Find"
 		pixtype="stock" pixname="Search"/>
 		<toolitem name="EditReplace" verb=""  _label="Replace" _tip="Find And Replace"
 		pixtype="stock" pixname="Search/Replace"/>
 		<separator/>
-		<toolitem name="InsertImage" verb=""
+		<toolitem name="InsertImage" verb="" _label="Image"
                 pixtype="filename" pixname="@ICONSDIR@/insert-image-24.png"/>
-		<toolitem name="InsertLink" verb=""
+		<toolitem name="InsertLink" verb="" _lable="Link"
                 pixtype="filename" pixname="@ICONSDIR@/insert-link-24.png"/>
-		<toolitem name="InsertTable" verb=""
+		<toolitem name="InsertTable" verb="" _lable="Table"
                 pixtype="filename" pixname="@ICONSDIR@/insert-table-24.png"/>
 	</dockitem>
 </Root>
