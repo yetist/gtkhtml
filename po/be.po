@@ -1,3 +1,4 @@
+# translation of gtkhtml.HEAD.be.po to Belarusian
 # translation of gtkhtml-3.0.po to belarusian
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
@@ -5,11 +6,12 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml-3.0\n"
-"POT-Creation-Date: 2003-06-02 20:47+0200\n"
-"PO-Revision-Date: 2003-05-24 20:47GMT+2\n"
+"Project-Id-Version: gtkhtml.HEAD.be\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2003-06-16 04:59+0200\n"
+"PO-Revision-Date: 2003-06-16 23:02+0300\n"
 "Last-Translator: Vital Khilko <dojlid@mova.org>\n"
-"Language-Team: belarusian <i18n@mova.org>\n"
+"Language-Team: Belarusian <i18n@mova.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -801,6 +803,10 @@ msgid "_Wink"
 msgstr "_Падмігваньне"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:152
+msgid "_Wrap Lines"
+msgstr "_Перанос радкоў"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:153
 msgid "etc..."
 msgstr "г.д."
 
@@ -821,7 +827,7 @@ msgstr "Блакітныя чарніла"
 msgid "Rectangles"
 msgstr "Прамакутнікі"
 
-#: components/html-editor/body.c:275 src/gtkhtml.c:2543
+#: components/html-editor/body.c:275 src/gtkhtml.c:2547
 msgid "Document Title"
 msgstr "Загаловак дакумэнта"
 
@@ -1242,17 +1248,15 @@ msgstr "Уставіць"
 #: components/html-editor/menubar.c:252
 #, c-format
 msgid "Error loading file '%s': %s"
-msgstr ""
+msgstr "Памылка загрузкі файла '%s': %s"
 
 #: components/html-editor/menubar.c:279
-#, fuzzy
 msgid "Insert: HTML File"
-msgstr "Уставіць файл HTML"
+msgstr "Уставіць: файл HTML"
 
 #: components/html-editor/menubar.c:279
-#, fuzzy
 msgid "Insert: Text File"
-msgstr "Уставіць тэкставы файл"
+msgstr "Уставіць: тэкставы файл"
 
 #: components/html-editor/paragraph.c:130
 msgid "Pre"
@@ -1448,7 +1452,7 @@ msgstr "Пошук сталага выраза"
 msgid "Spell checker"
 msgstr "Праверка правапіса"
 
-#: components/html-editor/spell.c:358
+#: components/html-editor/spell.c:361
 msgid "Current _Languages"
 msgstr "Бягучыя _мовы"
 
@@ -1557,71 +1561,71 @@ msgstr "Большыя водступы абзацаў"
 msgid "Sample"
 msgstr "Узор"
 
-#: src/gtkhtml.c:2536
+#: src/gtkhtml.c:2540
 msgid "Editable"
 msgstr "Можа рэдагавацца"
 
-#: src/gtkhtml.c:2537
+#: src/gtkhtml.c:2541
 msgid "Whether the html can be edited"
 msgstr "Ці рэдагуецца html"
 
-#: src/gtkhtml.c:2544
+#: src/gtkhtml.c:2548
 msgid "The title of the current document"
 msgstr "Загаловак бягучага дакумэнта"
 
-#: src/gtkhtml.c:2550
+#: src/gtkhtml.c:2554
 msgid "Document Base"
 msgstr "База дакумэнта"
 
-#: src/gtkhtml.c:2551
+#: src/gtkhtml.c:2555
 msgid "The base URL for relative references"
 msgstr "Базавы URL для падобных спасылак"
 
-#: src/gtkhtml.c:2557
+#: src/gtkhtml.c:2561
 msgid "Target Base"
 msgstr "База мэты"
 
-#: src/gtkhtml.c:2558
+#: src/gtkhtml.c:2562
 msgid "The base URL of the targe frame"
 msgstr "Базавы URL фрэйма мэты"
 
-#: src/gtkhtml.c:2567
+#: src/gtkhtml.c:2571
 msgid "Fixed Width Font"
 msgstr "Шрыфт фіксаванае шырыні"
 
-#: src/gtkhtml.c:2568
+#: src/gtkhtml.c:2572
 msgid "The Monospace font to use for typewriter text"
 msgstr "Монашырыны шрыфт для выкарастаньня ў наборы"
 
-#: src/gtkhtml.c:2574
+#: src/gtkhtml.c:2578
 msgid "New Link Color"
 msgstr "Колер новых спасылак"
 
-#: src/gtkhtml.c:2575
+#: src/gtkhtml.c:2579
 msgid "The color of new link elements"
 msgstr "Колер новых спасылак"
 
-#: src/gtkhtml.c:2580
+#: src/gtkhtml.c:2584
 msgid "Visited Link Color"
 msgstr "Колер наведаных спасылак"
 
-#: src/gtkhtml.c:2581
+#: src/gtkhtml.c:2585
 msgid "The color of visited link elements"
 msgstr "Колер наведаных спасылак"
 
-#: src/gtkhtml.c:2586
+#: src/gtkhtml.c:2590
 msgid "Active Link Color"
 msgstr "Колер актыўных спасылак"
 
-#: src/gtkhtml.c:2587
+#: src/gtkhtml.c:2591
 msgid "The color of active link elements"
 msgstr "Колер актыўных спасылак"
 
-#: src/gtkhtml.c:2592
+#: src/gtkhtml.c:2596
 msgid "Spelling Error Color"
 msgstr "Колер памылак правапіса"
 
-#: src/gtkhtml.c:2593
+#: src/gtkhtml.c:2597
 msgid "The color of the spelling error markers"
 msgstr "Колер для падкрэсьленьня памылак правапіса"
 
@@ -1699,9 +1703,9 @@ msgid "Print preview"
 msgstr "Прагляд друку"
 
 #: src/testgtkhtml.c:973
-#, fuzzy
 msgid "GtkHTML Test Application"
-msgstr "Тэст GtkHTML"
+msgstr "Дастасаваньне тэставаньня GtkHTML"
 
 #~ msgid "The quick brown fox jumped over the lazy dog."
 #~ msgstr "Плыў па моры чамадан, у чамадане быў дыван..."
+
