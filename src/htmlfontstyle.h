@@ -19,12 +19,8 @@
    Boston, MA 02111-1307, USA.
 */
 
-#ifndef _HTMLFONTMANAGER_H_
-#define _HTMLFONTMANAGER_H_
-
-#include <gdk/gdk.h>
-
-typedef struct _HTMLFont HTMLFont;
+#ifndef _HTMLFONTSTYLE_H
+#define _HTMLFONTSTYLE_H
 
 enum _HTMLFontStyle {
 	HTML_FONT_STYLE_DEFAULT = 0,
@@ -47,17 +43,7 @@ typedef enum _HTMLFontStyle HTMLFontStyle;
 
 #define HTML_FONT_STYLE_SIZE_MAX 7
 
-struct _HTMLFontManager {
-	GdkFont *fonts[HTML_FONT_STYLE_MAX];
-};
-typedef struct _HTMLFontManager HTMLFontManager;
-
 
-HTMLFontManager *html_font_manager_new  (void);
-void html_font_manager_destroy (HTMLFontManager *manager);
-
-GdkFont *html_font_manager_get_gdk_font (HTMLFontManager *manager, HTMLFontStyle style);
-
 HTMLFontStyle html_font_style_merge (HTMLFontStyle a, HTMLFontStyle b);
 
-#endif /* _HTMLFONTMANAGER_H_ */
+#endif /* _HTMLFONTSTYLE_H */

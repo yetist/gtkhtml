@@ -23,6 +23,7 @@
 #define _HTMLPAINTER_H
 
 #include "htmlpainter.h"
+#include "htmlgdkfontmanager.h"
 
 
 #define HTML_TYPE_GDK_PAINTER                 (html_gdk_painter_get_type ())
@@ -50,7 +51,7 @@ struct _HTMLGdkPainter {
 	gboolean do_clear;
 
 	/* Font handling.  */
-	HTMLFontManager *font_manager;
+	HTMLGdkFontManager *font_manager;
 	HTMLFontStyle font_style;
 
 	/* Colors used for shading.  */

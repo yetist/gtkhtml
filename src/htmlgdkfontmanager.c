@@ -20,7 +20,7 @@
 */
 
 
-#include "htmlfontmanager.h"
+#include "htmlgdkfontmanager.h"
 
 
 /* FIXME this should be dynamically done, and based on the base font name.  */
@@ -31,7 +31,7 @@ static guint real_font_sizes[HTML_FONT_STYLE_SIZE_MAX] = {
 
 
 static void
-load_font (HTMLFontManager *manager,
+load_font (HTMLGdkFontManager *manager,
 	   HTMLFontStyle style)
 {
 	const gchar *weight_string;
@@ -84,19 +84,19 @@ load_font (HTMLFontManager *manager,
 }
 
 
-HTMLFontManager *
-html_font_manager_new  (void)
+HTMLGdkFontManager *
+html_gdk_font_manager_new  (void)
 {
-	HTMLFontManager *new;
+	HTMLGdkFontManager *new;
 
-	new = g_new (HTMLFontManager, 1);
+	new = g_new (HTMLGdkFontManager, 1);
 	memset (new->fonts, 0, sizeof (new->fonts));
 
 	return new;
 }
 
 void
-html_font_manager_destroy (HTMLFontManager *manager)
+html_gdk_font_manager_destroy (HTMLGdkFontManager *manager)
 {
 	guint i;
 
@@ -111,7 +111,7 @@ html_font_manager_destroy (HTMLFontManager *manager)
 }
 
 GdkFont *
-html_font_manager_get_gdk_font (HTMLFontManager *manager,
+html_gdk_font_manager_get_font (HTMLGdkFontManager *manager,
 				HTMLFontStyle style)
 {
 	g_return_val_if_fail (manager != NULL, NULL);
@@ -120,22 +120,4 @@ html_font_manager_get_gdk_font (HTMLFontManager *manager,
 	load_font (manager, style);
 
 	return gdk_font_ref (manager->fonts[style]);
-}
-
-
-HTMLFontStyle
-html_font_style_merge (HTMLFontStyle a,
-		       HTMLFontStyle b)
-{
-	HTMLFontStyle retval;
-
-	if ((b & HTML_FONT_STYLE_SIZE_MASK) != 0)
-		retval = ((b & HTML_FONT_STYLE_SIZE_MASK)
-			  | (a & ~HTML_FONT_STYLE_SIZE_MASK));
-	else
-		retval = a;
-
-	retval |= b & ~HTML_FONT_STYLE_SIZE_MASK;
-
-	return retval;
 }

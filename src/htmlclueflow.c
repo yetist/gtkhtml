@@ -710,7 +710,6 @@ html_clueflow_class_init (HTMLClueFlowClass *klass,
 void
 html_clueflow_init (HTMLClueFlow *clueflow,
 		    HTMLClueFlowClass *klass,
-		    HTMLFont *font,
 		    HTMLClueFlowStyle style,
 		    guint8 list_level,
 		    guint8 quote_level)
@@ -728,7 +727,6 @@ html_clueflow_init (HTMLClueFlow *clueflow,
 	clue->valign = HTML_VALIGN_BOTTOM;
 	clue->halign = HTML_HALIGN_LEFT;
 
-	clueflow->font = font;
 	clueflow->style = style;
 
 	clueflow->list_level = list_level;
@@ -736,15 +734,14 @@ html_clueflow_init (HTMLClueFlow *clueflow,
 }
 
 HTMLObject *
-html_clueflow_new (HTMLFont *font,
-		   HTMLClueFlowStyle style,
+html_clueflow_new (HTMLClueFlowStyle style,
 		   guint8 list_level,
 		   guint8 quote_level)
 {
 	HTMLClueFlow *clueflow;
 
 	clueflow = g_new (HTMLClueFlow, 1);
-	html_clueflow_init (clueflow, &html_clueflow_class, font, style,
+	html_clueflow_init (clueflow, &html_clueflow_class, style,
 			    list_level, quote_level);
 
 	return HTML_OBJECT (clueflow);
@@ -786,8 +783,7 @@ html_clueflow_split (HTMLClueFlow *clue,
 
 	/* Create the new clue.  */
 
-	new = HTML_CLUEFLOW (html_clueflow_new (clue->font,
-						clue->style,
+	new = HTML_CLUEFLOW (html_clueflow_new (clue->style,
 						clue->list_level,
 						clue->quote_level));
 

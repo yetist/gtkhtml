@@ -59,7 +59,7 @@ finalize (GtkObject *object)
 	if (painter->gc != NULL)
 		gdk_gc_destroy (painter->gc);
 
-	html_font_manager_destroy (painter->font_manager);
+	html_gdk_font_manager_destroy (painter->font_manager);
 
 	if (painter->pixmap != NULL)
 		gdk_pixmap_unref (painter->pixmap);
@@ -438,7 +438,7 @@ draw_text (HTMLPainter *painter,
 	x -= gdk_painter->x1;
 	y -= gdk_painter->y1;
 
-	gdk_font = html_font_manager_get_gdk_font (gdk_painter->font_manager,
+	gdk_font = html_gdk_font_manager_get_font (gdk_painter->font_manager,
 						   gdk_painter->font_style);
 
 	gdk_draw_text (gdk_painter->pixmap,
@@ -495,7 +495,7 @@ calc_ascent (HTMLPainter *painter,
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
 
-	gdk_font = html_font_manager_get_gdk_font (gdk_painter->font_manager, style);
+	gdk_font = html_gdk_font_manager_get_font (gdk_painter->font_manager, style);
 	if (gdk_font == NULL)
 		return 0;
 
@@ -515,7 +515,7 @@ calc_descent (HTMLPainter *painter,
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
 
-	gdk_font = html_font_manager_get_gdk_font (gdk_painter->font_manager, style);
+	gdk_font = html_gdk_font_manager_get_font (gdk_painter->font_manager, style);
 	if (gdk_font == NULL)
 		return 0;
 
@@ -537,7 +537,7 @@ calc_text_width (HTMLPainter *painter,
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
 
-	gdk_font = html_font_manager_get_gdk_font (gdk_painter->font_manager, style);
+	gdk_font = html_gdk_font_manager_get_font (gdk_painter->font_manager, style);
 	width = gdk_text_width (gdk_font, text, len);
 	gdk_font_unref (gdk_font);
 
@@ -572,7 +572,7 @@ init (GtkObject *object)
 	gdk_painter->set_background = FALSE;
 	gdk_painter->do_clear = FALSE;
 
-	gdk_painter->font_manager = html_font_manager_new ();
+	gdk_painter->font_manager = html_gdk_font_manager_new ();
 	gdk_painter->font_style = HTML_FONT_STYLE_DEFAULT;
 
 	init_color (& gdk_painter->background, 0xffff, 0xffff, 0xffff);

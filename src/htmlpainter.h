@@ -27,7 +27,7 @@
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <gtk/gtk.h>
 
-#include "htmlfontmanager.h"
+#include "htmlfontstyle.h"
 #include "htmlcolorset.h"
 
 

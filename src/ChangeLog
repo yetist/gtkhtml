@@ -1,5 +1,26 @@
 2000-02-01  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlclueflow.c (html_clueflow_init): Removed parameter `font'.
+	(html_clueflow_new): Likewise.
+
+	* htmlclueflow.h: Removed member `font'.
+
+	* htmlgdkpainter.c: Use `htmlgdkfontmanager.c' instead of
+	`htmlfontmanager.c'.
+
+	* All files: updated to use `htmlfontstyle.c' and
+	`htmlfontstyle.c' instead of `htmlfontmanager.c' and
+	`htmlfontmanager.h' for HTMLFontStyle handling.
+
+	* htmlfontstyle.h: New file.
+	* htmlfontstyle.c: New file.
+
+	* htmlgdkfontmanager.c: New file.
+	* htmlgdkfontmanager.h: New file.
+
+	* htmlfontmanager.c: Removed.
+	* htmlfontmanager.h: Removed.
+
 	* htmlengine.c: Updated to use `HTMLGdkPainter' instead of the
 	old `HTMLPainter'.
 	* htmlengine.h: Likewise.

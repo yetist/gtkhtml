@@ -29,7 +29,8 @@ libgtkhtml_HEADERS =				\
 	htmlengine-save.h			\
 	htmlengine.h				\
 	htmlentity.h				\
-	htmlfontmanager.h			\
+	htmlgdkfontmanager.h			\
+	htmlfontstyle.h				\
 	htmlform.h				\
 	htmlgdkpainter.h			\
 	htmlhidden.h				\
@@ -80,7 +81,8 @@ libgtkhtml_la_SOURCES =				\
 	htmlengine-save.c			\
 	htmlengine.c				\
 	htmlentity.c				\
-	htmlfontmanager.c			\
+	htmlgdkfontmanager.c			\
+	htmlfontstyle.c				\
 	htmlform.c				\
 	htmlgdkpainter.c			\
 	htmlhidden.c				\

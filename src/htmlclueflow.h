@@ -54,9 +54,6 @@ enum _HTMLClueFlowStyle {
 struct _HTMLClueFlow {
 	HTMLClue clue;
 
-	/* Font for the itemized lists.  */
-	HTMLFont *font;
-
 	/* Paragraph style.  */
 	HTMLClueFlowStyle style;
 
@@ -82,12 +79,10 @@ void           html_clueflow_class_init              (HTMLClueFlowClass  *klass,
 						      HTMLType            type);
 void           html_clueflow_init                    (HTMLClueFlow       *flow,
 						      HTMLClueFlowClass  *klass,
-						      HTMLFont           *font,
 						      HTMLClueFlowStyle   style,
 						      guint8              list_level,
 						      guint8              quote_level);
-HTMLObject    *html_clueflow_new                     (HTMLFont           *font,
-						      HTMLClueFlowStyle   style,
+HTMLObject    *html_clueflow_new                     (HTMLClueFlowStyle   style,
 						      guint8              list_level,
 						      guint8              quote_level);
 

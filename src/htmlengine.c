@@ -297,8 +297,7 @@ new_flow (HTMLEngine *e,
 {
 	close_flow (e, clue);
 
-	e->flow = html_clueflow_new (HTML_FONT_STYLE_DEFAULT,
-				     current_clueflow_style (e),
+	e->flow = html_clueflow_new (current_clueflow_style (e),
 				     e->list_level,
 				     e->quote_level);
 
@@ -2077,8 +2076,7 @@ parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 
 		close_flow (p, clue);
 
-		p->flow = html_clueflow_new (HTML_FONT_STYLE_DEFAULT,
-					     HTML_CLUEFLOW_STYLE_ITEMDOTTED,
+		p->flow = html_clueflow_new (HTML_CLUEFLOW_STYLE_ITEMDOTTED,
 					     p->list_level,
 					     p->quote_level);
 		html_clue_append (HTML_CLUE (clue), p->flow);
