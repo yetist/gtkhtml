@@ -7,5 +7,5 @@ location_info=html-component
 [embeddable:html-component]
 type=factory
 repo_id=IDL:BonoboObject/html-component:1.0 IDL:GNOME/Embeddable:1.0 
-description=A html component
+description=An html component
 location_info=embeddable-factory:html-component

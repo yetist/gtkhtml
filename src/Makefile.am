@@ -82,10 +82,6 @@ html_component_LDADD = 		\
 	$(GNOMEUI_LIBS) 	\
 	$(GNOME_LIBDIR) 	\
 	$(EXTRA_GNOME_LIBS)
-
-gnorbadir = $(sysconfdir)/CORBA/servers
-gnorba_DATA = text-html.gnorba
-
 endif
 
 dist-hook:
