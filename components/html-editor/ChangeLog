@@ -1,3 +1,10 @@
+2001-04-16  Larry Ewing  <lewing@ximian.com>
+
+	* toolbar.c (toolbar_item_update_sensitivity): fix prototype.
+	(paragraph_style_option_menu_set_mode): add cast.
+
+	* engine.c (impl_is_previous_paragraph_empty): fix cast.
+
 2001-04-15  Larry Ewing  <lewing@ximian.com>
 
 	* editor-control-factory.c (editor_control_construct): hold

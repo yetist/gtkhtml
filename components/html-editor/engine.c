@@ -147,7 +147,7 @@ impl_is_previous_paragraph_empty (PortableServer_Servant servant, CORBA_Environm
 	    && e->html->engine->cursor->object->parent
 	    && e->html->engine->cursor->object->parent->prev
 	    && HTML_OBJECT_TYPE (e->html->engine->cursor->object->parent->prev) == HTML_TYPE_CLUEFLOW) {
-		return html_clueflow_is_empty (HTML_CLUE (e->html->engine->cursor->object->parent->prev));
+		return html_clueflow_is_empty (HTML_CLUEFLOW (e->html->engine->cursor->object->parent->prev));
 	}
 	return CORBA_FALSE;
 }

@@ -118,7 +118,9 @@ paragraph_style_option_menu_set_mode (GtkWidget *option_menu, gboolean format_ht
 	GtkWidget *menu;
 	
 	menu = gtk_option_menu_get_menu (GTK_OPTION_MENU (option_menu));
-	gtk_container_forall (GTK_CONTAINER (menu), paragraph_style_menu_item_update, format_html);
+	gtk_container_forall (GTK_CONTAINER (menu), 
+			      paragraph_style_menu_item_update, 
+			      GINT_TO_POINTER (format_html));
 }
 
 static GtkWidget *
@@ -589,7 +591,7 @@ create_style_toolbar (GtkHTMLControlData *cd)
 }
 
 static void
-toolbar_item_update_sensitivity (GtkWidget *widget, gpointer *data)
+toolbar_item_update_sensitivity (GtkWidget *widget, gpointer data)
 {
 	GtkHTMLControlData *cd = (GtkHTMLControlData *)data;
 	
