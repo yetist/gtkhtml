@@ -390,8 +390,10 @@ html_text_slave_get_line_offset (HTMLTextSlave *slave, gint line_offset, gint of
 		bol = HTML_TEXT_SLAVE (prev->next);
 		return html_text_text_line_length (html_text_slave_get_text (bol),
 						   0, offset - bol->posStart);
-	} else
-		return line_offset + html_text_text_line_length (slave->owner->text, line_offset, offset);
+	} else {
+		html_text_text_line_length (slave->owner->text, &line_offset, offset);
+		return line_offset;
+	}
 }
 
 static gint

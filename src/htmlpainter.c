@@ -535,7 +535,7 @@ html_painter_translate_text (const gchar *text, gint len, gint *line_offset, gin
 	gchar *new_text;
 	gint translated_len;
 
-	*bytes = calc_translated_text_bytes (text, len, line_offset, &translated_len, *line_offset != -1);
+	*bytes = calc_translated_text_bytes (text, len, *line_offset, &translated_len, *line_offset != -1);
 	new_text = g_malloc (*bytes + 1);
 	*line_offset = translate_text_special_chars (text, new_text, len, *line_offset, *line_offset != -1);
 

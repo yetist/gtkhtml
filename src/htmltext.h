@@ -135,7 +135,7 @@ gboolean          html_text_convert_nbsp                 (HTMLText         *text
 gint              html_text_get_line_offset              (HTMLText         *text,
 							  HTMLPainter      *painter);
 gint              html_text_text_line_length             (const gchar      *text,
-							  gint              line_offset,
+							  gint             *line_offset,
 							  guint             len);
 /*
  * protected

@@ -1,3 +1,15 @@
+2003-02-20  Radek Doulik  <rodo@ximian.com>
+
+	* htmltext.c (html_text_text_line_length): modify line_offset
+	parameter
+	(translated_len): new helper function
+	(calc_word_width): correct offsets fot tabs
+
+	* htmlpainter.c (html_painter_translate_text): dereference
+	line_offset
+
+	* htmltext.c (get_glyphs): translate special characters
+
 2003-02-19  Radek Doulik  <rodo@ximian.com>
 
 	* htmlplainpainter.c (draw_text): prepare temporary items and

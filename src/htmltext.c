@@ -494,14 +494,13 @@ calc_size (HTMLObject *self, HTMLPainter *painter, GList **changed_objs)
 }
 
 gint
-html_text_text_line_length (const gchar *text, gint line_offset, guint len)
+html_text_text_line_length (const gchar *text, gint *line_offset, guint len)
 {
 	const gchar *tab, *found_tab;
-	gint lo, cl, l, skip, sum_skip;
+	gint cl, l, skip, sum_skip;
 
 	/* printf ("lo: %d o: %d t: '%s'\n", line_offset, len, text); */
 	l = 0;
-	lo = line_offset;
 	sum_skip = 0;
 	tab = text;
 	while (tab && (found_tab = strchr (tab, '\t')) && l < len) {
@@ -509,10 +508,10 @@ html_text_text_line_length (const gchar *text, gint line_offset, guint len)
 		l   += cl;
 		if (l >= len)
 			break;
-		lo  += cl;
-		skip = 8 - (lo % 8);
+		*line_offset  += cl;
+		skip = 8 - (*line_offset % 8);
 		tab  = found_tab + 1;
-		lo  += skip;
+		*line_offset  += skip;
 		sum_skip += skip - 1;
 		l ++;
 	}
@@ -524,7 +523,7 @@ static guint
 get_line_length (HTMLObject *self, HTMLPainter *p, gint line_offset)
 {
 	return html_clueflow_tabs (HTML_CLUEFLOW (self->parent), p) || line_offset == -1
-		? html_text_text_line_length (HTML_TEXT (self)->text, line_offset, HTML_TEXT (self)->text_len)
+		? html_text_text_line_length (HTML_TEXT (self)->text, &line_offset, HTML_TEXT (self)->text_len)
 		: HTML_TEXT (self)->text_len;
 }
 
@@ -551,19 +550,32 @@ get_words (const gchar *s)
 }
 
 static PangoGlyphString *
-get_glyphs (HTMLText *text, HTMLPainter *painter)
+get_glyphs (HTMLText *text, HTMLPainter *painter, gint line_offset)
 {
 	PangoGlyphString *glyphs = NULL;
 	GList *items = html_text_get_items (text, painter);
 
 	if (items) {
+		gchar *translated_text;
+		gint bytes;
+
+		translated_text = html_painter_translate_text (text->text, text->text_len, &line_offset, &bytes);
 		glyphs = pango_glyph_string_new ();
-		pango_shape (text->text, g_utf8_offset_to_pointer (text->text, text->text_len) - text->text, &((PangoItem *) items->data)->analysis, glyphs);
+		pango_shape (translated_text, bytes, &((PangoItem *) items->data)->analysis, glyphs);
+		g_free (translated_text);
 	}
 
 	return glyphs;
 }
 
+
+static gint
+translated_len (gchar *begin, gchar *end, gint *line_offset)
+{
+	gint len = end ? g_utf8_pointer_to_offset (begin, end) : g_utf8_strlen (begin, -1);
+
+	return html_text_text_line_length (begin, line_offset, len);
+}
 
 static void
 calc_word_width (HTMLText *text, HTMLPainter *painter, gint line_offset)
@@ -574,7 +586,7 @@ calc_word_width (HTMLText *text, HTMLPainter *painter, gint line_offset)
 	HTMLFont *font;
 	HTMLObject *obj = HTML_OBJECT (text);
 	gchar *begin, *end;
-	gint i, width, asc, dsc;
+	gint i, width, asc, dsc, start_offset, end_offset;
 
 	text->words      = get_words (text->text);
 	if (text->word_width)
@@ -585,22 +597,22 @@ calc_word_width (HTMLText *text, HTMLPainter *painter, gint line_offset)
 
 	obj->ascent = obj->descent = 0;
 
-	begin            = text->text;
-
 	if (text->text_len) {
 		items = html_text_get_items (text, painter);
 		if (items)
-			glyphs = get_glyphs (text, painter);
+			glyphs = get_glyphs (text, painter, line_offset);
 	}
+
+	begin = text->text;
+	start_offset = end_offset = 0;
 	for (i = 0; i < text->words; i++) {
 		end   = strchr (begin + (i ? 1 : 0), ' ');
 
 		if (items && glyphs) {
 			PangoRectangle log_rect;
-			int start;
 
-			start = g_utf8_pointer_to_offset (text->text, begin);
-			pango_glyph_string_extents_range (glyphs, start, end ? start + g_utf8_pointer_to_offset (begin, end) : text->text_len,
+			end_offset = start_offset + translated_len (begin, end, &line_offset);
+			pango_glyph_string_extents_range (glyphs, start_offset, end_offset,
 							  ((PangoItem *) items->data)->analysis.font, NULL, &log_rect);
 			width = PANGO_PIXELS (log_rect.width);
 			asc   = PANGO_PIXELS (PANGO_ASCENT (log_rect));
@@ -616,6 +628,7 @@ calc_word_width (HTMLText *text, HTMLPainter *painter, gint line_offset)
 		if (obj->descent < dsc)
 			obj->descent = dsc;
 		begin = end;
+		start_offset = end_offset;
 	}
 	if (glyphs) {
 		pango_glyph_string_free (glyphs);
