@@ -1,3 +1,9 @@
+2000-12-07  Radek Doulik  <rodo@helixcode.com>
+
+	* gtkhtml-search.c: reworked, use new API
+
+	* removed gtkhtml-input.[ch], implemented it thru editor API
+
 2000-12-07  Larry Ewing  <lewing@helixcode.com>
 
 	* htmlengine-save.c (html_engine_save_buffer_new): add cast to

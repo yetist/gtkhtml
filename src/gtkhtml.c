@@ -49,7 +49,6 @@
 
 #include "gtkhtml-embedded.h"
 #include "gtkhtml-im.h"
-#include "gtkhtml-input.h"
 #include "gtkhtml-keybinding.h"
 #include "gtkhtml-search.h"
 #include "gtkhtml-stream.h"
@@ -590,7 +589,6 @@ destroy (GtkObject *object)
 	html->priv = NULL;
 
 	gtk_object_destroy (GTK_OBJECT (html->engine));
-	gtk_html_input_line_destroy (html->input_line);
 
 	if (GTK_OBJECT_CLASS (parent_class)->destroy != NULL)
 		(* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
@@ -1057,6 +1055,8 @@ focus_in_event (GtkWidget *widget,
 		GdkEventFocus *event)
 {
 	GtkHTML *html = GTK_HTML (widget);
+
+	printf ("focus_in_event\n");
 
 	if (!html->iframe_parent) {
 		GTK_WIDGET_SET_FLAGS (widget, GTK_HAS_FOCUS);
@@ -1772,7 +1772,6 @@ gtk_html_construct (GtkWidget *htmlw)
 	html = GTK_HTML (htmlw);
 
 	html->engine        = html_engine_new (htmlw);
-	html->input_line    = gtk_html_input_line_new (html);
 	html->iframe_parent = NULL;
 	
 	gtk_signal_connect (GTK_OBJECT (html->engine), "title_changed",

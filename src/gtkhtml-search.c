@@ -21,15 +21,18 @@
 */
 
 #include <gdk/gdkkeysyms.h>
+#include "gtkhtml.h"
 #include "gtkhtml-search.h"
-#include "gtkhtml-input.h"
 #include "htmlengine-search.h"
 #include "htmlsearch.h"
 #include "htmlselection.h"
 
 struct _GtkHTMLISearch {
-	GtkHTML *html;
+	GtkHTML  *html;
+	GtkEntry *entry;
 	gboolean forward;
+	gboolean changed;
+	gchar *last_text;
 };
 typedef struct _GtkHTMLISearch GtkHTMLISearch;
 
@@ -41,25 +44,43 @@ changed (GtkEntry *entry, GtkHTMLISearch *data)
 		html_engine_search_incremental (data->html->engine, gtk_entry_get_text (entry), data->forward);
 	else
 		html_engine_unselect_all (data->html->engine);
+	data->changed = TRUE;
+}
+
+static void
+continue_search (GtkHTMLISearch *data, gboolean forward)
+{
+	HTMLEngine *e = data->html->engine;
+
+	if (!data->changed && data->last_text && *data->last_text) {
+		gtk_entry_set_text (data->entry, data->last_text);
+		html_engine_search_incremental (data->html->engine, data->last_text, forward);
+		data->changed = TRUE;
+	} else {
+		if (e->search_info)
+			html_search_set_forward (e->search_info, forward);
+		html_engine_search_next (e);
+	}
+	data->forward = forward;
 }
 
 static gint
 key_press (GtkWidget *widget, GdkEventKey *event, GtkHTMLISearch *data)
 {
-	HTMLEngine *e = data->html->engine;
-	gint rv = FALSE;
+	gint rv = TRUE;
 
 	if (event->state == GDK_CONTROL_MASK && event->keyval == GDK_s) {
-		if (e->search_info)
-			html_search_set_forward (e->search_info, TRUE);
-		html_engine_search_next (e);
-		rv = TRUE;
+		continue_search (data, TRUE);
 	} else if (event->state == GDK_CONTROL_MASK && event->keyval == GDK_r) {
-		if (e->search_info)
-			html_search_set_forward (e->search_info, FALSE);
-		html_engine_search_next (e);
-		rv = TRUE;
-	}
+		continue_search (data, FALSE);
+	} else if (!event->state && event->keyval == GDK_Escape) {
+		gtk_grab_remove (GTK_WIDGET (data->entry));
+		gtk_widget_destroy (GTK_WIDGET (data->entry));
+		gtk_widget_grab_focus (GTK_WIDGET (data->html));
+		g_free (data->last_text);
+		g_free (data);
+	} else
+		rv = FALSE;
 
 	return rv;
 }
@@ -67,11 +88,30 @@ key_press (GtkWidget *widget, GdkEventKey *event, GtkHTMLISearch *data)
 void
 gtk_html_isearch (GtkHTML *html, gboolean forward)
 {
-	GtkHTMLISearch *data = g_new (GtkHTMLISearch, 1);
+	GtkHTMLISearch *data;
+	GtkEntry *entry;
 
-	/* printf ("isearch\n"); */
+	if (!html->editor_api->create_input_line)
+		return;
+	entry  = (*html->editor_api->create_input_line) (html, html->editor_data);
+	if (!entry)
+		return;
 
-	data->html = html;
-	data->forward = forward;
-	gtk_html_input_line_activate (html->input_line, "isearch", changed, NULL, GTK_SIGNAL_FUNC (key_press), g_free, data);
+	data = g_new (GtkHTMLISearch, 1);
+
+	data->html      = html;
+	data->forward   = forward;
+	data->entry     = entry;
+	data->changed   = FALSE;
+	data->last_text = NULL;
+
+	if (html->engine->search_info) {
+		data->last_text = g_strdup (html->engine->search_info->text);
+		html_search_set_text (html->engine->search_info, "");
+	}
+
+	gtk_signal_connect (GTK_OBJECT (entry), "key_press_event", GTK_SIGNAL_FUNC (key_press), data);
+	gtk_signal_connect (GTK_OBJECT (entry), "changed",         GTK_SIGNAL_FUNC (changed),   data);
+
+	gtk_widget_grab_focus (GTK_WIDGET (entry));
 }

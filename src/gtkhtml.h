@@ -45,7 +45,6 @@ struct _GtkHTML {
 	GtkWidget            *iframe_parent;
 	GtkHTMLEditorAPI     *editor_api;
 	gpointer              editor_data;
-	GtkHTMLInputLine     *input_line;
 	HTMLEngine           *engine;
 
 	/* The URL of the link over which the pointer currently is.  NULL if
@@ -120,6 +119,9 @@ struct _GtkHTMLEditorAPI
 	gboolean  (* command)                 (GtkHTML *html, GtkHTMLCommandType com_type, gpointer data);
 
 	GtkArg  * (* event)                   (GtkHTML *html, GtkHTMLEditorEventType event_type, GtkArg **args, gpointer data);
+
+	/* input line */
+	GtkEntry * (* create_input_line)      (GtkHTML *html, gpointer data);
 };
 
 
