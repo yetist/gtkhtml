@@ -1,3 +1,9 @@
+2004-06-03  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml.c (add_bindings): added missing KP_Home, KP_End bindings
+
+	Fixes #59353
+
 2004-06-01  Radek Doulik  <rodo@ximian.com>
 
 	* htmliframe.c (check_page_split): multiply border height by pixel
