@@ -1,3 +1,10 @@
+2005-03-26  Yu Mengjie  <meng-jie.yu@sun.com>
+
+	* gtkhtml.c: (scroll):
+	we should not scroll gtkhtml widget if caret mode is on.
+
+	Fixes 74053
+
 2005-03-23  Radek Doulik  <rodo@novell.com>
 
 	* htmlgdkpainter.c (draw_glyphs): maintain fg color unchanged
