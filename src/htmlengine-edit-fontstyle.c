@@ -250,27 +250,27 @@ html_engine_set_font_style (HTMLEngine *e,
 			    GtkHTMLFontStyle and_mask,
 			    GtkHTMLFontStyle or_mask)
 {
+	gboolean rv;
+	GtkHTMLFontStyle old = e->insertion_font_style;
+
 	g_return_val_if_fail (e != NULL, FALSE);
 	g_return_val_if_fail (HTML_IS_ENGINE (e), FALSE);
 	g_return_val_if_fail (e->editable, FALSE);
 
-
 	/* printf ("and %d or %d\n", and_mask, or_mask); */
+	e->insertion_font_style &= and_mask;
+	e->insertion_font_style |= or_mask;
+
 	if (html_engine_is_selection_active (e)) {
 		struct tmp_font *tf = g_new (struct tmp_font, 1);
 		tf->and_mask = and_mask;
 		tf->or_mask  = or_mask;
 		html_engine_cut_and_paste (e, "Set font style", "Unset font style", object_set_font_style, tf);
 		g_free (tf);
-		return TRUE;
-	} else {
-		GtkHTMLFontStyle old = e->insertion_font_style;
-
-		e->insertion_font_style &= and_mask;
-		e->insertion_font_style |= or_mask;
-
-		return (old == e->insertion_font_style) ? FALSE : TRUE;
-	}
+		rv = TRUE;
+	} else
+		rv = (old == e->insertion_font_style) ? FALSE : TRUE;
+	return rv;
 }
 
 gboolean
@@ -347,18 +347,16 @@ html_engine_set_color (HTMLEngine *e, HTMLColor *color)
 	if (!color)
 		color = html_colorset_get_color (e->settings->color_set, HTMLTextColor);
 
-	if (html_engine_is_selection_active (e)) {
+	if (html_engine_is_selection_active (e))
 		html_engine_cut_and_paste (e, "Set color", "Unset color", set_color, color);
-		return TRUE;
-	} else {
+	else {
 
 		if (gdk_color_equal (&e->insertion_color->color, &color->color))
 			rv = FALSE;
-
-		html_color_unref (e->insertion_color);
-		e->insertion_color = color;
-		html_color_ref (e->insertion_color);
 	}
+	html_color_unref (e->insertion_color);
+	e->insertion_color = color;
+	html_color_ref (e->insertion_color);
 
 	return rv;
 }
