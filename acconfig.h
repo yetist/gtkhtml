@@ -17,6 +17,7 @@
 #undef HAVE_GNU_REGEX
 #undef USING_OAF
 #undef GTK_HTML_USE_XIM
+#undef GNOME_GTKHTML_EDITOR_SHLIB
 
 @BOTTOM@
 /* This is from libglade */

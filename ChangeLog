@@ -1,3 +1,10 @@
+2001-06-26  Radek Doulik  <rodo@ximian.com>
+
+	* configure.in: --enable-shlib-factory argument added
+	print some configuration info in the end
+
+	* acconfig.h: added GNOME_GTKHTML_EDITOR_SHLIB
+
 2001-06-18  Radek Doulik  <rodo@ximian.com>
 
 	* configure.in (GTKHTML_CURRENT): raised to 12 because of GtkHTML
