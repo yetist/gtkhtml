@@ -1,5 +1,7 @@
 2003-02-18  Radek Doulik  <rodo@ximian.com>
 
+	* htmltextslave.c (get_items): use html_text_get_items
+
 	* htmlengine.c (parse_i): don't pass possibly uninitialized memory
 	to tokenizer
 

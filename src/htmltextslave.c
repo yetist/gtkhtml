@@ -615,15 +615,17 @@ draw_spell_errors (HTMLTextSlave *slave, HTMLPainter *p, gint tx, gint ty, gint 
 static GList *
 get_items (HTMLTextSlave *slave, HTMLPainter *painter)
 {
-	if (!slave->items && slave->owner->items) {
+	if (!slave->items) {
 		PangoItem *item;
 
 		slave->items = html_text_get_items (slave->owner, painter);
-		item = (PangoItem *) slave->items->data;
-
-		while (slave->items && slave->posStart < item->offset) {
-			slave->items = slave->items->next;
+		if (slave->items) {
 			item = (PangoItem *) slave->items->data;
+
+			while (slave->items && slave->posStart < item->offset) {
+				slave->items = slave->items->next;
+				item = (PangoItem *) slave->items->data;
+			}
 		}
 	}
 
