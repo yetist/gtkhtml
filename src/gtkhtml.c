@@ -2793,18 +2793,6 @@ gtk_html_set_base (GtkHTML *html, const char *url)
 	
 	priv = html->priv;
 
-	/* FIXME wow this sucks */
-	if (priv->base_url && !strstr (url, ":"))
-		new_base = g_strconcat (priv->base_url, "/", url, NULL);
-	else 
-		new_base = g_strdup (url);
-
-	end = strrchr (new_base, '/');
-	if (end)
-		*(end + 1) = '\0';
-
-	/* g_warning ("url = %s, html->base_url = %s, new_base = %s", url, gtk_html_get_base(html), new_base); */
-
 	g_free (html->priv->base_url);
 	html->priv->base_url = g_strdup (url);
 }

@@ -1,3 +1,12 @@
+2002-02-23  Larry Ewing  <lewing@ximian.com>
+
+	* htmlframe.c: change relative url lookup.
+
+	* htmliframe.c: change relative url handling.  Fix check_url logic
+	for scrolled case.
+
+	* gtkhtml.c (gtk_html_set_base): remove the old parsing logic.
+
 2002-02-22  Radek Doulik  <rodo@ximian.com>
 
 	* htmlimage.c (update_or_redraw): don't draw or schedule engine

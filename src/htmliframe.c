@@ -1,4 +1,3 @@
-
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /* This file is part of the GtkHTML library.
    
@@ -43,6 +42,129 @@ HTMLIFrameClass html_iframe_class;
 static HTMLEmbeddedClass *parent_class = NULL;
 static gboolean calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs);
 
+static char *
+skip_host (char *url)
+{
+	char *host;
+	
+	host = url;
+	while (*host && (*host != '/') && (*host != ':'))
+	       host++;
+
+	if (*host == ':') {
+		url = host++;
+
+		if (*host == '/') 
+			host++;
+
+		url = host;
+
+		if (*host == '/') {
+			url = host++;
+
+			if ((host = strchr (host, '/')))
+				url = host;
+		}
+	}		
+	
+	return url;
+}
+	
+static size_t
+path_len (char *base, gboolean absolute)
+{
+	char *last;
+	char *cur;
+	char *start;
+
+	start = last = skip_host (base);
+	if (!absolute) {
+		cur = strrchr (start, '/');
+		
+		if (cur)
+			last = cur;
+	}
+
+	return last - base;
+}
+
+#if 0
+char *
+collapse_path (char *url)
+{
+	char *start;
+	char *end;
+	char *cur;
+	size_t len;
+
+	start = skip_host (url);
+
+	cur = start;
+	while ((cur = strstr (cur, "/../"))) {
+		end = cur + 3;
+		
+		/* handle the case of a rootlevel /../ specialy */
+		if (cur == start) {
+			len = strlen (end);
+			memmove (cur, end, len + 1);
+		}
+			
+		while (cur > start) {
+			cur--;
+			if ((*cur == '/') || (cur == start)) {
+				len = strlen (end);
+				memmove (cur, end, len + 1);
+				break;
+			}
+		}
+	}
+	return url;
+}
+#endif
+
+char *
+get_absolute (char *base, char *url)
+{
+	char *new_url = NULL;
+	size_t base_len, url_len;
+	gboolean absolute = FALSE;
+
+	if (!base || (url && strstr (url, ":")))
+		return g_strdup (url);
+
+	if (*url == '/') {
+		absolute = TRUE;;
+	}
+	
+	base_len = path_len (base, absolute);
+	url_len = strlen (url);
+
+	new_url = g_malloc (base_len + url_len + 2);
+	
+	if (base_len) {
+		memcpy (new_url, base, base_len);
+
+		if (base[base_len - 1] != '/')
+			new_url[base_len++] = '/';
+		if (absolute)
+			url++;
+	}
+	
+	memcpy (new_url + base_len, url, url_len);
+	new_url[base_len + url_len] = '\0';
+	
+	return new_url;
+}
+
+static void
+iframe_set_base (GtkHTML *html, const char *url, gpointer data)
+{
+	char *new_url = get_absolute (gtk_html_get_base (html), url);
+
+	gtk_html_set_base (html, new_url);
+	g_free (new_url);
+}
+
 static void
 iframe_url_requested (GtkHTML *html, const char *url, GtkHTMLStream *handle, gpointer data)
 {
@@ -50,15 +172,10 @@ iframe_url_requested (GtkHTML *html, const char *url, GtkHTMLStream *handle, gpo
 	GtkHTML *parent = GTK_HTML (HTML_EMBEDDED(iframe)->parent);
 	char *new_url = NULL;
 
-	/* FIXME this is not exactly the single safest method of expanding a relative url */
-	if (!strstr (url, ":"))
-		new_url = g_strconcat (iframe->url, url, NULL);
-	
-	gtk_signal_emit_by_name (GTK_OBJECT (parent->engine), "url_requested", new_url ? new_url : url,
-				 handle);
-	
-	if (new_url)
-		g_free (new_url);
+	new_url = get_absolute (gtk_html_get_base (parent), url);
+	gtk_signal_emit_by_name (GTK_OBJECT (parent->engine), "url_requested",
+				 new_url, handle);
+	g_free (new_url);
 }
 
 static void
@@ -66,8 +183,11 @@ iframe_on_url (GtkHTML *html, const gchar *url, gpointer data)
 {
 	HTMLIFrame *iframe = HTML_IFRAME (data);
 	GtkHTML *parent = GTK_HTML (HTML_EMBEDDED(iframe)->parent);
+	char *new_url = NULL;
 
+	new_url = get_absolute (gtk_html_get_base (parent), url);
 	gtk_signal_emit_by_name (GTK_OBJECT (parent), "on_url", url);
+	g_free (new_url);
 }
 
 static void
@@ -75,8 +195,11 @@ iframe_link_clicked (GtkHTML *html, const gchar *url, gpointer data)
 {
 	HTMLIFrame *iframe = HTML_IFRAME (data);
 	GtkHTML *parent = GTK_HTML (HTML_EMBEDDED(iframe)->parent);
+	char *new_url = NULL;
 
+	new_url = get_absolute (gtk_html_get_base (parent), url);
 	gtk_signal_emit_by_name (GTK_OBJECT (parent), "link_clicked", url);
+	g_free (new_url);
 }
 
 static void
@@ -368,8 +491,8 @@ check_point (HTMLObject *self,
 	    || y >= self->y + self->descent || y < self->y - self->ascent)
 		return NULL;
 
-	x -= self->x + e->leftBorder;
-	y -= self->y - self->ascent + e->topBorder;
+	x -= self->x + e->leftBorder - e->x_offset;
+	y -= self->y - self->ascent + e->topBorder - e->y_offset;
 
 	if (for_cursor && (x < 0 || y < e->clue->y - e->clue->ascent))
 		return html_object_check_point (e->clue, e->painter, 0, e->clue->y - e->clue->ascent,
@@ -479,8 +602,10 @@ html_iframe_init (HTMLIFrame *iframe,
 	iframe->width = width;
 	iframe->height = height;
 	iframe->gdk_painter = NULL;
+	gtk_html_set_base (new_html, src);
 
 	handle = gtk_html_begin (new_html);
+
 	new_html->engine->clue->parent = HTML_OBJECT (iframe);
 
 	gtk_signal_connect (GTK_OBJECT (new_html), "url_requested",
@@ -495,13 +620,18 @@ html_iframe_init (HTMLIFrame *iframe,
 	gtk_signal_connect (GTK_OBJECT (new_html), "size_changed",
 			    GTK_SIGNAL_FUNC (iframe_size_changed),
 			    (gpointer)iframe);	
+	gtk_signal_connect (GTK_OBJECT (new_html), "set_base",
+			    GTK_SIGNAL_FUNC (iframe_set_base),
+			    (gpointer)iframe);	
 	gtk_signal_connect (GTK_OBJECT (new_html), "object_requested",
 			    GTK_SIGNAL_FUNC (iframe_object_requested),
 			    (gpointer)iframe);	
+
 	/*
 	  gtk_signal_connect (GTK_OBJECT (html), "button_press_event",
 	  GTK_SIGNAL_FUNC (iframe_button_press_event), iframe);
 	*/
+
 	gtk_signal_emit_by_name (GTK_OBJECT (new_html->engine), 
 				 "url_requested", src, handle);
 
@@ -523,14 +653,10 @@ html_iframe_init (HTMLIFrame *iframe,
 	/*
 	gtk_signal_connect (GTK_OBJECT (html), "title_changed",
 			    GTK_SIGNAL_FUNC (title_changed_cb), (gpointer)app);
-	gtk_signal_connect (GTK_OBJECT (html), "set_base",
-			    GTK_SIGNAL_FUNC (on_set_base), (gpointer)app);
 	gtk_signal_connect (GTK_OBJECT (html), "button_press_event",
 			    GTK_SIGNAL_FUNC (on_button_press_event), popup_menu);
 	gtk_signal_connect (GTK_OBJECT (html), "redirect",
 			    GTK_SIGNAL_FUNC (on_redirect), NULL);
-	gtk_signal_connect (GTK_OBJECT (html), "submit",
-			    GTK_SIGNAL_FUNC (on_submit), NULL);
 	gtk_signal_connect (GTK_OBJECT (html), "object_requested",
 			    GTK_SIGNAL_FUNC (object_requested_cmd), NULL);
 	*/
