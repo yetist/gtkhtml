@@ -25,7 +25,7 @@ AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Package name for gettex
 GNOME_EXPLICIT_TRANSLATION_DOMAIN=${GTKHTML_RELEASE_STRING}
 AC_DEFINE_UNQUOTED(GNOME_EXPLICIT_TRANSLATION_DOMAIN, "${GNOME_EXPLICIT_TRANSLATION_DOMAIN}", [Gnome Explicit Translation Domain])
 
-AM_INIT_AUTOMAKE($PACKAGE, 3.2.0)
+AM_INIT_AUTOMAKE($PACKAGE, 3.2.1)
 
 AM_MAINTAINER_MODE
 
@@ -43,7 +43,11 @@ AM_PROG_LIBTOOL
 GNOME_COMPILE_WARNINGS(yes)
 CFLAGS="$CFLAGS $warning_flags"
 
-ALL_LINGUAS="am ar az be bg bn ca cs da de el en_CA en_GB es et eu fi fr ga gl gu he hi hr hu it ja ko lt lv ms nb nl nn no pa pl pt pt_BR ru sk sl sq sr sr@Latn sv ta tr uk vi zh_CN zh_TW"
+AC_SUBST(CFLAGS)
+AC_SUBST(CPPFLAGS)
+AC_SUBST(LDFLAGS)
+
+ALL_LINGUAS="am ar az be bg bn ca cs da de el en_CA en_GB es et eu fi fr ga gl gu he hi hr hu it ja ko lt lv ms nb nl nn no pa pl pt pt_BR ru sk sl sq sr sr@Latn sv tr uk vi zh_CN zh_TW"
 AM_GLIB_GNU_GETTEXT
 
 GAIL_MODULES="gail >= 0.13"

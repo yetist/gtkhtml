@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml HEAD\n"
+"Project-Id-Version: gtkhtml gnome-2-8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-28 03:59+0200\n"
+"POT-Creation-Date: 2004-08-29 11:23+0200\n"
 "PO-Revision-Date: 2004-08-28 19:32+0200\n"
 "Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
 "Language-Team: Albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
@@ -1874,7 +1874,9 @@ msgstr ""
 #: src/gtkhtml.c:2531
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
-msgstr "Url e marrë nga Mozilla në Kompozues ka format (%d) apo gjatësi (%d) të gabuar\n"
+msgstr ""
+"Url e marrë nga Mozilla në Kompozues ka format (%d) apo gjatësi (%d) të "
+"gabuar\n"
 
 #: src/gtkhtml.c:2853
 msgid "Editable"
@@ -2032,4 +2034,3 @@ msgstr "Pamja e parë e printimit"
 #: src/testgtkhtml.c:987
 msgid "GtkHTML Test Application"
 msgstr "Programi i provave të GtkHTML"
-

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-26 15:35+0200\n"
-"PO-Revision-Date: 2004-05-27 14:10+0200\n"
+"POT-Creation-Date: 2004-09-05 12:05+0200\n"
+"PO-Revision-Date: 2004-09-05 16:10+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1875,8 +1875,7 @@ msgstr ""
 #: src/gtkhtml.c:2531
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
-msgstr ""
-"URL z Mozilly upuštěné do editoru mělo špatný formát (%d) enbo délku (%d)\n"
+msgstr "URL z Mozilly upuštěné do editoru mělo špatný formát (%d) nebo délku (%d)\n"
 
 #: src/gtkhtml.c:2853
 msgid "Editable"

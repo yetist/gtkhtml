@@ -5,7 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 1.1.x\n"
-"POT-Creation-Date: 2004-08-27 22:49+0800\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-08-30 18:51+0800\n"
 "PO-Revision-Date: 2004-08-27 22:51+0730\n"
 "Last-Translator: Hasbullah Bin Pit <sebol@my-penguin.org>\n"
 "Language-Team: Projek Gabai <gabai-penyumbang@lists.sourceforge.org>\n"
@@ -17,14 +18,10 @@ msgstr ""
 msgid "<None>"
 msgstr "<Tiada>"
 
-#: capplet/gnome-bindings-prop.c:211
-#: capplet/main.c:241
-#: components/html-editor/cell.c:333
-#: components/html-editor/image.c:350
-#: components/html-editor/link.c:182
-#: components/html-editor/rule.c:174
-#: components/html-editor/table.c:220
-#: components/html-editor/template.c:271
+#: capplet/gnome-bindings-prop.c:211 capplet/main.c:241
+#: components/html-editor/cell.c:333 components/html-editor/image.c:350
+#: components/html-editor/link.c:182 components/html-editor/rule.c:174
+#: components/html-editor/table.c:220 components/html-editor/template.c:271
 #: components/html-editor/text.c:159
 msgid "Could not load glade file."
 msgstr "Tak dapat memuatkan fail glade."
@@ -268,8 +265,7 @@ msgstr "Potong pilihan"
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
-#: components/html-editor/search.c:108
-#: components/html-editor/search.c:166
+#: components/html-editor/search.c:108 components/html-editor/search.c:166
 msgid "Find"
 msgstr "Cari"
 
@@ -440,10 +436,8 @@ msgstr "_Jilat"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
-#: components/html-editor/menubar.c:136
-#: components/html-editor/popup.c:106
-#: components/html-editor/popup.c:201
-#: components/html-editor/popup.c:267
+#: components/html-editor/menubar.c:136 components/html-editor/popup.c:106
+#: components/html-editor/popup.c:201 components/html-editor/popup.c:267
 msgid "Link"
 msgstr "Pautan"
 
@@ -513,8 +507,7 @@ msgstr "Jadikan perenggan sebagai senarai alfabetik"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:69
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:70
-#: components/html-editor/paragraph.c:83
-#: components/html-editor/toolbar.c:48
+#: components/html-editor/paragraph.c:83 components/html-editor/toolbar.c:48
 msgid "Normal"
 msgstr "Normal"
 
@@ -602,8 +595,7 @@ msgstr "Ulangcara aksi nyahcara"
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
-#: components/html-editor/replace.c:161
-#: components/html-editor/replace.c:223
+#: components/html-editor/replace.c:161 components/html-editor/replace.c:223
 msgid "Replace"
 msgstr "Ganti"
 
@@ -622,8 +614,7 @@ msgstr "Senarai nombor roman"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
 #: components/html-editor/editor-control-factory.c:207
 #: components/html-editor/gtkhtml-editor-properties.glade.h:48
-#: components/html-editor/menubar.c:155
-#: components/html-editor/popup.c:225
+#: components/html-editor/menubar.c:155 components/html-editor/popup.c:225
 msgid "Rule"
 msgstr "Rule"
 
@@ -671,10 +662,8 @@ msgstr "Superscript"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 #: components/html-editor/gtkhtml-editor-properties.glade.h:52
-#: components/html-editor/menubar.c:176
-#: components/html-editor/popup.c:231
-#: components/html-editor/popup.c:501
-#: components/html-editor/popup.c:513
+#: components/html-editor/menubar.c:176 components/html-editor/popup.c:231
+#: components/html-editor/popup.c:501 components/html-editor/popup.c:513
 msgid "Table"
 msgstr "Jadual"
 
@@ -1029,13 +1018,11 @@ msgstr "T_emplat:"
 #. }
 #. g_signal_connect (data->entry_title, "changed", G_CALLBACK (entry_changed), data);
 #. editor_hig_attach_row (t1, _("T_itle:"), data->entry_title, 1);
-#: components/html-editor/body.c:256
-#: components/html-editor/paragraph.c:112
+#: components/html-editor/body.c:256 components/html-editor/paragraph.c:112
 msgid "General"
 msgstr "Umum"
 
-#: components/html-editor/body.c:267
-#: components/html-editor/text.c:162
+#: components/html-editor/body.c:267 components/html-editor/text.c:162
 #: components/html-editor/toolbar.c:301
 msgid "Automatic"
 msgstr "Automatik"
@@ -1057,8 +1044,7 @@ msgstr "Latar_Belakang"
 msgid "Colors"
 msgstr "Warna"
 
-#: components/html-editor/body.c:285
-#: components/html-editor/body.c:300
+#: components/html-editor/body.c:285 components/html-editor/body.c:300
 #: components/html-editor/gtkhtml-editor-properties.glade.h:23
 msgid "Background Image"
 msgstr "Imej latarbelakang:"
@@ -1068,37 +1054,31 @@ msgstr "Imej latarbelakang:"
 msgid "_Source:"
 msgstr "_Sumber:"
 
-#: components/html-editor/cell.c:350
-#: components/html-editor/table.c:231
+#: components/html-editor/cell.c:350 components/html-editor/table.c:231
 msgid "Transparent"
 msgstr "Telus"
 
 #: components/html-editor/editor-control-factory.c:178
-#: components/html-editor/menubar.c:354
-#: components/html-editor/menubar.c:372
-#: components/html-editor/menubar.c:390
-#: components/html-editor/popup.c:186
+#: components/html-editor/menubar.c:354 components/html-editor/menubar.c:372
+#: components/html-editor/menubar.c:390 components/html-editor/popup.c:186
 #: components/html-editor/popup.c:264
 msgid "Properties"
 msgstr "Ciri-ciri"
 
 #: components/html-editor/editor-control-factory.c:197
 #: components/html-editor/gtkhtml-editor-properties.glade.h:54
-#: components/html-editor/menubar.c:376
-#: components/html-editor/popup.c:195
+#: components/html-editor/menubar.c:376 components/html-editor/popup.c:195
 msgid "Text"
 msgstr "Teks"
 
 #: components/html-editor/editor-control-factory.c:216
-#: components/html-editor/menubar.c:394
-#: components/html-editor/popup.c:213
+#: components/html-editor/menubar.c:394 components/html-editor/popup.c:213
 msgid "Paragraph"
 msgstr "Perenggan"
 
 #: components/html-editor/editor-control-factory.c:220
 #: components/html-editor/gtkhtml-editor-properties.glade.h:43
-#: components/html-editor/menubar.c:358
-#: components/html-editor/popup.c:219
+#: components/html-editor/menubar.c:358 components/html-editor/popup.c:219
 msgid "Page"
 msgstr "Halaman"
 
@@ -1389,8 +1369,7 @@ msgid "Cell"
 msgstr "Sel"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:28
-#: components/html-editor/paragraph.c:128
-#: components/html-editor/toolbar.c:515
+#: components/html-editor/paragraph.c:128 components/html-editor/toolbar.c:515
 msgid "Center"
 msgstr "Tengah"
 
@@ -1569,15 +1548,12 @@ msgstr "px"
 msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
-#: components/html-editor/menubar.c:96
-#: components/html-editor/menubar.c:104
+#: components/html-editor/menubar.c:96 components/html-editor/menubar.c:104
 msgid "Insert image"
 msgstr "selit imej"
 
-#: components/html-editor/menubar.c:133
-#: components/html-editor/menubar.c:152
-#: components/html-editor/menubar.c:173
-#: components/html-editor/menubar.c:195
+#: components/html-editor/menubar.c:133 components/html-editor/menubar.c:152
+#: components/html-editor/menubar.c:173 components/html-editor/menubar.c:195
 #: components/html-editor/popup.c:103
 msgid "Insert"
 msgstr "Selit"
@@ -1587,43 +1563,35 @@ msgstr "Selit"
 msgid "Error loading file '%s': %s"
 msgstr "Ralat memuatkan fail '%s': %s"
 
-#: components/html-editor/menubar.c:308
-#: components/html-editor/menubar.c:317
+#: components/html-editor/menubar.c:308 components/html-editor/menubar.c:317
 msgid "Insert: HTML File"
 msgstr "Selit Fail HTML"
 
-#: components/html-editor/menubar.c:308
-#: components/html-editor/menubar.c:317
+#: components/html-editor/menubar.c:308 components/html-editor/menubar.c:317
 msgid "Insert: Text File"
 msgstr "Selit Fail Teks"
 
-#: components/html-editor/paragraph.c:86
-#: components/html-editor/toolbar.c:54
+#: components/html-editor/paragraph.c:86 components/html-editor/toolbar.c:54
 msgid "Header 1"
 msgstr "Pengepala 1"
 
-#: components/html-editor/paragraph.c:87
-#: components/html-editor/toolbar.c:55
+#: components/html-editor/paragraph.c:87 components/html-editor/toolbar.c:55
 msgid "Header 2"
 msgstr "Pengepala 2"
 
-#: components/html-editor/paragraph.c:88
-#: components/html-editor/toolbar.c:56
+#: components/html-editor/paragraph.c:88 components/html-editor/toolbar.c:56
 msgid "Header 3"
 msgstr "Pengepala 3"
 
-#: components/html-editor/paragraph.c:89
-#: components/html-editor/toolbar.c:57
+#: components/html-editor/paragraph.c:89 components/html-editor/toolbar.c:57
 msgid "Header 4"
 msgstr "Pengepala 4"
 
-#: components/html-editor/paragraph.c:90
-#: components/html-editor/toolbar.c:58
+#: components/html-editor/paragraph.c:90 components/html-editor/toolbar.c:58
 msgid "Header 5"
 msgstr "Pengepala 5"
 
-#: components/html-editor/paragraph.c:91
-#: components/html-editor/toolbar.c:59
+#: components/html-editor/paragraph.c:91 components/html-editor/toolbar.c:59
 msgid "Header 6"
 msgstr "Pengepala 6"
 
@@ -1643,8 +1611,7 @@ msgstr "Item Roman"
 msgid "Alphabeta item"
 msgstr "Item Alfabeta"
 
-#: components/html-editor/paragraph.c:100
-#: components/html-editor/toolbar.c:60
+#: components/html-editor/paragraph.c:100 components/html-editor/toolbar.c:60
 msgid "Address"
 msgstr "Alamat"
 
@@ -1672,8 +1639,7 @@ msgstr "Gaya"
 msgid "Text Style..."
 msgstr "Gaya Teks..."
 
-#: components/html-editor/popup.c:461
-#: components/html-editor/popup.c:467
+#: components/html-editor/popup.c:461 components/html-editor/popup.c:467
 #: components/html-editor/popup.c:477
 msgid "Paragraph Style..."
 msgstr "Gaya Perenggan..."
@@ -1786,8 +1752,7 @@ msgstr "_Ganti"
 msgid "Search _backward"
 msgstr "Cari ke_belakang"
 
-#: components/html-editor/replace.c:170
-#: components/html-editor/search.c:114
+#: components/html-editor/replace.c:170 components/html-editor/search.c:114
 msgid "Case _sensitive"
 msgstr "_Sensitif huruf kecil/besar"
 
@@ -1823,8 +1788,7 @@ msgstr "_Bahasa Semasa"
 msgid "Note"
 msgstr "Nota"
 
-#: components/html-editor/template.c:94
-#: components/html-editor/template.c:113
+#: components/html-editor/template.c:94 components/html-editor/template.c:113
 msgid "Place your text here"
 msgstr "Tulis teks di sini"
 
@@ -1928,7 +1892,9 @@ msgstr ""
 #: src/gtkhtml.c:2531
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
-msgstr "Url mozilla yang dijatuhkan pada Penggubah mempunyai format (%d) atau panjang (%d) yang salah\n"
+msgstr ""
+"Url mozilla yang dijatuhkan pada Penggubah mempunyai format (%d) atau "
+"panjang (%d) yang salah\n"
 
 #: src/gtkhtml.c:2853
 msgid "Editable"
@@ -2088,4 +2054,3 @@ msgstr "Prebiu Cetakan"
 #: src/testgtkhtml.c:987
 msgid "GtkHTML Test Application"
 msgstr "Aplikasi Ujian GtkHTML"
-
