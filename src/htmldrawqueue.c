@@ -225,7 +225,7 @@ draw_link_focus (HTMLObject *o, HTMLEngine *e, gint x, gint y)
 	GdkGCValues values;
 	gchar dash [2];
 
-	printf ("draw_link_focus\n");
+	/* printf ("draw_link_focus\n"); */
 
 	gdk_gc_set_foreground (p->gc, c);
 	gdk_gc_get_values (p->gc, &values);
@@ -248,7 +248,7 @@ draw_image_focus (HTMLObject *o, HTMLEngine *e, gint x, gint y)
 	GdkGCValues values;
 	gchar dash [2];
 
-	printf ("draw_image_focus\n");
+	/* printf ("draw_image_focus\n"); */
 
 	gdk_gc_set_foreground (p->gc, c);
 	gdk_gc_get_values (p->gc, &values);

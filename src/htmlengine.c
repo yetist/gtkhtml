@@ -5218,9 +5218,9 @@ draw_link_text (HTMLLinkText *lt, HTMLEngine *e)
 {
 	HTMLObject *cur = HTML_OBJECT (lt)->next;
 
-	printf ("draw link text\n");
+	/* printf ("draw link text\n"); */
 	while (cur && HTML_IS_TEXT_SLAVE (cur)) {
-		printf ("slave\n");
+		/* printf ("slave\n"); */
 		html_engine_queue_draw (e, cur);
 		cur = cur->next;
 	}
@@ -5259,7 +5259,7 @@ html_engine_focus (HTMLEngine *e, GtkDirectionType dir)
 				: html_object_get_tail_leaf (e->clue);
 
 		while (cur) {
-			printf ("try child %p\n", cur);
+			/* printf ("try child %p\n", cur); */
 			if (HTML_IS_LINK_TEXT (cur)
 			    || (HTML_IS_IMAGE (cur) && HTML_IMAGE (cur)->url && *HTML_IMAGE (cur)->url)) {
 				html_engine_set_focus_object (e, cur);
@@ -5274,7 +5274,7 @@ html_engine_focus (HTMLEngine *e, GtkDirectionType dir)
 							HTML_EMBEDDED (cur)->widget, x, y);
 				}
 
-				printf ("try to give focus to child\n");
+				/* printf ("try to give focus to child\n"); */
 				if (!GTK_IS_CONTAINER (HTML_EMBEDDED (cur)->widget))
 					gtk_widget_grab_focus (HTML_EMBEDDED (cur)->widget);
 				if ((GTK_IS_CONTAINER (HTML_EMBEDDED (cur)->widget)
@@ -5284,14 +5284,14 @@ html_engine_focus (HTMLEngine *e, GtkDirectionType dir)
 					gtk_container_set_focus_child (GTK_CONTAINER (e->widget),
 								       HTML_EMBEDDED (cur)->widget);
 					html_engine_set_focus_object (e, cur);
-					printf ("succeeded\n");
+					/* printf ("succeeded\n"); */
 					return TRUE;
 				}
-				printf ("unsuccessful\n");
+				/* printf ("unsuccessful\n"); */
 			}
 			cur = next_focus_object (cur, e, dir, &offset);
 		}
-		printf ("no focus\n");
+		/* printf ("no focus\n"); */
 		html_engine_set_focus_object (e, NULL);
 	}
 

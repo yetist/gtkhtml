@@ -751,7 +751,7 @@ key_press_event (GtkWidget *widget,
 
 	html->priv->event_time = 0;
 
-	printf ("editable: %d keyval %d\n", html_engine_get_editable (html->engine), event->keyval);
+	/* printf ("editable: %d keyval %d\n", html_engine_get_editable (html->engine), event->keyval); */
 	if (!html_engine_get_editable (html->engine)) {
 		switch (event->keyval) {
 		case GDK_Return:
@@ -760,7 +760,7 @@ key_press_event (GtkWidget *widget,
 				gchar *url;
 				url = html_object_get_complete_url (html->engine->focus_object);
 				if (url) {
-					printf ("link clicked: %s\n", url);
+					/* printf ("link clicked: %s\n", url); */
 					gtk_signal_emit (GTK_OBJECT (html), signals [LINK_CLICKED], url);
 					g_free (url);
 				}
@@ -2111,7 +2111,7 @@ focus (GtkContainer *w, GtkDirectionType direction)
 			y2 = y1 + obj->descent;
 			y1 -= obj->ascent;
 			x2 = x1 + obj->width;
-			printf ("child pos: %d,%d x %d,%d\n", x1, y1, x2, y2);
+			/* printf ("child pos: %d,%d x %d,%d\n", x1, y1, x2, y2); */
 
 			if (x2 > e->x_offset + e->width)
 				e->x_offset = MIN (x1, x2 - e->width);
@@ -2127,8 +2127,8 @@ focus (GtkContainer *w, GtkDirectionType direction)
 				gtk_adjustment_set_value (GTK_LAYOUT (w)->hadjustment, (gfloat) e->x_offset);
 			if (e->y_offset != yo)
 				gtk_adjustment_set_value (GTK_LAYOUT (w)->vadjustment, (gfloat) e->y_offset);
-			printf ("engine pos: %d,%d x %d,%d\n",
-				e->x_offset, e->y_offset, e->x_offset + e->width, e->y_offset + e->height);
+			/* printf ("engine pos: %d,%d x %d,%d\n",
+			   e->x_offset, e->y_offset, e->x_offset + e->width, e->y_offset + e->height); */
 		}
 
 		if (e->focus_object && !html_object_is_embedded (e->focus_object))
