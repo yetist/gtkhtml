@@ -2,6 +2,8 @@
 
 	* htmlengine.c (parse_body): pop things off the body stack in the
 	proper order.
+	(check_prev): make sure we make a new linktext if the url is
+	different.
 
 2002-11-18  Larry Ewing  <lewing@ximian.com>
 

@@ -562,7 +562,7 @@ append_element (HTMLEngine *e,
 
 
 static gboolean
-check_prev (const HTMLObject *p, HTMLType type, GtkHTMLFontStyle font_style, HTMLColor *color, gchar *face)
+check_prev (const HTMLObject *p, HTMLType type, GtkHTMLFontStyle font_style, HTMLColor *color, gchar *face, gchar *url)
 {
 	if (p == NULL)
 		return FALSE;
@@ -579,6 +579,9 @@ check_prev (const HTMLObject *p, HTMLType type, GtkHTMLFontStyle font_style, HTM
 	if ((face && !HTML_TEXT (p)->face) || (!face && HTML_TEXT (p)->face)
 	    || (face && HTML_TEXT (p)->face && strcasecmp (face, HTML_TEXT (p)->face)))
 		return FALSE;
+
+	if (url && HTML_IS_LINK_TEXT (p))
+		return (strcasecmp (HTML_LINK_TEXT (p)->url, url) == 0);
 
 	return TRUE;
 }
@@ -630,7 +633,7 @@ insert_text (HTMLEngine *e,
 	else
 		type = HTML_TYPE_TEXT;
 
-	if (! check_prev (prev, type, font_style, color, face) || e->pending_para) {
+	if (! check_prev (prev, type, font_style, color, face, e->url) || e->pending_para) {
 		HTMLObject *obj;
 
 		if (create_link)
@@ -893,7 +896,8 @@ parse_body (HTMLEngine *e, HTMLObject *clue, const gchar *end[], gboolean toplev
 			html_stack_destroy (e->span_stack);
 
 			e->clueflow_style_stack = html_stack_pop (e->body_stack);
-			e->span_stack = html_stack_pop (e->body_stack);		}
+			e->span_stack = html_stack_pop (e->body_stack);
+		}
 	}
 
 	return rv;
@@ -1858,7 +1862,8 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 			e->url = url;
 		}
 		if (e->url || e->target)
-			push_span (e, ID_A, html_colorset_get_color (e->settings->color_set, HTMLLinkColor), NULL, 0, 0);
+			push_span (e, ID_A, html_colorset_get_color (e->settings->color_set, HTMLLinkColor), NULL, 
+				   GTK_HTML_FONT_STYLE_UNDERLINE, GTK_HTML_FONT_STYLE_UNDERLINE);
 			       
 	} else if ( strncmp( str, "/a", 2 ) == 0 ) {
 		close_anchor (e);
@@ -2365,6 +2370,7 @@ parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		
 		/* Start a new flow box */
 
+		pop_block (p, ID_HEADER, clue);
 		push_clueflow_style (p, HTML_CLUEFLOW_STYLE_H1 + (str[1] - '1'));
 		close_flow (p, clue);
 
