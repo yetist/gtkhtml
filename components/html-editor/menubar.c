@@ -43,6 +43,7 @@
 #include "htmlengine-edit-rule.h"
 #include "htmlengine-edit-table.h"
 #include "htmlimage.h"
+#include "htmlplainpainter.h"
 #include "htmlrule.h"
 #include "htmltable.h"
 
@@ -697,7 +698,9 @@ static void
 menubar_paragraph_style_changed_cb (GtkHTML *html, GtkHTMLParagraphStyle style, GtkHTMLControlData *cd)
 {
 	bonobo_ui_component_set_prop (bonobo_control_get_ui_component (cd->control), "/commands/WrapLines",
-				      "sensitive", style == GTK_HTML_PARAGRAPH_STYLE_PRE ? "1" : "0", NULL);
+				      "sensitive",
+				      (style == GTK_HTML_PARAGRAPH_STYLE_PRE
+				       || (html->engine->painter && HTML_IS_PLAIN_PAINTER (html->engine->painter))) ? "1" : "0", NULL);
 }
 
 typedef enum

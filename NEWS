@@ -1,3 +1,18 @@
+gtkhtml-3.5.7 "Snow white" 2004-02-28
+------------------------------------------------
+
+New in this release
+
+   * fixed margins calculation for RTL
+   * fixed quotation parsing and rendering
+   * keypress event return value fix (Harry Lu)
+   * 
+   * extended test suite
+   * bind to Sun Undo/Copy/Cut/Paste keys (Mengjie Yu)
+   * a11y fixes (Mengjie Yu)
+   * rtl improvements - use keymap, save direction to html elements
+   * updated translations (
+
 gtkhtml-3.5.6 "Winter mood" 2004-02-07
 ------------------------------------------------
 
