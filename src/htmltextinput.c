@@ -18,12 +18,19 @@
     the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
     Boston, MA 02111-1307, USA.
 */
+
 #include "htmltextinput.h"
 
 HTMLTextInputClass html_text_input_class;
 
 static void
-draw (HTMLObject *o, HTMLPainter *p, HTMLCursor *cursor, gint x, gint y, gint width, gint height, gint tx, gint ty) {
+draw (HTMLObject *o,
+      HTMLPainter *p,
+      HTMLCursor *cursor,
+      gint x, gint y,
+      gint width, gint height,
+      gint tx, gint ty)
+{
 
 	HTMLElement *element = HTML_ELEMENT(o);
 	gint new_x, new_y;
@@ -33,7 +40,8 @@ draw (HTMLObject *o, HTMLPainter *p, HTMLCursor *cursor, gint x, gint y, gint wi
 
 	if(new_x != element->abs_x || new_y != element->abs_y) {
 
-		gtk_layout_move(GTK_LAYOUT(element->parent), element->widget, new_x, new_y);
+		gtk_layout_move(GTK_LAYOUT(element->parent), element->widget,
+				new_x, new_y);
 
 		element->abs_x = new_x;
 		element->abs_y = new_y;
@@ -48,7 +56,7 @@ html_text_input_type_init (void)
 
 void
 html_text_input_class_init (HTMLTextInputClass *klass,
-			HTMLType type)
+			    HTMLType type)
 {
 	HTMLElementClass *element_class;
 	HTMLObjectClass *object_class;
@@ -64,7 +72,15 @@ html_text_input_class_init (HTMLTextInputClass *klass,
 }
 
 void
-html_text_input_init (HTMLTextInput *ti, HTMLTextInputClass *klass, GtkWidget *parent, gchar *name, gchar *value, gint size, gint maxlen, gboolean password) {
+html_text_input_init (HTMLTextInput *ti,
+		      HTMLTextInputClass *klass,
+		      GtkWidget *parent,
+		      gchar *name,
+		      gchar *value,
+		      gint size,
+		      gint maxlen,
+		      gboolean password)
+{
 
 	HTMLElement *element;
 	HTMLObject *object;
@@ -73,7 +89,8 @@ html_text_input_init (HTMLTextInput *ti, HTMLTextInputClass *klass, GtkWidget *p
 	element = HTML_ELEMENT (ti);
 	object = HTML_OBJECT (ti);
 
-	html_element_init (element, HTML_ELEMENT_CLASS (klass), parent, name, value);
+	html_element_init (element, HTML_ELEMENT_CLASS (klass),
+			   parent, name, value);
 
 	element->widget = gtk_entry_new();
 	gtk_widget_size_request(element->widget, &req);
@@ -100,12 +117,19 @@ html_text_input_init (HTMLTextInput *ti, HTMLTextInputClass *klass, GtkWidget *p
 }
 
 HTMLObject *
-html_text_input_new (GtkWidget *parent, gchar *name, gchar *value, gint size, gint maxlen, gboolean password)
+html_text_input_new (GtkWidget *parent,
+		     gchar *name,
+		     gchar *value,
+		     gint size,
+		     gint maxlen,
+		     gboolean password)
 {
 	HTMLTextInput *ti;
 
 	ti = g_new0 (HTMLTextInput, 1);
-	html_text_input_init (ti, &html_text_input_class, parent, name, value, size, maxlen, password);
+	html_text_input_init (ti, &html_text_input_class,
+			      parent, name, value, size,
+			      maxlen, password);
 
 	return HTML_OBJECT (ti);
 }
