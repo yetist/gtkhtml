@@ -1,3 +1,9 @@
+2000-10-09  Larry Ewing  <lewing@helixcode.com>
+
+	* resolver.c (resolver_load_from_file): remove unused variable.
+
+	* test-html-editor-control.c (container_create): add cast.
+
 2000-10-09  Michael Meeks  <michael@helixcode.com>
 
 	* html-editor-control.xml: cmd/widgetify; needs Bonobo HEAD.

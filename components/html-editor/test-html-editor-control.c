@@ -363,7 +363,7 @@ container_create (void)
 					     bonobo_ui_compat_get_container (uih));
 
 	resolver = htmleditor_resolver_new ();
-	frame = bonobo_widget_get_control_frame (control);
+	frame = bonobo_widget_get_control_frame (BONOBO_WIDGET (control));
 	bonobo_object_add_interface (BONOBO_OBJECT (frame), BONOBO_OBJECT (resolver));
 	
 	if (control == NULL)

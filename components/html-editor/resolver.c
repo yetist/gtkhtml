@@ -56,8 +56,6 @@ resolver_load_from_file (const Bonobo_ProgressiveDataSink sink,
 	int fd;
         const char *path;
 	Bonobo_Stream_iobuf *buf;
-	CORBA_long v;
-
         
 	if (strncmp (url, "file:", 5) != 0) {
 		g_warning ("Unsupported image url: %s", url);
