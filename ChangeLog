@@ -1,3 +1,9 @@
+2003-02-12  Larry Ewing  <lewing@ximian.com>
+
+	* configure.in (GETTEXT_PACKAGE): work around intltool bug that
+	pulls GETTEXT_PACAKAGE out of configure.in without doing variable
+	substitution.
+
 2003-02-07  Larry Ewing  <lewing@ximian.com>
 
 	* configure.in: fix the GETTEXT_PACKAGE mess and define
