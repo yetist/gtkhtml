@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 3.1.7\n"
-"POT-Creation-Date: 2004-04-02 09:51-0500\n"
+"POT-Creation-Date: 2004-04-19 10:31-0400\n"
 "PO-Revision-Date: 2004-03-11 13:12-0500\n"
 "Last-Translator: Gustavo Maciel Dias Vieira <gdvieira@zaz.com.br>\n"
 "Language-Team: Brazilian Portuguese <gnome-l10n-br@listas.cipsga.org.br>\n"
