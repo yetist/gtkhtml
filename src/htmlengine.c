@@ -4065,6 +4065,8 @@ html_engine_freeze (HTMLEngine *engine)
 	g_return_if_fail (engine != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (engine));
 
+	if (! engine->thaw_idle_id)
+		html_engine_hide_cursor (engine);
 	engine->freeze_count++;
 }
 
@@ -4073,11 +4075,12 @@ thaw_idle (gpointer data)
 {
 	HTMLEngine *e = HTML_ENGINE (data);
 
+	e->thaw_idle_id = 0;
+
 	html_engine_calc_size (e);
 	html_draw_queue_clear (e->draw_queue);
 	html_engine_draw (e, 0, 0, e->width, e->height);	
-
-	e->thaw_idle_id = 0;
+	html_engine_show_cursor (e);
 
 	return FALSE;
 }

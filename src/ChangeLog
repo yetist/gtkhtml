@@ -1,5 +1,8 @@
 2001-01-05  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine.c (html_engine_freeze): hide cursor
+	(thaw_idle): show cursor
+
 	* htmlclueflow.c (get_text): use html_object_next_not_slave
 	(get_text_bytes): ditto
 
