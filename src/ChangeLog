@@ -1,5 +1,10 @@
 2000-08-02  Radek Doulik  <rodo@helixcode.com>
 
+	* gtkhtml.c (on_url): added assert here
+	(mouse_change_pos): call on_url only if obj != NULL
+	(scroll_update_mouse): call mouse_change_pos only if widget
+	already realized
+
 	* htmlclueflow.c (get_post_padding): removed previous uncorrect
 	fix
 

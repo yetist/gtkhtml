@@ -389,8 +389,10 @@ scroll_update_mouse (GtkWidget *widget)
 {
 	gint x, y;
 
-	gdk_window_get_pointer (GTK_LAYOUT (widget)->bin_window, &x, &y, NULL);
-	mouse_change_pos (widget, x, y);
+	if (GTK_WIDGET_REALIZED (widget)) {
+		gdk_window_get_pointer (GTK_LAYOUT (widget)->bin_window, &x, &y, NULL);
+		mouse_change_pos (widget, x, y);
+	}
 }
 
 static void
@@ -733,6 +735,8 @@ on_url (GtkWidget *widget, HTMLObject *obj)
 	GtkHTML *html = GTK_HTML (widget);
 	const gchar *url;
 
+	g_return_if_fail (obj);
+
 	if ((url = (obj) ? html_object_get_url (obj) : NULL)) {
 		if (html->pointer_url == NULL || strcmp (html->pointer_url, url) != 0) {
 			g_free (html->pointer_url);
@@ -811,7 +815,8 @@ mouse_change_pos (GtkWidget *widget, gint x, gint y)
 					   TRUE);
 	}
 
-	on_url (widget, obj);
+	if (obj)
+		on_url (widget, obj);
 
 	return TRUE;
 }
