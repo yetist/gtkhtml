@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.8\n"
-"POT-Creation-Date: 2001-05-17 15:28+0200\n"
+"POT-Creation-Date: 2001-05-19 10:32+0200\n"
 "PO-Revision-Date: 2001-05-17 15:30+02:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <no@li.org>\n"
@@ -53,7 +53,8 @@ msgstr "Slett"
 msgid "Grab key"
 msgstr "Hent tast"
 
-#: capplet/main.c:227
+#: capplet/main.c:227 components/html-editor/cell.c:96
+#: components/html-editor/table.c:233
 msgid "Could not load glade file."
 msgstr "Kunne ikke lese glade-fil."
 
@@ -624,6 +625,11 @@ msgstr "Regex finn"
 msgid "backward"
 msgstr "bakover"
 
+#: components/html-editor/table.c:239 components/html-editor/text.c:221
+#: components/html-editor/toolbar.c:286
+msgid "Automatic"
+msgstr "Automatisk"
+
 #: components/html-editor/test-html-editor-control.c:240
 msgid "Open file..."
 msgstr "Åpne fil..."
@@ -647,10 +653,6 @@ msgstr "Understreket"
 #: components/html-editor/text.c:183 components/html-editor/toolbar.c:513
 msgid "Strikeout"
 msgstr "Gjennomstreket"
-
-#: components/html-editor/text.c:221 components/html-editor/toolbar.c:286
-msgid "Automatic"
-msgstr "Automatisk"
 
 #: components/html-editor/toolbar.c:51
 msgid "Preformat"

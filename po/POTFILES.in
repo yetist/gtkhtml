@@ -5,6 +5,7 @@ components/ebrowser/GNOME_GtkHTML_EBrowser.oaf.in
 components/html-editor/GNOME_GtkHTML_Editor.oaf.in
 components/html-editor/GNOME_GtkHTML_Editor.xml
 components/html-editor/body.c
+components/html-editor/cell.c
 components/html-editor/editor-control-factory.c
 components/html-editor/image.c
 components/html-editor/link.c
@@ -16,7 +17,7 @@ components/html-editor/popup.c
 components/html-editor/replace.c
 components/html-editor/rule.c
 components/html-editor/search.c
-#components/html-editor/table.c
+components/html-editor/table.c
 components/html-editor/test-html-editor-control.c
 components/html-editor/text.c
 components/html-editor/toolbar.c
