@@ -1,3 +1,8 @@
+2001-12-14  Larry Ewing  <lewing@ximian.com>
+
+	* htmliframe.c (html_iframe_init): dup the url.
+	(destroy): free the url.
+
 2001-12-13  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml-im.h (gtk_html_im_position_update): add prototype for
