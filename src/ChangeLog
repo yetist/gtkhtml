@@ -1,6 +1,7 @@
 2000-01-25  Ettore Perazzoli  <ettore@helixcode.com>
 
-	* gtkhtml.c (idle_handler): Calc `gtk_html_calc_scrollbars'.
+	* gtkhtml.c (idle_handler): Call `gtk_html_calc_scrollbars' to
+	update the scrollbars.
 
 	* gtkhtml.c (gtk_html_save): New function.
 
