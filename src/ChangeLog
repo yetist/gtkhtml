@@ -1,3 +1,8 @@
+2001-10-22  Larry Ewing  <lewing@ximian.com>
+
+	* htmlclue.c (op_helper): don't do anything to last until we've
+	checked to make sure the clue isn't empty and last is not NULL.
+
 2001-10-22  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine-edit.c (html_engine_select_word_editable): use

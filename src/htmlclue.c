@@ -94,11 +94,11 @@ op_helper (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left,
 	o    = (from) ? HTML_OBJECT (from->data) : clue->head;
 	last = (to)   ? HTML_OBJECT (to->data)   : clue->tail;
 
-	if (HTML_IS_TEXT_SLAVE (last))
-		last = html_object_prev_not_slave (last);
-
 	if ((o == NULL) && (last == NULL))
 		return cc;
+
+	if (HTML_IS_TEXT_SLAVE (last))
+		last = html_object_prev_not_slave (last);
 
 	g_assert (o->parent == self);
 	g_assert (last->parent == self);
