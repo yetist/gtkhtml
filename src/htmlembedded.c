@@ -339,11 +339,13 @@ allocate (GtkWidget *w, GtkAllocation  *allocation, HTMLEmbedded *e)
 }
 
 void
-html_embedded_set_widget (HTMLEmbedded *e, GtkWidget *w)
+html_embedded_set_widget (HTMLEmbedded *emb, GtkWidget *w)
 {
-	e->widget = w;
+	emb->widget = w;
 	
 	gtk_widget_show (w);
+
+	gtk_object_set_data (GTK_OBJECT (w), "embeddedelement", emb);
 	gtk_signal_connect (GTK_OBJECT (w), "size_allocate",
-			    GTK_SIGNAL_FUNC (allocate), e);
+			    GTK_SIGNAL_FUNC (allocate), emb);
 }

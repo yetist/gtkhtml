@@ -1330,7 +1330,6 @@ parse_object (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	html_stack_push (e->embeddedStack, eb);
 	
 	el = html_embedded_new_widget (GTK_WIDGET (e->widget), eb);		
-	gtk_object_set_data (GTK_OBJECT(eb), "embeddedelement", el);
 	gtk_signal_connect (GTK_OBJECT(eb), "changed", html_object_changed, e);
 	
 	/* evaluate params */
@@ -3447,7 +3446,48 @@ html_engine_write (GtkHTMLStream *handle,
 	}
 }
 
-static gboolean
+void
+update_embedded (GtkWidget *widget, GtkHTML *html)
+{
+	HTMLObject *obj, *p;
+
+	/* FIXME: this is a hack to update all the embedded widgets when
+	 * they get moved off screen it isn't gracefull, but it should be a effective
+	 * it also duplicates the draw_obj function in the drawqueue function very closely
+	 * the common code in these functions should be merged and removed, but until then
+	 * enjoy having your objects out of the way :)
+	 */
+	
+	obj = gtk_object_get_data (GTK_OBJECT (widget), "embeddedelement");
+	if (obj) {
+		HTMLEngine *e;
+		HTMLObject *p;
+		gint tx, ty;
+
+		e = html->engine;
+		
+		tx = 0;
+		ty = 0;
+
+		for (p = obj->parent; p != NULL && HTML_OBJECT_TYPE (p) != HTML_TYPE_IFRAME; p = p->parent) {
+			tx += p->x;
+			ty += p->y - p->ascent;
+		}
+		
+		tx = tx + e->leftBorder - e->x_offset;
+		ty = ty + e->topBorder - e->y_offset;
+		
+		/* Then prepare for drawing.  We will only update this object, so we
+		   only allocate enough size for it.  */
+		
+		html_object_draw (obj,
+				  e->painter, 
+				  obj->x, obj->y - obj->ascent,
+				  obj->width, obj->ascent + obj->descent,
+				  tx, ty);	
+	}
+}
+
 html_engine_update_event (HTMLEngine *e)
 {
 	e->updateTimer = 0;
@@ -3489,6 +3529,7 @@ html_engine_update_event (HTMLEngine *e)
 	gtk_adjustment_set_value (GTK_LAYOUT (e->widget)->hadjustment, e->x_offset);
 
 	html_image_factory_deactivate_animations (e->image_factory);
+	gtk_container_forall (GTK_CONTAINER (e->widget), update_embedded, e->widget);
 	html_engine_draw (e, 0, 0, e->width, e->height);
 	
 	if (html_engine_get_editable (e))

@@ -1,3 +1,15 @@
+2001-03-14  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c (html_engine_update_event): do a container forall
+	on the layout to move offscreen objects off of the screen.
+	(update_embedded): a hack of a function to make sure objects get
+	moved out of the way properly.
+	(parse_object): remove the call to set "embeddedelement" this is
+	taken care of elsewhere now.
+
+	* htmlembedded.c (html_embedded_set_widget): set "embeddedelement"
+	data on the widget.
+
 2001-03-14  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine-edit-table.c (new_cell): set cell bgcolor, bgpixmap
