@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml VERSION\n"
-"POT-Creation-Date: 2003-06-02 20:47+0200\n"
-"PO-Revision-Date: 2002-08-18 00:20+0200\n"
+"POT-Creation-Date: 2003-06-18 12:08+0200\n"
+"PO-Revision-Date: 2003-06-18 12:27+0200\n"
 "Last-Translator: Andras Timar <timar@gnome.hu>\n"
 "Language-Team: Hungarian <hu@gnome.hu>\n"
 "MIME-Version: 1.0\n"
@@ -26,7 +26,7 @@ msgstr "Nem sikerült betölteni a glade fájlt."
 
 #: capplet/gtkhtml-capplet.glade.h:1
 msgid "\n"
-msgstr ""
+msgstr "\n"
 
 #: capplet/gtkhtml-capplet.glade.h:3
 #: components/html-editor/gtkhtml-editor-properties.glade.h:1
@@ -488,7 +488,7 @@ msgstr "Beillesztés"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
 msgid "Paste _Quotation"
-msgstr ""
+msgstr "_Idézet beillesztése"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
 msgid "Paste from clipboard"
@@ -499,9 +499,8 @@ msgid "Paste the clipboard"
 msgstr "Vágólap beillesztése"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
-#, fuzzy
 msgid "Paste the clipboard as a quotation"
-msgstr "Vágólap beillesztése"
+msgstr "Vágólap beillesztése idézetként"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
 #: components/html-editor/toolbar.c:49
@@ -800,6 +799,10 @@ msgid "_Wink"
 msgstr "_Kacsintás"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:152
+msgid "_Wrap Lines"
+msgstr "_Sorok tördelése"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:153
 msgid "etc..."
 msgstr "stb..."
 
@@ -810,18 +813,17 @@ msgstr "Semmi"
 
 #: components/html-editor/body.c:74
 msgid "Perforated Paper"
-msgstr ""
+msgstr "Perforált papír"
 
 #: components/html-editor/body.c:82
-#, fuzzy
 msgid "Blue Ink"
-msgstr "Kék 3D"
+msgstr "Kék tinta"
 
 #: components/html-editor/body.c:90
 msgid "Rectangles"
-msgstr ""
+msgstr "Téglalapok"
 
-#: components/html-editor/body.c:275 src/gtkhtml.c:2543
+#: components/html-editor/body.c:275 src/gtkhtml.c:2547
 msgid "Document Title"
 msgstr "Dokumentum címe"
 
@@ -856,20 +858,20 @@ msgstr "Háttér"
 #: components/html-editor/cell.c:173 components/html-editor/cell.c:175
 #: components/html-editor/image.c:257 components/html-editor/image.c:260
 #: components/html-editor/text.c:108
-#, fuzzy
 msgid "The quick brown fox jumps over the lazy dog."
 msgstr "Árvíztűrő tükörfúrógép"
 
 #: components/html-editor/cell.c:178
-#, fuzzy
 msgid "Other"
-msgstr "Más..."
+msgstr "Egyéb"
 
 #: components/html-editor/cell.c:679
 msgid ""
 "The editted cell was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
+"A szerkesztett cella törlődött a dokumentumból.\n"
+"A változtatásokat nem lehet alkalmazni."
 
 #: components/html-editor/editor-control-factory.c:187
 #: components/html-editor/menubar.c:317 components/html-editor/menubar.c:335
@@ -890,9 +892,8 @@ msgid "Page"
 msgstr "Oldal"
 
 #: components/html-editor/gnome-gtkhtml-editor.c:68
-#, fuzzy
 msgid "GtkHTML Editor Control"
-msgstr "GNOME HTML-szerkesztő kontroll"
+msgstr "GtkHTML szerkesztőkontroll"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:2
 msgid "************"
@@ -1218,6 +1219,8 @@ msgid ""
 "The editted image was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
+"A szerkesztett kép törlődött a dokumentumból.\n"
+"A változtatásokat nem lehet alkalmazni."
 
 #: components/html-editor/link.c:121
 msgid "Link text"
@@ -1228,6 +1231,8 @@ msgid ""
 "The editted link was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
+"A szerkesztett hivatkozás törlődött a dokumentumból.\n"
+"A változtatásokat nem lehet alkalmazni."
 
 #: components/html-editor/menubar.c:88 components/html-editor/menubar.c:104
 #: components/html-editor/menubar.c:122 components/html-editor/menubar.c:139
@@ -1239,17 +1244,15 @@ msgstr "Beszúrás"
 #: components/html-editor/menubar.c:252
 #, c-format
 msgid "Error loading file '%s': %s"
-msgstr ""
+msgstr "Hiba a fájl betöltése közben: '%s': %s"
 
 #: components/html-editor/menubar.c:279
-#, fuzzy
 msgid "Insert: HTML File"
-msgstr "HTML fájl beszúrása"
+msgstr "Beszúrás: HTML-fájl"
 
 #: components/html-editor/menubar.c:279
-#, fuzzy
 msgid "Insert: Text File"
-msgstr "Szövegfájl beszúrása"
+msgstr "Beszúrás: szövegfájl "
 
 #: components/html-editor/paragraph.c:130
 msgid "Pre"
@@ -1308,10 +1311,12 @@ msgid ""
 "The editted paragraph was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
+"A szerkesztett bekezdés törlődött a dokumentumból.\n"
+"A változtatásokat nem lehet alkalmazni."
 
 #: components/html-editor/popup.c:456
 msgid "Paste Quotation"
-msgstr ""
+msgstr "Idézet beillesztése"
 
 #: components/html-editor/popup.c:459
 msgid "Insert link"
@@ -1322,45 +1327,37 @@ msgid "Remove link"
 msgstr "Hivatkozás eltávolítása"
 
 #: components/html-editor/popup.c:475
-#, fuzzy
 msgid "Text Style..."
-msgstr "_Szövegfájl..."
+msgstr "Szöveg stílusa"
 
 #: components/html-editor/popup.c:477 components/html-editor/popup.c:483
 #: components/html-editor/popup.c:493
-#, fuzzy
 msgid "Paragraph Style..."
-msgstr "Bekezdés..."
+msgstr "Bekezdés stílusa"
 
 #: components/html-editor/popup.c:481
-#, fuzzy
 msgid "Link Style..."
-msgstr "Hivatkozás..."
+msgstr "Hivatkozás stílusa"
 
 #: components/html-editor/popup.c:487
-#, fuzzy
 msgid "Rule Style..."
-msgstr "Vonal..."
+msgstr "Vonal stílusa"
 
 #: components/html-editor/popup.c:491
-#, fuzzy
 msgid "Image Style..."
-msgstr "Kép..."
+msgstr "Kép stílusa"
 
 #: components/html-editor/popup.c:502
-#, fuzzy
 msgid "Cell Style..."
-msgstr "Cella..."
+msgstr "Cella stílusa"
 
 #: components/html-editor/popup.c:505
-#, fuzzy
 msgid "Table Style..."
-msgstr "Táblázat..."
+msgstr "Táblázat stílusa"
 
 #: components/html-editor/popup.c:511
-#, fuzzy
 msgid "Page Style..."
-msgstr "Oldal..."
+msgstr "Oldal stílusa"
 
 #: components/html-editor/popup.c:516
 msgid "Table insert"
@@ -1391,9 +1388,9 @@ msgid "Cell contents"
 msgstr "Cellatartalom"
 
 #: components/html-editor/popup.c:548
-#, fuzzy, c-format
+#, c-format
 msgid "%s Dictionary"
-msgstr "'%s' hozzáadása a szótárhoz"
+msgstr "%s szótár"
 
 #: components/html-editor/replace.c:75
 msgid "Replace confirmation"
@@ -1408,22 +1405,18 @@ msgid "Next"
 msgstr "Következő"
 
 #: components/html-editor/replace.c:161
-#, fuzzy
 msgid "Search _backward"
-msgstr "keresés hátrafele"
+msgstr "keresés _hátrafele"
 
 #: components/html-editor/replace.c:162 components/html-editor/search.c:80
-#, fuzzy
 msgid "Case _sensitive"
-msgstr "kis- és nagybetűk megkülönböztetése"
+msgstr "_Kis- és nagybetűk megkülönböztetése"
 
 #: components/html-editor/replace.c:172
-#, fuzzy
 msgid "Replace:"
-msgstr "Csere"
+msgstr "Csere:"
 
 #: components/html-editor/replace.c:175
-#, fuzzy
 msgid "With:"
 msgstr "Szélesség:"
 
@@ -1440,11 +1433,12 @@ msgid ""
 "The editted rule was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
+"A szerkesztett vonal törlődött a dokumentumból.\n"
+"A változtatásokat nem lehet alkalmazni."
 
 #: components/html-editor/search.c:79
-#, fuzzy
 msgid "_Backward"
-msgstr "hátrafelé"
+msgstr "_Hátrafelé"
 
 #: components/html-editor/search.c:126
 msgid "Find Regular Expression"
@@ -1454,10 +1448,9 @@ msgstr "Reguláris kifejezés keresése"
 msgid "Spell checker"
 msgstr "Helyesírás-ellenőrző"
 
-#: components/html-editor/spell.c:358
-#, fuzzy
+#: components/html-editor/spell.c:361
 msgid "Current _Languages"
-msgstr "Helyesírás-ellenőrzés _nyelvei"
+msgstr "Jelenlegi _nyelvek"
 
 #: components/html-editor/table.c:200
 msgid "Flat gray"
@@ -1472,6 +1465,8 @@ msgid ""
 "The editted table was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
+"A szerkesztett táblázat törlődött a dokumentumból.\n"
+"A változtatásokat nem lehet alkalmazni."
 
 #: components/html-editor/template.c:84
 msgid "Note"
@@ -1479,7 +1474,7 @@ msgstr "Megjegyzés"
 
 #: components/html-editor/template.c:94 components/html-editor/template.c:113
 msgid "Place your text here"
-msgstr ""
+msgstr "Írd ide a szöveget"
 
 #: components/html-editor/template.c:97
 msgid "Image frame"
@@ -1494,9 +1489,8 @@ msgid "Save file as..."
 msgstr "Fájl mentése másként..."
 
 #: components/html-editor/test-html-editor-control.c:541
-#, fuzzy
 msgid "GtkHTML Editor Test Container"
-msgstr "GNOME HTML-szerkesztő kontroll"
+msgstr "GtkHTML szerkesztő tesztkonténer"
 
 #. color selection
 #: components/html-editor/text.c:292
@@ -1508,6 +1502,8 @@ msgid ""
 "The editted text was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
+"A szerkesztett szöveg törlődött a dokumentumból.\n"
+"A változtatásokat nem lehet alkalmazni."
 
 #: components/html-editor/toolbar.c:52
 msgid "Roman List"
@@ -1561,77 +1557,73 @@ msgstr "Növeli a behúzást"
 msgid "Sample"
 msgstr "Minta"
 
-#: src/gtkhtml.c:2536
-#, fuzzy
+#: src/gtkhtml.c:2540
 msgid "Editable"
-msgstr "Engedélyezés"
+msgstr "Szerkeszthető"
 
-#: src/gtkhtml.c:2537
+#: src/gtkhtml.c:2541
 msgid "Whether the html can be edited"
-msgstr ""
+msgstr "Szerkeszthető-e a HTML"
 
-#: src/gtkhtml.c:2544
-#, fuzzy
+#: src/gtkhtml.c:2548
 msgid "The title of the current document"
-msgstr "A dokumentum helyesírás-ellenőrzése"
+msgstr "Az aktuális dokumentum címe"
 
-#: src/gtkhtml.c:2550
-#, fuzzy
+#: src/gtkhtml.c:2554
 msgid "Document Base"
-msgstr "Dokumentum címe"
+msgstr "Dokumentum báziscíme"
 
-#: src/gtkhtml.c:2551
+#: src/gtkhtml.c:2555
 msgid "The base URL for relative references"
-msgstr ""
+msgstr "A relatív hivatkozások bázis URL-je"
 
-#: src/gtkhtml.c:2557
+#: src/gtkhtml.c:2561
 msgid "Target Base"
-msgstr ""
+msgstr "Cél báziscíme"
 
-#: src/gtkhtml.c:2558
+#: src/gtkhtml.c:2562
 msgid "The base URL of the targe frame"
-msgstr ""
+msgstr "A célkeret bázis URL-je"
 
-#: src/gtkhtml.c:2567
-#, fuzzy
+#: src/gtkhtml.c:2571
 msgid "Fixed Width Font"
-msgstr "Fix szélességű"
+msgstr "Fix szélességű betű"
 
-#: src/gtkhtml.c:2568
+#: src/gtkhtml.c:2572
 msgid "The Monospace font to use for typewriter text"
-msgstr ""
+msgstr "Az írógépszöveghez alkalmazott Monospace betűkészlet"
 
-#: src/gtkhtml.c:2574
+#: src/gtkhtml.c:2578
 msgid "New Link Color"
-msgstr ""
+msgstr "Új hivatkozás színe"
 
-#: src/gtkhtml.c:2575
+#: src/gtkhtml.c:2579
 msgid "The color of new link elements"
-msgstr ""
+msgstr "Az új hivatkozáselemek színe"
 
-#: src/gtkhtml.c:2580
+#: src/gtkhtml.c:2584
 msgid "Visited Link Color"
-msgstr ""
+msgstr "Látogatott hivatkozás színe"
 
-#: src/gtkhtml.c:2581
+#: src/gtkhtml.c:2585
 msgid "The color of visited link elements"
-msgstr ""
+msgstr "A látogatott hivatkozáselemek színe"
 
-#: src/gtkhtml.c:2586
+#: src/gtkhtml.c:2590
 msgid "Active Link Color"
-msgstr ""
+msgstr "Aktív hivatkozás színe"
 
-#: src/gtkhtml.c:2587
+#: src/gtkhtml.c:2591
 msgid "The color of active link elements"
-msgstr ""
+msgstr "Az aktív hivatkozáselemek színe"
 
-#: src/gtkhtml.c:2592
+#: src/gtkhtml.c:2596
 msgid "Spelling Error Color"
-msgstr ""
+msgstr "Helyesírási hiba színe"
 
-#: src/gtkhtml.c:2593
+#: src/gtkhtml.c:2597
 msgid "The color of the spelling error markers"
-msgstr ""
+msgstr "A helyesírási hibákat jelölő szín"
 
 #: src/html-component.c:219
 msgid "Html"
@@ -1708,9 +1700,8 @@ msgid "Print preview"
 msgstr "Nyomtatási kép"
 
 #: src/testgtkhtml.c:973
-#, fuzzy
 msgid "GtkHTML Test Application"
-msgstr "GtkHTML teszt"
+msgstr "GtkHTML tesztalkalmazás"
 
 #~ msgid "The quick brown fox jumped over the lazy dog."
 #~ msgstr "Árvíztűrő tükörfúrógép"
