@@ -1538,9 +1538,10 @@ focus (GtkContainer *container, GtkDirectionType direction)
 {
 #if 1
 	gint rv;
-	GTK_WIDGET_UNSET_FLAGS (GTK_WIDGET (container), GTK_CAN_FOCUS);
+	/* GTK_WIDGET_UNSET_FLAGS (GTK_WIDGET (container), GTK_CAN_FOCUS);*/
 	rv = (*GTK_CONTAINER_CLASS (parent_class)->focus) (container, direction);
-	GTK_WIDGET_SET_FLAGS (GTK_WIDGET (container), GTK_CAN_FOCUS);
+	/* GTK_WIDGET_SET_FLAGS (GTK_WIDGET (container), GTK_CAN_FOCUS);*/
+	html_engine_set_focus (GTK_HTML (container)->engine, rv);
 	return rv;
 #else
 	GtkWidget *focus_child;

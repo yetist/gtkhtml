@@ -1,3 +1,8 @@
+2001-07-05  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml.c (focus): add Jacobs temporary fix to let focus work
+	better.
+
 2001-07-02  Larry Ewing  <lewing@ximian.com>
 
 	* htmlimage.c (html_image_class_init): hook up get_src.
