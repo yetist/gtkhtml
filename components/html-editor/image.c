@@ -58,8 +58,6 @@ struct _GtkHTMLEditImageProperties {
 
 	GtkWidget   *sel_align;
 	guint        align;
-
-	HTMLImage    *image;
 };
 typedef struct _GtkHTMLEditImageProperties GtkHTMLEditImageProperties;
 
@@ -513,18 +511,66 @@ GtkWidget *
 image_properties (GtkHTMLControlData *cd, gpointer *set_data)
 {
 	GtkWidget *w = image_insertion (cd, set_data);
+	GtkHTMLEditImageProperties *d = (GtkHTMLEditImageProperties *) *set_data;
+	HTMLImage *image = HTML_IMAGE (cd->obj);
+	HTMLImagePointer *ip = image->image_ptr;
+	gint off = 0;
+
+	g_assert (HTML_OBJECT_TYPE (cd->obj) == HTML_TYPE_IMAGE);
+
+        if (!strncmp (ip->url, "file:", 5))
+		off = 5;
+
+	gtk_entry_set_text (GTK_ENTRY (gnome_pixmap_entry_gtk_entry (GNOME_PIXMAP_ENTRY (d->pentry))),
+			    ip->url + off);
+
+#define SET_ADJ(which, nval, val) \
+        if (image->## val != nval) { \
+		gtk_adjustment_set_value (GTK_ADJUSTMENT (d->adj [which]), image->## val); \
+                gtk_toggle_button_set_state (GTK_TOGGLE_BUTTON (d->check [which]), TRUE); \
+	} else { \
+		gtk_adjustment_set_value (GTK_ADJUSTMENT (d->adj [which]), 0); \
+                gtk_toggle_button_set_state (GTK_TOGGLE_BUTTON (d->check [which]), FALSE); \
+	}
+
+	SET_ADJ (GTK_HTML_EDIT_IMAGE_BWIDTH,  0, border);
+	SET_ADJ (GTK_HTML_EDIT_IMAGE_WIDTH,  -1, specified_width);
+	SET_ADJ (GTK_HTML_EDIT_IMAGE_HEIGHT, -1, specified_height);
+	SET_ADJ (GTK_HTML_EDIT_IMAGE_HSPACE,  0, hspace);
+	SET_ADJ (GTK_HTML_EDIT_IMAGE_VSPACE,  0, vspace);
+
+	if (HTML_OBJECT (image)->percent > 0) {
+		gtk_adjustment_set_value (GTK_ADJUSTMENT (d->adj [GTK_HTML_EDIT_IMAGE_WIDTH]),
+					  HTML_OBJECT (image)->percent);
+		gtk_toggle_button_set_state (GTK_TOGGLE_BUTTON (d->check [GTK_HTML_EDIT_IMAGE_WIDTH]), TRUE);
+		gtk_toggle_button_set_state (GTK_TOGGLE_BUTTON (d->check_percent), TRUE);
+		d->percent = TRUE;
+	} else
+		gtk_toggle_button_set_state (GTK_TOGGLE_BUTTON (d->check_percent), FALSE);
+
+	switch (image->valign) {
+	case HTML_VALIGN_TOP:
+		d->align = ALIGN_TOP;
+		break;
+	case HTML_VALIGN_CENTER:
+		d->align = ALIGN_CENTER;
+		break;
+	case HTML_VALIGN_BOTTOM:
+		d->align = ALIGN_BOTTOM;
+		break;
+	default:
+		g_assert_not_reached ();
+	}
+
+	gtk_option_menu_set_history (GTK_OPTION_MENU (d->sel_align), d->align);
+	
 
 	return w;
 }
 
-void
-image_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
-{
-}
-
-void
-image_insert_cb (GtkHTMLControlData *cd, gpointer get_data)
-{
+static void
+insert_or_apply (GtkHTMLControlData *cd, gpointer get_data, gboolean insert)
+{	
 	GtkHTMLEditImageProperties *data = (GtkHTMLEditImageProperties *) get_data;
 	gchar *file;
 	gint16 width;
@@ -569,15 +615,41 @@ image_insert_cb (GtkHTMLControlData *cd, gpointer get_data)
 		g_assert_not_reached ();
 	}
 
-	html_engine_insert_image (data->cd->html->engine,
-				  file,
-				  NULL, NULL,
-				  width, height, percent, border,
-				  html_colorset_get_color (data->cd->html->engine->settings->color_set, HTMLLinkColor),
-				  halign, valign,
-				  hspace, vspace);
+	if (insert)
+		html_engine_insert_image (data->cd->html->engine,
+					  file,
+					  NULL, NULL,
+					  width, height, percent, border,
+					  html_colorset_get_color (data->cd->html->engine->settings->color_set,
+								   HTMLLinkColor),
+					  halign, valign,
+					  hspace, vspace);
+	else {
+		HTMLImage *image = HTML_IMAGE (cd->obj);
+
+		g_assert (HTML_OBJECT_TYPE (cd->obj) == HTML_TYPE_IMAGE);
+
+		if (data->set [GTK_HTML_EDIT_IMAGE_BWIDTH])
+			html_image_set_border (image, border);
+		html_image_set_size     (image, width, percent, height);
+		html_image_set_url      (image, file);
+		html_image_set_spacing  (image, hspace, vspace);
+		html_image_set_valign   (image, valign);
+	}
 
 	g_free (file);
+}
+
+void
+image_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
+{
+	insert_or_apply (cd, get_data, FALSE);
+}
+
+void
+image_insert_cb (GtkHTMLControlData *cd, gpointer get_data)
+{
+	insert_or_apply (cd, get_data, TRUE);
 }
 
 void
