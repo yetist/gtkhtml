@@ -1,3 +1,17 @@
+1999-10-28  Miguel de Icaza  <miguel@gnu.org>
+
+	* htmlpainter.c (html_painter_begin): Use the propper offset here
+	when clearing the rectangle.
+
+	* gtkhtml.c (gtk_html_vertical_scroll): Remove the spurious call
+	to repaint the whole exposed region.
+	(gtk_html_new): If the adjustment was not passed, create it, so
+	that we can connect to the signal changed emmission before the
+	layout
+
+	* htmlpainter.c (html_painter_draw_text): Adjust the text output
+	offset too.
+
 1999-10-26  Miguel de Icaza  <miguel@gnu.org>
 
 	* gtkhtml.c (gtk_html_vertical_scroll): Do not force a redraw anymore.

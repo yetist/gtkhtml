@@ -60,12 +60,14 @@ html_painter_draw_pixmap (HTMLPainter *painter, gint x, gint y, GdkPixbuf *pixbu
 {
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (pixbuf != NULL);
+
+	x -= painter->x1;
+	y -= painter->y1;
 	
 	if (pixbuf->art_pixbuf->has_alpha) {
 		gdk_draw_rgb_32_image (painter->pixmap,
 				       painter->gc,
-				       x - painter->x1,
-				       y - painter->y1,
+				       x, y,
 				       pixbuf->art_pixbuf->width,
 				       pixbuf->art_pixbuf->height,
 				       GDK_RGB_DITHER_NORMAL,
@@ -99,15 +101,13 @@ html_painter_set_background_color (HTMLPainter *painter, GdkColor *color)
 	g_return_if_fail (painter != NULL);
 
 	if (color){
-		printf ("COLOR: %d %d %d\n", color->red, color->green, color->blue);
 		if (painter->pixmap)
 			gdk_window_set_background (painter->pixmap, color);
 		else {
 			painter->background = *color;
 			painter->set_background = TRUE;
 		}
-	} else
-		printf ("COLOR: none\n");
+	} 
 }
 
 void
@@ -126,15 +126,20 @@ html_painter_draw_text (HTMLPainter *painter, gint x, gint y, gchar *text, gint 
 	if (len == -1)
 		len = strlen (text);
 
-	gdk_draw_text (painter->pixmap, painter->font->gdk_font, painter->gc, x, y, text, len);
+	x -= painter->x1;
+	y -= painter->y1;
+	
+	gdk_draw_text (painter->pixmap,
+		       painter->font->gdk_font,
+		       painter->gc, x, y, text, len);
 	
 	if (painter->font->underline) {
 		gdk_draw_line (painter->pixmap, painter->gc, 
-			       x - painter->x1, 
-			       y + 1 - painter->y1, 
+			       x, 
+			       y + 1, 
 			       x + html_font_calc_width (painter->font,
-							 text, len) - painter->x1,
-			       y + 1 - painter->y1);
+							 text, len),
+			       y + 1);
 	}
 
 }
@@ -213,7 +218,8 @@ html_painter_begin (HTMLPainter *painter, int x1, int y1, int x2, int y2)
 		const int width = x2 - x1 + 1;
 		const int height = y2 - y1 + 1;
 
-		printf ("PAINTING: %d %d %d %d\n", x1, y1, x2, y2);
+		g_assert (painter->pixmap == NULL);
+		
 		painter->pixmap = gdk_pixmap_new (painter->pixmap, width, height, visual->depth);
 		painter->x1 = x1;
 		painter->y1 = y1;
@@ -226,7 +232,7 @@ html_painter_begin (HTMLPainter *painter, int x1, int y1, int x2, int y2)
 		gdk_gc_set_foreground (painter->gc, &painter->background);
 		gdk_draw_rectangle (
 			painter->pixmap, painter->gc, TRUE,
-			x1, y1, width, height);
+			0, 0, width, height);
 	} else {
 		painter->pixmap = painter->window;
 		painter->x1 = 0;
@@ -246,9 +252,8 @@ html_painter_end (HTMLPainter *painter)
 			painter->window, painter->gc, painter->pixmap,
 			0, 0,
 			painter->x1, painter->y1,
-			painter->x2 - painter->x1,
-			painter->y2 - painter->y1);
-		
+			painter->x2 - painter->x1 + 1,
+			painter->y2 - painter->y1 + 1);
 		gdk_pixmap_unref (painter->pixmap);
 	}
 	painter->pixmap = NULL;
@@ -273,13 +278,14 @@ html_painter_unrealize (HTMLPainter *painter)
 	g_return_if_fail (painter != NULL);
 	
 	gdk_gc_unref (painter->gc);
+	painter->gc = NULL;
 }
 
 void
 html_painter_clear (HTMLPainter *painter)
 {
 	g_return_if_fail (painter != NULL);
-	
+
 	if (painter->double_buffer){
 		if (painter->pixmap)
 			gdk_window_clear (painter->pixmap);
