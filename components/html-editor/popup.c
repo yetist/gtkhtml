@@ -26,6 +26,7 @@
 #include <htmlengine-edit-copy.h>
 #include <htmlengine-edit-cut.h>
 #include <htmlengine-edit-paste.h>
+#include <htmlengine-edit-insert.h>
 #include "popup.h"
 #include "image.h"
 #include "link.h"
@@ -57,7 +58,10 @@ paste (GtkWidget *mi, GtkHTMLControlData *cd)
 static void
 remove_link (GtkWidget *mi, GtkHTMLControlData *cd)
 {
-	html_link_text_master_to_text (HTML_LINK_TEXT_MASTER (cd->obj), cd->html->engine);
+	if (cd->html->engine->active_selection)
+		html_engine_remove_link (cd->html->engine);
+        else
+		html_engine_remove_link_object (cd->html->engine, cd->obj);
 }
 
 static void
@@ -104,6 +108,15 @@ popup_show (GtkHTMLControlData *cd, GdkEventButton *event)
 	menu = gtk_menu_new ();
 
 	ADD_ITEM ("Insert link...", insert_link);
+	if (e->active_selection
+	    || (cd->obj
+		&& (HTML_OBJECT_TYPE (cd->obj) == HTML_TYPE_LINKTEXTMASTER
+		    || (HTML_OBJECT_TYPE (cd->obj) == HTML_TYPE_IMAGE
+			&& (*HTML_IMAGE (cd->obj)->url
+			    || *HTML_IMAGE (cd->obj)->target))))) {
+		    ADD_ITEM (_("Remove link"), remove_link);
+	    }
+
 	if (e->active_selection) {
 		ADD_SEP;
 		ADD_ITEM ("Copy", copy);
@@ -133,12 +146,6 @@ popup_show (GtkHTMLControlData *cd, GdkEventButton *event)
 				ADD_SEP;
 			}
 			ADD_ITEM (text, prop);
-			switch (HTML_OBJECT_TYPE (cd->obj)) {
-			
-			case HTML_TYPE_LINKTEXTMASTER:
-				ADD_ITEM (_("Remove link"), remove_link);
-			default:
-			}
 		}
 	}
 	gtk_widget_show (menu);

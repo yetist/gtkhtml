@@ -1,5 +1,8 @@
 2000-06-21  Radek Doulik  <rodo@helixcode.com>
 
+	* popup.c (remove_link): it now uses html_engine_remove_link and
+	html_engine_remove_link_object
+
 	* link.c (button_link_cb): use rewritten html_engine_insert_link
 
 	* popup.c (popup_show): always add insert link to popup menu
