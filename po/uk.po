@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2001-07-24 16:49-0500\n"
+"POT-Creation-Date: 2001-07-30 14:20-0500\n"
 "PO-Revision-Date: 2000-08-14 14:50+0200\n"
 "Last-Translator: Yuri Syrota <rasta@renome.rovno.ua>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
@@ -35,26 +35,26 @@ msgstr "Команди"
 msgid "Keymaps"
 msgstr "Клав╕ш╕"
 
-#: capplet/gnome-bindings-prop.c:550
+#: capplet/gnome-bindings-prop.c:551
 msgid "Add"
 msgstr "Додати"
 
-#: capplet/gnome-bindings-prop.c:553
+#: capplet/gnome-bindings-prop.c:554
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:2
 #: components/html-editor/popup.c:325
 msgid "Copy"
 msgstr "Коп╕ювати"
 
-#: capplet/gnome-bindings-prop.c:556
+#: capplet/gnome-bindings-prop.c:557
 msgid "Delete"
 msgstr "Стерти"
 
-#: capplet/gnome-bindings-prop.c:587
+#: capplet/gnome-bindings-prop.c:590
 msgid "Grab key"
 msgstr "Захопити клав╕шу"
 
-#: capplet/main.c:227 components/html-editor/cell.c:371
-#: components/html-editor/table.c:347 components/html-editor/table.c:418
+#: capplet/main.c:226 components/html-editor/cell.c:386
+#: components/html-editor/table.c:533 components/html-editor/table.c:605
 msgid "Could not load glade file."
 msgstr "Не вдалося завантажити файл Glade."
 
@@ -290,14 +290,20 @@ msgid "Replace"
 msgstr "Зам╕нити"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:29
+#: components/html-editor/editor-control-factory.c:183
+#: components/html-editor/menubar.c:148 components/html-editor/popup.c:185
+msgid "Rule"
+msgstr "Л╕н╕йка"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:30
 msgid "Select _All"
 msgstr ""
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:30
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:31
 msgid "Select the entire contents of the document"
 msgstr ""
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:31
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:32
 #: components/html-editor/gtkhtml-editor-properties.glade.h:24
 #: components/html-editor/menubar.c:165 components/html-editor/popup.c:192
 #: components/html-editor/popup.c:383 components/html-editor/popup.c:392
@@ -305,68 +311,68 @@ msgstr ""
 msgid "Table"
 msgstr "Ув╕мкнути"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:32
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:33
 msgid "Undo"
 msgstr "В╕дм╕нити"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:33
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:34
 msgid "Undo previous changes"
 msgstr "В╕дм╕нити попередн╕ зм╕ни"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:34
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
 msgid "Undo the last action"
 msgstr "В╕дм╕нити останню операц╕ю"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
 msgid "_Copy"
 msgstr "Скоп╕ювати"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
 msgid "_Edit"
 msgstr "Редагування"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
 msgid "_Find..."
 msgstr "Знайти..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
 msgid "_Image..."
 msgstr "Зображення..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:40
 msgid "_Insert"
 msgstr "Вставити"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:40
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
 msgid "_Link..."
 msgstr "Посилання..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
 msgid "_Paste"
 msgstr "Вставити"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
 msgid "_Properties..."
 msgstr "Властивост╕..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
 msgid "_Redo"
 msgstr "Повторити"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
 msgid "_Replace..."
 msgstr "Зам╕нити..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
 msgid "_Rule..."
 msgstr "Л╕н╕йка..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
 #, fuzzy
 msgid "_Table..."
 msgstr "Л╕н╕йка..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
 msgid "_Undo"
 msgstr "В╕дм╕нити"
 
@@ -389,12 +395,12 @@ msgid "Text"
 msgstr "Текст"
 
 #: components/html-editor/body.c:182
-#: components/html-editor/gtkhtml-editor-properties.glade.h:3
+#: components/html-editor/gtkhtml-editor-properties.glade.h:4
 #, fuzzy
 msgid "Background"
 msgstr "Зображення на тл╕"
 
-#: components/html-editor/cell.c:377 components/html-editor/table.c:353
+#: components/html-editor/cell.c:392 components/html-editor/table.c:539
 #: components/html-editor/text.c:221 components/html-editor/toolbar.c:286
 msgid "Automatic"
 msgstr "Автоматичне"
@@ -403,11 +409,6 @@ msgstr "Автоматичне"
 #: components/html-editor/popup.c:142
 msgid "Properties"
 msgstr "Властивост╕"
-
-#: components/html-editor/editor-control-factory.c:183
-#: components/html-editor/menubar.c:148 components/html-editor/popup.c:185
-msgid "Rule"
-msgstr "Л╕н╕йка"
 
 #: components/html-editor/editor-control-factory.c:193
 #: components/html-editor/popup.c:164
@@ -427,33 +428,33 @@ msgstr "Не вдалося ╕н╕ц╕ал╕зувати GNORBA"
 msgid "Could not initialize Bonobo"
 msgstr "Не вдалося ╕н╕ц╕ал╕зувати Bonobo"
 
+#: components/html-editor/gtkhtml-editor-properties.glade.h:1
+msgid "************"
+msgstr ""
+
 #. ADD_ITEM("Left",   GDK_F4);
 #. ADD_ITEM("Right",  GDK_F5);
-#: components/html-editor/gtkhtml-editor-properties.glade.h:1
+#: components/html-editor/gtkhtml-editor-properties.glade.h:2
 #: components/html-editor/image.c:206
 msgid "Alignment"
 msgstr "Вир╕внювання"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:2
+#: components/html-editor/gtkhtml-editor-properties.glade.h:3
 msgid "Apply changes to"
 msgstr ""
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:4
+#: components/html-editor/gtkhtml-editor-properties.glade.h:5
 msgid "Be careful! Tables code is still ALPHA quality."
 msgstr ""
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:5
+#: components/html-editor/gtkhtml-editor-properties.glade.h:6
 #: components/html-editor/image.c:202
 msgid "Bottom"
 msgstr "В низу"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:6
+#: components/html-editor/gtkhtml-editor-properties.glade.h:7
 #: components/html-editor/popup.c:199
 msgid "Cell"
-msgstr ""
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:7
-msgid "Cells"
 msgstr ""
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:8
@@ -545,83 +546,88 @@ msgid "Table Insert"
 msgstr "Вставити"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:26
+#, fuzzy
+msgid "Template"
+msgstr "Зам╕нити"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:27
 #: components/html-editor/image.c:200
 msgid "Top"
 msgstr "В гор╕"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:27
+#: components/html-editor/gtkhtml-editor-properties.glade.h:28
 msgid "Wrap"
 msgstr ""
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:28
+#: components/html-editor/gtkhtml-editor-properties.glade.h:29
 #, fuzzy
 msgid "alignment"
 msgstr "Вир╕внювання"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:29
+#: components/html-editor/gtkhtml-editor-properties.glade.h:30
 #, fuzzy
 msgid "border"
 msgstr "Рамка"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:30
+#: components/html-editor/gtkhtml-editor-properties.glade.h:31
 #, fuzzy
 msgid "color"
 msgstr "Кол╕р"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:31
+#: components/html-editor/gtkhtml-editor-properties.glade.h:32
 msgid "column span"
 msgstr ""
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:32
+#: components/html-editor/gtkhtml-editor-properties.glade.h:33
 msgid "columns"
 msgstr ""
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:33
+#: components/html-editor/gtkhtml-editor-properties.glade.h:34
 #: components/html-editor/image.c:243 components/html-editor/image.c:275
 msgid "height"
 msgstr "висота"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:34
+#: components/html-editor/gtkhtml-editor-properties.glade.h:35
 msgid "horizontal"
 msgstr ""
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:35
+#: components/html-editor/gtkhtml-editor-properties.glade.h:36
 #, fuzzy
 msgid "padding"
 msgstr "Заповнення"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:36
+#: components/html-editor/gtkhtml-editor-properties.glade.h:37
 msgid "pixmap"
 msgstr ""
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:37
+#: components/html-editor/gtkhtml-editor-properties.glade.h:38
 msgid "row span"
 msgstr ""
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:38
+#: components/html-editor/gtkhtml-editor-properties.glade.h:39
 msgid "rows"
 msgstr ""
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:39
+#: components/html-editor/gtkhtml-editor-properties.glade.h:40
 msgid "spacing"
 msgstr ""
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:40
+#: components/html-editor/gtkhtml-editor-properties.glade.h:41
 #, fuzzy
 msgid "style"
 msgstr "Стиль"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:41
+#: components/html-editor/gtkhtml-editor-properties.glade.h:42
 msgid "vertical"
 msgstr ""
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:42
+#: components/html-editor/gtkhtml-editor-properties.glade.h:43
 #: components/html-editor/image.c:224 components/html-editor/image.c:242
 #: components/html-editor/image.c:274 components/html-editor/rule.c:266
 msgid "width"
 msgstr "ширина"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:43
+#: components/html-editor/gtkhtml-editor-properties.glade.h:44
 msgid "wrapping"
 msgstr ""
 
@@ -826,6 +832,24 @@ msgstr "пошук назад"
 #: components/html-editor/search.c:107
 msgid "Regex find"
 msgstr ""
+
+#: components/html-editor/table.c:184
+#, fuzzy
+msgid "Plain"
+msgstr "Заповнення"
+
+#: components/html-editor/table.c:192
+msgid "Flat gray"
+msgstr ""
+
+#: components/html-editor/table.c:201
+msgid "Dark header"
+msgstr ""
+
+#: components/html-editor/table.c:212
+#, fuzzy
+msgid "Note"
+msgstr "<Нема╓>"
 
 #: components/html-editor/test-html-editor-control.c:240
 msgid "Open file..."

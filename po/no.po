@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.8\n"
-"POT-Creation-Date: 2001-07-30 00:00+0200\n"
+"POT-Creation-Date: 2001-07-30 14:20-0500\n"
 "PO-Revision-Date: 2001-07-30 00:02+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <no@li.org>\n"
@@ -53,7 +53,7 @@ msgstr "Slett"
 msgid "Grab key"
 msgstr "Hent tast"
 
-#: capplet/main.c:226 components/html-editor/cell.c:371
+#: capplet/main.c:226 components/html-editor/cell.c:386
 #: components/html-editor/table.c:533 components/html-editor/table.c:605
 msgid "Could not load glade file."
 msgstr "Kunne ikke lese glade-fil."
@@ -283,81 +283,87 @@ msgid "Replace"
 msgstr "Erstatt"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:29
+#: components/html-editor/editor-control-factory.c:183
+#: components/html-editor/menubar.c:148 components/html-editor/popup.c:185
+msgid "Rule"
+msgstr "Regel"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:30
 msgid "Select _All"
 msgstr "Velg _alt"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:30
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:31
 msgid "Select the entire contents of the document"
 msgstr "Velg hele innholdet i dokumentet"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:31
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:32
 #: components/html-editor/gtkhtml-editor-properties.glade.h:24
 #: components/html-editor/menubar.c:165 components/html-editor/popup.c:192
 #: components/html-editor/popup.c:383 components/html-editor/popup.c:392
 msgid "Table"
 msgstr "Tabell"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:32
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:33
 msgid "Undo"
 msgstr "Angre"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:33
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:34
 msgid "Undo previous changes"
 msgstr "Angre forrige endringer"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:34
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
 msgid "Undo the last action"
 msgstr "Angre forrige handling"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
 msgid "_Copy"
 msgstr "_Kopier"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
 msgid "_Edit"
 msgstr "_Rediger"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
 msgid "_Find..."
 msgstr "_Finn..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
 msgid "_Image..."
 msgstr "B_ilde..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:40
 msgid "_Insert"
 msgstr "Sett _inn"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:40
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
 msgid "_Link..."
 msgstr "_Lenke..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
 msgid "_Paste"
 msgstr "_Lim inn"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
 msgid "_Properties..."
 msgstr "E_genskaper..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
 msgid "_Redo"
 msgstr "Gjenopp_rett"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
 msgid "_Replace..."
 msgstr "E_rstatt..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
 msgid "_Rule..."
 msgstr "_Regel..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
 msgid "_Table..."
 msgstr "_Tabell..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
 msgid "_Undo"
 msgstr "An_gre"
 
@@ -373,12 +379,6 @@ msgstr "Slå på"
 msgid "Colors"
 msgstr "Farger"
 
-#: components/html-editor/body.c:169 components/html-editor/cell.c:377
-#: components/html-editor/table.c:539 components/html-editor/text.c:221
-#: components/html-editor/toolbar.c:286
-msgid "Automatic"
-msgstr "Automatisk"
-
 #: components/html-editor/body.c:180
 #: components/html-editor/editor-control-factory.c:172
 #: components/html-editor/menubar.c:125 components/html-editor/popup.c:150
@@ -390,15 +390,15 @@ msgstr "Tekst"
 msgid "Background"
 msgstr "Bakgrunn"
 
+#: components/html-editor/cell.c:392 components/html-editor/table.c:539
+#: components/html-editor/text.c:221 components/html-editor/toolbar.c:286
+msgid "Automatic"
+msgstr "Automatisk"
+
 #: components/html-editor/editor-control-factory.c:152
 #: components/html-editor/popup.c:142
 msgid "Properties"
 msgstr "Egenskaper"
-
-#: components/html-editor/editor-control-factory.c:183
-#: components/html-editor/menubar.c:148 components/html-editor/popup.c:185
-msgid "Rule"
-msgstr "Regel"
 
 #: components/html-editor/editor-control-factory.c:193
 #: components/html-editor/popup.c:164

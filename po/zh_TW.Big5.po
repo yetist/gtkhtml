@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2001-07-24 16:49-0500\n"
+"POT-Creation-Date: 2001-07-30 14:20-0500\n"
 "PO-Revision-Date: 2001-07-16 11:15+0800\n"
 "Last-Translator: Joe Man <trmetal@yahoo.com.hk>\n"
 "Language-Team: Chinese <zh@li.org>\n"
@@ -55,7 +55,7 @@ msgstr "按鍵設定"
 
 # capplet/gnome-bindings-prop.c:545
 # capplet/gnome-bindings-prop.c:545
-#: capplet/gnome-bindings-prop.c:550
+#: capplet/gnome-bindings-prop.c:551
 msgid "Add"
 msgstr "新增"
 
@@ -65,7 +65,7 @@ msgstr "新增"
 # capplet/gnome-bindings-prop.c:548
 # components/html-editor/GNOME_GtkHTML_Editor.xml.h:2
 # components/html-editor/popup.c:249
-#: capplet/gnome-bindings-prop.c:553
+#: capplet/gnome-bindings-prop.c:554
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:2
 #: components/html-editor/popup.c:325
 msgid "Copy"
@@ -73,13 +73,13 @@ msgstr "複製"
 
 # capplet/gnome-bindings-prop.c:551
 # capplet/gnome-bindings-prop.c:551
-#: capplet/gnome-bindings-prop.c:556
+#: capplet/gnome-bindings-prop.c:557
 msgid "Delete"
 msgstr "刪除"
 
 # capplet/gnome-bindings-prop.c:582
 # capplet/gnome-bindings-prop.c:582
-#: capplet/gnome-bindings-prop.c:587
+#: capplet/gnome-bindings-prop.c:590
 msgid "Grab key"
 msgstr "抓取按鍵"
 
@@ -89,8 +89,8 @@ msgstr "抓取按鍵"
 # capplet/main.c:227
 # components/html-editor/cell.c:305
 # components/html-editor/table.c:286
-#: capplet/main.c:227 components/html-editor/cell.c:371
-#: components/html-editor/table.c:347 components/html-editor/table.c:418
+#: capplet/main.c:226 components/html-editor/cell.c:386
+#: components/html-editor/table.c:533 components/html-editor/table.c:605
 msgid "Could not load glade file."
 msgstr "無法載入 glade 檔案。"
 
@@ -450,15 +450,27 @@ msgstr "重複復原所做的動作"
 msgid "Replace"
 msgstr "取代"
 
-# components/html-editor/GNOME_GtkHTML_Editor.xml.h:26
-# components/html-editor/GNOME_GtkHTML_Editor.xml.h:26
+# components/html-editor/editor-control-factory.c:177
+# components/html-editor/menubar.c:147
+# components/html-editor/popup.c:128
+# components/html-editor/editor-control-factory.c:177
+# components/html-editor/menubar.c:147
+# components/html-editor/popup.c:128
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:29
+#: components/html-editor/editor-control-factory.c:183
+#: components/html-editor/menubar.c:148 components/html-editor/popup.c:185
+msgid "Rule"
+msgstr "水平線"
+
+# components/html-editor/GNOME_GtkHTML_Editor.xml.h:26
+# components/html-editor/GNOME_GtkHTML_Editor.xml.h:26
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:30
 msgid "Select _All"
 msgstr "全選 (_A)"
 
 # components/html-editor/GNOME_GtkHTML_Editor.xml.h:27
 # components/html-editor/GNOME_GtkHTML_Editor.xml.h:27
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:30
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:31
 msgid "Select the entire contents of the document"
 msgstr "選擇文件的全部內文"
 
@@ -466,7 +478,7 @@ msgstr "選擇文件的全部內文"
 # components/html-editor/popup.c:135
 # components/html-editor/gtkhtml-editor-properties.glade.h:18
 # components/html-editor/popup.c:135
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:31
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:32
 #: components/html-editor/gtkhtml-editor-properties.glade.h:24
 #: components/html-editor/menubar.c:165 components/html-editor/popup.c:192
 #: components/html-editor/popup.c:383 components/html-editor/popup.c:392
@@ -475,85 +487,85 @@ msgstr "表格"
 
 # components/html-editor/GNOME_GtkHTML_Editor.xml.h:28
 # components/html-editor/GNOME_GtkHTML_Editor.xml.h:28
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:32
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:33
 msgid "Undo"
 msgstr "復原"
 
 # components/html-editor/GNOME_GtkHTML_Editor.xml.h:29
 # components/html-editor/GNOME_GtkHTML_Editor.xml.h:29
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:33
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:34
 msgid "Undo previous changes"
 msgstr "復原上一次所做的變更"
 
 # components/html-editor/GNOME_GtkHTML_Editor.xml.h:30
 # components/html-editor/GNOME_GtkHTML_Editor.xml.h:30
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:34
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
 msgid "Undo the last action"
 msgstr "復原上一所做的動作"
 
 # components/html-editor/GNOME_GtkHTML_Editor.xml.h:31
 # components/html-editor/GNOME_GtkHTML_Editor.xml.h:31
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
 msgid "_Copy"
 msgstr "複製 (_C)"
 
 # components/html-editor/GNOME_GtkHTML_Editor.xml.h:32
 # components/html-editor/GNOME_GtkHTML_Editor.xml.h:32
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
 msgid "_Edit"
 msgstr "編輯 (_E)..."
 
 # components/html-editor/GNOME_GtkHTML_Editor.xml.h:33
 # components/html-editor/GNOME_GtkHTML_Editor.xml.h:33
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
 msgid "_Find..."
 msgstr "尋找 (_F)..."
 
 # components/html-editor/GNOME_GtkHTML_Editor.xml.h:34
 # components/html-editor/GNOME_GtkHTML_Editor.xml.h:34
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
 msgid "_Image..."
 msgstr "影像(_I)..."
 
 # components/html-editor/GNOME_GtkHTML_Editor.xml.h:35
 # components/html-editor/GNOME_GtkHTML_Editor.xml.h:35
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:40
 msgid "_Insert"
 msgstr "插入 (_I)..."
 
 # components/html-editor/GNOME_GtkHTML_Editor.xml.h:36
 # components/html-editor/GNOME_GtkHTML_Editor.xml.h:36
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:40
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
 msgid "_Link..."
 msgstr "連結 (_L)..."
 
 # components/html-editor/GNOME_GtkHTML_Editor.xml.h:37
 # components/html-editor/GNOME_GtkHTML_Editor.xml.h:37
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
 msgid "_Paste"
 msgstr "貼上 (_P)"
 
 # components/html-editor/GNOME_GtkHTML_Editor.xml.h:38
 # components/html-editor/GNOME_GtkHTML_Editor.xml.h:38
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
 msgid "_Properties..."
 msgstr "內容 (_P)..."
 
 # components/html-editor/GNOME_GtkHTML_Editor.xml.h:39
 # components/html-editor/GNOME_GtkHTML_Editor.xml.h:39
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
 msgid "_Redo"
 msgstr "重複 (_R)"
 
 # components/html-editor/GNOME_GtkHTML_Editor.xml.h:40
 # components/html-editor/GNOME_GtkHTML_Editor.xml.h:40
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
 msgid "_Replace..."
 msgstr "取代 (_R)..."
 
 # components/html-editor/GNOME_GtkHTML_Editor.xml.h:41
 # components/html-editor/GNOME_GtkHTML_Editor.xml.h:41
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
 msgid "_Rule..."
 msgstr "水平線 (_R)..."
 
@@ -561,13 +573,13 @@ msgstr "水平線 (_R)..."
 # components/html-editor/popup.c:304
 # components/html-editor/popup.c:295
 # components/html-editor/popup.c:304
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
 msgid "_Table..."
 msgstr "表格 (_T)..."
 
 # components/html-editor/GNOME_GtkHTML_Editor.xml.h:42
 # components/html-editor/GNOME_GtkHTML_Editor.xml.h:42
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
 msgid "_Undo"
 msgstr "復原 (_U)"
 
@@ -610,7 +622,7 @@ msgstr "文字"
 # components/html-editor/body.c:182
 # components/html-editor/gtkhtml-editor-properties.glade.h:2
 #: components/html-editor/body.c:182
-#: components/html-editor/gtkhtml-editor-properties.glade.h:3
+#: components/html-editor/gtkhtml-editor-properties.glade.h:4
 msgid "Background"
 msgstr "背景"
 
@@ -624,7 +636,7 @@ msgstr "背景"
 # components/html-editor/table.c:292
 # components/html-editor/text.c:221
 # components/html-editor/toolbar.c:286
-#: components/html-editor/cell.c:377 components/html-editor/table.c:353
+#: components/html-editor/cell.c:392 components/html-editor/table.c:539
 #: components/html-editor/text.c:221 components/html-editor/toolbar.c:286
 msgid "Automatic"
 msgstr "自動"
@@ -637,17 +649,6 @@ msgstr "自動"
 #: components/html-editor/popup.c:142
 msgid "Properties"
 msgstr "內容"
-
-# components/html-editor/editor-control-factory.c:177
-# components/html-editor/menubar.c:147
-# components/html-editor/popup.c:128
-# components/html-editor/editor-control-factory.c:177
-# components/html-editor/menubar.c:147
-# components/html-editor/popup.c:128
-#: components/html-editor/editor-control-factory.c:183
-#: components/html-editor/menubar.c:148 components/html-editor/popup.c:185
-msgid "Rule"
-msgstr "水平線"
 
 # components/html-editor/editor-control-factory.c:186
 # components/html-editor/popup.c:107
@@ -679,22 +680,26 @@ msgstr "無法初始化 GNORBA"
 msgid "Could not initialize Bonobo"
 msgstr "無法初始化 Bonobo"
 
+#: components/html-editor/gtkhtml-editor-properties.glade.h:1
+msgid "************"
+msgstr ""
+
 # components/html-editor/gtkhtml-editor-properties.glade.h:1
 # components/html-editor/image.c:207
 # components/html-editor/gtkhtml-editor-properties.glade.h:1
 # components/html-editor/image.c:207
 #. ADD_ITEM("Left",   GDK_F4);
 #. ADD_ITEM("Right",  GDK_F5);
-#: components/html-editor/gtkhtml-editor-properties.glade.h:1
+#: components/html-editor/gtkhtml-editor-properties.glade.h:2
 #: components/html-editor/image.c:206
 msgid "Alignment"
 msgstr "對齊方式"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:2
+#: components/html-editor/gtkhtml-editor-properties.glade.h:3
 msgid "Apply changes to"
 msgstr ""
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:4
+#: components/html-editor/gtkhtml-editor-properties.glade.h:5
 msgid "Be careful! Tables code is still ALPHA quality."
 msgstr "請小心! 有關表格的原始碼仍在早期開發階段。"
 
@@ -702,7 +707,7 @@ msgstr "請小心! 有關表格的原始碼仍在早期開發階段。"
 # components/html-editor/image.c:203
 # components/html-editor/gtkhtml-editor-properties.glade.h:3
 # components/html-editor/image.c:203
-#: components/html-editor/gtkhtml-editor-properties.glade.h:5
+#: components/html-editor/gtkhtml-editor-properties.glade.h:6
 #: components/html-editor/image.c:202
 msgid "Bottom"
 msgstr "底"
@@ -711,17 +716,9 @@ msgstr "底"
 # components/html-editor/popup.c:142
 # components/html-editor/gtkhtml-editor-properties.glade.h:4
 # components/html-editor/popup.c:142
-#: components/html-editor/gtkhtml-editor-properties.glade.h:6
+#: components/html-editor/gtkhtml-editor-properties.glade.h:7
 #: components/html-editor/popup.c:199
 msgid "Cell"
-msgstr "儲存格"
-
-# components/html-editor/gtkhtml-editor-properties.glade.h:4
-# components/html-editor/popup.c:142
-# components/html-editor/gtkhtml-editor-properties.glade.h:4
-# components/html-editor/popup.c:142
-#: components/html-editor/gtkhtml-editor-properties.glade.h:7
-msgid "Cells"
 msgstr "儲存格"
 
 # components/html-editor/gtkhtml-editor-properties.glade.h:5
@@ -874,48 +871,61 @@ msgstr "闊度"
 msgid "Table Insert"
 msgstr "插入表格"
 
-# components/html-editor/gtkhtml-editor-properties.glade.h:19
-# components/html-editor/image.c:201
-# components/html-editor/gtkhtml-editor-properties.glade.h:19
-# components/html-editor/image.c:201
+# components/html-editor/GNOME_GtkHTML_Editor.xml.h:25
+# components/html-editor/replace.c:84
+# components/html-editor/replace.c:146
+# components/html-editor/replace.c:158
+# components/html-editor/GNOME_GtkHTML_Editor.xml.h:25
+# components/html-editor/replace.c:84
+# components/html-editor/replace.c:146
+# components/html-editor/replace.c:158
 #: components/html-editor/gtkhtml-editor-properties.glade.h:26
+#, fuzzy
+msgid "Template"
+msgstr "取代"
+
+# components/html-editor/gtkhtml-editor-properties.glade.h:19
+# components/html-editor/image.c:201
+# components/html-editor/gtkhtml-editor-properties.glade.h:19
+# components/html-editor/image.c:201
+#: components/html-editor/gtkhtml-editor-properties.glade.h:27
 #: components/html-editor/image.c:200
 msgid "Top"
 msgstr "頂"
 
 # components/html-editor/gtkhtml-editor-properties.glade.h:20
 # components/html-editor/gtkhtml-editor-properties.glade.h:20
-#: components/html-editor/gtkhtml-editor-properties.glade.h:27
+#: components/html-editor/gtkhtml-editor-properties.glade.h:28
 msgid "Wrap"
 msgstr "自動換行"
 
 # components/html-editor/gtkhtml-editor-properties.glade.h:21
 # components/html-editor/gtkhtml-editor-properties.glade.h:21
-#: components/html-editor/gtkhtml-editor-properties.glade.h:28
+#: components/html-editor/gtkhtml-editor-properties.glade.h:29
 msgid "alignment"
 msgstr "對齊方式"
 
 # components/html-editor/gtkhtml-editor-properties.glade.h:22
 # components/html-editor/gtkhtml-editor-properties.glade.h:22
-#: components/html-editor/gtkhtml-editor-properties.glade.h:29
+#: components/html-editor/gtkhtml-editor-properties.glade.h:30
 msgid "border"
 msgstr "邊界"
 
 # components/html-editor/gtkhtml-editor-properties.glade.h:23
 # components/html-editor/gtkhtml-editor-properties.glade.h:23
-#: components/html-editor/gtkhtml-editor-properties.glade.h:30
+#: components/html-editor/gtkhtml-editor-properties.glade.h:31
 msgid "color"
 msgstr "色彩"
 
 # components/html-editor/gtkhtml-editor-properties.glade.h:24
 # components/html-editor/gtkhtml-editor-properties.glade.h:24
-#: components/html-editor/gtkhtml-editor-properties.glade.h:31
+#: components/html-editor/gtkhtml-editor-properties.glade.h:32
 msgid "column span"
 msgstr "合併列數"
 
 # components/html-editor/gtkhtml-editor-properties.glade.h:25
 # components/html-editor/gtkhtml-editor-properties.glade.h:25
-#: components/html-editor/gtkhtml-editor-properties.glade.h:32
+#: components/html-editor/gtkhtml-editor-properties.glade.h:33
 msgid "columns"
 msgstr "列"
 
@@ -925,56 +935,56 @@ msgstr "列"
 # components/html-editor/gtkhtml-editor-properties.glade.h:26
 # components/html-editor/image.c:244
 # components/html-editor/image.c:276
-#: components/html-editor/gtkhtml-editor-properties.glade.h:33
+#: components/html-editor/gtkhtml-editor-properties.glade.h:34
 #: components/html-editor/image.c:243 components/html-editor/image.c:275
 msgid "height"
 msgstr "高度"
 
 # components/html-editor/gtkhtml-editor-properties.glade.h:27
 # components/html-editor/gtkhtml-editor-properties.glade.h:27
-#: components/html-editor/gtkhtml-editor-properties.glade.h:34
+#: components/html-editor/gtkhtml-editor-properties.glade.h:35
 msgid "horizontal"
 msgstr "水平"
 
 # components/html-editor/gtkhtml-editor-properties.glade.h:28
 # components/html-editor/gtkhtml-editor-properties.glade.h:28
-#: components/html-editor/gtkhtml-editor-properties.glade.h:35
+#: components/html-editor/gtkhtml-editor-properties.glade.h:36
 msgid "padding"
 msgstr "距離"
 
 # components/html-editor/gtkhtml-editor-properties.glade.h:29
 # components/html-editor/gtkhtml-editor-properties.glade.h:29
-#: components/html-editor/gtkhtml-editor-properties.glade.h:36
+#: components/html-editor/gtkhtml-editor-properties.glade.h:37
 msgid "pixmap"
 msgstr "圖像"
 
 # components/html-editor/gtkhtml-editor-properties.glade.h:30
 # components/html-editor/gtkhtml-editor-properties.glade.h:30
-#: components/html-editor/gtkhtml-editor-properties.glade.h:37
+#: components/html-editor/gtkhtml-editor-properties.glade.h:38
 msgid "row span"
 msgstr "合併行數"
 
 # components/html-editor/gtkhtml-editor-properties.glade.h:31
 # components/html-editor/gtkhtml-editor-properties.glade.h:31
-#: components/html-editor/gtkhtml-editor-properties.glade.h:38
+#: components/html-editor/gtkhtml-editor-properties.glade.h:39
 msgid "rows"
 msgstr "行"
 
 # components/html-editor/gtkhtml-editor-properties.glade.h:32
 # components/html-editor/gtkhtml-editor-properties.glade.h:32
-#: components/html-editor/gtkhtml-editor-properties.glade.h:39
+#: components/html-editor/gtkhtml-editor-properties.glade.h:40
 msgid "spacing"
 msgstr "闊度"
 
 # components/html-editor/gtkhtml-editor-properties.glade.h:33
 # components/html-editor/gtkhtml-editor-properties.glade.h:33
-#: components/html-editor/gtkhtml-editor-properties.glade.h:40
+#: components/html-editor/gtkhtml-editor-properties.glade.h:41
 msgid "style"
 msgstr "字型樣式"
 
 # components/html-editor/gtkhtml-editor-properties.glade.h:34
 # components/html-editor/gtkhtml-editor-properties.glade.h:34
-#: components/html-editor/gtkhtml-editor-properties.glade.h:41
+#: components/html-editor/gtkhtml-editor-properties.glade.h:42
 msgid "vertical"
 msgstr "垂直"
 
@@ -988,7 +998,7 @@ msgstr "垂直"
 # components/html-editor/image.c:243
 # components/html-editor/image.c:275
 # components/html-editor/rule.c:267
-#: components/html-editor/gtkhtml-editor-properties.glade.h:42
+#: components/html-editor/gtkhtml-editor-properties.glade.h:43
 #: components/html-editor/image.c:224 components/html-editor/image.c:242
 #: components/html-editor/image.c:274 components/html-editor/rule.c:266
 msgid "width"
@@ -996,7 +1006,7 @@ msgstr "寬度"
 
 # components/html-editor/gtkhtml-editor-properties.glade.h:36
 # components/html-editor/gtkhtml-editor-properties.glade.h:36
-#: components/html-editor/gtkhtml-editor-properties.glade.h:43
+#: components/html-editor/gtkhtml-editor-properties.glade.h:44
 msgid "wrapping"
 msgstr "換行設定"
 
@@ -1319,6 +1329,28 @@ msgstr "向後"
 msgid "Regex find"
 msgstr "使用正規表示式尋找"
 
+# components/html-editor/image.c:232
+# components/html-editor/image.c:232
+#: components/html-editor/table.c:184
+#, fuzzy
+msgid "Plain"
+msgstr "距離"
+
+#: components/html-editor/table.c:192
+msgid "Flat gray"
+msgstr ""
+
+#: components/html-editor/table.c:201
+msgid "Dark header"
+msgstr ""
+
+# components/html-editor/gtkhtml-editor-properties.glade.h:11
+# components/html-editor/gtkhtml-editor-properties.glade.h:11
+#: components/html-editor/table.c:212
+#, fuzzy
+msgid "Note"
+msgstr "無"
+
 # components/html-editor/test-html-editor-control.c:240
 # components/html-editor/test-html-editor-control.c:240
 #: components/html-editor/test-html-editor-control.c:240
@@ -1494,3 +1526,10 @@ msgstr "預覽列印 (_V)"
 #: src/testgtkhtml.c:112
 msgid "Print preview"
 msgstr "預覽列印"
+
+# components/html-editor/gtkhtml-editor-properties.glade.h:4
+# components/html-editor/popup.c:142
+# components/html-editor/gtkhtml-editor-properties.glade.h:4
+# components/html-editor/popup.c:142
+#~ msgid "Cells"
+#~ msgstr "儲存格"
