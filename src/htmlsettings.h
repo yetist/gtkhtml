@@ -27,6 +27,7 @@ typedef struct _HTMLSettings HTMLSettings;
 struct _HTMLSettings {
 	gint fontBaseSize;
 	GdkColor *bgcolor;
+	GdkColor *fontbasecolor;
 };
 
 HTMLSettings *html_settings_new         (void);

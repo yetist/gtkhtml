@@ -23,7 +23,7 @@
 void html_bullet_draw (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gint height, gint tx, gint ty);
 
 HTMLObject *
-html_bullet_new (gint height, gint level, GdkColor color)
+html_bullet_new (gint height, gint level, GdkColor *color)
 {
 	HTMLBullet *bullet = g_new0 (HTMLBullet, 1);
 	HTMLObject *object = HTML_OBJECT (bullet);
@@ -37,7 +37,8 @@ html_bullet_new (gint height, gint level, GdkColor color)
 	object->width = 14;
 
 	bullet->level = level;
-	
+	bullet->color = color;
+
 	return object;
 }
 
@@ -52,7 +53,7 @@ html_bullet_draw (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gin
 	yp = o->y + ty - 9;
 	xp = o->x + tx + 2;
 
-	/* FIXME: should set correct color */
+	html_painter_set_pen (p, HTML_BULLET (o)->color);
 
 	switch (HTML_BULLET (o)->level) {
 	case 1:

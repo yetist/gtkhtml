@@ -32,7 +32,7 @@ struct _HTMLTableCell {
 	gint rspan;
 	gint cspan;
 	gint padding;
-	/* FIXME: Color */
+	GdkColor bg;
 	gint refcount;
 };
 

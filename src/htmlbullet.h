@@ -34,6 +34,6 @@ struct _HTMLBullet {
 	GdkColor *color;
 };
 
-HTMLObject *html_bullet_new (gint height, gint level, GdkColor color);
+HTMLObject *html_bullet_new (gint height, gint level, GdkColor *color);
 
 #endif /* _HTMLBULLET_H_ */

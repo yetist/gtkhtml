@@ -175,58 +175,6 @@ html_engine_new (void)
 }
 
 
-#if 0
-HTMLEngine *
-html_engine_new (void)
-{
-	HTMLEngine *p;
-	
-	p = g_new0 (HTMLEngine, 1);
-	p->ht = html_tokenizer_new ();
-	p->st = string_tokenizer_new ();
-	p->fs = html_font_stack_new ();
-	p->cs = html_color_stack_new ();
-	p->listStack = html_list_stack_new ();
-	p->settings = html_settings_new ();
-	p->painter = html_painter_new ();
-
-	p->leftBorder = LEFT_BORDER;
-	p->rightBorder = RIGHT_BORDER;
-	p->topBorder = TOP_BORDER;
-	p->bottomBorder = BOTTOM_BORDER;
-	
-	/* Set up parser functions */
-	p->parseFuncArray[0] = NULL;
-	p->parseFuncArray[1] = html_engine_parse_b;
-	p->parseFuncArray[2] = NULL;
-	p->parseFuncArray[3] = NULL;
-	p->parseFuncArray[4] = NULL;
-	p->parseFuncArray[5] = html_engine_parse_f;
-	p->parseFuncArray[6] = NULL;
-	p->parseFuncArray[7] = html_engine_parse_h;
-	p->parseFuncArray[8] = html_engine_parse_i;
-	p->parseFuncArray[9] = NULL;
-	p->parseFuncArray[10] = NULL;
-	p->parseFuncArray[11] = html_engine_parse_l;
-	p->parseFuncArray[12] = NULL;
-	p->parseFuncArray[13] = NULL;
-	p->parseFuncArray[14] = NULL;
-	p->parseFuncArray[15] = html_engine_parse_p;
-	p->parseFuncArray[16] = NULL;
-	p->parseFuncArray[17] = NULL;
-	p->parseFuncArray[18] = NULL;
-	p->parseFuncArray[19] = html_engine_parse_t;
-	p->parseFuncArray[20] = html_engine_parse_u;
-	p->parseFuncArray[21] = NULL;
-	p->parseFuncArray[22] = NULL;
-	p->parseFuncArray[23] = NULL;
-	p->parseFuncArray[24] = NULL;
-	p->parseFuncArray[25] = NULL;
-
-	return p;
-}
-#endif
-
 void
 html_engine_calc_absolute_pos (HTMLEngine *e)
 {
@@ -1104,8 +1052,7 @@ html_engine_parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 	if (strncmp (str, "link", 4) == 0) {
 	}
 	else if (strncmp (str, "li", 2) == 0) {
-		/* FIXME: close anchor and fix color*/
-		GdkColor fixme;
+		/* FIXME: close anchor */
 		HTMLObject *f, *c, *vc;
 
 		ListType listType = Unordered;
@@ -1114,6 +1061,13 @@ html_engine_parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		gint itemNumber = 1;
 		gint indentSize = INDENT_SIZE;
 
+		/* Color */
+		if (!p->settings->fontbasecolor) {
+			p->settings->fontbasecolor = g_new0 (GdkColor, 1);
+			html_engine_set_named_color (p,
+						     p->settings->fontbasecolor,
+						     "black");
+		}
 		if (html_list_stack_count (p->listStack) > 0) {
 			listType = (html_list_stack_top (p->listStack))->type;
 			listNumType = (html_list_stack_top (p->listStack))->numType;
@@ -1138,7 +1092,7 @@ html_engine_parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 			p->flow = html_clueflow_new (0, 0, vc->max_width, 0);
 			HTML_CLUE (p->flow)->halign = Right;
 			html_clue_append (vc, p->flow);
-			html_clue_append (p->flow, html_bullet_new ((html_font_stack_top (p->fs))->pointSize, listLevel, fixme));
+			html_clue_append (p->flow, html_bullet_new ((html_font_stack_top (p->fs))->pointSize, listLevel, p->settings->fontbasecolor));
 			break;
 		default:
 			break;
@@ -1283,7 +1237,9 @@ html_engine_parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	HAlignType olddivalign = e->divAlign;
 	HTMLClue *oldflow = HTML_CLUE (e->flow);
 	gint oldindent = e->indent;
-	/* FIXME: Colors */
+	GdkColor tableColor;
+	GdkColor rowColor;
+	GdkColor bgcolor;
 
 	gint rowSpan;
 	gint colSpan;
@@ -1325,7 +1281,8 @@ html_engine_parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 				align = Right;
 		}
 		else if (strncasecmp (token, "bgcolor=", 8) == 0) {
-			/* FIXME: table color */
+			html_engine_set_named_color (e, &tableColor, token + 8);
+			rowColor = tableColor;
 		}
 	}
 
@@ -1356,6 +1313,7 @@ html_engine_parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 					firstRow = FALSE;
 					rowvalign = VNone;
 					rowhalign = None;
+					rowColor = tableColor;
 
 					string_tokenizer_tokenize (e->st, str + 4, " >");
 					while (string_tokenizer_has_more_tokens (e->st)) {
@@ -1377,7 +1335,7 @@ html_engine_parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 								rowhalign = HCenter;
 						}
 						else if (strncasecmp (token, "bgcolor=", 8) == 0) {
-							/* FIXME: Color support */
+							html_engine_set_named_color (e, &rowColor, token + 8);
 						}
 					}
 					break;
@@ -1406,7 +1364,7 @@ html_engine_parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 					cellwidth = clue->max_width;
 					cellpercent = -1;
 					fixedWidth = FALSE;
-					/* FIXME: Color */
+					bgcolor = rowColor;
 					valign = (rowvalign == VNone ?
 						  VCenter : rowvalign);
 
@@ -1462,7 +1420,7 @@ html_engine_parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 								}
 							}
 							else if (strncasecmp (token, "bgcolor=", 8) == 0) {
-								/* FIXME: COLOR! */
+								html_engine_set_named_color (e, &bgcolor, token + 8);
 							}
 						}
 					}
@@ -1471,7 +1429,7 @@ html_engine_parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 								    cellpercent,
 								    rowSpan, colSpan,
 								    padding));
-					/* FIXME: Color */
+					cell->bg = bgcolor;
 					HTML_CLUE (cell)->valign = valign;
 					if (fixedWidth)
 						HTML_OBJECT (cell)->flags |= FixedWidth;

@@ -120,10 +120,26 @@ static void
 html_table_cell_draw (HTMLObject *o, HTMLPainter *p, gint x, gint y, 
 		      gint width, gint height, gint tx, gint ty)
 {
+	HTMLTableCell *cell = HTML_TABLE_CELL (o);
+
 	if (y + height < o->y - o->ascent || y > o->y + o->descent)
 		return;
-	
+
+	{
+		gint top = y - (o->y - o->ascent);
+		gint bottom = top + height;
+		if (top < -cell->padding)
+			top = -cell->padding;
+		if (bottom > o->ascent + cell->padding)
+			bottom = o->ascent + cell->padding;
+		html_painter_set_pen (p, &cell->bg);
+		html_painter_fill_rect (p, tx + o->x - cell->padding,
+					ty + o->y - o->ascent + top,
+					o->width + cell->padding * 2,
+					bottom - top);
+	}
 	html_cluev_draw (o, p, x, y, width, height, tx, ty);
+
 }
 
 static void
