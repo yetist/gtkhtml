@@ -2543,7 +2543,8 @@ drag_data_received (GtkWidget *widget, GdkDragContext *context,
 		}
 
 		html_undo_level_begin (engine->undo, "Dropped URI(s)", "Remove Dropped URI(s)");
-		obj = new_obj_from_uri (engine, utf8, title, -1);
+
+		obj = new_obj_from_uri (engine, utf8, (HTML_IS_PLAIN_PAINTER (engine->painter) && context->action <= GDK_ACTION_COPY) ? utf8 : title, -1);
 		if (obj) {
 			html_engine_paste_object (engine, obj, html_object_get_length (obj));
 			pasted = TRUE;

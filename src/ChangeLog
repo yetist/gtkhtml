@@ -15,6 +15,13 @@
 
 2004-08-03  Radek Doulik  <rodo@ximian.com>
 
+	* gtkhtml.c (drag_data_received): do not use title from
+	MOZILLA_URL in plaintext mode unless dnd context action >
+	GDK_ACTION_COPY. this means that we paste url in plain text or
+	title similar as in html mode if you press Shift or Meta Shift
+
+	Fixes #59893
+
 	* htmltext.c (html_text_set_style_in_range): avoid setting default
 	font size
 
