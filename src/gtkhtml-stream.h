@@ -44,5 +44,9 @@ void           gtk_html_stream_close    (GtkHTMLStream          *stream,
 GtkHTMLStream *gtk_html_stream_ref      (GtkHTMLStream          *handle);
 void           gtk_html_stream_unref    (GtkHTMLStream          *handle);
 
+GtkHTMLStream *gtk_html_stream_log_new  (GtkHTML                *html,
+					 GtkHTMLStreamWriteFunc  write_func,
+					 GtkHTMLStreamCloseFunc  close_func,
+					 gpointer                user_data);
 
 #endif /* _GTKHTML_STREAM_H */

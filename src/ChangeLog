@@ -1,3 +1,14 @@
+2001-03-19  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml-stream.c (gtk_html_stream_log_new): helper function to
+	allow logging on any stream created with gtk_html_stream_log_new
+	rather than gtkhtml_stream_new.
+	(stream_log_write): proxy the write to the internal stream.
+	(stream_log_close): proxy the close to the internal stream and
+	clean up.
+
+	* gtkhtml-stream.h: add prototype for gtk_html_stream_log_new.
+
 2001-03-15  Radek Doulik  <rodo@ximian.com>
 
 	* htmltable.c (accepts_cursor): accept cursor
