@@ -3875,10 +3875,8 @@ html_engine_stream_end (GtkHTMLStream *stream,
 
 
 
-void
-html_engine_draw (HTMLEngine *e,
-		  gint x, gint y,
-		  gint width, gint height)
+static void
+html_engine_draw_real (HTMLEngine *e, gint x, gint y, gint width, gint height)
 {
 	gint tx, ty;
 
@@ -3906,6 +3904,18 @@ html_engine_draw (HTMLEngine *e,
 
 	if (e->editable)
 		html_engine_draw_cursor_in_area (e, x, y, width, height);
+}
+
+void
+html_engine_draw (HTMLEngine *e,
+		  gint x, gint y,
+		  gint width, gint height)
+{
+	if (html_engine_frozen (e)) {
+		html_engine_add_expose (e, x, y, width, height);
+	} else {
+		html_engine_draw_real (e, x, y, width, height);
+	}
 }
 
 static gint
@@ -4492,6 +4502,7 @@ do_pending_expose (HTMLEngine *e)
 {
 	GSList *l, *next;
 
+	g_assert (!html_engine_frozen (e));
 	/* printf ("do_pending_expose\n"); */
 
 	for (l = e->pending_expose; l; l = next) {
@@ -4500,7 +4511,7 @@ do_pending_expose (HTMLEngine *e)
 		next = l->next;
 		r = (GdkRectangle *) l->data;
 
-		html_engine_draw (e, r->x, r->y, r->width, r->height);
+		html_engine_draw_real (e, r->x, r->y, r->width, r->height);
 		g_free (r);
 	}
 }
@@ -4531,6 +4542,8 @@ thaw_idle (gpointer data)
 
 	gtk_html_private_calc_scrollbars (e->widget, NULL, NULL);
 	gtk_html_edit_make_cursor_visible (e->widget);
+
+	e->freeze_count--;
 
 	if (redraw_whole) {
 		g_slist_foreach (e->pending_expose, free_expose_data, NULL);
@@ -4563,7 +4576,6 @@ thaw_idle (gpointer data)
 	g_slist_free (e->pending_expose);
 	e->pending_expose = NULL;
 
-	e->freeze_count--;
 	html_engine_show_cursor (e);
 
 	return FALSE;

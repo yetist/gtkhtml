@@ -809,16 +809,9 @@ expose (GtkWidget *widget, GdkEventExpose *event)
 {
 	/* printf ("expose x: %d y: %d\n", GTK_HTML (widget)->engine->x_offset, GTK_HTML (widget)->engine->y_offset); */
 
-	if (html_engine_frozen (GTK_HTML (widget)->engine)) {
-		/* printf ("frozen\n"); */
-		html_engine_add_expose (GTK_HTML (widget)->engine,
-					event->area.x, event->area.y,
-					event->area.width, event->area.height);
-	} else {
-		html_engine_draw (GTK_HTML (widget)->engine,
-				  event->area.x, event->area.y,
-				  event->area.width, event->area.height);
-	}
+	html_engine_draw (GTK_HTML (widget)->engine,
+			  event->area.x, event->area.y,
+			  event->area.width, event->area.height);
 
 	if (GTK_WIDGET_CLASS (parent_class)->expose_event)
 		(* GTK_WIDGET_CLASS (parent_class)->expose_event) (widget, event);
