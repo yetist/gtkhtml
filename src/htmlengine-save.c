@@ -38,7 +38,6 @@ encode_entities (const guchar *input,
     guchar *buffer = NULL;
     guchar *out = NULL;
     gint buffer_size = 0;
-    gint html = 0;
     guint count;
 
     /* Allocate an translation buffer.  */
@@ -81,13 +80,6 @@ encode_entities (const guchar *input,
 	    *out++ = 'u';
 	    *out++ = 'o';
 	    *out++ = 't';
-	    *out++ = ';';
-	} else if ((*cur == '\'') && (!html)) {
-	    *out++ = '&';
-	    *out++ = 'a';
-	    *out++ = 'p';
-	    *out++ = 'o';
-	    *out++ = 's';
 	    *out++ = ';';
 	} else if (((*cur >= 0x20) && (*cur < 0x80))
 		   || (*cur == '\n') || (*cur == '\r') || (*cur == '\t')) {

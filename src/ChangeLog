@@ -1,5 +1,8 @@
 2000-01-26  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlengine-save.c (encode_entities): `&apos;' is not valid in
+	HTML.  Removed (now) unused variable `html'.
+
 	* htmlengine-save.c (write_header): Use uppercase tags for consistency.
 	(write_end): Likewise.
 
