@@ -106,7 +106,7 @@ parse_length (char **str)
 	char *cur = *str;
 	HTMLLength *len = g_new (HTMLLength, 1);
 	
-	g_warning ("begin \"%s\"", *str);
+	/* g_warning ("begin \"%s\"", *str); */
 
 	while (isspace (*cur)) cur++;
 
@@ -129,12 +129,11 @@ parse_length (char **str)
 	}
 	
 	if (cur <= *str) {
-		g_warning ("bialing");
 		g_free (len);
 		return NULL;
 	} 
 
-	g_warning ("length len->val=%d, len->type=%d", len->val, len->type);
+	/* g_warning ("length len->val=%d, len->type=%d", len->val, len->type); */
 	*str = cur;
 	cur = strstr (cur, ",");	
 	if (cur) {
@@ -142,7 +141,6 @@ parse_length (char **str)
 		*str = cur;
 	}
 
-	g_warning ("end \"%s\"", *str);
 	return len;
 }
 	
@@ -164,8 +162,6 @@ calc_dimension (GPtrArray *dim, gint *span, gint total)
 	int adj;
 	int remain;
 	int num_frac = 0;
-
-	g_warning ("dims count = %d", dim->len);
 
 	remain = total;
 	for (i = 0; i < dim->len; i++) {
@@ -235,9 +231,6 @@ calc_size (HTMLObject *o,
 	o->width = view_width;
 	o->descent = 0;
 
-	g_warning ("frame count = %d", set->frames->len);
-	g_warning ("cols count = %d", set->cols->len);
-
 	heights = g_malloc (set->rows->len * sizeof (gint));
 	widths = g_malloc (set->cols->len * sizeof (gint));
 
@@ -275,6 +268,8 @@ calc_size (HTMLObject *o,
 	}		 				
 	return TRUE;
 }
+
+	
 
 void
 html_frameset_init (HTMLFrameset *set, GtkHTML *parent, char *rows, char *cols)
@@ -372,6 +367,20 @@ destroy (HTMLObject *self)
 	(* parent_class->destroy) (self);
 }
 
+static void
+set_max_width (HTMLObject *o, HTMLPainter *painter, gint w)
+{
+	HTMLFrameset *set;
+	int i;
+
+	(* HTML_OBJECT_CLASS (parent_class)->set_max_width) (o, painter, w);
+
+	set = HTML_FRAMESET (o);
+	for (i = 0; i < set->frames->len; i++)
+		html_object_set_max_width (g_ptr_array_index (set->frames, i), painter, w);
+
+}
+
 static HTMLObject*
 check_point (HTMLObject *self,
 	     HTMLPainter *painter,
@@ -399,13 +408,19 @@ check_point (HTMLObject *self,
 	return NULL;
 }
 
+static gboolean
+is_container (HTMLObject *self)
+{
+	return TRUE;
+}
+
 static void
 reset (HTMLObject *self)
 {
 	HTMLFrameset *set;
 	gint i;	
 
-
+	(* HTML_OBJECT_CLASS (parent_class)->reset) (self);
 	set = HTML_FRAMESET (self);
 	for (i = 0; i < set->frames->len; i++)
 		html_object_reset (g_ptr_array_index (set->frames, i));
@@ -422,9 +437,9 @@ forall (HTMLObject *self,
 	gint i;
 
 	set = HTML_FRAMESET (self);
-	(* func) (self, html_object_get_engine (self, e), data);
 	for (i = 0; i < set->frames->len; i++)
-		     (* func) (g_ptr_array_index (set->frames, i), e, data);
+		     html_object_forall (g_ptr_array_index (set->frames, i), e, func, data);
+	(* func) (self, e, data);
 }
  
 
@@ -438,6 +453,12 @@ html_frameset_new (GtkHTML *parent, gchar *rows, gchar *cols)
 	html_frameset_init (set, parent, rows, cols);
 
 	return HTML_OBJECT (set);
+}
+
+static gint
+calc_min_width (HTMLObject *o, HTMLPainter *p)
+{
+	return -1;
 }
 
 void
@@ -459,9 +480,14 @@ html_frameset_class_init (HTMLFramesetClass *klass,
 	object_class->draw =        draw;
 	object_class->destroy =     destroy;
 	object_class->check_point = check_point;
+	object_class->set_max_width = set_max_width;
+
 	//object_class->draw_background = draw_background;
 	object_class->forall = forall;
 	//object_class->reset = reset;
+	object_class->is_container = is_container;
+
+	object_class->calc_min_width = calc_min_width;
 	/*
 	object_class->copy = copy;	
 	object_class->op_copy = op_copy;
@@ -470,7 +496,6 @@ html_frameset_class_init (HTMLFramesetClass *klass,
 	object_class->merge = merge;
 	object_class->accepts_cursor = accepts_cursor;
 	object_class->destroy = destroy;
-	object_class->calc_min_width = calc_min_width;
 	object_class->calc_preferred_width = calc_preferred_width;
 	object_class->find_anchor = find_anchor;
 	object_class->is_container = is_container;

@@ -1,6 +1,14 @@
+2001-05-30  Larry Ewing  <lewing@ximian.com>
+
+	* htmlframeset.c (calc_min_width): add hack to force size
+	calculation when the widget gets a new allocation.
+	(forall): fix this.
+	(is_container): add.
+	remove debug g_warnings.
+
 2001-05-29  Larry Ewing  <lewing@ximian.com>
 
-	* htmltokenizer.c (end_tag): remove frameset wanrings.
+	* htmltokenizer.c (end_tag): remove frameset warnings.
 
 	* htmlengine.h: add new members for frame and map support.
 
