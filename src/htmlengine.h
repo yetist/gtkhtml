@@ -268,7 +268,9 @@ void  html_engine_select_region  (HTMLEngine *e,
 				  gint        x1,
 				  gint        y1,
 				  gint        x2,
-				  gint        y2);
-void  html_engine_unselect_all   (HTMLEngine *e);
+				  gint        y2,
+				  gboolean    queue_draw);
+void  html_engine_unselect_all   (HTMLEngine *e,
+				  gboolean    queue_draw);
 
 #endif /* _HTMLENGINE_H_ */

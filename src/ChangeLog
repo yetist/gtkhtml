@@ -1,5 +1,27 @@
 2000-01-23  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmltextmaster.c (split): Set the selection on the new element
+	by hand instead of calling `html_object_select_range()'.
+
+	* gtkhtml.c (motion_notify_event): Call
+	`html_engine_select_region' with `TRUE' as the `queue_draw'
+	parameter.
+
+	* htmlengine.c (html_engine_select_region): New param
+	`queue_draw'.  When not FALSE, put all the objects that change
+	selection state on the draw queue.
+	(select_region_forall): Updated to do this.
+	(html_engine_unselect_all): New param `queue_draw', honoured by
+	using `SelectRegionData'.
+	(unselect_forall): Updated accordingly.
+
+	* htmlobject.h (select_range): Updated with the `engine' and
+	`queue_draw' params.
+	(html_object_select_range): Likewise.
+
+	* htmlobject.h: New params `engine', `queue_draw' in
+	`HTMLObject::select_range'.
+
 	* htmltextmaster.c (check_point): Removed debugging message.
 
 	* gtkhtml.c (button_press_event): Sum the X/Y offsets before

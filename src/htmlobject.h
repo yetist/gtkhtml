@@ -173,7 +173,8 @@ struct _HTMLObjectClass {
 	void (* get_cursor_base) (HTMLObject *self, HTMLPainter *painter, guint offset,
 				  gint *x, gint *y);
 
-	gboolean (* select_range) (HTMLObject *self, guint start, gint length);
+	gboolean (* select_range) (HTMLObject *self, HTMLEngine *engine, guint start, gint length,
+				   gboolean queue_draw);
 
 	void (* forall) (HTMLObject *self, HTMLObjectForallFunc func, gpointer data);
 
@@ -269,7 +270,9 @@ HTMLObject *html_object_check_point      (HTMLObject  *clue,
 
 /* Selection.  */
 gboolean  html_object_select_range  (HTMLObject *obj,
+				     HTMLEngine *engine,
 				     guint       start,
-				     gint        length);
+				     gint        length,
+				     gboolean    queue_draw);
 
 #endif /* _HTMLOBJECT_H_ */

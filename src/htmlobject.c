@@ -239,8 +239,10 @@ get_cursor_base (HTMLObject *self,
 
 static gboolean
 select_range (HTMLObject *self,
+	      HTMLEngine *engine,
 	      guint start,
-	      gint length)
+	      gint length,
+	      gboolean queue_draw)
 {
 	gboolean selected;
 	gboolean changed;
@@ -256,6 +258,9 @@ select_range (HTMLObject *self,
 		changed = FALSE;
 
 	self->selected = selected;
+
+	if (queue_draw && changed)
+		html_engine_queue_draw (engine, self);
 
 	return changed;
 }
@@ -529,10 +534,12 @@ html_object_get_cursor_base (HTMLObject *self,
 
 gboolean
 html_object_select_range (HTMLObject *self,
+			  HTMLEngine *engine,
 			  guint start,
-			  gint length)
+			  gint length,
+			  gboolean queue_draw)
 {
-	return (* HO_CLASS (self)->select_range) (self, start, length);
+	return (* HO_CLASS (self)->select_range) (self, engine, start, length, queue_draw);
 }
 
 void

@@ -423,9 +423,8 @@ motion_notify_event (GtkWidget *widget,
 
 		html_engine_select_region (engine,
 					   html->selection_x1, html->selection_y1,
-					   html->selection_x2, html->selection_y2);
-
-		gtk_widget_queue_draw (widget);
+					   html->selection_x2, html->selection_y2,
+					   TRUE);
 	} else {
 		url = html_engine_get_link_at (engine,
 					       event->x + engine->x_offset,
@@ -437,6 +436,7 @@ motion_notify_event (GtkWidget *widget,
 				html->pointer_url = NULL;
 				gtk_signal_emit (GTK_OBJECT (html), signals[ON_URL], NULL);
 			}
+
 			gdk_window_set_cursor (widget->window, html->arrow_cursor);
 		} else {
 			if (html->pointer_url == NULL || strcmp (html->pointer_url, url) != 0) {
@@ -444,6 +444,7 @@ motion_notify_event (GtkWidget *widget,
 				html->pointer_url = g_strdup (url);
 				gtk_signal_emit (GTK_OBJECT (html), signals[ON_URL], url);
 			}
+
 			gdk_window_set_cursor (widget->window, html->hand_cursor);
 		}
 	}
@@ -476,7 +477,7 @@ button_press_event (GtkWidget *widget,
 
 	html->button_pressed = TRUE;
 
-	html_engine_unselect_all (engine);
+	html_engine_unselect_all (engine, TRUE);
 
 	return TRUE;
 }

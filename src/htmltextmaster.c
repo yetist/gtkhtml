@@ -161,8 +161,9 @@ split (HTMLText *self,
 
 	if (master->select_length != 0 && offset < master->select_start + master->select_length) {
 		master->select_length = offset - master->select_start;
-		html_object_select_range (HTML_OBJECT (new),
-					  0, master->select_length - (offset - master->select_start));
+		HTML_TEXT_MASTER (new)->select_start = 0;
+		HTML_TEXT_MASTER (new)->select_length = master->select_length - (offset
+										 - master->select_start);
 	}
 
 	return HTML_TEXT (new);
@@ -218,10 +219,13 @@ check_point (HTMLObject *self,
 
 static gboolean
 select_range (HTMLObject *self,
+	      HTMLEngine *engine,
 	      guint offset,
-	      gint length)
+	      gint length,
+	      gboolean queue_draw)
 {
 	HTMLTextMaster *master;
+	HTMLObject *p;
 	gboolean changed;
 
 	master = HTML_TEXT_MASTER (self);
@@ -233,6 +237,32 @@ select_range (HTMLObject *self,
 		changed = TRUE;
 	else
 		changed = FALSE;
+
+	if (queue_draw) {
+		for (p = self->next;
+		     p != NULL && HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE;
+		     p = p->next) {
+			HTMLTextSlave *slave;
+			gboolean was_selected;
+			gboolean is_selected;
+
+			slave = HTML_TEXT_SLAVE (p);
+
+			if (master->select_start + master->select_length > slave->posStart
+			    && master->select_start < slave->posStart + slave->posLen)
+				was_selected = TRUE;
+			else
+				was_selected = FALSE;
+
+			if (offset + length > slave->posStart
+			    && offset < slave->posStart + slave->posLen)
+				is_selected = TRUE;
+			else
+				is_selected = FALSE;
+
+			html_engine_queue_draw (engine, p);
+		}
+	}
 
 	master->select_start = offset;
 	master->select_length = length;

@@ -3349,10 +3349,12 @@ html_engine_form_submitted (HTMLEngine *e,
 
 
 struct _SelectRegionData {
+	HTMLEngine *engine;
 	HTMLObject *obj1, *obj2;
 	guint offset1, offset2;
 	gint x1, y1, x2, y2;
-	gboolean select;
+	gboolean select : 1;
+	gboolean queue_draw : 1;
 };
 typedef struct _SelectRegionData SelectRegionData;
 
@@ -3361,19 +3363,25 @@ select_region_forall (HTMLObject *self,
 		      gpointer data)
 {
 	SelectRegionData *select_data;
+	gboolean changed;
 
 	select_data = (SelectRegionData *) data;
+	changed = FALSE;
 
 	if (self == select_data->obj1 || self == select_data->obj2) {
 		if (select_data->obj1 == select_data->obj2) {
 			if (select_data->offset2 > select_data->offset1)
-				html_object_select_range (select_data->obj1,
-							  select_data->offset1,
-							  select_data->offset2 - select_data->offset1);
+				changed = html_object_select_range (select_data->obj1,
+								    select_data->engine,
+								    select_data->offset1,
+								    select_data->offset2 - select_data->offset1,
+								    select_data->queue_draw);
 			else if (select_data->offset2 < select_data->offset1)
-				html_object_select_range (select_data->obj1,
-							  select_data->offset2,
-							  select_data->offset1 - select_data->offset2);
+				changed = html_object_select_range (select_data->obj1,
+								    select_data->engine,
+								    select_data->offset2,
+								    select_data->offset1 - select_data->offset2,
+								    select_data->queue_draw);
 			select_data->select = FALSE;
 		} else {
 			guint offset;
@@ -3384,18 +3392,24 @@ select_region_forall (HTMLObject *self,
 				offset = select_data->offset2;
 
 			if (select_data->select) {
-				html_object_select_range (self, 0, offset);
+				changed = html_object_select_range (self,
+								    select_data->engine,
+								    0, offset,
+								    select_data->queue_draw);
 				select_data->select = FALSE;
 			} else {
-				html_object_select_range (self, offset, -1);
+				changed = html_object_select_range (self,
+								    select_data->engine,
+								    offset, -1,
+								    select_data->queue_draw);
 				select_data->select = TRUE;
 			}
 		}
 	} else {
 		if (select_data->select) {
-			html_object_select_range (self, 0, -1);
+			changed = html_object_select_range (self, select_data->engine, 0, -1, select_data->queue_draw);
 		} else {
-			html_object_select_range (self, 0, 0);
+			changed = html_object_select_range (self, select_data->engine, 0, 0, select_data->queue_draw);
 		}
 	}
 
@@ -3428,7 +3442,8 @@ select_region_forall (HTMLObject *self,
 void
 html_engine_select_region (HTMLEngine *e,
 			   gint x1, gint y1,
-			   gint x2, gint y2)
+			   gint x2, gint y2,
+			   gboolean queue_draw)
 {
 	SelectRegionData *data;
 	gint x, y;
@@ -3441,12 +3456,14 @@ html_engine_select_region (HTMLEngine *e,
 
 	data = g_new (SelectRegionData, 1);
 
+	data->engine = e;
 	data->obj1 = html_engine_get_object_at (e, x1, y1, &data->offset1, TRUE);
 	data->obj2 = html_engine_get_object_at (e, x2, y2, &data->offset2, TRUE);
 	data->select = FALSE;
+	data->queue_draw = queue_draw;
 
 	if (data->obj1 == NULL || data->obj2 == NULL) {
-		html_engine_unselect_all (e);
+		html_engine_unselect_all (e, queue_draw);
 		return;
 	}
 
@@ -3467,17 +3484,29 @@ static void
 unselect_forall (HTMLObject *self,
 		 gpointer data)
 {
-	html_object_select_range (self, 0, 0);
+	SelectRegionData *select_data;
+
+	select_data = (SelectRegionData *) data;
+	html_object_select_range (self, select_data->engine, 0, 0, select_data->queue_draw);
 }
 
 void
-html_engine_unselect_all (HTMLEngine *e)
+html_engine_unselect_all (HTMLEngine *e,
+			  gboolean queue_draw)
 {
+	SelectRegionData *select_data;
+
 	g_return_if_fail (e != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
 	if (e->clue == NULL)
 		return;
 
-	html_object_forall (e->clue, unselect_forall, NULL);
+	select_data = g_new (SelectRegionData, 1);
+	select_data->engine = e;
+	select_data->queue_draw = queue_draw;
+
+	html_object_forall (e->clue, unselect_forall, select_data);
+
+	g_free (select_data);
 }
