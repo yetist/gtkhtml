@@ -767,6 +767,7 @@ style_set (GtkWidget *widget, GtkStyle  *previous_style)
 		}
 		
 		g_free (fixed_name);
+		g_free (font_var);
 	}
 
 
@@ -1704,8 +1705,10 @@ selection_get (GtkWidget        *widget,
 		if (selection_string)
 			gtk_selection_data_set_text (selection_data, selection_string, strlen (selection_string));
 		
-		g_free (selection_string);
 	}
+
+	g_free (selection_string);
+
 }
 
 /* receive a selection */

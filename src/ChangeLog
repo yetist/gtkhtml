@@ -1,3 +1,13 @@
+2003-06-10  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml.c (style_set): free the var_name.
+	(selection_get): don't leak the selection string.
+	(finalize): free the body_stack.
+
+2003-06-09  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c (html_engine_finalize): don't leak body_stack.
+
 2003-05-21  Larry Ewing  <lewing@ximian.com>
 
 	* libgtkhtml.pc.in (Version): set version correctly.

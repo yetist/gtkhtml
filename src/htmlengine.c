@@ -3372,6 +3372,11 @@ html_engine_finalize (GObject *object)
 		engine->embeddedStack = NULL;
 	}
 
+	if (engine->body_stack) {
+		html_stack_destroy (engine->body_stack);
+		engine->body_stack = NULL;
+	}
+
 	if (engine->tempStrings) {
 		for (p = engine->tempStrings; p != NULL; p = p->next)
 			g_free (p->data);
