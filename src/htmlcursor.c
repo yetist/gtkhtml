@@ -72,6 +72,28 @@ html_cursor_new (void)
 }
 
 void
+html_cursor_destroy (HTMLCursor *cursor)
+{
+	g_return_if_fail (cursor != NULL);
+
+	g_free (cursor);
+}
+
+HTMLCursor *
+html_cursor_dup (const HTMLCursor *cursor)
+{
+	HTMLCursor *new;
+
+	new = html_cursor_new ();
+
+	new->object = cursor->object;
+	new->offset = cursor->offset;
+
+	return new;
+}
+
+
+void
 html_cursor_set_position (HTMLCursor *cursor,
 			  HTMLObject *object,
 			  guint offset)
@@ -80,23 +102,6 @@ html_cursor_set_position (HTMLCursor *cursor,
 
 	cursor->object = object;
 	cursor->offset = offset;
-}
-
-void
-html_cursor_destroy (HTMLCursor *cursor)
-{
-	g_return_if_fail (cursor != NULL);
-
-	g_free (cursor);
-}
-
-gboolean
-html_cursor_equal (HTMLCursor *a, HTMLCursor *b)
-{
-	g_return_val_if_fail (a != NULL, FALSE);
-	g_return_val_if_fail (b != NULL, FALSE);
-
-	return a->object == b->object && a->offset == b->offset;
 }
 
 
@@ -561,3 +566,12 @@ html_cursor_down (HTMLCursor *cursor,
 	}
 }
 
+
+gboolean
+html_cursor_equal (HTMLCursor *a, HTMLCursor *b)
+{
+	g_return_val_if_fail (a != NULL, FALSE);
+	g_return_val_if_fail (b != NULL, FALSE);
+
+	return a->object == b->object && a->offset == b->offset;
+}

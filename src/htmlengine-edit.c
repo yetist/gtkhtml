@@ -19,6 +19,7 @@
     Boston, MA 02111-1307, USA.
 */
 
+
 #include <glib.h>
 
 #include "htmlobject.h"
@@ -384,7 +385,7 @@ merge_text_at_cursor (HTMLEngine *e)
 
 	/* The items can be merged: remove the slaves in between.  */
 
-	p = prev;
+	p = prev->next;
 	while (HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE) {
 		HTMLObject *pnext;
 
@@ -408,7 +409,7 @@ merge_text_at_cursor (HTMLEngine *e)
 	html_clue_remove (HTML_CLUE (prev->parent), prev);
 	html_object_destroy (prev);
 
-	html_object_relayout (curr->parent, e, prev);
+	html_object_relayout (curr->parent, e, curr);
 
 	return retval;
 }

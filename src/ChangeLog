@@ -1,5 +1,10 @@
 2000-01-24  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlengine-edit.c (merge_text_at_cursor): Fix merging.
+
+	* htmlcursor.c (html_cursor_dup): New function to duplicate a
+	cursor.
+
 	* gtkhtml.c (focus_in_event): New function, implementation for
 	`GtkWidget::focus_in_event'.
 	(focus_out_event): New function, implementation for
