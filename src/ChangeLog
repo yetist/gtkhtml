@@ -1,3 +1,7 @@
+2001-03-26  Larry Ewing  <lewing@ximian.com>
+
+	* keybindingsrc.emacs: disable autofill.
+
 2001-03-27  Radek Doulik  <rodo@ximian.com>
 
 	* htmltable.c (append_selection_string): start tabbing on first
