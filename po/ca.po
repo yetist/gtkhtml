@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-01 16:31+0100\n"
-"PO-Revision-Date: 2004-06-10 20:10+0100\n"
+"POT-Creation-Date: 2004-11-15 00:49+0100\n"
+"PO-Revision-Date: 2004-11-15 00:48+0100\n"
 "Last-Translator: Xavier Conde Rueda <xaviconde@eresmas.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
@@ -430,7 +430,7 @@ msgstr "Justifica a l'esquerra els paràgrafs"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:54
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
 msgid "Li_ck"
-msgstr "Llengua _fora"
+msgstr "Ll_engot"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
@@ -1760,6 +1760,8 @@ msgid ""
 "Unable to add word to dictionary,\n"
 "language settings are broken.\n"
 msgstr ""
+"No s'ha pogut afegir la paraula al diccionari,\n"
+"els paràmetres de llengua estan trencats.\n"
 
 #: components/html-editor/spell.c:298
 msgid "No misspelled word found"
@@ -2025,7 +2027,7 @@ msgstr "Reinicia"
 msgid "Cannot allocate default font for printing\n"
 msgstr "No es pot carregar el tipus de lletra predeterminada per imprimir\n"
 
-#: src/test.c:191
+#: src/test.c:375
 msgid "GtkHTML Test"
 msgstr "Prova de GtkHTML"
 
