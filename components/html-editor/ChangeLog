@@ -1,5 +1,9 @@
 2000-11-14  Radek Doulik  <rodo@helixcode.com>
 
+	* engine.c (impl_run_command): renamed
+
+	* HTMLEditor.idl: changed command to runCommand
+
 	* engine.c: updated to API changes
 
 	* HTMLEditor.idl: StudlyCapsulized

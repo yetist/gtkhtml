@@ -110,7 +110,7 @@ impl_get_listener (PortableServer_Servant servant, CORBA_Environment * ev)
 }
 
 static void
-impl_command (PortableServer_Servant servant, const CORBA_char * command, CORBA_Environment * ev)
+impl_run_command (PortableServer_Servant servant, const CORBA_char * command, CORBA_Environment * ev)
 {
 	HTMLEditorEngine *e = html_editor_engine_from_servant (servant);
 
@@ -169,7 +169,7 @@ html_editor_engine_get_epv (void)
 	epv->setParagraphData         = impl_set_paragraph_data;
 	epv->getParagraphData         = impl_get_paragraph_data;
 	epv->setObjectDataByType      = impl_set_object_data_by_type;
-	epv->command                  = impl_command;
+	epv->runCommand               = impl_run_command;
 	epv->isParagraphEmpty         = impl_is_paragraph_empty;
 	epv->isPreviousParagraphEmpty = impl_is_previous_paragraph_empty;
 

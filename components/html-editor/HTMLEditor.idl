@@ -46,7 +46,7 @@ module HTMLEditor {
 		/*
 		 * execute editor command
 		 */
-		void command (in string command);
+		void runCommand (in string command);
 
 		/*
 		 * returns TRUE if current paragraph is empty (will be possibly replaced
