@@ -607,7 +607,7 @@ scroll_timeout_cb (gpointer data)
 		HTMLEngine *engine;
 
 		engine = html->engine;
-		html_engine_select_region (engine, html->selection_x1, html->selection_y1, x, y);
+		html_engine_select_region (engine, html->selection_x1, html->selection_y1, x + engine->x_offset, y + engine->y_offset);
 	}
 
 	layout = GTK_LAYOUT (widget);
@@ -1358,7 +1358,7 @@ motion_notify_event (GtkWidget *widget,
 
 	engine = GTK_HTML (widget)->engine;
 	if (GTK_HTML (widget)->in_selection_drag && html_engine_get_editable (engine))
-		html_engine_jump_at (engine, x + engine->x_offset, y + engine->y_offset);
+		html_engine_jump_at (engine, x, y);
 	return TRUE;
 }
 
@@ -1516,7 +1516,7 @@ button_release_event (GtkWidget *initial_widget,
 		html_engine_update_selection_active_state (html->engine, html->priv->event_time);
 		if (html->in_selection_drag)
 			html_engine_select_region (engine, html->selection_x1, html->selection_y1,
-						   x + engine->x_offset, y + engine->y_offset);
+						   x, y);
 		gtk_html_update_styles (html);
 		queue_draw (html);
 	}
@@ -1524,7 +1524,7 @@ button_release_event (GtkWidget *initial_widget,
 	if (event->button == 1) {
 
 		if (html->in_selection_drag && html_engine_get_editable (engine)) 
-			html_engine_jump_at (engine, x + engine->x_offset, y + engine->y_offset); 
+			html_engine_jump_at (engine, x, y); 
 
 		html->in_selection_drag = FALSE;
 

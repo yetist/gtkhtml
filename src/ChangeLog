@@ -6,6 +6,9 @@
 	for selections and clean up logic.
 	(selection_received): use the new gtk functions to handle charset
 	conversion and clean up logic.
+	(scroll_timeout_cb): add the offsets.
+	(motion_notify_event): remove the offsets.
+	(button_release_event): remove the offsets.
 
 	* htmlfontmanager.c (get_name_from_face): disable all the logic
 	here.  Rodo, can you look at this, is it still needed?
