@@ -1,3 +1,11 @@
+2004-05-06  David Malcolm  <dmalcolm@redhat.com>
+
+	* htmlimage.c (save): printf-style string should use a "%%" for 
+	a percent sign rather than "\%"
+
+	* htmlengine-save.h (html_engine_save_output_string): add 
+	function attribute G_GNUC_PRINTF
+
 2004-05-06  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml.c (drag_data_received): break instead of return to allow

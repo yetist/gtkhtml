@@ -59,7 +59,7 @@ gboolean             html_engine_save_output_stringv       (HTMLEngineSaveState 
 							    va_list                    ap);
 gboolean             html_engine_save_output_string        (HTMLEngineSaveState       *state,
 							    const gchar               *format,
-							    ...);
+							    ...) G_GNUC_PRINTF (2, 3);
 
 /* Saving a whole tree.  */
 gboolean             html_engine_save                      (HTMLEngine                *engine,

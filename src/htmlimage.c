@@ -593,7 +593,7 @@ save (HTMLObject *self,
 		return FALSE;	
 
 	if (image->percent_width) {
-		if (!html_engine_save_output_string (state, " WIDTH=\"%d\%\"", image->specified_width))
+		if (!html_engine_save_output_string (state, " WIDTH=\"%d%%\"", image->specified_width))
 			return FALSE;
 	} else if (image->specified_width > 0) {
 		if (!html_engine_save_output_string (state, " WIDTH=\"%d\"", image->specified_width))
@@ -601,7 +601,7 @@ save (HTMLObject *self,
 	}
 
 	if (image->percent_height) {
-		if (!html_engine_save_output_string (state, " HEIGHT=\"%d\%\"", image->specified_height))
+		if (!html_engine_save_output_string (state, " HEIGHT=\"%d%%\"", image->specified_height))
 			return FALSE;
 	} else if (image->specified_height > 0) {
 		if (!html_engine_save_output_string (state, " HEIGHT=\"%d\"", image->specified_height))
