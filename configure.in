@@ -13,7 +13,7 @@ GTKHTML_RELEASE_STRING=${PACKAGE}-${GTKHTML_RELEASE}
 AC_DEFINE_UNQUOTED(GTKHTML_RELEASE_STRING, "${GTKHTML_RELEASE_STRING}")
 AC_SUBST(GTKHTML_RELEASE_STRING)
 
-AM_INIT_AUTOMAKE($PACKAGE, $GTKHTML_RELEASE.3)
+AM_INIT_AUTOMAKE($PACKAGE, $GTKHTML_RELEASE.4)
 
 EDITOR_API_VERSION=1.1
 AC_DEFINE_UNQUOTED(EDITOR_API_VERSION, "${EDITOR_API_VERSION}")
@@ -32,7 +32,7 @@ AM_PROG_LIBTOOL
 
 if test -f $srcdir/po/Makefile.in.in ; then
    cp $srcdir/po/Makefile.in.in $srcdir/po/Makefile.in.in.bak
-   sed -e  "s/\$(PACKAGE).mo/\$(PACKAGE)-\$(VERSION).mo/" $srcdir/po/Makefile.in.in.bak > $srcdir/po/Makefile.in.in
+   sed -e  "s/\$(PACKAGE).mo/\$(PACKAGE)-\@GTKHTML_RELEASE@.mo/" $srcdir/po/Makefile.in.in.bak > $srcdir/po/Makefile.in.in
 else
     AC_MSG_ERROR([
 ""
@@ -344,16 +344,16 @@ dnl **********************************
  
 dnl Increment the following if the interface has additions, changes,
 dnl removals.
-GTKHTML_CURRENT=1
+GTKHTML_CURRENT=2
 
 dnl Increment any time the source changes; set to 0 if you
 dnl increment CURRENT.
-GTKHTML_REVISION=1
+GTKHTML_REVISION=0
 
 dnl Increment if any interfaces have been added; set to 0
 dnl if any interfaces have been removed. removal has 
 dnl precedence over adding, so set to 0 if both happened.
-GTKHTML_AGE=0
+GTKHTML_AGE=1
 
 AC_SUBST(GTKHTML_CURRENT)
 AC_SUBST(GTKHTML_REVISION)

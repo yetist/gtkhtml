@@ -1,5 +1,12 @@
 2002-10-07  Larry Ewing  <lewing@ximian.com>
 
+	* Make gtkhtml-1.1.4 release (don't ask).
+
+	* configure.in: fix the .mo installation hack properly this
+        time and bump the version for good measure.
+
+2002-10-07  Larry Ewing  <lewing@ximian.com>
+
         * Make gtkhtml-1.1.3 release.
 	
 	* configure.in: make the po versioning hack avoid unintended side
