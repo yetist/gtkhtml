@@ -1,5 +1,8 @@
 2001-07-13  Larry Ewing  <lewing@ximian.com>
 
+	* popup.c: disable debug #define and wrap the disabled functions
+	in the #ifdef.  This shouldn't be enabled by default.  
+
 	* persist-file-impl.c (persist_file_impl_new): fix a stupid error
 	in the previous change.
 

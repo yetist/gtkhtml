@@ -45,7 +45,7 @@
 #include "table.h"
 #include "text.h"
 
-#define DEBUG
+/* #define DEBUG */
 #ifdef DEBUG
 #include "gtkhtmldebug.h"
 #endif
@@ -169,6 +169,7 @@ spell_suggest (GtkWidget *mi, GtkHTMLControlData *cd)
 	spell_suggestion_request (cd->html, html_engine_get_word (e), cd);
 }
 
+#ifdef DEBUG
 static void
 dump_tree_simple (GtkWidget *mi, GtkHTMLControlData *cd)
 {
@@ -186,6 +187,7 @@ insert_html (GtkWidget *mi, GtkHTMLControlData *cd)
 {
 	gtk_html_insert_html (cd->html, "<BR>Hello dude!<BR><PRE>--\nrodo\n</PRE>");
 }
+#endif
 
 #define ADD_ITEM(l,f,t) \
 		menuitem = gtk_menu_item_new_with_label (l); \
