@@ -1,7 +1,7 @@
 # Danish translation of gtkhtml.
-# Copyright (C) 2000, 01, 02 Free Software Foundation, Inc.
+# Copyright (C) 2000, 01, 02, 03 Free Software Foundation, Inc.
 # Keld Simonsen, <keld@dkuug.dk>, 2000, 01.
-# Ole Laursen <olau@hardworking.dk>, 2002.
+# Ole Laursen <olau@hardworking.dk>, 2002, 03.
 #
 # Konventioner:
 #
@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2002-12-15 17:43+0100\n"
-"PO-Revision-Date: 2002-12-15 17:42+0100\n"
+"POT-Creation-Date: 2003-01-12 12:37+0100\n"
+"PO-Revision-Date: 2003-01-12 12:35+0100\n"
 "Last-Translator: Ole Laursen <olau@hardworking.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgid "<None>"
 msgstr "<ingen>"
 
 #: capplet/gnome-bindings-prop.c:211 capplet/main.c:241
-#: components/html-editor/cell.c:416 components/html-editor/image.c:532
+#: components/html-editor/cell.c:417 components/html-editor/image.c:532
 #: components/html-editor/rule.c:315 components/html-editor/table.c:529
 #: components/html-editor/table.c:613 components/html-editor/template.c:271
 msgid "Could not load glade file."
@@ -499,7 +499,7 @@ msgstr "Indsæt"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
 msgid "Paste _Quotation"
-msgstr "Indsæt _citering"
+msgstr "Indsæt _citat"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
 msgid "Paste from clipboard"
@@ -511,7 +511,7 @@ msgstr "Indsæt fra klippebordet"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
 msgid "Paste the clipboard as a quotation"
-msgstr "Indsæt fra klippebordet som en citering"
+msgstr "Indsæt fra klippebordet som et citat"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
 #: components/html-editor/toolbar.c:48
@@ -599,7 +599,7 @@ msgstr "Hævet skrift"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
 #: components/html-editor/menubar.c:176 components/html-editor/popup.c:234
-#: components/html-editor/popup.c:505 components/html-editor/popup.c:514
+#: components/html-editor/popup.c:501 components/html-editor/popup.c:510
 msgid "Table"
 msgstr "Tabel"
 
@@ -847,7 +847,7 @@ msgstr "Baggrundsbillede"
 msgid "Colors"
 msgstr "Farver"
 
-#: components/html-editor/body.c:313 components/html-editor/cell.c:422
+#: components/html-editor/body.c:313 components/html-editor/cell.c:423
 #: components/html-editor/table.c:535 components/html-editor/text.c:291
 #: components/html-editor/toolbar.c:299
 msgid "Automatic"
@@ -865,12 +865,12 @@ msgstr "Tekst"
 msgid "Background"
 msgstr "Baggrund"
 
-#: components/html-editor/cell.c:171 components/html-editor/cell.c:173
+#: components/html-editor/cell.c:172 components/html-editor/cell.c:174
 #: components/html-editor/text.c:104
 msgid "The quick brown fox jumps over the lazy dog."
 msgstr "Cølibatisk havfrue på brynjeklædt wc med plexiglas i zoo."
 
-#: components/html-editor/cell.c:176
+#: components/html-editor/cell.c:177
 msgid "Other"
 msgstr "Andet"
 
@@ -961,7 +961,7 @@ msgid "Color:"
 msgstr "Farve:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:26
-#: components/html-editor/popup.c:516
+#: components/html-editor/popup.c:512
 msgid "Column"
 msgstr "Kolonne"
 
@@ -1078,7 +1078,7 @@ msgid "Right"
 msgstr "Højre"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:60
-#: components/html-editor/popup.c:515
+#: components/html-editor/popup.c:511
 msgid "Row"
 msgstr "Række"
 
@@ -1219,6 +1219,14 @@ msgstr ""
 msgid "The quick brown fox jumped over the lazy dog."
 msgstr "Cølibatisk havfrue på brynjeklædt wc med plexiglas i zoo."
 
+#: components/html-editor/image.c:689
+msgid ""
+"The editted image was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+"Det redigerede billede blev fjernet fra dokumentet.\n"
+"Kan ikke anvende dine ændringer."
+
 #: components/html-editor/link.c:91
 msgid "Link text"
 msgstr "Henvisningstekst"
@@ -1226,7 +1234,7 @@ msgstr "Henvisningstekst"
 #: components/html-editor/menubar.c:122 components/html-editor/menubar.c:138
 #: components/html-editor/menubar.c:156 components/html-editor/menubar.c:173
 #: components/html-editor/menubar.c:196 components/html-editor/popup.c:100
-#: components/html-editor/properties.c:134
+#: components/html-editor/properties.c:139
 msgid "Insert"
 msgstr "Indsæt"
 
@@ -1292,7 +1300,7 @@ msgstr "Justér"
 
 #: components/html-editor/popup.c:420
 msgid "Paste Quotation"
-msgstr "Indsæt citering"
+msgstr "Indsæt citat"
 
 #: components/html-editor/popup.c:423
 msgid "Insert link"
@@ -1346,43 +1354,43 @@ msgstr "Regel..."
 msgid "Image..."
 msgstr "Billede..."
 
-#: components/html-editor/popup.c:490 components/html-editor/popup.c:501
-msgid "Table..."
-msgstr "Tabel..."
-
-#: components/html-editor/popup.c:498
+#: components/html-editor/popup.c:494
 msgid "Cell..."
 msgstr "Celle..."
 
-#: components/html-editor/popup.c:504
+#: components/html-editor/popup.c:497
+msgid "Table..."
+msgstr "Tabel..."
+
+#: components/html-editor/popup.c:500
 msgid "Table insert"
 msgstr "Indsæt tabel"
 
-#: components/html-editor/popup.c:507
+#: components/html-editor/popup.c:503
 msgid "Row above"
 msgstr "Rækken ovenover"
 
-#: components/html-editor/popup.c:508
+#: components/html-editor/popup.c:504
 msgid "Row below"
 msgstr "Rækken nedenunder"
 
-#: components/html-editor/popup.c:510
+#: components/html-editor/popup.c:506
 msgid "Column before"
 msgstr "Kolonnen før"
 
-#: components/html-editor/popup.c:511
+#: components/html-editor/popup.c:507
 msgid "Column after"
 msgstr "Kolonnen efter"
 
-#: components/html-editor/popup.c:513
+#: components/html-editor/popup.c:509
 msgid "Table delete"
 msgstr "Slet tabel"
 
-#: components/html-editor/popup.c:517
+#: components/html-editor/popup.c:513
 msgid "Cell contents"
 msgstr "Celleindhold"
 
-#: components/html-editor/popup.c:525
+#: components/html-editor/popup.c:521
 msgid "Page..."
 msgstr "Billede..."
 
@@ -1426,7 +1434,7 @@ msgstr "baglæns"
 msgid "Find Regular Expression"
 msgstr "Søg efter regulært udtryk"
 
-#: components/html-editor/spell.c:351
+#: components/html-editor/spell.c:350
 msgid "Spell Checking _Languages"
 msgstr "S_prog for stavekontrol"
 
@@ -1599,6 +1607,12 @@ msgstr "Vis udskrift"
 #~ msgid "No misspelled word found"
 #~ msgstr "Ingen forkert stavede ord fundet"
 
+#~ msgid "Modify the file's properties"
+#~ msgstr "Ændr filens egenskaber"
+
+#~ msgid "Pr_operties..."
+#~ msgstr "E_genskaber..."
+
 #~ msgid "Cannot execute gtkhtml properties"
 #~ msgstr "Kan ikke starte indstillinger til Gtkhtml"
 
@@ -1607,3 +1621,6 @@ msgstr "Vis udskrift"
 
 #~ msgid "Command"
 #~ msgstr "Kommando"
+
+#~ msgid "HTML Browser control"
+#~ msgstr "HTML-fremviserkontrol"
