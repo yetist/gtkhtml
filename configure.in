@@ -287,7 +287,7 @@ dnl **********************************
 GTKHTML_LIBDIR="-L${libdir}"
 GTKHTML_INCLUDEDIR="-I${includedir}$GTKHTML_RELEASE"
 GTKHTML_INCLUDEDIR="$GTKHTML_INCLUDEDIR `$GNOME_CONFIG --cflags gdk_pixbuf print gal` $GCONF_CFLAGS"
-GTKHTML_LIBS="-lgtkhtml-$GTKHTML_RELEASE `$GNOME_CONFIG --libs gdk_pixbuf print gal` $GCONF_LIBS"
+GTKHTML_LIBS="-lgtkhtml `$GNOME_CONFIG --libs gdk_pixbuf print gal` $GCONF_LIBS"
 GTKHTML_DATADIR="${datadir}"
 
 AC_SUBST(GTKHTML_LIBDIR)
