@@ -2594,7 +2594,6 @@ set_editor_keybindings (GtkHTML *html, gboolean editable)
 
 		name = g_strconcat ("gtkhtml-bindings-",
 				    GTK_HTML_CLASS (GTK_OBJECT (html)->klass)->properties->keybindings_theme, NULL);
-		printf ("looking for %s\n", name);
 		html->editor_bindings = gtk_binding_set_find (name);
 		if (!html->editor_bindings)
 			g_warning ("cannot find %s bindings", name);
@@ -2610,7 +2609,6 @@ load_bindings_from_file (gboolean from_share, gchar *name)
 
 	rcfile = g_strconcat ((from_share ? PREFIX "/share/gtkhtml/" : gnome_util_user_home ()),
 			      (from_share ? "" : "/.gnome/"), name, NULL);
-	printf ("trying load %s\n", rcfile);
 	if (g_file_exists (rcfile))
 		gtk_rc_parse (rcfile);
 	g_free (rcfile);
@@ -2642,7 +2640,7 @@ load_keybindings (GtkHTMLClass *klass)
 	gtk_binding_entry_add_signal (binding_set, GDK_ ## key, m, \
 				      "scroll", 3, \
 				      GTK_TYPE_ORIENTATION, GTK_ORIENTATION_ ## orient, \
-				      GTK_TYPE_ENUM, GTK_SCROLL_ ## sc, \
+				      GTK_TYPE_SCROLL_TYPE, GTK_SCROLL_ ## sc, \
 				      GTK_TYPE_FLOAT, 0.0); \
 
 	BSCROLL (0, Up, VERTICAL, STEP_BACKWARD);

@@ -1,5 +1,8 @@
 2000-10-06  Radek Doulik  <rodo@helixcode.com>
 
+	* gtkhtml.c (BSCROLL): use GTK_TYPE_SCROLL_TYPE instead of
+	GTK_TYPE_ENUM
+
 	* htmlembedded.c (calc_min_width): calc it only if widget is
 	already realized, use allocation
 	(calc_size): likewise
