@@ -52,6 +52,7 @@
 #include "htmlobject.h"
 #include "htmlmap.h"
 #include "htmlprinter.h"
+#include "htmlgdkpainter.h"
 
 /* HTMLImageFactory stuff.  */
 
@@ -975,11 +976,24 @@ render_cur_frame (HTMLImage *image, gint nx, gint ny, const GdkColor *highlight_
 	GdkPixbufAnimation *ganim = image->image_ptr->animation;
 	GList *cur = gdk_pixbuf_animation_get_frames (ganim);
 	gint w, h;
+	gboolean saved_alpha = TRUE;
 
 	painter = image->image_ptr->factory->engine->painter;
 
 	frame = (GdkPixbufFrame *) anim->cur_frame->data;
 	/* printf ("w: %d h: %d action: %d\n", w, h, frame->action); */
+
+	/* FIXME this is hack to turn off alpha blending while rending 
+	 * animations.  This breaks nothing since gdk-pixbuf doesn't support animations
+	 * for anything but gif and it makes a huge difference if there are lots of
+	 * frames.  We really should add a parameter to the html_painter_draw_pixmap
+	 * call and track wether each image has full alpha or bilevel alpha, but that
+	 * will wait for a bit.
+	 */  
+	if (HTML_IS_GDK_PAINTER (painter)) {
+		saved_alpha = HTML_GDK_PAINTER (painter)->alpha;
+		HTML_GDK_PAINTER (painter)->alpha = FALSE;
+	}
 
 	do {
 		frame = (GdkPixbufFrame *) cur->data;
@@ -1001,6 +1015,11 @@ render_cur_frame (HTMLImage *image, gint nx, gint ny, const GdkColor *highlight_
 		} 
 		cur = cur->next;
 	} while (1);
+
+	if (HTML_IS_GDK_PAINTER (painter)) {
+		HTML_GDK_PAINTER (painter)->alpha = saved_alpha;
+	}
+
 }
 
 static gint
