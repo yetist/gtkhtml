@@ -1,3 +1,7 @@
+2002-07-17  Radek Doulik  <rodo@ximian.com>
+
+	* htmltext.c (get_tags): optimized output
+
 2002-07-15  Radek Doulik  <rodo@ximian.com>
 
 	* htmlclueflow.c (layout_line): fix new line condition

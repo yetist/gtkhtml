@@ -76,65 +76,116 @@ gchar *h_utf8_offset_to_pointer  (const gchar *str, gint         offset);
 static void
 get_tags (const HTMLText *text,
 	  const HTMLEngineSaveState *state,
-	  gchar *opening_tags,
-	  gchar *ending_tags)
+	  gchar **opening_tags,
+	  gchar **closing_tags)
 {
 	GtkHTMLFontStyle font_style;
-	gchar *opening_p, *ending_p;
-	guint size;
+	GString *ot, *ct;
+	HTMLObject *prev, *next;
+	HTMLText *pt = NULL, *nt = NULL;
+	gboolean font_tag = FALSE;
+	gboolean std_color, std_size, n_std_color, n_std_size;
 
 	font_style = text->font_style;
 
-	/*
-	  FIXME: eek this is completely broken in that there is no
-	  possible way the tag order can come out right doing it this
-	  way */
+	ot = g_string_new (NULL);
+	ct = g_string_new (NULL);
 
-	opening_p = opening_tags;
-	ending_p = ending_tags;
+	while ((prev = html_object_prev_cursor_leaf (HTML_OBJECT (text), state->engine)) && !html_object_is_text (prev))
+		;
 
-	if (!html_color_equal (text->color, html_colorset_get_color (state->engine->settings->color_set, HTMLTextColor))
-	    && !html_color_equal (text->color, html_colorset_get_color (state->engine->settings->color_set, HTMLLinkColor))) {
-		opening_p += sprintf (opening_p, "<FONT COLOR=\"#%02x%02x%02x\">",
-				      text->color->color.red   >> 8,
-				      text->color->color.green >> 8,
-				      text->color->color.blue  >> 8);
-		ending_p += sprintf (ending_p, "</FONT>");
+	while ((next = html_object_next_cursor_leaf (HTML_OBJECT (text), state->engine)) && !html_object_is_text (next))
+		;
+
+	if (prev && html_object_is_text (prev))
+		pt = HTML_TEXT (prev);
+	if (next && html_object_is_text (next))
+		nt = HTML_TEXT (next);
+
+	/* font tag */
+	std_color = html_color_equal (text->color, html_colorset_get_color (state->engine->settings->color_set,
+									     HTMLTextColor))
+		|| html_color_equal (text->color,
+				      html_colorset_get_color (state->engine->settings->color_set, HTMLLinkColor));
+	n_std_color = nt && (html_color_equal (nt->color, html_colorset_get_color (state->engine->settings->color_set,
+										  HTMLTextColor))
+			     || html_color_equal (nt->color,
+						  html_colorset_get_color (state->engine->settings->color_set,
+									   HTMLLinkColor)));
+	std_size = (font_style & GTK_HTML_FONT_STYLE_SIZE_MASK) == 0;
+	n_std_size = nt && (nt->font_style & GTK_HTML_FONT_STYLE_SIZE_MASK) == 0;
+
+	if ((!std_color && (!pt || !html_color_equal (text->color, pt->color)))
+	    || (!std_size && (!pt || (pt->font_style & GTK_HTML_FONT_STYLE_SIZE_MASK)
+			      != (font_style & GTK_HTML_FONT_STYLE_SIZE_MASK)))) {
+		if (!std_color) {
+			g_string_sprintfa (ot, "<FONT COLOR=\"#%02x%02x%02x\"",
+					   text->color->color.red   >> 8,
+					   text->color->color.green >> 8,
+					   text->color->color.blue  >> 8);
+			font_tag = TRUE;
+		}
+		if (!std_size) {
+			if (!font_tag)
+				g_string_append (ot, "<FONT");
+			g_string_sprintfa (ot, " SIZE=\"%d\"", font_style & GTK_HTML_FONT_STYLE_SIZE_MASK);
+		}
+		g_string_append_c (ot, '>');
 	}
 
-	size = font_style & GTK_HTML_FONT_STYLE_SIZE_MASK;
-	if (size != 0) {
-		opening_p += sprintf (opening_p, "<FONT SIZE=\"%d\">", size);
-		ending_p += sprintf (ending_p, "</FONT>");
+	if (((!std_color && (!nt || !html_color_equal (text->color, nt->color)))
+	     || (std_color && nt && !n_std_color))
+	    || ((!std_size && (!nt || (nt->font_style & GTK_HTML_FONT_STYLE_SIZE_MASK)
+			       != (font_style & GTK_HTML_FONT_STYLE_SIZE_MASK)))
+		|| (std_size && nt && !n_std_size))) {
+		g_string_append (ct, "</FONT>");
 	}
 
+	/* bold tag */
 	if (font_style & GTK_HTML_FONT_STYLE_BOLD) {
-		opening_p += sprintf (opening_p, "<B>");
-		ending_p += sprintf (ending_p, "</B>");
+		if (!pt || !(pt->font_style & GTK_HTML_FONT_STYLE_BOLD))
+			g_string_append (ot, "<B>");
+		if (!nt || !(nt->font_style & GTK_HTML_FONT_STYLE_BOLD))
+			g_string_prepend (ct, "</B>");
 	}
 
+	/* italic tag */
 	if (font_style & GTK_HTML_FONT_STYLE_ITALIC) {
-		opening_p += sprintf (opening_p, "<I>");
-		ending_p += sprintf (ending_p, "</I>");
+		if (!pt || !(pt->font_style & GTK_HTML_FONT_STYLE_ITALIC))
+			g_string_append (ot, "<I>");
+		if (!nt || !(nt->font_style & GTK_HTML_FONT_STYLE_ITALIC))
+			g_string_prepend (ct, "</I>");
 	}
 
+	/* underline tag */
 	if (font_style & GTK_HTML_FONT_STYLE_UNDERLINE) {
-		opening_p += sprintf (opening_p, "<U>");
-		ending_p += sprintf (ending_p, "</U>");
+		if (!pt || !(pt->font_style & GTK_HTML_FONT_STYLE_UNDERLINE))
+			g_string_append (ot, "<U>");
+		if (!nt || !(nt->font_style & GTK_HTML_FONT_STYLE_UNDERLINE))
+			g_string_prepend (ct, "</U>");
 	}
 
+	/* strikeout tag */
 	if (font_style & GTK_HTML_FONT_STYLE_STRIKEOUT) {
-		opening_p += sprintf (opening_p, "<S>");
-		ending_p += sprintf (ending_p, "</S>");
+		if (!pt || !(pt->font_style & GTK_HTML_FONT_STYLE_STRIKEOUT))
+			g_string_append (ot, "<S>");
+		if (!nt || !(nt->font_style & GTK_HTML_FONT_STYLE_STRIKEOUT))
+			g_string_prepend (ct, "</S>");
 	}
 
+	/* fixed tag */
 	if (font_style & GTK_HTML_FONT_STYLE_FIXED) {
-		opening_p += sprintf (opening_p, "<TT>");
-		ending_p += sprintf (ending_p, "</TT>");
+		if (!pt || !(pt->font_style & GTK_HTML_FONT_STYLE_FIXED))
+			g_string_append (ot, "<TT>");
+		if (!nt || !(nt->font_style & GTK_HTML_FONT_STYLE_FIXED))
+			g_string_prepend (ct, "</TT>");
 	}
 
-	*opening_p = 0;
-	*ending_p = 0;
+	*opening_tags = ot->str;
+	*closing_tags = ct->str;
+
+	g_string_free (ot, FALSE);
+	g_string_free (ct, FALSE);
 }
 
 /* HTMLObject methods.  */
@@ -703,27 +754,32 @@ static gboolean
 save (HTMLObject *self,
       HTMLEngineSaveState *state)
 {
-	/* OK, doing these nasty things is not in my style, but in this case
-           it's so unlikely to break and it's so handy and fast that I think
-           it's almost acceptable.  */
-#define RIDICULOUS_BUFFER_SIZE 16384
-	gchar opening_tags[RIDICULOUS_BUFFER_SIZE];
-	gchar closing_tags[RIDICULOUS_BUFFER_SIZE];
-#undef RIDICULOUS_BUFFER_SIZE
+	gchar *opening_tags;
+	gchar *closing_tags;
 	HTMLText *text;
 
 	text = HTML_TEXT (self);
 
-	get_tags (text, state, opening_tags, closing_tags);
+	get_tags (text, state, &opening_tags, &closing_tags);
 
-	if (! html_engine_save_output_string (state, "%s", opening_tags))
+	if (! html_engine_save_output_string (state, "%s", opening_tags)) {
+		g_free (opening_tags);
+		g_free (closing_tags);
 		return FALSE;
+	}
+	g_free (opening_tags);
 
-	if (! html_engine_save_encode (state, text->text, text->text_len))
+	if (! html_engine_save_encode (state, text->text, text->text_len)) {
+		g_free (closing_tags);
 		return FALSE;
+	}
 
-	if (! html_engine_save_output_string (state, "%s", closing_tags))
+	if (! html_engine_save_output_string (state, "%s", closing_tags)) {
+		g_free (closing_tags);
 		return FALSE;
+	}
+
+	g_free (closing_tags);
 
 	return TRUE;
 }

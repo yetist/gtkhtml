@@ -38,6 +38,7 @@
 #include "htmlinterval.h"
 #include "htmlobject.h"
 #include "htmlpainter.h"
+#include "htmltable.h"
 #include "htmltext.h"
 #include "htmlrule.h"
 #include "htmltype.h"
@@ -1944,4 +1945,54 @@ HTMLClearType
 html_object_get_clear (HTMLObject *self)
 {
 	return (* HO_CLASS (self)->get_clear) (self);
+}
+
+static HTMLObject *
+next_prev_cursor_object (HTMLObject *o, HTMLEngine *e, gint *offset, gboolean forward)
+{
+	HTMLCursor cursor;
+	gboolean result;
+
+	cursor.object = o;
+	cursor.offset = HTML_IS_TABLE (o) ? *offset : (forward ? html_object_get_length (o) : 0);
+	result = forward ? html_cursor_forward (&cursor, e) : html_cursor_backward (&cursor, e);
+	*offset = cursor.offset;
+
+	return result ? cursor.object : NULL;
+}
+
+HTMLObject *
+html_object_next_cursor_object (HTMLObject *o, HTMLEngine *e, gint *offset)
+{
+	return next_prev_cursor_object (o, e, offset, TRUE);
+}
+
+HTMLObject *
+html_object_prev_cursor_object (HTMLObject *o, HTMLEngine *e, gint *offset)
+{
+	return next_prev_cursor_object (o, e, offset, FALSE);
+}
+
+HTMLObject *
+html_object_next_cursor_leaf (HTMLObject *o, HTMLEngine *e)
+{
+	gint offset = html_object_get_length (o);
+
+	o = html_object_next_cursor_object (o, e, &offset);
+	while (o && html_object_is_container (o))
+		o = html_object_next_cursor_object (o, e, &offset);
+
+	return o;
+}
+
+HTMLObject *
+html_object_prev_cursor_leaf (HTMLObject *o, HTMLEngine *e)
+{
+	gint offset = html_object_get_length (o);
+
+	o = html_object_prev_cursor_object (o, e, &offset);
+	while (o && html_object_is_container (o))
+		o = html_object_prev_cursor_object (o, e, &offset);
+
+	return o;
 }

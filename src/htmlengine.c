@@ -5274,20 +5274,6 @@ draw_link_text (HTMLLinkText *lt, HTMLEngine *e)
 	}
 }
 
-static HTMLObject *
-next_focus_object (HTMLObject *o, HTMLEngine *e, GtkDirectionType dir, gint *offset)
-{
-	HTMLCursor cursor;
-	gboolean result;
-
-	cursor.object = o;
-	cursor.offset = HTML_IS_TABLE (o) ? *offset : (dir == GTK_DIR_TAB_FORWARD ? html_object_get_length (o) : 0);
-	result = dir == GTK_DIR_TAB_FORWARD ? html_cursor_forward (&cursor, e) : html_cursor_backward (&cursor, e);
-	*offset = cursor.offset;
-
-	return result ? cursor.object : NULL;
-}
-
 HTMLObject *
 html_engine_get_focus_object (HTMLEngine *e)
 {
@@ -5315,7 +5301,9 @@ html_engine_focus (HTMLEngine *e, GtkDirectionType dir)
 			return TRUE;
 
 		if (focus_object) {
-			cur = next_focus_object (focus_object, e, dir, &offset);
+			cur = dir == GTK_DIR_TAB_FORWARD
+				? html_object_next_cursor_object (focus_object, e, &offset)
+				: html_object_prev_cursor_object (focus_object, e, &offset);
 		} else
 			cur = dir == GTK_DIR_TAB_FORWARD
 				? html_object_get_head_leaf (e->clue)
@@ -5352,7 +5340,9 @@ html_engine_focus (HTMLEngine *e, GtkDirectionType dir)
 				}
 				/* printf ("unsuccessful\n"); */
 			}
-			cur = next_focus_object (cur, e, dir, &offset);
+			cur = dir == GTK_DIR_TAB_FORWARD
+				? html_object_next_cursor_object (cur, e, &offset)
+				: html_object_prev_cursor_object (cur, e, &offset);
 		}
 		/* printf ("no focus\n"); */
 		html_engine_set_focus_object (e, NULL);

@@ -557,4 +557,15 @@ void  html_object_add_to_changed  (GList      **changed_objs,
 				   HTMLObject  *o);
 
 HTMLClearType html_object_get_clear (HTMLObject *self);
+
+HTMLObject *html_object_next_cursor_object  (HTMLObject *o,
+					     HTMLEngine *e,
+					     gint       *offset);
+HTMLObject *html_object_prev_cursor_object  (HTMLObject *o,
+					     HTMLEngine *e,
+					     gint       *offset);
+HTMLObject *html_object_next_cursor_leaf    (HTMLObject *o,
+					     HTMLEngine *e);
+HTMLObject *html_object_prev_cursor_leaf    (HTMLObject *o,
+					     HTMLEngine *e);
 #endif /* _HTMLOBJECT_H_ */
