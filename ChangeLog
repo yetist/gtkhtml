@@ -1,3 +1,7 @@
+2001-01-30  Simos Xenitellis  <simos@hellug.gr>
+
+	* configure.in (ALL_LINGUAS): Added el
+
 2001-01-25  Radek Doulik  <rodo@helixcode.com>
 
 	* replaced some "helixcode" with "ximian"
