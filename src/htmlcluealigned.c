@@ -40,13 +40,18 @@ copy (HTMLObject *self,
 	HTML_CLUEALIGNED (dest)->next_aligned = NULL;
 }
 
-static void
+static gboolean
 calc_size (HTMLObject *o,
 	   HTMLPainter *painter)
 {
 	HTMLObject *obj;
+	gboolean changed;
+	gint old_width, old_ascent;
 
-	HTML_OBJECT_CLASS (&html_clue_class)->calc_size (o, painter);
+	changed = HTML_OBJECT_CLASS (&html_clue_class)->calc_size (o, painter);
+
+	old_width = o->width;
+	old_ascent = o->ascent;
 
 	o->width = 0;
 	o->ascent = ALIGN_BORDER;
@@ -57,13 +62,27 @@ calc_size (HTMLObject *o,
 	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next) {
 		if (obj->width > o->width)
 			o->width = obj->width;
+
 		o->ascent += obj->ascent + obj->descent;
-		obj->x = ALIGN_BORDER;
-		obj->y = o->ascent - obj->descent;
+
+		if (obj->x != ALIGN_BORDER) {
+			obj->x = ALIGN_BORDER;
+			changed = TRUE;
+		}
+
+		if (obj->y != o->ascent - obj->descent) {
+			obj->y = o->ascent - obj->descent;
+			changed = TRUE;
+		}
 	}
 	
 	o->ascent += ALIGN_BORDER;
 	o->width += ALIGN_BORDER * 2;
+
+	if (old_width != o->width || old_ascent != o->ascent)
+		changed = TRUE;
+
+	return changed;
 }
 
 static void

@@ -118,13 +118,15 @@ calc_preferred_width (HTMLObject *self,
 	return width;
 }
 
-static void
+static gboolean
 calc_size (HTMLObject *self,
 	   HTMLPainter *painter)
 {
 	self->width = 0;
 	self->ascent = 0;
 	self->descent = 0;
+
+	return FALSE;
 }
 
 static HTMLFitType

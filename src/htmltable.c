@@ -830,14 +830,21 @@ set_cells (HTMLTable *table, gint r, gint c, HTMLTableCell *cell)
 
 /* HTMLObject methods.  */
 
-static void
+static gboolean
 calc_size (HTMLObject *o,
 	   HTMLPainter *painter)
 {
 	gint r, c;
 	gint indx, w;
 	HTMLTableCell *cell;
-	HTMLTable *table = HTML_TABLE (o);
+	gint old_width, old_ascent, old_descent;
+	HTMLTable *table;
+
+	old_width = o->width;
+	old_ascent = o->ascent;
+	old_descent = o->descent;
+
+	table = HTML_TABLE (o);
 
 	calc_col_info (table, painter);
 	calc_column_widths (table, painter);
@@ -924,7 +931,12 @@ calc_size (HTMLObject *o,
 	if (table->caption) {
 		g_print ("FIXME: Caption support\n");
 	}
-		
+
+	/* FIXME Broken */
+	if (o->width != old_width || o->ascent != old_ascent || o->descent != old_descent)
+		return TRUE;
+
+	return FALSE;
 }
 
 static void

@@ -152,7 +152,8 @@ struct _HTMLObjectClass {
 	HTMLFitType (*fit_line) (HTMLObject *o, HTMLPainter *painter,
 				 gboolean start_of_line, gboolean first_run, gint width_left);
 
-	void (*calc_size) (HTMLObject *o, HTMLPainter *painter);
+	gboolean (*calc_size) (HTMLObject *o, HTMLPainter *painter);
+
 	gint (*calc_min_width) (HTMLObject *o, HTMLPainter *painter);
 	gint (*calc_preferred_width) (HTMLObject *o, HTMLPainter *painter);
 
@@ -237,7 +238,7 @@ HTMLFitType  html_object_fit_line              (HTMLObject  *o,
 						gboolean     start_of_line,
 						gboolean     first_run,
 						gint         width_left);
-void         html_object_calc_size             (HTMLObject  *o,
+gboolean     html_object_calc_size             (HTMLObject  *o,
 						HTMLPainter *painter);
 void         html_object_set_max_ascent        (HTMLObject  *o,
 						HTMLPainter *painter,

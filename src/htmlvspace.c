@@ -38,11 +38,13 @@ copy (HTMLObject *self,
 	HTML_VSPACE (dest)->clear = HTML_VSPACE (self)->clear;
 }
 
-static void
+static gboolean
 calc_size (HTMLObject *self,
 	   HTMLPainter *painter)
 {
 	GtkHTMLFontStyle font_style;
+	gint new_ascent, new_descent, new_width;
+	gboolean changed;
 
 	if (self->parent != NULL
 	    && HTML_OBJECT_TYPE (self->parent) == HTML_TYPE_CLUEFLOW)
@@ -51,10 +53,28 @@ calc_size (HTMLObject *self,
 	else
 		font_style = GTK_HTML_FONT_STYLE_SIZE_3;
 
-	self->ascent = html_painter_calc_ascent (painter, font_style);
-	self->descent = html_painter_calc_descent (painter, font_style);
+	new_ascent = html_painter_calc_ascent (painter, font_style);
+	new_descent = html_painter_calc_descent (painter, font_style);
+	new_width = 2 * html_painter_get_pixel_size (painter);
 
-	self->width = 2;
+	changed = FALSE;
+
+	if (new_ascent != self->ascent) {
+		self->ascent = new_ascent;
+		changed = TRUE;
+	}
+
+	if (new_descent != self->descent) {
+		self->descent = new_descent;
+		changed = TRUE;
+	}
+
+	if (new_width != self->width) {
+		self->width = new_width;
+		changed = TRUE;
+	}
+
+	return changed;
 }
 
 

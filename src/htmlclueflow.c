@@ -300,7 +300,7 @@ calc_min_width (HTMLObject *o,
 
 /* EP CHECK: should be mostly OK.  */
 /* FIXME: But it's awful.  Too big and ugly.  */
-static void
+static gboolean
 calc_size (HTMLObject *o,
 	   HTMLPainter *painter)
 {
@@ -317,6 +317,13 @@ calc_size (HTMLObject *o,
 	gint oldy;
 	gint w, a, d;
 	guint padding;
+	gboolean changed;
+	gint old_ascent, old_descent, old_width;
+
+	changed = FALSE;
+	old_ascent = o->ascent;
+	old_descent = o->descent;
+	old_width = o->width;
 
 	clue = HTML_CLUE (o);
 
@@ -335,7 +342,6 @@ calc_size (HTMLObject *o,
 	o->width = 0;
 
 	padding = calc_padding (painter);
-
 	add_pre_padding (HTML_CLUEFLOW (o), padding);
 
 	lmargin = html_clue_get_left_margin (HTML_CLUE (o->parent), o->y);
@@ -360,7 +366,10 @@ calc_size (HTMLObject *o,
 			clear = vspace->clear;
 			obj = obj->next;
 		} else if (obj->flags & HTML_OBJECT_FLAG_SEPARATOR) {
-			obj->x = w;
+			if (obj->x != w) {
+				obj->x = w;
+				changed = TRUE;
+			}
 			if (TRUE /* w != lmargin */) {
 				w += obj->width;
 				if (obj->ascent > a)
@@ -376,14 +385,28 @@ calc_size (HTMLObject *o,
 				html_object_calc_size (obj, painter);
 
 				if (HTML_CLUE (c)->halign == HTML_HALIGN_LEFT) {
-					obj->x = lmargin;
-					obj->y = o->ascent + obj->ascent;
+					if (obj->x != lmargin) {
+						obj->x = lmargin;
+						changed = TRUE;
+					}
+
+					if (obj->y != o->ascent + obj->ascent) {
+						obj->y = o->ascent + obj->ascent;
+						changed = TRUE;
+					}
 
 					html_clue_append_left_aligned (HTML_CLUE (o->parent),
 								       HTML_CLUE (c));
 				} else {
-					obj->x = rmargin - obj->width;
-					obj->y = o->ascent + obj->ascent;
+					if (obj->x != rmargin - obj->width) {
+						obj->x = rmargin - obj->width;
+						changed = TRUE;
+					}
+
+					if (obj->y != o->ascent + obj->ascent) {
+						obj->y = o->ascent + obj->ascent;
+						changed = TRUE;
+					}
 					
 					html_clue_append_right_aligned (HTML_CLUE (o->parent),
 									HTML_CLUE (c));
@@ -410,7 +433,7 @@ calc_size (HTMLObject *o,
 				&& ! (run->flags & HTML_OBJECT_FLAG_ALIGNED)) {
 				HTMLFitType fit;
 				gint width_left;
-			  
+
 				run->max_width = rmargin - lmargin;
 
 				if (is_pre)
@@ -503,7 +526,10 @@ calc_size (HTMLObject *o,
 					clear = HTML_CLEAR_NONE;
 				} else {
 					while (obj != run) {
-						obj->x = w;
+						if (obj->x != w) {
+							obj->x = w;
+							changed = TRUE;
+						}
 						w += obj->width;
 						obj = obj->next;
 					}
@@ -587,6 +613,11 @@ calc_size (HTMLObject *o,
 		o->width = o->max_width;
 
 	add_post_padding (HTML_CLUEFLOW (o), padding);
+
+	if (o->ascent != old_ascent || o->descent != old_descent || o->width != old_width)
+		changed = TRUE;
+
+	return changed;
 }
 
 static gint

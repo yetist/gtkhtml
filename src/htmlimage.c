@@ -132,13 +132,18 @@ calc_preferred_width (HTMLObject *o,
 	return pixel_size;
 }
 
-static void
+static gboolean
 calc_size (HTMLObject *o,
 	   HTMLPainter *painter)
 {
 	HTMLImage *image;
 	guint pixel_size;
 	guint width, height;
+	gint old_width, old_ascent, old_descent;
+
+	old_width = o->width;
+	old_ascent = o->ascent;
+	old_descent = o->descent;
 
 	image = HTML_IMAGE (o);
 
@@ -150,6 +155,11 @@ calc_size (HTMLObject *o,
 	o->width = width + image->border * 2 * pixel_size;
 	o->descent = image->border * pixel_size;
 	o->ascent = height + image->border * pixel_size;
+
+	if (o->descent != old_descent || o->ascent != old_ascent || o->width != old_width)
+		return TRUE;
+
+	return FALSE;
 }
 
 static void

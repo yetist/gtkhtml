@@ -147,10 +147,12 @@ reset (HTMLObject *clue)
 	HTML_CLUE (clue)->curr = NULL;
 }
 
-static void
+static gboolean
 calc_size (HTMLObject *o,
 	   HTMLPainter *painter)
 {
+	gboolean changed;
+
 	/* If we have already called calc_size for the children, then just
 	   continue from the last object done in previous call. */
 	if (HTML_CLUE (o)->curr == NULL) {
@@ -158,14 +160,18 @@ calc_size (HTMLObject *o,
 		HTML_CLUE (o)->curr = HTML_CLUE (o)->head;
 	}
 
+	changed = FALSE;
+
 	while (HTML_CLUE (o)->curr != NULL) {
-		html_object_calc_size (HTML_CLUE (o)->curr, painter);
+		changed |= html_object_calc_size (HTML_CLUE (o)->curr, painter);
 		HTML_CLUE (o)->curr = HTML_CLUE (o)->curr->next;
 	}
 
 	/* Remember the last object so that we can start from here next time
 	   we are called */
 	HTML_CLUE (o)->curr = HTML_CLUE (o)->tail;
+
+	return changed;
 }
 
 static gint

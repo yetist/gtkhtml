@@ -1,4 +1,33 @@
-2000-02-25  Larry Ewing  <lewing@helixcode.com>
+2000-02-24  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlvspace.c (calc_size): Updated to return the boolean value.
+
+	* htmltextmaster.c (calc_size): Always return FALSE.
+
+	* htmltext.c (calc_size): Updated to return the boolean value.
+
+	* htmltable.c (calc_size): Updated to return the boolean value.
+
+	* htmlcluev.c (calc_size): Updated to return the boolean value.
+
+	* htmlclueh.c (calc_size): Updated to return the boolean value.
+
+	* htmlclueflow.c (calc_size): Updated to return the boolean value.
+
+	* htmlcluealigned.c (calc_size): Updated to return the boolean
+	value.
+
+	* htmlclue.c (calc_size): Updated to return the boolean value.
+
+	* htmlobject.c (relayout): Use the return value from
+	`html_object_calc_size()' to decide if the element needs to be
+	redrawn.
+	(calc_size): Updated to return the boolean value.
+
+	* htmlobject.h: Make `HTMLObject::calc_size' return a gboolean.
+	If true, it means that the object has changed and needs to be
+
+2000-02-24  Larry Ewing  <lewing@helixcode.com>
 
 	* htmltable.c (calc_column_widths): fix a typo by replacing
 	cell->padding with cell->spacing in the original calculation.

@@ -93,10 +93,11 @@ fit_line (HTMLObject *o,
 	return HTML_FIT_COMPLETE;
 }
 
-static void
+static gboolean
 calc_size (HTMLObject *o,
 	   HTMLPainter *painter)
 {
+	return FALSE;
 }
 
 static gint
@@ -199,11 +200,8 @@ relayout (HTMLObject *self,
 	prev_descent = self->descent;
 
 	html_object_reset (self);
-	html_object_calc_size (self, engine->painter);
 
-	if (prev_width == self->width
-	    && prev_ascent == self->ascent
-	    && prev_descent == self->descent) {
+	if (! html_object_calc_size (self, engine->painter)) {
 		gtk_html_debug_log (engine->widget,
 				    "relayout: %s %p did not change.\n",
 				    html_type_name (HTML_OBJECT_TYPE (self)),
@@ -511,11 +509,11 @@ html_object_fit_line (HTMLObject *o,
 					   first_run, width_left);
 }
 
-void
+gboolean
 html_object_calc_size (HTMLObject *o,
 		       HTMLPainter *painter)
 {
-	(* HO_CLASS (o)->calc_size) (o, painter);
+	return (* HO_CLASS (o)->calc_size) (o, painter);
 }
 
 void

@@ -183,19 +183,40 @@ copy (HTMLObject *self,
 	HTML_TEXT (dest)->color_allocated = HTML_TEXT (self)->color_allocated;
 }
 
-static void
+static gboolean
 calc_size (HTMLObject *self,
 	   HTMLPainter *painter)
 {
 	HTMLText *text;
 	GtkHTMLFontStyle font_style;
+	gint new_ascent, new_descent, new_width;
+	gboolean changed;
 
 	text = HTML_TEXT (self);
 	font_style = html_text_get_font_style (text);
 
-	self->ascent = html_painter_calc_ascent (painter, font_style);
-	self->descent = html_painter_calc_descent (painter, font_style);
-	self->width = html_painter_calc_text_width (painter, text->text, text->text_len, font_style);
+	new_ascent = html_painter_calc_ascent (painter, font_style);
+	new_descent = html_painter_calc_descent (painter, font_style);
+	new_width = html_painter_calc_text_width (painter, text->text, text->text_len, font_style);
+
+	changed = FALSE;
+
+	if (new_ascent != self->ascent) {
+		self->ascent = new_ascent;
+		changed = TRUE;
+	}
+
+	if (new_descent != self->descent) {
+		self->descent = new_descent;
+		changed = TRUE;
+	}
+
+	if (new_width != self->width) {
+		self->width = new_width;
+		changed = TRUE;
+	}
+
+	return changed;
 }
 
 static void

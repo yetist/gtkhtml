@@ -100,7 +100,7 @@ cluev_next_aligned (HTMLObject *aclue)
 	return HTML_OBJECT (HTML_CLUEALIGNED (aclue)->next_aligned);
 }
 
-static void
+static gboolean
 calc_size (HTMLObject *o,
 	   HTMLPainter *painter)
 {
@@ -109,9 +109,18 @@ calc_size (HTMLObject *o,
 	HTMLObject *obj;
 	HTMLObject *aclue;
 	gint lmargin;
+	gboolean changed;
+	gint old_width, old_ascent, old_descent;
+	gint new_x;
 
 	cluev = HTML_CLUEV (o);
 	clue = HTML_CLUE (o);
+
+	old_width = o->width;
+	old_ascent = o->ascent;
+	old_descent = o->descent;
+
+	changed = FALSE;
 
 	if (o->parent != NULL) {
 		lmargin = html_clue_get_left_margin (HTML_CLUE (o->parent), o->y);
@@ -146,7 +155,7 @@ calc_size (HTMLObject *o,
 		/* Set an initial ypos so that the alignment stuff knows where
 		   the top of this object is */
 		clue->curr->y = o->ascent;
-		html_object_calc_size (clue->curr, painter);
+		changed |= html_object_calc_size (clue->curr, painter);
 
 		if (clue->curr->width > o->width - 2 * cluev->padding)
 			o->width = clue->curr->width + 2 * cluev->padding;
@@ -167,22 +176,38 @@ calc_size (HTMLObject *o,
 		o->width = o->max_width;
 	
 	if (clue->halign == HTML_HALIGN_CENTER) {
-		for (obj = clue->head; obj != 0; obj = obj->next)
-			obj->x = lmargin + (o->width - obj->width) / 2;
+		for (obj = clue->head; obj != 0; obj = obj->next) {
+			new_x = lmargin + (o->width - obj->width) / 2;
+			if (obj->x != new_x) {
+				obj->x = new_x;
+				changed = TRUE;
+			}
+		}
 	} else if (clue->halign == HTML_HALIGN_RIGHT) {
-		for (obj = clue->head; obj != 0; obj = obj->next)
-			obj->x = lmargin + (o->width - obj->width);
+		for (obj = clue->head; obj != 0; obj = obj->next) {
+			new_x = lmargin + (o->width - obj->width);
+			if (obj->x != new_x) {
+				obj->x = new_x;
+				changed = TRUE;
+			}
+		}
 	}
 	
 	for (aclue = cluev->align_left_list; aclue != NULL; aclue = cluev_next_aligned (aclue)) {
-		if (aclue->y + aclue->parent->y - aclue->parent->ascent > o->ascent)
+		if (aclue->y + aclue->parent->y - aclue->parent->ascent > o->ascent) {
 			o->ascent = aclue->y + aclue->parent->y - aclue->parent->ascent;
+		}
 	}
 
 	for (aclue = cluev->align_right_list; aclue != NULL; aclue = cluev_next_aligned (aclue)) {
 		if (aclue->y + aclue->parent->y - aclue->parent->ascent > o->ascent)
 			o->ascent = aclue->y + aclue->parent->y - aclue->parent->ascent;
 	}
+
+	if (! changed && (o->ascent != old_ascent || o->descent != old_descent || o->width != old_width))
+		changed = TRUE;
+
+	return changed;
 }
 
 static void

@@ -57,18 +57,21 @@ set_max_width (HTMLObject *o, HTMLPainter *painter, gint w)
 	}
 }
 
-static void
+static gboolean
 calc_size (HTMLObject *clue,
 	   HTMLPainter *painter)
 {
 	HTMLObject *obj;
 	gint lmargin = 0;
 	gint a = 0, d = 0;
+	gboolean changed;
+
+	changed = FALSE;
 
 	/* Make sure the children are properly sized */
 	html_object_set_max_width (clue, painter, clue->max_width);
 
-	HTML_OBJECT_CLASS (&html_clue_class)->calc_size (clue, painter);
+	changed = HTML_OBJECT_CLASS (&html_clue_class)->calc_size (clue, painter);
 
 	if (clue->parent != NULL)
 		lmargin = html_clue_get_left_margin (HTML_CLUE (clue->parent), clue->y);
@@ -94,19 +97,33 @@ calc_size (HTMLObject *clue,
 
 	switch (HTML_CLUE (clue)->valign) {
 	case HTML_VALIGN_TOP:
-		for (obj = HTML_CLUE (clue)->head; obj != 0; obj = obj->next)
-			obj->y = obj->ascent;
+		for (obj = HTML_CLUE (clue)->head; obj != 0; obj = obj->next) {
+			if (obj->y != obj->ascent) {
+				obj->y = obj->ascent;
+				changed = TRUE;
+			}
+		}
 		break;
 
 	case HTML_VALIGN_CENTER:
-		for (obj = HTML_CLUE (clue)->head; obj != 0; obj = obj->next)
-			obj->y = clue->ascent / 2;
+		for (obj = HTML_CLUE (clue)->head; obj != 0; obj = obj->next) {
+			if (obj->y != clue->ascent / 2) {
+				obj->y = clue->ascent / 2;
+				changed = TRUE;
+			}
+		}
 		break;
 
 	default:
-		for (obj = HTML_CLUE (clue)->head; obj != 0; obj = obj->next)
-			obj->y = clue->ascent - d;
+		for (obj = HTML_CLUE (clue)->head; obj != 0; obj = obj->next) {
+			if (obj->y != clue->ascent - d) {
+				obj->y = clue->ascent - d;
+				changed = TRUE;
+			}
+		}
 	}
+
+	return changed;
 }
 
 static gint
