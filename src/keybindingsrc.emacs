@@ -29,6 +29,8 @@ binding "gtkhtml-bindings-emacs"
   bind "<Ctrl>y"            { "command" (paste) }
   bind "<Ctrl>space"        { "command" (set-mark) }
 
+  bind "<Ctrl>k"            { "command" (cut-line) }
+
   bind "<Ctrl><Alt>b"       { "command" (toggle-bold) }
   bind "<Ctrl><Alt>i"       { "command" (toggle-italic) }
   bind "<Ctrl><Alt>u"       { "command" (toggle-underline) }

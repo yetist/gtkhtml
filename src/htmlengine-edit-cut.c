@@ -22,6 +22,7 @@
 #include "htmltextmaster.h"
 
 #include "htmlengine-cutbuffer.h"
+#include "htmlengine-edit.h"
 #include "htmlengine-edit-copy.h"
 #include "htmlengine-edit-delete.h"
 #include "htmlengine-edit-movement.h"
@@ -172,6 +173,8 @@ html_engine_cut (HTMLEngine *engine,
 	if (do_undo)
 		html_undo_discard_redo (engine->undo);
 
+	html_engine_edit_selection_updater_update_now (engine->selection_updater);
+
 	elems_copied = html_engine_copy (engine);
 	mark_precedes_cursor = html_cursor_precedes (engine->mark, engine->cursor);
 
@@ -183,4 +186,27 @@ html_engine_cut (HTMLEngine *engine,
 
 	if (do_undo)
 		init_undo (engine, engine->cut_buffer, elems_copied, mark_precedes_cursor);
+}
+
+/**
+ * html_engine_cut_line:
+ * @engine: 
+ * @do_undo: 
+ * 
+ * Cut until the end of the line, just like Emacs' `kill-line'.
+ **/
+void
+html_engine_cut_line (HTMLEngine *engine,
+		      gboolean do_undo)
+{
+	g_return_if_fail (engine != NULL);
+	g_return_if_fail (HTML_IS_ENGINE (engine));
+
+	html_engine_set_mark (engine);
+	html_engine_end_of_line (engine);
+
+	if (engine->cursor->offset == engine->mark->offset)
+		html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_RIGHT, 1);
+
+	html_engine_cut (engine, TRUE);
 }

@@ -1,3 +1,30 @@
+2000-06-19  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine-edit-delete.c (html_engine_delete_selection): Update
+	the selection before deleting it.
+
+	* htmlengine-edit-copy.c (html_engine_copy): Update the selection
+	before copying.
+	(html_engine_copy_to_buffer): Likewise.
+
+	* keybindingsrc.emacs: Bind "cut-line" to "<Ctrl>k".
+
+	* gtkhtml-properties.c: Add a "cut-line" command and bind it as
+	`GTK_HTML_COMMAND_CUT_LINE'.
+
+	* gtkhtml.c (command): Handle `GTK_HTML_COMMAND_CUT_LINE'.
+
+	* gtkhtml.h: New command `GTK_HTML_COMMAND_CUT_LINE'.
+
+	* gtkhtml-keybinding.c (cut_line): New.
+
+	* htmlengine-edit-cut.c (html_engine_cut): Update the selection
+	before doing anything.
+	(html_engine_cut_line): New.
+
+	* gtkhtml.c (load_keybindings): Load the keybindings from
+	$(prefix)/share/gtkhtml instead of using the gnome_datadir.
+
 2000-06-18  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlengine.c (html_engine_set_editable): Bring the cursor home

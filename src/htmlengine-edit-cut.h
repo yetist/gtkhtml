@@ -24,7 +24,10 @@
 
 #include "htmlengine.h"
 
-void  html_engine_cut  (HTMLEngine *engine,
-			gboolean do_undo);
+void  html_engine_cut       (HTMLEngine *engine,
+			     gboolean    do_undo);
+
+void  html_engine_cut_line  (HTMLEngine *engine,
+			     gboolean    do_undo);
 
 #endif

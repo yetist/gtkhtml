@@ -15,6 +15,7 @@
 #undef HAVE_LIBWWW
 #undef HAVE_GNU_REGEX
 #undef USING_OAF
+#undef PREFIX
 
 @BOTTOM@
 /* This is from libglade */

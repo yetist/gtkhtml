@@ -93,6 +93,8 @@ html_engine_copy (HTMLEngine *engine)
 	g_return_val_if_fail (engine->active_selection, 0);
 	g_return_val_if_fail (engine->clue != NULL, 0);
 
+	html_engine_edit_selection_updater_update_now (engine->selection_updater);
+
 	return copy (engine, &engine->cut_buffer);
 }
 
@@ -105,6 +107,8 @@ html_engine_copy_to_buffer (HTMLEngine *engine,
 	g_return_val_if_fail (engine->active_selection, 0);
 	g_return_val_if_fail (engine->clue != NULL, 0);
 	g_return_val_if_fail (buffer != NULL, 0);
+
+	html_engine_edit_selection_updater_update_now (engine->selection_updater);
 
 	return copy (engine, buffer);
 }

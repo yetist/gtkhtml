@@ -19,9 +19,13 @@
     Boston, MA 02111-1307, USA.
 */
 
+#include <config.h>
+
 #include <gdk/gdkkeysyms.h>
 #include <gtk/gtk.h>
 #include <string.h>
+
+#include <gnome.h>
 
 #include "htmlengine-edit-clueflowstyle.h"
 #include "htmlengine-edit-copy.h"
@@ -1915,6 +1919,9 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 	case GTK_HTML_COMMAND_CUT:
 		html_engine_cut (html->engine, TRUE);
 		break;
+	case GTK_HTML_COMMAND_CUT_LINE:
+		html_engine_cut_line (html->engine, TRUE);
+		break;
 	case GTK_HTML_COMMAND_PASTE:
 		html_engine_paste (html->engine, TRUE);
 		break;
@@ -2069,11 +2076,19 @@ load_keybindings (GtkHTMLClass *klass)
 	gtk_html_cursor_skip_get_type ();
 	gtk_html_command_get_type ();
 
-	base = g_strconcat ("gtkhtml/keybindingsrc.", klass->properties->keybindings_theme, NULL);
-	rcfile = gnome_unconditional_datadir_file (base);
-	printf ("loading %s\n", rcfile);
+	base = g_strconcat ("keybindingsrc.", klass->properties->keybindings_theme, NULL);
+	rcfile = g_concat_dir_and_file (PREFIX "/share/gtkhtml", base);
+
+	if (! g_file_exists (rcfile)) {
+		g_warning (_("Couldn't find keybinding file -- %s"), rcfile);
+		g_free (base);
+		g_free (rcfile);
+		return;
+	}
+
+	g_warning ("Loading keybindings -- %s", rcfile);
 	gtk_rc_parse (rcfile);
-	/* gtk_rc_parse ("/home/rodo/gtkhtml/src/keybindingsrc.ms"); */
+
 	g_free (base);
 	g_free (rcfile);
 

@@ -676,6 +676,8 @@ html_engine_delete_selection (HTMLEngine *e,
 	g_return_if_fail (e != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
+	html_engine_edit_selection_updater_update_now (e->selection_updater);
+
 	if (e->mark == NULL || e->mark->position == e->cursor->position)
 		return;
 

@@ -146,7 +146,6 @@ AM_CONDITIONAL(GCONF, $have_gconf)
 
 dnl gnome-print checks.
 
-
 AC_MSG_CHECKING([for gnome-print >= 0.16])
 if gnome-config --libs print > /dev/null 2>&1; then
 	vers=`gnome-config --modversion print | sed 's/^gnome-print-//'`
@@ -224,6 +223,10 @@ GTKHTML_LIBS="-lgtkhtml `$GNOME_CONFIG --libs gdk_pixbuf print` $GCONF_LIBS"
 AC_SUBST(GTKHTML_LIBDIR)
 AC_SUBST(GTKHTML_INCLUDEDIR)
 AC_SUBST(GTKHTML_LIBS)
+
+dnl The installation prefix
+
+AC_DEFINE_UNQUOTED(PREFIX, "$prefix")
 
 dnl Library version information.
  
