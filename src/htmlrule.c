@@ -133,7 +133,7 @@ html_rule_real_calc_size (HTMLObject *self, HTMLPainter *painter, GList **change
 }
 
 static void
-draw (HTMLObject *o,
+html_rule_draw (HTMLObject *o,
       HTMLPainter *p, 
       gint x, gint y,
       gint width, gint height,
@@ -252,7 +252,7 @@ html_rule_class_init (HTMLRuleClass *klass,
 	html_object_class_init (object_class, type, object_size);
 
 	object_class->copy = copy;
-	object_class->draw = draw;
+	object_class->draw = html_rule_draw;
 	object_class->set_max_width = set_max_width;
 	object_class->calc_min_width = calc_min_width;
 	object_class->fit_line = fit_line;
