@@ -1,5 +1,7 @@
 2001-03-30  Larry Ewing  <lewing@ximian.com>
 
+	* htmlobject.c (html_object_init): init min_width and pref width.
+
 	* htmlplainpainter.c (alloc_fixed_font): use the parent class to
 	do the work, just override the settings.  remove a bunch of
 	duplicated support functions

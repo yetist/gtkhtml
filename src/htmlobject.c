@@ -667,6 +667,8 @@ html_object_init (HTMLObject *o,
 
 	o->width = 0;
 	o->max_width = 0;
+	o->min_width = 0;
+	o->pref_width = 0;
 	o->percent = 0;
 
 	o->flags = HTML_OBJECT_FLAG_FIXEDWIDTH; /* FIXME Why? */
