@@ -237,6 +237,25 @@ check_page_split (HTMLObject *self, gint y)
 	return html_object_check_page_split (GTK_HTML (HTML_IFRAME (self)->html)->engine->clue, y);
 }
 
+static void
+copy (HTMLObject *self,
+      HTMLObject *dest)
+{
+        HTMLIFrame *s = HTML_IFRAME (self);
+        HTMLIFrame *d = HTML_IFRAME (dest);
+
+	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
+
+	d->scroll = NULL;
+	d->html = NULL;
+	d->gdk_painter = NULL;
+
+	d->url = g_strdup (s->url);
+	d->width = s->width;
+	d->height = s->height;
+	d->frameborder = s->frameborder;
+}
+
 static gboolean
 calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 {
@@ -544,6 +563,7 @@ html_iframe_class_init (HTMLIFrameClass *klass,
 	object_class->set_painter             = set_painter;
 	object_class->reset                   = reset;
 	object_class->draw                    = draw;
+	object_class->copy                    = copy;
 	object_class->set_max_width           = set_max_width;
 	object_class->forall                  = forall;
 	object_class->check_page_split        = check_page_split;
