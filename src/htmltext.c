@@ -38,6 +38,7 @@ static HTMLObjectClass *parent_class = NULL;
 
 static void
 get_tags (const HTMLText *text,
+	  const HTMLEngineSaveState *state,
 	  gchar *opening_tags,
 	  gchar *ending_tags)
 {
@@ -54,6 +55,15 @@ get_tags (const HTMLText *text,
 
 	opening_p = opening_tags;
 	ending_p = ending_tags;
+
+	if (!html_color_equal (text->color, html_colorset_get_color (state->engine->settings->color_set, HTMLTextColor))
+	    && !html_color_equal (text->color, html_colorset_get_color (state->engine->settings->color_set, HTMLLinkColor))) {
+		opening_p += sprintf (opening_p, "<FONT COLOR=#%02x%02x%02x>",
+				      text->color->color.red   >> 8,
+				      text->color->color.green >> 8,
+				      text->color->color.blue  >> 8);
+		ending_p += sprintf (ending_p, "</FONT>");
+	}
 
 	size = font_style & GTK_HTML_FONT_STYLE_SIZE_MASK;
 	if (size != 0) {
@@ -213,7 +223,7 @@ save (HTMLObject *self,
 
 	text = HTML_TEXT (self);
 
-	get_tags (text, opening_tags, closing_tags);
+	get_tags (text, state, opening_tags, closing_tags);
 
 	if (! html_engine_save_output_string (state, opening_tags))
 		return FALSE;

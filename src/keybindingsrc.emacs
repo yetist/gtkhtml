@@ -20,6 +20,31 @@ binding "gtkhtml-bindings-emacs"
   bind "<Alt>v"             { "cursor_move" (up,    page) }
   bind "<Ctrl>v"            { "cursor_move" (down,  page) }
 
+  bind "<Shift>Up"            { "command" (selection-move-up) }
+  bind "<Shift>Down"          { "command" (selection-move-down) }
+  bind "<Shift>Left"          { "command" (selection-move-left) }
+  bind "<Shift>Right"         { "command" (selection-move-right) }
+
+  bind "<Shift>Home"          { "command" (selection-move-bol) }
+  bind "<Shift>End"           { "command" (selection-move-eol) }
+
+  bind "<Shift>Page_Up"       { "command" (selection-move-pageup) }
+  bind "<Shift>KP_Page_Up"    { "command" (selection-move-pageup) }
+  bind "<Shift>Page_Down"     { "command" (selection-move-pagedown) }
+  bind "<Shift>KP_Page_Down"  { "command" (selection-move-pagedown) }
+
+  bind "<Ctrl><Shift>Home"    { "command" (selection-move-bod) }
+  bind "<Ctrl><Shift>End"     { "command" (selection-move-eod) }
+
+  bind "<Ctrl>Insert"         { "command" (copy) }
+  bind "<Ctrl>KP_Insert"      { "command" (copy) }
+
+  bind "<Shift>Delete"        { "command" (cut) }
+  bind "<Shift>KP_Delete"     { "command" (cut) }
+
+  bind "<Shift>Insert"        { "command" (paste) }
+  bind "<Shift>KP_Insert"     { "command" (paste) }
+
   bind "<Ctrl>d"            { "command" (delete) }
   bind "<Ctrl>g"            { "command" (disable-selection) }
   bind "<Ctrl>m"            { "command" (insert-paragraph) }

@@ -1,3 +1,10 @@
+2000-06-30  Radek Doulik  <rodo@helixcode.com>
+
+	* keybindingsrc.emacs: added shift movement selection also to
+	emacs keybindings + C-Insert copy S-Insert paste and S-Delete cut
+
+	* htmltext.c (get_tags): colors attribute saving
+
 2000-06-29  Larry Ewing  <lewing@helixcode.com>
 
 	* htmliframe.c (iframe_url_requested): remove "this is a note"
