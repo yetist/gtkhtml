@@ -42,7 +42,6 @@ html_engine_insert_rule (HTMLEngine      *e,
 	rule = html_rule_new (length, percent, size, shade, halign);
 
 	html_engine_paste_object (e, rule, 1);
-	html_object_destroy (rule);
 }
 
 #define SET(x)  if (rule-> ## x != x) { changed = TRUE; rule-> ## x = x; }

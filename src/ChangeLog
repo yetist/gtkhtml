@@ -1,3 +1,13 @@
+2001-01-04  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlengine-edit-table.c (html_engine_insert_table): likewise
+
+	* htmlengine-edit-rule.c (html_engine_insert_rule): don't destroy
+	rule after pasting
+
+	* htmlengine-edit-images.c (html_engine_insert_image): don't
+	destroy image after pasting
+
 2001-01-03  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlengine-edit-cut-and-paste.c (remove_empty_and_merge): remove

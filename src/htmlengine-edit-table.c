@@ -59,7 +59,6 @@ html_engine_insert_table (HTMLEngine *e, gint *values)
 			HTMLObject * cell = html_engine_insert_table_cell (e, percent, r, c, values [5], NULL, NULL);
 			html_table_add_cell (table, cell);
 			html_engine_paste_object (e, cell, TRUE);
-			g_free (cell);
 		}
 		html_table_end_row (table);
 	}
@@ -67,7 +66,6 @@ html_engine_insert_table (HTMLEngine *e, gint *values)
 	html_table_end_table (table);
 	
 	html_engine_paste_object (e, table, TRUE);
-	html_object_destroy (table);		
 }
 
 HTMLObject *

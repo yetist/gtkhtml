@@ -62,5 +62,4 @@ html_engine_insert_image (HTMLEngine *e,
 	html_image_set_spacing (HTML_IMAGE (image), hspace, vspace);
 
 	html_engine_paste_object (e, image, 1);
-	html_object_destroy (image);
 }
