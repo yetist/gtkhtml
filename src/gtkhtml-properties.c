@@ -44,8 +44,8 @@ gtk_html_class_properties_destroy (GtkHTMLClassProperties *p)
 #define GET(t,x,prop,f,c) \
         key = g_strconcat (GTK_HTML_GCONF_DIR, x, NULL); \
         val = gconf_client_get_full (client, key, NULL, FALSE, &dflt, NULL); \
-        if (!dflt) { f; p-> ## prop = gconf_value_ ## t (val); c; } \
-        gconf_value_destroy (val); \
+        if (val) { f; p-> ## prop = gconf_value_ ## t (val); c; \
+        gconf_value_destroy (val); } \
         g_free (key);
 
 void

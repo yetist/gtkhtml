@@ -1,5 +1,8 @@
 2000-06-15  Radek Doulik  <rodo@helixcode.com>
 
+	* gtkhtml-properties.c (gtk_html_class_properties_load): use val
+	== NULL test instead of !dflt
+
 	* keybindingsrc.emacs: same as in keybindingsrc.ms
 
 2000-06-14  Radek Doulik  <rodo@helixcode.com>
