@@ -73,7 +73,8 @@ html_painter_draw_pixmap (HTMLPainter *painter, gint x, gint y, GdkPixbuf *pixbu
 				    pixbuf->art_pixbuf->rowstride);
 	}
 
-	gdk_gc_set_clip_rectangle(painter->gc, NULL);
+	if(clipwidth && clipheight)
+	  html_painter_set_clip_rectangle(painter, 0, 0, 0, 0);
 }
 
 void
@@ -312,6 +313,6 @@ html_painter_set_clip_rectangle (HTMLPainter *painter, gint x, gint y, gint widt
 	rect.y = y;
 	rect.width = width;
 	rect.height = height;
-	
-	gdk_gc_set_clip_rectangle (painter->gc, &rect);
+
+	gdk_gc_set_clip_rectangle (painter->gc, (width && height)?&rect:NULL);
 }

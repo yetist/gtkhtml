@@ -70,6 +70,7 @@ void         html_painter_clear        (HTMLPainter *painter);
 void         html_painter_set_background_color (HTMLPainter *painter, GdkColor *color);
 void         html_painter_draw_shade_line (HTMLPainter *p, gint x, gint y, gint width);
 
+/* Passing 0 for width/height means remove clip rectangle */
 void         html_painter_set_clip_rectangle (HTMLPainter *painter, gint x, gint y, gint width, gint height);
 
 HTMLFont    *html_painter_get_font (HTMLPainter *p);

@@ -198,10 +198,12 @@ html_engine_draw_background (HTMLEngine *e, gint xval, gint yval, gint x, gint y
 	yval = e->y_offset;
 
 	if (!e->bgPixmap) {
+	  g_print("Draw background with no pixmap\n");
 		if (e->bgColor) {
 			html_painter_set_pen (e->painter, e->bgColor);
 			html_painter_fill_rect (e->painter, x, y, w, h);
 		}
+
 		return;
 	}
 
@@ -213,18 +215,27 @@ html_engine_draw_background (HTMLEngine *e, gint xval, gint yval, gint x, gint y
 
 	xOrigin -= e->painter->x1;
 	yOrigin -= e->painter->y1;
-	
+
+	html_painter_set_clip_rectangle(e->painter, x, y, w, h);
+
+	g_print("drawing background pixmap from (%d, %d) to (%d, %d)\n",
+		xOrigin, yOrigin,
+		x + w, y + h);
+	/* Do the bgimage tiling */
 	for (yp = yOrigin; yp < y + h; yp += ph) {
-		for (xp = xOrigin; xp < x + w; xp += pw) {
+	        for (xp = xOrigin; xp < x + w; xp += pw) {
+		        g_print("Drawing bgPixmap at (%d, %d)\n", xp, yp);
+
 			html_painter_draw_pixmap (e->painter, 
 						  xp, 
-						  yp, 
+						  yp,
 						  e->bgPixmap,
-						  x, y,
-						  w, h);
+						  0, 0, 0, 0);
 		}
 	}
-	html_painter_set_clip_rectangle (e->painter, 0, 0, e->width, e->height);
+
+	/* Remove clip rectangle */
+	html_painter_set_clip_rectangle (e->painter, 0, 0, 0, 0);
 
 }
 
@@ -248,10 +259,16 @@ html_engine_begin (HTMLEngine *p, const char *url)
 	html_engine_free_block (p); /* Clear the block stack */
 
 	if (url != 0) {
-		p->actualURL = g_strdup (url);
-		p->baseURL = g_dirname (url);
-		g_print ("baseURL: %s\n", p->baseURL);
-		g_print ("actualURL: %s\n", p->actualURL);
+	  char *ctmp;
+
+	  p->actualURL = html_engine_canonicalize_url(p, url);
+
+	  ctmp = g_dirname (p->actualURL);
+	  p->baseURL = html_engine_canonicalize_url(p, ctmp);
+	  g_free(ctmp);
+
+	  g_print ("baseURL: %s\n", p->baseURL);
+	  g_print ("actualURL: %s\n", p->actualURL);
 	}
 
 	html_engine_stop_parser (p);
@@ -480,7 +497,7 @@ html_engine_parse (HTMLEngine *p)
 	/* Free the background pixmap */
 	if (p->bgPixmap) {
 		gdk_pixbuf_unref (p->bgPixmap);
-		p->bgPixmap = 0;
+		p->bgPixmap = NULL;
 	}
 
 	/* Free the background color (if any) and alloc a new one */
@@ -803,6 +820,29 @@ html_engine_parse_one_token (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 	}
 }
 
+static void
+html_bg_write_pixbuf(GtkHTMLStreamHandle handle, const guchar *buffer, size_t size, gpointer user_data)
+{
+  g_print("stream %p - bg_write_pixbuf(%p, %d)\n", handle, user_data, size);
+  gdk_pixbuf_loader_write(GDK_PIXBUF_LOADER(user_data), buffer, size);
+}
+
+static void
+html_bg_end_pixbuf(GtkHTMLStreamHandle handle, GtkHTMLStreamStatus status, gpointer user_data)
+{
+  HTMLEngine *eng;
+  eng = gtk_object_get_data(GTK_OBJECT(user_data), "engine");
+
+  if(eng)
+    {
+      eng->bgPixmap = gdk_pixbuf_loader_get_pixbuf(GDK_PIXBUF_LOADER(user_data));
+      g_print("end_pixbuf on background - %p!!!!\n", eng->bgPixmap);
+      html_engine_schedule_update(eng);
+    }
+
+  gdk_pixbuf_loader_close(GDK_PIXBUF_LOADER(user_data));
+}
+
 void
 html_engine_parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
@@ -821,6 +861,7 @@ html_engine_parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		while (string_tokenizer_has_more_tokens (e->st)) {
 			gchar *token = string_tokenizer_next_token (e->st);
 			g_print ("token is: %s\n", token);
+
 			if (strncasecmp (token, "bgcolor=", 8) == 0) {
 				g_print ("setting color\n");
 				html_engine_set_named_color (e, &bgcolor, token + 8);
@@ -828,12 +869,17 @@ html_engine_parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 				bgColorSet = TRUE;
 			}
 			else if (strncasecmp (token, "background=", 11) == 0) {
-				gchar *filename = g_strdup_printf ("%s/%s", e->baseURL, token + 11);
-				g_print ("should load: %s\n", filename);
-				e->bgPixmap = gdk_pixbuf_new_from_file (filename);
-				g_print ("bgpixmap is: %p\n", e->bgPixmap);
-				g_free (filename);
-				
+			  GdkPixbufLoader *loader;
+			  char *realurl;
+
+			  loader = gdk_pixbuf_loader_new();
+			  gtk_object_set_data(GTK_OBJECT(loader), "engine", e);
+			  realurl = html_engine_canonicalize_url(e, token + 11);
+			  gtk_html_stream_new(GTK_HTML(e->widget), realurl,
+					      html_bg_write_pixbuf,
+					      html_bg_end_pixbuf,
+					      loader);
+			  g_free(realurl);
 			}
 		}
 		
@@ -1038,13 +1084,12 @@ html_engine_parse_i (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 
 		}
 		if (filename != 0) {
-			
-			filename = g_strdup_printf ("%s/%s", p->baseURL, filename);
-			if (!p->flow)
-				html_engine_new_flow (p, clue);
+		  filename = html_engine_canonicalize_url(p, filename);
+		  if (!p->flow)
+		    html_engine_new_flow (p, clue);
 
-			image = html_image_new (p, filename, clue->max_width, 
-						width, height, percent, border);
+		  image = html_image_new (p, filename, clue->max_width, 
+					  width, height, percent, border);
 		}
 
 		if (align == None) {
@@ -1188,7 +1233,7 @@ html_engine_parse_t (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 	else if (strncmp (str, "/title", 6) == 0) {
 		p->inTitle = FALSE;
 
-		gtk_signal_emit_by_name (GTK_OBJECT (p), "title_changed");
+		gtk_signal_emit (GTK_OBJECT (p->widget), html_signals[TITLE_CHANGED]);
 	}
 }
 
@@ -1590,3 +1635,111 @@ html_engine_block_end_list (HTMLEngine *e, HTMLObject *clue, HTMLStackElement *e
 	e->flow = 0;
 }
 
+
+char *
+html_engine_canonicalize_url (HTMLEngine *e, const char *in_url)
+{
+  char *ctmp, *ctmp2, *retval, *removebegin, *removeend, *curpos;
+  int rvlen;
+
+  g_return_val_if_fail(e, NULL);
+  g_return_val_if_fail(in_url, NULL);
+
+  ctmp = strstr(in_url, "://");
+  if(ctmp)
+    {
+      retval = g_strdup(in_url);
+      goto out;
+    }
+  else if(*in_url == '/')
+    {
+      ctmp = e->baseURL?strstr(e->baseURL, "://"):NULL;
+      if(!ctmp)
+	{
+	  retval = g_strconcat("file://localhost", in_url, NULL);
+	  goto out;
+	}
+
+      ctmp2 = strchr(ctmp + 3, '/');
+
+      retval = g_strconcat(e->baseURL, in_url, NULL);
+      goto out;
+    }
+
+  /* XXX TODO - We should really do processing of .. and . in URLs */
+
+  ctmp = e->baseURL?strstr(e->baseURL, "://"):NULL;
+  if(!ctmp)
+    {
+      char *cwd;
+
+      cwd = g_get_current_dir();
+      ctmp = g_strconcat("file://localhost", cwd, "/", in_url, NULL);
+      g_free(cwd);
+
+      retval = ctmp;
+      goto out;
+    }
+
+  retval = g_strconcat(e->baseURL, "/", in_url, NULL);
+
+ out:
+  /* Now fix up the /. and /.. pieces */
+
+  ctmp = strstr(retval, "://");
+  g_assert(ctmp);
+  ctmp += 3;
+  ctmp = strchr(ctmp, '/');
+  if(!ctmp)
+    return retval;
+
+  removebegin = removeend = NULL;
+  do {
+    if(removebegin && removeend)
+      {
+	memmove(removebegin, removeend, strlen(removeend) + 1);
+	removebegin = removeend = NULL;
+      }
+    curpos = ctmp;
+
+  redo:
+    ctmp2 = strstr(curpos, "/.");
+    if(!ctmp2)
+      break;
+
+    if(*(ctmp2 + 2) == '.') /* We have to skip over stuff like /...blahblah or /.foo */
+      {
+	if(*(ctmp2 + 3) != '/'
+	   && *(ctmp2 + 3) != '\0')
+	  {
+	    curpos = ctmp2 + 3;
+	    goto redo;
+	  }
+      }
+    else if(*(ctmp2 + 2) != '/' && *(ctmp2 + 2) != '\0')
+      {
+	curpos = ctmp2 + 2;
+	goto redo;
+      }
+
+    switch(*(ctmp2+2))
+      {
+      case '/':
+      case '\0':
+	removebegin = ctmp2;
+	removeend = ctmp2 + 2;
+	break;
+      case '.':
+	removeend = ctmp2 + 3;
+	ctmp2--;
+	while((ctmp2 >= ctmp) && *ctmp2 != '/')
+	  ctmp2--;
+	if(*ctmp2 == '/')
+	  removebegin = ctmp2;
+	break;
+      }
+
+  } while(removebegin);
+
+  return retval;
+}

@@ -128,8 +128,6 @@ html_image_end_pixbuf(GtkHTMLStreamHandle handle, GtkHTMLStreamStatus status, gp
 {
   HTMLImage *i = user_data;
 
-  g_print("end_pixbuf\n");
-
   if(!i->pixmap)
     html_image_area_prepared(i->loader, i);
   else
@@ -228,8 +226,6 @@ html_image_draw (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gint
 
 	  clip_width = width;
 	  clip_height = height;
-
-	  g_print("Redrawing image %p\n", o);
 
 	  html_painter_draw_pixmap (p, base_x, base_y,
 				    HTML_IMAGE (o)->pixmap,

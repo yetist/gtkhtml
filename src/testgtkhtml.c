@@ -48,7 +48,7 @@ static void stop_cb (GtkWidget *widget, gpointer data);
 static void dump_cb (GtkWidget *widget, gpointer data);
 static void redraw_cb (GtkWidget *widget, gpointer data);
 static void resize_cb (GtkWidget *widget, gpointer data);
-static void title_changed_cb (HTMLEngine *engine, gpointer data);
+static void title_changed_cb (GtkHTML *html, gpointer data);
 static gboolean load_timer_event (FileInProgress *fip);
 static void url_requested (GtkHTML *html, const char *url, GtkHTMLStreamHandle handle, gpointer data);
 static void entry_goto_url(GtkWidget *widget, gpointer data);
@@ -61,7 +61,6 @@ static int netin_stream_write (HTStream * me, const char * s, int l);
 static int netin_stream_flush (HTStream * me);
 static int netin_stream_free (HTStream * me);
 static int netin_stream_abort (HTStream * me, HTList * e);
-static HTResponse *netin_request_response(HTRequest *request);
 static HTStream *netin_stream_new (GtkHTMLStreamHandle handle, HTRequest *request);
 #endif
 
@@ -261,13 +260,13 @@ slow_cb (GtkWidget *widget, gpointer data)
 
 
 static void
-title_changed_cb (HTMLEngine *engine, gpointer data)
+title_changed_cb (GtkHTML *html, gpointer data)
 {
 	g_print ("title_changed_cb\n");
 
 	gtk_window_set_title (GTK_WINDOW (data), 
 			      g_strdup_printf ("GtkHTML: %s\n", 
-					       engine->title->str));
+					       html->engine->title->str));
 }
 
 static void
@@ -287,7 +286,7 @@ load_done(GtkHTML *html)
 {
   gnome_animator_stop (GNOME_ANIMATOR (animator));
   gnome_animator_goto_frame (GNOME_ANIMATOR (animator), 1);
-  gtk_entry_set_text(GTK_ENTRY(entry), html->engine->baseURL);
+  gtk_entry_set_text(GTK_ENTRY(entry), html->engine->actualURL);
   if(exit_when_done)
     gtk_main_quit();
 }
@@ -322,9 +321,6 @@ load_timer_event (FileInProgress *fip)
 struct _HTStream {
   const HTStreamClass *	isa;
   GtkHTMLStreamHandle handle;
-  HTRequest *request;
-  HTResponse *response;
-  long read_len;
 };
 
 static int
@@ -342,22 +338,7 @@ netin_stream_put_string (HTStream * me, const char * s)
 static int
 netin_stream_write (HTStream * me, const char * s, int l)
 {
-  int reqlen;
-
-  if(!me->response)
-    me->response = netin_request_response(me->request);
-
-  me->read_len += l;
-
   gtk_html_write(html, me->handle, s, l);
-
-  reqlen = HTResponse_length(me->response);
-
-#if 0
-  g_print("reqlen on %p is %d (so far %ld)\n", me->handle, reqlen, me->read_len);
-  if((reqlen > 0) && (me->read_len >= reqlen))
-    gtk_idle_add((GtkFunction)do_request_delete, me->request);
-#endif
 
   return HT_OK;
 }
@@ -394,19 +375,6 @@ static const HTStreamClass netin_stream_class =
     netin_stream_write
 }; 
 
-static HTResponse *
-netin_request_response(HTRequest *request)
-{
-  HTResponse *retval;
-
-  while(!(retval = HTRequest_response(request)))
-    {
-      g_main_iteration(TRUE);
-    }
-
-  return retval;
-}
-
 static HTStream *
 netin_stream_new (GtkHTMLStreamHandle handle, HTRequest *request)
 {
@@ -416,7 +384,6 @@ netin_stream_new (GtkHTMLStreamHandle handle, HTRequest *request)
 
   retval->isa = &netin_stream_class;
   retval->handle = handle;
-  retval->request = request;
 
   return retval;
 }
@@ -462,6 +429,7 @@ url_requested (GtkHTML *html, const char *url, GtkHTMLStreamHandle handle, gpoin
 	HTRequest *newreq;
 	BOOL status;
 
+#if 0
 	if(!strstr(url, "://")) {
 	  if(g_file_exists(url))
 	    {
@@ -480,6 +448,7 @@ url_requested (GtkHTML *html, const char *url, GtkHTMLStreamHandle handle, gpoin
 	  url = buffer;
 
 	}
+#endif
 
 	newreq = HTRequest_new();
 	g_assert(newreq);
@@ -488,9 +457,7 @@ url_requested (GtkHTML *html, const char *url, GtkHTMLStreamHandle handle, gpoin
 	{
 	  HTStream *newstream = netin_stream_new(handle, newreq);
 	  status = HTLoadToStream(url, newstream, newreq);
-	  newstream->response = netin_request_response(newreq);
 	  g_message("Loading URL %s to stream %p (status %d)", url, handle, status);
-	  HTRequest_setContext(newreq, newstream);
 	}
 
 	return;
@@ -533,27 +500,6 @@ url_requested (GtkHTML *html, const char *url, GtkHTMLStreamHandle handle, gpoin
 static void
 goto_url(const char *url)
 {
-        gchar buffer[32768];
-
-	if(!strstr(url, "://")) {
-	  if(g_file_exists(url))
-	    {
-	      char *cwd;
-
-	      cwd = g_get_current_dir();
-	      g_snprintf(buffer, sizeof(buffer), "file://%s%s%s",
-			 (*url != '/')?cwd:"",
-			 (*url != '/')?"/":"",
-			 url);
-	      g_free(cwd);
-	    }
-	  else
-	    g_snprintf(buffer, sizeof(buffer), "http://%s", url);
-
-	  url = buffer;
-
-	}
-
 	gnome_animator_start (GNOME_ANIMATOR (animator));
 	gtk_html_begin (html, url);
 	gtk_html_parse (html);
@@ -640,7 +586,7 @@ main (gint argc, gchar *argv[])
 	gtk_widget_show_all (app);
 
 	{
-	  char **args;
+	  const char **args;
 	  args = poptGetArgs(ctx);
 	  if (args && args[0])
 	    goto_url(args[0]);
@@ -650,6 +596,3 @@ main (gint argc, gchar *argv[])
 
 	return 0;
 }
-
-
-

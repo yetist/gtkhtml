@@ -179,5 +179,6 @@ void        html_engine_stop_parser (HTMLEngine *e);
 void        html_engine_block_end_list (HTMLEngine *e, HTMLObject *clue, HTMLStackElement *elem);
 void        html_engine_free_block (HTMLEngine *e);
 void        html_engine_calc_absolute_pos (HTMLEngine *e);
+char       *html_engine_canonicalize_url (HTMLEngine *e, const char *in_url);
 
 #endif /* _HTMLENGINE_H_ */
