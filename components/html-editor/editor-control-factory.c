@@ -305,15 +305,15 @@ html_button_pressed (GtkWidget *html, GdkEventButton *event, GtkHTMLControlData 
 					     &offset, FALSE);
 	switch (event->button) {
 	case 1:
-		if (event->type == GDK_2BUTTON_PRESS && cd->obj && event->state & GDK_CONTROL_MASK)
+		if (event->type == GDK_2BUTTON_PRESS && cd->obj && event->state & GDK_CONTROL_MASK) {
 			cd->releaseId = g_signal_connect (html, "button_release_event",
 							  G_CALLBACK (release), cd);
-		else
 			return TRUE;
+		}
 		break;
 	case 2:
 		/* pass this for pasting */
-		return TRUE;
+		return FALSE;
 	case 3:
 		if (!html_engine_is_selection_active (engine) || !html_engine_point_in_selection (engine, cd->obj, offset)) {
 			html_engine_disable_selection (engine);
@@ -323,8 +323,10 @@ html_button_pressed (GtkWidget *html, GdkEventButton *event, GtkHTMLControlData 
 			gtk_html_update_styles (cd->html);
 		}
 
-		if (popup_show (cd, event))
+		if (popup_show (cd, event)) {
 			gtk_signal_emit_stop_by_name (GTK_OBJECT (html), "button_press_event");
+			return TRUE;
+		}
 		break;
 	default:
 		;
