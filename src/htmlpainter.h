@@ -19,7 +19,7 @@ void         html_painter_draw_rect (HTMLPainter *painter, gint x, gint y, gint 
 void         html_painter_draw_text (HTMLPainter *painter, gint x, gint y, gchar *text, gint len);
 void         html_painter_set_font (HTMLPainter *p, HTMLFont *f);
 void         html_painter_fill_rect (HTMLPainter *painter, gint x, gint y, gint width, gint height);
-void         html_painter_draw_pixmap (HTMLPainter *painter, gint x, gint y, GdkPixBuf *pixbuf);
+void         html_painter_draw_pixmap (HTMLPainter *painter, gint x, gint y, GdkPixbuf *pixbuf);
 void         html_painter_set_background_color (HTMLPainter *painter, GdkColor *color);
 void         html_painter_draw_shade_line (HTMLPainter *p, gint x, gint y, gint width);
 void         html_painter_draw_ellipse (HTMLPainter *painter, gint x, gint y, gint width, gint height);

@@ -95,7 +95,7 @@ struct _HTMLEngine {
 	gchar *baseURL;
 
 	/* The background pixmap */
-	GdkPixBuf *bgPixmap;
+	GdkPixbuf *bgPixmap;
 	gboolean bgPixmapSet;
 
 	/* Stack of lists currently active */

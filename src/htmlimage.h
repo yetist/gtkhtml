@@ -18,7 +18,7 @@ struct _HTMLImage {
 	gint border;
 	HTMLEngine *engine;
 
-	GdkPixBuf *pixmap;
+	GdkPixbuf *pixmap;
 };
 
 HTMLObject *html_image_new (HTMLEngine *e, gchar *filename, gint max_width, gint width, gint height,

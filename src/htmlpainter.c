@@ -18,7 +18,7 @@ html_painter_draw_rect (HTMLPainter *painter, gint x, gint y, gint width, gint h
 }
 
 void
-html_painter_draw_pixmap (HTMLPainter *painter, gint x, gint y, GdkPixBuf *pixbuf)
+html_painter_draw_pixmap (HTMLPainter *painter, gint x, gint y, GdkPixbuf *pixbuf)
 {
 	/* FIXME: Support alpha */
 	gdk_draw_rgb_image (painter->window,
