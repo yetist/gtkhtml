@@ -1,3 +1,7 @@
+2003-03-17  Larry Ewing  <lewing@ximian.com>
+
+	* Makefile.am: install the binary in libexecdir
+
 2003-03-15  Larry Ewing  <lewing@ximian.com>
 
 	* Makefile.am: fix the server.in.in rules to use sed so that

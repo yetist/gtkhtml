@@ -126,13 +126,13 @@ PRGS = gnome-gtkhtml-editor
 gnome_gtkhtml_editor_SOURCES =			\
 	$(GTKHTML_EDITOR_SOURCES_COMMON)
 install-exec-hook:
-	mv $(DESTDIR)$(bindir)/gnome-gtkhtml-editor $(DESTDIR)$(GNOME_GTKHTML_EDITOR_LOCATION)
+	mv $(DESTDIR)$(libexecdir)/gnome-gtkhtml-editor $(DESTDIR)$(GNOME_GTKHTML_EDITOR_LOCATION)
 
 uninstall-hook:
 	rm -f $(DESTDIR)$(GNOME_GTKHTML_EDITOR_LOCATION)
 #endif
 
-bin_PROGRAMS = $(PRGS)
+libexec_PROGRAMS = $(PRGS)
 
 serverdir = $(libdir)/bonobo/servers
 server_in_files = GNOME_GtkHTML_Editor.server.in.in
@@ -173,7 +173,6 @@ EXTRA_DIST =					\
 	$(ui_DATA)				\
 	GNOME_GtkHTML_Editor.xml.in		\
 	gtkhtml-editor-properties.glade		\
-	GNOME_GtkHTML_Editor.server.in.in	\
 	$(server_in_files) $(server_DATA)
 
 idldir = $(gtkhtml_data)
