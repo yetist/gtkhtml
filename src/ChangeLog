@@ -2,7 +2,8 @@
 
         * htmlclueflow.c (draw_quotes): Alway draw the quote character at
 	the begining of the flow don't indent it with the text.
-        
+	(plain_padding): add the quote character in the plain text output.
+
 	* htmlclueflow.c (get_indent): Add #ifdef DRAW_QUOTES here for
 	now.
 

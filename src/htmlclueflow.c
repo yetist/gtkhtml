@@ -1849,7 +1849,7 @@ string_append_nonbsp (GString *out, guchar *s, gint length)
 #define CLUEFLOW_ITEM_MARKER        "    * "
 #define CLUEFLOW_ITEM_MARKER_PAD    "      "
 #define CLUEFLOW_INDENT             "    "
-#define CLUEFLOE_BLOCKQUOTE_CITE    "> "
+#define CLUEFLOW_BLOCKQUOTE_CITE    "> "
           
 static gchar *
 plain_get_marker (HTMLClueFlow *flow, gint *pad, gchar **pad_indent)
@@ -1914,7 +1914,10 @@ plain_padding (HTMLClueFlow *flow, GString *out, gboolean firstline)
 
 	if (out) {
 		for (i = 0; i < (gint) flow->level; i++) {
-			g_string_append (out, CLUEFLOW_INDENT);
+			if (is_cite (flow) && (i == 0))
+				g_string_append (out, CLUEFLOW_BLOCKQUOTE_CITE);
+			else
+				g_string_append (out, CLUEFLOW_INDENT);
 		}
 
 		if (is_item (flow)) {
