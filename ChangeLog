@@ -1,3 +1,9 @@
+2000-03-23  Radek Doulik  <rodo@ucw.cz>
+
+	* BUGS,TODO: removed from BUGS (hope it is not premature) and
+	added rewrite of HTMLClueFlow parts, as HTMLTextMaster,Slave
+	are really evil hacks
+
 2000-03-22  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* BUGS: New file.

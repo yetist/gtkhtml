@@ -34,6 +34,9 @@ struct _EntityEntry {
 };
 typedef struct _EntityEntry EntityEntry;
 
+/* char used for &nbsp; - must correspond to table below */
+#define ENTITY_NBSP 160
+
 static EntityEntry entity_table[] = {
 	/*
 	 * the 4 absolute ones,
@@ -165,4 +168,20 @@ html_entity_parse (const gchar *s, guint len)
 	}
 
 	return 0;
+}
+
+/* prepares text to draw/get_width, returned text is allocated using g_strdup so it could be g_free'ed */
+gchar *
+html_entity_prepare (gchar * text)
+{
+	gchar *nt = g_strdup (text);
+	gchar *s  = nt;
+
+	while (s) {
+		s = strchr (s, ENTITY_NBSP);
+		if (s)
+			*s = ' ';
+			}
+
+	return nt;
 }

@@ -544,11 +544,13 @@ draw_text (HTMLPainter *painter,
 {
 	HTMLGdkPainter *gdk_painter;
 	GdkFont *gdk_font;
+	gchar *pt;
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
+	pt = html_entity_prepare (text);
 
 	if (len == -1)
-		len = strlen (text);
+		len = strlen (pt);
 
 	x -= gdk_painter->x1;
 	y -= gdk_painter->y1;
@@ -560,13 +562,13 @@ draw_text (HTMLPainter *painter,
 		       gdk_font,
 		       gdk_painter->gc,
 		       x, y,
-		       text, len);
+		       pt, len);
 
 	if (gdk_painter->font_style & (GTK_HTML_FONT_STYLE_UNDERLINE
 				       | GTK_HTML_FONT_STYLE_STRIKEOUT)) {
 		guint width;
 
-		width = gdk_text_width (gdk_font, text, len);
+		width = gdk_text_width (gdk_font, pt, len);
 
 		if (gdk_painter->font_style & GTK_HTML_FONT_STYLE_UNDERLINE)
 			gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc, 
@@ -579,6 +581,7 @@ draw_text (HTMLPainter *painter,
 				       x + width, y - gdk_font->ascent / 2);
 	}
 
+	g_free (pt);
 	gdk_font_unref (gdk_font);
 }
 
@@ -649,12 +652,14 @@ calc_text_width (HTMLPainter *painter,
 	HTMLGdkPainter *gdk_painter;
 	GdkFont *gdk_font;
 	gint width;
+	gchar *pt = html_entity_prepare (text);
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
 
 	gdk_font = html_gdk_font_manager_get_font (gdk_painter->font_manager, style);
-	width = gdk_text_width (gdk_font, text, len);
+	width = gdk_text_width (gdk_font, pt, len);
 	gdk_font_unref (gdk_font);
+	g_free (pt);
 
 	return width;
 }

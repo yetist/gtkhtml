@@ -165,7 +165,7 @@ html_font_calc_width (HTMLFont *f, const gchar *text, gint len)
 
 	g_return_val_if_fail (f != NULL, 0);
 	g_return_val_if_fail (text != NULL, 0);
-	
+
 	if (len == -1)
 		width = gdk_string_width (f->gdk_font, text);
 	else

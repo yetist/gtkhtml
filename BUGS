@@ -22,17 +22,6 @@ Table problems
 
 - ROWSPAN/COLSPAN does not work.
 
-HTMLClueFlow problems
------------------------
-
-- HTMLClueFlow thinks two separate elements can always be split.  Of
-  course this is wrong: for example, if you have `<b>Some</b>thing',
-  it might happen that the flow code puts `thing' on a new line.
-  Also, this does not respect `&nbsp;'s at all.
-  There should be a method in every HTMLObject that tells the flow
-  code whether the element can be separated from the next/following
-  one, and the flow code should respect that.
-
 * Form problems
 ---------------
 

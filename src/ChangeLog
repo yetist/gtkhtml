@@ -1,3 +1,25 @@
+2000-03-23  Radek Doulik  <rodo@ucw.cz>
+
+	* htmlclueflow.c (calc_min_width): fill HTMLObject::nb_width
+	(calc_size): use HTMLObject::nb_width
+
+	* htmlobject.h: added nb_width - width of following non-breaking
+	list of objects
+
+	* htmltextmaster.c (calc_min_width): removed run_width +=
+	space_width as we don't want add spaces to minimal width
+
+	* htmlclueflow.c (should_break): new function, decides if line
+	should be broken before obj
+	(calc_min_width): uses should_break function
+	(calc_size):  uses should_break function
+
+	* htmlgdkpainter.c (draw_text): uses html_entity_prepare
+	(calc_text_width):  uses html_entity_prepare
+
+	* htmlentity.c (html_entity_prepare): prepares text to
+	draw/get_width - now it only replaces &nbsp; with ' '
+
 2000-03-22  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlclueflow.c (add_pre_padding): Also increment the `y' value

@@ -17,3 +17,8 @@ Todo for gtkhtml:
 
 * Itemized list do not support numbers (we have to make a simple
   HTMLClueFlow hack for that).
+
+* rewrite HTMLMasterText, HTMLSlaveText - I believe that we may split
+  content of Flow first by potencial line breaks to HTMLClueNBreak objects.
+  HTMLClueNBreak will contain list of HTMLObjects - in case of text -
+  HTMLMasterText.

@@ -88,7 +88,6 @@ calc_min_width (HTMLObject *self,
 		if (*p != ' ' && *p != 0) {
 			run_width += html_painter_calc_text_width (painter, p, 1, font_style);
 		} else {
-			run_width += space_width;
 			if (run_width > min_width)
 				min_width = run_width;
 			run_width = 0;
