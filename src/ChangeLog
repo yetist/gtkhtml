@@ -1,10 +1,17 @@
 2000-12-06  Radek Doulik  <rodo@helixcode.com>
 
+	* htmltable.c (calc_column_width_step): take care of cspan
+	(calc_column_width_template): do steps for all possible cspans
+
+	* htmlengine.c (parse_i): set eat_space to FALSE after <img>
+
 	* htmltable.c (divide_into_percented): don't substract max_size
 	[c] from MIN, but from total_width part
 	(calc_lowest_fill): new helper function
 	(divide_into_variable_all): use calc_lowest_fill, updated first
 	step of dividing between cols with pref width < actual
+	(calc_column_width_step): extracted from
+	calc_column_width_template
 
 	* htmlengine.c (parse_body): set eat_space to FALSE
 	(insert_text): drop consequent spaces

@@ -2216,7 +2216,8 @@ parse_i (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 		gboolean percent_width  = FALSE;
 		gboolean percent_height = FALSE;
 		
-		color = current_color (e);
+		color        = current_color (e);
+		e->eat_space = FALSE;
 
 		if (e->url != NULL || e->target != NULL)
 			border = 2;
