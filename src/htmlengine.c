@@ -3098,7 +3098,9 @@ html_engine_destroy (GtkObject *object)
 		gtk_timeout_remove (engine->updateTimer);
 		engine->updateTimer = 0;
 	}
-
+	/* remove all the timers associated with image pointers also */
+	html_image_factory_stop_animations (engine->image_factory);
+	
 	html_undo_destroy (engine->undo);
 	html_engine_clipboard_clear (engine);
 
@@ -3123,7 +3125,6 @@ html_engine_destroy (GtkObject *object)
 		engine->clue = NULL;
 		html_object_destroy (clue);
 	}
-
 	html_image_factory_free (engine->image_factory);
 
 	gtk_object_unref (GTK_OBJECT (engine->painter));

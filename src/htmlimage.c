@@ -1288,16 +1288,22 @@ free_image_ptr_data (HTMLImagePointer *ip)
 }
 
 static void
+html_image_pointer_remove_stall (HTMLImagePointer *ip)
+{
+	if (ip->stall_timeout) {
+		gtk_timeout_remove (ip->stall_timeout);
+		ip->stall_timeout = 0;
+	}
+}
+
+static void
 html_image_pointer_unref (HTMLImagePointer *ip)
 {
 	g_return_if_fail (ip != NULL);
 
 	ip->refcount--;
 	if (ip->refcount <= 0) {
-		if (ip->stall_timeout) {
-			gtk_timeout_remove (ip->stall_timeout);
-			ip->stall_timeout = 0;
-		}
+		html_image_pointer_remove_stall (ip);
 		g_free (ip->url);
 		free_image_ptr_data (ip);
 		g_free (ip);
@@ -1404,6 +1410,8 @@ stop_anim (gpointer key, gpointer value, gpointer user_data)
 	HTMLImagePointer *ip = value;
 	GSList *cur = ip->interests;
 	HTMLImage *image;
+
+	html_image_pointer_remove_stall (ip);
 
 	while (cur) {
 		if (cur->data) {

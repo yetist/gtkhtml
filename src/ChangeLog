@@ -1,5 +1,12 @@
 2001-10-28  Larry Ewing  <lewing@ximian.com>
 
+	* htmlimage.c (stop_anim): remove the stall timeout here as well.
+	(html_image_pointer_remove_stall): helper function.
+	(html_image_pointer_unref): use remove_stall.
+
+	* htmlengine.c (html_engine_destroy): stop all animations and
+	destroy stall timers before we enter the destroy processing.
+	
 	* gtkhtml.c: add accessor to the allow_frameset disable code.
 
 	* gtkhtml.h: add prototypes.
