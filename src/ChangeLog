@@ -1,5 +1,12 @@
 2000-10-26  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine.c (parse_body): call insert_text also for spaces
+
+	* htmlfontmanager.c (alloc_new_font): g_strdup key while inserting
+	to hash table
+	(destroy_font_set_foreach): g_free key while removing from hash
+	table
+
 	* gtkhtml-private.h: include config.h
 
 	* gtkhtml-im.c: include config.h

@@ -669,9 +669,10 @@ parse_body (HTMLEngine *p, HTMLObject *clue, const gchar *end[], gboolean toplev
 			/* if in* is set this text belongs in a form element */
 			if (p->inOption || p->inTextArea)
 				p->formText = g_string_append (p->formText, " ");
-			else if (p->inTitle) {
+			else if (p->inTitle)
 				g_string_append (p->title, " ");
-			}
+			else
+				insert_text (p, clue, str);
 		} else if (*str != TAG_ESCAPE) {
 			if (p->inOption || p->inTextArea)
 				g_string_append (p->formText, str);

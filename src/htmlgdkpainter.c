@@ -173,6 +173,7 @@ alloc_e_font (gchar *face, gdouble size, GtkHTMLFontStyle style)
 	GdkFont *font;
 
 	font = alloc_font (face, size, style);
+
 	return font ? e_font_from_gdk_font (font) : NULL;
 }
 

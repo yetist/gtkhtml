@@ -99,6 +99,7 @@ html_font_manager_init (HTMLFontManager *manager,
 static gboolean
 destroy_font_set_foreach (gpointer key, gpointer font_set, gpointer unref_font)
 {
+	g_free (key);
 	html_font_set_unref (font_set, (HTMLFontManagerUnrefFont) unref_font);
 
 	return TRUE;
@@ -220,11 +221,11 @@ alloc_new_font (HTMLFontManager *manager, HTMLFontSet **set, gchar *face_list, G
 			if (font) {
 				if (!(*set)) {
 					*set = html_font_set_new (*face);
-					g_hash_table_insert (manager->font_sets, *face, *set);
+					g_hash_table_insert (manager->font_sets, g_strdup (*face), *set);
 				}
 				if (strcmp (face_list, *face)) {
 					(*set)->ref_count ++;
-					g_hash_table_insert (manager->font_sets, face_list, *set);
+					g_hash_table_insert (manager->font_sets, g_strdup (face_list), *set);
 				}
 				break;
 			}
@@ -234,7 +235,7 @@ alloc_new_font (HTMLFontManager *manager, HTMLFontSet **set, gchar *face_list, G
 		if (!(*set)) {
 			/* none of faces exist, so create empty set for him and let manager later set fixed font here */
 			*set = html_font_set_new (face_list);
-			g_hash_table_insert (manager->font_sets, face_list, *set);
+			g_hash_table_insert (manager->font_sets, g_strdup (face_list), *set);
 		}
 	} else
 		font = (*manager->alloc_font) ((*set)->face, get_real_font_size (manager, style), style);
