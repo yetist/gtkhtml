@@ -26,4 +26,6 @@ components/html-editor/toolbar.c
 components/html-editor/utils.c
 src/gtkhtml.c
 src/htmlgdkpainter.c
+src/htmlengine-print.c
+src/htmlprinter.c
 src/testgtkhtml.c
