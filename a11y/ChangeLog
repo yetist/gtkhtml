@@ -1,3 +1,9 @@
+2004-05-26  Yuedong Du <yuedong.du@sun.com>
+
+	* object.c: (gtk_html_a11y_get_type): GTK_HTML_A11Y change to 
+	inherit from GAIL_WIDGET instead of GAIL_CONTAINER. 
+	fix bug #42867.
+
 2004-04-27  Eric Zhao  <eric.zhao@sun.com>
 
 	fixes #55250.

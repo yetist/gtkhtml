@@ -59,12 +59,10 @@ gtk_html_a11y_get_type (void)
 		 * we are deriving from
 		 */
 		AtkObjectFactory *factory;
-		GType derived_type;
 		GTypeQuery query;
 		GType derived_atk_type;
 
-		derived_type = g_type_parent (GTK_TYPE_HTML);
-		factory = atk_registry_get_factory (atk_get_default_registry (), derived_type);
+		factory = atk_registry_get_factory (atk_get_default_registry (), GTK_TYPE_WIDGET);
 		derived_atk_type = atk_object_factory_get_accessible_type (factory);
 		g_type_query (derived_atk_type, &query);
 		tinfo.class_size = query.class_size;
