@@ -82,7 +82,7 @@ static TemplateInsertTemplate template_templates [TEMPLATES] = {
 		TRUE, TRUE, 80, TRUE, HTML_HALIGN_CENTER,
 		N_("<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0\"@width@@align@><tr><td>"
 		   "<table bgcolor=\"#fffff0\" cellpadding=3 cellspacing=0 width=\"100%\">"
-		   "<tr><td valign=top><img src=\"file://" ICONDIR "/bulb.png\"></td>"
+		   "<tr><td valign=top><img src=\"file://" ICONDIR "/bulb.png\" hspace=10></td>"
 		   "<td width=\"100%\">"
 		   "* Place your text here *"
 		   "</td></tr></table></td></tr></table>")

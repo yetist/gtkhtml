@@ -245,6 +245,10 @@ menubar_update_format (GtkHTMLControlData *cd)
 				      "sensitive", sensitive, &ev);
 	bonobo_ui_component_set_prop (uic, "/commands/InsertRule",
 				      "sensitive", sensitive, &ev);
+	bonobo_ui_component_set_prop (uic, "/commands/InsertTable",
+				      "sensitive", sensitive, &ev);
+	bonobo_ui_component_set_prop (uic, "/commands/InsertTemplate",
+				      "sensitive", sensitive, &ev);
 	CORBA_exception_free (&ev);	
 }
 
