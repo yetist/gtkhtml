@@ -1,5 +1,8 @@
 2000-11-01  Radek Doulik  <rodo@helixcode.com>
 
+	* gtkhtml.c (load_bindings_from_file): use g_file_test instead of
+	g_file_exist
+
 	* htmltable.c (destroy): fixed cell skipping contidion
 
 	* htmlengine.c (parse_table): ignore nowrap if width is set

@@ -2685,7 +2685,7 @@ load_bindings_from_file (gboolean from_share, gchar *name)
 
 	rcfile = g_strconcat ((from_share ? PREFIX "/share/gtkhtml/" : gnome_util_user_home ()),
 			      (from_share ? "" : "/.gnome/"), name, NULL);
-	if (g_file_exists (rcfile))
+	if (g_file_test (rcfile, G_FILE_TEST_ISFILE))
 		gtk_rc_parse (rcfile);
 	g_free (rcfile);
 }
