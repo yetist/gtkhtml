@@ -309,7 +309,7 @@ paragraph_align_cb (BonoboUIComponent           *component,
 	GtkHTMLControlData *cd = (GtkHTMLControlData *)user_data;
 	int i;
 
-	if (!atoi(state))
+	if (cd->block_font_style_change || !atoi(state))
 		return; 
 
 	/* g_warning ("wowee %s :: %s", path, state); */
@@ -454,8 +454,10 @@ menubar_update_paragraph_alignment (GtkHTML *html,
 		CORBA_Environment ev;
 
 		CORBA_exception_init (&ev);
+		cd->block_font_style_change ++;
 		bonobo_ui_component_set_prop (uic, path,
 					      "state", "1", &ev);
+		cd->block_font_style_change --;
 		CORBA_exception_free (&ev);	
 	} else {
 		g_warning ("Unknown Paragraph Alignment");

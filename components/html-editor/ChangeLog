@@ -1,3 +1,8 @@
+2001-10-16  Radek Doulik  <rodo@ximian.com>
+
+	* menubar.c (menubar_update_paragraph_alignment): block changes
+	(paragraph_align_cb): check for blocked changes
+
 2001-10-15  Radek Doulik  <rodo@ximian.com>
 
 	* editor-control-factory.c (editor_init_painters): use points attribute
