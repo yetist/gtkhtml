@@ -1,3 +1,10 @@
+2000-05-08  Larry Ewing  <lewing@helixcode.com>
+
+	* editor-control-factory.c (editor_control_factory_init): call
+	gdk_rgb_init().
+	(html_button_pressed): pass button 2 events through to the defautl
+	handler.
+
 2000-05-03  Radek Doulik  <rodo@helixcode.com>
 
 	* link.c (link_edit): hide text input - we don't want edit it now

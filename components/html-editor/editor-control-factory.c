@@ -104,6 +104,9 @@ html_button_pressed (GtkWidget *html, GdkEventButton *event, GtkHTMLControlData 
 			break;
 		default:
 		}
+	} else if (event->button == 2) {
+		/* pass this for pasting */
+		return TRUE;
 	} else if (event->button == 3) {
 		if (popup_show (cd, event))
 			gtk_signal_emit_stop_by_name (GTK_OBJECT (html), "button_press_event");
@@ -170,6 +173,7 @@ editor_control_factory_init (void)
 	if (factory != NULL)
 		return;
 
+	gdk_rgb_init ();
 	factory = bonobo_generic_factory_new (CONTROL_FACTORY_ID,
 					      editor_control_factory,
 					      NULL);
