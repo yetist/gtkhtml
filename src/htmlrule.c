@@ -49,7 +49,7 @@ calc_min_width (HTMLObject *o)
 }
 
 static void
-draw (HTMLObject *o, HTMLPainter *p,
+draw (HTMLObject *o, HTMLPainter *p, HTMLCursor *cursor,
       gint x, gint y, gint width, gint height, gint tx, gint ty)
 {
 	HTMLRule *rule = HTML_RULE (o);
@@ -64,9 +64,9 @@ draw (HTMLObject *o, HTMLPainter *p,
 	if (rule->shade) {
 		html_painter_draw_shade_line (p, xp, yp, o->width);
 
-	}
-	else 
+	} else {
 		html_painter_fill_rect (p, xp, yp, o->width, o->ascent - 6);
+	}
 }
 
 

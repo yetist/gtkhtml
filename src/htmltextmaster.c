@@ -28,7 +28,7 @@ HTMLTextMasterClass html_text_master_class;
 
 
 static void
-draw (HTMLObject *o, HTMLPainter *p,
+draw (HTMLObject *o, HTMLPainter *p, HTMLCursor *cursor,
       gint x, gint y, gint width, gint height, gint tx, gint ty)
 {
 	/* Don't paint yourself.  */
@@ -50,10 +50,11 @@ static HTMLFitType
 fit_line (HTMLObject *o, gboolean startOfLine, gboolean firstRun,
 	  gint widthLeft) 
 {
-	HTMLTextMaster *textmaster = HTML_TEXT_MASTER (o);
-
+	HTMLTextMaster *textmaster; 
 	HTMLObject *next_obj;
 	HTMLObject *text_slave;
+
+	textmaster = HTML_TEXT_MASTER (o);
 
 	if (o->flags & HTML_OBJECT_FLAG_NEWLINE)
 		return HTML_FIT_COMPLETE;
@@ -71,6 +72,7 @@ fit_line (HTMLObject *o, gboolean startOfLine, gboolean firstRun,
 	text_slave = html_text_slave_new (textmaster, 0, textmaster->strLen);
 
 	text_slave->next = o->next;
+	text_slave->parent = o->parent;
 	o->next = text_slave;
 	
 	return HTML_FIT_COMPLETE;

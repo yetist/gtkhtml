@@ -76,7 +76,7 @@ set_max_width (HTMLObject *o, gint max_width)
 }
 
 static void
-draw (HTMLObject *o, HTMLPainter *p, gint x, gint y, 
+draw (HTMLObject *o, HTMLPainter *p, HTMLCursor *cursor, gint x, gint y, 
       gint width, gint height, gint tx, gint ty)
 {
 	HTMLTableCell *cell = HTML_TABLE_CELL (o);
@@ -99,7 +99,7 @@ draw (HTMLObject *o, HTMLPainter *p, gint x, gint y,
 					bottom - top);
 	}
 
-	(* HTML_OBJECT_CLASS (&html_cluev_class)->draw) (o, p, x, y,
+	(* HTML_OBJECT_CLASS (&html_cluev_class)->draw) (o, p, cursor, x, y,
 							 width, height, tx, ty);
 }
 

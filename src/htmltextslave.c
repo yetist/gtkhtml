@@ -18,8 +18,11 @@
     the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
     Boston, MA 02111-1307, USA.
 */
+
 #include <string.h>
+
 #include "htmltextslave.h"
+#include "htmlcursor.h"
 
 
 HTMLTextSlaveClass html_text_slave_class;
@@ -131,9 +134,15 @@ fit_line (HTMLObject *o,
 
 	if (textslave->posLen - newLen > 0) {
 		/* Move remaining text to our text-slave */
-		HTMLObject *textSlave = html_text_slave_new (textmaster, textslave->posStart + newLen, textslave->posLen - newLen);
+		HTMLObject *textSlave;
+
+		textSlave = html_text_slave_new (textmaster,
+						 textslave->posStart + newLen,
+						 textslave->posLen - newLen);
 
 		textSlave->next = o->next;
+		textSlave->parent = o->parent;
+
 		o->next = textSlave;
 	}
 
@@ -174,6 +183,7 @@ fit_line (HTMLObject *o,
 static void
 draw (HTMLObject *o,
       HTMLPainter *p,
+      HTMLCursor *cursor,
       gint x, gint y,
       gint width, gint height,
       gint tx, gint ty)
@@ -187,8 +197,9 @@ draw (HTMLObject *o,
 	html_painter_set_pen (p, ownertext->font->textColor);
 	html_painter_set_font (p, ownertext->font);
 
-	html_painter_draw_text (p, o->x + tx, o->y + ty, 
-				&(ownertext->text[textslave->posStart]), 
+	html_painter_draw_text (p,
+				o->x + tx, o->y + ty, 
+				ownertext->text + textslave->posStart,
 				textslave->posLen);
 
 #ifdef HTML_TEXT_SLAVE_DEBUG
@@ -199,6 +210,18 @@ draw (HTMLObject *o,
 		g_free (s);
 	}
 #endif
+
+	if (cursor != NULL && cursor->object == o) {
+		gint x_offset;
+
+		x_offset = gdk_text_width (ownertext->font->gdk_font,
+					   ownertext->text + textslave->posStart,
+					   cursor->offset);
+
+		html_painter_draw_cursor (p,
+					  o->x + tx + x_offset, o->y + ty,
+					  o->ascent, o->descent);
+	}
 }
 
 static gint

@@ -1,17 +1,35 @@
 1999-12-11  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlcursor.c (html_cursor_forward): Some navigation fixes.
+
+	* debug.c (debug_dump_tree): Print out the value of the parent pointer too.
+
+	* htmltextslave.c (fit_line): Set the parent on the slave.
+
+	* htmltextmaster.c (fit_line): Set the parent on the slave.
+
+	* htmltextslave.c (draw): Draw the cursor if the cursor is here.
+
+	* htmltext.c (draw): Draw the cursor if the cursor is here.
+
+	* htmlobject.c (draw): Draw the cursor if the cursor is here.
+
+	* htmlobject.h: New argument `cursor' in the `draw' method.  All
+	of the related functions updated accordingly.
+
+	* htmlengine-cursor.h, htmlengine-cursor.c: New files.
+
+	* gtkhtml.c (key_press_event): New function, implementation for
+	the `key_press_event' virtual method.
+	(gtk_html_realize): Removed double realization.  Also, add
+	`GDK_KEY_PRESS_MASK' and `GDK_KEY_RELEASE_MASK' to the event mask
+	for the bin window.
+
 	* htmltext.c (draw_cursor): New function, implementation of the
 	`draw_cursor' virtual method.
 	(html_text_class_init): Install it.
 
-	* htmlobject.c (html_object_draw_cursor): New function.
-	(draw_cursor): Default implementation for the `draw_cursor'
-	virtual method.
-	(html_object_class_init): Install it.
-
 	* htmlpainter.c (html_painter_draw_cursor): New function.
-
-	* htmlobject.h: New virtual method `draw_cursor' in `HTMLObject'.
 
 	* htmlcursor.c (html_cursor_forward): New function to make the
 	cursor go forward on the tree.

@@ -27,6 +27,7 @@ typedef struct _HTMLEngineClass HTMLEngineClass;
 #include <glib.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include "gtkhtml.h"
+
 #include "htmltokenizer.h"
 #include "htmlclue.h"
 #include "htmlcursor.h"

@@ -25,9 +25,6 @@
 
 #include <glib.h>
 
-/* This is for HTMLEngine */
-typedef struct _HTMLCursor HTMLCursor;
-
 #include "htmlobject.h"
 #include "htmlengine.h"
 

@@ -1,8 +1,8 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
-/*  Copyright (C) 1999 Anders Carlsson (andersca@gnu.org)
-    (C) 1997 Martin Jones (mjones@kde.org)
-    (C) 1997 Torben Weis (weis@kde.org)
-
+/*  Copyright (C) 1997 Martin Jones (mjones@kde.org)
+    Copyright (C) 1997 Torben Weis (weis@kde.org)
+    Copyright (C) 1999 Anders Carlsson (andersca@gnu.org)
+    Copyright (C) 1999 Helix Code, Inc.
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Library General Public
@@ -2439,26 +2439,6 @@ draw_background (HTMLEngine *e, gint xval, gint yval, gint x, gint y, gint w, gi
 	}
 }
 
-static void
-draw_cursor (HTMLEngine *e,
-	     gint x, gint y, gint width, gint height,
-	     gint tx, gint ty)
-{
-	HTMLCursor *cursor;
-	HTMLObject *o;
-
-	if (! e->show_cursor)
-		return;
-
-	cursor = e->cursor;
-	o = cursor->object;
-
-	if (o == NULL)
-		return;
-
-	html_object_draw_cursor (o, e->painter, x, y, width, height, tx, ty, cursor->offset);
-}
-
 void
 html_engine_stop_parser (HTMLEngine *e)
 {
@@ -2625,17 +2605,12 @@ html_engine_draw (HTMLEngine *e, gint x, gint y, gint width, gint height)
 	draw_background (e, e->x_offset, e->y_offset, x, y, width, height);
 
 	if (e->clue)
-		html_object_draw (e->clue, e->painter,
+		html_object_draw (e->clue, e->painter, e->cursor,
 				  x - e->x_offset,
 				  y + e->y_offset - e->topBorder,
 				  width,
 				  height,
 				  tx, ty);
-
-	draw_cursor (e,
-		     x - e->x_offset, y + e->y_offset - e->topBorder,
-		     width, height,
-		     tx, ty);
 
 	html_painter_end (e->painter);
 }

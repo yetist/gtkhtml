@@ -30,7 +30,9 @@ HTMLBulletClass html_bullet_class;
 /* HTMLObject methods.  */
 
 static void
-draw (HTMLObject *o, HTMLPainter *p,
+draw (HTMLObject *o,
+      HTMLPainter *p,
+      HTMLCursor *cursor,
       gint x, gint y,
       gint width, gint height,
       gint tx, gint ty)

@@ -80,7 +80,8 @@ is_text (HTMLObject *object)
 	type = HTML_OBJECT_TYPE (object);
 
 	return (type == HTML_TYPE_TEXTMASTER || type == HTML_TYPE_TEXT
-		|| type == HTML_TYPE_LINKTEXTMASTER || type == HTML_TYPE_LINKTEXT);
+		|| type == HTML_TYPE_LINKTEXTMASTER || type == HTML_TYPE_LINKTEXT
+		|| type == HTML_TYPE_TEXTSLAVE);
 }
 
 static HTMLObject *
@@ -92,12 +93,17 @@ next (HTMLObject *object)
 			break;
 		}
 		object = object->parent;
+
+		g_print ("%s (%p)\n", __FUNCTION__, object);
 	}
 
-	if (object == NULL)
+	if (object == NULL) {
+		g_print ("%s (%p)\n", __FUNCTION__, NULL);
 		return NULL;
-	else
+	} else {
+		g_print ("%s (%p)\n", __FUNCTION__, object->next);
 		return object->next;
+	}
 }
 
 void
@@ -124,7 +130,13 @@ html_cursor_forward (HTMLCursor *cursor,
 		     HTMLEngine *engine)
 {
 	HTMLObject *obj;
+	guint offset;
 
+	obj = cursor->object;
+	if (obj == NULL)
+		return;
+
+	offset = cursor->offset;
 	obj = cursor->object;
 
 	if (is_text (obj)) {
@@ -135,9 +147,9 @@ html_cursor_forward (HTMLCursor *cursor,
 			const gchar *text;
 
 			text = HTML_TEXT (obj)->text;
-			if (text[cursor->offset] != 0) {
-				cursor->offset++;
-				return;
+			if (text[offset] != 0) {
+				offset++;
+				goto end;
 			}
 			break;
 		}
@@ -152,16 +164,23 @@ html_cursor_forward (HTMLCursor *cursor,
 			HTMLTextSlave *slave;
 
 			slave = HTML_TEXT_SLAVE (obj);
-			if (slave->posLen > 0 && cursor->offset < slave->posLen - 1) {
-				cursor->offset++;
-				return;
+			if (slave->posLen > 0 && offset < slave->posLen - 1) {
+				offset++;
+				g_print ("TextSlave (%p): %s\n",
+					 slave,
+					 HTML_TEXT (slave->owner)->text + slave->posStart + offset);
+				goto end;
 			} else {
-				if ((slave->posLen == 0 || cursor->offset == slave->posLen - 1)
+				if ((slave->posLen == 0 || offset == slave->posLen - 1)
 				    && obj->next == NULL) {
-					cursor->offset++;
-					return;
+					offset++;
+					g_print ("TextSlave (%p): %s\n",
+						 slave, HTML_TEXT (slave->owner)->text
+						 + slave->posStart + offset);
+					goto end;
 				}
 			}
+			break;
 		}
 
 		default:
@@ -169,14 +188,14 @@ html_cursor_forward (HTMLCursor *cursor,
 		}
 		
 		obj = next (obj);
-		cursor->offset = 0;
+		offset = 0;
 
-		while (is_text (obj)) {
+		while (obj != NULL && is_text (obj)) {
 			if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_TEXTMASTER
 			    || HTML_OBJECT_TYPE (obj) == HTML_TYPE_LINKTEXTMASTER) {
 				obj = next (obj);
 			} else {
-				return;
+				goto end;
 			}
 		}
 	}
@@ -190,13 +209,18 @@ html_cursor_forward (HTMLCursor *cursor,
 			continue;
 		}
 
-		if (is_text (obj))
+		if (is_text (obj)
+		    && HTML_OBJECT_TYPE (obj) != HTML_TYPE_TEXTMASTER
+		    && HTML_OBJECT_TYPE (obj) != HTML_TYPE_LINKTEXTMASTER)
 			break;
 
 		obj = next (obj);
-		cursor->offset = 0;
+		offset = 0;
 	}
 
+ end:
 	cursor->object = obj;
-	cursor->offset = 0;
+	cursor->offset = offset;
+
+	g_print ("%s (%p)\n", __FUNCTION__, cursor->object);
 }

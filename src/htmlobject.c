@@ -31,6 +31,7 @@
 #include "htmlpainter.h"
 #include "htmlrule.h"
 #include "htmlclue.h"
+#include "htmlcursor.h"
 #include "debug.h"
 
 
@@ -54,15 +55,15 @@ destroy (HTMLObject *o)
 }
 
 static void
-draw (HTMLObject *o, HTMLPainter *p,
+draw (HTMLObject *o,
+      HTMLPainter *p,
+      HTMLCursor *cursor,
       gint x, gint y,
       gint width, gint height,
       gint tx, gint ty)
 {
-#if 0
-	g_warning ("`%s' does not implement `draw'.",
-		   html_type_name (HTML_OBJECT_TYPE (o)));
-#endif
+	if (cursor->object == o)
+		html_painter_draw_cursor (p, o->x + tx, o->y + ty, o->ascent, o->descent);
 }
 
 static HTMLFitType
@@ -176,13 +177,6 @@ check_point (HTMLObject *o, gint _x, gint _y )
 	return 0L;
 }
 
-static void
-draw_cursor (HTMLObject *o, HTMLPainter *painter, gint x, gint y,
-	     gint width, gint height, gint tx, gint ty, gint offset)
-{
-	html_painter_draw_cursor (painter, o->x + tx, o->y + ty, o->ascent, o->descent);
-}
-
 
 /* Class initialization.  */
 
@@ -219,7 +213,6 @@ html_object_class_init (HTMLObjectClass *klass,
 	klass->set_bg_color = set_bg_color;
 	klass->mouse_event = mouse_event;
 	klass->check_point = check_point;
-	klass->draw_cursor = draw_cursor;
 }
 
 void
@@ -278,8 +271,8 @@ html_object_destroy (HTMLObject *o)
 }
 
 void
-html_object_draw (HTMLObject *o, HTMLPainter *p, gint x, gint y,
-		  gint width, gint height, gint tx, gint ty)
+html_object_draw (HTMLObject *o, HTMLPainter *p, HTMLCursor *cursor,
+		  gint x, gint y, gint width, gint height, gint tx, gint ty)
 {
 #if 0
 	static guint level = 0;
@@ -294,7 +287,7 @@ html_object_draw (HTMLObject *o, HTMLPainter *p, gint x, gint y,
 		x, y, width, height, tx, ty);
 #endif
 
-	(* HO_CLASS (o)->draw) (o, p, x, y, width, height, tx, ty);
+	(* HO_CLASS (o)->draw) (o, p, cursor, x, y, width, height, tx, ty);
 
 #if 0
 	level--;
@@ -417,11 +410,4 @@ html_object_check_point (HTMLObject *self, gint x, gint y)
 #endif
 
 	return object;
-}
-
-void
-html_object_draw_cursor (HTMLObject *self, HTMLPainter *p, gint x, gint y,
-			 gint width, gint height, gint tx, gint ty, gint offset)
-{
-	return (* HO_CLASS (self)->draw_cursor) (self, p, x, y, width, height, tx, ty, offset);
 }

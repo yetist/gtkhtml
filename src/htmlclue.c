@@ -47,7 +47,7 @@ destroy (HTMLObject *o)
 }
 
 static void
-draw (HTMLObject *o, HTMLPainter *p,
+draw (HTMLObject *o, HTMLPainter *p, HTMLCursor *cursor,
       gint x, gint y, gint width, gint height, gint tx, gint ty)
 {
 	HTMLObject *obj;
@@ -86,7 +86,7 @@ draw (HTMLObject *o, HTMLPainter *p,
 
 	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next) {
 		if (!(obj->flags & HTML_OBJECT_FLAG_ALIGNED)) {
-			html_object_draw (obj, p,
+			html_object_draw (obj, p, cursor,
 					  x - o->x, y - (o->y - o->ascent),
 					  width, height,
 					  tx, ty);

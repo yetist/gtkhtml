@@ -18,8 +18,10 @@
     Boston, MA 02111-1307, USA.
 */
 #include <stdio.h>
+#include <gdk/gdkkeysyms.h>
 #include <gtk/gtk.h>
 #include "htmlpainter.h"
+#include "htmlengine-cursor.h"
 #include "gtkhtml-private.h"
 
 guint           gtk_html_get_type (void);
@@ -113,6 +115,36 @@ destroy (GtkObject *object)
 
 	gdk_cursor_destroy (html->hand_cursor);
 	gdk_cursor_destroy (html->arrow_cursor);
+}
+
+static gint
+key_press_event (GtkWidget *widget,
+		 GdkEventKey *event)
+{
+	GtkHTML *html;
+	HTMLEngine *engine;
+	gboolean retval;
+
+	puts (__FUNCTION__);
+
+	html = GTK_HTML (widget);
+	engine = html->engine;
+
+	if (! engine->show_cursor) {
+		/* FIXME handle differently in this case */
+		return FALSE;
+	}
+
+	switch (event->keyval) {
+	case GDK_Right:
+		html_engine_cursor_move (engine, HTML_ENGINE_CURSOR_RIGHT, 1);
+		retval = TRUE;
+		break;
+	default:
+		retval = FALSE;
+	}
+
+	return retval;
 }
 
 
@@ -216,6 +248,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 	widget_class->realize = gtk_html_realize;
 	widget_class->unrealize = gtk_html_unrealize;
 	widget_class->draw = gtk_html_draw;
+	widget_class->key_press_event = key_press_event;
 	widget_class->expose_event  = gtk_html_expose;
 	widget_class->size_allocate = gtk_html_size_allocate;
 	widget_class->motion_notify_event = gtk_html_motion_notify_event;
@@ -312,12 +345,11 @@ gtk_html_realize (GtkWidget *widget)
 
 	if (GTK_WIDGET_CLASS (parent_class)->realize)
 		(* GTK_WIDGET_CLASS (parent_class)->realize) (widget);
-	if (GTK_WIDGET_CLASS (parent_class)->realize)
-		(* GTK_WIDGET_CLASS (parent_class)->realize) (widget);
 
 	gdk_window_set_events (html->layout.bin_window,
 			       (gdk_window_get_events (html->layout.bin_window)
-				| GDK_EXPOSURE_MASK | GDK_POINTER_MOTION_MASK));
+				| GDK_EXPOSURE_MASK | GDK_POINTER_MOTION_MASK
+				| GDK_KEY_PRESS_MASK | GDK_KEY_RELEASE_MASK));
 
 	html_settings_set_bgcolor (html->engine->settings, 
 				   &widget->style->bg[GTK_STATE_NORMAL]);

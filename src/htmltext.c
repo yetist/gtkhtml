@@ -20,6 +20,7 @@
 */
 
 #include "htmltext.h"
+#include "htmlcursor.h"
 
 HTMLTextClass html_text_class;
 
@@ -27,10 +28,13 @@ HTMLTextClass html_text_class;
 /* HTMLObject methods.  */
 
 static void
-draw (HTMLObject *o, HTMLPainter *p,
+draw (HTMLObject *o, HTMLPainter *p, HTMLCursor *cursor,
       gint x, gint y, gint width, gint height, gint tx, gint ty)
 {
-	HTMLText *htmltext = HTML_TEXT (o);
+	HTMLText *htmltext;
+	gint x_offset;
+
+	htmltext = HTML_TEXT (o);
 
 	if (y + height < o->y - o->ascent || y > o->y + o->descent)
 		return;
@@ -38,22 +42,15 @@ draw (HTMLObject *o, HTMLPainter *p,
 	html_painter_set_font (p, htmltext->font);
 	html_painter_set_pen (p, htmltext->font->textColor);
 	html_painter_draw_text (p, o->x + tx, o->y + ty, htmltext->text, -1);
-}
 
-static void
-draw_cursor (HTMLObject *object, HTMLPainter *p, gint x, gint y,
-	     gint width, gint height, gint tx, gint ty, gint offset)
-{
-	HTMLText *text;
-	gint x_offset;
+	if (cursor != NULL && cursor->object == o) {
+		x_offset = gdk_text_width (htmltext->font->gdk_font, htmltext->text,
+					   cursor->offset);
 
-	text = HTML_TEXT (object);
-	x_offset = gdk_text_width (text->font->gdk_font, text->text, offset);
-
-	html_painter_draw_cursor (p, object->x + tx + x_offset,
-				  object->y + ty,
-				  object->ascent,
-				  object->descent);
+		html_painter_draw_cursor (p,
+					  o->x + tx + x_offset, o->y + ty,
+					  o->ascent, o->descent);
+	}
 }
 
 
@@ -76,7 +73,6 @@ html_text_class_init (HTMLTextClass *klass,
 	/* FIXME destroy */
 
 	object_class->draw = draw;
-	object_class->draw_cursor = draw_cursor;
 }
 
 void

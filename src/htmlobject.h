@@ -1,7 +1,7 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
-/* This file is part of the KDE libraries
+/* This file is part of the GtkHTML library
    Copyright (C) 1997 Martin Jones (mjones@kde.org)
-   (C) 1997 Torben Weis (weis@kde.org)
+   Copyright (C) 1997 Torben Weis (weis@kde.org)
    Copyright 1999, Helix Code, Inc.
 
    This library is free software; you can redistribute it and/or
@@ -29,9 +29,17 @@
 #include "htmlpainter.h"
 #include "htmlfont.h"
 
+
 #define HTML_OBJECT(x)		((HTMLObject *) (x))
 #define HTML_OBJECT_CLASS(x)	((HTMLObjectClass *) (x))
 #define HTML_OBJECT_TYPE(x)     (HTML_OBJECT (x)->klass->type)
+
+typedef struct _HTMLObjectClass HTMLObjectClass;
+typedef struct _HTMLAnchor HTMLAnchor;
+typedef struct _HTMLObject HTMLObject;
+
+/* FIXME fix ugly dependency on HTMLCursor.  */
+typedef struct _HTMLCursor HTMLCursor;
 
 typedef enum {
 	HTML_FIT_NONE,
@@ -72,10 +80,6 @@ typedef enum {
 	HTML_HALIGN_NONE
 } HTMLHAlignType;
 
-typedef struct _HTMLObjectClass HTMLObjectClass;
-typedef struct _HTMLAnchor HTMLAnchor;
-typedef struct _HTMLObject HTMLObject;
-
 struct _HTMLObject {
 	HTMLObjectClass *klass;
 
@@ -97,7 +101,7 @@ struct _HTMLObject {
 	gint abs_x;
 	gint abs_y;
 
-	struct _HTMLObject *next;
+	HTMLObject *next;
 };
 
 struct _HTMLObjectClass {
@@ -108,7 +112,9 @@ struct _HTMLObjectClass {
         /* x & y are in object coordinates (e.g. the same coordinate system as
 	   o->x and o->y) tx & ty are used to translated object coordinates
 	   into painter coordinates */
-	void (*draw) (HTMLObject *o, HTMLPainter *p,
+	void (*draw) (HTMLObject *o,
+		      HTMLPainter *p,
+		      HTMLCursor *cursor,
 		      gint x, gint y,
 		      gint width, gint height,
 		      gint tx, gint ty);
@@ -145,9 +151,6 @@ struct _HTMLObjectClass {
 				      gint button, gint state);
 
 	HTMLObject * (* check_point) (HTMLObject *self, gint x, gint y);
-
-	void (* draw_cursor) (HTMLObject *object, HTMLPainter *p, gint x, gint y,
-			      gint width, gint height, gint tx, gint ty, gint offset);
 };
 
 
@@ -161,7 +164,7 @@ HTMLObject *html_object_new (HTMLObject *parent);
 void html_object_destroy (HTMLObject *o);
 void html_object_set_parent (HTMLObject *o, HTMLObject *parent);
 
-void html_object_draw (HTMLObject *o, HTMLPainter *p, gint x, gint y,
+void html_object_draw (HTMLObject *o, HTMLPainter *p, HTMLCursor *cursor, gint x, gint y,
 		       gint width, gint height, gint tx, gint ty);
 HTMLFitType html_object_fit_line (HTMLObject *o, gboolean start_of_line, 
 				  gboolean first_run, gint width_left);
@@ -182,10 +185,5 @@ void html_object_set_bg_color (HTMLObject *o, GdkColor *color);
 HTMLObject *html_object_mouse_event (HTMLObject *clue, gint x, gint y,
 				     gint button, gint state);
 HTMLObject *html_object_check_point (HTMLObject *clue, gint x, gint y);
-
-/* FIXME this is here (even if it only makes sense for HTML*Text* objects)
-   because HTML*TextSlaves do not derive from HTMLText.  */
-void html_object_draw_cursor (HTMLObject *object, HTMLPainter *p, gint x, gint y,
-			      gint width, gint height, gint tx, gint ty, gint offset);
 
 #endif /* _HTMLOBJECT_H_ */
