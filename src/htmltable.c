@@ -622,7 +622,7 @@ static gboolean
 calc_percentage_step (HTMLTable *table, gint *col_percent, gint *span_percent, gint span)
 {
 	HTMLTableCell *cell;
-	gboolean higher_span;
+	gboolean higher_span = FALSE;
 	gint r, c, cl, cspan;
 
 	for (c = 0; c < table->totalCols; c++)

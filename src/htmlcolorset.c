@@ -56,7 +56,14 @@ html_colorset_new (GtkWidget *w)
 void
 html_colorset_destroy (HTMLColorSet *set)
 {
+	int i;
+
 	g_return_if_fail (set != NULL);
+
+	for (i = 0; i < HTMLColors; i++) {
+		if (set->color[i] != NULL)
+			html_color_unref (set->color[i]);
+	}
 
 	if (set->slaves)
 		g_slist_free (set->slaves);

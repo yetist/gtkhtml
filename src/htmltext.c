@@ -1017,6 +1017,7 @@ destroy (HTMLObject *obj)
 	html_text_spell_errors_clear (text);
 	g_free (text->text);
 	g_free (text->word_width);
+	g_free (text->face);
 
 	HTML_OBJECT_CLASS (parent_class)->destroy (obj);
 }

@@ -1,3 +1,14 @@
+2001-01-23  Larry Ewing  <lewing@helixcode.com>
+
+	* htmlcolorset.c: unref all the colors when we destroy the
+	colorset (from iain@ximian.com).
+
+	* htmlengine.c: unref the insertion_color. (iain)
+
+	* htmltext.c: free text->face in destroy. (iain)
+
+	* htmltable.c: initialize higher_span.
+
 2001-01-23  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlengine-print.c: use user_data in printing
