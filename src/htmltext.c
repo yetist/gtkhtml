@@ -73,6 +73,12 @@ gchar *h_utf8_offset_to_pointer  (const gchar *str, gint         offset);
 #define g_utf8_pointer_to_offset h_utf8_pointer_to_offset
 #endif
 
+static inline gboolean
+is_in_the_save_cluev (HTMLObject *text, HTMLObject *o)
+{
+	return html_object_nth_parent (o, 2) == html_object_nth_parent (text, 2);
+}
+
 static void
 get_tags (const HTMLText *text,
 	  const HTMLEngineSaveState *state,
@@ -99,9 +105,9 @@ get_tags (const HTMLText *text,
 	while (next && !html_object_is_text (next))
 		next = html_object_next_cursor_leaf (next, state->engine);
 
-	if (prev && html_object_is_text (prev))
+	if (prev && is_in_the_save_cluev (HTML_OBJECT (text), prev) && html_object_is_text (prev))
 		pt = HTML_TEXT (prev);
-	if (next && html_object_is_text (next))
+	if (next && is_in_the_save_cluev (HTML_OBJECT (text), next) && html_object_is_text (next))
 		nt = HTML_TEXT (next);
 
 	/* font tag */
@@ -141,6 +147,15 @@ get_tags (const HTMLText *text,
 			       != (font_style & GTK_HTML_FONT_STYLE_SIZE_MASK)))
 		|| (std_size && nt && !n_std_size))) {
 		g_string_append (ct, "</FONT>");
+		if (nt && !n_std_size
+		    && (font_style & GTK_HTML_FONT_STYLE_SIZE_MASK) == (nt->font_style & GTK_HTML_FONT_STYLE_SIZE_MASK))
+			g_string_sprintfa (ot, "<FONT SIZE=\"%d\"", nt->font_style & GTK_HTML_FONT_STYLE_SIZE_MASK);
+		if (nt && !n_std_color && html_color_equal (text->color, nt->color))
+			g_string_sprintfa (ot, "<FONT COLOR=\"#%02x%02x%02x\"",
+					   nt->color->color.red   >> 8,
+					   nt->color->color.green >> 8,
+					   nt->color->color.blue  >> 8);
+			
 	}
 
 	/* bold tag */

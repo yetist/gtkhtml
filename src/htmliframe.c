@@ -255,7 +255,7 @@ op_copy (HTMLObject *self, HTMLObject *parent, HTMLEngine *e, GList *from, GList
 	GtkHTML *html;
 
 	dup = html_object_dup (self);
-	html = HTML_IFRAME (dup)->html;
+	html = GTK_HTML (HTML_IFRAME (dup)->html);
 	clue = GTK_HTML (HTML_IFRAME (self)->html)->engine->clue;
 	GTK_HTML (HTML_IFRAME (dup)->html)->engine->clue =
 		html_object_op_copy (clue, dup, GTK_HTML (HTML_IFRAME (self)->html)->engine,

@@ -1,5 +1,9 @@
 2002-09-12  Radek Doulik  <rodo@ximian.com>
 
+	* htmltext.c (get_tags): don't get next/prev text objects across
+	cluev boundaries
+	(get_tags): fix </FONT> duplication and restoring right attributes
+
 	* htmlengine.c (parse_a): don't push color for links
 	(close_anchor): don't pop color
 	(insert_text): use right default color for links
