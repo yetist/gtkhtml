@@ -1,3 +1,17 @@
+2001-08-16  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine-edit-cursor.c (move_rect): extracted helper function
+	(clip_rect): ditto
+	(draw_cursor_rectangle): new helper function
+	(html_engine_draw_cell_cursor): new method for cell cursor
+	drawing, uses draw_cursor_rectangle
+	(html_engine_draw_cursor_in_area): call
+	html_engine_draw_cell_cursor
+
+	* htmlclueflow.c (update_item_number): don't update for non-items
+	(op_cut): fixed few cases of item sequences and for crash in case
+	that flow was whole deleted and destroyed
+
 2001-08-15  Radek Doulik  <rodo@ximian.com>
 
 	* htmlclueflow.c (get_pre_padding): don't handle ordered items

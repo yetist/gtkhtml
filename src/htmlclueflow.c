@@ -130,7 +130,7 @@ update_item_number (HTMLObject *self)
 {
 	HTMLObject *prev, *next;
 
-	if (!self)
+	if (!self || !is_item (HTML_CLUEFLOW (self)))
 		return;
 
 	prev = get_prev_relative_item (self);
@@ -178,10 +178,23 @@ op_copy (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
 static HTMLObject *
 op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GList *right, guint *len)
 {
-	HTMLObject *rv;
+	HTMLObject *rv, *prev, *next;
+
+	prev = self->prev;
+	next = self->next;
 
 	rv = op_helper (self, e, from, to, left, right, len, TRUE);
-	update_item_number (self);
+
+	if (prev) {
+		update_item_number (prev);
+		if (prev->next == self)
+			update_item_number (self);
+	}
+	if (next) {
+		if (next->prev == self)
+			update_item_number (self);
+		update_item_number (next);
+	}
 
 	return rv;
 }

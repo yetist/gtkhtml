@@ -3702,10 +3702,10 @@ html_engine_update_event (HTMLEngine *e)
 	html_image_factory_deactivate_animations (e->image_factory);
 	gtk_container_forall (GTK_CONTAINER (e->widget), update_embedded, e->widget);
 	html_engine_draw (e, 0, 0, e->width, e->height);
-	
+
 	if (html_engine_get_editable (e))
 		html_engine_show_cursor (e);
-
+	
 	return FALSE;
 }
 
@@ -3871,6 +3871,7 @@ html_engine_stream_end (GtkHTMLStream *stream,
 }
 
 
+
 void
 html_engine_draw (HTMLEngine *e,
 		  gint x, gint y,

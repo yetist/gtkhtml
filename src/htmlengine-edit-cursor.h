@@ -24,15 +24,14 @@
 
 #include "htmltypes.h"
 
-void  html_engine_hide_cursor  (HTMLEngine *engine);
-void  html_engine_show_cursor  (HTMLEngine *engine);
-
-void  html_engine_draw_cursor_in_area  (HTMLEngine *engine,
-					gint        x,
-					gint        y,
-					gint        width,
-					gint        height);
-
+void  html_engine_hide_cursor            (HTMLEngine *engine);
+void  html_engine_show_cursor            (HTMLEngine *engine);
+void  html_engine_draw_cell_cursor       (HTMLEngine *engine);
+void  html_engine_draw_cursor_in_area    (HTMLEngine *engine,
+					  gint        x,
+					  gint        y,
+					  gint        width,
+					  gint        height);
 void  html_engine_setup_blinking_cursor  (HTMLEngine *engine);
 void  html_engine_stop_blinking_cursor   (HTMLEngine *engine);
 void  html_engine_reset_blinking_cursor  (HTMLEngine *engine);

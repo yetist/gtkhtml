@@ -276,6 +276,7 @@ draw_obj (HTMLDrawQueue *queue,
 					     tx, ty);
 	}
 
+	/* printf ("draw_obj %p\n", obj); */
 	html_object_draw (obj,
 			  e->painter, 
 			  obj->x, obj->y - obj->ascent,
