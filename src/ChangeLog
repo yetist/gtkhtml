@@ -1,3 +1,9 @@
+2004-04-20  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine-edit-table.c (html_engine_table_goto_col): cursor
+	forward before getting 1st cell
+	(html_engine_table_goto_row): ditto
+
 2004-04-14  Radek Doulik  <rodo@ximian.com>
 
 	* htmltext.c (html_text_get_pango_info): add links and flow
