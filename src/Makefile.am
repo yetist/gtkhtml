@@ -44,6 +44,7 @@ libgtkhtml_HEADERS =				\
 	htmlengine-edit-delete.h		\
 	htmlengine-edit-fontstyle.h		\
 	htmlengine-edit-images.c		\
+	htmlengine-edit-images.h		\
 	htmlengine-edit-insert.h		\
 	htmlengine-edit-movement.h		\
 	htmlengine-edit-paste.h			\
