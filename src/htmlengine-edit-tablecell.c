@@ -420,13 +420,13 @@ move_cell_rd (HTMLTable *t, HTMLTableCell *cell, gint rs, gint cs)
 	gint r, c;
 
 	g_assert ((rs == 0 && cs > 0) || (cs == 0 && rs > 0));
-	printf ("move %dx%d --> %dx%d\n", cell->row, cell->col, cell->row + rs, cell->col + cs);
+	/* printf ("move %dx%d --> %dx%d\n", cell->row, cell->col, cell->row + rs, cell->col + cs); */
 	for (r = cell->row + cell->rspan - 1; r >= cell->row; r --)
 		for (c = cell->col + cell->cspan - 1; c >= cell->col; c --) {
 			if (r > cell->row + cell->rspan - 1 - rs || c > cell->col + cell->cspan - 1 - cs) {
 				gint nr = rs + r - (rs ? cell->rspan : 0), nc = cs + c - (cs ? cell->cspan : 0);
 
-				printf ("exchange: %dx%d <--> %dx%d (%p)\n", rs + r, cs + c, nr, nc, t->cells [rs][nc]);
+				/* printf ("exchange: %dx%d <--> %dx%d (%p)\n", rs + r, cs + c, nr, nc, t->cells [rs][nc]); */
 				t->cells [nr][nc] = t->cells [rs + r][cs + c];
 				if (t->cells [nr][nc])
 					html_table_cell_set_position (t->cells [nr][nc], nr, nc);
@@ -434,16 +434,16 @@ move_cell_rd (HTMLTable *t, HTMLTableCell *cell, gint rs, gint cs)
 			} else {
 				if (r >= cell->row + rs && c >= cell->col + cs) {
 					if (t->cells [rs + r][cs + c] && t->cells [rs + r][cs + c]->col == cs + c && t->cells [rs + r][cs + c]->row == rs + r) {
-						printf ("move destroy: %dx%d\n", rs + r, cs + c);
+						/* printf ("move destroy: %dx%d\n", rs + r, cs + c); */
 						html_object_destroy (HTML_OBJECT (t->cells [rs + r][cs + c]));
 					}
 					t->cells [r][c] = NULL;
 				}
 				t->cells [rs + r][cs + c] = cell;
 			}
-			printf ("cell %dx%d <--\n", rs + r, cs + c);
+			/* printf ("cell %dx%d <--\n", rs + r, cs + c); */
 		}
-	printf ("set  %dx%d --> %dx%d\n", cell->row, cell->col, cell->row + rs, cell->col + cs);
+	/* printf ("set  %dx%d --> %dx%d\n", cell->row, cell->col, cell->row + rs, cell->col + cs); */
 	html_table_cell_set_position (cell, cell->row + rs, cell->col + cs);
 }
 
@@ -466,7 +466,7 @@ expand_cspan (HTMLEngine *e, HTMLTableCell *cell, gint cspan, HTMLUndoDirection 
 			max_move = move_rows [r];
 
 	add_cols = MAX (max_move, cspan - (table->totalCols - cell->col));
-	printf ("max move: %d add: %d\n", max_move, add_cols);
+	/* printf ("max move: %d add: %d\n", max_move, add_cols); */
 	for (c = 0; c < add_cols; c ++)
 		html_table_insert_column (table, e, table->totalCols, NULL, dir);
 
@@ -536,7 +536,7 @@ expand_rspan (HTMLEngine *e, HTMLTableCell *cell, gint rspan, HTMLUndoDirection 
 		if (move_cols [c] > max_move)
 			max_move = move_cols [c];
 	add_rows = MAX (max_move, rspan - (table->totalRows - cell->row));
-	printf ("max move: %d add: %d\n", max_move, add_rows);
+	/* printf ("max move: %d add: %d\n", max_move, add_rows); */
 	for (r = 0; r < add_rows; r ++)
 		html_table_insert_row (table, e, table->totalRows, NULL, dir);
 

@@ -178,7 +178,6 @@ html_text_input_init (HTMLTextInput *ti,
 	HTMLEmbedded *element;
 	HTMLObject *object;
 	GtkWidget *entry;
-	gint min_width;
 
 	element = HTML_EMBEDDED (ti);
 	object = HTML_OBJECT (ti);

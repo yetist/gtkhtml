@@ -72,12 +72,18 @@ void           html_engine_table_set_cols          (HTMLEngine         *e,
 void           html_engine_table_set_rows          (HTMLEngine         *e,
 						    gint                rows);
 HTMLTable     *html_engine_get_table               (HTMLEngine         *e);
-void           html_engine_goto_table_0            (HTMLEngine         *e,
+gboolean       html_engine_goto_table_0            (HTMLEngine         *e,
 						    HTMLTable          *table);
-void           html_engine_goto_table              (HTMLEngine         *e,
+gboolean       html_engine_goto_table              (HTMLEngine         *e,
 						    HTMLTable          *table,
 						    gint                row,
 						    gint                col);
+gboolean       html_engine_table_goto_col          (HTMLEngine         *e,
+						    HTMLTable          *table,
+						    gint                col);
+gboolean       html_engine_table_goto_row          (HTMLEngine         *e,
+						    HTMLTable          *table,
+						    gint                row);
 void           html_engine_delete_table            (HTMLEngine         *e);
 HTMLTableCell *html_engine_new_cell                (HTMLEngine         *e,
 						    HTMLTable          *table);

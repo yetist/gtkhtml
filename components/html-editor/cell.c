@@ -34,6 +34,7 @@
 #include "htmlengine-edit-tablecell.h"
 #include "htmlengine-save.h"
 #include "htmlimage.h"
+#include "htmltable.h"
 #include "htmltablecell.h"
 #include "htmlsettings.h"
 
@@ -609,7 +610,7 @@ cell_apply_row (GtkHTMLEditCellProperties *d)
 	HTMLTableCell *cell;
 	HTMLEngine *e = d->cd->html->engine;
 
-	if (html_engine_table_goto_row (e, d->cell->row)) {
+	if (html_engine_table_goto_row (e, HTML_TABLE (HTML_OBJECT (d->cell)->parent), d->cell->row)) {
 		cell = html_engine_get_table_cell (e);
 
 		while (cell && cell->row == d->cell->row) {
@@ -627,7 +628,7 @@ cell_apply_col (GtkHTMLEditCellProperties *d)
 	HTMLTableCell *cell;
 	HTMLEngine *e = d->cd->html->engine;
 
-	if (html_engine_table_goto_col (e, d->cell->col)) {
+	if (html_engine_table_goto_col (e, HTML_TABLE (HTML_OBJECT (d->cell)->parent), d->cell->col)) {
 		cell = html_engine_get_table_cell (e);
 
 		while (cell) {
@@ -642,10 +643,12 @@ cell_apply_col (GtkHTMLEditCellProperties *d)
 static void
 cell_apply_table (GtkHTMLEditCellProperties *d)
 {
+	HTMLTable *table;
 	HTMLTableCell *cell;
 	HTMLEngine *e = d->cd->html->engine;
 
-	if (html_engine_table_goto_0_0 (e)) {
+	table = html_engine_get_table (e);
+	if (table && html_engine_goto_table_0 (e, table)) {
 		cell = html_engine_get_table_cell (e);
 
 		while (cell) {

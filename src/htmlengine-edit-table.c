@@ -163,14 +163,15 @@ insert_column_setup_undo (HTMLEngine *e, gint col, guint position_before, HTMLUn
 			      dir);
 }
 
-void
+gboolean
 html_engine_goto_table_0 (HTMLEngine *e, HTMLTable *table)
 {
 	while ((e->cursor->offset || e->cursor->object != HTML_OBJECT (table)) && e->cursor->position)
 		html_cursor_backward (e->cursor, e);
+	return e->cursor->offset == 0 && e->cursor->object == HTML_OBJECT (table);
 }
 
-void
+gboolean
 html_engine_goto_table (HTMLEngine *e, HTMLTable *table, gint row, gint col)
 {
 	HTMLTableCell *cell;
@@ -179,8 +180,46 @@ html_engine_goto_table (HTMLEngine *e, HTMLTable *table, gint row, gint col)
 		cell = html_engine_get_table_cell (e);
 		if (cell && HTML_OBJECT (cell)->parent && HTML_OBJECT (cell)->parent == HTML_OBJECT (table)
 		    && cell->col == col && cell->row == row)
-			break;
+			return TRUE;
 	} while (cell && html_cursor_forward (e->cursor, e));
+
+	return FALSE;
+}
+
+gboolean
+html_engine_table_goto_col (HTMLEngine *e, HTMLTable *table, gint col)
+{
+	HTMLTableCell *cell;
+
+	if (html_engine_goto_table_0 (e, table)) {
+		cell = html_engine_get_table_cell (e);
+		while (cell && cell->col != col && HTML_OBJECT (cell)->parent == HTML_OBJECT (table)) {
+			html_engine_next_cell (e, FALSE);
+			cell = html_engine_get_table_cell (e);
+		}
+
+		return cell != NULL && HTML_OBJECT (cell)->parent == HTML_OBJECT (table);
+	}
+
+	return FALSE;
+}
+
+gboolean
+html_engine_table_goto_row (HTMLEngine *e, HTMLTable *table, gint row)
+{
+	HTMLTableCell *cell;
+
+	if (html_engine_goto_table_0 (e, table)) {
+		cell = html_engine_get_table_cell (e);
+		while (cell && cell->row != row && HTML_OBJECT (cell)->parent == HTML_OBJECT (table)) {
+			html_engine_next_cell (e, FALSE);
+			cell = html_engine_get_table_cell (e);
+		}
+
+		return cell != NULL && HTML_OBJECT (cell)->parent == HTML_OBJECT (table);
+	}
+
+	return FALSE;
 }
 
 void
