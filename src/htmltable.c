@@ -205,14 +205,18 @@ op_copy (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
 								      len));
 					html_table_set_cell (nt, r, c, cell_copy);
 					html_table_cell_set_position (cell_copy, r, c);
-				} else
-					nt->cells [r][c] = nt->cells [cell->row - start->row][cell->col - start_col];
+				} else {
+					if (cell->row - start->row >= 0 && cell->col - start_col >= 0) {
+						nt->cells [r][c] = nt->cells [cell->row - start->row][cell->col - start_col];
+					} else {
+						html_table_set_cell (nt, r, c, html_engine_new_cell (e, nt));
+						html_table_cell_set_position (nt->cells [r][c], r, c);
+					}
+				}
 			}
 			(*len) ++;
 		}
 	(*len) ++;
-	/* if (end->col - start_col < cols - 1)
-	   do_cspan (nt, nt->totalRows - 1, end->col - start_col, nt->cells [nt->totalRows - 1][end->col - start_col]); */
 
 #ifdef GTKHTML_DEBUG_TABLE
 	printf ("copy end: %d\n", *len);

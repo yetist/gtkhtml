@@ -1,5 +1,7 @@
 2001-10-26  Radek Doulik  <rodo@ximian.com>
 
+	* htmltable.c (op_copy): handle cspan, rspan
+
 	* htmlclueflow.c (calc_size): if width_left < 0 and ! firstRun,
 	then break line here
 	(draw_background): don't call html_object_draw for parent as this
