@@ -1,5 +1,7 @@
 1999-12-28  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlurl.c (concat_dir_and_file): Made static.
+
 	* testgtkhtml.c (netin_stream_free): Call `gtk_html_end()' again.
 	It does not seem to cause crashes anymore.
 

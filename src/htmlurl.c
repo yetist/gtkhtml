@@ -440,10 +440,11 @@ html_url_to_string (const HTMLURL *url)
 	return s;
 }
 
+
 #define PATH_SEP '/'
 #define PATH_SEP_STR "/"
 
-char *
+static char *
 concat_dir_and_file (const char *dir, const char *file)
 {
         /* If the directory name doesn't have a / on the end, we need
