@@ -36,7 +36,6 @@
 
 #include "config.h"
 #include "properties.h"
-#include "dialog.h"
 #include "cell.h"
 #include "utils.h"
 

@@ -143,7 +143,7 @@ gtk_html_replace_dialog_new (GtkHTML *html)
 	GtkWidget *table;
 	GtkWidget *label;
 
-	dialog->dialog         = GNOME_DIALOG (gnome_dialog_new (_("Replace"), _("Replace"),
+	dialog->dialog         = GNOME_DIALOG (gnome_dialog_new (NULL, _("Replace"),
 								 GNOME_STOCK_BUTTON_CANCEL, NULL));
 
 	table = gtk_table_new (2, 2, FALSE);
@@ -201,7 +201,7 @@ gtk_html_replace_dialog_destroy (GtkHTMLReplaceDialog *d)
 void
 replace (GtkHTMLControlData *cd)
 {
-	RUN_DIALOG (replace);
+	RUN_DIALOG (replace, _("Replace"));
 
 	if (cd->replace_dialog)
 		gtk_widget_grab_focus (cd->replace_dialog->entry_search);

@@ -27,7 +27,6 @@
 #include "htmlselection.h"
 
 #include "properties.h"
-#include "dialog.h"
 #include "link.h"
 
 struct _GtkHTMLEditLinkProperties {

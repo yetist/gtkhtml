@@ -32,7 +32,6 @@
 #include "htmlimage.h"
 #include "htmlsettings.h"
 
-#include "dialog.h"
 #include "image.h"
 #include "properties.h"
 

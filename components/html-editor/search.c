@@ -56,18 +56,16 @@ entry_activate (GtkWidget *entry, GtkHTMLSearchDialog *d)
 }
 
 GtkHTMLSearchDialog *
-gtk_html_search_dialog_new (GtkHTML *html, gboolean regular)
+gtk_html_search_dialog_new (GtkHTML *html)
 {
 	GtkHTMLSearchDialog *dialog = g_new (GtkHTMLSearchDialog, 1);
 	GtkWidget *hbox;
 
-	dialog->dialog         = GNOME_DIALOG (gnome_dialog_new ((regular) ? _("Regex find") :  _("Find"), _("Find"),
-								 GNOME_STOCK_BUTTON_CANCEL, NULL));
+	dialog->dialog         = GNOME_DIALOG (gnome_dialog_new (NULL, _("Find"), GNOME_STOCK_BUTTON_CANCEL, NULL));
 	dialog->entry          = gtk_entry_new_with_max_length (20);
 	dialog->backward       = gtk_check_button_new_with_label (_("backward"));
 	dialog->case_sensitive = gtk_check_button_new_with_label (_("case sensitive"));
 	dialog->html           = html;
-	dialog->regular        = regular;
 
 	hbox = gtk_hbox_new (FALSE, 0);
 
@@ -106,7 +104,7 @@ search (GtkHTMLControlData *cd, gboolean regular)
 	if (cd->search_dialog)
 		cd->search_dialog->regular = regular;
 
-	RUN_DIALOG (search);
+	RUN_DIALOG (search, regular ? _("Regex find") :  _("Find"));
 
 	if (cd->search_dialog)
 		gtk_widget_grab_focus (cd->search_dialog->entry);

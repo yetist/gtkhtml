@@ -29,7 +29,7 @@ typedef struct _GtkHTMLSearchDialog  GtkHTMLSearchDialog;
 #include "gtkhtml.h"
 #include "control-data.h"
 
-GtkHTMLSearchDialog * gtk_html_search_dialog_new     (GtkHTML *html, gboolean regular);
+GtkHTMLSearchDialog * gtk_html_search_dialog_new     (GtkHTML *html);
 void                  gtk_html_search_dialog_destroy (GtkHTMLSearchDialog *d);
 
 void                  search                         (GtkHTMLControlData *cd, gboolean regular);

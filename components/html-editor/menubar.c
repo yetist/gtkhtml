@@ -67,13 +67,13 @@ paste_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 static void
 search_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
-	search (cd, TRUE);
+	search (cd, FALSE);
 }
 
 static void
 search_regex_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
-	search (cd, FALSE);
+	search (cd, TRUE);
 }
 
 static void

@@ -32,13 +32,15 @@
 */
 
 void
-run_dialog (GnomeDialog ***dialog, GtkHTML *html, DialogCtor ctor)
+run_dialog (GnomeDialog ***dialog, GtkHTML *html, DialogCtor ctor, const gchar *title)
 {
 	if (*dialog) {
+		gtk_window_set_title (GTK_WINDOW (**dialog), title);
 		gtk_widget_show (GTK_WIDGET (**dialog));
 		gdk_window_raise (GTK_WIDGET (**dialog)->window);
 	} else {
 		*dialog = ctor (html);
+		gtk_window_set_title (GTK_WINDOW (**dialog), title);
 		gtk_widget_show (GTK_WIDGET (**dialog));
 	}
 }

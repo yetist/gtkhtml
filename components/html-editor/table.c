@@ -38,7 +38,6 @@
 
 #include "config.h"
 #include "properties.h"
-#include "dialog.h"
 #include "table.h"
 #include "utils.h"
 

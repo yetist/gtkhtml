@@ -1,5 +1,15 @@
 2001-07-17  Radek Doulik  <rodo@ximian.com>
 
+	* search.c (search): added title
+	(gtk_html_search_dialog_new): removed title parameter
+
+	* replace.c (replace): added title
+
+	* dialog.c (run_dialog): added title parameter
+
+	* menubar.c (search_cb): non regex
+	(search_regex_cb): regex
+
 	* properties.c (switch_page): check for d->dialog
 	(destroy_dialog): new signal handler, sets d->dialog to NULL
 
