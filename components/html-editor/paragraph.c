@@ -21,6 +21,7 @@
 */
 
 #include "htmlengine-edit-clueflowstyle.h"
+#include "htmlengine-save.h"
 #include "paragraph.h"
 #include "properties.h"
 #include "utils.h"

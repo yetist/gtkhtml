@@ -21,12 +21,14 @@
 */
 
 #include <string.h>
+#include "htmlengine-edit-fontstyle.h"
+#include "htmlengine-edit-insert.h"
+#include "htmlselection.h"
+
 #include "config.h"
 #include "properties.h"
 #include "dialog.h"
 #include "link.h"
-#include "htmlengine-edit-fontstyle.h"
-#include "htmlengine-edit-insert.h"
 
 struct _GtkHTMLEditLinkProperties {
 	GtkHTMLControlData *cd;
@@ -64,7 +66,7 @@ link_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	hbox = gtk_hbox_new (FALSE, 3);
 
 	data->entry = gtk_entry_new ();
-	url = (cd->html->engine->active_selection)
+	url = (html_engine_is_selection_active (cd->html->engine))
 		? html_engine_get_document_url (cd->html->engine)
 		: html_engine_get_url (cd->html->engine);
 	if (url)

@@ -20,6 +20,9 @@
    Boston, MA 02111-1307, USA.
 */
 
+#include "htmlcursor.h"
+#include "htmlengine.h"
+
 #include "spell.h"
 
 struct _SpellPopup {

@@ -23,8 +23,13 @@
 #include <config.h>
 #include <bonobo.h>
 
+#include "gtkhtml.h"
+#include "htmlcursor.h"
+#include "htmlengine.h"
 #include "htmlengine-edit.h"
 #include "htmltext.h"
+#include "htmltype.h"
+
 #include "engine.h"
 
 static BonoboObjectClass *engine_parent_class;

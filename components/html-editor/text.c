@@ -21,9 +21,11 @@
 */
 
 #include <gal/widgets/widget-color-combo.h>
+#include "htmlcolor.h"
 #include "htmlengine-edit.h"
 #include "htmlengine-edit-fontstyle.h"
 #include "htmlengine-save.h"
+
 #include "text.h"
 #include "properties.h"
 #include "utils.h"

@@ -35,7 +35,11 @@
 #include "HTMLEditor.h"
 
 #include "gtkhtml.h"
+#include "htmlcursor.h"
+#include "htmlengine.h"
 #include "htmlengine-edit.h"
+#include "htmlengine-edit-selection-updater.h"
+#include "htmlselection.h"
 
 #include "engine.h"
 #include "menubar.h"

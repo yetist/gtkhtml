@@ -23,6 +23,9 @@
 #include <gal/widgets/widget-color-combo.h>
 #include "htmlengine-edit-clueflowstyle.h"
 #include "htmlimage.h"
+#include "htmlcolor.h"
+#include "htmlcolorset.h"
+#include "htmlsettings.h"
 #include "body.h"
 #include "properties.h"
 #include "utils.h"

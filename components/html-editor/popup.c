@@ -20,14 +20,18 @@
     Boston, MA 02111-1307, USA.
 */
 
-#include <config.h>
-#include <htmlengine.h>
-#include <htmllinktextmaster.h>
-#include <htmlengine-edit-copy.h>
-#include <htmlengine-edit-cut.h>
-#include <htmlengine-edit-paste.h>
-#include <htmlengine-edit-insert.h>
-#include <htmlimage.h>
+#include "gtkhtml.h"
+#include "htmlcursor.h"
+#include "htmlengine.h"
+#include "htmllinktextmaster.h"
+#include "htmlengine-edit-copy.h"
+#include "htmlengine-edit-cut.h"
+#include "htmlengine-edit-paste.h"
+#include "htmlengine-edit-insert.h"
+#include "htmlimage.h"
+#include "htmlselection.h"
+
+#include "config.h"
 #include "popup.h"
 #include "spell.h"
 #include "properties.h"
@@ -58,7 +62,7 @@ paste (GtkWidget *mi, GtkHTMLControlData *cd)
 static void
 remove_link (GtkWidget *mi, GtkHTMLControlData *cd)
 {
-	if (cd->html->engine->active_selection)
+	if (html_engine_is_selection_active (cd->html->engine))
 		html_engine_remove_link (cd->html->engine);
         else
 		html_engine_remove_link_object (cd->html->engine, cd->html->engine->cursor->object);
@@ -179,12 +183,12 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items)
 		cd->properties_types = NULL;
 	}
 
-	if (!e->active_selection && obj && html_object_is_text (obj) && !html_engine_word_is_valid (e)) {
+	if (!html_engine_is_selection_active (e) && obj && html_object_is_text (obj) && !html_engine_word_is_valid (e)) {
 		ADD_SEP;
 		ADD_ITEM ("Suggest word", spell_suggest, -1);
 	}
 
-	if (e->active_selection
+	if (html_engine_is_selection_active (e)
 	    || (obj
 		&& (HTML_OBJECT_TYPE (obj) == HTML_TYPE_LINKTEXTMASTER
 		    || (HTML_OBJECT_TYPE (obj) == HTML_TYPE_IMAGE
@@ -193,18 +197,18 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items)
 		    ADD_ITEM (_("Remove link"), remove_link, -1);
 	}
 
-	if (e->active_selection) {
+	if (html_engine_is_selection_active (e)) {
 		ADD_SEP;
 		ADD_ITEM ("Copy", copy, -1);
 		ADD_ITEM ("Cut",  cut, -1);
 	}
 	if (e->cut_buffer) {
-		if (!e->active_selection) {
+		if (!html_engine_is_selection_active (e)) {
 			ADD_SEP;
 		}
 		ADD_ITEM ("Paste",  paste, -1);
 	}
-	if (e->active_selection) {
+	if (html_engine_is_selection_active (e)) {
 		ADD_SEP;
 		ADD_ITEM ("Text...", prop_dialog, GTK_HTML_EDIT_PROPERTY_TEXT);
 		ADD_PROP (TEXT);

@@ -22,11 +22,18 @@
 
 #include <unistd.h>
 #include <string.h>
+
+#include "gtkhtml.h"
+#include "htmlcolorset.h"
+#include "htmlcursor.h"
+#include "htmlengine.h"
+#include "htmlengine-edit-images.h"
+#include "htmlimage.h"
+#include "htmlsettings.h"
+
 #include "config.h"
 #include "dialog.h"
 #include "image.h"
-#include "htmlengine-edit-images.h"
-#include "htmlimage.h"
 #include "properties.h"
 
 #define GTK_HTML_EDIT_IMAGE_BWIDTH      0

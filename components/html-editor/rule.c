@@ -21,16 +21,19 @@
 */
 
 #include <string.h>
-#include "htmlrule.h"
 #include "gtkhtml.h"
+#include "htmlcursor.h"
+#include "htmlengine-edit-fontstyle.h"
+#include "htmlengine-edit-insert.h"
+#include "htmlengine-edit-rule.h"
+#include "htmlengine-save.h"
+#include "htmlrule.h"
+
 #include "config.h"
 #include "properties.h"
 #include "dialog.h"
 #include "rule.h"
 #include "utils.h"
-#include "htmlengine-edit-fontstyle.h"
-#include "htmlengine-edit-insert.h"
-#include "htmlengine-edit-rule.h"
 
 #define GTK_HTML_EDIT_RULE_WIDTH       0
 #define GTK_HTML_EDIT_RULE_SIZE        1
