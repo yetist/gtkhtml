@@ -1,0 +1,59 @@
+<!-- ##### SECTION Title ##### -->
+GtkHTMLEmbedded
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### FUNCTION gtk_html_embedded_new ##### -->
+<para>
+
+</para>
+
+@classid: 
+@name: 
+@type: 
+@data: 
+@width: 
+@height: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gtk_html_embedded_set_parameter ##### -->
+<para>
+
+</para>
+
+@ge: 
+@param: 
+@value: 
+
+
+<!-- ##### FUNCTION gtk_html_embedded_get_parameter ##### -->
+<para>
+
+</para>
+
+@ge: 
+@param: 
+@Returns: 
+
+
+<!-- ##### FUNCTION gtk_html_embedded_set_descent ##### -->
+<para>
+
+</para>
+
+@ge: 
+@descent: 
+
+
