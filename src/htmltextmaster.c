@@ -28,6 +28,12 @@
 #include "htmltextslave.h"
 #include "htmlentity.h"
 #include <string.h>
+#include <sys/types.h>
+#include <regex.h>
+#include "htmlengine.h"
+#include "htmlengine-edit.h"
+#include "htmlengine-edit-paste.h"
+#include "htmllinktextmaster.h"
 
 
 HTMLTextMasterClass html_text_master_class;
@@ -774,72 +780,96 @@ html_text_master_destroy_slaves (HTMLTextMaster *master)
 	}
 }
 
+/* magic links */
+
+struct _HTMLMagicInsertMatch
+{
+	gchar *regex;
+	regex_t *preg;
+	gchar *prefix;
+};
+
+typedef struct _HTMLMagicInsertMatch HTMLMagicInsertMatch;
+
+static HTMLMagicInsertMatch mim [] = {
+	{ "(news|telnet|nttp|file|http|ftp|https)://[-A-Za-z0-9\\.]+[-A-Za-z0-9](:[0-9]*)?(/[-A-Za-z0-9_\\$\\.\\+\\!\\*\\(\\),;:@&=\\?/~\\#]*[^]'\\.}>\\) ,\\\"]*)?", NULL, NULL },
+	{ "www[-A-Za-z0-9\\.]+[-A-Za-z0-9](:[0-9]*)?(/[-A-Za-z0-9_\\$\\.\\+\\!\\*\\(\\),;:@&=\\?/~\\#]*[^]'\\.}>\\) ,\\\"]*)?", NULL, "http://" },
+	{ "ftp[-A-Za-z0-9\\.]+[-A-Za-z0-9](:[0-9]*)?(/[-A-Za-z0-9_\\$\\.\\+\\!\\*\\(\\),;:@&=\\?/~\\#]*[^]'\\.}>\\) ,\\\"]*)?", NULL, "ftp://" },
+	{ "[^ \t@]+@[^ \t@]+", NULL, "mailto:" }
+};
+
+#define MIM_N (sizeof (mim) / sizeof (mim [0]))
+
+void
+html_engine_init_magic_links ()
+{
+	gint i;
+
+	for (i=0; i<MIM_N; i++) {
+		mim [i].preg = g_new0 (regex_t, 1);
+		if (regcomp (mim [i].preg, mim [i].regex, REG_EXTENDED | REG_ICASE)) {
+			/* error */
+			g_free (mim [i].preg);
+			mim [i].preg = 0;
+		}
+	}
+}
+
+static void
+paste_link (HTMLEngine *engine, HTMLText *text, gint so, gint eo, gchar *prefix)
+{
+	gchar *href;
+	gchar *base;
+
+	base = g_strndup (text->text + so, eo - so + 1);
+	href = (prefix) ? g_strconcat (prefix, base, NULL) : g_strdup (base);
+	g_free (base);
+
+	html_engine_disable_selection (engine);
+	html_cursor_jump_to (engine->cursor, engine, HTML_OBJECT (text), so);
+	html_engine_set_mark (engine);
+	html_cursor_jump_to (engine->cursor, engine, HTML_OBJECT (text), eo+1);
+	html_engine_edit_selection_update_now (engine->selection_updater);
+	html_engine_paste_object (engine,
+				  html_link_text_master_new_with_len
+				  (text->text+so,
+				   eo - so + 1,
+				   text->font_style,
+				   html_settings_get_color (engine->settings, HTMLLinkColor),
+				   href, NULL), TRUE);
+
+	g_free (href);
+}
+
 gboolean
 html_text_master_magic_link (HTMLTextMaster *master, HTMLEngine *engine,
 			     guint offset)
 {
 	HTMLText *text = HTML_TEXT (master);
-	gchar *p1, *p2;
-	gchar *name = NULL, *href = NULL;
+	regmatch_t pmatch [2];
+	gint o = offset, i, rv = FALSE;
 
-	/* printf ("magic link '%s' off: %d\n", text->text, offset); */
+	do {
+		for (i=0; i<MIM_N; i++) {
+			if (mim [i].preg && !regexec (mim [i].preg, text->text + o, 2, pmatch, 0)) {
 
-	text->text [offset] = 0;
+				/* match */
+				do {
+					if (o && (guchar) text->text [o-1] != ENTITY_NBSP)
+						o--;
+					else
+						break;
+				} while (!regexec (mim [i].preg, text->text + o, 2, pmatch, 0));
 
-	if ((p1 = strrchr (text->text, '@'))) {
-		/* mailto hrefs - in format " [^ @]+@[^ ]+ " */
-		name = strrchr (text->text, ' ');
-		if (!name) name = text->text; else name++;
-		/* process &nbsp; as space */
-		p2   = strrchr (text->text, ENTITY_NBSP);
-		if (p2 && p2 > name)
-			name = p2+1;
-		/* check that begin is of address is before @ */
-		if (name < p1)
-			href = g_strconcat ("mailto:", name, NULL);
-		else
-			name = NULL;
-	} else {
-		/* {ftp:|http:|www\.}[^ ]+ */
-		if ((name = strstr (text->text, "http://"))
-		    || (name = strstr (text->text, "ftp://"))
-		    || (name = strstr (text->text, "www."))
-		    || (name = strstr (text->text, "ftp."))
-		    ) {
-			p1 = strrchr (text->text, ' ');
-			/* process &nbsp; as space */
-			p2 = strrchr (text->text, ENTITY_NBSP);
-			if (p2 && p1 && p1 < p2)
-				p1 = p2;
-			/* check that address is on the end */
-			if (p1 && p1 > name)
-				name = NULL;
-			else
-				href = (name [3] == '.') ? g_strconcat ((name [0] == 'w')
-									? "http://" : "ftp://", name, NULL)
-					: g_strdup (name);
+				paste_link (engine, text, pmatch [0].rm_so + o, pmatch [0].rm_eo+o-1, mim [i].prefix);
+				rv = TRUE;
+				break;
+			}
 		}
-	}
+		if (!o)
+			break;
+		o--;
+	} while (1);
 
-	text->text [offset] = ' ';
-
-	if (name) {
-		html_engine_disable_selection (engine);
-		html_cursor_jump_to (engine->cursor, engine, HTML_OBJECT (text), name - text->text);
-		html_engine_set_mark (engine);
-		html_cursor_jump_to (engine->cursor, engine, HTML_OBJECT (text), offset);
-		html_engine_edit_selection_update_now (engine->selection_updater);
-		html_engine_paste_object (engine,
-					  html_link_text_master_new_with_len
-					  (name,
-					   offset - (name - text->text),
-					   text->font_style,
-					   html_settings_get_color (engine->settings, HTMLLinkColor),
-					   href, NULL), TRUE);
-		g_free (href);
-
-		return TRUE;
-	}
-
-	return FALSE;
+	return rv;
 }

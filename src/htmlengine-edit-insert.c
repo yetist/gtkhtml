@@ -493,9 +493,11 @@ html_engine_insert (HTMLEngine *e,
 	if (len == 1
 	    && (text [0] == ' ' || text [0] == '\n')
 	    && HTML_OBJECT_TYPE (current_object) == HTML_TYPE_TEXTMASTER) {
+		guint pos = e->cursor->position;
+
 		if (html_text_master_magic_link (HTML_TEXT_MASTER (current_object),
 						 e, current_offset))
-			html_engine_move_cursor (e, HTML_ENGINE_CURSOR_RIGHT, 1);
+			html_cursor_jump_to_position (e->cursor, e, pos);
 	}
 
 

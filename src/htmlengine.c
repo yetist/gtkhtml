@@ -2967,6 +2967,8 @@ html_engine_class_init (HTMLEngineClass *klass)
 
 	object_class->destroy = html_engine_destroy;
 
+	html_engine_init_magic_links ();
+
 	/* Initialize the HTML objects.  */
 	html_types_init ();
 }

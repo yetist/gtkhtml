@@ -370,4 +370,7 @@ void      html_engine_replace                   (HTMLEngine *e,
 void      html_engine_replace_do                (HTMLEngine *e, HTMLReplaceQueryAnswer answer);
 gint      html_engine_replaced                  (void);
 
+/* Magic links */
+void      html_engine_init_magic_links          ();
+
 #endif /* _HTMLENGINE_H_ */
