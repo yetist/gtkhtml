@@ -53,4 +53,12 @@ void   html_engine_jump_at         (HTMLEngine               *e,
 gboolean  html_engine_end_of_line        (HTMLEngine *engine);
 gboolean  html_engine_beginning_of_line  (HTMLEngine *engine);
 
+gint  html_engine_scroll_down  (HTMLEngine *engine,
+				gint        amount);
+gint  html_engine_scroll_up    (HTMLEngine *engine,
+				gint        amount);
+
+gboolean html_engine_forward_word (HTMLEngine *engine);
+gboolean html_engine_backward_word (HTMLEngine *engine);
+
 #endif /* _HTMLENGINE_EDIT_MOVEMENT_H */

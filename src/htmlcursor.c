@@ -83,6 +83,15 @@ html_cursor_destroy (HTMLCursor *cursor)
 	g_free (cursor);
 }
 
+/**
+ * html_cursor_copy:
+ * @dest: A cursor object to copy into 
+ * @src: A cursor object to copy from
+ * 
+ * Copy @src into @dest.  @dest does not need to be an initialized cursor, so
+ * for example declaring a cursor as a local variable and then calling
+ * html_cursor_copy() to initialize it from another cursor's position works.
+ **/
 void
 html_cursor_copy (HTMLCursor *dest,
 		  const HTMLCursor *src)
@@ -676,6 +685,8 @@ html_cursor_goto_zero (HTMLCursor *cursor,
 		       HTMLEngine *engine)
 {
 	g_return_if_fail (cursor != NULL);
+	g_return_if_fail (engine != NULL);
+	g_return_if_fail (HTML_IS_ENGINE (engine));
 
 	if (cursor->relative_position == 0)
 		return;
@@ -689,6 +700,35 @@ html_cursor_goto_zero (HTMLCursor *cursor,
 	}
 
 	debug_location (cursor);
+}
+
+
+gchar
+html_cursor_get_current_char (HTMLCursor *cursor)
+{
+	HTMLObject *next;
+
+	g_return_val_if_fail (cursor != NULL, 0);
+
+	if (! html_object_is_text (cursor->object)) {
+		if (cursor->offset == 0)
+			return 0;
+
+		next = cursor->object->next;
+		if (next != NULL && html_object_is_text (next))
+			return HTML_TEXT (next)->text[0];
+
+		return 0;
+	}
+
+	if (cursor->offset < HTML_TEXT (cursor->object)->text_len)
+		return HTML_TEXT (cursor->object)->text[cursor->offset];
+
+	next = cursor->object->next;
+	if (next == NULL || ! html_object_is_text (next))
+		return 0;
+
+	return HTML_TEXT (next)->text[0];
 }
 
 

@@ -35,62 +35,117 @@
 #include "gtkhtml-keybinding.h"
 
 
+static void
+scroll_by_amount (GtkHTML *html,
+		  gint amount)
+{
+	GtkLayout *layout;
+	GtkAdjustment *adj;
+	gfloat new_value;
+
+	layout = GTK_LAYOUT (html);
+	adj = layout->vadjustment;
+
+	new_value = adj->value + (gfloat) amount;
+	if (new_value < adj->lower)
+		new_value = adj->lower;
+	else if (new_value > adj->upper)
+		new_value = adj->upper;
+
+	gtk_adjustment_set_value (adj, new_value);
+}
+
+
 /* The commands.  */
 
 static void
-forward (HTMLEngine *engine)
+forward (GtkHTML *html)
 {
-	html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_RIGHT, 1);
-	html_engine_unselect_all (engine, TRUE);
+	html_engine_move_cursor (html->engine, HTML_ENGINE_CURSOR_RIGHT, 1);
+	html_engine_unselect_all (html->engine, TRUE);
 }
 
 static void
-backward (HTMLEngine *engine)
+backward (GtkHTML *html)
 {
-	html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_LEFT, 1);
-	html_engine_unselect_all (engine, TRUE);
+	html_engine_move_cursor (html->engine, HTML_ENGINE_CURSOR_LEFT, 1);
+	html_engine_unselect_all (html->engine, TRUE);
 }
 
 static void
-up (HTMLEngine *engine)
+up (GtkHTML *html)
 {
-	html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_UP, 1);
-	html_engine_unselect_all (engine, TRUE);
+	html_engine_move_cursor (html->engine, HTML_ENGINE_CURSOR_UP, 1);
+	html_engine_unselect_all (html->engine, TRUE);
 }
 
 static void
-down (HTMLEngine *engine)
+down (GtkHTML *html)
 {
-	html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_DOWN, 1);
-	html_engine_unselect_all (engine, TRUE);
+	html_engine_move_cursor (html->engine, HTML_ENGINE_CURSOR_DOWN, 1);
+	html_engine_unselect_all (html->engine, TRUE);
 }
 
 static void
-delete (HTMLEngine *engine)
+delete (GtkHTML *html)
 {
-	html_engine_unselect_all (engine, TRUE);
-	html_engine_delete (engine, 1);
+	html_engine_unselect_all (html->engine, TRUE);
+	html_engine_delete (html->engine, 1);
 }
 
 static void
-insert_para (HTMLEngine *engine)
+insert_para (GtkHTML *html)
 {
-	html_engine_unselect_all (engine, TRUE);
-	html_engine_insert_para (engine, TRUE);
+	html_engine_unselect_all (html->engine, TRUE);
+	html_engine_insert_para (html->engine, TRUE);
 }
 
 static void
-beginning_of_line (HTMLEngine *engine)
+beginning_of_line (GtkHTML *html)
 {
-	html_engine_unselect_all (engine, TRUE);
-	html_engine_beginning_of_line (engine);
+	html_engine_unselect_all (html->engine, TRUE);
+	html_engine_beginning_of_line (html->engine);
 }
 
 static void
-end_of_line (HTMLEngine *engine)
+end_of_line (GtkHTML *html)
 {
-	html_engine_unselect_all (engine, TRUE);
-	html_engine_end_of_line (engine);
+	html_engine_unselect_all (html->engine, TRUE);
+	html_engine_end_of_line (html->engine);
+}
+
+static void
+page_up (GtkHTML *html)
+{
+	gint amount;
+
+	amount = html_engine_scroll_up (html->engine, GTK_WIDGET (html)->allocation.height);
+
+	if (amount > 0)
+		scroll_by_amount (html, - amount);
+}
+
+static void
+page_down (GtkHTML *html)
+{
+	gint amount;
+
+	amount = html_engine_scroll_down (html->engine, GTK_WIDGET (html)->allocation.height);
+
+	if (amount > 0)
+		scroll_by_amount (html, amount);
+}
+
+static void
+forward_word (GtkHTML *html)
+{
+	html_engine_forward_word (html->engine);
+}
+
+static void
+backward_word (GtkHTML *html)
+{
+	html_engine_backward_word (html->engine);
 }
 
 
@@ -99,38 +154,44 @@ static gint
 handle_ctrl (GtkHTML *html,
 	     GdkEventKey *event)
 {
-	HTMLEngine *engine;
 	gboolean retval;
-
-	engine = html->engine;
 
 	retval = TRUE;
 
 	switch (event->keyval) {
 	case 'a':
-		beginning_of_line (engine);
+		beginning_of_line (html);
 		break;
 	case 'b':
-		backward (engine);
+		backward (html);
 		break;
 	case 'd':
-		delete (engine);
+		delete (html);
 		break;
 	case 'e':
-		end_of_line (engine);
+		end_of_line (html);
 		break;
 	case 'f':
-		forward (engine);
+		forward (html);
 		break;
 	case 'n':
-		down (engine);
+		down (html);
 		break;
 	case 'p':
-		up (engine);
+		up (html);
 		break;
 	case 'm':
 	case 'j':
-		insert_para (engine);
+		insert_para (html);
+		break;
+	case 'v':
+		page_down (html);
+		break;
+	case GDK_Left:
+		backward_word (html);
+		break;
+	case GDK_Right:
+		forward_word (html);
 		break;
 	default:
 		retval = FALSE;
@@ -146,7 +207,25 @@ static gint
 handle_alt (GtkHTML *html,
 	    GdkEventKey *event)
 {
-	return FALSE;
+	gboolean retval;
+
+	retval = FALSE;
+
+	switch (event->keyval) {
+	case 'f':
+		forward_word (html);
+		break;
+	case 'b':
+		backward_word (html);
+		break;
+	case 'v':
+		page_up (html);
+		break;
+	default:
+		retval = FALSE;
+	}
+
+	return TRUE;
 }
 
 
@@ -156,44 +235,49 @@ static gint
 handle_none (GtkHTML *html,
 	     GdkEventKey *event)
 {
-	HTMLEngine *engine;
 	gboolean retval;
-
-	engine = html->engine;
 
 	retval = TRUE;
 
 	switch (event->keyval) {
 	case GDK_Home:
-		beginning_of_line (engine);
+		beginning_of_line (html);
 		break;
 	case GDK_End:
-		end_of_line (engine);
+		end_of_line (html);
 		break;
 	case GDK_Right:
-		forward (engine);
+		forward (html);
 		break;
 	case GDK_Left:
-		backward (engine);
+		backward (html);
 		break;
 	case GDK_Up:
-		up (engine);
+		up (html);
 		break;
 	case GDK_Down:
-		down (engine);
+		down (html);
+		break;
+	case GDK_Page_Up:
+	case GDK_KP_Page_Up:
+		page_up (html);
+		break;
+	case GDK_Page_Down:
+	case GDK_KP_Page_Down:
+		page_down (html);
 		break;
 	case GDK_Delete:
 	case GDK_KP_Delete:
-		delete (engine);
+		delete (html);
 		retval = TRUE;
 		break;
 	case GDK_Return:
-		insert_para (engine);
+		insert_para (html);
 		break;
 	case GDK_BackSpace:
-		html_engine_unselect_all (engine, TRUE);
-		if (html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_LEFT, 1) == 1)
-			html_engine_delete (engine, 1);
+		html_engine_unselect_all (html->engine, TRUE);
+		if (html_engine_move_cursor (html->engine, HTML_ENGINE_CURSOR_LEFT, 1) == 1)
+			html_engine_delete (html->engine, 1);
 		retval = TRUE;
 		break;
 

@@ -19,6 +19,8 @@
     Boston, MA 02111-1307, USA.
 */
 
+#include <ctype.h>
+
 #include "htmlengine-edit-movement.h"
 
 
@@ -158,4 +160,180 @@ html_engine_beginning_of_line (HTMLEngine *engine)
 	html_engine_draw_cursor (engine);
 
 	return retval;
+}
+
+
+gint
+html_engine_scroll_down (HTMLEngine *engine,
+			 gint amount)
+{
+	HTMLCursor *cursor;
+	HTMLCursor prev_cursor;
+	gint start_x, start_y;
+	gint x, y, new_y;
+
+	g_return_val_if_fail (engine != NULL, FALSE);
+	g_return_val_if_fail (HTML_IS_ENGINE (engine), FALSE);
+
+	cursor = engine->cursor;
+
+	html_object_get_cursor_base (cursor->object, engine->painter, cursor->offset, &start_x, &start_y);
+
+	html_engine_draw_cursor (engine);
+
+	y = new_y = start_y;
+
+	while (1) {
+		html_cursor_copy (&prev_cursor, cursor);
+
+		new_y = html_cursor_down (cursor, engine);
+		html_object_get_cursor_base (cursor->object, engine->painter, cursor->offset, &x, &new_y);
+
+		/* FIXME html_cursor_down() is broken.  It should
+		   return FALSE and TRUE appropriately.  But I am lazy
+		   now.  */
+		if (new_y == y)
+			break;
+
+		if (new_y < start_y)
+			return 0;
+
+		if (new_y - start_y >= amount) {
+			html_cursor_copy (cursor, &prev_cursor);
+			break;
+		}
+
+		y = new_y;
+	}
+
+	html_engine_draw_cursor (engine);
+	return new_y - start_y;
+}
+
+gint
+html_engine_scroll_up (HTMLEngine *engine,
+		       gint amount)
+{
+	HTMLCursor *cursor;
+	HTMLCursor prev_cursor;
+	gint start_x, start_y;
+	gint x, y, new_y;
+
+	g_return_val_if_fail (engine != NULL, FALSE);
+	g_return_val_if_fail (HTML_IS_ENGINE (engine), FALSE);
+
+	cursor = engine->cursor;
+
+	html_object_get_cursor_base (cursor->object, engine->painter, cursor->offset, &start_x, &start_y);
+
+	html_engine_draw_cursor (engine);
+
+	y = start_y;
+
+	while (1) {
+		html_cursor_copy (&prev_cursor, cursor);
+
+		html_cursor_up (cursor, engine);
+		html_object_get_cursor_base (cursor->object, engine->painter, cursor->offset, &x, &new_y);
+
+		/* FIXME html_cursor_down() is broken.  It should
+                   return FALSE and TRUE appropriately.  But I am lazy
+                   now.  */
+		if (new_y == y)
+			break;
+
+		if (new_y > start_y)
+			return 0;
+
+		if (start_y - new_y >= amount) {
+			html_cursor_copy (cursor, &prev_cursor);
+			break;
+		}
+
+		y = new_y;
+	}
+
+	html_engine_draw_cursor (engine);
+	return start_y - new_y;
+}
+
+
+gboolean
+html_engine_forward_word (HTMLEngine *engine)
+{
+	HTMLCursor *cursor;
+	gboolean skip_non_alnum;
+	gchar c;
+
+	g_return_val_if_fail (engine != NULL, FALSE);
+	g_return_val_if_fail (HTML_IS_ENGINE (engine), FALSE);
+
+	cursor = engine->cursor;
+	html_engine_draw_cursor (engine);
+
+	c = html_cursor_get_current_char (cursor);
+	if (c == 0 || ! isalnum ((gint) c))
+		skip_non_alnum = TRUE;
+	else
+		skip_non_alnum = FALSE;
+
+	while (1) {
+		if (! html_cursor_forward (cursor, engine)) {
+			html_engine_draw_cursor (engine);
+			return TRUE;
+		}
+
+		c = html_cursor_get_current_char (cursor);
+		if (c == 0 || ! isalnum ((gint) c)) {
+			if (! skip_non_alnum) {
+				html_engine_draw_cursor (engine);
+				return TRUE;
+			}
+		} else {
+			skip_non_alnum = FALSE;
+		}
+	}
+}
+
+gboolean
+html_engine_backward_word (HTMLEngine *engine)
+{
+	HTMLCursor *cursor;
+	gboolean skip_non_alnum;
+	gchar c;
+
+	g_return_val_if_fail (engine != NULL, FALSE);
+	g_return_val_if_fail (HTML_IS_ENGINE (engine), FALSE);
+
+	cursor = engine->cursor;
+	html_engine_draw_cursor (engine);
+
+	if (! html_cursor_backward (cursor, engine)) {
+		html_engine_draw_cursor (engine);
+		return FALSE;
+	}
+		
+	c = html_cursor_get_current_char (cursor);
+	if (c == 0 || ! isalnum ((gint) c))
+		skip_non_alnum = TRUE;
+	else
+		skip_non_alnum = FALSE;
+
+	while (1) {
+		if (! html_cursor_backward (cursor, engine)) {
+			html_engine_draw_cursor (engine);
+			return TRUE;
+		}
+
+		c = html_cursor_get_current_char (cursor);
+		if (c == 0 || ! isalnum ((gint) c)) {
+			if (! skip_non_alnum) {
+				html_cursor_forward (cursor, engine);
+				html_engine_draw_cursor (engine);
+				return TRUE;
+			}
+		} else {
+			skip_non_alnum = FALSE;
+		}
+	}
 }

@@ -77,6 +77,8 @@ void  html_cursor_reset_relative  (HTMLCursor *cursor);
 void  html_cursor_goto_zero       (HTMLCursor *cursor,
 				   HTMLEngine *engine);
 
+gchar  html_cursor_get_current_char  (HTMLCursor *cursor);
+
 gboolean  html_cursor_beginning_of_line  (HTMLCursor *cursor,
 					  HTMLEngine *engine);
 gboolean  html_cursor_end_of_line        (HTMLCursor *cursor,

@@ -41,6 +41,8 @@ merge_safely (HTMLText *text,
 		if (! prepend)
 			cursor->offset += text->text_len;
 		cursor->object = HTML_OBJECT (text);
+	} else if (cursor->object == HTML_OBJECT (text) && prepend) {
+		cursor->offset += HTML_TEXT (other)->text_len;
 	}
 
 	html_text_merge (text, other, prepend);

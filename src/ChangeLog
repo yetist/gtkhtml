@@ -1,4 +1,32 @@
-2000-02-28 Paolo Molaro <lupus@linuxcare.com>
+2000-03-01  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* gtkhtml-keybinding.c
+	(forward_word): New private function.
+	(backward_word): New private function.
+	(handle_alt): Map `M-f' and `M-b' to `forward_word' and
+	`backward_word', respectively.
+	(handle_ctrl): Map `C-Right' and `C-Left' to `forward_word' and
+	`backward_word', respectively.
+
+	* htmlengine-edit-movement.c
+	(html_engine_forward_word): New function.
+	(html_engine_backward_word): New function.
+
+	* htmlcursor.c
+	(html_cursor_goto_zero): More preconditions.
+	(html_cursor_get_current_char): New function.
+
+	* htmlengine-edit-fontstyle.c (merge_safely): Update the cursor
+	offset if the cursor is in the object we are merging and we are
+	prepending.
+
+	* htmltextmaster.c (merge): Ooops.
+
+	* htmlengine-edit-movement.c
+	(html_engine_scroll_down): New function.
+	(html_engine_scroll_up): New function.
+
+2000-02-28  Paolo Molaro  <lupus@linuxcare.com>
 
 	* gtkhtml.c: use GTK_TYPE_OBJECT instead of GTK_TYPE_POINTER
 	  in signal creation for args that are objects.
