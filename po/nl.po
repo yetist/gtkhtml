@@ -1,7 +1,7 @@
 # The one and only funky gtkhtml dutch translation!
 # Copyright (C) 2000 Free Software Foundation, Inc.
 # Dennis Smit <synap@area101.penguin.nl>, 2000.
-# Tino Meinen <a.t.meinen@chello.nl>, 2002.
+# Tino Meinen <a.t.meinen@chello.nl>, 2002, 2003.
 #  
 # TODO
 #  	snelkoppelingen
@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml cvs\n"
 "POT-Creation-Date: 2003-04-09 17:04-0400\n"
-"PO-Revision-Date: 2003-03-09 04:37+0100\n"
+"PO-Revision-Date: 2003-04-25 23:38+0200\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -1325,45 +1325,39 @@ msgid "Remove link"
 msgstr "Verwijder link"
 
 #: components/html-editor/popup.c:474
-#, fuzzy
 msgid "Text Style..."
-msgstr "Te_kstbestand..."
+msgstr "Tekststijl..."
 
+# alineastijl?
 #: components/html-editor/popup.c:476 components/html-editor/popup.c:482
 #: components/html-editor/popup.c:492
-#, fuzzy
 msgid "Paragraph Style..."
-msgstr "Paragraaf..."
+msgstr "Paragraafstijl..."
 
+# verwijzingstijl?
 #: components/html-editor/popup.c:480
-#, fuzzy
 msgid "Link Style..."
-msgstr "Link..."
+msgstr "Linkstijl..."
 
 #: components/html-editor/popup.c:486
-#, fuzzy
 msgid "Rule Style..."
-msgstr "Regel..."
+msgstr "Regelstijl..."
 
 #: components/html-editor/popup.c:490
-#, fuzzy
 msgid "Image Style..."
-msgstr "Afbeelding..."
+msgstr "Afbeeldingstijl..."
 
 #: components/html-editor/popup.c:501
-#, fuzzy
 msgid "Cell Style..."
-msgstr "Cel..."
+msgstr "Celstijl..."
 
 #: components/html-editor/popup.c:504
-#, fuzzy
 msgid "Table Style..."
-msgstr "Tabel..."
+msgstr "Tabelstijl..."
 
 #: components/html-editor/popup.c:510
-#, fuzzy
 msgid "Page Style..."
-msgstr "Pagina..."
+msgstr "Paginastijl..."
 
 #: components/html-editor/popup.c:515
 msgid "Table insert"
@@ -1394,9 +1388,9 @@ msgid "Cell contents"
 msgstr "Cel-inhoud"
 
 #: components/html-editor/popup.c:547
-#, fuzzy, c-format
+#, c-format
 msgid "%s Dictionary"
-msgstr "'%s' aan woordenboek toe toevoegen"
+msgstr "%s woordenboek"
 
 #: components/html-editor/replace.c:74
 msgid "Replace confirmation"
@@ -1452,7 +1446,7 @@ msgstr "Spellingscontrole"
 
 #: components/html-editor/spell.c:358
 msgid "Current _Languages"
-msgstr ""
+msgstr "Huidige _talen"
 
 #: components/html-editor/table.c:199
 msgid "Flat gray"
@@ -1492,9 +1486,8 @@ msgstr "Bestand opslaan als..."
 
 # betere vertaling?
 #: components/html-editor/test-html-editor-control.c:554
-#, fuzzy
 msgid "GtkHTML Editor Test Container"
-msgstr "GtkHTML Editor Control"
+msgstr "GtkHTML Editor testcontainer"
 
 #. color selection
 #: components/html-editor/text.c:291
@@ -1702,15 +1695,3 @@ msgstr "Afdruk_voorbeeld"
 #: src/testgtkhtml.c:103
 msgid "Print preview"
 msgstr "Afdrukvoorbeeld"
-
-#~ msgid "Check '%s' spelling..."
-#~ msgstr "Controleer de spelling van '%s'..."
-
-#~ msgid "Ignore '%s'"
-#~ msgstr "'%s' Negeren"
-
-#~ msgid "Suggest word"
-#~ msgstr "Woordsuggestie"
-
-#~ msgid "Text..."
-#~ msgstr "Tekst..."
