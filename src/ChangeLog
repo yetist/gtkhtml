@@ -1,3 +1,8 @@
+2001-08-06  Larry Ewing  <lewing@ximian.com>
+
+	* htmlclue.c (op_helper): don't segfault in the assertion if the
+	clue is empty.
+
 2001-08-03  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine.h: added block_selection flag

@@ -93,6 +93,9 @@ op_helper (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left,
 	o    = (from) ? HTML_OBJECT (from->data) : clue->head;
 	last = (to)   ? HTML_OBJECT (to->data)   : clue->tail;
 
+	if ((o == NULL) && (last == NULL))
+		return cc;
+
 	g_assert (o->parent == self);
 	g_assert (last->parent == self);
 
@@ -267,7 +270,7 @@ reset (HTMLObject *clue)
 {
 	HTMLObject *obj;
 
-	for (obj = HTML_CLUE (clue)->head; obj != 0; obj = obj->next)
+	for (obj = HTML_CLUE (clue)->head; obj != NULL; obj = obj->next)
 		html_object_reset (obj);
 
 	HTML_CLUE (clue)->curr = NULL;
