@@ -1,3 +1,9 @@
+2003-03-24  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine-edit-tablecell.c (move_cell_rd): remember the removed cell
+
+	* gtkhtml.c: declare get/set property inside USE_PROPS #idef block
+
 2003-03-23  Larry Ewing  <lewing@ximian.com>
 
 	* htmlfontmanager.c (get_font_num): make get_font_num more robust

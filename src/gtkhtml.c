@@ -130,6 +130,10 @@ enum {
 	PROP_DOCUMENT_BASE,
 	PROP_TARGET_BASE,
 };
+
+static void     gtk_html_get_property  (GObject *object, guint prop_id, GValue *value, GParamSpec *pspec);
+static void     gtk_html_set_property  (GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec);
+
 #endif
 
 static guint signals [LAST_SIGNAL] = { 0 };
@@ -146,11 +150,7 @@ static void     cursor_move            (GtkHTML *html, GtkDirectionType dir_type
 static gboolean command                (GtkHTML *html, GtkHTMLCommandType com_type);
 static gint     mouse_change_pos       (GtkWidget *widget, GdkWindow *window, gint x, gint y);
 static void     add_bindings           (GtkHTMLClass *klass);
-static gchar *  get_value_nick         (GtkHTMLCommandType com_type);
-
-static void     gtk_html_get_property  (GObject *object, guint prop_id, GValue *value, GParamSpec *pspec);
-static void     gtk_html_set_property  (GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec);
-					
+static gchar *  get_value_nick         (GtkHTMLCommandType com_type);					
 
 
 /* Values for selection information.  FIXME: what about COMPOUND_STRING and

@@ -490,7 +490,7 @@ move_cell_rd (HTMLTable *t, HTMLTableCell *cell, gint rs, gint cs)
 						/* printf ("move destroy: %dx%d\n", rs + r, cs + c); */
 						/* html_object_destroy (HTML_OBJECT (t->cells [rs + r][cs + c])); */
 						/* printf ("removed: %dx%d (%d, %d)\n", rs + r, cs + c, r - cell->row, c - cell->col); */
-						undo->removed [(r - cell->row)*cell->cspan + c - cell->col];
+						undo->removed [(r - cell->row)*cell->cspan + c - cell->col] = t->cells [r][c];
 					}
 					t->cells [r][c] = NULL;
 				}
