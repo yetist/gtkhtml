@@ -852,6 +852,10 @@ style_set (GtkWidget *widget, GtkStyle  *previous_style)
 	html_colorset_set_style (engine->defaultSettings->color_set, widget);
 	html_colorset_set_unchanged (engine->settings->color_set,
 				     engine->defaultSettings->color_set);
+
+	/* link and quotation colors might changed => need to refresh pango info in text objects */
+	if (engine->clue)
+		html_object_change_set_down (engine->clue, HTML_CHANGE_RECALC_PI);
 	html_engine_schedule_update (engine);
 }
 

@@ -1,5 +1,9 @@
 2004-06-03  Radek Doulik  <rodo@ximian.com>
 
+	* gtkhtml.c (style_set): refresh pango info
+
+	Fixes #59356
+
 	* gtkhtml.c (drag_data_received): looks like Larry's patch from
 	2004-05-06 was broken (wrong version?). Removed uninitialized i
 	variable. Use selection_data->length, pass title to
