@@ -225,67 +225,6 @@ op_copy (HTMLObject *self, HTMLObject *parent, HTMLEngine *e, GList *from, GList
 	return HTML_OBJECT (nt);
 }
 
-static gint
-get_n_children (HTMLObject *self)
-{
-	HTMLTable *t = HTML_TABLE (self);
-	guint r, c, n_children = 0;
-
-	for (r = 0; r < t->totalRows; r++)
-		for (c = 0; c < t->totalCols; c++)
-			if (t->cells [r][c] && t->cells [r][c]->row == r && t->cells [r][c]->col == c)
-				n_children ++;
-
-	/* printf ("table n_children %d\n", n_children); */
-
-	return n_children;
-}
-
-static HTMLObject *
-get_child (HTMLObject *self, gint index)
-{
-	HTMLTable *t = HTML_TABLE (self);
-	HTMLObject *child = NULL;
-	guint r, c, n = 0;
-
-	for (r = 0; r < t->totalRows && !child; r++)
-		for (c = 0; c < t->totalCols; c++)
-			if (t->cells [r][c] && t->cells [r][c]->row == r && t->cells [r][c]->col == c) {
-				if (n == index) {
-					child = HTML_OBJECT (t->cells [r][c]);
-					break;
-				}
-				n ++;
-			}
-
-	/* printf ("table ref %d child %p\n", index, child); */
-
-	return child;
-}
-
-static gint
-get_child_index (HTMLObject *self, HTMLObject *child)
-{
-	HTMLTable *t = HTML_TABLE (self);
-	guint r, c;
-	gint n = 0;
-
-	for (r = 0; r < t->totalRows; r++)
-		for (c = 0; c < t->totalCols; c++) {
-			if (t->cells [r][c] && t->cells [r][c]->row == r && t->cells [r][c]->col == c) {
-				if (HTML_OBJECT (t->cells [r][c]) == child) {
-					/* printf ("table child %p index %d\n", child, n); */
-					return n;
-				}
-				n ++;
-			}
-		}
-
-	/* printf ("table child %p index %d\n", child, -1); */
-
-	return -1;
-}
-
 static guint
 get_recursive_length (HTMLObject *self)
 {
@@ -421,6 +360,17 @@ op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GL
 		return cut_whole (self, len);
 }
 
+static gboolean
+cell_is_empty (HTMLTableCell *cell)
+{
+	g_assert (HTML_IS_TABLE_CELL (cell));
+
+	if (HTML_CLUE (cell)->head && HTML_CLUE (cell)->head == HTML_CLUE (cell)->tail
+	    && HTML_IS_CLUEFLOW (HTML_CLUE (cell)->head) && html_clueflow_is_empty (HTML_CLUEFLOW (HTML_CLUE (cell)->head)))
+		return TRUE;
+	return FALSE;
+}
+
 static void
 split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint level, GList **left, GList **right)
 {
@@ -439,7 +389,7 @@ split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint lev
 	dup_cell  = HTML_TABLE_CELL ((*right)->data);
 	cell      = HTML_TABLE_CELL ((*left)->data);
 
-	if (dup_cell->row == t->totalRows - 1 && dup_cell->col == t->totalCols - 1 && html_table_cell_is_empty (dup_cell)) {
+	if (dup_cell->row == t->totalRows - 1 && dup_cell->col == t->totalCols - 1 && cell_is_empty (dup_cell)) {
 		dup = html_engine_new_text_empty (e);
 		html_object_destroy ((*right)->data);
 		g_list_free (*right);
@@ -556,10 +506,10 @@ could_merge (HTMLTable *t1, HTMLTable *t2)
 				return FALSE;
 
 			if (first) {
-				if (!html_table_cell_is_empty (c2))
+				if (!cell_is_empty (c2))
 					first = FALSE;
 			} else {
-				if (!html_table_cell_is_empty (c1))
+				if (!cell_is_empty (c1))
 					return FALSE;
 			}
 		}
@@ -649,9 +599,9 @@ merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList **left, GList **
 			c2 = t2->cells [r][c];
 
 			if (first) {
-				if (!html_table_cell_is_empty (c2)) {
+				if (!cell_is_empty (c2)) {
 					t1_tail = prev_c1;
-					if (html_table_cell_is_empty (c1)) {
+					if (cell_is_empty (c1)) {
 						move_cell (t1, t2, c1, c2, cursor_cell_1, cursor_cell_2,
 							   r, c, e->cursor, cursor);
 						c1 = c2;
@@ -1181,9 +1131,10 @@ draw (HTMLObject *o,
 	HTMLTable *table = HTML_TABLE (o);
 	gint pixel_size;
 	gint r, c, start_row, end_row, start_col, end_col;
-	GdkRectangle paint;
+	ArtIRect paint;
 
-	if (!html_object_intersect (o, &paint, x, y, width, height))
+	html_object_calc_intersection (o, &paint, x, y, width, height);
+	if (art_irect_empty (&paint))
 		return;
 
 	pixel_size = html_painter_get_pixel_size (p);
@@ -2249,9 +2200,6 @@ html_table_class_init (HTMLTableClass *klass,
 	object_class->get_bg_color = get_bg_color;
 	object_class->get_recursive_length = get_recursive_length;
 	object_class->remove_child = remove_child;
-	object_class->get_n_children = get_n_children;
-	object_class->get_child = get_child;
-	object_class->get_child_index = get_child_index;
 
 	parent_class = &html_object_class;
 }
