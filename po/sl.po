@@ -4,13 +4,13 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2000-12-14 12:56-0600\n"
+"Project-Id-Version: gtkhtml 0.8\n"
+"POT-Creation-Date: 2001-01-07 07:28+0100\n"
 "PO-Revision-Date: 2000-08-06 22:43+0200\n"
 "Last-Translator: Andraz Tori <andraz.tori1@guest.arnes.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso8859-2\n"
+"Content-Type: text/plain; charset=iso-8859-2\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: capplet/gnome-bindings-prop.c:154 capplet/gnome-bindings-prop.c:222
@@ -39,7 +39,7 @@ msgstr "Mapiranja tipk"
 msgid "Add"
 msgstr "Dodaj"
 
-#: capplet/gnome-bindings-prop.c:548 po/tmp/GNOME_GtkHTML_Editor.xml.h:8
+#: capplet/gnome-bindings-prop.c:548
 msgid "Copy"
 msgstr "Kopiraj"
 
@@ -166,44 +166,57 @@ msgid "Colors"
 msgstr "Barve"
 
 #: components/html-editor/editor-control-factory.c:136
-#: components/html-editor/popup.c:77
+#: components/html-editor/popup.c:78
 msgid "Properties"
 msgstr "Lastnosti"
 
 #: components/html-editor/editor-control-factory.c:147
-#: components/html-editor/menubar.c:97 components/html-editor/popup.c:92
+#: components/html-editor/menubar.c:97 components/html-editor/popup.c:93
 msgid "Image"
 msgstr "Slika"
 
 #: components/html-editor/editor-control-factory.c:156
-#: components/html-editor/menubar.c:118 components/html-editor/popup.c:85
+#: components/html-editor/menubar.c:118 components/html-editor/popup.c:86
 msgid "Text"
 msgstr "Besedilo"
 
 #: components/html-editor/editor-control-factory.c:167
-#: components/html-editor/menubar.c:141 components/html-editor/popup.c:120
+#: components/html-editor/menubar.c:141 components/html-editor/popup.c:121
 msgid "Rule"
 msgstr "Pravilo"
 
 #: components/html-editor/editor-control-factory.c:176
-#: components/html-editor/popup.c:99
+#: components/html-editor/popup.c:100
 msgid "Paragraph"
 msgstr "Odstavek"
 
 #: components/html-editor/editor-control-factory.c:181
 #: components/html-editor/menubar.c:102 components/html-editor/menubar.c:123
-#: components/html-editor/popup.c:106
+#: components/html-editor/popup.c:107
 msgid "Link"
 msgstr "Povezava"
 
 #: components/html-editor/editor-control-factory.c:186
-#: components/html-editor/popup.c:113
+#: components/html-editor/popup.c:114
 msgid "Page"
 msgstr "Stran"
 
 #: components/html-editor/image.c:163
 msgid "Image selection"
 msgstr "Izbira slike"
+
+#: components/html-editor/image.c:184
+msgid "Top"
+msgstr ""
+
+#: components/html-editor/image.c:185 components/html-editor/paragraph.c:158
+#: components/html-editor/rule.c:257 components/html-editor/toolbar.c:403
+msgid "Center"
+msgstr "Na sredini"
+
+#: components/html-editor/image.c:186
+msgid "Bottom"
+msgstr ""
 
 #. ADD_ITEM("Left",   GDK_F4);
 #. ADD_ITEM("Right",  GDK_F5);
@@ -215,15 +228,35 @@ msgstr "Poravnava"
 msgid "Border"
 msgstr "Rob"
 
+#: components/html-editor/image.c:208 components/html-editor/image.c:226
+#: components/html-editor/image.c:249 components/html-editor/rule.c:267
+#, fuzzy
+msgid "width"
+msgstr "z"
+
 #: components/html-editor/image.c:215
 msgid "Padding"
 msgstr "Polnjenje"
+
+#: components/html-editor/image.c:227 components/html-editor/image.c:250
+#, fuzzy
+msgid "height"
+msgstr "Desno"
 
 #. size
 #: components/html-editor/image.c:235 components/html-editor/rule.c:225
 #: components/html-editor/text.c:188
 msgid "Size"
 msgstr "Velikost"
+
+#: components/html-editor/image.c:242 components/html-editor/rule.c:230
+msgid "Pixels"
+msgstr ""
+
+#: components/html-editor/image.c:243 components/html-editor/rule.c:231
+#, fuzzy, c-format
+msgid "Percent %"
+msgstr "Odstotek"
 
 #: components/html-editor/link.c:74
 msgid "Clear"
@@ -261,19 +294,15 @@ msgstr "Slog"
 msgid "Align"
 msgstr "Poravnaj"
 
-#: components/html-editor/paragraph.c:157
+#: components/html-editor/paragraph.c:157 components/html-editor/rule.c:256
 msgid "Left"
 msgstr "Levo"
 
-#: components/html-editor/paragraph.c:158 components/html-editor/toolbar.c:403
-msgid "Center"
-msgstr "Na sredini"
-
-#: components/html-editor/paragraph.c:159
+#: components/html-editor/paragraph.c:159 components/html-editor/rule.c:258
 msgid "Right"
 msgstr "Desno"
 
-#: components/html-editor/popup.c:197
+#: components/html-editor/popup.c:216
 msgid "Remove link"
 msgstr "Odstrani povezavo"
 
@@ -282,7 +311,7 @@ msgid "Replace confirmation"
 msgstr "Potrdi zamenjavo"
 
 #: components/html-editor/replace.c:84 components/html-editor/replace.c:146
-#: components/html-editor/replace.c:158 po/tmp/GNOME_GtkHTML_Editor.xml.h:28
+#: components/html-editor/replace.c:158
 msgid "Replace"
 msgstr "Zamenjaj"
 
@@ -305,6 +334,11 @@ msgstr "razlikuj velike in male èrke"
 #: components/html-editor/replace.c:161
 msgid "with"
 msgstr "z"
+
+#: components/html-editor/rule.c:239
+#, fuzzy
+msgid "length"
+msgstr "Dol¾ina"
 
 #: components/html-editor/rule.c:273
 msgid "shaded"
@@ -458,189 +492,117 @@ msgstr "_Predogled tiskanja"
 msgid "Print preview"
 msgstr "Predogled tiskanja"
 
-#.
-#. * Translatable strings file generated by extract-ui.
-#. * Add this file to your project's POTFILES.in
-#. * DO NOT compile it as part of your application.
-#.
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:7
 #, fuzzy
-msgid "C_ut"
-msgstr "Izre¾i"
+#~ msgid "C_ut"
+#~ msgstr "Izre¾i"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:9
 #, fuzzy
-msgid "Copy selection to clipboard"
-msgstr "Kopiraj izbrano na odlo¾i¹èe"
+#~ msgid "Copy selection to clipboard"
+#~ msgstr "Kopiraj izbrano na odlo¾i¹èe"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:10
 #, fuzzy
-msgid "Copy the selection"
-msgstr "Izbira slike"
+#~ msgid "Copy the selection"
+#~ msgstr "Izbira slike"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:11
-msgid "Cut"
-msgstr "Izre¾i"
+#~ msgid "Cut"
+#~ msgstr "Izre¾i"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:12
 #, fuzzy
-msgid "Cut selection to clipboard"
-msgstr "Izre¾i izbrano na odlo¾i¹èe"
+#~ msgid "Cut selection to clipboard"
+#~ msgstr "Izre¾i izbrano na odlo¾i¹èe"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:13
 #, fuzzy
-msgid "Cut the selection"
-msgstr "Izbira slike"
+#~ msgid "Cut the selection"
+#~ msgstr "Izbira slike"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:14
-msgid "Find"
-msgstr ""
+#~ msgid "Find Rege_x..."
+#~ msgstr "P_oi¹èi..."
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:15
-msgid "Find Rege_x..."
-msgstr "P_oi¹èi..."
+#~ msgid "Insert HTML link into document..."
+#~ msgstr "V dokument vstavi HTML povezavo..."
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:16
-msgid "Find _Again"
-msgstr ""
+#~ msgid "Insert image into document..."
+#~ msgstr "V dokument vstavi sliko..."
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:17
-msgid "Insert HTML link into document..."
-msgstr "V dokument vstavi HTML povezavo..."
+#~ msgid "Insert rule into document..."
+#~ msgstr "V dokument vstavi pravilo"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:18
-msgid "Insert image into document..."
-msgstr "V dokument vstavi sliko..."
+#~ msgid "Paste"
+#~ msgstr "Prilepi"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:19
-msgid "Insert rule into document..."
-msgstr "V dokument vstavi pravilo"
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:20
-msgid "Modify the file's properties"
-msgstr ""
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:21
-msgid "Paste"
-msgstr "Prilepi"
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:22
 #, fuzzy
-msgid "Paste from clipboard"
-msgstr "Prilepi vsebino odlo¾i¹èa"
+#~ msgid "Paste from clipboard"
+#~ msgstr "Prilepi vsebino odlo¾i¹èa"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:23
 #, fuzzy
-msgid "Paste the clipboard"
-msgstr "Prilepi vsebino odlo¾i¹èa"
+#~ msgid "Paste the clipboard"
+#~ msgstr "Prilepi vsebino odlo¾i¹èa"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:24
-msgid "Redo"
-msgstr "Obnovi"
+#~ msgid "Redo"
+#~ msgstr "Obnovi"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:25
-msgid "Redo previously undoed changes"
-msgstr ""
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:26
 #, fuzzy
-msgid "Redo the undone action"
-msgstr "Obnovi razveljavljeno operacijo urejevalnika"
+#~ msgid "Redo the undone action"
+#~ msgstr "Obnovi razveljavljeno operacijo urejevalnika"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:27
 #, fuzzy
-msgid "Regular expression search"
-msgstr "Iskanje s pomoèjo regularnega izraza..."
+#~ msgid "Regular expression search"
+#~ msgstr "Iskanje s pomoèjo regularnega izraza..."
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:29
 #, fuzzy
-msgid "Replace a string"
-msgstr "Potrdi zamenjavo"
+#~ msgid "Replace a string"
+#~ msgstr "Potrdi zamenjavo"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:30
-msgid "Search again for the same string"
-msgstr ""
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:31
-msgid "Search and replace string"
-msgstr ""
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:32
-msgid "Search for a string"
-msgstr ""
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:33
 #, fuzzy
-msgid "Search string"
-msgstr "Iskanje"
+#~ msgid "Search string"
+#~ msgstr "Iskanje"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:34
-msgid "Undo"
-msgstr "Razveljavi"
+#~ msgid "Undo"
+#~ msgstr "Razveljavi"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:35
-msgid "Undo previous changes"
-msgstr ""
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:36
 #, fuzzy
-msgid "Undo the last action"
-msgstr "Razveljavi zadnjo operacijo urejevalnika"
+#~ msgid "Undo the last action"
+#~ msgstr "Razveljavi zadnjo operacijo urejevalnika"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:37
 #, fuzzy
-msgid "_Copy"
-msgstr "Kopiraj"
+#~ msgid "_Copy"
+#~ msgstr "Kopiraj"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:38
-msgid "_Edit"
-msgstr ""
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:39
 #, fuzzy
-msgid "_Find..."
-msgstr "_Povezava..."
+#~ msgid "_Find..."
+#~ msgstr "_Povezava..."
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:40
-msgid "_Image..."
-msgstr "_Slika..."
+#~ msgid "_Image..."
+#~ msgstr "_Slika..."
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:41
-msgid "_Insert"
-msgstr "Vstav_i"
+#~ msgid "_Insert"
+#~ msgstr "Vstav_i"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:42
-msgid "_Link..."
-msgstr "_Povezava..."
+#~ msgid "_Link..."
+#~ msgstr "_Povezava..."
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:43
 #, fuzzy
-msgid "_Paste"
-msgstr "Prilepi"
+#~ msgid "_Paste"
+#~ msgstr "Prilepi"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:44
 #, fuzzy
-msgid "_Properties..."
-msgstr "Lastnosti"
+#~ msgid "_Properties..."
+#~ msgstr "Lastnosti"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:45
 #, fuzzy
-msgid "_Redo"
-msgstr "Obnovi"
+#~ msgid "_Redo"
+#~ msgstr "Obnovi"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:46
 #, fuzzy
-msgid "_Replace..."
-msgstr "Zamenjaj"
+#~ msgid "_Replace..."
+#~ msgstr "Zamenjaj"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:47
-msgid "_Rule..."
-msgstr "P_ravilo..."
+#~ msgid "_Rule..."
+#~ msgstr "P_ravilo..."
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:48
 #, fuzzy
-msgid "_Undo"
-msgstr "Razveljavi"
+#~ msgid "_Undo"
+#~ msgstr "Razveljavi"
 
 #~ msgid "live spell checking"
 #~ msgstr "¾ivo preverjanje èrkovanja"
@@ -662,12 +624,6 @@ msgstr "Razveljavi"
 
 #~ msgid "Insert image"
 #~ msgstr "Vstavi sliko"
-
-#~ msgid "Length"
-#~ msgstr "Dol¾ina"
-
-#~ msgid "Percent"
-#~ msgstr "Odstotek"
 
 #~ msgid "Left Align"
 #~ msgstr "Leva poravnava"
