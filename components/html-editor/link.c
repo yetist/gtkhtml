@@ -39,23 +39,45 @@ struct _GtkHTMLEditLinkProperties {
 	GtkHTMLControlData *cd;
 	GtkWidget *entry_text;
 	GtkWidget *entry_url;
+
+	HTMLLinkText *link;
+
+	gboolean url_changed;
 };
 typedef struct _GtkHTMLEditLinkProperties GtkHTMLEditLinkProperties;
 
 static void
 changed (GtkWidget *w, GtkHTMLEditLinkProperties *data)
 {
+	data->url_changed = TRUE;
 	gtk_html_edit_properties_dialog_change (data->cd->properties_dialog);
 }
 
-GtkWidget *
-link_properties (GtkHTMLControlData *cd, gpointer *set_data)
+static void
+set_ui (GtkHTMLEditLinkProperties *data)
 {
-	GtkWidget *vbox, *frame, *f1;
-	GtkHTMLEditLinkProperties *data = g_new (GtkHTMLEditLinkProperties, 1);
+	gchar *text;
+	gchar *url, *url8;
 
-	*set_data = data;
-	data->cd = cd;
+	text = e_utf8_to_gtk_string (data->entry_text, HTML_TEXT (data->link)->text);
+	gtk_entry_set_text (GTK_ENTRY (data->entry_text), text);
+	g_free (text);
+
+	url8 = data->link->url && *data->link->url
+		? g_strconcat (data->link->url, data->link->target && *data->link->target ? "#" : NULL,
+			       data->link->target, NULL)
+		: g_strdup ("");
+	url = e_utf8_to_gtk_string (data->entry_url, url8);
+	gtk_entry_set_text (GTK_ENTRY (data->entry_url), url);
+	g_free (url);
+	g_free (url8);
+}
+
+static GtkWidget *
+link_widget (GtkHTMLEditLinkProperties *data, gboolean insert)
+{
+	GtkHTMLControlData *cd = data->cd;
+	GtkWidget *vbox, *frame, *f1;
 
 	vbox = gtk_vbox_new (FALSE, 3);
 
@@ -88,12 +110,67 @@ link_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	gtk_container_add (GTK_CONTAINER (frame), f1);
 	gtk_box_pack_start (GTK_BOX (vbox), frame, FALSE, FALSE, 0);
 
+	if (!insert) {
+		gtk_widget_set_sensitive (data->entry_text, FALSE);
+		set_ui (data);
+	}
+
 	gtk_signal_connect (GTK_OBJECT (data->entry_text), "changed", changed, data);
 	gtk_signal_connect (GTK_OBJECT (data->entry_url), "changed", changed, data);
 
 	gtk_widget_show_all (vbox);
 
 	return vbox;
+}
+
+GtkWidget *
+link_insert (GtkHTMLControlData *cd, gpointer *set_data)
+{
+	GtkHTMLEditLinkProperties *data = g_new (GtkHTMLEditLinkProperties, 1);
+
+	*set_data = data;
+	data->cd = cd;
+
+	return link_widget (data, TRUE);
+}
+
+GtkWidget *
+link_properties (GtkHTMLControlData *cd, gpointer *set_data)
+{
+	GtkHTMLEditLinkProperties *data = g_new (GtkHTMLEditLinkProperties, 1);
+
+	g_return_val_if_fail (cd->html->engine->cursor->object, NULL);
+	g_return_val_if_fail (HTML_IS_LINK_TEXT (cd->html->engine->cursor->object), NULL);
+
+	*set_data = data;
+	data->cd = cd;
+	data->link = HTML_LINK_TEXT (cd->html->engine->cursor->object);
+
+	return link_widget (data, FALSE);
+}
+
+void
+link_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
+{
+	GtkHTMLEditLinkProperties *data = (GtkHTMLEditLinkProperties *) get_data;
+	HTMLEngine *e = data->cd->html->engine;
+
+	gchar *url;
+	gchar *target;
+
+	if (data->url_changed) {
+		gchar *url_copy;
+
+		url  = e_utf8_from_gtk_string (data->entry_url, gtk_entry_get_text (GTK_ENTRY (data->entry_url)));
+
+		target = strchr (url, '#');
+
+		url_copy = target ? g_strndup (url, target - url) : g_strdup (url);
+		html_link_text_set_url (data->link, url_copy, target);
+		html_engine_update_insertion_url_and_target (e);
+		g_free (url_copy);
+		g_free (url);
+	}
 }
 
 void

@@ -160,6 +160,13 @@ show_prop_dialog (GtkHTMLControlData *cd, GtkHTMLEditPropertyType start)
 								   text_apply_cb,
 								   text_close_cb);
 			break;
+		case GTK_HTML_EDIT_PROPERTY_LINK:
+			gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
+								   t, _("Link"),
+								   link_properties,
+								   link_apply_cb,
+								   link_close_cb);
+			break;
 		case GTK_HTML_EDIT_PROPERTY_IMAGE:
 			gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
 								   t, _("Image"),
@@ -217,6 +224,24 @@ static void
 prop_dialog (GtkWidget *mi, GtkHTMLControlData *cd)
 {
 	show_prop_dialog (cd, GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (mi), "type")));
+}
+
+static void
+link_prop_dialog (GtkWidget *mi, GtkHTMLControlData *cd)
+{
+	if (cd->properties_dialog)
+		gtk_html_edit_properties_dialog_close (cd->properties_dialog);
+
+	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, FALSE, _("Properties"));
+
+	gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
+						   GTK_HTML_EDIT_PROPERTY_LINK, _("Link"),
+						   link_properties,
+						   link_apply_cb,
+						   link_close_cb);
+
+	gtk_html_edit_properties_dialog_show (cd->properties_dialog);
+	gtk_html_edit_properties_dialog_set_page (cd->properties_dialog, GTK_HTML_EDIT_PROPERTY_LINK);
 }
 
 static void
@@ -399,14 +424,23 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items)
 		}
 		ADD_ITEM (_("Paste"),  paste, NONE);
 	}
-	if (cd->format_html && html_engine_is_selection_active (e)) {
-		ADD_SEP;
-		ADD_ITEM (_("Text..."), prop_dialog, TEXT);
-		ADD_PROP (TEXT);
-		ADD_ITEM (_("Paragraph..."), prop_dialog, PARAGRAPH);
-		ADD_PROP (PARAGRAPH);
-	} else if (cd->format_html && obj) {
+
+	if (cd->format_html && obj) {
 		switch (HTML_OBJECT_TYPE (obj)) {
+		case HTML_TYPE_TEXT:
+			ADD_SEP;
+			ADD_ITEM (_("Text..."), prop_dialog, TEXT);
+			ADD_PROP (TEXT);
+			ADD_ITEM (_("Paragraph..."), prop_dialog, PARAGRAPH);
+			ADD_PROP (PARAGRAPH);
+			break;
+		case HTML_TYPE_LINKTEXT:
+			ADD_SEP;
+			ADD_ITEM (_("Link..."), link_prop_dialog, LINK);
+			ADD_PROP (LINK);
+			ADD_ITEM (_("Paragraph..."), prop_dialog, PARAGRAPH);
+			ADD_PROP (PARAGRAPH);
+			break;
 		case HTML_TYPE_RULE:
 			ADD_SEP;
 			ADD_ITEM (_("Rule..."), prop_dialog, RULE);
@@ -418,12 +452,6 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items)
 			ADD_PROP (IMAGE);
 			ADD_ITEM (_("Paragraph..."), prop_dialog, PARAGRAPH);
 			ADD_PROP (PARAGRAPH);
-			break;
-		case HTML_TYPE_LINKTEXT:
-		case HTML_TYPE_TEXT:
-			ADD_SEP;
-			ADD_PROP (PARAGRAPH);
-			ADD_ITEM (_("Paragraph..."), prop_dialog, PARAGRAPH);
 			break;
 		case HTML_TYPE_TABLE:
 			ADD_SEP;
