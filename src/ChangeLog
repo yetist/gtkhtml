@@ -1,5 +1,8 @@
 2003-07-30  Larry Ewing  <lewing@ximian.com>
 
+	* htmlengine.c: fix logic that was causing some extra p breaks on
+	/. move some blocks around.
+	
 	* htmlengine.c: spit up the element parsers into separate
 	functions invoked from the dispatch table.  This causes a lot of
 	code churn but should end up being largely the same functionally.
