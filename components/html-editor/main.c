@@ -25,7 +25,6 @@
 
 #include <config.h>
 #include <gnome.h>
-#include <libgnorba/gnorba.h>
 #include <bonobo.h>
 
 #include "editor-control-factory.h"
