@@ -116,8 +116,6 @@ gtk_html_class_properties_new (GtkWidget *widget)
 		p->spell_error_color.blue  = 0;
 	}
 
-	g_free (fixed_name);
-
 	return p;
 }
 
