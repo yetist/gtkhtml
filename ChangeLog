@@ -1,3 +1,8 @@
+2002-06-02  Larry Ewing  <lewing@ximian.com>
+
+	* configure.in (GTKHTML_RELEASE_STRING): bump the version number
+	so that evolution can pick up the multicite changes.
+
 2002-05-09  Dan Winship  <danw@ximian.com>
 
 	* configure.in: Check for soup instead of glibwww
