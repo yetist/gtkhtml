@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Gtkhtml\n"
-"POT-Creation-Date: 2001-10-01 15:51-0500\n"
+"POT-Creation-Date: 2001-10-09 09:44-0500\n"
 "PO-Revision-Date: 2001-09-29 23:57+0400\n"
 "Last-Translator: Valek Filippov <frob@df.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -240,7 +240,7 @@ msgid "Check spelling of the document"
 msgstr ""
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:14
-#: components/html-editor/popup.c:369
+#: components/html-editor/popup.c:385
 msgid "Copy"
 msgstr "Скопировать"
 
@@ -259,7 +259,7 @@ msgid "Cu_t"
 msgstr "Вырезать"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:18
-#: components/html-editor/popup.c:370
+#: components/html-editor/popup.c:386
 msgid "Cut"
 msgstr "Вырезать"
 
@@ -345,8 +345,8 @@ msgid "Header _6"
 msgstr "Заголовок 6"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
-#: components/html-editor/editor-control-factory.c:181
-#: components/html-editor/menubar.c:106 components/html-editor/popup.c:158
+#: components/html-editor/editor-control-factory.c:186
+#: components/html-editor/menubar.c:106 components/html-editor/popup.c:161
 msgid "Image"
 msgstr "Изображение"
 
@@ -377,9 +377,9 @@ msgstr "Выравнивание абзацев по левому краю"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
 #: components/html-editor/body.c:187
-#: components/html-editor/editor-control-factory.c:216
+#: components/html-editor/editor-control-factory.c:221
 #: components/html-editor/menubar.c:111 components/html-editor/menubar.c:132
-#: components/html-editor/popup.c:172
+#: components/html-editor/popup.c:175
 msgid "Link"
 msgstr "Ссылка"
 
@@ -447,236 +447,236 @@ msgid "Numbered List"
 msgstr ""
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
+msgid "Numbered _List"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
 #, fuzzy
 msgid "Orange"
 msgstr "Страница"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
 msgid "Other..."
 msgstr ""
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
-#: components/html-editor/popup.c:376
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
+#: components/html-editor/popup.c:392
 msgid "Paste"
 msgstr "Вставить"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:63
 msgid "Paste from clipboard"
 msgstr ""
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:63
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:64
 msgid "Paste the clipboard"
 msgstr ""
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:64
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:65
 #, fuzzy
 msgid "Pr_operties..."
 msgstr "Свойства"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:65
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:66
 #: components/html-editor/toolbar.c:51
 msgid "Preformat"
 msgstr ""
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:66
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:67
 #, fuzzy
 msgid "Purple"
 msgstr "Линейка"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:67
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:68
 msgid "Red"
 msgstr ""
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:68
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:69
 msgid "Redo"
 msgstr ""
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:69
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:70
 msgid "Redo previously undone change"
 msgstr ""
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:70
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
 msgid "Redo the undone action"
 msgstr ""
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
 #: components/html-editor/replace.c:84 components/html-editor/replace.c:146
 #: components/html-editor/replace.c:158 components/html-editor/replace.c:204
 msgid "Replace"
 msgstr "Заменить"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
 #: components/html-editor/toolbar.c:502
 msgid "Right justifies the paragraphs"
 msgstr "Выравнивание абзацев по правому краю"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
 msgid "Roman Numeral List"
 msgstr ""
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
-#: components/html-editor/editor-control-factory.c:201
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:75
+#: components/html-editor/editor-control-factory.c:206
 #: components/html-editor/gtkhtml-editor-properties.glade.h:36
-#: components/html-editor/menubar.c:150 components/html-editor/popup.c:186
+#: components/html-editor/menubar.c:150 components/html-editor/popup.c:189
 msgid "Rule"
 msgstr "Линейка"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:75
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
 msgid "Select _All"
 msgstr ""
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
 msgid "Select the entire contents of the document"
 msgstr ""
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
 #: components/html-editor/text.c:183 components/html-editor/toolbar.c:517
 msgid "Strikeout"
 msgstr "Зачеркнутый"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
 msgid "Su_perscript"
 msgstr ""
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
 msgid "Subs_cript"
 msgstr ""
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
 msgid "Subscript"
 msgstr ""
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
 msgid "Superscript"
 msgstr ""
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
 #: components/html-editor/gtkhtml-editor-properties.glade.h:44
-#: components/html-editor/menubar.c:167 components/html-editor/popup.c:193
-#: components/html-editor/popup.c:429 components/html-editor/popup.c:438
+#: components/html-editor/menubar.c:167 components/html-editor/popup.c:196
+#: components/html-editor/popup.c:445 components/html-editor/popup.c:454
 msgid "Table"
 msgstr "Таблица"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
 #, fuzzy
 msgid "Te_mplate..."
 msgstr "Шаблон"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
 #: components/html-editor/gtkhtml-editor-properties.glade.h:46
 #: components/html-editor/menubar.c:190
 msgid "Template"
 msgstr "Шаблон"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
 #: components/html-editor/toolbar.c:509
 msgid "Typewriter"
 msgstr "Пиш.машинка"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
 msgid "Undo"
 msgstr ""
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
 msgid "Undo previous changes"
 msgstr ""
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
 msgid "Undo the last action"
 msgstr ""
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
 #, fuzzy
 msgid "Yellow"
 msgstr "Ячейка"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
 #, fuzzy
 msgid "_Alignment"
 msgstr "Выравнивание"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
 msgid "_Alphabetical List"
 msgstr ""
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
 #, fuzzy
 msgid "_Bold"
 msgstr "Полужирный"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
 msgid "_Bulleted List"
 msgstr ""
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
 #, fuzzy
 msgid "_Center"
 msgstr "По центру"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
 #, fuzzy
 msgid "_Copy"
 msgstr "Скопировать"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
 msgid "_Decrease Indent"
 msgstr ""
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
 msgid "_Edit"
 msgstr ""
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
 #, fuzzy
 msgid "_Find..."
 msgstr "Ссылка..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 msgid "_Font Size"
 msgstr ""
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
 #, fuzzy
 msgid "_Heading"
 msgstr "Заполнение"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
 #, fuzzy
 msgid "_Image..."
 msgstr "Изображение..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
 msgid "_Increase Indent"
 msgstr ""
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
 #, fuzzy
 msgid "_Insert"
 msgstr "Вставить"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
 #, fuzzy
 msgid "_Italic"
 msgstr "Наклонный"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
 #, fuzzy
 msgid "_Left"
 msgstr "Влево"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
 #, fuzzy
 msgid "_Link..."
 msgstr "Ссылка..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
 #, fuzzy
 msgid "_Normal"
 msgstr "Нормальный"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
-msgid "_Numbered List"
-msgstr ""
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
 #, fuzzy
@@ -762,8 +762,8 @@ msgid "Colors"
 msgstr "Цвета"
 
 #: components/html-editor/body.c:186
-#: components/html-editor/editor-control-factory.c:190
-#: components/html-editor/menubar.c:127 components/html-editor/popup.c:151
+#: components/html-editor/editor-control-factory.c:195
+#: components/html-editor/menubar.c:127 components/html-editor/popup.c:154
 msgid "Text"
 msgstr "Текст"
 
@@ -777,26 +777,26 @@ msgstr "Фон"
 msgid "Automatic"
 msgstr "Автоматическое"
 
-#: components/html-editor/editor-control-factory.c:170
-#: components/html-editor/popup.c:143
+#: components/html-editor/editor-control-factory.c:176
+#: components/html-editor/popup.c:146
 msgid "Properties"
 msgstr "Свойства"
 
-#: components/html-editor/editor-control-factory.c:211
-#: components/html-editor/popup.c:165
+#: components/html-editor/editor-control-factory.c:216
+#: components/html-editor/popup.c:168
 msgid "Paragraph"
 msgstr "Абзац"
 
-#: components/html-editor/editor-control-factory.c:221
-#: components/html-editor/popup.c:179
+#: components/html-editor/editor-control-factory.c:226
+#: components/html-editor/popup.c:182
 msgid "Page"
 msgstr "Страница"
 
-#: components/html-editor/editor-control-factory.c:792
+#: components/html-editor/editor-control-factory.c:840
 msgid "Could not initialize GNORBA"
 msgstr "Невозможно инициализировать GNORBA"
 
-#: components/html-editor/editor-control-factory.c:805
+#: components/html-editor/editor-control-factory.c:853
 msgid "Could not initialize Bonobo"
 msgstr "Невозможно инициализировать Bonobo"
 
@@ -829,7 +829,7 @@ msgid "Bottom"
 msgstr "Снизу"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:8
-#: components/html-editor/popup.c:200
+#: components/html-editor/popup.c:203
 msgid "Cell"
 msgstr "Ячейка"
 
@@ -843,7 +843,7 @@ msgid "Color:"
 msgstr "Цвет:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:11
-#: components/html-editor/popup.c:440
+#: components/html-editor/popup.c:456
 msgid "Column"
 msgstr "Столбец"
 
@@ -926,7 +926,7 @@ msgid "Right"
 msgstr "Вправо"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:33
-#: components/html-editor/popup.c:439
+#: components/html-editor/popup.c:455
 msgid "Row"
 msgstr "Строка"
 
@@ -1087,92 +1087,92 @@ msgstr ""
 msgid "Align"
 msgstr "Выравнивание"
 
-#: components/html-editor/popup.c:338
+#: components/html-editor/popup.c:348
 #, c-format
 msgid "Check '%s' spelling..."
 msgstr "Проверка правописания \"%s\"..."
 
-#: components/html-editor/popup.c:339
+#: components/html-editor/popup.c:351
 #, c-format
 msgid "Add '%s' to dictionary"
 msgstr "Добавить \"%s\" в словарь"
 
-#: components/html-editor/popup.c:340
+#: components/html-editor/popup.c:354
 #, c-format
 msgid "Ignore '%s'"
 msgstr "Игнорировать \"%s\""
 
-#: components/html-editor/popup.c:341 components/html-editor/spell.c:369
+#: components/html-editor/popup.c:357 components/html-editor/spell.c:402
 msgid "Spell checker"
 msgstr "Проверка правописания"
 
-#: components/html-editor/popup.c:345
+#: components/html-editor/popup.c:361
 msgid "Suggest word"
 msgstr "Предлагаемое слово"
 
-#: components/html-editor/popup.c:364
+#: components/html-editor/popup.c:380
 msgid "Remove link"
 msgstr "Удалить ссылку"
 
-#: components/html-editor/popup.c:380 components/html-editor/popup.c:406
+#: components/html-editor/popup.c:396 components/html-editor/popup.c:422
 msgid "Text..."
 msgstr "Текст..."
 
-#: components/html-editor/popup.c:382 components/html-editor/popup.c:397
-#: components/html-editor/popup.c:408
+#: components/html-editor/popup.c:398 components/html-editor/popup.c:413
+#: components/html-editor/popup.c:424
 msgid "Paragraph..."
 msgstr "Абзац..."
 
-#: components/html-editor/popup.c:384 components/html-editor/popup.c:399
-#: components/html-editor/popup.c:410
+#: components/html-editor/popup.c:400 components/html-editor/popup.c:415
+#: components/html-editor/popup.c:426
 msgid "Link..."
 msgstr "Ссылка..."
 
-#: components/html-editor/popup.c:390
+#: components/html-editor/popup.c:406
 msgid "Rule..."
 msgstr "Линейка..."
 
-#: components/html-editor/popup.c:395
+#: components/html-editor/popup.c:411
 msgid "Image..."
 msgstr "Изображение..."
 
-#: components/html-editor/popup.c:415 components/html-editor/popup.c:425
+#: components/html-editor/popup.c:431 components/html-editor/popup.c:441
 msgid "Table..."
 msgstr "Таблица..."
 
-#: components/html-editor/popup.c:422
+#: components/html-editor/popup.c:438
 msgid "Cell..."
 msgstr "Ячейка..."
 
-#: components/html-editor/popup.c:428
+#: components/html-editor/popup.c:444
 msgid "Table insert"
 msgstr "Вставить таблицу"
 
-#: components/html-editor/popup.c:431
+#: components/html-editor/popup.c:447
 msgid "Row above"
 msgstr "Строка над"
 
-#: components/html-editor/popup.c:432
+#: components/html-editor/popup.c:448
 msgid "Row below"
 msgstr "Строка под"
 
-#: components/html-editor/popup.c:434
+#: components/html-editor/popup.c:450
 msgid "Column before"
 msgstr "Столбец до"
 
-#: components/html-editor/popup.c:435
+#: components/html-editor/popup.c:451
 msgid "Column after"
 msgstr "Столбец после"
 
-#: components/html-editor/popup.c:437
+#: components/html-editor/popup.c:453
 msgid "Table delete"
 msgstr "Удалить таблицу"
 
-#: components/html-editor/popup.c:441
+#: components/html-editor/popup.c:457
 msgid "Cell contents"
 msgstr "Содержимое ячейки"
 
-#: components/html-editor/popup.c:449
+#: components/html-editor/popup.c:465
 msgid "Page..."
 msgstr "Страница..."
 
@@ -1220,7 +1220,7 @@ msgstr "назад"
 msgid "Find Regular Expression"
 msgstr "Поиск рег.выражения"
 
-#: components/html-editor/spell.c:364
+#: components/html-editor/spell.c:397
 msgid "No misspelled word found"
 msgstr "Не найдено ошибок в словах"
 

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.5\n"
-"POT-Creation-Date: 2001-10-07 20:11-0400\n"
+"POT-Creation-Date: 2001-10-09 09:44-0500\n"
 "PO-Revision-Date: 2001-10-08 11:30+0200\n"
 "Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
@@ -238,7 +238,7 @@ msgid "Check spelling of the document"
 msgstr "Tjek staving i dokumentet"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:14
-#: components/html-editor/popup.c:369
+#: components/html-editor/popup.c:385
 msgid "Copy"
 msgstr "Kopiér"
 
@@ -255,7 +255,7 @@ msgid "Cu_t"
 msgstr "Klip u_d"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:18
-#: components/html-editor/popup.c:370
+#: components/html-editor/popup.c:386
 msgid "Cut"
 msgstr "Klip"
 
@@ -330,7 +330,7 @@ msgstr "Titel _6"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
 #: components/html-editor/editor-control-factory.c:186
-#: components/html-editor/menubar.c:106 components/html-editor/popup.c:158
+#: components/html-editor/menubar.c:106 components/html-editor/popup.c:161
 msgid "Image"
 msgstr "Billede"
 
@@ -363,7 +363,7 @@ msgstr "Venstrejusterer afsnittene"
 #: components/html-editor/body.c:187
 #: components/html-editor/editor-control-factory.c:221
 #: components/html-editor/menubar.c:111 components/html-editor/menubar.c:132
-#: components/html-editor/popup.c:172
+#: components/html-editor/popup.c:175
 msgid "Link"
 msgstr "Lænke"
 
@@ -443,7 +443,7 @@ msgid "Other..."
 msgstr "Andet..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
-#: components/html-editor/popup.c:376
+#: components/html-editor/popup.c:392
 msgid "Paste"
 msgstr "Indsæt"
 
@@ -502,7 +502,7 @@ msgstr "Liste med romerske tal"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:75
 #: components/html-editor/editor-control-factory.c:206
 #: components/html-editor/gtkhtml-editor-properties.glade.h:36
-#: components/html-editor/menubar.c:150 components/html-editor/popup.c:186
+#: components/html-editor/menubar.c:150 components/html-editor/popup.c:189
 msgid "Rule"
 msgstr "Regel"
 
@@ -537,8 +537,8 @@ msgstr "Superskript"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
 #: components/html-editor/gtkhtml-editor-properties.glade.h:44
-#: components/html-editor/menubar.c:167 components/html-editor/popup.c:193
-#: components/html-editor/popup.c:429 components/html-editor/popup.c:438
+#: components/html-editor/menubar.c:167 components/html-editor/popup.c:196
+#: components/html-editor/popup.c:445 components/html-editor/popup.c:454
 msgid "Table"
 msgstr "Tabel"
 
@@ -717,15 +717,9 @@ msgstr "Aktivér"
 msgid "Colors"
 msgstr "Farver"
 
-#: components/html-editor/body.c:175 components/html-editor/cell.c:391
-#: components/html-editor/table.c:534 components/html-editor/text.c:221
-#: components/html-editor/toolbar.c:290
-msgid "Automatic"
-msgstr "Automatisk"
-
 #: components/html-editor/body.c:186
 #: components/html-editor/editor-control-factory.c:195
-#: components/html-editor/menubar.c:127 components/html-editor/popup.c:151
+#: components/html-editor/menubar.c:127 components/html-editor/popup.c:154
 msgid "Text"
 msgstr "Tekst"
 
@@ -734,26 +728,31 @@ msgstr "Tekst"
 msgid "Background"
 msgstr "Baggrund"
 
+#: components/html-editor/cell.c:391 components/html-editor/table.c:534
+#: components/html-editor/text.c:221 components/html-editor/toolbar.c:290
+msgid "Automatic"
+msgstr "Automatisk"
+
 #: components/html-editor/editor-control-factory.c:176
-#: components/html-editor/popup.c:143
+#: components/html-editor/popup.c:146
 msgid "Properties"
 msgstr "Egenskaber"
 
 #: components/html-editor/editor-control-factory.c:216
-#: components/html-editor/popup.c:165
+#: components/html-editor/popup.c:168
 msgid "Paragraph"
 msgstr "Afsnit"
 
 #: components/html-editor/editor-control-factory.c:226
-#: components/html-editor/popup.c:179
+#: components/html-editor/popup.c:182
 msgid "Page"
 msgstr "Side"
 
-#: components/html-editor/editor-control-factory.c:837
+#: components/html-editor/editor-control-factory.c:840
 msgid "Could not initialize GNORBA"
 msgstr "Kunne ikke initialisere GNORBA"
 
-#: components/html-editor/editor-control-factory.c:850
+#: components/html-editor/editor-control-factory.c:853
 msgid "Could not initialize Bonobo"
 msgstr "Kunne ikke initialisere Bonobo"
 
@@ -786,7 +785,7 @@ msgid "Bottom"
 msgstr "Bund"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:8
-#: components/html-editor/popup.c:200
+#: components/html-editor/popup.c:203
 msgid "Cell"
 msgstr "Celle"
 
@@ -800,7 +799,7 @@ msgid "Color:"
 msgstr "Farve:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:11
-#: components/html-editor/popup.c:440
+#: components/html-editor/popup.c:456
 msgid "Column"
 msgstr "Kolonne"
 
@@ -883,7 +882,7 @@ msgid "Right"
 msgstr "Højre"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:33
-#: components/html-editor/popup.c:439
+#: components/html-editor/popup.c:455
 msgid "Row"
 msgstr "Række"
 
@@ -1044,92 +1043,92 @@ msgstr "Alfabetisk element"
 msgid "Align"
 msgstr "Justér"
 
-#: components/html-editor/popup.c:338
+#: components/html-editor/popup.c:348
 #, c-format
 msgid "Check '%s' spelling..."
 msgstr "Tjek '%s' stavning..."
 
-#: components/html-editor/popup.c:339
+#: components/html-editor/popup.c:351
 #, c-format
 msgid "Add '%s' to dictionary"
 msgstr "Tilføj '%s' i ordbogen"
 
-#: components/html-editor/popup.c:340
+#: components/html-editor/popup.c:354
 #, c-format
 msgid "Ignore '%s'"
 msgstr "Ignorér '%s'"
 
-#: components/html-editor/popup.c:341 components/html-editor/spell.c:369
+#: components/html-editor/popup.c:357 components/html-editor/spell.c:402
 msgid "Spell checker"
 msgstr "Stavekontrol"
 
-#: components/html-editor/popup.c:345
+#: components/html-editor/popup.c:361
 msgid "Suggest word"
 msgstr "Foreslå ord"
 
-#: components/html-editor/popup.c:364
+#: components/html-editor/popup.c:380
 msgid "Remove link"
 msgstr "Fjern lænke"
 
-#: components/html-editor/popup.c:380 components/html-editor/popup.c:406
+#: components/html-editor/popup.c:396 components/html-editor/popup.c:422
 msgid "Text..."
 msgstr "Tekst..."
 
-#: components/html-editor/popup.c:382 components/html-editor/popup.c:397
-#: components/html-editor/popup.c:408
+#: components/html-editor/popup.c:398 components/html-editor/popup.c:413
+#: components/html-editor/popup.c:424
 msgid "Paragraph..."
 msgstr "Afsnit..."
 
-#: components/html-editor/popup.c:384 components/html-editor/popup.c:399
-#: components/html-editor/popup.c:410
+#: components/html-editor/popup.c:400 components/html-editor/popup.c:415
+#: components/html-editor/popup.c:426
 msgid "Link..."
 msgstr "Lænke..."
 
-#: components/html-editor/popup.c:390
+#: components/html-editor/popup.c:406
 msgid "Rule..."
 msgstr "Regel..."
 
-#: components/html-editor/popup.c:395
+#: components/html-editor/popup.c:411
 msgid "Image..."
 msgstr "Billede..."
 
-#: components/html-editor/popup.c:415 components/html-editor/popup.c:425
+#: components/html-editor/popup.c:431 components/html-editor/popup.c:441
 msgid "Table..."
 msgstr "Tabel..."
 
-#: components/html-editor/popup.c:422
+#: components/html-editor/popup.c:438
 msgid "Cell..."
 msgstr "Celle..."
 
-#: components/html-editor/popup.c:428
+#: components/html-editor/popup.c:444
 msgid "Table insert"
 msgstr "Indsæt tabel"
 
-#: components/html-editor/popup.c:431
+#: components/html-editor/popup.c:447
 msgid "Row above"
 msgstr "Rækken ovenover"
 
-#: components/html-editor/popup.c:432
+#: components/html-editor/popup.c:448
 msgid "Row below"
 msgstr "Rækken nedenunder"
 
-#: components/html-editor/popup.c:434
+#: components/html-editor/popup.c:450
 msgid "Column before"
 msgstr "Kolonnen før"
 
-#: components/html-editor/popup.c:435
+#: components/html-editor/popup.c:451
 msgid "Column after"
 msgstr "Kolonnen efter"
 
-#: components/html-editor/popup.c:437
+#: components/html-editor/popup.c:453
 msgid "Table delete"
 msgstr "Slet tabel"
 
-#: components/html-editor/popup.c:441
+#: components/html-editor/popup.c:457
 msgid "Cell contents"
 msgstr "Celleindhold"
 
-#: components/html-editor/popup.c:449
+#: components/html-editor/popup.c:465
 msgid "Page..."
 msgstr "Billede..."
 
@@ -1177,7 +1176,7 @@ msgstr "baglæns"
 msgid "Find Regular Expression"
 msgstr "Find regulært udtryk"
 
-#: components/html-editor/spell.c:364
+#: components/html-editor/spell.c:397
 msgid "No misspelled word found"
 msgstr "Ingen fejlstavede ord fundet"
 
@@ -1195,21 +1194,15 @@ msgstr "Bemærkning"
 
 #: components/html-editor/template.c:83
 msgid ""
-"<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
-"\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
-"cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
+"<table cellspacing=0 cellpadding=1 "
+"bgcolor=\"#ccccc0\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" "
+"cellpadding=3 cellspacing=0 width=\"100%\"><tr><td valign=top><img "
+"src=\"file://"
 msgstr ""
-"<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
-"\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
-"cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
-
-#: components/html-editor/template.c:85
-msgid ""
-"/bulb.png\" hspace=10></td><td width=\"100%\">Place your text here</td></"
-"tr></table></td></tr></table>"
-msgstr ""
-"/bulb.png\" hspace=10></td><td width=\"100%\">Placér din tekst hér</td></"
-"tr></table></td></tr></table>"
+"<table cellspacing=0 cellpadding=1 "
+"bgcolor=\"#ccccc0\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" "
+"cellpadding=3 cellspacing=0 width=\"100%\"><tr><td valign=top><img "
+"src=\"file://"
 
 #: components/html-editor/template.c:91
 msgid "Image frame"
@@ -1218,21 +1211,12 @@ msgstr "Billederamme"
 #: components/html-editor/template.c:93
 msgid ""
 "<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" @width@@align@><tr><td><table "
-"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%"
-"\"><tr><td align=\"center\"><img src=\"file://"
+"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" "
+"width=\"100%\"><tr><td align=\"center\"><img src=\"file://"
 msgstr ""
 "<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" @width@@align@><tr><td><table "
-"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%"
-"\"><tr><td align=\"center\"><img src=\"file://"
-
-#: components/html-editor/template.c:97
-msgid ""
-"/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font size="
-"\"-1\">Image 1: <b>description</b></font></td></tr></table></td></tr></table>"
-msgstr ""
-"/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font size="
-"\"-1\">Billede 1: <b>beskrivelse</b></font></td></tr></table></td></tr></"
-"table>"
+"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" "
+"width=\"100%\"><tr><td align=\"center\"><img src=\"file://"
 
 #: components/html-editor/test-html-editor-control.c:276
 msgid "Open file..."
@@ -1317,6 +1301,22 @@ msgstr "Udskriv _smugkig"
 #: src/testgtkhtml.c:112
 msgid "Print preview"
 msgstr "Udskriv smugkig"
+
+#~ msgid ""
+#~ "/bulb.png\" hspace=10></td><td width=\"100%\">Place your text "
+#~ "here</td></tr></table></td></tr></table>"
+#~ msgstr ""
+#~ "/bulb.png\" hspace=10></td><td width=\"100%\">Placér din tekst "
+#~ "hér</td></tr></table></td></tr></table>"
+
+#~ msgid ""
+#~ "/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font "
+#~ "size=\"-1\">Image 1: "
+#~ "<b>description</b></font></td></tr></table></td></tr></table>"
+#~ msgstr ""
+#~ "/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font "
+#~ "size=\"-1\">Billede 1: "
+#~ "<b>beskrivelse</b></font></td></tr></table></td></tr></table>"
 
 #~ msgid "_Numbered List"
 #~ msgstr "_Nummereret liste"

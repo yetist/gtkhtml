@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.12.99\n"
-"POT-Creation-Date: 2001-10-01 15:51-0500\n"
+"POT-Creation-Date: 2001-10-09 09:44-0500\n"
 "PO-Revision-Date: 2001-08-30 11:30+300\n"
 "Last-Translator: Nilgün Belma Bugüner <nilgun@fide.org>\n"
 "Language-Team: Turkish <gnome-turk@gnome.org>\n"
@@ -239,7 +239,7 @@ msgid "Check spelling of the document"
 msgstr "Belgenin içeriðindeki sözdizimi hatalarýný bulur"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:14
-#: components/html-editor/popup.c:369
+#: components/html-editor/popup.c:385
 msgid "Copy"
 msgstr "Kopyala"
 
@@ -256,7 +256,7 @@ msgid "Cu_t"
 msgstr "_Kes"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:18
-#: components/html-editor/popup.c:370
+#: components/html-editor/popup.c:386
 msgid "Cut"
 msgstr "Kes"
 
@@ -330,8 +330,8 @@ msgid "Header _6"
 msgstr "Baþlýk _6"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
-#: components/html-editor/editor-control-factory.c:181
-#: components/html-editor/menubar.c:106 components/html-editor/popup.c:158
+#: components/html-editor/editor-control-factory.c:186
+#: components/html-editor/menubar.c:106 components/html-editor/popup.c:161
 msgid "Image"
 msgstr "Resim"
 
@@ -362,9 +362,9 @@ msgstr "Paragrafý sol kenara hizalar"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
 #: components/html-editor/body.c:187
-#: components/html-editor/editor-control-factory.c:216
+#: components/html-editor/editor-control-factory.c:221
 #: components/html-editor/menubar.c:111 components/html-editor/menubar.c:132
-#: components/html-editor/popup.c:172
+#: components/html-editor/popup.c:175
 msgid "Link"
 msgstr "Bað"
 
@@ -432,220 +432,221 @@ msgid "Numbered List"
 msgstr "Numaralý Liste"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
+#, fuzzy
+msgid "Numbered _List"
+msgstr "Numaralý Liste"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
 msgid "Orange"
 msgstr "Turuncu"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
 msgid "Other..."
 msgstr "Diðer..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
-#: components/html-editor/popup.c:376
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
+#: components/html-editor/popup.c:392
 msgid "Paste"
 msgstr "Yapýþtýr"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:63
 msgid "Paste from clipboard"
 msgstr "Panodan yapýþtýr"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:63
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:64
 msgid "Paste the clipboard"
 msgstr "Panoyu yapýþtýr"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:64
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:65
 msgid "Pr_operties..."
 msgstr "Ö_zellikler..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:65
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:66
 #: components/html-editor/toolbar.c:51
 msgid "Preformat"
 msgstr "Önbiçem"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:66
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:67
 msgid "Purple"
 msgstr "Pembe"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:67
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:68
 msgid "Red"
 msgstr "Kýrmýzý"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:68
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:69
 msgid "Redo"
 msgstr "Yeniden yap"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:69
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:70
 msgid "Redo previously undone change"
 msgstr "Son geri alýnan deðiþiklikleri yeniden yap."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:70
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
 msgid "Redo the undone action"
 msgstr "Geri alýnanlarý yeniden yap"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
 #: components/html-editor/replace.c:84 components/html-editor/replace.c:146
 #: components/html-editor/replace.c:158 components/html-editor/replace.c:204
 msgid "Replace"
 msgstr "Yerine koy"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
 #: components/html-editor/toolbar.c:502
 msgid "Right justifies the paragraphs"
 msgstr "Paragrafý sað kenara hizalar"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
 msgid "Roman Numeral List"
 msgstr "Romen Rakamlý Liste"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
-#: components/html-editor/editor-control-factory.c:201
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:75
+#: components/html-editor/editor-control-factory.c:206
 #: components/html-editor/gtkhtml-editor-properties.glade.h:36
-#: components/html-editor/menubar.c:150 components/html-editor/popup.c:186
+#: components/html-editor/menubar.c:150 components/html-editor/popup.c:189
 msgid "Rule"
 msgstr "Cetvel"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:75
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
 msgid "Select _All"
 msgstr "_Hepsini Seç"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
 msgid "Select the entire contents of the document"
 msgstr "Belgenin içeriðini seçili hale getirir"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
 #: components/html-editor/text.c:183 components/html-editor/toolbar.c:517
 msgid "Strikeout"
 msgstr "Üstü çizili"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
 msgid "Su_perscript"
 msgstr "Ü_stü çizili"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
 msgid "Subs_cript"
 msgstr "A_ltý çizili"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
 msgid "Subscript"
 msgstr "Altý çizili"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
 msgid "Superscript"
 msgstr "Üstü çizili"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
 #: components/html-editor/gtkhtml-editor-properties.glade.h:44
-#: components/html-editor/menubar.c:167 components/html-editor/popup.c:193
-#: components/html-editor/popup.c:429 components/html-editor/popup.c:438
+#: components/html-editor/menubar.c:167 components/html-editor/popup.c:196
+#: components/html-editor/popup.c:445 components/html-editor/popup.c:454
 msgid "Table"
 msgstr "Tablo"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
 msgid "Te_mplate..."
 msgstr "Þa_blon"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
 #: components/html-editor/gtkhtml-editor-properties.glade.h:46
 #: components/html-editor/menubar.c:190
 msgid "Template"
 msgstr "Þablon"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
 #: components/html-editor/toolbar.c:509
 msgid "Typewriter"
 msgstr "Daktilo"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
 msgid "Undo"
 msgstr "Geri al"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
 msgid "Undo previous changes"
 msgstr "Deðiþiklikleri geri al"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
 msgid "Undo the last action"
 msgstr "Son deðiþikliði geri al"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
 msgid "Yellow"
 msgstr "Sarý"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
 msgid "_Alignment"
 msgstr "_Hizalama"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
 #, fuzzy
 msgid "_Alphabetical List"
 msgstr "Alfabetik Liste"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
 msgid "_Bold"
 msgstr "_Kalýn"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
 msgid "_Bulleted List"
 msgstr "Ý_mli Liste"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
 msgid "_Center"
 msgstr "_Ortala"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
 msgid "_Copy"
 msgstr "_Kopyala"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
 msgid "_Decrease Indent"
 msgstr "Girintiyi A_zalt"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
 msgid "_Edit"
 msgstr "_Düzenle"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
 msgid "_Find..."
 msgstr "_Bul..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 msgid "_Font Size"
 msgstr "_Yazýtipi Yüksekliði"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
 msgid "_Heading"
 msgstr "_Baþlýklar"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
 msgid "_Image..."
 msgstr "_Resim..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
 msgid "_Increase Indent"
 msgstr "Girintiyi A_rtýr"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
 msgid "_Insert"
 msgstr "_Araya Ekle"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
 msgid "_Italic"
 msgstr "_Eðik"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
 msgid "_Left"
 msgstr "S_ol"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
 msgid "_Link..."
 msgstr "_Bað..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
 msgid "_Normal"
 msgstr "_Normal"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
-msgid "_Numbered List"
-msgstr "_Numaralý Liste"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
 msgid "_Paste"
@@ -721,8 +722,8 @@ msgid "Colors"
 msgstr "Renkler"
 
 #: components/html-editor/body.c:186
-#: components/html-editor/editor-control-factory.c:190
-#: components/html-editor/menubar.c:127 components/html-editor/popup.c:151
+#: components/html-editor/editor-control-factory.c:195
+#: components/html-editor/menubar.c:127 components/html-editor/popup.c:154
 msgid "Text"
 msgstr "Metin"
 
@@ -736,26 +737,26 @@ msgstr "Artalan"
 msgid "Automatic"
 msgstr "Otomatik"
 
-#: components/html-editor/editor-control-factory.c:170
-#: components/html-editor/popup.c:143
+#: components/html-editor/editor-control-factory.c:176
+#: components/html-editor/popup.c:146
 msgid "Properties"
 msgstr "Özellikler"
 
-#: components/html-editor/editor-control-factory.c:211
-#: components/html-editor/popup.c:165
+#: components/html-editor/editor-control-factory.c:216
+#: components/html-editor/popup.c:168
 msgid "Paragraph"
 msgstr "Paragraf"
 
-#: components/html-editor/editor-control-factory.c:221
-#: components/html-editor/popup.c:179
+#: components/html-editor/editor-control-factory.c:226
+#: components/html-editor/popup.c:182
 msgid "Page"
 msgstr "Sayfa"
 
-#: components/html-editor/editor-control-factory.c:792
+#: components/html-editor/editor-control-factory.c:840
 msgid "Could not initialize GNORBA"
 msgstr "GNORBA baþlatýlamadý"
 
-#: components/html-editor/editor-control-factory.c:805
+#: components/html-editor/editor-control-factory.c:853
 msgid "Could not initialize Bonobo"
 msgstr "Bonobo baþlatýlamadý"
 
@@ -788,7 +789,7 @@ msgid "Bottom"
 msgstr "Alt"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:8
-#: components/html-editor/popup.c:200
+#: components/html-editor/popup.c:203
 msgid "Cell"
 msgstr "Göze"
 
@@ -802,7 +803,7 @@ msgid "Color:"
 msgstr "Renk:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:11
-#: components/html-editor/popup.c:440
+#: components/html-editor/popup.c:456
 msgid "Column"
 msgstr "Sütun"
 
@@ -885,7 +886,7 @@ msgid "Right"
 msgstr "Sað"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:33
-#: components/html-editor/popup.c:439
+#: components/html-editor/popup.c:455
 msgid "Row"
 msgstr "Satýr"
 
@@ -1046,92 +1047,92 @@ msgstr "Alfabetik sýralama"
 msgid "Align"
 msgstr "Hizala"
 
-#: components/html-editor/popup.c:338
+#: components/html-editor/popup.c:348
 #, fuzzy, c-format
 msgid "Check '%s' spelling..."
 msgstr "Sözdizimi denetimi..."
 
-#: components/html-editor/popup.c:339
+#: components/html-editor/popup.c:351
 #, c-format
 msgid "Add '%s' to dictionary"
 msgstr "Dizine '%s' ekler"
 
-#: components/html-editor/popup.c:340
+#: components/html-editor/popup.c:354
 #, c-format
 msgid "Ignore '%s'"
 msgstr "'%s' yoksayýlýyor"
 
-#: components/html-editor/popup.c:341 components/html-editor/spell.c:369
+#: components/html-editor/popup.c:357 components/html-editor/spell.c:402
 msgid "Spell checker"
 msgstr "Sözdizimi Denetimi"
 
-#: components/html-editor/popup.c:345
+#: components/html-editor/popup.c:361
 msgid "Suggest word"
 msgstr "Sözcük önerisi"
 
-#: components/html-editor/popup.c:364
+#: components/html-editor/popup.c:380
 msgid "Remove link"
 msgstr "Baðý kaldýr"
 
-#: components/html-editor/popup.c:380 components/html-editor/popup.c:406
+#: components/html-editor/popup.c:396 components/html-editor/popup.c:422
 msgid "Text..."
 msgstr "Metin..."
 
-#: components/html-editor/popup.c:382 components/html-editor/popup.c:397
-#: components/html-editor/popup.c:408
+#: components/html-editor/popup.c:398 components/html-editor/popup.c:413
+#: components/html-editor/popup.c:424
 msgid "Paragraph..."
 msgstr "Paragraf..."
 
-#: components/html-editor/popup.c:384 components/html-editor/popup.c:399
-#: components/html-editor/popup.c:410
+#: components/html-editor/popup.c:400 components/html-editor/popup.c:415
+#: components/html-editor/popup.c:426
 msgid "Link..."
 msgstr "Bað..."
 
-#: components/html-editor/popup.c:390
+#: components/html-editor/popup.c:406
 msgid "Rule..."
 msgstr "Cetvel..."
 
-#: components/html-editor/popup.c:395
+#: components/html-editor/popup.c:411
 msgid "Image..."
 msgstr "Resim..."
 
-#: components/html-editor/popup.c:415 components/html-editor/popup.c:425
+#: components/html-editor/popup.c:431 components/html-editor/popup.c:441
 msgid "Table..."
 msgstr "Tablo..."
 
-#: components/html-editor/popup.c:422
+#: components/html-editor/popup.c:438
 msgid "Cell..."
 msgstr "Göze..."
 
-#: components/html-editor/popup.c:428
+#: components/html-editor/popup.c:444
 msgid "Table insert"
 msgstr "Araya Tablo ekle"
 
-#: components/html-editor/popup.c:431
+#: components/html-editor/popup.c:447
 msgid "Row above"
 msgstr "Üst satýr"
 
-#: components/html-editor/popup.c:432
+#: components/html-editor/popup.c:448
 msgid "Row below"
 msgstr "Alt satýr"
 
-#: components/html-editor/popup.c:434
+#: components/html-editor/popup.c:450
 msgid "Column before"
 msgstr "Önceki sütun"
 
-#: components/html-editor/popup.c:435
+#: components/html-editor/popup.c:451
 msgid "Column after"
 msgstr "Sonraki satýr"
 
-#: components/html-editor/popup.c:437
+#: components/html-editor/popup.c:453
 msgid "Table delete"
 msgstr "Tabloyu sil"
 
-#: components/html-editor/popup.c:441
+#: components/html-editor/popup.c:457
 msgid "Cell contents"
 msgstr "Göze içeriði"
 
-#: components/html-editor/popup.c:449
+#: components/html-editor/popup.c:465
 msgid "Page..."
 msgstr "Sayfa..."
 
@@ -1179,7 +1180,7 @@ msgstr "geri"
 msgid "Find Regular Expression"
 msgstr "Bir Düzenli Ýfade Bul"
 
-#: components/html-editor/spell.c:364
+#: components/html-editor/spell.c:397
 msgid "No misspelled word found"
 msgstr ""
 
@@ -1299,6 +1300,9 @@ msgstr "Yazdýrma ö_nizleme"
 #: src/testgtkhtml.c:112
 msgid "Print preview"
 msgstr "Yazdýrma önizleme"
+
+#~ msgid "_Numbered List"
+#~ msgstr "_Numaralý Liste"
 
 #~ msgid "Check _spelling..."
 #~ msgstr "_Sözdizimi denetimi..."
