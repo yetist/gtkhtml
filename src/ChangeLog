@@ -1,3 +1,28 @@
+2003-06-24  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c (parse_body): add helper functions to push/pop clue
+	levels.
+	(html_engine_finalize): unref the body background.  If the body
+	stack isn't empty clear it.
+
+2003-06-20  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml.c (gtk_html_editor_event_command): unset the args.
+	(gtk_html_editor_event): unset and free the return value.
+
+	* htmlfontmanager.c: fix ref font refcounting problems.
+
+	* htmlgdkpainter.c (unref_font): free the font description.
+
+	* htmlmap.c (html_map_destroy): free the map structure as well.
+
+	* htmlpainter.c (finalize): free the font_face.
+
+	* htmlstyle.c (html_style_add_attribute): keep the correct ref
+	count on the color.
+
+	* htmltable.c (divide_into_percented_all): don't leak active.
+
 2003-06-25  Radek Doulik  <rodo@ximian.com>
 
 	* htmlgdkpainter.c (alloc_font): the face now contain family, not

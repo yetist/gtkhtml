@@ -1662,6 +1662,8 @@ divide_into_percented_all (HTMLTable *table, gint *col_percent, gint *max_size, 
 	for (c = 0; c < table->totalCols; c++)
 		if (active [c] && max_size [c] < ((gdouble) width * PERC (c)) / percent)
 			max_size [c] = ((gdouble) width) * (PERC (c)) / percent;
+	
+	g_free (active);
 }
 
 #define CSPAN (MIN (cell->col + cell->cspan, table->totalCols) - cell->col - 1)

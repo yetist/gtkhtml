@@ -216,7 +216,9 @@ html_style_add_attribute (HTMLStyle *style, const char *attr)
 				GdkColor color;
 				
 				if (parse_color (g_strstrip (text + 7), &color)) {
-					html_style_add_color (style, html_color_new_from_gdk_color (&color));
+					HTMLColor *hc = html_color_new_from_gdk_color (&color);
+					html_style_add_color (style, hc);
+				        html_color_unref (hc);
 				}
 			} else if (!strncasecmp ("text-decoration: none", text, 21)) {
 				html_style_unset_decoration (style, ~GTK_HTML_FONT_STYLE_SIZE_MASK);

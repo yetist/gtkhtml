@@ -65,7 +65,7 @@ html_font_set_release (HTMLFontSet *set, HTMLPainter *painter)
 
 	for (i=0; i<GTK_HTML_FONT_STYLE_MAX_FONT; i++) {
 		if (set->font [i])
-			html_painter_unref_font (painter, set->font [i]);
+			html_font_unref (set->font [i], painter);
 		set->font [i] = NULL;
 	}
 }
@@ -224,7 +224,7 @@ html_font_set_font (HTMLFontManager *manager, HTMLFontSet *set, GtkHTMLFontStyle
 	/* set font in font set */
 	idx = html_font_set_get_idx (style);
 	if (set->font [idx] && font != set->font [idx])
-		html_painter_unref_font (manager->painter, set->font [idx]);
+		html_font_unref (set->font [idx], manager->painter);
 	set->font [idx] = font;
 }
 
@@ -352,8 +352,9 @@ html_font_manager_get_font (HTMLFontManager *manager, gchar *face_list, GtkHTMLF
 					g_warning ("Cannot allocate fixed font\n");
 			} else {
 				/* some unavailable non-default font => use default one */
-				font = html_font_manager_get_font (manager, NULL, style);
-				html_font_ref (font, manager->painter);
+			
+			       font = html_font_manager_get_font (manager, NULL, style);
+			       html_font_ref (font, manager->painter);
 			}
 			if (font)
 				html_font_set_font (manager, set, style, font);
@@ -400,8 +401,9 @@ html_font_ref (HTMLFont *font, HTMLPainter *painter)
 void
 html_font_unref (HTMLFont *font, HTMLPainter *painter)
 {
-	html_painter_unref_font (painter, font);
 	font->ref_count --;
-	if (font->ref_count <= 0)
+	html_painter_unref_font (painter, font);
+
+	if (font->ref_count < 1)
 		html_font_destroy (font);
 }

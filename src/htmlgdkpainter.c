@@ -245,7 +245,10 @@ ref_font (HTMLPainter *painter, HTMLFont *font)
 static void
 unref_font (HTMLPainter *painter, HTMLFont *font)
 {
-	/* FIX2 stop leaking font description */
+	if (font->ref_count < 1) {
+		pango_font_description_free (font->data);
+		font->data = NULL;
+	}
 }
 
 

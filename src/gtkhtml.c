@@ -758,6 +758,7 @@ gtk_html_set_fonts (GtkHTML *html, HTMLPainter *painter)
 		pango_font_description_free (fixed_desc);
 
 	g_free (fixed_name);
+	g_free (fixed_family);
 }
 
 /* GtkWidget methods.  */
@@ -4821,18 +4822,27 @@ gtk_html_editor_event_command (GtkHTML *html, GtkHTMLCommandType com_type, gbool
 
 	memset (&arg, 0, sizeof (GValue));
 	g_value_init (&arg, G_TYPE_STRING);
-	g_value_set_static_string (&arg, get_value_nick (com_type));
+	g_value_set_string (&arg, get_value_nick (com_type));
 
 	/* printf ("sending %s\n", GTK_VALUE_STRING (*args [0])); */
 	gtk_html_editor_event (html, before ? GTK_HTML_EDITOR_EVENT_COMMAND_BEFORE : GTK_HTML_EDITOR_EVENT_COMMAND_AFTER,
 			       &arg);
+
+	g_value_unset (&arg);
 }
 
 void
 gtk_html_editor_event (GtkHTML *html, GtkHTMLEditorEventType event, GValue *args)
 {
+	GValue *retval;
+
 	if (html->editor_api && !html->engine->block_events)
-		(*html->editor_api->event) (html, event, args, html->editor_data);
+		retval = (*html->editor_api->event) (html, event, args, html->editor_data);
+
+	if (retval) {
+		g_value_unset (retval);
+		g_free (retval);
+	}
 }
 
 gboolean

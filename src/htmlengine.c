@@ -144,7 +144,7 @@ static void      update_embedded           (GtkWidget *widget,
 
 static void      html_engine_map_table_clear (HTMLEngine *e);
 static void      html_engine_id_table_clear (HTMLEngine *e);
-static void      html_engine_add_map (HTMLEngine *e, HTMLMap *map);
+static void      html_engine_add_map (HTMLEngine *e, const char *);
 static void      clear_pending_expose (HTMLEngine *e);
 
 static GtkLayoutClass *parent_class = NULL;
@@ -817,6 +817,32 @@ block_end_div (HTMLEngine *e, HTMLObject *clue, HTMLBlockStackElement *elem)
 }
 
 
+static void
+push_level (HTMLEngine *e) 
+{
+	html_stack_push (e->body_stack, e->span_stack);
+	html_stack_push (e->body_stack, e->clueflow_style_stack);
+	
+	e->span_stack = html_stack_new (free_element);
+	e->clueflow_style_stack = html_stack_new (NULL);
+	
+	html_stack_push (e->body_stack, GINT_TO_POINTER (e->pending_para));
+	html_stack_push (e->body_stack, GINT_TO_POINTER (e->avoid_para));
+}
+
+static void
+pop_level (HTMLEngine *e) 
+{
+	e->avoid_para = GPOINTER_TO_INT (html_stack_pop (e->body_stack));
+	e->pending_para = GPOINTER_TO_INT (html_stack_pop (e->body_stack));
+	
+	html_stack_destroy (e->clueflow_style_stack);
+	html_stack_destroy (e->span_stack);
+	
+	e->clueflow_style_stack = html_stack_pop (e->body_stack);
+	e->span_stack = html_stack_pop (e->body_stack);
+}
+
 static gchar *
 parse_body (HTMLEngine *e, HTMLObject *clue, const gchar *end[], gboolean toplevel, gboolean begin)
 {
@@ -825,15 +851,7 @@ parse_body (HTMLEngine *e, HTMLObject *clue, const gchar *end[], gboolean toplev
 	gboolean final = FALSE;
 
 	if (begin && !toplevel) {
-		html_stack_push (e->body_stack, e->span_stack);
-		html_stack_push (e->body_stack, e->clueflow_style_stack);
-
-		e->span_stack = html_stack_new (free_element);
-		e->clueflow_style_stack = html_stack_new (NULL);
-
-		html_stack_push (e->body_stack, GINT_TO_POINTER (e->pending_para));
-		html_stack_push (e->body_stack, GINT_TO_POINTER (e->avoid_para));
-
+		push_level (e);
 		push_block (e, ID_BODY, 4, NULL, 0, 0);
 	}
 
@@ -895,15 +913,7 @@ parse_body (HTMLEngine *e, HTMLObject *clue, const gchar *end[], gboolean toplev
 
 		if (!toplevel) {
 			pop_block (e, ID_BODY, clue);
-
-			e->avoid_para = GPOINTER_TO_INT (html_stack_pop (e->body_stack));
-			e->pending_para = GPOINTER_TO_INT (html_stack_pop (e->body_stack));
-
-			html_stack_destroy (e->clueflow_style_stack);
-			html_stack_destroy (e->span_stack);
-
-			e->clueflow_style_stack = html_stack_pop (e->body_stack);
-			e->span_stack = html_stack_pop (e->body_stack);
+			pop_level (e);
 		}
 	}
 
@@ -2752,12 +2762,7 @@ parse_m (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 			if (strncasecmp (token, "name=", 5) == 0) {
 				const char *name = token + 5;
 
-				e->map = HTML_MAP (html_map_new (name));
-
-				if (e->map == NULL)
-					return;
-
-				html_engine_add_map (e, e->map);
+				html_engine_add_map (e, name);
 			}
 		}
 	} else if (strncmp (str, "/map", 4) == 0) {
@@ -3272,6 +3277,7 @@ html_engine_finalize (GObject *object)
 		gtk_timeout_remove (engine->redraw_idle_id);
 		engine->redraw_idle_id = 0;
 	}
+
 	/* remove all the timers associated with image pointers also */
 	if (engine->image_factory) {
 		html_image_factory_stop_animations (engine->image_factory);
@@ -3338,6 +3344,11 @@ html_engine_finalize (GObject *object)
 		html_object_destroy (clue);
 	}
 
+	if (engine->bgPixmapPtr) {
+		html_image_factory_unregister (engine->image_factory, engine->bgPixmapPtr, NULL);
+		engine->bgPixmapPtr = NULL;
+	}
+
 	if (engine->image_factory) {
 		html_image_factory_free (engine->image_factory);
 		engine->image_factory = NULL;
@@ -3346,6 +3357,14 @@ html_engine_finalize (GObject *object)
 	if (engine->painter) {
 		g_object_unref (G_OBJECT (engine->painter));
 		engine->painter = NULL;
+	}
+
+	if (engine->body_stack) {
+		while (!html_stack_is_empty (engine->body_stack))
+			pop_level (engine);
+
+		html_stack_destroy (engine->body_stack);
+		engine->body_stack = NULL;
 	}
 
 	if (engine->span_stack) {
@@ -3371,11 +3390,6 @@ html_engine_finalize (GObject *object)
 	if (engine->embeddedStack) {
 		html_stack_destroy (engine->embeddedStack);
 		engine->embeddedStack = NULL;
-	}
-
-	if (engine->body_stack) {
-		html_stack_destroy (engine->body_stack);
-		engine->body_stack = NULL;
 	}
 
 	if (engine->tempStrings) {
@@ -5766,15 +5780,20 @@ html_engine_saved (HTMLEngine *e)
 }
 
 static void
-html_engine_add_map (HTMLEngine *e, HTMLMap *map)
+html_engine_add_map (HTMLEngine *e, const char *name)
 {
 	gpointer old_key = NULL, old_val;
-
-	if (!e->map_table)
+ 
+	if (!e->map_table) {
 		e->map_table = g_hash_table_new (g_str_hash, g_str_equal);
-	else if (!g_hash_table_lookup_extended (e->map_table, map->name, &old_key, &old_val))
-		old_key = NULL;
-	g_hash_table_insert (e->map_table, map->name, map);
+	}
+
+	/* only add a new map if the name is unique */
+	if (!g_hash_table_lookup_extended (e->map_table, name, &old_key, &old_val)) {
+		HTMLMap *map = html_map_new (name);
+
+		g_hash_table_insert (e->map_table, map->name, map);
+	}
 }
 
 static gboolean

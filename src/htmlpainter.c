@@ -53,6 +53,7 @@ finalize (GObject *object)
 	html_font_manager_finalize (&painter->font_manager);
 
 	html_colorset_destroy (painter->color_set);
+	g_free (painter->font_face);
 
 	/* FIXME ownership of the color set?  */
 

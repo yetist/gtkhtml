@@ -38,32 +38,6 @@ GtkHTMLClassProperties *
 gtk_html_class_properties_new (GtkWidget *widget)
 {
 	GtkHTMLClassProperties *p = g_new0 (GtkHTMLClassProperties, 1);
-	PangoFontDescription *var_desc, *fixed_desc; 
-	char *fixed_name = NULL;
-	gint var_size, fixed_size = 0;
-
-	var_desc = widget->style->font_desc;
-	gtk_widget_style_get (widget,
-			      "fixed_font_name",   &fixed_name,
-			      NULL);
-       
-	var_size = pango_font_description_get_size (var_desc);
-
-	if (fixed_name) {
-		fixed_desc = pango_font_description_from_string (fixed_name);
-		if (pango_font_description_get_family (fixed_desc)) {
-			fixed_size = PANGO_PIXELS (pango_font_description_get_size (fixed_desc));
-		} else {
-			g_free (fixed_name);
-			fixed_name = NULL;
-		}
-		pango_font_description_free (fixed_desc);
-	}
-
-	if (!fixed_name) {
-		fixed_name = g_strdup ("Monospace");
-		fixed_size = var_size;
-	}
 
 	/* editing */
 	p->language                = g_strdup (e_iconv_locale_language ());

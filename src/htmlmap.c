@@ -38,6 +38,7 @@ html_map_destroy (HTMLMap *map)
 	map->shapes = NULL;
 
 	g_free (map->name);
+	g_free (map);
 }
 
 void
