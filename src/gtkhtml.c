@@ -766,6 +766,9 @@ set_caret_mode(HTMLEngine *engine, gboolean caret_mode)
 	if (engine->editable)
 		return;
 
+	if (!caret_mode && engine->blinking_timer_id)
+		html_engine_stop_blinking_cursor (engine);
+
 	engine->caret_mode = caret_mode;
 
 	if (caret_mode && !engine->parsing && !engine->timerId == 0)
@@ -779,7 +782,6 @@ set_caret_mode(HTMLEngine *engine, gboolean caret_mode)
 	if (caret_mode && !engine->blinking_timer_id && engine->have_focus)
 		html_engine_setup_blinking_cursor (engine);
 
-
 	return;
 }
 
@@ -788,7 +790,6 @@ static void
 style_set (GtkWidget *widget, GtkStyle  *previous_style)
 {
 	HTMLEngine *engine = GTK_HTML (widget)->engine;
-	gboolean caret_mode = FALSE;
 
 	/* we don't need to set font's in idle time so call idle callback directly to avoid
 	   recalculating whole document
@@ -803,8 +804,6 @@ style_set (GtkWidget *widget, GtkStyle  *previous_style)
 		}
 	}
 
-	gtk_widget_style_get (widget, "caret_mode", &caret_mode, NULL);
-	set_caret_mode(engine, caret_mode);
 
 	html_colorset_set_style (engine->defaultSettings->color_set, widget);
 	html_colorset_set_unchanged (engine->settings->color_set,
@@ -2637,12 +2636,6 @@ gtk_html_class_init (GtkHTMLClass *klass)
 								     _("The color of the spelling error markers"),
 								     GDK_TYPE_COLOR,
 								     G_PARAM_READABLE));
-	gtk_widget_class_install_style_property (widget_class,
-						g_param_spec_boxed ("caret_mode",
-								    _("Caret Mode"),
-								    _("Enable cursor in html viewer"),
-								    G_TYPE_BOOLEAN,
-								    G_PARAM_READABLE));
 
 
 	widget_class->realize = realize;
@@ -3439,6 +3432,24 @@ frame_set_animate (HTMLObject *o, HTMLEngine *e, gpointer data)
 		html_image_factory_set_animate (GTK_HTML (HTML_IFRAME (o)->html)->engine->image_factory,
 						*(gboolean *)data);
 	}
+}
+
+void
+gtk_html_set_caret_mode(GtkHTML * html, gboolean caret_mode)
+{
+	g_return_if_fail (GTK_IS_HTML (html));
+	g_return_if_fail (HTML_IS_ENGINE (html->engine));
+
+	set_caret_mode(html->engine, caret_mode);
+}
+
+gboolean
+gtk_html_get_caret_mode(const GtkHTML *html)
+{
+	g_return_val_if_fail (GTK_IS_HTML (html), FALSE);
+	g_return_val_if_fail (HTML_IS_ENGINE (html->engine), FALSE);
+
+	return html->engine->caret_mode;
 }
 
 void

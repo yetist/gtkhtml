@@ -196,10 +196,10 @@ void                       gtk_html_set_magic_smileys             (GtkHTML      
 								   gboolean                   magic_smileys);
 gboolean                   gtk_html_get_magic_smileys             (const GtkHTML             *html);
 
-/* Animated Images */
-void                       gtk_html_set_animate                   (GtkHTML                   *html,
-								   gboolean                   animate);
-gboolean                   gtk_html_get_animate                   (const GtkHTML             *html);
+/* Caret Mode */
+void                       gtk_html_set_caret_mode                (GtkHTML                   *html,
+								   gboolean                   caret_mode);
+gboolean                   gtk_html_get_caret_mode                (const GtkHTML             *html);
 
 /* Animated Images */
 void                       gtk_html_set_animate                   (GtkHTML                   *html,

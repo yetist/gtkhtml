@@ -1,3 +1,16 @@
+2003-07-15  Yuedong Du  <yuedong.du>
+
+	* gtkhtml.c: (set_caret_mode): stop blinking cursor if turn the caret
+	mode off. 
+	(style_set): according to Larry's suggestion, do not widget
+	style to implement caret mode.
+	(gtk_html_class_init): ditto.
+	(gtk_html_set_caret_mode), (gtk_html_get_caret_mode): new function
+	to get/set the caret mode flag.
+
+	* gtkhtml.h: declaration of the new function, and remove duplicate
+	declaration of declaration.
+
 2003-07-10  Larry Ewing  <lewing@ximian.com>
 
 	* htmldrawqueue.c: remove unused function.
