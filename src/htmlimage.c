@@ -626,10 +626,8 @@ html_image_animation_start (HTMLImage *image)
 }
 
 static void
-html_image_animation_stop (HTMLImage *image)
+html_image_animation_stop (HTMLImageAnimation *anim)
 {
-	HTMLImageAnimation *anim = image->animation;
-
 	if (anim->timeout) {
 		gtk_timeout_remove (anim->timeout);
 		anim->timeout = 0;
@@ -740,6 +738,7 @@ html_image_animation_new (HTMLImage *image)
 static void
 html_image_animation_destroy (HTMLImageAnimation *anim)
 {
+	html_image_animation_stop (anim);
 	gdk_pixbuf_unref (anim->pixbuf);
 	g_free (anim);
 }
@@ -850,7 +849,7 @@ stop_anim (gpointer key, gpointer value, gpointer user_data)
 		if (cur->data) {
 			image = (HTMLImage *) cur->data;
 			if (image->animation) {
-				html_image_animation_stop (image);
+				html_image_animation_stop (image->animation);
 			}
 		}
 		cur = cur->next;
