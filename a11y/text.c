@@ -24,6 +24,8 @@
 #include <config.h>
 #include <atk/atkcomponent.h>
 #include <atk/atktext.h>
+#include <atk/atkhypertext.h>
+#include <atk/atkhyperlink.h>
 #include <glib/gi18n.h>
 #include <glib/gmacros.h>
 
@@ -41,6 +43,7 @@
 #include "object.h"
 #include "html.h"
 #include "text.h"
+#include "hyperlink.h"
 
 static void html_a11y_text_class_init    (HTMLA11YTextClass *klass);
 static void html_a11y_text_init          (HTMLA11YText *a11y_text);
@@ -73,6 +76,14 @@ static void html_a11y_text_get_character_extents (AtkText *text, gint offset,
 				AtkCoordType coords);
 static gint html_a11y_text_get_offset_at_point (AtkText *text, gint x, gint y,
 					AtkCoordType coords);
+
+/* Hyperlink interface */
+static void atk_hyper_text_interface_init (AtkHypertextIface *iface);
+
+static AtkHyperlink * html_a11y_text_get_link (AtkHypertext *hypertext, gint link_index);
+static gint html_a11y_text_get_n_links (AtkHypertext *hypertext);
+static gint html_a11y_text_get_link_index (AtkHypertext *hypertext, gint char_index);
+
 
 /* Editable text interface. */
 static void 	atk_editable_text_interface_init      (AtkEditableTextIface *iface);
@@ -179,16 +190,23 @@ html_a11y_text_get_type (void)
 			NULL
 		};
 
+		static const GInterfaceInfo atk_hyper_text_info = {
+			(GInterfaceInitFunc) atk_hyper_text_interface_init,
+			(GInterfaceFinalizeFunc) NULL,
+			NULL
+		};
 
 		type = g_type_register_static (G_TYPE_HTML_A11Y, "HTMLA11YText", &tinfo, 0);
 		g_type_add_interface_static (type, ATK_TYPE_COMPONENT, &atk_component_info);
 		g_type_add_interface_static (type, ATK_TYPE_TEXT, &atk_text_info);
 		g_type_add_interface_static (type, ATK_TYPE_EDITABLE_TEXT, &atk_editable_text_info);
 		g_type_add_interface_static (type, ATK_TYPE_ACTION, &atk_action_info);
+		g_type_add_interface_static (type, ATK_TYPE_HYPERTEXT, &atk_hyper_text_info);
 	}
 
 	return type;
 }
+
 
 static void 
 atk_component_interface_init (AtkComponentIface *iface)
@@ -929,4 +947,41 @@ html_a11y_text_paste_text	(AtkEditableText *text,
         html_engine_show_cursor (html->engine);
 
         g_signal_emit_by_name(html, "grab_focus");
+}
+
+
+static void
+atk_hyper_text_interface_init (AtkHypertextIface *iface)
+{
+	g_return_if_fail (iface != NULL);
+
+	iface->get_link = html_a11y_text_get_link;
+	iface->get_n_links = html_a11y_text_get_n_links;
+	iface->get_link_index = html_a11y_text_get_link_index;
+}
+
+/*
+ * AtkHyperLink interface
+ */
+
+static AtkHyperlink *
+html_a11y_text_get_link (AtkHypertext *hypertext, gint link_index)
+{
+	return html_a11y_hyper_link_new (HTML_A11Y (hypertext), link_index);
+}
+
+static gint
+html_a11y_text_get_n_links (AtkHypertext *hypertext)
+{
+	HTMLText *text = HTML_TEXT (HTML_A11Y_HTML (hypertext));
+	return g_slist_length (text->links);
+}
+
+static gint
+html_a11y_text_get_link_index (AtkHypertext *hypertext, gint char_index)
+{
+	HTMLObject *obj = HTML_A11Y_HTML (hypertext);
+	Link *link = html_text_get_link_at_offset (HTML_TEXT (obj), char_index);
+
+	return link ? link->start_offset : -1;
 }

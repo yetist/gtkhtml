@@ -25,7 +25,6 @@
 #define __HTML_A11Y_HYPER_LINK_H__
 
 #include "text.h"
-
 #define G_TYPE_HTML_A11Y_HYPER_LINK            (html_a11y_hyper_link_get_type ())
 #define HTML_A11Y_HYPER_LINK(obj)              (G_TYPE_CHECK_INSTANCE_CAST ((obj), \
 									   G_TYPE_HTML_A11Y_HYPER_LINK, \
@@ -45,6 +44,7 @@ struct _HTMLA11YHyperLink {
 	AtkHyperlink atk_hyper_link;
 
 	HTMLA11Y *a11y;
+	gint num;
 	gint offset;
 	gchar *description;
 };
@@ -55,6 +55,6 @@ struct _HTMLA11YHyperLinkClass {
 	AtkHyperlinkClass parent_class;
 };
 
-AtkHyperlink * html_a11y_hyper_link_new (HTMLA11Y *a11y);
+AtkHyperlink * html_a11y_hyper_link_new (HTMLA11Y *a11y, gint link_index);
 
 #endif

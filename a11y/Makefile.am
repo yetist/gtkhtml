@@ -17,8 +17,6 @@ libgtkhtml_a11y_la_SOURCES =				\
 	hyperlink.c					\
 	image.h						\
 	image.c						\
-	link.h						\
-	link.c						\
 	object.h					\
 	object.c					\
 	paragraph.h					\

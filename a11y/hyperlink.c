@@ -99,13 +99,34 @@ html_a11y_hyper_link_finalize (GObject *obj)
 	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
+
+static gint
+html_a11y_hyper_link_get_start_index (AtkHyperlink *link)
+{
+	HTMLA11YHyperLink *hl = HTML_A11Y_HYPER_LINK (link);
+	HTMLText *text = HTML_TEXT (HTML_A11Y_HTML (hl->a11y));
+	Link *a = (Link *) g_slist_nth_data (text->links, hl->num);
+	return a ? a->start_offset : -1;
+}
+
+
+static gint
+html_a11y_hyper_link_get_end_index (AtkHyperlink *link)
+{
+	HTMLA11YHyperLink *hl = HTML_A11Y_HYPER_LINK (link);
+	Link *a = (Link *) g_slist_nth_data (HTML_TEXT (HTML_A11Y_HTML (hl->a11y))->links, hl->num);
+	return a ? a->end_offset : -1;
+}
+
 static void
 html_a11y_hyper_link_class_init (HTMLA11YHyperLinkClass *klass)
 {
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
-
+	AtkHyperlinkClass *atk_hyperlink_class = ATK_HYPERLINK_CLASS (klass);
 	parent_class = g_type_class_peek_parent (klass);
 
+	atk_hyperlink_class->get_start_index = html_a11y_hyper_link_get_start_index;
+	atk_hyperlink_class->get_end_index = html_a11y_hyper_link_get_end_index; 
 	gobject_class->finalize = html_a11y_hyper_link_finalize;
 }
 
@@ -116,7 +137,7 @@ html_a11y_hyper_link_init (HTMLA11YHyperLink *a11y_hyper_link)
 }
 
 AtkHyperlink * 
-html_a11y_hyper_link_new (HTMLA11Y *a11y)
+html_a11y_hyper_link_new (HTMLA11Y *a11y, gint link_index)
 {
 	HTMLA11YHyperLink *hl;
 
@@ -125,6 +146,8 @@ html_a11y_hyper_link_new (HTMLA11Y *a11y)
 	hl = HTML_A11Y_HYPER_LINK (g_object_new (G_TYPE_HTML_A11Y_HYPER_LINK, NULL));
 
 	hl->a11y = a11y;
+	hl->num = link_index;
+	hl->offset = ((Link *) g_slist_nth_data (HTML_TEXT (HTML_A11Y_HTML (a11y))->links, link_index))->start_offset;
 	g_object_add_weak_pointer (G_OBJECT (hl->a11y), (gpointer *) &hl->a11y);
 
 	return ATK_HYPERLINK (hl);
