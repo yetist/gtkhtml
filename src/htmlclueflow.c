@@ -736,14 +736,15 @@ draw (HTMLObject *self,
 
 		bullet_size = calc_bullet_size (painter);
 
-		/* FIXME pen color?  */
-		
 		xp = self->x + first->x - 2 * bullet_size;
-		yp = self->y - self->ascent + first->y - (first->ascent + bullet_size) / 2 - bullet_size;
+		yp = self->y - self->ascent 
+			+ (first->y - first->ascent) 
+			+ (first->ascent + first->descent)/2 
+			- bullet_size/2;
 
 		xp += tx, yp += ty;
 
-		html_painter_set_pen (painter,
+	 	html_painter_set_pen (painter,
 				      &html_colorset_get_color_allocated (painter, HTMLTextColor)->color);
 
 		if (clueflow->level == 0 || (clueflow->level & 1) != 0)

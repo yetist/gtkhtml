@@ -1,3 +1,8 @@
+2000-12-12  Larry Ewing  <lewing@helixcode.com>
+
+	* htmlclueflow.c (draw): fix list item marker position tweak and
+	rounding slightly.
+
 2000-12-11  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlprinter.c (draw_pixmap): let gnome-print do alpha stuff
