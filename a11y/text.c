@@ -365,22 +365,95 @@ html_a11y_text_get_text_after_offset (AtkText *text, gint offset, AtkTextBoundar
 				      gint *start_offset, gint *end_offset)
 {
 	HTMLText *to = HTML_TEXT (HTML_A11Y_HTML (text));
+	HTMLTextSlave *start_slave, *end_slave;
 
-	gail_text_util_text_setup (HTML_A11Y_TEXT (text)->util, to->text);
-	return gail_text_util_get_text (HTML_A11Y_TEXT (text)->util, NULL, GAIL_AFTER_OFFSET, boundary_type, offset, 
+	g_return_val_if_fail (to, NULL);
+	g_return_val_if_fail (start_offset && end_offset, NULL);
+
+	switch (boundary_type) {
+	case ATK_TEXT_BOUNDARY_LINE_START:
+		end_slave = html_text_get_slave_at_offset (HTML_OBJECT (to), offset);
+		g_return_val_if_fail (end_slave, NULL);
+		start_slave = (HTMLTextSlave *) HTML_OBJECT (end_slave)->next;
+
+		if (start_slave && HTML_IS_TEXT_SLAVE (start_slave)) {
+			*start_offset = start_slave->posStart;
+			end_slave = (HTMLTextSlave *) HTML_OBJECT (start_slave)->next;
+			if (end_slave && HTML_IS_TEXT_SLAVE (end_slave)) 
+				*end_offset = end_slave->posStart;
+			else 
+				*end_offset = start_slave->posStart + start_slave->posLen;
+
+		} else { /* we are on the last line. */
+			*start_offset = *end_offset = html_a11y_text_get_character_count (text);
+		}
+
+		return html_a11y_text_get_text (text, *start_offset, *end_offset);
+
+	case ATK_TEXT_BOUNDARY_LINE_END:
+		start_slave = html_text_get_slave_at_offset (HTML_OBJECT (to), offset);
+		g_return_val_if_fail (start_slave, NULL);
+
+		*start_offset = start_slave->posStart + start_slave->posLen;
+		end_slave = (HTMLTextSlave *) HTML_OBJECT (start_slave)->next;
+		if (end_slave && HTML_IS_TEXT_SLAVE (end_slave))
+			*end_offset = end_slave->posStart + end_slave->posLen;
+		else
+			*end_offset = *start_offset;
+		
+		return html_a11y_text_get_text (text, *start_offset, *end_offset);
+
+	default:
+		gail_text_util_text_setup (HTML_A11Y_TEXT (text)->util, to->text);
+		return gail_text_util_get_text (HTML_A11Y_TEXT (text)->util, NULL, GAIL_AFTER_OFFSET, boundary_type, offset, 
 					start_offset, end_offset);
+	}
 }
 
 static gchar *
 html_a11y_text_get_text_at_offset (AtkText *text, gint offset, AtkTextBoundary boundary_type,
 				   gint *start_offset, gint *end_offset)
 {
-	gchar * ret;
 	HTMLText *to = HTML_TEXT (HTML_A11Y_HTML (text));
+	HTMLTextSlave *start_slave, *end_slave;
 
-	gail_text_util_text_setup (HTML_A11Y_TEXT (text)->util, to->text);
-	return gail_text_util_get_text (HTML_A11Y_TEXT (text)->util, NULL, GAIL_AT_OFFSET, boundary_type, offset, 
+	g_return_val_if_fail (to, NULL);
+	g_return_val_if_fail (start_offset && end_offset, NULL);
+
+	switch (boundary_type) {
+	case ATK_TEXT_BOUNDARY_LINE_START:
+		start_slave = html_text_get_slave_at_offset (HTML_OBJECT (to), offset);
+		g_return_val_if_fail (start_slave, NULL);
+		end_slave = (HTMLTextSlave *) HTML_OBJECT (start_slave)->next;
+
+		if (end_slave && HTML_IS_TEXT_SLAVE (end_slave)) {
+			*end_offset = end_slave->posStart;
+		} else {
+			*end_offset = start_slave->posStart + start_slave->posLen;
+		}
+		*start_offset = start_slave->posStart;
+
+		return html_a11y_text_get_text (text, *start_offset, *end_offset);
+
+	case ATK_TEXT_BOUNDARY_LINE_END:
+		end_slave = html_text_get_slave_at_offset (HTML_OBJECT (to), offset);
+		g_return_val_if_fail (end_slave, NULL);
+		start_slave = (HTMLTextSlave *) HTML_OBJECT (end_slave)->prev;
+
+		if (start_slave && HTML_IS_TEXT_SLAVE (start_slave)) {
+			*start_offset = start_slave->posStart + start_slave->posLen;
+		} else {
+			*start_offset = end_slave->posStart;
+		}
+		*end_offset = end_slave->posStart + end_slave->posLen;
+
+		return html_a11y_text_get_text (text, *start_offset, *end_offset);
+
+	default:
+		gail_text_util_text_setup (HTML_A11Y_TEXT (text)->util, to->text);
+		return gail_text_util_get_text (HTML_A11Y_TEXT (text)->util, NULL, GAIL_AT_OFFSET, boundary_type, offset, 
 					start_offset, end_offset);
+	}
 	
 }
 
@@ -399,13 +472,49 @@ html_a11y_text_get_text_before_offset (AtkText *text, gint offset, AtkTextBounda
 				       gint *start_offset, gint *end_offset)
 {
 	HTMLText *to = HTML_TEXT (HTML_A11Y_HTML (text));
+	HTMLTextSlave *start_slave, *end_slave;
 
 	g_return_val_if_fail (to, NULL);
+	g_return_val_if_fail (start_offset && end_offset, NULL);
 
-	gail_text_util_text_setup (HTML_A11Y_TEXT (text)->util, to->text);
-	
-	return gail_text_util_get_text (HTML_A11Y_TEXT (text)->util, NULL, GAIL_BEFORE_OFFSET, boundary_type, offset, 
+	switch (boundary_type) {
+	case ATK_TEXT_BOUNDARY_LINE_START:
+		end_slave = html_text_get_slave_at_offset (HTML_OBJECT (to), offset);
+		g_return_val_if_fail (end_slave, NULL);
+		start_slave = (HTMLTextSlave *) HTML_OBJECT (end_slave)->prev;
+
+		*end_offset = end_slave->posStart;
+		if (start_slave && HTML_IS_TEXT_SLAVE (start_slave)) {
+			*start_offset = start_slave->posStart;
+		} else 
+			*start_offset = *end_offset;
+
+		return html_a11y_text_get_text (text, *start_offset, *end_offset);
+
+	case ATK_TEXT_BOUNDARY_LINE_END:
+		start_slave = html_text_get_slave_at_offset (HTML_OBJECT (to), offset);
+		g_return_val_if_fail (start_slave, NULL);
+		end_slave = (HTMLTextSlave *) HTML_OBJECT (start_slave)->prev;
+
+		if (end_slave && HTML_IS_TEXT_SLAVE (end_slave)) {
+			*end_offset = end_slave->posStart + end_slave->posLen;
+			start_slave = (HTMLTextSlave *) HTML_OBJECT (end_slave)->prev;
+			if (start_slave && HTML_IS_TEXT_SLAVE (start_slave))
+				*start_offset = start_slave->posStart + start_slave->posLen;
+			else 
+				*start_offset = end_slave->posStart;
+
+		} else {
+			*start_offset = *end_offset = 0;	/* on the first line */
+		}
+
+		return html_a11y_text_get_text (text, *start_offset, *end_offset);
+
+	default:
+		gail_text_util_text_setup (HTML_A11Y_TEXT (text)->util, to->text);
+		return gail_text_util_get_text (HTML_A11Y_TEXT (text)->util, NULL, GAIL_BEFORE_OFFSET, boundary_type, offset, 
 					start_offset, end_offset);
+	}
 }
 
 static gint
