@@ -508,7 +508,9 @@ check_flows (HTMLEngine *e, HTMLUndoDirection dir)
 	g_return_if_fail (e->mark->object->parent);
 	g_return_if_fail (e->cursor->position <= e->mark->position);
 
-	if (!HTML_IS_CLUEFLOW (e->cursor->object->parent) || !HTML_IS_CLUEFLOW (e->mark->object->parent))
+	if (e->cursor->offset || e->cursor->object->parent == e->mark->object->parent
+	    || !HTML_IS_CLUEFLOW (e->cursor->object->parent) || !HTML_IS_CLUEFLOW (e->mark->object->parent)
+	    || e->cursor->object != HTML_CLUE (e->cursor->object->parent)->head)
 		return;
 
 	level1 = html_object_get_parent_level (e->cursor->object->parent);
@@ -524,13 +526,8 @@ check_flows (HTMLEngine *e, HTMLUndoDirection dir)
 		|| !haligns_equal (HTML_CLUE (flow1)->halign, HTML_CLUE (flow2)->halign))) {
 		HTMLCursor *dest, *source;
 
-		if (html_clueflow_is_empty (HTML_CLUEFLOW (e->cursor->object->parent))) {
-			dest = html_cursor_dup (e->cursor);
-			source = html_cursor_dup (e->mark);
-		} else {
-			source = html_cursor_dup (e->cursor);
-			dest = html_cursor_dup (e->mark);
-		}
+		dest = html_cursor_dup (e->cursor);
+		source = html_cursor_dup (e->mark);
 
 		html_engine_selection_push (e);
 		html_engine_disable_selection (e);
@@ -559,9 +556,9 @@ delete_object_do (HTMLEngine *e, HTMLObject **object, guint *len, HTMLUndoDirect
 	html_engine_freeze (e);
 	level = prepare_delete_bounds (e, &from, &to, &left, &right);
 	place_cursor_before_mark (e);
-	move_cursor_before_delete (e);
 	if (add_undo)
 		check_flows (e, dir);
+	move_cursor_before_delete (e);
 	html_engine_disable_selection (e);
 	*len     = 0;
 	*object  = html_object_op_cut  (HTML_OBJECT (from->data), e, from->next, to->next, left, right, len);

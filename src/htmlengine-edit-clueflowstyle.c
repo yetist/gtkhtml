@@ -188,9 +188,9 @@ undo_or_redo (HTMLEngine *engine, HTMLUndoData *data, HTMLUndoDirection dir, gui
 		props = (ClueFlowProps *) p->data;
 
 		html_clueflow_set_levels (clueflow, engine, props->levels);
+		html_clueflow_set_style (clueflow, engine, props->style);
 		html_clueflow_set_item_type (clueflow, engine, props->item_type);
 		html_clueflow_set_levels (clueflow, engine, props->levels);
-		html_clueflow_set_style (clueflow, engine, props->style);
 		html_clueflow_set_halignment (clueflow, engine, props->alignment);
 
 		p = p->next;
@@ -232,7 +232,7 @@ static HTMLUndoAction *
 undo_action_from_op (HTMLEngine *engine,
 		     ClueFlowStyleOperation *op)
 {
-	return html_undo_action_new ("paragraph style change",
+	return html_undo_action_new ("Paragraph style change",
 				     undo_or_redo, HTML_UNDO_DATA (op),
 				     html_cursor_get_position (engine->cursor),
 				     html_cursor_get_position (engine->cursor));
