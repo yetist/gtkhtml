@@ -1,6 +1,7 @@
 2001-10-26  Radek Doulik  <rodo@ximian.com>
 
 	* htmltable.c (op_copy): handle cspan, rspan
+	added few g_return_if_fail's
 
 	* htmlclueflow.c (calc_size): if width_left < 0 and ! firstRun,
 	then break line here

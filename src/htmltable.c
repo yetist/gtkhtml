@@ -247,6 +247,11 @@ remove_cell (HTMLTable *t, HTMLTableCell *cell)
 {
 	gint r, c;
 
+	g_return_if_fail (t);
+	g_return_if_fail (HTML_IS_TABLE (t));
+	g_return_if_fail (cell);
+	g_return_if_fail (HTML_IS_TABLE_CELL (cell));
+
 #ifdef GTKHTML_DEBUG_TABLE
 	printf ("remove cell: %d,%d %d,%d %d,%d\n",
 		cell->row, cell->col, cell->rspan, cell->cspan, t->totalCols, t->totalRows);
@@ -1078,7 +1083,7 @@ calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 	return FALSE;
 }
 
-#define NEW_INDEX(l,h) ((l+h) >> 1)
+#define NEW_INDEX(l,h) ((l+h) / 2)
 #undef  ARR
 #define ARR(i) g_array_index (a, gint, i)
 
@@ -1109,6 +1114,9 @@ to_index (gint val, gint l, gint h)
 static void
 get_bounds (HTMLTable *table, gint x, gint y, gint width, gint height, gint *sc, gint *ec, gint *sr, gint *er)
 {
+	g_return_if_fail (table->rowHeights);
+	g_return_if_fail (table->columnOpt);
+
 	*sr = to_index (bin_search_index (table->rowHeights, 0, table->totalRows, y), 0, table->totalRows - 1);
 	if (y < ROW_HEIGHT (table, *sr) && (*sr) > 0)
 		(*sr)--;
