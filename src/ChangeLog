@@ -1,5 +1,8 @@
 2001-12-11  Radek Doulik  <rodo@ximian.com>
 
+	* htmlengine-print.c (html_engine_print_with_header_footer):
+	minimal scale 0.5, so we stop on scale, which is still readable
+
 	* htmlselect.c (html_select_set_text): make it safe when
 	select->strings == NULL
 
