@@ -1,3 +1,11 @@
+2002-05-20  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine-edit-clueflowstyle.c
+	(html_engine_set_clueflow_style): added dir parameter, fixed undo
+
+	* htmlengine-edit-cut-and-paste.c (check_flows): new helper
+	functions, takes care about clueflow's style changes
+
 2002-05-17  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml.c (skip_host): fix this for base_urls with hosts but

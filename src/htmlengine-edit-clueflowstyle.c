@@ -145,8 +145,7 @@ get_props_and_set (HTMLEngine *engine,
 
 /* Undo/redo operations.  */
 
-static void add_undo (HTMLEngine *engine, ClueFlowStyleOperation *op);
-static void add_redo (HTMLEngine *engine, ClueFlowStyleOperation *op);
+static void add_undo (HTMLEngine *engine, ClueFlowStyleOperation *op, HTMLUndoDirection dir);
 
 static void
 undo_or_redo (HTMLEngine *engine, HTMLUndoData *data, HTMLUndoDirection dir, guint position_after)
@@ -220,10 +219,7 @@ undo_or_redo (HTMLEngine *engine, HTMLUndoData *data, HTMLUndoDirection dir, gui
 
 	new_op = style_operation_new (prop_list, op->forward);
 
-	if (dir == HTML_UNDO_REDO)
-		add_undo (engine, new_op);
-	else
-		add_redo (engine, new_op);
+	add_undo (engine, new_op, html_undo_direction_reverse (dir));
 }
 
 static HTMLUndoAction *
@@ -238,16 +234,9 @@ undo_action_from_op (HTMLEngine *engine,
 
 static void
 add_undo (HTMLEngine *engine,
-	  ClueFlowStyleOperation *op)
+	  ClueFlowStyleOperation *op, HTMLUndoDirection dir)
 {
-	html_undo_add_undo_action (engine->undo, undo_action_from_op (engine, op));
-}
-
-static void
-add_redo (HTMLEngine *engine,
-	  ClueFlowStyleOperation *op)
-{
-	html_undo_add_redo_action (engine->undo, undo_action_from_op (engine, op));
+	html_undo_add_action (engine->undo, undo_action_from_op (engine, op), dir);
 }
 
 
@@ -260,6 +249,7 @@ set_clueflow_style_in_region (HTMLEngine *engine,
 			      HTMLHAlignType alignment,
 			      gint indentation_delta,
 			      HTMLEngineSetClueFlowStyleMask mask,
+			      HTMLUndoDirection dir,
 			      gboolean do_undo)
 {
 	HTMLClueFlow *clueflow;
@@ -315,7 +305,7 @@ set_clueflow_style_in_region (HTMLEngine *engine,
 	if (! do_undo)
 		return;
 
-	add_undo (engine, style_operation_new (undo_forward ? g_list_reverse (prop_list) : prop_list, undo_forward));
+	add_undo (engine, style_operation_new (undo_forward ? g_list_reverse (prop_list) : prop_list, undo_forward), dir);
 }
 
 static void
@@ -325,7 +315,7 @@ set_clueflow_style_at_cursor (HTMLEngine *engine,
 			      HTMLHAlignType alignment,
 			      gint indentation_delta,
 			      HTMLEngineSetClueFlowStyleMask mask,
-			      gboolean do_undo)
+			      HTMLUndoDirection dir, gboolean do_undo)
 {
 	ClueFlowProps *props;
 	HTMLClueFlow *clueflow;
@@ -347,7 +337,7 @@ set_clueflow_style_at_cursor (HTMLEngine *engine,
 		return;
 	}
 
-	add_undo (engine, style_operation_new (g_list_append (NULL, props), TRUE));
+	add_undo (engine, style_operation_new (g_list_append (NULL, props), TRUE), dir);
 }
 
 
@@ -358,24 +348,22 @@ html_engine_set_clueflow_style (HTMLEngine *engine,
 				HTMLHAlignType alignment,
 				gint indentation_delta,
 				HTMLEngineSetClueFlowStyleMask mask,
-				gboolean do_undo)
+				HTMLUndoDirection dir, gboolean do_undo)
 {
 	g_return_val_if_fail (engine != NULL, FALSE);
 	g_return_val_if_fail (HTML_IS_ENGINE (engine), FALSE);
-
-	html_undo_discard_redo (engine->undo);
 
 	html_engine_freeze (engine);
 	if (html_engine_is_selection_active (engine))
 		set_clueflow_style_in_region (engine,
 					      style, item_type, alignment, indentation_delta,
 					      mask,
-					      do_undo);
+					      dir, do_undo);
 	else
 		set_clueflow_style_at_cursor (engine,
 					      style, item_type, alignment, indentation_delta,
 					      mask,
-					      do_undo);
+					      dir, do_undo);
 	html_engine_thaw (engine);
 
 	/* This operation can never fail.  */

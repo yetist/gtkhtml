@@ -31,6 +31,7 @@ gboolean           html_engine_set_clueflow_style                (HTMLEngine    
 								  HTMLHAlignType                  alignment,
 								  gint                            indentation_delta,
 								  HTMLEngineSetClueFlowStyleMask  mask,
+								  HTMLUndoDirection               dir,
 								  gboolean                        do_undo);
 
 void               html_engine_get_current_clueflow_style        (HTMLEngine                     *engine,

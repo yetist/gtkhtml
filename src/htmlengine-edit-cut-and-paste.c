@@ -30,10 +30,12 @@
 #include "gtkhtml-properties.h"
 
 #include "htmlclue.h"
+#include "htmlclueflow.h"
 #include "htmlcursor.h"
 #include "htmlcolorset.h"
 #include "htmlengine.h"
 #include "htmlengine-edit.h"
+#include "htmlengine-edit-clueflowstyle.h"
 #include "htmlengine-edit-cursor.h"
 #include "htmlengine-edit-cut-and-paste.h"
 #include "htmlengine-edit-fontstyle.h"
@@ -383,7 +385,7 @@ delete_setup_undo (HTMLEngine *e, HTMLObject *buffer, guint len, guint position_
 	/* printf ("delete undo len %d\n", len); */
 
 	html_undo_add_action (e->undo,
-			      html_undo_action_new ("Delete", delete_undo_action,
+			      html_undo_action_new ("Delete object", delete_undo_action,
 						    HTML_UNDO_DATA (undo), html_cursor_get_position (e->cursor),
 						    position_after),
 			      dir);
@@ -418,8 +420,72 @@ place_cursor_before_mark (HTMLEngine *e)
 	}
 }
 
+static gboolean
+haligns_equal (HTMLHAlignType a1, HTMLHAlignType a2)
+{
+	return a1 == a2
+		|| (a1 == HTML_HALIGN_LEFT && a2 == HTML_HALIGN_NONE)
+		|| (a1 == HTML_HALIGN_NONE && a2 == HTML_HALIGN_LEFT);
+
+}
+
+static void
+check_flows (HTMLEngine *e, HTMLUndoDirection dir)
+{
+	/* I assume here that cursor is before mark */
+	HTMLClueFlow *flow1, *flow2;
+	gint level1, level2;
+
+	g_return_if_fail (e->cursor);
+	g_return_if_fail (e->cursor->object);
+	g_return_if_fail (e->cursor->object->parent);
+	g_return_if_fail (e->mark);
+	g_return_if_fail (e->mark->object);
+	g_return_if_fail (e->mark->object->parent);
+	g_return_if_fail (e->cursor->position <= e->mark->position);
+
+	if (!HTML_IS_CLUEFLOW (e->cursor->object->parent) || !HTML_IS_CLUEFLOW (e->mark->object->parent))
+		return;
+
+	level1 = html_object_get_parent_level (e->cursor->object->parent);
+	level2 = html_object_get_parent_level (e->mark->object->parent);
+
+	flow1 = HTML_CLUEFLOW (e->cursor->object->parent);
+	flow2 = HTML_CLUEFLOW (e->mark->object->parent);
+
+	if (level1 == level2
+	    && (flow1->style != flow2->style
+		|| (flow1->style == HTML_CLUEFLOW_STYLE_LIST_ITEM && flow1->item_type != flow2->item_type)
+		|| flow1->level != flow2->level
+		|| !haligns_equal (HTML_CLUE (flow1)->halign, HTML_CLUE (flow2)->halign))) {
+		HTMLCursor *dest, *source;
+
+		if (html_clueflow_is_empty (HTML_CLUEFLOW (e->cursor->object->parent))) {
+			dest = html_cursor_dup (e->cursor);
+			source = html_cursor_dup (e->mark);
+		} else {
+			source = html_cursor_dup (e->cursor);
+			dest = html_cursor_dup (e->mark);
+		}
+
+		html_engine_selection_push (e);
+		html_engine_disable_selection (e);
+		html_cursor_jump_to_position_no_spell (e->cursor, e, dest->position);
+		html_engine_set_clueflow_style (e,
+						HTML_CLUEFLOW (source->object)->style,
+						HTML_CLUEFLOW (source->object)->item_type,
+						HTML_CLUE     (source->object)->halign,
+						HTML_CLUEFLOW (source->object)->level,
+						HTML_ENGINE_SET_CLUEFLOW_INDENTATION_ALL,
+						dir, TRUE);
+		html_engine_selection_pop (e);
+		html_cursor_destroy (source);
+		html_cursor_destroy (dest);
+	}
+}
+
 static gint
-delete_object_do (HTMLEngine *e, HTMLObject **object, guint *len)
+delete_object_do (HTMLEngine *e, HTMLObject **object, guint *len, HTMLUndoDirection dir, gboolean add_undo)
 {
 	GList *from, *to, *left, *right;
 	guint position;
@@ -429,6 +495,8 @@ delete_object_do (HTMLEngine *e, HTMLObject **object, guint *len)
 	level = prepare_delete_bounds (e, &from, &to, &left, &right);
 	place_cursor_before_mark (e);
 	move_cursor_before_delete (e);
+	if (add_undo)
+		check_flows (e, dir);
 	html_engine_disable_selection (e);
 	*len     = 0;
 	*object  = html_object_op_cut  (HTML_OBJECT (from->data), e, from->next, to->next, left, right, len);
@@ -482,7 +550,7 @@ delete_object (HTMLEngine *e, HTMLObject **ret_object, guint *ret_len, HTMLUndoD
 			return 0;
 		}
 		position_before = MAX (e->cursor->position, e->mark->position);
-		level = delete_object_do (e, &object, &len);
+		level = delete_object_do (e, &object, &len, dir, add_undo);
 		if (ret_object && ret_len) {
 			*ret_object = html_object_op_copy (object, e, NULL, NULL, ret_len);
 			*ret_len    = len;
@@ -502,7 +570,9 @@ delete_object (HTMLEngine *e, HTMLObject **ret_object, guint *ret_len, HTMLUndoD
 void
 html_engine_delete (HTMLEngine *e)
 {
+	html_undo_level_begin (e->undo, "Delete", "Undelete");
 	delete_object (e, NULL, NULL, HTML_UNDO_UNDO, TRUE);
+	html_undo_level_end (e->undo);
 }
 
 gint
@@ -511,7 +581,9 @@ html_engine_cut (HTMLEngine *e)
 	gint rv;
 
 	html_engine_clipboard_clear (e);
+	html_undo_level_begin (e->undo, "Cut", "Uncut");
 	rv = delete_object (e, &e->clipboard, &e->clipboard_len, HTML_UNDO_UNDO, TRUE);
+	html_undo_level_end (e->undo);
 
 #ifdef OP_DEBUG
 	printf ("cut  len: %d\n", e->clipboard_len);
@@ -773,8 +845,8 @@ insert_empty_paragraph (HTMLEngine *e, HTMLUndoDirection dir, gboolean add_undo)
 		html_clue_append (HTML_CLUE (flow), e->cursor->object);
 	}
 
-	html_undo_level_begin (e->undo, "Insert paragraph", "Delete paragraph");
 	if (add_undo) {
+		html_undo_level_begin (e->undo, "Insert paragraph", "Delete paragraph");
 		insert_setup_undo (e, 1, position_before, dir, FALSE, FALSE);
 	}
 	g_list_free (left);
@@ -787,7 +859,8 @@ insert_empty_paragraph (HTMLEngine *e, HTMLUndoDirection dir, gboolean add_undo)
 	html_cursor_forward (e->cursor, e);
 	
 	gtk_html_editor_event_command (e->widget, GTK_HTML_COMMAND_INSERT_PARAGRAPH, FALSE);
-	html_undo_level_end (e->undo);
+	if (add_undo)
+		html_undo_level_end (e->undo);
 
 	html_engine_thaw (e);
 }
