@@ -46,7 +46,6 @@ destroy (HTMLObject *object)
 static const gchar *
 get_url (HTMLObject *object)
 {
-	printf ("%s: %s\n", __FUNCTION__, HTML_LINK_TEXT_MASTER (object)->url);
 	return HTML_LINK_TEXT_MASTER (object)->url;
 }
 
@@ -89,8 +88,8 @@ html_link_text_master_init (HTMLLinkTextMaster *link_text_master_object,
 			    gchar *text,
 			    HTMLFont *font,
 			    HTMLPainter *painter,
-			    gchar *url,
-			    gchar *target)
+			    const gchar *url,
+			    const gchar *target)
 {
 	HTMLTextMaster *text_master_object;
 
@@ -98,13 +97,13 @@ html_link_text_master_init (HTMLLinkTextMaster *link_text_master_object,
 	html_text_master_init (text_master_object, HTML_TEXT_MASTER_CLASS (klass),
 			       text, font, painter);
 
-	link_text_master_object->url = url;
-	link_text_master_object->target = target;
+	link_text_master_object->url = g_strdup (url);
+	link_text_master_object->target = g_strdup (target);
 }
 
 HTMLObject *
 html_link_text_master_new (gchar *text, HTMLFont *font, HTMLPainter *painter,
-			   gchar *url, gchar *target)
+			   const gchar *url, const gchar *target)
 {
 	HTMLLinkTextMaster *link_text_master_object;
 

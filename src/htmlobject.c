@@ -345,7 +345,8 @@ html_object_get_url (HTMLObject *o)
 	const gchar *url;
 
 	url = (* HO_CLASS (o)->get_url) (o);
-	printf ("%s (%s): %s\n", __FUNCTION__, html_type_name (HTML_OBJECT_TYPE (o)), url);
+	printf ("%s (%s): %s\n", __FUNCTION__, html_type_name (HTML_OBJECT_TYPE (o)),
+		url ? url : NULL);
 
 	return url;
 }

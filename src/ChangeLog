@@ -1,5 +1,10 @@
 1999-12-04  Ettore Perazzoli  <ettore@gnu.org>
 
+	* htmllinktextmaster.c (html_link_text_master_init): `url' and
+	`target' made const.  Strdup before assigning.
+	(html_link_text_master_new): Likewise.
+	(get_url): Removed debugging message.
+
 	* htmllinktext.c (html_link_text_init): Strdup the URL and the target strings.
 	(html_link_text_new): Made the `url' and `target' arguments const.
 	(html_link_text_init): Likewise.
