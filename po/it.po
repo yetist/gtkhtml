@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml 0.8\n"
-"POT-Creation-Date: 2001-02-20 12:17-0600\n"
-"PO-Revision-Date: 2001-02-15 16:02+0100\n"
-"Last-Translator: Pier Luigi Fiorini <plfiorini@users.sourceforge.net>\n"
+"Project-Id-Version: gtkhtml 0.8.2\n"
+"POT-Creation-Date: 2001-02-22 15:41+0100\n"
+"PO-Revision-Date: 2001-02-22 09:39+0100\n"
+"Last-Translator: Pier Luigi Fiorini <plfiorini@libero.it>\n"
 "Language-Team: Italiano <it@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
@@ -91,7 +91,7 @@ msgstr "Lingua"
 
 #: capplet/gtkhtml-capplet.glade.h:9
 msgid "Magic links (FIXME: better label)"
-msgstr "Link magici (FIXME: better label)"
+msgstr "Link magici"
 
 #: capplet/gtkhtml-capplet.glade.h:10
 msgid "Miscellaneous"
@@ -135,90 +135,83 @@ msgstr "Larghezza proporzionale"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:1
 msgid "C_ut"
-msgstr ""
+msgstr "_Taglia"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:3
-#, fuzzy
 msgid "Copy selection to clipboard"
-msgstr "Seleziona immagine"
+msgstr "Copia la selezione negli appunti"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:4
-#, fuzzy
 msgid "Copy the selection"
-msgstr "Seleziona immagine"
+msgstr "Copia la selezione"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:5
 msgid "Cut"
-msgstr ""
+msgstr "Taglia"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:6
-#, fuzzy
 msgid "Cut selection to clipboard"
-msgstr "Seleziona immagine"
+msgstr "Taglia la selezione negli appunti"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:7
-#, fuzzy
 msgid "Cut the selection"
-msgstr "Seleziona immagine"
+msgstr "Taglia la selezione"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:8
 msgid "Find"
-msgstr ""
+msgstr "Trova"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:9
 msgid "Find Rege_x..."
-msgstr ""
+msgstr "Trova e_spressione regolare..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:10
 msgid "Find _Again"
-msgstr ""
+msgstr "Trova _ancora"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:11
 msgid "Insert HTML link into document..."
-msgstr ""
+msgstr "Inserisci un link HTML nel documento..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:12
 msgid "Insert image into document..."
-msgstr ""
+msgstr "Inserisci un'immagine nel documento..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:13
 msgid "Insert rule into document..."
-msgstr ""
+msgstr "Inserisci linea orizzontale nel documento..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:14
 msgid "Modify the file's properties"
-msgstr ""
+msgstr "Modifica le proprietà del file"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:15
-#, fuzzy
 msgid "Paste"
-msgstr "Pagina"
+msgstr "Incolla"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:16
 msgid "Paste from clipboard"
-msgstr ""
+msgstr "Incolla negli appunti"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:17
 msgid "Paste the clipboard"
-msgstr ""
+msgstr "Incolla dagli appunti"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:18
 msgid "Redo"
-msgstr ""
+msgstr "Ripeti"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:19
 msgid "Redo previously undone change"
-msgstr ""
+msgstr "Ripeti l'azione precedentemente annullata"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:20
-#, fuzzy
 msgid "Redo the undone action"
-msgstr "Seleziona immagine"
+msgstr "Ripeti l'azione annullata"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:21
-#, fuzzy
 msgid "Regular expression search"
-msgstr "Cerca espressioni regolari"
+msgstr "Cerca con espressioni regolari"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:22
 #: components/html-editor/replace.c:84 components/html-editor/replace.c:146
@@ -227,98 +220,84 @@ msgid "Replace"
 msgstr "Sostituisci"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:23
-#, fuzzy
 msgid "Replace a string"
-msgstr "Conferma sostituzione"
+msgstr "Sostituisci una stringa"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:24
 msgid "Search again for the same string"
-msgstr ""
+msgstr "Cerca ancora la stessa stringa"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:25
-#, fuzzy
 msgid "Search and replace string"
-msgstr "Cerca"
+msgstr "Cerca e sostituisci una stringa"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:26
-#, fuzzy
 msgid "Search for a string"
-msgstr "Cerca"
+msgstr "Cerca una stringa"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:27
-#, fuzzy
 msgid "Search string"
-msgstr "Cerca"
+msgstr "Cerca stringa"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:28
 msgid "Undo"
-msgstr ""
+msgstr "Annulla"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:29
 msgid "Undo previous changes"
-msgstr ""
+msgstr "Annulla la modifica precedente"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:30
-#, fuzzy
 msgid "Undo the last action"
-msgstr "Seleziona immagine"
+msgstr "Annulla l'ultima azione"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:31
-#, fuzzy
 msgid "_Copy"
-msgstr "Copia"
+msgstr "_Copia"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:32
 msgid "_Edit"
-msgstr ""
+msgstr "_Modifica"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:33
-#, fuzzy
 msgid "_Find..."
-msgstr "Link"
+msgstr "_Trova..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:34
-#, fuzzy
 msgid "_Image..."
-msgstr "Immagine"
+msgstr "_Immagine..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:35
-#, fuzzy
 msgid "_Insert"
-msgstr "Inserisci"
+msgstr "_Inserisci"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:36
-#, fuzzy
 msgid "_Link..."
-msgstr "Link"
+msgstr "_Link..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:37
-#, fuzzy
 msgid "_Paste"
-msgstr "Pagina"
+msgstr "_Incolla"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:38
-#, fuzzy
 msgid "_Properties..."
-msgstr "Proprietà"
+msgstr "_Proprietà..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:39
 msgid "_Redo"
-msgstr ""
+msgstr "_Rifai"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:40
-#, fuzzy
 msgid "_Replace..."
-msgstr "Sostituisci"
+msgstr "_Sostituisci..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:41
-#, fuzzy
 msgid "_Rule..."
-msgstr "Linea orizzontale"
+msgstr "_Linea orizzontale..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:42
 msgid "_Undo"
-msgstr ""
+msgstr "_Annulla"
 
 #: components/html-editor/body.c:127 components/html-editor/body.c:131
 msgid "Background Image"
@@ -547,27 +526,27 @@ msgstr "Normale"
 
 #: components/html-editor/toolbar.c:51
 msgid "Header 1"
-msgstr "Intestazione 1"
+msgstr "Titolo 1"
 
 #: components/html-editor/toolbar.c:52
 msgid "Header 2"
-msgstr "Intestazione 2"
+msgstr "Titolo 2"
 
 #: components/html-editor/toolbar.c:53
 msgid "Header 3"
-msgstr "Intestazione 3"
+msgstr "Titolo 3"
 
 #: components/html-editor/toolbar.c:54
 msgid "Header 4"
-msgstr "Intestazione 4"
+msgstr "Titolo 4"
 
 #: components/html-editor/toolbar.c:55
 msgid "Header 5"
-msgstr "Intestazione 5"
+msgstr "Titolo 5"
 
 #: components/html-editor/toolbar.c:56
 msgid "Header 6"
-msgstr "Intestazione 6"
+msgstr "Titolo 6"
 
 #: components/html-editor/toolbar.c:57
 msgid "Address"
@@ -632,7 +611,7 @@ msgstr "Rendi il testo sottolineato"
 
 #: components/html-editor/toolbar.c:440
 msgid "Strikes out the text"
-msgstr "Barra il testo"
+msgstr "Rendi il testo barrato"
 
 #: components/html-editor/toolbar.c:449
 msgid "Unindent"
