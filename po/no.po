@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.8\n"
-"POT-Creation-Date: 2002-11-12 23:21+0100\n"
-"PO-Revision-Date: 2002-11-12 23:22+0100\n"
+"POT-Creation-Date: 2003-01-03 02:42+0100\n"
+"PO-Revision-Date: 2003-01-03 02:42+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -18,119 +18,123 @@ msgid "<None>"
 msgstr "<Ingen>"
 
 #: capplet/gnome-bindings-prop.c:211 capplet/main.c:241
-#: components/html-editor/cell.c:391 components/html-editor/image.c:532
+#: components/html-editor/cell.c:417 components/html-editor/image.c:532
 #: components/html-editor/rule.c:315 components/html-editor/table.c:529
-#: components/html-editor/table.c:613 components/html-editor/template.c:263
+#: components/html-editor/table.c:613 components/html-editor/template.c:271
 msgid "Could not load glade file."
 msgstr "Kunne ikke lese glade-fil."
 
 #: capplet/gtkhtml-capplet.glade.h:1
+msgid "\n"
+msgstr "\n"
+
+#: capplet/gtkhtml-capplet.glade.h:3
 #: components/html-editor/gtkhtml-editor-properties.glade.h:1
 msgid "*"
 msgstr "*"
 
-#: capplet/gtkhtml-capplet.glade.h:2
+#: capplet/gtkhtml-capplet.glade.h:4
 msgid "*********************"
 msgstr "*********************"
 
-#: capplet/gtkhtml-capplet.glade.h:3
+#: capplet/gtkhtml-capplet.glade.h:5
 msgid "Add Keyboard Shortcuts"
 msgstr "Legg til tastatursnarveier"
 
-#: capplet/gtkhtml-capplet.glade.h:4
+#: capplet/gtkhtml-capplet.glade.h:6
 msgid "Automatically detect links"
 msgstr "Automatisk gjenkjenning av lenker"
 
-#: capplet/gtkhtml-capplet.glade.h:5
+#: capplet/gtkhtml-capplet.glade.h:7
 msgid "Behavior"
 msgstr "Oppførsel"
 
-#: capplet/gtkhtml-capplet.glade.h:6
+#: capplet/gtkhtml-capplet.glade.h:8
 msgid "Composer Properties"
 msgstr "Egenskaper for skriving"
 
-#: capplet/gtkhtml-capplet.glade.h:7
+#: capplet/gtkhtml-capplet.glade.h:9
 msgid "Composer Properties planned"
 msgstr "Planlagte egenskaper for skriving"
 
-#: capplet/gtkhtml-capplet.glade.h:8
+#: capplet/gtkhtml-capplet.glade.h:10
 msgid "Configure spell checking"
 msgstr "Konfigurer stavekontroll"
 
-#: capplet/gtkhtml-capplet.glade.h:9
+#: capplet/gtkhtml-capplet.glade.h:11
 msgid "Enable spell checking"
 msgstr "Bruk stavekontroll"
 
-#: capplet/gtkhtml-capplet.glade.h:10
+#: capplet/gtkhtml-capplet.glade.h:12
 msgid "Fixed width"
 msgstr "Fast bredde"
 
-#: capplet/gtkhtml-capplet.glade.h:11
+#: capplet/gtkhtml-capplet.glade.h:13
 msgid "Fonts"
 msgstr "Skrifttyper"
 
-#: capplet/gtkhtml-capplet.glade.h:12
+#: capplet/gtkhtml-capplet.glade.h:14
 msgid "For printing"
 msgstr "For utskrift"
 
-#: capplet/gtkhtml-capplet.glade.h:13
+#: capplet/gtkhtml-capplet.glade.h:15
 msgid "Grab keys"
 msgstr "Hent taster"
 
-#: capplet/gtkhtml-capplet.glade.h:14
+#: capplet/gtkhtml-capplet.glade.h:16
 msgid "Information"
 msgstr "Informasjon"
 
-#: capplet/gtkhtml-capplet.glade.h:15
+#: capplet/gtkhtml-capplet.glade.h:17
 msgid "Keyboard Shortcuts"
 msgstr "Tastatursnarveier"
 
-#: capplet/gtkhtml-capplet.glade.h:16
+#: capplet/gtkhtml-capplet.glade.h:18
 #: components/html-editor/gtkhtml-editor-properties.glade.h:47
 msgid "Miscellaneous"
 msgstr "Forskjellig"
 
-#: capplet/gtkhtml-capplet.glade.h:17
+#: capplet/gtkhtml-capplet.glade.h:19
 msgid "New shortcut:"
 msgstr "Ny snarvei:"
 
-#: capplet/gtkhtml-capplet.glade.h:18
+#: capplet/gtkhtml-capplet.glade.h:20
 msgid "On screen"
 msgstr "På skjermen"
 
-#: capplet/gtkhtml-capplet.glade.h:19
+#: capplet/gtkhtml-capplet.glade.h:21
 msgid "Select HTML fixed width font"
 msgstr "Velg skrifttype med fast bredde for HTML"
 
-#: capplet/gtkhtml-capplet.glade.h:20
+#: capplet/gtkhtml-capplet.glade.h:22
 msgid "Select HTML fixed width font for printing"
 msgstr "Velg skrifttype med fast bredde for HTML"
 
-#: capplet/gtkhtml-capplet.glade.h:21
+#: capplet/gtkhtml-capplet.glade.h:23
 msgid "Select HTML variable width font"
 msgstr "Velg variabel bredde for skrifttype i HTML"
 
-#: capplet/gtkhtml-capplet.glade.h:22
+#: capplet/gtkhtml-capplet.glade.h:24
 msgid "Select HTML variable width font for printing"
 msgstr "Velg variabel bredde for skrifttype i HTML"
 
-#: capplet/gtkhtml-capplet.glade.h:23
+#: capplet/gtkhtml-capplet.glade.h:25
 msgid "Shortcuts _type:"
 msgstr "_Type snarvei:"
 
-#: capplet/gtkhtml-capplet.glade.h:24
+#: capplet/gtkhtml-capplet.glade.h:26
 msgid "Show animated images"
 msgstr "Vis animerte bilder"
 
-#: capplet/gtkhtml-capplet.glade.h:25
+#: capplet/gtkhtml-capplet.glade.h:27
 msgid "Variable width"
 msgstr "Variabel bredde"
 
-#: capplet/gtkhtml-capplet.glade.h:26
+#: capplet/gtkhtml-capplet.glade.h:28
 msgid "_Add"
 msgstr "_Legg til"
 
-#: capplet/gtkhtml-capplet.glade.h:27
+#: capplet/gtkhtml-capplet.glade.h:29
 msgid "_Delete"
 msgstr "_Slett"
 
@@ -250,8 +254,8 @@ msgid "Cut the selection"
 msgstr "Klipp ut utvalget"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
-#: components/html-editor/search.c:66 components/html-editor/search.c:67
-#: components/html-editor/search.c:110
+#: components/html-editor/search.c:73 components/html-editor/search.c:74
+#: components/html-editor/search.c:118
 msgid "Find"
 msgstr "Finn"
 
@@ -312,7 +316,7 @@ msgid "Header _6"
 msgstr "Tittel _6"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
-#: components/html-editor/editor-control-factory.c:172
+#: components/html-editor/editor-control-factory.c:176
 #: components/html-editor/gtkhtml-editor-properties.glade.h:39
 #: components/html-editor/menubar.c:125 components/html-editor/popup.c:206
 msgid "Image"
@@ -529,9 +533,9 @@ msgid "Redo the undone action"
 msgstr "Gjenopprett angret handling"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
-#: components/html-editor/replace.c:75 components/html-editor/replace.c:135
-#: components/html-editor/replace.c:136 components/html-editor/replace.c:148
-#: components/html-editor/replace.c:182
+#: components/html-editor/replace.c:75 components/html-editor/replace.c:151
+#: components/html-editor/replace.c:152 components/html-editor/replace.c:169
+#: components/html-editor/replace.c:205
 msgid "Replace"
 msgstr "Erstatt"
 
@@ -545,7 +549,7 @@ msgid "Roman Numeral List"
 msgstr "Liste med romerske tall"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
-#: components/html-editor/editor-control-factory.c:192
+#: components/html-editor/editor-control-factory.c:196
 #: components/html-editor/gtkhtml-editor-properties.glade.h:63
 #: components/html-editor/menubar.c:159 components/html-editor/popup.c:227
 msgid "Rule"
@@ -836,14 +840,14 @@ msgstr "Bakgrunnsbilde"
 msgid "Colors"
 msgstr "Farger"
 
-#: components/html-editor/body.c:313 components/html-editor/cell.c:397
+#: components/html-editor/body.c:313 components/html-editor/cell.c:423
 #: components/html-editor/table.c:535 components/html-editor/text.c:291
 #: components/html-editor/toolbar.c:299
 msgid "Automatic"
 msgstr "Automatisk"
 
 #: components/html-editor/body.c:325
-#: components/html-editor/editor-control-factory.c:181
+#: components/html-editor/editor-control-factory.c:185
 #: components/html-editor/gtkhtml-editor-properties.glade.h:76
 #: components/html-editor/menubar.c:334 components/html-editor/popup.c:192
 msgid "Text"
@@ -854,34 +858,34 @@ msgstr "Tekst"
 msgid "Background"
 msgstr "Bakgrunn"
 
-#: components/html-editor/cell.c:164 components/html-editor/cell.c:166
+#: components/html-editor/cell.c:172 components/html-editor/cell.c:174
 #: components/html-editor/text.c:104
 msgid "The quick brown fox jumps over the lazy dog."
 msgstr "Dette er en prøve...testing en - to - tre."
 
-#: components/html-editor/cell.c:169
+#: components/html-editor/cell.c:177
 msgid "Other"
 msgstr "Annet"
 
-#: components/html-editor/editor-control-factory.c:161
+#: components/html-editor/editor-control-factory.c:165
 #: components/html-editor/menubar.c:313 components/html-editor/menubar.c:331
 #: components/html-editor/menubar.c:349 components/html-editor/popup.c:184
 #: components/html-editor/popup.c:269
 msgid "Properties"
 msgstr "Egenskaper"
 
-#: components/html-editor/editor-control-factory.c:202
+#: components/html-editor/editor-control-factory.c:206
 #: components/html-editor/menubar.c:352 components/html-editor/popup.c:213
 msgid "Paragraph"
 msgstr "Avsnitt"
 
-#: components/html-editor/editor-control-factory.c:207
+#: components/html-editor/editor-control-factory.c:211
 #: components/html-editor/gtkhtml-editor-properties.glade.h:52
 #: components/html-editor/menubar.c:316 components/html-editor/popup.c:220
 msgid "Page"
 msgstr "Side"
 
-#: components/html-editor/editor-control-factory.c:746
+#: components/html-editor/editor-control-factory.c:770
 msgid "I could not initialize Bonobo"
 msgstr "Kunne ikke initiere Bonobo"
 
@@ -1387,15 +1391,15 @@ msgstr "Erstatt alle"
 msgid "Next"
 msgstr "Neste"
 
-#: components/html-editor/replace.c:142
+#: components/html-editor/replace.c:158
 msgid "search backward"
 msgstr "søk bakover"
 
-#: components/html-editor/replace.c:143 components/html-editor/search.c:72
+#: components/html-editor/replace.c:159 components/html-editor/search.c:79
 msgid "case sensitive"
 msgstr "skill mellom store/små bokstaver"
 
-#: components/html-editor/replace.c:151
+#: components/html-editor/replace.c:172
 msgid "with"
 msgstr "med"
 
@@ -1407,11 +1411,11 @@ msgstr "Blå 3D"
 msgid "Yellow, flowers"
 msgstr "Gul, blomster"
 
-#: components/html-editor/search.c:71
+#: components/html-editor/search.c:78
 msgid "backward"
 msgstr "bakover"
 
-#: components/html-editor/search.c:110
+#: components/html-editor/search.c:118
 msgid "Find Regular Expression"
 msgstr "Finn vanlig uttrykk"
 
@@ -1431,17 +1435,13 @@ msgstr "Mørk topptekst"
 msgid "Note"
 msgstr "Merknad"
 
-#: components/html-editor/template.c:91
+#: components/html-editor/template.c:93 components/html-editor/template.c:112
 msgid "Place your text here"
 msgstr "Plasser din tekst her"
 
-#: components/html-editor/template.c:94
+#: components/html-editor/template.c:96
 msgid "Image frame"
 msgstr "Bilderamme"
-
-#: components/html-editor/template.c:104
-msgid "Image 1: <b>description</b>"
-msgstr "Bilde 1: <b>beskrivelse</b>"
 
 #: components/html-editor/test-html-editor-control.c:312
 msgid "Open file..."
@@ -1588,3 +1588,6 @@ msgstr "Forhånds_visning"
 #: src/testgtkhtml.c:103
 msgid "Print preview"
 msgstr "Forhåndsvisning"
+
+#~ msgid "Image 1: <b>description</b>"
+#~ msgstr "Bilde 1: <b>beskrivelse</b>"
