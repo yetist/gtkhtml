@@ -2806,6 +2806,15 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 	case GTK_HTML_COMMAND_TABLE_DELETE_COL:
 		html_engine_delete_table_column (e);
 		break;
+	case GTK_HTML_COMMAND_TABLE_BORDER_WIDTH_INC:
+		html_engine_table_set_border_width (e, 1, TRUE);
+		break;
+	case GTK_HTML_COMMAND_TABLE_BORDER_WIDTH_DEC:
+		html_engine_table_set_border_width (e, -1, TRUE);
+		break;
+	case GTK_HTML_COMMAND_TABLE_BORDER_WIDTH_ZERO:
+		html_engine_table_set_border_width (e, 0, FALSE);
+		break;
 	default:
 		html->binding_handled = FALSE;
 	}

@@ -241,7 +241,7 @@ remove_empty_and_merge (HTMLEngine *e, gboolean merge, GList *left, GList *right
 	HTMLObject *lo, *ro, *prev;
 	gint len;
 
-	printf ("before merge\n");
+	/* printf ("before merge\n");
 	gtk_html_debug_dump_tree_simple (e->clue, 0);
 	if (left && left->data) {
 		printf ("left\n");
@@ -251,7 +251,7 @@ remove_empty_and_merge (HTMLEngine *e, gboolean merge, GList *left, GList *right
 	if (right && right->data) {
 		printf ("right\n");
 		gtk_html_debug_dump_tree_simple (right->data, 0);
-	}
+		} */
 
 	while (left && left->data && right && right->data) {
 
@@ -299,9 +299,9 @@ remove_empty_and_merge (HTMLEngine *e, gboolean merge, GList *left, GList *right
 		e->cursor->object = prev;
 		e->cursor->offset = html_object_get_length (e->cursor->object);
 	}
-	printf ("-- after\n");
+	/* printf ("-- after\n");
 	gtk_html_debug_dump_tree_simple (e->clue, 0);
-	printf ("-- END merge\n");
+	printf ("-- END merge\n"); */
 }
 
 static gboolean

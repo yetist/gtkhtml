@@ -1,3 +1,8 @@
+2001-03-08  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml-search.c (data_destroy): don't destroy widget, as this
+	is called from widget destroy handler
+
 2001-03-07  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine.c (parse_t): only emit the title changed signal if we

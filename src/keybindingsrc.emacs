@@ -112,4 +112,8 @@ binding "gtkhtml-bindings-emacs"
   bind "<Ctrl><Shift>c"      { "command" (insert-col-after) }
   bind "<Ctrl><Alt>c"        { "command" (insert-col-before) }
   bind "<Alt><Shift>c"       { "command" (delete-col) }
+
+  bind "<Ctrl><Shift>b"      { "command" (inc-border) }
+  bind "<Ctrl><Alt>b"        { "command" (dec-border) }
+  bind "<Alt><Shift>b"       { "command" (zero-border) }
 }

@@ -25,10 +25,13 @@
 #include "htmltypes.h"
 #include "htmlenums.h"
 
-void  html_engine_insert_table_1_1     (HTMLEngine *e);
-void  html_engine_insert_table_column  (HTMLEngine *e,
-					gboolean    after);
-void  html_engine_delete_table_column  (HTMLEngine *e);
+void  html_engine_insert_table_1_1        (HTMLEngine *e);
+void  html_engine_insert_table_column     (HTMLEngine *e,
+					   gboolean    after);
+void  html_engine_delete_table_column     (HTMLEngine *e);
+void  html_engine_table_set_border_width  (HTMLEngine *e,
+					   gint        border_width,
+					   gboolean    relative);
 			       
 #endif
 

@@ -82,7 +82,6 @@ hide (GtkHTMLISearch *data)
 static void
 data_destroy (GtkHTMLISearch *data)
 {
-	gtk_widget_destroy (GTK_WIDGET (data->html->priv->search_input_line));
 	g_free (data->last_text);
 	g_free (data);
 }

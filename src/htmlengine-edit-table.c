@@ -272,3 +272,27 @@ html_engine_delete_table_column (HTMLEngine *e)
 {
 	delete_table_column (e, HTML_UNDO_UNDO);
 }
+
+/*
+ * Border width
+ */
+
+void
+html_engine_table_set_border_width (HTMLEngine *e, gint border_width, gboolean relative)
+{
+	HTMLTable *t;
+
+	t = HTML_TABLE (html_object_nth_parent (e->cursor->object, 3));
+
+	/* this command is valid only in table and when this table has > 1 column */
+	if (!t || !HTML_IS_TABLE (HTML_OBJECT (t)))
+		return;
+
+	html_engine_freeze (e);
+	if (relative)
+		t->border += border_width;
+	else
+		t->border = border_width;
+	html_object_change_set (HTML_OBJECT (t), HTML_CHANGE_ALL);
+	html_engine_thaw (e);
+}
