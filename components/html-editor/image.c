@@ -527,7 +527,7 @@ image_url_requested (GtkHTML *html, const gchar *url, GtkHTMLStream *handle, Gtk
 
 	location = get_location (d);
 	url_requested (html, url, handle);
-	html_engine_calc_size (html->engine);
+	html_engine_calc_size (html->engine, NULL);
 	set_size (d);
 	g_free (location);
 }
