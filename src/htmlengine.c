@@ -5473,7 +5473,7 @@ thaw_idle (gpointer data)
 
 	if (redraw_whole) {
 		html_engine_queue_redraw_all (e);
-	} else {
+	} else if (GTK_WIDGET_REALIZED (e->widget)) {
 		gint nw, nh;
 		GdkRegion *region = gdk_region_new ();
 		GdkRectangle paint;
