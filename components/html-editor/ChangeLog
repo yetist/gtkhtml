@@ -1,3 +1,8 @@
+2002-09-30  Larry Ewing  <lewing@ximian.com>
+
+	* popup.c (prepare_properties_and_menu): move the cut/copy/paste
+	items and add undo/redo items.
+
 2002-09-26  Radek Doulik  <rodo@ximian.com>
 
 	* menubar.c (file_dialog_ok): use html_engine_paste_text instead

@@ -58,6 +58,18 @@
 #endif
 
 static void
+undo (GtkWidget *mi, GtkHTMLControlData *cd)
+{
+	gtk_html_undo (cd->html);
+}
+
+static void
+redo (GtkWidget *mi, GtkHTMLControlData *cd)
+{
+	gtk_html_redo (cd->html);
+}
+
+static void
 copy (GtkWidget *mi, GtkHTMLControlData *cd)
 {
 	gtk_html_copy (cd->html);
@@ -107,6 +119,11 @@ remove_link (GtkWidget *mi, GtkHTMLControlData *cd)
 		html_engine_select_word_editable (cd->html->engine);
 	html_engine_edit_set_link (cd->html->engine, NULL, NULL);
 	html_engine_selection_pop (cd->html->engine);
+}
+
+static void
+open_link (GtkWidget *mi, GtkHTMLControlData *cd)
+{
 }
 
 static void
@@ -403,6 +420,26 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items)
 	ADD_SEP;
 #endif
 	active = html_engine_is_selection_active (e);
+	ADD_ITEM (_("Undo"), undo, NONE); 
+	ADD_ITEM (_("Redo"), redo, NONE); 
+
+	ADD_SEP;
+	ADD_ITEM_SENSITIVE (_("Copy"), copy, NONE, active);
+	ADD_ITEM_SENSITIVE (_("Cut"),  cut, NONE, active);
+	ADD_ITEM (_("Paste"),  paste, NONE);
+	ADD_ITEM (_("Paste Quotation"),  paste_cite, NONE);
+
+	ADD_SEP;
+	ADD_ITEM (_("Insert link"), insert_link, NONE);
+	if (cd->format_html
+	    && ((active && html_engine_selection_contains_link (e))
+		|| (obj
+		    && (HTML_OBJECT_TYPE (obj) == HTML_TYPE_LINKTEXT
+			|| (HTML_OBJECT_TYPE (obj) == HTML_TYPE_IMAGE
+			    && (HTML_IMAGE (obj)->url
+				|| HTML_IMAGE (obj)->target)))))) {
+		ADD_ITEM (_("Remove link"), remove_link, NONE);
+	}
 
 	if (!active && obj && html_object_is_text (obj)
 	    && !html_engine_spell_word_is_valid (e)) {
@@ -418,6 +455,7 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items)
 		ignore_utf8 = e_utf8_from_locale_string (_("Ignore '%s'"));
 		ignore = g_strdup_printf (ignore_utf8, word);
 		g_free (ignore_utf8);
+		ADD_SEP;
 		SUBMENU (N_("Spell checker"));
 		if (cd->has_spell_control) {
 			ADD_ITEM_UTF8 (spell, spell_check_cb, NONE);
@@ -433,25 +471,6 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items)
 		g_free (ignore);
 		g_free (word);
 	}
-
-	ADD_SEP;
-	ADD_ITEM (_("Insert link"), insert_link, NONE);
-
-	if (cd->format_html
-	    && ((active && html_engine_selection_contains_link (e))
-		|| (obj
-		    && (HTML_OBJECT_TYPE (obj) == HTML_TYPE_LINKTEXT
-			|| (HTML_OBJECT_TYPE (obj) == HTML_TYPE_IMAGE
-			    && (HTML_IMAGE (obj)->url
-				|| HTML_IMAGE (obj)->target)))))) {
-		ADD_ITEM (_("Remove link"), remove_link, NONE);
-	}
-
-	ADD_SEP;
-	ADD_ITEM_SENSITIVE (_("Copy"), copy, NONE, active);
-	ADD_ITEM_SENSITIVE (_("Cut"),  cut, NONE, active);
-	ADD_ITEM (_("Paste"),  paste, NONE);
-	ADD_ITEM (_("Paste Quotation"),  paste_cite, NONE);
 
 	if (cd->format_html && obj) {
 		switch (HTML_OBJECT_TYPE (obj)) {
