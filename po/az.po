@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.11.99\n"
-"POT-Creation-Date: 2001-08-08 17:50+0200\n"
-"PO-Revision-Date: 2001-08-07 20:51GMT +0200\n"
+"POT-Creation-Date: 2001-08-18 16:37+0200\n"
+"PO-Revision-Date: 2001-08-16 21:19GMT +0200\n"
 "Last-Translator: Vasif İsmayıloğlu MD <azerb_linux@hotmail.com>\n"
 "Language-Team: Azerbaijani Turkish <linuxaz@azerimal.net>\n"
 "MIME-Version: 1.0\n"
@@ -14,129 +14,145 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 0.8\n"
 
-#: capplet/gnome-bindings-prop.c:154 capplet/gnome-bindings-prop.c:222
-#: capplet/gnome-bindings-prop.c:297 capplet/gnome-bindings-prop.c:435
-#: capplet/gnome-bindings-prop.c:436
+#: capplet/gnome-bindings-prop.c:156
 msgid "<None>"
 msgstr "<Yox>"
 
-#: capplet/gnome-bindings-prop.c:529
-msgid "Key"
-msgstr "Açar"
-
-#: capplet/gnome-bindings-prop.c:530
-msgid "Command"
-msgstr "Əmr"
-
-#: capplet/gnome-bindings-prop.c:531
-msgid "Commands"
-msgstr "Əmrlər"
-
-#: capplet/gnome-bindings-prop.c:532
-msgid "Keymaps"
-msgstr "Düymə xəritələri"
-
-#: capplet/gnome-bindings-prop.c:551
-msgid "Add"
-msgstr "Əlavə Et"
-
-#: capplet/gnome-bindings-prop.c:554 components/html-editor/popup.c:325
-msgid "Copy"
-msgstr "Köçürt"
-
-#: capplet/gnome-bindings-prop.c:557
-msgid "Delete"
-msgstr "Sil"
-
-#: capplet/gnome-bindings-prop.c:590
-msgid "Grab key"
-msgstr "Düyməyi yaxala"
-
-#: capplet/main.c:241 components/html-editor/cell.c:386
-#: components/html-editor/rule.c:315 components/html-editor/table.c:547
-#: components/html-editor/table.c:633
+#: capplet/gnome-bindings-prop.c:215 capplet/main.c:243
+#: components/html-editor/cell.c:385 components/html-editor/rule.c:315
+#: components/html-editor/table.c:525 components/html-editor/table.c:616
 msgid "Could not load glade file."
 msgstr "Glade soyesini yükləyə bilmədim"
 
 #: capplet/gtkhtml-capplet.glade.h:1
-#, fuzzy
-msgid "Automatically detect links"
-msgstr "Avtomatik Körpü Təsbiti"
+msgid "*********************"
+msgstr "*********************"
 
 #: capplet/gtkhtml-capplet.glade.h:2
+msgid "Add Keyboard Shortcuts"
+msgstr "Klaviatura Qısa Yolları Ælavə Et"
+
+#: capplet/gtkhtml-capplet.glade.h:3
+msgid "Automatically detect links"
+msgstr "Körpüləri avtomatik  sil"
+
+#: capplet/gtkhtml-capplet.glade.h:4
 msgid "Behavior"
 msgstr "Davranış"
 
 #. color selection
-#: capplet/gtkhtml-capplet.glade.h:3 components/html-editor/text.c:218
+#: capplet/gtkhtml-capplet.glade.h:5 components/html-editor/text.c:218
 msgid "Color"
 msgstr "Rəng"
 
-#: capplet/gtkhtml-capplet.glade.h:4
-#, fuzzy
-msgid "Enable spell checking"
-msgstr "İmla yoxlaması"
+#: capplet/gtkhtml-capplet.glade.h:6
+msgid "Command"
+msgstr "Əmr"
 
-#: capplet/gtkhtml-capplet.glade.h:5
+#: capplet/gtkhtml-capplet.glade.h:7
+msgid "Composer Properties"
+msgstr "Yazıçı Xüsusiyyətleri"
+
+#: capplet/gtkhtml-capplet.glade.h:8
+msgid "Composer Properties planned"
+msgstr "Yazıçı Seçənəkləri planlandı"
+
+#: capplet/gtkhtml-capplet.glade.h:9
+msgid "Enable spell checking"
+msgstr "İmla yoxlamasını fəallaşdır"
+
+#: capplet/gtkhtml-capplet.glade.h:10
 msgid "Fixed width"
 msgstr "Sabit en"
 
-#: capplet/gtkhtml-capplet.glade.h:6
+#: capplet/gtkhtml-capplet.glade.h:11
 msgid "Fonts"
 msgstr "Yazıtipləri"
 
-#: capplet/gtkhtml-capplet.glade.h:7
+#: capplet/gtkhtml-capplet.glade.h:12
 msgid "For printing"
 msgstr "Çap etmək üçün"
 
-#: capplet/gtkhtml-capplet.glade.h:8
+#: capplet/gtkhtml-capplet.glade.h:13
+msgid "Grab keys"
+msgstr "Düymələri yaxala"
+
+#: capplet/gtkhtml-capplet.glade.h:14
+msgid "Information"
+msgstr "Mə'lumat"
+
+#: capplet/gtkhtml-capplet.glade.h:15
 msgid "Keyboard Shortcuts"
 msgstr "Klaviatura Qısa Yolları"
 
-#: capplet/gtkhtml-capplet.glade.h:9
+#: capplet/gtkhtml-capplet.glade.h:16
 msgid "Language"
 msgstr "Dil"
 
-#: capplet/gtkhtml-capplet.glade.h:10
+#: capplet/gtkhtml-capplet.glade.h:17
+#: components/html-editor/gtkhtml-editor-properties.glade.h:23
 msgid "Miscellaneous"
 msgstr "Qarışıq"
 
-#: capplet/gtkhtml-capplet.glade.h:11
+#: capplet/gtkhtml-capplet.glade.h:18
+msgid "New shortcut:"
+msgstr "Yeni qısa yol:"
+
+#: capplet/gtkhtml-capplet.glade.h:19
 msgid "On screen"
 msgstr "Ekranda"
 
-#: capplet/gtkhtml-capplet.glade.h:12
+#: capplet/gtkhtml-capplet.glade.h:20
 msgid "Pick a color"
 msgstr "Rəng seç"
 
-#: capplet/gtkhtml-capplet.glade.h:13
+#: capplet/gtkhtml-capplet.glade.h:21
 msgid "Select HTML fixed width font"
 msgstr "HTML üçün sabit en yazıtipini seç"
 
-#: capplet/gtkhtml-capplet.glade.h:14
+#: capplet/gtkhtml-capplet.glade.h:22
 msgid "Select HTML fixed width font for printing"
 msgstr "Çap etmək üçün sabit en yazıtipini seç"
 
-#: capplet/gtkhtml-capplet.glade.h:15
+#: capplet/gtkhtml-capplet.glade.h:23
 msgid "Select HTML variable width font"
 msgstr "HTML dəyişgən en yazıtipini seç"
 
-#: capplet/gtkhtml-capplet.glade.h:16
+#: capplet/gtkhtml-capplet.glade.h:24
 msgid "Select HTML variable width font for printing"
 msgstr "Çap etmək üçün dəyişgən en yazıtipini seç"
 
-#: capplet/gtkhtml-capplet.glade.h:17
-#, fuzzy
-msgid "Show animated images"
-msgstr "Hərəkətli şəkillər"
+#: capplet/gtkhtml-capplet.glade.h:25
+msgid "Select command "
+msgstr "Æmr seç "
 
-#: capplet/gtkhtml-capplet.glade.h:18
+#: capplet/gtkhtml-capplet.glade.h:26
+msgid "Shortcut"
+msgstr "Qısa Yol"
+
+#: capplet/gtkhtml-capplet.glade.h:27
+msgid "Shortcuts _type:"
+msgstr "Qısa yol _növü:"
+
+#: capplet/gtkhtml-capplet.glade.h:28
+msgid "Show animated images"
+msgstr "Canlı rəsmləri göstər"
+
+#: capplet/gtkhtml-capplet.glade.h:29
 msgid "Spell Checking"
 msgstr "İmla Yoxlaması"
 
-#: capplet/gtkhtml-capplet.glade.h:19
+#: capplet/gtkhtml-capplet.glade.h:30
 msgid "Variable width"
 msgstr "Dəyişgən eni"
+
+#: capplet/gtkhtml-capplet.glade.h:31
+msgid "_Add"
+msgstr "Ə_lavə Et"
+
+#: capplet/gtkhtml-capplet.glade.h:32
+msgid "_Delete"
+msgstr "_Sil"
 
 #: components/ebrowser/GNOME_GtkHTML_EBrowser.oaf.in.h:1
 msgid "EBrowser control"
@@ -174,65 +190,65 @@ msgstr "Arxaplan Rəsmi"
 msgid "Enable"
 msgstr "Aç"
 
-#: components/html-editor/body.c:160
+#: components/html-editor/body.c:166
 msgid "Colors"
 msgstr "Rənglər"
 
-#: components/html-editor/body.c:169 components/html-editor/cell.c:392
-#: components/html-editor/table.c:553 components/html-editor/text.c:221
-#: components/html-editor/toolbar.c:286
+#: components/html-editor/body.c:175 components/html-editor/cell.c:391
+#: components/html-editor/table.c:531 components/html-editor/text.c:221
+#: components/html-editor/toolbar.c:290
 msgid "Automatic"
 msgstr "Avtomatik"
 
-#: components/html-editor/body.c:180
-#: components/html-editor/editor-control-factory.c:172
-#: components/html-editor/menubar.c:125 components/html-editor/popup.c:150
+#: components/html-editor/body.c:186
+#: components/html-editor/editor-control-factory.c:184
+#: components/html-editor/menubar.c:126 components/html-editor/popup.c:150
 msgid "Text"
 msgstr "Mətn"
 
-#: components/html-editor/body.c:181
-#: components/html-editor/editor-control-factory.c:198
-#: components/html-editor/menubar.c:109 components/html-editor/menubar.c:130
+#: components/html-editor/body.c:187
+#: components/html-editor/editor-control-factory.c:210
+#: components/html-editor/menubar.c:110 components/html-editor/menubar.c:131
 #: components/html-editor/popup.c:171
 msgid "Link"
 msgstr "Baǧ"
 
-#: components/html-editor/body.c:182
-#: components/html-editor/gtkhtml-editor-properties.glade.h:4
+#: components/html-editor/body.c:188
+#: components/html-editor/gtkhtml-editor-properties.glade.h:5
 msgid "Background"
 msgstr "Arxa plan"
 
-#: components/html-editor/editor-control-factory.c:152
+#: components/html-editor/editor-control-factory.c:164
 #: components/html-editor/popup.c:142
 msgid "Properties"
 msgstr "Xüsusiyyətler"
 
-#: components/html-editor/editor-control-factory.c:163
-#: components/html-editor/menubar.c:104 components/html-editor/popup.c:157
+#: components/html-editor/editor-control-factory.c:175
+#: components/html-editor/menubar.c:105 components/html-editor/popup.c:157
 msgid "Image"
 msgstr "Rəsm"
 
-#: components/html-editor/editor-control-factory.c:183
-#: components/html-editor/gtkhtml-editor-properties.glade.h:24
-#: components/html-editor/menubar.c:148 components/html-editor/popup.c:185
+#: components/html-editor/editor-control-factory.c:195
+#: components/html-editor/gtkhtml-editor-properties.glade.h:37
+#: components/html-editor/menubar.c:149 components/html-editor/popup.c:185
 msgid "Rule"
 msgstr "Çubuq"
 
-#: components/html-editor/editor-control-factory.c:193
+#: components/html-editor/editor-control-factory.c:205
 #: components/html-editor/popup.c:164
 msgid "Paragraph"
 msgstr "Paraqraf"
 
-#: components/html-editor/editor-control-factory.c:203
+#: components/html-editor/editor-control-factory.c:215
 #: components/html-editor/popup.c:178
 msgid "Page"
 msgstr "Səhifə"
 
-#: components/html-editor/editor-control-factory.c:765
+#: components/html-editor/editor-control-factory.c:786
 msgid "Could not initialize GNORBA"
 msgstr "GNORBA'yı başlada bilmədim"
 
-#: components/html-editor/editor-control-factory.c:778
+#: components/html-editor/editor-control-factory.c:799
 msgid "Could not initialize Bonobo"
 msgstr "Bonobo'yu başlada bilmədim"
 
@@ -243,226 +259,252 @@ msgstr "************"
 #. ADD_ITEM("Left",   GDK_F4);
 #. ADD_ITEM("Right",  GDK_F5);
 #: components/html-editor/gtkhtml-editor-properties.glade.h:2
-#: components/html-editor/image.c:206
+#: components/html-editor/image.c:207
 msgid "Alignment"
 msgstr "Tərəfləmə"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:3
-msgid "Apply changes to"
+#, fuzzy
+msgid "Alignment:"
+msgstr "Tərəfləmə"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:4
+#, fuzzy
+msgid "Apply changes to:"
 msgstr "Dəyişiklikləri əlavə et"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:5
+#: components/html-editor/gtkhtml-editor-properties.glade.h:6
 msgid "Be careful! Tables code is still ALPHA quality."
 msgstr "Diqqətli ol! Cədvəl kodu hələ ki ALPHA keyfiyyətindədir."
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:6
-#: components/html-editor/image.c:202
+#: components/html-editor/gtkhtml-editor-properties.glade.h:7
+#, fuzzy
+msgid "Border:"
+msgstr "Kənar"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:8
+#: components/html-editor/image.c:203
 msgid "Bottom"
 msgstr "Alt"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:7
+#: components/html-editor/gtkhtml-editor-properties.glade.h:9
 #: components/html-editor/popup.c:199
 msgid "Cell"
 msgstr "Hücrə"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:8
-#: components/html-editor/paragraph.c:158 components/html-editor/toolbar.c:496
+#: components/html-editor/gtkhtml-editor-properties.glade.h:10
+#: components/html-editor/paragraph.c:159 components/html-editor/toolbar.c:500
 msgid "Center"
 msgstr "Orta"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:9
+#: components/html-editor/gtkhtml-editor-properties.glade.h:11
+#, fuzzy
+msgid "Color:"
+msgstr "Rəng"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:12
 #: components/html-editor/popup.c:396
 msgid "Column"
 msgstr "Sütun"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:10
+#: components/html-editor/gtkhtml-editor-properties.glade.h:13
+#, fuzzy
+msgid "Column span:"
+msgstr "sütun spanı"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:14
+#, fuzzy
+msgid "Columns:"
+msgstr "Sütun"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:15
 msgid "Don't wrap"
 msgstr "Qırma"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:11
+#: components/html-editor/gtkhtml-editor-properties.glade.h:16
 msgid "Header"
 msgstr "Başlıq"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:12
-#: components/html-editor/paragraph.c:157
+#: components/html-editor/gtkhtml-editor-properties.glade.h:17
+#, fuzzy
+msgid "Height:"
+msgstr "hündürlük"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:18
+#, fuzzy
+msgid "Horizontal alignment:"
+msgstr "tərəfləmə"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:19
+#, fuzzy
+msgid "Horizontal:"
+msgstr "üfüqi"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:20
+#: components/html-editor/paragraph.c:158
 msgid "Left"
 msgstr "Sol"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:13
-#: components/html-editor/image.c:201
+#: components/html-editor/gtkhtml-editor-properties.glade.h:21
+#, fuzzy
+msgid "Length:"
+msgstr "uzunluq"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:22
+#: components/html-editor/image.c:202
 msgid "Middle"
 msgstr "Orta"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:14
-msgid "Miscelaneous"
-msgstr "Qarışıq"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:15
+#: components/html-editor/gtkhtml-editor-properties.glade.h:24
 msgid "None"
 msgstr "Heç Biri"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:16
+#: components/html-editor/gtkhtml-editor-properties.glade.h:25
 #: components/html-editor/paragraph.c:124 components/html-editor/toolbar.c:50
 msgid "Normal"
 msgstr "Normal"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:17
+#: components/html-editor/gtkhtml-editor-properties.glade.h:26
+#, fuzzy
+msgid "Padding:"
+msgstr "Kənarlama"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:27
 msgid "Percent"
 msgstr "Faiz"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:19
-#: components/html-editor/image.c:259 components/html-editor/image.c:268
+#: components/html-editor/gtkhtml-editor-properties.glade.h:29
+#: components/html-editor/image.c:260 components/html-editor/image.c:269
 #, no-c-format
 msgid "Percent %"
 msgstr "Faiz %"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:20
-#: components/html-editor/image.c:258 components/html-editor/image.c:267
+#: components/html-editor/gtkhtml-editor-properties.glade.h:30
+#: components/html-editor/image.c:259 components/html-editor/image.c:268
 msgid "Pixels"
 msgstr "Piksel"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:21
+#: components/html-editor/gtkhtml-editor-properties.glade.h:31
 #, fuzzy
-msgid "Points"
-msgstr "Yazıtipləri"
+msgid "Pixmap:"
+msgstr "rəsmcik"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:22
-#: components/html-editor/paragraph.c:159
+#: components/html-editor/gtkhtml-editor-properties.glade.h:32
+msgid "Points"
+msgstr "Nöqtələr"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:33
+#: components/html-editor/paragraph.c:160
 msgid "Right"
 msgstr "Saǧ"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:23
+#: components/html-editor/gtkhtml-editor-properties.glade.h:34
 #: components/html-editor/popup.c:395
 msgid "Row"
 msgstr "Sətir"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:25
+#: components/html-editor/gtkhtml-editor-properties.glade.h:35
+#, fuzzy
+msgid "Row span:"
+msgstr "sətir spanı"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:36
+#, fuzzy
+msgid "Rows:"
+msgstr "Sətir"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:38
 msgid "Scope"
 msgstr "Təs'ir sahəsi"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:26
-#: components/html-editor/image.c:251 components/html-editor/text.c:188
+#: components/html-editor/gtkhtml-editor-properties.glade.h:39
+#, fuzzy
+msgid "Shaded"
+msgstr "kölgəli"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:40
+#: components/html-editor/image.c:252 components/html-editor/text.c:188
 msgid "Size"
 msgstr "Böyüklük"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:27
+#: components/html-editor/gtkhtml-editor-properties.glade.h:41
 msgid "Spacing"
 msgstr "Fasilə"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:28
+#: components/html-editor/gtkhtml-editor-properties.glade.h:42
+#, fuzzy
+msgid "Spacing:"
+msgstr "Fasilə"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:43
 #: components/html-editor/paragraph.c:110 components/html-editor/text.c:168
 msgid "Style"
 msgstr "Tərz"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:29
-#: components/html-editor/menubar.c:165 components/html-editor/popup.c:192
+#: components/html-editor/gtkhtml-editor-properties.glade.h:44
+#, fuzzy
+msgid "Style:"
+msgstr "Tərz"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:45
+#: components/html-editor/menubar.c:166 components/html-editor/popup.c:192
 #: components/html-editor/popup.c:385 components/html-editor/popup.c:394
 msgid "Table"
 msgstr "Cədvəl"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:30
+#: components/html-editor/gtkhtml-editor-properties.glade.h:46
 msgid "Table Insert"
 msgstr "Cədvəl Daxil Etmə"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:31
+#: components/html-editor/gtkhtml-editor-properties.glade.h:47
+#: components/html-editor/menubar.c:189
 msgid "Template"
 msgstr "Nümunə"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:32
-#: components/html-editor/image.c:200
+#: components/html-editor/gtkhtml-editor-properties.glade.h:48
+#: components/html-editor/image.c:201
 msgid "Top"
 msgstr "Təpə"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:33
-msgid "Wrap"
-msgstr "Qır"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:34
-msgid "alignment"
-msgstr "tərəfləmə"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:35
-msgid "border"
-msgstr "kənar"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:36
-msgid "color"
-msgstr "rəng"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:37
-msgid "column span"
-msgstr "sütun spanı"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:38
-msgid "columns"
-msgstr "sütun"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:39
-#: components/html-editor/image.c:243 components/html-editor/image.c:275
-msgid "height"
-msgstr "hündürlük"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:40
-msgid "horizontal"
-msgstr "üfüqi"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:41
-msgid "length"
-msgstr "uzunluq"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:42
-msgid "padding"
-msgstr "kənarlama"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:43
-msgid "pixmap"
-msgstr "rəsmcik"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:44
-msgid "row span"
-msgstr "sətir spanı"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:45
-msgid "rows"
-msgstr "sətir"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:46
-msgid "shaded"
-msgstr "kölgəli"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:47
-msgid "spacing"
-msgstr "fasilə vermə"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:48
-msgid "style"
-msgstr "tərz"
-
 #: components/html-editor/gtkhtml-editor-properties.glade.h:49
-msgid "vertical"
+#, fuzzy
+msgid "Vertical:"
 msgstr "şaquli"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:50
-#: components/html-editor/image.c:224 components/html-editor/image.c:242
-#: components/html-editor/image.c:274
-msgid "width"
+#, fuzzy
+msgid "Width:"
 msgstr "en"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:51
-msgid "wrapping"
+msgid "Wrap"
+msgstr "Qır"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:52
+#, fuzzy
+msgid "Wrapping:"
 msgstr "qırma"
 
 #: components/html-editor/image.c:179
 msgid "Image selection"
 msgstr "Rəsm seçkisi"
 
-#: components/html-editor/image.c:214
+#: components/html-editor/image.c:215
 msgid "Border"
 msgstr "Kənar"
 
-#: components/html-editor/image.c:231
+#: components/html-editor/image.c:225 components/html-editor/image.c:243
+#: components/html-editor/image.c:275
+msgid "width"
+msgstr "en"
+
+#: components/html-editor/image.c:232
 msgid "Padding"
 msgstr "Kənarlama"
+
+#: components/html-editor/image.c:244 components/html-editor/image.c:276
+msgid "height"
+msgstr "hündürlük"
 
 #: components/html-editor/link.c:73
 msgid "Clear"
@@ -472,13 +514,14 @@ msgstr "Sil"
 msgid "URL"
 msgstr "URL"
 
-#: components/html-editor/menubar.c:102 components/html-editor/menubar.c:122
-#: components/html-editor/menubar.c:145 components/html-editor/menubar.c:162
+#: components/html-editor/menubar.c:103 components/html-editor/menubar.c:123
+#: components/html-editor/menubar.c:146 components/html-editor/menubar.c:163
+#: components/html-editor/menubar.c:186
 #: components/html-editor/properties.c:118
 msgid "Insert"
 msgstr "Daxil Et"
 
-#: components/html-editor/menubar.c:184
+#: components/html-editor/menubar.c:202
 msgid "Cannot execute gtkhtml properties"
 msgstr "gtkhtml qurǧularını işə sala bilmədim"
 
@@ -514,19 +557,23 @@ msgstr "Başlıq 6"
 msgid "Address"
 msgstr "Ünvan"
 
-#: components/html-editor/paragraph.c:133
-msgid "Item dot"
-msgstr "Nöqtəli siyahı üzvü"
+#: components/html-editor/paragraph.c:133 components/html-editor/toolbar.c:59
+msgid "Dot item"
+msgstr ""
 
-#: components/html-editor/paragraph.c:134
-msgid "Item roman"
-msgstr "Siyahı üzvü ( roman rəqəmli)"
+#: components/html-editor/paragraph.c:134 components/html-editor/toolbar.c:60
+msgid "Number item"
+msgstr ""
 
-#: components/html-editor/paragraph.c:135
-msgid "Item digit"
-msgstr "Siyahı üzvü ( rəqəm)"
+#: components/html-editor/paragraph.c:135 components/html-editor/toolbar.c:61
+msgid "Roman item"
+msgstr ""
 
-#: components/html-editor/paragraph.c:144
+#: components/html-editor/paragraph.c:136 components/html-editor/toolbar.c:62
+msgid "Alphabeta item"
+msgstr ""
+
+#: components/html-editor/paragraph.c:145
 msgid "Align"
 msgstr "Tərəflə"
 
@@ -537,6 +584,10 @@ msgstr "Tövsiyyə edilən kəlmə"
 #: components/html-editor/popup.c:320
 msgid "Remove link"
 msgstr "Baǧı sil"
+
+#: components/html-editor/popup.c:325
+msgid "Copy"
+msgstr "Köçürt"
 
 #: components/html-editor/popup.c:326
 msgid "Cut"
@@ -576,6 +627,10 @@ msgstr "Cədvəl ..."
 msgid "Cell..."
 msgstr "Hücrə..."
 
+#: components/html-editor/popup.c:384
+msgid "Table insert"
+msgstr "Cədvəl daxil et"
+
 #: components/html-editor/popup.c:387
 msgid "Row above"
 msgstr "Üstdəki sətir"
@@ -591,6 +646,10 @@ msgstr "Əvvəlki sütun"
 #: components/html-editor/popup.c:391
 msgid "Column after"
 msgstr "Sonrakı sütun"
+
+#: components/html-editor/popup.c:393
+msgid "Table delete"
+msgstr "Cədvəl sil"
 
 #: components/html-editor/popup.c:397
 msgid "Cell contents"
@@ -635,11 +694,11 @@ msgstr "Düz"
 
 #: components/html-editor/rule.c:97
 msgid "Blue 3D"
-msgstr ""
+msgstr "Göy 3D"
 
 #: components/html-editor/rule.c:109
 msgid "Yellow, flowers"
-msgstr ""
+msgstr "Sarı, güllər"
 
 #: components/html-editor/search.c:64 components/html-editor/search.c:107
 msgid "Find"
@@ -650,8 +709,8 @@ msgid "backward"
 msgstr "arxaya tərəf"
 
 #: components/html-editor/search.c:107
-msgid "Regex find"
-msgstr "Qaydalıİfadə axtarışı"
+msgid "Find Regular Expression"
+msgstr "Qaydalı İfadə Axtar"
 
 #: components/html-editor/table.c:197
 msgid "Flat gray"
@@ -661,31 +720,27 @@ msgstr "Bulanıq boz"
 msgid "Dark header"
 msgstr "Tünd başlıq"
 
-#: components/html-editor/table.c:217
-msgid "Note"
-msgstr "Qeyd"
-
-#: components/html-editor/test-html-editor-control.c:240
+#: components/html-editor/test-html-editor-control.c:276
 msgid "Open file..."
 msgstr "Dosyeyi Aç ..."
 
-#: components/html-editor/test-html-editor-control.c:242
+#: components/html-editor/test-html-editor-control.c:278
 msgid "Save file as..."
 msgstr "Fərqli qeyd et ..."
 
-#: components/html-editor/text.c:180 components/html-editor/toolbar.c:507
+#: components/html-editor/text.c:180 components/html-editor/toolbar.c:511
 msgid "Bold"
 msgstr "Qalın"
 
-#: components/html-editor/text.c:181 components/html-editor/toolbar.c:509
+#: components/html-editor/text.c:181 components/html-editor/toolbar.c:513
 msgid "Italic"
 msgstr "Meyilli"
 
-#: components/html-editor/text.c:182 components/html-editor/toolbar.c:511
+#: components/html-editor/text.c:182 components/html-editor/toolbar.c:515
 msgid "Underline"
 msgstr "Alt çizgili"
 
-#: components/html-editor/text.c:183 components/html-editor/toolbar.c:513
+#: components/html-editor/text.c:183 components/html-editor/toolbar.c:517
 msgid "Strikeout"
 msgstr "Qaralanmış"
 
@@ -693,75 +748,63 @@ msgstr "Qaralanmış"
 msgid "Preformat"
 msgstr "Ön format"
 
-#: components/html-editor/toolbar.c:59
-msgid "List item (digit)"
-msgstr "Siyahı üzvü ( rəqəm)"
-
-#: components/html-editor/toolbar.c:60
-msgid "List item (unnumbered)"
-msgstr "Siyahı üzvü ( rəqəmsiz)"
-
-#: components/html-editor/toolbar.c:61
-msgid "List item (roman)"
-msgstr "Siyahı üzvü ( roman rəqəmli)"
-
-#: components/html-editor/toolbar.c:494
+#: components/html-editor/toolbar.c:498
 msgid "Left align"
 msgstr "Sola tərəflə"
 
-#: components/html-editor/toolbar.c:494
+#: components/html-editor/toolbar.c:498
 msgid "Left justifies the paragraphs"
 msgstr "Paraqrafları sola sütunlaşdır"
 
-#: components/html-editor/toolbar.c:496
+#: components/html-editor/toolbar.c:500
 msgid "Centers justifies the paragraphs"
 msgstr "Paraqrafları ortaya sütunlaşdır"
 
-#: components/html-editor/toolbar.c:498
+#: components/html-editor/toolbar.c:502
 msgid "Right align"
 msgstr "Ortaya tərəflə"
 
-#: components/html-editor/toolbar.c:498
+#: components/html-editor/toolbar.c:502
 msgid "Right justifies the paragraphs"
 msgstr "Paraqrafları sağa sütunlaşdır"
 
-#: components/html-editor/toolbar.c:505
+#: components/html-editor/toolbar.c:509
 msgid "Typewriter"
 msgstr "Yazma"
 
-#: components/html-editor/toolbar.c:505
+#: components/html-editor/toolbar.c:509
 msgid "Toggle typewriter font style"
 msgstr "Yazma yazı növü tərzini dəyişdir"
 
-#: components/html-editor/toolbar.c:507
+#: components/html-editor/toolbar.c:511
 msgid "Makes the text bold"
 msgstr "Mətni qalınlaşdırar"
 
-#: components/html-editor/toolbar.c:509
+#: components/html-editor/toolbar.c:513
 msgid "Makes the text italic"
 msgstr "Mətni italikləşdirər"
 
-#: components/html-editor/toolbar.c:511
+#: components/html-editor/toolbar.c:515
 msgid "Underlines the text"
 msgstr "Mətn altını cızar"
 
-#: components/html-editor/toolbar.c:513
+#: components/html-editor/toolbar.c:517
 msgid "Strikes out the text"
 msgstr "Mətni qaralayar"
 
-#: components/html-editor/toolbar.c:522
+#: components/html-editor/toolbar.c:526
 msgid "Unindent"
 msgstr "Daha az arala"
 
-#: components/html-editor/toolbar.c:522
+#: components/html-editor/toolbar.c:526
 msgid "Indents the paragraphs less"
 msgstr "Paraqrafları daha az aralayar"
 
-#: components/html-editor/toolbar.c:524
+#: components/html-editor/toolbar.c:528
 msgid "Indent"
 msgstr "Arala"
 
-#: components/html-editor/toolbar.c:524
+#: components/html-editor/toolbar.c:528
 msgid "Indents the paragraphs more"
 msgstr "Paraqrafları daha çox aralayar"
 
@@ -771,7 +814,7 @@ msgstr "Nümunə"
 
 #: src/htmlgdkpainter.c:211
 msgid "Can't load fixed font."
-msgstr ""
+msgstr "Sabit yazı növü yüklənə bilmir."
 
 #: src/testgtkhtml.c:112
 msgid "Print pre_view"
@@ -781,119 +824,47 @@ msgstr "Önizləməyi _çap et"
 msgid "Print preview"
 msgstr "Çap etmə önizləməsi"
 
-#~ msgid "C_ut"
-#~ msgstr "K_əs"
+#~ msgid "Miscelaneous"
+#~ msgstr "Qarışıq"
 
-#~ msgid "Copy selection to clipboard"
-#~ msgstr "Seçili bölmani ara yaddaşa al"
+#~ msgid "border"
+#~ msgstr "kənar"
 
-#~ msgid "Copy the selection"
-#~ msgstr "Seçili bölməyi al"
+#~ msgid "color"
+#~ msgstr "rəng"
 
-#~ msgid "Cut selection to clipboard"
-#~ msgstr "Seçili bölməyi ara yaddaşa kəs"
+#~ msgid "columns"
+#~ msgstr "sütun"
 
-#~ msgid "Cut the selection"
-#~ msgstr "Seçili bölməyi kəs"
+#~ msgid "padding"
+#~ msgstr "kənarlama"
 
-#~ msgid "Find A Regular Expression"
-#~ msgstr "Qaydalı İfadə Axtar"
+#~ msgid "rows"
+#~ msgstr "sətir"
 
-#~ msgid "Find And Replace"
-#~ msgstr "Tap və Dəyişdir"
+#~ msgid "spacing"
+#~ msgstr "fasilə vermə"
 
-#~ msgid "Find Rege_x..."
-#~ msgstr "Rede_ks axtar ..."
+#~ msgid "style"
+#~ msgstr "tərz"
 
-#~ msgid "Find _Again"
-#~ msgstr "_Təzədən Axtar"
+#~ msgid "Item dot"
+#~ msgstr "Nöqtəli siyahı üzvü"
 
-#~ msgid "Find again"
-#~ msgstr "Yenidən axtar"
+#~ msgid "Item roman"
+#~ msgstr "Siyahı üzvü ( roman rəqəmli)"
 
-#~ msgid "Find and Replace"
-#~ msgstr "Axtar və Dəyişdir"
+#~ msgid "Item digit"
+#~ msgstr "Siyahı üzvü ( rəqəm)"
 
-#~ msgid "Insert HTML link into document..."
-#~ msgstr "Sənədə HTML baǧı əlavə et..."
+#~ msgid "Note"
+#~ msgstr "Qeyd"
 
-#~ msgid "Insert image into document..."
-#~ msgstr "Sənədə rəsm əlavə et..."
+#~ msgid "List item (digit)"
+#~ msgstr "Siyahı üzvü ( rəqəm)"
 
-#~ msgid "Insert rule into document..."
-#~ msgstr "Sənədə çubuq əlavə et..."
+#~ msgid "List item (unnumbered)"
+#~ msgstr "Siyahı üzvü ( rəqəmsiz)"
 
-#~ msgid "Insert table into document..."
-#~ msgstr "Sənədə çubuq əlavə et..."
-
-#~ msgid "Modify the file's properties"
-#~ msgstr "Sənəd xüsusiyyətlərini təkmilləşdir"
-
-#~ msgid "Paste from clipboard"
-#~ msgstr "Arayaddaşdan yapışdır"
-
-#~ msgid "Paste the clipboard"
-#~ msgstr "Arayaddaşı yapışdır"
-
-#~ msgid "Redo"
-#~ msgstr "Təzədən et"
-
-#~ msgid "Redo previously undone change"
-#~ msgstr "Əvvəlcə vaz keçdiyiniz əməliyyatı yenidən edin"
-
-#~ msgid "Redo the undone action"
-#~ msgstr "Vaz keçdiyiniz əməliyyatı yenidən edin"
-
-#~ msgid "Select _All"
-#~ msgstr "_Hamısını Seç"
-
-#~ msgid "Select the entire contents of the document"
-#~ msgstr "Sənədin bütün məzmununu seç"
-
-#~ msgid "Undo"
-#~ msgstr "Arxaya al"
-
-#~ msgid "Undo previous changes"
-#~ msgstr "Əvvəlki dəyişiklikləri arxaya al"
-
-#~ msgid "Undo the last action"
-#~ msgstr "Axırıncı əməliyyatı laǧv et"
-
-#~ msgid "_Copy"
-#~ msgstr "_Köçürt"
-
-#~ msgid "_Edit"
-#~ msgstr "_Düzəlt"
-
-#~ msgid "_Find..."
-#~ msgstr "_Axtar..."
-
-#~ msgid "_Image..."
-#~ msgstr "_Rəsm..."
-
-#~ msgid "_Insert"
-#~ msgstr "_Daxil Et"
-
-#~ msgid "_Link..."
-#~ msgstr "_Baǧ..."
-
-#~ msgid "_Paste"
-#~ msgstr "_Yapışdır"
-
-#~ msgid "_Properties..."
-#~ msgstr "_Xüsusiyyətlər..."
-
-#~ msgid "_Redo"
-#~ msgstr "_Təzədən Et"
-
-#~ msgid "_Replace..."
-#~ msgstr "_Dəyişdir"
-
-#~ msgid "_Rule..."
-#~ msgstr "_Çubuq..."
-
-#~ msgid "_Table..."
-#~ msgstr "_Cədvəl..."
-
-#~ msgid "_Undo"
-#~ msgstr "_Arxaya al"
+#~ msgid "List item (roman)"
+#~ msgstr "Siyahı üzvü ( roman rəqəmli)"
