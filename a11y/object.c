@@ -283,10 +283,17 @@ gtk_html_a11y_get_focus_object (GtkWidget * widget)
 	GtkHTML * html;
 	HTMLObject * htmlobj = NULL;
         AtkObject *obj = NULL;
+	gint offset;
 
 	html = GTK_HTML(widget);
-	if (html->engine && html->engine->cursor)
+
+	g_return_val_if_fail (html && html->engine, NULL);
+
+	if (!html->engine->caret_mode && !gtk_html_get_editable (html))
+		htmlobj = html_engine_get_focus_object (html->engine, &offset);
+	else if (html->engine && html->engine->cursor)
 		htmlobj = html->engine->cursor->object;
+
 	if (htmlobj)
 		obj = html_utils_get_accessible (htmlobj, NULL);
 
@@ -299,14 +306,15 @@ gtk_html_a11y_grab_focus_cb(GtkWidget * widget)
         AtkObject *focus_object, *obj, *clue;
 
 
-	 focus_object = gtk_html_a11y_get_focus_object (widget);
-        obj = gtk_widget_get_accessible (widget);
-        g_object_set_data (G_OBJECT(obj), "gail-focus-object", focus_object);
+	focus_object = gtk_html_a11y_get_focus_object (widget);
+	g_return_if_fail (focus_object != NULL);
+	obj = gtk_widget_get_accessible (widget);
+	g_object_set_data (G_OBJECT(obj), "gail-focus-object", focus_object);
 
 	clue = html_utils_get_accessible(GTK_HTML(widget)->engine->clue, obj);
 	atk_object_set_parent(clue, obj);
 
-        atk_focus_tracker_notify (focus_object);
+	atk_focus_tracker_notify (focus_object);
 
 }
 
@@ -318,8 +326,9 @@ gtk_html_a11y_cursor_changed_cb (GtkWidget *widget)
 {
         AtkObject *focus_object, *obj;
 
-	focus_object = gtk_html_a11y_get_focus_object (widget);
-       obj = gtk_widget_get_accessible (widget);
+	focus_object = gtk_html_a11y_get_focus_object (widget);  
+	g_return_if_fail (focus_object != NULL);
+	obj = gtk_widget_get_accessible (widget);
 	
 	if (gtk_html_a11y_focus_object != focus_object) {
 		gtk_html_a11y_focus_object = focus_object;
@@ -342,6 +351,7 @@ gtk_html_a11y_insert_object_cb (GtkWidget * widget, int pos, int len)
 
         obj = gtk_widget_get_accessible (widget);
 	a11y = gtk_html_a11y_get_focus_object (widget);
+	g_return_if_fail (a11y != NULL);
 
 	if (gtk_html_a11y_focus_object != a11y) {
 		gtk_html_a11y_focus_object = a11y;
@@ -362,6 +372,7 @@ gtk_html_a11y_delete_object_cb (GtkWidget * widget, int pos, int len)
 
         obj = gtk_widget_get_accessible (widget);
 	a11y = gtk_html_a11y_get_focus_object (widget);
+	g_return_if_fail (a11y != NULL);
 
 	if (gtk_html_a11y_focus_object != a11y) {
 		gtk_html_a11y_focus_object = a11y;
