@@ -421,6 +421,13 @@ table_insert_widget (GtkHTMLEditTableProperties *d)
 	gtk_signal_connect (GTK_OBJECT (gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_width))), "selection-done",
 			    changed_width_percent, d);
 
+	d->spin_spacing = glade_xml_get_widget (xml, "spin_spacing");
+	gtk_signal_connect (GTK_OBJECT (d->spin_spacing), "changed", changed_spacing, d);
+	d->spin_padding = glade_xml_get_widget (xml, "spin_padding");
+	gtk_signal_connect (GTK_OBJECT (d->spin_padding), "changed", changed_padding, d);
+	d->spin_border  = glade_xml_get_widget (xml, "spin_border");
+	gtk_signal_connect (GTK_OBJECT (d->spin_border), "changed", changed_border, d);
+
 	gtk_widget_show_all (table_page);
 
 	return table_page;
@@ -471,6 +478,10 @@ set_insert_ui (GtkHTMLEditTableProperties *d)
 
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_cols),  d->cols);
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_rows),  d->rows);
+
+	gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_spacing), d->spacing);
+	gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_padding), d->padding);
+	gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_border),  d->border);
 
 	d->disable_change = FALSE;
 }
