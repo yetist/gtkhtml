@@ -1,3 +1,9 @@
+2001-04-16  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml-0.9.1 released.
+	
+	* configure.in: bump version numbers for 0.9.1 release. 
+
 2001-04-11  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml-0.9.0 released.
