@@ -3,6 +3,8 @@
 	* htmlengine.c: change the id from a static enum to a gquark so
 	that we can move towards a dispatch table.  Remove pending_para it
 	was evil and never actually turned on anymore.
+	(parse_one_token): switch to using a dynamic dispatch table for
+	the token parsing.
 
 	* htmlengine.h: remove pending_para it was the wrong way to do
 	this and leads to more trouble than good.

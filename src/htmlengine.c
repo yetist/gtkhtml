@@ -712,12 +712,6 @@ block_end_anchor (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 }
 
 static void
-close_anchor (HTMLEngine *e)
-{
-	pop_element (e, ID_A);
-}
-
-static void
 finish_flow (HTMLEngine *e, HTMLObject *clue) {
 	if (e->flow && HTML_CLUE (e->flow)->tail == NULL) {
 		html_clue_remove (HTML_CLUE (clue), e->flow);
@@ -3210,7 +3204,7 @@ parse_t (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		append_element (e, clue, HTML_OBJECT (cell));
 		push_clue (e, HTML_OBJECT (cell));
 		push_block (e, ID_TEST, 3, block_end_test, 0, 0);
-	} else if (strncmp (str, "/test", 4) == 0) {
+	} else if (strncmp (str, "/test", 5) == 0) {
 		pop_element (e, ID_TEST);
 #endif /* TESTING */		
 	} else if (strncmp (str, "td", 2) == 0) {
@@ -3648,6 +3642,7 @@ parse_v (HTMLEngine *e, HTMLObject * _clue, const char *str )
 
 /* Parsing vtable.  */
 
+#if 0
 typedef void (*HTMLParseFunc)(HTMLEngine *p, HTMLObject *clue, const gchar *str);
 static HTMLParseFunc parseFuncArray[26] = {
 	parse_a,
@@ -3678,6 +3673,7 @@ static HTMLParseFunc parseFuncArray[26] = {
 	NULL
 };
 
+
 static void
 parse_one_token (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 {
@@ -3685,6 +3681,7 @@ parse_one_token (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		gint indx;
 		
 		str++;
+		
 		
 		if (*str == '/')
 			indx = *(str + 1) - 'a';
@@ -3699,6 +3696,155 @@ parse_one_token (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		}
 	}
 }
+#else
+
+typedef void (*HTMLParseFunc)(HTMLEngine *p, HTMLObject *clue, const gchar *str);
+typedef struct _HTMLDispatchEntry {
+	char *name;
+	HTMLParseFunc func;
+} HTMLDispatchEntry;
+
+HTMLDispatchEntry basic_table[] = {
+	{ID_A, parse_a},
+	{"area", parse_a},
+	{ID_ADDRESS, parse_a},
+	{ID_B, parse_b},
+	{"base", parse_b},
+	{"br", parse_b},
+	{"/br", parse_b},
+	{ID_BIG, parse_b},
+	{ID_BLOCKQUOTE, parse_b},
+	{ID_BODY, parse_b},
+	{ID_CAPTION, parse_c},
+	{ID_CENTER, parse_c},
+	{ID_CITE, parse_c},
+	{ID_CODE, parse_c},
+	{ID_DIR, parse_d},
+	{ID_DIV, parse_d},
+	{"data", parse_d},
+	{ID_DL, parse_d},
+	{ID_DT, parse_d},
+	{ID_DD, parse_d},
+	{ID_LI, parse_l},
+	{ID_EM, parse_e},
+	{ID_FONT, parse_f},
+	{ID_FORM, parse_f},
+	{"frameset", parse_f},
+	{"frame", parse_f},
+	{ID_MAP, parse_m},
+	{"meta", parse_m},
+	{"noframe", parse_n},
+	{ID_HEADING, parse_h},
+	{"h1", parse_h},
+	{"h2", parse_h},
+	{"h3", parse_h},
+	{"h4", parse_h},
+	{"h5", parse_h},
+	{"h6", parse_h},
+	{"/h1", parse_h},
+	{"/h2", parse_h},
+	{"/h3", parse_h},
+	{"/h4", parse_h},
+	{"/h5", parse_h},
+	{"/h6", parse_h},
+	{ID_I, parse_i},
+	{"img", parse_i},
+	{"input", parse_i},
+	{"iframe", parse_i},
+	{ID_KBD, parse_k},
+	{ID_OL, parse_o},
+	{ID_OPTION, parse_o},	
+	{"object", parse_o},
+	{"/object", parse_o},
+	{ID_P, parse_p},
+	{"/p", parse_p},
+	{"param", parse_p},
+	{ID_PRE, parse_p},
+	{ID_SMALL, parse_s},
+	{ID_SPAN, parse_s},
+	{ID_STRONG, parse_s},
+	{ID_SELECT, parse_s},
+	{ID_S, parse_s},
+	{ID_SUB, parse_s},
+	{ID_SUP, parse_s},
+	{ID_STRIKE, parse_s},
+	{ID_U, parse_u},
+	{ID_UL, parse_u},
+	{ID_TEXTAREA, parse_t},
+	{ID_TABLE, parse_t},
+	{ID_TD, parse_t},
+	{ID_TH, parse_t},
+	{ID_TR, parse_t},
+	{ID_TT, parse_t},
+	{"title", parse_t},
+	{"/title", parse_t},
+	{ID_VAR, parse_v},
+	{"hr", parse_h}, 
+	{ID_TEST, parse_t},
+	{NULL, NULL}
+};
+
+static GHashTable *
+dispatch_table_new (HTMLDispatchEntry *entry)
+{
+	GHashTable *table = g_hash_table_new (g_str_hash, g_str_equal);
+	gint i = 0;
+
+	while (entry[i].name) {
+		g_hash_table_insert (table, entry[i].name, &entry[i]);
+		i++;
+	}
+	
+	return table;
+}
+
+static void
+parse_one_token (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+{
+	static GHashTable *basic = NULL;
+	char *name, *ep;
+	HTMLDispatchEntry *entry;
+
+	if (basic == NULL)
+		basic = dispatch_table_new (basic_table);
+
+	if (*str == '<') {
+		str++;
+	} else {
+		/* bad element */
+		g_warning ("found token with no open");
+		return;
+	}
+	
+	ep = str;
+	if (*ep == '/')
+		ep++;
+
+	while (*ep && *ep != ' ' && *ep != '>' && *ep != '/')
+		ep++;
+	
+	if (ep - str== 0) {
+		g_warning ("found token with no valid name");
+		return;
+	}
+
+	name = g_strndup (str, ep - str);
+
+	entry = g_hash_table_lookup (basic, name);
+	if (entry) {
+		/* found a custom handler use it */
+		DT (printf ("found handler for (%s)\n", name);)
+		(*entry->func)(e, clue, str);
+	} else if (*name == '/') {
+		/* generic close element */
+		DT (printf ("generic close handler for (%s)\n", name);)
+		pop_element (e, ++name);
+	} else {
+		/* unknown open element do nothing for now */
+		printf ("generic open handler for (%s)\n", name);
+	}
+}
+#endif
 
 
 guint
