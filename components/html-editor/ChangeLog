@@ -1,3 +1,8 @@
+2001-05-07  Radek Doulik  <rodo@ximian.com>
+
+	* GNOME_GtkHTML_Editor.xml: changed some tips as suggested by
+	Aaron
+
 2001-04-25  Radek Doulik  <rodo@ximian.com>
 
 	* editor-control-factory.c (editor_set_format): use

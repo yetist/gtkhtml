@@ -16,15 +16,17 @@
 			<cmd name="EditPaste" _label="_Paste"
 			_tip="Paste the clipboard" pixtype="stock" pixname="Paste"/>
 	
-			<cmd name="EditFind" _label="_Find..." _tip="Search for a string"
+			<cmd name="EditFind" _label="_Find..." _tip="Find"
 			pixtype="stock" pixname="Search"/>
 
-			<cmd name="EditFindRegex" _label="Find Rege_x..." _tip="Regular expression search"/>
+			<cmd name="EditFindRegex" _label="Find
+			Rege_x..." _tip="Find A Regular Expression"/>
 	
-			<cmd name="EditFindAgain" _label="Find _Again" _tip="Search again for the same string"
+			<cmd name="EditFindAgain" _label="Find _Again"
+			_tip="Find again"
 			pixtype="stock" pixname="Search"/>
 	
-			<cmd name="EditReplace" _label="_Replace..." _tip="Replace a string"
+			<cmd name="EditReplace" _label="_Replace..." _tip="Find and Replace"
 			pixtype="stock" pixname="Search/Replace"/>
 
 			<cmd name="EditProperties" _label="_Properties..." _tip="Modify the file's properties"
@@ -82,9 +84,9 @@
 		<toolitem name="EditPaste" verb=""  _label="Paste" _tip="Paste from clipboard"
 		pixtype="stock" pixname="Paste"/>
 		<separator/>
-		<toolitem name="EditFind" verb=""  _label="Find" _tip="Search string"
+		<toolitem name="EditFind" verb=""  _label="Find" _tip="Find"
 		pixtype="stock" pixname="Search"/>
-		<toolitem name="EditReplace" verb=""  _label="Replace" _tip="Search and replace string"
+		<toolitem name="EditReplace" verb=""  _label="Replace" _tip="Find And Replace"
 		pixtype="stock" pixname="Search/Replace"/>
 	</dockitem>
 </Root>
