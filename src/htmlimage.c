@@ -1302,7 +1302,7 @@ html_image_factory_unregister (HTMLImageFactory *factory, HTMLImagePointer *poin
 {
 	pointer->interests = g_slist_remove (pointer->interests, i);
 	html_image_pointer_unref (pointer);
-	if (pointer->refcount <= 1) {
+	if (pointer->refcount <= 0) {
 		g_assert (pointer->interests == NULL);
 		g_hash_table_remove (factory->loaded_images, pointer->url);
 		html_image_pointer_unref (pointer);
