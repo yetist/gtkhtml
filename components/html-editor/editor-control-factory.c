@@ -417,7 +417,8 @@ editor_init_painters (GtkHTMLControlData *cd)
 		cd->plain_painter = HTML_GDK_PAINTER (html_plain_painter_new (TRUE));
 		html_font_manager_set_default (&HTML_PAINTER (cd->plain_painter)->font_manager,
 					       prop->font_var,      prop->font_fix,
-					       prop->font_var_size, prop->font_fix_size);
+					       prop->font_var_size, prop->font_var_points,
+					       prop->font_fix_size, prop->font_fix_points);
 		
 		html_colorset_add_slave (html->engine->settings->color_set, 
 					 HTML_PAINTER (cd->plain_painter)->color_set);

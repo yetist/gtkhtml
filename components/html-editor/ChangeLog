@@ -1,3 +1,7 @@
+2001-10-15  Radek Doulik  <rodo@ximian.com>
+
+	* editor-control-factory.c (editor_init_painters): use points attribute
+
 2001-10-09  Larry Ewing  <lewing@ximian.com>
 
 	* html-stream-mem.c (html_stream_mem_write): remove debugging code
