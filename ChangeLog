@@ -1,3 +1,7 @@
+2002-10-08  Larry Ewing  <lewing@ximian.com>
+
+	* configure.in: bump the gtkhtml version for snapshots.
+
 2002-10-07  Larry Ewing  <lewing@ximian.com>
 
 	* Make gtkhtml-1.1.4 release (don't ask).
