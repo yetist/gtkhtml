@@ -1,5 +1,8 @@
 2004-05-17  Radek Doulik  <rodo@ximian.com>
 
+	* htmlimage.c (html_image_pointer_update): check that engine->clue
+	is image's parent before asking for redraw
+
 	* htmlobject.c (op_cut): set change to parent object and set its
 	width to zero to force redraw
 	(merge): ditto

@@ -1153,7 +1153,9 @@ html_image_pointer_update (HTMLImagePointer *ip)
 	for (cur = ip->interests; cur; cur = cur->next) {
 		HTMLImage           *image = cur->data;
 		
-		if (image && image->animation_active) {
+		if (image && image->animation_active && html_object_is_parent (engine->clue, HTML_OBJECT (image))) {
+			DA (printf ("queue draw (%p)\n", image);)
+
 			image->animation_active = FALSE;
 			html_engine_queue_draw (engine, HTML_OBJECT (image));
 		}
