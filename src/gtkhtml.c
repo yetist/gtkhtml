@@ -52,6 +52,7 @@
 #include "htmltable.h"
 #include "htmltext.h"
 #include "htmlselection.h"
+#include "htmlundo.h"
 
 #include "gtkhtml.h"
 #include "gtkhtml-embedded.h"
@@ -1315,16 +1316,16 @@ selection_get (GtkWidget        *widget,
 	  {
 		if (html->priv->primary) {
 			selection_string =
-			   html_object_get_selection_string (html->priv->primary);
-			g_print("primary paste: `%s'\n", selection_string);
+			   html_object_get_selection_string (html->priv->primary, html->engine);
+			/* g_print("primary paste: `%s'\n", selection_string); */
 		}
 	  }
 	else	/* CLIPBOARD */
 	  {
 		if (html->engine->clipboard) {
 			selection_string =
-			   html_object_get_selection_string (html->engine->clipboard);
-			g_print("clipboard paste: `%s'\n", selection_string);
+			   html_object_get_selection_string (html->engine->clipboard, html->engine);
+			/* g_print("clipboard paste: `%s'\n", selection_string); */
 		}
 	  }
 
@@ -1338,13 +1339,13 @@ selection_get (GtkWidget        *widget,
 	
 	if (selection_string != NULL) {
 		if (info == TARGET_UTF8_STRING) {
-			printf ("UTF8_STRING\n");
+			/* printf ("UTF8_STRING\n"); */
 			gtk_selection_data_set (selection_data,
 						gdk_atom_intern ("UTF8_STRING", FALSE), 8,
 						(const guchar *) selection_string,
 						strlen (selection_string));
 		} else if (info == TARGET_UTF8) {
-			printf ("UTF-8\n");
+			/* printf ("UTF-8\n"); */
 			gtk_selection_data_set (selection_data,
 						gdk_atom_intern ("UTF-8", FALSE), 8,
 						(const guchar *) selection_string,
@@ -1400,7 +1401,7 @@ selection_received (GtkWidget *widget,
 	g_return_if_fail (GTK_IS_HTML (widget));
 	g_return_if_fail (selection_data != NULL);
 	
-	printf("got selection from system\n");
+	/* printf ("got selection from system\n"); */
 
 	e = GTK_HTML (widget)->engine;
 
@@ -3821,8 +3822,8 @@ gtk_html_build_with_gconf ()
 #endif
 }
 
-void
-gtk_html_insert_html (GtkHTML *html, const gchar *html_src)
+static void
+gtk_html_insert_html_generic (GtkHTML *html, const gchar *html_src, gboolean obj_only)
 {
 	GtkHTML *tmp;
 	GtkWidget *window, *sw;
@@ -3834,11 +3835,42 @@ gtk_html_insert_html (GtkHTML *html, const gchar *html_src)
 	gtk_container_add (GTK_CONTAINER (window), GTK_WIDGET (sw));
 	gtk_container_add (GTK_CONTAINER (sw), GTK_WIDGET (tmp));
 	gtk_widget_realize (GTK_WIDGET (tmp));
-	o                 = tmp->engine->clue;
-	tmp->engine->clue = NULL;
 	html_image_factory_move_images (html->engine->image_factory, tmp->engine->image_factory);
-	html_engine_insert_object (html->engine, o, html_object_get_recursive_length (o));
+	if (obj_only) {
+		HTMLObject *next;
+		g_return_if_fail (tmp->engine->clue && HTML_CLUE (tmp->engine->clue)->head
+				  && HTML_CLUE (HTML_CLUE (tmp->engine->clue)->head)->head);
+
+		html_undo_level_begin (html->engine->undo, "Append HTML", "Remove appended HTML");
+		o = HTML_CLUE (tmp->engine->clue)->head;
+		for (; o; o = next) {
+			next = o->next;
+			html_object_remove_child (o->parent, o);
+			html_engine_append_flow (html->engine, o, html_object_get_recursive_length (o));
+		}
+		html_undo_level_end (html->engine->undo);
+	} else {
+		g_return_if_fail (tmp->engine->clue);
+
+		o = tmp->engine->clue;
+		tmp->engine->clue = NULL;
+		html_engine_insert_object (html->engine, o,
+					   html_object_get_recursive_length (o),
+					   html_object_get_insert_level (o));
+	}
 	gtk_widget_destroy (window);
+}
+
+void
+gtk_html_insert_html (GtkHTML *html, const gchar *html_src)
+{
+	gtk_html_insert_html_generic (html, html_src, FALSE);
+}
+
+void
+gtk_html_append_html (GtkHTML *html, const gchar *html_src)
+{
+	gtk_html_insert_html_generic (html, html_src, TRUE);
 }
 
 static void

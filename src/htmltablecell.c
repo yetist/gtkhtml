@@ -108,16 +108,16 @@ copy (HTMLObject *self, HTMLObject *dest)
 }
 
 static gboolean
-merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList *left, GList *right)
+merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList **left, GList **right, HTMLCursor *cursor)
 {
 	HTMLTableCell *c1 = HTML_TABLE_CELL (self);
 	HTMLTableCell *c2 = HTML_TABLE_CELL (with);
 
-	g_print ("merge cells %d,%d %d,%d\n", c1->row, c1->col, c2->row, c2->col);
+	/* g_print ("merge cells %d,%d %d,%d\n", c1->row, c1->col, c2->row, c2->col); */
 
-	if (HTML_OBJECT_TYPE (with) == HTML_TYPE_CLUEV || c1->col == c2->col) {
+	if (HTML_OBJECT_TYPE (with) == HTML_TYPE_CLUEV || (c1->col == c2->col && c1->row == c2->row)) {
 		gboolean rv;
-		rv = (* HTML_OBJECT_CLASS (parent_class)->merge) (self, with, e, left, right);
+		rv = (* HTML_OBJECT_CLASS (parent_class)->merge) (self, with, e, left, right, cursor);
 		if (rv && with->parent && HTML_IS_TABLE (with->parent)) {
 			self->next = NULL;
 			html_object_remove_child (with->parent, with);
@@ -126,6 +126,7 @@ merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList *left, GList *ri
 					     HTML_TABLE_CELL (self)->row, HTML_TABLE_CELL (self)->col,
 					     HTML_TABLE_CELL (self));
 		}
+
 		return rv;
 	} else
 		return FALSE;

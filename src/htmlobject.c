@@ -140,7 +140,7 @@ op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GL
 }
 
 static gboolean
-merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList *left, GList *right)
+merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList **left, GList **right, HTMLCursor *cursor)
 {
 	return FALSE;
 }
@@ -163,17 +163,19 @@ split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint lev
 	}
 
 	if (offset) {
-		if (!self->next)
+		if (!self->next) {
 			html_clue_append (HTML_CLUE (self->parent), html_engine_new_text_empty (e));
+		}
 		*left  = g_list_prepend (*left,  self);
 		*right = g_list_prepend (*right, self->next);
 	} else {
-		if (!self->prev)
-			html_clue_prepend (HTML_CLUE (self->parent), html_engine_new_text_empty (e));
+		if (!self->prev) {
+			e->cursor->object = html_engine_new_text_empty (e);
+			e->cursor->offset = 0;
+			html_clue_prepend (HTML_CLUE (self->parent), e->cursor->object);
+		}
 		*left  = g_list_prepend (*left,  self->prev);
 		*right = g_list_prepend (*right, self);
-		e->cursor->object = self->prev;
-		e->cursor->offset = html_object_get_length (self->prev);
 	}
 	level--;
 
@@ -739,13 +741,13 @@ html_object_op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GLi
 }
 
 gboolean
-html_object_merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList *left, GList *right)
+html_object_merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList **left, GList **right, HTMLCursor *cursor)
 {
 	if ((HTML_OBJECT_TYPE (self) == HTML_OBJECT_TYPE (with)
 	     /* FIXME */
 	     || (HTML_OBJECT_TYPE (self) == HTML_TYPE_TABLECELL && HTML_OBJECT_TYPE (with) == HTML_TYPE_CLUEV)
 	     || (HTML_OBJECT_TYPE (with) == HTML_TYPE_TABLECELL && HTML_OBJECT_TYPE (self) == HTML_TYPE_CLUEV))
-	    && (* HO_CLASS (self)->merge) (self, with, e, left, right)) {
+	    && (* HO_CLASS (self)->merge) (self, with, e, left, right, cursor)) {
 		if (with->parent)
 			html_object_remove_child (with->parent, with);
 		html_object_destroy (with);
@@ -1616,7 +1618,7 @@ unselect_object (HTMLObject *o, HTMLEngine *e, gpointer data)
 }
 
 gchar *
-html_object_get_selection_string (HTMLObject *o)
+html_object_get_selection_string (HTMLObject *o, HTMLEngine *e)
 {
 	HTMLObject *tail;
 	tmpSelData data;
@@ -1629,9 +1631,9 @@ html_object_get_selection_string (HTMLObject *o)
 	data.in     = FALSE;
 	data.i      = html_interval_new (html_object_get_head_leaf (o), tail, 0, html_object_get_length (tail));
 
-	html_interval_forall (data.i, NULL, select_object, &data);
+	html_interval_forall (data.i, e, select_object, &data);
 	html_object_append_selection_string (o, data.buffer);
-	html_interval_forall (data.i, NULL, unselect_object, NULL);
+	html_interval_forall (data.i, e, unselect_object, NULL);
 
 	html_interval_destroy (data.i);
 	string = data.buffer->str;
@@ -1746,7 +1748,7 @@ merge_down (HTMLEngine *e, GList *left, GList *right)
 		ro    = HTML_OBJECT (right->data);
 		left  = left->next;
 		right = right->next;
-		if (!html_object_merge (lo, ro, e, left, right))
+		if (!html_object_merge (lo, ro, e, &left, &right, NULL))
 			break;
 	}
 }
@@ -1755,6 +1757,34 @@ void
 html_object_merge_down (HTMLObject *o, HTMLObject *w, HTMLEngine *e)
 {
 	merge_down (e, html_object_tails_list (o), html_object_heads_list (w));
+}
+
+gboolean
+html_object_is_parent (HTMLObject *parent, HTMLObject *child)
+{
+	g_assert (parent && child);
+
+	while (child) {
+		if (child->parent == parent)
+			return TRUE;
+		child = child->parent;
+	}
+
+	return FALSE;
+}
+
+gint
+html_object_get_insert_level (HTMLObject *o)
+{
+	switch (HTML_OBJECT_TYPE (o)) {
+	case HTML_TYPE_TABLECELL:
+	case HTML_TYPE_CLUEV:
+		return 3;
+	case HTML_TYPE_CLUEFLOW:
+		return 2;
+	default:
+		return 1;
+	}
 }
 
 void

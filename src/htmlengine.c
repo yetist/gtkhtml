@@ -3909,6 +3909,8 @@ redraw_idle (HTMLEngine *e)
 void
 html_engine_schedule_redraw (HTMLEngine *e)
 {
+	/* printf ("html_engine_schedule_redraw\n"); */
+
 	if (e->block_redraw)
 		e->need_redraw = TRUE;
 	else if (e->redraw_idle_id == 0)
@@ -4481,7 +4483,7 @@ thaw_idle (gpointer data)
 
 	if (redraw_whole) {
 		html_draw_queue_clear (e->draw_queue);
-		html_engine_schedule_redraw (e);
+		html_engine_draw (e, 0, 0, e->width, e->height);
 	} else {
 		GtkAdjustment *vadj, *hadj;
 		gint nw, nh;
@@ -4506,7 +4508,6 @@ thaw_idle (gpointer data)
 		g_list_free (changed_objs);
 	}
 	html_engine_show_cursor (e);
-
 
 	return FALSE;
 }

@@ -56,8 +56,8 @@ html_engine_get_table (HTMLEngine *e)
 		return HTML_TABLE (e->cursor->object->parent->parent->parent);
 }
 
-static HTMLTableCell *
-new_cell (HTMLEngine *e, HTMLTable *table)
+HTMLTableCell *
+html_engine_new_cell (HTMLEngine *e, HTMLTable *table)
 {
 	HTMLObject    *cell;
 	HTMLObject    *text;
@@ -91,7 +91,7 @@ html_engine_insert_table_1_1 (HTMLEngine *e)
 
 	table = html_table_new (0, 100, 1, 2, 1);
 
-	html_table_add_cell (HTML_TABLE (table), new_cell (e, HTML_TABLE (table)));
+	html_table_add_cell (HTML_TABLE (table), html_engine_new_cell (e, HTML_TABLE (table)));
 
 	html_engine_append_object (e, table, 2);
 	html_cursor_backward (e->cursor, e);
@@ -119,7 +119,7 @@ html_engine_insert_table (HTMLEngine *e, gint cols, gint rows, gint width, gint 
 	for (r = 0; r < rows; r ++) {
 		html_table_start_row (HTML_TABLE (table));
 		for (c = 0; c < cols; c ++)
-			html_table_add_cell (HTML_TABLE (table), new_cell (e, HTML_TABLE (table)));
+			html_table_add_cell (HTML_TABLE (table), html_engine_new_cell (e, HTML_TABLE (table)));
 		html_table_end_row (HTML_TABLE (table));
 	}
 
@@ -181,7 +181,7 @@ insert_table_column (HTMLEngine *e, gboolean after, HTMLTableCell **column, HTML
 
 			cell = column
 				? HTML_TABLE_CELL (html_object_op_copy (HTML_OBJECT (column [r]), e, NULL, NULL, &len))
-				: new_cell (e, t);
+				: html_engine_new_cell (e, t);
 			html_table_set_cell (t, r, col, cell);
 			html_table_cell_set_position (t->cells [r][col], r, col);
 			if (r < row || (!after && r == row))
@@ -422,7 +422,7 @@ insert_table_row (HTMLEngine *e, gboolean after, HTMLTableCell **row_cells, HTML
 
 			cell = row_cells
 				? HTML_TABLE_CELL (html_object_op_copy (HTML_OBJECT (row_cells [c]), e, NULL, NULL, &len))
-				:  new_cell (e, t);
+				:  html_engine_new_cell (e, t);
 			html_table_set_cell (t, row, c, cell);
 			html_table_cell_set_position (t->cells [row][c], row, c);
 			delta += html_object_get_recursive_length (HTML_OBJECT (cell)) + 1;

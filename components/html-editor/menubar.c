@@ -310,7 +310,7 @@ paragraph_align_cb (BonoboUIComponent           *component,
 	int i;
 
 	if (cd->block_font_style_change || !atoi(state))
-		return; 
+		return;
 
 	/* g_warning ("wowee %s :: %s", path, state); */
 	for (i = 0; paragraph_align_assoc[i].verb != NULL; i++) {
@@ -488,8 +488,10 @@ menubar_update_paragraph_style (GtkHTML *html,
 		CORBA_Environment ev;
 
 		CORBA_exception_init (&ev);
+		cd->block_font_style_change ++;
 		bonobo_ui_component_set_prop (uic, path,
 					      "state", "1", &ev);
+		cd->block_font_style_change --;
 		CORBA_exception_free (&ev);	
 	} else {
 		g_warning ("Unknown Paragraph Style");

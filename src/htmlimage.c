@@ -614,7 +614,8 @@ select_range (HTMLObject *self,
 	      gboolean queue_draw)
 {
 	if ((*parent_class->select_range) (self, engine, offset, length, queue_draw)) {
-		html_engine_queue_draw (engine, self);
+		if (queue_draw)
+			html_engine_queue_draw (engine, self);
 		return TRUE;
 	} else
 		return FALSE;

@@ -45,8 +45,12 @@ void  html_engine_insert_text             (HTMLEngine  *e,
 					   guint        len);
 void  html_engine_insert_object           (HTMLEngine  *e,
 					   HTMLObject  *o,
-					   guint        len);
+					   guint        len,
+					   gint         level);
 void  html_engine_append_object           (HTMLEngine  *e,
+					   HTMLObject  *o,
+					   guint        len);
+void  html_engine_append_flow             (HTMLEngine  *e,
 					   HTMLObject  *o,
 					   guint        len);
 void  html_engine_insert_link             (HTMLEngine  *e,

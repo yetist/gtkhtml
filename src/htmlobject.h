@@ -106,8 +106,9 @@ struct _HTMLObjectClass {
 	gboolean     (* merge)           (HTMLObject *self,
 					  HTMLObject *o,
 					  HTMLEngine *e,
-					  GList      *left,
-					  GList      *right);
+					  GList      **left,
+					  GList      **right,
+					  HTMLCursor *cursor);
 	void         (* remove_child)    (HTMLObject *self,
 					  HTMLObject *child);
 	void         (* split)           (HTMLObject *self,
@@ -282,8 +283,9 @@ HTMLObject     *html_object_op_cut                (HTMLObject            *self,
 gboolean        html_object_merge                 (HTMLObject            *self,
 						   HTMLObject            *with,
 						   HTMLEngine            *e,
-						   GList                 *left,
-						   GList                 *right);
+						   GList                 **left,
+						   GList                 **right,
+						   HTMLCursor            *cursor);
 void            html_object_remove_child          (HTMLObject            *self,
 						   HTMLObject            *child);
 void            html_object_split                 (HTMLObject            *self,
@@ -478,7 +480,8 @@ gboolean    html_object_select_range             (HTMLObject *self,
 						  gboolean    queue_draw);
 void        html_object_append_selection_string  (HTMLObject *self,
 						  GString    *buffer);
-gchar      *html_object_get_selection_string     (HTMLObject *o);
+gchar      *html_object_get_selection_string     (HTMLObject *o,
+						  HTMLEngine *e);
 
 /* Saving.  */
 gboolean  html_object_save  (HTMLObject          *self,
@@ -526,6 +529,9 @@ GList    *html_object_tails_list                 (HTMLObject *o);
 void      html_object_merge_down                 (HTMLObject *o,
 						  HTMLObject *w,
 						  HTMLEngine *e);
+gboolean  html_object_is_parent                  (HTMLObject *parent,
+						  HTMLObject *child);
+gint      html_object_get_insert_level           (HTMLObject *o);
 
 void      html_object_engine_translation   (HTMLObject *o,
 					    HTMLEngine *e,

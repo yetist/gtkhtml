@@ -497,7 +497,7 @@ editor_set_prop (BonoboPropertyBag *bag,
 {
 	GtkHTMLControlData *cd = user_data;
 	
-	g_warning ("set_prop");
+	/* g_warning ("set_prop"); */
 	switch (arg_id) {
 	case PROP_EDIT_HTML:
 		editor_set_format (cd, BONOBO_ARG_GET_BOOLEAN (arg));

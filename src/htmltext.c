@@ -301,7 +301,7 @@ op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GL
 }
 
 static gboolean
-object_merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList *left, GList *right)
+object_merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList **left, GList **right, HTMLCursor *cursor)
 {
 	HTMLText *t1, *t2;
 	gchar *to_free;
@@ -315,6 +315,11 @@ object_merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList *left, GL
 	/* printf ("merge '%s' '%s'\n", t1->text, t2->text); */
 
 	/* merge_word_width (t1, t2, e->painter); */
+
+	if (e->cursor->object == with) {
+		e->cursor->object  = self;
+		e->cursor->offset += t1->text_len;
+	}
 
 	move_spell_errors (t2->spell_errors, 0, t1->text_len);
 	t1->spell_errors = g_list_concat (t1->spell_errors, t2->spell_errors);
@@ -367,11 +372,11 @@ object_split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, g
 	html_clue_append_after (HTML_CLUE (self->parent), dup, self);
 
 	prev = self->prev;
-	if (t1->text_len == 0 && prev && html_object_merge (prev, self, e, NULL, NULL))
+	if (t1->text_len == 0 && prev && html_object_merge (prev, self, e, NULL, NULL, NULL))
 		self = prev;
 
 	if (t2->text_len == 0 && dup->next)
-		html_object_merge (dup, dup->next, e, NULL, NULL);
+		html_object_merge (dup, dup->next, e, NULL, NULL, NULL);
 
 	/* printf ("--- before split offset %d dup len %d\n", offset, HTML_TEXT (dup)->text_len);
 	   debug_spell_errors (HTML_TEXT (self)->spell_errors); */
@@ -1570,6 +1575,8 @@ html_text_magic_link (HTMLText *text, HTMLEngine *engine, guint offset)
 	if (!offset)
 		return FALSE;
 	offset--;
+
+	/* printf ("html_text_magic_link\n"); */
 
 	html_undo_level_begin (engine->undo, "Magic link", "Remove magic link");
 	saved_position = engine->cursor->position;
