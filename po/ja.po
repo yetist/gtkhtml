@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.6\n"
-"POT-Creation-Date: 2001-07-17 16:10-0500\n"
+"POT-Creation-Date: 2001-07-24 16:49-0500\n"
 "PO-Revision-Date: 2001-02-19 14:00+0900\n"
 "Last-Translator: Yukihiro Nakai <nakai@gnome.gr.jp>\n"
 "Language-Team: Japanese <translation@gnome.gr.jp>\n"
@@ -41,8 +41,8 @@ msgid "Add"
 msgstr "追加"
 
 #: capplet/gnome-bindings-prop.c:553
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:2
-#: components/html-editor/popup.c:251
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:2
+#: components/html-editor/popup.c:325
 msgid "Copy"
 msgstr "コピー"
 
@@ -54,8 +54,8 @@ msgstr "削除"
 msgid "Grab key"
 msgstr "キーの入力"
 
-#: capplet/main.c:227 components/html-editor/cell.c:344
-#: components/html-editor/table.c:341 components/html-editor/table.c:406
+#: capplet/main.c:227 components/html-editor/cell.c:371
+#: components/html-editor/table.c:347 components/html-editor/table.c:418
 msgid "Could not load glade file."
 msgstr "gladeファイルを読み込めませんでした。"
 
@@ -165,186 +165,208 @@ msgstr ""
 msgid "GNOME HTML Editor Factory"
 msgstr ""
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:1
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
 msgid "C_ut"
 msgstr "カット(_U)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:3
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:3
 msgid "Copy selection to clipboard"
 msgstr "選択した場所をクリップボードへコピー"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:4
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:4
 msgid "Copy the selection"
 msgstr "選択範囲のコピー"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:5
-#: components/html-editor/popup.c:252
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:5
+#: components/html-editor/popup.c:326
 msgid "Cut"
 msgstr "カット"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:6
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:6
 msgid "Cut selection to clipboard"
 msgstr "選択した場所をクリップボードへカット"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:7
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:7
 msgid "Cut the selection"
 msgstr "選択範囲のカット"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:8
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:8
 #: components/html-editor/search.c:64 components/html-editor/search.c:107
 msgid "Find"
 msgstr "検索"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:9
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:9
 #, fuzzy
 msgid "Find A Regular Expression"
 msgstr "正規表現検索"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:10
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:10
 #, fuzzy
 msgid "Find And Replace"
 msgstr "置換"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:11
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:11
 msgid "Find Rege_x..."
 msgstr "正規検索(_X)..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:12
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
 msgid "Find _Again"
 msgstr "再検索(_A)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:13
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:13
 #, fuzzy
 msgid "Find again"
 msgstr "再検索(_A)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:14
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:14
 #, fuzzy
 msgid "Find and Replace"
 msgstr "置換"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:15
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:15
+#: components/html-editor/editor-control-factory.c:163
+#: components/html-editor/menubar.c:104 components/html-editor/popup.c:157
+msgid "Image"
+msgstr "画像"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:16
 msgid "Insert HTML link into document..."
 msgstr "HTMLリンクをドキュメントに挿入..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:16
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:17
 msgid "Insert image into document..."
 msgstr "画像をドキュメントに挿入..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:17
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:18
 msgid "Insert rule into document..."
 msgstr "ルールをドキュメントに挿入..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:18
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:19
 #, fuzzy
 msgid "Insert table into document..."
 msgstr "ルールをドキュメントに挿入..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:19
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:20
+#: components/html-editor/body.c:181
+#: components/html-editor/editor-control-factory.c:198
+#: components/html-editor/menubar.c:109 components/html-editor/menubar.c:130
+#: components/html-editor/popup.c:171
+msgid "Link"
+msgstr "リンク"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:21
 msgid "Modify the file's properties"
 msgstr "ファイルプロパティの編集"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:20
-#: components/html-editor/popup.c:258
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
+#: components/html-editor/popup.c:332
 msgid "Paste"
 msgstr "貼り付け"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:21
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:23
 msgid "Paste from clipboard"
 msgstr "クリップボードから貼り付け"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:22
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:24
 msgid "Paste the clipboard"
 msgstr "クリップボードの内容を貼り付け"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:23
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:25
 msgid "Redo"
 msgstr "やり直し"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:24
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:26
 msgid "Redo previously undone change"
 msgstr "取り消した変更をやり直し"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:25
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:27
 msgid "Redo the undone action"
 msgstr "取り消した操作をやり直し"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:26
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:28
 #: components/html-editor/replace.c:84 components/html-editor/replace.c:146
 #: components/html-editor/replace.c:158 components/html-editor/replace.c:204
 msgid "Replace"
 msgstr "置換"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:27
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:29
 msgid "Select _All"
 msgstr ""
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:28
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:30
 msgid "Select the entire contents of the document"
 msgstr ""
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:29
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:31
+#: components/html-editor/gtkhtml-editor-properties.glade.h:24
+#: components/html-editor/menubar.c:165 components/html-editor/popup.c:192
+#: components/html-editor/popup.c:383 components/html-editor/popup.c:392
+#, fuzzy
+msgid "Table"
+msgstr "有効"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:32
 msgid "Undo"
 msgstr "取り消し"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:30
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:33
 msgid "Undo previous changes"
 msgstr "前の変更を元に戻す"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:31
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:34
 msgid "Undo the last action"
 msgstr "最後の操作を取り消す"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:32
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
 msgid "_Copy"
 msgstr "コピー(_C)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:33
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
 msgid "_Edit"
 msgstr "編集(_E)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:34
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
 msgid "_Find..."
 msgstr "検索(_F)..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:35
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
 msgid "_Image..."
 msgstr "画像(_I)..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:36
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
 msgid "_Insert"
 msgstr "挿入(_I)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:37
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:40
 msgid "_Link..."
 msgstr "リンク(_L)..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:38
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
 msgid "_Paste"
 msgstr "貼り付け(_P)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:39
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
 msgid "_Properties..."
 msgstr "プロパティ(_P)..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:40
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
 msgid "_Redo"
 msgstr "やり直し(_R)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:41
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
 msgid "_Replace..."
 msgstr "置換(_R)..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:42
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
 msgid "_Rule..."
 msgstr "罫線(_R)..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:43
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
 #, fuzzy
 msgid "_Table..."
 msgstr "罫線(_R)..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:44
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
 msgid "_Undo"
 msgstr "取り消し(_U)"
 
@@ -362,50 +384,38 @@ msgstr "色"
 
 #: components/html-editor/body.c:180
 #: components/html-editor/editor-control-factory.c:172
-#: components/html-editor/menubar.c:125 components/html-editor/popup.c:93
+#: components/html-editor/menubar.c:125 components/html-editor/popup.c:150
 msgid "Text"
 msgstr "テキスト"
 
-#: components/html-editor/body.c:181
-#: components/html-editor/editor-control-factory.c:198
-#: components/html-editor/menubar.c:109 components/html-editor/menubar.c:130
-#: components/html-editor/popup.c:114
-msgid "Link"
-msgstr "リンク"
-
 #: components/html-editor/body.c:182
-#: components/html-editor/gtkhtml-editor-properties.glade.h:2
+#: components/html-editor/gtkhtml-editor-properties.glade.h:3
 #, fuzzy
 msgid "Background"
 msgstr "背景画像"
 
-#: components/html-editor/cell.c:350 components/html-editor/table.c:347
+#: components/html-editor/cell.c:377 components/html-editor/table.c:353
 #: components/html-editor/text.c:221 components/html-editor/toolbar.c:286
 msgid "Automatic"
 msgstr "自動"
 
 #: components/html-editor/editor-control-factory.c:152
-#: components/html-editor/popup.c:85
+#: components/html-editor/popup.c:142
 msgid "Properties"
 msgstr "プロパティ"
 
-#: components/html-editor/editor-control-factory.c:163
-#: components/html-editor/menubar.c:104 components/html-editor/popup.c:100
-msgid "Image"
-msgstr "画像"
-
 #: components/html-editor/editor-control-factory.c:183
-#: components/html-editor/menubar.c:148 components/html-editor/popup.c:128
+#: components/html-editor/menubar.c:148 components/html-editor/popup.c:185
 msgid "Rule"
 msgstr "罫線"
 
 #: components/html-editor/editor-control-factory.c:193
-#: components/html-editor/popup.c:107
+#: components/html-editor/popup.c:164
 msgid "Paragraph"
 msgstr "段落"
 
 #: components/html-editor/editor-control-factory.c:203
-#: components/html-editor/popup.c:121
+#: components/html-editor/popup.c:178
 msgid "Page"
 msgstr "ページ"
 
@@ -424,181 +434,194 @@ msgstr "Bonobo を初期化できません"
 msgid "Alignment"
 msgstr "位置"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:3
-msgid "Be careful! Tables code is still ALPHA quality."
+#: components/html-editor/gtkhtml-editor-properties.glade.h:2
+msgid "Apply changes to"
 msgstr ""
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:4
+msgid "Be careful! Tables code is still ALPHA quality."
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:5
 #: components/html-editor/image.c:202
 msgid "Bottom"
 msgstr "下"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:5
-#: components/html-editor/popup.c:142
+#: components/html-editor/gtkhtml-editor-properties.glade.h:6
+#: components/html-editor/popup.c:199
 msgid "Cell"
 msgstr ""
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:6
+#: components/html-editor/gtkhtml-editor-properties.glade.h:7
 msgid "Cells"
 msgstr ""
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:7
+#: components/html-editor/gtkhtml-editor-properties.glade.h:8
 #: components/html-editor/paragraph.c:158 components/html-editor/rule.c:256
 #: components/html-editor/toolbar.c:496
 msgid "Center"
 msgstr "中央"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:8
+#: components/html-editor/gtkhtml-editor-properties.glade.h:9
+#: components/html-editor/popup.c:394
+#, fuzzy
+msgid "Column"
+msgstr "コマンド"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:10
 msgid "Don't wrap"
 msgstr ""
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:9
+#: components/html-editor/gtkhtml-editor-properties.glade.h:11
 #, fuzzy
 msgid "Header"
 msgstr "ヘッダ1(H1)"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:10
+#: components/html-editor/gtkhtml-editor-properties.glade.h:12
 #: components/html-editor/paragraph.c:157 components/html-editor/rule.c:255
 msgid "Left"
 msgstr "左"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:11
+#: components/html-editor/gtkhtml-editor-properties.glade.h:13
 #: components/html-editor/image.c:201
 msgid "Middle"
 msgstr ""
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:12
+#: components/html-editor/gtkhtml-editor-properties.glade.h:14
 #, fuzzy
 msgid "Miscelaneous"
 msgstr "その他"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:13
+#: components/html-editor/gtkhtml-editor-properties.glade.h:15
 #, fuzzy
 msgid "None"
 msgstr "<無し>"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:14
+#: components/html-editor/gtkhtml-editor-properties.glade.h:16
 #: components/html-editor/paragraph.c:124 components/html-editor/toolbar.c:50
 msgid "Normal"
 msgstr "通常"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:15
+#: components/html-editor/gtkhtml-editor-properties.glade.h:17
 #, fuzzy
 msgid "Percent"
 msgstr "パーセント %"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:16
+#: components/html-editor/gtkhtml-editor-properties.glade.h:18
 #: components/html-editor/image.c:258 components/html-editor/image.c:267
 #: components/html-editor/rule.c:229
 msgid "Pixels"
 msgstr "ピクセル"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:17
+#: components/html-editor/gtkhtml-editor-properties.glade.h:19
 #: components/html-editor/paragraph.c:159 components/html-editor/rule.c:257
 msgid "Right"
 msgstr "右"
 
+#: components/html-editor/gtkhtml-editor-properties.glade.h:20
+#: components/html-editor/popup.c:393
+msgid "Row"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:21
+msgid "Scope"
+msgstr ""
+
 #. size
-#: components/html-editor/gtkhtml-editor-properties.glade.h:18
+#: components/html-editor/gtkhtml-editor-properties.glade.h:22
 #: components/html-editor/image.c:251 components/html-editor/rule.c:224
 #: components/html-editor/text.c:188
 msgid "Size"
 msgstr "サイズ"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:19
+#: components/html-editor/gtkhtml-editor-properties.glade.h:23
 #, fuzzy
 msgid "Spacing"
 msgstr "検索文字列"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:20
-#: components/html-editor/menubar.c:165 components/html-editor/popup.c:135
-#, fuzzy
-msgid "Table"
-msgstr "有効"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:21
+#: components/html-editor/gtkhtml-editor-properties.glade.h:25
 #, fuzzy
 msgid "Table Insert"
 msgstr "挿入"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:22
+#: components/html-editor/gtkhtml-editor-properties.glade.h:26
 #: components/html-editor/image.c:200
 msgid "Top"
 msgstr "上"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:23
+#: components/html-editor/gtkhtml-editor-properties.glade.h:27
 msgid "Wrap"
 msgstr ""
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:24
+#: components/html-editor/gtkhtml-editor-properties.glade.h:28
 #, fuzzy
 msgid "alignment"
 msgstr "位置"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:25
+#: components/html-editor/gtkhtml-editor-properties.glade.h:29
 #, fuzzy
 msgid "border"
 msgstr "境界"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:26
+#: components/html-editor/gtkhtml-editor-properties.glade.h:30
 #, fuzzy
 msgid "color"
 msgstr "色"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:27
+#: components/html-editor/gtkhtml-editor-properties.glade.h:31
 msgid "column span"
 msgstr ""
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:28
+#: components/html-editor/gtkhtml-editor-properties.glade.h:32
 msgid "columns"
 msgstr ""
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:29
+#: components/html-editor/gtkhtml-editor-properties.glade.h:33
 #: components/html-editor/image.c:243 components/html-editor/image.c:275
 msgid "height"
 msgstr "高さ"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:30
+#: components/html-editor/gtkhtml-editor-properties.glade.h:34
 msgid "horizontal"
 msgstr ""
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:31
+#: components/html-editor/gtkhtml-editor-properties.glade.h:35
 #, fuzzy
 msgid "padding"
 msgstr "パディング"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:32
+#: components/html-editor/gtkhtml-editor-properties.glade.h:36
 msgid "pixmap"
 msgstr ""
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:33
+#: components/html-editor/gtkhtml-editor-properties.glade.h:37
 msgid "row span"
 msgstr ""
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:34
+#: components/html-editor/gtkhtml-editor-properties.glade.h:38
 msgid "rows"
 msgstr ""
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:35
+#: components/html-editor/gtkhtml-editor-properties.glade.h:39
 msgid "spacing"
 msgstr ""
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:36
+#: components/html-editor/gtkhtml-editor-properties.glade.h:40
 #, fuzzy
 msgid "style"
 msgstr "スタイル"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:37
+#: components/html-editor/gtkhtml-editor-properties.glade.h:41
 msgid "vertical"
 msgstr ""
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:38
+#: components/html-editor/gtkhtml-editor-properties.glade.h:42
 #: components/html-editor/image.c:224 components/html-editor/image.c:242
 #: components/html-editor/image.c:274 components/html-editor/rule.c:266
 msgid "width"
 msgstr "幅"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:39
+#: components/html-editor/gtkhtml-editor-properties.glade.h:43
 msgid "wrapping"
 msgstr ""
 
@@ -634,7 +657,7 @@ msgstr "URL"
 msgid "Insert"
 msgstr "挿入"
 
-#: components/html-editor/menubar.c:178
+#: components/html-editor/menubar.c:184
 msgid "Cannot execute gtkhtml properties"
 msgstr "gtkhtml のプロパティを実行できません"
 
@@ -694,51 +717,71 @@ msgstr "一覧項目 (数字)"
 msgid "Align"
 msgstr "位置"
 
-#: components/html-editor/popup.c:237
+#: components/html-editor/popup.c:311
 msgid "Suggest word"
 msgstr ""
 
-#: components/html-editor/popup.c:246
+#: components/html-editor/popup.c:320
 msgid "Remove link"
 msgstr "リンクを削除"
 
-#: components/html-editor/popup.c:262 components/html-editor/popup.c:288
+#: components/html-editor/popup.c:336 components/html-editor/popup.c:362
 #, fuzzy
 msgid "Text..."
 msgstr "テキスト"
 
-#: components/html-editor/popup.c:264 components/html-editor/popup.c:279
-#: components/html-editor/popup.c:290
+#: components/html-editor/popup.c:338 components/html-editor/popup.c:353
+#: components/html-editor/popup.c:364
 #, fuzzy
 msgid "Paragraph..."
 msgstr "段落"
 
-#: components/html-editor/popup.c:266 components/html-editor/popup.c:281
-#: components/html-editor/popup.c:292
+#: components/html-editor/popup.c:340 components/html-editor/popup.c:355
+#: components/html-editor/popup.c:366
 #, fuzzy
 msgid "Link..."
 msgstr "リンク(_L)..."
 
-#: components/html-editor/popup.c:272
+#: components/html-editor/popup.c:346
 #, fuzzy
 msgid "Rule..."
 msgstr "罫線(_R)..."
 
-#: components/html-editor/popup.c:277
+#: components/html-editor/popup.c:351
 #, fuzzy
 msgid "Image..."
 msgstr "画像(_I)..."
 
-#: components/html-editor/popup.c:297 components/html-editor/popup.c:306
+#: components/html-editor/popup.c:371 components/html-editor/popup.c:380
 #, fuzzy
 msgid "Table..."
 msgstr "罫線(_R)..."
 
-#: components/html-editor/popup.c:303
+#: components/html-editor/popup.c:377
 msgid "Cell..."
 msgstr ""
 
-#: components/html-editor/popup.c:313
+#: components/html-editor/popup.c:385
+msgid "Row above"
+msgstr ""
+
+#: components/html-editor/popup.c:386
+msgid "Row below"
+msgstr ""
+
+#: components/html-editor/popup.c:388
+msgid "Column before"
+msgstr ""
+
+#: components/html-editor/popup.c:389
+msgid "Column after"
+msgstr ""
+
+#: components/html-editor/popup.c:395
+msgid "Cell contents"
+msgstr ""
+
+#: components/html-editor/popup.c:402
 #, fuzzy
 msgid "Page..."
 msgstr "画像(_I)..."
