@@ -1,3 +1,7 @@
+2000-08-10  Radek Doulik  <rodo@helixcode.com>
+
+	* spell.c (destroy): do replacing only if replacement selected
+
 2000-07-28  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* Makefile.am: Updated so that it works when bonobo is installed

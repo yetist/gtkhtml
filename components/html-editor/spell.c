@@ -44,11 +44,13 @@ destroy (GtkWidget *w, SpellPopup *sp)
 	if (sp->replace) {
 		gchar *replacement;
 
-		gtk_clist_get_text (GTK_CLIST (sp->clist),
-				    GPOINTER_TO_INT (GTK_CLIST (sp->clist)->selection->data), 0, &replacement);
-		html_engine_replace_word_with (sp->cd->html->engine, replacement);
-		/* printf ("replace: %s with: %s\n", sp->misspeled_word, replacement); */
-		pspell_manager_store_replacement (sp->spell_checker, sp->misspeled_word, replacement);
+		if (GTK_CLIST (sp->clist)->selection) {
+			gtk_clist_get_text (GTK_CLIST (sp->clist),
+					    GPOINTER_TO_INT (GTK_CLIST (sp->clist)->selection->data), 0, &replacement);
+			html_engine_replace_word_with (sp->cd->html->engine, replacement);
+			/* printf ("replace: %s with: %s\n", sp->misspeled_word, replacement); */
+			pspell_manager_store_replacement (sp->spell_checker, sp->misspeled_word, replacement);
+		}
 	}
 
 	gtk_grab_remove (sp->window);
@@ -76,7 +78,7 @@ key_press_event (GtkWidget *widget, GdkEventKey *event, SpellPopup *sp)
 void
 spell_suggestion_request_cb (GtkHTML *html,  PspellManager *spell_checker, gchar *word, GtkHTMLControlData *cd)
 {
-	SpellPopup *sp = g_new (SpellPopup, 1);
+	SpellPopup *sp;
 	HTMLEngine *e = html->engine;
 	const PspellWordList   *suggestions;
 	PspellStringEmulation  *elements;
@@ -87,6 +89,7 @@ spell_suggestion_request_cb (GtkHTML *html,  PspellManager *spell_checker, gchar
 
 	/* printf ("spell_suggestion_request_cb %s\n", word); */
 
+	sp = g_new (SpellPopup, 1);
 	sp->cd = cd;
 	sp->replace = FALSE;
 	sp->spell_checker  = spell_checker;
