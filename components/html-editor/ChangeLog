@@ -1,5 +1,11 @@
 2001-08-21  Larry Ewing  <lewing@ximian.com>
 
+	* menubar.c: hook up the align menu and test styles.
+
+	* GNOME_GtkHTML_Editor.xml.in: more cleanups, accelerator changes.
+
+2001-08-21  Larry Ewing  <lewing@ximian.com>
+
 	* GNOME_GtkHTML_Editor.xml.in: clean up the new menus and add commands.
 
 	* menubar.c: make the format and size menus actually do something.

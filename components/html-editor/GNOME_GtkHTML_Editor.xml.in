@@ -33,25 +33,25 @@
 			<cmd name="HeadingPreformat" _label="Preformat"
 		        _tip="Make the current Paragraph style Normal"
 		        type="radio" group="paragraph_heading"/>
-			<cmd name="HeadingH1" _label="Header 1"
+			<cmd name="HeadingH1" _label="Header _1"
 		        _tip="Make the current paragraph an H1 header"
 		        type="radio" group="paragraph_heading"/>
-			<cmd name="HeadingH2" _label="Header 2"
+			<cmd name="HeadingH2" _label="Header _2"
 		        _tip="Make the current paragraph an H2 header"
 		        type="radio" group="paragraph_heading"/>
-			<cmd name="HeadingH3" _label="Header 3"
+			<cmd name="HeadingH3" _label="Header _3"
 		        _tip="Make the current paragraph an H3 header"
 		        type="radio" group="paragraph_heading"/>
-			<cmd name="HeadingH4" _label="Header 4"
+			<cmd name="HeadingH4" _label="Header _4"
 		        _tip="Make the current paragraph an H4 header"
 		        type="radio" group="paragraph_heading"/>
-			<cmd name="HeadingH5" _label="Header 5"
+			<cmd name="HeadingH5" _label="Header _5"
 		        _tip="Make the current paragraph an H5 header"
 		        type="radio" group="paragraph_heading"/>
-			<cmd name="HeadingH6" _label="Header 6"
+			<cmd name="HeadingH6" _label="Header _6"
 		        _tip="Make the current paragraph an H6 header"
 		        type="radio" group="paragraph_heading"/>
-			<cmd name="HeadingAddress" _label="Address"
+			<cmd name="HeadingAddress" _label="A_ddress"
 		        _tip="Make the current paragraph an address"
 		        type="radio" group="paragraph_heading"/>
 			<cmd name="HeadingBulletedList" 
@@ -61,6 +61,14 @@
 			<cmd name="HeadingNumberedList" 
 			_label="Numbered List"
 		        _tip="Make the current paragraph a numbered list"
+		        type="radio" group="paragraph_heading"/>
+			<cmd name="HeadingRoman" 
+			_label="Roman Numeral List"
+		        _tip="Make the current paragraph a list with roman numerals"
+		        type="radio" group="paragraph_heading"/>
+			<cmd name="HeadingAlphabeticalList" 
+			_label="Alphabetical List"
+		        _tip="Make the current paragraph an alphabetical list"
 		        type="radio" group="paragraph_heading"/>
 
 			<cmd name="AlignLeft" _label="_Left"
@@ -187,16 +195,18 @@
 				<submenu name="Heading" _label="_Heading">
 					<menuitem name="HeadingNormal" verb="" _label="Normal"/> 
 					<menuitem name="HeadingPreformat" verb="" _label="_Preformat"/>
-					<menuitem name="HeadingH1" verb="" _label="_Header 1"/>
-					<menuitem name="HeadingH2" verb="" _label="_Header 2"/>
-					<menuitem name="HeadingH3" verb="" _label="_Header 3"/>
-					<menuitem name="HeadingH4" verb="" _label="_Header 4"/>
-					<menuitem name="HeadingH5" verb="" _label="_Header 5"/>
-					<menuitem name="HeadingH6" verb="" _label="_Header 6"/>
-					<menuitem name="HeadingAddress" verb="" _label="Address"/>
-					<menuitem name="HeadingNumberList" verb="" _label="Numbered List"/> 
-					<menuitem name="HeadingBulletList" verb="" _label="Bulleted List"/> 
-				</submenu>
+					<menuitem name="HeadingH1" verb="" _label="Header _1"/>
+					<menuitem name="HeadingH2" verb="" _label="Header _2"/>
+					<menuitem name="HeadingH3" verb="" _label="_Header _3"/>
+					<menuitem name="HeadingH4" verb="" _label="_Header _4"/>
+					<menuitem name="HeadingH5" verb="" _label="_Header _5"/>
+					<menuitem name="HeadingH6" verb="" _label="_Header _6"/>
+					<menuitem name="HeadingAddress" verb="" _label="A_ddress"/>
+					<menuitem name="HeadingBulletedList" verb="" _label="Bulleted List"/>
+ 					<menuitem name="HeadingNumberedList" verb="" _label="Numbered List"/> 
+
+					<menuitem name="HeadingRomanList" verb="" _label="Roman Numeral List"/> 
+					<menuitem name="HeadingAlphabeticalList" verb="" _label="Alpabetical List"/> 				</submenu>
                 
 				<submenu name="Alignment" _label="_Alignment">
 					<menuitem name="AlignLeft" verb="" _label="_Left"/> 
