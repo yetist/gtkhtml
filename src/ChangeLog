@@ -1,3 +1,16 @@
+2004-05-25  Radek Doulik  <rodo@ximian.com>
+
+	* htmltablecell.c (calc_min_width): use parent class min_width
+	method instead of preferred_width
+
+	* htmltable.c (calc_min_width): calculate preffered widths so we
+	can use them when dividing span cells min width, used columnPref
+	in 2nd calc_column_width_template call
+	(calc_preferred_width): always call html_object_calc_min_width to
+	be sure that we have columnPref table ready to use
+
+	Fixes #58871
+
 2004-05-24  Radek Doulik  <rodo@ximian.com>
 
 	* htmlclueflow.c (save_plain): collect similar items to one long

@@ -1295,7 +1295,8 @@ calc_min_width (HTMLObject *o,
 {
 	HTMLTable *table = HTML_TABLE (o);
 
-	calc_column_width_template (table, painter, table->columnMin, html_object_calc_min_width, table->columnMin);
+	calc_column_width_template (table, painter, table->columnPref, html_object_calc_preferred_width, table->columnPref);
+	calc_column_width_template (table, painter, table->columnMin, html_object_calc_min_width, table->columnPref);
 
 	return o->flags & HTML_OBJECT_FLAG_FIXEDWIDTH
 		? MAX (html_painter_get_pixel_size (painter) * table->specified_width,
@@ -1308,15 +1309,17 @@ calc_preferred_width (HTMLObject *o,
 		      HTMLPainter *painter)
 {
 	HTMLTable *table = HTML_TABLE (o);
+	int min_width;
 
-	calc_column_width_template (table, painter, table->columnPref,
-				    html_object_calc_preferred_width, table->columnPref);
+	/* note that calculating min width prepares columnPref for us */
+	min_width = html_object_calc_min_width (o, painter);
+
 	calc_column_width_template (table, painter, table->columnFixed,
 				    (gint (*)(HTMLObject *, HTMLPainter *)) html_table_cell_get_fixed_width,
 				    table->columnPref);
 
 	return o->flags & HTML_OBJECT_FLAG_FIXEDWIDTH
-		? MAX (html_painter_get_pixel_size (painter) * table->specified_width, html_object_calc_min_width (o, painter))
+		? MAX (html_painter_get_pixel_size (painter) * table->specified_width, min_width)
 		: COLUMN_PREF (table, table->totalCols) + table->border * html_painter_get_pixel_size (painter);
 }
 
