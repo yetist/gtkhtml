@@ -490,7 +490,7 @@ spell_create_language_menu (GtkHTMLControlData *cd)
 		gint i;
 
 		str = g_string_new ("<submenu name=\"EditSpellLanguagesSubmenu\" _label=\"");
-		g_string_append (str, _("_Languages"));
+		g_string_append (str, _("Spell Checking _Languages"));
 		g_string_append (str, "\">\n");
 		for (i = 0; i < seq->_length; i ++) {
 			line = g_strdup_printf ("<menuitem name=\"SpellLanguage%d\" _label=\"%s\""
