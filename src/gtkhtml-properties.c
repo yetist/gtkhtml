@@ -24,6 +24,11 @@
 #include "gtkhtml.h"
 #include "gtkhtml-properties.h"
 
+#define DEFAULT_FONT_SIZE   12
+#define DEFAULT_FONT_SIZE_S "12"
+
+#define STRINGIZE(x) #x
+
 GtkHTMLClassProperties *
 gtk_html_class_properties_new (void)
 {
@@ -34,8 +39,8 @@ gtk_html_class_properties_new (void)
 	p->keybindings_theme = g_strdup ("emacs");
 	p->font_var_family   = g_strdup ("helvetica");
 	p->font_fix_family   = g_strdup ("courier");
-	p->font_var_size     = 14;
-	p->font_fix_size     = 14;
+	p->font_var_size     = DEFAULT_FONT_SIZE;
+	p->font_fix_size     = DEFAULT_FONT_SIZE;
 	p->animations        = TRUE;
 
 	return p;
@@ -116,14 +121,23 @@ gtk_html_class_properties_update (GtkHTMLClassProperties *p, GConfClient *client
 void
 gtk_html_class_properties_load (GtkHTMLClassProperties *p)
 {
+	char *s;
+
 	gnome_config_push_prefix (GTK_HTML_GNOME_CONFIG_PREFIX);
 	GET  (bool, magic_links, "magic_links=true");
 	GET  (bool, animations, "animations=true");
 	GETS (keybindings_theme, "keybindings_theme=ms");
 	GETS (font_var_family, "font_variable_family=helvetica");
 	GETS (font_fix_family, "font_fixed_family=courier");
-	GET  (int, font_var_size, "font_variable_size=14");
-	GET  (int, font_fix_size, "font_fixed_size=14");
+
+	s = g_strdup_printf ("font_variable_size=%d", DEFAULT_FONT_SIZE);
+	GET  (int, font_var_size, s);
+	g_free (s);
+
+	s = g_strdup_printf ("font_fixed_size=%d", DEFAULT_FONT_SIZE);
+	GET  (int, font_fix_size, s);
+	g_free (s);
+
 	gnome_config_pop_prefix ();
 }
 

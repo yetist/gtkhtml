@@ -1,3 +1,11 @@
+2000-08-28  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* gtkhtml-properties.c (DEFAULT_FONT_SIZE, DEFAULT_FONT_SIZE_S):
+	New #defines.  The default font size is now 12 points, instead of
+	the huge 14 point.
+	(gtk_html_class_properties_new): Use them.
+	(gtk_html_class_properties_load): Use them.
+
 2000-08-28  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlgdkfontmanager.c (html_gdk_font_manager_find_face): do
