@@ -4319,7 +4319,6 @@ load_keybindings (GtkHTMLClass *klass)
 	BCOM (GDK_CONTROL_MASK, 8, ZOOM_RESET);
 	BCOM (GDK_CONTROL_MASK, KP_Multiply, ZOOM_RESET);
 	BCOM (GDK_CONTROL_MASK, space, SELECTION_MODE);
-	BCOM (0, Escape, DISABLE_SELECTION);
 }
 
 void
