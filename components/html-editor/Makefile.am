@@ -5,7 +5,10 @@ gtkhtml_data = $(datadir)/gtkhtml-@GTKHTML_RELEASE@
 gladedir = $(gtkhtml_data)
 glade_DATA = gtkhtml-editor-properties.glade
 
-INCLUDES = -I$(top_srcdir)/src
+INCLUDES = -I$(top_srcdir)/src -I$(srcdir) -I$(includedir) $(GTKHTML_CFLAGS) $(SOUP_CFLAGS) \
+	-DG_LOG_DOMAIN=\"gtkhtml\" \
+	-DSRCDIR=\"$(srcdir)\" \
+	-DPREFIX=\"$(prefix)\"
 
 AM_CFLAGS = \
 	$(EDITOR_CFLAGS)				\
@@ -60,9 +63,9 @@ LDADD =	\
 
 # The Editor Control
 
-GTKHTML_EDITOR_SOURCES_COMMON =			\
-	$(IDL_GENERATED)			\
+libgnome_gtkhtml_editor_3_0_la_SOURCES =	\
 	$(SPELL_IDL_GENERATED)			\
+	Editor.h				\
 	body.h					\
 	body.c					\
 	cell.h					\
@@ -71,8 +74,6 @@ GTKHTML_EDITOR_SOURCES_COMMON =			\
 	control-data.h				\
 	dialog.c				\
 	dialog.h				\
-	e-html-utils.h				\
-	e-html-utils.c				\
 	editor-control-factory.c		\
 	editor-control-factory.h		\
 	engine.h				\
@@ -114,25 +115,31 @@ GTKHTML_EDITOR_SOURCES_COMMON =			\
 	utils.c					\
 	utils.h
 
-#if EDITOR_SHLIB
-#lib_LTLIBRARIES = libgnome-gtkhtml-editor.la
-#
-#libgnome_gtkhtml_editor_la_SOURCES =		\
-#	$(GTKHTML_EDITOR_SOURCES_COMMON)
-#libgnome_gtkhtml_editor_la_LDFLAGS = -release $(EDITOR_API_VERSION)
-#PRGS =
-#else
-PRGS = gnome-gtkhtml-editor
-gnome_gtkhtml_editor_SOURCES =			\
-	$(GTKHTML_EDITOR_SOURCES_COMMON)
-install-exec-hook:
-	mv $(DESTDIR)$(libexecdir)/gnome-gtkhtml-editor $(DESTDIR)$(GNOME_GTKHTML_EDITOR_LOCATION)
+if EDITOR_SHLIB
+MY_PRGS =
+MY_NOINSTPRGS =
+MY_NOINSTLIBS =
+else
+MY_PRGS = gnome-gtkhtml-editor-3.0
+MY_NOINSTPRGS =
+MY_NOINSTLIBS = libgnome-gtkhtml-editor-3.0.la
+endif
 
-uninstall-hook:
-	rm -f $(DESTDIR)$(GNOME_GTKHTML_EDITOR_LOCATION)
-#endif
+gnome_gtkhtml_editor_3_0_LDADD = \
+	$(LDADD)			\
+	libgnome-gtkhtml-editor-3.0.la
 
-libexec_PROGRAMS = $(PRGS)
+gnome_gtkhtml_editor_3_0_SOURCES = \
+	$(IDL_GENERATED)		\
+	gnome-gtkhtml-editor..c
+
+noinst_LTLIBRARIES = $(MY_NOINSTLIBS)
+
+noinst_PROGRAMS = 		\
+	test_editor		\
+	$(MY_NOINSTPRGS)
+
+libexec_PROGRAMS = $(MY_PRGS)
 
 serverdir = $(libdir)/bonobo/servers
 server_in_files = GNOME_GtkHTML_Editor.server.in.in
@@ -152,9 +159,6 @@ uidir = $(gtkhtml_data)
 ui_DATA = GNOME_GtkHTML_Editor.xml
 
 # The Test program
-
-noinst_PROGRAMS =				\
-	test-editor
 
 test_editor_SOURCES =				\
 	$(IDL_GENERATED)			\

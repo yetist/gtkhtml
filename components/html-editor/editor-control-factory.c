@@ -727,7 +727,7 @@ editor_control_init (void)
 	}
 }
 
-static BonoboObject *
+BonoboObject *
 editor_control_factory (BonoboGenericFactory *factory, const gchar *component_id, gpointer closure)
 {
 	BonoboControl *control;
@@ -754,44 +754,4 @@ editor_control_factory (BonoboGenericFactory *factory, const gchar *component_id
 
 #ifdef GNOME_GTKHTML_EDITOR_SHLIB
 BONOBO_ACTIVATION_SHLIB_FACTORY (CONTROL_FACTORY_ID, "GNOME HTML Editor factory", editor_control_factory, NULL);
-#else
-
-int
-main (int argc, char **argv)
-{
-	BonoboGenericFactory *factory;
-#ifdef GTKHTML_HAVE_GCONF
-	GError  *gconf_error  = NULL;
 #endif
-
-	/* Initialize the i18n support */
-	bindtextdomain(GTKHTML_RELEASE_STRING, GNOMELOCALEDIR);
-	textdomain(GTKHTML_RELEASE_STRING);
-
-	gnome_program_init(PACKAGE, VERSION, LIBGNOMEUI_MODULE, argc, argv, 
-			   GNOME_PROGRAM_STANDARD_PROPERTIES,
-			   GNOME_PARAM_HUMAN_READABLE_NAME, _("GtkHTML Editor Control"),			   
-			   NULL);
-
-	/* #ifdef GTKHTML_HAVE_GCONF
-	if (!gconf_init (argc, argv, &gconf_error)) {
-		g_assert (gconf_error != NULL);
-		g_error ("GConf init failed:\n  %s", gconf_error->message);
-		return 1;
-	}
-	#endif */
-
-	factory = bonobo_generic_factory_new (CONTROL_FACTORY_ID, editor_control_factory, NULL);
-
-	if (factory) {
-		bonobo_running_context_auto_exit_unref (BONOBO_OBJECT (factory));
-	
-		bonobo_activate ();
-		bonobo_main ();
-
-		return bonobo_ui_debug_shutdown ();
-	} else
-		return 1;
-
-}
-#endif /* GNOME_GTKHTML_EDITOR_SHLIB */

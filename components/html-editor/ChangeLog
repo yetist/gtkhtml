@@ -1,3 +1,14 @@
+2003-03-27  Larry Ewing  <lewing@ximian.com>
+
+	* editor-control-factory.c: remove main move it to
+	gnome-gtkhtml-editor.c
+
+	* Makefile.am: always build a libtool library don't install it if
+	we are making an exe component.
+
+	* gnome-gtkhtml-editor.c (main): move the main function to it's
+	own file.
+
 2003-03-26  Larry Ewing  <lewing@ximian.com>
 
 	* popup.c (prepare_properties_and_menu): add Input Methods menu item.
