@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2001-04-17 10:08-0500\n"
+"POT-Creation-Date: 2001-05-02 20:59+0200\n"
 "PO-Revision-Date: 2000-09-22 23:58+0200\n"
 "Last-Translator: Jesús Bravo Álvarez <jba@pobox.com>\n"
 "Language-Team: Galician <trasno@ceu.fi.udc.es>\n"
@@ -517,7 +517,7 @@ msgstr "Esquerda"
 msgid "Right"
 msgstr "Dereita"
 
-#: components/html-editor/popup.c:219
+#: components/html-editor/popup.c:226
 msgid "Remove link"
 msgstr "Quitar ligazón"
 

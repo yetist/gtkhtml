@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.5\n"
-"POT-Creation-Date: 2001-04-17 10:08-0500\n"
+"POT-Creation-Date: 2001-05-02 20:59+0200\n"
 "PO-Revision-Date: 2001-04-21 11:30+0200\n"
 "Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
@@ -476,7 +476,7 @@ msgstr "Venstre"
 msgid "Right"
 msgstr "Højre"
 
-#: components/html-editor/popup.c:219
+#: components/html-editor/popup.c:226
 msgid "Remove link"
 msgstr "Fjern lænke"
 
