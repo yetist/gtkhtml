@@ -955,10 +955,10 @@ get_tag (HTMLClueFlow *flow)
 {
 	switch (flow->style) {
 	case HTML_CLUEFLOW_STYLE_ITEMDOTTED:
-		return "UL";
+		return "ul";
 	case HTML_CLUEFLOW_STYLE_ITEMROMAN:
 	case HTML_CLUEFLOW_STYLE_ITEMDIGIT:
-		return "OL";
+		return "ol";
 	case HTML_CLUEFLOW_STYLE_NORMAL:
 	case HTML_CLUEFLOW_STYLE_H1:
 	case HTML_CLUEFLOW_STYLE_H2:
@@ -970,7 +970,7 @@ get_tag (HTMLClueFlow *flow)
 	case HTML_CLUEFLOW_STYLE_PRE:
 	case HTML_CLUEFLOW_STYLE_NOWRAP:
 	default:
-		return "BLOCKQUOTE";
+		return "blockquote";
 	}
 }
 
@@ -1025,7 +1025,7 @@ write_pre_tags (HTMLClueFlow *self,
 	prev = HTML_CLUEFLOW (HTML_OBJECT (self)->prev);
 	if (prev != NULL && prev->level == self->level && prev->style == self->style) {
 		if (! is_item (self))
-			return html_engine_save_output_string (state, "<BR>\n");
+			return html_engine_save_output_string (state, "<br>\n");
 		else
 			return TRUE;
 	}
@@ -1070,25 +1070,25 @@ get_tag_for_style (const HTMLClueFlow *flow)
 	case HTML_CLUEFLOW_STYLE_NORMAL:
 		return NULL;
 	case HTML_CLUEFLOW_STYLE_H1:
-		return "H1";
+		return "h1";
 	case HTML_CLUEFLOW_STYLE_H2:
-		return "H2";
+		return "h2";
 	case HTML_CLUEFLOW_STYLE_H3:
-		return "H3";
+		return "h3";
 	case HTML_CLUEFLOW_STYLE_H4:
-		return "H4";
+		return "h4";
 	case HTML_CLUEFLOW_STYLE_H5:
-		return "H5";
+		return "h5";
 	case HTML_CLUEFLOW_STYLE_H6:
-		return "H6";
+		return "h6";
 	case HTML_CLUEFLOW_STYLE_ADDRESS:
-		return "ADDRESS";
+		return "address";
 	case HTML_CLUEFLOW_STYLE_PRE:	
-		return "PRE";
+		return "pre";
 	case HTML_CLUEFLOW_STYLE_ITEMDOTTED:
 	case HTML_CLUEFLOW_STYLE_ITEMROMAN:
 	case HTML_CLUEFLOW_STYLE_ITEMDIGIT:
-		return "LI";
+		return "li";
 	default:
 		g_warning ("Unknown HTMLClueFlowStyle %d", flow->style);
 		return NULL;
@@ -1100,13 +1100,13 @@ halign_to_string (HTMLHAlignType halign)
 {
 	switch (halign) {
 	case HTML_HALIGN_RIGHT:
-		return "RIGHT";
+		return "right";
 	case HTML_HALIGN_CENTER:
-		return "CENTER";
+		return "center";
 	case HTML_HALIGN_LEFT:
 	case HTML_HALIGN_NONE:
 	default:
-		return "LEFT";
+		return "left";
 	}
 }
 
@@ -1156,7 +1156,7 @@ save (HTMLObject *self,
 	
 	/* Alignment tag.  */
 	if (halign != HTML_HALIGN_NONE && halign != HTML_HALIGN_LEFT) {
-		if (! html_engine_save_output_string (state, "<DIV ALIGN=%s>\n", halign_to_string (halign)))
+		if (! html_engine_save_output_string (state, "<div alignx=%s>\n", halign_to_string (halign)))
 			return FALSE;
 	}
 
@@ -1177,7 +1177,7 @@ save (HTMLObject *self,
 
 	/* Close alignment tag.  */
 	if (halign != HTML_HALIGN_NONE && halign != HTML_HALIGN_LEFT) {
-		if (! html_engine_save_output_string (state, "</DIV>\n"))
+		if (! html_engine_save_output_string (state, "</div>\n"))
 			return FALSE;
 	} else if (tag != NULL
 		   && HTML_CLUEFLOW (self)->style != HTML_CLUEFLOW_STYLE_PRE) {

@@ -63,57 +63,57 @@ get_tags (const HTMLText *text,
 
 	if (!html_color_equal (text->color, html_colorset_get_color (state->engine->settings->color_set, HTMLTextColor))
 	    && !html_color_equal (text->color, html_colorset_get_color (state->engine->settings->color_set, HTMLLinkColor))) {
-		opening_p += sprintf (opening_p, "<FONT COLOR=#%02x%02x%02x>",
+		opening_p += sprintf (opening_p, "<font color=#%02x%02x%02x>",
 				      text->color->color.red   >> 8,
 				      text->color->color.green >> 8,
 				      text->color->color.blue  >> 8);
-		ending_p += sprintf (ending_p, "</FONT>");
+		ending_p += sprintf (ending_p, "</font>");
 	}
 
 	size = font_style & GTK_HTML_FONT_STYLE_SIZE_MASK;
 	if (size != 0) {
-		opening_p += sprintf (opening_p, "<FONT SIZE=%d>", size);
+		opening_p += sprintf (opening_p, "<font size=%d>", size);
 	}
 
 	if (font_style & GTK_HTML_FONT_STYLE_BOLD) {
-		opening_p += sprintf (opening_p, "<B>");
+		opening_p += sprintf (opening_p, "<b>");
 	}
 
 	if (font_style & GTK_HTML_FONT_STYLE_ITALIC) {
-		opening_p += sprintf (opening_p, "<I>");
+		opening_p += sprintf (opening_p, "<i>");
 	}
 
 	if (font_style & GTK_HTML_FONT_STYLE_UNDERLINE) {
-		opening_p += sprintf (opening_p, "<U>");
+		opening_p += sprintf (opening_p, "<u>");
 	}
 
 	if (font_style & GTK_HTML_FONT_STYLE_STRIKEOUT) {
-		opening_p += sprintf (opening_p, "<S>");
+		opening_p += sprintf (opening_p, "<s>");
 	}
 
 	if (font_style & GTK_HTML_FONT_STYLE_FIXED) {
-		opening_p += sprintf (opening_p, "<TT>");
-		ending_p += sprintf (ending_p, "</TT>");
+		opening_p += sprintf (opening_p, "<tt>");
+		ending_p += sprintf (ending_p, "</tt>");
 	}
 
 	if (font_style & GTK_HTML_FONT_STYLE_STRIKEOUT) {
-		ending_p += sprintf (ending_p, "</S>");
+		ending_p += sprintf (ending_p, "</s>");
 	}
 
 	if (font_style & GTK_HTML_FONT_STYLE_UNDERLINE) {
-		ending_p += sprintf (ending_p, "</U>");
+		ending_p += sprintf (ending_p, "</u>");
 	}
 
 	if (font_style & GTK_HTML_FONT_STYLE_ITALIC) {
-		ending_p += sprintf (ending_p, "</I>");
+		ending_p += sprintf (ending_p, "</i>");
 	}
 
 	if (font_style & GTK_HTML_FONT_STYLE_BOLD) {
-		ending_p += sprintf (ending_p, "</B>");
+		ending_p += sprintf (ending_p, "</b>");
 	}
 
 	if (size != 0) {
-		ending_p += sprintf (ending_p, "</FONT SIZE=%d>", size);
+		ending_p += sprintf (ending_p, "</font size=%d>", size);
 	}
 
 

@@ -1,5 +1,16 @@
 2000-07-28  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmltext.c (get_tags): Use lowercase for tags.
+
+	* htmlclueflow.c (get_tag): Use lowercase for tags.
+	(write_pre_tags): Likewise.
+	(get_tag_for_style): Likewise.
+	(halign_to_string): Likewise.
+	(save): Likewise.
+	(save): Likewise.
+
+2000-07-28  Ettore Perazzoli  <ettore@helixcode.com>
+
 	* gtkhtml.c (button_press_event): Don't select the region if
 	`allow_selection' is false.
 	(motion_notify_event): Don't select anything if `allow_selection'
