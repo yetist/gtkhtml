@@ -1,14 +1,13 @@
 # gtkhtml Bahasa Melayu (ms)
 # Jika takut risiko, Jangan bicara tentang Perjuangan
-# Hasbullah Bin Pit (sebol) <sebol@ikhlas.com>, 2001
+# Hasbullah Bin Pit (sebol) <sebol@my-penguin.org>, 2001-2004
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 1.1.x\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-26 15:35+0200\n"
-"PO-Revision-Date: 2002-05-25 02:09+0800\n"
-"Last-Translator: Hasbullah Bin Pit <sebol@ikhlas.com>\n"
+"POT-Creation-Date: 2004-08-27 22:49+0800\n"
+"PO-Revision-Date: 2004-08-27 22:51+0730\n"
+"Last-Translator: Hasbullah Bin Pit <sebol@my-penguin.org>\n"
 "Language-Team: Projek Gabai <gabai-penyumbang@lists.sourceforge.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,17 +17,21 @@ msgstr ""
 msgid "<None>"
 msgstr "<Tiada>"
 
-#: capplet/gnome-bindings-prop.c:211 capplet/main.c:241
-#: components/html-editor/cell.c:333 components/html-editor/image.c:350
-#: components/html-editor/link.c:182 components/html-editor/rule.c:174
-#: components/html-editor/table.c:220 components/html-editor/template.c:271
+#: capplet/gnome-bindings-prop.c:211
+#: capplet/main.c:241
+#: components/html-editor/cell.c:333
+#: components/html-editor/image.c:350
+#: components/html-editor/link.c:182
+#: components/html-editor/rule.c:174
+#: components/html-editor/table.c:220
+#: components/html-editor/template.c:271
 #: components/html-editor/text.c:159
 msgid "Could not load glade file."
 msgstr "Tak dapat memuatkan fail glade."
 
 #: capplet/gtkhtml-capplet.glade.h:1
 msgid "\n"
-msgstr ""
+msgstr "\n"
 
 #: capplet/gtkhtml-capplet.glade.h:3
 #: components/html-editor/gtkhtml-editor-properties.glade.h:4
@@ -265,7 +268,8 @@ msgstr "Potong pilihan"
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
-#: components/html-editor/search.c:108 components/html-editor/search.c:166
+#: components/html-editor/search.c:108
+#: components/html-editor/search.c:166
 msgid "Find"
 msgstr "Cari"
 
@@ -436,8 +440,10 @@ msgstr "_Jilat"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
-#: components/html-editor/menubar.c:136 components/html-editor/popup.c:106
-#: components/html-editor/popup.c:201 components/html-editor/popup.c:267
+#: components/html-editor/menubar.c:136
+#: components/html-editor/popup.c:106
+#: components/html-editor/popup.c:201
+#: components/html-editor/popup.c:267
 msgid "Link"
 msgstr "Pautan"
 
@@ -447,9 +453,8 @@ msgid "Make the current Paragraph style Normal"
 msgstr "Jadikan perenggan semasa bergaya normal"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:57
-#, fuzzy
 msgid "Make the current Paragraph style Preformat"
-msgstr "Jadikan perenggan semasa sebagai preformat"
+msgstr "Jadikan perenggan semasa sebagai Praformat"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:58
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
@@ -508,7 +513,8 @@ msgstr "Jadikan perenggan sebagai senarai alfabetik"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:69
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:70
-#: components/html-editor/paragraph.c:83 components/html-editor/toolbar.c:48
+#: components/html-editor/paragraph.c:83
+#: components/html-editor/toolbar.c:48
 msgid "Normal"
 msgstr "Normal"
 
@@ -596,7 +602,8 @@ msgstr "Ulangcara aksi nyahcara"
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
-#: components/html-editor/replace.c:161 components/html-editor/replace.c:223
+#: components/html-editor/replace.c:161
+#: components/html-editor/replace.c:223
 msgid "Replace"
 msgstr "Ganti"
 
@@ -615,7 +622,8 @@ msgstr "Senarai nombor roman"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
 #: components/html-editor/editor-control-factory.c:207
 #: components/html-editor/gtkhtml-editor-properties.glade.h:48
-#: components/html-editor/menubar.c:155 components/html-editor/popup.c:225
+#: components/html-editor/menubar.c:155
+#: components/html-editor/popup.c:225
 msgid "Rule"
 msgstr "Rule"
 
@@ -663,8 +671,10 @@ msgstr "Superscript"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 #: components/html-editor/gtkhtml-editor-properties.glade.h:52
-#: components/html-editor/menubar.c:176 components/html-editor/popup.c:231
-#: components/html-editor/popup.c:501 components/html-editor/popup.c:513
+#: components/html-editor/menubar.c:176
+#: components/html-editor/popup.c:231
+#: components/html-editor/popup.c:501
+#: components/html-editor/popup.c:513
 msgid "Table"
 msgstr "Jadual"
 
@@ -950,30 +960,25 @@ msgid "GNOME HTML Editor Factory"
 msgstr "Kilang Editor HTML GNOME"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
-#, fuzzy
 msgid "Insert Sick smiley into document..."
-msgstr "Selit ikon jilat mata ke dokumen..."
+msgstr "Selit ikon Sakit ke dokumen..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:58
-#, fuzzy
 msgid "Make the current Paragraph style Preformatted"
-msgstr "Jadikan perenggan semasa sebagai preformat"
+msgstr "Jadikan Perenggan semasa sebagai Praformat"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
 #: components/html-editor/paragraph.c:102
-#, fuzzy
 msgid "Preformatted"
-msgstr "Preformat"
+msgstr "Praformat"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
-#, fuzzy
 msgid "S_ick"
-msgstr "_Kenyitan"
+msgstr "Sa_kit"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:151
-#, fuzzy
 msgid "_Wrap Lines"
-msgstr "Membalut:"
+msgstr "_Balut Baris"
 
 #: components/html-editor/body.c:59
 #: components/html-editor/gtkhtml-editor-properties.glade.h:42
@@ -985,42 +990,37 @@ msgid "Perforated Paper"
 msgstr ""
 
 #: components/html-editor/body.c:75
-#, fuzzy
 msgid "Blue Ink"
-msgstr "Biru 3D"
+msgstr "Dakwat Biru"
 
 #: components/html-editor/body.c:83
-#, fuzzy
 msgid "Paper"
-msgstr "Halaman"
+msgstr "Kertas"
 
 #: components/html-editor/body.c:91
 msgid "Ribbon"
-msgstr ""
+msgstr "Riben"
 
 # ui/galeon.glade.h:268
 #: components/html-editor/body.c:99
-#, fuzzy
 msgid "Midnight"
-msgstr "Kanan"
+msgstr "Tengahmalam"
 
 #: components/html-editor/body.c:107
-#, fuzzy
 msgid "Confidential"
-msgstr "Buang inden"
+msgstr "Sulit"
 
 #: components/html-editor/body.c:115
 msgid "Draft"
-msgstr ""
+msgstr "Draf"
 
 #: components/html-editor/body.c:123
 msgid "Graph paper"
-msgstr ""
+msgstr "Kertas graf"
 
 #: components/html-editor/body.c:246
-#, fuzzy
 msgid "T_emplate:"
-msgstr "Templat"
+msgstr "T_emplat:"
 
 #. data->entry_title = gtk_entry_new ();
 #. if (gtk_html_get_title (data->cd->html)) {
@@ -1029,37 +1029,36 @@ msgstr "Templat"
 #. }
 #. g_signal_connect (data->entry_title, "changed", G_CALLBACK (entry_changed), data);
 #. editor_hig_attach_row (t1, _("T_itle:"), data->entry_title, 1);
-#: components/html-editor/body.c:256 components/html-editor/paragraph.c:112
-#, fuzzy
+#: components/html-editor/body.c:256
+#: components/html-editor/paragraph.c:112
 msgid "General"
-msgstr "Tengah"
+msgstr "Umum"
 
-#: components/html-editor/body.c:267 components/html-editor/text.c:162
+#: components/html-editor/body.c:267
+#: components/html-editor/text.c:162
 #: components/html-editor/toolbar.c:301
 msgid "Automatic"
 msgstr "Automatik"
 
 #: components/html-editor/body.c:279
-#, fuzzy
 msgid "_Text:"
-msgstr "Teks"
+msgstr "_Teks"
 
 #: components/html-editor/body.c:280
-#, fuzzy
 msgid "_Link:"
-msgstr "Pautan"
+msgstr "_Pautan"
 
 #: components/html-editor/body.c:281
-#, fuzzy
 msgid "_Background:"
-msgstr "LatarBelakang"
+msgstr "Latar_Belakang"
 
 #: components/html-editor/body.c:283
 #: components/html-editor/gtkhtml-editor-properties.glade.h:30
 msgid "Colors"
 msgstr "Warna"
 
-#: components/html-editor/body.c:285 components/html-editor/body.c:300
+#: components/html-editor/body.c:285
+#: components/html-editor/body.c:300
 #: components/html-editor/gtkhtml-editor-properties.glade.h:23
 msgid "Background Image"
 msgstr "Imej latarbelakang:"
@@ -1067,273 +1066,257 @@ msgstr "Imej latarbelakang:"
 #: components/html-editor/body.c:298
 #: components/html-editor/gtkhtml-editor-properties.glade.h:71
 msgid "_Source:"
-msgstr ""
+msgstr "_Sumber:"
 
-#: components/html-editor/cell.c:350 components/html-editor/table.c:231
+#: components/html-editor/cell.c:350
+#: components/html-editor/table.c:231
 msgid "Transparent"
-msgstr ""
+msgstr "Telus"
 
 #: components/html-editor/editor-control-factory.c:178
-#: components/html-editor/menubar.c:354 components/html-editor/menubar.c:372
-#: components/html-editor/menubar.c:390 components/html-editor/popup.c:186
+#: components/html-editor/menubar.c:354
+#: components/html-editor/menubar.c:372
+#: components/html-editor/menubar.c:390
+#: components/html-editor/popup.c:186
 #: components/html-editor/popup.c:264
 msgid "Properties"
 msgstr "Ciri-ciri"
 
 #: components/html-editor/editor-control-factory.c:197
 #: components/html-editor/gtkhtml-editor-properties.glade.h:54
-#: components/html-editor/menubar.c:376 components/html-editor/popup.c:195
+#: components/html-editor/menubar.c:376
+#: components/html-editor/popup.c:195
 msgid "Text"
 msgstr "Teks"
 
 #: components/html-editor/editor-control-factory.c:216
-#: components/html-editor/menubar.c:394 components/html-editor/popup.c:213
+#: components/html-editor/menubar.c:394
+#: components/html-editor/popup.c:213
 msgid "Paragraph"
 msgstr "Perenggan"
 
 #: components/html-editor/editor-control-factory.c:220
 #: components/html-editor/gtkhtml-editor-properties.glade.h:43
-#: components/html-editor/menubar.c:358 components/html-editor/popup.c:219
+#: components/html-editor/menubar.c:358
+#: components/html-editor/popup.c:219
 msgid "Page"
 msgstr "Halaman"
 
 #. This is the default custom color
 #: components/html-editor/gi-color-palette.c:395
 msgid "custom"
-msgstr ""
+msgstr "tersendiri"
 
 #. "Custom" color - we'll pop up a GnomeColorPicker
 #: components/html-editor/gi-color-palette.c:437
-#, fuzzy
 msgid "Custom Color:"
-msgstr "Warna:"
+msgstr "Warna Tersendiri:"
 
 #: components/html-editor/gi-color-palette.c:445
 msgid "Choose Custom Color"
-msgstr ""
+msgstr "Pilih Warna Sendiri"
 
 #: components/html-editor/gi-color-palette.c:578
 msgid "black"
-msgstr ""
+msgstr "hitam"
 
 #: components/html-editor/gi-color-palette.c:579
 msgid "light brown"
-msgstr ""
+msgstr "perang cair"
 
 #: components/html-editor/gi-color-palette.c:580
 msgid "brown gold"
-msgstr ""
+msgstr "emas keperangan"
 
 #: components/html-editor/gi-color-palette.c:581
 msgid "dark green #2"
-msgstr ""
+msgstr "hijau gelap #2"
 
 #: components/html-editor/gi-color-palette.c:582
 msgid "navy"
-msgstr ""
+msgstr "biru laut"
 
 #: components/html-editor/gi-color-palette.c:583
 #: components/html-editor/gi-color-palette.c:639
 msgid "dark blue"
-msgstr ""
+msgstr "biru gelap"
 
 #: components/html-editor/gi-color-palette.c:584
-#, fuzzy
 msgid "purple #2"
-msgstr "Ungu"
+msgstr "Ungu #2"
 
 #: components/html-editor/gi-color-palette.c:585
 msgid "very dark gray"
-msgstr ""
+msgstr "kelabu amat gelap"
 
 #: components/html-editor/gi-color-palette.c:588
 #: components/html-editor/gi-color-palette.c:644
-#, fuzzy
 msgid "dark red"
-msgstr "Pengelapa gelap"
+msgstr "merah gelap"
 
 #: components/html-editor/gi-color-palette.c:589
-#, fuzzy
 msgid "red-orange"
-msgstr "Jingga"
+msgstr "jingga-merah"
 
 #: components/html-editor/gi-color-palette.c:590
-#, fuzzy
 msgid "gold"
-msgstr "Bold"
+msgstr "emas"
 
 #: components/html-editor/gi-color-palette.c:591
 msgid "dark green"
-msgstr ""
+msgstr "hijau gelap"
 
 #: components/html-editor/gi-color-palette.c:592
 #: components/html-editor/gi-color-palette.c:645
 msgid "dull blue"
-msgstr ""
+msgstr "biru kelam"
 
 #: components/html-editor/gi-color-palette.c:593
 #: components/html-editor/gi-color-palette.c:646
-#, fuzzy
 msgid "blue"
-msgstr "Biru"
+msgstr "biru"
 
 #: components/html-editor/gi-color-palette.c:594
 msgid "dull purple"
-msgstr ""
+msgstr "ungu kelam"
 
 #: components/html-editor/gi-color-palette.c:595
 msgid "dark grey"
-msgstr ""
+msgstr "kelabu gelap"
 
 #: components/html-editor/gi-color-palette.c:598
-#, fuzzy
 msgid "red"
 msgstr "merah"
 
 #: components/html-editor/gi-color-palette.c:599
-#, fuzzy
 msgid "orange"
-msgstr "Jingga"
+msgstr "jingga"
 
 #: components/html-editor/gi-color-palette.c:600
-#, fuzzy
 msgid "lime"
-msgstr "Jajaran"
+msgstr "limau"
 
 #: components/html-editor/gi-color-palette.c:601
 msgid "dull green"
-msgstr ""
+msgstr "hijau kelam"
 
 #: components/html-editor/gi-color-palette.c:602
 msgid "dull blue #2"
-msgstr ""
+msgstr "biru kelam #2"
 
 #: components/html-editor/gi-color-palette.c:603
 msgid "sky blue #2"
-msgstr ""
+msgstr "biru langit #2"
 
 #: components/html-editor/gi-color-palette.c:604
 #: components/html-editor/gi-color-palette.c:643
-#, fuzzy
 msgid "purple"
-msgstr "Ungu"
+msgstr "ungu"
 
 #: components/html-editor/gi-color-palette.c:605
-#, fuzzy
 msgid "gray"
-msgstr "Kelabu rata"
+msgstr "kelabu"
 
 # ui/galeon.glade.h:176
 #: components/html-editor/gi-color-palette.c:608
 #: components/html-editor/gi-color-palette.c:640
-#, fuzzy
 msgid "magenta"
-msgstr "Imej"
+msgstr "magenta"
 
 #: components/html-editor/gi-color-palette.c:609
 msgid "bright orange"
-msgstr ""
+msgstr "jingga cerah"
 
 #: components/html-editor/gi-color-palette.c:610
 #: components/html-editor/gi-color-palette.c:641
-#, fuzzy
 msgid "yellow"
-msgstr "Kuning"
+msgstr "kuning"
 
 #: components/html-editor/gi-color-palette.c:611
-#, fuzzy
 msgid "green"
-msgstr "Hijau"
+msgstr "hijau"
 
 #: components/html-editor/gi-color-palette.c:612
 #: components/html-editor/gi-color-palette.c:642
 msgid "cyan"
-msgstr ""
+msgstr "cyan"
 
 #: components/html-editor/gi-color-palette.c:613
 msgid "bright blue"
-msgstr ""
+msgstr "biru cerah"
 
 #: components/html-editor/gi-color-palette.c:614
 #: components/html-editor/gi-color-palette.c:631
-#, fuzzy
 msgid "red purple"
-msgstr "Ungu"
+msgstr "ungu kemerahan"
 
 #: components/html-editor/gi-color-palette.c:615
-#, fuzzy
 msgid "light grey"
-msgstr "Kelabu rata"
+msgstr "kelabu cair"
 
 #: components/html-editor/gi-color-palette.c:618
 #: components/html-editor/gi-color-palette.c:635
-#, fuzzy
 msgid "pink"
-msgstr "Pautan"
+msgstr "merah jambu"
 
 # ui/galeon.glade.h:268
 #: components/html-editor/gi-color-palette.c:619
-#, fuzzy
 msgid "light orange"
-msgstr "Jajaran kiri"
+msgstr "jingga cair"
 
 #: components/html-editor/gi-color-palette.c:620
 #: components/html-editor/gi-color-palette.c:632
 msgid "light yellow"
-msgstr ""
+msgstr "kuning cair"
 
 # ui/galeon.glade.h:268
 #: components/html-editor/gi-color-palette.c:621
-#, fuzzy
 msgid "light green"
-msgstr "Jajaran kiri"
+msgstr "hijau cair"
 
 # ui/galeon.glade.h:268
 #: components/html-editor/gi-color-palette.c:622
-#, fuzzy
 msgid "light cyan"
-msgstr "Jajaran kiri"
+msgstr "cyan cair"
 
 #: components/html-editor/gi-color-palette.c:623
 #: components/html-editor/gi-color-palette.c:633
 msgid "light blue"
-msgstr ""
+msgstr "biru cair"
 
 #: components/html-editor/gi-color-palette.c:624
 #: components/html-editor/gi-color-palette.c:637
 msgid "light purple"
-msgstr ""
+msgstr "ungu cair"
 
 #: components/html-editor/gi-color-palette.c:625
-#, fuzzy
 msgid "white"
-msgstr "dengan"
+msgstr "putih"
 
 #: components/html-editor/gi-color-palette.c:630
 msgid "purplish blue"
-msgstr ""
+msgstr "biru keunguan"
 
 #: components/html-editor/gi-color-palette.c:634
 msgid "dark purple"
-msgstr ""
+msgstr "ungu gelap"
 
 #: components/html-editor/gi-color-palette.c:636
 msgid "sky blue"
-msgstr ""
+msgstr "biru langit"
 
 #: components/html-editor/gnome-gtkhtml-editor.c:68
-#, fuzzy
 msgid "GtkHTML Editor Control"
-msgstr "Kawalan Editor HTML GNOME"
+msgstr "Kawalan Editor  GtkHTML"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:1
 msgid "    "
-msgstr ""
+msgstr "    "
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:3
 #, no-c-format
 msgid "%"
-msgstr ""
+msgstr "%"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:8
 msgid "+4"
@@ -1341,48 +1324,47 @@ msgstr "+4"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:11
 msgid "<b>Alignment &amp; Behaviour</b>"
-msgstr ""
+msgstr "<b>Kelakuan &amp; Penjajaran</b>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:12
-#, fuzzy
 msgid "<b>Background</b>"
-msgstr "LatarBelakang"
+msgstr "<b>LatarBelakang</b>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:13
 msgid "<b>General</b>"
-msgstr ""
+msgstr "<b>Umum</b>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:14
 msgid "<b>Layout</b>"
-msgstr ""
+msgstr "<b>Susunatur</b>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:15
 msgid "<b>Scope</b>"
-msgstr ""
+msgstr "<b>Skop</b>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:16
 msgid "<span weight=\"bold\">General</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">Umum</span>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:17
 msgid "<span weight=\"bold\">Layout</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">Susunatur</span>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:18
 msgid "<span weight=\"bold\">Link</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">Pautan</span>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:19
 msgid "<span weight=\"bold\">Size</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">Saiz</span>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:20
 msgid "<span weight=\"bold\">Style</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">Gaya</span>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:21
 msgid "<span weight=\"bold\">Template</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">Templat</span>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:22
 #: components/html-editor/paragraph.c:131
@@ -1394,14 +1376,12 @@ msgid "Bottom"
 msgstr "bawah"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:25
-#, fuzzy
 msgid "C_ell"
-msgstr "Sel"
+msgstr "S_el"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:26
-#, fuzzy
 msgid "C_olor:"
-msgstr "Warna:"
+msgstr "_Warna:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:27
 #: components/html-editor/popup.c:237
@@ -1409,14 +1389,14 @@ msgid "Cell"
 msgstr "Sel"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:28
-#: components/html-editor/paragraph.c:128 components/html-editor/toolbar.c:515
+#: components/html-editor/paragraph.c:128
+#: components/html-editor/toolbar.c:515
 msgid "Center"
 msgstr "Tengah"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:29
-#, fuzzy
 msgid "Col_umn"
-msgstr "Kolum"
+msgstr "_Kolum"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:31
 msgid "Column span:"
@@ -1427,9 +1407,8 @@ msgid "Enable"
 msgstr "Hidupkan"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:33
-#, fuzzy
 msgid "Hea_der style"
-msgstr "Pengepala 6"
+msgstr "Gaya pe_ngepala"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:34
 msgid "Horizontal alignment:"
@@ -1441,9 +1420,8 @@ msgstr "Mengufuk:"
 
 # ui/galeon.glade.h:176
 #: components/html-editor/gtkhtml-editor-properties.glade.h:36
-#, fuzzy
 msgid "I_mage:"
-msgstr "Imej"
+msgstr "I_mej:"
 
 # ui/galeon.glade.h:200
 #: components/html-editor/gtkhtml-editor-properties.glade.h:38
@@ -1486,13 +1464,12 @@ msgid "Shaded"
 msgstr "Tersuram"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:50
-#, fuzzy
 msgid "Si_ze:"
-msgstr "Saiz"
+msgstr "Sai_z:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:51
 msgid "Standard"
-msgstr ""
+msgstr "Piawai"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:55
 msgid "Thickness:"
@@ -1511,111 +1488,96 @@ msgid "Width:"
 msgstr "Lebar:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:59
-#, fuzzy
 msgid "_Alignment:"
-msgstr "Jajaran:"
+msgstr "_Jajaran:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:61
-#, fuzzy
 msgid "_Border:"
-msgstr "Sempadan:"
+msgstr "_Sempadan:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:62
-#, fuzzy
 msgid "_Color:"
-msgstr "Warna:"
+msgstr "_Warna:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:63
-#, fuzzy
 msgid "_Columns:"
-msgstr "Kolum:"
+msgstr "_Kolum:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:64
-#, fuzzy
 msgid "_Description:"
-msgstr "Huraian:"
+msgstr "_Huraian:"
 
 # ui/galeon.glade.h:268
 #: components/html-editor/gtkhtml-editor-properties.glade.h:65
-#, fuzzy
 msgid "_Height:"
-msgstr "Tinggi:"
+msgstr "_Tinggi:"
 
 # ui/galeon.glade.h:176
 #: components/html-editor/gtkhtml-editor-properties.glade.h:66
-#, fuzzy
 msgid "_Image:"
-msgstr "Imej"
+msgstr "_Imej:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:68
-#, fuzzy
 msgid "_Padding:"
-msgstr "Padding:"
+msgstr "_Padding:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:69
-#, fuzzy
 msgid "_Row"
-msgstr "Baris"
+msgstr "_Baris"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:70
-#, fuzzy
 msgid "_Rows:"
-msgstr "Baris:"
+msgstr "_Baris:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
-#, fuzzy
 msgid "_Spacing:"
-msgstr "Jarak Ruang:"
+msgstr "Jarak _Ruang:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:74
-#, fuzzy
 msgid "_Table"
-msgstr "Jadual"
+msgstr "_Jadual"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:75
 msgid "_URL:"
-msgstr ""
+msgstr "_URL:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:77
-#, fuzzy
 msgid "_Width:"
-msgstr "Lebar:"
+msgstr "_Lebar:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:78
-#, fuzzy
 msgid "_Wrap Text"
-msgstr "Membalut:"
+msgstr "_Balut Teks"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:79
-#, fuzzy
 msgid "_X-Padding:"
-msgstr "Padding:"
+msgstr "Padding-_X:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:80
-#, fuzzy
 msgid "_Y-Padding:"
-msgstr "Padding:"
+msgstr "Padding-_Y:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:81
-#, fuzzy
 msgid "follow"
-msgstr "Ikut "
+msgstr "ikut "
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:82
 msgid "px"
-msgstr ""
+msgstr "px"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:83
 msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
-#: components/html-editor/menubar.c:96 components/html-editor/menubar.c:104
-#, fuzzy
+#: components/html-editor/menubar.c:96
+#: components/html-editor/menubar.c:104
 msgid "Insert image"
-msgstr "Selit pautan"
+msgstr "selit imej"
 
-#: components/html-editor/menubar.c:133 components/html-editor/menubar.c:152
-#: components/html-editor/menubar.c:173 components/html-editor/menubar.c:195
+#: components/html-editor/menubar.c:133
+#: components/html-editor/menubar.c:152
+#: components/html-editor/menubar.c:173
+#: components/html-editor/menubar.c:195
 #: components/html-editor/popup.c:103
 msgid "Insert"
 msgstr "Selit"
@@ -1623,39 +1585,45 @@ msgstr "Selit"
 #: components/html-editor/menubar.c:282
 #, c-format
 msgid "Error loading file '%s': %s"
-msgstr ""
+msgstr "Ralat memuatkan fail '%s': %s"
 
-#: components/html-editor/menubar.c:308 components/html-editor/menubar.c:317
-#, fuzzy
+#: components/html-editor/menubar.c:308
+#: components/html-editor/menubar.c:317
 msgid "Insert: HTML File"
-msgstr "Seit fail HTML"
+msgstr "Selit Fail HTML"
 
-#: components/html-editor/menubar.c:308 components/html-editor/menubar.c:317
-#, fuzzy
+#: components/html-editor/menubar.c:308
+#: components/html-editor/menubar.c:317
 msgid "Insert: Text File"
-msgstr "Selit fail teks"
+msgstr "Selit Fail Teks"
 
-#: components/html-editor/paragraph.c:86 components/html-editor/toolbar.c:54
+#: components/html-editor/paragraph.c:86
+#: components/html-editor/toolbar.c:54
 msgid "Header 1"
 msgstr "Pengepala 1"
 
-#: components/html-editor/paragraph.c:87 components/html-editor/toolbar.c:55
+#: components/html-editor/paragraph.c:87
+#: components/html-editor/toolbar.c:55
 msgid "Header 2"
 msgstr "Pengepala 2"
 
-#: components/html-editor/paragraph.c:88 components/html-editor/toolbar.c:56
+#: components/html-editor/paragraph.c:88
+#: components/html-editor/toolbar.c:56
 msgid "Header 3"
 msgstr "Pengepala 3"
 
-#: components/html-editor/paragraph.c:89 components/html-editor/toolbar.c:57
+#: components/html-editor/paragraph.c:89
+#: components/html-editor/toolbar.c:57
 msgid "Header 4"
 msgstr "Pengepala 4"
 
-#: components/html-editor/paragraph.c:90 components/html-editor/toolbar.c:58
+#: components/html-editor/paragraph.c:90
+#: components/html-editor/toolbar.c:58
 msgid "Header 5"
 msgstr "Pengepala 5"
 
-#: components/html-editor/paragraph.c:91 components/html-editor/toolbar.c:59
+#: components/html-editor/paragraph.c:91
+#: components/html-editor/toolbar.c:59
 msgid "Header 6"
 msgstr "Pengepala 6"
 
@@ -1675,26 +1643,24 @@ msgstr "Item Roman"
 msgid "Alphabeta item"
 msgstr "Item Alfabeta"
 
-#: components/html-editor/paragraph.c:100 components/html-editor/toolbar.c:60
+#: components/html-editor/paragraph.c:100
+#: components/html-editor/toolbar.c:60
 msgid "Address"
 msgstr "Alamat"
 
 #: components/html-editor/paragraph.c:109
-#, fuzzy
 msgid "_Style:"
-msgstr "_Gaya"
+msgstr "_Gaya:"
 
 #: components/html-editor/popup.c:438
 msgid "Paste Quotation"
 msgstr "Tepek Petikan"
 
 #: components/html-editor/popup.c:442
-#, fuzzy
 msgid "Insert Link"
-msgstr "Selit pautan"
+msgstr "Selit Pautan"
 
 #: components/html-editor/popup.c:449
-#, fuzzy
 msgid "Remove Link"
 msgstr "Buang Pautan"
 
@@ -1703,20 +1669,18 @@ msgid "Style"
 msgstr "Gaya"
 
 #: components/html-editor/popup.c:459
-#, fuzzy
 msgid "Text Style..."
-msgstr "Fail teks..."
+msgstr "Gaya Teks..."
 
-#: components/html-editor/popup.c:461 components/html-editor/popup.c:467
+#: components/html-editor/popup.c:461
+#: components/html-editor/popup.c:467
 #: components/html-editor/popup.c:477
-#, fuzzy
 msgid "Paragraph Style..."
-msgstr "Perenggan..."
+msgstr "Gaya Perenggan..."
 
 #: components/html-editor/popup.c:465
-#, fuzzy
 msgid "Link Style..."
-msgstr "Pautan..."
+msgstr "Gaya Pautan..."
 
 #: components/html-editor/popup.c:471
 #, fuzzy
@@ -1725,24 +1689,20 @@ msgstr "Rule..."
 
 # ui/galeon.glade.h:176
 #: components/html-editor/popup.c:475
-#, fuzzy
 msgid "Image Style..."
-msgstr "Imej..."
+msgstr "Gaya Imej..."
 
 #: components/html-editor/popup.c:486
-#, fuzzy
 msgid "Cell Style..."
-msgstr "Sel..."
+msgstr "Gaya Sel..."
 
 #: components/html-editor/popup.c:489
-#, fuzzy
 msgid "Table Style..."
-msgstr "Jadual..."
+msgstr "Gaya Jadual..."
 
 #: components/html-editor/popup.c:495
-#, fuzzy
 msgid "Page Style..."
-msgstr "Halaman..."
+msgstr "Gaya Halaman..."
 
 #: components/html-editor/popup.c:500
 msgid "Table insert"
@@ -1781,32 +1741,29 @@ msgid "Cell contents"
 msgstr "Kandungan sel"
 
 #: components/html-editor/popup.c:524
-#, fuzzy
 msgid "Check Word Spelling..."
-msgstr "Semak ejaan '%s'"
+msgstr "Semak Ejaan Perkataan..."
 
 #: components/html-editor/popup.c:529
 msgid "Add Word to"
-msgstr ""
+msgstr "Tambah Perkataan ke"
 
 #: components/html-editor/popup.c:533
-#, fuzzy, c-format
+#, c-format
 msgid "%s Dictionary"
-msgstr "Tambah '%s' ke kamus"
+msgstr "Kamus %s"
 
 #: components/html-editor/popup.c:542
-#, fuzzy
 msgid "Add Word to Dictionary"
-msgstr "Tambah '%s' ke kamus"
+msgstr "Tambah Perkataan ke kamus"
 
 #: components/html-editor/popup.c:545
-#, fuzzy
 msgid "Ignore Misspelled Word"
-msgstr "Tiada perkataan tersalah eja dijumpai"
+msgstr "Abaikan Perkataan Tersalah Eja"
 
 #: components/html-editor/popup.c:549
 msgid "Input Methods"
-msgstr ""
+msgstr "Kaedah Input"
 
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/replace.c:77
@@ -1814,52 +1771,43 @@ msgid "Replace confirmation"
 msgstr "Kepanstian Gantian"
 
 #: components/html-editor/replace.c:78
-#, fuzzy
 msgid "Replace _All"
-msgstr "Gantikan semua"
+msgstr "Gantikan _Semua"
 
 #: components/html-editor/replace.c:79
-#, fuzzy
 msgid "_Next"
-msgstr "Seterusnya"
+msgstr "_Berikutnya"
 
 #: components/html-editor/replace.c:81
-#, fuzzy
 msgid "_Replace"
-msgstr "Ganti"
+msgstr "_Ganti"
 
 #: components/html-editor/replace.c:169
-#, fuzzy
 msgid "Search _backward"
-msgstr "Cari kebelakang"
+msgstr "Cari ke_belakang"
 
-#: components/html-editor/replace.c:170 components/html-editor/search.c:114
-#, fuzzy
+#: components/html-editor/replace.c:170
+#: components/html-editor/search.c:114
 msgid "Case _sensitive"
-msgstr "case sensitive"
+msgstr "_Sensitif huruf kecil/besar"
 
 #: components/html-editor/replace.c:180
-#, fuzzy
 msgid "Replace:"
-msgstr "Ganti"
+msgstr "Ganti:"
 
 #: components/html-editor/replace.c:183
-#, fuzzy
 msgid "With:"
-msgstr "Lebar:"
+msgstr "Dengan:"
 
 #: components/html-editor/search.c:113
-#, fuzzy
 msgid "_Backward"
-msgstr "mengundur"
+msgstr "Meng_undur"
 
 #: components/html-editor/search.c:115
-#, fuzzy
 msgid "_Regular Expression"
-msgstr "Cari regular expression (regex)"
+msgstr "Ungkapan _Regular"
 
 #: components/html-editor/spell.c:278
-#, fuzzy
 msgid "No misspelled word found"
 msgstr "Tiada perkataan tersalah eja dijumpai"
 
@@ -1868,17 +1816,17 @@ msgid "Spell checker"
 msgstr "Penyamak Ejaan"
 
 #: components/html-editor/spell.c:378
-#, fuzzy
 msgid "Current _Languages"
-msgstr "_Bahasa"
+msgstr "_Bahasa Semasa"
 
 #: components/html-editor/template.c:84
 msgid "Note"
 msgstr "Nota"
 
-#: components/html-editor/template.c:94 components/html-editor/template.c:113
+#: components/html-editor/template.c:94
+#: components/html-editor/template.c:113
 msgid "Place your text here"
-msgstr ""
+msgstr "Tulis teks di sini"
 
 #: components/html-editor/template.c:97
 msgid "Image frame"
@@ -1886,7 +1834,7 @@ msgstr "Bingkai imej"
 
 #: components/html-editor/template.c:280
 msgid "Labels"
-msgstr ""
+msgstr "Label"
 
 #: components/html-editor/test-html-editor-control.c:323
 msgid "Open file..."
@@ -1897,9 +1845,8 @@ msgid "Save file as..."
 msgstr "Simpan fail sebagai..."
 
 #: components/html-editor/test-html-editor-control.c:557
-#, fuzzy
 msgid "GtkHTML Editor Test Container"
-msgstr "Kawalan Editor HTML GNOME"
+msgstr "Bekas Ujian Editor GtkHTML"
 
 #: components/html-editor/toolbar.c:52
 msgid "Roman List"
@@ -1968,99 +1915,97 @@ msgstr "Sampel"
 
 #: components/html-editor/utils.c:192
 msgid "_Visit..."
-msgstr ""
+msgstr "_Kunjung..."
 
 #: components/html-editor/utils.c:232
 msgid ""
 "The editted object was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
+"Objek yang diedit telah dibuang daripada dokumen.\n"
+" Tak dapat menerapkan perubahan"
 
 #: src/gtkhtml.c:2531
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
-msgstr ""
+msgstr "Url mozilla yang dijatuhkan pada Penggubah mempunyai format (%d) atau panjang (%d) yang salah\n"
 
 #: src/gtkhtml.c:2853
-#, fuzzy
 msgid "Editable"
-msgstr "Hidupkan"
+msgstr "Boleh edit"
 
 #: src/gtkhtml.c:2854
 msgid "Whether the html can be edited"
-msgstr ""
+msgstr "Samada html boleh diedit"
 
 #: src/gtkhtml.c:2860
 msgid "Document Title"
 msgstr "Tajuk Dokumen"
 
 #: src/gtkhtml.c:2861
-#, fuzzy
 msgid "The title of the current document"
-msgstr "Semak ejaan dokumen"
+msgstr "Tajuk bagi dokumen semasa"
 
 #: src/gtkhtml.c:2867
-#, fuzzy
 msgid "Document Base"
-msgstr "Tajuk Dokumen"
+msgstr "Dokumen Dasar"
 
 #: src/gtkhtml.c:2868
 msgid "The base URL for relative references"
-msgstr ""
+msgstr "URL dasar bagi rujukan relatif"
 
 #: src/gtkhtml.c:2874
 msgid "Target Base"
-msgstr ""
+msgstr "Sasaran Dasar"
 
 #: src/gtkhtml.c:2875
 msgid "The base URL of the targe frame"
-msgstr ""
+msgstr "URL dasar bagi kerangka sasaran"
 
 #: src/gtkhtml.c:2884
-#, fuzzy
 msgid "Fixed Width Font"
-msgstr "Lebar tetap"
+msgstr "Font Lebar tetap"
 
 #: src/gtkhtml.c:2885
 msgid "The Monospace font to use for typewriter text"
-msgstr ""
+msgstr "Font monoruang untuk digunakan bagi teks mesin taip"
 
 #: src/gtkhtml.c:2891
 msgid "New Link Color"
-msgstr ""
+msgstr "Warna Pautan Baru"
 
 #: src/gtkhtml.c:2892
 msgid "The color of new link elements"
-msgstr ""
+msgstr "Warna bagi unsur pautan baru"
 
 #: src/gtkhtml.c:2897
 msgid "Visited Link Color"
-msgstr ""
+msgstr "Warna Pautan Dilawati"
 
 #: src/gtkhtml.c:2898
 msgid "The color of visited link elements"
-msgstr ""
+msgstr "Warna bagi unsur pautan yg telah dilawati"
 
 #: src/gtkhtml.c:2903
 msgid "Active Link Color"
-msgstr ""
+msgstr "Warna Pautan Aktif"
 
 #: src/gtkhtml.c:2904
 msgid "The color of active link elements"
-msgstr ""
+msgstr "Warna bagi unsur pautan aktif"
 
 #: src/gtkhtml.c:2909
 msgid "Spelling Error Color"
-msgstr ""
+msgstr "Warna Ralat Ejaan"
 
 #: src/gtkhtml.c:2910
 msgid "The color of the spelling error markers"
-msgstr ""
+msgstr "Warna bagi tanda ralat ejaan"
 
 #: src/gtkhtml.c:2915
 #, fuzzy
 msgid "Cite Quotation Color"
-msgstr "Tepek Petikan"
+msgstr "Tepek Warna Petikan"
 
 #: src/gtkhtml.c:2916
 #, fuzzy
@@ -2141,291 +2086,6 @@ msgid "Print preview"
 msgstr "Prebiu Cetakan"
 
 #: src/testgtkhtml.c:987
-#, fuzzy
 msgid "GtkHTML Test Application"
-msgstr "Ujian GtkHTML"
+msgstr "Aplikasi Ujian GtkHTML"
 
-#~ msgid "Plain"
-#~ msgstr "Jelas"
-
-#~ msgid ""
-#~ "@link_begin@<img@alt@@width@@height@@align@ "
-#~ "border=@border@@padh@@padv@@src@>@link_end@"
-#~ msgstr ""
-#~ "@link_begin@<img@alt@@width@@height@@align@ "
-#~ "border=@border@@padh@@padv@@src@>@link_end@"
-
-#~ msgid "Frame"
-#~ msgstr "Kerangka"
-
-#~ msgid ""
-#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-#~ "@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
-#~ "table></center>"
-#~ msgstr ""
-#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-#~ "@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
-#~ "table></center>"
-
-# ui/galeon.glade.h:247
-#~ msgid "Caption"
-#~ msgstr "Caption"
-
-#~ msgid ""
-#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-#~ "@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Place "
-#~ "your comment here]</td></tr></table></td></tr></table></center>"
-#~ msgstr ""
-#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-#~ "@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Letak "
-#~ "komen anda di sini ]</td></tr></table></td></tr></table></center>"
-
-#~ msgid "Find A Regular Expression"
-#~ msgstr "Cari regular expression (regex)"
-
-#~ msgid "Find Regular E_xpression..."
-#~ msgstr "Cari regular expression (regex)..."
-
-#, fuzzy
-#~ msgid ""
-#~ "The quick brown <a href=\"mailto:fox\">fox</a> jumps over the lazy <a "
-#~ "href=\"mailto:dog\">dog</a>."
-#~ msgstr "Seekor arnab memakan kangkung bersama tiong."
-
-#, fuzzy
-#~ msgid "The quick brown fox jumps over the lazy dog."
-#~ msgstr "Seekor arnab memakan kangkung bersama tiong."
-
-#, fuzzy
-#~ msgid "Other"
-#~ msgstr "Lain-lain..."
-
-#~ msgid "************"
-#~ msgstr "************"
-
-#~ msgid "***text***"
-#~ msgstr "***teks***"
-
-#~ msgid "Apply changes to:"
-#~ msgstr "terapkan perubahan kepada:"
-
-#~ msgid "Border"
-#~ msgstr "Sempadan"
-
-#~ msgid "Click will follow this URL"
-#~ msgstr "Klik akan ikut URL ini"
-
-#~ msgid "Click will follow this URL:"
-#~ msgstr "Klik akan ikut URL ini:"
-
-#~ msgid "Don't wrap"
-#~ msgstr "Jangan Balut"
-
-# src/prefs.c:618
-# ui/galeon.glade.h:140
-#~ msgid "Font size"
-#~ msgstr "Saiz font"
-
-#~ msgid "Foreground color"
-#~ msgstr "Warna latardepan"
-
-#~ msgid "Header"
-#~ msgstr "Pengepala"
-
-#~ msgid "Link insert"
-#~ msgstr "Selitan pautan"
-
-#~ msgid "Location"
-#~ msgstr "Lokasi"
-
-#~ msgid "Padding"
-#~ msgstr "Padding"
-
-#~ msgid "Percent %"
-#~ msgstr "Peratus %"
-
-#~ msgid "Pixmap:"
-#~ msgstr "Pixmap:"
-
-#~ msgid "Points"
-#~ msgstr "Titik"
-
-#~ msgid "Scope"
-#~ msgstr "Skop"
-
-#~ msgid "Spacing"
-#~ msgstr "Jarak ruang:"
-
-#~ msgid "Style:"
-#~ msgstr "Gaya:"
-
-#~ msgid "Table Insert"
-#~ msgstr "Selitan Jadual"
-
-#~ msgid "Test URL..."
-#~ msgstr "URL Ujian..."
-
-#~ msgid "Wrap"
-#~ msgstr "Balut"
-
-#~ msgid "Wrapping:"
-#~ msgstr "Membalut:"
-
-#~ msgid "xxxxxxxxx"
-#~ msgstr "xxxxxxxxx"
-
-#~ msgid "Link text"
-#~ msgstr "Teks Pautan"
-
-#~ msgid "Align"
-#~ msgstr "Jajar"
-
-#~ msgid "Blue 3D"
-#~ msgstr "Biru 3D"
-
-#~ msgid "Yellow, flowers"
-#~ msgstr "Kuning, bunga"
-
-#~ msgid "Flat gray"
-#~ msgstr "Kelabu rata"
-
-#~ msgid "Dark header"
-#~ msgstr "Pengelapa gelap"
-
-#~ msgid "Color"
-#~ msgstr "Warna"
-
-#, fuzzy
-#~ msgid "The quick brown fox jumps over the lazy dog.</div>"
-#~ msgstr "Seekor arnab memakan kangkung bersama tiong."
-
-#~ msgid "Pre"
-#~ msgstr "Pre"
-
-#~ msgid "The quick brown fox jumped over the lazy dog."
-#~ msgstr "Seekor arnab memakan kangkung bersama tiong."
-
-#~ msgid "Ignore '%s'"
-#~ msgstr "Abaikan '%s'"
-
-#~ msgid "Suggest word"
-#~ msgstr "Cadang perkataan"
-
-#~ msgid "Text..."
-#~ msgstr "Teks..."
-
-#~ msgid "Test"
-#~ msgstr "Ujian"
-
-#~ msgid "Test 1"
-#~ msgstr "Ujian 1"
-
-#~ msgid "I could not initialize Bonobo"
-#~ msgstr "Saya tak dapat menginitialisasikan Bonobo"
-
-#~ msgid "The quick brown fox jumped over the lazy dog. "
-#~ msgstr "Seekor arnab memakan kangkung bersama tiong."
-
-#~ msgid "Spell Checking _Languages"
-#~ msgstr "Semak Ejaan _Bahasa"
-
-#~ msgid ""
-#~ "<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
-#~ "\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
-#~ "cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
-#~ msgstr ""
-#~ "<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
-#~ "\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
-#~ "cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
-
-#~ msgid ""
-#~ "/bulb.png\" hspace=10></td><td width=\"100%\">Place your text here</td></"
-#~ "tr></table></td></tr></table>"
-#~ msgstr ""
-#~ "/bulb.png\" hspace=10></td><td width=\"100%\">Letak teks anda disini</"
-#~ "td></tr></table></td></tr></table>"
-
-#~ msgid ""
-#~ "<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "@width@@align@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img src="
-#~ "\"file://"
-#~ msgstr ""
-#~ "<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "@width@@align@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img src="
-#~ "\"file://"
-
-#~ msgid ""
-#~ "/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font "
-#~ "size=\"-1\">Image 1: <b>description</b></font></td></tr></table></td></"
-#~ "tr></table>"
-#~ msgstr ""
-#~ "/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font "
-#~ "size=\"-1\">Image 1: <b>description</b></font></td></tr></table></td></"
-#~ "tr></table>"
-
-#~ msgid "Sans"
-#~ msgstr "Sans"
-
-#~ msgid "Monospace"
-#~ msgstr "Monoruang"
-
-#~ msgid "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz"
-#~ msgstr "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz"
-
-#~ msgid "Automatically insert smiley images"
-#~ msgstr "Automatik selit imej senyuman"
-
-#~ msgid "Command"
-#~ msgstr "Arahan"
-
-#~ msgid "Select command "
-#~ msgstr "Pilih arahan"
-
-#~ msgid "Shortcut"
-#~ msgstr "Pintasan"
-
-#~ msgid "EBrowser control"
-#~ msgstr "Kawalan EBrowse"
-
-#~ msgid "EBrowser factory"
-#~ msgstr "Kilang EBrowser"
-
-#~ msgid "Factory for the EBrowser control"
-#~ msgstr "Kilang bagi kawalan EBrowser"
-
-#~ msgid "HTML Browser control"
-#~ msgstr "Kawalan Pelayan HTML"
-
-#~ msgid "Could not initialize GNORBA"
-#~ msgstr "Gagal menginitialisasikan GNORBA!"
-
-#~ msgid "US-Letter"
-#~ msgstr "US-Letter"
-
-#~ msgid "Insert Smiley 7 smiley into document..."
-#~ msgstr "Selit ikon 7 senyuman ke dokumen..."
-
-#~ msgid "Modify the file's properties"
-#~ msgstr "Ubahsuai ciri-ciri fail"
-
-#~ msgid "Pr_operties..."
-#~ msgstr "_Ciri-ciri..."
-
-#~ msgid "Smiley _7"
-#~ msgstr "_7 Senyuman"
-
-#~ msgid "Cannot execute gtkhtml properties"
-#~ msgstr "Gagal melaksanakan ciri-ciri gtkhtml"
-
-#~ msgid "Can't load fixed font."
-#~ msgstr "Gagal memuatkan font lebartetap."
