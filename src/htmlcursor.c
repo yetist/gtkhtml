@@ -205,6 +205,7 @@ forward (HTMLCursor *cursor)
 	return retval;
 }
 
+#if 0
 static gboolean
 forward_in_flow (HTMLCursor *cursor)
 {
@@ -229,6 +230,7 @@ forward_in_flow (HTMLCursor *cursor)
 
 	return retval;
 }
+#endif
 
 gboolean
 html_cursor_forward (HTMLCursor *cursor, HTMLEngine *engine)
@@ -270,6 +272,7 @@ backward (HTMLCursor *cursor)
 	return retval;
 }
 
+#if 0
 static gboolean
 backward_in_flow (HTMLCursor *cursor)
 {
@@ -294,6 +297,7 @@ backward_in_flow (HTMLCursor *cursor)
 
 	return retval;
 }
+#endif
 
 gboolean
 html_cursor_backward (HTMLCursor *cursor,
@@ -586,7 +590,7 @@ html_cursor_end_of_line (HTMLCursor *cursor,
 				     &x, &prev_y);
 
 	while (1) {
-		if (! forward_in_flow (cursor))
+		if (! forward (cursor))
 			return TRUE;
 
 		html_object_get_cursor_base (cursor->object, engine->painter, cursor->offset,
@@ -622,7 +626,7 @@ html_cursor_beginning_of_line (HTMLCursor *cursor,
 				     &x, &prev_y);
 
 	while (1) {
-		if (! backward_in_flow (cursor))
+		if (! backward (cursor))
 			return TRUE;
 
 		html_object_get_cursor_base (cursor->object, engine->painter, cursor->offset,

@@ -1,3 +1,16 @@
+2001-06-29  Ettore Perazzoli  <ettore@ximian.com>
+
+	I am reverting Radek's changes of 2001-06-21 as they make cursor
+	movement at the beginning or the end of the document behave
+	erratically.
+
+	* htmlcursor.c (forward_in_flow): `#if 0'ed out.
+	(backward_in_flow): Likewise.
+	(html_cursor_end_of_line): Use `forward()' instead of
+	`forward_in_flow()'.
+	(html_cursor_end_of_line): Use `backward()' instead of
+	`backward_in_flow()'.
+
 2001-06-26  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (command): renamed SET_MARK to SELECTION_MODE, use
