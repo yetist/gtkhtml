@@ -4083,6 +4083,9 @@ cursor_move (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType ski
 {
 	gint amount;
 
+	if (!html->engine->caret_mode && !html_engine_get_editable (html->engine))
+		return;
+
 	if (html->engine->selection_mode) {
 		if (!html->engine->mark)
 			html_engine_set_mark (html->engine);

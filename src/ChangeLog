@@ -1,8 +1,15 @@
 2004-03-04  Radek Doulik  <rodo@ximian.com>
 
+	* gtkhtml.c (cursor_move): do not proceed if we are not in
+	editable or caret mode
+
+	Fixes #54037
+
 	* htmlclueflow.c (save_plain): use html_text_is_line_break
 	(forward_items): new helper method to travel on text items
 	(backward_items): ditto
+
+	Fixes #54852
 
 2004-03-03  Radek Doulik  <rodo@ximian.com>
 
