@@ -60,7 +60,7 @@ set_ui ()
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (anim_check), actual_prop->animations);
 
 #define SET_FONT(f,w) \
-	gnome_font_picker_set_font_name (GNOME_FONT_PICKER (w), actual_prop-> ## f);
+	gnome_font_picker_set_font_name (GNOME_FONT_PICKER (w), actual_prop-> f);
 
 	SET_FONT (font_var,       variable);
 	SET_FONT (font_fix,       fixed);
@@ -118,10 +118,10 @@ apply_fonts ()
 	actual_prop->animations = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (anim_check));
 
 #define APPLY(f,s,w) \
-	g_free (actual_prop-> ## f); \
-	actual_prop-> ## f = g_strdup (gnome_font_picker_get_font_name (GNOME_FONT_PICKER (w))); \
+	g_free (actual_prop-> f); \
+	actual_prop-> f = g_strdup (gnome_font_picker_get_font_name (GNOME_FONT_PICKER (w))); \
 	size_str = get_attr (gnome_font_picker_get_font_name (GNOME_FONT_PICKER (w)), 7); \
-	actual_prop-> ## s = atoi (size_str); \
+	actual_prop-> s = atoi (size_str); \
 	g_free (size_str)
 
 	APPLY (font_var,       font_var_size,       variable);

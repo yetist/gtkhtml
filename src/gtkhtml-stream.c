@@ -57,7 +57,7 @@ gtk_html_stream_destroy (GtkHTMLStream *stream)
 void
 gtk_html_stream_write (GtkHTMLStream *stream,
 		       const gchar *buffer,
-		       guint size)
+		       size_t size)
 {
 	g_return_if_fail (stream != NULL);
 	g_return_if_fail (buffer != NULL);

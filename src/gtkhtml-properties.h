@@ -40,7 +40,7 @@
 #include "gtkhtml-types.h"
 #include "gtkhtml.h"
 
-#define GTK_HTML_PROPERTY(w,p)         (GTK_HTML_CLASS (GTK_OBJECT (w)->klass)->properties-> ## p)
+#define GTK_HTML_PROPERTY(w,p)         (GTK_HTML_CLASS (GTK_OBJECT (w)->klass)->properties-> p)
 
 struct _GtkHTMLClassProperties {
 	/* viewer */

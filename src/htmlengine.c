@@ -109,7 +109,7 @@ static char **   html_engine_stream_types     (GtkHTMLStream       *stream,
 					       gpointer            data);
 static void      html_engine_stream_write     (GtkHTMLStream       *stream,
 					       const gchar         *buffer,
-					       guint                size,
+					       size_t               size,
 					       gpointer             data);
 static void      html_engine_stream_end       (GtkHTMLStream       *stream,
 					       GtkHTMLStreamStatus  status,
@@ -180,9 +180,9 @@ enum ID {
 static HTMLFontFace *
 current_font_face (HTMLEngine *e)
 {
-	return (HTMLFontFace *) (html_stack_is_empty (e->font_face_stack))
+	return (HTMLFontFace *) (html_stack_is_empty (e->font_face_stack)
 		? NULL
-		: html_stack_top (e->font_face_stack);
+		: html_stack_top (e->font_face_stack));
 }
 
 static void
@@ -3590,7 +3590,7 @@ html_engine_stream_types (GtkHTMLStream *handle,
 static void
 html_engine_stream_write (GtkHTMLStream *handle,
 			  const gchar *buffer,
-			  guint size,
+			  size_t size,
 			  gpointer data)
 {
 	HTMLEngine *e;

@@ -27,7 +27,7 @@
 
 typedef GnomeDialog ** (*DialogCtor)(GtkHTML *html);
 
-#define RUN_DIALOG(name,title) run_dialog ((GnomeDialog ***)&cd-> ## name ## _dialog, cd->html, (DialogCtor) gtk_html_ ## name ## _dialog_new, title)
+#define RUN_DIALOG(name,title) run_dialog ((GnomeDialog ***)&cd-> name ## _dialog, cd->html, (DialogCtor) gtk_html_ ## name ## _dialog_new, title)
 
 void run_dialog (GnomeDialog ***dialog, GtkHTML *html, DialogCtor ctor, const gchar *title);
 

@@ -138,7 +138,7 @@ e_cache_lookup (ECache * cache, gconstpointer key)
 	}
 
 #ifdef E_CACHE_VERBOSE
-		g_print ("Found cched object: %d bytes\n", e->size);
+		g_print ("Found cched object: %ld bytes\n", (long)e->size);
 #endif
 
 	return e->data;
@@ -198,7 +198,7 @@ e_cache_insert (ECache * cache, gpointer key, gpointer data, size_t size)
 	g_hash_table_insert (cache->dict, e->key, e);
 
 #ifdef E_CACHE_VERBOSE
-		g_print ("Inserted object, cache size now %d\n", cache->size);
+		g_print ("Inserted object, cache size now %ld\n", (long) cache->size);
 #endif
 
 	return TRUE;
@@ -279,7 +279,7 @@ e_cache_forget_entry (ECache * cache, ECacheEntry * e)
 	g_free (e);
 
 #ifdef E_CACHE_VERBOSE
-		g_print ("Removed object, cache size now %d\n", cache->size);
+		g_print ("Removed object, cache size now %ld\n", (long) cache->size);
 #endif
 }
 

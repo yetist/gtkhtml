@@ -462,13 +462,13 @@ menubar_update_paragraph_alignment (GtkHTML *html,
 	}
 }
 
-void
+static void
 menubar_update_paragraph_style (GtkHTML *html, 
 				GtkHTMLParagraphStyle style, 
 				GtkHTMLControlData *cd)
 {
 	BonoboUIComponent *uic;
-	char *path = NULL;
+	const char *path = NULL;
 	int i;
 
 	uic = bonobo_control_get_ui_component (cd->control);

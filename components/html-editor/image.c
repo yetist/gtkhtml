@@ -333,8 +333,8 @@ image_properties (GtkHTMLControlData *cd, gpointer *set_data)
 			    ip->url + off);
 
 #define SET_ADJ(which, nval, val) \
-        if (image->## val != nval) { \
-		gtk_adjustment_set_value (GTK_ADJUSTMENT (d->adj [which]), image->## val); \
+        if (image-> val != nval) { \
+		gtk_adjustment_set_value (GTK_ADJUSTMENT (d->adj [which]), image-> val); \
                 gtk_toggle_button_set_state (GTK_TOGGLE_BUTTON (d->check [which]), TRUE); \
 	} else { \
 		gtk_adjustment_set_value (GTK_ADJUSTMENT (d->adj [which]), 0); \
