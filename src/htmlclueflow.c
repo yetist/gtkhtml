@@ -28,6 +28,7 @@
 #include "htmlcluealigned.h"
 #include "htmltext.h"
 #include "htmlvspace.h"
+#include "htmltextslave.h"	/* FIXME */
 
 
 HTMLClueFlowClass html_clueflow_class;
@@ -682,6 +683,45 @@ save (HTMLObject *self,
 	return TRUE;
 }
 
+static gint
+check_page_split (HTMLObject *self,
+		  gint y)
+{
+	HTMLClue *clue;
+	HTMLObject *p;
+	gint last_base;
+
+	clue = HTML_CLUE (self);
+
+	last_base = 0;
+	for (p = clue->head; p != NULL; p = p->next) {
+		gint base;
+
+		base = p->y + p->descent;
+
+		if (HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTMASTER
+		    || HTML_OBJECT_TYPE (p) == HTML_TYPE_LINKTEXTMASTER)
+			continue;
+
+		if (HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE) {
+			printf ("Checking `%s'\n",
+				HTML_TEXT (HTML_TEXT_SLAVE (p)->owner)->text
+				+ HTML_TEXT_SLAVE (p)->posStart);
+		} else {
+			printf ("Checking [%s]\n", html_type_name (HTML_OBJECT_TYPE (p)));
+		}
+
+		if (base > y) {
+			printf ("-----> GOOD!\n");
+			return last_base;
+		}
+
+		last_base = base;
+	}
+
+	return y;
+}
+
 
 static HTMLFontStyle
 get_default_font_style (const HTMLClueFlow *self)
@@ -739,6 +779,7 @@ html_clueflow_class_init (HTMLClueFlowClass *klass,
 	object_class->calc_preferred_width = calc_preferred_width;
 	object_class->draw = draw;
 	object_class->save = save;
+	object_class->check_page_split = check_page_split;
 
 	klass->get_default_font_style = get_default_font_style;
 }

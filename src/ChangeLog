@@ -1,5 +1,31 @@
 2000-02-03  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlprinter.c (begin): Do a gsave and setup a clip region.
+	Also, paint a rectangle around the clip region to make debugging
+	easier.
+	(end): Do a grestore.
+	(draw_line): Added missing `gnome_print_newpath()' call.
+	(draw_rect): Likewise.
+	(fill_rect): Likewise.
+	(draw_text): Likewise.
+
+	* htmlclueflow.c (check_page_split): New function, implementation
+	of `HTMLObject::check_page_split'.
+	(html_clueflow_class_init): Install it.
+
+	* htmlcluev.c (check_page_split): New function, implementation of
+	`HTMLObject::check_page_split()'.
+	(html_cluev_class_init): Install it.
+
+	* htmlobject.c (html_object_check_page_split): New function.
+	(check_page_split): New function, default implementation for
+	`HTMLObject::check_split'.
+	(html_object_class_init): Install it.
+
+	* htmlprinter.c (html_printer_get_page_height): New function.
+
+	* htmlobject.h: New virtual method `HTMLObject::check_split'.
+
 	* htmlprinter.c (draw_pixmap): Convert RGBA into RGB if necessary.
 
 	* htmlobject.c (calc_min_width): Calc size before returning the

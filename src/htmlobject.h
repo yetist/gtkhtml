@@ -181,6 +181,8 @@ struct _HTMLObjectClass {
 	gboolean (* is_container) (HTMLObject *self);
 
 	gboolean (* save) (HTMLObject *self, HTMLEngineSaveState *state);
+
+	gint (* check_page_split) (HTMLObject *self, gint y);
 };
 
 
@@ -272,6 +274,10 @@ HTMLObject *html_object_check_point      (HTMLObject  *clue,
 					  gint         y,
 					  guint       *offset_return,
 					  gboolean     for_cursor);
+
+/* Page splitting.  */
+gint  html_object_check_page_split  (HTMLObject *self,
+				     gint        y);
 
 /* Selection.  */
 gboolean  html_object_select_range  (HTMLObject *obj,

@@ -160,6 +160,32 @@ begin (HTMLPainter *painter,
        int x1, int y1,
        int x2, int y2)
 {
+	HTMLPrinter *printer;
+	double printer_x1, printer_y1;
+	double printer_x2, printer_y2;
+
+	printer = HTML_PRINTER (painter);
+	g_return_if_fail (printer->print_context != NULL);
+
+	gnome_print_gsave (printer->print_context);
+
+	engine_coordinates_to_gnome_print (printer, x1, y1, &printer_x1, &printer_y1);
+	printer_x2 = printer_x1 + SCALE_ENGINE_TO_GNOME_PRINT (x2);
+	printer_y2 = printer_y1 - SCALE_ENGINE_TO_GNOME_PRINT (y2);
+
+	gnome_print_newpath (printer->print_context);
+
+	gnome_print_moveto (printer->print_context, printer_x1, printer_y1);
+	gnome_print_lineto (printer->print_context, printer_x1, printer_y2);
+	gnome_print_lineto (printer->print_context, printer_x2, printer_y2);
+	gnome_print_lineto (printer->print_context, printer_x2, printer_y1);
+	gnome_print_lineto (printer->print_context, printer_x1, printer_y1);
+
+	gnome_print_gsave (printer->print_context);
+	gnome_print_stroke (printer->print_context);
+	gnome_print_grestore (printer->print_context);
+
+	gnome_print_clip (printer->print_context);
 }
 
 static void
@@ -170,6 +196,7 @@ end (HTMLPainter *painter)
 	printer = HTML_PRINTER (painter);
 	g_return_if_fail (printer->print_context != NULL);
 
+	gnome_print_grestore (printer->print_context);
 	gnome_print_showpage (printer->print_context);
 }
 
@@ -255,6 +282,7 @@ draw_line (HTMLPainter *painter,
 	engine_coordinates_to_gnome_print (printer, x1, y1, &printer_x1, &printer_y1);
 	engine_coordinates_to_gnome_print (printer, x2, y2, &printer_x2, &printer_y2);
 
+	gnome_print_newpath (printer->print_context);
 	gnome_print_moveto (printer->print_context, printer_x1, printer_y1);
 	gnome_print_lineto (printer->print_context, printer_x2, printer_y2);
 
@@ -278,6 +306,7 @@ draw_rect (HTMLPainter *painter,
 
 	engine_coordinates_to_gnome_print (printer, x, y, &printer_x, &printer_y);
 
+	gnome_print_newpath (printer->print_context);
 	gnome_print_moveto (printer->print_context, printer_x, printer_y);
 	gnome_print_lineto (printer->print_context, printer_x + printer_width, printer_y);
 	gnome_print_lineto (printer->print_context, printer_x + printer_width, printer_y - printer_height);
@@ -403,6 +432,7 @@ fill_rect (HTMLPainter *painter,
 
 	engine_coordinates_to_gnome_print (printer, x, y, &printer_x, &printer_y);
 
+	gnome_print_newpath (printer->print_context);
 	gnome_print_moveto (printer->print_context, printer_x, printer_y);
 	gnome_print_lineto (printer->print_context, printer_x + printer_width, printer_y);
 	gnome_print_lineto (printer->print_context, printer_x + printer_width, printer_y - printer_height);
@@ -427,6 +457,8 @@ draw_text (HTMLPainter *painter,
 	g_return_if_fail (printer->print_context != NULL);
 
 	engine_coordinates_to_gnome_print (printer, x, y, &print_x, &print_y);
+
+	gnome_print_newpath (printer->print_context);
 	gnome_print_moveto (printer->print_context, print_x, print_y);
 
 	/* Oh boy, this sucks so much.  The GnomePrint API could be improved to
@@ -456,6 +488,7 @@ draw_text (HTMLPainter *painter,
 		if (font_style & HTML_FONT_STYLE_UNDERLINE) {
 			descender = gnome_font_get_descender (font);
 			y = print_y - descender / 2.0;
+			gnome_print_newpath (printer->print_context);
 			gnome_print_moveto (printer->print_context, print_x, y);
 			gnome_print_lineto (printer->print_context, print_x + text_width, y);
 			gnome_print_stroke (printer->print_context);
@@ -464,6 +497,7 @@ draw_text (HTMLPainter *painter,
 		if (font_style & HTML_FONT_STYLE_STRIKEOUT) {
 			ascender = gnome_font_get_ascender (font);
 			y = print_y + ascender / 2.0;
+			gnome_print_newpath (printer->print_context);
 			gnome_print_moveto (printer->print_context, print_x, y);
 			gnome_print_lineto (printer->print_context, print_x + text_width, y);
 			gnome_print_stroke (printer->print_context);
@@ -648,4 +682,19 @@ html_printer_get_page_width (HTMLPrinter *printer)
 	engine_width = SCALE_GNOME_PRINT_TO_ENGINE (printer_width);
 
 	return engine_width;
+}
+
+guint
+html_printer_get_page_height (HTMLPrinter *printer)
+{
+	double printer_height;
+	guint engine_height;
+
+	g_return_val_if_fail (printer != NULL, 0);
+	g_return_val_if_fail (HTML_IS_PRINTER (printer), 0);
+
+	printer_height = get_page_height (printer) - get_lmargin (printer) - get_rmargin (printer);
+	engine_height = SCALE_GNOME_PRINT_TO_ENGINE (printer_height);
+
+	return engine_height;
 }

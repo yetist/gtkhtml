@@ -51,6 +51,7 @@ typedef struct _HTMLPrinterClass HTMLPrinterClass;
 GtkType      html_printer_get_type  (void);
 HTMLPainter *html_printer_new       (GnomePrintContext *print_context);
 
-guint  html_printer_get_page_width  (HTMLPrinter *printer);
+guint  html_printer_get_page_width   (HTMLPrinter *printer);
+guint  html_printer_get_page_height  (HTMLPrinter *printer);
 
 #endif /* _HTMLPRINTER_H */

@@ -309,6 +309,13 @@ save (HTMLObject *self,
 	return TRUE;
 }
 
+static gint
+check_page_split (HTMLObject *self,
+		  gint y)
+{
+	return y;
+}
+
 
 /* Class initialization.  */
 
@@ -351,6 +358,7 @@ html_object_class_init (HTMLObjectClass *klass,
 	klass->forall = forall;
 	klass->is_container = is_container;
 	klass->save = save;
+	klass->check_page_split = check_page_split;
 }
 
 void
@@ -610,3 +618,14 @@ html_object_save (HTMLObject *self,
 {
 	return (* HO_CLASS (self)->save) (self, state);
 }
+
+
+gint
+html_object_check_page_split  (HTMLObject *self,
+			       gint y)
+{
+	g_return_val_if_fail (self != NULL, 0);
+
+	return (* HO_CLASS (self)->check_page_split) (self, y);
+}
+
