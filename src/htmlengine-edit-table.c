@@ -575,12 +575,15 @@ typedef enum {
 	HTML_TABLE_WIDTH,
 	HTML_TABLE_BGCOLOR,
 	HTML_TABLE_BGPIXMAP,
+	HTML_TABLE_ALIGN,
 } HTMLTableAttrType;
 
 union _HTMLTableUndoAttr {
 	gint border;
 	gint spacing;
 	gint padding;
+
+	gchar *pixmap;
 
 	struct {
 		gint width;
@@ -592,7 +595,7 @@ union _HTMLTableUndoAttr {
 		gboolean has_bg_color;
 	} color;
 
-	gchar *pixmap;
+	HTMLHAlignType align;
 };
 typedef union _HTMLTableUndoAttr HTMLTableUndoAttr;
 
@@ -681,7 +684,7 @@ html_engine_table_set_border_width (HTMLEngine *e, HTMLTable *t, gint border_wid
 static void table_set_bg_color (HTMLEngine *e, HTMLTable *t, GdkColor *c, HTMLUndoDirection dir);
 
 static void
-table_set_border_bg_color_undo_action (HTMLEngine *e, HTMLUndoData *undo_data, HTMLUndoDirection dir)
+table_set_bg_color_undo_action (HTMLEngine *e, HTMLUndoData *undo_data, HTMLUndoDirection dir)
 {
 	HTMLTableSetAttrUndo *data = (HTMLTableSetAttrUndo *) undo_data;
 
@@ -701,7 +704,7 @@ table_set_bg_color (HTMLEngine *e, HTMLTable *t, GdkColor *c, HTMLUndoDirection 
 	} else
 		undo->attr.color.has_bg_color = FALSE;
 	html_undo_add_action (e->undo,
-			      html_undo_action_new ("Set table background color", table_set_border_bg_color_undo_action,
+			      html_undo_action_new ("Set table background color", table_set_bg_color_undo_action,
 						    HTML_UNDO_DATA (undo), html_cursor_get_position (e->cursor)), dir);
 	if (c) {
 		if (!t->bgColor)
@@ -729,7 +732,7 @@ html_engine_table_set_bg_color (HTMLEngine *e, HTMLTable *t, GdkColor *c)
 void table_set_bg_pixmap (HTMLEngine *e, HTMLTable *t, gchar *url, HTMLUndoDirection dir);
 
 static void
-table_set_border_bg_pixmap_undo_action (HTMLEngine *e, HTMLUndoData *undo_data, HTMLUndoDirection dir)
+table_set_bg_pixmap_undo_action (HTMLEngine *e, HTMLUndoData *undo_data, HTMLUndoDirection dir)
 {
 	HTMLTableSetAttrUndo *data = (HTMLTableSetAttrUndo *) undo_data;
 
@@ -745,7 +748,7 @@ table_set_bg_pixmap (HTMLEngine *e, HTMLTable *t, gchar *url, HTMLUndoDirection 
 	undo = attr_undo_new (HTML_TABLE_BGPIXMAP);
 	undo->attr.pixmap = t->bgPixmap ? g_strdup (t->bgPixmap->url) : NULL;
 	html_undo_add_action (e->undo,
-			      html_undo_action_new ("Set table background pixmap", table_set_border_bg_pixmap_undo_action,
+			      html_undo_action_new ("Set table background pixmap", table_set_bg_pixmap_undo_action,
 						    HTML_UNDO_DATA (undo), html_cursor_get_position (e->cursor)), dir);
 
 	iptr = t->bgPixmap;
@@ -769,7 +772,7 @@ html_engine_table_set_bg_pixmap (HTMLEngine *e, HTMLTable *t, gchar *url)
 static void table_set_spacing (HTMLEngine *e, HTMLTable *t, gint spacing, HTMLUndoDirection dir);
 
 static void
-table_set_border_spacing_undo_action (HTMLEngine *e, HTMLUndoData *undo_data, HTMLUndoDirection dir)
+table_set_spacing_undo_action (HTMLEngine *e, HTMLUndoData *undo_data, HTMLUndoDirection dir)
 {
 	HTMLTableSetAttrUndo *data = (HTMLTableSetAttrUndo *) undo_data;
 
@@ -784,7 +787,7 @@ table_set_spacing (HTMLEngine *e, HTMLTable *t, gint spacing, HTMLUndoDirection 
 	undo = attr_undo_new (HTML_TABLE_SPACING);
 	undo->attr.spacing = t->spacing;
 	html_undo_add_action (e->undo,
-			      html_undo_action_new ("Set table spacing", table_set_border_spacing_undo_action,
+			      html_undo_action_new ("Set table spacing", table_set_spacing_undo_action,
 						    HTML_UNDO_DATA (undo), html_cursor_get_position (e->cursor)), dir);
 	t->spacing = spacing;
 	html_object_change_set (HTML_OBJECT (t), HTML_CHANGE_ALL_CALC);
@@ -805,7 +808,7 @@ html_engine_table_set_spacing (HTMLEngine *e, HTMLTable *t, gint spacing)
 static void table_set_padding (HTMLEngine *e, HTMLTable *t, gint padding, HTMLUndoDirection dir);
 
 static void
-table_set_border_padding_undo_action (HTMLEngine *e, HTMLUndoData *undo_data, HTMLUndoDirection dir)
+table_set_padding_undo_action (HTMLEngine *e, HTMLUndoData *undo_data, HTMLUndoDirection dir)
 {
 	HTMLTableSetAttrUndo *data = (HTMLTableSetAttrUndo *) undo_data;
 
@@ -821,7 +824,7 @@ table_set_padding (HTMLEngine *e, HTMLTable *t, gint padding, HTMLUndoDirection 
 	undo = attr_undo_new (HTML_TABLE_PADDING);
 	undo->attr.padding = t->padding;
 	html_undo_add_action (e->undo,
-			      html_undo_action_new ("Set table padding", table_set_border_padding_undo_action,
+			      html_undo_action_new ("Set table padding", table_set_padding_undo_action,
 						    HTML_UNDO_DATA (undo), html_cursor_get_position (e->cursor)), dir);
 
 	t->padding = padding;
@@ -846,10 +849,25 @@ html_engine_table_set_padding (HTMLEngine *e, HTMLTable *t, gint padding)
  *
  */
 
-void
-html_engine_table_set_align (HTMLEngine *e, HTMLTable *t, HTMLHAlignType align)
+static void table_set_align (HTMLEngine *e, HTMLTable *t, HTMLHAlignType align, HTMLUndoDirection dir);
+
+static void
+table_set_align_undo_action (HTMLEngine *e, HTMLUndoData *undo_data, HTMLUndoDirection dir)
 {
+	HTMLTableSetAttrUndo *data = (HTMLTableSetAttrUndo *) undo_data;
+
+	table_set_align (e, html_engine_get_table (e), data->attr.align, html_undo_direction_reverse (dir));
+}
+
+static void
+table_set_align (HTMLEngine *e, HTMLTable *t, HTMLHAlignType align, HTMLUndoDirection dir)
+{
+	HTMLTableSetAttrUndo *undo;
+
 	g_return_if_fail (HTML_OBJECT (t)->parent);
+
+	undo = attr_undo_new (HTML_TABLE_ALIGN);
+	undo->attr.align = HTML_CLUE (HTML_OBJECT (t)->parent)->halign;
 
 	if (align == HTML_HALIGN_NONE || align == HTML_HALIGN_CENTER) {
 		if (HTML_IS_CLUEALIGNED (HTML_OBJECT (t)->parent)) {
@@ -860,7 +878,6 @@ html_engine_table_set_align (HTMLEngine *e, HTMLTable *t, HTMLHAlignType align)
 			html_clue_remove (HTML_CLUE (aclue->parent), aclue);
 			html_object_destroy (aclue);
 		}
-		HTML_CLUE (HTML_OBJECT (t)->parent)->halign = align;
 	} else if (align == HTML_HALIGN_LEFT || align == HTML_HALIGN_RIGHT) {
 		if (HTML_IS_CLUEFLOW (HTML_OBJECT (t)->parent)) {
 			HTMLObject *aclue, *flow = HTML_OBJECT (t)->parent;
@@ -870,12 +887,22 @@ html_engine_table_set_align (HTMLEngine *e, HTMLTable *t, HTMLHAlignType align)
 			html_clue_append (HTML_CLUE (flow), aclue);
 			html_clue_append (HTML_CLUE (aclue), HTML_OBJECT (t));
 		}
-		HTML_CLUE (HTML_OBJECT (t)->parent)->halign = align;
 	} else
 		g_assert_not_reached ();
 
+	html_undo_add_action (e->undo,
+			      html_undo_action_new ("Set table align", table_set_align_undo_action,
+						    HTML_UNDO_DATA (undo), html_cursor_get_position (e->cursor)), dir);
+
+	HTML_CLUE (HTML_OBJECT (t)->parent)->halign = align;
 	html_object_change_set (HTML_OBJECT (t)->parent, HTML_CHANGE_ALL_CALC);
 	html_engine_schedule_update (e);
+}
+
+void
+html_engine_table_set_align (HTMLEngine *e, HTMLTable *t, HTMLHAlignType align)
+{
+	table_set_align (e, t, align, HTML_UNDO_UNDO);
 }
 
 /*
