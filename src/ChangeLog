@@ -1,5 +1,11 @@
 2000-02-21  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmltext.c (check_merge): New function, implementation of
+	`HTMLText::check_merge'.
+	(html_text_class_init): Install it.
+
+	* htmltext.h: New virtual method `HTMLText::check_merge'.
+
 	* htmlengine-edit-fontstyle.c (html_engine_set_font_style):
 	Changed parameters: get an AND mask and an OR mask for modifying
 	the style.

@@ -442,6 +442,20 @@ merge (HTMLText *text,
 	g_warning ("HTMLText::merge not implemented.");
 }
 
+static gboolean
+check_merge (HTMLText *self,
+	     HTMLText *text)
+{
+	if (HTML_OBJECT_TYPE (self) != HTML_OBJECT_TYPE (text))
+		return FALSE;
+	if (self->font_style != text->font_style)
+		return FALSE;
+	if (! gdk_color_equal (&self->color, &text->color))
+		return FALSE;
+
+	return TRUE;
+}
+
 /* This is necessary to merge the text-specified font style with that of the
    HTMLClueFlow parent.  */
 static GtkHTMLFontStyle
@@ -546,6 +560,7 @@ html_text_class_init (HTMLTextClass *klass,
 	klass->set_font_style = set_font_style;
 	klass->set_color = set_color;
 	klass->merge = merge;
+	klass->check_merge = check_merge;
 
 	parent_class = &html_object_class;
 }
@@ -651,6 +666,16 @@ html_text_merge (HTMLText *text,
 	g_return_if_fail (list != NULL);
 
 	return (* HT_CLASS (text)->merge) (text, list);
+}
+
+gboolean
+html_text_check_merge (HTMLText *self,
+		       HTMLText *text)
+{
+	g_return_val_if_fail (self != NULL, FALSE);
+	g_return_val_if_fail (text != NULL, FALSE);
+
+	return (* HT_CLASS (text)->check_merge) (self, text);
 }
 
 

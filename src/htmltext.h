@@ -52,6 +52,7 @@ struct _HTMLTextClass {
 
 	HTMLText *(* split) (HTMLText *text, guint offset);
 	void (* merge) (HTMLText *text, HTMLText **list);
+	gboolean (* check_merge) (HTMLText *self, HTMLText *text);
 	
 	GtkHTMLFontStyle (* get_font_style) (const HTMLText *text);
 	const GdkColor * (* get_color) (HTMLText *text, HTMLPainter *painter);
@@ -90,10 +91,12 @@ void        html_text_queue_draw   (HTMLText         *text,
 				    guint             offset,
 				    guint             len);
 
-HTMLText *html_text_split  (HTMLText  *text,
-			    guint      offset);
-void      html_text_merge  (HTMLText  *text,
-			    HTMLText **list);
+HTMLText *html_text_split        (HTMLText  *text,
+				  guint      offset);
+void      html_text_merge        (HTMLText  *text,
+				  HTMLText **list);
+gboolean  html_text_check_merge  (HTMLText  *self,
+				  HTMLText  *text);
 
 GtkHTMLFontStyle  html_text_get_font_style  (const HTMLText *text);
 const GdkColor   *html_text_get_color       (HTMLText       *text,
