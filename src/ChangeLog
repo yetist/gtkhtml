@@ -1,5 +1,10 @@
 2000-01-27  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlengine.c (parse_u): Insert a paragraph break if a paragraph
+	space is pending and the indentation level is greater than zero.
+	(block_end_list): Only erase pending paragraph spaces and prohibit
+	new paragraphs if the indentation level is equal to zero.
+
 	* htmltextmaster.c (check_point): Select the newline.
 
 	* htmltextslave.c (calc_size): Add the size of a space if this is

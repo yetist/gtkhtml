@@ -537,8 +537,11 @@ block_end_list (HTMLEngine *e, HTMLObject *clue, HTMLBlockStackElement *elem)
 	close_flow (e, clue);
 	
 	e->indent = elem->miscData1;
-	e->pending_para = FALSE;
-	e->avoid_para = TRUE;
+
+	if (e->indent == 0) {
+		e->pending_para = FALSE;
+		e->avoid_para = TRUE;
+	}
 }
 
 static void
@@ -2529,13 +2532,15 @@ parse_u (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		
 		html_stack_push (e->listStack, html_list_new (type, HTML_LIST_NUM_TYPE_NUMERIC));
 		e->flow = NULL;
+
+		if (e->pending_para && e->indent > 0)
+			insert_paragraph_break (e, clue);
+
 		e->indent++;
 
 		e->avoid_para = TRUE;
 		e->pending_para = FALSE;
 	} else if (strncmp (str, "/ul", 3) == 0) {
-		e->avoid_para = TRUE;
-		e->pending_para = FALSE;
 		pop_block (e, ID_UL, clue);
 	}
 	else if (strncmp (str, "u", 1) == 0) {
