@@ -39,6 +39,7 @@ struct _HTMLTableCell {
 	gboolean percent_width  : 1;
 	gboolean percent_height : 1;
 	gboolean no_wrap;
+	gboolean heading;
 
 	gint rspan;
 	gint cspan;

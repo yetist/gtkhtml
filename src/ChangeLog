@@ -1,8 +1,19 @@
 2001-05-30  Radek Doulik  <rodo@ximian.com>
 
+	* htmlengine-edit-tablecell.c
+	(html_engine_table_cell_set_no_wrap): new function
+	(html_engine_table_cell_set_heading): ditto
+
+	* htmlclueflow.c (get_default_font_style): take care of heading
+	cells
+	(html_clueflow_get_halignment): ditto
+
+	* htmltablecell.h: added heading flag
+
 	* htmlengine.c (parse_table): use Cell::no_wrap instead of setting
 	NOWRAP style, which has been removed (now we can have nowrap cells
 	with all possible clueflow styles, which was before impossible)
+	(parse_table): remember heading in cell
 
 	* htmltablecell.h: added no_wrap flag
 

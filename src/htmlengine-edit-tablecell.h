@@ -38,6 +38,12 @@ void           html_engine_table_cell_set_halign     (HTMLEngine     *e,
 void           html_engine_table_cell_set_valign     (HTMLEngine     *e,
 						      HTMLTableCell  *cell,
 						      HTMLVAlignType  valign);
+void           html_engine_table_cell_set_no_wrap    (HTMLEngine     *e,
+						      HTMLTableCell  *cell,
+						      gboolean        no_wrap);
+void           html_engine_table_cell_set_heading    (HTMLEngine     *e,
+						      HTMLTableCell  *cell,
+						      gboolean        heading);
 HTMLTableCell *html_engine_get_table_cell            (HTMLEngine     *e);
 			       
 #endif

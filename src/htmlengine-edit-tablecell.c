@@ -61,6 +61,27 @@ html_engine_table_cell_set_valign (HTMLEngine *e, HTMLTableCell *cell, HTMLVAlig
 	html_engine_schedule_update (e);
 }
 
+void
+html_engine_table_cell_set_no_wrap (HTMLEngine *e, HTMLTableCell *cell, gboolean no_wrap)
+{
+	if (cell->no_wrap != no_wrap) {
+		cell->no_wrap = no_wrap;
+		html_object_change_set (HTML_OBJECT (cell), HTML_CHANGE_ALL_CALC);
+		html_engine_schedule_update (e);
+	}
+}
+
+void
+html_engine_table_cell_set_heading (HTMLEngine *e, HTMLTableCell *cell, gboolean heading)
+{
+	if (cell->heading != heading) {
+		cell->heading = heading;
+		html_object_change_set (HTML_OBJECT (cell), HTML_CHANGE_ALL_CALC);
+		html_object_change_set_down (HTML_OBJECT (cell), HTML_CHANGE_ALL);
+		html_engine_schedule_update (e);
+	}
+}
+
 HTMLTableCell *
 html_engine_get_table_cell (HTMLEngine *e)
 {

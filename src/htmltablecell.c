@@ -365,6 +365,9 @@ html_table_cell_init (HTMLTableCell *cell,
 	cell->have_bg = FALSE;
 	cell->have_bgPixmap = FALSE;
 	cell->bg_allocated = FALSE;
+
+	cell->no_wrap = FALSE;
+	cell->heading = FALSE;
 }
 
 HTMLObject *

@@ -1071,9 +1071,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 
 					e->divAlign = HTML_HALIGN_NONE;
 					valign = rowvalign == HTML_VALIGN_NONE ? HTML_VALIGN_MIDDLE : rowvalign;
-					halign = rowhalign == HTML_HALIGN_NONE
-						? (heading ? HTML_HALIGN_CENTER : HTML_HALIGN_NONE)
-						: rowhalign;
+					halign = rowhalign == HTML_HALIGN_NONE ? HTML_HALIGN_NONE   : rowhalign;
 
 					if (tableEntry) {
 						html_string_tokenizer_tokenize (e->st, str + 4, " >");
@@ -1165,6 +1163,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 
 					cell = HTML_TABLE_CELL (html_table_cell_new (rowSpan, colSpan, padding));
 					cell->no_wrap = no_wrap;
+					cell->heading = heading;
 					html_object_set_bg_color (HTML_OBJECT (cell),
 								  have_bgColor ? &bgColor : NULL);
 
@@ -1199,18 +1198,10 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 						html_table_end_row (table);
 						html_table_start_row (table);
 					} else {
-						if (heading) {
-							push_font_style (e, GTK_HTML_FONT_STYLE_BOLD);
-							push_block (e, ID_TH, 3,
-								    block_end_font,
-								    FALSE, 0);
-							str = parse_body (e, HTML_OBJECT (cell), endthtd, FALSE);
-							pop_block (e, ID_TH, HTML_OBJECT (cell));
-						} else {
-							push_block (e, ID_TD, 3, NULL, 0, 0);
-							str = parse_body (e, HTML_OBJECT (cell), endthtd, FALSE);
-							pop_block (e, ID_TD, HTML_OBJECT (cell));
-						}
+						push_block (e, heading ? ID_TH : ID_TD, 3, NULL, 0, 0);
+						str = parse_body (e, HTML_OBJECT (cell), endthtd, FALSE);
+						pop_block (e, heading ? ID_TH : ID_TD, HTML_OBJECT (cell));
+
 						if (e->pending_para) {
 							insert_paragraph_break (e, HTML_OBJECT (cell));
 							e->pending_para = FALSE;

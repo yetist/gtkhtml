@@ -1323,31 +1323,37 @@ save_plain (HTMLObject *self,
 static GtkHTMLFontStyle
 get_default_font_style (const HTMLClueFlow *self)
 {
+	GtkHTMLFontStyle style = 0;
+
+	if (HTML_OBJECT (self)->parent && HTML_IS_TABLE_CELL (HTML_OBJECT (self)->parent)
+	    && HTML_TABLE_CELL (HTML_OBJECT (self)->parent)->heading)
+		style = GTK_HTML_FONT_STYLE_BOLD;
+
 	switch (self->style) {
 	case HTML_CLUEFLOW_STYLE_NORMAL:
 	case HTML_CLUEFLOW_STYLE_ITEMDOTTED:
 	case HTML_CLUEFLOW_STYLE_ITEMROMAN:
 	case HTML_CLUEFLOW_STYLE_ITEMDIGIT:
-		return GTK_HTML_FONT_STYLE_SIZE_3;
+		return style | GTK_HTML_FONT_STYLE_SIZE_3;
 	case HTML_CLUEFLOW_STYLE_ADDRESS:
-		return GTK_HTML_FONT_STYLE_SIZE_3 | GTK_HTML_FONT_STYLE_ITALIC;
+		return style | GTK_HTML_FONT_STYLE_SIZE_3 | GTK_HTML_FONT_STYLE_ITALIC;
 	case HTML_CLUEFLOW_STYLE_PRE:
-		return GTK_HTML_FONT_STYLE_SIZE_3 | GTK_HTML_FONT_STYLE_FIXED;
+		return style | GTK_HTML_FONT_STYLE_SIZE_3 | GTK_HTML_FONT_STYLE_FIXED;
 	case HTML_CLUEFLOW_STYLE_H1:
-		return GTK_HTML_FONT_STYLE_SIZE_6 | GTK_HTML_FONT_STYLE_BOLD;
+		return style | GTK_HTML_FONT_STYLE_SIZE_6 | GTK_HTML_FONT_STYLE_BOLD;
 	case HTML_CLUEFLOW_STYLE_H2:
-		return GTK_HTML_FONT_STYLE_SIZE_5 | GTK_HTML_FONT_STYLE_BOLD;
+		return style | GTK_HTML_FONT_STYLE_SIZE_5 | GTK_HTML_FONT_STYLE_BOLD;
 	case HTML_CLUEFLOW_STYLE_H3:
-		return GTK_HTML_FONT_STYLE_SIZE_4 | GTK_HTML_FONT_STYLE_BOLD;
+		return style | GTK_HTML_FONT_STYLE_SIZE_4 | GTK_HTML_FONT_STYLE_BOLD;
 	case HTML_CLUEFLOW_STYLE_H4:
-		return GTK_HTML_FONT_STYLE_SIZE_3 | GTK_HTML_FONT_STYLE_BOLD;
+		return style | GTK_HTML_FONT_STYLE_SIZE_3 | GTK_HTML_FONT_STYLE_BOLD;
 	case HTML_CLUEFLOW_STYLE_H5:
-		return GTK_HTML_FONT_STYLE_SIZE_2 | GTK_HTML_FONT_STYLE_BOLD;
+		return style | GTK_HTML_FONT_STYLE_SIZE_2 | GTK_HTML_FONT_STYLE_BOLD;
 	case HTML_CLUEFLOW_STYLE_H6:
-		return GTK_HTML_FONT_STYLE_SIZE_1 | GTK_HTML_FONT_STYLE_BOLD;
+		return style | GTK_HTML_FONT_STYLE_SIZE_1 | GTK_HTML_FONT_STYLE_BOLD;
 	default:
 		g_warning ("Unexpected HTMLClueFlow style %d", self->style);
-		return GTK_HTML_FONT_STYLE_DEFAULT;
+		return style | GTK_HTML_FONT_STYLE_DEFAULT;
 	}
 }
 
@@ -1830,11 +1836,13 @@ html_clueflow_get_halignment (HTMLClueFlow *flow)
 	g_return_val_if_fail (flow != NULL, HTML_HALIGN_NONE);
 
 	if (HTML_CLUE (flow)->halign == HTML_HALIGN_NONE) {
-		if (HTML_OBJECT (flow)->parent && HTML_IS_TABLE_CELL (HTML_OBJECT (flow)->parent)
-		    && HTML_CLUE (HTML_OBJECT (flow)->parent)->halign != HTML_HALIGN_NONE)
-			return HTML_CLUE (HTML_OBJECT (flow)->parent)->halign;
+		if (HTML_OBJECT (flow)->parent && HTML_IS_TABLE_CELL (HTML_OBJECT (flow)->parent))
+			return HTML_CLUE (HTML_OBJECT (flow)->parent)->halign == HTML_HALIGN_NONE
+				? HTML_TABLE_CELL (HTML_OBJECT (flow)->parent)->heading ? HTML_HALIGN_CENTER : HTML_HALIGN_LEFT
+				: HTML_CLUE (HTML_OBJECT (flow)->parent)->halign;
 		else
-			return HTML_HALIGN_LEFT;
+			return HTML_CLUE (HTML_OBJECT (flow)->parent)->halign == HTML_HALIGN_NONE
+				? HTML_HALIGN_LEFT : HTML_CLUE (HTML_OBJECT (flow)->parent)->halign;
 	} else
 		return HTML_CLUE (flow)->halign;
 }
