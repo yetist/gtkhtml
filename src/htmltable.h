@@ -56,27 +56,28 @@ struct _HTMLTableClass {
 };
 
 
-void        html_table_type_init   (void);
-void        html_table_class_init  (HTMLTableClass *klass,
-				    HTMLType        type,
-				    guint           object_size);
-void        html_table_init        (HTMLTable      *table,
-				    HTMLTableClass *klass,
-				    gint            width,
-				    gint            percent,
-				    gint            padding,
-				    gint            spacing,
-				    gint            border);
-HTMLObject *html_table_new         (gint            width,
-				    gint            percent,
-				    gint            padding,
-				    gint            spacing,
-				    gint            border);
-
-void  html_table_end_row       (HTMLTable     *table);
-void  html_table_start_row     (HTMLTable     *table);
-void  html_table_add_cell      (HTMLTable     *table,
-				HTMLTableCell *cell);
-void  html_table_end_table     (HTMLTable     *table);
+void        html_table_type_init    (void);
+void        html_table_class_init   (HTMLTableClass *klass,
+				     HTMLType        type,
+				     guint           object_size);
+void        html_table_init         (HTMLTable      *table,
+				     HTMLTableClass *klass,
+				     gint            width,
+				     gint            percent,
+				     gint            padding,
+				     gint            spacing,
+				     gint            border);
+HTMLObject *html_table_new          (gint            width,
+				     gint            percent,
+				     gint            padding,
+				     gint            spacing,
+				     gint            border);
+void        html_table_end_row      (HTMLTable      *table);
+void        html_table_start_row    (HTMLTable      *table);
+void        html_table_add_cell     (HTMLTable      *table,
+				     HTMLTableCell  *cell);
+void        html_table_remove_cell  (HTMLTable      *table,
+				     HTMLTableCell  *cell);
+void        html_table_end_table    (HTMLTable      *table);
 
 #endif /* _HTMLTABLE_H_ */

@@ -1,5 +1,8 @@
 2001-06-11  Radek Doulik  <rodo@ximian.com>
 
+	* htmltable.c (check_point): check for valid column
+	(html_table_end_table): remove empty cells
+
 	* gtkhtml.c (replace_nbsp): new helper function
 	(selection_get): replace &nbsp; with ' ' for
 	STRING/TEXT/COMPOUND_TEXT

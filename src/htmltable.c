@@ -1571,7 +1571,7 @@ check_point (HTMLObject *self,
 		for (c=0; c<table->totalCols; c++)
 			if (table->cells [start_row][c])
 				break;
-		if (table->cells [start_row][c]) {
+		if (c < table->totalCols && table->cells [start_row][c]) {
 			cell = table->cells [start_row][c];
 			if (x < HTML_OBJECT (cell)->x || y < HTML_OBJECT (cell)->y - HTML_OBJECT (cell)->ascent) {
 				obj = html_object_check_point (HTML_OBJECT (cell), painter,
@@ -1587,7 +1587,7 @@ check_point (HTMLObject *self,
 		for (c=table->totalCols - 1; c >= 0; c--)
 			if (table->cells [start_row][c])
 				break;
-		if (table->cells [start_row][c]) {
+		if (c >=0 && table->cells [start_row][c]) {
 			cell = table->cells [start_row][c];
 			if (x > HTML_OBJECT (cell)->x + HTML_OBJECT (cell)->width - 1
 			    || y > HTML_OBJECT (cell)->y + HTML_OBJECT (cell)->descent - 1) {
@@ -2097,4 +2097,14 @@ html_table_end_row (HTMLTable *table)
 void
 html_table_end_table (HTMLTable *table)
 {
+	gint r, c;
+
+	for (r = 0; r < table->totalRows; r ++)
+		for (c = 0; c < table->totalCols; c ++)
+			if (HTML_CLUE (table->cells [r][c])->head == NULL) {
+				HTMLTableCell *cell = table->cells [r][c];
+
+				remove_cell (table, cell);
+				html_object_destroy (HTML_OBJECT (cell));
+			}
 }
