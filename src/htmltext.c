@@ -21,6 +21,8 @@
    Boston, MA 02111-1307, USA.
 */
 
+#include <stdio.h>
+
 #include "htmltext.h"
 #include "htmlclueflow.h"
 #include "htmlcursor.h"
@@ -114,6 +116,55 @@ copy_collapsing_spaces (gchar *dst,
 	}
 }
 
+static void
+get_tags (const HTMLText *text,
+	  gchar *opening_tags,
+	  gchar *ending_tags)
+{
+	HTMLFontStyle font_style;
+	gchar *opening_p, *ending_p;
+	guint size;
+
+	font_style = text->font_style;
+
+	opening_p = opening_tags;
+	ending_p = ending_tags;
+
+	size = font_style & HTML_FONT_STYLE_SIZE_MASK;
+	if (size != 0) {
+		opening_p += sprintf (opening_p, "<FONT SIZE=%d>", size);
+		ending_p += sprintf (ending_p, "</FONT SIZE=%d>", size);
+	}
+
+	if (font_style & HTML_FONT_STYLE_BOLD) {
+		opening_p += sprintf (opening_p, "<B>");
+		ending_p += sprintf (ending_p, "</B>");
+	}
+
+	if (font_style & HTML_FONT_STYLE_ITALIC) {
+		opening_p += sprintf (opening_p, "<I>");
+		ending_p += sprintf (ending_p, "</I>");
+	}
+
+	if (font_style & HTML_FONT_STYLE_UNDERLINE) {
+		opening_p += sprintf (opening_p, "<U>");
+		ending_p += sprintf (ending_p, "</U>");
+	}
+
+	if (font_style & HTML_FONT_STYLE_STRIKEOUT) {
+		opening_p += sprintf (opening_p, "<S>");
+		ending_p += sprintf (ending_p, "</S>");
+	}
+
+	if (font_style & HTML_FONT_STYLE_FIXED) {
+		opening_p += sprintf (opening_p, "<TT>");
+		ending_p += sprintf (ending_p, "</TT>");
+	}
+
+	*opening_p = 0;
+	*ending_p = 0;
+}
+
 
 /* HTMLObject methods.  */
 
@@ -165,11 +216,29 @@ static gboolean
 save (HTMLObject *self,
       HTMLEngineSaveState *state)
 {
+	/* OK, doing these nasty things is not in my style, but in this case
+           it's so unlikely to break and it's so handy and fast that I think
+           it's almost acceptable.  */
+#define RIDICULOUS_BUFFER_SIZE 16384
+	gchar opening_tags[RIDICULOUS_BUFFER_SIZE];
+	gchar closing_tags[RIDICULOUS_BUFFER_SIZE];
+#undef RIDICULOUS_BUFFER_SIZE
 	HTMLText *text;
 
 	text = HTML_TEXT (self);
 
-	return html_engine_save_encode (state, text->text, text->text_len);
+	get_tags (text, opening_tags, closing_tags);
+
+	if (! html_engine_save_output_string (state, opening_tags))
+		return FALSE;
+
+	if (! html_engine_save_encode (state, text->text, text->text_len))
+		return FALSE;
+
+	if (! html_engine_save_output_string (state, closing_tags))
+		return FALSE;
+
+	return TRUE;
 }
 
 

@@ -161,6 +161,38 @@ get_indent (HTMLClueFlow *flow)
 
 	return indent;
 }
+
+static const gchar *
+get_tag_for_style (const HTMLClueFlow *flow)
+{
+	switch (flow->style) {
+	case HTML_CLUEFLOW_STYLE_NORMAL:
+		return NULL;
+	case HTML_CLUEFLOW_STYLE_H1:
+		return "H1";
+	case HTML_CLUEFLOW_STYLE_H2:
+		return "H2";
+	case HTML_CLUEFLOW_STYLE_H3:
+		return "H3";
+	case HTML_CLUEFLOW_STYLE_H4:
+		return "H4";
+	case HTML_CLUEFLOW_STYLE_H5:
+		return "H5";
+	case HTML_CLUEFLOW_STYLE_H6:
+		return "H6";
+	case HTML_CLUEFLOW_STYLE_ADDRESS:
+		return "ADDRESS";
+	case HTML_CLUEFLOW_STYLE_PRE:
+		return "PRE";
+	case HTML_CLUEFLOW_STYLE_ITEMDOTTED:
+	case HTML_CLUEFLOW_STYLE_ITEMROMAN:
+	case HTML_CLUEFLOW_STYLE_ITEMDIGIT:
+		return "LI";
+	default:
+		g_warning ("Unknown HTMLClueFlowStyle %d", flow->style);
+		return NULL;
+	}
+}
 	
 
 /* HTMLObject methods.  */
@@ -562,6 +594,43 @@ draw (HTMLObject *self,
 							tx, ty);
 }
 
+static gboolean
+save (HTMLObject *self,
+      HTMLEngineSaveState *state)
+{
+	HTMLClueFlow *clueflow;
+	const gchar *tag;
+
+	clueflow = HTML_CLUEFLOW (self);
+
+	tag = get_tag_for_style (clueflow);
+
+	/* FIXME: Indentation must be handled specially.  */
+
+	/* Start tag.  */
+	if (tag != NULL
+	    && (! html_engine_save_output_string (state, "<")
+		|| ! html_engine_save_output_string (state, tag)
+		|| ! html_engine_save_output_string (state, ">")))
+		return FALSE;
+
+	/* Paragraph's content.  */
+	if (! HTML_OBJECT_CLASS (&html_clue_class)->save (self, state))
+		return FALSE;
+
+	/* End tag.  */
+	if (tag != NULL) {
+		if (! html_engine_save_output_string (state, "</")
+		    || ! html_engine_save_output_string (state, tag)
+		    || ! html_engine_save_output_string (state, ">\n"))
+			return FALSE;
+	} else {
+		html_engine_save_output_string (state, "<BR>\n");
+	}
+
+	return TRUE;
+}
+
 
 static HTMLFontStyle
 get_default_font_style (const HTMLClueFlow *self)
@@ -618,6 +687,7 @@ html_clueflow_class_init (HTMLClueFlowClass *klass,
 	object_class->calc_min_width = calc_min_width;
 	object_class->calc_preferred_width = calc_preferred_width;
 	object_class->draw = draw;
+	object_class->save = save;
 
 	klass->get_default_font_style = get_default_font_style;
 }

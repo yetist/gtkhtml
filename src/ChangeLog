@@ -1,9 +1,28 @@
 2000-01-26  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlengine-save.c (write_header): Use uppercase tags for consistency.
+	(write_end): Likewise.
+
+	* htmltext.c (get_tags): New helper functions to get the font
+	style tags associated with the text element.
+
+	* htmlclueflow.c (save): New function, implementation of
+	`HTMLObject::save'.  Add the proper start/end tags according to
+	the clueflow's style.
+	(html_clueflow_class_init): Install this method implementation.
+	(get_tag_for_style): New helper function to get the tag associated
+	with a specific style.
+
+	* htmlclue.c (save): New function, implementation of
+	`HTMLObject::save'.  It saves all the children.
+	(html_clue_class_init): Install this method implementation.
+
 	* htmlengine-save.c (write_header): New function to write the
 	start of the HTML file.
 	(write_end): New function to write the end of the HTML file.
 	(html_engine_save): Use them.
+	(save_forall): Removed.
+	(html_engine_save): Just save the main (vertical) clue.
 
 	* htmlengine-save.c (html_engine_save_output_string): New function
 	to write a plain, unencoded string.

@@ -160,51 +160,37 @@ html_engine_save_output_string (HTMLEngineSaveState *state,
 }
 
 
-static void
-save_forall (HTMLObject *object,
-	     gpointer data)
-{
-	HTMLEngineSaveState *s;
-
-	s = (HTMLEngineSaveState *) data;
-	if (s->error)
-		return;
-
-	if (! html_object_save (object, s))
-		s->error = TRUE;
-}
-
 static gboolean
 write_header (HTMLEngineSaveState *state)
 {
 	/* Preface.  */
 	if (! html_engine_save_output_string
 	            (state,
-		     "<!doctype html public \"-//w3c//dtd html 4.0 transitional//en\">\n"
-		     "<html>\n"))
+		     "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 TRANSITIONAL//EN\">\n"
+		     "<HTML>\n"))
 		return FALSE;
 
 	/* Header start.  FIXME: `GENERATOR' string?  */
 	if (! html_engine_save_output_string
 		     (state,
-		      "<head>\n"
-		      "  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\">\n"
-		      "  <meta name=\"GENERATOR\" content=\"GtkHTML/0.0\">\n"))
+		      "<HEAD>\n"
+		      "  <META HTTP-EQUIV=\"Content-Type\" CONTENT=\"text/html; CHARSET=ISO-8859-1\">\n"
+		      "  <META NAME=\"GENERATOR\" CONTENT=\"GtkHTML/0.0\">\n"))
 		return FALSE;
 
 	/* Title.  */
-	if (! html_engine_save_output_string (state, "  <title>")
+	if (! html_engine_save_output_string (state, "  <TITLE>")
 	    || ! html_engine_save_encode_string (state, state->engine->title->str)
-	    || ! html_engine_save_output_string (state, "</title>\n"))
+	    || ! html_engine_save_output_string (state, "</TITLE>\n"))
 		return FALSE;
 
 	/* End of header.  */
-	if (! html_engine_save_output_string (state, "</head>\n"))
+	if (! html_engine_save_output_string (state, "</HEAD>\n"))
 		return FALSE;
 
 	/* Start of body.  */
 
-	if (! html_engine_save_output_string (state, "<body>\n"))
+	if (! html_engine_save_output_string (state, "<BODY>\n"))
 		return FALSE;
 
 	return TRUE;
@@ -213,7 +199,7 @@ write_header (HTMLEngineSaveState *state)
 static gboolean
 write_end (HTMLEngineSaveState *state)
 {
-	if (! html_engine_save_output_string (state, "</body>\n</html>\n"))
+	if (! html_engine_save_output_string (state, "</BODY>\n</HTML>\n"))
 		return FALSE;
 
 	return TRUE;
@@ -240,7 +226,7 @@ html_engine_save (const HTMLEngine *engine,
 	if (! write_header (&state))
 		return FALSE;
 
-	html_object_forall (engine->clue, save_forall, &state);
+	html_object_save (engine->clue, &state);
 	if (state.error)
 		return FALSE;
 

@@ -257,6 +257,23 @@ is_container (HTMLObject *self)
 	return TRUE;
 }
 
+static gboolean
+save (HTMLObject *self,
+      HTMLEngineSaveState *state)
+{
+	HTMLObject *p;
+	HTMLClue *clue;
+
+	clue = HTML_CLUE (self);
+
+	for (p = clue->head; p != NULL; p = p->next) {
+		if (! html_object_save (p, state))
+		    return FALSE;
+	}
+
+	return TRUE;
+}
+
 
 /* HTMLClue methods.  */
 
@@ -341,6 +358,7 @@ html_clue_class_init (HTMLClueClass *klass,
 	object_class->find_anchor = find_anchor;
 	object_class->forall = forall;
 	object_class->is_container = is_container;
+	object_class->save = save;
 
 	/* HTMLClue methods.  */
 	klass->get_left_margin = get_left_margin;
