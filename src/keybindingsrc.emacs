@@ -130,4 +130,7 @@ binding "gtkhtml-bindings-emacs"
   bind "<Ctrl><Shift>b"      { "command" (inc-border) }
   bind "<Ctrl><Alt>b"        { "command" (dec-border) }
   bind "<Alt><Shift>b"       { "command" (zero-border) }
+
+  bind "<Alt>d"              { "command" (kill-word) }
+  bind "<Alt>BackSpace"      { "command" (backward-kill-word) }
 }

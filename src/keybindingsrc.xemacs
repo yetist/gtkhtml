@@ -116,4 +116,7 @@ binding "gtkhtml-bindings-xemacs"
   bind "<Alt>KP_Enter"      { "command" (property-dialog) }
 
   bind "<Alt>q"             { "command" (indent-paragraph) }
+
+  bind "<Alt>d"             { "command" (kill-word) }
+  bind "<Alt>BackSpace"     { "command" (backward-kill-word) }
 }

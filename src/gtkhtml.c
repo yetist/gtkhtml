@@ -3474,6 +3474,20 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 	case GTK_HTML_COMMAND_GRAB_FOCUS:
 		gtk_widget_grab_focus (GTK_WIDGET (html));
 		break;
+	case GTK_HTML_COMMAND_KILL_WORD:
+	case GTK_HTML_COMMAND_KILL_WORD_BACKWARD:
+		html_engine_disable_selection (e);
+		html_engine_edit_selection_updater_schedule (e->selection_updater);
+		html_engine_set_mark (html->engine);
+		rv = com_type == GTK_HTML_COMMAND_KILL_WORD
+			? html_engine_forward_word (html->engine)
+			: html_engine_backward_word (html->engine);
+		html_engine_edit_selection_updater_update_now (e->selection_updater);
+		html_draw_queue_clear (e->draw_queue);
+		if (rv)
+			gtk_html_cut (html);
+		html_engine_disable_selection (e);
+		break;
 
 	default:
 		html->binding_handled = FALSE;
