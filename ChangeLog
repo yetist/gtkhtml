@@ -1,3 +1,8 @@
+2002-04-28  Larry Ewing  <lewing@ximian.com>
+
+	* configure.in (GTKHTML_RELEASE_STRING): bump the version so that
+	evo will pick up the new interfaces.
+
 2002-03-27  Larry Ewing  <lewing@ximian.com>
 
 	* configure.in: add horrible cruft to version translation files.
