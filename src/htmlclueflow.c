@@ -308,7 +308,7 @@ calc_min_width (HTMLObject *o,
 
 	cur = HTML_CLUE (o)->head;
 	while (cur) {
-		w += (add) ? html_object_calc_preferred_width (cur, painter) : html_object_calc_min_width (cur, painter);
+		w += add ? html_object_calc_preferred_width (cur, painter) : html_object_calc_min_width (cur, painter);
 		if (!add || cur->flags & HTML_OBJECT_FLAG_NEWLINE || !cur->next) {
 			if (min_width < w) min_width = w;
 			w = 0;
