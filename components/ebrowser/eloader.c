@@ -22,6 +22,7 @@
     Author: Lauris Kaplinski  <lauris@helixcode.com>
 */
 
+#include <string.h>
 #include "eloader.h"
 
 #define noDEBUG_EL_ALLOC

@@ -1,3 +1,9 @@
+2001-07-08  Larry Ewing  <lewing@ximian.com>
+
+	* test.c: add missing includes.
+
+	* eloader.c: add missing include.
+
 2001-05-11  Gediminas Paulauskas <menesis@delfi.lt>
 
 	* GNOME_GtkHTML_EBrowser.oaf.in: fixed a typo.

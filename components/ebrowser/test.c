@@ -8,8 +8,9 @@
  * License: GPL
  */
 
-#include <gdk/gdkkeysyms.h>
+#include <stdio.h>
 #include <string.h>
+#include <gdk/gdkkeysyms.h>
 #include "ebrowser-widget.h"
 #include "test.h"
 
