@@ -18,9 +18,11 @@
    the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
    Boston, MA 02111-1307, USA.
 */
-#include <libart_lgpl/art_rect.h>
-#include "htmlgdkpainter.h"
+
 #include <string.h>
+#include <libart_lgpl/art_rect.h>
+
+#include "htmlgdkpainter.h"
 
 
 static HTMLPainterClass *parent_class = NULL;

@@ -396,8 +396,10 @@ destroy (GtkObject *object)
 	if (html->idle_handler_id != 0)
 		gtk_idle_remove (html->idle_handler_id);
 
-	if (GTK_OBJECT_CLASS (parent_class)->destroy)
-		(*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+	gtk_object_destroy (GTK_OBJECT (html->engine));
+
+	if (GTK_OBJECT_CLASS (parent_class)->destroy != NULL)
+		(* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
 }
 
 
@@ -655,20 +657,26 @@ static gint
 focus_in_event (GtkWidget *widget,
 		GdkEventFocus *event)
 {
-	if (GTK_WIDGET_CLASS (parent_class)->focus_in_event != NULL)
-		(* GTK_WIDGET_CLASS (parent_class)->focus_in_event) (widget, event);
+	puts (__FUNCTION__);
 
-	return TRUE;
+	GTK_WIDGET_SET_FLAGS (widget, GTK_HAS_FOCUS);
+
+	html_engine_set_focus (GTK_HTML (widget)->engine, TRUE);
+
+	return FALSE;
 }
 
 static gint
 focus_out_event (GtkWidget *widget,
 		 GdkEventFocus *event)
 {
-	if (GTK_WIDGET_CLASS (parent_class)->focus_out_event != NULL)
-		(* GTK_WIDGET_CLASS (parent_class)->focus_out_event) (widget, event);
+	puts (__FUNCTION__);
 
-	return TRUE;
+	GTK_WIDGET_UNSET_FLAGS (widget, GTK_HAS_FOCUS);
+
+	html_engine_set_focus (GTK_HTML (widget)->engine, FALSE);
+
+	return FALSE;
 }
 
 

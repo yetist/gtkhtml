@@ -1,3 +1,95 @@
+2000-03-09  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* gtkhtml.c
+	(focus_in_event): Give the engine the focus with
+	`html_engine_set_focus()'.
+	(focus_out_event): Remove the focus from the engine with
+	`html_engine_set_focus()'.
+
+	* htmlengine.c
+	(html_engine_set_focus): New function.
+
+	* htmlengine.h: New member `have_focus' in `HTMLEngine'.
+
+	* gtkhtml.c
+	(destroy): Argh!  Destroy the `HTMLEngine'!
+
+	* gtkhtml-keybinding.c
+	(gtk_html_handle_key_event): If the key event is handled, reset
+	the blinking cursor with `html_engine_reset_blinking_cursor()'.
+
+	* htmlengine.c
+	(html_engine_init): Initialize `blinking_timer_id'.
+	(html_engine_destroy): If `blinking_timer_id' is nonzero, remove
+	the corresponding timeout.
+	(html_engine_set_editable): If the engine becomes editable, call
+	`html_engine_setup_blinking_cursor()'.  If it beomes non editable,
+	call `html_engine_stop_blinking_cursor()'.
+
+	* htmlengine-edit-cursor.c
+	(html_engine_setup_blinking_cursor): New function.
+	(html_engine_stop_blinking_cursor): New function.
+	(html_engine_reset_blinking_cursor): New function.
+	(blink_timeout_cb): New static function that implements cursor
+	blinking.
+
+	* htmlengine.h: New members `blinking_timer_id', `blinking_status'
+	in `HTMLEngine'.
+
+	* htmldrawqueue.c
+	(draw_obj): Don't draw objects whose width and/or height is zero.
+
+	* htmlengine.c
+	(html_engine_draw_cursor): Removed.
+	(html_engine_flush_draw_queue): Don't call it anymore.  Added
+	precondition: `e' must be an HTMLEngine.
+	(html_engine_queue_draw): Added precondition: `e' must be an
+	HTMLEngine.
+
+	* htmlengine-edit-movement.c
+	(html_engine_move_cursor): Use `html_engine_{hide,show}_cursor()'
+	instead of `html_engine_draw_cursor()'.
+	(html_engine_jump_to_object): Likewise.
+	(html_engine_beginning_of_document): Likewise.
+	(html_engine_end_of_document): Likewise.
+	(html_engine_beginning_of_line): Likewise.
+	(html_engine_end_of_line): Likewise.
+	(html_engine_scroll_down): Likewise.
+	(html_engine_scroll_up): Likewise.
+	(html_engine_forward_word): Likewise.
+	(html_engine_backward_word): Likewise.
+
+	* htmlengine-edit-delete.c
+	(html_engine_delete): Use `html_engine_{hide,show}_cursor()'
+	instead of `html_engine_draw_cursor()'.
+
+	* htmlengine-edit-insert.c
+	(html_engine_insert_para): Use `html_engine_{hide,show}_cursor()'
+	instead of `html_engine_draw_cursor()'.
+
+	* htmlengine-edit-inster.c
+	(html_engine_insert): Use `html_engine_{hide,show}_cursor()'
+	instead of `html_engine_draw_cursor()'.
+
+	* htmlengine-edit-cursor.c
+	(html_engine_draw_cursor_in_area): Moved here from `htmlengine.c'.
+	Do not draw anything if `cursor_hide_count' is greater than zero.
+	(html_engine_show_cursor): New function.
+	(html_engine_hide_cursor): New function.
+
+	* htmlengine-edit-cursor.h: New file.
+	* htmlengine-edit-cursor.c: New file.
+
+	* htmlengine.c
+	(html_engine_draw_cursor_in_area): Removed.
+	(html_engine_init): Initialize `cursor_hide_count' to zero.
+
+	* htmlengine.h: New member `cursor_hide_count' in `HTMLEngine'.
+
+	* htmldrawqueue.c
+	(clear): Draw the cursor in the cleared area.
+	(draw_obj): Likewise.
+
 2000-03-08  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmldrawqueue.c

@@ -28,6 +28,7 @@
 #include <gdk/gdkkeysyms.h>
 
 #include "htmlengine-edit.h"
+#include "htmlengine-edit-cursor.h"
 #include "htmlengine-edit-delete.h"
 #include "htmlengine-edit-insert.h"
 #include "htmlengine-edit-movement.h"
@@ -355,17 +356,23 @@ gtk_html_handle_key_event (GtkHTML *html,
 			   GdkEventKey *event,
 			   gboolean *update_styles)
 {
+	gint retval;
+
 	*update_styles = TRUE;
 
 	switch (event->state & ~ GDK_SHIFT_MASK) {
 	case GDK_CONTROL_MASK:
-		return handle_ctrl (html, event);
+		retval =  handle_ctrl (html, event);
+		break;
 	case GDK_MOD1_MASK:
-		return handle_alt (html, event);
+		retval = handle_alt (html, event);
+		break;
 	default:
 		if (event->state == 0) {
-			if (handle_none (html, event))
-				return TRUE;
+			if (handle_none (html, event)) {
+				retval = TRUE;
+				break;
+			}
 		}
 
 		if (event->length == 0)
@@ -373,6 +380,11 @@ gtk_html_handle_key_event (GtkHTML *html,
 
 		html_engine_insert (html->engine, event->string, event->length);
 		*update_styles = FALSE;
-		return TRUE;
+		retval = TRUE;
 	}
+
+	if (retval)
+		html_engine_reset_blinking_cursor (html->engine);
+
+	return retval;
 }

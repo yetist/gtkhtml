@@ -25,6 +25,7 @@
 #include "htmltextmaster.h"
 
 #include "htmlengine-edit.h"
+#include "htmlengine-edit-cursor.h"
 #include "htmlengine-edit-delete.h"
 #include "htmlengine-edit-movement.h"
 
@@ -71,7 +72,7 @@ html_engine_insert_para (HTMLEngine *engine,
 		return;
 	}
 
-	html_engine_draw_cursor (engine);
+	html_engine_hide_cursor (engine);
 
 	/* Remove text slaves, if any.  */
 
@@ -136,7 +137,7 @@ html_engine_insert_para (HTMLEngine *engine,
 		html_engine_queue_draw (engine, flow->parent);
 	}
 
-	html_engine_draw_cursor (engine);
+	html_engine_show_cursor (engine);
 }
 
 
@@ -327,7 +328,7 @@ html_engine_insert (HTMLEngine *e,
 	if (current_object == NULL)
 		return 0;
 
-	html_engine_draw_cursor (e);
+	html_engine_hide_cursor (e);
 
 	n = do_insert (e, text, len);
 
@@ -342,7 +343,7 @@ html_engine_insert (HTMLEngine *e,
 	html_cursor_reset_relative (e->cursor);
 	html_engine_move_cursor (e, HTML_ENGINE_CURSOR_RIGHT, n);
 
-	html_engine_draw_cursor (e);
+	html_engine_show_cursor (e);
 
 	return n;
 }

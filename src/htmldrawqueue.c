@@ -19,6 +19,8 @@
    Boston, MA 02111-1307, USA.
 */
 
+#include "htmlengine-edit-cursor.h"
+
 #include "htmldrawqueue.h"
 
 
@@ -215,6 +217,9 @@ draw_obj (HTMLDrawQueue *queue,
 	gint x1, y1, x2, y2;
 	gint tx, ty;
 
+	if (obj->width == 0 || obj->ascent + obj->descent == 0)
+		return;
+
 	e = queue->engine;
 
 	tx = e->leftBorder - e->x_offset;
@@ -262,7 +267,9 @@ draw_obj (HTMLDrawQueue *queue,
 			  obj->x, obj->y - obj->ascent,
 			  obj->width, obj->ascent + obj->descent,
 			  tx, ty);
+
 #if 0
+	html_painter_set_pen (e->painter, html_painter_get_black (e->painter));
 	html_painter_draw_line (e->painter, x1, y1, x2 - 1, y2 - 1);
 	html_painter_draw_line (e->painter, x2 - 1, y1, x1, y2 - 1);
 #endif
@@ -270,6 +277,8 @@ draw_obj (HTMLDrawQueue *queue,
 	/* Done.  */
 
 	html_painter_end (e->painter);
+
+	html_engine_draw_cursor_in_area (e, x1, y1, x2 - x1, y2 - y1);
 }
 
 static void
@@ -303,6 +312,8 @@ clear (HTMLDrawQueue *queue,
 #endif
 
 	html_painter_end (e->painter);
+
+	html_engine_draw_cursor_in_area (e, x1, y1, x2 - x1, y2 - y1);
 }
 
 void

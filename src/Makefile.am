@@ -34,6 +34,7 @@ libgtkhtml_HEADERS =				\
 	htmlengine-edit.h			\
 	htmlengine-edit-clueflowstyle.h		\
 	htmlengine-edit-copy.h			\
+	htmlengine-edit-cursor.h		\
 	htmlengine-edit-cut.h			\
 	htmlengine-edit-delete.h		\
 	htmlengine-edit-fontstyle.h		\
@@ -100,6 +101,7 @@ libgtkhtml_la_SOURCES =				\
 	htmlengine-edit.c			\
 	htmlengine-edit-clueflowstyle.c		\
 	htmlengine-edit-copy.c			\
+	htmlengine-edit-cursor.c		\
 	htmlengine-edit-cut.c			\
 	htmlengine-edit-delete.c		\
 	htmlengine-edit-fontstyle.c		\

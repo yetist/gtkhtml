@@ -39,6 +39,7 @@
 
 #include "htmlengine.h"
 #include "htmlengine-edit.h"
+#include "htmlengine-edit-cursor.h"
 #include "htmlengine-cutbuffer.h"
 
 #include "htmlanchor.h"
@@ -2683,12 +2684,11 @@ html_engine_destroy (GtkObject *object)
 		gdk_gc_destroy (engine->invert_gc);
 
 	html_cursor_destroy (engine->cursor);
-
-	html_tokenizer_destroy   (engine->ht);
+	html_tokenizer_destroy (engine->ht);
 	string_tokenizer_destroy (engine->st);
-	html_settings_destroy    (engine->settings);
-	html_settings_destroy    (engine->defaultSettings);
-	html_image_factory_free  (engine->image_factory);
+	html_settings_destroy (engine->settings);
+	html_settings_destroy (engine->defaultSettings);
+	html_image_factory_free (engine->image_factory);
 
 	gtk_object_destroy (GTK_OBJECT (engine->painter));
 
@@ -2705,6 +2705,9 @@ html_engine_destroy (GtkObject *object)
 	g_list_free (engine->tempStrings);
 
 	html_draw_queue_destroy (engine->draw_queue);
+
+	if (engine->blinking_timer_id != 0)
+		gtk_timeout_remove (engine->blinking_timer_id);
 
 	GTK_OBJECT_CLASS (parent_class)->destroy (object);
 }
@@ -2825,9 +2828,13 @@ html_engine_init (HTMLEngine *engine)
 	engine->newPage = FALSE;
 
 	engine->editable = FALSE;
-	engine->cursor = html_cursor_new ();
 	engine->active_selection = FALSE;
 	engine->cut_buffer = NULL;
+
+	engine->cursor = html_cursor_new ();
+	engine->cursor_hide_count = 0;
+	engine->blinking_timer_id = 0;
+	engine->blinking_status = FALSE;
 
 	engine->insertion_font_style = GTK_HTML_FONT_STYLE_DEFAULT;
 
@@ -2872,6 +2879,8 @@ html_engine_init (HTMLEngine *engine)
 	engine->pending_para = FALSE;
 
 	engine->indent_level = 0;
+
+	engine->have_focus = FALSE;
 }
 
 HTMLEngine *
@@ -3214,69 +3223,13 @@ html_engine_end (GtkHTMLStreamHandle handle, GtkHTMLStreamStatus status, HTMLEng
 
 
 void
-html_engine_draw_cursor_in_area (HTMLEngine *e,
-				 gint x, gint y,
-				 gint width, gint height)
-{
-	HTMLObject *obj;
-	guint offset;
-	gint x1, y1, x2, y2;
-
-	g_assert (e->editable);
-
-	obj = e->cursor->object;
-	if (obj == NULL)
-		return;
-
-	offset = e->cursor->offset;
-
-	if (width < 0 || height < 0) {
-		width = e->width;
-		height = e->height;
-		x = 0;
-		y = 0;
-	}
-
-	html_object_get_cursor (obj, e->painter, offset, &x1, &y1, &x2, &y2);
-
-	x1 = x1 + e->leftBorder - e->x_offset;
-	y1 = y1 + e->topBorder - e->y_offset;
-	x2 = x2 + e->leftBorder - e->x_offset;
-	y2 = y2 + e->topBorder - e->y_offset;
-
-	if (x1 >= x + width)
-		return;
-	if (y1 >= y + height)
-		return;
-
-	if (x2 < x)
-		return;
-	if (y2 < y)
-		return;
-
-	if (x2 >= x + width)
-		x2 = x + width - 1;
-	if (y2 >= y + height)
-		y2 = y + height - 1;
-
-	if (x1 < x)
-		x1 = x;
-	if (y1 < y)
-		y1 = y;
-
-	gdk_draw_line (e->window, e->invert_gc, x1, y1, x2, y2);
-}
-
-void
 html_engine_draw (HTMLEngine *e,
 		  gint x, gint y,
 		  gint width, gint height)
 {
 	gint tx, ty;
 
-	/*
-	 * This case happens when the widget has not been shown yet
-	 */
+	/* This case happens when the widget has not been shown yet.  */
 	if (width == 0 || height == 0)
 		return;
 	
@@ -3300,12 +3253,6 @@ html_engine_draw (HTMLEngine *e,
 
 	if (e->editable)
 		html_engine_draw_cursor_in_area (e, x, y, width, height);
-}
-
-void
-html_engine_draw_cursor (HTMLEngine *e)
-{
-	html_engine_draw_cursor_in_area (e, 0, 0, -1, -1);
 }
 
 
@@ -3474,8 +3421,14 @@ html_engine_set_editable (HTMLEngine *e,
 		html_engine_draw (e, 0, 0, e->width, e->height);
 		e->editable = editable;
 
-		if (editable)
+		if (editable) {
 			ensure_editable (e);
+			if (e->have_focus)
+				html_engine_setup_blinking_cursor (e);
+		} else {
+			if (e->have_focus)
+				html_engine_stop_blinking_cursor (e);
+		}
 	}
 }
 
@@ -3489,6 +3442,24 @@ html_engine_get_editable (HTMLEngine *e)
 		return TRUE;
 	else
 		return FALSE;
+}
+
+
+void
+html_engine_set_focus (HTMLEngine *engine,
+		       gboolean have_focus)
+{
+	g_return_if_fail (engine != NULL);
+	g_return_if_fail (HTML_IS_ENGINE (engine));
+
+	if (engine->editable) {
+		if (! engine->have_focus && have_focus)
+			html_engine_setup_blinking_cursor (engine);
+		else if (engine->have_focus && ! have_focus)
+			html_engine_stop_blinking_cursor (engine);
+	}
+
+	engine->have_focus = have_focus;
 }
 
 
@@ -3534,20 +3505,16 @@ void
 html_engine_flush_draw_queue (HTMLEngine *e)
 {
 	g_return_if_fail (e != NULL);
-
-	if (e->editable)
-		html_engine_draw_cursor (e);
+	g_return_if_fail (HTML_IS_ENGINE (e));
 
 	html_draw_queue_flush (e->draw_queue);
-
-	if (e->editable)
-		html_engine_draw_cursor (e);
 }
 
 void
 html_engine_queue_draw (HTMLEngine *e, HTMLObject *o)
 {
 	g_return_if_fail (e != NULL);
+	g_return_if_fail (HTML_IS_ENGINE (e));
 	g_return_if_fail (o != NULL);
 
 	if (e->freeze_count == 0)

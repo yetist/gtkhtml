@@ -21,6 +21,8 @@
 
 #include <ctype.h>
 
+#include "htmlengine-edit-cursor.h"
+
 #include "htmlengine-edit-movement.h"
 
 
@@ -60,14 +62,14 @@ html_engine_move_cursor (HTMLEngine *e,
 		return 0;
 	}
 
-	html_engine_draw_cursor (e);
+	html_engine_hide_cursor (e);
 
 	for (c = 0; c < count; c++) {
 		if (! (* movement_func) (e->cursor, e))
 			break;
 	}
 
-	html_engine_draw_cursor (e);
+	html_engine_show_cursor (e);
 
 	return c;
 }
@@ -93,14 +95,14 @@ html_engine_jump_to_object (HTMLEngine *e,
 	g_return_if_fail (object != NULL);
 
 	/* Delete the cursor in the original position.  */
-	html_engine_draw_cursor (e);
+	html_engine_hide_cursor (e);
 
 	/* Jump to the specified position.  FIXME: Beep if it fails?  */
 	html_cursor_jump_to (e->cursor, e, object, offset);
 	html_cursor_normalize (e->cursor);
 
 	/* Draw the cursor in the new position.  */
-	html_engine_draw_cursor (e);
+	html_engine_show_cursor (e);
 }
 
 /**
@@ -135,9 +137,9 @@ html_engine_beginning_of_document (HTMLEngine *engine)
 	g_return_if_fail (engine != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (engine));
 
-	html_engine_draw_cursor (engine);
+	html_engine_hide_cursor (engine);
 	html_cursor_beginning_of_document (engine->cursor, engine);
-	html_engine_draw_cursor (engine);
+	html_engine_show_cursor (engine);
 }
 
 void
@@ -146,9 +148,9 @@ html_engine_end_of_document (HTMLEngine *engine)
 	g_return_if_fail (engine != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (engine));
 
-	html_engine_draw_cursor (engine);
+	html_engine_hide_cursor (engine);
 	html_cursor_end_of_document (engine->cursor, engine);
-	html_engine_draw_cursor (engine);
+	html_engine_show_cursor (engine);
 }
 
 
@@ -160,11 +162,9 @@ html_engine_beginning_of_line (HTMLEngine *engine)
 	g_return_val_if_fail (engine != NULL, FALSE);
 	g_return_val_if_fail (HTML_IS_ENGINE (engine), FALSE);
 
-	html_engine_draw_cursor (engine);
-
+	html_engine_hide_cursor (engine);
 	retval = html_cursor_beginning_of_line (engine->cursor, engine);
-
-	html_engine_draw_cursor (engine);
+	html_engine_show_cursor (engine);
 
 	return retval;
 }
@@ -177,11 +177,9 @@ html_engine_end_of_line (HTMLEngine *engine)
 	g_return_val_if_fail (engine != NULL, FALSE);
 	g_return_val_if_fail (HTML_IS_ENGINE (engine), FALSE);
 
-	html_engine_draw_cursor (engine);
-
+	html_engine_hide_cursor (engine);
 	retval = html_cursor_end_of_line (engine->cursor, engine);
-
-	html_engine_draw_cursor (engine);
+	html_engine_show_cursor (engine);
 
 	return retval;
 }
@@ -203,7 +201,7 @@ html_engine_scroll_down (HTMLEngine *engine,
 
 	html_object_get_cursor_base (cursor->object, engine->painter, cursor->offset, &start_x, &start_y);
 
-	html_engine_draw_cursor (engine);
+	html_engine_hide_cursor (engine);
 
 	y = new_y = start_y;
 
@@ -230,7 +228,7 @@ html_engine_scroll_down (HTMLEngine *engine,
 		y = new_y;
 	}
 
-	html_engine_draw_cursor (engine);
+	html_engine_show_cursor (engine);
 	return new_y - start_y;
 }
 
@@ -250,7 +248,7 @@ html_engine_scroll_up (HTMLEngine *engine,
 
 	html_object_get_cursor_base (cursor->object, engine->painter, cursor->offset, &start_x, &start_y);
 
-	html_engine_draw_cursor (engine);
+	html_engine_hide_cursor (engine);
 
 	y = start_y;
 
@@ -266,8 +264,10 @@ html_engine_scroll_up (HTMLEngine *engine,
 		if (new_y == y)
 			break;
 
-		if (new_y > start_y)
+		if (new_y > start_y) {
+			html_engine_show_cursor (engine);
 			return 0;
+		}
 
 		if (start_y - new_y >= amount) {
 			html_cursor_copy (cursor, &prev_cursor);
@@ -277,7 +277,7 @@ html_engine_scroll_up (HTMLEngine *engine,
 		y = new_y;
 	}
 
-	html_engine_draw_cursor (engine);
+	html_engine_show_cursor (engine);
 	return start_y - new_y;
 }
 
@@ -293,7 +293,7 @@ html_engine_forward_word (HTMLEngine *engine)
 	g_return_val_if_fail (HTML_IS_ENGINE (engine), FALSE);
 
 	cursor = engine->cursor;
-	html_engine_draw_cursor (engine);
+	html_engine_hide_cursor (engine);
 
 	c = html_cursor_get_current_char (cursor);
 	if (c == 0 || ! isalnum ((gint) c))
@@ -303,14 +303,14 @@ html_engine_forward_word (HTMLEngine *engine)
 
 	while (1) {
 		if (! html_cursor_forward (cursor, engine)) {
-			html_engine_draw_cursor (engine);
+			html_engine_show_cursor (engine);
 			return TRUE;
 		}
 
 		c = html_cursor_get_current_char (cursor);
 		if (c == 0 || ! isalnum ((gint) c)) {
 			if (! skip_non_alnum) {
-				html_engine_draw_cursor (engine);
+				html_engine_show_cursor (engine);
 				return TRUE;
 			}
 		} else {
@@ -330,10 +330,10 @@ html_engine_backward_word (HTMLEngine *engine)
 	g_return_val_if_fail (HTML_IS_ENGINE (engine), FALSE);
 
 	cursor = engine->cursor;
-	html_engine_draw_cursor (engine);
+	html_engine_hide_cursor (engine);
 
 	if (! html_cursor_backward (cursor, engine)) {
-		html_engine_draw_cursor (engine);
+		html_engine_show_cursor (engine);
 		return FALSE;
 	}
 		
@@ -345,7 +345,7 @@ html_engine_backward_word (HTMLEngine *engine)
 
 	while (1) {
 		if (! html_cursor_backward (cursor, engine)) {
-			html_engine_draw_cursor (engine);
+			html_engine_show_cursor (engine);
 			return TRUE;
 		}
 
@@ -353,7 +353,7 @@ html_engine_backward_word (HTMLEngine *engine)
 		if (c == 0 || ! isalnum ((gint) c)) {
 			if (! skip_non_alnum) {
 				html_cursor_forward (cursor, engine);
-				html_engine_draw_cursor (engine);
+				html_engine_show_cursor (engine);
 				return TRUE;
 			}
 		} else {

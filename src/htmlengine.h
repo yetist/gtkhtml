@@ -88,8 +88,13 @@ struct _HTMLEngine {
 	gchar *reference;
 
 	gboolean editable;
-	HTMLCursor *cursor;
 	GList *cut_buffer;
+
+	/* The cursor.  FIXME: Should be abstracted as a separate object.  */
+	HTMLCursor *cursor;
+	gint cursor_hide_count;
+	gint blinking_timer_id;
+	gboolean blinking_status;
 
 	/* Font style for insertion.  If HTML_FONT_STYLE_DEFAULT, use that of
            the text we are in.  */
@@ -214,6 +219,9 @@ struct _HTMLEngine {
 
 	/* Alignment for the pending paragraph we are going to insert.  */
 	HTMLHAlignType pending_para_alignment;
+
+	/* Whether we have the keyboard focus.  */
+	gboolean have_focus : 1;
 };
 
 /* must be forward referenced *sigh* */
@@ -245,6 +253,10 @@ void      html_engine_set_editable  (HTMLEngine *e,
 				     gboolean    editable);
 gboolean  html_engine_get_editable  (HTMLEngine *e);
 
+/* Focus.  */
+void  html_engine_set_focus  (HTMLEngine *engine,
+			      gboolean    have_focus);
+
 /* Parsing control.  */
 GtkHTMLStreamHandle  html_engine_begin            (HTMLEngine  *p,
 						   const char  *url);
@@ -267,12 +279,7 @@ void  html_engine_draw                 (HTMLEngine *e,
 					gint        y,
 					gint        width,
 					gint        height);
-void  html_engine_draw_cursor          (HTMLEngine *e);
-void  html_engine_draw_cursor_in_area  (HTMLEngine *e,
-					gint        x,
-					gint        y,
-					gint        width,
-					gint        height);
+
 void  html_engine_schedule_update      (HTMLEngine *p);
 void  html_engine_make_cursor_visible  (HTMLEngine *e);
 

@@ -23,6 +23,7 @@
 #include "htmltext.h"
 
 #include "htmlengine-edit-delete.h"
+#include "htmlengine-edit-cursor.h"
 
 
 static void
@@ -194,7 +195,7 @@ html_engine_delete (HTMLEngine *e,
 	if (e->cursor->object->parent == NULL || e->cursor->object->parent == NULL)
 		return;
 
-	html_engine_draw_cursor (e);
+	html_engine_hide_cursor (e);
 
 	if (html_object_is_text (e->cursor->object)
 	    && e->cursor->offset == HTML_TEXT (e->cursor->object)->text_len) {
@@ -282,5 +283,5 @@ html_engine_delete (HTMLEngine *e,
  end:
 
 	html_cursor_normalize (e->cursor);
-	html_engine_draw_cursor (e);
+	html_engine_show_cursor (e);
 }
