@@ -380,6 +380,8 @@ static HTMLObject *
 get_selection (HTMLObject *self,
 	       guint *size_return)
 {
+	HTMLObject *copy;
+
 	if (! self->selected) {
 		if (size_return != NULL)
 			*size_return = 0;
@@ -389,7 +391,10 @@ get_selection (HTMLObject *self,
 	if (size_return != NULL)
 		*size_return = 1;
 
-	return html_object_dup (self);
+	copy = html_object_dup (self);
+	html_object_select_range (copy, NULL, 0, 0, FALSE);
+
+	return copy;
 }
 
 static void

@@ -239,13 +239,12 @@ skip (HTMLEngine *engine)
 	cursor = engine->cursor;
 	curr = cursor->object;
 
+	g_assert (curr->parent != NULL);
+
 	if (curr->next != NULL ) {
 		cursor->object = curr->next;
-	} else {
+	} else if (curr->parent->next != NULL) {
 		HTMLObject *next_clueflow;
-
-		g_assert (curr->parent != NULL);
-		g_assert (curr->parent->next != NULL);
 
 		next_clueflow = curr->parent->next;
 		if (HTML_CLUE (next_clueflow)->head == NULL)
@@ -255,6 +254,11 @@ skip (HTMLEngine *engine)
 		g_assert (cursor->object != NULL);
 
 		cursor->offset = 0;
+	} else {
+		if (html_object_is_text (cursor->object))
+			cursor->offset = HTML_TEXT (cursor->object)->text_len;
+		else
+			cursor->offset = 1;
 	}
 }
 
@@ -368,7 +372,6 @@ html_engine_paste (HTMLEngine *engine)
 	/* Whether we need to append the elements at the cursor
 	   position or not.  */
 	gboolean append;
-	HTMLObject *obj;
 	GList *p;
 
 	g_return_if_fail (engine != NULL);
@@ -399,7 +402,7 @@ html_engine_paste (HTMLEngine *engine)
 	remove_slaves_at_cursor (engine);
 
 	/* 3. Split the first paragraph at the cursor position, to
-	      allow insertion of the elements.  */
+	   allow insertion of the elements.  */
 
 	append = split_at_cursor (engine);
 
@@ -409,7 +412,7 @@ html_engine_paste (HTMLEngine *engine)
 #endif
 
 	/* 4. Prepare the HTMLClueFlows to hold the elements we want
-              to paste.  */
+	   to paste.  */
 
 	if (prepare_clueflows (engine, append))
 		append = TRUE;
@@ -422,7 +425,7 @@ html_engine_paste (HTMLEngine *engine)
 	g_print ("\n");
 
 	/* 5. Duplicate the objects in the cut buffer, one by one, and
-	      insert them into the document.  */
+	   insert them into the document.  */
 
 	for (p = engine->cut_buffer; p != NULL; p = p->next) {
 		HTMLObject *obj;
@@ -453,21 +456,21 @@ html_engine_paste (HTMLEngine *engine)
 			if (p->next == NULL)
 				merge_possibly (engine, duplicate, duplicate->next);
 		} else {
-			HTMLObject *next_clueflow;
+			HTMLObject *clueflow;
 			HTMLObject *obj_copy;
 
 #ifdef PARANOID_DEBUG
 			g_print ("*** Pasting HTMLClueFlow\n");
 #endif
 
-			/* This is an HTMLClueFlow, which we have already added
-                           to the tree: move to the next element in the cut
-                           buffer, and insert it into the next HTMLClueFlow
-                           (which is the one we created).  */
+			/* This is an HTMLClueFlow, which we have already added to the
+                           tree: move to the next element in the cut buffer, and insert it
+                           into the next HTMLClueFlow (which is the one we created).  If
+                           we get another ClueFlow after this one, we need to fill the
+                           empty HTMLClueFlow with an empty text element.  */
 
-			/* This should never give us another ClueFlow, because
-                           ClueFlows are never empty.  */
 			p = p->next;
+
 			if (p == NULL) {
 #ifdef PARANOID_DEBUG
 				g_print ("    next is NULL: bailing out\n");
@@ -475,34 +478,38 @@ html_engine_paste (HTMLEngine *engine)
 				break;
 			}
 
-			obj = (HTMLObject *) p->data;
+			obj = HTML_OBJECT (p->data);
 
-			if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_CLUEFLOW) {
-				g_warning ("Internal error: pasting empty HTMLClueFlows");
-				continue;
+			clueflow = engine->cursor->object->parent->next;
+			g_assert (clueflow != NULL);
+			g_assert (HTML_OBJECT_TYPE (clueflow) == HTML_TYPE_CLUEFLOW);
+
+			while (HTML_OBJECT_TYPE (obj) == HTML_TYPE_CLUEFLOW) {
+				add_empty_text_master_to_clueflow (HTML_CLUEFLOW (clueflow));
+				clueflow = clueflow->next;
+
+				p = p->next;
+				if (p == NULL)
+					break;
+				obj = HTML_OBJECT (p->data);
 			}
 
-			if (! append)
-				skip (engine);
-
-			append = TRUE;
-
-			next_clueflow = engine->cursor->object->parent->next;
-			g_assert (next_clueflow != NULL);
-			g_assert (HTML_OBJECT_TYPE (next_clueflow) == HTML_TYPE_CLUEFLOW);
-
-#ifdef PARANOID_DEBUG
-			g_print ("*** Appending %s to %p\n", html_type_name (HTML_OBJECT_TYPE (obj)), next_clueflow);
-#endif
+			if (p == NULL)
+				break;
 
 			obj_copy = html_object_dup (obj);
 			html_object_change_set (obj_copy, HTML_CHANGE_ALL);
 
-			html_clue_prepend (HTML_CLUE (next_clueflow), obj_copy);
+			html_clue_prepend (HTML_CLUE (clueflow), obj_copy);
 
-			/* Kind of evil, isn't it?  */
 			engine->cursor->object = obj_copy;
 			engine->cursor->offset = 0;
+
+			append = TRUE;
+
+#ifdef PARANOID_DEBUG
+			g_print ("*** Appending %s to %p\n", html_type_name (HTML_OBJECT_TYPE (obj)), clueflow);
+#endif
 		}
 	}
 
@@ -515,12 +522,12 @@ html_engine_paste (HTMLEngine *engine)
 #endif
 
 	/* 7. Update the cursor's absolute position counter by
-	      counting the elements in the cut buffer.  */
+	   counting the elements in the cut buffer.  */
 
 	update_cursor_position (engine->cursor, engine->cut_buffer);
 
 	/* 8. Thaw the engine so that things are re-laid out again.
-              FIXME: this might be a bit inefficient for cut & paste.  */
+	   FIXME: this might be a bit inefficient for cut & paste.  */
 
 	html_engine_thaw (engine);
 

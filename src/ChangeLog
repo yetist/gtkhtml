@@ -1,3 +1,17 @@
+2000-04-15  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine-edit-paste.c
+	(skip): If this is the last HTMLClueFlow (`next' is NULL), put the
+	cursor at the end of the current object.
+
+	* htmlengine-edit-paste.c
+	(html_engine_paste): Handle correct pasting of empty
+	HTMLClueFlows.  Also, removed unused variable.
+
+	* htmlobject.c
+	(get_selection): Unselect the copy obtained through
+	`html_object_dup()'.
+
 2000-04-14  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlengine-edit-paste.c
@@ -9,7 +23,8 @@
 
 2000-04-15  Radek Doulik  <rodo@helixcode.com>
 
-	* htmlsearch.c (html_search_new): use POSIX calls instead of GNU for better portability
+	* htmlsearch.c (html_search_new): use POSIX calls instead of GNU
+	for better portability
 
 	* htmlclueflow.c (search): use cur = HTML_OBJECT
 	(info->found->data) instead of g_list_last (found) as we don't
