@@ -63,6 +63,12 @@ copy (HTMLObject *self,
 	HTML_CLUEFLOW (dest)->level = HTML_CLUEFLOW (self)->level;
 }
 
+static guint
+get_recursive_length (HTMLObject *self)
+{
+	return (*HTML_OBJECT_CLASS (parent_class)->get_recursive_length) (self) + self->next ? 1 : 0;
+}
+
 static HTMLObject *
 op_copy (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
 {

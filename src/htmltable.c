@@ -28,6 +28,7 @@
 #include "htmlcolorset.h"
 #include "htmlengine.h"
 #include "htmlengine-save.h"
+#include "htmlimage.h"
 #include "htmlpainter.h"
 #include "htmlsearch.h"
 #include "htmltable.h"
@@ -103,13 +104,223 @@ destroy (HTMLObject *o)
 }
 
 static void
-copy (HTMLObject *self,
-      HTMLObject *dest)
+copy_sized (HTMLObject *self, HTMLObject *dest, gint rows, gint cols)
 {
+	HTMLTable *d = HTML_TABLE (dest);
+	HTMLTable *s = HTML_TABLE (self);
+	gint r;
+
+	memcpy (dest, self, sizeof (HTMLTable));
 	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
 
-	/* FIXME TODO*/
-	g_warning ("HTMLTable::copy is broken.");
+	d->bgColor     = s->bgColor ? gdk_color_copy (s->bgColor) : NULL;
+	d->caption     = s->caption ? HTML_CLUEV (html_object_dup (HTML_OBJECT (s->caption))) : NULL;
+
+	d->columnMin   = g_array_new (FALSE, FALSE, sizeof (gint));
+	d->columnFixed = g_array_new (FALSE, FALSE, sizeof (gint));
+	d->columnPref  = g_array_new (FALSE, FALSE, sizeof (gint));
+	d->columnOpt   = g_array_new (FALSE, FALSE, sizeof (gint));
+	d->rowHeights  = g_array_new (FALSE, FALSE, sizeof (gint));
+
+	d->totalCols = cols;
+	d->totalRows = rows;
+	d->allocRows = rows;
+
+	d->cells = g_new (HTMLTableCell **, rows);
+	for (r = 0; r < rows; r++)
+		d->cells [r] = g_new0 (HTMLTableCell *, cols);
+
+	dest->change = HTML_CHANGE_ALL;
+}
+
+static void
+copy (HTMLObject *self, HTMLObject *dest)
+{
+	copy_sized (self, dest, HTML_TABLE (self)->totalRows, HTML_TABLE (self)->totalCols);
+}
+
+static HTMLObject *
+op_copy (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
+{
+	HTMLTableCell *start, *end;
+	HTMLTable *nt, *t;
+	gint r, c, rows, cols, start_col;
+
+	g_assert (IS_HTML_TABLE (self));
+
+	t  = HTML_TABLE (self);
+	nt = g_new0 (HTMLTable, 1);
+
+	start = HTML_TABLE_CELL (from ? from->data : html_object_head (self));
+	end   = HTML_TABLE_CELL (to   ? to->data   : html_object_tail (self));
+	rows  = end->row - start->row + 1;
+	cols  = end->row == start->row ? end->col - start->col + 1 : t->totalCols;
+
+	copy_sized (self, HTML_OBJECT (nt), rows, cols);
+
+	start_col = end->row == start->row ? start->col : 0;
+
+	printf ("cols: %d rows: %d\n", cols, rows);
+
+	*len = 0;
+	for (r = 0; r < rows; r++)
+		for (c = 0; c < cols; c++) {
+			HTMLTableCell *cell = t->cells [start->row + r][c + start_col];
+
+			if (!cell || (end->row != start->row
+				      && ((r == 0 && c < start_col) || (r == rows - 1 && c > end->col))))
+				continue;
+			if (cell->row == r + start->row && cell->col == c + start_col) {
+				HTMLTableCell *cell_copy;
+				cell_copy = HTML_TABLE_CELL
+					(html_object_op_copy (HTML_OBJECT (cell), e,
+							      html_object_get_bound_list (HTML_OBJECT (cell), from),
+							      html_object_get_bound_list (HTML_OBJECT (cell), to), len));
+				set_cell (nt, r, c, cell_copy);
+				html_table_cell_set_position (cell_copy, r, c);
+			} else
+				nt->cells [r][c] = nt->cells [cell->row - start->row][cell->col - start_col];
+		}
+
+	if (end->col - start_col < cols - 1)
+		do_cspan (nt, nt->totalRows - 1, end->col - start_col, nt->cells [nt->totalRows - 1][end->col - start_col]);
+
+	printf ("copy end: %d\n", *len);
+
+	return HTML_OBJECT (nt);
+}
+
+static guint
+get_recursive_length (HTMLObject *self)
+{
+	HTMLTable *t = HTML_TABLE (self);
+	guint r, c, len = 0;
+
+	for (r = 0; r < t->totalRows; r++)
+		for (c = 0; c < t->totalCols; c++)
+			if (t->cells [r][c] && t->cells [r][c]->row == r && t->cells [r][c]->col == c)
+				len += html_object_get_recursive_length (HTML_OBJECT (t->cells [r][c])) + 1;
+
+	if (len > 0)
+		len --;
+	printf ("get_recursive_length %d\n", len);
+	return len;
+}
+
+static HTMLObject *
+op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GList *right, guint *len)
+{
+	HTMLObject *rv;
+
+	if (from || to) {
+		rv = 0;
+		*len = 0;
+	} else {
+		rv = self;
+		if (self->parent)
+			html_object_remove_child (self->parent, self);
+		*len = html_object_get_recursive_length (rv) + 1;
+		printf ("removed whole table len: %d\n", *len);
+	}
+
+	return rv;
+}
+
+static void
+split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint level, GList **left, GList **right)
+{
+	HTMLObject *dup     = html_object_dup (self);
+	HTMLTable *t        = HTML_TABLE (self);
+	HTMLTable *nt       = HTML_TABLE (dup);
+	HTMLTableCell *cell = HTML_TABLE_CELL (child);
+	gint r, c;
+
+	printf ("before split\n");
+	gtk_html_debug_dump_tree_simple (self, 0);
+
+	for (c = cell->col; c < nt->totalCols; c ++) {
+		set_cell (nt, 0, c, t->cells [cell->row][c]);
+		t->cells [cell->row][c] = NULL;
+	}
+
+	for (r = cell->row + 1; r < nt->totalRows; r ++)
+		for (c = 0; c < t->totalCols; c ++) {
+			set_cell (nt, r - cell->row, c, t->cells [r][c]);
+			t->cells [r][c] = NULL;
+		}
+
+	*left  = g_list_prepend (*left, self);
+	*right = g_list_prepend (*right, dup);
+
+	html_object_change_set (self, HTML_CHANGE_ALL);
+	html_object_change_set (dup,  HTML_CHANGE_ALL);
+
+	printf ("after split\n");
+	gtk_html_debug_dump_tree_simple (self,  0);
+	gtk_html_debug_dump_tree_simple (dup, 0);
+
+	level--;
+	if (level)
+		html_object_split (self->parent, e, dup, 0, level, left, right);
+}
+
+static gboolean
+merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e)
+{
+	HTMLTable *t1 = HTML_TABLE (self);
+	HTMLTable *t2 = HTML_TABLE (dup);
+	gint r, c, end_col, end_row;
+
+	if (t1->specified_width != t2->specified_width
+	    || t1->totalCols != t2->totalCols
+	    || t1->spacing != t2->spacing
+	    || t1->padding != t2->padding
+	    || t1->border != t2->border
+	    || t1->capAlign != t2->capAlign
+	    || (t1->bgColor && t2->bgColor && !gdk_color_equal (t1->bgColor, t2->bgColor))
+	    || (t1->bgColor && !t2->bgColor) || (!t1->bgColor && t2->bgColor)
+	    || t1->bgPixmap != t2->bgPixmap)
+		return FALSE;
+
+	printf ("before merge\n");
+	gtk_html_debug_dump_tree_simple (self, 0);
+	gtk_html_debug_dump_tree_simple (with, 0);
+
+	for (c = 0; c < t1->totalCols; c++)
+		if (t1->cells [t1->totalRows - 1][c])
+			end_col = c;
+
+	end_row = t1->totalRows - 1;
+	for (c = end_col + 1; c < t1->totalCols; c++)
+		if (t2->cells [0][c]) {
+			end_row ++;
+			break;
+		}
+
+	r = 0;
+	if (end_row == t1->totalRows - 1 && end_col < t1->totalCols) {
+		for (c = end_col + 1; c < t1->totalCols; c++) {
+			set_cell (t1, end_row, c, t2->cells [r][c]);
+			t2->cells [r][c] = NULL;
+		}
+		r ++;
+		end_row ++;
+	}
+
+	for (; r < t2->totalRows; r ++, end_row ++)
+		for (c = 0; c < t2->totalCols; c++) {
+			alloc_cell (t1, end_row, c);
+			set_cell (t1, end_row, c, t2->cells [r][c]);
+			t2->cells [r][c] = NULL;
+		}
+
+	html_object_change_set (self, HTML_CHANGE_ALL);
+
+	printf ("after merge\n");
+	gtk_html_debug_dump_tree_simple (self, 0);
+	gtk_html_debug_dump_tree_simple (dup , 0);
+
+	return TRUE;
 }
 
 static gboolean
@@ -119,10 +330,7 @@ is_container (HTMLObject *object)
 }
 
 static void
-forall (HTMLObject *self,
-	HTMLEngine *e,
-	HTMLObjectForallFunc func,
-	gpointer data)
+forall (HTMLObject *self, HTMLEngine *e, HTMLObjectForallFunc func, gpointer data)
 {
 	HTMLTableCell *cell;
 	HTMLTable *table;
@@ -142,8 +350,6 @@ forall (HTMLObject *self,
 	}
 	(* func) (self, e, data);
 }
-
-
 
 static void
 previous_rows_do_cspan (HTMLTable *table, gint c)
@@ -1544,6 +1750,10 @@ html_table_class_init (HTMLTableClass *klass,
 	html_object_class_init (object_class, type, object_size);
 
 	object_class->copy = copy;
+	object_class->op_copy = op_copy;
+	object_class->op_cut = op_cut;
+	object_class->split = split;
+	object_class->merge = merge;
 	object_class->calc_size = calc_size;
 	object_class->draw = draw;
 	object_class->destroy = destroy;
@@ -1566,6 +1776,7 @@ html_table_class_init (HTMLTableClass *klass,
 	object_class->save_plain = save_plain;
 	object_class->check_page_split = check_page_split;
 	object_class->get_bg_color = get_bg_color;
+	object_class->get_recursive_length = get_recursive_length;
 
 	parent_class = &html_object_class;
 }

@@ -29,6 +29,7 @@
 
 #define HTML_TABLE_CELL(x) ((HTMLTableCell *)(x))
 #define HTML_TABLE_CELL_CLASS(x) ((HTMLTableCellClass *)(x))
+#define IS_HTML_TABLE_CELL(x) (HTML_OBJECT_TYPE (x) == HTML_TYPE_TABLECELL)
 
 struct _HTMLTableCell {
 	HTMLClueV cluev;

@@ -106,7 +106,21 @@ gtk_html_debug_dump_table (HTMLObject *o,
 
 	for (r = 0; r < table->totalRows; r++) {
 		for (c = 0; c < table->totalCols; c++) {
-			gtk_html_debug_dump_tree (HTML_OBJECT (table->cells[r][c]), level + 1);
+			gtk_html_debug_dump_tree (HTML_OBJECT (table->cells[r][c]), level);
+		}
+	}
+
+}
+
+void
+gtk_html_debug_dump_table_simple (HTMLObject *o, gint level)
+{
+	gint c, r;
+	HTMLTable *table = HTML_TABLE (o);
+
+	for (r = 0; r < table->totalRows; r++) {
+		for (c = 0; c < table->totalCols; c++) {
+			gtk_html_debug_dump_tree_simple (HTML_OBJECT (table->cells[r][c]), level);
 		}
 	}
 
@@ -191,9 +205,12 @@ gtk_html_debug_dump_tree (HTMLObject *o,
 
 
 static void
-debug_word_width (HTMLText *t)
+debug_word_width (HTMLText *t, gint level)
 {
 	guint i;
+
+	for (i = 0; i < level; i++)
+		g_print ("\t");
 
 	printf ("words: %d | ", t->words);
 	for (i = 0; i < t->words; i ++)
@@ -214,7 +231,7 @@ dump_object_simple (HTMLObject *obj,
 		g_print ("%s `%s'\n",
 			 html_type_name (HTML_OBJECT_TYPE (obj)),
 			 HTML_TEXT (obj)->text);
-		debug_word_width (HTML_TEXT (obj));
+		debug_word_width (HTML_TEXT (obj), level);
 	} else if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_TEXTSLAVE) {
 		HTMLTextSlave *slave = HTML_TEXT_SLAVE (obj);
 		gchar *text;
@@ -255,7 +272,9 @@ gtk_html_debug_dump_tree_simple (HTMLObject *o,
 		case HTML_TYPE_TABLECELL:
 			gtk_html_debug_dump_tree_simple (HTML_CLUE (obj)->head, level + 1);
 			break;
-
+		case HTML_TYPE_TABLE:
+			gtk_html_debug_dump_table_simple (obj, level + 1);
+			break;
 		default:
 			break;
 		}

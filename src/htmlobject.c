@@ -470,6 +470,12 @@ get_length (HTMLObject *self)
 	return 1;
 }
 
+static guint
+get_recursive_length (HTMLObject *self)
+{
+	return html_object_get_length (self);
+}
+
 static gboolean
 select_range (HTMLObject *self,
 	      HTMLEngine *engine,
@@ -633,6 +639,7 @@ html_object_class_init (HTMLObjectClass *klass,
 	klass->search = search;
 	klass->search_next = search;
 	klass->get_length = get_length;
+	klass->get_recursive_length = get_recursive_length;
 	klass->next = next;
 	klass->prev = prev;
 	klass->head = head;
@@ -1207,6 +1214,12 @@ guint
 html_object_get_length (HTMLObject *self)
 {
 	return (* HO_CLASS (self)->get_length) (self);
+}
+
+guint
+html_object_get_recursive_length (HTMLObject *self)
+{
+	return (* HO_CLASS (self)->get_recursive_length) (self);
 }
 
 HTMLObject *

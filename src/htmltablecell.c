@@ -24,6 +24,7 @@
 #include <config.h>
 #include <glib.h>
 #include <libart_lgpl/art_rect.h>
+#include <string.h>
 #include "htmlcluev.h"
 #include "htmlengine-save.h"
 #include "htmlpainter.h"
@@ -90,12 +91,11 @@ reset (HTMLObject *self)
 }
 
 static void
-copy (HTMLObject *self,
-      HTMLObject *dest)
+copy (HTMLObject *self, HTMLObject *dest)
 {
-	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
+	memcpy (dest, self, sizeof (HTMLTableCell));
 
-	g_warning ("HTMLTableCell::copy is not implemented.");
+	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
 }
 
 static gint

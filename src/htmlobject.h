@@ -228,7 +228,8 @@ struct _HTMLObjectClass {
 	HTMLObject * (* remove_link)     (HTMLObject *self, HTMLColor *color);
 
 	/* length */
-	guint        (* get_length)      (HTMLObject *self);
+	guint        (* get_length)                (HTMLObject *self);
+	guint        (* get_recursive_length)      (HTMLObject *self);
 
 	/* movement */
 	HTMLObject * (* next)            (HTMLObject *self, HTMLObject *child);
@@ -401,6 +402,7 @@ void            html_object_get_cursor_base       (HTMLObject            *obj,
 						   gint                  *x,
 						   gint                  *y);
 guint           html_object_get_length            (HTMLObject            *self);
+guint           html_object_get_recursive_length  (HTMLObject            *self);
 guint           html_object_get_bytes             (HTMLObject            *self);
 guint           html_object_get_index             (HTMLObject            *self,
 						   guint                  offset);

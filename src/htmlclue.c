@@ -54,6 +54,20 @@ destroy (HTMLObject *o)
 	HTML_OBJECT_CLASS (parent_class)->destroy (o);
 }
 
+static guint
+get_recursive_length (HTMLObject *self)
+{
+	HTMLObject *o = HTML_CLUE (self)->head;
+	guint len = 0;
+
+	while (o) {
+		len += html_object_get_recursive_length (o);
+		o = o->next;
+	}
+
+	return len;
+}
+
 static void
 copy (HTMLObject *self,
       HTMLObject *dest)
@@ -598,6 +612,7 @@ html_clue_class_init (HTMLClueClass *klass,
 	object_class->append_selection_string = append_selection_string;
 	object_class->head = head;
 	object_class->tail = tail;
+	object_class->get_recursive_length = get_recursive_length;
 
 	/* HTMLClue methods.  */
 	klass->get_left_clear = get_left_clear;

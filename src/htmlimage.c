@@ -33,6 +33,7 @@
 
 #include <config.h>
 #include <glib.h>
+#include <string.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
 #include "gtkhtml.h"

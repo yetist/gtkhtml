@@ -146,7 +146,7 @@ get_parent_list (HTMLPoint *point, gint level, gboolean include_offset)
 }
 
 static gint
-get_parent_level (HTMLObject *from, HTMLObject *to)
+get_parent_level_deprecated (HTMLObject *from, HTMLObject *to)
 {
 	gint level = 1;
 
@@ -159,38 +159,87 @@ get_parent_level (HTMLObject *from, HTMLObject *to)
 	return level;
 }
 
+static gint
+get_parent_depth (HTMLObject *o, HTMLObject *parent)
+{
+	gint level = 1;
+
+	while (o && parent && o != parent) {
+		o = o->parent;
+		level ++;
+	}
+
+	return level;
+}
+
+static gboolean
+is_parent (HTMLObject *o,HTMLObject *parent)
+{
+	while (o) {
+		if (o == parent)
+			return TRUE;
+		o = o->parent;
+	}
+
+	return FALSE;
+}
+
+static HTMLObject *
+try_find_common_parent_of (HTMLObject *child, HTMLObject *parent)
+{
+	while (parent) {
+		if (is_parent (child, parent))
+			return parent;
+		parent = parent->parent;
+	}
+
+	return NULL;
+}
+
+static HTMLObject *
+get_common_parent (HTMLObject *from, HTMLObject *to)
+{
+	HTMLObject *parent;
+
+	parent = try_find_common_parent_of (from, to);
+
+	return parent ? parent : try_find_common_parent_of (to, from);
+}
+
 static void
 prepare_delete_bounds (HTMLEngine *e, GList **from_list, GList **to_list,
 		       GList **bound_left, GList **bound_right)
 {
 	HTMLPoint b_left, b_right, begin, end;
-	gint level;
+	HTMLObject *common_parent;
 
 	g_assert (e->selection);
 
 	html_point_get_right (&e->selection->from, &begin);
 	html_point_get_left  (&e->selection->to,   &end);
 
-	level = get_parent_level (begin.object, end.object);
+	common_parent = get_common_parent (begin.object, end.object);
 
-	*from_list = get_parent_list (&begin, level, TRUE);
-	*to_list   = get_parent_list (&end,   level, TRUE);
+	*from_list = get_parent_list (&begin, get_parent_depth (begin.object, common_parent), TRUE);
+	*to_list   = get_parent_list (&end,   get_parent_depth (end.object, common_parent),   TRUE);
 
 	if (bound_left && bound_right) {
+		gint level;
+
 		html_point_get_left  (&e->selection->from, &b_left);
 		html_point_get_right (&e->selection->to,   &b_right);
 
-		level = get_parent_level (b_left.object, b_right.object);
+		common_parent = get_common_parent (b_left.object, b_right.object);
 
-		*bound_left  = b_left.object ? get_parent_list (&b_left, level - 1, FALSE) : NULL;
+		level = get_parent_depth (b_left.object, common_parent);
+		*bound_left  = b_left.object  ? get_parent_list (&b_left, level - 1, FALSE) : NULL;
+		if (level > 1 && *bound_left)
+			*bound_left  = g_list_prepend (*bound_left, NULL);
+
+		level = get_parent_depth (b_right.object, common_parent);
 		*bound_right = b_right.object ? get_parent_list (&b_right, level - 1, FALSE) : NULL;
-
-		if (level > 1) {
-			if (*bound_left)
-				*bound_left  = g_list_prepend (*bound_left, NULL);
-			if (*bound_right)
-				*bound_right = g_list_prepend (*bound_right, NULL);
-		}
+		if (level > 1 && *bound_right)
+			*bound_right = g_list_prepend (*bound_right, NULL);
 	}
 }
 
@@ -281,6 +330,8 @@ html_engine_copy (HTMLEngine *e)
 		e->clipboard_len = 0;
 		e->clipboard     = html_object_op_copy (HTML_OBJECT (from->data), e, from->next, to->next,
 							&e->clipboard_len);
+		printf ("copy len: %d\n", e->clipboard_len);
+		gtk_html_debug_dump_tree_simple (e->clipboard, 0);
 		html_engine_thaw (e);
 	}
 }
@@ -369,6 +420,25 @@ place_cursor_before_mark (HTMLEngine *e)
 }
 
 static void
+delete_object_do_old (HTMLEngine *e, HTMLObject **object, guint *len)
+{
+	GList *from, *to, *left, *right;
+
+	if (html_engine_is_selection_active (e)) {
+		html_engine_freeze (e);
+		prepare_delete_bounds (e, &from, &to, &left, &right);
+		place_cursor_before_mark (e);
+		move_cursor_before_delete (e);
+		html_engine_disable_selection (e);
+		*len     = 0;
+		*object  = html_object_op_cut  (HTML_OBJECT (from->data), e, from->next, to->next, left, right, len);
+		remove_empty_and_merge (e, TRUE, left ? left->next : NULL, right ? right->next : NULL, NULL);
+		html_engine_spell_check_range (e, e->cursor, e->cursor);
+		html_engine_thaw (e);
+	}
+}
+
+static void
 delete_object_do (HTMLEngine *e, HTMLObject **object, guint *len)
 {
 	GList *from, *to, *left, *right;
@@ -415,6 +485,7 @@ html_engine_cut (HTMLEngine *e)
 {
 	html_engine_clipboard_clear (e);
 	delete_object (e, &e->clipboard, &e->clipboard_len, HTML_UNDO_UNDO);
+	printf ("cut  len: %d\n", e->clipboard_len);
 }
 
 /*
@@ -431,16 +502,23 @@ insert_object_do (HTMLEngine *e, HTMLObject *obj, guint len, gboolean check)
 	gint level;
 
 	html_engine_freeze (e);
+	/* FIXME for tables */
+	if (obj->klass->type == HTML_TYPE_TABLE) {
+		level = 1;
+		html_engine_insert_empty_paragraph (e);
+		html_engine_insert_empty_paragraph (e);
+		html_cursor_backward (e->cursor, e);
+	} else {
+		level = 0;
+		cur   = html_object_get_head_leaf (obj);
+		while (cur) {
+			level++;
+			cur = cur->parent;
+		}
+	}
 	orig = html_cursor_dup (e->cursor);
 
-	/* FIXME for tables */
-	level = 0;
-	cur   = html_object_get_head_leaf (obj);
-	while (cur) {
-		level++;
-		cur = cur->parent;
-	}
-
+	html_object_change_set_down (obj, HTML_CHANGE_ALL);
 	split_and_add_empty_texts (e, level, &left, &right);
         get_tree_bounds_for_merge (obj, &first, &last);
 
