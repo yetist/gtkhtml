@@ -1,17 +1,21 @@
+# translation of el.po to Greek
 # Greek gtkhtml translation
-# Copyright (C) 2001 Free Software Foundation, Inc.
+# Copyright (C) 2001, 2004 Free Software Foundation, Inc.
 # Simos Xenitellis <simos@hellug.gr>, 2001.
+# Kostas Papadimas <pkst@gnome.org>, 2004.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml 0.8.1\n"
-"POT-Creation-Date: 2003-12-29 11:44-0500\n"
-"PO-Revision-Date: 2001-01-30 15:55:46+0900\n"
-"Last-Translator: Simos Xenitellis <simos@hellug.gr>\n"
+"Project-Id-Version: el\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-01-11 18:49+0200\n"
+"PO-Revision-Date: 2004-01-11 18:45+0200\n"
+"Last-Translator: Kostas Papadimas <pkst@gnome.org>\n"
 "Language-Team: Greek <nls@tux.hellug.gr>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-7\n"
+"Content-Type: text/plain; charset=ISO-8859-7\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.0.2\n"
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -26,25 +30,24 @@ msgstr "Αδυναμία φόρτωσης αρχείου glade."
 
 #: capplet/gtkhtml-capplet.glade.h:1
 msgid "\n"
-msgstr ""
+msgstr "\n"
 
 #: capplet/gtkhtml-capplet.glade.h:3
 #: components/html-editor/gtkhtml-editor-properties.glade.h:1
 msgid "*"
-msgstr ""
+msgstr "*"
 
 #: capplet/gtkhtml-capplet.glade.h:4
 msgid "*********************"
-msgstr ""
+msgstr "*********************"
 
 #: capplet/gtkhtml-capplet.glade.h:5
-#, fuzzy
 msgid "Add Keyboard Shortcuts"
-msgstr "Συντομεύσεις πληκτρολογίου"
+msgstr "Προσθήκη συντομεύσεων πληκτρολογίου"
 
 #: capplet/gtkhtml-capplet.glade.h:6
 msgid "Automatically detect links"
-msgstr ""
+msgstr "Αυτόματος εντοπισμός δεσμών"
 
 #: capplet/gtkhtml-capplet.glade.h:7
 msgid "Behavior"
@@ -52,27 +55,24 @@ msgstr "Συμπεριφορά"
 
 #
 #: capplet/gtkhtml-capplet.glade.h:8
-#, fuzzy
 msgid "Composer Properties"
-msgstr "Ιδιότητες"
+msgstr "Ιδιότητες Composer"
 
 #: capplet/gtkhtml-capplet.glade.h:9
 msgid "Composer Properties planned"
-msgstr ""
+msgstr "Σχεδιαζόμενες Ιδιότητες Composer"
 
 #: capplet/gtkhtml-capplet.glade.h:10
-#, fuzzy
 msgid "Configure spell checking"
-msgstr "Έλεγχος ορθογραφίας"
+msgstr "Ρύθμιση ελέγχου ορθογραφίας"
 
 #: capplet/gtkhtml-capplet.glade.h:11
-#, fuzzy
 msgid "Enable spell checking"
-msgstr "Έλεγχος ορθογραφίας"
+msgstr "Ενεργοποίηση ελέγχου ορθογραφίας"
 
 #: capplet/gtkhtml-capplet.glade.h:12
 msgid "Fixed width"
-msgstr "Σταθερό πλάτος"
+msgstr "Σταθερoύ πλάτους"
 
 #: capplet/gtkhtml-capplet.glade.h:13
 msgid "Fonts"
@@ -84,16 +84,14 @@ msgid "For printing"
 msgstr "Για εκτύπωση"
 
 #: capplet/gtkhtml-capplet.glade.h:15
-#, fuzzy
 msgid "Grab keys"
-msgstr "Άδραγμα πλήκτρου"
+msgstr "Αρπαγή πλήκτρων"
 
 #: capplet/gtkhtml-capplet.glade.h:16
 msgid "Information"
-msgstr ""
+msgstr "Πληροφορίες"
 
 #: capplet/gtkhtml-capplet.glade.h:17
-#, fuzzy
 msgid "Keyboard Shortcuts"
 msgstr "Συντομεύσεις πληκτρολογίου"
 
@@ -104,7 +102,7 @@ msgstr "Διάφορα"
 
 #: capplet/gtkhtml-capplet.glade.h:19
 msgid "New shortcut:"
-msgstr ""
+msgstr "Νέα συντόμευση:"
 
 #: capplet/gtkhtml-capplet.glade.h:20
 msgid "On screen"
@@ -115,125 +113,121 @@ msgid "Select HTML fixed width font"
 msgstr "Επιλογή γραμματοσειράς HTML σταθερού πλάτους"
 
 #: capplet/gtkhtml-capplet.glade.h:22
-#, fuzzy
 msgid "Select HTML fixed width font for printing"
-msgstr "Επιλογή γραμματοσειράς HTML σταθερού πλάτους"
+msgstr "Επιλογή γραμματοσειράς HTML σταθερού πλάτους για εκτύπωση"
 
 #: capplet/gtkhtml-capplet.glade.h:23
 msgid "Select HTML variable width font"
 msgstr "Επιλογή γραμματοσειράς HTML μεταβλητού πλάτους"
 
 #: capplet/gtkhtml-capplet.glade.h:24
-#, fuzzy
 msgid "Select HTML variable width font for printing"
-msgstr "Επιλογή γραμματοσειράς HTML μεταβλητού πλάτους"
+msgstr "Επιλογή γραμματοσειράς HTML μεταβλητού πλάτους για εκτύπωση"
 
 #: capplet/gtkhtml-capplet.glade.h:25
 msgid "Shortcuts _type:"
-msgstr ""
+msgstr "Είδος συντομεύσεων: "
 
 #: capplet/gtkhtml-capplet.glade.h:26
-#, fuzzy
 msgid "Show animated images"
-msgstr "Κινούμενες εικόνες"
+msgstr "Εμφάνιση κινούμενων εικόνων"
 
 #: capplet/gtkhtml-capplet.glade.h:27
 msgid "Variable width"
-msgstr "Μεταβλητό πλάτος"
+msgstr "Μεταβλητού πλάτους"
 
 #
 #: capplet/gtkhtml-capplet.glade.h:28
-#, fuzzy
 msgid "_Add"
-msgstr "Προσθήκη"
+msgstr "_Προσθήκη"
 
 #
 #: capplet/gtkhtml-capplet.glade.h:29
-#, fuzzy
 msgid "_Delete"
-msgstr "Διαγραφή"
+msgstr "_Διαγραφή"
 
 #: capplet/main.c:226
 msgid ""
 "Cannot execute GNOME Spell control applet\n"
 "Try to install GNOME Spell if you don't have it installed."
 msgstr ""
+"Αδυναμία εκτέλεσης εφαρμογιδίου ελέγχου ορθογραφίας του GNOME\n"
+"Προσπαθείστε να εγκαταστήσετε το GNOME Spellαν δεν το έχετε εγκαταστήσει "
+"ακόμη."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:1
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
 #: components/html-editor/gtkhtml-editor-properties.glade.h:4
 msgid "+0"
-msgstr ""
+msgstr "+0"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:2
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:2
 #: components/html-editor/gtkhtml-editor-properties.glade.h:5
 msgid "+1"
-msgstr ""
+msgstr "+1"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:3
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:3
 #: components/html-editor/gtkhtml-editor-properties.glade.h:6
 msgid "+2"
-msgstr ""
+msgstr "+2"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:4
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:4
 #: components/html-editor/gtkhtml-editor-properties.glade.h:7
 msgid "+3"
-msgstr ""
+msgstr "+3"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:5
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:5
 #: components/html-editor/gtkhtml-editor-properties.glade.h:9
 msgid "-1"
-msgstr ""
+msgstr "-1"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:6
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:6
 #: components/html-editor/gtkhtml-editor-properties.glade.h:10
 msgid "-2"
-msgstr ""
+msgstr "-2"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:7
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:7
-#, fuzzy
 msgid "A_ddress"
-msgstr "Διεύθυνση"
+msgstr "Διεύ_θυνση"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:8
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:8
 #: components/html-editor/toolbar.c:53
 msgid "Alphabetical List"
-msgstr ""
+msgstr "Αλφαβητική Λίστα"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:9
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:9
-#, fuzzy
 msgid "Background Color"
-msgstr "Εικόνα Παρασκηνίου"
+msgstr "Χρώμα Παρασκηνίου"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:10
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:10
 msgid "Blue"
-msgstr ""
+msgstr "Μπλέ"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:11
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:11
 #: components/html-editor/toolbar.c:50
 msgid "Bulleted List"
-msgstr ""
+msgstr "Λίστα Σημείων"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:12
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
 #: components/html-editor/toolbar.c:511
 msgid "Center justifies the paragraphs"
-msgstr ""
+msgstr "Κεντραρισμένη στοίχιση παραγράφων"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:13
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:13
 msgid "Check spelling of the document"
-msgstr ""
+msgstr "Έλεγχος ορθογραφίας όλου του εγγράφου"
 
 #
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:14
@@ -245,24 +239,23 @@ msgstr "Αντιγραφή"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:15
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:15
 msgid "Copy selection to clipboard"
-msgstr "Αντιγραφή επιλογής στο τεμάχιο"
+msgstr "Αντιγραφή επιλογής στο πρόχειρο"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:16
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:16
 msgid "Copy the selection"
-msgstr "Αντιγραφή του επιλεγμένου"
+msgstr "Αντιγραφή της επιλογής"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:17
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:17
 msgid "Cr_ying"
-msgstr ""
+msgstr "Cr_ying"
 
 #
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:18
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:18
-#, fuzzy
 msgid "Cu_t"
-msgstr "Αποκοπή"
+msgstr "Αποκο_πή"
 
 #
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:19
@@ -274,12 +267,12 @@ msgstr "Αποκοπή"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:20
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:20
 msgid "Cut selection to clipboard"
-msgstr "Αποκοπή επιλεγμένου στο τεμάχιο"
+msgstr "Αποκοπή επιλογής στο πρόχειρο"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:21
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:21
 msgid "Cut the selection"
-msgstr "Αποκοπή επιλεγμένου"
+msgstr "Αποκοπή επιλογής"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
@@ -289,21 +282,18 @@ msgstr "Εύρεση"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:23
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:23
-#, fuzzy
 msgid "Find A Regular Expression"
-msgstr "Αναζήτηση με κανονική έκφραση"
+msgstr "Αναζήτηση μιας κανονικής έκφρασης"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:24
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:24
-#, fuzzy
 msgid "Find And Replace"
-msgstr "Αντικατάσταση"
+msgstr "Εύρεση και Αντικατάσταση"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:25
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:25
-#, fuzzy
 msgid "Find Regular E_xpression..."
-msgstr "Αναζήτηση με κανονική έκφραση"
+msgstr "Αναζήτηση κανονικής έ_κφρασης"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:26
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:26
@@ -312,62 +302,53 @@ msgstr "Εύρεση _Ξανά"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:27
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:27
-#, fuzzy
 msgid "Find again"
-msgstr "Εύρεση _Ξανά"
+msgstr "Εύρεση ξανά"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:28
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:28
-#, fuzzy
 msgid "Find and Replace"
-msgstr "Αντικατάσταση"
+msgstr "Αναζήτηση και αντικατάσταση"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:29
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:29
-#, fuzzy
 msgid "For_mat"
-msgstr "Κανονικό"
+msgstr "_Μορφοποίηση"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:30
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:30
 msgid "Green"
-msgstr ""
+msgstr "Πράσινο"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:31
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:31
-#, fuzzy
 msgid "Header _1"
-msgstr "Κεφαλίδα 1"
+msgstr "Κεφαλίδα _1"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:32
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:32
-#, fuzzy
 msgid "Header _2"
-msgstr "Κεφαλίδα 2"
+msgstr "Κεφαλίδα _2"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:33
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:33
-#, fuzzy
 msgid "Header _3"
-msgstr "Κεφαλίδα 3"
+msgstr "Κεφαλίδα _3"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:34
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:34
-#, fuzzy
 msgid "Header _4"
-msgstr "Κεφαλίδα 4"
+msgstr "Κεφαλίδα _4"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:35
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
-#, fuzzy
 msgid "Header _5"
-msgstr "Κεφαλίδα 5"
+msgstr "Κεφαλίδα _5"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:36
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
-#, fuzzy
 msgid "Header _6"
-msgstr "Κεφαλίδα 6"
+msgstr "Κεφαλίδα _6"
 
 #
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:37
@@ -381,100 +362,99 @@ msgstr "Εικόνα"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:38
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
 msgid "Insert Crying smiley into document..."
-msgstr ""
+msgstr "Εισαγωγή Crying smiley στο έγγραφο..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:39
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
 msgid "Insert Frown smiley into document..."
-msgstr ""
+msgstr "Εισαγωγή Frown smiley στο έγγραφο..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:40
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:40
 msgid "Insert HTML file into document..."
-msgstr ""
+msgstr "Εισαγωγή  αρχείου HTML στο έγγραφο..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:41
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
 msgid "Insert HTML link into document..."
-msgstr ""
+msgstr "Εισαγωγή δεσμού HTML στο έγγραφο..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:42
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
 msgid "Insert HTML template into document..."
-msgstr ""
+msgstr "Εισαγωγή προτύπου HTML στο έγγραφο..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:43
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
 msgid "Insert Indifferent smiley into document..."
-msgstr ""
+msgstr "Εισαγωγή Indifferent smiley στο έγγραφο..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:44
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
 msgid "Insert Laughing smiley into document..."
-msgstr ""
+msgstr "Εισαγωγή Laughing smiley στο έγγραφο..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:45
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
 msgid "Insert Lick smiley into document..."
-msgstr ""
+msgstr "Εισαγωγή Lick smiley στο έγγραφο..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:46
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
 msgid "Insert Oh no! smiley into document..."
-msgstr ""
+msgstr "Εισαγωγή Oh no! smiley στο έγγραφο..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:47
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
 msgid "Insert Smile smiley into document..."
-msgstr ""
+msgstr "Εισαγωγή Smile smiley στο έγγραφο..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:48
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
 msgid "Insert Surprised smiley into document..."
-msgstr ""
+msgstr "Εισαγωγή Surprised smiley στο έγγραφο..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:49
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
 msgid "Insert Undecided smiley into document..."
-msgstr ""
+msgstr "Εισαγωγή Undecided smiley στο έγγραφο..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:50
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
 msgid "Insert Wink smiley into document..."
-msgstr ""
+msgstr "Εισαγωγή Wink smiley στο έγγραφο..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:51
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:52
 msgid "Insert image into document..."
-msgstr ""
+msgstr "Εισαγωγή εικόνας στο έγγραφο..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:52
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:53
 msgid "Insert rule into document..."
-msgstr ""
+msgstr "Εισαγωγή κανόνα στο έγγραφο..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:53
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
 msgid "Insert table into document..."
-msgstr ""
+msgstr "Εισαγωγή πίνακας στο έγγραφο..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:54
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
 msgid "Insert text file into document..."
-msgstr ""
+msgstr "Εισαγωγή αρχείου κειμένου στο έγγραφο..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
 #: components/html-editor/toolbar.c:509
 msgid "Left justifies the paragraphs"
-msgstr ""
+msgstr "Αριστερή στοίχιση των παραγράφων"
 
 #
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:56
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
-#, fuzzy
 msgid "Li_ck"
-msgstr "Σύνδεσμος"
+msgstr "Li_ck"
 
 #
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:57
@@ -488,100 +468,99 @@ msgstr "Σύνδεσμος"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:58
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
 msgid "Make the current Paragraph style Normal"
-msgstr ""
+msgstr "Μετατροπή της τρέχουσας παραγράφου σε κανονική"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:59
 msgid "Make the current Paragraph style Preformat"
-msgstr ""
+msgstr "Μετατροπή της τρέχουσας παραγράφου σε προμορφοποιημένη"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:60
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
 msgid "Make the current paragraph a bulleted list"
-msgstr ""
+msgstr "Μετατροπή της τρέχουσας παραγράφου σε λίστα σημείων"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:61
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
 msgid "Make the current paragraph a list with roman numerals"
-msgstr ""
+msgstr "Μετατροπή της τρέχουσας παραγράφου σε λίστα με ρωμαϊκούς αριθμούς"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:62
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:63
 msgid "Make the current paragraph a numbered list"
-msgstr ""
+msgstr "Μετατροπή της τρέχουσας παραγράφου σε αριθμημένη λίστα "
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:63
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:64
 msgid "Make the current paragraph an H1 header"
-msgstr ""
+msgstr "Μετατροπή της τρέχουσας παραγράφου σε κεφαλίδα H1"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:64
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:65
 msgid "Make the current paragraph an H2 header"
-msgstr ""
+msgstr "Μετατροπή της τρέχουσας παραγράφου σε κεφαλίδα H2"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:65
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:66
 msgid "Make the current paragraph an H3 header"
-msgstr ""
+msgstr "Μετατροπή της τρέχουσας παραγράφου σε κεφαλίδα H3"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:66
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:67
 msgid "Make the current paragraph an H4 header"
-msgstr ""
+msgstr "Μετατροπή της τρέχουσας παραγράφου σε κεφαλίδα H4"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:67
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:68
 msgid "Make the current paragraph an H5 header"
-msgstr ""
+msgstr "Μετατροπή της τρέχουσας παραγράφου σε κεφαλίδα H5"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:68
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:69
 msgid "Make the current paragraph an H6 header"
-msgstr ""
+msgstr "Μετατροπή της τρέχουσας παραγράφου σε κεφαλίδα H6"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:69
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:70
 msgid "Make the current paragraph an address"
-msgstr ""
+msgstr "Μετατροπή της τρέχουσας παραγράφου σε διεύθυνση"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:70
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
 msgid "Make the current paragraph an alphabetical list"
-msgstr ""
+msgstr "Μετατροπή της τρέχουσας παραγράφου σε αλφαβητική λίστα"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:71
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
 #: components/html-editor/gtkhtml-editor-properties.glade.h:49
 #: components/html-editor/paragraph.c:131 components/html-editor/toolbar.c:48
 msgid "Normal"
-msgstr "Κανονικό"
+msgstr "Κανονική"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:72
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
 #: components/html-editor/toolbar.c:51
 msgid "Numbered List"
-msgstr ""
+msgstr "Αριθμημένη Λίστα"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:73
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
 msgid "Numbered _List"
-msgstr ""
+msgstr "Αριθμημένη _Λίστα"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:74
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:75
 msgid "Oh _no!"
-msgstr ""
+msgstr "Oh _no!"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:75
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
-#, fuzzy
 msgid "Orange"
-msgstr "Σελίδα"
+msgstr "Πορτοκαλί"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:76
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
 msgid "Other..."
-msgstr ""
+msgstr "Άλλο..."
 
 #
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:77
@@ -592,57 +571,53 @@ msgstr "Επικόλληση"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:78
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
 msgid "Paste _Quotation"
-msgstr ""
+msgstr "Επικόλληση _παράθεσης"
 
 #
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:79
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
 msgid "Paste from clipboard"
-msgstr "Επικόλληση από το τεμάχιο"
+msgstr "Επικόλληση από το πρόχειρο"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:80
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
 msgid "Paste the clipboard"
-msgstr "Επικόλληση του τεμαχίου"
+msgstr "Επικόλληση του προχείρου"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:81
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
-#, fuzzy
 msgid "Paste the clipboard as a quotation"
-msgstr "Επικόλληση του τεμαχίου"
+msgstr "Επικόλληση του προχείρου ως παράθεση"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:82
 #: components/html-editor/toolbar.c:49
 msgid "Preformat"
-msgstr ""
+msgstr "Προμορφοποιημένο"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:83
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
-#, fuzzy
 msgid "Purple"
-msgstr "Προμορφοποιημένο"
+msgstr "Μώβ"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:84
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
-#, fuzzy
 msgid "Red"
-msgstr "Επανάληψη"
+msgstr "Κόκκινο"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:85
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
 msgid "Redo"
-msgstr "Επανάληψη"
+msgstr "Ακύρωση αναίρεσης"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
 msgid "Redo previously undone change"
-msgstr ""
+msgstr "Ακύρωση της τελευταίας ανηρημένης ενέργειας"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:87
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
-#, fuzzy
 msgid "Redo the undone action"
-msgstr "Ακύρωση τελευταίας λειτουργίας"
+msgstr "Ακύρωση της ανηρημένης ενέργειας"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:88
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
@@ -654,12 +629,12 @@ msgstr "Αντικατάσταση"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
 #: components/html-editor/toolbar.c:513
 msgid "Right justifies the paragraphs"
-msgstr ""
+msgstr "Δεξιά στοίχιση των παραγράφων"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:90
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
 msgid "Roman Numeral List"
-msgstr ""
+msgstr "Αριθμημένη λίστα με ρωμαικούς αριθμούς"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:91
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
@@ -672,139 +647,132 @@ msgstr "Κανόνας"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:92
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
 msgid "Select _All"
-msgstr ""
+msgstr "Επιλογή ό_λων"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:93
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
 msgid "Select the entire contents of the document"
-msgstr ""
+msgstr "Επιλογή όλου του περιεχομένου του εγγράφου"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:94
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
 #: components/html-editor/gtkhtml-editor-properties.glade.h:69
 #: components/html-editor/text.c:239 components/html-editor/toolbar.c:528
 msgid "Strikeout"
-msgstr ""
+msgstr "Strikeout"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:95
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
 msgid "Su_perscript"
-msgstr ""
+msgstr "Su_perscript"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:96
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
 msgid "Su_rprised"
-msgstr ""
+msgstr "Su_rprised"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:97
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
 msgid "Subs_cript"
-msgstr ""
+msgstr "Subs_cript"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 msgid "Subscript"
-msgstr ""
+msgstr "Subscript"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:99
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
 msgid "Superscript"
-msgstr ""
+msgstr "Εκθέτης"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:100
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
 #: components/html-editor/menubar.c:142 components/html-editor/popup.c:237
 #: components/html-editor/popup.c:518 components/html-editor/popup.c:527
-#, fuzzy
 msgid "Table"
-msgstr "Ενεργοποίηση"
+msgstr "Πίνακας"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:101
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
-#, fuzzy
 msgid "Te_mplate..."
-msgstr "Αντικατάσταση"
+msgstr "Πρό_τυπο..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:102
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
-#, fuzzy
 msgid "Te_xt file..."
-msgstr "Άνοιγμα αρχείου..."
+msgstr "Αρχείο κειμένου..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:103
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
 #: components/html-editor/body.c:298
 #: components/html-editor/gtkhtml-editor-properties.glade.h:74
 #: components/html-editor/menubar.c:165
-#, fuzzy
 msgid "Template"
-msgstr "Αντικατάσταση"
+msgstr "Πρότυπο"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:104
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
 #: components/html-editor/toolbar.c:520
 msgid "Typewriter"
-msgstr ""
+msgstr "Γραφομηχανή"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:105
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
 msgid "Undo"
-msgstr "Ακύρωση"
+msgstr "Αναίρεση"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:106
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
 msgid "Undo previous changes"
-msgstr ""
+msgstr "Αναίρεση προηγουμένων αλλαγών"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:107
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
 msgid "Undo the last action"
-msgstr "Ακύρωση τελευταίας λειτουργίας"
+msgstr "Ακύρωση τελευταίας ενέργειας"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:108
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
 msgid "Yellow"
-msgstr ""
+msgstr "Κίτρινο"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:109
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
-#, fuzzy
 msgid "_Alignment"
-msgstr "Στοίχιση"
+msgstr "Σ_τοίχιση"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
 msgid "_Alphabetical List"
-msgstr ""
+msgstr "_Αλφαβητική Λίστα"
 
 #
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:111
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
-#, fuzzy
 msgid "_Bold"
-msgstr "Έντονα"
+msgstr "Έν_τονα"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:112
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
 msgid "_Bulleted List"
-msgstr ""
+msgstr "Λίστα _σημείων"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:113
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
-#, fuzzy
 msgid "_Center"
-msgstr "Κέντρο"
+msgstr "_Κέντρο"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:114
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
 msgid "_Copy"
-msgstr "_Αντιγραφή"
+msgstr "Αντι_γραφή"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:115
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
 msgid "_Decrease Indent"
-msgstr ""
+msgstr "Μείωση εσοχής"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:116
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
@@ -819,23 +787,22 @@ msgstr "_Εύρεση..."
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:118
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
 msgid "_Font Size"
-msgstr ""
+msgstr "Μέγε_θος γραμματοσειράς "
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:119
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
 msgid "_Frown"
-msgstr ""
+msgstr "_Frown"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:120
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
-#, fuzzy
 msgid "_HTML file..."
-msgstr "Άνοιγμα αρχείου..."
+msgstr "Αρχείο _html..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:121
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
 msgid "_Heading"
-msgstr ""
+msgstr "Κε_φαλίδα"
 
 #
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:122
@@ -846,13 +813,12 @@ msgstr "_Εικόνα..."
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:123
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
 msgid "_Increase Indent"
-msgstr ""
+msgstr "Αύ_ξηση εσοχής "
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
-#, fuzzy
 msgid "_Indifferent"
-msgstr "Στοίχιση"
+msgstr "_Indifferent"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:125
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:127
@@ -862,20 +828,18 @@ msgstr "_Εισαγωγή"
 #
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:126
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:128
-#, fuzzy
 msgid "_Italic"
-msgstr "Πλάγια"
+msgstr "_Πλάγια"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:127
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
 msgid "_Laughing"
-msgstr ""
+msgstr "_Laughing"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:128
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
-#, fuzzy
 msgid "_Left"
-msgstr "Αριστερά"
+msgstr "Α_ριστερά"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:129
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
@@ -884,22 +848,19 @@ msgstr "_Σύνδεσμος..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:130
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
-#, fuzzy
 msgid "_Normal"
-msgstr "Κανονικό"
+msgstr "_Κανονικό"
 
 #
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:131
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:133
-#, fuzzy
 msgid "_Page..."
-msgstr "_Εικόνα..."
+msgstr "_Σελίδα..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:132
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:134
-#, fuzzy
 msgid "_Paragraph..."
-msgstr "Παράγραφος"
+msgstr "_Παράγραφος..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:133
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
@@ -908,19 +869,18 @@ msgstr "_Επικόλληση"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:134
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
-#, fuzzy
 msgid "_Plain text"
-msgstr "Στοίχιση"
+msgstr "Απ_λό κείμενο"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:135
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
 msgid "_Preformat"
-msgstr ""
+msgstr "_Προμορφοποίηση"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:136
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
 msgid "_Redo"
-msgstr "_Επανάληψη"
+msgstr "Α_κύρωση αναίρεσης"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:137
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:139
@@ -929,14 +889,13 @@ msgstr "_Αντικατάσταση..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:138
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:140
-#, fuzzy
 msgid "_Right"
-msgstr "Δεξιά"
+msgstr "Δε_ξιά"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:139
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:141
 msgid "_Roman Numeral List"
-msgstr ""
+msgstr "Αριθμημένη λίστα με _ρωμαικούς αριθμούς"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:140
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:142
@@ -945,59 +904,51 @@ msgstr "_Κανόνας..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:141
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:143
-#, fuzzy
 msgid "_Smile"
-msgstr "Δείγμα"
+msgstr "_Smile"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:142
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:144
-#, fuzzy
 msgid "_Smiley"
-msgstr "Είδος"
+msgstr "_Smiley"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:143
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:145
-#, fuzzy
 msgid "_Spell Check Document..."
-msgstr "Έλεγχος ορθογραφίας"
+msgstr "'Ελεγ_χος ορθογραφίας στο έγγραφο..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:144
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:146
 msgid "_Strikeout"
-msgstr ""
+msgstr "_Strikeout"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:145
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:147
-#, fuzzy
 msgid "_Style"
-msgstr "Είδος"
+msgstr "_Στυλ"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:146
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:148
-#, fuzzy
 msgid "_Table..."
-msgstr "_Κανόνας..."
+msgstr "_Πίνακας..."
 
 #
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:147
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:149
-#, fuzzy
 msgid "_Text..."
-msgstr "Κείμενο"
+msgstr "_Κείμενο..."
 
 #
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:148
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:150
-#, fuzzy
 msgid "_Undecided"
-msgstr "Υπογραμμισμένα"
+msgstr "_Undecided"
 
 #
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:149
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:151
-#, fuzzy
 msgid "_Underline"
-msgstr "Υπογραμμισμένα"
+msgstr "_Υπογράμμιση"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:150
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:152
@@ -1007,92 +958,85 @@ msgstr "_Ακύρωση"
 #
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:151
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:153
-#, fuzzy
 msgid "_Wink"
-msgstr "Σύνδεσμος"
+msgstr "_Wink"
 
 #
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:152
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:155
-#, fuzzy
 msgid "etc..."
-msgstr "Κείμενο"
+msgstr "κτλ..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:1
 msgid "GNOME HTML Editor"
-msgstr ""
+msgstr "Επεξεργαστής HTML του GNOME"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:2
 msgid "GNOME HTML Editor Control"
-msgstr ""
+msgstr "Έλεγχος επεξεργαστή HTML του GNOME"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:3
 msgid "GNOME HTML Editor Factory"
-msgstr ""
+msgstr "Εργοστάσιο επεξεργαστή HTML του GNOME"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
 msgid "Insert Sick smiley into document..."
-msgstr ""
+msgstr "Εισαγωγή  Sick smiley στο έγγραφο..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
 msgid "Make the current Paragraph style Preformatted"
-msgstr ""
+msgstr "Τροποποίηση της τρέχουσας παραγράφου σε προμορφοποιημένο στυλ"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
 #: components/html-editor/paragraph.c:150
 msgid "Preformatted"
-msgstr ""
+msgstr "Προμορφοποιημένο"
 
 #
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
-#, fuzzy
 msgid "S_ick"
-msgstr "Σύνδεσμος"
+msgstr "S_ick"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:154
 msgid "_Wrap Lines"
-msgstr ""
+msgstr "Ανα_δίπλωση γραμμών"
 
 #: components/html-editor/body.c:66
 #: components/html-editor/gtkhtml-editor-properties.glade.h:48
-#, fuzzy
 msgid "None"
-msgstr "<Κενό>"
+msgstr "Κανένα"
 
 #: components/html-editor/body.c:74
 msgid "Perforated Paper"
-msgstr ""
+msgstr "Τρυπημένο Χαρτί"
 
 #: components/html-editor/body.c:82
 msgid "Blue Ink"
-msgstr ""
+msgstr "Μπλε Μελάνι"
 
 #: components/html-editor/body.c:90
-#, fuzzy
 msgid "Paper"
-msgstr "Σελίδα"
+msgstr "Χαρτί"
 
 #: components/html-editor/body.c:98
 msgid "Ribbon"
-msgstr ""
+msgstr "Κορδέλα"
 
 #: components/html-editor/body.c:106
-#, fuzzy
 msgid "Midnight"
-msgstr "Δεξιά"
+msgstr "Μεσάνυχτα"
 
 #: components/html-editor/body.c:114
-#, fuzzy
 msgid "Confidential"
-msgstr "Ακύρωση στοίχισης"
+msgstr "Εμπιστευτικό"
 
 #: components/html-editor/body.c:122
 msgid "Draft"
-msgstr ""
+msgstr "Πρόχειρο"
 
 #: components/html-editor/body.c:130
 msgid "Graph paper"
-msgstr ""
+msgstr "Χαρτί γραφήματος"
 
 #. string marked for translations is sample text. you may want to translate it to common sample text in your language
 #: components/html-editor/body.c:163
@@ -1100,10 +1044,12 @@ msgid ""
 "The quick brown <a href=\"mailto:fox\">fox</a> jumps over the lazy <a href="
 "\"mailto:dog\">dog</a>."
 msgstr ""
+"Και ο νούς του σαν τον <a href=\"mailto:αχνό\">αχνό</a> του λιβανιού στης "
+"Παναγιάς την <a href=\"mailto:όψη\">όψη</a>."
 
 #: components/html-editor/body.c:316 src/gtkhtml.c:2683
 msgid "Document Title"
-msgstr ""
+msgstr "Τίτλος Εγγράφου"
 
 #: components/html-editor/body.c:320 components/html-editor/body.c:323
 #: components/html-editor/gtkhtml-editor-properties.glade.h:15
@@ -1132,25 +1078,26 @@ msgstr "Κείμενο"
 
 #: components/html-editor/body.c:369
 #: components/html-editor/gtkhtml-editor-properties.glade.h:14
-#, fuzzy
 msgid "Background"
-msgstr "Εικόνα Παρασκηνίου"
+msgstr "Παρασκήνιο"
 
 #. string marked for translations is sample text. you may want to translate it to common sample text in your language
 #: components/html-editor/cell.c:174 components/html-editor/cell.c:176
 #: components/html-editor/text.c:109
 msgid "The quick brown fox jumps over the lazy dog."
-msgstr ""
+msgstr "Και ο νους του σαν τον αχνό του λιβανιού στης Παναγιάς την όψη."
 
 #: components/html-editor/cell.c:179
 msgid "Other"
-msgstr ""
+msgstr "Άλλο"
 
 #: components/html-editor/cell.c:680
 msgid ""
 "The editted cell was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
+"Το επεξεργασμένο κελί αφαιρέθηκε από το έγγραφο.\n"
+"Αδύνατη η εφαρμογή των αλλαγών."
 
 #
 #: components/html-editor/editor-control-factory.c:178
@@ -1173,32 +1120,31 @@ msgstr "Σελίδα"
 
 #: components/html-editor/gnome-gtkhtml-editor.c:68
 msgid "GtkHTML Editor Control"
-msgstr ""
+msgstr "Έλεγχος επεξεργαστή GtkHTML"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:2
 msgid "************"
-msgstr ""
+msgstr "************"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:3
 msgid "***text***"
-msgstr ""
+msgstr "***κείμενο***"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:8
 msgid "+4"
-msgstr ""
+msgstr "+4"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:11
 msgid "Alignment"
 msgstr "Στοίχιση"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:12
-#, fuzzy
 msgid "Alignment:"
-msgstr "Στοίχιση"
+msgstr "Στοίχιση:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:13
 msgid "Apply changes to:"
-msgstr ""
+msgstr "Εφαρμογή αλλαγών σε:"
 
 #
 #: components/html-editor/gtkhtml-editor-properties.glade.h:16
@@ -1211,9 +1157,8 @@ msgid "Border"
 msgstr "Πλαίσιο"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:18
-#, fuzzy
 msgid "Border:"
-msgstr "Πλαίσιο"
+msgstr "Πλαίσιο:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:19
 msgid "Bottom"
@@ -1222,7 +1167,7 @@ msgstr "Κάτω"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:20
 #: components/html-editor/popup.c:244
 msgid "Cell"
-msgstr ""
+msgstr "Κελί"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:21
 #: components/html-editor/paragraph.c:173 components/html-editor/toolbar.c:511
@@ -1232,44 +1177,40 @@ msgstr "Κέντρο"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:22
 #: components/html-editor/link.c:137 components/html-editor/text.c:247
 msgid "Click will follow this URL"
-msgstr ""
+msgstr "Με κλικ ακολούθηση συτού του URL"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:23
 msgid "Click will follow this URL:"
-msgstr ""
+msgstr "Με κλικ ακολούθηση συτού του URL:"
 
 #
 #: components/html-editor/gtkhtml-editor-properties.glade.h:24
-#, fuzzy
 msgid "Color:"
-msgstr "Χρώμα"
+msgstr "Χρώμα:"
 
 #
 #: components/html-editor/gtkhtml-editor-properties.glade.h:26
 #: components/html-editor/popup.c:529
-#, fuzzy
 msgid "Column"
-msgstr "Εντολή"
+msgstr "Στήλη"
 
 #
 #: components/html-editor/gtkhtml-editor-properties.glade.h:27
-#, fuzzy
 msgid "Column span:"
-msgstr "Εντολή"
+msgstr "Span στήλης:"
 
 #
 #: components/html-editor/gtkhtml-editor-properties.glade.h:28
-#, fuzzy
 msgid "Columns:"
-msgstr "Εντολή"
+msgstr "Στήλες:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:29
 msgid "Description:"
-msgstr ""
+msgstr "Περιγραφή:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:30
 msgid "Don't wrap"
-msgstr ""
+msgstr "Να μην γίνει αναδίπλωση"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:31
 msgid "Enable"
@@ -1277,36 +1218,31 @@ msgstr "Ενεργοποίηση"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:32
 msgid "Follow"
-msgstr ""
+msgstr "Ακολούθηση"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:33
-#, fuzzy
 msgid "Font size"
-msgstr "Γραμματοσειρές"
+msgstr "Μέγεθος γραμματοσειράς"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:34
-#, fuzzy
 msgid "Foreground color"
-msgstr "Εικόνα Παρασκηνίου"
+msgstr "Χρώμα προσκηνίου"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:35
-#, fuzzy
 msgid "Header"
-msgstr "Κεφαλίδα 1"
+msgstr "Κεφαλίδα"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:36
-#, fuzzy
 msgid "Height:"
-msgstr "ύψος"
+msgstr "Ύψος:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:37
-#, fuzzy
 msgid "Horizontal alignment:"
-msgstr "Στοίχιση"
+msgstr "Οριζόντια στοίχιση:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:38
 msgid "Horizontal:"
-msgstr ""
+msgstr "Οριζόντια:"
 
 #
 #: components/html-editor/gtkhtml-editor-properties.glade.h:40
@@ -1320,42 +1256,37 @@ msgid "Left"
 msgstr "Αριστερά"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:42
-#, fuzzy
 msgid "Length:"
-msgstr "μήκος"
+msgstr "Μήκος:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:43
-#, fuzzy
 msgid "Link insert"
-msgstr "Εισαγωγή"
+msgstr "Εισαγωγή δεσμού"
 
 #
 #: components/html-editor/gtkhtml-editor-properties.glade.h:44
-#, fuzzy
 msgid "Link properties"
-msgstr "Ιδιότητες"
+msgstr "Ιδιότητες δεσμού"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:45
 msgid "Location"
-msgstr ""
+msgstr "Τοποθεσία"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:46
 msgid "Middle"
-msgstr ""
+msgstr "Μεσαίο"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:50
 msgid "Padding"
-msgstr ""
+msgstr "Γέμισμα"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:51
-#, fuzzy
 msgid "Padding:"
-msgstr "Στοίχιση"
+msgstr "Γέμισμα:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:53
-#, fuzzy
 msgid "Percent"
-msgstr "Ποσοστό %"
+msgstr "Ποσοστό"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:55
 #, no-c-format
@@ -1368,12 +1299,11 @@ msgstr "Εικονοστοιχεία"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:57
 msgid "Pixmap:"
-msgstr ""
+msgstr "Pixmap:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:58
-#, fuzzy
 msgid "Points"
-msgstr "Γραμματοσειρές"
+msgstr "Στιγμές"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:59
 #: components/html-editor/paragraph.c:174
@@ -1383,24 +1313,23 @@ msgstr "Δεξιά"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:60
 #: components/html-editor/popup.c:528
 msgid "Row"
-msgstr ""
+msgstr "Γραμμή"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:61
 msgid "Row span:"
-msgstr ""
+msgstr "Span γραμμής:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:62
 msgid "Rows:"
-msgstr ""
+msgstr "Γραμμές:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:64
 msgid "Scope"
-msgstr ""
+msgstr "Σκοπός"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:65
-#, fuzzy
 msgid "Shaded"
-msgstr "σκιασμένο"
+msgstr "Σκιασμένο"
 
 #
 #: components/html-editor/gtkhtml-editor-properties.glade.h:66
@@ -1411,43 +1340,38 @@ msgstr "Μέγεθος"
 #
 # # NOTE: (see previous note)
 #: components/html-editor/gtkhtml-editor-properties.glade.h:67
-#, fuzzy
 msgid "Spacing"
-msgstr "Αλφαριθμητικό αναζήτησης"
+msgstr "Διάστιχο"
 
 #
 # # NOTE: (see previous note)
 #: components/html-editor/gtkhtml-editor-properties.glade.h:68
-#, fuzzy
 msgid "Spacing:"
-msgstr "Αλφαριθμητικό αναζήτησης"
+msgstr "Διάστιχο:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:70
 #: components/html-editor/paragraph.c:116 components/html-editor/popup.c:473
 #: components/html-editor/text.c:223
 msgid "Style"
-msgstr "Είδος"
+msgstr "Στυλ"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:71
-#, fuzzy
 msgid "Style:"
-msgstr "Είδος"
+msgstr "Στυλ:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:73
-#, fuzzy
 msgid "Table Insert"
-msgstr "Εισαγωγή"
+msgstr "Εισαγωγή πίνακα"
 
 #
 #: components/html-editor/gtkhtml-editor-properties.glade.h:75
 #: components/html-editor/link.c:85
-#, fuzzy
 msgid "Test URL..."
-msgstr "Κείμενο"
+msgstr "Δοκιμή URL..."
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:77
 msgid "Thickness:"
-msgstr ""
+msgstr "Πάχος:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:78
 msgid "Top"
@@ -1461,44 +1385,44 @@ msgstr "Υπογραμμισμένα"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:80
 msgid "Vertical:"
-msgstr ""
+msgstr "Κατακόρυφη:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:81
-#, fuzzy
 msgid "Width:"
-msgstr "πλάτος"
+msgstr "Πλάτος:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:82
 msgid "Wrap"
-msgstr ""
+msgstr "Αναδίπλωση"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:83
 msgid "Wrapping:"
-msgstr ""
+msgstr "Αναδίπλωση:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:84
 msgid "xxxxxxxxx"
-msgstr ""
+msgstr "xxxxxxxxx"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:85
 msgid "xxxxxxxxxxxxxx"
-msgstr ""
+msgstr "xxxxxxxxxxxxxx"
 
 #: components/html-editor/image.c:118 components/html-editor/rule.c:93
 #: components/html-editor/table.c:192
-#, fuzzy
 msgid "Plain"
-msgstr "Στοίχιση"
+msgstr "Απλό"
 
 #: components/html-editor/image.c:120
 msgid ""
 "@link_begin@<img@alt@@width@@height@@align@ "
 "border=@border@@padh@@padv@@src@>@link_end@"
 msgstr ""
+"@link_begin@<img@alt@@width@@height@@align@ "
+"border=@border@@padh@@padv@@src@>@link_end@"
 
 #: components/html-editor/image.c:123
 msgid "Frame"
-msgstr ""
+msgstr "Πλαίσιο"
 
 #: components/html-editor/image.c:125
 msgid ""
@@ -1508,10 +1432,15 @@ msgid ""
 "@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
 "table></center>"
 msgstr ""
+"<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
+"cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
+"cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
+"@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
+"table></center>"
 
 #: components/html-editor/image.c:133
 msgid "Caption"
-msgstr ""
+msgstr "Λεζάντα"
 
 #: components/html-editor/image.c:135
 msgid ""
@@ -1521,33 +1450,43 @@ msgid ""
 "@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Place your "
 "comment here]</td></tr></table></td></tr></table></center>"
 msgstr ""
+"<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
+"cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
+"cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
+"@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Το σχόλιο "
+"σας εδώ]</td></tr></table></td></tr></table></center>"
 
 #: components/html-editor/image.c:258 components/html-editor/image.c:264
 msgid ""
 "This is sample text, designed to show you how text would flow around this "
 "image if you insert the image into your message."
 msgstr ""
+"Αυτό είναι ένα δείγμα κειμένου που σχεδιάστηκε για να σας δείξει το τρόπο "
+"ροής του κειμένου γύρω από την εικόνα αν εισ'αγετε μια εικόνα στο μήνυμα σας."
 
 #: components/html-editor/image.c:270
 msgid "No image selected"
-msgstr ""
+msgstr "Δεν επιλέχθηκε εικόνα"
 
 #: components/html-editor/image.c:705
 msgid ""
 "The editted image was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
+"Η επεξεργασμένη εικόνα αφαιρέθηκε από το έγγραφο.\n"
+"Αδύνατη η εφαρμογή των αλλαγών."
 
 #: components/html-editor/link.c:121
-#, fuzzy
 msgid "Link text"
-msgstr "Στοίχιση"
+msgstr "Κείμενο δεσμού"
 
 #: components/html-editor/link.c:211
 msgid ""
 "The editted link was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
+"Ο επεξεργασμένος δεσμός αφαιρέθηκε από το έγγραφο.\n"
+"Αδύνατη η εφαρμογή των αλλαγών."
 
 #: components/html-editor/menubar.c:88 components/html-editor/menubar.c:104
 #: components/html-editor/menubar.c:122 components/html-editor/menubar.c:139
@@ -1559,20 +1498,20 @@ msgstr "Εισαγωγή"
 #: components/html-editor/menubar.c:252
 #, c-format
 msgid "Error loading file '%s': %s"
-msgstr ""
+msgstr "Σφάλμα φόρτωσης αρχείου  '%s': %s"
 
 #: components/html-editor/menubar.c:279
 msgid "Insert: HTML File"
-msgstr ""
+msgstr "Εισαγωγή: Αρχείο HTML"
 
 #: components/html-editor/menubar.c:279
 msgid "Insert: Text File"
-msgstr ""
+msgstr "Εισαγωγή: Αρχείο Κειμένου"
 
 #. string marked for translations is sample text. you may want to translate it to common sample text in your language
 #: components/html-editor/paragraph.c:62
 msgid "The quick brown fox jumps over the lazy dog.</div>"
-msgstr ""
+msgstr "Και ο νους του σαν τον αχνό του λιβανιού στης Παναγιάς την όψη.</div>"
 
 #: components/html-editor/paragraph.c:134 components/html-editor/toolbar.c:54
 msgid "Header 1"
@@ -1600,19 +1539,19 @@ msgstr "Κεφαλίδα 6"
 
 #: components/html-editor/paragraph.c:142
 msgid "Dot item"
-msgstr ""
+msgstr "Αντικείμενο κουκίδας"
 
 #: components/html-editor/paragraph.c:143
 msgid "Number item"
-msgstr ""
+msgstr "Αντικείμενο αριθμού"
 
 #: components/html-editor/paragraph.c:144
 msgid "Roman item"
-msgstr ""
+msgstr "Αντικείμενο ρωμαϊκού αριθμού"
 
 #: components/html-editor/paragraph.c:145
 msgid "Alphabeta item"
-msgstr ""
+msgstr "Αντικείμενο αλφάβητου"
 
 #: components/html-editor/paragraph.c:148 components/html-editor/toolbar.c:60
 msgid "Address"
@@ -1627,226 +1566,210 @@ msgid ""
 "The editted paragraph was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
+"Η επεξεργασμένη παράγραφος αφαιρέθηκε από το έγγραφο.\n"
+"Αδύνατη η εφαρμογή των αλλαγών"
 
 #: components/html-editor/popup.c:457
 msgid "Paste Quotation"
-msgstr ""
+msgstr "Επικόλληση παράθεσης"
 
 #: components/html-editor/popup.c:460
-#, fuzzy
 msgid "Insert link"
-msgstr "Εισαγωγή"
+msgstr "Εισαγωγή δεσμού"
 
 #: components/html-editor/popup.c:468
 msgid "Remove link"
 msgstr "Διαγραφή συνδέσμου"
 
 #: components/html-editor/popup.c:476
-#, fuzzy
 msgid "Text Style..."
-msgstr "Άνοιγμα αρχείου..."
+msgstr "Στυλ Κειμένου..."
 
 #: components/html-editor/popup.c:478 components/html-editor/popup.c:484
 #: components/html-editor/popup.c:494
-#, fuzzy
 msgid "Paragraph Style..."
-msgstr "Παράγραφος"
+msgstr "Στυλ Παραγράφου..."
 
 #: components/html-editor/popup.c:482
-#, fuzzy
 msgid "Link Style..."
-msgstr "_Σύνδεσμος..."
+msgstr "Στύλ Δεσμού..."
 
 #: components/html-editor/popup.c:488
-#, fuzzy
 msgid "Rule Style..."
-msgstr "_Κανόνας..."
+msgstr "Στύλ Κανόνα..."
 
 #
 #: components/html-editor/popup.c:492
-#, fuzzy
 msgid "Image Style..."
-msgstr "_Εικόνα..."
+msgstr "Στυλ Εικόνας..."
 
 #: components/html-editor/popup.c:503
 msgid "Cell Style..."
-msgstr ""
+msgstr "Στυλ κελιού..."
 
 #: components/html-editor/popup.c:506
-#, fuzzy
 msgid "Table Style..."
-msgstr "_Κανόνας..."
+msgstr "Στύλ Πίνακα..."
 
 #
 #: components/html-editor/popup.c:512
-#, fuzzy
 msgid "Page Style..."
-msgstr "_Εικόνα..."
+msgstr "Στυλ Σελίδας..."
 
 #: components/html-editor/popup.c:517
-#, fuzzy
 msgid "Table insert"
-msgstr "Εισαγωγή"
+msgstr "Εισαγωγή πίνακα"
 
 #: components/html-editor/popup.c:520
 msgid "Row above"
-msgstr ""
+msgstr "Γραμμή επάνω"
 
 #: components/html-editor/popup.c:521
 msgid "Row below"
-msgstr ""
+msgstr "Γραμμή κάτω"
 
 #: components/html-editor/popup.c:523
 msgid "Column before"
-msgstr ""
+msgstr "Στήλη πριν"
 
 #: components/html-editor/popup.c:524
 msgid "Column after"
-msgstr ""
+msgstr "Στήλη μετά"
 
 #: components/html-editor/popup.c:526
-#, fuzzy
 msgid "Table delete"
-msgstr "Εισαγωγή"
+msgstr "Διαγραφή πίνακα"
 
 #: components/html-editor/popup.c:530
 msgid "Cell contents"
-msgstr ""
+msgstr "Περιεχόμενα κελιού"
 
 #: components/html-editor/popup.c:540
 msgid "Check Word Spelling..."
-msgstr ""
+msgstr "Έλεγχος συλλαβισμού λέξης..."
 
 #: components/html-editor/popup.c:545
 msgid "Add Word to"
-msgstr ""
+msgstr "Προσθήκη λέξης σε"
 
 #: components/html-editor/popup.c:549
 #, c-format
 msgid "%s Dictionary"
-msgstr ""
+msgstr "%s Λεξικό"
 
 #: components/html-editor/popup.c:558
 msgid "Add Word to Dictionary"
-msgstr ""
+msgstr "Προσθήκη λέξης στο Λεξικό"
 
 #: components/html-editor/popup.c:561
 msgid "Ignore Misspelled Word"
-msgstr ""
+msgstr "Παράβλεψη λανθασμένης λέξης"
 
 #: components/html-editor/popup.c:564
 msgid "Input Methods"
-msgstr ""
+msgstr "Μέθοδοι Εισαγωγής"
 
 #: components/html-editor/replace.c:75
 msgid "Replace confirmation"
 msgstr "Επιβεβαίωση αντικατάστασης"
 
 #: components/html-editor/replace.c:76
-#, fuzzy
 msgid "Replace _All"
-msgstr "Αντικατάσταση όλων"
+msgstr "Αντικατάσταση _Όλων"
 
 #
 #: components/html-editor/replace.c:77
-#, fuzzy
 msgid "_Next"
-msgstr "Επόμενο"
+msgstr "Επόμε_νο"
 
 #: components/html-editor/replace.c:79
-#, fuzzy
 msgid "_Replace"
-msgstr "Αντικατάσταση"
+msgstr "_Αντικατάσταση"
 
 #: components/html-editor/replace.c:165
-#, fuzzy
 msgid "Search _backward"
-msgstr "Αναζήτηση προς τα πίσω"
+msgstr "Αναζήτηση προς τα _πίσω"
 
 #: components/html-editor/replace.c:166 components/html-editor/search.c:83
 msgid "Case _sensitive"
-msgstr ""
+msgstr "Case _sensitive"
 
 #: components/html-editor/replace.c:176
-#, fuzzy
 msgid "Replace:"
-msgstr "Αντικατάσταση"
+msgstr "Αντικατάσταση:"
 
 #: components/html-editor/replace.c:179
-#, fuzzy
 msgid "With:"
-msgstr "πλάτος"
+msgstr "Με:"
 
 #: components/html-editor/rule.c:98
 msgid "Blue 3D"
-msgstr ""
+msgstr "Μπλε 3Δ"
 
 #: components/html-editor/rule.c:110
 msgid "Yellow, flowers"
-msgstr ""
+msgstr "Κίτρινο, λουλούδια"
 
 #: components/html-editor/rule.c:422
 msgid ""
 "The editted rule was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
+"Ο επεξεργασμένος κανόνας αφαιρέθηκε από το έγγραφο.\n"
+"Αδύνατη η εφαρμογή των αλλαγών."
 
 #: components/html-editor/search.c:82
-#, fuzzy
 msgid "_Backward"
-msgstr "Αναζήτηση προς τα πίσω"
+msgstr "_Προς τα πίσω"
 
 #: components/html-editor/search.c:129
-#, fuzzy
 msgid "Find Regular Expression"
-msgstr "Αναζήτηση με κανονική έκφραση"
+msgstr "Εύρεση κανονικής έκφρασης"
 
 #: components/html-editor/spell.c:278
 msgid "No misspelled word found"
-msgstr ""
+msgstr "Δεν βρέθηκε ανορθόγραφη λέξη"
 
 #: components/html-editor/spell.c:285
-#, fuzzy
 msgid "Spell checker"
 msgstr "Έλεγχος ορθογραφίας"
 
 #: components/html-editor/spell.c:378
-#, fuzzy
 msgid "Current _Languages"
-msgstr "Έλεγχος Ορθογραφίας"
+msgstr "Τρέχουσες Γ_λώσσες"
 
 #: components/html-editor/table.c:200
 msgid "Flat gray"
-msgstr ""
+msgstr "Απαλό γκρι"
 
 #: components/html-editor/table.c:209
 msgid "Dark header"
-msgstr ""
+msgstr "Μαύρη κεφαλίδα"
 
 #: components/html-editor/table.c:813
 msgid ""
 "The editted table was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
+"Ο επεξεργασμένος πίνακας αφαιρέθηκε από το έγγραφο.\n"
+"Αδύνατη η εφαρμογή των αλλαγών."
 
 #: components/html-editor/template.c:84
-#, fuzzy
 msgid "Note"
-msgstr "<Κενό>"
+msgstr "Σημείωση"
 
 #: components/html-editor/template.c:94 components/html-editor/template.c:113
 msgid "Place your text here"
-msgstr ""
+msgstr "Τοποθέτηση κείμενου εδώ"
 
 #
 #: components/html-editor/template.c:97
-#, fuzzy
 msgid "Image frame"
-msgstr "Εικόνα"
+msgstr "Πλάισιο εικόνας"
 
 #: components/html-editor/template.c:281
 msgid "Labels"
-msgstr ""
+msgstr "Ετικέτες"
 
 #: components/html-editor/test-html-editor-control.c:323
 msgid "Open file..."
@@ -1859,7 +1782,7 @@ msgstr "Αποθήκευση αρχείου ως..."
 
 #: components/html-editor/test-html-editor-control.c:557
 msgid "GtkHTML Editor Test Container"
-msgstr ""
+msgstr "GtkHTML Editor Test Container"
 
 #
 #. color selection
@@ -1872,10 +1795,12 @@ msgid ""
 "The editted text was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
+"Το επεξεργασμένο κείμενο αφαιρέθηκε από το έγγραφο.\n"
+"Αδύνατη η εφαρμογή των αλλαγών."
 
 #: components/html-editor/toolbar.c:52
 msgid "Roman List"
-msgstr ""
+msgstr "Λίστα ρωμαϊκών αριθμών"
 
 #: components/html-editor/toolbar.c:509
 msgid "Left align"
@@ -1887,7 +1812,7 @@ msgstr "Στοίχιση στα δεξιά"
 
 #: components/html-editor/toolbar.c:520
 msgid "Toggle typewriter font style"
-msgstr ""
+msgstr "Εναλλαγή στυλ γραμματοσειράς γραφομηχανής"
 
 #
 #: components/html-editor/toolbar.c:522
@@ -1896,7 +1821,7 @@ msgstr "Κάνει το κείμενο έντονο"
 
 #: components/html-editor/toolbar.c:524
 msgid "Makes the text italic"
-msgstr ""
+msgstr "Κάνει το κείμενο πλάγιο"
 
 #
 #: components/html-editor/toolbar.c:526
@@ -1905,180 +1830,168 @@ msgstr "Υπογραμμίζει το κείμενο"
 
 #: components/html-editor/toolbar.c:528
 msgid "Strikes out the text"
-msgstr ""
+msgstr "Strike out του κειμένου"
 
 #: components/html-editor/toolbar.c:537
 msgid "Unindent"
-msgstr "Ακύρωση στοίχισης"
+msgstr "Ακύρωση εσοχής"
 
 #: components/html-editor/toolbar.c:537
 msgid "Indents the paragraphs less"
-msgstr ""
+msgstr "Ακυρώνει κατά ένα βήμα την εσοχή"
 
 #: components/html-editor/toolbar.c:539
 msgid "Indent"
-msgstr "Στοίχιση"
+msgstr "Εσοχή"
 
 #: components/html-editor/toolbar.c:539
 msgid "Indents the paragraphs more"
-msgstr ""
+msgstr "Εσοχή στις παράγραφους"
 
 #: components/html-editor/utils.c:106
 msgid "Sample"
 msgstr "Δείγμα"
 
 #: src/gtkhtml.c:2676
-#, fuzzy
 msgid "Editable"
-msgstr "Ενεργοποίηση"
+msgstr "Επεξεργάσιμο"
 
 #: src/gtkhtml.c:2677
 msgid "Whether the html can be edited"
-msgstr ""
+msgstr "Αν θα μπορεί να γίνει επεξεργασία στο html"
 
 #: src/gtkhtml.c:2684
 msgid "The title of the current document"
-msgstr ""
+msgstr "Ο τίτλος του τρέχοντος εγγράφου"
 
 #: src/gtkhtml.c:2690
 msgid "Document Base"
-msgstr ""
+msgstr "Βάση εγγράφου"
 
 #: src/gtkhtml.c:2691
 msgid "The base URL for relative references"
-msgstr ""
+msgstr "Το URL βάσης γα σχετικές αναφορές"
 
 #: src/gtkhtml.c:2697
 msgid "Target Base"
-msgstr ""
+msgstr "Βάση στόχου"
 
 #: src/gtkhtml.c:2698
 msgid "The base URL of the targe frame"
-msgstr ""
+msgstr "Το URL βάσης του πλαισίου στόχου"
 
 #: src/gtkhtml.c:2707
-#, fuzzy
 msgid "Fixed Width Font"
-msgstr "Σταθερό πλάτος"
+msgstr "Γραμματοσειρά σταθερού πλάτους"
 
 #: src/gtkhtml.c:2708
 msgid "The Monospace font to use for typewriter text"
-msgstr ""
+msgstr "Η γραμματοσειρά Monospace που χρησιμοποιείται για κείμενο γραφομηχανής"
 
 #: src/gtkhtml.c:2714
 msgid "New Link Color"
-msgstr ""
+msgstr "Χρώμα Νέου Δεσμού"
 
 #: src/gtkhtml.c:2715
 msgid "The color of new link elements"
-msgstr ""
+msgstr "Το χρώμα για στοιχεία νέων συνδέσμων"
 
 #: src/gtkhtml.c:2720
 msgid "Visited Link Color"
-msgstr ""
+msgstr "Χρώμα αναγνωσμένου δεσμού"
 
 #: src/gtkhtml.c:2721
 msgid "The color of visited link elements"
-msgstr ""
+msgstr "Το χρώμα για στοιχεία αναγνωσμένων δεσμών"
 
 #: src/gtkhtml.c:2726
 msgid "Active Link Color"
-msgstr ""
+msgstr "Χρώμα Ενεργού Δεσμού"
 
 #: src/gtkhtml.c:2727
 msgid "The color of active link elements"
-msgstr ""
+msgstr "Το χρώμα για στοιχεία ενεργών δεσμών"
 
 #: src/gtkhtml.c:2732
 msgid "Spelling Error Color"
-msgstr ""
+msgstr "Χρώμα Ορθογραφικού Λάθους"
 
 #: src/gtkhtml.c:2733
 msgid "The color of the spelling error markers"
-msgstr ""
+msgstr "Το χρώμα σήμανσης ορθογραφικών λαθών"
 
 #: src/html-component.c:219
 msgid "Html"
-msgstr ""
+msgstr "Html"
 
 #: src/html-component.c:220
 msgid "Html test"
-msgstr ""
+msgstr "Δοκιμή html"
 
 #
 #: src/html-component.c:226
-#, fuzzy
 msgid "Test1"
-msgstr "Κείμενο"
+msgstr "Δοκιμή1"
 
 #
 #: src/html-component.c:233
-#, fuzzy
 msgid "Test2"
-msgstr "Κείμενο"
+msgstr "Δοκιμή2"
 
 #
 #: src/html-component.c:239
-#, fuzzy
 msgid "Test3"
-msgstr "Κείμενο"
+msgstr "Δοκιμή3"
 
 #
 #: src/html-component.c:245
-#, fuzzy
 msgid "Test4"
-msgstr "Κείμενο"
+msgstr "Δοκιμή4"
 
 #
 #: src/html-component.c:251
-#, fuzzy
 msgid "Test5"
-msgstr "Κείμενο"
+msgstr "Δοκιμή4"
 
 #
 #: src/html-component.c:257
-#, fuzzy
 msgid "Test6"
-msgstr "Κείμενο"
+msgstr "Δοκιμή6"
 
 #
 #: src/html-component.c:263
-#, fuzzy
 msgid "Test7"
-msgstr "Κείμενο"
+msgstr "Δοκιμή7"
 
 #: src/html-component.c:612
 msgid "_Refresh"
-msgstr ""
+msgstr "_Ανανέωση"
 
 #: src/html-component.c:613
 msgid "Reload the page"
-msgstr ""
+msgstr "Επαναφόρτωση της σελίδας"
 
 #: src/html-component.c:660
-#, fuzzy
 msgid "Could not initialize Bonobo!"
-msgstr "Αδύνατη η αρχικοποίηση του Bonobo"
+msgstr "Αδύνατη η αρχικοποίηση του Bonobo!"
 
 #: src/htmlbutton.c:142
 msgid "Submit Query"
-msgstr ""
+msgstr "Υποβολή ερωτήματος"
 
 #
 #: src/htmlbutton.c:145
-#, fuzzy
 msgid "Reset"
-msgstr "Κείμενο"
+msgstr "Επαναφορά"
 
 #. TODO2 dialog instead of warning
 #: src/htmlengine-print.c:193
-#, fuzzy
 msgid "Cannot allocate default font for printing\n"
-msgstr "Επιλογή γραμματοσειράς HTML μεταβλητού πλάτους"
+msgstr "Αδυναμία διάθεσης προεπιλεγμένης γραμματοσειράς για εκτύπωση\n"
 
 #: src/test.c:191
 msgid "GtkHTML Test"
-msgstr ""
+msgstr "Δοκιμή GtkHTML"
 
 #: src/testgtkhtml.c:118
 msgid "Print pre_view"
@@ -2090,7 +2003,7 @@ msgstr "Προεπισκόπιση εκτύπωσης"
 
 #: src/testgtkhtml.c:989
 msgid "GtkHTML Test Application"
-msgstr ""
+msgstr "Εφαρμογή δοκιμής GtkHTML"
 
 #~ msgid "Pre"
 #~ msgstr "Προμορφοποιημένο"
