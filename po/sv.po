@@ -3,12 +3,12 @@
 # Christian Rose <menthos@menthos.com>, 2000, 2001.
 # Martin Norbäck <d95mback@dtek.chalmers.se>, 2000.
 #
-# $Id: sv.po,v 1.22 2001/07/06 06:33:17 lewing Exp $
+# $Id: sv.po,v 1.23 2001/07/13 21:57:40 lewing Exp $
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2001-07-06 01:20-0500\n"
+"POT-Creation-Date: 2001-07-13 16:38-0500\n"
 "PO-Revision-Date: 2001-06-14 12:43+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"

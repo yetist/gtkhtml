@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.8\n"
-"POT-Creation-Date: 2001-07-10 23:04+0200\n"
+"POT-Creation-Date: 2001-07-13 16:38-0500\n"
 "PO-Revision-Date: 2001-07-10 23:05+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <no@li.org>\n"
@@ -352,12 +352,6 @@ msgstr "Slå på"
 msgid "Colors"
 msgstr "Farger"
 
-#: components/html-editor/body.c:169 components/html-editor/cell.c:351
-#: components/html-editor/table.c:348 components/html-editor/text.c:221
-#: components/html-editor/toolbar.c:286
-msgid "Automatic"
-msgstr "Automatisk"
-
 #: components/html-editor/body.c:180
 #: components/html-editor/editor-control-factory.c:172
 #: components/html-editor/menubar.c:125 components/html-editor/popup.c:93
@@ -375,6 +369,11 @@ msgstr "Lenke"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:2
 msgid "Background"
 msgstr "Bakgrunn"
+
+#: components/html-editor/cell.c:351 components/html-editor/table.c:348
+#: components/html-editor/text.c:221 components/html-editor/toolbar.c:286
+msgid "Automatic"
+msgstr "Automatisk"
 
 #: components/html-editor/editor-control-factory.c:152
 #: components/html-editor/popup.c:85

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.9.99.1\n"
-"POT-Creation-Date: 2001-07-13 00:44+0200\n"
+"POT-Creation-Date: 2001-07-13 16:38-0500\n"
 "PO-Revision-Date: 2001-07-13 00:44+0200\n"
 "Last-Translator: Héctor García Álvarez <hector@scouts-es.org>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -353,12 +353,6 @@ msgstr "Habilitar"
 msgid "Colors"
 msgstr "Colores"
 
-#: components/html-editor/body.c:169 components/html-editor/cell.c:351
-#: components/html-editor/table.c:348 components/html-editor/text.c:221
-#: components/html-editor/toolbar.c:286
-msgid "Automatic"
-msgstr "Automático"
-
 #: components/html-editor/body.c:180
 #: components/html-editor/editor-control-factory.c:172
 #: components/html-editor/menubar.c:125 components/html-editor/popup.c:93
@@ -376,6 +370,11 @@ msgstr "Enlace"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:2
 msgid "Background"
 msgstr "Fondo"
+
+#: components/html-editor/cell.c:351 components/html-editor/table.c:348
+#: components/html-editor/text.c:221 components/html-editor/toolbar.c:286
+msgid "Automatic"
+msgstr "Automático"
 
 #: components/html-editor/editor-control-factory.c:152
 #: components/html-editor/popup.c:85
