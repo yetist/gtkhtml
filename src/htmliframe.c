@@ -343,6 +343,13 @@ is_container (HTMLObject *self)
 	return TRUE;
 }
 
+static void
+append_selection_string (HTMLObject *self,
+			 GString *buffer)
+{
+	html_object_append_selection_string (GTK_HTML (HTML_IFRAME (self)->html)->engine->clue, buffer);
+}
+
 /* static gboolean
 select_range (HTMLObject *self,
 	      HTMLEngine *engine,
@@ -472,19 +479,20 @@ html_iframe_class_init (HTMLIFrameClass *klass,
 	html_embedded_class_init (embedded_class, type, size);
 	parent_class = &html_embedded_class;
 
-	object_class->calc_size          = calc_size;
-	object_class->calc_min_width     = calc_min_width;
-	object_class->set_painter        = set_painter;
-	object_class->reset              = reset;
-	object_class->draw               = draw;
-	object_class->set_max_width      = set_max_width;
-	object_class->forall             = forall;
-	object_class->check_page_split   = check_page_split;
-	object_class->search             = search;
-	object_class->head               = head;
-	object_class->tail               = tail;
-	object_class->get_engine         = get_engine;
-	object_class->check_point        = check_point;
-	object_class->is_container       = is_container;
-	object_class->draw_background    = draw_background;
+	object_class->calc_size               = calc_size;
+	object_class->calc_min_width          = calc_min_width;
+	object_class->set_painter             = set_painter;
+	object_class->reset                   = reset;
+	object_class->draw                    = draw;
+	object_class->set_max_width           = set_max_width;
+	object_class->forall                  = forall;
+	object_class->check_page_split        = check_page_split;
+	object_class->search                  = search;
+	object_class->head                    = head;
+	object_class->tail                    = tail;
+	object_class->get_engine              = get_engine;
+	object_class->check_point             = check_point;
+	object_class->is_container            = is_container;
+	object_class->draw_background         = draw_background;
+	object_class->append_selection_string = append_selection_string;
 }

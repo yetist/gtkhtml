@@ -1,5 +1,7 @@
 2000-11-21  Radek Doulik  <rodo@helixcode.com>
 
+	* htmliframe.c (append_selection_string): new method
+
 	* gtkhtml.c (shift_to_iframe_parent): new helper function
 	(motion_notify_event): use shift_to_iframe_parent
 	(button_press_event): shift_to_iframe_parent
