@@ -531,7 +531,7 @@ check_point (HTMLObject *self,
 	     gboolean for_cursor)
 {
 	if (x >= self->x
-	    && x < self->x + self->width
+	    && x < self->x + MAX (1, self->width)
 	    && y >= self->y - self->ascent
 	    && y < self->y + self->descent) {
 		HTMLTextSlave *slave = HTML_TEXT_SLAVE (self);

@@ -313,36 +313,6 @@ check_point (HTMLObject *self,
 	x = x - self->x;
 	y = y - self->y + self->ascent;
 
-	for (p = HTML_CLUE (self)->head; p != 0; p = p->next) {
-		gint x1, y1;
-
-		if (! for_cursor) {
-			x1 = x;
-			y1 = y;
-		} else {
-			if (x >= p->width) {
-				x1 = p->width - 1;
-			} else if (x < p->x) {
-				x1 = p->x;
-			} else {
-				x1 = x;
-			}
-
-			if (p->next == NULL && y > p->y + p->descent - 1) {
-				x1 = p->width - 1;
-				y1 = p->y + p->descent - 1;
-			} else if (p->prev == NULL && y < p->y - p->ascent) {
-				y1 = p->y - p->ascent;
-			} else {
-				y1 = y;
-			}
-		}
-
-		obj = html_object_check_point (p, painter, x1, y1, offset_return, for_cursor);
-		if (obj != NULL)
-			return obj;
-	}
-
 	for (clue = HTML_CLUEALIGNED (HTML_CLUEV (self)->align_left_list);
 	     clue != NULL;
 	     clue = clue->next_aligned) {
@@ -359,6 +329,36 @@ check_point (HTMLObject *self,
 				*offset_return = 0;
 			return obj;
 		}
+	}
+
+	for (p = HTML_CLUE (self)->head; p != 0; p = p->next) {
+		gint x1, y1;
+
+		if (! for_cursor) {
+			x1 = x;
+			y1 = y;
+		} else {
+			if (x >= p->width) {
+				x1 = MAX (0, p->width - 1);
+			} else if (x < p->x) {
+				x1 = p->x;
+			} else {
+				x1 = x;
+			}
+
+			if (p->next == NULL && y > p->y + p->descent - 1) {
+				x1 = MAX (0, p->width - 1);
+				y1 = p->y + p->descent - 1;
+			} else if (p->prev == NULL && y < p->y - p->ascent) {
+				y1 = p->y - p->ascent;
+			} else {
+				y1 = y;
+			}
+		}
+
+		obj = html_object_check_point (p, painter, x1, y1, offset_return, for_cursor);
+		if (obj != NULL)
+			return obj;
 	}
 
 	return NULL;

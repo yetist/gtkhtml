@@ -901,7 +901,7 @@ check_point (HTMLObject *self,
 		if (pnext == NULL || (pnext->y - pnext->ascent >= p->y + p->descent
 				      && y >= p->y - p->ascent
 				      && y <  p->y + p->descent)) {
-			obj = html_object_check_point (p, painter, p->x + p->width - 1, p->y + p->descent - 1,
+			obj = html_object_check_point (p, painter, MAX (0, p->x + p->width - 1), p->y + p->descent - 1,
 						       offset_return, for_cursor);
 			if (obj != NULL)
 				return obj;
@@ -910,7 +910,7 @@ check_point (HTMLObject *self,
 	/* after */
 	p = clue->tail;
 	if (x >= p->x + p->width || y >= p->y + p->descent) {
-		obj = html_object_check_point (p, painter, p->x + p->width - 1, p->y + p->descent - 1,
+		obj = html_object_check_point (p, painter, MAX (0, p->x + p->width - 1), p->y + p->descent - 1,
 					       offset_return, for_cursor);
 		if (obj != NULL)
 			return obj;
