@@ -1,3 +1,8 @@
+2001-04-23  Miguel de Icaza  <miguel@ximian.com>
+
+	* editor-control-factory.c: Do not attempt to typecast NULL
+	value.
+
 2001-04-18  Radek Doulik  <rodo@ximian.com>
 
 	* toolbar.c (setup_color_combo): as below

@@ -549,13 +549,14 @@ editor_control_factory (BonoboGenericFactory *factory,
 	/* g_warning ("Creating a new GtkHTML editor control."); */
 	control = bonobo_control_new (vbox);
 
-	if (control)
+	if (control){
 		editor_control_construct (control, vbox);
-	else
+		return BONOBO_OBJECT (control);
+	else {
 		gtk_widget_unref (vbox);
+		return NULL;
+	}
 
-	return BONOBO_OBJECT (control);
-}
 
 static gboolean
 editor_api_command (GtkHTML *html, GtkHTMLCommandType com_type, gpointer data)
