@@ -117,18 +117,18 @@
 @arg1: 
 @arg2: 
 
-<!-- ##### STRUCT GtkHTMLClassProperties ##### -->
-<para>
-
-</para>
-
-
 <!-- ##### SIGNAL GtkHTML::size-changed ##### -->
 <para>
 
 </para>
 
 @html: the object which received the signal.
+
+<!-- ##### STRUCT GtkHTMLClassProperties ##### -->
+<para>
+
+</para>
+
 
 <!-- ##### SIGNAL GtkHTML::load-done ##### -->
 <para>
@@ -208,6 +208,12 @@
 @html: the object which received the signal.
 @arg1: 
 
+<!-- ##### STRUCT GtkHTMLClass ##### -->
+<para>
+
+</para>
+
+
 <!-- ##### STRUCT GtkHTMLStream ##### -->
 <para>
 
@@ -216,10 +222,4 @@
 @write_func: 
 @close_func: 
 @user_data: 
-
-<!-- ##### STRUCT GtkHTMLClass ##### -->
-<para>
-
-</para>
-
 

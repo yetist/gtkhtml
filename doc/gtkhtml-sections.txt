@@ -16,6 +16,7 @@ GTK_HTML_EMBEDDED_CLASS
 <FILE>gtkhtml</FILE>
 <TITLE>GtkHTML</TITLE>
 gtk_html_new
+gtk_html_new_from_string
 gtk_html_construct
 <SUBSECTION Loading>
 gtk_html_load_from_string
@@ -23,15 +24,12 @@ gtk_html_begin
 gtk_html_begin_content
 gtk_html_write
 gtk_html_end
-</SUBSECTION>
 <SUBSECTION Saving>
 gtk_html_save
 gtk_html_export
-</SUBSECTION>
 <SUBSECTION Printing>
 gtk_html_print
 gtk_html_print_with_header_footer
-</SUBSECTION>
 <SUBSECTION Misc>
 gtk_html_get_title
 gtk_html_jump_to_anchor
@@ -39,7 +37,6 @@ gtk_html_set_default_background_color
 gtk_html_set_default_content_type
 gtk_html_allow_selection
 gtk_html_get_object_by_id
-</SUBSECTION>
 <SUBSECTION Standard>
 GTK_HTML
 GTK_IS_HTML
@@ -47,7 +44,6 @@ GTK_TYPE_HTML
 gtk_html_get_type
 GTK_HTML_CLASS
 GTK_IS_HTML_CLASS
-</SUBSECTION>
 </SECTION>
 
 <SECTION>

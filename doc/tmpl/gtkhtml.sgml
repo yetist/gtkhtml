@@ -24,11 +24,23 @@ application throught HTML.
 @Returns: 
 
 
+<!-- ##### FUNCTION gtk_html_new_from_string ##### -->
+<para>
+
+</para>
+
+@str: 
+@len: 
+@Returns: 
+
+
 <!-- ##### FUNCTION gtk_html_construct ##### -->
 <para>
 
 </para>
 
+@html: 
+<!-- # Unused Parameters # -->
 @htmlw: 
 
 

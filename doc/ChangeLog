@@ -1,5 +1,8 @@
 2001-01-25  Radek Doulik  <rodo@helixcode.com>
 
+	* gtkhtml-sections.txt: added gtk_html_new_from_string
+	removed </SUBSECTION>'s
+
 	* Makefile.am: new file, copied from gdk-pixbuf and edited
 	(all): added rule all:
 

@@ -489,14 +489,19 @@ struct GtkHTMLEditorAPI
 void
 </FUNCTION>
 <FUNCTION>
+<NAME>gtk_html_construct</NAME>
+<RETURNS>void  </RETURNS>
+GtkWidget        *html
+</FUNCTION>
+<FUNCTION>
 <NAME>gtk_html_new</NAME>
 <RETURNS>GtkWidget  *</RETURNS>
 void
 </FUNCTION>
 <FUNCTION>
-<NAME>gtk_html_construct</NAME>
-<RETURNS>void  </RETURNS>
-GtkWidget        *htmlw
+<NAME>gtk_html_new_from_string</NAME>
+<RETURNS>GtkWidget  *</RETURNS>
+const gchar      *str,gint              len
 </FUNCTION>
 <FUNCTION>
 <NAME>gtk_html_set_editor_api</NAME>
@@ -4887,6 +4892,7 @@ struct HTMLTableCell {
 	HTMLClueV cluev;
 
 	gint fixed_width;
+	gint fixed_height;
 
 	gint rspan;
 	gint cspan;
@@ -4941,6 +4947,11 @@ HTMLTableCell      *cell
 <NAME>html_table_cell_set_fixed_width</NAME>
 <RETURNS>void  </RETURNS>
 HTMLTableCell      *cell,gint                width
+</FUNCTION>
+<FUNCTION>
+<NAME>html_table_cell_set_fixed_height</NAME>
+<RETURNS>void  </RETURNS>
+HTMLTableCell      *cell,gint                height
 </FUNCTION>
 <FUNCTION>
 <NAME>html_table_cell_set_bg_pixmap</NAME>
