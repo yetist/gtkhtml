@@ -3872,7 +3872,6 @@ html_engine_set_property (GObject *object, guint id, const GValue *value, GParam
 		engine->defaultSettings = html_settings_new (GTK_WIDGET (engine->widget));
 		html_colorset_add_slave (engine->settings->color_set, engine->painter->color_set);
 
-		printf ("set insertion color 1 (Text)\n");
 		engine->insertion_color = html_colorset_get_color (engine->settings->color_set, HTMLTextColor);
 		html_color_ref (engine->insertion_color);
 
