@@ -1,3 +1,12 @@
+2001-05-22  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c (parse_d): close the flow unconditionaly for dd but
+	only change the indent level if we are in a list.
+
+	* htmltokenizer.c (end_tag): only discard the first LF in an
+	opening tag if it is a pre or textarea element (fixes
+	http://bugzilla.helixcode.com/show_bug.cgi?id=2093)
+	
 2001-05-22  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine-edit-tablecell.c (html_engine_table_cell_set_valign):

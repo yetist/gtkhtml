@@ -2005,12 +2005,11 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 
 		close_flow (e, _clue);
 	} else if (strncmp( str, "dd", 2 ) == 0) {
-		if (html_stack_top (e->glossaryStack) == NULL)
-			return;
-
-		if (GPOINTER_TO_INT (html_stack_top (e->glossaryStack)) != HTML_GLOSSARY_DD ) {
+		gpointer top = html_stack_top (e->glossaryStack);
+			
+		if (top && GPOINTER_TO_INT (top) != HTML_GLOSSARY_DD) {
 			html_stack_push (e->glossaryStack,
-					 GINT_TO_POINTER (HTML_GLOSSARY_DD) );
+					 GINT_TO_POINTER (HTML_GLOSSARY_DD));
 			e->indent_level++;
 		}
 

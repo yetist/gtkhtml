@@ -928,15 +928,9 @@ end_tag (HTMLTokenizer *t, const gchar **src)
 			
 			/* Make the tag lower case */
 	ptr = p->buffer + 2;
-	if (*ptr == '/') {
-				/* End tag */
-		p->discard = NoneDiscard;
-	}
-	else {
-				/* Start tag */
-				/* Ignore CRLFs after a start tag */
-		p->discard = LFDiscard;
-	}
+	
+	p->discard = NoneDiscard;
+
 	while (*ptr && *ptr !=' ') {
 		*ptr = tolower (*ptr);
 		ptr++;
@@ -949,12 +943,16 @@ end_tag (HTMLTokenizer *t, const gchar **src)
 	(*src)++;
 			
 	if (strncmp (p->buffer + 2, "pre", 3) == 0) {
+		/* discard the next line feed */
+		p->discard = LFDiscard;
 		p->pre++;
 	}
 	else if (strncmp (p->buffer + 2, "/pre", 4) == 0) {
 		p->pre--;
 	}
 	else if (strncmp (p->buffer + 2, "textarea", 8) == 0) {
+		/* discard the next line feed */
+		p->discard = LFDiscard;
 		p->textarea = TRUE;
 	}
 	else if (strncmp (p->buffer + 2, "/textarea", 9) == 0) {
