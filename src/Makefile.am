@@ -207,7 +207,6 @@ testgtkhtml_SOURCES = 		\
 	testgtkhtml.c		\
 	htmlurl.h		\
 	htmlurl.c
-testgtkhtml_LDFLAGS = -static
 testgtkhtml_LDADD =					\
 	libgtkhtml-@GTKHTML_RELEASE@.la			\
 	$(SOUP_LIBS)
