@@ -29,6 +29,8 @@
 #include "html.h"
 #include "image.h"
 
+#include <glib/gi18n.h>
+
 static void html_a11y_image_class_init    (HTMLA11YImageClass *klass);
 static void html_a11y_image_init          (HTMLA11YImage *a11y_image);
 static void atk_image_interface_init      (AtkImageIface *iface);
@@ -139,8 +141,23 @@ static G_CONST_RETURN gchar *
 html_a11y_image_get_name (AtkObject *accessible)
 {
 	HTMLImage *img = HTML_IMAGE (HTML_A11Y_HTML (accessible));
+	gchar *name, *tmpName;
 
-	return g_strdup (img->image_ptr->url);
+	if (accessible->name)
+		return accessible->name;
+
+	tmpName = g_strconcat (_("URL is "), img->image_ptr->url, NULL);
+
+	if (img->alt) {
+		name = g_strconcat (tmpName, _(", Alternative Text is "), img->alt, NULL);
+		g_free (tmpName);
+	} else
+		name = tmpName;
+
+	atk_object_set_name (accessible, name);
+	g_free (name);
+
+	return accessible->name;
 }
 
 /*
@@ -172,7 +189,5 @@ html_a11y_image_get_image_size (AtkImage *image, gint *width, gint *height)
 static G_CONST_RETURN gchar *
 html_a11y_image_get_image_description (AtkImage *image)
 {
-	HTMLImage *img = HTML_IMAGE (HTML_A11Y_HTML (image));
-
-	return g_strdup (img->alt);
+	return  html_a11y_image_get_name (ATK_OBJECT (image));
 }

@@ -1,3 +1,9 @@
+2004-12-29  Mengjie Yu  <meng-jie.yu@sun.com>
+
+	* image.c: (html_a11y_image_get_name),
+	(html_a11y_image_get_image_description):
+	change image name/description, make gnopernicus happy.
+
 2004-12-17  Mengjie Yu  <meng-jie.yu@sun.com>
 
 	* html.c: (html_a11y_ref_state_set): Add SHOWING state to stateset.
