@@ -167,9 +167,26 @@ html_engine_save_output_string (HTMLEngineSaveState *state,
 }
 
 
+
+static gchar *
+color_to_string (gchar *s, HTMLColor *c)
+{
+	gchar color [20];
+
+	g_snprintf (color, 20, "%s=\"#%2x%2x%2x\" ", s, c->color.red >> 8, c->color.green >> 8, c->color.blue >> 8);
+	return g_strdup (color);
+}
+
 static gboolean
 write_header (HTMLEngineSaveState *state)
 {
+	HTMLColorSet *cset;
+	gboolean retval = TRUE;
+	gchar *body;
+	gchar *text;
+	gchar *bg;
+	gchar *link;
+
 	/* Preface.  */
 	if (! html_engine_save_output_string
 	            (state,
@@ -201,10 +218,20 @@ write_header (HTMLEngineSaveState *state)
 
 	/* Start of body.  */
 
-	if (! html_engine_save_output_string (state, "<BODY>\n"))
-		return FALSE;
+	cset = state->engine->settings->color_set;
+	text = (cset->changed [HTMLTextColor]) ? color_to_string ("TEXT", cset->color [HTMLTextColor]) : g_strdup ("");
+	link = (cset->changed [HTMLLinkColor]) ? color_to_string ("LINK", cset->color [HTMLLinkColor]) : g_strdup ("");
+	bg   = (cset->changed [HTMLBgColor]) ? color_to_string ("BGCOLOR", cset->color [HTMLBgColor]) : g_strdup ("");
 
-	return TRUE;
+	body = g_strconcat ("<BODY ", text, link, bg, ">", NULL);
+	if (! html_engine_save_output_string (state, body))
+		retval = FALSE;
+	g_free (body);
+	g_free (text);
+	g_free (link);
+	g_free (bg);
+
+	return retval;
 }
 
 static gboolean
