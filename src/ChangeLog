@@ -1,3 +1,11 @@
+2000-08-21  Radek Doulik  <rodo@helixcode.com>
+
+	* gtkhtml.c (gtk_html_construct): moved set_fonts + gconf
+	notification here, because engine is created
+	(gtk_html_construct): call set_fonts_idle instead of set_fonts
+
+	* htmlengine.c (html_engine_init): initialize clue to NULL
+
 2000-08-18  Larry Ewing  <lewing@helixcode.com>
 
 	* gtkhtml.c (set_fonts_idle): check to make sure we have an engine

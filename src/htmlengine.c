@@ -3022,6 +3022,8 @@ html_engine_init (HTMLEngine *engine)
 #ifdef GTKHTML_HAVE_PSPELL
 	PspellCanHaveError *err;
 #endif
+	engine->clue = NULL;
+
 	/* STUFF might be missing here!   */
 	engine->freeze_count = 0;
 

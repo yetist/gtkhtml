@@ -1154,7 +1154,6 @@ set_fonts_idle (GtkHTML *html)
 		html_gdk_font_manager_set_size_fix (manager, prop->font_fix_size);
 		
 		/* tables don't resize correctly :( who knows the solution? */
-		/* FIXME: rodo is this check correct? */
 		if (html->engine->clue) {
 			html_object_reset (html->engine->clue);
 			html_object_change_set_down (html->engine->clue, HTML_CHANGE_ALL);
@@ -1535,11 +1534,6 @@ init (GtkHTML* html)
 	gtk_selection_add_targets (GTK_WIDGET (html),
 				   GDK_SELECTION_PRIMARY,
 				   targets, n_targets);
-	set_fonts (html);
-#ifdef GTKHTML_HAVE_GCONF
-	/*	html->set_font_id = 0; */
-	gconf_client_notify_add (gconf_client, GTK_HTML_GCONF_DIR, client_notify_widget, html, NULL, NULL);
-#endif
 }
 
 
@@ -1607,6 +1601,12 @@ gtk_html_construct (GtkWidget *htmlw)
 			    GTK_SIGNAL_FUNC (html_engine_submit_cb), html);
 	gtk_signal_connect (GTK_OBJECT (html->engine), "object_requested",
 			    GTK_SIGNAL_FUNC (html_engine_object_requested_cb), html);
+
+	set_fonts_idle (html);
+#ifdef GTKHTML_HAVE_GCONF
+	/*	html->set_font_id = 0; */
+	gconf_client_notify_add (gconf_client, GTK_HTML_GCONF_DIR, client_notify_widget, html, NULL, NULL);
+#endif
 }
 
 
