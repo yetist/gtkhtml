@@ -2,6 +2,8 @@
 
 	* menubar.c (file_dialog_ok): use html_engine_paste_text instead
 	of e-utils
+	(insert_file_dialog): open file selector in home directory instead
+	of cwd
 
 2002-09-16  Radek Doulik  <rodo@ximian.com>
 
