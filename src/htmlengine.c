@@ -3352,6 +3352,7 @@ element_parse_cell (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	cell = HTML_TABLE_CELL (html_table_cell_new (rowSpan, colSpan, table->padding));
 
  	html_element_set_coreattr_to_object (element, HTML_OBJECT (cell), e);
+	html_style_set_padding (element->style, table->padding);
 	html_cluev_set_style (HTML_CLUEV (cell), element->style);
 
 	cell->no_wrap = no_wrap;
