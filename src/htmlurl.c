@@ -126,8 +126,13 @@ html_url_new (const gchar *s)
 	new->reference = NULL;
 
 	s_len = strlen (s);
-	if (s_len == 0)
+	if (s_len == 0) {
+		/* The Path can't be NULL */
+		if(new->path == NULL)
+			new->path = g_strdup("/");
+
 		return new;
+	}		
 	s_end = s + s_len;
 
 	/* Scan for the protocol part.  */
@@ -456,7 +461,10 @@ html_url_append_path (const HTMLURL *url,
 
 	new = html_url_dup (url, HTML_URL_DUP_NOPATH);
 
+	g_assert(url->path != NULL);
+	
 	tmppath = g_strdup(url->path);
+
 	i = strlen(tmppath) - 1;
 
 	/* Remove first '/' from the right */

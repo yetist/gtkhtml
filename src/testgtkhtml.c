@@ -900,8 +900,7 @@ main (gint argc, gchar *argv[])
 
 	gnome_app_set_contents (GNOME_APP (app), scrolled_window);
 
-	html_widget = gtk_html_new (gtk_scrolled_window_get_hadjustment (GTK_SCROLLED_WINDOW (scrolled_window)),
-				    gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (scrolled_window)));
+	html_widget = gtk_html_new ();
 
 	html = GTK_HTML (html_widget);
 	

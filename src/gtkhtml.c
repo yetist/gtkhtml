@@ -288,19 +288,11 @@ gtk_html_init (GtkHTML* html)
 }
 
 GtkWidget *
-gtk_html_new (GtkAdjustment *hadjustment, GtkAdjustment *vadjustment)
+gtk_html_new (void)
 {
 	GtkHTML *html;
 
 	html = gtk_type_new (gtk_html_get_type ());
-
-	if (vadjustment == NULL)
-		vadjustment = GTK_ADJUSTMENT (gtk_adjustment_new (0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
-	if (hadjustment == NULL)
-		hadjustment = GTK_ADJUSTMENT (gtk_adjustment_new (0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
-
-	gtk_widget_set_scroll_adjustments(GTK_WIDGET(html),
-					  hadjustment, vadjustment);
 	
 	html->engine = html_engine_new ();
 	html->engine->widget = html; /* FIXME FIXME */

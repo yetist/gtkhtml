@@ -68,7 +68,7 @@ struct _GtkHTMLClass {
 };
 
 GtkType		gtk_html_get_type	 (void);
-GtkWidget*	gtk_html_new		 (GtkAdjustment *hadjustment, GtkAdjustment *vadjustment);
+GtkWidget*	gtk_html_new		 (void);
 void            gtk_html_parse           (GtkHTML *html);
 GtkHTMLStreamHandle gtk_html_begin       (GtkHTML *html, const char *url);
 void            gtk_html_write           (GtkHTML *html, GtkHTMLStreamHandle handle, const char *buffer, size_t size);

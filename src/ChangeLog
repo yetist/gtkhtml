@@ -1,3 +1,20 @@
+1999-12-15  Havoc Pennington  <hp@redhat.com>
+
+	* htmlurl.c (html_url_new): put in a phony path if we return
+	because the path string has length 0
+
+1999-12-15  Havoc Pennington  <hp@redhat.com>
+
+	* testgtkhtml.c (main): remove explicit adjustment-setting
+
+	* gtkhtml.c (gtk_html_new): no adjustment args, don't init the
+	adjustment fields. This causes Breakage but it's necessary
+	probably (and approved by Anders)
+
+	* htmlurl.c (html_url_new): Put in a warning if an HTMLURL with
+	NULL path is returned, this is a bug that needs fixing
+	(html_url_append_path): put in an assertion that url->path != NULL
+
 1999-12-15  Havoc Pennington  <hp@pobox.com>
 
 	* gtkhtml.c (gtk_html_set_adjustments): zero the connection ID
