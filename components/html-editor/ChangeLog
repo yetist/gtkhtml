@@ -1,3 +1,13 @@
+2002-08-22  Radek Doulik  <rodo@ximian.com>
+
+	* menubar.c (file_dialog_ok): convert from locale to utf8
+
+2002-08-21  Radek Doulik  <rodo@ximian.com>
+
+	* menubar.c (indent_more_cb): removed properties menu item as it
+	doesn't play nice with evo. now clients have to call capplet or
+	provide own settings if needed
+
 2002-07-10  Larry Ewing  <lewing@ximian.com>
 
 	* toolbar.c (editor_toolbar_indent_cb): pass the correct widget to

@@ -18,7 +18,6 @@
 			_tip="Select the entire contents of the document"/>
 			<cmd name="EditSpellCheck" _label="_Spell Check Document..."
 			_tip="Check spelling of the document" accel="*Ctrl**Shift*l"/>
-			<cmd name="EditProperties" _label="Pr_operties..." _tip="Modify the file's properties"/>
 
 			<cmd name="InsertImage" _label="_Image..." _tip="Insert image into document..."/>
 			<cmd name="InsertLink"  _label="_Link..." _tip="Insert HTML link into document..."/>
@@ -141,9 +140,6 @@
 				     <menuitem name="EditSpellCheck" verb=""/>
 				     <placeholder name="EditSpellLanguages">
 				     </placeholder>
-				     <separator/>
-				     <menuitem name="EditProperties" verb=""
-				     pixtype="filename" pixname="@ICONSDIR@/properties-16.png"/>
 			</placeholder>
 		</submenu>
 

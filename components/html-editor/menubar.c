@@ -29,6 +29,7 @@
 
 #include <gnome.h>
 #include <bonobo.h>
+#include <gal/widgets/e-unicode.h>
 
 #include "e-html-utils.h"
 #include "menubar.h"
@@ -227,17 +228,22 @@ file_dialog_ok (GtkWidget *w, GtkHTMLControlData *cd)
 		if (!cd->file_html) {
 			gtk_html_write (tmp, stream, "<PRE>", 5);
 		}
-		while ((rb = read (fd, buffer, BUFFER_SIZE - (cd->file_html ? 0 : 1))) > 0) {
+		while ((rb = read (fd, buffer, BUFFER_SIZE - 1)) > 0) {
+			gchar *native;
+
+			buffer [rb] = 0;
+
+			native = e_utf8_from_gtk_string (GTK_WIDGET (cd->html), buffer);
 			if (cd->file_html) {
-				gtk_html_write (tmp, stream, buffer, rb);
+				gtk_html_write (tmp, stream, native, -1);
 			} else {
 				gchar *html;
 
-				buffer [rb] = 0;
-				html = e_text_to_html (buffer, E_TEXT_TO_HTML_CONVERT_SPACES);
-				gtk_html_write (tmp, stream, html, strlen (html));
+				html = e_text_to_html (native, E_TEXT_TO_HTML_CONVERT_SPACES);
+				gtk_html_write (tmp, stream, html, -1);
 				g_free (html);
 			}
+			g_free (native);
 		}
 		if (!cd->file_html) {
 			gtk_html_write (tmp, stream, "</PRE>", 6);
@@ -283,14 +289,6 @@ static void
 insert_html_file_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
 	insert_file_dialog (cd, TRUE);
-}
-
-static void
-properties_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
-{
-	gchar *argv[2] = {"gtkhtml-properties-capplet", NULL};
-	if (gnome_execute_async (NULL, 1, argv) < 0)
-		gnome_error_dialog (_("Cannot execute gtkhtml properties"));
 }
 
 static void 
@@ -376,7 +374,6 @@ BonoboUIVerb verbs [] = {
 	BONOBO_UI_UNSAFE_VERB ("EditFindRegex", search_regex_cb),
 	BONOBO_UI_UNSAFE_VERB ("EditFindAgain", search_next_cb),
 	BONOBO_UI_UNSAFE_VERB ("EditReplace", replace_cb),
-	BONOBO_UI_UNSAFE_VERB ("EditProperties", properties_cb),
 	BONOBO_UI_UNSAFE_VERB ("EditSelectAll", select_all_cb),
 	BONOBO_UI_UNSAFE_VERB ("EditSpellCheck", spell_check_cb),
 
