@@ -225,7 +225,6 @@ update_styles (GtkHTML *html)
 {
 	GtkHTMLParagraphStyle paragraph_style;
 	GtkHTMLParagraphAlignment alignment;
-	HTMLClueFlowStyle clueflow_style;
 	HTMLEngine *engine;
 	guint indentation;
 
@@ -234,33 +233,31 @@ update_styles (GtkHTML *html)
 	if (! html_engine_get_editable (html->engine))
 		return;
 
-	engine = html->engine;
-
-	clueflow_style = html_engine_get_current_clueflow_style (engine);
-	paragraph_style = clueflow_style_to_paragraph_style (clueflow_style);
+	engine          = html->engine;
+	paragraph_style = clueflow_style_to_paragraph_style (html_engine_get_current_clueflow_style (engine));
 
 	if (paragraph_style != html->priv->paragraph_style) {
 		html->priv->paragraph_style = paragraph_style;
-		gtk_signal_emit (GTK_OBJECT (html), signals[CURRENT_PARAGRAPH_STYLE_CHANGED],
+		gtk_signal_emit (GTK_OBJECT (html), signals [CURRENT_PARAGRAPH_STYLE_CHANGED],
 				 paragraph_style);
 	}
 
 	indentation = html_engine_get_current_clueflow_indentation (engine);
 	if (indentation != html->priv->paragraph_indentation) {
-		html->priv->paragraph_style = paragraph_style;
-		gtk_signal_emit (GTK_OBJECT (html), signals[CURRENT_PARAGRAPH_STYLE_CHANGED], paragraph_style);
+		html->priv->paragraph_indentation = indentation;
+		gtk_signal_emit (GTK_OBJECT (html), signals [CURRENT_PARAGRAPH_INDENTATION_CHANGED], indentation);
 	}
 
 	alignment = html_alignment_to_paragraph (html_engine_get_current_clueflow_alignment (engine));
  	if (alignment != html->priv->paragraph_alignment) {
 		html->priv->paragraph_alignment = alignment;
-		gtk_signal_emit (GTK_OBJECT (html), signals[CURRENT_PARAGRAPH_ALIGNMENT_CHANGED], alignment);
+		gtk_signal_emit (GTK_OBJECT (html), signals [CURRENT_PARAGRAPH_ALIGNMENT_CHANGED], alignment);
 	}
 
 	if (html_engine_update_insertion_font_style (engine))
-		gtk_signal_emit (GTK_OBJECT (html), signals[INSERTION_FONT_STYLE_CHANGED], engine->insertion_font_style);
+		gtk_signal_emit (GTK_OBJECT (html), signals [INSERTION_FONT_STYLE_CHANGED], engine->insertion_font_style);
 	if (html_engine_update_insertion_color (engine))
-		gtk_signal_emit (GTK_OBJECT (html), signals[INSERTION_COLOR_CHANGED], engine->insertion_color);
+		gtk_signal_emit (GTK_OBJECT (html), signals [INSERTION_COLOR_CHANGED], engine->insertion_color);
 
 	/* TODO add insertion_url_or_targed_changed signal */
 	html_engine_update_insertion_url_and_target (engine);
@@ -666,10 +663,8 @@ key_press_event (GtkWidget *widget,
 	if (retval && html_engine_get_editable (html->engine))
 		html_engine_reset_blinking_cursor (html->engine);
 
-	if (retval) {
-		if (position != html->engine->cursor->position && update)
-			update_styles (html);
-	}
+	if (retval && update)
+		update_styles (html);
 
 	/* printf ("retval: %d\n", retval); */
 
@@ -2817,12 +2812,15 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		break;
 	case GTK_HTML_COMMAND_CUT:
 		gtk_html_cut (html);
+		html->priv->update_styles = TRUE;
 		break;
 	case GTK_HTML_COMMAND_CUT_LINE:
 		html_engine_cut_line (e);
+		html->priv->update_styles = TRUE;
 		break;
 	case GTK_HTML_COMMAND_PASTE:
 		gtk_html_paste (html);
+		html->priv->update_styles = TRUE;
 		break;
 	case GTK_HTML_COMMAND_INSERT_RULE:
 		html_engine_insert_rule (e, 0, 100, 2, TRUE, HTML_HALIGN_LEFT);
@@ -2830,6 +2828,7 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 	case GTK_HTML_COMMAND_INSERT_PARAGRAPH:
 		html_engine_delete (e);
 		html_engine_insert_empty_paragraph (e);
+		html->priv->update_styles = TRUE;
 		break;
 	case GTK_HTML_COMMAND_DELETE:
 		if (e->mark != NULL
@@ -2837,12 +2836,14 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 			html_engine_delete (e);
 		else
 			delete_one (e, TRUE);
+		html->priv->update_styles = TRUE;
 		break;
 	case GTK_HTML_COMMAND_DELETE_BACK:
 		if (html_engine_is_selection_active (e))
 			html_engine_delete (e);
 		else
 			delete_one (e, FALSE);
+		html->priv->update_styles = TRUE;
 		break;
 	case GTK_HTML_COMMAND_DELETE_BACK_OR_INDENT_DEC:
 		if (html_engine_is_selection_active (e))
@@ -2851,6 +2852,7 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 			gtk_html_modify_indent_by_delta (html, -1);
 		else
 			delete_one (e, FALSE);
+		html->priv->update_styles = TRUE;
 		break;
 	case GTK_HTML_COMMAND_SELECTION_MODE:
 		e->selection_mode = TRUE;

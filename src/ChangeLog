@@ -1,3 +1,10 @@
+2001-07-26  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml.c (command): set update_styles for more commands
+	(update_styles): fixed indentation change signal emiting
+	(key_press_event): don't check cursor position for update, it's
+	obsolete
+
 2001-07-25  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine-edit-table.c (html_engine_table_set_spacing): added
