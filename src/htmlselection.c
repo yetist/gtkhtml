@@ -50,9 +50,10 @@ optimize_selection (HTMLEngine *e, HTMLInterval *i)
 			if (max == &i->to) {
 				HTMLInterval *sel;
 
+				/* printf ("optimize 1\n"); */
 				sel = html_interval_new (s->to.object, i->to.object,
 							 i->from.object == s->to.object
-							 ? i->from.offset : 0, i->to.offset);
+							 ? i->from.offset : (html_object_is_container (s->to.object) ? s->to.offset : 0), i->to.offset);
 				html_interval_select (sel, e);
 				html_interval_destroy (sel);
 				html_interval_destroy (s);
@@ -61,10 +62,11 @@ optimize_selection (HTMLEngine *e, HTMLInterval *i)
 			} else {
 				HTMLInterval *usel;
 
+				/* printf ("optimize 2\n"); */
 				usel = html_interval_new (i->to.object, s->to.object,
-							  0, s->to.offset);
+							  html_object_is_container (i->to.object) ? i->to.offset : 0, s->to.offset);
 				html_interval_unselect (usel, e);
-				if (i->to.offset) {
+				if (!html_object_is_container (i->to.object) && i->to.offset) {
 					gint from = i->from.object == i->to.object ? i->from.offset : 0;
 					html_object_select_range (i->to.object, e,
 								  from, i->to.offset - from,
@@ -84,11 +86,12 @@ optimize_selection (HTMLEngine *e, HTMLInterval *i)
 			if (min == &i->from) {
 				HTMLInterval *sel;
 
+				/* printf ("optimize 3\n"); */
 				sel = html_interval_new (i->from.object, s->from.object,
 							 i->from.offset,
 							 i->to.object == s->from.object
 							 ? i->to.offset
-							 : html_object_get_length (s->from.object));
+							 : (html_object_is_container (s->from.object) ? s->from.offset : html_object_get_length (s->from.object)));
 				html_interval_select (sel, e);
 				html_interval_destroy (sel);
 				html_interval_destroy (s);
@@ -97,11 +100,12 @@ optimize_selection (HTMLEngine *e, HTMLInterval *i)
 			} else {
 				HTMLInterval *usel;
 
+				/* printf ("optimize 4\n"); */
 				usel = html_interval_new (s->from.object, i->from.object,
 							  s->from.offset,
-							  html_object_get_length (i->from.object));
+							  html_object_is_container (i->from.object) ? i->from.offset : html_object_get_length (i->from.object));
 				html_interval_unselect (usel, e);
-				if (i->from.offset != html_object_get_length (i->from.object)) {
+				if (!html_object_is_container (i->from.object) && i->from.offset != html_object_get_length (i->from.object)) {
 					gint to = i->to.object == i->from.object
 						? s->to.offset
 						: html_object_get_length (i->from.object);
