@@ -5,7 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GtkHTML 2.x\n"
-"POT-Creation-Date: 2004-02-09 14:38-0500\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-02-20 04:21+0100\n"
 "PO-Revision-Date: 2003-01-03 18:29+0530\n"
 "Last-Translator: Bhopal team  <anuragseetha@yahoo.com>\n"
 "Language-Team: Gnome Hindi Team<indlinux-hindi-gnome@lists.sourceforge.net>\n"
@@ -18,7 +19,7 @@ msgid "<None>"
 msgstr "कोई नहीं"
 
 #: capplet/gnome-bindings-prop.c:211 capplet/main.c:241
-#: components/html-editor/cell.c:419 components/html-editor/image.c:545
+#: components/html-editor/cell.c:419 components/html-editor/image.c:543
 #: components/html-editor/rule.c:316 components/html-editor/table.c:530
 #: components/html-editor/table.c:614 components/html-editor/template.c:272
 msgid "Could not load glade file."
@@ -682,7 +683,7 @@ msgstr ""
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
 #: components/html-editor/menubar.c:142 components/html-editor/popup.c:237
-#: components/html-editor/popup.c:518 components/html-editor/popup.c:527
+#: components/html-editor/popup.c:519 components/html-editor/popup.c:528
 msgid "Table"
 msgstr "सारणी"
 
@@ -1387,7 +1388,7 @@ msgid "Color:"
 msgstr "रंग:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:26
-#: components/html-editor/popup.c:529
+#: components/html-editor/popup.c:530
 msgid "Column"
 msgstr ""
 
@@ -1504,7 +1505,7 @@ msgid "Right"
 msgstr "दांया"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:60
-#: components/html-editor/popup.c:528
+#: components/html-editor/popup.c:529
 msgid "Row"
 msgstr "पंक्ति"
 
@@ -1538,7 +1539,7 @@ msgid "Spacing:"
 msgstr "स्पेसिंग:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:70
-#: components/html-editor/paragraph.c:117 components/html-editor/popup.c:473
+#: components/html-editor/paragraph.c:117 components/html-editor/popup.c:474
 #: components/html-editor/text.c:223
 msgid "Style"
 msgstr "स्टाइल"
@@ -1641,7 +1642,7 @@ msgstr ""
 msgid "No image selected"
 msgstr ""
 
-#: components/html-editor/image.c:705
+#: components/html-editor/image.c:704
 msgid ""
 "The editted image was removed from the document.\n"
 "Cannot apply your changes."
@@ -1740,108 +1741,109 @@ msgstr ""
 msgid "Paste Quotation"
 msgstr ""
 
-#: components/html-editor/popup.c:460
+#: components/html-editor/popup.c:461
 #, fuzzy
-msgid "Insert link"
+msgid "Insert Link"
 msgstr "डालो"
 
 #: components/html-editor/popup.c:468
-msgid "Remove link"
+#, fuzzy
+msgid "Remove Link"
 msgstr "कड़ी हटा दो"
 
-#: components/html-editor/popup.c:476
+#: components/html-editor/popup.c:477
 #, fuzzy
 msgid "Text Style..."
 msgstr "फाईल खोलो... (x)"
 
-#: components/html-editor/popup.c:478 components/html-editor/popup.c:484
-#: components/html-editor/popup.c:494
+#: components/html-editor/popup.c:479 components/html-editor/popup.c:485
+#: components/html-editor/popup.c:495
 #, fuzzy
 msgid "Paragraph Style..."
 msgstr "पैराग्राफ....."
 
-#: components/html-editor/popup.c:482
+#: components/html-editor/popup.c:483
 #, fuzzy
 msgid "Link Style..."
 msgstr "कड़ी...."
 
-#: components/html-editor/popup.c:488
+#: components/html-editor/popup.c:489
 #, fuzzy
 msgid "Rule Style..."
 msgstr "नियम....."
 
-#: components/html-editor/popup.c:492
+#: components/html-editor/popup.c:493
 #, fuzzy
 msgid "Image Style..."
 msgstr "चित्र......"
 
-#: components/html-editor/popup.c:503
+#: components/html-editor/popup.c:504
 #, fuzzy
 msgid "Cell Style..."
 msgstr "सोल....."
 
-#: components/html-editor/popup.c:506
+#: components/html-editor/popup.c:507
 #, fuzzy
 msgid "Table Style..."
 msgstr "सारणी...."
 
-#: components/html-editor/popup.c:512
+#: components/html-editor/popup.c:513
 #, fuzzy
 msgid "Page Style..."
 msgstr "पेज"
 
-#: components/html-editor/popup.c:517
+#: components/html-editor/popup.c:518
 msgid "Table insert"
 msgstr "सारणी"
 
-#: components/html-editor/popup.c:520
+#: components/html-editor/popup.c:521
 msgid "Row above"
 msgstr "ऊपर वाली पंक्ति"
 
-#: components/html-editor/popup.c:521
+#: components/html-editor/popup.c:522
 msgid "Row below"
 msgstr "नीचे बाली पंक्ति"
 
-#: components/html-editor/popup.c:523
+#: components/html-editor/popup.c:524
 msgid "Column before"
 msgstr "पहले वाली पंक्ति"
 
-#: components/html-editor/popup.c:524
+#: components/html-editor/popup.c:525
 msgid "Column after"
 msgstr "बाद वाला स्तंभ"
 
-#: components/html-editor/popup.c:526
+#: components/html-editor/popup.c:527
 msgid "Table delete"
 msgstr "सारणी हटाओ"
 
-#: components/html-editor/popup.c:530
+#: components/html-editor/popup.c:531
 msgid "Cell contents"
 msgstr ""
 
-#: components/html-editor/popup.c:540
+#: components/html-editor/popup.c:541
 #, fuzzy
 msgid "Check Word Spelling..."
 msgstr "%s की स्पेलिंग चेक करो"
 
-#: components/html-editor/popup.c:545
+#: components/html-editor/popup.c:546
 msgid "Add Word to"
 msgstr ""
 
-#: components/html-editor/popup.c:549
+#: components/html-editor/popup.c:550
 #, fuzzy, c-format
 msgid "%s Dictionary"
 msgstr "%s को शब्दकोष में जोड़ो"
 
-#: components/html-editor/popup.c:558
+#: components/html-editor/popup.c:559
 #, fuzzy
 msgid "Add Word to Dictionary"
 msgstr "%s को शब्दकोष में जोड़ो"
 
-#: components/html-editor/popup.c:561
+#: components/html-editor/popup.c:562
 msgid "Ignore Misspelled Word"
 msgstr ""
 
-#: components/html-editor/popup.c:564
+#: components/html-editor/popup.c:566
 msgid "Input Methods"
 msgstr ""
 
@@ -2173,33 +2175,3 @@ msgstr ""
 #, fuzzy
 msgid "GtkHTML Test Application"
 msgstr "जीटीके एच टी एम एल टेस्ट"
-
-#~ msgid "Ignore '%s'"
-#~ msgstr "%s को इगनोर करो"
-
-#~ msgid "Suggest word"
-#~ msgstr "वर्ड सुधारने वाला"
-
-#~ msgid "Text..."
-#~ msgstr "पाठ्य...."
-
-#~ msgid "Sans"
-#~ msgstr "सान्स"
-
-#~ msgid "Monospace"
-#~ msgstr "मोनोस्पेस"
-
-#~ msgid "Test"
-#~ msgstr "टेस्ट"
-
-#~ msgid "Test 1"
-#~ msgstr "टेस्ट"
-
-#~ msgid "Insert Smiley 7 smiley into document..."
-#~ msgstr "स्माइली 7 स्माइली को दस्तावेज में डालो"
-
-#~ msgid "Modify the file's properties"
-#~ msgstr "फाईल की प्रोपर्टीज बदलो"
-
-#~ msgid "Cannot execute gtkhtml properties"
-#~ msgstr "जीटीकेएचटीएमएल के गुणों को चला नहीं सकता"
