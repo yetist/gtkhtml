@@ -423,8 +423,7 @@ check_point (HTMLObject *o,
 }
 
 static gint
-check_page_split (HTMLObject *self,
-		  gint y)
+check_page_split (HTMLObject *self, HTMLPainter *painter, gint y)
 {
 	HTMLClue *clue;
 	HTMLObject *p;
@@ -441,7 +440,7 @@ check_page_split (HTMLObject *self,
 			return last_under;
 
 		if (y >= y1 && y < y2)
-			return html_object_check_page_split (p, y - y1) + y1;
+			return html_object_check_page_split (p, painter, y - y1) + y1;
 		last_under = y2;
 	}
 

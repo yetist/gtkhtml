@@ -109,7 +109,7 @@ print_all_pages (HTMLPainter *painter,
 
 	do {
 		pages ++;
-		new_split_offset = html_object_check_page_split (engine->clue,
+		new_split_offset = html_object_check_page_split (engine->clue, painter,
 								 split_offset + body_height);
 
 		if (new_split_offset <= split_offset

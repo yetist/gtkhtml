@@ -227,7 +227,7 @@ struct _HTMLObjectClass {
 
 	/* Page splitting (for printing).  */
 
-	gint (* check_page_split) (HTMLObject *self, gint y);
+	gint (* check_page_split) (HTMLObject *self, HTMLPainter *p, gint y);
 
 	/* Selection.  */
 	gboolean (* select_range) (HTMLObject *self, HTMLEngine *engine, guint start, gint length,
@@ -477,8 +477,9 @@ HTMLObject     *html_object_prev_cursor           (HTMLObject            *self,
 						   gint                  *offset);
 
 /* Page splitting.  */
-gint  html_object_check_page_split  (HTMLObject *self,
-				     gint        y);
+gint  html_object_check_page_split  (HTMLObject  *self,
+				     HTMLPainter *p,
+				     gint         y);
 
 /* Selection.  */
 gboolean    html_object_select_range             (HTMLObject *self,

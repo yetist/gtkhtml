@@ -233,9 +233,9 @@ forall (HTMLObject *self,
 }
 
 static gint
-check_page_split (HTMLObject *self, gint y)
+check_page_split (HTMLObject *self, HTMLPainter *p, gint y)
 {
-	return html_object_check_page_split (GTK_HTML (HTML_FRAME (self)->html)->engine->clue, y);
+	return html_object_check_page_split (GTK_HTML (HTML_FRAME (self)->html)->engine->clue, p, y);
 }
 
 static gboolean

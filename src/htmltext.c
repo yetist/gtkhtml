@@ -1002,6 +1002,7 @@ calc_preferred_width (HTMLObject *self,
 	text = HTML_TEXT (self);
 
 	width = html_text_calc_part_width (text, painter, text->text, 0, text->text_len, &self->ascent, &self->descent);
+	self->y = self->ascent;
 	if (html_clueflow_tabs (HTML_CLUEFLOW (self->parent), painter)) {
 		gint line_offset;
 		gint tabs;

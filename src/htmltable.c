@@ -1005,7 +1005,9 @@ calc_row_heights (HTMLTable *table,
 					ROW_HEIGHT (table, rl) = height;
 			}
 		}
+		/* printf ("height %d: %d\n", r, ROW_HEIGHT (table, r)); */
 	}
+	/* printf ("height %d: %d\n", r, ROW_HEIGHT (table, r)); */
 }
 
 static void
@@ -1037,6 +1039,7 @@ html_table_set_cells_position (HTMLTable *table, HTMLPainter *painter)
 				HTML_OBJECT (cell)->x = COLUMN_OPT (table, c) + pixel_size * border_extra;
 				HTML_OBJECT (cell)->y = ROW_HEIGHT (table, rl) + pixel_size * (- table->spacing)
 					- HTML_OBJECT (cell)->descent;
+				/* printf ("y: %d\n", HTML_OBJECT (cell)->y); */
 				html_object_set_max_height (HTML_OBJECT (cell), painter,
 							    ROW_HEIGHT (table, rl) - ROW_HEIGHT (table, cell->row)
 							    - pixel_size * (table->spacing + border_extra));
@@ -2163,7 +2166,7 @@ save_plain (HTMLObject *self,
 }
 
 static gboolean
-check_row_split (HTMLTable *table, gint r, gint *min_y)
+check_row_split (HTMLTable *table, HTMLPainter *painter, gint r, gint *min_y)
 {
 	HTMLTableCell *cell;
 	gboolean changed = FALSE;
@@ -2180,8 +2183,8 @@ check_row_split (HTMLTable *table, gint r, gint *min_y)
 		y2 = HTML_OBJECT (cell)->y + HTML_OBJECT (cell)->descent;
 
 		if (y1 <= *min_y && *min_y < y2) {
-			cs = html_object_check_page_split (HTML_OBJECT (cell), *min_y - y1) + y1;
-			/* printf ("min_y: %d y1: %d y2: %d --> cs=%d\n", *min_y, y1, y2, cs); */
+			cs = html_object_check_page_split (HTML_OBJECT (cell), painter, *min_y - y1) + y1;
+			/* printf ("r %d min_y: %d y1: %d y2: %d --> cs=%d\n", *min_y, y1, y2, cs); */
 
 			if (cs < *min_y) {
 				*min_y = cs;
@@ -2194,10 +2197,11 @@ check_row_split (HTMLTable *table, gint r, gint *min_y)
 }
 
 static gint
-check_page_split (HTMLObject *self, gint y)
+check_page_split (HTMLObject *self, HTMLPainter *painter, gint y)
 {
 	HTMLTable     *table;
-	gint r, min_y;
+	int pixel_size = html_painter_get_pixel_size (painter);
+	int r, min_y;
 
 	table = HTML_TABLE (self);
 	r     = to_index (bin_search_index (table->rowHeights, 0, table->totalRows, y), 0, table->totalRows - 1);
@@ -2210,7 +2214,7 @@ check_page_split (HTMLObject *self, gint y)
 	   return MIN (y, ROW_HEIGHT (table, table->totalRows)); */
 
 	min_y = MIN (y, ROW_HEIGHT (table, r+1));
-	while (check_row_split (table, r, &min_y));
+	while (check_row_split (table, painter, r, &min_y));
 
 	/* printf ("min_y=%d\n", min_y); */
 

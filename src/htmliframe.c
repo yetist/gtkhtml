@@ -211,19 +211,19 @@ forall (HTMLObject *self,
 }
 
 static gint
-check_page_split (HTMLObject *self, gint y)
+check_page_split (HTMLObject *self, HTMLPainter *p, gint y)
 {
-	gint y1, y2;
 	HTMLEngine *e = GTK_HTML (HTML_IFRAME (self)->html)->engine;
+	int y1, y2, pixel_size = html_painter_get_pixel_size (p);
 
-	y1 = self->y - self->ascent + html_engine_get_top_border (e);
-	y2 = self->y + self->descent + html_engine_get_top_border (e);
+	y1 = self->y - self->ascent + pixel_size*html_engine_get_top_border (e);
+	y2 = self->y + self->descent + pixel_size*html_engine_get_bottom_border (e);
 	
 	if (y1 > y) 
 		return 0;
 
 	if (y >= y1 && y < y2)
-		return html_object_check_page_split (e->clue, y - y1) + y1;
+		return html_object_check_page_split (e->clue, p, y - y1) + y1;
 	
 	return y;
 }

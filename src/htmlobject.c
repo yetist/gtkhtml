@@ -545,8 +545,7 @@ save_plain (HTMLObject *self,
 }
 
 static gint
-check_page_split (HTMLObject *self,
-		  gint y)
+check_page_split (HTMLObject *self, HTMLPainter *p, gint y)
 {
 	return 0;
 }
@@ -1222,12 +1221,11 @@ html_object_save_plain (HTMLObject *self,
 }
 
 gint
-html_object_check_page_split  (HTMLObject *self,
-			       gint y)
+html_object_check_page_split  (HTMLObject *self, HTMLPainter *p, gint y)
 {
 	g_return_val_if_fail (self != NULL, 0);
 
-	return (* HO_CLASS (self)->check_page_split) (self, y);
+	return (* HO_CLASS (self)->check_page_split) (self, p, y);
 }
 
 void
