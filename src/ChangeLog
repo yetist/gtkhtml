@@ -1,3 +1,8 @@
+2000-01-19  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlcursor.c (backward): Don't go beyond the last character if
+	there is another element after it.
+
 2000-01-18  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlengine-edit.c (merge_text_at_cursor): New function,

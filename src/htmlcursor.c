@@ -1,7 +1,7 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /* This file is part of the GtkHTML library.
 
-   Copyright 1999, Helix Code, Inc.
+   Copyright 1999, 2000 Helix Code, Inc.
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -350,7 +350,9 @@ backward (HTMLCursor *cursor,
 			case HTML_TYPE_LINKTEXT:
 			case HTML_TYPE_TEXTMASTER:
 			case HTML_TYPE_LINKTEXTMASTER:
-				offset = strlen (HTML_TEXT (obj)->text);
+				offset = HTML_TEXT (obj)->text_len;
+				if (next_not_slave (obj) != NULL)
+					offset--;
 				goto end;
 
 			case HTML_TYPE_TEXTSLAVE:
