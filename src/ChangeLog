@@ -1,3 +1,9 @@
+2000-05-01  Larry Ewing  <lewing@helixcode.com>
+
+	* htmlclueflow.c (save): rework the saving code so that we merge
+	paragraphs of similiar types.
+	(is_similar): compare the two flows to see if they can be merged.
+
 2000-04-30  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlsettings.c (html_settings_free_colors): free colors only

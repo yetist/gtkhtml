@@ -176,7 +176,7 @@ add_post_padding (HTMLClueFlow *flow,
 		    && ! is_header (next))
 			goto add_pad;
 
-		if (is_header (flow))
+		if (is_header (flow) &&  ! is_header (next))
 			goto add_pad;
 
 		return;
@@ -975,7 +975,7 @@ get_tag_for_style (const HTMLClueFlow *flow)
 		return "H6";
 	case HTML_CLUEFLOW_STYLE_ADDRESS:
 		return "ADDRESS";
-	case HTML_CLUEFLOW_STYLE_PRE:
+	case HTML_CLUEFLOW_STYLE_PRE:	
 		return "PRE";
 	case HTML_CLUEFLOW_STYLE_ITEMDOTTED:
 	case HTML_CLUEFLOW_STYLE_ITEMROMAN:
@@ -1001,7 +1001,19 @@ halign_to_string (HTMLHAlignType halign)
 		return "LEFT";
 	}
 }
+
+static gboolean 
+is_similar (HTMLObject *self, HTMLObject *friend)
+{
 	
+	if (friend &&  HTML_OBJECT_TYPE (friend) == HTML_TYPE_CLUEFLOW) {
+		if ((HTML_CLUEFLOW (friend)->style == HTML_CLUEFLOW (self)->style)
+		    && (HTML_CLUEFLOW (friend)->level == HTML_CLUEFLOW (self)->level))
+			return TRUE;
+	}
+	return FALSE;
+}
+
 static gboolean
 save (HTMLObject *self,
       HTMLEngineSaveState *state)
@@ -1009,13 +1021,14 @@ save (HTMLObject *self,
 	HTMLClueFlow *clueflow;
 	HTMLHAlignType halign;
 	const gchar *tag;
+	gboolean start = TRUE, end = TRUE;
 
 	clueflow = HTML_CLUEFLOW (self);
 	halign = HTML_CLUE (self)->halign;
 
 	if (self->prev != NULL
 	    && HTML_OBJECT_TYPE (HTML_CLUE (self)->tail) != HTML_TYPE_RULE
-	    && HTML_CLUEFLOW (self)->style == HTML_CLUEFLOW_STYLE_NORMAL) {
+	    && HTML_CLUEFLOW (self)->style != HTML_CLUEFLOW_STYLE_PRE) {
 		/* This is a nasty hack: the rule takes all of the space, so we
                    don't want it to create a new newline if it's the last
                    element on the paragraph.  Also, everything but the "normal"
@@ -1029,6 +1042,12 @@ save (HTMLObject *self,
 
 	tag = get_tag_for_style (clueflow);
 
+	if (is_similar (self, self->prev))
+		start = FALSE;
+
+	if (is_similar (self, self->next))
+		end = FALSE;
+	
 	/* Alignment tag.  */
 	if (halign != HTML_HALIGN_NONE && halign != HTML_HALIGN_LEFT) {
 		if (! html_engine_save_output_string (state, "<DIV ALIGN=")
@@ -1038,7 +1057,7 @@ save (HTMLObject *self,
 	}
 
 	/* Start tag.  */
-	if (tag != NULL
+	if (tag != NULL && start
 	    && (! html_engine_save_output_string (state, "<")
 		|| ! html_engine_save_output_string (state, tag)
 		|| ! html_engine_save_output_string (state, ">")))
@@ -1049,7 +1068,7 @@ save (HTMLObject *self,
 		return FALSE;
 
 	/* End tag.  */
-	if (tag != NULL) {
+	if (tag && end) {
 		if (! html_engine_save_output_string (state, "</")
 		    || ! html_engine_save_output_string (state, tag)
 		    || ! html_engine_save_output_string (state, ">"))
