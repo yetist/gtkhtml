@@ -3035,8 +3035,37 @@ html_engine_end (GtkHTMLStreamHandle handle, GtkHTMLStreamStatus status, HTMLEng
 		html_cursor_home (e->cursor, e);
 }
 
+
+static void
+draw_cursor (HTMLEngine *e,
+	     gint x, gint y,
+	     gint width, gint height)
+{
+	static GdkColor white = { 0, 0xff, 0xff, 0xff };
+	HTMLObject *obj;
+	gint x1, y1, x2, y2;
+	GdkGC *gc;
+
+	obj = e->cursor->object;
+	if (obj == NULL)
+		return;
+
+	/* Notice that, when we are here, the object has certainly updated its
+           size.  So there is no need to call `html_object_calc_size()'.
+           Kludgy, I know.  */
+
+	html_object_calc_abs_position (obj, &x1, &y1);
+	
+	x2 = x1;
+	y2 = y1 - obj->ascent;
+
+	y1 += obj->descent;
+}
+
 void
-html_engine_draw (HTMLEngine *e, gint x, gint y, gint width, gint height)
+html_engine_draw (HTMLEngine *e,
+		  gint x, gint y,
+		  gint width, gint height)
 {
 	gint tx, ty;
 
@@ -3056,6 +3085,9 @@ html_engine_draw (HTMLEngine *e, gint x, gint y, gint width, gint height)
 				  tx, ty);
 
 	html_painter_end (e->painter);
+
+	if (e->editable)
+		draw_cursor (e, x, y, width, height);
 }
 
 gint
