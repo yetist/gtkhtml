@@ -30,6 +30,9 @@
 void
 html_engine_select_interval (HTMLEngine *e, HTMLInterval *i)
 {
+	GdkEvent *event;
+	guint32 time;
+
 	e = html_engine_get_top_html_engine (e);
 	if (e->selection && html_interval_eq (e->selection, i))
 		html_interval_destroy (i);
@@ -38,7 +41,14 @@ html_engine_select_interval (HTMLEngine *e, HTMLInterval *i)
 		e->selection = i;
 		html_interval_select (e->selection, e);
 	}
-	html_engine_activate_selection (e, GDK_CURRENT_TIME);
+
+	event = gtk_get_current_event ();
+	if (event == NULL)
+		time = GDK_CURRENT_TIME;
+	else
+		time = gdk_event_get_time (event);
+
+	html_engine_activate_selection (e, time);
 }
 
 void

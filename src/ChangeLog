@@ -1,3 +1,16 @@
+2001-10-29  Ettore Perazzoli  <ettore@ximian.com>
+
+	* htmlselection.c (html_engine_select_interval): Peek the time
+	from `gtk_get_current_event()'.
+
+	* gtkhtml.c (get_current_time): New function to get the current
+	time from `gtk_get_current_event()' [if the latter fails, it just
+	resorts to `GDK_CURRENT_TIME'].
+	(gtk_html_paste): Use it instead of just `GDK_CURRENT_TIME' as the
+	timestamp.
+	(gtk_html_copy): Likewise.
+	(gtk_html_cut): Likewise.
+
 2001-10-29  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (command): check if word is non-NULL, don't leak it

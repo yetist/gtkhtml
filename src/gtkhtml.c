@@ -132,6 +132,21 @@ typedef enum _TargetInfo TargetInfo;
 #define SCROLL_TIMEOUT_INTERVAL 10
 
 
+/* Helper functions.  */
+
+static guint32
+get_current_time (void)
+{
+	GdkEvent *event;
+
+	event = gtk_get_current_event ();
+	if (event != NULL)
+		return gdk_event_get_time (event);
+
+	return GDK_CURRENT_TIME;
+}
+
+
 GtkHTMLParagraphStyle
 clueflow_style_to_paragraph_style (HTMLClueFlowStyle style, HTMLListType item_type)
 {
@@ -2664,7 +2679,7 @@ gtk_html_cut (GtkHTML *html)
 	g_return_if_fail (GTK_IS_HTML (html));
 
 	html_engine_cut (html->engine);
-	gtk_selection_owner_set (GTK_WIDGET (html), gdk_atom_intern ("CLIPBOARD", FALSE), GDK_CURRENT_TIME);
+	gtk_selection_owner_set (GTK_WIDGET (html), gdk_atom_intern ("CLIPBOARD", FALSE), get_current_time ());
 }
 
 void
@@ -2674,7 +2689,7 @@ gtk_html_copy (GtkHTML *html)
 	g_return_if_fail (GTK_IS_HTML (html));
 
 	html_engine_copy (html->engine);
-	gtk_selection_owner_set (GTK_WIDGET (html), gdk_atom_intern ("CLIPBOARD", FALSE), GDK_CURRENT_TIME);
+	gtk_selection_owner_set (GTK_WIDGET (html), gdk_atom_intern ("CLIPBOARD", FALSE), get_current_time ());
 }
 
 void
@@ -2683,7 +2698,7 @@ gtk_html_paste (GtkHTML *html)
 	g_return_if_fail (html != NULL);
 	g_return_if_fail (GTK_IS_HTML (html));
 
-	gtk_html_request_paste (html, gdk_atom_intern ("CLIPBOARD", FALSE), 0, GDK_CURRENT_TIME);
+	gtk_html_request_paste (html, gdk_atom_intern ("CLIPBOARD", FALSE), 0, get_current_time ());
 }
 
 
