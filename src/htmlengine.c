@@ -41,6 +41,7 @@
 #include "htmlengine.h"
 #include "htmlengine-edit.h"
 #include "htmlengine-edit-cursor.h"
+#include "htmlengine-edit-movement.h"
 #include "htmlengine-cutbuffer.h"
 
 #include "htmlanchor.h"
@@ -4009,6 +4010,10 @@ display_search_results (HTMLEngine *e, HTMLSearch *info)
 	}
 	/* html_engine_edit_selection_updater_reset    (e->selection_updater);
 	   html_engine_edit_selection_updater_schedule (e->selection_updater); */
+
+	if (info->found) {
+		html_engine_jump_to_object (e, HTML_OBJECT (info->found->data), 0);
+	}
 }
 
 gboolean

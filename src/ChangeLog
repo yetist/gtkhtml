@@ -1,5 +1,7 @@
 2000-04-17  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine.c (display_search_results): use html_engine_jump_to_object
+
 	* htmlclueflow.c (search_text): implemented backward substring
 	search, also search backwards thru childern
 	(search_text): fixed ClueFlow traversing, fixed backward substring
