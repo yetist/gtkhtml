@@ -1,5 +1,10 @@
 2004-05-14  Radek Doulik  <rodo@ximian.com>
 
+	* htmlengine-edit.c (html_engine_next_cell): move cursor forward
+	after the new row is created
+
+	Fixes #58094
+
 	* gtkhtml.c (destroy): remove monospace_font notify callback
 
 	Fixes #58366

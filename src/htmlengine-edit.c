@@ -710,6 +710,7 @@ html_engine_next_cell (HTMLEngine *e, gboolean create)
 		if (create && HTML_IS_TABLE (e->cursor->object)) {
 			html_cursor_backward (e->cursor, e);
 			html_engine_insert_table_row (e, TRUE);
+			html_cursor_forward (e->cursor, e);
 		}
 		html_engine_show_cursor (e);
 

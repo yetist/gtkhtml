@@ -232,6 +232,11 @@ html_engine_update_insertion_color (HTMLEngine *engine)
 
 	new_color = html_engine_get_document_color (engine);
 
+	printf ("update_insertion_color %p\n", new_color);
+	if (new_color == NULL) {
+		
+	}
+
 	if (new_color && !html_color_equal (new_color, engine->insertion_color)) {
 		html_color_unref (engine->insertion_color);
 		engine->insertion_color = new_color;
@@ -435,6 +440,7 @@ html_engine_set_color (HTMLEngine *e, HTMLColor *color)
 			rv = FALSE;
 	}
 	html_color_unref (e->insertion_color);
+	printf ("html_engine_set_color %p", color);
 	e->insertion_color = color;
 	html_color_ref (e->insertion_color);
 
