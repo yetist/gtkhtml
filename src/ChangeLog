@@ -1,5 +1,7 @@
 2001-05-29  Radek Doulik  <rodo@ximian.com>
 
+	* htmlengine.c (parse_table): use halign of table cells
+
 	* htmlclueflow.c (html_clueflow_get_halignment): if halign ==
 	NONE, then try to use parent cell halign
 

@@ -821,6 +821,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	gboolean fixedWidth;
 	gboolean fixedHeight;
 	HTMLVAlignType valign;
+	HTMLHAlignType halign;
 	HTMLTableCell *cell;
 	gpointer tablePixmapPtr = NULL;
 	gpointer rowPixmapPtr = NULL;
@@ -1050,15 +1051,11 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 						have_bgPixmap = FALSE;
 					}
 
-					valign = (rowvalign == HTML_VALIGN_NONE ?
-						  HTML_VALIGN_MIDDLE : rowvalign);
-
-					if (heading)
-						e->divAlign = (rowhalign == HTML_HALIGN_NONE ? 
-							       HTML_HALIGN_CENTER : rowhalign);
-					else
-						e->divAlign = (rowhalign == HTML_HALIGN_NONE ?
-							       HTML_HALIGN_LEFT : rowhalign);
+					e->divAlign = HTML_HALIGN_NONE;
+					valign = rowvalign == HTML_VALIGN_NONE ? HTML_VALIGN_MIDDLE : rowvalign;
+					halign = rowhalign == HTML_HALIGN_NONE
+						? (heading ? HTML_HALIGN_CENTER : HTML_HALIGN_LEFT)
+						: rowhalign;
 
 					if (tableEntry) {
 						html_string_tokenizer_tokenize (e->st, str + 4, " >");
@@ -1084,11 +1081,11 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 							}
 							else if (strncasecmp (token, "align=", 6) == 0) {
 								if (strcasecmp (token + 6, "center") == 0)
-									e->divAlign = HTML_HALIGN_CENTER;
+									halign = HTML_HALIGN_CENTER;
 								else if (strcasecmp (token + 6, "right") == 0)
-									e->divAlign = HTML_HALIGN_RIGHT;
+									halign = HTML_HALIGN_RIGHT;
 								else if (strcasecmp (token + 6, "left") == 0)
-									e->divAlign = HTML_HALIGN_LEFT;
+									halign = HTML_HALIGN_LEFT;
 							}
 							else if (strncasecmp (token, "height=", 7) == 0) {
 								if (isdigit (*(token + 7))) {
@@ -1152,6 +1149,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 						html_table_cell_set_bg_pixmap(cell, bgPixmapPtr);
 
 					HTML_CLUE (cell)->valign = valign;
+					HTML_CLUE (cell)->halign = halign;
 					if (fixedWidth)
 						html_table_cell_set_fixed_width (cell, cellwidth);
 					if (fixedHeight)
