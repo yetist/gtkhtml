@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.8\n"
-"POT-Creation-Date: 2000-12-14 12:56-0600\n"
+"POT-Creation-Date: 2001-01-24 23:47-0600\n"
 "PO-Revision-Date: 2000-11-02 21:40-02:00\n"
 "Last-Translator: Gustavo Maciel Dias Vieira <gdvieira@zaz.com.br>\n"
 "Language-Team: Brazilian Portuguese <ldp-br@bazar.conectiva.com.br>\n"
@@ -39,7 +39,7 @@ msgstr "Mapa de teclas"
 msgid "Add"
 msgstr "Incluir"
 
-#: capplet/gnome-bindings-prop.c:548 po/tmp/GNOME_GtkHTML_Editor.xml.h:8
+#: capplet/gnome-bindings-prop.c:548
 msgid "Copy"
 msgstr "Copiar"
 
@@ -51,7 +51,7 @@ msgstr "Excluir"
 msgid "Grab key"
 msgstr "Capturar tecla"
 
-#: capplet/main.c:224
+#: capplet/main.c:227
 msgid "Could not load glade file."
 msgstr ""
 
@@ -166,44 +166,57 @@ msgid "Colors"
 msgstr "Cores"
 
 #: components/html-editor/editor-control-factory.c:136
-#: components/html-editor/popup.c:77
+#: components/html-editor/popup.c:78
 msgid "Properties"
 msgstr "Propriedades"
 
 #: components/html-editor/editor-control-factory.c:147
-#: components/html-editor/menubar.c:97 components/html-editor/popup.c:92
+#: components/html-editor/menubar.c:97 components/html-editor/popup.c:93
 msgid "Image"
 msgstr "Imagem"
 
 #: components/html-editor/editor-control-factory.c:156
-#: components/html-editor/menubar.c:118 components/html-editor/popup.c:85
+#: components/html-editor/menubar.c:118 components/html-editor/popup.c:86
 msgid "Text"
 msgstr "Texto"
 
 #: components/html-editor/editor-control-factory.c:167
-#: components/html-editor/menubar.c:141 components/html-editor/popup.c:120
+#: components/html-editor/menubar.c:141 components/html-editor/popup.c:121
 msgid "Rule"
 msgstr "Régua"
 
 #: components/html-editor/editor-control-factory.c:176
-#: components/html-editor/popup.c:99
+#: components/html-editor/popup.c:100
 msgid "Paragraph"
 msgstr "Parágrafo"
 
 #: components/html-editor/editor-control-factory.c:181
 #: components/html-editor/menubar.c:102 components/html-editor/menubar.c:123
-#: components/html-editor/popup.c:106
+#: components/html-editor/popup.c:107
 msgid "Link"
 msgstr "Vínculo"
 
 #: components/html-editor/editor-control-factory.c:186
-#: components/html-editor/popup.c:113
+#: components/html-editor/popup.c:114
 msgid "Page"
 msgstr "Página"
 
 #: components/html-editor/image.c:163
 msgid "Image selection"
 msgstr "Seleção de imagem"
+
+#: components/html-editor/image.c:184
+msgid "Top"
+msgstr ""
+
+#: components/html-editor/image.c:185 components/html-editor/paragraph.c:158
+#: components/html-editor/rule.c:257 components/html-editor/toolbar.c:423
+msgid "Center"
+msgstr "Centrado"
+
+#: components/html-editor/image.c:186
+msgid "Bottom"
+msgstr ""
 
 #. ADD_ITEM("Left",   GDK_F4);
 #. ADD_ITEM("Right",  GDK_F5);
@@ -215,15 +228,35 @@ msgstr "Alinhamento"
 msgid "Border"
 msgstr "Borda"
 
+#: components/html-editor/image.c:208 components/html-editor/image.c:226
+#: components/html-editor/image.c:249 components/html-editor/rule.c:267
+#, fuzzy
+msgid "width"
+msgstr "por"
+
 #: components/html-editor/image.c:215
 msgid "Padding"
 msgstr "Espaçamento"
+
+#: components/html-editor/image.c:227 components/html-editor/image.c:250
+#, fuzzy
+msgid "height"
+msgstr "Direita"
 
 #. size
 #: components/html-editor/image.c:235 components/html-editor/rule.c:225
 #: components/html-editor/text.c:188
 msgid "Size"
 msgstr "Tamanho"
+
+#: components/html-editor/image.c:242 components/html-editor/rule.c:230
+msgid "Pixels"
+msgstr ""
+
+#: components/html-editor/image.c:243 components/html-editor/rule.c:231
+#, fuzzy, c-format
+msgid "Percent %"
+msgstr "Pre"
 
 #: components/html-editor/link.c:74
 msgid "Clear"
@@ -237,7 +270,7 @@ msgstr "URL"
 msgid "Could not initialize GNORBA"
 msgstr "Não foi possível iniciar GNORBA"
 
-#: components/html-editor/main.c:78
+#: components/html-editor/main.c:80
 msgid "Could not initialize Bonobo"
 msgstr "Não foi possível iniciar Bonobo"
 
@@ -261,19 +294,15 @@ msgstr "Estilo"
 msgid "Align"
 msgstr "Alinhamento"
 
-#: components/html-editor/paragraph.c:157
+#: components/html-editor/paragraph.c:157 components/html-editor/rule.c:256
 msgid "Left"
 msgstr "Esquerda"
 
-#: components/html-editor/paragraph.c:158 components/html-editor/toolbar.c:403
-msgid "Center"
-msgstr "Centrado"
-
-#: components/html-editor/paragraph.c:159
+#: components/html-editor/paragraph.c:159 components/html-editor/rule.c:258
 msgid "Right"
 msgstr "Direita"
 
-#: components/html-editor/popup.c:197
+#: components/html-editor/popup.c:216
 msgid "Remove link"
 msgstr "Excluir vínculo"
 
@@ -282,7 +311,7 @@ msgid "Replace confirmation"
 msgstr "Confirmação de substituição"
 
 #: components/html-editor/replace.c:84 components/html-editor/replace.c:146
-#: components/html-editor/replace.c:158 po/tmp/GNOME_GtkHTML_Editor.xml.h:28
+#: components/html-editor/replace.c:158
 msgid "Replace"
 msgstr "Substituir"
 
@@ -306,6 +335,11 @@ msgstr "diferenciar maiúsculas de minúsculas"
 msgid "with"
 msgstr "por"
 
+#: components/html-editor/rule.c:239
+#, fuzzy
+msgid "length"
+msgstr "Esquerda"
+
 #: components/html-editor/rule.c:273
 msgid "shaded"
 msgstr "sombreado"
@@ -326,124 +360,140 @@ msgstr "Abrir arquivo..."
 msgid "Save file as..."
 msgstr "Salvar arquivo como..."
 
-#: components/html-editor/text.c:180 components/html-editor/toolbar.c:412
+#: components/html-editor/text.c:180 components/html-editor/toolbar.c:434
 msgid "Bold"
 msgstr "Negrito"
 
-#: components/html-editor/text.c:181 components/html-editor/toolbar.c:414
+#: components/html-editor/text.c:181 components/html-editor/toolbar.c:436
 msgid "Italic"
 msgstr "Itálico"
 
-#: components/html-editor/text.c:182 components/html-editor/toolbar.c:416
+#: components/html-editor/text.c:182 components/html-editor/toolbar.c:438
 msgid "Underline"
 msgstr "Sublinhado"
 
-#: components/html-editor/text.c:183 components/html-editor/toolbar.c:418
+#: components/html-editor/text.c:183 components/html-editor/toolbar.c:440
 msgid "Strikeout"
 msgstr "Riscado"
 
-#: components/html-editor/text.c:221 components/html-editor/toolbar.c:210
+#: components/html-editor/text.c:221 components/html-editor/toolbar.c:212
 msgid "Automatic"
 msgstr "Automático"
 
-#: components/html-editor/toolbar.c:48
+#: components/html-editor/toolbar.c:50
 msgid "Normal"
 msgstr "Normal"
 
-#: components/html-editor/toolbar.c:49
+#: components/html-editor/toolbar.c:51
 msgid "Header 1"
 msgstr "Cabeçalho 1"
 
-#: components/html-editor/toolbar.c:50
+#: components/html-editor/toolbar.c:52
 msgid "Header 2"
 msgstr "Cabeçalho 2"
 
-#: components/html-editor/toolbar.c:51
+#: components/html-editor/toolbar.c:53
 msgid "Header 3"
 msgstr "Cabeçalho 3"
 
-#: components/html-editor/toolbar.c:52
+#: components/html-editor/toolbar.c:54
 msgid "Header 4"
 msgstr "Cabeçalho 4"
 
-#: components/html-editor/toolbar.c:53
+#: components/html-editor/toolbar.c:55
 msgid "Header 5"
 msgstr "Cabeçalho 5"
 
-#: components/html-editor/toolbar.c:54
+#: components/html-editor/toolbar.c:56
 msgid "Header 6"
 msgstr "Cabeçalho 6"
 
-#: components/html-editor/toolbar.c:55
+#: components/html-editor/toolbar.c:57
 msgid "Address"
 msgstr "Endereço"
 
-#: components/html-editor/toolbar.c:56
+#: components/html-editor/toolbar.c:58
 msgid "Pre"
 msgstr "Pre"
 
-#: components/html-editor/toolbar.c:57
+#: components/html-editor/toolbar.c:59
 msgid "List item (digit)"
 msgstr "Item de lista (dígito)"
 
-#: components/html-editor/toolbar.c:58
+#: components/html-editor/toolbar.c:60
 msgid "List item (unnumbered)"
 msgstr "Item de lista (sem numeração)"
 
-#: components/html-editor/toolbar.c:59
+#: components/html-editor/toolbar.c:61
 msgid "List item (roman)"
 msgstr "Item de lista (romanos)"
 
-#: components/html-editor/toolbar.c:401
+#: components/html-editor/toolbar.c:421
 msgid "Left align"
 msgstr "Alinhar à esquerda"
 
-#: components/html-editor/toolbar.c:401
-msgid "Left justify paragraphs"
+#: components/html-editor/toolbar.c:421
+#, fuzzy
+msgid "Left justifies the paragraphs"
 msgstr "Justifica os parágrafos à esquerda"
 
-#: components/html-editor/toolbar.c:403
-msgid "Centers paragraphs"
-msgstr "Centra os parágrafos"
+#: components/html-editor/toolbar.c:423
+#, fuzzy
+msgid "Centers justifies the paragraphs"
+msgstr "Justifica os parágrafos à esquerda"
 
-#: components/html-editor/toolbar.c:405
+#: components/html-editor/toolbar.c:425
 msgid "Right align"
 msgstr "Alinhar à direita"
 
-#: components/html-editor/toolbar.c:405
-msgid "Right justify paragraphs"
+#: components/html-editor/toolbar.c:425
+#, fuzzy
+msgid "Right justifies the paragraphs"
 msgstr "Justifica os parágrafos à direita"
 
-#: components/html-editor/toolbar.c:412
-msgid "Sets the bold font"
-msgstr "Ativa a fonte do negrito"
+#: components/html-editor/toolbar.c:432
+msgid "Typewriter"
+msgstr ""
 
-#: components/html-editor/toolbar.c:414
-msgid "Make the selection italic"
+#: components/html-editor/toolbar.c:432
+msgid "Toggle typewriter font style"
+msgstr ""
+
+#: components/html-editor/toolbar.c:434
+msgid "Makes the text bold"
+msgstr ""
+
+#: components/html-editor/toolbar.c:436
+#, fuzzy
+msgid "Makes the text italic"
 msgstr "Coloca a seleção em itálico"
 
-#: components/html-editor/toolbar.c:416
-msgid "Make the selection underlined"
-msgstr "Sublinha a seleção"
+#: components/html-editor/toolbar.c:438
+#, fuzzy
+msgid "Underlines the text"
+msgstr "Sublinhado"
 
-#: components/html-editor/toolbar.c:418
-msgid "Make the selection striked out"
-msgstr "Risca a seleção"
+#: components/html-editor/toolbar.c:440
+#, fuzzy
+msgid "Strikes out the text"
+msgstr "Riscado"
 
-#: components/html-editor/toolbar.c:427
+#: components/html-editor/toolbar.c:449
 msgid "Unindent"
 msgstr "Avançar"
 
-#: components/html-editor/toolbar.c:427
-msgid "Indent paragraphs less"
+#: components/html-editor/toolbar.c:449
+#, fuzzy
+msgid "Indents the paragraphs less"
 msgstr "Diminuir recuo dos parágrafos"
 
-#: components/html-editor/toolbar.c:429
+#: components/html-editor/toolbar.c:451
 msgid "Indent"
 msgstr "Recuar"
 
-#: components/html-editor/toolbar.c:429
-msgid "Indent paragraphs more"
+#: components/html-editor/toolbar.c:451
+#, fuzzy
+msgid "Indents the paragraphs more"
 msgstr "Aumentar recuo dos parágrafos"
 
 #: components/html-editor/utils.c:104
@@ -458,332 +508,264 @@ msgstr "_Visualizar impressão"
 msgid "Print preview"
 msgstr "Visualizar impressão"
 
-#.
-#. * Translatable strings file generated by extract-ui.
-#. * Add this file to your project's POTFILES.in
-#. * DO NOT compile it as part of your application.
-#.
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:7
-#, fuzzy
-msgid "C_ut"
-msgstr "Cortar"
+#~ msgid "Centers paragraphs"
+#~ msgstr "Centra os parágrafos"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:9
-#, fuzzy
-msgid "Copy selection to clipboard"
-msgstr "Copia a seleção para a área de transferência"
+#~ msgid "Sets the bold font"
+#~ msgstr "Ativa a fonte do negrito"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:10
-#, fuzzy
-msgid "Copy the selection"
-msgstr "Seleção de imagem"
+#~ msgid "Make the selection underlined"
+#~ msgstr "Sublinha a seleção"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:11
-msgid "Cut"
-msgstr "Cortar"
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:12
-#, fuzzy
-msgid "Cut selection to clipboard"
-msgstr "Corta a seleção para a área de transferência"
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:13
-#, fuzzy
-msgid "Cut the selection"
-msgstr "Seleção de imagem"
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:14
-msgid "Find"
-msgstr ""
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:15
-msgid "Find Rege_x..."
-msgstr "Localizar rege_x..."
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:16
-msgid "Find _Again"
-msgstr ""
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:17
-msgid "Insert HTML link into document..."
-msgstr "Insere um vínculo HTML no documento..."
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:18
-msgid "Insert image into document..."
-msgstr "Insere imagem no documento..."
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:19
-msgid "Insert rule into document..."
-msgstr "Insere uma régua no documento..."
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:20
-msgid "Modify the file's properties"
-msgstr ""
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:21
-#, fuzzy
-msgid "Paste"
-msgstr "Página"
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:22
-#, fuzzy
-msgid "Paste from clipboard"
-msgstr "Cola os conteúdos da área de transferência"
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:23
-#, fuzzy
-msgid "Paste the clipboard"
-msgstr "Cola os conteúdos da área de transferência"
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:24
-msgid "Redo"
-msgstr "Refazer"
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:25
-msgid "Redo previously undoed changes"
-msgstr ""
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:26
-#, fuzzy
-msgid "Redo the undone action"
-msgstr "Refaz a operação do editor desfeita"
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:27
-#, fuzzy
-msgid "Regular expression search"
-msgstr "Busca por expressões regulares..."
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:29
-#, fuzzy
-msgid "Replace a string"
-msgstr "Confirmação de substituição"
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:30
-msgid "Search again for the same string"
-msgstr ""
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:31
-msgid "Search and replace string"
-msgstr ""
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:32
-msgid "Search for a string"
-msgstr ""
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:33
-#, fuzzy
-msgid "Search string"
-msgstr "Busca"
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:34
-msgid "Undo"
-msgstr "Desfazer"
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:35
-msgid "Undo previous changes"
-msgstr ""
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:36
-#, fuzzy
-msgid "Undo the last action"
-msgstr "Desfaz a última operação do editor"
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:37
-#, fuzzy
-msgid "_Copy"
-msgstr "Copiar"
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:38
-msgid "_Edit"
-msgstr ""
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:39
-#, fuzzy
-msgid "_Find..."
-msgstr "Vínculo"
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:40
-#, fuzzy
-msgid "_Image..."
-msgstr "Imagem"
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:41
-#, fuzzy
-msgid "_Insert"
-msgstr "Inserir"
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:42
-#, fuzzy
-msgid "_Link..."
-msgstr "Vínculo"
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:43
-#, fuzzy
-msgid "_Paste"
-msgstr "Página"
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:44
-#, fuzzy
-msgid "_Properties..."
-msgstr "Propriedades"
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:45
-#, fuzzy
-msgid "_Redo"
-msgstr "Refazer"
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:46
-#, fuzzy
-msgid "_Replace..."
-msgstr "Substituir"
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:47
-#, fuzzy
-msgid "_Rule..."
-msgstr "Régua"
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:48
-#, fuzzy
-msgid "_Undo"
-msgstr "Desfazer"
-
-msgid "live spell checking"
-msgstr "verificação ortográfica enquanto escreve"
-
-msgid "spell checking color"
-msgstr "cor da verificação ortográfica"
-
-msgid "magic links"
-msgstr "vínculos mágicos"
-
-msgid "Bindings"
-msgstr "Associações"
-
-msgid "Appearance"
-msgstr "Aparência"
+#~ msgid "Make the selection striked out"
+#~ msgstr "Risca a seleção"
 
 #, fuzzy
-msgid "use background image"
-msgstr "Imagem de fundo"
-
-msgid "Open (PersistFile)"
-msgstr "Abrir (PersistFile)"
-
-msgid "Open using the PersistFile interface"
-msgstr "Abre usando a interface PersistFile"
-
-msgid "Save as... (PersistFile)"
-msgstr "Salvar como... (PersistFile)"
-
-msgid "Save using the PersistFile interface"
-msgstr "Salva usando a interface PersistFile"
-
-msgid "Open (PersistStream)"
-msgstr "Abrir (PersistStream)"
-
-msgid "Open using the PersistStream interface"
-msgstr "Abre usando a interface PersistStream"
-
-msgid "Save as... (PersistStream)"
-msgstr "Salvar como... (PersistStream)"
-
-msgid "Save using the PersistStream interface"
-msgstr "Salva usando a interface PersistStream"
-
-msgid "text color"
-msgstr "cor do texto"
+#~ msgid "C_ut"
+#~ msgstr "Cortar"
 
 #, fuzzy
-msgid "Default"
-msgstr "Excluir"
-
-msgid "Cut the selected region to the clipboard"
-msgstr "Corta a região selecionada para a área de transferência"
-
-msgid "Copy the selected region to the clipboard"
-msgstr "Copia a região selecionada para a área de transferência"
+#~ msgid "Copy selection to clipboard"
+#~ msgstr "Copia a seleção para a área de transferência"
 
 #, fuzzy
-msgid "Insert image"
-msgstr "Inserir"
+#~ msgid "Copy the selection"
+#~ msgstr "Seleção de imagem"
+
+#~ msgid "Cut"
+#~ msgstr "Cortar"
 
 #, fuzzy
-msgid "Length"
-msgstr "Esquerda"
+#~ msgid "Cut selection to clipboard"
+#~ msgstr "Corta a seleção para a área de transferência"
 
 #, fuzzy
-msgid "Percent"
-msgstr "Pre"
+#~ msgid "Cut the selection"
+#~ msgstr "Seleção de imagem"
+
+#~ msgid "Find Rege_x..."
+#~ msgstr "Localizar rege_x..."
+
+#~ msgid "Insert HTML link into document..."
+#~ msgstr "Insere um vínculo HTML no documento..."
+
+#~ msgid "Insert image into document..."
+#~ msgstr "Insere imagem no documento..."
+
+#~ msgid "Insert rule into document..."
+#~ msgstr "Insere uma régua no documento..."
 
 #, fuzzy
-msgid "Left Align"
-msgstr "Alinhar à esquerda"
+#~ msgid "Paste"
+#~ msgstr "Página"
 
 #, fuzzy
-msgid "Center Align"
-msgstr "Centrado"
+#~ msgid "Paste from clipboard"
+#~ msgstr "Cola os conteúdos da área de transferência"
 
 #, fuzzy
-msgid "Right Align"
-msgstr "Alinhar à direita"
+#~ msgid "Paste the clipboard"
+#~ msgstr "Cola os conteúdos da área de transferência"
+
+#~ msgid "Redo"
+#~ msgstr "Refazer"
 
 #, fuzzy
-msgid "None"
-msgstr "<Nenhum>"
+#~ msgid "Redo the undone action"
+#~ msgstr "Refaz a operação do editor desfeita"
 
-msgid "Set Shade"
-msgstr "Ligar sombra"
+#, fuzzy
+#~ msgid "Regular expression search"
+#~ msgstr "Busca por expressões regulares..."
 
-msgid "Transfer Progress"
-msgstr "Progresso da transferência"
+#, fuzzy
+#~ msgid "Replace a string"
+#~ msgstr "Confirmação de substituição"
 
-msgid "Looking up %s"
-msgstr "Procurando %s"
+#, fuzzy
+#~ msgid "Search string"
+#~ msgstr "Busca"
 
-msgid "Contacting %s"
-msgstr "Contactando %s"
+#~ msgid "Undo"
+#~ msgstr "Desfazer"
 
-msgid "Waiting for a connection..."
-msgstr "Esperando por uma conexão..."
+#, fuzzy
+#~ msgid "Undo the last action"
+#~ msgstr "Desfaz a última operação do editor"
 
-msgid "Logging in..."
-msgstr "Efetuando login..."
+#, fuzzy
+#~ msgid "_Copy"
+#~ msgstr "Copiar"
 
-msgid "Read %d%%%% of %l"
-msgstr "Lidos %d%%%% de %l"
+#, fuzzy
+#~ msgid "_Find..."
+#~ msgstr "Vínculo"
 
-msgid "Read %d bytes"
-msgstr "Lidos %d bytes"
+#, fuzzy
+#~ msgid "_Image..."
+#~ msgstr "Imagem"
 
-msgid "Reading..."
-msgstr "Lendo..."
+#, fuzzy
+#~ msgid "_Insert"
+#~ msgstr "Inserir"
 
-msgid "Writing %d%%%% of %l"
-msgstr "Escritos %d%%%% of %l"
+#, fuzzy
+#~ msgid "_Link..."
+#~ msgstr "Vínculo"
 
-msgid "Writing %d bytes"
-msgstr "Escritos %d bytes"
+#, fuzzy
+#~ msgid "_Paste"
+#~ msgstr "Página"
 
-msgid "Writing..."
-msgstr "Escrevendo..."
+#, fuzzy
+#~ msgid "_Properties..."
+#~ msgstr "Propriedades"
 
-msgid "Done!"
-msgstr "Concluído!"
+#, fuzzy
+#~ msgid "_Redo"
+#~ msgstr "Refazer"
 
-msgid "Interrupted!"
-msgstr "Interrompido!"
+#, fuzzy
+#~ msgid "_Replace..."
+#~ msgstr "Substituir"
 
-msgid "Please wait..."
-msgstr "Aguarde por favor..."
+#, fuzzy
+#~ msgid "_Rule..."
+#~ msgstr "Régua"
 
-msgid "Request timeout!"
-msgstr "Tempo limite do pedido excedido!"
+#, fuzzy
+#~ msgid "_Undo"
+#~ msgstr "Desfazer"
 
-msgid "Unknown"
-msgstr "Desconhecido"
+#~ msgid "live spell checking"
+#~ msgstr "verificação ortográfica enquanto escreve"
 
-msgid "Enter Text"
-msgstr "Entre texto"
+#~ msgid "spell checking color"
+#~ msgstr "cor da verificação ortográfica"
 
-msgid "Enter Password"
-msgstr "Entre senha"
+#~ msgid "magic links"
+#~ msgstr "vínculos mágicos"
+
+#~ msgid "Bindings"
+#~ msgstr "Associações"
+
+#~ msgid "Appearance"
+#~ msgstr "Aparência"
+
+#, fuzzy
+#~ msgid "use background image"
+#~ msgstr "Imagem de fundo"
+
+#~ msgid "Open (PersistFile)"
+#~ msgstr "Abrir (PersistFile)"
+
+#~ msgid "Open using the PersistFile interface"
+#~ msgstr "Abre usando a interface PersistFile"
+
+#~ msgid "Save as... (PersistFile)"
+#~ msgstr "Salvar como... (PersistFile)"
+
+#~ msgid "Save using the PersistFile interface"
+#~ msgstr "Salva usando a interface PersistFile"
+
+#~ msgid "Open (PersistStream)"
+#~ msgstr "Abrir (PersistStream)"
+
+#~ msgid "Open using the PersistStream interface"
+#~ msgstr "Abre usando a interface PersistStream"
+
+#~ msgid "Save as... (PersistStream)"
+#~ msgstr "Salvar como... (PersistStream)"
+
+#~ msgid "Save using the PersistStream interface"
+#~ msgstr "Salva usando a interface PersistStream"
+
+#~ msgid "text color"
+#~ msgstr "cor do texto"
+
+#, fuzzy
+#~ msgid "Default"
+#~ msgstr "Excluir"
+
+#~ msgid "Cut the selected region to the clipboard"
+#~ msgstr "Corta a região selecionada para a área de transferência"
+
+#~ msgid "Copy the selected region to the clipboard"
+#~ msgstr "Copia a região selecionada para a área de transferência"
+
+#, fuzzy
+#~ msgid "Insert image"
+#~ msgstr "Inserir"
+
+#, fuzzy
+#~ msgid "Left Align"
+#~ msgstr "Alinhar à esquerda"
+
+#, fuzzy
+#~ msgid "Center Align"
+#~ msgstr "Centrado"
+
+#, fuzzy
+#~ msgid "Right Align"
+#~ msgstr "Alinhar à direita"
+
+#, fuzzy
+#~ msgid "None"
+#~ msgstr "<Nenhum>"
+
+#~ msgid "Set Shade"
+#~ msgstr "Ligar sombra"
+
+#~ msgid "Transfer Progress"
+#~ msgstr "Progresso da transferência"
+
+#~ msgid "Looking up %s"
+#~ msgstr "Procurando %s"
+
+#~ msgid "Contacting %s"
+#~ msgstr "Contactando %s"
+
+#~ msgid "Waiting for a connection..."
+#~ msgstr "Esperando por uma conexão..."
+
+#~ msgid "Logging in..."
+#~ msgstr "Efetuando login..."
+
+#~ msgid "Read %d%%%% of %l"
+#~ msgstr "Lidos %d%%%% de %l"
+
+#~ msgid "Read %d bytes"
+#~ msgstr "Lidos %d bytes"
+
+#~ msgid "Reading..."
+#~ msgstr "Lendo..."
+
+#~ msgid "Writing %d%%%% of %l"
+#~ msgstr "Escritos %d%%%% of %l"
+
+#~ msgid "Writing %d bytes"
+#~ msgstr "Escritos %d bytes"
+
+#~ msgid "Writing..."
+#~ msgstr "Escrevendo..."
+
+#~ msgid "Done!"
+#~ msgstr "Concluído!"
+
+#~ msgid "Interrupted!"
+#~ msgstr "Interrompido!"
+
+#~ msgid "Please wait..."
+#~ msgstr "Aguarde por favor..."
+
+#~ msgid "Request timeout!"
+#~ msgstr "Tempo limite do pedido excedido!"
+
+#~ msgid "Unknown"
+#~ msgstr "Desconhecido"
+
+#~ msgid "Enter Text"
+#~ msgstr "Entre texto"
+
+#~ msgid "Enter Password"
+#~ msgstr "Entre senha"

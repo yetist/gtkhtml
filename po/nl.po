@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Gtkhtml cvs\n"
-"POT-Creation-Date: 2000-12-14 12:56-0600\n"
+"POT-Creation-Date: 2001-01-24 23:47-0600\n"
 "PO-Revision-Date: 2000-09-26 23:07+0200\n"
 "Last-Translator: Dennis Smit <mek@antenna.nl>\n"
 "Language-Team: DUTCH <nl@li.org>\n"
@@ -39,7 +39,7 @@ msgstr "Toetsen-mappen"
 msgid "Add"
 msgstr "Voeg toe"
 
-#: capplet/gnome-bindings-prop.c:548 po/tmp/GNOME_GtkHTML_Editor.xml.h:8
+#: capplet/gnome-bindings-prop.c:548
 msgid "Copy"
 msgstr "Copieer"
 
@@ -51,7 +51,7 @@ msgstr "Verwijder"
 msgid "Grab key"
 msgstr "Pluk een toets"
 
-#: capplet/main.c:224
+#: capplet/main.c:227
 msgid "Could not load glade file."
 msgstr ""
 
@@ -168,44 +168,57 @@ msgid "Colors"
 msgstr "Kleuren"
 
 #: components/html-editor/editor-control-factory.c:136
-#: components/html-editor/popup.c:77
+#: components/html-editor/popup.c:78
 msgid "Properties"
 msgstr "Instellingen"
 
 #: components/html-editor/editor-control-factory.c:147
-#: components/html-editor/menubar.c:97 components/html-editor/popup.c:92
+#: components/html-editor/menubar.c:97 components/html-editor/popup.c:93
 msgid "Image"
 msgstr "Plaatje"
 
 #: components/html-editor/editor-control-factory.c:156
-#: components/html-editor/menubar.c:118 components/html-editor/popup.c:85
+#: components/html-editor/menubar.c:118 components/html-editor/popup.c:86
 msgid "Text"
 msgstr "Tekst"
 
 #: components/html-editor/editor-control-factory.c:167
-#: components/html-editor/menubar.c:141 components/html-editor/popup.c:120
+#: components/html-editor/menubar.c:141 components/html-editor/popup.c:121
 msgid "Rule"
 msgstr "Regel"
 
 #: components/html-editor/editor-control-factory.c:176
-#: components/html-editor/popup.c:99
+#: components/html-editor/popup.c:100
 msgid "Paragraph"
 msgstr "Paragraaf"
 
 #: components/html-editor/editor-control-factory.c:181
 #: components/html-editor/menubar.c:102 components/html-editor/menubar.c:123
-#: components/html-editor/popup.c:106
+#: components/html-editor/popup.c:107
 msgid "Link"
 msgstr "Verwijzing"
 
 #: components/html-editor/editor-control-factory.c:186
-#: components/html-editor/popup.c:113
+#: components/html-editor/popup.c:114
 msgid "Page"
 msgstr "Pagina"
 
 #: components/html-editor/image.c:163
 msgid "Image selection"
 msgstr "Plaatjes selectie"
+
+#: components/html-editor/image.c:184
+msgid "Top"
+msgstr ""
+
+#: components/html-editor/image.c:185 components/html-editor/paragraph.c:158
+#: components/html-editor/rule.c:257 components/html-editor/toolbar.c:423
+msgid "Center"
+msgstr "Centreren"
+
+#: components/html-editor/image.c:186
+msgid "Bottom"
+msgstr ""
 
 #. ADD_ITEM("Left",   GDK_F4);
 #. ADD_ITEM("Right",  GDK_F5);
@@ -217,15 +230,35 @@ msgstr "Uitlijning"
 msgid "Border"
 msgstr "Rand"
 
+#: components/html-editor/image.c:208 components/html-editor/image.c:226
+#: components/html-editor/image.c:249 components/html-editor/rule.c:267
+#, fuzzy
+msgid "width"
+msgstr "met"
+
 #: components/html-editor/image.c:215
 msgid "Padding"
 msgstr "Uitvullen"
+
+#: components/html-editor/image.c:227 components/html-editor/image.c:250
+#, fuzzy
+msgid "height"
+msgstr "Rechts"
 
 #. size
 #: components/html-editor/image.c:235 components/html-editor/rule.c:225
 #: components/html-editor/text.c:188
 msgid "Size"
 msgstr "Groote"
+
+#: components/html-editor/image.c:242 components/html-editor/rule.c:230
+msgid "Pixels"
+msgstr ""
+
+#: components/html-editor/image.c:243 components/html-editor/rule.c:231
+#, fuzzy, c-format
+msgid "Percent %"
+msgstr "Percentage"
 
 #: components/html-editor/link.c:74
 msgid "Clear"
@@ -239,7 +272,7 @@ msgstr "URL"
 msgid "Could not initialize GNORBA"
 msgstr "Kon GNORBA niet initializeren"
 
-#: components/html-editor/main.c:78
+#: components/html-editor/main.c:80
 msgid "Could not initialize Bonobo"
 msgstr "Kon BONOBO niet initializeren"
 
@@ -263,19 +296,15 @@ msgstr "Stijl"
 msgid "Align"
 msgstr "Lijn uit"
 
-#: components/html-editor/paragraph.c:157
+#: components/html-editor/paragraph.c:157 components/html-editor/rule.c:256
 msgid "Left"
 msgstr "Links"
 
-#: components/html-editor/paragraph.c:158 components/html-editor/toolbar.c:403
-msgid "Center"
-msgstr "Centreren"
-
-#: components/html-editor/paragraph.c:159
+#: components/html-editor/paragraph.c:159 components/html-editor/rule.c:258
 msgid "Right"
 msgstr "Rechts"
 
-#: components/html-editor/popup.c:197
+#: components/html-editor/popup.c:216
 msgid "Remove link"
 msgstr "Verwijder link"
 
@@ -284,7 +313,7 @@ msgid "Replace confirmation"
 msgstr "Vervang bevestiging"
 
 #: components/html-editor/replace.c:84 components/html-editor/replace.c:146
-#: components/html-editor/replace.c:158 po/tmp/GNOME_GtkHTML_Editor.xml.h:28
+#: components/html-editor/replace.c:158
 msgid "Replace"
 msgstr "Vervang"
 
@@ -308,6 +337,11 @@ msgstr "hoofdletter gevoelig"
 msgid "with"
 msgstr "met"
 
+#: components/html-editor/rule.c:239
+#, fuzzy
+msgid "length"
+msgstr "Lengte"
+
 #: components/html-editor/rule.c:273
 msgid "shaded"
 msgstr ""
@@ -328,124 +362,140 @@ msgstr "Open bestand..."
 msgid "Save file as..."
 msgstr "Bestand opslaan als..."
 
-#: components/html-editor/text.c:180 components/html-editor/toolbar.c:412
+#: components/html-editor/text.c:180 components/html-editor/toolbar.c:434
 msgid "Bold"
 msgstr "Vet"
 
-#: components/html-editor/text.c:181 components/html-editor/toolbar.c:414
+#: components/html-editor/text.c:181 components/html-editor/toolbar.c:436
 msgid "Italic"
 msgstr "Cursief"
 
-#: components/html-editor/text.c:182 components/html-editor/toolbar.c:416
+#: components/html-editor/text.c:182 components/html-editor/toolbar.c:438
 msgid "Underline"
 msgstr "Onderlijnd"
 
-#: components/html-editor/text.c:183 components/html-editor/toolbar.c:418
+#: components/html-editor/text.c:183 components/html-editor/toolbar.c:440
 msgid "Strikeout"
 msgstr "Uitgestreken"
 
-#: components/html-editor/text.c:221 components/html-editor/toolbar.c:210
+#: components/html-editor/text.c:221 components/html-editor/toolbar.c:212
 msgid "Automatic"
 msgstr ""
 
-#: components/html-editor/toolbar.c:48
+#: components/html-editor/toolbar.c:50
 msgid "Normal"
 msgstr "Normaal"
 
-#: components/html-editor/toolbar.c:49
+#: components/html-editor/toolbar.c:51
 msgid "Header 1"
 msgstr "Kop 1"
 
-#: components/html-editor/toolbar.c:50
+#: components/html-editor/toolbar.c:52
 msgid "Header 2"
 msgstr "Kop 2"
 
-#: components/html-editor/toolbar.c:51
+#: components/html-editor/toolbar.c:53
 msgid "Header 3"
 msgstr "Kop 3"
 
-#: components/html-editor/toolbar.c:52
+#: components/html-editor/toolbar.c:54
 msgid "Header 4"
 msgstr "Kop 4"
 
-#: components/html-editor/toolbar.c:53
+#: components/html-editor/toolbar.c:55
 msgid "Header 5"
 msgstr "Kop 5"
 
-#: components/html-editor/toolbar.c:54
+#: components/html-editor/toolbar.c:56
 msgid "Header 6"
 msgstr "Kop 6"
 
-#: components/html-editor/toolbar.c:55
+#: components/html-editor/toolbar.c:57
 msgid "Address"
 msgstr "Adress"
 
-#: components/html-editor/toolbar.c:56
+#: components/html-editor/toolbar.c:58
 msgid "Pre"
 msgstr "Pre"
 
-#: components/html-editor/toolbar.c:57
+#: components/html-editor/toolbar.c:59
 msgid "List item (digit)"
 msgstr "Laat item zien (digit)"
 
-#: components/html-editor/toolbar.c:58
+#: components/html-editor/toolbar.c:60
 msgid "List item (unnumbered)"
 msgstr "Laat item zien (ongenummerd)"
 
-#: components/html-editor/toolbar.c:59
+#: components/html-editor/toolbar.c:61
 msgid "List item (roman)"
 msgstr "Laat item zien (roman)"
 
-#: components/html-editor/toolbar.c:401
+#: components/html-editor/toolbar.c:421
 msgid "Left align"
 msgstr "Links uitlijnen"
 
-#: components/html-editor/toolbar.c:401
-msgid "Left justify paragraphs"
+#: components/html-editor/toolbar.c:421
+#, fuzzy
+msgid "Left justifies the paragraphs"
 msgstr "Links uitgelijnde paragraphen"
 
-#: components/html-editor/toolbar.c:403
-msgid "Centers paragraphs"
-msgstr "Centreer paragraphen"
+#: components/html-editor/toolbar.c:423
+#, fuzzy
+msgid "Centers justifies the paragraphs"
+msgstr "Links uitgelijnde paragraphen"
 
-#: components/html-editor/toolbar.c:405
+#: components/html-editor/toolbar.c:425
 msgid "Right align"
 msgstr "Rechts uitlijnen"
 
-#: components/html-editor/toolbar.c:405
-msgid "Right justify paragraphs"
+#: components/html-editor/toolbar.c:425
+#, fuzzy
+msgid "Right justifies the paragraphs"
 msgstr "Rechts uitgelijnde paragraphen"
 
-#: components/html-editor/toolbar.c:412
-msgid "Sets the bold font"
-msgstr "Zet de vette lettertype"
+#: components/html-editor/toolbar.c:432
+msgid "Typewriter"
+msgstr ""
 
-#: components/html-editor/toolbar.c:414
-msgid "Make the selection italic"
+#: components/html-editor/toolbar.c:432
+msgid "Toggle typewriter font style"
+msgstr ""
+
+#: components/html-editor/toolbar.c:434
+msgid "Makes the text bold"
+msgstr ""
+
+#: components/html-editor/toolbar.c:436
+#, fuzzy
+msgid "Makes the text italic"
 msgstr "Maak de selectie cursief"
 
-#: components/html-editor/toolbar.c:416
-msgid "Make the selection underlined"
-msgstr "Maak the selectie onderlijnd"
+#: components/html-editor/toolbar.c:438
+#, fuzzy
+msgid "Underlines the text"
+msgstr "Onderlijnd"
 
-#: components/html-editor/toolbar.c:418
-msgid "Make the selection striked out"
-msgstr "Maak de selectie uitgestreken"
+#: components/html-editor/toolbar.c:440
+#, fuzzy
+msgid "Strikes out the text"
+msgstr "Uitgestreken"
 
-#: components/html-editor/toolbar.c:427
+#: components/html-editor/toolbar.c:449
 msgid "Unindent"
 msgstr "Geen intrek"
 
-#: components/html-editor/toolbar.c:427
-msgid "Indent paragraphs less"
+#: components/html-editor/toolbar.c:449
+#, fuzzy
+msgid "Indents the paragraphs less"
 msgstr "Trek paragraphen minder in"
 
-#: components/html-editor/toolbar.c:429
+#: components/html-editor/toolbar.c:451
 msgid "Indent"
 msgstr "Intrek"
 
-#: components/html-editor/toolbar.c:429
-msgid "Indent paragraphs more"
+#: components/html-editor/toolbar.c:451
+#, fuzzy
+msgid "Indents the paragraphs more"
 msgstr "Trek paragraphen meer in"
 
 #: components/html-editor/utils.c:104
@@ -460,189 +510,126 @@ msgstr "Print _voorproef"
 msgid "Print preview"
 msgstr "Print voorproef"
 
-#.
-#. * Translatable strings file generated by extract-ui.
-#. * Add this file to your project's POTFILES.in
-#. * DO NOT compile it as part of your application.
-#.
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:7
+#~ msgid "Centers paragraphs"
+#~ msgstr "Centreer paragraphen"
+
+#~ msgid "Sets the bold font"
+#~ msgstr "Zet de vette lettertype"
+
+#~ msgid "Make the selection underlined"
+#~ msgstr "Maak the selectie onderlijnd"
+
+#~ msgid "Make the selection striked out"
+#~ msgstr "Maak de selectie uitgestreken"
+
 #, fuzzy
-msgid "C_ut"
-msgstr "Knip"
+#~ msgid "C_ut"
+#~ msgstr "Knip"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:9
 #, fuzzy
-msgid "Copy selection to clipboard"
-msgstr "Copieer selectie naar het prikbord"
+#~ msgid "Copy selection to clipboard"
+#~ msgstr "Copieer selectie naar het prikbord"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:10
 #, fuzzy
-msgid "Copy the selection"
-msgstr "Plaatjes selectie"
+#~ msgid "Copy the selection"
+#~ msgstr "Plaatjes selectie"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:11
-msgid "Cut"
-msgstr "Knip"
+#~ msgid "Cut"
+#~ msgstr "Knip"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:12
 #, fuzzy
-msgid "Cut selection to clipboard"
-msgstr "Knip selectie naar het prikbord"
+#~ msgid "Cut selection to clipboard"
+#~ msgstr "Knip selectie naar het prikbord"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:13
 #, fuzzy
-msgid "Cut the selection"
-msgstr "Plaatjes selectie"
+#~ msgid "Cut the selection"
+#~ msgstr "Plaatjes selectie"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:14
-msgid "Find"
-msgstr ""
+#~ msgid "Insert HTML link into document..."
+#~ msgstr "Voeg een HTML verwijzing toe aan het document..."
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:15
-msgid "Find Rege_x..."
-msgstr ""
+#~ msgid "Insert image into document..."
+#~ msgstr "Voeg een plaatje toe aan het document..."
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:16
-msgid "Find _Again"
-msgstr ""
+#~ msgid "Insert rule into document..."
+#~ msgstr "Voeg een regel toe aan het document..."
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:17
-msgid "Insert HTML link into document..."
-msgstr "Voeg een HTML verwijzing toe aan het document..."
+#~ msgid "Paste"
+#~ msgstr "Plak selectie naar het prikbord"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:18
-msgid "Insert image into document..."
-msgstr "Voeg een plaatje toe aan het document..."
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:19
-msgid "Insert rule into document..."
-msgstr "Voeg een regel toe aan het document..."
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:20
-msgid "Modify the file's properties"
-msgstr ""
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:21
-msgid "Paste"
-msgstr "Plak selectie naar het prikbord"
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:22
 #, fuzzy
-msgid "Paste from clipboard"
-msgstr "Plak de inhoud naar het prikbord"
+#~ msgid "Paste from clipboard"
+#~ msgstr "Plak de inhoud naar het prikbord"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:23
 #, fuzzy
-msgid "Paste the clipboard"
-msgstr "Plak de inhoud naar het prikbord"
+#~ msgid "Paste the clipboard"
+#~ msgstr "Plak de inhoud naar het prikbord"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:24
-msgid "Redo"
-msgstr "Doe opnieuw"
+#~ msgid "Redo"
+#~ msgstr "Doe opnieuw"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:25
-msgid "Redo previously undoed changes"
-msgstr ""
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:26
 #, fuzzy
-msgid "Redo the undone action"
-msgstr "Doe ongedaan gemaakte editor-operatie opnieuw"
+#~ msgid "Redo the undone action"
+#~ msgstr "Doe ongedaan gemaakte editor-operatie opnieuw"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:27
 #, fuzzy
-msgid "Regular expression search"
-msgstr "Regex zoeken"
+#~ msgid "Regular expression search"
+#~ msgstr "Regex zoeken"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:29
 #, fuzzy
-msgid "Replace a string"
-msgstr "Vervang bevestiging"
+#~ msgid "Replace a string"
+#~ msgstr "Vervang bevestiging"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:30
-msgid "Search again for the same string"
-msgstr ""
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:31
-msgid "Search and replace string"
-msgstr ""
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:32
-msgid "Search for a string"
-msgstr ""
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:33
 #, fuzzy
-msgid "Search string"
-msgstr "Zoeken"
+#~ msgid "Search string"
+#~ msgstr "Zoeken"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:34
-msgid "Undo"
-msgstr "Ongedaan maken"
+#~ msgid "Undo"
+#~ msgstr "Ongedaan maken"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:35
-msgid "Undo previous changes"
-msgstr ""
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:36
 #, fuzzy
-msgid "Undo the last action"
-msgstr "Maak laatste editor-operatie ongedaan"
+#~ msgid "Undo the last action"
+#~ msgstr "Maak laatste editor-operatie ongedaan"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:37
 #, fuzzy
-msgid "_Copy"
-msgstr "Copieer"
+#~ msgid "_Copy"
+#~ msgstr "Copieer"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:38
-msgid "_Edit"
-msgstr ""
-
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:39
 #, fuzzy
-msgid "_Find..."
-msgstr "Verwijzing..."
+#~ msgid "_Find..."
+#~ msgstr "Verwijzing..."
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:40
-msgid "_Image..."
-msgstr "Plaatje..."
+#~ msgid "_Image..."
+#~ msgstr "Plaatje..."
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:41
-msgid "_Insert"
-msgstr "Voeg toe"
+#~ msgid "_Insert"
+#~ msgstr "Voeg toe"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:42
-msgid "_Link..."
-msgstr "Verwijzing..."
+#~ msgid "_Link..."
+#~ msgstr "Verwijzing..."
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:43
 #, fuzzy
-msgid "_Paste"
-msgstr "Plak selectie naar het prikbord"
+#~ msgid "_Paste"
+#~ msgstr "Plak selectie naar het prikbord"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:44
 #, fuzzy
-msgid "_Properties..."
-msgstr "Instellingen"
+#~ msgid "_Properties..."
+#~ msgstr "Instellingen"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:45
 #, fuzzy
-msgid "_Redo"
-msgstr "Doe opnieuw"
+#~ msgid "_Redo"
+#~ msgstr "Doe opnieuw"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:46
 #, fuzzy
-msgid "_Replace..."
-msgstr "Vervang"
+#~ msgid "_Replace..."
+#~ msgstr "Vervang"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:47
-msgid "_Rule..."
-msgstr "_Regel.."
+#~ msgid "_Rule..."
+#~ msgstr "_Regel.."
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:48
 #, fuzzy
-msgid "_Undo"
-msgstr "Ongedaan maken"
+#~ msgid "_Undo"
+#~ msgstr "Ongedaan maken"
 
 #~ msgid "live spell checking"
 #~ msgstr "live spellingscontrole"
@@ -664,12 +651,6 @@ msgstr "Ongedaan maken"
 
 #~ msgid "Insert image"
 #~ msgstr "Voeg een plaatje toe"
-
-#~ msgid "Length"
-#~ msgstr "Lengte"
-
-#~ msgid "Percent"
-#~ msgstr "Percentage"
 
 #~ msgid "Left Align"
 #~ msgstr "Links uitlijnen"
