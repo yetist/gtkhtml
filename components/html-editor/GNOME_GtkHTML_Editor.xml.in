@@ -35,6 +35,7 @@
 			<cmd name="InsertLink"  _label="_Link..." _tip="Insert HTML link into document..."/>
 			<cmd name="InsertRule"  _label="_Rule..." _tip="Insert rule into document..."/>
 			<cmd name="InsertTable" _label="_Table..." _tip="Insert table into document..."/>
+			<cmd name="InsertTemplate" _label="Te_mplate..." _tip="Insert HTML template into document..."/>
 
 		</commands>
 
@@ -70,13 +71,15 @@
                  
 		<submenu name="Insert" _label="_Insert">
 			<placeholder name="Component">
-				<menuitem name="InsertImage" verb="" accel="*Ctrl**Alt*I"
+				<menuitem name="InsertImage" verb=""
                                 pixtype="filename" pixname="@ICONSDIR@/insert-image-16.png"/>
-				<menuitem name="InsertLink"  verb="" accel="*Ctrl**Alt*L"
+				<menuitem name="InsertLink"  verb=""
                                 pixtype="filename" pixname="@ICONSDIR@/insert-link-16.png"/>
-				<menuitem name="InsertRule"  verb="" accel="*Ctrl**Alt*R"
+				<menuitem name="InsertRule"  verb=""
 				pixtype="filename" pixname="@ICONSDIR@/insert-rule-16.png"/>
-				<menuitem name="InsertTable" verb="" accel="*Ctrl**Alt*T"
+				<menuitem name="InsertTable" verb=""
+                                pixtype="filename" pixname="@ICONSDIR@/insert-table-16.png"/>
+				<menuitem name="InsertTemplate" verb=""
                                 pixtype="filename" pixname="@ICONSDIR@/insert-table-16.png"/>
 			</placeholder>
 		</submenu>
@@ -106,6 +109,8 @@
 		<toolitem name="InsertRule" verb="" _label="Rule"
                 pixtype="filename" pixname="@ICONSDIR@/insert-rule-24.png"/>
 		<toolitem name="InsertTable" verb="" _label="Table"
+                pixtype="filename" pixname="@ICONSDIR@/insert-table-24.png"/>
+		<toolitem name="InsertTemplate" verb="" _label="Template"
                 pixtype="filename" pixname="@ICONSDIR@/insert-table-24.png"/>
 	</dockitem>
 </Root>
