@@ -3365,7 +3365,7 @@ html_engine_draw (HTMLEngine *e,
 	if (e->clue)
 		html_object_draw (e->clue,
 				  e->painter,
-				  x - e->x_offset,
+				  x + e->x_offset - e->leftBorder,
 				  y + e->y_offset - e->topBorder,
 				  width,
 				  height,

@@ -1,3 +1,8 @@
+2000-04-18  Larry Ewing  <lewing@helixcode.com>
+
+	* htmlengine.c (html_engine_draw): fix the region we choose to
+	draw on the toplevel clue.
+
 2000-04-18  Radek Doulik  <rodo@helixcode.com>
 
 	* htmltextarea.c (html_textarea_init): like bellow
@@ -76,7 +81,7 @@
 
 2000-04-16  Larry Ewing  <lewing@helixcode.com>
 
-	* testgtkhtml.c (stop_cb): stop the stream handler takes care of
+	* testgtkhtml.c (stop_cb): the stream handler takes care of
 	killing the stream.
 
 	* htmlengine.c (html_engine_select_region): remove small leak.
