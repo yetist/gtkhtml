@@ -1,5 +1,8 @@
 2001-05-31  Larry Ewing  <lewing@ximian.com>
 
+	* htmlframeset.c (html_frameset_init): ugh, fix bug introduced in
+	the reworking.
+
 	* htmlshape.c (html_shape_point): remove silly macros and fix
 	distance macro so that circles actually work.
 

@@ -210,6 +210,8 @@ html_frameset_init (HTMLFrameset *set, GtkHTML *parent, char *rows, char *cols)
 	set->rows = NULL;
 
 	set->cols = g_ptr_array_new ();
+	set->rows = g_ptr_array_new ();
+
 	if (cols == NULL)
 		cols = "100%";
 
