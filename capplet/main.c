@@ -52,22 +52,20 @@ static gchar *home_rcfile;
 static void
 set_ui ()
 {
-	gchar *font_name, *keymap_name;
+	gchar *keymap_name;
 
 	active = FALSE;
 
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (anim_check), actual_prop->animations);
 
-#define SET_FONT(f,s,w) \
-	font_name = g_strdup_printf ("-*-%s-*-*-normal-*-%d-*-*-*-*-*-*-*", \
-						 actual_prop-> ## f, actual_prop-> ## s); \
-	gnome_font_picker_set_font_name (GNOME_FONT_PICKER (w), font_name); \
-	g_free (font_name)
+#define SET_FONT(f,w) \
+        printf ("%s\n", actual_prop-> ## f); \
+	gnome_font_picker_set_font_name (GNOME_FONT_PICKER (w), actual_prop-> ## f);
 
-	SET_FONT (font_var_family,       font_var_size,       variable);
-	SET_FONT (font_fix_family,       font_fix_size,       fixed);
-	SET_FONT (font_var_family_print, font_var_size_print, variable_print);
-	SET_FONT (font_fix_family_print, font_fix_size_print, fixed_print);
+	SET_FONT (font_var,       variable);
+	SET_FONT (font_fix,       fixed);
+	SET_FONT (font_var_print, variable_print);
+	SET_FONT (font_fix_print, fixed_print);
 
 	/* set to current state */
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (magic_check), actual_prop->magic_links);
@@ -118,15 +116,15 @@ apply_fonts ()
 
 #define APPLY(f,s,w) \
 	g_free (actual_prop-> ## f); \
-	actual_prop-> ## f = get_attr (gnome_font_picker_get_font_name (GNOME_FONT_PICKER (w)), 2); \
+	actual_prop-> ## f = g_strdup (gnome_font_picker_get_font_name (GNOME_FONT_PICKER (w))); \
 	size_str = get_attr (gnome_font_picker_get_font_name (GNOME_FONT_PICKER (w)), 7); \
 	actual_prop-> ## s = atoi (size_str); \
 	g_free (size_str)
 
-	APPLY (font_var_family,       font_var_size,       variable);
-	APPLY (font_fix_family,       font_fix_size,       fixed);
-	APPLY (font_var_family_print, font_var_size_print, variable_print);
-	APPLY (font_fix_family_print, font_fix_size_print, fixed_print);
+	APPLY (font_var,       font_var_size,       variable);
+	APPLY (font_fix,       font_fix_size,       fixed);
+	APPLY (font_var_print, font_var_size_print, variable_print);
+	APPLY (font_fix_print, font_fix_size_print, fixed_print);
 }
 
 static void

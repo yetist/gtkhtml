@@ -1,3 +1,7 @@
+2001-01-11  Radek Doulik  <rodo@helixcode.com>
+
+	* main.c: read/store full font name
+
 2000-12-11  Radek Doulik  <rodo@helixcode.com>
 
 	* Makefile.am: added gtkhtml-capplet.glade to EXTRA_DIST
