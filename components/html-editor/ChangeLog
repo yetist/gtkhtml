@@ -1,3 +1,8 @@
+2003-09-03  Dan Winship  <danw@ximian.com>
+
+	* Makefile.am (libgnome_gtkhtml_editor_3_1_la_LDFLAGS): Remove
+	-no-undefined (which is wrong), and add -module.
+
 2003-09-02  Larry Ewing  <lewing@ximian.com>
 
 	* GNOME_GtkHTML_Editor-emacs.xml.in: add file with emacs friendly
