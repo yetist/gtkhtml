@@ -2891,3 +2891,15 @@ html_clueflow_set_item_color (HTMLClueFlow *flow, HTMLColor *color)
 		html_color_ref (color);
 	flow->item_color = color;
 }
+
+gboolean
+html_clueflow_style_equals (HTMLClueFlow *cf1, HTMLClueFlow *cf2)
+{
+	if (!cf1 || !cf2
+	    || !HTML_IS_CLUEFLOW (cf1) || !HTML_IS_CLUEFLOW (cf2)
+	    || cf1->style != cf2->style
+	    || (cf1->style == HTML_CLUEFLOW_STYLE_LIST_ITEM && cf1->item_type != cf2->item_type)
+	    || !is_levels_equal (cf1, cf2))
+		return FALSE;
+	return TRUE;
+}

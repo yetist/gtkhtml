@@ -124,6 +124,8 @@ gint               html_clueflow_get_line_offset              (HTMLClueFlow     
 							       HTMLObject         *child);
 gboolean           html_clueflow_tabs                         (HTMLClueFlow       *flow,
 							       HTMLPainter        *p);
+gboolean           html_clueflow_style_equals                 (HTMLClueFlow       *cf1,
+							       HTMLClueFlow       *cf2);
 
 void               html_clueflow_set_item_color               (HTMLClueFlow       *flow,
 							       HTMLColor          *color);

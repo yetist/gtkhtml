@@ -439,14 +439,17 @@ try_break_this_line (HTMLEngine *e, guint line_offset, guint last_space)
 }
 
 static void
-go_to_begin_of_pre_para (HTMLEngine *e)
+go_to_begin_of_para (HTMLEngine *e)
 {
 	HTMLObject *prev;
 
 	do {
+		gint offset;
 		html_cursor_beginning_of_paragraph (e->cursor, e);
-		prev = html_object_prev_leaf (e->cursor->object);
-		if (prev && html_object_get_length (prev))
+		offset = 0;
+		prev = html_object_prev_cursor (e->cursor->object, &offset);
+		if (prev && !html_object_is_container (prev) && html_object_get_length (prev)
+		    && html_clueflow_style_equals (HTML_CLUEFLOW (e->cursor->object->parent), HTML_CLUEFLOW (prev->parent)))
 			html_cursor_backward (e->cursor, e);
 		else
 			break;
@@ -454,31 +457,35 @@ go_to_begin_of_pre_para (HTMLEngine *e)
 }
 
 void
-html_engine_indent_pre_paragraph (HTMLEngine *e)
+html_engine_indent_paragraph (HTMLEngine *e)
 {
 	guint position;
 	guint line_offset;
 	guint last_space;
 
 	g_assert (e->cursor->object);
-	if (HTML_OBJECT_TYPE (e->cursor->object->parent) != HTML_TYPE_CLUEFLOW
-	    || html_clueflow_get_style (HTML_CLUEFLOW (e->cursor->object->parent)) != HTML_CLUEFLOW_STYLE_PRE)
+	if (!HTML_IS_CLUEFLOW (e->cursor->object->parent))
 		return;
 
 	html_engine_disable_selection (e);
 	position = e->cursor->position;
 
-	html_undo_level_begin (e->undo, "Indent PRE paragraph", "Reverse paragraph indentation");
+	html_undo_level_begin (e->undo, "Indent paragraph", "Reverse paragraph indentation");
 	html_engine_freeze (e);
 
-	go_to_begin_of_pre_para (e);
+	go_to_begin_of_para (e);
 
 	line_offset = 0;
 	last_space  = 0;
 	do {
+		HTMLObject *flow;
+
 		line_offset = try_break_this_line (e, line_offset, last_space);
+		flow = e->cursor->object->parent;
 		if (html_cursor_forward (e->cursor, e)
 		    && e->cursor->offset == 0 && html_object_get_length (e->cursor->object)
+		    && !html_object_is_container (e->cursor->object)
+		    && html_clueflow_style_equals (HTML_CLUEFLOW (e->cursor->object->parent), HTML_CLUEFLOW (flow))
 		    && html_object_prev_not_slave (e->cursor->object) == NULL) {
 			if (line_offset < LINE_LEN - 1) {
 				gunichar prev;

@@ -1,3 +1,25 @@
+2002-10-08  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine.c (parse_l): set flow item color
+
+	* htmlclueflow.c (destroy): unref color
+	(html_clueflow_init): set item_color to NULL
+	(html_clueflow_set_item_color): new method for setting item_color
+	(draw_item): use item color
+	(html_clueflow_style_equals): new method compares two flows,
+	returns TRUE if they have the same style
+
+	* htmlclueflow.h: added item_color
+
+	* htmlgdkpainter.c (font_name_substitute_attr): removed asserts,
+	could return NULL, name could be NULL as well
+	(e_font_from_face): handle NULL from substitute
+
+	* htmlengine-edit.c (html_engine_indent_paragraph): renamed, allow
+	indentation of non PRE paragraphs as well
+	(go_to_begin_of_para): take care of table boundaries
+	(html_engine_indent_paragraph): ditto
+
 2002-09-19  Radek Doulik  <rodo@ximian.com>
 
 	* htmlclueflow.c (get_pre_padding): don't add pre padding for
