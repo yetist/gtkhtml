@@ -1041,7 +1041,7 @@ item_gc (PangoItem *item, GdkDrawable *drawable, GdkGC *orig_gc, gboolean *under
 	}
 
 	return new_gc;
-	}
+}
 
 static gint
 draw_lines (PangoGlyphString *str, gint x, gint y, GdkDrawable *drawable, GdkGC *gc, HTMLTextPangoInfo *pi, gint ii, gboolean underline, gboolean strikethrough)

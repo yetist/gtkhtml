@@ -1,3 +1,7 @@
+2003-10-06  Larry Ewing  <lewing@ximian.com>
+
+	* htmlgdkpainter.c: fixup close bracket placement.
+
 2003-10-02  Larry Ewing  <lewing@ximian.com>
 
 	* htmltext.c (select_range): reset the pango info for all the
