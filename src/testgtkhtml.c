@@ -539,6 +539,9 @@ main (gint argc, gchar *argv[])
 
 	gtk_widget_show_all (app);
 
+	if (argc > 1)
+	  goto_url(argv[1]);
+
 	gtk_main ();
 
 	return 0;
