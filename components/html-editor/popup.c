@@ -349,14 +349,18 @@ insert_html (GtkWidget *mi, GtkHTMLControlData *cd)
 		g_signal_connect (menuitem, "activate", G_CALLBACK (f), cd); \
                 (*items)++; items_sep++
 
-#define ADD_ITEM_SENSITIVE(l,f,t,s) \
-		menuitem = gtk_menu_item_new_with_label (l); \
-                ADD_ITEM_BASE (f,t); \
-                gtk_widget_set_sensitive (menuitem, s);
-
 #define ADD_ITEM(l,f,t) \
 		menuitem = gtk_menu_item_new_with_label (l); \
                 ADD_ITEM_BASE (f,t)
+
+#define ADD_STOCK(i,f) \
+		menuitem = gtk_image_menu_item_new_from_stock (i, NULL); \
+                ADD_ITEM_BASE (f,NONE);
+
+#define ADD_STOCK_SENSITIVE(i,f,s) \
+		menuitem = gtk_image_menu_item_new_from_stock (i, NULL); \
+                ADD_ITEM_BASE (f,NONE); \
+                gtk_widget_set_sensitive (menuitem, s);
 
 #define ADD_SEP \
         if (items_sep) { \
@@ -440,13 +444,13 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items, guint *props)
 	ADD_SEP;
 #endif
 	active = html_engine_is_selection_active (e);
-	ADD_ITEM (_("Undo"), undo, NONE); 
-	ADD_ITEM (_("Redo"), redo, NONE); 
+	ADD_STOCK (GTK_STOCK_UNDO, undo); 
+	ADD_STOCK (GTK_STOCK_REDO, redo); 
 
 	ADD_SEP;
-	ADD_ITEM_SENSITIVE (_("Copy"), copy, NONE, active);
-	ADD_ITEM_SENSITIVE (_("Cut"),  cut, NONE, active);
-	ADD_ITEM (_("Paste"),  paste, NONE);
+	ADD_STOCK_SENSITIVE (GTK_STOCK_CUT,  cut, active);
+	ADD_STOCK_SENSITIVE (GTK_STOCK_COPY, copy, active);
+	ADD_STOCK (GTK_STOCK_PASTE, paste);
 	ADD_ITEM (_("Paste Quotation"),  paste_cite, NONE);
 
 	ADD_SEP;

@@ -1,5 +1,8 @@
 2003-04-03  Larry Ewing  <lewing@ximian.com>
 
+	* popup.c (prepare_properties_and_menu): use stock undo/redo
+	cut/copy/paste.
+
 	* GNOME_GtkHTML_Editor.xml.in: use stock icons.
 
 	* Makefile.am: fix spell idl depends.
