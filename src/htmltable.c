@@ -175,8 +175,8 @@ op_copy (HTMLObject *self, HTMLObject *parent, HTMLEngine *e, GList *from, GList
 	t  = HTML_TABLE (self);
 	nt = g_new0 (HTMLTable, 1);
 
-	start = HTML_TABLE_CELL (from ? from->data : html_object_head (self));
-	end   = HTML_TABLE_CELL (to   ? to->data   : html_object_tail (self));
+	start = HTML_TABLE_CELL ((from && from->next) ? from->data : html_object_head (self));
+	end   = HTML_TABLE_CELL ((to && to->next)     ? to->data   : html_object_tail (self));
 	rows  = end->row - start->row + 1;
 	cols  = end->row == start->row ? end->col - start->col + 1 : t->totalCols;
 
@@ -1793,25 +1793,47 @@ check_point (HTMLObject *self,
 	HTMLTableCell *cell;
 	HTMLObject *obj;
 	HTMLTable *table;
-	gint r, c, start_row, end_row, start_col, end_col;
+	gint r, c, start_row, end_row, start_col, end_col, hsb, hsa, tbc;
 
 	if (x < self->x || x >= self->x + self->width
 	    || y >= self->y + self->descent || y < self->y - self->ascent)
 		return NULL;
-	
-	table = HTML_TABLE (self);
 
-	if (!table->rowHeights->data || !table->columnOpt->data) {
-		g_warning ("HTMLTable::get_point called before HTMLTable::calc_size");
-		return NULL;
+	table = HTML_TABLE (self);
+	hsb = table->spacing >> 1;
+	hsa = hsb + (table->spacing & 1);
+	tbc = table->border ? 1 : 0;
+
+	if (for_cursor) {
+		/* table boundaries */
+		if (x == self->x || x == self->x + self->width - 1) {
+			if (offset_return)
+				*offset_return = x == self->x ? 0 : 1;
+			return self;
+		}
+
+		/* border */
+		if (x < self->x + table->border + hsb || y < self->y - self->ascent + table->border + hsb) {
+			if (offset_return)
+				*offset_return = 0;
+			return self;
+		}
+		if (x > self->x + self->width - table->border - hsa || y > self->y + self->descent - table->border - hsa) {
+			if (offset_return)
+				*offset_return = 1;
+			return self;
+		}
 	}
-	
+
 	x -= self->x;
 	y -= self->y - self->ascent;
 
 	get_bounds (table, x, y, 0, 0, &start_col, &end_col, &start_row, &end_row);
 	for (r = start_row; r <= end_row; r++) {
 		for (c = 0; c < table->totalCols; c++) {
+			HTMLObject *co;
+			gint cx, cy;
+
 			cell = table->cells[r][c];
 			if (cell == NULL)
 				continue;
@@ -1821,45 +1843,22 @@ check_point (HTMLObject *self,
 			if (r < end_row - 1 && table->cells[r+1][c] == cell)
 				continue;
 
-			obj = html_object_check_point (HTML_OBJECT (cell), painter, x, y, offset_return, for_cursor);
+			/* correct to include cell spacing */
+			co = HTML_OBJECT (cell);
+			cx = x;
+			cy = y;
+			if (x < co->x && x >= co->x - hsa - tbc)
+				cx = co->x;
+			if (x >= co->x + co->width && x < co->x + co->width + hsb + tbc)
+				cx = co->x + co->width - 1;
+			if (y < co->y - co->ascent && y >= co->y - co->ascent - hsa - tbc)
+				cy = co->y - co->ascent;
+			if (y >= co->y + co->descent && y < co->y + co->descent + hsb + tbc)
+				cy = co->y + co->descent - 1;
+
+			obj = html_object_check_point (HTML_OBJECT (cell), painter, cx, cy, offset_return, for_cursor);
 			if (obj != NULL)
 				return obj;
-		}
-	}
-
-	if (for_cursor) {
-
-		/* check before */
-		for (c=0; c<table->totalCols; c++)
-			if (table->cells [start_row][c])
-				break;
-		if (c < table->totalCols && table->cells [start_row][c]) {
-			cell = table->cells [start_row][c];
-			if (x < HTML_OBJECT (cell)->x || y < HTML_OBJECT (cell)->y - HTML_OBJECT (cell)->ascent) {
-				obj = html_object_check_point (HTML_OBJECT (cell), painter,
-							       HTML_OBJECT (cell)->x,
-							       HTML_OBJECT (cell)->y - HTML_OBJECT (cell)->ascent,
-							       offset_return, for_cursor);
-				if (obj)
-					return obj;
-			}
-		}
-
-		/* check after */
-		for (c=table->totalCols - 1; c >= 0; c--)
-			if (table->cells [start_row][c])
-				break;
-		if (c >=0 && table->cells [start_row][c]) {
-			cell = table->cells [start_row][c];
-			if (x > HTML_OBJECT (cell)->x + HTML_OBJECT (cell)->width - 1
-			    || y > HTML_OBJECT (cell)->y + HTML_OBJECT (cell)->descent - 1) {
-				obj = html_object_check_point (HTML_OBJECT (cell), painter,
-							       HTML_OBJECT (cell)->x + HTML_OBJECT (cell)->width - 1,
-							       HTML_OBJECT (cell)->y + HTML_OBJECT (cell)->descent - 1,
-							       offset_return, for_cursor);
-				if (obj)
-					return obj;
-			}
 		}
 	}
 
