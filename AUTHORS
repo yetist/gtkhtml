@@ -1,12 +1,19 @@
-Authors:
+Based on the KHTMLW widget from KDE 1.x by:
 
-Anders Carlsson <andersca@gnu.org>
-Ettore Perazzoli <ettore@helixcode.com>
-Jonas Borgström <jonas_b@bitsmart.com>
-Richard Hult <rhult@hem2.passagen.se>
+	Torben Weis <weis@stud.uni-frankfurt.de>
+	Josip A. Gracin <grac@fly.cc.fer.hr>
+	Martin Jones <mjones@kde.org>
 
-Based on the khtmlw widget from KDE 1.x by
+Main authors:
 
-Torben Weis <weis@stud.uni-frankfurt.de>
-Josip A. Gracin <grac@fly.cc.fer.hr>
-Martin Jones <mjones@kde.org>
+	Anders Carlsson <andersca@gnu.org>
+	Ettore Perazzoli <ettore@helixcode.com>
+	Miguel de Icaza <miguel@helixcode.com>
+	Richard Hult <rhult@hem2.passagen.se>
+
+Other contributors:
+
+	Jonas Borgström <jonas_b@bitsmart.com>
+	Ariel Rios <jarios@usa.net>
+	Havoc Pennington  <hp@pobox.com>
+	Elliot Lee  <sopwith@redhat.com>
