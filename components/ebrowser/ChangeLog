@@ -1,3 +1,7 @@
+2001-03-29  Fatih Demir <kabalak@gtranslator.org>
+
+	* .cvsignore: Ignore the generated .oaf file.
+
 2001-03-18  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* Makefile.am: Hook up the xml-i18n-tools stuff for .oaf.in.
