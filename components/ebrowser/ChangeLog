@@ -1,3 +1,9 @@
+2000-10-25  Joe Shaw  <joe@helixcode.com>
+
+        * ebrowser.c (ebrowser_factory): bonobo_object_add_interface the
+        property bag to the control so we can QI the PropertyBag interace
+        on the control.
+
 2000-10-25  Miguel de Icaza  <miguel@helixcode.com>
 
 	* test.c (main): Make enter also trigger a submit.

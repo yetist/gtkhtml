@@ -235,6 +235,8 @@ ebrowser_factory (BonoboGenericFactory * factory, void * closure)
 				 "Whether to send HTML FORM data", 0);
 	bonobo_property_bag_add (pbag, "default_font", ARG_DEFAULT_FONT, BONOBO_ARG_STRING, NULL,
 				 "Whether to send HTML FORM data", 0);
+	bonobo_object_add_interface(BONOBO_OBJECT(control), 
+				    BONOBO_OBJECT(pbag));
 
 	gtk_signal_connect (GTK_OBJECT (browser), "url_set",
 			    GTK_SIGNAL_FUNC (browser_url_set), pbag);
