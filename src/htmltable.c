@@ -303,7 +303,7 @@ cut_partial (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *lef
 			}
 		}
 	(*len) ++;
-	shrink = start_row == 0 && end_row == t->totalRows - 1;
+	shrink = start_row == 0 && end_row == t->totalRows - 1 && start_col != end_col;
 	/* move remaining cells in old table */
 	if (start_col > end_col)
 		start_row ++;
