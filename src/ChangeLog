@@ -1,5 +1,10 @@
 1999-12-15  Havoc Pennington  <hp@redhat.com>
 
+	* gtkhtml.c (gtk_html_realize): Add button press/release to the
+	event mask so we get link clicks
+
+1999-12-15  Havoc Pennington  <hp@redhat.com>
+
 	* htmlurl.c (html_url_new): put in a phony path if we return
 	because the path string has length 0
 

@@ -364,6 +364,7 @@ gtk_html_realize (GtkWidget *widget)
 	gdk_window_set_events (html->layout.bin_window,
 			       (gdk_window_get_events (html->layout.bin_window)
 				| GDK_EXPOSURE_MASK | GDK_POINTER_MOTION_MASK
+				| GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK
 				| GDK_KEY_PRESS_MASK | GDK_KEY_RELEASE_MASK));
 
 	html_settings_set_bgcolor (html->engine->settings, 
