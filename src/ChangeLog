@@ -1,3 +1,18 @@
+2005-01-28  Radek Doulik  <rodo@ximian.com>
+
+	* test-suite.c: added more tests, cursor movement on lines
+	boundaries (for RTL as well), capitalize/upcase/lowcase test
+	added simple test groups
+
+	* htmlengine-edit-text.c (html_engine_capitalize_word): refactored
+	to remove unneeded variable
+
+	* Makefile.am (test-memcheck): added test-memcheck rule to run
+	regression test suite with valgrind's memcheck tool
+
+	* htmlengine-edit-text.c (find_first): use unichar instead of char
+	(html_engine_capitalize_word): use unichar instead of char
+
 2005-01-27  Radek Doulik  <rodo@ximian.com>
 
 	* htmltablecell.c (calc_min_width): use preffered width if nowrap

@@ -255,3 +255,7 @@ test:	test-suite
 
 test-verbose:	test-suite
 	./test-suite
+
+test-memcheck:	test-suite
+	./test-suite > /dev/null 2>&1 # 1st run to make sure .libs/lt-test-suite is available
+	valgrind --num-callers=64 --tool=memcheck --run-libc-freeres=no --alignment=8 --db-attach=no .libs/lt-test-suite

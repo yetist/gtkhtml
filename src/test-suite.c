@@ -9,6 +9,8 @@
 #include "htmlcursor.h"
 #include "htmlengine.h"
 #include "htmlengine-edit-movement.h"
+#include "htmlengine-edit-text.h"
+#include "htmltext.h"
 
 typedef struct {
 	char *name;
@@ -17,14 +19,23 @@ typedef struct {
 
 static int test_cursor_beol (GtkHTML *html);
 static int test_cursor_beol_rtl (GtkHTML *html);
-static int test_quotes_in_div_block (GtkHTML *html);
 static int test_cursor_left_right_on_items_boundaries (GtkHTML *html);
+static int test_cursor_left_right_on_lines_boundaries (GtkHTML *html);
+static int test_cursor_left_right_on_lines_boundaries_rtl (GtkHTML *html);
+
+static int test_quotes_in_div_block (GtkHTML *html);
+static int test_capitalize_upcase_lowcase_word (GtkHTML *html);
 
 static Test tests[] = {
-	{ "cursor left/right on items boundaries", test_cursor_left_right_on_items_boundaries },
-	{ "cursor begin/end of line", test_cursor_beol },
-	{ "cursor begin/end of line (RTL)", test_cursor_beol_rtl },
+	{ "cursor movement", NULL },
+	{ "left/right on items boundaries", test_cursor_left_right_on_items_boundaries },
+	{ "left/right on lines boundaries", test_cursor_left_right_on_lines_boundaries },
+	{ "left/right on lines boundaries (RTL)", test_cursor_left_right_on_lines_boundaries_rtl },
+	{ "begin/end of line", test_cursor_beol },
+	{ "begin/end of line (RTL)", test_cursor_beol_rtl },
+	{ "various fixed bugs", NULL },
 	{ "outer quotes inside div block", test_quotes_in_div_block },
+	{ "capitalize, upcase/lowcase word", test_capitalize_upcase_lowcase_word },
 	{ NULL, NULL }
 };
 
@@ -86,6 +97,68 @@ static int test_cursor_left_right_on_items_boundaries (GtkHTML *html)
 		return FALSE;
 
 	printf ("test_cursor_left_right_on_items_boundaries: passed\n");
+
+	return TRUE;
+}
+
+static int test_cursor_left_right_on_lines_boundaries (GtkHTML *html)
+{
+	load_editable (html, "<pre>first line\nsecond line\nthird line");
+
+	html_cursor_jump_to_position (html->engine->cursor, html->engine, 11);
+	if (html->engine->cursor->offset != 0
+	    || html->engine->cursor->position != 11
+	    || !html_cursor_left (html->engine->cursor, html->engine)
+	    || html->engine->cursor->offset != 10
+	    || html->engine->cursor->position != 10
+	    || !html_cursor_right (html->engine->cursor, html->engine)
+	    || html->engine->cursor->offset != 0
+	    || html->engine->cursor->position != 11)
+		return FALSE;
+
+	html_cursor_jump_to_position (html->engine->cursor, html->engine, 22);
+	if (html->engine->cursor->offset != 11
+	    || html->engine->cursor->position != 22
+	    || !html_cursor_right (html->engine->cursor, html->engine)
+	    || html->engine->cursor->offset != 0
+	    || html->engine->cursor->position != 23
+	    || !html_cursor_left (html->engine->cursor, html->engine)
+	    || html->engine->cursor->offset != 11
+	    || html->engine->cursor->position != 22)
+		return FALSE;
+
+	printf ("test_cursor_left_right_on_lines_boundaries: passed\n");
+
+	return TRUE;
+}
+
+static int test_cursor_left_right_on_lines_boundaries_rtl (GtkHTML *html)
+{
+	load_editable (html, "<pre>أوروبا, برمجيات الحاسوب + انترنيت :\nتصبح عالميا مع يونيكود\nأوروبا, برمجيات الحاسوب + انترنيت :");
+
+	html_cursor_jump_to_position (html->engine->cursor, html->engine, 36);
+	if (html->engine->cursor->offset != 0
+	    || html->engine->cursor->position != 36
+	    || !html_cursor_right (html->engine->cursor, html->engine)
+	    || html->engine->cursor->offset != 35
+	    || html->engine->cursor->position != 35
+	    || !html_cursor_left (html->engine->cursor, html->engine)
+	    || html->engine->cursor->offset != 0
+	    || html->engine->cursor->position != 36)
+		return FALSE;
+
+	html_cursor_jump_to_position (html->engine->cursor, html->engine, 58);
+	if (html->engine->cursor->offset != 22
+	    || html->engine->cursor->position != 58
+	    || !html_cursor_left (html->engine->cursor, html->engine)
+	    || html->engine->cursor->offset != 0
+	    || html->engine->cursor->position != 59
+	    || !html_cursor_right (html->engine->cursor, html->engine)
+	    || html->engine->cursor->offset != 22
+	    || html->engine->cursor->position != 58)
+		return FALSE;
+
+	printf ("test_cursor_left_right_on_lines_boundaries_rtl: passed\n");
 
 	return TRUE;
 }
@@ -197,6 +270,69 @@ test_quotes_in_div_block (GtkHTML *html)
 	return TRUE;
 }
 
+static int
+test_capitalize_upcase_lowcase_word (GtkHTML *html)
+{
+	HTMLObject *text_object;
+
+	load_editable (html, "<pre>příliš běloučký kůň skákal přes pole sedmikrásek");
+
+	html_engine_capitalize_word (html->engine);
+	html_engine_capitalize_word (html->engine);
+	html_engine_capitalize_word (html->engine);
+	html_engine_capitalize_word (html->engine);
+	html_engine_capitalize_word (html->engine);
+	html_engine_capitalize_word (html->engine);
+	html_engine_capitalize_word (html->engine);
+	html_engine_thaw_idle_flush (html->engine);
+
+	text_object = html_object_get_head_leaf (html->engine->clue);
+	if (!text_object || !HTML_IS_TEXT (text_object) || strcmp (HTML_TEXT (text_object)->text, "Příliš Běloučký Kůň Skákal Přes Pole Sedmikrásek"))
+		return FALSE;
+
+	printf ("test_capitalize_upcase_lowcase_word: capitalize OK\n");
+
+	if (!html_engine_beginning_of_line (html->engine))
+		return FALSE;
+
+	html_engine_upcase_downcase_word (html->engine, TRUE);
+	html_engine_upcase_downcase_word (html->engine, TRUE);
+	html_engine_upcase_downcase_word (html->engine, TRUE);
+	html_engine_upcase_downcase_word (html->engine, TRUE);
+	html_engine_upcase_downcase_word (html->engine, TRUE);
+	html_engine_upcase_downcase_word (html->engine, TRUE);
+	html_engine_upcase_downcase_word (html->engine, TRUE);
+	html_engine_thaw_idle_flush (html->engine);
+
+	text_object = html_object_get_head_leaf (html->engine->clue);
+	if (!text_object || !HTML_IS_TEXT (text_object) || strcmp (HTML_TEXT (text_object)->text, "PŘÍLIŠ BĚLOUČKÝ KŮŇ SKÁKAL PŘES POLE SEDMIKRÁSEK"))
+		return FALSE;
+
+	printf ("test_capitalize_upcase_lowcase_word: upper OK\n");
+
+	if (!html_engine_beginning_of_line (html->engine))
+		return FALSE;
+
+	html_engine_upcase_downcase_word (html->engine, FALSE);
+	html_engine_upcase_downcase_word (html->engine, FALSE);
+	html_engine_upcase_downcase_word (html->engine, FALSE);
+	html_engine_upcase_downcase_word (html->engine, FALSE);
+	html_engine_upcase_downcase_word (html->engine, FALSE);
+	html_engine_upcase_downcase_word (html->engine, FALSE);
+	html_engine_upcase_downcase_word (html->engine, FALSE);
+	html_engine_thaw_idle_flush (html->engine);
+
+	text_object = html_object_get_head_leaf (html->engine->clue);
+	if (!text_object || !HTML_IS_TEXT (text_object) || strcmp (HTML_TEXT (text_object)->text, "příliš běloučký kůň skákal přes pole sedmikrásek"))
+		return FALSE;
+
+	printf ("test_capitalize_upcase_lowcase_word: lower OK\n");
+
+	printf ("test_capitalize_upcase_lowcase_word: passed\n");
+
+	return TRUE;
+}
+
 int main (int argc, char *argv[])
 {
 	GtkWidget *win, *html_widget;
@@ -221,15 +357,19 @@ int main (int argc, char *argv[])
 	for (i = 0; tests [i].name; i ++) {
 		int j, result;
 
-		fprintf (stderr, "running test '%s'", tests [i].name);
-		for (j = strlen (tests [i].name); j < 58; j ++)
-			fputc ('.', stderr);
-		result = (*tests [i].test_function) (html);
-		fprintf (stderr, " %s\n", result ? "passed" : "failed");
+		if (tests [i].test_function) {
+			fprintf (stderr, "  %s ", tests [i].name);
+			for (j = strlen (tests [i].name); j < 69; j ++)
+				fputc ('.', stderr);
+			result = (*tests [i].test_function) (html);
+			fprintf (stderr, " %s\n", result ? "passed" : "failed");
 
-		n_all ++;
-		if (result)
-			n_successful ++;
+			n_all ++;
+			if (result)
+				n_successful ++;
+		} else {
+			fprintf (stderr, "* %s\n", tests [i].name);
+		}
 	}
 
 	fprintf (stderr, "--------------------------------------------------------------------------------\n");

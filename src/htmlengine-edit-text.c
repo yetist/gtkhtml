@@ -37,7 +37,7 @@
 static gboolean
 find_first (HTMLEngine *e)
 {
-	guchar c;
+	gunichar c;
 
 	c = html_cursor_get_current_char (e->cursor);
 	while (c == 0 || ! g_unichar_isalnum (c) || c == ' ') {
@@ -68,8 +68,6 @@ void
 html_engine_capitalize_word (HTMLEngine *e)
 {
 	if (find_first (e)) {
-		guchar c;
-
 		html_undo_level_begin (e->undo, "Capitalize word", "Revert word capitalize");
 		html_engine_set_mark (e);
 		html_cursor_forward (e->cursor, e);
@@ -77,8 +75,7 @@ html_engine_capitalize_word (HTMLEngine *e)
 					   upper_lower, GINT_TO_POINTER (TRUE));
 		html_engine_disable_selection (e);
 
-		c = html_cursor_get_current_char (e->cursor);
-		if (g_unichar_isalnum (c)) {
+		if (g_unichar_isalnum (html_cursor_get_current_char (e->cursor))) {
 			html_engine_set_mark (e);
 			html_engine_forward_word (e);
 			html_engine_cut_and_paste (e, "down rest", "revert down rest",
