@@ -1,10 +1,12 @@
+2000-01-02  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine.c (parse_l): Do not use `indentSize' anymore -- just
+	use `listLevel'.
+
 2000-01-02  Jonas Borgström <jonas_b@bitsmart.com>
 
 	* htmlengine.c (parse_input): Added more support for <input> tag
 	
-	Ettore: http://www.slashdot.org/ looks bad, but I don't think it
-	is because of the forms.
-
 	* htmlbutton.[ch] : new files, button form element.
 
 	* htmltextinput.[ch]: New files, textinput form element.

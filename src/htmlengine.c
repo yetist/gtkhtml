@@ -2048,14 +2048,12 @@ parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		HTMLListNumType listNumType;
 		gint listLevel;
 		gint itemNumber;
-		gint indentSize;
 
 		listType = HTML_LIST_TYPE_UNORDERED;
 		listNumType = HTML_LIST_NUM_TYPE_NUMERIC;
 
 		listLevel = 1;
 		itemNumber = 1;
-		indentSize = 30;
 
 		close_anchor (p);
 
@@ -2069,12 +2067,11 @@ parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 			itemNumber = top->itemNumber;
 
 			listLevel = html_stack_count (p->listStack);
-
-			indentSize = p->indent;
 		}
 		
 		p->flow = html_clueflow_new (html_engine_get_current_font (p),
-					     HTML_CLUEFLOW_STYLE_ITEMDOTTED, indentSize);
+					     HTML_CLUEFLOW_STYLE_ITEMDOTTED,
+					     listLevel);
 		html_clue_append (HTML_CLUE (clue), p->flow);
 
 		if (! html_stack_is_empty (p->listStack)) {
