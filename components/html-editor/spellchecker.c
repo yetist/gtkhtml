@@ -39,7 +39,7 @@ typedef struct _SpellPopup SpellPopup;
 static void
 destroy (GtkWidget *w, SpellPopup *sp)
 {
-	printf ("destroy popup\n");
+	/* printf ("destroy popup\n"); */
 
 	if (sp->replace) {
 		gchar *replacement;
@@ -47,7 +47,7 @@ destroy (GtkWidget *w, SpellPopup *sp)
 		gtk_clist_get_text (GTK_CLIST (sp->clist),
 				    GPOINTER_TO_INT (GTK_CLIST (sp->clist)->selection->data), 0, &replacement);
 		html_engine_replace_word_with (sp->cd->html->engine, replacement);
-		printf ("replace: %s with: %s\n", sp->misspeled_word, replacement);
+		/* printf ("replace: %s with: %s\n", sp->misspeled_word, replacement); */
 		pspell_manager_store_replacement (sp->spell_checker, sp->misspeled_word, replacement);
 	}
 
@@ -85,7 +85,7 @@ spell_suggestion_request_cb (GtkHTML *html,  PspellManager *spell_checker, gchar
 	GtkWidget *frame;
 	gint x, y, xw, yw;
 
-	printf ("spell_suggestion_request_cb %s\n", word);
+	/* printf ("spell_suggestion_request_cb %s\n", word); */
 
 	sp->cd = cd;
 	sp->replace = FALSE;
@@ -104,10 +104,8 @@ spell_suggestion_request_cb (GtkHTML *html,  PspellManager *spell_checker, gchar
 
 	suggestions = pspell_manager_suggest (spell_checker, word);
 	elements    = pspell_word_list_elements (suggestions);
-	while ((suggested_word [0] = pspell_string_emulation_next (elements))) {
-		printf ("suggestion: %s\n", suggested_word [0]);
+	while ((suggested_word [0] = pspell_string_emulation_next (elements)))
 		gtk_clist_append (GTK_CLIST (sp->clist), (gchar **) suggested_word);
-	}
 	delete_pspell_string_emulation (elements);
 
 	gtk_widget_set_usize (sp->window, gtk_clist_columns_autosize (GTK_CLIST (sp->clist)) + 40, 200);
@@ -118,10 +116,10 @@ spell_suggestion_request_cb (GtkHTML *html,  PspellManager *spell_checker, gchar
 
 	gdk_window_get_origin (GTK_WIDGET (html)->window, &xw, &yw);
 	html_object_get_cursor_base (e->cursor->object, e->painter, e->cursor->offset, &x, &y);
-	printf ("x: %d y: %d\n", x, y);
+	/* printf ("x: %d y: %d\n", x, y); */
 	x += xw + e->leftBorder + 5;
 	y += yw + e->cursor->object->ascent + e->cursor->object->descent + e->topBorder + 4;
-	printf ("x: %d y: %d\n", x, y);
+	/* printf ("x: %d y: %d\n", x, y); */
 
 	gtk_signal_connect (GTK_OBJECT (sp->window),   "key_press_event", key_press_event, sp);
 	gtk_signal_connect (GTK_OBJECT (sp->window),   "destroy",         destroy, sp);

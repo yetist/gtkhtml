@@ -4446,7 +4446,7 @@ html_engine_word_is_valid (HTMLEngine *e)
 		cur = cur->next;
 	}
 
-	printf ("is_valid: %d\n", valid);
+	/* printf ("is_valid: %d\n", valid); */
 
 	return valid;
 }
