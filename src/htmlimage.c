@@ -54,11 +54,6 @@ struct _HTMLImageFactory {
 
 #define DEFAULT_SIZE 48
 
-#if 1
-#define gdk_pixbuf_animation_get_width animation_actual_width
-#define gdk_pixbuf_animation_get_height animation_actual_height
-#endif
-
 
 HTMLImageClass html_image_class;
 static HTMLObjectClass *parent_class = NULL;
@@ -70,45 +65,6 @@ static void                html_image_pointer_destroy   (HTMLImagePointer *ip);
 
 static void render_cur_frame (HTMLImage *image, gint nx, gint ny, const GdkColor *highlight_color);
 
-
-/* FIXME these will be replaced with the proper functions from gdk-pixbuf soon */
-static gint
-animation_actual_height (GdkPixbufAnimation *ganim) 
-{
-	GdkPixbufFrame    *frame;
-	GList *cur = gdk_pixbuf_animation_get_frames (ganim);
-	gint h = 0, nh;
-
-	while (cur) {
-		frame = (GdkPixbufFrame *) cur->data;
-
-		nh = gdk_pixbuf_get_height (gdk_pixbuf_frame_get_pixbuf (frame))
-			+ gdk_pixbuf_frame_get_y_offset (frame);
-		h = MAX (h, nh);
-		cur = cur->next;
-	}
-
-	return h;
-}
-
-static gint
-animation_actual_width (GdkPixbufAnimation *ganim) 
-{
-	GdkPixbufFrame    *frame;
-	GList *cur = gdk_pixbuf_animation_get_frames (ganim);
-	gint w = 0, nw;
-
-	while (cur) {
-		frame = (GdkPixbufFrame *) cur->data;
-
-		nw = gdk_pixbuf_get_width (gdk_pixbuf_frame_get_pixbuf (frame))
-			+ gdk_pixbuf_frame_get_x_offset (frame);
-		w = MAX (w, nw);
-		cur = cur->next;
-	}
-
-	return w;
-}
 
 static guint
 get_actual_width (HTMLImage *image,
@@ -566,6 +522,9 @@ html_image_init (HTMLImage *image,
 		image->color = color;
 		image->have_color = TRUE;
 		html_color_ref (color);
+	} else {
+		image->color = NULL;
+		image->have_color = FALSE;
 	}
 
 	image->animation = NULL;

@@ -1,3 +1,11 @@
+2000-06-28  Larry Ewing  <lewing@helixcode.com>
+
+	* htmlimage.c (html_image_init): initialize some important
+	variables properly.
+	Remove the work around for animation sizes, gtkhtml now will
+	require gdk-pixbuf 0.9 or later to funtion properly for animated
+	gifs.
+
 2000-06-28  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlengine.c (html_engine_unselect_all): reset shift_selection
