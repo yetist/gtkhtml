@@ -84,6 +84,8 @@ gboolean                   html_engine_next_cell                   (HTMLEngine  
 gboolean                   html_engine_prev_cell                   (HTMLEngine                *e);
 void                       html_engine_set_title                   (HTMLEngine                *e,
 								    const gchar               *title);
+int                        html_engine_get_insert_level_for_object (HTMLEngine                *e,
+								    HTMLObject                *o);
 void html_engine_edit_set_direction (HTMLEngine *e,
 				     HTMLDirection dir);
 /*

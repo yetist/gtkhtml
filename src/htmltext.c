@@ -2448,13 +2448,13 @@ html_text_get_slave_at_offset (HTMLText *text, HTMLTextSlave *start, int offset)
 }
 
 static gboolean
-html_text_cursor_prev_slave (HTMLObject *slave, HTMLCursor *cursor)
+html_text_cursor_prev_slave (HTMLObject *slave, HTMLPainter *painter, HTMLCursor *cursor)
 {
 	HTMLObject *prev = HTML_OBJECT (slave)->prev;
 	int offset = cursor->offset;
 
 	if (prev && HTML_IS_TEXT_SLAVE (prev)) {
-		if (html_text_slave_cursor_tail (HTML_TEXT_SLAVE (prev), cursor)) {
+		if (html_text_slave_cursor_tail (HTML_TEXT_SLAVE (prev), cursor, painter)) {
 			cursor->position += cursor->offset - offset;
 			return TRUE;
 		}
@@ -2464,13 +2464,13 @@ html_text_cursor_prev_slave (HTMLObject *slave, HTMLCursor *cursor)
 }
 
 static gboolean
-html_text_cursor_next_slave (HTMLObject *slave, HTMLCursor *cursor)
+html_text_cursor_next_slave (HTMLObject *slave, HTMLPainter *painter, HTMLCursor *cursor)
 {
 	HTMLObject *next = slave->next;
 	int offset = cursor->offset;
 
 	if (next && HTML_IS_TEXT_SLAVE (next)) {
-		if (html_text_slave_cursor_head (HTML_TEXT_SLAVE (next), cursor)) {
+		if (html_text_slave_cursor_head (HTML_TEXT_SLAVE (next), cursor, painter)) {
 			cursor->position += cursor->offset - offset;
 			return TRUE;
 		}
@@ -2480,7 +2480,7 @@ html_text_cursor_next_slave (HTMLObject *slave, HTMLCursor *cursor)
 }
 
 static gboolean
-html_text_cursor_right (HTMLObject *self, HTMLCursor *cursor)
+html_text_cursor_right (HTMLObject *self, HTMLPainter *painter, HTMLCursor *cursor)
 {
 	HTMLTextSlave *slave;
 
@@ -2490,14 +2490,14 @@ html_text_cursor_right (HTMLObject *self, HTMLCursor *cursor)
 	slave = html_text_get_slave_at_offset (HTML_TEXT (self), NULL, cursor->offset);
 
 	if (slave) {
-		if (html_text_slave_cursor_right (slave, cursor))
+		if (html_text_slave_cursor_right (slave, painter, cursor))
 			return TRUE;
 		else {
 			if (self->parent) {
 				if (html_object_get_direction (self->parent) == HTML_DIRECTION_RTL)
-					return html_text_cursor_prev_slave (HTML_OBJECT (slave), cursor);
+					return html_text_cursor_prev_slave (HTML_OBJECT (slave), painter, cursor);
 				else
-					return html_text_cursor_next_slave (HTML_OBJECT (slave), cursor);
+					return html_text_cursor_next_slave (HTML_OBJECT (slave), painter, cursor);
 			}
 		}
 	}
@@ -2506,7 +2506,7 @@ html_text_cursor_right (HTMLObject *self, HTMLCursor *cursor)
 }
 
 static gboolean
-html_text_cursor_left (HTMLObject *self, HTMLCursor *cursor)
+html_text_cursor_left (HTMLObject *self, HTMLPainter *painter, HTMLCursor *cursor)
 {
 	HTMLTextSlave *slave;
 
@@ -2516,14 +2516,14 @@ html_text_cursor_left (HTMLObject *self, HTMLCursor *cursor)
 	slave = html_text_get_slave_at_offset (HTML_TEXT (self), NULL, cursor->offset);
 
 	if (slave) {
-		if (html_text_slave_cursor_left (slave, cursor))
+		if (html_text_slave_cursor_left (slave, painter, cursor))
 			return TRUE;
 		else {
 			if (self->parent) {
 				if (html_object_get_direction (self->parent) == HTML_DIRECTION_RTL)
-					return html_text_cursor_next_slave (HTML_OBJECT (slave), cursor);
+					return html_text_cursor_next_slave (HTML_OBJECT (slave), painter, cursor);
 				else
-					return html_text_cursor_prev_slave (HTML_OBJECT (slave), cursor);
+					return html_text_cursor_prev_slave (HTML_OBJECT (slave), painter, cursor);
 			}
 		}
 	}
@@ -2532,12 +2532,12 @@ html_text_cursor_left (HTMLObject *self, HTMLCursor *cursor)
 }
 
 static int
-html_text_get_right_edge_offset (HTMLObject *o, int offset)
+html_text_get_right_edge_offset (HTMLObject *o, HTMLPainter *painter, int offset)
 {
 	HTMLTextSlave *slave = html_text_get_slave_at_offset (HTML_TEXT (o), NULL, offset);
 
 	if (slave) {
-		return html_text_slave_get_right_edge_offset (slave);
+		return html_text_slave_get_right_edge_offset (slave, painter);
 	} else {
 		g_warning ("getting right edge offset from text object without slave(s)");
 
@@ -2546,12 +2546,12 @@ html_text_get_right_edge_offset (HTMLObject *o, int offset)
 }
 
 static int
-html_text_get_left_edge_offset (HTMLObject *o, int offset)
+html_text_get_left_edge_offset (HTMLObject *o, HTMLPainter *painter, int offset)
 {
 	HTMLTextSlave *slave = html_text_get_slave_at_offset (HTML_TEXT (o), NULL, offset);
 
 	if (slave) {
-		return html_text_slave_get_left_edge_offset (slave);
+		return html_text_slave_get_left_edge_offset (slave, painter);
 	} else {
 		g_warning ("getting left edge offset from text object without slave(s)");
 

@@ -41,6 +41,7 @@
 #include "htmlobject.h"
 #include "htmlpainter.h"
 #include "htmltable.h"
+#include "htmltablecell.h"
 #include "htmltext.h"
 #include "htmlrule.h"
 #include "htmltype.h"
@@ -642,7 +643,7 @@ html_object_real_cursor_backward (HTMLObject *self, HTMLCursor *cursor)
 }
 
 static gboolean
-html_object_real_cursor_right (HTMLObject *self, HTMLCursor *cursor)
+html_object_real_cursor_right (HTMLObject *self, HTMLPainter *painter, HTMLCursor *cursor)
 {
 	HTMLDirection dir = html_object_get_direction (self);
 
@@ -677,7 +678,7 @@ html_object_real_cursor_right (HTMLObject *self, HTMLCursor *cursor)
 }
 
 static gboolean
-html_object_real_cursor_left (HTMLObject *self, HTMLCursor *cursor)
+html_object_real_cursor_left (HTMLObject *self, HTMLPainter *painter, HTMLCursor *cursor)
 {
 	HTMLDirection dir = html_object_get_direction (self);
 
@@ -711,13 +712,13 @@ html_object_real_cursor_left (HTMLObject *self, HTMLCursor *cursor)
 }
 
 static int
-html_object_real_get_right_edge_offset (HTMLObject *o, int offset)
+html_object_real_get_right_edge_offset (HTMLObject *o, HTMLPainter *painter, int offset)
 {
 	return html_object_get_length (o);
 }
 
 static int
-html_object_real_get_left_edge_offset (HTMLObject *o, int offset)
+html_object_real_get_left_edge_offset (HTMLObject *o, HTMLPainter *painter, int offset)
 {
 	return 0;
 }
@@ -1542,15 +1543,15 @@ html_object_cursor_backward (HTMLObject *self, HTMLCursor *cursor)
 }
 
 gboolean
-html_object_cursor_right (HTMLObject *self, HTMLCursor *cursor)
+html_object_cursor_right (HTMLObject *self, HTMLPainter *painter, HTMLCursor *cursor)
 {
-	return (* HO_CLASS (self)->cursor_right) (self, cursor);
+	return (* HO_CLASS (self)->cursor_right) (self, painter, cursor);
 }
 
 gboolean
-html_object_cursor_left (HTMLObject *self, HTMLCursor *cursor)
+html_object_cursor_left (HTMLObject *self, HTMLPainter *painter, HTMLCursor *cursor)
 {
-	return (* HO_CLASS (self)->cursor_left) (self, cursor);
+	return (* HO_CLASS (self)->cursor_left) (self, painter, cursor);
 }
 
 /*********************
@@ -2069,7 +2070,8 @@ html_object_get_insert_level (HTMLObject *o)
 	case HTML_TYPE_CLUEV: {
 		int level = 3;
 
-		while (o && HTML_IS_CLUEV (o) && HTML_CLUE (o)->head && HTML_IS_CLUEV (HTML_CLUE (o)->head)) {
+		while (o && (HTML_IS_CLUEV (o) || HTML_IS_TABLE_CELL (o))
+		       && HTML_CLUE (o)->head && (HTML_IS_CLUEV (HTML_CLUE (o)->head) || HTML_IS_TABLE_CELL (HTML_CLUE (o)->head))) {
 			level ++;
 			o = HTML_CLUE (o)->head;
 		}
@@ -2240,13 +2242,13 @@ html_object_get_flow (HTMLObject *o)
 }
 
 int
-html_object_get_right_edge_offset (HTMLObject *o, int offset)
+html_object_get_right_edge_offset (HTMLObject *o, HTMLPainter *painter, int offset)
 {
-	return (* HO_CLASS (o)->get_right_edge_offset) (o, offset);
+	return (* HO_CLASS (o)->get_right_edge_offset) (o, painter, offset);
 }
 
 int
-html_object_get_left_edge_offset (HTMLObject *o, int offset)
+html_object_get_left_edge_offset (HTMLObject *o, HTMLPainter *painter, int offset)
 {
-	return (* HO_CLASS (o)->get_left_edge_offset) (o, offset);
+	return (* HO_CLASS (o)->get_left_edge_offset) (o, painter, offset);
 }

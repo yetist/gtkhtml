@@ -1255,11 +1255,11 @@ html_text_slave_gi_right_edge (HTMLTextSlave *slave, HTMLCursor *cursor, HTMLTex
 }
 
 static gboolean
-html_text_slave_cursor_right_one (HTMLTextSlave *slave, HTMLCursor *cursor)
+html_text_slave_cursor_right_one (HTMLTextSlave *slave, HTMLPainter *painter, HTMLCursor *cursor)
 {
 	HTMLTextSlaveGlyphItem *prev, *next;
 	int index;
-	HTMLTextSlaveGlyphItem *gi = html_text_slave_get_glyph_item_at_offset (slave, NULL, cursor->offset - slave->posStart, &prev, &next, NULL, &index);
+	HTMLTextSlaveGlyphItem *gi = html_text_slave_get_glyph_item_at_offset (slave, painter, cursor->offset - slave->posStart, &prev, &next, NULL, &index);
 
 	if (!gi)
 		return FALSE;
@@ -1302,24 +1302,24 @@ html_text_slave_cursor_right_one (HTMLTextSlave *slave, HTMLCursor *cursor)
 }
 
 gboolean
-html_text_slave_cursor_right (HTMLTextSlave *slave, HTMLCursor *cursor)
+html_text_slave_cursor_right (HTMLTextSlave *slave, HTMLPainter *painter, HTMLCursor *cursor)
 {
-	HTMLTextPangoInfo *pi = html_text_get_pango_info (slave->owner, NULL);
+	HTMLTextPangoInfo *pi = html_text_get_pango_info (slave->owner, painter);
 	gboolean step_success;
 
 	do
-		step_success = html_text_slave_cursor_right_one (slave, cursor);
+		step_success = html_text_slave_cursor_right_one (slave, painter, cursor);
 	while (step_success && !pi->attrs [cursor->offset].is_cursor_position);
 
 	return step_success;
 }
 
 static gboolean
-html_text_slave_cursor_left_one (HTMLTextSlave *slave, HTMLCursor *cursor)
+html_text_slave_cursor_left_one (HTMLTextSlave *slave, HTMLPainter *painter, HTMLCursor *cursor)
 {
 	HTMLTextSlaveGlyphItem *prev, *next;
 	int index;
-	HTMLTextSlaveGlyphItem *gi = html_text_slave_get_glyph_item_at_offset (slave, NULL, cursor->offset - slave->posStart, &prev, &next, NULL, &index);
+	HTMLTextSlaveGlyphItem *gi = html_text_slave_get_glyph_item_at_offset (slave, painter, cursor->offset - slave->posStart, &prev, &next, NULL, &index);
 
 /* 	printf ("gi: %p item num chars: %d\n", gi, gi ? gi->glyph_item.item->num_chars : -1); */
 
@@ -1366,31 +1366,31 @@ html_text_slave_cursor_left_one (HTMLTextSlave *slave, HTMLCursor *cursor)
 }
 
 gboolean
-html_text_slave_cursor_left (HTMLTextSlave *slave, HTMLCursor *cursor)
+html_text_slave_cursor_left (HTMLTextSlave *slave, HTMLPainter *painter, HTMLCursor *cursor)
 {
-	HTMLTextPangoInfo *pi = html_text_get_pango_info (slave->owner, NULL);
+	HTMLTextPangoInfo *pi = html_text_get_pango_info (slave->owner, painter);
 	gboolean step_success;
 
 	do
-		step_success = html_text_slave_cursor_left_one (slave, cursor);
+		step_success = html_text_slave_cursor_left_one (slave, painter, cursor);
 	while (step_success && !pi->attrs [cursor->offset].is_cursor_position);
 
 	return step_success;
 }
 
 static gboolean
-html_text_slave_get_left_edge (HTMLTextSlave *slave, HTMLCursor *cursor)
+html_text_slave_get_left_edge (HTMLTextSlave *slave, HTMLPainter *painter, HTMLCursor *cursor)
 {
-	HTMLTextPangoInfo *pi = html_text_get_pango_info (slave->owner, NULL);
+	HTMLTextPangoInfo *pi = html_text_get_pango_info (slave->owner, painter);
 	int old_offset = cursor->offset;
 	int old_position = cursor->position;
 
-	cursor->offset = html_text_slave_get_left_edge_offset (slave);
+	cursor->offset = html_text_slave_get_left_edge_offset (slave, painter);
 
 	if (pi->attrs [cursor->offset].is_cursor_position && old_offset != cursor->offset)
 		return TRUE;
 	else {
-		if (html_text_slave_cursor_right (slave, cursor)) {
+		if (html_text_slave_cursor_right (slave, painter, cursor)) {
 			/* we should preserve position here as caller function correct position themselves */
 			cursor->position = old_position;
 			return TRUE;
@@ -1400,18 +1400,18 @@ html_text_slave_get_left_edge (HTMLTextSlave *slave, HTMLCursor *cursor)
 }
 
 static gboolean
-html_text_slave_get_right_edge (HTMLTextSlave *slave, HTMLCursor *cursor)
+html_text_slave_get_right_edge (HTMLTextSlave *slave, HTMLPainter *painter, HTMLCursor *cursor)
 {
-	HTMLTextPangoInfo *pi = html_text_get_pango_info (slave->owner, NULL);
+	HTMLTextPangoInfo *pi = html_text_get_pango_info (slave->owner, painter);
 	int old_offset = cursor->offset;
 	int old_position = cursor->position;
 
-	cursor->offset = html_text_slave_get_right_edge_offset (slave);
+	cursor->offset = html_text_slave_get_right_edge_offset (slave, painter);
 
 	if (pi->attrs [cursor->offset].is_cursor_position && old_offset != cursor->offset)
 		return TRUE;
 	else {
-		if (html_text_slave_cursor_left (slave, cursor)) {
+		if (html_text_slave_cursor_left (slave, painter, cursor)) {
 			/* we should preserve position here as caller function correct position themselves */
 			cursor->position = old_position;
 			return TRUE;
@@ -1421,17 +1421,17 @@ html_text_slave_get_right_edge (HTMLTextSlave *slave, HTMLCursor *cursor)
 }
 
 gboolean
-html_text_slave_cursor_head (HTMLTextSlave *slave, HTMLCursor *cursor)
+html_text_slave_cursor_head (HTMLTextSlave *slave, HTMLCursor *cursor, HTMLPainter *painter)
 {
-	if (html_text_slave_get_glyph_items (slave, NULL)) {
+	if (html_text_slave_get_glyph_items (slave, painter)) {
 		cursor->object = HTML_OBJECT (slave->owner);
 
 		if (html_text_get_pango_direction (slave->owner) != PANGO_DIRECTION_RTL) {
 			/* LTR */
-			return html_text_slave_get_left_edge (slave, cursor);
+			return html_text_slave_get_left_edge (slave, painter, cursor);
 		} else {
 			/* RTL */
-			return html_text_slave_get_right_edge (slave, cursor);
+			return html_text_slave_get_right_edge (slave, painter, cursor);
 		}
 	}
 
@@ -1439,17 +1439,17 @@ html_text_slave_cursor_head (HTMLTextSlave *slave, HTMLCursor *cursor)
 }
 
 gboolean
-html_text_slave_cursor_tail (HTMLTextSlave *slave, HTMLCursor *cursor)
+html_text_slave_cursor_tail (HTMLTextSlave *slave, HTMLCursor *cursor, HTMLPainter *painter)
 {
-	if (html_text_slave_get_glyph_items (slave, NULL)) {
+	if (html_text_slave_get_glyph_items (slave, painter)) {
 		cursor->object = HTML_OBJECT (slave->owner);
 
 		if (html_text_get_pango_direction (slave->owner) != PANGO_DIRECTION_RTL) {
 			/* LTR */
-			return html_text_slave_get_right_edge (slave, cursor);
+			return html_text_slave_get_right_edge (slave, painter, cursor);
 		} else {
 			/* RTL */
-			return html_text_slave_get_left_edge (slave, cursor);
+			return html_text_slave_get_left_edge (slave, painter, cursor);
 		}
 	}
 
@@ -1481,9 +1481,9 @@ html_text_slave_get_cursor_base (HTMLTextSlave *slave, HTMLPainter *painter, gui
 }
 
 int
-html_text_slave_get_left_edge_offset (HTMLTextSlave *slave)
+html_text_slave_get_left_edge_offset (HTMLTextSlave *slave, HTMLPainter *painter)
 {
-	GSList *gis = html_text_slave_get_glyph_items (slave, NULL);
+	GSList *gis = html_text_slave_get_glyph_items (slave, painter);
 
 	if (gis) {
 		HTMLTextSlaveGlyphItem *gi = (HTMLTextSlaveGlyphItem *) gis->data;
@@ -1493,8 +1493,9 @@ html_text_slave_get_left_edge_offset (HTMLTextSlave *slave)
 			return slave->posStart + g_utf8_pointer_to_offset (html_text_slave_get_text (slave), slave->owner->text + gi->glyph_item.item->offset);
 		} else {
 			/* RTL */
-			return slave->posStart + g_utf8_pointer_to_offset (html_text_slave_get_text (slave),
-									   slave->owner->text + gi->glyph_item.item->offset + gi->glyph_item.item->length);
+			return slave->posStart + MIN (slave->posLen, g_utf8_pointer_to_offset (html_text_slave_get_text (slave),
+											       slave->owner->text
+											       + gi->glyph_item.item->offset + gi->glyph_item.item->length));
 		}
 	} else {
 		if (slave->owner->text_len > 0)
@@ -1505,17 +1506,18 @@ html_text_slave_get_left_edge_offset (HTMLTextSlave *slave)
 }
 
 int
-html_text_slave_get_right_edge_offset (HTMLTextSlave *slave)
+html_text_slave_get_right_edge_offset (HTMLTextSlave *slave, HTMLPainter *painter)
 {
-	GSList *gis = html_text_slave_get_glyph_items (slave, NULL);
+	GSList *gis = html_text_slave_get_glyph_items (slave, painter);
 
 	if (gis) {
 		HTMLTextSlaveGlyphItem *gi = (HTMLTextSlaveGlyphItem *) g_slist_last (gis)->data;
 
 		if (gi->glyph_item.item->analysis.level % 2 == 0) {
 			/* LTR */
-			return slave->posStart + g_utf8_pointer_to_offset (html_text_slave_get_text (slave),
-									   slave->owner->text + gi->glyph_item.item->offset + gi->glyph_item.item->length);
+			return slave->posStart + MIN (slave->posLen, g_utf8_pointer_to_offset (html_text_slave_get_text (slave),
+											       slave->owner->text
+											       + gi->glyph_item.item->offset + gi->glyph_item.item->length));
 		} else {
 			/* RTL */
 			return slave->posStart + g_utf8_pointer_to_offset (html_text_slave_get_text (slave), slave->owner->text + gi->glyph_item.item->offset);

@@ -1,3 +1,8 @@
+2005-03-07  Radek Doulik  <rodo@novell.com>
+
+	* htmltext.c (html_text_cursor_next_slave): make sure we handle
+	the case where there is second or later empty slave
+
 2005-02-28  Radek Doulik  <rodo@novell.com>
 
 	* htmltext.c (html_text_direction_pango_to_html): new helper

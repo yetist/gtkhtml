@@ -1,5 +1,5 @@
 # Serbian translation of gtkhtml
-# Courtesy of Prevod.org team (http://prevod.org/) -- 2003, 2004.
+# Courtesy of Prevod.org team (http://prevod.org/) -- 2003, 2004, 2005.
 #
 # This file is distributed under the same license as the gtkhtml package.
 #
@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-28 19:13+0100\n"
-"PO-Revision-Date: 2004-08-07 23:00+0200\n"
+"POT-Creation-Date: 2005-03-06 10:32+0100\n"
+"PO-Revision-Date: 2005-03-06 10:36+0100\n"
 "Last-Translator: Danilo Šegan <danilo@prevod.org>\n"
 "Language-Team: Serbian (sr) <gnom@prevod.org>\n"
 "MIME-Version: 1.0\n"
@@ -20,20 +20,20 @@ msgstr ""
 #: a11y/image.c:150
 #, c-format
 msgid "URL is %s, Alternative Text is %s"
-msgstr ""
+msgstr "Adresa je %s, alternativni tekst %s"
 
 #: a11y/image.c:152
 #, c-format
 msgid "URL is %s"
-msgstr ""
+msgstr "Adresa je %s"
 
 #: a11y/object.c:50 a11y/object.c:59 a11y/text.c:111
 msgid "grab focus"
-msgstr ""
+msgstr "ugrabi fokus"
 
 #: a11y/object.c:256
 msgid "Panel containing HTML"
-msgstr ""
+msgstr "Panel koji sadrži HTML"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:1
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
@@ -933,9 +933,8 @@ msgid "Background Image"
 msgstr "Pozadinska slika"
 
 #: components/html-editor/body.c:298
-#, fuzzy
 msgid "Background Image File Path"
-msgstr "Pozadinska slika"
+msgstr "Putanja datoteke pozadinske slike"
 
 #: components/html-editor/body.c:301
 #: components/html-editor/gtkhtml-editor-properties.glade.h:71
@@ -978,9 +977,8 @@ msgid "Page"
 msgstr "Strana"
 
 #: components/html-editor/gi-color-combo.c:187
-#, fuzzy
 msgid "color preview"
-msgstr "Pregled pred štampu"
+msgstr "pregled boja"
 
 # bug: I'm not sure this needs to be translated
 #. This is the default custom color
@@ -1188,7 +1186,7 @@ msgstr "nebeskoplava"
 #. set the a11y name
 #: components/html-editor/gi-combo-box.c:419
 msgid "Popup"
-msgstr ""
+msgstr "Iskačući"
 
 #: components/html-editor/gnome-gtkhtml-editor.c:68
 msgid "GtkHTML Editor Control"
@@ -1454,14 +1452,12 @@ msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
 #: components/html-editor/link.c:194
-#, fuzzy
 msgid "URL:"
-msgstr "_Adresa:"
+msgstr "Adresa:"
 
 #: components/html-editor/link.c:198
-#, fuzzy
 msgid "Description:"
-msgstr "_Opis:"
+msgstr "Opis:"
 
 #: components/html-editor/menubar.c:96 components/html-editor/menubar.c:104
 msgid "Insert image"
@@ -1670,14 +1666,12 @@ msgid "Case _sensitive"
 msgstr "Zavisno od _veličine slova"
 
 #: components/html-editor/replace.c:182
-#, fuzzy
 msgid "R_eplace:"
-msgstr "Zameni:"
+msgstr "Za_meni:"
 
 #: components/html-editor/replace.c:186
-#, fuzzy
 msgid "_With:"
-msgstr "_Širina:"
+msgstr "_Sa:"
 
 #: components/html-editor/search.c:112
 msgid "_Backward"
@@ -1689,13 +1683,15 @@ msgstr "_Regularni izraz"
 
 #: components/html-editor/search.c:118
 msgid "Input the words you want to search here"
-msgstr ""
+msgstr "Ovde unesite reči koje želite da tražite"
 
 #: components/html-editor/spellchecker.c:110
 msgid ""
 "Unable to add word to dictionary,\n"
 "language settings are broken.\n"
 msgstr ""
+"Ne mogu da dodam reč u rečnik,\n"
+"podešavanja jezika su neispravna.\n"
 
 #: components/html-editor/spellchecker.c:298
 msgid "No misspelled word found"
@@ -1721,10 +1717,10 @@ msgstr "Ovde unesite tekst"
 msgid "Image frame"
 msgstr "Okvir slike"
 
+# bug: Labels of Template, or templatey labels
 #: components/html-editor/template.c:280
-#, fuzzy
 msgid "Template Labels"
-msgstr "Šablon"
+msgstr "Oznake šablona"
 
 #: components/html-editor/test-html-editor-control.c:333
 msgid "Open file..."

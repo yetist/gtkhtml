@@ -87,18 +87,24 @@ GList      *html_get_glyphs_non_tab               (GList              *glyphs,
 GSList     *html_text_slave_get_glyph_items       (HTMLTextSlave      *slave,
 						   HTMLPainter        *painter);
 gboolean    html_text_slave_cursor_right          (HTMLTextSlave      *slave,
+						   HTMLPainter        *painter,
 						   HTMLCursor         *cursor);
 gboolean    html_text_slave_cursor_left           (HTMLTextSlave      *slave,
+						   HTMLPainter        *painter,
 						   HTMLCursor         *cursor);
 gboolean    html_text_slave_cursor_head           (HTMLTextSlave      *slave,
-						   HTMLCursor         *cursor);
+						   HTMLCursor         *cursor,
+						   HTMLPainter        *painter);
 gboolean    html_text_slave_cursor_tail           (HTMLTextSlave      *slave,
-						   HTMLCursor         *cursor);
+						   HTMLCursor         *cursor,
+						   HTMLPainter        *painter);
 void        html_text_slave_get_cursor_base       (HTMLTextSlave      *slave,
 						   HTMLPainter        *painter,
 						   guint               offset,
 						   gint               *x,
 						   gint               *y);
-int         html_text_slave_get_left_edge_offset  (HTMLTextSlave      *slave);
-int         html_text_slave_get_right_edge_offset (HTMLTextSlave      *slave);
+int         html_text_slave_get_left_edge_offset  (HTMLTextSlave      *slave,
+						   HTMLPainter        *painter);
+int         html_text_slave_get_right_edge_offset (HTMLTextSlave      *slave,
+						   HTMLPainter        *painter);
 #endif /* _HTMLTEXTSLAVE_H_ */

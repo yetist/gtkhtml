@@ -37,8 +37,8 @@
 
 #include "htmlcursor.h"
 
-static gboolean move_right (HTMLCursor *cursor);
-static gboolean move_left (HTMLCursor *cursor);
+static gboolean move_right (HTMLCursor *cursor, HTMLEngine *e);
+static gboolean move_left (HTMLCursor *cursor, HTMLEngine *e);
 
 /* #define _HTML_CURSOR_DEBUG */
 
@@ -446,10 +446,10 @@ html_cursor_down (HTMLCursor *cursor,
 		prev_y = y;
 
 		if (dir == HTML_DIRECTION_RTL) {
-			if (! move_left (cursor))
+			if (! move_left (cursor, engine))
 				return FALSE;
 		} else {
-			if (! move_right (cursor))
+			if (! move_right (cursor, engine))
 				return FALSE;
 		}
 
@@ -843,7 +843,7 @@ html_cursor_child_of (HTMLCursor *cursor, HTMLObject *parent)
 }
 
 static gboolean
-move_to_next_object (HTMLCursor *cursor)
+move_to_next_object (HTMLCursor *cursor, HTMLEngine *e)
 {
 	HTMLObject *next;
 
@@ -854,9 +854,9 @@ move_to_next_object (HTMLCursor *cursor)
 
 		if (!html_object_is_container (next)) {
 			if (html_object_get_direction (next->parent) == HTML_DIRECTION_RTL) {
-				cursor->offset = html_object_get_right_edge_offset (next, 0);
+				cursor->offset = html_object_get_right_edge_offset (next, e->painter, 0);
 			} else {
-				cursor->offset = html_object_get_left_edge_offset (next, 0);
+				cursor->offset = html_object_get_left_edge_offset (next, e->painter, 0);
 			}
 			cursor->position += cursor->offset;
 		}
@@ -867,7 +867,7 @@ move_to_next_object (HTMLCursor *cursor)
 }
 
 static gboolean
-move_to_prev_object (HTMLCursor *cursor)
+move_to_prev_object (HTMLCursor *cursor, HTMLEngine *e)
 {
 	HTMLObject *prev;
 
@@ -878,9 +878,9 @@ move_to_prev_object (HTMLCursor *cursor)
 
 		if (!html_object_is_container (prev)) {
 			if (html_object_get_direction (prev->parent) == HTML_DIRECTION_RTL) {
-				cursor->offset = html_object_get_left_edge_offset (prev, html_object_get_length (prev));
+				cursor->offset = html_object_get_left_edge_offset (prev, e->painter, html_object_get_length (prev));
 			} else {
-				cursor->offset = html_object_get_right_edge_offset (prev, html_object_get_length (prev));
+				cursor->offset = html_object_get_right_edge_offset (prev, e->painter, html_object_get_length (prev));
 			}
 			cursor->position -= cursor->offset - html_object_get_length (prev);
 		}
@@ -891,14 +891,14 @@ move_to_prev_object (HTMLCursor *cursor)
 }
 
 static gboolean
-move_left (HTMLCursor *cursor)
+move_left (HTMLCursor *cursor, HTMLEngine *e)
 {
-	if (!html_object_cursor_left (cursor->object, cursor)) {
+	if (!html_object_cursor_left (cursor->object, e->painter, cursor)) {
 		if (cursor->object->parent) {
 			if (html_object_get_direction (cursor->object->parent) == HTML_DIRECTION_RTL)
-				return move_to_next_object (cursor);
+				return move_to_next_object (cursor, e);
 			else
-				return move_to_prev_object (cursor);
+				return move_to_prev_object (cursor, e);
 		}
 	}
 
@@ -919,7 +919,7 @@ html_cursor_left (HTMLCursor *cursor, HTMLEngine *engine)
 		html_engine_spell_check_range (engine, engine->cursor, engine->cursor);
 
 	cursor->have_target_x = FALSE;
-	retval = move_left (cursor);
+	retval = move_left (cursor, engine);
 
 	debug_location (cursor);
 
@@ -927,22 +927,22 @@ html_cursor_left (HTMLCursor *cursor, HTMLEngine *engine)
 }
 
 static gboolean
-left_in_flow (HTMLCursor *cursor)
+left_in_flow (HTMLCursor *cursor, HTMLEngine *e)
 {
 	gboolean retval;
 
 	retval = TRUE;
-	if (cursor->offset != html_object_get_left_edge_offset (cursor->object, cursor->offset) && html_object_is_container (cursor->object)) {
+	if (cursor->offset != html_object_get_left_edge_offset (cursor->object, e->painter, cursor->offset) && html_object_is_container (cursor->object)) {
 		HTMLObject *obj;
 
 		obj = cursor->object;
-		while ((retval = move_left (cursor)) && cursor->object != obj)
+		while ((retval = move_left (cursor, e)) && cursor->object != obj)
 			;
 	} else {
 		if (cursor->offset > 1 || !cursor->object->prev)
-			retval = html_object_cursor_left (cursor->object, cursor);
+			retval = html_object_cursor_left (cursor->object, e->painter, cursor);
 		else if (cursor->object->prev)
-			retval = move_left (cursor);
+			retval = move_left (cursor, e);
 		else
 			retval = FALSE;
 	}
@@ -972,7 +972,7 @@ html_cursor_left_edge_of_line (HTMLCursor *cursor, HTMLEngine *engine)
 				     &x, &prev_y);
 
 	while (1) {
-		if (! left_in_flow (cursor))
+		if (! left_in_flow (cursor, engine))
 			return TRUE;
 
 		html_object_get_cursor_base (cursor->object, engine->painter, cursor->offset,
@@ -989,17 +989,17 @@ html_cursor_left_edge_of_line (HTMLCursor *cursor, HTMLEngine *engine)
 }
 
 static gboolean
-move_right (HTMLCursor *cursor)
+move_right (HTMLCursor *cursor, HTMLEngine *e)
 {
 	gboolean retval;
 
 	retval = TRUE;
-	if (!html_object_cursor_right (cursor->object, cursor)) {
+	if (!html_object_cursor_right (cursor->object, e->painter, cursor)) {
 		if (cursor->object->parent) {
 			if (html_object_get_direction (cursor->object->parent) == HTML_DIRECTION_RTL)
-				return move_to_prev_object (cursor);
+				return move_to_prev_object (cursor, e);
 			else
-				return move_to_next_object (cursor);
+				return move_to_next_object (cursor, e);
 		}
 	}
 	return retval;
@@ -1019,7 +1019,7 @@ html_cursor_right (HTMLCursor *cursor, HTMLEngine *engine)
 		html_engine_spell_check_range (engine, engine->cursor, engine->cursor);
 
 	cursor->have_target_x = FALSE;
-	retval = move_right (cursor);
+	retval = move_right (cursor, engine);
 
 	debug_location (cursor);
 
@@ -1027,23 +1027,23 @@ html_cursor_right (HTMLCursor *cursor, HTMLEngine *engine)
 }
 
 static gboolean
-right_in_flow (HTMLCursor *cursor)
+right_in_flow (HTMLCursor *cursor, HTMLEngine *e)
 {
 	gboolean retval;
 
 	retval = TRUE;
-	if (cursor->offset != html_object_get_right_edge_offset (cursor->object, cursor->offset)) {
+	if (cursor->offset != html_object_get_right_edge_offset (cursor->object, e->painter, cursor->offset)) {
 		if (html_object_is_container (cursor->object)) {
 			HTMLObject *obj;
 
 			obj = cursor->object;
-			while ((retval = move_right (cursor)) && cursor->object != obj)
+			while ((retval = move_right (cursor, e)) && cursor->object != obj)
 				;
 		} else
-			retval = html_object_cursor_right (cursor->object, cursor);
+			retval = html_object_cursor_right (cursor->object, e->painter, cursor);
 	} else {
 		if (html_object_next_not_slave (cursor->object))
-			retval = move_right (cursor);
+			retval = move_right (cursor, e);
 		else
 			retval = FALSE;
 	}
@@ -1073,7 +1073,7 @@ html_cursor_right_edge_of_line (HTMLCursor *cursor, HTMLEngine *engine)
 				     &x, &prev_y);
 
 	while (1) {
-		if (! right_in_flow (cursor))
+		if (! right_in_flow (cursor, engine))
 			return TRUE;
 
 		html_object_get_cursor_base (cursor->object, engine->painter, cursor->offset,

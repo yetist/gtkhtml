@@ -1102,7 +1102,7 @@ html_engine_paste_object (HTMLEngine *e, HTMLObject *o, guint len)
 {
 	html_undo_level_begin (e->undo, "Paste", "Paste");
 	html_engine_delete (e);
-	html_engine_insert_object (e, o, len, html_object_get_insert_level (o));
+	html_engine_insert_object (e, o, len, html_engine_get_insert_level_for_object (e, o));
 	html_undo_level_end (e->undo);
 }
 
