@@ -1,4 +1,4 @@
-gladedir = $(datadir)/$(GTKHTML_RELEASE_STRING)
+gladedir = $(GTKHTML_DATADIR)
 glade_DATA = gtkhtml-capplet.glade
 
 INCLUDES =					\
@@ -36,7 +36,7 @@ deskdir = $(datadir)/gnome/apps/Settings/Documents/
 desk_DATA = gtkhtml-properties.desktop
 
 $(desk_DATA): $(desk_DATA).in Makefile
-	sed -e 's?\@ICONSDIR\@?$(GTKHTML_DATADIR)/gtkhtml/icons?g' \
+	sed -e 's?\@ICONSDIR\@?$(GTKHTML_DATADIR)/icons?g' \
 	      < $(srcdir)/$(desk_DATA).in > $(desk_DATA).tmp \
 	  && mv $(desk_DATA).tmp $(desk_DATA)
 

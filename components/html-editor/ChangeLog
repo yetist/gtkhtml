@@ -2,6 +2,8 @@
 
 	* Makefile.am (gladedir): add versioning to the glade files
 
+	* Makefile.am: use GTKHTML_DATADIR.
+
 2002-03-26  Larry Ewing  <lewing@ximian.com>
 
 	* test-html-editor-control.c (main): see below.

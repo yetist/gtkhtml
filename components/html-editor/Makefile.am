@@ -1,6 +1,6 @@
 # Basic setup
 
-gladedir = $(datadir)/$(GTKHTML_RELEASE_STRING)
+gladedir = $(GTKHTML_DATADIR)
 glade_DATA = 	gtkhtml-editor-properties.glade
 
 INCLUDES =						\
@@ -14,7 +14,7 @@ INCLUDES =						\
 	$(GTK_CFLAGS)					\
 	-DGLADE_DATADIR=\"$(gladedir)\"
 
-CFLAGS +=  $(GCONF_CFLAGS) $(PSPELL_CFLAGS) -DICONDIR=\"$(datadir)/gtkhtml/icons\"
+CFLAGS +=  $(GCONF_CFLAGS) $(PSPELL_CFLAGS) -DICONDIR=\"$(GTKHTML_DATADIR)/icons\"
 
 # CORBA stuff
 
@@ -137,7 +137,7 @@ oafdir = $(datadir)/oaf
 @XML_I18N_MERGE_OAF_RULE@
 
 GNOME_GtkHTML_Editor.xml: GNOME_GtkHTML_Editor.xml.in Makefile
-	sed -e 's?\@ICONSDIR\@?$(GTKHTML_DATADIR)/gtkhtml/icons?g' \
+	sed -e 's?\@ICONSDIR\@?$(GTKHTML_DATADIR)/icons?g' \
 	      < $(srcdir)/GNOME_GtkHTML_Editor.xml.in > GNOME_GtkHTML_Editor.xml.tmp \
 	  && mv GNOME_GtkHTML_Editor.xml.tmp GNOME_GtkHTML_Editor.xml
 
@@ -166,7 +166,7 @@ EXTRA_DIST =					\
 	GNOME_GtkHTML_Editor.xml.in		\
 	gtkhtml-editor-properties.glade
 
-idldir = $(datadir)/$(GTKHTML_RELEASE_STRING)
+idldir = $(GTKHTML_DATADIR)
 idl_DATA = $(IDLS)
 
 CLEANFILES += $(IDL_GENERATED) $(SPELL_IDL_GENERATED)
