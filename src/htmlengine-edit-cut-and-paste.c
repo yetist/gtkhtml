@@ -537,27 +537,30 @@ set_cursor_at_end_of_object (HTMLEngine *e, HTMLObject *o, guint len)
 	e->cursor->offset   = html_object_get_length (e->cursor->object);
 }
 
-static inline gint
-isolate_tables (HTMLEngine *e, HTMLUndoDirection dir, gboolean *delete_paragraph, gboolean *delete_paragraph_forward)
+static inline void
+isolate_tables (HTMLEngine *e, HTMLUndoDirection dir, guint position_before, guint position_after,
+		  gboolean *delete_paragraph_before, gboolean *delete_paragraph_after)
 {
-	gint delta = 0;
+	HTMLObject *next;
 
-	*delete_paragraph = FALSE;
+	*delete_paragraph_after  = FALSE;
+	*delete_paragraph_before = FALSE;
 
-	if (e->cursor->object && HTML_IS_TABLE (e->cursor->object)) {
-		*delete_paragraph = TRUE;
-		if (e->cursor->offset) {
-			insert_empty_paragraph (e, dir, FALSE);
-			delta = 1;
-			*delete_paragraph_forward = FALSE;
-		} else {
-			insert_empty_paragraph (e, dir, FALSE);
-			html_cursor_backward (e->cursor, e);
-			delta = 0;
-			*delete_paragraph_forward = TRUE;
-		}
+	html_cursor_jump_to_position (e->cursor, e, position_after);
+	next = html_object_next_not_slave (e->cursor->object);
+	if (next && e->cursor->offset == html_object_get_length (e->cursor->object)
+	    && (HTML_IS_TABLE (e->cursor->object) || HTML_IS_TABLE (next))) {
+		insert_empty_paragraph (e, dir, FALSE);
+		*delete_paragraph_after = TRUE;
 	}
-	return delta;
+
+	html_cursor_jump_to_position (e->cursor, e, position_before);
+	next = html_object_next_not_slave (e->cursor->object);
+	if (next && e->cursor->offset == html_object_get_length (e->cursor->object)
+	    && (HTML_IS_TABLE (e->cursor->object) || HTML_IS_TABLE (next))) {
+		insert_empty_paragraph (e, dir, FALSE);
+		*delete_paragraph_before = TRUE;
+	}
 }
 
 static inline void
@@ -567,11 +570,14 @@ insert_object_do (HTMLEngine *e, HTMLObject *obj, guint *len, gint level, guint 
 	HTMLCursor *orig;
 	GList *left = NULL, *right = NULL;
 	GList *first = NULL, *last = NULL;
+	guint position_before;
 
 	html_engine_freeze (e);
-	orig = html_cursor_dup (e->cursor);
+	position_before = e->cursor->position;
 	html_object_change_set_down (obj, HTML_CHANGE_ALL);
 	split_and_add_empty_texts (e, level, &left, &right);
+	orig = html_cursor_dup (e->cursor);
+	orig->position = position_before;
 	first = html_object_heads_list (obj);
 	last  = html_object_tails_list (obj);
 	set_cursor_at_end_of_object (e, obj, *len);
@@ -612,8 +618,8 @@ struct _InsertUndo {
 	HTMLUndoData data;
 
 	guint len;
-	gboolean delete_paragraph;
-	gboolean delete_paragraph_forward;
+	gboolean delete_paragraph_before;
+	gboolean delete_paragraph_after;
 };
 typedef struct _InsertUndo InsertUndo;
 
@@ -628,13 +634,17 @@ insert_undo_action (HTMLEngine *e, HTMLUndoData *data, HTMLUndoDirection dir, gu
 	html_cursor_jump_to_position (e->cursor, e, position_after);
 	delete_object (e, NULL, NULL, html_undo_direction_reverse (dir), TRUE);
 
-	if (undo->delete_paragraph) {
+	if (undo->delete_paragraph_after || undo->delete_paragraph_before) {
 		html_cursor_jump_to_position (e->cursor, e, position_after);
-		html_engine_set_mark (e);
-		if (undo->delete_paragraph_forward) {
-			html_cursor_forward (e->cursor, e);
-		} else {
+		if (undo->delete_paragraph_before) {
 			html_cursor_backward (e->cursor, e);
+		}
+		html_engine_set_mark (e);
+		if (undo->delete_paragraph_before) {
+			html_cursor_forward (e->cursor, e);
+		}
+		if (undo->delete_paragraph_after) {
+			html_cursor_forward (e->cursor, e);
 		}
 		delete_object (e, NULL, NULL, HTML_UNDO_UNDO, FALSE);
 	}
@@ -642,7 +652,7 @@ insert_undo_action (HTMLEngine *e, HTMLUndoData *data, HTMLUndoDirection dir, gu
 
 static void
 insert_setup_undo (HTMLEngine *e, guint len, guint position_before, HTMLUndoDirection dir,
-		   gboolean delete_paragraph, gboolean delete_paragraph_forward)
+		   gboolean delete_paragraph_before, gboolean delete_paragraph_after)
 {
 	InsertUndo *undo;
 
@@ -650,8 +660,8 @@ insert_setup_undo (HTMLEngine *e, guint len, guint position_before, HTMLUndoDire
 
 	html_undo_data_init (HTML_UNDO_DATA (undo));
 	undo->len = len;
-	undo->delete_paragraph = delete_paragraph;
-	undo->delete_paragraph_forward = delete_paragraph_forward;
+	undo->delete_paragraph_before = delete_paragraph_before;
+	undo->delete_paragraph_after  = delete_paragraph_after;
 
 	/* printf ("insert undo len %d\n", len); */
 
@@ -667,15 +677,16 @@ static void
 insert_object (HTMLEngine *e, HTMLObject *obj, guint len, guint position_after, gint level,
 	       HTMLUndoDirection dir, gboolean check)
 {
-	gint delta;
-	gboolean delete_paragraph;
-	gboolean delete_paragraph_forward;
+	gboolean delete_paragraph_before = FALSE;
+	gboolean delete_paragraph_after = FALSE;
 	guint position_before;
 
-	delta = isolate_tables (e, dir, &delete_paragraph, &delete_paragraph_forward);
 	position_before = e->cursor->position;
-	insert_object_do (e, obj, &len, level, position_after + delta, check, dir);
-	insert_setup_undo (e, len, position_before, dir, delete_paragraph, delete_paragraph_forward);
+	insert_object_do (e, obj, &len, level, position_after, check, dir);
+	isolate_tables (e, dir, position_before, position_after, &delete_paragraph_before, &delete_paragraph_after);
+	html_cursor_jump_to_position (e->cursor, e, position_after + (delete_paragraph_before ? 1 : 0));
+	insert_setup_undo (e, len, position_before + (delete_paragraph_before ? 1 : 0),
+			   dir, delete_paragraph_before, delete_paragraph_after);
 }
 
 void

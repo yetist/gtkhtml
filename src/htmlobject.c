@@ -1486,27 +1486,30 @@ static HTMLObject *
 move_object_cursor (HTMLObject *obj, gint *offset, gboolean forward,
 		    HTMLObject * (*next_fn ) (HTMLObject *), HTMLObject * (*down_fn ) (HTMLObject *))
 {
-	HTMLObject *down;
+	HTMLObject *down, *before;
 
 	if (((*offset == 0 && forward) || (*offset && !forward)) && html_object_is_container (obj))
 		if ((down = (*down_fn) (obj))) {
 			down = move_object_downtree_cursor (down, down_fn);
 			if (down) {
 				if (html_object_is_container (down))
-					*offset = forward ? 0 : 1; /* FIXME for prev it's reversed */
+					*offset = forward ? 0 : 1;
 				return down;
 			}
 		}
 
+	before = obj;
 	obj = next_object_uptree_cursor (obj, next_fn);
 	if (obj) {
 		if (html_object_accepts_cursor (obj)) {
 			if (html_object_is_container (obj))
-				*offset = forward ? 1 : 0; /* FIXME for prev it's reversed */
+				*offset = before->parent == obj->parent
+					? forward ? 0 : 1
+					: forward ? 1 : 0;
 		} else {
 			obj = move_object_downtree_cursor (obj, down_fn);
 			if (html_object_is_container (obj))
-				*offset = forward ? 0 : 1; /* FIXME for prev it's reversed */
+				*offset = forward ? 0 : 1;
 		}
 	}
 

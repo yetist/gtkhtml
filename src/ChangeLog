@@ -1,3 +1,16 @@
+2001-10-25  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine-edit-cut-and-paste.c (insert_object_do): save orig
+	cursor after split
+	(insert_object_do): preserve position before for orig
+	(isolate_tables): rewritten once more
+	(insert_undo_action): update to isolate_tables changes
+	(insert_setup_undo): ditto
+	(insert_object): ditto
+
+	* htmlobject.c (move_object_cursor): allow cursor moves in flow
+	where containers are mixed with leaf objects
+
 2001-10-24  Larry Ewing  <lewing@ximian.com>
 
 	* htmlobject.c (html_object_is_clue): add HTML_TYPE_CLUEALIGNED to
