@@ -666,7 +666,11 @@ button_release_event (GtkWidget *widget,
 		gtk_signal_emit (GTK_OBJECT (widget), signals[LINK_CLICKED], html->pointer_url);
 
 	html->button_pressed = FALSE;
-	html->in_selection = FALSE;
+
+	if (html->in_selection) {
+		html->in_selection = FALSE;
+		update_styles (html);
+	}
 
 	return TRUE;
 }

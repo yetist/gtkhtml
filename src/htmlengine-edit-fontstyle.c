@@ -215,6 +215,58 @@ set_font_style_in_selection (HTMLEngine *engine,
 }
 
 
+struct _GetFontStyleForallData {
+	gboolean first;
+
+	GtkHTMLFontStyle font_style;
+	GtkHTMLFontStyle conflicts;
+};
+typedef struct _GetFontStyleForallData GetFontStyleForallData;
+
+static void
+get_font_style_from_selection_forall (HTMLObject *object,
+				      gpointer closure)
+{
+	GetFontStyleForallData *forall_data;
+	HTMLText *text;
+
+	if (! object->selected || ! html_object_is_text (object))
+		return;
+
+	forall_data = (GetFontStyleForallData *) closure;
+	text = HTML_TEXT (object);
+
+	if (forall_data->first) {
+		forall_data->font_style = text->font_style;
+		forall_data->first = FALSE;
+		return;
+	}
+
+	forall_data->conflicts |= text->font_style ^ forall_data->font_style;
+}
+
+static GtkHTMLFontStyle
+get_font_style_from_selection (HTMLEngine *engine)
+{
+	GtkHTMLFontStyle style;
+	GetFontStyleForallData *data;
+
+	g_return_val_if_fail (engine->clue != NULL, GTK_HTML_FONT_STYLE_DEFAULT);
+
+	data = g_new (GetFontStyleForallData, 1);
+	data->first = TRUE;
+	data->font_style = GTK_HTML_FONT_STYLE_DEFAULT;
+	data->conflicts = GTK_HTML_FONT_STYLE_DEFAULT;
+
+	html_object_forall (engine->clue, get_font_style_from_selection_forall, data);
+
+	style = data->font_style & ~data->conflicts;
+
+	g_free (data);
+
+	return style;
+}
+
 GtkHTMLFontStyle
 html_engine_get_current_insertion_font_style (HTMLEngine *engine)
 {
@@ -234,7 +286,10 @@ html_engine_get_current_insertion_font_style (HTMLEngine *engine)
 	if (! html_object_is_text (curr))
 		return GTK_HTML_FONT_STYLE_DEFAULT;
 
-	return HTML_TEXT (curr)->font_style;
+	if (! engine->active_selection)
+		return HTML_TEXT (curr)->font_style;
+
+	return get_font_style_from_selection (engine);
 }
 
 /**
