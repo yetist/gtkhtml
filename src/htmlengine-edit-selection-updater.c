@@ -345,3 +345,22 @@ html_engine_edit_selection_updater_reset (HTMLEngineEditSelectionUpdater *update
 		updater->old_point = NULL;
 	}
 }
+
+/**
+ * html_engine_edit_selection_update_now:
+ * @updater: An HTMLEngineEditSelectionUpdater object.
+ * 
+ * Remove @updater idle callback and run's update callback immediately.
+ **/
+void
+html_engine_edit_selection_update_now (HTMLEngineEditSelectionUpdater *updater)
+{
+	/* remove scheduled idle cb */
+	if (updater->idle_id != 0) {
+		gtk_idle_remove (updater->idle_id);
+		updater->idle_id = 0;
+	}
+
+	/* run it now */
+	updater_idle_callback (updater);
+}

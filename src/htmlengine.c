@@ -3118,6 +3118,8 @@ html_engine_update_event (HTMLEngine *e)
 {
 	e->updateTimer = 0;
 
+	printf ("update event\n");
+
 	html_engine_calc_size (e);
 
 	if (GTK_LAYOUT (e->widget)->vadjustment == NULL
@@ -4017,9 +4019,6 @@ move_to_found (HTMLEngine *e, HTMLSearch *info)
 
 	if (e->y_offset != ny)
 		gtk_adjustment_set_value (GTK_LAYOUT (e->widget)->vadjustment, ny);
-
-	if (e->editable)
-		html_cursor_jump_to (e->cursor, e, info->last, info->stop_pos);
 }
 
 static void
@@ -4030,19 +4029,26 @@ display_search_results (HTMLEngine *e, HTMLSearch *info)
 	guint pos  = info->start_pos;
 	guint cur_len;
 
-	html_engine_unselect_all (e, TRUE);
-	e->active_selection = TRUE;
+	if (e->editable) {
+		html_engine_disable_selection (e);
+		html_cursor_jump_to (e->cursor, e, (HTMLObject *) info->found->data, info->start_pos);
+		html_engine_set_mark (e);
+		html_cursor_jump_to (e->cursor, e, info->last, info->stop_pos);
+	} else {
+		html_engine_unselect_all (e, TRUE);
+		e->active_selection = TRUE;
 
-	/* go thru all objects (Text's) in found list and do select_range on it */
-	while (cur) {
-		cur_len = HTML_TEXT (cur->data)->text_len;
-		printf ("select len: %d range obj: %p pos: %d len: %d\n", info->found_len,
-			HTML_OBJECT (cur->data), pos, (cur_len-pos < len) ? cur_len-pos : len);
-		html_object_select_range (HTML_OBJECT (cur->data), e, pos,
-					  (cur_len-pos < len) ? cur_len-pos : len, TRUE);
-		len -= cur_len-pos;
-		pos  = 0;
-		cur  = cur->next;
+		/* go thru all objects (Text's) in found list and do select_range on it */
+		while (cur) {
+			cur_len = HTML_TEXT (cur->data)->text_len;
+			printf ("select len: %d range obj: %p pos: %d len: %d\n", info->found_len,
+				HTML_OBJECT (cur->data), pos, (cur_len-pos < len) ? cur_len-pos : len);
+			html_object_select_range (HTML_OBJECT (cur->data), e, pos,
+						  (cur_len-pos < len) ? cur_len-pos : len, TRUE);
+			len -= cur_len-pos;
+			pos  = 0;
+			cur  = cur->next;
+		}
 	}
 	if (info->found)
 		move_to_found (e, info);
@@ -4094,7 +4100,7 @@ html_engine_search_next (HTMLEngine *e)
 		display_search_results (e, info);
 	} else {
 		html_search_pop (info);
-		html_engine_unselect_all (e, TRUE);
+		html_engine_disable_selection (e);
 	}
 
 	return retval;
@@ -4127,9 +4133,7 @@ replace (HTMLEngine *e)
 	HTMLObject *first = HTML_OBJECT (e->search_info->found->data);
 	HTMLObject *new_text;
 
-	html_cursor_jump_to (e->cursor, e, first, e->search_info->start_pos);
-	html_engine_set_mark (e);
-	html_cursor_jump_to (e->cursor, e, e->search_info->last, e->search_info->stop_pos);
+	html_engine_edit_selection_update_now (e->selection_updater);
 
 	new_text = html_text_master_new (e->replace_info->text,
 					 HTML_TEXT (first)->font_style,
@@ -4160,6 +4164,7 @@ html_engine_replace_do (HTMLEngine *e, HTMLReplaceQueryAnswer answer)
 	case RQA_Cancel:
 		html_replace_destroy (e->replace_info);
 		e->replace_info = NULL;
+		html_engine_disable_selection (e);
 		break;
 
 	case RQA_Replace:
@@ -4169,6 +4174,8 @@ html_engine_replace_do (HTMLEngine *e, HTMLReplaceQueryAnswer answer)
 	case RQA_Next:
 		if (html_engine_search_next (e))
 			e->replace_info->ask (e, e->replace_info->ask_data);
+		else
+			html_engine_disable_selection (e);
 		break;
 	}
 }

@@ -1,5 +1,15 @@
 2000-05-03  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine.c (replace): use html_engine_edit_selection_update_now
+	(html_engine_replace_do): disable selection on end of replace
+
+	* htmlengine-edit-selection-updater.c
+	(html_engine_edit_selection_update_now): new function, removes
+	idle callback and does update immediately.
+
+	* htmlengine.c (display_search_results): use mark/cursor when
+	editable
+
 	* htmltext.c (html_text_set_text): set change flags
 
 	* htmlengine.c (html_engine_parse): reset search & replace engine
