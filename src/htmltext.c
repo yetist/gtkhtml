@@ -96,12 +96,12 @@ get_tags (const HTMLText *text,
 
 	while ((next = html_object_next_cursor_leaf (HTML_OBJECT (text), state->engine)) && !html_object_is_text (next))
 		;
-	*/
+
 	if (prev && html_object_is_text (prev))
 		pt = HTML_TEXT (prev);
 	if (next && html_object_is_text (next))
 		nt = HTML_TEXT (next);
-
+	*/
 	/* font tag */
 	std_color = html_color_equal (text->color, html_colorset_get_color (state->engine->settings->color_set,
 									     HTMLTextColor))
