@@ -22,6 +22,7 @@
 */
 
 #include <config.h>
+#include <string.h>
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -29,7 +30,6 @@
 
 #include <gnome.h>
 #include <bonobo.h>
-#include <gal/widgets/e-unicode.h>
 
 #include "htmlengine-edit-cut-and-paste.h"
 
@@ -232,17 +232,13 @@ file_dialog_ok (GtkWidget *w, GtkHTMLControlData *cd)
 			gtk_html_write (tmp, stream, "<PRE>", 5);
 		}
 		while ((rb = read (fd, buffer, BUFFER_SIZE - 1)) > 0) {
-			gchar *native;
-
 			buffer [rb] = 0;
 
-			native = e_utf8_from_gtk_string (GTK_WIDGET (cd->html), buffer);
 			if (cd->file_html) {
-				gtk_html_write (tmp, stream, native, -1);
+				gtk_html_write (tmp, stream, buffer, -1);
 			} else {
-				html_engine_paste_text (cd->html->engine, native, g_utf8_strlen (native, -1));
+				html_engine_paste_text (cd->html->engine, buffer, g_utf8_strlen (buffer, -1));
 			}
-			g_free (native);
 		}
 		if (!cd->file_html) {
 			gtk_html_write (tmp, stream, "</PRE>", 6);
@@ -763,7 +759,7 @@ menubar_set_languages (GtkHTMLControlData *cd, const gchar *lstr)
 	cd->block_language_changes = TRUE;
 	for (i = 0; i < cd->languages->_length; i ++) {
 		enabled = strstr (lstr, cd->languages->_buffer [i].abrev) != NULL;
-		g_string_sprintf (str, "/commands/SpellLanguage%d", i + 1);
+		g_string_printf (str, "/commands/SpellLanguage%d", i + 1);
 		bonobo_ui_component_set_prop (cd->uic, str->str, "state", enabled ? "1" : "0", NULL);
 	}
 	cd->block_language_changes = FALSE;

@@ -23,6 +23,7 @@
 */
 
 #include <config.h>
+#include <string.h>
 #include "gtkhtml.h"
 #include "persist-stream.h"
 #include "editor-control-factory.h"

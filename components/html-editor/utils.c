@@ -21,6 +21,7 @@
 */
 
 #include <config.h>
+#include <string.h>
 #include "gtkhtml-compat.h"
 
 #include <sys/types.h>
@@ -42,7 +43,7 @@ color_table_new (GtkSignalFunc f, gpointer data)
 
 			button = gtk_button_new ();
 			gtk_button_set_relief (GTK_BUTTON (button), GTK_RELIEF_HALF);
-			gtk_widget_set_usize (button, 16, 16);
+			gtk_widget_set_size_request (button, 16, 16);
 			style = gtk_style_copy (button->style);
 
 #define VAL (base_val << 14) | 0x1555*base_val
@@ -110,7 +111,7 @@ sample_frame (GtkHTML **html)
 	gtk_container_add (GTK_CONTAINER (scroll_frame), GTK_WIDGET (*html));
 	gtk_container_add (GTK_CONTAINER (frame), scroll_frame);
 	g_signal_connect (*html, "url_requested", G_CALLBACK (url_requested), NULL);
-	gtk_widget_set_usize (frame, -1, 120);
+	gtk_widget_set_size_request (frame, -1, 120);
 
 	return frame;
 }

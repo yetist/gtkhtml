@@ -174,7 +174,7 @@ check_next_word (GtkHTMLControlData *cd, gboolean update)
 		html_engine_spell_check (e);
 
 	if (!cd->spell_check_next || next_word (cd)) {
-		gnome_dialog_close (GNOME_DIALOG (cd->spell_dialog));
+		gtk_dialog_response (GTK_DIALOG (cd->spell_dialog), GTK_RESPONSE_CLOSE);
 	} else {
 		set_word (cd);
 	}
@@ -258,12 +258,12 @@ spell_check_dialog (GtkHTMLControlData *cd, gboolean whole_document)
 			html_cursor_jump_to_position (cd->html->engine->cursor, cd->html->engine, position);
 			html_engine_show_cursor (cd->html->engine);
 
-			gnome_ok_dialog (_("No misspelled word found"));
+			/* FIX2 gnome_ok_dialog (_("No misspelled word found")); */
 
 			return;
 		}
 
-	dialog  = gnome_dialog_new (_("Spell checker"), GNOME_STOCK_BUTTON_CLOSE, NULL);
+	dialog  = gtk_dialog_new_with_buttons (_("Spell checker"), NULL, 0, GTK_STOCK_CLOSE, NULL);
 	control = bonobo_widget_new_control (CONTROL_IID, CORBA_OBJECT_NIL);
 
 	if (!control) {
@@ -287,10 +287,11 @@ spell_check_dialog (GtkHTMLControlData *cd, gboolean whole_document)
 	set_word (cd);
 
 	gtk_widget_show (control);
-	gtk_container_add (GTK_CONTAINER (GNOME_DIALOG (dialog)->vbox), control);
+	gtk_container_add (GTK_CONTAINER (dialog), control);
 	gtk_window_set_modal (GTK_WINDOW (dialog), TRUE);
-	gnome_dialog_run_and_close (GNOME_DIALOG (dialog));
-	gtk_object_unref (GTK_OBJECT (dialog));
+	gtk_dialog_run (GTK_DIALOG (dialog));
+	gtk_dialog_response (GTK_DIALOG (dialog), GTK_RESPONSE_CLOSE);
+	g_object_unref (dialog);
 	bonobo_object_release_unref (cd->spell_control_pb, NULL);
 	cd->spell_control_pb = CORBA_OBJECT_NIL;
 }
@@ -312,7 +313,7 @@ language_cb (BonoboUIComponent *uic, const char *path, Bonobo_UIComponent_EventT
 	str = g_string_new (NULL);
 	lang = g_string_new (NULL);
 	for (i = 0; i < cd->languages->_length; i ++) {
-		g_string_sprintf (lang, "/commands/SpellLanguage%d", i + 1);
+		g_string_printf (lang, "/commands/SpellLanguage%d", i + 1);
 		val = bonobo_ui_component_get_prop (cd->uic, lang->str, "state", NULL);
 		if (val && *val == '1') {
 			g_string_append (str, cd->languages->_buffer [i].abrev);
@@ -361,7 +362,7 @@ spell_create_language_menu (GtkHTMLControlData *cd)
 		bonobo_ui_component_set_translate (cd->uic, "/menu/Edit/EditMisc/EditSpellLanguages/", str->str, NULL);
 
 		for (i = 0; i < seq->_length; i ++) {
-			g_string_sprintf (str, "SpellLanguage%d", i + 1);
+			g_string_printf (str, "SpellLanguage%d", i + 1);
 			bonobo_ui_component_add_listener (cd->uic, str->str, language_cb, cd);
 		}
 		g_string_free (str, TRUE);

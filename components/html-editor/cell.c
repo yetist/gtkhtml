@@ -20,6 +20,7 @@
     Boston, MA 02111-1307, USA.
 */
 
+#include <string.h>
 #include <glade/glade.h>
 #include <gal/widgets/widget-color-combo.h>
 
@@ -406,7 +407,7 @@ cell_widget (GtkHTMLEditCellProperties *d)
 	g_signal_connect (d->check_bg_pixmap, "toggled", G_CALLBACK (set_has_bg_pixmap), d);
 	d->entry_bg_pixmap = glade_xml_get_widget (xml, "entry_cell_bg_pixmap");
 
-	g_signal_connect (gnome_pixmap_entry_gtk_entry (GNOME_PIXMAP_ENTRY (d->entry_bg_pixmap)),
+	g_signal_connect (gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY (d->entry_bg_pixmap)),
 			    "changed", G_CALLBACK (changed_bg_pixmap), d);
 
 	d->option_halign = glade_xml_get_widget (xml, "option_cell_halign");
@@ -459,11 +460,11 @@ set_ui (GtkHTMLEditCellProperties *d)
 	d->disable_change = TRUE;
 
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (d->check_bg_color), d->has_bg_color);
-	gdk_color_alloc (gdk_window_get_colormap (GTK_WIDGET (d->cd->html)->window), &d->bg_color);
+	/* RM2 gdk_color_alloc (gdk_window_get_colormap (GTK_WIDGET (d->cd->html)->window), &d->bg_color); */
 	color_combo_set_color (COLOR_COMBO (d->combo_bg_color), &d->bg_color);
 
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (d->check_bg_pixmap), d->has_bg_pixmap);
-	gtk_entry_set_text (GTK_ENTRY (gnome_pixmap_entry_gtk_entry (GNOME_PIXMAP_ENTRY (d->entry_bg_pixmap))),
+	gtk_entry_set_text (GTK_ENTRY (gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY (d->entry_bg_pixmap))),
 			    d->bg_pixmap);
 
 	gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_halign), d->halign - HTML_HALIGN_LEFT);

@@ -23,6 +23,7 @@
 */
 
 #include <config.h>
+#include <string.h>
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <gtk/gtk.h>
@@ -156,7 +157,7 @@ html_source_view_new (void)
 {
 	GtkWidget *view;
 
-	view = GTK_WIDGET (gtk_type_new (html_source_view_get_type ()));
+	view = GTK_WIDGET (g_object_new (html_source_view_get_type (), NULL));
 	
 	return view;
 }
@@ -224,10 +225,10 @@ html_source_view_class_init (HTMLSourceViewClass *klass)
 	signals [UPDATE] = g_signal_new ("update",
 					 G_TYPE_FROM_CLASS (object_class),
 					 G_SIGNAL_RUN_FIRST,
-					 GTK_STRUCT_OFFSET (HTMLSourceViewClass, update),
+					 G_STRUCT_OFFSET (HTMLSourceViewClass, update),
 					 NULL, NULL,
 					 g_cclosure_marshal_VOID__VOID,
-					 GTK_TYPE_NONE, 0);
+					 G_TYPE_NONE, 0);
 	
 	object_class->destroy = html_source_view_destroy;
 	klass->update = html_source_view_real_update;

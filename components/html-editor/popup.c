@@ -257,7 +257,7 @@ show_prop_dialog (GtkHTMLControlData *cd, GtkHTMLEditPropertyType start)
 static void
 prop_dialog (GtkWidget *mi, GtkHTMLControlData *cd)
 {
-	show_prop_dialog (cd, GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (mi), "type")));
+	show_prop_dialog (cd, GPOINTER_TO_INT (g_object_get_data (G_OBJECT (mi), "type")));
 }
 
 static void
@@ -281,9 +281,9 @@ link_prop_dialog (GtkWidget *mi, GtkHTMLControlData *cd)
 static void
 spell_suggest (GtkWidget *mi, GtkHTMLControlData *cd)
 {
-	HTMLEngine *e = cd->html->engine;
+	/* HTMLEngine *e = cd->html->engine;
 
-	/* gtk_signal_emit_by_name (GTK_OBJECT (cd->html), "spell_suggestion_request",
+	   gtk_signal_emit_by_name (GTK_OBJECT (cd->html), "spell_suggestion_request",
 	   e->spell_checker, html_engine_get_word (e)); */
 	spell_suggestion_request (cd->html, cd);
 }
@@ -343,7 +343,7 @@ insert_html (GtkWidget *mi, GtkHTMLControlData *cd)
 #endif
 
 #define ADD_ITEM_BASE(f,t) \
-                gtk_object_set_data (GTK_OBJECT (menuitem), "type", GINT_TO_POINTER (GTK_HTML_EDIT_PROPERTY_ ## t)); \
+                g_object_set_data (G_OBJECT (menuitem), "type", GINT_TO_POINTER (GTK_HTML_EDIT_PROPERTY_ ## t)); \
 		gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem); \
 		gtk_widget_show (menuitem); \
 		g_signal_connect (menuitem, "activate", G_CALLBACK (f), cd); \

@@ -21,6 +21,7 @@
 */
 
 #include <config.h>
+#include <string.h>
 #include <bonobo.h>
 
 #include "gtkhtml.h"
@@ -35,7 +36,6 @@
 #include "spell.h"
 
 static BonoboObjectClass *engine_parent_class;
-static POA_GNOME_GtkHTML_Editor_Engine__vepv engine_vepv;
 
 inline static EditorEngine *
 html_editor_engine_from_servant (PortableServer_Servant servant)

@@ -242,7 +242,6 @@ selection_changed (GtkTreeSelection *selection, GtkHTMLEditTemplateProperties *d
 static void
 fill_templates (GtkHTMLEditTemplateProperties *d)
 {
-	GtkWidget *item;
 	GtkTreeIter iter;
 	gint i;
 
@@ -283,7 +282,7 @@ template_widget (GtkHTMLEditTemplateProperties *d, gboolean insert)
 	UPPER_FIX (width);
 
 	frame = sample_frame (&d->sample);
-	gtk_widget_set_usize (frame, -1, 260);
+	gtk_widget_set_size_request (frame, -1, 260);
 	gtk_box_pack_start (GTK_BOX (template_page), frame, FALSE, FALSE, 0);
 
 	d->disable_change = FALSE;

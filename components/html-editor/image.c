@@ -188,7 +188,7 @@ get_location (GtkHTMLEditImageProperties *d)
 	if (file) {
 		url = g_strconcat ("file://", file, NULL);
 	} else {
-		GtkWidget *entry = gnome_pixmap_entry_gtk_entry (GNOME_PIXMAP_ENTRY (d->pentry));
+		GtkWidget *entry = gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY (d->pentry));
 
 		url = g_strdup (gtk_entry_get_text (GTK_ENTRY (entry)));
 	}
@@ -374,9 +374,6 @@ fill_templates (GtkHTMLEditImageProperties *d)
 static void
 set_ui (GtkHTMLEditImageProperties *d)
 {
-	gchar *url;
-	gchar *alt;
-
 	d->disable_change = TRUE;
 
 	gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_template), d->template);
@@ -393,7 +390,7 @@ set_ui (GtkHTMLEditImageProperties *d)
 	printf ("set ui (8) %s\n", d->url);
 	gtk_entry_set_text (GTK_ENTRY (d->entry_url), d->url ? d->url : "");
 	gtk_entry_set_text (GTK_ENTRY (d->entry_alt), d->alt ? d->alt : "");
-	gtk_entry_set_text (GTK_ENTRY (gnome_pixmap_entry_gtk_entry (GNOME_PIXMAP_ENTRY (d->pentry))),
+	gtk_entry_set_text (GTK_ENTRY (gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY (d->pentry))),
 			    d->location ? d->location : "");
 
 	gtk_widget_set_sensitive (d->spin_width, d->width_percent != 2);
@@ -581,7 +578,7 @@ image_widget (GtkHTMLEditImageProperties *d, gboolean insert)
 	g_signal_connect (d->entry_alt, "changed", G_CALLBACK (alt_changed), d);
 
 	d->pentry = glade_xml_get_widget (xml, "pentry_image_location");
-	g_signal_connect (GTK_OBJECT (gnome_pixmap_entry_gtk_entry (GNOME_PIXMAP_ENTRY (d->pentry))),
+	g_signal_connect (GTK_OBJECT (gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY (d->pentry))),
 			    "changed", G_CALLBACK (pentry_changed), d);
 
 	gtk_widget_show_all (d->page);

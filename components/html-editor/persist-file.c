@@ -186,7 +186,6 @@ static void
 impl_save (PortableServer_Servant servant, const CORBA_char *path, CORBA_Environment * ev)
 {
 	GtkHTMLPersistFile *file = GTK_HTML_PERSIST_FILE (bonobo_object_from_servant (servant));
-	int retval;
 	int fd;
 
 	fd = open (path, O_WRONLY | O_CREAT | O_TRUNC, 0600);

@@ -23,6 +23,7 @@
 */
 
 #include <config.h>
+#include <string.h>
 #include <gnome.h>
 #include <bonobo.h>
 #include <stdio.h>
@@ -70,10 +71,6 @@
 #include "gtkhtmldebug.h"
 #include "editor-control-factory.h"
 
-#ifndef GNOME_GTKHTML_EDITOR_SHLIB
-static BonoboGenericFactory *factory;
-
-#endif
 static void send_event_stream (GNOME_GtkHTML_Editor_Engine engine, 
 			       GNOME_GtkHTML_Editor_Listener listener,
 			       const char *name,
@@ -91,13 +88,6 @@ struct _SetFrameData {
 typedef struct _SetFrameData SetFrameData;
 
 static GtkHTMLEditorAPI *editor_api;
-
-static gint
-gtk_toolbar_focus (GtkContainer     *container,
-			  GtkDirectionType  direction)
-{
-	return FALSE;
-}
 
 static void
 set_frame_cb (BonoboControl *control,
@@ -324,7 +314,7 @@ html_button_pressed (GtkWidget *html, GdkEventButton *event, GtkHTMLControlData 
 		}
 
 		if (popup_show (cd, event)) {
-			gtk_signal_emit_stop_by_name (GTK_OBJECT (html), "button_press_event");
+			g_signal_stop_emission_by_name (html, "button_press_event");
 			return TRUE;
 		}
 		break;
@@ -705,7 +695,6 @@ editor_control_init (void)
 		initialized = TRUE;
 
 		new_editor_api ();
-		gdk_rgb_init ();
 		glade_gnome_init ();
 	}
 }

@@ -21,6 +21,7 @@
 */
 
 #include <config.h>
+#include <string.h>
 #include <gal/widgets/widget-color-combo.h>
 #include "htmlengine-edit.h"
 #include "htmlengine-edit-clueflowstyle.h"
@@ -100,8 +101,8 @@ fill_sample (GtkHTMLEditBodyProperties *d)
 	gchar *body, *body_tag, *bg_image, *lm;
 	const gchar *fname;
 
-	fname = gtk_entry_get_text (GTK_ENTRY (gnome_pixmap_entry_gtk_entry
-					       (GNOME_PIXMAP_ENTRY (d->pixmap_entry))));
+	fname = gtk_entry_get_text (GTK_ENTRY (gnome_file_entry_gtk_entry
+					       (GNOME_FILE_ENTRY (d->pixmap_entry))));
 	bg_image = fname && *fname ? g_strdup_printf (" BACKGROUND=\"%s\"", fname) : g_strdup ("");
 	lm = d->left_margin != 10 ? g_strdup_printf (" LEFTMARGIN=%d", d->left_margin) : g_strdup ("");
 	body_tag = g_strdup_printf ("<BODY BGCOLOR=#%02x%02x%02x LINK=#%02x%02x%02x TEXT=#%02x%02x%02x%s%s>",
@@ -137,7 +138,7 @@ color_changed (GtkWidget *w, GdkColor *color, gboolean custom, gboolean by_user,
 	if (!by_user)
 		return;
 		
-	idx = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (w), "type"));
+	idx = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (w), "type"));
 	data->color [idx] = color
 		? *color
 		: html_colorset_get_color (data->cd->html->engine->defaultSettings->color_set, idx)->color;
@@ -166,7 +167,7 @@ changed_template (GtkWidget *w, GtkHTMLEditBodyProperties *d)
 {
 	d->template = g_list_index (GTK_MENU_SHELL (w)->children, gtk_menu_get_active (GTK_MENU (w)));
 
-	gtk_entry_set_text (GTK_ENTRY (gnome_pixmap_entry_gtk_entry (GNOME_PIXMAP_ENTRY (d->pixmap_entry))),
+	gtk_entry_set_text (GTK_ENTRY (gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY (d->pixmap_entry))),
 			    body_templates [d->template].bg_pixmap ? body_templates [d->template].bg_pixmap : "");
 
 	if (d->template) {
@@ -224,9 +225,9 @@ fill_templates (GtkHTMLEditBodyProperties *d)
 		item = gtk_menu_item_new_with_label (_(body_templates [i].name));
 		gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
 		gtk_widget_show (item);
-		gdk_color_alloc (gdk_window_get_colormap (GTK_WIDGET (d->cd->html)->window), &body_templates [i].bg_color);
-		gdk_color_alloc (gdk_window_get_colormap (GTK_WIDGET (d->cd->html)->window), &body_templates [i].text_color);
-		gdk_color_alloc (gdk_window_get_colormap (GTK_WIDGET (d->cd->html)->window), &body_templates [i].link_color);
+		/* RM2 gdk_color_alloc (gdk_window_get_colormap (GTK_WIDGET (d->cd->html)->window), &body_templates [i].bg_color);
+		   gdk_color_alloc (gdk_window_get_colormap (GTK_WIDGET (d->cd->html)->window), &body_templates [i].text_color);
+		   gdk_color_alloc (gdk_window_get_colormap (GTK_WIDGET (d->cd->html)->window), &body_templates [i].link_color); */
 	}
 	gtk_option_menu_set_menu (GTK_OPTION_MENU (d->option_template), menu);
 }
@@ -265,8 +266,8 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	gtk_container_set_border_width (GTK_CONTAINER (hbox), 3);
 	data->entry_title = gtk_entry_new ();
 	if (gtk_html_get_title (data->cd->html)) {
-		e_utf8_gtk_entry_set_text (GTK_ENTRY (data->entry_title), 
-					   gtk_html_get_title (data->cd->html));
+		gtk_entry_set_text (GTK_ENTRY (data->entry_title), 
+				    gtk_html_get_title (data->cd->html));
 	}
 	g_signal_connect (data->entry_title, "changed", G_CALLBACK (entry_changed), data);
 	gtk_box_pack_start_defaults (GTK_BOX (hbox), data->entry_title);
@@ -285,11 +286,11 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 		 if (!strncmp (ip->url, "file:", 5))
 			 off = 5;
 
-		 gtk_entry_set_text (GTK_ENTRY (gnome_pixmap_entry_gtk_entry (GNOME_PIXMAP_ENTRY (data->pixmap_entry))),
+		 gtk_entry_set_text (GTK_ENTRY (gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY (data->pixmap_entry))),
 				     ip->url + off);
 	}
 
-	g_signal_connect (gnome_pixmap_entry_gtk_entry (GNOME_PIXMAP_ENTRY (data->pixmap_entry)),
+	g_signal_connect (gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY (data->pixmap_entry)),
 			  "changed", G_CALLBACK (entry_changed), data);
 
 	gtk_box_pack_start (GTK_BOX (vbox), data->pixmap_entry, FALSE, FALSE, 0);
@@ -313,7 +314,7 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 				 &color->color, \
 				 color_group_fetch ("body_" g, cd)); \
         color_combo_set_color (COLOR_COMBO (combo), &data->color [ct]); \
-        gtk_object_set_data (GTK_OBJECT (combo), "type", GINT_TO_POINTER (ct)); \
+        g_object_set_data (G_OBJECT (combo), "type", GINT_TO_POINTER (ct)); \
         g_signal_connect (combo, "color_changed", G_CALLBACK (color_changed), data); \
 	hbox = gtk_hbox_new (FALSE, 3); \
 	gtk_box_pack_start (GTK_BOX (hbox), combo, FALSE, FALSE, 0); \
@@ -352,7 +353,7 @@ body_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 	APPLY_COLOR (HTMLLinkColor);
 	APPLY_COLOR (HTMLBgColor);
 
-	fname = gtk_entry_get_text (GTK_ENTRY (gnome_pixmap_entry_gtk_entry (GNOME_PIXMAP_ENTRY (data->pixmap_entry))));
+	fname = gtk_entry_get_text (GTK_ENTRY (gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY (data->pixmap_entry))));
 	if (fname && *fname) {
 		HTMLEngine *e = data->cd->html->engine;
 		gchar *file = g_strconcat ("file:", fname, NULL);

@@ -35,9 +35,6 @@
 #include "htmlengine-edit-fontstyle.h"
 #include "htmlsettings.h"
 
-#include "tt.xpm"
-
-
 #define EDITOR_TOOLBAR_PATH "/HTMLEditor"
 
 
@@ -91,7 +88,7 @@ paragraph_style_menu_item_activated_cb (GtkWidget *widget,
 	GtkHTML *html;
 
 	html = GTK_HTML (data);
-	style = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (widget), "paragraph_style_value"));
+	style = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (widget), "paragraph_style_value"));
 
 	/* g_warning ("Setting paragraph style to %d.", style); */
 
@@ -104,7 +101,7 @@ paragraph_style_menu_item_update (GtkWidget *widget, gpointer format_html)
 	GtkHTMLParagraphStyle style;
 	gint sensitive;
 
-	style = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (widget), "paragraph_style_value"));
+	style = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (widget), "paragraph_style_value"));
 	
 	sensitive = (format_html
 		     || style == GTK_HTML_PARAGRAPH_STYLE_NORMAL
@@ -147,7 +144,7 @@ setup_paragraph_style_option_menu (GtkHTML *html)
 
 		gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
 
-		gtk_object_set_data (GTK_OBJECT (menu_item), "paragraph_style_value",
+		g_object_set_data (G_OBJECT (menu_item), "paragraph_style_value",
 				     GINT_TO_POINTER (paragraph_style_items[i].style));
 		g_signal_connect (menu_item, "activate", G_CALLBACK (paragraph_style_menu_item_activated_cb), html);
 	}
@@ -162,7 +159,7 @@ setup_paragraph_style_option_menu (GtkHTML *html)
 static void
 set_font_size (GtkWidget *w, GtkHTMLControlData *cd)
 {
-	GtkHTMLFontStyle style = GTK_HTML_FONT_STYLE_SIZE_1 + GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (w),
+	GtkHTMLFontStyle style = GTK_HTML_FONT_STYLE_SIZE_1 + GPOINTER_TO_INT (g_object_get_data (G_OBJECT (w),
 												    "size"));
 
 	if (!cd->block_font_style_change)
@@ -204,7 +201,7 @@ setup_font_size_option_menu (GtkHTMLControlData *cd)
 
 		gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
 
-		gtk_object_set_data (GTK_OBJECT (menu_item), "size",
+		g_object_set_data (G_OBJECT (menu_item), "size",
 				     GINT_TO_POINTER (i));
 		g_signal_connect (menu_item, "activate", G_CALLBACK (set_font_size), cd);
 	}
@@ -509,11 +506,11 @@ editor_toolbar_unindent_cb (GtkWidget *widget,
 
 static GnomeUIInfo editor_toolbar_alignment_group[] = {
 	GNOMEUIINFO_ITEM_STOCK (N_("Left align"), N_("Left justifies the paragraphs"),
-				editor_toolbar_left_align_cb, GNOME_STOCK_PIXMAP_ALIGN_LEFT),
+				editor_toolbar_left_align_cb, GTK_STOCK_JUSTIFY_LEFT),
 	GNOMEUIINFO_ITEM_STOCK (N_("Center"), N_("Center justifies the paragraphs"),
-				editor_toolbar_center_cb, GNOME_STOCK_PIXMAP_ALIGN_CENTER),
+				editor_toolbar_center_cb, GTK_STOCK_JUSTIFY_CENTER),
 	GNOMEUIINFO_ITEM_STOCK (N_("Right align"), N_("Right justifies the paragraphs"),
-				editor_toolbar_right_align_cb, GNOME_STOCK_PIXMAP_ALIGN_RIGHT),
+				editor_toolbar_right_align_cb, GTK_STOCK_JUSTIFY_RIGHT),
 	GNOMEUIINFO_END
 };
 
@@ -522,13 +519,13 @@ static GnomeUIInfo editor_toolbar_style_uiinfo[] = {
 	{ GNOME_APP_UI_TOGGLEITEM, N_("Typewriter"), N_("Toggle typewriter font style"),
 	  editor_toolbar_tt_cb, NULL, NULL, GNOME_APP_PIXMAP_FILENAME, GTKHTML_DATADIR "/icons/font-tt-24.png" },
 	{ GNOME_APP_UI_TOGGLEITEM, N_("Bold"), N_("Makes the text bold"),
-	  editor_toolbar_bold_cb, NULL, NULL, GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_PIXMAP_TEXT_BOLD },
+	  editor_toolbar_bold_cb, NULL, NULL, GNOME_APP_PIXMAP_STOCK, GTK_STOCK_BOLD },
 	{ GNOME_APP_UI_TOGGLEITEM, N_("Italic"), N_("Makes the text italic"),
-	  editor_toolbar_italic_cb, NULL, NULL, GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_PIXMAP_TEXT_ITALIC },
+	  editor_toolbar_italic_cb, NULL, NULL, GNOME_APP_PIXMAP_STOCK, GTK_STOCK_ITALIC },
 	{ GNOME_APP_UI_TOGGLEITEM, N_("Underline"), N_("Underlines the text"),
-	  editor_toolbar_underline_cb, NULL, NULL, GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_PIXMAP_TEXT_UNDERLINE },
+	  editor_toolbar_underline_cb, NULL, NULL, GNOME_APP_PIXMAP_STOCK, GTK_STOCK_UNDERLINE },
 	{ GNOME_APP_UI_TOGGLEITEM, N_("Strikeout"), N_("Strikes out the text"),
-	  editor_toolbar_strikeout_cb, NULL, NULL, GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_PIXMAP_TEXT_STRIKEOUT },
+	  editor_toolbar_strikeout_cb, NULL, NULL, GNOME_APP_PIXMAP_STOCK, GTK_STOCK_STRIKETHROUGH },
 
 	GNOMEUIINFO_SEPARATOR,
 
@@ -537,9 +534,9 @@ static GnomeUIInfo editor_toolbar_style_uiinfo[] = {
 	GNOMEUIINFO_SEPARATOR,
 
 	GNOMEUIINFO_ITEM_STOCK (N_("Unindent"), N_("Indents the paragraphs less"),
-				editor_toolbar_unindent_cb, GNOME_STOCK_PIXMAP_TEXT_UNINDENT),
+				editor_toolbar_unindent_cb, GNOME_STOCK_TEXT_UNINDENT),
 	GNOMEUIINFO_ITEM_STOCK (N_("Indent"), N_("Indents the paragraphs more"),
-				editor_toolbar_indent_cb, GNOME_STOCK_PIXMAP_TEXT_INDENT),
+				editor_toolbar_indent_cb, GNOME_STOCK_TEXT_INDENT),
 
 	GNOMEUIINFO_END
 };

@@ -67,7 +67,7 @@ fill_sample (GtkHTMLEditParagraphProperties *d)
 static void
 set_style (GtkWidget *w, GtkHTMLEditParagraphProperties *data)
 {
-	GtkHTMLParagraphStyle style = GPOINTER_TO_UINT (gtk_object_get_data (GTK_OBJECT (w), "style"));
+	GtkHTMLParagraphStyle style = GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (w), "style"));
 
 	if (data->style != style) {
 		gtk_html_edit_properties_dialog_change (data->cd->properties_dialog);
@@ -80,7 +80,7 @@ set_style (GtkWidget *w, GtkHTMLEditParagraphProperties *data)
 static void
 set_align (GtkWidget *w, GtkHTMLEditParagraphProperties *data)
 {
-	GtkHTMLParagraphAlignment align = GPOINTER_TO_UINT (gtk_object_get_data (GTK_OBJECT (w), "align"));
+	GtkHTMLParagraphAlignment align = GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (w), "align"));
 	if (align != data->align && gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (w))) {
 		data->align = align;
 		data->align_changed = TRUE;
@@ -119,7 +119,7 @@ paragraph_properties (GtkHTMLControlData *cd, gpointer *set_data)
         gtk_widget_show (menuitem); \
         if (data->style == s) h=i; i++; \
         g_signal_connect (menuitem, "activate", G_CALLBACK (set_style), data); \
-        gtk_object_set_data (GTK_OBJECT (menuitem), "style", GINT_TO_POINTER (s));
+        g_object_set_data (G_OBJECT (menuitem), "style", GINT_TO_POINTER (s));
 
 	ADD_ITEM (_("Normal"),       GTK_HTML_PARAGRAPH_STYLE_NORMAL);
 	ADD_ITEM (_("Pre"),          GTK_HTML_PARAGRAPH_STYLE_PRE);
@@ -152,7 +152,7 @@ paragraph_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	gtk_box_pack_start (GTK_BOX (hbox), radio, FALSE, FALSE, 0); \
         if (a == data->align) gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE); \
         g_signal_connect (radio, "toggled", G_CALLBACK (set_align), data); \
-        gtk_object_set_data (GTK_OBJECT (radio), "align", GINT_TO_POINTER (a));
+        g_object_set_data (G_OBJECT (radio), "align", GINT_TO_POINTER (a));
 
 	group = NULL;
 	ADD_RADIO (_("Left"), GTK_HTML_PARAGRAPH_ALIGNMENT_LEFT);

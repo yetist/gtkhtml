@@ -28,14 +28,14 @@
 #include "htmlengine.h"
 
 struct _GtkHTMLReplaceAskDialog {
-	GnomeDialog *dialog;
-	HTMLEngine  *engine;
+	GtkDialog  *dialog;
+	HTMLEngine *engine;
 };
 
 typedef struct _GtkHTMLReplaceAskDialog GtkHTMLReplaceAskDialog;
 
 struct _GtkHTMLReplaceDialog {
-	GnomeDialog *dialog;
+	GtkDialog   *dialog;
 	GtkHTML     *html;
 	GtkWidget   *entry_search;
 	GtkWidget   *entry_replace;
@@ -45,10 +45,10 @@ struct _GtkHTMLReplaceDialog {
 	GtkHTMLReplaceAskDialog *ask_dialog;
 };
 
-static void
+/* FIX2 static void
 replace_do (GtkHTMLReplaceAskDialog *d, HTMLReplaceQueryAnswer answer)
 {
-	gnome_dialog_close (d->dialog);
+	gtk_dialog_response (d->dialog, GTK_RESPONSE_CLOSE);
 	html_engine_replace_do (d->engine, answer);
 }
 
@@ -74,7 +74,7 @@ static void
 cancel_cb (GtkWidget *button, GtkHTMLReplaceAskDialog *d)
 {
 	replace_do (d, RQA_Cancel);
-}
+} */
 
 static GtkHTMLReplaceAskDialog *
 ask_dialog_new (HTMLEngine *e)
@@ -82,21 +82,20 @@ ask_dialog_new (HTMLEngine *e)
 	GtkHTMLReplaceAskDialog *d;
 
 	d = g_new (GtkHTMLReplaceAskDialog, 1);
-	d->dialog = GNOME_DIALOG (gnome_dialog_new (_("Replace confirmation"),
-						    _("Replace"), _("Replace all"), _("Next"),
-						    GNOME_STOCK_BUTTON_CANCEL, NULL));
+	d->dialog = GTK_DIALOG (gtk_dialog_new_with_buttons (_("Replace confirmation"), NULL, 0,
+							     _("Replace"), _("Replace all"), _("Next"),
+							     GTK_STOCK_CANCEL, NULL));
 	d->engine = e;
 
 	gnome_window_icon_set_from_file (GTK_WINDOW (d->dialog), ICONDIR "/search-and-replace-24.png");
-	gnome_dialog_button_connect (d->dialog, 0, GTK_SIGNAL_FUNC (replace_cb), d);
-	gnome_dialog_button_connect (d->dialog, 1, GTK_SIGNAL_FUNC (replace_all_cb), d);
-	gnome_dialog_button_connect (d->dialog, 2, GTK_SIGNAL_FUNC (next_cb), d);
-	gnome_dialog_button_connect (d->dialog, 3, GTK_SIGNAL_FUNC (cancel_cb), d);
+	/* FIX2 gnome_dialog_button_connect (d->dialog, 0, GTK_SIGNAL_FUNC (replace_cb), d);
+	   gnome_dialog_button_connect (d->dialog, 1, GTK_SIGNAL_FUNC (replace_all_cb), d);
+	   gnome_dialog_button_connect (d->dialog, 2, GTK_SIGNAL_FUNC (next_cb), d);
+	   gnome_dialog_button_connect (d->dialog, 3, GTK_SIGNAL_FUNC (cancel_cb), d); */
 
-	gnome_dialog_close_hides (d->dialog, TRUE);
 	/* gnome_dialog_set_close (d->dialog, TRUE); */
 
-	gnome_dialog_set_default (d->dialog, 0);
+	/* FIX2 gnome_dialog_set_default (d->dialog, 0); */
 
 	return d;
 }
@@ -108,7 +107,7 @@ ask (HTMLEngine *e, gpointer data)
 
 	if (!d->ask_dialog) {
 		d->ask_dialog = ask_dialog_new (e);
-		gnome_dialog_run (d->ask_dialog->dialog);
+		gtk_dialog_run (d->ask_dialog->dialog);
 	} else {
 		gtk_widget_show (GTK_WIDGET (d->ask_dialog->dialog));
 		gdk_window_raise (GTK_WIDGET (d->ask_dialog->dialog)->window);
@@ -118,7 +117,7 @@ ask (HTMLEngine *e, gpointer data)
 static void
 button_replace_cb (GtkWidget *but, GtkHTMLReplaceDialog *d)
 {
-	gnome_dialog_close  (d->dialog);	
+	gtk_dialog_response  (d->dialog, GTK_RESPONSE_CLOSE);
 	html_engine_replace (d->html->engine,
 			     gtk_entry_get_text (GTK_ENTRY (d->entry_search)),
 			     gtk_entry_get_text (GTK_ENTRY (d->entry_replace)),
@@ -146,8 +145,8 @@ gtk_html_replace_dialog_new (GtkHTML *html)
 	GtkWidget *table;
 	GtkWidget *label;
 
-	dialog->dialog         = GNOME_DIALOG (gnome_dialog_new (NULL, _("Replace"),
-								 GNOME_STOCK_BUTTON_CANCEL, NULL));
+	dialog->dialog         = GTK_DIALOG (gtk_dialog_new_with_buttons (_("Replace"), NULL, 0,
+									  _("Replace"), GTK_STOCK_CANCEL, NULL));
 
 	table = gtk_table_new (2, 2, FALSE);
 	dialog->entry_search   = gtk_entry_new ();
@@ -180,11 +179,11 @@ gtk_html_replace_dialog_new (GtkHTML *html)
 
 	gnome_window_icon_set_from_file (GTK_WINDOW (dialog->dialog), ICONDIR "/search-and-replace-24.png");
 
-	gnome_dialog_button_connect (dialog->dialog, 0, GTK_SIGNAL_FUNC (button_replace_cb), dialog);
-	gnome_dialog_close_hides (dialog->dialog, TRUE);
-	gnome_dialog_set_close (dialog->dialog, TRUE);
+	/* FIX2 gnome_dialog_button_connect (dialog->dialog, 0, GTK_SIGNAL_FUNC (button_replace_cb), dialog);
+	   gnome_dialog_close_hides (dialog->dialog, TRUE);
+	   gnome_dialog_set_close (dialog->dialog, TRUE);
 
-	gnome_dialog_set_default (dialog->dialog, 0);
+	   gnome_dialog_set_default (dialog->dialog, 0); */
 	gtk_widget_grab_focus (dialog->entry_search);
 
 	g_signal_connect (dialog->entry_search, "changed", G_CALLBACK (entry_changed), dialog);

@@ -21,6 +21,7 @@
 */
 
 #include <config.h>
+#include <string.h>
 #include <gal/widgets/widget-color-combo.h>
 
 #include "htmlcolor.h"
@@ -128,7 +129,7 @@ color_changed (GtkWidget *w, GdkColor *color, gboolean custom, gboolean by_user,
 static void
 set_size (GtkWidget *w, GtkHTMLEditTextProperties *data)
 {
-	gint size = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (w), "size"));
+	gint size = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (w), "size"));
 
 	data->style_and &= ~GTK_HTML_FONT_STYLE_SIZE_MASK;
 	data->style_or  &= ~GTK_HTML_FONT_STYLE_SIZE_MASK;
@@ -141,7 +142,7 @@ set_size (GtkWidget *w, GtkHTMLEditTextProperties *data)
 static void
 set_style (GtkWidget *w, GtkHTMLEditTextProperties *d)
 {
-	GtkHTMLFontStyle style = GPOINTER_TO_UINT (gtk_object_get_data (GTK_OBJECT (w), "style"));
+	GtkHTMLFontStyle style = GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (w), "style"));
 
 	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (w))) {
 		d->style_or  |= style;
@@ -220,7 +221,7 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 #define ADD_CHECK(x,c,r) \
 	data->check [i] = gtk_check_button_new_with_label (x); \
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->check [i]), data->style_or & styles [i]); \
-        gtk_object_set_data (GTK_OBJECT (data->check [i]), "style", GUINT_TO_POINTER (styles [i])); \
+        g_object_set_data (G_OBJECT (data->check [i]), "style", GUINT_TO_POINTER (styles [i])); \
         g_signal_connect (data->check [i], "toggled", G_CALLBACK (set_style), data); \
 	gtk_table_attach (GTK_TABLE (t1), data->check [i], c, c + 1, r, r + 1, GTK_FILL | GTK_EXPAND, 0, 0, 0); \
         i++
@@ -262,7 +263,7 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
         gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem); \
         gtk_widget_show (menuitem); \
         g_signal_connect (menuitem, "activate", G_CALLBACK (set_size), data); \
-        gtk_object_set_data (GTK_OBJECT (menuitem), "size", GINT_TO_POINTER (i)); i++;
+        g_object_set_data (G_OBJECT (menuitem), "size", GINT_TO_POINTER (i)); i++;
 
 	i=GTK_HTML_FONT_STYLE_SIZE_1;
 	ADD_ITEM("-2");

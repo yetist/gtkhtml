@@ -26,7 +26,7 @@
 /*
   somewhat ugly (those *** :) so I feel like I may comment
   as first argument it takes poiter to pointer on Dialog struct
-  which MUST contains GnomeDialog * as first field
+  which MUST contains GtkDialog * as first field
 
   it is bassicaly the same trick as used in GtkObject's
 */
@@ -41,7 +41,7 @@ get_parent_window (GtkWidget *w)
 }
 
 void
-run_dialog (GnomeDialog ***dialog, GtkHTML *html, DialogCtor ctor, const gchar *title)
+run_dialog (GtkDialog ***dialog, GtkHTML *html, DialogCtor ctor, const gchar *title)
 {
 	if (*dialog) {
 		gtk_window_set_title (GTK_WINDOW (**dialog), title);
@@ -53,12 +53,12 @@ run_dialog (GnomeDialog ***dialog, GtkHTML *html, DialogCtor ctor, const gchar *
 		*dialog = ctor (html);
 		gtk_window_set_title (GTK_WINDOW (**dialog), title);
 		parent = get_parent_window (GTK_WIDGET (html));
-		if (parent) {
-			gnome_dialog_set_parent (**dialog, parent);
-		}
+		/* FIX2 if (parent) {
+			gtk_dialog_set_parent (**dialog, parent);
+			} */
 		/* gtk_window_set_transient_for (GTK_WINDOW (**dialog),
 		   GTK_WINDOW (gtk_widget_get_parent_window (GTK_WIDGET (html)))); */
 		gtk_widget_show (GTK_WIDGET (**dialog));
 	}
-	gnome_dialog_run (**dialog);
+	gtk_dialog_run (**dialog);
 }

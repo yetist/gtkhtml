@@ -118,7 +118,6 @@ save_through_plain_persist_stream (const gchar *filename,
 	if (stream == NULL) {
 		g_warning ("Couldn't create `%s'\n", filename);
 	} else {
-		BonoboObject *stream_object;
 		Bonobo_Stream corba_stream;
 
 		corba_stream = bonobo_object_corba_objref (stream);
@@ -219,9 +218,7 @@ view_source_dialog (BonoboWindow *app, char *type, gboolean as_html)
 	html_source_view_set_mode (HTML_SOURCE_VIEW (view), as_html);
 	gtk_widget_show_all (window);
 
-	gtk_signal_connect_object (GTK_OBJECT (control),
-				   "destroy", GTK_SIGNAL_FUNC (gtk_object_destroy),
-				   GTK_OBJECT (window));
+	g_signal_connect_swapped (control, "destroy", G_CALLBACK (g_object_unref), window);
 }    
 
 static void
@@ -403,7 +400,6 @@ menu_format_html_cb (BonoboUIComponent           *component,
 		     gpointer                     user_data)
 
 {
-	BonoboArg *arg;
 	if (type != Bonobo_UIComponent_STATE_CHANGED)
 		return;
 	formatHTML = *state == '0' ? 0 : 1;
@@ -488,7 +484,7 @@ container_create (void)
 	g_signal_connect (window, "destroy", G_CALLBACK (app_destroy_cb), container);
 
 	gtk_window_set_default_size (window, 600, 440);
-	gtk_window_set_policy (window, TRUE, TRUE, FALSE);
+	gtk_window_set_resizable (window, TRUE);
 
 	component = bonobo_ui_component_new ("test-editor");
 	bonobo_running_context_auto_exit_unref (BONOBO_OBJECT (component));

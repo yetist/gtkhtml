@@ -25,11 +25,11 @@
 
 #include "control-data.h"
 
-typedef GnomeDialog ** (*DialogCtor)(GtkHTML *html);
+typedef GtkDialog ** (*DialogCtor)(GtkHTML *html);
 
-#define RUN_DIALOG(name,title) run_dialog ((GnomeDialog ***)&cd-> name ## _dialog, cd->html, (DialogCtor) gtk_html_ ## name ## _dialog_new, title)
+#define RUN_DIALOG(name,title) run_dialog ((GtkDialog ***)&cd-> name ## _dialog, cd->html, (DialogCtor) gtk_html_ ## name ## _dialog_new, title)
 
-void       run_dialog         (GnomeDialog ***dialog,
+void       run_dialog         (GtkDialog ***dialog,
 			       GtkHTML       *html,
 			       DialogCtor     ctor,
 			       const gchar   *title);
