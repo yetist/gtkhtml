@@ -1,3 +1,8 @@
+2001-07-30  Jakub Steiner <jimmac@ximian.com>
+
+	* insert-rule-16.png, insert-rule-24.png: menu and panel icons
+	  for inserting a rule.
+	
 2001-07-27  Radek Doulik  <rodo@ximian.com>
 
 	* Makefile.am (icons_DATA): added bulb.png which I get from
