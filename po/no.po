@@ -5,8 +5,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.8\n"
-"POT-Creation-Date: 2003-06-26 11:33-0500\n"
-"PO-Revision-Date: 2003-05-22 14:20+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2003-07-23 11:30+0200\n"
+"PO-Revision-Date: 2003-07-23 11:31+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +19,7 @@ msgid "<None>"
 msgstr "<Ingen>"
 
 #: capplet/gnome-bindings-prop.c:211 capplet/main.c:241
-#: components/html-editor/cell.c:418 components/html-editor/image.c:531
+#: components/html-editor/cell.c:418 components/html-editor/image.c:541
 #: components/html-editor/rule.c:316 components/html-editor/table.c:530
 #: components/html-editor/table.c:614 components/html-editor/template.c:272
 msgid "Could not load glade file."
@@ -313,7 +314,7 @@ msgid "Header _6"
 msgstr "Tittel _6"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
-#: components/html-editor/editor-control-factory.c:198
+#: components/html-editor/editor-control-factory.c:200
 #: components/html-editor/gtkhtml-editor-properties.glade.h:39
 #: components/html-editor/menubar.c:91 components/html-editor/popup.c:208
 msgid "Image"
@@ -543,7 +544,7 @@ msgid "Roman Numeral List"
 msgstr "Liste med romerske tall"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
-#: components/html-editor/editor-control-factory.c:218
+#: components/html-editor/editor-control-factory.c:220
 #: components/html-editor/gtkhtml-editor-properties.glade.h:63
 #: components/html-editor/menubar.c:125 components/html-editor/popup.c:229
 msgid "Rule"
@@ -799,11 +800,6 @@ msgid "_Wink"
 msgstr "_Blunk"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:152
-#, fuzzy
-msgid "_Wrap Lines"
-msgstr "Bryting:"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:153
 msgid "etc..."
 msgstr "etc..."
 
@@ -824,7 +820,7 @@ msgstr "Blått blekk"
 msgid "Rectangles"
 msgstr "Rektangler"
 
-#: components/html-editor/body.c:275 src/gtkhtml.c:2555
+#: components/html-editor/body.c:275 src/gtkhtml.c:2586
 msgid "Document Title"
 msgstr "Dokumenttittel"
 
@@ -845,7 +841,7 @@ msgid "Automatic"
 msgstr "Automatisk"
 
 #: components/html-editor/body.c:326
-#: components/html-editor/editor-control-factory.c:207
+#: components/html-editor/editor-control-factory.c:209
 #: components/html-editor/gtkhtml-editor-properties.glade.h:76
 #: components/html-editor/menubar.c:338 components/html-editor/popup.c:194
 msgid "Text"
@@ -857,7 +853,6 @@ msgid "Background"
 msgstr "Bakgrunn"
 
 #: components/html-editor/cell.c:173 components/html-editor/cell.c:175
-#: components/html-editor/image.c:257 components/html-editor/image.c:260
 #: components/html-editor/text.c:108
 msgid "The quick brown fox jumps over the lazy dog."
 msgstr "Dette er en prøve...testing en - to - tre."
@@ -874,19 +869,19 @@ msgstr ""
 "Redigert celle er fjernet fra dokumentet.\n"
 "Kan ikke bruke dine endringer."
 
-#: components/html-editor/editor-control-factory.c:187
+#: components/html-editor/editor-control-factory.c:189
 #: components/html-editor/menubar.c:317 components/html-editor/menubar.c:335
 #: components/html-editor/menubar.c:353 components/html-editor/popup.c:186
 #: components/html-editor/popup.c:271
 msgid "Properties"
 msgstr "Egenskaper"
 
-#: components/html-editor/editor-control-factory.c:228
+#: components/html-editor/editor-control-factory.c:230
 #: components/html-editor/menubar.c:356 components/html-editor/popup.c:215
 msgid "Paragraph"
 msgstr "Avsnitt"
 
-#: components/html-editor/editor-control-factory.c:233
+#: components/html-editor/editor-control-factory.c:235
 #: components/html-editor/gtkhtml-editor-properties.glade.h:52
 #: components/html-editor/menubar.c:320 components/html-editor/popup.c:222
 msgid "Page"
@@ -1215,7 +1210,17 @@ msgstr ""
 "@src@@width@@height@align=top border=0></td></tr><tr><td><b>[Plasser din "
 "kommentar her]</td></tr></table></td></tr></table></center>"
 
-#: components/html-editor/image.c:691
+#: components/html-editor/image.c:258 components/html-editor/image.c:264
+msgid ""
+"This is sample text, designed to show you how text would flow around this "
+"image if you insert the image into your message."
+msgstr "Dette er en eksempeltekst som skal vise hvordan tekst flyter rundt dette bildet hvis du setter inn bildet i din melding."
+
+#: components/html-editor/image.c:270
+msgid "No image selected"
+msgstr "Ingen bilder valgt"
+
+#: components/html-editor/image.c:701
 msgid ""
 "The editted image was removed from the document.\n"
 "Cannot apply your changes."
@@ -1558,71 +1563,71 @@ msgstr "Større innrykk for avsnittene"
 msgid "Sample"
 msgstr "Eksempel"
 
-#: src/gtkhtml.c:2548
+#: src/gtkhtml.c:2579
 msgid "Editable"
 msgstr "Redigerbar"
 
-#: src/gtkhtml.c:2549
+#: src/gtkhtml.c:2580
 msgid "Whether the html can be edited"
 msgstr "Om HTML-koden kan redigeres"
 
-#: src/gtkhtml.c:2556
+#: src/gtkhtml.c:2587
 msgid "The title of the current document"
 msgstr "Tittel for aktivt dokument"
 
-#: src/gtkhtml.c:2562
+#: src/gtkhtml.c:2593
 msgid "Document Base"
 msgstr "Dokumentbasis"
 
-#: src/gtkhtml.c:2563
+#: src/gtkhtml.c:2594
 msgid "The base URL for relative references"
 msgstr "Basis-URL for relative referanser"
 
-#: src/gtkhtml.c:2569
+#: src/gtkhtml.c:2600
 msgid "Target Base"
 msgstr "Målbasis"
 
-#: src/gtkhtml.c:2570
+#: src/gtkhtml.c:2601
 msgid "The base URL of the targe frame"
 msgstr "Basis-URL for målrammen"
 
-#: src/gtkhtml.c:2579
+#: src/gtkhtml.c:2610
 msgid "Fixed Width Font"
 msgstr "Skrift med fast bredde"
 
-#: src/gtkhtml.c:2580
+#: src/gtkhtml.c:2611
 msgid "The Monospace font to use for typewriter text"
 msgstr "Skrift med fast bredde som skal brukes for skrivemaskintekst"
 
-#: src/gtkhtml.c:2586
+#: src/gtkhtml.c:2617
 msgid "New Link Color"
 msgstr "Farge for ny lenke"
 
-#: src/gtkhtml.c:2587
+#: src/gtkhtml.c:2618
 msgid "The color of new link elements"
 msgstr "Farge for nye lenkeelementer"
 
-#: src/gtkhtml.c:2592
+#: src/gtkhtml.c:2623
 msgid "Visited Link Color"
 msgstr "Farge for besøkt lenke"
 
-#: src/gtkhtml.c:2593
+#: src/gtkhtml.c:2624
 msgid "The color of visited link elements"
 msgstr "Farge for besøkte lenkeelementer"
 
-#: src/gtkhtml.c:2598
+#: src/gtkhtml.c:2629
 msgid "Active Link Color"
 msgstr "Farge for aktiv lenke"
 
-#: src/gtkhtml.c:2599
+#: src/gtkhtml.c:2630
 msgid "The color of active link elements"
 msgstr "Farge for aktive lenkeelementer"
 
-#: src/gtkhtml.c:2604
+#: src/gtkhtml.c:2635
 msgid "Spelling Error Color"
 msgstr "Farge for stavefeil"
 
-#: src/gtkhtml.c:2605
+#: src/gtkhtml.c:2636
 msgid "The color of the spelling error markers"
 msgstr "Farge for markering av stavefeil"
 
