@@ -1,5 +1,7 @@
 2001-08-23  Radek Doulik  <rodo@ximian.com>
 
+	* GNOME_GtkHTML_Editor.xml.in: use properties menu icon
+
 	* spell.c (check_next_word): always disable selection
 	(spell_check_document): callback for each change to make own spell
 	dictionary up-to-date
