@@ -1,3 +1,7 @@
+2004-11-01  Radek Doulik  <rodo@ximian.com>
+
+	* Makefile.am (AM_CFLAGS): use AM_FLAGS instead of CFLAGS
+
 2004-08-09  Eric Zhao  <eric.zhao@sun.com>
 
 	* text.c: (html_a11y_text_get_text),
