@@ -163,14 +163,15 @@ html_engine_print_with_header_footer (HTMLEngine *engine,
 	g_return_if_fail (engine->clue != NULL);
 
 	printer = html_printer_new (print_context);
+	html_font_manager_set_default (&printer->font_manager,
+				       prop->font_var_print,      prop->font_fix_print,
+				       prop->font_var_size_print, prop->font_var_print_points,
+				       prop->font_fix_size_print, prop->font_fix_print_points);
+
 	if (do_we_have_default_font (printer)) {
 		gint min_width, page_width;
 
 		old_painter = engine->painter;
-		html_font_manager_set_default (&printer->font_manager,
-					       prop->font_var_print,      prop->font_fix_print,
-					       prop->font_var_size_print, prop->font_var_print_points,
-					       prop->font_fix_size_print, prop->font_fix_print_points);
 
 		gtk_object_ref (GTK_OBJECT (old_painter));
 		html_engine_set_painter (engine, printer);

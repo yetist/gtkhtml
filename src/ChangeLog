@@ -1,3 +1,8 @@
+2001-11-03  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine-print.c (html_engine_print_with_header_footer): set
+	font manager defaults before we do test for fixed font
+
 2001-11-01  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine.c (html_engine_replace_word_with): disable selection,
