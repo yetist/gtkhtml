@@ -1,3 +1,10 @@
+2001-08-07  Radek Doulik  <rodo@ximian.com>
+
+	* main.c (picker_clicked): new signal handler which sets filter
+	for font selection dialog to avoid selecting proportional font for
+	mono spaced one and vice versa
+	(setup): use picker_clicked
+
 2001-07-26  Chema Celorio  <chema@celorio.com>
 
 	* gnome-bindings-prop.c (init): set the usize of

@@ -212,12 +212,27 @@ live_changed (GtkWidget *widget, gpointer null)
 
 	changed (widget, null);
 }
+
+#define SELECTOR(x) GTK_FONT_SELECTION_DIALOG (GNOME_FONT_PICKER (x)->font_dialog)
+
+static void
+picker_clicked (GtkWidget *w, gpointer data)
+{
+	gchar *mono_spaced [] = { "c", "m", NULL };
+	gchar *proportional [] = { "p", NULL };
+	
+	gtk_font_selection_dialog_set_filter (SELECTOR (w),
+					      GTK_FONT_FILTER_BASE, GTK_FONT_ALL,
+					      NULL, NULL, NULL, NULL,
+					      GPOINTER_TO_INT (data) ? proportional : mono_spaced, NULL);
+}
+
 static void
 setup (void)
 {
 	GtkWidget *vbox, *ebox;
 	GladeXML *xml;
-	char *base, *rcfile;
+	gchar *base, *rcfile;
 
 	glade_gnome_init ();
 	xml = glade_xml_new (GLADE_DATADIR "/gtkhtml-capplet.glade", "prefs_widget");
@@ -235,6 +250,11 @@ setup (void)
 	variable_print   = glade_xml_get_widget (xml, "print_variable");
 	fixed            = glade_xml_get_widget (xml, "screen_fixed");
 	fixed_print      = glade_xml_get_widget (xml, "print_fixed");
+
+	gtk_signal_connect (GTK_OBJECT (variable),        "clicked", picker_clicked, GINT_TO_POINTER (TRUE));
+	gtk_signal_connect (GTK_OBJECT (variable_print),  "clicked", picker_clicked, GINT_TO_POINTER (TRUE));
+	gtk_signal_connect (GTK_OBJECT (fixed),           "clicked", picker_clicked, GINT_TO_POINTER (FALSE));
+	gtk_signal_connect (GTK_OBJECT (fixed_print),     "clicked", picker_clicked, GINT_TO_POINTER (FALSE));
 
 	anim_check       = glade_xml_get_widget (xml, "anim_check");
 	magic_check      = glade_xml_get_widget (xml, "magic_check");
