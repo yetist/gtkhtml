@@ -1,3 +1,7 @@
+2001-07-23  Jakub Steiner <jimmac@ximian.com>
+
+	* insert-*-16.png: insert menu icons
+
 2001-07-20  Radek Doulik  <rodo@ximian.com>
 
 	* art/Makefile.am (icons_DATA): added 24 pixel versions for
