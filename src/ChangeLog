@@ -1,5 +1,7 @@
 2003-02-24  Larry Ewing  <lewing@ximian.com>
 
+	* gtkhtml.c: add a couple more properties.
+
 	* htmlclueflow.c (relayout): add engine offsets to the draw call.
 
 2003-02-24  Radek Doulik  <rodo@ximian.com>

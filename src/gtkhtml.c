@@ -127,7 +127,9 @@ enum {
 enum {
 	PROP_0,
 	PROP_EDITABLE,
-	PROP_TITLE
+	PROP_TITLE,
+	PROP_DOCUMENT_BASE,
+	PROP_TARGET_BASE,
 };
 #endif
 
@@ -2646,6 +2648,22 @@ gtk_html_class_init (GtkHTMLClass *klass)
 							      _("The title of the current document"),
 							      NULL,
 							      G_PARAM_WRITABLE | G_PARAM_READABLE));
+	g_object_class_install_property (gobject_class,
+					 PROP_DOCUMENT_BASE,
+					 g_param_spec_string ("document_base",
+							      _("Document Base"),
+							      _("The base URL for relative references"),
+							      NULL,
+							      G_PARAM_WRITABLE | G_PARAM_READABLE));
+	g_object_class_install_property (gobject_class,
+					 PROP_TARGET_BASE,
+					 g_param_spec_string ("target_base",
+							      _("Target Base"),
+							      _("The base URL of the targe frame"),
+							      NULL,
+							      G_PARAM_WRITABLE | G_PARAM_READABLE));
+
+
 #endif
 
 	gtk_widget_class_install_style_property (widget_class,
@@ -3268,6 +3286,12 @@ gtk_html_set_property (GObject        *object,
 	case PROP_TITLE:
 		gtk_html_set_title (html, g_value_get_string (value));
 		break;
+	case PROP_DOCUMENT_BASE:
+		gtk_html_set_base (html, g_value_get_string (value));
+		break;
+	case PROP_TARGET_BASE:
+		/* This doesn't do anything yet */
+		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
 		break;
@@ -3288,6 +3312,12 @@ gtk_html_get_property (GObject    *object,
 		break;
 	case PROP_TITLE:
 		g_value_set_static_string (value, gtk_html_get_title (html));
+		break;
+	case PROP_DOCUMENT_BASE:
+		g_value_set_static_string (value, gtk_html_get_base (html));
+		break;
+	case PROP_TARGET_BASE:
+		g_value_set_static_string (value, gtk_html_get_base (html));
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
