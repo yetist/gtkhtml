@@ -1,3 +1,10 @@
+2003-05-13  Larry Ewing  <lewing@ximian.com>
+
+	* htmlfontmanager.c (html_font_manager_set_default): clear both
+	fonts if fixed font description changes so that if the fixed font
+	changes but the variable does not the plain painter will still
+	pick up the change.  See bug #41751.
+
 2003-05-08  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (key_press_event): workaround about Shift-TAB

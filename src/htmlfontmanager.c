@@ -158,10 +158,10 @@ html_font_manager_set_default (HTMLFontManager *manager, gchar *variable, gchar 
 		clear_additional_font_sets (manager);
 		changed = TRUE;
 	}
+
 	if (changed) {
 		html_font_set_release (&manager->variable, manager->painter);
 	}
-	changed = FALSE;
 
 	/* fixed width fonts */
 	changed = html_font_set_face (&manager->fixed, fixed);
@@ -170,8 +170,16 @@ html_font_manager_set_default (HTMLFontManager *manager, gchar *variable, gchar 
 		manager->fix_points = fix_points;
 		changed = TRUE;
 	}
-	if (changed)
+
+	if (changed) {
+		/*
+		 * NOTE we clear both if fixed changes because the plain painter pulls nasty
+		 * tricks with using fixed fonts in the variable manager so if the fixed font
+		 * change the variable font may change too.
+                 */
+		html_font_set_release (&manager->variable, manager->painter);
 		html_font_set_release (&manager->fixed, manager->painter);
+	}
 }
 
 static gint
