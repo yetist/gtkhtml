@@ -160,7 +160,7 @@ setup_font_size_option_menu (GtkHTMLControlData *cd)
 	menu = gtk_menu_new ();
 	size [2] = 0;
 
-	for (i = 0; i <= GTK_HTML_FONT_STYLE_SIZE_MAX; i++) {
+	for (i = 0; i < GTK_HTML_FONT_STYLE_SIZE_MAX; i++) {
 		GtkWidget *menu_item;
 
 		size [0] = (i>1) ? '+' : '-';
