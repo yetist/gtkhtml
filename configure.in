@@ -44,11 +44,22 @@ fi
 dnl ******************************
 dnl capplet library check
 dnl ******************************
+
 AC_MSG_CHECKING(for capplet libraries)
 if gnome-config --libs capplet > /dev/null 2>&1; then
     AC_MSG_RESULT(found)
 else
     AC_MSG_ERROR(Did not find capplet library installed, you need to install control center)
+fi
+
+dnl ******************************
+dnl --enable XIM switch
+dnl ******************************
+
+AC_ARG_ENABLE(xim, [  --enable-xim            support XIM [default=yes]],, enable_xim="yes")
+
+if test "x$enable_xim" = "xyes"; then
+	AC_DEFINE(GTK_HTML_USE_XIM)
 fi
 
 dnl *****************************
@@ -127,7 +138,7 @@ bonobo_msg=no
 have_bonobo=false
 
 AC_ARG_WITH(bonobo,
-	[--{with,without}-bonobo    Compile with Bonobo support or without it],
+	[--{with,without}-bonobo   Compile with Bonobo support or without it],
 	if test x$withval = xno; then
 		try_bonobo=false
 	fi

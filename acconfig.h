@@ -16,6 +16,7 @@
 #undef HAVE_GHTTP
 #undef HAVE_GNU_REGEX
 #undef USING_OAF
+#undef GTK_HTML_USE_XIM
 
 @BOTTOM@
 /* This is from libglade */

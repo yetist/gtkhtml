@@ -1,3 +1,9 @@
+2000-10-26  Radek Doulik  <rodo@helixcode.com>
+
+	* acconfig.h: added GTK_HTML_USE_XIM
+
+	* configure.in: added --enable-xim switch
+
 2000-10-21  Zbigniew Chyla  <cyba@gnome.pl>
 
 	* configure.in: Added pl to ALL_LINGUAS.
