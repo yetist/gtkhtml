@@ -14,6 +14,7 @@ confexecdir = $(libdir)
 confexec_DATA = gtkhtmlConf.sh
 
 EXTRA_DIST =					\
+	COPYING.LIB				\
 	BUGS					\
 	gtkhtmlConf.sh.in
 
