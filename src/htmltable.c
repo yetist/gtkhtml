@@ -389,6 +389,13 @@ split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint lev
 	dup_cell  = HTML_TABLE_CELL ((*right)->data);
 	cell      = HTML_TABLE_CELL ((*left)->data);
 
+	if (dup_cell->row == t->totalRows - 1 && dup_cell->col == t->totalCols - 1 && cell_is_empty (dup_cell)) {
+		dup = html_engine_new_text_empty (e);
+		html_object_destroy ((*right)->data);
+		g_list_free (*right);
+		*right = NULL;
+	} else {
+
 #ifdef GTKHTML_DEBUG_TABLE
 	printf ("before split\n");
 	printf ("-- self --\n");
@@ -449,7 +456,7 @@ split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint lev
 			}
 		}
 	}
-
+	}
 	html_clue_append_after (HTML_CLUE (self->parent), dup, self);
 
 	*left  = g_list_prepend (*left, self);

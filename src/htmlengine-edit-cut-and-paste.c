@@ -59,6 +59,8 @@ static void        insert_object (HTMLEngine *e, HTMLObject *obj, guint len, gui
 				  HTMLUndoDirection dir, gboolean check);
 static void        append_object (HTMLEngine *e, HTMLObject *o, guint len, HTMLUndoDirection dir);
 static void        insert_empty_paragraph (HTMLEngine *e, HTMLUndoDirection dir, gboolean add_undo);
+static void        insert_setup_undo (HTMLEngine *e, guint len, guint position_before, HTMLUndoDirection dir,
+				      gboolean delete_paragraph_before, gboolean delete_paragraph_after);
 
 /* helper functions -- need refactor */
 
@@ -224,6 +226,7 @@ remove_empty_and_merge (HTMLEngine *e, gboolean merge, GList *left, GList *right
 	HTMLObject *lo, *ro, *prev;
 
 #ifdef OP_DEBUG
+	HTMLObject *left_orig = left->data;
 	printf ("before merge\n");
 	gtk_html_debug_dump_tree_simple (e->clue, 0);
 	if (left && left->data) {
@@ -288,6 +291,8 @@ remove_empty_and_merge (HTMLEngine *e, gboolean merge, GList *left, GList *right
 		e->cursor->offset = html_object_get_length (e->cursor->object);
 	}
 #ifdef OP_DEBUG
+	printf ("-- finished\n");
+	gtk_html_debug_dump_tree_simple (left_orig, 0);
 	printf ("-- after\n");
 	gtk_html_debug_dump_tree_simple (e->clue, 0);
 	printf ("-- END merge\n");
@@ -307,6 +312,15 @@ split_and_add_empty_texts (HTMLEngine *e, gint level, GList **left, GList **righ
 #ifdef OP_DEBUG
 	printf ("-- SPLIT middle\n");
 	gtk_html_debug_dump_tree_simple (e->clue, 0);
+	printf ("-- SPLIT finish\n");
+	if (*left && (*left)->data) {
+		printf ("left\n");
+		gtk_html_debug_dump_tree_simple (HTML_OBJECT ((*left)->data), 0);
+	}
+	if (*right && (*right)->data) {
+		printf ("right\n");
+		gtk_html_debug_dump_tree_simple (HTML_OBJECT ((*right)->data), 0);
+	}
 	printf ("-- SPLIT end\n");
 #endif
 }
@@ -547,14 +561,52 @@ check_table_1 (HTMLEngine *e)
 		html_cursor_forward (head, e);
 }
 
+static gboolean
+validate_tables (HTMLEngine *e, HTMLUndoDirection dir, gboolean add_undo, gboolean *fix_para)
+{
+	HTMLObject *next = html_object_next_not_slave (e->cursor->object);
+
+	*fix_para = FALSE;
+
+	if (next && HTML_IS_TABLE (next)) {
+		insert_empty_paragraph (e, dir, add_undo);
+		*fix_para = FALSE;
+
+		return TRUE;
+	} else if (!next) {
+		gint steps = 0;
+
+		while (html_cursor_forward (e->cursor, e)) {
+			steps ++;
+			if (HTML_IS_TABLE (e->cursor->object)) {
+				next = html_object_next_not_slave (e->cursor->object);
+				if (next) {
+					insert_empty_paragraph (e, dir, FALSE);
+					*fix_para = TRUE;
+					steps ++;
+					break;
+				}
+			} else
+				break;
+		}
+
+		if (steps)
+			html_cursor_backward_n (e->cursor, e, steps);
+	}
+
+	return FALSE;
+}
+
 static gint
 delete_object (HTMLEngine *e, HTMLObject **ret_object, guint *ret_len, HTMLUndoDirection dir, gboolean add_undo)
 {
 	html_engine_edit_selection_updater_update_now (e->selection_updater);
 	if (html_engine_is_selection_active (e)) {
 		HTMLObject *object;
-		guint len, position_before;
+		guint len, position_before, saved_position;
 		gint level;
+		gboolean backward;
+		gboolean fix_para;
 
 		if (!html_clueflow_is_empty (HTML_CLUEFLOW (e->cursor->object->parent))
 		    && !html_clueflow_is_empty (HTML_CLUEFLOW (e->mark->object->parent))) {
@@ -565,16 +617,27 @@ delete_object (HTMLEngine *e, HTMLObject **ret_object, guint *ret_len, HTMLUndoD
 			html_engine_disable_selection (e);
 			return 0;
 		}
+
 		position_before = MAX (e->cursor->position, e->mark->position);
 		level = delete_object_do (e, &object, &len, dir, add_undo);
 		if (ret_object && ret_len) {
 			*ret_object = html_object_op_copy (object, e, NULL, NULL, ret_len);
 			*ret_len    = len;
 		}
+		backward = validate_tables (e, dir, add_undo, &fix_para);
+		if (fix_para) {
+			saved_position = e->cursor->position;
+			e->cursor->position = position_before + 1;
+			insert_setup_undo (e, 1, position_before, dir, FALSE, FALSE);
+			e->cursor->position = saved_position;
+		}
 		if (add_undo) {
-			delete_setup_undo (e, object, len, position_before, level, dir);
+			delete_setup_undo (e, object, len, position_before + (backward ? 1 : 0), level, dir);
 		} else
 			html_object_destroy (object);
+
+		if (backward)
+			html_cursor_backward (e->cursor, e);
 		gtk_html_editor_event (e->widget, GTK_HTML_EDITOR_EVENT_DELETE, NULL);
 
 		return level;
