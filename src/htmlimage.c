@@ -501,7 +501,7 @@ html_image_factory_register (HTMLImageFactory *factory, HTMLImage *i, const char
 		gtk_signal_emit_by_name (GTK_OBJECT (factory->engine), "url_requested", filename,
 					 handle);
 
-	} else {
+	} else if (i){
 
 		i->image_ptr = retval;
 		html_image_setup (i);
