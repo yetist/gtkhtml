@@ -1,3 +1,8 @@
+2002-09-20  Larry Ewing  <lewing@ximian.com>
+
+	* htmlclueflow.c (get_post_padding): headers of the same kind and
+	level shouldn't have padding between them.
+
 2002-09-19  Larry Ewing  <lewing@ximian.com>
 
 	* testgtkhtml.c (on_set_base): call gtk_html_set_base here so that
