@@ -653,7 +653,7 @@ get_glyph_items_in_range (HTMLTextSlave *slave, HTMLPainter *painter, int start_
 GSList *
 html_text_slave_get_glyph_items (HTMLTextSlave *slave, HTMLPainter *painter)
 {
-	if (!slave->glyph_items || (HTML_OBJECT (slave)->change & HTML_CHANGE_RECALC_PI)) {
+	if (painter && (!slave->glyph_items || (HTML_OBJECT (slave)->change & HTML_CHANGE_RECALC_PI))) {
 		clear_glyph_items (slave);
 
 		HTML_OBJECT (slave)->change &= ~HTML_CHANGE_RECALC_PI;
@@ -1167,7 +1167,7 @@ html_text_slave_is_index_in_glyph (HTMLTextSlave *slave, HTMLTextSlave *next_sla
 }
 
 static HTMLTextSlaveGlyphItem *
-html_text_slave_get_glyph_item_at_offset (HTMLTextSlave *slave, int offset, HTMLTextSlaveGlyphItem **prev, HTMLTextSlaveGlyphItem **next, int *start_width, int *index_out)
+html_text_slave_get_glyph_item_at_offset (HTMLTextSlave *slave, HTMLPainter *painter, int offset, HTMLTextSlaveGlyphItem **prev, HTMLTextSlaveGlyphItem **next, int *start_width, int *index_out)
 {
 	HTMLTextSlaveGlyphItem *rv = NULL;
 	HTMLTextSlaveGlyphItem *prev_gi, *next_gi;
@@ -1182,7 +1182,7 @@ html_text_slave_get_glyph_item_at_offset (HTMLTextSlave *slave, int offset, HTML
 	if (start_width)
 		*start_width = 0;
 
-	cur = html_text_slave_get_glyph_items (slave, NULL);
+	cur = html_text_slave_get_glyph_items (slave, painter);
 	if (cur) {
 		for (prev_gi = NULL; cur; cur = cur->next) {
 			HTMLTextSlaveGlyphItem *gi = (HTMLTextSlaveGlyphItem *) cur->data;
@@ -1259,7 +1259,7 @@ html_text_slave_cursor_right_one (HTMLTextSlave *slave, HTMLCursor *cursor)
 {
 	HTMLTextSlaveGlyphItem *prev, *next;
 	int index;
-	HTMLTextSlaveGlyphItem *gi = html_text_slave_get_glyph_item_at_offset (slave, cursor->offset - slave->posStart, &prev, &next, NULL, &index);
+	HTMLTextSlaveGlyphItem *gi = html_text_slave_get_glyph_item_at_offset (slave, NULL, cursor->offset - slave->posStart, &prev, &next, NULL, &index);
 
 	if (!gi)
 		return FALSE;
@@ -1319,7 +1319,7 @@ html_text_slave_cursor_left_one (HTMLTextSlave *slave, HTMLCursor *cursor)
 {
 	HTMLTextSlaveGlyphItem *prev, *next;
 	int index;
-	HTMLTextSlaveGlyphItem *gi = html_text_slave_get_glyph_item_at_offset (slave, cursor->offset - slave->posStart, &prev, &next, NULL, &index);
+	HTMLTextSlaveGlyphItem *gi = html_text_slave_get_glyph_item_at_offset (slave, NULL, cursor->offset - slave->posStart, &prev, &next, NULL, &index);
 
 /* 	printf ("gi: %p item num chars: %d\n", gi, gi ? gi->glyph_item.item->num_chars : -1); */
 
@@ -1464,7 +1464,7 @@ html_text_slave_get_cursor_base (HTMLTextSlave *slave, HTMLPainter *painter, gui
 
 	html_object_calc_abs_position (HTML_OBJECT (slave), x, y);
 
-	gi = html_text_slave_get_glyph_item_at_offset (slave, (int) offset, NULL, NULL, &start_width, &index);
+	gi = html_text_slave_get_glyph_item_at_offset (slave, painter, (int) offset, NULL, NULL, &start_width, &index);
 
 /* 	printf ("gi: %p index: %d start_width: %d item indexes %d %d\n", */
 /* 		gi, index, start_width, gi ? gi->glyph_item.item->offset : -1, */

@@ -1,3 +1,13 @@
+2005-02-21  Radek Doulik  <rodo@novell.com>
+
+	* htmltextslave.c (html_text_slave_get_glyph_item_at_offset): add
+	painter parameter to avoid passing NULL to get glyph items in case
+	we have painter pointer ready
+	(html_text_slave_get_glyph_items): recalc glyph items only if
+	painter is non NULL
+
+	Fixes #72525
+
 2005-02-18  Radek Doulik  <rodo@novell.com>
 
 	* htmlcursor.c (html_cursor_down): copy cursor to orig_cursor on
