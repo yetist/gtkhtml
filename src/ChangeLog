@@ -1,3 +1,13 @@
+2003-09-02  Maxx Cao  <maxx.cao@sun.com>
+	* gtkhtml.c (focus): reset selection when focus moved
+	(move_selection):  add consideration for caret mode
+	(command): handle selection command for caret mode
+	* htmlengine-edit-cursor.c (clip_cursor): fixed some calculation
+	error
+	* htmlengine-edit.c (html_engine_set_mark): consider caret mode
+	* htmlengine.c (html_engine_draw_real): consider caret mode
+	* htmlselection.c (remove_mark): consider caret mode
+
 2003-09-01  Yuedong Du  <yuedong.du@sun.com>
                                                                                 
         * htmlobject.c: (destroy), (copy), (html_object_init),

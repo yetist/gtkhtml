@@ -4816,7 +4816,7 @@ html_engine_draw_real (HTMLEngine *e, gint x, gint y, gint width, gint height, g
 	}
 	html_painter_end (e->painter);
 	
-	if (e->editable)
+	if (e->editable || e->caret_mode)
 		html_engine_draw_cursor_in_area (e, x1, y1, x2 - x1, y2 - y1);
 
 	e->expose = FALSE;

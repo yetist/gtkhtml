@@ -100,10 +100,10 @@ clip_cursor (HTMLEngine *engine, gint x, gint y, gint width, gint height, gint *
 	if (*x1 > x + width || *y1 > y + height || *x2 < x || *y2 < y)
 		return FALSE;
 
-	*x1 = CLAMP (*x1, x, x + width -1);
-	*x2 = CLAMP (*x2, x, x + width -1);
-	*y1 = CLAMP (*y1, y, y + height -1);
-	*y2 = CLAMP (*y2, y, y + height -1);
+	*x1 = CLAMP (*x1, x, x + width);
+	*x2 = CLAMP (*x2, x, x + width);
+	*y1 = CLAMP (*y1, y, y + height);
+	*y2 = CLAMP (*y2, y, y + height);
 
 	return TRUE;
 }

@@ -2166,6 +2166,13 @@ focus (GtkWidget *w, GtkDirectionType direction)
 		return rv;
 	}
 
+	/* Reset selection. */
+	if (e->shift_selection || e->mark) {
+		html_engine_disable_selection (e);
+		html_engine_edit_selection_updater_schedule (e->selection_updater);
+		e->shift_selection = FALSE;
+	}
+
 	if (html_engine_focus (e, direction) && e->focus_object) {
 		HTMLObject *cur, *obj = html_engine_get_focus_object (e);
 		gint x1, y1, x2, y2, xo, yo;
@@ -4060,7 +4067,7 @@ move_selection (GtkHTML *html, GtkHTMLCommandType com_type)
 	gboolean rv;
 	gint amount;
 
-	if (!html_engine_get_editable (html->engine))
+	if (!html_engine_get_editable (html->engine) && !html->engine->caret_mode)
 		return FALSE;
 
 	html->engine->shift_selection = TRUE;
@@ -4205,6 +4212,23 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 	case GTK_HTML_COMMAND_COPY:
 		gtk_html_copy (html);
 		break;
+
+	case GTK_HTML_COMMAND_MODIFY_SELECTION_UP:
+	case GTK_HTML_COMMAND_MODIFY_SELECTION_DOWN:
+	case GTK_HTML_COMMAND_MODIFY_SELECTION_LEFT:
+	case GTK_HTML_COMMAND_MODIFY_SELECTION_RIGHT:
+	case GTK_HTML_COMMAND_MODIFY_SELECTION_BOL:
+	case GTK_HTML_COMMAND_MODIFY_SELECTION_EOL:
+	case GTK_HTML_COMMAND_MODIFY_SELECTION_BOD:
+	case GTK_HTML_COMMAND_MODIFY_SELECTION_EOD:
+	case GTK_HTML_COMMAND_MODIFY_SELECTION_PAGEUP:
+	case GTK_HTML_COMMAND_MODIFY_SELECTION_PAGEDOWN:
+	case GTK_HTML_COMMAND_MODIFY_SELECTION_PREV_WORD:
+	case GTK_HTML_COMMAND_MODIFY_SELECTION_NEXT_WORD:
+		if (html->engine->caret_mode || html_engine_get_editable(e))
+			rv = move_selection (html, com_type);
+		break;
+
 	default:
 		html->binding_handled = FALSE;
 	}
@@ -4452,20 +4476,6 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		break;
 	case GTK_HTML_COMMAND_PARAGRAPH_STYLE_ITEMALPHA:
 		gtk_html_set_paragraph_style (html, GTK_HTML_PARAGRAPH_STYLE_ITEMALPHA);
-		break;
-	case GTK_HTML_COMMAND_MODIFY_SELECTION_UP:
-	case GTK_HTML_COMMAND_MODIFY_SELECTION_DOWN:
-	case GTK_HTML_COMMAND_MODIFY_SELECTION_LEFT:
-	case GTK_HTML_COMMAND_MODIFY_SELECTION_RIGHT:
-	case GTK_HTML_COMMAND_MODIFY_SELECTION_BOL:
-	case GTK_HTML_COMMAND_MODIFY_SELECTION_EOL:
-	case GTK_HTML_COMMAND_MODIFY_SELECTION_BOD:
-	case GTK_HTML_COMMAND_MODIFY_SELECTION_EOD:
-	case GTK_HTML_COMMAND_MODIFY_SELECTION_PAGEUP:
-	case GTK_HTML_COMMAND_MODIFY_SELECTION_PAGEDOWN:
-	case GTK_HTML_COMMAND_MODIFY_SELECTION_PREV_WORD:
-	case GTK_HTML_COMMAND_MODIFY_SELECTION_NEXT_WORD:
-		rv = move_selection (html, com_type);
 		break;
 	case GTK_HTML_COMMAND_SELECT_WORD:
 		gtk_html_select_word (html);

@@ -242,7 +242,7 @@ html_engine_unselect_all (HTMLEngine *e)
 static void
 remove_mark (HTMLEngine *e)
 {
-	if (e->editable) {
+	if (e->editable || e->caret_mode) {
 		if (e->mark == NULL)
 			return;
 
