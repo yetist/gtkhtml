@@ -1,5 +1,7 @@
 2000-02-03  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlprinter.c (draw_pixmap): Convert RGBA into RGB if necessary.
+
 	* htmlobject.c (calc_min_width): Calc size before returning the
 	width.
 	(calc_preferred_width): Likewise.
