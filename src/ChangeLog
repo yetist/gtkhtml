@@ -1,3 +1,17 @@
+2004-05-17  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine.c (element_parse_li): in case we are adding to
+	toplevel blockquote flow, change it's type to unordered list
+	(element_parse_blockquote): pop ID_LI in case we had <LI> items
+	inside blockquote flow
+	(element_parse_ol): moved few lines so that they are consitent
+	with UL and BLOCKQUOTE
+	(element_parse_ul): ditto
+
+	Fixes nested item lists parsing
+
+	* gtkhtmldebug.c (gtk_html_debug_dump_object): print levels
+
 2004-05-14  Radek Doulik  <rodo@ximian.com>
 
 	* htmlselection.c (html_engine_is_selection_active): check for

@@ -142,9 +142,17 @@ gtk_html_debug_dump_object (HTMLObject *obj,
 		 html_type_name (HTML_OBJECT_TYPE (obj)),
 		 obj->x, obj->y, obj->min_width, obj->width, obj->pref_width, obj->max_width, obj->ascent, obj->descent);
 
-	if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_CLUEFLOW)
+	if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_CLUEFLOW) {
 		g_print (" [%s, %d]",
 			 clueflow_style_to_string (HTML_CLUEFLOW (obj)->style), HTML_CLUEFLOW (obj)->levels->len);
+		g_print (" levels: [");
+		for (i = 0; i < HTML_CLUEFLOW (obj)->levels->len; i ++) {
+			g_print ("%d", HTML_CLUEFLOW (obj)->levels->data [i]);
+			if (i < HTML_CLUEFLOW (obj)->levels->len - 1)
+				g_print (" ");
+		}
+		g_print ("]");
+	}
 	else if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_TEXTSLAVE) {
 		gchar *sl_text = g_strndup (html_text_get_text (HTML_TEXT (HTML_TEXT_SLAVE (obj)->owner),
 								HTML_TEXT_SLAVE (obj)->posStart),

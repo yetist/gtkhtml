@@ -2641,6 +2641,9 @@ element_parse_li (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		
 		listType = top->type;
 		itemNumber = top->itemNumber;
+
+		if (html_stack_count (e->listStack) == 1 && listType == HTML_LIST_TYPE_BLOCKQUOTE)
+			top->type = listType = HTML_LIST_TYPE_UNORDERED;
 	}
 	
 	html_string_tokenizer_tokenize (e->st, str + 3, " >");
@@ -2685,11 +2688,7 @@ element_parse_ol (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	HTMLListType listType = HTML_LIST_TYPE_ORDERED_ARABIC;
 	
 	pop_element (e, ID_LI);
-	finish_flow (e, clue);
 
-	/* FIXME */
-	push_block (e, ID_OL, DISPLAY_BLOCK, block_end_list, FALSE, FALSE);
-	
 	html_string_tokenizer_tokenize( e->st, str + 3, " >" );
 	
 	while (html_string_tokenizer_has_more_tokens (e->st)) {
@@ -2700,27 +2699,24 @@ element_parse_ol (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 			listType = get_list_type (token [5]);
 	}
 	
-	e->flow = NULL;
 	html_stack_push (e->listStack, html_list_new (listType));
+	push_block (e, ID_OL, DISPLAY_BLOCK, block_end_list, FALSE, FALSE);
+	finish_flow (e, clue);
 }
 
 static void
 element_parse_ul (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	pop_element (e, ID_LI);
-	finish_flow (e, clue);
-	
-	push_block (e, ID_UL, DISPLAY_BLOCK, block_end_list, FALSE, FALSE);
 	
 	html_string_tokenizer_tokenize (e->st, str + 3, " >");
 	while (html_string_tokenizer_has_more_tokens (e->st))
 		html_string_tokenizer_next_token (e->st);
 	
-	e->flow = NULL;
-	
 	html_stack_push (e->listStack, html_list_new (HTML_LIST_TYPE_UNORDERED));
-	
+	push_block (e, ID_UL, DISPLAY_BLOCK, block_end_list, FALSE, FALSE);
 	e->avoid_para = TRUE;
+	finish_flow (e, clue);
 }
 
 static void
@@ -2728,6 +2724,8 @@ element_parse_blockquote (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	gboolean type = HTML_LIST_TYPE_BLOCKQUOTE;
 	
+	pop_element (e, ID_LI);
+
 	html_string_tokenizer_tokenize (e->st, str + 11, " >");
 	while (html_string_tokenizer_has_more_tokens (e->st)) {
 		const char *token = html_string_tokenizer_next_token (e->st);

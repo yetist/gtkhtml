@@ -1086,7 +1086,20 @@ get_roman_value (gint value, gboolean lower)
 static gchar *
 get_item_marker_str (HTMLClueFlow *flow, gboolean ascii_only)
 {
-	switch (flow->item_type) {
+	HTMLListType type = flow->item_type;
+
+	if (type == HTML_LIST_TYPE_BLOCKQUOTE && flow->levels->len > 0) {
+		int i;
+
+		for (i = flow->levels->len - 1; i >= 0; i --) {
+			if (flow->levels->data [i] != HTML_LIST_TYPE_BLOCKQUOTE) {
+				type = flow->levels->data [i];
+				break;
+			}
+		}
+	}
+
+	switch (type) {
 	case HTML_LIST_TYPE_ORDERED_ARABIC:
 		return g_strdup_printf ("%d. ", flow->item_number);
 	case HTML_LIST_TYPE_ORDERED_LOWER_ALPHA:
