@@ -63,6 +63,7 @@ static void html_engine_write (GtkHTMLStreamHandle handle, gchar *buffer, size_t
 static void html_engine_end (GtkHTMLStreamHandle handle, GtkHTMLStreamStatus status, HTMLEngine *e);
 
 static void parse_one_token (HTMLEngine *p, HTMLObject *clue, const gchar *str);
+static HTMLURL *parse_href (HTMLEngine *e, const gchar *s);
 
 
 static GtkLayoutClass *parent_class = NULL;
@@ -477,6 +478,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	gint oldindent = e->indent;
 	GdkColor tableColor, rowColor, bgColor;
 	gboolean have_tableColor, have_rowColor, have_bgColor;
+	gboolean have_tablePixmap, have_rowPixmap, have_bgPixmap;
 	gint rowSpan;
 	gint colSpan;
 	gint cellwidth;
@@ -484,6 +486,13 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	gboolean fixedWidth;
 	HTMLVAlignType valign;
 	HTMLTableCell *cell;
+	gpointer tablePixmapPtr = NULL;
+	gpointer rowPixmapPtr = NULL;
+	gpointer bgPixmapPtr = NULL;
+
+	have_tablePixmap = FALSE;
+	have_rowPixmap = FALSE;
+	have_bgPixmap = FALSE;
 
 	have_tableColor = FALSE;
 	have_rowColor = FALSE;
@@ -525,6 +534,24 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 			if (html_engine_set_named_color (e, &tableColor, token + 8)) {
 				rowColor = tableColor;
 				have_rowColor = have_tableColor = TRUE;
+			}
+		}
+		else if (strncasecmp (token, "background=", 11) == 0
+			 && !e->defaultSettings->forceDefault) {
+			
+			HTMLURL *bgurl;
+			gchar *string_url;
+			
+			if((bgurl = parse_href (e, token + 11))) {
+				string_url = html_url_to_string (bgurl);
+			
+				tablePixmapPtr = html_image_factory_register(e->image_factory, NULL, string_url);								
+				if(tablePixmapPtr) {
+					rowPixmapPtr = tablePixmapPtr;
+					have_tablePixmap = have_rowPixmap = TRUE;
+				}
+				g_free(string_url);
+				html_url_destroy(bgurl);			
 			}
 		}
 	}
@@ -614,6 +641,13 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 						have_rowColor = FALSE;
 					}
 
+					if (have_tablePixmap) {
+						rowPixmapPtr = tablePixmapPtr;
+						have_rowPixmap = TRUE;
+					} else {
+						have_rowPixmap = FALSE;
+					}
+
 					string_tokenizer_tokenize (e->st, str + 4, " >");
 					while (string_tokenizer_has_more_tokens (e->st)) {
 						const gchar *token = string_tokenizer_next_token (e->st);
@@ -637,6 +671,23 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 							have_rowColor
 								= html_engine_set_named_color (e, &rowColor,
 											       token + 8);
+						}
+						else if (strncasecmp (token, "background=", 11) == 0
+							 && !e->defaultSettings->forceDefault) {
+							
+							HTMLURL *bgurl;
+							gchar *string_url;
+							
+							if((bgurl = parse_href (e, token + 11))) {
+								string_url = html_url_to_string (bgurl);
+								
+								rowPixmapPtr = html_image_factory_register(e->image_factory, NULL, string_url);								
+								if(rowPixmapPtr) {
+									have_rowPixmap = TRUE;
+								}
+								g_free(string_url);
+								html_url_destroy(bgurl);
+							}			
 						}
 					}
 					break;
@@ -671,6 +722,13 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 						have_bgColor = TRUE;
 					} else {
 						have_bgColor = FALSE;
+					}
+
+					if (have_rowPixmap) {
+						bgPixmapPtr = rowPixmapPtr;
+						have_bgPixmap = TRUE;
+					} else {
+						have_bgPixmap = FALSE;
 					}
 
 					valign = (rowvalign == HTML_VALIGN_NONE ?
@@ -733,6 +791,24 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 									= html_engine_set_named_color (e, &bgColor,
 												       token + 8);
 							}
+							else if (strncasecmp (token, "background=", 11) == 0
+								 && !e->defaultSettings->forceDefault) {
+								
+								HTMLURL *bgurl;
+								gchar *string_url;
+								
+								if((bgurl = parse_href (e, token + 11))) {
+									string_url = html_url_to_string (bgurl);
+									
+									bgPixmapPtr = html_image_factory_register(e->image_factory, NULL, string_url);								
+									if(bgPixmapPtr)
+										have_bgPixmap = TRUE;
+									
+									g_free(string_url);
+									html_url_destroy(bgurl);
+								}
+
+							}
 						}
 					}
 
@@ -742,6 +818,11 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 										     padding));
 					html_object_set_bg_color (HTML_OBJECT (cell),
 								  have_bgColor ? &bgColor : NULL);
+
+					if(have_bgPixmap)
+						html_table_cell_set_bg_pixmap(cell, bgPixmapPtr);
+
+
 					HTML_CLUE (cell)->valign = valign;
 					if (fixedWidth)
 						HTML_OBJECT (cell)->flags |= HTML_OBJECT_FLAG_FIXEDWIDTH;
@@ -844,6 +925,9 @@ parse_href (HTMLEngine *e,
 {
 	HTMLURL *retval;
 	HTMLURL *tmp;
+
+	if(s == NULL || *s == 0)
+		return NULL;
 
 	if (s[0] == '#') {
 		tmp = html_url_dup (e->actualURL, HTML_URL_DUP_NOREFERENCE);
@@ -2439,7 +2523,7 @@ draw_background (HTMLEngine *e, gint xval, gint yval, gint x, gint y, gint w, gi
 			html_painter_draw_background_pixmap (e->painter, 
 							     xp, 
 							     yp,
-							     bgpixmap->pixbuf);
+							     bgpixmap->pixbuf, 0, 0);
 		}
 	}
 }
@@ -2474,11 +2558,11 @@ html_engine_begin (HTMLEngine *p, const char *url)
 					 (GtkHTMLStreamEndFunc)html_engine_end,
 					 (gpointer)p);
 
-	gtk_signal_emit (GTK_OBJECT(p), signals [URL_REQUESTED], url, new_stream);
-
 	html_engine_set_base_url (p, url);
 
 	p->newPage = TRUE;
+
+	gtk_signal_emit (GTK_OBJECT(p), signals [URL_REQUESTED], url, new_stream);
 
 	return new_stream;
 }

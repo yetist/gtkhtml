@@ -22,6 +22,7 @@
 #define _HTMLTABLECELL_H_
 
 #include "htmlcluev.h"
+#include "htmlimage.h"
 
 
 typedef struct _HTMLTableCell HTMLTableCell;
@@ -40,6 +41,9 @@ struct _HTMLTableCell {
 
 	GdkColor bg;
 	gboolean have_bg : 1;
+
+	HTMLImagePointer *bgPixmap;
+	gboolean have_bgPixmap;
 };
 
 struct _HTMLTableCellClass {
@@ -58,5 +62,6 @@ HTMLObject *html_table_cell_new (gint x, gint y, gint max_width, gint percent, g
 void html_table_cell_link (HTMLTableCell *cell);
 void html_table_cell_unlink (HTMLTableCell *cell);
 void html_table_cell_set_width (HTMLTableCell *cell, gint width);
+void html_table_cell_set_bg_pixmap (HTMLTableCell *cell, HTMLImagePointer *imagePtr);
 
 #endif /* _HTMLTABLECELL_H_ */

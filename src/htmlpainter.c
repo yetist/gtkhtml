@@ -90,13 +90,13 @@ html_painter_draw_panel (HTMLPainter *painter, gint x, gint y, gint width, gint 
 
 void
 html_painter_draw_background_pixmap (HTMLPainter *painter, gint x, gint y, 
-				     GdkPixbuf *pixbuf)
+				     GdkPixbuf *pixbuf, gint pix_width, gint pix_height)
 {
 	gdk_pixbuf_render_to_drawable (pixbuf, painter->pixmap,
 				       painter->gc,
 				       0, 0, x - painter->x1, y - painter->y1, 
-				       pixbuf->art_pixbuf->width,
-				       pixbuf->art_pixbuf->height,
+				       pix_width ? pix_width : pixbuf->art_pixbuf->width,
+				       pix_height ? pix_height : pixbuf->art_pixbuf->height,
 				       GDK_RGB_DITHER_NORMAL,
 				       x, y);
 }

@@ -85,7 +85,45 @@ draw (HTMLObject *o, HTMLPainter *p, HTMLCursor *cursor, gint x, gint y,
 	if (y + height < o->y - o->ascent || y > o->y + o->descent)
 		return;
 
-	if (cell->have_bg) {
+	if(cell->have_bgPixmap) {
+		int base_x, base_y;
+		int pw, ph;
+		int owidth, oheight;
+		int clip_width, clip_height;
+
+		if (cell->bgPixmap->pixbuf) {
+			pw = cell->bgPixmap->pixbuf->art_pixbuf->width;
+			ph = cell->bgPixmap->pixbuf->art_pixbuf->height;
+
+			oheight = o->ascent;
+			base_y = o->y - o->ascent + ty - p->y1;
+
+			while(oheight > 0) {
+
+
+				owidth = o->width;
+				base_x = o->x + tx - p->x1;
+				while(owidth > 0) {
+					
+					clip_width = owidth > pw ? pw :owidth;
+					clip_height = oheight > ph ? ph : oheight;
+					
+					html_painter_draw_background_pixmap (p, base_x, base_y,
+									     cell->bgPixmap->pixbuf,
+									     clip_width, clip_height);
+
+					base_x += pw;
+					owidth -= pw;
+					
+				}
+				base_y += ph;
+				oheight -= ph;
+			}
+
+			
+		}
+		
+	} else if (cell->have_bg) {
 		top = y - (o->y - o->ascent);
 		bottom = top + height;
 		if (top < -cell->padding)
@@ -182,6 +220,7 @@ html_table_cell_init (HTMLTableCell *cell,
 	cell->cspan = cs;
 
 	cell->have_bg = FALSE;
+	cell->have_bgPixmap = FALSE;
 }
 
 HTMLObject *
@@ -227,3 +266,10 @@ html_table_cell_set_width (HTMLTableCell *cell, gint width)
 		html_object_set_max_width (obj, width);
 }
 
+void html_table_cell_set_bg_pixmap (HTMLTableCell *cell, HTMLImagePointer *imagePtr) {
+	if(imagePtr) {
+
+		cell->have_bgPixmap = TRUE;
+		cell->bgPixmap = imagePtr;
+	}
+}

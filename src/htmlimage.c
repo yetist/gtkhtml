@@ -425,13 +425,14 @@ html_image_factory_register (HTMLImageFactory *factory, HTMLImage *i, const char
 					      html_image_factory_end_pixbuf,
 					      retval);
 
+		g_hash_table_insert (factory->loaded_images, retval->url, retval);
+
 		/* This is a bit evil, I think.  But it's a lot better here
 		   than in the HTMLImage object.  FIXME anyway -- ettore  */
 		
 		gtk_signal_emit_by_name (GTK_OBJECT (factory->engine), "url_requested", filename,
 					 handle);
 
-		g_hash_table_insert (factory->loaded_images, retval->url, retval);
 	}
 
 	retval->interests = g_slist_prepend (retval->interests, i);

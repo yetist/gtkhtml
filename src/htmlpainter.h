@@ -87,8 +87,9 @@ void         html_painter_draw_panel (HTMLPainter *painter,
 
 void html_painter_draw_cursor (HTMLPainter *painter, gint x, gint y, gint ascent, gint descent);
 
+/* Passing 0 for pix_width / pix_height makes it use the image width */
 void html_painter_draw_background_pixmap (HTMLPainter *painter, gint x, gint y, 
-					  GdkPixbuf *pixbuf);
+					  GdkPixbuf *pixbuf, gint pix_width, gint pix_height);
 
 /*
  * For debugging
