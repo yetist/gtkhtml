@@ -31,6 +31,27 @@
 			<cmd name="HeadingPreformat" _label="Preformat"
 		        _tip="Make the current Paragraph style Normal"
 		        type="radio" group="paragraph_heading"/>
+			<cmd name="HeadingH1" _label="Header 1"
+		        _tip="Make the current paragraph an H1 header"
+		        type="radio" group="paragraph_heading"/>
+			<cmd name="HeadingH2" _label="Header 2"
+		        _tip="Make the current paragraph an H2 header"
+		        type="radio" group="paragraph_heading"/>
+			<cmd name="HeadingH3" _label="Header 3"
+		        _tip="Make the current paragraph an H3 header"
+		        type="radio" group="paragraph_heading"/>
+			<cmd name="HeadingH4" _label="Header 4"
+		        _tip="Make the current paragraph an H4 header"
+		        type="radio" group="paragraph_heading"/>
+			<cmd name="HeadingH5" _label="Header 5"
+		        _tip="Make the current paragraph an H5 header"
+		        type="radio" group="paragraph_heading"/>
+			<cmd name="HeadingH6" _label="Header 6"
+		        _tip="Make the current paragraph an H6 header"
+		        type="radio" group="paragraph_heading"/>
+			<cmd name="HeadingAddress" _label="Address"
+		        _tip="Make the current paragraph an address"
+		        type="radio" group="paragraph_heading"/>
 			<cmd name="HeadingBulletedList" 
 			_label="Bulleted List"
 		        _tip="Make the current paragraph a bulleted list"
@@ -38,18 +59,6 @@
 			<cmd name="HeadingNumberedList" 
 			_label="Numbered List"
 		        _tip="Make the current paragraph a numbered list"
-		        type="radio" group="paragraph_heading"/>
-			<cmd name="HeadingHeader1" _label="Header 1"
-		        _tip="Make the current paragraph an H1 header"
-		        type="radio" group="paragraph_heading"/>
-			<cmd name="HeadingHeader2" _label="Header 2"
-		        _tip="Make the current paragraph an H2 header"
-		        type="radio" group="paragraph_heading"/>
-			<cmd name="HeadingHeader3" _label="Header 3"
-		        _tip="Make the current paragraph an H3 header"
-		        type="radio" group="paragraph_heading"/>
-			<cmd name="HeadingHeader4" _label="Header 4"
-		        _tip="Make the current paragraph an H4 header"
 		        type="radio" group="paragraph_heading"/>
 
 			<cmd name="AlignLeft" _label="_Left"
@@ -155,10 +164,13 @@
 				<submenu name="Heading" _label="_Heading">
 					<menuitem name="HeadingNormal" verb="" _label="Normal"/> 
 					<menuitem name="HeadingPreformat" verb="" _label="_Preformat"/>
-					<menuitem name="HeadingHeader1" verb="" _label="_Header 1"/>
-					<menuitem name="HeadingHeader1" verb="" _label="_Header 2"/>
-					<menuitem name="HeadingHeader1" verb="" _label="_Header 3"/>
-					<menuitem name="HeadingHeader1" verb="" _label="_Header 4"/>
+					<menuitem name="HeadingH1" verb="" _label="_Header 1"/>
+					<menuitem name="HeadingH2" verb="" _label="_Header 2"/>
+					<menuitem name="HeadingH3" verb="" _label="_Header 3"/>
+					<menuitem name="HeadingH4" verb="" _label="_Header 4"/>
+					<menuitem name="HeadingH5" verb="" _label="_Header 5"/>
+					<menuitem name="HeadingH6" verb="" _label="_Header 6"/>
+					<menuitem name="HeadingAddress" verb="" _label="Address"/>
 					<menuitem name="HeadingNumberList" verb="" _label="Numbered List"/> 
 					<menuitem name="HeadingBulletList" verb="" _label="Bulleted List"/> 
 				</submenu>
@@ -180,8 +192,7 @@
 	<dockitem name="Toolbar">
 		<toolitem name="EditUndo" verb="" _label="Undo" _tip="Undo previous changes"
 		pixtype="filename" pixname="@ICONSDIR@/undo-24.png"/>
-		<toolitem name="EditRedo" verb="" _label="Redo"  _tip="Redo previously undone change"
-		pixtype="filename" pixname="@ICONSDIR@/redo-24.png"/>
+		<toolitem name="EditRedo" verb="" _label="Redo"  _tip="Redo previously undone change"		pixtype="filename" pixname="@ICONSDIR@/redo-24.png"/>
 		<separator/>
 		<toolitem name="EditCut" verb=""  _label="Cut" _tip="Cut selection to clipboard"
 		pixtype="filename" pixname="@ICONSDIR@/24_cut.png"/>

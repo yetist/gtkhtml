@@ -203,7 +203,7 @@ properties_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname
 }
 
 static void 
-font_size_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
+menubar_update_font_size (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
 	GtkHTMLFontStyle style;
 	g_warning  ("cname = %s", cname);
@@ -224,12 +224,6 @@ static void
 indent_less_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
 	gtk_html_modify_indent_by_delta (GTK_HTML (cd->html), -1);
-}
-
-static void
-uic_paragraph_style_changed_cb (BonoboUIComponent *uic, GtkHTMLParagraphStyle style, GtkHTMLControlData *cd)
-{
-
 }
 
 BonoboUIVerb verbs [] = {
@@ -262,6 +256,73 @@ BonoboUIVerb verbs [] = {
 
 	BONOBO_UI_VERB_END
 };
+
+void
+menubar_update_paragraph_style (GtkHTML *html, GtkHTMLParagraphStyle style, GtkHTMLControlData *cd)
+{
+	BonoboUIComponent *uic;
+	char *path = NULL;
+
+	uic = bonobo_control_get_ui_component (cd->control);
+
+	g_return_if_fail (uic != NULL);
+
+	switch (style) {
+	case GTK_HTML_PARAGRAPH_STYLE_NORMAL:
+		path = "/commands/HeadingNormal";
+		break;
+	case GTK_HTML_PARAGRAPH_STYLE_H1:
+		path = "/commands/HeadingH1";
+		break;
+	case GTK_HTML_PARAGRAPH_STYLE_H2:
+		path = "/commands/HeadingH2";
+		break;
+	case GTK_HTML_PARAGRAPH_STYLE_H3:
+		path = "/commands/HeadingH3";
+		break;	
+	case GTK_HTML_PARAGRAPH_STYLE_H4:
+		path = "/commands/HeadingH4";
+		break;	
+	case GTK_HTML_PARAGRAPH_STYLE_H5:
+		path = "/commands/HeadingH5";
+		break;	
+	case GTK_HTML_PARAGRAPH_STYLE_H6:
+		path = "/commands/HeadingH6";
+		break;	
+	case GTK_HTML_PARAGRAPH_STYLE_ADDRESS:
+		path = "/commands/HeadingAddress";
+		break;	
+	case GTK_HTML_PARAGRAPH_STYLE_PRE:
+		path = "/commands/HeadingPreformat";
+		break;	
+	case GTK_HTML_PARAGRAPH_STYLE_ITEMDOTTED:
+		path = "/commands/HeadingBulletList";
+		break;	
+	case GTK_HTML_PARAGRAPH_STYLE_ITEMROMAN:
+		path = "/commands/HeadingRomanList";
+		break;	
+	case GTK_HTML_PARAGRAPH_STYLE_ITEMDIGIT:
+		path = "/commands/HeadingNumberList";
+		break;	
+	case GTK_HTML_PARAGRAPH_STYLE_ITEMALPHA:
+		path = "/commands/HeadingAlphaList";
+		break;	
+	default:
+		path = NULL;
+	}
+
+
+	if (path) {
+		CORBA_Environment ev;
+
+		CORBA_exception_init (&ev);
+		bonobo_ui_component_set_prop (uic, path,
+					      "state", "1", &ev);
+		CORBA_exception_free (&ev);	
+	} else {
+		g_warning ("Unknown Paragraph Style");
+	}
+}
 
 void
 menubar_update_format (GtkHTMLControlData *cd)
@@ -307,17 +368,19 @@ menubar_update_format (GtkHTMLControlData *cd)
 	bonobo_ui_component_set_prop (uic, "/commands/AlignCenter",
 				      "sensitive", sensitive, &ev);	
 
-	bonobo_ui_component_set_prop (uic, "/commands/HeadingHeader1",
+	bonobo_ui_component_set_prop (uic, "/commands/HeadingH1",
 				      "sensitive", sensitive, &ev);	
-	bonobo_ui_component_set_prop (uic, "/commands/HeadingHeader2",
+	bonobo_ui_component_set_prop (uic, "/commands/HeadingH2",
 				      "sensitive", sensitive, &ev);	
-	bonobo_ui_component_set_prop (uic, "/commands/HeadingHeader3",
+	bonobo_ui_component_set_prop (uic, "/commands/HeadingH3",
 				      "sensitive", sensitive, &ev);
-	bonobo_ui_component_set_prop (uic, "/commands/HeadingHeader4",
+	bonobo_ui_component_set_prop (uic, "/commands/HeadingH4",
 				      "sensitive", sensitive, &ev);
-	bonobo_ui_component_set_prop (uic, "/commands/HeadingHeader5",
+	bonobo_ui_component_set_prop (uic, "/commands/HeadingH5",
 				      "sensitive", sensitive, &ev);
-	bonobo_ui_component_set_prop (uic, "/commands/HeadingHeader6",
+	bonobo_ui_component_set_prop (uic, "/commands/HeadingH6",
+				      "sensitive", sensitive, &ev);
+	bonobo_ui_component_set_prop (uic, "/commands/HeadingAddress",
 				      "sensitive", sensitive, &ev);
 
 	bonobo_ui_component_thaw (uic, &ev);	
@@ -332,6 +395,12 @@ menubar_setup (BonoboUIComponent  *uic,
 	g_return_if_fail (cd->html != NULL);
 	g_return_if_fail (GTK_IS_HTML (cd->html));
 	g_return_if_fail (BONOBO_IS_UI_COMPONENT (uic));
+
+	gtk_signal_connect (GTK_OBJECT (cd->html), "current_paragraph_style_changed",
+			    GTK_SIGNAL_FUNC (menubar_update_paragraph_style), cd);
+
+	gtk_signal_connect (GTK_OBJECT (cd->html), "insertion_font_style_changed",
+			    GTK_SIGNAL_FUNC (menubar_update_font_size), cd);
 
 	bonobo_ui_component_add_verb_list_with_data (uic, verbs, cd);
 
