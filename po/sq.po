@@ -1,14 +1,14 @@
 # Përkthimi i mesazheve të gtkhtml në shqip
 # This file is distributed under the same license as the gtkhtml package.
-# Copyright (C) 2004 Free Software Foundation, Inc.
-# Laurent Dhima <laurenti@alblinux.net>, 2004.
+# Copyright (C) 2004, 2005 Free Software Foundation, Inc.
+# Laurent Dhima <laurenti@alblinux.net>, 2004, 2005.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-07 17:25+0100\n"
-"PO-Revision-Date: 2004-11-05 11:33+0100\n"
+"POT-Creation-Date: 2005-02-14 05:12+0100\n"
+"PO-Revision-Date: 2005-02-14 13:02+0100\n"
 "Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
 "Language-Team: Albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -18,20 +18,20 @@ msgstr ""
 #: a11y/image.c:150
 #, c-format
 msgid "URL is %s, Alternative Text is %s"
-msgstr ""
+msgstr "URL është %s, teksti alternativ është %s"
 
 #: a11y/image.c:152
 #, c-format
 msgid "URL is %s"
-msgstr ""
+msgstr "URL është %s"
 
 #: a11y/object.c:50 a11y/object.c:59 a11y/text.c:111
 msgid "grab focus"
-msgstr ""
+msgstr "merr fokusin"
 
 #: a11y/object.c:256
 msgid "Panel containing HTML"
-msgstr ""
+msgstr "Panel që përmban HTML"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:1
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
@@ -929,9 +929,8 @@ msgid "Background Image"
 msgstr "Figura e sfondit"
 
 #: components/html-editor/body.c:298
-#, fuzzy
 msgid "Background Image File Path"
-msgstr "Figura e sfondit"
+msgstr "Pozicioni i file të figurës së sfondit"
 
 #: components/html-editor/body.c:301
 #: components/html-editor/gtkhtml-editor-properties.glade.h:71
@@ -974,9 +973,8 @@ msgid "Page"
 msgstr "Faqe"
 
 #: components/html-editor/gi-color-combo.c:187
-#, fuzzy
 msgid "color preview"
-msgstr "Pamja e parë e printimit"
+msgstr "pamja e parë e ngjyrës"
 
 #. This is the default custom color
 #: components/html-editor/gi-color-palette.c:395
@@ -1180,7 +1178,7 @@ msgstr "blu qielli"
 #. set the a11y name
 #: components/html-editor/gi-combo-box.c:419
 msgid "Popup"
-msgstr ""
+msgstr "Popup"
 
 #: components/html-editor/gnome-gtkhtml-editor.c:68
 msgid "GtkHTML Editor Control"
@@ -1445,14 +1443,12 @@ msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
 #: components/html-editor/link.c:194
-#, fuzzy
 msgid "URL:"
-msgstr "_URL:"
+msgstr "URL:"
 
 #: components/html-editor/link.c:198
-#, fuzzy
 msgid "Description:"
-msgstr "_Përshkrimi:"
+msgstr "Përshkrimi:"
 
 #: components/html-editor/menubar.c:96 components/html-editor/menubar.c:104
 msgid "Insert image"
@@ -1661,14 +1657,12 @@ msgid "Case _sensitive"
 msgstr "Ndje_shmëri gërma të mëdha/të vogla"
 
 #: components/html-editor/replace.c:182
-#, fuzzy
 msgid "R_eplace:"
-msgstr "Zëvendëso:"
+msgstr "Zëv_endëso:"
 
 #: components/html-editor/replace.c:186
-#, fuzzy
 msgid "_With:"
-msgstr "_Gjerësia:"
+msgstr "_Me:"
 
 #: components/html-editor/search.c:112
 msgid "_Backward"
@@ -1680,7 +1674,7 @@ msgstr "Shprehje të _regullta"
 
 #: components/html-editor/search.c:118
 msgid "Input the words you want to search here"
-msgstr ""
+msgstr "Shkruaj fjalët që dëshiron të kërkosh këtu"
 
 #: components/html-editor/spellchecker.c:110
 msgid ""
@@ -1715,9 +1709,8 @@ msgid "Image frame"
 msgstr "Frame e figurës"
 
 #: components/html-editor/template.c:280
-#, fuzzy
 msgid "Template Labels"
-msgstr "Shabllon"
+msgstr "Etiketat e shabllonëve"
 
 #: components/html-editor/test-html-editor-control.c:333
 msgid "Open file..."
@@ -1971,99 +1964,3 @@ msgstr "Pamja e parë e printimit"
 msgid "GtkHTML Test Application"
 msgstr "Programi i provave të GtkHTML"
 
-#~ msgid "<None>"
-#~ msgstr "<Asnjë>"
-
-#~ msgid "\n"
-#~ msgstr "\n"
-
-#~ msgid "*********************"
-#~ msgstr "*********************"
-
-#~ msgid "Add Keyboard Shortcuts"
-#~ msgstr "Shto përshpejtues nga tastiera"
-
-#~ msgid "Automatically detect links"
-#~ msgstr "Zbulon automatikisht lidhjet"
-
-#~ msgid "Behavior"
-#~ msgstr "Sjellja"
-
-#~ msgid "Composer Properties"
-#~ msgstr "Pronësitë e kompozuesit"
-
-#~ msgid "Composer Properties planned"
-#~ msgstr "Pronësitë e projektuara të Kompozuesit"
-
-#~ msgid "Configure spell checking"
-#~ msgstr "Konfiguro kontrolluesin e drejtëshkrimit"
-
-#~ msgid "Enable spell checking"
-#~ msgstr "Aktivo kontrollin e drejtshkrimit"
-
-#~ msgid "Fixed width"
-#~ msgstr "Gjerësia e fiksuar"
-
-#~ msgid "Fonts"
-#~ msgstr "Gërmat"
-
-#~ msgid "For printing"
-#~ msgstr "Për printim"
-
-#~ msgid "Grab keys"
-#~ msgstr "Rrëmbe kyçet"
-
-#~ msgid "Information"
-#~ msgstr "Informacione"
-
-#~ msgid "Keyboard Shortcuts"
-#~ msgstr "Kombinacione përshpejtuese nga tastiera"
-
-#~ msgid "Miscellaneous"
-#~ msgstr "Të ndryshme"
-
-#~ msgid "New shortcut:"
-#~ msgstr "Përshpejtues i ri:"
-
-#~ msgid "On screen"
-#~ msgstr "Në ekran"
-
-#~ msgid "Select HTML fixed width font"
-#~ msgstr "Zgjidh gërmat me gjerësi fikse të HTML"
-
-#~ msgid "Select HTML fixed width font for printing"
-#~ msgstr "Zgjidh gërmat me gjerësi fikse të HTML për printim"
-
-#~ msgid "Select HTML variable width font"
-#~ msgstr "Zgjidh gërmat me gjerësi të ndryshueshme të HTML"
-
-#~ msgid "Select HTML variable width font for printing"
-#~ msgstr "Zgjidh gërmat me gjerësi të ndryshueshme të HTML për printim"
-
-#~ msgid "Shortcuts _type:"
-#~ msgstr "_Lloji i përshpejtuesit:"
-
-#~ msgid "Show animated images"
-#~ msgstr "Shfaq imazhet e animuara"
-
-#~ msgid "Variable width"
-#~ msgstr "Gjerësia e ndryshueshme"
-
-#~ msgid "_Add"
-#~ msgstr "_Shto"
-
-#~ msgid "_Delete"
-#~ msgstr "_Elemino"
-
-#~ msgid ""
-#~ "Cannot execute GNOME Spell control applet\n"
-#~ "Try to install GNOME Spell if you don't have it installed."
-#~ msgstr ""
-#~ "I pamundur ekzekutimi i instrumentit të kontrollit GNOME Spell\n"
-#~ "Provo të instalosh GNOME Spell nëse nuk e ke instaluar akoma."
-
-#~ msgid "With:"
-#~ msgstr "Me:"
-
-#~ msgid "Labels"
-#~ msgstr "Etiketat"
