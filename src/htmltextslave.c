@@ -107,39 +107,44 @@ calc_width (HTMLTextSlave *slave, HTMLPainter *painter, gint *asc, gint *dsc)
 {
 	HTMLText *text = slave->owner;
 	HTMLObject *next, *prev;
+	gint line_offset, width = 0;
 
+	line_offset = html_text_slave_get_line_offset (slave, html_text_get_line_offset (text, painter), 0, painter);
+	if (line_offset != -1) {
+		width += (html_text_text_line_length (html_text_slave_get_text (slave), &line_offset, slave->posLen) - slave->posLen)*
+			html_painter_get_space_width (painter, html_text_get_font_style (text), text->face);
+	}
 	html_text_request_word_width (text, painter);
 	if (slave->posStart == 0 && slave->posLen == text->text_len) {
 		*asc = HTML_OBJECT (text)->ascent;
 		*dsc = HTML_OBJECT (text)->descent;
 
-		return text->word_width [text->words - 1];
-	}
-
-	next = HTML_OBJECT (slave)->next;
-	prev = HTML_OBJECT (slave)->prev;
-	if ((prev && HTML_OBJECT_TYPE (prev) == HTML_TYPE_TEXTSLAVE
-	     && slave->start_word == HTML_TEXT_SLAVE (prev)->start_word)
-	    || (next && HTML_OBJECT_TYPE (next) == HTML_TYPE_TEXTSLAVE
-		&& slave->start_word == HTML_TEXT_SLAVE (next)->start_word)) {
-		gint line_offset = -1;
-		gint width;
-
-		html_painter_calc_text_size (painter, html_text_slave_get_text (slave), slave->posLen, get_items (slave, painter), get_glyphs (slave, painter, line_offset),
-					     &line_offset, html_text_get_font_style (text),
-					     text->face, &width, asc, dsc);	
-		return width;
+		width += text->word_width [text->words - 1];
 	} else {
-		gint width;
+		next = HTML_OBJECT (slave)->next;
+		prev = HTML_OBJECT (slave)->prev;
+		if ((prev && HTML_OBJECT_TYPE (prev) == HTML_TYPE_TEXTSLAVE
+		     && slave->start_word == HTML_TEXT_SLAVE (prev)->start_word)
+		    || (next && HTML_OBJECT_TYPE (next) == HTML_TYPE_TEXTSLAVE
+			&& slave->start_word == HTML_TEXT_SLAVE (next)->start_word)) {
+			gint line_offset = -1;
+			gint w;
 
-		width = get_words_width (text, painter, slave->start_word,
-					 (next && HTML_OBJECT_TYPE (next) == HTML_TYPE_TEXTSLAVE
-					  ? HTML_TEXT_SLAVE (next)->start_word : text->words) - slave->start_word);
-		*asc = HTML_OBJECT (text)->ascent;
-		*dsc = HTML_OBJECT (text)->descent;
-
-		return width;
+			html_painter_calc_text_size (painter, html_text_slave_get_text (slave), slave->posLen,
+						     get_items (slave, painter), get_glyphs (slave, painter, line_offset),
+						     &line_offset, html_text_get_font_style (text),
+						     text->face, &w, asc, dsc);
+			width += w;
+		} else {
+			width += get_words_width (text, painter, slave->start_word,
+						  (next && HTML_OBJECT_TYPE (next) == HTML_TYPE_TEXTSLAVE
+						   ? HTML_TEXT_SLAVE (next)->start_word : text->words) - slave->start_word);
+			*asc = HTML_OBJECT (text)->ascent;
+			*dsc = HTML_OBJECT (text)->descent;
+		}
 	}
+
+	return width;
 }
 
 inline static void

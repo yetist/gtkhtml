@@ -1,3 +1,7 @@
+2003-03-12  Radek Doulik  <rodo@ximian.com>
+
+	* htmltextslave.c (calc_width): fix width calculation for tabs
+
 2003-03-11  Radek Doulik  <rodo@ximian.com>
 
 	* htmltextslave.c (get_glyphs_base_text): return glyphs
