@@ -100,6 +100,8 @@ destroy (HTMLObject *o)
 		g_free(element->value);
 	if(element->widget) {
 		gtk_widget_hide (element->widget);
+		gtk_signal_disconnect_by_data (GTK_OBJECT (element->widget), element);
+		gtk_object_set_data (GTK_OBJECT (element->widget), "embeddedelement", NULL);
 		if (element->widget->parent && element->parent) {
 			g_assert (element->widget->parent == element->parent);
 			gtk_container_remove (GTK_CONTAINER (element->parent), element->widget);
@@ -303,6 +305,7 @@ html_embedded_init (HTMLEmbedded *element,
 	element->abs_x  = element->abs_y = -1;
 }
 
+
 static gboolean
 html_embedded_grab_cursor(GtkWidget *eb, GdkEvent *event)
 {
@@ -319,14 +322,17 @@ html_embedded_new_widget (GtkWidget *parent, GtkHTMLEmbedded *eb)
 	html_embedded_init (em, HTML_EMBEDDED_CLASS (&html_embedded_class), parent, eb->name, "");
 	html_embedded_set_widget (em, GTK_WIDGET (eb));
 
+	/* pass em as the user_data so that the handler will disconnect 
+	 * when the object is destoyed
+	 */
 	gtk_signal_connect(GTK_OBJECT(eb), "button_press_event",
-			   GTK_SIGNAL_FUNC(html_embedded_grab_cursor), NULL);
+			   GTK_SIGNAL_FUNC(html_embedded_grab_cursor), em);
 
 	return em;
 }
 
 static void
-allocate (GtkWidget *w, GtkAllocation  *allocation, HTMLEmbedded *e)
+html_embedded_allocate (GtkWidget *w, GtkAllocation  *allocation, HTMLEmbedded *e)
 {
 	if (e->width != allocation->width || e->height != allocation->height) {
 		if (e->width != allocation->width) {
@@ -346,10 +352,10 @@ html_embedded_set_widget (HTMLEmbedded *emb, GtkWidget *w)
 	emb->widget = w;
 	
 	gtk_widget_show (w);
-
+	
 	gtk_object_set_data (GTK_OBJECT (w), "embeddedelement", emb);
 	gtk_signal_connect (GTK_OBJECT (w), "size_allocate",
-			    GTK_SIGNAL_FUNC (allocate), emb);
+			    GTK_SIGNAL_FUNC (html_embedded_allocate), emb);
 }
 
 GtkWidget *
@@ -357,4 +363,5 @@ html_embedded_get_widget (HTMLEmbedded *e)
 {
 	return e->widget;
 }
+
 
