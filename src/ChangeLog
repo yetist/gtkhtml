@@ -1,3 +1,8 @@
+2001-07-25  Jon Trowbridge  <trow@ximian.com>
+
+	* htmlsearch.c (html_search_set_forward): Check that
+	search != NULL. (Bug #4869)
+
 2001-07-24  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine-edit-table.c (html_engine_get_table): don't fail,

@@ -141,7 +141,6 @@ html_search_set_text (HTMLSearch *search, const gchar *text)
 void
 html_search_set_forward (HTMLSearch *search, gboolean forward)
 {
-	g_assert (search);
-
-	search->forward = forward;
+	if (search)
+		search->forward = forward;
 }
