@@ -1,3 +1,13 @@
+2004-06-25  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine-edit-text.c (html_engine_set_link): update it so that
+	it handles the link removals as well
+	(set_link): call html_text_remove_links or html_object_remove_link
+	when complete_url is NULL
+
+	* htmltext.c (html_text_remove_links): new function, removes all
+	links from text object
+
 2004-06-24  Radek Doulik  <rodo@ximian.com>
 
 	* htmlprinter.c (show_sized_with_nbsps_replaced): helper function

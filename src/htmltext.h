@@ -211,6 +211,7 @@ void              html_text_add_link_full                (HTMLText           *te
 							  gint                end_index,
 							  gint                start_offset,
 							  gint                end_offset);
+void              html_text_remove_links                 (HTMLText           *text);
 gboolean          html_text_get_link_rectangle           (HTMLText           *text,
 							  HTMLPainter        *painter,
 							  gint                offset,

@@ -108,22 +108,33 @@ set_link (HTMLObject *obj, HTMLEngine *e, gpointer data)
 	const char *complete_url = data;
 
 	if (html_object_is_text (obj) || HTML_IS_IMAGE (obj)) {
-		char *url = g_strdup (complete_url);
-		char *target = strrchr (url, '#');
+		char *url;
+		char *target;
 
-		if (target) {
-			*target = 0;
-			target ++;
+		if (complete_url) {
+			url = g_strdup (complete_url);
+			target = strrchr (url, '#');
+			if (target) {
+				*target = 0;
+				target ++;
+			}
 		}
 
 		if (html_object_is_text (obj)) {
-			html_text_add_link (HTML_TEXT (obj), e, url, target, 0, HTML_TEXT (obj)->text_len);
+			if (complete_url)
+				html_text_add_link (HTML_TEXT (obj), e, url, target, 0, HTML_TEXT (obj)->text_len);
+			else
+				html_text_remove_links (HTML_TEXT (obj));
 		} else if (HTML_IS_IMAGE (obj)) {
-			html_object_set_link (obj,
-					      url && *url
-					      ? html_colorset_get_color (e->settings->color_set, HTMLLinkColor)
-					      : html_colorset_get_color (e->settings->color_set, HTMLTextColor),
-					      url, target);
+			if (complete_url)
+				html_object_set_link (obj,
+						      url && *url
+						      ? html_colorset_get_color (e->settings->color_set, HTMLLinkColor)
+						      : html_colorset_get_color (e->settings->color_set, HTMLTextColor),
+						      url, target);
+			else
+				html_object_remove_link (obj,
+							 html_colorset_get_color (e->settings->color_set, HTMLTextColor));
 		}
 	}
 }
@@ -131,5 +142,8 @@ set_link (HTMLObject *obj, HTMLEngine *e, gpointer data)
 void
 html_engine_set_link (HTMLEngine *e, const char *complete_url)
 {
-	html_engine_cut_and_paste (e, "Set link", "Unset link", set_link, (gpointer) complete_url);
+	html_engine_cut_and_paste (e,
+				   complete_url ? "Set link" : "Remove link",
+				   complete_url ? "Remove link" : "Set link",
+				   set_link, (gpointer) complete_url);
 }

@@ -2824,6 +2824,16 @@ html_text_add_link (HTMLText *text, HTMLEngine *e, gchar *url, gchar *target, gi
 	html_text_add_link_full (text, e, url, target, start_index, end_index, start_offset, end_offset);
 }
 
+void
+html_text_remove_links (HTMLText *text)
+{
+	if (text->links) {
+		free_links (text->links);
+		text->links = NULL;
+		html_object_change_set (HTML_OBJECT (text), HTML_CHANGE_RECALC_PI);
+	}
+}
+
 HTMLTextSlave *
 html_text_get_slave_at_offset (HTMLObject *o, gint offset)
 {
