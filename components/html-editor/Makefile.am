@@ -100,8 +100,8 @@ libgnome_gtkhtml_editor_la_SOURCES =		\
 	rule.h					\
 	search.c				\
 	search.h				\
-	spell.c					\
-	spell.h					\
+	spellchecker.c				\
+	spellchecker.h				\
 	table.c					\
 	table.h					\
 	template.c				\
