@@ -1,5 +1,8 @@
 2000-12-15  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine-edit-cut.c (html_engine_cut): update selection before
+	cut
+
 	* htmltablecell.c (calc_min_width): don't use fixed_width as
 	min_width
 	(calc_preferred_width): for fixed width cells use it as preferred

@@ -172,12 +172,13 @@ html_engine_cut (HTMLEngine *engine,
 
 	g_return_if_fail (engine != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (engine));
-	g_return_if_fail (html_engine_is_selection_active (engine));
+
+	html_engine_edit_selection_updater_update_now (engine->selection_updater);
+	if (!html_engine_is_selection_active (engine))
+		return;
 
 	if (do_undo)
 		html_undo_discard_redo (engine->undo);
-
-	html_engine_edit_selection_updater_update_now (engine->selection_updater);
 
 	elems_copied = html_engine_copy (engine);
 	mark_precedes_cursor = html_cursor_precedes (engine->mark, engine->cursor);
