@@ -6,21 +6,23 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-30 13:00+0100\n"
-"PO-Revision-Date: 2004-12-30 13:01+0100\n"
+"POT-Creation-Date: 2005-01-19 15:37+0100\n"
+"PO-Revision-Date: 2005-01-19 15:37+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: a11y/image.c:149
-msgid "URL is "
-msgstr "URL er "
+#: a11y/image.c:150
+#, c-format
+msgid "URL is %s, Alternative Text is %s"
+msgstr "URL er %s, alternativ tekst er %s"
 
 #: a11y/image.c:152
-msgid ", Alternative Text is "
-msgstr ", alternativ tekst er "
+#, c-format
+msgid "URL is %s"
+msgstr "URL er %s"
 
 #: a11y/object.c:50 a11y/object.c:59 a11y/text.c:105
 msgid "grab focus"
