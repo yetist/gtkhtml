@@ -457,7 +457,7 @@ current_bg_color (HTMLEngine *e) {
 	for (item = e->span_stack->list; item; item = item->next) {
 		span = item->data;
 		
-		if (ID_EQ (span->id,ID_TH) || ID_EQ (span->id, ID_TD))
+		if (span->style->display >= DISPLAY_TABLE_CELL)
 			break;
 
 		if (span->style && span->style->bg_color)
@@ -572,7 +572,7 @@ current_row_align (HTMLEngine *e)
 		}
 	}
 
-	DT (
+	DT(
 	if (ID_EQ (span->id, ID_TR))
 		DT(g_warning ("no row");)
 	);
@@ -1538,6 +1538,13 @@ parse_object_params(HTMLEngine *p, HTMLObject *clue)
 	}
 	
 	return NULL;	
+}
+
+static void
+block_end_object (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
+{
+	if (!html_stack_is_empty (e->embeddedStack))
+		html_stack_pop (e->embeddedStack);
 }
 
 static void
@@ -3738,23 +3745,23 @@ html_engine_finalize (GObject *object)
 	 * mainloop we don't reenter in an inconsistant state.
 	 */
 	if (engine->timerId != 0) {
-		gtk_idle_remove (engine->timerId);
+		g_source_remove (engine->timerId);
 		engine->timerId = 0;
 	}
 	if (engine->updateTimer != 0) {
-		gtk_idle_remove (engine->updateTimer);
+		g_source_remove (engine->updateTimer);
 		engine->updateTimer = 0;
 	}
 	if (engine->thaw_idle_id != 0) {
-		gtk_idle_remove (engine->thaw_idle_id);
+		g_source_remove (engine->thaw_idle_id);
 		engine->thaw_idle_id = 0;
 	}
 	if (engine->blinking_timer_id != 0) {
-		gtk_timeout_remove (engine->blinking_timer_id);
+		g_source_remove (engine->blinking_timer_id);
 		engine->blinking_timer_id = 0;
 	}
 	if (engine->redraw_idle_id != 0) {
-		gtk_timeout_remove (engine->redraw_idle_id);
+		g_source_remove (engine->redraw_idle_id);
 		engine->redraw_idle_id = 0;
 	}
 
@@ -4254,7 +4261,7 @@ html_engine_stop_parser (HTMLEngine *e)
 		return;
 
 	if (e->timerId != 0) {
-		gtk_idle_remove (e->timerId);
+		g_source_remove (e->timerId);
 		e->timerId = 0;
 		while (html_engine_timer_event (e))
 			;
@@ -4391,7 +4398,7 @@ html_engine_stream_write (GtkHTMLStream *handle,
 	html_tokenizer_write (e->ht, buffer, size == -1 ? strlen (buffer) : size);
 
 	if (e->parsing && e->timerId == 0) {
-		e->timerId = gtk_idle_add ((GtkFunction) html_engine_timer_event, e);
+		e->timerId = gtk_timeout_add (10, (GtkFunction) html_engine_timer_event, e);
 	}
 }
 
@@ -4588,7 +4595,7 @@ html_engine_timer_event (HTMLEngine *e)
  out:
 	if (!retval) {
 		if(e->updateTimer != 0) {
-			gtk_idle_remove (e->updateTimer);
+			g_source_remove (e->updateTimer);
 			html_engine_update_event (e);
 		}
 		
@@ -4634,7 +4641,7 @@ html_engine_stream_end (GtkHTMLStream *stream,
 	html_tokenizer_end (e->ht);
 
 	if (e->timerId != 0) {
-		gtk_idle_remove (e->timerId);
+		g_source_remove (e->timerId);
 		e->timerId = 0;
 	}
 
@@ -4776,7 +4783,7 @@ html_engine_block_redraw (HTMLEngine *e)
 {
 	e->block_redraw ++;
 	if (e->redraw_idle_id) {
-		gtk_idle_remove (e->redraw_idle_id);
+		g_source_remove (e->redraw_idle_id);
 		e->redraw_idle_id = 0;
 		e->need_redraw = TRUE;
 	}
@@ -4791,7 +4798,7 @@ html_engine_unblock_redraw (HTMLEngine *e)
 	e->block_redraw --;
 	if (!e->block_redraw && e->need_redraw) {
 		if (e->redraw_idle_id) {
-			gtk_idle_remove (e->redraw_idle_id);
+			g_source_remove (e->redraw_idle_id);
 			e->redraw_idle_id = 0;
 		}
 		redraw_idle (e);

@@ -345,9 +345,22 @@ html_style_add_attribute (HTMLStyle *style, const char *attr)
 				}
 			} else if (!strncasecmp ("background-image: ", text, 18)) {
 				style = html_style_add_background_image (style, text + 18);
-				/*
 			} else if (!strncasecmp ("white-space: ", text, 13)) {
-			        normal, pre, nowrap, pre-wrap, pre-line, inherit 
+				/* normal, pre, nowrap, pre-wrap, pre-line, inherit  */
+				/*
+				if (!strcasecmp ("normal", text + 13)) {
+					style = html_style_set_white_space (style, HTML_WHITE_SPACE_NORMAL);
+				} else if (!strcasecmp ("pre", text + 13)) {
+					style = html_style_set_white_space (style, HTML_WHITE_SPACE_PRE);
+				} else if (!strcasecmp ("nowrap", text + 13)) {
+					style = html_style_set_white_space (style, HTML_WHITE_SPACE_NOWRAP);
+				} else if (!strcasecmp ("pre-wrap", text + 13)) {
+					style = html_style_set_white_space (style, HTML_WHITE_SPACE_PRE_WRAP);
+				} else if (!strcasecmp ("pre-line", text + 13)) {
+					style = html_style_set_white_space (style, HTML_WHITE_SPACE_PRE_LINE);
+				} else if (!strcasecmp ("inherit", text + 13)) {
+					style = html_style_set_white_space (style, HTML_WHITE_SPACE_INHERIT);
+				}
 				*/
 			} else if (!strncasecmp ("text-decoration: none", text, 21)) {
 				style = html_style_unset_decoration (style, ~GTK_HTML_FONT_STYLE_SIZE_MASK);
