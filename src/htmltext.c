@@ -1348,12 +1348,14 @@ save_text_part (HTMLText *text, HTMLEngineSaveState *state, guint start_index, g
 {
 	gchar *str;
 	gint len;
+	gboolean rv;
 
 	str = g_strndup (text->text + start_index, end_index - start_index);
 	len = g_utf8_pointer_to_offset (text->text + start_index, text->text + end_index);
 
-	if (! html_engine_save_encode (state, str, len))
-		return FALSE;
+	rv = html_engine_save_encode (state, str, len);
+	g_free (str);
+	return rv;
 }
 
 static gboolean
