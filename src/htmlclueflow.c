@@ -592,7 +592,8 @@ get_level_indent (HTMLClueFlow *flow,
 	if (flow->levels->len > 0 || ! is_item (flow)) {
 		guint cite_width, indent_width;
 
-		cite_width   = html_painter_get_block_cite_width (painter, GTK_HTML_FONT_STYLE_SIZE_3, NULL, dir);
+		cite_width = html_painter_get_block_cite_width (painter, GTK_HTML_FONT_STYLE_SIZE_3, NULL, dir)
+			+ html_painter_get_space_width (painter, GTK_HTML_FONT_STYLE_SIZE_3, NULL);
 		indent_width = html_painter_get_block_indent_width (painter, GTK_HTML_FONT_STYLE_SIZE_3, NULL);
 		
 		while (i <= level) {
@@ -1205,7 +1206,6 @@ draw_quotes (HTMLObject *self, HTMLPainter *painter,
 	gboolean is_plain = HTML_IS_PLAIN_PAINTER (painter);
 	HTMLDirection dir = html_object_get_direction (self);
 	HTMLEngine *e;
-	int space_width;
 
 	if (painter->widget && GTK_IS_HTML (painter->widget))
 		e = GTK_HTML (painter->widget)->engine;
@@ -1213,7 +1213,6 @@ draw_quotes (HTMLObject *self, HTMLPainter *painter,
 		return;
 	
 	flow = HTML_CLUEFLOW (self);
-	space_width = html_painter_get_space_width (painter, html_clueflow_get_default_font_style (flow), NULL);
 
 	for (i = 0; i < flow->levels->len; i++, last_indent = indent) {
 		indent = get_level_indent (flow, i, painter);
@@ -1256,15 +1255,13 @@ draw_quotes (HTMLObject *self, HTMLPainter *painter,
 
 
 				/* draw "> " quote characters in the plain case */ 
-				html_painter_set_font_style (painter, 
-							     html_clueflow_get_default_font_style (flow));
-
+				html_painter_set_font_style (painter, GTK_HTML_FONT_STYLE_SIZE_3 | GTK_HTML_FONT_STYLE_FIXED);
 				html_painter_set_font_face  (painter, NULL);
 
 				if (dir == HTML_DIRECTION_RTL)
-					x_pos = self->x + self->width + space_width - last_indent;
+					x_pos = self->x + self->width - last_indent;
 				else
-					x_pos = self->x + last_indent - space_width;
+					x_pos = self->x + last_indent;
 
 				draw_cite_line (self, painter, cite_str, self->ascent - baseline,
 						x_pos + tx, ty);
@@ -1794,7 +1791,7 @@ plain_padding (HTMLClueFlow *flow, GString *out, gboolean firstline)
 		for (i = 0; i < flow->levels->len; i++) {
 			switch (flow->levels->data[i]) {
 			case HTML_LIST_TYPE_BLOCKQUOTE_CITE:
-				APPEND_PLAIN (html_object_get_direction (HTML_OBJECT (flow)) == HTML_DIRECTION_RTL ? HTML_BLOCK_CITE_RTL : HTML_BLOCK_CITE_LTR);
+				APPEND_PLAIN (html_object_get_direction (HTML_OBJECT (flow)) == HTML_DIRECTION_RTL ? (" " HTML_BLOCK_CITE_RTL) : (HTML_BLOCK_CITE_LTR " "));
 				break;
 			case HTML_LIST_TYPE_GLOSSARY_DL:
 				break;

@@ -1,3 +1,11 @@
+2005-02-11  Radek Doulik  <rodo@novell.com>
+
+	* htmlclueflow.c (plain_padding): append/prepend space to cite string
+	(draw_quotes): don't add space width, it's now already in indent width
+	(get_level_indent): add space width to indent width
+
+	Fixes #72399
+
 2005-02-10  Radek Doulik  <rodo@novell.com>
 
 	* test-suite.c: added tests for plain save indentation
