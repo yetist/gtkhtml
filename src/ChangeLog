@@ -1,3 +1,54 @@
+2000-01-23  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* gtkhtml.c (button_press_event): Sum the X/Y offsets before
+	passing the coordinates to `html_engine_jump_at'.
+
+	* htmlengine.c (html_engine_get_object_at): Do not add the X/Y
+	offsets when calling the `check_point' method on the parent clue.
+
+	* htmltextslave.c (fit_line) [HTML_TEXT_SLAVE_DEBUG]: Updated
+	debugging code to use the new HTMLFitType values.
+
+	* htmltextmaster.c (check_point): Added ugly kludges to make the
+	mouse selection move the cursor and selected text as expected,
+	when outside the bounds.
+
+	* htmltextslave.c (check_point): New function, implementation for
+	`HTMLObject::check_point'.  Always return NULL: this makes sure
+	the object cannot be selected with the mouse.
+	(html_text_slave_class_init): Install it.
+
+	* htmlengine.c (html_engine_get_object_at): New param
+	`for_cursor'.
+	(html_engine_select_region): If any of the extremes is not in an
+	object, unselect all.
+
+	* htmlobject.h: New parameter `for_cursor' in
+	`HTMLObject::check_point'.  All the method implementations updated.
+
+	* htmltable.c (is_container): New function, implementation of
+	`HTMLObject::is_container'.  It returns TRUE.
+	(html_table_class_init): Install it.
+
+	* htmlclue.c (is_container): New function, implementation of
+	`HTMLObject::is_container'.  It returns TRUE.
+	(html_clue_class_init): Install it.
+
+	* htmlobject.c (is_container): New function, default
+	implementation for `HTMLObject::is_container'.
+	(html_object_class_init): Install it.
+	(html_object_is_container): New function.
+
+	* htmlobject.h: New virtual method `is_container'.
+
+	* htmlengine.c: Added members `x1', `y1', `x2', `y2' to
+	`SelectionRegionData'.
+	(html_engine_select_region): Initialize them to the pointer x/y
+	values relative to the objects that bound the selection.  Also,
+	g_free() the data.
+
+	* htmltextslave.c (draw_highlighted): Fix off-by-one error.
+
 2000-01-22  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlengine.c (html_engine_select_region): New function.

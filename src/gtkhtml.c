@@ -460,7 +460,9 @@ button_press_event (GtkWidget *widget,
 	engine = html->engine;
 
 	if (engine->editable)
-		html_engine_jump_at (engine, event->x, event->y);
+		html_engine_jump_at (engine,
+				     event->x + engine->x_offset,
+				     event->y + engine->y_offset);
 
 	gtk_grab_add (widget);
 	gdk_pointer_grab (widget->window, TRUE,

@@ -63,6 +63,12 @@ destroy (HTMLObject *o)
 	HTML_OBJECT_CLASS (&html_object_class)->destroy (o);
 }
 
+static gboolean
+is_container (HTMLObject *object)
+{
+	return TRUE;
+}
+
 
 static void
 add_row_info (HTMLTable *table, gint row, gint colInfoIndex)
@@ -1084,7 +1090,8 @@ static HTMLObject *
 check_point (HTMLObject *self,
 	     HTMLPainter *painter,
 	     gint _x, gint _y,
-	     guint *offset_return)
+	     guint *offset_return,
+	     gboolean for_cursor)
 {
 	unsigned int r, c;
 	HTMLTable *table;
@@ -1110,7 +1117,8 @@ check_point (HTMLObject *self,
 			if ((obj = html_object_check_point (HTML_OBJECT (cell),
 							    painter,
 							    _x - self->x, _y - (self->y - self->ascent),
-							    offset_return)) != NULL) {
+							    offset_return,
+							    for_cursor)) != NULL) {
 				if (offset_return != NULL)
 					*offset_return = 0;
 				return obj;
@@ -1147,6 +1155,7 @@ html_table_class_init (HTMLTableClass *klass,
 	object_class->reset = reset;
 	object_class->check_point = check_point;
 	object_class->find_anchor = find_anchor;
+	object_class->is_container = is_container;
 }
 
 void

@@ -145,7 +145,8 @@ static HTMLObject*
 check_point (HTMLObject *self,
 	     HTMLPainter *painter,
 	     gint x, gint y,
-	     guint *offset_return)
+	     guint *offset_return,
+	     gpointer for_cursor)
 {
 	if (x >= self->x
 	    && x < self->x + self->width
@@ -267,6 +268,12 @@ forall (HTMLObject *self,
 	(* func) (self, data);
 }
 
+static gboolean
+is_container (HTMLObject *self)
+{
+	return FALSE;
+}
+
 
 /* Class initialization.  */
 
@@ -307,6 +314,7 @@ html_object_class_init (HTMLObjectClass *klass,
 	klass->get_cursor_base = get_cursor_base;
 	klass->select_range = select_range;
 	klass->forall = forall;
+	klass->is_container = is_container;
 }
 
 void
@@ -476,9 +484,10 @@ HTMLObject *
 html_object_check_point (HTMLObject *self,
 			 HTMLPainter *painter,
 			 gint x, gint y,
-			 guint *offset_return)
+			 guint *offset_return,
+			 gboolean for_cursor)
 {
-	return (* HO_CLASS (self)->check_point) (self, painter, x, y, offset_return);
+	return (* HO_CLASS (self)->check_point) (self, painter, x, y, offset_return, for_cursor);
 }
 
 gboolean
@@ -534,9 +543,15 @@ html_object_forall (HTMLObject *self,
 	(* HO_CLASS (self)->forall) (self, func, data);
 }
 
+/* Ugly.  We should have an `is_a' implementation.  */
+gboolean
+html_object_is_container (HTMLObject *self)
+{
+	return (* HO_CLASS (self)->is_container) (self);
+}
+
 
 /* Ugly.  We should have an `is_a' implementation.  */
-
 gboolean
 html_object_is_text (HTMLObject *object)
 {

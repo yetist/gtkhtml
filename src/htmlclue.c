@@ -214,7 +214,8 @@ static HTMLObject*
 check_point (HTMLObject *o,
 	     HTMLPainter *painter,
 	     gint x, gint y,
-	     guint *offset_return)
+	     guint *offset_return,
+	     gboolean for_cursor)
 {
 	HTMLObject *obj;
 	HTMLObject *obj2;
@@ -228,7 +229,8 @@ check_point (HTMLObject *o,
 
 	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next) {
 		obj2 = html_object_check_point (obj, painter,
-						x, y, offset_return);
+						x, y, offset_return,
+						for_cursor);
 		if (obj2 != NULL)
 			return obj2;
 	}
@@ -247,6 +249,12 @@ forall (HTMLObject *self,
 
 	for (p = HTML_CLUE (self)->head; p != NULL; p = p->next)
 		html_object_forall (p, func, data);
+}
+
+static gboolean
+is_container (HTMLObject *self)
+{
+	return TRUE;
 }
 
 
@@ -332,6 +340,7 @@ html_clue_class_init (HTMLClueClass *klass,
 	object_class->check_point = check_point;
 	object_class->find_anchor = find_anchor;
 	object_class->forall = forall;
+	object_class->is_container = is_container;
 
 	/* HTMLClue methods.  */
 	klass->get_left_margin = get_left_margin;

@@ -250,7 +250,8 @@ static HTMLObject *
 check_point (HTMLObject *self,
 	     HTMLPainter *painter,
 	     gint x, gint y,
-	     guint *offset_return)
+	     guint *offset_return,
+	     gboolean for_cursor)
 {
 	HTMLObject *obj2;
 	HTMLClueAligned *clue;
@@ -259,7 +260,8 @@ check_point (HTMLObject *self,
 	    || y > self->y + self->descent || y < self->y - self->ascent)
 		return NULL;
 
-	obj2 = (* HTML_OBJECT_CLASS (parent_class)->check_point) (self, painter, x, y, offset_return);
+	obj2 = (* HTML_OBJECT_CLASS (parent_class)->check_point) (self, painter, x, y,
+								  offset_return, for_cursor);
 	if (obj2 != NULL)
 		return obj2;
 
@@ -275,7 +277,8 @@ check_point (HTMLObject *self,
 		obj2 = html_object_check_point (HTML_OBJECT (clue),
 						painter,
 						x, y,
-						offset_return);
+						offset_return,
+						for_cursor);
 		if (obj2 != NULL) {
 			if (offset_return != NULL)
 				*offset_return = 0;

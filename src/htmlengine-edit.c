@@ -115,7 +115,7 @@ html_engine_jump_at (HTMLEngine *e,
 	HTMLObject *obj;
 	guint offset;
 
-	obj = html_engine_get_object_at (e, x, y, &offset);
+	obj = html_engine_get_object_at (e, x, y, &offset, TRUE);
 	if (obj == NULL)
 		return;
 

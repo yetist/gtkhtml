@@ -156,7 +156,9 @@ struct _HTMLObjectClass {
 
 	void (* set_bg_color) (HTMLObject *o, GdkColor *color);
 
-	HTMLObject * (* check_point) (HTMLObject *self, HTMLPainter *painter, gint x, gint y, guint *offset_return);
+	HTMLObject * (* check_point) (HTMLObject *self, HTMLPainter *painter,
+				      gint x, gint y, guint *offset_return,
+				      gboolean for_cursor);
 
 	/* Relayout this object.  The object will relayout all the children
            starting from `child'.  Children before `child' are not affected.
@@ -174,6 +176,8 @@ struct _HTMLObjectClass {
 	gboolean (* select_range) (HTMLObject *self, guint start, gint length);
 
 	void (* forall) (HTMLObject *self, HTMLObjectForallFunc func, gpointer data);
+
+	gboolean (* is_container) (HTMLObject *self);
 };
 
 
@@ -181,20 +185,21 @@ extern HTMLObjectClass html_object_class;
 
 
 /* Basics.  */
-void        html_object_type_init   (void);
-void        html_object_init        (HTMLObject           *o,
-				     HTMLObjectClass      *klass);
-void        html_object_class_init  (HTMLObjectClass      *klass,
-				     HTMLType              type);
-HTMLObject *html_object_new         (HTMLObject           *parent);
-void        html_object_destroy     (HTMLObject           *o);
-void        html_object_set_parent  (HTMLObject           *o,
-				     HTMLObject           *parent);
-void        html_object_reset       (HTMLObject           *o);
-gboolean    html_object_is_text     (HTMLObject           *object);
-void        html_object_forall      (HTMLObject           *self,
-				     HTMLObjectForallFunc  func,
-				     gpointer              data);
+void        html_object_type_init     (void);
+void        html_object_init          (HTMLObject           *o,
+				       HTMLObjectClass      *klass);
+void        html_object_class_init    (HTMLObjectClass      *klass,
+				       HTMLType              type);
+HTMLObject *html_object_new           (HTMLObject           *parent);
+void        html_object_destroy       (HTMLObject           *o);
+void        html_object_set_parent    (HTMLObject           *o,
+				       HTMLObject           *parent);
+void        html_object_reset         (HTMLObject           *o);
+gboolean    html_object_is_text       (HTMLObject           *object);
+void        html_object_forall        (HTMLObject           *self,
+				       HTMLObjectForallFunc  func,
+				       gpointer              data);
+gboolean    html_object_is_container  (HTMLObject           *self);
 
 /* Drawing-related stuff.  */
 void  html_object_draw  (HTMLObject  *o,
@@ -259,7 +264,8 @@ HTMLObject *html_object_check_point      (HTMLObject  *clue,
 					  HTMLPainter *painter,
 					  gint         x,
 					  gint         y,
-					  guint       *offset_return);
+					  guint       *offset_return,
+					  gboolean     for_cursor);
 
 /* Selection.  */
 gboolean  html_object_select_range  (HTMLObject *obj,

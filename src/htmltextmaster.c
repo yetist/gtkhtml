@@ -172,23 +172,45 @@ static HTMLObject *
 check_point (HTMLObject *self,
 	     HTMLPainter *painter,
 	     gint x, gint y,
-	     guint *offset_return)
+	     guint *offset_return,
+	     gboolean for_cursor)
 {
 	HTMLObject *p;
 
-	if (self->next == NULL)
-		return NULL;
+	/* This scans all the HTMLTextSlaves that represent the various lines
+           in which the text is split.  */
+	for (p = self->next; p != NULL && HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE; p = p->next) {
 
-	for (p = self->next;
-	     p != NULL && HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE;
-	     p = p->next) {
-		if (html_object_check_point (p, painter, x, y, NULL) != NULL) {
-			if (offset_return != NULL) {
-				*offset_return = html_text_slave_get_offset_for_pointer
-					(HTML_TEXT_SLAVE (p), painter, x, y);
-				*offset_return += HTML_TEXT_SLAVE (p)->posStart;
+		/* Check if the cursor is on this line.  If the line is the
+                   first one, the vertical position is always OK, as we might
+                   have vertical space before us, added by our parent, and we
+                   don't want to make the user's life harder.  */
+		if (self->prev == NULL
+		    || (y >= p->y - p->ascent && y < p->y + p->descent)) {
+			/* If the cursor is on this line, there is a newline
+                           after this, and we want cursor-line behavior, then
+                           the position we want is the last on this line.  */
+			if (for_cursor
+			    && (p->next == NULL
+				|| (p->next->flags & HTML_OBJECT_FLAG_NEWLINE)
+				|| HTML_OBJECT_TYPE (p->next) == HTML_TYPE_TEXTSLAVE)
+			    && x >= p->x + p->width) {
+				if (offset_return != NULL)
+					*offset_return = (HTML_TEXT_SLAVE (p)->posStart
+							  + HTML_TEXT_SLAVE (p)->posLen);
+				return self;
 			}
-			return self;
+
+			/* Otherwise, we have to do the check the normal way.  */
+			if (x >= p->x && x < p->x + p->width) {
+				if (offset_return != NULL) {
+					*offset_return = html_text_slave_get_offset_for_pointer
+						(HTML_TEXT_SLAVE (p), painter, x, y);
+					*offset_return += HTML_TEXT_SLAVE (p)->posStart;
+					printf ("*** %p offset %d\n", self, *offset_return);
+				}
+				return self;
+			}
 		}
 	}
 

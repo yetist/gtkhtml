@@ -3233,7 +3233,8 @@ html_engine_parse (HTMLEngine *p)
 HTMLObject *
 html_engine_get_object_at (HTMLEngine *e,
 			   gint x, gint y,
-			   guint *offset_return)
+			   guint *offset_return,
+			   gboolean for_cursor)
 {
 	HTMLObject *obj;
 
@@ -3242,9 +3243,9 @@ html_engine_get_object_at (HTMLEngine *e,
 
 	obj = html_object_check_point (HTML_OBJECT (e->clue),
 				       e->painter,
-				       x + e->x_offset - e->leftBorder,
-				       y + e->y_offset - e->topBorder,
-				       offset_return);
+				       x - e->leftBorder, y - e->topBorder,
+				       offset_return,
+				       for_cursor);
 
 	return obj;
 }
@@ -3257,7 +3258,7 @@ html_engine_get_link_at (HTMLEngine *e, gint x, gint y)
 	if (e->clue == NULL)
 		return NULL;
 
-	obj = html_engine_get_object_at (e, x, y, NULL);
+	obj = html_engine_get_object_at (e, x, y, NULL, FALSE);
 
 	if (obj != NULL)
 		return html_object_get_url (obj);
@@ -3350,6 +3351,7 @@ html_engine_form_submitted (HTMLEngine *e,
 struct _SelectRegionData {
 	HTMLObject *obj1, *obj2;
 	guint offset1, offset2;
+	gint x1, y1, x2, y2;
 	gboolean select;
 };
 typedef struct _SelectRegionData SelectRegionData;
@@ -3396,6 +3398,29 @@ select_region_forall (HTMLObject *self,
 			html_object_select_range (self, 0, 0);
 		}
 	}
+
+	if (self->parent == select_data->obj1 || self->parent == select_data->obj2) {
+		HTMLObject *next;
+		gint y;
+
+		if (self->parent == select_data->obj1)
+			y = select_data->y1;
+		else
+			y = select_data->y2;
+
+		next = self->next;
+		while (next != NULL
+		       && (HTML_OBJECT_TYPE (next) == HTML_TYPE_TEXTMASTER
+			   || HTML_OBJECT_TYPE (next) == HTML_TYPE_LINKTEXTMASTER)) {
+			next = next->next;
+		}
+
+		if (next == NULL
+		    || (next->y + next->descent != self->y + self->descent
+			&& next->y - next->ascent > y)) {
+			select_data->select = ! select_data->select;
+		}
+	}
 }
 
 /* FIXME this implementation could be definitely smarter.  */
@@ -3406,6 +3431,7 @@ html_engine_select_region (HTMLEngine *e,
 			   gint x2, gint y2)
 {
 	SelectRegionData *data;
+	gint x, y;
 
 	g_return_if_fail (e != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (e));
@@ -3415,11 +3441,26 @@ html_engine_select_region (HTMLEngine *e,
 
 	data = g_new (SelectRegionData, 1);
 
-	data->obj1 = html_engine_get_object_at (e, x1, y1, &data->offset1);
-	data->obj2 = html_engine_get_object_at (e, x2, y2, &data->offset2);
+	data->obj1 = html_engine_get_object_at (e, x1, y1, &data->offset1, TRUE);
+	data->obj2 = html_engine_get_object_at (e, x2, y2, &data->offset2, TRUE);
 	data->select = FALSE;
 
+	if (data->obj1 == NULL || data->obj2 == NULL) {
+		html_engine_unselect_all (e);
+		return;
+	}
+
+	html_object_calc_abs_position (data->obj1, &x, &y);
+	data->x1 = x1 - x;
+	data->y1 = y1 - y;
+
+	html_object_calc_abs_position (data->obj2, &x, &y);
+	data->x2 = x2 - x;
+	data->y2 = y2 - y;
+
 	html_object_forall (e->clue, select_region_forall, data);
+
+	g_free (data);
 }
 
 static void

@@ -247,7 +247,8 @@ void  html_engine_make_cursor_visible  (HTMLEngine *e);
 HTMLObject  *html_engine_get_object_at  (HTMLEngine *e,
 					 gint        x,
 					 gint        y,
-					 guint      *offset_return);
+					 guint      *offset_return,
+					 gboolean    for_cursor);
 const gchar *html_engine_get_link_at    (HTMLEngine *e,
 					 gint        x,
 					 gint        y);

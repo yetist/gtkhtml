@@ -84,15 +84,39 @@ struct _HTMLTableClass {
 HTMLTableClass html_table_class;
 
 
-void html_table_type_init (void);
-void html_table_class_init (HTMLTableClass *klass, HTMLType type);
-void html_table_init (HTMLTable *table, HTMLTableClass *klass, gint x, gint y, gint max_width, gint width, gint percent, gint padding, gint spacing, gint border);
-HTMLObject *html_table_new (gint x, gint y, gint max_width, gint width, gint percent, gint padding, gint spacing, gint border);
+void        html_table_type_init   (void);
+void        html_table_class_init  (HTMLTableClass *klass,
+				    HTMLType        type);
+void        html_table_init        (HTMLTable      *table,
+				    HTMLTableClass *klass,
+				    gint            x,
+				    gint            y,
+				    gint            max_width,
+				    gint            width,
+				    gint            percent,
+				    gint            padding,
+				    gint            spacing,
+				    gint            border);
+HTMLObject *html_table_new         (gint            x,
+				    gint            y,
+				    gint            max_width,
+				    gint            width,
+				    gint            percent,
+				    gint            padding,
+				    gint            spacing,
+				    gint            border);
 
-void        html_table_end_row (HTMLTable *table);
-void        html_table_start_row (HTMLTable *table);
-void        html_table_add_cell (HTMLTable *table, HTMLTableCell *cell);
-void        html_table_end_table (HTMLTable *table);
-gint        html_table_add_col_info (HTMLTable *table, gint startCol, gint colSpan, gint minSize, gint prefSize, gint maxSize, ColType coltype);
+void  html_table_end_row       (HTMLTable     *table);
+void  html_table_start_row     (HTMLTable     *table);
+void  html_table_add_cell      (HTMLTable     *table,
+				HTMLTableCell *cell);
+void  html_table_end_table     (HTMLTable     *table);
+gint  html_table_add_col_info  (HTMLTable     *table,
+				gint           startCol,
+				gint           colSpan,
+				gint           minSize,
+				gint           prefSize,
+				gint           maxSize,
+				ColType        coltype);
 
 #endif /* _HTMLTABLE_H_ */

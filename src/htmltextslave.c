@@ -28,6 +28,8 @@
 #include "htmlcursor.h"
 
 
+/* #define HTML_TEXT_SLAVE_DEBUG */
+
 HTMLTextSlaveClass html_text_slave_class;
 
 
@@ -64,6 +66,16 @@ split_at_newline (HTMLTextSlave *slave)
 		return;
 
 	split (slave, p - text + 1);
+}
+
+static HTMLObject *
+check_point (HTMLObject *self,
+	     HTMLPainter *painter,
+	     gint x, gint y,
+	     guint *offset_return,
+	     gboolean for_cursor)
+{
+	return NULL;
 }
 
 
@@ -222,13 +234,13 @@ fit_line (HTMLObject *o,
 
 		printf ("Split text");
 		switch (return_value) {
-		case HTMLPartialFit:
+		case HTML_FIT_PARTIAL:
 			printf (" (Partial): `");
 			break;
-		case HTMLNoFit:
+		case HTML_FIT_NONE:
 			printf (" (NoFit): `");
 			break;
-		case HTMLCompleteFit:
+		case HTML_FIT_COMPLETE:
 			printf (" (Complete): `");
 			break;
 		}
@@ -311,14 +323,18 @@ draw_highlighted (HTMLTextSlave *slave,
 	/* 1. Draw the leftmost non-highlighted part, if any.  */
 
 	if (start > slave->posStart)
-		html_painter_draw_text (p, obj->x + tx, obj->y + ty,
-					text + slave->posStart, start);
+		html_painter_draw_text (p,
+					obj->x + tx, obj->y + ty,
+					text + slave->posStart,
+					start);
 
 	/* 2. Draw the rightmost non-highlighted part, if any.  */
 
 	if (end < slave->posStart + slave->posLen - 1)
-		html_painter_draw_text (p, obj->x + tx + offset_width + text_width, obj->y + ty,
-					text + end + 1, slave->posStart + slave->posLen - end);
+		html_painter_draw_text (p,
+					obj->x + tx + offset_width + text_width, obj->y + ty,
+					text + end + 1,
+					slave->posStart + slave->posLen - 1 - end);
 }
 
 static void
@@ -396,6 +412,7 @@ html_text_slave_class_init (HTMLTextSlaveClass *klass,
 	object_class->calc_min_width = calc_min_width;
 	object_class->calc_preferred_width = calc_preferred_width;
 	object_class->get_url = get_url;
+	object_class->check_point = check_point;
 }
 
 void
