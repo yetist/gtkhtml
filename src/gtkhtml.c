@@ -744,7 +744,8 @@ motion_notify_event (GtkWidget *widget,
 	obj = html_engine_get_object_at (engine,
 					 x + engine->x_offset, y + engine->y_offset,
 					 NULL, FALSE);
-	if (html->button_pressed) {
+
+	if (html->button_pressed && html->allow_selection) {
 		if (obj) {
 			type = HTML_OBJECT_TYPE (obj);
 
@@ -891,7 +892,7 @@ button_press_event (GtkWidget *widget,
 
 	if (!(event->state & GDK_SHIFT_MASK))
 		html_engine_disable_selection (engine);
-	else
+	else if (html->allow_selection)
 		html_engine_select_region (engine,
 					   html->selection_x1, html->selection_y1,
 					   event->x + engine->x_offset, event->y + engine->y_offset,
