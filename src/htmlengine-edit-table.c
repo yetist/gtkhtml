@@ -46,14 +46,14 @@ html_engine_get_table (HTMLEngine *e)
 {
 	if (HTML_IS_TABLE (e->cursor->object))
 		return HTML_TABLE (e->cursor->object);
-	else {
-		g_return_val_if_fail (e->cursor->object->parent
-				  && e->cursor->object->parent->parent
-				  && e->cursor->object->parent->parent->parent, NULL);
-		g_return_val_if_fail (HTML_IS_TABLE (e->cursor->object->parent->parent->parent), NULL);
-
+	else if (!e->cursor->object->parent
+		 || !e->cursor->object->parent->parent
+		 || !e->cursor->object->parent->parent->parent)
+		return NULL;
+	else if (!HTML_IS_TABLE (e->cursor->object->parent->parent->parent))
+		return NULL;
+	else
 		return HTML_TABLE (e->cursor->object->parent->parent->parent);
-	}
 }
 
 static HTMLTableCell *

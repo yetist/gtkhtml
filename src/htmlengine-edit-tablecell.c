@@ -35,8 +35,9 @@ html_engine_get_table_cell (HTMLEngine *e)
 {
 	g_assert (HTML_IS_ENGINE (e));
 
-	g_return_val_if_fail (e->cursor->object->parent && e->cursor->object->parent->parent
-			      && HTML_IS_TABLE_CELL (e->cursor->object->parent->parent), NULL);
+	if (!e->cursor->object->parent || !e->cursor->object->parent->parent
+	    || !HTML_IS_TABLE_CELL (e->cursor->object->parent->parent))
+		return NULL;
 
 	return HTML_TABLE_CELL (e->cursor->object->parent->parent);
 }
