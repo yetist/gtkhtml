@@ -67,6 +67,7 @@ dnl
 AC_PATH_PROG(LIBWWW_CONFIG,libwww-config,no)
 if test "$LIBWWW_CONFIG" = no; then
 	have_libwww=false
+	AC_MSG_ERROR([libwww is required])
 else
 	LIBWWW_CFLAGS="`$LIBWWW_CONFIG --cflags`"
 	LIBWWW_LIBS="`$LIBWWW_CONFIG --libs`"
