@@ -73,10 +73,9 @@ void
 html_form_destroy (HTMLForm *form)
 {
 	g_list_foreach (form->hidden, destroy_hidden, NULL);
+	g_list_free (form->elements);
 	g_list_free (form->hidden);
 
-	g_list_foreach (form->elements, destroy_hidden, NULL);
-	g_list_free (form->elements);
 
 	if (form->action)
 		g_free (form->action);
