@@ -119,10 +119,11 @@ get_offset_for_bounded_width (HTMLTextSlave *slave, HTMLPainter *painter, gint *
 	gint len, width;
 	gint line_offset = -1;
 	gchar *sep, *str;
+	char *buffer = html_text_get_text (text, slave->posStart);
 
 	len = (lower + upper) / 2;
-	width = html_painter_calc_text_width (painter, html_text_get_text (text, slave->posStart), len,
-					      &line_offset, html_text_get_font_style (text), text->face);
+	width = html_painter_calc_text_width (painter, buffer, len, &line_offset,
+					      html_text_get_font_style (text), text->face);
 	while (lower < upper) {
 		if (width > max_width)
 			upper = len - 1;
@@ -130,15 +131,16 @@ get_offset_for_bounded_width (HTMLTextSlave *slave, HTMLPainter *painter, gint *
 			lower = len + 1;
 		len = (lower + upper) / 2;
 		line_offset = -1;
-		width = html_painter_calc_text_width (painter, html_text_get_text (text, slave->posStart), len,
-						      &line_offset, html_text_get_font_style (text), text->face);
+		width = html_painter_calc_text_width (painter, buffer, len, &line_offset, 
+						      html_text_get_font_style (text), text->face);
 	}
 
 	if (width > max_width && len > 1)
 		len --;
 
 	*words = 0;
-	str = sep = html_text_get_text (text, slave->posStart);
+	str = sep = buffer;
+
 	while ((sep = strchr (sep, ' '))) {
 		if (g_utf8_pointer_to_offset (str, sep) < len)
 			(*words) ++;
@@ -521,7 +523,8 @@ draw_highlighted (HTMLTextSlave *slave,
 	html_painter_fill_rect (p, obj->x + tx + offset_width, obj->y + ty - obj->ascent,
 				text_width, obj->ascent + obj->descent);
 	html_painter_set_pen (p, &html_colorset_get_color_allocated (p, HTMLHighlightTextColor)->color);
-	html_painter_draw_text (p, obj->x + tx + offset_width, obj->y + ty + get_ys (HTML_TEXT (slave->owner), p),
+	html_painter_draw_text (p, obj->x + tx + offset_width, 
+				obj->y + ty + get_ys (HTML_TEXT (slave->owner), p),
 				g_utf8_offset_to_pointer (text, start), len,
 				lo_sel);
 

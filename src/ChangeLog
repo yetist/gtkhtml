@@ -1,3 +1,8 @@
+2001-10-09  Larry Ewing  <lewing@ximian.com>
+
+	* htmltextslave.c (get_offset_for_bounded_width): remove redundant
+	calls to html_text_get_text since it is actually expensive.
+
 2001-10-08  Larry Ewing  <lewing@ximian.com>
 
 	* htmlselect.c (html_select_add_option): don't add static strings
