@@ -19,6 +19,7 @@ Other contributors:
 	Havoc Pennington <hp@pobox.com>
 	Elliot Lee  <sopwith@redhat.com>
 	Richard Hult <rhult@hem.passagen.se>
+	Martijn van Beers <martijn@earthling.net>
 
 The glibwww library used by `testgtkhtml' was independently written
 by:
