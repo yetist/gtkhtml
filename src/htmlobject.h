@@ -104,6 +104,11 @@ struct _HTMLObject {
 
 	/* FIXME maybe unify with `flags'?  */
 	gboolean redraw_pending : 1;
+
+	/* If an object has a redraw pending and is being destroyed, this flag
+           is set to TRUE instead of g_free()ing the object.  When the draw
+           queue is flushed, the g_free() is performed.  */
+	gboolean free_pending : 1;
 };
 
 struct _HTMLObjectClass {

@@ -55,18 +55,18 @@ draw (HTMLObject *o, HTMLPainter *p, HTMLCursor *cursor,
 	HTMLRule *rule = HTML_RULE (o);
 	gint xp, yp;
 
-	if (y + height < o->y + o->ascent || y > o->y + o->descent)
+	if (y + height < o->y - o->ascent || y > o->y + o->descent)
 		return;
 	
 	xp = o->x + tx;
 	yp = o->y + ty;
 	
-	if (rule->shade) {
+	if (rule->shade)
 		html_painter_draw_shade_line (p, xp, yp, o->width);
-
-	} else {
+	else
 		html_painter_fill_rect (p, xp, yp, o->width, o->ascent - 6);
-	}
+
+	(* html_object_class.draw) (o, p, cursor, x, y, width, height, tx, ty);
 }
 
 static gboolean

@@ -136,7 +136,11 @@ html_draw_queue_flush (HTMLDrawQueue *queue)
 		HTMLObject *obj;
 
 		obj = p->data;
-		if (obj->redraw_pending) {
+
+		if (obj->free_pending) {
+			g_warning ("%s: g_free()ing %p", __FUNCTION__, obj);
+			g_free (obj);
+		} else if (obj->redraw_pending) {
 			draw_obj (queue, obj);
 			obj->redraw_pending = FALSE;
 		}

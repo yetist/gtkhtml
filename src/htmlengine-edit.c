@@ -1,5 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*  This file is part of the GtkHTML library.
+
     Copyright (C) 1999 Helix Code, Inc.
 
     This library is free software; you can redistribute it and/or
@@ -39,48 +40,56 @@ queue_draw_for_cursor (HTMLEngine *e)
 
 	if (html_object_is_text (current))
 		html_text_queue_draw (HTML_TEXT (current),
-				      e,
-				      e->cursor->offset,
-				      1);
+				      e, e->cursor->offset, 1);
+	else
+		html_engine_queue_draw (e, current);
 }
 
-void
+guint
 html_engine_move_cursor (HTMLEngine *e,
 			 HTMLEngineCursorMovement movement,
 			 guint count)
 {
-	guint i;
+	gboolean (* movement_func) (HTMLCursor *, HTMLEngine *);
+	guint c;
 
-	g_return_if_fail (e != NULL);
+	g_return_val_if_fail (e != NULL, 0);
 
 	if (count == 0)
-		return;
-
-	queue_draw_for_cursor (e);
+		return 0;
 
 	switch (movement) {
 	case HTML_ENGINE_CURSOR_RIGHT:
-		for (i = 0; i < count; i++)
-			html_cursor_forward (e->cursor, e);
+		movement_func = html_cursor_forward;
 		break;
+
 	case HTML_ENGINE_CURSOR_LEFT:
-		for (i = 0; i < count; i++)
-			html_cursor_backward (e->cursor, e);
+		movement_func = html_cursor_backward;
 		break;
+
 	case HTML_ENGINE_CURSOR_UP:
-		for (i = 0; i < count; i++)
-			html_cursor_up (e->cursor, e);
+		movement_func = html_cursor_up;
 		break;
+
 	case HTML_ENGINE_CURSOR_DOWN:
-		for (i = 0; i < count; i++)
-			html_cursor_down (e->cursor, e);
+		movement_func = html_cursor_down;
 		break;
+
 	default:
 		g_warning ("Unsupported movement %d\n", (gint) movement);
-		return;
+		return 0;
 	}
 
 	queue_draw_for_cursor (e);
+
+	for (c = 0; c < count; c++) {
+		if (! (* movement_func) (e->cursor, e))
+			break;
+	}
+
+	queue_draw_for_cursor (e);
+
+	return c;
 }
 
 

@@ -907,8 +907,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 			html_clue_append (HTML_CLUE (aligned), HTML_OBJECT (table));
 			html_clue_append (HTML_CLUE (clue), HTML_OBJECT (aligned));
 		}
-	}
-	else {
+	} else {
 		/* Last resort: remove tables that do not contain any cells */
 		html_object_destroy (HTML_OBJECT (table));
 	}
@@ -2448,7 +2447,7 @@ html_engine_init (HTMLEngine *engine)
 	engine->actualURL = NULL;
 	engine->newPage = FALSE;
 
-	engine->editable = FALSE;
+	engine->editable = TRUE;
 	engine->cursor = html_cursor_new ();
 
 	engine->ht = html_tokenizer_new ();

@@ -50,7 +50,13 @@ destroy (HTMLObject *o)
 	if (o->font != NULL)
 		html_font_destroy (o->font);
 
-	g_free (o);
+	if (o->redraw_pending) {
+		g_warning ("Object %p (type %s) has a redraw pending and is being destroyed.",
+			   o, html_type_name (HTML_OBJECT_TYPE (o)));
+		o->free_pending = TRUE;
+	} else {
+		g_free (o);
+	}
 }
 
 static void
@@ -275,6 +281,7 @@ html_object_init (HTMLObject *o,
 	o->flags = HTML_OBJECT_FLAG_FIXEDWIDTH; /* FIXME Why? */
 
 	o->redraw_pending = FALSE;
+	o->free_pending = FALSE;
 }
 
 HTMLObject *

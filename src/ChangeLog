@@ -1,9 +1,52 @@
 1999-12-29  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmldrawqueue.c (html_draw_queue_flush): Destroy the object
+	(without drawing it) if it has `free_pending' true.
+
+	* htmlobject.c (destroy): If the object has a redraw pending, do
+	not `g_free()' it; instead, set `free_pending' to `TRUE'.
+	(html_object_init): Set `free_pending' to `TRUE'.
+	(html_object_destroy): If `free_pending' is true, just `g_free()'
+	the object instead of calling the `destroy' method.
+
+	* htmlobject.h: New member `free_pending' in `HTMLObject'.
+
+	* gtkhtml.c (key_press_event): Handle `GDK_BackSpace' by moving
+	the cursor to the left and then, if the movement was successful,
+	deleting to the right.
+
+	* htmlengine-edit.c (html_engine_move_cursor): Return value
+	changed to `guint': return the number of movement actions actually
+	taken.  Also, I cleaned up the code a bit.
+
+	* htmlcursor.c (forward): Return value type changed to `gboolean':
+	return TRUE if the movement was successful, FALSE otherwise.
+	(backward): Likewise.
+	(html_cursor_forward): Likewise.
+	(html_cursor_backward): Likewise.
+	(html_cursor_up): Likewise.
+	(html_cursor_down): Likewise.
+	(backward): If the cursor is in a NULL position at the beginning
+	of the call, move it home.  (Temporary, but consistent with what
+	the other cursor movement functions do.)
+
+	* htmlengine-edit.c (queue_draw_for_cursor): Queue the draw even
+	if we are not on a text element.
+
+	* htmlcursor.c (next): Removed debugging messages.
+	(debug_location): New function to print the cursor position on the
+	HTML tree for debugging purposes.
+	(html_cursor_home): Use it.
+	(html_cursor_forward): Likewise.
+	(html_cursor_backward): Likewise.
+	(html_cursor_up): Likewise.
+
 	* htmlrule.c (accepts_cursor): New function, implementation of
 	`HTMLObject::accepts_cursor'.  This returns TRUE so that you can
 	now put the cursor on a rule.
 	(html_rule_class_init): Install it.
+	(draw): Call `HTMLObject::draw()' so that the cursor is drawn when
+	on the rule.  Also, fixed the out-of-area check.
 
 	* htmlcursor.c (forward): Use `html_object_accepts_cursor()'.
 	(backward): Likewise.

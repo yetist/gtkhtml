@@ -34,6 +34,24 @@
 #include "htmlcursor.h"
 
 
+static void
+debug_location (const HTMLCursor *cursor)
+{
+	HTMLObject *object;
+
+	object = cursor->object;
+	if (object == NULL) {
+		g_print ("Cursor has no position.\n");
+		return;
+	}
+
+	g_print ("Cursor in %s (%p), offset %d\n",
+		 html_type_name (HTML_OBJECT_TYPE (object)),
+		 object,
+		 cursor->offset);
+}
+
+
 HTMLCursor *
 html_cursor_new (void)
 {
@@ -101,17 +119,12 @@ next (HTMLObject *object)
 			break;
 		}
 		object = object->parent;
-
-		g_print ("%s (%p)\n", __FUNCTION__, object);
 	}
 
-	if (object == NULL) {
-		g_print ("%s (%p)\n", __FUNCTION__, NULL);
+	if (object == NULL)
 		return NULL;
-	} else {
-		g_print ("%s (%p)\n", __FUNCTION__, object->next);
+	else
 		return object->next;
-	}
 }
 
 
@@ -132,10 +145,12 @@ html_cursor_home (HTMLCursor *cursor,
 	cursor->offset = 0;
 
 	html_cursor_forward (cursor, engine);
+
+	debug_location (cursor);
 }
 
 
-static void
+static gboolean
 forward (HTMLCursor *cursor,
 	 HTMLEngine *engine)
 {
@@ -147,7 +162,7 @@ forward (HTMLCursor *cursor,
 		/* FIXME this is probably not the way it should be.  */
 		g_warning ("The cursor is in a NULL position: going home.");
 		html_cursor_home (cursor, engine);
-		return;
+		return TRUE;
 	}		
 
 	offset = cursor->offset;
@@ -211,24 +226,35 @@ forward (HTMLCursor *cursor,
 		offset = 0;
 	}
 
+	if (obj == NULL)
+		return FALSE;
+
  end:
 	cursor->object = obj;
 	cursor->offset = offset;
+
+	return TRUE;
 }
 
-void
+gboolean
 html_cursor_forward (HTMLCursor *cursor,
 		     HTMLEngine *engine)
 {
-	g_return_if_fail (cursor != NULL);
-	g_return_if_fail (engine != NULL);
+	gboolean retval;
+
+	g_return_val_if_fail (cursor != NULL, FALSE);
+	g_return_val_if_fail (engine != NULL, FALSE);
 
 	cursor->have_target_x = FALSE;
-	forward (cursor, engine);
+	retval = forward (cursor, engine);
+
+	debug_location (cursor);
+
+	return retval;
 }
 
 
-static void
+static gboolean
 backward (HTMLCursor *cursor,
 	  HTMLEngine *engine)
 {
@@ -236,8 +262,12 @@ backward (HTMLCursor *cursor,
 	guint offset;
 
 	obj = cursor->object;
-	if (obj == NULL)
-		return;
+	if (obj == NULL) {
+		/* FIXME this is probably not the way it should be.  */
+		g_warning ("The cursor is in a NULL position: going home.");
+		html_cursor_home (cursor, engine);
+		return TRUE;
+	}		
 
 	offset = cursor->offset;
 	obj = cursor->object;
@@ -304,24 +334,34 @@ backward (HTMLCursor *cursor,
 	}
 
  end:
-	if (obj != NULL)
+	if (obj != NULL) {
 		cursor->object = obj;
-	cursor->offset = offset;
+		cursor->offset = offset;
+		return TRUE;
+	}
+
+	return FALSE;
 }
 
-void
+gboolean
 html_cursor_backward (HTMLCursor *cursor,
 		      HTMLEngine *engine)
 {
-	g_return_if_fail (cursor != NULL);
-	g_return_if_fail (engine != NULL);
+	gboolean retval;
+
+	g_return_val_if_fail (cursor != NULL, FALSE);
+	g_return_val_if_fail (engine != NULL, FALSE);
 
 	cursor->have_target_x = FALSE;
-	backward (cursor, engine);
+	retval = backward (cursor, engine);
+
+	debug_location (cursor);
+
+	return retval;
 }
 
 
-void
+gboolean
 html_cursor_up (HTMLCursor *cursor,
 		HTMLEngine *engine)
 {
@@ -336,7 +376,7 @@ html_cursor_up (HTMLCursor *cursor,
 	if (cursor->object == NULL) {
 		g_warning ("The cursor is in a NULL position: going home.");
 		html_cursor_home (cursor, engine);
-		return;
+		return TRUE;
 	}
 
 	orig_cursor = *cursor;
@@ -363,7 +403,8 @@ html_cursor_up (HTMLCursor *cursor,
 		prev_x = x;
 		prev_y = y;
 
-		backward (cursor, engine);
+		if (! backward (cursor, engine))
+			return FALSE;
 
 		if (html_object_is_text (cursor->object))
 			html_text_calc_char_position (HTML_TEXT (cursor->object),
@@ -373,13 +414,13 @@ html_cursor_up (HTMLCursor *cursor,
 
 		if (html_cursor_equal (&prev_cursor, cursor)) {
 			*cursor = orig_cursor;
-			return;
+			return FALSE;
 		}
 
 		if (prev_y != y) {
 			if (new_line) {
 				*cursor = prev_cursor;
-				return;
+				return FALSE;
 			}
 
 			new_line = TRUE;
@@ -398,13 +439,14 @@ html_cursor_up (HTMLCursor *cursor,
 				cursor->offset = prev_cursor.offset;
 			}
 
-			return;
+			debug_location (cursor);
+			return TRUE;
 		}
 	}
 }
 
 
-void
+gboolean
 html_cursor_down (HTMLCursor *cursor,
 		  HTMLEngine *engine)
 
@@ -420,7 +462,7 @@ html_cursor_down (HTMLCursor *cursor,
 	if (cursor->object == NULL) {
 		g_warning ("The cursor is in a NULL position: going home.");
 		html_cursor_home (cursor, engine);
-		return;
+		return TRUE;
 	}
 
 	if (html_object_is_text (cursor->object))
@@ -446,7 +488,8 @@ html_cursor_down (HTMLCursor *cursor,
 		prev_x = x;
 		prev_y = y;
 
-		forward (cursor, engine);
+		if (! forward (cursor, engine))
+			return FALSE;
 
 		if (html_object_is_text (cursor->object))
 			html_text_calc_char_position (HTML_TEXT (cursor->object),
@@ -457,13 +500,13 @@ html_cursor_down (HTMLCursor *cursor,
 
 		if (html_cursor_equal (&prev_cursor, cursor)) {
 			*cursor = orig_cursor;
-			return;
+			return FALSE;
 		}
 
 		if (prev_y != y) {
 			if (new_line) {
 				*cursor = prev_cursor;
-				return;
+				return FALSE;
 			}
 
 			new_line = TRUE;
@@ -482,7 +525,8 @@ html_cursor_down (HTMLCursor *cursor,
 				cursor->offset = prev_cursor.offset;
 			}
 
-			return;
+			debug_location (cursor);
+			return TRUE;
 		}
 	}
 }
