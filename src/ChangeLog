@@ -1,5 +1,12 @@
 2000-04-01  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* gtkhtml.c
+	(gtk_html_parse): Removed deprecated function.
+	(gtk_html_private_calc_scrollbars): Renamed from
+	`gtk_html_calc_scrollbars'.  
+
+2000-04-01  Ettore Perazzoli  <ettore@helixcode.com>
+
 	* htmlengine.c
 	(current_color): Removed unused variable.
 

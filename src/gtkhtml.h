@@ -183,12 +183,10 @@ void  gtk_html_print  (GtkHTML           *html,
 /* Title.  */
 const gchar *gtk_html_get_title  (GtkHTML *html);
 
-/* DEPRECATED.  We'll keep it around for a while just to prevent code from
-   being broken.  */
-void  gtk_html_parse  (GtkHTML *html);
+
+/* Internal PRIVATE stuff -- don't use.  */
 
-/* FIXME?  Deprecated? */
-void  gtk_html_calc_scrollbars  (GtkHTML *html);
+void  gtk_html_private_calc_scrollbars  (GtkHTML *html);
 
 
 /* Editing functions.  */

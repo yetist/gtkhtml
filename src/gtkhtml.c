@@ -210,7 +210,7 @@ idle_handler (gpointer data)
 	gtk_adjustment_set_value (GTK_LAYOUT (html)->hadjustment, (gfloat) engine->x_offset);
 	gtk_adjustment_set_value (GTK_LAYOUT (html)->vadjustment, (gfloat) engine->y_offset);
 
-	gtk_html_calc_scrollbars (html);
+	gtk_html_private_calc_scrollbars (html);
 
 	html_engine_flush_draw_queue (engine);
 
@@ -527,7 +527,7 @@ size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 
 		html_engine_calc_size (html->engine);
 
-		gtk_html_calc_scrollbars (html);
+		gtk_html_private_calc_scrollbars (html);
 	}
 }
 
@@ -998,12 +998,6 @@ gtk_html_allow_selection (GtkHTML *html,
 }
 
 
-void
-gtk_html_parse (GtkHTML *html)
-{
-	g_warning ("Calling %s() is now DEPRECATED and not required anymore.", __FUNCTION__);
-}
-
 GtkHTMLStreamHandle
 gtk_html_begin (GtkHTML *html, const gchar *url)
 {
@@ -1064,7 +1058,7 @@ gtk_html_save (GtkHTML *html,
 
 
 void
-gtk_html_calc_scrollbars (GtkHTML *html)
+gtk_html_private_calc_scrollbars (GtkHTML *html)
 {
 	gint width, height;
 

@@ -3167,7 +3167,7 @@ html_engine_update_event (HTMLEngine *e)
 		}
 
 		/* Adjust the scrollbars */
-		gtk_html_calc_scrollbars (e->widget);
+		gtk_html_private_calc_scrollbars (e->widget);
 	}
 
 	return FALSE;
