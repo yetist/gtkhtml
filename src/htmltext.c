@@ -1422,8 +1422,6 @@ save_text_part (HTMLText *text, HTMLEngineSaveState *state, guint start_index, g
 	gint len;
 	gboolean rv;
 
-	printf ("save_text_part %d to %d\n", start_index, end_index);
-
 	str = g_strndup (text->text + start_index, end_index - start_index);
 	len = g_utf8_pointer_to_offset (text->text + start_index, text->text + end_index);
 
