@@ -2,7 +2,7 @@
 
 	* htmlengine.c (html_engine_parse_body): Handle empty space
 	correctly.  (Added a bunch of lines from the KHTMLW original.)
-
+	This fixes the bug reported in the previous ChangeLog entry.
 	(html_tokenizer_write): Added missing increment for `t->dest' when
 	a sequence that is too long is ignored.
 
