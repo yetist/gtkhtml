@@ -5055,6 +5055,7 @@ html_engine_set_painter (HTMLEngine *e, HTMLPainter *painter)
 		html_object_reset (e->clue);
 		html_engine_calc_size (e, FALSE);
 	}
+	gtk_html_private_calc_scrollbars (e->widget, NULL, NULL);
 }
 
 gint

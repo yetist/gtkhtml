@@ -1,3 +1,9 @@
+2002-08-09  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c (html_engine_set_painter): recalculate the
+	scrollbar extents now that we have changed the painter.  Fixes bug
+	#28160
+
 2002-08-07  Larry Ewing  <lewing@ximian.com>
 
 	* keybindingsrc.emacs: bind C-/ to undo.
