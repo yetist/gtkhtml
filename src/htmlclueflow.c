@@ -1736,6 +1736,34 @@ append_selection_string (HTMLObject *self,
 	}
 }
 
+static void
+forward_items (PangoItem **items, int *ii, int *io, int n)
+{
+	while (n > 0) {
+		if (items [*ii]->num_chars - *io > n) {
+			*io += n;
+			return;
+		}
+		n -= items [*ii]->num_chars - *io;
+		(*ii) ++;
+		*io = 0;
+	}
+}
+
+static void
+backward_items (PangoItem **items, int *ii, int *io, int n)
+{
+	while (n > 0) {
+		if (*io >= n) {
+			*io -= n;
+			return;
+		}
+		n -= *io;
+		(*ii) --;
+		*io = items [*ii]->num_chars - 1;
+	}
+}
+
 static gboolean
 save_plain (HTMLObject *self,
 	    HTMLEngineSaveState *state,
@@ -1773,28 +1801,30 @@ save_plain (HTMLObject *self,
 			g_string_append (out, "\n");
 		} else {
 			PangoAttrList *attrs = pango_attr_list_new ();
-			gint bytes = strlen (s), i, slen = g_utf8_strlen (s, -1), clen, n;
-			GList *items, *cur;
+			gint bytes = strlen (s), i, slen = g_utf8_strlen (s, -1), clen, n_items, cii, cio;
+			GList *items_list, *cur;
 			PangoContext *pc = gtk_widget_get_pango_context (GTK_WIDGET (state->engine->widget));
 			PangoLogAttr *lattrs;
+			PangoItem **items;
 			gint len, skip;
 
-			items = pango_itemize (pc, s, 0, bytes, attrs, NULL);
+			items_list = pango_itemize (pc, s, 0, bytes, attrs, NULL);
 			lattrs = g_new (PangoLogAttr, slen + 1);
-			n = g_list_length (items);
+			n_items = g_list_length (items_list);
+			items = g_new (PangoItem *, n_items);
 			clen = 0;
-			for (i = 0, cur = items; i < n; i ++, cur = cur->next) {
+			for (i = 0, cur = items_list; i < n_items; i ++, cur = cur->next) {
 				PangoItem *item;
 
 				item = (PangoItem *) cur->data;
 				pango_break (s + item->offset, item->length, &item->analysis, lattrs + clen, item->num_chars + 1);
 				clen += item->num_chars;
-				pango_item_free (item);
+				items [i] = item;
 			}
-			g_list_free (items);
+			g_list_free (items_list);
 			pango_attr_list_unref (attrs);
 
-			clen = 0;
+			clen = cii = cio = 0;
 			while (*s) {
 				len = strcspn (s, "\n");
 				len = g_utf8_strlen (s, len);
@@ -1805,30 +1835,41 @@ save_plain (HTMLObject *self,
 					if (len > max_len) {
 						gint l = max_len;
 						gboolean look_backward = TRUE;
-						gint wi, wl;
+						gint wi, wl, lii, lio, blii, blio;
 
-						wi = wl = clen + max_len;
+						wl = clen + max_len;
+						lii = cii;
+						lio = cio;
+						forward_items (items, &lii, &lio, max_len);
+						blii = lii;
+						blio = lio;
 
 						if (lattrs [wl].is_white) {
 
-							while (lattrs [wl].is_white && wl < slen)
+							while (lattrs [wl].is_white && wl < slen) {
 								wl ++;
-							if (wl < slen && lattrs [wl].is_line_break)
+								forward_items (items, &lii, &lio, 1);
+							}
+							if (wl < slen && html_text_is_line_break (items [lii], lattrs, wl))
 								look_backward = FALSE;
-							else
+							else {
 								wl = clen + max_len;
+								lii = blii;
+								lio = blio;
+							}
 
 						}
 
 						if (look_backward) {
 							while (wl > 0) {
-								if (lattrs [wl].is_line_break)
+								if (html_text_is_line_break (items [lii], lattrs, wl))
 									break;
 								wl --;
+								backward_items (items, &lii, &lio, 1);
 							}
 						}
 
-						if (wl > clen && wl < slen && lattrs [wl].is_line_break) {
+						if (wl > clen && wl < slen && html_text_is_line_break (items [lii], lattrs, wl)) {
 							wi = MIN (wl, clen + max_len);
 							while (wi > 0 && lattrs [wi - 1].is_white)
 								wi --;
@@ -1865,16 +1906,21 @@ save_plain (HTMLObject *self,
 				s += bytes;
 				s = g_utf8_offset_to_pointer (s, skip);
 				clen += len + skip;
+				forward_items (items, &cii, &cio, len + skip);
 
 				if (*s == '\n') {
 					s++;
 					clen ++;
+					forward_items (items, &cii, &cio, 1);
 				}
 			
 				g_string_append_c (out, '\n');
 				firstline = FALSE;
 			}
 			g_free (lattrs);
+			for (i = 0; i < n_items; i ++)
+				pango_item_free (items [i]);
+			g_free (items);
 		}
 
 		if (get_post_padding (flow, calc_padding (state->engine->painter)) > 0) {
