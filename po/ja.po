@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.6\n"
-"POT-Creation-Date: 2001-01-24 23:47-0600\n"
+"POT-Creation-Date: 2001-01-25 10:02-0600\n"
 "PO-Revision-Date: 2000-10-10 17:17+09:00\n"
 "Last-Translator: Yukihiro Nakai <nakai@gnome.gr.jp>\n"
 "Language-Team: Japanese <translation@gnome.gr.jp>\n"

@@ -1,3 +1,9 @@
+2001-01-25  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml 0.8.1 released
+	
+	* configure.in: bump versions for 0.8.1 release.
+
 2001-01-25  Radek Doulik  <rodo@helixcode.com>
 
 	* configure.in (GTKHTML_LIBS): copied gtk-doc stuff from

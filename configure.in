@@ -2,7 +2,7 @@ dnl Initialization
 
 AC_INIT(src/gtkhtml.c)
 AM_CONFIG_HEADER(config.h)
-AM_INIT_AUTOMAKE(gtkhtml, 0.8)
+AM_INIT_AUTOMAKE(gtkhtml, 0.8.1)
 
 AM_MAINTAINER_MODE
 AM_ACLOCAL_INCLUDE(macros)
@@ -28,14 +28,14 @@ AM_GNOME_GETTEXT
 dnl ******************************
 dnl Gnome App Lib checking
 dnl ******************************
-AC_MSG_CHECKING(for Gnome App libraries (GAL) >= 0.3)
+AC_MSG_CHECKING(for Gnome App libraries (GAL) >= 0.4)
 if gnome-config --libs gal > /dev/null 2>&1; then 
     vers=`gnome-config --modversion gal | sed -e "s/gal-//" -e 's/cvs$//' -e 's/pre$//' | \
         awk 'BEGIN { FS = "."; } { print $1 * 1000 + $2;}'`
-    if test "$vers" -ge 3; then
+    if test "$vers" -ge 4; then
         AC_MSG_RESULT(found)
     else
-        AC_MSG_ERROR(You need at least GNOME Application libs 0.3 for this version of GtkHTML)
+        AC_MSG_ERROR(You need at least GNOME Application libs 0.4 for this version of GtkHTML)
     fi
 else
     AC_MSG_ERROR(Did not find GnomeAppLib (GAL) installed)
@@ -237,14 +237,14 @@ AC_SUBST(GCONF_LIBS)
 dnl ******************************
 dnl GnomePrint checking
 dnl ******************************
-AC_MSG_CHECKING(for GnomePrint libraries >= 0.24)
+AC_MSG_CHECKING(for GnomePrint libraries >= 0.25)
 if gnome-config --libs print > /dev/null 2>&1; then 
     vers=`gnome-config --modversion print | sed -e "s/gnome-print-//" -e 's/cvs$//' -e 's/pre$//' | \
         awk 'BEGIN { FS = "."; } { print $1 * 1000 + $2;}'`
-    if test "$vers" -ge 24; then
+    if test "$vers" -ge 25; then
         AC_MSG_RESULT(found)
     else
-        AC_MSG_ERROR(You need at least GNOME print 0.24 for this version of GtkHTML)
+        AC_MSG_ERROR(You need at least GNOME print 0.25 for this version of GtkHTML)
     fi
 else
     AC_MSG_ERROR(Did not find GnomePrint installed)
@@ -326,7 +326,7 @@ dnl Library version information.
  
 dnl Increment the following if the interface has additions, changes,
 dnl removals.
-GTKHTML_CURRENT=6
+GTKHTML_CURRENT=7
 
 dnl Increment any time the source changes; set to 0 if you
 dnl increment CURRENT.
