@@ -41,7 +41,7 @@ button_link_cb (GtkWidget *but, GtkHTMLLinkDialog *d)
 	gchar *text = gtk_entry_get_text (GTK_ENTRY (d->text));
 	gchar *link = gtk_entry_get_text (GTK_ENTRY (d->link));
 
-	if (link) {
+	if (d->html_link) {
 		gboolean changed = FALSE;
 
 		if (strcmp (text, HTML_TEXT (d->html_link)->text)) {

@@ -1,3 +1,8 @@
+2000-05-03  Radek Doulik  <rodo@helixcode.com>
+
+	* link.c (button_link_cb): fixed type (link instead of
+	d->html_link)
+
 2000-05-03  Jacob Berkman  <jacob@helixcode.com>
 
 	* Makefile.am (oaf_DATA): if using oaf, actually install oaf and not
