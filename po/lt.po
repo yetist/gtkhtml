@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-30 14:56+0200\n"
-"PO-Revision-Date: 2005-01-30 14:57+0200\n"
+"POT-Creation-Date: 2005-01-31 16:09+0200\n"
+"PO-Revision-Date: 2005-01-31 16:09+0200\n"
 "Last-Translator: Žygimantas Beručka <uid0@akl.lt>\n"
 "Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
 "MIME-Version: 1.0\n"
@@ -27,7 +27,7 @@ msgstr "URL yra %s, alternatyvus tekstas yra %s"
 msgid "URL is %s"
 msgstr "URL yra %s"
 
-#: a11y/object.c:50 a11y/object.c:59 a11y/text.c:105
+#: a11y/object.c:50 a11y/object.c:59 a11y/text.c:111
 msgid "grab focus"
 msgstr "fokusuoti"
 
@@ -1100,6 +1100,10 @@ msgstr "Pastraipa"
 msgid "Page"
 msgstr "Puslapis"
 
+#: components/html-editor/gi-color-combo.c:187
+msgid "color preview"
+msgstr "spalvos peržiūra"
+
 #. This is the default custom color
 #: components/html-editor/gi-color-palette.c:395
 msgid "custom"
@@ -1298,6 +1302,11 @@ msgstr "tamsiai violetinė"
 #: components/html-editor/gi-color-palette.c:636
 msgid "sky blue"
 msgstr "dangaus mėlynumo"
+
+#. set the a11y name
+#: components/html-editor/gi-combo-box.c:419
+msgid "Popup"
+msgstr "Iššokantis langas"
 
 #: components/html-editor/gnome-gtkhtml-editor.c:68
 msgid "GtkHTML Editor Control"
