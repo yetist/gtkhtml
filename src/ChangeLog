@@ -1,3 +1,8 @@
+2002-10-17  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c (parse_table): save and restore pAlign and
+	divAlign, and initialize them to NONE.
+
 2002-10-16  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine.c (parse_c): make center tags use the same logic as

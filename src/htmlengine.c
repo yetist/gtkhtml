@@ -996,7 +996,8 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	HTMLHAlignType align = HTML_HALIGN_NONE;
 	HTMLClueV *caption = 0;
 	HTMLVAlignType capAlign = HTML_VALIGN_BOTTOM;
-	HTMLHAlignType olddivalign = e->pAlign;
+	HTMLHAlignType olddivalign = e->divAlign;
+	HTMLHAlignType oldpalign = e->pAlign;
 	HTMLClue *oldflow = HTML_CLUE (e->flow);
 	HTMLStack *old_list_stack = e->listStack;
 	GdkColor tableColor, rowColor, bgColor;
@@ -1221,7 +1222,8 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 						have_bgPixmap = FALSE;
 					}
 
-					e->pAlign = HTML_HALIGN_NONE;
+					e->divAlign = HTML_HALIGN_NONE;
+					e->pAlign   = HTML_HALIGN_NONE;
 					valign = rowvalign == HTML_VALIGN_NONE ? HTML_VALIGN_MIDDLE : rowvalign;
 					halign = rowhalign == HTML_HALIGN_NONE ? HTML_HALIGN_NONE   : rowhalign;
 
@@ -1370,7 +1372,9 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 		
 	html_stack_destroy (e->listStack);
 	e->listStack = old_list_stack;
-	e->pAlign = olddivalign;
+	e->pAlign   = oldpalign;
+	e->divAlign = olddivalign;
+
 	e->flow = HTML_OBJECT (oldflow);
 
 	if (has_cell) {
@@ -1387,14 +1391,14 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 				close_flow (e, clue);
 
 			if (align != HTML_HALIGN_NONE) {
-				olddivalign = e->pAlign;
+				oldpalign = e->pAlign;
 				e->pAlign = align;
 			}
 			append_element (e, clue, HTML_OBJECT (table));
 			close_flow (e, clue);
 
 			if (align != HTML_HALIGN_NONE)
-				e->pAlign = olddivalign;
+				e->pAlign = oldpalign;
 		} else {
 			HTMLClueAligned *aligned = HTML_CLUEALIGNED (html_cluealigned_new (NULL, 0, 0, clue->max_width, 100));
 			HTML_CLUE (aligned)->halign = align;
