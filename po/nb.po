@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-07 17:25+0100\n"
-"PO-Revision-Date: 2005-01-19 15:37+0100\n"
+"POT-Creation-Date: 2005-02-08 13:44+0100\n"
+"PO-Revision-Date: 2005-02-08 13:46+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -928,9 +928,8 @@ msgid "Background Image"
 msgstr "Bakgrunnsbilde"
 
 #: components/html-editor/body.c:298
-#, fuzzy
 msgid "Background Image File Path"
-msgstr "Bakgrunnsbilde"
+msgstr "Sti til bakgrunnsbilde"
 
 #: components/html-editor/body.c:301
 #: components/html-editor/gtkhtml-editor-properties.glade.h:71
@@ -973,9 +972,8 @@ msgid "Page"
 msgstr "Side"
 
 #: components/html-editor/gi-color-combo.c:187
-#, fuzzy
 msgid "color preview"
-msgstr "Forhåndsvisning"
+msgstr "forhåndsvisning av farge"
 
 #. This is the default custom color
 #: components/html-editor/gi-color-palette.c:395
@@ -1179,7 +1177,7 @@ msgstr "himmelblå"
 #. set the a11y name
 #: components/html-editor/gi-combo-box.c:419
 msgid "Popup"
-msgstr ""
+msgstr "Oppsprett"
 
 #: components/html-editor/gnome-gtkhtml-editor.c:68
 msgid "GtkHTML Editor Control"
@@ -1444,14 +1442,12 @@ msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
 #: components/html-editor/link.c:194
-#, fuzzy
 msgid "URL:"
-msgstr "_URL:"
+msgstr "URL:"
 
 #: components/html-editor/link.c:198
-#, fuzzy
 msgid "Description:"
-msgstr "_Beskrivelse:"
+msgstr "Beskrivelse:"
 
 #: components/html-editor/menubar.c:96 components/html-editor/menubar.c:104
 msgid "Insert image"
@@ -1660,14 +1656,12 @@ msgid "Case _sensitive"
 msgstr "_Skill mellom store/små bokstaver"
 
 #: components/html-editor/replace.c:182
-#, fuzzy
 msgid "R_eplace:"
-msgstr "Erstatt:"
+msgstr "_Erstatt:"
 
 #: components/html-editor/replace.c:186
-#, fuzzy
 msgid "_With:"
-msgstr "_Bredde:"
+msgstr "_med:"
 
 #: components/html-editor/search.c:112
 msgid "_Backward"
@@ -1679,7 +1673,7 @@ msgstr "_Vanlig uttrykk"
 
 #: components/html-editor/search.c:118
 msgid "Input the words you want to search here"
-msgstr ""
+msgstr "Sett inn ordene du vil søke etter her"
 
 #: components/html-editor/spellchecker.c:110
 msgid ""
@@ -1714,9 +1708,8 @@ msgid "Image frame"
 msgstr "Bilderamme"
 
 #: components/html-editor/template.c:280
-#, fuzzy
 msgid "Template Labels"
-msgstr "Mal"
+msgstr "Etiketter for maler"
 
 #: components/html-editor/test-html-editor-control.c:333
 msgid "Open file..."
@@ -1968,100 +1961,3 @@ msgstr "Forhåndsvisning"
 #: src/testgtkhtml.c:1004
 msgid "GtkHTML Test Application"
 msgstr "Test-applikasjon for GtkHTML"
-
-#~ msgid "<None>"
-#~ msgstr "<Ingen>"
-
-#~ msgid "\n"
-#~ msgstr "\n"
-
-#~ msgid "*********************"
-#~ msgstr "*********************"
-
-#~ msgid "Add Keyboard Shortcuts"
-#~ msgstr "Legg til tastatursnarveier"
-
-#~ msgid "Automatically detect links"
-#~ msgstr "Automatisk gjenkjenning av lenker"
-
-#~ msgid "Behavior"
-#~ msgstr "Oppførsel"
-
-#~ msgid "Composer Properties"
-#~ msgstr "Egenskaper for skriving"
-
-#~ msgid "Composer Properties planned"
-#~ msgstr "Planlagte egenskaper for skriving"
-
-#~ msgid "Configure spell checking"
-#~ msgstr "Konfigurer stavekontroll"
-
-#~ msgid "Enable spell checking"
-#~ msgstr "Bruk stavekontroll"
-
-#~ msgid "Fixed width"
-#~ msgstr "Fast bredde"
-
-#~ msgid "Fonts"
-#~ msgstr "Skrifttyper"
-
-#~ msgid "For printing"
-#~ msgstr "For utskrift"
-
-#~ msgid "Grab keys"
-#~ msgstr "Hent taster"
-
-#~ msgid "Information"
-#~ msgstr "Informasjon"
-
-#~ msgid "Keyboard Shortcuts"
-#~ msgstr "Tastatursnarveier"
-
-#~ msgid "Miscellaneous"
-#~ msgstr "Forskjellig"
-
-#~ msgid "New shortcut:"
-#~ msgstr "Ny snarvei:"
-
-#~ msgid "On screen"
-#~ msgstr "På skjermen"
-
-#~ msgid "Select HTML fixed width font"
-#~ msgstr "Velg skrifttype med fast bredde for HTML"
-
-#~ msgid "Select HTML fixed width font for printing"
-#~ msgstr "Velg skrifttype med fast bredde for HTML"
-
-#~ msgid "Select HTML variable width font"
-#~ msgstr "Velg variabel bredde for skrifttype i HTML"
-
-#~ msgid "Select HTML variable width font for printing"
-#~ msgstr "Velg variabel bredde for skrifttype i HTML"
-
-#~ msgid "Shortcuts _type:"
-#~ msgstr "_Type snarvei:"
-
-#~ msgid "Show animated images"
-#~ msgstr "Vis animerte bilder"
-
-#~ msgid "Variable width"
-#~ msgstr "Variabel bredde"
-
-#~ msgid "_Add"
-#~ msgstr "_Legg til"
-
-#~ msgid "_Delete"
-#~ msgstr "_Slett"
-
-#~ msgid ""
-#~ "Cannot execute GNOME Spell control applet\n"
-#~ "Try to install GNOME Spell if you don't have it installed."
-#~ msgstr ""
-#~ "Kan ikke kjøre GNOME stavekontrollapplet\n"
-#~ "Prøv å installere GNOME stavekontroll hvis du ikke har gjort det."
-
-#~ msgid "With:"
-#~ msgstr "Bredde:"
-
-#~ msgid "Labels"
-#~ msgstr "Etiketter"
