@@ -49,7 +49,7 @@
 #include "table.h"
 #include "text.h"
 
-#define DEBUG
+/* #define DEBUG */
 #ifdef DEBUG
 #include "gtkhtmldebug.h"
 #endif
