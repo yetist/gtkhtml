@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml 0.12.99\n"
-"POT-Creation-Date: 2001-09-21 16:39-0500\n"
-"PO-Revision-Date: 2001-09-02 12:43+0200\n"
+"Project-Id-Version: gtkhtml 0.13.99\n"
+"POT-Creation-Date: 2001-09-22 17:23+0200\n"
+"PO-Revision-Date: 2001-09-22 17:23+0200\n"
 "Last-Translator: Christophe Merlet (RedFox) <redfox@eikonex.org>\n"
 "Language-Team: GNOME French Team <gnomefr@gnomefr.traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -575,9 +575,8 @@ msgid "_Alignment"
 msgstr "_Alignement"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
-#, fuzzy
 msgid "_Alphabetical List"
-msgstr "Liste alphabétique"
+msgstr "Liste _alphabétique"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
 msgid "_Bold"
@@ -680,9 +679,8 @@ msgid "_Rule..."
 msgstr "_Règles..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
-#, fuzzy
 msgid "_Spell check document..."
-msgstr "Vérificateur orthographique"
+msgstr "Vérification _orthographique du document..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
 msgid "_Strikeout"
@@ -720,6 +718,12 @@ msgstr "Activer"
 msgid "Colors"
 msgstr "Couleurs"
 
+#: components/html-editor/body.c:175 components/html-editor/cell.c:391
+#: components/html-editor/table.c:534 components/html-editor/text.c:221
+#: components/html-editor/toolbar.c:290
+msgid "Automatic"
+msgstr "Automatique"
+
 #: components/html-editor/body.c:186
 #: components/html-editor/editor-control-factory.c:190
 #: components/html-editor/menubar.c:127 components/html-editor/popup.c:151
@@ -730,11 +734,6 @@ msgstr "Texte"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:5
 msgid "Background"
 msgstr "Arrière-plan"
-
-#: components/html-editor/cell.c:391 components/html-editor/table.c:534
-#: components/html-editor/text.c:221 components/html-editor/toolbar.c:290
-msgid "Automatic"
-msgstr "Automatique"
 
 #: components/html-editor/editor-control-factory.c:170
 #: components/html-editor/popup.c:143
@@ -1047,19 +1046,19 @@ msgid "Align"
 msgstr "Aligner"
 
 #: components/html-editor/popup.c:338
-#, fuzzy, c-format
+#, c-format
 msgid "Check '%s' spelling..."
-msgstr "Vérifier l'orthographe..."
+msgstr "Vérifier l'orthographe de « %s »..."
 
 #: components/html-editor/popup.c:339
 #, c-format
 msgid "Add '%s' to dictionary"
-msgstr "AZjouter %s au dictionnaire"
+msgstr "Ajouter « %s » au dictionnaire"
 
 #: components/html-editor/popup.c:340
 #, c-format
 msgid "Ignore '%s'"
-msgstr "Ignorer %s"
+msgstr "Ignorer « %s »"
 
 #: components/html-editor/popup.c:341 components/html-editor/spell.c:369
 msgid "Spell checker"
@@ -1181,7 +1180,7 @@ msgstr "Recherche une expression régulière"
 
 #: components/html-editor/spell.c:364
 msgid "No misspelled word found"
-msgstr ""
+msgstr "Aucun mot mal orthographié trouvé"
 
 #: components/html-editor/table.c:198
 msgid "Flat gray"
@@ -1192,29 +1191,50 @@ msgid "Dark header"
 msgstr "En-tête noir"
 
 #: components/html-editor/template.c:81
-#, fuzzy
 msgid "Note"
-msgstr "Aucun"
+msgstr "Note"
 
 #: components/html-editor/template.c:83
 msgid ""
-"<table cellspacing=0 cellpadding=1 "
-"bgcolor=\"#ccccc0\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" "
-"cellpadding=3 cellspacing=0 width=\"100%\"><tr><td valign=top><img "
-"src=\"file://"
+"<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
+"\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
+"cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
 msgstr ""
+"<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
+"\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
+"cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
+
+#: components/html-editor/template.c:85
+msgid ""
+"/bulb.png\" hspace=10></td><td width=\"100%\">Place your text here</td></"
+"tr></table></td></tr></table>"
+msgstr ""
+"/bulb.png\" hspace=10></td><td width=\"100%\">Placez votre texte ici</td></"
+"tr></table></td></tr></table>"
 
 #: components/html-editor/template.c:91
-#, fuzzy
 msgid "Image frame"
-msgstr "Image"
+msgstr "Cadre d'image"
 
 #: components/html-editor/template.c:93
 msgid ""
 "<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" @width@@align@><tr><td><table "
-"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" "
-"width=\"100%\"><tr><td align=\"center\"><img src=\"file://"
+"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%"
+"\"><tr><td align=\"center\"><img src=\"file://"
 msgstr ""
+"<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" @width@@align@><tr><td><table "
+"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%"
+"\"><tr><td align=\"center\"><img src=\"file://"
+
+#: components/html-editor/template.c:97
+msgid ""
+"/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td>Image 1:"
+"&nbsp;<font size=\"3\"><b>description</b></font size=\"3\"></td></tr></"
+"table></td></tr></table>"
+msgstr ""
+"/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td>Image 1 :"
+"&nbsp;<font size=\"3\"><b>description</b></font size=\"3\"></td></tr></"
+"table></td></tr></table>"
 
 #: components/html-editor/test-html-editor-control.c:276
 msgid "Open file..."
