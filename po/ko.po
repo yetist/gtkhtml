@@ -6,14 +6,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 3.1\n"
-"POT-Creation-Date: 2004-01-12 18:08+0100\n"
-"PO-Revision-Date: 2004-01-10 03:12+0900\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-01-30 01:32+0900\n"
+"PO-Revision-Date: 2004-01-30 02:55+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: Korean <gnome-kr-translation@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
-"Report-Msgid-Bugs-To: \n"
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -98,7 +98,7 @@ msgstr "기타"
 
 #: capplet/gtkhtml-capplet.glade.h:19
 msgid "New shortcut:"
-msgstr "새 단축글쇠"
+msgstr "새 단축키:"
 
 #: capplet/gtkhtml-capplet.glade.h:20
 msgid "On screen"
@@ -122,7 +122,7 @@ msgstr "인쇄용 HTML 가변폭 글꼴을 선택합니다"
 
 #: capplet/gtkhtml-capplet.glade.h:25
 msgid "Shortcuts _type:"
-msgstr "단축글쇠 형식(_T)"
+msgstr "단축키 형식(_T):"
 
 #: capplet/gtkhtml-capplet.glade.h:26
 msgid "Show animated images"
@@ -540,7 +540,7 @@ msgstr "안돼!(_N)"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:75
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
 msgid "Orange"
-msgstr "오렌지색"
+msgstr "주홍색"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:76
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
@@ -1088,6 +1088,205 @@ msgstr "문단"
 msgid "Page"
 msgstr "쪽"
 
+#. This is the default custom color
+#: components/html-editor/gi-color-palette.c:394
+msgid "custom"
+msgstr "사용자 지정"
+
+#. "Custom" color - we'll pop up a GnomeColorPicker
+#: components/html-editor/gi-color-palette.c:436
+msgid "Custom Color:"
+msgstr "사용자 지정 색:"
+
+#: components/html-editor/gi-color-palette.c:444
+msgid "Choose Custom Color"
+msgstr "사용자 지정 색을 고르십시오"
+
+#: components/html-editor/gi-color-palette.c:577
+msgid "black"
+msgstr "검정"
+
+#: components/html-editor/gi-color-palette.c:578
+msgid "light brown"
+msgstr "옅은 갈색"
+
+#: components/html-editor/gi-color-palette.c:579
+msgid "brown gold"
+msgstr "갈빛 금색"
+
+#: components/html-editor/gi-color-palette.c:580
+msgid "dark green #2"
+msgstr "어두운 녹색 #2"
+
+#: components/html-editor/gi-color-palette.c:581
+msgid "navy"
+msgstr "짙은 남색"
+
+#: components/html-editor/gi-color-palette.c:582
+#: components/html-editor/gi-color-palette.c:638
+msgid "dark blue"
+msgstr "어두운 파란색"
+
+#: components/html-editor/gi-color-palette.c:583
+msgid "purple #2"
+msgstr "자주색 #2"
+
+#: components/html-editor/gi-color-palette.c:584
+msgid "very dark gray"
+msgstr "아주 어두운 회색"
+
+#: components/html-editor/gi-color-palette.c:587
+#: components/html-editor/gi-color-palette.c:643
+msgid "dark red"
+msgstr "어두운 빨강"
+
+#: components/html-editor/gi-color-palette.c:588
+msgid "red-orange"
+msgstr "적홍색"
+
+#: components/html-editor/gi-color-palette.c:589
+msgid "gold"
+msgstr "금색"
+
+#: components/html-editor/gi-color-palette.c:590
+msgid "dark green"
+msgstr "어두운 녹색"
+
+#: components/html-editor/gi-color-palette.c:591
+#: components/html-editor/gi-color-palette.c:644
+msgid "dull blue"
+msgstr "흐린 파란색"
+
+#: components/html-editor/gi-color-palette.c:592
+#: components/html-editor/gi-color-palette.c:645
+msgid "blue"
+msgstr "파란색"
+
+#: components/html-editor/gi-color-palette.c:593
+msgid "dull purple"
+msgstr "흐린 자주색"
+
+#: components/html-editor/gi-color-palette.c:594
+msgid "dark grey"
+msgstr "어두운 회색"
+
+#: components/html-editor/gi-color-palette.c:597
+msgid "red"
+msgstr "빨간색"
+
+#: components/html-editor/gi-color-palette.c:598
+msgid "orange"
+msgstr "주홍색"
+
+#: components/html-editor/gi-color-palette.c:599
+msgid "lime"
+msgstr "라임색"
+
+#: components/html-editor/gi-color-palette.c:600
+msgid "dull green"
+msgstr "흐린 녹색"
+
+#: components/html-editor/gi-color-palette.c:601
+msgid "dull blue #2"
+msgstr "흐린 파란색 #2"
+
+#: components/html-editor/gi-color-palette.c:602
+msgid "sky blue #2"
+msgstr "흐린 하늘색 #2"
+
+#: components/html-editor/gi-color-palette.c:603
+#: components/html-editor/gi-color-palette.c:642
+msgid "purple"
+msgstr "자주색"
+
+#: components/html-editor/gi-color-palette.c:604
+msgid "gray"
+msgstr "회색"
+
+#: components/html-editor/gi-color-palette.c:607
+#: components/html-editor/gi-color-palette.c:639
+msgid "magenta"
+msgstr "자홍색"
+
+#: components/html-editor/gi-color-palette.c:608
+msgid "bright orange"
+msgstr "밝은 주홍색"
+
+#: components/html-editor/gi-color-palette.c:609
+#: components/html-editor/gi-color-palette.c:640
+msgid "yellow"
+msgstr "노란색"
+
+#: components/html-editor/gi-color-palette.c:610
+msgid "green"
+msgstr "녹색"
+
+#: components/html-editor/gi-color-palette.c:611
+#: components/html-editor/gi-color-palette.c:641
+msgid "cyan"
+msgstr "청록색"
+
+#: components/html-editor/gi-color-palette.c:612
+msgid "bright blue"
+msgstr "밝은 파란색"
+
+#: components/html-editor/gi-color-palette.c:613
+#: components/html-editor/gi-color-palette.c:630
+msgid "red purple"
+msgstr "빨간 자주색"
+
+#: components/html-editor/gi-color-palette.c:614
+msgid "light grey"
+msgstr "밝은 회색"
+
+#: components/html-editor/gi-color-palette.c:617
+#: components/html-editor/gi-color-palette.c:634
+msgid "pink"
+msgstr "분홍색"
+
+#: components/html-editor/gi-color-palette.c:618
+msgid "light orange"
+msgstr "밝은 주홍색"
+
+#: components/html-editor/gi-color-palette.c:619
+#: components/html-editor/gi-color-palette.c:631
+msgid "light yellow"
+msgstr "밝은 노란색"
+
+#: components/html-editor/gi-color-palette.c:620
+msgid "light green"
+msgstr "밝은 녹색"
+
+#: components/html-editor/gi-color-palette.c:621
+msgid "light cyan"
+msgstr "밝은 청록색"
+
+#: components/html-editor/gi-color-palette.c:622
+#: components/html-editor/gi-color-palette.c:632
+msgid "light blue"
+msgstr "밝은 파란색"
+
+#: components/html-editor/gi-color-palette.c:623
+#: components/html-editor/gi-color-palette.c:636
+msgid "light purple"
+msgstr "밝은 자주색"
+
+#: components/html-editor/gi-color-palette.c:624
+msgid "white"
+msgstr "흰색"
+
+#: components/html-editor/gi-color-palette.c:629
+msgid "purplish blue"
+msgstr "자주빛 파란색"
+
+#: components/html-editor/gi-color-palette.c:633
+msgid "dark purple"
+msgstr "어두운 자주색"
+
+#: components/html-editor/gi-color-palette.c:635
+msgid "sky blue"
+msgstr "하늘색"
+
 #: components/html-editor/gnome-gtkhtml-editor.c:68
 msgid "GtkHTML Editor Control"
 msgstr "GtkHTML 편집기 컨트롤"
@@ -1207,7 +1406,7 @@ msgstr "가로 정렬:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:38
 msgid "Horizontal:"
-msgstr "세로"
+msgstr "가로:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:40
 #: components/html-editor/text.c:237 components/html-editor/toolbar.c:524
@@ -1345,7 +1544,7 @@ msgstr "세로:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:81
 msgid "Width:"
-msgstr "폭:"
+msgstr "너비:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:82
 msgid "Wrap"
