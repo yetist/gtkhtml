@@ -3,13 +3,13 @@
 # Christian Rose <menthos@menthos.com>, 2000, 2001, 2002, 2003.
 # Martin Norbäck <d95mback@dtek.chalmers.se>, 2000.
 #
-# $Id: sv.po,v 1.62 2003/03/06 15:24:26 rodo Exp $
+# $Id: sv.po,v 1.63 2003/03/10 21:24:22 menthos Exp $
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2003-03-06 16:02+0100\n"
-"PO-Revision-Date: 2003-01-15 01:50+0100\n"
+"POT-Creation-Date: 2003-03-10 22:20+0100\n"
+"PO-Revision-Date: 2003-03-10 22:21+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -899,9 +899,8 @@ msgid "Page"
 msgstr "Sida"
 
 #: components/html-editor/editor-control-factory.c:775
-#, fuzzy
 msgid "GtkHTML Editor Control"
-msgstr "HTML-redigerarkontroll för GNOME"
+msgstr "GtkHTML-redigerarkontroll"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:2
 msgid "************"
@@ -1567,76 +1566,72 @@ msgid "Sample"
 msgstr "Prov"
 
 #: src/gtkhtml.c:2640
-#, fuzzy
 msgid "Editable"
-msgstr "Aktivera"
+msgstr "Redigerbar"
 
 #: src/gtkhtml.c:2641
 msgid "Whether the html can be edited"
-msgstr ""
+msgstr "Huruvida html-koden kan redigeras"
 
 #: src/gtkhtml.c:2648
-#, fuzzy
 msgid "The title of the current document"
-msgstr "Kontrollera stavningen i dokumentet"
+msgstr "Titeln på det aktuella dokumentet"
 
 #: src/gtkhtml.c:2654
-#, fuzzy
 msgid "Document Base"
-msgstr "Dokumenttitel"
+msgstr "Dokumentbas"
 
 #: src/gtkhtml.c:2655
 msgid "The base URL for relative references"
-msgstr ""
+msgstr "Bas-URL:en för relativa referenser"
 
 #: src/gtkhtml.c:2661
 msgid "Target Base"
-msgstr ""
+msgstr "Målbas"
 
 #: src/gtkhtml.c:2662
 msgid "The base URL of the targe frame"
-msgstr ""
+msgstr "Bas-URL:en för målramen"
 
 #: src/gtkhtml.c:2671
-#, fuzzy
 msgid "Fixed Width Font"
-msgstr "Fast breddsteg"
+msgstr "Typsnitt med fast breddsteg"
 
 #: src/gtkhtml.c:2672
 msgid "The Monospace font to use for typewriter text"
-msgstr ""
+msgstr "Typsnittet med fast breddsteg som ska användas för skrivmaskinstext"
 
 #: src/gtkhtml.c:2678
 msgid "New Link Color"
-msgstr ""
+msgstr "Färg för ny länk"
 
 #: src/gtkhtml.c:2679
 msgid "The color of new link elements"
-msgstr ""
+msgstr "Färgen på nya länkelement"
 
 #: src/gtkhtml.c:2684
 msgid "Visited Link Color"
-msgstr ""
+msgstr "Färg för besökt länk"
 
 #: src/gtkhtml.c:2685
 msgid "The color of visited link elements"
-msgstr ""
+msgstr "Färgen på besökta länkelement"
 
 #: src/gtkhtml.c:2690
 msgid "Active Link Color"
-msgstr ""
+msgstr "Färg för aktiv länk"
 
 #: src/gtkhtml.c:2691
 msgid "The color of active link elements"
-msgstr ""
+msgstr "Färgen på aktiva länkelement"
 
 #: src/gtkhtml.c:2696
 msgid "Spelling Error Color"
-msgstr ""
+msgstr "Stavfelsfärg"
 
 #: src/gtkhtml.c:2697
 msgid "The color of the spelling error markers"
-msgstr ""
+msgstr "Färgen på markörerna för stavfel"
 
 #: src/html-component.c:219
 msgid "Html"
@@ -1710,6 +1705,12 @@ msgstr "Förhands_granska"
 #: src/testgtkhtml.c:103
 msgid "Print preview"
 msgstr "Förhandsgranska"
+
+#~ msgid "HTML Editor Control"
+#~ msgstr "HTML-redigerarkontroll"
+
+#~ msgid "The base URL of the target frame"
+#~ msgstr "Bas-URL:en för målramen"
 
 #~ msgid "I could not initialize Bonobo"
 #~ msgstr "Jag kunde inte initiera Bonobo"
