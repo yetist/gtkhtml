@@ -1,3 +1,8 @@
+2001-08-20  Radek Doulik  <rodo@ximian.com>
+
+	* htmlclueflow.c (html_clueflow_set_style): fix condition to avoid
+	wrong indentation for H1
+
 2001-08-17  Radek Doulik  <rodo@ximian.com>
 
 	* keybindingsrc.{ms,emacs,xeamcs}: changed C-TAB rather to pure

@@ -2196,7 +2196,7 @@ html_clueflow_set_style (HTMLClueFlow *flow,
 		html_object_clear_word_width (HTML_OBJECT (flow));
 	html_object_change_set (HTML_OBJECT (flow), HTML_CHANGE_ALL);
 	flow->style = style;
-	if (!(style & HTML_CLUEFLOW_STYLE_LIST_ITEM))
+	if (style != HTML_CLUEFLOW_STYLE_LIST_ITEM)
 		flow->item_number = 0;
 	else
 		flow->level = MAX (1, flow->level);
