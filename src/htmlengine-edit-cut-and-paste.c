@@ -561,8 +561,10 @@ html_engine_insert_object (HTMLEngine *e, HTMLObject *o, guint len)
 void
 html_engine_paste_object (HTMLEngine *e, HTMLObject *o, guint len)
 {
+	html_undo_level_begin (e->undo, "Paste");
 	html_engine_delete (e);
 	html_engine_insert_object (e, o, len);
+	html_undo_level_end (e->undo);
 }
 
 void
@@ -640,8 +642,10 @@ html_engine_insert_text (HTMLEngine *e, const gchar *text, guint len)
 void
 html_engine_paste_text (HTMLEngine *e, const gchar *text, guint len)
 {
+	html_undo_level_begin (e->undo, "Paste text");
 	html_engine_delete (e);
 	html_engine_insert_text (e, text, len);
+	html_undo_level_end (e->undo);
 }
 
 void

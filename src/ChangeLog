@@ -1,5 +1,9 @@
 2001-01-10  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine-edit-cut-and-paste.c (html_engine_paste_text): add
+	undo level "Paste text"
+	(html_engine_paste_object): added undo level "Paste"
+
 	* gtkhtml.c (gtk_html_request_paste): do PASTE if no selection
 	available
 	(button_release_event): copy selection to clipboard
@@ -9,6 +13,8 @@
 	html_engine_paste rather than text version of data
 	(command): call gtk_html_paste rather than html_engine_paste as we
 	want take care of XSelection while pasting
+	(command): don't cut before inserting rule
+	(command): don't cut before inserting empty para, do delete instead
 
 2001-01-09  Dave Camp <dave@helixcode.com>
 

@@ -2518,11 +2518,10 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		gtk_html_paste (html);
 		break;
 	case GTK_HTML_COMMAND_INSERT_RULE:
-		html_engine_cut (e);
 		html_engine_insert_rule (e, 0, 100, 2, TRUE, HTML_HALIGN_LEFT);
 		break;
 	case GTK_HTML_COMMAND_INSERT_PARAGRAPH:
-		html_engine_cut (e);
+		html_engine_delete (e);
 		html_engine_insert_empty_paragraph (e);
 		break;
 	case GTK_HTML_COMMAND_DELETE:
