@@ -161,7 +161,6 @@ html_token_buffer_append_token (HTMLTokenBuffer * buf, const gchar *token, gint 
 	buf->used += len;
 	buf->data [buf->used] = 0;
 	buf->used ++;
-	printf ("append token %s\n", buf->data + buf->used - len - 1);
 
 	return TRUE;
 }
@@ -842,7 +841,6 @@ html_tokenizer_write (HTMLTokenizer *t, const gchar *string, size_t size)
 				if (t->blocking) {
 					const gchar *bn = html_tokenizer_blocking_get_name (t);
 
-					// printf ("compare tokens \"%s\" \"%s\"\n", bn, t->buffer+1);
 					if (strncmp (t->buffer + 1, bn, strlen (bn)) == 0) {
 						html_tokenizer_blocking_pop (t);
 					}
@@ -1029,7 +1027,6 @@ html_tokenizer_blocking_pop (HTMLTokenizer *t)
 
 	/* unblock tokenizer */
 	if (!t->blocking) {
-		printf ("unblock tokenizer\n");
 		t->tokens_num += t->blocking_tokens_num;
 		t->blocking_tokens_num = 0;
 	}

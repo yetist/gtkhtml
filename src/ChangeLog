@@ -1,3 +1,16 @@
+2000-04-11  Radek Doulik  <rodo@helixcode.com>
+
+	* htmltokenizer.c: rewritten tokenizer blocking - I have removed
+	Blocking token struct as it is no more needed
+	added tokens_num and blocking_tokens_num counters to tokenizer struct
+	(html_tokenizer_blocking_push): new function, blocking now works
+	as simple stack implemented with GList containing HTMLTokenType's
+	(html_tokenizer_blocking_pop): pop from blocking stack
+	(html_tokenizer_blocking_get_name): get name of TokenType on top
+	of blocking stack
+	(html_tokenizer_has_more_tokens): it is now so simple :)
+	(html_tokenizer_write): updated to use new blocking
+
 2000-04-11  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlrule.c
