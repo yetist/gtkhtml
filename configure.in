@@ -31,8 +31,8 @@ bonobo_msg=no
 have_bonobo=false
 AC_ARG_WITH(bonobo,
 	[--{with,without}-bonobo    Compile with Bonobo support or without it],
-	if test x$withval = xno; then
-		try_bonobo=false
+	if test x$withval = xyes; then
+		try_bonobo=true
 	fi
 )
 

@@ -1,3 +1,7 @@
+1999-11-09  Ettore Perazzoli  <ettore@gnu.org>
+
+	* Makefile.am: Compile as a standalone library `libgtkhtml.la'.
+
 1999-10-30  Michael Meeks  <mmeeks@gnu.org>
 
 	* html-component.c (embeddable_factory): Add persist stream interface.
