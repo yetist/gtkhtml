@@ -227,8 +227,6 @@ HTMLEmbedded *
 html_embedded_new_widget(GtkWidget *parent, GtkHTMLEmbedded *eb)
 {
 	HTMLEmbedded *em;
-	GtkRequisition req;
-	HTMLObject *o;
 
 	em = g_new0(HTMLEmbedded, 1);
 	html_embedded_init (em, HTML_EMBEDDED_CLASS (&html_embedded_class), parent, eb->name, "");

@@ -1,3 +1,18 @@
+2000-01-28  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* testgtkhtml.c (object_timeout): Added `GTK_WIDGET()' cast.
+	(object_requested_cmd): Likewise.  Also, added a `GtkFunction'
+	cast.
+
+	* htmlembedded.c (html_embedded_new_widget): Removed unused
+	variables.
+
+	* htmlengine.c (parse_o): Added a `GTK_WIDGET()' cast to placate
+	the compiler.
+
+	* htmlclue.c (destroy): Use an HTMLClue pointer instead of an
+	HTMLObject one, to prevent a warning.
+
 2000-01-27  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlengine-edit.c (html_engine_insert_para): Use both

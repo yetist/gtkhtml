@@ -625,7 +625,8 @@ object_timeout(GtkHTMLEmbedded *eb)
 
 	gtk_html_embedded_set_descent(eb, rand()%8);
 	gtk_container_add(GTK_CONTAINER(eb), w);
-	gtk_object_unref(eb);
+	gtk_widget_unref(GTK_WIDGET (eb));
+
 	return FALSE;
 }
 
@@ -634,8 +635,8 @@ object_requested_cmd (GtkHTML *html, GtkHTMLEmbedded *eb, void *data)
 {
 	printf("object requested, wiaint a bit before creating it ...\n");
 
-	gtk_object_ref(eb);
-	gtk_timeout_add(rand() % 5000 + 1000, object_timeout, eb);
+	gtk_widget_ref (GTK_WIDGET (eb));
+	gtk_timeout_add(rand() % 5000 + 1000, (GtkFunction) object_timeout, eb);
 }
 
 static void

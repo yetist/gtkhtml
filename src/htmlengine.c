@@ -2282,7 +2282,7 @@ parse_o (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 
 			gtk_signal_emit (GTK_OBJECT (e), signals[OBJECT_REQUESTED], eb);
 
-			el = html_embedded_new_widget(e->widget, eb);
+			el = html_embedded_new_widget(GTK_WIDGET (e->widget), eb);
 			gtk_object_set_data(GTK_OBJECT(eb), "embeddedelement", el);
 			gtk_signal_connect(GTK_OBJECT(eb), "changed", html_object_changed, e);
 
