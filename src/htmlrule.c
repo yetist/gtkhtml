@@ -194,8 +194,23 @@ static gboolean
 save (HTMLObject *self,
       HTMLEngineSaveState *state)
 {
-	/* FIXME lots of missing parameters.. this stuff is sick... */
-	return html_engine_save_output_string (state, "\n<HR%s>\n", HTML_RULE (self)->shade ? "" : " noshade");
+	gchar *size, *shade, *length;
+	gboolean rv;
+
+	size   = HTML_RULE (self)->size == 2 ? "" : g_strdup_printf (" SIZE=\"%d\"", HTML_RULE (self)->size);
+	shade  = HTML_RULE (self)->shade ? "" : " NOSHADE";
+	length = HTML_RULE (self)->length
+		? g_strdup_printf (" LENGTH=\"%d\"", HTML_RULE (self)->length)
+		: (self->percent > 0 && self->percent != 100 ? g_strdup_printf (" LENGTH=\"%d%%\"", self->percent) : "");
+
+	rv = html_engine_save_output_string (state, "\n<HR%s%s%s>\n", shade, size, length);
+
+	if (*size)
+		g_free (size);
+	if (*length)
+		g_free (length);
+
+	return rv;
 }
 
 static gboolean
@@ -271,7 +286,7 @@ html_rule_init (HTMLRule *rule,
 	object->percent = percent;
 
 	rule->length = length;
-	rule->shade = shade;
+	rule->shade  = shade;
 	rule->halign = halign;
 
 	if (percent > 0) {
