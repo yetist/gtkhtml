@@ -66,6 +66,16 @@
 #include "math.h"
 #include <libgnome/gnome-util.h>
 
+enum DndTargetType {
+	DND_TARGET_TYPE_TEXT_PLAIN,
+	DND_TARGET_TYPE_TEXT_URI_LIST,
+};
+static GtkTargetEntry dnd_link_sources [] = {
+	{ "text/uri-list", 0, 1 },
+	{ "text/plain", 0, 0 },
+};
+#define DND_LINK_SOURCES sizeof (dnd_link_sources) / sizeof (GtkTargetEntry)
+
 #define GNOME_SPELL_GCONF_DIR "/GNOME/Spell"
 
 static GtkLayoutClass *parent_class = NULL;
@@ -906,6 +916,25 @@ set_pointer_url (GtkHTML *html, const char *url)
 }
 
 static void
+dnd_link_set (GtkWidget *widget, HTMLObject *o)
+{
+	/* printf ("dnd_link_set %p\n", o); */
+
+	gtk_drag_source_set (widget, GDK_BUTTON1_MASK,
+			     dnd_link_sources, DND_LINK_SOURCES, GDK_ACTION_COPY);
+	GTK_HTML (widget)->priv->dnd_object = o;
+}
+
+static void
+dnd_link_unset (GtkWidget *widget)
+{
+	/* printf ("dnd_link_unset\n"); */
+
+	gtk_drag_source_unset (widget);
+	GTK_HTML (widget)->priv->dnd_object = NULL;
+}
+
+static void
 on_object (GtkWidget *widget, GdkWindow *window, HTMLObject *obj)
 {
 	GtkHTML *html = GTK_HTML (widget);
@@ -915,14 +944,17 @@ on_object (GtkWidget *widget, GdkWindow *window, HTMLObject *obj)
 		url = html_object_get_url (obj);
 		if (url != NULL) {
 			set_pointer_url (html, url);
+			dnd_link_set (widget, obj);
 			
 			if (html->engine->editable)
 				gdk_window_set_cursor (window, html->ibeam_cursor);
-			else
+			else {
 				gdk_window_set_cursor (window, html->hand_cursor);
+			}
 		} else {
-			set_pointer_url (html, NULL);				
-			
+			set_pointer_url (html, NULL);
+			dnd_link_unset (widget);			
+
 			if (html_object_is_text (obj) && html->allow_selection)
 				gdk_window_set_cursor (window, html->ibeam_cursor);
 			else
@@ -930,6 +962,7 @@ on_object (GtkWidget *widget, GdkWindow *window, HTMLObject *obj)
 		}
 	} else {
 		set_pointer_url (html, NULL);
+		dnd_link_unset (widget);			
 
 		gdk_window_set_cursor (window, html->arrow_cursor);
 	}
@@ -1046,6 +1079,11 @@ motion_notify_event (GtkWidget *widget,
 	g_return_val_if_fail (GTK_IS_HTML (widget), 0);
 	g_return_val_if_fail (event != NULL, 0);
 
+	/* printf ("motion_notify_event\n"); */
+
+	if (GTK_HTML (widget)->priv->dnd_in_progress)
+		return TRUE;
+
 	if (!event->is_hint) {
 		x = event->x;
 		y = event->y;
@@ -1074,6 +1112,8 @@ button_press_event (GtkWidget *widget,
 	GtkHTML *html;
 	HTMLEngine *engine;
 	gint value, x, y;
+
+	/* printf ("button_press_event\n"); */
 
 	x = event->x;
 	y = event->y;
@@ -1185,6 +1225,8 @@ button_release_event (GtkWidget *widget,
 {
 	GtkHTML *html;
 
+	/* printf ("button_release_event\n"); */
+
 	widget = shift_to_iframe_parent (widget, NULL, NULL);
 	html   = GTK_HTML (widget);
 
@@ -1194,19 +1236,22 @@ button_release_event (GtkWidget *widget,
 	if (event->button == 1) {
 		html->button1_pressed = FALSE;
 		
-		if (html->pointer_url != NULL && ! html->in_selection)
+		if (!GTK_HTML (widget)->priv->dnd_in_progress
+		    && html->pointer_url != NULL && ! html->in_selection)
 			gtk_signal_emit (GTK_OBJECT (widget), 
 					 signals[LINK_CLICKED], 
 					 html->pointer_url);
 	}
 
 	if (html->in_selection) {
-		/* Copy to primary save area */
-		if (html->priv->primary) {
-			html_object_destroy (html->priv->primary);
-		}
+		if (!GTK_HTML (widget)->priv->dnd_in_progress) {
+			/* Copy to primary save area */
+			if (html->priv->primary) {
+				html_object_destroy (html->priv->primary);
+			}
 
-		html_engine_copy_object (html->engine, &html->priv->primary, &html->priv->primary_len);
+			html_engine_copy_object (html->engine, &html->priv->primary, &html->priv->primary_len);
+		}
 		html->in_selection = FALSE;
 		gtk_html_update_styles (html);
 	}
@@ -1780,6 +1825,58 @@ focus (GtkContainer *container, GtkDirectionType direction)
 #endif
 }
 
+static void
+drag_begin (GtkWidget *widget, GdkDragContext *context)
+{
+	/* printf ("drag_begin\n"); */
+	GTK_HTML (widget)->priv->dnd_real_object = GTK_HTML (widget)->priv->dnd_object;
+	GTK_HTML (widget)->priv->dnd_in_progress = TRUE;
+}
+
+static void
+drag_end (GtkWidget *widget, GdkDragContext *context)
+{
+	/* printf ("drag_end\n"); */
+	GTK_HTML (widget)->priv->dnd_in_progress = FALSE;
+}
+
+static void
+drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkSelectionData *selection_data, guint info, guint time)
+{
+	/* printf ("drag_data_get\n"); */
+	switch (info) {
+	case DND_TARGET_TYPE_TEXT_URI_LIST:
+		/* printf ("\ttext/uri-list\n"); */
+	case DND_TARGET_TYPE_TEXT_PLAIN: {
+		HTMLObject *obj = GTK_HTML (widget)->priv->dnd_real_object;
+		const gchar *url, *target;
+		gchar *complete_url;
+
+		/* printf ("\ttext/plain\n"); */
+		if (obj) {
+			/* printf ("obj %p\n", obj); */
+			url = html_object_get_url (obj);
+			target = html_object_get_target (obj);
+			if (url && *url) {
+				complete_url = g_strconcat (url, target && *target ? "#" : NULL, target, NULL);
+				gtk_selection_data_set (selection_data, selection_data->target, 8,
+							complete_url, strlen (complete_url));
+				/* printf ("complete URL %s\n", complete_url); */
+				GTK_HTML (widget)->priv->dnd_url = complete_url;
+			}
+		}
+	}
+	break;
+	}
+}
+
+static void
+drag_data_delete (GtkWidget *widget, GdkDragContext *context)
+{
+	g_free (GTK_HTML (widget)->priv->dnd_url);
+	GTK_HTML (widget)->priv->dnd_url = NULL;
+}
+
 typedef void (*GtkSignal_NONE__INT_INT_FLOAT) (GtkObject * object,
 					       gint arg1, gint arg2,
 					       gfloat arg3, gpointer user_data);
@@ -2009,6 +2106,10 @@ class_init (GtkHTMLClass *klass)
 	widget_class->selection_get = selection_get;
 	widget_class->selection_received = selection_received;
 	widget_class->selection_clear_event = selection_clear_event;
+	widget_class->drag_data_get = drag_data_get;
+	widget_class->drag_data_delete = drag_data_delete;
+	widget_class->drag_begin = drag_begin;
+	widget_class->drag_end = drag_end;
 
 	container_class->focus = focus;
 
