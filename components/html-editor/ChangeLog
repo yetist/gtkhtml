@@ -1,3 +1,9 @@
+2004-04-28  Pratik V. Parikh  <pratikvp@despammed.com>
+
+	* search.c (search_dialog_response):
+	(backward_toggled): make find button sensitive again
+	Fixes bug #57719
+
 2004-04-16  Radek Doulik  <rodo@ximian.com>
 
 	* search.c (search_dialog_response): do not hide the search dialog

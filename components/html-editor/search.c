@@ -61,6 +61,14 @@ backward_toggled (GtkWidget *w, GtkHTMLSearchDialog *d)
 }
 
 static void
+case_toggled (GtkWidget *w, GtkHTMLSearchDialog *d)
+{
+	/* Activate only when the case_sensitive flag is cleared */
+	if (!gtk_toggle_button_get_active(w))
+		gtk_dialog_set_response_sensitive (d->dialog, 0, TRUE);
+}
+
+static void
 search_dialog_response (GtkDialog *dialog, gint response_id, GtkHTMLSearchDialog *d)
 {
 	g_assert (d && d->dialog );
@@ -128,6 +136,7 @@ gtk_html_search_dialog_new (GtkHTML *html, GtkHTMLControlData *cd)
 	g_signal_connect (dialog->entry, "changed", G_CALLBACK (entry_changed), dialog);
 	g_signal_connect (dialog->entry, "activate", G_CALLBACK (entry_activate), dialog);
 	g_signal_connect (dialog->backward, "toggled", G_CALLBACK (backward_toggled), dialog);
+	g_signal_connect (dialog->case_sensitive, "toggled", G_CALLBACK (case_toggled), dialog);
 
 	return dialog;
 }
