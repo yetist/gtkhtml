@@ -513,107 +513,107 @@ msgstr "_Visualizar impressão"
 msgid "Print preview"
 msgstr "Visualizar impressão"
 
-#~ msgid "Find Rege_x..."
-#~ msgstr "Localizar rege_x..."
+msgid "Find Rege_x..."
+msgstr "Localizar rege_x..."
 
-#~ msgid "Regular expressions search..."
-#~ msgstr "Busca por expressões regulares..."
+msgid "Regular expressions search..."
+msgstr "Busca por expressões regulares..."
 
-#~ msgid "_Image..."
-#~ msgstr "_Imagem..."
+msgid "_Image..."
+msgstr "_Imagem..."
 
-#~ msgid "Insert image into document..."
-#~ msgstr "Insere imagem no documento..."
+msgid "Insert image into document..."
+msgstr "Insere imagem no documento..."
 
-#~ msgid "_Link..."
-#~ msgstr "_Vínculo..."
+msgid "_Link..."
+msgstr "_Vínculo..."
 
-#~ msgid "Insert HTML link into document..."
-#~ msgstr "Insere um vínculo HTML no documento..."
+msgid "Insert HTML link into document..."
+msgstr "Insere um vínculo HTML no documento..."
 
-#~ msgid "_Rule..."
-#~ msgstr "_Régua..."
+msgid "_Rule..."
+msgstr "_Régua..."
 
-#~ msgid "Insert rule into document..."
-#~ msgstr "Insere uma régua no documento..."
+msgid "Insert rule into document..."
+msgstr "Insere uma régua no documento..."
 
-#~ msgid "_Insert"
-#~ msgstr "In_serir"
+msgid "_Insert"
+msgstr "In_serir"
 
-#~ msgid "Insert image"
-#~ msgstr "Insere imagem"
+msgid "Insert image"
+msgstr "Insere imagem"
 
-#~ msgid "Length"
-#~ msgstr "Tamanho"
+msgid "Length"
+msgstr "Tamanho"
 
-#~ msgid "Percent"
-#~ msgstr "Percentagem"
+msgid "Percent"
+msgstr "Percentagem"
 
-#~ msgid "Left Align"
-#~ msgstr "Alinhar à esquerda"
+msgid "Left Align"
+msgstr "Alinhar à esquerda"
 
-#~ msgid "Center Align"
-#~ msgstr "Alinhar ao centro"
+msgid "Center Align"
+msgstr "Alinhar ao centro"
 
-#~ msgid "Right Align"
-#~ msgstr "Alinhar à direita"
+msgid "Right Align"
+msgstr "Alinhar à direita"
 
-#~ msgid "None"
-#~ msgstr "Nenhum"
+msgid "None"
+msgstr "Nenhum"
 
-#~ msgid "Set Shade"
-#~ msgstr "Ligar sombra"
+msgid "Set Shade"
+msgstr "Ligar sombra"
 
-#~ msgid "Transfer Progress"
-#~ msgstr "Progresso da transferência"
+msgid "Transfer Progress"
+msgstr "Progresso da transferência"
 
-#~ msgid "Looking up %s"
-#~ msgstr "Procurando %s"
+msgid "Looking up %s"
+msgstr "Procurando %s"
 
-#~ msgid "Contacting %s"
-#~ msgstr "Contactando %s"
+msgid "Contacting %s"
+msgstr "Contactando %s"
 
-#~ msgid "Waiting for a connection..."
-#~ msgstr "Esperando por uma conexão..."
+msgid "Waiting for a connection..."
+msgstr "Esperando por uma conexão..."
 
-#~ msgid "Logging in..."
-#~ msgstr "Efetuando login..."
+msgid "Logging in..."
+msgstr "Efetuando login..."
 
-#~ msgid "Read %d%%%% of %l"
-#~ msgstr "Lidos %d%%%% de %l"
+msgid "Read %d%%%% of %l"
+msgstr "Lidos %d%%%% de %l"
 
-#~ msgid "Read %d bytes"
-#~ msgstr "Lidos %d bytes"
+msgid "Read %d bytes"
+msgstr "Lidos %d bytes"
 
-#~ msgid "Reading..."
-#~ msgstr "Lendo..."
+msgid "Reading..."
+msgstr "Lendo..."
 
-#~ msgid "Writing %d%%%% of %l"
-#~ msgstr "Escritos %d%%%% of %l"
+msgid "Writing %d%%%% of %l"
+msgstr "Escritos %d%%%% of %l"
 
-#~ msgid "Writing %d bytes"
-#~ msgstr "Escritos %d bytes"
+msgid "Writing %d bytes"
+msgstr "Escritos %d bytes"
 
-#~ msgid "Writing..."
-#~ msgstr "Escrevendo..."
+msgid "Writing..."
+msgstr "Escrevendo..."
 
-#~ msgid "Done!"
-#~ msgstr "Concluído!"
+msgid "Done!"
+msgstr "Concluído!"
 
-#~ msgid "Interrupted!"
-#~ msgstr "Interrompido!"
+msgid "Interrupted!"
+msgstr "Interrompido!"
 
-#~ msgid "Please wait..."
-#~ msgstr "Aguarde por favor..."
+msgid "Please wait..."
+msgstr "Aguarde por favor..."
 
-#~ msgid "Request timeout!"
-#~ msgstr "Tempo limite do pedido excedido!"
+msgid "Request timeout!"
+msgstr "Tempo limite do pedido excedido!"
 
-#~ msgid "Unknown"
-#~ msgstr "Desconhecido"
+msgid "Unknown"
+msgstr "Desconhecido"
 
-#~ msgid "Enter Text"
-#~ msgstr "Entre texto"
+msgid "Enter Text"
+msgstr "Entre texto"
 
-#~ msgid "Enter Password"
-#~ msgstr "Entre senha"
+msgid "Enter Password"
+msgstr "Entre senha"
