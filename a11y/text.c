@@ -307,6 +307,8 @@ html_a11y_text_get_text (AtkText *text, gint start_offset, gint end_offset)
 	HTMLText *to = HTML_TEXT (HTML_A11Y_HTML (text));
 	gchar *str;
 
+	g_return_val_if_fail (to, NULL);
+
 	/* printf ("%d - %d\n", start_offset, end_offset); */
 	if (end_offset == -1)
 		end_offset = to->text_len;
@@ -463,7 +465,7 @@ html_a11y_text_get_character_at_offset (AtkText *text, gint offset)
 {
 	HTMLText *to = HTML_TEXT (HTML_A11Y_HTML (text));
 
-	g_return_val_if_fail (offset <= to->text_len, 0);
+	g_return_val_if_fail (to && offset <= to->text_len, 0);
 
 	return html_text_get_char (to, offset);
 }
@@ -521,13 +523,19 @@ html_a11y_text_get_text_before_offset (AtkText *text, gint offset, AtkTextBounda
 static gint
 html_a11y_text_get_character_count (AtkText *text)
 {
-	return HTML_TEXT (HTML_A11Y_HTML (text))->text_len;
+	HTMLText *to = HTML_TEXT (HTML_A11Y_HTML (text));
+
+	g_return_val_if_fail (to, 0);
+	return to->text_len;
 }
 
 static gint
 html_a11y_text_get_n_selections (AtkText *text)
 {
-	return HTML_A11Y_HTML (text)->selected ? 1 : 0;
+	HTMLObject *to = HTML_A11Y_HTML (text);
+
+	g_return_val_if_fail (to, 0);
+	return to->selected ? 1 : 0;
 }
 
 static gchar *
@@ -535,7 +543,7 @@ html_a11y_text_get_selection (AtkText *text, gint selection_num, gint *start_off
 {
 	HTMLText *to = HTML_TEXT (HTML_A11Y_HTML (text));
 
-	if (!HTML_OBJECT (to)->selected || selection_num > 0)
+	if (!to || !HTML_OBJECT (to)->selected || selection_num > 0)
 		return NULL;
 
 	*start_offset = to->select_start;

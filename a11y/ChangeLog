@@ -1,3 +1,11 @@
+2004-08-09  Eric Zhao  <eric.zhao@sun.com>
+
+	* text.c: (html_a11y_text_get_text),
+	(html_a11y_text_get_character_at_offset),
+	(html_a11y_text_get_character_count),
+	(html_a11y_text_get_n_selections), (html_a11y_text_get_selection):
+	add missed check, fixes bug #62223.
+
 Sat Jun  5 10:32:30 2004  Owen Taylor  <otaylor@redhat.com>
 
 	* html.c (html_a11y_ref_state_set): Fix missing initialization.
