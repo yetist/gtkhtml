@@ -89,6 +89,7 @@ link_widget (GtkHTMLEditLinkProperties *data, gboolean insert)
 	GtkWidget *vbox, *hbox, *button, *frame, *f1;
 
 	vbox = gtk_vbox_new (FALSE, 3);
+	gtk_container_set_border_width (GTK_CONTAINER (vbox), 3);
 
 	data->entry_text = gtk_entry_new ();
 	data->entry_url  = gtk_entry_new ();
