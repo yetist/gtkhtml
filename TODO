@@ -14,3 +14,6 @@ Todo for gtkhtml:
   align=right>' does not work as expected.
 
 * The tokenizer eats spaces in stuff like <tag>something <tag>.
+
+* Itemized list do not support numbers (we have to make a simple
+  HTMLClueFlow hack for that).
