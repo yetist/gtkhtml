@@ -98,6 +98,24 @@ html_font_manager_init (HTMLFontManager *manager, HTMLPainterClass *painter_clas
 	html_font_set_init (&manager->fixed, NULL);
 }
 
+HTMLFontManager *
+html_font_manager_new (HTMLPainterClass *pc)
+{
+	HTMLFontManager *fm;
+
+	fm = g_new0 (HTMLFontManager, 1);
+	html_font_manager_init (fm, pc);
+
+	return fm;
+}
+
+void
+html_font_manager_destroy (HTMLFontManager *manager)
+{
+	html_font_manager_finalize (manager);
+	g_free (manager);
+}
+
 void
 html_font_manager_set_magnification (HTMLFontManager *manager, gdouble magnification)
 {
@@ -204,7 +222,7 @@ get_real_font_size (HTMLFontManager *manager, GtkHTMLFontStyle style)
 	gint size = (get_font_num (style) & GTK_HTML_FONT_STYLE_SIZE_MASK) -  GTK_HTML_FONT_STYLE_SIZE_3;
 	gint base_size = style & GTK_HTML_FONT_STYLE_FIXED ? manager->fix_size : manager->var_size;
 
-	return manager->magnification * (base_size + (size > 0 ? (1 << size) : size) * base_size/8.0);
+	return MAX (4, manager->magnification * (base_size + (size > 0 ? (1 << size) : size) * base_size/8.0));
 }
 
 static void
@@ -277,8 +295,8 @@ get_points (HTMLFontManager *manager, GtkHTMLFontStyle style)
 static gpointer
 manager_alloc_font (HTMLFontManager *manager, const gchar *face, GtkHTMLFontStyle style)
 {
-	gchar *name = strcasecmp (face, manager->variable.face)
-		&& strcasecmp (face, manager->fixed.face)
+	gchar *name = manager->variable.face && strcasecmp (face, manager->variable.face)
+		&& manager->fixed.face && strcasecmp (face, manager->fixed.face)
 		? get_name_from_face (manager, face)
 		: g_strdup (face);
 	HTMLFont *font;

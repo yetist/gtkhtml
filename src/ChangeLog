@@ -1,3 +1,7 @@
+2002-09-25  Radek Doulik  <rodo@ximian.com>
+
+	* htmlfontmanager.c (get_real_font_size): minimal font size 4
+
 2002-09-24  Radek Doulik  <rodo@ximian.com>
 
 	* htmlobject.c (move_object_cursor): continue move to next in case

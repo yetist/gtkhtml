@@ -24,7 +24,9 @@
 #include <config.h>
 #include <string.h> /* strcmp */
 #include <stdlib.h>
+#include "gtkhtml.h"
 #include "gtkhtml-compat.h"
+#include "gtkhtml-properties.h"
 
 #include <gal/unicode/gunicode.h>
 #include "htmlcolor.h"
@@ -136,6 +138,9 @@ init (GtkObject *object, HTMLPainterClass *real_klass)
 
 	painter->font_style = GTK_HTML_FONT_STYLE_DEFAULT;
 	painter->font_face = NULL;
+
+	painter->magnification = 1.0;
+	painter->mag_fm = NULL;
 }
 
 static void
@@ -306,7 +311,9 @@ static HTMLFont *
 get_html_font (HTMLPainter *painter, HTMLFontFace *face, GtkHTMLFontStyle style)
 {
 	HTMLEngineClass *ec = gtk_type_class (html_engine_get_type ());
-	HTMLFontManager *fm = &ec->font_manager [html_painter_get_font_manager_id (painter)];
+	HTMLFontManager *fm;
+
+	fm = painter->mag_fm ? painter->mag_fm : &ec->font_manager [html_painter_get_font_manager_id (painter)];
 
 	return html_font_manager_get_font (fm, face, style);
 }
@@ -811,4 +818,30 @@ HTMLFontManagerId
 html_painter_get_font_manager_id (HTMLPainter *painter)
 {
 	return 	(* HP_CLASS (painter)->get_font_manager_id) ();
+}
+
+void
+html_painter_set_magnification (HTMLPainter *painter, GtkHTML *html, gdouble magnification)
+{
+	if (painter->magnification != magnification) {
+		if (magnification != 1.0) {
+			if (!painter->mag_fm) {
+				GtkHTMLClassProperties *prop;
+				painter->mag_fm = html_font_manager_new (gtk_type_class (GTK_OBJECT_TYPE (painter)));
+				prop = GTK_HTML_CLASS (GTK_OBJECT (html)->klass)->properties;
+
+				html_font_manager_set_default (painter->mag_fm,
+							       prop->font_var,      prop->font_fix,
+							       prop->font_var_size, prop->font_var_points,
+							       prop->font_fix_size, prop->font_fix_points);
+			}
+			html_font_manager_set_magnification (painter->mag_fm, magnification);
+		} else {
+			if (painter->mag_fm) {
+				html_font_manager_destroy (painter->mag_fm);
+				painter->mag_fm = NULL;
+			}
+		}
+		painter->magnification = magnification;
+	}
 }

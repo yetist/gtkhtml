@@ -44,6 +44,8 @@ struct _HTMLPainter {
 	GtkHTMLFontStyle    font_style;
 
 	gboolean focus;
+	gdouble  magnification;
+	HTMLFontManager *mag_fm;
 };
 
 struct _HTMLPainterClass {
@@ -261,4 +263,7 @@ void              html_painter_set_focus                               (HTMLPain
 									gboolean           focus);
 HTMLPainterClass *html_painter_class_from_id                           (HTMLFontManagerId  id);
 HTMLFontManagerId html_painter_get_font_manager_id                     (HTMLPainter       *painter);
+void              html_painter_set_magnification                       (HTMLPainter       *painter,
+									GtkHTML           *html,
+									gdouble            magnification);
 #endif /* _HTMLPAINTER_H_ */

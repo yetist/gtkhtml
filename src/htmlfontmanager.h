@@ -57,8 +57,10 @@ struct _HTMLFontManager {
 	gdouble magnification;
 };
 
+HTMLFontManager *   html_font_manager_new                     (HTMLPainterClass *pc);
 void                html_font_manager_init                    (HTMLFontManager *manager,
 							       HTMLPainterClass *pc);
+void                html_font_manager_destroy                 (HTMLFontManager *manager);
 void                html_font_manager_finalize                (HTMLFontManager *manager);
 
 void                html_font_manager_set_default             (HTMLFontManager *manager,
