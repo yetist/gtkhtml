@@ -4,6 +4,7 @@
 	* components/html-editor/Makefile.am:
 	* src/Makefile.am:
 	trying to make it compile,pass distcheck, and rpm build
+	* po/POTFILES.in: tried to remove unused files
 
 2000-08-07  Pablo Saratxaga <pablo@mandrakesoft.com>
 
