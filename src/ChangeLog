@@ -1,5 +1,8 @@
 2000-01-23  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlobject.c (check_point): Fix braino: `for_cursor' is a
+	`gboolean', not a `gpointer'.
+
 	* htmltextmaster.c (split): Set the selection on the new element
 	by hand instead of calling `html_object_select_range()'.
 

@@ -146,7 +146,7 @@ check_point (HTMLObject *self,
 	     HTMLPainter *painter,
 	     gint x, gint y,
 	     guint *offset_return,
-	     gpointer for_cursor)
+	     gboolean for_cursor)
 {
 	if (x >= self->x
 	    && x < self->x + self->width
