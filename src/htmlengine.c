@@ -197,8 +197,6 @@ html_engine_draw_background (HTMLEngine *e, gint xval, gint yval, gint x, gint y
 	xval = e->x_offset;
 	yval = e->y_offset;
 
-	g_print ("draw_background\n");
-
 	if (!e->bgPixmap) {
 		if (e->bgColor) {
 			html_painter_set_pen (e->painter, e->bgColor);
@@ -286,7 +284,6 @@ html_engine_update_event (HTMLEngine *e)
 {
   e->updateTimer = 0;
 
-  g_print ("calcing size in htmlengine\n");
   html_engine_calc_size (e);
   html_engine_calc_absolute_pos (e);
 
@@ -313,11 +310,8 @@ html_engine_update_event (HTMLEngine *e)
 void
 html_engine_schedule_update (HTMLEngine *p)
 {
-  if(p->updateTimer == 0) {
-    g_print("New update scheduled\n");
+  if(p->updateTimer == 0)
     p->updateTimer = gtk_timeout_add (TIMER_INTERVAL, (GtkFunction) html_engine_update_event, p);
-  } else
-    g_print("Update already scheduled\n");
 }
 
 static gboolean
@@ -335,8 +329,6 @@ html_engine_timer_event (HTMLEngine *e)
 		goto out;
 	  }
 
-	g_print ("has more tokens!\n");
-	
 	/* Storing font info */
 	oldFont = html_painter_get_font (e->painter);
 
@@ -438,14 +430,10 @@ html_engine_calc_size (HTMLEngine *p)
 		max_width = min_width;
 	}
 
-	g_print ("set max width\n");
 	p->clue->set_max_width (p->clue, max_width);
-	g_print ("calc size\n");
 	p->clue->calc_size (p->clue, NULL);
 	p->clue->x = 0;
 	p->clue->y = p->clue->ascent;
-
-
 }
 
 void

@@ -376,6 +376,11 @@ html_tokenizer_write (HTMLTokenizer *t, const gchar *string, size_t size)
 		else if (t->charEntity) {
 			gulong entityValue = 0;
 
+			/* See http://www.mozilla.org/newlayout/testcases/layout/entities.html for a complete entity list,
+			   ftp://ftp.unicode.org/Public/MAPPINGS/ISO8859/8859-1.TXT
+			   (or 'man iso_8859_1') for the character encodings. */
+
+
 			t->searchBuffer [t->searchCount + 1] = *src;
 			t->searchBuffer [t->searchCount + 2] = '\0';
 			
@@ -403,17 +408,21 @@ html_tokenizer_write (HTMLTokenizer *t, const gchar *string, size_t size)
 			else {
 				/* Check for &abc12 sequence */
 				if (!isalnum (*src)) {
-					int len;
 					t->charEntity = FALSE;
 					if ((t->searchBuffer [t->searchCount + 1] == ';') ||
 					    (!t->tag)) {
+						char *ename = t->searchBuffer + 2;
+
 						t->searchBuffer [t->searchCount + 1] = '\0';
 
-						if (!strcasecmp(t->searchBuffer + 2, "nbsp"))
-						  entityValue = 32;
-
-						g_print ("Found: %s\n", t->searchBuffer + 1);
-						len = 0;
+						if (!strcasecmp(ename, "nbsp"))
+						  entityValue = 0xA0;
+						else if(!strcasecmp(ename, "lt"))
+						  entityValue = '<';
+						else if(!strcasecmp(ename, "gt"))
+						  entityValue = '>';
+						else if(!strcasecmp(ename, "amp"))
+						  entityValue = '&';
 					}
 				}
 					    

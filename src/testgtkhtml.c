@@ -123,6 +123,7 @@ create_toolbars (GtkWidget *app)
 	GtkWidget *frame;
 	GtkWidget *button;
 	GtkWidget *toolbar;
+	char *imgloc;
 
 	dock = gnome_dock_item_new ("testgtkhtml-toolbar1",
 				    (GNOME_DOCK_ITEM_BEH_EXCLUSIVE));
@@ -180,12 +181,20 @@ create_toolbars (GtkWidget *app)
 				 gnome_stock_new_with_icon (GNOME_STOCK_PIXMAP_SEARCH),
 				 NULL, NULL);
 	animator = gnome_animator_new_with_size (32, 32);
+
+	if (g_file_exists("32.png"))
+	  imgloc = "32.png";
+	else if (g_file_exists(SRCDIR "/32.png"))
+	  imgloc = SRCDIR "/32.png";
+	else
+	  imgloc = "32.png";
 	gnome_animator_append_frames_from_file_at_size (GNOME_ANIMATOR (animator),
-							"32.png",
+							imgloc,
 							0, 0,
 							25,
 							32, 
 							32, 32);
+
 	frame = gtk_frame_new (NULL);
 	gtk_container_add (GTK_CONTAINER (frame), animator);
 	gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_IN);
@@ -343,7 +352,6 @@ netin_stream_put_string (HTStream * me, const char * s)
 static gint
 do_request_delete(HTRequest *req)
 {
-  g_print("do_request_delete(%p)\n", req);
   HTRequest_delete(req);
 
   return FALSE;
@@ -353,7 +361,8 @@ static int
 netin_stream_write (HTStream * me, const char * s, int l)
 {
   int reqlen;
-  g_print("netin_stream_write(%p, %d bytes) for %p\n", me->handle, l, me->request);
+
+  g_print("netin_stream_write(%p, %d bytes)\n", me->handle, l);
 
   if(!me->response)
     me->response = netin_request_response(me->request);
@@ -363,6 +372,7 @@ netin_stream_write (HTStream * me, const char * s, int l)
   gtk_html_write(html, me->handle, s, l);
 
   reqlen = HTResponse_length(me->response);
+  g_print("reqlen on %p is %d (so far %d)\n", me->handle, reqlen, me->read_len);
   if((reqlen > 0) && (me->read_len >= reqlen))
     gtk_idle_add(do_request_delete, me->request);
 
@@ -372,15 +382,13 @@ netin_stream_write (HTStream * me, const char * s, int l)
 static int
 netin_stream_flush (HTStream * me)
 {
-  g_print("netin_stream_flush %p\n", me->handle);
   return HT_OK;
 }
 
 static int
 netin_stream_free (HTStream * me)
 {
-  g_print("netin_stream_free %p\n", me->handle);
-
+  g_print("netin_stream_free on %p\n", me->handle);
   gtk_html_end(html, me->handle, GTK_HTML_STREAM_OK);
   g_free(me);
 
@@ -390,8 +398,6 @@ netin_stream_free (HTStream * me)
 static int
 netin_stream_abort (HTStream * me, HTList * e)
 {
-  g_warning("Stream %p Abort!", me->handle);
-
   return HT_ERROR;
 }
 
@@ -411,7 +417,6 @@ netin_request_response(HTRequest *request)
 {
   HTResponse *retval;
 
-  g_print("netin_request_response(%p)\n", request);
   while(!(retval = HTRequest_response(request)))
     g_main_iteration(TRUE);
 
@@ -449,7 +454,7 @@ url_requested (GtkHTML *html, const char *url, GtkHTMLStreamHandle handle, gpoin
 	      char *cwd;
 
 	      cwd = g_get_current_dir();
-	      g_snprintf(buffer, sizeof(buffer), "file://localhost/%s%s%s",
+	      g_snprintf(buffer, sizeof(buffer), "file://%s%s%s",
 			 (*url != '/')?cwd:"",
 			 (*url != '/')?"/":"",
 			 url);
@@ -460,14 +465,17 @@ url_requested (GtkHTML *html, const char *url, GtkHTMLStreamHandle handle, gpoin
 
 	  url = buffer;
 
-	  g_message("Actual URL is %s", url);
 	}
 
 	newreq = HTRequest_new();
 	g_assert(newreq);
 
 	HTRequest_setOutputFormat(newreq, WWW_SOURCE);
-	status = HTLoadToStream(url, netin_stream_new(handle, newreq), newreq);
+	{
+	  HTStream *newstream = netin_stream_new(handle, newreq);
+	  status = HTLoadToStream(url, newstream, newreq);
+	  g_message("Loading URL %s to stream %p (status %d)", url, handle, status);
+	}
 
 	return;
 #endif
@@ -509,6 +517,27 @@ url_requested (GtkHTML *html, const char *url, GtkHTMLStreamHandle handle, gpoin
 static void
 goto_url(const char *url)
 {
+        gchar buffer[32768];
+
+	if(!strstr(url, "://")) {
+	  if(g_file_exists(url))
+	    {
+	      char *cwd;
+
+	      cwd = g_get_current_dir();
+	      g_snprintf(buffer, sizeof(buffer), "file://%s%s%s",
+			 (*url != '/')?cwd:"",
+			 (*url != '/')?"/":"",
+			 url);
+	      g_free(cwd);
+	    }
+	  else
+	    g_snprintf(buffer, sizeof(buffer), "http://%s", url);
+
+	  url = buffer;
+
+	}
+
 	gnome_animator_start (GNOME_ANIMATOR (animator));
 	gtk_html_begin (html, url);
 	gtk_html_parse (html);
@@ -544,6 +573,7 @@ main (gint argc, gchar *argv[])
 		    argc, argv);
 #ifdef HAVE_LIBWWW
 	glibwww_init(PACKAGE, VERSION);
+	glibwww_register_gnome_dialogs();
 #endif
 
 	gdk_rgb_init ();
