@@ -33,6 +33,7 @@
 
 #include "htmlengine-cutbuffer.h"
 #include "htmlengine-edit-cut.h"
+#include "htmlengine-edit-cursor.h"
 #include "htmlengine-edit-paste.h"
 #include "htmlengine-edit.h"
 
@@ -146,6 +147,7 @@ html_engine_selection_pop (HTMLEngine *e)
 void
 html_engine_cut_and_paste_begin (HTMLEngine *e, gchar *op_name)
 {
+	html_engine_hide_cursor (e);
 	html_engine_selection_push (e);
 	html_engine_cut_buffer_push (e);
 	html_undo_level_begin (e->undo, op_name);
@@ -162,6 +164,7 @@ html_engine_cut_and_paste_end (HTMLEngine *e)
 	html_undo_level_end (e->undo);
 	html_engine_cut_buffer_pop (e);
 	html_engine_selection_pop (e);
+	html_engine_show_cursor (e);
 }
 
 void

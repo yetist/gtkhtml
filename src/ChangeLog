@@ -1,5 +1,9 @@
 2000-08-03  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine-edit.c (html_engine_cut_and_paste_begin): hide cursor
+	here
+	(html_engine_cut_and_paste_end): show it here
+
 	* gtkhtml.c (motion_notify_event): fixed editor cursor setting on
 	click
 
