@@ -511,7 +511,8 @@ get_data (GtkHTMLEditTableProperties *d)
 		d->width = d->table->specified_width;
 		d->width_percent = FALSE;
 		d->has_width = TRUE;
-	}
+	} else
+		d->has_width = FALSE;
 }
 
 
