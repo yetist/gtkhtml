@@ -1,0 +1,7 @@
+#
+# Configuration file for using the GtkHTML library in GNOME applications
+#
+GTKHTML_LIBDIR="@GTKHTML_LIBDIR@"
+GTKHTML_LIBS="@GTKHTML_LIBS@"
+GTKHTML_INCLUDEDIR="@GTKHTML_INCLUDEDIR@"
+MODULE_VERSION="gtkhtml-@VERSION@"

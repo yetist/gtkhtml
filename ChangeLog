@@ -1,4 +1,15 @@
+2000-01-19  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* configure.in (GTKHTML_LIBS): Define and subst `GTKHTML_LIBDIR',
+	`GTKHTML_INCLUDEDIR', `GTKHTML_LIBS'.
+
+	* Makefile.am: Added rules to distribute `gtkhtmlConf.sh.in' and
+	generate `gtkhtmlConf.sh'.
+
+	* gtkhtmlConf.sh.in (GTKHTML_LIBDIR): New file.
+
 2000-01-05  Elliot Lee  <sopwith@redhat.com>
+
 	* src/Makefile.am: Don't install gtkhtml-private.h
 
 1999-12-29  Darin Adler  <darin@eazel.com>
