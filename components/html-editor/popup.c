@@ -367,7 +367,8 @@ insert_html (GtkWidget *mi, GtkHTMLControlData *cd)
         }
 
 #define ADD_PROP(x) \
-        cd->properties_types = g_list_append (cd->properties_types, GINT_TO_POINTER (GTK_HTML_EDIT_PROPERTY_ ## x))
+        cd->properties_types = g_list_append (cd->properties_types, GINT_TO_POINTER (GTK_HTML_EDIT_PROPERTY_ ## x)); \
+        (*props) ++;
 
 #define SUBMENU(l) \
 		        menuitem = gtk_menu_item_new_with_label (_(l)); \
@@ -384,7 +385,7 @@ insert_html (GtkWidget *mi, GtkHTMLControlData *cd)
 			menu = menuparent
 
 static GtkWidget *
-prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items)
+prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items, guint *props)
 {
 	HTMLEngine *e = cd->html->engine;
 	HTMLObject *obj;
@@ -397,6 +398,7 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items)
 	obj  = cd->html->engine->cursor->object;
 	menu = gtk_menu_new ();
 	*items = 0;
+	*props = 0;
 
 	if (cd->properties_types) {
 		g_list_free (cd->properties_types);
@@ -534,9 +536,9 @@ gint
 popup_show (GtkHTMLControlData *cd, GdkEventButton *event)
 {
 	GtkWidget *menu;
-	guint items;
+	guint items, props;
 
-	menu = prepare_properties_and_menu (cd, &items);
+	menu = prepare_properties_and_menu (cd, &items, &props);
 
 	if (items)
 		gtk_menu_popup (GTK_MENU (menu), NULL, NULL, NULL, NULL,
@@ -562,9 +564,9 @@ gint
 popup_show_at_cursor (GtkHTMLControlData *cd)
 {
 	GtkWidget *menu;
-	guint items;
+	guint items, props;
 
-	menu = prepare_properties_and_menu (cd, &items);
+	menu = prepare_properties_and_menu (cd, &items, &props);
 	gtk_widget_show (menu);
 	if (items)
 		gtk_menu_popup (GTK_MENU (menu), NULL, NULL, set_position, cd, 0, 0);
@@ -575,9 +577,11 @@ popup_show_at_cursor (GtkHTMLControlData *cd)
 void
 property_dialog_show (GtkHTMLControlData *cd)
 {
-	guint items;
+	GtkWidget *menu;
+	guint items, props;
 
-	prepare_properties_and_menu (cd, &items);
-	if (items)
+	menu = prepare_properties_and_menu (cd, &items, &props);
+	gtk_object_sink (GTK_OBJECT (menu));
+	if (props)
 		show_prop_dialog (cd, GTK_HTML_EDIT_PROPERTY_NONE);
 }

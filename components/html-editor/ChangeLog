@@ -1,3 +1,9 @@
+2003-02-24  Radek Doulik  <rodo@ximian.com>
+
+	* popup.c (prepare_properties_and_menu): count property pages
+	(property_dialog_show): use props intead of items to decide
+	whether to show dialog
+
 2003-02-12  Larry Ewing  <lewing@ximian.com>
 
 	* GNOME_GtkHTML_Editor.xml.in: make paste quotation C-S-v
