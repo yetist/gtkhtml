@@ -1,18 +1,19 @@
+# translation of sk.po to Slovak
 # gtkhtml Slovak translation.
-# Copyright (C) 2000,2001 Free Software Foundation, Inc.
-# Stanislav Visnovsky <visnovsky@nenya.ms.mff.cuni.cz>, 2000,2001.
+# Copyright (C) 2000,2001,2003 Free Software Foundation, Inc.
+# Stanislav Visnovsky <visnovsky@nenya.ms.mff.cuni.cz>, 2000,2001,2003.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml 0.13.0\n"
-"POT-Creation-Date: 2002-12-21 13:43+0100\n"
-"PO-Revision-Date: 2002-12-20 00:06+0100\n"
-"Last-Translator: Zdenko Podobný <zdpo@mailbox.sk>\n"
+"Project-Id-Version: sk\n"
+"POT-Creation-Date: 2003-01-04 15:53+0100\n"
+"PO-Revision-Date: 2003-01-04 15:54+0100\n"
+"Last-Translator: Stanislav Visnovsky <visnovsky@nenya.ms.mff.cuni.cz>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 0.9.6\n"
+"X-Generator: KBabel 1.2\n"
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -27,12 +28,12 @@ msgstr "Nie je možné načítať glade súbor."
 
 #: capplet/gtkhtml-capplet.glade.h:1
 msgid "\n"
-msgstr ""
+msgstr "\n"
 
 #: capplet/gtkhtml-capplet.glade.h:3
 #: components/html-editor/gtkhtml-editor-properties.glade.h:1
 msgid "*"
-msgstr ""
+msgstr "*"
 
 #: capplet/gtkhtml-capplet.glade.h:4
 msgid "*********************"
@@ -887,7 +888,6 @@ msgid "Page"
 msgstr "Stránka"
 
 #: components/html-editor/editor-control-factory.c:770
-#, fuzzy
 msgid "I could not initialize Bonobo"
 msgstr "Nie je možné inicializovať Bonobo"
 
@@ -1512,11 +1512,11 @@ msgstr "Príklad"
 
 #: src/gtkhtml-properties.c:44
 msgid "Sans"
-msgstr ""
+msgstr "Sans"
 
 #: src/gtkhtml-properties.c:45
 msgid "Monospace"
-msgstr ""
+msgstr "Monospace"
 
 #: src/html-component.c:219
 msgid "Html"
@@ -1568,12 +1568,11 @@ msgstr "Nie je možné inicializovať Bonobo."
 
 #: src/htmlbutton.c:142
 msgid "Submit Query"
-msgstr ""
+msgstr "Poslať dotaz"
 
 #: src/htmlbutton.c:145
-#, fuzzy
 msgid "Reset"
-msgstr "Test"
+msgstr "Reštart"
 
 #. TODO2 dialog instead of warning
 #: src/htmlengine-print.c:198
@@ -1582,7 +1581,7 @@ msgstr "Nepodarilo sa alokovať štandardné písmo pre tlač\n"
 
 #: src/test.c:191
 msgid "GtkHTML Test"
-msgstr ""
+msgstr "GtkHTML Test"
 
 #: src/testgtkhtml.c:103
 msgid "Print pre_view"
@@ -1592,95 +1591,3 @@ msgstr "U_kážka pred tlačou"
 msgid "Print preview"
 msgstr "Ukážka pred tlačou"
 
-#~ msgid "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz"
-#~ msgstr "AaÁáBbCcČčDdEeÉéFfGgHhIiÍíJjKkLlĽľMmNnŇňOoÔôPpQqRrSsŠšTtŤťUuÚúVvWwXxYyÝýZzŽž"
-
-#~ msgid "Automatically insert smiley images"
-#~ msgstr "Automaticky vkladať smajlíkov"
-
-#~ msgid "Command"
-#~ msgstr "Príkaz"
-
-#~ msgid "Select command "
-#~ msgstr "Vyberte príkaz"
-
-#~ msgid "Shortcut"
-#~ msgstr "Skratka"
-
-#~ msgid "EBrowser control"
-#~ msgstr "Prvok EBrowser"
-
-#~ msgid "EBrowser factory"
-#~ msgstr "Vytváracie rozhranie EBrowser"
-
-#~ msgid "Factory for the EBrowser control"
-#~ msgstr "Vytváracie rozhranie pre ovládací prvok EBrowser"
-
-#~ msgid "HTML Browser control"
-#~ msgstr "Ovládací prvok HTML prehliadač"
-
-#~ msgid "Could not initialize GNORBA"
-#~ msgstr "Nie je možné inicializovať GNORBA"
-
-#~ msgid "No misspelled word found"
-#~ msgstr "Nenájdené žiadne nesprávne slovo"
-
-#~ msgid "Image 1: <b>description</b>"
-#~ msgstr "Obrázok 1: <b>popis</b>"
-
-#~ msgid "US-Letter"
-#~ msgstr "US-Letter"
-
-#~ msgid "Test 1"
-#~ msgstr "Test 1"
-
-#~ msgid "The quick brown fox jumped over the lazy dog. "
-#~ msgstr "Rýchla hnedá líška skáče cez lenivého psa."
-
-#~ msgid ""
-#~ "<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
-#~ "\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
-#~ "cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
-#~ msgstr ""
-#~ "<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
-#~ "\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
-#~ "cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
-
-#~ msgid ""
-#~ "/bulb.png\" hspace=10></td><td width=\"100%\">Place your text here</td></"
-#~ "tr></table></td></tr></table>"
-#~ msgstr ""
-#~ "/bulb.png\" hspace=10></td><td width=\"100%\">Sem zadajte svoj text</td></"
-#~ "tr></table></td></tr></table>"
-
-#~ msgid ""
-#~ "<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "@width@@align@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img src="
-#~ "\"file://"
-#~ msgstr ""
-#~ "<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "@width@@align@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img src="
-#~ "\"file://"
-
-#~ msgid ""
-#~ "/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font "
-#~ "size=\"-1\">Image 1: <b>description</b></font></td></tr></table></td></"
-#~ "tr></table>"
-#~ msgstr ""
-#~ "/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font "
-#~ "size=\"-1\">Obrázok 1: <b>popis</b></font></td></tr></table></td></tr></"
-#~ "table>"
-
-#~ msgid "Modify the file's properties"
-#~ msgstr "Zmení vlastnosti súboru"
-
-#~ msgid "Pr_operties..."
-#~ msgstr "_Vlastnosti..."
-
-#~ msgid "Cannot execute gtkhtml properties"
-#~ msgstr "Nie je možné spustiť vlastnosti gtkhtml"
-
-#~ msgid "Can't load fixed font."
-#~ msgstr "Nepodarilo sa načítať písmo s pevnou šírkou."
