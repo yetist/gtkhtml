@@ -1941,6 +1941,9 @@ html_clueflow_spell_check (HTMLClueFlow *flow, HTMLEngine *e)
 	guint off;
 	gchar *text, *ct, *word;
 
+	if (!e->spell_checker)
+		return;
+
 	off  = 0;
 	clue = HTML_CLUE (flow);
 	text = get_text (clue);

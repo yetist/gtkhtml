@@ -4361,7 +4361,8 @@ html_engine_spell_check (HTMLEngine *e)
 	g_assert (HTML_IS_ENGINE (e));
 	g_assert (e->clue);
 
-	html_object_forall (e->clue, (HTMLObjectForallFunc) check_paragraph, e);
+	if (e->spell_checker)
+		html_object_forall (e->clue, (HTMLObjectForallFunc) check_paragraph, e);
 }
 
 void

@@ -1,3 +1,10 @@
+2000-07-26  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlclueflow.c (html_clueflow_spell_check): as below
+
+	* htmlengine.c (html_engine_spell_check): do spell checking only
+	if spell_checker was successfuly created
+
 2000-07-24  Peter Williams  <peterw@helixcode.com>
 
 	* gtkhtml.c (setup_scroll_timeout): Use GDK_THREADS_LEAVE/ENTER
