@@ -1,5 +1,11 @@
 2004-09-16  Radek Doulik  <rodo@ximian.com>
 
+	* htmltable.c (divide_upto_preferred_width): divide the less of
+	left width and total preferred minus already divided, renamed few
+	variables to make it more readable
+
+	Fixes #65840
+
 	* htmlundo.c: revert the freeze_counter test
 
 	* gtkhtml.c (gtk_html_im_commit_cb): use undo freeze/thaw (patch
