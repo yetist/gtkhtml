@@ -1,3 +1,9 @@
+2002-01-14  Radek Doulik  <rodo@ximian.com>
+
+	* menubar.c: implemented Format/Page...
+
+	* GNOME_GtkHTML_Editor.xml.in: added Format/Page...
+
 2002-01-08  Radek Doulik  <rodo@ximian.com>
 
 	* dialog.c (run_dialog): run dialog to make it modal

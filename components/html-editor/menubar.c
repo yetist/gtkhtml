@@ -27,6 +27,7 @@
 
 #include "menubar.h"
 #include "gtkhtml.h"
+#include "body.h"
 #include "control-data.h"
 #include "properties.h"
 #include "image.h"
@@ -210,6 +211,24 @@ spell_check_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cnam
 	spell_check_dialog (cd, TRUE);
 }
 
+static void
+format_page_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
+{
+	if (cd->properties_dialog)
+		gtk_html_edit_properties_dialog_close (cd->properties_dialog);
+
+	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, TRUE, _("Properties"));
+
+	gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
+						   GTK_HTML_EDIT_PROPERTY_BODY, _("Page"),
+						   body_properties,
+						   body_apply_cb,
+						   body_close_cb);
+
+	gtk_html_edit_properties_dialog_show (cd->properties_dialog);
+	gtk_html_edit_properties_dialog_set_page (cd->properties_dialog, GTK_HTML_EDIT_PROPERTY_BODY);
+}
+
 BonoboUIVerb verbs [] = {
 	BONOBO_UI_UNSAFE_VERB ("EditUndo", undo_cb),
 	BONOBO_UI_UNSAFE_VERB ("EditRedo", redo_cb),
@@ -232,6 +251,8 @@ BonoboUIVerb verbs [] = {
 
 	BONOBO_UI_UNSAFE_VERB ("IndentMore", indent_more_cb),
 	BONOBO_UI_UNSAFE_VERB ("IndentLess", indent_less_cb),
+
+	BONOBO_UI_UNSAFE_VERB ("FormatPage", format_page_cb),
 
 	BONOBO_UI_VERB_END
 };

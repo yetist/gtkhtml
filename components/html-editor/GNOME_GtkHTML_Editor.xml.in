@@ -212,7 +212,8 @@
  					<menuitem name="HeadingNumberedList" verb="" _label="Numbered _List"/> 
 
 					<menuitem name="HeadingRomanList" verb="" _label="_Roman Numeral List"/> 
-					<menuitem name="HeadingAlphabeticalList" verb="" _label="_Alphabetical List"/> 				</submenu>
+					<menuitem name="HeadingAlphabeticalList" verb="" _label="_Alphabetical List"/>
+				</submenu>
                 
 				<submenu name="Alignment" _label="_Alignment">
 					<menuitem name="AlignLeft" verb="" _label="_Left"/> 
@@ -222,8 +223,13 @@
 
 				<separator/>
 
-				<menuitem name="IndentMore" verb="" _label="_Increase Indent"/> 
-				<menuitem name="IndentLess" verb="" _label="_Decrease Indent"/>     
+				<menuitem name="IndentMore" verb="" _label="_Increase Indent"/>
+				<menuitem name="IndentLess" verb="" _label="_Decrease Indent"/>
+
+				<separator/>
+
+				<menuitem name="FormatPage" verb="" _label="_Page..."/>
+
 			</placeholder>
 		</submenu>
 	</menu>
