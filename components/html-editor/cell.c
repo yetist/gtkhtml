@@ -452,6 +452,16 @@ get_data (GtkHTMLEditCellProperties *d)
 	d->wrap     = d->cell->no_wrap;
 	d->heading  = d->cell->heading;
 
+	if (d->cell->percent_width) {
+		d->width = d->cell->fixed_width;
+		d->width_percent = TRUE;
+		d->has_width = TRUE;
+	} else if (d->cell->fixed_width) {
+		d->width = d->cell->fixed_width;
+		d->width_percent = FALSE;
+		d->has_width = TRUE;
+	}
+
 	/* d->spacing = d->table->spacing;
 	d->padding = d->table->padding;
 	d->border  = d->table->border;
