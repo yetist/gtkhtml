@@ -39,31 +39,31 @@
 	<menu>
 		<submenu name="Edit" _label="_Edit">
 
-		        <menuitem name="EditUndo" verb="" accel="*Alt*N"/>
-			<menuitem name="EditRedo" verb="" accel="*Alt*R"/>
+		        <menuitem name="EditUndo" verb="" accel="*Ctrl*Z"/>
+			<menuitem name="EditRedo" verb="" accel="*Ctrl*R"/>
 
 			<separator/>
 
-			<menuitem name="EditCut" verb="" accel="*Alt*Z"/>
-			<menuitem name="EditCopy" verb="" accel="*Alt*C"/>
-			<menuitem name="EditPaste" verb="" accel="*Alt*g"/>
+			<menuitem name="EditCut" verb="" accel="*Ctrl*X"/>
+			<menuitem name="EditCopy" verb="" accel="*Ctrl*C"/>
+			<menuitem name="EditPaste" verb="" accel="*Ctrl*V"/>
 	
 			<separator/>
 
-			<menuitem name="EditFind" verb="" accel="F1"/>
-			<menuitem name="EditFindRegex" verb="" accel="F2"/>
-			<menuitem name="EditFindAgain" verb="" accel="F3"/>
-			<menuitem name="EditReplace" verb="" accel="F4"/>
+			<menuitem name="EditFind" verb="" accel="*Ctrl*F"/>
+			<menuitem name="EditFindRegex" verb="" accel="*Ctrl*E"/>
+			<menuitem name="EditFindAgain" verb="" accel="*Ctrl*G"/>
+			<menuitem name="EditReplace" verb="" accel="*Ctrl**Shift*F"/>
 
 			<separator/>
 
-			<menuitem name="EditProperties" verb="" accel="*Alt*p"/>
+			<menuitem name="EditProperties" verb="" accel="*Alt*Return"/>
 		</submenu>
 
 		<submenu name="Insert" _label="_Insert">
-			<menuitem name="InsertImage" verb="" accel="*Alt*F5"/>
-			<menuitem name="InsertLink"  verb="" accel="*Alt*F6"/>
-			<menuitem name="InsertRule"  verb="" accel="*Alt*F7"/>
+			<menuitem name="InsertImage" verb="" accel="*Ctrl**Alt*I"/>
+			<menuitem name="InsertLink"  verb="" accel="*Ctrl**Alt*L"/>
+			<menuitem name="InsertRule"  verb="" accel="*Ctrl**Alt*R"/>
 		</submenu>
 	</menu>
 	<dockitem name="Toolbar">
