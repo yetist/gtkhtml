@@ -2351,6 +2351,7 @@ static void
 parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	if ( strncmp( str, "pre", 3 ) == 0 ) {
+		close_flow (e, clue);
 		push_clueflow_style (e, HTML_CLUEFLOW_STYLE_PRE);
 		e->inPre = TRUE;
 		push_block (e, ID_PRE, 2, block_end_pre, 0, 0);
