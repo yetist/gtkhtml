@@ -970,6 +970,9 @@ html_object_check_point (HTMLObject *self,
 			 guint *offset_return,
 			 gboolean for_cursor)
 {
+	if (self->width == 0 || self->ascent + self->descent == 0)
+		return NULL;
+
 	return (* HO_CLASS (self)->check_point) (self, painter, x, y, offset_return, for_cursor);
 }
 

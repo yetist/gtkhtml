@@ -854,7 +854,7 @@ check_point (HTMLObject *self,
 		line_y  = line_ly;
 		line_ly = p->y + p->descent;
 
-		for (eol = p; eol && eol->y - eol->ascent < line_ly; ) {
+		for (eol = p; eol && (eol->y - eol->ascent < line_ly || eol->ascent + eol->y == line_y); ) {
 			line_ly = MAX (line_ly, eol->y + eol->descent);
 			do
 				eol = eol->next;
