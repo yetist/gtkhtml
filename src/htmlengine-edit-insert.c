@@ -190,7 +190,8 @@ do_insert_different_style (HTMLEngine *e,
 		while (p != NULL && HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE)
 			p = p->prev;
 
-		if (HTML_OBJECT_TYPE (p) == HTML_OBJECT_TYPE (curr)
+		if (p != NULL
+		    && HTML_OBJECT_TYPE (p) == HTML_OBJECT_TYPE (curr)
 		    && HTML_TEXT (p)->font_style == e->insertion_font_style) {
 			e->cursor->object = p;
 			e->cursor->offset = HTML_TEXT (p)->text_len;
@@ -211,8 +212,10 @@ do_insert_different_style (HTMLEngine *e,
 		if (right_side != NULL)
 			html_clue_append_after (HTML_CLUE (curr->parent), HTML_OBJECT (right_side), curr);
 		html_clue_append_after (HTML_CLUE (curr->parent), new, curr);
-	} else {
+	} else if (curr->prev != NULL) {
 		html_clue_append_after (HTML_CLUE (curr->parent), new, curr->prev);
+	} else {
+		html_clue_prepend (HTML_CLUE (curr->parent), new);
 	}
 
 	html_engine_queue_draw (e, new);

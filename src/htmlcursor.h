@@ -1,5 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /* This file is part of the GtkHTML library.
+
    Copyright 1999, 2000 Helix Code, Inc.
 
    This library is free software; you can redistribute it and/or
@@ -81,9 +82,13 @@ void  html_cursor_goto_zero       (HTMLCursor *cursor,
 
 gchar  html_cursor_get_current_char  (HTMLCursor *cursor);
 
-gboolean  html_cursor_beginning_of_line  (HTMLCursor *cursor,
-					  HTMLEngine *engine);
-gboolean  html_cursor_end_of_line        (HTMLCursor *cursor,
-					  HTMLEngine *engine);
+void      html_cursor_beginning_of_document  (HTMLCursor *cursor,
+					      HTMLEngine *engine);
+void      html_cursor_end_of_document        (HTMLCursor *cursor,
+					      HTMLEngine *engine);
+gboolean  html_cursor_beginning_of_line      (HTMLCursor *cursor,
+					      HTMLEngine *engine);
+gboolean  html_cursor_end_of_line            (HTMLCursor *cursor,
+					      HTMLEngine *engine);
 
 #endif

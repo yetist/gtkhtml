@@ -207,10 +207,9 @@ idle_handler (gpointer data)
 
 	html_engine_make_cursor_visible (engine);
 
-	gtk_adjustment_set_value (GTK_LAYOUT (html)->hadjustment,
-				  (gfloat) engine->x_offset);
-	gtk_adjustment_set_value (GTK_LAYOUT (html)->vadjustment,
-				  (gfloat) engine->y_offset);
+	gtk_adjustment_set_value (GTK_LAYOUT (html)->hadjustment, (gfloat) engine->x_offset);
+	gtk_adjustment_set_value (GTK_LAYOUT (html)->vadjustment, (gfloat) engine->y_offset);
+
 	gtk_html_calc_scrollbars (html);
 
 	html_engine_flush_draw_queue (engine);
@@ -1024,22 +1023,23 @@ gtk_html_calc_scrollbars (GtkHTML *html)
 {
 	gint width, height;
 
+	puts (__FUNCTION__);
+
 	height = html_engine_get_doc_height (html->engine);
 	width = html_engine_get_doc_width (html->engine);
 
 	GTK_LAYOUT (html)->vadjustment->lower = 0;
-	GTK_LAYOUT (html)->vadjustment->upper = height;
 	GTK_LAYOUT (html)->vadjustment->page_size = html->engine->height;
 	GTK_LAYOUT (html)->vadjustment->step_increment = 14; /* FIXME */
 	GTK_LAYOUT (html)->vadjustment->page_increment = html->engine->height;
 
 	GTK_LAYOUT (html)->hadjustment->lower = 0;
-	GTK_LAYOUT (html)->hadjustment->upper = width;
 	GTK_LAYOUT (html)->hadjustment->page_size = html->engine->width;
 	GTK_LAYOUT (html)->hadjustment->step_increment = 14; /* FIXME */
 	GTK_LAYOUT (html)->hadjustment->page_increment = html->engine->width;
 
-	gtk_layout_set_size (GTK_LAYOUT (html), width, height);
+	if (width != GTK_LAYOUT (html)->width || height != GTK_LAYOUT (html)->height)
+		gtk_layout_set_size (GTK_LAYOUT (html), width, height);
 }
 
 

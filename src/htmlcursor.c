@@ -751,6 +751,30 @@ html_cursor_get_current_char (HTMLCursor *cursor)
 
 /* Complex cursor movement commands.  */
 
+void
+html_cursor_beginning_of_document (HTMLCursor *cursor,
+				   HTMLEngine *engine)
+{
+	g_return_if_fail (cursor != NULL);
+	g_return_if_fail (engine != NULL);
+	g_return_if_fail (HTML_IS_ENGINE (engine));
+
+	while (backward (cursor, engine))
+		;
+}
+
+void
+html_cursor_end_of_document (HTMLCursor *cursor,
+			     HTMLEngine *engine)
+{
+	g_return_if_fail (cursor != NULL);
+	g_return_if_fail (engine != NULL);
+	g_return_if_fail (HTML_IS_ENGINE (engine));
+
+	while (forward (cursor, engine))
+		;
+}
+
 gboolean
 html_cursor_end_of_line (HTMLCursor *cursor,
 			 HTMLEngine *engine)
@@ -816,4 +840,3 @@ html_cursor_beginning_of_line (HTMLCursor *cursor,
 		html_cursor_copy (&prev_cursor, cursor);
 	}
 }
-

@@ -128,23 +128,29 @@ html_engine_jump_at (HTMLEngine *e,
 }
 
 
-gboolean
-html_engine_end_of_line (HTMLEngine *engine)
+void
+html_engine_beginning_of_document (HTMLEngine *engine)
 {
-	gboolean retval;
-
-	g_return_val_if_fail (engine != NULL, FALSE);
-	g_return_val_if_fail (HTML_IS_ENGINE (engine), FALSE);
+	g_return_if_fail (engine != NULL);
+	g_return_if_fail (HTML_IS_ENGINE (engine));
 
 	html_engine_draw_cursor (engine);
-
-	retval = html_cursor_end_of_line (engine->cursor, engine);
-
+	html_cursor_beginning_of_document (engine->cursor, engine);
 	html_engine_draw_cursor (engine);
-
-	return retval;
 }
 
+void
+html_engine_end_of_document (HTMLEngine *engine)
+{
+	g_return_if_fail (engine != NULL);
+	g_return_if_fail (HTML_IS_ENGINE (engine));
+
+	html_engine_draw_cursor (engine);
+	html_cursor_end_of_document (engine->cursor, engine);
+	html_engine_draw_cursor (engine);
+}
+
+
 gboolean
 html_engine_beginning_of_line (HTMLEngine *engine)
 {
@@ -156,6 +162,23 @@ html_engine_beginning_of_line (HTMLEngine *engine)
 	html_engine_draw_cursor (engine);
 
 	retval = html_cursor_beginning_of_line (engine->cursor, engine);
+
+	html_engine_draw_cursor (engine);
+
+	return retval;
+}
+
+gboolean
+html_engine_end_of_line (HTMLEngine *engine)
+{
+	gboolean retval;
+
+	g_return_val_if_fail (engine != NULL, FALSE);
+	g_return_val_if_fail (HTML_IS_ENGINE (engine), FALSE);
+
+	html_engine_draw_cursor (engine);
+
+	retval = html_cursor_end_of_line (engine->cursor, engine);
 
 	html_engine_draw_cursor (engine);
 

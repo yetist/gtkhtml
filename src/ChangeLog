@@ -1,3 +1,55 @@
+2000-03-07  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* gtkhtml.c
+	(gtk_html_calc_scrollbars): Do not set lower/upper limits for the
+	toolbars explicitly anymore. Also, do not use
+	`gtk_layout_set_size()' if the size has not actually changed.
+
+	* gtkhtml-keybinding.c
+	(page_up): Unselect all.
+	(page_down): Likewise.
+	(forward_word): Likewise.
+	(backward_word): Likewise.
+	(beginning_of_document): New function.
+	(end_of_document): New function.
+	(gtk_html_handle_key_event): Do not care about the shift status
+	when dispatching to `handle_ctrl()' or `handle_alt()'.
+	(handle_ctrl): Map `GDK_Home' to `beginning_of_document()',
+	`GDK_End' to `end_of_document()'.
+	(handle_alt): Map `<' to `beginning_of_document()' and `>' to
+	`end_of_document()'.
+
+	* htmlcursor.c
+	(html_cursor_beginning_of_document): New function.
+	(html_cursor_end_of_document): New function.
+
+	* htmlengine-edit-movement.c
+	(html_engine_beginning_of_document): New function.
+	(html_engine_end_of_document): New function.
+
+	* htmlengine-edit-insert.c
+	(do_insert_different_style): Don't crash if there is no previous
+	non-HTMLTextSlave element.
+
+	* htmlengine.c
+	(ensure_editable): New helper function.
+	(html_engine_load_empty): Use it.  Basically, we now start/stop
+	the parser and call `ensure_editable()' to make sure the resulting
+	thing is editable correctly.
+	(html_engine_set_editable): If the engine is now editable, make
+	sure it can actually be edited with `ensure_editable()'.
+	(html_engine_set_base_url): Removed.
+	(parse_b): Emit signal directly, instead of using
+	`html_engine_set_base_url()'.
+
+	* htmlcluev.c
+	(relayout): Always queue a clear when needed, even if we have no
+	parents.
+
+	* htmlobject.c
+	(relayout): Always queue a clear when needed, even if we have no
+	parents, as the new relayout logic requires this.
+
 2000-03-06  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlengine-edit-delete.c (html_engine_delete): Call

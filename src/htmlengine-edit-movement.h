@@ -50,8 +50,11 @@ void   html_engine_jump_at         (HTMLEngine               *e,
 				    gint                      x,
 				    gint                      y);
 
-gboolean  html_engine_end_of_line        (HTMLEngine *engine);
+void  html_engine_beginning_of_document  (HTMLEngine *engine);
+void  html_engine_end_of_document        (HTMLEngine *engine);
+
 gboolean  html_engine_beginning_of_line  (HTMLEngine *engine);
+gboolean  html_engine_end_of_line        (HTMLEngine *engine);
 
 gint  html_engine_scroll_down  (HTMLEngine *engine,
 				gint        amount);

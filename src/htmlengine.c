@@ -82,7 +82,6 @@ static void parse_one_token (HTMLEngine *p, HTMLObject *clue, const gchar *str);
 static void parse_input (HTMLEngine *e, const gchar *s, HTMLObject *_clue);
 static void parse_f (HTMLEngine *p, HTMLObject *clue, const gchar *str);
 static gboolean html_engine_goto_anchor (HTMLEngine *e);
-static void html_engine_set_base_url (HTMLEngine *e, const char *url);
 
 
 static GtkLayoutClass *parent_class = NULL;
@@ -1425,8 +1424,7 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 			if ( strncasecmp( token, "target=", 7 ) == 0 ) {
 				gtk_signal_emit (GTK_OBJECT (e), signals[SET_BASE_TARGET], token + 7);
 			} else if ( strncasecmp( token, "href=", 5 ) == 0 ) {
-
-				html_engine_set_base_url(e, token + 5);
+				gtk_signal_emit (GTK_OBJECT (e), signals[SET_BASE], token + 5);
 			}
 		}
 	}
@@ -3412,23 +3410,71 @@ html_engine_get_link_at (HTMLEngine *e, gint x, gint y)
 	return NULL;
 }
 
+
+/* This function makes sure @engine can be edited properly.  In order
+   to be editable, the beginning of the document must have the
+   following structure:
+   
+     HTMLClueV (cluev)
+       HTMLClueFlow (head)
+ 	 HTMLObject (child) */
+static void
+ensure_editable (HTMLEngine *engine)
+{
+	HTMLObject *cluev;
+	HTMLObject *head;
+	HTMLObject *child;
+
+	g_return_if_fail (engine != NULL);
+	g_return_if_fail (HTML_IS_ENGINE (engine));
+
+	cluev = engine->clue;
+	if (cluev == NULL)
+		engine->clue = cluev = html_cluev_new (0, 0, 0, 100);
+
+	head = HTML_CLUE (cluev)->head;
+	if (head == NULL || HTML_OBJECT_TYPE (head) != HTML_TYPE_CLUEFLOW) {
+		HTMLObject *clueflow;
+
+		clueflow = html_clueflow_new (HTML_CLUEFLOW_STYLE_NORMAL, 0, 0);
+		html_clue_prepend (HTML_CLUE (cluev), clueflow);
+
+		head = clueflow;
+	}
+
+	child = HTML_CLUE (head)->head;
+	if (child == NULL) {
+		HTMLObject *text_master;
+		GdkColor black = { 0, 0, 0, 0 }; /* FIXME */
+
+		text_master = html_text_master_new (g_strdup (""), GTK_HTML_FONT_STYLE_DEFAULT,
+						    &black);
+		html_clue_prepend (HTML_CLUE (head), text_master);
+	}
+}
+
+/**
+ * html_engine_set_editable:
+ * @e: An HTMLEngine object
+ * @editable: A flag specifying whether the object must be editable
+ * or not
+ * 
+ * Make @e editable or not, according to the value of @editable.
+ **/
 void
 html_engine_set_editable (HTMLEngine *e,
 			  gboolean editable)
 {
-	if (! e->editable && editable)
-		html_cursor_home (e->cursor, e);
+	if ((! e->editable && editable) || (e->editable && ! editable)) {
+		if (! e->editable && editable)
+			html_cursor_home (e->cursor, e);
 
-	if ((! e->editable && editable) || (e->editable && ! editable))
 		html_engine_draw (e, 0, 0, e->width, e->height);
+		e->editable = editable;
 
-	e->editable = editable;
-}
-
-static void
-html_engine_set_base_url (HTMLEngine *e, const char *url)
-{
-	gtk_signal_emit (GTK_OBJECT (e), signals[SET_BASE], url);
+		if (editable)
+			ensure_editable (e);
+	}
 }
 
 
@@ -3468,6 +3514,8 @@ html_engine_make_cursor_visible (HTMLEngine *e)
 }
 
 
+/* Draw queue handling.  */
+
 void
 html_engine_flush_draw_queue (HTMLEngine *e)
 {
@@ -3515,6 +3563,8 @@ html_engine_form_submitted (HTMLEngine *e,
 }
 
 
+/* Selection handling.  */
+
 struct _SelectRegionData {
 	HTMLEngine *engine;
 	HTMLObject *obj1, *obj2;
@@ -3689,6 +3739,8 @@ html_engine_unselect_all (HTMLEngine *e,
 }
 
 
+/* Freeze/thaw.  */
+
 gboolean
 html_engine_frozen (HTMLEngine *engine)
 {
@@ -3726,12 +3778,15 @@ html_engine_thaw (HTMLEngine *engine)
 }
 
 
+/**
+ * html_engine_load_empty:
+ * @engine: An HTMLEngine object
+ * 
+ * Load an empty document into the engine.
+ **/
 void
 html_engine_load_empty (HTMLEngine *engine)
 {
-	static GdkColor color = { 0, 0, 0, 0 };
-	HTMLObject *clueflow, *text;
-
 	g_return_if_fail (engine != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (engine));
 
@@ -3740,10 +3795,5 @@ html_engine_load_empty (HTMLEngine *engine)
 	html_engine_parse (engine);
 	html_engine_stop_parser (engine);
 
-	text = html_text_master_new (g_strdup (""), GTK_HTML_FONT_STYLE_DEFAULT, &color);
-
-	clueflow = html_clueflow_new (HTML_CLUEFLOW_STYLE_NORMAL, 0, 0);
-	html_clue_append (HTML_CLUE (clueflow), text);
-
-	html_clue_append (HTML_CLUE (engine->clue), clueflow);
+	ensure_editable (engine);
 }

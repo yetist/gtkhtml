@@ -119,6 +119,7 @@ page_up (GtkHTML *html)
 {
 	gint amount;
 
+	html_engine_unselect_all (html->engine, TRUE);
 	amount = html_engine_scroll_up (html->engine, GTK_WIDGET (html)->allocation.height);
 
 	if (amount > 0)
@@ -130,6 +131,7 @@ page_down (GtkHTML *html)
 {
 	gint amount;
 
+	html_engine_unselect_all (html->engine, TRUE);
 	amount = html_engine_scroll_down (html->engine, GTK_WIDGET (html)->allocation.height);
 
 	if (amount > 0)
@@ -139,13 +141,29 @@ page_down (GtkHTML *html)
 static void
 forward_word (GtkHTML *html)
 {
+	html_engine_unselect_all (html->engine, TRUE);
 	html_engine_forward_word (html->engine);
 }
 
 static void
 backward_word (GtkHTML *html)
 {
+	html_engine_unselect_all (html->engine, TRUE);
 	html_engine_backward_word (html->engine);
+}
+
+static void
+beginning_of_document (GtkHTML *html)
+{
+	html_engine_unselect_all (html->engine, TRUE);
+	html_engine_beginning_of_document (html->engine);
+}
+
+static void
+end_of_document (GtkHTML *html)
+{
+	html_engine_unselect_all (html->engine, TRUE);
+	html_engine_end_of_document (html->engine);
 }
 
 
@@ -187,6 +205,12 @@ handle_ctrl (GtkHTML *html,
 	case 'v':
 		page_down (html);
 		break;
+	case GDK_Home:
+		beginning_of_document (html);
+		break;
+	case GDK_End:
+		end_of_document (html);
+		break;
 	case GDK_Left:
 		backward_word (html);
 		break;
@@ -209,6 +233,8 @@ handle_alt (GtkHTML *html,
 {
 	gboolean retval;
 
+	puts (__FUNCTION__);
+
 	retval = FALSE;
 
 	switch (event->keyval) {
@@ -222,6 +248,16 @@ handle_alt (GtkHTML *html,
 		page_up (html);
 		break;
 	default:
+		if (event->length == 1) {
+			switch (*event->string) {
+			case '<':
+				beginning_of_document (html);
+				break;
+			case '>':
+				end_of_document (html);
+				break;
+			}
+		}
 		retval = FALSE;
 	}
 
@@ -321,7 +357,7 @@ gtk_html_handle_key_event (GtkHTML *html,
 {
 	*update_styles = TRUE;
 
-	switch (event->state) {
+	switch (event->state & ~ GDK_SHIFT_MASK) {
 	case GDK_CONTROL_MASK:
 		return handle_ctrl (html, event);
 	case GDK_MOD1_MASK:
