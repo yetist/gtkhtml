@@ -1,5 +1,7 @@
 2000-12-12  Radek Doulik  <rodo@helixcode.com>
 
+	* test-html-editor-control.c: added toolbar
+
 	* GNOME_GtkHTML_Editor.xml: added toolbar items
 
 2000-12-10 Anna Marie Dirks  <anna@helixcode.com>
