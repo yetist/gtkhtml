@@ -1,3 +1,8 @@
+2003-05-02  Radek Doulik  <rodo@ximian.com>
+
+	* properties.c (gtk_html_edit_properties_dialog_new): remove apply
+	button to be more conformant with the HIG
+
 2003-05-01  Abel Cheung  <maddog@linux.org.hk>
 
 	* image.c(get_sample_html): Fix typo.

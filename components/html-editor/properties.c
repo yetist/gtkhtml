@@ -68,7 +68,7 @@ apply (GtkHTMLEditPropertiesDialog *d)
 static void
 prop_close (GtkHTMLEditPropertiesDialog *d)
 {
-	gtk_dialog_response (GTK_DIALOG (d->dialog), GTK_RESPONSE_CLOSE);
+	gtk_dialog_response (GTK_DIALOG (d->dialog), GTK_RESPONSE_CANCEL);
 	gtk_html_edit_properties_dialog_destroy (d);
 }
 
@@ -99,7 +99,7 @@ static void
 dialog_response (GtkDialog *dialog, gint response_id, GtkHTMLEditPropertiesDialog *d)
 {
 	switch (response_id) {
-	case GTK_RESPONSE_CLOSE:
+	case GTK_RESPONSE_CANCEL:
 		gtk_widget_destroy (GTK_WIDGET (dialog));
 		break;
 	case 0: /* OK */
@@ -146,12 +146,11 @@ gtk_html_edit_properties_dialog_new (GtkHTMLControlData *cd, gboolean insert, gc
 	d->control_data   = cd;
 	parent = get_parent_window (GTK_WIDGET (cd->html));
 	d->dialog         = insert ? gtk_dialog_new_with_buttons (title, parent, 0,
-								  GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
+								  GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 								  GTKHTML_STOCK_INSERT, 1,
 								  NULL)
 		:  gtk_dialog_new_with_buttons (title, parent, 0,
-						GTK_STOCK_APPLY, 1,
-						GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
+						GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 						GTK_STOCK_OK, 0,
 						NULL);
 
@@ -239,7 +238,7 @@ void
 gtk_html_edit_properties_dialog_close (GtkHTMLEditPropertiesDialog *d)
 {
 	if (d->dialog)
-		gtk_dialog_response (GTK_DIALOG (d->dialog), GTK_RESPONSE_CLOSE);
+		gtk_dialog_response (GTK_DIALOG (d->dialog), GTK_RESPONSE_CANCEL);
 }
 
 void
