@@ -3803,7 +3803,7 @@ html_engine_get_object_base (HTMLEngine *e, HTMLObject *o)
 static gboolean
 html_engine_timer_event (HTMLEngine *e)
 {
-	static const gchar *end[] = { "</body>", 0};
+	static const gchar *end[] = { NULL };
 	gint lastHeight;
 	gboolean retval = TRUE;
 
