@@ -1,5 +1,22 @@
 2001-08-30  Radek Doulik  <rodo@ximian.com>
 
+	* htmltextslave.c (draw_highlighted): updated to use faster line
+	offset calculation using html_painter_calc_text_width
+
+	* htmlpainter.c (calc_text_bytes_delta): new helper function, it
+	does 1st pass of translating \t and &nbsp; - calculates right size
+	of translated string
+	(translate_text_special_chars): 2nd pass which finally translates
+	\t and &nbsp;
+	(put_last): helper inline function
+	(html_painter_draw_text): use new translating function
+	(html_painter_calc_text_width): ditto
+	(html_painter_calc_text_width): changed line_offset to pointer, we
+	update line_offset now to line offset on the end of string
+
+	* htmltext.c (split_word_width): removed as it's broken, don't
+	bother with it for now
+
 	* htmlpainter.c (html_painter_draw_text): handle &nbsp; before
 	this we have left nbsp drawing on X, but some fonts drawed char
 	160 a '='

@@ -220,97 +220,6 @@ html_text_clear_word_width (HTMLText *text)
 	text->words = 0;
 }
 
-static void
-merge_word_width (HTMLText *t1, HTMLText *t2, HTMLPainter *p)
-{
-	guint i, words;
-
-	/* printf ("before merge '%s' '%s'\n", t1->text, t2->text);
-	   debug_word_width (t1);
-	   debug_word_width (t2); */
-
-	if (!t1->word_width)
-		return;
-
-	/* FIXME: once enabled, it should be revisited because we use &nbsp;...&nbsp;<space>
-	   order now
-	   len = strlen (t1->text);
-	   if (((len && t1->text [len - 1] == ' ')
-	   || (len > 1 && (guchar) t1->text [len - 1] == 0xa0 && (guchar) t1->text [len - 1] == 0xc2))
-	   && t2->text [0] == ' ') {
-	   html_text_clear_word_width (t1);
-	   return;
-	   } */
-
-	/* temporarily disable word width merging because of tabs */
-	html_text_clear_word_width (t1);
-	return;
-
-	if (!t2->word_width)
-		html_text_request_word_width (t2, p);
-
-	words          = t1->words;
-	t1->words      = words + t2->words - 1;
-	t1->word_width = g_renew (guint, t1->word_width, t1->words);
-
-	for (i = 1; i < t2->words; i ++)
-		t1->word_width [words + i - 1] = t2->word_width [i] + t1->word_width [words - 1];
-	t1->word_width [words - 1] += t2->word_width [0];
-
-	/* printf ("after merge '%s%s'\n", t1->text, t2->text);
-	   debug_word_width (t1); */
-}
-
-static void
-split_word_width (HTMLText *s, HTMLText *d, HTMLPainter *p, gint offset)
-{
-	gchar *str;
-	guint words, i;
-	gboolean in_middle;
-
-	html_text_clear_word_width (d);
-	if (!s->word_width)
-		return;
-
-	/* printf ("before split '%s%s'\n", s->text, d->text);
-	   debug_word_width (s);
-	   debug_word_width (d); */
-
-	words     = get_words (s->text);
-	in_middle = d->text [0] == ' ' ? FALSE : TRUE;
-
-	/* fill d */
-	d->words      = s->words - words + 1;
-	d->word_width = g_new (guint, d->words);
-	if (in_middle) {
-		str = strchr (d->text, ' ');
-		d->word_width [0] = html_painter_calc_text_width (p, d->text, str
-								  ? g_utf8_pointer_to_offset (d->text, str)
-								  : d->text_len, -1, html_text_get_font_style (s), s->face);
-	} else
-		d->word_width [0] = 0;
-	for (i = 1; i < d->words; i ++)
-		d->word_width [i] = s->word_width [words + i - 1] - s->word_width [words - 1] + d->word_width [0];
-
-	/* fill s */
-	if (s->words != words) {
-		s->words = words;
-		s->word_width = g_renew (guint, s->word_width, s->words);
-	}
-
-	if (in_middle) {
-		str = strrchr (s->text, ' ');
-		if (!str)
-			str = s->text;
-		s->word_width [s->words - 1] = html_painter_calc_text_width (p, str, g_utf8_strlen (str, -1), -1,
-									     html_text_get_font_style (s), s->face)
-			+ (s->words > 1 ? s->word_width [s->words - 2] : 0);
-	}
-	/* printf ("after split '%s' '%s'\n", s->text, d->text);
-	   debug_word_width (s);
-	   debug_word_width (d); */
-}
-
 HTMLObject *
 html_text_op_copy_helper (HTMLText *text, GList *from, GList *to, guint *len, HTMLTextHelperFunc f)
 {
@@ -421,7 +330,7 @@ object_merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList *left, GL
 
 	/* printf ("merge '%s' '%s'\n", t1->text, t2->text); */
 
-	merge_word_width (t1, t2, e->painter);
+	/* merge_word_width (t1, t2, e->painter); */
 
 	move_spell_errors (t2->spell_errors, 0, t1->text_len);
 	t1->spell_errors = g_list_concat (t1->spell_errors, t2->spell_errors);
@@ -434,7 +343,8 @@ object_merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList *left, GL
 	html_text_convert_nbsp (t1, TRUE);
 	html_object_change_set (self, HTML_CHANGE_ALL_CALC);
 
-	html_text_request_word_width (t1, e->painter);
+	html_text_clear_word_width (t1);
+	/* html_text_request_word_width (t1, e->painter); */
 	/* printf ("merged '%s'\n", t1->text); */
 	/* printf ("--- after merge\n");
 	   debug_spell_errors (t1->spell_errors);
@@ -468,14 +378,6 @@ object_split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, g
 	t2->text_len   -= offset;
 	if (!html_text_convert_nbsp (t2, FALSE))
 		t2->text = g_strdup (t2->text);
-	else {  /* take care of split in &nbsp; sequence */
-		guint len = strlen (t1->text);
-
-		if (t2->text [0] == ' '
-		    && ((len > 1 && (guchar) t1->text [len - 1] == 0xa0 && (guchar) t2->text [len - 2] == 0xc2)
-			|| (len && t1->text [len - 1] == ' ')))
-			html_text_clear_word_width (t1);
-	}
 	g_free (tt);
 
 	html_clue_append_after (HTML_CLUE (self->parent), dup, self);
@@ -509,9 +411,8 @@ object_split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, g
 	html_object_change_set (self, HTML_CHANGE_ALL_CALC);
 	html_object_change_set (dup,  HTML_CHANGE_ALL_CALC);
 
-	split_word_width (HTML_TEXT (self), HTML_TEXT (dup), e->painter, offset);
-	/* html_text_clear_word_width (HTML_TEXT (self));
-	   html_text_clear_word_width (HTML_TEXT (dup)); */
+	html_text_clear_word_width (HTML_TEXT (self));
+	html_text_clear_word_width (HTML_TEXT (dup));
 
 	level--;
 	if (level)
@@ -608,7 +509,7 @@ calc_word_width (HTMLText *text, HTMLPainter *painter, gint line_offset)
 			+ html_painter_calc_text_width (painter,
 							begin, end ? g_utf8_pointer_to_offset (begin, end)
 							: g_utf8_strlen (begin, -1),
-							line_offset, font_style, text->face);
+							&line_offset, font_style, text->face);
 		begin = end;
 	}
 
@@ -1258,7 +1159,6 @@ get_cursor_base (HTMLObject *self,
 		 gint *x, gint *y)
 {
 	HTMLObject *obj;
-	gint line_offset = html_text_get_line_offset (HTML_TEXT (self), painter);
 
 	for (obj = self->next; obj != NULL; obj = obj->next) {
 		HTMLTextSlave *slave;
@@ -1275,17 +1175,18 @@ get_cursor_base (HTMLObject *self,
 			if (offset != slave->posStart) {
 				HTMLText *text;
 				GtkHTMLFontStyle font_style;
+				gint line_offset;
 
 				text = HTML_TEXT (self);
 
 				font_style = html_text_get_font_style (text);
+				line_offset = html_text_slave_get_line_offset (slave,
+									       html_text_get_line_offset (HTML_TEXT (self),
+													  painter),
+									       slave->posStart, painter);
 				*x += html_painter_calc_text_width (painter,
 								    html_text_get_text (text, slave->posStart),
-								    offset - slave->posStart,
-								    html_text_slave_get_line_offset (slave,
-												     line_offset,
-												     slave->posStart,
-												     painter),
+								    offset - slave->posStart, &line_offset,
 								    font_style, text->face);
 			}
 

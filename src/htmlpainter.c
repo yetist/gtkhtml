@@ -36,6 +36,9 @@
 /* Our parent class.  */
 static GtkObjectClass *parent_class = NULL;
 
+static gint calc_text_bytes_delta (const gchar *text, gint len, gint line_offset, gint *translated_len, gboolean tabs);
+static gint translate_text_special_chars (const gchar *text, gchar *translated, gint len, gint line_offset, gboolean tabs);
+
 
 /* GtkObject methods.  */
 
@@ -308,39 +311,24 @@ html_painter_calc_descent (HTMLPainter *painter,
 guint
 html_painter_calc_text_width (HTMLPainter *painter,
 			      const gchar *text,
-			      guint len, gint line_offset,
+			      guint len, gint *line_offset,
 			      GtkHTMLFontStyle font_style,
 			      HTMLFontFace *face)
 {
 	guint width;
+	gchar *translated;
+	gint translated_len;
 
 	g_return_val_if_fail (painter != NULL, 0);
 	g_return_val_if_fail (HTML_IS_PAINTER (painter), 0);
 	g_return_val_if_fail (text != NULL, 0);
 	g_return_val_if_fail (font_style != GTK_HTML_FONT_STYLE_DEFAULT, 0);
 
-	width = (* HP_CLASS (painter)->calc_text_width) (painter, text, len, font_style, face);
-	if (line_offset >= 0) {
-		const gchar *tab, *found_tab;
-		guint space_width = html_painter_get_space_width (painter, font_style, face);
-		gint l, cl, lo, skip;
+	translated = alloca (strlen (text) + calc_text_bytes_delta (text, len, *line_offset, &translated_len,
+								    *line_offset != -1) + 1);
+	*line_offset = translate_text_special_chars (text, translated, len, *line_offset, *line_offset != -1);
 
-		l   = 0;
-		lo  = line_offset;
-		tab = text;
-		while (tab && (found_tab = strchr (tab, '\t')) && l < len) {
-			cl  = g_utf8_pointer_to_offset (tab, found_tab);
-			l  += cl;
-			if (l >= len)
-				break;	
-			lo += cl;
-			skip = 8 - (lo % 8) - 1;
-			width += skip * space_width;
-			lo += skip + 1;
-			l ++;
-			tab = found_tab + 1;
-		}
-	}
+	width = (* HP_CLASS (painter)->calc_text_width) (painter, translated, translated_len, font_style, face);
 
 	return width;
 }
@@ -381,65 +369,117 @@ html_painter_draw_rect (HTMLPainter *painter,
 	(* HP_CLASS (painter)->draw_rect) (painter, x, y, width, height);
 }
 
-static inline void
-draw_current (HTMLPainter *p, gint *x, gint y, const gchar *last,
-	      gint len, guint *drawed_len, guint *current_len, gint *line_offset, guint space_width)
+static gint
+calc_text_bytes_delta (const gchar *text, gint len, gint line_offset, gint *translated_len, gboolean tabs)
 {
-	if (*drawed_len + *current_len > len)
-		*current_len = len - *drawed_len;
-	(* HP_CLASS (p)->draw_text) (p, *x, y, last, *current_len);
-	(*x) += p->font_style & GTK_HTML_FONT_STYLE_FIXED
-		? *current_len * space_width
-		: html_painter_calc_text_width (p, last, *current_len, -1, p->font_style, p->font_face);
-	(*drawed_len) += *current_len;
-	(*line_offset) += *current_len;
-	*current_len = 0;
+	gunichar uc;
+	const gchar *s;
+	gint delta, skip, current_len;
+
+	current_len = 0;
+	delta = 0;
+	*translated_len = 0;
+	s = text;
+	while (s && (uc = g_utf8_get_char (s)) && current_len < len) {
+		switch (uc) {
+		case ENTITY_NBSP:
+			delta --;
+			(*translated_len) ++;
+			line_offset ++;
+			break;
+		case '\t':
+			if (tabs) {
+				skip = 8 - (line_offset % 8);
+				delta += skip - 1;
+				line_offset += skip;
+				(*translated_len) += skip;
+			} else {
+				(*translated_len) ++;
+				line_offset ++;
+			}
+			break;
+		default:
+			(*translated_len) ++;
+			line_offset ++;
+		}
+		current_len ++;
+		s = g_utf8_next_char (s);
+	}
+
+	return delta;
 }
 
+static inline void
+put_last (const gchar *s, const gchar **ls, gchar **translated)
+{
+	if (*ls)
+		for (; *ls < s; (*ls) ++, (*translated) ++)
+			**translated = **ls;
+}
 
-/* OPTIMIZE:
-   instead of drawing text as parts of it we could try to translate text to another one, where &nbsp; and \t are replaced
-   by proper amount of spaces and look if it's not faster - it could be as we save some costly X calls */
+static gint
+translate_text_special_chars (const gchar *text, gchar *translated, gint len, gint line_offset, gboolean tabs)
+{
+	gunichar uc;
+	const gchar *s, *ls;
+	gint skip, current_len;
 
-void
+	current_len = 0;
+	s = text;
+	ls = NULL;
+	while (s && (uc = g_utf8_get_char (s)) && current_len < len) {
+		put_last (s, &ls, &translated);
+		switch (uc) {
+		case ENTITY_NBSP:
+			*translated = ' ';
+			translated ++;
+			line_offset ++;
+			ls = NULL;
+			break;
+		case '\t':
+			if (tabs) {
+				skip = 8 - (line_offset % 8);
+				line_offset += skip;
+				for (; skip; skip --, translated ++)
+					*translated = ' ';
+			} else {
+				*translated = ' ';
+				translated ++;
+				line_offset ++;
+			}
+			ls = NULL;
+			break;
+		default:
+			ls = s;
+			line_offset ++;
+		}
+		current_len ++;
+		s = g_utf8_next_char (s);
+	}
+	put_last (s, &ls, &translated);
+	*translated = 0;
+
+	return line_offset;
+}
+
+gint
 html_painter_draw_text (HTMLPainter *painter,
 			gint x, gint y,
 			const gchar *text, gint len, gint line_offset)
 {
-	guint space_width = html_painter_get_space_width (painter, painter->font_style, painter->font_face);
-	const gchar *last, *cur;
-	guint drawed_len, current_len, skip;
-	gunichar uc;
+	gchar *translated;
+	gint translated_len;
 
-	g_return_if_fail (painter != NULL);
-	g_return_if_fail (HTML_IS_PAINTER (painter));
+	g_return_val_if_fail (painter != NULL, line_offset);
+	g_return_val_if_fail (HTML_IS_PAINTER (painter), line_offset);
 
-	current_len = drawed_len = 0;
-	cur = last = text;
-	while (cur && (uc = g_utf8_get_char (cur)) && drawed_len < len) {
-		switch (uc) {
-		case '\t':
-			draw_current (painter, &x, y, last, len, &drawed_len, &current_len, &line_offset, space_width);
-			skip = 8 - (line_offset % 8);
-			x += skip * space_width;
-			line_offset += skip;
-			last = cur + 1;
-			drawed_len ++;
-			break;
-		case ENTITY_NBSP:
-			draw_current (painter, &x, y, last, len, &drawed_len, &current_len, &line_offset, space_width);
-			x += space_width;
-			line_offset ++;
-			last = cur + 2;
-			drawed_len ++;
-			break;
-		default:
-			current_len ++;
-		}
-		cur = g_utf8_next_char (cur);
-	}
-	if (len > drawed_len)
-		(* HP_CLASS (painter)->draw_text) (painter, x, y, last, len - drawed_len);
+	translated = alloca (strlen (text) + calc_text_bytes_delta (text, len, line_offset, &translated_len,
+								    line_offset != -1) + 1);
+	line_offset = translate_text_special_chars (text, translated, len, line_offset, line_offset != -1);
+
+	(* HP_CLASS (painter)->draw_text) (painter, x, y, translated, translated_len);
+
+	return line_offset;
 }
 
 void

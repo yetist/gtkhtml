@@ -1031,10 +1031,10 @@ draw_item (HTMLObject *self, HTMLPainter *painter, gint x, gint y, gint width, g
 
 		number = get_item_number_str (flow);
 		if (number) {
-			gint width, len;
+			gint width, len, line_offset = 0;
 
 			len   = strlen (number);
-			width = html_painter_calc_text_width (painter, number, len, 0,
+			width = html_painter_calc_text_width (painter, number, len, &line_offset,
 							      html_clueflow_get_default_font_style (flow), NULL)
 				+ html_painter_get_space_width (painter, html_clueflow_get_default_font_style (flow), NULL);
 			html_painter_set_font_style (painter, html_clueflow_get_default_font_style (flow));
