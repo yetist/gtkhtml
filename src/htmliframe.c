@@ -275,6 +275,28 @@ op_copy (HTMLObject *self, HTMLObject *parent, HTMLEngine *e, GList *from, GList
 }
 
 void
+html_iframe_set_margin_width (HTMLIFrame *iframe, gint margin_width)
+{
+	HTMLEngine *e;
+
+	e = GTK_HTML (iframe->html)->engine;
+
+	e->leftBorder = e->rightBorder = margin_width;
+	html_engine_schedule_redraw (e);
+}
+
+void
+html_iframe_set_margin_height (HTMLIFrame *iframe, gint margin_height)
+{
+	HTMLEngine *e;
+
+	e = GTK_HTML (iframe->html)->engine;
+
+	e->bottomBorder = e->topBorder = margin_height;
+	html_engine_schedule_redraw (e);
+}
+
+void
 html_iframe_set_scrolling (HTMLIFrame *iframe, GtkPolicyType scroll)
 {
 #if E_USE_SCROLLED_WINDOW

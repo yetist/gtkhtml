@@ -68,6 +68,11 @@ HTMLObject *   html_iframe_new                   (GtkWidget *parent,
 						  gboolean border);
 
 void           html_iframe_set_scrolling         (HTMLIFrame *iframe, GtkPolicyType scroll);
+
+void           html_iframe_set_margin_width      (HTMLIFrame *iframe,
+						 gint margin);
+void           html_iframe_set_margin_height     (HTMLIFrame *iframe,
+						 gint margin);
 						  
 #endif
 

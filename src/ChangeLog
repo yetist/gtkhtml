@@ -1,6 +1,10 @@
-2002-10-16  Larry Ewing  <lewing@ximian.com>
+2002-10-17  Larry Ewing  <lewing@ximian.com>
 
-	* htmlengine.c (html_engine_begin): clear the font style.
+	* htmliframe.c: add get/set margin width functions.
+
+	* htmliframe.h: add prototypes for margin functions.
+
+	* htmlengine.c (parse_iframe): call the new iframe functions.
 
 2002-10-16  Radek Doulik  <rodo@ximian.com>
 

@@ -1735,29 +1735,18 @@ parse_iframe (HTMLEngine *e, const gchar *str, HTMLObject *_clue)
 	}	
 		
 	if (src) {
-#if 1
 		iframe = html_iframe_new (GTK_WIDGET (e->widget),
-					 src, width, height, border);
-		g_free (src);
-		append_element (e, _clue, iframe);
-#else 
-		{
-		HTMLObject *frame = html_frame_new (GTK_WIDGET (e->widget),
-					 src, width, height, border);
-		
-		html_frame_set_size (HTML_FRAME (frame), width, height);
-
+					  src, width, height, border);
 		if (margin_height > 0)
-			html_frame_set_margin_height (HTML_FRAME (frame), margin_height);
+			html_iframe_set_margin_height (HTML_IFRAME (iframe), margin_height);
 		if (margin_width > 0)
-			html_frame_set_margin_width (HTML_FRAME (frame), margin_width);
+			html_iframe_set_margin_width (HTML_IFRAME (iframe), margin_width);
 		if (scroll != GTK_POLICY_AUTOMATIC)
-			html_frame_set_scrolling (HTML_FRAME (frame), scroll);
+			html_iframe_set_scrolling (HTML_IFRAME (iframe), scroll);
 
 		g_free (src);
-		append_element (e, _clue, frame);
-		}
-#endif
+
+		append_element (e, _clue, iframe);
 		discard_body (e, end);
 	} else {
 		parse_body (e, _clue, end, FALSE, TRUE);
