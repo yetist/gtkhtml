@@ -75,4 +75,8 @@ binding "gtkhtml-bindings-ms"
 
   bind "<Alt>8"	              { "command" (size-inc) }
   bind "<Alt>9"               { "command" (size-dec) }
+
+  bind "<Alt>c"             { "command" (capitalize-word) }
+  bind "<Alt>l"             { "command" (downcase-word) }
+  bind "<Alt>u"             { "command" (upcase-word) }
 }

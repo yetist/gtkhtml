@@ -50,8 +50,9 @@ libgtkhtml_HEADERS =				\
 	htmlengine-edit-insert.h		\
 	htmlengine-edit-movement.h		\
 	htmlengine-edit-paste.h			\
-	htmlengine-edit-rule.h		\
+	htmlengine-edit-rule.h			\
 	htmlengine-edit-selection-updater.h	\
+	htmlengine-edit-text.h			\
 	htmlengine-print.h			\
 	htmlengine-save.h			\
 	htmlengine.h				\
@@ -127,6 +128,7 @@ libgtkhtml_la_SOURCES =				\
 	htmlengine-edit-paste.c			\
 	htmlengine-edit-rule.c			\
 	htmlengine-edit-selection-updater.c	\
+	htmlengine-edit-text.c			\
 	htmlengine-print.c			\
 	htmlengine-save.c			\
 	htmlengine.c				\

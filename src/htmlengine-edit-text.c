@@ -1,0 +1,80 @@
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
+/* This file is part of the GtkHTML library
+
+   Copyright (C) 2000 Helix Code, Inc.
+   
+   This library is free software; you can redistribute it and/or
+   modify it under the terms of the GNU Library General Public
+   License as published by the Free Software Foundation; either
+   version 2 of the License, or (at your option) any later version.
+   
+   This library is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+   Library General Public License for more details.
+   
+   You should have received a copy of the GNU Library General Public License
+   along with this library; see the file COPYING.LIB.  If not, write to
+   the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+   Boston, MA 02111-1307, USA.
+*/
+
+#include <ctype.h>
+#include "htmlengine-edit-text.h"
+#include "htmlengine-edit-movement.h"
+#include "htmlengine-edit.h"
+#include "htmltext.h"
+
+static gboolean
+find_first (HTMLEngine *e)
+{
+	gchar c;
+
+	c = html_cursor_get_current_char (e->cursor);
+	while (c == 0 || ! isalnum ((gint) c) || c == ' ') {
+		if (!html_cursor_forward (e->cursor, e))
+			return FALSE;
+		c = html_cursor_get_current_char (e->cursor);
+	}
+	return TRUE;
+}
+
+static void
+upper_lower (HTMLObject *obj, gpointer data)
+{
+	gboolean up = GPOINTER_TO_INT (data);
+	gchar *text;
+
+	g_assert (html_object_is_text (obj));
+
+	text = HTML_TEXT (obj)->text;
+	while (*text) {
+		*text = (up) ? toupper (*text) : tolower (*text);
+		text++;
+	}
+}
+
+void
+html_engine_capitalize_word (HTMLEngine *e)
+{
+	if (find_first (e)) {
+		html_engine_set_mark (e);
+		html_cursor_forward (e->cursor, e);
+		html_engine_cut_and_paste (e, "Capitalize word", (GFunc) upper_lower, GINT_TO_POINTER (TRUE));
+		html_engine_disable_selection (e);
+		html_engine_forward_word (e);
+	}
+}
+
+void
+html_engine_upcase_downcase_word (HTMLEngine *e, gboolean up)
+{
+	if (find_first (e)) {
+		html_engine_set_mark (e);
+		html_engine_forward_word (e);
+		html_engine_cut_and_paste (e, (up) ? "Upcase word" : "Downcase word",
+					   (GFunc) upper_lower, GINT_TO_POINTER (up));
+		html_engine_disable_selection (e);
+		html_engine_forward_word (e);
+	}
+}

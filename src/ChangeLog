@@ -1,3 +1,23 @@
+2000-07-03  Radek Doulik  <rodo@helixcode.com>
+
+	* gtkhtml.h: new commands enum entries
+
+	* gtkhtml.c (command): call capitalize + up/downcase
+	implementation
+
+	* keybindingsrc.ms: the same as in emacs, could someone point me
+	to right MS bindings?
+
+	* keybindingsrc.emacs: added new bindings M-c,M-u,M-l
+
+	* htmlengine-edit-text.c: new file
+	(html_engine_capitalize_word): capitalize word implementation
+	(html_engine_upcase_downcase_word): up/downcase word implementation
+	(find_first): helper function, finds 1st alphanum char in forward
+	direction
+	(upper_lower): helper function, converts text in cut_buffer to
+	up/downcase
+
 Sat Jul 01 11:50:30 2000  George Lebl <jirka@5z.com>
 
 	* gtkhtml.[ch]:  Add a gtkhtmllib_is_initialized call to find out if

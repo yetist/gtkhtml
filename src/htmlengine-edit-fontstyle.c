@@ -944,7 +944,8 @@ void
 html_engine_font_size_inc_dec (HTMLEngine *e, gboolean inc)
 {
 	if (e->active_selection)
-		html_engine_cut_and_paste (e, "Increase font size", (GFunc) inc_dec_size_cb, GINT_TO_POINTER (inc));
+		html_engine_cut_and_paste (e, (inc) ? "Increase font size" : "Decrease font size",
+					   (GFunc) inc_dec_size_cb, GINT_TO_POINTER (inc));
 	else
 		e->insertion_font_style = inc_dec_size (e->insertion_font_style, inc);
 }

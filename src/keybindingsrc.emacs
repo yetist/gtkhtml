@@ -88,4 +88,8 @@ binding "gtkhtml-bindings-emacs"
   bind "<Alt>5"             { "command" (size-plus-2) }
   bind "<Alt>6"             { "command" (size-plus-3) }
   bind "<Alt>7"             { "command" (size-plus-4) }
+
+  bind "<Alt>c"             { "command" (capitalize-word) }
+  bind "<Alt>l"             { "command" (downcase-word) }
+  bind "<Alt>u"             { "command" (upcase-word) }
 }

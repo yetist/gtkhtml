@@ -36,6 +36,7 @@
 #include "htmlengine-edit-movement.h"
 #include "htmlengine-edit-cursor.h"
 #include "htmlengine-edit-paste.h"
+#include "htmlengine-edit-text.h"
 #include "htmlengine-edit.h"
 #include "htmlengine-print.h"
 #include "htmlcolorset.h"
@@ -2151,6 +2152,15 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 	case GTK_HTML_COMMAND_MODIFY_SELECTION_PAGEDOWN:
 		move_selection (html, com_type);
 		break;
+	case GTK_HTML_COMMAND_CAPITALIZE_WORD:
+		html_engine_capitalize_word (html->engine);
+		break;
+	case GTK_HTML_COMMAND_UPCASE_WORD:
+		html_engine_upcase_downcase_word (html->engine, TRUE);
+		break;
+	case GTK_HTML_COMMAND_DOWNCASE_WORD:
+		html_engine_upcase_downcase_word (html->engine, FALSE);
+		break;
 	default:
 		return;
 	}
@@ -2302,7 +2312,7 @@ load_keybindings (GtkHTMLClass *klass)
 
 	BMOVE (GDK_CONTROL_MASK, Left,  LEFT,  WORD);
 	BMOVE (GDK_CONTROL_MASK, KP_Left,  LEFT,  WORD);
-	BMOVE (GDK_CONTROL_MASK, Right, RIGHT, WORD);
+	BMOVE (GDK_CONTROL_MASK, h, RIGHT, WORD);
 	BMOVE (GDK_CONTROL_MASK, KP_Right, RIGHT, WORD);
 
 	BMOVE (0, Page_Up,       UP,   PAGE);
