@@ -363,10 +363,8 @@ html_button_pressed_after (GtkWidget *html, GdkEventButton *event, GtkHTMLContro
 			html_engine_select_interval (e, html_interval_new_from_cursor (e->mark, e->cursor));
 			/* printf ("delete template text\n"); */
 			html_engine_delete (cd->html->engine);
-		} else if (HTML_IS_IMAGE (obj) && html_object_get_data (obj->parent, "template_image")) {
+		} else if (HTML_IS_IMAGE (obj) && html_object_get_data (obj->parent, "template_image"))
 			property_dialog_show (cd);
-			html_object_set_data_full (obj->parent, "template_image", NULL, NULL);
-		}
 	}
 
 	return FALSE;

@@ -590,6 +590,7 @@ image_widget (GtkHTMLEditImageProperties *d, gboolean insert)
 	g_signal_connect (d->entry_alt, "changed", G_CALLBACK (alt_changed), d);
 
 	d->pentry = glade_xml_get_widget (xml, "pentry_image_location");
+	gnome_pixmap_entry_set_pixmap_subdir (GNOME_PIXMAP_ENTRY (d->pentry), g_get_home_dir ());
 	g_signal_connect (GTK_OBJECT (gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY (d->pentry))),
 			    "changed", G_CALLBACK (pentry_changed), d);
 
@@ -627,11 +628,13 @@ get_data (GtkHTMLEditImageProperties *d, HTMLImage *image)
 	gint off = 0;
 
 	d->image = image;
-        if (!strncmp (ip->url, "file://", 7))
-		off = 7;
-        else if (!strncmp (ip->url, "file:", 5))
-		off = 5;
-	d->location = g_strdup (ip->url + off);
+	if (!HTML_OBJECT (image)->parent || !html_object_get_data (HTML_OBJECT (image)->parent, "template_image")) {
+		if (!strncmp (ip->url, "file://", 7))
+			off = 7;
+		else if (!strncmp (ip->url, "file:", 5))
+			off = 5;
+		d->location = g_strdup (ip->url + off);
+	}
 	if (image->percent_width) {
 		d->width_percent = 1;
 		d->width = image->specified_width;
@@ -707,6 +710,9 @@ insert_or_apply (GtkHTMLControlData *cd, gpointer get_data, gboolean insert)
 				html_cursor_jump_to_position (e->cursor, e, position);
 				return FALSE;
 			}
+
+		if (HTML_OBJECT (image)->parent && html_object_get_data (HTML_OBJECT (image)->parent, "template_image"))
+			html_object_set_data_full (HTML_OBJECT (image)->parent, "template_image", NULL, NULL);
 
 		html_image_set_border (image, d->border);
 		html_image_set_size (image,

@@ -1,3 +1,18 @@
+2004-03-19  Radek Doulik  <rodo@ximian.com>
+
+	* image.c (image_widget): default gnome pixmap entry set to home
+	dir
+	(get_data): do not use image location if it has template_image
+	data set
+	(insert_or_apply): reset template_image data
+
+	* editor-control-factory.c (html_button_pressed_after): do not
+	reset template_image data here, do it when applying changes so
+	that it will survive cancel response and will bring properties
+	dialog again
+
+	Fixes #54566
+
 2004-03-12  Rodney Dawes  <dobey@ximian.com>
 
 	* Makefile.am (%.server): Don't put Makefile in the list after :
