@@ -1890,7 +1890,7 @@ get_default_font_style (const HTMLClueFlow *self)
 }
 
 static void
-search_set_info (HTMLObject *cur, HTMLSearch *info, guint pos, guint len)
+search_set_info (HTMLObject *cur, HTMLSearch *info, guchar *text, guint pos, guint len)
 {
 	guint text_len = 0;
 	guint cur_len;
@@ -1904,16 +1904,17 @@ search_set_info (HTMLObject *cur, HTMLSearch *info, guint pos, guint len)
 
 	while (cur) {
 		if (html_object_is_text (cur)) {
-			cur_len = HTML_TEXT (cur)->text_len;
+			cur_len = strlen (HTML_TEXT (cur)->text);
 			if (text_len + cur_len > pos) {
 				if (!info->found) {
-					info->start_pos = pos - text_len;
+					info->start_pos = g_utf8_pointer_to_offset (text + text_len,
+										    text + pos);
 				}
 				info->found = g_list_append (info->found, cur);
 			}
 			text_len += cur_len;
 			if (text_len >= pos+info->found_len) {
-				info->stop_pos = cur_len - (text_len - pos - info->found_len);
+				info->stop_pos = info->start_pos + info->found_len;
 				info->last     = HTML_OBJECT (cur);
 				return;
 			}
@@ -1945,7 +1946,7 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 	text_len = 0;
 	while (cur) {
 		if (html_object_is_text (cur)) {
-			text_len += HTML_TEXT (cur)->text_len;
+			text_len += strlen (HTML_TEXT (cur)->text);
 			end = cur;
 		} else if (HTML_OBJECT_TYPE (cur) != HTML_TYPE_TEXTSLAVE) {
 			break;
@@ -1965,11 +1966,11 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 		while (cur) {
 			if (html_object_is_text (cur)) {
 				if (!info->forward) {
-					pp -= HTML_TEXT (cur)->text_len;
+					pp -= strlen (HTML_TEXT (cur)->text);
 				}
-				strncpy (pp, HTML_TEXT (cur)->text, HTML_TEXT (cur)->text_len);
+				strncpy (pp, HTML_TEXT (cur)->text, strlen (HTML_TEXT (cur)->text));
 				if (info->forward) {
-					pp += HTML_TEXT (cur)->text_len;
+					pp += strlen (HTML_TEXT (cur)->text);
 				}
 			} else if (HTML_OBJECT_TYPE (cur) != HTML_TYPE_TEXTSLAVE) {
 				break;
@@ -1998,13 +1999,14 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 				regmatch_t match;
 				guchar *p=par+pos;
 
-				/* replace &nbsp;'s with spaces */
+				/* FIXME UTF8
+				   replace &nbsp;'s with spaces
 				while (*p) {
 					if (*p == ENTITY_NBSP) {
 						*p = ' ';
 					}
 					p += (info->forward) ? 1 : -1;
-				}
+					} */
 
 				while ((info->forward && pos < text_len)
 				       || (!info->forward && pos >= 0)) {
@@ -2012,7 +2014,8 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 						      par + pos,
 						      1, &match, 0);
 					if (rv == 0) {
-						search_set_info (head, info, pos + match.rm_so, match.rm_eo - match.rm_so);
+						search_set_info (head, info, par,
+								 pos + match.rm_so, match.rm_eo - match.rm_so);
 						retval = TRUE;
 						break;
 					}
@@ -2027,7 +2030,7 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 					if (rv < 0) {
 						g_warning ("re_match (...) error");
 					}
-					search_set_info (head, info, found_pos, rv);
+					search_set_info (head, info, par, found_pos, rv);
 					retval = TRUE;
 				} else {
 					if (rv < -1) {
@@ -2044,8 +2047,9 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 					    == info->trans [par [pos]]) {
 						eq_len++;
 						if (eq_len == info->text_len) {
-							search_set_info (head, info, pos - ((info->forward)
-											    ? eq_len-1 : 0), info->text_len);
+							search_set_info (head, info, par,
+									 pos - (info->forward ? eq_len-1 : 0),
+									 info->text_len);
 							retval=TRUE;
 							break;
 						}

@@ -24,6 +24,7 @@
 #include "htmlcursor.h"
 #include "htmlengine.h"
 #include "htmlengine-edit.h"
+#include "htmlengine-edit-cursor.h"
 #include "htmlengine-search.h"
 #include "htmlinterval.h"
 #include "htmlsearch.h"
@@ -127,11 +128,11 @@ display_search_results (HTMLSearch *info)
 		html_engine_set_mark (e);
 		html_cursor_jump_to (e->cursor, e, info->last, info->stop_pos);
 		html_engine_show_cursor (e);
-	} else
+	} else {
 		html_engine_select_interval (e, html_interval_new (HTML_OBJECT (info->found->data), info->last,
 								   info->start_pos, info->stop_pos));
-
-	move_to_found (info);
+		move_to_found (info);
+	}
 }
 
 gboolean

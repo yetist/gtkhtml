@@ -1,3 +1,14 @@
+2001-11-20  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine-search.c (display_search_results): use move_to_found
+	only for non editable widget
+
+	* htmlclueflow.c (search_set_info): use strlen instead of
+	Text::text_len because of utf8
+	(search_set_info): use g_utf8_pointer_to_offset
+	(search_text): use strlen
+	(search_set_info): added text parameter
+
 2001-11-19  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine-search.c (display_search_results): hide/show cursor
