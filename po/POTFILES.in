@@ -1,3 +1,5 @@
+capplet/gnome-bindings-prop.c
+capplet/main.c
 components/html-editor/body.c
 components/html-editor/editor-control-factory.c
 components/html-editor/image.c

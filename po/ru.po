@@ -4,13 +4,65 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Gtkhtml\n"
-"POT-Creation-Date: 2000-07-20 17:01+0000\n"
-"PO-Revision-Date: 2000-07-20 17:02+00:00\n"
+"POT-Creation-Date: 2000-08-13 22:04+0000\n"
+"PO-Revision-Date: 2000-08-13 22:06+00:00\n"
 "Last-Translator: Valek Filippov <frob@df.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=koi8-r\n"
 "Content-Transfer-Encoding: 8-bit\n"
+
+#: capplet/gnome-bindings-prop.c:153 capplet/gnome-bindings-prop.c:221
+#: capplet/gnome-bindings-prop.c:296 capplet/gnome-bindings-prop.c:431
+#: capplet/gnome-bindings-prop.c:432
+msgid "<None>"
+msgstr "<Нет>"
+
+#: capplet/gnome-bindings-prop.c:521
+msgid "Key"
+msgstr "Клавиша"
+
+#: capplet/gnome-bindings-prop.c:521
+msgid "Command"
+msgstr "Команда"
+
+#: capplet/gnome-bindings-prop.c:522
+msgid "Commands"
+msgstr "Команды"
+
+#: capplet/gnome-bindings-prop.c:523
+msgid "Keymaps"
+msgstr "Клавиши"
+
+#: capplet/gnome-bindings-prop.c:541
+msgid "Add"
+msgstr "Добавить"
+
+#: capplet/gnome-bindings-prop.c:544
+#: components/html-editor/test-html-editor-control.c:325
+#: components/html-editor/toolbar.c:495
+msgid "Copy"
+msgstr "Скопировать"
+
+#: capplet/gnome-bindings-prop.c:547
+msgid "Delete"
+msgstr "Удалить"
+
+#: capplet/gnome-bindings-prop.c:578
+msgid "Grab key"
+msgstr "Захватить клавишу"
+
+#: capplet/main.c:127
+msgid "Behaviour"
+msgstr "Поведение"
+
+#: capplet/main.c:128
+msgid "magic links"
+msgstr "магические связи"
+
+#: capplet/main.c:135
+msgid "Keybindings"
+msgstr "Комбинации клавиш"
 
 #: components/html-editor/body.c:107
 msgid "use background image"
@@ -24,27 +76,27 @@ msgstr "Изображение фона"
 msgid "Colors"
 msgstr "Цвета"
 
-#: components/html-editor/editor-control-factory.c:129
+#: components/html-editor/editor-control-factory.c:133
 #: components/html-editor/popup.c:86
 msgid "Image"
 msgstr "Изображение"
 
-#: components/html-editor/editor-control-factory.c:138
+#: components/html-editor/editor-control-factory.c:142
 #: components/html-editor/popup.c:79
 msgid "Text"
 msgstr "Текст"
 
-#: components/html-editor/editor-control-factory.c:150
+#: components/html-editor/editor-control-factory.c:154
 #: components/html-editor/popup.c:93
 msgid "Paragraph"
 msgstr "Абзац"
 
-#: components/html-editor/editor-control-factory.c:155
+#: components/html-editor/editor-control-factory.c:159
 #: components/html-editor/menubar.c:157 components/html-editor/popup.c:100
 msgid "Link"
 msgstr "Ссылка"
 
-#: components/html-editor/editor-control-factory.c:160
+#: components/html-editor/editor-control-factory.c:164
 #: components/html-editor/popup.c:107
 msgid "Page"
 msgstr "Страница"
@@ -161,7 +213,7 @@ msgstr "Вставить"
 msgid "Properties"
 msgstr "Свойства"
 
-#: components/html-editor/popup.c:161
+#: components/html-editor/popup.c:178
 msgid "Remove link"
 msgstr "Удалить ссылку"
 
@@ -234,74 +286,65 @@ msgstr "Поиск рег.выражения"
 msgid "Search"
 msgstr "Поиск"
 
-#: components/html-editor/table.c:80
-msgid "Table"
-msgstr "Таблица"
-
-#: components/html-editor/test-html-editor-control.c:231
+#: components/html-editor/test-html-editor-control.c:234
 msgid "Open file..."
 msgstr "Открыть файл..."
 
-#: components/html-editor/test-html-editor-control.c:233
+#: components/html-editor/test-html-editor-control.c:236
 msgid "Save file as..."
 msgstr "Сохранить файл как..."
 
-#: components/html-editor/test-html-editor-control.c:299
+#: components/html-editor/test-html-editor-control.c:302
 msgid "Open (PersistFile)"
 msgstr "Открыть (PersistFile)"
 
-#: components/html-editor/test-html-editor-control.c:299
+#: components/html-editor/test-html-editor-control.c:302
 msgid "Open using the PersistFile interface"
 msgstr "Открыть используя интерфейс PersistFile"
 
-#: components/html-editor/test-html-editor-control.c:301
+#: components/html-editor/test-html-editor-control.c:304
 msgid "Save as... (PersistFile)"
 msgstr "Сохранить как... (PersistFile)"
 
-#: components/html-editor/test-html-editor-control.c:301
+#: components/html-editor/test-html-editor-control.c:304
 msgid "Save using the PersistFile interface"
 msgstr "Сохранить используя интерфейс PersistFile"
 
-#: components/html-editor/test-html-editor-control.c:304
+#: components/html-editor/test-html-editor-control.c:307
 msgid "Open (PersistStream)"
 msgstr "Открыть (PersistStream)"
 
-#: components/html-editor/test-html-editor-control.c:304
+#: components/html-editor/test-html-editor-control.c:307
 msgid "Open using the PersistStream interface"
 msgstr "Открыть используя интерфейс PersistStream"
 
-#: components/html-editor/test-html-editor-control.c:306
+#: components/html-editor/test-html-editor-control.c:309
 msgid "Save as... (PersistStream)"
 msgstr "Сохранить как... (PersistStream)"
 
-#: components/html-editor/test-html-editor-control.c:306
+#: components/html-editor/test-html-editor-control.c:309
 msgid "Save using the PersistStream interface"
 msgstr "Сохранить используя интерфейс PersistStream"
 
-#: components/html-editor/test-html-editor-control.c:320
+#: components/html-editor/test-html-editor-control.c:323
 #: components/html-editor/toolbar.c:493
 msgid "Cut"
 msgstr "Вырезать"
 
-#: components/html-editor/test-html-editor-control.c:320
+#: components/html-editor/test-html-editor-control.c:323
 msgid "Cut selection to the clipboard"
 msgstr "Вырезать выделение в буфер обмена"
 
-#: components/html-editor/test-html-editor-control.c:322
-#: components/html-editor/toolbar.c:495
-msgid "Copy"
-msgstr "Скопировать"
-
-#: components/html-editor/test-html-editor-control.c:322
+#: components/html-editor/test-html-editor-control.c:325
 msgid "Copy selection to the clipboard"
 msgstr "Скопировать выделение в буфер обмена"
 
-#: components/html-editor/test-html-editor-control.c:324
+#: components/html-editor/test-html-editor-control.c:327
 #: components/html-editor/toolbar.c:497
 msgid "Paste"
 msgstr "Вставить"
 
-#: components/html-editor/test-html-editor-control.c:324
+#: components/html-editor/test-html-editor-control.c:327
 #: components/html-editor/toolbar.c:497
 msgid "Paste contents of the clipboard"
 msgstr "Вставить выделение из буфера обмена"
@@ -535,59 +578,6 @@ msgstr "Ввод текста"
 msgid "Enter Password"
 msgstr "Ввод пароля"
 
-#: src/gtkhtml.c:2325
-#, c-format
-msgid "Couldn't find keybinding file -- %s"
-msgstr "Не удалось найти файл клавиатурных сокращений -- %s"
-
-#: src/html-component.c:219
-msgid "Html"
-msgstr "Html"
-
-#: src/html-component.c:220
-msgid "Html test"
-msgstr "Тест Html"
-
-#: src/html-component.c:226
-msgid "Test1"
-msgstr "Тест1"
-
-#: src/html-component.c:233
-msgid "Test2"
-msgstr "Тест2"
-
-#: src/html-component.c:239
-msgid "Test3"
-msgstr "Тест3"
-
-#: src/html-component.c:245
-msgid "Test4"
-msgstr "Тест4"
-
-#: src/html-component.c:251
-msgid "Test5"
-msgstr "Тест5"
-
-#: src/html-component.c:257
-msgid "Test6"
-msgstr "Тест6"
-
-#: src/html-component.c:263
-msgid "Test7"
-msgstr "Тест7"
-
-#: src/html-component.c:617
-msgid "_Refresh"
-msgstr "Обновить"
-
-#: src/html-component.c:618
-msgid "Reload the page"
-msgstr "Перезагрузить страницу"
-
-#: src/html-component.c:669
-msgid "Could not initialize Bonobo!"
-msgstr "Невозможно инициализировать Bonobo!"
-
 #: src/testgtkhtml.c:110
 msgid "Print pre_view"
 msgstr "Просмотр печати"
@@ -595,3 +585,45 @@ msgstr "Просмотр печати"
 #: src/testgtkhtml.c:110
 msgid "Print preview"
 msgstr "Просмотр печати"
+
+#~ msgid "Table"
+#~ msgstr "Таблица"
+
+#~ msgid "Couldn't find keybinding file -- %s"
+#~ msgstr "Не удалось найти файл клавиатурных сокращений -- %s"
+
+#~ msgid "Html"
+#~ msgstr "Html"
+
+#~ msgid "Html test"
+#~ msgstr "Тест Html"
+
+#~ msgid "Test1"
+#~ msgstr "Тест1"
+
+#~ msgid "Test2"
+#~ msgstr "Тест2"
+
+#~ msgid "Test3"
+#~ msgstr "Тест3"
+
+#~ msgid "Test4"
+#~ msgstr "Тест4"
+
+#~ msgid "Test5"
+#~ msgstr "Тест5"
+
+#~ msgid "Test6"
+#~ msgstr "Тест6"
+
+#~ msgid "Test7"
+#~ msgstr "Тест7"
+
+#~ msgid "_Refresh"
+#~ msgstr "Обновить"
+
+#~ msgid "Reload the page"
+#~ msgstr "Перезагрузить страницу"
+
+#~ msgid "Could not initialize Bonobo!"
+#~ msgstr "Невозможно инициализировать Bonobo!"
