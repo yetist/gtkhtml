@@ -1,3 +1,13 @@
+2004-02-17  Radek Doulik  <rodo@ximian.com>
+
+	* popup.c (prepare_properties_and_menu): do not add "Insert Link"
+	popup menu item in plain text mode
+	(prepare_properties_and_menu): capitalize link in "Insert Link"
+	(prepare_properties_and_menu): add separator before "Input
+	Methods"
+	(prepare_properties_and_menu): do not add separator after "Style"
+	submenu and place it before table items
+
 2004-02-13  Radek Doulik  <rodo@ximian.com>
 
 	* image.c (load_done): new handler, replaces set_size idle
