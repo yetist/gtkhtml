@@ -1,11 +1,22 @@
 NULL=
 
-INCLUDES = -I$(top_srcdir) -I$(srcdir) -I$(includedir) $(GTKHTML_CFLAGS) $(SOUP_CFLAGS) \
-	-DG_LOG_DOMAIN=\"gtkhtml\" \
-	-DSRCDIR=\"$(srcdir)\" \
+INCLUDES = 				\
+	-I$(top_srcdir)			\
+	-I$(srcdir)			\
+	-I$(includedir)			\
+	$(GTKHTML_CFLAGS)		\
+	$(SOUP_CFLAGS)			\
+	-DG_LOG_DOMAIN=\"gtkhtml\"	\
+	-DSRCDIR=\"$(srcdir)\"		\
 	-DPREFIX=\"$(prefix)\"
 
-CFLAGS += -DICONDIR=\"$(datadir)/gtkhtml-@GTKHTML_RELEASE@/icons\" -DGTK_DISABLE_DEPRECATED=1 -DGDK_DISABLE_DEPRECATED=1 -DG_DISABLE_DEPRECATED=1 -DGNOME_DISABLE_DEPRECATED=1
+AM_CFLAGS = 								\
+	-DICONDIR=\"$(datadir)/gtkhtml-@GTKHTML_RELEASE@/icons\"	\
+	-DGTK_DISABLE_DEPRECATED=1					\
+	-DGDK_DISABLE_DEPRECATED=1					\
+	-DG_DISABLE_DEPRECATED=1					\
+	-DGNOME_DISABLE_DEPRECATED=1					\
+	-Wall
 
 lib_LTLIBRARIES = libgtkhtml-3.0.la
 
