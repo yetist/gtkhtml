@@ -31,8 +31,9 @@ static gint     gtk_html_expose        (GtkWidget *widget, GdkEventExpose *event
 static void     gtk_html_realize       (GtkWidget *widget);
 static void     gtk_html_unrealize     (GtkWidget *widget);
 static void     gtk_html_draw          (GtkWidget *widget, GdkRectangle *area);
-void            gtk_html_calc_scrollbars (GtkHTML *htm);
+void            gtk_html_calc_scrollbars (GtkHTML *html);
 static void     gtk_html_vertical_scroll (GtkAdjustment *adjustment, gpointer data);
+static void     gtk_html_horizontal_scroll (GtkAdjustment *adjustment, gpointer data);
 static gint	gtk_html_motion_notify_event (GtkWidget *widget, GdkEventMotion *event);
 
 static GtkLayoutClass *parent_class = NULL;
@@ -240,10 +241,14 @@ gtk_html_new (GtkAdjustment *hadjustment, GtkAdjustment *vadjustment)
 
 	if (vadjustment == NULL)
 		vadjustment = GTK_ADJUSTMENT (gtk_adjustment_new (0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
+	if (hadjustment == NULL)
+		hadjustment = GTK_ADJUSTMENT (gtk_adjustment_new (0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
 
 	gtk_signal_connect (GTK_OBJECT (vadjustment), "value_changed",
 			    GTK_SIGNAL_FUNC (gtk_html_vertical_scroll), (gpointer)html);
-			    
+	gtk_signal_connect (GTK_OBJECT (hadjustment), "value_changed",
+			    GTK_SIGNAL_FUNC (gtk_html_horizontal_scroll), (gpointer)html);
+
 	gtk_layout_set_hadjustment (GTK_LAYOUT (html), hadjustment);
 	gtk_layout_set_vadjustment (GTK_LAYOUT (html), vadjustment);
 	
@@ -394,9 +399,8 @@ gtk_html_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 
 	html_engine_calc_size (html->engine);
 	html_engine_calc_absolute_pos (html->engine);
-
+	
 	gtk_html_calc_scrollbars (html);
-
 }
 
 static gint
@@ -436,17 +440,26 @@ gtk_html_motion_notify_event (GtkWidget *widget,
 void
 gtk_html_calc_scrollbars (GtkHTML *html)
 {
-	int size;
+	gint width, height;
 
-	size = html_engine_get_doc_height (html->engine);
+	height = html_engine_get_doc_height (html->engine);
+	width = html_engine_get_doc_width (html->engine);
 
 	GTK_LAYOUT (html)->vadjustment->lower = 0;
-	GTK_LAYOUT (html)->vadjustment->upper = size;
+	GTK_LAYOUT (html)->vadjustment->upper = height;
 	GTK_LAYOUT (html)->vadjustment->page_size = html->engine->height;
 	GTK_LAYOUT (html)->vadjustment->step_increment = 14;
 	GTK_LAYOUT (html)->vadjustment->page_increment = html->engine->height;
-	
+
 	gtk_adjustment_changed (GTK_LAYOUT (html)->vadjustment);
+	
+	GTK_LAYOUT (html)->hadjustment->lower = 0;
+	GTK_LAYOUT (html)->hadjustment->upper = width;
+	GTK_LAYOUT (html)->hadjustment->page_size = html->engine->width;
+	GTK_LAYOUT (html)->hadjustment->step_increment = 14;
+	GTK_LAYOUT (html)->hadjustment->page_increment = html->engine->height;
+	
+	gtk_adjustment_changed (GTK_LAYOUT (html)->hadjustment);
 
 }
 
@@ -456,6 +469,12 @@ gtk_html_vertical_scroll (GtkAdjustment *adjustment, gpointer data)
 	GtkHTML *html = GTK_HTML (data);
 
 	html->engine->y_offset = (gint)adjustment->value;
-/*	gtk_widget_draw (GTK_WIDGET (html), NULL); */
 }
 
+static void
+gtk_html_horizontal_scroll (GtkAdjustment *adjustment, gpointer data)
+{
+	GtkHTML *html = GTK_HTML (data);
+		
+	html->engine->x_offset = (gint)adjustment->value;
+}

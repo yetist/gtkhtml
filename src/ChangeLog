@@ -1,3 +1,15 @@
+1999-12-11  Anders Carlsson  <andersca@picard.andersnet>
+
+	* testgtkhtml.c (main): Use a scrolled window instead of
+	a scroll bar.
+
+	* gtkhtml.c (gtk_html_horizontal_scroll): Added function.
+	(gtk_html_new): Connect signal to function.
+	(gtk_html_calc_scrollbars): Calculate adjustment for horizontal
+	scrollbar as well.
+
+	* htmlengine.c: Added functions for calculating document width
+
 1999-12-10  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlengine.h (html_engine_draw_background): Removed prototype.

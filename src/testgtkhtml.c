@@ -841,6 +841,7 @@ main (gint argc, gchar *argv[])
 	GtkWidget *app, *bar;
 	GtkWidget *html_widget;
 	GtkWidget *hbox, *vscrollbar;
+	GtkWidget *scrolled_window;
 	poptContext ctx;
 	
 	gnome_init_with_popt_table (PACKAGE, VERSION,
@@ -865,19 +866,24 @@ main (gint argc, gchar *argv[])
 
 	/* Disable back and forward on the Go menu */
 	gtk_widget_set_sensitive(go_menu[0].widget, FALSE);
-
 	gtk_widget_set_sensitive(go_menu[1].widget, FALSE);
 
 	gnome_app_install_menu_hints (GNOME_APP (app), main_menu);
 
-	box = gtk_vbox_new (FALSE, 0);
-	gnome_app_set_contents (GNOME_APP (app), box);
+	scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+#if 0
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
+					GTK_POLICY_ALWAYS,
+					GTK_POLICY_AUTOMATIC);
+#endif
+	gnome_app_set_contents (GNOME_APP (app), scrolled_window);
 
-	hbox = gtk_hbox_new (FALSE, 0);
-	gtk_box_pack_start_defaults (GTK_BOX (box), GTK_WIDGET (hbox));
+	html_widget = gtk_html_new (gtk_scrolled_window_get_hadjustment (GTK_SCROLLED_WINDOW (scrolled_window)),
+				    gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (scrolled_window)));
 
-	html_widget = gtk_html_new (NULL, NULL);
 	html = GTK_HTML (html_widget);
+	
+	gtk_container_add (GTK_CONTAINER (scrolled_window), html_widget);
 
 	/* Create a popup menu with disabled back and forward items */
 	popup_menu = gtk_menu_new();
@@ -920,11 +926,12 @@ main (gint argc, gchar *argv[])
 			    GTK_SIGNAL_FUNC (on_button_press_event), popup_menu);
 	gtk_signal_connect (GTK_OBJECT (html), "button_release_event",
 			    GTK_SIGNAL_FUNC (on_button_release_event), NULL);
-
+#if 0
 	gtk_box_pack_start_defaults (GTK_BOX (hbox), GTK_WIDGET (html));
 	vscrollbar = gtk_vscrollbar_new (GTK_LAYOUT (html)->vadjustment);
 	gtk_box_pack_start (GTK_BOX (hbox), vscrollbar, FALSE, TRUE, 0);
 	
+#endif
 	gtk_widget_realize (GTK_WIDGET (html));
 
 	gtk_window_set_default_size (GTK_WINDOW (app), 500, 400);

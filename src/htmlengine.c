@@ -2497,6 +2497,13 @@ html_engine_update_event (HTMLEngine *e)
 				e->y_offset = 0;
 		}
 		
+		/* Is x_offset too big? */
+		if (html_engine_get_doc_width (e) - e->x_offset < e->width) {
+			e->x_offset = html_engine_get_doc_width (e) - e->width;
+			if (e->x_offset < 0)
+				e->x_offset = 0;
+		}
+
 		/* Adjust the scrollbars */
 		gtk_html_calc_scrollbars (e->widget);
 
@@ -2588,6 +2595,15 @@ html_engine_draw (HTMLEngine *e, gint x, gint y, gint width, gint height)
 				  tx, ty);
 
 	html_painter_end (e->painter);
+}
+
+gint
+html_engine_get_doc_width (HTMLEngine *e)
+{
+	if (e->clue)
+		return e->clue->width + e->leftBorder + e->rightBorder;
+	else
+		return e->leftBorder + e->rightBorder;
 }
 
 gint
