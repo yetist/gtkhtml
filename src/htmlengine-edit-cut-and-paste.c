@@ -1352,6 +1352,27 @@ html_engine_paste_text (HTMLEngine *e, const gchar *text, guint len)
 }
 
 void
+html_engine_paste_link (HTMLEngine *e, const char *text, int len, const char *complete_url)
+{
+	char *url, *target;
+
+	if (len == -1)
+		len = g_utf8_strlen (text, -1);
+
+	url = g_strdup (complete_url);
+	target = strrchr (url, '#');
+	if (target) {
+		*target = 0;
+		target ++;
+	}
+
+	html_engine_paste_text (e, text, len);
+	html_text_add_link (HTML_TEXT (e->cursor->object), e, url, target, e->cursor->offset - len, e->cursor->offset);
+
+	g_free (url);
+}
+
+void
 html_engine_delete_container (HTMLEngine *e)
 {
 	g_assert (HTML_IS_ENGINE (e));

@@ -21,12 +21,16 @@
 
 #include <config.h>
 #include <ctype.h>
+#include "htmlcolorset.h"
 #include "htmlcursor.h"
 #include "htmlengine-edit-text.h"
 #include "htmlengine-edit-movement.h"
 #include "htmlengine-edit.h"
 #include "htmlselection.h"
 #include "htmltext.h"
+#include "htmlengine.h"
+#include "htmlimage.h"
+#include "htmlsettings.h"
 #include "htmlundo.h"
 
 static gboolean
@@ -95,4 +99,36 @@ html_engine_upcase_downcase_word (HTMLEngine *e, gboolean up)
 					   upper_lower, GINT_TO_POINTER (up));
 		html_engine_disable_selection (e);
 	}
+}
+
+static void
+set_link (HTMLObject *obj, HTMLEngine *e, gpointer data)
+{
+	const char *complete_url = data;
+
+	if (html_object_is_text (obj) || HTML_IS_IMAGE (obj)) {
+		char *url = g_strdup (complete_url);
+		char *target = strrchr (url, '#');
+
+		if (target) {
+			*target = 0;
+			target ++;
+		}
+
+		if (html_object_is_text (obj)) {
+			html_text_add_link (HTML_TEXT (obj), e, url, target, 0, HTML_TEXT (obj)->text_len);
+		} else if (HTML_IS_IMAGE (obj)) {
+			html_object_set_link (obj,
+					      url && *url
+					      ? html_colorset_get_color (e->settings->color_set, HTMLLinkColor)
+					      : html_colorset_get_color (e->settings->color_set, HTMLTextColor),
+					      url, target);
+		}
+	}
+}
+
+void
+html_engine_set_link (HTMLEngine *e, const char *complete_url)
+{
+	html_engine_cut_and_paste (e, "Set link", "Unset link", set_link, (gpointer) complete_url);
 }

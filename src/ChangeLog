@@ -1,3 +1,12 @@
+2004-04-28  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine-edit-cut-and-paste.c (html_engine_paste_link): new
+	function to paste text links
+
+	* htmlengine-edit-text.c (html_engine_set_link): new function to
+	set link on selection
+	(set_link): helper function which set's link on texts and images
+
 2004-04-27  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine.c, htmlembedded.c: added few debug printf's to get
