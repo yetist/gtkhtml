@@ -1,3 +1,8 @@
+2002-07-24  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml.c (insert_tab_or_next_cell): insert 4 &nbsp;'s when no
+	TAB available
+
 2002-07-18  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml.c (gtk_html_insert_html_generic): pass the engine.

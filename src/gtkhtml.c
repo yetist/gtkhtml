@@ -3716,9 +3716,11 @@ insert_tab_or_next_cell (GtkHTML *html)
 {
 	HTMLEngine *e = html->engine;
 	if (!html_engine_next_cell (e, TRUE)) {
-		if (!html_engine_is_selection_active (e)
-		    && html_clueflow_tabs (HTML_CLUEFLOW (e->cursor->object->parent), e->painter)) {
-			html_engine_insert_text (e, "\t", 1);
+		if (!html_engine_is_selection_active (e)) {
+			if (html_clueflow_tabs (HTML_CLUEFLOW (e->cursor->object->parent), e->painter))
+				html_engine_insert_text (e, "\t", 1);
+			else
+				html_engine_insert_text (e, "\xc2\xa0\xc2\xa0\xc2\xa0\xc2\xa0", 4);
 			return TRUE;
 		}
 		return FALSE;
