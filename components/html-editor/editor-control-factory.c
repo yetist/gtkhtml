@@ -230,15 +230,17 @@ load_from_corba (BonoboControl *control,
 
 	Frame = bonobo_control_get_control_frame (control);
 	if (Frame != CORBA_OBJECT_NIL) {
-		resolver = Bonobo_Unknown_query_interface (Frame, "IDL:HTMLEditor/Resolver:1.0", &ev);
+		resolver = Bonobo_Unknown_query_interface (Frame,
+							   "IDL:HTMLEditor/Resolver:1.0",
+							   &ev);
 		
-		if (resolver == CORBA_OBJECT_NIL) {
-			/* g_warning ("Unable to aquire resolver interface"); */
-		} else {
-			/* g_warning ("found resolver - rejoice the masses"); */
+		if (resolver != CORBA_OBJECT_NIL) {
 			Bonobo_ProgressiveDataSink sink;
+			BonoboObject *object;
 
-			sink = bonobo_object_corba_objref (BONOBO_OBJECT (resolver_sink (html, url, handle)));
+			object = BONOBO_OBJECT (resolver_sink (html, url, handle));
+
+			sink = bonobo_object_corba_objref (object);
 			
 			HTMLEditor_Resolver_loadURL (resolver, sink, url, &ev);
 			if (ev._major != CORBA_NO_EXCEPTION){
@@ -246,8 +248,8 @@ load_from_corba (BonoboControl *control,
 			} else {
 				/* g_print ("Corba Load successfull"); */
 				ret_val = TRUE;
-			}       
-		}
+			}
+		} 
 	}
 	CORBA_exception_free (&ev);
 

@@ -47,18 +47,19 @@ HTMLEditor_Resolver *htmleditor_resolver_corba_object_create (BonoboObject *obje
 #define CORBA_BLOCK_SIZE 4096
 
 static int
-load_from_file (const Bonobo_ProgressiveDataSink sink,
-		const char *url)
+resolver_load_from_file (const Bonobo_ProgressiveDataSink sink,
+			 const char *url,
+			 CORBA_Environment *ev)
 {
 	unsigned char buffer[CORBA_BLOCK_SIZE];
 	int len;
 	int fd;
         const char *path;
-	CORBA_Environment ev;
 	Bonobo_Stream_iobuf *buf;
 	CORBA_long v;
 
-        if (strncmp (url, "file:", 5) != 0) {
+        
+	if (strncmp (url, "file:", 5) != 0) {
 		g_warning ("Unsupported image url: %s", url);
 		return FALSE;
 	} 
@@ -74,17 +75,17 @@ load_from_file (const Bonobo_ProgressiveDataSink sink,
 		buf->_buffer = buffer;
 		buf->_length = len;
 		buf->_maximum = CORBA_BLOCK_SIZE;
-		Bonobo_ProgressiveDataSink_add_data (sink, buf, &ev);
+		Bonobo_ProgressiveDataSink_add_data (sink, buf, ev);
 	}
 
 	if (len < 0) {
 		/* check to see if we stopped because of an error */
-		Bonobo_ProgressiveDataSink_end (sink, &ev);
+		Bonobo_ProgressiveDataSink_end (sink, ev);
 		g_warning ("%s", g_strerror (errno));
 		return FALSE;
 	}	
 	/* done with no errors */
-	Bonobo_ProgressiveDataSink_end (sink, &ev);
+	Bonobo_ProgressiveDataSink_end (sink, ev);
 	close (fd);
 	return TRUE;
 }
@@ -95,25 +96,32 @@ impl_HTMLEditor_Resolver_loadURL (PortableServer_Servant servant,
 				  const CORBA_char *url,
 				  CORBA_Environment *ev)
 {
-	CORBA_Environment ev2;
+	CORBA_Environment our_ev;
+	gboolean result = FALSE;
 
+	CORBA_exception_init (&our_ev);
+
+	/* FIXME need real exceptions */
 	if (!strncmp (url, "/dev/null", 6)) {
 		g_warning ("how about a url: %s", url);
 	} else {
 		g_warning ("perhaps this sounds better: %s", url);
 		if (sink != CORBA_OBJECT_NIL) {
-			Bonobo_ProgressiveDataSink_start (sink, &ev2);
-			load_from_file (sink, url);
-  		} else {
-			g_warning ("what the hell are we fighting for");
-			CORBA_exception_set (ev,
-					     CORBA_USER_EXCEPTION,
-					     ex_HTMLEditor_Resolver_NotFound,
-					     NULL);
-		}
-	}
+
+			Bonobo_ProgressiveDataSink_start (sink, &our_ev);
+			result = resolver_load_from_file (sink, url, &our_ev);
 	
-		
+  		} 
+	}
+
+	if (!result || (our_ev._major != CORBA_NO_EXCEPTION)) {
+		/* FIXME this is not passing correct information */
+		CORBA_exception_set (ev,
+				     CORBA_USER_EXCEPTION,
+				     ex_HTMLEditor_Resolver_NotFound,
+				     NULL);
+	}			
+	CORBA_exception_free (&our_ev);	
 }
 
 POA_HTMLEditor_Resolver__epv *

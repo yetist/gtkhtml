@@ -1,3 +1,13 @@
+2000-10-06  Larry Ewing  <lewing@helixcode.com>
+
+	* resolver.c (impl_HTMLEditor_Resolver_loadURL): actually listen
+	to the results of the file load and init and free the environment.
+	This makes it very clear that we need more exception types for the
+	resolver.
+
+	* editor-control-factory.c (load_from_corba): clean up the login a
+	little.
+	
 2000-10-06  Radek Doulik  <rodo@helixcode.com>
 
 	* menubar.c (insert_image_cb): added link properties while
