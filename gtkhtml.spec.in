@@ -1,5 +1,4 @@
 %define ver      @VERSION@
-%define prefix   /usr
 
 Summary: gtkhtml library
 Name: gtkhtml
@@ -10,11 +9,15 @@ Group: X11/Libraries
 Source: ftp://ftp.gnome.org/pub/GNOME/sources/gtkhtml/gtkhtml-%{ver}.tar.gz
 BuildRoot: /var/tmp/gtkhtml-%{PACKAGE_VERSION}-root
 Provides: gtkhtml.so.0
-Requires: gnome-print >= 0.24
+Requires: gnome-print >= 0.25
 Requires: gdk-pixbuf >= 0.8.0
+Requires: gal >= 0.7.99.5
 Requires: pspell
-
-Docdir: %{prefix}/doc
+Requires: bonobo >= 0.32
+Requires: GConf >= 0.9
+Requires: libghttp >= 1.0
+Requires: libglade
+Maintainer: Jan Van Buggenhout <Chipzz@ULYSSIS.Org>
 
 %description
 This is GtkHTML, a lightweight HTML rendering/printing/editing engine.
@@ -39,15 +42,15 @@ Libraries, include files, etc you can use to develop gtkhtml applications.
 # Needed for snapshot releases.
 if [ ! -f configure ]; then
 %ifarch alpha
-  CFLAGS="$RPM_OPT_FLAGS" ./autogen.sh --host=alpha-redhat-linux --prefix=%prefix --sysconfdir="/etc" --with-bonobo
+  CFLAGS="$RPM_OPT_FLAGS" ./autogen.sh --host=alpha-redhat-linux --prefix=%{_prefix} --sysconfdir=%{_sysconfdir} --with-bonobo
 %else
-  CFLAGS="$RPM_OPT_FLAGS" ./autogen.sh --prefix=%prefix --sysconfdir="/etc" --with-bonobo
+  CFLAGS="$RPM_OPT_FLAGS" ./autogen.sh --prefix=%{_prefix} --sysconfdir=%{_sysconfdir} --with-bonobo
 %endif
 else
 %ifarch alpha
-  CFLAGS="$RPM_OPT_FLAGS" ./configure --host=alpha-redhat-linux --prefix=%prefix --sysconfdir="/etc" --with-bonobo
+  CFLAGS="$RPM_OPT_FLAGS" ./configure --host=alpha-redhat-linux --prefix=%{_prefix} --sysconfdir=%{_sysconfdir} --with-bonobo
 %else
-  CFLAGS="$RPM_OPT_FLAGS" ./configure --prefix=%prefix --sysconfdir="/etc" --with-bonobo
+  CFLAGS="$RPM_OPT_FLAGS" ./configure --prefix=%{_prefix} --sysconfdir=%{_sysconfdir} --with-bonobo
 %endif
 fi
 
@@ -61,10 +64,10 @@ fi
 %install
 rm -rf $RPM_BUILD_ROOT
 
-# Note how DESTDIR is passed. Using prefix=$RPM_BUILD_ROOT%{prefix} instaead
+# Note how DESTDIR is passed. Using prefix=$RPM_BUILD_ROOT%{_prefix} instaead
 # nearly worked, but problems occured for /etc/CORBA/servers, where prefix
 # was ignored completely.
-make -k DESTDIR=$RPM_BUILD_ROOT prefix=%{prefix} install
+make -k DESTDIR=$RPM_BUILD_ROOT prefix=%{_prefix} localedir=$RPM_BUILD_ROOT%{_datadir}/locale install
 
 
 %clean
@@ -76,27 +79,33 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-, root, root)
-%config /etc/CORBA/servers/*.gnorba
-%{prefix}/bin/gtkhtml-properties-capplet
-%{prefix}/bin/gnome-gtkhtml-editor
-%{prefix}/lib/*.sh
-%{prefix}/lib/*.so*
-%{prefix}/share/control-center/Documents/*.desktop
-%{prefix}/share/gnome/apps/Settings/Documents/*.desktop
-%{prefix}/share/gnome/ui/GNOME_GtkHTML_Editor.xml
-%{prefix}/share/gtkhtml/*.emacs
-%{prefix}/share/gtkhtml/*.ms
-%{prefix}/share/gtkhtml/*.idl
-# do not know why it doesn't work
-#%{prefix}/share/locale/*/LC_MESSAGES/*.mo
-%{prefix}/share/oaf/*.oafinfo
-
 %doc AUTHORS ChangeLog NEWS README COPYING TODO
-
-# /etc/CORBA/servers/*
+%doc %{_datadir}/gnome/html/*
+%config %{_sysconfdir}/CORBA/servers/*.gnorba
+%{_bindir}/gtkhtml-properties-capplet
+%{_bindir}/gnome-gtkhtml-editor
+%{_bindir}/ebrowser
+%{_libdir}/*.so.*
+%{_libdir}/bonobo/plugin/*so
+%{_datadir}/control-center/Documents/*.desktop
+%{_datadir}/control-center/capplets/*.desktop
+%{_datadir}/gnome/apps/Settings/Documents/*.desktop
+%{_datadir}/gnome/ui/GNOME_GtkHTML_Editor.xml
+%dir %{_datadir}/gtkhtml
+%{_datadir}/gtkhtml/keybindingsrc.*
+%{_datadir}/gtkhtml/*.idl
+%{_datadir}/gtkhtml/*.glade
+%{_datadir}/gtkhtml/icons
+%{_datadir}/oaf/*.oaf
+%{_datadir}/locale/*/LC_MESSAGES/*.mo
 
 %files devel
 %defattr(-, root, root)
-%{prefix}/include/gtkhtml/*.h
-%{prefix}/lib/*.a
-%{prefix}/lib/*.la
+%dir %{_includedir}/gtkhtml
+%{_includedir}/gtkhtml/*.h
+%{_libdir}/*.sh
+%{_libdir}/*.so
+%{_libdir}/*.a
+%{_libdir}/*.la
+#%{_libdir}/bonobo/plugin/*.a
+#%{_libdir}/bonobo/plugin/*.la
