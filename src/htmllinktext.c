@@ -124,7 +124,7 @@ save (HTMLObject *self,
       HTMLEngineSaveState *state)
 {
 	if (! html_engine_save_output_string (state, "<A HREF=\"")
-	    || ! html_engine_save_output_string (state, HTML_LINK_TEXT (self)->url)
+	    || ! html_engine_save_output_string (state, "%s", HTML_LINK_TEXT (self)->url)
 	    || ! html_engine_save_output_string (state, "\">"))
 		return FALSE;
 

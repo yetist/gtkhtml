@@ -225,13 +225,13 @@ save (HTMLObject *self,
 
 	get_tags (text, state, opening_tags, closing_tags);
 
-	if (! html_engine_save_output_string (state, opening_tags))
+	if (! html_engine_save_output_string (state, "%s", opening_tags))
 		return FALSE;
 
 	if (! html_engine_save_encode (state, text->text, text->text_len))
 		return FALSE;
 
-	if (! html_engine_save_output_string (state, closing_tags))
+	if (! html_engine_save_output_string (state, "%s", closing_tags))
 		return FALSE;
 
 	return TRUE;
@@ -244,7 +244,7 @@ save_plain (HTMLObject *self,
 	HTMLText *text;
 	text = HTML_TEXT (self);
 
-	if (! html_engine_save_output_string (state, text->text))
+	if (! html_engine_save_output_string (state, "%s", text->text))
 		return FALSE;
 	
 	return TRUE;

@@ -1,3 +1,11 @@
+2000-07-05  Dan Winship  <danw@helixcode.com>
+
+	* htmllinktextmaster.c (save): 
+	* htmllinktext.c (save): 
+	* htmltext.c (save, save_plain): Fix calls to
+	html_engine_save_output_string to be safe when the text contains
+	%-signs.
+
 2000-07-05  Radek Doulik  <rodo@helixcode.com>
 
 	* gtkhtml.c (load_keybindings): when keybindings file not found,
