@@ -28,7 +28,7 @@ Boston, MA 02111-1307, USA.
 #include "gtkhtml-properties.h"
 #include "htmlfontmanager.h"
 
-#define DEFAULT_FONT_SIZE   12
+#define DEFAULT_FONT_SIZE   10
 #define DEFAULT_FONT_SIZE_PRINT   10
 
 #define STRINGIZE(x) #x
@@ -37,6 +37,7 @@ GtkHTMLClassProperties *
 gtk_html_class_properties_new (GtkWidget *widget)
 {
 	GtkHTMLClassProperties *p = g_new0 (GtkHTMLClassProperties, 1);
+	gint size = pango_font_description_get_size (widget->style->font_desc);
 
 	/* default values */
 	p->magic_links             = TRUE;
@@ -44,8 +45,8 @@ gtk_html_class_properties_new (GtkWidget *widget)
 	p->font_var                = pango_font_description_to_string (widget->style->font_desc);
 	printf ("Variable Font: \"%s\"\n", p->font_var);
 	p->font_fix                = g_strdup ("Monospace");
-	p->font_var_size           = DEFAULT_FONT_SIZE;
-	p->font_fix_size           = DEFAULT_FONT_SIZE;
+	p->font_var_size           = PANGO_PIXELS (size);
+	p->font_fix_size           = PANGO_PIXELS (size);
 	p->font_var_points         = FALSE;
 	p->font_fix_points         = FALSE;
 	p->font_var_print          = g_strdup ("-*-helvetica-*-*-*-*-10-*-*-*-*-*-*-*");
@@ -103,6 +104,7 @@ gtk_html_class_properties_load (GtkHTMLClassProperties *p, GConfClient *client)
 	GET (bool, "/animations", animations,,);
 	GET (string, "/keybindings_theme", keybindings_theme,
 	     g_free (p->keybindings_theme), g_strdup);
+#if 0 /* fonts are not controlled via gconf any more */
 	GET (string, "/font_variable", font_var,
 	     g_free (p->font_var), g_strdup);
 	GET (string, "/font_fixed", font_fix,
@@ -113,6 +115,7 @@ gtk_html_class_properties_load (GtkHTMLClassProperties *p, GConfClient *client)
 	GET (bool, "/font_fixed_points", font_fix_points,,);
 	GET (string, "/font_variable_print", font_var_print,
 	     g_free (p->font_var_print), g_strdup);
+#endif
 	GET (string, "/font_fixed_print", font_fix_print,
 	     g_free (p->font_fix_print), g_strdup);
 	GET (int, "/font_variable_size_print", font_var_size_print,,);
@@ -150,6 +153,7 @@ gtk_html_class_properties_update (GtkHTMLClassProperties *p, GConfClient *client
 	if (p->magic_links != old->magic_links)
 		SET (bool, "/magic_links", magic_links);
 	SET (string, "/keybindings_theme", keybindings_theme);
+#if 0 /* fonts are not controlled via gconf any more */
 	if (strcmp (p->font_var, old->font_var))
 		SET (string, "/font_variable", font_var);
 	if (strcmp (p->font_fix, old->font_fix))
@@ -162,6 +166,7 @@ gtk_html_class_properties_update (GtkHTMLClassProperties *p, GConfClient *client
 		SET (int, "/font_variable_size", font_var_size);
 	if (p->font_fix_size != old->font_fix_size || p->font_fix_points != old->font_fix_points)
 		SET (int, "/font_fixed_size", font_fix_size);
+#endif
 	if (strcmp (p->font_var_print, old->font_var_print))
 		SET (string, "/font_variable_print", font_var_print);
 	if (strcmp (p->font_fix_print, old->font_fix_print))
