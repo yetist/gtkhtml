@@ -1,3 +1,11 @@
+2001-03-28  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine-edit-table.c (insert_table_column): added column
+	parameter, when non-NULL, use it as newly created cell-places
+	content
+	(delete_column_setup_undo): use new undo data and remember deleted
+	cells for later undo (insertion)
+
 2001-03-27  Larry Ewing  <lewing@ximian.com>
 
 	* htmliframe.c (destroy): disconnect the signals from the html
