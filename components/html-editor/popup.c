@@ -203,12 +203,12 @@ popup_show (GtkHTMLControlData *cd, GdkEventButton *event)
 			break;
 		case HTML_TYPE_IMAGE:
 			ADD_SEP;
+			ADD_ITEM ("Image...", prop_dialog, GTK_HTML_EDIT_PROPERTY_IMAGE);
 			ADD_PROP (IMAGE);
-			ADD_ITEM ("Image...", prop_dialog, GTK_HTML_EDIT_PROPERTY_PARAGRAPH);
-			ADD_PROP (PARAGRAPH);
 			ADD_ITEM ("Paragraph...", prop_dialog, GTK_HTML_EDIT_PROPERTY_PARAGRAPH);
-			ADD_PROP (LINK);
+			ADD_PROP (PARAGRAPH);
 			ADD_ITEM ("Link...", prop_dialog, GTK_HTML_EDIT_PROPERTY_LINK);
+			ADD_PROP (LINK);
 			break;
 		case HTML_TYPE_LINKTEXTMASTER:
 		case HTML_TYPE_TEXTMASTER:

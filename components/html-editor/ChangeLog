@@ -1,3 +1,14 @@
+2000-10-06  Radek Doulik  <rodo@helixcode.com>
+
+	* popup.c (popup_show): use GTK_HTML_EDIT_PROPERTY_IMAGE for image
+	instead of GTK_HTML_EDIT_PROPERTY_PARAGRAPH
+
+	* image.c (image_properties): don't use cd->obj here, use
+	cd->html->engine->cursor->object instead
+	added HTMLImage   *image; to GtkHTMLEditImageProperties
+	(insert_or_apply): use GtkHTMLEditImageProperties::image here
+	removed old code 
+
 2000-10-06  Larry Ewing  <lewing@helixcode.com>
 
 	* resolver-progressive-impl.[ch]: files added. The start of the
