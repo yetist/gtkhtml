@@ -193,7 +193,8 @@ gtk_html_debug_dump_object (HTMLObject *obj,
 		gtk_html_debug_dump_tree (GTK_HTML (HTML_FRAME (obj)->html)->engine->clue, level + 1);
 		break;
 	case HTML_TYPE_IMAGE:
-		g_print ("Location: %s", HTML_IMAGE (obj)->image_ptr->url);
+		for (i = 0; i < level; i++) g_print (" ");
+		g_print ("Location: %s\n", HTML_IMAGE (obj)->image_ptr->url);
 		break;
 	case HTML_TYPE_FRAMESET: {
 		gint i;
