@@ -5,6 +5,8 @@
 	text
 	(object_split): update spell errors
 	(remove_spell_errors): make it exact
+	(object_split): do convert_nbsp
+	(object_merge): do convert_nbsp
 
 	* htmlgdkpainter.c (alloc_e_font_it): do n1 -> n2 -> n3 instead of
 	n1 -> n3

@@ -52,6 +52,7 @@ static SpellError * spell_error_new     (guint off, guint len);
 static void         spell_error_destroy (SpellError *se);
 static void         move_spell_errors   (GList *spell_errors, guint offset, gint delta);
 static GList *      remove_spell_errors (GList *spell_errors, guint offset, guint len);
+static gchar *      convert_nbsp        (const gchar *s);
 
 /* static void
 debug_spell_errors (GList *se)
@@ -283,6 +284,9 @@ object_merge (HTMLObject *self, HTMLObject *with)
 	t1->text      = g_strconcat (t1->text, t2->text, NULL);
 	t1->text_len += t2->text_len;
 	g_free (to_free);
+	to_free       = t1->text;
+	t1->text      = convert_nbsp (t1->text);
+	g_free (to_free);
 
 	/* printf ("--- after merge\n");
 	debug_spell_errors (t1->spell_errors);
@@ -308,12 +312,15 @@ object_split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, g
 	dup             = html_object_dup (self);
 	tt              = text->text;
 	text->text      = g_strndup (tt, html_text_get_index (text, offset));
-	text->text_len  = offset;
 	g_free (tt);
+	tt              = text->text;
+	text->text      = convert_nbsp (text->text);
+	g_free (tt);
+	text->text_len  = offset;
 
 	text            = HTML_TEXT (dup);
 	tt              = text->text;
-	text->text      = g_strdup (html_text_get_text (text, offset));
+	text->text      = convert_nbsp (html_text_get_text (text, offset));
 	text->text_len -= offset;
 	g_free (tt);
 
@@ -575,7 +582,7 @@ get_length (HTMLObject *self)
 /* #define DEBUG_NBSP */
 
 static gchar *
-convert_nbsp (gchar *s)
+convert_nbsp (const gchar *s)
 {
 	/* state of automata:
 	   0..Text
@@ -584,7 +591,7 @@ convert_nbsp (gchar *s)
 	gint delta;
 	guint state, pass;
 	unicode_char_t uc;
-	gchar *p, *op;
+	const gchar *p, *op;
 	guchar *rv = NULL, *rp = NULL;
 
 	pass  = 0;
