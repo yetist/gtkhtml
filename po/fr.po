@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 3.1.9\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-07 15:33+0100\n"
-"PO-Revision-Date: 2004-03-07 15:32+0100\n"
+"POT-Creation-Date: 2004-03-13 12:46+0100\n"
+"PO-Revision-Date: 2004-03-13 12:41+0100\n"
 "Last-Translator: Christophe Merlet (RedFox) <redfox@redfoxcenter.org>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -265,9 +265,10 @@ msgstr "Coupe la sélection dans le presse-papiers"
 msgid "Cut the selection"
 msgstr "Coupe la sélection"
 
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
-#: components/html-editor/search.c:77 components/html-editor/search.c:129
+#: components/html-editor/search.c:79 components/html-editor/search.c:131
 msgid "Find"
 msgstr "Rechercher"
 
@@ -605,9 +606,10 @@ msgstr "Refaire le changement précédemment défait"
 msgid "Redo the undone action"
 msgstr "Refait l'action annulée"
 
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:88
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
-#: components/html-editor/replace.c:157 components/html-editor/replace.c:219
+#: components/html-editor/replace.c:161 components/html-editor/replace.c:223
 msgid "Replace"
 msgstr "Remplacer"
 
@@ -867,7 +869,7 @@ msgstr "_Refaire"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:137
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:139
 msgid "_Replace..."
-msgstr "_Remplacer..."
+msgstr "Re_mplacer..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:138
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:140
@@ -1136,7 +1138,7 @@ msgstr "violet #2"
 
 #: components/html-editor/gi-color-palette.c:584
 msgid "very dark gray"
-msgstr "gris trés foncé"
+msgstr "gris très foncé"
 
 #: components/html-editor/gi-color-palette.c:587
 #: components/html-editor/gi-color-palette.c:643
@@ -1158,7 +1160,7 @@ msgstr "vert foncé"
 #: components/html-editor/gi-color-palette.c:591
 #: components/html-editor/gi-color-palette.c:644
 msgid "dull blue"
-msgstr "bleu pale"
+msgstr "bleu pâle"
 
 #: components/html-editor/gi-color-palette.c:592
 #: components/html-editor/gi-color-palette.c:645
@@ -1167,7 +1169,7 @@ msgstr "bleu"
 
 #: components/html-editor/gi-color-palette.c:593
 msgid "dull purple"
-msgstr "violet pale"
+msgstr "violet pâle"
 
 #: components/html-editor/gi-color-palette.c:594
 msgid "dark grey"
@@ -1187,11 +1189,11 @@ msgstr "citron"
 
 #: components/html-editor/gi-color-palette.c:600
 msgid "dull green"
-msgstr "vert pale"
+msgstr "vert pâle"
 
 #: components/html-editor/gi-color-palette.c:601
 msgid "dull blue #2"
-msgstr "bleu pale #2"
+msgstr "bleu pâle #2"
 
 #: components/html-editor/gi-color-palette.c:602
 msgid "sky blue #2"
@@ -1213,7 +1215,7 @@ msgstr "magenta"
 
 #: components/html-editor/gi-color-palette.c:608
 msgid "bright orange"
-msgstr "orange brillant"
+msgstr "orange vif"
 
 #: components/html-editor/gi-color-palette.c:609
 #: components/html-editor/gi-color-palette.c:640
@@ -1231,7 +1233,7 @@ msgstr "cyan"
 
 #: components/html-editor/gi-color-palette.c:612
 msgid "bright blue"
-msgstr "bleu brillant"
+msgstr "bleu vif"
 
 #: components/html-editor/gi-color-palette.c:613
 #: components/html-editor/gi-color-palette.c:630
@@ -1824,35 +1826,36 @@ msgstr "Ignorer le mot mal orthographié"
 msgid "Input Methods"
 msgstr "Méthodes de saisie"
 
-#: components/html-editor/replace.c:75
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
+#: components/html-editor/replace.c:77
 msgid "Replace confirmation"
 msgstr "Remplacer confirmation"
 
-#: components/html-editor/replace.c:76
+#: components/html-editor/replace.c:78
 msgid "Replace _All"
 msgstr "_Tout remplacer"
 
-#: components/html-editor/replace.c:77
+#: components/html-editor/replace.c:79
 msgid "_Next"
 msgstr "_Suivant"
 
-#: components/html-editor/replace.c:79
+#: components/html-editor/replace.c:81
 msgid "_Replace"
-msgstr "_Remplacer"
+msgstr "Re_mplacer"
 
-#: components/html-editor/replace.c:165
+#: components/html-editor/replace.c:169
 msgid "Search _backward"
 msgstr "Rechercher en a_rrière"
 
-#: components/html-editor/replace.c:166 components/html-editor/search.c:83
+#: components/html-editor/replace.c:170 components/html-editor/search.c:85
 msgid "Case _sensitive"
 msgstr "_Sensible à la casse"
 
-#: components/html-editor/replace.c:176
+#: components/html-editor/replace.c:180
 msgid "Replace:"
 msgstr "Remplacer :"
 
-#: components/html-editor/replace.c:179
+#: components/html-editor/replace.c:183
 msgid "With:"
 msgstr "Avec :"
 
@@ -1872,11 +1875,11 @@ msgstr ""
 "La règle éditée a été supprimée du document.\n"
 "Impossible d'applquer les modifications."
 
-#: components/html-editor/search.c:82
+#: components/html-editor/search.c:84
 msgid "_Backward"
 msgstr "En a_rrière"
 
-#: components/html-editor/search.c:129
+#: components/html-editor/search.c:131
 msgid "Find Regular Expression"
 msgstr "Rechercher une expression régulière"
 
