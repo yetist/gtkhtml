@@ -50,12 +50,12 @@ struct _GtkHTMLPropmanagerClass {
 };
 
 GtkType          gtk_html_propmanager_get_type (void);
-GtkObject *      gtk_html_propmanager_new (GladeXML *xml);
-gboolean         gtk_html_propmanager_set_xml (GtkHTMLPropmanager *pman, GladeXML *xml);
+GtkObject *      gtk_html_propmanager_new (GConfClient *client);
+gboolean         gtk_html_propmanager_set_gui (GtkHTMLPropmanager *pman, GladeXML *xml, GHashTable *nametable);
 void             gtk_html_propmanager_apply (GtkHTMLPropmanager *pman);
 void             gtk_html_propmanager_reset (GtkHTMLPropmanager *pman);
 
-void             gtk_html_propmanager_set_names (GtkHTMLPropmanager *pman, char ***names);
+void             gtk_html_propmanager_set_names (GtkHTMLPropmanager *pman, char *names[][2]);
 void             gtk_html_propmanager_set_nametable (GtkHTMLPropmanager *pman, GHashTable *table);
 #endif /* __GTK_HTML_PROPMANAGER_H__ */
 

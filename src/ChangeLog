@@ -1,3 +1,10 @@
+2002-04-24  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml-propmanager.c:  Refactor the api to make a little more
+	sense.  Fix some notification issues.
+	
+	* gtkhtml-propmanager.h:  Match api changes.
+
 2002-04-24  Radek Doulik  <rodo@ximian.com>
 
 	* htmlgdkpainter.c (calc_text_width_bytes): don't assume fixed
@@ -8,7 +15,6 @@
 2002-04-23  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml-propmanager.c: and keymap option menu logic.
-	fix keymap logic and add reset logic.
 
 2002-04-22  Larry Ewing  <lewing@ximian.com>
 
