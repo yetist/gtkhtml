@@ -718,8 +718,11 @@ editor_api_event (GtkHTML *html, GtkHTMLEditorEventType event_type, GtkArg **arg
 		    && (listener = GNOME_GtkHTML_Editor_Engine__get_listener (engine, &ev)) != CORBA_OBJECT_NIL) {
 
 			switch (event_type) {
-			case GTK_HTML_EDITOR_EVENT_COMMAND:
-				gtk_retval = send_event_str (engine, listener, "command", args [0]);
+			case GTK_HTML_EDITOR_EVENT_COMMAND_BEFORE:
+				gtk_retval = send_event_str (engine, listener, "command_before", args [0]);
+				break;
+			case GTK_HTML_EDITOR_EVENT_COMMAND_AFTER:
+				gtk_retval = send_event_str (engine, listener, "command_after", args [0]);
 				break;
 			case GTK_HTML_EDITOR_EVENT_IMAGE_URL:
 				gtk_retval = send_event_str (engine, listener, "image_url", args [0]);

@@ -1,3 +1,8 @@
+2001-10-30  Radek Doulik  <rodo@ximian.com>
+
+	* editor-control-factory.c (editor_api_event): update for
+	GTK_HTML_EDITOR_EVENT_COMMAND_... change
+
 2001-10-29  Ettore Perazzoli  <ettore@ximian.com>
 
 	* GNOME_GtkHTML_Editor.xml.in: Move select all in the CutCopyPaste
