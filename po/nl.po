@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml cvs\n"
 "POT-Creation-Date: 2003-03-06 16:02+0100\n"
-"PO-Revision-Date: 2003-01-16 23:49+0100\n"
+"PO-Revision-Date: 2003-03-09 04:37+0100\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -898,10 +898,10 @@ msgstr "Paragraaf"
 msgid "Page"
 msgstr "Pagina"
 
+# betere vertaling?
 #: components/html-editor/editor-control-factory.c:775
-#, fuzzy
 msgid "GtkHTML Editor Control"
-msgstr "GNOME HTML Editor Control"
+msgstr "GtkHTML Editor Control"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:2
 msgid "************"
@@ -1567,77 +1567,74 @@ msgstr "Inspringafstand van de paragraaf vergroten"
 msgid "Sample"
 msgstr "Voorbeeld"
 
+# Bewerkbaar? Kan bewerkt/aangepast worden?
 #: src/gtkhtml.c:2640
-#, fuzzy
 msgid "Editable"
-msgstr "Aanzetten"
+msgstr "Kan bewerken"
 
 #: src/gtkhtml.c:2641
 msgid "Whether the html can be edited"
-msgstr ""
+msgstr "Of de html bewerkt kan worden"
 
 #: src/gtkhtml.c:2648
-#, fuzzy
 msgid "The title of the current document"
-msgstr "Controleer spelling van het document"
+msgstr "De titel van het huidige document"
 
 #: src/gtkhtml.c:2654
-#, fuzzy
 msgid "Document Base"
-msgstr "Documenttitel"
+msgstr "Documentbasis"
 
 #: src/gtkhtml.c:2655
 msgid "The base URL for relative references"
-msgstr ""
+msgstr "De basis-URL voor relatieve verwijzingen"
 
 #: src/gtkhtml.c:2661
 msgid "Target Base"
-msgstr ""
+msgstr "Doelbasis"
 
 #: src/gtkhtml.c:2662
 msgid "The base URL of the targe frame"
-msgstr ""
+msgstr "De basis-URL van het doelframe"
 
 #: src/gtkhtml.c:2671
-#, fuzzy
 msgid "Fixed Width Font"
-msgstr "Vaste breedte"
+msgstr "Lettertype met vaste breedte"
 
 #: src/gtkhtml.c:2672
 msgid "The Monospace font to use for typewriter text"
-msgstr ""
+msgstr "Het lettertype (monospace) voor typemachine-tekst"
 
 #: src/gtkhtml.c:2678
 msgid "New Link Color"
-msgstr ""
+msgstr "Kleur nieuwe link"
 
 #: src/gtkhtml.c:2679
 msgid "The color of new link elements"
-msgstr ""
+msgstr "De kleur van nieuwe links"
 
 #: src/gtkhtml.c:2684
 msgid "Visited Link Color"
-msgstr ""
+msgstr "Kleur bezochte link"
 
 #: src/gtkhtml.c:2685
 msgid "The color of visited link elements"
-msgstr ""
+msgstr "De kleur van bezochte links"
 
 #: src/gtkhtml.c:2690
 msgid "Active Link Color"
-msgstr ""
+msgstr "Kleur actieve link"
 
 #: src/gtkhtml.c:2691
 msgid "The color of active link elements"
-msgstr ""
+msgstr "De kleur van een actieve link"
 
 #: src/gtkhtml.c:2696
 msgid "Spelling Error Color"
-msgstr ""
+msgstr "Kleur van spelfout"
 
 #: src/gtkhtml.c:2697
 msgid "The color of the spelling error markers"
-msgstr ""
+msgstr "De kleur van de markering voor spelfouten"
 
 #: src/html-component.c:219
 msgid "Html"
@@ -1711,9 +1708,3 @@ msgstr "Afdruk_voorbeeld"
 #: src/testgtkhtml.c:103
 msgid "Print preview"
 msgstr "Afdrukvoorbeeld"
-
-#~ msgid "I could not initialize Bonobo"
-#~ msgstr "Ik kon BONOBO niet initializeren"
-
-#~ msgid "Spell Checking _Languages"
-#~ msgstr "Spellingscontrole Ta_len"
