@@ -1,5 +1,14 @@
 2004-02-25    <rodo@ximian.com>
 
+	* add prefix to some static functions for better readability of
+	profile output
+
+	* htmlclueflow.c (layout_line): do not calc size if it was already
+	calculated (cur == begin)
+	(html_clue_flow_layout): remove unused variable end
+
+	Fixes #54818
+	
 	* htmltext.c (html_text_set_style_in_range): create size attr only
 	for sizes != 3 (default)
 

@@ -140,7 +140,7 @@ calc_dimension (GPtrArray *dim, gint *span, gint total)
 }
 
 static gboolean
-calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
+html_frameset_real_calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 {
 	HTMLFrameset *set = HTML_FRAMESET (o);
 	HTMLObject *frame = NULL;
@@ -387,7 +387,7 @@ html_frameset_class_init (HTMLFramesetClass *klass,
 
 	html_object_class_init (object_class, type, object_size);
 
-	object_class->calc_size =   calc_size;
+	object_class->calc_size =   html_frameset_real_calc_size;
 	object_class->draw =        draw;
 	object_class->destroy =     destroy;
 	object_class->check_point = check_point;

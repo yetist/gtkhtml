@@ -308,7 +308,7 @@ reset (HTMLObject *clue)
 }
 
 static gboolean
-calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
+html_clue_real_calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 {
 	gboolean changed;
 
@@ -632,7 +632,7 @@ html_clue_class_init (HTMLClueClass *klass,
 	object_class->draw = draw;
 	object_class->set_max_height = set_max_height;
 	object_class->reset = reset;
-	object_class->calc_size = calc_size;
+	object_class->calc_size = html_clue_real_calc_size;
 	object_class->calc_preferred_width = calc_preferred_width;
 	object_class->calc_min_width = calc_min_width;
 	object_class->check_point = check_point;

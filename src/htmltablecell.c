@@ -183,7 +183,7 @@ clue_move_children (HTMLClue *clue, gint x_delta, gint y_delta)
 }
 
 static gboolean
-calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
+html_table_cell_real_calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 {
 	HTMLTableCell *cell;
 	gboolean rv;
@@ -335,7 +335,7 @@ html_table_cell_class_init (HTMLTableCellClass *klass,
 	object_class->copy = copy;
 	object_class->calc_min_width = calc_min_width;
 	object_class->calc_preferred_width = calc_preferred_width;
-	object_class->calc_size = calc_size;
+	object_class->calc_size = html_table_cell_real_calc_size;
 	object_class->draw = draw;
 	object_class->set_bg_color = set_bg_color;
 	object_class->get_bg_color = get_bg_color;

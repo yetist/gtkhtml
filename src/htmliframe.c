@@ -303,7 +303,7 @@ html_iframe_set_scrolling (HTMLIFrame *iframe, GtkPolicyType scroll)
 }
 
 static gboolean
-calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
+html_iframe_real_calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 {
 	HTMLIFrame *iframe;
 	HTMLEngine *e;
@@ -691,7 +691,7 @@ html_iframe_class_init (HTMLIFrameClass *klass,
 	object_class->destroy                 = destroy;
 	object_class->save                    = save;
 	object_class->save_plain              = save_plain;
-	object_class->calc_size               = calc_size;
+	object_class->calc_size               = html_iframe_real_calc_size;
 	object_class->calc_min_width          = calc_min_width;
 	object_class->set_painter             = set_painter;
 	object_class->reset                   = reset;

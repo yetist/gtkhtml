@@ -698,7 +698,7 @@ object_split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, g
 }
 
 static gboolean
-calc_size (HTMLObject *self, HTMLPainter *painter, GList **changed_objs)
+html_text_real_calc_size (HTMLObject *self, HTMLPainter *painter, GList **changed_objs)
 {
 	self->width = 0;
 	html_object_calc_preferred_width (self, painter);
@@ -2092,7 +2092,7 @@ html_text_class_init (HTMLTextClass *klass,
 	object_class->split = object_split;
 	object_class->draw = draw;
 	object_class->accepts_cursor = accepts_cursor;
-	object_class->calc_size = calc_size;
+	object_class->calc_size = html_text_real_calc_size;
 	object_class->calc_preferred_width = calc_preferred_width;
 	object_class->calc_min_width = calc_min_width;
 	object_class->fit_line = ht_fit_line;

@@ -171,7 +171,7 @@ get_offset_for_bounded_width (HTMLTextSlave *slave, HTMLPainter *painter, gint *
 }
 
 static gboolean
-calc_size (HTMLObject *self, HTMLPainter *painter, GList **changed_objs)
+html_text_slave_real_calc_size (HTMLObject *self, HTMLPainter *painter, GList **changed_objs)
 {
 	HTMLText *owner;
 	HTMLTextSlave *slave;
@@ -882,7 +882,7 @@ html_text_slave_class_init (HTMLTextSlaveClass *klass,
 	object_class->copy = copy;
 	object_class->destroy = destroy;
 	object_class->draw = draw;
-	object_class->calc_size = calc_size;
+	object_class->calc_size = html_text_slave_real_calc_size;
 	object_class->fit_line = hts_fit_line;
 	object_class->calc_min_width = calc_min_width;
 	object_class->calc_preferred_width = calc_preferred_width;

@@ -213,7 +213,7 @@ fit_line (HTMLObject *o,
 }
 
 static gboolean
-calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
+html_object_real_calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 {
 	return FALSE;
 }
@@ -605,7 +605,7 @@ html_object_class_init (HTMLObjectClass *klass,
 	klass->draw = draw;
 	klass->is_transparent = is_transparent;
 	klass->fit_line = fit_line;
-	klass->calc_size = calc_size;
+	klass->calc_size = html_object_real_calc_size;
 	klass->set_max_width = set_max_width;
 	klass->set_max_height = set_max_height;
 	klass->get_left_margin = get_left_margin;

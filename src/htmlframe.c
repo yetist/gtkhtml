@@ -239,7 +239,7 @@ check_page_split (HTMLObject *self, gint y)
 }
 
 static gboolean
-calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
+html_frame_real_calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 {
 	HTMLFrame *frame;
 	HTMLEngine *e;
@@ -584,7 +584,7 @@ html_frame_class_init (HTMLFrameClass *klass,
 	parent_class = &html_embedded_class;
 
 	object_class->destroy                 = destroy;
-	object_class->calc_size               = calc_size;
+	object_class->calc_size               = html_frame_real_calc_size;
 	object_class->calc_min_width          = calc_min_width;
 	object_class->set_painter             = set_painter;
 	/* object_class->reset                   = reset; */

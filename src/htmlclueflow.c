@@ -853,7 +853,8 @@ layout_line (HTMLObject *o, HTMLPainter *painter, HTMLObject *begin,
 		update_leafs_children_changed_size (cur, leaf_children_changed_size);
 
 		cur->x = x;
-		html_object_calc_size (cur, painter, changed_objs);
+		if (cur != begin)
+			html_object_calc_size (cur, painter, changed_objs);
 
 		valign = html_object_get_valign (cur);
 		if ((!is_top_aligned (valign) && (cur->ascent > a || cur->descent > d))
@@ -919,10 +920,10 @@ layout_aligned (HTMLObject *o, HTMLPainter *painter, HTMLObject *cur,
 }
 
 static gboolean
-layout (HTMLObject *o, HTMLPainter *painter, GList **changed_objs, gboolean *leaf_children_changed_size)
+html_clue_flow_layout (HTMLObject *o, HTMLPainter *painter, GList **changed_objs, gboolean *leaf_children_changed_size)
 {
 	HTMLClueFlow *cf = HTML_CLUEFLOW (o);
-	HTMLObject *cur = HTML_CLUE (o)->head, *end;
+	HTMLObject *cur = HTML_CLUE (o)->head;
 	gint indent, lmargin, rmargin;
 	gboolean changed = FALSE;
 
@@ -932,19 +933,18 @@ layout (HTMLObject *o, HTMLPainter *painter, GList **changed_objs, gboolean *lea
 
 	while (cur) {
 		if (cur->flags & HTML_OBJECT_FLAG_ALIGNED)
-			end = layout_aligned (o, painter, cur, changed_objs, leaf_children_changed_size,
+			cur = layout_aligned (o, painter, cur, changed_objs, leaf_children_changed_size,
 					      &lmargin, &rmargin, indent, &changed);
 		else
-			end = layout_line (o, painter, cur, changed_objs, leaf_children_changed_size,
+			cur = layout_line (o, painter, cur, changed_objs, leaf_children_changed_size,
 					   &lmargin, &rmargin, indent);
-		cur = end;
 	}
 
 	return changed;
 }
 
 static gboolean
-calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
+html_clue_flow_real_calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 {
 	HTMLClueFlow *cf = HTML_CLUEFLOW (o);
 	gint oa, od, ow, padding;
@@ -965,7 +965,7 @@ calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 	/* calc size */
 	padding = calc_padding (painter);
 	add_pre_padding (cf, padding);
-	changed = layout (o, painter, changed_objs, &leaf_children_changed_size);
+	changed = html_clue_flow_layout (o, painter, changed_objs, &leaf_children_changed_size);
 	add_post_padding (cf, padding);
 
 	/* take care about changes */
@@ -2215,7 +2215,7 @@ html_clueflow_class_init (HTMLClueFlowClass *klass,
 	object_class->op_copy = op_copy;
 	object_class->split = split;
 	object_class->merge = merge;
-	object_class->calc_size = calc_size;
+	object_class->calc_size = html_clue_flow_real_calc_size;
 	object_class->set_max_width = set_max_width;
 	object_class->set_max_height = set_max_height;
 	object_class->calc_min_width = calc_min_width;

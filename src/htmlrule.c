@@ -92,7 +92,7 @@ fit_line (HTMLObject *o,
 }
 
 static gboolean
-calc_size (HTMLObject *self, HTMLPainter *painter, GList **changed_objs)
+html_rule_real_calc_size (HTMLObject *self, HTMLPainter *painter, GList **changed_objs)
 {
 	HTMLRule *rule;
 	gint ascent, descent;
@@ -256,7 +256,7 @@ html_rule_class_init (HTMLRuleClass *klass,
 	object_class->set_max_width = set_max_width;
 	object_class->calc_min_width = calc_min_width;
 	object_class->fit_line = fit_line;
-	object_class->calc_size = calc_size;
+	object_class->calc_size = html_rule_real_calc_size;
 	object_class->accepts_cursor = accepts_cursor;
 	object_class->save = save;
 	object_class->save_plain = save_plain;

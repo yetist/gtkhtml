@@ -1084,7 +1084,7 @@ html_table_set_max_height (HTMLObject *o, HTMLPainter *painter, gint height)
 }
 
 static gboolean
-calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
+html_table_real_calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 {
 	HTMLTable *table = HTML_TABLE (o);
 	gint old_width, old_ascent, pixel_size;
@@ -2259,7 +2259,7 @@ html_table_class_init (HTMLTableClass *klass,
 	object_class->split = split;
 	object_class->merge = merge;
 	object_class->accepts_cursor = accepts_cursor;
-	object_class->calc_size = calc_size;
+	object_class->calc_size = html_table_real_calc_size;
 	object_class->draw = draw;
 	object_class->destroy = destroy;
 	object_class->calc_min_width = calc_min_width;

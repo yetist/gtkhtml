@@ -304,7 +304,7 @@ calc_preferred_width (HTMLObject *o,
 }
 
 static gboolean
-calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
+html_image_real_calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 {
 	HTMLImage *image;
 	guint pixel_size;
@@ -768,7 +768,7 @@ html_image_class_init (HTMLImageClass *image_class,
 	object_class->destroy = destroy;
 	object_class->calc_min_width = calc_min_width;
 	object_class->calc_preferred_width = calc_preferred_width;
-	object_class->calc_size = calc_size;
+	object_class->calc_size = html_image_real_calc_size;
 	object_class->check_point = check_point;
 	object_class->get_url = get_url;
 	object_class->get_target = get_target;

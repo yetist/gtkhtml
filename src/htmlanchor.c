@@ -76,7 +76,7 @@ check_point (HTMLObject *self,
 }
 
 static gboolean
-calc_size (HTMLObject *self, HTMLPainter *painter, GList **changed_objs)
+html_anchor_real_calc_size (HTMLObject *self, HTMLPainter *painter, GList **changed_objs)
 {
 	self->width = 0;
 	self->ascent = 1;
@@ -106,7 +106,7 @@ html_anchor_class_init (HTMLAnchorClass *klass,
 	object_class->copy = copy;
 	object_class->find_anchor = find_anchor;
 	object_class->check_point = check_point;
-	object_class->calc_size = calc_size;
+	object_class->calc_size = html_anchor_real_calc_size;
 
 	parent_class = &html_object_class;
 }
