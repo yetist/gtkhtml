@@ -1,3 +1,9 @@
+2000-11-08  Radek Doulik  <rodo@helixcode.com>
+
+	* htmltablecell.c (save): likewise
+
+	* htmltable.c (save): added simple save method
+
 2000-11-07  Larry Ewing  <lewing@helixcode.com>
 
 	* htmlrule.c (html_rule_class_init): use save_plain.

@@ -1595,6 +1595,34 @@ prev (HTMLObject *self, HTMLObject *child)
 	return NULL;
 }
 
+static gboolean
+save (HTMLObject *self,
+      HTMLEngineSaveState *state)
+{
+	HTMLTable *table;
+	gint r, c;
+	gboolean result = TRUE;
+
+	table = HTML_TABLE (self);
+
+	result &= html_engine_save_output_string (state, "<TABLE>\n");
+
+	for (r = 0; r < table->totalRows; r++) {
+		result &= html_engine_save_output_string (state, "<TR>\n");
+		for (c = 0; c < table->totalCols; c++) {
+			if (!table->cells [r][c]
+			    || table->cells [r][c]->row != r
+			    || table->cells [r][c]->col != c)
+				continue;
+			html_object_save (HTML_OBJECT (table->cells [r][c]), state);
+		}
+		result &= html_engine_save_output_string (state, "</TR>\n");
+	}
+	result &= html_engine_save_output_string (state, "</TABLE>\n");
+
+	return result;
+}
+
 
 void
 html_table_type_init (void)
@@ -1632,6 +1660,7 @@ html_table_class_init (HTMLTableClass *klass,
 	object_class->tail = tail;
 	object_class->next = next;
 	object_class->prev = prev;
+	object_class->save = save;
 
 	parent_class = &html_object_class;
 }

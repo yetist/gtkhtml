@@ -184,6 +184,19 @@ set_bg_color (HTMLObject *object, GdkColor *color)
 	cell->have_bg = TRUE;
 }
 
+static gboolean
+save (HTMLObject *self,
+      HTMLEngineSaveState *state)
+{
+	gboolean result;
+
+	result &= html_engine_save_output_string (state, "<TD>\n");
+	result &= (*HTML_OBJECT_CLASS (parent_class)->save) (self, state);
+	result &= html_engine_save_output_string (state, "</TD>\n");
+
+	return result;
+}
+
 
 void
 html_table_cell_type_init (void)
@@ -210,6 +223,7 @@ html_table_cell_class_init (HTMLTableCellClass *klass,
 	object_class->draw = draw;
 	object_class->draw_background = draw_background;
 	object_class->set_bg_color = set_bg_color;
+	object_class->save = save;
 
 	parent_class = &html_cluev_class;
 }
