@@ -1,5 +1,22 @@
 2000-11-22  Radek Doulik  <rodo@helixcode.com>
 
+	* htmltablecell.c (save): make tags uppercase
+
+	* htmltable.c (save): make tags uppercase
+
+	* htmltext.c (get_tags): make tags uppercase
+
+	* htmltablecell.c (save): save bgcolor attribute in TD tag
+
+	* htmltable.c (save): save bgcolor attribute in TABLE tag
+
+	* htmlengine.c (parse_table): set table->bgColor
+
+	* htmltable.c (destroy): free bgColor
+	(html_table_init): set bgColor to NULL
+
+	* htmltable.h: added bgColor to HTMLTable structure
+
 	* htmlengine-search.c (display_search_results): use new selection
 	API
 

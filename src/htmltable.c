@@ -99,6 +99,9 @@ destroy (HTMLObject *o)
 	g_array_free (table->columnOpt, TRUE);
 	g_array_free (table->rowHeights, TRUE);
 
+	if (table->bgColor)
+		gdk_color_free (table->bgColor);
+
 	HTML_OBJECT_CLASS (parent_class)->destroy (o);
 }
 
@@ -1592,32 +1595,41 @@ prev (HTMLObject *self, HTMLObject *child)
 	return NULL;
 }
 
+#define SB if (!html_engine_save_output_string (state,
+#define SE )) return FALSE
+
 static gboolean
 save (HTMLObject *self,
       HTMLEngineSaveState *state)
 {
 	HTMLTable *table;
 	gint r, c;
-	gboolean result = TRUE;
 
 	table = HTML_TABLE (self);
 
-	result &= html_engine_save_output_string (state, "<TABLE>\n");
+	SB "<TABLE" SE;
+	if (table->bgColor)
+		SB " BGCOLOR=#%02x%02x%02x",
+			table->bgColor->red >> 8,
+			table->bgColor->green >> 8,
+			table->bgColor->blue >> 8 SE;
+	SB ">\n" SE;
 
 	for (r = 0; r < table->totalRows; r++) {
-		result &= html_engine_save_output_string (state, "<TR>\n");
+		SB "<TR>\n" SE;
 		for (c = 0; c < table->totalCols; c++) {
 			if (!table->cells [r][c]
 			    || table->cells [r][c]->row != r
 			    || table->cells [r][c]->col != c)
 				continue;
-			result &= html_object_save (HTML_OBJECT (table->cells [r][c]), state);
+			if (!html_object_save (HTML_OBJECT (table->cells [r][c]), state))
+				return FALSE;
 		}
-		result &= html_engine_save_output_string (state, "</TR>\n");
+		SB "</TR>\n" SE;
 	}
-	result &= html_engine_save_output_string (state, "</TABLE>\n");
+	SB "</TABLE>\n" SE;
 
-	return result;
+	return TRUE;
 }
 
 static gboolean
@@ -1771,6 +1783,7 @@ html_table_init (HTMLTable *table,
 	table->border = border;
 	table->caption = NULL;
 	table->capAlign = HTML_VALIGN_TOP;
+	table->bgColor = NULL;
 
 	table->row = 0;
 	table->col = 0;

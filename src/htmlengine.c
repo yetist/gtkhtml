@@ -863,6 +863,8 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	table = HTML_TABLE (html_table_new (width, 
 					    percent, padding,
 					    spacing, border));
+	if (have_tableColor)
+		table->bgColor = gdk_color_copy (&tableColor);
 	e->indent_level = 0;
 
 	while (!done && html_tokenizer_has_more_tokens (e->ht)) {

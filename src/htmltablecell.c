@@ -26,6 +26,7 @@
 #include "htmlcluev.h"
 #include "htmlengine-save.h"
 #include "htmlpainter.h"
+#include "htmltable.h"
 #include "htmltablecell.h"
 
 /* FIXME: This always behaves as a transparent object, even when it
@@ -185,17 +186,27 @@ set_bg_color (HTMLObject *object, GdkColor *color)
 	cell->have_bg = TRUE;
 }
 
+#define SB if (!html_engine_save_output_string (state,
+#define SE )) return FALSE
+
 static gboolean
 save (HTMLObject *self,
       HTMLEngineSaveState *state)
 {
-	gboolean result;
+	HTMLTableCell *cell = HTML_TABLE_CELL (self);
 
-	result &= html_engine_save_output_string (state, "<TD>\n");
-	result &= (*HTML_OBJECT_CLASS (parent_class)->save) (self, state);
-	result &= html_engine_save_output_string (state, "</TD>\n");
+	SB "<TD" SE;
+	if (cell->have_bg && !gdk_color_equal (&cell->bg, HTML_TABLE (self->parent)->bgColor))
+		SB " BGCOLOR=#%02x%02x%02x",
+			cell->bg.red >> 8,
+			cell->bg.green >> 8,
+			cell->bg.blue >> 8 SE;
+	SB ">\n" SE;
+	if (!(*HTML_OBJECT_CLASS (parent_class)->save) (self, state))
+		return FALSE;
+	SB "</TD>\n" SE;
 
-	return result;
+	return TRUE;
 }
 
 

@@ -76,6 +76,8 @@ struct _HTMLTable {
 	GArray *columnOpt; /* integer array */
 	GArray *colSpan; /* integer array */
 	GArray *rowHeights; /* integer array */
+
+	GdkColor *bgColor;
 };
 
 struct _HTMLTableClass {
