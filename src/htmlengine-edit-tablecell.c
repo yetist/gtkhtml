@@ -47,6 +47,20 @@ html_engine_table_cell_set_bg_pixmap (HTMLEngine *e, HTMLTableCell *cell, gchar 
 	html_engine_queue_draw (e, HTML_OBJECT (cell));
 }
 
+void
+html_engine_table_cell_set_halign (HTMLEngine *e, HTMLTableCell *cell, HTMLHAlignType halign)
+{
+	HTML_CLUE (cell)->halign = halign;
+	html_engine_schedule_update (e);
+}
+
+void
+html_engine_table_cell_set_valign (HTMLEngine *e, HTMLTableCell *cell, HTMLVAlignType valign)
+{
+	HTML_CLUE (cell)->valign = valign;
+	html_engine_schedule_update (e);
+}
+
 HTMLTableCell *
 html_engine_get_table_cell (HTMLEngine *e)
 {

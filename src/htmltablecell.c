@@ -341,8 +341,8 @@ html_table_cell_init (HTMLTableCell *cell,
 
 	object->flags &= ~HTML_OBJECT_FLAG_FIXEDWIDTH;
 
-	clue->valign = HTML_VALIGN_BOTTOM;
-	clue->halign = HTML_HALIGN_LEFT;
+	clue->valign = HTML_VALIGN_CENTER;
+	clue->halign = HTML_HALIGN_NONE;
 
 	cell->fixed_width  = 0;
 	cell->fixed_height = 0;

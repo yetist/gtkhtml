@@ -33,6 +33,7 @@
 #include "htmlsearch.h"
 #include "htmlselection.h"
 #include "htmlsettings.h"
+#include "htmltokenizer.h"
 
 #ifndef USE_SCROLLED_WINDOW
 #include <gal/widgets/e-scroll-frame.h>

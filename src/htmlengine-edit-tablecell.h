@@ -26,12 +26,18 @@
 #include "htmltypes.h"
 #include "htmlenums.h"
 
-void           html_engine_table_cell_set_bg_color   (HTMLEngine    *e,
-						      HTMLTableCell *t,
-						      GdkColor      *c);
-void           html_engine_table_cell_set_bg_pixmap  (HTMLEngine    *e,
-						      HTMLTableCell *t,
-						      gchar         *url);
-HTMLTableCell *html_engine_get_table_cell            (HTMLEngine    *e);
+void           html_engine_table_cell_set_bg_color   (HTMLEngine     *e,
+						      HTMLTableCell  *t,
+						      GdkColor       *c);
+void           html_engine_table_cell_set_bg_pixmap  (HTMLEngine     *e,
+						      HTMLTableCell  *t,
+						      gchar          *url);
+void           html_engine_table_cell_set_halign     (HTMLEngine     *e,
+						      HTMLTableCell  *cell,
+						      HTMLHAlignType  halign);
+void           html_engine_table_cell_set_valign     (HTMLEngine     *e,
+						      HTMLTableCell  *cell,
+						      HTMLVAlignType  valign);
+HTMLTableCell *html_engine_get_table_cell            (HTMLEngine     *e);
 			       
 #endif
