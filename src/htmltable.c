@@ -1149,24 +1149,28 @@ find_anchor (HTMLObject *self, const char *name, gint *x, gint *y)
 static HTMLObject *
 check_point (HTMLObject *self,
 	     HTMLPainter *painter,
-	     gint _x, gint _y,
+	     gint x, gint y,
 	     guint *offset_return,
 	     gboolean for_cursor)
 {
-	HTMLTable *table;
-	HTMLObject *obj;
 	HTMLTableCell *cell;
+	HTMLObject *obj;
+	HTMLTable *table;
 	unsigned int r, c;
 
-	if (_x < self->x || _x > self->x + self->width
-	    || _y > self->y + self->descent || _y < self->y - self->ascent)
+	if (x < self->x || x > self->x + self->width
+	    || y > self->y + self->descent || y < self->y - self->ascent)
 		return NULL;
 
 	table = HTML_TABLE (self);
 
+	x -= self->x;
+	y -= self->y - self->ascent;
+
 	for (r = 0; r < table->totalRows; r++) {
 		for (c = 0; c < table->totalCols; c++) {
-			if ((cell = table->cells[r][c]) == 0)
+			cell = table->cells[r][c];
+			if (cell == NULL)
 				continue;
 
 			if (c < table->totalCols - 1 && cell == table->cells[r][c+1])
@@ -1176,7 +1180,7 @@ check_point (HTMLObject *self,
 
 			obj = html_object_check_point (HTML_OBJECT (cell),
 						       painter,
-						       _x - self->x, _y - (self->y - self->ascent),
+						       x, y,
 						       offset_return,
 						       for_cursor);
 			if (obj != NULL)
