@@ -26,8 +26,7 @@ LDADD = \
 
 EXTRA_DIST = \
 	gtkhtml-properties.desktop	\
-	gtkhtml-capplet.glade           \
-	gtkhtml-capplet.glade.h
+	gtkhtml-capplet.glade
 
 sysdir = $(datadir)/control-center/Documents/
 sys_DATA = gtkhtml-properties.desktop

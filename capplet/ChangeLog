@@ -1,3 +1,7 @@
+2001-05-29  Radek Doulik  <rodo@ximian.com>
+
+	* Makefile.am (EXTRA_DIST): remove gtkhtml-capplet.glade.h
+
 2001-05-07  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml-capplet.glade: fix spelling of keyboard.
