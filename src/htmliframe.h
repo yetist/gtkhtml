@@ -36,6 +36,7 @@ struct _HTMLIFrame {
 	char *url;
 	GtkWidget *scroll;
 	GtkWidget *html;
+	HTMLPainter *gdk_painter;
 	gint width;
 	gint height;
 	gboolean frameborder;

@@ -147,6 +147,8 @@ reset (HTMLObject *o)
 	html_object_reset (GTK_HTML (iframe->html)->engine->clue);
 }
 
+/* FIXME rodo - draw + set_painter is not much clean now, needs refactoring */
+
 static void
 draw (HTMLObject *o,
       HTMLPainter *p,
@@ -154,10 +156,30 @@ draw (HTMLObject *o,
       gint width, gint height,
       gint tx, gint ty)
 {
+	HTMLEmbedded *element = HTML_EMBEDDED(o);
 	HTMLIFrame *iframe;
+	ArtIRect paint;
+	gint new_x, new_y;
+
+	html_object_calc_intersection (o, &paint, x, y, width, height);
+	if (art_irect_empty (&paint))
+		return;
 
 	iframe = HTML_IFRAME (o);
-	html_object_draw (GTK_HTML (iframe->html)->engine->clue, p, x, y, width, height, tx, ty);
+	if (GTK_OBJECT_TYPE (GTK_HTML (iframe->html)->engine->painter) != HTML_TYPE_GDK_PAINTER)
+		html_object_draw (GTK_HTML (iframe->html)->engine->clue, GTK_HTML (iframe->html)->engine->painter,
+				  x, y, width, height, tx, ty);
+
+	if (element->widget) {
+		new_x = GTK_LAYOUT (element->parent)->hadjustment->value + o->x + tx;
+		new_y = GTK_LAYOUT (element->parent)->vadjustment->value + o->y + ty - o->ascent;
+
+		if(new_x != element->abs_x || new_y != element->abs_y)
+			gtk_layout_move(GTK_LAYOUT(element->parent), element->widget,
+					new_x, new_y);
+		element->abs_x = new_x;
+		element->abs_y = new_y;
+	}
 }
 
 static void
@@ -167,7 +189,11 @@ set_painter (HTMLObject *o, HTMLPainter *painter, gint max_width)
 
 	printf ("iframe set painter\n");
 	iframe = HTML_IFRAME (o);
-	html_engine_set_painter (GTK_HTML (iframe->html)->engine, painter, max_width);
+	if (GTK_OBJECT_TYPE (GTK_HTML (iframe->html)->engine->painter) == HTML_TYPE_GDK_PAINTER)
+		iframe->gdk_painter = GTK_HTML (iframe->html)->engine->painter;
+	html_engine_set_painter (GTK_HTML (iframe->html)->engine,
+				 GTK_OBJECT_TYPE (painter) == HTML_TYPE_GDK_PAINTER ? iframe->gdk_painter : painter,
+				 max_width);
 	printf ("iframe set painter end\n");
 }
 

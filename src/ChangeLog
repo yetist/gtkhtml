@@ -1,3 +1,12 @@
+2000-09-20  Radek Doulik  <rodo@helixcode.com>
+
+	* htmliframe.c (set_painter): remember gdk_painter
+	(draw): draw only with non-gdk painters, also move widget to right
+	place
+
+	* gtkhtml.c (focus_in_event): fixed iframes handling
+	(button_press_event): fixed mouse wheel scrolling with iframes
+
 2000-09-19  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlprinter.c (draw_text): updated to UTF8

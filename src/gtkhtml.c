@@ -900,8 +900,8 @@ button_press_event (GtkWidget *widget,
 
 	if (event->type == GDK_BUTTON_PRESS) {
 		GtkAdjustment *vadj;
-			
-		vadj = GTK_LAYOUT (widget)->vadjustment;
+
+		vadj   = GTK_LAYOUT ((html->iframe_parent) ? html->iframe_parent : widget)->vadjustment;
 		
 		switch (event->button) {
 		case 4:
@@ -1010,11 +1010,15 @@ focus_in_event (GtkWidget *widget,
 		GdkEventFocus *event)
 {
 	GtkHTML *html = GTK_HTML (widget);
+
 	if (!html->iframe_parent) {
 		GTK_WIDGET_SET_FLAGS (widget, GTK_HAS_FOCUS);
 		html_engine_set_focus (html->engine, TRUE);
-	} else
-		gtk_window_set_focus (GTK_WINDOW (html->iframe_parent->window), html->iframe_parent);
+	} else {
+		GtkWidget *window = gtk_widget_get_ancestor (widget, gtk_window_get_type ());
+		if (window)
+			gtk_window_set_focus (GTK_WINDOW (window), html->iframe_parent);
+	}
 
 	return FALSE;
 }
