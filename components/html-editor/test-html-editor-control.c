@@ -335,6 +335,8 @@ static char ui [] =
 "			<menuitem name=\"FileExit\" verb=\"\" _label=\"E_xit\"/>"
 "		</submenu>"
 "	</menu>"
+"	<dockitem name=\"Toolbar\" behavior=\"exclusive\">"
+"	</dockitem>"
 "</Root>";
 
 

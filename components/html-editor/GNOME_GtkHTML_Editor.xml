@@ -66,17 +66,22 @@
 			<menuitem name="InsertRule"  verb="" accel="*Alt*F7"/>
 		</submenu>
 	</menu>
+	<dockitem name="Toolbar">
+		<toolitem name="EditUndo" verb=""  _tip="Undo previous changes"
+		pixtype="stock" pixname="Undo"/>
+		<toolitem name="EditRedo" verb=""  _tip="Redo previously undoed changes"
+		pixtype="stock" pixname="Redo"/>
+		<separator/>
+		<toolitem name="EditCut" verb=""  _tip="Cut selection to clipboard"
+		pixtype="stock" pixname="Cut"/>
+                <toolitem name="EditCopy" verb=""  _tip="Copy selection to clipboard"
+		pixtype="stock" pixname="Copy"/>
+		<toolitem name="EditPaste" verb=""  _tip="Paste from clipboard"
+		pixtype="stock" pixname="Paste"/>
+		<separator/>
+		<toolitem name="EditFind" verb=""  _tip="Search string"
+		pixtype="stock" pixname="Search"/>
+		<toolitem name="EditReplace" verb=""  _tip="Search and replace string"
+		pixtype="stock" pixname="Search/Replace"/>
+	</dockitem>
 </Root>
-
-
-
-
-
-
-
-
-
-
-
-
-

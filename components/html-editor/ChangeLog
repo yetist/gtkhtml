@@ -1,3 +1,7 @@
+2000-12-12  Radek Doulik  <rodo@helixcode.com>
+
+	* GNOME_GtkHTML_Editor.xml: added toolbar items
+
 2000-12-10 Anna Marie Dirks  <anna@helixcode.com>
 	* html-editor-control.xml: Changed keybindings to comply 
 	with GNOME standards; removed unnecessary bindings and all uses

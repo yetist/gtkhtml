@@ -168,7 +168,7 @@ BonoboUIVerb verbs [] = {
 	BONOBO_UI_UNSAFE_VERB ("InsertImage", insert_image_cb),
 	BONOBO_UI_UNSAFE_VERB ("InsertLink", insert_link_cb),
 	BONOBO_UI_UNSAFE_VERB ("InsertRule", insert_rule_cb),
-	
+
 	BONOBO_UI_VERB_END
 };
 
