@@ -7,11 +7,6 @@ endif
 confexecdir = $(libdir)
 confexec_DATA = gtkhtmlConf.sh
 
-EXTRA_DIST =					\
-	COPYING.LIB				\
-	BUGS					\
-	gtkhtmlConf.sh.in
-
 gtkhtmlConf.sh: gtkhtmlConf.sh.in Makefile
 	sed -e 's?\@GTKHTML_LIBDIR\@?$(GTKHTML_LIBDIR)?g' \
 	    -e 's?\@GTKHTML_INCLUDEDIR\@?$(GTKHTML_INCLUDEDIR)?g' \
@@ -29,13 +24,11 @@ SUBDIRS =					\
 
 EXTRA_DIST =					\
 	html-component.gnorba			\
-	gtkhtmlConf.sh.in			\
 	gtkhtml.spec.in				\
-	gtkhtml.spec
-
-dist-hook: gtkhtml.spec.in gtkhtml.spec
-	-cp gtkhtml.spec.in $(distdir)
-	-cp gtkhtml.spec $(distdir)
+	gtkhtml.spec                            \
+	COPYING.LIB				\
+	BUGS					\
+	gtkhtmlConf.sh.in
 
 if BONOBO
 gnorbadir = $(sysconfdir)/CORBA/servers
