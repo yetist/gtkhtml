@@ -1,3 +1,9 @@
+2002-10-02  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml.c (gtk_html_set_paragraph_alignment): make sure we
+	update the aligment tracking variable when we update the
+	alignment.  Fixes http://bugzilla.ximian.com/show_bug.cgi?id=9171
+
 2002-10-01  Radek Doulik  <rodo@ximian.com>
 
 	* htmltextslave.c (get_offset_for_pointer): fixed offset
