@@ -3287,7 +3287,7 @@ html_engine_calc_size (HTMLEngine *p)
 	if (min_width > max_width)
 		max_width = min_width;
 
-	html_object_set_max_width (p->clue, max_width);
+	html_object_set_max_width (p->clue, p->painter, max_width);
 	html_object_calc_size (p->clue, p->painter);
 
 	p->clue->x = 0;

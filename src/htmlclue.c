@@ -74,7 +74,9 @@ draw (HTMLObject *o,
 }
 
 static void
-set_max_ascent (HTMLObject *o, gint a)
+set_max_ascent (HTMLObject *o,
+		HTMLPainter *painter,				
+		gint a)
 {
 	HTMLClue *clue = HTML_CLUE (o);
 	HTMLObject *obj;
@@ -95,7 +97,7 @@ set_max_ascent (HTMLObject *o, gint a)
 }
 
 static void
-set_max_descent (HTMLObject *o, gint d)
+set_max_descent (HTMLObject *o, HTMLPainter *painter, gint d)
 {
 	HTMLClue *clue = HTML_CLUE (o);
 	HTMLObject *obj;

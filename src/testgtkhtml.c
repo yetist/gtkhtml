@@ -15,8 +15,14 @@
     the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
     Boston, MA 02111-1307, USA.
 */
+
 #include <gnome.h>
 #include <gtk/gtk.h>
+
+#include <libgnomeprint/gnome-print.h>
+#include <libgnomeprint/gnome-print-master.h>
+#include <libgnomeprint/gnome-print-master-preview.h>
+
 #include "config.h"
 #include "debug.h"
 #include "gtkhtml.h"
@@ -52,6 +58,7 @@ typedef struct {
 #define MAX_GO_ENTRIES 20
 
 static void exit_cb (GtkWidget *widget, gpointer data);
+static void print_preview_cb (GtkWidget *widget, gpointer data);
 static void test_cb (GtkWidget *widget, gpointer data);
 static void bug_cb (GtkWidget *widget, gpointer data);
 static void slow_cb (GtkWidget *widget, gpointer data);
@@ -96,6 +103,9 @@ static gint redirect_timerId = 0;
 static gchar *redirect_url = NULL;
 
 static GnomeUIInfo file_menu [] = {
+	{ GNOME_APP_UI_ITEM, N_("Print pre_view"), N_("Print preview"),
+	  print_preview_cb },
+	GNOMEUIINFO_SEPARATOR,
 	GNOMEUIINFO_MENU_EXIT_ITEM (exit_cb, NULL),
 	GNOMEUIINFO_END
 };
@@ -271,6 +281,27 @@ create_toolbars (GtkWidget *app)
 	gnome_dock_add_item (GNOME_DOCK (GNOME_APP (app)->dock),
 			     GNOME_DOCK_ITEM (dock), GNOME_DOCK_TOP, 2, 0, 0, FALSE);
 
+}
+
+static void
+print_preview_cb (GtkWidget *widget,
+		  gpointer data)
+{
+	GnomePrintMaster *print_master;
+	GnomePrintContext *print_context;
+	GtkWidget *preview;
+
+	print_master = gnome_print_master_new ();
+	/*  gnome_print_master_set_paper (master, gnome_paper_with_name ("A4")); */
+
+	print_context = gnome_print_master_get_context (print_master);
+
+	gtk_html_print (html, print_context);
+
+	preview = GTK_WIDGET (gnome_print_master_preview_new (print_master, "HTML Print Preview"));
+	gtk_widget_show (preview);
+
+	gtk_object_unref (GTK_OBJECT (print_master));
 }
 
 static void

@@ -30,7 +30,7 @@ HTMLRuleClass html_rule_class;
 /* HTMLObject methods.  */
 
 static void
-set_max_width (HTMLObject *o, gint max_width)
+set_max_width (HTMLObject *o, HTMLPainter *painter, gint max_width)
 {
 	o->max_width = max_width;
 

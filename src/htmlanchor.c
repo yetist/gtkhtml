@@ -42,6 +42,7 @@ destroy (HTMLObject *object)
 
 static void
 set_max_ascent (HTMLObject *object,
+		HTMLPainter *painter,
 		gint a)
 {
 	/*  object->y -= a; */

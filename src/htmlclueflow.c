@@ -30,20 +30,44 @@
 #include "htmlvspace.h"
 
 
-/* Indentation width.  */
-#define INDENT_UNIT 25
-
-/* Vertical spacing.  FIXME: Maybe this should depend on the paragraph type.  */
-#define VERTICAL_PAD 10
-
-/* Bullet geometry (for itemized lists).  */
-#define BULLET_SIZE 4
-#define BULLET_HPAD  4
-#define BULLET_VPAD  2
-
 HTMLClueFlowClass html_clueflow_class;
 
 #define HCF_CLASS(x) HTML_CLUEFLOW_CLASS (HTML_OBJECT (x)->klass)
+
+
+static guint
+calc_padding (HTMLPainter *painter)
+{
+	guint ascent, descent;
+
+	/* FIXME maybe this should depend on the style.  */
+	ascent = html_painter_calc_ascent (painter, HTML_FONT_STYLE_SIZE_3);
+	descent = html_painter_calc_descent (painter, HTML_FONT_STYLE_SIZE_3);
+
+	return ascent + descent;
+}
+
+static guint
+calc_indent_unit (HTMLPainter *painter)
+{
+	guint ascent, descent;
+
+	ascent = html_painter_calc_ascent (painter, HTML_FONT_STYLE_SIZE_3);
+	descent = html_painter_calc_descent (painter, HTML_FONT_STYLE_SIZE_3);
+
+	return (ascent + descent) * 3;
+}
+
+static guint
+calc_bullet_size (HTMLPainter *painter)
+{
+	guint ascent, descent;
+
+	ascent = html_painter_calc_ascent (painter, HTML_FONT_STYLE_SIZE_3);
+	descent = html_painter_calc_descent (painter, HTML_FONT_STYLE_SIZE_3);
+
+	return (ascent + descent) / 3;
+}
 
 
 static gboolean
@@ -76,7 +100,8 @@ is_header (HTMLClueFlow *flow)
 }
 
 static void
-add_pre_padding (HTMLClueFlow *flow)
+add_pre_padding (HTMLClueFlow *flow,
+		 guint pad)
 {
 	HTMLObject *prev_object;
 
@@ -89,24 +114,24 @@ add_pre_padding (HTMLClueFlow *flow)
 
 		prev = HTML_CLUEFLOW (prev_object);
 		if (prev->list_level > 0 && flow->list_level == 0) {
-			HTML_OBJECT (flow)->ascent += VERTICAL_PAD;
+			HTML_OBJECT (flow)->ascent += pad;
 			return;
 		}
 
 		if (prev->quote_level != flow->quote_level) {
-			HTML_OBJECT (flow)->ascent += VERTICAL_PAD;
+			HTML_OBJECT (flow)->ascent += pad;
 			return;
 		}
 
 		if (flow->style == HTML_CLUEFLOW_STYLE_PRE
 		    && prev->style != HTML_CLUEFLOW_STYLE_PRE
 		    && ! is_header (prev)) {
-			HTML_OBJECT (flow)->ascent += VERTICAL_PAD;
+			HTML_OBJECT (flow)->ascent += pad;
 			return;
 		}
 
 		if (is_header (flow) && ! is_header (prev)) {
-			HTML_OBJECT (flow)->ascent += VERTICAL_PAD;
+			HTML_OBJECT (flow)->ascent += pad;
 			return;
 		}
 
@@ -114,11 +139,12 @@ add_pre_padding (HTMLClueFlow *flow)
 	}
 
 	if (is_header (flow) || flow->quote_level > 0 || flow->list_level > 0)
-		HTML_OBJECT (flow)->ascent += VERTICAL_PAD;
+		HTML_OBJECT (flow)->ascent += pad;
 }
 
 static void
-add_post_padding (HTMLClueFlow *flow)
+add_post_padding (HTMLClueFlow *flow,
+		  guint pad)
 {
 	HTMLObject *next_object;
 
@@ -131,24 +157,24 @@ add_post_padding (HTMLClueFlow *flow)
 
 		next = HTML_CLUEFLOW (next_object);
 		if (next->list_level > 0 && flow->list_level == 0) {
-			HTML_OBJECT (flow)->ascent += VERTICAL_PAD;
+			HTML_OBJECT (flow)->ascent += pad;
 			return;
 		}
 
 		if (next->quote_level != flow->quote_level) {
-			HTML_OBJECT (flow)->ascent += VERTICAL_PAD;
+			HTML_OBJECT (flow)->ascent += pad;
 			return;
 		}
 
 		if (flow->style == HTML_CLUEFLOW_STYLE_PRE
 		    && next->style != HTML_CLUEFLOW_STYLE_PRE
 		    && ! is_header (next)) {
-			HTML_OBJECT (flow)->ascent += VERTICAL_PAD;
+			HTML_OBJECT (flow)->ascent += pad;
 			return;
 		}
 
 		if (is_header (flow)) {
-			HTML_OBJECT (flow)->ascent += VERTICAL_PAD;
+			HTML_OBJECT (flow)->ascent += pad;
 			return;
 		}
 
@@ -156,11 +182,12 @@ add_post_padding (HTMLClueFlow *flow)
 	}
 
 	if (is_header (flow) || flow->quote_level > 0 || flow->list_level > 0)
-		HTML_OBJECT (flow)->ascent += VERTICAL_PAD;
+		HTML_OBJECT (flow)->ascent += pad;
 }
 
 static guint
-get_indent (HTMLClueFlow *flow)
+get_indent (HTMLClueFlow *flow,
+	    HTMLPainter *painter)
 {
 	guint total_level;
 	guint indent;
@@ -168,9 +195,9 @@ get_indent (HTMLClueFlow *flow)
 	total_level = flow->quote_level + flow->list_level;
 
 	if (total_level > 0 || ! is_item (flow))
-		indent = total_level * INDENT_UNIT;
+		indent = total_level * calc_indent_unit (painter);
 	else
-		indent = BULLET_SIZE + 2 * BULLET_HPAD;
+		indent = 2 * calc_bullet_size (painter);
 
 	return indent;
 }
@@ -210,17 +237,19 @@ get_tag_for_style (const HTMLClueFlow *flow)
 
 /* HTMLObject methods.  */
 static void
-set_max_width (HTMLObject *o, gint max_width)
+set_max_width (HTMLObject *o,
+	       HTMLPainter *painter,
+	       gint max_width)
 {
 	HTMLObject *obj;
 	guint indent;
 
 	o->max_width = max_width;
 
-	indent = get_indent (HTML_CLUEFLOW (o));
+	indent = get_indent (HTML_CLUEFLOW (o), painter);
 
 	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next)
-		html_object_set_max_width (obj, o->max_width - indent);
+		html_object_set_max_width (obj, painter, o->max_width - indent);
 }
 
 static gint
@@ -250,7 +279,7 @@ calc_min_width (HTMLObject *o,
 		w = 0;
 	}
 
-	tempMinWidth += get_indent (HTML_CLUEFLOW (o));
+	tempMinWidth += get_indent (HTML_CLUEFLOW (o), painter);
 
 	return tempMinWidth;
 }
@@ -273,13 +302,14 @@ calc_size (HTMLObject *o,
 	gint indent;
 	gint oldy;
 	gint w, a, d;
+	guint padding;
 
 	clue = HTML_CLUE (o);
 
 	obj = clue->head;
 	line = clue->head;
 	clear = HTML_CLEAR_NONE;
-	indent = get_indent (HTML_CLUEFLOW (o));
+	indent = get_indent (HTML_CLUEFLOW (o), painter);
 
 	if (HTML_CLUEFLOW (o)->style == HTML_CLUEFLOW_STYLE_PRE)
 		is_pre = TRUE;
@@ -290,7 +320,9 @@ calc_size (HTMLObject *o,
 	o->descent = 0;
 	o->width = 0;
 
-	add_pre_padding (HTML_CLUEFLOW (o));
+	padding = calc_padding (painter);
+
+	add_pre_padding (HTML_CLUEFLOW (o), padding);
 
 	lmargin = html_clue_get_left_margin (HTML_CLUE (o->parent), o->y);
 	if (indent > lmargin)
@@ -493,8 +525,8 @@ calc_size (HTMLObject *o,
 			while (line != obj) {
 				if (!(line->flags & HTML_OBJECT_FLAG_ALIGNED)) {
 					line->y = o->ascent - d;
-					html_object_set_max_ascent (line, a);
-					html_object_set_max_descent (line, d);
+					html_object_set_max_ascent (line, painter, a);
+					html_object_set_max_descent (line, painter, d);
 					if (clue->halign == HTML_HALIGN_CENTER
 					    || clue->halign == HTML_HALIGN_RIGHT) {
 						line->x += extra;
@@ -540,7 +572,7 @@ calc_size (HTMLObject *o,
 	if (o->width < o->max_width)
 		o->width = o->max_width;
 
-	add_post_padding (HTML_CLUEFLOW (o));
+	add_post_padding (HTML_CLUEFLOW (o), padding);
 }
 
 static gint
@@ -563,7 +595,7 @@ calc_preferred_width (HTMLObject *o,
 	if (w > maxw)
 		maxw = w;
 
-	return maxw + get_indent (HTML_CLUEFLOW (o));
+	return maxw + get_indent (HTML_CLUEFLOW (o), painter);
 }
 
 static void
@@ -575,6 +607,7 @@ draw (HTMLObject *self,
 {
 	HTMLClueFlow *clueflow;
 	HTMLObject *first;
+	guint bullet_size;
 
 	if (y > self->y + self->descent || y + height < self->y - self->ascent)
 		return;
@@ -585,18 +618,21 @@ draw (HTMLObject *self,
 	if (first != NULL && is_item (clueflow)) {
 		gint xp, yp;
 
-		/* FIXME pen */
-		xp = self->x + first->x - BULLET_SIZE - BULLET_HPAD;
-		yp = self->y - self->ascent + first->y - BULLET_SIZE - BULLET_VPAD;
+		bullet_size = calc_bullet_size (painter);
+
+		/* FIXME pen color?  */
+		
+		xp = self->x + first->x - 2 * bullet_size;
+		yp = self->y - self->ascent + first->y - (first->ascent + bullet_size) / 2 - bullet_size;
 
 		xp += tx, yp += ty;
 
 		html_painter_set_pen (painter, html_painter_get_black (painter));
 
 		if (clueflow->list_level == 0 || (clueflow->list_level & 1) != 0)
-			html_painter_fill_rect (painter, xp, yp, BULLET_SIZE, BULLET_SIZE);
+			html_painter_fill_rect (painter, xp, yp, bullet_size, bullet_size);
 		else
-			html_painter_draw_rect (painter, xp, yp, BULLET_SIZE, BULLET_SIZE);
+			html_painter_draw_rect (painter, xp, yp, bullet_size, bullet_size);
 	}
 
 	(* HTML_OBJECT_CLASS (&html_clue_class)->draw) (self,

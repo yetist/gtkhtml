@@ -26,6 +26,7 @@ libgtkhtml_HEADERS =				\
 	htmldrawqueue.h				\
 	htmlembedded.h				\
 	htmlengine-edit.h			\
+	htmlengine-print.h			\
 	htmlengine-save.h			\
 	htmlengine.h				\
 	htmlentity.h				\
@@ -41,6 +42,8 @@ libgtkhtml_HEADERS =				\
 	htmllist.h				\
 	htmlobject.h				\
 	htmlpainter.h				\
+	htmlprinter.h				\
+	htmlprintfontmanager.h			\
 	htmlradio.h				\
 	htmlrule.h				\
 	htmlselect.h				\
@@ -78,6 +81,7 @@ libgtkhtml_la_SOURCES =				\
 	htmldrawqueue.c				\
 	htmlembedded.c				\
 	htmlengine-edit.c			\
+	htmlengine-print.c			\
 	htmlengine-save.c			\
 	htmlengine.c				\
 	htmlentity.c				\
@@ -93,6 +97,8 @@ libgtkhtml_la_SOURCES =				\
 	htmllist.c				\
 	htmlobject.c				\
 	htmlpainter.c				\
+	htmlprinter.c				\
+	htmlprintfontmanager.c			\
 	htmlradio.c				\
 	htmlrule.c				\
 	htmlselect.c				\

@@ -84,6 +84,8 @@ DEFINE_UNIMPLEMENTED (draw_panel);
 DEFINE_UNIMPLEMENTED (set_clip_rectangle);
 DEFINE_UNIMPLEMENTED (draw_background_pixmap);
 
+DEFINE_UNIMPLEMENTED (get_pixel_size);
+
 static void
 set_color_set (HTMLPainter *painter,
 	       HTMLColorSet *color_set)
@@ -139,6 +141,8 @@ class_init (GtkObjectClass *object_class)
 
 	class->set_clip_rectangle = (gpointer) set_clip_rectangle_unimplemented;
 	class->draw_background_pixmap = (gpointer) draw_background_pixmap_unimplemented;
+
+	class->get_pixel_size = (gpointer) get_pixel_size_unimplemented;
 
 	class->set_color_set = (gpointer) set_color_set;
 
@@ -431,6 +435,15 @@ html_painter_draw_background_pixmap (HTMLPainter *painter,
 	g_return_if_fail (pixbuf != NULL);
 
 	(* HP_CLASS (painter)->draw_background_pixmap) (painter, x, y, pixbuf, pix_width, pix_height);
+}
+
+guint
+html_painter_get_pixel_size (HTMLPainter *painter)
+{
+	g_return_val_if_fail (painter != NULL, 0);
+	g_return_val_if_fail (HTML_IS_PAINTER (painter), 0);
+	
+	return (* HP_CLASS (painter)->get_pixel_size) (painter);
 }
 
 

@@ -857,7 +857,7 @@ calc_size (HTMLObject *o,
 			w = a_columnopt (c + 1) - a_columnopt (indx) - 
 				table->spacing - table->padding * 2;
 
-			html_table_cell_set_width (cell, w);
+			html_table_cell_set_width (cell, painter, w);
 			html_object_calc_size (HTML_OBJECT (cell), painter);
 		}
 	}
@@ -898,8 +898,7 @@ calc_size (HTMLObject *o,
 			
 			cellHeight = a_rowheights (r + 1) - a_rowheights (indx) -
 				table->padding * 2 - table->spacing;
-			html_object_set_max_ascent (HTML_OBJECT (cell),
-						    cellHeight);
+			html_object_set_max_ascent (HTML_OBJECT (cell), painter, cellHeight);
 		}
 
 	}
@@ -1012,6 +1011,7 @@ calc_preferred_width (HTMLObject *o,
 
 static void
 set_max_width (HTMLObject *o,
+	       HTMLPainter *painter,
 	       gint max_width)
 {
 	o->max_width = max_width;

@@ -97,17 +97,17 @@ calc_preferred_width (HTMLObject *o,
 }
 
 static void
-set_max_ascent (HTMLObject *o, gint a)
+set_max_ascent (HTMLObject *o, HTMLPainter *painter, gint a)
 {
 }
 	
 static void
-set_max_descent (HTMLObject *o, gint d)
+set_max_descent (HTMLObject *o, HTMLPainter *painter, gint d)
 {
 }
 	
 static void
-set_max_width (HTMLObject *o, gint max_width)
+set_max_width (HTMLObject *o, HTMLPainter *painter, gint max_width)
 {
 	o->max_width = max_width;
 }
@@ -169,8 +169,8 @@ relayout (HTMLObject *self,
 {
 	/* FIXME int types of this stuff might change in `htmlobject.h',
            remember to sync.  */
-	gshort prev_width;
-	gint prev_ascent, prev_descent;
+	guint prev_width;
+	guint prev_ascent, prev_descent;
 
 	prev_width = self->width;
 	prev_ascent = self->ascent;
@@ -451,21 +451,21 @@ html_object_calc_size (HTMLObject *o,
 }
 
 void
-html_object_set_max_ascent (HTMLObject *o, gint a)
+html_object_set_max_ascent (HTMLObject *o, HTMLPainter *painter, gint a)
 {
-	(* HO_CLASS (o)->set_max_ascent) (o, a);
+	(* HO_CLASS (o)->set_max_ascent) (o, painter, a);
 }
 
 void
-html_object_set_max_descent (HTMLObject *o, gint d)
+html_object_set_max_descent (HTMLObject *o, HTMLPainter *painter, gint d)
 {
-	(* HO_CLASS (o)->set_max_descent) (o, d);
+	(* HO_CLASS (o)->set_max_descent) (o, painter, d);
 }
 
 void
-html_object_set_max_width (HTMLObject *o, gint max_width)
+html_object_set_max_width (HTMLObject *o, HTMLPainter *painter, gint max_width)
 {
-	(* HO_CLASS (o)->set_max_width) (o, max_width);
+	(* HO_CLASS (o)->set_max_width) (o, painter, max_width);
 }
 
 void

@@ -1,4 +1,46 @@
+2000-02-02  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmltablecell.c (html_table_cell_set_width): New arg
+	`painter'.
+
+	* htmlobject.h: New argument `painter' in virtual methods
+	`set_max_ascent', `set_max_descent', `set_max_width'.
+
+	* htmlclueflow.c: Removed hardcoded values `VERTICAL_PAD',
+	`BULLET_SIZE', `BULLET_HPAD', `BULLET_VPAD', `INDENT_UNIT'.
+	(add_pre_padding): Added arg `pad'.
+	(add_post_padding): Likewise.
+	(calc_padding): New function.
+	(calc_size): Use it.
+	(get_indent): New arg `painter'.
+	(set_max_width): New arg `painter'.
+	(calc_indent_unit): New function.
+	(get_indent): Use it.
+	(calc_bullet_size): New function.
+	(get_indent): Use it.
+	(draw): Use it.
+
+	* htmlobject.h: Size-related members in `HTMLObject' changed to be
+	`gint's instead of `gshort's.
+
 2000-02-01  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* testgtkhtml.c: Added a "print preview" menu item.
+	(print_preview_cb): Callback for the menu: it does the preview.
+
+	* gtkhtml.c (gtk_html_print): New function.
+
+	* htmlengine-print.c: New file, implementing printing for
+	HTMLEngine.
+	* htmlengine-print.h: Corresponding header file.
+
+	* htmlprintfontmanager.c: New file, implementing the font manager
+	for HTMLPrinter.
+	* htmlprintfontmanager.h: Corresponding header file.
+
+	* htmlprinter.c: New file, implementing a HTMLPainter suitable for
+	printing.
+	* htmlprinter.h: Corresponding header.
 
 	* htmlclueflow.c (html_clueflow_init): Removed parameter `font'.
 	(html_clueflow_new): Likewise.

@@ -65,7 +65,7 @@ HTMLObject *html_table_cell_new (gint x, gint y, gint max_width, gint percent, g
 
 void html_table_cell_link (HTMLTableCell *cell);
 void html_table_cell_unlink (HTMLTableCell *cell);
-void html_table_cell_set_width (HTMLTableCell *cell, gint width);
+void html_table_cell_set_width (HTMLTableCell *cell, HTMLPainter *painter, gint width);
 void html_table_cell_set_bg_pixmap (HTMLTableCell *cell, HTMLImagePointer *imagePtr);
 
 #endif /* _HTMLTABLECELL_H_ */

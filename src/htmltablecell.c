@@ -58,7 +58,9 @@ calc_min_width (HTMLObject *o,
 }
 
 static void
-set_max_width (HTMLObject *o, gint max_width)
+set_max_width (HTMLObject *o,
+	       HTMLPainter *painter,
+	       gint max_width)
 {
 	HTMLObject *obj;
 
@@ -71,9 +73,8 @@ set_max_width (HTMLObject *o, gint max_width)
 			o->width = max_width;
 	}
 
-	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next) {
-		html_object_set_max_width (obj, max_width);
-	}
+	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next)
+		html_object_set_max_width (obj, painter, max_width);
 }
 
 static void
@@ -266,7 +267,7 @@ html_table_cell_unlink (HTMLTableCell *cell)
 }
 
 void
-html_table_cell_set_width (HTMLTableCell *cell, gint width)
+html_table_cell_set_width (HTMLTableCell *cell, HTMLPainter *painter, gint width)
 {
 	HTMLObject *obj;
 	HTMLObject *o = HTML_OBJECT (cell);
@@ -276,7 +277,7 @@ html_table_cell_set_width (HTMLTableCell *cell, gint width)
 	    o->max_width = width;
 
 	for (obj = HTML_CLUE (cell)->head; obj != 0; obj = obj->next)
-		html_object_set_max_width (obj, width);
+		html_object_set_max_width (obj, painter, width);
 }
 
 void html_table_cell_set_bg_pixmap (HTMLTableCell *cell, HTMLImagePointer *imagePtr) {

@@ -26,7 +26,7 @@ HTMLClueHClass html_clueh_class;
 
 
 static void
-set_max_width (HTMLObject *o, gint w)
+set_max_width (HTMLObject *o, HTMLPainter *painter, gint w)
 {
 	HTMLObject *obj;
 
@@ -41,7 +41,7 @@ set_max_width (HTMLObject *o, gint w)
 	/* Now call set_max_width for variable objects */
 	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next) {
 		if (obj->percent > 0)
-			html_object_set_max_width (obj,
+			html_object_set_max_width (obj, painter, 
 						   w - HTML_CLUEH (o)->indent);
 	}
 }
@@ -55,7 +55,7 @@ calc_size (HTMLObject *clue,
 	gint a = 0, d = 0;
 
 	/* Make sure the children are properly sized */
-	html_object_set_max_width (clue, clue->max_width);
+	html_object_set_max_width (clue, painter, clue->max_width);
 
 	HTML_OBJECT_CLASS (&html_clue_class)->calc_size (clue, painter);
 

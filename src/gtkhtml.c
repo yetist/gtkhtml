@@ -23,8 +23,9 @@
 #include <gtk/gtk.h>
 
 #include "htmlengine-edit.h"
-#include "gtkhtml-private.h"
+#include "htmlengine-print.h"
 
+#include "gtkhtml-private.h"
 #include "gtkhtml-embedded.h"
 
 
@@ -872,4 +873,17 @@ gtk_html_get_editable  (const GtkHTML *html)
 	g_return_val_if_fail (GTK_IS_HTML (html), FALSE);
 
 	return html->editable;
+}
+
+
+/* Printing.  */
+
+void
+gtk_html_print (GtkHTML *html,
+		GnomePrintContext *print_context)
+{
+	g_return_if_fail (html != NULL);
+	g_return_if_fail (GTK_IS_HTML (html));
+
+	html_engine_print (html->engine, print_context);
 }

@@ -25,6 +25,7 @@ typedef struct _GtkHTMLClass	GtkHTMLClass;
 
 #include <sys/types.h>
 #include <gtk/gtk.h>
+#include <libgnomeprint/gnome-print.h>
 
 #define GTK_TYPE_HTML                  (gtk_html_get_type ())
 #define GTK_HTML(obj)                  (GTK_CHECK_CAST ((obj), GTK_TYPE_HTML, GtkHTML))
@@ -36,6 +37,8 @@ typedef gpointer GtkHTMLStreamHandle;
 typedef enum { GTK_HTML_STREAM_OK, GTK_HTML_STREAM_ERROR } GtkHTMLStreamStatus;
 
 #include "gtkhtml-embedded.h"
+
+/* FIXME we should hide this stuff.  */
 #include "htmlengine.h"
 #include "htmlengine-save.h"
 
@@ -116,6 +119,10 @@ void                 gtk_html_stream_unref  (GtkHTMLStreamHandle handle);
 void      gtk_html_set_editable  (GtkHTML       *html,
 				  gboolean       editable);
 gboolean  gtk_html_get_editable  (const GtkHTML *html);
+
+/* Printing support.  */
+void  gtk_html_print  (GtkHTML           *html,
+		       GnomePrintContext *print_context);
 
 /* DEPRECATED.  We'll keep it around for a while just to prevent code from
    being broken.  */

@@ -174,7 +174,7 @@ calc_size (HTMLObject *o,
 }
 
 static void
-set_max_width (HTMLObject *o, gint max_width)
+set_max_width (HTMLObject *o, HTMLPainter *painter, gint max_width)
 {
 	HTMLObject *obj;
 	
@@ -187,7 +187,7 @@ set_max_width (HTMLObject *o, gint max_width)
 	}
 
 	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next)
-		html_object_set_max_width (obj, o->width);
+		html_object_set_max_width (obj, painter, o->width);
 
 }
 

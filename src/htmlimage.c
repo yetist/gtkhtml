@@ -140,12 +140,12 @@ destroy (HTMLObject *image)
 }
 
 static void
-set_max_width (HTMLObject *o, gint max_width)
+set_max_width (HTMLObject *o, HTMLPainter *painter, gint max_width)
 {
 	if (o->percent > 0)
 		o->max_width = max_width;
 
-	if (!HTML_IMAGE (o)->image_ptr || !HTML_IMAGE (o)->image_ptr->pixbuf)
+	if (HTML_IMAGE (o)->image_ptr == NULL || HTML_IMAGE (o)->image_ptr->pixbuf == NULL)
 		return;
 
 	if (o->percent > 0) {
@@ -155,6 +155,7 @@ set_max_width (HTMLObject *o, gint max_width)
 				HTML_IMAGE (o)->image_ptr->pixbuf->art_pixbuf->width + HTML_IMAGE (o)->border;
 		o->width += HTML_IMAGE (o)->border * 2;
 	}
+
 	if (HTML_IMAGE (o)->scaled)
 		html_image_update_scaled_pixbuf (HTML_IMAGE (o));
 }
@@ -165,7 +166,8 @@ calc_min_width (HTMLObject *o,
 {
 	if (o->percent > 0)
 		return 1;
-	return o->width;
+
+	return o->width * html_painter_get_pixel_size (painter);
 }
 
 static void
@@ -348,9 +350,15 @@ html_image_init (HTMLImage *image,
 }
 
 HTMLObject *
-html_image_new (HTMLImageFactory *imf, gchar *filename,
-		const gchar *url, const gchar *target,
-		gint max_width, gint width, gint height, gint percent, gint border)
+html_image_new (HTMLImageFactory *imf,
+		gchar *filename,
+		const gchar *url,
+		const gchar *target,
+		gint max_width,
+		gint width,
+		gint height,
+		gint percent,
+		gint border)
 {
 	HTMLImage *image;
 

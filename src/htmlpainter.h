@@ -80,6 +80,8 @@ struct _HTMLPainterClass {
 					 gint pix_width, gint pix_height);
 
 	void (* set_color_set) (HTMLPainter *painter, HTMLColorSet *color_set);
+
+	guint (* get_pixel_size) (HTMLPainter *painter);
 };
 typedef struct _HTMLPainterClass HTMLPainterClass;
 
@@ -190,5 +192,7 @@ void  html_painter_draw_background_pixmap  (HTMLPainter *painter,
 					    GdkPixbuf   *pixbuf,
 					    gint         pix_width,
 					    gint         pix_height);
+
+guint  html_painter_get_pixel_size  (HTMLPainter *painter);
 
 #endif /* _HTMLPAINTER_H_ */

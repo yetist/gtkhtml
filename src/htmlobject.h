@@ -102,10 +102,9 @@ struct _HTMLObject {
 
 	gint ascent, descent;
 
-	/* FIXME unsigned? */
-	gshort width;
-	gshort max_width;
-	gshort percent;
+	gint width;
+	gint max_width;
+	gint percent;
 
 	guchar flags;
 
@@ -137,9 +136,9 @@ struct _HTMLObjectClass {
 		      gint width, gint height,
 		      gint tx, gint ty);
 
-	void (*set_max_ascent) (HTMLObject *o, gint a);
-	void (*set_max_descent) (HTMLObject *o, gint d);
-	void (*set_max_width) (HTMLObject *o, gint max_width);
+	void (*set_max_ascent) (HTMLObject *o, HTMLPainter *painter, gint a);
+	void (*set_max_descent) (HTMLObject *o, HTMLPainter *painter, gint d);
+	void (*set_max_width) (HTMLObject *o, HTMLPainter *painter, gint max_width);
 
 	void (*reset) (HTMLObject *o);
 	
@@ -225,10 +224,13 @@ HTMLFitType  html_object_fit_line              (HTMLObject  *o,
 void         html_object_calc_size             (HTMLObject  *o,
 						HTMLPainter *painter);
 void         html_object_set_max_ascent        (HTMLObject  *o,
+						HTMLPainter *painter,
 						gint         a);
 void         html_object_set_max_descent       (HTMLObject  *o,
+						HTMLPainter *painter,
 						gint         d);
 void         html_object_set_max_width         (HTMLObject  *o,
+						HTMLPainter *painter,
 						gint         max_width);
 gint         html_object_calc_min_width        (HTMLObject  *o,
 						HTMLPainter *painter);

@@ -544,6 +544,12 @@ calc_text_width (HTMLPainter *painter,
 	return width;
 }
 
+static guint
+get_pixel_size (HTMLPainter *painter)
+{
+	return 1;
+}
+
 
 static void
 init_color (GdkColor *color, gushort red, gushort green, gushort blue)
@@ -613,6 +619,7 @@ class_init (GtkObjectClass *object_class)
 	painter_class->set_clip_rectangle = set_clip_rectangle;
 	painter_class->draw_background_pixmap = draw_background_pixmap;
 	painter_class->set_color_set = set_color_set;
+	painter_class->get_pixel_size = get_pixel_size;
 
 	parent_class = gtk_type_class (html_painter_get_type ());
 }
