@@ -75,7 +75,6 @@ static void home_cb (GtkWidget *widget, gpointer data);
 static void reload_cb (GtkWidget *widget, gpointer data);
 static void redraw_cb (GtkWidget *widget, gpointer data);
 static void resize_cb (GtkWidget *widget, gpointer data);
-static void select_all_cb (GtkWidget *widget, gpointer data);
 static void title_changed_cb (GtkHTML *html, const gchar *title, gpointer data);
 static void url_requested (GtkHTML *html, const char *url, GtkHTMLStream *handle, gpointer data);
 static void entry_goto_url(GtkWidget *widget, gpointer data);
@@ -155,8 +154,6 @@ static GnomeUIInfo debug_menu[] = {
 	  resize_cb, NULL, NULL, 0, 0, 0 },
 	{ GNOME_APP_UI_ITEM, "Force repaint", "Force a repaint event",
 	  redraw_cb, NULL, NULL, 0, 0, 0 },
-	{ GNOME_APP_UI_ITEM, "Select all", "Select all",
-	  select_all_cb, NULL, NULL, 0, 0, 0 },
 	GNOMEUIINFO_END
 };
 
@@ -290,20 +287,20 @@ create_toolbars (GtkWidget *app)
 
 }
 
-static gint page_num, pages;
+static gint page_num;
 static GnomeFont *font;
 
 static void
 print_footer (GtkHTML *html, GnomePrintContext *context,
 	      gdouble x, gdouble y, gdouble width, gdouble height, gpointer user_data)
 {
-	gchar *text = g_strdup_printf ("- %d of %d -", page_num, pages);
+	gchar *text = g_strdup_printf ("- %d -", page_num);
 	gdouble tw = gnome_font_get_width_string (font, "text");
 
 	if (font) {
 		gnome_print_newpath     (context);
 		gnome_print_setrgbcolor (context, .0, .0, .0);
-		gnome_print_moveto      (context, x + (width - tw)/2, y - gnome_font_get_ascender (font));
+		gnome_print_moveto      (context, x + (width - tw)/2, y - (height + gnome_font_get_ascender (font))/2);
 		gnome_print_setfont     (context, font);
 		gnome_print_show        (context, text);
 	}
@@ -327,12 +324,8 @@ print_preview_cb (GtkWidget *widget,
 	print_context = gnome_print_master_get_context (print_master);
 
 	page_num = 1;
-	pages = gtk_html_print_get_pages_num (html, print_context,
-					      .0, gnome_font_get_ascender (font) + gnome_font_get_descender (font));
 	font = gnome_font_new_closest ("Helvetica", GNOME_FONT_BOOK, FALSE, 12);
-	gtk_html_print_with_header_footer (html, print_context,
-					   .0, gnome_font_get_ascender (font) + gnome_font_get_descender (font),
-					   NULL, print_footer, NULL);
+	gtk_html_print_with_header_footer (html, print_context, .0, .03, NULL, print_footer, NULL);
 	if (font) gtk_object_unref (GTK_OBJECT (font));
 
 	preview = GTK_WIDGET (gnome_print_master_preview_new (print_master, "HTML Print Preview"));
@@ -364,13 +357,6 @@ resize_cb (GtkWidget *widget, gpointer data)
 {
 	g_print ("forcing resize\n");
 	html_engine_calc_size (html->engine, FALSE);
-}
-
-static void
-select_all_cb (GtkWidget *widget, gpointer data)
-{
-	g_print ("select all\n");
-	gtk_html_select_all (html);
 }
 
 static void
@@ -1102,7 +1088,6 @@ main (gint argc, gchar *argv[])
 	gnome_app_set_contents (GNOME_APP (app), scrolled_window);
 
 	html_widget = gtk_html_new ();
-	gtk_html_set_allow_frameset (html_widget, TRUE);
 	html = GTK_HTML (html_widget);
 	gtk_html_load_empty (html);
 	/* gtk_html_set_default_background_color (GTK_HTML (html_widget), &bgColor); */

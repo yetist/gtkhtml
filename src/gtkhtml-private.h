@@ -58,19 +58,11 @@ struct _GtkHTMLPrivate {
 #ifdef GTKHTML_HAVE_GCONF
 	guint set_font_id;
 	guint notify_id;
-	guint notify_spell_id;
 #endif
 #ifdef GTK_HTML_USE_XIM
 	GdkICAttr *ic_attr;
 	GdkIC *ic;
 #endif
-
-	HTMLObject *dnd_object;
-	HTMLObject *dnd_real_object;
-	gboolean    dnd_in_progress;
-	gchar      *dnd_url;
-
-	guint32     event_time;
 };
 
 void  gtk_html_private_calc_scrollbars  (GtkHTML                 *html,

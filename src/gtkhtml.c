@@ -20,7 +20,6 @@
 */
 
 #include <config.h>
-#include <ctype.h>
 
 #include <gdk/gdkkeysyms.h>
 #include <gdk/gdkprivate.h>
@@ -32,7 +31,6 @@
 
 #include "htmlcolorset.h"
 #include "htmlcursor.h"
-#include "htmldrawqueue.h"
 #include "htmlengine-edit.h"
 #include "htmlengine-edit-clueflowstyle.h"
 #include "htmlengine-edit-cut-and-paste.h"
@@ -67,22 +65,7 @@
 #include "math.h"
 #include <libgnome/gnome-util.h>
 
-enum DndTargetType {
-	DND_TARGET_TYPE_TEXT_URI_LIST,
-	DND_TARGET_TYPE__NETSCAPE_URL,
-	DND_TARGET_TYPE_TEXT_PLAIN,
-	DND_TARGET_TYPE_STRING,
-};
-static GtkTargetEntry dnd_link_sources [] = {
-	{ "text/uri-list", 0, DND_TARGET_TYPE_TEXT_URI_LIST },
-	{ "_NETSCAPE_URL", 0, DND_TARGET_TYPE__NETSCAPE_URL },
-	{ "text/plain", 0, DND_TARGET_TYPE_TEXT_PLAIN },
-	{ "STRING", 0, DND_TARGET_TYPE_STRING },
-};
-#define DND_LINK_SOURCES sizeof (dnd_link_sources) / sizeof (GtkTargetEntry)
-
-#define GNOME_SPELL_GCONF_DIR "/GNOME/Spell"
-
+
 static GtkLayoutClass *parent_class = NULL;
 
 #ifdef GTKHTML_HAVE_GCONF
@@ -329,7 +312,7 @@ idle_handler (gpointer data)
 	html = GTK_HTML (data);
 	engine = html->engine;
 
-	if (html->engine->thaw_idle_id == 0 && !html_engine_frozen (html->engine))
+	if (html->engine->thaw_idle_id == 0)
 		html_engine_make_cursor_visible (engine);
 
 	gtk_adjustment_set_value (GTK_LAYOUT (html)->hadjustment, (gfloat) engine->x_offset);
@@ -337,7 +320,7 @@ idle_handler (gpointer data)
 
 	gtk_html_private_calc_scrollbars (html, NULL, NULL);
 
-	if (html->engine->thaw_idle_id == 0 && !html_engine_frozen (html->engine))
+	if (html->engine->thaw_idle_id == 0)
 		html_engine_flush_draw_queue (engine);
 
  	html->priv->idle_handler_id = 0;
@@ -397,12 +380,9 @@ html_engine_url_requested_cb (HTMLEngine *engine,
 			      gpointer data)
 {
 	GtkHTML *gtk_html;
-	char *expanded = NULL;
-	gtk_html = GTK_HTML (data);
 
-	expanded = gtk_html_get_url_base_relative (gtk_html, url);
-	gtk_signal_emit (GTK_OBJECT (gtk_html), signals[URL_REQUESTED], expanded, handle);
-	g_free (expanded);
+	gtk_html = GTK_HTML (data);
+	gtk_signal_emit (GTK_OBJECT (gtk_html), signals[URL_REQUESTED], url, handle);
 }
 
 static void
@@ -657,8 +637,6 @@ destroy (GtkObject *object)
 
 	if (html->priv->notify_id)
 		gconf_client_notify_remove (gconf_client, html->priv->notify_id);
-	if (html->priv->notify_spell_id)
-		gconf_client_notify_remove (gconf_client, html->priv->notify_spell_id);
 #endif
 
 	g_free (html->priv->content_type);
@@ -700,7 +678,6 @@ key_press_event (GtkWidget *widget,
 
 	html->binding_handled = FALSE;
 	html->priv->update_styles = FALSE;
-	html->priv->event_time = event->time;
 	if (html->editor_bindings && html_engine_get_editable (html->engine))
 		gtk_binding_set_activate (html->editor_bindings, 
 					  event->keyval, 
@@ -745,8 +722,6 @@ key_press_event (GtkWidget *widget,
 
 	if (retval && update)
 		gtk_html_update_styles (html);
-
-	html->priv->event_time = 0;
 
 	/* printf ("retval: %d\n", retval); */
 
@@ -813,9 +788,6 @@ realize (GtkWidget *widget)
 #ifdef GTK_HTML_USE_XIM
 	gtk_html_im_realize (html);
 #endif /* GTK_HTML_USE_XIM */
-
-	gtk_drag_dest_set (widget, GTK_DEST_DEFAULT_ALL,
-			   dnd_link_sources, DND_LINK_SOURCES, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK);
 }
 
 static void
@@ -930,56 +902,30 @@ set_pointer_url (GtkHTML *html, const char *url)
 }
 
 static void
-dnd_link_set (GtkWidget *widget, HTMLObject *o)
-{
-	/* printf ("dnd_link_set %p\n", o); */
-
-	gtk_drag_source_set (widget, GDK_BUTTON1_MASK,
-			     dnd_link_sources, DND_LINK_SOURCES, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK);
-	GTK_HTML (widget)->priv->dnd_object = o;
-}
-
-static void
-dnd_link_unset (GtkWidget *widget)
-{
-	/* printf ("dnd_link_unset\n"); */
-
-	gtk_drag_source_unset (widget);
-	GTK_HTML (widget)->priv->dnd_object = NULL;
-}
-
-static void
 on_object (GtkWidget *widget, GdkWindow *window, HTMLObject *obj)
 {
 	GtkHTML *html = GTK_HTML (widget);
+	const gchar *url;
 
 	if (obj) {
-		gchar *url;
-		url = gtk_html_get_url_object_relative (html, obj, 
-							html_object_get_url (obj));
+		url = html_object_get_url (obj);
 		if (url != NULL) {
 			set_pointer_url (html, url);
-			dnd_link_set (widget, obj);
 			
 			if (html->engine->editable)
 				gdk_window_set_cursor (window, html->ibeam_cursor);
-			else {
+			else
 				gdk_window_set_cursor (window, html->hand_cursor);
-			}
 		} else {
-			set_pointer_url (html, NULL);
-			dnd_link_unset (widget);			
-
+			set_pointer_url (html, NULL);				
+			
 			if (html_object_is_text (obj) && html->allow_selection)
 				gdk_window_set_cursor (window, html->ibeam_cursor);
 			else
 				gdk_window_set_cursor (window, html->arrow_cursor);
 		}
-
-		g_free (url);
 	} else {
 		set_pointer_url (html, NULL);
-		dnd_link_unset (widget);			
 
 		gdk_window_set_cursor (window, html->arrow_cursor);
 	}
@@ -1070,188 +1016,6 @@ mouse_change_pos (GtkWidget *widget, GdkWindow *window, gint x, gint y)
 	return TRUE;
 }
 
-static const char *
-skip_host (const char *url)
-{
-	const char *host;
-	
-	host = url;
-	while (*host && (*host != '/') && (*host != ':'))
-	       host++;
-
-	if (*host == ':') {
-		url = host++;
-
-		if (*host == '/') 
-			host++;
-
-		url = host;
-
-		if (*host == '/') {
-			url = host++;
-
-			if ((host = strchr (host, '/')))
-				url = host;
-		}
-	}		
-	
-	return url;
-}
-	
-static size_t
-path_len (const char *base, gboolean absolute)
-{
-	const char *last;
-	const char *cur;
-	const char *start;
-
-	start = last = skip_host (base);
-	if (!absolute) {
-		cur = strrchr (start, '/');
-		
-		if (cur)
-			last = cur;
-	}
-
-	return last - base;
-}
-
-#if 0
-char *
-collapse_path (char *url)
-{
-	char *start;
-	char *end;
-	char *cur;
-	size_t len;
-
-	start = skip_host (url);
-
-	cur = start;
-	while ((cur = strstr (cur, "/../"))) {
-		end = cur + 3;
-		
-		/* handle the case of a rootlevel /../ specialy */
-		if (cur == start) {
-			len = strlen (end);
-			memmove (cur, end, len + 1);
-		}
-			
-		while (cur > start) {
-			cur--;
-			if ((*cur == '/') || (cur == start)) {
-				len = strlen (end);
-				memmove (cur, end, len + 1);
-				break;
-			}
-		}
-	}
-	return url;
-}
-#endif
-
-static char *
-expand_relative (const char *base, const char *url)
-{
-	char *new_url = NULL;
-	size_t base_len, url_len;
-	gboolean absolute = FALSE;
-
-	if (!base || (url && strstr (url, ":"))) {
-		/*
-		  g_warning ("base = %s url = %s new_url = %s",
-		  base, url, new_url);
-		*/
-		return g_strdup (url);
-	}		
-
-	if (*url == '/') {
-		absolute = TRUE;;
-	}
-	
-	base_len = path_len (base, absolute);
-	url_len = strlen (url);
-
-	new_url = g_malloc (base_len + url_len + 2);
-	
-	if (base_len) {
-		memcpy (new_url, base, base_len);
-
-		if (base[base_len - 1] != '/')
-			new_url[base_len++] = '/';
-		if (absolute)
-			url++;
-	}
-	
-	memcpy (new_url + base_len, url, url_len);
-	new_url[base_len + url_len] = '\0';
-	
-	/* 
-	   g_warning ("base = %s url = %s new_url = %s", 
-	   base, url, new_url);
-	*/
-	return new_url;
-}
-
-char *
-gtk_html_get_url_base_relative (GtkHTML *html, const char *url)
-{
-	return expand_relative (gtk_html_get_base (html), url);
-}
-
-static char *
-expand_frame_url (GtkHTML *html, const char *url)
-{
-	char *new_url;
-
-	new_url = gtk_html_get_url_base_relative (html, url);
-	while (html->iframe_parent) {
-		char *expanded;
-
-		expanded = gtk_html_get_url_base_relative (GTK_HTML (html->iframe_parent), 
-						       new_url);
-		g_free (new_url);
-		new_url = expanded;
-
-		html = GTK_HTML (html->iframe_parent);
-	}
-	return new_url;
-}
-
-char *
-gtk_html_get_url_object_relative (GtkHTML *html, HTMLObject *o, const char *url)
-{
-	HTMLEngine *e;
-	HTMLObject *parent;
-
-	g_return_val_if_fail (GTK_IS_HTML (html), NULL);
-
-	/* start at the top always */
-	while (html->iframe_parent)
-		html = GTK_HTML (html->iframe_parent);
-	
-	parent = o;
-	while (parent->parent) {
-		parent = parent->parent;
-		if ((HTML_OBJECT_TYPE (parent) == HTML_TYPE_FRAME)
-		    || (HTML_OBJECT_TYPE (parent) == HTML_TYPE_IFRAME))
-			break;
-	}
-
-	e = html_object_get_engine (parent, html->engine);
-	
-	if (!e) {
-		g_warning ("Cannot find object for url");
-		return NULL;
-	}
-
-	/*
-	if (e == html->engine)
-		g_warning ("engine matches engine");
-	*/
-        return url ? expand_frame_url (e->widget, url) : NULL;
-}
-	
 static GtkWidget *
 shift_to_iframe_parent (GtkWidget *widget, gint *x, gint *y)
 {
@@ -1260,10 +1024,7 @@ shift_to_iframe_parent (GtkWidget *widget, gint *x, gint *y)
 			*x += widget->allocation.x;
 		if (y)
 			*y += widget->allocation.y;
-
 		widget = GTK_HTML (widget)->iframe_parent;
-		
-			
 	}
 
 	return widget;
@@ -1280,11 +1041,6 @@ motion_notify_event (GtkWidget *widget,
 	g_return_val_if_fail (widget != NULL, 0);
 	g_return_val_if_fail (GTK_IS_HTML (widget), 0);
 	g_return_val_if_fail (event != NULL, 0);
-
-	/* printf ("motion_notify_event\n"); */
-
-	if (GTK_HTML (widget)->priv->dnd_in_progress)
-		return TRUE;
 
 	if (!event->is_hint) {
 		x = event->x;
@@ -1314,8 +1070,6 @@ button_press_event (GtkWidget *widget,
 	GtkHTML *html;
 	HTMLEngine *engine;
 	gint value, x, y;
-
-	/* printf ("button_press_event\n"); */
 
 	x = event->x;
 	y = event->y;
@@ -1364,10 +1118,6 @@ button_press_event (GtkWidget *widget,
 			break;
 		case 2:
 			if (html_engine_get_editable (engine)) {
-				if (gdk_selection_owner_get (GDK_SELECTION_PRIMARY) == GTK_WIDGET (html)->window) {
-					html_engine_copy_object (html->engine, &html->priv->primary, &html->priv->primary_len);
-				}
-
 				html_engine_disable_selection (html->engine);
 				html_engine_jump_at (engine,
 						     x + engine->x_offset,
@@ -1413,12 +1163,10 @@ button_press_event (GtkWidget *widget,
 		}
 	} else if (event->button == 1 && html->allow_selection) {
 		if (event->type == GDK_2BUTTON_PRESS) {
-			html->button1_pressed = FALSE;
 			gtk_html_select_word (html);
 			html->in_selection = TRUE;
 		}
 		else if (event->type == GDK_3BUTTON_PRESS) {
-			html->button1_pressed = FALSE;
 			gtk_html_select_line (html);
 			html->in_selection = TRUE;
 		}
@@ -1428,15 +1176,12 @@ button_press_event (GtkWidget *widget,
 }
 
 static gint
-button_release_event (GtkWidget *initial_widget,
+button_release_event (GtkWidget *widget,
 		      GdkEventButton *event)
 {
-	GtkWidget *widget;
 	GtkHTML *html;
 
-	/* printf ("button_release_event\n"); */
-
-	widget = shift_to_iframe_parent (initial_widget, NULL, NULL);
+	widget = shift_to_iframe_parent (widget, NULL, NULL);
 	html   = GTK_HTML (widget);
 
 	gtk_grab_remove (widget);
@@ -1445,16 +1190,18 @@ button_release_event (GtkWidget *initial_widget,
 	if (event->button == 1) {
 		html->button1_pressed = FALSE;
 		
-		if (!html->priv->dnd_in_progress
-		    && html->pointer_url != NULL && ! html->in_selection)
+		if (html->pointer_url != NULL && ! html->in_selection)
 			gtk_signal_emit (GTK_OBJECT (widget), 
 					 signals[LINK_CLICKED], 
 					 html->pointer_url);
 	}
 
 	if (html->in_selection) {
+		/* Copy to primary save area */
+		html_engine_copy_object(html->engine,
+					&html->priv->primary,
+					&html->priv->primary_len);
 		html->in_selection = FALSE;
-		html_engine_update_selection_active_state (html->engine, html->priv->event_time);
 		gtk_html_update_styles (html);
 	}
 
@@ -1571,15 +1318,11 @@ selection_get (GtkWidget        *widget,
 	html = GTK_HTML (widget);
 	if (selection_data->selection == GDK_SELECTION_PRIMARY)
 	  {
-		  if (html->priv->primary) {
-			  selection_string =  html_object_get_selection_string (html->priv->primary, html->engine);
-			  html_object_destroy (html->priv->primary);
-			  html->priv->primary = NULL;
-		  } else {
-			  selection_string = html_engine_get_selection_string (html->engine);
-		  }
-		  if (selection_string)
-			  g_print("primary paste: `%s'\n", selection_string);
+		if (html->priv->primary) {
+			selection_string =
+			   html_object_get_selection_string (html->priv->primary, html->engine);
+			/* g_print("primary paste: `%s'\n", selection_string); */
+		}
 	  }
 	else	/* CLIPBOARD */
 	  {
@@ -1684,8 +1427,16 @@ selection_received (GtkWidget *widget,
 		} else if (selection_data->selection == GDK_SELECTION_PRIMARY
  			&& GTK_HTML (widget)->priv->primary) {
 
-			html_engine_paste_object (e, GTK_HTML (widget)->priv->primary, GTK_HTML (widget)->priv->primary_len);
-			GTK_HTML (widget)->priv->primary = NULL;
+			HTMLObject *copy;
+			guint len = 0;
+
+			/* Take a copy so that it can be put in the undo
+			** buffer
+			*/
+			copy = html_object_op_copy (GTK_HTML (widget)->priv->primary,
+						    e, NULL, NULL, &len);
+
+			html_engine_paste_object (e, copy, GTK_HTML (widget)->priv->primary_len);
 			return;
 		}
 	}
@@ -1849,8 +1600,7 @@ client_notify_widget (GConfClient* client,
 	GtkHTMLClassProperties *prop = klass->properties;	
 	gchar *tkey;
 
-	printf ("notify (gtkhtml) widget %s\n", entry->key);
-
+	/* printf ("notify widget\n"); */
 	g_assert (client == gconf_client);
 	g_assert (entry->key);
 	tkey = strrchr (entry->key, '/');
@@ -1874,26 +1624,7 @@ client_notify_widget (GConfClient* client,
 	} else if (!strcmp (tkey, "/font_fixed_size")) {
 		prop->font_fix_size = gconf_client_get_int (client, entry->key, NULL);
 		set_fonts (html);
-	} else if (!strcmp (tkey, "/live_spell_check")) {
-		prop->live_spell_check = gconf_client_get_bool (client, entry->key, NULL);
-	}
-}
-
-static void
-client_notify_spell_widget (GConfClient* client, guint cnxn_id, GConfEntry* entry, gpointer user_data)
-{
-	GtkHTML *html = (GtkHTML *) user_data;
-	GtkHTMLClass *klass = GTK_HTML_CLASS (GTK_OBJECT (html)->klass);
-	GtkHTMLClassProperties *prop = klass->properties;	
-	gchar *tkey;
-
-	printf ("notify (spell) widget %s\n", entry->key);
-	g_assert (client == gconf_client);
-	g_assert (entry->key);
-	tkey = strrchr (entry->key, '/');
-	g_assert (tkey);
-
-	if (!strcmp (tkey, "/spell_error_color_red")) {
+	} else if (!strcmp (tkey, "/spell_error_color_red")) {
 		prop->spell_error_color.red = gconf_client_get_int (client, entry->key, NULL);
 	} else if (!strcmp (tkey, "/spell_error_color_green")) {
 		prop->spell_error_color.green = gconf_client_get_int (client, entry->key, NULL);
@@ -1905,11 +1636,13 @@ client_notify_spell_widget (GConfClient* client, guint cnxn_id, GConfEntry* entr
 					 &prop->spell_error_color, HTMLSpellErrorColor);
 		if (html_engine_get_editable (html->engine) && !strcmp (tkey, "/spell_error_color_blue"))
 			gtk_widget_queue_draw (GTK_WIDGET (html));
+	} else if (!strcmp (tkey, "/live_spell_check")) {
+		prop->live_spell_check = gconf_client_get_bool (client, entry->key, NULL);
 	} else if (!strcmp (tkey, "/language")) {
 		g_free (prop->language);
 		prop->language = g_strdup (gconf_client_get_string (client, entry->key, NULL));
-		if (!html->engine->language)
-			gtk_html_api_set_language (html);
+		gtk_html_api_set_language (html);
+		html_engine_spell_check (html->engine);
 	}
 }
 
@@ -1958,9 +1691,6 @@ init_properties (GtkHTMLClass *klass)
 	if (!gconf_client)
 		g_error ("cannot create gconf_client\n");
 	gconf_client_add_dir (gconf_client, GTK_HTML_GCONF_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, &gconf_error);
-	if (gconf_error)
-		g_error ("gconf error: %s\n", gconf_error->message);
-	gconf_client_add_dir (gconf_client, GNOME_SPELL_GCONF_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, &gconf_error);
 	if (gconf_error)
 		g_error ("gconf error: %s\n", gconf_error->message);
 	gtk_html_class_properties_load (klass->properties, gconf_client);
@@ -2022,202 +1752,6 @@ focus (GtkContainer *container, GtkDirectionType direction)
 	return FALSE;
 #endif
 }
-
-/* dnd begin */
-
-static void
-drag_begin (GtkWidget *widget, GdkDragContext *context)
-{
-	/* printf ("drag_begin\n"); */
-	GTK_HTML (widget)->priv->dnd_real_object = GTK_HTML (widget)->priv->dnd_object;
-	GTK_HTML (widget)->priv->dnd_in_progress = TRUE;
-}
-
-static void
-drag_end (GtkWidget *widget, GdkDragContext *context)
-{
-	/* printf ("drag_end\n"); */
-	GTK_HTML (widget)->priv->dnd_in_progress = FALSE;
-}
-
-static void
-drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkSelectionData *selection_data, guint info, guint time)
-{
-	/* printf ("drag_data_get\n"); */
-	switch (info) {
-	case DND_TARGET_TYPE_TEXT_URI_LIST:
-	case DND_TARGET_TYPE__NETSCAPE_URL:
-		/* printf ("\ttext/uri-list\n"); */
-	case DND_TARGET_TYPE_TEXT_PLAIN:
-	case DND_TARGET_TYPE_STRING: {
-		HTMLObject *obj = GTK_HTML (widget)->priv->dnd_real_object;
-		const gchar *url, *target;
-		gchar *complete_url;
-
-		/* printf ("\ttext/plain\n"); */
-		if (obj) {
-			/* printf ("obj %p\n", obj); */
-			url = html_object_get_url (obj);
-			target = html_object_get_target (obj);
-			if (url && *url) {
-				complete_url = g_strconcat (url, target && *target ? "#" : NULL, target, NULL);
-				gtk_selection_data_set (selection_data, selection_data->target, 8,
-							complete_url, strlen (complete_url));
-				/* printf ("complete URL %s\n", complete_url); */
-				GTK_HTML (widget)->priv->dnd_url = complete_url;
-			}
-		}
-	}
-	break;
-	}
-}
-
-static void
-drag_data_delete (GtkWidget *widget, GdkDragContext *context)
-{
-	g_free (GTK_HTML (widget)->priv->dnd_url);
-	GTK_HTML (widget)->priv->dnd_url = NULL;
-}
-
-static gchar *
-next_uri (guchar **uri_list, gint *len, gint *list_len)
-{
-	guchar *uri, *begin;
-
-	begin = *uri_list;
-	*len = 0;
-	while (**uri_list && **uri_list != '\n' && **uri_list != '\r' && *list_len) {
-		(*uri_list) ++;
-		(*len) ++;
-		(*list_len) --;
-	}
-
-	uri = g_strndup (begin, *len);
-
-	while ((!**uri_list || **uri_list == '\n' || **uri_list == '\r') && *list_len) {
-		(*uri_list) ++;
-		(*list_len) --;
-	}	
-
-	return uri;
-}
-
-static gchar *pic_extensions [] = {
-	".png",
-	".gif",
-	".jpg",
-	".xbm",
-	".xpm",
-	".bmp",
-	NULL
-};
-
-static gchar *known_protocols [] = {
-	"http://",
-	"ftp://",
-	"nntp://",
-	"news://",
-	"mailto:",
-	NULL
-};
-
-static HTMLObject *
-new_obj_from_uri (HTMLEngine *e, gchar *uri, gint len)
-{
-	gint i;
-
-	if (!strncmp (uri, "file:", 5)) {
-
-		for (i = 0; pic_extensions [i]; i++) {
-			if (!strcmp (uri + len - strlen (pic_extensions [i]), pic_extensions [i])) {
-				return html_image_new (e->image_factory, uri,
-						       NULL, NULL, -1, -1, FALSE, FALSE, 0,
-						       html_colorset_get_color (e->settings->color_set, HTMLTextColor),
-						       HTML_VALIGN_BOTTOM, TRUE);
-			}
-		}
-	}
-
-	for (i = 0; known_protocols [i]; i++) {
-		if (!strcmp (uri + len - strlen (known_protocols [i]), known_protocols [i])) {
-			return html_engine_new_link (e, uri, len, uri);
-		}
-	}	
-
-	return NULL;
-}
-
-static void
-move_before_paste (GtkWidget *widget, gint x, gint y)
-{
-	HTMLEngine *engine = GTK_HTML (widget)->engine;
-
-	if (html_engine_is_selection_active (engine)) {
-		HTMLObject *obj;
-		guint offset;
-
-		obj = html_engine_get_object_at (engine,
-						 x + engine->x_offset,
-						 y + engine->y_offset,
-						 &offset, FALSE);
-		if (!html_engine_point_in_selection (engine, obj, offset)) {
-			html_engine_disable_selection (engine);
-			html_engine_edit_selection_updater_update_now (engine->selection_updater);
-		}
-	}
-	if (!html_engine_is_selection_active (engine)) {
-
-		html_engine_jump_at (engine, x + engine->x_offset, y + engine->y_offset);
-		gtk_html_update_styles (GTK_HTML (widget));
-	}
-}
-
-static void
-drag_data_received (GtkWidget *widget, GdkDragContext *context,
-		    gint x, gint y, GtkSelectionData *selection_data, guint info, guint time)
-{
-	HTMLEngine *engine = GTK_HTML (widget)->engine;
-
-	/* printf ("drag data received at %d,%d\n", x, y); */
-
-	if (!selection_data->data || selection_data->length < 0 || !html_engine_get_editable (engine))
-		return;
-
-	move_before_paste (widget, x, y);
-
-	switch (info) {
-	case DND_TARGET_TYPE_TEXT_PLAIN:
-	case DND_TARGET_TYPE_STRING:
-		/* printf ("\ttext/plain\n"); */
-		html_engine_paste_object (engine, html_engine_new_text (engine, selection_data->data, selection_data->length),
-					  selection_data->length);
-		break;
-	case DND_TARGET_TYPE_TEXT_URI_LIST:
-	case DND_TARGET_TYPE__NETSCAPE_URL: {
-		HTMLObject *obj;
-		gint list_len, len;
-		gchar *uri;
-
-		html_undo_level_begin (engine->undo, "Dropped URI(s)", "Remove Dropped URI(s)");
-		list_len = selection_data->length;
-		do {
-			uri = next_uri (&selection_data->data, &len, &list_len);
-			move_before_paste (widget, x, y);
-			obj = new_obj_from_uri (engine, uri, len);
-			if (obj)
-				html_engine_paste_object (engine, obj, len);
-			else {
-				gtk_drag_finish (context, FALSE, FALSE, time);
-				break;
-			}
-		} while (list_len);
-		html_undo_level_end (engine->undo);
-	}
-	break;
-	}
-}
-
-/* dnd end */
 
 typedef void (*GtkSignal_NONE__INT_INT_FLOAT) (GtkObject * object,
 					       gint arg1, gint arg2,
@@ -2448,11 +1982,6 @@ class_init (GtkHTMLClass *klass)
 	widget_class->selection_get = selection_get;
 	widget_class->selection_received = selection_received;
 	widget_class->selection_clear_event = selection_clear_event;
-	widget_class->drag_data_get = drag_data_get;
-	widget_class->drag_data_delete = drag_data_delete;
-	widget_class->drag_begin = drag_begin;
-	widget_class->drag_end = drag_end;
-	widget_class->drag_data_received = drag_data_received;
 
 	container_class->focus = focus;
 
@@ -2463,8 +1992,6 @@ class_init (GtkHTMLClass *klass)
 	html_class->command           = command;
 
 	init_properties (klass);
-
-	gdk_rgb_init ();
 }
 
 static void
@@ -2483,13 +2010,6 @@ init_properties_widget (GtkHTML *html)
 	if (gconf_error) {
 		g_warning ("gconf error: %s\n", gconf_error->message);
 		html->priv->notify_id = 0;
-	}
-
-	html->priv->notify_spell_id = gconf_client_notify_add (gconf_client, GNOME_SPELL_GCONF_DIR,
-							       client_notify_spell_widget, html, NULL, &gconf_error);
-	if (gconf_error) {
-		g_warning ("gconf error: %s\n", gconf_error->message);
-		html->priv->notify_spell_id = 0;
 	}
 #endif
 }
@@ -2780,22 +2300,6 @@ gtk_html_get_title (GtkHTML *html)
 	return html->engine->title->str;
 }
 
-/**
- * gtk_html_set_title:
- * @html: The GtkHTML widget.
- *
- * Set the title of the document currently loaded in the GtkHTML widget.
- *
- **/
-void
-gtk_html_set_title (GtkHTML *html, const char *title)
-{
-	g_return_if_fail (html != NULL);
-	g_return_if_fail (GTK_IS_HTML (html));
-
-	html_engine_set_title (html->engine, title); 
-}
-
 
 /**
  * gtk_html_jump_to_anchor:
@@ -3001,10 +2505,24 @@ void
 gtk_html_set_base (GtkHTML *html, const char *url)
 {
 	GtkHTMLPrivate *priv;
+	char *new_base;
+	char *end;
 
 	g_return_if_fail (GTK_IS_HTML (html));
 	
 	priv = html->priv;
+
+	/* FIXME wow this sucks */
+	if (priv->base_url && !strstr (url, ":"))
+		new_base = g_strconcat (priv->base_url, "/", url, NULL);
+	else 
+		new_base = g_strdup (url);
+
+	end = strrchr (new_base, '/');
+	if (end)
+		*(end + 1) = '\0';
+
+	/* g_warning ("url = %s, html->base_url = %s, new_base = %s", url, gtk_html_get_base(html), new_base); */
 
 	g_free (html->priv->base_url);
 	html->priv->base_url = g_strdup (url);
@@ -3435,7 +2953,6 @@ cursor_move (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType ski
 	html->binding_handled = TRUE;
 	html->priv->update_styles = TRUE;
 	gtk_html_edit_make_cursor_visible (html);
-	html_engine_update_selection_active_state (html->engine, html->priv->event_time);
 }
 
 static gboolean
@@ -3504,8 +3021,6 @@ move_selection (GtkHTML *html, GtkHTMLCommandType com_type)
 
 	html->binding_handled = TRUE;
 	html->priv->update_styles = TRUE;
-
-	html_engine_update_selection_active_state (html->engine, html->priv->event_time);
 
 	return rv;
 }
@@ -3823,9 +3338,6 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 	case GTK_HTML_COMMAND_PARAGRAPH_STYLE_ITEMDIGIT:
 		gtk_html_set_paragraph_style (html, GTK_HTML_PARAGRAPH_STYLE_ITEMDIGIT);
 		break;
-	case GTK_HTML_COMMAND_PARAGRAPH_STYLE_ITEMALPHA:
-		gtk_html_set_paragraph_style (html, GTK_HTML_PARAGRAPH_STYLE_ITEMALPHA);
-		break;
 	case GTK_HTML_COMMAND_MODIFY_SELECTION_UP:
 	case GTK_HTML_COMMAND_MODIFY_SELECTION_DOWN:
 	case GTK_HTML_COMMAND_MODIFY_SELECTION_LEFT:
@@ -3891,10 +3403,10 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		break;
 	}
 	case GTK_HTML_COMMAND_CURSOR_FORWARD:
-		rv = html_cursor_forward (html->engine->cursor, html->engine);
+		html_cursor_forward (html->engine->cursor, html->engine);
 		break;
 	case GTK_HTML_COMMAND_CURSOR_BACKWARD:
-		rv = html_cursor_backward (html->engine->cursor, html->engine);
+		html_cursor_backward (html->engine->cursor, html->engine);
 		break;
 	case GTK_HTML_COMMAND_INSERT_TABLE_1_1:
 		html_engine_insert_table_1_1 (e);
@@ -3961,20 +3473,6 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		break;
 	case GTK_HTML_COMMAND_GRAB_FOCUS:
 		gtk_widget_grab_focus (GTK_WIDGET (html));
-		break;
-	case GTK_HTML_COMMAND_KILL_WORD:
-	case GTK_HTML_COMMAND_KILL_WORD_BACKWARD:
-		html_engine_disable_selection (e);
-		html_engine_edit_selection_updater_schedule (e->selection_updater);
-		html_engine_set_mark (html->engine);
-		rv = com_type == GTK_HTML_COMMAND_KILL_WORD
-			? html_engine_forward_word (html->engine)
-			: html_engine_backward_word (html->engine);
-		html_engine_edit_selection_updater_update_now (e->selection_updater);
-		html_draw_queue_clear (e->draw_queue);
-		if (rv)
-			gtk_html_cut (html);
-		html_engine_disable_selection (e);
 		break;
 
 	default:
@@ -4195,8 +3693,6 @@ gtk_html_select_word (GtkHTML *html)
 		html_engine_select_word_editable (e);
 	else
 		html_engine_select_word (e);
-
-	html_engine_update_selection_active_state (html->engine, html->priv->event_time);
 }
 
 void
@@ -4212,8 +3708,6 @@ gtk_html_select_line (GtkHTML *html)
 		html_engine_select_line_editable (e);
 	else
 		html_engine_select_line (e);
-
-	html_engine_update_selection_active_state (html->engine, html->priv->event_time);
 }
 
 void
@@ -4230,8 +3724,6 @@ gtk_html_select_paragraph (GtkHTML *html)
 	/* FIXME: does anybody need this? if so bother me. rodo
 	   else
 	   html_engine_select_paragraph (e); */
-
-	html_engine_update_selection_active_state (html->engine, html->priv->event_time);
 }
 
 void
@@ -4248,8 +3740,6 @@ gtk_html_select_paragraph_extended (GtkHTML *html)
 	/* FIXME: does anybody need this? if so bother me. rodo
 	   else
 	   html_engine_select_paragraph (e); */
-
-	html_engine_update_selection_active_state (html->engine, html->priv->event_time);
 }
 
 void
@@ -4261,14 +3751,11 @@ gtk_html_select_all (GtkHTML *html)
 		return;
 
 	e = html->engine;
-
 	if (html_engine_get_editable (e))
 		html_engine_select_all_editable (e);
-	else {
-		html_engine_select_all (e);
-	}
-
-	html_engine_update_selection_active_state (html->engine, html->priv->event_time);
+	/* FIXME: does anybody need this? if so bother me. rodo
+	   else
+	   html_engine_select_all (e); */
 }
 
 void
@@ -4277,16 +3764,11 @@ gtk_html_api_set_language (GtkHTML *html)
 	g_assert (GTK_IS_HTML (html));
 
 	if (html->editor_api) {
-		gchar *language;
-
 		/* printf ("set language through API to '%s'\n",
 		   GTK_HTML_CLASS (GTK_OBJECT (html)->klass)->properties->language); */
 
-		language = html->engine->language
-			? html->engine->language
-			: GTK_HTML_CLASS (GTK_OBJECT (html)->klass)->properties->language;
-		html->editor_api->set_language (html, language, html->editor_data);
-		html_engine_spell_check (html->engine);
+		html->editor_api->set_language (html, GTK_HTML_CLASS (GTK_OBJECT (html)->klass)->properties->language,
+						html->editor_data);
 	}
 }
 
@@ -4389,7 +3871,6 @@ gtk_html_insert_html_generic (GtkHTML *html, const gchar *html_src, gboolean obj
 	GtkWidget *window, *sw;
 	HTMLObject *o;
 
-	html_engine_freeze (html->engine);
 	tmp    = GTK_HTML (gtk_html_new_from_string (html_src, -1));
 	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	sw     = gtk_scrolled_window_new (NULL, NULL);
@@ -4420,7 +3901,6 @@ gtk_html_insert_html_generic (GtkHTML *html, const gchar *html_src, gboolean obj
 					   html_object_get_insert_level (o));
 	}
 	gtk_widget_destroy (window);
-	html_engine_thaw (html->engine);
 }
 
 void
@@ -4515,58 +3995,4 @@ void
 gtk_html_print_set_master (GtkHTML *html, GnomePrintMaster *print_master)
 {
 	html->priv->print_master = print_master;
-}
-
-void
-gtk_html_images_ref (GtkHTML *html)
-{
-	html_image_factory_ref_all_images (HTML_IMAGE_FACTORY (html->engine->image_factory));
-}
-
-void
-gtk_html_images_unref (GtkHTML *html)
-{
-	html_image_factory_unref_all_images (HTML_IMAGE_FACTORY (html->engine->image_factory));
-}
-
-void
-gtk_html_image_ref (GtkHTML *html, const gchar *url)
-{
-	html_image_factory_ref_image_ptr (HTML_IMAGE_FACTORY (html->engine->image_factory), url);
-}
-
-void
-gtk_html_image_unref (GtkHTML *html, const gchar *url)
-{
-	html_image_factory_unref_image_ptr (HTML_IMAGE_FACTORY (html->engine->image_factory), url);
-}
-
-void
-gtk_html_image_preload (GtkHTML *html, const gchar *url)
-{
-	html_image_factory_register (HTML_IMAGE_FACTORY (html->engine->image_factory), NULL, url, FALSE);
-}
-
-void
-gtk_html_set_blocking (GtkHTML *html, gboolean block)
-{
-	html->engine->block = block;
-}
-
-gint
-gtk_html_print_get_pages_num (GtkHTML *html, GnomePrintContext *print_context, gdouble header_height, gdouble footer_height)
-{
-	return html_engine_print_get_pages_num (html->engine, print_context, header_height, footer_height);
-}
-
-gboolean
-gtk_html_has_undo (GtkHTML *html)
-{
-	return html_undo_has_undo_steps (html->engine->undo);
-}
-
-void
-gtk_html_drop_undo (GtkHTML *html)
-{
-	html_undo_reset (html->engine->undo);
 }

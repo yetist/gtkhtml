@@ -41,6 +41,12 @@ static HTMLPainterClass *parent_class = NULL;
 /* The size of a pixel in the printed output, in points.  */
 #define PIXEL_SIZE .5
 
+/* The following macros are used to convert between the HTMLEngine coordinate
+   system (which uses integers) to the GnomePrint one (which uses doubles). */
+
+#define SCALE_ENGINE_TO_GNOME_PRINT(x) ((printer->scale * (x)) / 1024.0)
+#define SCALE_GNOME_PRINT_TO_ENGINE(x) ((gint) (((x) * 1024.0 / printer->scale) + 0.5))
+
 /* Hm, this might need fixing.  */
 #define SPACING_FACTOR 1.2
 
@@ -670,26 +676,7 @@ calc_text_width (HTMLPainter *painter,
 	font = html_painter_get_font (painter, face, style);
 	g_return_val_if_fail (font != NULL, 0);
 
-	width = gnome_font_get_width_utf8_sized (font, text, g_utf8_offset_to_pointer (text, len) - text);
-
-	return SCALE_GNOME_PRINT_TO_ENGINE (width);
-}
-
-static guint
-calc_text_width_bytes (HTMLPainter *painter,
-		       const gchar *text,
-		       guint len,
-		       HTMLFont *font,
-		       GtkHTMLFontStyle style)
-{
-	HTMLPrinter *printer;
-	double width;
-
-	printer = HTML_PRINTER (painter);
-	g_return_val_if_fail (printer->print_context != NULL, 0);
-	g_return_val_if_fail (font != NULL, 0);
-
-	width = gnome_font_get_width_utf8_sized (font->data, text, len);
+	width = gnome_font_get_width_utf8_sized (font, text, len);
 
 	return SCALE_GNOME_PRINT_TO_ENGINE (width);
 }
@@ -750,11 +737,7 @@ alloc_font (HTMLPainter *painter, gchar *face, gdouble size, gboolean points, Gt
 		}
 	}
 
-	return font ? html_font_new (font,
-				     gnome_font_get_width_utf8_sized (font, " ", 1),
-				     gnome_font_get_width_utf8_sized (font, "\xc2\xa0", 2),
-				     gnome_font_get_width_utf8_sized (font, "\t", 1))
-		: NULL;
+	return font ? html_font_new (font, gnome_font_get_width_utf8_sized (font, " ", 1)) : NULL;
 }
 
 static void
@@ -810,7 +793,6 @@ class_init (GtkObjectClass *object_class)
 	painter_class->calc_ascent = calc_ascent;
 	painter_class->calc_descent = calc_descent;
 	painter_class->calc_text_width = calc_text_width;
-	painter_class->calc_text_width_bytes = calc_text_width_bytes;
 	painter_class->set_pen = set_pen;
 	painter_class->get_black = get_black;
 	painter_class->draw_line = draw_line;

@@ -332,12 +332,6 @@ calc_bullet_size (HTMLPainter *painter)
 }
 
 
-static gboolean
-is_cite (HTMLClueFlow *flow)
-{
-	char *value = html_object_get_data (HTML_OBJECT (flow), "orig");
-	return (value ? (strcmp (value, "1") == 0) : FALSE) && flow->level;
-}
 
 static gboolean
 is_header (HTMLClueFlow *flow)
@@ -469,29 +463,15 @@ get_indent (HTMLClueFlow *flow,
 	    HTMLPainter *painter)
 {
 	guint level;
-	guint indent = 0;
-	GtkHTMLFontStyle style;
-	
-	style = html_clueflow_get_default_font_style (flow);
+	guint indent;
+
 	level = flow->level;
 
-	if (level > 0 || ! is_item (flow)) {
-		if (HTML_IS_PLAIN_PAINTER (painter) && is_cite (flow)) {
-#define DRAW_QUOTES
-#ifdef DRAW_QUOTES
-			int line_offset = 0;
-			
-			indent = html_painter_calc_text_width (painter, ">", 1, &line_offset, style, NULL)
-				                     + html_painter_get_space_width (painter, style, NULL);
-			
-			level--;
-#endif
-		} 
-			
-		indent += level * calc_indent_unit (painter);
-	} else {
-		indent = 5 * html_painter_get_space_width (painter, style, NULL);
-	}
+	if (level > 0 || ! is_item (flow))
+		indent = level * calc_indent_unit (painter);
+	else
+		indent = 5 * html_painter_get_space_width (painter, html_clueflow_get_default_font_style (flow), NULL);
+
 	return indent;
 }
 
@@ -1131,62 +1111,6 @@ get_item_number_str (HTMLClueFlow *flow)
 }
 
 static void
-draw_quotes (HTMLObject *self, HTMLPainter *painter, 
-	     gint x, gint y, gint width, gint height,
-	     gint tx, gint ty)
-{
-#define DRAW_QUOTES
-#ifdef DRAW_QUOTES
-	HTMLClueFlow *flow;
-	ArtIRect paint, area, clip;
-
-	flow = HTML_CLUEFLOW (self);
-
-	if (is_cite (flow)) {
-		html_painter_set_pen (painter, &html_colorset_get_color_allocated (painter, HTMLLinkColor)->color);
-			
-		if (!HTML_IS_PLAIN_PAINTER (painter)) {
-			area.x0 = self->x + 6;
-			area.x1 = area.x0 + 2;
-			area.y0 = self->y - self->ascent;
-			area.y1 = self->y + self->descent;
-		    
-			clip.x0 = x;
-			clip.x1 = x + width;
-			clip.y0 = y;
-			clip.y1 = y + height;
-			
-			art_irect_intersect (&paint, &clip, &area);
-			if (art_irect_empty (&paint))
-				return;
-			
-			html_painter_fill_rect (painter, 
-						paint.x0 + tx, paint.y0 + ty,
-						paint.x1 - paint.x0, paint.y1 - paint.y0);
-		} else {
-			/* draw "> " quote characters in the plain case */ 
-			HTMLObject *cur = HTML_CLUE (self)->head;
-			gint last_y = 0;
-			
-			while (cur) {
-				if (cur->y != last_y) {
-					html_painter_set_font_style (painter, 
-								     html_clueflow_get_default_font_style (flow));
-
-					html_painter_set_font_face  (painter, NULL);
-					html_painter_draw_text (painter, self->x + tx,
-								self->y - self->ascent + cur->y + ty,
-								">", 1, 0);
-				}
-				last_y = cur->y;
-				cur = cur->next;
-			}
-		}
-	}
-#endif 
-}		
-
-static void
 draw_item (HTMLObject *self, HTMLPainter *painter, gint x, gint y, gint width, gint height, gint tx, gint ty)
 {
 	HTMLClueFlow *flow;
@@ -1252,9 +1176,6 @@ draw (HTMLObject *self,
 
 	if (HTML_CLUE (self)->head != NULL && is_item (HTML_CLUEFLOW (self)))
 		draw_item (self, painter, x, y, width, height, tx, ty);
-
-	if (HTML_CLUE (self)->head != NULL)
-		draw_quotes (self, painter, x, y, width, height, tx, ty);
 
 	(* HTML_OBJECT_CLASS (&html_clue_class)->draw) (self, painter, x, y, width, height, tx, ty);
 }
@@ -1847,8 +1768,7 @@ string_append_nonbsp (GString *out, guchar *s, gint length)
 #define CLUEFLOW_ITEM_MARKER        "    * "
 #define CLUEFLOW_ITEM_MARKER_PAD    "      "
 #define CLUEFLOW_INDENT             "    "
-#define CLUEFLOW_BLOCKQUOTE_CITE    "> "
-          
+
 static gchar *
 plain_get_marker (HTMLClueFlow *flow, gint *pad, gchar **pad_indent)
 {
@@ -1912,12 +1832,7 @@ plain_padding (HTMLClueFlow *flow, GString *out, gboolean firstline)
 
 	if (out) {
 		for (i = 0; i < (gint) flow->level; i++) {
-#ifdef DRAW_QUOTES
-			if (is_cite (flow) && (i == 0))
-				g_string_append (out, CLUEFLOW_BLOCKQUOTE_CITE);
-			else
-#endif
-				g_string_append (out, CLUEFLOW_INDENT);
+			g_string_append (out, CLUEFLOW_INDENT);
 		}
 
 		if (is_item (flow)) {

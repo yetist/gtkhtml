@@ -1,60 +1,49 @@
-2002-03-27  Larry Ewing  <lewing@ximian.com>
+2002-04-18  Larry Ewing  <lewing@ximian.com>
 
-	* configure.in: add horrible cruft to version translation files.
-	fix cruft a little.
-	(GTKHTML_DATADIR): append version information here.
-
-2002-03-26  Larry Ewing  <lewing@ximian.com>
-
-	* acconfig.h: add template for GTKHTML_RELEASE_STRING
-
-	* configure.in (GTKHTML_RELEASE_STRING): define this to make life
-	simpler.
-
-	* Makefile.am: remove references to gnorba and
-	html-component.gnorba.
-
-	* configure.in: fix GTKHTML_INCLUDEDIR to add version.
-
-	* html-component.gnorba: removed.
+	* Make gtkhtml-1.0.3 release.
 	
-2002-03-15  Radek Doulik  <rodo@ximian.com>
+	* configure.in: bump versions for gtkhtml-1.0.3 release.
 
-	* configure.in: added EDITOR_API_VERSION
+2002-03-20  Larry Ewing  <lewing@ximian.com>
 
-	* acconfig.h: added EDITOR_API_VERSION
+	* configure.in (PACKAGE): bump version for snapshots.
+
+2002-03-19  Larry Ewing  <lewing@ximian.com>
+
+	* Make gtkhtml-1.0.2 release.
+
+2002-03-18  Larry Ewing  <lewing@ximian.com>
+
+	* configure.in: bump version numbers for gtkhtml-1.0.2 release.
 
 2002-03-15  Pablo Saratxaga <pablo@mandrakesoft.com>
 
 	* configure.in,po/eu.po: added Basque file
 
-2002-02-28  Tõivo Leedjärv  <leedjarv@interest.ee>
+2001-12-18  Larry Ewing  <lewing@ximian.com>
 
-	* configure.in: Added et to ALL_LINGUAS.
+	* configure.in (PACKAGE): bump version number for snapshots.
 
-2002-01-28  Larry Ewing  <lewing@ximian.com>
+	* Make 1.0.1 release.
+	
+2001-12-17  Larry Ewing  <lewing@ximian.com>
 
-	* configure.in (GTKHTML_LIBS): remove the release version until I
-	figure out how to do this properly in libtool.
+	* configure.in: bump version to 1.0.1 
 
-2002-01-27  Larry Ewing  <lewing@ximian.com>
+2001-12-05  Radek Doulik  <rodo@ximian.com>
 
-	* configure.in: update requirement for gal to pull
-	in the scrollframe functions.
+	* configure.in (GTKHTML_CURRENT): raised to 21 as I've added
+	gtk_html_print_set_master
 
-2002-01-24  Hasbullah Bin Pit <sebol@ikhlas.com>
+2001-12-04  Larry Ewing  <lewing@ximian.com>
 
-	* configure.ini: Added Malay (ms)to ALL_LINGUAS.
-	* po/ms.po: Added Malay Translation.
+	* configure.in: bump version to 1.0.0.99
 
-2002-01-04  Radek Doulik  <rodo@ximian.com>
+2001-11-21  Larry Ewing  <lewing@ximian.com>
 
-	* configure.in (try_gconf): enable gconf support as default
+	* Make 1.0 release.
 
-2001-12-21  Larry Ewing  <lewing@ximian.com>
-
-	* configure.in: make GTKHTML_RELEASE variable and insert inst
-	stategic places to make the gtkhtml-1.1 parallel installable.
+	* configure.in: bump version to 1.0.0 and bump soname.
 
 2001-11-14  Larry Ewing  <lewing@ximian.com>
 

@@ -245,7 +245,6 @@ struct _HTMLEngine {
 
 	gboolean need_spell_check;
 	gint block_events;
-	gchar *language;
 
 	GSList *cursor_position_stack;
 	gboolean selection_mode;
@@ -256,9 +255,6 @@ struct _HTMLEngine {
 	HTMLCursorRectangle cursor_image;
 
 	GList *cut_and_paste_stack;
-
-	gboolean block;
-	gint opened_streams;
 };
 
 /* must be forward referenced *sigh* */
@@ -403,8 +399,6 @@ gchar    *html_engine_get_spell_word           (HTMLEngine  *e);
 gboolean  html_engine_spell_word_is_valid      (HTMLEngine  *e);
 void      html_engine_replace_spell_word_with  (HTMLEngine  *e,
 						const gchar *word);
-void      html_engine_set_language             (HTMLEngine  *e,
-						const gchar *language);
 
 /* view size - for image size specified in percent */
 gint  html_engine_get_view_width   (HTMLEngine *e);

@@ -39,11 +39,9 @@
 #include "htmlengine-edit-fontstyle.h"
 #include "htmlengine-edit-movement.h"
 #include "htmlengine-edit-selection-updater.h"
-#include "htmlimage.h"
 #include "htmlinterval.h"
 #include "htmllinktext.h"
 #include "htmlobject.h"
-#include "htmlplainpainter.h"
 #include "htmltable.h"
 #include "htmlselection.h"
 #include "htmlsettings.h"
@@ -316,7 +314,7 @@ html_engine_copy_object (HTMLEngine *e, HTMLObject **o, guint *len)
 {
 	GList *from, *to;
 
-	if (e->clue && HTML_CLUE (e->clue)->head && html_engine_is_selection_active (e)) {
+	if (html_engine_is_selection_active (e)) {
 		prepare_delete_bounds (e, &from, &to, NULL, NULL);
 		*len = 0;
 		*o    = html_object_op_copy (HTML_OBJECT (from->data), e,
@@ -325,9 +323,6 @@ html_engine_copy_object (HTMLEngine *e, HTMLObject **o, guint *len)
 		printf ("copy len: %d (parent %p)\n", *len, (*o)->parent);
 		gtk_html_debug_dump_tree_simple (*o, 0);
 #endif
-	} else {
-		*len = 0;
-		*o = NULL;
 	}
 }
 
@@ -798,67 +793,6 @@ html_engine_insert_empty_paragraph (HTMLEngine *e)
 	insert_empty_paragraph (e, HTML_UNDO_UNDO, TRUE);
 }
 
-static char *picto_chars = "DO)(\0:-\0:\0:-\0:\0:;=-\0:;\0:-\0:";
-static gint picto_states [] = { 5, 10, 15, 23, 0, -1, 8, 0, -1, 0, -2, 13, 0, -2, 0, -3, -4, -5, 20, 0, -3, -4, 0, -6, 26, 0, -6, 0};
-static gchar *picto_images [] = {
-	"smiley-1.png",
-	"smiley-2.png",
-	"smiley-3.png",
-	"smiley-4.png",
-	"smiley-5.png",
-	"smiley-6.png",
-};
-
-static void
-use_pictograms (HTMLEngine *e)
-{
-	gint pos;
-	gint state;
-	gint relative;
-	gunichar uc;
-
-	if (!html_object_is_text (e->cursor->object))
-		return;
-
-	pos = e->cursor->offset - 1;
-	state = 0;
-	while (pos >= 0) {
-		uc = html_text_get_char (HTML_TEXT (e->cursor->object), pos);
-		relative = 0;
-		while (picto_chars [state + relative]) {
-			if (picto_chars [state + relative] == uc)
-				break;
-			relative ++;
-		}
-		state = picto_states [state + relative];
-		/* 0 .. not found, -n .. found n-th */
-		if (state <= 0)
-			break;
-		pos --;
-	}
-
-	if (state < 0) {
-		HTMLObject *picto;
-		gchar *filename;
-		gchar *alt;
-		gint len;
-
-		/* printf ("found %d\n", -state); */
-		len = e->cursor->offset  - pos;
-		alt = g_strndup (html_text_get_text (HTML_TEXT (e->cursor->object), pos), len);
-		html_cursor_backward_n (e->cursor, e, len);
-		html_engine_set_mark (e);
-		html_cursor_forward_n (e->cursor, e, len);
-
-		filename = g_strconcat ("file://" ICONDIR "/", picto_images [-state - 1], NULL);
-		picto = html_image_new (e->image_factory, filename, NULL, NULL, -1, -1, FALSE, FALSE, 0, NULL,
-					HTML_VALIGN_MIDDLE, FALSE);
-		html_image_set_alt (HTML_IMAGE (picto), alt);
-		g_free (alt);
-		html_engine_paste_object (e, picto, html_object_get_length (picto));
-	}
-}
-
 void
 html_engine_insert_text (HTMLEngine *e, const gchar *text, guint len)
 {
@@ -899,8 +833,6 @@ html_engine_insert_text (HTMLEngine *e, const gchar *text, guint len)
 			}
 			insert_object (e, o, html_object_get_length (o), e->cursor->position + html_object_get_length (o),
 				       1, HTML_UNDO_UNDO, check);
-			if (alen == 1 && !HTML_IS_PLAIN_PAINTER (e->painter))
-				use_pictograms (e);
 		}
 		if (nl) {
 			html_engine_insert_empty_paragraph (e);
@@ -1028,7 +960,7 @@ html_engine_set_insertion_link (HTMLEngine *e, const gchar *url, const gchar *ta
 }
 
 void
-html_engine_edit_set_link (HTMLEngine *e, const gchar *url, const gchar *target)
+html_engine_insert_link (HTMLEngine *e, const gchar *url, const gchar *target)
 {
 	if (html_engine_is_selection_active (e)) {
 		HTMLEngineLinkInsertData data;
