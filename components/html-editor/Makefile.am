@@ -103,6 +103,8 @@ GTKHTML_EDITOR_SOURCES_COMMON =			\
 	spell.h					\
 	table.c					\
 	table.h					\
+	template.c				\
+	template.h				\
 	text.c					\
 	text.h					\
 	toolbar.c				\

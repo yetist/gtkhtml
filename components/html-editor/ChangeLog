@@ -1,3 +1,8 @@
+2001-08-13  Radek Doulik  <rodo@ximian.com>
+
+	* editor-control-factory.c (html_button_pressed): jump to mouse
+	cursor position on button 3
+
 2001-08-10  Anna Marie Dirks <anna@ximian.com>	
 	*search.c : Changed the title of the Regex Find dialog to 
 	"Find Regular Expression" as per bug #2658.

@@ -160,7 +160,7 @@ fill_prop_sample (GtkHTMLEditTableProperties *d)
 	/* printf ("html: %s\n", html); */
 }
 
-#define TEMPLATES 4
+#define TEMPLATES 3
 typedef struct {
 	gchar *name;
 	gint offset;
@@ -213,27 +213,6 @@ static TableInsertTemplate table_templates [TEMPLATES] = {
 		"<td>",
 		"</td>"
 	},
-	{
-		N_("Note"), 5,
-		80, TRUE, HTML_HALIGN_CENTER, 1, 1, 3, 1, 1,
-		"<table cellspacing=0 cellpadding=@border@ bgcolor=\"#ccccc0\"@width@@align@><tr><td>"
-		"<table bgcolor=\"#fffff0\" cellpadding=3 cellspacing=0 width=\"100%\">"
-		"<tr><td valign=top><img src=\"file://" ICONDIR "/bulb.png\"></td>"
-		"<td width=\"100%\"><table cellspacing=@spacing@ cellpadding=@padding@ width=\"100%\"",
-		"</table></td></tr></table></td></tr></table>",
-		"<td>",
-		"</td>"
-	},
-	/* {
-		N_("Image Frame"), 3,
-		300, FALSE, HTML_HALIGN_CENTER, 1, 1, 3, 1, 1,
-		"<table bgcolor=\"#c0c0c0\" cellspacing=@spacing@@width@>"
-		"<tr><td>"
-		"<table bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=@padding@ width=\"100%\">"
-		"<tr><td align=@align@></td></tr>"
-		"<tr><td>Image 1: <font size=\"3\"><b>*editme*</b></font size=\"3\"></td></tr>"
-		"</table></td></tr></table>"
-		} */
 };
 
 static gchar *
@@ -696,9 +675,6 @@ set_ui (GtkHTMLEditTableProperties *d)
 
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (d->check_width), d->has_width);
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_width),  d->width);
-	gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_width), d->width_percent ? 1 : 0);
-
-	gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_width), d->width_percent ? 1 : 0);
 	gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_width), d->width_percent ? 1 : 0);
 
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_cols),  d->cols);

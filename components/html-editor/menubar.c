@@ -33,6 +33,7 @@
 #include "text.h"
 #include "link.h"
 #include "table.h"
+#include "template.h"
 
 static void
 undo_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
@@ -177,6 +178,23 @@ insert_table_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cna
 }
 
 static void
+insert_template_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
+{
+	if (cd->properties_dialog)
+		gtk_html_edit_properties_dialog_close (cd->properties_dialog);
+
+	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, TRUE, _("Insert"));
+
+	gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
+						   GTK_HTML_EDIT_PROPERTY_TABLE, _("Template"),
+						   template_insert,
+						   template_insert_cb,
+						   template_close_cb);
+
+	gtk_html_edit_properties_dialog_show (cd->properties_dialog);
+}
+
+static void
 properties_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
 	gchar *argv[2] = {"gtkhtml-properties-capplet", NULL};
@@ -201,6 +219,7 @@ BonoboUIVerb verbs [] = {
 	BONOBO_UI_UNSAFE_VERB ("InsertLink",  insert_link_cb),
 	BONOBO_UI_UNSAFE_VERB ("InsertRule",  insert_rule_cb),
 	BONOBO_UI_UNSAFE_VERB ("InsertTable", insert_table_cb),
+	BONOBO_UI_UNSAFE_VERB ("InsertTemplate", insert_template_cb),
 
 	BONOBO_UI_VERB_END
 };
