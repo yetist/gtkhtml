@@ -25,6 +25,16 @@
 
 #include "gtkhtml.h"
 
-void      gtk_html_isearch       (GtkHTML *html, gboolean forward);
+void      gtk_html_isearch                    (GtkHTML     *html,
+					       gboolean     forward);
+gboolean  gtk_html_engine_search              (GtkHTML     *html,
+					       const gchar *text,
+					       gboolean     case_sensitive,
+					       gboolean     forward,
+					       gboolean     regular);
+gboolean  gtk_html_engine_search_next         (GtkHTML     *html);
+gboolean  gtk_html_engine_search_incremental  (GtkHTML     *html,
+					       const gchar *text,
+					       gboolean     forward);
 
 #endif

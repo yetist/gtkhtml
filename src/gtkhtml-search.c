@@ -160,3 +160,21 @@ gtk_html_isearch (GtkHTML *html, gboolean forward)
 	data->focus_out = gtk_signal_connect (GTK_OBJECT (html->priv->search_input_line), "focus_out_event",
 					      GTK_SIGNAL_FUNC (focus_out_event), data);
 }
+
+gboolean
+gtk_html_engine_search (GtkHTML *html, const gchar *text, gboolean case_sensitive, gboolean forward, gboolean regular)
+{
+	return html_engine_search (html->engine, text, case_sensitive, forward, regular);
+}
+
+gboolean
+gtk_html_engine_search_next (GtkHTML *html)
+{
+	return html_engine_search_next (html->engine);
+}
+
+gboolean
+gtk_html_engine_search_incremental (GtkHTML *html, const gchar *text, gboolean forward)
+{
+	return html_engine_search_incremental (html->engine, text, forward);
+}

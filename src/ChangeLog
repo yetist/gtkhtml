@@ -1,5 +1,8 @@
 2001-03-26  Radek Doulik  <rodo@ximian.com>
 
+	* gtkhtml-search.c (gtk_html_engine_search_incremental): added
+	wrappers around html_engine_search_... methods
+
 	* htmltokenizer.c (in_extension): even more safe extension
 	handling
 
