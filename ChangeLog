@@ -1,19 +1,9 @@
 2000-08-08  Robin * Slomkowski  <rslomkow@eazel.com>
 
-	* components/html-editor/Makefile.am: added forgotten table.(c|h)
 	* po/Makefile.in.in: changed srcdir to top_srcdir
-	* src/Makefile.am: Many fogotten .c and .h files....
-	gtkhtml-keybinding.c
-	html-component.c
-	htmlelement.c
-	htmlengine-edit-table.c
-	htmlfont.c
-	htmlhspace.c
-	htmlelement.h
-	htmlengine-edit-table.h
-	htmlfont.h
-	htmlhspace.h
-
+	* components/html-editor/Makefile.am:
+	* src/Makefile.am:
+	trying to make it compile,pass distcheck, and rpm build
 
 2000-08-07  Pablo Saratxaga <pablo@mandrakesoft.com>
 

@@ -176,12 +176,12 @@ libgtkhtml_la_SOURCES =				\
 	htmlvspace.c				\
 	htmliframe.c				\
 	gtkhtml-keybinding.c			\
-	html-component.c			\
-	htmlelement.c				\
-	htmlengine-edit-table.c			\
 	htmlfont.c				\
-	htmlhspace.c				\
 	$(NULL)
+#	htmlhspace.c				\
+#	htmlelement.c				\
+#	html-component.c			\
+#	htmlengine-edit-table.c			\
 
 libgtkhtml_la_LDFLAGS = -version-info $(GTKHTML_CURRENT):$(GTKHTML_REVISION):$(GTKHTML_AGE)
 

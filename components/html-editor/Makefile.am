@@ -91,10 +91,10 @@ html_editor_control_SOURCES =			\
 	text.h					\
 	toolbar.c				\
 	toolbar.h				\
-	table.c					\
-	table.h					\
 	utils.c					\
 	utils.h
+#	table.c					\
+#	table.h					\
 
 if USING_OAF
 oafdir = $(datadir)/oaf
