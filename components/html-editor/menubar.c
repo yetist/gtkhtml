@@ -73,7 +73,6 @@ static GnomeUIInfo insert_subtree_info[] = {
 };
 
 static GnomeUIInfo menu_info[] = {
-	GNOMEUIINFO_MENU_EDIT_TREE (edit_subtree_info),
 	GNOMEUIINFO_SUBTREE (N_("_Insert"), insert_subtree_info),
 	GNOMEUIINFO_END
 };
@@ -186,6 +185,10 @@ menubar_setup (BonoboUIHandler *uih,
 	g_return_if_fail (BONOBO_IS_UI_HANDLER (uih));
 	g_return_if_fail (cd->html != NULL);
 	g_return_if_fail (GTK_IS_HTML (cd->html));
+
+	tree = bonobo_ui_handler_menu_parse_uiinfo_list_with_data (edit_subtree_info, cd);
+	bonobo_ui_handler_menu_add_list (uih, "/Edit", tree);
+	bonobo_ui_handler_menu_free_list (tree);
 
 	tree = bonobo_ui_handler_menu_parse_uiinfo_list_with_data (menu_info, cd);
 	bonobo_ui_handler_menu_add_list (uih, "/", tree);
