@@ -217,7 +217,7 @@ load_from_corba (BonoboControl *control,
 {
 	Bonobo_ControlFrame control_frame;
 	HTMLEditor_Resolver resolver;
-	Bonobo_UIHandler *remote_uih;
+	Bonobo_UIHandler remote_uih;
 	BonoboUIHandler *uih;
 	CORBA_Environment ev;	
 
@@ -225,8 +225,8 @@ load_from_corba (BonoboControl *control,
 	
 	uih = gtk_type_new (bonobo_ui_handler_get_type());
 	remote_uih = bonobo_control_get_remote_ui_handler (control);
-	uih = bonobo_object_construct (uih, remote_uih);
-	if (control_frame != CORBA_OBJECT_NIL) {
+	uih = BONOBO_UI_HANDLER (bonobo_object_construct (BONOBO_OBJECT(uih), remote_uih));
+	if (remote_uih != CORBA_OBJECT_NIL) {
 		resolver = bonobo_object_query_interface (BONOBO_OBJECT (uih), "IDL:HTMLEditor/Resolver:1.0");
 		
 		if (resolver == CORBA_OBJECT_NIL) {
