@@ -1,3 +1,17 @@
+2001-02-09  Radek Doulik  <rodo@ximian.com>
+
+	* htmliframe.c (draw): use parent_class draw method for non
+	printer painters
+
+	* htmlembedded.c: reworked size calculation/allocation, removed
+	ugly hacks ;-)
+
+	* gtkhtml-embedded.c (gtk_html_embedded_new): don't set
+	resize_mode to QUEUE
+
+	* gtkhtml.c (gtk_html_set_default_content_type): take care of
+	content_type == NULL
+
 2001-02-08  Frederic Crozat <fcrozat@mandrakesoft.com>
 
 	* gtkhtml.c (client_notify_widget): rename font_var_family and

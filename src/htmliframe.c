@@ -27,6 +27,7 @@
 #include "gtkhtml-private.h"
 #include "htmlcolorset.h"
 #include "htmlgdkpainter.h"
+#include "htmlprinter.h"
 #include "htmliframe.h"
 #include "htmlengine-search.h"
 #include "htmlsearch.h"
@@ -173,31 +174,21 @@ draw (HTMLObject *o,
 	ArtIRect paint;
 	gint new_x, new_y;
 
-	html_object_calc_intersection (o, &paint, x, y, width, height);
-	if (art_irect_empty (&paint))
-		return;
+	if (GTK_OBJECT_TYPE (e->painter) == HTML_TYPE_PRINTER) {
+		html_object_calc_intersection (o, &paint, x, y, width, height);
+		if (art_irect_empty (&paint))
+			return;
 
-	if (GTK_OBJECT_TYPE (e->painter) != HTML_TYPE_GDK_PAINTER) {
-		gint pixel_size = html_painter_get_pixel_size (e->painter);
-		html_object_draw (e->clue, e->painter,
-				  x, y,
-				  width - pixel_size * (e->leftBorder + e->rightBorder),
-				  height - pixel_size * (e->topBorder + e->bottomBorder),
-				  tx + pixel_size * e->leftBorder, ty + pixel_size * e->topBorder);
-	}
-
-	if (element->widget) {
-		new_x = GTK_LAYOUT (element->parent)->hadjustment->value + o->x + tx;
-		new_y = GTK_LAYOUT (element->parent)->vadjustment->value + o->y + ty - o->ascent;
-
-		if(new_x != element->abs_x || new_y != element->abs_y) {
-			printf ("moveto: %d,%d\n", new_x, new_y);
-			gtk_layout_move(GTK_LAYOUT(element->parent), element->widget,
-					new_x, new_y);
+		if (GTK_OBJECT_TYPE (e->painter) != HTML_TYPE_GDK_PAINTER) {
+			gint pixel_size = html_painter_get_pixel_size (e->painter);
+			html_object_draw (e->clue, e->painter,
+					  x, y,
+					  width - pixel_size * (e->leftBorder + e->rightBorder),
+					  height - pixel_size * (e->topBorder + e->bottomBorder),
+					  tx + pixel_size * e->leftBorder, ty + pixel_size * e->topBorder);
 		}
-		element->abs_x = new_x;
-		element->abs_y = new_y;
-	}
+	} else
+		(*HTML_OBJECT_CLASS (parent_class)->draw) (o, p, x, y, width, height, tx, ty);
 }
 
 static void

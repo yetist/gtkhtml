@@ -1893,7 +1893,8 @@ gtk_html_allow_selection (GtkHTML *html,
 
 /* #define LOG_INPUT */
 #ifdef LOG_INPUT
-static FILE *log_file;
+static FILE *log_file = NULL;
+static gint  log_num = 1;
 #endif
 
 GtkHTMLStream *
@@ -1908,7 +1909,12 @@ gtk_html_begin_content (GtkHTML *html, gchar *content_type)
 	GtkHTMLStream *handle;
 
 #ifdef LOG_INPUT
-	log_file = fopen ("gtkhtml.log", "w+");
+	gchar *fname = g_strdup_printf ("gtkhtml.log.%d", log_num);
+	log_num ++;
+	if (log_file)
+		fclose (log_file);
+	log_file = fopen (fname, "w+");
+	g_free (fname);
 #endif
 	g_return_val_if_fail (! gtk_html_get_editable (html), NULL);
 
@@ -1943,7 +1949,9 @@ gtk_html_end (GtkHTML *html,
 	      GtkHTMLStreamStatus status)
 {
 #ifdef LOG_INPUT
-	fclose (log_file);
+	if (log_file)
+		fclose (log_file);
+	log_file = NULL;
 #endif
 	gtk_html_stream_close (handle, status);
 
@@ -2297,9 +2305,12 @@ gtk_html_set_default_content_type (GtkHTML *html, gchar *content_type)
 
 	g_free (html->priv->content_type);	
 
-	lower = g_strdup (content_type);
-	g_strdown (lower);
-	html->priv->content_type = lower;
+	if (content_type) {
+		lower = g_strdup (content_type);
+		g_strdown (lower);
+		html->priv->content_type = lower;
+	} else
+		html->priv->content_type = NULL;
 }
 
 gpointer

@@ -209,14 +209,13 @@ gtk_html_embedded_new (char *classid, char *name, char *type, char *data, int wi
 	if (width != -1 || height != -1)
 		gtk_widget_set_usize (GTK_WIDGET (em), width, height);
 
-	gtk_container_set_resize_mode (GTK_CONTAINER (em), 
-				       GTK_RESIZE_QUEUE);
 	em->width = width;
 	em->height = height;
 	em->type = type ? g_strdup(type) : NULL;
 	em->classid = g_strdup(classid);
 	em->name = g_strdup(name);
 	em->data = g_strdup(data);
+
 	return (GtkWidget *)em;
 }
 

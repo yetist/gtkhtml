@@ -63,10 +63,8 @@ draw (HTMLObject *o,
 {
 	HTMLEmbedded *element = HTML_EMBEDDED(o);
 	gint new_x, new_y;
-	ArtIRect paint;
 
-	html_object_calc_intersection (o, &paint, x, y, width, height);
-	if (art_irect_empty (&paint))
+	if (!element->widget)
 		return;
 
 	if (element->widget) {
@@ -74,16 +72,16 @@ draw (HTMLObject *o,
 		new_x = GTK_LAYOUT (element->parent)->hadjustment->value + o->x + tx;
 		new_y = GTK_LAYOUT (element->parent)->vadjustment->value + o->y + ty - o->ascent;
 		
-		if(new_x != element->abs_x || new_y != element->abs_y) {
-			
-			gtk_layout_move(GTK_LAYOUT(element->parent), element->widget,
-					new_x, new_y);
-		} else {
-			gtk_widget_queue_draw (element->widget);
+		if (element->widget->parent) {
+			if (new_x != element->abs_x || new_y != element->abs_y)
+				gtk_layout_move (GTK_LAYOUT(element->parent), element->widget, new_x, new_y);
+			else
+				gtk_widget_queue_draw (element->widget);
 		}
 		element->abs_x = new_x;
 		element->abs_y = new_y;
-
+		if (!element->widget->parent)
+			gtk_layout_put (GTK_LAYOUT(element->parent), element->widget, new_x, new_y);
 	}
 }
 
@@ -119,7 +117,7 @@ static gint
 calc_min_width (HTMLObject *self,
 		HTMLPainter *painter)
 {
-	HTMLEmbedded *emb = HTML_EMBEDDED (self);
+	GtkRequisition requisition;
 	GtkWidget *widget;
 	gint pixel_size;
 	gint min_width;
@@ -129,11 +127,10 @@ calc_min_width (HTMLObject *self,
 	if (widget == NULL || !GTK_WIDGET_REALIZED (widget)) 
 		return 0;
      
+	gtk_widget_size_request (widget, &requisition);
 	pixel_size = html_painter_get_pixel_size (painter);
 
-	emb->width  = widget->allocation.width;
-	emb->height = widget->allocation.height;
-	min_width   = widget->allocation.width * pixel_size;
+	min_width = requisition.width * pixel_size;
 
 	return min_width;
 }
@@ -157,12 +154,10 @@ calc_size (HTMLObject *self,
 	old_width = self->width;
 	old_ascent = self->ascent;
 
-	gtk_widget_get_child_requisition (widget, &requisition);
-	emb->width = MAX (widget->allocation.width, requisition.width);
-	emb->height = MAX (widget->allocation.height, requisition.height);
+	gtk_widget_size_request (widget, &requisition);
 
-	self->width  = emb->width * pixel_size;
-	self->ascent = emb->height * pixel_size;
+	self->width  = requisition.width  * pixel_size;
+	self->ascent = requisition.height * pixel_size;
 
 	/* This never changes.  */
 	self->descent = 0;
@@ -344,7 +339,6 @@ html_embedded_new_widget (GtkWidget *parent, GtkHTMLEmbedded *eb)
 	html_embedded_init (em, HTML_EMBEDDED_CLASS (&html_embedded_class), parent, eb->name, "");
 	html_embedded_set_widget (em, GTK_WIDGET (eb));
 
-	html_embedded_size_recalc (em);
 	gtk_signal_connect(GTK_OBJECT(eb), "button_press_event",
 			   GTK_SIGNAL_FUNC(html_embedded_grab_cursor), NULL);
 
@@ -366,31 +360,12 @@ allocate (GtkWidget *w, GtkAllocation  *allocation, HTMLEmbedded *e)
 	}
 }
 
-/* 
-   FIXME: force_placement is a huge hack to get the widget to allocate 
-   its size before it is actually drawn.  Place it in the gtklayout but
-   offscreen it will be moved to the proper place in the draw routine, but
-   its size allocation needs to happen now.
-*/
-static void
-force_placement (HTMLEmbedded *element)
-{
-	g_return_if_fail (element->widget != NULL);
-
-	gtk_widget_show (element->widget);			
-	gtk_layout_put (GTK_LAYOUT(element->parent), element->widget,
-			10000, 10000);
-
-	element->abs_x = 10000;
-	element->abs_y = 10000;
-}
-
 void
 html_embedded_set_widget (HTMLEmbedded *e, GtkWidget *w)
 {
 	e->widget = w;
 	
-	force_placement (e);
+	gtk_widget_show (w);
 	gtk_signal_connect (GTK_OBJECT (w), "size_allocate",
 			    GTK_SIGNAL_FUNC (allocate), e);
 }

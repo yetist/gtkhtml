@@ -663,8 +663,8 @@ object_timeout(GtkHTMLEmbedded *eb)
 	w = gtk_check_button_new();
 	gtk_widget_show(w);
 
-	/* printf("inserting custom widget after a delay ...\n");
-	gtk_html_embedded_set_descent(eb, rand()%8); */
+	printf("inserting custom widget after a delay ...\n");
+	gtk_html_embedded_set_descent(eb, rand()%8);
 	gtk_container_add (GTK_CONTAINER(eb), w);
 	gtk_widget_unref (GTK_WIDGET (eb));
 
@@ -680,8 +680,8 @@ object_requested_cmd (GtkHTML *html, GtkHTMLEmbedded *eb, void *data)
 		return FALSE;
 
 	gtk_widget_ref (GTK_WIDGET (eb));
-	/* gtk_timeout_add(rand() % 5000 + 1000, (GtkFunction) object_timeout, eb); */
-	object_timeout (eb);
+	gtk_timeout_add(rand() % 5000 + 1000, (GtkFunction) object_timeout, eb);
+	// object_timeout (eb);
 	return TRUE;
 }
 
