@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-30 04:18+0100\n"
-"PO-Revision-Date: 2004-01-30 12:33+0100\n"
+"POT-Creation-Date: 2004-02-03 04:30+0100\n"
+"PO-Revision-Date: 2004-02-03 16:45+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1644,10 +1644,14 @@ msgstr ""
 "Upravovaný odkaz byl z dokumentu odstraněn.\n"
 "Nemohu použít vaše změny."
 
+#: components/html-editor/link.c:270
+msgid "Please fill 'Link text' and 'URL' entries"
+msgstr "Vyplňte prosím položky 'Text odkazu' a 'URL'"
+
 #: components/html-editor/menubar.c:88 components/html-editor/menubar.c:104
 #: components/html-editor/menubar.c:122 components/html-editor/menubar.c:139
 #: components/html-editor/menubar.c:162 components/html-editor/popup.c:103
-#: components/html-editor/properties.c:122
+#: components/html-editor/properties.c:125
 msgid "Insert"
 msgstr "Vložit"
 
