@@ -224,6 +224,8 @@ static void
 copy (HTMLObject *self,
       HTMLObject *dest)
 {
+	gint len;
+
         HTMLIFrame *s = HTML_IFRAME (self);
         HTMLIFrame *d = HTML_IFRAME (dest);
 
@@ -237,8 +239,13 @@ copy (HTMLObject *self,
 			  s->frameborder);
 	*/
 	d->scroll = NULL;
-	d->html = NULL;
+	d->html = gtk_html_new ();
+	GTK_HTML (d->html)->engine->clue =
+		html_object_op_copy (GTK_HTML (s->html)->engine->clue,
+				     GTK_HTML (s->html)->engine, NULL, NULL, &len);
 	d->gdk_painter = NULL;
+	d->old_painter = NULL;
+	d->parent_painter = NULL;
 
 	d->url = g_strdup (s->url);
 	d->width = s->width;
@@ -418,8 +425,10 @@ destroy (HTMLObject *o)
 	g_free (iframe->url);
 
 	if (iframe->html) {
-		gtk_object_unref (GTK_OBJECT (iframe->old_painter));
-		gtk_object_unref (GTK_OBJECT (iframe->parent_painter));
+		if (iframe->old_painter)
+			gtk_object_unref (GTK_OBJECT (iframe->old_painter));
+		if (iframe->parent_painter)
+			gtk_object_unref (GTK_OBJECT (iframe->parent_painter));
 		iframe->old_painter = iframe->parent_painter = NULL;
 
 		gtk_signal_disconnect_by_data (GTK_OBJECT (iframe->html), o);
