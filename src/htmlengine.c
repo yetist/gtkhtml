@@ -1,3 +1,4 @@
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*  Copyright (C) 1999 Anders Carlsson (andersca@gnu.org)
               (C) 1997 Martin Jones (mjones@kde.org)
               (C) 1997 Torben Weis (weis@kde.org)

@@ -1,3 +1,4 @@
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /* This file is part of the KDE libraries
     Copyright (C) 1999 Anders Carlsson (andersca@gnu.org)
               (C) 1997 Martin Jones (mjones@kde.org)
