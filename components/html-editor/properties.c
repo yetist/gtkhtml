@@ -125,13 +125,13 @@ gtk_html_edit_properties_dialog_new (GtkHTMLControlData *cd, gboolean insert, gc
 	d->control_data   = cd;
 	parent = get_parent_window (GTK_WIDGET (cd->html));
 	d->dialog         = insert ? gtk_dialog_new_with_buttons (title, parent, 0,
-								  _("Insert"), 1,
 								  GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
+								  _("Insert"), 1,
 								  NULL)
 		:  gtk_dialog_new_with_buttons (title, parent, 0,
-						GTK_STOCK_OK, 0,
 						GTK_STOCK_APPLY, 1,
 						GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
+						GTK_STOCK_OK, 0,
 						NULL);
 	d->notebook = gtk_notebook_new ();
 	g_signal_connect (d->dialog, "destroy", G_CALLBACK (destroy_dialog), d);

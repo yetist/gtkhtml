@@ -71,8 +71,8 @@ gtk_html_search_dialog_new (GtkHTML *html, GtkHTMLControlData *cd)
 	GtkWidget *hbox;
 
 	dialog->dialog         = GTK_DIALOG (gtk_dialog_new_with_buttons (_("Find"), NULL, 0,
-									  _("Find"), 0,
 									  GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
+									  _("Find"), 0,
 									  NULL));
 	dialog->entry          = gtk_entry_new ();
 	dialog->backward       = gtk_check_button_new_with_label (_("backward"));
