@@ -46,13 +46,32 @@ destroy (HTMLObject *object)
 }
 
 static void
+copy_helper (HTMLText *self,
+	     HTMLText *dest)
+{
+	HTML_LINK_TEXT_MASTER (dest)->url = g_strdup (HTML_LINK_TEXT_MASTER (self)->url);
+	HTML_LINK_TEXT_MASTER (dest)->target = g_strdup (HTML_LINK_TEXT_MASTER (self)->target);
+}
+
+static void
 copy (HTMLObject *self,
       HTMLObject *dest)
 {
 	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
+	copy_helper (HTML_TEXT (self), HTML_TEXT (dest));
+}
 
-	HTML_LINK_TEXT_MASTER (dest)->url = g_strdup (HTML_LINK_TEXT_MASTER (self)->url);
-	HTML_LINK_TEXT_MASTER (dest)->target = g_strdup (HTML_LINK_TEXT_MASTER (self)->target);
+static HTMLText *
+extract_text (HTMLText *text,
+	      guint offset,
+	      gint len)
+{
+	HTMLText *new;
+
+	new = (* HTML_TEXT_CLASS (parent_class)->extract_text) (text, offset, len);
+	copy_helper (text, new);
+
+	return new;
 }
 
 static const gchar *
@@ -86,9 +105,7 @@ split (HTMLText *self,
 	if (new == NULL)
 		return NULL;
 
-	HTML_LINK_TEXT_MASTER (new)->url = g_strdup (HTML_LINK_TEXT_MASTER (self)->url);
-	HTML_LINK_TEXT_MASTER (new)->target = g_strdup (HTML_LINK_TEXT_MASTER (self)->target);
-
+	copy_helper (self, new);
 	return new;
 }
 
@@ -181,7 +198,7 @@ html_link_text_master_class_init (HTMLLinkTextMasterClass *klass,
 
 	text_class->split = split;
 	text_class->get_font_style = get_font_style;
-
+	text_class->extract_text = extract_text;
 	parent_class = &html_text_master_class;
 }
 

@@ -1,3 +1,13 @@
+2000-06-28  Larry Ewing  <lewing@helixcode.com>
+
+	* htmllinktextmaster.c (copy_helper): move the url and target
+	copying to here.
+	(copy): call copy_helper.
+	(extract_text): This was needed to properly support the cut
+	buffer, otherwise we ended up with invalid url and target strings.
+	(split): call copy_helper.
+	(html_link_text_master_class_init): use our extract_text method.
+
 2000-06-28  Radek Doulik  <rodo@helixcode.com>
 
 	* gtkhtml-properties.c: likewise
