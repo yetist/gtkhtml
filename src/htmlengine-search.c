@@ -27,8 +27,9 @@
 #include "htmltextslave.h"
 
 static void
-move_to_found (HTMLEngine *e, HTMLSearch *info)
+move_to_found (HTMLSearch *info)
 {
+	HTMLEngine *e = info->engine;
 	HTMLObject *first = HTML_OBJECT (info->found->data);
 	HTMLObject *last = HTML_OBJECT (g_list_last (info->found)->data);
 	HTMLTextSlave *slave;
@@ -91,12 +92,13 @@ get_root_engine (HTMLEngine *e)
 }
 
 static void
-display_search_results (HTMLEngine *e, HTMLSearch *info)
+display_search_results (HTMLSearch *info)
 {
-	GList *cur = info->found;
-	guint len  = info->found_len;
-	guint pos  = info->start_pos;
-	guint cur_len;
+	HTMLEngine *e = info->engine;
+	GList    *cur = info->found;
+	guint     len = info->found_len;
+	guint     pos = info->start_pos;
+	guint     cur_len;
 
 	if (!cur) return;
 
@@ -122,7 +124,7 @@ display_search_results (HTMLEngine *e, HTMLSearch *info)
 		}
 	}
 
-	move_to_found (e, info);
+	move_to_found (info);
 }
 
 gboolean
@@ -135,10 +137,10 @@ html_engine_search (HTMLEngine *e, const gchar *text,
 		html_search_destroy (e->search_info);
 	}
 
-	info = e->search_info = html_search_new (text, case_sensitive, forward, regular);
+	info = e->search_info = html_search_new (e, text, case_sensitive, forward, regular);
 	html_search_push (info, e->clue);
 	if (html_object_search (e->clue, info)) {
-		display_search_results (e, info);
+		display_search_results (info);
 		return TRUE;
 	} else
 		return FALSE;
@@ -160,7 +162,7 @@ html_engine_search_next (HTMLEngine *e)
 		retval = html_object_search (e->clue, info);
 	}
 	if (retval)
-		display_search_results (e, info);
+		display_search_results (info);
 	else {
 		html_search_pop (info);
 		html_engine_disable_selection (e);

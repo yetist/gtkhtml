@@ -264,15 +264,27 @@ search (HTMLObject *self, HTMLSearch *info)
 {
 	HTMLEngine *e = GTK_HTML (HTML_IFRAME (self)->html)->engine;
 
-	if (e->search_info && !e->search_info->found) {
-		html_search_destroy (e->search_info);
-		e->search_info = NULL;
-		return FALSE;
+	printf ("search\n");
+
+	/* search_next? */
+	if (info->stack && HTML_OBJECT (info->stack->data) == e->clue) {
+		printf ("next\n");
+		info->engine = GTK_HTML (GTK_HTML (HTML_IFRAME (self)->html)->iframe_parent)->engine;
+		html_search_pop (info);
+		html_engine_unselect_all (e);
+		return html_search_next_parent (info);
 	}
 
-	return e->search_info
-		? html_engine_search_next (e)
-		: html_engine_search (e, info->text, info->case_sensitive, info->forward, info->regular);
+	info->engine = e;
+	html_search_push (info, e->clue);
+	if (html_object_search (e->clue, info))
+		return TRUE;
+	html_search_pop (info);
+
+	info->engine = GTK_HTML (GTK_HTML (HTML_IFRAME (self)->html)->iframe_parent)->engine;
+	printf ("FALSE\n");
+
+	return FALSE;
 }
 
 
@@ -302,6 +314,7 @@ html_iframe_init (HTMLIFrame *iframe,
 					GTK_POLICY_AUTOMATIC);
 	html = gtk_html_new ();
 	iframe->html = html;
+	/* GTK_HTML (html)->engine->clue->parent = HTML_OBJECT (iframe); */
 	gtk_html_set_iframe_parent (GTK_HTML (html), parent);
 	gtk_container_add (GTK_CONTAINER (scrolled_window), html);
 	gtk_widget_show (html);

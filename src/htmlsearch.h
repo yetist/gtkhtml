@@ -25,9 +25,11 @@
 
 #include <sys/types.h>
 #include <regex.h>
+#include "htmlengine.h"
 #include "htmlobject.h"
 
 struct _HTMLSearch {
+	HTMLEngine *engine;
 	gchar *trans;
 	gchar *text;
 	guint  text_len;
@@ -47,7 +49,8 @@ struct _HTMLSearch {
 	regex_t *reb;        /* regex buffer */
 };
 
-HTMLSearch      *html_search_new            (const gchar *text,
+HTMLSearch      *html_search_new            (HTMLEngine *e,
+					     const gchar *text,
 					     gboolean case_sensitive,
 					     gboolean forward,
 					     gboolean regular);

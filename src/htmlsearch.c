@@ -43,7 +43,7 @@ set_text (HTMLSearch *s, const gchar *text)
 }
 
 HTMLSearch *
-html_search_new (const gchar *text, gboolean case_sensitive, gboolean forward, gboolean regular)
+html_search_new (HTMLEngine *e, const gchar *text, gboolean case_sensitive, gboolean forward, gboolean regular)
 {
 	HTMLSearch *ns = g_new (HTMLSearch, 1);
 	gint i;
@@ -54,6 +54,7 @@ html_search_new (const gchar *text, gboolean case_sensitive, gboolean forward, g
 	ns->stack          = NULL;
 	ns->start_pos      = 0;
 	ns->found          = NULL;
+	ns->engine         = e;
 
 	/* translate table
 	   could translate uppercase to lowercase if non case_sensitive */

@@ -1,3 +1,10 @@
+2000-09-29  Radek Doulik  <rodo@helixcode.com>
+
+	* htmltable.c (html_table_end_table): don't cal lprev_col_do_cspan
+	anymore
+
+	* htmliframe.c (search): fixes
+
 2000-09-29  Joe Shaw  <joe@helixcode.com>
 
 	* htmltable.c (do_rspan): Remove printf.
