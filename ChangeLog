@@ -1,3 +1,7 @@
+2001-08-21  Larry Ewing  <lewing@ximian.com>
+
+	* configure.in: bump versions for 0.12 release.
+
 2001-08-09  Jody Goldberg <jgoldberg@home.com>
 
 	* configure.in : Fix typo in error msg for capplet libraries
