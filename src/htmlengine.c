@@ -47,7 +47,6 @@
 #include "htmlcluealigned.h"
 #include "htmlvspace.h"
 #include "htmlimage.h"
-#include "htmllinktext.h"
 #include "htmllinktextmaster.h"
 #include "htmllist.h"
 #include "htmltable.h"

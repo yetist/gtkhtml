@@ -25,7 +25,6 @@
 #include "htmlclueflow.h"
 #include "htmltext.h"
 #include "htmltextmaster.h"
-#include "htmllinktext.h"
 #include "htmllinktextmaster.h"
 
 #include "htmlengine-edit.h"

@@ -1,5 +1,11 @@
 2000-08-01  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine-edit-insert.c: same as below
+
+	* htmltype.c: same as below
+
+	* htmlengine.c: removed inclusion of htmllinktext.h
+
 	* htmlobject.h: removed nb_width from htmlobject as it is not
 	needed/used anymore
 

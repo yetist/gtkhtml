@@ -36,7 +36,6 @@
 #include "htmliframe.h"
 #include "htmlimage.h"
 #include "htmlimageinput.h"
-#include "htmllinktext.h"
 #include "htmllinktextmaster.h"
 #include "htmlobject.h"
 #include "htmlradio.h"
