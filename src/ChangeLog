@@ -1,5 +1,11 @@
 2000-01-18  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlengine-edit.c (delete_different_parent): New param
+	`destroy_start'.  If `FALSE', do not destroy the `start_object'.
+	(delete_same_parent): Likewise.
+	(html_engine_delete): Do not destroy an empty text object if it's
+	the last in the clue or it's followed by a vspace.
+
 	* htmlrule.c (draw): Don't call the parent class' `draw' method.
 
 	* htmlobject.c (draw): Don't draw the cursor.

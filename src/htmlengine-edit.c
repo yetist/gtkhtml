@@ -224,26 +224,37 @@ html_engine_insert (HTMLEngine *e,
 
 static void
 delete_same_parent (HTMLEngine *e,
-		    HTMLObject *start_object)
+		    HTMLObject *start_object,
+		    gboolean destroy_start)
 {
 	HTMLObject *parent;
 	HTMLObject *p, *pnext;
 
 	parent = start_object->parent;
 
-	for (p = start_object; p != e->cursor->object; p = pnext) {
+	if (destroy_start)
+		p = start_object;
+	else
+		p = start_object->next;
+
+	while (p != e->cursor->object) {
 		pnext = p->next;
 
 		html_clue_remove (HTML_CLUE (p->parent), p);
 		html_object_destroy (p);
+
+		p = pnext;
 	}
 
 	html_object_relayout (parent, e, start_object);
 }
 
+/* This destroys object from the cursor backwards to the specified
+   `start_object'.  */
 static void
 delete_different_parent (HTMLEngine *e,
-			 HTMLObject *start_object)
+			 HTMLObject *start_object,
+			 gboolean destroy_start)
 {
 	HTMLObject *p, *pnext;
 	HTMLObject *start_parent;
@@ -252,11 +263,18 @@ delete_different_parent (HTMLEngine *e,
 	start_parent = start_object->parent;
 	end_parent = e->cursor->object->parent;
 
-	for (p = start_object; p != NULL; p = pnext) {
+	if (destroy_start)
+		p = start_object;
+	else
+		p = start_object->next;
+
+	while (p != NULL) {
 		pnext = p->next;
 
 		html_clue_remove (HTML_CLUE (start_parent), p);
 		html_object_destroy (p);
+
+		p = pnext;
 	}
 
 	for (p = e->cursor->object; p != NULL; p = pnext) {
@@ -295,6 +313,7 @@ html_engine_delete (HTMLEngine *e,
 	HTMLObject *curr;
 	guint orig_offset;
 	guint prev_offset;
+	gboolean destroy_orig;
 
 	html_engine_draw_cursor (e);
 
@@ -309,10 +328,19 @@ html_engine_delete (HTMLEngine *e,
 						e->cursor->offset, count);
 
 	/* If the text object has become empty, then itself needs to be
-           destroyed.  */
+           destroyed unless it's the only one on the line (because we don't
+           want any clueflows to be empty) or the next element is a vspace
+           (because a vspace alone in a clueflow does not give us an empty
+           line).  */
 
-	if (HTML_TEXT (orig_object)->text[0] == '\0')
+	if (HTML_TEXT (orig_object)->text[0] == '\0'
+	    && orig_object->next != NULL
+	    && HTML_OBJECT_TYPE (orig_object->next) != HTML_TYPE_VSPACE) {
 		count++;
+		destroy_orig = TRUE;
+	} else {
+		destroy_orig = FALSE;
+	}
 
 	if (count == 0)
 		return;
@@ -352,9 +380,9 @@ html_engine_delete (HTMLEngine *e,
 	e->cursor->offset = 0;
 
 	if (curr->parent == orig_object->parent)
-		delete_same_parent (e, orig_object);
+		delete_same_parent (e, orig_object, destroy_orig);
 	else
-		delete_different_parent (e, orig_object);
+		delete_different_parent (e, orig_object, destroy_orig);
 
 	html_engine_draw_cursor (e);
 }

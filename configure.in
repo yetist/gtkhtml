@@ -2,7 +2,7 @@ AC_INIT(src/gtkhtml.c)
 
 AM_CONFIG_HEADER(config.h)
 
-AM_INIT_AUTOMAKE(gtkhtml, 0.0.9)
+AM_INIT_AUTOMAKE(gtkhtml, 20000116)
 
 AM_MAINTAINER_MODE
 
