@@ -117,6 +117,9 @@ draw_cursor_rectangle (HTMLEngine *e, gint x1, gint y1, gint x2, gint y2,
 	GdkColor color;
 	gint8 dashes [2] = { 1, 3 };
 
+	if (x1 > x2 || y1 > y2)
+		return;
+
 	gc = gdk_gc_new (e->window);
 	color = *on_color;
 	gdk_rgb_find_color (gdk_drawable_get_colormap (e->window), &color);
@@ -135,6 +138,9 @@ static gint cursor_enabled = TRUE;
 static inline void
 refresh_under_cursor (HTMLEngine *e, HTMLCursorRectangle *cr, gboolean *enabled)
 {
+	if (cr->x1 > cr->x2 || cr->y1 > cr->y2)
+		return;
+
 	*enabled = cursor_enabled = FALSE;
 	html_engine_draw (e, cr->x1, cr->y1,
 			  cr->x2 - cr->x1 + 1, cr->y2 - cr->y1 + 1);
