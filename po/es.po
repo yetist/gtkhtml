@@ -1,3 +1,4 @@
+# translation of es.po to 
 # translation of es.po to Spanish
 # translation of gtkhtml.HEAD.es.po to Spanish
 # Translations of gtkhtml into spanish.
@@ -15,10 +16,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-01 16:31+0100\n"
-"PO-Revision-Date: 2004-07-07 23:42+0200\n"
-"Last-Translator: Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
-"Language-Team: Spanish <traductores@es.gnome.org>\n"
+"POT-Creation-Date: 2004-11-28 15:58+0100\n"
+"PO-Revision-Date: 2004-11-28 15:59+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1771,6 +1772,8 @@ msgid ""
 "Unable to add word to dictionary,\n"
 "language settings are broken.\n"
 msgstr ""
+"Imposible añadir la palabra al diccionario,\n"
+"la configuración del idioma es errónea.\n"
 
 #: components/html-editor/spell.c:298
 msgid "No misspelled word found"
@@ -1888,139 +1891,138 @@ msgstr ""
 "El texto editado ha sido eliminado del documento.\n"
 "No se pueden aplicar los cambios."
 
-#: src/gtkhtml.c:2568
+#: src/gtkhtml.c:2569
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""
 "La url de Mozilla soltada en el editor tenía un formato erróneo (%d) o "
 "longitud (%d)\n"
 
-#: src/gtkhtml.c:2890
+#: src/gtkhtml.c:2891
 msgid "Editable"
 msgstr "Editable"
 
-#: src/gtkhtml.c:2891
+#: src/gtkhtml.c:2892
 msgid "Whether the html can be edited"
 msgstr "Indica si el html puede ser editado"
 
-#: src/gtkhtml.c:2897
+#: src/gtkhtml.c:2898
 msgid "Document Title"
 msgstr "Título del documento"
 
-#: src/gtkhtml.c:2898
+#: src/gtkhtml.c:2899
 msgid "The title of the current document"
 msgstr "El título del documento actual"
 
-#: src/gtkhtml.c:2904
+#: src/gtkhtml.c:2905
 msgid "Document Base"
 msgstr "Base del documento"
 
-#: src/gtkhtml.c:2905
+#: src/gtkhtml.c:2906
 msgid "The base URL for relative references"
 msgstr "La URL de base para referencias relativas"
 
-#: src/gtkhtml.c:2911
+#: src/gtkhtml.c:2912
 msgid "Target Base"
 msgstr "Base del destino"
 
-#: src/gtkhtml.c:2912
+#: src/gtkhtml.c:2913
 msgid "The base URL of the targe frame"
 msgstr "La URL base del marco destino"
 
-#: src/gtkhtml.c:2921
+#: src/gtkhtml.c:2922
 msgid "Fixed Width Font"
 msgstr "Tipografía de anchura fija"
 
-#: src/gtkhtml.c:2922
+#: src/gtkhtml.c:2923
 msgid "The Monospace font to use for typewriter text"
-msgstr ""
-"La tipografía monoespaciada a usar para el texto de máquina de escribir"
+msgstr "La tipografía monoespaciada a usar para el texto de máquina de escribir"
 
-#: src/gtkhtml.c:2928
+#: src/gtkhtml.c:2929
 msgid "New Link Color"
 msgstr "Color de enlaces nuevos"
 
-#: src/gtkhtml.c:2929
+#: src/gtkhtml.c:2930
 msgid "The color of new link elements"
 msgstr "El color de los elementos de enlace nuevos"
 
-#: src/gtkhtml.c:2934
+#: src/gtkhtml.c:2935
 msgid "Visited Link Color"
 msgstr "Color de enlaces visitados"
 
-#: src/gtkhtml.c:2935
+#: src/gtkhtml.c:2936
 msgid "The color of visited link elements"
 msgstr "El color de los elementos de enlace visitados"
 
-#: src/gtkhtml.c:2940
+#: src/gtkhtml.c:2941
 msgid "Active Link Color"
 msgstr "Color del enlace activo"
 
-#: src/gtkhtml.c:2941
+#: src/gtkhtml.c:2942
 msgid "The color of active link elements"
 msgstr "El color de los elementos de enlace activos"
 
-#: src/gtkhtml.c:2946
+#: src/gtkhtml.c:2947
 msgid "Spelling Error Color"
 msgstr "Color del error ortográfico"
 
-#: src/gtkhtml.c:2947
+#: src/gtkhtml.c:2948
 msgid "The color of the spelling error markers"
 msgstr "El color de los marcadores de error ortográfico"
 
-#: src/gtkhtml.c:2952
+#: src/gtkhtml.c:2953
 msgid "Cite Quotation Color"
 msgstr "Color de cita literal"
 
-#: src/gtkhtml.c:2953
+#: src/gtkhtml.c:2954
 msgid "The color of the cited text"
 msgstr "El color del elemento citado literalmente"
 
-#: src/html-component.c:219
+#: src/html-component.c:220
 msgid "Html"
 msgstr "HTML"
 
-#: src/html-component.c:220
+#: src/html-component.c:221
 msgid "Html test"
 msgstr "Probar HTML"
 
-#: src/html-component.c:226
+#: src/html-component.c:227
 msgid "Test1"
 msgstr "Prueba1"
 
-#: src/html-component.c:233
+#: src/html-component.c:234
 msgid "Test2"
 msgstr "Prueba2"
 
-#: src/html-component.c:239
+#: src/html-component.c:240
 msgid "Test3"
 msgstr "Prueba3"
 
-#: src/html-component.c:245
+#: src/html-component.c:246
 msgid "Test4"
 msgstr "Prueba4"
 
-#: src/html-component.c:251
+#: src/html-component.c:252
 msgid "Test5"
 msgstr "Prueba5"
 
-#: src/html-component.c:257
+#: src/html-component.c:258
 msgid "Test6"
 msgstr "Prueba6"
 
-#: src/html-component.c:263
+#: src/html-component.c:264
 msgid "Test7"
 msgstr "Prueba7"
 
-#: src/html-component.c:612
+#: src/html-component.c:613
 msgid "_Refresh"
 msgstr "Actualiza_r"
 
-#: src/html-component.c:613
+#: src/html-component.c:614
 msgid "Reload the page"
 msgstr "Recargar la página"
 
-#: src/html-component.c:660
+#: src/html-component.c:661
 msgid "Could not initialize Bonobo!"
 msgstr "No se pudo inicializar Bonobo"
 
@@ -2037,7 +2039,7 @@ msgstr "Reiniciar"
 msgid "Cannot allocate default font for printing\n"
 msgstr "No se pudo encontrar la tipografía predeterminada de impresión\n"
 
-#: src/test.c:191
+#: src/test.c:375
 msgid "GtkHTML Test"
 msgstr "Prueba GtkHTML"
 
@@ -2053,245 +2055,3 @@ msgstr "Vista preliminar de impresión"
 msgid "GtkHTML Test Application"
 msgstr "Aplicación de prueba GtkHTML"
 
-#~ msgid "Plain"
-#~ msgstr "Simple"
-
-#~ msgid ""
-#~ "@link_begin@<img@alt@@width@@height@@align@ "
-#~ "border=@border@@padh@@padv@@src@>@link_end@"
-#~ msgstr ""
-#~ "@link_begin@<img@alt@@width@@height@@align@ "
-#~ "border=@border@@padh@@padv@@src@>@link_end@"
-
-#~ msgid "Frame"
-#~ msgstr "Marco"
-
-#~ msgid ""
-#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-#~ "@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
-#~ "table></center>"
-#~ msgstr ""
-#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-#~ "@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
-#~ "table></center>"
-
-#~ msgid "Caption"
-#~ msgstr "Descripción"
-
-#~ msgid ""
-#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-#~ "@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Place "
-#~ "your comment here]</td></tr></table></td></tr></table></center>"
-#~ msgstr ""
-#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-#~ "@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Coloque "
-#~ "su comentario aquí]</td></tr></table></td></tr></table></center>"
-
-#~ msgid "Find A Regular Expression"
-#~ msgstr "Buscar una expresión regular"
-
-#~ msgid "Find Regular E_xpression..."
-#~ msgstr "Buscar por e_xpresión regular..."
-
-#~ msgid ""
-#~ "The quick brown <a href=\"mailto:fox\">fox</a> jumps over the lazy <a "
-#~ "href=\"mailto:dog\">dog</a>."
-#~ msgstr ""
-#~ "El veloz <a href=\"mailto:murciélago\">murciélago</a> hindú comía feliz "
-#~ "cardillo y kiwi.  La <a href=\"mailto:cigüeña\">cigüeña</a> tocaba el "
-#~ "saxofón detrás del palenque de paja."
-
-#~ msgid "The quick brown fox jumps over the lazy dog."
-#~ msgstr ""
-#~ "El veloz murciélago hindú comía feliz cardillo y kiwi.  La cigüeña tocaba "
-#~ "el saxofón detrás del palenque de paja"
-
-#~ msgid "Other"
-#~ msgstr "Otro"
-
-#~ msgid ""
-#~ "The editted cell was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "La celda editada ha sido eliminada del documento.\n"
-#~ "No se pueden aplicar los cambios."
-
-#~ msgid "************"
-#~ msgstr "************"
-
-#~ msgid "***text***"
-#~ msgstr "***texto***"
-
-#~ msgid "Apply changes to:"
-#~ msgstr "Aplicar cambios a:"
-
-#~ msgid "Border"
-#~ msgstr "Borde"
-
-#~ msgid "Click will follow this URL"
-#~ msgstr "Pulse para seguir esta URL"
-
-#~ msgid "Click will follow this URL:"
-#~ msgstr "Pulse para seguir esta URL:"
-
-#~ msgid "Don't wrap"
-#~ msgstr "No recubrir"
-
-#~ msgid "Font size"
-#~ msgstr "Tamaño de la tipografía"
-
-#~ msgid "Foreground color"
-#~ msgstr "Color del primer plano"
-
-#~ msgid "Header"
-#~ msgstr "Cabecera"
-
-#~ msgid "Link insert"
-#~ msgstr "Insertar enlace"
-
-#~ msgid "Location"
-#~ msgstr "Ubicación"
-
-#~ msgid "Padding"
-#~ msgstr "Relleno"
-
-#~ msgid "Percent %"
-#~ msgstr "Porcentaje %"
-
-#~ msgid "Pixmap:"
-#~ msgstr "Pixmap:"
-
-#~ msgid "Points"
-#~ msgstr "Puntos"
-
-#~ msgid "Scope"
-#~ msgstr "Ámbito"
-
-#~ msgid "Spacing"
-#~ msgstr "Espaciado"
-
-#~ msgid "Style:"
-#~ msgstr "Estilo:"
-
-#~ msgid "Table Insert"
-#~ msgstr "Insertar tabla"
-
-#~ msgid "Test URL..."
-#~ msgstr "Probar URL..."
-
-#~ msgid "Wrap"
-#~ msgstr "Recubrir"
-
-#~ msgid "Wrapping:"
-#~ msgstr "Recubrimiento:"
-
-#~ msgid "xxxxxxxxx"
-#~ msgstr "xxxxxxxxx"
-
-#~ msgid ""
-#~ "This is sample text, designed to show you how text would flow around this "
-#~ "image if you insert the image into your message."
-#~ msgstr ""
-#~ "Este es un texto de ejemplo, diseñado para mostrarle cómo quedará el "
-#~ "flujo del texto alrededor de esta imagen si la inserta en el mensaje."
-
-#~ msgid "No image selected"
-#~ msgstr "No hay imagen seleccionada"
-
-#~ msgid ""
-#~ "The editted image was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "La imagen editada ha sido eliminada del documento.\n"
-#~ "No se pueden aplicar los cambios."
-
-#~ msgid "Link text"
-#~ msgstr "Enlazar texto"
-
-#~ msgid ""
-#~ "The editted link was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "El enlace editado ha sido eliminado del documento.\n"
-#~ "No se pueden aplicar los cambios."
-
-#~ msgid "Please fill 'Link text' and 'URL' entries"
-#~ msgstr "Por favor, rellene las entradas «Texto del enlace» y «URL»"
-
-#~ msgid "Align"
-#~ msgstr "Alineación"
-
-#~ msgid ""
-#~ "The editted paragraph was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "El párrafo editado ha sido eliminado del documento.\n"
-#~ "No se pueden aplicar los cambios."
-
-#~ msgid "Blue 3D"
-#~ msgstr "Azul 3D"
-
-#~ msgid "Yellow, flowers"
-#~ msgstr "Amarillo, flores"
-
-#~ msgid ""
-#~ "The editted rule was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "La regla editada ha sido eliminada del documento.\n"
-#~ "No se pueden aplicar los cambios."
-
-#~ msgid "Flat gray"
-#~ msgstr "Gris plano"
-
-#~ msgid "Dark header"
-#~ msgstr "Cabecera oscura"
-
-#~ msgid ""
-#~ "The editted table was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "La tabla editada ha sido eliminada del documento.\n"
-#~ "No se pueden aplicar los cambios."
-
-#~ msgid "Color"
-#~ msgstr "Color"
-
-#~ msgid "The quick brown fox jumps over the lazy dog.</div>"
-#~ msgstr ""
-#~ "El veloz murciélago hindú comía feliz cardillo y kiwi.  La cigüeña tocaba "
-#~ "el saxofón detrás del palenque de paja.</div>"
-
-#~ msgid "Rectangles"
-#~ msgstr "Rectángulos"
-
-#~ msgid "The quick brown fox jumped over the lazy dog."
-#~ msgstr ""
-#~ "El veloz murciélago hindú comía feliz cardillo y kiwi. La cigüeña tocaba "
-#~ "el saxofón detrás del palenque de paja. 123456789 ¿?¡!"
-
-#~ msgid "Ignore '%s'"
-#~ msgstr "Ignorar '%s'"
-
-#~ msgid "Suggest word"
-#~ msgstr "Sugerir palabra"
-
-#~ msgid "Text..."
-#~ msgstr "Texto..."
-
-#~ msgid "I could not initialize Bonobo"
-#~ msgstr "No se pudo iniciar Bonobo"
-
-#~ msgid "Sans"
-#~ msgstr "Sans"
-
-#~ msgid "Monospace"
-#~ msgstr "Monospace"
