@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2000-10-13 18:42+0200\n"
-"PO-Revision-Date: 2000-10-13 18:44+0200\n"
+"POT-Creation-Date: 2000-10-30 00:30+0100\n"
+"PO-Revision-Date: 2000-10-30 00:30+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -40,8 +40,6 @@ msgid "Add"
 msgstr "Lägg till"
 
 #: capplet/gnome-bindings-prop.c:548
-#: components/html-editor/test-html-editor-control.c:323
-#: components/html-editor/toolbar.c:495
 msgid "Copy"
 msgstr "Kopia"
 
@@ -121,75 +119,75 @@ msgstr "Välj HTML-typsnitt med fast breddsteg för utskrift"
 msgid "Animations"
 msgstr "Animationer"
 
-#: components/html-editor/body.c:107
-msgid "use background image"
-msgstr "använd bakgrundsbild"
-
-#: components/html-editor/body.c:109
-msgid "Background image"
+#: components/html-editor/body.c:123 components/html-editor/body.c:127
+msgid "Background Image"
 msgstr "Bakgrundsbild"
 
 #: components/html-editor/body.c:126
+msgid "Enable"
+msgstr "Slå på"
+
+#: components/html-editor/body.c:149
 msgid "Colors"
 msgstr "Färger"
 
-#: components/html-editor/editor-control-factory.c:129
+#: components/html-editor/editor-control-factory.c:128
 #: components/html-editor/popup.c:73
 msgid "Properties"
 msgstr "Egenskaper"
 
-#: components/html-editor/editor-control-factory.c:140
+#: components/html-editor/editor-control-factory.c:139
 #: components/html-editor/menubar.c:96 components/html-editor/popup.c:88
 msgid "Image"
 msgstr "Bild"
 
-#: components/html-editor/editor-control-factory.c:149
+#: components/html-editor/editor-control-factory.c:148
 #: components/html-editor/menubar.c:117 components/html-editor/popup.c:81
 msgid "Text"
 msgstr "Text"
 
-#: components/html-editor/editor-control-factory.c:160
+#: components/html-editor/editor-control-factory.c:159
 #: components/html-editor/menubar.c:140 components/html-editor/popup.c:116
 msgid "Rule"
 msgstr "Linje"
 
-#: components/html-editor/editor-control-factory.c:169
+#: components/html-editor/editor-control-factory.c:168
 #: components/html-editor/popup.c:95
 msgid "Paragraph"
 msgstr "Stycke"
 
-#: components/html-editor/editor-control-factory.c:174
+#: components/html-editor/editor-control-factory.c:173
 #: components/html-editor/menubar.c:101 components/html-editor/menubar.c:122
 #: components/html-editor/popup.c:102
 msgid "Link"
 msgstr "Länk"
 
-#: components/html-editor/editor-control-factory.c:179
+#: components/html-editor/editor-control-factory.c:178
 #: components/html-editor/popup.c:109
 msgid "Page"
 msgstr "Sida"
 
-#: components/html-editor/image.c:149
+#: components/html-editor/image.c:156
 msgid "Image selection"
 msgstr "Val av bild"
 
 #. ADD_ITEM("Left",   GDK_F4);
 #. ADD_ITEM("Right",  GDK_F5);
-#: components/html-editor/image.c:176
+#: components/html-editor/image.c:183
 msgid "Alignment"
 msgstr "Justering"
 
-#: components/html-editor/image.c:184
+#: components/html-editor/image.c:191
 msgid "Border"
 msgstr "Kant"
 
-#: components/html-editor/image.c:201
+#: components/html-editor/image.c:208
 msgid "Padding"
 msgstr "Utfyllnad"
 
 #. size
-#: components/html-editor/image.c:221 components/html-editor/rule.c:235
-#: components/html-editor/text.c:160
+#: components/html-editor/image.c:228 components/html-editor/rule.c:222
+#: components/html-editor/text.c:177
 msgid "Size"
 msgstr "Storlek"
 
@@ -220,29 +218,28 @@ msgid "Cannot execute gtkhtml properties"
 msgstr "Kunde inte plocka fram egenskaperna för gtkhtml"
 
 #. style
-#: components/html-editor/paragraph.c:74 components/html-editor/rule.c:223
-#: components/html-editor/text.c:138
+#: components/html-editor/paragraph.c:108 components/html-editor/rule.c:246
+#: components/html-editor/text.c:157
 msgid "Style"
 msgstr "Stil"
 
-#. align
-#: components/html-editor/paragraph.c:108 components/html-editor/rule.c:259
+#: components/html-editor/paragraph.c:142
 msgid "Align"
 msgstr "Justera"
 
-#: components/html-editor/paragraph.c:121
+#: components/html-editor/paragraph.c:155
 msgid "Left"
 msgstr "Vänster"
 
-#: components/html-editor/paragraph.c:122 components/html-editor/toolbar.c:485
+#: components/html-editor/paragraph.c:156 components/html-editor/toolbar.c:395
 msgid "Center"
 msgstr "Centrera"
 
-#: components/html-editor/paragraph.c:123
+#: components/html-editor/paragraph.c:157
 msgid "Right"
 msgstr "Höger"
 
-#: components/html-editor/popup.c:185
+#: components/html-editor/popup.c:193
 msgid "Remove link"
 msgstr "Ta bort länk"
 
@@ -275,19 +272,9 @@ msgstr "gör skillnad på gemener/VERSALER"
 msgid "with"
 msgstr "med"
 
-#: components/html-editor/rule.c:227
+#: components/html-editor/rule.c:270
 msgid "shaded"
 msgstr "skuggad"
-
-#. weight
-#: components/html-editor/rule.c:275
-msgid "Weight"
-msgstr "Vikt"
-
-#. sample
-#: components/html-editor/rule.c:287
-msgid "Sample"
-msgstr "Prov"
 
 #: components/html-editor/search.c:64
 msgid "Regex search"
@@ -297,93 +284,38 @@ msgstr "Sökning med reg. uttryck"
 msgid "Search"
 msgstr "Sök"
 
-#: components/html-editor/test-html-editor-control.c:232
+#: components/html-editor/test-html-editor-control.c:237
 msgid "Open file..."
 msgstr "Öppna fil..."
 
-#: components/html-editor/test-html-editor-control.c:234
+#: components/html-editor/test-html-editor-control.c:239
 msgid "Save file as..."
 msgstr "Spara fil som..."
 
-#: components/html-editor/test-html-editor-control.c:300
-msgid "Open (PersistFile)"
-msgstr "Öppna (PersistFile)"
-
-#: components/html-editor/test-html-editor-control.c:300
-msgid "Open using the PersistFile interface"
-msgstr "Öppna med PersistFile-gränssnittet"
-
-#: components/html-editor/test-html-editor-control.c:302
-msgid "Save as... (PersistFile)"
-msgstr "Spara som... (PersistFile)"
-
-#: components/html-editor/test-html-editor-control.c:302
-msgid "Save using the PersistFile interface"
-msgstr "Spara med PersistFile-gränssnittet"
-
-#: components/html-editor/test-html-editor-control.c:305
-msgid "Open (PersistStream)"
-msgstr "Öppna (PersistStream)"
-
-#: components/html-editor/test-html-editor-control.c:305
-msgid "Open using the PersistStream interface"
-msgstr "Öppna med PersistStream-gränssnittet"
-
-#: components/html-editor/test-html-editor-control.c:307
-msgid "Save as... (PersistStream)"
-msgstr "Spara som... (PersistStream)"
-
-#: components/html-editor/test-html-editor-control.c:307
-msgid "Save using the PersistStream interface"
-msgstr "Spara med PersistStream-gränssnittet"
-
-#: components/html-editor/test-html-editor-control.c:321
-#: components/html-editor/toolbar.c:493
-msgid "Cut"
-msgstr "Klipp ut"
-
-#: components/html-editor/test-html-editor-control.c:321
-msgid "Cut selection to the clipboard"
-msgstr "Klipp ut markeringen och placera i urklipp"
-
-#: components/html-editor/test-html-editor-control.c:323
-msgid "Copy selection to the clipboard"
-msgstr "Kopiera markeringen och placera i urklipp"
-
-#: components/html-editor/test-html-editor-control.c:325
-#: components/html-editor/toolbar.c:497
-msgid "Paste"
-msgstr "Klistra in"
-
-#: components/html-editor/test-html-editor-control.c:325
-#: components/html-editor/toolbar.c:497
-msgid "Paste contents of the clipboard"
-msgstr "Klistra in innehållet i urklipp"
-
-#: components/html-editor/text.c:152 components/html-editor/toolbar.c:511
+#: components/html-editor/text.c:169 components/html-editor/toolbar.c:404
 msgid "Bold"
 msgstr "Fet"
 
-#: components/html-editor/text.c:153 components/html-editor/toolbar.c:513
+#: components/html-editor/text.c:170 components/html-editor/toolbar.c:406
 msgid "Italic"
 msgstr "Kursiv"
 
-#: components/html-editor/text.c:154 components/html-editor/toolbar.c:515
+#: components/html-editor/text.c:171 components/html-editor/toolbar.c:408
 msgid "Underline"
 msgstr "Understruken"
 
-#: components/html-editor/text.c:155 components/html-editor/toolbar.c:517
+#: components/html-editor/text.c:172 components/html-editor/toolbar.c:410
 msgid "Strikeout"
 msgstr "Genomstruken"
 
 #. color selection
-#: components/html-editor/text.c:187
+#: components/html-editor/text.c:207
 msgid "Color"
 msgstr "Färg"
 
-#: components/html-editor/text.c:201
-msgid "text color"
-msgstr "textfärg"
+#: components/html-editor/text.c:210 components/html-editor/toolbar.c:204
+msgid "Automatic"
+msgstr "Automatisk"
 
 #: components/html-editor/toolbar.c:45
 msgid "Normal"
@@ -433,85 +365,61 @@ msgstr "Listpost (onumrerad)"
 msgid "List item (roman)"
 msgstr "Listpost (romersk siffra)"
 
-#: components/html-editor/toolbar.c:236
-msgid "Default"
-msgstr "Standard"
-
-#: components/html-editor/toolbar.c:483
+#: components/html-editor/toolbar.c:393
 msgid "Left align"
 msgstr "Vänsterjustera"
 
-#: components/html-editor/toolbar.c:483
+#: components/html-editor/toolbar.c:393
 msgid "Left justify paragraphs"
 msgstr "Vänsterjustera stycken"
 
-#: components/html-editor/toolbar.c:485
+#: components/html-editor/toolbar.c:395
 msgid "Centers paragraphs"
 msgstr "Centrera stycken"
 
-#: components/html-editor/toolbar.c:487
+#: components/html-editor/toolbar.c:397
 msgid "Right align"
 msgstr "Högerjustera"
 
-#: components/html-editor/toolbar.c:487
+#: components/html-editor/toolbar.c:397
 msgid "Right justify paragraphs"
 msgstr "Högerjustera stycken"
 
-#: components/html-editor/toolbar.c:493
-msgid "Cut the selected region to the clipboard"
-msgstr "Klipp ut det markerade området och placera i urklipp"
-
-#: components/html-editor/toolbar.c:495
-msgid "Copy the selected region to the clipboard"
-msgstr "Kopiera det markerade området och placera i urklipp"
-
-#: components/html-editor/toolbar.c:501
-msgid "Undo"
-msgstr "Ångra"
-
-#: components/html-editor/toolbar.c:501
-msgid "Undo last editor operation"
-msgstr "Ångra den senaste åtgärden"
-
-#: components/html-editor/toolbar.c:503
-msgid "Redo"
-msgstr "Gör om"
-
-#: components/html-editor/toolbar.c:503
-msgid "Redo undone editor operation"
-msgstr "Gör om ångrade åtgärder i editorn"
-
-#: components/html-editor/toolbar.c:511
+#: components/html-editor/toolbar.c:404
 msgid "Sets the bold font"
 msgstr "Gör typsnittet fetstilt"
 
-#: components/html-editor/toolbar.c:513
+#: components/html-editor/toolbar.c:406
 msgid "Make the selection italic"
 msgstr "Gör markeringen kursiv"
 
-#: components/html-editor/toolbar.c:515
+#: components/html-editor/toolbar.c:408
 msgid "Make the selection underlined"
 msgstr "Gör markeringen understruken"
 
-#: components/html-editor/toolbar.c:517
+#: components/html-editor/toolbar.c:410
 msgid "Make the selection striked out"
 msgstr "Gör markeringen genomstruken"
 
-#: components/html-editor/toolbar.c:526
+#: components/html-editor/toolbar.c:419
 msgid "Unindent"
 msgstr "Ta bort indragning"
 
-#: components/html-editor/toolbar.c:526
+#: components/html-editor/toolbar.c:419
 msgid "Indent paragraphs less"
 msgstr "Gör stycken mindre indragna"
 
-#: components/html-editor/toolbar.c:528
+#: components/html-editor/toolbar.c:421
 msgid "Indent"
 msgstr "Dra in"
 
-#: components/html-editor/toolbar.c:528
+#: components/html-editor/toolbar.c:421
 msgid "Indent paragraphs more"
 msgstr "Dra in stycken mer"
+
+#: components/html-editor/utils.c:101
+msgid "Sample"
+msgstr "Prov"
 
 #: src/testgtkhtml.c:111
 msgid "Print pre_view"
@@ -520,6 +428,75 @@ msgstr "Förhands_granska"
 #: src/testgtkhtml.c:111
 msgid "Print preview"
 msgstr "Förhandsgranska"
+
+#~ msgid "use background image"
+#~ msgstr "använd bakgrundsbild"
+
+#~ msgid "Weight"
+#~ msgstr "Vikt"
+
+#~ msgid "Open (PersistFile)"
+#~ msgstr "Öppna (PersistFile)"
+
+#~ msgid "Open using the PersistFile interface"
+#~ msgstr "Öppna med PersistFile-gränssnittet"
+
+#~ msgid "Save as... (PersistFile)"
+#~ msgstr "Spara som... (PersistFile)"
+
+#~ msgid "Save using the PersistFile interface"
+#~ msgstr "Spara med PersistFile-gränssnittet"
+
+#~ msgid "Open (PersistStream)"
+#~ msgstr "Öppna (PersistStream)"
+
+#~ msgid "Open using the PersistStream interface"
+#~ msgstr "Öppna med PersistStream-gränssnittet"
+
+#~ msgid "Save as... (PersistStream)"
+#~ msgstr "Spara som... (PersistStream)"
+
+#~ msgid "Save using the PersistStream interface"
+#~ msgstr "Spara med PersistStream-gränssnittet"
+
+#~ msgid "Cut"
+#~ msgstr "Klipp ut"
+
+#~ msgid "Cut selection to the clipboard"
+#~ msgstr "Klipp ut markeringen och placera i urklipp"
+
+#~ msgid "Copy selection to the clipboard"
+#~ msgstr "Kopiera markeringen och placera i urklipp"
+
+#~ msgid "Paste"
+#~ msgstr "Klistra in"
+
+#~ msgid "Paste contents of the clipboard"
+#~ msgstr "Klistra in innehållet i urklipp"
+
+#~ msgid "text color"
+#~ msgstr "textfärg"
+
+#~ msgid "Default"
+#~ msgstr "Standard"
+
+#~ msgid "Cut the selected region to the clipboard"
+#~ msgstr "Klipp ut det markerade området och placera i urklipp"
+
+#~ msgid "Copy the selected region to the clipboard"
+#~ msgstr "Kopiera det markerade området och placera i urklipp"
+
+#~ msgid "Undo"
+#~ msgstr "Ångra"
+
+#~ msgid "Undo last editor operation"
+#~ msgstr "Ångra den senaste åtgärden"
+
+#~ msgid "Redo"
+#~ msgstr "Gör om"
+
+#~ msgid "Redo undone editor operation"
+#~ msgstr "Gör om ångrade åtgärder i editorn"
 
 #~ msgid "Insert image"
 #~ msgstr "Infoga bild"
