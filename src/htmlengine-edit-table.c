@@ -653,10 +653,9 @@ table_set_border_width (HTMLEngine *e, HTMLTable *t, gint border_width, gboolean
 	HTMLTableSetAttrUndo *undo;
 	gint new_border;
 
-	if (!t || !HTML_IS_TABLE (HTML_OBJECT (t)))
+	if (!t || !HTML_IS_TABLE (t))
 		return;
 
-	html_engine_freeze (e);
 	if (relative)
 		new_border = t->border + border_width;
 	else
@@ -669,6 +668,7 @@ table_set_border_width (HTMLEngine *e, HTMLTable *t, gint border_width, gboolean
 	undo = attr_undo_new (HTML_TABLE_BORDER);
 	undo->attr.border = t->border;
 
+	html_engine_freeze (e);
 	t->border = new_border;
 
 	html_object_change_set (HTML_OBJECT (t), HTML_CHANGE_ALL_CALC);
@@ -794,7 +794,7 @@ table_set_spacing (HTMLEngine *e, HTMLTable *t, gint spacing, gboolean relative,
 	HTMLTableSetAttrUndo *undo;
 	gint new_spacing;
 
-	if (!t)
+	if (!t || !HTML_IS_TABLE (t))
 		return;
 
 	if (relative)
@@ -844,7 +844,7 @@ table_set_padding (HTMLEngine *e, HTMLTable *t, gint padding, gboolean relative,
 	gint r, c;
 	gint new_padding;
 
-	if (!t)
+	if (!t || !HTML_IS_TABLE (t))
 		return;
 
 	if (relative)
