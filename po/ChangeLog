@@ -1,3 +1,8 @@
+2002-03-26  Larry Ewing  <lewing@ximian.com>
+
+	* POTFILES.in: remove html-component.c. This file is NOT part of
+	the build, please don't translate it.
+
 2002-03-15  Pablo Saratxaga  <pablo@mandrakesoft.com>
 
 	* eu.po: Added Basque file
