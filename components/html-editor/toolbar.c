@@ -23,6 +23,7 @@
 
 /* FIXME: Should use BonoboUIHandler.  */
 
+#include <config.h>
 #include <gnome.h>
 #include <bonobo.h>
 #include <gal/widgets/widget-color-combo.h>

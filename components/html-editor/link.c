@@ -20,12 +20,12 @@
     Boston, MA 02111-1307, USA.
 */
 
+#include <config.h>
 #include <string.h>
 #include "htmlengine-edit-fontstyle.h"
 #include "htmlengine-edit-insert.h"
 #include "htmlselection.h"
 
-#include "config.h"
 #include "properties.h"
 #include "dialog.h"
 #include "link.h"

@@ -1,3 +1,9 @@
+2000-12-14  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* *.c: Added #include <config.h> to all .c files. And added
+	calls to bindtextdomain() and textdomain() in the html-editor
+	main() function.
+	
 2000-12-13  Radek Doulik  <rodo@helixcode.com>
 
 	* GNOME_GtkHTML_Editor.xml: redone shortcuts

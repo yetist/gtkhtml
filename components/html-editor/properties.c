@@ -21,7 +21,7 @@
 */
 
 
-#include "config.h"
+#include <config.h>
 #include "properties.h"
 
 #define GTK_HTML_EDIT_IMAGE_BWIDTH      0

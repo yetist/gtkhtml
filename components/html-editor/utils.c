@@ -20,6 +20,7 @@
     Boston, MA 02111-1307, USA.
 */
 
+#include <config.h>
 #include <gal/widgets/e-scroll-frame.h>
 
 #include <sys/types.h>

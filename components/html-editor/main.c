@@ -84,6 +84,11 @@ main (int argc, char **argv)
 #ifdef GTKHTML_HAVE_GCONF
 	GError  *gconf_error  = NULL;
 #endif
+
+	/* Initialize the i18n support */
+	bindtextdomain(PACKAGE, GNOMELOCALEDIR);
+	textdomain(PACKAGE);
+
 	init_bonobo (&argc, argv);
 #ifdef GTKHTML_HAVE_GCONF
 	if (!gconf_init (argc, argv, &gconf_error)) {

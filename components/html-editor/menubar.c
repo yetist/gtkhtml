@@ -21,6 +21,7 @@
     Author: Ettore Perazzoli <ettore@helixcode.com>
 */
 
+#include <config.h>
 #include <gnome.h>
 #include <bonobo.h>
 

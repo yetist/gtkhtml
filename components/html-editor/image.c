@@ -20,6 +20,7 @@
     Boston, MA 02111-1307, USA.
 */
 
+#include <config.h>
 #include <unistd.h>
 #include <string.h>
 
@@ -31,7 +32,6 @@
 #include "htmlimage.h"
 #include "htmlsettings.h"
 
-#include "config.h"
 #include "dialog.h"
 #include "image.h"
 #include "properties.h"

@@ -21,6 +21,7 @@
     Author: Radek Doulik <rodo@helixcode.com>
 */
 
+#include <config.h>
 #include "control-data.h"
 #include "spell.h"
 
