@@ -1,24 +1,20 @@
 This is GtkHTML, a lightweight HTML rendering/printing/editing engine.
 It was originally based on KHTMLW, but is now being developed
-independently of it.
+independently.
 
 In order to compile GtkHTML, you need the latest gdk-pixbuf and
 gnome-print from CVS.
 
-You also need libwww, although this is going to change soon.  Libwww
-is available from:
+If you want to try the test program `testgtkhtml', you also need
+libwww.  Libwww is available from:
 
     http://www.w3.org/Library/
 
-The libwww library must be compiled *with* zlib support.  Make sure
-zlib is installed properly before compiling libwww if you do this by
-hand.  The pre-built libwww packages shipped by Linux distributions
-all have zlib support compiled in already AFAIK.
+The libwww library must be compiled *with* zlib support.  The
+pre-built libwww packages shipped by Linux distributions all have zlib
+support compiled in already AFAIK.
 
 To try it out, run testgtkhtml in the source dir, i.e:
 
     cd src
     ./testgtkhtml
-
-To build the bonobo components, pass the command-line options
-`--with-bonobo' to configure.

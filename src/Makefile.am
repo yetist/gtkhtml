@@ -5,7 +5,11 @@ INCLUDES = -I$(top_srcdir) -I$(srcdir) -I$(includedir) $(GNOME_INCLUDEDIR) \
 
 lib_LTLIBRARIES = libgtkhtml.la
 
+if LIBWWW
 noinst_PROGRAMS = testgtkhtml
+else
+noinst_PROGRAMS =
+endif
 
 libgtkhtmldir = $(includedir)/gtkhtml
 
@@ -145,15 +149,13 @@ libgtkhtml_la_SOURCES =				\
 	htmlvspace.c				\
 	stringtokenizer.c
 
+# The test program.
+
 testgtkhtml_SOURCES = 		\
 	testgtkhtml.c		\
 	htmlurl.c
 
-if LIBWWW
 GLIBWWW=$(top_builddir)/glibwww/libglibwww.a $(LIBWWW_LIBS)
-else
-GLIBWWW=
-endif
 
 testgtkhtml_LDADD =				\
 	libgtkhtml.la				\
@@ -161,6 +163,8 @@ testgtkhtml_LDADD =				\
 	$(GNOME_LIBDIR)				\
 	$(EXTRA_GNOME_LIBS)                     \
 	$(GLIBWWW)
+
+#
 
 dist-hook:
 	mkdir $(distdir)/tests

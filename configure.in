@@ -22,9 +22,43 @@ AC_SUBST(CFLAGS)
 AC_SUBST(CPPFLAGS)
 AC_SUBST(LDFLAGS)
 
-dnl ******************************
-dnl Check for Bonobo
-dnl ******************************
+dnl Libwww checks.
+
+AC_MSG_CHECKING([for libwww])
+if ! `libwww-config --version > /dev/null 2>&1` ; then
+	AC_MSG_RESULT([not found])
+	have_libwww=false
+else
+	vers=`libwww-config --version`
+	AC_MSG_RESULT([found ("$vers")])
+
+	LIBWWW_CFLAGS="`libwww-config --cflags`"
+	LIBWWW_LIBS="`libwww-config --libs`"
+
+	AC_MSG_CHECKING([if libwww has zlib support built-in])
+	if ( libwww-config --libs | grep -w -- '-lz' > /dev/null ) ; then
+		AC_MSG_RESULT([yes])
+		have_libwww=true
+	else
+		AC_MSG_RESULT([no])
+		AC_MSG_WARN([libwww should be built with zlib support to be usable by the test program.])
+		AC_MSG_WARN([Your libwww does not seem to have zlib support.])
+		have_libwww=false
+	fi
+fi
+
+if $have_libwww ; then
+	AC_DEFINE(HAVE_LIBWWW)
+else
+	AC_MSG_WARN([\`testgtkhtml' will not be built.])
+fi
+
+AC_SUBST(LIBWWW_CFLAGS)
+AC_SUBST(LIBWWW_LIBS)
+AM_CONDITIONAL(LIBWWW, $have_libwww)
+
+dnl Bonobo checks.
+
 try_bonobo=true
 bonobo=
 bonobo_msg=no
@@ -37,54 +71,106 @@ AC_ARG_WITH(bonobo,
 )
 
 if $try_bonobo; then
-	AC_MSG_CHECKING(for Bonobo > 0.5)
+	AC_MSG_CHECKING(for Bonobo >= 0.5)
 	if gnome-config --libs bonobo > /dev/null 2>&1; then
-		vers=`gnome-config --modversion bonobo`
+		vers=`gnome-config --modversion bonobo | sed 's/^bonobo-//'`
 		case $vers
 		in
-		    bonobo-0.[[012345]]) bonobo_ok=false ;;
-		    *) bonobo_ok=true ;;
+			0.[[012345]])
+				bonobo_ok=false ;;
+
+			*)
+				bonobo_ok=true ;;
 		esac
 	else
 		bonobo_ok=false
 	fi
 	
 	if $bonobo_ok; then
-		AC_MSG_RESULT(found)
+		AC_MSG_RESULT([found ("$vers")])
 		AC_DEFINE(ENABLE_BONOBO)
 		have_bonobo=true
 		bonobo=bonobo
 		bonobo_msg=yes
 	else
-		AC_MSG_RESULT(not found)
+		AC_MSG_RESULT([not found])
 	fi
 fi
+
 AM_CONDITIONAL(BONOBO, $have_bonobo)
 
-dnl
-dnl Check for libwww
-dnl
-AC_PATH_PROG(LIBWWW_CONFIG,libwww-config,no)
-if test "$LIBWWW_CONFIG" = no; then
-	have_libwww=false
-	AC_MSG_ERROR([libwww is required])
+dnl gnome-print checks.
+
+AC_MSG_CHECKING([for gnome-print >= 0.13])
+if gnome-config --libs print > /dev/null 2>&1; then
+	vers=`gnome-config --modversion print | sed 's/^gnome-print-//'`
+	if [[ "x$vers" = "x" ]] ; then
+		gnomeprint_ok=false
+	else
+		case "$vers" in
+			0.[[0123456789]])
+				gnomeprint_ok=false ;;
+
+			0.1[[012]])
+				gnomeprint_ok=false ;;
+
+			*)
+				gnomeprint_ok=true ;;
+		esac
+	fi
 else
-	LIBWWW_CFLAGS="`$LIBWWW_CONFIG --cflags`"
-	LIBWWW_LIBS="`$LIBWWW_CONFIG --libs`"
-
-dnl if we have the mini libwww's, trim the list we link with
-
-dnl	if echo "$LIBWWW_LIBS" | grep wwwcore > /dev/null; then
-dnl	    changequote(,)dnl
-dnl	    LIBWWW_LIBS="`echo $LIBWWW_LIBS | sed 's/-lxml[^ ]* //g;s/-lwww[^ ]* //g;s/-ldl//;s/-lz//'`"
-dnl	    changequote([,])dnl
-dnl	    LIBWWW_LIBS="$LIBWWW_LIBS -lwwwzip -lwwwhttp -lwwwmime -lwwwftp -lwwwfile -lwwwdir -lwwwhtml -lwwwcache -lwwwstream -lwwwtrans -lwwwcore -lwwwutils -lwwwapp -lwwwnews -lwwwtelnet -lz"
-dnl	fi
-	have_libwww=true
-	AC_DEFINE(HAVE_LIBWWW)
+	gnomeprint_ok=false
 fi
 
-dnl gtkhtmlConf.sh stuff
+if $gnomeprint_ok ; then
+	AC_MSG_RESULT([found ("$vers")])
+else
+	AC_MSG_RESULT([not found])
+	AC_MSG_ERROR([gnome-print 0.13 or later is required to compile GtkHTML.])
+fi
+
+dnl gdk-pixbuf checks.
+
+AC_MSG_CHECKING([for gdk-pixbuf >= 0.6.0])
+
+if gnome-config --libs gdk_pixbuf > /dev/null 2>&1; then
+	vers=`gnome-config --modversion gdk_pixbuf | sed 's/^gdk-pixbuf-//'`
+        major=`echo "$vers" | sed 's/\([[0-9]]*\)\.[[0-9]]*\.[[0-9]]*/\1/'`
+        minor=`echo "$vers" | sed 's/[[0-9]]*\.\([[0-9]]*\)\.[[0-9]]*/\1/'`
+
+	if [[ "x$major" = "x" ]] ; then
+		gdkpixbuf_ok=false
+        elif [[ "x$major" = "x0" ]] ; then
+		case "$minor" in
+			[[012345]])
+				echo HERE
+				gdkpixbuf_ok=false ;;
+                        *)
+				gdkpixbuf_ok=true ;;
+		esac
+	else
+		gdkpixbuf_ok=true
+	fi
+else
+	gdkpixbuf_ok=false
+fi
+
+if $gdkpixbuf_ok ; then
+	AC_MSG_RESULT([found ("$vers")])
+else
+	AC_MSG_RESULT([not found])
+	AC_MSG_ERROR([gdk-pixbuf 0.6.0 or later is required to compile GtkHTML.])
+fi
+
+dnl Setup extra GNOME library flags.
+
+EXTRA_GNOME_LIBS=`gnome-config --libs gnomeui gdk_pixbuf print $bonobo`
+EXTRA_GNOME_CFLAGS=`gnome-config --cflags gnomeui gdk_pixbuf print $bonobo`
+
+AC_SUBST(EXTRA_GNOME_LIBS)
+AC_SUBST(EXTRA_GNOME_CFLAGS)
+
+dnl gtkhtmlConf.sh stuff.
 
 GTKHTML_LIBDIR="-L${libdir}"
 GTKHTML_INCLUDEDIR="-I${includedir}"
@@ -95,14 +181,7 @@ AC_SUBST(GTKHTML_LIBDIR)
 AC_SUBST(GTKHTML_INCLUDEDIR)
 AC_SUBST(GTKHTML_LIBS)
 
-AC_SUBST(LIBWWW_CFLAGS)
-AC_SUBST(LIBWWW_LIBS)
-AM_CONDITIONAL(LIBWWW, $have_libwww)
-
-EXTRA_GNOME_LIBS=`gnome-config --libs gnomeui gdk_pixbuf print $bonobo`
-EXTRA_GNOME_CFLAGS=`gnome-config --cflags gnomeui gdk_pixbuf print $bonobo`
-AC_SUBST(EXTRA_GNOME_LIBS)
-AC_SUBST(EXTRA_GNOME_CFLAGS)
+dnl Done.
 
 AC_OUTPUT([
 Makefile

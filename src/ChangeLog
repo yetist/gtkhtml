@@ -1,3 +1,7 @@
+2000-03-24  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* Makefile.am [! LIBWWW]: Do not build `testgtkhtml'.
+
 2000-03-24  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlimage.c (html_image_factory_frame_done): I have started work

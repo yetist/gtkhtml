@@ -1,3 +1,9 @@
+2000-03-24  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* configure.in: Disable `libwww' usage if it is not built with
+	zlib support.  Make sure the installed gnome-print is 0.13 or
+	later.  Make sure the installed gdk-pixbuf is 0.6.0 or later.
+
 2000-03-24  Radek Doulik  <rodo@helixcode.com>
 
 	* BUGS: removed
