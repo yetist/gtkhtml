@@ -1,5 +1,8 @@
 2003-07-29  Radek Doulik  <rodo@ximian.com>
 
+	* htmlgdkpainter.c (draw_text): use str instead of dereferencing
+	list data, list is already shifted at this point
+
 	* htmlplainpainter.c: as below
 
 	* htmlgdkpainter.c: use item intex from glyphs list

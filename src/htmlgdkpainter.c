@@ -1034,7 +1034,7 @@ draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, HT
 			str = (PangoGlyphString *) gl->data;
 			gl = gl->next;
 			ii = GPOINTER_TO_INT (gl->data);
-			pango_glyph_string_extents ((PangoGlyphString *) gl->data, pi->entries [ii].item->analysis.font, NULL, &log_rect);
+			pango_glyph_string_extents (str, pi->entries [ii].item->analysis.font, NULL, &log_rect);
 			c_text = g_utf8_offset_to_pointer (c_text, str->num_glyphs);
 		}
 
