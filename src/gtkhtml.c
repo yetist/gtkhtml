@@ -1063,7 +1063,7 @@ mouse_change_pos (GtkWidget *widget, GdkWindow *window, gint x, gint y)
 	engine = html->engine;
 	obj    = html_engine_get_object_at (engine, x + engine->x_offset, y + engine->y_offset, NULL, FALSE);
 
-	if (html->button1_pressed && html->allow_selection) {
+	if ((html->in_selection || html->in_selection_drag) && html->allow_selection) {
 		gboolean need_scroll;
 
 		if (obj) {
@@ -1090,6 +1090,7 @@ mouse_change_pos (GtkWidget *widget, GdkWindow *window, gint x, gint y)
 						    GTK_HTML_FONT_STYLE_SIZE_3,  
 						    NULL)) {
 			html->in_selection = TRUE;
+			html->in_selection_drag = TRUE;
 		}
 
 		need_scroll = FALSE;
@@ -1363,7 +1364,7 @@ motion_notify_event (GtkWidget *widget,
 		return FALSE;
 
 	engine = GTK_HTML (widget)->engine;
-	if (GTK_HTML (widget)->button1_pressed && html_engine_get_editable (engine))
+	if (GTK_HTML (widget)->in_selection_drag && html_engine_get_editable (engine))
 		html_engine_jump_at (engine,
 				     x + engine->x_offset,
 				     y + engine->y_offset);
@@ -1440,7 +1441,7 @@ button_press_event (GtkWidget *widget,
 			}
 			break;
 		case 1:
-			html->button1_pressed = TRUE;
+			html->in_selection_drag = TRUE;
 			if (html_engine_get_editable (engine)) {
 				if (html->allow_selection)
 					if (!(event->state & GDK_SHIFT_MASK)
@@ -1487,12 +1488,12 @@ button_press_event (GtkWidget *widget,
 		}
 	} else if (event->button == 1 && html->allow_selection) {
 		if (event->type == GDK_2BUTTON_PRESS) {
-			html->button1_pressed = FALSE;
+			html->in_selection_drag = FALSE;
 			gtk_html_select_word (html);
 			html->in_selection = TRUE;
 		}
 		else if (event->type == GDK_3BUTTON_PRESS) {
-			html->button1_pressed = FALSE;
+			html->in_selection_drag = FALSE;
 			gtk_html_select_line (html);
 			html->in_selection = TRUE;
 		}
@@ -1523,27 +1524,28 @@ button_release_event (GtkWidget *initial_widget,
 	
 	engine = html->engine;
 
+	if (html->in_selection) {
+		html->in_selection = FALSE;
+		if (html->in_selection_drag)
+			html_engine_select_region (engine, html->selection_x1, html->selection_y1,
+						   x + engine->x_offset, y + engine->y_offset);
+		html_engine_update_selection_active_state (engine, html->priv->event_time);
+		gtk_html_update_styles (html);
+		queue_draw (html);
+	}
+
 	if (event->button == 1) {
 	
-		if (html_engine_get_editable (engine)) 
+		if (html->in_selection_drag && html_engine_get_editable (engine)) 
 			html_engine_jump_at (engine, x + engine->x_offset, y + engine->y_offset); 
 
-		html->button1_pressed = FALSE;
+		html->in_selection_drag = FALSE;
 		
 		if (!html->priv->dnd_in_progress
 		    && html->pointer_url != NULL && ! html->in_selection)
 			gtk_signal_emit (GTK_OBJECT (widget), 
 					 signals[LINK_CLICKED], 
 					 html->pointer_url);
-	}
-
-	if (html->in_selection) {
-		html->in_selection = FALSE;
-		html_engine_select_region (engine, html->selection_x1, html->selection_y1,
-					   x + engine->x_offset, y + engine->y_offset);
-		html_engine_update_selection_active_state (engine, html->priv->event_time);
-		gtk_html_update_styles (html);
-		queue_draw (html);
 	}
 
 	return TRUE;
@@ -2877,7 +2879,7 @@ init (GtkHTML* html)
 	html->selection_y1 = 0;
 
 	html->in_selection = FALSE;
-	html->button1_pressed = FALSE;
+	html->in_selection_drag = FALSE;
 
 	html->priv = g_new0 (GtkHTMLPrivate, 1);
 	html->priv->idle_handler_id = 0;

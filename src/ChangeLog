@@ -1,3 +1,13 @@
+2002-10-22  Larry Ewing  <lewing@localhost.localdomain>
+
+	* gtkhtml.c (mouse_change_pos): Fix double and triple click so 
+	that they at least keep the selection after a release.  Rename 
+	button1_clicked so that it makes some sense
+	(button_release_event): make sure we only update the selection
+	and move the cursor if we are in a drag.
+
+	* gtkhtml.h: rename button1_clicked.
+
 2002-10-19  Larry Ewing  <lewing@ximian.com>
 
 	* htmliframe.c (save): if inline_frames is set copy save the
@@ -34,6 +44,12 @@
 
 	* htmlengine.c (check_prev): use strcasecmp rather than strcmp
 	and test for inequality, not equality.
+
+	* gtkhtml.c (mouse_change_pos): Fix double and triple click so 
+	that they at least keep the selection after a release.  Rename 
+	button1_clicked so that it makes some sense
+	(button_release_event): make sure we only update the selection
+	and move the cursor if we are in a drag.
 
 2002-10-18  Larry Ewing  <lewing@ximian.com>
 
