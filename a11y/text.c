@@ -29,6 +29,7 @@
 #include "htmlengine.h"
 #include "htmlinterval.h"
 #include "htmllinktext.h"
+#include "htmlselection.h"
 #include "htmltext.h"
 #include "htmltextslave.h"
 
@@ -53,6 +54,11 @@ static gunichar html_a11y_text_get_character_at_offset (AtkText *text, gint offs
 static gchar * html_a11y_text_get_text_before_offset (AtkText *text, gint offset, AtkTextBoundary boundary_type,
 						      gint *start_offset, gint *end_offset);
 static gint html_a11y_text_get_character_count (AtkText *text);
+static gint html_a11y_text_get_n_selections (AtkText *text);
+static gchar *html_a11y_text_get_selection (AtkText *text, gint selection_num, gint *start_offset, gint *end_offset);
+static gboolean html_a11y_text_add_selection (AtkText *text, gint start_offset, gint end_offset);
+static gboolean html_a11y_text_remove_selection (AtkText *text, gint selection_num);
+static gboolean html_a11y_text_set_selection (AtkText *text, gint selection_num, gint start_offset, gint end_offset);
 
 static AtkObjectClass *parent_class = NULL;
 
@@ -115,6 +121,10 @@ atk_text_interface_init (AtkTextIface *iface)
 	iface->get_text_at_offset = html_a11y_text_get_text_at_offset;
 	iface->get_character_at_offset = html_a11y_text_get_character_at_offset;
 	iface->get_character_count = html_a11y_text_get_character_count;
+	iface->get_n_selections = html_a11y_text_get_n_selections;
+	iface->get_selection = html_a11y_text_get_selection;
+	iface->remove_selection = html_a11y_text_remove_selection;
+	iface->set_selection = html_a11y_text_set_selection;
 }
 
 static void
@@ -128,7 +138,6 @@ html_a11y_text_initialize (AtkObject *obj, gpointer data)
 	GtkTextBuffer *buffer;
 	HTMLText *to;
 	HTMLA11YText *ato;
-	gchar *text;
 
 	/* printf ("html_a11y_text_initialize\n"); */
 
@@ -331,7 +340,6 @@ html_a11y_text_remove_selection (AtkText *text, gint selection_num)
 {
 	GtkHTML *html = GTK_HTML_A11Y_GTKHTML (html_a11y_get_gtkhtml_parent (HTML_A11Y (text)));
 	HTMLObject *obj = HTML_A11Y_HTML (text);
-	HTMLInterval *i;
 
 	if (!obj->selected || selection_num)
 		return FALSE;

@@ -35,13 +35,6 @@ static void html_a11y_hyper_link_init          (HTMLA11YHyperLink *a11y_hyper_li
 
 static void atk_action_interface_init (AtkActionIface *iface);
 
-static void html_a11y_hyper_link_get_extents   (AtkComponent *component,
-					  gint *x, gint *y, gint *width, gint *height, AtkCoordType coord_type);
-static void html_a11y_hyper_link_get_size      (AtkComponent *component, gint *width, gint *height);
-
-static gint html_a11y_hyper_link_get_n_hyper_links (AtkHypertext *hypertext);
-static gint html_a11y_hyper_link_get_hyper_link_index (AtkHypertext *hypertext, gint char_index);
-
 static gboolean html_a11y_hyper_link_do_action (AtkAction *action, gint i);
 static gint html_a11y_hyper_link_get_n_actions (AtkAction *action);
 static G_CONST_RETURN gchar * html_a11y_hyper_link_get_description (AtkAction *action, gint i);
@@ -110,7 +103,6 @@ static void
 html_a11y_hyper_link_class_init (HTMLA11YHyperLinkClass *klass)
 {
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
-	AtkObjectClass *atk_class = ATK_OBJECT_CLASS (klass);
 
 	parent_class = g_type_class_peek_parent (klass);
 

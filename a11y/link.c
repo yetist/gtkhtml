@@ -35,10 +35,6 @@ static void html_a11y_link_init          (HTMLA11YLink *a11y_link);
 
 static void atk_hyper_text_interface_init (AtkHypertextIface *iface);
 
-static void html_a11y_link_get_extents   (AtkComponent *component,
-					  gint *x, gint *y, gint *width, gint *height, AtkCoordType coord_type);
-static void html_a11y_link_get_size      (AtkComponent *component, gint *width, gint *height);
-
 static AtkHyperlink * html_a11y_link_get_link (AtkHypertext *hypertext, gint link_index);
 static gint html_a11y_link_get_n_links (AtkHypertext *hypertext);
 static gint html_a11y_link_get_link_index (AtkHypertext *hypertext, gint char_index);
@@ -81,6 +77,10 @@ static void
 atk_hyper_text_interface_init (AtkHypertextIface *iface)
 {
 	g_return_if_fail (iface != NULL);
+
+	iface->get_link = html_a11y_link_get_link;
+	iface->get_n_links = html_a11y_link_get_n_links;
+	iface->get_link_index = html_a11y_link_get_link_index;
 }
 
 static void
