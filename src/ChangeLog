@@ -1,5 +1,8 @@
 2000-07-03  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine-edit-text.c (upper_lower): quick fix for bug in
+	selection, going to fix selection now
+
 	* gtkhtml.h: new commands enum entries
 
 	* gtkhtml.c (command): call capitalize + up/downcase

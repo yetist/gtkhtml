@@ -32,10 +32,12 @@ find_first (HTMLEngine *e)
 
 	c = html_cursor_get_current_char (e->cursor);
 	while (c == 0 || ! isalnum ((gint) c) || c == ' ') {
+		printf ("c: %d\n", (gint)c);
 		if (!html_cursor_forward (e->cursor, e))
 			return FALSE;
 		c = html_cursor_get_current_char (e->cursor);
 	}
+	printf ("last c: %d\n", (gint)c);
 	return TRUE;
 }
 
@@ -45,6 +47,7 @@ upper_lower (HTMLObject *obj, gpointer data)
 	gboolean up = GPOINTER_TO_INT (data);
 	gchar *text;
 
+	/* FIXME */ if (!html_object_is_text (obj)) return;
 	g_assert (html_object_is_text (obj));
 
 	text = HTML_TEXT (obj)->text;

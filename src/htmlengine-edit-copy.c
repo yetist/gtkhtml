@@ -50,8 +50,8 @@ copy_forall (HTMLObject *obj,
 
 	data->size += size;
 
-	g_print ("Adding object %p [%s] to selection.\n",
-		 selection, html_type_name (HTML_OBJECT_TYPE (selection)));
+	g_print ("Adding object %p [%s] to selection. (%d)\n",
+		 selection, html_type_name (HTML_OBJECT_TYPE (selection)), size);
 	if (html_object_is_text (selection))
 		g_print ("\ttext `%s'\n", HTML_TEXT (selection)->text);
 
