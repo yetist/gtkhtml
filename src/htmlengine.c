@@ -1780,27 +1780,26 @@ parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 
 			if(string_url)
 				g_free(string_url);
-		}
-
-		if (align == HTML_HALIGN_NONE) {
-			if (valign == HTML_VALIGN_NONE) {
-				html_clue_append (HTML_CLUE (p->flow), image);
+			
+			if (align == HTML_HALIGN_NONE) {
+				if (valign == HTML_VALIGN_NONE) {
+					html_clue_append (HTML_CLUE (p->flow), image);
+				}
+				else {
+					HTMLObject *valigned = html_clueh_new (0, 0, _clue->max_width);
+					HTML_CLUE (valigned)->valign = valign;
+					html_clue_append (HTML_CLUE (valigned), HTML_OBJECT (image));
+					html_clue_append (HTML_CLUE (p->flow), valigned);
+				}
 			}
+			/* We need to put the image in a HTMLClueAligned */
 			else {
-				HTMLObject *valigned = html_clueh_new (0, 0, _clue->max_width);
-				HTML_CLUE (valigned)->valign = valign;
-				html_clue_append (HTML_CLUE (valigned), HTML_OBJECT (image));
-				html_clue_append (HTML_CLUE (p->flow), valigned);
+				HTMLClueAligned *aligned = HTML_CLUEALIGNED (html_cluealigned_new (NULL, 0, 0, _clue->max_width, 100));
+				HTML_CLUE (aligned)->halign = align;
+				html_clue_append (HTML_CLUE (aligned), HTML_OBJECT (image));
+				html_clue_append (HTML_CLUE (p->flow), HTML_OBJECT (aligned));
 			}
-		}
-		/* We need to put the image in a HTMLClueAligned */
-		else {
-			HTMLClueAligned *aligned = HTML_CLUEALIGNED (html_cluealigned_new (NULL, 0, 0, _clue->max_width, 100));
-			HTML_CLUE (aligned)->halign = align;
-			html_clue_append (HTML_CLUE (aligned), HTML_OBJECT (image));
-			html_clue_append (HTML_CLUE (p->flow), HTML_OBJECT (aligned));
-		}
-		       
+		}		       
 	}
 	else if ( strncmp (str, "i", 1 ) == 0 ) {
 		if ( str[1] == '>' || str[1] == ' ' ) {

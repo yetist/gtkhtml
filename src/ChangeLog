@@ -1,3 +1,14 @@
+1999-12-12  Jonas Borgström  <jonas_b@bitsmart.com>
+
+	* htmlurl.c (html_url_to_string): html_url_to_string produced incorrect urls on url with a port number.
+	
+	* htmlengine.c: (parse_i): Modified the image loading a bit.
+
+1999-12-12  Jonas Borgström  <jonas_b@bitsmart.com>
+
+	* testgtkhtml.c (on_stop): Delete all requests.
+	(goto_url): Delete requests.
+
 1999-12-12  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmltextslave.c (fit_line): Set `prev' on the next, if any.
@@ -7,7 +18,7 @@
 	* htmlcursor.c (html_cursor_backward): Implemented.
 	(prev): Removed.
 
-1999-12-11  Jonas Borgström  <jonas_b@bitsmart.com>
+1999-12-12  Jonas Borgström  <jonas_b@bitsmart.com>
 
 	* htmlengine.c (parse_table): Added support for backgrounds in tables.
 	(parse_href): Better handling of "" hrefs.

@@ -413,7 +413,7 @@ html_url_to_string (const HTMLURL *url)
 		if (port_length != 0) {
 			APPEND_CHAR (':');
 			memcpy (p, port_string, port_length);
-			p += port_length;
+			p += port_length - 1;
 		}
 	}
 
