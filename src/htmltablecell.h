@@ -39,7 +39,6 @@ struct _HTMLTableCell {
 
 	gint rspan;
 	gint cspan;
-	gint padding;
 	gint row;
 	gint col;
 

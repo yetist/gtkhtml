@@ -347,7 +347,6 @@ html_table_cell_init (HTMLTableCell *cell,
 	cell->fixed_width  = 0;
 	cell->fixed_height = 0;
 
-	cell->padding = 0;
 	cluev->padding = pad;
 	cell->rspan = rs;
 	cell->cspan = cs;

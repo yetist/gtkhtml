@@ -2982,13 +2982,13 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		html_engine_delete_table_row (e);
 		break;
 	case GTK_HTML_COMMAND_TABLE_BORDER_WIDTH_INC:
-		html_engine_table_set_border_width (e, 1, TRUE);
+		html_engine_table_set_border_width (e, html_engine_get_table (e), 1, TRUE);
 		break;
 	case GTK_HTML_COMMAND_TABLE_BORDER_WIDTH_DEC:
-		html_engine_table_set_border_width (e, -1, TRUE);
+		html_engine_table_set_border_width (e, html_engine_get_table (e), -1, TRUE);
 		break;
 	case GTK_HTML_COMMAND_TABLE_BORDER_WIDTH_ZERO:
-		html_engine_table_set_border_width (e, 0, FALSE);
+		html_engine_table_set_border_width (e, html_engine_get_table (e), 0, FALSE);
 		break;
 	case GTK_HTML_COMMAND_TEXT_SET_DEFAULT_COLOR:
 		html_engine_set_color (e, NULL);

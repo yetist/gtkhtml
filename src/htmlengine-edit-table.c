@@ -525,11 +525,11 @@ html_engine_delete_table_row (HTMLEngine *e)
  */
 
 void
-html_engine_table_set_border_width (HTMLEngine *e, gint border_width, gboolean relative)
+html_engine_table_set_border_width (HTMLEngine *e, HTMLTable *t, gint border_width, gboolean relative)
 {
-	HTMLTable *t;
+	/* HTMLTable *t;
 
-	t = HTML_TABLE (html_object_nth_parent (e->cursor->object, 3));
+	   t = HTML_TABLE (html_object_nth_parent (e->cursor->object, 3)); */
 
 	/* this command is valid only in table and when this table has > 1 column */
 	if (!t || !HTML_IS_TABLE (HTML_OBJECT (t)))
@@ -564,4 +564,43 @@ html_engine_table_set_bg_pixmap (HTMLEngine *e, HTMLTable *t, gchar *url)
 	if (iptr)
 		html_image_factory_unregister (e->image_factory, iptr, NULL);
 	html_engine_queue_draw (e, HTML_OBJECT (t));
+}
+
+void
+html_engine_table_set_spacing (HTMLEngine *e, HTMLTable *t, gint spacing)
+{
+	t->spacing = spacing;
+	html_object_change_set (HTML_OBJECT (t), HTML_CHANGE_ALL_CALC);
+	html_engine_schedule_update (e);
+}
+
+void
+html_engine_table_set_padding (HTMLEngine *e, HTMLTable *t, gint padding)
+{
+	gint r, c;
+
+	t->padding = padding;
+	for (r = 0; r < t->totalRows; r ++)
+		for (c = 0; c < t->totalCols; c ++)
+			if (t->cells [r][c]->col == c && t->cells [r][c]->row == r) {
+				HTML_CLUEV (t->cells [r][c])->padding = padding;
+				HTML_OBJECT (t->cells [r][c])->change |= HTML_CHANGE_ALL_CALC;
+			}
+	html_object_change_set (HTML_OBJECT (t), HTML_CHANGE_ALL_CALC);
+	html_engine_schedule_update (e);
+}
+
+HTMLTable *
+html_engine_get_table (HTMLEngine *e)
+{
+	if (HTML_IS_TABLE (e->cursor->object))
+		return HTML_TABLE (e->cursor->object);
+	else {
+		g_return_val_if_fail (e->cursor->object->parent
+				  && e->cursor->object->parent->parent
+				  && e->cursor->object->parent->parent->parent, NULL);
+		g_return_val_if_fail (HTML_IS_TABLE (e->cursor->object->parent->parent->parent), NULL);
+
+		return HTML_TABLE (e->cursor->object->parent->parent->parent);
+	}
 }
