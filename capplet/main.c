@@ -42,6 +42,8 @@ static GtkHTMLClassProperties *actual_prop;
 static GList *saved_bindings;
 static GList *orig_bindings;
 
+static gchar *home_rcfile;
+
 static void
 set_ui ()
 {
@@ -66,24 +68,33 @@ set_ui ()
 static void
 apply (void)
 {
+	/* bindings */
+	gnome_bindings_properties_save_keymap (GNOME_BINDINGS_PROPERTIES (bi), CUSTOM_KEYMAP_NAME, home_rcfile);
+	gnome_binding_entry_list_destroy (saved_bindings);
+	saved_bindings = gnome_binding_entry_list_copy (gnome_bindings_properties_get_keymap (GNOME_BINDINGS_PROPERTIES (bi),
+											      CUSTOM_KEYMAP_NAME));
+
+	/* properties */
 	actual_prop->magic_links = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check));
 	g_free (actual_prop->keybindings_theme);
 	actual_prop->keybindings_theme = g_strdup (gtk_object_get_data (GTK_OBJECT (gtk_menu_get_active (GTK_MENU (menu))),
 									"theme"));
 	gtk_html_class_properties_update (actual_prop, client, saved_prop);
 	gtk_html_class_properties_copy   (saved_prop, actual_prop);
+
 }
 
 static void
 revert (void)
 {
-	gtk_html_class_properties_update (orig_prop, client, saved_prop);
-	gtk_html_class_properties_copy   (saved_prop, orig_prop);
-	gtk_html_class_properties_copy   (actual_prop, orig_prop);
-
 	gnome_bindings_properties_set_keymap (GNOME_BINDINGS_PROPERTIES (bi), CUSTOM_KEYMAP_NAME, orig_bindings);
 	gnome_binding_entry_list_destroy (saved_bindings);
 	saved_bindings = gnome_binding_entry_list_copy (orig_bindings);
+	gnome_bindings_properties_save_keymap (GNOME_BINDINGS_PROPERTIES (bi), CUSTOM_KEYMAP_NAME, home_rcfile);
+
+	gtk_html_class_properties_update (orig_prop, client, saved_prop);
+	gtk_html_class_properties_copy   (saved_prop, orig_prop);
+	gtk_html_class_properties_copy   (actual_prop, orig_prop);
 
 	set_ui ();
 }
@@ -126,8 +137,6 @@ setup(void)
 	ADD ("Emacs like", "emacs");
 	ADD ("MS like", "ms");
 	ADD (CUSTOM_KEYMAP_NAME, "custom");
-	/* to be implemented */
-	gtk_widget_set_sensitive (mi, FALSE);
 
 	gtk_option_menu_set_menu (GTK_OPTION_MENU (option), menu);
 	gtk_container_add (GTK_CONTAINER (frame), option);
@@ -142,9 +151,8 @@ setup(void)
         g_free (base); \
 	g_free (rcfile)
 
-	rcfile = g_strconcat (gnome_util_user_home (), "/.gnome/gtkhtml-bindings-custom", NULL);
-	gtk_rc_parse (rcfile);
-	g_free (rcfile);
+	home_rcfile = g_strconcat (gnome_util_user_home (), "/.gnome/gtkhtml-bindings-custom", NULL);
+	gtk_rc_parse (home_rcfile);
 	LOAD ("emacs");
 	LOAD ("ms");
 
@@ -210,6 +218,8 @@ main (int argc, char **argv)
                             GTK_SIGNAL_FUNC (revert), NULL);
 
         capplet_gtk_main ();
+
+	g_free (home_rcfile);
 
         return 0;
 }
