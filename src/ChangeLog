@@ -1,3 +1,9 @@
+2002-03-27  Larry Ewing  <lewing@ximian.com>
+
+	* Makefile.am (libgtkhtmldir): add trailing gtkhtml to not break
+	includes. and use $(GKTHTML_RELEASE_STRING) rather than
+	gtkhtml-$(GTKHTML_RELASE) since it is already defined.
+
 2002-03-26  Larry Ewing  <lewing@ximian.com>
 
 	* Makefile.am (keybindingsdir): fix this dir from $release/gtkhtml

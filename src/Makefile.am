@@ -17,7 +17,7 @@ else
 noinst_PROGRAMS = 
 endif
 
-libgtkhtmldir = $(includedir)/gtkhtml-$(GTKHTML_RELEASE)
+libgtkhtmldir = $(includedir)/$(GTKHTML_RELEASE_STRING)/gtkhtml/
 
 # FIXME not all the stuff should be installed!
 
@@ -239,7 +239,7 @@ EXTRA_DIST = \
 	keybindingsrc.xemacs \
 	keybindingsrc.ms
 
-keybindingsdir = $(datadir)/gtkhtml-$(GTKHTML_RELEASE)
+keybindingsdir = $(datadir)/$(GTKHTML_RELEASE_STRING)
 keybindings_DATA = \
 	keybindingsrc.emacs \
 	keybindingsrc.xemacs \
