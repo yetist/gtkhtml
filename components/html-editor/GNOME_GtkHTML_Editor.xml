@@ -57,7 +57,7 @@
 
 			<separator/>
 
-			<menuitem name="EditProperties" verb="" accel="*Alt*Return"/>
+			<menuitem name="EditProperties" verb=""/>
 		</submenu>
 
                  

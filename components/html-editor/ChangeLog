@@ -1,5 +1,8 @@
 2001-03-29  Radek Doulik  <rodo@ximian.com>
 
+	* GNOME_GtkHTML_Editor.xml: remove properties accelerator as we
+	already use M-Return for object properties
+
 	* body.c (ADD_COLOR): set right default color and set combo color
 	to actual color
 
