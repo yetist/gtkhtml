@@ -49,9 +49,9 @@ debug_location (const HTMLCursor *cursor)
 		return;
 	}
 
-	/* g_print ("Cursor in %s (%p), offset %d, position %d\n",
-	   html_type_name (HTML_OBJECT_TYPE (object)),
-	   object, cursor->offset, cursor->position); */
+	g_print ("Cursor in %s (%p), offset %d, position %d\n",
+		 html_type_name (HTML_OBJECT_TYPE (object)),
+		 object, cursor->offset, cursor->position);
 }
 #else
 #define debug_location(cursor)
@@ -160,23 +160,6 @@ is_clue (HTMLObject *object)
 		|| type == HTML_TYPE_CLUEH || type == HTML_TYPE_CLUEFLOW);
 }
 
-static HTMLObject *
-next (HTMLObject *object)
-{
-	while (object->next == NULL) {
-		if (object->parent == NULL) {
-			object = NULL;
-			break;
-		}
-		object = object->parent;
-	}
-
-	if (object == NULL)
-		return NULL;
-	else
-		return object->next;
-}
-
 
 void
 html_cursor_home (HTMLCursor *cursor,
@@ -205,113 +188,29 @@ html_cursor_home (HTMLCursor *cursor,
 }
 
 
-static HTMLObject *
-forward_object (HTMLObject *obj)
-{
-	obj = next (obj);
-
-	/* Traverse the tree in top-bottom, left-right order until an element
-           that accepts the cursor is found.  */
-
-	while (obj != NULL) {
-		if (is_clue (obj)) {
-			obj = HTML_CLUE (obj)->head;
-			continue;
-		}
-
-		if (html_object_accepts_cursor (obj))
-			break;
-
-		obj = next (obj);
-	}
-
-	if (obj == NULL)
-		return NULL;
-
-	return obj;
-}
 
 static gboolean
-forward (HTMLCursor *cursor,
-	 HTMLEngine *engine)
+forward (HTMLCursor *cursor)
 {
-	HTMLObject *obj;
-	guint offset;
+	gboolean retval;
 
-	obj = cursor->object;
-	if (obj == NULL) {
-		/* FIXME this is probably not the way it should be.  */
-		g_warning ("The cursor is in a NULL position: going home.");
-		html_cursor_home (cursor, engine);
-		return TRUE;
-	}		
+	retval = TRUE;
+	if (!html_object_cursor_forward (cursor->object, cursor)) {
+		HTMLObject *next;
 
-	offset = cursor->offset;
-	obj = cursor->object;
-
-	if (html_object_is_text (obj)) {
-		switch (HTML_OBJECT_TYPE (obj)) {
-		case HTML_TYPE_TEXTMASTER:
-		case HTML_TYPE_LINKTEXTMASTER:
-		{
-			HTMLText *text;
-
-			text = HTML_TEXT (obj);
-
-			if (text->text_len == 0)
-				break;
-
-			if (offset < text->text_len) {
-				cursor->offset++;
-				cursor->position++;
-				return TRUE;
-			}
-
-			if (html_object_next_not_slave (obj) == NULL)
-				offset = 0;
-			else
-				offset = 1;
-			break;
-		}
-
-		case HTML_TYPE_TEXTSLAVE:
-			/* Do nothing: go to the next element.  */
-			break;
-
-		default:
-			g_assert_not_reached ();
-		}
-	} else if (! is_clue (obj)) {
-		/* Objects that are not a clue or text are always skipped, as
-                   they are a unique non-splittable element.  But if the
-                   element is the last in a clue, then we let the offset be 1
-                   so that you have the cursor positioned at the end of the
-                   clue.  */
-
-		if (offset == 0) {
-			cursor->offset = 1;
-			cursor->position++;
-			return TRUE;
-		}
+		next = html_object_next_leaf (cursor->object);
+		if (next) {
+			cursor->offset = (next->parent == cursor->object->parent) ? 1 : 0;
+			cursor->object = next;
+			cursor->position ++;
+		} else
+			retval = FALSE;
 	}
-
-	obj = forward_object (cursor->object);
-	if (obj == NULL)
-		return FALSE;
-
-	cursor->object = obj;
-	cursor->offset = 0;
-	cursor->position++;
-
-	if (cursor->object->prev != NULL)
-		cursor->offset++;
-
-	return TRUE;
+	return retval;
 }
 
 gboolean
-html_cursor_forward (HTMLCursor *cursor,
-		     HTMLEngine *engine)
+html_cursor_forward (HTMLCursor *cursor, HTMLEngine *engine)
 {
 	gboolean retval;
 
@@ -319,124 +218,33 @@ html_cursor_forward (HTMLCursor *cursor,
 	g_return_val_if_fail (engine != NULL, FALSE);
 
 	cursor->have_target_x = FALSE;
-	retval = forward (cursor, engine);
+	retval = forward (cursor);
 
 	debug_location (cursor);
 
 	return retval;
 }
 
-HTMLObject *
-html_object_next_for_cursor (HTMLObject *obj)
-{
-	g_return_val_if_fail (obj != NULL, NULL);
-
-	return forward_object (obj);
-}
-
 
-static HTMLObject *
-backward_object (HTMLObject *obj)
-{
-	while (obj != NULL) {
-		while (obj != NULL && obj->prev == NULL)
-			obj = obj->parent;
-
-		if (obj == NULL)
-			break;
-
-		obj = obj->prev;
-		if (is_clue (obj)) {
-			while (is_clue (obj) && HTML_CLUE (obj)->head != NULL) {
-				obj = HTML_CLUE (obj)->head;
-				while (obj->next != NULL)
-					obj = obj->next;
-			}
-		}
-
-		if (html_object_is_text (obj)) {
-			switch (HTML_OBJECT_TYPE (obj)) {
-			case HTML_TYPE_TEXT:
-			case HTML_TYPE_LINKTEXT:
-			case HTML_TYPE_TEXTMASTER:
-			case HTML_TYPE_LINKTEXTMASTER:
-				return obj;
-
-			case HTML_TYPE_TEXTSLAVE:
-				/* Do nothing: go to the previous element, as
-				   this is not a suitable place for the
-				   cursor.  */
-				break;
-
-			default:
-				g_assert_not_reached ();
-			}
-		} else if (html_object_accepts_cursor (obj)) {
-			return obj;
-		}
-	}
-
-	return NULL;
-}
 
 static gboolean
-backward (HTMLCursor *cursor,
-	  HTMLEngine *engine)
+backward (HTMLCursor *cursor)
 {
-	HTMLObject *obj;
-	guint offset;
+	gboolean retval;
 
-	obj = cursor->object;
-	if (obj == NULL) {
-		/* FIXME this is probably not the way it should be.  */
-		g_warning ("The cursor is in a NULL position: going home.");
-		html_cursor_home (cursor, engine);
-		return TRUE;
-	}		
+	retval = TRUE;
+	if (!html_object_cursor_backward (cursor->object, cursor)) {
+		HTMLObject *prev;
 
-	offset = cursor->offset;
-	obj = cursor->object;
-
-	if (html_object_is_text (obj)) {
-		switch (HTML_OBJECT_TYPE (obj)) {
-		case HTML_TYPE_TEXT:
-		case HTML_TYPE_LINKTEXT:
-		case HTML_TYPE_TEXTMASTER:
-		case HTML_TYPE_LINKTEXTMASTER:
-			if (offset > 1 || (offset == 1 && obj->prev == NULL)) {
-				cursor->offset = offset - 1;
-				cursor->position--;
-				return TRUE;
-			}
-			break;
-
-		case HTML_TYPE_TEXTSLAVE:
-			/* Do nothing: go to the previous element, as this is
-			   not a suitable place for the cursor.  */
-			break;
-
-		default:
-			g_assert_not_reached ();
-		}
-	} else if (offset > 0 && obj->prev == NULL) {
-		cursor->offset = 0;
-		cursor->position--;
-		return TRUE;
+		prev = html_object_prev_leaf (cursor->object);
+		if (prev) {
+			cursor->object = prev;
+			cursor->offset = html_object_get_length (prev);
+			cursor->position --;
+		} else
+			retval = FALSE;
 	}
-
-	obj = backward_object (obj);
-	if (obj == NULL)
-		return FALSE;
-
-	if (html_object_is_text (obj))
-		cursor->offset = HTML_TEXT (obj)->text_len;
-	else
-		cursor->offset = 1;
-
-	cursor->object = obj;
-	cursor->position--;
-
-	return TRUE;
+	return retval;
 }
 
 gboolean
@@ -449,19 +257,11 @@ html_cursor_backward (HTMLCursor *cursor,
 	g_return_val_if_fail (engine != NULL, FALSE);
 
 	cursor->have_target_x = FALSE;
-	retval = backward (cursor, engine);
+	retval = backward (cursor);
 
 	debug_location (cursor);
 
 	return retval;
-}
-
-HTMLObject *
-html_object_prev_for_cursor (HTMLObject *object)
-{
-	g_return_val_if_fail (object != NULL, NULL);
-
-	return backward_object (object);
 }
 
 
@@ -506,7 +306,7 @@ html_cursor_up (HTMLCursor *cursor,
 		prev_x = x;
 		prev_y = y;
 
-		if (! backward (cursor, engine))
+		if (! backward (cursor))
 			return FALSE;
 
 		html_object_get_cursor_base (cursor->object,
@@ -586,7 +386,7 @@ html_cursor_down (HTMLCursor *cursor,
 		prev_x = x;
 		prev_y = y;
 
-		if (! forward (cursor, engine))
+		if (! forward (cursor))
 			return FALSE;
 
 		html_object_get_cursor_base (cursor->object,
@@ -657,14 +457,14 @@ html_cursor_jump_to (HTMLCursor *cursor,
 
 	html_cursor_copy (&original, cursor);
 
-	while (forward (cursor, engine)) {
+	while (forward (cursor)) {
 		if (cursor->object == object && cursor->offset == offset)
 			return TRUE;
 	}
 
 	html_cursor_copy (cursor, &original);
 
-	while (backward (cursor, engine)) {
+	while (backward (cursor)) {
 		if (cursor->object == object && cursor->offset == offset)
 			return TRUE;
 	}
@@ -683,7 +483,7 @@ html_cursor_beginning_of_document (HTMLCursor *cursor,
 	g_return_if_fail (engine != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (engine));
 
-	while (backward (cursor, engine))
+	while (backward (cursor))
 		;
 }
 
@@ -695,7 +495,7 @@ html_cursor_end_of_document (HTMLCursor *cursor,
 	g_return_if_fail (engine != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (engine));
 
-	while (forward (cursor, engine))
+	while (forward (cursor))
 		;
 }
 
@@ -717,7 +517,7 @@ html_cursor_end_of_line (HTMLCursor *cursor,
 				     &x, &prev_y);
 
 	while (1) {
-		if (! forward (cursor, engine))
+		if (! forward (cursor))
 			return TRUE;
 
 		html_object_get_cursor_base (cursor->object, engine->painter, cursor->offset,
@@ -750,7 +550,7 @@ html_cursor_beginning_of_line (HTMLCursor *cursor,
 				     &x, &prev_y);
 
 	while (1) {
-		if (! backward (cursor, engine))
+		if (! backward (cursor))
 			return TRUE;
 
 		html_object_get_cursor_base (cursor->object, engine->painter, cursor->offset,
@@ -784,12 +584,12 @@ html_cursor_jump_to_position (HTMLCursor *cursor,
 
 	if (cursor->position < position) {
 		while (cursor->position < position) {
-			if (! forward (cursor, engine))
+			if (! forward (cursor))
 				break;
 		}
 	} else if (cursor->position > position) {
 		while (cursor->position > position) {
-			if (! backward (cursor, engine))
+			if (! backward (cursor))
 				break;
 		}
 	}

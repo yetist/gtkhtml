@@ -24,6 +24,8 @@
 #ifndef HTMLCURSOR_H
 #define HTMLCURSOR_H
 
+typedef struct _HTMLCursor HTMLCursor;
+
 #include <glib.h>
 
 #include "htmlobject.h"
@@ -39,7 +41,6 @@ struct _HTMLCursor {
 
 	gint position;
 };
-typedef struct _HTMLCursor HTMLCursor;
 
 
 /* Lifecycle.  */
@@ -71,10 +72,6 @@ gboolean  html_cursor_jump_to                (HTMLCursor *cursor,
 					      HTMLEngine *engine,
 					      HTMLObject *obj,
 					      guint       offset);
-
-/* Utility functions for moving around the tree in cursor order.  */
-HTMLObject *html_object_next_for_cursor  (HTMLObject *object);
-HTMLObject *html_object_prev_for_cursor  (HTMLObject *object);
 
 /* Internals.  */
 void  html_cursor_normalize     (HTMLCursor *cursor);

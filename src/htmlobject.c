@@ -454,6 +454,30 @@ search (HTMLObject *self, HTMLSearch *info)
 	return FALSE;
 }
 
+static HTMLObject *
+next (HTMLObject *self, HTMLObject *child)
+{
+	return NULL;
+}
+
+static HTMLObject *
+prev (HTMLObject *self, HTMLObject *child)
+{
+	return NULL;
+}
+
+static HTMLObject *
+head (HTMLObject *self)
+{
+	return NULL;
+}
+
+static HTMLObject *
+tail (HTMLObject *self)
+{
+	return NULL;
+}
+
 
 /* Class initialization.  */
 
@@ -512,6 +536,10 @@ html_object_class_init (HTMLObjectClass *klass,
 	klass->search = search;
 	klass->search_next = search;
 	klass->get_length = get_length;
+	klass->next = next;
+	klass->prev = prev;
+	klass->head = head;
+	klass->tail = tail;
 }
 
 void
@@ -1013,4 +1041,112 @@ html_object_prev_by_type (HTMLObject *self, HTMLType t)
 		prev = prev->prev;
 
 	return prev;
+}
+
+/* Movement functions */
+
+HTMLObject *
+html_object_next (HTMLObject *self, HTMLObject *child)
+{
+	return (* HO_CLASS (self)->next) (self, child);
+}
+
+HTMLObject *
+html_object_prev (HTMLObject *self, HTMLObject *child)
+{
+	return (* HO_CLASS (self)->prev) (self, child);
+}
+
+HTMLObject *
+html_object_head (HTMLObject *self)
+{
+	return (* HO_CLASS (self)->head) (self);
+}
+
+HTMLObject *
+html_object_tail (HTMLObject *self)
+{
+	return (* HO_CLASS (self)->tail) (self);
+}
+
+gboolean
+html_object_cursor_forward (HTMLObject *self, HTMLCursor *cursor)
+{
+	gint len;
+
+	g_assert (self);
+	g_assert (cursor->object == self);
+
+	len = html_object_get_length (self);
+	if (cursor->offset < len) {
+		cursor->offset ++;
+		cursor->position ++;
+		return TRUE;
+	} else
+		return FALSE;
+}
+
+gboolean
+html_object_cursor_backward (HTMLObject *self, HTMLCursor *cursor)
+{
+	g_assert (self);
+	g_assert (cursor->object == self);
+
+	if (cursor->offset > 1 || (!html_object_prev_not_slave (self) && cursor->offset > 0)) {
+		cursor->offset --;
+		cursor->position --;
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
+/* movement on leafs */
+
+/* go up in tree so long as we can get object in neighborhood given by function next_fn */
+
+static HTMLObject *
+next_object_uptree (HTMLObject *obj, HTMLObject * (*next_fn ) (HTMLObject *, HTMLObject *))
+{
+	HTMLObject *next = NULL;
+
+	while (obj->parent && !(next = (*next_fn) (obj->parent, obj)))
+		obj = obj->parent;
+
+	return next;
+}
+
+/* go down in tree to leaf in way given by down_fn children */
+
+static HTMLObject *
+move_object_downtree (HTMLObject *obj, HTMLObject * (*down_fn ) (HTMLObject *))
+{
+	HTMLObject *down;
+
+	while ((down = (*down_fn) (obj)))
+		obj = down;
+
+	return obj;
+}
+
+static HTMLObject *
+move_object (HTMLObject *obj, HTMLObject * (*next_fn ) (HTMLObject *, HTMLObject *), HTMLObject * (*down_fn ) (HTMLObject *))
+{
+	obj = next_object_uptree (obj, next_fn);
+	if (obj)
+		obj = move_object_downtree (obj, down_fn);
+	return obj;
+}
+
+
+HTMLObject *
+html_object_next_leaf (HTMLObject *self)
+{
+	return move_object (self, html_object_next, html_object_head);
+}
+
+HTMLObject *
+html_object_prev_leaf (HTMLObject *self)
+{
+	return move_object (self, html_object_prev, html_object_tail);
 }

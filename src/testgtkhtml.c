@@ -67,6 +67,7 @@ static void bug_cb (GtkWidget *widget, gpointer data);
 static void slow_cb (GtkWidget *widget, gpointer data);
 static void stop_cb (GtkWidget *widget, gpointer data);
 static void dump_cb (GtkWidget *widget, gpointer data);
+static void dump_simple_cb (GtkWidget *widget, gpointer data);
 static void forward_cb (GtkWidget *widget, gpointer data);
 static void back_cb (GtkWidget *widget, gpointer data);
 static void home_cb (GtkWidget *widget, gpointer data);
@@ -145,6 +146,8 @@ static GnomeUIInfo debug_menu[] = {
 	  bug_cb, NULL, NULL, 0, 0, 0, 0},
 	{ GNOME_APP_UI_ITEM, "Dump Object tree", "Dump Object tree to stdout",
 	  dump_cb, NULL, NULL, 0, 0, 0, 0},
+	{ GNOME_APP_UI_ITEM, "Dump Object tree (simple)", "Dump Simple Object tree to stdout",
+	  dump_simple_cb, NULL, NULL, 0, 0, 0, 0},
 	GNOMEUIINFO_TOGGLEITEM("Slow loading", "Load documents slowly", slow_cb, NULL),
 	{ GNOME_APP_UI_ITEM, "Force resize", "Force a resize event",
 	  resize_cb, NULL, NULL, 0, 0, 0 },
@@ -311,6 +314,15 @@ dump_cb (GtkWidget *widget, gpointer data)
 	g_print ("-----------\n");
 
 	gtk_html_debug_dump_tree (html->engine->clue, 0);
+}
+
+static void
+dump_simple_cb (GtkWidget *widget, gpointer data)
+{
+	g_print ("Simple Object Tree\n");
+	g_print ("-----------\n");
+
+	gtk_html_debug_dump_tree_simple (html->engine->clue, 0);
 }
 
 static void

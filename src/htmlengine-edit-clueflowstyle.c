@@ -166,9 +166,9 @@ undo_or_redo (HTMLEngine *engine,
                    whose parent (i.e. paragraph) is different.  */
 		do {
 			if (op->forward)
-				obj = html_object_next_for_cursor (obj);
+				obj = html_object_next_leaf (obj);
 			else
-				obj = html_object_prev_for_cursor (obj);
+				obj = html_object_prev_leaf (obj);
 
 			if (obj == NULL) {
 				/* This should not happen.  */
@@ -279,7 +279,7 @@ set_clueflow_style_in_region (HTMLEngine *engine,
 			break;
 
 		do
-			p = html_object_next_for_cursor (p);
+			p = html_object_next_leaf (p);
 		while (p != NULL && HTML_CLUEFLOW (p->parent) == clueflow);
 	}
 

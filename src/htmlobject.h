@@ -85,6 +85,7 @@ typedef enum {
 
 
 #include "htmlengine.h"
+#include "htmlcursor.h"
 #include "htmltype.h"
 #include "htmlpainter.h"
 #include "htmlengine-save.h"
@@ -262,6 +263,12 @@ struct _HTMLObjectClass {
 
 	/* length */
 	guint        (* get_length)      (HTMLObject *self);
+
+	/* movement */
+	HTMLObject * (* next)            (HTMLObject *self, HTMLObject *child);
+	HTMLObject * (* prev)            (HTMLObject *self, HTMLObject *child);
+	HTMLObject * (* head)            (HTMLObject *self);
+	HTMLObject * (* tail)            (HTMLObject *self);
 };
 
 
@@ -396,6 +403,26 @@ HTMLObject *html_object_check_point      (HTMLObject  *clue,
 					  gint         y,
 					  guint       *offset_return,
 					  gboolean     for_cursor);
+
+/* Movement functions */
+/* move cursor in scope of object */
+gboolean     html_object_cursor_forward  (HTMLObject *self,
+					  HTMLCursor *cursor);
+gboolean     html_object_cursor_backward (HTMLObject *self,
+					  HTMLCursor *cursor);
+
+/* get prev/next object in scope of parent */
+HTMLObject * html_object_next            (HTMLObject *self,
+					  HTMLObject *child);
+HTMLObject * html_object_prev            (HTMLObject *self,
+					  HTMLObject *child);
+/* get head/tail object of this (parent) object */
+HTMLObject * html_object_head            (HTMLObject *self);
+HTMLObject * html_object_tail            (HTMLObject *self);
+
+/* get prev/next leaf object in scope of whole tree */
+HTMLObject * html_object_next_leaf       (HTMLObject *self);
+HTMLObject * html_object_prev_leaf       (HTMLObject *self);
 
 /* Page splitting.  */
 gint  html_object_check_page_split  (HTMLObject *self,

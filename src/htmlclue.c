@@ -401,6 +401,41 @@ append_selection_string (HTMLObject *self,
 	}
 }
 
+static HTMLObject *
+next (HTMLObject *self, HTMLObject *child)
+{
+	g_assert (self);
+	g_assert (child);
+	g_assert (child->parent == self);
+
+	return html_object_next_not_slave (child);
+}
+
+static HTMLObject *
+prev (HTMLObject *self, HTMLObject *child)
+{
+	g_assert (self);
+	g_assert (child);
+	g_assert (child->parent == self);
+
+	return html_object_prev_not_slave (child);
+}
+
+static HTMLObject *
+head (HTMLObject *self)
+{
+	return HTML_CLUE (self)->head;
+}
+
+static HTMLObject *
+tail (HTMLObject *self)
+{
+	HTMLObject *obj;
+
+	obj = HTML_CLUE (self)->tail;
+	return (obj && HTML_OBJECT_TYPE (obj) == HTML_TYPE_TEXTSLAVE) ? html_object_prev_not_slave (obj) : obj;
+}
+
 
 void
 html_clue_type_init (void)
@@ -438,6 +473,10 @@ html_clue_class_init (HTMLClueClass *klass,
 	object_class->save_plain = save_plain;
 	object_class->search = search;
 	object_class->append_selection_string = append_selection_string;
+	object_class->next = next;
+	object_class->prev = prev;
+	object_class->head = head;
+	object_class->tail = tail;
 
 	/* HTMLClue methods.  */
 	klass->get_left_clear = get_left_clear;

@@ -368,9 +368,9 @@ set_font_style (HTMLEngine *engine,
 
 		pparent = p->parent;
 		if (backwards)
-			p = html_object_prev_for_cursor (p);
+			p = html_object_prev_leaf (p);
 		else
-			p = html_object_next_for_cursor (p);
+			p = html_object_next_leaf (p);
 
 		if (p == NULL)
 			break;
@@ -713,9 +713,9 @@ get_font_style_from_selection (HTMLEngine *engine)
 			break;
 
 		if (backwards)
-			p = html_object_prev_for_cursor (p);
+			p = html_object_prev_leaf (p);
 		else
-			p = html_object_next_for_cursor (p);
+			p = html_object_next_leaf (p);
 
 		g_assert (p != NULL);
 	}
@@ -746,9 +746,9 @@ get_color_from_selection (HTMLEngine *engine)
 			break;
 
 		if (backwards)
-			p = html_object_prev_for_cursor (p);
+			p = html_object_prev_leaf (p);
 		else
-			p = html_object_next_for_cursor (p);
+			p = html_object_next_leaf (p);
 
 		g_assert (p != NULL);
 	}
@@ -1043,7 +1043,7 @@ get_url_or_target_from_selection (HTMLEngine *e, gboolean get_url)
 		str = (get_url) ? html_object_get_url (p) : html_object_get_target (p);
 		if (str) break;
 		if (p == e->mark->object) break;
-		p = (backwards) ? html_object_prev_for_cursor (p) : html_object_next_for_cursor (p);
+		p = (backwards) ? html_object_prev_leaf (p) : html_object_next_leaf (p);
 		g_assert (p != NULL);
 	}
 

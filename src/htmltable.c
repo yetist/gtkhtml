@@ -54,6 +54,15 @@ HTMLTableClass html_table_class;
 static HTMLObjectClass *parent_class = NULL;
 
 
+
+static gboolean
+invalid_cell (HTMLTable *table, gint r, gint c)
+{
+	return (table->cells[r][c] == NULL
+		|| (c < table->totalCols - 1 && table->cells[r][c] == table->cells[r][c+1])
+		|| (r < table->totalRows - 1 && table->cells[r][c] == table->cells[r+1][c]));
+}
+
 /* HTMLObject methods.  */
 
 static void
@@ -1450,6 +1459,85 @@ append_selection_string (HTMLObject *self,
 	}
 }
 
+static HTMLObject *
+head (HTMLObject *self)
+{
+	HTMLTable *table;
+	gint r, c;
+
+	table = HTML_TABLE (self);
+	for (r = 0; r < table->totalRows; r++)
+		for (c = 0; c < table->totalCols; c++) {
+			if (invalid_cell (table, r, c))
+				continue;
+			return HTML_OBJECT (table->cells [r][c]);
+		}
+	return NULL;
+}
+
+static HTMLObject *
+tail (HTMLObject *self)
+{
+	HTMLTable *table;
+	gint r, c;
+
+	table = HTML_TABLE (self);
+	for (r = table->totalRows - 1; r >= 0; r--)
+		for (c = table->totalCols - 1; c >= 0; c--) {
+			if (invalid_cell (table, r, c))
+				continue;
+			return HTML_OBJECT (table->cells [r][c]);
+		}
+	return NULL;
+}
+
+static void
+get_rc (HTMLTable *table, HTMLTableCell *cell, gint *r, gint *c)
+{
+	for (*r = 0; *r < table->totalRows; (*r)++)
+		for (*c= 0; *c < table->totalCols; (*c)++)
+			if (cell == table->cells [*r][*c])
+				return;
+}
+
+static HTMLObject *
+next (HTMLObject *self, HTMLObject *child)
+{
+	HTMLTable *table;
+	gint r, c;
+
+	table = HTML_TABLE (self);
+	get_rc (table, HTML_TABLE_CELL (child), &r, &c);
+	for (c++; r < table->totalRows; r++) {
+		for (; c < table->totalCols; c++) {
+			if (invalid_cell (table, r, c))
+				continue;
+			return HTML_OBJECT (table->cells [r][c]);
+		}
+		c = 0;
+	}
+	return NULL;
+}
+
+static HTMLObject *
+prev (HTMLObject *self, HTMLObject *child)
+{
+	HTMLTable *table;
+	gint r, c;
+
+	table = HTML_TABLE (self);
+	get_rc (table, HTML_TABLE_CELL (child), &r, &c);
+	for (c--; r >= 0; r--) {
+		for (; c >=0; c--) {
+			if (invalid_cell (table, r, c))
+				continue;
+			return HTML_OBJECT (table->cells [r][c]);
+		}
+		c = table->totalCols-1;
+	}
+	return NULL;
+}
+
 
 void
 html_table_type_init (void)
@@ -1483,6 +1571,10 @@ html_table_class_init (HTMLTableClass *klass,
 	object_class->search = search;
 	object_class->fit_line = fit_line;
 	object_class->append_selection_string = append_selection_string;
+	object_class->head = head;
+	object_class->tail = tail;
+	object_class->next = next;
+	object_class->prev = prev;
 
 	parent_class = &html_object_class;
 }
