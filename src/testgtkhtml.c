@@ -62,7 +62,7 @@ static int netin_stream_flush (HTStream * me);
 static int netin_stream_free (HTStream * me);
 static int netin_stream_abort (HTStream * me, HTList * e);
 static HTResponse *netin_request_response(HTRequest *request);
-static HTStream *netin_stream_new (GtkHTMLStreamHandle handle);
+static HTStream *netin_stream_new (GtkHTMLStreamHandle handle, HTRequest *request);
 #endif
 
 GtkWidget *area, *box, *button;
@@ -323,6 +323,9 @@ load_timer_event (FileInProgress *fip)
 struct _HTStream {
   const HTStreamClass *	isa;
   GtkHTMLStreamHandle handle;
+  HTRequest *request;
+  HTResponse *response;
+  long read_len;
 };
 
 static int
@@ -337,11 +340,27 @@ netin_stream_put_string (HTStream * me, const char * s)
   return netin_stream_write(me, s, strlen(s));
 }
 
+static gboolean
+do_request_delete(HTRequest *req)
+{
+  HTRequest_delete(req);
+
+  return FALSE;
+}
+
 static int
 netin_stream_write (HTStream * me, const char * s, int l)
 {
+  if(!me->response)
+    me->response = netin_request_response(me->request);
+
+  me->read_len += l;
+
   g_print("netin_stream_write(%p, %d bytes)\n", me->handle, l);
   gtk_html_write(html, me->handle, s, l);
+
+  if(me->read_len >= HTResponse_length(me->response))
+    gtk_idle_add(do_request_delete, me->request);
 
   return HT_OK;
 }
@@ -349,12 +368,15 @@ netin_stream_write (HTStream * me, const char * s, int l)
 static int
 netin_stream_flush (HTStream * me)
 {
+  g_print("netin_stream_flush %p\n", me->handle);
   return HT_OK;
 }
 
 static int
 netin_stream_free (HTStream * me)
 {
+  g_print("netin_stream_free %p\n", me->handle);
+
   gtk_html_end(html, me->handle, GTK_HTML_STREAM_OK);
   g_free(me);
 
@@ -364,7 +386,7 @@ netin_stream_free (HTStream * me)
 static int
 netin_stream_abort (HTStream * me, HTList * e)
 {
-  g_warning("Stream Abort!");
+  g_warning("Stream %p Abort!", me->handle);
 
   return HT_ERROR;
 }
@@ -391,7 +413,7 @@ netin_request_response(HTRequest *request)
 }
 
 static HTStream *
-netin_stream_new (GtkHTMLStreamHandle handle)
+netin_stream_new (GtkHTMLStreamHandle handle, HTRequest *request)
 {
   HTStream *retval;
 
@@ -399,6 +421,7 @@ netin_stream_new (GtkHTMLStreamHandle handle)
 
   retval->isa = &netin_stream_class;
   retval->handle = handle;
+  retval->request = request;
 
   return retval;
 }
@@ -418,7 +441,7 @@ url_requested (GtkHTML *html, const char *url, GtkHTMLStreamHandle handle, gpoin
 	g_assert(newreq);
 
 	HTRequest_setOutputFormat(newreq, WWW_SOURCE);
-	status = HTLoadToStream(url, netin_stream_new(handle), newreq);
+	status = HTLoadToStream(url, netin_stream_new(handle, newreq), newreq);
 	g_assert(status);
 
 	if(newreq)

@@ -31,9 +31,16 @@ typedef struct _HTMLObject HTMLObject;
 
 typedef enum { HTMLNoFit, HTMLPartialFit, HTMLCompleteFit } HTMLFitType;
 
-enum ObjectFlags { Separator = 0x01, NewLine = 0x02, Selected = 0x04,
-		   AllSelected = 0x08, FixedWidth = 0x10, Aligned = 0x20,
-		   Printed = 0x40, Hidden = 0x80};
+enum ObjectFlags {
+  Separator = 1<<0,
+  NewLine = 1<<1,
+  Selected = 1<<2,
+  AllSelected = 1<<3,
+  FixedWidth = 1<<4,
+  Aligned = 1<<5,
+  Printed = 1<<6,
+  Hidden = 1<<7
+};
 
 typedef enum { CNone, CLeft, CRight, CAll } ClearType;
 typedef enum { Top, Bottom, VCenter, VNone } VAlignType;

@@ -1,4 +1,5 @@
-/* This file is part of the KDE libraries
+/* This file is part of the GtkHTML library
+    Copright  (C) 1999 Red Hat Software
     Copyright (C) 1997 Martin Jones (mjones@kde.org)
               (C) 1997 Torben Weis (weis@kde.org)
 
@@ -33,6 +34,7 @@ static void html_image_calc_size (HTMLObject *o, HTMLObject *parent);
 static void html_image_end_pixbuf(GtkHTMLStreamHandle handle, GtkHTMLStreamStatus status, gpointer user_data);
 static void html_image_write_pixbuf(GtkHTMLStreamHandle handle, const guchar *buffer, size_t size, gpointer user_data);
 static void html_image_area_prepared(GdkPixbufLoader *loader, HTMLImage *i);
+static void html_image_area_updated(GdkPixbufLoader *loader, HTMLImage *i);
 
 HTMLObject *
 html_image_new (HTMLEngine *e, gchar *filename, gint max_width, 
@@ -78,6 +80,10 @@ html_image_new (HTMLEngine *e, gchar *filename, gint max_width,
 			   GTK_SIGNAL_FUNC(html_image_area_prepared),
 			   image);
 
+	gtk_signal_connect(GTK_OBJECT(image->loader), "area_updated",
+			   GTK_SIGNAL_FUNC(html_image_area_updated),
+			   image);
+
 	gtk_html_stream_new(GTK_HTML(e->widget), image->url,
 			    html_image_write_pixbuf,
 			    html_image_end_pixbuf,
@@ -109,8 +115,6 @@ html_image_init (HTMLImage *image)
 
 		if (!image->predefinedHeight)
 			object->ascent = image->pixmap->art_pixbuf->height;
-		
-		g_print ("ascent is %d\n", object->ascent);
 	}
 	
 	if (!image->predefinedWidth)
@@ -124,8 +128,12 @@ html_image_end_pixbuf(GtkHTMLStreamHandle handle, GtkHTMLStreamStatus status, gp
 {
   HTMLImage *i = user_data;
 
+  g_print("end_pixbuf\n");
+
   if(!i->pixmap)
       html_image_area_prepared(i->loader, i);
+  else
+    html_engine_schedule_update(i->engine);
 
   gdk_pixbuf_loader_close(i->loader);
   i->loader = NULL;
@@ -140,6 +148,13 @@ html_image_write_pixbuf(GtkHTMLStreamHandle handle, const guchar *buffer, size_t
 }
 
 static void
+html_image_area_updated(GdkPixbufLoader *loader, HTMLImage *i)
+{
+  g_print("area_updated\n");
+  html_engine_schedule_update(i->engine);
+}
+
+static void
 html_image_area_prepared(GdkPixbufLoader *loader, HTMLImage *i)
 {
   g_return_if_fail(!i->pixmap);
@@ -148,6 +163,9 @@ html_image_area_prepared(GdkPixbufLoader *loader, HTMLImage *i)
 
   if(i->pixmap)
     html_image_init (i);
+
+  g_print("area_prepared - our size is now (%d, %d)\n", HTML_OBJECT(i)->width, HTML_OBJECT(i)->ascent);
+  html_engine_schedule_update(i->engine);
 }
 
 static void
@@ -226,4 +244,5 @@ static void
 html_image_calc_size (HTMLObject *o, HTMLObject *parent)
 {
 	/* Do nothing */
+  g_print("image_calc_size - our size is now (%d, %d)\n", o->width, o->ascent);
 }

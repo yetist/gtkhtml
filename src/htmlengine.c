@@ -46,8 +46,7 @@ guint           html_engine_get_type (void);
 static void     html_engine_class_init (HTMLEngineClass *klass);
 static void     html_engine_init (HTMLEngine *engine);
 static gboolean html_engine_timer_event (HTMLEngine *e);
-static gint     html_engine_update_event (gpointer data);
-static void html_engine_schedule_update (HTMLEngine *e, gboolean clear);
+static gboolean html_engine_update_event (HTMLEngine *e);
 static void html_engine_write (GtkHTMLStreamHandle handle, gchar *buffer, size_t size, HTMLEngine *e);
 static void html_engine_end (GtkHTMLStreamHandle handle, GtkHTMLStreamStatus status, HTMLEngine *e);
 
@@ -283,19 +282,58 @@ html_engine_write (GtkHTMLStreamHandle handle, gchar *buffer, size_t size, HTMLE
 }
 
 static gboolean
+html_engine_update_event (HTMLEngine *e)
+{
+  e->updateTimer = 0;
+
+  g_print ("calcing size in htmlengine\n");
+  html_engine_calc_size (e);
+  html_engine_calc_absolute_pos (e);
+
+  html_engine_draw (e, 0, 0, e->width, e->height);
+	
+  if (!e->parsing) {
+    /* Parsing done */
+		
+    /* Is y_offset too big? */
+    if (html_engine_get_doc_height (e) - e->y_offset < e->height) {
+      e->y_offset = html_engine_get_doc_height (e) - e->height;
+      if (e->y_offset < 0)
+	e->y_offset = 0;
+    }
+		
+    /* Adjust the scrollbars */
+    gtk_html_calc_scrollbars (e->widget);
+
+  }
+
+  return FALSE;
+}
+
+void
+html_engine_schedule_update (HTMLEngine *p)
+{
+  if(p->updateTimer == 0) {
+    g_print("New update scheduled\n");
+    p->updateTimer = gtk_timeout_add (TIMER_INTERVAL, (GtkFunction) html_engine_update_event, p);
+  } else
+    g_print("Update already scheduled\n");
+}
+
+static gboolean
 html_engine_timer_event (HTMLEngine *e)
 {
 	static const gchar *end[] = { "</body>", 0};
 	HTMLFont *oldFont;
 	gint lastHeight;
+	gboolean retval = TRUE;
 
-	/* Killing timer */
-	gtk_timeout_remove (e->timerId);
-	e->timerId = 0;
-	
 	/* Has more tokens? */
 	if (!html_tokenizer_has_more_tokens (e->ht) && e->writing)
-		return FALSE;
+	  {
+		retval = FALSE;
+		goto out;
+	  }
 
 	g_print ("has more tokens!\n");
 	
@@ -308,42 +346,25 @@ html_engine_timer_event (HTMLEngine *e)
 	/* Getting height */
 	lastHeight = html_engine_get_doc_height (e);
 
+	/* Restoring font */
+	html_painter_set_font (e->painter, oldFont);
+
 	e->parseCount = e->granularity;
 
 	/* Parsing body height */
 	if (html_engine_parse_body (e, e->clue, end, TRUE))
 	  	html_engine_stop_parser (e);
 
-	g_print ("calcing size in htmlengine\n");
-	html_engine_calc_size (e);
-	html_engine_calc_absolute_pos (e);
+	html_engine_schedule_update (e);
 
-	/* Restoring font */
-	html_painter_set_font (e->painter, oldFont);
+	if(!e->parsing)
+	  retval = FALSE;
 
-	html_engine_draw (e, 0, 0, e->width, e->height);
-	
-	if (!e->parsing) {
-		/* Parsing done */
-		
-		/* Is y_offset too big? */
-		if (html_engine_get_doc_height (e) - e->y_offset < e->height) {
-			e->y_offset = html_engine_get_doc_height (e) - e->height;
-			if (e->y_offset < 0)
-				e->y_offset = 0;
-		}
-		
-		/* Adjust the scrollbars */
-		gtk_html_calc_scrollbars (e->widget);
+ out:
+	if(!retval)
+	  e->timerId = 0;
 
-	}
-	else {
-		e->timerId = gtk_timeout_add (TIMER_INTERVAL,
-					      (GtkFunction)html_engine_timer_event,
-					      e);
-	}
-		
-	return TRUE;
+	return retval;
 }
 
 static void
