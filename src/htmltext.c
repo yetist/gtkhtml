@@ -331,8 +331,12 @@ insert_text (HTMLText *text,
 	text->text = new_buffer;
 	text->text_len = new_len;
 
-	if (! html_object_relayout (HTML_OBJECT (text)->parent, engine, HTML_OBJECT (text)))
-		html_engine_queue_draw (engine, HTML_OBJECT (text)->parent);
+	if (HTML_OBJECT (text)->parent != NULL) {
+		if (! html_object_relayout (HTML_OBJECT (text)->parent,
+					    engine,
+					    HTML_OBJECT (text))) 
+			html_engine_queue_draw (engine, HTML_OBJECT (text)->parent);
+	}
 
 	return actual_len;
 }

@@ -1,5 +1,18 @@
 2000-02-24  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlclue.c (html_clue_append_after): Added preconditions.
+
+	* htmltext.c (insert_text): Do not relayout the parent if it's
+	NULL.
+
+	* htmlengine-edit.c (html_engine_insert_para): Removed.
+	(html_engine_insert): Removed.
+	* htmlengine-edit-insert.c: Moved here, with the related helper
+	functions.
+
+	* htmlengine-edit-insert.h: New file.
+	* htmlengine-edit-insert.c: New file.
+
 	* gtkhtml.c (button_release_event): If ending a selection, update
 	the style status.
 

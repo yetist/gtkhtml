@@ -35,6 +35,7 @@ libgtkhtml_HEADERS =				\
 	htmlengine-edit-copy.h			\
 	htmlengine-edit-cut.h			\
 	htmlengine-edit-fontstyle.h		\
+	htmlengine-edit-insert.h		\
 	htmlengine-edit-paste.h			\
 	htmlengine-print.h			\
 	htmlengine-save.h			\
@@ -97,6 +98,7 @@ libgtkhtml_la_SOURCES =				\
 	htmlengine-edit-copy.c			\
 	htmlengine-edit-cut.c			\
 	htmlengine-edit-fontstyle.c		\
+	htmlengine-edit-insert.c		\
 	htmlengine-edit-paste.c			\
 	htmlengine-print.c			\
 	htmlengine-save.c			\
