@@ -24,6 +24,7 @@ libgtkhtmldir = $(includedir)/$(GTKHTML_RELEASE_STRING)/gtkhtml/
 libgtkhtml_HEADERS =				\
 	gtkhtml-compat.h			\
 	gtkhtml-embedded.h			\
+	gtkhtml-propmanager.h			\
 	gtkhtml-enums.h				\
 	gtkhtml-im.h				\
 	gtkhtml-private.h			\
@@ -114,6 +115,7 @@ libgtkhtml_HEADERS =				\
 
 libgtkhtml_la_SOURCES =				\
 	gtkhtml-embedded.c			\
+	gtkhtml-propmanager.c			\
 	gtkhtml-im.c				\
 	gtkhtml-properties.c			\
 	gtkhtml-search.c			\
