@@ -85,7 +85,7 @@ static void send_event_stream (GNOME_GtkHTML_Editor_Engine engine,
 /* This is the initialization that can only be performed after the
    control has been embedded (signal "set_frame").  */
 
-static struct _SetFrameData {
+struct _SetFrameData {
 	GtkWidget *html;
 	GtkWidget *vbox;
 };

@@ -51,6 +51,7 @@
 #include "table.h"
 #include "text.h"
 
+/* #define DEBUG */
 #ifdef DEBUG
 #include "gtkhtmldebug.h"
 #endif
@@ -395,7 +396,7 @@ get_n_languages (GtkHTMLControlData *cd)
 
 	if (cd->languages)
 		for (i = 0; i < cd->languages->_length; i ++)
-			if (strstr (cd->html->engine->language, cd->languages->_buffer [i].abbreviation))
+			if (strstr (html_engine_get_language (cd->html->engine), cd->languages->_buffer [i].abbreviation))
 				n ++;
 
 	return n;
@@ -409,7 +410,7 @@ get_language (GtkHTMLControlData *cd)
 
 	if (cd->languages)
 		for (i = 0; i < cd->languages->_length; i ++)
-			if (strstr (cd->html->engine->language, cd->languages->_buffer [i].abbreviation)) {
+			if (strstr (html_engine_get_language (cd->html->engine), cd->languages->_buffer [i].abbreviation)) {
 				abbrev = cd->languages->_buffer [i].abbreviation;
 			}
 
@@ -542,7 +543,7 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items, guint *props)
 			SUBMENU ("Add Word to");
 
 			for (i = 0; i < cd->languages->_length; i ++) {
-				if (strstr (cd->html->engine->language, cd->languages->_buffer [i].abbreviation)) {
+				if (strstr (html_engine_get_language (cd->html->engine), cd->languages->_buffer [i].abbreviation)) {
 					lang = g_strdup_printf (_("%s Dictionary"), cd->languages->_buffer [i].name);
 					ADD_ITEM (lang, spell_add, NONE);
 					g_object_set_data (G_OBJECT (menuitem), "abbrev", cd->languages->_buffer [i].abbreviation);

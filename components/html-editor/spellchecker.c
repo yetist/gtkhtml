@@ -283,7 +283,7 @@ spell_check_dialog (GtkHTMLControlData *cd, gboolean whole_document)
 	cd->spell_dialog = dialog;
         cd->spell_control_pb = bonobo_control_frame_get_control_property_bag
 		(bonobo_widget_get_control_frame (BONOBO_WIDGET (control)), NULL);
-	bonobo_property_bag_client_set_value_string (cd->spell_control_pb, "language", cd->html->engine->language, NULL);
+	bonobo_property_bag_client_set_value_string (cd->spell_control_pb, "language", html_engine_get_language (cd->html->engine), NULL);
 	bonobo_property_bag_client_set_value_gboolean (cd->spell_control_pb, "single", !whole_document, NULL);
 
 	bonobo_event_source_client_add_listener (cd->spell_control_pb, replace_cb, "Bonobo/Property:change:replace", NULL, cd);
@@ -327,6 +327,7 @@ language_cb (BonoboUIComponent *uic, const char *path, Bonobo_UIComponent_EventT
 	}
 
 	html_engine_set_language (cd->html->engine, str->str);
+
 	g_string_free (str, TRUE);
 	g_string_free (lang, TRUE);
 }

@@ -1,3 +1,12 @@
+2003-04-09  Radek Doulik  <rodo@ximian.com>
+
+	* spell.c: use html_engine_get_language
+
+	* popup.c: use html_engine_get_language
+
+	* editor-control-factory.c: removed static from struct declaration
+	(to quiet compiler)
+
 2003-04-04  Larry Ewing  <lewing@ximian.com>
 
 	* editor-control-factory.c (html_button_pressed): revert the
