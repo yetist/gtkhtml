@@ -1080,6 +1080,7 @@ gtk_html_get_title (GtkHTML *html)
 	g_return_val_if_fail (html != NULL, NULL);
 	g_return_val_if_fail (GTK_IS_HTML (html), NULL);
 
+	/* should this be g_return_val_if_fail () ?? */
 	if (!html->engine->title)
 		return NULL;
 
