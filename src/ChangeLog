@@ -1,3 +1,9 @@
+2001-08-31  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine-edit-cursor.c: define stipple colors on the
+	beggining, it will make it easier for tigert to tune stipple
+	lines colors
+
 2001-08-30  Radek Doulik  <rodo@ximian.com>
 
 	* htmltextslave.c (draw_highlighted): updated to use faster line

@@ -33,6 +33,19 @@
 
 #define BLINK_TIMEOUT 500
 
+static GdkColor table_stipple_active_on      = { 0, 0,      0,      0xffff };
+static GdkColor table_stipple_active_off     = { 0, 0xffff, 0xffff, 0xffff };
+static GdkColor table_stipple_non_active_on  = { 0, 0xaaaa, 0xaaaa, 0xaaaa };
+static GdkColor table_stipple_non_active_off = { 0, 0xffff, 0xffff, 0xffff };
+
+static GdkColor cell_stipple_active_on      = { 0, 0xffff, 0xffff, 0 };
+static GdkColor cell_stipple_active_off     = { 0, 0,      0,      0 };
+static GdkColor cell_stipple_non_active_on  = { 0, 0xaaaa, 0xaaaa, 0xaaaa };
+static GdkColor cell_stipple_non_active_off = { 0, 0xffff, 0xffff, 0xffff };
+
+static GdkColor image_stipple_active_on      = { 0, 0xffff, 0,      0 };
+static GdkColor image_stipple_active_off     = { 0, 0,      0,      0 };
+
 
 void
 html_engine_hide_cursor  (HTMLEngine *engine)
@@ -89,25 +102,20 @@ clip_rect (HTMLEngine *engine, gint x, gint y, gint width, gint height, gint *x1
 
 static void
 draw_cursor_rectangle (HTMLEngine *e, gint x1, gint y1, gint x2, gint y2,
-		       guint16 red1, guint16 green1, guint16 blue1,
-		       guint16 red2, guint16 green2, guint16 blue2,
+		       GdkColor *on_color, GdkColor *off_color,
 		       gint offset)
 {
 	GdkGC *gc;
 	GdkColor color;
-	gint8 dashes [2] = { 3, 3 };
+	gint8 dashes [2] = { 2, 2 };
 
 	move_rect (e, &x1, &y1, &x2, &y2);
 
 	gc = gdk_gc_new (e->window);
-	color.red   = red1;
-	color.green = green1;
-	color.blue  = blue1;
+	color = *on_color;
 	gdk_color_alloc (gdk_window_get_colormap (e->window), &color);
 	gdk_gc_set_foreground (gc, &color);
-	color.red   = red2;
-	color.green = green2;
-	color.blue  = blue2;
+	color = *off_color;
 	gdk_color_alloc (gdk_window_get_colormap (e->window), &color);
 	gdk_gc_set_background (gc, &color);
 	gdk_gc_set_line_attributes (gc, 1, GDK_LINE_DOUBLE_DASH, GDK_CAP_ROUND, GDK_JOIN_ROUND);
@@ -127,6 +135,9 @@ refresh_under_cursor (HTMLEngine *e, HTMLCursorRectangle *cr, gboolean *enabled)
 	*enabled = cursor_enabled = TRUE;
 }
 
+#define COLORS(x) animate ? &x ## _stipple_active_on  : &x ## _stipple_non_active_on, \
+                  animate ? &x ## _stipple_active_off : &x ## _stipple_non_active_off
+
 static void
 html_engine_draw_image_cursor (HTMLEngine *e)
 {
@@ -142,7 +153,7 @@ html_engine_draw_image_cursor (HTMLEngine *e)
 
 	if (io && HTML_IS_IMAGE (e->cursor->object)) {
 		HTMLImage *image;
-		static gint offset = 5;
+		static gint offset = 3;
 
 		image = HTML_IMAGE (io);
 		if (io != cr->object) {
@@ -156,9 +167,10 @@ html_engine_draw_image_cursor (HTMLEngine *e)
 		cr->y2 --;
 		cr->y1  = cr->y2 - (io->ascent + io->descent) + 1;
 
-		draw_cursor_rectangle (e, cr->x1, cr->y1, cr->x2, cr->y2, 0xffff, 0xffff, 0xffff, 0x0, 0xbfff, 0, offset);
+		draw_cursor_rectangle (e, cr->x1, cr->y1, cr->x2, cr->y2,
+				       &image_stipple_active_on, &image_stipple_active_off, offset);
 		if (!offset)
-			offset = 5;
+			offset = 3;
 		else
 			offset--;
 	} else
@@ -201,11 +213,9 @@ html_engine_draw_cell_cursor (HTMLEngine *e)
 		animate = !HTML_IS_IMAGE (e->cursor->object);
 		if (animate) {
 			offset++;
-			offset %= 6;
+			offset %= 4;
 		}
-		draw_cursor_rectangle (e, cr->x1, cr->y1, cr->x2, cr->y2,
-				       animate ? 0 : 0x5fff, animate ? 0 : 0x5fff, animate ? 0 : 0x5fff,
-				       animate ? 0xffff : 0xbfff, animate ? 0xffff : 0xbfff, animate ? 0 : 0x4fff, offset);
+		draw_cursor_rectangle (e, cr->x1, cr->y1, cr->x2, cr->y2, COLORS (cell), offset);
 	} else
 		if (cr->object) {
 			refresh_under_cursor (e, cr, &enabled);
@@ -246,11 +256,9 @@ html_engine_draw_table_cursor (HTMLEngine *e)
 		animate = HTML_IS_TABLE (e->cursor->object) && !html_engine_get_table_cell (e);
 		if (animate) {
 			offset++;
-			offset %= 6;
+			offset %= 4;
 		}
-		draw_cursor_rectangle (e, cr->x1, cr->y1, cr->x2, cr->y2,
-				       0xffff, 0xffff, 0xffff,
-				       animate ? 0 : 0xafff, animate ? 0 : 0xafff, 0xffff, offset);
+		draw_cursor_rectangle (e, cr->x1, cr->y1, cr->x2, cr->y2, COLORS (table), offset);
 	} else
 		if (cr->object) {
 			refresh_under_cursor (e, cr, &enabled);
