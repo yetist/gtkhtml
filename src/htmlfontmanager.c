@@ -29,6 +29,7 @@ html_font_set_init (HTMLFontSet *set, gchar *face)
 	bzero (set, GTK_HTML_FONT_STYLE_MAX_FONT*sizeof (gpointer));
 	set->ref_count = 1;
 	set->face = g_strdup (face);
+	set->vendor = NULL;
 }
 
 static HTMLFontSet *
@@ -219,7 +220,7 @@ alloc_new_font (HTMLFontManager *manager, HTMLFontSet **set, gchar *face_list, G
 			/* first try to get font from available sets */
 			font = get_font (manager, set, *face, style);
 			if (!font)
-				font = (*manager->alloc_font) ((*set)->vendor, *face, get_real_font_size (manager, style), style);
+				font = (*manager->alloc_font) (NULL, *face, get_real_font_size (manager, style), style);
 			if (font) {
 				if (!(*set)) {
 					*set = html_font_set_new (*face);
