@@ -201,7 +201,7 @@ dist-hook:
 if HAVE_SOUP
 test_programs = testgtkhtml
 endif
-noinst_PROGRAMS = $(test_programs) gtest test-suite
+noinst_PROGRAMS = $(test_programs) gtest test-suite test-stress
 
 testgtkhtml_SOURCES = 		\
 	testgtkhtml.c		\
@@ -222,6 +222,12 @@ test_suite_SOURCES = \
 	test-suite.c
 test_suite_LDFLAGS =
 test_suite_LDADD =	\
+	libgtkhtml-@GTKHTML_API_VERSION@.la
+
+test_stress_SOURCES = \
+	test-stress.c
+test_stress_LDFLAGS =
+test_stress_LDADD =	\
 	libgtkhtml-@GTKHTML_API_VERSION@.la
 
 pkgconfig_in_files = libgtkhtml.pc.in
@@ -259,3 +265,10 @@ test-verbose:	test-suite
 test-memcheck:	test-suite
 	./test-suite > /dev/null 2>&1 # 1st run to make sure .libs/lt-test-suite is available
 	valgrind --num-callers=64 --tool=memcheck --run-libc-freeres=no --alignment=8 --db-attach=no .libs/lt-test-suite
+
+stress-test:	test-stress
+	./test-stress > /dev/null
+
+stress-test-memcheck:	test-stress
+	./test-stress dont-run > /dev/null 2>&1 # 1st run to make sure .libs/lt-test-suite is available
+	valgrind --num-callers=64 --tool=memcheck --run-libc-freeres=no --alignment=8 --db-attach=no .libs/lt-test-stress
