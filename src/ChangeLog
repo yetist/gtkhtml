@@ -1,3 +1,7 @@
+2000-09-15  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlembedded.c (destroy): remove widget from html widget
+
 2000-09-14  Dan Winship  <danw@helixcode.com>
 
 	* htmlembedded.c (destroy): Just hide the embedded widget rather
