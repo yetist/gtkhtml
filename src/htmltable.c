@@ -1192,10 +1192,9 @@ draw (HTMLObject *o,
 	HTMLTable *table = HTML_TABLE (o);
 	gint pixel_size;
 	gint r, c, start_row, end_row, start_col, end_col;
-	ArtIRect paint;
+	GdkRectangle paint;
 
-	html_object_calc_intersection (o, &paint, x, y, width, height);
-	if (art_irect_empty (&paint))
+	if (!html_object_intersect (o, &paint, x, y, width, height))
 		return;
 
 	pixel_size = html_painter_get_pixel_size (p);

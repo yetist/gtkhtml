@@ -178,12 +178,12 @@ draw (HTMLObject *o,
 {
 	HTMLIFrame   *iframe  = HTML_IFRAME (o);
 	HTMLEngine   *e       = GTK_HTML (iframe->html)->engine;
-	ArtIRect paint;
+	GdkRectangle paint;
 
 	if (GTK_OBJECT_TYPE (e->painter) == HTML_TYPE_PRINTER) {
 		gint pixel_size = html_painter_get_pixel_size (e->painter);
-		html_object_calc_intersection (o, &paint, x, y, width, height);
-		if (art_irect_empty (&paint))
+
+		if (!html_object_intersect (o, &paint, x, y, width, height))
 			return;
 
 		html_object_draw (e->clue, e->painter,

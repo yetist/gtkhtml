@@ -53,33 +53,22 @@ draw_background (HTMLPainter *painter,
 		 gint tile_x, gint tile_y)
 {
 	HTMLGdkPainter *gdk_painter;
-	ArtIRect expose, paint, clip;
+	GdkRectangle expose, paint, clip;
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
 
-	expose.x0 = x;
-	expose.y0 = y;
-	expose.x1 = x + width;
-	expose.y1 = y + height;
+	expose.x = x;
+	expose.y = y;
+	expose.width  = width;
+	expose.height = height;
 
-	clip.x0 = gdk_painter->x1;
-	clip.x1 = gdk_painter->x2;
-	clip.y0 = gdk_painter->y1;
-	clip.y1 = gdk_painter->y2;
-	clip.x0 = gdk_painter->x1;
+	clip.x = gdk_painter->x1;
+	clip.width = gdk_painter->x2 - gdk_painter->x1;
+	clip.y = gdk_painter->y1;
+	clip.height = gdk_painter->y2 - gdk_painter->y1;
 
-	art_irect_intersect (&paint, &clip, &expose);
-	if (art_irect_empty (&paint))
-	    return;
-
-	width = paint.x1 - paint.x0;
-	height = paint.y1 - paint.y0;	
-	
-	tile_x += paint.x0 - x;
-	tile_y += paint.y0 - y;
-	
-	x = paint.x0;
-	y = paint.y0;
+	if (!gdk_rectangle_intersect (&clip, &expose, &paint))
+		return;
 
 	if (!color && !pixbuf)
 		return;
@@ -87,8 +76,8 @@ draw_background (HTMLPainter *painter,
 	if (color) {
 		gdk_gc_set_foreground (gdk_painter->gc, color);
 		gdk_draw_rectangle (gdk_painter->pixmap, gdk_painter->gc,
-				    TRUE, x - gdk_painter->x1, y - gdk_painter->y1,
-				    width, height);	
+				    TRUE, paint.x - clip.x, paint.y - clip.y,
+				    paint.width, paint.height);	
 		
 	}
 

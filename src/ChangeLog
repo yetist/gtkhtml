@@ -1,5 +1,28 @@
 2002-11-05  Larry Ewing  <lewing@ximian.com>
 
+	* htmlobject.c: remove html_object_calc_intersection and replace
+	with html_object_intersect that uses GdkRectangle.
+
+	* htmlobject.h: fix prototypes.
+	
+	* htmlimage.c: replace ArtIRect with GdkRectangle.
+
+	* htmltable.c: replace ArtIRect with GdkRectangle.
+
+	* htmltablecell.c: replace ArtIRect with GdkRectangle.
+
+	* htmltextslave.c: replace ArtIRect with GdkRectangle.
+
+	* htmlframe.c: replace ArtIRect with GdkRectangle.
+
+	* htmlframeset.c: replace ArtIRect with GdkRectangle.
+
+	* htmliframe.c: replace ArtIRect with GdkRectangle.
+
+	* htmlplainpainter.c: replace ArtIRect with GdkRectangle.
+
+2002-11-05  Larry Ewing  <lewing@ximian.com>
+
 	* htmlimage.c (draw): protect the draw function from images that
 	are not loaded.
 

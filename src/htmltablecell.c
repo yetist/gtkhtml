@@ -45,7 +45,7 @@ static HTMLClueVClass *parent_class = NULL;
 static void
 draw_background_helper (HTMLTableCell *cell,
 			HTMLPainter *p,
-			ArtIRect *paint,
+			GdkRectangle *paint,
 			gint tx, gint ty)
 {
 	HTMLObject *o;
@@ -79,12 +79,12 @@ draw_background_helper (HTMLTableCell *cell,
 		html_painter_draw_background (p,
 					      color,
 					      pixbuf,
-					      tx + paint->x0,
-					      ty + paint->y0,
-					      paint->x1 - paint->x0,
-					      paint->y1 - paint->y0,
-					      paint->x0 - o->x,
-					      paint->y0 - (o->y - o->ascent));
+					      tx + paint->x,
+					      ty + paint->y,
+					      paint->width,
+					      paint->height,
+					      paint->x - o->x,
+					      paint->y - (o->y - o->ascent));
 }
 
 
@@ -166,12 +166,11 @@ draw (HTMLObject *o,
       gint tx, gint ty)
 {
 	HTMLTableCell *cell = HTML_TABLE_CELL (o);
-	ArtIRect paint;
+	GdkRectangle paint;
 
 	
-	html_object_calc_intersection (o, &paint, x, y, width, height);
-	if (art_irect_empty (&paint))
-	    return;
+	if (!html_object_intersect (o, &paint, x, y, width, height))
+		return;
 	
 	draw_background_helper (cell, p, &paint, tx, ty);
 
@@ -236,12 +235,11 @@ draw_background (HTMLObject *self,
 		 gint width, gint height,
 		 gint tx, gint ty)
 {
-	ArtIRect paint;
+	GdkRectangle paint;
 	
 	(* HTML_OBJECT_CLASS (parent_class)->draw_background) (self, painter, x, y, width, height, tx, ty);
 
-	html_object_calc_intersection (self, &paint, x, y, width, height);
-	if (art_irect_empty (&paint))
+	if (!html_object_intersect (self, &paint, x, y, width, height))
 	    return;
 
 	draw_background_helper (HTML_TABLE_CELL (self), painter, &paint, tx, ty);

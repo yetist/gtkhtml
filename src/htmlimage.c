@@ -358,17 +358,16 @@ draw (HTMLObject *o,
 {
 	HTMLImage *image;
 	HTMLImagePointer *ip;
-	GdkPixbuf *pixbuf = NULL;
+	GdkPixbuf *pixbuf;
 	gint base_x, base_y;
 	gint scale_width, scale_height;
 	GdkColor *highlight_color;
 	guint pixel_size;
-	ArtIRect paint;
+	GdkRectangle paint;
 
 	/* printf ("Image::draw\n"); */
 
-	html_object_calc_intersection (o, &paint, x, y, width, height);
-	if (art_irect_empty (&paint))
+	if (!html_object_intersect (o, &paint, x, y, width, height))
 		return;
 
 	if (HTML_IS_PLAIN_PAINTER (painter)) {
@@ -385,6 +384,8 @@ draw (HTMLObject *o,
 		} else {
 			pixbuf = gdk_pixbuf_animation_get_static_image (ip->animation);
 		}
+	} else {
+		pixbuf = NULL;
 	}
 
 	pixel_size = html_painter_get_pixel_size (painter);

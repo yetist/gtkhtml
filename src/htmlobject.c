@@ -797,22 +797,32 @@ html_object_calc_abs_position (HTMLObject *o,
 	}
 }
 
-void
-html_object_calc_intersection (HTMLObject *o, ArtIRect *intersection, gint x, gint y, gint width, gint height)
+GdkRectangle *
+html_object_get_bounds (HTMLObject *o, GdkRectangle *bounds)
 {
-	ArtIRect clip, area;
-	
-	area.x0 = o->x;
-	area.x1 = o->x + o->width;
-	area.y0 = o->y - o->ascent;
-	area.y1 = o->y + o->descent;
+	if (!bounds)
+		bounds = g_new (GdkRectangle, 1);
 
-	clip.x0 = x;
-	clip.x1 = x + width;
-	clip.y0 = y;
-	clip.y1 = y + height;
+	bounds->x = o->x;
+	bounds->y = o->y - o->ascent;
+	bounds->width = o->width;
+	bounds->height = o->ascent + o->descent;
 
-	art_irect_intersect (intersection, &clip, &area);
+	return bounds;
+}
+
+gboolean
+html_object_intersect (HTMLObject *o, GdkRectangle *result, gint x, gint y, gint width, gint height)
+{
+	GdkRectangle b;
+	GdkRectangle a;
+
+	a.x = x;
+	a.y = y;
+	a.width = width;
+	a.height = height;
+
+	return gdk_rectangle_intersect (html_object_get_bounds (o, &b), &a, result);
 }
 
 

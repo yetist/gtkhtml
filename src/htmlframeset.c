@@ -259,24 +259,23 @@ draw_background (HTMLObject *self,
 		 gint width, gint height,
 		 gint tx, gint ty)
 {
-	ArtIRect paint;
+	GdkRectangle paint;
 	GdkColor color;
 
-	html_object_calc_intersection (self, &paint, x, y, width, height);
-	if (art_irect_empty (&paint))
-	    return;
-
+	if (!html_object_intersect (self, &paint, x, y, width, height))
+	      return;
+	
 	
 	gdk_color_parse ("#000000", &color);
        	html_painter_draw_background (painter,
 				      &color,
 				      NULL,
-				      tx + paint.x0,
-				      ty + paint.y0,
-				      paint.x1 - paint.x0,
-				      paint.y1 - paint.y0,
-				      paint.x0 - self->x,
-				      paint.y0 - (self->y - self->ascent));
+				      tx + paint.x,
+				      ty + paint.y,
+				      paint.width,
+				      paint.width,
+				      paint.x - self->x,
+				      paint.y - (self->y - self->ascent));
 } */
 
 static void
