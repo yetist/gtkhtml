@@ -920,7 +920,6 @@ html_clue_remove_text_slaves (HTMLClue *clue)
 	}
 }
 
-
 gboolean
 html_clue_is_empty (HTMLClue *clue)
 {

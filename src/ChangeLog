@@ -1,3 +1,15 @@
+2005-03-10  Radek Doulik  <rodo@novell.com>
+
+	* htmlobject.c (html_object_real_cursor_right): test for RTL
+	rather than LTR so that DERIVED defaults to LTR
+	(html_object_real_cursor_left): ditto
+
+	* test-suite.c (test_table_cell_parsing): added test to check
+	correct cell parsing
+
+	* htmlengine.c (block_end_cell): call close_flow to avoid empty
+	clueflows
+
 2005-03-10  Mengjie Yu  <meng-jie.yu@sun.com>
 
 	* gtkhtml.c: (gtk_html_set_color):we should pass the insertion_color.

@@ -39,6 +39,7 @@ static int test_delete_nested_cluevs_and_undo (GtkHTML *html);
 static int test_insert_nested_cluevs (GtkHTML *html);
 static int test_indentation_plain_text (GtkHTML *html);
 static int test_indentation_plain_text_rtl (GtkHTML *html);
+static int test_table_cell_parsing (GtkHTML *html);
 
 static Test tests[] = {
 	{ "cursor movement", NULL },
@@ -57,6 +58,7 @@ static Test tests[] = {
 	{ "insert nested cluev's", test_insert_nested_cluevs },
 	{ "indentation in plain text", test_indentation_plain_text },
 	{ "indentation in plain text (RTL)", test_indentation_plain_text_rtl },
+	{ "table cell parsing", test_table_cell_parsing },
 	{ NULL, NULL }
 };
 
@@ -540,6 +542,56 @@ test_capitalize_upcase_lowcase_word (GtkHTML *html)
 	printf ("test_capitalize_upcase_lowcase_word: lower OK\n");
 
 	printf ("test_capitalize_upcase_lowcase_word: passed\n");
+
+	return TRUE;
+}
+
+static int
+test_table_cell_parsing (GtkHTML *html)
+{
+	load_editable (html, "<table><tr><td></td></tr></table>");
+
+	html_cursor_jump_to_position (html->engine->cursor, html->engine, 1);
+
+	if (html->engine->cursor->offset != 0
+	    || html->engine->cursor->position != 1)
+		return FALSE;
+
+	/* test that there's flow with text created in the cell and that it's only one flow */
+	if (!HTML_IS_TEXT (html->engine->cursor->object) || !html->engine->cursor->object->parent ||
+	    !HTML_IS_CLUEFLOW (html->engine->cursor->object->parent) || html->engine->cursor->object->parent->next ||
+	    !html->engine->cursor->object->parent->parent || !HTML_IS_TABLE_CELL (html->engine->cursor->object->parent->parent))
+		return FALSE;
+
+	load_editable (html, "<table><tr><td><br></td></tr></table>");
+
+	html_cursor_jump_to_position (html->engine->cursor, html->engine, 1);
+
+	if (html->engine->cursor->offset != 0
+	    || html->engine->cursor->position != 1)
+		return FALSE;
+
+	/* test that there are two flows created in the cell and that they are both containing text */
+	if (!HTML_IS_TEXT (html->engine->cursor->object) || !html->engine->cursor->object->parent ||
+	    !HTML_IS_CLUEFLOW (html->engine->cursor->object->parent) || !html->engine->cursor->object->parent->next ||
+	    !html->engine->cursor->object->parent->parent || !HTML_IS_TABLE_CELL (html->engine->cursor->object->parent->parent) ||
+	    !HTML_IS_CLUEFLOW (html->engine->cursor->object->parent->next) || !HTML_CLUE (html->engine->cursor->object->parent->next)->head ||
+	    !HTML_IS_TEXT (HTML_CLUE (html->engine->cursor->object->parent->next)->head))
+		return FALSE;
+
+	load_editable (html, "<table><tr><td>abc</td></tr></table>");
+
+	html_cursor_jump_to_position (html->engine->cursor, html->engine, 1);
+
+	if (html->engine->cursor->offset != 0
+	    || html->engine->cursor->position != 1)
+		return FALSE;
+
+	/* test that there's flow with text created in the cell and that it's only one flow */
+	if (!HTML_IS_TEXT (html->engine->cursor->object) || !html->engine->cursor->object->parent ||
+	    !HTML_IS_CLUEFLOW (html->engine->cursor->object->parent) || html->engine->cursor->object->parent->next ||
+	    !html->engine->cursor->object->parent->parent || !HTML_IS_TABLE_CELL (html->engine->cursor->object->parent->parent))
+		return FALSE;
 
 	return TRUE;
 }

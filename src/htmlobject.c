@@ -653,7 +653,7 @@ html_object_real_cursor_right (HTMLObject *self, HTMLPainter *painter, HTMLCurso
 	if (html_object_is_container (self))
 		return FALSE;
 
-	if (dir == HTML_DIRECTION_LTR) {
+	if (dir != HTML_DIRECTION_RTL) {
 		gint len;
 
 		len = html_object_get_length (self);
@@ -688,7 +688,7 @@ html_object_real_cursor_left (HTMLObject *self, HTMLPainter *painter, HTMLCursor
 	if (html_object_is_container (self))
 		return FALSE;
 
-	if (dir == HTML_DIRECTION_LTR) {
+	if (dir != HTML_DIRECTION_RTL) {
 		HTMLObject *prev;
 		if (cursor->offset > 1 || (cursor->offset > 0 && (! (prev = html_object_prev_not_slave (self))
 								  || HTML_IS_CLUEALIGNED (prev) || !html_object_accepts_cursor (prev)))) {
