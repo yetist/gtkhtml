@@ -2589,6 +2589,8 @@ parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
   <strong>            </strong>
   <sub>               </sub>
   <sup>               </sup>
+  <s>                 </s>
+  <strike>            </strike>
 */
 static void
 parse_s (HTMLEngine *e, HTMLObject *clue, const gchar *str)
@@ -2657,10 +2659,12 @@ parse_s (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		}
 	} else if (strncmp (str, "/sup", 4) == 0) {
 		pop_block (e, ID_SUP, clue);
-	} else 	if (strncmp (str, "strike", 6) == 0 || strncmp (str, "s", 1) == 0) {
+	} else 	if (strncmp (str, "strike", 6) == 0
+		    || (strncmp (str, "s", 1) == 0 && (str[1] == '>' || str[1] == ' '))) {
 		push_font_style (e, GTK_HTML_FONT_STYLE_STRIKEOUT);
 		push_block (e, ID_STRIKEOUT, 1, block_end_font, 0, 0);
-	} else if (strncmp (str, "/strike", 7) == 0 || strncmp (str, "/s", 2) == 0) {
+	} else if (strncmp (str, "/strike", 7) == 0
+		   || (strncmp (str, "/s", 2) == 0 && (str[2] == '>' || str[2] == ' '))) {
 		pop_block (e, ID_STRIKEOUT, clue);
 	}
 }

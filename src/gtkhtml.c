@@ -2603,6 +2603,12 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 			gtk_widget_queue_draw (GTK_WIDGET (html));
 		}
 		break;
+	case GTK_HTML_COMMAND_CURSOR_FORWARD:
+		html_cursor_forward (html->engine->cursor, html->engine);
+		break;
+	case GTK_HTML_COMMAND_CURSOR_BACKWARD:
+		html_cursor_backward (html->engine->cursor, html->engine);
+		break;
 	default:
 		html->binding_handled = FALSE;
 	}
