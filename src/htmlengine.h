@@ -33,6 +33,7 @@ typedef struct _HTMLEngineClass HTMLEngineClass;
 #include "htmlstack.h"
 #include "htmlsettings.h"
 #include "htmlpainter.h"
+#include "htmlurl.h"
 #include "stringtokenizer.h"
 
 #define TYPE_HTML_ENGINE                 (html_engine_get_type ())
@@ -56,6 +57,8 @@ typedef struct _HTMLBlockStackElement HTMLBlockStackElement;
 
 struct _HTMLEngine {
 	GtkObject parent;
+
+	HTMLURL *actualURL;
 
 	gboolean parsing;
 	HTMLTokenizer *ht;
@@ -100,7 +103,7 @@ struct _HTMLEngine {
 	HTMLStack *fs;		/* Font stack, elements are HTMLFonts.  */
 	HTMLStack *cs;		/* Color stack, elements are GdkColors.  */
 
-	gchar *url;
+	HTMLURL *url;
 	gchar *target;
 
 	HTMLPainter *painter;

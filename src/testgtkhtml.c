@@ -293,7 +293,6 @@ static void
 on_url (GtkHTML *html, const gchar *url, gpointer data)
 {
 	GnomeApp *app;
-	guint id;
 
 	app = GNOME_APP (data);
 
@@ -435,10 +434,9 @@ url_requested (GtkHTML *html, const char *url, GtkHTMLStreamHandle handle, gpoin
 {
 	FILE *fil;
 	gchar buffer[32768];
-
 	HTRequest *newreq;
 	BOOL status;
-	char *ctmp;
+	const gchar *ctmp;
 
 	newreq = HTRequest_new();
 	g_assert(newreq);

@@ -23,6 +23,7 @@
 
 #include "htmltype.h"
 
+#include "htmlanchor.h"
 #include "htmlbullet.h"
 #include "htmlclue.h"
 #include "htmlcluealigned.h"

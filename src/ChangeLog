@@ -1,4 +1,42 @@
-1999-12-05  Ettore Perazzoli  <ettore@gnu.org>
+1999-12-06  Ettore Perazzoli  <ettore@gnu.org>
+
+	* testgtkhtml.c (on_url): Removed unused variable.
+	(url_requested): Made `ctmp' const.
+
+	* htmltype.c: #include "htmlanchor.h".
+
+	* htmlobject.c (html_object_check_point): Removed unused variable.
+
+	* gtkhtml.c (gtk_html_set_geometry): `#if 0'ed out as currently
+	unused.
+
+	* htmlengine.h: Changed type of `url' to `HTMLURL'.
+	* htmlengine.c: All functions changed accordingly (i.e. to use
+	`HTMLURL' internally, instead of `gchar *').
+
+	* htmlengine.c (parse_href): New function for dealing with links
+	properly (i.e. handling relative ones etc.).
+	(parse_a): Use it.
+
+	* htmlengine.h: New member `actualURL' in `HTMLEngine'.
+	* htmlengine.c (html_engine_begin): Set it.
+	(html_engine_init): Init it to NULL.
+	(html_engine_destroy): Free it.
+
+	* htmlurl.c: New file.
+	* htmlurl.h: New file.
+
+	* htmlfont.c (html_font_new): Made prototype const-safe.
+
+	* htmlpainter.h (html_painter_draw_panel): New function prototype.
+
+	* htmlclue.h (html_clue_append_left_aligned): Added missing prototype.
+
+	* htmltokenizer.c (html_tokenizer_write): Parse the entity with
+	`html_entity_parse()'.
+
+	* htmlentity.c, htmlentity.h: New files dealing with entity.
+	(html_entity_parse): New function.
 
 	* htmlengine.c (parse_i): Use the current URL and target for the
 	new image.
@@ -8,7 +46,7 @@
 
 	* htmlimage.h: New members `url' and `target' in `HTMLImage'.
 
-1999-12-04  Ettore Perazzoli  <ettore@gnu.org>
+1999-12-03  Ettore Perazzoli  <ettore@gnu.org>
 
 	* testgtkhtml.c (do_request_delete): Do not delete the request.  I
 	am not sure if it's supposed to be necessary or not, but it does
@@ -84,7 +122,7 @@
 	* htmlengine.h: Updated likewise.
 	* gtkhtml.c (gtk_html_motion_notify_event): Updated accordingly.
 
-1999-12-04  Anders Carlsson  <andersca@picard.andersnet>
+1999-12-04  Anders Carlsson  <andersca@gnu.org>
 
 	* htmlsettings.c: Fix the correct number of font sizes, it's 7 not 6.
 
@@ -96,7 +134,7 @@
 	* htmlimage.c (draw): Use html_painter_draw_panel for pictures that
 	are not yet loaded.
 
-1999-12-04  Ettore Perazzoli  <ettore@gnu.org>
+1999-12-03  Ettore Perazzoli  <ettore@gnu.org>
 
 	* htmllinktextmaster.c (html_link_text_master_init): `url' and
 	`target' made const.  Strdup before assigning.
@@ -120,7 +158,7 @@
 	* htmlcluev.c (appended): Traverse the aligned list, not the
 	regular object tree list. This fixes the slashdot bug (Finally).
 
-1999-12-04  Ettore Perazzoli  <ettore@gnu.org>
+1999-12-03  Ettore Perazzoli  <ettore@gnu.org>
 
 	* htmltable.c (check_point): Implementation of `check_point'.
 	(html_table_class_init): Install it.

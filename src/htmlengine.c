@@ -259,10 +259,10 @@ block_end_div (HTMLEngine *e, HTMLObject *clue, HTMLBlockStackElement *elem)
 static void
 close_anchor (HTMLEngine *e)
 {
-	if (e->url) {
+	if (e->url != NULL) {
 		html_engine_pop_color (e);
 		html_engine_pop_font (e);
-		g_free (e->url);
+		html_url_destroy (e->url);
 	}
 
 	/* FIXME */
@@ -843,6 +843,52 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	return str;
 }
 
+static HTMLURL *
+parse_href (HTMLEngine *e,
+	    const gchar *s)
+{
+	HTMLURL *retval;
+	HTMLURL *tmp;
+
+	if (s[0] == '#') {
+		tmp = html_url_dup (e->actualURL, HTML_URL_DUP_NOREFERENCE);
+		html_url_set_reference (tmp, s + 1);
+		return tmp;
+	}
+
+	tmp = html_url_new (s);
+	if (html_url_get_protocol (tmp) == NULL) {
+		if (s[0] == '/') {
+			if (s[1] == '/') {
+				gchar *t;
+
+				/* Double slash at the beginning.  */
+
+				/* FIXME?  This is a bit sucky.  */
+				t = g_strconcat (html_url_get_protocol (e->actualURL),
+						 ":", s, NULL);
+				retval = html_url_new (t);
+				g_free (t);
+				html_url_destroy (tmp);
+			} else {
+				/* Single slash at the beginning.  */
+
+				retval = html_url_dup (tmp,
+						       HTML_URL_DUP_NOPATH);
+				html_url_set_path (retval, s);
+				html_url_destroy (tmp);
+			}
+		} else {
+			retval = html_url_append_path (tmp, s);
+			html_url_destroy (tmp);
+		}
+	} else {
+		retval = tmp;
+	}
+
+	return retval;
+}
+
 
 /*
   <a               </a>
@@ -973,7 +1019,7 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 			pop_block ( e, ID_ADDRESS, _clue);
 		}
 		else if ( strncmp( str, "a ", 2 ) == 0 ) {
-			gchar *tmpurl = NULL;
+			HTMLURL *tmpurl = NULL;
 			gboolean visited = FALSE;
 			gchar *target = NULL;
 			const gchar *p;
@@ -984,21 +1030,13 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 
 			while ( ( p = string_tokenizer_next_token (e->st) ) != 0 ) {
 				if ( strncasecmp( p, "href=", 5 ) == 0 ) {
+					if (tmpurl != NULL)
+						html_url_destroy (tmpurl);
+
 					p += 5;
+					tmpurl = parse_href (e, p);
 
-					if ( *p == '#' ) {
-						/* FIXME TODO */
-						g_warning ("References are not implemented yet");
-						tmpurl = g_strdup ("blahblah");
-					} else {
-						/* FIXME TODO concatenate correctly */
-						tmpurl = g_strdup (p);
-					}		
-
-				/* FIXME TODO */
-#if 0
-					visited = URLVisited( tmpurl );
-#endif
+					/* FIXME visited? */
 				} else if ( strncasecmp( p, "name=", 5 ) == 0 ) {
 					if (e->flow == 0 )
 						html_clue_append (HTML_CLUE (_clue),
@@ -1023,7 +1061,7 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 			}
 #endif
 
-			if (tmpurl != NULL && tmpurl[0] != '\0') {
+			if (tmpurl != NULL) {
 				e->vspace_inserted = FALSE;
 
 				if ( visited )
@@ -1036,9 +1074,17 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 
 				html_engine_select_font (e);
 
+				if (e->url != NULL)
+					html_url_destroy (e->url);
 				e->url = tmpurl;
 
-				printf ("HREF: %s\n", e->url);
+				{
+					gchar *url_string;
+
+					url_string = html_url_to_string (e->url);
+					printf ("HREF: %s\n", url_string);
+					g_free (url_string);
+				}
 
 #if 0							/* FIXME TODO */
 				url = new char [ tmpurl.length() + 1 ];
@@ -1622,13 +1668,21 @@ parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 #endif
 		}
 		if (filename != 0) {
+			gchar *string_url;
+
 			if (!p->flow)
 				html_engine_new_flow (p, _clue);
 
+			string_url = html_url_to_string (p->url);
+
+			/* FIXME this sucks we end up having two copies of the
+                           URL string for no reason.  */
 			image = html_image_new (p->image_factory, filename,
-						p->url, p->target,
+						string_url,
+						p->target,
 						_clue->max_width, 
 						width, height, percent, border);
+			g_free (string_url);
 		}
 
 		if (align == HTML_HALIGN_NONE) {
@@ -2167,6 +2221,8 @@ html_engine_destroy (GtkObject *object)
 	GList *p;
 
 	/* FIXME FIXME FIXME */
+
+	html_url_destroy (engine->actualURL);
 	
 	html_tokenizer_destroy   (engine->ht);
 	string_tokenizer_destroy (engine->st);
@@ -2252,6 +2308,8 @@ static void
 html_engine_init (HTMLEngine *engine)
 {
 	/* STUFF might be missing here!   */
+
+	engine->actualURL = NULL;
 
 	engine->ht = html_tokenizer_new ();
 	engine->st = string_tokenizer_new ();
@@ -2372,6 +2430,10 @@ html_engine_begin (HTMLEngine *p, const char *url)
 					 (gpointer)p);
 
 	gtk_signal_emit (GTK_OBJECT(p), signals [URL_REQUESTED], url, new_stream);
+
+	if (p->actualURL != NULL)
+		html_url_destroy (p->actualURL);
+	p->actualURL = html_url_new (url);
 
 	return new_stream;
 }
@@ -2765,10 +2827,18 @@ html_engine_insert_text (HTMLEngine *e, gchar *str, HTMLFont *f)
 
 		if (insertBlock) {
 			if (*str) {
+				gchar *url_string;
+
+				/* FIXME this sucks */
+				if (e->url != NULL)
+					url_string = html_url_to_string (e->url);
+				else
+					url_string = NULL;
+
 				if (textType == variable) {
 					if (e->url || e->target)
 						obj = html_link_text_master_new
-							(str, f, e->painter, e->url, e->target);
+							(str, f, e->painter, url_string, e->target);
 					else
 						obj = html_text_master_new (str, f, e->painter);
 					html_clue_append (HTML_CLUE (e->flow), obj);
@@ -2776,19 +2846,25 @@ html_engine_insert_text (HTMLEngine *e, gchar *str, HTMLFont *f)
 				else {
 					if (e->url || e->target)
 						obj = html_link_text_new (str, f,
-									  e->painter, e->url, e->target);
+									  e->painter, url_string, e->target);
 					else
 						obj = html_text_new (str, f, e->painter);
 					html_clue_append (HTML_CLUE (e->flow), obj);
 				}
+
+				g_free (url_string);
 			}
 
 			if (insertSpace) {
 				if (e->url || e->target) {
-					obj = html_link_text_new (" ", f, e->painter, e->url,
-								  e->target);
+					gchar *url_string;
+
+					url_string = html_url_to_string (e->url);
+					obj = html_link_text_new (" ", f, e->painter,
+								  url_string, e->target);
 					obj->flags |= HTML_OBJECT_FLAG_SEPARATOR;
 					html_clue_append (HTML_CLUE (e->flow), obj);
+					g_free (url_string);
 				} else {
 					obj = html_hspace_new (f, e->painter, FALSE);
 					html_clue_append (HTML_CLUE (e->flow), obj);
@@ -2796,10 +2872,15 @@ html_engine_insert_text (HTMLEngine *e, gchar *str, HTMLFont *f)
 			}
 			else if (insertNBSP) {
 				if (e->url || e->target) {
+					gchar *url_string;
+
+					/* FIXME this sucks */
+					url_string = html_url_to_string (e->url);
 					obj = html_link_text_new (" ", f, e->painter,
-								  e->url, e->target);
+								  url_string, e->target);
 					obj->flags &= ~HTML_OBJECT_FLAG_SEPARATOR;
 					html_clue_append (HTML_CLUE (e->flow), obj);
+					g_free (url_string);
 				} else {
 					obj = html_hspace_new (f, e->painter, FALSE);
 					obj->flags &= ~HTML_OBJECT_FLAG_SEPARATOR;

@@ -380,7 +380,6 @@ HTMLObject *
 html_object_check_point (HTMLObject *self, gint x, gint y)
 {
 	HTMLObject *object;
-	gint i;
 
 #if 0
 	static gint counter = 2;

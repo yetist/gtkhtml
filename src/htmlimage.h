@@ -33,7 +33,7 @@ typedef struct _HTMLImagePointer HTMLImagePointer;
 typedef struct _HTMLImageFactory HTMLImageFactory;
 
 struct _HTMLImagePointer {
-	char *url;
+	gchar *url;
 	GdkPixbufLoader *loader;
 	GdkPixbuf *pixbuf;
 	GSList *interests; /* A list of HTMLImage's, or a NULL pointer for the background pixmap */
@@ -66,6 +66,7 @@ extern HTMLImageClass image_class;
 
 void html_image_type_init (void);
 void html_image_class_init (HTMLImageClass *klass, HTMLType type);
+
 void html_image_init (HTMLImage *image, HTMLImageClass *klass,
 		      HTMLImageFactory *imf, gchar *filename,
 		      const gchar *url, const gchar *target,

@@ -45,7 +45,7 @@ struct _HTMLFontStack {
 };
 
 
-HTMLFont      *html_font_new           (gchar *family, gint size,
+HTMLFont      *html_font_new           (const gchar *family, gint size,
 				       	gint *fontSizes, gboolean bold,
 				       	gboolean italic, gboolean underline);
 void           html_font_destroy       (HTMLFont *html_font);

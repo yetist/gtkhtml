@@ -24,6 +24,7 @@
 #include <ctype.h>
 #include <gnome.h>
 #include "htmltokenizer.h"
+#include "htmlentity.h"
 
 #define TOKEN_BUFFER_SIZE (32*1024) - 1
 
@@ -412,16 +413,8 @@ html_tokenizer_write (HTMLTokenizer *t, const gchar *string, size_t size)
 					    (!t->tag)) {
 						char *ename = t->searchBuffer + 2;
 						
-						t->searchBuffer [t->searchCount + 1] = '\0';
-						
-						if (!strcasecmp(ename, "nbsp"))
-							entityValue = 0xA0;
-						else if(!strcasecmp(ename, "lt"))
-							entityValue = '<';
-						else if(!strcasecmp(ename, "gt"))
-							entityValue = '>';
-						else if(!strcasecmp(ename, "amp"))
-							entityValue = '&';
+						t->searchBuffer [t->searchCount + 1] = '\0'; /* FIXME sucks */
+						entityValue = html_entity_parse (ename, 0);
 					}
 				}
 				

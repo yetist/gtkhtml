@@ -79,12 +79,18 @@ void         html_painter_set_clip_rectangle (HTMLPainter *painter, gint x, gint
 
 HTMLFont    *html_painter_get_font (HTMLPainter *p);
 
+void         html_painter_draw_panel (HTMLPainter *painter,
+				      gint x, gint y, gint width, gint height,
+				      gboolean inset, gint bordersize);
+
 /*
  * For debugging
  */
 GdkWindow   *html_painter_get_window (HTMLPainter *painter);
 
+void html_painter_draw_background_pixmap (HTMLPainter *painter,
+					  gint x, gint y, 
+					  GdkPixbuf *pixbuf);
+
+
 #endif /* _HTMLPAINTER_H_ */
-
-
-

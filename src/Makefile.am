@@ -25,6 +25,7 @@ libgtkhtml_HEADERS =				\
 	htmlclueh.h				\
 	htmlcluev.h				\
 	htmlengine.h				\
+	htmlentity.h				\
 	htmlfont.h				\
 	htmlhspace.h				\
 	htmlimage.h				\
@@ -44,6 +45,7 @@ libgtkhtml_HEADERS =				\
 	htmltextslave.h				\
 	htmltokenizer.h				\
 	htmltype.h				\
+	htmlurl.h				\
 	htmlvspace.h				\
 	stringtokenizer.h
 
@@ -58,6 +60,7 @@ libgtkhtml_la_SOURCES =				\
 	htmlclueh.c				\
 	htmlcluev.c				\
 	htmlengine.c				\
+	htmlentity.c				\
 	htmlfont.c				\
 	htmlhspace.c				\
 	htmlimage.c				\
@@ -77,6 +80,7 @@ libgtkhtml_la_SOURCES =				\
 	htmltextslave.c				\
 	htmltokenizer.c				\
 	htmltype.c				\
+	htmlurl.c				\
 	htmlvspace.c				\
 	stringtokenizer.c
 

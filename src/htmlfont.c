@@ -26,7 +26,7 @@ static GdkFont *create_gdk_font (gchar *family, gint size, gboolean bold, gboole
 
 
 HTMLFont *
-html_font_new (gchar *family,
+html_font_new (const gchar *family,
 	       gint size,
 	       gint *fontSizes,
 	       gboolean bold,
