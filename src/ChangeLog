@@ -1,3 +1,8 @@
+2000-10-11  Larry Ewing  <lewing@helixcode.com>
+
+	* htmlengine-edit-selection-updater.c (extend_selection): handle
+	the NULL obj here as well.
+
 2000-10-10  Larry Ewing  <lewing@helixcode.com>
 
 	* htmlengine-edit-selection-updater.c (extend_selection): make

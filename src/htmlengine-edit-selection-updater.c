@@ -58,7 +58,7 @@ extend_selection (HTMLEngine *engine,
 
 	obj = old_point->object;
 
-	while (obj != new_point->object) {
+	while (obj && obj != new_point->object) {
 		if (forward) {
 			if (obj == mark->object)
 				start = mark->offset;
