@@ -33,8 +33,11 @@ HTMLTextMasterClass html_text_master_class;
 /* HTMLObject methods.  */
 
 static void
-draw (HTMLObject *o, HTMLPainter *p, HTMLCursor *cursor,
-      gint x, gint y, gint width, gint height, gint tx, gint ty)
+draw (HTMLObject *o,
+      HTMLPainter *p, 
+      gint x, gint y,
+      gint width, gint height,
+      gint tx, gint ty)
 {
 	/* Don't paint yourself.  */
 }

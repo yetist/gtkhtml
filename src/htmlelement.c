@@ -29,7 +29,6 @@ HTMLElementClass html_element_class;
 static void
 draw (HTMLObject *o,
       HTMLPainter *p,
-      HTMLCursor *cursor,
       gint x, gint y,
       gint width, gint height,
       gint tx, gint ty)

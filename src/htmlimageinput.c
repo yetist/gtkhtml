@@ -34,7 +34,6 @@ destroy (HTMLObject *o)
 static void
 draw (HTMLObject *o,
       HTMLPainter *p,
-      HTMLCursor *cursor,
       gint x, gint y,
       gint width, gint height,
       gint tx, gint ty)
@@ -46,7 +45,11 @@ draw (HTMLObject *o,
 
 	o->ascent = HTML_OBJECT (HTML_IMAGEINPUT (o)->image)->ascent;
 
-	html_object_draw (HTML_OBJECT (HTML_IMAGEINPUT (o)->image), p, cursor, x, y, width, height, tx, ty);
+	html_object_draw (HTML_OBJECT (HTML_IMAGEINPUT (o)->image),
+			  p,
+			  x, y,
+			  width, height,
+			  tx, ty);
 }
 
 static gchar *

@@ -1,5 +1,10 @@
 2000-01-20  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlobject.c (draw): Removed param `cursor'.
+
+	* htmlobject.h: Removed param `cursor' in `HTMLObject::draw'.  All
+	the implementations fixed in all the classes.
+
 	* htmlengine.c (html_engine_init): Initialize `color_set'.
 	(html_engine_destroy): Destroy the color set.
 	(html_engine_realize): Realize the color set.

@@ -30,8 +30,6 @@ typedef struct _HTMLObjectClass HTMLObjectClass;
 typedef struct _HTMLAnchor HTMLAnchor;
 typedef struct _HTMLObject HTMLObject;
 
-/* FIXME fix ugly dependency on HTMLCursor.  */
-typedef struct _HTMLCursor HTMLCursor;
 /* FIXME fix ugly dependency on HTMLForm.  */
 typedef struct _HTMLForm HTMLForm;
 /* FIXME fix ugly dependency on HTMLSelect.  */
@@ -130,8 +128,11 @@ struct _HTMLObjectClass {
         /* x & y are in object coordinates (e.g. the same coordinate system as
 	   o->x and o->y) tx & ty are used to translated object coordinates
 	   into painter coordinates */
-	void (*draw) (HTMLObject *o, HTMLPainter *painter, HTMLCursor *cursor,
-		      gint x, gint y, gint width, gint height, gint tx, gint ty);
+	void (*draw) (HTMLObject *o,
+		      HTMLPainter *painter,
+		      gint x, gint y,
+		      gint width, gint height,
+		      gint tx, gint ty);
 
 	void (*set_max_ascent) (HTMLObject *o, gint a);
 	void (*set_max_descent) (HTMLObject *o, gint d);
@@ -190,7 +191,6 @@ gboolean    html_object_is_text     (HTMLObject      *object);
 /* Drawing-related stuff.  */
 void  html_object_draw  (HTMLObject  *o,
 			 HTMLPainter *p,
-			 HTMLCursor  *cursor,
 			 gint         x,
 			 gint         y,
 			 gint         width,

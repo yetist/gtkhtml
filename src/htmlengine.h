@@ -209,10 +209,6 @@ void        html_engine_realize       (HTMLEngine *engine,
 void        html_engine_set_editable  (HTMLEngine *e,
 				       gboolean    editable);
 
-/* Misc.  (FIXME: Should die?) */
-gchar *html_engine_canonicalize_url  (HTMLEngine *e,
-				      const char *in_url);
-
 /* Parsing control.  */
 GtkHTMLStreamHandle  html_engine_begin            (HTMLEngine  *p,
 						   const char  *url);
@@ -268,5 +264,9 @@ const GdkColor *html_engine_get_foreground_color            (HTMLEngine *engine)
 const GdkColor *html_engine_get_link_color                  (HTMLEngine *engine);
 const GdkColor *html_engine_get_highlight_color             (HTMLEngine *engine);
 const GdkColor *html_engine_get_highlight_foreground_color  (HTMLEngine *engine);
+
+/* Misc.  (FIXME: Should die?) */
+gchar *html_engine_canonicalize_url  (HTMLEngine *e,
+				      const char *in_url);
 
 #endif /* _HTMLENGINE_H_ */

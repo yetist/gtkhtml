@@ -36,6 +36,7 @@ struct _HTMLCursor {
 	gint target_x;
 	gboolean have_target_x : 1;
 };
+typedef struct _HTMLCursor HTMLCursor;
 
 
 HTMLCursor *html_cursor_new (void);

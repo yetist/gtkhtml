@@ -912,8 +912,11 @@ calc_size (HTMLObject *o,
 }
 
 static void
-draw (HTMLObject *o, HTMLPainter *p, HTMLCursor *cursor,
-      gint x, gint y, gint width, gint height, gint tx, gint ty)
+draw (HTMLObject *o,
+      HTMLPainter *p, 
+      gint x, gint y,
+      gint width, gint height,
+      gint tx, gint ty)
 {
 	HTMLTableCell *cell;
 	HTMLTable *table = HTML_TABLE (o);
@@ -937,9 +940,11 @@ draw (HTMLObject *o, HTMLPainter *p, HTMLCursor *cursor,
 			if (r < table->totalRows - 1 &&
 			    table->cells[r + 1][c] == cell)
 				continue;
-			html_object_draw (HTML_OBJECT (cell), p, cursor,
+			html_object_draw (HTML_OBJECT (cell),
+					  p, 
 					  x - o->x, y - (o->y - o->ascent),
-					  width, height, tx, ty);
+					  width, height,
+					  tx, ty);
 		}
 	}
 

@@ -2768,7 +2768,9 @@ html_engine_realize (HTMLEngine *e,
 
 
 static void
-draw_background (HTMLEngine *e, gint xval, gint yval, gint x, gint y, gint w, gint h)
+draw_background (HTMLEngine *e,
+		 gint xval, gint yval,
+		 gint x, gint y, gint w, gint h)
 {
 	gint xoff = 0;
 	gint yoff = 0;
@@ -3098,7 +3100,8 @@ html_engine_draw (HTMLEngine *e,
 	draw_background (e, e->x_offset, e->y_offset, x, y, width, height);
 
 	if (e->clue)
-		html_object_draw (e->clue, e->painter, e->cursor,
+		html_object_draw (e->clue,
+				  e->painter,
 				  x - e->x_offset,
 				  y + e->y_offset - e->topBorder,
 				  width,

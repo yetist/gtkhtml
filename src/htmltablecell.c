@@ -77,8 +77,11 @@ set_max_width (HTMLObject *o, gint max_width)
 }
 
 static void
-draw (HTMLObject *o, HTMLPainter *p, HTMLCursor *cursor, gint x, gint y, 
-      gint width, gint height, gint tx, gint ty)
+draw (HTMLObject *o,
+      HTMLPainter *p,
+      gint x, gint y, 
+      gint width, gint height,
+      gint tx, gint ty)
 {
 	HTMLTableCell *cell = HTML_TABLE_CELL (o);
 	gint top, bottom;

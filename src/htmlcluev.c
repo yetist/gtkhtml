@@ -207,14 +207,14 @@ reset (HTMLObject *clue)
 static void
 draw (HTMLObject *o,
       HTMLPainter *p,
-      HTMLCursor *cursor,
       gint x, gint y,
       gint width, gint height,
       gint tx, gint ty)
 {
 	HTMLObject *aclue;
 
-	HTML_OBJECT_CLASS (&html_clue_class)->draw (o, p, cursor,
+	HTML_OBJECT_CLASS (&html_clue_class)->draw (o,
+						    p,
 						    x, y ,
 						    width, height,
 						    tx, ty);
@@ -228,7 +228,8 @@ draw (HTMLObject *o,
 	for ( aclue = HTML_CLUEV (o)->align_left_list;
 	      aclue != NULL;
 	      aclue = cluev_next_aligned (aclue) ) {
-		html_object_draw (aclue, p, cursor,
+		html_object_draw (aclue,
+				  p, 
 				  0, 0, 0xffff, 0xffff,
 				  tx + aclue->parent->x,
 				  ty + aclue->parent->y - aclue->parent->ascent);
@@ -237,7 +238,8 @@ draw (HTMLObject *o,
 	for (aclue = HTML_CLUEV (o)->align_right_list;
 	     aclue != NULL;
 	     aclue = cluev_next_aligned (aclue)) {
-		html_object_draw (aclue, p, cursor,
+		html_object_draw (aclue,
+				  p,
 				  0, 0, 0xffff, 0xffff,
 				  tx + aclue->parent->x, 
 				  ty + aclue->parent->y - aclue->parent->ascent);

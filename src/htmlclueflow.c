@@ -524,7 +524,6 @@ calc_preferred_width (HTMLObject *o,
 static void
 draw (HTMLObject *self,
       HTMLPainter *painter,
-      HTMLCursor *cursor,
       gint x, gint y,
       gint width, gint height,
       gint tx, gint ty)
@@ -556,8 +555,11 @@ draw (HTMLObject *self,
 			html_painter_draw_rect (painter, xp, yp, BULLET_SIZE, BULLET_SIZE);
 	}
 
-	(* HTML_OBJECT_CLASS (&html_clue_class)->draw) (self, painter, cursor,
-							x, y, width, height, tx, ty);
+	(* HTML_OBJECT_CLASS (&html_clue_class)->draw) (self,
+							painter, 
+							x, y,
+							width, height,
+							tx, ty);
 }
 
 

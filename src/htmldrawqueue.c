@@ -129,7 +129,8 @@ draw_obj (HTMLDrawQueue *queue,
 
 	/* Draw the actual object.  */
 
-	html_object_draw (obj, e->painter, e->cursor,
+	html_object_draw (obj,
+			  e->painter, 
 			  obj->x, obj->y - obj->ascent,
 			  obj->width, obj->ascent + obj->descent,
 			  tx, ty);

@@ -58,7 +58,6 @@ destroy (HTMLObject *o)
 static void
 draw (HTMLObject *o,
       HTMLPainter *p,
-      HTMLCursor *cursor,
       gint x, gint y,
       gint width, gint height,
       gint tx, gint ty)
@@ -349,10 +348,13 @@ html_object_destroy (HTMLObject *o)
 }
 
 void
-html_object_draw (HTMLObject *o, HTMLPainter *p, HTMLCursor *cursor,
-		  gint x, gint y, gint width, gint height, gint tx, gint ty)
+html_object_draw (HTMLObject *o,
+		  HTMLPainter *p,
+		  gint x, gint y,
+		  gint width, gint height,
+		  gint tx, gint ty)
 {
-	(* HO_CLASS (o)->draw) (o, p, cursor, x, y, width, height, tx, ty);
+	(* HO_CLASS (o)->draw) (o, p, x, y, width, height, tx, ty);
 }
 
 HTMLFitType
