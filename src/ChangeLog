@@ -1,3 +1,7 @@
+2003-04-08  Radek Doulik  <rodo@ximian.com>
+
+	* htmltext.c (get_glyphs): shape only when item->length > 0
+
 2003-04-08  Larry Ewing  <lewing@ximian.com>
 
 	* htmlgdkpainter.c (alloc_font): make sure that we end up with a

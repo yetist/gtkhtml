@@ -884,9 +884,11 @@ get_glyphs (HTMLText *text, HTMLPainter *painter)
 		html_replace_tabs (text->text, translated, bytes);
 		for (il = items; il; il = il->next) {
 			item = (PangoItem *) il->data;
-			str = pango_glyph_string_new ();
-			pango_shape (translated + item->offset, item->length, &item->analysis, str);
-			glyphs = g_list_prepend (glyphs, str);
+			if (item->length) {
+				str = pango_glyph_string_new ();
+				pango_shape (translated + item->offset, item->length, &item->analysis, str);
+				glyphs = g_list_prepend (glyphs, str);
+			}
 		}
 		glyphs = g_list_reverse (glyphs);
 		g_free (heap);
