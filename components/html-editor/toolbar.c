@@ -199,7 +199,7 @@ color_changed (GtkWidget *w, GdkColor *gdk_color, GtkHTMLControlData *cd)
 		&& gdk_color != &html_colorset_get_color (cd->html->engine->settings->color_set, HTMLTextColor)->color
 		? html_color_new_from_gdk_color (gdk_color) : NULL;
 
-	html_engine_set_color (cd->html->engine, color);
+	gtk_html_set_color (cd->html, color);
 	if (color)
 		html_color_unref (color);
 }

@@ -1,3 +1,12 @@
+2001-01-16  Radek Doulik  <rodo@helixcode.com>
+
+	* toolbar.c (color_changed): use gtk_html_set_color instead of
+	engine method
+
+	* text.c (text_apply_cb): use gtk_html_set_font_style rather than
+	engine method
+	(text_apply_cb): likewise for set_color
+
 2001-01-12  Radek Doulik  <rodo@helixcode.com>
 
 	* test-html-editor-control.c (container_create): move test

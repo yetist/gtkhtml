@@ -243,10 +243,10 @@ text_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 	GtkHTMLEditTextProperties *data = (GtkHTMLEditTextProperties *) get_data;
 
 	if (data->style_changed)
-		html_engine_set_font_style (cd->html->engine, data->style_and, data->style_or);
+		gtk_html_set_font_style (cd->html, data->style_and, data->style_or);
 
 	if (data->color_changed)
-		html_engine_set_color (cd->html->engine, data->color);
+		gtk_html_set_color (cd->html, data->color);
 
 	data->color_changed = FALSE;
 	data->style_changed = FALSE;
