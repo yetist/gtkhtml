@@ -53,6 +53,11 @@
 HTMLTableClass html_table_class;
 static HTMLObjectClass *parent_class = NULL;
 
+static void alloc_cell (HTMLTable *table, gint r, gint c);
+static void set_cell   (HTMLTable *table, gint r, gint c, HTMLTableCell *cell);
+static void do_cspan   (HTMLTable *table, gint row, gint col, HTMLTableCell *cell);
+static void do_rspan   (HTMLTable *table, gint row);
+
 
 
 static gboolean
@@ -148,7 +153,17 @@ forall (HTMLObject *self,
 
 
 static void
-add_columns (HTMLTable *table, gint num)
+previous_rows_do_cspan (HTMLTable *table, gint c)
+{
+	gint i;
+	if (c)
+		for (i=0; i < table->totalRows - 1; i++)
+			if (table->cells [i][c - 1])
+				do_cspan (table, i, c, table->cells [i][c - 1]);
+}
+
+static void
+expand_columns (HTMLTable *table, gint num)
 {
 	HTMLTableCell **newCells;
 	gint r;
@@ -160,13 +175,18 @@ add_columns (HTMLTable *table, gint num)
 		g_free (table->cells[r]);
 		table->cells[r] = newCells;
 	}
-
-	table->totalCols += num;
-	
 }
 
 static void
-add_rows (HTMLTable *table, gint num)
+inc_columns (HTMLTable *table, gint num)
+{
+	expand_columns (table, num);
+	table->totalCols += num;
+	previous_rows_do_cspan (table, table->totalCols - num - 1);
+}
+
+static void
+expand_rows (HTMLTable *table, gint num)
 {
 	HTMLTableCell ***newRows = g_new (HTMLTableCell **, table->allocRows + num);
 	gint r;
@@ -177,11 +197,21 @@ add_rows (HTMLTable *table, gint num)
 	table->cells = newRows;
 
 	for (r = table->allocRows; r < table->allocRows + num; r++) {
-		table->cells[r] = g_new (HTMLTableCell *, table->totalCols);
-		memset (table->cells[r], 0, table->totalCols * sizeof (HTMLTableCell *));
+		table->cells [r] = g_new (HTMLTableCell *, table->totalCols);
+		memset (table->cells [r], 0, table->totalCols * sizeof (HTMLTableCell *));
 	}
 
 	table->allocRows += num;
+}
+
+static void
+inc_rows (HTMLTable *table, gint num)
+{
+	if (table->totalRows + num > table->allocRows)
+		expand_rows (table, num + 10);
+	table->totalRows += num;
+	if (table->totalRows - num > 0)
+		do_rspan (table, table->totalRows - num);
 }
 
 static void
@@ -643,7 +673,7 @@ scale_columns (HTMLTable *table, HTMLPainter *painter,
 
 			if (cell == 0)
 				continue;
-			if (r < table->totalRows && table->cells[r + 1][c] == cell)
+			if (r < table->totalRows - 1 && table->cells[r + 1][c] == cell)
 				continue;
 
 			if (HTML_OBJECT(cell)->flags
@@ -933,49 +963,65 @@ optimize_cell_width (HTMLTable *table,
 }
 
 static void
+do_cspan (HTMLTable *table, gint row, gint col, HTMLTableCell *cell)
+{
+	gint i;
+
+	g_assert (cell);
+	g_assert (cell->col <= col);
+
+	for (i=col - cell->col; i < cell->cspan && cell->col + i < table->totalCols; i++)
+		set_cell (table, row, cell->col + i, cell);
+}
+
+static void
+prev_col_do_cspan (HTMLTable *table, gint row)
+{
+	g_assert (row >= 0);
+
+	/* add previous column cell which has cspan > 1 */
+	while (table->col < table->totalCols && table->cells [row][table->col] != 0) {
+		do_cspan (table, row, table->col + 1, table->cells [row][table->col]);
+		table->col += (table->cells [row][table->col])->cspan;
+	}
+}
+
+static void
+do_rspan (HTMLTable *table, gint row)
+{
+	gint i;
+
+	g_assert (row > 0);
+
+	printf ("do_rspan\n");
+
+	for (i=0; i<table->totalCols; i++)
+		if (table->cells [row - 1][i]
+		    && (table->cells [row - 1][i])->row + (table->cells [row - 1][i])->rspan
+		    > row) {
+			set_cell (table, table->row, i, table->cells [table->row - 1][i]);
+			do_cspan (table, table->row, i + 1, table->cells [table->row -1][i]);
+		}
+}
+
+static void
 set_cell (HTMLTable *table, gint r, gint c, HTMLTableCell *cell)
 {
-	if (table->cells [r][c])
-		html_table_cell_unlink (table->cells [r][c]);
-	table->cells [r][c] = cell;
-	html_table_cell_link (cell);
+	if (!table->cells [r][c]) {
+		table->cells [r][c] = cell;
+		html_table_cell_link (cell);
+		HTML_OBJECT (cell)->parent = HTML_OBJECT (table);
+	}
 }
 
 static void
-add_cell (HTMLTable *table, gint r, gint c, HTMLTableCell *cell)
+alloc_cell (HTMLTable *table, gint r, gint c)
 {
-	g_return_if_fail (HTML_OBJECT (cell)->parent == NULL);
-	HTML_OBJECT (cell)->parent = HTML_OBJECT (table);
-	
 	if (c >= table->totalCols)
-		add_columns (table, c + 1 - table->totalCols);
-
-	if (r + 1 >= table->allocRows)
-		add_rows (table, r + 1 - table->allocRows + 10);
+		inc_columns (table, c + 1 - table->totalCols);
 
 	if (r >= table->totalRows)
-		table->totalRows = r + 1;
-
-	set_cell (table, r, c, cell);
-	html_table_cell_set_position (cell, r, c);
-}
-
-static void
-cell_fill (HTMLTable *table, HTMLTableCell *cell)
-{
-	gint r, c, sc;
-
-	g_assert (table);
-	g_assert (cell);
-	g_assert (cell->col >= 0);
-	g_assert (cell->row >= 0);
-
-	sc = cell->col + 1;
-	for (r = cell->row; r < cell->row + cell->rspan && r < table->totalRows; r++) {
-		for (c = sc; c < cell->col + cell->cspan && c < table->totalCols; c++)
-			set_cell (table, r, c, cell);
-		sc = cell->col;
-	}
+		inc_rows (table, r + 1 - table->totalRows);
 }
 
 
@@ -1655,14 +1701,20 @@ html_table_new (gint width, gint percent,
 }
 
 
+
 void
 html_table_add_cell (HTMLTable *table, HTMLTableCell *cell)
 {
-	while (table->col < table->totalCols && 
-	       table->cells [table->row][table->col] != 0)
-		table->col += (table->cells [table->row][table->col])->cspan;
+	alloc_cell (table, table->row, table->col);
+	prev_col_do_cspan (table, table->row);
 
-	add_cell (table, table->row, table->col, cell);
+	/* look for first free cell */
+	while (table->cells [table->row][table->col] && table->col < table->totalCols)
+		table->col++;
+
+	alloc_cell (table, table->row, table->col);
+	set_cell (table, table->row, table->col, cell);
+	html_table_cell_set_position (cell, table->row, table->col);
 }
 
 void
@@ -1674,26 +1726,20 @@ html_table_start_row (HTMLTable *table)
 void
 html_table_end_row (HTMLTable *table)
 {
-	while (table->col < table->totalCols && 
-	       table->cells [table->row][table->col] != 0)
-		table->col++;
-	if (table->col)
-		table->row++;
+	gint i;
+
+	for (i=0; i < table->totalCols; i++)
+		if (table->cells [table->row][table->col]) {
+			table->row++;
+			break;
+		}
 }
 
 void
 html_table_end_table (HTMLTable *table)
 {
-	gint r, c;
-
-	for (r=0; r<table->totalRows; r++)
-		for (c=0; c<table->totalCols; c++) {
-			HTMLTableCell *cell;
-
-			cell = table->cells [r][c];
-			if (cell && cell->row == r && cell->col == c && (cell->cspan > 1 || cell->rspan > 1))
-				cell_fill (table, cell);
-		}
+	if (table->row)
+		prev_col_do_cspan (table, table->row - 1);
 }
 
 gint

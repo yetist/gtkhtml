@@ -1,3 +1,9 @@
+2000-09-28  Radek Doulik  <rodo@helixcode.com>
+
+	* htmltable.c (scale_columns): fixed condition, where r could be
+	as high as table->totalRows, which was invalid
+	refactored + fixed col/row span
+
 2000-09-27  Radek Doulik  <rodo@helixcode.com>
 
 	* htmltextslave.c (calc_size): updated to UTF8 (I've missed this
