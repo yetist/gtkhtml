@@ -217,8 +217,9 @@ gtest_LDFLAGS =
 gtest_LDADD =	\
 	libgtkhtml-@GTKHTML_RELEASE@.la
 
+pkgconfig_in_files = libgtkhtml.pc.in
 pkgconfigdir = $(libdir)/pkgconfig
-pkgconfig_DATA = libgtkhtml.pc
+pkgconfig_DATA = $(pkgconfig_in_files:.pc.in=.pc)
 
 keybindingsdir = $(datadir)/gtkhtml-@GTKHTML_RELEASE@
 keybindings_DATA =		\
@@ -227,7 +228,6 @@ keybindings_DATA =		\
 EXTRA_DIST =			\
 	htmlclosures.list	\
 	$(keybindings_DATA)	\
-	$(pkgconfig_DATA)	\
 	$(NULL)
 
 install-data-hook:

@@ -1,3 +1,10 @@
+2004-03-12  Radek Doulik  <rodo@ximian.com>
+
+	* Makefile.am (EXTRA_DIST): remove pkgconfig_DATA
+	(pkgconfig_DATA): create from pkgconfig_in_files
+
+	Fixes #55514
+
 2004-03-09  Radek Doulik  <rodo@ximian.com>
 
 	* htmltext.c (copy): reset selection
