@@ -30,6 +30,7 @@
 /* Properties of a paragraph.  */
 struct _ClueFlowProps {
 	HTMLClueFlowStyle style;
+	HTMLListType item_type;
 	HTMLHAlignType alignment;
 	guint8 indentation;
 };
@@ -95,6 +96,7 @@ get_props (HTMLClueFlow *clueflow)
 	props->indentation = html_clueflow_get_indentation (clueflow);
 	props->alignment   = html_clueflow_get_halignment (clueflow);
 	props->style       = html_clueflow_get_style (clueflow);
+	props->item_type   = html_clueflow_get_item_type (clueflow);
 
 	return props;
 }
@@ -103,6 +105,7 @@ static ClueFlowProps *
 get_props_and_set (HTMLEngine *engine,
 		   HTMLClueFlow *clueflow,
 		   HTMLClueFlowStyle style,
+		   HTMLListType item_type,
 		   HTMLHAlignType alignment,
 		   gint indentation,
 		   HTMLEngineSetClueFlowStyleMask mask)
@@ -111,8 +114,10 @@ get_props_and_set (HTMLEngine *engine,
 
 	props = get_props (clueflow);
 
-	if (mask & HTML_ENGINE_SET_CLUEFLOW_STYLE)
+	if (mask & HTML_ENGINE_SET_CLUEFLOW_STYLE) {
 		html_clueflow_set_style (clueflow, engine, style);
+		html_clueflow_set_item_type (clueflow, engine, item_type);
+	}
 	if (mask & HTML_ENGINE_SET_CLUEFLOW_ALIGNMENT)
 		html_clueflow_set_halignment (clueflow, engine, alignment);
 
@@ -238,6 +243,7 @@ add_redo (HTMLEngine *engine,
 static void
 set_clueflow_style_in_region (HTMLEngine *engine,
 			      HTMLClueFlowStyle style,
+			      HTMLListType item_type,
 			      HTMLHAlignType alignment,
 			      gint indentation_delta,
 			      HTMLEngineSetClueFlowStyleMask mask,
@@ -272,7 +278,7 @@ set_clueflow_style_in_region (HTMLEngine *engine,
 
 		clueflow = HTML_CLUEFLOW (p->parent);
 		orig_props = get_props_and_set (engine, clueflow,
-						style, alignment, indentation_delta,
+						style, item_type, alignment, indentation_delta,
 						mask);
 
 		if (do_undo) {
@@ -299,6 +305,7 @@ set_clueflow_style_in_region (HTMLEngine *engine,
 static void
 set_clueflow_style_at_cursor (HTMLEngine *engine,
 			      HTMLClueFlowStyle style,
+			      HTMLListType item_type,
 			      HTMLHAlignType alignment,
 			      gint indentation_delta,
 			      HTMLEngineSetClueFlowStyleMask mask,
@@ -316,7 +323,7 @@ set_clueflow_style_at_cursor (HTMLEngine *engine,
 
 	clueflow = HTML_CLUEFLOW (curr->parent);
 	props = get_props_and_set (engine, clueflow,
-				   style, alignment, indentation_delta,
+				   style, item_type, alignment, indentation_delta,
 				   mask);
 
 	if (! do_undo) {
@@ -331,6 +338,7 @@ set_clueflow_style_at_cursor (HTMLEngine *engine,
 gboolean
 html_engine_set_clueflow_style (HTMLEngine *engine,
 				HTMLClueFlowStyle style,
+				HTMLListType item_type,
 				HTMLHAlignType alignment,
 				gint indentation_delta,
 				HTMLEngineSetClueFlowStyleMask mask,
@@ -344,12 +352,12 @@ html_engine_set_clueflow_style (HTMLEngine *engine,
 	html_engine_freeze (engine);
 	if (html_engine_is_selection_active (engine))
 		set_clueflow_style_in_region (engine,
-					      style, alignment, indentation_delta,
+					      style, item_type, alignment, indentation_delta,
 					      mask,
 					      do_undo);
 	else
 		set_clueflow_style_at_cursor (engine,
-					      style, alignment, indentation_delta,
+					      style, item_type, alignment, indentation_delta,
 					      mask,
 					      do_undo);
 	html_engine_thaw (engine);
@@ -382,21 +390,24 @@ get_current_para (HTMLEngine *engine)
 	return HTML_CLUEFLOW (parent);
 }
 
-HTMLClueFlowStyle
-html_engine_get_current_clueflow_style (HTMLEngine *engine)
+void
+html_engine_get_current_clueflow_style (HTMLEngine *engine, HTMLClueFlowStyle *style, HTMLListType *item_type)
 {
 	HTMLClueFlow *para;
 
 	/* FIXME TODO region */
 
-	g_return_val_if_fail (engine != NULL, HTML_CLUEFLOW_STYLE_NORMAL);
-	g_return_val_if_fail (HTML_IS_ENGINE (engine), HTML_CLUEFLOW_STYLE_NORMAL);
+	*style = HTML_CLUEFLOW_STYLE_NORMAL;
+	*item_type = HTML_LIST_TYPE_UNORDERED;
+
+	g_return_if_fail (engine != NULL);
+	g_return_if_fail (HTML_IS_ENGINE (engine));
 
 	para = get_current_para (engine);
-	if (para == NULL)
-		return HTML_CLUEFLOW_STYLE_NORMAL;
-
-	return para->style;
+	if (para) {
+		*style = para->style;
+		*item_type = para->item_type;
+	}
 }
  
 guint

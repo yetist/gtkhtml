@@ -26,12 +26,11 @@
 
 struct _HTMLList {
 	HTMLListType type;
-	HTMLListNumType numType;
 	gint itemNumber;
 };
 
 
-HTMLList *html_list_new (HTMLListType t, HTMLListNumType nt);
+HTMLList *html_list_new (HTMLListType t);
 void html_list_destroy (HTMLList *list);
 
 #endif /* _HTMLLIST_H_ */

@@ -125,7 +125,7 @@ typedef enum _TargetInfo TargetInfo;
 
 
 GtkHTMLParagraphStyle
-clueflow_style_to_paragraph_style (HTMLClueFlowStyle style)
+clueflow_style_to_paragraph_style (HTMLClueFlowStyle style, HTMLListType item_type)
 {
 	switch (style) {
 	case HTML_CLUEFLOW_STYLE_NORMAL:
@@ -146,47 +146,73 @@ clueflow_style_to_paragraph_style (HTMLClueFlowStyle style)
 		return GTK_HTML_PARAGRAPH_STYLE_ADDRESS;
 	case HTML_CLUEFLOW_STYLE_PRE:
 		return GTK_HTML_PARAGRAPH_STYLE_PRE;
-	case HTML_CLUEFLOW_STYLE_ITEMDOTTED:
-		return GTK_HTML_PARAGRAPH_STYLE_ITEMDOTTED;
-	case HTML_CLUEFLOW_STYLE_ITEMROMAN:
-		return GTK_HTML_PARAGRAPH_STYLE_ITEMROMAN;
-	case HTML_CLUEFLOW_STYLE_ITEMDIGIT:
-		return GTK_HTML_PARAGRAPH_STYLE_ITEMDIGIT;
+	case HTML_CLUEFLOW_STYLE_LIST_ITEM:
+		switch (item_type) {
+		case HTML_LIST_TYPE_UNORDERED:
+			return GTK_HTML_PARAGRAPH_STYLE_ITEMDOTTED;
+		case HTML_LIST_TYPE_ORDERED_ARABIC:
+			return GTK_HTML_PARAGRAPH_STYLE_ITEMDIGIT;
+		case HTML_LIST_TYPE_ORDERED_LOWER_ROMAN:
+		case HTML_LIST_TYPE_ORDERED_UPPER_ROMAN:
+			return GTK_HTML_PARAGRAPH_STYLE_ITEMROMAN;
+		case HTML_LIST_TYPE_ORDERED_LOWER_ALPHA:
+		case HTML_LIST_TYPE_ORDERED_UPPER_ALPHA:
+			return GTK_HTML_PARAGRAPH_STYLE_ITEMALPHA;
+		default:
+			return GTK_HTML_PARAGRAPH_STYLE_ITEMDOTTED;
+		}
 	default:		/* This should not really happen, though.  */
 		return GTK_HTML_PARAGRAPH_STYLE_NORMAL;
 	}
 }
 
-HTMLClueFlowStyle
-paragraph_style_to_clueflow_style (GtkHTMLParagraphStyle style)
+void
+paragraph_style_to_clueflow_style (GtkHTMLParagraphStyle style, HTMLClueFlowStyle *flow_style, HTMLListType *item_type)
 {
+	*item_type = HTML_LIST_TYPE_UNORDERED;
+	*flow_style = HTML_CLUEFLOW_STYLE_LIST_ITEM;
+
 	switch (style) {
 	case GTK_HTML_PARAGRAPH_STYLE_NORMAL:
-		return HTML_CLUEFLOW_STYLE_NORMAL;
+		*flow_style = HTML_CLUEFLOW_STYLE_NORMAL;
+		break;
 	case GTK_HTML_PARAGRAPH_STYLE_H1:
-		return HTML_CLUEFLOW_STYLE_H1;
+		*flow_style = HTML_CLUEFLOW_STYLE_H1;
+		break;
 	case GTK_HTML_PARAGRAPH_STYLE_H2:
-		return HTML_CLUEFLOW_STYLE_H2;
+		*flow_style = HTML_CLUEFLOW_STYLE_H2;
+		break;
 	case GTK_HTML_PARAGRAPH_STYLE_H3:
-		return HTML_CLUEFLOW_STYLE_H3;
+		*flow_style = HTML_CLUEFLOW_STYLE_H3;
+		break;
 	case GTK_HTML_PARAGRAPH_STYLE_H4:
-		return HTML_CLUEFLOW_STYLE_H4;
+		*flow_style = HTML_CLUEFLOW_STYLE_H4;
+		break;
 	case GTK_HTML_PARAGRAPH_STYLE_H5:
-		return HTML_CLUEFLOW_STYLE_H5;
+		*flow_style = HTML_CLUEFLOW_STYLE_H5;
+		break;
 	case GTK_HTML_PARAGRAPH_STYLE_H6:
-		return HTML_CLUEFLOW_STYLE_H6;
+		*flow_style = HTML_CLUEFLOW_STYLE_H6;
+		break;
 	case GTK_HTML_PARAGRAPH_STYLE_ADDRESS:
-		return HTML_CLUEFLOW_STYLE_ADDRESS;
+		*flow_style = HTML_CLUEFLOW_STYLE_ADDRESS;
+		break;
 	case GTK_HTML_PARAGRAPH_STYLE_PRE:
-		return HTML_CLUEFLOW_STYLE_PRE;
+		*flow_style = HTML_CLUEFLOW_STYLE_PRE;
+		break;
 	case GTK_HTML_PARAGRAPH_STYLE_ITEMDOTTED:
-		return HTML_CLUEFLOW_STYLE_ITEMDOTTED;
+		break;
 	case GTK_HTML_PARAGRAPH_STYLE_ITEMROMAN:
-		return HTML_CLUEFLOW_STYLE_ITEMROMAN;
+		*item_type = HTML_LIST_TYPE_ORDERED_UPPER_ROMAN;
+		break;
+	case GTK_HTML_PARAGRAPH_STYLE_ITEMALPHA:
+		*item_type = HTML_LIST_TYPE_ORDERED_UPPER_ALPHA;
+		break;
 	case GTK_HTML_PARAGRAPH_STYLE_ITEMDIGIT:
-		return HTML_CLUEFLOW_STYLE_ITEMDIGIT;
+		*item_type = HTML_LIST_TYPE_ORDERED_ARABIC;
+		break;
 	default:		/* This should not really happen, though.  */
-		return HTML_CLUEFLOW_STYLE_NORMAL;
+		*flow_style = HTML_CLUEFLOW_STYLE_NORMAL;
 	}
 }
 
@@ -226,6 +252,8 @@ gtk_html_update_styles (GtkHTML *html)
 	GtkHTMLParagraphStyle paragraph_style;
 	GtkHTMLParagraphAlignment alignment;
 	HTMLEngine *engine;
+	HTMLClueFlowStyle flow_style;
+	HTMLListType item_type;
 	guint indentation;
 
 	/* printf ("gtk_html_update_styles called\n"); */
@@ -234,7 +262,8 @@ gtk_html_update_styles (GtkHTML *html)
 		return;
 
 	engine          = html->engine;
-	paragraph_style = clueflow_style_to_paragraph_style (html_engine_get_current_clueflow_style (engine));
+	html_engine_get_current_clueflow_style (engine, &flow_style, &item_type);
+	paragraph_style = clueflow_style_to_paragraph_style (flow_style, item_type);
 
 	if (paragraph_style != html->priv->paragraph_style) {
 		html->priv->paragraph_style = paragraph_style;
@@ -2377,19 +2406,21 @@ gtk_html_set_paragraph_style (GtkHTML *html,
 {
 	HTMLClueFlowStyle current_style;
 	HTMLClueFlowStyle clueflow_style;
+	HTMLListType item_type;
+	HTMLListType cur_item_type;
 
 	g_return_if_fail (html != NULL);
 	g_return_if_fail (GTK_IS_HTML (html));
 
 	/* FIXME precondition: check if it's a valid style.  */
 
-	clueflow_style = paragraph_style_to_clueflow_style (style);
+	paragraph_style_to_clueflow_style (style, &clueflow_style, &item_type);
 
-	current_style = html_engine_get_current_clueflow_style (html->engine);
-	if (current_style == clueflow_style)
+	html_engine_get_current_clueflow_style (html->engine, &current_style, &cur_item_type);
+	if (current_style == clueflow_style && item_type == cur_item_type)
 		return;
 
-	if (! html_engine_set_clueflow_style (html->engine, clueflow_style, 0, 0,
+	if (! html_engine_set_clueflow_style (html->engine, clueflow_style, item_type, 0, 0,
 					      HTML_ENGINE_SET_CLUEFLOW_STYLE, TRUE))
 		return;
 
@@ -2403,7 +2434,12 @@ gtk_html_set_paragraph_style (GtkHTML *html,
 GtkHTMLParagraphStyle
 gtk_html_get_paragraph_style (GtkHTML *html)
 {
-	return html_engine_get_current_clueflow_style (html->engine);
+	HTMLClueFlowStyle style;
+	HTMLListType item_type;
+
+	html_engine_get_current_clueflow_style (html->engine, &style, &item_type);
+
+	return clueflow_style_to_paragraph_style (style, item_type);
 }
 
 void
@@ -2413,7 +2449,7 @@ gtk_html_set_indent (GtkHTML *html,
 	g_return_if_fail (html != NULL);
 	g_return_if_fail (GTK_IS_HTML (html));
 
-	html_engine_set_clueflow_style (html->engine, 0, 0, level,
+	html_engine_set_clueflow_style (html->engine, 0, 0, 0, level,
 					HTML_ENGINE_SET_CLUEFLOW_INDENTATION, TRUE);
 
 	gtk_html_update_styles (html);
@@ -2426,7 +2462,7 @@ gtk_html_modify_indent_by_delta (GtkHTML *html,
 	g_return_if_fail (html != NULL);
 	g_return_if_fail (GTK_IS_HTML (html));
 
-	html_engine_set_clueflow_style (html->engine, 0, 0, delta,
+	html_engine_set_clueflow_style (html->engine, 0, 0, 0, delta,
 					HTML_ENGINE_SET_CLUEFLOW_INDENTATION_DELTA, TRUE);
 
 	gtk_html_update_styles (html);
@@ -2485,7 +2521,7 @@ gtk_html_set_paragraph_alignment (GtkHTML *html,
 
 	align = paragraph_alignment_to_html (alignment);
 
-	html_engine_set_clueflow_style (html->engine, 0, align, 0,
+	html_engine_set_clueflow_style (html->engine, 0, 0, align, 0,
 					HTML_ENGINE_SET_CLUEFLOW_ALIGNMENT, TRUE);
 }
 

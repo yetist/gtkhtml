@@ -1,6 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8 -*- */
 /*
    Copyright (C) 2000 Helix Code, Inc.
+   Copyright (C) 2001 Ximian, Inc.
 
    The Gnome Library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public License as
@@ -17,7 +18,7 @@
    write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
    Boston, MA 02111-1307, USA.
 
-   Author: Radek Doulik <rodo@helixcode.com>
+   Author: Radek Doulik <rodo@ximian.com>
 
 */
 
@@ -57,9 +58,7 @@ typedef enum {
 	HTML_CLUEFLOW_STYLE_H6,
 	HTML_CLUEFLOW_STYLE_ADDRESS,
 	HTML_CLUEFLOW_STYLE_PRE,
-	HTML_CLUEFLOW_STYLE_ITEMDOTTED,
-	HTML_CLUEFLOW_STYLE_ITEMROMAN,
-	HTML_CLUEFLOW_STYLE_ITEMDIGIT,
+	HTML_CLUEFLOW_STYLE_LIST_ITEM,
 	HTML_CLUEFLOW_NUMSTYLES
 } HTMLClueFlowStyle;
 
@@ -115,17 +114,12 @@ typedef enum {
 } HTMLHAlignType;
 
 typedef enum {
-	HTML_LIST_NUM_TYPE_NUMERIC,
-	HTML_LIST_NUM_TYPE_LOWALPHA,
-	HTML_LIST_NUM_TYPE_UPALPHA,
-	HTML_LIST_NUM_TYPE_LOWROMAN,
-	HTML_LIST_NUM_TYPE_UPROMAN
-} HTMLListNumType;
-
-typedef enum {
 	HTML_LIST_TYPE_UNORDERED,
-	HTML_LIST_TYPE_UNORDEREDPLAIN,
-	HTML_LIST_TYPE_ORDERED,
+	HTML_LIST_TYPE_ORDERED_ARABIC,
+	HTML_LIST_TYPE_ORDERED_LOWER_ALPHA,
+	HTML_LIST_TYPE_ORDERED_UPPER_ALPHA,
+	HTML_LIST_TYPE_ORDERED_LOWER_ROMAN,
+	HTML_LIST_TYPE_ORDERED_UPPER_ROMAN,
 	HTML_LIST_TYPE_MENU,
 	HTML_LIST_TYPE_DIR
 } HTMLListType;

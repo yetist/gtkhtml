@@ -425,6 +425,7 @@ html_engine_save_get_paragraph_style (GtkHTMLParagraphStyle style)
 	case GTK_HTML_PARAGRAPH_STYLE_ITEMDOTTED:
 	case GTK_HTML_PARAGRAPH_STYLE_ITEMROMAN:
 	case GTK_HTML_PARAGRAPH_STYLE_ITEMDIGIT:
+	case GTK_HTML_PARAGRAPH_STYLE_ITEMALPHA:
 		return "li";
 	}
 

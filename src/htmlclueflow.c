@@ -69,6 +69,50 @@ copy (HTMLObject *self,
 
 	HTML_CLUEFLOW (dest)->style = HTML_CLUEFLOW (self)->style;
 	HTML_CLUEFLOW (dest)->level = HTML_CLUEFLOW (self)->level;
+	HTML_CLUEFLOW (dest)->item_type = HTML_CLUEFLOW (self)->item_type;
+	HTML_CLUEFLOW (dest)->item_number = HTML_CLUEFLOW (self)->item_number;
+}
+
+static inline gboolean
+is_item (HTMLClueFlow *flow)
+{
+	return flow && flow->style == HTML_CLUEFLOW_STYLE_LIST_ITEM;
+}
+
+static inline gboolean
+items_are_relative (HTMLObject *self, HTMLObject *next_object)
+{
+	HTMLClueFlow *flow, *next;
+
+	if (!self || !next_object)
+		return FALSE;
+	flow = HTML_CLUEFLOW (self);
+	next = HTML_CLUEFLOW (next_object);
+
+	if (!is_item (flow)
+	    || !is_item (next)
+	    || flow->level != next->level
+	    || next->item_type != flow->item_type)
+		return FALSE;
+
+	return TRUE;
+}
+
+static void
+update_item_number (HTMLObject *self)
+{
+	if (!self)
+		return;
+
+	if (items_are_relative (self->prev, self))
+		HTML_CLUEFLOW (self)->item_number = HTML_CLUEFLOW (self->prev)->item_number + 1;
+	else if (is_item (HTML_CLUEFLOW (self)))
+		HTML_CLUEFLOW (self)->item_number = 1;
+
+	while (items_are_relative (self, self->next)) {
+		HTML_CLUEFLOW (self->next)->item_number = HTML_CLUEFLOW (self)->item_number + 1;
+		self = self->next;
+	}
 }
 
 static guint
@@ -103,7 +147,12 @@ op_copy (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
 static HTMLObject *
 op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GList *right, guint *len)
 {
-	return op_helper (self, e, from, to, left, right, len, TRUE);
+	HTMLObject *rv;
+
+	rv = op_helper (self, e, from, to, left, right, len, TRUE);
+	update_item_number (self);
+
+	return rv;
 }
 
 static void
@@ -111,6 +160,7 @@ split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint lev
 {
 	html_clueflow_remove_text_slaves (HTML_CLUEFLOW (self));
 	(*HTML_OBJECT_CLASS (parent_class)->split) (self, e, child, offset, level, left, right);
+	update_item_number (self);
 }
 
 inline static gboolean
@@ -126,6 +176,7 @@ static gboolean
 merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList *left, GList *right)
 {
 	HTMLClueFlow *cf1, *cf2;
+	gboolean rv;
 
 	cf1 = HTML_CLUEFLOW (self);
 	cf2 = HTML_CLUEFLOW (with);
@@ -133,20 +184,31 @@ merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList *left, GList *ri
 	html_clueflow_remove_text_slaves (cf1);
 	html_clueflow_remove_text_slaves (cf2);
 
-	printf ("merge flows\n");
+	/* printf ("merge flows\n"); */
 
-	if (!could_merge (cf1, cf2))
+	if (!could_merge (cf1, cf2)) {
+		update_item_number (self);
 		return FALSE;
+	}
 
+	/* printf ("merge happens\n"); */
 	if (html_clueflow_is_empty (cf1)) {
 		cf1->style = cf2->style;
 		cf1->level = cf2->level;
+		cf1->item_type = cf2->item_type;
+		cf1->item_number = cf2->item_number - 1;
 		HTML_CLUE  (cf1)->halign = HTML_CLUE (cf2)->halign;
 		HTML_CLUE  (cf1)->valign = HTML_CLUE (cf2)->valign;
 		html_object_copy_data_from_object (self, with);
 	}
 
-	return (* HTML_OBJECT_CLASS (parent_class)->merge) (self, with, e, left, right);
+	rv = (* HTML_OBJECT_CLASS (parent_class)->merge) (self, with, e, left, right);
+
+	cf1->item_number --;
+	update_item_number (with);
+	cf1->item_number ++;
+
+	return rv;
 }
 
 static guint
@@ -189,18 +251,6 @@ calc_bullet_size (HTMLPainter *painter)
 }
 
 
-static gboolean
-is_item (HTMLClueFlow *flow)
-{
-	switch (flow->style) {
-	case HTML_CLUEFLOW_STYLE_ITEMDOTTED:
-	case HTML_CLUEFLOW_STYLE_ITEMROMAN:
-	case HTML_CLUEFLOW_STYLE_ITEMDIGIT:
-		return TRUE;
-	default:
-		return FALSE;
-	}
-}
 
 static gboolean
 is_header (HTMLClueFlow *flow)
@@ -232,7 +282,9 @@ get_pre_padding (HTMLClueFlow *flow,
 		HTMLClueFlow *prev;
 
 		prev = HTML_CLUEFLOW (prev_object);
-		if (prev->level > 0 && flow->level == 0)
+		if ((prev->level > 0 && flow->level == 0)
+		    || (is_item (prev) && is_item (flow) && prev->item_type != flow->item_type
+			&& prev->item_type != HTML_LIST_TYPE_UNORDERED && flow->item_type != HTML_LIST_TYPE_UNORDERED))
 			return pad;
 
 		if (flow->style == HTML_CLUEFLOW_STYLE_PRE
@@ -322,7 +374,7 @@ get_indent (HTMLClueFlow *flow,
 	if (level > 0 || ! is_item (flow))
 		indent = level * calc_indent_unit (painter);
 	else
-		indent = 2 * calc_bullet_size (painter);
+		indent = 5 * html_painter_get_space_width (painter, html_clueflow_get_default_font_style (flow), NULL);
 
 	return indent;
 }
@@ -819,27 +871,83 @@ calc_preferred_width (HTMLObject *o,
 	return maxw + get_indent (HTML_CLUEFLOW (o), painter);
 }
 
-static void
-draw (HTMLObject *self,
-      HTMLPainter *painter,
-      gint x, gint y,
-      gint width, gint height,
-      gint tx, gint ty)
+static gchar *
+get_alpha_value (gint value, gboolean lower)
 {
-	HTMLClueFlow *clueflow;
+	GString *str;
+	gchar *rv;
+	gint add = lower ? 'a' : 'A';
+
+	str = g_string_new (".");
+
+	do {
+		g_string_prepend_c (str, ((value - 1) % 26) + add);
+		value = (value - 1) / 26;
+	} while (value);
+
+	rv = str->str;
+	g_string_free (str, FALSE);
+
+	return rv;
+}
+
+#define BASES 7
+
+static gchar *
+get_roman_value (gint value, gboolean lower)
+{
+	GString *str;
+	gchar *rv, *base = "IVXLCDM";
+	gint b, r, add = lower ? 'a' - 'A' : 0;
+
+	if (value > 3999)
+		g_strdup ("?.");
+
+	str = g_string_new (".");
+
+	for (b = 0; value > 0 && b < BASES - 1; b += 2, value /= 10) {
+		r = value % 10;
+		if (r != 0) {
+			if (r < 4) {
+				for (; r; r--)
+					g_string_prepend_c (str, base [b] + add);
+			} else if (r == 4) {
+				g_string_prepend_c (str, base [b + 1] + add);
+				g_string_prepend_c (str, base [b] + add);
+			} else if (r == 5) {
+				g_string_prepend_c (str, base [b + 1] + add);
+			} else if (r < 9) {
+				for (; r > 5; r--)
+					g_string_prepend_c (str, base [b] + add);
+				g_string_prepend_c (str, base [b + 1] + add);
+			} else if (r == 9) {
+				g_string_prepend_c (str, base [b + 2] + add);
+				g_string_prepend_c (str, base [b] + add);
+			}
+		}
+	}
+
+	rv = str->str;
+	g_string_free (str, FALSE);
+
+	return rv;
+}
+
+static void
+draw_item (HTMLObject *self, HTMLPainter *painter, gint x, gint y, gint width, gint height, gint tx, gint ty)
+{
+	HTMLClueFlow *flow;
 	HTMLObject *first;
-	guint bullet_size;
 
-	if (y > self->y + self->descent || y + height < self->y - self->ascent)
-		return;
-
-	clueflow = HTML_CLUEFLOW (self);
 	first = HTML_CLUE (self)->head;
 
-	if (first != NULL && is_item (clueflow)) {
-		gint xp, yp;
+	flow = HTML_CLUEFLOW (self);
+	html_painter_set_pen (painter, &html_colorset_get_color_allocated (painter, HTMLTextColor)->color);
 
-		bullet_size = calc_bullet_size (painter);
+	if (flow->item_type == HTML_LIST_TYPE_UNORDERED) {
+		guint bullet_size;
+		gint xp, yp;
+		bullet_size = MAX (3, calc_bullet_size (painter));
 
 		xp = self->x + first->x - 2 * bullet_size;
 		yp = self->y - self->ascent 
@@ -849,20 +957,65 @@ draw (HTMLObject *self,
 
 		xp += tx, yp += ty;
 
-	 	html_painter_set_pen (painter,
-				      &html_colorset_get_color_allocated (painter, HTMLTextColor)->color);
+		if (flow->level == 0 || (flow->level & 1) != 0)
+			html_painter_fill_rect (painter, xp + 1, yp + 1, bullet_size - 2, bullet_size - 2);
 
-		if (clueflow->level == 0 || (clueflow->level & 1) != 0)
-			html_painter_fill_rect (painter, xp, yp, bullet_size, bullet_size);
-		else
-			html_painter_draw_rect (painter, xp, yp, bullet_size, bullet_size);
+		html_painter_draw_line (painter, xp + 1, yp, xp + bullet_size - 2, yp);
+		html_painter_draw_line (painter, xp + 1, yp + bullet_size - 1,
+					xp + bullet_size - 2, yp + bullet_size - 1);
+		html_painter_draw_line (painter, xp, yp + 1, xp, yp + bullet_size - 2);
+		html_painter_draw_line (painter, xp + bullet_size - 1, yp + 1,
+					xp + bullet_size - 1, yp + bullet_size - 2);
+	} else {
+		gchar *number = NULL;
+
+		switch (flow->item_type) {
+		case HTML_LIST_TYPE_ORDERED_ARABIC:
+			number = g_strdup_printf ("%d.", flow->item_number);
+			break;
+		case HTML_LIST_TYPE_ORDERED_LOWER_ALPHA:
+		case HTML_LIST_TYPE_ORDERED_UPPER_ALPHA:
+			number = get_alpha_value (flow->item_number, flow->item_type == HTML_LIST_TYPE_ORDERED_LOWER_ALPHA);
+			break;
+		case HTML_LIST_TYPE_ORDERED_LOWER_ROMAN:
+		case HTML_LIST_TYPE_ORDERED_UPPER_ROMAN:
+			number = get_roman_value (flow->item_number, flow->item_type == HTML_LIST_TYPE_ORDERED_LOWER_ROMAN);
+			break;
+		default:
+			;
+		}
+
+		if (number) {
+			gint width, len;
+
+			len   = strlen (number);
+			width = html_painter_calc_text_width (painter, number, len, 0,
+							      html_clueflow_get_default_font_style (flow), NULL)
+				+ html_painter_get_space_width (painter, html_clueflow_get_default_font_style (flow), NULL);
+			html_painter_set_font_style (painter, html_clueflow_get_default_font_style (flow));
+			html_painter_set_font_face  (painter, NULL);
+			html_painter_draw_text (painter, self->x + first->x - width + tx,
+						self->y - self->ascent + first->y + ty,
+						number, strlen (number), 0);
+		}
+		g_free (number);
 	}
+}
 
-	(* HTML_OBJECT_CLASS (&html_clue_class)->draw) (self,
-							painter, 
-							x, y,
-							width, height,
-							tx, ty);
+static void
+draw (HTMLObject *self,
+      HTMLPainter *painter,
+      gint x, gint y,
+      gint width, gint height,
+      gint tx, gint ty)
+{
+	if (y > self->y + self->descent || y + height < self->y - self->ascent)
+		return;
+
+	if (HTML_CLUE (self)->head != NULL && is_item (HTML_CLUEFLOW (self)))
+		draw_item (self, painter, x, y, width, height, tx, ty);
+
+	(* HTML_OBJECT_CLASS (&html_clue_class)->draw) (self, painter, x, y, width, height, tx, ty);
 }
 
 static void
@@ -1003,15 +1156,34 @@ write_indent (HTMLEngineSaveState *state)
 	return html_engine_save_output_string (state, "    ");
 }
 
+/* static const char *
+get_item_tag 
+(HTMLClueFlow *flow)
+{
+	switch (flow->item_type) {
+	case HTML_LIST_TYPE_UNORDERED:
+		return "ul";
+	case HTML_LIST_TYPE_ORDERED_ARABIC:
+		return "ol";
+	case HTML_LIST_TYPE_ORDERED_LOWER_ROMAN:
+		return "ol type=i";
+	case HTML_LIST_TYPE_ORDERED_UPPER_ROMAN:
+		return "ol type=I";
+	case HTML_LIST_TYPE_ORDERED_LOWER_ALPHA:
+		return "ol type=a";
+	case HTML_LIST_TYPE_ORDERED_UPPER_ALPHA:
+		return "ol type=A";
+	default:
+		return "ul";
+	}
+} */
+
 static const char *
 get_tag (HTMLClueFlow *flow)
 {
 	switch (flow->style) {
-	case HTML_CLUEFLOW_STYLE_ITEMDOTTED:
-		return "ul";
-	case HTML_CLUEFLOW_STYLE_ITEMROMAN:
-	case HTML_CLUEFLOW_STYLE_ITEMDIGIT:
-		return "ol";
+	case HTML_CLUEFLOW_STYLE_LIST_ITEM:
+		return NULL;
 	case HTML_CLUEFLOW_STYLE_NORMAL:
 	case HTML_CLUEFLOW_STYLE_H1:
 	case HTML_CLUEFLOW_STYLE_H2:
@@ -1092,12 +1264,13 @@ write_pre_tags (HTMLClueFlow *self,
 
 	curr_tag = get_tag (self);
 
-	if (prev != NULL && strcmp (prev_tag, curr_tag) == 0) {
+	if (prev_tag != NULL && strcmp (prev_tag, curr_tag) == 0) {
 		write_indentation_tags (state, prev->level, self->level, prev_tag);
 	} else {
-		if (prev != NULL)
+		if (prev_tag != NULL)
 			write_indentation_tags (state, prev->level, 0, prev_tag);
-		write_indentation_tags (state, 0, self->level, curr_tag);
+		if (curr_tag != NULL)
+			write_indentation_tags (state, 0, self->level, curr_tag);
 	}
 
 	return TRUE;
@@ -1113,7 +1286,8 @@ write_post_tags (HTMLClueFlow *self,
 		return TRUE;
 
 	tag = get_tag (self);
-	write_indentation_tags (state, self->level, 0, tag);
+	if (tag)
+		write_indentation_tags (state, self->level, 0, tag);
 
 	return TRUE;
 }
@@ -1131,12 +1305,119 @@ is_similar (HTMLObject *self, HTMLObject *friend)
 }
 
 static gboolean
+need_list_begin (HTMLObject *self)
+{
+	return !items_are_relative (self->prev, self)
+		&& (!self->prev
+		    || (HTML_IS_CLUEFLOW (self->prev)
+			&& HTML_CLUEFLOW (self->prev)->level < HTML_CLUEFLOW (self)->level))
+		    && HTML_CLUEFLOW (self)->level > 0;
+}
+
+static gboolean
+need_list_end (HTMLObject *self)
+{
+	return !items_are_relative (self, self->next)
+		&& (!self->next
+		    || (HTML_IS_CLUEFLOW (self->next)
+			&& HTML_CLUEFLOW (self->next)->level < HTML_CLUEFLOW (self)->level))
+		    && HTML_CLUEFLOW (self)->level > 0;
+}
+
+static gchar *
+get_start_tag (HTMLObject *self)
+{
+	switch (HTML_CLUEFLOW (self)->style) {
+	case HTML_CLUEFLOW_STYLE_H1:
+		return g_strdup ("h1");
+	case HTML_CLUEFLOW_STYLE_H2:
+		return g_strdup ("h2");
+	case HTML_CLUEFLOW_STYLE_H3:
+		return g_strdup ("h3");
+	case HTML_CLUEFLOW_STYLE_H4:
+		return g_strdup ("h4");
+	case HTML_CLUEFLOW_STYLE_H5:
+		return g_strdup ("h5");
+	case HTML_CLUEFLOW_STYLE_H6:
+		return g_strdup ("h6");
+	case HTML_CLUEFLOW_STYLE_ADDRESS:
+		return g_strdup ("address");
+	case HTML_CLUEFLOW_STYLE_PRE:
+		return g_strdup ("pre");
+	case HTML_CLUEFLOW_STYLE_LIST_ITEM:
+		switch (HTML_CLUEFLOW (self)->item_type) {
+		case HTML_LIST_TYPE_UNORDERED:
+		case HTML_LIST_TYPE_MENU:
+		case HTML_LIST_TYPE_DIR:
+			return g_strdup (need_list_begin (self) ? "ul><li" : "li");
+		case HTML_LIST_TYPE_ORDERED_ARABIC:
+			return need_list_begin (self)
+				? g_strdup ("ol type=1><li")
+				: g_strdup_printf ("li type=1 value=%d", HTML_CLUEFLOW (self)->item_number);
+		case HTML_LIST_TYPE_ORDERED_UPPER_ROMAN:
+			return need_list_begin (self)
+				? g_strdup ("ol type=I><li")
+				: g_strdup_printf ("li type=I value=%d", HTML_CLUEFLOW (self)->item_number);
+		case HTML_LIST_TYPE_ORDERED_LOWER_ROMAN:
+			return need_list_begin (self)
+				? g_strdup ("ol type=i><li")
+				: g_strdup_printf ("li type=i value=%d", HTML_CLUEFLOW (self)->item_number);
+		case HTML_LIST_TYPE_ORDERED_UPPER_ALPHA:
+			return need_list_begin (self)
+				? g_strdup ("ol type=A><li")
+				: g_strdup_printf ("li type=A value=%d", HTML_CLUEFLOW (self)->item_number);
+		case HTML_LIST_TYPE_ORDERED_LOWER_ALPHA:
+			return need_list_begin (self)
+				? g_strdup ("ol type=a><li")
+				: g_strdup_printf ("li type=a value=%d", HTML_CLUEFLOW (self)->item_number);
+		}
+	case HTML_CLUEFLOW_STYLE_NORMAL:
+	default:
+		return NULL;
+	}
+}
+
+static gchar *
+get_end_tag (HTMLObject *self)
+{
+	switch (HTML_CLUEFLOW (self)->style) {
+	case HTML_CLUEFLOW_STYLE_H1:
+		return g_strdup ("h1");
+	case HTML_CLUEFLOW_STYLE_H2:
+		return g_strdup ("h2");
+	case HTML_CLUEFLOW_STYLE_H3:
+		return g_strdup ("h3");
+	case HTML_CLUEFLOW_STYLE_H4:
+		return g_strdup ("h4");
+	case HTML_CLUEFLOW_STYLE_H5:
+		return g_strdup ("h5");
+	case HTML_CLUEFLOW_STYLE_H6:
+		return g_strdup ("h6");
+	case HTML_CLUEFLOW_STYLE_ADDRESS:
+		return g_strdup ("address");
+	case HTML_CLUEFLOW_STYLE_PRE:
+		return g_strdup ("pre");
+	case HTML_CLUEFLOW_STYLE_LIST_ITEM:
+		switch (HTML_CLUEFLOW (self)->item_type) {
+		case HTML_LIST_TYPE_UNORDERED:
+		case HTML_LIST_TYPE_MENU:
+		case HTML_LIST_TYPE_DIR:
+			return g_strdup (need_list_begin (self) ? "ul" : "li");
+		default:
+			return g_strdup (need_list_end (self) ? "ol" : "li");
+		}
+	default:
+		return NULL;
+	}
+}
+
+static gboolean
 save (HTMLObject *self,
       HTMLEngineSaveState *state)
 {
 	HTMLClueFlow *clueflow;
 	HTMLHAlignType halign;
-	const gchar *tag;
+	gchar *tag;
 	gboolean start = TRUE, end = TRUE;
 	gint i;
 
@@ -1145,8 +1426,6 @@ save (HTMLObject *self,
 
 	if (! write_pre_tags (clueflow, state))
 		return FALSE;
-
-	tag = html_engine_save_get_paragraph_style (clueflow_style_to_paragraph_style (clueflow->style));
 
 	if (is_similar (self, self->prev))
 		start = FALSE;
@@ -1171,19 +1450,27 @@ save (HTMLObject *self,
 	}
 
 	/* Start tag.  */
+	tag = get_start_tag (self);
 	if (tag != NULL && (start || is_item (clueflow))
-	    && (! html_engine_save_output_string (state, "<%s>", tag)))
+	    && (! html_engine_save_output_string (state, "<%s>", tag))) {
+		g_free (tag);
 		return FALSE;
+	}
+	g_free (tag);
 
 	/* Paragraph's content.  */
 	if (! HTML_OBJECT_CLASS (&html_clue_class)->save (self, state))
 		return FALSE;
 
 	/* End tag.  */
+	tag = get_end_tag (self);
 	if (tag && (end || is_item (clueflow))) {
-		if (! html_engine_save_output_string (state, "</%s>", tag))
+		if (! html_engine_save_output_string (state, "</%s>", tag)) {
+			g_free (tag);
 			return FALSE;
+		}
 	}
+	g_free (tag);
 
 	/* Close alignment tag.  */
 	if (halign != HTML_HALIGN_NONE && halign != HTML_HALIGN_LEFT) {
@@ -1337,9 +1624,7 @@ get_default_font_style (const HTMLClueFlow *self)
 
 	switch (self->style) {
 	case HTML_CLUEFLOW_STYLE_NORMAL:
-	case HTML_CLUEFLOW_STYLE_ITEMDOTTED:
-	case HTML_CLUEFLOW_STYLE_ITEMROMAN:
-	case HTML_CLUEFLOW_STYLE_ITEMDIGIT:
+	case HTML_CLUEFLOW_STYLE_LIST_ITEM:
 		return style | GTK_HTML_FONT_STYLE_SIZE_3;
 	case HTML_CLUEFLOW_STYLE_ADDRESS:
 		return style | GTK_HTML_FONT_STYLE_SIZE_3 | GTK_HTML_FONT_STYLE_ITALIC;
@@ -1656,10 +1941,8 @@ html_clueflow_class_init (HTMLClueFlowClass *klass,
 }
 
 void
-html_clueflow_init (HTMLClueFlow *clueflow,
-		    HTMLClueFlowClass *klass,
-		    HTMLClueFlowStyle style,
-		    guint8 level)
+html_clueflow_init (HTMLClueFlow *clueflow, HTMLClueFlowClass *klass,
+		    HTMLClueFlowStyle style, guint8 level, HTMLListType item_type, gint item_number)
 {
 	HTMLObject *object;
 	HTMLClue *clue;
@@ -1676,15 +1959,18 @@ html_clueflow_init (HTMLClueFlow *clueflow,
 
 	clueflow->style = style;
 	clueflow->level = level; 
+
+	clueflow->item_type   = item_type;
+	clueflow->item_number = item_number;
 }
 
 HTMLObject *
-html_clueflow_new (HTMLClueFlowStyle style, guint8 level)
+html_clueflow_new (HTMLClueFlowStyle style, guint8 level, HTMLListType item_type, gint item_number)
 {
 	HTMLClueFlow *clueflow;
 
 	clueflow = g_new (HTMLClueFlow, 1);
-	html_clueflow_init (clueflow, &html_clueflow_class, style, level);
+	html_clueflow_init (clueflow, &html_clueflow_class, style, level, item_type, item_number);
 
 	return HTML_OBJECT (clueflow);
 }
@@ -1694,7 +1980,7 @@ html_clueflow_new_from_flow (HTMLClueFlow *flow)
 {
 	HTMLObject *o;
 
-	o = html_clueflow_new (flow->style, flow->level);
+	o = html_clueflow_new (flow->style, flow->level, flow->item_type, flow->item_number);
 	html_object_copy_data_from_object (o, HTML_OBJECT (flow));
 
 	return o;
@@ -1809,6 +2095,29 @@ html_clueflow_set_style (HTMLClueFlow *flow,
 		html_object_clear_word_width (HTML_OBJECT (flow));
 	html_object_change_set (HTML_OBJECT (flow), HTML_CHANGE_ALL);
 	flow->style = style;
+	if (!(style & HTML_CLUEFLOW_STYLE_LIST_ITEM))
+		flow->item_number = 0;
+	else
+		flow->level = MAX (1, flow->level);
+
+	html_engine_schedule_update (engine);
+	/* FIXME - make it more effective: relayout_with_siblings (flow, engine); */
+}
+
+void
+html_clueflow_set_item_type (HTMLClueFlow *flow,
+			     HTMLEngine *engine,
+			     HTMLListType item_type)
+{
+	g_return_if_fail (flow != NULL);
+	g_return_if_fail (engine != NULL);
+	g_return_if_fail (HTML_IS_ENGINE (engine));
+
+	html_object_change_set (HTML_OBJECT (flow), HTML_CHANGE_ALL);
+	flow->item_type = item_type;
+	update_item_number (HTML_OBJECT (flow));
+	if (!items_are_relative (HTML_OBJECT (flow), HTML_OBJECT (flow)->next) && HTML_OBJECT (flow)->next)
+		update_item_number (HTML_OBJECT (flow)->next);
 
 	html_engine_schedule_update (engine);
 	/* FIXME - make it more effective: relayout_with_siblings (flow, engine); */
@@ -1820,6 +2129,14 @@ html_clueflow_get_style (HTMLClueFlow *flow)
 	g_return_val_if_fail (flow != NULL, HTML_CLUEFLOW_STYLE_NORMAL);
 
 	return flow->style;
+}
+
+HTMLListType
+html_clueflow_get_item_type (HTMLClueFlow *flow)
+{
+	g_return_val_if_fail (flow != NULL, HTML_CLUEFLOW_STYLE_NORMAL);
+
+	return flow->item_type;
 }
 
 void

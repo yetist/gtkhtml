@@ -24,13 +24,12 @@
 
 
 HTMLList *
-html_list_new (HTMLListType t, HTMLListNumType nt)
+html_list_new (HTMLListType t)
 {
 	HTMLList *list;
 	
 	list = g_new0 (HTMLList, 1);
 	list->type = t;
-	list->numType = nt;
 	list->itemNumber = 1;
 
 	return list;

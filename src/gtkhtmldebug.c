@@ -92,12 +92,8 @@ clueflow_style_to_string (HTMLClueFlowStyle style)
 		return "Address";
 	case HTML_CLUEFLOW_STYLE_PRE:
 		return "Pre";
-	case HTML_CLUEFLOW_STYLE_ITEMDOTTED:
-		return "ItemDotted";
-	case HTML_CLUEFLOW_STYLE_ITEMROMAN:
-		return "ItemRoman";
-	case HTML_CLUEFLOW_STYLE_ITEMDIGIT:
-		return "ItemDigit";
+	case HTML_CLUEFLOW_STYLE_LIST_ITEM:
+		return "List Item";
 	default:
 		return "UNKNOWN";
 	}

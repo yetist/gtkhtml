@@ -981,7 +981,7 @@ append_object (HTMLEngine *e, HTMLObject *o, guint len, HTMLUndoDirection dir)
 	} else {
 		HTMLObject *flow;
 
-		flow  = html_clueflow_new (HTML_CLUEFLOW_STYLE_NORMAL, 0);
+		flow  = html_clueflow_new (HTML_CLUEFLOW_STYLE_NORMAL, 0, HTML_LIST_TYPE_UNORDERED, 1);
 		html_clue_append (HTML_CLUE (flow), o);
 
 		html_object_split (e->cursor->object, e, NULL, e->cursor->offset, 2, &left, &right);

@@ -39,6 +39,11 @@ struct _HTMLClueFlow {
 
 	/* Indentation level for blockquote and lists.  */
 	guint8 level;
+
+	/* list item attributes - this will be ideally moved to list item type
+	   based on HTMLClueFlow once we have real types */
+	HTMLListType item_type;
+	gint         item_number;
 };
 
 struct _HTMLClueFlowClass {
@@ -58,9 +63,13 @@ void               html_clueflow_class_init                   (HTMLClueFlowClass
 void               html_clueflow_init                         (HTMLClueFlow       *flow,
 							       HTMLClueFlowClass  *klass,
 							       HTMLClueFlowStyle   style,
-							       guint8              indentation);
+							       guint8              indentation,
+							       HTMLListType        item_type,
+							       gint                item_number);
 HTMLObject        *html_clueflow_new                          (HTMLClueFlowStyle   style,
-							       guint8              indentation);
+							       guint8              indentation,
+							       HTMLListType        item_type,
+							       gint                item_number);
 HTMLObject        *html_clueflow_new_from_flow                (HTMLClueFlow       *flow);
 GtkHTMLFontStyle   html_clueflow_get_default_font_style       (const HTMLClueFlow *self);
 HTMLClueFlow      *html_clueflow_split                        (HTMLClueFlow       *clue,
@@ -69,6 +78,10 @@ void               html_clueflow_set_style                    (HTMLClueFlow     
 							       HTMLEngine         *engine,
 							       HTMLClueFlowStyle   style);
 HTMLClueFlowStyle  html_clueflow_get_style                    (HTMLClueFlow       *flow);
+void               html_clueflow_set_item_type                (HTMLClueFlow       *flow,
+							       HTMLEngine         *engine,
+							       HTMLListType        item_type);
+HTMLListType       html_clueflow_get_item_type                (HTMLClueFlow       *flow);
 void               html_clueflow_set_halignment               (HTMLClueFlow       *flow,
 							       HTMLEngine         *engine,
 							       HTMLHAlignType      alignment);

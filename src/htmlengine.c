@@ -365,11 +365,11 @@ text_new (HTMLEngine *e, const gchar *text, GtkHTMLFontStyle style, HTMLColor *c
 }
 
 static HTMLObject *
-flow_new (HTMLEngine *e, HTMLClueFlowStyle style, guint8 level)
+flow_new (HTMLEngine *e, HTMLClueFlowStyle style, guint8 level, HTMLListType item_type, gint item_number)
 {
 	HTMLObject *o;
 
-	o = html_clueflow_new (style, level);
+	o = html_clueflow_new (style, level, item_type, item_number);
 	html_engine_set_object_data (e, o);
 
 	return o;
@@ -458,13 +458,11 @@ close_flow (HTMLEngine *e,
 }
 
 static void
-new_flow (HTMLEngine *e,
-	  HTMLObject *clue,
-	  HTMLObject *first_object)
+new_flow (HTMLEngine *e, HTMLObject *clue, HTMLObject *first_object)
 {
 	close_flow (e, clue);
 
-	e->flow = flow_new (e, current_clueflow_style (e), e->indent_level);
+	e->flow = flow_new (e, current_clueflow_style (e), e->indent_level, HTML_LIST_TYPE_UNORDERED, 0);
 
 	HTML_CLUE (e->flow)->halign = e->divAlign;
 
@@ -1960,8 +1958,7 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 	if ( strncmp( str, "dir", 3 ) == 0 ) {
 		close_anchor(e);
 		push_block (e, ID_DIR, 2, block_end_list, e->indent_level, FALSE);
-		html_stack_push (e->listStack, html_list_new (HTML_LIST_TYPE_DIR,
-							      HTML_LIST_NUM_TYPE_NUMERIC));
+		html_stack_push (e->listStack, html_list_new (HTML_LIST_TYPE_DIR));
 		e->indent_level++;
 		/* FIXME shouldn't it create a new flow? */
 	} else if ( strncmp( str, "/dir", 4 ) == 0 ) {
@@ -2447,7 +2444,24 @@ parse_k (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 	}
 }
 
-
+static HTMLListType
+get_list_type (gchar c)
+{
+	switch (c) {
+	case 'i':
+		return HTML_LIST_TYPE_ORDERED_LOWER_ROMAN;
+	case 'I':
+		return HTML_LIST_TYPE_ORDERED_UPPER_ROMAN;
+	case 'a':
+		return HTML_LIST_TYPE_ORDERED_LOWER_ALPHA;
+	case 'A':
+		return HTML_LIST_TYPE_ORDERED_UPPER_ALPHA;
+	case '1':
+	default:
+		return HTML_LIST_TYPE_ORDERED_ARABIC;		
+	}
+}
+
 /*
   <listing   unimplemented.
   <link      unimpemented.
@@ -2460,13 +2474,10 @@ parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 	if (strncmp (str, "link", 4) == 0) {
 	} else if (strncmp (str, "li", 2) == 0) {
 		HTMLListType listType;
-		HTMLListNumType listNumType;
 		gint listLevel;
 		gint itemNumber;
 		
 		listType = HTML_LIST_TYPE_UNORDERED;
-		listNumType = HTML_LIST_NUM_TYPE_NUMERIC;
-		
 		listLevel = 1;
 		itemNumber = 1;
 		
@@ -2478,17 +2489,26 @@ parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 			top = html_stack_top (p->listStack);
 			
 			listType = top->type;
-			listNumType = top->numType;
 			itemNumber = top->itemNumber;
 			
 			listLevel = html_stack_count (p->listStack);
 		}
-		
+
+		html_string_tokenizer_tokenize (p->st, str + 3, " >");
+		while (html_string_tokenizer_has_more_tokens (p->st)) {
+			const gchar *token = html_string_tokenizer_next_token (p->st);
+
+			if (!strncasecmp (token, "value=", 6))
+				itemNumber = atoi (token + 6);
+			else if (!strncasecmp (token, "type=", 5))
+				listType = get_list_type (token [5]);
+		}
+
 		add_pending_paragraph_break (p, clue);
 			
 		close_flow (p, clue);
 		
-		p->flow = flow_new (p, HTML_CLUEFLOW_STYLE_ITEMDOTTED, p->indent_level);
+		p->flow = flow_new (p, HTML_CLUEFLOW_STYLE_LIST_ITEM, p->indent_level, listType, itemNumber);
 		html_clue_append (HTML_CLUE (clue), p->flow);
 
 		p->avoid_para = TRUE;
@@ -2497,7 +2517,7 @@ parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 			HTMLList *list;
 
 			list = html_stack_top (p->listStack);
-			list->itemNumber++;
+			list->itemNumber = itemNumber + 1;
 		}
 	}
 }
@@ -2605,15 +2625,13 @@ static void
 parse_o (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 {
 	if ( strncmp( str, "ol", 2 ) == 0 ) {
-		HTMLListNumType listNumType;
 		HTMLList *list;
+		HTMLListType listType = HTML_LIST_TYPE_ORDERED_ARABIC;
 
 		close_anchor (e);
 
 		/* FIXME */
 		push_block (e, ID_OL, 2, block_end_list, e->indent_level, html_stack_is_empty (e->listStack));
-
-		listNumType = HTML_LIST_NUM_TYPE_NUMERIC;
 
 		html_string_tokenizer_tokenize( e->st, str + 3, " >" );
 
@@ -2621,33 +2639,11 @@ parse_o (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 			const char* token;
 
 			token = html_string_tokenizer_next_token (e->st);
-
-			if ( strncasecmp( token, "type=", 5 ) == 0 ) {
-				switch ( *(token+5) )
-				{
-				case '1':
-					listNumType = HTML_LIST_NUM_TYPE_NUMERIC;
-					break;
-				case 'i':
-					listNumType = HTML_LIST_NUM_TYPE_LOWROMAN;
-					break;
-
-				case 'I':
-					listNumType = HTML_LIST_NUM_TYPE_UPROMAN;
-					break;
-
-				case 'a':
-					listNumType = HTML_LIST_NUM_TYPE_LOWALPHA;
-					break;
-
-				case 'A':
-					listNumType = HTML_LIST_NUM_TYPE_UPALPHA;
-					break;
-				}
-			}
+			if ( strncasecmp( token, "type=", 5 ) == 0 )
+				listType = get_list_type (token [5]);
 		}
 
-		list = html_list_new (HTML_LIST_TYPE_ORDERED, listNumType);
+		list = html_list_new (listType);
 		html_stack_push (e->listStack, list);
 
 		e->indent_level++;
@@ -2945,23 +2941,17 @@ static void
 parse_u (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	if (strncmp (str, "ul", 2) == 0) {
-		HTMLListType type;
 
 		close_anchor (e);
 		close_flow (e, clue);
 
 		push_block (e, ID_UL, 2, block_end_list, e->indent_level, html_stack_is_empty (e->listStack));
 
-		type = HTML_LIST_TYPE_UNORDERED;
-
 		html_string_tokenizer_tokenize (e->st, str + 3, " >");
-		while (html_string_tokenizer_has_more_tokens (e->st)) {
-			gchar *token = html_string_tokenizer_next_token (e->st);
-			if (strncasecmp (token, "plain", 5) == 0)
-				type = HTML_LIST_TYPE_UNORDEREDPLAIN;
-		}
+		while (html_string_tokenizer_has_more_tokens (e->st))
+			html_string_tokenizer_next_token (e->st);
 		
-		html_stack_push (e->listStack, html_list_new (type, HTML_LIST_NUM_TYPE_NUMERIC));
+		html_stack_push (e->listStack, html_list_new (HTML_LIST_TYPE_UNORDERED));
 		e->flow = NULL;
 
 		if (e->indent_level > 0)
@@ -3432,7 +3422,7 @@ html_engine_ensure_editable (HTMLEngine *engine)
 	if (head == NULL || HTML_OBJECT_TYPE (head) != HTML_TYPE_CLUEFLOW) {
 		HTMLObject *clueflow;
 
-		clueflow = flow_new (engine, HTML_CLUEFLOW_STYLE_NORMAL, 0);
+		clueflow = flow_new (engine, HTML_CLUEFLOW_STYLE_NORMAL, 0, HTML_LIST_TYPE_UNORDERED, 0);
 		html_clue_prepend (HTML_CLUE (cluev), clueflow);
 
 		head = clueflow;

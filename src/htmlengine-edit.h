@@ -78,8 +78,11 @@ gboolean                   html_engine_prev_cell                  (HTMLEngine   
 */
 gboolean                   html_is_in_word                        (gunichar                   uc);
 HTMLHAlignType             paragraph_alignment_to_html            (GtkHTMLParagraphAlignment  alignment);
-HTMLClueFlowStyle          paragraph_style_to_clueflow_style      (GtkHTMLParagraphStyle      style);
+void                       paragraph_style_to_clueflow_style      (GtkHTMLParagraphStyle      style,
+								   HTMLClueFlowStyle         *flow_style,
+								   HTMLListType              *item_type);
 GtkHTMLParagraphAlignment  html_alignment_to_paragraph            (HTMLHAlignType             alignment);
-GtkHTMLParagraphStyle      clueflow_style_to_paragraph_style      (HTMLClueFlowStyle          style);
+GtkHTMLParagraphStyle      clueflow_style_to_paragraph_style      (HTMLClueFlowStyle          style,
+								   HTMLListType               item_type);
 
 #endif /* _HTMLENGINE_EDIT_H */
