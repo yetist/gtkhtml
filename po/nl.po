@@ -9,14 +9,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml cvs\n"
-"POT-Creation-Date: 2004-01-12 18:08+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-01-13 05:10+0100\n"
 "PO-Revision-Date: 2004-01-04 15:25+0100\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -98,7 +98,7 @@ msgstr "Sneltoetsen"
 #: capplet/gtkhtml-capplet.glade.h:18
 #: components/html-editor/gtkhtml-editor-properties.glade.h:47
 msgid "Miscellaneous"
-msgstr "Overig"
+msgstr "Diversen"
 
 #: capplet/gtkhtml-capplet.glade.h:19
 msgid "New shortcut:"
@@ -249,7 +249,7 @@ msgstr "H_uilend"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:18
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:18
 msgid "Cu_t"
-msgstr "_Knippen"
+msgstr "K_nippen"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:19
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:19
@@ -594,7 +594,7 @@ msgstr "Rood"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:85
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
 msgid "Redo"
-msgstr "Herhalen"
+msgstr "Opnieuw"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
@@ -634,7 +634,7 @@ msgstr "Regel"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:92
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
 msgid "Select _All"
-msgstr "_Alles Selecteren"
+msgstr "_Alles selecteren"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:93
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
@@ -708,7 +708,7 @@ msgstr "Typemachine"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:105
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
 msgid "Undo"
-msgstr "Herstellen"
+msgstr "Ongedaan maken"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:106
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
@@ -763,7 +763,7 @@ msgstr "Inspringafstand _verkleinen"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:116
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
 msgid "_Edit"
-msgstr "B_ewerken"
+msgstr "Be_werken"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:117
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
@@ -808,7 +808,7 @@ msgstr "_Onverschillig"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:125
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:127
 msgid "_Insert"
-msgstr "_Toevoegen"
+msgstr "_Invoegen"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:126
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:128
@@ -863,7 +863,7 @@ msgstr "_Preformat"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:136
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
 msgid "_Redo"
-msgstr "_Herhalen"
+msgstr "O_pnieuw"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:137
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:139
@@ -933,7 +933,7 @@ msgstr "_Onderstrepen"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:150
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:152
 msgid "_Undo"
-msgstr "_Herstellen"
+msgstr "_Ongedaan maken"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:151
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:153
@@ -1237,7 +1237,7 @@ msgstr "Link eigenschappen"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:45
 msgid "Location"
-msgstr "Locatie"
+msgstr "Lokatie"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:46
 msgid "Middle"
@@ -1644,7 +1644,7 @@ msgstr "_Volgende"
 
 #: components/html-editor/replace.c:79
 msgid "_Replace"
-msgstr "Ve_rvangen"
+msgstr "_Vervangen"
 
 #: components/html-editor/replace.c:165
 msgid "Search _backward"
