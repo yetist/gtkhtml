@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.8\n"
-"POT-Creation-Date: 2001-04-17 10:08-0500\n"
-"PO-Revision-Date: 2001-02-07 11:39+01:00\n"
+"POT-Creation-Date: 2001-04-25 23:13-0400\n"
+"PO-Revision-Date: 2001-04-25 23:13-04:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -476,7 +476,7 @@ msgstr "Venstre"
 msgid "Right"
 msgstr "Høyre"
 
-#: components/html-editor/popup.c:219
+#: components/html-editor/popup.c:226
 msgid "Remove link"
 msgstr "Fjern lenke"
 
@@ -554,7 +554,7 @@ msgstr "Normal"
 
 #: components/html-editor/toolbar.c:51
 msgid "Preformat"
-msgstr ""
+msgstr "Preformater"
 
 #: components/html-editor/toolbar.c:52
 msgid "Header 1"
@@ -667,6 +667,3 @@ msgstr "Forhånds_visning"
 #: src/testgtkhtml.c:112
 msgid "Print preview"
 msgstr "Forhåndsvisning"
-
-#~ msgid "Pre"
-#~ msgstr "Pre"
