@@ -163,7 +163,7 @@ static guint signals [LAST_SIGNAL] = { 0 };
 #define TIMER_INTERVAL 300
 
 enum ID {
-	ID_ADDRESS, ID_B, ID_BIG, ID_BLOCKQUOTE, ID_CAPTION, ID_CITE, ID_CODE,
+	ID_ADDRESS, ID_B, ID_BIG, ID_BLOCKQUOTE, ID_BODY, ID_CAPTION, ID_CITE, ID_CODE,
 	ID_DIR, ID_DIV, ID_DL, ID_EM, ID_FONT, ID_HEADER, ID_I, ID_KBD, ID_OL, ID_PRE,
 	ID_SMALL, ID_STRONG, ID_U, ID_UL, ID_TEXTAREA, ID_TD, ID_TH, ID_TT, ID_VAR,
 	ID_SUB, ID_SUP, ID_STRIKEOUT
@@ -821,7 +821,6 @@ parse_body (HTMLEngine *e, HTMLObject *clue, const gchar *end[], gboolean toplev
 {
 	gchar *str;
 	gchar *rv = NULL;
-	GtkHTMLFontStyle old_style;
 	gboolean final = FALSE;
 
 	if (begin && !toplevel) {
@@ -844,6 +843,8 @@ parse_body (HTMLEngine *e, HTMLObject *clue, const gchar *end[], gboolean toplev
 		font_style_attr_copy (old_font_style_attrs, e->font_style_attrs);
 		font_style_attr_reset (e->font_style_attrs);
 		html_stack_push (e->body_stack, old_font_style_attrs);
+
+		push_block (e, ID_BODY, 4, NULL, 0, 0);
 	}
 
 	e->eat_space = FALSE;
@@ -896,8 +897,11 @@ parse_body (HTMLEngine *e, HTMLObject *clue, const gchar *end[], gboolean toplev
 
  end_body:
 	if (final && !toplevel) {
-		gint *old_font_style_attrs = html_stack_pop (e->body_stack);
+		gint *old_font_style_attrs;
 
+		pop_block (e, ID_BODY, clue);
+
+		old_font_style_attrs = html_stack_pop (e->body_stack);
 		font_style_attr_copy (e->font_style_attrs, old_font_style_attrs);
 		g_free (old_font_style_attrs);
 

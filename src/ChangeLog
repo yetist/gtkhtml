@@ -1,5 +1,8 @@
 2002-09-16  Radek Doulik  <rodo@ximian.com>
 
+	* htmlengine.c (parse_body): push/pop block here to fix
+	<table><tr><td><font color=white>aaa</tr></td></table>
+
 	* htmlengine-edit-cut-and-paste.c (append_flow): don't move whole
 	flows, just object in them to preserve flow attributes
 
