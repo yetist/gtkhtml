@@ -1,3 +1,7 @@
+2000-10-21  Zbigniew Chyla  <cyba@gnome.pl>
+
+	* configure.in: Added pl to ALL_LINGUAS.
+
 2000-10-20  Radek Doulik  <rodo@helixcode.com>
 
 	* README: added licensing information, updated
