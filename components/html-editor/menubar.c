@@ -37,6 +37,8 @@
 #include "table.h"
 #include "template.h"
 
+static void smiley_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname);
+
 static void
 undo_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
@@ -285,6 +287,14 @@ BonoboUIVerb verbs [] = {
 	BONOBO_UI_UNSAFE_VERB ("InsertRule",  insert_rule_cb),
 	BONOBO_UI_UNSAFE_VERB ("InsertTable", insert_table_cb),
 	BONOBO_UI_UNSAFE_VERB ("InsertTemplate", insert_template_cb),
+
+	BONOBO_UI_UNSAFE_VERB ("InsertSmiley1", smiley_cb),
+	BONOBO_UI_UNSAFE_VERB ("InsertSmiley2", smiley_cb),
+	BONOBO_UI_UNSAFE_VERB ("InsertSmiley3", smiley_cb),
+	BONOBO_UI_UNSAFE_VERB ("InsertSmiley4", smiley_cb),
+	BONOBO_UI_UNSAFE_VERB ("InsertSmiley5", smiley_cb),
+	BONOBO_UI_UNSAFE_VERB ("InsertSmiley6", smiley_cb),
+	BONOBO_UI_UNSAFE_VERB ("InsertSmiley7", smiley_cb),
 
 	BONOBO_UI_UNSAFE_VERB ("IndentMore", indent_more_cb),
 	BONOBO_UI_UNSAFE_VERB ("IndentLess", indent_less_cb),
@@ -630,6 +640,34 @@ menubar_set_languages (GtkHTMLControlData *cd, const gchar *lstr)
 		bonobo_ui_component_set_prop (cd->uic, str->str, "state", enabled ? "1" : "0", NULL);
 	}
 	cd->block_language_changes = FALSE;
+}
+
+#define SMILEYS 7
+static gchar *smiley [SMILEYS] = {
+	":D",
+	":O",
+	":)",
+	";)",
+	"=)",
+	":(",
+	":-)",
+};
+
+static void
+smiley_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
+{
+	gint i;
+
+	g_return_if_fail (cname);
+
+	i = atoi (cname + strlen (cname) - 1) - 1;
+
+	if (i >=0 && i < SMILEYS) {
+		gchar *s;
+		s = g_strdup_printf ("<IMG ALT=\"%s\" SRC=\"file://" ICONDIR "/smiley-%d.png\">", smiley [i], i + 1);
+		gtk_html_insert_html (cd->html, s);
+		g_free (s);
+	}
 }
 
 void

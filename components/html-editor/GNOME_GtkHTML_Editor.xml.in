@@ -24,6 +24,13 @@
 			<cmd name="InsertRule"  _label="_Rule..." _tip="Insert rule into document..."/>
 			<cmd name="InsertTable" _label="_Table..." _tip="Insert table into document..."/>
 			<cmd name="InsertTemplate" _label="Te_mplate..." _tip="Insert HTML template into document..."/>
+			<cmd name="InsertSmiley3" _label="_Smile" _tip="Insert Smile smiley into document..."/>
+			<cmd name="InsertSmiley7" _label="Smiley _7" _tip="Insert Smiley 7 smiley into document..."/>
+			<cmd name="InsertSmiley4" _label="_Wink" _tip="Insert Wink smiley into document..."/>
+			<cmd name="InsertSmiley5" _label="Su_rpriced" _tip="Insert Surpriced smiley into document..."/>
+			<cmd name="InsertSmiley1" _label="_Laughing" _tip="Insert Laughing smiley into document..."/>
+			<cmd name="InsertSmiley2" _label="Oh _no!" _tip="Insert Oh no! smiley into document..."/>
+			<cmd name="InsertSmiley6" _label="_Frown" _tip="Insert Frown smiley into document..."/>
 
 			<cmd name="HeadingNormal" _label="Normal"
 		        _tip="Make the current Paragraph style Normal"
@@ -146,6 +153,23 @@
                                 pixtype="filename" pixname="@ICONSDIR@/insert-table-16.png"/>
 				<menuitem name="InsertTemplate" verb=""
                                 pixtype="filename" pixname="@ICONSDIR@/insert-object-16.png"/>
+				<submenu name="Smiley" _label="_Smiley"
+                                pixtype="filename" pixname="@ICONSDIR@/smiley-3.png">
+					<menuitem name="InsertSmiley3" verb=""
+        	                        pixtype="filename" pixname="@ICONSDIR@/smiley-3.png"/>
+					<menuitem name="InsertSmiley7" verb=""
+        	                        pixtype="filename" pixname="@ICONSDIR@/smiley-7.png"/>
+					<menuitem name="InsertSmiley4" verb=""
+        	                        pixtype="filename" pixname="@ICONSDIR@/smiley-4.png"/>
+					<menuitem name="InsertSmiley5" verb=""
+        	                        pixtype="filename" pixname="@ICONSDIR@/smiley-5.png"/>
+					<menuitem name="InsertSmiley1" verb=""
+        	                        pixtype="filename" pixname="@ICONSDIR@/smiley-1.png"/>
+					<menuitem name="InsertSmiley2" verb=""
+        	                        pixtype="filename" pixname="@ICONSDIR@/smiley-2.png"/>
+					<menuitem name="InsertSmiley6" verb=""
+        	                        pixtype="filename" pixname="@ICONSDIR@/smiley-6.png"/>
+				</submenu>
 			</placeholder>
 		</submenu>
 
@@ -272,4 +296,3 @@
 	</dockitem>
 
 </Root> 
-
