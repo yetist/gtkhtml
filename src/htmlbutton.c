@@ -25,6 +25,7 @@
 #include "htmlbutton.h"
 #include "htmlform.h"
 #include <string.h>
+#include <gal/widgets/e-unicode.h>
 
 HTMLButtonClass html_button_class;
 
@@ -130,9 +131,14 @@ html_button_init (HTMLButton *button,
 
 	html_embedded_init (element, HTML_EMBEDDED_CLASS (klass), parent, name, value);
 	
-	if( strlen (element->value))
-		widget = gtk_button_new_with_label (element->value);
-	else {
+	if( strlen (element->value)) {
+		char *gtk_str;
+
+		gtk_str = e_utf8_to_gtk_string (parent, element->value);
+		widget = gtk_button_new_with_label (gtk_str);
+		g_free (gtk_str);
+
+	} else {
 		switch(type) {
 		case BUTTON_NORMAL:
 			widget = gtk_button_new ();
