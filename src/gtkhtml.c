@@ -2163,6 +2163,8 @@ set_focus_child (GtkContainer *containter, GtkWidget *w)
 
 	if (o && !html_object_is_frame (o))
 		html_engine_set_focus_object (GTK_HTML (containter)->engine, o);
+
+	(*GTK_CONTAINER_CLASS (parent_class)->set_focus_child) (containter, w);
 }
 
 static gboolean

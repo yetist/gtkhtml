@@ -1,3 +1,8 @@
+2002-09-04  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml.c (set_focus_child): call parent's set_focus_child
+	method
+
 2002-08-30  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (insert_tab_or_next_cell): paste text instead of
