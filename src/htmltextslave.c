@@ -372,10 +372,12 @@ draw (HTMLObject *o,
 	HTMLText *ownertext;
 	GtkHTMLFontStyle font_style;
 	guint end;
+	ArtIRect paint;
 
-	if (y + height < o->y - o->ascent || y > o->y + o->descent)
+	html_object_calc_intersection (o, &paint, x, y, width, height);
+	if (art_irect_empty (&paint))
 		return;
-
+	
 	textslave = HTML_TEXT_SLAVE (o);
 	owner = textslave->owner;
 	ownertext = HTML_TEXT (owner);

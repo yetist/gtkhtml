@@ -123,27 +123,34 @@ save (BonoboPersistStream *ps,
 {
 	GtkHTML *html;
 	SaveState save_state;
+	
+	if (strcmp (type, "text/html") == 0
+	    || strcmp (type, "text/plain") == 0) {
+		html = GTK_HTML (data);
+		
+		save_state.ev = ev;
+		save_state.stream = CORBA_Object_duplicate (stream, ev);
+		if (ev->_major == CORBA_NO_EXCEPTION)
+			gtk_html_export (html, (char *)type, save_receiver,
+					 &save_state);
 
-	if (strcmp (type, "text/html") != 0) {
+		CORBA_Object_release (save_state.stream, ev);
+
+	} else {
+		
 		CORBA_exception_set (ev, CORBA_USER_EXCEPTION,
 				     ex_Bonobo_Persist_WrongDataType, NULL);
-		return;
+		
 	}
-
-	html = GTK_HTML (data);
-
-	save_state.ev = ev;
-	save_state.stream = CORBA_Object_duplicate (stream, ev);
-	if (ev->_major == CORBA_NO_EXCEPTION)
-		gtk_html_save (html, save_receiver, &save_state);
-	CORBA_Object_release (save_state.stream, ev);
+	return;
 }
 
 static Bonobo_Persist_ContentTypeList *
 get_content_types (BonoboPersistStream *ps, gpointer data,
 		   CORBA_Environment *ev)
 {
-	return bonobo_persist_generate_content_types (1, "text/html");
+	return bonobo_persist_generate_content_types (2, "text/html",
+						     "text/plain");
 }
 
 
@@ -153,3 +160,5 @@ persist_stream_impl_new (GtkHTML *html)
 	return bonobo_persist_stream_new (load, save, NULL, get_content_types,
 					  html);
 }
+
+

@@ -1378,7 +1378,7 @@ gtk_html_jump_to_anchor (GtkHTML *html,
 {
 	g_return_val_if_fail (html != NULL, FALSE);
 	g_return_val_if_fail (GTK_IS_HTML (html), FALSE);
-
+	
 	return html_engine_goto_anchor (html->engine, anchor);
 }
 
@@ -1391,8 +1391,26 @@ gtk_html_save (GtkHTML *html,
 	g_return_val_if_fail (html != NULL, FALSE);
 	g_return_val_if_fail (GTK_IS_HTML (html), FALSE);
 	g_return_val_if_fail (receiver != NULL, FALSE);
-
+	
 	return html_engine_save (html->engine, receiver, data);
+}
+
+gboolean
+gtk_html_export (GtkHTML *html,
+		 const char *type,
+		 GtkHTMLSaveReceiverFn receiver,
+		 gpointer data)
+{
+	g_return_val_if_fail (html != NULL, FALSE);
+	g_return_val_if_fail (GTK_IS_HTML (html), FALSE);
+	g_return_val_if_fail (receiver != NULL, FALSE);
+	
+	if (strcmp (type, "text/html") == 0) {
+		return html_engine_save (html->engine, receiver, data);
+	} else if (strcmp (type, "text/plain") == 0) {
+		return html_engine_save_plain (html->engine, receiver,
+						 data);  
+	}
 }
 
 

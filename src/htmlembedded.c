@@ -55,9 +55,13 @@ draw (HTMLObject *o,
       gint width, gint height,
       gint tx, gint ty)
 {
-
 	HTMLEmbedded *element = HTML_EMBEDDED(o);
 	gint new_x, new_y;
+	ArtIRect paint;
+
+	html_object_calc_intersection (o, &paint, x, y, width, height);
+	if (art_irect_empty (&paint))
+		return;
 
 	if (element->widget) {
 
@@ -74,10 +78,12 @@ draw (HTMLObject *o,
 			
 			gtk_layout_move(GTK_LAYOUT(element->parent), element->widget,
 					new_x, new_y);
+		} else {
+			gtk_widget_queue_draw (element->widget);
 		}
 		element->abs_x = new_x;
 		element->abs_y = new_y;
-		gtk_widget_queue_draw (element->widget);
+
 	}
 }
 

@@ -242,6 +242,7 @@ struct _HTMLObjectClass {
 	/* Saving.  */
 
 	gboolean (* save) (HTMLObject *self, HTMLEngineSaveState *state);
+	gboolean (* save_plain) (HTMLObject *self, HTMLEngineSaveState *state);
 
 	/* Page splitting (for printing).  */
 
@@ -398,6 +399,9 @@ void        html_object_append_selection_string  (HTMLObject *self,
 /* Saving.  */
 gboolean  html_object_save  (HTMLObject          *self,
 			     HTMLEngineSaveState *state);
+
+gboolean  html_object_save_plain  (HTMLObject          *self,
+				   HTMLEngineSaveState *state);
 
 /* set change flag f of this object and of all its parents */
 void  html_object_change_set  (HTMLObject      *self,

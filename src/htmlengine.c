@@ -69,6 +69,7 @@
 #include "htmlimageinput.h"
 #include "htmlstack.h"
 #include "htmlsearch.h"
+#include "htmliframe.h"
 
 
 static void      html_engine_class_init    (HTMLEngineClass     *klass);
@@ -87,6 +88,9 @@ static void      parse_one_token           (HTMLEngine *p,
 					    HTMLObject *clue,
 					    const gchar *str);
 static void      parse_input               (HTMLEngine *e,
+					    const gchar *s,
+					    HTMLObject *_clue);
+static void      parse_iframe              (HTMLEngine *e,
 					    const gchar *s,
 					    HTMLObject *_clue);
 static void      parse_f                   (HTMLEngine *p,
@@ -1261,6 +1265,53 @@ parse_input (HTMLEngine *e, const gchar *str, HTMLObject *_clue) {
 		g_free (imgSrc);
 }
 
+static void
+parse_iframe (HTMLEngine *e, const gchar *str, HTMLObject *_clue) 
+{
+	char *src = NULL;
+	char *width = NULL;
+	char *height = NULL;
+	char *align = NULL;
+	HTMLObject *iframe;
+	
+	width = "100";
+	height = "100";
+
+	html_string_tokenizer_tokenize (e->st, str, " >");
+
+	while (html_string_tokenizer_has_more_tokens (e->st)) {
+		const gchar *token = html_string_tokenizer_next_token (e->st);
+
+		if ( strncasecmp( token, "src=", 4 ) == 0 ) {
+			src = g_strdup(token + 4);
+		}
+		else if ( strncasecmp( token, "width=", 6 ) == 0 ) {
+			width = g_strdup(token + 6);
+		}
+		else if ( strncasecmp( token, "height=", 7 ) == 0 ) {
+			height = g_strdup( token + 7 );
+		}
+		else if ( strncasecmp( token, "align=", 6 ) == 0 ) {
+			align = g_strdup( token + 6 );
+		}
+		else if ( strncasecmp( token, "longdesc=", 9 ) == 0 ) {
+			/* TODO: Ignored */
+		}
+		else if ( strncasecmp( token, "name=", 7 ) == 0 ) {
+			/* TODO: Ignored */
+		}
+		else if ( strncasecmp( token, "scrolling=", 7 ) == 0 ) {
+			/* TOTO: implement this damn thing */
+		}
+	}	
+		
+	if (src) {
+		iframe = html_iframe_new (GTK_WIDGET (e->widget),
+					  src, atoi(width), atoi (height), FALSE);
+		append_element (e, _clue, iframe);
+	}
+}
+
 
 /*
   <a               </a>
@@ -1902,6 +1953,7 @@ parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str)
   <i>              </i>
   <img                             partial
   <input                           partial
+  <iframe                          partial
 */
 /* EP CHECK: map support missing.  `<input>' missing.  */
 static void
@@ -2019,14 +2071,16 @@ parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 			return;
 		
 		parse_input( p, str + 6, _clue );
-	}
-	else if ( strncmp (str, "i", 1 ) == 0 ) {
+	} else if (strncmp( str, "iframe", 6) == 0) {
+		parse_iframe (p, str + 7, _clue);
+	} else if (strncmp( str, "/iframe", 7) == 0) {
+		
+	} else if ( strncmp (str, "i", 1 ) == 0 ) {
 		if ( str[1] == '>' || str[1] == ' ' ) {
 			push_font_style (p, GTK_HTML_FONT_STYLE_ITALIC);
 			push_block (p, ID_I, 1, block_end_font, FALSE, FALSE);
 		}
-	}
-	else if ( strncmp( str, "/i", 2 ) == 0 ) {
+	} else if ( strncmp( str, "/i", 2 ) == 0 ) {
 		pop_block (p, ID_I, _clue);
 	}
 }
@@ -2168,6 +2222,7 @@ html_object_changed(GtkHTMLEmbedded *eb, HTMLEngine *e)
 /*
 <ol>             </ol>           partial
 <option
+<object
 */
 /* EP CHECK: `<ol>' does not handle vspace correctly.  */
 static void
@@ -3331,27 +3386,27 @@ html_engine_get_doc_height (HTMLEngine *e)
 }
 
 void
-html_engine_calc_size (HTMLEngine *p)
+html_engine_calc_size (HTMLEngine *e)
 {
 	gint max_width, min_width;
 
-	if (p->clue == 0)
+	if (e->clue == 0)
 		return;
 
-	html_object_reset (p->clue);
+	html_object_reset (e->clue);
 
-	max_width = p->width - p->leftBorder - p->rightBorder;
-	p->clue->width = max_width;
+	max_width = e->width - e->leftBorder - e->rightBorder;
+	e->clue->width = max_width;
 
-	min_width = html_object_calc_min_width (p->clue, p->painter);
+	min_width = html_object_calc_min_width (e->clue, e->painter);
 	if (min_width > max_width)
 		max_width = min_width;
 
-	html_object_set_max_width (p->clue, p->painter, max_width);
-	html_object_calc_size (p->clue, p->painter);
+	html_object_set_max_width (e->clue, e->painter, max_width);
+	html_object_calc_size (e->clue, e->painter);
 
-	p->clue->x = 0;
-	p->clue->y = p->clue->ascent;
+	e->clue->x = 0;
+	e->clue->y = e->clue->ascent;
 }
 
 static void

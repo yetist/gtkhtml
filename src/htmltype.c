@@ -87,6 +87,7 @@ html_types_init (void)
 	html_text_slave_type_init ();
 	html_text_type_init ();
 	html_vspace_type_init ();
+	html_iframe_type_init ();
 
 	types_inited = TRUE;
 }
@@ -155,6 +156,8 @@ html_type_name (HTMLType type)
  		return "TextSlave";
 	case HTML_TYPE_VSPACE:
  		return "VSpace";
+	case HTML_TYPE_IFRAME:
+		return "IFrame";
 	case HTML_TYPE_NONE:
  	case HTML_NUM_TYPES:
 		/* Make compiler happy.  */
@@ -164,3 +167,4 @@ html_type_name (HTMLType type)
 	g_assert_not_reached ();
 	return NULL;
 }
+

@@ -47,39 +47,60 @@ get_tags (const HTMLText *text,
 
 	font_style = text->font_style;
 
+	/*
+	  FIXME: eek this is completely broken in that there is no
+	  possible way the tag order can come out right doing it this
+	  way */
+
 	opening_p = opening_tags;
 	ending_p = ending_tags;
 
 	size = font_style & GTK_HTML_FONT_STYLE_SIZE_MASK;
 	if (size != 0) {
 		opening_p += sprintf (opening_p, "<FONT SIZE=%d>", size);
-		ending_p += sprintf (ending_p, "</FONT SIZE=%d>", size);
 	}
 
 	if (font_style & GTK_HTML_FONT_STYLE_BOLD) {
 		opening_p += sprintf (opening_p, "<B>");
-		ending_p += sprintf (ending_p, "</B>");
 	}
 
 	if (font_style & GTK_HTML_FONT_STYLE_ITALIC) {
 		opening_p += sprintf (opening_p, "<I>");
-		ending_p += sprintf (ending_p, "</I>");
 	}
 
 	if (font_style & GTK_HTML_FONT_STYLE_UNDERLINE) {
 		opening_p += sprintf (opening_p, "<U>");
-		ending_p += sprintf (ending_p, "</U>");
 	}
 
 	if (font_style & GTK_HTML_FONT_STYLE_STRIKEOUT) {
 		opening_p += sprintf (opening_p, "<S>");
-		ending_p += sprintf (ending_p, "</S>");
 	}
 
 	if (font_style & GTK_HTML_FONT_STYLE_FIXED) {
 		opening_p += sprintf (opening_p, "<TT>");
 		ending_p += sprintf (ending_p, "</TT>");
 	}
+
+	if (font_style & GTK_HTML_FONT_STYLE_STRIKEOUT) {
+		ending_p += sprintf (ending_p, "</S>");
+	}
+
+	if (font_style & GTK_HTML_FONT_STYLE_UNDERLINE) {
+		ending_p += sprintf (ending_p, "</U>");
+	}
+
+	if (font_style & GTK_HTML_FONT_STYLE_ITALIC) {
+		ending_p += sprintf (ending_p, "</I>");
+	}
+
+	if (font_style & GTK_HTML_FONT_STYLE_BOLD) {
+		ending_p += sprintf (ending_p, "</B>");
+	}
+
+	if (size != 0) {
+		ending_p += sprintf (ending_p, "</FONT SIZE=%d>", size);
+	}
+
 
 	*opening_p = 0;
 	*ending_p = 0;
@@ -217,6 +238,22 @@ save (HTMLObject *self,
 
 	return TRUE;
 }
+
+static gboolean
+save_plain (HTMLObject *self,
+      HTMLEngineSaveState *state)
+{
+	HTMLText *text;
+	char *str = NULL;
+	text = HTML_TEXT (self);
+
+	if (! html_engine_save_output_string (state, text->text))
+		return FALSE;
+	
+	return TRUE;
+}
+
+
 
 
 /* HTMLText methods.  */
@@ -558,6 +595,7 @@ html_text_class_init (HTMLTextClass *klass,
 	object_class->get_cursor = get_cursor;
 	object_class->get_cursor_base = get_cursor_base;
 	object_class->save = save;
+	object_class->save_plain = save_plain;
 
 	/* HTMLText methods.  */
 

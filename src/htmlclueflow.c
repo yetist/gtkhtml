@@ -732,7 +732,7 @@ calc_size (HTMLObject *o,
 	if (o->width < o->max_width)
 		o->width = o->max_width;
 
-#if 0
+#if 1
 	if (o->width > rmargin - o->x)
 		o->width = rmargin - o->x;
 #endif
@@ -1107,6 +1107,21 @@ save (HTMLObject *self,
 	return TRUE;
 }
 
+static gboolean
+save_plain (HTMLObject *self,
+	    HTMLEngineSaveState *state)
+{
+
+	/* Paragraph's content.  */
+	if (! HTML_OBJECT_CLASS (&html_clue_class)->save_plain (self, state))
+		return FALSE;
+
+	if (!html_engine_save_output_string (state, "\n"))
+		return FALSE;
+	
+	return TRUE;
+}
+
 
 static gint
 check_page_split (HTMLObject *self,
@@ -1447,6 +1462,7 @@ html_clueflow_class_init (HTMLClueFlowClass *klass,
 	object_class->calc_preferred_width = calc_preferred_width;
 	object_class->draw = draw;
 	object_class->save = save;
+	object_class->save = save_plain;
 	object_class->check_page_split = check_page_split;
 	object_class->check_point = check_point;
 	object_class->append_selection_string = append_selection_string;

@@ -1,3 +1,55 @@
+2000-05-29  Larry Ewing  <lewing@helixcode.com>
+
+	* htmlembedded.c (draw): try to be smarted about when we queue a
+	redraw.
+
+	* htmlengine-save.c (html_engine_save_plain): add new save
+	function for text/plain support.
+	(write_header): actually use the gtkhtml VERSION string when
+	printing out the header.
+
+	* htmlengine-save.h: expose the new save function.
+	
+	* htmlengine.c (html_engine_calc_size): rename p to e.
+	(parse_iframe): start of iframe support.
+	(parse_i): call parse_iframe.
+
+	* Makefile.am (libgtkhtml_HEADERS): add htmliframe.h
+
+	* htmlimage.c (draw): use calc_intersect instead of the old
+	check to make sure we are within the bounds.
+
+	* htmltextslave.c (draw): use calc_intersect instead of the old
+	check to make sure we are within the bounds.
+
+	* htmltype.h: add iframe type.
+
+	* htmltype.c (html_types_init): call html_iframe_type_init.
+	(html_type_name): add IFrame type.
+
+	* htmlclue.c (save_plain): add method.
+	(html_clue_class_init): use save_plain.
+
+	* htmlclueflow.c (save_plain): add method.
+	(html_clueflow_class_init): use save_plain.
+
+	* gtkhtml.c (gtk_html_export): new export interface, all this
+	new export/save stuff needs renaming but I want to get an
+	implementation done immediately.
+
+	* gtkhtml.h: add gtk_html_export.
+	
+	* htmlobject.h: add save_plain method.
+
+	* htmlobject.c (save_plain): add default implementation.
+	(html_object_class_init): use save_plain.
+	(html_object_save_plain): add entry point.
+
+	* htmltext.c (get_tags): fix the order so our tags are not assured
+	to be nested.
+	(save_plain): add save_plain to write out plaintext.
+	(html_text_class_init): add save_plain.
+
 2000-05-21  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlengine-edit-paste.c: New members `orig_clueflow_style',

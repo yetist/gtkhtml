@@ -320,6 +320,11 @@ draw (HTMLObject *o,
 	gint scale_width, scale_height;
 	const GdkColor *highlight_color;
 	guint pixel_size;
+	ArtIRect paint;
+
+	html_object_calc_intersection (o, &paint, x, y, width, height);
+	if (art_irect_empty (&paint))
+		return;
 
 	image = HTML_IMAGE (o);
 

@@ -28,6 +28,7 @@
 
 #include "htmlengine.h"
 #include "gtkhtmldebug.h"
+#include "config.h"
 
 
 /* This routine was originally written by Daniel Velliard, (C) 1998 World Wide
@@ -141,6 +142,8 @@ html_engine_save_encode_string (HTMLEngineSaveState *state,
 	return html_engine_save_encode (state, s, len);
 }
 
+
+
 gboolean
 html_engine_save_output_string (HTMLEngineSaveState *state,
 				const gchar *format,
@@ -179,7 +182,7 @@ write_header (HTMLEngineSaveState *state)
 		     (state,
 		      "<HEAD>\n"
 		      "  <META HTTP-EQUIV=\"Content-Type\" CONTENT=\"text/html; CHARSET=ISO-8859-1\">\n"
-		      "  <META NAME=\"GENERATOR\" CONTENT=\"GtkHTML/0.0\">\n"))
+		      "  <META NAME=\"GENERATOR\" CONTENT=\"GtkHTML/%s\">\n", VERSION))
 		return FALSE;
 
 	/* Title.  */
@@ -246,3 +249,33 @@ html_engine_save (const HTMLEngine *engine,
 
 	return TRUE;
 }
+
+gboolean
+html_engine_save_plain (const HTMLEngine *engine,
+			HTMLEngineSaveReceiverFn receiver,
+			gpointer user_data)
+{
+	HTMLEngineSaveState state;
+	
+	if (engine->clue == NULL) {
+		/* Empty document.  */
+		return FALSE;
+	}
+	
+	gtk_html_debug_dump_tree_simple (engine->clue, 1);
+	
+	state.engine = engine;
+	state.receiver = receiver;
+	state.br_count = 0;
+	state.error = FALSE;
+	state.user_data = user_data;
+	state.last_level = 0;
+
+	html_object_save (engine->clue, &state);
+	if (state.error)
+		return FALSE;
+
+	return TRUE;
+}
+
+

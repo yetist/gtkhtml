@@ -87,7 +87,8 @@ libgtkhtml_HEADERS =				\
 	htmlundo.h				\
 	htmlundo-action.h			\
 	htmlurl.h				\
-	htmlvspace.h
+	htmlvspace.h				\
+	htmliframe.h
 
 libgtkhtml_la_SOURCES =				\
 	gtkhtml-embedded.c			\
@@ -157,7 +158,8 @@ libgtkhtml_la_SOURCES =				\
 	htmltype.c				\
 	htmlundo.c				\
 	htmlundo-action.c			\
-	htmlvspace.c
+	htmlvspace.c				\
+	htmliframe.c
 
 libgtkhtml_la_LDFLAGS = -version-info $(GTKHTML_CURRENT):$(GTKHTML_REVISION):$(GTKHTML_AGE)
 

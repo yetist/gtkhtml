@@ -170,6 +170,11 @@ gboolean  gtk_html_save  (GtkHTML               *html,
 			  GtkHTMLSaveReceiverFn  receiver,
 			  gpointer               data);
 
+gboolean  gtk_html_export  (GtkHTML               *html,
+			    const char            *type,
+			    GtkHTMLSaveReceiverFn  receiver,
+			    gpointer               data);
+
 /* Streams for feeding the widget with extra data (e.g. images) at loading
    time.  */
 GtkHTMLStream *gtk_html_stream_ref    (GtkHTMLStream *handle);
