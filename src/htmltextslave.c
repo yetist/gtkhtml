@@ -436,7 +436,7 @@ draw_highlighted (HTMLTextSlave *slave,
 	text_width = html_painter_calc_text_width (p, g_utf8_offset_to_pointer (text, start),
 						   len, html_text_slave_get_line_offset (slave, line_offset, start, p),
 						   font_style, HTML_TEXT (owner)->face);
-	printf ("s: %d l: %d - %d %d\n", start, len, offset_width, text_width);
+	/* printf ("s: %d l: %d - %d %d\n", start, len, offset_width, text_width); */
 
 	html_painter_set_font_style (p, font_style);
 	html_painter_set_font_face  (p, HTML_TEXT (owner)->face);

@@ -1,3 +1,7 @@
+2001-07-31  Larry Ewing  <lewing@ximian.com>
+
+	* htmltextslave.c (draw_highlighted): remove debugging output.
+
 2001-07-31  Radek Doulik  <rodo@ximian.com>
 
 	* htmlfontmanager.c (html_font_set_init): use memset rather than
