@@ -1,3 +1,28 @@
+2001-10-19  Radek Doulik  <rodo@ximian.com>
+
+	* htmlclueflow.c (op_helper): remove slaves only when cut or in
+	copy result
+
+	* htmlclue.c (op_helper): make it work even when containing slaves
+
+	* htmlengine.c (html_engine_add_expose): new method, stores expose
+	rectangle in SList to be processed in thaw
+	(thaw_idle): call do_pending_expose, clear and reset
+	pending_expose list
+	(do_pending_expose): do pending exposes
+
+	* gtkhtml.c (expose): if engine is frozen, then add expose to
+	pending to be processed in final thaw
+
+	* htmlengine.c (thaw_idle): check for freeze_count if we aren't
+	frozen again
+	(html_engine_thaw): don't decrease freeze_count if it equals to 1,
+	do it in thaw_idle
+
+	* htmlengine-edit-cut-and-paste.c (html_engine_copy_object): don't
+	freeze and thaw in copy, copy should not modify our tree, so we
+	don't need to update it after
+
 2001-10-18  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine.c (update_embedded): go ahead and draw the

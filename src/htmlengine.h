@@ -77,6 +77,7 @@ struct _HTMLEngine {
 	guint thaw_idle_id;
 	gint block_redraw;
 	gboolean need_redraw;
+	GSList *pending_expose;
 
 	gboolean parsing;
 	HTMLTokenizer *ht;
@@ -410,7 +411,17 @@ HTMLObject *html_engine_get_object_by_id    (HTMLEngine  *e,
 HTMLEngine *html_engine_get_top_html_engine (HTMLEngine *e);
 void        html_engine_thaw_idle_reset     (HTMLEngine *e);
 
-const gchar * html_engine_get_class_data (HTMLEngine *e, const gchar *class_name, const gchar *key);
-gboolean      html_engine_intersection (HTMLEngine *e, gint *x1, gint *y1, gint *x2, gint *y2);
-
+const gchar *html_engine_get_class_data  (HTMLEngine  *e,
+					  const gchar *class_name,
+					  const gchar *key);
+gboolean  html_engine_intersection  (HTMLEngine *e,
+				     gint       *x1,
+				     gint       *y1,
+				     gint       *x2,
+				     gint       *y2);
+void  html_engine_add_expose  (HTMLEngine *e,
+			       gint        x,
+			       gint        y,
+			       gint        width,
+			       gint        height);
 #endif /* _HTMLENGINE_H_ */

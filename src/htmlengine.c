@@ -3270,6 +3270,7 @@ html_engine_init (HTMLEngine *engine)
 	/* STUFF might be missing here!   */
 	engine->freeze_count = 0;
 	engine->thaw_idle_id = 0;
+	engine->pending_expose = NULL;
 
 	engine->window = NULL;
 	engine->invert_gc = NULL;
@@ -4392,6 +4393,8 @@ html_engine_freeze (HTMLEngine *engine)
 	g_return_if_fail (engine != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (engine));
 
+	/* printf ("html_engine_freeze %d\n", engine->freeze_count); */
+
 	html_engine_hide_cursor (engine);
 	engine->freeze_count++;
 }
@@ -4458,6 +4461,8 @@ draw_changed_objects (HTMLEngine *e, GList *changed_objs)
 {
 	GList *cur;
 
+	/* printf ("draw_changed_objects BEGIN\n"); */
+
 	for (cur = changed_objs; cur; cur = cur->next) {
 		if (cur->data) {
 			HTMLObject *o;
@@ -4472,6 +4477,32 @@ draw_changed_objects (HTMLEngine *e, GList *changed_objs)
 		}
 	}
 	html_engine_flush_draw_queue (e);
+
+	/* printf ("draw_changed_objects END\n"); */
+}
+
+static void
+free_expose_data (gpointer data, gpointer user_data)
+{
+	g_free (data);
+}
+
+static void
+do_pending_expose (HTMLEngine *e)
+{
+	GSList *l, *next;
+
+	/* printf ("do_pending_expose\n"); */
+
+	for (l = e->pending_expose; l; l = next) {
+		GdkRectangle *r;
+
+		next = l->next;
+		r = (GdkRectangle *) l->data;
+
+		html_engine_draw (e, r->x, r->y, r->width, r->height);
+		g_free (r);
+	}
 }
 
 static gint
@@ -4482,7 +4513,17 @@ thaw_idle (gpointer data)
 	gboolean redraw_whole;
 	gint w, h;
 
+	/* printf ("thaw_idle\n"); */
+
 	e->thaw_idle_id = 0;
+	if (e->freeze_count != 1) {
+		/* we have been frozen again meanwhile */
+		/* printf ("frozen again meanwhile\n"); */
+		html_engine_show_cursor (e);
+
+		return FALSE;
+	}
+
 	w = html_engine_get_doc_width (e) - e->rightBorder;
 	h = html_engine_get_doc_height (e) - e->bottomBorder;
 
@@ -4492,12 +4533,14 @@ thaw_idle (gpointer data)
 	gtk_html_edit_make_cursor_visible (e->widget);
 
 	if (redraw_whole) {
+		g_slist_foreach (e->pending_expose, free_expose_data, NULL);
 		html_draw_queue_clear (e->draw_queue);
 		html_engine_draw (e, 0, 0, e->width, e->height);
 	} else {
 		GtkAdjustment *vadj, *hadj;
 		gint nw, nh;
 
+		do_pending_expose (e);
 		draw_changed_objects (e, changed_objs);
 
 		hadj = GTK_LAYOUT (e->widget)->hadjustment;
@@ -4517,6 +4560,10 @@ thaw_idle (gpointer data)
 		}
 		g_list_free (changed_objs);
 	}
+	g_slist_free (e->pending_expose);
+	e->pending_expose = NULL;
+
+	e->freeze_count--;
 	html_engine_show_cursor (e);
 
 	return FALSE;
@@ -4529,12 +4576,16 @@ html_engine_thaw (HTMLEngine *engine)
 	g_return_if_fail (HTML_IS_ENGINE (engine));
 	g_return_if_fail (engine->freeze_count > 0);
 
-	engine->freeze_count--;
-
-	if (engine->freeze_count == 0 && engine->thaw_idle_id == 0)
-		engine->thaw_idle_id = gtk_idle_add (thaw_idle, engine);
-	else
+	if (engine->freeze_count == 1) {
+		if (engine->thaw_idle_id == 0) {
+			engine->thaw_idle_id = gtk_idle_add (thaw_idle, engine);
+		}
+	} else {
+		engine->freeze_count--;
 		html_engine_show_cursor (engine);
+	}
+
+	/* printf ("html_engine_thaw %d\n", engine->freeze_count); */
 }
 
 void
@@ -4948,4 +4999,23 @@ html_engine_get_top_html_engine (HTMLEngine *e)
 		e = GTK_HTML (e->widget->iframe_parent)->engine;
 
 	return e;
+}
+
+void
+html_engine_add_expose  (HTMLEngine *e, gint x, gint y, gint width, gint height)
+{
+	GdkRectangle *r;
+
+	/* printf ("html_engine_add_expose\n"); */
+
+	g_assert (HTML_IS_ENGINE (e));
+
+	r = g_new (GdkRectangle, 1);
+
+	r->x = x;
+	r->y = y;
+	r->width = width;
+	r->height = height;
+
+	e->pending_expose = g_slist_prepend (e->pending_expose, r);
 }

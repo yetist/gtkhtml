@@ -313,7 +313,6 @@ html_engine_copy_object (HTMLEngine *e, HTMLObject **o, guint *len)
 	GList *from, *to;
 
 	if (html_engine_is_selection_active (e)) {
-		html_engine_freeze (e);
 		prepare_delete_bounds (e, &from, &to, NULL, NULL);
 		*len = 0;
 		*o    = html_object_op_copy (HTML_OBJECT (from->data), e,
@@ -322,7 +321,6 @@ html_engine_copy_object (HTMLEngine *e, HTMLObject **o, guint *len)
 		printf ("copy len: %d (parent %p)\n", *len, (*o)->parent);
 		gtk_html_debug_dump_tree_simple (*o, 0);
 #endif
-		html_engine_thaw (e);
 	}
 }
 

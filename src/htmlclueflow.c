@@ -156,6 +156,8 @@ get_recursive_length (HTMLObject *self)
 static HTMLObject *
 op_helper (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GList *right, guint *len, gboolean cut)
 {
+	HTMLObject *o;
+
 	/* if (!from && to && HTML_IS_TABLE (to->data) && to->next && GPOINTER_TO_INT (to->next->data) == 0)
 		return NULL;
 	if (!to && from && HTML_IS_TABLE (from->data) && from->next && GPOINTER_TO_INT (from->next->data) == 1)
@@ -167,10 +169,17 @@ op_helper (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left,
 		/* if (cut)
 		   e->cursor->position --; */
 	}
-	html_clueflow_remove_text_slaves (HTML_CLUEFLOW (self));
-	return cut
+	if (cut)
+		html_clueflow_remove_text_slaves (HTML_CLUEFLOW (self));
+	o = cut
 		? (*HTML_OBJECT_CLASS (parent_class)->op_cut) (self, e, from, to, left, right, len)
 		: (*HTML_OBJECT_CLASS (parent_class)->op_copy) (self, e, from, to, len);
+
+	if (!cut && o) {
+		html_clueflow_remove_text_slaves (HTML_CLUEFLOW (o));
+	}
+
+	return o;
 }
 
 static HTMLObject *
