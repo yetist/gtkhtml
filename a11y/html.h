@@ -55,6 +55,7 @@ struct _HTMLA11YClass {
 AtkObject * html_a11y_new (HTMLObject *html_obj, AtkRole role);
 
 GtkHTMLA11Y * html_a11y_get_gtkhtml_parent (HTMLA11Y *obj);
+GtkHTMLA11Y * html_a11y_get_top_gtkhtml_parent (HTMLA11Y *obj);
 
 /* private, used in text.c */
 void  html_a11y_get_extents (AtkComponent *component, gint *x, gint *y, gint *width, gint *height, AtkCoordType coord_type);

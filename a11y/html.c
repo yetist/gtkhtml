@@ -27,6 +27,8 @@
 #include <atk/atkstateset.h>
 #include <glib/gi18n.h>
 
+#include "gtkhtml.h"
+#include "htmlengine.h"
 #include "html.h"
 #include "object.h"
 #include "utils.h"
@@ -277,24 +279,48 @@ html_a11y_get_gtkhtml_parent (HTMLA11Y *a11y)
 	return gtkhtml_a11y;
 }
 
+GtkHTMLA11Y *
+html_a11y_get_top_gtkhtml_parent (HTMLA11Y *a11y)
+{
+	GtkHTMLA11Y *gtkhtml_a11y;
+	GtkHTML *gtkhtml;
+
+	gtkhtml_a11y = html_a11y_get_gtkhtml_parent (a11y);
+	g_return_val_if_fail (gtkhtml_a11y, NULL);
+
+	gtkhtml = GTK_HTML_A11Y_GTKHTML (gtkhtml_a11y);
+	g_return_val_if_fail (gtkhtml, NULL);
+
+	gtkhtml = gtk_html_get_top_html (gtkhtml);
+
+	return (GtkHTMLA11Y *)gtk_widget_get_accessible (GTK_WIDGET (gtkhtml));
+}
+
 void
 html_a11y_get_extents (AtkComponent *component, gint *x, gint *y, gint *width, gint *height, AtkCoordType coord_type)
 {
 	HTMLObject *obj = HTML_A11Y_HTML (component);
-	GtkHTMLA11Y *a11y = NULL;
+	GtkHTMLA11Y *top_html_a11y;
+	HTMLEngine *top_engine;
 	gint ax, ay;
 
 	g_return_if_fail (obj);
 
-	a11y = html_a11y_get_gtkhtml_parent (HTML_A11Y (component));
-	g_return_if_fail (a11y);
+	top_html_a11y = html_a11y_get_top_gtkhtml_parent (HTML_A11Y (component));
+	g_return_if_fail (top_html_a11y);
 
-	atk_component_get_extents (ATK_COMPONENT (a11y), x, y, width, height, coord_type);
+	atk_component_get_extents (ATK_COMPONENT (top_html_a11y), x, y, width, height, coord_type);
+
 	html_object_calc_abs_position (obj, &ax, &ay);
 	*x += ax;
 	*y += ay - obj->ascent;
 	*width = obj->width;
 	*height = obj->ascent + obj->descent;
+
+	/* scroll window */
+	top_engine = GTK_HTML_A11Y_GTKHTML (top_html_a11y)->engine;
+	*x -=  top_engine->x_offset;
+	*y -=  top_engine->y_offset;
 }
 
 void

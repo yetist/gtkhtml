@@ -25,6 +25,7 @@
 #include <atk/atkcomponent.h>
 #include <atk/atktext.h>
 #include <glib/gi18n.h>
+#include <glib/gmacros.h>
 
 #include "gtkhtml.h"
 #include "htmlengine.h"
@@ -67,6 +68,11 @@ static gboolean html_a11y_text_remove_selection (AtkText *text, gint selection_n
 static gboolean html_a11y_text_set_selection (AtkText *text, gint selection_num, gint start_offset, gint end_offset);
 static gint html_a11y_text_get_caret_offset (AtkText *text);
 static gboolean html_a11y_text_set_caret_offset (AtkText *text, gint offset);
+static void html_a11y_text_get_character_extents (AtkText *text, gint offset,
+				gint *x, gint *y, gint *width, gint *height,
+				AtkCoordType coords);
+static gint html_a11y_text_get_offset_at_point (AtkText *text, gint x, gint y,
+					AtkCoordType coords);
 
 /* Editable text interface. */
 static void 	atk_editable_text_interface_init      (AtkEditableTextIface *iface);
@@ -212,6 +218,8 @@ atk_text_interface_init (AtkTextIface *iface)
 	iface->add_selection = html_a11y_text_add_selection;
 	iface->get_caret_offset = html_a11y_text_get_caret_offset;
 	iface->set_caret_offset = html_a11y_text_set_caret_offset;
+	iface->get_character_extents = html_a11y_text_get_character_extents;
+	iface->get_offset_at_point = html_a11y_text_get_offset_at_point;
 }
 
 static void
@@ -306,46 +314,62 @@ html_a11y_text_ref_state_set (AtkObject *accessible)
  * AtkComponent interface
  */
 
-static void
-get_size (HTMLObject *obj, gint *width, gint *height)
-{
-	HTMLObject *last;
-
-	if (obj) {
-		gint ax, ay;
-
-		html_object_calc_abs_position (obj, &ax, &ay);
-		last = obj;
-		while (last->next && HTML_IS_TEXT_SLAVE (last->next))
-			last = last->next;
-		if (HTML_IS_TEXT_SLAVE (last)) {
-			gint lx, ly;
-			html_object_calc_abs_position (last, &lx, &ly);
-
-			*width = lx + last->width - ax;
-			*height = ly + last->descent - ay;
-		}
-	}
-}
 
 static void
 html_a11y_text_get_extents (AtkComponent *component, gint *x, gint *y, gint *width, gint *height, AtkCoordType coord_type)
 {
 	HTMLObject *obj = HTML_A11Y_HTML (component);
+	GtkHTMLA11Y *top_html_a11y;
+	HTMLEngine *top_engine;
+	gint min_x, min_y, max_x, max_y;
+	HTMLObject *next;
+	gint sx, sy;
 
-	html_a11y_get_extents (component, x, y, width, height, coord_type);
-	get_size (obj, width, height);
+	g_return_if_fail (obj);
+	top_html_a11y = html_a11y_get_top_gtkhtml_parent (HTML_A11Y (component));
+	g_return_if_fail (top_html_a11y);
+
+	if (obj->y <obj->ascent)
+		obj->y = obj->ascent;
+
+	atk_component_get_extents (ATK_COMPONENT (top_html_a11y), x, y, width, height, coord_type);
+
+	/* we need to get a max rect here */
+	html_object_calc_abs_position (obj, &min_x, &min_y);
+	max_x = min_x + obj->width;
+	max_y = min_y + obj->descent;
+	min_y -= obj->ascent;
+
+	next = obj->next;
+	while (next && HTML_IS_TEXT_SLAVE (next)) {
+		html_object_calc_abs_position (next, &sx, &sy);
+		min_x = MIN (min_x, sx);
+		min_y = MIN (min_y, sy - next->ascent);
+		max_x = MAX (max_x, sx + next->width);
+		max_y = MAX (max_y, sy + next->descent);
+
+		next = next->next;
+	}
+
+	*x += min_x;
+	*width = max_x - min_x;
+	*y += min_y;
+	*height = max_y - min_y;
+
+	/* scroll window */
+	top_engine = GTK_HTML_A11Y_GTKHTML (top_html_a11y)->engine;
+	*x -=  top_engine->x_offset;
+	*y -=  top_engine->y_offset;
 }
+
 
 static void
 html_a11y_text_get_size (AtkComponent *component, gint *width, gint *height)
 {
-	HTMLObject *obj = HTML_A11Y_HTML (component);
+	gint x, y;
 
-	html_a11y_get_size (component, width, height);
-	get_size (obj, width, height);
+	html_a11y_get_extents (component, &x, &y, width, height, ATK_XY_WINDOW);
 }
-
 
 static gboolean
 html_a11y_text_grab_focus (AtkComponent *comp)
@@ -678,6 +702,83 @@ html_a11y_text_set_selection (AtkText *text, gint selection_num, gint start_offs
 
 */
 
+static gint
+html_a11y_text_get_offset_at_point (AtkText *text, gint x, gint y,
+					AtkCoordType coords)
+{
+	GtkHTML *top_html;
+	GtkHTMLA11Y *top_a11y;
+	HTMLEngine *top_e;
+	HTMLObject *obj, *return_obj;
+	gint offset = -1;
+	gint html_x, html_y, html_height, html_width;
+	gint text_x, text_y, text_height, text_width;
+
+	obj = HTML_A11Y_HTML (text);
+	g_return_val_if_fail(obj && html_object_is_text(obj), -1);
+
+	atk_component_get_extents (ATK_COMPONENT (text), &text_x, &text_y, &text_width, &text_height, coords);
+
+	/* check whether in range */
+	if (x < text_x || x > text_x + text_width
+		|| y < text_y || y > text_y + text_height)
+		return -1;
+
+	top_a11y = html_a11y_get_top_gtkhtml_parent (HTML_A11Y (text));
+	g_return_val_if_fail (top_a11y, -1);
+
+	top_html = GTK_HTML_A11Y_GTKHTML (top_a11y);
+	g_return_val_if_fail (top_html && GTK_IS_HTML(top_html) && top_html->engine, -1);
+	top_e = top_html->engine;
+
+	atk_component_get_extents (ATK_COMPONENT (top_a11y), &html_x, &html_y, &html_width, &html_height, coords);
+
+	x -= html_x;
+	y -= html_y;
+
+	return_obj = html_engine_get_object_at (top_e, x, y, &offset, FALSE);
+		
+	if (obj == return_obj)
+		return offset;
+	else
+		/*since the point is in range, need to return a valid value */ 
+		return 0;
+}
+
+static void
+html_a11y_text_get_character_extents (AtkText *text, gint offset,
+				gint *x, gint *y, gint *width, gint *height,
+				AtkCoordType coords)
+{
+	HTMLObject *obj;
+	GtkHTML *html;
+	HTMLEngine *e;
+	gint x1, x2, y1, y2;
+	GtkHTMLA11Y *a11y;
+
+	obj = HTML_A11Y_HTML (text);
+	g_return_if_fail(obj && html_object_is_text(obj));
+
+	a11y = html_a11y_get_top_gtkhtml_parent (HTML_A11Y (text));
+	g_return_if_fail (a11y);
+
+	html = GTK_HTML_A11Y_GTKHTML (a11y);
+	g_return_if_fail(html && GTK_IS_HTML(html) && html->engine);
+	e = html->engine;
+
+	atk_component_get_extents (ATK_COMPONENT (a11y), x, y, width, height, coords);
+	html_object_get_cursor (obj, e->painter, offset, &x1, &y1, &x2, &y2);
+
+	*x += x1;
+	*y += y1;
+	*height = y2 - y1;
+	/* a reasonable guess */
+	*width = *height / 2;
+
+	/* scroll window */
+	*x -=  e->x_offset;
+	*y -=  e->y_offset;
+}
  
 static void
 atk_editable_text_interface_init (AtkEditableTextIface *iface)

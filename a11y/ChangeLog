@@ -1,3 +1,16 @@
+2005-01-02  Mengjie Yu  <meng-jie.yu@sun.com>
+
+	Fix for 70130 and 70683.        
+
+	* html.c: (html_a11y_get_top_gtkhtml_parent): new function.
+	(html_a11y_get_extents): get correct value.
+	* html.h:
+	* text.c: (atk_text_interface_init), (html_a11y_text_get_extents):
+	get a max rect as the extents.
+	(html_a11y_text_get_size): call get_extents to get size.
+	(html_a11y_text_get_offset_at_point): new function.
+	(html_a11y_text_get_character_extents): new function.
+
 2005-01-19  Mengjie Yu  <meng-jie.yu@sun.com>
 
 	* html.c: (html_a11y_get_n_children), (html_a11y_ref_child):
