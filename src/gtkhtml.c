@@ -808,7 +808,7 @@ realize (GtkWidget *widget)
 	gtk_html_im_realize (html);
 #endif /* GTK_HTML_USE_XIM */
 
-	gtk_drag_dest_set (widget, GTK_DEST_DEFAULT_DROP,
+	gtk_drag_dest_set (widget, GTK_DEST_DEFAULT_ALL,
 			   dnd_link_sources, DND_LINK_SOURCES, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK);
 }
 
@@ -1895,17 +1895,19 @@ drag_data_received (GtkWidget *widget, GdkDragContext *context,
 {
 	HTMLEngine *engine = GTK_HTML (widget)->engine;
 	HTMLObject *new_text = NULL;
+	gint len;
 
 	/* printf ("drag data received at %d,%d\n", x, y); */
 
-	if (!html_engine_get_editable (engine))
+	if (!selection_data->data || selection_data->length < 0 || !html_engine_get_editable (engine))
 		return;
 
 	switch (info) {
 	case DND_TARGET_TYPE_TEXT_PLAIN:
 	case DND_TARGET_TYPE_STRING:
 		/* printf ("\ttext/plain\n"); */
-		new_text = html_engine_new_text (engine, selection_data->data, selection_data->length);
+		len = selection_data->length;
+		new_text = html_engine_new_text (engine, selection_data->data, len);
 		break;
 	case DND_TARGET_TYPE_TEXT_URI_LIST:
 	case DND_TARGET_TYPE__NETSCAPE_URL: {
@@ -1921,15 +1923,34 @@ drag_data_received (GtkWidget *widget, GdkDragContext *context,
 			}
 		} else
 			text = selection_data->data;
-		new_text = html_engine_new_link (engine, text, selection_data->length - (gint) (text - selection_data->data),
+		len = selection_data->length - (gint) (text - selection_data->data);
+		new_text = html_engine_new_link (engine, text, len,
 						 selection_data->data);
 	}
 	break;
 	}
 
 	if (new_text) {
-		html_engine_jump_at (engine, x + engine->x_offset, y + engine->y_offset);
-		html_engine_paste_object (engine, new_text, selection_data->length);
+		if (html_engine_is_selection_active (engine)) {
+			HTMLObject *obj;
+			guint offset;
+
+			obj = html_engine_get_object_at (engine,
+							 x + engine->x_offset,
+							 y + engine->y_offset,
+							 &offset, FALSE);
+			if (!html_engine_point_in_selection (engine, obj, offset)) {
+				html_engine_disable_selection (engine);
+				html_engine_edit_selection_updater_update_now (engine->selection_updater);
+			}
+		}
+		if (!html_engine_is_selection_active (engine)) {
+
+			html_engine_jump_at (engine, x + engine->x_offset, y + engine->y_offset);
+			gtk_html_update_styles (GTK_HTML (widget));
+		}
+		
+		html_engine_paste_object (engine, new_text, len);
 	}
 }
 
