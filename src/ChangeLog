@@ -1,3 +1,8 @@
+2003-05-20  Larry Ewing  <lewing@ximian.com>
+
+	* htmlimage.c (draw_plain): fix the text position, add
+	highlighting.
+
 2003-05-19  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml-enums.h: make the flags actually be flags.

@@ -343,9 +343,18 @@ draw_plain (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gint heig
 	HTMLImage *img = HTML_IMAGE (o);
 
 	if (img->alt && *img->alt) {
-		html_painter_set_pen (p, &html_colorset_get_color_allocated (p, HTMLTextColor)->color);
+
 		/* FIXME: cache items and glyphs? */
-		html_painter_draw_text (p, o->x + tx, o->y + ty - o->ascent, img->alt, g_utf8_strlen (img->alt, -1), NULL, NULL, 0, 0);
+		if (o->selected) {
+			html_painter_set_pen (p, &html_colorset_get_color_allocated
+					      (p, p->focus ? HTMLHighlightColor : HTMLHighlightNFColor)->color);
+			html_painter_fill_rect (p, o->x + tx, o->y + ty - o->ascent, o->width, o->ascent + o->descent);
+			html_painter_set_pen (p, &html_colorset_get_color_allocated
+					      (p, p->focus ? HTMLHighlightTextColor : HTMLHighlightTextNFColor)->color);
+		} else { 
+			html_painter_set_pen (p, &html_colorset_get_color_allocated (p, HTMLTextColor)->color);
+		}
+		html_painter_draw_text (p, o->x + tx, o->y + ty, img->alt, g_utf8_strlen (img->alt, -1), NULL, NULL, 0, 0);
 	}
 }
 
