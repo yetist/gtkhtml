@@ -164,7 +164,7 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
         html_color_alloc (color, cd->html->engine->painter); \
 	combo = color_combo_new (NULL, _("Automatic"), \
 				 &color->color, \
-				 color_group_fetch ("body_" g, NULL)); \
+				 "body_" g); \
         color_combo_set_color (COLOR_COMBO (combo), &data->color [ct]); \
         gtk_object_set_data (GTK_OBJECT (combo), "type", GINT_TO_POINTER (ct)); \
         gtk_signal_connect (GTK_OBJECT (combo), "changed", GTK_SIGNAL_FUNC (color_changed), data); \

@@ -1,11 +1,3 @@
-2001-04-17  Radek Doulik  <rodo@ximian.com>
-
-	* toolbar.c (setup_color_combo): as below
-
-	* text.c (text_properties): as below
-
-	* body.c (ADD_COLOR): updated color_combo_new calling
-
 2001-04-16  Larry Ewing  <lewing@ximian.com>
 
 	* toolbar.c (toolbar_item_update_sensitivity): fix prototype.
