@@ -1,3 +1,9 @@
+2003-07-09  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c (html_engine_freeze):  only process the updates on
+	the first freeze, and add some checking to call (to fix the other
+	problem York pointed out on irc.)
+
 2003-07-08  Larry Ewing  <lewing@ximian.com>
 
 	* htmltextslave.c (draw_focus): substitute p with painter (Thanks

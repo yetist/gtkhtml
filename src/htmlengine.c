@@ -65,6 +65,7 @@
 #include "htmlundo.h"
 #include "htmldrawqueue.h"
 #include "htmlgdkpainter.h"
+#include "htmlplainpainter.h"
 #include "htmlreplace.h"
 #include "htmlentity.h"
 
@@ -4798,11 +4799,13 @@ html_engine_freeze (HTMLEngine *engine)
 	g_return_if_fail (engine != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (engine));
 
-	if (engine->freeze_count == 0)
+	if (engine->freeze_count == 0) {
 		gtk_html_im_reset (engine->widget);
 
-	html_engine_flush_draw_queue (engine);
-	gdk_window_process_updates (HTML_GDK_PAINTER (engine->painter)->window, FALSE);
+		html_engine_flush_draw_queue (engine);
+		if ((HTML_IS_GDK_PAINTER (engine->painter) || HTML_IS_PLAIN_PAINTER (engine->painter)) && HTML_GDK_PAINTER (engine->painter)->window)
+			gdk_window_process_updates (HTML_GDK_PAINTER (engine->painter)->window, FALSE);
+	}
 	/* printf ("html_engine_freeze %d\n", engine->freeze_count); */
 
 	html_engine_hide_cursor (engine);
