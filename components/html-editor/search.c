@@ -22,10 +22,11 @@
 
 #include "config.h"
 #include "search.h"
+#include "dialog.h"
 
 struct _GtkHTMLSearchDialog {
-	GtkHTML     *html;
 	GnomeDialog *dialog;
+	GtkHTML     *html;
 	GtkWidget   *entry;
 	GtkWidget   *backward;
 	GtkWidget   *case_sensitive;
@@ -105,16 +106,13 @@ gtk_html_search_dialog_destroy (GtkHTMLSearchDialog *d)
 void
 search (GtkHTMLControlData *cd, gboolean regular)
 {
-	if (cd->search_dialog) {
-		printf ("search only shows dialog\n");
+	if (cd->search_dialog)
 		cd->search_dialog->regular = regular;
-		gtk_widget_show (GTK_WIDGET (cd->search_dialog->dialog));
-		gdk_window_raise (GTK_WIDGET (cd->search_dialog->dialog)->window);
+
+	RUN_DIALOG (search);
+
+	if (cd->search_dialog)
 		gtk_widget_grab_focus (cd->search_dialog->entry);
-	} else {
-		cd->search_dialog = gtk_html_search_dialog_new (cd->html, regular);
-		gnome_dialog_run (cd->search_dialog->dialog);
-	}
 }
 
 void

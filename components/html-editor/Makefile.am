@@ -24,10 +24,14 @@ bin_PROGRAMS =					\
 html_editor_control_SOURCES =			\
 	control-data.c				\
 	control-data.h				\
+	dialog.c				\
+	dialog.h				\
 	editor-control-factory.c		\
 	editor-control-factory.h		\
 	image.c					\
 	image.h					\
+	link.c					\
+	link.h					\
 	main.c					\
 	menubar.c				\
 	menubar.h				\

@@ -25,6 +25,7 @@
 #include "htmlclueflow.h"
 #include "htmltext.h"
 #include "htmltextmaster.h"
+#include "htmllinktextmaster.h"
 
 #include "htmlengine-edit.h"
 #include "htmlengine-edit-cursor.h"
@@ -32,6 +33,7 @@
 #include "htmlengine-edit-movement.h"
 
 #include "htmlengine-edit-insert.h"
+#include "htmlengine-edit-paste.h"
 
 
 /* Paragraph insertion.  */
@@ -472,4 +474,16 @@ html_engine_insert (HTMLEngine *e,
 	html_engine_show_cursor (e);
 
 	return n;
+}
+
+void
+html_engine_insert_link (HTMLEngine  *e, const gchar *text, const gchar *href)
+{
+	HTMLObject *link;
+
+	link  = html_link_text_master_new (text, e->insertion_font_style, &e->settings->linkColor,
+					  href, NULL);
+
+	html_engine_paste_object (e, link,  TRUE);
+	html_object_destroy (link);
 }

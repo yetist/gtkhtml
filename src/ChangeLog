@@ -1,3 +1,8 @@
+2000-04-25  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlengine-edit-insert.c (html_engine_insert_link): new function
+	for link insertion
+
 2000-04-24  Dan Winship  <danw@helixcode.com>
 
 	* htmlengine.c (html_engine_destroy): remove the updateTimer, if

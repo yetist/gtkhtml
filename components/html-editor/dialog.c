@@ -2,6 +2,7 @@
 /*  This file is part of the GtkHTML library.
 
     Copyright (C) 2000 Helix Code, Inc.
+    Authors:           Radek Doulik (rodo@helixcode.com)
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Library General Public
@@ -17,33 +18,26 @@
     along with this library; see the file COPYING.LIB.  If not, write to
     the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
     Boston, MA 02111-1307, USA.
-
-    Author: Radek Doulik <rodo@helixcode.com>
 */
 
-#ifndef _CONTROL_DATA_H
-#define _CONTROL_DATA_H
+#include "dialog.h"
 
-typedef struct _GtkHTMLControlData GtkHTMLControlData;
+/*
+  somewhat ugly (those *** :) so I feel like I may comment
+  as first argument it takes poiter to pointer on Dialog struct
+  which MUST contains GnomeDialog * as first field
 
-#include <gtkhtml.h>
-#include "search.h"
-#include "replace.h"
-#include "image.h"
-#include "link.h"
+  it is bassicaly the same trick as used in GtkObject's
+*/
 
-struct _GtkHTMLControlData {
-	GtkHTML   *html;
-	GtkWidget *vbox;
-
-	GtkHTMLSearchDialog     *search_dialog;
-	GtkHTMLReplaceDialog    *replace_dialog;
-
-	GtkHTMLImageDialog      *image_dialog;
-	GtkHTMLLinkDialog       *link_dialog;
-};
-
-GtkHTMLControlData * gtk_html_control_data_new       (GtkHTML *html, GtkWidget *vbox);
-void                 gtk_html_control_data_destroy   (GtkHTMLControlData *cd);
-
-#endif
+void
+run_dialog (GnomeDialog ***dialog, GtkHTML *html, DialogCtor ctor)
+{
+	if (*dialog) {
+		gtk_widget_show (GTK_WIDGET (**dialog));
+		gdk_window_raise (GTK_WIDGET (**dialog)->window);
+	} else {
+		*dialog = ctor (html);
+		gnome_dialog_run (**dialog);
+	}
+}

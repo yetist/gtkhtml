@@ -1,4 +1,24 @@
+2000-04-25  Radek Doulik  <rodo@helixcode.com>
+
+	* link.c (set_entries): new function, trying to be clever about
+	links :)
+	(gtk_html_link_dialog_new): link dialog
+	(insert_link): run link dialog
+
 2000-04-24  Radek Doulik  <rodo@helixcode.com>
+
+	* replace.c (replace): use RUN_DIALOG
+
+	* search.c (search): use RUN_DIALOG
+
+	* image.c (insert_image): use RUN_DIALOG
+
+	* dialog.c (run_dialog): creates and runs/raises dialog
+
+	* dialog.[ch]: new files, some general dialogs util(s)
+
+	* editor-control-factory.c (set_frame_cb): set automatic policy
+	for scrolled_window
 
 	* Makefile.am (html_editor_control_SOURCES): added search.[ch],
 	replace.[ch], image.[ch] files

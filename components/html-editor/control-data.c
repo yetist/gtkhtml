@@ -46,6 +46,9 @@ gtk_html_control_data_destroy (GtkHTMLControlData *cd)
 	if (cd->image_dialog) {
 		gtk_html_image_dialog_destroy (cd->image_dialog);
 	}
+	if (cd->link_dialog) {
+		gtk_html_link_dialog_destroy (cd->link_dialog);
+	}
 
 	g_free (cd);
 }

@@ -367,7 +367,7 @@ void      html_engine_thaw    (HTMLEngine *engine);
 /* Creating an empty document.  */
 void      html_engine_load_empty                (HTMLEngine *engine);
 
-/* Searching */
+/* Search & Replace */
 gboolean  html_engine_search                    (HTMLEngine *e,
 						 const gchar *text,
 						 gboolean case_sensitive,

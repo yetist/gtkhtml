@@ -22,6 +22,7 @@
 
 #include <unistd.h>
 #include "config.h"
+#include "dialog.h"
 #include "image.h"
 #include "htmlengine-edit-images.h"
 
@@ -33,8 +34,8 @@
 #define GTK_HTML_EDIT_IMAGE_SPINS       5
 
 struct _GtkHTMLImageDialog {
-	GtkHTML     *html;
 	GnomeDialog *dialog;
+	GtkHTML     *html;
 	GtkWidget   *pentry;
 	GtkWidget   *entry_alt;
 
@@ -294,11 +295,5 @@ gtk_html_image_dialog_destroy (GtkHTMLImageDialog *d)
 void
 insert_image (GtkHTMLControlData *cd)
 {
-	if (cd->image_dialog) {
-		gtk_widget_show (GTK_WIDGET (cd->image_dialog->dialog));
-		gdk_window_raise (GTK_WIDGET (cd->image_dialog->dialog)->window);
-	} else {
-		cd->image_dialog = gtk_html_image_dialog_new (cd->html);
-		gnome_dialog_run (cd->image_dialog->dialog);
-	}
+	RUN_DIALOG (image);
 }

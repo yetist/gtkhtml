@@ -22,6 +22,7 @@
 
 #include "config.h"
 #include "replace.h"
+#include "dialog.h"
 #include "htmlengine.h"
 
 struct _GtkHTMLReplaceAskDialog {
@@ -32,8 +33,8 @@ struct _GtkHTMLReplaceAskDialog {
 typedef struct _GtkHTMLReplaceAskDialog GtkHTMLReplaceAskDialog;
 
 struct _GtkHTMLReplaceDialog {
-	GtkHTML     *html;
 	GnomeDialog *dialog;
+	GtkHTML     *html;
 	GtkWidget   *entry_search;
 	GtkWidget   *entry_replace;
 	GtkWidget   *backward;
@@ -202,22 +203,10 @@ gtk_html_replace_dialog_destroy (GtkHTMLReplaceDialog *d)
 }
 
 void
-gtk_html_replace_dialog_run (GtkHTMLReplaceDialog *d)
-{
-	gint action;
-
-	action = gnome_dialog_run (d->dialog);
-}
-
-void
 replace (GtkHTMLControlData *cd)
 {
-	if (cd->replace_dialog) {
-		gtk_widget_show (GTK_WIDGET (cd->replace_dialog->dialog));
-		gdk_window_raise (GTK_WIDGET (cd->replace_dialog->dialog)->window);
+	RUN_DIALOG (replace);
+
+	if (cd->replace_dialog)
 		gtk_widget_grab_focus (cd->replace_dialog->entry_search);
-	} else {
-		cd->replace_dialog = gtk_html_replace_dialog_new (cd->html);
-		gnome_dialog_run (cd->replace_dialog->dialog);
-	}
 }

@@ -29,4 +29,10 @@ guint  html_engine_insert       (HTMLEngine  *e,
 				 const gchar *text,
 				 guint        len);
 
+/* Links */
+
+void  html_engine_insert_link (HTMLEngine  *e,
+			       const gchar *text,
+			       const gchar *href);
+
 #endif /* _HTMLENGINE_EDIT_INSERT_H */

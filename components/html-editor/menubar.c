@@ -70,7 +70,7 @@ static GnomeUIInfo edit_subtree_info[] = {
 
 static GnomeUIInfo insert_subtree_info[] = {
 	GNOMEUIINFO_ITEM_NONE (N_("_Image..."), N_("Insert image into document..."), insert_image_cb),
-	GNOMEUIINFO_ITEM_NONE (N_("_Link..."), N_("Insert HTML link into document..."), insert_image_cb),
+	GNOMEUIINFO_ITEM_NONE (N_("_Link..."), N_("Insert HTML link into document..."), insert_link_cb),
 	GNOMEUIINFO_END
 };
 
@@ -146,7 +146,7 @@ insert_image_cb (GtkWidget *widget, GtkHTMLControlData *cd)
 static void
 insert_link_cb (GtkWidget *widget, GtkHTMLControlData *cd)
 {
-	/* gtk_html_insert_link (cd->html); */
+	insert_link (cd);
 }
 
 void
