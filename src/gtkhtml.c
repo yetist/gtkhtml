@@ -604,7 +604,7 @@ style_set (GtkWidget *widget,
 
 #ifdef GTK_HTML_USE_XIM
 	if (previous_style)
-		gtk_html_im_style_set (widget);
+		gtk_html_im_style_set (GTK_HTML (widget));
 #endif
 }
 
