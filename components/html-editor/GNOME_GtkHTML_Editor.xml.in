@@ -56,7 +56,7 @@
 			_label="Bulleted List"
 		        _tip="Make the current paragraph a bulleted list"
 		        type="radio" group="paragraph_heading" accel="*Ctrl**Alt*1"/>
-			<cmd name="HeadingRoman" 
+			<cmd name="HeadingRomanList" 
 			_label="Roman Numeral List"
 		        _tip="Make the current paragraph a list with roman numerals"
 		        type="radio" group="paragraph_heading" accel="*Ctrl**Alt*2"/>
