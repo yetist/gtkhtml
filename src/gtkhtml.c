@@ -1860,7 +1860,7 @@ gtk_html_begin_content (GtkHTML *html, gchar *content_type)
 #endif
 	g_return_val_if_fail (! gtk_html_get_editable (html), NULL);
 
-	handle = html_engine_begin (html->engine, html->priv->content_type);
+	handle = html_engine_begin (html->engine, content_type);
 	if (handle == NULL)
 		return NULL;
 

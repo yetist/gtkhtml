@@ -1,5 +1,9 @@
 2000-12-14  Larry Ewing  <lewing@helixcode.com>
 
+	* gtkhtml.c (gtk_html_begin_content): arggggh... use the content
+	type we are passed not the default.  This breaks the logic in the
+	editor component.
+
 	* htmlimage.c (save_plain): make sure we initialize the return
 	value
 
