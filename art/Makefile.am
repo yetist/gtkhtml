@@ -35,7 +35,8 @@ icons_DATA = \
 	search-and-replace-24.png	\
 	transparent.png			\
 	undo-16.png			\
-	undo-24.png
+	undo-24.png			\
+	bg1.png
 
 EXTRA_DIST = \
 	$(icons_DATA)
