@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0\n"
-"POT-Creation-Date: 2004-03-05 12:45-0500\n"
-"PO-Revision-Date: 2004-02-05 23:50+CET\n"
+"POT-Creation-Date: 2004-03-20 14:58+0100\n"
+"PO-Revision-Date: 2004-03-20 14:58+CET\n"
 "Last-Translator: auto\n"
 "Language-Team: Croatian <lokalizacija@linux.hr>\n"
 "MIME-Version: 1.0\n"
@@ -213,7 +213,7 @@ msgstr "Popis s grafičkim oznakama"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
 #: components/html-editor/toolbar.c:509
 msgid "Center justifies the paragraphs"
-msgstr "Centriraj odlomak"
+msgstr "Centriraj odlomke"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:13
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:13
@@ -260,9 +260,10 @@ msgstr "Izreži označeno i premjesti u međuspremnik"
 msgid "Cut the selection"
 msgstr "Izreži označeno"
 
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
-#: components/html-editor/search.c:77 components/html-editor/search.c:129
+#: components/html-editor/search.c:79 components/html-editor/search.c:131
 msgid "Find"
 msgstr "Nađi"
 
@@ -600,9 +601,10 @@ msgstr "Ponovi prethodno opozvanu izmjenu"
 msgid "Redo the undone action"
 msgstr "Ponovi opozvanu akciju"
 
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:88
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
-#: components/html-editor/replace.c:157 components/html-editor/replace.c:219
+#: components/html-editor/replace.c:161 components/html-editor/replace.c:223
 msgid "Replace"
 msgstr "Zamijeni"
 
@@ -1166,7 +1168,7 @@ msgstr "ljubičasta"
 
 #: components/html-editor/gi-color-palette.c:594
 msgid "dark grey"
-msgstr ""
+msgstr "tamno siva"
 
 #: components/html-editor/gi-color-palette.c:597
 msgid "red"
@@ -1235,7 +1237,7 @@ msgstr "ljubičasta"
 
 #: components/html-editor/gi-color-palette.c:614
 msgid "light grey"
-msgstr ""
+msgstr "svijetlo siva"
 
 #: components/html-editor/gi-color-palette.c:617
 #: components/html-editor/gi-color-palette.c:634
@@ -1253,7 +1255,7 @@ msgstr "žuta"
 
 #: components/html-editor/gi-color-palette.c:620
 msgid "light green"
-msgstr ""
+msgstr "svijetlo zelena"
 
 #: components/html-editor/gi-color-palette.c:621
 msgid "light cyan"
@@ -1267,7 +1269,7 @@ msgstr "svjetlo plava"
 #: components/html-editor/gi-color-palette.c:623
 #: components/html-editor/gi-color-palette.c:636
 msgid "light purple"
-msgstr ""
+msgstr "svijetlo ljubičasta"
 
 #: components/html-editor/gi-color-palette.c:624
 msgid "white"
@@ -1449,7 +1451,6 @@ msgid "Percent"
 msgstr "Postotak"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:55
-#, no-c-format
 msgid "Percent %"
 msgstr "Postotak %"
 
@@ -1606,16 +1607,13 @@ msgstr ""
 "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
 "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
 "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-"@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Ovjde "
-"postavite svoj komentar]</td></tr></table></td></tr></table></center>"
+"@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Ovjde postavite svoj komentar]</td></tr></table></td></tr></table></center>"
 
 #: components/html-editor/image.c:258 components/html-editor/image.c:264
 msgid ""
 "This is sample text, designed to show you how text would flow around this "
 "image if you insert the image into your message."
-msgstr ""
-"Ovo je probni tekst, osmišljen radi prikazivanja kako tekst okružuje sliku, "
-"koju ubacite u poruku."
+msgstr "Ovo je probni tekst, osmišljen radi prikazivanja kako tekst okružuje sliku, koju ubacite u poruku."
 
 #: components/html-editor/image.c:270
 msgid "No image selected"
@@ -1643,7 +1641,7 @@ msgstr ""
 
 #: components/html-editor/link.c:270
 msgid "Please fill 'Link text' and 'URL' entries"
-msgstr ""
+msgstr "Molim, popunite podatke za \"Tekst veze\" i \"URL\""
 
 #: components/html-editor/menubar.c:88 components/html-editor/menubar.c:104
 #: components/html-editor/menubar.c:122 components/html-editor/menubar.c:139
@@ -1653,7 +1651,6 @@ msgid "Insert"
 msgstr "Ubaci"
 
 #: components/html-editor/menubar.c:252
-#, c-format
 msgid "Error loading file '%s': %s"
 msgstr "Greška pri učitavanju datoteke  '%s': %s"
 
@@ -1726,12 +1723,10 @@ msgid "Paste Quotation"
 msgstr "Umetni citat"
 
 #: components/html-editor/popup.c:461
-#, fuzzy
 msgid "Insert Link"
-msgstr "Umetni vezu"
+msgstr "Ubaci vezu"
 
 #: components/html-editor/popup.c:468
-#, fuzzy
 msgid "Remove Link"
 msgstr "Ukloni vezu"
 
@@ -1821,35 +1816,36 @@ msgstr "Zanemari pogrešno napisanu riječ"
 msgid "Input Methods"
 msgstr "Ulazne metode"
 
-#: components/html-editor/replace.c:75
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
+#: components/html-editor/replace.c:77
 msgid "Replace confirmation"
 msgstr "Potvrdi zamijenu"
 
-#: components/html-editor/replace.c:76
+#: components/html-editor/replace.c:78
 msgid "Replace _All"
 msgstr "Zamjeni sve"
 
-#: components/html-editor/replace.c:77
+#: components/html-editor/replace.c:79
 msgid "_Next"
 msgstr "_Sljedeći"
 
-#: components/html-editor/replace.c:79
+#: components/html-editor/replace.c:81
 msgid "_Replace"
 msgstr "_Zamijeni"
 
-#: components/html-editor/replace.c:165
+#: components/html-editor/replace.c:169
 msgid "Search _backward"
 msgstr "Traži una_zad"
 
-#: components/html-editor/replace.c:166 components/html-editor/search.c:83
+#: components/html-editor/replace.c:170 components/html-editor/search.c:85
 msgid "Case _sensitive"
 msgstr "_Osjetlj. na V/m slova:"
 
-#: components/html-editor/replace.c:176
+#: components/html-editor/replace.c:180
 msgid "Replace:"
 msgstr "Zamijeni:"
 
-#: components/html-editor/replace.c:179
+#: components/html-editor/replace.c:183
 msgid "With:"
 msgstr "Sa:"
 
@@ -1869,11 +1865,11 @@ msgstr ""
 "Izmjenjena linija je uklonjena iz dokumenta.\n"
 "Ne mogu primijeniti vaše izmjene."
 
-#: components/html-editor/search.c:82
+#: components/html-editor/search.c:84
 msgid "_Backward"
 msgstr "_Nazad"
 
-#: components/html-editor/search.c:129
+#: components/html-editor/search.c:131
 msgid "Find Regular Expression"
 msgstr "Traži regularani izraz"
 
@@ -2143,5 +2139,3 @@ msgstr "Pogled prije ispisa"
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML program za ispitivanje"
 
-#~ msgid "The quick brown fox jumps over the lazy dog.</div>"
-#~ msgstr "Brza smeđa lisica skače preko lijenog psa.</div>"
