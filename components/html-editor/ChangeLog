@@ -1,5 +1,16 @@
 2001-08-03  Radek Doulik  <rodo@ximian.com>
 
+	* test-html-editor-control.c (exit_cb): destroy main window rather
+	than gtk_main_quit
+	(app_destroy_cb): new destroy handler
+	(app_delete_cb): new delete handler
+	(container_create): use new handlers
+
+	* editor-control-factory.c (send_event_str): new, extracted
+	function
+	(send_event_void): new helper function
+	(editor_api_event): handle DELETE event, use new helper functions
+
 	* popup.c (prepare_properties_and_menu): disabled plenty of items
 	in plain mode
 	disabled DEBUG, which I've enabled before by mistake

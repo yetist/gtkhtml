@@ -587,6 +587,48 @@ wait_for_bonobo_patch__bonobo_arg_type_to_gtk (BonoboArgType id)
 }
 
 static GtkArg *
+send_event_str (GNOME_GtkHTML_Editor_Engine engine, GNOME_GtkHTML_Editor_Listener listener, gchar *name, GtkArg *arg)
+{
+	CORBA_Environment ev;
+	GtkArg *gtk_retval = NULL;
+	BonoboArg *bonobo_arg = bonobo_arg_new (bonobo_arg_type_from_gtk (arg->type));
+	BonoboArg *bonobo_retval;
+
+	bonobo_arg_from_gtk (bonobo_arg, arg);
+
+	/* printf ("sending to listener\n"); */
+	CORBA_exception_init (&ev);
+	bonobo_retval = GNOME_GtkHTML_Editor_Listener_event (listener, name, bonobo_arg, &ev);
+	CORBA_free (bonobo_arg);
+
+	if (ev._major == CORBA_NO_EXCEPTION) {
+		if (!bonobo_arg_type_is_equal (bonobo_retval->_type, TC_null, &ev)
+		    && !bonobo_arg_type_is_equal (bonobo_retval->_type, TC_void, &ev)) {
+			gtk_retval = gtk_arg_new (wait_for_bonobo_patch__bonobo_arg_type_to_gtk (bonobo_retval->_type));
+			bonobo_arg_to_gtk (gtk_retval, bonobo_retval);
+		}
+		CORBA_free (bonobo_retval);
+	}
+	CORBA_exception_free (&ev);
+
+	return gtk_retval;
+}
+
+static void
+send_event_void (GNOME_GtkHTML_Editor_Engine engine, GNOME_GtkHTML_Editor_Listener listener, gchar *name)
+{
+	CORBA_Environment ev;
+	CORBA_any *any;
+
+	any = CORBA_any_alloc ();
+	any->_type = TC_null;
+	CORBA_exception_init (&ev);
+	GNOME_GtkHTML_Editor_Listener_event (listener, name, any, &ev);
+	CORBA_exception_free (&ev);
+	CORBA_free (any);
+}
+
+static GtkArg *
 editor_api_event (GtkHTML *html, GtkHTMLEditorEventType event_type, GtkArg **args, gpointer data)
 {
 	GtkHTMLControlData *cd = (GtkHTMLControlData *) data;
@@ -594,39 +636,28 @@ editor_api_event (GtkHTML *html, GtkHTMLEditorEventType event_type, GtkArg **arg
 
 	/* printf ("editor_api_event\n"); */
 
-	if (event_type != GTK_HTML_EDITOR_EVENT_COMMAND && event_type != GTK_HTML_EDITOR_EVENT_IMAGE_URL) {
-		g_warning ("Now, only COMMAND and IMAGE_URL events are supported.\n");
-		return NULL;
-	}
 	if (cd->editor_bonobo_engine) {
 		GNOME_GtkHTML_Editor_Engine engine;
 		GNOME_GtkHTML_Editor_Listener listener;
 		CORBA_Environment ev;
 
+		CORBA_exception_init (&ev);
 		engine = bonobo_object_corba_objref (BONOBO_OBJECT (cd->editor_bonobo_engine));
+
 		if (engine != CORBA_OBJECT_NIL
 		    && (listener = GNOME_GtkHTML_Editor_Engine__get_listener (engine, &ev)) != CORBA_OBJECT_NIL) {
-
-			BonoboArg *arg = bonobo_arg_new (bonobo_arg_type_from_gtk (args [0]->type));
-			BonoboArg *bonobo_retval;
-
-			bonobo_arg_from_gtk (arg, args [0]);
-
-			/* printf ("sending to listener\n"); */
-			CORBA_exception_init (&ev);
-			bonobo_retval = GNOME_GtkHTML_Editor_Listener_event (listener,
-									 event_type ==  GTK_HTML_EDITOR_EVENT_COMMAND
-									 ? "command" : "image_url",
-									 arg, &ev);
-			CORBA_free (arg);
-
-			if (ev._major == CORBA_NO_EXCEPTION) {
-				if (!bonobo_arg_type_is_equal (bonobo_retval->_type, TC_null, &ev)
-				    && !bonobo_arg_type_is_equal (bonobo_retval->_type, TC_void, &ev)) {
-					gtk_retval = gtk_arg_new (wait_for_bonobo_patch__bonobo_arg_type_to_gtk (bonobo_retval->_type));
-					bonobo_arg_to_gtk (gtk_retval, bonobo_retval);
-				}
-				CORBA_free (bonobo_retval);
+			switch (event_type) {
+			case GTK_HTML_EDITOR_EVENT_COMMAND:
+				send_event_str (engine, listener, "command", args [0]);
+				break;
+			case GTK_HTML_EDITOR_EVENT_IMAGE_URL:
+				send_event_str (engine, listener, "image_url", args [0]);
+				break;
+			case GTK_HTML_EDITOR_EVENT_DELETE:
+				send_event_void (engine, listener, "delete");
+				break;
+			default:
+				g_warning ("Unsupported event.\n");
 			}
 			CORBA_exception_free (&ev);
 		}

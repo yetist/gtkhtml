@@ -165,6 +165,11 @@ typedef struct {
 	gchar *name;
 	gint offset;
 
+	gint default_width;
+	gboolean default_percent;
+
+	HTMLHAlignType default_align;
+
 	gint default_border;
 	gint default_spacing;
 	gint default_padding;
@@ -182,7 +187,7 @@ typedef struct {
 static TableInsertTemplate table_templates [TEMPLATES] = {
 	{
 		N_("Plain"), 1,
-		1, 2, 1, 3, 3,
+		100, TRUE, HTML_HALIGN_CENTER, 1, 2, 1, 3, 3,
 		"<table border=@border@ cellspacing=@spacing@ cellpadding=@padding@@align@@width@>",
 		"</table>",
 		"<td>",
@@ -190,7 +195,7 @@ static TableInsertTemplate table_templates [TEMPLATES] = {
 	},
 	{
 		N_("Flat gray"), 2,
-		0, 1, 3, 3, 3,
+		100, TRUE, HTML_HALIGN_CENTER, 0, 1, 3, 3, 3,
 		"<table cellspacing=0 cellpadding=@border@ bgcolor=\"#bfbfbf\"@width@@align@><tr><td>"
 		"<table bgcolor=\"#f2f2f2\" cellspacing=@spacing@ cellpadding=@padding@ width=\"100%\">",
 		"</table></td></tr></table>",
@@ -199,7 +204,7 @@ static TableInsertTemplate table_templates [TEMPLATES] = {
 	},
 	{
 		N_("Dark header"), 11,
-		0, 1, 3, 3, 3,
+		100, TRUE, HTML_HALIGN_CENTER, 0, 1, 3, 3, 3,
 		"<table bgcolor=\"#7f7f7f\" cellpadding=3 cellspacing=0>"
 		"<tr><td><font color=\"#ffffff\"><b>Header</td></tr></table>"
 		"<table cellspacing=0 cellpadding=@border@ bgcolor=\"#bfbfbf\"@width@@align@><tr><td>"
@@ -210,7 +215,7 @@ static TableInsertTemplate table_templates [TEMPLATES] = {
 	},
 	{
 		N_("Note"), 5,
-		1, 1, 3, 1, 1,
+		80, TRUE, HTML_HALIGN_CENTER, 1, 1, 3, 1, 1,
 		"<table cellspacing=0 cellpadding=@border@ bgcolor=\"#ccccc0\"@width@@align@><tr><td>"
 		"<table bgcolor=\"#fffff0\" cellpadding=3 cellspacing=0 width=\"100%\">"
 		"<tr><td valign=top><img src=\"file://" ICONDIR "/bulb.png\"></td>"
@@ -218,7 +223,17 @@ static TableInsertTemplate table_templates [TEMPLATES] = {
 		"</table></td></tr></table></td></tr></table>",
 		"<td>",
 		"</td>"
-	}
+	},
+	/* {
+		N_("Image Frame"), 3,
+		300, FALSE, HTML_HALIGN_CENTER, 1, 1, 3, 1, 1,
+		"<table bgcolor=\"#c0c0c0\" cellspacing=@spacing@@width@>"
+		"<tr><td>"
+		"<table bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=@padding@ width=\"100%\">"
+		"<tr><td align=@align@></td></tr>"
+		"<tr><td>Image 1: <font size=\"3\"><b>*editme*</b></font size=\"3\"></td></tr>"
+		"</table></td></tr></table>"
+		} */
 };
 
 static gchar *

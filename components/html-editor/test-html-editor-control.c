@@ -300,7 +300,7 @@ static void
 exit_cb (GtkWidget *widget,
 	 gpointer data)
 {
-	gtk_main_quit ();
+	gtk_widget_destroy (GTK_WIDGET (data));
 }
 
 
@@ -362,6 +362,22 @@ static char ui [] =
 "</Root>";
 
 
+static void
+app_destroy_cb (GtkWidget *app, BonoboUIContainer *uic)
+{
+	bonobo_object_unref (BONOBO_OBJECT (uic));
+
+	gtk_main_quit ();
+}
+
+static int
+app_delete_cb (GtkWidget *widget, GdkEvent *event, gpointer dummy)
+{
+	gtk_widget_destroy (GTK_WIDGET (widget));
+
+	return FALSE;
+}
+
 static guint
 container_create (void)
 {
@@ -375,13 +391,20 @@ container_create (void)
 	win = bonobo_window_new ("test-editor",
 				 "HTML Editor Control Test");
 	window = GTK_WINDOW (win);
+
+	container = bonobo_ui_container_new ();
+	bonobo_ui_container_set_win (container, BONOBO_WINDOW (win));
+
+	gtk_signal_connect (GTK_OBJECT (window), "delete_event",
+			    GTK_SIGNAL_FUNC (app_delete_cb), NULL);
+
+	gtk_signal_connect (GTK_OBJECT (window), "destroy",
+			    GTK_SIGNAL_FUNC (app_destroy_cb), container);
+
 	gtk_window_set_default_size (window, 500, 440);
 	gtk_window_set_policy (window, TRUE, TRUE, FALSE);
 
 	component = bonobo_ui_component_new ("test-editor");
-
-	container = bonobo_ui_container_new ();
-	bonobo_ui_container_set_win (container, BONOBO_WINDOW (win));
 
 	bonobo_ui_component_set_container (
 		component,
