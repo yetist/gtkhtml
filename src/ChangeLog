@@ -1,3 +1,11 @@
+2004-05-10  Radek Doulik  <rodo@ximian.com>
+
+	* htmlclueflow.c (layout_line): do not recalc size for splitted
+	slaves as we only need asc/dsc and this we already know
+
+	* htmltext.c (html_text_calc_part_width): update asc, dsc only
+	when font or language changes
+
 2004-05-09  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (client_notify_monospace_font): test if engine and

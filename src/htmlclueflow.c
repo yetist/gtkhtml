@@ -832,7 +832,8 @@ layout_line (HTMLObject *o, HTMLPainter *painter, HTMLObject *begin,
 	cur = begin;
 
 	old_y = o->y;
-	html_object_calc_size (begin, painter, changed_objs);
+	if (!HTML_IS_TEXT_SLAVE (begin) || HTML_IS_TEXT (begin->prev))
+		html_object_calc_size (begin, painter, changed_objs);
 
 	a = d = height = 0;
 	update_height (begin, html_object_get_valign (begin), &a, &d, &height, &top_align);

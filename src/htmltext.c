@@ -942,14 +942,18 @@ html_text_calc_part_width (HTMLText *text, HTMLPainter *painter, gint offset, gi
 
 	if (HTML_IS_GDK_PAINTER (painter) || HTML_IS_PLAIN_PAINTER (painter)) {
 		HTMLTextPangoInfo *pi;
+		PangoLanguage *language = NULL;
+		PangoFont *font = NULL;
 		gchar *s = html_text_get_text (text, offset);
 
 		pi = html_text_get_pango_info (text, painter);
 
 		idx = html_text_get_item_index (text, painter, offset, &offset);
-		if (asc || dsc)
+		if (asc || dsc) {
 			update_asc_dsc (painter, pi->entries [idx].item, asc, dsc);
-
+			font = pi->entries [idx].item->analysis.font;
+			language = pi->entries [idx].item->analysis.language;
+		}
 		while (len > 0) {
 			if (*s == '\t') {
 				gint skip = 8 - (line_offset % 8);
@@ -963,8 +967,9 @@ html_text_calc_part_width (HTMLText *text, HTMLPainter *painter, gint offset, gi
 			if (offset >= pi->entries [idx].item->num_chars - 1) {
 				idx ++;
 				offset = 0;
-				if (len > 0 && (asc || dsc))
+				if (len > 0 && (asc || dsc) && (pi->entries [idx].item->analysis.font != font || pi->entries [idx].item->analysis.language != language)) {
 					update_asc_dsc (painter, pi->entries [idx].item, asc, dsc);
+				}
 			} else
 				offset ++;
 			s = g_utf8_next_char (s);
