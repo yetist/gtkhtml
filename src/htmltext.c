@@ -1560,6 +1560,7 @@ html_text_magic_link (HTMLText *text, HTMLEngine *engine, guint offset)
 		return FALSE;
 	offset--;
 
+	html_undo_level_begin (engine->undo, "Magic link");
 	saved_position = engine->cursor->position;
 
 	while (html_text_get_char (text, offset) != ' ' && html_text_get_char (text, offset) != ENTITY_NBSP && offset)
@@ -1581,6 +1582,7 @@ html_text_magic_link (HTMLText *text, HTMLEngine *engine, guint offset)
 		offset++;
 	}
 
+	html_undo_level_end (engine->undo);
 	html_cursor_jump_to_position (engine->cursor, engine, saved_position);
 
 	return rv;
