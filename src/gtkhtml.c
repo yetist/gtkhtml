@@ -1338,6 +1338,7 @@ button_press_event (GtkWidget *widget,
 		    GdkEventButton *event)
 {
 	GtkHTML *html;
+	GtkWidget *orig_widget = widget;
 	HTMLEngine *engine;
 	gint value, x, y;
 
@@ -1413,12 +1414,16 @@ button_press_event (GtkWidget *widget,
 				html_engine_jump_at (engine, x + engine->x_offset, y + engine->y_offset);
 			} else {
 				HTMLObject *obj;
-				gint offset;
+				HTMLEngine *orig_e;
 
-				obj = html_engine_get_object_at (engine, x, y, &offset, FALSE);
+				orig_e = GTK_HTML (orig_widget)->engine;
+				obj = html_engine_get_object_at (engine, x + engine->x_offset, y + engine->y_offset,
+								 NULL, FALSE);
 				if (obj && ((HTML_IS_IMAGE (obj) && HTML_IMAGE (obj)->url && *HTML_IMAGE (obj)->url)
 					    || HTML_IS_LINK_TEXT (obj)))
-					html_engine_set_focus_object (engine, obj);
+					html_engine_set_focus_object (orig_e, obj);
+				else
+					html_engine_set_focus_object (orig_e, NULL);
   			}
 			if (html->allow_selection) {
 				if (event->state & GDK_SHIFT_MASK)
@@ -2108,59 +2113,66 @@ focus (GtkContainer *w, GtkDirectionType direction)
 {
 	HTMLEngine *e = GTK_HTML (w)->engine;
 
-	if (html_engine_focus (e, direction)) {
-		if (e->focus_object) {
-			HTMLObject *obj = e->focus_object;
-			HTMLObject *slave;
-			gint x1, y1, x2, y2, xo, yo;
+	if (html_engine_focus (e, direction) && e->focus_object) {
+		HTMLObject *cur, *obj = html_engine_get_focus_object (e);
+		gint x1, y1, x2, y2, xo, yo;
 
-			xo = e->x_offset;
-			yo = e->y_offset;
+		xo = e->x_offset;
+		yo = e->y_offset;
 
-			html_object_calc_abs_position (obj, &x1, &y1);
-			x1 += e->leftBorder;
-			y1 += e->topBorder;
-			y2 = y1 + obj->descent;
-			x2 = x1 + obj->width;
-			y1 -= obj->ascent;
+		html_object_calc_abs_position (obj, &x1, &y1);
+		x1 += e->leftBorder;
+		y1 += e->topBorder;
+		y2 = y1 + obj->descent;
+		x2 = x1 + obj->width;
+		y1 -= obj->ascent;
 
-			/* correct coordinates for text slaves */
-			if (html_object_is_text (obj) && obj->next) {
-				obj = obj->next;
-				while (obj && HTML_IS_TEXT_SLAVE (obj)) {
-					gint xa, ya;
-					html_object_calc_abs_position (obj, &xa, &ya);
-					xa += e->leftBorder + obj->width;
-					if (xa > x2)
-						x2 = xa;
-					ya += e->topBorder + obj->descent;
-					if (ya > y2)
-						y2 = ya;
-					obj = obj->next;
-				}
+		/* correct coordinates for text slaves */
+		if (html_object_is_text (obj) && obj->next) {
+			cur = obj->next;
+			while (cur && HTML_IS_TEXT_SLAVE (cur)) {
+				gint xa, ya;
+				html_object_calc_abs_position (cur, &xa, &ya);
+				xa += e->leftBorder + cur->width;
+				if (xa > x2)
+					x2 = xa;
+				ya += e->topBorder + cur->descent;
+				if (ya > y2)
+					y2 = ya;
+				cur = cur->next;
 			}
-
-			/* printf ("child pos: %d,%d x %d,%d\n", x1, y1, x2, y2); */
-
-			if (x2 > e->x_offset + e->width)
-				e->x_offset = x2 - e->width;
-			if (x1 < e->x_offset)
-				e->x_offset = x1;
-
-			if (y2 >= e->y_offset + e->height)
-				e->y_offset = y2 - e->height + 1;
-			if (y1 < e->y_offset)
-				e->y_offset = y1;
-
-			if (e->x_offset != xo)
-				gtk_adjustment_set_value (GTK_LAYOUT (w)->hadjustment, (gfloat) e->x_offset);
-			if (e->y_offset != yo)
-				gtk_adjustment_set_value (GTK_LAYOUT (w)->vadjustment, (gfloat) e->y_offset);
-			/* printf ("engine pos: %d,%d x %d,%d\n",
-			   e->x_offset, e->y_offset, e->x_offset + e->width, e->y_offset + e->height); */
 		}
 
-		if (e->focus_object && !html_object_is_embedded (e->focus_object))
+		/* printf ("child pos: %d,%d x %d,%d\n", x1, y1, x2, y2); */
+
+		if (x2 > e->x_offset + e->width)
+			e->x_offset = x2 - e->width;
+		if (x1 < e->x_offset)
+			e->x_offset = x1;
+		if (e->width > 2*RIGHT_BORDER && e->x_offset == x2 - e->width)
+			e->x_offset = MIN (x2 - e->width + RIGHT_BORDER + 1,
+					   html_engine_get_doc_width (e) - e->width);
+		if (e->width > 2*LEFT_BORDER && e->x_offset >= x1)
+			e->x_offset = MAX (x1 - LEFT_BORDER, 0);
+
+		if (y2 >= e->y_offset + e->height)
+			e->y_offset = y2 - e->height + 1;
+		if (y1 < e->y_offset)
+			e->y_offset = y1;
+		if (e->height > 2*BOTTOM_BORDER && e->y_offset == y2 - e->height + 1)
+			e->y_offset = MIN (y2 - e->height + BOTTOM_BORDER + 1,
+					   html_engine_get_doc_height (e) - e->height);
+		if (e->height > 2*TOP_BORDER && e->y_offset >= y1)
+			e->y_offset = MAX (y1 - TOP_BORDER, 0);
+
+		if (e->x_offset != xo)
+			gtk_adjustment_set_value (GTK_LAYOUT (w)->hadjustment, (gfloat) e->x_offset);
+		if (e->y_offset != yo)
+			gtk_adjustment_set_value (GTK_LAYOUT (w)->vadjustment, (gfloat) e->y_offset);
+		/* printf ("engine pos: %d,%d x %d,%d\n",
+		   e->x_offset, e->y_offset, e->x_offset + e->width, e->y_offset + e->height); */
+
+		if (!html_object_is_embedded (obj))
 			gtk_widget_grab_focus (GTK_WIDGET (w));
 
 		return TRUE;

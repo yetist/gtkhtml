@@ -437,8 +437,12 @@ void  html_engine_add_expose  (HTMLEngine *e,
 			       gint        height);
 void html_engine_redraw_selection (HTMLEngine *e);
 
-gboolean html_engine_focus (HTMLEngine *e, GtkDirectionType dir);
-void     html_engine_set_focus_object (HTMLEngine *e, HTMLObject *o);
-void     html_engine_draw_focus_object (HTMLEngine *e);
+gboolean    html_engine_focus              (HTMLEngine       *e,
+					    GtkDirectionType  dir);
+HTMLObject *html_engine_get_focus_object   (HTMLEngine       *e);
+void        html_engine_set_focus_object   (HTMLEngine       *e,
+					    HTMLObject       *o);
+void        html_engine_draw_focus_object  (HTMLEngine       *e);
+
 
 #endif /* _HTMLENGINE_H_ */

@@ -3592,7 +3592,7 @@ html_engine_begin (HTMLEngine *e, char *content_type)
 
 	html_engine_stop_parser (e);
 	e->writing = TRUE;
-	e->focus_object = NULL;
+	html_engine_set_focus_object (e, NULL);
 
 	html_engine_id_table_clear (e);
 	html_engine_class_data_clear (e);
@@ -5240,20 +5240,34 @@ next_focus_object (HTMLObject *o, HTMLEngine *e, GtkDirectionType dir, gint *off
 	return result ? cursor.object : NULL;
 }
 
+HTMLObject *
+html_engine_get_focus_object (HTMLEngine *e)
+{
+	HTMLObject *o = e->focus_object;
+
+	while (html_object_is_frame (o)) {
+		o = html_object_get_engine (o, e)->focus_object;
+	}
+
+	return o;
+}
+
 gboolean
 html_engine_focus (HTMLEngine *e, GtkDirectionType dir)
 {
 	if (e->clue && (dir == GTK_DIR_TAB_FORWARD || dir == GTK_DIR_TAB_BACKWARD)) {
 		HTMLObject *cur;
+		HTMLObject *focus_object;
 		gint offset;
 
-		if (e->focus_object && html_object_is_embedded (e->focus_object)
-		    && GTK_IS_CONTAINER (HTML_EMBEDDED (e->focus_object)->widget)
-		    && gtk_container_focus (GTK_CONTAINER (HTML_EMBEDDED (e->focus_object)->widget), dir))
+		focus_object = html_engine_get_focus_object (e);
+		if (focus_object && html_object_is_embedded (focus_object)
+		    && GTK_IS_CONTAINER (HTML_EMBEDDED (focus_object)->widget)
+		    && gtk_container_focus (GTK_CONTAINER (HTML_EMBEDDED (focus_object)->widget), dir))
 			return TRUE;
 
-		if (e->focus_object) {
-			cur = next_focus_object (e->focus_object, e, dir, &offset);
+		if (focus_object) {
+			cur = next_focus_object (focus_object, e, dir, &offset);
 		} else
 			cur = dir == GTK_DIR_TAB_FORWARD
 				? html_object_get_head_leaf (e->clue)
@@ -5302,6 +5316,7 @@ html_engine_focus (HTMLEngine *e, GtkDirectionType dir)
 static void
 draw_focus_object (HTMLEngine *e, HTMLObject *o)
 {
+	e = html_object_engine (o, e);
 	if (HTML_IS_LINK_TEXT (o))
 		draw_link_text (HTML_LINK_TEXT (o), e);
 	else if (HTML_IS_IMAGE (o))
@@ -5311,22 +5326,62 @@ draw_focus_object (HTMLEngine *e, HTMLObject *o)
 void
 html_engine_draw_focus_object (HTMLEngine *e)
 {
-	draw_focus_object (e, e->focus_object);
+	draw_focus_object (e, html_engine_get_focus_object (e));
+}
+
+static void
+reset_focus_object_forall (HTMLObject *o, HTMLEngine *e)
+{
+	if (e->focus_object) {
+		/* printf ("reset focus object\n"); */
+		if (!html_object_is_frame (e->focus_object))
+			draw_focus_object (e, e->focus_object);
+		e->focus_object = NULL;
+		html_engine_flush_draw_queue (e);
+	}
+}
+
+static void
+reset_focus_object (HTMLEngine *e)
+{
+	HTMLEngine *e_top;
+
+	e_top = html_engine_get_top_html_engine (e);
+
+	if (e_top && e_top->clue) {
+		reset_focus_object_forall (NULL, e_top);
+		html_object_forall (e_top->clue, e_top, (HTMLObjectForallFunc) reset_focus_object_forall, NULL);
+	}
+}
+
+static void
+set_frame_parents_focus_object (HTMLEngine *e)
+{
+	while (e->widget->iframe_parent) {
+		HTMLEngine *e_parent;
+
+		/* printf ("set frame parent focus object\n"); */
+		e_parent = GTK_HTML (e->widget->iframe_parent)->engine;
+		e_parent->focus_object = e->clue->parent;
+		e = e_parent;
+	}
 }
 
 void
 html_engine_set_focus_object (HTMLEngine *e, HTMLObject *o)
 {
-	if (e->focus_object) {
-		draw_focus_object (e, e->focus_object);
-		e->focus_object = NULL;
-		html_engine_flush_draw_queue (e);
-	}
+	/* printf ("set focus object to: %p\n", o); */
 
-	e->focus_object = o;
+	reset_focus_object (e);
 
 	if (o) {
-		draw_focus_object (e, o);
-		html_engine_flush_draw_queue (e);
+		e = html_object_engine (o, e);
+		e->focus_object = o;
+
+		if (!html_object_is_frame (e->focus_object)) {
+			draw_focus_object (e, o);
+			html_engine_flush_draw_queue (e);
+		}
+		set_frame_parents_focus_object (e);
 	}
 }

@@ -311,6 +311,8 @@ gboolean        html_object_is_text               (HTMLObject            *object
 gboolean        html_object_is_clue               (HTMLObject            *object);
 HTMLEngine     *html_object_get_engine            (HTMLObject            *self,
 						   HTMLEngine            *e);
+HTMLEngine     *html_object_engine                (HTMLObject            *o,
+						   HTMLEngine            *e);
 void            html_object_forall                (HTMLObject            *self,
 						   HTMLEngine            *e,
 						   HTMLObjectForallFunc   func,

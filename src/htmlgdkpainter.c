@@ -184,6 +184,7 @@ alloc_e_font_try (gchar *face, gdouble size, gboolean points, GtkHTMLFontStyle s
 
 	if (face) {
 		GdkFont *gdk_font;
+		gboolean need_fontset = FALSE;
 		gchar *n1, *n2, *n3, *s;
 		gint tsize;
 
@@ -212,7 +213,9 @@ alloc_e_font_try (gchar *face, gdouble size, gboolean points, GtkHTMLFontStyle s
 
 		/* printf ("try: %s\n", name); */
 
-		gdk_font = gdk_fontset_load (name);
+		if (strchr (name, ','))
+			need_fontset = TRUE;
+		gdk_font = need_fontset ? gdk_fontset_load (name) : gdk_font_load (name);
 		if (gdk_font) {
 			font = e_font_from_gdk_name (name);
 			gdk_font_unref (gdk_font);

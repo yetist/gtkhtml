@@ -1,3 +1,19 @@
+2002-06-20  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml.c:  update focus_object to work properly with frames
+	(focus): try to be clever about borders
+
+	* htmlengine.c: update focus_object to work properly with frames
+
+	* htmlgdkpainter.c (alloc_e_font_try): use gdk_fontset_load only
+	when necessary, otherwise use gdk_font_load
+
+	* htmlobject.c (html_object_engine): new function, returns engine
+	which contains clue which object directly (no frames on way from
+	clue to object)
+	(html_object_calc_abs_position): correct calculation, take care of
+	frames and thus border size
+
 2002-06-19  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml.c (selection_received): add some logic to be able to

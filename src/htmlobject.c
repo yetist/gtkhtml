@@ -33,6 +33,7 @@
 #include "htmlcursor.h"
 #include "htmlengine.h"
 #include "htmlengine-edit.h"
+#include "htmlframe.h"
 #include "htmlinterval.h"
 #include "htmlobject.h"
 #include "htmlpainter.h"
@@ -798,6 +799,10 @@ html_object_calc_abs_position (HTMLObject *o,
 	for (p = o->parent; p != NULL; p = p->parent) {
 		*x_return += p->x;
 		*y_return += p->y - p->ascent;
+		if (html_object_is_frame (p)) {
+			*x_return += GTK_HTML (HTML_FRAME (p)->html)->engine->leftBorder;
+			*y_return += GTK_HTML (HTML_FRAME (p)->html)->engine->topBorder;
+		}
 	}
 }
 
@@ -1098,11 +1103,23 @@ html_object_append_selection_string (HTMLObject *self,
 	(* HO_CLASS (self)->append_selection_string) (self, buffer);
 }
 
-
 HTMLEngine *
 html_object_get_engine (HTMLObject *self, HTMLEngine *e)
 {
 	return (* HO_CLASS (self)->get_engine) (self, e);
+}
+
+HTMLEngine *
+html_object_engine (HTMLObject *o, HTMLEngine *e)
+{
+	while (o) {
+		e = html_object_get_engine (o, e);
+		if (html_object_is_frame (o))
+			break;
+		o = o->parent;
+	}
+
+	return e;
 }
 
 void
