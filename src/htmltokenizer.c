@@ -1,6 +1,7 @@
-/* This file is part of the KDE libraries
+/*
     Copyright (C) 1997 Martin Jones (mjones@kde.org)
               (C) 1997 Torben Weis (weis@kde.org)
+	      (C) 1999 Anders Carlsson (andersca@gnu.org)
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Library General Public
@@ -78,8 +79,13 @@ html_tokenizer_next_token_buffer (HTMLTokenizer *t)
 {
 	t->tokenBufferCurrIndex++;
 	
-	if (t->tokenBufferCurrIndex < g_list_length (t->tokenBufferList))
-		t->curr = ((GList *)g_list_first (t->tokenBufferList))->data;
+	g_print ("next token buffer\n");
+
+	if (t->tokenBufferCurrIndex < g_list_length (t->tokenBufferList)) {
+		t->curr = ((GList *)g_list_nth (t->tokenBufferList,
+						g_list_length (t->tokenBufferList) - t->tokenBufferCurrIndex - 1))->data;
+		
+	}
 	else
 		g_error ("Error in html_tokenizer_next_token_buffer");
 }
@@ -176,6 +182,7 @@ html_tokenizer_append_token (HTMLTokenizer *t, const gchar *string, gint len)
 
 	if (len >= t->tokenBufferSizeRemaining) {
 		/* Create a new buffer */
+		g_print ("Appending token buffer\n");
 		html_tokenizer_append_token_buffer (t, len);
 	}
 
@@ -203,13 +210,15 @@ html_tokenizer_append_token_buffer (HTMLTokenizer *t, gint min_size)
 		newBufSize += min_size;
 	}
 	newBuffer = g_malloc (newBufSize + 1);
+	
+	g_print ("newBuffer: %d\n", newBuffer);
 
 	t->tokenBufferList = g_list_prepend (t->tokenBufferList, newBuffer);
 	t->next = newBuffer;
 	t->tokenBufferSizeRemaining = newBufSize;
 
 	if (!t->curr) {
-		t->curr = ((GList *)g_list_first (t->tokenBufferList))->data;
+		t->curr = ((GList *)g_list_last (t->tokenBufferList))->data;
 		t->tokenBufferCurrIndex = 0;
 	}
 

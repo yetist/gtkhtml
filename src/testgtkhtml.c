@@ -242,7 +242,7 @@ test_cb (GtkWidget *widget, gpointer data)
 
 	if (slow_loading) {
 		load_timer = gtk_timeout_add (
-			300,
+			10,
 			(GtkFunction) load_timer_event,
 			fil);
 		return;
