@@ -1,5 +1,8 @@
 2001-10-19  Radek Doulik  <rodo@ximian.com>
 
+	* htmlengine-edit-cut-and-paste.c (set_cursor_at_end_of_object):
+	preserve need_spell_check flag
+
 	* gtkhtml.c (expose): do simple draw as engine now handles frozen
 	state by itself
 

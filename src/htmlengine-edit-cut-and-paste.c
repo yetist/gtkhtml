@@ -513,11 +513,15 @@ static void
 set_cursor_at_end_of_object (HTMLEngine *e, HTMLObject *o, guint len)
 {
 	guint save_position;
+	gboolean need_spell_check;
 
 	save_position       = e->cursor->position;
 	e->cursor->object   = html_object_get_tail_leaf (o);
+	need_spell_check = e->need_spell_check;
+	e->need_spell_check = FALSE;
 	while (html_cursor_forward (e->cursor, e))
 		;
+	e->need_spell_check = need_spell_check;
 	e->cursor->position = save_position + len;
 	e->cursor->offset   = html_object_get_length (e->cursor->object);
 }
@@ -688,7 +692,6 @@ insert_empty_paragraph (HTMLEngine *e, HTMLUndoDirection dir)
 	html_engine_freeze (e);
 	orig = html_cursor_dup (e->cursor);
 	split_and_add_empty_texts (e, 2, &left, &right);
-	//e->cursor->position ++;
 	remove_empty_and_merge (e, FALSE, left, right, orig);
 	html_cursor_forward (e->cursor, e);
 
@@ -754,10 +757,12 @@ html_engine_insert_text (HTMLEngine *e, const gchar *text, guint len)
 			html_text_convert_nbsp (HTML_TEXT (o), TRUE);
 
 			if (alen == 1 && html_is_in_word (html_text_get_char (HTML_TEXT (o), 0))
-			    && !html_is_in_word (html_cursor_get_current_char (e->cursor)))
-					e->need_spell_check = TRUE;
-			else
+			    && !html_is_in_word (html_cursor_get_current_char (e->cursor))) {
+				/* printf ("need_spell_check\n"); */
+				e->need_spell_check = TRUE;
+			} else {
 				check = TRUE;
+			}
 			insert_object (e, o, html_object_get_length (o), 1, HTML_UNDO_UNDO, check);
 		}
 		if (nl) {
