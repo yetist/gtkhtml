@@ -228,12 +228,6 @@ draw (HTMLObject *o,
 	const GdkColor *color;
 	guint pixel_size;
 
-#if 0
-	if (y + height < o->y - o->ascent || y > o->y + o->descent
-	    || x + width < o->x || x > o->x + o->width)
-		return;
-#endif
-
 	image = HTML_IMAGE (o);
 	pixbuf = image->image_ptr->pixbuf;
 
@@ -250,8 +244,8 @@ draw (HTMLObject *o,
 	base_x = o->x + tx + image->border * pixel_size;
 	base_y = o->y - o->ascent + ty + image->border * pixel_size;
 
-	scale_width = get_actual_width (image);
-	scale_height = get_actual_height (image);
+	scale_width = get_actual_width (image) * pixel_size;
+	scale_height = get_actual_height (image) * pixel_size;
 
 	color = NULL;		/* FIXME */
 

@@ -1,5 +1,10 @@
 2000-02-03  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlimage.c (draw): Multiply scaled width/height by the pixel
+	size.
+
+	* htmlprinter.c (draw_pixmap): Implemented.
+
 	* htmlimage.c (draw): Take advantage of `scale_width',
 	`scale_height', `color' in `html_painter_draw_pixmap()'.
 	(html_image_update_scaled_pixbuf): Removed.

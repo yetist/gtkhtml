@@ -324,11 +324,29 @@ draw_pixmap (HTMLPainter *painter,
 	     const GdkColor *color)
 {
 	HTMLPrinter *printer;
+	gint width, height, rowstride;
+	double print_x, print_y;
+	double print_scale_width, print_scale_height;
+	gchar *pixels;
 
 	printer = HTML_PRINTER (painter);
 	g_return_if_fail (printer->print_context != NULL);
 
-	/* FIXME */
+	width = gdk_pixbuf_get_width (pixbuf);
+	height = gdk_pixbuf_get_height (pixbuf);
+	rowstride = gdk_pixbuf_get_rowstride (pixbuf);
+	pixels = gdk_pixbuf_get_pixels (pixbuf);
+
+	engine_coordinates_to_gnome_print (printer, x, y, &print_x, &print_y);
+
+	print_scale_width = SCALE_ENGINE_TO_GNOME_PRINT (scale_width);
+	print_scale_height = SCALE_ENGINE_TO_GNOME_PRINT (scale_height);
+
+	gnome_print_gsave (printer->print_context);
+	gnome_print_translate (printer->print_context, print_x, print_y - print_scale_height);
+	gnome_print_scale (printer->print_context, print_scale_width, print_scale_height);
+	gnome_print_rgbimage (printer->print_context, pixels, width, height, rowstride);
+	gnome_print_grestore (printer->print_context);
 }
 
 static void
