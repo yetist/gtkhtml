@@ -2992,8 +2992,8 @@ draw_background (HTMLEngine *e,
 		return;
 	}
 
-	pw = bgpixmap->pixbuf->art_pixbuf->width;
-	ph = bgpixmap->pixbuf->art_pixbuf->height;
+	pw = gdk_pixbuf_get_width (bgpixmap->pixbuf);
+	ph = gdk_pixbuf_get_height (bgpixmap->pixbuf);
 
 	xOrigin = x / pw*pw - xval % pw;
 	yOrigin = y / ph*ph - yval % ph;

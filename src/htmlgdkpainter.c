@@ -368,11 +368,15 @@ draw_background_pixmap (HTMLPainter *painter,
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
 
+	if (pix_width == 0)
+		pix_width = gdk_pixbuf_get_width (pixbuf);
+	if (pix_height == 0)
+		pix_height = gdk_pixbuf_get_height (pixbuf);
+
 	gdk_pixbuf_render_to_drawable_alpha (pixbuf, gdk_painter->pixmap,
 					     0, 0,
 					     x - gdk_painter->x1, y - gdk_painter->y1, 
-					     pix_width ? pix_width : pixbuf->art_pixbuf->width,
-					     pix_height ? pix_height : pixbuf->art_pixbuf->height,
+					     pix_width, pix_height,
 					     GDK_PIXBUF_ALPHA_BILEVEL,
 					     128,
 					     GDK_RGB_DITHER_NORMAL,

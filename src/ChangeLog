@@ -1,3 +1,20 @@
+2000-03-28  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmltablecell.c
+	(draw_background_helper): Use `gdk_pixbuf_get_width()' and
+	`gdk_pixbuf_get_height()' instead of accessing the GdkPixbuf
+	fields directly.
+
+	* htmlgdkpainter.c
+	(draw_background_pixmap): Use `gdk_pixbuf_get_width()' and
+	`gdk_pixbuf_get_height()' instead of accessing the GdkPixbuf
+	fields directly.
+
+	* htmlengine.c
+	(draw_background): Use `gdk_pixbuf_get_width()' and
+	`gdk_pixbuf_get_height()' instead of accessing the GdkPixbuf
+	fields directly.
+
 2000-03-27  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* testgtkhtml.c: Removed unused (global) variables.

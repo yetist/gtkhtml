@@ -74,8 +74,8 @@ draw_background_helper (HTMLTableCell *cell,
 		int clip_width, clip_height;
 
 		if (cell->bgPixmap->pixbuf) {
-			pw = cell->bgPixmap->pixbuf->art_pixbuf->width;
-			ph = cell->bgPixmap->pixbuf->art_pixbuf->height;
+			pw = gdk_pixbuf_get_width (cell->bgPixmap->pixbuf);
+			ph = gdk_pixbuf_get_height (cell->bgPixmap->pixbuf);
 
 			oheight = o->ascent + 2 * cell->padding;
 			base_y = o->y - o->ascent - cell->padding + ty;
