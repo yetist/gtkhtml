@@ -28,8 +28,8 @@
 
 GtkWidget          * image_properties              (GtkHTMLControlData *cd, gpointer *set_data);
 GtkWidget          * image_insertion               (GtkHTMLControlData *cd, gpointer *set_data);
-void                 image_apply_cb                (GtkHTMLControlData *cd, gpointer  get_data);
-void                 image_insert_cb               (GtkHTMLControlData *cd, gpointer  get_data);
+gboolean             image_apply_cb                (GtkHTMLControlData *cd, gpointer  get_data);
+gboolean             image_insert_cb               (GtkHTMLControlData *cd, gpointer  get_data);
 void                 image_close_cb                (GtkHTMLControlData *cd, gpointer  get_data);
 
 #endif

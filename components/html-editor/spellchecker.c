@@ -288,7 +288,6 @@ spell_check_dialog (GtkHTMLControlData *cd, gboolean whole_document)
 
 	gtk_widget_show (control);
 	gtk_container_add (GTK_CONTAINER (dialog), control);
-	gtk_window_set_modal (GTK_WINDOW (dialog), TRUE);
 	gtk_dialog_run (GTK_DIALOG (dialog));
 	gtk_dialog_response (GTK_DIALOG (dialog), GTK_RESPONSE_CLOSE);
 	g_object_unref (dialog);

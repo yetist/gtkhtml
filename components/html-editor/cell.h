@@ -27,7 +27,7 @@
 #include "control-data.h"
 
 GtkWidget             * cell_properties      (GtkHTMLControlData *cd, gpointer *set_data);
-void                    cell_apply_cb        (GtkHTMLControlData *cd, gpointer  get_data);
+gboolean                cell_apply_cb        (GtkHTMLControlData *cd, gpointer  get_data);
 void                    cell_close_cb        (GtkHTMLControlData *cd, gpointer  get_data);
 
 #endif

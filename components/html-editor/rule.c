@@ -388,7 +388,7 @@ rule_insert (GtkHTMLControlData *cd, gpointer *set_data)
 	return rv;
 }
 
-void
+gboolean
 rule_insert_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
 	GtkHTMLEditRuleProperties *d = (GtkHTMLEditRuleProperties *) get_data;
@@ -400,15 +400,19 @@ rule_insert_cb (GtkHTMLControlData *cd, gpointer get_data)
 	/* html_engine_insert_rule (cd->html->engine,
 				 d->length, d->length_percent ? d->length : 0, d->width,
 				 d->shaded, d->align); */
+	return TRUE;
 }
 
-void
+gboolean
 rule_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
 	GtkHTMLEditRuleProperties *d = (GtkHTMLEditRuleProperties *) get_data;
 
 	html_rule_set (d->rule, cd->html->engine, d->length, d->length_percent ? d->length : 0,
 		       d->width, d->shaded, d->align);
+
+	/* FIXME: take care about non-modal dialog and possible meanwhile doc changes */
+	return TRUE;
 }
 
 void

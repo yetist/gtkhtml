@@ -156,7 +156,7 @@ link_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	return link_widget (data, FALSE);
 }
 
-void
+gboolean
 link_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
 	GtkHTMLEditLinkProperties *data = (GtkHTMLEditLinkProperties *) get_data;
@@ -177,9 +177,12 @@ link_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 		html_engine_update_insertion_url_and_target (e);
 		g_free (url_copy);
 	}
+
+	/* FIXME: take care about non-modal dialog and possible meanwhile doc changes */
+	return TRUE;
 }
 
-void
+gboolean
 link_insert_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
 	GtkHTMLEditLinkProperties *data = (GtkHTMLEditLinkProperties *) get_data;
@@ -205,6 +208,8 @@ link_insert_cb (GtkHTMLControlData *cd, gpointer get_data)
 
 		g_free (url_copy);
 	}
+
+	return TRUE;
 }
 
 void

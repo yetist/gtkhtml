@@ -309,7 +309,7 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	return table;
 }
 
-void
+gboolean
 text_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
 	GtkHTMLEditTextProperties *data = (GtkHTMLEditTextProperties *) get_data;
@@ -339,6 +339,9 @@ text_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 	data->color_changed = FALSE;
 	data->style_changed = FALSE;
 	data->url_changed   = FALSE;
+
+	/* FIXME: take care about non-modal dialog and possible meanwhile doc changes */
+	return TRUE;
 }
 
 void

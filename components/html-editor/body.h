@@ -27,7 +27,7 @@
 #include "control-data.h"
 
 GtkWidget             * body_properties      (GtkHTMLControlData *cd, gpointer *set_data);
-void                    body_apply_cb        (GtkHTMLControlData *cd, gpointer  get_data);
+gboolean                body_apply_cb        (GtkHTMLControlData *cd, gpointer  get_data);
 void                    body_close_cb        (GtkHTMLControlData *cd, gpointer  get_data);
 
 #endif

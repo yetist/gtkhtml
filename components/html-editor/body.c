@@ -336,7 +336,7 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	return table;
 }
 
-void
+gboolean
 body_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
 	GtkHTMLEditBodyProperties *data = (GtkHTMLEditBodyProperties *) get_data;
@@ -368,6 +368,8 @@ body_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 	if (redraw)
 		gtk_widget_queue_draw (GTK_WIDGET (cd->html));
 	gtk_html_set_title (data->cd->html, gtk_entry_get_text (GTK_ENTRY (data->entry_title)));
+
+	return TRUE;
 }
 
 void

@@ -660,7 +660,7 @@ cell_apply_table (GtkHTMLEditCellProperties *d)
 	}
 }
 
-void
+gboolean
 cell_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
 	GtkHTMLEditCellProperties *d = (GtkHTMLEditCellProperties *) get_data;
@@ -684,6 +684,8 @@ cell_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 	}
 	html_cursor_jump_to_position (e->cursor, e, position);
 
+	/* FIXME: take care about non-modal dialog and possible meanwhile doc changes */
+	return TRUE;
 }
 
 void

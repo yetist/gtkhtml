@@ -27,7 +27,7 @@
 #include "control-data.h"
 
 GtkWidget             * template_insert          (GtkHTMLControlData *cd, gpointer *set_data);
-void                    template_insert_cb       (GtkHTMLControlData *cd, gpointer  get_data);
+gboolean                template_insert_cb       (GtkHTMLControlData *cd, gpointer  get_data);
 void                    template_close_cb        (GtkHTMLControlData *cd, gpointer  get_data);
 
 #endif

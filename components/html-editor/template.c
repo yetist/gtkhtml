@@ -314,7 +314,7 @@ template_insert (GtkHTMLControlData *cd, gpointer *set_data)
 	return rv;
 }
 
-void
+gboolean
 template_insert_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
 	GtkHTMLEditTemplateProperties *d = (GtkHTMLEditTemplateProperties *) get_data;
@@ -328,6 +328,8 @@ template_insert_cb (GtkHTMLControlData *cd, gpointer get_data)
 	g_free (html);
 	if (template_templates [d->template].offset >= 0)
 		html_cursor_jump_to_position (e->cursor, e, position);
+
+	return TRUE;
 }
 
 void

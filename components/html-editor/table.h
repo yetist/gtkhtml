@@ -28,8 +28,8 @@
 
 GtkWidget             * table_properties      (GtkHTMLControlData *cd, gpointer *set_data);
 GtkWidget             * table_insert          (GtkHTMLControlData *cd, gpointer *set_data);
-void                    table_insert_cb       (GtkHTMLControlData *cd, gpointer  get_data);
-void                    table_apply_cb        (GtkHTMLControlData *cd, gpointer  get_data);
+gboolean                table_insert_cb       (GtkHTMLControlData *cd, gpointer  get_data);
+gboolean                table_apply_cb        (GtkHTMLControlData *cd, gpointer  get_data);
 void                    table_close_cb        (GtkHTMLControlData *cd, gpointer  get_data);
 
 #endif

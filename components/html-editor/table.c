@@ -774,7 +774,7 @@ table_insert (GtkHTMLControlData *cd, gpointer *set_data)
 	return rv;
 }
 
-void
+gboolean
 table_insert_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
 	GtkHTMLEditTableProperties *d = (GtkHTMLEditTableProperties *) get_data;
@@ -788,9 +788,11 @@ table_insert_cb (GtkHTMLControlData *cd, gpointer get_data)
 	gtk_html_append_html (cd->html, html);
 	g_free (html);
 	html_cursor_jump_to_position (e->cursor, e, position);
+
+	return TRUE;
 }
 
-void
+gboolean
 table_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
 	GtkHTMLEditTableProperties *d = (GtkHTMLEditTableProperties *) get_data;
@@ -835,6 +837,9 @@ table_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 		html_engine_table_set_rows (d->cd->html->engine, d->rows);
 		d->changed_rows = FALSE;
 	}
+
+	/* FIXME: take care about non-modal dialog and possible meanwhile doc changes */
+	return TRUE;
 }
 
 void

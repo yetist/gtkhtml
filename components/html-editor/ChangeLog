@@ -1,3 +1,10 @@
+2003-01-09  Radek Doulik  <rodo@ximian.com>
+
+	* spell.c (spell_check_dialog): as below
+
+	* properties.c (gtk_html_edit_properties_dialog_show): don't make
+	properties dialog modal
+
 2002-12-05  Radek Doulik  <rodo@ximian.com>
 
 	* editor-control-factory.c (load_from_file): try to load file even

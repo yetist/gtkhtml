@@ -27,7 +27,7 @@
 #include "control-data.h"
 
 typedef GtkWidget * (*GtkHTMLEditPropertyCreateFunc) (GtkHTMLControlData *cd, gpointer *own_data);
-typedef void        (*GtkHTMLEditPropertyApplyFunc)  (GtkHTMLControlData *cd, gpointer  own_data);
+typedef gboolean    (*GtkHTMLEditPropertyApplyFunc)  (GtkHTMLControlData *cd, gpointer  own_data);
 typedef void        (*GtkHTMLEditPropertyCloseFunc)  (GtkHTMLControlData *cd, gpointer  own_data);
 
 enum _GtkHTMLEditPropertyType {

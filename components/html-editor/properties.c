@@ -44,6 +44,7 @@ struct _GtkHTMLEditPropertiesDialog {
 	GList               *page_data;
 	GtkWidget           *notebook;
 	gboolean             insert;
+	gboolean             all_changes_applied;
 	gchar               *title;
 };
 
@@ -59,16 +60,20 @@ typedef struct _PageData PageData;
 static void
 apply_cb (PageData *pd, GtkHTMLEditPropertiesDialog *d)
 {
-	(*pd->apply) (d->control_data, pd->data);
+	if (!(*pd->apply) (d->control_data, pd->data))
+		d->all_changes_applied = FALSE;
 }
 
 static void
 apply (GtkHTMLEditPropertiesDialog *d)
 {
+	d->all_changes_applied = TRUE;
 	g_list_foreach (d->page_data, (GFunc) apply_cb, d);
-	gtk_dialog_set_response_sensitive (GTK_DIALOG (d->dialog), 0, FALSE);
-	if (!d->insert)
-		gtk_dialog_set_response_sensitive (GTK_DIALOG (d->dialog), 1, FALSE);
+	if (d->all_changes_applied) {
+		gtk_dialog_set_response_sensitive (GTK_DIALOG (d->dialog), 0, FALSE);
+		if (!d->insert)
+			gtk_dialog_set_response_sensitive (GTK_DIALOG (d->dialog), 1, FALSE);
+	}
 }
 
 static void
@@ -202,7 +207,6 @@ gtk_html_edit_properties_dialog_add_entry (GtkHTMLEditPropertiesDialog *d,
 void
 gtk_html_edit_properties_dialog_show (GtkHTMLEditPropertiesDialog *d)
 {
-	gtk_window_set_modal (GTK_WINDOW (d->dialog), TRUE);
 	if (g_list_length (d->page_data) <= 1) {
 		gtk_notebook_set_show_tabs (GTK_NOTEBOOK (d->notebook), FALSE);
 		gtk_notebook_set_show_border (GTK_NOTEBOOK (d->notebook), FALSE);
@@ -213,7 +217,6 @@ gtk_html_edit_properties_dialog_show (GtkHTMLEditPropertiesDialog *d)
 void
 gtk_html_edit_properties_dialog_close (GtkHTMLEditPropertiesDialog *d)
 {
-	/* gtk_window_set_modal (GTK_WINDOW (d->dialog), FALSE); */
 	if (d->dialog)
 		gtk_dialog_response (GTK_DIALOG (d->dialog), GTK_RESPONSE_CLOSE);
 }

@@ -169,7 +169,7 @@ paragraph_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	return table;
 }
 
-void
+gboolean
 paragraph_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
 	GtkHTMLEditParagraphProperties *data = (GtkHTMLEditParagraphProperties *) get_data;
@@ -178,6 +178,9 @@ paragraph_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 		gtk_html_set_paragraph_alignment (cd->html, data->align);
 	if (data->style_changed)
 		gtk_html_set_paragraph_style (cd->html, data->style);
+
+	/* FIXME: take care about non-modal dialog and possible meanwhile doc changes */
+	return TRUE;
 }
 
 void

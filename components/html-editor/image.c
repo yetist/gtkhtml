@@ -663,7 +663,7 @@ image_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	return w;
 }
 
-static void
+static gboolean
 insert_or_apply (GtkHTMLControlData *cd, gpointer get_data, gboolean insert)
 {	
 	GtkHTMLEditImageProperties *d = (GtkHTMLEditImageProperties *) get_data;
@@ -675,9 +675,22 @@ insert_or_apply (GtkHTMLControlData *cd, gpointer get_data, gboolean insert)
 		gtk_html_append_html (d->cd->html, html);
 	} else {
 		HTMLImage *image = HTML_IMAGE (d->image);
+		HTMLEngine *e = d->cd->html->engine;
 		gchar *location, *url, *target;
 
 		g_assert (HTML_OBJECT_TYPE (d->image) == HTML_TYPE_IMAGE);
+
+		if (e->cursor->object != HTML_OBJECT (d->image))
+			if (!html_cursor_jump_to (e->cursor, e, HTML_OBJECT (d->image), 1)) {
+				GtkWidget *dialog;
+
+				dialog = gtk_message_dialog_new (NULL, /*GTK_WINDOW (d->cd->properties_dialog), */
+								 GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_INFO, GTK_BUTTONS_OK,
+								 _("The editted image was removed from the document.\nCannot apply your changes."));
+				gtk_dialog_run (GTK_DIALOG (dialog));
+				gtk_widget_destroy (dialog);
+				return FALSE;
+			}
 
 		html_image_set_border (image, d->border);
 		html_image_set_size (image,
@@ -711,18 +724,21 @@ insert_or_apply (GtkHTMLControlData *cd, gpointer get_data, gboolean insert)
 			g_free (url);
 		g_free (target);
 	}
+
+	return TRUE;
 }
 
-void
+gboolean
 image_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
-	insert_or_apply (cd, get_data, FALSE);
+	return insert_or_apply (cd, get_data, FALSE);
 }
 
-void
+gboolean
 image_insert_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
 	insert_or_apply (cd, get_data, TRUE);
+	return TRUE;
 }
 
 void

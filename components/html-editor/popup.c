@@ -50,7 +50,7 @@
 #include "table.h"
 #include "text.h"
 
-/* #define DEBUG */
+#define DEBUG
 #ifdef DEBUG
 #include "gtkhtmldebug.h"
 #endif
@@ -484,10 +484,6 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items)
 			ADD_ITEM (_("Paragraph..."), prop_dialog, PARAGRAPH);
 			ADD_PROP (PARAGRAPH);
 			break;
-		case HTML_TYPE_TABLE:
-			ADD_SEP;
-			ADD_PROP (TABLE);
-			ADD_ITEM (_("Table..."), prop_dialog, TABLE);
 		default:
 			;
 		}
