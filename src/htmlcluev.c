@@ -326,6 +326,19 @@ set_max_width (HTMLObject *o, HTMLPainter *painter, gint max_width)
 }
 
 static void
+set_max_height (HTMLObject *o, HTMLPainter *painter, gint height)
+{
+	HTMLClue *clue = HTML_CLUE (o);
+	HTMLObject *obj;
+
+	html_object_calc_size (o, painter, NULL);
+	if (o->ascent < height) {
+		(* HTML_OBJECT_CLASS (parent_class)->set_max_height) (o, painter, height);
+		clue->curr = NULL;
+	}
+}
+
+static void
 reset (HTMLObject *clue)
 {
 	HTMLClueV *cluev;
@@ -820,6 +833,7 @@ html_cluev_class_init (HTMLClueVClass *klass,
 	object_class->calc_preferred_width = calc_preferred_width;
 	object_class->relayout = relayout;
 	object_class->set_max_width = set_max_width;
+	object_class->set_max_height = set_max_height;
 	object_class->reset = reset;
 	object_class->draw = draw;
 	object_class->check_point = check_point;

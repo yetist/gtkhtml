@@ -1,3 +1,12 @@
+2004-02-11  Radek Doulik  <rodo@ximian.com>
+
+	* htmlcluev.c (set_max_height): reset curr when setting max height
+	to avoid wrong y positions of children objects (do_layout will
+	continue from curr)
+
+	* htmlclue.c (set_max_height): set max height only if ascent <
+	height
+
 2004-02-09  Radek Doulik  <rodo@ximian.com>
 
 	* htmltextslave.c (hts_fit_line): do not update lb again if we

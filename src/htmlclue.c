@@ -281,15 +281,17 @@ set_max_height (HTMLObject *o, HTMLPainter *painter, gint height)
 	HTMLClue *clue = HTML_CLUE (o);
 	HTMLObject *obj;
 
-	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next) {
-		html_object_set_max_height (obj, painter, height);
-		if (clue->valign == HTML_VALIGN_MIDDLE)
-			obj->y = obj->y + ((height - o->ascent) / 2);
-		else if (clue->valign == HTML_VALIGN_BOTTOM)
-			obj->y = obj->y + height - o->ascent;
-	}
+	if (o->ascent < height) {
+		for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next) {
+			html_object_set_max_height (obj, painter, height);
+			if (clue->valign == HTML_VALIGN_MIDDLE)
+				obj->y += (height - o->ascent)/2;
+			else if (clue->valign == HTML_VALIGN_BOTTOM)
+				obj->y += height - o->ascent;
+		}
 
-	o->ascent = height;
+		o->ascent = height;
+	}
 }
 
 static void
