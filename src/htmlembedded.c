@@ -93,7 +93,7 @@ draw (HTMLObject *o,
 		}
 	}
 
-	d (printf ("draw embedded %p - call painter\n", element));
+	d (printf ("draw embedded %p - call painter tx %d ty %d\n", element, tx, ty));
 	html_painter_draw_embedded (p, element, tx, ty);
 }
 

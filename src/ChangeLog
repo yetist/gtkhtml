@@ -1,3 +1,13 @@
+2005-01-31  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml.c (child_size_allocate): use
+	html_object_calc_abs_position_in_frame instead of
+	html_object_calc_abs_position, it fixes the nested iframes
+	geometry
+
+	* htmlobject.c (html_object_calc_abs_position_in_frame): new
+	helper function to calculate absolute position in object's frame
+
 2005-01-28  Radek Doulik  <rodo@ximian.com>
 
 	* test-suite.c: added more tests, cursor movement on lines

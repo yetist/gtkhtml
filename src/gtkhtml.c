@@ -1073,7 +1073,7 @@ child_size_allocate (HTMLObject *o, HTMLEngine *e, gpointer data)
 		if (eo->widget) {
 			GtkAllocation allocation;
 
-			html_object_calc_abs_position (o, &allocation.x, &allocation.y);
+			html_object_calc_abs_position_in_frame (o, &allocation.x, &allocation.y);
 			allocation.y -= o->ascent;
 			allocation.width = o->width;
 			allocation.height = o->ascent + o->descent;

@@ -396,6 +396,9 @@ gint            html_object_calc_preferred_width  (HTMLObject            *o,
 void            html_object_calc_abs_position     (HTMLObject            *o,
 						   gint                  *x_return,
 						   gint                  *y_return);
+void            html_object_calc_abs_position_in_frame (HTMLObject       *o,
+							int              *x_return,
+							int              *y_return);
 gboolean        html_object_intersect             (HTMLObject            *o,
 					           GdkRectangle          *intersection,
 					           gint                   x,

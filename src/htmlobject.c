@@ -952,6 +952,26 @@ html_object_calc_abs_position (HTMLObject *o,
 	}
 }
 
+void
+html_object_calc_abs_position_in_frame (HTMLObject *o, int *x_return, int *y_return)
+{
+	HTMLObject *p;
+
+	g_return_if_fail (o != NULL);
+
+	*x_return = o->x;
+	*y_return = o->y;
+	
+	frame_offset (o, x_return, y_return);
+
+	for (p = o->parent; p != NULL && !html_object_is_frame (p); p = p->parent) {
+		*x_return += p->x;
+		*y_return += p->y - p->ascent;
+		
+		frame_offset (p, x_return, y_return);
+	}
+}
+
 GdkRectangle *
 html_object_get_bounds (HTMLObject *o, GdkRectangle *bounds)
 {
