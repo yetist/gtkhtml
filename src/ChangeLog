@@ -13,6 +13,14 @@
 
 	Fixes #62557
 
+2004-08-05  Radek Doulik  <rodo@ximian.com>
+
+	* htmlembedded.c (calc_min_width): calc min with for unrealized
+	widgets as well, it's OK to call gtk_widget_size_request. for
+	invissible widgets (hidden) return 0 minimal width
+
+	Fixes #62088
+
 2004-08-03  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (drag_data_received): do not use title from
