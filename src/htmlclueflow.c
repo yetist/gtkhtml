@@ -1408,26 +1408,26 @@ get_start_tag (HTMLObject *self)
 		case HTML_LIST_TYPE_UNORDERED:
 		case HTML_LIST_TYPE_MENU:
 		case HTML_LIST_TYPE_DIR:
-			return g_strdup (need_list_begin (self) ? "ul><li" : "li");
+			return g_strdup (need_list_begin (self) ? "ul>\n<li" : "li");
 		case HTML_LIST_TYPE_ORDERED_ARABIC:
 			return need_list_begin (self)
-				? g_strdup ("ol type=1><li")
+				? g_strdup ("ol type=1>\n<li")
 				: g_strdup_printf ("li type=1 value=%d", HTML_CLUEFLOW (self)->item_number);
 		case HTML_LIST_TYPE_ORDERED_UPPER_ROMAN:
 			return need_list_begin (self)
-				? g_strdup ("ol type=I><li")
+				? g_strdup ("ol type=I>\n<li")
 				: g_strdup_printf ("li type=I value=%d", HTML_CLUEFLOW (self)->item_number);
 		case HTML_LIST_TYPE_ORDERED_LOWER_ROMAN:
 			return need_list_begin (self)
-				? g_strdup ("ol type=i><li")
+				? g_strdup ("ol type=i>\n<li")
 				: g_strdup_printf ("li type=i value=%d", HTML_CLUEFLOW (self)->item_number);
 		case HTML_LIST_TYPE_ORDERED_UPPER_ALPHA:
 			return need_list_begin (self)
-				? g_strdup ("ol type=A><li")
+				? g_strdup ("ol type=A>\n<li")
 				: g_strdup_printf ("li type=A value=%d", HTML_CLUEFLOW (self)->item_number);
 		case HTML_LIST_TYPE_ORDERED_LOWER_ALPHA:
 			return need_list_begin (self)
-				? g_strdup ("ol type=a><li")
+				? g_strdup ("ol type=a>\n<li")
 				: g_strdup_printf ("li type=a value=%d", HTML_CLUEFLOW (self)->item_number);
 		}
 	case HTML_CLUEFLOW_STYLE_NORMAL:
@@ -1461,9 +1461,9 @@ get_end_tag (HTMLObject *self)
 		case HTML_LIST_TYPE_UNORDERED:
 		case HTML_LIST_TYPE_MENU:
 		case HTML_LIST_TYPE_DIR:
-			return g_strdup (need_list_begin (self) ? "ul" : "li");
+			return g_strdup (need_list_end (self) ? "li>\n</ul" : "li");
 		default:
-			return g_strdup (need_list_end (self) ? "ol" : "li");
+			return g_strdup (need_list_end (self) ? "li>\n</ol" : "li");
 		}
 	default:
 		return NULL;

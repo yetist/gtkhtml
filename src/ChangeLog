@@ -1,3 +1,8 @@
+2001-09-17  Radek Doulik  <rodo@ximian.com>
+
+	* htmlclueflow.c (get_start_tag): added few \n
+	(get_end_tag): ditto, use need_list_end instead of need_list_begin
+
 2001-09-16  Radek Doulik  <rodo@ximian.com>
 
 	* htmlcluev.c (find_free_area): fixed test for checking if margins
