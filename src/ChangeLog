@@ -1,5 +1,11 @@
 2000-08-11  Larry Ewing  <lewing@helixcode.com>
 
+	* htmltextslave.c (html_text_slave_trail_space_width): removed
+	this as it is no longer needed.
+
+	* htmltextslave.h: remove html_text_slave_trail_space_width
+	prototype.
+
 	* htmlclueflow.c (calc_size): stop subracting the width of the
 	trailing space of the total width of the cluflow.  This is no
 	longer needed and was causing artifacts.
