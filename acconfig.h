@@ -18,6 +18,7 @@
 #undef USING_OAF
 #undef GTK_HTML_USE_XIM
 #undef GNOME_GTKHTML_EDITOR_SHLIB
+#undef EDITOR_API_VERSION
 
 @BOTTOM@
 /* This is from libglade */
