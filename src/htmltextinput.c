@@ -200,9 +200,8 @@ html_text_input_init (HTMLTextInput *ti,
 
 	gtk_entry_set_visibility (GTK_ENTRY(element->widget), !password);
 	
-	min_width = size*12; /* FIX2 gdk_char_width (element->widget->style->font, '0') * size + 8; */
-	gtk_widget_set_size_request (element->widget, min_width, -1);
-
+	gtk_entry_set_width_chars (GTK_ENTRY(element->widget), size);
+	
 	ti->size = size;
 	ti->maxlen = maxlen;
 }

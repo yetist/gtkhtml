@@ -1,3 +1,7 @@
+2002-11-07  Larry Ewing  <lewing@ximian.com>
+
+	* htmltextinput.c: fix the requested width calculation.
+
 2002-11-06  Radek Doulik  <rodo@ximian.com>
 
 	* libgtkhtml.pc.in (gtkhtml_datadir): added gtkhtml_datadir
