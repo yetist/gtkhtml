@@ -1207,6 +1207,8 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 					} else {
 						push_block (e, heading ? ID_TH : ID_TD, 3, NULL, 0, 0);
 						str = parse_body (e, HTML_OBJECT (cell), endthtd, FALSE);
+						if (HTML_CLUE (cell)->head == NULL)
+							insert_paragraph_break (e, HTML_OBJECT (cell));
 						pop_block (e, heading ? ID_TH : ID_TD, HTML_OBJECT (cell));
 						add_pending_paragraph_break (e, HTML_OBJECT (cell));
 					}

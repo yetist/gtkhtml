@@ -1,3 +1,11 @@
+2001-07-27  Radek Doulik  <rodo@ximian.com>
+
+	* htmltablecell.c (save): commnted out my hack for &nbsp; saving
+	to empty cells
+
+	* htmlengine.c (parse_table): insert empty paragraph in empty
+	cells
+
 2001-07-26  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (gtk_html_command): update styles if needed

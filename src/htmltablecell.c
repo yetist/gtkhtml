@@ -309,10 +309,10 @@ save (HTMLObject *self,
 	  save at least &nbsp; for emty cell
 	  it's not really clean behavior, but I think it's better than saving empty cells.
 	  let me know if you have better idea
-	*/
+
 	if (HTML_CLUE (self)->head && HTML_CLUE (self)->head == HTML_CLUE (self)->tail
 	    && HTML_IS_CLUEFLOW (HTML_CLUE (self)->head) && html_clueflow_is_empty (HTML_CLUEFLOW (HTML_CLUE (self)->head)))
-		SB "&nbsp;" SE;
+	    SB "&nbsp;" SE; */
 
 	SB "</TD>\n" SE;
 
