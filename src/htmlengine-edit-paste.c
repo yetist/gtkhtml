@@ -33,7 +33,7 @@
 
 #include "htmlengine-edit-paste.h"
 
-/* #define PARANOID_DEBUG */
+#define PARANOID_DEBUG
 
 
 /* This function adds an empty HTMLTextMaster object to @flow; it is
@@ -406,7 +406,14 @@ do_paste (HTMLEngine *engine,
                            empty HTMLClueFlow with an empty text element.  */
 
 			if (!p->next) {
-				engine->cursor->object = HTML_CLUE (engine->cursor->object->parent->next)->head;
+				HTMLClueFlow *next;
+
+				g_assert (HTML_OBJECT_TYPE (engine->cursor->object->parent->next) == HTML_TYPE_CLUEFLOW);
+
+				next = engine->cursor->object->parent->next;
+				if (!HTML_CLUE (next)->head)
+					add_empty_text_master_to_clueflow (next);
+				engine->cursor->object = HTML_CLUE (next)->head;
 				engine->cursor->offset = 0;
 				engine->cursor->position++;
 #ifdef PARANOID_DEBUG
