@@ -631,6 +631,15 @@ destroy (GtkObject *object)
 	
 	g_free (html->priv->content_type);
 	g_free (html->priv);
+
+#ifdef GTKHTML_HAVE_GCONF
+	if (html->priv->set_font_id)
+		g_source_remove (html->priv->set_font_id);
+
+	if (html->priv->notify_id)
+		gconf_client_notify_remove (gconf_client, html->priv->notify_id);
+#endif
+
 	html->priv = NULL;
 
 	gtk_object_destroy (GTK_OBJECT (html->engine));
@@ -1678,9 +1687,7 @@ focus (GtkContainer *container, GtkDirectionType direction)
 	gint rv;
 
 	/* printf ("focus %d\n", direction); */
-	/* GTK_WIDGET_UNSET_FLAGS (GTK_WIDGET (container), GTK_CAN_FOCUS);*/
 	rv = (*GTK_CONTAINER_CLASS (parent_class)->focus) (container, direction);
-	/* GTK_WIDGET_SET_FLAGS (GTK_WIDGET (container), GTK_CAN_FOCUS);*/
 	html_engine_set_focus (GTK_HTML (container)->engine, rv);
 	return rv;
 #else
@@ -1973,9 +1980,12 @@ init_properties_widget (GtkHTML *html)
 	html_colorset_set_color (html->engine->defaultSettings->color_set, &prop->spell_error_color, HTMLSpellErrorColor);
 
 #ifdef GTKHTML_HAVE_GCONF
-	gconf_client_notify_add (gconf_client, GTK_HTML_GCONF_DIR, client_notify_widget, html, NULL, &gconf_error);
-	if (gconf_error)
+	html->priv->notify_id = gconf_client_notify_add (gconf_client, GTK_HTML_GCONF_DIR,
+							 client_notify_widget, html, NULL, &gconf_error);
+	if (gconf_error) {
 		g_warning ("gconf error: %s\n", gconf_error->message);
+		html->priv->notify_id = 0;
+	}
 #endif
 }
 
@@ -2024,6 +2034,15 @@ init (GtkHTML* html)
 	html->priv->primary_len = 0;
 	html->priv->content_type = NULL;
 	html->priv->search_input_line = NULL;
+
+#ifdef GTKHTML_HAVE_GCONF
+	html->priv->set_font_id = 0;
+	html->priv->notify_id = 0;
+#endif
+#ifdef GTK_HTML_USE_XIM
+	html->priv->ic_attr = NULL;
+	html->priv->ic = NULL;
+#endif
 
 	gtk_selection_add_targets (GTK_WIDGET (html),
 				   GDK_SELECTION_PRIMARY,

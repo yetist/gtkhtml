@@ -1,5 +1,12 @@
 2001-09-07  Radek Doulik  <rodo@ximian.com>
 
+	* applied boc's patch
+	* gtkhtml.c (destroy): remove set_font idle
+	(destroy): remove gconf notification callback
+	(init_properties_widget): remember client notify ID
+	(init): zero gconf and XIM fields (it isn't needed because gnew0,
+	but we does this for other fields too anyway)
+
 	* Makefile.am (gtest_LDADD): added GCONF_LIBS
 
 	* htmltextslave.c (get_offset_for_bounded_width): for ' ' search
