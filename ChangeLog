@@ -1,5 +1,10 @@
 2000-07-06  Darin Adler  <darin@eazel.com>
 
+	* src/gtkhtml.h: Remove functions so we get compile errors
+	instead of link errors.
+
+2000-07-06  Darin Adler  <darin@eazel.com>
+
 	* .cvsignore: Skip some generated files.
 	* src/gtkhtml.c: Get rid of unused global.
 	* src/testgtkhtml.c: (main): Fix build by removing init call.
