@@ -106,7 +106,8 @@ calc_size (HTMLObject *self,
 						    slave->posLen,
 						    font_style);
 
-	self->width += html_painter_calc_text_width (painter, " ", 1, font_style);
+	if (check_newline (HTML_TEXT_SLAVE (self)))
+		self->width += html_painter_calc_text_width (painter, " ", 1, font_style);
 }
 
 static HTMLFitType
