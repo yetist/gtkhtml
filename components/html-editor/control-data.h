@@ -100,6 +100,9 @@ struct _GtkHTMLControlData {
 	Bonobo_PropertyBag spell_control_pb;
 	gboolean has_spell_control;
 	gboolean spell_check_next;
+
+	GtkWidget *file_dialog;
+	gboolean file_html;
 };
 
 GtkHTMLControlData * gtk_html_control_data_new       (GtkHTML *html, GtkWidget *vbox);

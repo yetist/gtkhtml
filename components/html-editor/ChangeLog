@@ -1,3 +1,13 @@
+2002-06-06  Radek Doulik  <rodo@ximian.com>
+
+	* menubar.c: added insert text/html file items and implemented
+	them
+
+2002-06-05  Radek Doulik  <rodo@ximian.com>
+
+	* persist-file-impl.c (pf_impl_load): use "text/html;
+	charset=utf-8" content type
+
 2002-06-02  Larry Ewing  <lewing@ximian.com>
 
 	* ChangeLog: merge the multicite branch.

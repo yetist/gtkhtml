@@ -22,9 +22,15 @@
 */
 
 #include <config.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
 #include <gnome.h>
 #include <bonobo.h>
 
+#include "e-html-utils.h"
 #include "menubar.h"
 #include "gtkhtml.h"
 #include "body.h"
@@ -189,6 +195,91 @@ insert_template_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *
 }
 
 static void
+file_dialog_destroy (GtkWidget *w, GtkHTMLControlData *cd)
+{
+	cd->file_dialog = NULL;
+}
+
+#define BUFFER_SIZE 4096
+
+static void
+file_dialog_ok (GtkWidget *w, GtkHTMLControlData *cd)
+{
+	gchar *filename;
+	gint fd;
+
+	filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION (cd->file_dialog));
+	fd = open (filename, O_RDONLY);
+	if (fd != -1) {
+		GtkHTML *tmp;
+		GtkHTMLStream *stream;
+		gchar buffer [BUFFER_SIZE];
+		ssize_t rb;
+
+		tmp = GTK_HTML (gtk_html_new ());
+		stream = gtk_html_begin_content (tmp, "text/html; charset=utf-8");
+		if (!cd->file_html) {
+			gtk_html_write (tmp, stream, "<PRE>", 5);
+		}
+		while ((rb = read (fd, buffer, BUFFER_SIZE - (cd->file_html ? 0 : 1))) > 0) {
+			if (cd->file_html) {
+				gtk_html_write (tmp, stream, buffer, rb);
+			} else {
+				gchar *html;
+
+				buffer [rb] = 0;
+				html = e_text_to_html (buffer, E_TEXT_TO_HTML_CONVERT_SPACES);
+				gtk_html_write (tmp, stream, html, strlen (html));
+				g_free (html);
+			}
+		}
+		if (!cd->file_html) {
+			gtk_html_write (tmp, stream, "</PRE>", 6);
+		}
+		gtk_html_end (tmp, stream, rb >=0 ? GTK_HTML_STREAM_OK : GTK_HTML_STREAM_ERROR);
+		gtk_html_insert_gtk_html (cd->html, tmp);
+
+		close (fd);
+	}
+	gtk_widget_destroy (cd->file_dialog);
+}
+
+static void
+insert_file_dialog (GtkHTMLControlData *cd, gboolean html)
+{
+	cd->file_html = html;
+	if (cd->file_dialog != NULL) {
+		gdk_window_show (GTK_WIDGET (cd->file_dialog)->window);
+		return;
+	}
+
+	cd->file_dialog = gtk_file_selection_new (html ? _("Insert HTML file") : _("Insert text file"));
+
+	gtk_signal_connect_object (GTK_OBJECT (GTK_FILE_SELECTION (cd->file_dialog)->cancel_button),
+				   "clicked", GTK_SIGNAL_FUNC (gtk_widget_destroy), GTK_OBJECT (cd->file_dialog));
+
+	gtk_signal_connect (GTK_OBJECT (GTK_FILE_SELECTION (cd->file_dialog)->ok_button),
+			    "clicked", GTK_SIGNAL_FUNC (file_dialog_ok), cd);
+
+	gtk_signal_connect (GTK_OBJECT (cd->file_dialog), "destroy",
+			    GTK_SIGNAL_FUNC (file_dialog_destroy), cd);
+
+	gtk_widget_show (cd->file_dialog);
+}
+
+static void
+insert_text_file_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
+{
+	insert_file_dialog (cd, FALSE);
+}
+
+static void
+insert_html_file_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
+{
+	insert_file_dialog (cd, TRUE);
+}
+
+static void
 properties_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
 	gchar *argv[2] = {"gtkhtml-properties-capplet", NULL};
@@ -287,6 +378,9 @@ BonoboUIVerb verbs [] = {
 	BONOBO_UI_UNSAFE_VERB ("InsertRule",  insert_rule_cb),
 	BONOBO_UI_UNSAFE_VERB ("InsertTable", insert_table_cb),
 	BONOBO_UI_UNSAFE_VERB ("InsertTemplate", insert_template_cb),
+
+	BONOBO_UI_UNSAFE_VERB ("InsertTextFile", insert_text_file_cb),
+	BONOBO_UI_UNSAFE_VERB ("InsertHTMLFile", insert_html_file_cb),
 
 	BONOBO_UI_UNSAFE_VERB ("InsertSmiley1", smiley_cb),
 	BONOBO_UI_UNSAFE_VERB ("InsertSmiley2", smiley_cb),

@@ -70,6 +70,8 @@ GTKHTML_EDITOR_SOURCES_COMMON =			\
 	control-data.h				\
 	dialog.c				\
 	dialog.h				\
+	e-html-utils.h				\
+	e-html-utils.c				\
 	editor-control-factory.c		\
 	engine.h				\
 	engine.c				\
