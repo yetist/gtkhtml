@@ -610,7 +610,7 @@ html_undo_reset (HTMLUndo *undo)
 }
 
 gboolean
-html_undo_is_dirty (HTMLUndo *undo)
+html_undo_has_undo_steps (HTMLUndo *undo)
 {
 	g_assert (undo->step_counter >= 0);
 

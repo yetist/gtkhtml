@@ -4372,9 +4372,9 @@ gtk_html_print_get_pages_num (GtkHTML *html, GnomePrintContext *print_context, g
 }
 
 gboolean
-gtk_html_is_dirty (GtkHTML *html)
+gtk_html_has_undo (GtkHTML *html)
 {
-	return html_undo_is_dirty (html->engine->undo);
+	return html_undo_has_undo_steps (html->engine->undo);
 }
 
 void

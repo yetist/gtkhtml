@@ -47,7 +47,7 @@ void               html_undo_add_redo_action    (HTMLUndo          *undo,
 void               html_undo_add_action         (HTMLUndo          *undo,
 						 HTMLUndoAction    *action,
 						 HTMLUndoDirection  dir);
-gboolean           html_undo_is_dirty           (HTMLUndo          *undo);
+gboolean           html_undo_has_undo_steps     (HTMLUndo          *undo);
 void               html_undo_reset              (HTMLUndo          *undo);
 void               html_undo_level_begin        (HTMLUndo          *undo,
 						 const gchar       *undo_description,

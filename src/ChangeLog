@@ -1,3 +1,10 @@
+2002-02-12  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml.c (gtk_html_has_undo): renamed from gtk_html_is_dirty
+
+	* htmlundo.c (html_undo_has_undo_steps): renamed from
+	html_undo_is_dirty
+
 2002-02-11  Radek Doulik  <rodo@ximian.com>
 
 	* htmlselection.c (html_engine_select_interval): don't activate
