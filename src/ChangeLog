@@ -1,3 +1,7 @@
+2002-09-18  Radek Doulik  <rodo@ximian.com>
+
+	* htmltextslave.c (calc_size): split just long words
+
 2002-09-18  Larry Ewing  <lewing@ximian.com>
 
 	* htmlpainter.c (html_painter_calc_text_width): limit alloca len
