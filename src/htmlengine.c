@@ -2557,10 +2557,12 @@ html_engine_get_type (void)
 static void
 html_engine_destroy (GtkObject *object)
 {
-	HTMLEngine *engine = HTML_ENGINE (object);
+	HTMLEngine *engine;
 	GList *p;
 
-	/* FIXME FIXME FIXME */
+	engine = HTML_ENGINE (object);
+
+	html_engine_color_set_destroy (engine->color_set);
 
 	if (engine->invert_gc != NULL)
 		gdk_gc_destroy (engine->invert_gc);
@@ -2685,6 +2687,8 @@ html_engine_init (HTMLEngine *engine)
 {
 	/* STUFF might be missing here!   */
 
+	engine->color_set = html_engine_color_set_new ();
+
 	engine->window = NULL;
 	engine->invert_gc = NULL;
 
@@ -2754,7 +2758,9 @@ html_engine_realize (HTMLEngine *e,
 	g_return_if_fail (e->window == NULL);
 
 	e->window = window;
+
 	html_painter_realize (e->painter, window);
+	html_engine_color_set_realize (e->color_set, window);
 
 	gc_values.function = GDK_INVERT;
 	e->invert_gc = gdk_gc_new_with_values (e->window, &gc_values, GDK_GC_FUNCTION);
@@ -3338,3 +3344,48 @@ html_engine_form_submitted (HTMLEngine *e,
 
 }
 
+
+const GdkColor *
+html_engine_get_background_color (HTMLEngine *engine)
+{
+	g_return_val_if_fail (engine != NULL, NULL);
+	g_return_val_if_fail (engine->window != NULL, NULL);
+
+	return &engine->color_set->background_color;
+}
+
+const GdkColor *
+html_engine_get_foreground_color (HTMLEngine *engine)
+{
+	g_return_val_if_fail (engine != NULL, NULL);
+	g_return_val_if_fail (engine->window != NULL, NULL);
+
+	return &engine->color_set->foreground_color;
+}
+
+const GdkColor *
+html_engine_get_link_color (HTMLEngine *engine)
+{
+	g_return_val_if_fail (engine != NULL, NULL);
+	g_return_val_if_fail (engine->window != NULL, NULL);
+
+	return &engine->color_set->link_color;
+}
+
+const GdkColor *
+html_engine_get_highlight_color (HTMLEngine *engine)
+{
+	g_return_val_if_fail (engine != NULL, NULL);
+	g_return_val_if_fail (engine->window != NULL, NULL);
+
+	return &engine->color_set->highlight_color;
+}
+
+const GdkColor *
+html_engine_get_highlight_foreground_color (HTMLEngine *engine)
+{
+	g_return_val_if_fail (engine != NULL, NULL);
+	g_return_val_if_fail (engine->window != NULL, NULL);
+
+	return &engine->color_set->highlight_foreground_color;
+}

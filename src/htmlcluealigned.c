@@ -66,6 +66,7 @@ set_max_width (HTMLObject *o, gint max_width)
 	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next)
 		html_object_set_max_width (obj, max_width);
 }
+
 
 void
 html_cluealigned_type_init (void)

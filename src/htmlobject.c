@@ -3,7 +3,7 @@
 
     Copyright (C) 1997 Martin Jones (mjones@kde.org)
     Copyright (C) 1997 Torben Weis (weis@kde.org)
-    Copyright (C) 1999 Helix Code, Inc.
+    Copyright (C) 1999, 2000 Helix Code, Inc.
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Library General Public
@@ -301,6 +301,7 @@ html_object_init (HTMLObject *o,
 
 	o->redraw_pending = FALSE;
 	o->free_pending = FALSE;
+	o->selected = FALSE;
 }
 
 HTMLObject *
@@ -480,6 +481,20 @@ html_object_get_cursor_base (HTMLObject *self,
 			     gint *x, gint *y)
 {
 	(* HO_CLASS (self)->get_cursor_base) (self, painter, offset, x, y);
+}
+
+
+void
+html_object_select (HTMLObject *obj,
+		    HTMLEngine *e,
+		    gboolean select)
+{
+	g_return_if_fail (obj != NULL);
+
+	if ((! obj->selected && select) || (obj->selected && select)) {
+		obj->selected = select;
+		html_engine_queue_draw (e, obj);
+	}
 }
 
 

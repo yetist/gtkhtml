@@ -263,6 +263,7 @@ draw (HTMLObject *o,
 	font_style = html_text_get_font_style (ownertext);
 
 	html_painter_set_font_style (p, font_style);
+
 	html_painter_set_pen (p, html_text_get_color (ownertext, p));
 
 	html_painter_draw_text (p,

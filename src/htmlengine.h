@@ -33,6 +33,7 @@ typedef struct _HTMLEngineClass HTMLEngineClass;
 #include "gtkhtml.h"
 
 #include "htmltokenizer.h"
+#include "htmlenginecolorset.h"
 #include "htmlcursor.h"
 #include "htmldrawqueue.h"
 #include "htmlstack.h"
@@ -65,6 +66,13 @@ typedef struct _HTMLBlockStackElement HTMLBlockStackElement;
 
 struct _HTMLEngine {
 	GtkObject parent;
+
+	HTMLEngineColorSet *color_set;
+	HTMLDrawQueue *draw_queue;
+	HTMLPainter *painter;
+
+	HTMLSettings *settings;
+	HTMLSettings *defaultSettings;
 
 	GdkWindow *window;
 	GdkGC *invert_gc;
@@ -118,11 +126,7 @@ struct _HTMLEngine {
 	gchar *url;
 	gchar *target;
 
-	HTMLPainter *painter;
 	HTMLBlockStackElement *blockStack;
-
-	HTMLSettings *settings;
-	HTMLSettings *defaultSettings;
 
 	/* timer id to schedule paint events */
 	guint updateTimer;
@@ -163,8 +167,6 @@ struct _HTMLEngine {
 	 * FIXME?
 	 */
 	GList *tempStrings;
-
-	HTMLDrawQueue *draw_queue;
 
 	HTMLForm *form;
 	HTMLSelect *formSelect;
@@ -226,8 +228,7 @@ void                 html_engine_stop_parser      (HTMLEngine  *e);
 
 /* Rendering control.  */
 void  html_engine_calc_size            (HTMLEngine *p);
-gint        html_engine_get_doc_height (HTMLEngine *p);
-
+gint  html_engine_get_doc_height       (HTMLEngine *p);
 gint  html_engine_get_doc_width        (HTMLEngine *e);
 void  html_engine_draw                 (HTMLEngine *e,
 					gint        x,
@@ -260,5 +261,12 @@ void  html_engine_form_submitted  (HTMLEngine  *engine,
 				   const gchar *method,
 				   const gchar *action,
 				   const gchar *encoding);
+
+/* Basic colors.  */
+const GdkColor *html_engine_get_background_color            (HTMLEngine *engine);
+const GdkColor *html_engine_get_foreground_color            (HTMLEngine *engine);
+const GdkColor *html_engine_get_link_color                  (HTMLEngine *engine);
+const GdkColor *html_engine_get_highlight_color             (HTMLEngine *engine);
+const GdkColor *html_engine_get_highlight_foreground_color  (HTMLEngine *engine);
 
 #endif /* _HTMLENGINE_H_ */

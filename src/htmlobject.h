@@ -110,6 +110,7 @@ struct _HTMLObject {
 
 	/* FIXME maybe unify with `flags'?  */
 	gboolean redraw_pending : 1;
+	gboolean selected : 1;
 
 	/* If an object has a redraw pending and is being destroyed, this flag
            is set to TRUE instead of g_free()ing the object.  When the draw
@@ -235,6 +236,10 @@ HTMLObject *html_object_check_point  (HTMLObject  *clue,
 gboolean  html_object_relayout  (HTMLObject *obj,
 				 HTMLEngine *engine,
 				 HTMLObject *child);
+
+void  html_object_select  (HTMLObject *obj,
+			   HTMLEngine *e,
+			   gboolean    select);
 
 gboolean  html_object_accepts_cursor   (HTMLObject  *obj);
 void      html_object_get_cursor       (HTMLObject  *obj,

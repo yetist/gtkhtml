@@ -1,5 +1,24 @@
 2000-01-20  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlengine.c (html_engine_init): Initialize `color_set'.
+	(html_engine_destroy): Destroy the color set.
+	(html_engine_realize): Realize the color set.
+	(html_engine_get_background_color): New function.
+	(html_engine_get_foreground_color): New function.
+	(html_engine_get_link_color): New function.
+	(html_engine_get_highlight_color): New function.
+	(html_engine_get_highlight_foreground_color): New function.
+
+	* htmlengine.h: New member `color_set'.
+
+	* htmlenginecolorset.h: New file.
+	* htmlenginecolorset.c: New file.
+
+	* htmlobject.c (html_object_init): Initialize `selected' to FALSE.
+	(html_object_select): New function.
+
+	* htmlobject.h: New flag `selected' in `HTMLObject'.
+
 	* htmlengine-edit.c (merge_text_at_cursor): Changed so that slaves
 	between the two elements are removed only if the two elements can
 	actually be merged.
