@@ -316,9 +316,12 @@ html_image_real_calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_
 
 	pixel_size = html_painter_get_pixel_size (painter);
 
-	if (o->parent && HTML_IS_CLUEFLOW (o->parent)
-	    && HTML_IS_PLAIN_PAINTER (painter) && image->alt && *image->alt) {
-		html_painter_set_font_style (painter, html_clueflow_get_default_font_style (HTML_CLUEFLOW (o->parent)));
+	if (o->parent && HTML_IS_PLAIN_PAINTER (painter) && image->alt && *image->alt) {
+		HTMLClueFlow *cf = html_object_get_flow (o);
+
+		if (cf)
+			html_painter_set_font_style (painter, html_clueflow_get_default_font_style (cf));
+
 		html_painter_set_font_face (painter, NULL);
 		/* FIXME: cache items and glyphs? */
 		html_painter_calc_text_size (painter, image->alt, g_utf8_strlen (image->alt, -1),
@@ -352,6 +355,7 @@ draw_plain (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gint heig
 		return;
 
 	if (img->alt && *img->alt) {
+		HTMLClueFlow *cf = html_object_get_flow (o);
 
 		/* FIXME: cache items and glyphs? */
 		if (o->selected) {
@@ -367,7 +371,9 @@ draw_plain (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gint heig
 										     HTMLTextColor)->color);
 		}
 		
-		html_painter_set_font_style (p, html_clueflow_get_default_font_style (HTML_CLUEFLOW (o->parent)));
+		if (cf)
+			html_painter_set_font_style (p, html_clueflow_get_default_font_style (cf));
+
 		html_painter_set_font_face (p, NULL);
 		html_painter_draw_text (p, o->x + tx, o->y + ty, img->alt, g_utf8_strlen (img->alt, -1));
 	}

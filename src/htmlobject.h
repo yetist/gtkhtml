@@ -604,5 +604,6 @@ void        html_object_set_id  (HTMLObject *o,
 				 const char *id);
 
 HTMLDirection html_object_get_direction (HTMLObject *o);
+HTMLClueFlow * html_object_get_flow (HTMLObject *o);
 
 #endif /* _HTMLOBJECT_H_ */

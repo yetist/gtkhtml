@@ -1,3 +1,15 @@
+2004-11-23  Radek Doulik  <rodo@ximian.com>
+
+	* htmlimage.c (html_image_real_calc_size): use
+	html_object_get_flow instead of using o->parent which might be
+	aligned clue
+	(draw_plain): ditto
+
+	* htmlobject.c (html_object_get_flow): new helper function,
+	returns object's flow parent
+
+	Fixes #67763
+
 2004-11-19  Radek Doulik  <rodo@ximian.com>
 
 	* htmlstyle.c (parse_border): quiet compiler

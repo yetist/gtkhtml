@@ -2098,3 +2098,12 @@ html_object_set_id (HTMLObject *o, const char *id)
 	g_free (o->id);
 	o->id = g_strdup (id);
 }
+
+HTMLClueFlow *
+html_object_get_flow (HTMLObject *o)
+{
+	while (o && !HTML_IS_CLUEFLOW (o))
+		o = o->parent;
+
+	return HTML_CLUEFLOW (o);
+}
