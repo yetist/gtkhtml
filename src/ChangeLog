@@ -1,3 +1,8 @@
+2000-05-02  Larry Ewing  <lewing@helixcode.com>
+
+	* htmlimage.c (cleanup_images): if there are no interestes don't try to
+	to free them.
+
 2000-05-01  Larry Ewing  <lewing@helixcode.com>
 
 	* htmlclueflow.c (save): rework the saving code so that we merge

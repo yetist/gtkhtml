@@ -837,8 +837,10 @@ cleanup_images (gpointer key, gpointer value, gpointer user_data)
 
 	/* user data means: NULL only clean, non-NULL free */
 	if (user_data){
-		g_slist_free (ptr->interests);
-		ptr->interests = NULL;
+		if (ptr->interests != NULL) {
+			g_slist_free (ptr->interests);
+			ptr->interests = NULL;
+		}
 	}
 
 	/* clean only if this image is not used anymore */
@@ -911,6 +913,8 @@ html_image_pointer_new (const char *filename, HTMLImageFactory *factory)
 static void
 html_image_pointer_destroy (HTMLImagePointer *ip)
 {
+	g_return_if_fail (ip != NULL);
+
 	g_free (ip->url);
 	if (ip->loader) {
 		gtk_object_unref (GTK_OBJECT (ip->loader));
