@@ -381,7 +381,7 @@ insert_text (HTMLEngine *e,
 		if (e->url != NULL || e->target != NULL)
 			obj = html_link_text_master_new (g_strdup (text),
 							 font_style,
-							 color,
+							 &e->settings->linkColor,
 							 e->url,
 							 e->target);
 		else

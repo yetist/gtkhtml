@@ -1,3 +1,11 @@
+2000-01-29  Jonas Borgström <jonas_b@bitsmart.com>
+
+	* htmlengine.c (insert_text): Use e->settings->linkColor as the color
+	for links.
+
+	* htmldrawqueue.c (clear_element_new_with_background): gdk_pixbuf_ref ()
+	returns void don't use the return value.
+
 2000-01-28  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlengine.c (parse_color): New function to parse colors.  If

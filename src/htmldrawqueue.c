@@ -68,7 +68,9 @@ clear_element_new_with_background (gint       x,
 	new->width = width;
 	new->height = height;
 
-	new->background_image = gdk_pixbuf_ref (background_image);
+	gdk_pixbuf_ref (background_image);
+	new->background_image = background_image;
+
 	new->background_image_x_offset = background_image_x_offset;
 	new->background_image_y_offset = background_image_y_offset;
 
