@@ -1,7 +1,10 @@
 2001-03-28  Larry Ewing  <lewing@ximian.com>
 
+	* body.c (color_changed): return if the color is null.
+
 	* editor-control-factory.c (editor_set_format): slave the painters
 	color set and cleanup warnings.
+	(edit_set_format): more warning cleanups.
 
 2001-03-27  Larry Ewing  <lewing@ximian.com>
 

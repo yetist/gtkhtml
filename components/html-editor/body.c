@@ -79,6 +79,9 @@ color_changed (GtkWidget *w, GdkColor *color, GtkHTMLEditBodyProperties *data)
 {
 	gint idx;
 
+	if (!color)
+		return;
+
 	idx = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (w), "type"));
 	data->color [idx] = *color;
 	data->color_changed [idx] = TRUE;
