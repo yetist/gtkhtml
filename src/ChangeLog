@@ -1,3 +1,10 @@
+2004-09-02  Radek Doulik  <rodo@ximian.com>
+
+	* htmlrule.c (fit_line): make sure the rule width doesn't exceed
+	max_width
+
+	Fixes #49601
+
 2004-08-16  Radek Doulik  <rodo@ximian.com>
 
 	* htmliframe.c (html_iframe_init): load empty iframe if depth > 10
