@@ -1,3 +1,8 @@
+2003-07-28  Radek Doulik  <rodo@ximian.com>
+
+	* htmltext.c (get_tags): fix color check to save color attribute
+	for blue text
+
 2003-07-26  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine.c (parse_p): make sure we update the alignment even
