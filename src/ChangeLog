@@ -1,3 +1,14 @@
+2000-10-15  Radek Doulik  <rodo@helixcode.com>
+
+	* htmltext.c (save_plain): cut down text from utf8 to 8bit before
+	plain saving (this fixes anoying A^ for now, should be replaced
+	later by text painter)
+
+	* htmlclueflow.c (save_plain): replaced '\240' with ENTITY_NBSP to
+	avoid compiler warnings and kill always true compares
+	(save_plain): don't use unicode functions here, as text is not in
+	utf8 now
+
 2000-10-13  Lauris Kaplinski  <lauris@helixcode.com>
 
 	* htmltokenizer.c: Renamed g_unichar_to_utf8 to html_unichar_to_utf8

@@ -1106,7 +1106,7 @@ string_append_len (GString *out, guchar *s, gint length)
 	guchar c;
 
 	while (len--) {
-		c = (*s == '\240') ? ' ' : *s;
+		c = (*s == ENTITY_NBSP) ? ' ' : *s;
 		g_string_append_c (out, c);
 		s++;
 	}
@@ -1188,9 +1188,10 @@ save_plain (HTMLObject *self,
 				if (len > (requested_width - pad)) {
 					space = s + (requested_width - pad);
 					while (space > s && (*space != ' '
-							     || (*(space + 1) == '\240')
-							     || (*(space - 1) == '\240')))
-						space = unicode_previous_utf8 (s, space);
+							     || (*(space + 1) == ENTITY_NBSP)
+							     || (*(space - 1) == ENTITY_NBSP)))
+						/* space = unicode_previous_utf8 (s, space); */
+						space = space - 1;
 					
 					if (space != s)
 						len = space - s;
@@ -1199,7 +1200,7 @@ save_plain (HTMLObject *self,
 				plain_padding (flow, out, firstline);
 				s += string_append_len (out, s, len);
 
-				while (*s == ' ' || *s == '\240') 
+				while (*s == ' ' || *s == ENTITY_NBSP) 
 					s++;
 				
 				break;

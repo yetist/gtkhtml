@@ -366,18 +366,41 @@ save (HTMLObject *self,
 	return TRUE;
 }
 
+static guchar *
+encode_text_to_8bit (gchar *utf8)
+{
+	guchar *raw;
+	guint i, len;
+	unicode_char_t uc;
+
+	len = unicode_strlen (utf8, -1);
+	raw = g_new (gchar, len + 1);
+	raw [len] = 0;
+
+	for (i = 0; i < len; i++) {
+		utf8 = unicode_get_utf8 (utf8, &uc);
+		/* raw [i] = uc == ENTITY_NBSP ? ' ' : uc & 0xff; */
+		raw [i] = uc & 0xff;
+	}
+
+	return raw;
+}
+
 static gboolean
 save_plain (HTMLObject *self,
 	    HTMLEngineSaveState *state,
 	    gint requested_width)
 {
 	HTMLText *text;
+	guchar *raw;
+	gboolean rv;
 	text = HTML_TEXT (self);
 
-	if (! html_engine_save_output_string (state, "%s", text->text))
-		return FALSE;
+	raw = encode_text_to_8bit (text->text);
+	rv  = html_engine_save_output_string (state, "%s", raw);
+	g_free (raw);
 	
-	return TRUE;
+	return rv;
 }
 
 
