@@ -39,9 +39,6 @@
 /* Our parent class.  */
 static GObjectClass *parent_class = NULL;
 
-static gint calc_translated_text_bytes (const gchar *text, gint len, gint line_offset, gint *translated_len, gboolean tabs);
-static gint translate_text_special_chars (const gchar *text, gchar *translated, gint len, gint line_offset, gboolean tabs);
-
 
 /* GObject methods.  */
 
@@ -294,28 +291,12 @@ html_painter_calc_text_size (HTMLPainter *painter,
 			     HTMLFontFace *face,
 			     gint *width, gint *asc, gint *dsc)
 {
-	gchar *translated;
-	gint translated_len;
-	gchar *tmp = NULL;
-	gint tmp_len;
-	
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
 	g_return_if_fail (text != NULL);
 	g_return_if_fail (font_style != GTK_HTML_FONT_STYLE_DEFAULT);
 
-	tmp_len = calc_translated_text_bytes (text, len, *line_offset, &translated_len, *line_offset != -1) + 1;
-
-	if (tmp_len > HTML_ALLOCA_MAX)
-		tmp = translated = g_malloc (tmp_len);
-	else 
-		translated = alloca (tmp_len);
-
-	*line_offset = translate_text_special_chars (text, translated, len, *line_offset, *line_offset != -1);
-
-	(* HP_CLASS (painter)->calc_text_size) (painter, translated, translated_len, items, glyphs, font_style, face, width, asc, dsc);
-	
-	g_free (tmp);
+	(* HP_CLASS (painter)->calc_text_size) (painter, text, len, items, glyphs, font_style, face, width, asc, dsc);
 }
 
 static gint
@@ -423,99 +404,6 @@ html_painter_draw_rect (HTMLPainter *painter,
 	(* HP_CLASS (painter)->draw_rect) (painter, x, y, width, height);
 }
 
-static gint
-calc_translated_text_bytes (const gchar *text, gint len, gint line_offset, gint *translated_len, gboolean tabs)
-{
-	gunichar uc;
-	const gchar *s;
-	gint delta, skip, current_len;
-
-	current_len = 0;
-	delta = 0;
-	*translated_len = 0;
-	s = text;
-	while (s && (uc = g_utf8_get_char (s)) && current_len < len) {
-		switch (uc) {
-			/*case ENTITY_NBSP:
-			delta --;
-			(*translated_len) ++;
-			line_offset ++;
-			break;*/
-		case '\t':
-			if (tabs) {
-				skip = 8 - (line_offset % 8);
-				delta += skip - 1;
-				line_offset += skip;
-				(*translated_len) += skip;
-			} else {
-				(*translated_len) ++;
-				line_offset ++;
-			}
-			break;
-		default:
-			(*translated_len) ++;
-			line_offset ++;
-		}
-		current_len ++;
-		s = g_utf8_next_char (s);
-	}
-
-	return s - text + delta;
-}
-
-static inline void
-put_last (const gchar *s, const gchar **ls, gchar **translated)
-{
-	if (*ls)
-		for (; *ls < s; (*ls) ++, (*translated) ++)
-			**translated = **ls;
-}
-
-static gint
-translate_text_special_chars (const gchar *text, gchar *translated, gint len, gint line_offset, gboolean tabs)
-{
-	gunichar uc;
-	const gchar *s, *ls;
-	gint skip, current_len;
-
-	current_len = 0;
-	s = text;
-	ls = NULL;
-	while (s && (uc = g_utf8_get_char (s)) && current_len < len) {
-		put_last (s, &ls, &translated);
-		switch (uc) {
-			/*case ENTITY_NBSP:
-			*translated = ' ';
-			translated ++;
-			line_offset ++;
-			ls = NULL;
-			break;*/
-		case '\t':
-			if (tabs) {
-				skip = 8 - (line_offset % 8);
-				line_offset += skip;
-				for (; skip; skip --, translated ++)
-					*translated = ' ';
-			} else {
-				*translated = ' ';
-				translated ++;
-				line_offset ++;
-			}
-			ls = NULL;
-			break;
-		default:
-			ls = s;
-			line_offset ++;
-		}
-		current_len ++;
-		s = g_utf8_next_char (s);
-	}
-	put_last (s, &ls, &translated);
-	*translated = 0;
-
-	return line_offset;
-}
-
 void
 html_replace_tabs (const gchar *text, gchar *translated, guint bytes)
 {
@@ -538,44 +426,15 @@ html_replace_tabs (const gchar *text, gchar *translated, guint bytes)
 	} while (tab);
 }
 
-gchar *
-html_painter_translate_text (const gchar *text, gint len, gint *line_offset, gint *bytes)
-{
-	gchar *new_text;
-	gint translated_len;
-
-	*bytes = calc_translated_text_bytes (text, len, *line_offset, &translated_len, *line_offset != -1);
-	new_text = g_malloc (*bytes + 1);
-	*line_offset = translate_text_special_chars (text, new_text, len, *line_offset, *line_offset != -1);
-
-	return new_text;
-}
-
 gint
 html_painter_draw_text (HTMLPainter *painter,
 			gint x, gint y,
 			const gchar *text, gint len, GList *items, GList *glyphs, gint line_offset)
 {
-	gchar *translated;
-	gchar *tmp = NULL;
-	gint translated_len;
-	gint tmp_len;
-
 	g_return_val_if_fail (painter != NULL, line_offset);
 	g_return_val_if_fail (HTML_IS_PAINTER (painter), line_offset);
 
-	tmp_len = calc_translated_text_bytes (text, len, line_offset, &translated_len, line_offset != -1) + 1;
-	
-	if (tmp_len > HTML_ALLOCA_MAX)
-		tmp = translated = g_malloc (tmp_len);
-	else 
-		translated = alloca (tmp_len);
-
-	line_offset = translate_text_special_chars (text, translated, len, line_offset, line_offset != -1);
-
-	(* HP_CLASS (painter)->draw_text) (painter, x, y, translated, translated_len, items, glyphs);
-
-	g_free (tmp);
+	(* HP_CLASS (painter)->draw_text) (painter, x, y, text, len, items, glyphs);
 
 	return line_offset;
 }

@@ -570,7 +570,6 @@ get_glyphs_part (HTMLTextSlave *slave, HTMLPainter *painter, guint offset, guint
 {
 	GList *glyphs = NULL;
 	const gchar *text;
-	gchar *translated_text;
 
 	*items = get_items (slave, painter);
 	if (items) {
@@ -579,6 +578,7 @@ get_glyphs_part (HTMLTextSlave *slave, HTMLPainter *painter, guint offset, guint
 		GList *il;
 		gint bytes, index, current_len, index_in_item;
 		const gchar *slave_text, *item_text;
+		gchar *translated_text, *heap;
 
 		/* printf ("get_glyphs_part %d,%d\n", offset, len); */
 
@@ -598,9 +598,17 @@ get_glyphs_part (HTMLTextSlave *slave, HTMLPainter *painter, guint offset, guint
 			current_len = MIN (item->num_chars - index_in_item, len - (index - offset));
 			/* printf ("iii: %d oii: %d\n", index_in_item, text - item_text);
 			   printf ("cl: %d offset: %d idx: %d\n", current_len, offset, index); */
-			translated_text = html_painter_translate_text (text, current_len, &line_offset, &bytes);
+
+			bytes = g_utf8_offset_to_pointer (text, current_len) - text;
+			heap = NULL;
+			if (bytes > HTML_ALLOCA_MAX)
+				heap = translated_text = g_malloc (bytes);
+			else 
+				translated_text = alloca (bytes);
+			html_replace_tabs (text, translated_text, bytes);
 			pango_shape (translated_text, bytes, &item->analysis, str);
-			g_free (translated_text);
+			g_free (heap);
+
 			glyphs = g_list_prepend (glyphs, str);
 			text = g_utf8_offset_to_pointer (text, current_len);
 			index += current_len;
@@ -618,13 +626,13 @@ get_glyphs (HTMLTextSlave *slave, HTMLPainter *painter, gint line_offset)
 	if (!slave->glyphs) {
 		GList *items = get_items (slave, painter);
 		const gchar *text;
-		gchar *translated_text;
 
 		if (items) {
 			PangoGlyphString *str;
 			PangoItem *item;
 			GList *il = items;
 			gint bytes, index, len;
+			gchar *translated_text, *heap;
 
 			text = html_text_slave_get_text (slave);
 			index = 0;
@@ -632,9 +640,17 @@ get_glyphs (HTMLTextSlave *slave, HTMLPainter *painter, gint line_offset)
 				item = (PangoItem *) il->data;
 				str = pango_glyph_string_new ();
 				len = MIN (item->num_chars, slave->posLen - index);
-				translated_text = html_painter_translate_text (text, len, &line_offset, &bytes);
+
+				bytes = g_utf8_offset_to_pointer (text, len) - text;
+				heap = NULL;
+				if (bytes > HTML_ALLOCA_MAX)
+					heap = translated_text = g_malloc (bytes);
+				else 
+					translated_text = alloca (bytes);
+				html_replace_tabs (text, translated_text, bytes);
 				pango_shape (translated_text, bytes, &item->analysis, str);
-				g_free (translated_text);
+				g_free (heap);
+
 				slave->glyphs = g_list_prepend (slave->glyphs, str);
 				text = g_utf8_offset_to_pointer (text, len);
 				index += len;
