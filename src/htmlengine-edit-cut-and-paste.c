@@ -732,6 +732,7 @@ delete_object (HTMLEngine *e, HTMLObject **ret_object, guint *ret_len, HTMLUndoD
 		    || (e->mark->object->parent && e->mark->object->parent->parent && HTML_IS_TABLE_CELL (e->mark->object->parent->parent))) {
 			check_table_0 (e);
 			check_table_1 (e);
+			html_engine_edit_selection_updater_update_now (e->selection_updater);
 		}
 		if (e->cursor->position == e->mark->position) {
 			html_engine_disable_selection (e);

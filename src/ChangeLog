@@ -1,3 +1,8 @@
+2003-04-03  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine-edit-cut-and-paste.c (delete_object): update
+	selection after cursor/mark move
+
 2003-04-03  Not Zed  <NotZed@Ximian.com>
 
 	** for bug 40450, based on patch from <philip.zhao@sun.com>
