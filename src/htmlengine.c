@@ -1,7 +1,7 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*  Copyright (C) 1999 Anders Carlsson (andersca@gnu.org)
-              (C) 1997 Martin Jones (mjones@kde.org)
-              (C) 1997 Torben Weis (weis@kde.org)
+    (C) 1997 Martin Jones (mjones@kde.org)
+    (C) 1997 Torben Weis (weis@kde.org)
 
 
     This library is free software; you can redistribute it and/or
@@ -51,6 +51,7 @@
 #include "htmlstack.h"
 #include "stringtokenizer.h"
 
+
 guint           html_engine_get_type (void);
 static void     html_engine_class_init (HTMLEngineClass *klass);
 static void     html_engine_init (HTMLEngine *engine);
@@ -59,6 +60,9 @@ static gboolean html_engine_update_event (HTMLEngine *e);
 static void html_engine_write (GtkHTMLStreamHandle handle, gchar *buffer, size_t size, HTMLEngine *e);
 static void html_engine_end (GtkHTMLStreamHandle handle, GtkHTMLStreamStatus status, HTMLEngine *e);
 
+static void parse_one_token (HTMLEngine *p, HTMLObject *clue, const gchar *str);
+
+
 static GtkLayoutClass *parent_class = NULL;
 guint html_engine_signals [LAST_SIGNAL] = { 0 };
 
@@ -70,7 +74,7 @@ extern gint defaultFontSizes [7];
 enum ID {
 	ID_ADDRESS, ID_B, ID_BIG, ID_BLOCKQUOTE, ID_CAPTION, ID_CITE, ID_CODE,
 	ID_DIR, ID_DIV, ID_EM, ID_FONT, ID_HEADER, ID_I, ID_KBD, ID_OL, ID_PRE,
-	ID_U, ID_UL, ID_TD, ID_TH, ID_VAR
+	ID_U, ID_UL, ID_TD, ID_TH, ID_TT, ID_VAR
 };
 
 
@@ -90,7 +94,7 @@ struct _HTMLBlockStackElement {
 
 static HTMLBlockStackElement *
 block_stack_element_new (gint id, gint level, BlockFunc exitFunc, 
-			gint miscData1, gint miscData2, HTMLBlockStackElement *next)
+			 gint miscData1, gint miscData2, HTMLBlockStackElement *next)
 {
 	HTMLBlockStackElement *se;
 
@@ -112,7 +116,7 @@ block_stack_element_free (HTMLBlockStackElement *elem)
 
 static void
 push_block (HTMLEngine *e, gint id, gint level,
-			BlockFunc exitFunc, gint miscData1, gint miscData2)
+	    BlockFunc exitFunc, gint miscData1, gint miscData2)
 {
 	HTMLBlockStackElement *elem;
 
@@ -188,22 +192,22 @@ block_end_font (HTMLEngine *e, HTMLObject *clue, HTMLBlockStackElement *elem)
 static void
 block_end_pre ( HTMLEngine *e, HTMLObject *_clue, HTMLBlockStackElement *elem)
 {
-    /* We add a hidden space to get the height
+	/* We add a hidden space to get the height
 	   If there is no flow box, we add one.  */
 
-    if (!e->flow)
-    	html_engine_new_flow (e, _clue );
+	if (!e->flow)
+		html_engine_new_flow (e, _clue );
 
 	html_clue_append (HTML_CLUE (e->flow),
-					  html_hspace_new ( html_engine_get_current_font (e),
-										e->painter,
-										TRUE ));
+			  html_hspace_new ( html_engine_get_current_font (e),
+					    e->painter,
+					    TRUE ));
 
-    html_engine_pop_font (e);
+	html_engine_pop_font (e);
 
-    e->vspace_inserted = html_engine_insert_vspace(e, _clue, e->vspace_inserted );
-    e->flow = 0;
-    e->inPre = FALSE;
+	e->vspace_inserted = html_engine_insert_vspace(e, _clue, e->vspace_inserted );
+	e->flow = 0;
+	e->inPre = FALSE;
 }
 
 static void
@@ -230,15 +234,15 @@ block_end_list (HTMLEngine *e, HTMLObject *clue, HTMLBlockStackElement *elem)
 static void
 block_end_indent (HTMLEngine *e, HTMLObject *clue, HTMLBlockStackElement *elem)
 {
-    e->indent = elem->miscData1;
-    e->flow = 0;
+	e->indent = elem->miscData1;
+	e->flow = 0;
 }
 
 static void
 block_end_div (HTMLEngine *e, HTMLObject *clue, HTMLBlockStackElement *elem)
 {
-    e->divAlign =  (HAlignType) elem->miscData1;
-    e->flow = 0;
+	e->divAlign =  (HAlignType) elem->miscData1;
+	e->flow = 0;
 }
 
 
@@ -272,7 +276,7 @@ set_base_url (HTMLEngine *e, const gchar *url)
 /* FIXME FIXME FIXME this is just a dummy.  */
 static void
 select_font_relative (HTMLEngine *e,
-					  gint relative_font_size)
+		      gint relative_font_size)
 {
 	g_warning ("`select_font_relative()' not implemented.");
 }
@@ -282,15 +286,15 @@ static gchar *
 to_roman ( gint number, gboolean upper )
 {
 	GString *roman;
-    char ldigits[] = { 'i', 'v', 'x', 'l', 'c', 'd', 'm' };
-    char udigits[] = { 'I', 'V', 'X', 'L', 'C', 'D', 'M' };
-    char *digits = upper ? udigits : ldigits;
-    int i, d = 0;
+	char ldigits[] = { 'i', 'v', 'x', 'l', 'c', 'd', 'm' };
+	char udigits[] = { 'I', 'V', 'X', 'L', 'C', 'D', 'M' };
+	char *digits = upper ? udigits : ldigits;
+	int i, d = 0;
 	gchar *s;
 
 	roman = g_string_new (NULL);
 
-    do {   
+	do {   
 		int num = number % 10;
 
 		if ( num % 5 < 4 )
@@ -308,45 +312,19 @@ to_roman ( gint number, gboolean upper )
 
 		number /= 10;
 		d += 2;
-    } while ( number );
+	} while ( number );
 
 	/* WARNING: Unlike the KDE implementation, this one appends the dot and the
-       space as well, to save extra copying and allocation. */
+	   space as well, to save extra copying and allocation. */
 	g_string_append (roman, ". ");
 
 	s = roman->str;
 	g_string_free (roman, FALSE);
 
-    return s;
+	return s;
 }
 
 
-static void
-parse_one_token (HTMLEngine *p, HTMLObject *clue, const gchar *str)
-{
-	if (*str == '<') {
-		gint indx;
-		
-		str++;
-		
-		if (*str == '/')
-			indx = *(str + 1) - 'a';
-		else
-			indx = *str - 'a';
-
-		if (indx >= 0 && indx < 26) {
-			/* FIXME: This should be removed */
-			if (p->parseFuncArray[indx]) {
-				(*(p->parseFuncArray[indx]))(p, clue, str);
-			}
-			else {
-			  /*				g_print ("Unsupported tag %s\n", str);*/
-			}
-		}
-
-	}
-}
-
 static gchar *
 parse_body (HTMLEngine *p, HTMLObject *clue, const gchar *end[], gboolean toplevel)
 {
@@ -408,13 +386,13 @@ parse_body (HTMLEngine *p, HTMLObject *clue, const gchar *end[], gboolean toplev
 	return 0;
 }
 
-/* EP CHECK: Should be finished except for the settings stuff (see `FIXME').  */
+/* EP CHECK: finished except for the settings stuff (see `FIXME').  */
 static const gchar *
 parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
-			 const gchar *attr)
+	     const gchar *attr)
 {
 	static const gchar *endthtd[] = { "</th", "</td", "</tr", "<th", "<td", "<tr", "</table", "</body", 0 };
-    static const char *endcap[] = { "</caption>", "</table>", "<tr", "<td", "<th", "</body", 0 };    
+	static const char *endcap[] = { "</caption>", "</table>", "<tr", "<td", "<th", "</body", 0 };    
 	static const gchar *endall[] = { "</caption>", "</table", "<tr", "<td", "<th", "</th", "</td", "</tr","</body", 0 };
 	HTMLTable *table;
 	const gchar *str = 0;
@@ -484,7 +462,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 				align = Right;
 		}
 		else if (strncasecmp (token, "bgcolor=", 8) == 0
-				 /* && !defaultSettings->forceDefault */) {
+			 /* && !defaultSettings->forceDefault */) {
 			if (html_engine_set_named_color (e, &tableColor, token + 8)) {
 				rowColor = tableColor;
 				have_rowColor = have_tableColor = TRUE;
@@ -493,8 +471,8 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	}
 
 	table = HTML_TABLE (html_table_new (0, 0, max_width, width, 
-										percent, padding,
-										spacing, border));
+					    percent, padding,
+					    spacing, border));
 	e->indent = 0;
 	while (!done && html_tokenizer_has_more_tokens (e->ht)) {
 		str = html_tokenizer_next_token (e->ht);
@@ -523,9 +501,9 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 					}
 
 					caption = HTML_CLUEV (html_cluev_new
-										  ( 0, 0,
-											HTML_OBJECT (clue)->max_width,
-											100 ));
+							      ( 0, 0,
+								HTML_OBJECT (clue)->max_width,
+								100 ));
 
 					e->divAlign = HCenter;
 					e->flow = 0;
@@ -553,12 +531,12 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 					}
 
 					if (strncmp( str, "</caption", 9) == 0 ) {
-								// HTML Ok!
+						// HTML Ok!
 						break; // Get next token from 'ht'
 					}
 					else {
-								// Bad HTML
-								// caption ended with </table> <td> <tr> or <th>
+						// Bad HTML
+						// caption ended with </table> <td> <tr> or <th>
 						continue; // parse the returned tag
 					}
 				}
@@ -600,7 +578,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 						else if (strncasecmp (token, "bgcolor=", 8) == 0) {
 							have_rowColor
 								= html_engine_set_named_color (e, &rowColor,
-															   token + 8);
+											       token + 8);
 						}
 					}
 					break;
@@ -638,14 +616,14 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 					}
 
 					valign = (rowvalign == VNone ?
-							  VCenter : rowvalign);
+						  VCenter : rowvalign);
 
 					if (heading)
 						e->divAlign = (rowhalign == None ? 
-									   HCenter: rowhalign);
+							       HCenter: rowhalign);
 					else
 						e->divAlign = (rowhalign == None ?
-									   Left: rowhalign);
+							       Left: rowhalign);
 
 					if (tableEntry) {
 						string_tokenizer_tokenize (e->st, str + 4, " >");
@@ -692,20 +670,20 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 								}
 							}
 							else if (strncasecmp (token, "bgcolor=", 8) == 0
-								/*&& !defaultSettings->forceDefault FIXME*/) {
+								 /*&& !defaultSettings->forceDefault FIXME*/) {
 								have_bgcolor
 									= html_engine_set_named_color (e, &bgcolor,
-																   token + 8);
+												       token + 8);
 							}
 						}
 					}
 
 					cell = HTML_TABLE_CELL (html_table_cell_new (0, 0, cellwidth,
-																 cellpercent,
-																 rowSpan, colSpan,
-																 padding));
+										     cellpercent,
+										     rowSpan, colSpan,
+										     padding));
 					html_object_set_bg_color (HTML_OBJECT (cell),
-											  have_bgcolor ? &bgcolor : NULL);
+								  have_bgcolor ? &bgcolor : NULL);
 					HTML_CLUE (cell)->valign = valign;
 					if (fixedWidth)
 						HTML_OBJECT (cell)->flags |= HTML_OBJECT_FLAG_FIXEDWIDTH;
@@ -716,8 +694,8 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 						e->bold = TRUE;
 						html_engine_select_font (e);
 						push_block (e, ID_TH, 3,
-												block_end_font,
-												FALSE, 0);
+							    block_end_font,
+							    FALSE, 0);
 						str = parse_body (e, HTML_OBJECT (cell), endthtd, FALSE);
 						pop_block (e, ID_TH, HTML_OBJECT (cell));
 					}
@@ -787,7 +765,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	
 	if (has_cell) {
 		/* The ending "</table>" might be missing, so we close the table
-           here...  */
+		   here...  */
 		if (!firstRow)
 			html_table_end_row (table);
 		html_table_end_table (table);
@@ -797,9 +775,9 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 			HTMLClueAligned *aligned;
 
 			aligned = HTML_CLUEALIGNED (html_cluealigned_new (HTML_CLUE (clue),
-															  0, 0,
-															  clue->max_width,
-															  100));
+									  0, 0,
+									  clue->max_width,
+									  100));
 			HTML_CLUE (aligned)->halign = align;
 			html_clue_append (HTML_CLUE (aligned), HTML_OBJECT (table));
 			html_clue_append (HTML_CLUE (clue), HTML_OBJECT (aligned));
@@ -820,15 +798,15 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 
 
 /*
-<a               </a>
-<address>        </address>
-<area            </area>
+  <a               </a>
+  <address>        </address>
+  <area            </area>
 */
 static void
 parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 {
 #if 0							/* FIXME TODO */
-    if ( strncmp( str, "area", 4 ) == 0 ) {
+	if ( strncmp( str, "area", 4 ) == 0 ) {
 		GString *href = g_string_new (NULL);
 		GString *coords = g_string_new (NULL);
 		GString *atarget = g_string_new (baseTarget->str);
@@ -853,28 +831,28 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 					shape = HTMLArea::Circle;
 			} else
 
-			if ( strncasecmp( p, "href=", 5 ) == 0 ) {
-				p += 5;
-				if ( *p == '#' ) { /* FIXME TODO */
-					g_warning ("#references are not implemented yet.");
-					KURL u( actualURL );
-					u.setReference( p + 1 );
-					href = u.url();
+				if ( strncasecmp( p, "href=", 5 ) == 0 ) {
+					p += 5;
+					if ( *p == '#' ) { /* FIXME TODO */
+						g_warning ("#references are not implemented yet.");
+						KURL u( actualURL );
+						u.setReference( p + 1 );
+						href = u.url();
+					}
+					else 
+					{
+						KURL u( baseURL, p );
+						href = u.url();
+					}
 				}
-				else 
+				else if ( strncasecmp( p, "target=", 7 ) == 0 )
 				{
-					KURL u( baseURL, p );
-					href = u.url();
+					atarget = p+7;
 				}
-			}
-			else if ( strncasecmp( p, "target=", 7 ) == 0 )
-			{
-				atarget = p+7;
-			}
-			else if ( strncasecmp( p, "coords=", 7 ) == 0 )
-			{
-				coords = p+7;
-			}
+				else if ( strncasecmp( p, "coords=", 7 ) == 0 )
+				{
+					coords = p+7;
+				}
 		}
 
 		if ( !coords.isEmpty() && !href.isEmpty() )
@@ -884,26 +862,26 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 			switch ( shape )
 			{
 			case HTMLArea::Rect:
-		    {
+			{
 				int x1, y1, x2, y2;
 				sscanf( coords, "%d,%d,%d,%d", &x1, &y1, &x2, &y2 );
 				QRect rect( x1, y1, x2-x1, y2-y1 );
 				area = new HTMLArea( rect, href, atarget );
 				debugM( "Area Rect %d, %d, %d, %d\n", x1, y1, x2, y2 );
-		    }
-		    break;
+			}
+			break;
 
 			case HTMLArea::Circle:
-		    {
+			{
 				int xc, yc, rc;
 				sscanf( coords, "%d,%d,%d", &xc, &yc, &rc );
 				area = new HTMLArea( xc, yc, rc, href, atarget );
 				debugM( "Area Circle %d, %d, %d\n", xc, yc, rc );
-		    }
-		    break;
+			}
+			break;
 
 			case HTMLArea::Poly:
-		    {
+			{
 				debugM( "Area Poly " );
 				int count = 0, x, y;
 				QPointArray parray;
@@ -926,115 +904,115 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 				debugM( "\n" );
 				if ( count > 2 )
 					area = new HTMLArea( parray, href, atarget );
-		    }
-		    break;
+			}
+			break;
 			}
 
 			if ( area )
 				mapList.getLast()->addArea( area );
 		}
-    } else
+	} else
 #endif
-    if ( strncmp( str, "address", 7) == 0 )
-    {
-		e->flow = 0;
-		e->italic = TRUE;
-		e->bold = FALSE;
-		html_engine_select_font (e);
-		push_block (e, ID_ADDRESS, 2, block_end_font, TRUE, 0);
-    }
-    else if ( strncmp( str, "/address", 8) == 0 )
-    {
-		pop_block ( e, ID_ADDRESS, _clue);
-    }
-	else if ( strncmp( str, "a ", 2 ) == 0 ) {
-		gchar *tmpurl = NULL;
-		gboolean visited = FALSE;
-		gchar *target = NULL;
-		const gchar *p;
+		if ( strncmp( str, "address", 7) == 0 )
+		{
+			e->flow = 0;
+			e->italic = TRUE;
+			e->bold = FALSE;
+			html_engine_select_font (e);
+			push_block (e, ID_ADDRESS, 2, block_end_font, TRUE, 0);
+		}
+		else if ( strncmp( str, "/address", 8) == 0 )
+		{
+			pop_block ( e, ID_ADDRESS, _clue);
+		}
+		else if ( strncmp( str, "a ", 2 ) == 0 ) {
+			gchar *tmpurl = NULL;
+			gboolean visited = FALSE;
+			gchar *target = NULL;
+			const gchar *p;
 
-		close_anchor (e);
+			close_anchor (e);
 
-		string_tokenizer_tokenize( e->st, str + 2, " >" );
+			string_tokenizer_tokenize( e->st, str + 2, " >" );
 
-		while ( ( p = string_tokenizer_next_token (e->st) ) != 0 ) {
-			if ( strncasecmp( p, "href=", 5 ) == 0 ) {
-				p += 5;
+			while ( ( p = string_tokenizer_next_token (e->st) ) != 0 ) {
+				if ( strncasecmp( p, "href=", 5 ) == 0 ) {
+					p += 5;
 
-				if ( *p == '#' ) {
-					/* FIXME TODO */
-					g_warning ("References are not implemented yet");
-					tmpurl = g_strdup ("blahblah");
-				} else {
-					/* FIXME TODO concatenate correctly */
-					tmpurl = g_strdup (p);
-				}		
+					if ( *p == '#' ) {
+						/* FIXME TODO */
+						g_warning ("References are not implemented yet");
+						tmpurl = g_strdup ("blahblah");
+					} else {
+						/* FIXME TODO concatenate correctly */
+						tmpurl = g_strdup (p);
+					}		
 
 				/* FIXME TODO */
 #if 0
-				visited = URLVisited( tmpurl );
+					visited = URLVisited( tmpurl );
 #endif
-			} else if ( strncasecmp( p, "name=", 5 ) == 0 ) {
-				if (e->flow == 0 )
-					html_clue_append (HTML_CLUE (_clue),
-									  html_anchor_new (p + 5));
-				else
-					html_clue_append (HTML_CLUE (e->flow),
-									  html_anchor_new (p+5));
-			} else if ( strncasecmp( p, "target=", 7 ) == 0 ) {
-				target = g_strdup (p + 7);
+				} else if ( strncasecmp( p, "name=", 5 ) == 0 ) {
+					if (e->flow == 0 )
+						html_clue_append (HTML_CLUE (_clue),
+								  html_anchor_new (p + 5));
+					else
+						html_clue_append (HTML_CLUE (e->flow),
+								  html_anchor_new (p+5));
+				} else if ( strncasecmp( p, "target=", 7 ) == 0 ) {
+					target = g_strdup (p + 7);
 #if 0							/* FIXME TODO */
-				parsedTargets.append( target );
+					parsedTargets.append( target );
+#endif
+				}
+			}
+
+			if ( !target
+			     && e->baseTarget != NULL
+			     && e->baseTarget[0] != '\0' ) {
+				target = g_strdup (e->baseTarget);
+				/*  parsedTargets.append( target ); FIXME TODO */
+			}
+
+			if (tmpurl != NULL && tmpurl[0] != '\0') {
+				e->vspace_inserted = FALSE;
+
+				if ( visited )
+					html_stack_push (e->cs, gdk_color_copy (html_stack_top (e->cs)));
+				/*  new QColor(settings->vLinkColor) */
+				else
+					html_stack_push (e->cs, gdk_color_copy (html_stack_top (e->cs)));
+				/*  new QColor( settings->linkColor) */
+
+				if (TRUE /*  FIXME TODO settings->underlineLinks */ )
+					e->underline = TRUE;
+
+				html_engine_select_font (e);
+
+				e->url = tmpurl;
+
+				printf ("HREF: %s\n", e->url);
+
+#if 0							/* FIXME TODO */
+				url = new char [ tmpurl.length() + 1 ];
+				strcpy( url, tmpurl.data() );
+				parsedURLs.append( url );
 #endif
 			}
+		} else if ( strncmp( str, "/a", 2 ) == 0 ) {
+			close_anchor (e);
 		}
-
-		if ( !target
-			 && e->baseTarget != NULL
-			 && e->baseTarget[0] != '\0' ) {
-			target = g_strdup (e->baseTarget);
-			/*  parsedTargets.append( target ); FIXME TODO */
-		}
-
-		if (tmpurl != NULL && tmpurl[0] != '\0') {
-			e->vspace_inserted = FALSE;
-
-			if ( visited )
-				html_stack_push (e->cs, gdk_color_copy (html_stack_top (e->cs)));
-					 /*  new QColor(settings->vLinkColor) */
-			else
-				html_stack_push (e->cs, gdk_color_copy (html_stack_top (e->cs)));
-					 /*  new QColor( settings->linkColor) */
-
-			if (TRUE /*  FIXME TODO settings->underlineLinks */ )
-				e->underline = TRUE;
-
-			html_engine_select_font (e);
-
-			e->url = tmpurl;
-
-			printf ("HREF: %s\n", e->url);
-
-#if 0							/* FIXME TODO */
-			url = new char [ tmpurl.length() + 1 ];
-			strcpy( url, tmpurl.data() );
-			parsedURLs.append( url );
-#endif
-		}
-    } else if ( strncmp( str, "/a", 2 ) == 0 ) {
-		close_anchor (e);
-    }
 }
 
 
 /*
-<b>              </b>
-<base
-<basefont                        unimplemented
-<big>            </big>
-<blockquote>     </blockquote>
-<body
-<br
+  <b>              </b>
+  <base
+  <basefont                        unimplemented
+  <big>            </big>
+  <blockquote>     </blockquote>
+  <body
+  <br
 */
 /* EP CHECK All done except for the color specifications in the `<body>'
    tag.  */
@@ -1043,7 +1021,7 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	if (strncmp (str, "basefont", 8) == 0) {
 	}
-    else if ( strncmp(str, "base", 4 ) == 0 ) {
+	else if ( strncmp(str, "base", 4 ) == 0 ) {
 		string_tokenizer_tokenize( e->st, str + 5, " >" );
 		while ( string_tokenizer_has_more_tokens (e->st) ) {
 			const char* token = string_tokenizer_next_token(e->st);
@@ -1054,20 +1032,20 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 				set_base_url (e, token + 5);
 			}
 		}
-    }
-    else if ( strncmp(str, "big", 3 ) == 0 ) {
+	}
+	else if ( strncmp(str, "big", 3 ) == 0 ) {
 		select_font_relative (e, +2);
 		push_block (e, ID_BIG, 1, block_end_font, 0, 0);
-    } else if ( strncmp(str, "/big", 4 ) == 0 ) {
+	} else if ( strncmp(str, "/big", 4 ) == 0 ) {
 		pop_block (e, ID_BIG, clue);
-    } else if ( strncmp(str, "blockquote", 10 ) == 0 ) {
+	} else if ( strncmp(str, "blockquote", 10 ) == 0 ) {
 		push_block (e, ID_BLOCKQUOTE, 2,
-								block_end_indent, e->indent, 0);
+			    block_end_indent, e->indent, 0);
 		e->indent += INDENT_SIZE;
 		e->flow = NULL;
-    } else if ( strncmp(str, "/blockquote", 11 ) == 0 ) {
+	} else if ( strncmp(str, "/blockquote", 11 ) == 0 ) {
 		pop_block (e, ID_BLOCKQUOTE, clue);
-    } else if (strncmp (str, "body", 4) == 0) {
+	} else if (strncmp (str, "body", 4) == 0) {
 		GdkColor bgcolor;
 		gboolean bgColorSet = FALSE;
 
@@ -1093,7 +1071,7 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 				}
 			}
 			else if (strncasecmp (token, "background=", 11) == 0
-					 /* !defaultSettings->forceDefault */) {
+				 /* !defaultSettings->forceDefault */) {
 				char *realurl;
 
 				realurl = html_engine_canonicalize_url(e, token + 11);
@@ -1103,63 +1081,63 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		}
 
 #if 0
-	    else if ( strncasecmp( token, "text=", 5 ) == 0 &&
-				  !defaultSettings->forceDefault )
-	    {
+		else if ( strncasecmp( token, "text=", 5 ) == 0 &&
+			  !defaultSettings->forceDefault )
+		{
 			setNamedColor(settings->fontBaseColor, token+5 );
 			*(colorStack.top()) = settings->fontBaseColor;
 			selectFont();
-	    }
-	    else if ( strncasecmp( token, "link=", 5 ) == 0 &&
-				  !defaultSettings->forceDefault )
-	    {
+		}
+		else if ( strncasecmp( token, "link=", 5 ) == 0 &&
+			  !defaultSettings->forceDefault )
+		{
 			setNamedColor(settings->linkColor, token+5 );
-	    }
-	    else if ( strncasecmp( token, "vlink=", 6 ) == 0 &&
-				  !defaultSettings->forceDefault )
-	    {
+		}
+		else if ( strncasecmp( token, "vlink=", 6 ) == 0 &&
+			  !defaultSettings->forceDefault )
+		{
 			setNamedColor(settings->vLinkColor, token+6 );
-	    }
+		}
 	}
 
 	if ( !bgColorSet || defaultSettings->forceDefault )
 	{
-	    QPalette pal = palette().copy();
-	    QColorGroup cg = pal.normal();
-	    QColorGroup newGroup( cg.foreground(), defaultSettings->bgColor,
-							  cg.light(), cg.dark(), cg.mid(), cg.text(),
-							  defaultSettings->bgColor );
-	    pal.setNormal( newGroup );
-	    setPalette( pal );
+		QPalette pal = palette().copy();
+		QColorGroup cg = pal.normal();
+		QColorGroup newGroup( cg.foreground(), defaultSettings->bgColor,
+				      cg.light(), cg.dark(), cg.mid(), cg.text(),
+				      defaultSettings->bgColor );
+		pal.setNormal( newGroup );
+		setPalette( pal );
 
-	    // simply testing if QColor == QColor fails!?, so we must compare
-	    // each RGB
-	    if ( defaultSettings->bgColor.red() != settings->bgColor.red() ||
-			 defaultSettings->bgColor.green() != settings->bgColor.green() ||
-			 defaultSettings->bgColor.blue() != settings->bgColor.blue() ||
-			 bDrawBackground )
-	    {
+		// simply testing if QColor == QColor fails!?, so we must compare
+		// each RGB
+		if ( defaultSettings->bgColor.red() != settings->bgColor.red() ||
+		     defaultSettings->bgColor.green() != settings->bgColor.green() ||
+		     defaultSettings->bgColor.blue() != settings->bgColor.blue() ||
+		     bDrawBackground )
+		{
 			settings->bgColor = defaultSettings->bgColor;
 			setBackgroundColor( settings->bgColor );
-	    }
+		}
 	}
 	else
 	{
-	    QPalette pal = palette().copy();
-	    QColorGroup cg = pal.normal();
-	    QColorGroup newGroup( cg.foreground(), settings->bgColor,
-							  cg.light(), cg.dark(), cg.mid(), cg.text(), settings->bgColor );
-	    pal.setNormal( newGroup );
-	    setPalette( pal );
+		QPalette pal = palette().copy();
+		QColorGroup cg = pal.normal();
+		QColorGroup newGroup( cg.foreground(), settings->bgColor,
+				      cg.light(), cg.dark(), cg.mid(), cg.text(), settings->bgColor );
+		pal.setNormal( newGroup );
+		setPalette( pal );
 
-	    if ( settings->bgColor.red() != bgColor.red() ||
-			 settings->bgColor.green() != bgColor.green() ||
-			 settings->bgColor.blue() != bgColor.blue() ||
-			 bDrawBackground )
-	    {
-    		settings->bgColor = bgColor;
+		if ( settings->bgColor.red() != bgColor.red() ||
+		     settings->bgColor.green() != bgColor.green() ||
+		     settings->bgColor.blue() != bgColor.blue() ||
+		     bDrawBackground )
+		{
+			settings->bgColor = bgColor;
 			setBackgroundColor( settings->bgColor );
-	    }
+		}
 #endif
 
 		if (bgColorSet)
@@ -1182,8 +1160,8 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 			e->bold = TRUE;
 			html_engine_select_font (e);
 			push_block (e, ID_B, 1, 
-									block_end_font,
-									FALSE, FALSE);
+				    block_end_font,
+				    FALSE, FALSE);
 		}
 	}
 	else if (strncmp (str, "/b", 2) == 0) {
@@ -1193,11 +1171,11 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 
 
 /*
-<center>         </center>
-<cite>           </cite>
-<code>           </code>
-<cell>           </cell>
-<comment>        </comment>      unimplemented
+  <center>         </center>
+  <cite>           </cite>
+  <code>           </code>
+  <cell>           </cell>
+  <comment>        </comment>      unimplemented
 */
 /* EP CHECK OK except for the font in `<code>'.  */
 static void
@@ -1234,28 +1212,28 @@ parse_c (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 
 
 /*
-<dir             </dir>          partial
-<div             </div>
-<dl>             </dl>
-<dt>             </dt>
+  <dir             </dir>          partial
+  <div             </div>
+  <dl>             </dl>
+  <dt>             </dt>
 */
 /* EP CHECK: OK.  */
 static void
 parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 {
-    if ( strncmp( str, "dir", 3 ) == 0 ) {
+	if ( strncmp( str, "dir", 3 ) == 0 ) {
 		close_anchor(e);
 		push_block (e, ID_DIR, 2, block_end_list,
-								e->indent, FALSE);
+			    e->indent, FALSE);
 		html_stack_push (e->listStack, html_list_new ( HTML_LIST_TYPE_DIR,
-													   HTML_LIST_NUM_TYPE_NUMERIC ) );
+							       HTML_LIST_NUM_TYPE_NUMERIC ) );
 		e->indent += INDENT_SIZE;
-    } else if ( strncmp( str, "/dir", 4 ) == 0 ) {
+	} else if ( strncmp( str, "/dir", 4 ) == 0 ) {
 		pop_block (e, ID_DIR, _clue);
-    } else if ( strncmp( str, "div", 3 ) == 0 ) {
+	} else if ( strncmp( str, "div", 3 ) == 0 ) {
 		push_block (e, ID_DIV, 1,
-								block_end_div,
-								e->divAlign, FALSE);
+			    block_end_div,
+			    e->divAlign, FALSE);
 
 		string_tokenizer_tokenize( e->st, str + 4, " >" );
 		while ( string_tokenizer_has_more_tokens (e->st) ) {
@@ -1272,11 +1250,11 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 		}
 
 		e->flow = 0;
-    } else if ( strncmp( str, "/div", 4 ) == 0 ) {
+	} else if ( strncmp( str, "/div", 4 ) == 0 ) {
 		pop_block (e, ID_DIV, _clue );
 	} else if ( strncmp( str, "dl", 2 ) == 0 ) {
 		e->vspace_inserted = html_engine_insert_vspace( e, _clue,
-														e->vspace_inserted );
+								e->vspace_inserted );
 		close_anchor (e);
 
 		if ( html_stack_top(e->glossaryStack) != NULL )
@@ -1284,12 +1262,12 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 
 		html_stack_push (e->glossaryStack, GINT_TO_POINTER (HTML_GLOSSARY_DL));
 		e->flow = 0;
-    } else if ( strncmp( str, "/dl", 3 ) == 0 ) {
+	} else if ( strncmp( str, "/dl", 3 ) == 0 ) {
 		if ( html_stack_top (e->glossaryStack) == NULL)
 			return;
 
 		if ( GPOINTER_TO_INT (html_stack_top (e->glossaryStack))
-			 == HTML_GLOSSARY_DD ) {
+		     == HTML_GLOSSARY_DD ) {
 			html_stack_pop (e->glossaryStack);
 			e->indent -= INDENT_SIZE;
 			if (e->indent < 0)
@@ -1302,12 +1280,12 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 				e->indent = 0;
 		}
 		e->vspace_inserted = html_engine_insert_vspace (e, _clue, e->vspace_inserted );
-    } else if (strncmp( str, "dt", 2 ) == 0) {
+	} else if (strncmp( str, "dt", 2 ) == 0) {
 		if (html_stack_top (e->glossaryStack) == NULL)
 			return;
 
 		if (GPOINTER_TO_INT (html_stack_top (e->glossaryStack))
-			== HTML_GLOSSARY_DD) {
+		    == HTML_GLOSSARY_DD) {
 			html_stack_pop (e->glossaryStack);
 			e->indent -= INDENT_SIZE;
 			if (e->indent < 0)
@@ -1315,23 +1293,23 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 		}
 		e->vspace_inserted = FALSE;
 		e->flow = 0;
-    } else if (strncmp( str, "dd", 2 ) == 0) {
+	} else if (strncmp( str, "dd", 2 ) == 0) {
 		if (html_stack_top (e->glossaryStack) == NULL)
 			return;
 
 		if (GPOINTER_TO_INT (html_stack_top (e->glossaryStack))
-			!= HTML_GLOSSARY_DD ) {
+		    != HTML_GLOSSARY_DD ) {
 			html_stack_push (e->glossaryStack,
-							 GINT_TO_POINTER (HTML_GLOSSARY_DD) );
+					 GINT_TO_POINTER (HTML_GLOSSARY_DD) );
 			e->indent += INDENT_SIZE;
 		}
 		e->flow = 0;
-    }
+	}
 }
 
 
 /*
-<em>             </em>
+  <em>             </em>
 */
 /* EP CHECK: OK.  */
 static void
@@ -1341,7 +1319,7 @@ parse_e (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 		e->italic = TRUE;
 		html_engine_select_font (e);
 		push_block (e, ID_EM, 1, block_end_font,
-								FALSE, FALSE);
+			    FALSE, FALSE);
 	} else if ( strncmp( str, "/em", 3 ) == 0 ) {
 		pop_block (e, ID_EM, _clue);
 	}
@@ -1349,10 +1327,10 @@ parse_e (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 
 
 /*
-<font>           </font>
-<form>           </form>         partial
-<frame           <frame>
-<frameset        </frameset>
+  <font>           </font>
+  <form>           </form>         partial
+  <frame           <frame>
+  <frameset        </frameset>
 */
 /* EP CHECK: Fonts are done wrong, the rest is missing.  */
 static void
@@ -1387,7 +1365,7 @@ parse_f (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		html_stack_push (p->cs, color);
 		html_engine_select_font (p);
 		push_block  (p, ID_FONT, 1, block_end_color_font,
-								 FALSE, FALSE);
+			     FALSE, FALSE);
 	}
 	else if (strncmp (str, "/font", 5) == 0) {
 		pop_block (p, ID_FONT, clue);
@@ -1397,8 +1375,8 @@ parse_f (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 
 
 /*
-<h[1-6]>         </h[1-6]>
-<hr
+  <h[1-6]>         </h[1-6]>
+  <hr
 */
 /* EP CHECK: OK */
 static void
@@ -1406,11 +1384,11 @@ parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 {
 	if (*(str) == 'h' &&
 	    ( *(str+1)=='1' || *(str+1)=='2' || *(str+1)=='3' ||
-		  *(str+1)=='4' || *(str+1)=='5' || *(str+1)=='6' ) ) {
+	      *(str+1)=='4' || *(str+1)=='5' || *(str+1)=='6' ) ) {
 		HAlignType align;
 
 		p->vspace_inserted = html_engine_insert_vspace (p, clue,
-														p->vspace_inserted);
+								p->vspace_inserted);
 		align = p->divAlign;
 
 		string_tokenizer_tokenize (p->st, str + 3, " >");
@@ -1472,12 +1450,12 @@ parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		html_engine_select_font (p);
 
 		/* Insert a vertical space and restore the old font at the closing
-           tag.  */
+		   tag.  */
 		push_block (p, ID_HEADER, 2, block_end_font,
-								TRUE, 0);
+			    TRUE, 0);
 	} else if (*(str) == '/' && *(str + 1) == 'h' &&
-	    ( *(str+2)=='1' || *(str+2)=='2' || *(str+2)=='3' ||
- 	      *(str+2)=='4' || *(str+2)=='5' || *(str+2)=='6' )) {
+		   ( *(str+2)=='1' || *(str+2)=='2' || *(str+2)=='3' ||
+		     *(str+2)=='4' || *(str+2)=='5' || *(str+2)=='6' )) {
 		/* Close tag.  */
 		pop_block (p, ID_HEADER, clue);
 	}
@@ -1521,7 +1499,7 @@ parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 
 		html_engine_new_flow (p, clue);
 		html_clue_append (HTML_CLUE (p->flow),
-						  html_rule_new (length, percent, size, shade));
+				  html_rule_new (length, percent, size, shade));
 		HTML_CLUE (p->flow)->halign = align;
 		p->flow = 0;
 		p->vspace_inserted = FALSE;
@@ -1530,11 +1508,11 @@ parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 
 
 /*
-<i>              </i>
-<img                             partial
-<input                           partial
+  <i>              </i>
+  <img                             partial
+  <input                           partial
 */
-/* EP CHECK: map support, <input> missing.  */
+/* EP CHECK: map support missing.  `<input>' missing.  */
 static void
 parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 {
@@ -1585,12 +1563,12 @@ parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 				if ( *(token + 7 ) == '#' )
 				{
 					// Local map. Format: "#name"
-                    usemap = token + 7;
+					usemap = token + 7;
 				}
 				else
 				{
 					KURL u( baseURL, token + 7 );
-                    usemap = u.url();
+					usemap = u.url();
 				}
 			}
 			else if ( strncasecmp( token, "ismap", 5 ) == 0 )
@@ -1605,7 +1583,7 @@ parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 				html_engine_new_flow (p, _clue);
 
 			image = html_image_new (p->image_factory, filename, _clue->max_width, 
-									width, height, percent, border);
+						width, height, percent, border);
 		}
 
 		if (align == None) {
@@ -1628,24 +1606,24 @@ parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 		}
 		       
 	}
-    else if ( strncmp (str, "i", 1 ) == 0 ) {
+	else if ( strncmp (str, "i", 1 ) == 0 ) {
 		if ( str[1] == '>' || str[1] == ' ' ) {
 			p->italic = TRUE;
 			html_engine_select_font (p);
 			push_block (p, ID_I, 1, block_end_font,
-						FALSE, FALSE);
+				    FALSE, FALSE);
 		}
 	}
-    else if ( strncmp( str, "/i", 2 ) == 0 ) {
+	else if ( strncmp( str, "/i", 2 ) == 0 ) {
 		pop_block (p, ID_I, _clue);
 	}
 }
 
 
 /*
-<kbd>            </kbd>
+  <kbd>            </kbd>
 */
-/* EP CHECK: OK but font should be set.  */
+/* EP CHECK: OK but font is wrong.  */
 static void
 parse_k (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 {
@@ -1653,7 +1631,7 @@ parse_k (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 	{
 #if 0
 		selectFont( settings->fixedFontFace, settings->fontBaseSize,
-		    QFont::Normal, FALSE );
+			    QFont::Normal, FALSE );
 #else
 		e->bold = TRUE;
 		html_engine_select_font (e);
@@ -1668,9 +1646,10 @@ parse_k (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 
 
 /*
-<listing>        </listing>      unimplemented
-<li>
+  <listing>        </listing>      unimplemented
+  <li>
 */
+/* EP CHECK: OK */
 static void
 parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 {
@@ -1686,8 +1665,6 @@ parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		gint indentSize = INDENT_SIZE;
 
 		close_anchor (p);
-
-		/* Color */
 
 		if (! html_stack_is_empty (p->listStack)) {
 			HTMLList *top;
@@ -1722,12 +1699,12 @@ parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 			html_clue_append (HTML_CLUE (vc), p->flow);
 			font = html_stack_top (p->fs);
 			html_clue_append (HTML_CLUE (p->flow),
-							  html_bullet_new (font->pointSize,
-											   listLevel,
-											   &p->settings->fontbasecolor));
+					  html_bullet_new (font->pointSize,
+							   listLevel,
+							   &p->settings->fontbasecolor));
 			break;
 
-	    case HTML_LIST_TYPE_ORDERED:
+		case HTML_LIST_TYPE_ORDERED:
 		{
 			HTMLObject *text;
 			gchar *item;
@@ -1738,30 +1715,30 @@ parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 
 			switch ( listNumType )
 			{
-		    case HTML_LIST_NUM_TYPE_LOWROMAN:
+			case HTML_LIST_NUM_TYPE_LOWROMAN:
 				item = to_roman ( itemNumber, FALSE );
 				break;
 
-		    case HTML_LIST_NUM_TYPE_UPROMAN:
+			case HTML_LIST_NUM_TYPE_UPROMAN:
 				item = to_roman ( itemNumber, TRUE );
 				break;
 
-		    case HTML_LIST_NUM_TYPE_LOWALPHA:
+			case HTML_LIST_NUM_TYPE_LOWALPHA:
 				item = g_strdup_printf ("%c. ", 'a' + itemNumber - 1);
 				break;
 
-		    case HTML_LIST_NUM_TYPE_UPALPHA:
+			case HTML_LIST_NUM_TYPE_UPALPHA:
 				item = g_strdup_printf ("%c. ", 'A' + itemNumber - 1);
 				break;
 
-		    default:
+			default:
 				item = g_strdup_printf( "%2d. ", itemNumber );
 			}
 
 			p->tempStrings = g_list_prepend (p->tempStrings, item);
 
 			text = html_text_new (item, html_engine_get_current_font (p),
-								  p->painter);
+					      p->painter);
 
 			html_clue_append (HTML_CLUE (p->flow), text);
 			break;
@@ -1801,7 +1778,7 @@ parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 static void
 parse_o (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 {
-    if ( strncmp( str, "ol", 2 ) == 0 ) {
+	if ( strncmp( str, "ol", 2 ) == 0 ) {
 		HTMLListNumType listNumType;
 		HTMLList *list;
 
@@ -1850,10 +1827,10 @@ parse_o (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 		html_stack_push (e->listStack, list);
 
 		e->indent += INDENT_SIZE;
-    }
-    else if ( strncmp( str, "/ol", 3 ) == 0 ) {
+	}
+	else if ( strncmp( str, "/ol", 3 ) == 0 ) {
 		pop_block (e, ID_OL, _clue);
-    }
+	}
 #if 0
 	else if ( strncmp( str, "option", 6 ) == 0 ) {
 		if ( !formSelect )
@@ -1884,18 +1861,18 @@ parse_o (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 
 		inOption = true;
 		formText = "";
-    } else if ( strncmp( str, "/option", 7 ) == 0 ) {
+	} else if ( strncmp( str, "/option", 7 ) == 0 ) {
 		if ( inOption )
 			formSelect->setText( formText );
 		inOption = false;
-    }
+	}
 #endif
 }
 
 
 /*
-<p
-<pre             </pre>
+  <p
+  <pre             </pre>
 */
 /* EP CHECK: OK except for the `<pre>' font.  */
 static void
@@ -1903,10 +1880,10 @@ parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	if ( strncmp( str, "pre", 3 ) == 0 ) {
 		e->vspace_inserted = html_engine_insert_vspace (e, clue,
-														e->vspace_inserted );
+								e->vspace_inserted );
 #if 0							/* FIXME */
 		selectFont( settings->fixedFontFace, settings->fontBaseSize,
-		    QFont::Normal, FALSE );
+			    QFont::Normal, FALSE );
 #else
 		e->bold = TRUE;			/* fake, so that we get a font on the stack */
 		html_engine_select_font (e);
@@ -1939,8 +1916,8 @@ parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		}
 		if (align != e->divAlign) {
 			if (e->flow == 0) {
-			  html_engine_new_flow (e, clue);
-			  HTML_CLUE (e->flow)->halign = align;
+				html_engine_new_flow (e, clue);
+				HTML_CLUE (e->flow)->halign = align;
 			}
 		}
 	}
@@ -1952,34 +1929,56 @@ parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 }
 
 
+/*
+  <table           </table>        most
+  <textarea        </textarea>
+  <title>          </title>
+  <tt>             </tt>
+*/
+/* EP CHECK: `<tt>' uses the wrong font.  `<textarea>' is missing.  Rest is
+   OK.  */
 static void
-parse_t (HTMLEngine *p, HTMLObject *clue, const gchar *str)
+parse_t (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	if (strncmp (str, "table", 5) == 0) {
-		/* FIXME: Close anchor */
-		if (!p->vspace_inserted || !p->flow)
-			html_engine_new_flow (p, clue);
+		close_anchor (e);
 
-		parse_table (p, p->flow, clue->max_width, str + 6);
+		if (!e->vspace_inserted || !e->flow)
+			html_engine_new_flow (e, clue);
 
-		p->flow = 0;
+		parse_table (e, e->flow, clue->max_width, str + 6);
+
+		e->flow = 0;
 	}
 	else if (strncmp (str, "title", 5) == 0) {
-		p->inTitle = TRUE;
-		p->title = g_string_new ("");
+		e->inTitle = TRUE;
+		e->title = g_string_new ("");
 	}
 	else if (strncmp (str, "/title", 6) == 0) {
-		p->inTitle = FALSE;
+		e->inTitle = FALSE;
 
-		gtk_signal_emit (GTK_OBJECT (p->widget), html_signals[TITLE_CHANGED]);
+		gtk_signal_emit (GTK_OBJECT (e->widget), html_signals[TITLE_CHANGED]);
+	}
+	else if ( strncmp( str, "tt", 2 ) == 0 ) {
+#if 0
+		selectFont( settings->fixedFontFace, settings->fontBaseSize,
+			    QFont::Normal, FALSE );
+#else
+		e->bold = TRUE;
+		html_engine_select_font (e);
+#endif
+		push_block (e, ID_TT, 1, block_end_font, 0, 0);
+	} else if ( strncmp( str, "/tt", 3 ) == 0 ) {
+		pop_block (e, ID_TT, clue);
 	}
 }
 
 
 /*
-<u>              </u>
-<ul              </ul>
+  <u>              </u>
+  <ul              </ul>
 */
+/* EP CHECK: OK */
 static void
 parse_u (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
@@ -2005,7 +2004,7 @@ parse_u (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		}
 		
 		html_stack_push (e->listStack,
-						 html_list_new (type, HTML_LIST_NUM_TYPE_NUMERIC));
+				 html_list_new (type, HTML_LIST_NUM_TYPE_NUMERIC));
 		e->indent += INDENT_SIZE;
 		e->flow = 0;
 	}
@@ -2026,7 +2025,7 @@ parse_u (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 
 
 /*
-<var>            </var>
+  <var>            </var>
 */
 /* EP CHECK: OK */
 static void
@@ -2038,6 +2037,64 @@ parse_v (HTMLEngine *e, HTMLObject * _clue, const char *str )
 	   	push_block(e, ID_VAR, 1, block_end_font, 0, 0);
 	} else if ( strncmp( str, "/var", 4 ) == 0) {
 		pop_block(e, ID_VAR, _clue);
+	}
+}
+
+
+/* Parsing vtable.  */
+
+typedef void (*HTMLParseFunc)(HTMLEngine *p, HTMLObject *clue, const gchar *str);
+static HTMLParseFunc parseFuncArray[26] = {
+	parse_a,
+	parse_b,
+	parse_c,
+	parse_d,
+	parse_e,
+	parse_f,
+	NULL,
+	parse_h,
+	parse_i,
+	NULL,
+	parse_k,
+	parse_l,
+	NULL,
+	NULL,
+	parse_o,
+	parse_p,
+	NULL,
+	NULL,
+	NULL,
+	parse_t,
+	parse_u,
+	parse_v,
+	NULL,
+	NULL,
+	NULL,
+	NULL
+};
+
+static void
+parse_one_token (HTMLEngine *p, HTMLObject *clue, const gchar *str)
+{
+	if (*str == '<') {
+		gint indx;
+		
+		str++;
+		
+		if (*str == '/')
+			indx = *(str + 1) - 'a';
+		else
+			indx = *str - 'a';
+
+		if (indx >= 0 && indx < 26) {
+			/* FIXME: This should be removed */
+			if (parseFuncArray[indx] != NULL) {
+				(* parseFuncArray[indx])(p, clue, str);
+			} else {
+				g_warning ("Unsupported tag `%s'", str);
+			}
+		}
+
 	}
 }
 
@@ -2146,34 +2203,6 @@ html_engine_init (HTMLEngine *engine)
 	engine->inTitle = FALSE;
 
 	engine->tempStrings = NULL;
-	
-	/* Set up parser functions */
-	engine->parseFuncArray[0] = parse_a;
-	engine->parseFuncArray[1] = parse_b;
-	engine->parseFuncArray[2] = parse_c;
-	engine->parseFuncArray[3] = parse_d;
-	engine->parseFuncArray[4] = parse_e;
-	engine->parseFuncArray[5] = parse_f;
-	engine->parseFuncArray[6] = NULL;
-	engine->parseFuncArray[7] = parse_h;
-	engine->parseFuncArray[8] = parse_i;
-	engine->parseFuncArray[9] = NULL;
-	engine->parseFuncArray[10] = parse_k;
-	engine->parseFuncArray[11] = parse_l;
-	engine->parseFuncArray[12] = NULL;
-	engine->parseFuncArray[13] = NULL;
-	engine->parseFuncArray[14] = parse_o;
-	engine->parseFuncArray[15] = parse_p;
-	engine->parseFuncArray[16] = NULL;
-	engine->parseFuncArray[17] = NULL;
-	engine->parseFuncArray[18] = NULL;
-	engine->parseFuncArray[19] = parse_t;
-	engine->parseFuncArray[20] = parse_u;
-	engine->parseFuncArray[21] = parse_v;
-	engine->parseFuncArray[22] = NULL;
-	engine->parseFuncArray[23] = NULL;
-	engine->parseFuncArray[24] = NULL;
-	engine->parseFuncArray[25] = NULL;
 }
 
 HTMLEngine *
@@ -2298,36 +2327,36 @@ html_engine_write (GtkHTMLStreamHandle handle, gchar *buffer, size_t size, HTMLE
 static gboolean
 html_engine_update_event (HTMLEngine *e)
 {
-  e->updateTimer = 0;
+	e->updateTimer = 0;
 
-  html_engine_calc_size (e);
-  html_engine_calc_absolute_pos (e);
+	html_engine_calc_size (e);
+	html_engine_calc_absolute_pos (e);
 
-  html_engine_draw (e, 0, 0, e->width, e->height);
+	html_engine_draw (e, 0, 0, e->width, e->height);
 	
-  if (!e->parsing) {
-    /* Parsing done */
+	if (!e->parsing) {
+		/* Parsing done */
 		
-    /* Is y_offset too big? */
-    if (html_engine_get_doc_height (e) - e->y_offset < e->height) {
-      e->y_offset = html_engine_get_doc_height (e) - e->height;
-      if (e->y_offset < 0)
-	e->y_offset = 0;
-    }
+		/* Is y_offset too big? */
+		if (html_engine_get_doc_height (e) - e->y_offset < e->height) {
+			e->y_offset = html_engine_get_doc_height (e) - e->height;
+			if (e->y_offset < 0)
+				e->y_offset = 0;
+		}
 		
-    /* Adjust the scrollbars */
-    gtk_html_calc_scrollbars (e->widget);
+		/* Adjust the scrollbars */
+		gtk_html_calc_scrollbars (e->widget);
 
-  }
+	}
 
-  return FALSE;
+	return FALSE;
 }
 
 void
 html_engine_schedule_update (HTMLEngine *p)
 {
-  if(p->updateTimer == 0)
-    p->updateTimer = gtk_timeout_add (TIMER_INTERVAL, (GtkFunction) html_engine_update_event, p);
+	if(p->updateTimer == 0)
+		p->updateTimer = gtk_timeout_add (TIMER_INTERVAL, (GtkFunction) html_engine_update_event, p);
 }
 
 static gboolean
@@ -2340,10 +2369,10 @@ html_engine_timer_event (HTMLEngine *e)
 
 	/* Has more tokens? */
 	if (!html_tokenizer_has_more_tokens (e->ht) && e->writing)
-	  {
+	{
 		retval = FALSE;
 		goto out;
-	  }
+	}
 
 	/* Storing font info */
 	oldFont = html_painter_get_font (e->painter);
@@ -2366,11 +2395,11 @@ html_engine_timer_event (HTMLEngine *e)
 	html_engine_schedule_update (e);
 
 	if(!e->parsing)
-	  retval = FALSE;
+		retval = FALSE;
 
  out:
 	if(!retval)
-	  e->timerId = 0;
+		e->timerId = 0;
 
 	return retval;
 }
@@ -2604,22 +2633,22 @@ html_engine_insert_text (HTMLEngine *e, gchar *str, HTMLFont *f)
 	gboolean insertBlock = FALSE;
 	
 	for (;;) {
-        if (((guchar *)str)[i] == 0xa0) {
-            /* Non-breaking space */
-            if (textType == variable) {
-                /* We have a non-breaking space in a block of variable text We
-                   need to split the text and insert a seperate non-breaking
-                   space object */
-                str[i] = 0x00; /* End of string */
-                remainingStr = &(str[i+1]);
-                insertBlock = TRUE; 
-                insertNBSP = TRUE;
-            } else {
-                /* We have a non-breaking space: this makes the block fixed. */
-                str[i] = 0x20; /* Normal space */
-                textType = fixed;
-            }
-        } else if (str[i] == 0x20) {
+		if (((guchar *)str)[i] == 0xa0) {
+			/* Non-breaking space */
+			if (textType == variable) {
+				/* We have a non-breaking space in a block of variable text We
+				   need to split the text and insert a seperate non-breaking
+				   space object */
+				str[i] = 0x00; /* End of string */
+				remainingStr = &(str[i+1]);
+				insertBlock = TRUE; 
+				insertNBSP = TRUE;
+			} else {
+				/* We have a non-breaking space: this makes the block fixed. */
+				str[i] = 0x20; /* Normal space */
+				textType = fixed;
+			}
+		} else if (str[i] == 0x20) {
 			/* Normal space */
 			if (textType == fixed) {
 				/* We have a normal space in a block of fixed text.
@@ -2645,7 +2674,7 @@ html_engine_insert_text (HTMLEngine *e, gchar *str, HTMLFont *f)
 					insertSpace = TRUE;
 				}
 				else if (str [i+1] == 0x00) {
-            	    /* Last character is a space: Insert the block and 
+					/* Last character is a space: Insert the block and 
 					   a normal space */
 					str[i] = 0x00;/* End of string */
 					remainingStr = 0;
@@ -2685,7 +2714,7 @@ html_engine_insert_text (HTMLEngine *e, gchar *str, HTMLFont *f)
 			if (insertSpace) {
 				if (e->url || e->target) {
 					obj = html_link_text_new (" ", f, e->painter, e->url,
-											  e->target);
+								  e->target);
 					obj->flags |= HTML_OBJECT_FLAG_SEPARATOR;
 					html_clue_append (HTML_CLUE (e->flow), obj);
 				} else {
@@ -2696,7 +2725,7 @@ html_engine_insert_text (HTMLEngine *e, gchar *str, HTMLFont *f)
 			else if (insertNBSP) {
 				if (e->url || e->target) {
 					obj = html_link_text_new (" ", f, e->painter,
-											  e->url, e->target);
+								  e->url, e->target);
 					obj->flags &= ~HTML_OBJECT_FLAG_SEPARATOR;
 					html_clue_append (HTML_CLUE (e->flow), obj);
 				} else {
@@ -2733,118 +2762,118 @@ html_engine_set_named_color (HTMLEngine *p, GdkColor *c, const gchar *name)
 	if (! gdk_color_parse (name, c))
 		return FALSE;
 	gdk_colormap_alloc_color (gdk_window_get_colormap
-							  (html_painter_get_window (p->painter)),
-							  c, FALSE, TRUE);
+				  (html_painter_get_window (p->painter)),
+				  c, FALSE, TRUE);
 	return TRUE;
 }
 
 char *
 html_engine_canonicalize_url (HTMLEngine *e, const char *in_url)
 {
-  char *ctmp, *ctmp2, *retval, *removebegin, *removeend, *curpos;
+	char *ctmp, *ctmp2, *retval, *removebegin, *removeend, *curpos;
 
-  g_return_val_if_fail(e, NULL);
-  g_return_val_if_fail(in_url, NULL);
+	g_return_val_if_fail(e, NULL);
+	g_return_val_if_fail(in_url, NULL);
 
-  ctmp = strstr(in_url, "://");
-  if(ctmp)
-    {
-      retval = g_strdup(in_url);
-      goto out;
-    }
-  else if(*in_url == '/')
-    {
-      ctmp = e->baseURL?strstr(e->baseURL, "://"):NULL;
-      if(!ctmp)
+	ctmp = strstr(in_url, "://");
+	if(ctmp)
 	{
-	  retval = g_strconcat("file://", in_url, NULL);
-	  goto out;
+		retval = g_strdup(in_url);
+		goto out;
+	}
+	else if(*in_url == '/')
+	{
+		ctmp = e->baseURL?strstr(e->baseURL, "://"):NULL;
+		if(!ctmp)
+		{
+			retval = g_strconcat("file://", in_url, NULL);
+			goto out;
+		}
+
+		ctmp2 = strchr(ctmp + 3, '/');
+
+		retval = g_strconcat(e->baseURL, in_url, NULL);
+		goto out;
 	}
 
-      ctmp2 = strchr(ctmp + 3, '/');
+	/* XXX TODO - We should really do processing of .. and . in URLs */
 
-      retval = g_strconcat(e->baseURL, in_url, NULL);
-      goto out;
-    }
+	ctmp = e->baseURL?strstr(e->baseURL, "://"):NULL;
+	if(!ctmp)
+	{
+		char *cwd;
 
-  /* XXX TODO - We should really do processing of .. and . in URLs */
+		cwd = g_get_current_dir();
+		ctmp = g_strconcat("file://", cwd, "/", in_url, NULL);
+		g_free(cwd);
 
-  ctmp = e->baseURL?strstr(e->baseURL, "://"):NULL;
-  if(!ctmp)
-    {
-      char *cwd;
+		retval = ctmp;
+		goto out;
+	}
 
-      cwd = g_get_current_dir();
-      ctmp = g_strconcat("file://", cwd, "/", in_url, NULL);
-      g_free(cwd);
-
-      retval = ctmp;
-      goto out;
-    }
-
-  retval = g_strconcat(e->baseURL, "/", in_url, NULL);
+	retval = g_strconcat(e->baseURL, "/", in_url, NULL);
 
  out:
-  /* Now fix up the /. and /.. pieces */
+	/* Now fix up the /. and /.. pieces */
 
-  ctmp = strstr(retval, "://");
-  g_assert(ctmp);
-  ctmp += 3;
-  ctmp = strchr(ctmp, '/');
-  if(!ctmp) {
-	  ctmp = retval;
-	  retval = g_strconcat(retval, "/", NULL);
-	  g_free(ctmp);
-	  return retval;
-  }
+	ctmp = strstr(retval, "://");
+	g_assert(ctmp);
+	ctmp += 3;
+	ctmp = strchr(ctmp, '/');
+	if(!ctmp) {
+		ctmp = retval;
+		retval = g_strconcat(retval, "/", NULL);
+		g_free(ctmp);
+		return retval;
+	}
 
-  removebegin = removeend = NULL;
-  do {
-    if(removebegin && removeend)
-      {
-	memmove(removebegin, removeend, strlen(removeend) + 1);
 	removebegin = removeend = NULL;
-      }
-    curpos = ctmp;
+	do {
+		if(removebegin && removeend)
+		{
+			memmove(removebegin, removeend, strlen(removeend) + 1);
+			removebegin = removeend = NULL;
+		}
+		curpos = ctmp;
 
-  redo:
-    ctmp2 = strstr(curpos, "/.");
-    if(!ctmp2)
-      break;
+	redo:
+		ctmp2 = strstr(curpos, "/.");
+		if(!ctmp2)
+			break;
 
-    if(*(ctmp2 + 2) == '.') /* We have to skip over stuff like /...blahblah or /.foo */
-      {
-	if(*(ctmp2 + 3) != '/'
-	   && *(ctmp2 + 3) != '\0')
-	  {
-	    curpos = ctmp2 + 3;
-	    goto redo;
-	  }
-      }
-    else if(*(ctmp2 + 2) != '/' && *(ctmp2 + 2) != '\0')
-      {
-	curpos = ctmp2 + 2;
-	goto redo;
-      }
+		if(*(ctmp2 + 2) == '.') /* We have to skip over stuff like /...blahblah or /.foo */
+		{
+			if(*(ctmp2 + 3) != '/'
+			   && *(ctmp2 + 3) != '\0')
+			{
+				curpos = ctmp2 + 3;
+				goto redo;
+			}
+		}
+		else if(*(ctmp2 + 2) != '/' && *(ctmp2 + 2) != '\0')
+		{
+			curpos = ctmp2 + 2;
+			goto redo;
+		}
 
-    switch(*(ctmp2+2))
-      {
-      case '/':
-      case '\0':
-	removebegin = ctmp2;
-	removeend = ctmp2 + 2;
-	break;
-      case '.':
-	removeend = ctmp2 + 3;
-	ctmp2--;
-	while((ctmp2 >= ctmp) && *ctmp2 != '/')
-	  ctmp2--;
-	if(*ctmp2 == '/')
-	  removebegin = ctmp2;
-	break;
-      }
+		switch(*(ctmp2+2))
+		{
+		case '/':
+		case '\0':
+			removebegin = ctmp2;
+			removeend = ctmp2 + 2;
+			break;
+		case '.':
+			removeend = ctmp2 + 3;
+			ctmp2--;
+			while((ctmp2 >= ctmp) && *ctmp2 != '/')
+				ctmp2--;
+			if(*ctmp2 == '/')
+				removebegin = ctmp2;
+			break;
+		}
 
-  } while(removebegin);
+	} while(removebegin);
 
-  return retval;
+	return retval;
 }

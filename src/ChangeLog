@@ -1,3 +1,13 @@
+1999-11-27  Ettore Perazzoli  <ettore@gnu.org>
+
+	* htmlengine.h: Removed `parseFuncArray[]' from `struct
+	_HTMLEngine'.
+	* htmlengine.c: Moved here.
+	(html_engine_init): Do not install `parseFuncArray' anymore.
+
+	* htmlengine.c (parse_t): Implemented `<tt>' handling (wrong font
+	though).
+
 1999-11-26  Ettore Perazzoli  <ettore@gnu.org>
 
 	* htmlengine.c (html_engine_init): Init `inPre', `inTitle'.

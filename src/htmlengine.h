@@ -52,7 +52,6 @@ enum _HTMLGlossaryEntry {
 };
 typedef enum _HTMLGlossaryEntry HTMLGlossaryEntry;
 
-typedef void (*HTMLParseFunc)(HTMLEngine *p, HTMLObject *clue, const gchar *str);
 typedef struct _HTMLBlockStackElement HTMLBlockStackElement;
 
 struct _HTMLEngine {
@@ -104,7 +103,6 @@ struct _HTMLEngine {
 	gchar *url;
 	gchar *target;
 
-	HTMLParseFunc parseFuncArray[26]; /* FIXME move to `.c'.  */
 	HTMLPainter *painter;
 	HTMLBlockStackElement *blockStack;
 	HTMLSettings *settings;
