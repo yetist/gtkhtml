@@ -272,7 +272,7 @@ html_link_text_master_set_url (HTMLLinkTextMaster *link, const gchar *url)
 void
 html_link_text_master_to_text (HTMLLinkTextMaster *link, HTMLEngine *e)
 {
-	HTMLTextMaster *new_text;
+	HTMLObject *new_text;
 
 	new_text = html_text_master_new (HTML_TEXT (link)->text,
 					 GTK_HTML_FONT_STYLE_DEFAULT,
@@ -280,5 +280,5 @@ html_link_text_master_to_text (HTMLLinkTextMaster *link, HTMLEngine *e)
 
 	html_engine_replace_by_object (e, HTML_OBJECT (link), 0,
 				       HTML_OBJECT (link), HTML_TEXT (link)->text_len,
-				       HTML_OBJECT (new_text));
+				       new_text);
 }
