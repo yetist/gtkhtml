@@ -98,6 +98,9 @@ do_layout (HTMLObject *o,
 	gboolean changed;
 	gint old_width, old_ascent, old_descent;
 	gint new_x;
+	gint pixel_size;
+
+	pixel_size = html_painter_get_pixel_size (painter);
 
 	cluev = HTML_CLUEV (o);
 	clue = HTML_CLUE (o);
@@ -110,16 +113,16 @@ do_layout (HTMLObject *o,
 
 	if (o->parent != NULL) {
 		lmargin = html_object_get_left_margin (o->parent, o->y);
-		lmargin += cluev->padding;
+		lmargin += cluev->padding * pixel_size;
 	} else {
-		lmargin = cluev->padding;
+		lmargin = cluev->padding * pixel_size;
 	}
 
 	/* If we have already called calc_size for the children, then just
 	   continue from the last object done in previous call. */
 	
 	if (clue->curr != NULL) {
-		o->ascent = cluev->padding;
+		o->ascent = cluev->padding * pixel_size;
 		
 		/* Get the current ascent not including curr */
 		obj = clue->head;
@@ -133,7 +136,7 @@ do_layout (HTMLObject *o,
 		remove_aligned_by_parent (cluev, clue->curr);
 	} else {
 		o->width = 0;
-		o->ascent = cluev->padding;
+		o->ascent = pixel_size * cluev->padding;
 		o->descent = 0;
 		clue->curr = clue->head;
 	}
@@ -146,8 +149,8 @@ do_layout (HTMLObject *o,
 		if (calc_size)
 			changed |= html_object_calc_size (clue->curr, painter);
 
-		if (o->width < clue->curr->width + 2 * cluev->padding)
-			o->width = clue->curr->width + 2 * cluev->padding;
+		if (o->width < clue->curr->width + 2 * pixel_size * cluev->padding)
+			o->width = clue->curr->width + 2 * pixel_size * cluev->padding;
 
 		o->ascent += clue->curr->ascent + clue->curr->descent;
 
@@ -157,7 +160,7 @@ do_layout (HTMLObject *o,
 		clue->curr = clue->curr->next;
 	}
 
-	o->ascent += cluev->padding;
+	o->ascent += pixel_size * cluev->padding;
 
 	/* Remember the last object so that we can start from here next time
 	   we are called. */

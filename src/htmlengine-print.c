@@ -87,8 +87,8 @@ html_engine_print (HTMLEngine *engine,
 	old_painter = engine->painter;
 	printer     = html_printer_new (print_context);
 	html_font_manager_set_default (&printer->font_manager,
-				       prop->font_var_family, prop->font_fix_family,
-				       prop->font_var_size,   prop->font_fix_size);
+				       prop->font_var_family_print, prop->font_fix_family_print,
+				       prop->font_var_size_print,   prop->font_fix_size_print);
 
 	max_width = engine->width = html_printer_get_page_width (HTML_PRINTER (printer));
 	html_engine_set_painter (engine, printer, max_width);

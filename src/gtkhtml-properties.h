@@ -44,6 +44,10 @@ enum _GtkHTMLClassPropertiesItem {
 	GTK_HTML_CLASS_PROPERTIES_FONT_VAR_SIZE,
 	GTK_HTML_CLASS_PROPERTIES_FONT_FIX_FAMILY,
 	GTK_HTML_CLASS_PROPERTIES_FONT_FIX_SIZE,
+	GTK_HTML_CLASS_PROPERTIES_FONT_VAR_FAMILY_PRINT,
+	GTK_HTML_CLASS_PROPERTIES_FONT_VAR_SIZE_PRINT,
+	GTK_HTML_CLASS_PROPERTIES_FONT_FIX_FAMILY_PRINT,
+	GTK_HTML_CLASS_PROPERTIES_FONT_FIX_SIZE_PRINT,
 };
 
 struct _GtkHTMLClassProperties {
@@ -53,6 +57,10 @@ struct _GtkHTMLClassProperties {
 	guint     font_var_size;
 	gchar    *font_fix_family;
 	guint     font_fix_size;
+	gchar    *font_var_family_print;
+	guint     font_var_size_print;
+	gchar    *font_fix_family_print;
+	guint     font_fix_size_print;
 
 	/* editor */
 	gboolean  magic_links;

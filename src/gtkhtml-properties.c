@@ -35,13 +35,17 @@ gtk_html_class_properties_new (void)
 	GtkHTMLClassProperties *p = g_new (GtkHTMLClassProperties, 1);
 
 	/* default values */
-	p->magic_links       = TRUE;
-	p->keybindings_theme = g_strdup ("emacs");
-	p->font_var_family   = g_strdup ("helvetica");
-	p->font_fix_family   = g_strdup ("courier");
-	p->font_var_size     = DEFAULT_FONT_SIZE;
-	p->font_fix_size     = DEFAULT_FONT_SIZE;
-	p->animations        = TRUE;
+	p->magic_links             = TRUE;
+	p->keybindings_theme       = g_strdup ("emacs");
+	p->font_var_family         = g_strdup ("helvetica");
+	p->font_fix_family         = g_strdup ("courier");
+	p->font_var_size           = DEFAULT_FONT_SIZE;
+	p->font_fix_size           = DEFAULT_FONT_SIZE;
+	p->font_var_family_print   = g_strdup ("helvetica");
+	p->font_fix_family_print   = g_strdup ("courier");
+	p->font_var_size_print     = DEFAULT_FONT_SIZE;
+	p->font_fix_size_print     = DEFAULT_FONT_SIZE;
+	p->animations              = TRUE;
 
 	return p;
 }
@@ -80,6 +84,12 @@ gtk_html_class_properties_load (GtkHTMLClassProperties *p, GConfClient *client)
 	     g_free (p->font_fix_family), g_strdup);
 	GET (int, "/font_variable_size", font_var_size,,);
 	GET (int, "/font_fixed_size", font_fix_size,,);
+	GET (string, "/font_variable_family_print", font_var_family_print,
+	     g_free (p->font_var_family_print), g_strdup);
+	GET (string, "/font_fixed_family_print", font_fix_family_print,
+	     g_free (p->font_fix_family_print), g_strdup);
+	GET (int, "/font_variable_size_print", font_var_size_print,,);
+	GET (int, "/font_fixed_size_print", font_fix_size_print,,);
 }
 
 #define SET(t,x,prop) \
@@ -106,6 +116,14 @@ gtk_html_class_properties_update (GtkHTMLClassProperties *p, GConfClient *client
 		SET (int, "/font_variable_size", font_var_size);
 	if (p->font_fix_size != old->font_fix_size)
 		SET (int, "/font_fixed_size", font_fix_size);
+	if (strcmp (p->font_var_family_print, old->font_var_family_print))
+		SET (string, "/font_variable_family_print", font_var_family_print);
+	if (strcmp (p->font_fix_family_print, old->font_fix_family_print))
+		SET (string, "/font_fixed_family_print", font_fix_family_print);
+	if (p->font_var_size_print != old->font_var_size_print)
+		SET (int, "/font_variable_size_print", font_var_size_print);
+	if (p->font_fix_size_print != old->font_fix_size_print)
+		SET (int, "/font_fixed_size_print", font_fix_size_print);
 }
 
 #else
@@ -129,6 +147,8 @@ gtk_html_class_properties_load (GtkHTMLClassProperties *p)
 	GETS (keybindings_theme, "keybindings_theme=ms");
 	GETS (font_var_family, "font_variable_family=helvetica");
 	GETS (font_fix_family, "font_fixed_family=courier");
+	GETS (font_var_family_print, "font_variable_family_print=helvetica");
+	GETS (font_fix_family_print, "font_fixed_family_print=courier");
 
 	s = g_strdup_printf ("font_variable_size=%d", DEFAULT_FONT_SIZE);
 	GET  (int, font_var_size, s);
@@ -136,6 +156,14 @@ gtk_html_class_properties_load (GtkHTMLClassProperties *p)
 
 	s = g_strdup_printf ("font_fixed_size=%d", DEFAULT_FONT_SIZE);
 	GET  (int, font_fix_size, s);
+	g_free (s);
+
+	s = g_strdup_printf ("font_variable_size_print=%d", DEFAULT_FONT_SIZE);
+	GET  (int, font_var_size_print, s);
+	g_free (s);
+
+	s = g_strdup_printf ("font_fixed_size_print=%d", DEFAULT_FONT_SIZE);
+	GET  (int, font_fix_size_print, s);
 	g_free (s);
 
 	gnome_config_pop_prefix ();
@@ -152,6 +180,10 @@ gtk_html_class_properties_save (GtkHTMLClassProperties *p)
 	gnome_config_set_string ("font_fixed_family", p->font_fix_family);
 	gnome_config_set_int ("font_variable_size", p->font_var_size);
 	gnome_config_set_int ("font_fixed_size", p->font_fix_size);
+	gnome_config_set_string ("font_variable_family_print", p->font_var_family_print);
+	gnome_config_set_string ("font_fixed_family_print", p->font_fix_family_print);
+	gnome_config_set_int ("font_variable_size_print", p->font_var_size_print);
+	gnome_config_set_int ("font_fixed_size_print", p->font_fix_size_print);
 	gnome_config_pop_prefix ();
 	gnome_config_sync ();
 }
@@ -173,6 +205,10 @@ gtk_html_class_properties_copy (GtkHTMLClassProperties *p1,
 	COPYS (font_fix_family);
 	COPY  (font_var_size);
 	COPY  (font_fix_size);
+	COPYS (font_var_family_print);
+	COPYS (font_fix_family_print);
+	COPY  (font_var_size_print);
+	COPY  (font_fix_size_print);
 }
 
 /* enums */

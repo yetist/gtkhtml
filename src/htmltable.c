@@ -765,10 +765,10 @@ calc_column_widths (HTMLTable *table,
 		COLUMN_TYPE (table, i) = COLUMN_TYPE_VARIABLE;
 
 	g_array_set_size (table->columnPos, table->totalCols + 1);
-	COLUMN_POS (table, 0) = table->border + table->spacing;
+	COLUMN_POS (table, 0) = pixel_size * (table->border + table->spacing);
 	
 	g_array_set_size (table->columnPrefPos, table->totalCols + 1);
-	COLUMN_PREF_POS (table, 0) = table->border + table->spacing;
+	COLUMN_PREF_POS (table, 0) = pixel_size * (table->border + table->spacing);
 
 	g_array_set_size (table->colSpan, table->totalCols + 1);
 	for (i = 0; i < table->colSpan->len; i++)
@@ -871,7 +871,7 @@ calc_row_heights (HTMLTable *table,
 	pixel_size = html_painter_get_pixel_size (painter);
 
 	g_array_set_size (table->rowHeights, table->totalRows + 1);
-	ROW_HEIGHT (table, 0) = table->border + table->spacing;
+	ROW_HEIGHT (table, 0) = pixel_size *(table->border + table->spacing);
 
 	for (r = 0; r < table->totalRows; r++) {
 		ROW_HEIGHT (table, r + 1) = 0;

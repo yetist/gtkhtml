@@ -1,3 +1,15 @@
+2000-09-04  Radek Doulik  <rodo@helixcode.com>
+
+	* htmltable.c (calc_column_widths): use pixel_size
+	(calc_row_heights): use pixel_size
+
+	* htmlcluev.c (do_layout): use pixel_size for padding
+
+	* htmlengine-print.c (html_engine_print): use them
+
+	* gtkhtml-properties.[ch]: add separate font family/sizes for
+	printing
+
 2000-09-01  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlfontmanager.[ch]: new fontmanager
