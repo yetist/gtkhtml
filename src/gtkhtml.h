@@ -200,6 +200,10 @@ void                       gtk_html_print_with_header_footer      (GtkHTML      
 								   gpointer                   user_data);
 void                       gtk_html_print                         (GtkHTML                   *html,
 								   GnomePrintContext         *print_context);
+gint                       gtk_html_print_get_pages_num           (GtkHTML                   *html,
+								   GnomePrintContext         *print_context,
+								   gdouble                    header_height,
+								   gdouble                    footer_height);
 void                       gtk_html_print_set_master              (GtkHTML                   *html,
 								   GnomePrintMaster          *print_master);
 

@@ -4114,3 +4114,9 @@ gtk_html_set_blocking (GtkHTML *html, gboolean block)
 {
 	html->engine->block = block;
 }
+
+gint
+gtk_html_print_get_pages_num (GtkHTML *html, GnomePrintContext *print_context, gdouble header_height, gdouble footer_height)
+{
+	return html_engine_print_get_pages_num (html->engine, print_context, header_height, footer_height);
+}

@@ -41,12 +41,6 @@ static HTMLPainterClass *parent_class = NULL;
 /* The size of a pixel in the printed output, in points.  */
 #define PIXEL_SIZE .5
 
-/* The following macros are used to convert between the HTMLEngine coordinate
-   system (which uses integers) to the GnomePrint one (which uses doubles). */
-
-#define SCALE_ENGINE_TO_GNOME_PRINT(x) ((printer->scale * (x)) / 1024.0)
-#define SCALE_GNOME_PRINT_TO_ENGINE(x) ((gint) (((x) * 1024.0 / printer->scale) + 0.5))
-
 /* Hm, this might need fixing.  */
 #define SPACING_FACTOR 1.2
 
