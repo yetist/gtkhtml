@@ -1,3 +1,9 @@
+2001-10-27  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c (html_engine_destroy): make the engine safe for
+	reentrant calls that could result from destroying embedded objects
+	that might iterate the main loop. Fixes ximian #13699.
+
 2001-10-26  Radek Doulik  <rodo@ximian.com>
 
 	* htmltable.c (op_copy): handle cspan, rspan

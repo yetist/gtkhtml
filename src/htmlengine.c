@@ -3078,6 +3078,27 @@ html_engine_destroy (GtkObject *object)
 
 	engine = HTML_ENGINE (object);
 
+        /* it is critical to destroy timers immediately so that
+	 * if widgets contained in the object tree manage to iterate the 
+	 * mainloop we don't reenter in an inconsistant state.
+	 */
+	if (engine->timerId != 0) {
+		gtk_idle_remove (engine->timerId);
+		engine->timerId = 0;
+	}
+	if (engine->thaw_idle_id != 0) {
+		gtk_idle_remove (engine->thaw_idle_id);
+		engine->thaw_idle_id = 0;
+	}
+	if (engine->blinking_timer_id != 0) {
+		gtk_timeout_remove (engine->blinking_timer_id);
+		engine->blinking_timer_id = 0;
+	}
+	if (engine->updateTimer != 0) {
+		gtk_timeout_remove (engine->updateTimer);
+		engine->updateTimer = 0;
+	}
+
 	html_undo_destroy (engine->undo);
 	html_engine_clipboard_clear (engine);
 
@@ -3093,9 +3114,16 @@ html_engine_destroy (GtkObject *object)
 	html_settings_destroy (engine->settings);
 	html_settings_destroy (engine->defaultSettings);
 	html_color_unref (engine->insertion_color);
-	if (engine->clue != NULL)
-		html_object_destroy (engine->clue);
-	engine->clue = NULL;
+	if (engine->clue != NULL) {
+		HTMLObject *clue = engine->clue;
+		
+		/* extra safety in reentrant situations
+		 * remove the clue before we destroy it
+		 */
+		engine->clue = NULL;
+		html_object_destroy (clue);
+	}
+
 	html_image_factory_free (engine->image_factory);
 
 	gtk_object_unref (GTK_OBJECT (engine->painter));
@@ -3121,16 +3149,6 @@ html_engine_destroy (GtkObject *object)
 	if (engine->search_info)
 		html_search_destroy (engine->search_info);
 	clear_selection (engine);
-
-        /* Finally, destroy timers.  */
-
-	if (engine->timerId != 0)
-		gtk_idle_remove (engine->timerId);
-	if (engine->blinking_timer_id != 0)
-		gtk_timeout_remove (engine->blinking_timer_id);
-	if (engine->updateTimer != 0)
-		gtk_timeout_remove (engine->updateTimer);
-	html_engine_thaw_idle_reset (engine);
 
 	if (engine->insertion_url) g_free (engine->insertion_url);
 	if (engine->insertion_target) g_free (engine->insertion_target);
