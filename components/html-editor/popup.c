@@ -48,7 +48,7 @@
 #include "table.h"
 #include "text.h"
 
-#define DEBUG
+/* #define DEBUG */
 #ifdef DEBUG
 #include "gtkhtmldebug.h"
 #endif
@@ -311,13 +311,13 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items)
 		ADD_ITEM (_("Suggest word"), spell_suggest, NONE);
 	}
 
-	if (html_engine_is_selection_active (e)
-	    || (obj
-		&& (HTML_OBJECT_TYPE (obj) == HTML_TYPE_LINKTEXT
-		    || (HTML_OBJECT_TYPE (obj) == HTML_TYPE_IMAGE
-			&& (HTML_IMAGE (obj)->url
-			    || HTML_IMAGE (obj)->target))))) {
-		    ADD_ITEM (_("Remove link"), remove_link, NONE);
+	if (cd->format_html && (html_engine_is_selection_active (e)
+				|| (obj
+				    && (HTML_OBJECT_TYPE (obj) == HTML_TYPE_LINKTEXT
+					|| (HTML_OBJECT_TYPE (obj) == HTML_TYPE_IMAGE
+					    && (HTML_IMAGE (obj)->url
+						|| HTML_IMAGE (obj)->target)))))) {
+		ADD_ITEM (_("Remove link"), remove_link, NONE);
 	}
 
 	if (html_engine_is_selection_active (e)) {
@@ -331,7 +331,7 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items)
 		}
 		ADD_ITEM (_("Paste"),  paste, NONE);
 	}
-	if (html_engine_is_selection_active (e)) {
+	if (cd->format_html && html_engine_is_selection_active (e)) {
 		ADD_SEP;
 		ADD_ITEM (_("Text..."), prop_dialog, TEXT);
 		ADD_PROP (TEXT);
@@ -339,7 +339,7 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items)
 		ADD_PROP (PARAGRAPH);
 		ADD_ITEM (_("Link..."), prop_dialog, LINK);
 		ADD_PROP (LINK);
-	} else if (obj) {
+	} else if (cd->format_html && obj) {
 		switch (HTML_OBJECT_TYPE (obj)) {
 		case HTML_TYPE_RULE:
 			ADD_SEP;
@@ -372,12 +372,14 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items)
 		default:
 		}
 		if (obj->parent && obj->parent->parent && HTML_IS_TABLE_CELL (obj->parent->parent)) {
-			ADD_SEP;
-			ADD_PROP (CELL);
-			ADD_ITEM (_("Cell..."), prop_dialog, CELL);
-			if (obj->parent->parent->parent && HTML_IS_TABLE (obj->parent->parent->parent)) {
-				ADD_PROP (TABLE);
-				ADD_ITEM (_("Table..."), prop_dialog, TABLE);
+			if (cd->format_html) {
+				ADD_SEP;
+				ADD_PROP (CELL);
+				ADD_ITEM (_("Cell..."), prop_dialog, CELL);
+				if (obj->parent->parent->parent && HTML_IS_TABLE (obj->parent->parent->parent)) {
+					ADD_PROP (TABLE);
+					ADD_ITEM (_("Table..."), prop_dialog, TABLE);
+				}
 			}
 			SUBMENU ("Table insert");
 			ADD_ITEM (_("Table"), insert_table_cb, NONE);
@@ -397,9 +399,11 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items)
 		}
 	}
 
-	ADD_SEP;
-	ADD_PROP (BODY);
-	ADD_ITEM (_("Page..."), prop_dialog, BODY);
+	if (cd->format_html) {
+		ADD_SEP;
+		ADD_PROP (BODY);
+		ADD_ITEM (_("Page..."), prop_dialog, BODY);
+	}
 
 	gtk_widget_show (menu);
 

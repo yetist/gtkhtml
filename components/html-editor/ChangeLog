@@ -1,3 +1,9 @@
+2001-08-03  Radek Doulik  <rodo@ximian.com>
+
+	* popup.c (prepare_properties_and_menu): disabled plenty of items
+	in plain mode
+	disabled DEBUG, which I've enabled before by mistake
+
 2001-08-02  Radek Doulik  <rodo@ximian.com>
 
 	* table.c (fill_templates): new extracted function
