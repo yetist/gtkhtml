@@ -47,6 +47,18 @@ set_max_ascent (HTMLObject *object,
 	/*  object->y -= a; */
 }
 
+static HTMLAnchor *
+find_anchor (HTMLObject *o, const char *name, gint *x, gint *y)
+{
+	if (strcmp (name, HTML_ANCHOR(o)->name->str) == 0) {
+		*x += o->x;
+		*y += o->y;
+
+		return HTML_ANCHOR (o);
+	}
+	return NULL;
+}
+
 
 void
 html_anchor_type_init (void)
@@ -65,6 +77,7 @@ html_anchor_class_init (HTMLAnchorClass *klass,
 	html_object_class_init (object_class, type);
 
 	object_class->destroy = destroy;
+	object_class->find_anchor = find_anchor;
 	object_class->set_max_ascent = set_max_ascent;
 
 	parent_class = &html_object_class;

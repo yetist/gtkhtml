@@ -76,6 +76,7 @@ static void parse_one_token (HTMLEngine *p, HTMLObject *clue, const gchar *str);
 static HTMLURL *parse_href (HTMLEngine *e, const gchar *s);
 static void parse_input (HTMLEngine *e, const gchar *s);
 static void parse_f (HTMLEngine *p, HTMLObject *clue, const gchar *str);
+static gboolean html_engine_goto_anchor (HTMLEngine *e);
 
 
 static GtkLayoutClass *parent_class = NULL;
@@ -2811,6 +2812,7 @@ html_engine_init (HTMLEngine *engine)
 	engine->draw_queue = html_draw_queue_new (engine);
 
 	engine->formList = NULL;
+	engine->reference = NULL;
 }
 
 HTMLEngine *
@@ -2881,6 +2883,50 @@ GtkHTMLStreamHandle
 html_engine_begin (HTMLEngine *p, const char *url)
 {
 	GtkHTMLStream *new_stream;
+	HTMLURL *tmpurl1, *tmpurl2;
+	gchar *tmpstr1, *tmpstr2, *tmpreference;
+
+	tmpurl1 = html_url_new (url);
+	/* Is there any reference in the url? */
+	if (p->actualURL && tmpurl1->reference) {
+
+		tmpreference = tmpurl1->reference;
+		tmpurl1->reference = NULL;
+
+		tmpurl2 = html_url_dup (p->actualURL, HTML_URL_DUP_NOREFERENCE | HTML_URL_DUP_NOCGIARGS);
+
+		tmpstr1 = html_url_to_string (tmpurl1);
+		tmpstr2 = html_url_to_string (tmpurl2);
+		/* Is it the same url? */
+		if (strcmp (tmpstr1, tmpstr2) == 0) {
+			/* Just scroll to the anchor */
+			p->reference = tmpreference;
+
+			if (!html_engine_goto_anchor (p)) /* If anchor not found, scroll to the top of the page */
+				gtk_adjustment_set_value (GTK_LAYOUT (p->widget)->vadjustment, 0);
+
+			/* Free old reference, if any*/
+			if (html_url_get_reference (p->actualURL))
+				g_free (p->actualURL->reference);
+			/* Set new reference */
+			p->actualURL->reference = p->reference;
+
+			html_url_destroy (tmpurl1);
+			html_url_destroy (tmpurl2);
+			g_free (tmpstr1);
+			g_free (tmpstr2);
+			/* Tell them we are done */
+			gtk_signal_emit (GTK_OBJECT (p), signals[LOAD_DONE]);
+			return NULL;
+		} else /* Load the page as usually */
+			g_free (tmpreference);
+
+		html_url_destroy (tmpurl1);
+		html_url_destroy (tmpurl2);
+		g_free (tmpstr1);
+		g_free (tmpstr2);
+	} else
+		html_url_destroy (tmpurl1);
 
 	html_tokenizer_begin (p->ht);
 	
@@ -2895,7 +2941,16 @@ html_engine_begin (HTMLEngine *p, const char *url)
 					 (GtkHTMLStreamEndFunc)html_engine_end,
 					 (gpointer)p);
 
+	if (p->reference) {
+
+		g_free (p->reference);
+		p->reference = NULL;
+	}
+
 	html_engine_set_base_url (p, url);
+		
+	if (html_url_get_reference (p->actualURL))
+		p->reference = g_strdup (html_url_get_reference(p->actualURL));
 
 	p->newPage = TRUE;
 
@@ -2928,10 +2983,20 @@ html_engine_update_event (HTMLEngine *e)
 	
 	/* Scroll page to the top on first display */
 	if (e->newPage) {
+
 		gtk_adjustment_set_value (GTK_LAYOUT (e->widget)->vadjustment, 0);
 		e->newPage = FALSE;
 	}
 
+	if (e->reference ) {
+
+		if (html_engine_goto_anchor (e)) {
+
+			g_free (e->reference);
+			e->reference = NULL;
+		}
+
+	}
 	html_engine_draw (e, 0, 0, e->width, e->height);
 	
 	if (!e->parsing) {
@@ -2964,6 +3029,29 @@ html_engine_schedule_update (HTMLEngine *p)
 {
 	if(p->updateTimer == 0)
 		p->updateTimer = gtk_timeout_add (TIMER_INTERVAL, (GtkFunction) html_engine_update_event, p);
+}
+
+static gboolean
+html_engine_goto_anchor (HTMLEngine *e)
+{
+	HTMLAnchor *a;
+	gint x = 0, y = 0;
+
+	if (!e->clue || !e->reference)
+		return FALSE;
+
+	if ((a = html_object_find_anchor (e->clue, e->reference, &x, &y)) == NULL)
+		return FALSE;
+
+	if (y < ( GTK_LAYOUT (e->widget)->vadjustment->upper - 
+		  GTK_LAYOUT (e->widget)->vadjustment->page_size) )
+		gtk_adjustment_set_value (GTK_LAYOUT (e->widget)->vadjustment, y);
+	else
+		gtk_adjustment_set_value (GTK_LAYOUT (e->widget)->vadjustment, 
+					  GTK_LAYOUT (e->widget)->vadjustment->upper -
+					  GTK_LAYOUT (e->widget)->vadjustment->page_size);
+
+	return TRUE;
 }
 
 static gboolean

@@ -368,7 +368,8 @@ cleanup_images (gpointer key, gpointer value, gpointer user_data)
 		g_free (ptr->url);
 		if (ptr->loader)
 			gdk_pixbuf_loader_close (ptr->loader);
-		gdk_pixbuf_unref (ptr->pixbuf);
+		if (ptr->pixbuf)
+			gdk_pixbuf_unref (ptr->pixbuf);
 		g_free (ptr);
 	}
 

@@ -207,6 +207,29 @@ calc_min_width (HTMLObject *o)
 	return minWidth;
 }
 
+static HTMLAnchor *
+find_anchor (HTMLObject *self, const char *name, gint *x, gint *y)
+{
+	HTMLClue *clue;
+	HTMLObject *obj;
+	HTMLAnchor *anchor;
+
+	*x += self->x;
+	*y += self->y - self->ascent;
+
+	clue = HTML_CLUE (self);
+
+	for ( obj = clue->head; obj != NULL; obj = obj->next ) {
+		if ((anchor = html_object_find_anchor ( obj, name, x, y)) != 0 )
+			return anchor;
+	}
+
+	*x -= self->x;
+	*y -= self->y - self->ascent;
+
+	return 0;
+}
+
 static HTMLObject *
 mouse_event (HTMLObject *self, gint _x, gint _y,
 	     gint button, gint state)
@@ -335,6 +358,7 @@ html_clue_class_init (HTMLClueClass *klass,
 	object_class->calc_min_width = calc_min_width;
 	object_class->mouse_event = mouse_event;
 	object_class->check_point = check_point;
+	object_class->find_anchor = find_anchor;
 
 	/* HTMLClue methods.  */
 	klass->get_left_margin = get_left_margin;

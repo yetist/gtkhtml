@@ -69,6 +69,7 @@ struct _HTMLEngine {
 	GtkObject parent;
 
 	HTMLURL *actualURL;
+	gchar *reference;
 
 	gboolean editable;
 	HTMLCursor *cursor;

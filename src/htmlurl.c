@@ -326,6 +326,7 @@ html_url_get_port (const HTMLURL *url)
 gchar *
 html_url_to_string (const HTMLURL *url)
 {
+	guint reference_length;
 	guint protocol_length;
 	guint hostname_length;
 	guint username_length;
@@ -339,6 +340,7 @@ html_url_to_string (const HTMLURL *url)
 
 	g_return_val_if_fail (url != NULL, NULL);
 
+	reference_length = 0;
 	protocol_length = 0;
 	hostname_length = 0;
 	username_length = 0;
@@ -382,7 +384,10 @@ html_url_to_string (const HTMLURL *url)
 	if (url->path != NULL && url->path[0] != '\0') {
 		path_length = strlen (url->path);
 		length += path_length;
+
 		if (url->reference != NULL && url->reference[0] != '\0') {
+
+			reference_length = strlen (url->reference);
 			length += 1;  /* '#' */
 			length += strlen (url->reference);
 		}
@@ -440,6 +445,11 @@ html_url_to_string (const HTMLURL *url)
 
 	if (path_length != 0)
 		APPEND_MEMBER (path);
+
+	if (reference_length != 0) {
+		APPEND_CHAR ('#');
+		APPEND_MEMBER (reference);
+	}
 
 	*p = 0;
 

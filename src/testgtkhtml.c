@@ -309,7 +309,7 @@ entry_goto_url(GtkWidget *widget, gpointer data)
 {
 	gchar *tmpurl;
 
-	tmpurl = gtk_entry_get_text (GTK_ENTRY (widget));
+	tmpurl = g_strdup (gtk_entry_get_text (GTK_ENTRY (widget)));
 
 	/* Add "http://" if no protocol is specified */
 	if(strchr(tmpurl, ':'))
@@ -321,6 +321,7 @@ entry_goto_url(GtkWidget *widget, gpointer data)
 		goto_url (url, 0);
 		g_free(url);
 	}
+	g_free (tmpurl);
 }
 
 static void
@@ -754,8 +755,8 @@ goto_url(const char *url, int back_or_forward)
 	}
 
 	gnome_animator_start (GNOME_ANIMATOR (animator));
-	html_stream_handle = gtk_html_begin (html, url);
-	gtk_html_parse (html);
+	if((html_stream_handle = gtk_html_begin (html, url)))
+		gtk_html_parse (html);
 	gtk_entry_set_text (GTK_ENTRY (entry), url);
 
 	if(!back_or_forward) {

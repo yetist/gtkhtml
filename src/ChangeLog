@@ -1,3 +1,28 @@
+2000-01-05  Jonas Borgström <jonas_b@bitsmart.com>
+	This adds support for references in urls.
+	
+	* htmlanchor.c : (find_anchor): New function.
+	
+	* htmlclue.c : (find_anchor): New function.
+	
+	* htmltable.c : (find_anchor): New function.
+
+	* htmlengine.c : (html_engine_begin): Check if the url wants to view a reference on
+	the current page, if so don't load it again, just scroll.
+	
+	(html_engine_goto_anchor): New function. Searches for an anchor and scrolls the page.
+
+	* htmlengine.h : Added new member, reference. It is the reference html_engine_goto_anchor
+	searches for.
+
+	* htmlimage.c : (cleanup_images) Only destroy ptr->pixbuf if it's not NULL.
+
+	* htmlurl.c : (html_url_to_string) : Add the reference to the string also.
+
+	* testgtkhtml.c : (entry_goto_url) : g_strdup the string from the entry.
+	(goto_url) : Only call gtk_html_parse () When gtk_html_begin returns non NULL. Don't call gtk_html_parse
+	when the engine only scrolls the page (On a #reference).
+
 2000-01-04  Jonas Borgström <jonas_b@bitsmart.com>
 
 	* htmlengine.c : (parse_b): Added "clear=xxx" support in <br> tags.

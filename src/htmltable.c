@@ -1026,6 +1026,45 @@ reset (HTMLObject *o) {
 
 }
 
+static HTMLAnchor *
+find_anchor (HTMLObject *self, const char *name, gint *x, gint *y)
+{
+	HTMLTable *table;
+	HTMLObject *obj;
+	HTMLTableCell *cell;
+	HTMLAnchor *anchor;
+	unsigned int r, c;
+
+	table = HTML_TABLE (self);
+
+	*x += self->x;
+	*y += self->y - self->ascent;
+
+	for ( r = 0; r < table->totalRows; r++ ) {
+		for ( c = 0; c < table->totalCols; c++ ) {
+			if ( ( cell = table->cells[r][c] ) == 0 )
+				continue;
+
+			if ( c < table->totalCols - 1
+			     && cell == table->cells[r][c+1] )
+				continue;
+			if ( r < table->totalRows - 1
+			     && table->cells[r+1][c] == cell )
+				continue;
+
+			anchor = html_object_find_anchor ( HTML_OBJECT (cell), 
+							   name, x, y);
+
+			if (anchor != NULL )
+				return anchor;
+		}
+	}
+	*x -= self->x;
+	*y -= self->y - self->ascent;
+
+	return 0;
+}
+
 static HTMLObject *
 mouse_event ( HTMLObject *self, gint _x, gint _y, gint button, gint state )
 {
@@ -1126,6 +1165,7 @@ html_table_class_init (HTMLTableClass *klass,
 	object_class->reset = reset;
 	object_class->mouse_event = mouse_event;
 	object_class->check_point = check_point;
+	object_class->find_anchor = find_anchor;
 }
 
 void
