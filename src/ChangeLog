@@ -1,3 +1,15 @@
+2001-05-29  Larry Ewing  <lewing@ximian.com>
+
+	* htmlframeset.h:
+	* htmlframeset.c:
+	* htmlframe.c:
+	* htmlframe.h:
+	* htmlmap.c:
+	* htmlmap.h:
+	* htmlshape.c:
+	* htmlshape.h: Commit pending files without hooking them into the
+	build so that I can use cvs to track revisions.
+
 2001-05-29  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine-edit-clueflowstyle.c
