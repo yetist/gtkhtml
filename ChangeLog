@@ -1,3 +1,7 @@
+2003-03-27  Larry Ewing  <lewing@ximian.com>
+
+	* configure.in: fix the library location.
+
 2003-03-16  Larry Ewing  <lewing@ximian.com>
 
 	* configure.in: remove server.in from AC_OUTPUT.

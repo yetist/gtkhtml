@@ -93,7 +93,7 @@ dnl shlib_factory=yes
 if test "x$shlib_factory" = "xyes"; then
 	GNOME_GTKHTML_EDITOR_SHLIB=1
 	GNOME_GTKHTML_EDITOR_TYPE="shlib"
-	GNOME_GTKHTML_EDITOR_LOCATION="${libdir}/gnome-gtkhtml-editor-${EDITOR_API_VERSION}.so"
+	GNOME_GTKHTML_EDITOR_LOCATION="${libdir}/libgnome-gtkhtml-editor-${EDITOR_API_VERSION}.so"
 	AC_DEFINE(GNOME_GTKHTML_EDITOR_SHLIB)
 else
 	GNOME_GTKHTML_EDITOR_LOCATION="${libexecdir}/gnome-gtkhtml-editor-${EDITOR_API_VERSION}"
