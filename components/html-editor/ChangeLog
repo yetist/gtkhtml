@@ -1,3 +1,18 @@
+2004-03-12  Radek Doulik  <rodo@ximian.com>
+
+	* replace.c (ask_dialog_new): use CANCEL response for CLOSE button
+	(gtk_html_replace_dialog_new): ditto
+	(ask_dialog_response): handle CANCEL response as well as CLOSE one
+	(replace_dialog_response): ditto
+
+	* search.c (gtk_html_search_dialog_new): use CANCEL response for
+	close button, gtkdialog.c closes dialog when Esc key is pressed
+	only if there's CANCEL response present
+	(search_dialog_response): handle CANCEL response as well as CLOSE
+	one
+
+	Fixes #47064
+
 2004-02-26    <rodo@ximian.com>
 
 	* image.c (insert_or_apply): set alt to d->alt instead of d->url

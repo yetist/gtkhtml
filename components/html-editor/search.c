@@ -63,6 +63,7 @@ search_dialog_response (GtkDialog *dialog, gint response_id, GtkHTMLSearchDialog
 				    GTK_TOGGLE_BUTTON (d->backward)->active == 0, d->cd->regular);
 		break;
 	case GTK_RESPONSE_CLOSE:
+	case GTK_RESPONSE_CANCEL:
 		gtk_widget_grab_focus (GTK_WIDGET (d->cd->html));
 		break;
 	}
@@ -74,8 +75,9 @@ gtk_html_search_dialog_new (GtkHTML *html, GtkHTMLControlData *cd)
 	GtkHTMLSearchDialog *dialog = g_new (GtkHTMLSearchDialog, 1);
 	GtkWidget *hbox, *vbox;
 
+	/* we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c */
 	dialog->dialog         = GTK_DIALOG (gtk_dialog_new_with_buttons (_("Find"), NULL, 0,
-									  GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
+									  GTK_STOCK_CLOSE, GTK_RESPONSE_CANCEL,
 									  GTK_STOCK_FIND, 0,
 									  NULL));
 	dialog->entry          = gtk_entry_new ();
