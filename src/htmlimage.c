@@ -1193,6 +1193,10 @@ html_image_animation_new (HTMLImage *image)
 	animation = g_new (HTMLImageAnimation, 1);
 	animation->cur_frame = gdk_pixbuf_animation_get_frames (image->image_ptr->animation);
 	animation->cur_n = 0;
+	animation->x = 0;
+	animation->y = 0;
+	animation->nx = 0;
+	animation->ny = 0;
 	animation->timeout = 0;
 	animation->pixbuf = gdk_pixbuf_new (GDK_COLORSPACE_RGB, TRUE, 8,
 					    gdk_pixbuf_animation_get_width (image->image_ptr->animation),

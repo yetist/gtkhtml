@@ -1,5 +1,8 @@
 2001-10-24  Larry Ewing  <lewing@ximian.com>
 
+	* htmlimage.c (html_image_animation_new): initialize some
+	variables that were missed.
+
 	* htmlengine.c (html_engine_destroy): remove the thaw idle if we
 	are destroyed.
 
