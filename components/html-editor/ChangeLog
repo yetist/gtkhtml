@@ -8,6 +8,8 @@
 2000-08-10  Radek Doulik  <rodo@helixcode.com>
 
 	* spell.c (destroy): do replacing only if replacement selected
+	(select_row): added select row handler - now replacement could be
+	selected by mouse from suggestions list
 
 2000-07-28  Ettore Perazzoli  <ettore@helixcode.com>
 

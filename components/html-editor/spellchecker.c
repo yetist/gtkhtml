@@ -75,6 +75,15 @@ key_press_event (GtkWidget *widget, GdkEventKey *event, SpellPopup *sp)
 	}
 }
 
+static void
+select_row (GtkCList *clist, gint row, gint column, GdkEvent *event, SpellPopup *sp)
+{
+	if (event->type == GDK_BUTTON_PRESS) {
+		sp->replace = TRUE;
+		gtk_widget_destroy (sp->window);
+	}
+}
+
 void
 spell_suggestion_request_cb (GtkHTML *html,  PspellManager *spell_checker, gchar *word, GtkHTMLControlData *cd)
 {
@@ -126,6 +135,7 @@ spell_suggestion_request_cb (GtkHTML *html,  PspellManager *spell_checker, gchar
 
 	gtk_signal_connect (GTK_OBJECT (sp->window),   "key_press_event", key_press_event, sp);
 	gtk_signal_connect (GTK_OBJECT (sp->window),   "destroy",         destroy, sp);
+	gtk_signal_connect (GTK_OBJECT (sp->clist),    "select_row",      select_row, sp);
 
 	gtk_widget_popup (sp->window, x, y);
 	gtk_grab_add (sp->window);
