@@ -1,5 +1,8 @@
 2002-11-03  Larry Ewing  <lewing@ximian.com>
 
+	* htmltext.c (append_selection_string): use g_string_function that
+	exists now.
+
 	* htmlgdkpainter.c (draw_pixmap): remove a bunch of code now that
 	gdk can do real alpha blending.
 	(html_gdk_painter_realize): use html_painter_alloc_color instead

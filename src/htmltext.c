@@ -1211,9 +1211,6 @@ append_selection_string (HTMLObject *self,
 	if (text->select_length == 0)
 		return;
 
-	/* FIXME: we need a `g_string_append()' that takes the number of
-           characters to append as an extra parameter.  */
-
 	p    = html_text_get_text (text, text->select_start);
 	last = g_utf8_offset_to_pointer (p, text->select_length);
 	
@@ -1221,10 +1218,8 @@ append_selection_string (HTMLObject *self,
 	last = html_text_get_text (text,
 				   text->select_start + text->select_length);
 	*/
-	for (; p < last;) {
-		g_string_append_c (buffer, *p);
-		p++;
-	}
+	g_string_append_len (buffer, p, last - p);
+
 }
 
 static void
