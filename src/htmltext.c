@@ -3247,16 +3247,6 @@ html_text_get_first_color_in_range (HTMLText *text, HTMLEngine *e, gint start_in
 			pango_attr_iterator_range (iter, &iter_start_index, &iter_end_index);
 			if (MAX (iter_start_index, start_index) <= MIN (iter_end_index, end_index)) {
 				color = color_from_attrs (iter);
-				if (html_color_equal (color, html_colorset_get_color (e->settings->color_set, HTMLLinkColor))) {
-					gint offset = g_utf8_pointer_to_offset (text->text, text->text + MAX (start_index, iter_start_index));
-
-					if (html_text_get_link_at_offset (text, offset)) {
-						html_color_unref (color);
-						color = NULL;
-						/* color = html_colorset_get_color (e->settings->color_set, HTMLLinkColor);
-						   html_color_ref (color); */
-					}
-				}
 				break;
 			}
 		} while (pango_attr_iterator_next (iter));
@@ -3264,10 +3254,10 @@ html_text_get_first_color_in_range (HTMLText *text, HTMLEngine *e, gint start_in
 		pango_attr_iterator_destroy (iter);
 	}
 
-	/* if (!color) {
+	if (!color) {
 		color = html_colorset_get_color (e->settings->color_set, HTMLTextColor);
 		html_color_ref (color);
-		} */
+	}
 
 	return color;
 }

@@ -1,5 +1,17 @@
 2004-05-13  Radek Doulik  <rodo@ximian.com>
 
+	* htmlengine-edit.c (html_engine_new_text): do not check if color
+	equals link, test just for text default color, link color is not
+	applied anymore
+
+	* htmltext.c (html_text_get_first_color_in_range): do not check if
+	color equals link color, the link color attributes are handled at
+	render time now
+	(html_text_get_first_color_in_range): if no color set, use default
+	Text color
+
+	Fixes #58093
+
 	* htmlengine.c (element_parse_img): set eat_space to FALSE again,
 	it was lost somewhere during parser changes
 
