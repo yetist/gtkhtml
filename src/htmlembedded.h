@@ -41,6 +41,7 @@ struct _HTMLEmbedded {
 
 	gint abs_x, abs_y;
 };
+
 struct _HTMLEmbeddedClass {
 	HTMLObjectClass object_class;
 

@@ -100,8 +100,57 @@ destroy (HTMLObject *o)
 static void
 reset (HTMLEmbedded *e)
 {
+	/* Nothing to do?  */
 }
 
+static gint
+calc_min_width (HTMLObject *self,
+		HTMLPainter *painter)
+{
+	GtkWidget *widget;
+	gint pixel_size;
+	gint min_width;
+
+	widget = HTML_EMBEDDED (self)->widget;
+	if (widget == NULL)
+		return 0;
+
+	pixel_size = html_painter_get_pixel_size (painter);
+
+	min_width = widget->allocation.width * pixel_size;
+	return min_width;
+}
+
+static gboolean
+calc_size (HTMLObject *self,
+	   HTMLPainter *painter)
+{
+	GtkWidget *widget;
+	gint pixel_size;
+	gint old_width, old_ascent;
+
+	widget = HTML_EMBEDDED (self)->widget;
+	if (widget == NULL)
+		return FALSE;
+
+	pixel_size = html_painter_get_pixel_size (painter);
+
+	old_width = self->width;
+	old_ascent = self->ascent;
+
+	self->width = widget->allocation.width * pixel_size;
+	self->ascent = widget->allocation.height * pixel_size;
+
+	/* This never changes.  */
+	self->descent = 0;
+
+	if (old_width != self->width || old_ascent != self->ascent)
+		return TRUE;
+
+	return FALSE;
+}
+
+
 void
 html_embedded_reset (HTMLEmbedded *e)
 {
@@ -197,6 +246,8 @@ html_embedded_class_init (HTMLEmbeddedClass *klass,
 	object_class->destroy = destroy;
 	object_class->copy = copy;
 	object_class->draw = draw;
+	object_class->calc_size = calc_size;
+	object_class->calc_min_width = calc_min_width;
 
 	parent_class = &html_object_class;
 }
@@ -246,6 +297,7 @@ html_embedded_size_recalc(HTMLEmbedded *em)
 	} else {
 		o->descent = 0;
 	}
+
 	o->ascent = req.height - o->descent;
 }
 

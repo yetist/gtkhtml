@@ -60,10 +60,6 @@ draw (HTMLObject *o,
 	HTML_OBJECT (HTML_IMAGEINPUT (o)->image)->x = o->x;
 	HTML_OBJECT (HTML_IMAGEINPUT (o)->image)->y = o->y;
 
-	o->width = HTML_OBJECT (HTML_IMAGEINPUT (o)->image)->width;
-
-	o->ascent = HTML_OBJECT (HTML_IMAGEINPUT (o)->image)->ascent;
-
 	html_object_draw (HTML_OBJECT (HTML_IMAGEINPUT (o)->image),
 			  p,
 			  x, y,
@@ -71,6 +67,44 @@ draw (HTMLObject *o,
 			  tx, ty);
 }
 
+
+/* Even if it's an HTMLEmbeddable, HTMLImageInput does not use a
+   widget, so we need to implement these methods ourselves instead of
+   using the HTMLEmbeddable default implementations.  */
+
+static gint
+calc_min_width (HTMLObject *self,
+		HTMLPainter *painter)
+{
+	HTMLImageInput *image_input;
+
+	image_input = HTML_IMAGEINPUT (self);
+
+	return html_object_calc_min_width (HTML_OBJECT (image_input->image),
+					   painter);
+}
+
+static gboolean
+calc_size (HTMLObject *self,
+	   HTMLPainter *painter)
+{
+	HTMLImageInput *image_input;
+	HTMLObject *image_object;
+	gboolean retval;
+
+	image_input = HTML_IMAGEINPUT (self);
+	image_object = HTML_OBJECT (image_input->image);
+
+	retval = html_object_calc_size (image_object, painter);
+
+	self->width = image_object->width;
+	self->ascent = image_object->ascent;
+	self->descent = image_object->descent;
+
+	return retval;
+}
+
+
 static gchar *
 encode (HTMLEmbedded *e)
 {
@@ -101,6 +135,7 @@ encode (HTMLEmbedded *e)
 	return ptr;
 }
 
+
 void
 html_imageinput_type_init (void)
 {
@@ -127,6 +162,8 @@ html_imageinput_class_init (HTMLImageInputClass *klass,
 	object_class->destroy = destroy;
 	object_class->copy = copy;
 	object_class->draw = draw;
+	object_class->calc_min_width = calc_min_width;
+	object_class->calc_size = calc_size;
 
 	parent_class = &html_embedded_class;
 }

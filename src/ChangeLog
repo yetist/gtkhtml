@@ -1,5 +1,21 @@
 2000-04-06  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlimageinput.c
+	(draw): Do not set `width', `ascent'.
+	(calc_min_width): New function, implementation of
+	`HTMLObject::calc_min_width()'.
+	(calc_size): New function, implementation of
+	`HTMLObject::calc_size()'.
+
+	* htmlembedded.c
+	(calc_size): New function, implementation of
+	`HTMLObject::calc_size()'.
+	(calc_min_width): New function, implementation of
+	`HTMLObject::calc_min_width()'.
+	(html_embedded_class_init): Install them.
+
+2000-04-06  Ettore Perazzoli  <ettore@helixcode.com>
+
 	* htmlimage.c
 	(animation_actual_width): Return `w'.  Made static.
 	(animation_actual_height): Return `h'.  Made static.

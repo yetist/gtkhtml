@@ -27,6 +27,8 @@ HTMLTextInputClass html_text_input_class;
 static HTMLEmbeddedClass *parent_class = NULL;
 
 
+/* HTMLObject methods.  */
+
 static void
 destroy (HTMLObject *o)
 {
@@ -60,6 +62,9 @@ reset (HTMLEmbedded *e)
 	gtk_entry_set_text (GTK_ENTRY(e->widget), HTML_TEXTINPUT(e)->default_text);
 }
 
+
+/* HTMLEmbedded methods.  */
+
 static gchar *
 encode (HTMLEmbedded *e)
 {
@@ -84,10 +89,13 @@ encode (HTMLEmbedded *e)
 	return ptr;
 }
 
+
 void
 html_text_input_type_init (void)
 {
-	html_text_input_class_init (&html_text_input_class, HTML_TYPE_TEXTINPUT, sizeof (HTMLTextInput));
+	html_text_input_class_init (&html_text_input_class,
+				    HTML_TYPE_TEXTINPUT,
+				    sizeof (HTMLTextInput));
 }
 
 void
@@ -103,13 +111,13 @@ html_text_input_class_init (HTMLTextInputClass *klass,
 
 	html_embedded_class_init (element_class, type, object_size);
 
-	/* HTMLEmbedded methods.   */
-	element_class->reset = reset;
-	element_class->encode = encode;
-
 	/* HTMLObject methods.   */
 	object_class->destroy = destroy;
 	object_class->copy = copy;
+
+	/* HTMLEmbedded methods.   */
+	element_class->reset = reset;
+	element_class->encode = encode;
 
 	parent_class = &html_embedded_class;
 }
@@ -149,7 +157,6 @@ html_text_input_init (HTMLTextInput *ti,
 	gtk_entry_set_visibility (GTK_ENTRY(element->widget), !password);
 	
 	req.width = gdk_char_width (element->widget->style->font, '0') * size + 8;
-
 	gtk_widget_set_usize (element->widget, req.width, req.height);
 
 	object->descent = 0;

@@ -1144,7 +1144,6 @@ parse_input (HTMLEngine *e, const gchar *str, HTMLObject *_clue) {
 	html_string_tokenizer_tokenize (e->st, str, " >");
 
 	while (html_string_tokenizer_has_more_tokens (e->st)) {
-
 		const gchar *token = html_string_tokenizer_next_token (e->st);
 
 		if ( strncasecmp( token, "type=", 5 ) == 0 ) {
@@ -2196,9 +2195,9 @@ html_object_changed(GtkHTMLEmbedded *eb, HTMLEngine *e)
 	HTMLEmbedded *el;
 
 	el = gtk_object_get_data(GTK_OBJECT(eb), "embeddedelement");
-	if (el) {
+	if (el)
 		html_embedded_size_recalc(el);
-	}
+
 	html_engine_schedule_update(e);
 }
 
