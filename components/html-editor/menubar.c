@@ -47,39 +47,8 @@
 #include "template.h"
 
 static void smiley_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname);
-static void paragraph_style_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname);
-static void paragraph_align_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname);
 static void font_style_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname);
-
-static void
-undo_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
-{
-	gtk_html_undo (cd->html);
-}
-
-static void
-redo_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
-{
-	gtk_html_redo (cd->html);
-}
-
-static void
-cut_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
-{
-	gtk_html_cut (cd->html);
-}
-
-static void
-copy_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
-{
-	gtk_html_copy (cd->html);
-}
-
-static void
-paste_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
-{
-	gtk_html_paste (cd->html, FALSE);
-}
+static void command_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname);
 
 static void
 paste_quotation_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
@@ -103,12 +72,6 @@ static void
 search_next_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
 	search_next (cd);
-}
-
-static void
-select_all_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
-{
-	gtk_html_command (cd->html, "select-all");
 }
 
 static void
@@ -290,18 +253,6 @@ insert_html_file_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char 
 }
 
 static void 
-indent_more_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
-{
-	gtk_html_indent_push_level (cd->html, HTML_LIST_TYPE_BLOCKQUOTE);
-}
-
-static void 
-indent_less_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
-{
-	gtk_html_indent_pop_level (cd->html);
-}
-
-static void 
 spell_check_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
 	spell_check_dialog (cd, TRUE);
@@ -362,17 +313,17 @@ format_paragraph_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char 
 }
 
 BonoboUIVerb verbs [] = {
-	BONOBO_UI_UNSAFE_VERB ("EditUndo", undo_cb),
-	BONOBO_UI_UNSAFE_VERB ("EditRedo", redo_cb),
-	BONOBO_UI_UNSAFE_VERB ("EditCut", cut_cb),
-	BONOBO_UI_UNSAFE_VERB ("EditCopy", copy_cb),
-	BONOBO_UI_UNSAFE_VERB ("EditPaste", paste_cb),
+	BONOBO_UI_UNSAFE_VERB ("EditUndo", command_cb),
+	BONOBO_UI_UNSAFE_VERB ("EditRedo", command_cb),
+	BONOBO_UI_UNSAFE_VERB ("EditCut", command_cb),
+	BONOBO_UI_UNSAFE_VERB ("EditCopy", command_cb),
+	BONOBO_UI_UNSAFE_VERB ("EditPaste", command_cb),
 	BONOBO_UI_UNSAFE_VERB ("EditPasteQuotation", paste_quotation_cb),
 	BONOBO_UI_UNSAFE_VERB ("EditFind", search_cb),
 	BONOBO_UI_UNSAFE_VERB ("EditFindRegex", search_regex_cb),
 	BONOBO_UI_UNSAFE_VERB ("EditFindAgain", search_next_cb),
 	BONOBO_UI_UNSAFE_VERB ("EditReplace", replace_cb),
-	BONOBO_UI_UNSAFE_VERB ("EditSelectAll", select_all_cb),
+	BONOBO_UI_UNSAFE_VERB ("EditSelectAll", command_cb),
 	BONOBO_UI_UNSAFE_VERB ("EditSpellCheck", spell_check_cb),
 
 	BONOBO_UI_UNSAFE_VERB ("InsertImage", insert_image_cb),
@@ -395,150 +346,132 @@ BonoboUIVerb verbs [] = {
 	BONOBO_UI_UNSAFE_VERB ("InsertSmiley10", smiley_cb),
 	BONOBO_UI_UNSAFE_VERB ("InsertSmiley11", smiley_cb),
 
-	BONOBO_UI_UNSAFE_VERB ("IndentMore", indent_more_cb),
-	BONOBO_UI_UNSAFE_VERB ("IndentLess", indent_less_cb),
+	BONOBO_UI_UNSAFE_VERB ("IndentMore", command_cb),
+	BONOBO_UI_UNSAFE_VERB ("IndentLess", command_cb),
 
 	BONOBO_UI_UNSAFE_VERB ("FormatText", format_text_cb),
 	BONOBO_UI_UNSAFE_VERB ("FormatParagraph", format_paragraph_cb),
 	BONOBO_UI_UNSAFE_VERB ("FormatPage", format_page_cb),
 
-	BONOBO_UI_UNSAFE_VERB ("HeadingNormal", paragraph_style_cb),
-	BONOBO_UI_UNSAFE_VERB ("HeadingPreformat", paragraph_style_cb),
-	BONOBO_UI_UNSAFE_VERB ("HeadingH1", paragraph_style_cb),
-	BONOBO_UI_UNSAFE_VERB ("HeadingH2", paragraph_style_cb),
-	BONOBO_UI_UNSAFE_VERB ("HeadingH3", paragraph_style_cb),
-	BONOBO_UI_UNSAFE_VERB ("HeadingH4", paragraph_style_cb),
-	BONOBO_UI_UNSAFE_VERB ("HeadingH5", paragraph_style_cb),
-	BONOBO_UI_UNSAFE_VERB ("HeadingH6", paragraph_style_cb),
-	BONOBO_UI_UNSAFE_VERB ("HeadingH1", paragraph_style_cb),
-	BONOBO_UI_UNSAFE_VERB ("HeadingAddress", paragraph_style_cb),
-	BONOBO_UI_UNSAFE_VERB ("HeadingBulletedList", paragraph_style_cb),
-	BONOBO_UI_UNSAFE_VERB ("HeadingRomanList", paragraph_style_cb),
-	BONOBO_UI_UNSAFE_VERB ("HeadingNumberedList", paragraph_style_cb),
-	BONOBO_UI_UNSAFE_VERB ("HeadingAlphabeticalList", paragraph_style_cb),
+	BONOBO_UI_UNSAFE_VERB ("HeadingNormal", command_cb),
+	BONOBO_UI_UNSAFE_VERB ("HeadingPreformat", command_cb),
+	BONOBO_UI_UNSAFE_VERB ("HeadingH1", command_cb),
+	BONOBO_UI_UNSAFE_VERB ("HeadingH2", command_cb),
+	BONOBO_UI_UNSAFE_VERB ("HeadingH3", command_cb),
+	BONOBO_UI_UNSAFE_VERB ("HeadingH4", command_cb),
+	BONOBO_UI_UNSAFE_VERB ("HeadingH5", command_cb),
+	BONOBO_UI_UNSAFE_VERB ("HeadingH6", command_cb),
+	BONOBO_UI_UNSAFE_VERB ("HeadingH1", command_cb),
+	BONOBO_UI_UNSAFE_VERB ("HeadingAddress", command_cb),
+	BONOBO_UI_UNSAFE_VERB ("HeadingBulletedList", command_cb),
+	BONOBO_UI_UNSAFE_VERB ("HeadingRomanList", command_cb),
+	BONOBO_UI_UNSAFE_VERB ("HeadingNumberedList", command_cb),
+	BONOBO_UI_UNSAFE_VERB ("HeadingAlphabeticalList", command_cb),
 
-	BONOBO_UI_UNSAFE_VERB ("FontSizeNegTwo", font_style_cb),
-	BONOBO_UI_UNSAFE_VERB ("FontSizeNegOne", font_style_cb),
-	BONOBO_UI_UNSAFE_VERB ("FontSizeZero", font_style_cb),
-	BONOBO_UI_UNSAFE_VERB ("FontSizeOne", font_style_cb),
-	BONOBO_UI_UNSAFE_VERB ("FontSizeTwo", font_style_cb),
-	BONOBO_UI_UNSAFE_VERB ("FontSizeThree", font_style_cb),
-	BONOBO_UI_UNSAFE_VERB ("FontSizeFour", font_style_cb),
-	BONOBO_UI_UNSAFE_VERB ("FormatBold", font_style_cb),
-	BONOBO_UI_UNSAFE_VERB ("FormatItalic", font_style_cb),
-	BONOBO_UI_UNSAFE_VERB ("FormatUnderline", font_style_cb),
-	BONOBO_UI_UNSAFE_VERB ("FormatStrikeout", font_style_cb),
+	BONOBO_UI_UNSAFE_VERB ("FontSizeNegTwo", command_cb),
+	BONOBO_UI_UNSAFE_VERB ("FontSizeNegOne", command_cb),
+	BONOBO_UI_UNSAFE_VERB ("FontSizeZero", command_cb),
+	BONOBO_UI_UNSAFE_VERB ("FontSizeOne", command_cb),
+	BONOBO_UI_UNSAFE_VERB ("FontSizeTwo", command_cb),
+	BONOBO_UI_UNSAFE_VERB ("FontSizeThree", command_cb),
+	BONOBO_UI_UNSAFE_VERB ("FontSizeFour", command_cb),
+	BONOBO_UI_UNSAFE_VERB ("FormatBold", command_cb),
+	BONOBO_UI_UNSAFE_VERB ("FormatItalic", command_cb),
+	BONOBO_UI_UNSAFE_VERB ("FormatUnderline", command_cb),
+	BONOBO_UI_UNSAFE_VERB ("FormatStrikeout", command_cb),
+
 	BONOBO_UI_UNSAFE_VERB ("FormatFixed", font_style_cb),
 	BONOBO_UI_UNSAFE_VERB ("FormatSubscript", font_style_cb),
 	BONOBO_UI_UNSAFE_VERB ("FormatSuperscript", font_style_cb),
 
-	BONOBO_UI_UNSAFE_VERB ("AlignLeft", paragraph_align_cb),
-	BONOBO_UI_UNSAFE_VERB ("AlignCenter", paragraph_align_cb),
-	BONOBO_UI_UNSAFE_VERB ("AlignRight", paragraph_align_cb),
+	BONOBO_UI_UNSAFE_VERB ("AlignLeft", command_cb),
+	BONOBO_UI_UNSAFE_VERB ("AlignCenter", command_cb),
+	BONOBO_UI_UNSAFE_VERB ("AlignRight", command_cb),
 
 	BONOBO_UI_VERB_END
 };
 
 static struct {
+	const gchar *command;
+	const gchar *verb;
+} command_assoc[] = {
+	{"size-minus-two", "FontSizeNegTwo"},
+	{"size-minus-one", "FontSizeNegOne"},
+	{"size-plus-0", "FontSizeZero"},
+	{"size-plus-1", "FontSizeOne"},
+	{"size-plus-2", "FontSizeTwo"},
+	{"size-plus-3", "FontSizeThree"},
+	{"size-plus-4", "FontSizeFour"},
+	{"bold-toggle",    "FormatBold"},
+	{"italic-toggle", "FormatItalic"},
+	{"underline-toggle", "FormatUnderline"},
+	{"strikeout-toggle", "FormatStrikeout"},
+	{"indent-more", "IndentMore"},
+	{"indent-less", "IndentLess"},
+	{"align-left", "AlignLeft"},
+	{"align-right", "AlignRight"},
+	{"align-center", "AlignCenter"},
+	{"select-all", "EditSelectAll"},
+	{"undo", "EditUndo"},
+	{"redo", "EditRedo"},
+	{"cut", "EditCut"},
+	{"copy", "EditCopy"},
+	{"paste", "EditPaste"},
+	{"style-normal", "HeadingNormal"},
+	{"style-header1", "HeadingH1"},
+	{"style-header2", "HeadingH2"},
+	{"style-header3", "HeadingH3"},
+	{"style-header4", "HeadingH4"},
+	{"style-header5", "HeadingH5"},
+	{"style-header6", "HeadingH6"},
+	{"style-address", "HeadingAddress"},
+	{"style-pre", "HeadingPreformat"},
+	{"style-dot", "HeadingBulletedList"},
+	{"style-itemroman", "HeadingRomanList"},
+	{"style-itemdigit", "HeadingNumberedList"},
+	{"style-itemalpha", "HeadingAlphabeticalList"},
+	{0, NULL}
+};
+
+static struct {
 	GtkHTMLFontStyle style;
 	const gchar *verb;
-} font_style_assoc[] = {
-	{GTK_HTML_FONT_STYLE_SIZE_1, "FontSizeNegTwo"},
-	{GTK_HTML_FONT_STYLE_SIZE_2, "FontSizeNegOne"},
-	{GTK_HTML_FONT_STYLE_SIZE_3, "FontSizeZero"},
-	{GTK_HTML_FONT_STYLE_SIZE_4, "FontSizeOne"},
-	{GTK_HTML_FONT_STYLE_SIZE_5, "FontSizeTwo"},
-	{GTK_HTML_FONT_STYLE_SIZE_6, "FontSizeThree"},
-	{GTK_HTML_FONT_STYLE_SIZE_7, "FontSizeFour"},
-	{GTK_HTML_FONT_STYLE_BOLD,    "FormatBold"},
-	{GTK_HTML_FONT_STYLE_ITALIC, "FormatItalic"},
-	{GTK_HTML_FONT_STYLE_UNDERLINE, "FormatUnderline"},
-	{GTK_HTML_FONT_STYLE_STRIKEOUT, "FormatStrikeout"},
+} font_style_assoc[] = {	
 	{GTK_HTML_FONT_STYLE_FIXED, "FormatFixed"},
 	{GTK_HTML_FONT_STYLE_SUBSCRIPT, "FormatSubscript"},
 	{GTK_HTML_FONT_STYLE_SUBSCRIPT, "FormatSuperscript"},
 	{0, NULL}
 };
 
-static struct {
-	GtkHTMLParagraphStyle style;
-	const gchar *verb;
-} paragraph_style_assoc[] = {
-	{GTK_HTML_PARAGRAPH_STYLE_NORMAL, "HeadingNormal"},
-	{GTK_HTML_PARAGRAPH_STYLE_H1, "HeadingH1"},
-	{GTK_HTML_PARAGRAPH_STYLE_H2, "HeadingH2"},
-	{GTK_HTML_PARAGRAPH_STYLE_H3, "HeadingH3"},
-	{GTK_HTML_PARAGRAPH_STYLE_H4, "HeadingH4"},
-	{GTK_HTML_PARAGRAPH_STYLE_H5, "HeadingH5"},
-	{GTK_HTML_PARAGRAPH_STYLE_H6, "HeadingH6"},
-	{GTK_HTML_PARAGRAPH_STYLE_ADDRESS, "HeadingAddress"},
-	{GTK_HTML_PARAGRAPH_STYLE_PRE, "HeadingPreformat"},
-	{GTK_HTML_PARAGRAPH_STYLE_ITEMDOTTED, "HeadingBulletedList"},
-	{GTK_HTML_PARAGRAPH_STYLE_ITEMROMAN, "HeadingRomanList"},
-	{GTK_HTML_PARAGRAPH_STYLE_ITEMDIGIT, "HeadingNumberedList"},
-	{GTK_HTML_PARAGRAPH_STYLE_ITEMALPHA, "HeadingAlphabeticalList"},
-	{0, NULL}
-};
-
-static struct {
-	GtkHTMLParagraphAlignment style;
-	const gchar *verb;
-} paragraph_align_assoc[] = {
-	{GTK_HTML_PARAGRAPH_ALIGNMENT_LEFT, "AlignLeft"},
-	{GTK_HTML_PARAGRAPH_ALIGNMENT_CENTER, "AlignCenter"},
-	{GTK_HTML_PARAGRAPH_ALIGNMENT_RIGHT, "AlignRight"},
-	{0, NULL}
-};
-
-static void 
-paragraph_align_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
-{
-	int i;
-
-	/* g_warning ("wowee %s :: %s", path, state); */
-	for (i = 0; paragraph_align_assoc[i].verb != NULL; i++) {
-		if (!strcmp (cname, paragraph_align_assoc[i].verb)) {
-			/* g_warning ("setting style to: %s", 
-			   paragraph_align_assoc[i].verb); */
-
-			gtk_html_set_paragraph_alignment (cd->html, paragraph_align_assoc[i].style);
-			return;
-		}
-	}
-}
-
 static void
-paragraph_style_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
-{
-	int i;
-	
-	for (i = 0; paragraph_style_assoc[i].verb != NULL; i++) {
-		if (!strcmp (cname, paragraph_style_assoc[i].verb)) {
-			/* g_warning ("setting style to: %s", 
-			   paragraph_style_assoc[i].verb); */
-
-			gtk_html_set_paragraph_style (cd->html, paragraph_style_assoc[i].style);
-			return;
-		}
-	}
-}
-
-static void 
 font_style_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
+        int i;
+                                                                              
+        /* g_warning ("wowee %s :: %s", path, state); */
+        for (i = 0; font_style_assoc[i].verb != NULL; i++) {
+                if (!strcmp (cname, font_style_assoc[i].verb)) {
+                        if (font_style_assoc[i].style > GTK_HTML_FONT_STYLE_MAX)
+                                gtk_html_set_font_style (cd->html, ~0,
+                                                         font_style_assoc[i].style);
+                        else
+                                gtk_html_set_font_style (cd->html,
+                                                         GTK_HTML_FONT_STYLE_MAX
+                                                         & ~GTK_HTML_FONT_STYLE_SIZE_MASK,
+                                                         font_style_assoc[i].style);
+                }
+        }
+}
+
+static void 
+command_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
+{
 	int i;
 	
-	/* g_warning ("wowee %s :: %s", path, state); */
-	for (i = 0; font_style_assoc[i].verb != NULL; i++) {
-		if (!strcmp (cname, font_style_assoc[i].verb)) {
-			if (font_style_assoc[i].style > GTK_HTML_FONT_STYLE_MAX)
-				gtk_html_set_font_style (cd->html, ~0,
-							 font_style_assoc[i].style); 
-			else
-				gtk_html_set_font_style (cd->html, 
-							 GTK_HTML_FONT_STYLE_MAX 
-							 & ~GTK_HTML_FONT_STYLE_SIZE_MASK, 
-							 font_style_assoc[i].style);
+	for (i = 0; command_assoc[i].verb != NULL; i++) {
+		if (!strcmp (cname, command_assoc[i].verb)) {
+			gtk_html_command (cd->html, command_assoc[i].command); 
+			return;
 		}
 	}
 }
@@ -695,7 +628,7 @@ menubar_setup (BonoboUIComponent  *uic,
 	bonobo_ui_component_add_verb_list_with_data (uic, verbs, cd);
 
 	/* printf ("xml: %s/%s\n", GTKHTML_DATADIR, "GNOME_GtkHTML_Editor.xml"); */
-	bonobo_ui_util_set_ui (uic, GTKHTML_DATADIR, "GNOME_GtkHTML_Editor.xml", "GNOME_GtkHTML_Editor", NULL);
+	bonobo_ui_util_set_ui (uic, GTKHTML_DATADIR, GTKHTML_DATADIR "/GNOME_GtkHTML_Editor.xml", "GNOME_GtkHTML_Editor", NULL);
 	spell_create_language_menu (cd);
 	menubar_update_format (cd);
 }
