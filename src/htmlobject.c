@@ -300,12 +300,12 @@ html_object_calc_abs_position (HTMLObject *o,
 
 	g_return_if_fail (o != NULL);
 
-	*x_return = 0;
-	*y_return = 0;
+	*x_return = o->x;
+	*y_return = o->y;
 
-	for (p = o; p != NULL; p = p->parent) {
+	for (p = o->parent; p != NULL; p = p->parent) {
 		*x_return += p->x;
-		*y_return += p->y;
+		*y_return += p->y - p->ascent;
 	}
 }
 

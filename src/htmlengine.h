@@ -205,6 +205,8 @@ void	    html_engine_set_editable (HTMLEngine *e, gboolean show);
 gint	    html_engine_get_doc_width (HTMLEngine *e);
 void	    html_engine_set_base_url (HTMLEngine *e, const char *url);
 
+void	    html_engine_make_cursor_visible (HTMLEngine *e);
+
 void	    html_engine_flush_draw_queue (HTMLEngine *e);
 void	    html_engine_queue_draw (HTMLEngine *e, HTMLObject *o);
 

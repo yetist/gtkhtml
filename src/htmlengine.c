@@ -548,7 +548,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 			if((bgurl = parse_href (e, token + 11))) {
 				string_url = html_url_to_string (bgurl);
 			
-				tablePixmapPtr = html_image_factory_register(e->image_factory, NULL, string_url);								
+				tablePixmapPtr = html_image_factory_register(e->image_factory, NULL, string_url);
 				if(tablePixmapPtr) {
 					rowPixmapPtr = tablePixmapPtr;
 					have_tablePixmap = have_rowPixmap = TRUE;
@@ -2449,7 +2449,7 @@ html_engine_init (HTMLEngine *engine)
 	engine->actualURL = NULL;
 	engine->newPage = FALSE;
 
-	engine->editable = FALSE;
+	engine->editable = TRUE;
 	engine->cursor = html_cursor_new ();
 
 	engine->ht = html_tokenizer_new ();
@@ -3234,6 +3234,43 @@ html_engine_set_base_url (HTMLEngine *e, const char *url)
 	e->actualURL = html_url_new (url);
 
 	gtk_signal_emit (GTK_OBJECT (e), signals[SET_BASE], url);
+}
+
+
+void
+html_engine_make_cursor_visible (HTMLEngine *e)
+{
+	HTMLCursor *cursor;
+	HTMLObject *object;
+	gint x, y;
+
+	g_return_if_fail (e != NULL);
+
+	if (! e->editable)
+		return;
+
+	cursor = e->cursor;
+	object = cursor->object;
+	if (object == NULL)
+		return;
+
+	if (cursor->offset == 0)
+		html_object_calc_abs_position (object, &x, &y);
+	else
+		html_text_calc_char_position (HTML_TEXT (object), cursor->offset, &x, &y);
+
+	x += e->leftBorder;
+	y += e->topBorder;
+
+	if (x + e->leftBorder >= e->x_offset + e->width)
+		e->x_offset = x + e->leftBorder - e->width + 1;
+	else if (x - e->leftBorder < e->x_offset)
+		e->x_offset = x - e->leftBorder;
+
+	if (y + object->descent + e->topBorder >= e->y_offset + e->height)
+		e->y_offset = y + object->descent + e->topBorder - e->height + 1;
+	else if (y - object->ascent - e->topBorder < e->y_offset)
+		e->y_offset = y - object->ascent - e->topBorder;
 }
 
 

@@ -1,5 +1,15 @@
 1999-12-28  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlpainter.c (html_painter_draw_cursor): Fix the cursor height:
+	it was one pixel too high.
+
+	* htmlobject.c (html_object_calc_abs_position): Take account for
+	the ascent.
+
+	* gtkhtml.c (idle_handler): Make cursor visible.
+
+	* htmlengine.c (html_engine_make_cursor_visible): New function.
+
 	* gtkhtml.c (key_press_event): Handle `GDK_Delete' and
 	`GDK_KP_Delete'.
 
