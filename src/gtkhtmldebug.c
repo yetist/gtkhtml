@@ -188,6 +188,17 @@ gtk_html_debug_dump_tree (HTMLObject *o,
 
 
 static void
+debug_word_width (HTMLText *t)
+{
+	guint i;
+
+	printf ("words: %d | ", t->words);
+	for (i = 0; i < t->words; i ++)
+		printf ("%d ", t->word_width [i]);
+	printf ("\n");
+}
+
+static void
 dump_object_simple (HTMLObject *obj,
 		    gint level)
 {
@@ -196,11 +207,12 @@ dump_object_simple (HTMLObject *obj,
 	for (i = 0; i < level; i++)
 		g_print ("\t");
 
-	if (html_object_is_text (obj))
+	if (html_object_is_text (obj)) {
 		g_print ("%s `%s'\n",
 			 html_type_name (HTML_OBJECT_TYPE (obj)),
 			 HTML_TEXT (obj)->text);
-	else if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_TEXTSLAVE) {
+		debug_word_width (HTML_TEXT (obj));
+	} else if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_TEXTSLAVE) {
 		HTMLTextSlave *slave = HTML_TEXT_SLAVE (obj);
 		gchar *text;
 

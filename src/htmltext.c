@@ -223,6 +223,10 @@ merge_word_width (HTMLText *t1, HTMLText *t2, HTMLPainter *p)
 {
 	guint len, i, words;
 
+	/* printf ("before merge '%s' '%s'\n", t1->text, t2->text);
+	debug_word_width (t1);
+	debug_word_width (t2); */
+
 	if (!t1->word_width)
 		return;
 
@@ -243,6 +247,9 @@ merge_word_width (HTMLText *t1, HTMLText *t2, HTMLPainter *p)
 
 	for (i = 0; i < t2->words; i ++)
 		t1->word_width [words + i - 1] = t2->word_width [i] + t1->word_width [words - 1];
+
+	/* printf ("after merge '%s%s'\n", t1->text, t2->text);
+	   debug_word_width (t1); */
 }
 
 static void
@@ -257,7 +264,8 @@ split_word_width (HTMLText *s, HTMLText *d, HTMLPainter *p, gint offset)
 		return;
 
 	/* printf ("before split '%s%s'\n", s->text, d->text);
-	   debug_word_width (s); */
+	   debug_word_width (s);
+	   debug_word_width (d); */
 
 	words     = get_words (s->text);
 	in_middle = d->text [0] == ' ' ? FALSE : TRUE;
@@ -288,8 +296,8 @@ split_word_width (HTMLText *s, HTMLText *d, HTMLPainter *p, gint offset)
 			+ (s->words > 1 ? s->word_width [s->words - 2] : 0);
 	}
 	/* printf ("after split '%s' '%s'\n", s->text, d->text);
-	debug_word_width (s);
-	debug_word_width (d); */
+	   debug_word_width (s);
+	   debug_word_width (d); */
 }
 
 HTMLObject *
@@ -399,10 +407,6 @@ object_merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e)
 	if (t1->font_style != t2->font_style || t1->color != t2->color)
 		return FALSE;
 
-	/* printf ("before merge '%s' '%s'\n", t1->text, t2->text);
-	debug_word_width (t1);
-	debug_word_width (t2); */
-
 	merge_word_width (t1, t2, e->painter);
 
 	move_spell_errors (t2->spell_errors, 0, t1->text_len);
@@ -416,11 +420,11 @@ object_merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e)
 	html_text_convert_nbsp (t1, TRUE);
 	html_object_change_set (self, HTML_CHANGE_ALL);
 
+	html_text_request_word_width (t1, e->painter);
+
 	/* printf ("--- after merge\n");
 	   debug_spell_errors (t1->spell_errors);
 	   printf ("---\n"); */
-	/* printf ("after merge '%s'\n", t1->text);
-	   debug_word_width (t1); */
 
 	return TRUE;
 }
@@ -429,36 +433,44 @@ static void
 object_split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint level, GList **left, GList **right)
 {
 	HTMLObject *dup, *prev;
-	HTMLText *text;
+	HTMLText *t1, *t2;
 	gchar *tt;
 
 	g_assert (self->parent);
 
 	html_clueflow_remove_text_slaves (HTML_CLUEFLOW (self->parent));
 
-	text            = HTML_TEXT (self);
+	t1              = HTML_TEXT (self);
 	dup             = html_object_dup (self);
-	tt              = text->text;
-	text->text      = g_strndup (tt, html_text_get_index (text, offset));
+	tt              = t1->text;
+	t1->text        = g_strndup (tt, html_text_get_index (t1, offset));
+	t1->text_len    = offset;
 	g_free (tt);
-	html_text_convert_nbsp (text, TRUE);
-	text->text_len  = offset;
+	html_text_convert_nbsp (t1, TRUE);
 
-	text            = HTML_TEXT (dup);
-	tt              = text->text;
-	text->text      = html_text_get_text (text, offset);
-	if (!html_text_convert_nbsp (text, FALSE))
-		text->text = g_strdup (text->text);
+	t2              = HTML_TEXT (dup);
+	tt              = t2->text;
+	t2->text        = html_text_get_text (t2, offset);
+	t2->text_len   -= offset;
+	if (!html_text_convert_nbsp (t2, FALSE))
+		t2->text = g_strdup (t2->text);
+	else {  /* take care of split in &nbsp; sequence */
+		guint len = strlen (t1->text);
+
+		if (t2->text [0] == ' '
+		    && ((len > 1 && (guchar) t1->text [len - 1] == 0xa0 && (guchar) t2->text [len - 2] == 0xc2)
+			|| (len && t1->text [len - 1] == ' ')))
+			clear_word_width (t1);
+	}
 	g_free (tt);
-	text->text_len -= offset;
 
 	html_clue_append_after (HTML_CLUE (self->parent), dup, self);
 
 	prev = self->prev;
-	if (HTML_TEXT (self)->text_len == 0 && prev && html_object_merge (prev, self, e))
+	if (t1->text_len == 0 && prev && html_object_merge (prev, self, e))
 		self = prev;
 
-	if (HTML_TEXT (dup)->text_len == 0 && dup->next)
+	if (t2->text_len == 0 && dup->next)
 		html_object_merge (dup, dup->next, e);
 
 	/* printf ("--- before split offset %d dup len %d\n", offset, HTML_TEXT (dup)->text_len);

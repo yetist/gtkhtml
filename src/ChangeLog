@@ -1,5 +1,7 @@
 2001-01-18  Radek Doulik  <rodo@helixcode.com>
 
+	* htmltext.c (object_split): take care of split in &nbsp; sequence
+
 	* htmlobject.c (html_object_merge): added engine parameter
 
 	* htmlengine-edit-cut-and-paste.c (html_engine_insert_text): call
