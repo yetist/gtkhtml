@@ -3,3 +3,4 @@ Makefile.in
 .libs
 .deps
 gtkhtml-properties-capplet
+gtkhtml-editor-properties-capplet

@@ -1,8 +1,6 @@
 [Desktop entry]
-Name=HTML Editor
-Name[tr]=HTML editörü
-Comment=HTML Editor properties
-Comment[tr]=HTML editör özellikleri
+Name=HTML Viewer
+Comment=HTML Viewer properties
 Exec=gtkhtml-properties-capplet
 Icon=gnome-unknown.png
 Terminal=0
