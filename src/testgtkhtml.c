@@ -287,20 +287,20 @@ create_toolbars (GtkWidget *app)
 
 }
 
-static gint page_num;
+static gint page_num, pages;
 static GnomeFont *font;
 
 static void
 print_footer (GtkHTML *html, GnomePrintContext *context,
 	      gdouble x, gdouble y, gdouble width, gdouble height, gpointer user_data)
 {
-	gchar *text = g_strdup_printf ("- %d -", page_num);
+	gchar *text = g_strdup_printf ("- %d of %d -", page_num, pages);
 	gdouble tw = gnome_font_get_width_string (font, "text");
 
 	if (font) {
 		gnome_print_newpath     (context);
 		gnome_print_setrgbcolor (context, .0, .0, .0);
-		gnome_print_moveto      (context, x + (width - tw)/2, y - (height + gnome_font_get_ascender (font))/2);
+		gnome_print_moveto      (context, x + (width - tw)/2, y - gnome_font_get_ascender (font));
 		gnome_print_setfont     (context, font);
 		gnome_print_show        (context, text);
 	}
@@ -324,8 +324,12 @@ print_preview_cb (GtkWidget *widget,
 	print_context = gnome_print_master_get_context (print_master);
 
 	page_num = 1;
+	pages = gtk_html_print_get_pages_num (html, print_context,
+					      .0, gnome_font_get_ascender (font) + gnome_font_get_descender (font));
 	font = gnome_font_new_closest ("Helvetica", GNOME_FONT_BOOK, FALSE, 12);
-	gtk_html_print_with_header_footer (html, print_context, .0, .03, NULL, print_footer, NULL);
+	gtk_html_print_with_header_footer (html, print_context,
+					   .0, gnome_font_get_ascender (font) + gnome_font_get_descender (font),
+					   NULL, print_footer, NULL);
 	if (font) gtk_object_unref (GTK_OBJECT (font));
 
 	preview = GTK_WIDGET (gnome_print_master_preview_new (print_master, "HTML Print Preview"));
