@@ -116,6 +116,8 @@ html_font_manager_finalize (HTMLFontManager *manager)
 {
 	html_font_set_release (&manager->variable, manager->painter);
 	html_font_set_release (&manager->fixed, manager->painter);
+	g_free (manager->fixed.face);
+	g_free (manager->variable.face);
 
 	release_fonts (manager);
 	g_hash_table_destroy (manager->font_sets);

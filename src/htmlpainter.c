@@ -45,6 +45,8 @@ finalize (GtkObject *object)
 	painter = HTML_PAINTER (object);
 	html_font_manager_finalize (&painter->font_manager);
 
+	html_colorset_destroy (painter->color_set);
+
 	/* FIXME ownership of the color set?  */
 
 	(* GTK_OBJECT_CLASS (parent_class)->finalize) (object);

@@ -1,3 +1,12 @@
+2001-04-14  Larry Ewing  <lewing@ximian.com>
+
+	* control-data.c (gtk_html_control_data_destroy): unref the
+	painters when we are destroyed.
+
+	* editor-control-factory.c (editor_init_painters): move the
+	painter initialization out of the logic, and make sure we ref both
+	painters.
+
 2001-04-14  Michael Meeks  <michael@ximian.com>
 
 	* Makefile.am (dist-hook): remove built files from package.

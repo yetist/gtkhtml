@@ -58,5 +58,13 @@ gtk_html_control_data_destroy (GtkHTMLControlData *cd)
 	if (cd->dict_client)
 		bonobo_object_unref (BONOBO_OBJECT (cd->dict_client));
 
+	if (cd->plain_painter) 
+		gtk_object_unref (GTK_OBJECT (cd->plain_painter));
+
+	if (cd->gdk_painter) 
+		gtk_object_unref (GTK_OBJECT (cd->gdk_painter));
+
 	g_free (cd);
 }
+
+

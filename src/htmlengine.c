@@ -3067,7 +3067,7 @@ html_engine_destroy (GtkObject *object)
 	engine->clue = NULL;
 	html_image_factory_free (engine->image_factory);
 
-	gtk_object_destroy (GTK_OBJECT (engine->painter));
+	gtk_object_unref (GTK_OBJECT (engine->painter));
 
 	html_stack_destroy (engine->color_stack);
 	html_stack_destroy (engine->font_style_stack);
@@ -4524,8 +4524,13 @@ void
 html_engine_set_painter (HTMLEngine *e, HTMLPainter *painter, gint max_width)
 {
 	gint min_width, pixel_size = html_painter_get_pixel_size (painter);
+	g_return_if_fail (painter != NULL);
+	g_return_if_fail (e != NULL);
 
+	gtk_object_ref (GTK_OBJECT (painter));
+	gtk_object_unref (GTK_OBJECT (e->painter));
 	e->painter = painter;
+	
 	max_width -= pixel_size * (e->leftBorder + e->rightBorder);
 
 	html_object_set_painter (e->clue, painter, max_width);

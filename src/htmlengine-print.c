@@ -130,9 +130,13 @@ html_engine_print (HTMLEngine *engine,
 }
 
 void
-html_engine_print_with_header_footer (HTMLEngine *engine, GnomePrintContext *print_context,
-				     gdouble header_height, gdouble footer_height,
-				     GtkHTMLPrintCallback header_print, GtkHTMLPrintCallback footer_print, gpointer user_data)
+html_engine_print_with_header_footer (HTMLEngine *engine, 
+				      GnomePrintContext *print_context,
+				      gdouble header_height, 
+				      gdouble footer_height,
+				      GtkHTMLPrintCallback header_print, 
+				      GtkHTMLPrintCallback footer_print, 
+				      gpointer user_data)
 {
 	HTMLPainter *printer;
 	HTMLPainter *old_painter;
@@ -149,12 +153,22 @@ html_engine_print_with_header_footer (HTMLEngine *engine, GnomePrintContext *pri
 				       prop->font_var_size_print, prop->font_fix_size_print);
 
 	max_width = engine->width = html_printer_get_page_width (HTML_PRINTER (printer));
+
+	gtk_object_ref (GTK_OBJECT (old_painter));
 	html_engine_set_painter (engine, printer, max_width);
 
-	print_all_pages (HTML_PAINTER (printer), engine, header_height, footer_height, header_print, footer_print, user_data);
+	print_all_pages (HTML_PAINTER (printer), 
+			 engine, 
+			 header_height,
+			 footer_height, 
+			 header_print, 
+			 footer_print, 
+			 user_data);
 
 	engine->width = old_width;
+
 	html_engine_set_painter (engine, old_painter, old_width);
+	gtk_object_unref (GTK_OBJECT (old_painter));
 	gtk_object_unref (GTK_OBJECT (printer));	
 }
 

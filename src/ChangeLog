@@ -1,3 +1,16 @@
+2001-04-14  Larry Ewing  <lewing@ximian.com>
+
+	* htmlfontmanager.c (html_font_manager_finalize): free the face.
+
+	* htmlpainter.c (finalize): destroy the colorset.
+
+	* htmlengine-print.c (html_engine_print_with_header_footer): ref
+	the old painter while we print.
+
+	* htmlengine.c (html_engine_set_painter): fixup refcounting of
+	painters.
+	(html_engine_destroy): use unref instead of destroy.
+
 2001-04-13  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine.c (parse_f): make sure we don't hold two references

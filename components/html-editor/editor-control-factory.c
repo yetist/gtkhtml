@@ -346,15 +346,12 @@ destroy_control_data_cb (GtkObject *control, GtkHTMLControlData *cd)
 }
 
 static void
-editor_set_format (GtkHTMLControlData *cd, gboolean format_html)
-{
-	HTMLGdkPainter *p, *old_p;
-	GtkHTML *html;
+editor_init_painters (GtkHTMLControlData *cd)
+{	
 	GtkHTMLClassProperties *prop;
+	GtkHTML *html;
 
 	g_return_if_fail (cd != NULL);
-	
-	cd->format_html = format_html;
 
 	html = cd->html;
 	prop = GTK_HTML_CLASS (GTK_OBJECT (html)->klass)->properties;
@@ -369,8 +366,25 @@ editor_set_format (GtkHTMLControlData *cd, gboolean format_html)
 					 HTML_PAINTER (cd->plain_painter)->color_set);
 
 		cd->gdk_painter = HTML_GDK_PAINTER (html->engine->painter);
+
+		/* the plain painter starts with a ref */
+		gtk_object_ref (GTK_OBJECT (cd->gdk_painter));
 	}	
+}
+
+static void
+editor_set_format (GtkHTMLControlData *cd, gboolean format_html)
+{
+	HTMLGdkPainter *p, *old_p;
+	GtkHTML *html;
+
+	g_return_if_fail (cd != NULL);
 	
+	editor_init_painters (cd);
+	
+	html = cd->html;
+	cd->format_html = format_html;
+
 	if (format_html) {
 		p = cd->gdk_painter;
 		old_p = cd->plain_painter;
@@ -484,6 +498,7 @@ editor_control_construct (BonoboControl *control, GtkWidget *vbox)
 				 "Whether or not to edit in HTML mode", 
 				 0);
 
+	CORBA_free (def);
 	/*
 	def = bonobo_arg_new (BONOBO_ARG_STRING);
 	BONOBO_ARG_SET_STRING (def, "");
