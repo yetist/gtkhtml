@@ -419,16 +419,28 @@ move_cell_rd (HTMLTable *t, HTMLTableCell *cell, gint rs, gint cs)
 {
 	gint r, c;
 
-	g_assert (rs >= 0 && cs >= 0 && (cs > 0 || rs > 0));
+	g_assert ((rs == 0 && cs > 0) || (cs == 0 && rs > 0));
 	printf ("move %dx%d --> %dx%d\n", cell->row, cell->col, cell->row + rs, cell->col + cs);
 	for (r = cell->row + cell->rspan - 1; r >= cell->row; r --)
 		for (c = cell->col + cell->cspan - 1; c >= cell->col; c --) {
-			if (t->cells [rs + r][cs + c] && t->cells [rs + r][cs + c]->col == cs + c && t->cells [rs + r][cs + c]->row == rs + r) {
-				printf ("move destroy: %dx%d\n", rs + r, cs + c);
-				html_object_destroy (HTML_OBJECT (t->cells [rs + r][cs + c]));
+			if (r > cell->row + cell->rspan - 1 - rs || c > cell->col + cell->cspan - 1 - cs) {
+				gint nr = rs + r - (rs ? cell->rspan : 0), nc = cs + c - (cs ? cell->cspan : 0);
+
+				printf ("exchange: %dx%d <--> %dx%d (%p)\n", rs + r, cs + c, nr, nc, t->cells [rs][nc]);
+				t->cells [nr][nc] = t->cells [rs + r][cs + c];
+				if (t->cells [nr][nc])
+					html_table_cell_set_position (t->cells [nr][nc], nr, nc);
+				t->cells [rs + r][cs + c] = cell;
+			} else {
+				if (r >= cell->row + rs && c >= cell->col + cs) {
+					if (t->cells [rs + r][cs + c] && t->cells [rs + r][cs + c]->col == cs + c && t->cells [rs + r][cs + c]->row == rs + r) {
+						printf ("move destroy: %dx%d\n", rs + r, cs + c);
+						html_object_destroy (HTML_OBJECT (t->cells [rs + r][cs + c]));
+					}
+					t->cells [r][c] = NULL;
+				}
+				t->cells [rs + r][cs + c] = cell;
 			}
-			t->cells [r][c] = NULL;
-			t->cells [rs + r][cs + c] = cell;
 			printf ("cell %dx%d <--\n", rs + r, cs + c);
 		}
 	printf ("set  %dx%d --> %dx%d\n", cell->row, cell->col, cell->row + rs, cell->col + cs);
@@ -463,8 +475,10 @@ expand_cspan (HTMLEngine *e, HTMLTableCell *cell, gint cspan, HTMLUndoDirection 
 			for (r = cell->row; r < cell->row + cell->rspan; r ++) {
 				HTMLTableCell *ccell = table->cells [r][c];
 
-				if (ccell && ccell->col == c && ccell->row == r)
+				if (ccell && ccell->col == c) {
 					move_cell_rd (table, ccell, 0, max_move);
+					r += ccell->rspan - 1;
+				}
 			}
 	}
 
@@ -531,8 +545,10 @@ expand_rspan (HTMLEngine *e, HTMLTableCell *cell, gint rspan, HTMLUndoDirection 
 			for (c = cell->col; c < cell->col + cell->cspan; c ++) {
 				HTMLTableCell *ccell = table->cells [r][c];
 
-				if (ccell && ccell->col == c && ccell->row == r)
+				if (ccell && ccell->row == r) {
 					move_cell_rd (table, ccell, max_move, 0);
+					c += ccell->cspan - 1;
+				}
 			}
 	}
 
