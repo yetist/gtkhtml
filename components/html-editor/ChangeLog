@@ -1,5 +1,13 @@
 2000-06-10  Ariel Rios  <ariel@arcavia.com>
 
+	* rule.c (combo_align_cb): Function for checking the desired alignment option.
+	(button_rule_cb): We now use the shade and halign values from the code instead.
+	(gtk_html_rule_dialog_new): We now point the content of the align const array  unto
+	the structure.
+	Added the signal for the check button.
+	The rule dialog is complete.
+	
+2000-06-10  Ariel Rios  <ariel@arcavia.com>
 	* popup.c (prop): In the HTML_TYPE_RULE case we now pass the object as a parameter to rule_edit. 
 
 	* rule.c (rule_insert): Added reference to the new dialog variable rule and set it to NULL.

@@ -39,40 +39,48 @@ struct _GtkHTMLRuleDialog {
 	HTMLRule      *rule;
 	gboolean       shade;
 	HTMLHAlignType halign;
+
+	gchar **align; 
 };
 
+
+
+static void
+combo_align_cb (GtkHTMLRuleDialog *d)
+{
+	gchar *str = gtk_entry_get_text (GTK_ENTRY (GTK_COMBO (d->combo)->entry));
+	gint i = 0;
+	
+	for (i = 0; i < 4; i++)
+		if (!strcmp (str, (const gchar *)d->align [i]))
+			break;
+	
+	switch (i) {
+	case 0 : d->halign = HTML_HALIGN_LEFT; 
+		break;
+	case 1 : d->halign = HTML_HALIGN_CENTER;
+		break;
+	case 2 : d->halign = HTML_HALIGN_RIGHT;
+		break;
+	case 3 : d->halign= HTML_HALIGN_NONE;
+		break;
+	}
+	
+	g_free (str);
+	
+}
 
 static void 
 set_get_values (GtkWidget **spin, gint *val, gboolean flag)
 {
 	gint i;
 	
-	if (flag)
-		for (i = 0; i < 3; i++)
+	if (flag) 
+		for (i = 0; i < 3; i++) 
 			val [i] = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (spin [i]));
 	else
 		for (i = 0; i < 3; i++)
 			gtk_spin_button_set_value (GTK_SPIN_BUTTON (spin [i]), (gfloat) val [i]);
-}
-
-static void
-button_rule_cb (GtkWidget *but, GtkHTMLRuleDialog *d)
-{
-	gint val [3];
-	
-	set_get_values (d->spin, val, TRUE);
-
-	if (!d->rule) {
-		html_engine_insert_rule (d->html->engine, val [0], val [1], val [2], TRUE, HTML_HALIGN_NONE);
-		return;
-	}
-	
-	d->rule->length  = val [0]; 
-	d->rule->size    = val [2];
-	d->rule->shade  = d->shade;
-	d->rule->halign  = d->halign;
-	
-	html_engine_schedule_update (d->html->engine);
 }
 
 static void
@@ -81,11 +89,29 @@ button_shade_cb (GtkWidget *but, GtkHTMLRuleDialog *d)
 	d->shade = !d->shade;
 }
 
+	
 static void
-combo_align_cb (GtkWidget *but, GtkHTMLRuleDialog *d)
+button_rule_cb (GtkWidget *but, GtkHTMLRuleDialog *d)
 {
+	gint val [3];
+	
+	set_get_values (d->spin, val, TRUE);
+	
+	if (!d->rule) {
+		combo_align_cb (d);
+		html_engine_insert_rule (d->html->engine, val [0], val [1], val [2], d->shade, d->halign);
+		return;
+	}
+	
+	d->rule->length  = val [0]; 
+	d->rule->size    = val [2];
+	d->rule->shade   = d->shade;
+	d->rule->halign  = d->halign;
+	
+	html_engine_schedule_update (d->html->engine);
 }
 
+	
 GtkHTMLRuleDialog *
 gtk_html_rule_dialog_new (GtkHTML *html)
 {
@@ -93,17 +119,26 @@ gtk_html_rule_dialog_new (GtkHTML *html)
 	GtkWidget *vbox  [4];
 	GtkWidget *label [3];
 	GtkWidget *hbox;
+	GList     *ls = NULL;
 	gint i;
-	gchar *name [] = {_("Length"), _("Percent"), _("Size")}; 
-
-	d->dialog    = GNOME_DIALOG (gnome_dialog_new (_("Rule"), GNOME_STOCK_BUTTON_OK,
-						    GNOME_STOCK_BUTTON_CANCEL, NULL));
+	gchar *name []            = {_("Length"), _("Percent"), _("Size")}; 
+	static gchar *align []    =   {_("Left Align"), _("Center Align"), _("Right Align"), _("None")};
+	
+	d->align      = g_malloc (sizeof (align));
+	d->align      = align;
+	d->dialog     = GNOME_DIALOG (gnome_dialog_new (_("Rule"), GNOME_STOCK_BUTTON_OK,
+						       GNOME_STOCK_BUTTON_CANCEL, NULL));
 	d->html       = html;
 	d->check      = gtk_check_button_new_with_label (_("Set Shade"));
 	d->combo      = gtk_combo_new ();
-	d->shade     = TRUE;
-	d->halign     = HTML_HALIGN_NONE;
+	
 	hbox          = gtk_hbox_new (FALSE, 3);
+
+	for (i = 0; i < 4; i++)
+		ls = g_list_append (ls, d->align [i]);
+	
+	gtk_combo_set_popdown_strings(GTK_COMBO (d->combo), ls);
+	gtk_entry_set_editable (GTK_ENTRY (GTK_COMBO (d->combo)->entry), FALSE);
 
 	for (i = 0; i < 3; i++) {
 
@@ -117,11 +152,15 @@ gtk_html_rule_dialog_new (GtkHTML *html)
 	}
 
 	gtk_toggle_button_set_mode (GTK_TOGGLE_BUTTON (d->check), TRUE);
-	
+
+
+	gtk_signal_connect (GTK_OBJECT (GTK_CHECK_BUTTON (d->check)), "toggled", 
+			    GTK_SIGNAL_FUNC (button_shade_cb), d);
+
 	gtk_box_pack_start_defaults (GTK_BOX (d->dialog->vbox), hbox);
 	gtk_box_pack_start_defaults (GTK_BOX (d->dialog->vbox), d->check);
 	gtk_box_pack_start_defaults (GTK_BOX (d->dialog->vbox), d->combo);
-
+	
 	gtk_widget_show_all (d->dialog->vbox);
 	
 	gnome_dialog_button_connect (d->dialog, 0, button_rule_cb, d);
@@ -141,6 +180,7 @@ void
 rule_insert (GtkHTMLControlData *cd)
 {
 	RUN_DIALOG (rule);
+	cd->rule_dialog->shade = TRUE;
 	cd->rule_dialog->rule = NULL;
 }
 
@@ -149,6 +189,7 @@ rule_edit (GtkHTMLControlData *cd, HTMLRule *r)
 {
 	GtkHTMLRuleDialog *d = cd->rule_dialog;
 	gint val [3];
+
 	RUN_DIALOG (rule);
 	
 	d->rule = r;
