@@ -635,9 +635,6 @@ draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, HT
 		const gchar *c_text = text;
 		PangoAttrIterator *iter = NULL;
 
-		if (attrs)
-			iter = pango_attr_list_get_iterator (attrs);
-
 		html_printer_coordinates_to_gnome_print (printer, x, y, &print_x, &print_y);
 		c_text = text;
 		for (gl = glyphs; gl && char_offset < len; gl = gl->next) {
@@ -656,25 +653,23 @@ draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, HT
 			c_bytes = g_utf8_offset_to_pointer (c_text, str->num_glyphs) - c_text;
 			gnome_print_gsave (printer->context);
 			bgcolor = underline = strikethrough = FALSE;
-			process_attrs (printer, pi->entries [ii].item->analysis.extra_attrs, &style, &bgcolor, &underline, &strikethrough, TRUE);
+
+			if (attrs)
+				iter = pango_attr_list_get_iterator (attrs);
 
 			if (iter) {
-				pango_attr_iterator_range (iter, &begin, &end);
-				while (begin < c_text - text) {
-					if (!pango_attr_iterator_next (iter)) {
-						pango_attr_iterator_destroy (iter);
-						iter = NULL;
-						break;
-					}
+				do {
 					pango_attr_iterator_range (iter, &begin, &end);
-				}
-				if (iter && begin < (c_text - text) + c_bytes) {
-					GSList *attr_list;
-					attr_list = pango_attr_iterator_get_attrs (iter);
-					process_attrs (printer, attr_list, &style, &bgcolor, &underline, &strikethrough, TRUE);
-					html_text_free_attrs (attr_list);
-				}
+					if (iter && MAX (begin, c_text - text) < MIN (end, (c_text - text) + c_bytes)) {
+						GSList *attr_list;
+						attr_list = pango_attr_iterator_get_attrs (iter);
+						process_attrs (printer, attr_list, &style, &bgcolor, &underline, &strikethrough, TRUE);
+						html_text_free_attrs (attr_list);
+					}
+				} while (pango_attr_iterator_next (iter));
+				pango_attr_iterator_destroy (iter);
 			}
+			process_attrs (printer, pi->entries [ii].item->analysis.extra_attrs, &style, &bgcolor, &underline, &strikethrough, TRUE);
 			if (style != GTK_HTML_FONT_STYLE_DEFAULT)
 				c_font = html_painter_get_font (HTML_PAINTER (printer), HTML_PAINTER (printer)->font_face, style);
 
@@ -725,8 +720,6 @@ draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, HT
 			c_text += c_bytes;
 			char_offset += str->num_glyphs;
 		}
-		if (iter)
-			pango_attr_iterator_destroy (iter);
 	}
 
 	if (temp_pi) {
@@ -807,9 +800,6 @@ text_size (HTMLPainter *painter, const gchar *text, guint blen, HTMLTextPangoInf
 		PangoGlyphString *str;
 		PangoAttrIterator *iter = NULL;
 
-		if (attrs)
-			iter = pango_attr_list_get_iterator (attrs);
-
 		c_text = text;
 		for (gl = glyphs; gl && char_offset < blen; gl = gl->next) {
 			GnomeFont *c_font;
@@ -821,25 +811,24 @@ text_size (HTMLPainter *painter, const gchar *text, guint blen, HTMLTextPangoInf
 			style = GTK_HTML_FONT_STYLE_DEFAULT;
 			c_font = font;
 			c_bytes = g_utf8_offset_to_pointer (c_text, str->num_glyphs) - c_text;
-			process_attrs (printer, pi->entries [ii].item->analysis.extra_attrs, &style, NULL, NULL, NULL, FALSE);
+
+			if (attrs)
+				iter = pango_attr_list_get_iterator (attrs);
 
 			if (iter) {
-				pango_attr_iterator_range (iter, &begin, &end);
-				while (begin < c_text - text) {
-					if (!pango_attr_iterator_next (iter)) {
-						pango_attr_iterator_destroy (iter);
-						iter = NULL;
-						break;
-					}
+				do {
 					pango_attr_iterator_range (iter, &begin, &end);
-				}
-				if (iter && begin < (c_text - text) + c_bytes) {
-					GSList *attr_list;
-					attr_list = pango_attr_iterator_get_attrs (iter);
-					process_attrs (printer, attr_list, &style, NULL, NULL, NULL, FALSE);
-					html_text_free_attrs (attr_list);
-				}
+					if (iter && MAX (begin, c_text - text) < MIN (end, (c_text - text) + c_bytes)) {
+						GSList *attr_list;
+						attr_list = pango_attr_iterator_get_attrs (iter);
+						process_attrs (printer, attr_list, &style, NULL, NULL, NULL, FALSE);
+						html_text_free_attrs (attr_list);
+					}
+				} while (pango_attr_iterator_next (iter));
+				pango_attr_iterator_destroy (iter);
 			}
+
+			process_attrs (printer, pi->entries [ii].item->analysis.extra_attrs, &style, NULL, NULL, NULL, FALSE);
 			if (style != GTK_HTML_FONT_STYLE_DEFAULT)
 				c_font = html_painter_get_font (HTML_PAINTER (printer), HTML_PAINTER (printer)->font_face, style);
 
@@ -853,8 +842,6 @@ text_size (HTMLPainter *painter, const gchar *text, guint blen, HTMLTextPangoInf
 			c_text += c_bytes;
 			char_offset += str->num_glyphs;
 		}
-		if (iter)
-			pango_attr_iterator_destroy (iter);
 	}
 
 	if (temp_pi) {

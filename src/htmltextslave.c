@@ -642,8 +642,8 @@ draw_normal (HTMLTextSlave *self,
 			gchar *text = html_text_slave_get_text (self);
 			gint start_index, end_index;
 
-			start_index = html_text_slave_get_text (self) - self->owner->text;
-			end_index = g_utf8_offset_to_pointer (text, self->posLen) - text;
+			start_index = text - self->owner->text;
+			end_index = g_utf8_offset_to_pointer (text, self->posLen) - self->owner->text;
 			attrs = html_text_get_attr_list (self->owner, start_index, end_index);
 		}
 
