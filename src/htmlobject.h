@@ -162,13 +162,14 @@ struct _HTMLObjectClass {
            TRUE otherwise.  */
 	gboolean (* relayout) (HTMLObject *self, HTMLEngine *engine, HTMLObject *child);
 
+	/* Cursor handling.  */
 	gboolean (* accepts_cursor) (HTMLObject *self);
-
 	void (* get_cursor) (HTMLObject *self, HTMLPainter *painter, guint offset,
 			     gint *x1, gint *y1, gint *x2, gint *y2);
-
 	void (* get_cursor_base) (HTMLObject *self, HTMLPainter *painter, guint offset,
 				  gint *x, gint *y);
+
+	gboolean (* select_range) (HTMLObject *self, guint start, gint length);
 };
 
 
@@ -254,8 +255,8 @@ HTMLObject *html_object_check_point      (HTMLObject  *clue,
 					  guint       *offset_return);
 
 /* Selection.  */
-void  html_object_select  (HTMLObject *obj,
-			   HTMLEngine *e,
-			   gboolean    select);
+gboolean  html_object_select_range  (HTMLObject *obj,
+				     guint       start,
+				     gint        length);
 
 #endif /* _HTMLOBJECT_H_ */

@@ -1,5 +1,29 @@
 2000-01-21  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmltextmaster.c (html_text_master_init): Initialize
+	`select_start', `select_length'.
+	(select_range): New function, implementation of
+	`HTMLObject::select_range()'.
+	(split): Split the selection between self the newly created text
+	master.
+	(insert_text): New function, implementation of
+	`HTMLText::insert_text'.  Used to update the selection after
+	selection happens.
+	(remove_text): New function, implementation of
+	`HTMLText::remove_text'.  Used to update the selection after the
+	removal happens.
+	(html_text_master_class_init): Install these implementations.
+
+	* htmltextmaster.h: New member `select_start', `select_length'.
+
+	* htmlobject.c (html_object_select): Removed.
+	(select_range): New function, default implementation of
+	`HTMLObject::select_range()'.
+	(html_object_select_range): New function.
+	(html_object_class_init): Install it.
+
+	* htmlobject.h: New virtual method `HTMLObject::select_range()'.
+
 	* htmlengine.c (html_engine_init): Set the color set in the
 	painter.
 

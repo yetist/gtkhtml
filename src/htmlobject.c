@@ -236,6 +236,29 @@ get_cursor_base (HTMLObject *self,
 		*x += self->width;
 }
 
+static gboolean
+select_range (HTMLObject *self,
+	      guint start,
+	      gint length)
+{
+	gboolean selected;
+	gboolean changed;
+
+	if (length != 0)
+		selected = TRUE;
+	else
+		selected = FALSE;
+
+	if ((! selected && self->selected) || (selected && ! self->selected))
+		changed = TRUE;
+	else
+		changed = FALSE;
+
+	self->selected = TRUE;
+
+	return changed;
+}
+
 
 /* Class initialization.  */
 
@@ -274,6 +297,7 @@ html_object_class_init (HTMLObjectClass *klass,
 	klass->accepts_cursor = accepts_cursor;
 	klass->get_cursor = get_cursor;
 	klass->get_cursor_base = get_cursor_base;
+	klass->select_range = select_range;
 }
 
 void
@@ -485,18 +509,12 @@ html_object_get_cursor_base (HTMLObject *self,
 	(* HO_CLASS (self)->get_cursor_base) (self, painter, offset, x, y);
 }
 
-
-void
-html_object_select (HTMLObject *obj,
-		    HTMLEngine *e,
-		    gboolean select)
+gboolean
+html_object_select_range (HTMLObject *self,
+			  guint start,
+			  gint length)
 {
-	g_return_if_fail (obj != NULL);
-
-	if ((! obj->selected && select) || (obj->selected && select)) {
-		obj->selected = select;
-		html_engine_queue_draw (e, obj);
-	}
+	return (* HO_CLASS (self)->select_range) (self, start, length);
 }
 
 

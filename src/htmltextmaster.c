@@ -29,6 +29,8 @@
 
 HTMLTextMasterClass html_text_master_class;
 
+static HTMLTextClass *parent_class;
+
 
 /* HTMLObject methods.  */
 
@@ -157,6 +159,12 @@ split (HTMLText *self,
 	self->text[offset] = '\0';
 	HTML_TEXT (self)->text_len = offset;
 
+	if (master->select_length != 0 && offset < master->select_start + master->select_length) {
+		master->select_length = offset - master->select_start;
+		html_object_select_range (HTML_OBJECT (new),
+					  0, master->select_length - (offset - master->select_start));
+	}
+
 	return HTML_TEXT (new);
 }
 
@@ -185,6 +193,77 @@ check_point (HTMLObject *self,
 	}
 
 	return NULL;
+}
+
+static gboolean
+select_range (HTMLObject *self,
+	      guint offset,
+	      gint length)
+{
+	HTMLTextMaster *master;
+	gboolean changed;
+
+	master = HTML_TEXT_MASTER (self);
+
+	if (offset != master->select_start || length != master->select_length)
+		changed = TRUE;
+	else
+		changed = FALSE;
+
+	master->select_start = offset;
+	master->select_length = length;
+
+	if (length == 0)
+		self->selected = FALSE;
+	else
+		self->selected = TRUE;
+
+	return changed;
+}
+
+static guint
+insert_text (HTMLText *text,
+	     HTMLEngine *engine,
+	     guint offset,
+	     const gchar *p,
+	     guint len)
+{
+	HTMLTextMaster *master;
+	gboolean chars_inserted;
+
+	master = HTML_TEXT_MASTER (text);
+	chars_inserted = HTML_TEXT_CLASS (parent_class)->insert_text (text, engine, offset, p, len);
+
+	if (chars_inserted > 0
+	    && offset >= master->select_start
+	    && offset < master->select_start + master->select_length)
+		master->select_length += chars_inserted;
+
+	return chars_inserted;
+}
+
+static guint
+remove_text (HTMLText *text,
+	     HTMLEngine *engine,
+	     guint offset,
+	     guint len)
+{
+	HTMLTextMaster *master;
+	gboolean chars_removed;
+
+	master = HTML_TEXT_MASTER (text);
+	chars_removed = HTML_TEXT_CLASS (parent_class)->remove_text (text, engine, offset, len);
+
+	if (chars_removed > 0
+	    && offset >= master->select_start
+	    && offset < master->select_start + master->select_length) {
+		if (chars_removed > master->select_length)
+			master->select_length = 0;
+		else
+			master->select_length -= chars_removed;
+	}
+
+	return chars_removed;
 }
 
 
@@ -309,11 +388,16 @@ html_text_master_class_init (HTMLTextMasterClass *klass,
 	object_class->get_cursor = get_cursor;
 	object_class->get_cursor_base = get_cursor_base;
 	object_class->check_point = check_point;
+	object_class->select_range = select_range;
 
 	/* HTMLText methods.  */
 
 	text_class->queue_draw = queue_draw;
 	text_class->split = split;
+	text_class->insert_text = insert_text;
+	text_class->remove_text = remove_text;
+
+	parent_class = & html_text_class;
 }
 
 void
@@ -330,6 +414,9 @@ html_text_master_init (HTMLTextMaster *master,
 	object = HTML_OBJECT (master);
 
 	html_text_init (html_text, HTML_TEXT_CLASS (klass), text, font_style, color);
+
+	master->select_start = 0;
+	master->select_length = 0;
 }
 
 HTMLObject *

@@ -36,6 +36,9 @@ typedef struct _HTMLTextMasterClass HTMLTextMasterClass;
 
 struct _HTMLTextMaster {
 	HTMLText text;
+
+	guint select_start;
+	guint select_length;
 };
 
 struct _HTMLTextMasterClass {
