@@ -19,8 +19,8 @@
     Boston, MA 02111-1307, USA.
 */
 
-#ifndef _HTMLENGINE_EDIT_STYLES_H
-#define _HTMLENGINE_EDIT_STYLES_H
+#ifndef _HTMLENGINE_EDIT_CLUEFLOW_STYLE_H
+#define _HTMLENGINE_EDIT_CLUEFLOW_STYLE_H
 
 #include "htmlengine.h"
 #include "htmlclueflow.h"
@@ -30,4 +30,4 @@ HTMLClueFlowStyle  html_engine_get_current_clueflow_style  (HTMLEngine        *e
 gboolean           html_engine_set_clueflow_style          (HTMLEngine        *engine,
 							    HTMLClueFlowStyle  style);
 
-#endif /* _HTMLENGINE_EDIT_STYLES_H */
+#endif /* _HTMLENGINE_EDIT_CLUEFLOW_STYLE_H */

@@ -27,10 +27,10 @@ libgtkhtml_HEADERS =				\
 	htmlembedded.h				\
 	htmlengine-cutbuffer.h			\
 	htmlengine-edit.h			\
+	htmlengine-edit-clueflowstyle.h		\
 	htmlengine-edit-copy.h			\
 	htmlengine-edit-cut.h			\
 	htmlengine-edit-paste.h			\
-	htmlengine-edit-styles.h		\
 	htmlengine-print.h			\
 	htmlengine-save.h			\
 	htmlengine.h				\
@@ -89,10 +89,10 @@ libgtkhtml_la_SOURCES =				\
 	htmlembedded.c				\
 	htmlengine-cutbuffer.c			\
 	htmlengine-edit.c			\
+	htmlengine-edit-clueflowstyle.c		\
 	htmlengine-edit-copy.c			\
 	htmlengine-edit-cut.c			\
 	htmlengine-edit-paste.c			\
-	htmlengine-edit-styles.c		\
 	htmlengine-print.c			\
 	htmlengine-save.c			\
 	htmlengine.c				\

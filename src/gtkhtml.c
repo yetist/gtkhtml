@@ -23,7 +23,8 @@
 #include <gtk/gtk.h>
 
 #include "htmlengine-edit.h"
-#include "htmlengine-edit-styles.h"
+#include "htmlengine-edit-paste.h"
+#include "htmlengine-edit-clueflowstyle.h"
 #include "htmlengine-print.h"
 
 #include "gtkhtml-private.h"

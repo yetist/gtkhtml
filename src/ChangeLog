@@ -1,3 +1,8 @@
+2000-02-19  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine-edit-styles.c: Renamed to `htmlengine-edit-styles.c'.
+	* htmlengine-edit-styles.h: Renamed to `htmlengine-edit-styles.h'.
+
 2000-02-16  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* gtkhtml.c (key_press_event): Temporarily bind `GDK_F3' to

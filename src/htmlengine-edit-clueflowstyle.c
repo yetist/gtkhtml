@@ -19,7 +19,7 @@
     Boston, MA 02111-1307, USA.
 */
 
-#include "htmlengine-edit-styles.h"
+#include "htmlengine-edit-clueflowstyle.h"
 
 /* FIXME check if we should override the indentation for certain styles.
    (Indentation *might* be invalid with certain styles.)  */
