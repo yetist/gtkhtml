@@ -25,8 +25,8 @@
 #include "htmlengine-edit-table.h"
 
 
-void
-html_engine_insert_table (HTMLEngine *e,
+HTMLObject *
+html_engine_create_table (HTMLEngine *e,
 			  gint width,
 			  gint percent,
 			  gint padding,
@@ -40,15 +40,34 @@ html_engine_insert_table (HTMLEngine *e,
 
 	table = html_table_new (e, width, percent, padding, spacing, border);
 
-	/* FIXME
-	   Need to create the cell
-	*/
-	
-	html_engine_pase_object (e, image, TRUE);
-	html_object_destroy (image);
+  	return table;
 
 }
-				
+
+void
+html_engine_insert_table (HTMLEngine *e, gint *values)
+{
+	gint row   =  values [0];
+	gint cols  =  values [1];
+	gint r, c;
+	HTMLObject *table = html_engine_insert_table (e, values [2], values [3], values [4], values [5], values [6]);
+	
+	for (r = 0; r < row; row++) {
+		html_table_start_row (table);
+		for (c = 0; c < cols, cols++) {
+			HTMLObject * cell = html_engine_insert_table_cell (e, percent, r, c, values [5], NULL, NULL);
+			html_table_add_cell (table, cell);
+			html_engine_paste_object (e, cell, TRUE);
+			g_free (cell);
+		}
+		html_table_end_row (table);
+	}
+	
+	html_table_end_table (table);
+	
+	html_engine_paste_object (e, table, TRUE);
+	html_object_destroy (table);		
+}
 
 HTMLObject *
 html_engine_insert_table_cell (HTMLEngine *e,
@@ -74,6 +93,7 @@ html_engine_insert_table_cell (HTMLEngine *e,
 
 	return cell;
 }
+
 
 
 

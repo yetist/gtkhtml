@@ -1,3 +1,11 @@
+2000-06-04  Ariel Rios  <ariel@arcavia.com>
+
+	* htmlengine-edit-table.h: (html_engine_create_table) Added proto.
+
+	* htmlengine-edit-table.c (html_engine_create_table): Create and return a new table.
+	(html_engine_insert_table) We now create the table and add rows and cols as required.
+	Still need to find a good way to send the cell parameters.
+
 2000-06-03  Ariel Rios  <ariel@arcavia.com>
 
 	* htmlengine-edit-table.c: New file needed to add table editing capabilities.
