@@ -1,5 +1,7 @@
 2003-02-23  Larry Ewing  <lewing@ximian.com>
 
+	* gtkhtml.c: stub in some gobject property code.
+
 	* gtkhtml-properties.c (gtk_html_class_properties_new): read the
 	settings from from the style.
 

@@ -121,6 +121,16 @@ enum {
 	/* now only last signal */
 	LAST_SIGNAL
 };
+
+/* #define USE_PROPS */
+#ifdef USE_PROPS
+enum {
+	PROP_0,
+	PROP_EDITABLE,
+	PROP_TITLE
+};
+#endif
+
 static guint signals [LAST_SIGNAL] = { 0 };
 
 static void
@@ -137,6 +147,10 @@ static gint     mouse_change_pos       (GtkWidget *widget, GdkWindow *window, gi
 static void     load_keybindings       (GtkHTMLClass *klass);
 static void     set_editor_keybindings (GtkHTML *html, gboolean editable);
 static gchar *  get_value_nick         (GtkHTMLCommandType com_type);
+
+static void     gtk_html_get_property  (GObject *object, guint prop_id, GValue *value, GParamSpec *pspec);
+static void     gtk_html_set_property  (GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec);
+					
 
 
 /* Values for selection information.  FIXME: what about COMPOUND_STRING and
@@ -2416,13 +2430,15 @@ drag_data_received (GtkWidget *widget, GdkDragContext *context,
 static void
 gtk_html_class_init (GtkHTMLClass *klass)
 {
+	GObjectClass      *gobject_class;
 	GtkHTMLClass      *html_class;
 	GtkWidgetClass    *widget_class;
 	GtkObjectClass    *object_class;
 	GtkLayoutClass    *layout_class;
 	GtkContainerClass *container_class;
 	
-	html_class = (GtkHTMLClass *)klass;
+	html_class = (GtkHTMLClass *) klass;
+	gobject_class = (GObjectClass *) klass;
 	widget_class = (GtkWidgetClass *) klass;
 	object_class = (GtkObjectClass *) klass;
 	layout_class = (GtkLayoutClass *) klass;
@@ -2629,7 +2645,26 @@ gtk_html_class_init (GtkHTMLClass *klass)
 
 	object_class->destroy = destroy;
 	
-	
+#ifdef USE_PROPS
+	gobject_class->get_property = gtk_html_get_property;
+	gobject_class->set_property = gtk_html_set_property;
+
+	g_object_class_install_property (gobject_class,
+					 PROP_EDITABLE,
+					 g_param_spec_boolean ("editable",
+							       _("Editable"),
+							       _("Whether the html can be edited"),
+							       FALSE,
+							       G_PARAM_READABLE | G_PARAM_WRITABLE));
+	g_object_class_install_property (gobject_class,
+					 PROP_TITLE,
+					 g_param_spec_string ("title",
+							      _("Document Title"),
+							      _("The title of the current document"),
+							      NULL,
+							      G_PARAM_WRITABLE | G_PARAM_READABLE));
+#endif
+
 	gtk_widget_class_install_style_property (widget_class,
 						 g_param_spec_string ("fixed_font",
 								     _("Fixed Width Font"),
@@ -3234,6 +3269,51 @@ gtk_html_private_calc_scrollbars (GtkHTML *html, gboolean *changed_x, gboolean *
 }
 
 
+
+#ifdef USE_PROPS
+static void
+gtk_html_set_property (GObject        *object,
+		       guint           prop_id,
+		       const GValue   *value,
+		       GParamSpec     *pspec)
+{
+	GtkHTML *html = GTK_HTML (object);
+
+	switch (prop_id) {
+	case PROP_EDITABLE:
+		gtk_html_set_editable (html, g_value_get_boolean (value));
+		break;
+	case PROP_TITLE:
+		gtk_html_set_title (html, g_value_get_string (value));
+		break;
+	default:
+		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+		break;
+	}
+}
+
+static void
+gtk_html_get_property (GObject    *object,
+		       guint       prop_id,
+		       GValue     *value,
+		       GParamSpec *pspec)
+{
+	GtkHTML *html = GTK_HTML (object);
+		       
+	switch (prop_id) {
+	case PROP_EDITABLE:
+		g_value_set_boolean (value, gtk_html_get_editable (html));
+		break;
+	case PROP_TITLE:
+		g_value_set_static_string (value, gtk_html_get_title (html));
+		break;
+	default:
+		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+		break;
+	}
+}
+#endif
+
 void
 gtk_html_set_editable (GtkHTML *html,
 		       gboolean editable)
