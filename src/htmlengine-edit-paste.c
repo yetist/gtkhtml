@@ -662,40 +662,6 @@ html_engine_paste_buffer (HTMLEngine *engine,
 }
 
 /**
- * html_engine_paste_object:
- * @engine: An HTMLEngine
- * @object: Object to be pasted
- * @do_undo: Whether we want to save undo information for this op.
- * 
- * Paste @buffer at the current cursor position.
- **/
-void
-html_engine_paste_object (HTMLEngine *engine,
-			  HTMLObject *object,
-			  gboolean do_undo)
-{
-	GList *tmp_buffer;
-	guint count;
-
-	g_return_if_fail (engine != NULL);
-	g_return_if_fail (HTML_IS_ENGINE (engine));
-	g_return_if_fail (object != NULL);
-
-	tmp_buffer = g_list_alloc ();
-	tmp_buffer->data = object;
-
-	if (do_undo)
-		html_undo_discard_redo (engine->undo);
-
-	count = do_paste (engine, tmp_buffer);
-
-	if (do_undo)
-		setup_undo (engine, action_data_from_cut_buffer (engine, engine->cut_buffer, count));
-
-	g_list_free (tmp_buffer);
-}
-
-/**
  * html_engine_paste:
  * @engine: An HTMLEngine
  * @do_undo: Whether to save undo information for this operation.
@@ -707,7 +673,6 @@ void
 html_engine_paste (HTMLEngine *engine,
 		   gboolean do_undo)
 {
-	GList *cut_buffer;
 	guint count;
 
 	g_return_if_fail (engine != NULL);
@@ -724,6 +689,8 @@ html_engine_paste (HTMLEngine *engine,
 
 	/* Cut current selection.  */
 	if (engine->active_selection) {
+		GList *cut_buffer;
+
 		/* Keep cut buffer.  */
 		cut_buffer = engine->cut_buffer;
 		engine->cut_buffer = NULL;
@@ -743,4 +710,34 @@ html_engine_paste (HTMLEngine *engine,
 		setup_undo (engine, action_data_from_cut_buffer (engine, engine->cut_buffer, count));
 		html_undo_level_end (engine->undo);
 	}
+}
+
+/**
+ * html_engine_paste_object:
+ * @engine: An HTMLEngine
+ * @object: Object to be pasted
+ * @do_undo: Whether we want to save undo information for this op.
+ * 
+ * Paste @buffer at the current cursor position.
+ **/
+void
+html_engine_paste_object (HTMLEngine *engine,
+			  HTMLObject *object,
+			  gboolean do_undo)
+{
+	GList *tmp_buffer;
+
+	g_return_if_fail (engine != NULL);
+	g_return_if_fail (HTML_IS_ENGINE (engine));
+	g_return_if_fail (object != NULL);
+
+	tmp_buffer = engine->cut_buffer;
+	engine->cut_buffer = g_list_alloc ();
+	engine->cut_buffer->data = object;
+
+	html_engine_paste (engine, do_undo);
+
+	engine->cut_buffer = tmp_buffer;
+
+	g_list_free (tmp_buffer);
 }

@@ -1,3 +1,9 @@
+2000-04-23  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlengine-edit-paste.c (html_engine_paste_object): call
+	html_engine_paste - this does also cut before insert and fixes
+	undo/redo
+
 2000-04-23  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlimage.c
