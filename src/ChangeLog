@@ -1,3 +1,15 @@
+2004-04-05  Radek Doulik  <rodo@ximian.com>
+
+	* htmltext.c (cut_links_full): extended cut_links to handle the
+	case when no collapsing of cutted area is wanted (shrink == 0)
+	(cut_links): use cut_links_full
+	(html_text_add_link_full): rewritten, cut links first, then add
+	new link
+
+	* htmlengine.c (apply_attributes): do not apply blue
+	color/underline for links
+	(element_parse_a): do not set color and underline to the style
+
 2004-04-01  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine.c (insert_text): do not merge parent's flow style,

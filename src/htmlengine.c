@@ -844,16 +844,10 @@ apply_attributes (HTMLText *text, HTMLEngine *e, GtkHTMLFontStyle style, HTMLCol
 {
 	PangoAttribute *attr;
 
-	if (link) {
-		style |= GTK_HTML_FONT_STYLE_UNDERLINE;
-		if (!color)
-			color = html_colorset_get_color (e->settings->color_set, HTMLTextColor);
-	}
-
 	html_text_set_style_in_range (text, style, e, last_pos, text->text_bytes);
 
 	/* color */
-	if (link || color != html_colorset_get_color (e->settings->color_set, HTMLTextColor))
+	if (color != html_colorset_get_color (e->settings->color_set, HTMLTextColor))
 		html_text_set_color_in_range (text, color, last_pos, text->text_bytes);
 
 	if (bg_color) {
@@ -1759,9 +1753,6 @@ element_parse_a (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 
 		g_free (e->url);
 		e->url = url;
-
-		element->style = html_style_add_color (element->style, html_colorset_get_color (e->settings->color_set, HTMLLinkColor));
-		element->style = html_style_set_decoration (element->style, GTK_HTML_FONT_STYLE_UNDERLINE);
 	}
 	
 	if (html_element_get_attr (element, "target", &target))

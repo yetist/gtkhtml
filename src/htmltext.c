@@ -257,7 +257,7 @@ cut_attr_list (HTMLText *text, gint begin_index, gint end_index)
 }
 
 static void
-cut_links (HTMLText *text, gint start_offset, gint end_offset, gint start_index, gint end_index)
+cut_links_full (HTMLText *text, int start_offset, int end_offset, int start_index, int end_index, int shift_offset, int shift_index)
 {
 	GSList *l, *next;
 	Link *link;
@@ -270,23 +270,49 @@ cut_links (HTMLText *text, gint start_offset, gint end_offset, gint start_index,
 			html_link_free (link);
 			text->links = g_slist_delete_link (text->links, l);
 		} else if (end_offset <= link->start_offset) {
-			link->start_offset -= (end_offset - start_offset);
-			link->start_index -= (end_index - start_index);
-			link->end_offset -= (end_offset - start_offset);
-			link->end_index -= (end_index - start_index);
+			link->start_offset -= shift_offset;
+			link->start_index -= shift_index;
+			link->end_offset -= shift_offset;
+			link->end_index -= shift_index;
 		} else if (start_offset <= link->start_offset)  {
-			link->start_offset = start_offset;
-			link->end_offset -= (end_offset - start_offset);
-			link->start_index = start_index;
-			link->end_index -= (end_index - start_index);
+			link->start_offset = end_offset - shift_offset;
+			link->end_offset -= shift_offset;
+			link->start_index = end_index - shift_index;
+			link->end_index -= shift_index;
 		} else if (end_offset <= link->end_offset) {
-			link->end_offset -= (end_offset - start_offset);
-			link->end_index -= (end_index - start_index);
-		} else if (start_offset <= link->end_offset) {
+			if (shift_offset > 0) {
+				link->end_offset -= shift_offset;
+				link->end_index -= shift_index;
+			} else {
+				if (link->end_offset == end_offset) {
+					link->end_offset = start_offset;
+					link->end_index = start_index;
+				} else if (link->start_offset == start_offset) {
+					link->start_offset = end_offset;
+					link->start_index = end_index;
+				} else {
+					Link *dup = html_link_dup (link);
+
+					link->start_offset = end_offset;
+					link->start_index = end_index;
+					dup->end_offset = start_offset;
+					dup->end_index = start_index;
+
+					l = g_slist_prepend (l, dup);
+					next = l->next->next;
+				}
+			}
+		} else if (start_offset < link->end_offset) {
 			link->end_offset = start_offset;
 			link->end_index = start_index;
 		}
 	}
+}
+
+static void
+cut_links (HTMLText *text, int start_offset, int end_offset, int start_index, int end_index)
+{
+	cut_links_full (text, start_offset, end_offset, start_index, end_index, end_offset - start_offset, end_index - start_index);
 }
 
 HTMLObject *
@@ -1127,6 +1153,30 @@ html_text_get_pango_info (HTMLText *text, HTMLPainter *painter)
 			GtkHTMLFontStyle parent_style = html_clueflow_get_default_font_style (HTML_CLUEFLOW (HTML_OBJECT (text)->parent));
 
 			html_text_change_attrs (attrs, parent_style, GTK_HTML (painter->widget)->engine, 0, text->text_bytes);
+		}
+		if (text->links && painter->widget && GTK_IS_HTML (painter->widget)) {
+			PangoAttrList *links_attrs = pango_attr_list_new ();
+			HTMLColor *link_color = html_colorset_get_color (GTK_HTML (painter->widget)->engine->settings->color_set, HTMLLinkColor);
+			GSList *l;
+
+			for (l = text->links; l; l = l->next) {
+				PangoAttribute *attr;
+				Link *link;
+
+				link = (Link *) l->data;
+				attr = pango_attr_underline_new (PANGO_UNDERLINE_SINGLE);
+				attr->start_index = link->start_index;
+				attr->end_index = link->end_index;
+				pango_attr_list_insert_before (links_attrs, attr);
+
+				attr = pango_attr_foreground_new (link_color->color.red, link_color->color.green, link_color->color.blue);
+				attr->start_index = link->start_index;
+				attr->end_index = link->end_index;
+				pango_attr_list_change (links_attrs, attr);
+
+			}
+			pango_attr_list_splice (attrs, links_attrs, 0, text->text_len);
+			pango_attr_list_unref (links_attrs);
 		}
 		if (text->select_length) {
 			gchar *end;
@@ -2639,45 +2689,48 @@ html_text_append_link (HTMLText *text, gchar *url, gchar *target, gint start_off
 void
 html_text_add_link_full (HTMLText *text, HTMLEngine *e, gchar *url, gchar *target, gint start_index, gint end_index, gint start_offset, gint end_offset)
 {
-	GSList *l, *lnext, *lprev = NULL;
-	Link *link;
+	GSList *l, *lnext, *prev = NULL;
+	Link *link, *plink = NULL;
+
+	cut_links_full (text, start_offset, end_offset, start_index, end_index, 0, 0);
 
 	if (text->links == NULL)
 		html_text_append_link_full (text, url, target, start_index, end_index, start_offset, end_offset);
-	else
-		for (l = text->links; l; l = lnext) {
-			lnext = l->next;
+	else {
+		Link *plink = NULL, *new_link = html_link_new (url, target, start_index, end_index, start_offset, end_offset);
+
+		for (l = text->links; new_link && l; l = l->next) {
 			link = (Link *) l->data;
-			if (link->start_offset >= start_offset && link->end_index <= end_index) {
-				if (lprev)
-					lprev->next = g_slist_delete_link (l, l);
-				else
-					text->links = g_slist_delete_link (l, l);
-				html_link_free (link);
-				continue;
+			if (new_link->start_offset >= link->end_offset) {
+				if (new_link->start_offset == link->end_offset && html_link_equal (link, new_link)) {
+					link->end_offset = end_offset;
+					link->end_index = end_index;
+					html_link_free (new_link);
+					new_link = NULL;
+				} else {
+					l = g_slist_prepend (l, new_link);
+					if (prev)
+						prev->next = l;
+					else
+						text->links = l;
+					link = new_link;
+					new_link = NULL;
+				}
+				if (plink && html_link_equal (plink, link) && plink->start_offset == link->end_offset) {
+					plink->start_offset = link->start_offset;
+					plink->start_index = link->start_index;
+					prev->next = g_slist_remove (prev->next, link);
+					html_link_free (link);
+					link = plink;
+				}
+				plink = link;
+				prev = l;
 			}
-			if (link->start_offset < end_offset && link->end_offset > end_offset) {
-				link->start_offset = end_offset;
-				link->start_index = end_index;
-			} else if (link->end_offset > start_offset && link->end_offset <= end_offset) {
-				link->end_offset = start_offset;
-				link->end_index = start_index;
-			}
-
-			if (link->end_offset <= start_offset) {
-				if (lprev)
-					lprev = g_slist_prepend (l, html_link_new (url, target, start_index, end_index, start_offset, end_offset));
-				else
-					text->links = g_slist_prepend (l, html_link_new (url, target, start_index, end_index, start_offset, end_offset));
-				break;
-			}
-
-			lprev = l;
 		}
 
-	html_text_set_color_in_range (text, html_colorset_get_color (e->settings->color_set, HTMLLinkColor),
-				      start_offset, end_offset);
-	html_text_set_style_in_range (text, GTK_HTML_FONT_STYLE_UNDERLINE, e, start_index, end_index);
+		if (new_link && prev)
+			prev->next = g_slist_prepend (NULL, new_link);
+	}
 }
 
 void
