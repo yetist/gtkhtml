@@ -1,3 +1,8 @@
+2003-01-13  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine-edit-table.c (html_engine_goto_table): pass arguments
+	not prototypes.
+
 2002-12-16  Larry Ewing  <lewing@ximian.com>
 
 	* htmlshape.c: fix parsing of negative numbers.
