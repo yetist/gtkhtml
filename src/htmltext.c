@@ -345,6 +345,7 @@ html_text_op_cut_helper (HTMLText *text, HTMLEngine *e, GList *from, GList *to, 
 		text->spell_errors = remove_spell_errors (text->spell_errors, begin, end - begin);
 		move_spell_errors (text->spell_errors, end, - (end - begin));
 		html_text_convert_nbsp (text, TRUE);
+		items_destroy (text);
 	} else {
 		text->spell_errors = remove_spell_errors (text->spell_errors, 0, text->text_len);
 		html_object_move_cursor_before_remove (HTML_OBJECT (text), e);
