@@ -206,8 +206,11 @@ void
 html_painter_set_font (HTMLPainter *p, HTMLFont *f)
 {
 	g_return_if_fail (p != NULL);
-	
-	p->font = f;
+
+	if (p->font != NULL)
+		html_font_destroy (p->font);
+
+	p->font = html_font_dup (f); /* FIXME refcount would be better. */
 }
 
 HTMLPainter *

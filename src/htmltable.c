@@ -91,6 +91,7 @@ calc_col_info (HTMLTable *table)
 
 	/* Allocate some memory for column info */
 	g_array_set_size (table->colInfo, table->totalCols * 2);
+	g_free (table->rowInfo);
 	table->rowInfo = g_new (RowInfo_t, table->totalRows);
 	table->totalColInfos = 0;
 
@@ -1149,13 +1150,17 @@ html_table_init (HTMLTable *table,
 	object->width = width;
 	object->max_width = max_width;
 	object->percent = percent;
+	object->flags &= ~ HTML_OBJECT_FLAG_FIXEDWIDTH;
+
+	table->_minWidth = 0;
+	table->_prefWidth = 0;
 
 	table->padding = padding;
 	table->spacing = spacing;
 	table->border = border;
-	table->caption = 0;
+	table->caption = NULL;
+	table->capAlign = HTML_VALIGN_TOP;
 
-	object->flags &= ~ HTML_OBJECT_FLAG_FIXEDWIDTH;
 	table->row = 0;
 	table->col = 0;
 
@@ -1166,9 +1171,8 @@ html_table_init (HTMLTable *table,
 
 	table->cells = g_new0 (HTMLTableCell **, table->allocRows);
 
-	for (r = 0; r < table->allocRows; r++) {
+	for (r = 0; r < table->allocRows; r++)
 		table->cells[r] = g_new0 (HTMLTableCell *, table->totalCols);;
-	}
 	
 	if (percent > 0)
 		object->width = max_width * percent / 100;
@@ -1179,6 +1183,8 @@ html_table_init (HTMLTable *table,
 		object->flags |= HTML_OBJECT_FLAG_FIXEDWIDTH;
 	}
 
+	table->totalColInfos = 0;
+
 	/* Set up arrays */
 	table->colInfo = g_array_new (FALSE, TRUE, sizeof (ColInfo_t));
 	table->colType = g_array_new (FALSE, FALSE, sizeof (ColType));
@@ -1187,6 +1193,8 @@ html_table_init (HTMLTable *table,
 	table->colSpan = g_array_new (FALSE, FALSE, sizeof (gint));
 	table->columnOpt = g_array_new (FALSE, FALSE, sizeof (gint));
 	table->rowHeights = g_array_new (FALSE, FALSE, sizeof (gint));
+
+	table->rowInfo = NULL;
 }
 
 HTMLObject *

@@ -292,11 +292,11 @@ slow_cb (GtkWidget *widget, gpointer data)
 static void
 title_changed_cb (GtkHTML *html, gpointer data)
 {
-	g_print ("title_changed_cb\n");
+	gchar *s;
 
-	gtk_window_set_title (GTK_WINDOW (data), 
-			      g_strdup_printf ("GtkHTML: %s\n", 
-					       html->engine->title->str));
+	s = g_strdup_printf ("GtkHTML: %s\n", html->engine->title->str);
+	gtk_window_set_title (GTK_WINDOW (data), s);
+	g_free (s);
 }
 
 static void

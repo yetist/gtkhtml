@@ -53,6 +53,30 @@ html_font_new (const gchar *family,
 	return f;
 }
 
+
+HTMLFont *
+html_font_dup (HTMLFont *f)
+{
+	HTMLFont *new;
+
+	if (f == NULL)
+		return NULL;
+
+	new = g_new (HTMLFont, 1);
+
+	new->family = g_strdup (f->family);
+	new->size = f->size;
+	new->pointSize = f->pointSize;
+	new->bold = f->bold;
+	new->italic = f->italic;
+	new->underline = f->underline;
+	new->textColor = gdk_color_copy (f->textColor);
+	
+	new->gdk_font = gdk_font_ref (f->gdk_font);
+
+	return new;
+}
+
 static GdkFont *
 create_gdk_font (gchar *family, gint size, gboolean bold, gboolean italic)
 {
@@ -96,7 +120,8 @@ html_font_destroy (HTMLFont *html_font)
 {
 	g_return_if_fail (html_font != NULL);
 
-	gdk_font_unref (html_font->gdk_font);
+	if (html_font->gdk_font != NULL)
+		gdk_font_unref (html_font->gdk_font);
 	g_free (html_font->family);
 
 	if (html_font->textColor)

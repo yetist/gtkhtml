@@ -820,7 +820,6 @@ html_tokenizer_write (HTMLTokenizer *t, const gchar *string, size_t size)
 	
 	if (srcPtr)
 		g_free (srcPtr);
-
 }
 
 HTMLBlockingToken *

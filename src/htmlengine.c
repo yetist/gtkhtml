@@ -2569,7 +2569,7 @@ html_engine_begin (HTMLEngine *p, const char *url)
 void
 html_engine_write (GtkHTMLStreamHandle handle, gchar *buffer, size_t size, HTMLEngine *e)
 {
-	if (buffer == 0)
+	if (buffer == NULL)
 		return;
 
 	html_tokenizer_write (e->ht, buffer, size);

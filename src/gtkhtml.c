@@ -336,6 +336,7 @@ gtk_html_write (GtkHTML *html, GtkHTMLStreamHandle handle, const gchar *buffer, 
 void
 gtk_html_end (GtkHTML *html, GtkHTMLStreamHandle handle, GtkHTMLStreamStatus status)
 {
+	g_warning (__FUNCTION__);
 	gtk_html_stream_end(handle, status);
 }
 

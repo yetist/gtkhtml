@@ -1,8 +1,25 @@
+1999-12-12  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlpainter.c (html_painter_set_font): Destroy the existing
+	font, duplicate the new one.
+
+	* htmlfont.c (html_font_destroy): Do not unref the GdkFont if
+	NULL.
+	(html_font_dup): New function.
+
+	* testgtkhtml.c (title_changed_cb): Removed debugging message.
+	Also, free memory returned by `g_strdup_printf()'.
+
+	* htmltable.c (calc_col_info): Free existing row information
+	before allocating new.
+	(html_table_init): Make sure all the members are initialized.
+
 1999-12-12  Jonas Borgström  <jonas_b@bitsmart.com>
 
-	* htmlurl.c (html_url_to_string): html_url_to_string produced incorrect urls on url with a port number.
+	* htmlurl.c (html_url_to_string): html_url_to_string produced
+	incorrect urls on url with a port number.
 	
-	* htmlengine.c: (parse_i): Modified the image loading a bit.
+	* htmlengine.c (parse_i): Modified the image loading a bit.
 
 1999-12-12  Jonas Borgström  <jonas_b@bitsmart.com>
 
