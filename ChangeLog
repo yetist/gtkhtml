@@ -1,3 +1,7 @@
+2001-10-30  Radek Doulik  <rodo@ximian.com>
+
+	* configure.in: raise version to 0.15.99.2
+
 2001-10-30  Larry Ewing  <lewing@ximian.com>
 
 	* configure.in: require gal 0.15.99.9 for get char
