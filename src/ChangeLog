@@ -1,5 +1,11 @@
 1999-12-11  Anders Carlsson  <andersca@gnu.org>
 
+	* testgtkhtml.c (main): Set policy to only show scrollbars when needed.
+
+	* gtkhtml.c (gtk_html_calc_scrollbars): use gtk_layout_set_size ();
+
+1999-12-11  Anders Carlsson  <andersca@gnu.org>
+
 	* testgtkhtml.c (main): Use a scrolled window instead of
 	a scroll bar.
 

@@ -451,16 +451,13 @@ gtk_html_calc_scrollbars (GtkHTML *html)
 	GTK_LAYOUT (html)->vadjustment->step_increment = 14;
 	GTK_LAYOUT (html)->vadjustment->page_increment = html->engine->height;
 
-	gtk_adjustment_changed (GTK_LAYOUT (html)->vadjustment);
-	
 	GTK_LAYOUT (html)->hadjustment->lower = 0;
 	GTK_LAYOUT (html)->hadjustment->upper = width;
 	GTK_LAYOUT (html)->hadjustment->page_size = html->engine->width;
 	GTK_LAYOUT (html)->hadjustment->step_increment = 14;
-	GTK_LAYOUT (html)->hadjustment->page_increment = html->engine->height;
-	
-	gtk_adjustment_changed (GTK_LAYOUT (html)->hadjustment);
+	GTK_LAYOUT (html)->hadjustment->page_increment = html->engine->width;
 
+	gtk_layout_set_size (GTK_LAYOUT (html), width, height);
 }
 
 static void

@@ -871,11 +871,11 @@ main (gint argc, gchar *argv[])
 	gnome_app_install_menu_hints (GNOME_APP (app), main_menu);
 
 	scrolled_window = gtk_scrolled_window_new (NULL, NULL);
-#if 0
+
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
-					GTK_POLICY_ALWAYS,
+					GTK_POLICY_AUTOMATIC,
 					GTK_POLICY_AUTOMATIC);
-#endif
+
 	gnome_app_set_contents (GNOME_APP (app), scrolled_window);
 
 	html_widget = gtk_html_new (gtk_scrolled_window_get_hadjustment (GTK_SCROLLED_WINDOW (scrolled_window)),
