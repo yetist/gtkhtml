@@ -2,7 +2,7 @@ dnl Initialization
 
 AC_INIT(src/gtkhtml.c)
 AM_CONFIG_HEADER(config.h)
-AM_INIT_AUTOMAKE(gtkhtml, 0.4)
+AM_INIT_AUTOMAKE(gtkhtml, 0.5)
 
 AM_MAINTAINER_MODE
 AM_ACLOCAL_INCLUDE(macros)
@@ -160,7 +160,7 @@ AM_CONDITIONAL(GCONF, $have_gconf)
 
 dnl gnome-print checks.
 
-AC_MSG_CHECKING([for gnome-print >= 0.16])
+AC_MSG_CHECKING([for gnome-print >= 0.20])
 if gnome-config --libs print > /dev/null 2>&1; then
 	vers=`gnome-config --modversion print | sed 's/^gnome-print-//'`
 	if [[ "x$vers" = "x" ]] ; then
@@ -170,7 +170,7 @@ if gnome-config --libs print > /dev/null 2>&1; then
 			0.[[0123456789]])
 				gnomeprint_ok=false ;;
 
-			0.1[[012345]])
+			0.1[[0123456789]])
 				gnomeprint_ok=false ;;
 
 			*)
@@ -242,7 +242,7 @@ dnl Library version information.
  
 dnl Increment the following if the interface has additions, changes,
 dnl removals.
-GTKHTML_CURRENT=2
+GTKHTML_CURRENT=3
 
 dnl Increment any time the source changes; set to 0 if you
 dnl increment CURRENT.
