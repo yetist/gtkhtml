@@ -1422,9 +1422,9 @@ divide_upto_preferred_width (HTMLTable *table, HTMLPainter *painter, GArray *pre
 					- pixel_size * (table->spacing + border_extra);
 				if (max_size [c] < pw) {
 					processed_pw += pw;
-					part = (LL min_fill * processed_pw) / min_pw;
-					if (LL min_fill * processed_pw - LL part * min_pw
-					    > LL (part + 1) * min_pw - LL min_fill * processed_pw)
+					part = (LL min_fill * processed_pw) / total_fill;
+					if (LL min_fill * processed_pw - LL part * total_fill
+					    > LL (part + 1) * total_fill - LL min_fill * processed_pw)
 						part ++;
 					part         -= added;
 					added        += part;

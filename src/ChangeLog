@@ -1,5 +1,8 @@
 2002-07-09  Radek Doulik  <rodo@ximian.com>
 
+	* htmltable.c (divide_upto_preferred_width): fixed part
+	calculation
+
 	* htmltextslave.c (get_offset_for_pointer): fixed offset
 	calculation
 
