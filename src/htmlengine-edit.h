@@ -60,10 +60,14 @@ void                       html_engine_set_data_by_type           (HTMLEngine   
 								   const gchar               *key,
 								   const gchar               *value);
 void                       html_engine_ensure_editable            (HTMLEngine                *e);
+HTMLObject                *html_engine_new_text_empty             (HTMLEngine                *e);
 HTMLObject                *html_engine_new_text                   (HTMLEngine                *e,
 								   const gchar               *text,
 								   gint                       len);
-HTMLObject                *html_engine_new_text_empty             (HTMLEngine                *e);
+HTMLObject *               html_engine_new_link                   (HTMLEngine                *e,
+								   const gchar               *text,
+								   gint                       len,
+								   gchar                     *url);
 gboolean                   html_engine_cursor_on_bop              (HTMLEngine                *e);
 guint                      html_engine_get_indent                 (HTMLEngine                *e);
 void                       html_engine_indent_pre_paragraph       (HTMLEngine                *e);

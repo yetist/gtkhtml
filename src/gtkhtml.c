@@ -20,6 +20,7 @@
 */
 
 #include <config.h>
+#include <ctype.h>
 
 #include <gdk/gdkkeysyms.h>
 #include <gdk/gdkprivate.h>
@@ -67,12 +68,16 @@
 #include <libgnome/gnome-util.h>
 
 enum DndTargetType {
-	DND_TARGET_TYPE_TEXT_PLAIN,
 	DND_TARGET_TYPE_TEXT_URI_LIST,
+	DND_TARGET_TYPE__NETSCAPE_URL,
+	DND_TARGET_TYPE_TEXT_PLAIN,
+	DND_TARGET_TYPE_STRING,
 };
 static GtkTargetEntry dnd_link_sources [] = {
-	{ "text/uri-list", 0, 1 },
-	{ "text/plain", 0, 0 },
+	{ "text/uri-list", 0, DND_TARGET_TYPE_TEXT_URI_LIST },
+	{ "_NETSCAPE_URL", 0, DND_TARGET_TYPE__NETSCAPE_URL },
+	{ "text/plain", 0, DND_TARGET_TYPE_TEXT_PLAIN },
+	{ "STRING", 0, DND_TARGET_TYPE_STRING },
 };
 #define DND_LINK_SOURCES sizeof (dnd_link_sources) / sizeof (GtkTargetEntry)
 
@@ -802,6 +807,9 @@ realize (GtkWidget *widget)
 #ifdef GTK_HTML_USE_XIM
 	gtk_html_im_realize (html);
 #endif /* GTK_HTML_USE_XIM */
+
+	gtk_drag_dest_set (widget, GTK_DEST_DEFAULT_DROP,
+			   dnd_link_sources, DND_LINK_SOURCES, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK);
 }
 
 static void
@@ -921,7 +929,7 @@ dnd_link_set (GtkWidget *widget, HTMLObject *o)
 	/* printf ("dnd_link_set %p\n", o); */
 
 	gtk_drag_source_set (widget, GDK_BUTTON1_MASK,
-			     dnd_link_sources, DND_LINK_SOURCES, GDK_ACTION_COPY);
+			     dnd_link_sources, DND_LINK_SOURCES, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK);
 	GTK_HTML (widget)->priv->dnd_object = o;
 }
 
@@ -1825,6 +1833,8 @@ focus (GtkContainer *container, GtkDirectionType direction)
 #endif
 }
 
+/* dnd begin */
+
 static void
 drag_begin (GtkWidget *widget, GdkDragContext *context)
 {
@@ -1846,8 +1856,10 @@ drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkSelectionData *sel
 	/* printf ("drag_data_get\n"); */
 	switch (info) {
 	case DND_TARGET_TYPE_TEXT_URI_LIST:
+	case DND_TARGET_TYPE__NETSCAPE_URL:
 		/* printf ("\ttext/uri-list\n"); */
-	case DND_TARGET_TYPE_TEXT_PLAIN: {
+	case DND_TARGET_TYPE_TEXT_PLAIN:
+	case DND_TARGET_TYPE_STRING: {
 		HTMLObject *obj = GTK_HTML (widget)->priv->dnd_real_object;
 		const gchar *url, *target;
 		gchar *complete_url;
@@ -1876,6 +1888,52 @@ drag_data_delete (GtkWidget *widget, GdkDragContext *context)
 	g_free (GTK_HTML (widget)->priv->dnd_url);
 	GTK_HTML (widget)->priv->dnd_url = NULL;
 }
+
+static void
+drag_data_received (GtkWidget *widget, GdkDragContext *context,
+		    gint x, gint y, GtkSelectionData *selection_data, guint info, guint time)
+{
+	HTMLEngine *engine = GTK_HTML (widget)->engine;
+	HTMLObject *new_text = NULL;
+
+	/* printf ("drag data received at %d,%d\n", x, y); */
+
+	if (!html_engine_get_editable (engine))
+		return;
+
+	switch (info) {
+	case DND_TARGET_TYPE_TEXT_PLAIN:
+	case DND_TARGET_TYPE_STRING:
+		/* printf ("\ttext/plain\n"); */
+		new_text = html_engine_new_text (engine, selection_data->data, selection_data->length);
+		break;
+	case DND_TARGET_TYPE_TEXT_URI_LIST:
+	case DND_TARGET_TYPE__NETSCAPE_URL: {
+		guchar *text;
+		/* printf ("\ttext/uri-list\n"); */
+		text = selection_data->data;
+		while (*text && isalnum (*text))
+			text ++;
+		if (*text == ':') {
+			text ++;
+			if (text [0] == '/' && text [1] == '/') {
+				text += 2;
+			}
+		} else
+			text = selection_data->data;
+		new_text = html_engine_new_link (engine, text, selection_data->length - (gint) (text - selection_data->data),
+						 selection_data->data);
+	}
+	break;
+	}
+
+	if (new_text) {
+		html_engine_jump_at (engine, x + engine->x_offset, y + engine->y_offset);
+		html_engine_paste_object (engine, new_text, selection_data->length);
+	}
+}
+
+/* dnd end */
 
 typedef void (*GtkSignal_NONE__INT_INT_FLOAT) (GtkObject * object,
 					       gint arg1, gint arg2,
@@ -2110,6 +2168,7 @@ class_init (GtkHTMLClass *klass)
 	widget_class->drag_data_delete = drag_data_delete;
 	widget_class->drag_begin = drag_begin;
 	widget_class->drag_end = drag_end;
+	widget_class->drag_data_received = drag_data_received;
 
 	container_class->focus = focus;
 

@@ -26,21 +26,24 @@
 
 #include <config.h>
 #include <ctype.h>
+#include <string.h>
 #include <glib.h>
 
 #include "gtkhtml.h"
 #include "gtkhtml-properties.h"
 
-#include "htmlobject.h"
 #include "htmlclueflow.h"
+#include "htmlcolorset.h"
 #include "htmlcursor.h"
 #include "htmllinktext.h"
+#include "htmlobject.h"
 #include "htmltable.h"
 #include "htmltext.h"
 #include "htmltextslave.h"
 #include "htmlimage.h"
 #include "htmlinterval.h"
 #include "htmlselection.h"
+#include "htmlsettings.h"
 #include "htmlundo.h"
 
 #include "htmlengine-edit.h"
@@ -330,6 +333,29 @@ html_engine_new_text (HTMLEngine *e, const gchar *text, gint len)
 						    e->insertion_url, e->insertion_target);
 	} else
 		return html_text_new_with_len (text, len, e->insertion_font_style, e->insertion_color);
+}
+
+HTMLObject *
+html_engine_new_link (HTMLEngine *e, const gchar *text, gint len, gchar *url)
+{
+	HTMLObject *link;
+	gchar *real_url, *real_target;
+
+	real_target = strchr (text, '#');
+	if (real_target) {
+		real_url = g_strndup (url, real_target - url);
+		real_target ++;
+	} else
+		real_url = url;
+		
+	link = html_link_text_new_with_len (text, len, e->insertion_font_style,
+					    html_colorset_get_color (e->settings->color_set, HTMLLinkColor),
+					    real_url, real_target);
+
+	if (real_target)
+		g_free (real_url);
+
+	return link;
 }
 
 HTMLObject *
