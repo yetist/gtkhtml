@@ -121,7 +121,15 @@ calc_min_width (HTMLObject *self,
 
 	pixel_size = html_painter_get_pixel_size (painter);
 
-	min_width = widget->allocation.width * pixel_size;
+	if (HTML_EMBEDDED (self)->allocated) {
+		min_width = widget->allocation.width * pixel_size;
+	} else {
+		GtkRequisition req;
+
+		gtk_widget_size_request (widget, &req);
+		min_width = req.width * pixel_size;
+	}
+
 	return min_width;
 }
 
@@ -142,8 +150,16 @@ calc_size (HTMLObject *self,
 	old_width = self->width;
 	old_ascent = self->ascent;
 
-	self->width = widget->allocation.width * pixel_size;
-	self->ascent = widget->allocation.height * pixel_size;
+	if (HTML_EMBEDDED (self)->allocated) {
+		self->width = widget->allocation.width * pixel_size;
+		self->ascent = widget->allocation.height * pixel_size;
+	} else {
+		GtkRequisition req;
+
+		gtk_widget_size_request (widget, &req);
+		self->width  = req.width * pixel_size;
+		self->ascent = req.height * pixel_size;
+	}
 
 	/* This never changes.  */
 	self->descent = 0;
@@ -279,6 +295,9 @@ html_embedded_init (HTMLEmbedded *element,
 		element->value = g_strdup("");
 	element->widget = NULL;
 	element->parent = parent;
+	element->width  = 0;
+	element->height = 0;
+	element->allocated = FALSE;
 
 	element->abs_x = element->abs_y = -1;
 }
@@ -328,3 +347,37 @@ html_embedded_new_widget(GtkWidget *parent, GtkHTMLEmbedded *eb)
 	return em;
 }
 
+static void
+allocate (GtkWidget *w, GtkAllocation  *allocation, HTMLEmbedded *e)
+{
+	if (e->width != allocation->width) {
+		html_object_change_set (HTML_OBJECT (e), HTML_CHANGE_MIN_WIDTH);
+		e->width = allocation->width;
+
+		g_assert (GTK_IS_HTML (w->parent));
+		html_engine_schedule_update (GTK_HTML (w->parent)->engine);
+	}
+	if (e->height != allocation->height) {
+		e->height = allocation->height;
+	}
+
+	e->allocated = TRUE;
+}
+
+static void
+request (GtkWidget *w, GtkRequisition *req, HTMLEmbedded *e)
+{
+	e->allocated = FALSE;
+}
+
+void
+html_embedded_set_widget (HTMLEmbedded *e, GtkWidget *w)
+{
+	e->widget = w;
+
+	gtk_signal_connect (GTK_OBJECT (w), "size_allocate",
+			    GTK_SIGNAL_FUNC (allocate), e);
+	gtk_signal_connect (GTK_OBJECT (w), "size_request",
+			    GTK_SIGNAL_FUNC (request), e);
+
+}

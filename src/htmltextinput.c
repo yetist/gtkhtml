@@ -135,7 +135,7 @@ html_text_input_init (HTMLTextInput *ti,
 
 	HTMLEmbedded *element;
 	HTMLObject *object;
-	GtkRequisition req;
+	gint min_width;
 
 	element = HTML_EMBEDDED (ti);
 	object = HTML_OBJECT (ti);
@@ -143,9 +143,7 @@ html_text_input_init (HTMLTextInput *ti,
 	html_embedded_init (element, HTML_EMBEDDED_CLASS (klass),
 			   parent, name, value);
 
-	element->widget = gtk_entry_new();
-	gtk_widget_size_request (element->widget, &req);
-
+	html_embedded_set_widget (element, gtk_entry_new());
 	if (strlen (element->value))	
 		gtk_entry_set_text (GTK_ENTRY(element->widget), element->value);
 
@@ -156,12 +154,8 @@ html_text_input_init (HTMLTextInput *ti,
 
 	gtk_entry_set_visibility (GTK_ENTRY(element->widget), !password);
 	
-	req.width = gdk_char_width (element->widget->style->font, '0') * size + 8;
-	gtk_widget_set_usize (element->widget, req.width, req.height);
-
-	object->descent = 0;
-	object->width = req.width;
-	object->ascent = req.height;
+	min_width = gdk_char_width (element->widget->style->font, '0') * size + 8;
+	gtk_widget_set_usize (element->widget, min_width, -1);
 
 	ti->size = size;
 	ti->maxlen = maxlen;

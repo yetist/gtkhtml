@@ -107,7 +107,7 @@ html_checkbox_init (HTMLCheckBox *checkbox,
 {
 	HTMLEmbedded *element;
 	HTMLObject *object;
-	GtkRequisition req;
+	GtkWidget  *check;
 
 	element = HTML_EMBEDDED (checkbox);
 	object = HTML_OBJECT (checkbox);
@@ -117,17 +117,11 @@ html_checkbox_init (HTMLCheckBox *checkbox,
 
 	html_embedded_init (element, HTML_EMBEDDED_CLASS (klass), parent, name, value);
 
-	element->widget = gtk_check_button_new();
+	check = gtk_check_button_new();
+	html_embedded_set_widget (element, check);
 
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(element->widget), checked);
-
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(check), checked);
 	checkbox->default_checked = checked;
-
-	gtk_widget_size_request(element->widget, &req);
-
-	object->descent = 0;
-	object->width = req.width;
-	object->ascent = req.height;
 
 	/*	gtk_widget_show(element->widget);
 		gtk_layout_put(GTK_LAYOUT(parent), element->widget, 0, 0);*/

@@ -1,3 +1,31 @@
+2000-04-18  Radek Doulik  <rodo@helixcode.com>
+
+	* htmltextarea.c (html_textarea_init): like bellow
+
+	* htmlselect.c (html_select_init): like bellow
+
+	* htmlcheckbox.c (html_checkbox_init): like bellow
+
+	* htmlradio.c (html_radio_new): like bellow
+
+	* htmlbutton.c (html_button_init): like bellow
+
+	* htmltextinput.c (html_text_input_init): use
+	html_embedded_set_widget and simplifed
+
+2000-04-17  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlembedded.h: caching of width and height of widget to
+	minimize updates
+
+	* htmlembedded.c (html_embedded_set_widget): new function, used to
+	set widget for embedded object
+	(request): new gignal handler
+	(allocate): new gignal handler
+	(calc_min_width): use allocation only if widget is already
+	allocated
+	(calc_size): likewise
+
 2000-04-17  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlclueflow.c

@@ -38,6 +38,8 @@ struct _HTMLEmbedded {
 	gchar *value;
 	HTMLForm *form;
 	GtkWidget *widget, *parent;
+	gint width, height;
+	gboolean allocated;
 
 	gint abs_x, abs_y;
 };
@@ -62,6 +64,8 @@ void          html_embedded_init           (HTMLEmbedded      *element,
 					    GtkWidget         *parent,
 					    gchar             *name,
 					    gchar             *value);
+void          html_embedded_set_widget     (HTMLEmbedded      *element,
+					    GtkWidget         *widget);
 gchar        *html_embedded_get_name       (HTMLEmbedded      *element);
 void          html_embedded_set_form       (HTMLEmbedded      *element,
 					    HTMLForm          *form);

@@ -134,7 +134,7 @@ html_textarea_init (HTMLTextArea *ta,
 {
 	HTMLEmbedded *element;
 	HTMLObject *object;
-	GtkRequisition req;
+	GtkWidget *widget;
 
 	element = HTML_EMBEDDED (ta);
 	object = HTML_OBJECT (ta);
@@ -151,25 +151,20 @@ html_textarea_init (HTMLTextArea *ta,
 	gtk_signal_connect_after (GTK_OBJECT (ta->text), "button_press_event",
 			    GTK_SIGNAL_FUNC (on_button_press_event), NULL);
 
-	element->widget = gtk_scrolled_window_new (NULL, NULL);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (element->widget),
+	widget = gtk_scrolled_window_new (NULL, NULL);
+	html_embedded_set_widget (element, widget);
+
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (widget),
 					GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-	gtk_container_add (GTK_CONTAINER (element->widget), ta->text);
+	gtk_container_add (GTK_CONTAINER (widget), ta->text);
 
 #define FONT_HEIGHT(f)              ((f)->ascent + (f)->descent)
 
-	gtk_widget_set_usize ( GTK_WIDGET (element->widget), 
-			       gdk_char_width(element->widget->style->font, '0') * col + 8,
+	gtk_widget_set_usize ( GTK_WIDGET (widget), 
+			       gdk_char_width(widget->style->font, '0') * col + 8,
 			       FONT_HEIGHT(ta->text->style->font) * row + 4);
 
 #undef FONT_HEIGHT
-
-	gtk_widget_size_request(element->widget, &req);
-
-	object->descent = 0;
-	object->width = req.width;
-	object->ascent = req.height;
-
 	ta->default_text = NULL;
 }
 

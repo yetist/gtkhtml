@@ -91,7 +91,7 @@ html_button_init (HTMLButton *button,
 {
 	HTMLEmbedded *element;
 	HTMLObject *object;
-	GtkRequisition req;
+	GtkWidget  *widget;
 
 	element = HTML_EMBEDDED (button);
 	object = HTML_OBJECT (button);
@@ -99,29 +99,25 @@ html_button_init (HTMLButton *button,
 	html_embedded_init (element, HTML_EMBEDDED_CLASS (klass), parent, name, value);
 	
 	if( strlen (element->value))
-		element->widget = gtk_button_new_with_label (element->value);
+		widget = gtk_button_new_with_label (element->value);
 	else {
 		switch(type) {
 		case BUTTON_NORMAL:
-			element->widget = gtk_button_new ();
+			widget = gtk_button_new ();
 			break;
 		case BUTTON_SUBMIT:
-			element->widget = gtk_button_new_with_label ("Submit Query");
+			widget = gtk_button_new_with_label ("Submit Query");
 			break;
 		case BUTTON_RESET:
-			element->widget = gtk_button_new_with_label ("Reset");
+			widget = gtk_button_new_with_label ("Reset");
 			break;
 		}
 	}
 
-	gtk_signal_connect (GTK_OBJECT (element->widget), "clicked",
+	html_embedded_set_widget (element, widget);
+
+	gtk_signal_connect (GTK_OBJECT (widget), "clicked",
                             GTK_SIGNAL_FUNC (clicked_event), button);
-
-	gtk_widget_size_request(element->widget, &req);
-
-	object->descent = 0;
-	object->width = req.width;
-	object->ascent = req.height;
 
 	button->type = type;
 

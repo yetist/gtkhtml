@@ -197,7 +197,7 @@ html_select_init (HTMLSelect *select,
 
 	HTMLEmbedded *element;
 	HTMLObject *object;
-	GtkRequisition req;
+	GtkWidget *widget;
 
 	element = HTML_EMBEDDED (select);
 	object = HTML_OBJECT (select);
@@ -212,25 +212,21 @@ html_select_init (HTMLSelect *select,
 		if (multi)
 			gtk_clist_set_selection_mode (GTK_CLIST (select->clist), GTK_SELECTION_MULTIPLE);
 
-		element->widget = gtk_scrolled_window_new (NULL, NULL);
-		gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (element->widget),
+		widget = gtk_scrolled_window_new (NULL, NULL);
+		gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (widget),
 						GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
-		gtk_container_add (GTK_CONTAINER (element->widget), select->clist);
+		gtk_container_add (GTK_CONTAINER (widget), select->clist);
 		gtk_widget_show(select->clist);
 
-		gtk_widget_set_usize ( GTK_WIDGET (element->widget), 120, (GTK_CLIST(select->clist)->row_height + 1) * size + 5);
+		gtk_widget_set_usize (widget, 120, (GTK_CLIST(select->clist)->row_height + 1) * size + 5);
 
 	} else {
 
-		element->widget = gtk_combo_new ();
-		gtk_entry_set_editable (GTK_ENTRY(GTK_COMBO(element->widget)->entry), FALSE);
-		gtk_widget_set_usize ( GTK_WIDGET (element->widget), 120, -2);
+		widget = gtk_combo_new ();
+		gtk_entry_set_editable (GTK_ENTRY(GTK_COMBO(widget)->entry), FALSE);
+		gtk_widget_set_usize ( GTK_WIDGET (widget), 120, -2);
 	}
-	gtk_widget_size_request(element->widget, &req);
-
-	object->descent = 0;
-	object->width = req.width;
-	object->ascent = req.height;
+	html_embedded_set_widget (element, widget);
 
 	select->size = size;
 	select->multi = multi;
