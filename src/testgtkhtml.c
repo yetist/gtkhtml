@@ -1094,7 +1094,7 @@ main (gint argc, gchar *argv[])
 	html_widget = gtk_html_new ();
 	html = GTK_HTML (html_widget);
 	gtk_html_load_empty (html);
-	/* gtk_html_set_editable (GTK_HTML (html_widget), TRUE); */
+	gtk_html_set_editable (GTK_HTML (html_widget), TRUE);
 	
 	gtk_container_add (GTK_CONTAINER (scrolled_window), html_widget);
 

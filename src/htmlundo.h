@@ -22,7 +22,7 @@
 #ifndef _HTML_UNDO_H
 #define _HTML_UNDO_H
 
-#define HTML_UNDO_LIMIT 10
+#define HTML_UNDO_LIMIT 1024
 
 typedef struct _HTMLUndo HTMLUndo;
 
@@ -36,6 +36,12 @@ struct _HTMLUndo {
 	/* List of redo actions (HTMLUndoAction).  */
 	GList *redo_stack;
 	guint redo_stack_size;
+
+	/* these lists are stacks containing other
+	   levels undo/redo after calling html_undo_level_start */
+	GSList *undo_levels;
+	GSList *redo_levels;
+	guint   undo_levels_size;
 };
 
 
@@ -53,5 +59,8 @@ void  html_undo_add_undo_action  (HTMLUndo       *undo,
 				  HTMLUndoAction *action);
 void  html_undo_add_redo_action  (HTMLUndo       *undo,
 				  HTMLUndoAction *action);
+
+void  html_undo_level_begin (HTMLUndo *undo, const gchar *description);
+void  html_undo_level_end   (HTMLUndo *undo);
 
 #endif /* _HTML_UNDO_H */

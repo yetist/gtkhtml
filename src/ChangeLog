@@ -1,3 +1,28 @@
+2000-04-22  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlengine-edit-paste.c (html_engine_paste):  use undo levels
+
+	* htmlengine.c (move_to_found): if editable jump with cursor to
+	end of founded text
+	(html_engine_replace_do): use undo levels
+
+	* htmlundo.h (HTML_UNDO_LIMIT): raised from 10 to 1024
+
+	* htmlundo.c (level_new): new ctor
+	(level_destroy): new dtor
+	(html_undo_level_begin): begins new undo level - stores current
+	level on levels stack and starts new one
+	(redo_level_begin): likewise for redo
+	(redo_step_action): redo step action function
+	(redo_level_end): end of redo level
+	(undo_step_action): undo step action function
+	(html_undo_level_end): end of undo level - closes current undo
+	level and pops another one from levels stack
+	(html_undo_add_undo_action): use undo LIMIT only for first/base undo level
+
+	* htmlundo.h: added undo_levels, redo_levels lists for
+	level-stacks
+
 2000-04-22  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlcursor.c

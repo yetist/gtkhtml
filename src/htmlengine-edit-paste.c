@@ -667,6 +667,7 @@ html_engine_paste (HTMLEngine *engine)
 		return;
 
 	html_undo_discard_redo (engine->undo);
+	html_undo_level_begin (engine->undo, "paste");
 
 	/* Cut current selection.  */
 	if (engine->active_selection) {
@@ -686,4 +687,5 @@ html_engine_paste (HTMLEngine *engine)
 	count = do_paste (engine, engine->cut_buffer);
 
 	setup_undo (engine, action_data_from_cut_buffer (engine, engine->cut_buffer, count));
+	html_undo_level_end (engine->undo);
 }

@@ -4061,6 +4061,9 @@ move_to_found (HTMLEngine *e, HTMLSearch *info)
 
 	if (e->y_offset != ny)
 		gtk_adjustment_set_value (GTK_LAYOUT (e->widget)->vadjustment, ny);
+
+	if (e->editable)
+		html_cursor_jump_to (e->cursor, e, info->last, info->stop_pos);
 }
 
 static void
@@ -4194,16 +4197,20 @@ html_engine_replace_do (HTMLEngine *e, HTMLReplaceQueryAnswer answer)
 
 	switch (answer) {
 	case RQA_ReplaceAll:
+		html_undo_level_begin (e->undo, "replace all");
 		replace (e);
 		while (html_engine_search_next (e))
 			replace (e);
+		html_undo_level_end (e->undo);
 	case RQA_Cancel:
 		html_replace_destroy (e->replace_info);
 		e->replace_info = NULL;
 		break;
 
 	case RQA_Replace:
+		html_undo_level_begin (e->undo, "replace");
 		replace (e);
+		html_undo_level_end (e->undo);
 	case RQA_Next:
 		if (html_engine_search_next (e))
 			e->replace_info->ask (e);
