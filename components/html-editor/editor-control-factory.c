@@ -529,7 +529,7 @@ editor_control_construct (BonoboControl *control, GtkWidget *vbox)
 	cd = gtk_html_control_data_new (GTK_HTML (html_widget), vbox);
 
 	/* HTMLEditor::Engine */
-	cd->editor_bonobo_engine = editor_engine_new (GTK_HTML (html_widget));
+	cd->editor_bonobo_engine = editor_engine_new (cd);
 	bonobo_object_add_interface (BONOBO_OBJECT (control), 
 				     BONOBO_OBJECT (cd->editor_bonobo_engine));
 
