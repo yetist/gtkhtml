@@ -6,6 +6,7 @@
 	lists with longer indentation)
 	fixed pre/post padding on end of list
 	prettyfied save output
+	(write_pre_tags): fix list, nonlist paragraph on the same level
 
 	* htmlengine-save.c (get_body): add new line after <BODY>
 

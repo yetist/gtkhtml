@@ -1359,8 +1359,7 @@ write_pre_tags (HTMLClueFlow *self,
 		}
 		if (curr_tag != NULL) {
 			if (prev && is_item (prev)) {
-				write_indentation_tags (state, prev->level > 0 ? prev->level - 1 : 0,
-							get_level (self), curr_tag);
+				write_indentation_tags (state, prev->level, get_level (self), curr_tag);
 			} else {
 				write_indentation_tags (state, 0, get_level (self), curr_tag);
 			}
