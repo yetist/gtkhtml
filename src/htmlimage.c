@@ -1120,6 +1120,7 @@ html_image_pointer_load (HTMLImagePointer *ip)
 {
 	GtkHTMLStream *handle;
 
+	html_image_pointer_ref (ip);
 	handle = gtk_html_stream_new (GTK_HTML (ip->factory->engine->widget),
 				      html_image_factory_write_pixbuf,
 				      html_image_factory_end_pixbuf,
@@ -1155,11 +1156,12 @@ html_image_factory_register (HTMLImageFactory *factory, HTMLImage *i, const char
 					    GTK_SIGNAL_FUNC (html_image_factory_animation_done),
 					    retval);
 
-			html_image_pointer_ref (retval);
 			g_hash_table_insert (factory->loaded_images, retval->url, retval);
 			html_image_pointer_load (retval);
 		}
 	}
+
+	html_image_pointer_ref (retval);
 
 	/* we add also NULL ptrs, as we dont want these to be cleaned out */
 	retval->interests = g_slist_prepend (retval->interests, i);
@@ -1180,6 +1182,11 @@ void
 html_image_factory_unregister (HTMLImageFactory *factory, HTMLImagePointer *pointer, HTMLImage *i)
 {
 	pointer->interests = g_slist_remove (pointer->interests, i);
+	if (pointer->refcount <= 1) {
+		g_assert (pointer->interests);
+		g_hash_table_remove (factory->loaded_images, pointer->url);
+	}
+	html_image_pointer_unref (pointer);
 }
 
 static void

@@ -22,6 +22,7 @@
 #include <config.h>
 #include "htmlclueflow.h"
 #include "htmlcursor.h"
+#include "htmlimage.h"
 #include "htmlengine.h"
 #include "htmlengine-edit.h"
 #include "htmlengine-edit-cut-and-paste.h"
@@ -552,5 +553,17 @@ void
 html_engine_table_set_bg_color (HTMLEngine *e, HTMLTable *t, GdkColor *c)
 {
 	*t->bgColor = *c;
+	html_engine_queue_draw (e, HTML_OBJECT (t));
+}
+
+void
+html_engine_table_set_bg_pixmap (HTMLEngine *e, HTMLTable *t, gchar *url)
+{
+	HTMLImagePointer *iptr;
+
+	iptr = t->bgPixmap;
+	t->bgPixmap = url ? html_image_factory_register(e->image_factory, NULL, url) : NULL;
+	if (iptr)
+		html_image_factory_unregister (e->image_factory, iptr, NULL);
 	html_engine_queue_draw (e, HTML_OBJECT (t));
 }

@@ -68,7 +68,8 @@ draw_background_helper (HTMLTableCell *cell,
 		if (cell->bgPixmap->pixbuf) {
 			pixbuf = cell->bgPixmap->pixbuf;
 		}
-	}
+	} else if (t && t->bgPixmap)
+		pixbuf = t->bgPixmap->pixbuf;
 
 	html_painter_draw_background (p,
 				      color,

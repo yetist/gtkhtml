@@ -972,13 +972,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 					rowhalign = HTML_HALIGN_NONE;
 
 					have_rowColor = FALSE;
-
-					if (have_tablePixmap) {
-						rowPixmapPtr = tablePixmapPtr;
-						have_rowPixmap = TRUE;
-					} else {
-						have_rowPixmap = FALSE;
-					}
+					have_rowPixmap = FALSE;
 
 					html_string_tokenizer_tokenize (e->st, str + 4, " >");
 					while (html_string_tokenizer_has_more_tokens (e->st)) {

@@ -38,6 +38,9 @@ void  html_engine_table_set_border_width  (HTMLEngine *e,
 void  html_engine_table_set_bg_color      (HTMLEngine *e,
 					   HTMLTable  *t,
 					   GdkColor   *c);
+void  html_engine_table_set_bg_pixmap     (HTMLEngine *e,
+					   HTMLTable  *t,
+					   gchar      *url);
 			       
 #endif
 

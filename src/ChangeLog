@@ -1,7 +1,20 @@
 2001-05-17  Radek Doulik  <rodo@ximian.com>
 
+	* htmlimage.c (html_image_pointer_load): ref image pointer
+	(html_image_factory_register): don't ref image pointer before
+	loading (it's done in load now) but ref all image pointers (for
+	register)
+	(html_image_factory_unregister): unref image pointer in unregister
+
+	* htmltablecell.c (draw_background_helper): use table bg pixmap if
+	needed
+
+	* htmlengine.c (parse_table): don't use table bg pixmap as starting
+	row bg pixmap
+
 	* htmlengine-edit-table.c (html_engine_table_set_bg_color): new
 	method
+	(html_engine_table_set_bg_pixmap): new method
 
 	* htmlengine.c (parse_table): don't use table bg color as starting
 	row color
