@@ -473,7 +473,7 @@ get_url (HTMLObject *o)
 	return html_object_get_url (HTML_OBJECT (slave->owner));
 }
 
-guint
+static guint
 get_offset_for_pointer (HTMLTextSlave *slave, HTMLPainter *painter, gint x, gint y)
 {
 	HTMLText *owner;

@@ -1021,7 +1021,7 @@ html_text_class_init (HTMLTextClass *klass,
 }
 
 inline static gint
-text_len (gchar *str, gint len)
+text_len (const gchar *str, gint len)
 {
 	return len == -1 ? unicode_strlen (str, -1) : len;
 }
@@ -1370,7 +1370,7 @@ html_text_append (HTMLText *text, const gchar *str, gint len)
 
 	to_delete       = text->text;
 	text->text      = g_strconcat (to_delete, str, NULL);
-	text->text_len += text_len (text, len);
+	text->text_len += text_len (str, len);
 
 	g_free (to_delete);
 
