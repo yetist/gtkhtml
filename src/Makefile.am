@@ -7,7 +7,7 @@ INCLUDES = -I$(top_srcdir) -I$(srcdir) -I$(includedir) $(GNOME_INCLUDEDIR) \
 	-DSRCDIR=\"$(srcdir)\" \
 	-DPREFIX=\"$(prefix)\"
 
-CFLAGS +=  $(GCONF_CFLAGS) -DICONDIR=\"$(datadir)/gtkhtml/icons\"
+CFLAGS +=  $(GCONF_CFLAGS) -DICONDIR=\"$(GTKHTML_DATADIR)/icons\"
 
 lib_LTLIBRARIES = libgtkhtml.la
 
@@ -239,7 +239,7 @@ EXTRA_DIST = \
 	keybindingsrc.xemacs \
 	keybindingsrc.ms
 
-keybindingsdir = $(datadir)/$(GTKHTML_RELEASE_STRING)
+keybindingsdir = $(GTKHTML_DATADIR)
 keybindings_DATA = \
 	keybindingsrc.emacs \
 	keybindingsrc.xemacs \

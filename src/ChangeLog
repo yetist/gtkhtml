@@ -4,6 +4,8 @@
 	includes. and use $(GKTHTML_RELEASE_STRING) rather than
 	gtkhtml-$(GTKHTML_RELASE) since it is already defined.
 
+	* Makefile.am: use GTKHTML_DATADIR where it makes sense.
+
 2002-03-26  Larry Ewing  <lewing@ximian.com>
 
 	* Makefile.am (keybindingsdir): fix this dir from $release/gtkhtml
