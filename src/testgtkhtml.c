@@ -83,7 +83,7 @@ static GtkHTMLStream *html_stream_handle = NULL;
 static GtkWidget *animator, *entry;
 static GtkWidget *popup_menu, *popup_menu_back, *popup_menu_forward, *popup_menu_home;
 static GtkWidget *toolbar_back, *toolbar_forward;
-static HTMLURL *baseURL;
+static HTMLURL *baseURL = NULL;
 
 static GList *go_list;
 static int go_position;
@@ -390,9 +390,10 @@ entry_goto_url(GtkWidget *widget, gpointer data)
 	tmpurl = g_strdup (gtk_entry_get_text (GTK_ENTRY (widget)));
 
 	/* Add "http://" if no protocol is specified */
-	if(strchr(tmpurl, ':'))
+	if(strchr(tmpurl, ':')) {
+		on_set_base (NULL, tmpurl, NULL);
 		goto_url (tmpurl, 0);
-	else {
+	} else {
 		gchar *url;
 
 		url = g_strdup_printf("http://%s", tmpurl);

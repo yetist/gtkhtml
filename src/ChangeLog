@@ -1,3 +1,8 @@
+2002-05-09  Radek Doulik  <rodo@ximian.com>
+
+	* testgtkhtml.c (entry_goto_url): set base before goto_url call
+	which calls parse_href, which expects baseURL to be set
+
 2002-05-09  Dan Winship  <danw@ximian.com>
 
 	* testgtkhtml.c: Port to use soup instead of glibwww for
