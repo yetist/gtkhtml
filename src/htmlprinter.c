@@ -682,7 +682,7 @@ get_pixel_size (HTMLPainter *painter)
 }
 
 static HTMLFont *
-alloc_font (HTMLPainter *painter, gchar *face, gdouble size, GtkHTMLFontStyle style)
+alloc_font (HTMLPainter *painter, gchar *face, gdouble size, gboolean points, GtkHTMLFontStyle style)
 {
 	GnomeFontWeight weight;
 	GnomeFont *font;
@@ -708,7 +708,7 @@ alloc_font (HTMLPainter *painter, gchar *face, gdouble size, GtkHTMLFontStyle st
 	}
 
 	font = gnome_font_new_closest (family ? family : (style & GTK_HTML_FONT_STYLE_FIXED ? "Courier" : "Helvetica"),
-				       weight, italic, size);
+				       weight, italic, points ? size / 10 : size);
 	g_free (family);
 
 	return font ? html_font_new (font, gnome_font_get_width_string_n (font, " ", 1)) : NULL;

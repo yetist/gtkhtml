@@ -622,9 +622,9 @@ html_painter_draw_spell_error (HTMLPainter *painter,
 }
 
 HTMLFont *
-html_painter_alloc_font (HTMLPainter *painter, gchar *face_name, gdouble size, GtkHTMLFontStyle style)
+html_painter_alloc_font (HTMLPainter *painter, gchar *face_name, gdouble size, gboolean points, GtkHTMLFontStyle style)
 {
-	return (* HP_CLASS (painter)->alloc_font) (painter, face_name, size, style);
+	return (* HP_CLASS (painter)->alloc_font) (painter, face_name, size, points, style);
 }
 
 void

@@ -1552,7 +1552,8 @@ set_fonts_idle (GtkHTML *html)
 	if (html->engine) {
 		html_font_manager_set_default (&html->engine->painter->font_manager,
 					       prop->font_var,      prop->font_fix,
-					       prop->font_var_size, prop->font_fix_size);
+					       prop->font_var_size, prop->font_var_points,
+					       prop->font_fix_size, prop->font_fix_points);
 
 		if (html->engine->clue) {
 			html_object_reset (html->engine->clue);
@@ -1606,6 +1607,10 @@ client_notify_widget (GConfClient* client,
 		g_free (prop->font_fix);
 		prop->font_fix = gconf_client_get_string (client, entry->key, NULL);
 		set_fonts (html);
+	} else if (!strcmp (tkey, "/font_variable_points")) {
+		prop->font_var_points = gconf_client_get_bool (client, entry->key, NULL);
+	} else if (!strcmp (tkey, "/font_fixed_points")) {
+		prop->font_fix_points = gconf_client_get_bool (client, entry->key, NULL);
 	} else if (!strcmp (tkey, "/font_variable_size")) {
 		prop->font_var_size = gconf_client_get_int (client, entry->key, NULL);
 		set_fonts (html);
@@ -2741,6 +2746,14 @@ gtk_html_get_object_by_id (GtkHTML *html, const gchar *id)
 
 */
 
+static gint
+get_line_height (GtkHTML *html)
+{
+	return html->engine->painter->font_manager.var_points
+		? html->engine->painter->font_manager.var_size / 10
+		:html->engine->painter->font_manager.var_size;
+}
+
 static void
 scroll (GtkHTML *html,
 	GtkOrientation orientation,
@@ -2759,8 +2772,8 @@ scroll (GtkHTML *html,
 		? gtk_layout_get_vadjustment (GTK_LAYOUT (html)) : gtk_layout_get_hadjustment (GTK_LAYOUT (html));
 
 
-	line25_height = (html->engine && adj->page_increment > ((5 * html->engine->painter->font_manager.var_size) >> 1))
-		? ((5 * html->engine->painter->font_manager.var_size) >> 1)
+	line25_height = (html->engine && adj->page_increment > ((5 * get_line_height (html)) >> 1))
+		? ((5 * get_line_height (html)) >> 1)
 		: 0;
 
 	switch (scroll_type) {
@@ -2861,8 +2874,8 @@ cursor_move (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType ski
 		gint line25_height;
 
 		line25_height =  GTK_WIDGET (html)->allocation.height
-			> ((5 * html->engine->painter->font_manager.var_size) >> 1)
-			? ((5 * html->engine->painter->font_manager.var_size) >> 1)
+			> ((5 * get_line_height (html)) >> 1)
+			? ((5 * get_line_height (html)) >> 1)
 			: 0;
 
 
