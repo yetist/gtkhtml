@@ -342,6 +342,7 @@ image_edit (GtkHTMLControlData *cd, HTMLImage *image)
 {
 	GtkHTMLImageDialog *d;
 	HTMLImagePointer *ip = image->image_ptr;
+	gint off = 0;
 
 	RUN_DIALOG (image);
 
@@ -349,11 +350,12 @@ image_edit (GtkHTMLControlData *cd, HTMLImage *image)
 	d->image = image;
 
 	/* we only support local files now */
-	g_assert (!strncmp (ip->url, "file:", 5));
+        if (!strncmp (ip->url, "file:", 5))
+		off = 5;
 
 	/* now set image values */
 	gtk_entry_set_text (GTK_ENTRY (gnome_pixmap_entry_gtk_entry (GNOME_PIXMAP_ENTRY (d->pentry))),
-			    ip->url + 5);
+			    ip->url + off);
 
 #define SET_ADJ(which, nval, val) \
         if (image->## val != nval) { \

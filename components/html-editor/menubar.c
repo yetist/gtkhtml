@@ -146,7 +146,7 @@ insert_image_cb (GtkWidget *widget, GtkHTMLControlData *cd)
 static void
 insert_link_cb (GtkWidget *widget, GtkHTMLControlData *cd)
 {
-	insert_link (cd);
+	link_insert (cd);
 }
 
 void

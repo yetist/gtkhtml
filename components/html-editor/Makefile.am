@@ -9,7 +9,7 @@ INCLUDES =						\
 	$(EXTRA_GNOME_CFLAGS)				\
 	$(GTK_CFLAGS)
 
-
+# LDFLAGS += -static
 LDADD =						\
 	$(top_builddir)/src/libgtkhtml.la	\
 	$(EXTRA_GNOME_LIBS)			\
@@ -37,6 +37,8 @@ html_editor_control_SOURCES =			\
 	menubar.h				\
 	persist-stream-impl.c			\
 	persist-stream-impl.h			\
+	popup.c					\
+	popup.h					\
 	replace.c				\
 	replace.h				\
 	search.c				\

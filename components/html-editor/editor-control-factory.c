@@ -29,6 +29,7 @@
 #include "persist-stream-impl.h"
 #include "menubar.h"
 #include "toolbar.h"
+#include "popup.h"
 
 #include "editor-control-factory.h"
 
@@ -89,11 +90,11 @@ html_button_pressed (GtkWidget *html, GdkEventButton *event, GtkHTMLControlData 
 
 	printf ("button pressed %d\n", event->button);
 
-	obj = html_engine_get_object_at (engine,
-					 event->x + engine->x_offset, event->y + engine->y_offset,
-					 NULL, FALSE);
+	cd->obj = obj = html_engine_get_object_at (engine,
+						   event->x + engine->x_offset, event->y + engine->y_offset,
+						   NULL, FALSE);	
 
-	if (obj && event->button == 1) {
+	if (obj && event->type == GDK_2BUTTON_PRESS && event->button == 1) {
 		switch (HTML_OBJECT_TYPE (obj)) {
 		case HTML_TYPE_IMAGE:
 			image_edit (cd, HTML_IMAGE (obj));
@@ -101,7 +102,8 @@ html_button_pressed (GtkWidget *html, GdkEventButton *event, GtkHTMLControlData 
 		default:
 		}
 	} else if (event->button == 3) {
-		/* popup menu here */
+		if (popup_show (cd, event))
+			gtk_signal_emit_stop_by_name (GTK_OBJECT (html), "button_press_event");
 	}
 	return FALSE;
 }

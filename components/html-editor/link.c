@@ -27,8 +27,10 @@
 #include "htmlengine-edit-insert.h"
 
 struct _GtkHTMLLinkDialog {
-	GnomeDialog *dialog;
-	GtkHTML     *html;
+	GnomeDialog        *dialog;
+	GtkHTML            *html;
+	HTMLLinkTextMaster *html_link;
+
 	GtkWidget   *text;
 	GtkWidget   *link;
 };
@@ -36,9 +38,21 @@ struct _GtkHTMLLinkDialog {
 static void
 button_link_cb (GtkWidget *but, GtkHTMLLinkDialog *d)
 {
-	html_engine_insert_link (d->html->engine,
-				 gtk_entry_get_text (GTK_ENTRY (d->text)),
-				 gtk_entry_get_text (GTK_ENTRY (d->link)));
+	gchar *text = gtk_entry_get_text (GTK_ENTRY (d->text));
+	gchar *link = gtk_entry_get_text (GTK_ENTRY (d->link));
+
+	if (link) {
+		gboolean changed = FALSE;
+
+		if (strcmp (text, HTML_TEXT (d->html_link)->text)) {
+			changed = TRUE;
+			html_text_set_text (HTML_TEXT (d->html_link), text);
+		}
+		html_link_text_master_set_url (d->html_link, link);
+		if (changed)
+			html_engine_schedule_update (d->html->engine);
+	} else
+		html_engine_insert_link (d->html->engine, text, link);
 }
 
 static void
@@ -127,9 +141,19 @@ gtk_html_link_dialog_destroy (GtkHTMLLinkDialog *d)
 }
 
 void
-insert_link (GtkHTMLControlData *cd)
+link_insert (GtkHTMLControlData *cd)
 {
 	if (cd->link_dialog)
 		set_entries (cd->html->engine, cd->link_dialog->text, cd->link_dialog->link);
 	RUN_DIALOG (link);
+	cd->link_dialog->html_link = NULL;
+}
+
+void
+link_edit (GtkHTMLControlData *cd, HTMLLinkTextMaster *link)
+{
+	RUN_DIALOG (link);
+	cd->link_dialog->html_link = link;
+	gtk_entry_set_text (GTK_ENTRY (cd->link_dialog->text), HTML_TEXT (link)->text);
+	gtk_entry_set_text (GTK_ENTRY (cd->link_dialog->link), link->url);
 }

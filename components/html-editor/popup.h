@@ -20,19 +20,11 @@
    Boston, MA 02111-1307, USA.
 */
 
-#ifndef _GTK_HTML_LINK_H_
-#define _GTK_HTML_LINK_H_
+#ifndef _POPUP_H_
+#define _POPUP_H_
 
-typedef struct _GtkHTMLLinkDialog GtkHTMLLinkDialog;
-
-#include <gnome.h>
-#include <htmllinktextmaster.h>
 #include "control-data.h"
 
-GtkHTMLLinkDialog * gtk_html_link_dialog_new     (GtkHTML *html);
-void                gtk_html_link_dialog_destroy (GtkHTMLLinkDialog *);
-
-void                link_insert                  (GtkHTMLControlData *cd);
-void                link_edit                    (GtkHTMLControlData *cd, HTMLLinkTextMaster *link);
+gint   popup_show      (GtkHTMLControlData *cd, GdkEventButton *event);
 
 #endif

@@ -36,11 +36,16 @@ struct _GtkHTMLControlData {
 	GtkHTML   *html;
 	GtkWidget *vbox;
 
+	/* search & replace dialogs */
 	GtkHTMLSearchDialog     *search_dialog;
 	GtkHTMLReplaceDialog    *replace_dialog;
 
+	/* objects dialogs */
 	GtkHTMLImageDialog      *image_dialog;
 	GtkHTMLLinkDialog       *link_dialog;
+
+	/* object from last button press event */
+	HTMLObject *obj;
 };
 
 GtkHTMLControlData * gtk_html_control_data_new       (GtkHTML *html, GtkWidget *vbox);
