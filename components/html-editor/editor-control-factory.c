@@ -382,7 +382,7 @@ editor_init_painters (GtkHTMLControlData *cd)
 
 	html = cd->html;
 	
-	gtk_widget_get_style (GTK_WIDGET (html));
+	gtk_widget_ensure_style (GTK_WIDGET (html));
 	
 	if (!cd->plain_painter) {
 		cd->gdk_painter = HTML_GDK_PAINTER (html->engine->painter);

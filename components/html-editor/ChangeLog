@@ -4,6 +4,8 @@
 	directly rather than the prop 
 	(editor_set_format): copy the default fonts back since they may
 	have changed dues to style changes.
+	(editor_init_painters): call ensure_style to make sure the colors
+	and fonts are valid.
 
 2003-04-09  Radek Doulik  <rodo@ximian.com>
 
