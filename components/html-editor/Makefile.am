@@ -17,7 +17,7 @@ LDADD =						\
 	$(EXTRA_GNOME_LIBS)			\
 	$(GNOMEUI_LIBS)				\
 	$(GNOME_LIBS)				\
-	$(GCONF_LIBS) -lgconf-gtk
+	$(GCONF_LIBS)
 
 # The Editor Control
 

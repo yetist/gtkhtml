@@ -1,5 +1,10 @@
 2000-06-14  Radek Doulik  <rodo@helixcode.com>
 
+	* Makefile.am (testgtkhtml_LDADD): removed -lgconf-gtk which was
+	hack and is fixed now
+
+	* testgtkhtml.c (main): call gtkhtmllib_init
+
         keybindings support + gtkhtml config capplet using gconf
 	
 	* gtkhtml.c (key_press_event): so, finnaly insert everything which

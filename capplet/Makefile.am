@@ -8,7 +8,7 @@ gtkhtml_properties_capplet_SOURCES = \
 gtkhtml_properties_capplet_LDADD = \
 	$(GNOME_LIBDIR) \
 	$(GNOME_CAPPLET_LIBS) \
-	$(GCONF_LIBS) -lgconf-gtk ../src/gtkhtml-properties.o
+	$(GCONF_LIBS) ../src/gtkhtml-properties.o
 	
 
 EXTRA_DIST = gtkhtml-properties.desktop

@@ -180,7 +180,7 @@ testgtkhtml_LDADD =				\
 	$(GNOMEUI_LIBS)				\
 	$(GNOME_LIBDIR)				\
 	$(EXTRA_GNOME_LIBS)                     \
-	$(GCONF_LIBS) -lgconf-gtk		\
+	$(GCONF_LIBS)				\
 	$(GLIBWWW)
 # -lccmalloc -ldl
 #

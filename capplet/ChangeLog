@@ -3,6 +3,8 @@
 	* Makefile.am (gtkhtml_properties_capplet_LDADD): we include
 	../src/gtkhtml-properties.o in LDADD - this is quite ugly, some
 	automake volunteer? Or maybe we should move capplet to src dir?
+	(gtkhtml_properties_capplet_LDADD): removed -lgconf-gtk which was
+	hack and is fixed now
 
 	* new directory for capplet
 
