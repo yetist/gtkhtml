@@ -1,3 +1,16 @@
+2000-03-06  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine-edit-delete.c (html_engine_delete): Call
+	`html_cursor_normalize()' on exit.
+
+	* htmlcursor.c (html_cursor_normalize): New function.  If the
+	cursor points to an object's zero offset and there is an object
+	before this one, we change the pointer to point to the object
+	before it, and the offset to the size of the object.
+
+	* htmlengine-edit-delete.c (html_engine_delete): Argh.  Initialize
+	`orig_object' and `orig_offset' at the right time.
+
 2000-03-03  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlengine-edit-delete.c (html_engine_delete): Move to the next

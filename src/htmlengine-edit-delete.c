@@ -190,14 +190,11 @@ html_engine_delete (HTMLEngine *e,
 	guint orig_offset;
 	guint prev_offset;
 	gboolean destroy_orig;
-
-	if (orig_object->parent == NULL || orig_object->parent == NULL)
+	
+	if (e->cursor->object->parent == NULL || e->cursor->object->parent == NULL)
 		return;
 
 	html_engine_draw_cursor (e);
-
-	orig_object = e->cursor->object;
-	orig_offset = e->cursor->offset;
 
 	if (html_object_is_text (e->cursor->object)
 	    && e->cursor->offset == HTML_TEXT (e->cursor->object)->text_len) {
@@ -212,6 +209,9 @@ html_engine_delete (HTMLEngine *e,
 			e->cursor->offset = 0;
 		}
 	}
+
+	orig_object = e->cursor->object;
+	orig_offset = e->cursor->offset;
 
 	if (! html_object_is_text (orig_object)) {
 		destroy_orig = TRUE;
@@ -236,7 +236,7 @@ html_engine_delete (HTMLEngine *e,
 	}
 
 	if (count == 0)
-		return;
+		goto end;
 
 	/* Look for the end point.  We want to delete `count'
            characters/elements from the current position.  While moving
@@ -279,6 +279,8 @@ html_engine_delete (HTMLEngine *e,
 
 	e->cursor->offset += merge_text_at_cursor (e);
 
+ end:
+
+	html_cursor_normalize (e->cursor);
 	html_engine_draw_cursor (e);
 }
-

@@ -117,6 +117,26 @@ html_cursor_dup (const HTMLCursor *cursor)
 	return new;
 }
 
+void
+html_cursor_normalize (HTMLCursor *cursor)
+{
+	g_return_if_fail (cursor != NULL);
+
+	if (cursor->offset == 0 && cursor->object->prev != NULL) {
+		HTMLObject *p;
+
+		p = cursor->object->prev;
+		while (p != NULL && HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE)
+			p = p->prev;
+
+		cursor->object = p;
+		if (html_object_is_text (p))
+			cursor->offset = HTML_TEXT (p)->text_len;
+		else
+			cursor->offset = 1;
+	}
+}
+
 
 void
 html_cursor_set_position (HTMLCursor *cursor,
@@ -796,3 +816,4 @@ html_cursor_beginning_of_line (HTMLCursor *cursor,
 		html_cursor_copy (&prev_cursor, cursor);
 	}
 }
+

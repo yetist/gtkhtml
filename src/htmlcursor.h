@@ -47,6 +47,8 @@ HTMLCursor *html_cursor_dup      (const HTMLCursor *cursor);
 void        html_cursor_copy     (HTMLCursor       *dest,
 				  const HTMLCursor *src);
 
+void  html_cursor_normalize  (HTMLCursor *cursor);
+
 void  html_cursor_set_position  (HTMLCursor *cursor,
 				 HTMLObject *object,
 				 guint       offset);
