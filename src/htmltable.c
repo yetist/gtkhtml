@@ -1126,7 +1126,7 @@ draw (HTMLObject *o,
 	ty += o->y - o->ascent;
 
 	/* Draw the cells */
-	get_bounds (table, x, y, width, height, &start_col, &end_col, &start_row, &end_row);
+	get_bounds (table, x - o->x, y - o->y + o->ascent, width, height, &start_col, &end_col, &start_row, &end_row);
 	for (r = start_row; r <= end_row; r++) {
 		for (c = start_col; c <= end_col; c++) {
 			cell = table->cells[r][c];
