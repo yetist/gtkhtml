@@ -83,7 +83,7 @@ extend_selection (HTMLEngine *engine,
 		else
 			obj = html_object_prev_for_cursor (obj);
 
-		if (obj->parent != prev_clueflow)
+		if (obj->parent != prev_clueflow && prev_clueflow != NULL)
 			html_object_select_range (prev_clueflow, engine, 0, -1, TRUE);
 	}
 
@@ -146,7 +146,7 @@ reduce_selection (HTMLEngine *engine,
 			obj = html_object_prev_for_cursor (obj);
 
 		if (obj->parent != prev_clueflow)
-			html_object_select_range (prev_clueflow, engine, 0, 1, TRUE);
+			html_object_select_range (obj->parent, engine, 0, 0, TRUE);
 	}
 
 	if (forward) {

@@ -25,9 +25,6 @@
 
 #include "htmlengine.h"
 
-#include "htmlengine-edit-cut.h"
-#include "htmlengine-edit-copy.h"
-
 
 /* Undo/redo.  */
 void  html_engine_undo      (HTMLEngine *e);

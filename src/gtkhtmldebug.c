@@ -207,3 +207,66 @@ gtk_html_debug_dump_tree (HTMLObject *o,
 		obj = obj->next;
 	}
 }
+
+
+static void
+dump_object_simple (HTMLObject *obj,
+		    gint level)
+{
+	gint i;
+
+	for (i = 0; i < level; i++)
+		g_print ("\t");
+
+	if (html_object_is_text (obj))
+		g_print ("%s `%s'\n",
+			 html_type_name (HTML_OBJECT_TYPE (obj)),
+			 HTML_TEXT (obj)->text);
+	else
+		g_print ("%s\n", html_type_name (HTML_OBJECT_TYPE (obj)));
+}
+
+void
+gtk_html_debug_dump_tree_simple (HTMLObject *o,
+				 gint level)
+{
+	HTMLObject *obj;
+	gint i;
+
+	for (obj = o; obj != NULL; obj = obj->next) {
+		if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_TEXTSLAVE)
+			continue;
+
+		dump_object_simple (obj, level);
+
+		switch (HTML_OBJECT_TYPE (obj)) {
+		case HTML_TYPE_CLUEH:
+		case HTML_TYPE_CLUEV:
+		case HTML_TYPE_CLUEFLOW:
+		case HTML_TYPE_CLUEALIGNED:
+		case HTML_TYPE_TABLECELL:
+			gtk_html_debug_dump_tree_simple (HTML_CLUE (obj)->head, level + 1);
+			break;
+
+		default:
+			break;
+		}
+	}
+}
+
+void
+gtk_html_debug_dump_list_simple (GList *list,
+				 gint level)
+{
+	HTMLObject *obj;
+	GList *p;
+
+	for (p = list; p != NULL; p = p->next) {
+		obj = HTML_OBJECT (p->data);
+
+		if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_TEXTSLAVE)
+			continue;
+
+		dump_object_simple (obj, level);
+	}
+}

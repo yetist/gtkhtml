@@ -27,11 +27,14 @@
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
 
-#include "htmlengine-edit.h"
+#include "htmlengine-edit-copy.h"
 #include "htmlengine-edit-cursor.h"
+#include "htmlengine-edit-cut.h"
 #include "htmlengine-edit-delete.h"
 #include "htmlengine-edit-insert.h"
 #include "htmlengine-edit-movement.h"
+#include "htmlengine-edit-paste.h"
+#include "htmlengine-edit.h"
 
 #include "gtkhtml-keybinding.h"
 #include "gtkhtmldebug.h"	/* FIXME */
@@ -170,6 +173,27 @@ disable_selection (GtkHTML *html)
 	html_engine_disable_selection (html->engine);
 }
 
+static void
+cut (GtkHTML *html)
+{
+	html_engine_cut (html->engine);
+}
+
+static void
+copy (GtkHTML *html)
+{
+	html_engine_copy (html->engine);
+	html_engine_disable_selection (html->engine);
+}
+
+static void
+paste (GtkHTML *html)
+{
+	/* FIXME this should cut the selection first instead.  */
+	html_engine_disable_selection (html->engine);
+	html_engine_paste (html->engine);
+}
+
 
 /* CTRL keybindings.  */
 static gint
@@ -211,6 +235,12 @@ handle_ctrl (GtkHTML *html,
 		break;
 	case 'v':
 		page_down (html);
+		break;
+	case 'w':
+		cut (html);
+		break;
+	case 'y':
+		paste (html);
 		break;
 	case ' ':
 		set_mark (html);
@@ -256,6 +286,9 @@ handle_alt (GtkHTML *html,
 		break;
 	case 'v':
 		page_up (html);
+		break;
+	case 'w':
+		copy (html);
 		break;
 	default:
 		if (event->length == 1) {

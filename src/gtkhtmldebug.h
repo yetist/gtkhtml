@@ -35,5 +35,9 @@ void  gtk_html_debug_dump_tree         (HTMLObject *o,
 void  gtk_html_debug_dump_object_type  (HTMLObject *o);
 void  gtk_html_debug_dump_table        (HTMLObject *o,
 					gint        level);
+void  gtk_html_debug_dump_tree_simple  (HTMLObject *o,
+					gint        level);
+void  gtk_html_debug_dump_list_simple  (GList      *list,
+					gint        level);
 
 #endif /* _GTKHTML_DEBUG_H_ */

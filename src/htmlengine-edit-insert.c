@@ -137,6 +137,8 @@ html_engine_insert_para (HTMLEngine *engine,
 		html_engine_queue_draw (engine, flow->parent);
 	}
 
+	engine->cursor->position++;
+
 	html_engine_show_cursor (engine);
 }
 

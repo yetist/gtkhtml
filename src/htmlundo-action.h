@@ -32,7 +32,7 @@ typedef void  (* HTMLUndoActionClosureDestroyFunction)  (gpointer closure);
 
 struct _HTMLUndoAction {
 	/* A text description of the action, to be displayed in the menus.  */
-	const gchar *description;
+	gchar *description;
 
 	/* Function to call when the action is performed.  */
 	HTMLUndoActionFunction function;

@@ -1,3 +1,55 @@
+2000-04-14  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine-edit-paste.c: Cleaned up and made robust.  I also
+	added a few g_assert()s around in the process, just to make sure
+	things are really working.
+	(skip): Don't touch the cursor's position counter.
+	(html_engine_paste): Likewise.
+	(update_cursor_position): New helper function, for updating the
+	position counter correctly.
+	(prepare_clueflows): New param `append'.  If true, handle creation
+	of clueflows for the case in which append to the current object
+	instead of prepending to it.
+	(html_engine_paste): Pass the appropriate `append' value to
+	`prepare_clueflows()'.
+	(add_empty_text_master_to_clueflow): New helper function.
+	(split_first_clueflow_at_cursor): Use it.
+	(prepare_clueflows): If the last HTMLClueFlow is not followed by
+	anything, add an empty HTMLTextMaster to it using
+	`add_empty_text_master_to_clueflow()'.
+
+	* htmlengine-edit-insert.c
+	(html_engine_insert_para): Increment cursor's position counter.
+
+	* htmlengine-edit-paste.c
+	(split_at_cursor): In the case of a non-text object, return
+	`FALSE' if the offset is zero; otherwise, return `TRUE'.
+	(skip): If the following object is NULL, go at the beginning of
+	the following HTMLClueFlow.
+	(prepare_clueflows): Add the clueflows in the right position.
+
+	* htmlengine-edit-paste.c: Use `gtk_html_debug_dump_tree_simple()'
+	instead of `gtk_html_debug_dump_tree()' which is way too verbose.
+
+	* gtkhtmldebug.c
+	(gtk_html_debug_dump_tree_simple): New function.
+	(gtk_html_debug_dump_list_simple): New function.
+
+	* gtkhtml-keybinding.c
+	(paste): New function.
+	(handle_ctrl): Bind it to `C-y'.
+	(cut): New function.
+	(handle_ctrl): Bind it to `C-w'.
+	(copy): New function.
+	(handle_alt): Bind it to `M-w'.
+
+	* htmlundo-action.h: Changed `description' not to be const
+	anymore.
+
+	* htmlengine-edit-selection-updater.c
+	(reduce_selection): Unset the selection for HTMLClueFlows
+	correctly.
+
 2000-04-14  Radek Doulik  <rodo@helixcode.com>
 
 	* gtkhtml-search.c (gtk_html_search_dialog_new): updated to
@@ -47,10 +99,8 @@
 	* htmlsearch.h: new file, contains definition of HTMLSearch helper
 	structure and its interface func's
 
-2000-04-12  Radek Doulik  <rodo@helixcode.com>
-
-	* Makefile.am (libgtkhtml_HEADERS): replaced gtkhtml-search.c with gtkhtml-search.h
-	added htmlsearch.[ch], gtkhtml-search.[ch]
+	* Makefile.am (libgtkhtml_HEADERS): replaced gtkhtml-search.c with
+	gtkhtml-search.h added htmlsearch.[ch], gtkhtml-search.[ch]
 
 2000-04-13  Larry Ewing  <lewing@helixcode.com>
 

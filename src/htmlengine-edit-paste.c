@@ -28,9 +28,23 @@
 
 #include "htmlengine-edit-paste.h"
 
-/* #define PARANOID_DEBUG */
+#define PARANOID_DEBUG
 
 
+/* This function adds an empty HTMLTextMaster object to @flow; it is
+   used to make sure no empty HTMLClueFlow object is created.  */
+static void
+add_empty_text_master_to_clueflow (HTMLClueFlow *flow)
+{
+	static GdkColor black = { 0, 0, 0, 0 };	/* FIXME */
+	HTMLObject *new_textmaster;
+
+	new_textmaster = html_text_master_new ("",
+					       GTK_HTML_FONT_STYLE_DEFAULT,
+					       &black);
+	html_clue_prepend (HTML_CLUE (flow), new_textmaster);
+}
+
 /* This split text at the current cursor position to prepare it for insertion
    of new elements.  */
 static void
@@ -90,9 +104,13 @@ split_at_cursor (HTMLEngine *engine)
 		return FALSE;
 	}
 
-	/* We are not in a text element, so no splitting is needed.  If we got
-           here, offset is certainly positive, so we must append.  */
-	return TRUE;
+	/* We are not in a text element, so no splitting is needed.
+           If we are at the end of the non-texte element, we must
+           append; otherwise, we must prepend.  */
+	if (cursor->offset == 0)
+		return FALSE;
+	else
+		return TRUE;
 }
 
 /* This splits the paragraph in which the cursor is in, at the cursor position,
@@ -113,15 +131,8 @@ split_first_clueflow_at_cursor (HTMLEngine *engine,
            paragraph, add an empty text element, as HTMLClueFlows must
            never be empty.  */
 	if (curr->prev == NULL) {
-		/* FIXME color */
-		GdkColor black = { 0, 0, 0, 0 };
-		HTMLObject *new_textmaster;
-
-		new_textmaster = html_text_master_new ("", GTK_HTML_FONT_STYLE_DEFAULT,
-						       &black);
-		html_clue_prepend (HTML_CLUE (curr_clue), new_textmaster);
-
-		engine->cursor->object = new_textmaster;
+		add_empty_text_master_to_clueflow (HTML_CLUEFLOW (curr_clue));
+		engine->cursor->object = HTML_CLUE (curr_clue)->head;
 		engine->cursor->offset = 0;
 	} else {
 		engine->cursor->object = curr->prev;
@@ -141,7 +152,7 @@ split_first_clueflow_at_cursor (HTMLEngine *engine,
 
 	/* Move the stuff until the cursor position into the new HTMLClueFlow.  */
 
-	for (p = HTML_CLUE (curr->parent)->head; p != NULL && p != curr; p = pnext) {
+	for (p = HTML_CLUE (curr_clue)->head; p != NULL && p != curr; p = pnext) {
 		pnext = p->next;
 
 		html_clue_remove (HTML_CLUE (p->parent), p);
@@ -169,7 +180,8 @@ add_new_clueflow (HTMLEngine *engine,
 
 /* Add all the necessary HTMLClueFlows to paste the current selection.  */
 static gboolean
-prepare_clueflows (HTMLEngine *engine)
+prepare_clueflows (HTMLEngine *engine,
+		   gboolean append)
 {
 	HTMLObject *clue;
 	HTMLObject *curr;
@@ -181,7 +193,8 @@ prepare_clueflows (HTMLEngine *engine)
 	g_return_val_if_fail (curr->parent != NULL, FALSE);
 	g_return_val_if_fail (HTML_OBJECT_TYPE (curr->parent) == HTML_TYPE_CLUEFLOW, FALSE);
 
-	clue = curr->parent;
+	clue = NULL;		/* Make compiler happy.  */
+
 	first = TRUE;
 	retval = FALSE;
 	for (p = engine->cut_buffer; p != NULL; p = p->next) {
@@ -191,11 +204,20 @@ prepare_clueflows (HTMLEngine *engine)
 		if (HTML_OBJECT_TYPE (obj) != HTML_TYPE_CLUEFLOW)
 			continue;
 
-		if (first) {
-			first = FALSE;
+		if (first && ! append) {
 			split_first_clueflow_at_cursor (engine, HTML_CLUEFLOW (obj));
+
+			clue = engine->cursor->object->parent;
+			g_assert (clue != NULL);
+
+			first = FALSE;
 			retval = TRUE;
 		} else {
+			if (first)
+				clue = engine->cursor->object->parent;
+
+			g_assert (clue != NULL);
+
 			clue = add_new_clueflow (engine, HTML_CLUEFLOW (obj), clue);
 		}
 	}
@@ -204,7 +226,7 @@ prepare_clueflows (HTMLEngine *engine)
 }
 
 
-/* FIXME this is kind of evil.  */
+/* FIXME this is evil.  */
 static void
 skip (HTMLEngine *engine)
 {
@@ -214,12 +236,23 @@ skip (HTMLEngine *engine)
 	cursor = engine->cursor;
 	curr = cursor->object;
 
-	if (html_object_is_text (curr))
-		cursor->position += HTML_TEXT (curr)->text_len;
-	else
-		cursor->position ++;
+	if (curr->next != NULL ) {
+		cursor->object = curr->next;
+	} else {
+		HTMLObject *next_clueflow;
 
-	cursor->object = curr->next;
+		g_assert (curr->parent != NULL);
+		g_assert (curr->parent->next != NULL);
+
+		next_clueflow = curr->parent->next;
+		if (HTML_CLUE (next_clueflow)->head == NULL)
+			add_empty_text_master_to_clueflow (HTML_CLUEFLOW (next_clueflow));
+
+		cursor->object = HTML_CLUE (next_clueflow)->head;
+		g_assert (cursor->object != NULL);
+
+		cursor->offset = 0;
+	}
 }
 
 static void
@@ -304,11 +337,35 @@ remove_slaves_at_cursor (HTMLEngine *engine)
 	html_clueflow_remove_text_slaves (HTML_CLUEFLOW (parent));
 }
 
+static void
+update_cursor_position (HTMLCursor *cursor,
+			GList *buffer)
+{
+	HTMLObject *obj;
+	GList *p;
+	gint position;
+
+	position = cursor->position;
+	for (p = buffer; p != NULL; p = p->next) {
+		obj = HTML_OBJECT (p->data);
+
+		if (html_object_is_text (obj))
+			position += HTML_TEXT (obj)->text_len;
+		else
+			position++;
+	}
+
+	cursor->position = position;
+}
+
 
 void
 html_engine_paste (HTMLEngine *engine)
 {
+	/* Whether we need to append the elements at the cursor
+	   position or not.  */
 	gboolean append;
+	HTMLObject *obj;
 	GList *p;
 
 	g_return_if_fail (engine != NULL);
@@ -320,41 +377,49 @@ html_engine_paste (HTMLEngine *engine)
 
 	g_warning ("Paste!");
 
+#ifdef PARANOID_DEBUG
+	g_print ("\n**** Cut buffer contents:\n\n");
+	gtk_html_debug_dump_list_simple (engine->cut_buffer, 1);
+#endif
+
 	/* 1. Freeze the engine.  */
 
 	html_engine_freeze (engine);
 
 #ifdef PARANOID_DEBUG
 	g_print ("\n**** Tree before pasting:\n\n");
-	gtk_html_debug_dump_tree (engine->clue, 2);
+	gtk_html_debug_dump_tree_simple (engine->clue, 1);
 #endif
 
 	/* 2. Remove all the HTMLTextSlaves in the current HTMLClueFlow.  */
 
 	remove_slaves_at_cursor (engine);
 
-	/* 3. Split the first paragraph at the cursor position, to allow insertion
-              of the elements.  */
+	/* 3. Split the first paragraph at the cursor position, to
+	      allow insertion of the elements.  */
 
 	append = split_at_cursor (engine);
 
 #ifdef PARANOID_DEBUG
 	g_print ("\n**** Tree after splitting first para:\n\n");
-	gtk_html_debug_dump_tree (engine->clue, 2);
+	gtk_html_debug_dump_tree_simple (engine->clue, 1);
 #endif
 
-	/* 4. Prepare the HTMLClueFlows to hold the elements we want to paste.  */
+	/* 4. Prepare the HTMLClueFlows to hold the elements we want
+              to paste.  */
 
-	if (prepare_clueflows (engine))
+	if (prepare_clueflows (engine, append))
 		append = TRUE;
 
 #ifdef PARANOID_DEBUG
 	g_print ("\n**** Tree after clueflow preparation:\n\n");
-	gtk_html_debug_dump_tree (engine->clue, 2);
+	gtk_html_debug_dump_tree_simple (engine->clue, 1);
 #endif
 
-	/* 5. Duplicate the objects in the cut buffer, one by one, and insert
-              them into the document.  */
+	g_print ("\n");
+
+	/* 5. Duplicate the objects in the cut buffer, one by one, and
+	      insert them into the document.  */
 
 	for (p = engine->cut_buffer; p != NULL; p = p->next) {
 		HTMLObject *obj;
@@ -432,7 +497,6 @@ html_engine_paste (HTMLEngine *engine)
 			/* Kind of evil, isn't it?  */
 			engine->cursor->object = obj_copy;
 			engine->cursor->offset = 0;
-			engine->cursor->position++;
 		}
 	}
 
@@ -441,15 +505,20 @@ html_engine_paste (HTMLEngine *engine)
 
 #ifdef PARANOID_DEBUG
 	g_print ("\n**** Tree after pasting:\n\n");
-	gtk_html_debug_dump_tree (engine->clue, 2);
+	gtk_html_debug_dump_tree_simple (engine->clue, 1);
 #endif
 
-	/* 6. Thaw the engine so that things are re-laid out again.
-           FIXME: this might be a bit inefficient for cut & paste.  */
+	/* 7. Update the cursor's absolute position counter by
+	      counting the elements in the cut buffer.  */
+
+	update_cursor_position (engine->cursor, engine->cut_buffer);
+
+	/* 8. Thaw the engine so that things are re-laid out again.
+              FIXME: this might be a bit inefficient for cut & paste.  */
 
 	html_engine_thaw (engine);
 
-	/* 7. Normalize the cursor pointer.  */
+	/* 9. Normalize the cursor pointer.  */
 
 	html_cursor_normalize (engine->cursor);
 }
