@@ -438,7 +438,6 @@ convert_nbsp (gchar *s)
 	gchar *p, *op;
 	guchar *rv, *rp;
 
-	state = 0;
 	pass  = 0;
 	delta = 0;
 
@@ -447,6 +446,7 @@ convert_nbsp (gchar *s)
 #endif
 	for (pass=0; pass < 2; pass++) {
 		op = p = s;
+		state = 0;
 		while (*p && (p = unicode_get_utf8 (p, &uc))) {
 			if (uc == ENTITY_NBSP || uc == ' ') {
 				if (pass) {

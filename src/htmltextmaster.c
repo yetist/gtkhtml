@@ -766,18 +766,18 @@ paste_link (HTMLEngine *engine, HTMLText *text, gint so, gint eo, gchar *prefix)
 	gchar *href;
 	gchar *base;
 
-	base = g_strndup (html_text_get_text (text, so), html_text_get_index (text, eo) - html_text_get_index (text, so) + 1);
+	base = g_strndup (html_text_get_text (text, so), html_text_get_index (text, eo) - html_text_get_index (text, so));
 	href = (prefix) ? g_strconcat (prefix, base, NULL) : g_strdup (base);
 	g_free (base);
 
 	new_obj = html_link_text_master_new_with_len
 		(html_text_get_text (text, so),
-		 html_text_get_index (text, eo) - html_text_get_index (text, so) + 1,
+		 eo - so,
 		 text->font_style,
 		 html_colorset_get_color (engine->settings->color_set, HTMLLinkColor),
 		 href, NULL);
 	html_engine_replace_by_object (engine,
-				       HTML_OBJECT (text), so, HTML_OBJECT (text), eo + 1,
+				       HTML_OBJECT (text), so, HTML_OBJECT (text), eo,
 				       new_obj);
 
 	g_free (href);
@@ -791,6 +791,10 @@ html_text_master_magic_link (HTMLTextMaster *master, HTMLEngine *engine,
 	regmatch_t pmatch [2];
 	gint i;
 
+	if (!offset)
+		return FALSE;
+	offset--;
+
 	while (html_text_get_char (text, offset) != ' ' && html_text_get_char (text, offset) != ENTITY_NBSP && offset)
 		offset--;
 	if (html_text_get_char (text, offset) == ' ' || html_text_get_char (text, offset) == ENTITY_NBSP)
@@ -802,7 +806,7 @@ html_text_master_magic_link (HTMLTextMaster *master, HTMLEngine *engine,
 				gint o = html_text_get_text (text, offset) - text->text;
 				paste_link (engine, text,
 					    unicode_index_to_offset (text->text, pmatch [0].rm_so+o),
-					    unicode_index_to_offset (text->text, pmatch [0].rm_eo+o-1), mim [i].prefix);
+					    unicode_index_to_offset (text->text, pmatch [0].rm_eo+o), mim [i].prefix);
 				return TRUE;
 			}
 		}

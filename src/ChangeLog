@@ -1,5 +1,10 @@
 2000-09-20  Radek Doulik  <rodo@helixcode.com>
 
+	* htmltextmaster.c (html_text_master_magic_link): fixed for ' '
+	case
+
+	* htmltext.c (convert_nbsp): reset state to 0 after first pass
+
 	* htmltextmaster.c (html_text_master_magic_link): test mim
 	[i].preg != NULL
 

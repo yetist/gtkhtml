@@ -555,6 +555,7 @@ html_engine_insert (HTMLEngine *e,
 
 	current_object = e->cursor->object;
 	current_offset = e->cursor->offset;
+
 	if (current_object == NULL)
 		return 0;
 
