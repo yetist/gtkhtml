@@ -21,7 +21,6 @@
 */
 
 #include <gal/widgets/widget-color-combo.h>
-#include "gp_foreground_solid"
 #include "htmlengine-edit-clueflowstyle.h"
 #include "htmlimage.h"
 #include "body.h"

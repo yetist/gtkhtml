@@ -21,7 +21,6 @@
 */
 
 #include <gal/widgets/widget-color-combo.h>
-#include "gp_foreground_solid"
 #include "htmlengine-edit.h"
 #include "htmlengine-edit-fontstyle.h"
 #include "htmlengine-save.h"
