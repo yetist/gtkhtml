@@ -3755,7 +3755,6 @@ update_embedded (GtkWidget *widget, gpointer data)
 	obj = gtk_object_get_data (GTK_OBJECT (widget), "embeddedelement");
 	if (obj) {
 		HTMLEngine *e;
-		HTMLObject *p;
 		gint tx = 0, ty = 0;
 		gint x, y, width, height;
 

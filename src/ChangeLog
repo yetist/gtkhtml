@@ -1,3 +1,12 @@
+2002-09-30  Radek Doulik  <rodo@ximian.com>
+
+	* htmlprinter.c (draw_text): removed unused local variable
+
+	* htmlengine.c (update_embedded): removed unused local variable
+
+	* gtkhtml.c (gtk_html_insert_html_generic): check tmp formlist
+	instead of html one
+
 2002-09-25  Radek Doulik  <rodo@ximian.com>
 
 	* htmlfontmanager.c (get_real_font_size): minimal font size 4

@@ -4736,7 +4736,7 @@ gtk_html_insert_html_generic (GtkHTML *html, GtkHTML *tmp, const gchar *html_src
 	/* copy the forms */
 	g_list_foreach (tmp->engine->formList, (GFunc)html_form_set_engine, html->engine);
 
-	if (html->engine->formList) {
+	if (tmp->engine->formList) {
 		GList *form_last;
 
 		form_last = g_list_last (html->engine->formList);

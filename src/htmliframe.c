@@ -24,6 +24,7 @@
 #include <string.h>
 #include "gtkhtml.h"
 #include "gtkhtml-private.h"
+#include "gtkhtml-stream.h"
 #include "htmlcolorset.h"
 #include "htmlgdkpainter.h"
 #include "htmlprinter.h"

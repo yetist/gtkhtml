@@ -519,7 +519,6 @@ draw_text (HTMLPainter *painter,
 	GnomeFont *font;
 	HTMLPrinter *printer;
 	gdouble print_x, print_y;
-	gchar *end;
 
 	printer = HTML_PRINTER (painter);
 	g_return_if_fail (printer->print_context != NULL);
