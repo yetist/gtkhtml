@@ -1,5 +1,8 @@
 2003-05-20  Larry Ewing  <lewing@ximian.com>
 
+	* htmlimage.c (html_image_resolve_image_url): unset oarg not iarg
+	and dup the string.
+
 	* gtkhtml.h: add prototypes.
 
 	* htmlengine-edit-cut-and-paste.c (use_pictograms): use get_magic_smileys.

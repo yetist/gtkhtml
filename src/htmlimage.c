@@ -495,8 +495,8 @@ html_image_resolve_image_url (GtkHTML *html, gchar *image_url)
 
 		if (oarg) {
 			if (G_VALUE_TYPE (oarg) == G_TYPE_STRING)
-				url = (gchar *) g_value_get_string (oarg);
-			g_value_unset (iarg);	
+				url = (gchar *) g_strdup (g_value_get_string (oarg));
+			g_value_unset (oarg);	
 			g_free (oarg);
 		}
 		g_value_unset (iarg);
