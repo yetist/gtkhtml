@@ -1,7 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*  htmlurl.c
 
-    Copyright (C) 1998 Free Software Foundation, Inc.
     Copyright (C) 1999 Helix Code, Inc.
 
     This library is free software; you can redistribute it and/or
@@ -52,8 +51,7 @@ strndup_nonempty_or_null (const gchar *s, guint n)
 }
 
 static const gchar *
-scan_user_and_password (HTMLURL *url,
-			const gchar *s)
+scan_host_info (HTMLURL *url, const gchar *s)
 {
 	const gchar *slash_ptr;
 	const gchar *at_ptr;
@@ -62,38 +60,41 @@ scan_user_and_password (HTMLURL *url,
 	const gchar *rest_ptr;
 
 	slash_ptr = strchr (s, '/');
-	if (slash_ptr == NULL)
-		return s;
-	at_ptr = memchr (s, '@', slash_ptr - s);
-
-	if (at_ptr == NULL) {
-		/* No `@', so it's going to be a hostname only.  */
+	if (slash_ptr == NULL) {
 		host_ptr = s;
+		rest_ptr = s + strlen (s);
 	} else {
-		host_ptr = at_ptr + 1;
+		at_ptr = memchr (s, '@', slash_ptr - s);
 
-		/* Check if we have a password.  */
-
-		colon_ptr = memchr (s, ':', host_ptr - s);
-		if (colon_ptr == NULL) {
-			url->username  = strndup_nonempty_or_null (s, at_ptr - s);
+		if (at_ptr == NULL) {
+			/* No `@', so it's going to be a hostname only.  */
+			host_ptr = s;
 		} else {
-			url->username = strndup_nonempty_or_null (s, colon_ptr - s);
-			url->password = strndup_nonempty_or_null (colon_ptr + 1,
-						   slash_ptr - (colon_ptr + 1));
-		}
-	}
+			host_ptr = at_ptr + 1;
 
-	rest_ptr = strchr (host_ptr, '/');
-	if (rest_ptr == NULL)
-		rest_ptr = host_ptr + strlen (host_ptr);
+			/* Check if we have a password.  */
+
+			colon_ptr = memchr (s, ':', host_ptr - s);
+			if (colon_ptr == NULL) {
+				url->username  = strndup_nonempty_or_null (s, at_ptr - s);
+			} else {
+				url->username = strndup_nonempty_or_null (s, colon_ptr - s);
+				url->password = strndup_nonempty_or_null (colon_ptr + 1,
+									  slash_ptr - (colon_ptr + 1));
+			}
+		}
+
+		rest_ptr = strchr (host_ptr, '/');
+		if (rest_ptr == NULL)
+			rest_ptr = host_ptr + strlen (host_ptr);
+	}
 
 	/* Look for a port number and set the host name.  */
 
 	colon_ptr = memchr (host_ptr, ':', rest_ptr - host_ptr);
 	if (colon_ptr == NULL) {
 		url->hostname = strndup_nonempty_or_null
-					(host_ptr, rest_ptr - host_ptr);
+			(host_ptr, rest_ptr - host_ptr);
 	} else {
 		guint port;
 
@@ -101,7 +102,7 @@ scan_user_and_password (HTMLURL *url,
 			url->port = (guint16) port;
 
 		url->hostname = strndup_nonempty_or_null
-					(host_ptr, colon_ptr - host_ptr);
+			(host_ptr, colon_ptr - host_ptr);
 	}
 
 	return rest_ptr;
@@ -149,7 +150,7 @@ html_url_new (const gchar *s)
 
 		/* Check for a host name and a port.  */
 		if (p[1] == '/' && p[2] == '/')
-			path_start = scan_user_and_password (new, p + 3);
+			path_start = scan_host_info (new, p + 3);
 		else
 			path_start = p + 1;
 	}

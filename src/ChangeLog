@@ -1,5 +1,9 @@
 1999-12-07  Ettore Perazzoli  <ettore@gnu.org>
 
+	* htmlurl.c (scan_user_and_password): Renamed to `scan_host_info'.
+	Do the right thing with URLs that do not have a slash after the
+	host name (e.g. because there is no path).
+
 	* htmlengine.c (parse_href): Do the right thing with
 	duplicating/changing the HTMLURL structs.
 
@@ -98,7 +102,8 @@
 	(html_engine_end): Likewise.
 
 	* gtkhtml-private.h: Removed signals from here.
-	* gtkhtml.c: Moved here.  Also, changed the name from `html_signals' to `signals'.
+	* gtkhtml.c: Moved here.  Also, changed the name from
+	`html_signals' to `signals'.
 
 	* gtkhtml.h, gtkhtml.c: New signal `on_url'.
 
