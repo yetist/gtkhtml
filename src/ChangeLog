@@ -4,6 +4,9 @@
 	proper size when width and height are not set.
 	(html_iframe_init): initialize the new variables and properly set
 	width and height.
+	(calc_min_width): add the start of a new implementation, this
+	should fix dan's problem with resizing in the short term. needs
+	more work though.
 
 	* htmliframe.h: add variables for the scroll widget and the html
 	widget for now.

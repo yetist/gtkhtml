@@ -95,6 +95,34 @@ html_iframe_grab_cursor(GtkWidget *iframe, GdkEvent *event)
 	return TRUE;
 }
 
+static gint
+calc_min_width (HTMLObject *o,
+		HTMLPainter *painter)
+{
+	HTMLIFrame *iframe = HTML_IFRAME (o);
+	GtkHTML *html;
+	gint min_width;
+
+	html = GTK_HTML (iframe->html);
+	min_width = html_object_calc_min_width (html->engine->clue,
+						html->engine->painter);
+	html->engine->width = min_width;
+	html_engine_calc_size (html->engine);
+	min_width = html_engine_get_doc_width (html->engine);
+	
+	return min_width;
+}
+
+static void
+reset (HTMLObject *o)
+{
+	HTMLIFrame *iframe;
+
+	(* HTML_OBJECT_CLASS (parent_class)->reset) (o);
+	iframe = HTML_IFRAME (o);
+	html_object_reset (GTK_HTML (iframe->html)->engine->clue);
+}
+
 static gboolean
 calc_size (HTMLObject *o,
 	   HTMLPainter *painter)
@@ -252,6 +280,8 @@ html_iframe_class_init (HTMLIFrameClass *klass,
 	parent_class = &html_embedded_class;
 
 	object_class->calc_size = calc_size;
+	object_class->calc_min_width = calc_min_width;
+	object_class->reset = reset;
 }
 	
 
