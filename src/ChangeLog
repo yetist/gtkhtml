@@ -1,3 +1,9 @@
+2003-10-14  Radek Doulik  <rodo@ximian.com>
+
+	* htmlobject.c (select_range): select containers
+
+	* htmlinterval.c (select_object): select range in containers
+
 2003-10-13  Frederic Crozat  <fcrozat@mandrakesoft.com>
 
 	* htmlobject.c: (object_save_data):

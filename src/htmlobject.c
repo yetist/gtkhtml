@@ -480,7 +480,7 @@ select_range (HTMLObject *self,
 	gboolean selected;
 	gboolean changed;
 
-	selected = length > 0 || (length == -1 && start < html_object_get_length (self)) ? TRUE : FALSE;
+	selected = length > 0 || (length == -1 && start < html_object_get_length (self)) || html_object_is_container (self) ? TRUE : FALSE;
 	changed  = (! selected && self->selected) || (selected && ! self->selected) ? TRUE : FALSE;
 
 	self->selected = selected;
