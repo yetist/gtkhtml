@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml VERSION\n"
 "POT-Creation-Date: 2002-04-29 21:58+0200\n"
-"PO-Revision-Date: 2002-05-03 17:37-0400\n"
+"PO-Revision-Date: 2002-05-17 14:37-0400\n"
 "Last-Translator: pclouds <pclouds@gmx.net>\n"
 "Language-Team: GnomeVI <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -267,7 +267,7 @@ msgstr "Tìm kiếm"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
 msgid "Find A Regular Expression"
-msgstr ""
+msgstr "Tìm biểu thức chính quy"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:23
 msgid "Find And Replace"
@@ -275,7 +275,7 @@ msgstr "Tìm và thay thế"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:24
 msgid "Find Regular E_xpression..."
-msgstr ""
+msgstr "Tìm _biểu thức chính quy..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:25
 msgid "Find _Again"
@@ -342,7 +342,7 @@ msgstr "Chèn ảnh vào tài liệu..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:40
 msgid "Insert rule into document..."
-msgstr ""
+msgstr "Chèn rule vào tài liệu..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
 msgid "Insert table into document..."
@@ -1282,7 +1282,7 @@ msgstr "ngược"
 
 #: components/html-editor/search.c:103
 msgid "Find Regular Expression"
-msgstr ""
+msgstr "Tìm biểu thức chính quy"
 
 #: components/html-editor/spell.c:261
 msgid "No misspelled word found"
