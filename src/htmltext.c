@@ -53,6 +53,7 @@ static void         spell_error_destroy     (SpellError *se);
 static void         move_spell_errors       (GList *spell_errors, guint offset, gint delta);
 static GList *      remove_spell_errors     (GList *spell_errors, guint offset, guint len);
 static guint        get_words               (const gchar *s);
+static void         remove_text_slaves      (HTMLObject *self);
 
 /* static void
 debug_spell_errors (GList *se)
@@ -347,6 +348,7 @@ html_text_op_cut_helper (HTMLText *text, HTMLEngine *e, GList *from, GList *to, 
 	/* printf ("before cut '%s'\n", text->text);
 	   debug_word_width (text); */
 
+	remove_text_slaves (HTML_OBJECT (text));
 	if (!html_object_could_remove_whole (HTML_OBJECT (text), from, to, left, right) || begin || end < text->text_len) {
 		gchar *nt, *tail;
 
@@ -631,6 +633,22 @@ calc_preferred_width (HTMLObject *self,
 	return MAX (1, text->word_width [text->words - 1]);
 }
 
+static void
+remove_text_slaves (HTMLObject *self)
+{
+	HTMLObject *next_obj;
+
+	/* Remove existing slaves */
+	next_obj = self->next;
+	while (next_obj != NULL
+	       && (HTML_OBJECT_TYPE (next_obj) == HTML_TYPE_TEXTSLAVE)) {
+		self->next = next_obj->next;
+		html_clue_remove (HTML_CLUE (next_obj->parent), next_obj);
+		html_object_destroy (next_obj);
+		next_obj = self->next;
+	}
+}
+
 static HTMLFitType
 fit_line (HTMLObject *o,
 	  HTMLPainter *painter,
@@ -639,24 +657,15 @@ fit_line (HTMLObject *o,
 	  gint widthLeft) 
 {
 	HTMLText *text; 
-	HTMLObject *next_obj;
 	HTMLObject *text_slave;
 
 	text = HTML_TEXT (o);
 
 	if (o->flags & HTML_OBJECT_FLAG_NEWLINE)
 		return HTML_FIT_COMPLETE;
-	
-	/* Remove existing slaves */
-	next_obj = o->next;
-	while (next_obj != NULL
-	       && (HTML_OBJECT_TYPE (next_obj) == HTML_TYPE_TEXTSLAVE)) {
-		o->next = next_obj->next;
-		html_clue_remove (HTML_CLUE (next_obj->parent), next_obj);
-		html_object_destroy (next_obj);
-		next_obj = o->next;
-	}
-	
+
+	remove_text_slaves (o);
+
 	/* Turn all text over to our slaves */
 	text_slave = html_text_slave_new (text, 0, HTML_TEXT (text)->text_len, 0);
 	html_clue_append_after (HTML_CLUE (o->parent), text_slave, o);

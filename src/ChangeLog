@@ -3,6 +3,9 @@
 	* htmltext.c (get_cursor_base): set base to Text coordinates if
 	there are no slaves
 	(get_cursor): if there are no slaves, use Text ascent/descent
+	(html_text_op_cut_helper): remove text slaves
+	(remove_text_slaves): new extracted function
+	(fit_line): use remove_text_slaves
 
 2001-07-30  Larry Ewing  <lewing@ximian.com>
 
