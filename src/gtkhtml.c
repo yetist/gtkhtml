@@ -674,8 +674,6 @@ static gint
 focus_in_event (GtkWidget *widget,
 		GdkEventFocus *event)
 {
-	puts (__FUNCTION__);
-
 	GTK_WIDGET_SET_FLAGS (widget, GTK_HAS_FOCUS);
 
 	html_engine_set_focus (GTK_HTML (widget)->engine, TRUE);
@@ -687,8 +685,6 @@ static gint
 focus_out_event (GtkWidget *widget,
 		 GdkEventFocus *event)
 {
-	puts (__FUNCTION__);
-
 	GTK_WIDGET_UNSET_FLAGS (widget, GTK_HAS_FOCUS);
 
 	html_engine_set_focus (GTK_HTML (widget)->engine, FALSE);

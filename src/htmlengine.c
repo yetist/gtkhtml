@@ -2117,7 +2117,7 @@ parse_m (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 					/* The time in seconds until the refresh */
 					refresh_delay = atoi(content);
 
-					string_tokenizer_tokenize(e->st, content, ",;>");
+					string_tokenizer_tokenize(e->st, content, ",;> ");
 					while ( string_tokenizer_has_more_tokens (e->st) ) {
 						const gchar* token = string_tokenizer_next_token(e->st);
 						if ( strncasecmp( token, "url=", 4 ) == 0 )

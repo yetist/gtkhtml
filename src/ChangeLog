@@ -1,3 +1,13 @@
+2000-03-20  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine.c (parse_m): When parsing `content=', spaces are
+	valid separators.
+
+2000-03-20  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* gtkhtml.c (focus_out_event): Removed annoying debugging message.
+	(focus_in_event): Likewise.
+
 2000-03-18  Jonas Borgström  <jonas_b@bitsmart.com>
 
 	testgtkhtml.c (url_requested): Only use redirect filters on the first file
