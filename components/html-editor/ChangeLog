@@ -1,3 +1,9 @@
+2001-10-04  Tuomas Kuosmanen  <tigert@ximian.com>
+
+	* template.c: Small beautification; Image frame should have the 
+	text with a smaller font since it looks nicer and also you
+	can fit more text that way.
+
 2001-09-19  Radek Doulik  <rodo@ximian.com>
 
 	* table.c: don't change rows/cols when changing templates

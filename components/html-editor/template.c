@@ -96,7 +96,7 @@ static TemplateInsertTemplate template_templates [TEMPLATES] = {
 		   "<tr><td align=\"center\">"
 		   "<img src=\"file://" ICONDIR "/empty_image.png\" align=\"top\" border=\"0\">"
 		   "</td></tr>"
-		   "<tr><td>Image 1:&nbsp;<font size=\"3\"><b>description</b></font size=\"3\"></td>"
+		   "<tr><td><font size=\"-1\">Image 1: <b>description</b></font></td>"
 		   "</tr></table></td></tr></table>")
 	},
 };
@@ -300,3 +300,4 @@ template_close_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
 	g_free (get_data);
 }
+
