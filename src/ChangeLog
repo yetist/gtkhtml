@@ -1,5 +1,7 @@
 2001-05-29  Larry Ewing  <lewing@ximian.com>
 
+	* gtkhtml.c (set_pointer_url): add helper function.
+
 	* htmltablecell.c (save): save rowspan and colspan when writing
 	the table back out.
 

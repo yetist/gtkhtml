@@ -785,6 +785,14 @@ size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 }
 
 static void
+set_pointer_url (GtkHTML *html, const char *url)
+{
+	g_free (html->pointer_url);
+	html->pointer_url = url ? g_strdup (url) : NULL;
+	gtk_signal_emit (GTK_OBJECT (html), signals[ON_URL], html->pointer_url);
+}
+
+static void
 on_object (GtkWidget *widget, GdkWindow *window, HTMLObject *obj)
 {
 	GtkHTML *html = GTK_HTML (widget);
@@ -793,9 +801,7 @@ on_object (GtkWidget *widget, GdkWindow *window, HTMLObject *obj)
 	if (obj) {
 		if ((url = (obj) ? html_object_get_url (obj) : NULL)) {
 			if (html->pointer_url == NULL || strcmp (html->pointer_url, url) != 0) {
-				g_free (html->pointer_url);
-				html->pointer_url = g_strdup (url);
-				gtk_signal_emit (GTK_OBJECT (html), signals[ON_URL], url);
+				set_pointer_url (html, url);
 			}
 
 			if (html->engine->editable)
@@ -804,9 +810,7 @@ on_object (GtkWidget *widget, GdkWindow *window, HTMLObject *obj)
 				gdk_window_set_cursor (window, html->hand_cursor);
 		} else {
 			if (html->pointer_url != NULL) {
-				g_free (html->pointer_url);
-				html->pointer_url = NULL;
-				gtk_signal_emit (GTK_OBJECT (html), signals [ON_URL], NULL);
+				set_pointer_url (html, NULL);				
 			}
 
 			if (obj != NULL && html_object_is_text (obj) && html->allow_selection)
@@ -816,9 +820,7 @@ on_object (GtkWidget *widget, GdkWindow *window, HTMLObject *obj)
 		}
 	} else {
 		if (html->pointer_url) {
-			g_free (html->pointer_url);
-			html->pointer_url = NULL;
-			gtk_signal_emit (GTK_OBJECT (html), signals [ON_URL], NULL);
+			set_pointer_url (html, NULL);
 		}
 		gdk_window_set_cursor (window, html->arrow_cursor);
 	}
@@ -1069,6 +1071,7 @@ button_release_event (GtkWidget *widget,
 
 	if (event->button == 1) {
 		html->button1_pressed = FALSE;
+		
 		if (html->pointer_url != NULL && ! html->in_selection)
 			gtk_signal_emit (GTK_OBJECT (widget), signals[LINK_CLICKED], html->pointer_url);
 	}
