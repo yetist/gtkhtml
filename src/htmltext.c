@@ -2978,6 +2978,13 @@ calc_font_size_filter (PangoAttribute *attr, gpointer data)
 
 	if (attr->klass->type == PANGO_ATTR_SIZE)
 		html_pango_attr_font_size_calc ((HTMLPangoAttrFontSize *) attr, e);
+	else if (attr->klass->type == PANGO_ATTR_FAMILY) {
+		/* FIXME: this is not very nice. we set it here as it's only used when fonts changed.
+		   once family in style is used again, that code must be updated */
+		PangoAttrString *sa = (PangoAttrString *) attr;
+		g_free (sa->value);
+		sa->value = g_strdup (e->painter->font_manager.fixed.face);
+	}
 
 	return FALSE;
 }

@@ -771,6 +771,25 @@ gtk_html_set_fonts (GtkHTML *html, HTMLPainter *painter)
 	}
 		
 	if (!fixed_name) {
+		char *name;
+		GConfClient *gconf;
+
+		gconf = gconf_client_get_default ();
+		fixed_name = gconf_client_get_string (gconf, "/desktop/gnome/interface/monospace_font_name", NULL);
+		if (fixed_name) {
+			fixed_desc = pango_font_description_from_string (fixed_name);
+			if (fixed_desc) {
+				fixed_size = pango_font_description_get_size (fixed_desc);
+				fixed_family = pango_font_description_get_family (fixed_desc);
+			} else {
+				g_free (fixed_name);
+				fixed_name = NULL;
+			}
+		}
+		g_object_unref (gconf);
+	}
+
+	if (!fixed_name) {
 		fixed_family = "Monospace";
 		fixed_size = font_var_size;
 	}
@@ -2473,6 +2492,27 @@ client_notify_key_theme (GConfClient* client, guint cnxn_id, GConfEntry* entry, 
 }
 
 static void
+calc_font_size (HTMLObject *o, HTMLEngine *e, gpointer data)
+{
+	if (HTML_IS_TEXT (o))
+		html_text_calc_font_size (HTML_TEXT (o), e);
+}
+
+static void
+client_notify_monospace_font (GConfClient* client, guint cnxn_id, GConfEntry* entry, gpointer data)
+{
+	GtkHTML *html = (GtkHTML *) data;
+	HTMLEngine *e = html->engine;
+	gtk_html_set_fonts (html, e->painter);
+	if (e->clue) {
+		html_object_forall (e->clue, html->engine, calc_font_size, NULL);
+		html_object_change_set_down (e->clue, HTML_CHANGE_ALL);
+		html_engine_calc_size (e, FALSE);
+		html_engine_schedule_update (e);
+	}
+}
+
+static void
 gtk_html_class_init (GtkHTMLClass *klass)
 {
 	GObjectClass      *gobject_class;
@@ -3073,6 +3113,9 @@ gtk_html_init (GtkHTML* html)
 			  G_CALLBACK (gtk_html_im_retrieve_surrounding_cb), html);
 	g_signal_connect (G_OBJECT (html->priv->im_context), "delete_surrounding",
 			  G_CALLBACK (gtk_html_im_delete_surrounding_cb), html);
+
+	gconf_client_notify_add (gconf_client_get_default (), "/desktop/gnome/interface/monospace_font_name",
+				 client_notify_monospace_font, html, NULL, &gconf_error);
 }
 
 GType

@@ -1,5 +1,15 @@
 2004-05-05  Radek Doulik  <rodo@ximian.com>
 
+	* htmltext.c (calc_font_size_filter): set fixed font family here
+	as well.
+
+	* gtkhtml.c (gtk_html_set_fonts): use
+	/desktop/gnome/interface/monospace_font_name gconf key for default
+	monospace font so that we behave as gnome applications
+	(client_notify_monospace_font): when monospace font changes,
+	update appropriately
+	(gtk_html_init): watch for monospace font changes
+
 	* htmltext.c (html_text_change_attrs): add avoid_default_size
 	parameter
 	(html_text_get_pango_info): avoid resetting font size to default
