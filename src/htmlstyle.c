@@ -19,6 +19,7 @@
     Boston, MA 02111-1307, USA.
 */
 
+#include <string.h>
 #include "htmlstyle.h"
 
 /* Color handling.  */

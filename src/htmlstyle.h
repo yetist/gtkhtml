@@ -26,7 +26,6 @@
 #include "htmlcolor.h"
 
 typedef struct _HTMLStyle HTMLStyle;
-
 struct _HTMLStyle {
 	HTMLColor          *color;
 	HTMLFontFace       *face;
@@ -37,7 +36,8 @@ struct _HTMLStyle {
 	HTMLHAlignType      text_align;
 };	
 
-HTMLStyle *html_style_new (void);
+
+HTMLStyle *html_style_new               (void);
 HTMLStyle *html_style_unset_decoration  (HTMLStyle *style, GtkHTMLFontStyle decoration);
 HTMLStyle *html_style_set_decoration    (HTMLStyle *style, GtkHTMLFontStyle decoration);
 HTMLStyle *html_style_set_size          (HTMLStyle *style, GtkHTMLFontStyle size);
@@ -45,5 +45,6 @@ HTMLStyle *html_style_add_text_align    (HTMLStyle *style, HTMLHAlignType type);
 HTMLStyle *html_style_add_font_face     (HTMLStyle *style, const HTMLFontFace *face);
 HTMLStyle *html_style_add_color         (HTMLStyle *style, HTMLColor *face);
 HTMLStyle *html_style_add_attribute     (HTMLStyle *style, char *attr);
+void       html_style_free              (HTMLStyle *);
 
 #endif /* __HTML_COLOR_H__ */

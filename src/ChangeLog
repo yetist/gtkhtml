@@ -1,5 +1,13 @@
 2002-11-20  Larry Ewing  <lewing@ximian.com>
 
+	* htmlengine.c (parse_i): parse style args.
+
+	* htmlstyle.c: add missing includes.
+
+	* htmlstyle.h: add missing prototypes.
+
+	* htmllinktext.c (get_font_style): stop forcing an underline.
+
 	* htmlengine.c: change push_span to push_element. Make current_*
 	skip elements with no style set.  Make elements that restore
 	alignment use the e->divAlign not pAlign and clear pAlign whenever

@@ -317,6 +317,7 @@ current_font_style (HTMLEngine *e)
 	return style;
 }
 
+HTMLHAlignType
 current_alignment (HTMLEngine *e)
 {
 	HTMLElement *span;
@@ -822,8 +823,6 @@ parse_body (HTMLEngine *e, HTMLObject *clue, const gchar *end[], gboolean toplev
 	gboolean final = FALSE;
 
 	if (begin && !toplevel) {
-		gint *old_font_style_attrs;
-
 		html_stack_push (e->body_stack, e->span_stack);
 		html_stack_push (e->body_stack, e->clueflow_style_stack);
 
@@ -1837,7 +1836,7 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 				/* FIXME todo */
 			} else if (strncasecmp (p, "style=", 6) == 0) {
 				style_attr = g_strdup (p + 6);
-#if 0				/* FIXME TODO */
+#if 0
 			} else if (strncasecmp (p, "target=", 7) == 0) {
 				target = g_strdup (p + 7);
 				parsedTargets.append( target );
@@ -1855,7 +1854,6 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 						  html_anchor_new (id));
 			g_free (id);
 		}
-
 #if 0
 		if ( !target
 		     && e->baseTarget != NULL
@@ -2583,7 +2581,22 @@ parse_i (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 		parse_iframe (e, str + 7, _clue);
 	} else if ( strncmp (str, "i", 1 ) == 0 ) {
 		if ( str[1] == '>' || str[1] == ' ' ) {
-			push_span (e, ID_I, NULL, NULL, GTK_HTML_FONT_STYLE_ITALIC, GTK_HTML_FONT_STYLE_ITALIC);
+			HTMLStyle *style = NULL;
+			gchar *token = 0; 
+			gchar *id;
+			
+			style = html_style_set_decoration (style, GTK_HTML_FONT_STYLE_ITALIC);
+			
+			html_string_tokenizer_tokenize (e->st, str + 4, " >");
+			while (html_string_tokenizer_has_more_tokens (e->st)) {
+				token = html_string_tokenizer_next_token (e->st);
+				if (strncasecmp (token, "style=", 6) == 0) {
+					style = html_style_add_attribute (style, token + 6);
+				} else if (strncasecmp (token, "id=", 3) == 0) {
+					id = token + 3;
+				}
+			}
+			push_element (e, ID_I, NULL, style);
 		}
 	} else if ( strncmp( str, "/i", 2 ) == 0 ) {
 		pop_span (e, ID_I);
