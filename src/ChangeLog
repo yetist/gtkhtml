@@ -1,3 +1,8 @@
+2003-03-03  Radek Doulik  <rodo@ximian.com>
+
+	* htmltext.c (text_len): change passed string instead of
+	text->text, update all callers, fixes #38964
+
 2003-03-02  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine.c (html_engine_thaw_idle_flush): change idle_reset to

@@ -1532,12 +1532,12 @@ html_text_class_init (HTMLTextClass *klass,
 }
 
 static gint
-text_len (HTMLText *text, gint len)
+text_len (const gchar **str, gint len)
 {
-	if (g_utf8_validate (text->text, -1, NULL))
-		return len != -1 ? len : g_utf8_strlen (text->text, -1);
+	if (g_utf8_validate (*str, -1, NULL))
+		return len != -1 ? len : g_utf8_strlen (*str, -1);
 	else {
-		text->text = g_strdup ("[?]");
+		*str = "[?]";
 		return 3;
 	}
 }
@@ -1554,8 +1554,8 @@ html_text_init (HTMLText *text,
 
 	html_object_init (HTML_OBJECT (text), HTML_OBJECT_CLASS (klass));
 
-	text->text          = len == -1 ? g_strdup (str) : g_strndup (str, g_utf8_offset_to_pointer (str, len) - str);
-	text->text_len      = text_len (text, len);
+	text->text_len      = text_len (&str, len);
+	text->text          = g_strndup (str, g_utf8_offset_to_pointer (str, text->text_len) - str);
 	text->font_style    = font_style;
 	text->face          = NULL;
 	text->color         = color;
@@ -1653,8 +1653,8 @@ void
 html_text_set_text (HTMLText *text, const gchar *new_text)
 {
 	g_free (text->text);
+	text->text_len = text_len (&new_text, -1);
 	text->text = g_strdup (new_text);
-	text->text_len = text_len (text, -1);
 	html_object_change_set (HTML_OBJECT (text), HTML_CHANGE_ALL);
 }
 
@@ -1926,8 +1926,8 @@ html_text_append (HTMLText *text, const gchar *str, gint len)
 	gchar *to_delete;
 
 	to_delete       = text->text;
+	text->text_len += text_len (&str, len);
 	text->text      = g_strconcat (to_delete, str, NULL);
-	text->text_len += text_len (text, len);
 
 	g_free (to_delete);
 
