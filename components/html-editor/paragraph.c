@@ -58,7 +58,7 @@ GtkWidget *
 paragraph_properties (GtkHTMLControlData *cd, gpointer *set_data)
 {
 	GtkHTMLEditParagraphProperties *data = g_new (GtkHTMLEditParagraphProperties, 1);
-	GtkWidget *vbox, *hbox, *menu, *menuitem, *frame, *radio;
+	GtkWidget *vbox, *hbox, *menu, *menuitem, *frame, *radio, *mhb;
 	GSList *group;
 	gint h=0, i=0;
 
@@ -125,7 +125,9 @@ paragraph_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	gtk_container_add (GTK_CONTAINER (frame), hbox);
 	gtk_box_pack_start (GTK_BOX (vbox), frame, FALSE, FALSE, 0);
 
-	return vbox;
+	mhb = gtk_hbox_new (FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (mhb), vbox, FALSE, FALSE, 0);
+	return mhb;
 }
 
 void

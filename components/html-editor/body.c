@@ -21,6 +21,7 @@
 */
 
 #include "htmlengine-edit-clueflowstyle.h"
+#include "htmlimage.h"
 #include "body.h"
 #include "properties.h"
 #include "utils.h"
@@ -30,6 +31,7 @@ struct _GtkHTMLEditBodyProperties {
 
 	GtkWidget *pixmap_entry;
 	GtkWidget *selected_color_picker;
+	GtkWidget *use_bg_image;
 
 	GdkColor   color [HTMLColors];
 	gboolean   color_changed [HTMLColors];
@@ -74,11 +76,25 @@ select_color (GtkWidget *w, GtkHTMLEditBodyProperties *data)
 	}
 }
 
+static void
+bg_check_cb (GtkWidget *w, GtkHTMLEditBodyProperties *data)
+{
+	gtk_html_edit_properties_dialog_change (data->cd->properties_dialog);
+}
+
+static void
+entry_changed (GtkWidget *w, GtkHTMLEditBodyProperties *data)
+{
+	gchar *text = gtk_entry_get_text (GTK_ENTRY (w));
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->use_bg_image), (*text) ? TRUE : FALSE);
+	gtk_html_edit_properties_dialog_change (data->cd->properties_dialog);	
+}
+
 GtkWidget *
 body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 {
 	GtkHTMLEditBodyProperties *data = g_new0 (GtkHTMLEditBodyProperties, 1);
-	GtkWidget *hbox, *vbox, *table, *check, *frame, *radio, *cpicker, *hbox1;
+	GtkWidget *hbox, *vbox, *table, *frame, *radio, *cpicker, *hbox1;
 	GSList *group;
 	GdkColor *color;
 
@@ -88,9 +104,22 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	hbox = gtk_hbox_new (FALSE, 3);
 	gtk_container_border_width (GTK_CONTAINER (hbox), 3);
 	vbox = gtk_vbox_new (FALSE, 2);
-	check = gtk_check_button_new_with_label (_("use background image"));
+	data->use_bg_image = gtk_check_button_new_with_label (_("use background image"));
+	gtk_signal_connect (GTK_OBJECT (data->use_bg_image), "toggled", bg_check_cb, data);
 	data->pixmap_entry = gnome_pixmap_entry_new ("background_image", _("Background image"), TRUE);
-	gtk_box_pack_start (GTK_BOX (vbox), check, FALSE, FALSE, 0);
+	if (cd->html->engine->bgPixmapPtr) {
+		HTMLImagePointer *ip = (HTMLImagePointer *) cd->html->engine->bgPixmapPtr;
+		guint off = 0;
+		 if (!strncmp (ip->url, "file:", 5))
+			 off = 5;
+
+		 gtk_entry_set_text (GTK_ENTRY (gnome_pixmap_entry_gtk_entry (GNOME_PIXMAP_ENTRY (data->pixmap_entry))),
+				     ip->url + off);
+	} else
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->use_bg_image), FALSE);
+	gtk_signal_connect (GTK_OBJECT (gnome_pixmap_entry_gtk_entry (GNOME_PIXMAP_ENTRY (data->pixmap_entry))),
+			    "changed", GTK_SIGNAL_FUNC (entry_changed), data);
+	gtk_box_pack_start (GTK_BOX (vbox), data->use_bg_image, FALSE, FALSE, 0);
 	gtk_box_pack_start_defaults (GTK_BOX (vbox), data->pixmap_entry);
 	gtk_box_pack_start (GTK_BOX (hbox), vbox, FALSE, FALSE, 0);
 
@@ -145,6 +174,19 @@ body_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 	APPLY_COLOR (HTMLTextColor);
 	APPLY_COLOR (HTMLLinkColor);
 	APPLY_COLOR (HTMLBgColor);
+
+	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (data->use_bg_image))) {
+		HTMLEngine *e = data->cd->html->engine;
+		gchar *file = g_strconcat ("file://", gtk_entry_get_text (GTK_ENTRY
+									  (gnome_pixmap_entry_gtk_entry
+									   (GNOME_PIXMAP_ENTRY (data->pixmap_entry)))), NULL);
+
+		if (e->bgPixmapPtr != NULL)
+			html_image_factory_unregister(e->image_factory, e->bgPixmapPtr, NULL);
+		e->bgPixmapPtr = html_image_factory_register(e->image_factory, NULL, file);
+		g_free (file);
+		redraw = TRUE;
+	}
 
 	if (redraw)
 		gtk_widget_queue_draw (GTK_WIDGET (cd->html));

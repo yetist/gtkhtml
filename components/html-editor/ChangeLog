@@ -1,5 +1,7 @@
 2000-07-07  Radek Doulik  <rodo@helixcode.com>
 
+	* body.c (body_apply_cb): implemented bg pixmap setting
+
 	* toolbar.c (setup_color_option_menu): set relief for color
 	selection combo on toolbar by gnome preferences
 
