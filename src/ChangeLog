@@ -1,5 +1,8 @@
 2001-10-17  Larry Ewing  <lewing@ximian.com>
 
+	* htmltext.c (html_text_set_text): update the text_len when we set
+	the text.
+
 	* htmlembedded.c (destroy): sink any widget that hasn't been
 	parented yet.
 
