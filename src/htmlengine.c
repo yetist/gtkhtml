@@ -310,12 +310,12 @@ parse_scroll (const char *token)
 static HTMLHAlignType
 parse_halign (const char *token, HTMLHAlignType default_val)
 {
-	if (strcasecmp (token, "center") == 0)
-		return HTML_HALIGN_CENTER;
-	else if (strcasecmp (token, "right") == 0)
+	if (strcasecmp (token, "right") == 0)
 		return HTML_HALIGN_RIGHT;
 	else if (strcasecmp (token, "left") == 0)
 		return HTML_HALIGN_LEFT;
+	else if (strcasecmp (token, "center") == 0 || strcasecmp (token, "middle") == 0)
+		return HTML_HALIGN_CENTER;
 	else
 		return default_val;
 }
