@@ -1478,6 +1478,20 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 
 		clear = HTML_CLEAR_NONE;
 
+		string_tokenizer_tokenize (e->st, str + 3, " >");
+		while (string_tokenizer_has_more_tokens (e->st)) {
+			gchar *token = string_tokenizer_next_token (e->st);
+			
+			if (strncasecmp (token, "clear=", 6) == 0) {
+				g_print ("%s\n", token);
+				if (strncasecmp (token + 6, "left", 4) == 0)
+					clear = HTML_CLEAR_LEFT;
+				else if (strncasecmp (token + 6, "right", 5) == 0)
+					clear = HTML_CLEAR_RIGHT;
+				else if (strncasecmp (token + 6, "all", 3) == 0)
+					clear = HTML_CLEAR_ALL;
+			}
+		}
 		if (!e->flow)
 			html_engine_new_flow (e, clue);
 
@@ -1609,6 +1623,9 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 		}
 		e->vspace_inserted = html_engine_insert_vspace (e, _clue, e->vspace_inserted );
 	} else if (strncmp( str, "dt", 2 ) == 0) {
+		e->vspace_inserted = FALSE;
+		e->flow = 0;
+
 		if (html_stack_top (e->glossaryStack) == NULL)
 			return;
 
@@ -1618,8 +1635,6 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 			if (e->indent > 0)
 				e->indent--;
 		}
-		e->vspace_inserted = FALSE;
-		e->flow = 0;
 	} else if (strncmp( str, "dd", 2 ) == 0) {
 		if (html_stack_top (e->glossaryStack) == NULL)
 			return;
