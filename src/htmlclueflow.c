@@ -55,7 +55,7 @@ static HTMLClueClass *parent_class = NULL;
 #define HCF_CLASS(x) HTML_CLUEFLOW_CLASS (HTML_OBJECT (x)->klass)
 
 inline HTMLHAlignType html_clueflow_get_halignment          (HTMLClueFlow *flow);
-static gchar *        get_item_number_str                   (HTMLClueFlow *flow);
+static gchar *        get_item_marker_str                   (HTMLClueFlow *flow, gint level, gboolean ascii_only);
 static guint          get_post_padding                      (HTMLClueFlow *flow, 
 							     guint pad);
 static int            get_similar_depth                     (HTMLClueFlow *self, 
@@ -1089,7 +1089,7 @@ get_roman_value (gint value, gboolean lower)
 }
 
 static gchar *
-get_item_number_str (HTMLClueFlow *flow)
+get_item_marker_str (HTMLClueFlow *flow, gint level, gboolean ascii_only)
 {
 	switch (flow->item_type) {
 	case HTML_LIST_TYPE_ORDERED_ARABIC:
@@ -1100,6 +1100,13 @@ get_item_number_str (HTMLClueFlow *flow)
 	case HTML_LIST_TYPE_ORDERED_LOWER_ROMAN:
 	case HTML_LIST_TYPE_ORDERED_UPPER_ROMAN:
 		return get_roman_value (flow->item_number, flow->item_type == HTML_LIST_TYPE_ORDERED_LOWER_ROMAN);
+	case HTML_LIST_TYPE_UNORDERED:
+		if (ascii_only)
+			return g_strdup ("* ");
+		else if (!level || level & 1)
+			return g_strdup ("\342\227\217 "); /* U+25CF BLACK CIRCLE */
+		else
+			return g_strdup ("\342\227\213 "); /* U+25CB WHITE CIRCLE */
 	default:
 		return NULL;
 	}
@@ -1199,7 +1206,7 @@ draw_item (HTMLObject *self, HTMLPainter *painter, gint x, gint y, gint width, g
 {
 	HTMLClueFlow *flow;
 	HTMLObject *first;
-	gint indent;
+	gchar *marker;
 
 	first = HTML_CLUE (self)->head;
 	if (html_object_is_text (first) && first->next)
@@ -1213,50 +1220,23 @@ draw_item (HTMLObject *self, HTMLPainter *painter, gint x, gint y, gint width, g
 	} else
 		html_painter_set_pen (painter, &html_colorset_get_color_allocated (painter, HTMLTextColor)->color);
 
-	indent = get_indent (flow, painter);
-	if (flow->item_type == HTML_LIST_TYPE_UNORDERED) {
-		guint bullet_size;
-		gint xp, yp;
-		bullet_size = MAX (3, calc_bullet_size (painter));
-
-		xp = self->x + indent - 2 * bullet_size;	
-		yp = self->y - self->ascent 
-			+ (first->y - first->ascent) 
-			+ (first->ascent + first->descent)/2 
-			- bullet_size/2;
-
-		xp += tx, yp += ty;
-
-		if (flow->levels->len == 0 || (flow->levels->len & 1) != 0)
-			html_painter_fill_rect (painter, xp + 1, yp + 1, bullet_size - 2, bullet_size - 2);
-
-		html_painter_draw_line (painter, xp + 1, yp, xp + bullet_size - 2, yp);
-		html_painter_draw_line (painter, xp + 1, yp + bullet_size - 1,
-					xp + bullet_size - 2, yp + bullet_size - 1);
-		html_painter_draw_line (painter, xp, yp + 1, xp, yp + bullet_size - 2);
-		html_painter_draw_line (painter, xp + bullet_size - 1, yp + 1,
-					xp + bullet_size - 1, yp + bullet_size - 2);
-	} else {
-		gchar *number;
-
-		number = get_item_number_str (flow);
-		if (number) {
-			gint width, len, line_offset = 0, asc, dsc;
-
-			len   = strlen (number);
-			/* FIXME: cache items and glyphs? */
-			html_painter_calc_text_size (painter, number, len, NULL, NULL, 0, &line_offset,
-						     html_clueflow_get_default_font_style (flow), NULL, &width, &asc, &dsc);
-			width += html_painter_get_space_width (painter, html_clueflow_get_default_font_style (flow), NULL);
-			html_painter_set_font_style (painter, html_clueflow_get_default_font_style (flow));
-			html_painter_set_font_face  (painter, NULL);
-			/* FIXME: cache items and glyphs? */
-			html_painter_draw_text (painter, self->x + first->x - width + tx,
-						self->y - self->ascent + first->y + ty,
-						number, strlen (number), NULL, NULL, 0, 0);
-		}
-		g_free (number);
+	marker = get_item_marker_str (flow, flow->levels->len, HTML_IS_PLAIN_PAINTER (painter));
+	if (marker) {
+		gint width, len, line_offset = 0, asc, dsc;
+		
+		len   = g_utf8_strlen (marker, -1);
+		/* FIXME: cache items and glyphs? */
+		html_painter_calc_text_size (painter, marker, len, NULL, NULL, 0, &line_offset,
+					     html_clueflow_get_default_font_style (flow), NULL, &width, &asc, &dsc);
+		width += html_painter_get_space_width (painter, html_clueflow_get_default_font_style (flow), NULL);
+		html_painter_set_font_style (painter, html_clueflow_get_default_font_style (flow));
+		html_painter_set_font_face  (painter, NULL);
+		/* FIXME: cache items and glyphs? */
+		html_painter_draw_text (painter, self->x + first->x - width + tx,
+					self->y - self->ascent + first->y + ty,
+					marker, len, NULL, NULL, 0, 0);
 	}
+	g_free (marker);
 }
 
 static void
@@ -1687,20 +1667,7 @@ write_item_marker (GString *pad_string, HTMLClueFlow *flow)
 {
 	char *marker;
 
-	switch (flow->item_type) {
-	case HTML_LIST_TYPE_ORDERED_ARABIC:
-	case HTML_LIST_TYPE_ORDERED_UPPER_ROMAN:
-	case HTML_LIST_TYPE_ORDERED_LOWER_ROMAN:
-	case HTML_LIST_TYPE_ORDERED_UPPER_ALPHA:
-	case HTML_LIST_TYPE_ORDERED_LOWER_ALPHA:
-		marker = get_item_number_str (flow);
-		break;
-	case HTML_LIST_TYPE_UNORDERED:
-		marker = g_strdup ("* ");
-		break;
-	default:
-		marker = NULL;
-	}
+	marker = get_item_marker_str (flow, flow->levels->len, TRUE);
 
 	if (marker) {
 		gint marker_len = strlen (marker);

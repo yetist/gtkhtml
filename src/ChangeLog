@@ -1,3 +1,8 @@
+2003-09-29  Larry Ewing  <lewing@ximian.com>
+
+	* htmlclueflow.c (get_item_marker_str): use ascii only ("* ") for
+	plain painter, always draw glyphs no speacial path for other chars.
+
 2003-09-25  Radek Doulik  <rodo@ximian.com>
 
 	* htmltextslave.c (update_lb): don't scale new_ltw by
