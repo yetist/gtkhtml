@@ -1,3 +1,21 @@
+2001-06-20  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c (parse_halign): helper function to parse halign
+	values.
+	(add_pending_paragraph_break): move this logic that is duplicated
+	in several places into a function.
+	(parse_table): use parse_halign, and add_pending_paragraph.
+	(parse_a): small cleanups, add id logic.
+	(parse_f): remove redundant NULL checks.
+	(parse_s): ditto.
+	(parse_h): use parse_halign.
+	(parse_p): ditto.
+	(parse_d): ditto.
+	(parse_l): use add_pending_paragraph.
+	(append_element): ditto.
+	(parse_o): rework if statement.
+	(parse_u): ditto.
+
 2001-06-20  Radek Doulik  <rodo@ximian.com>
 
 	* htmlcluev.c (find_free_area): uncomment loop break try_y ==

@@ -290,18 +290,28 @@ parse_scroll (const char *token)
 	GtkPolicyType scroll;
 	
 	if (strncasecmp (token, "yes", 3) == 0) {
-		g_warning ("scroll YES");
 		scroll = GTK_POLICY_ALWAYS;
 	} else if (strncasecmp (token, "no", 2) == 0) {
-		g_warning ("scroll NO");
 		scroll = GTK_POLICY_NEVER;
 	} else /* auto */ {
-		g_warning ("scroll AUTO");
 		scroll = GTK_POLICY_AUTOMATIC;
 	}
 	return scroll;
 }
 
+static HTMLHAlignType
+parse_halign (const char *token, HTMLHAlignType default_val)
+{
+	if (strcasecmp (token, "center") == 0)
+		return HTML_HALIGN_CENTER;
+	else if (strcasecmp (token, "right") == 0)
+		return HTML_HALIGN_RIGHT;
+	else if (strcasecmp (token, "left") == 0)
+		return HTML_HALIGN_LEFT;
+	else
+		return default_val;
+}
+	
 
 /* ClueFlow style handling.  */
 
@@ -372,11 +382,22 @@ create_empty_text (HTMLEngine *e)
 
 static void
 insert_paragraph_break (HTMLEngine *e,
-			HTMLObject *clue)
+		     HTMLObject *clue)
 {
+	
 	close_flow (e, clue);
 	new_flow (e, clue, create_empty_text (e));
 	close_flow (e, clue);
+}
+
+static void
+add_pending_paragraph_break (HTMLEngine *e,
+		  HTMLObject *clue)
+{
+	if (e->pending_para) {
+		insert_paragraph_break (e, clue);
+		e->pending_para = FALSE;
+	}
 }
 
 static void
@@ -452,10 +473,7 @@ append_element (HTMLEngine *e,
 		HTMLObject *clue,
 		HTMLObject *obj)
 {
-	if (e->pending_para) {
-		insert_paragraph_break (e, clue);
-		e->pending_para = FALSE;
-	}
+	add_pending_paragraph_break (e, clue);
 
 	e->avoid_para = FALSE;
 
@@ -621,13 +639,13 @@ pop_block (HTMLEngine *e, gint id, HTMLObject *clue)
 	elem = e->blockStack;
 	maxLevel = 0;
 
-	while ((elem != 0) && (elem->id != id)) {
+	while ((elem != NULL) && (elem->id != id)) {
 		if (maxLevel < elem->level) {
 			maxLevel = elem->level;
 		}
 		elem = elem->next;
 	}
-	if (elem == 0)
+	if (elem == NULL)
 		return;
 	if (maxLevel > elem->level)
 		return;
@@ -636,11 +654,12 @@ pop_block (HTMLEngine *e, gint id, HTMLObject *clue)
 	
 	while (elem) {
 		tmp = elem;
-		if (elem->exitFunc != 0)
+		if (elem->exitFunc != NULL)
 			(*(elem->exitFunc))(e, clue, elem);
+		
 		if (elem->id == id) {
 			e->blockStack = elem->next;
-			elem = 0;
+			elem = NULL;
 		}
 		else {
 			elem = elem->next;
@@ -888,12 +907,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 			}
 		}
 		else if (strncasecmp (token, "align=", 6) == 0) {
-			if (strcasecmp (token + 6, "left") == 0)
-				align = HTML_HALIGN_LEFT;
-			else if (strcasecmp (token + 6, "right") == 0)
-				align = HTML_HALIGN_RIGHT;
-			else if (strcasecmp (token + 6, "center") == 0)
-				align = HTML_HALIGN_CENTER;
+			align = parse_halign (token + 6, align);
 		}
 		else if (strncasecmp (token, "bgcolor=", 8) == 0
 			 && !e->defaultSettings->forceDefault) {
@@ -1008,13 +1022,8 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 								rowvalign = HTML_VALIGN_BOTTOM;
 							else
 								rowvalign = HTML_VALIGN_MIDDLE;
-						} else if (strncasecmp (token, "align", 6) == 0) {
-							if (strcasecmp (token + 6, "left") == 0)
-								rowhalign = HTML_HALIGN_LEFT;
-							else if (strcasecmp (token + 6, "right") == 0)
-								rowhalign = HTML_HALIGN_RIGHT;
-							else if (strcasecmp (token + 6, "center") == 0)
-								rowhalign = HTML_HALIGN_CENTER;
+						} else if (strncasecmp (token, "align=", 6) == 0) {
+							rowhalign = parse_halign (token + 6, rowhalign);
 						} else if (strncasecmp (token, "bgcolor=", 8) == 0) {
 							have_rowColor |= parse_color (token + 8, &rowColor);
 						} else if (strncasecmp (token, "background=", 11) == 0
@@ -1100,12 +1109,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 									valign = HTML_VALIGN_MIDDLE;
 							}
 							else if (strncasecmp (token, "align=", 6) == 0) {
-								if (strcasecmp (token + 6, "center") == 0)
-									halign = HTML_HALIGN_CENTER;
-								else if (strcasecmp (token + 6, "right") == 0)
-									halign = HTML_HALIGN_RIGHT;
-								else if (strcasecmp (token + 6, "left") == 0)
-									halign = HTML_HALIGN_LEFT;
+								halign = parse_halign (token + 6, halign);
 							}
 							else if (strncasecmp (token, "height=", 7) == 0) {
 								if (strchr (token + 7, '%')) {
@@ -1160,10 +1164,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 						}
 					}
 
-					if (e->pending_para) {
-						insert_paragraph_break (e, clue);
-						e->pending_para = FALSE;
-					}
+					add_pending_paragraph_break (e, clue);
 
 					cell = HTML_TABLE_CELL (html_table_cell_new (rowSpan, colSpan, padding));
 					cell->no_wrap = no_wrap;
@@ -1194,10 +1195,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 						str = parse_body (e, HTML_OBJECT (cell), endall, FALSE);
 						pop_block (e, ID_TD, HTML_OBJECT (cell));
 
-						if (e->pending_para) {
-							insert_paragraph_break (e, HTML_OBJECT (cell));
-							e->pending_para = FALSE;
-						}
+						add_pending_paragraph_break (e, HTML_OBJECT (cell));
 
 						html_table_end_row (table);
 						html_table_start_row (table);
@@ -1205,11 +1203,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 						push_block (e, heading ? ID_TH : ID_TD, 3, NULL, 0, 0);
 						str = parse_body (e, HTML_OBJECT (cell), endthtd, FALSE);
 						pop_block (e, heading ? ID_TH : ID_TD, HTML_OBJECT (cell));
-
-						if (e->pending_para) {
-							insert_paragraph_break (e, HTML_OBJECT (cell));
-							e->pending_para = FALSE;
-						}
+						add_pending_paragraph_break (e, HTML_OBJECT (cell));
 					}
 
 					if (str == 0) {
@@ -1553,14 +1547,14 @@ parse_frameset (HTMLEngine *e, HTMLObject *clue, gint max_width, const gchar *at
 		}		
 		
 	}
-
-	set = html_frameset_new (e->widget, rows, cols);
-
+	
 	/* clear the borders */
 	e->bottomBorder = 0;
 	e->topBorder = 0;
 	e->leftBorder = 0;
 	e->rightBorder = 0;
+	
+	set = html_frameset_new (e->widget, rows, cols);
 
 	if (html_stack_is_empty (e->frame_stack)) {
 		append_element (e, clue, set);
@@ -1702,7 +1696,8 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 		pop_block (e, ID_ADDRESS, _clue);
 	} else if ( strncmp( str, "a ", 2 ) == 0 ) {
 		gchar *url = NULL;
-		
+		gchar *id = NULL;
+
 		const gchar *p;
 		
 		close_anchor (e);
@@ -1714,13 +1709,17 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 				url = g_strdup (p + 5);
 				
 				/* FIXME visited? */
+			} else if (strncasecmp (p, "id=", 3) == 0) {
+				/*
+				 * FIXME this doesn't handle the 
+				 * case where id and name are both set
+				 * properly but it will do for now
+				 */
+				if (id == NULL)
+					id = g_strdup (p + 3);
 			} else if (strncasecmp (p, "name=", 5) == 0) {
-				if (e->flow == 0 )
-					html_clue_append (HTML_CLUE (_clue),
-							  html_anchor_new (p + 5));
-				else
-					html_clue_append (HTML_CLUE (e->flow),
-							  html_anchor_new (p + 5));
+				if (id == NULL)
+					id = g_strdup (p + 5);
 			} else if (strncasecmp (p, "shape=", 6) == 0) {
 				/* FIXME todo */
 			} else if (strncasecmp (p, "target=", 7) == 0) {
@@ -1731,6 +1730,17 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 			}
 		}
 		
+
+		if (id != NULL) {
+			if (e->flow == 0)
+				html_clue_append (HTML_CLUE (_clue),
+						  html_anchor_new (id));
+			else
+				html_clue_append (HTML_CLUE (e->flow),
+						  html_anchor_new (id));
+			g_free (id);
+		}
+
 #if 0
 		if ( !target
 		     && e->baseTarget != NULL
@@ -1740,8 +1750,7 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 #endif
 		
 		if (url != NULL) {
-			if (e->url != NULL)
-				g_free (e->url);
+			g_free (e->url);
 			e->url = url;
 		}
 		
@@ -1771,8 +1780,7 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	GdkColor color;
 
 	if (strncmp (str, "basefont", 8) == 0) {
-	}
-	else if ( strncmp(str, "base", 4 ) == 0 ) {
+	} else if ( strncmp(str, "base", 4 ) == 0 ) {
 		html_string_tokenizer_tokenize( e->st, str + 5, " >" );
 		while ( html_string_tokenizer_has_more_tokens (e->st) ) {
 			const char* token = html_string_tokenizer_next_token(e->st);
@@ -1782,8 +1790,7 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 				gtk_signal_emit (GTK_OBJECT (e), signals[SET_BASE], token + 5);
 			}
 		}
-	}
-	else if ( strncmp(str, "big", 3 ) == 0 ) {
+	} else if ( strncmp(str, "big", 3 ) == 0 ) {
 		push_font_style (e, GTK_HTML_FONT_STYLE_SIZE_4);
 		push_block (e, ID_BIG, 1, block_end_font, 0, 0);
 	} else if ( strncmp(str, "/big", 4 ) == 0 ) {
@@ -1956,12 +1963,7 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 		while ( html_string_tokenizer_has_more_tokens (e->st) ) {
 			const char* token = html_string_tokenizer_next_token (e->st);
 			if ( strncasecmp( token, "align=", 6 ) == 0 ) {
-				if ( strcasecmp( token + 6, "right" ) == 0 )
-					e->divAlign = HTML_HALIGN_RIGHT;
-				else if ( strcasecmp( token + 6, "center" ) == 0 )
-					e->divAlign = HTML_HALIGN_CENTER;
-				else if ( strcasecmp( token + 6, "left" ) == 0 )
-					e->divAlign = HTML_HALIGN_LEFT;
+				e->divAlign = parse_halign (token + 6, e->divAlign);
 			}
 		}
 
@@ -2136,10 +2138,8 @@ parse_f (HTMLEngine *e, HTMLObject *clue, const gchar *str)
                 e->form = html_form_new (e, action, method);
                 e->formList = g_list_append (e->formList, e->form);
 		
-		if (action)
-			g_free(action);
-		if (target)
-			g_free(target);
+		g_free(action);
+		g_free(target);
 
 		if (! e->avoid_para) {
 			close_anchor (e);
@@ -2227,12 +2227,7 @@ parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 
 			token = html_string_tokenizer_next_token (p->st);
 			if ( strncasecmp( token, "align=", 6 ) == 0 ) {
-				if ( strcasecmp( token + 6, "center" ) == 0 )
-					align = HTML_HALIGN_CENTER;
-				else if ( strcasecmp( token + 6, "right" ) == 0 )
-					align = HTML_HALIGN_RIGHT;
-				else if ( strcasecmp( token + 6, "left" ) == 0 )
-					align = HTML_HALIGN_LEFT;
+				align = parse_halign (token + 6, align);
 			}
 		}
 		
@@ -2266,12 +2261,7 @@ parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		while (html_string_tokenizer_has_more_tokens (p->st)) {
 			gchar *token = html_string_tokenizer_next_token (p->st);
 			if (strncasecmp (token, "align=", 6) == 0) {
-				if (strcasecmp (token + 6, "left") == 0)
-					align = HTML_HALIGN_LEFT;
-				else if (strcasecmp (token + 6, "right") == 0)
-					align = HTML_HALIGN_RIGHT;
-				else if (strcasecmp (token + 6, "center") == 0)
-					align = HTML_HALIGN_CENTER;
+				align = parse_halign (token + 6, align);
 			}
 			else if (strncasecmp (token, "size=", 5) == 0) {
 				size = atoi (token + 5);
@@ -2449,7 +2439,8 @@ parse_k (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 
 
 /*
-  <listing>        </listing>      unimplemented
+  <listing   unimplemented.
+  <link      unimpemented.
   <li>
 */
 /* EP CHECK: OK */
@@ -2483,11 +2474,8 @@ parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 			listLevel = html_stack_count (p->listStack);
 		}
 		
-		if (p->pending_para) {
-			insert_paragraph_break (p, clue);
-			p->pending_para = FALSE;
-		}
-		
+		add_pending_paragraph_break (p, clue);
+			
 		close_flow (p, clue);
 		
 		p->flow = flow_new (p, HTML_CLUEFLOW_STYLE_ITEMDOTTED, p->indent_level);
@@ -2513,11 +2501,11 @@ parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 static void
 parse_m (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 {
-	int refresh = 0;
-	int refresh_delay = 0;
-	gchar *refresh_url = NULL;
-
 	if (strncmp (str, "meta", 4) == 0) {
+		int refresh = 0;
+		int refresh_delay = 0;
+		gchar *refresh_url = NULL;
+		
 		html_string_tokenizer_tokenize( e->st, str + 5, " >" );
 		while ( html_string_tokenizer_has_more_tokens (e->st) ) {
 
@@ -2526,7 +2514,7 @@ parse_m (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 				if ( strncasecmp( token + 11, "refresh", 7 ) == 0 )
 					refresh = 1;
 			} else if ( strncasecmp( token, "content=", 8 ) == 0 ) {
-				if(refresh) {
+				if (refresh) {
 					const gchar *content;
 					content = token + 8;
 
@@ -2612,12 +2600,8 @@ parse_o (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 
 		close_anchor (e);
 
-		if ( html_stack_is_empty (e->listStack) ) {
-			/* FIXME */
-			push_block (e, ID_OL, 2, block_end_list, e->indent_level, TRUE);
-		} else {
-			push_block (e, ID_OL, 2, block_end_list, e->indent_level, FALSE);
-		}
+		/* FIXME */
+		push_block (e, ID_OL, 2, block_end_list, e->indent_level, html_stack_is_empty (e->listStack));
 
 		listNumType = HTML_LIST_NUM_TYPE_NUMERIC;
 
@@ -2708,7 +2692,6 @@ parse_o (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
   <pre             </pre>
   <param
 */
-/* EP CHECK: OK except for the `<pre>' font.  */
 static void
 parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
@@ -2750,12 +2733,7 @@ parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		while (html_string_tokenizer_has_more_tokens (e->st)) {
 			token = html_string_tokenizer_next_token (e->st);
 			if (strncasecmp (token, "align=", 6) == 0) {
-				if (strcasecmp (token + 6, "center") == 0)
-					e->divAlign = HTML_HALIGN_CENTER;
-				else if (strcasecmp (token + 6, "right") == 0)
-					e->divAlign = HTML_HALIGN_RIGHT;
-				else if (strcasecmp (token + 6, "left") == 0)
-					e->divAlign = HTML_HALIGN_LEFT;
+				e->divAlign = parse_halign (token + 6, e->divAlign);
 			}
 		}
 
@@ -2768,7 +2746,6 @@ parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		   && (*(str + 2) == ' ' || *(str + 2) == '>')) {
 
 		if (! e->avoid_para) {
-
 			e->avoid_para = TRUE;
 			e->pending_para = TRUE;
 		}
@@ -2810,16 +2787,11 @@ parse_s (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		while (html_string_tokenizer_has_more_tokens (e->st)) {
 			const gchar *token = html_string_tokenizer_next_token (e->st);
 
-                        if ( strncasecmp( token, "name=", 5 ) == 0 )
-                        {
+                        if ( strncasecmp( token, "name=", 5 ) == 0 ) {
 				name = g_strdup(token + 5);
-                        }
-                        else if ( strncasecmp( token, "size=", 5 ) == 0 )
-                        {
+                        } else if ( strncasecmp( token, "size=", 5 ) == 0 ) {
 				size = atoi (token + 5);
-                        }
-                        else if ( strncasecmp( token, "multiple", 8 ) == 0 )
-                        {
+                        } else if ( strncasecmp( token, "multiple", 8 ) == 0 ) {
 				multi = TRUE;
                         }
                 }
@@ -2829,8 +2801,7 @@ parse_s (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 
 		append_element (e, clue, HTML_OBJECT (e->formSelect));
 		
-		if (name)
-			g_free(name);
+		g_free(name);
 	}
 	else if (strncmp (str, "/select", 7) == 0) {
 		if ( e->inOption )
@@ -2969,10 +2940,7 @@ parse_u (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		close_anchor (e);
 		close_flow (e, clue);
 
-		if (html_stack_is_empty (e->listStack))
-			push_block (e, ID_UL, 2, block_end_list, e->indent_level, TRUE);
-		else
-			push_block (e, ID_UL, 2, block_end_list, e->indent_level, FALSE);
+		push_block (e, ID_UL, 2, block_end_list, e->indent_level, html_stack_is_empty (e->listStack));
 
 		type = HTML_LIST_TYPE_UNORDERED;
 
@@ -2986,13 +2954,12 @@ parse_u (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		html_stack_push (e->listStack, html_list_new (type, HTML_LIST_NUM_TYPE_NUMERIC));
 		e->flow = NULL;
 
-		if (e->pending_para && e->indent_level > 0)
-			insert_paragraph_break (e, clue);
+		if (e->indent_level > 0)
+			add_pending_paragraph_break (e, clue);
 
 		e->indent_level++;
 
 		e->avoid_para = TRUE;
-		e->pending_para = FALSE;
 	} else if (strncmp (str, "/ul", 3) == 0) {
 		pop_block (e, ID_UL, clue);
 	}
@@ -3073,11 +3040,8 @@ parse_one_token (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 			/* FIXME: This should be removed */
 			if (parseFuncArray[indx] != NULL) {
 				(* parseFuncArray[indx])(p, clue, str);
-			} /* else {
-				g_warning ("Unsupported tag `%s'", str);
-				} */
+			} 
 		}
-
 	}
 }
 
