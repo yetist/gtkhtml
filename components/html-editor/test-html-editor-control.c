@@ -537,8 +537,8 @@ load_file (const gchar *fname)
 int
 main (int argc, char **argv)
 {
-	bindtextdomain(PACKAGE, GNOMELOCALEDIR);
-	textdomain(PACKAGE);
+	bindtextdomain(GTKHTML_RELEASE_STRING, GNOMELOCALEDIR);
+	textdomain(GTKHTML_RELEASE_STRING);
 	
 	if (bonobo_init (init_corba (&argc, argv), CORBA_OBJECT_NIL, CORBA_OBJECT_NIL) == FALSE)
 		g_error ("Could not initialize Bonobo\n");

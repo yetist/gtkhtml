@@ -1,3 +1,10 @@
+2002-03-26  Larry Ewing  <lewing@ximian.com>
+
+	* test-html-editor-control.c (main): see below.
+
+	* editor-control-factory.c (main): use the GTKHTML_RELEASE_STRING
+	to bind in gettext.
+
 2002-03-15  Radek Doulik  <rodo@ximian.com>
 
 	* editor-control-factory.c: use EDITOR_API_VERSION

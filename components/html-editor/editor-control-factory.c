@@ -834,8 +834,8 @@ main (int argc, char **argv)
 #endif
 
 	/* Initialize the i18n support */
-	bindtextdomain(PACKAGE, GNOMELOCALEDIR);
-	textdomain(PACKAGE);
+	bindtextdomain(GTKHTML_RELEASE_STRING, GNOMELOCALEDIR);
+	textdomain(GTKHTML_RELEASE_STRING);
 
 	init_bonobo (&argc, argv);
 #ifdef GTKHTML_HAVE_GCONF
