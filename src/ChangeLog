@@ -1,7 +1,7 @@
 2004-02-11  Radek Doulik  <rodo@ximian.com>
 
 	* htmltext.c: when updating link's start_offset,
-	end_offset, update indexes as well (Fixes #50777)
+	end_offset, update indexes as well (Fixes #50005,#50777)
 
 	* htmltext.c (save_close_attrs): check that closing font tag is
 	neccessary for text size
