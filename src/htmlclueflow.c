@@ -421,7 +421,7 @@ get_pre_padding (HTMLClueFlow *flow, guint pad)
 			return 0;
 
 		if (is_item (HTML_CLUEFLOW (prev_object))) {
-			if (is_item (flow)) {
+			if (is_item (flow) || is_levels_equal (HTML_CLUEFLOW (prev_object), flow)) {
 				return 0;
 			} else {
 				return pad;
@@ -1537,7 +1537,10 @@ write_flow_tag (HTMLClueFlow *self, HTMLEngineSaveState *state)
 	}
 
 	if (is_item (self)) {
-		if (!html_engine_save_output_string (state, "\n"))
+		if (next && is_levels_equal (self, next) && !is_item (next)) {
+			if (!html_engine_save_output_string (state, "<BR>\n"))
+				return FALSE;
+		} else if (!html_engine_save_output_string (state, "\n"))
 			return FALSE;
 	} else if (is_levels_equal (self, next) && self->style == next->style) {
 		if (self->style != HTML_CLUEFLOW_STYLE_PRE) {
