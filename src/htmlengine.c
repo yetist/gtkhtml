@@ -222,7 +222,7 @@ close_flow (HTMLEngine *e)
 	prev = HTML_CLUE (e->flow)->tail;
 
 	/* FIXME: is_a */
-	if (HTML_OBJECT_TYPE (prev) != HTML_TYPE_HSPACE) {
+	if (prev != NULL && HTML_OBJECT_TYPE (prev) != HTML_TYPE_HSPACE) {
 		HTMLObject *hspace;
 
 		hspace = html_hspace_new (html_engine_get_current_font (e), TRUE);

@@ -1,5 +1,9 @@
 1999-12-31  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlengine.c (close_flow): Avoid segfault if there is no prev.
+
+1999-12-31  Ettore Perazzoli  <ettore@helixcode.com>
+
 	* htmlclueflow.c (html_clueflow_init): Removed parameters `x',
 	`y', `max_width', `percent'.  I have no idea why they are here
 	actually.
