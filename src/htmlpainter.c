@@ -48,8 +48,9 @@ html_painter_draw_pixmap (HTMLPainter *painter, gint x, gint y, GdkPixbuf *pixbu
 	x -= painter->x1;
 	y -= painter->y1;
 
-	html_painter_set_clip_rectangle (painter, clipx, clipy, 
-					 clipwidth, clipheight);
+	if(clipwidth && clipheight)
+	  html_painter_set_clip_rectangle (painter, clipx, clipy, 
+					   clipwidth, clipheight);
 
 	if (pixbuf->art_pixbuf->has_alpha) {
 		gdk_draw_rgb_32_image (painter->pixmap,
@@ -71,6 +72,8 @@ html_painter_draw_pixmap (HTMLPainter *painter, gint x, gint y, GdkPixbuf *pixbu
 				    pixbuf->art_pixbuf->pixels,
 				    pixbuf->art_pixbuf->rowstride);
 	}
+
+	gdk_gc_set_clip_rectangle(painter->gc, NULL);
 }
 
 void

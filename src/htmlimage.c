@@ -186,13 +186,33 @@ html_image_draw (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gint
 				  o->x + tx, 
 				  o->y - o->ascent + ty, 
 				  o->width, o->ascent);
-	} 
-	else {
-	  html_painter_draw_pixmap (p, 
-				    o->x + tx + HTML_IMAGE (o)->border, o->y - o->ascent + ty + HTML_IMAGE (o)->border, 
+	} else {
+	  int base_x, base_y, clip_x, clip_y, clip_width, clip_height;
+
+	  /* We need three coords, all screen-relative:
+	     base_x/base_y
+	     clipx/clipy
+	     clipwidth/clipheight
+
+	     We have three coords:
+	     tx/ty - add this to object-relative coords to convert to screen coords
+	     x/y - object-relative clip coordinates
+	     width/height - clip width/height
+
+	  */
+	  base_x = o->x + tx + HTML_IMAGE(o)->border;
+	  base_y = o->y - o->ascent + ty + HTML_IMAGE (o)->border;
+
+	  clip_x = x + base_x;
+	  clip_y = y + base_y;
+
+	  clip_width = width;
+	  clip_height = height;
+
+	  html_painter_draw_pixmap (p, base_x, base_y,
 				    HTML_IMAGE (o)->pixmap,
-				    o->x + tx+ HTML_IMAGE (o)->border, o->y - o->ascent,
-				    o->width, o->ascent);
+				    clip_x, clip_y,
+				    clip_width, clip_height);
 	}
 }
 
