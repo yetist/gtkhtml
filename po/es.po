@@ -7,13 +7,14 @@
 # Juan Manuel García Molina <juanma_gm@wanadoo.es>, 2002.
 # Germán Poo Caamaño <gpoo@ubiobio.cl>, 2003
 # Francisco Javier Fernandez <serrador@arrakis.es>, 2003
+# Francisco Javier F. Serrador <serrador@arrakis.es>, 2003
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.HEAD.es\n"
-"POT-Creation-Date: 2003-05-21 08:59-0500\n"
-"PO-Revision-Date: 2003-04-25 04:20+0200\n"
-"Last-Translator: Francisco Javier Fernandez <serrador@arrakis.es>\n"
+"POT-Creation-Date: 2003-05-24 04:36+0200\n"
+"PO-Revision-Date: 2003-05-24 12:11+0000\n"
+"Last-Translator: Francisco Javier F. Serrador <serrador@arrakis.es>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -150,7 +151,7 @@ msgid ""
 "Cannot execute GNOME Spell control applet\n"
 "Try to install GNOME Spell if you don't have it installed."
 msgstr ""
-"No se puede ejecutar el applet de control GNOME Spell\n"
+"No se puede ejecutar el aplique de control GNOME Spell\n"
 "Intente instalar GNOME Spell si no lo tiene instalado."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:1
@@ -659,7 +660,7 @@ msgstr "_Copiar"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
 msgid "_Decrease Indent"
-msgstr "_Decrementar indentación"
+msgstr "_Decrementar sangrado"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
 msgid "_Edit"
@@ -691,7 +692,7 @@ msgstr "_Imagen..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
 msgid "_Increase Indent"
-msgstr "_Incrementar indentación"
+msgstr "_Incrementar sangrado"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
 msgid "_Indifferent"
@@ -895,9 +896,8 @@ msgid "Page"
 msgstr "Página"
 
 #: components/html-editor/gnome-gtkhtml-editor.c:68
-#, fuzzy
 msgid "GtkHTML Editor Control"
-msgstr "Control del editor HTML de GNOME"
+msgstr "Control del editor GtkHTML"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:2
 msgid "************"
@@ -953,11 +953,11 @@ msgstr "Centro"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:22
 #: components/html-editor/link.c:137 components/html-editor/text.c:246
 msgid "Click will follow this URL"
-msgstr "Pinche para seguir esta URL"
+msgstr "Pulse para seguir esta URL"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:23
 msgid "Click will follow this URL:"
-msgstr "Clic para seguir esta URL:"
+msgstr "Pulse para seguir esta URL:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:24
 msgid "Color:"
@@ -1248,17 +1248,15 @@ msgstr "Insertar"
 #: components/html-editor/menubar.c:252
 #, c-format
 msgid "Error loading file '%s': %s"
-msgstr ""
+msgstr "Error cargando archivo «%s»: %s"
 
 #: components/html-editor/menubar.c:279
-#, fuzzy
 msgid "Insert: HTML File"
-msgstr "Insertar archivo HTML"
+msgstr "Insertar: archivo HTML"
 
 #: components/html-editor/menubar.c:279
-#, fuzzy
 msgid "Insert: Text File"
-msgstr "Insertar archivo de texto"
+msgstr "Insertar: archivo de texto"
 
 #: components/html-editor/paragraph.c:130
 msgid "Pre"
@@ -1411,24 +1409,20 @@ msgid "Next"
 msgstr "Siguiente"
 
 #: components/html-editor/replace.c:161
-#, fuzzy
 msgid "Search _backward"
-msgstr "buscar hacia atrás"
+msgstr "Buscar hacia _atrás"
 
 #: components/html-editor/replace.c:162 components/html-editor/search.c:80
-#, fuzzy
 msgid "Case _sensitive"
-msgstr "sensible a mayúsculas"
+msgstr "_Sensible a capitalización"
 
 #: components/html-editor/replace.c:172
-#, fuzzy
 msgid "Replace:"
-msgstr "Remplazar"
+msgstr "Reemplazar:"
 
 #: components/html-editor/replace.c:175
-#, fuzzy
 msgid "With:"
-msgstr "Ancho:"
+msgstr "Con:"
 
 #: components/html-editor/rule.c:98
 msgid "Blue 3D"
@@ -1447,9 +1441,8 @@ msgstr ""
 "No se pueden aplicar los cambios."
 
 #: components/html-editor/search.c:79
-#, fuzzy
 msgid "_Backward"
-msgstr "hacia atrás"
+msgstr "Hacia _atrás"
 
 #: components/html-editor/search.c:126
 msgid "Find Regular Expression"
@@ -1489,7 +1482,7 @@ msgstr "Coloque su texto aquí"
 
 #: components/html-editor/template.c:97
 msgid "Image frame"
-msgstr "Frame de la imagen"
+msgstr "Marco de la imagen"
 
 #: components/html-editor/test-html-editor-control.c:317
 msgid "Open file..."
@@ -1501,7 +1494,7 @@ msgstr "Guardar archivo como..."
 
 #: components/html-editor/test-html-editor-control.c:541
 msgid "GtkHTML Editor Test Container"
-msgstr "Contenerdor de prueba del editor GtkHTML"
+msgstr "Contenedor de prueba del editor GtkHTML"
 
 #. color selection
 #: components/html-editor/text.c:292
@@ -1550,19 +1543,19 @@ msgstr "Tacha el texto"
 
 #: components/html-editor/toolbar.c:537
 msgid "Unindent"
-msgstr "No indentar"
+msgstr "Quitar sangrado"
 
 #: components/html-editor/toolbar.c:537
 msgid "Indents the paragraphs less"
-msgstr "Indentar un párrafo menos"
+msgstr "Sangrar un párrafo menos"
 
 #: components/html-editor/toolbar.c:539
 msgid "Indent"
-msgstr "Indentar"
+msgstr "Sangrado"
 
 #: components/html-editor/toolbar.c:539
 msgid "Indents the paragraphs more"
-msgstr "Indenta un párrafo más"
+msgstr "Sangra un párrafo más"
 
 #: components/html-editor/utils.c:106
 msgid "Sample"
@@ -1602,8 +1595,7 @@ msgstr "Tipografía de anchura fija"
 
 #: src/gtkhtml.c:2568
 msgid "The Monospace font to use for typewriter text"
-msgstr ""
-"La tipografía monoespaciada a usar para el texto de máquina de escribir"
+msgstr "La tipografía monoespaciada a usar para el texto de máquina de escribir"
 
 #: src/gtkhtml.c:2574
 msgid "New Link Color"
@@ -1711,9 +1703,8 @@ msgid "Print preview"
 msgstr "Vista preliminar de impresión"
 
 #: src/testgtkhtml.c:973
-#, fuzzy
 msgid "GtkHTML Test Application"
-msgstr "Prueba GtkHTML"
+msgstr "Aplicación de prueba GtkHTML"
 
 #~ msgid "The quick brown fox jumped over the lazy dog."
 #~ msgstr ""
@@ -1743,3 +1734,4 @@ msgstr "Prueba GtkHTML"
 
 #~ msgid "Monospace"
 #~ msgstr "Monospace"
+
