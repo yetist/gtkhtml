@@ -562,51 +562,6 @@ draw (HTMLObject *self,
 							tx, ty);
 }
 
-#if 0
-static HTMLObject*
-check_point (HTMLObject *o,
-	     HTMLPainter *painter,
-	     gint x, gint y,
-	     guint *offset_return,
-	     gboolean for_cursor)
-{
-	HTMLClue *clue;
-	HTMLObject *p, *pnext;
-	HTMLObject *obj;
-	gboolean first;
-
-	if (x < o->x || x > o->x + o->width
-	    || y > o->y + o->descent || y < o->y - o->ascent)
-		return NULL;
-
-	clue = HTML_CLUE (o);
-
-	x = x - o->x;
-	y = y - o->y + o->ascent;
-
-	first = TRUE;
-	for (p = clue->head; p != NULL; p = pnext) {
-		pnext = p->next;
-
-		if (for_cursor) {
-			if (pnext == NULL || HTML_OBJECT_TYPE (pnext) == HTML_TYPE_VSPACE) {
-				printf ("Last\n");
-				if (x >= p->x + p->width)
-					x = p->x + p->width -1 ;
-			}
-
-			first = FALSE;
-		}
-
-		obj = html_object_check_point (p, painter, x, y, offset_return, for_cursor);
-		if (obj != NULL)
-			return obj;
-	}
-
-	return NULL;
-}
-#endif
-
 
 static HTMLFontStyle
 get_default_font_style (const HTMLClueFlow *self)
