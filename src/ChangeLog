@@ -1,3 +1,13 @@
+2001-10-30  Radek Doulik  <rodo@ximian.com>
+
+	* htmltext.c (set_color): remove call to relayout
+
+	* htmlengine-edit-fontstyle.c (object_set_font_style): use
+	html_object_prev_not_slave
+	(set_color): ditto
+	(set_empty_flow_color): new function + undo
+	(set_empty_flow_style): ditto
+
 2001-10-29  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine.c (html_engine_destroy): timers live in the selection
