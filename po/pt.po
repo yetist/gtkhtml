@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 2.0\n"
-"POT-Creation-Date: 2003-04-01 00:18+0100\n"
+"POT-Creation-Date: 2003-04-09 17:04-0400\n"
 "PO-Revision-Date: 2003-04-01 00:28+0100\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
@@ -220,7 +220,6 @@ msgid "Check spelling of the document"
 msgstr "Verificar ortografia do documento"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:14
-#: components/html-editor/popup.c:447
 msgid "Copy"
 msgstr "Copiar"
 
@@ -241,7 +240,6 @@ msgid "Cu_t"
 msgstr "Cor_tar"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:19
-#: components/html-editor/popup.c:448
 msgid "Cut"
 msgstr "Cortar"
 
@@ -316,9 +314,9 @@ msgid "Header _6"
 msgstr "Cabeçalho _6"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
-#: components/html-editor/editor-control-factory.c:180
+#: components/html-editor/editor-control-factory.c:197
 #: components/html-editor/gtkhtml-editor-properties.glade.h:39
-#: components/html-editor/menubar.c:91 components/html-editor/popup.c:206
+#: components/html-editor/menubar.c:91 components/html-editor/popup.c:207
 msgid "Image"
 msgstr "Imagem"
 
@@ -401,8 +399,8 @@ msgstr "Lam_ber"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
 #: components/html-editor/body.c:326 components/html-editor/menubar.c:107
-#: components/html-editor/popup.c:103 components/html-editor/popup.c:199
-#: components/html-editor/popup.c:272
+#: components/html-editor/popup.c:104 components/html-editor/popup.c:200
+#: components/html-editor/popup.c:273
 msgid "Link"
 msgstr "Link"
 
@@ -486,7 +484,6 @@ msgid "Other..."
 msgstr "Outra..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
-#: components/html-editor/popup.c:449
 msgid "Paste"
 msgstr "Colar"
 
@@ -520,7 +517,6 @@ msgid "Red"
 msgstr "Vermelho"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
-#: components/html-editor/popup.c:444
 msgid "Redo"
 msgstr "Refazer"
 
@@ -549,9 +545,9 @@ msgid "Roman Numeral List"
 msgstr "Lista Numerada em Romanos"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
-#: components/html-editor/editor-control-factory.c:200
+#: components/html-editor/editor-control-factory.c:217
 #: components/html-editor/gtkhtml-editor-properties.glade.h:63
-#: components/html-editor/menubar.c:125 components/html-editor/popup.c:227
+#: components/html-editor/menubar.c:125 components/html-editor/popup.c:228
 msgid "Rule"
 msgstr "Separador"
 
@@ -591,8 +587,8 @@ msgstr "Elevado"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
-#: components/html-editor/menubar.c:142 components/html-editor/popup.c:234
-#: components/html-editor/popup.c:511 components/html-editor/popup.c:520
+#: components/html-editor/menubar.c:142 components/html-editor/popup.c:235
+#: components/html-editor/popup.c:516 components/html-editor/popup.c:525
 msgid "Table"
 msgstr "Tabela"
 
@@ -617,7 +613,6 @@ msgid "Typewriter"
 msgstr "Máquina de escrever"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
-#: components/html-editor/popup.c:443
 msgid "Undo"
 msgstr "Desfazer"
 
@@ -826,7 +821,7 @@ msgstr "Tinta Azul"
 msgid "Rectangles"
 msgstr "Rectângulos"
 
-#: components/html-editor/body.c:274 src/gtkhtml.c:2647
+#: components/html-editor/body.c:274 src/gtkhtml.c:2591
 msgid "Document Title"
 msgstr "Título Documento"
 
@@ -847,9 +842,9 @@ msgid "Automatic"
 msgstr "Automático"
 
 #: components/html-editor/body.c:325
-#: components/html-editor/editor-control-factory.c:189
+#: components/html-editor/editor-control-factory.c:206
 #: components/html-editor/gtkhtml-editor-properties.glade.h:76
-#: components/html-editor/menubar.c:288 components/html-editor/popup.c:192
+#: components/html-editor/menubar.c:288 components/html-editor/popup.c:193
 msgid "Text"
 msgstr "Texto"
 
@@ -875,21 +870,21 @@ msgstr ""
 "A célula editada foi removida do documento.\n"
 "Incapaz de aplicar alterações."
 
-#: components/html-editor/editor-control-factory.c:169
+#: components/html-editor/editor-control-factory.c:186
 #: components/html-editor/menubar.c:267 components/html-editor/menubar.c:285
-#: components/html-editor/menubar.c:303 components/html-editor/popup.c:184
-#: components/html-editor/popup.c:269
+#: components/html-editor/menubar.c:303 components/html-editor/popup.c:185
+#: components/html-editor/popup.c:270
 msgid "Properties"
 msgstr "Propriedades"
 
-#: components/html-editor/editor-control-factory.c:210
-#: components/html-editor/menubar.c:306 components/html-editor/popup.c:213
+#: components/html-editor/editor-control-factory.c:227
+#: components/html-editor/menubar.c:306 components/html-editor/popup.c:214
 msgid "Paragraph"
 msgstr "Parágrafo"
 
-#: components/html-editor/editor-control-factory.c:215
+#: components/html-editor/editor-control-factory.c:232
 #: components/html-editor/gtkhtml-editor-properties.glade.h:52
-#: components/html-editor/menubar.c:270 components/html-editor/popup.c:220
+#: components/html-editor/menubar.c:270 components/html-editor/popup.c:221
 msgid "Page"
 msgstr "Página"
 
@@ -935,7 +930,7 @@ msgid "Bottom"
 msgstr "Fundo"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:20
-#: components/html-editor/popup.c:241
+#: components/html-editor/popup.c:242
 msgid "Cell"
 msgstr "Célula"
 
@@ -958,7 +953,7 @@ msgid "Color:"
 msgstr "Cor:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:26
-#: components/html-editor/popup.c:522
+#: components/html-editor/popup.c:527
 msgid "Column"
 msgstr "Coluna"
 
@@ -1075,7 +1070,7 @@ msgid "Right"
 msgstr "Direita"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:60
-#: components/html-editor/popup.c:521
+#: components/html-editor/popup.c:526
 msgid "Row"
 msgstr "Linha"
 
@@ -1238,7 +1233,7 @@ msgstr ""
 
 #: components/html-editor/menubar.c:88 components/html-editor/menubar.c:104
 #: components/html-editor/menubar.c:122 components/html-editor/menubar.c:139
-#: components/html-editor/menubar.c:162 components/html-editor/popup.c:100
+#: components/html-editor/menubar.c:162 components/html-editor/popup.c:101
 #: components/html-editor/properties.c:129
 msgid "Insert"
 msgstr "Inserir"
@@ -1311,80 +1306,80 @@ msgstr ""
 "O parágrafo editado foi removido do documento.\n"
 "Incapaz de aplicar alterações."
 
-#: components/html-editor/popup.c:450
+#: components/html-editor/popup.c:455
 msgid "Paste Quotation"
 msgstr "Colar Citação"
 
-#: components/html-editor/popup.c:453
+#: components/html-editor/popup.c:458
 msgid "Insert link"
 msgstr "Inserir link"
 
-#: components/html-editor/popup.c:461
+#: components/html-editor/popup.c:466
 msgid "Remove link"
 msgstr "Remover link"
 
-#: components/html-editor/popup.c:469
+#: components/html-editor/popup.c:474
 msgid "Text Style..."
 msgstr "Estilo Texto..."
 
-#: components/html-editor/popup.c:471 components/html-editor/popup.c:477
-#: components/html-editor/popup.c:487
+#: components/html-editor/popup.c:476 components/html-editor/popup.c:482
+#: components/html-editor/popup.c:492
 msgid "Paragraph Style..."
 msgstr "Estilo Parágrafo..."
 
-#: components/html-editor/popup.c:475
+#: components/html-editor/popup.c:480
 msgid "Link Style..."
 msgstr "Estilo Link..."
 
-#: components/html-editor/popup.c:481
+#: components/html-editor/popup.c:486
 msgid "Rule Style..."
 msgstr "Estilo Separador..."
 
-#: components/html-editor/popup.c:485
+#: components/html-editor/popup.c:490
 msgid "Image Style..."
 msgstr "Estilo Imagem..."
 
-#: components/html-editor/popup.c:496
+#: components/html-editor/popup.c:501
 msgid "Cell Style..."
 msgstr "Estilo Célula..."
 
-#: components/html-editor/popup.c:499
+#: components/html-editor/popup.c:504
 msgid "Table Style..."
 msgstr "Estilo Tabela..."
 
-#: components/html-editor/popup.c:505
+#: components/html-editor/popup.c:510
 msgid "Page Style..."
 msgstr "Estilo Página..."
 
-#: components/html-editor/popup.c:510
+#: components/html-editor/popup.c:515
 msgid "Table insert"
 msgstr "Inserir tabela"
 
-#: components/html-editor/popup.c:513
+#: components/html-editor/popup.c:518
 msgid "Row above"
 msgstr "Linha acima"
 
-#: components/html-editor/popup.c:514
+#: components/html-editor/popup.c:519
 msgid "Row below"
 msgstr "Linha abaixo"
 
-#: components/html-editor/popup.c:516
+#: components/html-editor/popup.c:521
 msgid "Column before"
 msgstr "Coluna anterior"
 
-#: components/html-editor/popup.c:517
+#: components/html-editor/popup.c:522
 msgid "Column after"
 msgstr "Coluna seguinte"
 
-#: components/html-editor/popup.c:519
+#: components/html-editor/popup.c:524
 msgid "Table delete"
 msgstr "Apagar tabela"
 
-#: components/html-editor/popup.c:523
+#: components/html-editor/popup.c:528
 msgid "Cell contents"
 msgstr "Conteudo da célula"
 
-#: components/html-editor/popup.c:542
+#: components/html-editor/popup.c:547
 #, c-format
 msgid "%s Dictionary"
 msgstr "Dicionário %s"
@@ -1441,7 +1436,7 @@ msgstr "Procurar Expressão Regular"
 msgid "Spell checker"
 msgstr "Verificador ortográfico"
 
-#: components/html-editor/spell.c:357
+#: components/html-editor/spell.c:358
 msgid "Current _Languages"
 msgstr "_Idiomas Actuais"
 
@@ -1550,71 +1545,71 @@ msgstr "Aumenta indentação do parágrafo"
 msgid "Sample"
 msgstr "Amostra"
 
-#: src/gtkhtml.c:2640
+#: src/gtkhtml.c:2584
 msgid "Editable"
 msgstr "Editável"
 
-#: src/gtkhtml.c:2641
+#: src/gtkhtml.c:2585
 msgid "Whether the html can be edited"
 msgstr "Se o html pode ou não ser editado"
 
-#: src/gtkhtml.c:2648
+#: src/gtkhtml.c:2592
 msgid "The title of the current document"
 msgstr "O título do documento actual"
 
-#: src/gtkhtml.c:2654
+#: src/gtkhtml.c:2598
 msgid "Document Base"
 msgstr "Base Documento"
 
-#: src/gtkhtml.c:2655
+#: src/gtkhtml.c:2599
 msgid "The base URL for relative references"
 msgstr "O URL base para referências relativas"
 
-#: src/gtkhtml.c:2661
+#: src/gtkhtml.c:2605
 msgid "Target Base"
 msgstr "Base Alvo"
 
-#: src/gtkhtml.c:2662
+#: src/gtkhtml.c:2606
 msgid "The base URL of the targe frame"
 msgstr "O URL base para a frame alvo"
 
-#: src/gtkhtml.c:2671
+#: src/gtkhtml.c:2615
 msgid "Fixed Width Font"
 msgstr "Fonte Largura Fixa"
 
-#: src/gtkhtml.c:2672
+#: src/gtkhtml.c:2616
 msgid "The Monospace font to use for typewriter text"
 msgstr "A fonte Monoespaçada a utilizar para texto dactilografado"
 
-#: src/gtkhtml.c:2678
+#: src/gtkhtml.c:2622
 msgid "New Link Color"
 msgstr "Cor Novo Link"
 
-#: src/gtkhtml.c:2679
+#: src/gtkhtml.c:2623
 msgid "The color of new link elements"
 msgstr "A cor de elementos link novos"
 
-#: src/gtkhtml.c:2684
+#: src/gtkhtml.c:2628
 msgid "Visited Link Color"
 msgstr "Cor Link Visitado"
 
-#: src/gtkhtml.c:2685
+#: src/gtkhtml.c:2629
 msgid "The color of visited link elements"
 msgstr "A cor de elementos link visitados"
 
-#: src/gtkhtml.c:2690
+#: src/gtkhtml.c:2634
 msgid "Active Link Color"
 msgstr "Cor Link Activo"
 
-#: src/gtkhtml.c:2691
+#: src/gtkhtml.c:2635
 msgid "The color of active link elements"
 msgstr "A cor de elementos link activos"
 
-#: src/gtkhtml.c:2696
+#: src/gtkhtml.c:2640
 msgid "Spelling Error Color"
 msgstr "Cor Erros Ortográficos"
 
-#: src/gtkhtml.c:2697
+#: src/gtkhtml.c:2641
 msgid "The color of the spelling error markers"
 msgstr "A cor das marcações de erros ortográficos"
 

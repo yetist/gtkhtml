@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 2.0.8\n"
-"POT-Creation-Date: 2003-03-06 16:02+0100\n"
+"POT-Creation-Date: 2003-04-09 17:04-0400\n"
 "PO-Revision-Date: 2001-05-25 13:35+0200\n"
 "Last-Translator: Josu Waliño <josu@elhuyar.com>\n"
 "Language-Team: Euskara\n"
@@ -215,7 +215,6 @@ msgid "Check spelling of the document"
 msgstr "Egiaztatu dokumentuaren ortografia"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:14
-#: components/html-editor/popup.c:418
 msgid "Copy"
 msgstr "Kopiatu"
 
@@ -236,7 +235,6 @@ msgid "Cu_t"
 msgstr "Ebak_i"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:19
-#: components/html-editor/popup.c:419
 msgid "Cut"
 msgstr "Ebaki"
 
@@ -311,9 +309,9 @@ msgid "Header _6"
 msgstr "Izenburua _6"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
-#: components/html-editor/editor-control-factory.c:180
+#: components/html-editor/editor-control-factory.c:197
 #: components/html-editor/gtkhtml-editor-properties.glade.h:39
-#: components/html-editor/menubar.c:128 components/html-editor/popup.c:205
+#: components/html-editor/menubar.c:91 components/html-editor/popup.c:207
 msgid "Image"
 msgstr "Irudia"
 
@@ -408,9 +406,9 @@ msgid "Li_ck"
 msgstr "Esteka"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
-#: components/html-editor/body.c:326 components/html-editor/menubar.c:144
-#: components/html-editor/popup.c:102 components/html-editor/popup.c:198
-#: components/html-editor/popup.c:271
+#: components/html-editor/body.c:326 components/html-editor/menubar.c:107
+#: components/html-editor/popup.c:104 components/html-editor/popup.c:200
+#: components/html-editor/popup.c:273
 msgid "Link"
 msgstr "Esteka"
 
@@ -469,7 +467,7 @@ msgstr "Uneko paragrafoa zerrenda alfabetiko bihurtzen du"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
 #: components/html-editor/gtkhtml-editor-properties.glade.h:49
-#: components/html-editor/paragraph.c:127 components/html-editor/toolbar.c:47
+#: components/html-editor/paragraph.c:128 components/html-editor/toolbar.c:47
 msgid "Normal"
 msgstr "Normala"
 
@@ -495,7 +493,6 @@ msgid "Other..."
 msgstr "Besterik..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
-#: components/html-editor/popup.c:420
 msgid "Paste"
 msgstr "Itsatsi"
 
@@ -530,7 +527,6 @@ msgid "Red"
 msgstr "Gorria"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
-#: components/html-editor/popup.c:415
 msgid "Redo"
 msgstr "Berregin"
 
@@ -559,9 +555,9 @@ msgid "Roman Numeral List"
 msgstr "Zenbaki erromatardun zerrenda"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
-#: components/html-editor/editor-control-factory.c:200
+#: components/html-editor/editor-control-factory.c:217
 #: components/html-editor/gtkhtml-editor-properties.glade.h:63
-#: components/html-editor/menubar.c:162 components/html-editor/popup.c:226
+#: components/html-editor/menubar.c:125 components/html-editor/popup.c:228
 msgid "Rule"
 msgstr "Araua"
 
@@ -601,8 +597,8 @@ msgstr "Goi-indizea"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
-#: components/html-editor/menubar.c:179 components/html-editor/popup.c:233
-#: components/html-editor/popup.c:502 components/html-editor/popup.c:511
+#: components/html-editor/menubar.c:142 components/html-editor/popup.c:235
+#: components/html-editor/popup.c:516 components/html-editor/popup.c:525
 msgid "Table"
 msgstr "Taula"
 
@@ -618,7 +614,7 @@ msgstr "Ireki fitxategia..."
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
 #: components/html-editor/body.c:256
 #: components/html-editor/gtkhtml-editor-properties.glade.h:74
-#: components/html-editor/menubar.c:202
+#: components/html-editor/menubar.c:165
 msgid "Template"
 msgstr "Txantiloia"
 
@@ -628,7 +624,6 @@ msgid "Typewriter"
 msgstr "Idazmakina"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
-#: components/html-editor/popup.c:414
 msgid "Undo"
 msgstr "Desegin"
 
@@ -844,7 +839,7 @@ msgstr "Urdina, 3D"
 msgid "Rectangles"
 msgstr ""
 
-#: components/html-editor/body.c:274 src/gtkhtml.c:2647
+#: components/html-editor/body.c:274 src/gtkhtml.c:2591
 #, fuzzy
 msgid "Document Title"
 msgstr "Puntu-elementua"
@@ -866,9 +861,9 @@ msgid "Automatic"
 msgstr "Automatikoa"
 
 #: components/html-editor/body.c:325
-#: components/html-editor/editor-control-factory.c:189
+#: components/html-editor/editor-control-factory.c:206
 #: components/html-editor/gtkhtml-editor-properties.glade.h:76
-#: components/html-editor/menubar.c:337 components/html-editor/popup.c:191
+#: components/html-editor/menubar.c:288 components/html-editor/popup.c:193
 msgid "Text"
 msgstr "Testua"
 
@@ -893,28 +888,23 @@ msgid ""
 "Cannot apply your changes."
 msgstr ""
 
-#: components/html-editor/editor-control-factory.c:169
-#: components/html-editor/menubar.c:316 components/html-editor/menubar.c:334
-#: components/html-editor/menubar.c:352 components/html-editor/popup.c:183
-#: components/html-editor/popup.c:268
+#: components/html-editor/editor-control-factory.c:186
+#: components/html-editor/menubar.c:267 components/html-editor/menubar.c:285
+#: components/html-editor/menubar.c:303 components/html-editor/popup.c:185
+#: components/html-editor/popup.c:270
 msgid "Properties"
 msgstr "Propietateak"
 
-#: components/html-editor/editor-control-factory.c:210
-#: components/html-editor/menubar.c:355 components/html-editor/popup.c:212
+#: components/html-editor/editor-control-factory.c:227
+#: components/html-editor/menubar.c:306 components/html-editor/popup.c:214
 msgid "Paragraph"
 msgstr "Paragrafoa"
 
-#: components/html-editor/editor-control-factory.c:215
+#: components/html-editor/editor-control-factory.c:232
 #: components/html-editor/gtkhtml-editor-properties.glade.h:52
-#: components/html-editor/menubar.c:319 components/html-editor/popup.c:219
+#: components/html-editor/menubar.c:270 components/html-editor/popup.c:221
 msgid "Page"
 msgstr "Orrialdea"
-
-#: components/html-editor/editor-control-factory.c:775
-#, fuzzy
-msgid "GtkHTML Editor Control"
-msgstr "GNOME HTML Editorearen kontrola"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:2
 msgid "************"
@@ -958,12 +948,12 @@ msgid "Bottom"
 msgstr "Behean"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:20
-#: components/html-editor/popup.c:240
+#: components/html-editor/popup.c:242
 msgid "Cell"
 msgstr "Gelaxka"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:21
-#: components/html-editor/paragraph.c:162 components/html-editor/toolbar.c:510
+#: components/html-editor/paragraph.c:163 components/html-editor/toolbar.c:510
 msgid "Center"
 msgstr "Erdia"
 
@@ -981,7 +971,7 @@ msgid "Color:"
 msgstr "Kolorea:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:26
-#: components/html-editor/popup.c:513
+#: components/html-editor/popup.c:527
 msgid "Column"
 msgstr "Zutabea"
 
@@ -1042,7 +1032,7 @@ msgid "Italic"
 msgstr "Etzana"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:41
-#: components/html-editor/paragraph.c:161
+#: components/html-editor/paragraph.c:162
 msgid "Left"
 msgstr "Ezkerrean"
 
@@ -1099,12 +1089,12 @@ msgid "Points"
 msgstr "Puntuak"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:59
-#: components/html-editor/paragraph.c:163
+#: components/html-editor/paragraph.c:164
 msgid "Right"
 msgstr "Eskuinean"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:60
-#: components/html-editor/popup.c:512
+#: components/html-editor/popup.c:526
 msgid "Row"
 msgstr "Errenkada"
 
@@ -1138,7 +1128,7 @@ msgid "Spacing:"
 msgstr "Tartea:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:70
-#: components/html-editor/paragraph.c:113 components/html-editor/text.c:221
+#: components/html-editor/paragraph.c:114 components/html-editor/text.c:221
 msgid "Style"
 msgstr "Estiloa"
 
@@ -1261,175 +1251,165 @@ msgid ""
 "Cannot apply your changes."
 msgstr ""
 
-#: components/html-editor/menubar.c:125 components/html-editor/menubar.c:141
-#: components/html-editor/menubar.c:159 components/html-editor/menubar.c:176
-#: components/html-editor/menubar.c:199 components/html-editor/popup.c:99
+#: components/html-editor/menubar.c:88 components/html-editor/menubar.c:104
+#: components/html-editor/menubar.c:122 components/html-editor/menubar.c:139
+#: components/html-editor/menubar.c:162 components/html-editor/popup.c:101
 #: components/html-editor/properties.c:129
 msgid "Insert"
 msgstr "Txertatu"
 
-#: components/html-editor/menubar.c:266
+#: components/html-editor/menubar.c:229
 msgid "Insert HTML file"
 msgstr ""
 
-#: components/html-editor/menubar.c:266
+#: components/html-editor/menubar.c:229
 msgid "Insert text file"
 msgstr ""
 
-#: components/html-editor/paragraph.c:128
+#: components/html-editor/paragraph.c:129
 msgid "Pre"
 msgstr "Aurr"
 
-#: components/html-editor/paragraph.c:129 components/html-editor/toolbar.c:53
+#: components/html-editor/paragraph.c:130 components/html-editor/toolbar.c:53
 msgid "Header 1"
 msgstr "Izenburua 1"
 
-#: components/html-editor/paragraph.c:130 components/html-editor/toolbar.c:54
+#: components/html-editor/paragraph.c:131 components/html-editor/toolbar.c:54
 msgid "Header 2"
 msgstr "Izenburua 2"
 
-#: components/html-editor/paragraph.c:131 components/html-editor/toolbar.c:55
+#: components/html-editor/paragraph.c:132 components/html-editor/toolbar.c:55
 msgid "Header 3"
 msgstr "Izenburua 3"
 
-#: components/html-editor/paragraph.c:132 components/html-editor/toolbar.c:56
+#: components/html-editor/paragraph.c:133 components/html-editor/toolbar.c:56
 msgid "Header 4"
 msgstr "Izenburua 4"
 
-#: components/html-editor/paragraph.c:133 components/html-editor/toolbar.c:57
+#: components/html-editor/paragraph.c:134 components/html-editor/toolbar.c:57
 msgid "Header 5"
 msgstr "Izenburua 5"
 
-#: components/html-editor/paragraph.c:134 components/html-editor/toolbar.c:58
+#: components/html-editor/paragraph.c:135 components/html-editor/toolbar.c:58
 msgid "Header 6"
 msgstr "Izenburua 6"
 
-#: components/html-editor/paragraph.c:135 components/html-editor/toolbar.c:59
+#: components/html-editor/paragraph.c:136 components/html-editor/toolbar.c:59
 msgid "Address"
 msgstr "Helbidea"
 
-#: components/html-editor/paragraph.c:136
+#: components/html-editor/paragraph.c:137
 msgid "Dot item"
 msgstr "Puntu-elementua"
 
-#: components/html-editor/paragraph.c:137
+#: components/html-editor/paragraph.c:138
 msgid "Number item"
 msgstr "Zenbaki-elementua"
 
-#: components/html-editor/paragraph.c:138
+#: components/html-editor/paragraph.c:139
 msgid "Roman item"
 msgstr "Erromatar-elementua"
 
-#: components/html-editor/paragraph.c:139
+#: components/html-editor/paragraph.c:140
 msgid "Alphabeta item"
 msgstr "Alfabeto-elementua"
 
-#: components/html-editor/paragraph.c:148
+#: components/html-editor/paragraph.c:149
 msgid "Align"
 msgstr "Lerrokatu"
 
-#: components/html-editor/paragraph.c:192
+#: components/html-editor/paragraph.c:193
 msgid ""
 "The editted paragraph was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
 
-#: components/html-editor/popup.c:421
+#: components/html-editor/popup.c:455
 msgid "Paste Quotation"
 msgstr ""
 
-#: components/html-editor/popup.c:424
+#: components/html-editor/popup.c:458
 #, fuzzy
 msgid "Insert link"
 msgstr "Txertatu"
 
-#: components/html-editor/popup.c:432
+#: components/html-editor/popup.c:466
 msgid "Remove link"
 msgstr "Kendu esteka"
 
-#: components/html-editor/popup.c:440
-#, c-format
-msgid "Check '%s' spelling..."
-msgstr "Egiaztatu '%s'(r)en ortografia..."
+#: components/html-editor/popup.c:474
+#, fuzzy
+msgid "Text Style..."
+msgstr "Ireki fitxategia..."
 
-#: components/html-editor/popup.c:441
-#, c-format
-msgid "Add '%s' to dictionary"
-msgstr "Gehitu '%s' hiztegian"
-
-#: components/html-editor/popup.c:442
-#, c-format
-msgid "Ignore '%s'"
-msgstr "Ezikusi egin '%s'(r)i"
-
-#: components/html-editor/popup.c:444 components/html-editor/spell.c:266
-msgid "Spell checker"
-msgstr "Ortografia-egiaztatzailea"
-
-#: components/html-editor/popup.c:448
-msgid "Suggest word"
-msgstr "Proposatu hitza"
-
-#: components/html-editor/popup.c:464
-msgid "Text..."
-msgstr "Testua..."
-
-#: components/html-editor/popup.c:466 components/html-editor/popup.c:473
-#: components/html-editor/popup.c:485
-msgid "Paragraph..."
+#: components/html-editor/popup.c:476 components/html-editor/popup.c:482
+#: components/html-editor/popup.c:492
+#, fuzzy
+msgid "Paragraph Style..."
 msgstr "Paragrafoa..."
 
-#: components/html-editor/popup.c:471
-msgid "Link..."
+#: components/html-editor/popup.c:480
+#, fuzzy
+msgid "Link Style..."
 msgstr "Esteka..."
 
-#: components/html-editor/popup.c:478
-msgid "Rule..."
+#: components/html-editor/popup.c:486
+#, fuzzy
+msgid "Rule Style..."
 msgstr "Araua..."
 
-#: components/html-editor/popup.c:483
-msgid "Image..."
+#: components/html-editor/popup.c:490
+#, fuzzy
+msgid "Image Style..."
 msgstr "Irudia..."
 
-#: components/html-editor/popup.c:495
-msgid "Cell..."
+#: components/html-editor/popup.c:501
+#, fuzzy
+msgid "Cell Style..."
 msgstr "Gelaxka..."
 
-#: components/html-editor/popup.c:498
-msgid "Table..."
+#: components/html-editor/popup.c:504
+#, fuzzy
+msgid "Table Style..."
 msgstr "Taula..."
 
-#: components/html-editor/popup.c:501
+#: components/html-editor/popup.c:510
+#, fuzzy
+msgid "Page Style..."
+msgstr "Orrialdea..."
+
+#: components/html-editor/popup.c:515
 msgid "Table insert"
 msgstr "Txertatu taulan"
 
-#: components/html-editor/popup.c:504
+#: components/html-editor/popup.c:518
 msgid "Row above"
 msgstr "Errenkada goian"
 
-#: components/html-editor/popup.c:505
+#: components/html-editor/popup.c:519
 msgid "Row below"
 msgstr "Errenkada behean"
 
-#: components/html-editor/popup.c:507
+#: components/html-editor/popup.c:521
 msgid "Column before"
 msgstr "Zutabea aurrean"
 
-#: components/html-editor/popup.c:508
+#: components/html-editor/popup.c:522
 msgid "Column after"
 msgstr "Zutabea ondoren"
 
-#: components/html-editor/popup.c:510
+#: components/html-editor/popup.c:524
 msgid "Table delete"
 msgstr "Ezabatu taulan"
 
-#: components/html-editor/popup.c:514
+#: components/html-editor/popup.c:528
 msgid "Cell contents"
 msgstr "Gelaxkaren edukia"
 
-#: components/html-editor/popup.c:522
-msgid "Page..."
-msgstr "Orrialdea..."
+#: components/html-editor/popup.c:547
+#, fuzzy, c-format
+msgid "%s Dictionary"
+msgstr "Gehitu '%s' hiztegian"
 
 #: components/html-editor/replace.c:74
 msgid "Replace confirmation"
@@ -1477,6 +1457,15 @@ msgstr "atzerantz"
 msgid "Find Regular Expression"
 msgstr "Bilatu adierazpen erregularra"
 
+#: components/html-editor/spell.c:274
+msgid "Spell checker"
+msgstr "Ortografia-egiaztatzailea"
+
+#: components/html-editor/spell.c:358
+#, fuzzy
+msgid "Current _Languages"
+msgstr "Ortografia-egiaztapena"
+
 #: components/html-editor/table.c:199
 msgid "Flat gray"
 msgstr "Gris leuna"
@@ -1503,13 +1492,18 @@ msgstr ""
 msgid "Image frame"
 msgstr "Irudiaren markoa"
 
-#: components/html-editor/test-html-editor-control.c:312
+#: components/html-editor/test-html-editor-control.c:316
 msgid "Open file..."
 msgstr "Ireki fitxategia..."
 
-#: components/html-editor/test-html-editor-control.c:314
+#: components/html-editor/test-html-editor-control.c:318
 msgid "Save file as..."
 msgstr "Gorde honela..."
+
+#: components/html-editor/test-html-editor-control.c:554
+#, fuzzy
+msgid "GtkHTML Editor Test Container"
+msgstr "GNOME HTML Editorearen kontrola"
 
 #. color selection
 #: components/html-editor/text.c:291
@@ -1574,75 +1568,75 @@ msgstr "Paragrafoari koska handiagoa ezartzen dio"
 msgid "Sample"
 msgstr "Adibidea"
 
-#: src/gtkhtml.c:2640
+#: src/gtkhtml.c:2584
 #, fuzzy
 msgid "Editable"
 msgstr "Gaitu"
 
-#: src/gtkhtml.c:2641
+#: src/gtkhtml.c:2585
 msgid "Whether the html can be edited"
 msgstr ""
 
-#: src/gtkhtml.c:2648
+#: src/gtkhtml.c:2592
 #, fuzzy
 msgid "The title of the current document"
 msgstr "Egiaztatu dokumentuaren ortografia"
 
-#: src/gtkhtml.c:2654
+#: src/gtkhtml.c:2598
 #, fuzzy
 msgid "Document Base"
 msgstr "Puntu-elementua"
 
-#: src/gtkhtml.c:2655
+#: src/gtkhtml.c:2599
 msgid "The base URL for relative references"
 msgstr ""
 
-#: src/gtkhtml.c:2661
+#: src/gtkhtml.c:2605
 msgid "Target Base"
 msgstr ""
 
-#: src/gtkhtml.c:2662
+#: src/gtkhtml.c:2606
 msgid "The base URL of the targe frame"
 msgstr ""
 
-#: src/gtkhtml.c:2671
+#: src/gtkhtml.c:2615
 #, fuzzy
 msgid "Fixed Width Font"
 msgstr "Zabalera finkoa"
 
-#: src/gtkhtml.c:2672
+#: src/gtkhtml.c:2616
 msgid "The Monospace font to use for typewriter text"
 msgstr ""
 
-#: src/gtkhtml.c:2678
+#: src/gtkhtml.c:2622
 msgid "New Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2679
+#: src/gtkhtml.c:2623
 msgid "The color of new link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2684
+#: src/gtkhtml.c:2628
 msgid "Visited Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2685
+#: src/gtkhtml.c:2629
 msgid "The color of visited link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2690
+#: src/gtkhtml.c:2634
 msgid "Active Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2691
+#: src/gtkhtml.c:2635
 msgid "The color of active link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2696
+#: src/gtkhtml.c:2640
 msgid "Spelling Error Color"
 msgstr ""
 
-#: src/gtkhtml.c:2697
+#: src/gtkhtml.c:2641
 msgid "The color of the spelling error markers"
 msgstr ""
 
@@ -1728,6 +1722,18 @@ msgstr "Inprimatzeko _aurrebista"
 msgid "Print preview"
 msgstr "Inprimatzeko aurrebista"
 
+#~ msgid "Check '%s' spelling..."
+#~ msgstr "Egiaztatu '%s'(r)en ortografia..."
+
+#~ msgid "Ignore '%s'"
+#~ msgstr "Ezikusi egin '%s'(r)i"
+
+#~ msgid "Suggest word"
+#~ msgstr "Proposatu hitza"
+
+#~ msgid "Text..."
+#~ msgstr "Testua..."
+
 #~ msgid "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz"
 #~ msgstr "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz"
 
@@ -1771,10 +1777,6 @@ msgstr "Inprimatzeko aurrebista"
 
 #~ msgid "No misspelled word found"
 #~ msgstr "Ez da oker idatzitako hitzik aurkitu"
-
-#, fuzzy
-#~ msgid "Spell Checking _Languages"
-#~ msgstr "Ortografia-egiaztapena"
 
 #~ msgid ""
 #~ "<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
