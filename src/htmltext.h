@@ -143,4 +143,21 @@ void  html_text_spell_errors_clear_interval  (HTMLText     *text,
 void  html_text_spell_errors_add             (HTMLText     *text,
 					      guint         off,
 					      guint         len);
+
+/*
+ * protected
+ */
+typedef HTMLObject * (* HTMLTextHelperFunc)       (HTMLText *, gint begin, gint end);
+
+HTMLObject *html_text_op_copy_helper  (HTMLText           *text,
+				       GList              *from,
+				       GList              *to,
+				       guint              *len,
+				       HTMLTextHelperFunc  f);
+HTMLObject *html_text_op_cut_helper   (HTMLText           *text,
+				       GList              *from,
+				       GList              *to,
+				       guint              *len,
+				       HTMLTextHelperFunc  f);
+
 #endif /* _HTMLTEXT_H_ */

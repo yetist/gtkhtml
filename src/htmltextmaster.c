@@ -35,7 +35,7 @@
 #include "htmlentity.h"
 #include "htmlengine.h"
 #include "htmlengine-edit.h"
-#include "htmlengine-edit-paste.h"
+#include "htmlengine-edit-cut-and-paste.h"
 #include "htmllinktextmaster.h"
 #include "htmlsettings.h"
 
@@ -63,6 +63,25 @@ copy (HTMLObject *self,
 
 	copy_text_master_members (HTML_TEXT_MASTER (self),
 				  HTML_TEXT_MASTER (dest));
+}
+
+static HTMLObject *
+new_text (HTMLText *t, gint begin, gint end)
+{
+	return HTML_OBJECT (html_text_master_new_with_len (html_text_get_text (t, begin),
+							   end - begin, t->font_style, t->color));
+}
+
+static HTMLObject *
+op_copy (HTMLObject *self, GList *from, GList *to, guint *len)
+{
+	return html_text_op_copy_helper (HTML_TEXT (self), from, to, len, new_text);
+}
+
+static HTMLObject *
+op_cut (HTMLObject *self, GList *from, GList *to, guint *len)
+{
+	return html_text_op_cut_helper (HTML_TEXT (self), from, to, len, new_text);
 }
 
 static void
@@ -615,6 +634,8 @@ html_text_master_class_init (HTMLTextMasterClass *klass,
 	/* HTMLObject methods.  */
 
 	object_class->copy = copy;
+	object_class->op_copy = op_copy;
+	object_class->op_cut = op_cut;
 	object_class->draw = draw;
 	object_class->fit_line = fit_line;
 	object_class->calc_size = calc_size;
@@ -783,9 +804,10 @@ paste_link (HTMLEngine *engine, HTMLText *text, gint so, gint eo, gchar *prefix)
 		 text->font_style,
 		 html_colorset_get_color (engine->settings->color_set, HTMLLinkColor),
 		 href, NULL);
-	html_engine_replace_by_object (engine,
+	g_warning ("FIXME!!!\n");
+	/* html_engine_replace_by_object (engine,
 				       HTML_OBJECT (text), so, HTML_OBJECT (text), eo,
-				       new_obj);
+				       new_obj); */
 
 	g_free (href);
 }

@@ -82,6 +82,26 @@ struct _HTMLObjectClass {
            memory area of the proper size.  */
 	void (* copy) (HTMLObject *self, HTMLObject *dest);
 
+	/* copy/cut/paste operations */
+	HTMLObject * (* op_copy)         (HTMLObject *self,
+					  GList *from,
+					  GList *to,
+					  guint *len);
+	HTMLObject * (* op_cut)          (HTMLObject *self,
+					  GList *from,
+					  GList *to,
+					  guint *len);
+	gboolean     (* merge)           (HTMLObject *self,
+					  HTMLObject *o);
+	void         (* remove_child)    (HTMLObject *self,
+					  HTMLObject *child);
+	void         (* split)           (HTMLObject *self,
+					  HTMLObject *child,
+					  gint offset,
+					  gint level,
+					  GList **left,
+					  GList **right);
+
 	/* Layout management and geometry handling.  */
 
 	HTMLFitType (* fit_line) (HTMLObject *o, HTMLPainter *painter,
@@ -219,40 +239,61 @@ extern HTMLObjectClass html_object_class;
 
 /* Basics.  */
 void        html_object_type_init         (void);
-void        html_object_init              (HTMLObject           *self,
-					   HTMLObjectClass      *klass);
-void        html_object_class_init        (HTMLObjectClass      *klass,
-					   HTMLType              type,
-					   guint                 object_size);
-HTMLObject *html_object_new               (HTMLObject           *parent);
-void        html_object_destroy           (HTMLObject           *self);
-void        html_object_copy              (HTMLObject           *self,
-					   HTMLObject           *dest);
-HTMLObject *html_object_dup               (HTMLObject           *self);
-void        html_object_set_parent        (HTMLObject           *self,
-					   HTMLObject           *parent);
-gint        html_object_get_left_margin   (HTMLObject           *self,
-					   gint                  y);
-gint        html_object_get_right_margin  (HTMLObject           *self,
-					   gint                  y);
-void        html_object_set_painter       (HTMLObject           *o,
-					   HTMLPainter          *p,
-					   gint                  max_width);
-void        html_object_reset             (HTMLObject           *o);
-gboolean    html_object_is_text           (HTMLObject           *object);
-HTMLEngine *html_object_get_engine        (HTMLObject           *self,
-					   HTMLEngine           *e);
-void        html_object_forall            (HTMLObject           *self,
-					   HTMLEngine           *e,
-					   HTMLObjectForallFunc  func,
-					   gpointer              data);
-gboolean    html_object_is_container      (HTMLObject           *self);
-HTMLObject *html_object_next_not_slave    (HTMLObject           *self);
-HTMLObject *html_object_prev_not_slave    (HTMLObject           *self);
-HTMLObject *html_object_next_by_type      (HTMLObject           *self,
-					   HTMLType              t);
-HTMLObject *html_object_prev_by_type      (HTMLObject           *self,
-					   HTMLType              t);
+void        html_object_init              (HTMLObject            *self,
+					   HTMLObjectClass       *klass);
+void        html_object_class_init        (HTMLObjectClass       *klass,
+					   HTMLType               type,
+					   guint                  object_size);
+HTMLObject *html_object_new               (HTMLObject            *parent);
+void        html_object_destroy           (HTMLObject            *self);
+void        html_object_copy              (HTMLObject            *self,
+					   HTMLObject            *dest);
+HTMLObject *html_object_dup               (HTMLObject            *self);
+
+/* copy/cut/paste operations */
+HTMLObject *html_object_op_copy           (HTMLObject            *self,
+					   GList                 *from,
+					   GList                 *to,
+					   guint                 *len);
+HTMLObject *html_object_op_cut            (HTMLObject            *self,
+					   GList                 *from,
+					   GList                 *to,
+					   guint                 *len);
+gboolean    html_object_merge             (HTMLObject            *self,
+					   HTMLObject            *with);
+void        html_object_remove_child      (HTMLObject            *self,
+					   HTMLObject            *child);
+void        html_object_split             (HTMLObject            *self,
+					   HTMLObject            *child,
+					   gint                   offset,
+					   gint                   level,
+					   GList                **left,
+					   GList                **right);
+
+void        html_object_set_parent        (HTMLObject            *self,
+					   HTMLObject            *parent);
+gint        html_object_get_left_margin   (HTMLObject            *self,
+					   gint                   y);
+gint        html_object_get_right_margin  (HTMLObject            *self,
+					   gint                   y);
+void        html_object_set_painter       (HTMLObject            *o,
+					   HTMLPainter           *p,
+					   gint                   max_width);
+void        html_object_reset             (HTMLObject            *o);
+gboolean    html_object_is_text           (HTMLObject            *object);
+HTMLEngine *html_object_get_engine        (HTMLObject            *self,
+					   HTMLEngine            *e);
+void        html_object_forall            (HTMLObject            *self,
+					   HTMLEngine            *e,
+					   HTMLObjectForallFunc   func,
+					   gpointer               data);
+gboolean    html_object_is_container      (HTMLObject            *self);
+HTMLObject *html_object_next_not_slave    (HTMLObject            *self);
+HTMLObject *html_object_prev_not_slave    (HTMLObject            *self);
+HTMLObject *html_object_next_by_type      (HTMLObject            *self,
+					   HTMLType               t);
+HTMLObject *html_object_prev_by_type      (HTMLObject            *self,
+					   HTMLType               t);
 
 /* do search request on object using info */
 gboolean    html_object_search            (HTMLObject *self,
@@ -374,6 +415,7 @@ HTMLObject * html_object_prev            (HTMLObject *self,
 /* get head/tail object of this (parent) object */
 HTMLObject * html_object_head            (HTMLObject *self);
 HTMLObject * html_object_tail            (HTMLObject *self);
+HTMLObject * html_object_tail_not_slave  (HTMLObject *self);
 
 /* get prev/next leaf object in scope of whole tree */
 HTMLObject *html_object_next_leaf           (HTMLObject *self);
@@ -423,5 +465,7 @@ gpointer  html_object_get_data               (HTMLObject  *object,
 					      const gchar *key);
 void      html_object_copy_data_from_object  (HTMLObject  *dst,
 					      HTMLObject  *src);
+GList *   html_object_get_bound_list         (HTMLObject *obj,
+					      GList *list);
 
 #endif /* _HTMLOBJECT_H_ */

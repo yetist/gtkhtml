@@ -23,6 +23,7 @@
 
 #include <config.h>
 #include "htmlclue.h"
+#include "htmlobject.h"
 #include "htmlsearch.h"
 #include "htmltype.h"
 
@@ -32,7 +33,9 @@
 HTMLClueClass html_clue_class;
 HTMLObjectClass *parent_class = NULL;
 
-
+static void set_parent (HTMLObject *o, HTMLObject *tail, HTMLObject *parent);
+
+
 /* HTMLObject methods.  */
 
 static void
@@ -55,10 +58,6 @@ static void
 copy (HTMLObject *self,
       HTMLObject *dest)
 {
-	/* FIXME maybe this should copy all the children too?  I am not quite
-           sure.  For now, we don't need the code, and we just avoid going
-           through the hassle on doing this.  */
-
 	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
 
 	HTML_CLUE (dest)->head = NULL;
@@ -67,6 +66,120 @@ copy (HTMLObject *self,
 
 	HTML_CLUE (dest)->valign = HTML_CLUE (self)->valign;
 	HTML_CLUE (dest)->halign = HTML_CLUE (self)->halign;
+}
+
+static HTMLObject *
+op_helper (HTMLObject *self, GList *from, GList *to, guint *len, gboolean cut)
+{
+	HTMLClue *clue = HTML_CLUE (self);
+	HTMLObject *cc;
+	HTMLObject *o, *last, *cnext;
+
+	cc   = html_object_dup (self);
+	o    = (from) ? HTML_OBJECT (from->data) : clue->head;
+	last = (to)   ? HTML_OBJECT (to->data)   : clue->tail;
+
+	g_assert (o->parent == self);
+	g_assert (last->parent == self);
+
+	while (1) {
+		cnext = html_object_next_not_slave (o);
+		html_clue_append (HTML_CLUE (cc), cut
+				  ? html_object_op_cut (o,
+							html_object_get_bound_list (o, from),
+							html_object_get_bound_list (o, to), len)
+				  : html_object_op_copy (o,
+							 html_object_get_bound_list (o, from),
+							 html_object_get_bound_list (o, to), len));
+
+		if (o == last)
+			break;
+		o = cnext;
+	}
+
+	return cc;
+}
+
+static HTMLObject *
+op_copy (HTMLObject *self, GList *from, GList *to, guint *len)
+{
+	return op_helper (self, from, to, len, FALSE);
+}
+
+static HTMLObject *
+op_cut (HTMLObject *self, GList *from, GList *to, guint *len)
+{
+	HTMLObject *rv;
+	HTMLClue *clue;
+
+	clue = HTML_CLUE (self);
+	rv   = op_helper (self, from, to, len, TRUE);
+	if (!clue->head) {
+		if (self->parent)
+			html_object_remove_child (self->parent, self);
+		html_object_destroy (self);
+	} else
+		html_object_change_set (self, HTML_CHANGE_ALL);
+
+	return rv;
+}
+
+static gboolean
+merge (HTMLObject *self, HTMLObject *with)
+{
+	HTMLClue   *clue1, *clue2;
+
+	if (HTML_OBJECT_TYPE (self) != HTML_OBJECT_TYPE (with))
+		return FALSE;
+
+	clue1 = HTML_CLUE (self);
+	clue2 = HTML_CLUE (with);
+
+	if (clue1->halign != clue2->halign || clue1->valign != clue2->valign)
+		return FALSE;
+
+	html_clue_append (clue1, clue2->head);
+	clue2->head = NULL;
+	clue2->tail = NULL;
+
+	html_object_change_set (self, HTML_CHANGE_ALL);
+	return TRUE;
+}
+
+static void
+remove_child (HTMLObject *self, HTMLObject *child)
+{
+	html_clue_remove (HTML_CLUE (self), child);
+}
+
+static void
+split (HTMLObject *self, HTMLObject *child, gint offset, gint level, GList **left, GList **right)
+{
+	HTMLObject *dup;
+	HTMLClue *clue;
+
+	clue = HTML_CLUE (self);
+	dup  = html_object_dup (self);
+
+	HTML_CLUE (dup)->tail  = HTML_CLUE (self)->tail;
+	HTML_CLUE (self)->tail = child->prev;
+	if (child->prev)
+			child->prev->next = NULL;
+	child->prev = NULL;
+	if (child == HTML_CLUE (self)->head)
+		HTML_CLUE (self)->head = NULL;
+	HTML_CLUE (dup)->head  = child;
+	set_parent (child, NULL, dup);
+
+	if (self->parent)
+		html_clue_append_after (HTML_CLUE (self->parent), dup, self);
+
+	*left  = g_list_prepend (*left, self);
+	*right = g_list_prepend (*right, dup);
+
+	level--;
+	if (level)
+		html_object_split (self->parent, dup, 0, level, left, right);
 }
 
 static void
@@ -466,6 +579,11 @@ html_clue_class_init (HTMLClueClass *klass,
 	/* HTMLObject functions */
 	object_class->destroy = destroy;
 	object_class->copy = copy;
+	object_class->op_copy = op_copy;
+	object_class->op_cut = op_cut;
+	object_class->merge = merge;
+	object_class->remove_child = remove_child;
+	object_class->split = split;
 	object_class->draw = draw;
 	object_class->set_max_ascent = set_max_ascent;
 	object_class->set_max_descent = set_max_descent;
@@ -583,7 +701,7 @@ set_parent (HTMLObject *o,
 	    HTMLObject *tail,
 	    HTMLObject *parent)
 {
-	while (1) {
+	while (o) {
 		html_object_set_parent (o, parent);
 		if (o == tail)
 			break;

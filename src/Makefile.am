@@ -45,19 +45,13 @@ libgtkhtml_HEADERS =				\
 	htmlcursor.h				\
 	htmldrawqueue.h				\
 	htmlembedded.h				\
-	htmlengine-cutbuffer.h			\
 	htmlengine-edit.h			\
 	htmlengine-edit-clueflowstyle.h		\
-	htmlengine-edit-copy.h			\
 	htmlengine-edit-cursor.h		\
-	htmlengine-edit-cut.h			\
-	htmlengine-edit-delete.h		\
 	htmlengine-edit-fontstyle.h		\
 	htmlengine-edit-images.c		\
 	htmlengine-edit-images.h		\
-	htmlengine-edit-insert.h		\
 	htmlengine-edit-movement.h		\
-	htmlengine-edit-paste.h			\
 	htmlengine-edit-rule.h			\
 	htmlengine-edit-selection-updater.h	\
 	htmlengine-edit-text.h			\
@@ -131,18 +125,13 @@ libgtkhtml_la_SOURCES =				\
 	htmlcursor.c				\
 	htmldrawqueue.c				\
 	htmlembedded.c				\
-	htmlengine-cutbuffer.c			\
 	htmlengine-edit.c			\
 	htmlengine-edit-clueflowstyle.c		\
-	htmlengine-edit-copy.c			\
 	htmlengine-edit-cursor.c		\
-	htmlengine-edit-cut.c			\
-	htmlengine-edit-delete.c		\
+	htmlengine-edit-cut-and-paste.c		\
 	htmlengine-edit-fontstyle.c		\
 	htmlengine-edit-images.c		\
-	htmlengine-edit-insert.c		\
 	htmlengine-edit-movement.c		\
-	htmlengine-edit-paste.c			\
 	htmlengine-edit-rule.c			\
 	htmlengine-edit-selection-updater.c	\
 	htmlengine-edit-text.c			\

@@ -21,9 +21,9 @@
 
 #include <config.h>
 #include "htmlengine.h"
-#include "htmlengine-edit-paste.h"
 #include "htmlrule.h"
 #include "htmlcluealigned.h"
+#include "htmlengine-edit-cut-and-paste.h"
 #include "htmlengine-edit-rule.h"
 
 void
@@ -41,7 +41,7 @@ html_engine_insert_rule (HTMLEngine      *e,
 
 	rule = html_rule_new (length, percent, size, shade, halign);
 
-	html_engine_paste_object (e, rule, TRUE);
+	html_engine_paste_object (e, rule, 1);
 	html_object_destroy (rule);
 }
 

@@ -189,6 +189,11 @@ typedef enum {
 } HTMLType;
 
 typedef enum {
+	HTML_UNDO_UNDO,
+	HTML_UNDO_REDO
+} HTMLUndoDirection;
+
+typedef enum {
 	HTML_URL_DUP_ALL = 0,
 	HTML_URL_DUP_NOPROTOCOL = 1 << 0,
 	HTML_URL_DUP_NOUSERNAME = 1 << 1,

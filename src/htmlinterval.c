@@ -361,3 +361,9 @@ html_interval_eq (const HTMLInterval *a, const HTMLInterval *b)
 {
 	return html_point_eq (&a->from, &b->from) && html_point_eq (&a->to, &b->to);
 }
+
+HTMLObject *
+html_interval_get_head (HTMLInterval *i, HTMLObject *o)
+{
+	return o == i->from.object->parent ? i->from.object : html_object_head (o);
+}

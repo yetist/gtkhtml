@@ -23,7 +23,7 @@
 #include <config.h>
 #include <string.h>
 #include "htmlengine-edit-fontstyle.h"
-#include "htmlengine-edit-insert.h"
+#include "htmlengine-edit-cut-and-paste.h"
 #include "htmlselection.h"
 
 #include "properties.h"
@@ -97,7 +97,7 @@ link_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 	if (*url)
 		html_engine_insert_link (e, url, target);
 	else
-		html_engine_remove_link (e);
+		html_engine_insert_link (e, NULL, NULL);
 }
 
 void

@@ -66,6 +66,8 @@ guint         html_interval_get_start        (HTMLInterval          *i,
 					      HTMLObject            *obj);
 guint         html_interval_get_start_index  (HTMLInterval          *i,
 					      HTMLObject            *obj);
+HTMLObject *  html_interval_get_head         (HTMLInterval          *i,
+					      HTMLObject            *o);
 void          html_interval_select           (HTMLInterval          *i,
 					      HTMLEngine            *e);
 void          html_interval_unselect         (HTMLInterval          *i,

@@ -13,6 +13,10 @@
 	* htmlimage.c (get_actual_width): use top_html_engine
 	(get_actual_height): likewise
 
+2000-12-19  Radek Doulik  <rodo@helixcode.com>
+
+	* gtkhtml.c (selection_received): use unicode_strlen
+
 2000-12-18  Larry Ewing  <lewing@helixcode.com>
 
 	* htmlclueflow.c (html_clueflow_spell_check): free the text

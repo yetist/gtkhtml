@@ -24,29 +24,19 @@
 
 #include "htmltypes.h"
 
+#define HTML_UNDO_ACTION(x) ((HTMLUndoAction *) x)
 struct _HTMLUndoAction {
-	/* A text description of the action, to be displayed in the menus.  */
-	gchar *description;
-
-	/* Function to call when the action is performed.  */
-	HTMLUndoActionFunction function;
-
-	/* Data to pass to the action function when it's called.  */
-	gpointer closure;
-
-	/* Function to call to destroy the closure.  */
-	HTMLUndoActionClosureDestroyFunction closure_destroy_function;
-
-	/* Cursor position, to be set when the action is executed.  */
-	gint position;
+	
+	gchar *description;             /* A text description of the action, to be displayed in the menus.  */
+	HTMLUndoFunc function;	        /* Function to call when the action is performed.  */
+	HTMLUndoData *data;             /* Data to pass to the action function when it's called.  */
+	guint position;                 /* Cursor position, to be set when the action is executed.  */
 };
 
-
-HTMLUndoAction *html_undo_action_new      (const gchar                          *description,
-					   HTMLUndoActionFunction                undo_function,
-					   HTMLUndoActionClosureDestroyFunction  closure_destroy_function,
-					   gpointer                              closure,
-					   gint                                  position);
-void            html_undo_action_destroy  (HTMLUndoAction                       *action);
+HTMLUndoAction *html_undo_action_new      (const gchar            *description,
+					   HTMLUndoFunc            function,
+					   HTMLUndoData           *data,
+					   guint                   position);
+void            html_undo_action_destroy  (HTMLUndoAction         *action);
 
 #endif /* _HTML_UNDO_ACTION_H */

@@ -36,11 +36,9 @@
 #include "htmlselection.h"
 #include "htmlundo.h"
 
-#include "htmlengine-cutbuffer.h"
-#include "htmlengine-edit-cut.h"
+#include "htmlengine-edit-cut-and-paste.h"
 #include "htmlengine-edit-cursor.h"
 #include "htmlengine-edit-movement.h"
-#include "htmlengine-edit-paste.h"
 #include "htmlengine-edit-selection-updater.h"
 #include "htmlengine-edit.h"
 
@@ -94,19 +92,22 @@ html_engine_set_mark (HTMLEngine *e)
 }
 
 void
-html_engine_cut_buffer_push (HTMLEngine *e)
+html_engine_clipboard_push (HTMLEngine *e)
 {
-	e->cut_buffer_stack = g_list_prepend (e->cut_buffer_stack, e->cut_buffer);
-	e->cut_buffer = NULL;
+	e->clipboard_stack = g_list_prepend (e->clipboard_stack, GUINT_TO_POINTER (e->clipboard_len));
+	e->clipboard_stack = g_list_prepend (e->clipboard_stack, e->clipboard);
+	e->clipboard       = NULL;
 }
 
 void
-html_engine_cut_buffer_pop (HTMLEngine *e)
+html_engine_clipboard_pop (HTMLEngine *e)
 {
-	g_assert (e->cut_buffer_stack);
+	g_assert (e->clipboard_stack);
 
-	e->cut_buffer = (GList *) e->cut_buffer_stack->data;
-	e->cut_buffer_stack = g_list_remove (e->cut_buffer_stack, e->cut_buffer_stack->data);
+	e->clipboard       = HTML_OBJECT (e->clipboard_stack->data);
+	e->clipboard_stack = g_list_remove (e->clipboard_stack, e->clipboard_stack->data);
+	e->clipboard_len   = GPOINTER_TO_UINT (e->clipboard_stack->data);
+	e->clipboard_stack = g_list_remove (e->clipboard_stack, e->clipboard_stack->data);
 }
 
 void
@@ -155,44 +156,48 @@ html_engine_cut_and_paste_begin (HTMLEngine *e, gchar *op_name)
 {
 	html_engine_hide_cursor (e);
 	html_engine_selection_push (e);
-	html_engine_cut_buffer_push (e);
+	html_engine_clipboard_push (e);
 	html_undo_level_begin (e->undo, op_name);
-	html_engine_cut (e, TRUE);
+	html_engine_cut (e);
 }
 
 void
 html_engine_cut_and_paste_end (HTMLEngine *e)
 {
-	if (e->cut_buffer) {
-		html_engine_paste (e, TRUE);
-		html_engine_cut_buffer_destroy (e->cut_buffer);
+	if (e->clipboard) {
+		html_engine_paste (e);
+		html_engine_clipboard_clear (e);
 	}
 	html_undo_level_end (e->undo);
-	html_engine_cut_buffer_pop (e);
+	html_engine_clipboard_pop (e);
 	html_engine_selection_pop (e);
 	html_engine_show_cursor (e);
 }
 
 void
-html_engine_cut_and_paste (HTMLEngine *e, gchar *op_name, GFunc iterator, gpointer data)
+html_engine_cut_and_paste (HTMLEngine *e, gchar *op_name, HTMLObjectForallFunc iterator, gpointer data)
 {
+	html_engine_edit_selection_updater_update_now (e->selection_updater);
 	html_engine_cut_and_paste_begin (e, op_name);
-	g_list_foreach (e->cut_buffer, iterator, data);
+	if (e->clipboard)
+		html_object_forall (e->clipboard, e, iterator, data);
 	html_engine_cut_and_paste_end (e);
+}
+
+static void
+spell_check_object (HTMLObject *o, HTMLEngine *e, gpointer data)
+{
+	if (HTML_OBJECT_TYPE (o) == HTML_TYPE_CLUEFLOW)
+		html_clueflow_spell_check (HTML_CLUEFLOW (o), e, (HTMLInterval *) data);
 }
 
 void
 html_engine_spell_check_range (HTMLEngine *e, HTMLCursor *begin, HTMLCursor *end)
 {
-	HTMLObject *parent;
 	HTMLInterval *i;
 
 	begin = html_cursor_dup (begin);
 	end   = html_cursor_dup (end);
-
-	g_assert (begin->object->parent == end->object->parent);
-
-	parent = begin->object->parent;
 
 	while (html_is_in_word (html_cursor_get_prev_char (begin)))
 		if (html_cursor_backward (begin, e));
@@ -200,7 +205,10 @@ html_engine_spell_check_range (HTMLEngine *e, HTMLCursor *begin, HTMLCursor *end
 		if (html_cursor_forward (end, e));
 
 	i = html_interval_new_from_cursor (begin, end);
-	html_clueflow_spell_check (HTML_CLUEFLOW (parent), e, i);
+	if (begin->object->parent != end->object->parent)
+		html_interval_forall (i, e, spell_check_object, i);
+	else
+		html_clueflow_spell_check (HTML_CLUEFLOW (begin->object->parent), e, i);
 	html_interval_destroy (i);
 	html_cursor_destroy (begin);
 	html_cursor_destroy (end);
@@ -262,4 +270,13 @@ html_engine_set_data_by_type (HTMLEngine *e, HTMLType object_type, const gchar *
 	html_object_forall (e->clue, NULL, set_data, data);
 
 	g_free (data);
+}
+
+void
+html_engine_clipboard_clear (HTMLEngine *e)
+{
+	if (e->clipboard) {
+		html_object_destroy (e->clipboard);
+		e->clipboard = NULL;
+	}
 }

@@ -172,6 +172,132 @@ copy (HTMLObject *self,
 	copy_helper (HTML_TEXT (self), HTML_TEXT (dest), 0, -1);
 }
 
+HTMLObject *
+html_text_op_copy_helper (HTMLText *text, GList *from, GList *to, guint *len, HTMLTextHelperFunc f)
+{
+	gint begin, end;
+
+	begin = (from) ? GPOINTER_TO_INT (from->data) : 0;
+	end   = (to)   ? GPOINTER_TO_INT (to->data)   : text->text_len;
+
+	*len += end - begin;
+
+	return (*f) (text, begin, end);
+}
+
+HTMLObject *
+html_text_op_cut_helper (HTMLText *text, GList *from, GList *to, guint *len, HTMLTextHelperFunc f)
+{
+	HTMLObject *rv;
+	gint begin, end;
+
+	begin = (from) ? GPOINTER_TO_INT (from->data) : 0;
+	end   = (to)   ? GPOINTER_TO_INT (to->data)   : text->text_len;
+
+	g_assert (begin <= end);
+	g_assert (end <= text->text_len);
+
+	if (from || to || (begin && end < text->text_len)) {
+		gchar *nt, *tail;
+
+		if (begin == end)
+			return (*f) (text, 0, 0);
+
+		rv = (*f) (text, begin, end);
+
+		tail = html_text_get_text (text, end);
+		text->text [html_text_get_index (text, begin)] = 0;
+		nt = g_strconcat (text->text, tail, NULL);
+		g_free (text->text);
+		text->text = nt;
+		text->text_len -= end - begin;
+		*len           += end - begin;
+		html_object_change_set (HTML_OBJECT (text), HTML_CHANGE_ALL);
+	} else {
+		html_object_remove_child (HTML_OBJECT (text)->parent, HTML_OBJECT (text));
+
+		rv    = HTML_OBJECT (text);
+		*len += text->text_len;
+	}
+
+	html_object_change_set (HTML_OBJECT (text), HTML_CHANGE_ALL);
+	return rv;
+}
+
+static gboolean
+object_merge (HTMLObject *self, HTMLObject *with)
+{
+	HTMLText *t1, *t2;
+	gchar *to_free;
+
+	t1 = HTML_TEXT (self);
+	t2 = HTML_TEXT (with);
+
+	if (t1->font_style != t2->font_style || t1->color != t2->color)
+		return FALSE;
+
+	to_free       = t1->text;
+	t1->text      = g_strconcat (t1->text, t2->text, NULL);
+	t1->text_len += t2->text_len;
+	g_free (to_free);
+
+	html_object_change_set (self, HTML_CHANGE_ALL);
+
+	return TRUE;
+}
+
+static void
+object_split (HTMLObject *self, HTMLObject *child, gint offset, gint level, GList **left, GList **right)
+{
+	HTMLObject *dup, *prev;
+	HTMLText *text;
+	gchar *tt;
+
+	/* if (offset == 0 || offset == html_object_get_length (self)) {
+		printf ("OBJECT split left on parent\n");
+		if (self->parent)
+			html_clueflow_remove_text_slaves (HTML_CLUEFLOW (self->parent));
+		(*HTML_OBJECT_CLASS (parent_class)->split) (self, child, offset, level, left, right);
+		return;
+		} */
+
+	g_assert (self->parent);
+
+	html_clueflow_remove_text_slaves (HTML_CLUEFLOW (self->parent));
+
+	text            = HTML_TEXT (self);
+	dup            = html_object_dup (self);
+	tt              = text->text;
+	text->text      = g_strndup (tt, html_text_get_index (text, offset));
+	text->text_len  = offset;
+	g_free (tt);
+
+	text            = HTML_TEXT (dup);
+	tt              = text->text;
+	text->text      = g_strdup (html_text_get_text (text, offset));
+	text->text_len -= offset;
+	g_free (tt);
+
+	html_clue_append_after (HTML_CLUE (self->parent), dup, self);
+
+	prev = self->prev;
+	if (HTML_TEXT (self)->text_len == 0 && prev && html_object_merge (prev, self))
+		self = prev;
+
+	if (HTML_TEXT (dup)->text_len == 0 && dup->next)
+		html_object_merge (dup, dup->next);
+
+	*left  = g_list_prepend (*left, self);
+	*right = g_list_prepend (*right, dup);
+
+	html_object_change_set (self, HTML_CHANGE_ALL);
+	html_object_change_set (dup,  HTML_CHANGE_ALL);
+
+	level--;
+	if (level)
+		html_object_split (self->parent, dup, 0, level, left, right);
+}
+
 static gboolean
 calc_size (HTMLObject *self,
 	   HTMLPainter *painter)
@@ -712,9 +838,9 @@ split (HTMLText *self,
 }
 
 static void
-merge (HTMLText *text,
-       HTMLText *other,
-       gboolean prepend)
+text_merge (HTMLText *text,
+	    HTMLText *other,
+	    gboolean prepend)
 {
 	g_warning ("HTMLText::merge not implemented.");
 }
@@ -855,6 +981,8 @@ html_text_class_init (HTMLTextClass *klass,
 
 	object_class->destroy = destroy;
 	object_class->copy = copy;
+	object_class->merge = object_merge;
+	object_class->split = object_split;
 	object_class->draw = draw;
 	object_class->accepts_cursor = accepts_cursor;
 	object_class->calc_size = calc_size;
@@ -878,7 +1006,7 @@ html_text_class_init (HTMLTextClass *klass,
 	klass->get_color = get_color;
 	klass->set_font_style = set_font_style;
 	klass->set_color = set_color;
-	klass->merge = merge;
+	klass->merge = text_merge;
 	klass->check_merge = check_merge;
 
 	parent_class = &html_object_class;

@@ -161,6 +161,7 @@ gtk_html_debug_dump_object (HTMLObject *obj,
 	case HTML_TYPE_CLUEH:
 	case HTML_TYPE_CLUEV:
 	case HTML_TYPE_CLUEFLOW:
+		g_print ("Head: %p Tail: %p\n", HTML_CLUE (obj)->head, HTML_CLUE (obj)->tail);
 	case HTML_TYPE_CLUEALIGNED:
 	case HTML_TYPE_TABLECELL:
 		for (i = 0; i < level; i++) g_print (" ");

@@ -44,10 +44,12 @@ find_first (HTMLEngine *e)
 }
 
 static void
-upper_lower (HTMLObject *obj, gpointer data)
+upper_lower (HTMLObject *obj, HTMLEngine *e, gpointer data)
 {
 	gboolean up = GPOINTER_TO_INT (data);
 	guchar *text;
+
+	printf ("upper_lower\n");
 
 	g_assert (html_object_is_text (obj));
 
@@ -64,13 +66,12 @@ html_engine_capitalize_word (HTMLEngine *e)
 	if (find_first (e)) {
 		html_engine_set_mark (e);
 		html_cursor_forward (e->cursor, e);
-		html_engine_cut_and_paste (e, "Capitalize word", (GFunc) upper_lower, GINT_TO_POINTER (TRUE));
+		html_engine_cut_and_paste (e, "Capitalize word - up 1st", upper_lower, GINT_TO_POINTER (TRUE));
 		html_engine_disable_selection (e);
-		html_cursor_forward (e->cursor, e);
 		html_engine_set_mark (e);
 		html_engine_forward_word (e);
-		html_engine_cut_and_paste (e, "Capitalize word", (GFunc) upper_lower, GINT_TO_POINTER (FALSE));
-		html_engine_forward_word (e);
+		html_engine_cut_and_paste (e, "Capitalize word - down rest", upper_lower, GINT_TO_POINTER (FALSE));
+		html_engine_disable_selection (e);
 	}
 }
 
@@ -78,11 +79,11 @@ void
 html_engine_upcase_downcase_word (HTMLEngine *e, gboolean up)
 {
 	if (find_first (e)) {
+		printf ("upcase_downcase\n");
 		html_engine_set_mark (e);
 		html_engine_forward_word (e);
 		html_engine_cut_and_paste (e, (up) ? "Upcase word" : "Downcase word",
-					   (GFunc) upper_lower, GINT_TO_POINTER (up));
+					   upper_lower, GINT_TO_POINTER (up));
 		html_engine_disable_selection (e);
-		html_engine_forward_word (e);
 	}
 }

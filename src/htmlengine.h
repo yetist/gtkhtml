@@ -64,8 +64,10 @@ struct _HTMLEngine {
 	GdkGC *invert_gc;
 
 	gboolean editable;
-	GList *cut_buffer;
-	GList *cut_buffer_stack;
+
+	HTMLObject *clipboard;
+	guint       clipboard_len;
+	GList      *clipboard_stack;
 
 	/* Freeze counter.  When greater than zero, we never trigger relayouts
            nor repaints.  When going from nonzero to zero, we relayout and

@@ -22,9 +22,11 @@
 */
 
 #include <config.h>
+#include <string.h>
+
 #include "htmlcolorset.h"
 #include "htmllinktextmaster.h"
-#include "htmlengine-edit-paste.h"
+#include "htmlengine-edit-cut-and-paste.h"
 #include "htmlengine-save.h"
 #include "htmltext.h"
 #include "htmlsettings.h"
@@ -63,6 +65,36 @@ copy (HTMLObject *self,
 {
 	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
 	copy_helper (HTML_TEXT (self), HTML_TEXT (dest));
+}
+
+static HTMLObject *
+new_link (HTMLText *t, gint begin, gint end)
+{
+	return HTML_OBJECT (html_link_text_master_new_with_len (html_text_get_text (t, begin),
+								end - begin, t->font_style, t->color,
+								HTML_LINK_TEXT_MASTER (t)->url,
+								HTML_LINK_TEXT_MASTER (t)->target));
+}
+
+static HTMLObject *
+op_copy (HTMLObject *self, GList *from, GList *to, guint *len)
+{
+	return html_text_op_copy_helper (HTML_TEXT (self), from, to, len, new_link);
+}
+
+static HTMLObject *
+op_cut (HTMLObject *self, GList *from, GList *to, guint *len)
+{
+	return html_text_op_cut_helper (HTML_TEXT (self), from, to, len, new_link);
+}
+
+static gboolean
+object_merge (HTMLObject *self, HTMLObject *with)
+{
+	return strcasecmp (HTML_LINK_TEXT_MASTER (self)->url, HTML_LINK_TEXT_MASTER (with)->url)
+		|| strcasecmp (HTML_LINK_TEXT_MASTER (self)->target, HTML_LINK_TEXT_MASTER (with)->target)
+		? FALSE
+		: (* HTML_OBJECT_CLASS (parent_class)->merge) (self, with);
 }
 
 static HTMLText *
@@ -194,6 +226,8 @@ html_link_text_master_class_init (HTMLLinkTextMasterClass *klass,
 
 	object_class->destroy = destroy;
 	object_class->copy = copy;
+	object_class->op_copy = op_copy;
+	object_class->op_cut = op_cut;
 	object_class->get_url = get_url;
 	object_class->get_target = get_target;
 	object_class->remove_link = remove_link;	
@@ -282,7 +316,8 @@ html_link_text_master_to_text (HTMLLinkTextMaster *link, HTMLEngine *e)
 					 GTK_HTML_FONT_STYLE_DEFAULT,
 					 html_colorset_get_color (e->settings->color_set, HTMLTextColor));
 
-	html_engine_replace_by_object (e, HTML_OBJECT (link), 0,
+	g_warning ("FIXME!!!\n");
+	/* html_engine_replace_by_object (e, HTML_OBJECT (link), 0,
 				       HTML_OBJECT (link), HTML_TEXT (link)->text_len,
-				       new_text);
+				       new_text); */
 }

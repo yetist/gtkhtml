@@ -29,15 +29,11 @@
 #include <gnome.h>
 
 #include "htmlengine-edit-clueflowstyle.h"
-#include "htmlengine-edit-copy.h"
-#include "htmlengine-edit-cut.h"
-#include "htmlengine-edit-delete.h"
+#include "htmlengine-edit-cut-and-paste.h"
 #include "htmlengine-edit-fontstyle.h"
-#include "htmlengine-edit-insert.h"
 #include "htmlengine-edit-rule.h"
 #include "htmlengine-edit-movement.h"
 #include "htmlengine-edit-cursor.h"
-#include "htmlengine-edit-paste.h"
 #include "htmlengine-edit-text.h"
 #include "htmlengine-edit.h"
 #include "htmlengine-print.h"
@@ -635,15 +631,15 @@ key_press_event (GtkWidget *widget,
 	    && ! (event->state & (GDK_CONTROL_MASK | GDK_MOD1_MASK))
 	    && event->length > 0) {
 		gchar *str;
-		html_engine_delete_selection (html->engine, TRUE);
+
 		/* printf ("event length: %d s[0]: %d string: '%s'\n", event->length, event->string [0], event->string); */
 		str = e_utf8_from_gtk_event_key (widget, event->keyval, event->string);
 		/* printf ("len: %d str: %s\n", str ? unicode_strlen (str, -1) : -1, str); */
 		if (str)
-			html_engine_insert (html->engine, str, unicode_strlen (str, -1));
+			html_engine_paste_text (html->engine, str, unicode_strlen (str, -1));
 		else if (event->length == 1 && event->string
 			 && ((guchar)event->string [0]) > 0x20 && ((guchar)event->string [0]) < 0x80)
-			html_engine_insert (html->engine, event->string, 1);
+			html_engine_paste_text (html->engine, event->string, 1);
 		g_free (str);
 		retval = TRUE;
 	}
@@ -1213,12 +1209,10 @@ selection_received (GtkWidget *widget,
 		printf ("selection text \"%.*s\"\n",
 			selection_data->length, selection_data->data); 
 
-		html_engine_delete_selection (GTK_HTML (widget)->engine, TRUE);
-		
 		if (selection_data->type != GDK_SELECTION_TYPE_STRING) {
-			html_engine_insert (GTK_HTML (widget)->engine, 
-					    selection_data->data,
-					    (guint) selection_data->length);
+			html_engine_paste_text (GTK_HTML (widget)->engine, 
+						selection_data->data,
+						(guint) selection_data->length);
 		} else {
 			gchar *utf8 = NULL;
 			
@@ -1226,8 +1220,8 @@ selection_received (GtkWidget *widget,
 						       selection_data->data,
 						       (guint) selection_data->length);
 
-			html_engine_insert (GTK_HTML (widget)->engine, 
-					    utf8, strlen (utf8));
+			html_engine_paste_text (GTK_HTML (widget)->engine, 
+						utf8, unicode_strlen (utf8, -1));
 
 			g_free (utf8);
 		} 
@@ -2175,7 +2169,7 @@ gtk_html_cut (GtkHTML *html)
 	g_return_if_fail (html != NULL);
 	g_return_if_fail (GTK_IS_HTML (html));
 
-	html_engine_cut (html->engine, TRUE);
+	html_engine_cut (html->engine);
 }
 
 void
@@ -2193,7 +2187,7 @@ gtk_html_paste (GtkHTML *html)
 	g_return_if_fail (html != NULL);
 	g_return_if_fail (GTK_IS_HTML (html));
 
-	html_engine_paste (html->engine, TRUE);
+	html_engine_paste (html->engine);
 }
 
 
@@ -2497,40 +2491,38 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		html_engine_redo (e);
 		break;
 	case GTK_HTML_COMMAND_COPY:
-		if (html_engine_is_selection_active (e))
-			html_engine_copy (e);
+		html_engine_copy (e);
 		break;
 	case GTK_HTML_COMMAND_CUT:
-		html_engine_cut (e, TRUE);
+		html_engine_cut (e);
 		break;
 	case GTK_HTML_COMMAND_CUT_LINE:
-		html_engine_cut_line (e, TRUE);
+		html_engine_cut_line (e);
 		break;
 	case GTK_HTML_COMMAND_PASTE:
-		if (e->cut_buffer)
-			html_engine_paste (e, TRUE);
+		html_engine_paste (e);
 		break;
 	case GTK_HTML_COMMAND_INSERT_RULE:
-		html_engine_delete_selection (e, TRUE);
+		html_engine_cut (e);
 		html_engine_insert_rule (e, 0, 100, 2, TRUE, HTML_HALIGN_LEFT);
 		break;
 	case GTK_HTML_COMMAND_INSERT_PARAGRAPH:
-		html_engine_delete_selection (e, TRUE);
-		html_engine_insert (e, "\n", 1);
+		html_engine_cut (e);
+		html_engine_insert_empty_paragraph (e);
 		break;
 	case GTK_HTML_COMMAND_DELETE:
 		if (e->mark != NULL
 		    && e->mark->position != e->cursor->position)
-			html_engine_delete_selection (e, TRUE);
+			html_engine_delete (e);
 		else
-			html_engine_delete (e, 1, TRUE, FALSE);
+			html_engine_delete_n (e, 1, TRUE);
 		break;
 	case GTK_HTML_COMMAND_DELETE_BACK:
 		if (e->mark != NULL
 		    && e->mark->position != e->cursor->position)
-			html_engine_delete_selection (e, TRUE);
+			html_engine_delete (e);
 		else
-			html_engine_delete (e, 1, TRUE, TRUE);
+			html_engine_delete_n (e, 1, FALSE);
 		break;
 	case GTK_HTML_COMMAND_SET_MARK:
 		html_engine_set_mark (e);

@@ -24,7 +24,7 @@
 #include "gtkhtml.h"
 #include "htmlcursor.h"
 #include "htmlengine-edit-fontstyle.h"
-#include "htmlengine-edit-insert.h"
+#include "htmlengine-edit-cut-and-paste.h"
 #include "htmlengine-edit-rule.h"
 #include "htmlengine-save.h"
 #include "htmlrule.h"

@@ -24,10 +24,7 @@
 #include "htmlcursor.h"
 #include "htmlengine.h"
 #include "htmllinktextmaster.h"
-#include "htmlengine-edit-copy.h"
-#include "htmlengine-edit-cut.h"
-#include "htmlengine-edit-paste.h"
-#include "htmlengine-edit-insert.h"
+#include "htmlengine-edit-cut-and-paste.h"
 #include "htmlimage.h"
 #include "htmlselection.h"
 
@@ -41,6 +38,11 @@
 #include "link.h"
 #include "body.h"
 
+#define DEBUG
+#ifdef DEBUG
+#include "gtkhtmldebug.h"
+#endif
+
 static void
 copy (GtkWidget *mi, GtkHTMLControlData *cd)
 {
@@ -50,22 +52,21 @@ copy (GtkWidget *mi, GtkHTMLControlData *cd)
 static void
 cut (GtkWidget *mi, GtkHTMLControlData *cd)
 {
-	html_engine_cut (cd->html->engine, TRUE);
+	html_engine_cut (cd->html->engine);
 }
 
 static void
 paste (GtkWidget *mi, GtkHTMLControlData *cd)
 {
-	html_engine_paste (cd->html->engine, TRUE);
+	html_engine_paste (cd->html->engine);
 }
 
 static void
 remove_link (GtkWidget *mi, GtkHTMLControlData *cd)
 {
-	if (html_engine_is_selection_active (cd->html->engine))
-		html_engine_remove_link (cd->html->engine);
-        else
-		html_engine_remove_link_object (cd->html->engine, cd->html->engine->cursor->object);
+	if (!html_engine_is_selection_active (cd->html->engine))
+		html_engine_select_word (cd->html->engine);
+	html_engine_insert_link (cd->html->engine, NULL, NULL);
 }
 
 static void
@@ -147,6 +148,18 @@ spell_suggest (GtkWidget *mi, GtkHTMLControlData *cd)
 	spell_suggestion_request (cd->html, html_engine_get_word (e), cd);
 }
 
+static void
+dump_tree_simple (GtkWidget *mi, GtkHTMLControlData *cd)
+{
+	gtk_html_debug_dump_tree_simple (cd->html->engine->clue, 0);
+}
+
+static void
+dump_tree (GtkWidget *mi, GtkHTMLControlData *cd)
+{
+	gtk_html_debug_dump_tree (cd->html->engine->clue, 0);
+}
+
 #define ADD_ITEM(l,f,t) \
 		menuitem = gtk_menu_item_new_with_label (_(l)); \
                 gtk_object_set_data (GTK_OBJECT (menuitem), "type", GINT_TO_POINTER (t)); \
@@ -183,6 +196,12 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items)
 		cd->properties_types = NULL;
 	}
 
+#ifdef DEBUG
+	ADD_ITEM ("Dump tree (simple)", dump_tree_simple, -1);
+	ADD_ITEM ("Dump tree", dump_tree, -1);
+	ADD_SEP;
+#endif
+
 	if (!html_engine_is_selection_active (e) && obj && html_object_is_text (obj) && !html_engine_word_is_valid (e)) {
 		ADD_SEP;
 		ADD_ITEM ("Suggest word", spell_suggest, -1);
@@ -202,7 +221,7 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items)
 		ADD_ITEM ("Copy", copy, -1);
 		ADD_ITEM ("Cut",  cut, -1);
 	}
-	if (e->cut_buffer) {
+	if (e->clipboard) {
 		if (!html_engine_is_selection_active (e)) {
 			ADD_SEP;
 		}

@@ -93,6 +93,57 @@ copy (HTMLObject *self,
 	html_object_copy_data_from_object (dest, self);
 }
 
+static HTMLObject *
+op_copy (HTMLObject *self, GList *from, GList *to, guint *len)
+{
+	g_warning ("COPY operation unimplemented for ");
+	gtk_html_debug_dump_object_type (self);
+	return NULL;
+}
+
+static HTMLObject *
+op_cut (HTMLObject *self, GList *from, GList *to, guint *len)
+{
+	g_warning ("CUT operation unimplemented for ");
+	gtk_html_debug_dump_object_type (self);
+	return NULL;
+}
+
+static gboolean
+merge (HTMLObject *self, HTMLObject *with)
+{
+	return FALSE;
+}
+
+static void
+remove_child (HTMLObject *self, HTMLObject *child)
+{
+	g_warning ("REMOVE CHILD unimplemented for ");
+	gtk_html_debug_dump_object_type (self);
+	g_assert_not_reached ();
+}
+
+static void
+split (HTMLObject *self, HTMLObject *child, gint offset, gint level, GList **left, GList **right)
+{
+	if (child || (offset && html_object_get_length (self) != offset)) {
+		g_warning ("don't know how to SPLIT ");
+		gtk_html_debug_dump_object_type (self);
+		return;
+	}
+
+	if (offset) {
+		*left  = g_list_prepend (*left,  self);
+		*right = g_list_prepend (*right, self->next);
+	} else {
+		*left  = g_list_prepend (*left,  self->prev);
+		*right = g_list_prepend (*right, self);
+	}
+	level--;
+	if (level && self->parent)
+		split (self->parent, self, offset, level, left, right);
+}
+
 static void
 draw (HTMLObject *o,
       HTMLPainter *p,
@@ -532,6 +583,11 @@ html_object_class_init (HTMLObjectClass *klass,
 	/* Install virtual methods.  */
 	klass->destroy = destroy;
 	klass->copy = copy;
+	klass->op_copy = op_copy;
+	klass->op_cut = op_cut;
+	klass->merge = merge;
+	klass->remove_child = remove_child;
+	klass->split = split;
 	klass->draw = draw;
 	klass->draw_background = draw_background;
 	klass->is_transparent = is_transparent;
@@ -635,6 +691,46 @@ html_object_dup (HTMLObject *object)
 	return new;
 }
 
+HTMLObject *
+html_object_op_copy (HTMLObject *self, GList *from, GList *to, guint *len)
+{
+	return (* HO_CLASS (self)->op_copy) (self, from, to, len);
+}
+
+HTMLObject *
+html_object_op_cut (HTMLObject *self, GList *from, GList *to, guint *len)
+{
+	return (* HO_CLASS (self)->op_cut) (self, from, to, len);
+}
+
+gboolean
+html_object_merge (HTMLObject *self, HTMLObject *with)
+{
+	if (HTML_OBJECT_TYPE (self) == HTML_OBJECT_TYPE (with)
+	    && (* HO_CLASS (self)->merge) (self, with)) {
+		html_object_destroy (with);
+		return TRUE;
+	}
+	return FALSE;
+}
+
+void
+html_object_remove_child (HTMLObject *self, HTMLObject *child)
+{
+	g_assert (self);
+	g_assert (child);
+
+	(* HO_CLASS (self)->remove_child) (self, child);
+}
+
+void
+html_object_split (HTMLObject *self, HTMLObject *child, gint offset, gint level, GList **left, GList **right)
+{
+	g_assert (self);
+
+	(* HO_CLASS (self)->split) (self, child, offset, level, left, right);
+}
+
 
 void
 html_object_set_parent (HTMLObject *o, HTMLObject *parent)
@@ -683,6 +779,8 @@ html_object_calc_intersection (HTMLObject *o, ArtIRect *intersection, gint x, gi
 void
 html_object_destroy (HTMLObject *self)
 {
+	if (self->parent)
+		html_object_remove_child (self->parent, self);
 	(* HO_CLASS (self)->destroy) (self);
 }
 
@@ -1149,6 +1247,16 @@ HTMLObject *
 html_object_tail (HTMLObject *self)
 {
 	return (* HO_CLASS (self)->tail) (self);
+}
+
+HTMLObject *
+html_object_tail_not_slave (HTMLObject *self)
+{
+	HTMLObject *o = html_object_tail (self);
+
+	if (o && HTML_OBJECT_TYPE (o) == HTML_TYPE_TEXTSLAVE)
+		o = html_object_prev_not_slave (o);
+	return o;
 }
 
 gboolean

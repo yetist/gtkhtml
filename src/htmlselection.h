@@ -34,6 +34,8 @@ void      html_engine_select_region         (HTMLEngine *e,
 void      html_engine_select_word           (HTMLEngine *e);
 void      html_engine_select_line           (HTMLEngine *e);
 void      html_engine_unselect_all          (HTMLEngine *e);
+void      html_engine_clear_selection       (HTMLEngine *e);
+void      html_engine_deactivate_selection  (HTMLEngine *e);
 void      html_engine_disable_selection     (HTMLEngine *e);
 gchar    *html_engine_get_selection_string  (HTMLEngine *e);
 gboolean  html_engine_is_selection_active   (HTMLEngine *e);

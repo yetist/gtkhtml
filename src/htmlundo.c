@@ -68,36 +68,19 @@ html_undo_destroy  (HTMLUndo *undo)
 
 
 static void
-do_action (HTMLUndo *undo,
-	   HTMLEngine *engine,
-	   GList **action_list)
+action_do_and_destroy (HTMLEngine *engine, GList **stack, HTMLUndoDirection dir)
 {
 	HTMLUndoAction *action;
-	HTMLCursor *cursor;
 	GList *first;
-	gint current_position;
 
-	cursor = engine->cursor;
-	current_position = html_cursor_get_position (cursor);
+	first  = *stack;
+	action = HTML_UNDO_ACTION (first->data);
 
-	action = (HTMLUndoAction *) (*action_list)->data;
+	html_cursor_jump_to_position (engine->cursor, engine, action->position);
+	(* action->function) (engine, action->data, dir);
 
-	/* 1.  Restore the cursor position.  */
-	html_cursor_jump_to_position (cursor, engine, action->position);
-
-	/* 2.  Call the function that executes the action.  */
-	(* action->function) (engine, action->closure);
-
-	/* 3.  Destroy the action.  */
 	html_undo_action_destroy (action);
-
-	first = *action_list;
-	*action_list = (*action_list)->next;
-
-	if (*action_list)
-		(*action_list)->prev = NULL;
-
-	first->next = NULL;
+	*stack = g_list_remove_link (first, first);
 	g_list_free (first);
 }
 
@@ -109,7 +92,7 @@ html_undo_do_undo (HTMLUndo *undo,
 	g_return_if_fail (engine != NULL);
 
 	if (undo->undo_stack_size > 0) {
-		do_action (undo, engine, &undo->undo_stack);
+		action_do_and_destroy (engine, &undo->undo_stack, HTML_UNDO_UNDO);
 		undo->undo_stack_size--;
 	}
 }
@@ -122,7 +105,7 @@ html_undo_do_redo (HTMLUndo *undo,
 	g_return_if_fail (engine != NULL);
 
 	if (undo->redo_stack_size > 0) {
-		do_action (undo, engine, &undo->redo_stack);
+		action_do_and_destroy (engine, &undo->redo_stack, HTML_UNDO_REDO);
 		undo->redo_stack_size--;
 	}
 }
@@ -142,7 +125,6 @@ html_undo_discard_redo (HTMLUndo *undo)
 	undo->redo_stack_size = 0;
 }
 
-
 void
 html_undo_add_undo_action  (HTMLUndo *undo,
 			    HTMLUndoAction *action)
@@ -180,6 +162,15 @@ html_undo_add_redo_action  (HTMLUndo *undo,
 	undo->redo_stack_size++;
 }
 
+void
+html_undo_add_action  (HTMLUndo *undo, HTMLUndoAction *action, HTMLUndoDirection dir)
+{
+	if (dir == HTML_UNDO_UNDO)
+		html_undo_add_undo_action (undo, action);
+	else
+		html_undo_add_redo_action (undo, action);
+}
+
 /*
   undo levels
 
@@ -197,35 +188,39 @@ html_undo_add_redo_action  (HTMLUndo *undo,
 
 */
 
+#define HTML_UNDO_LEVEL(x) ((HTMLUndoLevel *) x)
 struct _HTMLUndoLevel {
+	HTMLUndoData data;
+
 	HTMLUndo *undo;
 	GList    *stack;
 	guint     size;
 	gchar    *description;
 };
-
 typedef struct _HTMLUndoLevel HTMLUndoLevel;
+
+static void
+level_destroy (HTMLUndoData *data)
+{
+	g_assert (data);
+
+	g_free (HTML_UNDO_LEVEL (data)->description);
+}
 
 static HTMLUndoLevel *
 level_new (HTMLUndo *undo, GList *stack, guint size, const gchar *description)
 {
 	HTMLUndoLevel *nl = g_new (HTMLUndoLevel, 1);
 
-	nl->undo  = undo;
-	nl->stack = stack;
-	nl->size  = size;
-	nl->description = g_strdup (description);
+	html_undo_data_init (HTML_UNDO_DATA (nl));
+
+	nl->data.destroy = level_destroy;
+	nl->undo         = undo;
+	nl->stack        = stack;
+	nl->size         = size;
+	nl->description  = g_strdup (description);
 
 	return nl;
-}
-
-static void
-level_destroy (HTMLUndoLevel *level)
-{
-	g_assert (level);
-
-	g_free (level->description);
-	g_free (level);
 }
 
 void
@@ -248,11 +243,15 @@ redo_level_begin (HTMLUndo *undo, const gchar *desription)
 }
 
 static void
-redo_step_action (HTMLEngine *e, HTMLUndoLevel *level)
+redo_step_action (HTMLEngine *e, HTMLUndoData *data, HTMLUndoDirection dir)
 {
-	HTMLUndo *undo = level->undo;
-	GList    *stack;
-	guint     size;
+	HTMLUndoLevel *level;
+	HTMLUndo      *undo;
+	GList         *stack;
+	guint          size;
+
+	level = HTML_UNDO_LEVEL (data);
+	undo  = level->undo;
 
 	/* prepare undo step */
 	html_undo_level_begin (undo, level->description);
@@ -291,7 +290,7 @@ redo_level_end (HTMLUndo *undo)
         size  = undo->redo_stack_size;
 
 	/* restore last level from levels stack */
-	level = (HTMLUndoLevel *) undo->redo_levels->data;
+	level                 = HTML_UNDO_LEVEL (undo->redo_levels->data);
 	undo->redo_stack      = level->stack;
 	undo->redo_stack_size = level->size;
 	undo->redo_levels     = g_slist_remove (undo->redo_levels, level);
@@ -306,21 +305,22 @@ redo_level_end (HTMLUndo *undo)
 
 		/* we use position from last redo action on the stack */
 		action = (HTMLUndoAction *) stack->data;
-		html_undo_add_redo_action (undo, html_undo_action_new
-					   (level->description,
-					    (HTMLUndoActionFunction) redo_step_action,
-					    (HTMLUndoActionClosureDestroyFunction) level_destroy,
-					    level, action->position));
+		html_undo_add_redo_action (undo, html_undo_action_new (level->description, redo_step_action,
+								       HTML_UNDO_DATA (level), action->position));
 	} else
-		level_destroy (level);
+		html_undo_data_unref (HTML_UNDO_DATA (level));
 }
 
 static void
-undo_step_action (HTMLEngine *e, HTMLUndoLevel *level)
+undo_step_action (HTMLEngine *e, HTMLUndoData *data, HTMLUndoDirection dir)
 {
-	HTMLUndo *undo = level->undo;
-	GList    *stack;
-	guint     size;
+	HTMLUndo      *undo;
+	HTMLUndoLevel *level;
+	GList         *stack;
+	guint          size;
+
+	level = HTML_UNDO_LEVEL (data);
+	undo  = level->undo;
 
 	/* prepare redo step */
 	redo_level_begin (undo, level->description);
@@ -377,11 +377,46 @@ html_undo_level_end (HTMLUndo *undo)
 		action = (HTMLUndoAction *) stack->data;
 		html_undo_add_undo_action (undo, html_undo_action_new 
 					   (level->description,
-					    (HTMLUndoActionFunction) undo_step_action,
-					    (HTMLUndoActionClosureDestroyFunction) level_destroy,
-					    level, action->position));
+					    undo_step_action,
+					    HTML_UNDO_DATA (level), action->position));
 	} else
-		level_destroy (level);
+		html_undo_data_unref (HTML_UNDO_DATA (level));
 
 	undo->undo_levels_size--;
+}
+
+void
+html_undo_data_init (HTMLUndoData   *data)
+{
+	data->ref_count = 1;
+	data->destroy   = NULL;
+}
+
+void
+html_undo_data_ref (HTMLUndoData *data)
+{
+	g_assert (data);
+
+	data->ref_count ++;
+}
+
+void
+html_undo_data_unref (HTMLUndoData *data)
+{
+	g_assert (data);
+	g_assert (data->ref_count > 0);
+
+	data->ref_count --;
+
+	if (data->ref_count == 0) {
+		if (data->destroy)
+			(*data->destroy) (data);
+		g_free (data);
+	}
+}
+
+HTMLUndoDirection
+html_undo_direction_reverse (HTMLUndoDirection dir)
+{
+	return dir == HTML_UNDO_UNDO ? HTML_UNDO_REDO : HTML_UNDO_UNDO;
 }

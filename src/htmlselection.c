@@ -70,14 +70,42 @@ html_engine_select_region (HTMLEngine *e,
 }
 
 void
+html_engine_clear_selection (HTMLEngine *e)
+{
+	if (e->selection) {
+		html_interval_destroy (e->selection);
+		html_engine_edit_selection_updater_reset (e->selection_updater);
+		e->selection = NULL;
+	}
+}
+
+void
 html_engine_unselect_all (HTMLEngine *e)
 {
 	e = html_engine_get_top_html_engine (e);
 	if (e->selection) {
 		html_interval_unselect (e->selection, e);
-		html_interval_destroy (e->selection);
-		e->selection = NULL;
+		html_engine_clear_selection (e);
 	}
+}
+
+static void
+remove_mark (HTMLEngine *e)
+{
+	if (e->editable) {
+		if (e->mark == NULL)
+			return;
+
+		html_cursor_destroy (e->mark);
+		e->mark = NULL;
+	}
+}
+
+void
+html_engine_deactivate_selection (HTMLEngine *e)
+{
+	remove_mark (e);
+	html_engine_clear_selection (e);
 }
 
 void
@@ -86,14 +114,7 @@ html_engine_disable_selection (HTMLEngine *e)
 	g_return_if_fail (e != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
-	if (e->editable) {
-		if (e->mark == NULL)
-			return;
-
-		html_cursor_destroy (e->mark);
-		e->mark = NULL;
-	}
-
+	remove_mark (e);
 	html_engine_unselect_all (e);
 }
 

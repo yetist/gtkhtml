@@ -24,8 +24,11 @@
 #define _HTML_TYPES_H_
 
 #include <glib.h>
+
 #include "gtkhtml-enums.h"
 #include "gtkhtml-types.h"
+
+#include "htmlenums.h"
 
 typedef struct _HTMLObject HTMLObject;
 typedef struct _HTMLObjectClass HTMLObjectClass;
@@ -112,25 +115,27 @@ typedef struct _HTMLTextSlave HTMLTextSlave;
 typedef struct _HTMLTextSlaveClass HTMLTextSlaveClass;
 typedef struct _HTMLTokenizer HTMLTokenizer;
 typedef struct _HTMLUndo HTMLUndo;
+typedef struct _HTMLUndoData HTMLUndoData;
 typedef struct _HTMLUndoAction HTMLUndoAction;
 typedef struct _HTMLVSpace HTMLVSpace;
 typedef struct _HTMLVSpaceClass HTMLVSpaceClass;
 typedef struct _SpellError SpellError;
 
-typedef void     (* HTMLObjectForallFunc)       (HTMLObject *self,
-						 HTMLEngine *e,
-						 gpointer data);
+typedef void     (* HTMLObjectForallFunc)       (HTMLObject        *self,
+						 HTMLEngine        *e,
+						 gpointer          data);
+typedef gpointer (* HTMLFontManagerAllocFont)   (gchar            *face_name,
+						 gdouble           size,
+						 GtkHTMLFontStyle  style);
+typedef void     (* HTMLFontManagerRefFont)     (gpointer          font);
+typedef void     (* HTMLFontManagerUnrefFont)   (gpointer          font);
+typedef void     (* HTMLStackFreeFunc)          (gpointer          data);
+typedef void     (* HTMLUndoFunc)               (HTMLEngine        *engine,
+						 HTMLUndoData      *data,
+						 HTMLUndoDirection  dir);
+typedef void     (* HTMLUndoDataDestroyFunc)    (HTMLUndoData      *data);
+
 /* FIXME */
 typedef GtkHTMLSaveReceiverFn HTMLEngineSaveReceiverFn;
-
-typedef gpointer (* HTMLFontManagerAllocFont)   (gchar *face_name, gdouble size, GtkHTMLFontStyle style);
-typedef void     (* HTMLFontManagerRefFont)     (gpointer font);
-typedef void     (* HTMLFontManagerUnrefFont)   (gpointer font);
-
-typedef void  (* HTMLStackFreeFunc) (gpointer data);
-
-typedef void  (* HTMLUndoActionFunction)                (HTMLEngine *engine,
-							 gpointer closure);
-typedef void  (* HTMLUndoActionClosureDestroyFunction)  (gpointer closure);
 
 #endif

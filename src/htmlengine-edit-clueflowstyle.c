@@ -37,8 +37,7 @@ typedef struct _ClueFlowProps ClueFlowProps;
 
 /* Data for the redo/undo operation.  */
 struct _ClueFlowStyleOperation {
-	/* Reference count.  */
-	guint ref_count;
+	HTMLUndoData data;
 	
 	/* Whether this is an undo or a redo operation.  */
 	gboolean undo;
@@ -51,21 +50,6 @@ struct _ClueFlowStyleOperation {
 	GList *prop_list;
 };
 typedef struct _ClueFlowStyleOperation ClueFlowStyleOperation;
-
-
-static ClueFlowProps *
-get_props (HTMLClueFlow *clueflow)
-{
-	ClueFlowProps *props;
-
-	props = g_new (ClueFlowProps, 1);
-
-	props->indentation = html_clueflow_get_indentation (clueflow);
-	props->alignment = html_clueflow_get_halignment (clueflow);
-	props->style = html_clueflow_get_style (clueflow);
-
-	return props;
-}
 
 static void
 free_prop_list (GList *list)
@@ -80,6 +64,43 @@ free_prop_list (GList *list)
 	}
 
 	g_list_free (list);
+}
+
+static void
+style_operation_destroy (HTMLUndoData *data)
+{
+	free_prop_list (((ClueFlowStyleOperation *) data)->prop_list);
+}
+
+static ClueFlowStyleOperation *
+style_operation_new (GList *prop_list, gboolean undo, gboolean forward)
+{
+	ClueFlowStyleOperation *op;
+
+	op = g_new (ClueFlowStyleOperation, 1);
+
+	html_undo_data_init (HTML_UNDO_DATA (op));
+
+	op->data.destroy = style_operation_destroy;
+	op->prop_list    = prop_list;
+	op->undo         = undo;
+	op->forward      = forward;
+
+	return op;
+}
+
+static ClueFlowProps *
+get_props (HTMLClueFlow *clueflow)
+{
+	ClueFlowProps *props;
+
+	props = g_new (ClueFlowProps, 1);
+
+	props->indentation = html_clueflow_get_indentation (clueflow);
+	props->alignment   = html_clueflow_get_halignment (clueflow);
+	props->style       = html_clueflow_get_style (clueflow);
+
+	return props;
 }
 
 static ClueFlowProps *
@@ -115,19 +136,7 @@ static void add_undo (HTMLEngine *engine, ClueFlowStyleOperation *op);
 static void add_redo (HTMLEngine *engine, ClueFlowStyleOperation *op);
 
 static void
-undo_or_redo_destroy_closure (gpointer closure)
-{
-	ClueFlowStyleOperation *op;
-
-	op = (ClueFlowStyleOperation *) closure;
-
-	free_prop_list (op->prop_list);
-	g_free (op);
-}
-
-static void
-undo_or_redo (HTMLEngine *engine,
-	      gpointer closure)
+undo_or_redo (HTMLEngine *engine, HTMLUndoData *data, HTMLUndoDirection dir)
 {
 	ClueFlowStyleOperation *op, *new_op;
 	ClueFlowProps *props, *orig_props;
@@ -136,7 +145,7 @@ undo_or_redo (HTMLEngine *engine,
 	GList *prop_list;
 	GList *p;
 
-	op = (ClueFlowStyleOperation *) closure;
+	op = (ClueFlowStyleOperation *) data;
 	g_assert (op != NULL);
 	g_assert (op->prop_list != NULL);
 
@@ -196,10 +205,7 @@ undo_or_redo (HTMLEngine *engine,
 
 	prop_list = g_list_reverse (prop_list);
 
-	new_op = g_new (ClueFlowStyleOperation, 1);
-	new_op->forward = op->forward;
-	new_op->undo = ! op->undo;
-	new_op->prop_list = prop_list;
+	new_op = style_operation_new (prop_list, ! op->undo, op->forward);
 
 	if (new_op->undo)
 		add_undo (engine, new_op);
@@ -212,9 +218,7 @@ undo_action_from_op (HTMLEngine *engine,
 		     ClueFlowStyleOperation *op)
 {
 	return html_undo_action_new ("paragraph style change",
-				     undo_or_redo,
-				     undo_or_redo_destroy_closure,
-				     op,
+				     undo_or_redo, HTML_UNDO_DATA (op),
 				     html_cursor_get_position (engine->cursor));
 }
 
@@ -243,7 +247,6 @@ set_clueflow_style_in_region (HTMLEngine *engine,
 			      HTMLEngineSetClueFlowStyleMask mask,
 			      gboolean do_undo)
 {
-	ClueFlowStyleOperation *op;
 	HTMLClueFlow *clueflow;
 	HTMLObject *start, *end, *p;
 	ClueFlowProps *orig_props;
@@ -294,16 +297,7 @@ set_clueflow_style_in_region (HTMLEngine *engine,
 	if (! do_undo)
 		return;
 
-	op = g_new (ClueFlowStyleOperation, 1);
-	op->undo = TRUE;
-	op->forward = undo_forward;
-
-	if (undo_forward)
-		op->prop_list = g_list_reverse (prop_list);
-	else
-		op->prop_list = prop_list;
-
-	add_undo (engine, op);
+	add_undo (engine, style_operation_new (undo_forward ? g_list_reverse (prop_list) : prop_list, TRUE, undo_forward));
 }
 
 static void
@@ -314,7 +308,6 @@ set_clueflow_style_at_cursor (HTMLEngine *engine,
 			      HTMLEngineSetClueFlowStyleMask mask,
 			      gboolean do_undo)
 {
-	ClueFlowStyleOperation *op;
 	ClueFlowProps *props;
 	HTMLClueFlow *clueflow;
 	HTMLObject *curr;
@@ -335,12 +328,7 @@ set_clueflow_style_at_cursor (HTMLEngine *engine,
 		return;
 	}
 
-	op = g_new (ClueFlowStyleOperation, 1);
-	op->undo = TRUE;
-	op->forward = TRUE;	/* (It does not really matter as it's just one para.)  */
-	op->prop_list = g_list_append (NULL, props);
-
-	add_undo (engine, op);
+	add_undo (engine, style_operation_new (g_list_append (NULL, props), TRUE, TRUE));
 }
 
 

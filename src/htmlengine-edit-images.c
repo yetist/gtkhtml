@@ -21,10 +21,10 @@
 
 #include <config.h>
 #include "htmlengine.h"
-#include "htmlengine-edit-paste.h"
 #include "htmlimage.h"
 #include "htmlcluealigned.h"
 
+#include "htmlengine-edit-cut-and-paste.h"
 #include "htmlengine-edit-images.h"
 
 
@@ -61,6 +61,6 @@ html_engine_insert_image (HTMLEngine *e,
 
 	html_image_set_spacing (HTML_IMAGE (image), hspace, vspace);
 
-	html_engine_paste_object (e, image, TRUE);
+	html_engine_paste_object (e, image, 1);
 	html_object_destroy (image);
 }

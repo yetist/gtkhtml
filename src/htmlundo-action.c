@@ -21,14 +21,11 @@
 
 #include <config.h>
 #include "htmlundo-action.h"
+#include "htmlundo.h"
 
 
 HTMLUndoAction *
-html_undo_action_new (const gchar *description,
-		      HTMLUndoActionFunction function,
-		      HTMLUndoActionClosureDestroyFunction closure_destroy_function,
-		      gpointer closure,
-		      gint position)
+html_undo_action_new (const gchar *description, HTMLUndoFunc function, HTMLUndoData *data, guint position)
 {
 	HTMLUndoAction *action;
 
@@ -38,10 +35,9 @@ html_undo_action_new (const gchar *description,
 	action = g_new (HTMLUndoAction, 1);
 
 	action->description = g_strdup (description);
-	action->function = function;
-	action->closure_destroy_function = closure_destroy_function;
-	action->closure = closure;
-	action->position = position;
+	action->function    = function;
+	action->data        = data;
+	action->position    = position;
 
 	return action;
 }
@@ -51,8 +47,7 @@ html_undo_action_destroy (HTMLUndoAction *action)
 {
 	g_return_if_fail (action != NULL);
 
-	(* action->closure_destroy_function) (action->closure);
-
+	html_undo_data_unref (action->data);
 	g_free (action->description);
 	g_free (action);
 }

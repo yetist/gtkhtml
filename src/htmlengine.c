@@ -41,8 +41,7 @@
 #include "htmlengine-edit.h"
 #include "htmlengine-edit-cursor.h"
 #include "htmlengine-edit-movement.h"
-#include "htmlengine-cutbuffer.h"
-#include "htmlengine-edit-paste.h"
+#include "htmlengine-edit-cut-and-paste.h"
 #include "htmlengine-edit-selection-updater.h"
 #include "htmlengine-print.h"
 #include "htmlselection.h"
@@ -2998,9 +2997,7 @@ html_engine_destroy (GtkObject *object)
 	engine = HTML_ENGINE (object);
 
 	html_undo_destroy (engine->undo);
-
-	if (engine->cut_buffer != NULL)
-		html_engine_cut_buffer_destroy (engine->cut_buffer);
+	html_engine_clipboard_clear (engine);
 
 	if (engine->invert_gc != NULL)
 		gdk_gc_destroy (engine->invert_gc);
@@ -3201,8 +3198,8 @@ html_engine_init (HTMLEngine *engine)
 	engine->newPage = FALSE;
 
 	engine->editable = FALSE;
-	engine->cut_buffer = NULL;
-	engine->cut_buffer_stack = NULL;
+	engine->clipboard = NULL;
+	engine->clipboard_stack = NULL;
 	engine->selection_stack  = NULL;
 
 	engine->ht = html_tokenizer_new ();
@@ -3308,8 +3305,8 @@ html_engine_unrealize (HTMLEngine *e)
      HTMLClueV (cluev)
        HTMLClueFlow (head)
  	 HTMLObject (child) */
-static void
-ensure_editable (HTMLEngine *engine)
+void
+html_engine_ensure_editable (HTMLEngine *engine)
 {
 	HTMLObject *cluev;
 	HTMLObject *head;
@@ -3336,7 +3333,7 @@ ensure_editable (HTMLEngine *engine)
 	if (child == NULL) {
 		HTMLObject *text_master;
 
-		text_master = html_text_master_new ("", GTK_HTML_FONT_STYLE_DEFAULT,
+		text_master = html_text_master_new ("", engine->insertion_font_style,
 						    engine->insertion_color);
 		html_text_set_font_face (HTML_TEXT (text_master), current_font_face (engine));
 		html_clue_prepend (HTML_CLUE (head), text_master);
@@ -3626,7 +3623,7 @@ html_engine_end (GtkHTMLStream *stream,
 	ensure_last_clueflow (e);
 	
 	if (e->editable) {
-		ensure_editable (e);
+		html_engine_ensure_editable (e);
 		html_cursor_home (e->cursor, e);
 	}
 
@@ -3891,7 +3888,7 @@ html_engine_set_editable (HTMLEngine *e,
 	e->editable = editable;
 
 	if (editable) {
-		ensure_editable (e);
+		html_engine_ensure_editable (e);
 		html_cursor_home (e->cursor, e);
 
 		if (e->have_focus)
@@ -4108,7 +4105,7 @@ html_engine_load_empty (HTMLEngine *engine)
 	html_engine_parse (engine);
 	html_engine_stop_parser (engine);
 
-	ensure_editable (engine);
+	html_engine_ensure_editable (engine);
 }
 
 void
@@ -4136,12 +4133,12 @@ replace (HTMLEngine *e)
 					 HTML_TEXT (first)->font_style,
 					 HTML_TEXT (first)->color);
 	html_text_set_font_face (HTML_TEXT (new_text), HTML_TEXT (first)->face);
-	html_engine_paste_object (e, new_text, TRUE);
+	html_engine_paste_object (e, new_text, html_object_get_length (HTML_OBJECT (new_text)));
 
 	/* update search info to point just behind replaced text */
 	g_list_free (e->search_info->found);
 	e->search_info->found = g_list_append (NULL, e->cursor->object);
-	e->search_info->start_pos = e->search_info->stop_pos = e->cursor->offset-1;
+	e->search_info->start_pos = e->search_info->stop_pos = e->cursor->offset - 1;
 	e->search_info->found_len = 0;
 	html_search_pop  (e->search_info);
 	html_search_push (e->search_info, e->cursor->object->parent);
@@ -4317,7 +4314,7 @@ html_engine_replace_word_with (HTMLEngine *e, const gchar *word)
 	}
 	html_text_set_font_face (HTML_TEXT (replace), HTML_TEXT (orig)->face);
 	html_engine_edit_selection_updater_update_now (e->selection_updater);
-	html_engine_paste_object (e, replace, TRUE);
+	html_engine_paste_object (e, replace, html_object_get_length (replace));
 	html_engine_selection_pop (e);
 }
 

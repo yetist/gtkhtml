@@ -24,14 +24,14 @@
 #include "htmlclue.h"
 #include "htmlcolor.h"
 #include "htmlcolorset.h"
-#include "htmltextmaster.h"
-#include "htmlselection.h"
 #include "htmlengine-edit.h"
+#include "htmlengine-edit-fontstyle.h"
 #include "htmlengine-edit-movement.h"
 #include "htmlengine-edit-selection-updater.h"
+#include "htmlinterval.h"
+#include "htmltextmaster.h"
+#include "htmlselection.h"
 #include "htmlsettings.h"
-
-#include "htmlengine-edit-fontstyle.h"
 
 /* #define PARANOID_DEBUG */
 
@@ -41,47 +41,37 @@ get_font_style_from_selection (HTMLEngine *engine)
 {
 	GtkHTMLFontStyle style;
 	GtkHTMLFontStyle conflicts;
-	gboolean backwards;
 	gboolean first;
 	HTMLObject *p;
 
 	g_return_val_if_fail (engine->clue != NULL, GTK_HTML_FONT_STYLE_DEFAULT);
-	g_assert (engine->mark != NULL);
+	g_assert (html_engine_is_selection_active (engine));
 
 	/* printf ("%s mark %p,%d cursor %p,%d\n",
 		__FUNCTION__,
 		engine->mark, engine->mark->position,
 		engine->cursor, engine->cursor->position); */
 
-	if (engine->mark->position < engine->cursor->position)
-		backwards = TRUE;
-	else
-		backwards = FALSE;
 
 	style = GTK_HTML_FONT_STYLE_DEFAULT;
 	conflicts = GTK_HTML_FONT_STYLE_DEFAULT;
 	first = TRUE;
 
-	p = engine->cursor->object;
+	p = engine->selection->from.object;
 
 	while (1) {
-		if (html_object_is_text (p) && p->selected) {
+		if (html_object_is_text (p)) {
 			if (first) {
 				style = HTML_TEXT (p)->font_style;
 				first = FALSE;
-			} else {
+			} else
 				conflicts |= HTML_TEXT (p)->font_style ^ style;
-			}
 		}
 
-		if (p == engine->mark->object)
+		if (p == engine->selection->to.object)
 			break;
 
-		if (backwards)
-			p = html_object_prev_leaf (p);
-		else
-			p = html_object_next_leaf (p);
-
+		p = html_object_next_leaf (p);
 		g_assert (p != NULL);
 	}
 
@@ -92,29 +82,21 @@ static HTMLColor *
 get_color_from_selection (HTMLEngine *engine)
 {
 	HTMLColor *color = NULL;
-	gboolean backwards;
 	HTMLObject *p;
 
 	g_return_val_if_fail (engine->clue != NULL, NULL);
-	g_assert (engine->mark != NULL);
+	g_assert (html_engine_is_selection_active (engine));
 
-	backwards = (engine->mark->position < engine->cursor->position) ? TRUE : FALSE;
-
-	p = engine->cursor->object;
+	p = engine->selection->from.object;
 	while (1) {
-		if (html_object_is_text (p) && p->selected) {
+		if (html_object_is_text (p)) {
 			color = HTML_TEXT (p)->color;
 			break;
 		}
 
-		if (p == engine->mark->object)
+		if (p == engine->selection->to.object)
 			break;
-
-		if (backwards)
-			p = html_object_prev_leaf (p);
-		else
-			p = html_object_next_leaf (p);
-
+		p = html_object_next_leaf (p);
 		g_assert (p != NULL);
 	}
 
@@ -250,11 +232,16 @@ struct tmp_font {
 };
 
 static void
-object_set_font_style (HTMLObject *o, struct tmp_font *tf)
+object_set_font_style (HTMLObject *o, HTMLEngine *e, gpointer data)
 {
 	if (html_object_is_text (o)) {
+		struct tmp_font *tf = (struct tmp_font *) data;
+
 		HTML_TEXT (o)->font_style |= tf->or_mask;
 		HTML_TEXT (o)->font_style &= tf->and_mask;
+
+		if (o->prev)
+			html_object_merge (o->prev, o);
 	}
 }
 
@@ -271,7 +258,7 @@ html_engine_set_font_style (HTMLEngine *e,
 		struct tmp_font *tf = g_new (struct tmp_font, 1);
 		tf->and_mask = and_mask;
 		tf->or_mask  = or_mask;
-		html_engine_cut_and_paste (e, "Set font style", (GFunc) object_set_font_style, tf);
+		html_engine_cut_and_paste (e, "Set font style", object_set_font_style, tf);
 		g_free (tf);
 		return FALSE;
 	} else {
@@ -318,10 +305,13 @@ inc_dec_size (GtkHTMLFontStyle style, gboolean inc)
 }
 
 static void
-inc_dec_size_cb (HTMLObject *obj, gpointer data)
+inc_dec_size_cb (HTMLObject *o, HTMLEngine *e, gpointer data)
 {
-	if (html_object_is_text (obj))
-		HTML_TEXT (obj)->font_style = inc_dec_size (HTML_TEXT (obj)->font_style, GPOINTER_TO_INT (data));
+	if (html_object_is_text (o)) {
+		html_text_set_font_style (HTML_TEXT (o), e, inc_dec_size (HTML_TEXT (o)->font_style, GPOINTER_TO_INT (data)));
+		if (o->prev)
+			html_object_merge (o->prev, o);
+	}
 }
 
 void
@@ -329,16 +319,19 @@ html_engine_font_size_inc_dec (HTMLEngine *e, gboolean inc)
 {
 	if (html_engine_is_selection_active (e))
 		html_engine_cut_and_paste (e, (inc) ? "Increase font size" : "Decrease font size",
-					   (GFunc) inc_dec_size_cb, GINT_TO_POINTER (inc));
+					   inc_dec_size_cb, GINT_TO_POINTER (inc));
 	else
 		e->insertion_font_style = inc_dec_size (e->insertion_font_style, inc);
 }
 
 static void
-set_color (HTMLObject *o, HTMLColor *color)
+set_color (HTMLObject *o, HTMLEngine *e, gpointer data)
 {
-	if (html_object_is_text (o))
-		html_text_set_color (HTML_TEXT (o), NULL, color);
+	if (html_object_is_text (o)) {
+		html_text_set_color (HTML_TEXT (o), NULL, (HTMLColor *) data);
+		if (o->prev)
+			html_object_merge (o->prev, o);
+	}
 }
 
 void
@@ -347,11 +340,9 @@ html_engine_set_color (HTMLEngine *e, HTMLColor *color)
 	if (!color)
 		color = html_colorset_get_color (e->settings->color_set, HTMLTextColor);
 
-	if (html_engine_is_selection_active (e)) {
-		html_engine_cut_and_paste_begin (e, "Set color");
-		g_list_foreach (e->cut_buffer, (GFunc) set_color, color);
-		html_engine_cut_and_paste_end (e);
-	} else {
+	if (html_engine_is_selection_active (e))
+		html_engine_cut_and_paste (e, "Set color", set_color, color);
+	else {
 		html_color_unref (e->insertion_color);
 		e->insertion_color = color;
 		html_color_ref (e->insertion_color);
@@ -397,21 +388,18 @@ static const gchar *
 get_url_or_target_from_selection (HTMLEngine *e, gboolean get_url)
 {
 	const gchar *str = NULL;
-	gboolean backwards;
 	HTMLObject *p;
 
 	g_return_val_if_fail (e->clue != NULL, NULL);
 	g_assert (html_engine_is_selection_active (e));
 	g_assert (e->mark != NULL);
 
-	backwards = (e->mark->position < e->cursor->position) ? TRUE : FALSE;
-
-	p = e->cursor->object;
+	p = e->selection->from.object;
 	while (1) {
-		str = (get_url) ? html_object_get_url (p) : html_object_get_target (p);
-		if (str) break;
-		if (p == e->mark->object) break;
-		p = (backwards) ? html_object_prev_leaf (p) : html_object_next_leaf (p);
+		str = get_url ? html_object_get_url (p) : html_object_get_target (p);
+		if (str || p == e->selection->to.object)
+			break;
+		p = html_object_next_leaf (p);
 		g_assert (p != NULL);
 	}
 

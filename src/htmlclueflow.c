@@ -61,6 +61,48 @@ copy (HTMLObject *self,
 	HTML_CLUEFLOW (dest)->level = HTML_CLUEFLOW (self)->level;
 }
 
+static HTMLObject *
+op_copy (HTMLObject *self, GList *from, GList *to, guint *len)
+{
+	if (!from)
+		(*len) ++;
+	html_clueflow_remove_text_slaves (HTML_CLUEFLOW (self));
+	return (*HTML_OBJECT_CLASS (parent_class)->op_copy) (self, from, to, len);
+}
+
+static HTMLObject *
+op_cut (HTMLObject *self, GList *from, GList *to, guint *len)
+{
+	if (!from)
+		(*len) ++;
+	html_clueflow_remove_text_slaves (HTML_CLUEFLOW (self));
+	return (*HTML_OBJECT_CLASS (parent_class)->op_cut) (self, from, to, len);
+}
+
+static void
+split (HTMLObject *self, HTMLObject *child, gint offset, gint level, GList **left, GList **right)
+{
+	html_clueflow_remove_text_slaves (HTML_CLUEFLOW (self));
+	(*HTML_OBJECT_CLASS (parent_class)->split) (self, child, offset, level, left, right);
+}
+
+static gboolean
+merge (HTMLObject *self, HTMLObject *with)
+{
+	HTMLClueFlow *cf1, *cf2;
+
+	cf1 = HTML_CLUEFLOW (self);
+	cf2 = HTML_CLUEFLOW (with);
+
+	/* if (cf1->style != cf2->style || cf1->level != cf2->level)
+	   return FALSE; */
+
+	html_clueflow_remove_text_slaves (cf1);
+	html_clueflow_remove_text_slaves (cf2);
+
+	return ((* HTML_OBJECT_CLASS (parent_class)->merge) (self, with)) ? TRUE : FALSE;
+}
+
 static guint
 calc_padding (HTMLPainter *painter)
 {
@@ -1478,6 +1520,10 @@ html_clueflow_class_init (HTMLClueFlowClass *klass,
 	/* FIXME destroy */
 
 	object_class->copy = copy;
+	object_class->op_cut = op_cut;
+	object_class->op_copy = op_copy;
+	object_class->split = split;
+	object_class->merge = merge;
 	object_class->calc_size = calc_size;
 	object_class->set_max_width = set_max_width;
 	object_class->calc_min_width = calc_min_width;
@@ -1807,12 +1853,11 @@ get_text_bytes (HTMLClue *clue, HTMLInterval *i)
 	g_assert (i->to.object);
 
 	bytes = 0;
-	obj = i->from.object;
-	while (1) {
+	obj = html_interval_get_head (i, HTML_OBJECT (clue));
+	while (obj) {
 		bytes += html_interval_get_bytes (i, obj);
 		if (obj == i->to.object) break;
 		obj = obj->next;
-		g_assert (obj);
 	}
 
 	return bytes;
@@ -1829,7 +1874,7 @@ get_text (HTMLClue *clue, HTMLInterval *i)
 	ct         = text = g_malloc (bytes + 1);
 	text [bytes] = 0;
 
-	obj = i->from.object;
+	obj = html_interval_get_head (i, HTML_OBJECT (clue));
 	while (obj) {
 		cb = html_interval_get_bytes (i, obj);
 		if (html_object_is_text (obj))
@@ -1955,7 +2000,7 @@ html_clueflow_spell_check (HTMLClueFlow *flow, HTMLEngine *e, HTMLInterval *inte
 	}
 
 	text = get_text (clue, interval);
-	obj  = interval->from.object;
+	obj  = html_interval_get_head (interval, HTML_OBJECT (flow));
 	if (obj && html_object_is_text (obj))
 		html_text_spell_errors_clear_interval (HTML_TEXT (obj), interval);
 

@@ -25,6 +25,7 @@
 #define HTML_UNDO_LIMIT 1024
 
 #include "htmlundo-action.h"
+#include "htmlenums.h"
 
 struct _HTMLUndo {
 	/* List of undo actions (HTMLUndoAction).  */
@@ -42,23 +43,38 @@ struct _HTMLUndo {
 	guint   undo_levels_size;
 };
 
-
-HTMLUndo *html_undo_new      (void);
-void      html_undo_destroy  (HTMLUndo   *undo);
+#define HTML_UNDO_DATA(x) ((HTMLUndoData *) x)
+struct _HTMLUndoData {
+	HTMLUndoDataDestroyFunc destroy;
+	gint ref_count;
+};
 
-void  html_undo_do_undo  (HTMLUndo   *undo,
-			  HTMLEngine *engine);
-void  html_undo_do_redo  (HTMLUndo   *undo,
-			  HTMLEngine *engine);
-
-void  html_undo_discard_redo  (HTMLUndo *undo);
-
-void  html_undo_add_undo_action  (HTMLUndo       *undo,
-				  HTMLUndoAction *action);
-void  html_undo_add_redo_action  (HTMLUndo       *undo,
-				  HTMLUndoAction *action);
-
-void  html_undo_level_begin (HTMLUndo *undo, const gchar *description);
-void  html_undo_level_end   (HTMLUndo *undo);
+HTMLUndo          *html_undo_new                (void);
+void               html_undo_destroy            (HTMLUndo          *undo);
+void               html_undo_do_undo            (HTMLUndo          *undo,
+						 HTMLEngine        *engine);
+void               html_undo_do_redo            (HTMLUndo          *undo,
+						 HTMLEngine        *engine);
+void               html_undo_discard_redo       (HTMLUndo          *undo);
+void               html_undo_add_undo_action    (HTMLUndo          *undo,
+						 HTMLUndoAction    *action);
+void               html_undo_add_redo_action    (HTMLUndo          *undo,
+						 HTMLUndoAction    *action);
+void               html_undo_add_action         (HTMLUndo          *undo,
+						 HTMLUndoAction    *action,
+						 HTMLUndoDirection  dir);
+void               html_undo_level_begin        (HTMLUndo          *undo,
+						 const gchar       *description);
+void               html_undo_level_end          (HTMLUndo          *undo);
+/*
+ *  Undo Data
+ */
+void               html_undo_data_init          (HTMLUndoData      *data);
+void               html_undo_data_ref           (HTMLUndoData      *data);
+void               html_undo_data_unref         (HTMLUndoData      *data);
+/*
+ * Undo Direction
+ */
+HTMLUndoDirection  html_undo_direction_reverse  (HTMLUndoDirection  dir);
 
 #endif /* _HTML_UNDO_H */
