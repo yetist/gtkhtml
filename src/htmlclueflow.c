@@ -1254,16 +1254,18 @@ save_plain (HTMLObject *self,
 	size_t len;
 	gint pad;
 	gboolean firstline = TRUE;
+	gint max_len;
 
 	flow = HTML_CLUEFLOW (self);
 
 	pad = plain_padding (flow, NULL, FALSE);
 	buffer_state = html_engine_save_buffer_new (state->engine);
 
+	max_len = MAX (requested_width - pad, 0);
 	/* buffer the paragraph's content into the save buffer */
 	if (HTML_OBJECT_CLASS (&html_clue_class)->save_plain (self, 
 							      buffer_state, 
-							      requested_width - pad)) {
+							      max_len)) {
 		guchar *s, *space;
 		
 		if (get_pre_padding (flow, calc_padding (state->engine->painter)) > 0)
@@ -1274,13 +1276,12 @@ save_plain (HTMLObject *self,
 		if (*s == 0)
 			g_string_append (out, "\n");
 		else while (*s) {
-			/* FIXME we should allow wrapping on PRE sections as well */
 			len = strcspn (s, "\n");
 			
 			if (flow->style != HTML_CLUEFLOW_STYLE_PRE) {
-				
-				if (g_utf8_strlen (s, len) > (requested_width - pad)) {
-					space = g_utf8_offset_to_pointer (s, requested_width - pad);
+
+				if (g_utf8_strlen (s, len) > max_len) {
+					space = g_utf8_offset_to_pointer (s, max_len);
 					while (space 
 					       && (*space != ' '))
 						/* || (IS_UTF8_NBSP ((guchar *)g_utf8_find_next_char (space, NULL)))

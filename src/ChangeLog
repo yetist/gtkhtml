@@ -1,3 +1,8 @@
+2001-08-09  Larry Ewing  <lewing@ximian.com>
+
+	* htmlclueflow.c (save_plain): never let the requested length be
+	less than zero.
+
 2001-08-09  Joe Shaw  <joe@ximian.com>
 
 	* gtkhtml.c (button_press_event): Don't grab the focus unless
