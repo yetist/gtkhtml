@@ -27,47 +27,47 @@
 
 			<cmd name="HeadingNormal" _label="Normal"
 		        _tip="Make the current Paragraph style Normal"
-		        type="radio" group="paragraph_heading"/>
+		        type="radio" group="paragraph_heading" accel="*Ctrl*0"/>
 			<cmd name="HeadingPreformat" _label="Preformat"
-		        _tip="Make the current Paragraph style Normal"
-		        type="radio" group="paragraph_heading"/>
+		        _tip="Make the current Paragraph style Preformat"
+		        type="radio" group="paragraph_heading" accel="*Ctrl*7"/>
 			<cmd name="HeadingH1" _label="Header _1"
 		        _tip="Make the current paragraph an H1 header"
-		        type="radio" group="paragraph_heading"/>
+		        type="radio" group="paragraph_heading" accel="*Ctrl*1"/>
 			<cmd name="HeadingH2" _label="Header _2"
 		        _tip="Make the current paragraph an H2 header"
-		        type="radio" group="paragraph_heading"/>
+		        type="radio" group="paragraph_heading" accel="*Ctrl*2"/>
 			<cmd name="HeadingH3" _label="Header _3"
 		        _tip="Make the current paragraph an H3 header"
-		        type="radio" group="paragraph_heading"/>
+		        type="radio" group="paragraph_heading" accel="*Ctrl*3"/>
 			<cmd name="HeadingH4" _label="Header _4"
 		        _tip="Make the current paragraph an H4 header"
-		        type="radio" group="paragraph_heading"/>
+		        type="radio" group="paragraph_heading" accel="*Ctrl*4"/>
 			<cmd name="HeadingH5" _label="Header _5"
 		        _tip="Make the current paragraph an H5 header"
-		        type="radio" group="paragraph_heading"/>
+		        type="radio" group="paragraph_heading" accel="*Ctrl*5"/>
 			<cmd name="HeadingH6" _label="Header _6"
 		        _tip="Make the current paragraph an H6 header"
-		        type="radio" group="paragraph_heading"/>
+		        type="radio" group="paragraph_heading" accel="*Ctrl*6"/>
 			<cmd name="HeadingAddress" _label="A_ddress"
 		        _tip="Make the current paragraph an address"
-		        type="radio" group="paragraph_heading"/>
+		        type="radio" group="paragraph_heading" accel="*Ctrl*8"/>
 			<cmd name="HeadingBulletedList" 
 			_label="Bulleted List"
 		        _tip="Make the current paragraph a bulleted list"
-		        type="radio" group="paragraph_heading"/>
+		        type="radio" group="paragraph_heading" accel="*Ctrl**Alt*1"/>
 			<cmd name="HeadingNumberedList" 
 			_label="Numbered List"
 		        _tip="Make the current paragraph a numbered list"
-		        type="radio" group="paragraph_heading"/>
+		        type="radio" group="paragraph_heading" accel="*Ctrl**Alt*2"/>
 			<cmd name="HeadingRoman" 
 			_label="Roman Numeral List"
 		        _tip="Make the current paragraph a list with roman numerals"
-		        type="radio" group="paragraph_heading"/>
+		        type="radio" group="paragraph_heading" accel="*Ctrl**Alt*3"/>
 			<cmd name="HeadingAlphabeticalList" 
 			_label="Alphabetical List"
 		        _tip="Make the current paragraph an alphabetical list"
-		        type="radio" group="paragraph_heading"/>
+		        type="radio" group="paragraph_heading" accel="*Ctrl**Alt*4"/>
 
 			<cmd name="AlignLeft" _label="_Left"
 			_tip="Left justifies the paragraphs"
@@ -79,12 +79,11 @@
 			_tip="Right justifies the paragraphs"
 			type="radio" group="paragraph_alignment"/>
 
-			<cmd name="FormatBold" _label="_Bold" type="toggle"/>
-			<cmd name="FormatItalic" _label="_Italic" type="toggle"/>
-			<cmd name="FormatUnderline" _label="_Underline" type="toggle"/>
-			<cmd name="FormatBold" _label="_Bold" type="toggle"/>
+			<cmd name="FormatBold" _label="_Bold" type="toggle" accel="*Ctrl*b"/>
+			<cmd name="FormatItalic" _label="_Italic" type="toggle" accel="*Ctrl*i"/>
+			<cmd name="FormatUnderline" _label="_Underline" type="toggle" accel="*Ctrl*u"/>
 			<cmd name="FormatStrikeout" _label="Strikeout" type="toggle"/>
-			<cmd name="FormatFixed" _label="Typewriter" type="toggle"/>
+			<cmd name="FormatFixed" _label="Typewriter" type="toggle" accel="*Ctrl*t"/>
 			<cmd name="FormatSubscript" _label="Subscript" type="toggle"/>
 			<cmd name="FormatSuperscript" _label="Superscript" type="toggle"/>
 
