@@ -70,7 +70,7 @@
 #include "gtkhtmldebug.h"
 
 #ifdef USING_OAF
-#define CONTROL_FACTORY_ID "OAFIID:GNOME_GtkHTML_Editor_Factory"
+#define CONTROL_FACTORY_ID "OAFIID:GNOME_GtkHTML_Editor_Factory:" EDITOR_API_VERSION
 #else
 #define CONTROL_FACTORY_ID "control-factory:html-editor"
 #endif
@@ -776,7 +776,7 @@ editor_control_factory (BonoboGenericFactory *factory, gpointer closure)
 
 #ifdef GNOME_GTKHTML_EDITOR_SHLIB
 
-BONOBO_OAF_SHLIB_FACTORY ("OAFIID:GNOME_GtkHTML_Editor_Factory", "GNOME HTML Editor factory", editor_control_factory, NULL);
+BONOBO_OAF_SHLIB_FACTORY (CONTROL_FACTORY_ID, "GNOME HTML Editor factory", editor_control_factory, NULL);
 
 #else
 
@@ -804,7 +804,7 @@ init_corba (int *argc, char **argv)
 
 	CORBA_exception_init (&ev);
 
-	gnome_CORBA_init_with_popt_table ("html-editor-factory", "0.0",
+	gnome_CORBA_init_with_popt_table ("html-editor-factory", EDITOR_API_VERSION,
 					  argc, argv,
 					  NULL, 0, NULL,
 					  GNORBA_INIT_SERVER_FUNC,

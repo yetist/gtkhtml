@@ -1,3 +1,11 @@
+2002-03-15  Radek Doulik  <rodo@ximian.com>
+
+	* editor-control-factory.c: use EDITOR_API_VERSION
+
+	* Makefile.am: added install-exec-hook to rename component binary
+
+	* GNOME_GtkHTML_Editor.oaf.in.in: use EDITOR_API_VERSION
+
 2002-02-21  Larry Ewing  <lewing@ximian.com>
 
 	* image.c (insert_or_apply): initialize url properly.

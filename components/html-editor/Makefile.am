@@ -120,7 +120,11 @@ else
 PRGS = gnome-gtkhtml-editor
 gnome_gtkhtml_editor_SOURCES =			\
 	$(GTKHTML_EDITOR_SOURCES_COMMON)
+install-exec-hook:
+	mv $(bindir)/gnome-gtkhtml-editor $(bindir)/gnome-gtkhtml-editor-@EDITOR_API_VERSION@
 endif
+
+libgnome_gtkhtml_editor_la_LDFLAGS = -release $(EDITOR_API_VERSION)
 
 bin_PROGRAMS = $(PRGS)
 
