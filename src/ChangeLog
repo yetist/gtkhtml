@@ -1,3 +1,11 @@
+2001-08-24  Radek Doulik  <rodo@ximian.com>
+
+	* htmlprinter.c (alloc_font): extract family name from face and
+	use that for font lookup
+
+	* htmlfontmanager.c (html_font_manager_get_attr): renamed from
+	get_attr, exported
+
 2001-08-23  Radek Doulik  <rodo@ximian.com>
 
 	* htmltext.c (check_last_white): new inlined helper function

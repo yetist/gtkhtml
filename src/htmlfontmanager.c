@@ -226,8 +226,8 @@ get_font (HTMLFontManager *manager, HTMLFontSet **set, gchar *face, GtkHTMLFontS
 	return font;
 }
 
-static gchar *
-get_attr (gchar *font_name, gint n)
+gchar *
+html_font_manager_get_attr (gchar *font_name, gint n)
 {
     gchar *s, *end;
 
@@ -250,8 +250,8 @@ get_name_from_face (HTMLFontManager *m, const gchar *face)
 {
 	gchar *enc1, *enc2, *rv;
 
-	enc1 = get_attr (m->variable.face, 13);
-	enc2 = get_attr (m->variable.face, 14);
+	enc1 = html_font_manager_get_attr (m->variable.face, 13);
+	enc2 = html_font_manager_get_attr (m->variable.face, 14);
 
 	rv = g_strdup_printf ("-*-%s-*-*-*-*-*-*-*-*-*-*-%s-%s", face, enc1, enc2);
 

@@ -29,6 +29,7 @@
 
 #include "htmlembedded.h"
 #include "gtkhtml-embedded.h"
+#include "htmlfontmanager.h"
 #include "htmlprinter.h"
 
 /* #define PRINTER_DEBUG */
@@ -680,13 +681,17 @@ alloc_font (HTMLPainter *painter, gchar *face, gdouble size, GtkHTMLFontStyle st
 	GnomeFontWeight weight;
 	GnomeFont *font;
 	gboolean italic;
-	guchar *s = face;
+	gchar *family = NULL;
 
 	weight = (style & GTK_HTML_FONT_STYLE_BOLD) ? GNOME_FONT_BOLD : GNOME_FONT_BOOK;
 	italic = (style & GTK_HTML_FONT_STYLE_ITALIC);
 
 	/* gnome-print is case sensitive - need to be fixed */
-	if (s && *s) {
+	if (face && *face) {
+		gchar *s;
+
+		s = family = html_font_manager_get_attr (face, 2);
+
 		/* capitalize */
 		*s = toupper (*s);
 		s++;
@@ -696,10 +701,11 @@ alloc_font (HTMLPainter *painter, gchar *face, gdouble size, GtkHTMLFontStyle st
 		}
 	}
 
-	if (!(font = gnome_font_new_closest ((face) ? face : "Courier", weight, italic, size)))
-		return NULL;
+	font = gnome_font_new_closest (family ? family : (style & GTK_HTML_FONT_STYLE_FIXED ? "Courier" : "Helvetica"),
+				       weight, italic, size);
+	g_free (family);
 
-	return html_font_new (font, gnome_font_get_width_string_n (font, " ", 1));
+	return font ? html_font_new (font, gnome_font_get_width_string_n (font, " ", 1)) : NULL;
 }
 
 static void

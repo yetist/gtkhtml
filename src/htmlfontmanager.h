@@ -68,6 +68,8 @@ HTMLFont           *html_font_manager_get_font                (HTMLFontManager *
 void                html_font_manager_clear_font_cache        (HTMLFontManager *manager);
 void                html_font_manager_set_magnification       (HTMLFontManager *manager,
 							       gdouble          magnification);
+gchar *             html_font_manager_get_attr                (gchar           *font_name,
+							       gint             n);
 /*
  * HTMLFont
  */
