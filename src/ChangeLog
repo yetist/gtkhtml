@@ -1,3 +1,9 @@
+2001-10-18  Larry Ewing  <lewing@ximian.com>
+
+	* htmltokenizer.c: fix to guarantee no invalid utf8 sequences can
+	make it past any part of the tokenizer into the tokens.  This is
+	critical to prevent looping in g_utf8* on certain input.
+
 2001-10-17  Larry Ewing  <lewing@ximian.com>
 
 	* htmltext.c (html_text_set_text): update the text_len when we set
