@@ -1,3 +1,8 @@
+2002-10-16  Larry Ewing  <lewing@ximian.com>
+
+	* configure.in: require latest gal version for fejj's e-unicode
+	fix.
+
 2002-10-08  Larry Ewing  <lewing@ximian.com>
 
 	* configure.in: bump the gtkhtml version for snapshots.
