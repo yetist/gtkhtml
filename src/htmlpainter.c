@@ -41,6 +41,19 @@ html_painter_draw_rect (HTMLPainter *painter, gint x, gint y, gint width, gint h
 }
 
 void
+html_painter_draw_background_pixmap (HTMLPainter *painter, gint x, gint y, 
+				     GdkPixbuf *pixbuf)
+{
+	gdk_pixbuf_render_to_drawable (pixbuf, painter->pixmap,
+				       painter->gc,
+				       0, 0, x, y, 
+				       pixbuf->art_pixbuf->width,
+				       pixbuf->art_pixbuf->height,
+				       GDK_RGB_DITHER_NORMAL,
+				       x, y);
+}
+
+void
 html_painter_draw_pixmap (HTMLPainter *painter, gint x, gint y, GdkPixbuf *pixbuf, gint clipx, gint clipy, gint clipwidth, gint clipheight)
 {
 	gint off_x, off_y, off_width, off_height;
@@ -322,6 +335,6 @@ html_painter_set_clip_rectangle (HTMLPainter *painter, gint x, gint y, gint widt
 	rect.y = y;
 	rect.width = width;
 	rect.height = height;
-
+	
 	gdk_gc_set_clip_rectangle (painter->gc, (width && height)?&rect:NULL);
 }

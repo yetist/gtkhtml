@@ -693,7 +693,6 @@ parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 				else if (strcasecmp (token + 6, "bottom") ==0)
 					valign = Bottom;
 			}
-
 		}
 		if (filename != 0) {
 			filename = html_engine_canonicalize_url(p, filename);
@@ -1421,11 +1420,10 @@ html_engine_draw_background (HTMLEngine *e, gint xval, gint yval, gint x, gint y
 	/* Do the bgimage tiling */
 	for (yp = yOrigin; yp < y + h; yp += ph) {
 	        for (xp = xOrigin; xp < x + w; xp += pw) {
-			html_painter_draw_pixmap (e->painter, 
-						  xp, 
-						  yp,
-						  bgpixmap->pixbuf,
-						  0, 0, 0, 0);
+			html_painter_draw_background_pixmap (e->painter, 
+							     xp, 
+							     yp,
+							     bgpixmap->pixbuf);
 		}
 	}
 }

@@ -21,6 +21,7 @@
 #include "htmltextslave.h"
 #include "htmltable.h"
 #include "htmlclue.h"
+#include "htmltype.h"
 #include "debug.h"
 
 /* Various debugging routines */
@@ -50,26 +51,25 @@ debug_dump_tree (HTMLObject *o, gint level)
 		for (i = 0; i < level; i++)
 			g_print (" ");
 
-#if 0
 		g_print ("Obj: %p, Object Type: %s\n",
 			 obj, html_type_name (HTML_OBJECT_TYPE (obj)));
 
 		switch (HTML_OBJECT_TYPE (obj)) {
-		case TableType:
+		case HTML_TYPE_TABLE:
 			debug_dump_table (obj, level + 1);
 			break;
-		case Text:
-		case TextMaster:
+		case HTML_TYPE_TEXT:
+		case HTML_TYPE_TEXTMASTER:
 			for (i=0;i<level;i++) g_print (" ");
 			g_print ("Text: %s\n", HTML_TEXT (obj)->text);
 			break;
-		case ClueH:
-		case ClueFlow:
-		case ClueV:
-		case ClueAligned:
+		case HTML_TYPE_CLUEH:
+		case HTML_TYPE_CLUEFLOW:
+		case HTML_TYPE_CLUEV:
+		case HTML_TYPE_CLUEALIGNED:
 			debug_dump_tree (HTML_CLUE (obj)->head, level + 1);
 			break;
-		case TableCell:
+		case HTML_TYPE_TABLECELL:
 			debug_dump_tree (HTML_CLUE (obj)->head, level + 1);
 			break;
 			
@@ -77,7 +77,6 @@ debug_dump_tree (HTMLObject *o, gint level)
 			break;
 		}
 
-		obj = obj->nextObj;
-#endif
+		obj = obj->next;
 	}
 }

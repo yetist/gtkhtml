@@ -47,6 +47,8 @@ calc_size (HTMLObject *o, HTMLObject *parent)
 		o->ascent += obj->ascent + obj->descent;
 		obj->x = ALIGN_BORDER;
 		obj->y = o->ascent - obj->descent;
+		g_print ("x is: %d\n", obj->x);
+		g_print ("y is: %d\n", obj->y);
 	}
 	
 	o->ascent += ALIGN_BORDER;

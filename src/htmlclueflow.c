@@ -122,6 +122,7 @@ calc_size (HTMLObject *o,
 				if (HTML_CLUE (HTML_CLUE (c)->halign == Left)) {
 					g_print ("Left\n");
 				} else {
+					g_print ("Right aligned\n");
 					obj->x = rmargin - obj->width;
 					obj->y = o->ascent + obj->ascent;
 

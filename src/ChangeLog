@@ -1,8 +1,14 @@
 1999-11-26  Anders Carlsson  <andersca@gnu.org>
 
-	* htmlbullet.c (draw): Fixed the bullet redraw bug.
+	* htmlengine.c (html_engine_draw_background): Use the new function
+	when drawing backgrounds.
 
-1999-11-26  Anders Carlsson  <andersca@gnu.org>
+	* htmlpainter.c (html_painter_draw_background_pixmap): Added a new
+	function for drawing the background pixmap.
+
+	* debug.c: Adapted the debug code to the new object system.
+
+	* htmlbullet.c (draw): Fixed the bullet redraw bug.
 
 	* htmlimage.c (draw): Fixed the image redraw bug.
 
