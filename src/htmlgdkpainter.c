@@ -294,12 +294,12 @@ load_font_with_name (gchar *name)
 	return font;
 }
 
-static gpointer
-e_font_from_face (gchar *face, gint size, gboolean points, gchar *weight, gchar *slant,
-		  gboolean known_size, gboolean smaller)
+static gchar *
+e_font_lookup_face (gchar *face, gint size, gboolean points, gchar *weight, gchar *slant,
+		    gboolean known_size, gboolean smaller)
 {
 	gchar *f1, *f2, *f3, *f4, **list, **filtered = NULL;
-	gpointer font = NULL;
+	gchar *font_name = NULL;
 	gint n;
 
 	/* clear weight, slant and size */
@@ -327,9 +327,11 @@ e_font_from_face (gchar *face, gint size, gboolean points, gchar *weight, gchar 
 		gchar *name;
 		if (known_size) {
 
+
 			name = find_font_with_similar_size (filtered, n, size, points, smaller);
+			
 			if (name)
-				font = load_font_with_name (name);
+				font_name = g_strdup (name);
 		} else {
 			gchar *s;
 
@@ -349,14 +351,51 @@ e_font_from_face (gchar *face, gint size, gboolean points, gchar *weight, gchar 
 			g_free (f2);
 			g_free (s);
 
-			font = load_font_with_name (name);
-			g_free (name);
+			font_name = name;
 		}
 
 	}
 	if (filtered != list)
 		g_free (filtered);
 
+	return font_name;
+}
+
+static gpointer
+e_font_from_face (gchar *face, gint size, gboolean points, gchar *weight, gchar *slant,
+		  gboolean known_size, gboolean smaller)
+{
+	gchar *better_name;
+	gchar **fontnames;
+	GString *newface;
+	gint i;
+	gpointer font = NULL;
+	gboolean found = FALSE;
+
+	newface = g_string_new ("");
+	fontnames = g_strsplit (face, ",", 50);
+	for (i = 0; fontnames && fontnames[i] != NULL; i++) {
+		char *name = g_strstrip (fontnames[i]);
+
+		better_name = e_font_lookup_face (name, size, points, weight, slant, known_size, smaller);
+		
+		if (i)
+			g_string_append (newface, ",");
+		
+		if (better_name) {
+			g_string_append (newface, better_name);
+			g_free (better_name);
+			found = TRUE;
+		} else {
+			g_string_append (newface, name);
+		}
+	}
+	g_strfreev (fontnames);
+	
+	if (found)
+		font = load_font_with_name (newface->str);
+	g_string_free (newface, TRUE);
+	
 	return font;
 }
 

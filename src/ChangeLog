@@ -16,6 +16,11 @@
 
 2002-10-27  Larry Ewing  <lewing@ximian.com>
 
+	* htmlgdkpainter.c (e_font_from_face): use helper function to
+	lookup fonts in the fontset and build a new fontset.
+	(e_font_lookup_face): helper function that handles the font
+	lookup.
+
 	* htmltable.c (check_point): return with warning if we haven't had
 	calc_size called yet.
 
