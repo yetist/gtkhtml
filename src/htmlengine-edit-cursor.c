@@ -31,6 +31,7 @@
 #include "htmlimage.h"
 #include "htmlobject.h"
 #include "htmltable.h"
+#include "htmlembedded.h"
 
 #define BLINK_TIMEOUT 500
 
@@ -50,11 +51,21 @@ static GdkColor image_stipple_active_off     = { 0, 0xffff, 0xffff, 0xffff };
 void
 html_engine_hide_cursor  (HTMLEngine *engine)
 {
+	HTMLEngine *e = engine;
+
 	g_return_if_fail (engine != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (engine));
 
-	if (engine->editable && engine->cursor_hide_count == 0)
-		html_engine_draw_cursor_in_area (engine, 0, 0, -1, -1);
+	if ((engine->editable || engine->caret_mode) && engine->cursor_hide_count == 0) {
+		if (!engine->editable) {
+			e = html_object_engine(engine->cursor->object, NULL);
+			if (e) {
+				e->caret_mode = engine->caret_mode;
+				html_cursor_copy(e->cursor, engine->cursor);
+			} else 	e = engine;
+		}
+		html_engine_draw_cursor_in_area (e, 0, 0, -1, -1);
+	}
 
 	engine->cursor_hide_count++;
 }
@@ -62,22 +73,37 @@ html_engine_hide_cursor  (HTMLEngine *engine)
 void
 html_engine_show_cursor  (HTMLEngine *engine)
 {
+        HTMLEngine * e = engine;
+
 	g_return_if_fail (engine != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (engine));
+	g_return_if_fail (engine->cursor != NULL);
 
 	if (engine->cursor_hide_count > 0) {
 		engine->cursor_hide_count--;
-		if (engine->editable && engine->cursor_hide_count == 0)
-			html_engine_draw_cursor_in_area (engine, 0, 0, -1, -1);
+		if ((engine->editable || engine->caret_mode) && engine->cursor_hide_count == 0) {
+			if (!engine->editable) {
+				e = html_object_engine(engine->cursor->object, NULL);
+				if (e) {
+					e->caret_mode = engine->caret_mode;
+					html_cursor_copy(e->cursor, engine->cursor);
+				} else e = engine;
+			}
+			html_engine_draw_cursor_in_area (e, 0, 0, -1, -1);
+		}
 	}
 }
 
 static gboolean
 clip_rect (HTMLEngine *engine, gint x, gint y, gint width, gint height, gint *x1, gint *y1, gint *x2, gint *y2)
 {
-	if (*x1 >= x + width || *y1 >= y + height || *x2 < x || *y2 < y)
+	if (*x1 > x + width || *y1 > y + height || *x2 < x || *y2 < y)
 		return FALSE;
 
+	if (*x1 == x + width)
+		*x1 = x + width - 1;
+	if (*y1 == y + width)
+		*y1 = y + height - 1;
 	if (*x2 >= x + width)
 		*x2 = x + width - 1;
 	if (*y2 >= y + height)
@@ -265,15 +291,13 @@ html_engine_draw_cursor_in_area (HTMLEngine *engine,
 	gint x1, y1, x2, y2;
 	GdkRectangle pos;
 
-	g_assert (engine->editable);
-
-	if (engine->editable && (engine->cursor_hide_count <= 0 && !engine->thaw_idle_id)) {
+	if ((engine->editable || engine->caret_mode) && (engine->cursor_hide_count <= 0 && !engine->thaw_idle_id)) {
 		html_engine_draw_table_cursor (engine);
 		html_engine_draw_cell_cursor (engine);
 		html_engine_draw_image_cursor (engine);
 	}
 
-	if (!cursor_enabled || engine->cursor_hide_count > 0 || ! engine->editable || engine->thaw_idle_id)
+	if (!cursor_enabled || engine->cursor_hide_count > 0 || !(engine->editable || engine->caret_mode) || engine->thaw_idle_id)
 		return;
 
 	obj = engine->cursor->object;
@@ -291,6 +315,16 @@ html_engine_draw_cursor_in_area (HTMLEngine *engine,
 
 	
 	html_object_get_cursor (obj, engine->painter, offset, &x1, &y1, &x2, &y2);
+	while (obj) {
+		if (html_object_is_frame(obj)) {
+			x1 -= HTML_EMBEDDED(obj)->abs_x;
+			x2 -= HTML_EMBEDDED(obj)->abs_x;
+			y1 -= HTML_EMBEDDED(obj)->abs_y;
+			y2 -= HTML_EMBEDDED(obj)->abs_y;
+			break;
+		}
+                obj = obj->parent;
+        }
 	
 	pos.x = x1; 
 	pos.y = y1;

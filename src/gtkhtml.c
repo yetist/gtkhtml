@@ -760,11 +760,35 @@ gtk_html_set_fonts (GtkHTML *html, HTMLPainter *painter)
 	g_free (fixed_name);
 }
 
+static void
+set_caret_mode(HTMLEngine *engine, gboolean caret_mode)
+{
+	if (engine->editable)
+		return;
+
+	engine->caret_mode = caret_mode;
+
+	if (caret_mode && !engine->parsing && !engine->timerId == 0)
+		gtk_html_edit_make_cursor_visible(engine->widget);
+
+	/* Normally, blink cursor handler is setup in focus in event.
+	 * However, in the case focus already in this engine, and user
+	 * type F7 to enable cursor, we must setup the handler by
+	 * ourselves.
+	 */
+	if (caret_mode && !engine->blinking_timer_id && engine->have_focus)
+		html_engine_setup_blinking_cursor (engine);
+
+
+	return;
+}
+
 /* GtkWidget methods.  */
 static void
 style_set (GtkWidget *widget, GtkStyle  *previous_style)
 {
 	HTMLEngine *engine = GTK_HTML (widget)->engine;
+	gboolean caret_mode = FALSE;
 
 	/* we don't need to set font's in idle time so call idle callback directly to avoid
 	   recalculating whole document
@@ -779,6 +803,8 @@ style_set (GtkWidget *widget, GtkStyle  *previous_style)
 		}
 	}
 
+	gtk_widget_style_get (widget, "caret_mode", &caret_mode, NULL);
+	set_caret_mode(engine, caret_mode);
 
 	html_colorset_set_style (engine->defaultSettings->color_set, widget);
 	html_colorset_set_unchanged (engine->settings->color_set,
@@ -1488,8 +1514,11 @@ button_press_event (GtkWidget *widget,
 				if (obj && ((HTML_IS_IMAGE (obj) && HTML_IMAGE (obj)->url && *HTML_IMAGE (obj)->url)
 					    || HTML_IS_LINK_TEXT (obj)))
 					html_engine_set_focus_object (orig_e, obj);
-				else
+				else {
 					html_engine_set_focus_object (orig_e, NULL);
+					if (orig_e->caret_mode)
+						html_engine_jump_at (engine, x, y);
+				}
 			}
 			if (html->allow_selection) {
 				if (event->state & GDK_SHIFT_MASK)
@@ -2608,6 +2637,13 @@ gtk_html_class_init (GtkHTMLClass *klass)
 								     _("The color of the spelling error markers"),
 								     GDK_TYPE_COLOR,
 								     G_PARAM_READABLE));
+	gtk_widget_class_install_style_property (widget_class,
+						g_param_spec_boxed ("caret_mode",
+								    _("Caret Mode"),
+								    _("Enable cursor in html viewer"),
+								    G_TYPE_BOOLEAN,
+								    G_PARAM_READABLE));
+
 
 	widget_class->realize = realize;
 	widget_class->unrealize = unrealize;
@@ -3797,9 +3833,6 @@ static void
 cursor_move (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType skip)
 {
 	gint amount;
-
-	if (!html_engine_get_editable (html->engine))
-		return;
 
 	if (html->engine->selection_mode) {
 		if (!html->engine->mark)

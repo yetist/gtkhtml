@@ -65,6 +65,7 @@ struct _HTMLEngine {
 	GdkGC *invert_gc;
 
 	gboolean editable;
+	gboolean caret_mode;
 
 	HTMLObject *clipboard;
 	guint       clipboard_len;

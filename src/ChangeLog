@@ -1,3 +1,34 @@
+2003-07-10  Yuedong Du  <yuedong.du@sun.com>
+
+	* gtkhtml.c (set_caret_mode): new function to enable caret mode.
+	(style_set): set the caret mode flag according to style.
+	(button_press_event): when caret mode is on, mouse click will
+	cause cursor jump to the clicked position. 
+	(gtk_html_class_init): introduce a new style property. 
+	(cursor_move): remove the limitation that curosr can only be moved
+	in html editor.
+
+	* htmlengine-edit-cursor.c (html_engine_hide_cursor): ditto, and
+	when reading html mail, cursor need to be draw on the embedded html
+	widget. So need to find the right widget when drawing. 
+	(html_engine_show_cursor): ditto
+	(clip_rect): don't return false in the case that x1,y1 is equal to 
+	x1+width, y1+height.
+	(html_engine_draw_cursor_in_area): when drawing cursor on embedded 
+	gtkhtml widget, remember the cursor position is actually related to
+	top html widget. So we need sub the offset of embedded html widget.
+
+	* htmlengine-eidt-movement.c (html_engine_scroll_down): fix a small
+	bug that cause the hide count of htmlcursor incorrect.
+
+	* htmlengine.h: introduce new flag into HTMLEngine, to indicate
+	whether caret mode is on.
+
+	* htmlengine.c: setup blinking cursor when caret mode is on.
+
+	* htmliframe.c: initialize the cursor_hide_count in embedded html
+	engine. see bug #44607
+
 2003-07-03  Radek Doulik  <rodo@ximian.com>
 
 	* htmlobject.c (html_object_cursor_backward): allow offset == 0 if

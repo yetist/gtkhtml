@@ -583,6 +583,7 @@ html_iframe_init (HTMLIFrame *iframe,
 
 	new_widget = gtk_html_new ();
 	new_html = GTK_HTML (new_widget);
+	new_html->engine->cursor_hide_count = 0;
 
 	new_tokenizer = html_tokenizer_clone (parent_html->engine->ht);
 

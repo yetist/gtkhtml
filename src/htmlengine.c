@@ -65,7 +65,6 @@
 #include "htmlundo.h"
 #include "htmldrawqueue.h"
 #include "htmlgdkpainter.h"
-#include "htmlplainpainter.h"
 #include "htmlreplace.h"
 #include "htmlentity.h"
 
@@ -3584,6 +3583,7 @@ html_engine_init (HTMLEngine *engine)
 	engine->allow_frameset = FALSE;
 
 	engine->editable = FALSE;
+	engine->caret_mode = FALSE;
 	engine->clipboard = NULL;
 	engine->clipboard_stack = NULL;
 	engine->selection_stack  = NULL;
@@ -4596,12 +4596,14 @@ html_engine_set_editable (HTMLEngine *e,
 		html_engine_ensure_editable (e);
 		html_cursor_home (e->cursor, e);
 		e->newPage = FALSE;
-
 		if (e->have_focus)
 			html_engine_setup_blinking_cursor (e);
 	} else {
-		if (e->have_focus)
-			html_engine_stop_blinking_cursor (e);
+		if (e->have_focus )
+			if (e->caret_mode)
+				html_engine_setup_blinking_cursor (e);
+			else 
+				html_engine_stop_blinking_cursor (e);
 	}
 }
 
@@ -4633,7 +4635,7 @@ html_engine_set_focus (HTMLEngine *engine,
 	g_return_if_fail (engine != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (engine));
 
-	if (engine->editable) {
+	if (engine->editable || engine->caret_mode) {
 		if (! engine->have_focus && have_focus)
 			html_engine_setup_blinking_cursor (engine);
 		else if (engine->have_focus && ! have_focus)
@@ -4673,7 +4675,7 @@ html_engine_make_cursor_visible (HTMLEngine *e)
 
 	g_return_val_if_fail (e != NULL, FALSE);
 
-	if (! e->editable)
+	if (! e->editable && !e->caret_mode)
 		return FALSE;
 
 	if (e->cursor->object == NULL)
@@ -4799,13 +4801,12 @@ html_engine_freeze (HTMLEngine *engine)
 	g_return_if_fail (engine != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (engine));
 
-	if (engine->freeze_count == 0) {
+	if (engine->freeze_count == 0)
 		gtk_html_im_reset (engine->widget);
 
-		html_engine_flush_draw_queue (engine);
-		if ((HTML_IS_GDK_PAINTER (engine->painter) || HTML_IS_PLAIN_PAINTER (engine->painter)) && HTML_GDK_PAINTER (engine->painter)->window)
-			gdk_window_process_updates (HTML_GDK_PAINTER (engine->painter)->window, FALSE);
-	}
+	html_engine_flush_draw_queue (engine);
+	if (HTML_GDK_PAINTER(engine->painter)->window)
+		gdk_window_process_updates (HTML_GDK_PAINTER (engine->painter)->window, FALSE);
 	/* printf ("html_engine_freeze %d\n", engine->freeze_count); */
 
 	html_engine_hide_cursor (engine);
