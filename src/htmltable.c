@@ -74,17 +74,6 @@ destroy (HTMLObject *o)
 	HTMLTableCell *cell;
 	guint r, c;
 
-	/* for (r = 0; r < table->allocRows; r++) {
-		for (c = 0; c < table->totalCols; c++) {
-			if ((cell = table->cells[r][c]) == NULL)
-				continue;
-			if (cell->row != r || cell->col != c)
-				continue;
-
-			html_object_destroy (HTML_OBJECT (cell));
-		}
-		g_free (table->cells [r]);
-		} */
 	if (table->allocRows && table->totalCols)
 		for (r = table->allocRows - 1; ; r--) {
 			for (c = table->totalCols - 1; ; c--) {

@@ -40,6 +40,8 @@ struct _GtkHTMLPrivate {
 	gint last_selection_type;
 	gchar *content_type;
 
+	GtkEntry *search_input_line;
+
 #ifdef GTKHTML_HAVE_GCONF
 	guint set_font_id;
 #endif

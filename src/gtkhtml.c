@@ -1753,6 +1753,7 @@ init (GtkHTML* html)
 	html->priv->insertion_font_style = GTK_HTML_FONT_STYLE_DEFAULT;
 	html->priv->last_selection_type = -1;
 	html->priv->content_type = NULL;
+	html->priv->search_input_line = NULL;
 
 	gtk_selection_add_targets (GTK_WIDGET (html),
 				   GDK_SELECTION_PRIMARY,

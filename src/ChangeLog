@@ -1,3 +1,14 @@
+2001-01-29  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml-search.c (hide): new helper function
+	(data_destroy): ditto
+	(focus_out_event): new signal handler
+	(destroy): ditto
+	(gtk_html_isearch): don't destroy input line, hide instead, store
+	data in input line widget data
+
+	* gtkhtml-private.h: added search_input_line
+
 2001-01-29  Larry Ewing  <lewing@ximian.com>
 
 	* htmltable.c (html_table_init): remove reference to refcount.
