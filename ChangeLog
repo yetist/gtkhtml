@@ -1,3 +1,7 @@
+2002-03-27  Larry Ewing  <lewing@ximian.com>
+
+	* configure.in: add horrible cruft to version translation files.
+
 2002-03-26  Larry Ewing  <lewing@ximian.com>
 
 	* acconfig.h: add template for GTKHTML_RELEASE_STRING

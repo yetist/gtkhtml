@@ -29,6 +29,16 @@ AC_HEADER_STDC
 AM_PROG_XML_I18N_TOOLS
 AM_PROG_LIBTOOL
 
+if test -f $srcdir/po/Makefile.in.in ; then
+   cp $srcdir/po/Makefile.in.in $srcdir/po/Makefile.in.in.bak
+   sed -e  "s/\@PACKAGE\@/\@GTKHTML_RELEASE_STRING\@/" $srcdir/po/Makefile.in.in.bak > $srcdir/po/Makefile.in.in
+else
+    AC_MSG_ERROR([
+""
+"Can't find Makefile: $srcdir/po/Makefile.in.in"
+])
+fi
+
 GNOME_COMPILE_WARNINGS
 
 AC_SUBST(CFLAGS)
