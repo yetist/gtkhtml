@@ -54,6 +54,7 @@
 #include "htmlclueflow.h"
 #include "htmlstack.h"
 #include "stringtokenizer.h"
+#include "htmlform.h"
 
 
 static void     html_engine_class_init (HTMLEngineClass *klass);
@@ -65,6 +66,7 @@ static void html_engine_end (GtkHTMLStreamHandle handle, GtkHTMLStreamStatus sta
 
 static void parse_one_token (HTMLEngine *p, HTMLObject *clue, const gchar *str);
 static HTMLURL *parse_href (HTMLEngine *e, const gchar *s);
+static void parse_input (HTMLEngine *e, const gchar *s);
 
 
 static GtkLayoutClass *parent_class = NULL;
@@ -943,6 +945,120 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	return str;
 }
 
+static void
+parse_input (HTMLEngine *e, const gchar *str) {
+	enum InputType { CheckBox, Hidden, Radio, Reset, Submit, Text, Image,
+			 Button, Password, Undefined };
+
+	const char *p;
+	enum InputType type = Text;
+	gchar *name = NULL;
+	gchar *value = NULL;
+	HTMLURL *imgSrc = NULL;
+	gboolean checked = FALSE;
+	int size = 20;
+	int maxLen = -1;
+
+	string_tokenizer_tokenize (e->st, str, " >");
+
+	while (string_tokenizer_has_more_tokens (e->st)) {
+
+		const gchar *token = string_tokenizer_next_token (e->st);
+
+		if ( strncasecmp( token, "type=", 5 ) == 0 ) {
+			p = token + 5;
+			if ( strncasecmp( p, "checkbox", 8 ) == 0 )
+				type = CheckBox;
+			else if ( strncasecmp( p, "password", 8 ) == 0 )
+				type = Password;
+			else if ( strncasecmp( p, "hidden", 6 ) == 0 )
+				type = Hidden;
+			else if ( strncasecmp( p, "radio", 5 ) == 0 )
+				type = Radio;
+			else if ( strncasecmp( p, "reset", 5 ) == 0 )
+				type = Reset;
+			else if ( strncasecmp( p, "submit", 5 ) == 0 )
+				type = Submit;
+			else if ( strncasecmp( p, "button", 6 ) == 0 )
+				type = Button;
+			else if ( strncasecmp( p, "text", 5 ) == 0 )
+				type = Text;
+			else if ( strncasecmp( p, "Image", 5 ) == 0 )
+				type = Image;
+		}
+		else if ( strncasecmp( token, "name=", 5 ) == 0 ) {
+			name = g_strdup(token + 5);
+		}
+		else if ( strncasecmp( token, "value=", 6 ) == 0 ) {
+			value = g_strdup(token + 6);
+		}
+		else if ( strncasecmp( token, "size=", 5 ) == 0 ) {
+			size = atoi( token + 5 );
+		}
+		else if ( strncasecmp( token, "maxlength=", 10 ) == 0 ) {
+			maxLen = atoi( token + 10 );
+		}
+		else if ( strncasecmp( token, "checked", 7 ) == 0 ) {
+			checked = TRUE;
+		}
+		else if ( strncasecmp( token, "src=", 4 ) == 0 ) {
+			imgSrc = parse_href(e, token + 4);
+		}
+		else if ( strncasecmp( token, "onClick=", 8 ) == 0 ) {
+			/* TODO: Implement Javascript */
+		}
+	}
+	switch ( type ) {
+	case CheckBox:
+		g_warning("Checkbox: name = '%s' value = '%s' checked = '%d'\n", name, value, checked);
+		break;
+	case Hidden:
+		g_warning("Hidden: name = '%s' value = '%s'\n", name, value);
+		break;
+	case Radio:
+		g_warning("Radio: name = '%s' value = '%s' checked = '%d'\n", name, value, checked);
+		break;
+	case Reset:
+		g_warning("Hidden: value = '%s'\n", value);
+		break;
+	case Submit:
+		g_warning("Submit: name = '%s' value = '%s'\n", name, value);
+		break;
+	case Button:
+		g_warning("Button: name = '%s' value = '%s' size = '%d'\n", name, value, size);
+		break;
+	case Text:
+		g_warning("Text: name = '%s' value = '%s' size = '%d'\n", name, value, size);
+		break;
+	case Password:
+		g_warning("Password: name = '%s' value = '%s' size = '%d'\n", name, value, size);
+		break;
+	case Image:
+		{
+		gchar *url = NULL;
+
+		if(imgSrc)
+			url = html_url_to_string(imgSrc);
+
+		g_warning("Image: imgsrc = '%s'\n", url);
+
+		if(url)
+			g_free(url);
+		break;
+		}
+	case Undefined:
+		break;
+	}
+
+	if(name)
+		g_free(name);
+	if(value)
+		g_free(value);
+	if(imgSrc)
+		html_url_destroy(imgSrc);
+}
+
+
 static HTMLURL *
 parse_href (HTMLEngine *e,
 	    const gchar *s)
@@ -1548,7 +1664,7 @@ parse_f (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		string_tokenizer_tokenize (p->st, str + 5, " >");
 
 		while (string_tokenizer_has_more_tokens (p->st)) {
-			gchar *token = string_tokenizer_next_token (p->st);
+			const gchar *token = string_tokenizer_next_token (p->st);
 			if (strncasecmp (token, "size=", 5) == 0) {
 				gint num = atoi (token + 5);
 				if (*(token + 5) == '+' || *(token + 5) == '-')
@@ -1573,7 +1689,43 @@ parse_f (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 	else if (strncmp (str, "/font", 5) == 0) {
 		pop_block (p, ID_FONT, clue);
 	}
-	
+	else if (strncmp (str, "form", 4) == 0) {
+                gchar *action = NULL;
+                gchar *method = "GET";
+                gchar *target = NULL;
+                    
+		string_tokenizer_tokenize (p->st, str + 5, " >");
+		while (string_tokenizer_has_more_tokens (p->st)) {
+			const gchar *token = string_tokenizer_next_token (p->st);
+
+                        if ( strncasecmp( token, "action=", 7 ) == 0 )
+                        {
+                                HTMLURL *u = parse_href( p, token + 7 );
+                                action = html_url_to_string(u);
+				html_url_destroy(u);
+                        }
+                        else if ( strncasecmp( token, "method=", 7 ) == 0 )
+                        {
+                                if ( strncasecmp( token + 7, "post", 4 ) == 0 )
+                                        method = "POST";
+                        }
+                        else if ( strncasecmp( token, "target=", 7 ) == 0 )
+                        {
+                            target = g_strdup(token + 7);
+                        }
+                }
+                
+                p->form = html_form_new(action, method);
+                p->formList = g_list_append(p->formList, p->form);
+		
+		if(action)
+			g_free(action);
+		if(target)
+			g_free(target);
+	}
+	else if (strncmp (str, "/form", 5) == 0) {
+		p->form = NULL;
+	}
 }
 
 
@@ -1824,6 +1976,16 @@ parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 				html_clue_append (HTML_CLUE (p->flow), HTML_OBJECT (aligned));
 			}
 		}		       
+	}
+	else if (strncmp( str, "input", 5 ) == 0) {
+		if ( p->form == 0 )
+			return;
+		
+		if (!p->flow)
+			html_engine_new_flow (p, _clue);
+
+		parse_input( p, str + 6 );
+		p->vspace_inserted = FALSE;
 	}
 	else if ( strncmp (str, "i", 1 ) == 0 ) {
 		if ( str[1] == '>' || str[1] == ' ' ) {
@@ -2562,6 +2724,8 @@ html_engine_init (HTMLEngine *engine)
 	engine->tempStrings = NULL;
 
 	engine->draw_queue = html_draw_queue_new (engine);
+
+	engine->formList = NULL;
 }
 
 HTMLEngine *

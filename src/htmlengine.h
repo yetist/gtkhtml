@@ -41,6 +41,7 @@ typedef struct _HTMLEngineClass HTMLEngineClass;
 #include "htmlpainter.h"
 #include "htmlurl.h"
 #include "stringtokenizer.h"
+#include "htmlform.h"
 
 #define HTML_TYPE_ENGINE                 (html_engine_get_type ())
 #define HTML_ENGINE(obj)                 (GTK_CHECK_CAST ((obj), HTML_TYPE_ENGINE, HTMLEngine))
@@ -165,6 +166,9 @@ struct _HTMLEngine {
 	GList *tempStrings;
 
 	HTMLDrawQueue *draw_queue;
+
+	HTMLForm *form;
+	GList *formList;
 };
 
 struct _HTMLEngineClass {

@@ -50,7 +50,8 @@ libgtkhtml_HEADERS =				\
 	htmltype.h				\
 	htmlurl.h				\
 	htmlvspace.h				\
-	stringtokenizer.h
+	stringtokenizer.h			\
+	htmlform.h
 
 libgtkhtml_la_SOURCES =				\
 	debug.c					\
@@ -88,7 +89,8 @@ libgtkhtml_la_SOURCES =				\
 	htmltype.c				\
 	htmlurl.c				\
 	htmlvspace.c				\
-	stringtokenizer.c
+	stringtokenizer.c			\
+	htmlform.c
 
 testgtkhtml_SOURCES = 		\
 	testgtkhtml.c

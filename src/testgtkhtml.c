@@ -112,6 +112,8 @@ static GnomeUIInfo test_menu[] = {
 	  test_cb, GINT_TO_POINTER (7), NULL, 0, 0, 0, 0},
 	{ GNOME_APP_UI_ITEM, "Test 8", "Run test 8 (local test)",
 	  test_cb, GINT_TO_POINTER (8), NULL, 0, 0, 0, 0},
+	{ GNOME_APP_UI_ITEM, "Test 9", "Run test 9 (Form Test)",
+	  test_cb, GINT_TO_POINTER (9), NULL, 0, 0, 0, 0},
 	GNOMEUIINFO_END
 };
 

@@ -1,3 +1,20 @@
+2000-01-01  Jonas Borgström <jonas_b@bitsmart.com>
+
+	* htmlengine.c (parse_i): Added support for <input> tag
+	(parse_f): Added support for <form> tag
+	(parse_input): New function
+	
+	* htmlengine.h: Added new members form and formList
+
+	* htmlform.c: New file, initial form support
+	* htmlform.h: New file.
+	
+	* testgtkhtml.c (): Added test9.html.
+	
+	* test9.html: New form test.
+
+	* Makefile.am: Added htmlform.c and htmlform.h
+
 1999-12-31  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlclueflow.c (calc_size): Set `o->y' as for some reason it
