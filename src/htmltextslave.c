@@ -572,7 +572,7 @@ get_glyphs_part (HTMLTextSlave *slave, HTMLPainter *painter, guint offset, guint
 	const gchar *text;
 
 	*items = get_items (slave, painter);
-	if (items) {
+	if (*items) {
 		PangoGlyphString *str;
 		PangoItem *item;
 		GList *il;

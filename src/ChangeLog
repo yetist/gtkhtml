@@ -1,3 +1,7 @@
+2003-03-09  Larry Ewing  <lewing@ximian.com>
+
+	* htmltextslave.c (get_glyphs_part): fix the check for itmems.
+
 2003-03-08  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine.c (html_engine_timer_event): flush the update timers
