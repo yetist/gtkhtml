@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-07 17:25+0100\n"
+"POT-Creation-Date: 2005-02-17 13:55+0200\n"
 "PO-Revision-Date: 2004-08-23 00:29+0300\n"
 "Last-Translator: Maxim Dziumanenko <mvd@mylinux.com.ua>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
@@ -18,20 +18,20 @@ msgstr ""
 #: a11y/image.c:150
 #, c-format
 msgid "URL is %s, Alternative Text is %s"
-msgstr ""
+msgstr "URL - %s, альтернативний текст %s"
 
 #: a11y/image.c:152
 #, c-format
 msgid "URL is %s"
-msgstr ""
+msgstr "URL - %s"
 
 #: a11y/object.c:50 a11y/object.c:59 a11y/text.c:111
 msgid "grab focus"
-msgstr ""
+msgstr "перехопити фокус"
 
 #: a11y/object.c:256
 msgid "Panel containing HTML"
-msgstr ""
+msgstr "Панель містить HTML"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:1
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
@@ -878,7 +878,7 @@ msgstr "Чернетка"
 
 #: components/html-editor/body.c:123
 msgid "Graph paper"
-msgstr "Міліметрівка"
+msgstr "Міліметровий папір"
 
 #: components/html-editor/body.c:243
 #: components/html-editor/gtkhtml-editor-properties.glade.h:53
@@ -929,9 +929,8 @@ msgid "Background Image"
 msgstr "Зображення на тлі"
 
 #: components/html-editor/body.c:298
-#, fuzzy
 msgid "Background Image File Path"
-msgstr "Зображення на тлі"
+msgstr "Шлях до файлу зображення на тлі"
 
 #: components/html-editor/body.c:301
 #: components/html-editor/gtkhtml-editor-properties.glade.h:71
@@ -947,7 +946,7 @@ msgstr "Не вдається завантажити файл формату Gla
 
 #: components/html-editor/cell.c:350 components/html-editor/table.c:231
 msgid "Transparent"
-msgstr "Прозорий"
+msgstr "Прозорість"
 
 #: components/html-editor/editor-control-factory.c:178
 #: components/html-editor/menubar.c:354 components/html-editor/menubar.c:372
@@ -974,9 +973,8 @@ msgid "Page"
 msgstr "Сторінка"
 
 #: components/html-editor/gi-color-combo.c:187
-#, fuzzy
 msgid "color preview"
-msgstr "Попередній перегляд"
+msgstr "взірець тексту"
 
 #. This is the default custom color
 #: components/html-editor/gi-color-palette.c:395
@@ -1180,7 +1178,7 @@ msgstr "небесно-блакитний"
 #. set the a11y name
 #: components/html-editor/gi-combo-box.c:419
 msgid "Popup"
-msgstr ""
+msgstr "Контекстне вікно"
 
 #: components/html-editor/gnome-gtkhtml-editor.c:68
 msgid "GtkHTML Editor Control"
@@ -1445,14 +1443,12 @@ msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
 #: components/html-editor/link.c:194
-#, fuzzy
 msgid "URL:"
-msgstr "_URL:"
+msgstr "URL:"
 
 #: components/html-editor/link.c:198
-#, fuzzy
 msgid "Description:"
-msgstr "_Опис:"
+msgstr "Опис:"
 
 #: components/html-editor/menubar.c:96 components/html-editor/menubar.c:104
 msgid "Insert image"
@@ -1661,12 +1657,10 @@ msgid "Case _sensitive"
 msgstr "Враховувати _регістр"
 
 #: components/html-editor/replace.c:182
-#, fuzzy
 msgid "R_eplace:"
-msgstr "Замінити:"
+msgstr "За_мінити:"
 
 #: components/html-editor/replace.c:186
-#, fuzzy
 msgid "_With:"
 msgstr "_Ширина:"
 
@@ -1680,13 +1674,15 @@ msgstr "_Регулярний вираз"
 
 #: components/html-editor/search.c:118
 msgid "Input the words you want to search here"
-msgstr ""
+msgstr "Введіть тут слова, які треба знайти"
 
 #: components/html-editor/spellchecker.c:110
 msgid ""
 "Unable to add word to dictionary,\n"
 "language settings are broken.\n"
 msgstr ""
+"Не вдається додати слово у словник,\n"
+"Неправильні параметри мови.\n"
 
 #: components/html-editor/spellchecker.c:298
 msgid "No misspelled word found"
@@ -1713,9 +1709,8 @@ msgid "Image frame"
 msgstr "Кадр зображення"
 
 #: components/html-editor/template.c:280
-#, fuzzy
 msgid "Template Labels"
-msgstr "Шаблон"
+msgstr "Мови шаблону"
 
 #: components/html-editor/test-html-editor-control.c:333
 msgid "Open file..."
@@ -1968,100 +1963,3 @@ msgstr "Попередній перегляд"
 #: src/testgtkhtml.c:1004
 msgid "GtkHTML Test Application"
 msgstr "Програма перевірки GtkHTML"
-
-#~ msgid "<None>"
-#~ msgstr "<Немає>"
-
-#~ msgid "\n"
-#~ msgstr "\n"
-
-#~ msgid "*********************"
-#~ msgstr "*********************"
-
-#~ msgid "Add Keyboard Shortcuts"
-#~ msgstr "Додавання комбінацій клавіш"
-
-#~ msgid "Automatically detect links"
-#~ msgstr "Автоматично виявляти посилання"
-
-#~ msgid "Behavior"
-#~ msgstr "Поведінка"
-
-#~ msgid "Composer Properties"
-#~ msgstr "Властивості редактора"
-
-#~ msgid "Composer Properties planned"
-#~ msgstr "Заплановані властивості редактора"
-
-#~ msgid "Configure spell checking"
-#~ msgstr "Перевірка орфографії"
-
-#~ msgid "Enable spell checking"
-#~ msgstr "Увімкнути перевірку орфографії"
-
-#~ msgid "Fixed width"
-#~ msgstr "Шрифт фіксованої ширини"
-
-#~ msgid "Fonts"
-#~ msgstr "Шрифти"
-
-#~ msgid "For printing"
-#~ msgstr "Для друку"
-
-#~ msgid "Grab keys"
-#~ msgstr "Захопити клавішу"
-
-#~ msgid "Information"
-#~ msgstr "Інформація"
-
-#~ msgid "Keyboard Shortcuts"
-#~ msgstr "Комбінації клавіш"
-
-#~ msgid "Miscellaneous"
-#~ msgstr "Різне"
-
-#~ msgid "New shortcut:"
-#~ msgstr "Нова комбінація клавіш:"
-
-#~ msgid "On screen"
-#~ msgstr "На екрані"
-
-#~ msgid "Select HTML fixed width font"
-#~ msgstr "Вибір шрифту фіксованої ширини HTML"
-
-#~ msgid "Select HTML fixed width font for printing"
-#~ msgstr "Вибір шрифту фіксованої ширини HTML для друку"
-
-#~ msgid "Select HTML variable width font"
-#~ msgstr "Вибір шрифту змінної ширини HTML"
-
-#~ msgid "Select HTML variable width font for printing"
-#~ msgstr "Вибір шрифту змінної ширини HTML для друку"
-
-#~ msgid "Shortcuts _type:"
-#~ msgstr "_Тип комбінації клавіш:"
-
-#~ msgid "Show animated images"
-#~ msgstr "Показувати анімовані зображення"
-
-#~ msgid "Variable width"
-#~ msgstr "Шрифт змінної ширини"
-
-#~ msgid "_Add"
-#~ msgstr "_Додати"
-
-#~ msgid "_Delete"
-#~ msgstr "В_идалити"
-
-#~ msgid ""
-#~ "Cannot execute GNOME Spell control applet\n"
-#~ "Try to install GNOME Spell if you don't have it installed."
-#~ msgstr ""
-#~ "Не вдається виконати аплет керування GNOME Spell.\n"
-#~ "Спробуйте встановити GNOME Spell, якщо він не встановлений."
-
-#~ msgid "With:"
-#~ msgstr "Ширина:"
-
-#~ msgid "Labels"
-#~ msgstr "Позначки"
