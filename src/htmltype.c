@@ -21,6 +21,7 @@
    Author: Ettore Perazzoli <ettore@comm2000.it>
 */
 
+#include <config.h>
 #include "htmltype.h"
 
 #include "htmlanchor.h"

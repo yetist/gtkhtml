@@ -1,3 +1,8 @@
+2000-12-14  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* *.c: Added #include <config.h> to all .c files and fixed some
+	_() marked strings to be N_() since they are static.
+	
 2000-12-13  Radek Doulik  <rodo@helixcode.com>
 
 	* gtkhtml.c (shift_to_iframe_parent): remove -1

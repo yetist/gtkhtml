@@ -31,6 +31,7 @@
 
 */
 
+#include <config.h>
 #include <glib.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 

@@ -24,6 +24,7 @@
    movement.  But for now, I think this is a reasonable way to get things to
    work.  */
 
+#include <config.h>
 #include <glib.h>
 
 #include "htmlclue.h"

@@ -19,6 +19,7 @@
    Boston, MA 02111-1307, USA.
 */
 
+#include <config.h>
 #include "gtkhtmldebug.h"
 #include "htmlclue.h"
 #include "htmlcolor.h"

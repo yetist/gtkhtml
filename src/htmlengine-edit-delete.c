@@ -19,6 +19,7 @@
     Boston, MA 02111-1307, USA.
 */
 
+#include <config.h>
 #include "htmlclue.h"
 #include "htmlclueflow.h"
 #include "htmltext.h"

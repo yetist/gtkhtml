@@ -21,6 +21,7 @@
 
 */
 
+#include <config.h>
 #include <gdk/gdk.h>
 
 #include "htmlcolor.h"

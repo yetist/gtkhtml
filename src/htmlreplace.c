@@ -21,6 +21,7 @@
 
 */
 
+#include <config.h>
 #include "htmlreplace.h"
 
 HTMLReplace *

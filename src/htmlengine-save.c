@@ -24,6 +24,7 @@
     <Daniel.Veillard@w3.org>.
 */
 
+#include <config.h>
 #include <string.h>
 #include <unicode.h>
 #include "config.h"

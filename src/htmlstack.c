@@ -21,6 +21,7 @@
     Author: Ettore Perazzoli <ettore@gnu.org>
 */
 
+#include <config.h>
 #include "htmlengine.h"
 #include "htmlstack.h"
 

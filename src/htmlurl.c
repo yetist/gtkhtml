@@ -20,6 +20,7 @@
 
     Author: Ettore Perazzoli (ettore@helixcode.com)  */
 
+#include <config.h>
 #include <stdio.h>
 #include <string.h>
 

@@ -19,6 +19,7 @@
    Boston, MA 02111-1307, USA.
 */
 
+#include <config.h>
 #include "htmlengine-cutbuffer.h"
 #include "htmlengine-edit-copy.h"
 #include "htmlengine-edit-selection-updater.h"

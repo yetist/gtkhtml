@@ -30,6 +30,7 @@
    of associating the paragraph properties to a new line.  */
 
 
+#include <config.h>
 #include "htmlclueflow.h"
 #include "htmlobject.h"
 #include "htmltext.h"

@@ -19,6 +19,7 @@
    Boston, MA 02111-1307, USA.
 */
 
+#include <config.h>
 #include "gtkhtml.h"
 #include "gtkhtml-properties.h"
 #include "htmlprinter.h"

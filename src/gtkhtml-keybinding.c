@@ -24,6 +24,7 @@
 /* This is all hardcoded, as we really don't care about a high degree
    of customization for now.  */
 
+#include <config.h>
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
 

@@ -19,6 +19,7 @@
     Boston, MA 02111-1307, USA.
 */
 
+#include <config.h>
 #include <unicode.h>
 #include "htmlcursor.h"
 #include "htmlengine.h"

@@ -23,6 +23,8 @@
    selectable object that does not accept the cursor is
    `HTMLClueFlow'.  */
 
+
+#include <config.h>
 #include "htmlengine-edit-selection-updater.h"
 #include "htmlinterval.h"
 #include "htmlselection.h"

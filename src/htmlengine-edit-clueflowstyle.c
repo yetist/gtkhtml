@@ -19,6 +19,7 @@
     Boston, MA 02111-1307, USA.
 */
 
+#include <config.h>
 #include "htmlengine-edit-clueflowstyle.h"
 #include "htmlundo.h"
 #include "htmltype.h"

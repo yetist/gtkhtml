@@ -21,6 +21,7 @@
  * Author: Ettore Perazzoli
  */
 
+#include <config.h>
 #include <string.h>
 
 #include <glib.h>
