@@ -6359,7 +6359,7 @@ html_engine_flush (HTMLEngine *e)
 HTMLImageFactory *
 html_engine_get_image_factory (HTMLEngine *e)
 {
-	return html_engine_get_top_html_engine (e)->image_factory;
+	return e->image_factory;
 }
 
 void
