@@ -158,8 +158,8 @@ calc_size (HTMLObject *self,
 	old_ascent = self->ascent;
 
 	gtk_widget_get_child_requisition (widget, &requisition);
-	emb->width = requisition.width;
-	emb->height = requisition.height;
+	emb->width = MAX (widget->allocation.width, requisition.width);
+	emb->height = MAX (widget->allocation.height, requisition.height);
 
 	self->width  = emb->width * pixel_size;
 	self->ascent = emb->height * pixel_size;
