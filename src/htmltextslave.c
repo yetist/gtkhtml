@@ -213,6 +213,15 @@ calc_perferred_width (HTMLObject *o)
 	return 0;
 }
 
+static const gchar *
+get_url (HTMLObject *o)
+{
+	HTMLTextSlave *slave;
+
+	slave = HTML_TEXT_SLAVE (o);
+	return html_object_get_url (HTML_OBJECT (slave->owner));
+}
+
 
 void
 html_text_slave_type_init (void)
@@ -235,6 +244,7 @@ html_text_slave_class_init (HTMLTextSlaveClass *klass,
 	object_class->fit_line = fit_line;
 	object_class->calc_min_width = calc_min_width;
 	object_class->calc_preferred_width = calc_perferred_width;
+	object_class->get_url = get_url;
 }
 
 void

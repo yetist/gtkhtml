@@ -87,8 +87,8 @@ html_link_text_init (HTMLLinkText *link_text_object,
 		     gchar *text,
 		     HTMLFont *font,
 		     HTMLPainter *painter,
-		     gchar *url,
-		     gchar *target)
+		     const gchar *url,
+		     const gchar *target)
 {
 	HTMLText *text_object;
 
@@ -96,17 +96,19 @@ html_link_text_init (HTMLLinkText *link_text_object,
 	html_text_init (text_object, HTML_TEXT_CLASS (klass),
 			text, font, painter);
 
-	link_text_object->url = url;
-	link_text_object->target = target;
+	link_text_object->url = g_strdup (url);
+	link_text_object->target = g_strdup (target);
 }
 
 HTMLObject *
 html_link_text_new (gchar *text, HTMLFont *font, HTMLPainter *painter,
-		    gchar *url, gchar *target)
+		    const gchar *url, const gchar *target)
 {
 	HTMLLinkText *link_text_object;
 
 	link_text_object = g_new (HTMLLinkText, 1);
+
+	printf ("%s url `%s' target `%s'\n", __FUNCTION__, url, target);
 
 	html_link_text_init (link_text_object, &html_link_text_class,
 			     text, font, painter, url, target);

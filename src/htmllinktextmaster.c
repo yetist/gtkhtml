@@ -46,6 +46,7 @@ destroy (HTMLObject *object)
 static const gchar *
 get_url (HTMLObject *object)
 {
+	printf ("%s: %s\n", __FUNCTION__, HTML_LINK_TEXT_MASTER (object)->url);
 	return HTML_LINK_TEXT_MASTER (object)->url;
 }
 

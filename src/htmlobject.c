@@ -342,7 +342,12 @@ html_object_calc_absolute_pos (HTMLObject *o, gint x, gint y)
 const gchar *
 html_object_get_url (HTMLObject *o)
 {
-	return (* HO_CLASS (o)->get_url) (o);
+	const gchar *url;
+
+	url = (* HO_CLASS (o)->get_url) (o);
+	printf ("%s (%s): %s\n", __FUNCTION__, html_type_name (HTML_OBJECT_TYPE (o)), url);
+
+	return url;
 }
 
 const gchar *
@@ -375,5 +380,23 @@ html_object_mouse_event (HTMLObject *self, gint x, gint y,
 HTMLObject *
 html_object_check_point (HTMLObject *self, gint x, gint y)
 {
-	return (* HO_CLASS (self)->check_point) (self, x, y);
+	HTMLObject *object;
+	gint i;
+
+#if 0
+	static gint counter = 2;
+	for (i = 0; i < counter; i++)
+		putchar (' ');
+	printf ("check_point %s %d %d %d %d\n", html_type_name (HTML_OBJECT_TYPE (self)),
+		(int) self->x, (int) self->y, (int) self->width, (int) self->ascent);
+	counter++;
+#endif
+
+	object = (* HO_CLASS (self)->check_point) (self, x, y);
+
+#if 0
+	counter--;
+#endif
+
+	return object;
 }

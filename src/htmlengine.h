@@ -174,6 +174,7 @@ void        html_painter_set_background_color (HTMLPainter *painter, GdkColor *c
 gint        html_engine_get_doc_height (HTMLEngine *p);
 void        html_engine_stop_parser (HTMLEngine *e);
 void        html_engine_calc_absolute_pos (HTMLEngine *e);
-char       *html_engine_canonicalize_url (HTMLEngine *e, const char *in_url);
+gchar      *html_engine_canonicalize_url (HTMLEngine *e, const char *in_url);
+gchar	   *html_engine_get_uri_at_pointer (HTMLEngine *e, gint x, gint y);
 
 #endif /* _HTMLENGINE_H_ */

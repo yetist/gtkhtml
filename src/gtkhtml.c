@@ -31,6 +31,7 @@ static void     gtk_html_unrealize     (GtkWidget *widget);
 static void     gtk_html_draw          (GtkWidget *widget, GdkRectangle *area);
 void            gtk_html_calc_scrollbars (GtkHTML *htm);
 static void     gtk_html_vertical_scroll (GtkAdjustment *adjustment, gpointer data);
+static gint	gtk_html_motion_notify_event (GtkWidget *widget, GdkEventMotion *event);
 
 static GtkLayoutClass *parent_class = NULL;
 
@@ -128,6 +129,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 	widget_class->draw = gtk_html_draw;
 	widget_class->expose_event  = gtk_html_expose;
 	widget_class->size_allocate = gtk_html_size_allocate;
+	widget_class->motion_notify_event = gtk_html_motion_notify_event;
 }
 
 static void
@@ -202,7 +204,7 @@ gtk_html_realize (GtkWidget *widget)
 
 	gdk_window_set_events (html->layout.bin_window,
 			       (gdk_window_get_events (html->layout.bin_window)
-				| GDK_EXPOSURE_MASK));
+				| GDK_EXPOSURE_MASK | GDK_POINTER_MOTION_MASK));
 
 	html_settings_set_bgcolor (html->engine->settings, 
 				   &widget->style->bg[GTK_STATE_NORMAL]);
@@ -285,6 +287,28 @@ gtk_html_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 
 }
 
+static gint
+gtk_html_motion_notify_event (GtkWidget	       *widget,
+			      GdkEventMotion     *event)
+{
+	gchar *uri;
+
+	g_return_val_if_fail (widget != NULL, 0);
+	g_return_val_if_fail (GTK_IS_HTML (widget), 0);
+	g_return_val_if_fail (event != NULL, 0);
+
+	printf ("%s (%d, %d)\n", __FUNCTION__, (int) event->x, (int) event->y);
+
+	uri = html_engine_get_uri_at_pointer (GTK_HTML (widget)->engine, event->x, event->y);
+	if (uri == NULL)
+		printf ("--> no URI\n");
+	else
+		printf ("--> %s\n", uri);
+
+	g_free (uri);
+
+	return TRUE;
+}
 
 void
 gtk_html_calc_scrollbars (GtkHTML *html)

@@ -2895,3 +2895,28 @@ html_engine_canonicalize_url (HTMLEngine *e, const char *in_url)
 	return retval;
 }
 #endif
+
+gchar *
+html_engine_get_uri_at_pointer (HTMLEngine *e, gint x, gint y)
+{
+	HTMLObject *obj;
+
+	if ( e->clue == NULL )
+		return NULL;
+
+#if 0
+	// Make this frame the active one
+	if ( bIsFrame && !bIsSelected )
+		htmlView->setSelected( TRUE );
+#endif
+
+	obj = html_object_check_point (HTML_OBJECT (e->clue),
+				       x + e->x_offset - e->leftBorder,
+				       y + e->y_offset - e->topBorder);
+
+	if ( obj != 0 )
+		return g_strdup (html_object_get_url (obj));
+
+	return NULL;
+}
+

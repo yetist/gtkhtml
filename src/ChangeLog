@@ -1,3 +1,17 @@
+1999-12-04  Ettore Perazzoli  <ettore@gnu.org>
+
+	* htmllinktext.c (html_link_text_init): Strdup the URL and the target strings.
+	(html_link_text_new): Made the `url' and `target' arguments const.
+	(html_link_text_init): Likewise.
+
+	* htmltextslave.c (get_url): Implementation of the `get_url'
+	virtual method.
+	(html_text_slave_class_init): Install it.
+
+	* gtkhtml.c (motion_notify_event): New function, handler for the
+	`notify_event' signal.
+	(gtk_html_class_init): Install it.
+
 1999-12-04  Anders Carlsson  <andersca@gnu.org>
 
 	* htmlcluev.c (appended): Traverse the aligned list, not the
