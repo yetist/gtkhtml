@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2003-07-26 16:15+0200\n"
+"POT-Creation-Date: 2003-12-07 14:35-0600\n"
 "PO-Revision-Date: 2003-07-26 16:15+0200\n"
 "Last-Translator: Данило Шеган <danilo@prevod.org>\n"
 "Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
@@ -21,7 +21,7 @@ msgid "<None>"
 msgstr "<Ништа>"
 
 #: capplet/gnome-bindings-prop.c:211 capplet/main.c:241
-#: components/html-editor/cell.c:418 components/html-editor/image.c:541
+#: components/html-editor/cell.c:419 components/html-editor/image.c:545
 #: components/html-editor/rule.c:316 components/html-editor/table.c:530
 #: components/html-editor/table.c:614 components/html-editor/template.c:272
 msgid "Could not load glade file."
@@ -256,7 +256,7 @@ msgid "Cut the selection"
 msgstr "Исеци изабрано"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
-#: components/html-editor/search.c:74 components/html-editor/search.c:126
+#: components/html-editor/search.c:77 components/html-editor/search.c:129
 msgid "Find"
 msgstr "Пронађи"
 
@@ -317,9 +317,9 @@ msgid "Header _6"
 msgstr "Заглавље _6"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
-#: components/html-editor/editor-control-factory.c:200
+#: components/html-editor/editor-control-factory.c:189
 #: components/html-editor/gtkhtml-editor-properties.glade.h:39
-#: components/html-editor/menubar.c:91 components/html-editor/popup.c:208
+#: components/html-editor/menubar.c:91 components/html-editor/popup.c:209
 msgid "Image"
 msgstr "Слика"
 
@@ -360,454 +360,466 @@ msgid "Insert Oh no! smiley into document..."
 msgstr "Убаци „О не!“ смешка у документ..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
+#, fuzzy
+msgid "Insert Sick smiley into document..."
+msgstr "Убаци исплаженог смешка у документ..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
 msgid "Insert Smile smiley into document..."
 msgstr "Убаци насмејаног смешка у документ..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
 msgid "Insert Surprised smiley into document..."
 msgstr "Убаци изненађеног смешка у документ..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
 msgid "Insert Undecided smiley into document..."
 msgstr "Убаци неодлучног смешка у документ..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
 msgid "Insert Wink smiley into document..."
 msgstr "Убаци намигујућег смешка у документ..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:52
 msgid "Insert image into document..."
 msgstr "Убаци слику у документ..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:52
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:53
 msgid "Insert rule into document..."
 msgstr "Убаци линију у документ..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:53
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
 msgid "Insert table into document..."
 msgstr "Убаци табелу у документ..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
 msgid "Insert text file into document..."
 msgstr "Уметни садржај датотеке у документ..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
 #: components/html-editor/toolbar.c:509
 msgid "Left justifies the paragraphs"
 msgstr "Поравнава пасусе на лево"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
 msgid "Li_ck"
 msgstr "_Исплази"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
-#: components/html-editor/body.c:327 components/html-editor/menubar.c:107
-#: components/html-editor/popup.c:105 components/html-editor/popup.c:201
-#: components/html-editor/popup.c:274
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:58
+#: components/html-editor/body.c:368 components/html-editor/menubar.c:107
+#: components/html-editor/popup.c:106 components/html-editor/popup.c:202
+#: components/html-editor/popup.c:275
 msgid "Link"
 msgstr "Веза"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:58
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
 msgid "Make the current Paragraph style Normal"
 msgstr "Постави стил текућег пасуса на обичан"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
-msgid "Make the current Paragraph style Preformat"
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
+#, fuzzy
+msgid "Make the current Paragraph style Preformatted"
 msgstr "Постави стил текућег пасуса на преформатиран"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
 msgid "Make the current paragraph a bulleted list"
 msgstr "Постави текући пасус на списак"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
 msgid "Make the current paragraph a list with roman numerals"
 msgstr "Постави текући пасус на списак са римским бројевима"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:63
 msgid "Make the current paragraph a numbered list"
 msgstr "Постави текући пасус на побројани списак"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:63
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:64
 msgid "Make the current paragraph an H1 header"
 msgstr "Постави текући пасус као H1 заглавље"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:64
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:65
 msgid "Make the current paragraph an H2 header"
 msgstr "Постави текући пасус као H2 заглавље"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:65
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:66
 msgid "Make the current paragraph an H3 header"
 msgstr "Постави текући пасус као H3 заглавље"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:66
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:67
 msgid "Make the current paragraph an H4 header"
 msgstr "Постави текући пасус као H4 заглавље"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:67
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:68
 msgid "Make the current paragraph an H5 header"
 msgstr "Постави текући пасус као H5 заглавље"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:68
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:69
 msgid "Make the current paragraph an H6 header"
 msgstr "Постави текући пасус као H6 заглавље"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:69
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:70
 msgid "Make the current paragraph an address"
 msgstr "Учини текући пасус адресом"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:70
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
 msgid "Make the current paragraph an alphabetical list"
 msgstr "Постави текући пасус на азбучни списак"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
 #: components/html-editor/gtkhtml-editor-properties.glade.h:49
-#: components/html-editor/paragraph.c:129 components/html-editor/toolbar.c:48
+#: components/html-editor/paragraph.c:131 components/html-editor/toolbar.c:48
 msgid "Normal"
 msgstr "Обичан"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
 #: components/html-editor/toolbar.c:51
 msgid "Numbered List"
 msgstr "Набројане ставке"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
 msgid "Numbered _List"
 msgstr "Набројане _ставке"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:75
 msgid "Oh _no!"
 msgstr "О, _не!"
 
 # bug: као воћка или као боја?
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:75
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
 msgid "Orange"
 msgstr "Наранџаста"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
 msgid "Other..."
 msgstr "Друго..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
 msgid "Paste"
 msgstr "Убаци"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
 msgid "Paste _Quotation"
 msgstr "Убаци _цитат"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
 msgid "Paste from clipboard"
 msgstr "Убаци из списка исечака"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
 msgid "Paste the clipboard"
 msgstr "Убаци из списка исечака"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
 msgid "Paste the clipboard as a quotation"
 msgstr "Убаци из списка исечака као цитат"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
-#: components/html-editor/toolbar.c:49
-msgid "Preformat"
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
+#: components/html-editor/paragraph.c:150
+#, fuzzy
+msgid "Preformatted"
 msgstr "Предобликуј"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
 msgid "Purple"
 msgstr "Љубичаста"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
 msgid "Red"
 msgstr "Црвена"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
 msgid "Redo"
 msgstr "Понови"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
 msgid "Redo previously undone change"
 msgstr "Понови претходно опозвану измену"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
 msgid "Redo the undone action"
 msgstr "Поврати опозвану акцију"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
-#: components/html-editor/replace.c:79 components/html-editor/replace.c:153
-#: components/html-editor/replace.c:215
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
+#: components/html-editor/replace.c:79 components/html-editor/replace.c:157
+#: components/html-editor/replace.c:219
 msgid "Replace"
 msgstr "Замени"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
 #: components/html-editor/toolbar.c:513
 msgid "Right justifies the paragraphs"
 msgstr "Поравнај пасусе на десно"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
 msgid "Roman Numeral List"
 msgstr "Побројани списак са римским бројевима"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
-#: components/html-editor/editor-control-factory.c:220
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
+#: components/html-editor/editor-control-factory.c:209
 #: components/html-editor/gtkhtml-editor-properties.glade.h:63
-#: components/html-editor/menubar.c:125 components/html-editor/popup.c:229
+#: components/html-editor/menubar.c:125 components/html-editor/popup.c:230
 msgid "Rule"
 msgstr "Линија"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
+#, fuzzy
+msgid "S_ick"
+msgstr "_Намигује"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
 msgid "Select _All"
 msgstr "Изабери _све"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
 msgid "Select the entire contents of the document"
 msgstr "Изабери сав садржај документа"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
 #: components/html-editor/gtkhtml-editor-properties.glade.h:69
-#: components/html-editor/text.c:238 components/html-editor/toolbar.c:528
+#: components/html-editor/text.c:239 components/html-editor/toolbar.c:528
 msgid "Strikeout"
 msgstr "Прецртај"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
 msgid "Su_perscript"
 msgstr "_Експонент"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
 msgid "Su_rprised"
 msgstr "И_зненађен"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
 msgid "Subs_cript"
 msgstr "Ин_декс"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 msgid "Subscript"
 msgstr "Индекс"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
 msgid "Superscript"
 msgstr "Експонент"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
-#: components/html-editor/menubar.c:142 components/html-editor/popup.c:236
-#: components/html-editor/popup.c:517 components/html-editor/popup.c:526
+#: components/html-editor/menubar.c:142 components/html-editor/popup.c:237
+#: components/html-editor/popup.c:518 components/html-editor/popup.c:527
 msgid "Table"
 msgstr "Табела"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
 msgid "Te_mplate..."
 msgstr "Шаблон..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
 msgid "Te_xt file..."
 msgstr "Текстуална датотека..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
-#: components/html-editor/body.c:257
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
+#: components/html-editor/body.c:298
 #: components/html-editor/gtkhtml-editor-properties.glade.h:74
 #: components/html-editor/menubar.c:165
 msgid "Template"
 msgstr "Шаблон"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
 #: components/html-editor/toolbar.c:520
 msgid "Typewriter"
 msgstr "Куцаћа машина"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
 msgid "Undo"
 msgstr "Опозови"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
 msgid "Undo previous changes"
 msgstr "Опозови претходне измене"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
 msgid "Undo the last action"
 msgstr "Опозови последњу акцију"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
 msgid "Yellow"
 msgstr "Жута"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
 msgid "_Alignment"
 msgstr "_Поравнање"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
 msgid "_Alphabetical List"
 msgstr "_Азбучни списак"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
 msgid "_Bold"
 msgstr "_Масно"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
 msgid "_Bulleted List"
 msgstr "_Списак помоћу тачака"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
 msgid "_Center"
 msgstr "_Центрирај"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
 msgid "_Copy"
 msgstr "_Умножи"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
 msgid "_Decrease Indent"
 msgstr "_Смањи увлачење реда"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
 msgid "_Edit"
 msgstr "_Уреди"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
 msgid "_Find..."
 msgstr "_Пронађи..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
 msgid "_Font Size"
 msgstr "Величина _писма"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
 msgid "_Frown"
 msgstr "_Намршти"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
 msgid "_HTML file..."
 msgstr "_HTML датотека..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
 msgid "_Heading"
 msgstr "_Заглавље"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
 msgid "_Image..."
 msgstr "Сл_ика..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
 msgid "_Increase Indent"
 msgstr "_Повећај увлачење реда"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
 msgid "_Indifferent"
 msgstr "_Незаинтересован"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:127
 msgid "_Insert"
 msgstr "Уметн_и"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:128
 msgid "_Italic"
 msgstr "_Курзив"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:127
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
 msgid "_Laughing"
 msgstr "_Веома насмејан"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:128
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
 msgid "_Left"
 msgstr "_Лево"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
 msgid "_Link..."
 msgstr "_Веза..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
 msgid "_Normal"
 msgstr "_Обичан"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:133
 msgid "_Page..."
 msgstr "_Страна..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:134
 msgid "_Paragraph..."
 msgstr "_Пасус..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:133
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
 msgid "_Paste"
 msgstr "У_баци"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:134
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
 msgid "_Plain text"
 msgstr "О_бичан текст"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
 msgid "_Preformat"
 msgstr "_Преформатирај"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
 msgid "_Redo"
 msgstr "_Понови"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:139
 msgid "_Replace..."
 msgstr "Зам_ени..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:140
 msgid "_Right"
 msgstr "_Десно"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:139
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:141
 msgid "_Roman Numeral List"
 msgstr "Побројани списак са _римским бројевима"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:140
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:142
 msgid "_Rule..."
 msgstr "_Линија..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:141
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:143
 msgid "_Smile"
 msgstr "_Смешак"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:142
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:144
 msgid "_Smiley"
 msgstr "_Смешко"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:143
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:145
 msgid "_Spell Check Document..."
 msgstr "Провери правопи_с документа..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:144
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:146
 msgid "_Strikeout"
 msgstr "_Прецртај"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:145
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:147
 msgid "_Style"
 msgstr "_Стил:"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:146
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:148
 msgid "_Table..."
 msgstr "_Табела..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:147
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:149
 msgid "_Text..."
 msgstr "_Текст..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:148
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:150
 msgid "_Undecided"
 msgstr "_Неодлучан"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:149
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:151
 msgid "_Underline"
 msgstr "_Подвуци"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:150
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:152
 msgid "_Undo"
 msgstr "Опо_зови"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:151
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:153
 msgid "_Wink"
 msgstr "_Намигује"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:152
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:154
 msgid "_Wrap Lines"
 msgstr "Пре_лом реда"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:153
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:155
 msgid "etc..."
 msgstr "итд."
 
@@ -826,10 +838,34 @@ msgid "Blue Ink"
 msgstr "Плаво мастило"
 
 #: components/html-editor/body.c:90
-msgid "Rectangles"
-msgstr "Правоугаоници"
+#, fuzzy
+msgid "Paper"
+msgstr "Страна"
+
+#: components/html-editor/body.c:98
+msgid "Ribbon"
+msgstr ""
+
+#: components/html-editor/body.c:106
+#, fuzzy
+msgid "Midnight"
+msgstr "Десно"
+
+#: components/html-editor/body.c:114
+#, fuzzy
+msgid "Confidential"
+msgstr "Поништи увлачење"
 
 #: components/html-editor/body.c:122
+msgid "Draft"
+msgstr ""
+
+#: components/html-editor/body.c:130
+msgid "Graph paper"
+msgstr ""
+
+#. string marked for translations is sample text. you may want to translate it to common sample text in your language
+#: components/html-editor/body.c:163
 msgid ""
 "The quick brown <a href=\"mailto:fox\">fox</a> jumps over the lazy <a href="
 "\"mailto:dog\">dog</a>."
@@ -837,48 +873,49 @@ msgstr ""
 "Брза смеђа <a href=\"mailto:лија\">лија</a> скаче преко лењог <a href="
 "\"mailto:џукац\">џукца</a>."
 
-#: components/html-editor/body.c:275 src/gtkhtml.c:2586
+#: components/html-editor/body.c:316 src/gtkhtml.c:2683
 msgid "Document Title"
 msgstr "Наслов документа"
 
-#: components/html-editor/body.c:279 components/html-editor/body.c:282
+#: components/html-editor/body.c:320 components/html-editor/body.c:323
 #: components/html-editor/gtkhtml-editor-properties.glade.h:15
 msgid "Background Image"
 msgstr "Позадинска слика"
 
-#: components/html-editor/body.c:304
+#: components/html-editor/body.c:345
 #: components/html-editor/gtkhtml-editor-properties.glade.h:25
 msgid "Colors"
 msgstr "Боје"
 
-#: components/html-editor/body.c:314 components/html-editor/cell.c:424
-#: components/html-editor/table.c:536 components/html-editor/text.c:296
+#: components/html-editor/body.c:355 components/html-editor/cell.c:425
+#: components/html-editor/table.c:536 components/html-editor/text.c:297
 #: components/html-editor/toolbar.c:300
 msgid "Automatic"
 msgstr "Препознај по наставку"
 
-#: components/html-editor/body.c:326
-#: components/html-editor/editor-control-factory.c:209
+#: components/html-editor/body.c:367
+#: components/html-editor/editor-control-factory.c:198
 #: components/html-editor/gtkhtml-editor-properties.glade.h:76
-#: components/html-editor/menubar.c:338 components/html-editor/popup.c:194
+#: components/html-editor/menubar.c:338 components/html-editor/popup.c:195
 msgid "Text"
 msgstr "Текст"
 
-#: components/html-editor/body.c:328
+#: components/html-editor/body.c:369
 #: components/html-editor/gtkhtml-editor-properties.glade.h:14
 msgid "Background"
 msgstr "Позадина"
 
-#: components/html-editor/cell.c:173 components/html-editor/cell.c:175
-#: components/html-editor/text.c:108
+#. string marked for translations is sample text. you may want to translate it to common sample text in your language
+#: components/html-editor/cell.c:174 components/html-editor/cell.c:176
+#: components/html-editor/text.c:109
 msgid "The quick brown fox jumps over the lazy dog."
 msgstr "Брза смеђа лисица скаче преко лењег пса."
 
-#: components/html-editor/cell.c:178
+#: components/html-editor/cell.c:179
 msgid "Other"
 msgstr "Остали"
 
-#: components/html-editor/cell.c:679
+#: components/html-editor/cell.c:680
 msgid ""
 "The editted cell was removed from the document.\n"
 "Cannot apply your changes."
@@ -886,21 +923,21 @@ msgstr ""
 "Измењена ћелија је уклоњена из документа.\n"
 "Не може да примени ваше измене."
 
-#: components/html-editor/editor-control-factory.c:189
+#: components/html-editor/editor-control-factory.c:178
 #: components/html-editor/menubar.c:317 components/html-editor/menubar.c:335
-#: components/html-editor/menubar.c:353 components/html-editor/popup.c:186
-#: components/html-editor/popup.c:271
+#: components/html-editor/menubar.c:353 components/html-editor/popup.c:187
+#: components/html-editor/popup.c:272
 msgid "Properties"
 msgstr "Поставке"
 
-#: components/html-editor/editor-control-factory.c:230
-#: components/html-editor/menubar.c:356 components/html-editor/popup.c:215
+#: components/html-editor/editor-control-factory.c:219
+#: components/html-editor/menubar.c:356 components/html-editor/popup.c:216
 msgid "Paragraph"
 msgstr "Пасус"
 
-#: components/html-editor/editor-control-factory.c:235
+#: components/html-editor/editor-control-factory.c:224
 #: components/html-editor/gtkhtml-editor-properties.glade.h:52
-#: components/html-editor/menubar.c:320 components/html-editor/popup.c:222
+#: components/html-editor/menubar.c:320 components/html-editor/popup.c:223
 msgid "Page"
 msgstr "Страна"
 
@@ -933,7 +970,7 @@ msgid "Apply changes to:"
 msgstr "Примени измене на:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:16
-#: components/html-editor/text.c:235 components/html-editor/toolbar.c:522
+#: components/html-editor/text.c:236 components/html-editor/toolbar.c:522
 msgid "Bold"
 msgstr "Масно"
 
@@ -950,17 +987,17 @@ msgid "Bottom"
 msgstr "Дно"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:20
-#: components/html-editor/popup.c:243
+#: components/html-editor/popup.c:244
 msgid "Cell"
 msgstr "Ћелија"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:21
-#: components/html-editor/paragraph.c:164 components/html-editor/toolbar.c:511
+#: components/html-editor/paragraph.c:173 components/html-editor/toolbar.c:511
 msgid "Center"
 msgstr "Центрирај"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:22
-#: components/html-editor/link.c:137 components/html-editor/text.c:246
+#: components/html-editor/link.c:137 components/html-editor/text.c:247
 msgid "Click will follow this URL"
 msgstr "Кликом ћете пратити ову везу"
 
@@ -973,7 +1010,7 @@ msgid "Color:"
 msgstr "Боја:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:26
-#: components/html-editor/popup.c:528
+#: components/html-editor/popup.c:529
 msgid "Column"
 msgstr "Колона"
 
@@ -1027,12 +1064,12 @@ msgid "Horizontal:"
 msgstr "Водоравно:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:40
-#: components/html-editor/text.c:236 components/html-editor/toolbar.c:524
+#: components/html-editor/text.c:237 components/html-editor/toolbar.c:524
 msgid "Italic"
 msgstr "Курзив"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:41
-#: components/html-editor/paragraph.c:163
+#: components/html-editor/paragraph.c:172
 msgid "Left"
 msgstr "Лево"
 
@@ -1086,12 +1123,12 @@ msgid "Points"
 msgstr "Штампарских тачака"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:59
-#: components/html-editor/paragraph.c:165
+#: components/html-editor/paragraph.c:174
 msgid "Right"
 msgstr "Десно"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:60
-#: components/html-editor/popup.c:527
+#: components/html-editor/popup.c:528
 msgid "Row"
 msgstr "Ред"
 
@@ -1112,7 +1149,7 @@ msgid "Shaded"
 msgstr "Замотан"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:66
-#: components/html-editor/text.c:262
+#: components/html-editor/text.c:263
 msgid "Size"
 msgstr "Величина"
 
@@ -1125,8 +1162,8 @@ msgid "Spacing:"
 msgstr "Размак:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:70
-#: components/html-editor/paragraph.c:115 components/html-editor/popup.c:472
-#: components/html-editor/text.c:222
+#: components/html-editor/paragraph.c:116 components/html-editor/popup.c:473
+#: components/html-editor/text.c:223
 msgid "Style"
 msgstr "Стил"
 
@@ -1152,7 +1189,7 @@ msgid "Top"
 msgstr "Врх"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:79
-#: components/html-editor/text.c:237 components/html-editor/toolbar.c:526
+#: components/html-editor/text.c:238 components/html-editor/toolbar.c:526
 msgid "Underline"
 msgstr "Подвлачење"
 
@@ -1241,7 +1278,7 @@ msgstr ""
 msgid "No image selected"
 msgstr "Слика није изабрана"
 
-#: components/html-editor/image.c:701
+#: components/html-editor/image.c:705
 msgid ""
 "The editted image was removed from the document.\n"
 "Cannot apply your changes."
@@ -1253,7 +1290,7 @@ msgstr ""
 msgid "Link text"
 msgstr "Текст везе"
 
-#: components/html-editor/link.c:210
+#: components/html-editor/link.c:211
 msgid ""
 "The editted link was removed from the document.\n"
 "Cannot apply your changes."
@@ -1263,8 +1300,8 @@ msgstr ""
 
 #: components/html-editor/menubar.c:88 components/html-editor/menubar.c:104
 #: components/html-editor/menubar.c:122 components/html-editor/menubar.c:139
-#: components/html-editor/menubar.c:162 components/html-editor/popup.c:102
-#: components/html-editor/properties.c:121
+#: components/html-editor/menubar.c:162 components/html-editor/popup.c:103
+#: components/html-editor/properties.c:122
 msgid "Insert"
 msgstr "Убаци"
 
@@ -1281,63 +1318,60 @@ msgstr "Уметни: HTML датотеку"
 msgid "Insert: Text File"
 msgstr "Уметни: текстуалну датотеку"
 
-#: components/html-editor/paragraph.c:61
+#. string marked for translations is sample text. you may want to translate it to common sample text in your language
+#: components/html-editor/paragraph.c:62
 msgid "The quick brown fox jumps over the lazy dog.</div>"
 msgstr "Брза смеђа лисица скаче преко лењог џукца.</div>"
 
-#: components/html-editor/paragraph.c:130
-msgid "Pre"
-msgstr "Кôд"
-
-#: components/html-editor/paragraph.c:131 components/html-editor/toolbar.c:54
+#: components/html-editor/paragraph.c:134 components/html-editor/toolbar.c:54
 msgid "Header 1"
 msgstr "Заглавље 1"
 
-#: components/html-editor/paragraph.c:132 components/html-editor/toolbar.c:55
+#: components/html-editor/paragraph.c:135 components/html-editor/toolbar.c:55
 msgid "Header 2"
 msgstr "Заглавље 2"
 
-#: components/html-editor/paragraph.c:133 components/html-editor/toolbar.c:56
+#: components/html-editor/paragraph.c:136 components/html-editor/toolbar.c:56
 msgid "Header 3"
 msgstr "Заглавље 3"
 
-#: components/html-editor/paragraph.c:134 components/html-editor/toolbar.c:57
+#: components/html-editor/paragraph.c:137 components/html-editor/toolbar.c:57
 msgid "Header 4"
 msgstr "Заглавље 4"
 
-#: components/html-editor/paragraph.c:135 components/html-editor/toolbar.c:58
+#: components/html-editor/paragraph.c:138 components/html-editor/toolbar.c:58
 msgid "Header 5"
 msgstr "Заглавље 5"
 
-#: components/html-editor/paragraph.c:136 components/html-editor/toolbar.c:59
+#: components/html-editor/paragraph.c:139 components/html-editor/toolbar.c:59
 msgid "Header 6"
 msgstr "Заглавље 6"
 
-#: components/html-editor/paragraph.c:137 components/html-editor/toolbar.c:60
-msgid "Address"
-msgstr "Адреса"
-
-#: components/html-editor/paragraph.c:138
+#: components/html-editor/paragraph.c:142
 msgid "Dot item"
 msgstr "Тачка уз ставку"
 
-#: components/html-editor/paragraph.c:139
+#: components/html-editor/paragraph.c:143
 msgid "Number item"
 msgstr "Број уз ставку"
 
-#: components/html-editor/paragraph.c:140
+#: components/html-editor/paragraph.c:144
 msgid "Roman item"
 msgstr "Римски број уз ставку"
 
-#: components/html-editor/paragraph.c:141
+#: components/html-editor/paragraph.c:145
 msgid "Alphabeta item"
 msgstr "Слобо уз ставку"
 
-#: components/html-editor/paragraph.c:150
+#: components/html-editor/paragraph.c:148 components/html-editor/toolbar.c:60
+msgid "Address"
+msgstr "Адреса"
+
+#: components/html-editor/paragraph.c:159
 msgid "Align"
 msgstr "Поравнај"
 
-#: components/html-editor/paragraph.c:194
+#: components/html-editor/paragraph.c:203
 msgid ""
 "The editted paragraph was removed from the document.\n"
 "Cannot apply your changes."
@@ -1345,101 +1379,101 @@ msgstr ""
 "Измењени пасус је уклоњен из документа.\n"
 "Не може да примени ваше измене."
 
-#: components/html-editor/popup.c:456
+#: components/html-editor/popup.c:457
 msgid "Paste Quotation"
 msgstr "Убаци цитат"
 
-#: components/html-editor/popup.c:459
+#: components/html-editor/popup.c:460
 msgid "Insert link"
 msgstr "Убаци везу"
 
-#: components/html-editor/popup.c:467
+#: components/html-editor/popup.c:468
 msgid "Remove link"
 msgstr "Уклони везу"
 
-#: components/html-editor/popup.c:475
+#: components/html-editor/popup.c:476
 msgid "Text Style..."
 msgstr "Стил текста..."
 
-#: components/html-editor/popup.c:477 components/html-editor/popup.c:483
-#: components/html-editor/popup.c:493
+#: components/html-editor/popup.c:478 components/html-editor/popup.c:484
+#: components/html-editor/popup.c:494
 msgid "Paragraph Style..."
 msgstr "Стил пасуса..."
 
-#: components/html-editor/popup.c:481
+#: components/html-editor/popup.c:482
 msgid "Link Style..."
 msgstr "Стил везе..."
 
-#: components/html-editor/popup.c:487
+#: components/html-editor/popup.c:488
 msgid "Rule Style..."
 msgstr "Стил линије..."
 
-#: components/html-editor/popup.c:491
+#: components/html-editor/popup.c:492
 msgid "Image Style..."
 msgstr "Стил слике..."
 
-#: components/html-editor/popup.c:502
+#: components/html-editor/popup.c:503
 msgid "Cell Style..."
 msgstr "Стил ћелије..."
 
-#: components/html-editor/popup.c:505
+#: components/html-editor/popup.c:506
 msgid "Table Style..."
 msgstr "Стил табеле..."
 
-#: components/html-editor/popup.c:511
+#: components/html-editor/popup.c:512
 msgid "Page Style..."
 msgstr "Стил стране..."
 
-#: components/html-editor/popup.c:516
+#: components/html-editor/popup.c:517
 msgid "Table insert"
 msgstr "Убаци табелу"
 
-#: components/html-editor/popup.c:519
+#: components/html-editor/popup.c:520
 msgid "Row above"
 msgstr "Ред изнад"
 
-#: components/html-editor/popup.c:520
+#: components/html-editor/popup.c:521
 msgid "Row below"
 msgstr "Ред испод"
 
-#: components/html-editor/popup.c:522
+#: components/html-editor/popup.c:523
 msgid "Column before"
 msgstr "Колона пре"
 
-#: components/html-editor/popup.c:523
+#: components/html-editor/popup.c:524
 msgid "Column after"
 msgstr "Колона после"
 
-#: components/html-editor/popup.c:525
+#: components/html-editor/popup.c:526
 msgid "Table delete"
 msgstr "Обриши табелу"
 
-#: components/html-editor/popup.c:529
+#: components/html-editor/popup.c:530
 msgid "Cell contents"
 msgstr "Садржај ћелије"
 
-#: components/html-editor/popup.c:539
+#: components/html-editor/popup.c:540
 msgid "Check Word Spelling..."
 msgstr "Проверите правопис речи..."
 
-#: components/html-editor/popup.c:544
+#: components/html-editor/popup.c:545
 msgid "Add Word to"
 msgstr "Додај реч у"
 
-#: components/html-editor/popup.c:548
+#: components/html-editor/popup.c:549
 #, c-format
 msgid "%s Dictionary"
 msgstr "%s речник"
 
-#: components/html-editor/popup.c:557
+#: components/html-editor/popup.c:558
 msgid "Add Word to Dictionary"
 msgstr "Додај реч у речник"
 
-#: components/html-editor/popup.c:560
+#: components/html-editor/popup.c:561
 msgid "Ignore Misspelled Word"
 msgstr "Занемари погрешно написану реч"
 
-#: components/html-editor/popup.c:563
+#: components/html-editor/popup.c:564
 msgid "Input Methods"
 msgstr "Начини уноса"
 
@@ -1455,19 +1489,19 @@ msgstr "Замени све"
 msgid "Next"
 msgstr "Следеће"
 
-#: components/html-editor/replace.c:161
+#: components/html-editor/replace.c:165
 msgid "Search _backward"
 msgstr "Тражи уна_зад"
 
-#: components/html-editor/replace.c:162 components/html-editor/search.c:80
+#: components/html-editor/replace.c:166 components/html-editor/search.c:83
 msgid "Case _sensitive"
 msgstr "Зависно од _величине слова"
 
-#: components/html-editor/replace.c:172
+#: components/html-editor/replace.c:176
 msgid "Replace:"
 msgstr "Замени:"
 
-#: components/html-editor/replace.c:175
+#: components/html-editor/replace.c:179
 msgid "With:"
 msgstr "Са:"
 
@@ -1487,19 +1521,19 @@ msgstr ""
 "Измењена линија је уклоњена из документа.\n"
 "Не може да примени ваше измене."
 
-#: components/html-editor/search.c:79
+#: components/html-editor/search.c:82
 msgid "_Backward"
 msgstr "Уна_зад"
 
-#: components/html-editor/search.c:126
+#: components/html-editor/search.c:129
 msgid "Find Regular Expression"
 msgstr "Нађи према регулараном изразу"
 
-#: components/html-editor/spell.c:274
+#: components/html-editor/spell.c:277
 msgid "Spell checker"
 msgstr "Провера правописа"
 
-#: components/html-editor/spell.c:361
+#: components/html-editor/spell.c:366
 msgid "Current _Languages"
 msgstr "Текући _језици"
 
@@ -1535,30 +1569,34 @@ msgstr "Оквир слике"
 msgid "Labels"
 msgstr "Ознаке"
 
-#: components/html-editor/test-html-editor-control.c:317
+#: components/html-editor/test-html-editor-control.c:323
 msgid "Open file..."
 msgstr "Отвори датотеку..."
 
-#: components/html-editor/test-html-editor-control.c:319
+#: components/html-editor/test-html-editor-control.c:325
 msgid "Save file as..."
 msgstr "Сачувај датотеку као..."
 
-#: components/html-editor/test-html-editor-control.c:541
+#: components/html-editor/test-html-editor-control.c:557
 msgid "GtkHTML Editor Test Container"
 msgstr "Пробни садржалац GtkHTML уређивача"
 
 #. color selection
-#: components/html-editor/text.c:292
+#: components/html-editor/text.c:293
 msgid "Color"
 msgstr "Боја"
 
-#: components/html-editor/text.c:334
+#: components/html-editor/text.c:335
 msgid ""
 "The editted text was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
 "Измењени текст је уклоњен из документа.\n"
 "Не може да примени ваше измене."
+
+#: components/html-editor/toolbar.c:49
+msgid "Preformat"
+msgstr "Предобликуј"
 
 #: components/html-editor/toolbar.c:52
 msgid "Roman List"
@@ -1612,71 +1650,71 @@ msgstr "Више увлачи пасус"
 msgid "Sample"
 msgstr "Пример"
 
-#: src/gtkhtml.c:2579
+#: src/gtkhtml.c:2676
 msgid "Editable"
 msgstr "Измењив"
 
-#: src/gtkhtml.c:2580
+#: src/gtkhtml.c:2677
 msgid "Whether the html can be edited"
 msgstr "Да ли се HTML може мењати"
 
-#: src/gtkhtml.c:2587
+#: src/gtkhtml.c:2684
 msgid "The title of the current document"
 msgstr "Наслов текућег документа"
 
-#: src/gtkhtml.c:2593
+#: src/gtkhtml.c:2690
 msgid "Document Base"
 msgstr "Основа документа"
 
-#: src/gtkhtml.c:2594
+#: src/gtkhtml.c:2691
 msgid "The base URL for relative references"
 msgstr "Основна адреса за релативне референце"
 
-#: src/gtkhtml.c:2600
+#: src/gtkhtml.c:2697
 msgid "Target Base"
 msgstr "Циљна основа"
 
-#: src/gtkhtml.c:2601
+#: src/gtkhtml.c:2698
 msgid "The base URL of the targe frame"
 msgstr "Основна адреса за циљни оквир"
 
-#: src/gtkhtml.c:2610
+#: src/gtkhtml.c:2707
 msgid "Fixed Width Font"
 msgstr "Писмо утврђене ширине"
 
-#: src/gtkhtml.c:2611
+#: src/gtkhtml.c:2708
 msgid "The Monospace font to use for typewriter text"
 msgstr "Писмо које треба користити за куцани текст"
 
-#: src/gtkhtml.c:2617
+#: src/gtkhtml.c:2714
 msgid "New Link Color"
 msgstr "Боја нових веза"
 
-#: src/gtkhtml.c:2618
+#: src/gtkhtml.c:2715
 msgid "The color of new link elements"
 msgstr "Боја нових веза"
 
-#: src/gtkhtml.c:2623
+#: src/gtkhtml.c:2720
 msgid "Visited Link Color"
 msgstr "Боја посећених веза"
 
-#: src/gtkhtml.c:2624
+#: src/gtkhtml.c:2721
 msgid "The color of visited link elements"
 msgstr "Боја посећених веза"
 
-#: src/gtkhtml.c:2629
+#: src/gtkhtml.c:2726
 msgid "Active Link Color"
 msgstr "Боја активних веза"
 
-#: src/gtkhtml.c:2630
+#: src/gtkhtml.c:2727
 msgid "The color of active link elements"
 msgstr "Боја активних веза"
 
-#: src/gtkhtml.c:2635
+#: src/gtkhtml.c:2732
 msgid "Spelling Error Color"
 msgstr "Боја правописних грешака"
 
-#: src/gtkhtml.c:2636
+#: src/gtkhtml.c:2733
 msgid "The color of the spelling error markers"
 msgstr "Боја за означавање правописних грешака"
 
@@ -1745,14 +1783,20 @@ msgstr "Не може да обезбеди подразумевано писм�
 msgid "GtkHTML Test"
 msgstr "ГткХТМЛ проба"
 
-#: src/testgtkhtml.c:110
+#: src/testgtkhtml.c:118
 msgid "Print pre_view"
 msgstr "Пре_глед пред штампу"
 
-#: src/testgtkhtml.c:110
+#: src/testgtkhtml.c:118
 msgid "Print preview"
 msgstr "Преглед пред штампу"
 
-#: src/testgtkhtml.c:973
+#: src/testgtkhtml.c:989
 msgid "GtkHTML Test Application"
 msgstr "ГткХТМЛ програм за испробавање"
+
+#~ msgid "Rectangles"
+#~ msgstr "Правоугаоници"
+
+#~ msgid "Pre"
+#~ msgstr "Кôд"

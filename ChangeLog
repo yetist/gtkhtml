@@ -1,3 +1,9 @@
+2003-12-07  Larry Ewing  <lewing@ximian.com>
+
+	* NEWS: update news for 3.1.4.
+
+	* configure.in: increase version number for release.
+
 2003-12-05  Radek Doulik  <rodo@ximian.com>
 
 	* configure.in: increased release minor number, gtk_html_flush added

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.6\n"
-"POT-Creation-Date: 2003-10-17 21:46+0900\n"
+"POT-Creation-Date: 2003-12-07 14:35-0600\n"
 "PO-Revision-Date: 2003-10-13 03:53+0900\n"
 "Last-Translator: Yukihiro Nakai <nakai@gnome.gr.jp>\n"
 "Language-Team: Japanese <translation@gnome.gr.jp>\n"
@@ -414,7 +414,8 @@ msgid "Make the current Paragraph style Normal"
 msgstr "現在の段落を通常スタイルにする"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
-msgid "Make the current Paragraph style Preformat"
+#, fuzzy
+msgid "Make the current Paragraph style Preformatted"
 msgstr "現在の段落をプリフォーマットスタイルにする"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
@@ -463,7 +464,7 @@ msgstr "現在の段落をアルファベットリストにする"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
 #: components/html-editor/gtkhtml-editor-properties.glade.h:49
-#: components/html-editor/paragraph.c:130 components/html-editor/toolbar.c:48
+#: components/html-editor/paragraph.c:131 components/html-editor/toolbar.c:48
 msgid "Normal"
 msgstr "通常"
 
@@ -509,8 +510,9 @@ msgid "Paste the clipboard as a quotation"
 msgstr "クリップボードの内容をクオートを付けて貼り付け"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
-#: components/html-editor/toolbar.c:49
-msgid "Preformat"
+#: components/html-editor/paragraph.c:150
+#, fuzzy
+msgid "Preformatted"
 msgstr "プリフォーマット"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
@@ -858,10 +860,11 @@ msgstr "グラフ用紙"
 msgid ""
 "The quick brown <a href=\"mailto:fox\">fox</a> jumps over the lazy <a href="
 "\"mailto:dog\">dog</a>."
-msgstr "すばしこいブラウンの<a href=\"mailto:fox\">きつねが</a>のろまな"
-"<a href=\"mailto:dog\">犬を</a>飛び越えた。"
+msgstr ""
+"すばしこいブラウンの<a href=\"mailto:fox\">きつねが</a>のろまな<a href="
+"\"mailto:dog\">犬を</a>飛び越えた。"
 
-#: components/html-editor/body.c:316 src/gtkhtml.c:2697
+#: components/html-editor/body.c:316 src/gtkhtml.c:2683
 msgid "Document Title"
 msgstr "ドキュメントタイトル"
 
@@ -980,7 +983,7 @@ msgid "Cell"
 msgstr "セル"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:21
-#: components/html-editor/paragraph.c:165 components/html-editor/toolbar.c:511
+#: components/html-editor/paragraph.c:173 components/html-editor/toolbar.c:511
 msgid "Center"
 msgstr "中央"
 
@@ -1056,7 +1059,7 @@ msgid "Italic"
 msgstr "斜体"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:41
-#: components/html-editor/paragraph.c:164
+#: components/html-editor/paragraph.c:172
 msgid "Left"
 msgstr "左"
 
@@ -1093,6 +1096,7 @@ msgid "Percent"
 msgstr "パーセント"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:55
+#, no-c-format
 msgid "Percent %"
 msgstr "パーセント %"
 
@@ -1109,7 +1113,7 @@ msgid "Points"
 msgstr "ポイント"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:59
-#: components/html-editor/paragraph.c:166
+#: components/html-editor/paragraph.c:174
 msgid "Right"
 msgstr "右"
 
@@ -1257,7 +1261,8 @@ msgid ""
 "This is sample text, designed to show you how text would flow around this "
 "image if you insert the image into your message."
 msgstr ""
-"これはサンプルテキストです。メッセージに画像を入れたときに、どのようにテキスト""が回り込むかを表示するように考えられています。"
+"これはサンプルテキストです。メッセージに画像を入れたときに、どのようにテキス"
+"トが回り込むかを表示するように考えられています。"
 
 #: components/html-editor/image.c:270
 msgid "No image selected"
@@ -1308,59 +1313,55 @@ msgstr "挿入: テキストファイル"
 msgid "The quick brown fox jumps over the lazy dog.</div>"
 msgstr "すばしこいブラウンのきつねがのろまな犬を飛び越した。</div>"
 
-#: components/html-editor/paragraph.c:131
-msgid "Pre"
-msgstr "PRE"
-
-#: components/html-editor/paragraph.c:132 components/html-editor/toolbar.c:54
+#: components/html-editor/paragraph.c:134 components/html-editor/toolbar.c:54
 msgid "Header 1"
 msgstr "ヘッダ1(H1)"
 
-#: components/html-editor/paragraph.c:133 components/html-editor/toolbar.c:55
+#: components/html-editor/paragraph.c:135 components/html-editor/toolbar.c:55
 msgid "Header 2"
 msgstr "ヘッダ2(H2)"
 
-#: components/html-editor/paragraph.c:134 components/html-editor/toolbar.c:56
+#: components/html-editor/paragraph.c:136 components/html-editor/toolbar.c:56
 msgid "Header 3"
 msgstr "ヘッダ3(H3)"
 
-#: components/html-editor/paragraph.c:135 components/html-editor/toolbar.c:57
+#: components/html-editor/paragraph.c:137 components/html-editor/toolbar.c:57
 msgid "Header 4"
 msgstr "ヘッダ4(H4)"
 
-#: components/html-editor/paragraph.c:136 components/html-editor/toolbar.c:58
+#: components/html-editor/paragraph.c:138 components/html-editor/toolbar.c:58
 msgid "Header 5"
 msgstr "ヘッダ5(H5)"
 
-#: components/html-editor/paragraph.c:137 components/html-editor/toolbar.c:59
+#: components/html-editor/paragraph.c:139 components/html-editor/toolbar.c:59
 msgid "Header 6"
 msgstr "ヘッダ6(H6)"
 
-#: components/html-editor/paragraph.c:138 components/html-editor/toolbar.c:60
-msgid "Address"
-msgstr "アドレス"
-
-#: components/html-editor/paragraph.c:139
+#: components/html-editor/paragraph.c:142
 msgid "Dot item"
 msgstr "ドット項目"
 
-#: components/html-editor/paragraph.c:140
+#: components/html-editor/paragraph.c:143
 msgid "Number item"
 msgstr "数字項目"
 
-#: components/html-editor/paragraph.c:141
+#: components/html-editor/paragraph.c:144
 msgid "Roman item"
 msgstr "ローマ数字項目"
 
-#: components/html-editor/paragraph.c:142
+#: components/html-editor/paragraph.c:145
 msgid "Alphabeta item"
 msgstr "アルファベット項目"
 
-#: components/html-editor/paragraph.c:151
+#: components/html-editor/paragraph.c:148 components/html-editor/toolbar.c:60
+msgid "Address"
+msgstr "アドレス"
+
+#: components/html-editor/paragraph.c:159
 msgid "Align"
 msgstr "位置"
 
-#: components/html-editor/paragraph.c:195
+#: components/html-editor/paragraph.c:203
 msgid ""
 "The editted paragraph was removed from the document.\n"
 "Cannot apply your changes."
@@ -1450,6 +1451,7 @@ msgid "Add Word to"
 msgstr "単語の追加 to"
 
 #: components/html-editor/popup.c:549
+#, c-format
 msgid "%s Dictionary"
 msgstr "%s 辞書"
 
@@ -1557,15 +1559,15 @@ msgstr "画像フレーム"
 msgid "Labels"
 msgstr "ラベル"
 
-#: components/html-editor/test-html-editor-control.c:317
+#: components/html-editor/test-html-editor-control.c:323
 msgid "Open file..."
 msgstr "ファイルを開く..."
 
-#: components/html-editor/test-html-editor-control.c:319
+#: components/html-editor/test-html-editor-control.c:325
 msgid "Save file as..."
 msgstr "別名で保存..."
 
-#: components/html-editor/test-html-editor-control.c:541
+#: components/html-editor/test-html-editor-control.c:557
 msgid "GtkHTML Editor Test Container"
 msgstr "GtkHTML エディタテストコンテナ"
 
@@ -1581,6 +1583,10 @@ msgid ""
 msgstr ""
 "編集されたテキストはドキュメントから削除されています。\n"
 "変更することはできません。"
+
+#: components/html-editor/toolbar.c:49
+msgid "Preformat"
+msgstr "プリフォーマット"
 
 #: components/html-editor/toolbar.c:52
 msgid "Roman List"
@@ -1634,71 +1640,71 @@ msgstr "段落のインデントを増やす"
 msgid "Sample"
 msgstr "サンプル"
 
-#: src/gtkhtml.c:2690
+#: src/gtkhtml.c:2676
 msgid "Editable"
 msgstr "編集可能"
 
-#: src/gtkhtml.c:2691
+#: src/gtkhtml.c:2677
 msgid "Whether the html can be edited"
 msgstr "HTMLが編集できるかどうか"
 
-#: src/gtkhtml.c:2698
+#: src/gtkhtml.c:2684
 msgid "The title of the current document"
 msgstr "ドキュメントのタイトル"
 
-#: src/gtkhtml.c:2704
+#: src/gtkhtml.c:2690
 msgid "Document Base"
 msgstr "ドキュメントのベース"
 
-#: src/gtkhtml.c:2705
+#: src/gtkhtml.c:2691
 msgid "The base URL for relative references"
 msgstr "相対参照のためのベースとなるURL"
 
-#: src/gtkhtml.c:2711
+#: src/gtkhtml.c:2697
 msgid "Target Base"
 msgstr "ターゲットのベース"
 
-#: src/gtkhtml.c:2712
+#: src/gtkhtml.c:2698
 msgid "The base URL of the targe frame"
 msgstr "ターゲットフレームのベースとなるURL"
 
-#: src/gtkhtml.c:2721
+#: src/gtkhtml.c:2707
 msgid "Fixed Width Font"
 msgstr "等幅フォント"
 
-#: src/gtkhtml.c:2722
+#: src/gtkhtml.c:2708
 msgid "The Monospace font to use for typewriter text"
 msgstr "タイプライタテキストが使用するモノスペースフォント"
 
-#: src/gtkhtml.c:2728
+#: src/gtkhtml.c:2714
 msgid "New Link Color"
 msgstr "新規リンクカラー"
 
-#: src/gtkhtml.c:2729
+#: src/gtkhtml.c:2715
 msgid "The color of new link elements"
 msgstr "新規リンクの色"
 
-#: src/gtkhtml.c:2734
+#: src/gtkhtml.c:2720
 msgid "Visited Link Color"
 msgstr "訪問済みリンクのカラー"
 
-#: src/gtkhtml.c:2735
+#: src/gtkhtml.c:2721
 msgid "The color of visited link elements"
 msgstr "訪問済みリンクの色"
 
-#: src/gtkhtml.c:2740
+#: src/gtkhtml.c:2726
 msgid "Active Link Color"
 msgstr "アクティブリンクカラー"
 
-#: src/gtkhtml.c:2741
+#: src/gtkhtml.c:2727
 msgid "The color of active link elements"
 msgstr "アクティブなリンクの色"
 
-#: src/gtkhtml.c:2746
+#: src/gtkhtml.c:2732
 msgid "Spelling Error Color"
 msgstr "スペルエラーカラー"
 
-#: src/gtkhtml.c:2747
+#: src/gtkhtml.c:2733
 msgid "The color of the spelling error markers"
 msgstr "スペルエラーマーカーの色"
 
@@ -1775,6 +1781,9 @@ msgstr "印刷プレビュー(_V)"
 msgid "Print preview"
 msgstr "印刷プレビュー"
 
-#: src/testgtkhtml.c:994
+#: src/testgtkhtml.c:989
 msgid "GtkHTML Test Application"
 msgstr "GtkHTMLテストアプリケーション"
+
+#~ msgid "Pre"
+#~ msgstr "PRE"

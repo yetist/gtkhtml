@@ -1,7 +1,16 @@
-gtkhtml-3.0.5 "Love Shack" 2003-06-02
+gtkhtml-3.1.4 "from the punchbowl" 2003-12-07
 ------------------------------------------------
-
 New in this release
+
+   * new and improved html parser handles broken html much better.
+   * better pango integration.
+   * updated translations.
+   * better ascii mode rendering of lists.
+   * improved exposure handling.
+   * improved animation rendering.
+   * versioned .server files for parallel installs with version 3.0.x.
+
+New in 3.0.5
 
   * lots of leaks fixed.
   * printing now uses the same fonts as display.

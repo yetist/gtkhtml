@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.txt\n"
-"POT-Creation-Date: 2003-06-26 11:33-0500\n"
+"POT-Creation-Date: 2003-12-07 14:35-0600\n"
 "PO-Revision-Date: 2003-03-17 15:05+0200\n"
 "Last-Translator: Gil 'Dolfin' Osher <dolfin@rpg.org.il>\n"
 "Language-Team: Hebrew <he@li.org>\n"
@@ -20,7 +20,7 @@ msgid "<None>"
 msgstr "<ללא>"
 
 #: capplet/gnome-bindings-prop.c:211 capplet/main.c:241
-#: components/html-editor/cell.c:418 components/html-editor/image.c:531
+#: components/html-editor/cell.c:419 components/html-editor/image.c:545
 #: components/html-editor/rule.c:316 components/html-editor/table.c:530
 #: components/html-editor/table.c:614 components/html-editor/template.c:272
 msgid "Could not load glade file."
@@ -254,7 +254,7 @@ msgid "Cut the selection"
 msgstr "גזור את הבחירה"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
-#: components/html-editor/search.c:74 components/html-editor/search.c:126
+#: components/html-editor/search.c:77 components/html-editor/search.c:129
 msgid "Find"
 msgstr "חפש"
 
@@ -315,9 +315,9 @@ msgid "Header _6"
 msgstr "כותרת _6"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
-#: components/html-editor/editor-control-factory.c:198
+#: components/html-editor/editor-control-factory.c:189
 #: components/html-editor/gtkhtml-editor-properties.glade.h:39
-#: components/html-editor/menubar.c:91 components/html-editor/popup.c:208
+#: components/html-editor/menubar.c:91 components/html-editor/popup.c:209
 msgid "Image"
 msgstr "תמונה"
 
@@ -358,454 +358,465 @@ msgid "Insert Oh no! smiley into document..."
 msgstr "הנס סמיילי הו-לא! למסמך..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
+#, fuzzy
+msgid "Insert Sick smiley into document..."
+msgstr "הכנס סמיילי מלקק למסמך..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
 msgid "Insert Smile smiley into document..."
 msgstr "הכנס סמיילי מחייך למסמך..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
 msgid "Insert Surprised smiley into document..."
 msgstr "הכנס סמיילי מופתע למסמך..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
 msgid "Insert Undecided smiley into document..."
 msgstr "הכנס סמיילי לא החלטי למסמך..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
 msgid "Insert Wink smiley into document..."
 msgstr "הכנס סמיילי קורץ למסמך..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:52
 msgid "Insert image into document..."
 msgstr "הכנס תמונה למסמך..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:52
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:53
 msgid "Insert rule into document..."
 msgstr "הכנס חוק למסמך..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:53
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
 msgid "Insert table into document..."
 msgstr "הכנס טבלה למסמך..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
 msgid "Insert text file into document..."
 msgstr "הכנס קובץ מלל למסמך..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
 #: components/html-editor/toolbar.c:509
 msgid "Left justifies the paragraphs"
 msgstr "יישר הפסקאות לשמאל"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
 msgid "Li_ck"
 msgstr "מ_לקק"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
-#: components/html-editor/body.c:327 components/html-editor/menubar.c:107
-#: components/html-editor/popup.c:105 components/html-editor/popup.c:201
-#: components/html-editor/popup.c:274
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:58
+#: components/html-editor/body.c:368 components/html-editor/menubar.c:107
+#: components/html-editor/popup.c:106 components/html-editor/popup.c:202
+#: components/html-editor/popup.c:275
 msgid "Link"
 msgstr "קישור"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:58
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
 msgid "Make the current Paragraph style Normal"
 msgstr "עשה את סגנון הפסקה הנוכחי רגיל"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
-msgid "Make the current Paragraph style Preformat"
-msgstr ""
-
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
+#, fuzzy
+msgid "Make the current Paragraph style Preformatted"
+msgstr "עשה את סגנון הפסקה הנוכחי רגיל"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
 msgid "Make the current paragraph a bulleted list"
 msgstr "עשה את סגנון הפסקה הנוכחי רשימה מובלטת"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
 msgid "Make the current paragraph a list with roman numerals"
 msgstr "עשה את סגנון הפסקה הנוכחי רשימה מספרית רומית"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:63
 msgid "Make the current paragraph a numbered list"
 msgstr "עשה את סגנון הפסקה הנוכחי רשימה מספרית"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:63
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:64
 msgid "Make the current paragraph an H1 header"
 msgstr "עשה את סגנון הפסקה הנוכחי כותרת H1"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:64
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:65
 msgid "Make the current paragraph an H2 header"
 msgstr "עשה את סגנון הפסקה הנוכחי כותרת H2"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:65
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:66
 msgid "Make the current paragraph an H3 header"
 msgstr "עשה את סגנון הפסקה הנוכחי כותרת H3"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:66
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:67
 msgid "Make the current paragraph an H4 header"
 msgstr "עשה את סגנון הפסקה הנוכחי כותרת H4"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:67
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:68
 msgid "Make the current paragraph an H5 header"
 msgstr "עשה את סגנון הפסקה הנוכחי כותרת H5"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:68
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:69
 msgid "Make the current paragraph an H6 header"
 msgstr "עשה את סגנון הפסקה הנוכחי כותרת H6"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:69
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:70
 msgid "Make the current paragraph an address"
 msgstr "עשה את סגנון הפסקה הנוכחי כתובת"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:70
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
 msgid "Make the current paragraph an alphabetical list"
 msgstr "עשה את סגנון הפסקה הנוכחי רשימה אלפבתית"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
 #: components/html-editor/gtkhtml-editor-properties.glade.h:49
-#: components/html-editor/paragraph.c:129 components/html-editor/toolbar.c:48
+#: components/html-editor/paragraph.c:131 components/html-editor/toolbar.c:48
 msgid "Normal"
 msgstr "רגיל"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
 #: components/html-editor/toolbar.c:51
 msgid "Numbered List"
 msgstr "רשימה מספרית"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
 msgid "Numbered _List"
 msgstr "_רשימה מספרית"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:75
 msgid "Oh _no!"
 msgstr "הו _לא!"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:75
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
 msgid "Orange"
 msgstr "כתום"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
 msgid "Other..."
 msgstr "אחר..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
 msgid "Paste"
 msgstr "הדבק"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
 msgid "Paste _Quotation"
 msgstr "הדבק _ציטוט"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
 msgid "Paste from clipboard"
 msgstr "הדבק מהלוח"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
 msgid "Paste the clipboard"
 msgstr "הדבק את הלוח"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
 msgid "Paste the clipboard as a quotation"
 msgstr "הדבק את הלוח כציטוט"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
-#: components/html-editor/toolbar.c:49
-msgid "Preformat"
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
+#: components/html-editor/paragraph.c:150
+msgid "Preformatted"
 msgstr ""
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
 msgid "Purple"
 msgstr "סגול"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
 msgid "Red"
 msgstr "אדום"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
 msgid "Redo"
 msgstr "בצע שוב"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
 msgid "Redo previously undone change"
 msgstr "בצע שוב את השינוי המבוטל הקודם"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
 msgid "Redo the undone action"
 msgstr "בצע שוב את הפעולה המובטלת"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
-#: components/html-editor/replace.c:79 components/html-editor/replace.c:153
-#: components/html-editor/replace.c:215
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
+#: components/html-editor/replace.c:79 components/html-editor/replace.c:157
+#: components/html-editor/replace.c:219
 msgid "Replace"
 msgstr "החלף"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
 #: components/html-editor/toolbar.c:513
 msgid "Right justifies the paragraphs"
 msgstr "יישר לימין את הפסקאות"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
 msgid "Roman Numeral List"
 msgstr "רשימה מספרית רומית"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
-#: components/html-editor/editor-control-factory.c:218
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
+#: components/html-editor/editor-control-factory.c:209
 #: components/html-editor/gtkhtml-editor-properties.glade.h:63
-#: components/html-editor/menubar.c:125 components/html-editor/popup.c:229
+#: components/html-editor/menubar.c:125 components/html-editor/popup.c:230
 msgid "Rule"
 msgstr "חוק"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
+#, fuzzy
+msgid "S_ick"
+msgstr "_קורץ"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
 msgid "Select _All"
 msgstr "בחר_הכול"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
 msgid "Select the entire contents of the document"
 msgstr "בחר את כול התכנים של המסמך"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
 #: components/html-editor/gtkhtml-editor-properties.glade.h:69
-#: components/html-editor/text.c:238 components/html-editor/toolbar.c:528
+#: components/html-editor/text.c:239 components/html-editor/toolbar.c:528
 msgid "Strikeout"
 msgstr "קו חוצה"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
 msgid "Su_perscript"
 msgstr ""
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
 msgid "Su_rprised"
 msgstr "_מופתע"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
 msgid "Subs_cript"
 msgstr ""
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 msgid "Subscript"
 msgstr ""
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
 msgid "Superscript"
 msgstr ""
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
-#: components/html-editor/menubar.c:142 components/html-editor/popup.c:236
-#: components/html-editor/popup.c:517 components/html-editor/popup.c:526
+#: components/html-editor/menubar.c:142 components/html-editor/popup.c:237
+#: components/html-editor/popup.c:518 components/html-editor/popup.c:527
 msgid "Table"
 msgstr "טבלה"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
 msgid "Te_mplate..."
 msgstr "_תבנית..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
 msgid "Te_xt file..."
 msgstr "קובץ _מלל..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
-#: components/html-editor/body.c:257
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
+#: components/html-editor/body.c:298
 #: components/html-editor/gtkhtml-editor-properties.glade.h:74
 #: components/html-editor/menubar.c:165
 msgid "Template"
 msgstr "תבנית"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
 #: components/html-editor/toolbar.c:520
 msgid "Typewriter"
 msgstr "מכונת-כתיבה"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
 msgid "Undo"
 msgstr "בטל"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
 msgid "Undo previous changes"
 msgstr "בטל את השינויים האחרונים"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
 msgid "Undo the last action"
 msgstr "בטל את השינוי האחרון"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
 msgid "Yellow"
 msgstr "צהוב"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
 msgid "_Alignment"
 msgstr "_יישור"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
 msgid "_Alphabetical List"
 msgstr "רשימה _אלפבתית"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
 msgid "_Bold"
 msgstr "_מודגש"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
 msgid "_Bulleted List"
 msgstr "רשימה _מובלטת"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
 msgid "_Center"
 msgstr "_מרכז"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
 msgid "_Copy"
 msgstr "ה_עתק"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
 msgid "_Decrease Indent"
 msgstr "ה_קטן הזחה"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
 msgid "_Edit"
 msgstr "_עריכה"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
 msgid "_Find..."
 msgstr "_חפש..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
 msgid "_Font Size"
 msgstr "_גודל הגופן"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
 msgid "_Frown"
 msgstr "_זועף"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
 msgid "_HTML file..."
 msgstr "_קובץ HTML..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
 msgid "_Heading"
 msgstr "_כותרת"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
 msgid "_Image..."
 msgstr "_תמונה..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
 msgid "_Increase Indent"
 msgstr "ה_גדל הזחה"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
 msgid "_Indifferent"
 msgstr "_אדיש"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:127
 msgid "_Insert"
 msgstr "ה_כנס"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:128
 msgid "_Italic"
 msgstr "_נטוי"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:127
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
 msgid "_Laughing"
 msgstr "_צוחק"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:128
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
 msgid "_Left"
 msgstr "_שמאל"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
 msgid "_Link..."
 msgstr "_קישור..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
 msgid "_Normal"
 msgstr "_רגיל"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:133
 msgid "_Page..."
 msgstr "_עמוד..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:134
 msgid "_Paragraph..."
 msgstr "_פסקה..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:133
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
 msgid "_Paste"
 msgstr "ה_דבק"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:134
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
 msgid "_Plain text"
 msgstr "מלל _פשוט"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
 msgid "_Preformat"
 msgstr ""
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
 msgid "_Redo"
 msgstr "_בצע שוב"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:139
 msgid "_Replace..."
 msgstr "_החלף..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:140
 msgid "_Right"
 msgstr "_ימין"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:139
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:141
 msgid "_Roman Numeral List"
 msgstr "רשימה מספרית _רומית"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:140
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:142
 msgid "_Rule..."
 msgstr "_חוק..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:141
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:143
 msgid "_Smile"
 msgstr "מ_חייך"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:142
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:144
 msgid "_Smiley"
 msgstr "_סמיילי"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:143
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:145
 msgid "_Spell Check Document..."
 msgstr "_בדוק איות במסמך..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:144
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:146
 msgid "_Strikeout"
 msgstr "_קו חוצה"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:145
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:147
 msgid "_Style"
 msgstr "_סגנון"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:146
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:148
 msgid "_Table..."
 msgstr "_טבלה..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:147
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:149
 msgid "_Text..."
 msgstr "_מלל..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:148
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:150
 msgid "_Undecided"
 msgstr "_לא החלטי"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:149
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:151
 msgid "_Underline"
 msgstr "_קו תחתי"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:150
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:152
 msgid "_Undo"
 msgstr "_בטל"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:151
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:153
 msgid "_Wink"
 msgstr "_קורץ"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:152
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:154
 #, fuzzy
 msgid "_Wrap Lines"
 msgstr "גלישה:"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:153
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:155
 msgid "etc..."
 msgstr "וכו'..."
 
@@ -823,52 +834,83 @@ msgid "Blue Ink"
 msgstr "דיו כחול"
 
 #: components/html-editor/body.c:90
-msgid "Rectangles"
-msgstr "מלבנים"
+#, fuzzy
+msgid "Paper"
+msgstr "עמוד"
 
-#: components/html-editor/body.c:275 src/gtkhtml.c:2555
+#: components/html-editor/body.c:98
+msgid "Ribbon"
+msgstr ""
+
+#: components/html-editor/body.c:106
+#, fuzzy
+msgid "Midnight"
+msgstr "ימין"
+
+#: components/html-editor/body.c:114
+#, fuzzy
+msgid "Confidential"
+msgstr "בטל הזחה"
+
+#: components/html-editor/body.c:122
+msgid "Draft"
+msgstr ""
+
+#: components/html-editor/body.c:130
+msgid "Graph paper"
+msgstr ""
+
+#. string marked for translations is sample text. you may want to translate it to common sample text in your language
+#: components/html-editor/body.c:163
+#, fuzzy
+msgid ""
+"The quick brown <a href=\"mailto:fox\">fox</a> jumps over the lazy <a href="
+"\"mailto:dog\">dog</a>."
+msgstr "לך אל הנמלה עצל ראה דרכיה וחכם."
+
+#: components/html-editor/body.c:316 src/gtkhtml.c:2683
 msgid "Document Title"
 msgstr "כותרת המסמך"
 
-#: components/html-editor/body.c:279 components/html-editor/body.c:282
+#: components/html-editor/body.c:320 components/html-editor/body.c:323
 #: components/html-editor/gtkhtml-editor-properties.glade.h:15
 msgid "Background Image"
 msgstr "תמונת הרקע"
 
-#: components/html-editor/body.c:304
+#: components/html-editor/body.c:345
 #: components/html-editor/gtkhtml-editor-properties.glade.h:25
 msgid "Colors"
 msgstr "צבעים"
 
-#: components/html-editor/body.c:314 components/html-editor/cell.c:424
-#: components/html-editor/table.c:536 components/html-editor/text.c:296
+#: components/html-editor/body.c:355 components/html-editor/cell.c:425
+#: components/html-editor/table.c:536 components/html-editor/text.c:297
 #: components/html-editor/toolbar.c:300
 msgid "Automatic"
 msgstr "אוטומטי"
 
-#: components/html-editor/body.c:326
-#: components/html-editor/editor-control-factory.c:207
+#: components/html-editor/body.c:367
+#: components/html-editor/editor-control-factory.c:198
 #: components/html-editor/gtkhtml-editor-properties.glade.h:76
-#: components/html-editor/menubar.c:338 components/html-editor/popup.c:194
+#: components/html-editor/menubar.c:338 components/html-editor/popup.c:195
 msgid "Text"
 msgstr "מלל"
 
-#: components/html-editor/body.c:328
+#: components/html-editor/body.c:369
 #: components/html-editor/gtkhtml-editor-properties.glade.h:14
 msgid "Background"
 msgstr "רקע"
 
-#: components/html-editor/cell.c:173 components/html-editor/cell.c:175
-#: components/html-editor/image.c:257 components/html-editor/image.c:260
-#: components/html-editor/text.c:108
+#. string marked for translations is sample text. you may want to translate it to common sample text in your language
+#: components/html-editor/cell.c:174 components/html-editor/cell.c:176
+#: components/html-editor/text.c:109
 msgid "The quick brown fox jumps over the lazy dog."
 msgstr "לך אל הנמלה עצל ראה דרכיה וחכם."
 
-#: components/html-editor/cell.c:178
+#: components/html-editor/cell.c:179
 msgid "Other"
 msgstr "אחר"
 
-#: components/html-editor/cell.c:679
+#: components/html-editor/cell.c:680
 msgid ""
 "The editted cell was removed from the document.\n"
 "Cannot apply your changes."
@@ -876,21 +918,21 @@ msgstr ""
 "התא הערוך הוסר מהמסמך.\n"
 "לא ניתן להחיל את שינוייך."
 
-#: components/html-editor/editor-control-factory.c:187
+#: components/html-editor/editor-control-factory.c:178
 #: components/html-editor/menubar.c:317 components/html-editor/menubar.c:335
-#: components/html-editor/menubar.c:353 components/html-editor/popup.c:186
-#: components/html-editor/popup.c:271
+#: components/html-editor/menubar.c:353 components/html-editor/popup.c:187
+#: components/html-editor/popup.c:272
 msgid "Properties"
 msgstr "מאפיינים"
 
-#: components/html-editor/editor-control-factory.c:228
-#: components/html-editor/menubar.c:356 components/html-editor/popup.c:215
+#: components/html-editor/editor-control-factory.c:219
+#: components/html-editor/menubar.c:356 components/html-editor/popup.c:216
 msgid "Paragraph"
 msgstr "פסקה"
 
-#: components/html-editor/editor-control-factory.c:233
+#: components/html-editor/editor-control-factory.c:224
 #: components/html-editor/gtkhtml-editor-properties.glade.h:52
-#: components/html-editor/menubar.c:320 components/html-editor/popup.c:222
+#: components/html-editor/menubar.c:320 components/html-editor/popup.c:223
 msgid "Page"
 msgstr "עמוד"
 
@@ -924,7 +966,7 @@ msgid "Apply changes to:"
 msgstr "החל שינויים בעבור:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:16
-#: components/html-editor/text.c:235 components/html-editor/toolbar.c:522
+#: components/html-editor/text.c:236 components/html-editor/toolbar.c:522
 msgid "Bold"
 msgstr "מודגש"
 
@@ -941,17 +983,17 @@ msgid "Bottom"
 msgstr "תחתית"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:20
-#: components/html-editor/popup.c:243
+#: components/html-editor/popup.c:244
 msgid "Cell"
 msgstr "תא"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:21
-#: components/html-editor/paragraph.c:164 components/html-editor/toolbar.c:511
+#: components/html-editor/paragraph.c:173 components/html-editor/toolbar.c:511
 msgid "Center"
 msgstr "מרכז"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:22
-#: components/html-editor/link.c:137 components/html-editor/text.c:246
+#: components/html-editor/link.c:137 components/html-editor/text.c:247
 msgid "Click will follow this URL"
 msgstr "לחיצה תעקוב אחרי כתובת זו"
 
@@ -964,7 +1006,7 @@ msgid "Color:"
 msgstr "צבע:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:26
-#: components/html-editor/popup.c:528
+#: components/html-editor/popup.c:529
 msgid "Column"
 msgstr "עמודה"
 
@@ -1017,12 +1059,12 @@ msgid "Horizontal:"
 msgstr "אופקי:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:40
-#: components/html-editor/text.c:236 components/html-editor/toolbar.c:524
+#: components/html-editor/text.c:237 components/html-editor/toolbar.c:524
 msgid "Italic"
 msgstr "נטוי"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:41
-#: components/html-editor/paragraph.c:163
+#: components/html-editor/paragraph.c:172
 msgid "Left"
 msgstr "שמאל"
 
@@ -1076,12 +1118,12 @@ msgid "Points"
 msgstr "נקודות"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:59
-#: components/html-editor/paragraph.c:165
+#: components/html-editor/paragraph.c:174
 msgid "Right"
 msgstr "ימין"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:60
-#: components/html-editor/popup.c:527
+#: components/html-editor/popup.c:528
 msgid "Row"
 msgstr "שורה"
 
@@ -1102,7 +1144,7 @@ msgid "Shaded"
 msgstr "מוצלל"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:66
-#: components/html-editor/text.c:262
+#: components/html-editor/text.c:263
 msgid "Size"
 msgstr "גודל"
 
@@ -1115,7 +1157,8 @@ msgid "Spacing:"
 msgstr "מרווח:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:70
-#: components/html-editor/paragraph.c:115 components/html-editor/text.c:222
+#: components/html-editor/paragraph.c:116 components/html-editor/popup.c:473
+#: components/html-editor/text.c:223
 msgid "Style"
 msgstr "סגנון"
 
@@ -1141,7 +1184,7 @@ msgid "Top"
 msgstr "מעלה"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:79
-#: components/html-editor/text.c:237 components/html-editor/toolbar.c:526
+#: components/html-editor/text.c:238 components/html-editor/toolbar.c:526
 msgid "Underline"
 msgstr "קו תחתי"
 
@@ -1218,7 +1261,17 @@ msgstr ""
 "@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[הכנס את "
 "הערתך כאן]</td></tr></table></td></tr></table></center>"
 
-#: components/html-editor/image.c:691
+#: components/html-editor/image.c:258 components/html-editor/image.c:264
+msgid ""
+"This is sample text, designed to show you how text would flow around this "
+"image if you insert the image into your message."
+msgstr ""
+
+#: components/html-editor/image.c:270
+msgid "No image selected"
+msgstr ""
+
+#: components/html-editor/image.c:705
 msgid ""
 "The editted image was removed from the document.\n"
 "Cannot apply your changes."
@@ -1230,7 +1283,7 @@ msgstr ""
 msgid "Link text"
 msgstr "מלל קישור"
 
-#: components/html-editor/link.c:210
+#: components/html-editor/link.c:211
 msgid ""
 "The editted link was removed from the document.\n"
 "Cannot apply your changes."
@@ -1240,8 +1293,8 @@ msgstr ""
 
 #: components/html-editor/menubar.c:88 components/html-editor/menubar.c:104
 #: components/html-editor/menubar.c:122 components/html-editor/menubar.c:139
-#: components/html-editor/menubar.c:162 components/html-editor/popup.c:102
-#: components/html-editor/properties.c:121
+#: components/html-editor/menubar.c:162 components/html-editor/popup.c:103
+#: components/html-editor/properties.c:122
 msgid "Insert"
 msgstr "הכנס"
 
@@ -1260,59 +1313,61 @@ msgstr "הכנס קובץ HTML"
 msgid "Insert: Text File"
 msgstr "הכנס קובץ מלל"
 
-#: components/html-editor/paragraph.c:130
-msgid "Pre"
-msgstr ""
+#. string marked for translations is sample text. you may want to translate it to common sample text in your language
+#: components/html-editor/paragraph.c:62
+#, fuzzy
+msgid "The quick brown fox jumps over the lazy dog.</div>"
+msgstr "לך אל הנמלה עצל ראה דרכיה וחכם."
 
-#: components/html-editor/paragraph.c:131 components/html-editor/toolbar.c:54
+#: components/html-editor/paragraph.c:134 components/html-editor/toolbar.c:54
 msgid "Header 1"
 msgstr "כותרת 1"
 
-#: components/html-editor/paragraph.c:132 components/html-editor/toolbar.c:55
+#: components/html-editor/paragraph.c:135 components/html-editor/toolbar.c:55
 msgid "Header 2"
 msgstr "כותרת 2"
 
-#: components/html-editor/paragraph.c:133 components/html-editor/toolbar.c:56
+#: components/html-editor/paragraph.c:136 components/html-editor/toolbar.c:56
 msgid "Header 3"
 msgstr "כותרת 3"
 
-#: components/html-editor/paragraph.c:134 components/html-editor/toolbar.c:57
+#: components/html-editor/paragraph.c:137 components/html-editor/toolbar.c:57
 msgid "Header 4"
 msgstr "כותרת 4"
 
-#: components/html-editor/paragraph.c:135 components/html-editor/toolbar.c:58
+#: components/html-editor/paragraph.c:138 components/html-editor/toolbar.c:58
 msgid "Header 5"
 msgstr "כותרת 5"
 
-#: components/html-editor/paragraph.c:136 components/html-editor/toolbar.c:59
+#: components/html-editor/paragraph.c:139 components/html-editor/toolbar.c:59
 msgid "Header 6"
 msgstr "כותרת 6"
 
-#: components/html-editor/paragraph.c:137 components/html-editor/toolbar.c:60
-msgid "Address"
-msgstr "כתובת"
-
-#: components/html-editor/paragraph.c:138
+#: components/html-editor/paragraph.c:142
 msgid "Dot item"
 msgstr "פריט נקודה"
 
-#: components/html-editor/paragraph.c:139
+#: components/html-editor/paragraph.c:143
 msgid "Number item"
 msgstr "פריט מספר"
 
-#: components/html-editor/paragraph.c:140
+#: components/html-editor/paragraph.c:144
 msgid "Roman item"
 msgstr "פריט רומאי"
 
-#: components/html-editor/paragraph.c:141
+#: components/html-editor/paragraph.c:145
 msgid "Alphabeta item"
 msgstr "פריט אלפבתי"
 
-#: components/html-editor/paragraph.c:150
+#: components/html-editor/paragraph.c:148 components/html-editor/toolbar.c:60
+msgid "Address"
+msgstr "כתובת"
+
+#: components/html-editor/paragraph.c:159
 msgid "Align"
 msgstr "סידור"
 
-#: components/html-editor/paragraph.c:194
+#: components/html-editor/paragraph.c:203
 msgid ""
 "The editted paragraph was removed from the document.\n"
 "Cannot apply your changes."
@@ -1320,91 +1375,113 @@ msgstr ""
 "הפסקה הערוכה הוסרה מהמסמך.\n"
 "לא ניתן להחיל את השינויים."
 
-#: components/html-editor/popup.c:456
+#: components/html-editor/popup.c:457
 msgid "Paste Quotation"
 msgstr "הדבק ציטוט"
 
-#: components/html-editor/popup.c:459
+#: components/html-editor/popup.c:460
 msgid "Insert link"
 msgstr "הכנס קישור"
 
-#: components/html-editor/popup.c:467
+#: components/html-editor/popup.c:468
 msgid "Remove link"
 msgstr "הסר קישור"
 
-#: components/html-editor/popup.c:475
+#: components/html-editor/popup.c:476
 #, fuzzy
 msgid "Text Style..."
 msgstr "קובץ _מלל..."
 
-#: components/html-editor/popup.c:477 components/html-editor/popup.c:483
-#: components/html-editor/popup.c:493
+#: components/html-editor/popup.c:478 components/html-editor/popup.c:484
+#: components/html-editor/popup.c:494
 #, fuzzy
 msgid "Paragraph Style..."
 msgstr "פסקה..."
 
-#: components/html-editor/popup.c:481
+#: components/html-editor/popup.c:482
 #, fuzzy
 msgid "Link Style..."
 msgstr "קישור..."
 
-#: components/html-editor/popup.c:487
+#: components/html-editor/popup.c:488
 #, fuzzy
 msgid "Rule Style..."
 msgstr "חוק..."
 
-#: components/html-editor/popup.c:491
+#: components/html-editor/popup.c:492
 #, fuzzy
 msgid "Image Style..."
 msgstr "תמונה..."
 
-#: components/html-editor/popup.c:502
+#: components/html-editor/popup.c:503
 #, fuzzy
 msgid "Cell Style..."
 msgstr "תא..."
 
-#: components/html-editor/popup.c:505
+#: components/html-editor/popup.c:506
 #, fuzzy
 msgid "Table Style..."
 msgstr "טבלה..."
 
-#: components/html-editor/popup.c:511
+#: components/html-editor/popup.c:512
 #, fuzzy
 msgid "Page Style..."
 msgstr "עמוד..."
 
-#: components/html-editor/popup.c:516
+#: components/html-editor/popup.c:517
 msgid "Table insert"
 msgstr "הכנס טבלה"
 
-#: components/html-editor/popup.c:519
+#: components/html-editor/popup.c:520
 msgid "Row above"
 msgstr "שורה מעלה"
 
-#: components/html-editor/popup.c:520
+#: components/html-editor/popup.c:521
 msgid "Row below"
 msgstr "שורה מטה"
 
-#: components/html-editor/popup.c:522
+#: components/html-editor/popup.c:523
 msgid "Column before"
 msgstr "עמודה לפני"
 
-#: components/html-editor/popup.c:523
+#: components/html-editor/popup.c:524
 msgid "Column after"
 msgstr "עמודה אחרי"
 
-#: components/html-editor/popup.c:525
+#: components/html-editor/popup.c:526
 msgid "Table delete"
 msgstr "מחק טבלה"
 
-#: components/html-editor/popup.c:529
+#: components/html-editor/popup.c:530
 msgid "Cell contents"
 msgstr "תכני התא"
 
-#: components/html-editor/popup.c:548
+#: components/html-editor/popup.c:540
+#, fuzzy
+msgid "Check Word Spelling..."
+msgstr "בודק איות '%s'..."
+
+#: components/html-editor/popup.c:545
+msgid "Add Word to"
+msgstr ""
+
+#: components/html-editor/popup.c:549
 #, fuzzy, c-format
 msgid "%s Dictionary"
 msgstr "הוסף את '%s' למילון"
+
+#: components/html-editor/popup.c:558
+#, fuzzy
+msgid "Add Word to Dictionary"
+msgstr "הוסף את '%s' למילון"
+
+#: components/html-editor/popup.c:561
+msgid "Ignore Misspelled Word"
+msgstr ""
+
+#: components/html-editor/popup.c:564
+msgid "Input Methods"
+msgstr ""
 
 #: components/html-editor/replace.c:75
 msgid "Replace confirmation"
@@ -1418,22 +1495,22 @@ msgstr "החלף הכול"
 msgid "Next"
 msgstr "הבא"
 
-#: components/html-editor/replace.c:161
+#: components/html-editor/replace.c:165
 #, fuzzy
 msgid "Search _backward"
 msgstr "חפש אחורה"
 
-#: components/html-editor/replace.c:162 components/html-editor/search.c:80
+#: components/html-editor/replace.c:166 components/html-editor/search.c:83
 #, fuzzy
 msgid "Case _sensitive"
 msgstr "תלוי רישיות"
 
-#: components/html-editor/replace.c:172
+#: components/html-editor/replace.c:176
 #, fuzzy
 msgid "Replace:"
 msgstr "החלף"
 
-#: components/html-editor/replace.c:175
+#: components/html-editor/replace.c:179
 #, fuzzy
 msgid "With:"
 msgstr "רוחב:"
@@ -1454,20 +1531,20 @@ msgstr ""
 "החוק הערוך הוסר מהמסמך.\n"
 "לא ניתן להחיל את שינוייך."
 
-#: components/html-editor/search.c:79
+#: components/html-editor/search.c:82
 #, fuzzy
 msgid "_Backward"
 msgstr "אחורה"
 
-#: components/html-editor/search.c:126
+#: components/html-editor/search.c:129
 msgid "Find Regular Expression"
 msgstr "מצא ביטוי רגיל"
 
-#: components/html-editor/spell.c:274
+#: components/html-editor/spell.c:277
 msgid "Spell checker"
 msgstr "בודק איות"
 
-#: components/html-editor/spell.c:361
+#: components/html-editor/spell.c:366
 msgid "Current _Languages"
 msgstr ""
 
@@ -1499,31 +1576,39 @@ msgstr "הכנס את המלל שלך לכאן"
 msgid "Image frame"
 msgstr "מסגרת תמונה"
 
-#: components/html-editor/test-html-editor-control.c:317
+#: components/html-editor/template.c:281
+msgid "Labels"
+msgstr ""
+
+#: components/html-editor/test-html-editor-control.c:323
 msgid "Open file..."
 msgstr "פתח קובץ..."
 
-#: components/html-editor/test-html-editor-control.c:319
+#: components/html-editor/test-html-editor-control.c:325
 msgid "Save file as..."
 msgstr "שמור קובץ בשם..."
 
-#: components/html-editor/test-html-editor-control.c:541
+#: components/html-editor/test-html-editor-control.c:557
 #, fuzzy
 msgid "GtkHTML Editor Test Container"
 msgstr "בקרת עורך HTML בעבור GNOME"
 
 #. color selection
-#: components/html-editor/text.c:292
+#: components/html-editor/text.c:293
 msgid "Color"
 msgstr "צבע"
 
-#: components/html-editor/text.c:334
+#: components/html-editor/text.c:335
 msgid ""
 "The editted text was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
 "המלל הערוך הוסר מהמסמך.\n"
 "לא ניתן להחיל את שינוייך."
+
+#: components/html-editor/toolbar.c:49
+msgid "Preformat"
+msgstr ""
 
 #: components/html-editor/toolbar.c:52
 msgid "Roman List"
@@ -1577,75 +1662,75 @@ msgstr "מזיח את הפסקה יותר"
 msgid "Sample"
 msgstr "דוגמה"
 
-#: src/gtkhtml.c:2548
+#: src/gtkhtml.c:2676
 #, fuzzy
 msgid "Editable"
 msgstr "אפשר"
 
-#: src/gtkhtml.c:2549
+#: src/gtkhtml.c:2677
 msgid "Whether the html can be edited"
 msgstr ""
 
-#: src/gtkhtml.c:2556
+#: src/gtkhtml.c:2684
 #, fuzzy
 msgid "The title of the current document"
 msgstr "בודק את איות המסמך"
 
-#: src/gtkhtml.c:2562
+#: src/gtkhtml.c:2690
 #, fuzzy
 msgid "Document Base"
 msgstr "כותרת המסמך"
 
-#: src/gtkhtml.c:2563
+#: src/gtkhtml.c:2691
 msgid "The base URL for relative references"
 msgstr ""
 
-#: src/gtkhtml.c:2569
+#: src/gtkhtml.c:2697
 msgid "Target Base"
 msgstr ""
 
-#: src/gtkhtml.c:2570
+#: src/gtkhtml.c:2698
 msgid "The base URL of the targe frame"
 msgstr ""
 
-#: src/gtkhtml.c:2579
+#: src/gtkhtml.c:2707
 #, fuzzy
 msgid "Fixed Width Font"
 msgstr "רוחב קבוע"
 
-#: src/gtkhtml.c:2580
+#: src/gtkhtml.c:2708
 msgid "The Monospace font to use for typewriter text"
 msgstr ""
 
-#: src/gtkhtml.c:2586
+#: src/gtkhtml.c:2714
 msgid "New Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2587
+#: src/gtkhtml.c:2715
 msgid "The color of new link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2592
+#: src/gtkhtml.c:2720
 msgid "Visited Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2593
+#: src/gtkhtml.c:2721
 msgid "The color of visited link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2598
+#: src/gtkhtml.c:2726
 msgid "Active Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2599
+#: src/gtkhtml.c:2727
 msgid "The color of active link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2604
+#: src/gtkhtml.c:2732
 msgid "Spelling Error Color"
 msgstr ""
 
-#: src/gtkhtml.c:2605
+#: src/gtkhtml.c:2733
 msgid "The color of the spelling error markers"
 msgstr ""
 
@@ -1714,18 +1799,21 @@ msgstr "לא ניתן להקצות גופן ברירת מחדל להדפסה\n"
 msgid "GtkHTML Test"
 msgstr "בדיקת GtkHTML"
 
-#: src/testgtkhtml.c:110
+#: src/testgtkhtml.c:118
 msgid "Print pre_view"
 msgstr "_תצוגה מקדימה"
 
-#: src/testgtkhtml.c:110
+#: src/testgtkhtml.c:118
 msgid "Print preview"
 msgstr "תצוגה מקדימה"
 
-#: src/testgtkhtml.c:973
+#: src/testgtkhtml.c:989
 #, fuzzy
 msgid "GtkHTML Test Application"
 msgstr "בדיקת GtkHTML"
+
+#~ msgid "Rectangles"
+#~ msgstr "מלבנים"
 
 #~ msgid "The quick brown fox jumped over the lazy dog."
 #~ msgstr "לך אל הנמלה עצל ראה דרכיה וחכם."
@@ -1735,9 +1823,6 @@ msgstr "בדיקת GtkHTML"
 
 #~ msgid "I could not initialize Bonobo"
 #~ msgstr "לא הצלחתי לאתחל את Bonobo"
-
-#~ msgid "Check '%s' spelling..."
-#~ msgstr "בודק איות '%s'..."
 
 #~ msgid "Ignore '%s'"
 #~ msgstr "התעלם מ '%s'"
