@@ -41,23 +41,15 @@ get_parent_window (GtkWidget *w)
 }
 
 void
-run_dialog (GtkDialog ***dialog, GtkHTML *html, DialogCtor ctor, const gchar *title)
+run_dialog (GtkDialog ***dialog, GtkHTML *html, GtkHTMLControlData *cd, DialogCtor ctor, const gchar *title)
 {
 	if (*dialog) {
 		gtk_window_set_title (GTK_WINDOW (**dialog), title);
 		gtk_widget_show (GTK_WIDGET (**dialog));
 		gdk_window_raise (GTK_WIDGET (**dialog)->window);
 	} else {
-		GtkWindow *parent;
-
-		*dialog = ctor (html);
+		*dialog = ctor (html, cd);
 		gtk_window_set_title (GTK_WINDOW (**dialog), title);
-		parent = get_parent_window (GTK_WIDGET (html));
-		/* FIX2 if (parent) {
-			gtk_dialog_set_parent (**dialog, parent);
-			} */
-		/* gtk_window_set_transient_for (GTK_WINDOW (**dialog),
-		   GTK_WINDOW (gtk_widget_get_parent_window (GTK_WIDGET (html)))); */
 		gtk_widget_show (GTK_WIDGET (**dialog));
 	}
 	gtk_dialog_run (**dialog);

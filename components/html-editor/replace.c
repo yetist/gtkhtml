@@ -45,36 +45,25 @@ struct _GtkHTMLReplaceDialog {
 	GtkHTMLReplaceAskDialog *ask_dialog;
 };
 
-/* FIX2 static void
-replace_do (GtkHTMLReplaceAskDialog *d, HTMLReplaceQueryAnswer answer)
-{
-	gtk_dialog_response (d->dialog, GTK_RESPONSE_CLOSE);
-	html_engine_replace_do (d->engine, answer);
-}
-
 static void
-replace_cb (GtkWidget *button, GtkHTMLReplaceAskDialog *d)
+ask_dialog_response (GtkDialog *dialog, gint response_id, GtkHTMLReplaceAskDialog *d)
 {
-	replace_do (d, RQA_Replace);
+	switch (response_id) {
+	case GTK_RESPONSE_DELETE_EVENT:
+	case GTK_RESPONSE_CLOSE:
+		html_engine_replace_do (d->engine, RQA_Cancel);
+		break;
+	case 0: /* Replace */
+		html_engine_replace_do (d->engine, RQA_Replace);
+		break;
+	case 1: /* Replace All */
+		html_engine_replace_do (d->engine, RQA_ReplaceAll);
+		break;
+	case 2: /* Next */
+		html_engine_replace_do (d->engine, RQA_Next);
+		break;
+	}
 }
-
-static void
-replace_all_cb (GtkWidget *button, GtkHTMLReplaceAskDialog *d)
-{
-	replace_do (d, RQA_ReplaceAll);
-}
-
-static void
-next_cb (GtkWidget *button, GtkHTMLReplaceAskDialog *d)
-{
-	replace_do (d, RQA_Next);
-}
-
-static void
-cancel_cb (GtkWidget *button, GtkHTMLReplaceAskDialog *d)
-{
-	replace_do (d, RQA_Cancel);
-} */
 
 static GtkHTMLReplaceAskDialog *
 ask_dialog_new (HTMLEngine *e)
@@ -90,14 +79,7 @@ ask_dialog_new (HTMLEngine *e)
 	d->engine = e;
 
 	gnome_window_icon_set_from_file (GTK_WINDOW (d->dialog), ICONDIR "/search-and-replace-24.png");
-	/* FIX2 gnome_dialog_button_connect (d->dialog, 0, GTK_SIGNAL_FUNC (replace_cb), d);
-	   gnome_dialog_button_connect (d->dialog, 1, GTK_SIGNAL_FUNC (replace_all_cb), d);
-	   gnome_dialog_button_connect (d->dialog, 2, GTK_SIGNAL_FUNC (next_cb), d);
-	   gnome_dialog_button_connect (d->dialog, 3, GTK_SIGNAL_FUNC (cancel_cb), d); */
-
-	/* gnome_dialog_set_close (d->dialog, TRUE); */
-
-	/* FIX2 gnome_dialog_set_default (d->dialog, 0); */
+	g_signal_connect (d->dialog, "response", G_CALLBACK (ask_dialog_response), d);
 
 	return d;
 }
@@ -105,42 +87,45 @@ ask_dialog_new (HTMLEngine *e)
 static void
 ask (HTMLEngine *e, gpointer data)
 {
-	GtkHTMLReplaceDialog *d = (GtkHTMLReplaceDialog *) data;
+	GtkHTMLReplaceAskDialog *ask_dialog;
 
-	if (!d->ask_dialog) {
-		d->ask_dialog = ask_dialog_new (e);
-		gtk_dialog_run (d->ask_dialog->dialog);
-	} else {
-		gtk_widget_show (GTK_WIDGET (d->ask_dialog->dialog));
-		gdk_window_raise (GTK_WIDGET (d->ask_dialog->dialog)->window);
-	}	
-}
-
-static void
-button_replace_cb (GtkWidget *but, GtkHTMLReplaceDialog *d)
-{
-	gtk_dialog_response  (d->dialog, GTK_RESPONSE_CLOSE);
-	html_engine_replace (d->html->engine,
-			     gtk_entry_get_text (GTK_ENTRY (d->entry_search)),
-			     gtk_entry_get_text (GTK_ENTRY (d->entry_replace)),
-			     GTK_TOGGLE_BUTTON (d->case_sensitive)->active,
-			     GTK_TOGGLE_BUTTON (d->backward)->active == 0, FALSE,
-			     ask, d);
-}
-
-static void
-entry_changed (GtkWidget *entry, GtkHTMLReplaceDialog *d)
-{
+	ask_dialog = ask_dialog_new (e);
+	gtk_dialog_run (ask_dialog->dialog);
+	gtk_widget_destroy (GTK_WIDGET (ask_dialog->dialog));
+	g_free (ask_dialog);
 }
 
 static void
 entry_activate (GtkWidget *entry, GtkHTMLReplaceDialog *d)
 {
-	button_replace_cb (NULL, d);
+	gtk_dialog_response (GTK_DIALOG (d->dialog), 0);
+}
+
+static void
+replace_dialog_response (GtkDialog *dialog, gint response_id, GtkHTMLReplaceDialog *d)
+{
+	switch (response_id) {
+	case 0: /* Replace */
+		gtk_widget_hide (GTK_WIDGET (d->dialog));
+		html_engine_replace (d->html->engine,
+				     gtk_entry_get_text (GTK_ENTRY (d->entry_search)),
+				     gtk_entry_get_text (GTK_ENTRY (d->entry_replace)),
+				     GTK_TOGGLE_BUTTON (d->case_sensitive)->active,
+				     GTK_TOGGLE_BUTTON (d->backward)->active == 0, FALSE,
+				     ask, d);
+		break;
+	}
+}
+
+void
+gtk_html_replace_dialog_destroy (GtkHTMLReplaceDialog *d)
+{
+	gtk_widget_destroy (GTK_WIDGET (d->dialog));
+	g_free (d);
 }
 
 GtkHTMLReplaceDialog *
-gtk_html_replace_dialog_new (GtkHTML *html)
+gtk_html_replace_dialog_new (GtkHTML *html, GtkHTMLControlData *cd)
 {
 	GtkHTMLReplaceDialog *dialog = g_new (GtkHTMLReplaceDialog, 1);
 	GtkWidget *hbox;
@@ -182,14 +167,9 @@ gtk_html_replace_dialog_new (GtkHTML *html)
 
 	gnome_window_icon_set_from_file (GTK_WINDOW (dialog->dialog), ICONDIR "/search-and-replace-24.png");
 
-	/* FIX2 gnome_dialog_button_connect (dialog->dialog, 0, GTK_SIGNAL_FUNC (button_replace_cb), dialog);
-	   gnome_dialog_close_hides (dialog->dialog, TRUE);
-	   gnome_dialog_set_close (dialog->dialog, TRUE);
-
-	   gnome_dialog_set_default (dialog->dialog, 0); */
 	gtk_widget_grab_focus (dialog->entry_search);
 
-	g_signal_connect (dialog->entry_search, "changed", G_CALLBACK (entry_changed), dialog);
+	g_signal_connect (dialog->dialog, "response", G_CALLBACK (replace_dialog_response), dialog);
 	g_signal_connect (dialog->entry_search, "activate", G_CALLBACK (entry_activate), dialog);
 	g_signal_connect (dialog->entry_replace, "activate", G_CALLBACK (entry_activate), dialog);
 
@@ -197,16 +177,9 @@ gtk_html_replace_dialog_new (GtkHTML *html)
 }
 
 void
-gtk_html_replace_dialog_destroy (GtkHTMLReplaceDialog *d)
-{
-	g_free (d);
-}
-
-void
 replace (GtkHTMLControlData *cd)
 {
 	RUN_DIALOG (replace, _("Replace"));
-
-	if (cd->replace_dialog)
-		gtk_widget_grab_focus (cd->replace_dialog->entry_search);
+	gtk_html_replace_dialog_destroy (cd->replace_dialog);
+	cd->replace_dialog = NULL;
 }

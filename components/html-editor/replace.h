@@ -28,7 +28,7 @@ typedef struct _GtkHTMLReplaceDialog GtkHTMLReplaceDialog;
 #include <gnome.h>
 #include "control-data.h"
 
-GtkHTMLReplaceDialog * gtk_html_replace_dialog_new     (GtkHTML *html);
+GtkHTMLReplaceDialog * gtk_html_replace_dialog_new     (GtkHTML *html, GtkHTMLControlData *cd);
 void                   gtk_html_replace_dialog_destroy (GtkHTMLReplaceDialog *d);
 
 void                   replace                         (GtkHTMLControlData *cd);
