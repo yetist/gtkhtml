@@ -1,5 +1,14 @@
 2001-03-29  Radek Doulik  <rodo@ximian.com>
 
+	* body.c (ADD_COLOR): set right default color and set combo color
+	to actual color
+
+	* toolbar.c (set_color_combo): new helper function
+	(realize_engine): new signal handler
+	(load_done): ditto
+	(setup_color_combo): take care of right setting of actual combo
+	color
+
 	* test-html-editor-control.c (main): load file given as last
 	parameter
 	(load_file): new helper function

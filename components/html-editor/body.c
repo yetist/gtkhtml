@@ -79,11 +79,10 @@ color_changed (GtkWidget *w, GdkColor *color, GtkHTMLEditBodyProperties *data)
 {
 	gint idx;
 
-	if (!color)
-		return;
-
 	idx = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (w), "type"));
-	data->color [idx] = *color;
+	data->color [idx] = color
+		? *color
+		: html_colorset_get_color (data->cd->html->engine->defaultSettings->color_set, idx)->color;
 	data->color_changed [idx] = TRUE;
 	gtk_html_edit_properties_dialog_change (data->cd->properties_dialog);
 	fill_sample (data);
@@ -119,7 +118,6 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	GtkHTMLEditBodyProperties *data = g_new0 (GtkHTMLEditBodyProperties, 1);
 	GtkWidget *hbox, *vbox, *frame, *combo, *table;
 	GSList *group;
-	HTMLColor *color;
 
 	*set_data = data;
 	data->cd = cd;
@@ -161,11 +159,10 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	group = NULL;
 #define ADD_COLOR(x, ct, g) \
         data->color [ct] = html_colorset_get_color_allocated (cd->html->engine->painter, ct)->color; \
-        color = html_colorset_get_color (cd->html->engine->defaultSettings->color_set, ct); \
-        html_color_alloc (color, cd->html->engine->painter); \
 	combo = color_combo_new (NULL, _("Automatic"), \
 				 &color->color, \
 				 "body_" g); \
+        color_combo_set_color (COLOR_COMBO (combo), &data->color [ct]); \
         gtk_object_set_data (GTK_OBJECT (combo), "type", GINT_TO_POINTER (ct)); \
         gtk_signal_connect (GTK_OBJECT (combo), "changed", GTK_SIGNAL_FUNC (color_changed), data); \
 	hbox = gtk_hbox_new (FALSE, 3); \

@@ -212,12 +212,39 @@ unset_focus (GtkWidget *w, gpointer data)
 	GTK_WIDGET_UNSET_FLAGS (w, GTK_CAN_FOCUS);
 }
 
+inline static void
+set_color_combo (GtkHTML *html, GtkHTMLControlData *cd)
+{
+	color_combo_set_color (COLOR_COMBO (cd->combo),
+			       &html_colorset_get_color_allocated (html->engine->painter, HTMLTextColor)->color);
+}
+
+static void
+realize_engine (GtkHTML *html, GtkHTMLControlData *cd)
+{
+	set_color_combo (html, cd);
+	gtk_signal_disconnect_by_func (GTK_OBJECT (html), realize_engine, cd);
+}
+
+static void
+load_done (GtkHTML *html, GtkHTMLControlData *cd)
+{
+	set_color_combo (html, cd);
+}
+
 static GtkWidget *
 setup_color_combo (GtkHTMLControlData *cd)
 {
-	cd->combo = color_combo_new (NULL, _("Automatic"),
-				     &html_colorset_get_color (cd->html->engine->settings->color_set,
-							       HTMLTextColor)->color, "toolbar_text");
+	HTMLColor *color;
+
+	color = html_colorset_get_color (cd->html->engine->settings->color_set, HTMLTextColor);
+	if (GTK_WIDGET_REALIZED (cd->html))
+		html_color_alloc (color, cd->html->engine->painter);
+	else
+		gtk_signal_connect (GTK_OBJECT (cd->html), "realize", realize_engine, cd);
+        gtk_signal_connect (GTK_OBJECT (cd->html), "load_done", GTK_SIGNAL_FUNC (load_done), cd);
+
+	cd->combo = color_combo_new (NULL, _("Automatic"), &color->color, "toolbar_text");
 	GTK_WIDGET_UNSET_FLAGS (cd->combo, GTK_CAN_FOCUS);
 	gtk_container_forall (GTK_CONTAINER (cd->combo), unset_focus, NULL);
         gtk_signal_connect (GTK_OBJECT (cd->combo), "changed", GTK_SIGNAL_FUNC (color_changed), cd);
