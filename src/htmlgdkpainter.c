@@ -112,6 +112,7 @@ static void
 text_size (HTMLGdkPainter *painter, PangoFontDescription *desc, const gchar *text, gint bytes,
 	   HTMLTextPangoInfo *pi, PangoAttrList *attrs, GList *glyphs, gint start_byte_offset, gint *width, gint *asc, gint *dsc)
 {
+	PangoFontMetrics *pfm;
 	gboolean temp_pi = FALSE;
 	if (!pi) {
 		pi = html_painter_text_itemize_and_prepare_glyphs (HTML_PAINTER (painter), desc, text, bytes, &glyphs, attrs);
@@ -132,10 +133,16 @@ text_size (HTMLGdkPainter *painter, PangoFontDescription *desc, const gchar *tex
 			str = (PangoGlyphString *) gl->data;
 			gl = gl->next;
 			ii = GPOINTER_TO_INT (gl->data);
-			pango_glyph_string_extents (str, pi->entries [ii].item->analysis.font, NULL, &log_rect);
+			item = pi->entries [ii].item;
+			pango_glyph_string_extents (str, item->analysis.font, NULL, &log_rect);
 			*width += PANGO_PIXELS (log_rect.width);
-			*asc = MAX (*asc, PANGO_PIXELS (PANGO_ASCENT (log_rect)));
-			*dsc = MAX (*dsc, PANGO_PIXELS (PANGO_DESCENT (log_rect)));
+
+			pfm = pango_font_get_metrics (item->analysis.font, item->analysis.language);
+			if (asc)
+				*asc = MAX (*asc, PANGO_PIXELS (pango_font_metrics_get_ascent (pfm)));
+			if (dsc)
+				*dsc = MAX (*dsc, PANGO_PIXELS (pango_font_metrics_get_descent (pfm)));
+			pango_font_metrics_unref (pfm);
 
 			c_text = g_utf8_offset_to_pointer (c_text, str->num_glyphs);
 			if (*text == '\t')
@@ -178,8 +185,10 @@ alloc_font (HTMLPainter *painter, gchar *face, gdouble size, gboolean points, Gt
 	pango_font_description_set_weight (desc, style & GTK_HTML_FONT_STYLE_BOLD ? PANGO_WEIGHT_BOLD : PANGO_WEIGHT_NORMAL);
 
 	text_size (HTML_GDK_PAINTER (painter), desc, " ", 1, NULL, NULL, NULL, 0, &space_width, &space_asc, &space_dsc);
+
 	return html_font_new (desc,
-			      space_width, space_asc, space_dsc,
+			      space_width,
+			      space_asc, space_dsc,
 			      text_width (HTML_GDK_PAINTER (painter), desc, "\xc2\xa0", 2),
 			      text_width (HTML_GDK_PAINTER (painter), desc, "\t", 1),
 			      text_width (HTML_GDK_PAINTER (painter), desc, HTML_BLOCK_INDENT, strlen (HTML_BLOCK_INDENT)),

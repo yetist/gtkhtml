@@ -748,7 +748,7 @@ gtk_html_set_fonts (GtkHTML *html, HTMLPainter *painter)
 	if (fixed_name) {
 		fixed_desc = pango_font_description_from_string (fixed_name);
 		if (pango_font_description_get_family (fixed_desc)) {
-			fixed_size = PANGO_PIXELS (pango_font_description_get_size (fixed_desc));
+			fixed_size = pango_font_description_get_size (fixed_desc);
 			fixed_family = pango_font_description_get_family (fixed_desc);
 		} else {
 			g_free (fixed_name);

@@ -1,3 +1,10 @@
+2003-12-15  Radek Doulik  <rodo@ximian.com>
+
+	* htmlgdkpainter.c (text_size): use font metrics for
+	ascent/descent
+
+	* gtkhtml.c (gtk_html_set_fonts): don't scale font size down
+
 2003-12-12  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (gtk_html_im_preedit_changed_cb): updated, should be
