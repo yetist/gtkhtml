@@ -1,3 +1,8 @@
+2002-10-22  Larry Ewing  <lewing@localhost.localdomain>
+
+	* htmlengine.c (check_prev): use strcasecmp rather than strcmp
+	and test for inequality, not equality.
+
 2002-10-18  Larry Ewing  <lewing@ximian.com>
 
 	* htmlclueflow.c (get_pre_padding): fix the padding calc for items
