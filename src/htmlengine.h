@@ -122,15 +122,6 @@ struct _HTMLEngine {
 
 	gboolean writing;
 
-	/* FIXME: Something else than gchar* is probably
-	   needed if we want to support anything else than
-	   file:/ urls */
-	gchar *actualURL;
-	gchar *baseURL;
-
-	/* from <BASE TARGET="..."> */
-	gchar *baseTarget;
-
 	/* The background pixmap, an HTMLImagePointer */
         gpointer bgPixmapPtr;
   

@@ -48,6 +48,8 @@ struct _GtkHTMLClass {
         void (* url_requested)  (GtkHTML *html, const char *url, GtkHTMLStreamHandle handle);
         void (* load_done)      (GtkHTML *html);
         void (* link_followed)  (GtkHTML *html, const char *url);
+	void (* set_base)       (GtkHTML *html, const char *base_url);
+	void (* set_base_target)       (GtkHTML *html, const char *base_url);
 };
 
 GtkType		gtk_html_get_type	 (void);

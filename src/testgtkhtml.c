@@ -287,7 +287,6 @@ load_done (GtkHTML *html)
 {
 	gnome_animator_stop (GNOME_ANIMATOR (animator));
 	gnome_animator_goto_frame (GNOME_ANIMATOR (animator), 1);
-	gtk_entry_set_text (GTK_ENTRY (entry), html->engine->actualURL);
 
 	if (exit_when_done)
 		gtk_main_quit();
@@ -487,6 +486,7 @@ goto_url(const char *url)
 	gnome_animator_start (GNOME_ANIMATOR (animator));
 	gtk_html_begin (html, url);
 	gtk_html_parse (html);
+	gtk_entry_set_text (GTK_ENTRY (entry), url);
 }
 
 static void

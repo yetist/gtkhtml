@@ -1,3 +1,8 @@
+1999-11-30  Elliot Lee  <sopwith@redhat.com>
+
+	* src/gtkhtml*.[ch], src/htmlengine.[ch], src/testgtkhtml.c: Remove the URL canonicalization stuff, let a web widget
+	that wraps GtkHTML handle that if desired.
+
 1999-11-10  Ettore Perazzoli  <ettore@gnu.org>
 
 	* configure.in: Make `--with-bonobo' really work.

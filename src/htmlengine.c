@@ -262,15 +262,6 @@ close_anchor (HTMLEngine *e)
 	e->target = NULL;
 }
 
-static void
-set_base_url (HTMLEngine *e, const gchar *url)
-{
-	/* FIXME TODO */
-
-	g_free (e->baseURL);
-	e->baseURL = g_strdup (url);
-}
-
 /* FIXME FIXME FIXME this is just a dummy.  */
 static void
 select_font_relative (HTMLEngine *e,
@@ -1012,12 +1003,14 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 				}
 			}
 
+#if 0
 			if ( !target
 			     && e->baseTarget != NULL
 			     && e->baseTarget[0] != '\0' ) {
 				target = g_strdup (e->baseTarget);
 				/*  parsedTargets.append( target ); FIXME TODO */
 			}
+#endif
 
 			if (tmpurl != NULL && tmpurl[0] != '\0') {
 				e->vspace_inserted = FALSE;
@@ -1069,10 +1062,9 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		while ( string_tokenizer_has_more_tokens (e->st) ) {
 			const char* token = string_tokenizer_next_token(e->st);
 			if ( strncasecmp( token, "target=", 7 ) == 0 ) {
-				g_free (e->baseTarget);
-				e->baseTarget = g_strdup (token + 7);
+				gtk_signal_emit_by_name(GTK_OBJECT(e->widget), "set_base_target", token+7);
 			} else if ( strncasecmp( token, "href=", 5 ) == 0 ) {
-				set_base_url (e, token + 5);
+				gtk_signal_emit_by_name(GTK_OBJECT(e->widget), "set_base", token+5);
 			}
 		}
 	}
@@ -1115,11 +1107,8 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 			}
 			else if (strncasecmp (token, "background=", 11) == 0
 				 && !e->defaultSettings->forceDefault) {
-				char *realurl;
 
-				realurl = html_engine_canonicalize_url(e, token + 11);
-				e->bgPixmapPtr = html_image_factory_register(e->image_factory, NULL, realurl);
-				g_free(realurl);
+				e->bgPixmapPtr = html_image_factory_register(e->image_factory, NULL, token + 11);
 			} else if ( strncasecmp( token, "text=", 5 ) == 0
 				    && !e->defaultSettings->forceDefault ) {
 				html_engine_set_named_color (e,
@@ -1619,7 +1608,6 @@ parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 #endif
 		}
 		if (filename != 0) {
-			filename = html_engine_canonicalize_url(p, filename);
 			if (!p->flow)
 				html_engine_new_flow (p, _clue);
 
@@ -2176,8 +2164,6 @@ html_engine_destroy (GtkObject *object)
 	html_stack_destroy (engine->listStack);
 	html_stack_destroy (engine->glossaryStack);
 
-	g_free (engine->baseTarget);
-
 	for (p = engine->tempStrings; p != NULL; p = p->next)
 		g_free (p->data);
 	g_list_free (engine->tempStrings);
@@ -2228,7 +2214,6 @@ html_engine_init (HTMLEngine *engine)
 
 	engine->url = NULL;
 	engine->target = NULL;
-	engine->baseTarget = NULL;
 
 	engine->leftBorder = LEFT_BORDER;
 	engine->rightBorder = RIGHT_BORDER;
@@ -2322,24 +2307,11 @@ html_engine_begin (HTMLEngine *p, const char *url)
 	
 	free_block (p); /* Clear the block stack */
 
-	if (url != 0) {
-		char *ctmp;
-
-		p->actualURL = html_engine_canonicalize_url(p, url);
-
-		ctmp = g_dirname(p->actualURL);
-		p->baseURL = html_engine_canonicalize_url(p, ctmp);
-		g_free(ctmp);
-
-		g_print ("baseURL: %s\n", p->baseURL);
-		g_print ("actualURL: %s\n", p->actualURL);
-	}
-
 	html_engine_stop_parser (p);
 	p->writing = TRUE;
 
 	return gtk_html_stream_new(GTK_HTML(p->widget),
-				   p->actualURL,
+				   url,
 				   (GtkHTMLStreamWriteFunc)html_engine_write,
 				   (GtkHTMLStreamEndFunc)html_engine_end,
 				   (gpointer)p);
@@ -2808,6 +2780,7 @@ html_engine_set_named_color (HTMLEngine *p, GdkColor *c, const gchar *name)
 	return TRUE;
 }
 
+#if 0
 char *
 html_engine_canonicalize_url (HTMLEngine *e, const char *in_url)
 {
@@ -2918,3 +2891,4 @@ html_engine_canonicalize_url (HTMLEngine *e, const char *in_url)
 
 	return retval;
 }
+#endif

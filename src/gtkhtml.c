@@ -103,6 +103,23 @@ gtk_html_class_init (GtkHTMLClass *klass)
 			  gtk_marshal_NONE__STRING,
 			  GTK_TYPE_NONE, 1,
 			  GTK_TYPE_STRING);
+	html_signals [SET_BASE] =
+		gtk_signal_new ("set_base",
+				GTK_RUN_FIRST,
+				object_class->type,
+				GTK_SIGNAL_OFFSET (GtkHTMLClass, set_base),
+				gtk_marshal_NONE__STRING,
+				GTK_TYPE_NONE, 1,
+				GTK_TYPE_STRING);
+	html_signals [SET_BASE_TARGET] =
+		gtk_signal_new ("set_base_target",
+				GTK_RUN_FIRST,
+				object_class->type,
+				GTK_SIGNAL_OFFSET (GtkHTMLClass, set_base_target),
+				gtk_marshal_NONE__STRING,
+				GTK_TYPE_NONE, 1,
+				GTK_TYPE_STRING);
+				
 	
 	gtk_object_class_add_signals (object_class, html_signals, LAST_SIGNAL);
 

@@ -29,6 +29,8 @@ enum {
 	URL_REQUESTED,
 	LOAD_DONE,
 	LINK_FOLLOWED,
+	SET_BASE,
+	SET_BASE_TARGET,
 	LAST_SIGNAL
 };
 extern guint html_signals [LAST_SIGNAL];
