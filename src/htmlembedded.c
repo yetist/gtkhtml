@@ -69,7 +69,6 @@ draw (HTMLObject *o,
 		return;
 
 	if (element->widget) {
-
 		new_x = GTK_LAYOUT (element->parent)->hadjustment->value + o->x + tx;
 		new_y = GTK_LAYOUT (element->parent)->vadjustment->value + o->y + ty - o->ascent;
 		
@@ -84,6 +83,8 @@ draw (HTMLObject *o,
 		if (!element->widget->parent)
 			gtk_layout_put (GTK_LAYOUT(element->parent), element->widget, new_x, new_y);
 	}
+
+	html_painter_draw_embedded (p, element, tx, ty);
 }
 
 static void
@@ -241,7 +242,6 @@ html_embedded_encode_string (gchar *str)
         return ptr;
 }
 
-
 void
 html_embedded_type_init (void)
 {
@@ -350,3 +350,10 @@ html_embedded_set_widget (HTMLEmbedded *emb, GtkWidget *w)
 	gtk_signal_connect (GTK_OBJECT (w), "size_allocate",
 			    GTK_SIGNAL_FUNC (allocate), emb);
 }
+
+GtkWidget *
+html_embedded_get_widget (HTMLEmbedded *e)
+{
+	return e->widget;
+}
+

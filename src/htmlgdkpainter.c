@@ -31,6 +31,8 @@
 #include "htmlgdkpainter.h"
 #include "htmlcolor.h"
 #include "htmlcolorset.h"
+#include "htmlembedded.h"
+#include "gtkhtml-embedded.h"
 
 static HTMLPainterClass *parent_class = NULL;
 
@@ -969,6 +971,22 @@ draw_spell_error (HTMLPainter *painter,
 }
 
 static void
+draw_embedded (HTMLPainter * p, HTMLEmbedded *o, gint x, gint y) 
+{
+	HTMLGdkPainter *gdk_painter = HTML_GDK_PAINTER(p);
+	GtkWidget *embedded_widget;
+
+	embedded_widget = html_embedded_get_widget (o);
+	if (embedded_widget && GTK_IS_HTML_EMBEDDED (embedded_widget)) {
+		gtk_signal_emit_by_name (GTK_OBJECT (embedded_widget),
+					 "draw_gdk",
+					 gdk_painter->pixmap, 
+					 gdk_painter->gc, 
+					 x, y);
+	}
+}
+
+static void
 draw_text (HTMLPainter *painter,
 	   gint x, gint y,
 	   const gchar *text,
@@ -985,16 +1003,26 @@ draw_text (HTMLPainter *painter,
 	x -= gdk_painter->x1;
 	y -= gdk_painter->y1;
 
-	e_font = html_painter_get_font (painter, painter->font_face, painter->font_style);
-	e_font_draw_utf8_text (gdk_painter->pixmap, e_font, e_style (painter->font_style), gdk_painter->gc,
-			       x, y, text, unicode_offset_to_index (text, len));
+	e_font = html_painter_get_font (painter,
+					painter->font_face,
+					painter->font_style);
+ 
+	e_font_draw_utf8_text (gdk_painter->pixmap, 
+			       e_font, 
+			       e_style (painter->font_style), 
+			       gdk_painter->gc,
+			       x, y, 
+			       text, 
+			       unicode_offset_to_index (text, len));
 
 	if (painter->font_style & (GTK_HTML_FONT_STYLE_UNDERLINE
 				   | GTK_HTML_FONT_STYLE_STRIKEOUT)) {
 		guint width;
 
-		width = e_font_utf8_text_width (e_font, e_style (painter->font_style),
-						text, unicode_offset_to_index (text, len));
+		width = e_font_utf8_text_width (e_font,
+						e_style (painter->font_style),
+						text, 
+						unicode_offset_to_index (text, len));
 
 		if (painter->font_style & GTK_HTML_FONT_STYLE_UNDERLINE)
 			gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc, 
@@ -1155,6 +1183,7 @@ class_init (GtkObjectClass *object_class)
 	painter_class->set_clip_rectangle = set_clip_rectangle;
 	painter_class->draw_background = draw_background;
 	painter_class->get_pixel_size = get_pixel_size;
+	painter_class->draw_embedded = draw_embedded;
 
 	parent_class = gtk_type_class (html_painter_get_type ());
 }

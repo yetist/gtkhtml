@@ -25,6 +25,8 @@
 #include <libgnomeprint/gnome-print.h>
 #include <unicode.h>
 
+#include "htmlembedded.h"
+#include "gtkhtml-embedded.h"
 #include "htmlprinter.h"
 
 /* #define PRINTER_DEBUG */
@@ -570,6 +572,29 @@ draw_text (HTMLPainter *painter,
 }
 
 static void
+draw_embedded (HTMLPainter *p, HTMLEmbedded *o, gint x, gint y) 
+{
+	gdouble print_x, print_y;	
+	HTMLPrinter *printer = HTML_PRINTER(p);
+	GtkWidget *embedded_widget;
+
+	html_printer_coordinates_to_gnome_print (printer, x, y, &print_x, &print_y);
+	gnome_print_gsave(printer->print_context); 
+
+	gnome_print_translate(printer->print_context, 
+			      print_x, print_y - o->height * PIXEL_SIZE);
+ 
+	embedded_widget = html_embedded_get_widget(o);
+	if (embedded_widget && GTK_IS_HTML_EMBEDDED (embedded_widget)) {
+		gtk_signal_emit_by_name(GTK_OBJECT (embedded_widget), 
+					"draw_print", 
+					printer->print_context);
+	}
+
+	gnome_print_grestore(printer->print_context); 
+}
+
+static void
 draw_shade_line (HTMLPainter *painter,
 		 gint x, gint y,
 		 gint width)
@@ -730,6 +755,7 @@ class_init (GtkObjectClass *object_class)
 	painter_class->draw_background = draw_background;
 	painter_class->get_pixel_size = get_pixel_size;
 	painter_class->set_clip_rectangle = set_clip_rectangle;
+	painter_class->draw_embedded = draw_embedded;
 
 	parent_class = gtk_type_class (html_painter_get_type ());
 }

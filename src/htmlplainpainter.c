@@ -177,9 +177,9 @@ draw_text (HTMLPainter *painter,
 
 	if (painter->font_style & (GTK_HTML_FONT_STYLE_UNDERLINE
 				   | GTK_HTML_FONT_STYLE_STRIKEOUT)) {
+		/*
 		guint width;
 
-		/*
 		width = e_font_utf8_text_width (e_font, 
 						e_style (painter->font_style),
 						text, unicode_offset_to_index (text, len));
@@ -195,27 +195,6 @@ draw_text (HTMLPainter *painter,
 				       x + width, y - e_font_ascent (e_font) / 2);
 		*/
 	}
-}
-
-static guint
-calc_text_width (HTMLPainter *painter,
-		 const gchar *text,
-		 guint len,
-		 GtkHTMLFontStyle style,
-		 HTMLFontFace *face)
-{
-	HTMLGdkPainter *gdk_painter;
-	EFont *e_font;
-	gint width;
-
-
-	gdk_painter = HTML_GDK_PAINTER (painter);
-	e_font = html_painter_get_font (painter, face, style);
-
-	width = e_font_utf8_text_width (e_font, e_style (style),
-					text, unicode_offset_to_index (text, len));
-
-	return width;
 }
 
 static void

@@ -1,9 +1,45 @@
 2001-04-16  Larry Ewing  <lewing@ximian.com>
 
+	* htmlengine.c (parse_table): silence warning.
+
+	* htmlclueflow.c (calc_preferred_width): initialize next to NULL.
+
+	* htmlplainpainter.c (draw_text): remove unused variable.
+	(calc_text_width): remove unused function.
+	
+        The following changes to enable embedded printing are all from a
+	slightly renamed and reworked patch from Bill Gribble
+	<grib@gnumatic.com>.  Thanks.
+	
+	* htmlembedded.h (html_embedded_get_widget): add prototype.
+
+	* htmlembedded.c (draw): call html_painter_draw_embedded.
+	(html_embedded_get_widget): added helper function.
+
+	* htmlpainter.h: add the draw_embedded member function.
+
+	* htmlpainter.c (class_init): initialize draw_embedded.
+	(html_painter_draw_embedded): wrapper function for the class
+	function.
+
+	* htmlprinter.c (draw_embedded): fire the draw_print save the
+	context and fire the draw_print signal where appropriate.
+	(class_init): use draw_embedded.
+
+	* htmlgdkpainter.c (draw_embedded): fire the draw_gdk signal if
+	the embedded widget is a GtkHTMLEmbedded widget.
+	(class_init): use draw_embedded.
+	
+	* gtkhtml-embedded.h: add draw_print and draw_gdk signals.
+
+	* gtkhtml-embedded.c: add draw_gdk and draw_print signals.
+	(gtk_html_embedded_class_init): init the signal handlers.
+
 	* htmliframe.c (html_iframe_init): initialize iframe->gdk_painter
 	to NULL.  
 	(set_painter): do proper refcounting of the iframe->gdk_painter.
-	(iframe_set_gdk_painter): helper function to handle setting the painter.
+	(iframe_set_gdk_painter): helper function to handle setting the
+	painter.
 	(destroy): use the helper funtion to make sure we remove the last
 	reference to the the painter.
 

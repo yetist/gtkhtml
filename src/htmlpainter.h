@@ -51,45 +51,47 @@ struct _HTMLPainter {
 struct _HTMLPainterClass {
 	GtkObjectClass   base;
 
-	void (* begin) (HTMLPainter *painter, int x1, int y1, int x2, int y2);
-	void (* end) (HTMLPainter *painter);
+	void (* begin)            (HTMLPainter *painter, int x1, int y1, int x2, int y2);
+	void (* end)              (HTMLPainter *painter);
 
-        HTMLFont * (* alloc_font)   (HTMLPainter *p, gchar *face_name, gdouble size, GtkHTMLFontStyle  style);
-	void       (* ref_font)     (HTMLPainter *p, HTMLFont *font);
-	void       (* unref_font)   (HTMLPainter *p, HTMLFont *font);
+        HTMLFont * (* alloc_font) (HTMLPainter *p, gchar *face_name, gdouble size, GtkHTMLFontStyle  style);
+	void       (* ref_font)   (HTMLPainter *p, HTMLFont *font);
+	void       (* unref_font) (HTMLPainter *p, HTMLFont *font);
 
-	void (* alloc_color) (HTMLPainter *painter, GdkColor *color);
-	void (* free_color)   (HTMLPainter *painter, GdkColor *color);
+	void (* alloc_color)      (HTMLPainter *painter, GdkColor *color);
+	void (* free_color)       (HTMLPainter *painter, GdkColor *color);
 
-	guint (* calc_ascent) (HTMLPainter *p, GtkHTMLFontStyle f, HTMLFontFace *face);
-	guint (* calc_descent) (HTMLPainter *p, GtkHTMLFontStyle f, HTMLFontFace *face);
+	guint (* calc_ascent)     (HTMLPainter *p, GtkHTMLFontStyle f, HTMLFontFace *face);
+	guint (* calc_descent)    (HTMLPainter *p, GtkHTMLFontStyle f, HTMLFontFace *face);
 	guint (* calc_text_width) (HTMLPainter *p, const gchar *text, guint len,
 				   GtkHTMLFontStyle font_style, HTMLFontFace *face);
 
-	void (* set_pen) (HTMLPainter *painter, const GdkColor *color);
+	void (* set_pen)          (HTMLPainter *painter, const GdkColor *color);
 	const GdkColor * (* get_black) (const HTMLPainter *painter);
-	void (* draw_line) (HTMLPainter *painter, gint x1, gint y1, gint x2, gint y2);
-	void (* draw_rect) (HTMLPainter *painter, gint x, gint y, gint width, gint height);
-	void (* draw_text) (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len);
-
+	void (* draw_line)        (HTMLPainter *painter, gint x1, gint y1, gint x2, gint y2);
+	void (* draw_rect)        (HTMLPainter *painter, gint x, gint y, gint width, gint height);
+	void (* draw_text)        (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len);
 	void (* draw_spell_error) (HTMLPainter *painter, gint x, gint y, const gchar *text, guint off, gint len);
-
-	void (* fill_rect) (HTMLPainter *painter, gint x, gint y, gint width, gint height);
-	void (* draw_pixmap) (HTMLPainter *painter, GdkPixbuf *pixbuf, gint x, gint y,
-			      gint scale_width, gint scale_height, const GdkColor *color);
-	void (* draw_ellipse) (HTMLPainter *painter, gint x, gint y, gint width, gint height);
-	void (* clear) (HTMLPainter *painter);
+	void (* fill_rect)        (HTMLPainter *painter, gint x, gint y, gint width, gint height);
+	void (* draw_pixmap)      (HTMLPainter *painter, GdkPixbuf *pixbuf, 
+				   gint x, gint y,
+				   gint scale_width, 
+				   gint scale_height, 
+				   const GdkColor *color);
+	void (* draw_ellipse)     (HTMLPainter *painter, gint x, gint y, gint width, gint height);
+	void (* clear)            (HTMLPainter *painter);
 	void (* set_background_color) (HTMLPainter *painter, const GdkColor *color);
-	void (* draw_shade_line) (HTMLPainter *p, gint x, gint y, gint width);
-	void (* draw_panel) (HTMLPainter *painter, GdkColor *bg,
-			     gint x, gint y, gint width, gint height,
-			     GtkHTMLEtchStyle inset, gint bordersize);
+	void (* draw_shade_line)  (HTMLPainter *p, gint x, gint y, gint width);
+	void (* draw_panel)       (HTMLPainter *painter, GdkColor *bg,
+			           gint x, gint y, gint width, gint height,
+			           GtkHTMLEtchStyle inset, gint bordersize);
 
 	void (* set_clip_rectangle) (HTMLPainter *painter, gint x, gint y, gint width, gint height);
-	void (* draw_background) (HTMLPainter *painter, GdkColor *color, GdkPixbuf *pixbuf,
-				  gint x, gint y, gint width, gint height, gint tile_x, gint tile_y);
-	
+	void (* draw_background)  (HTMLPainter *painter, GdkColor *color, GdkPixbuf *pixbuf,
+				   gint x, gint y, gint width, gint height, gint tile_x, gint tile_y);
 	guint (* get_pixel_size) (HTMLPainter *painter);
+	void (* draw_embedded)    (HTMLPainter *painter, HTMLEmbedded *element, gint x, gint y);
+
 };
 
 
@@ -230,4 +232,9 @@ void              html_painter_unref_font                              (HTMLPain
 guint             html_painter_get_space_width                         (HTMLPainter       *painter,
 									GtkHTMLFontStyle   font_style,
 									HTMLFontFace      *face);
+void              html_painter_draw_embedded                           (HTMLPainter       *painter,
+									HTMLEmbedded      *element,
+									gint               x,
+									gint               y);
+
 #endif /* _HTMLPAINTER_H_ */

@@ -765,6 +765,8 @@ calc_preferred_width (HTMLObject *o,
 	HTMLObject *obj, *next;
 	gint maxw = 0, w = 0;
 
+	next = NULL;
+
 	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next) {
 		if (!(obj->flags & HTML_OBJECT_FLAG_NEWLINE)) {
 			w += html_object_calc_preferred_width (obj, painter);

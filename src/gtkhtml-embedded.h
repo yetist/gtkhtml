@@ -51,9 +51,12 @@ struct _GtkHTMLEmbedded {
 };
 
 struct _GtkHTMLEmbeddedClass {
-	GtkBinClass parent_class;
+        GtkBinClass parent_class;
 
-	void (*changed)(GtkHTMLEmbedded *);
+        void (*changed)(GtkHTMLEmbedded *);
+        void (*draw_gdk)(GtkHTMLEmbedded *, GdkPixmap *, GdkGC *,
+                         gint, gint);
+        void (*draw_print)(GtkHTMLEmbedded *, GnomePrintContext *);
 };
 
 /* FIXME: There needs to be a way for embedded objects in forms to encode

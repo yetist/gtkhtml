@@ -40,6 +40,8 @@ static void (*old_remove)(GtkContainer *container, GtkWidget *child);
 static GtkBin *parent_class;
 
 enum {
+	DRAW_GDK,
+	DRAW_PRINT,
 	CHANGED,
 	LAST_SIGNAL
 };
@@ -115,6 +117,20 @@ static void gtk_html_embedded_remove (GtkContainer *container, GtkWidget *child)
 	gtk_html_embedded_changed(GTK_HTML_EMBEDDED(container));
 }
 
+typedef void (*draw_print_signal)(GtkObject *, gpointer, gpointer);
+typedef void (*draw_gdk_signal)(GtkObject *, gpointer, gpointer, gint, gint, gpointer);
+
+static void 
+draw_gdk_signal_marshaller(GtkObject * object, GtkSignalFunc func,
+			   gpointer func_data, GtkArg * args) {
+	draw_gdk_signal ff = (draw_gdk_signal)func;
+	(*ff)(object,
+	      GTK_VALUE_POINTER(args[0]),
+	      GTK_VALUE_POINTER(args[1]),
+	      GTK_VALUE_INT(args[2]),
+	      GTK_VALUE_INT(args[3]),
+	      func_data);
+}
 
 static void
 gtk_html_embedded_class_init (GtkHTMLEmbeddedClass *class)
@@ -122,7 +138,7 @@ gtk_html_embedded_class_init (GtkHTMLEmbeddedClass *class)
 	GtkObjectClass *object_class;
 	GtkWidgetClass *widget_class;
 	GtkContainerClass *container_class;
-
+	
 	object_class = (GtkObjectClass *) class;
 	widget_class = (GtkWidgetClass*) class;
 	container_class = (GtkContainerClass*) class;
@@ -136,6 +152,22 @@ gtk_html_embedded_class_init (GtkHTMLEmbeddedClass *class)
 				GTK_SIGNAL_OFFSET (GtkHTMLEmbeddedClass, changed),
 				gtk_marshal_NONE__NONE,
 				GTK_TYPE_NONE, 0);
+	signals[DRAW_GDK] = 
+		gtk_signal_new("draw_gdk", GTK_RUN_FIRST,
+			       object_class->type, 
+			       GTK_SIGNAL_OFFSET(GtkHTMLEmbeddedClass, draw_gdk),
+			       draw_gdk_signal_marshaller, GTK_TYPE_NONE, 4,
+			       GTK_TYPE_POINTER, GTK_TYPE_POINTER,
+			       GTK_TYPE_INT, GTK_TYPE_INT);
+	
+	signals[DRAW_PRINT] = 
+		gtk_signal_new("draw_print", GTK_RUN_FIRST,
+			       object_class->type,
+			       GTK_SIGNAL_OFFSET(GtkHTMLEmbeddedClass, draw_print),
+			       gtk_marshal_NONE__POINTER,
+			       GTK_TYPE_NONE, 1,
+			       GTK_TYPE_POINTER);
+	
 
 	gtk_object_class_add_signals (object_class, signals, LAST_SIGNAL);
 

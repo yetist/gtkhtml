@@ -92,6 +92,7 @@ DEFINE_UNIMPLEMENTED (draw_panel);
 
 DEFINE_UNIMPLEMENTED (set_clip_rectangle);
 DEFINE_UNIMPLEMENTED (draw_background);
+DEFINE_UNIMPLEMENTED (draw_embedded);
 
 DEFINE_UNIMPLEMENTED (get_pixel_size);
 
@@ -147,6 +148,7 @@ class_init (GtkObjectClass *object_class)
 
 	class->set_clip_rectangle = (gpointer) set_clip_rectangle_unimplemented;
 	class->draw_background = (gpointer) draw_background_unimplemented;
+	class->draw_embedded = (gpointer) draw_embedded_unimplemented;
 
 	class->get_pixel_size = (gpointer) get_pixel_size_unimplemented;
 
@@ -437,6 +439,16 @@ html_painter_draw_panel (HTMLPainter *painter,
 	g_return_if_fail (HTML_IS_PAINTER (painter));
 
 	(* HP_CLASS (painter)->draw_panel) (painter, bg, x, y, width, height, inset, bordersize);
+}
+
+void  
+html_painter_draw_embedded (HTMLPainter *painter, HTMLEmbedded *element, gint x, gint y) 
+{
+	g_return_if_fail (painter != NULL);
+	g_return_if_fail (HTML_IS_PAINTER (painter));
+	g_return_if_fail (element != NULL);
+	
+	(* HP_CLASS (painter)->draw_embedded) (painter, element, x, y);
 }
 
 /* Passing 0 for width/height means remove clip rectangle */
