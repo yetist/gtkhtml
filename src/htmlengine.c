@@ -1,4 +1,4 @@
-/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
+/*"a -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*  This file is part of the GtkHTML library.
 
     Copyright (C) 1997 Martin Jones (mjones@kde.org)
@@ -165,10 +165,10 @@ static guint signals [LAST_SIGNAL] = { 0 };
 #define TIMER_INTERVAL 300
 
 enum ID {
-	ID_ADDRESS, ID_B, ID_BIG, ID_BLOCKQUOTE, ID_BODY, ID_CAPTION, ID_CENTER, ID_CITE, ID_CODE,
+	ID_A, ID_ADDRESS, ID_B, ID_BIG, ID_BLOCKQUOTE, ID_BODY, ID_CAPTION, ID_CENTER, ID_CITE, ID_CODE,
 	ID_DIR, ID_DIV, ID_DL, ID_EM, ID_FONT, ID_HEADER, ID_I, ID_KBD, ID_OL, ID_PRE,
 	ID_SMALL, ID_STRONG, ID_U, ID_UL, ID_TEXTAREA, ID_TD, ID_TH, ID_TT, ID_VAR,
-	ID_SUB, ID_SUP, ID_STRIKEOUT
+	ID_S, ID_SUB, ID_SUP, ID_STRIKE
 };
 
 
@@ -177,157 +177,65 @@ enum ID {
  *  Font handling.
  */
 
-/* Font faces */
-
-static HTMLFontFace *
-current_font_face (HTMLEngine *e)
-{
-	return (HTMLFontFace *) (html_stack_is_empty (e->font_face_stack)
-		? NULL
-		: html_stack_top (e->font_face_stack));
-}
-
-static void
-push_font_face (HTMLEngine *e, const HTMLFontFace *face)
-{
-	html_stack_push (e->font_face_stack, g_strdup (face));
-}
-
-static void
-pop_font_face (HTMLEngine *e)
-{
-	g_free (html_stack_pop (e->font_face_stack));
-}
-
 /* Font styles */
-static inline GtkHTMLFontStyle
-current_font_style (HTMLEngine *e)
+typedef struct _HTMLSpanStyle HTMLSpanStyle;
+struct _HTMLSpanStyle {
+	guint id;
+	HTMLColor *color;
+	HTMLFontFace *face;
+	GtkHTMLFontStyle settings;
+	GtkHTMLFontStyle mask;
+};
+
+static void
+push_span (HTMLEngine *e, guint id, HTMLColor *color, const HTMLFontFace *face, GtkHTMLFontStyle settings, GtkHTMLFontStyle mask)
 {
-	return e->font_style;
-}
+	HTMLSpanStyle *span = g_new0 (HTMLSpanStyle, 1);
 
-static gint style_to_attr (GtkHTMLFontStyle style)
-{
-	switch (style) {
-	case GTK_HTML_FONT_STYLE_BOLD:
-		return GTK_HTML_FONT_STYLE_SHIFT_BOLD - GTK_HTML_FONT_STYLE_SHIFT_FIRST;
-	case GTK_HTML_FONT_STYLE_ITALIC:
-		return GTK_HTML_FONT_STYLE_SHIFT_ITALIC - GTK_HTML_FONT_STYLE_SHIFT_FIRST;
-	case GTK_HTML_FONT_STYLE_UNDERLINE:
-		return GTK_HTML_FONT_STYLE_SHIFT_UNDERLINE - GTK_HTML_FONT_STYLE_SHIFT_FIRST;
-	case GTK_HTML_FONT_STYLE_STRIKEOUT:
-		return GTK_HTML_FONT_STYLE_SHIFT_STRIKEOUT - GTK_HTML_FONT_STYLE_SHIFT_FIRST;
-	case GTK_HTML_FONT_STYLE_FIXED:
-		return GTK_HTML_FONT_STYLE_SHIFT_FIXED - GTK_HTML_FONT_STYLE_SHIFT_FIRST;
-	case GTK_HTML_FONT_STYLE_SUBSCRIPT:
-		return GTK_HTML_FONT_STYLE_SHIFT_SUBSCRIPT - GTK_HTML_FONT_STYLE_SHIFT_FIRST;
-	case GTK_HTML_FONT_STYLE_SUPERSCRIPT:
-		return GTK_HTML_FONT_STYLE_SHIFT_SUPERSCRIPT - GTK_HTML_FONT_STYLE_SHIFT_FIRST;
-	default:
-		return -1;
-	}
-}
+	span->id = id;
+	span->face = g_strdup (face);
+	span->color = color;
+	span->mask = mask;
+	span->settings = settings;
+	       
+	if (span->color)
+		html_color_ref (span->color);
 
-static GtkHTMLFontStyle
-add_font_style (HTMLEngine *e,
-		 GtkHTMLFontStyle new_attrs)
-{
-	if (new_attrs & GTK_HTML_FONT_STYLE_SIZE_MASK) {
-		html_stack_push (e->font_size_stack,
-				 GINT_TO_POINTER (current_font_style (e) & GTK_HTML_FONT_STYLE_SIZE_MASK));
-		e->font_style = (current_font_style (e) & ~GTK_HTML_FONT_STYLE_SIZE_MASK) | new_attrs;
-	} else {
-		gint idx = style_to_attr (new_attrs);
-
-		if (idx >= 0)
-			e->font_style_attrs [idx] ++;
-		else
-			g_warning ("unknown style");
-
-		e->font_style = current_font_style (e) | new_attrs;
-	}
-
-	if (!(e->font_style & GTK_HTML_FONT_STYLE_SIZE_MASK))
-		e->font_style |= GTK_HTML_FONT_STYLE_SIZE_3;
-
-	return current_font_style (e);
-}
-
-static GtkHTMLFontStyle
-remove_font_style (HTMLEngine *e, GtkHTMLFontStyle old_attrs)
-{
-	if (old_attrs & GTK_HTML_FONT_STYLE_SIZE_MASK || old_attrs == GTK_HTML_FONT_STYLE_DEFAULT) {
-		e->font_style = (current_font_style (e) & ~GTK_HTML_FONT_STYLE_SIZE_MASK)
-			| (html_stack_is_empty (e->font_size_stack)
-			   ? GTK_HTML_FONT_STYLE_SIZE_3
-			   : GPOINTER_TO_INT (html_stack_pop (e->font_size_stack)));
-	} else {
-		gint idx = style_to_attr (old_attrs);
-
-		if (idx >= 0) {
-			if (e->font_style_attrs [idx])
-				e->font_style_attrs [idx] --;
-			if (!e->font_style_attrs [idx])
-				e->font_style = current_font_style (e) & ~old_attrs;
-		} else
-			g_warning ("unknown style");
-	}
-	if (e->font_style == GTK_HTML_FONT_STYLE_SIZE_3)
-		e->font_style = GTK_HTML_FONT_STYLE_DEFAULT;
-
-	return current_font_style (e);
+	html_stack_push (e->span_stack, span);
 }
 
 static void
-font_style_attr_reset (gint *attrs)
+free_span (gpointer data)
 {
-	gint i;
+	HTMLSpanStyle *span = data;
 
-	for (i = 0; i <= GTK_HTML_FONT_STYLE_SHIFT_LAST - GTK_HTML_FONT_STYLE_SHIFT_FIRST; i ++)
-		attrs [i] = 0;
+	if (span->color)
+		html_color_unref (span->color);
+	
+	g_free (span->face);
+	g_free (span);
 }
 
 static void
-font_style_attr_copy (gint *dest, gint *src)
+pop_span (HTMLEngine *e, guint id)
 {
-	gint i;
+	GList *item = NULL;
+	HTMLSpanStyle *span;
 
-	for (i = 0; i <= GTK_HTML_FONT_STYLE_SHIFT_LAST - GTK_HTML_FONT_STYLE_SHIFT_FIRST; i ++)
-		dest [i] = src [i];
+	for (item = e->span_stack->list; item; item = item->next) {
+		span = item->data;
+
+		if (span->id == id) {
+			e->span_stack->list = g_list_remove_link (e->span_stack->list, item);
+			g_list_free (item);
+			free_span (span);
+			return;
+		}
+	}
 }
+
 
 /* Color handling.  */
-
-static HTMLColor *
-current_color (HTMLEngine *e)
-{
-	HTMLColor *color;
-
-	if (html_stack_is_empty (e->color_stack))
-		color = html_colorset_get_color (e->settings->color_set, HTMLTextColor);
-	else
-		color = html_stack_top (e->color_stack);
-
-	return color;
-}
-
-static void
-push_color (HTMLEngine *e,
-	    HTMLColor *color)
-{
-	html_stack_push (e->color_stack, color);
-	html_color_ref (color);
-}
-
-static void
-pop_color (HTMLEngine *e)
-{
-        HTMLColor *color = (HTMLColor *)html_stack_pop (e->color_stack);
-	g_return_if_fail (color != NULL);
-
-	html_color_unref (color);
-}
-
 static gboolean
 parse_color (const gchar *text,
 	     GdkColor *color)
@@ -351,6 +259,71 @@ parse_color (const gchar *text,
 		memset (c + len, '0', 7-len);
 
 	return gdk_color_parse (c, color);
+}
+
+static HTMLColor *
+current_color (HTMLEngine *e) {
+	HTMLSpanStyle *span;
+	GList *item;
+	
+	for (item = e->span_stack->list; item; item = item->next) {
+		span = item->data;
+		if (span->color)
+			return span->color;
+	}
+
+	html_colorset_get_color (e->settings->color_set, HTMLTextColor);
+}
+	
+static HTMLFontFace *
+current_font_face (HTMLEngine *e)
+{
+	HTMLSpanStyle *span;
+	GList *item;
+	
+	for (item = e->span_stack->list; item; item = item->next) {
+		span = item->data;
+		if (span->face)
+			return span->face;
+	}
+
+	return NULL;
+}
+
+static inline GtkHTMLFontStyle
+current_font_style (HTMLEngine *e)
+{
+	HTMLSpanStyle *span;
+	GList *item;
+	GtkHTMLFontStyle style = GTK_HTML_FONT_STYLE_DEFAULT;
+	
+	for (item = g_list_last (e->span_stack->list); item; item = item->prev) {
+		span = item->data;
+		style = (style & ~span->mask) | (span->settings & span->mask);
+	}
+	return style;
+}
+
+static gint style_to_attr (GtkHTMLFontStyle style)
+{
+	switch (style) {
+	case GTK_HTML_FONT_STYLE_BOLD:
+		return GTK_HTML_FONT_STYLE_SHIFT_BOLD - GTK_HTML_FONT_STYLE_SHIFT_FIRST;
+	case GTK_HTML_FONT_STYLE_ITALIC:
+		return GTK_HTML_FONT_STYLE_SHIFT_ITALIC - GTK_HTML_FONT_STYLE_SHIFT_FIRST;
+	case GTK_HTML_FONT_STYLE_UNDERLINE:
+		return GTK_HTML_FONT_STYLE_SHIFT_UNDERLINE - GTK_HTML_FONT_STYLE_SHIFT_FIRST;
+	case GTK_HTML_FONT_STYLE_STRIKEOUT:
+		return GTK_HTML_FONT_STYLE_SHIFT_STRIKEOUT - GTK_HTML_FONT_STYLE_SHIFT_FIRST;
+	case GTK_HTML_FONT_STYLE_FIXED:
+		return GTK_HTML_FONT_STYLE_SHIFT_FIXED - GTK_HTML_FONT_STYLE_SHIFT_FIRST;
+	case GTK_HTML_FONT_STYLE_SUBSCRIPT:
+		return GTK_HTML_FONT_STYLE_SHIFT_SUBSCRIPT - GTK_HTML_FONT_STYLE_SHIFT_FIRST;
+	case GTK_HTML_FONT_STYLE_SUPERSCRIPT:
+		return GTK_HTML_FONT_STYLE_SHIFT_SUPERSCRIPT - GTK_HTML_FONT_STYLE_SHIFT_FIRST;
+	default:
+		return -1;
+	}
 }
 
 static GtkPolicyType 
@@ -505,6 +478,8 @@ close_anchor (HTMLEngine *e)
 
 	g_free (e->target);
 	e->target = NULL;
+
+	pop_span (e, ID_A);
 }
 
 static void
@@ -792,16 +767,6 @@ block_end_pre ( HTMLEngine *e, HTMLObject *_clue, HTMLBlockStackElement *elem)
 }
 
 static void
-block_end_color_font (HTMLEngine *e, HTMLObject *clue, HTMLBlockStackElement *elem)
-{
-	if (elem->miscData1)
-		remove_font_style (e, current_font_style (e) & GTK_HTML_FONT_STYLE_SIZE_MASK);
-	if (elem->miscData2)
-		pop_color (e);
-	pop_font_face (e);
-}
-
-static void
 block_end_list (HTMLEngine *e, HTMLObject *clue, HTMLBlockStackElement *elem)
 {
 	html_list_destroy (html_stack_pop (e->listStack));
@@ -850,23 +815,11 @@ parse_body (HTMLEngine *e, HTMLObject *clue, const gchar *end[], gboolean toplev
 	if (begin && !toplevel) {
 		gint *old_font_style_attrs;
 
-		html_stack_push (e->body_stack, e->font_size_stack);
-		html_stack_push (e->body_stack, e->font_face_stack);
-		html_stack_push (e->body_stack, e->color_stack);
+		html_stack_push (e->body_stack, e->span_stack);
 		html_stack_push (e->body_stack, e->clueflow_style_stack);
 
-		e->font_size_stack = html_stack_new (NULL);
-		e->font_face_stack = html_stack_new (g_free);
-		e->color_stack = html_stack_new ((HTMLStackFreeFunc) html_color_unref);
+		e->span_stack = html_stack_new (free_span);
 		e->clueflow_style_stack = html_stack_new (NULL);
-
-		html_stack_push (e->body_stack, GINT_TO_POINTER (e->font_style));
-		e->font_style = GTK_HTML_FONT_STYLE_DEFAULT;
-
-		old_font_style_attrs = g_new (gint, GTK_HTML_FONT_STYLE_SHIFT_LAST - GTK_HTML_FONT_STYLE_SHIFT_FIRST + 1);
-		font_style_attr_copy (old_font_style_attrs, e->font_style_attrs);
-		font_style_attr_reset (e->font_style_attrs);
-		html_stack_push (e->body_stack, old_font_style_attrs);
 
 		html_stack_push (e->body_stack, GINT_TO_POINTER (e->pending_para));
 		html_stack_push (e->body_stack, GINT_TO_POINTER (e->avoid_para));
@@ -931,27 +884,15 @@ parse_body (HTMLEngine *e, HTMLObject *clue, const gchar *end[], gboolean toplev
 		}
 
 		if (!toplevel) {
-			gint *old_font_style_attrs;
-
 			pop_block (e, ID_BODY, clue);
 
-		e->avoid_para = GPOINTER_TO_INT (html_stack_pop (e->body_stack));
-		e->pending_para = GPOINTER_TO_INT (html_stack_pop (e->body_stack));
-
-			old_font_style_attrs = html_stack_pop (e->body_stack);
-			font_style_attr_copy (e->font_style_attrs, old_font_style_attrs);
-			g_free (old_font_style_attrs);
-
-			e->font_style = GPOINTER_TO_INT (html_stack_pop (e->body_stack));
+			e->avoid_para = GPOINTER_TO_INT (html_stack_pop (e->body_stack));
+			e->pending_para = GPOINTER_TO_INT (html_stack_pop (e->body_stack));
 
 			html_stack_destroy (e->clueflow_style_stack);
-			html_stack_destroy (e->color_stack);
-			html_stack_destroy (e->font_face_stack);
-			html_stack_destroy (e->font_size_stack);
+			html_stack_destroy (e->span_stack);
 
-			e->font_size_stack = html_stack_pop (e->body_stack);
-			e->color_stack = html_stack_pop (e->body_stack);
-			e->font_face_stack = html_stack_pop (e->body_stack);
+			e->span_stack = html_stack_pop (e->body_stack);
 			e->clueflow_style_stack = html_stack_pop (e->body_stack);
 		}
 	}
@@ -1909,7 +1850,8 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 		     && e->baseTarget != NULL
 		     && e->baseTarget[0] != '\0' ) {
 			target = g_strdup (e->baseTarget);
-				/*  parsedTargets.append( target ); FIXME TODO */		}
+				/*  parsedTargets.append( target ); FIXME TODO */		
+		}
 #endif
 		
 		if (url != NULL) {
@@ -1917,10 +1859,9 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 			e->url = url;
 		}
 		if (e->url || e->target)
-			push_color (e, html_colorset_get_color (e->settings->color_set, HTMLLinkColor));
+			push_span (e, ID_A, html_colorset_get_color (e->settings->color_set, HTMLLinkColor), NULL, 0, 0);
+			       
 	} else if ( strncmp( str, "/a", 2 ) == 0 ) {
-		if (e->url || e->target)
-			pop_color (e);
 		close_anchor (e);
 		e->eat_space = FALSE;
 	}
@@ -1955,9 +1896,9 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 			}
 		}
 	} else if ( strncmp(str, "big", 3 ) == 0 ) {
-		add_font_style (e, GTK_HTML_FONT_STYLE_SIZE_4);
+		push_span (e, ID_BIG, NULL, NULL, GTK_HTML_FONT_STYLE_SIZE_4, GTK_HTML_FONT_STYLE_SIZE_MASK);
 	} else if ( strncmp(str, "/big", 4 ) == 0 ) {
-		remove_font_style (e, GTK_HTML_FONT_STYLE_SIZE_4);
+		pop_span (e, ID_BIG);
 	} else if ( strncmp(str, "blockquote", 10 ) == 0 ) {
 		gboolean type = HTML_LIST_TYPE_BLOCKQUOTE;
 
@@ -2010,10 +1951,9 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 			} else if ( strncasecmp( token, "text=", 5 ) == 0
 				    && !e->defaultSettings->forceDefault ) {
 				if (parse_color (token + 5, &color)) {
-					if (! html_stack_is_empty (e->color_stack))
-						pop_color (e);
 					html_colorset_set_color (e->settings->color_set, &color, HTMLTextColor);
-					push_color (e, html_colorset_get_color (e->settings->color_set, HTMLTextColor));
+					push_span (e, ID_BODY, 
+						   html_colorset_get_color (e->settings->color_set, HTMLTextColor), NULL, 0, 0);
 				}
 			} else if ( strncasecmp( token, "link=", 5 ) == 0
 				    && !e->defaultSettings->forceDefault ) {
@@ -2067,10 +2007,10 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		add_line_break (e, clue, clear);
 	} else if (strncmp (str, "b", 1) == 0) {
 		if (str[1] == '>' || str[1] == ' ') {
-			add_font_style (e, GTK_HTML_FONT_STYLE_BOLD);
+			push_span (e, ID_B, NULL, NULL, GTK_HTML_FONT_STYLE_BOLD, GTK_HTML_FONT_STYLE_BOLD);
 		}
 	} else if (strncmp (str, "/b", 2) == 0) {
-		remove_font_style (e, GTK_HTML_FONT_STYLE_BOLD);
+		pop_span (e, ID_B);
 	}
 }
 
@@ -2094,15 +2034,15 @@ parse_c (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	} else if (strncmp (str, "/center", 7) == 0) {
 		pop_block (e, ID_CENTER, clue);
 	} else if (strncmp( str, "cite", 4 ) == 0) {
-		add_font_style (e, GTK_HTML_FONT_STYLE_ITALIC);
-		add_font_style (e, GTK_HTML_FONT_STYLE_BOLD);
+		push_span (e, ID_CITE, NULL, NULL, 
+			   GTK_HTML_FONT_STYLE_ITALIC | GTK_HTML_FONT_STYLE_BOLD, 
+			   GTK_HTML_FONT_STYLE_ITALIC | GTK_HTML_FONT_STYLE_BOLD);
 	} else if (strncmp( str, "/cite", 5) == 0) {
-		remove_font_style (e, GTK_HTML_FONT_STYLE_BOLD);
-		remove_font_style (e, GTK_HTML_FONT_STYLE_ITALIC);
+		pop_span (e, ID_CITE);
 	} else if (strncmp(str, "code", 4 ) == 0 ) {
-		add_font_style (e, GTK_HTML_FONT_STYLE_FIXED);
+		push_span (e, ID_CODE, NULL, NULL, GTK_HTML_FONT_STYLE_FIXED, GTK_HTML_FONT_STYLE_FIXED);
 	} else if (strncmp(str, "/code", 5 ) == 0 ) {
-		remove_font_style (e, GTK_HTML_FONT_STYLE_FIXED);
+		pop_span (e, ID_CODE);
 	}
 }
 
@@ -2172,7 +2112,8 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 		push_block (e, ID_DL, 2, block_end_glossary, FALSE, FALSE);		
 		html_stack_push (e->listStack, html_list_new (HTML_LIST_TYPE_GLOSSARY_DL));
 
-		add_line_break (e, _clue, HTML_CLEAR_ALL);
+		add_pending_paragraph_break (e, _clue);
+		finish_flow (e, _clue);
 	} else if (strncmp( str, "dd", 2 ) == 0) {
 		HTMLList *top = html_stack_top (e->listStack);
 		if (top && (top->type == HTML_LIST_TYPE_GLOSSARY_DD || top->type == HTML_LIST_TYPE_GLOSSARY_DL)) {
@@ -2185,7 +2126,8 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 		push_block (e, ID_DL, 2, block_end_glossary, FALSE, FALSE);
 		html_stack_push (e->listStack, html_list_new (HTML_LIST_TYPE_GLOSSARY_DD));
 
-		add_line_break (e, _clue, HTML_CLEAR_ALL);
+		add_pending_paragraph_break (e, _clue);
+		finish_flow (e, _clue);
 	} else if (strncmp (str, "data ", 5) == 0) {
 		gchar *key = NULL;
 		gchar *class_name = NULL;
@@ -2224,9 +2166,9 @@ static void
 parse_e (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 {
 	if ( strncmp( str, "em", 2 ) == 0 ) {
-		add_font_style (e, GTK_HTML_FONT_STYLE_ITALIC);
+		push_span (e, ID_EM, NULL, NULL, GTK_HTML_FONT_STYLE_ITALIC, GTK_HTML_FONT_STYLE_ITALIC);
 	} else if ( strncmp( str, "/em", 3 ) == 0 ) {
-		remove_font_style (e, GTK_HTML_FONT_STYLE_ITALIC);
+		pop_span (e, ID_EM);
 	}
 }
 
@@ -2303,18 +2245,13 @@ parse_f (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 			}
 		}
 
-		if (html_color) {
-			push_color (e, html_color);
+		push_span (e, ID_FONT, html_color, face, newSize, GTK_HTML_FONT_STYLE_SIZE_MASK);
+
+		if (html_color)
 			html_color_unref (html_color);
-		}
 
-		push_font_face (e, face);
-		if (oldSize != newSize)
-			add_font_style (e, newSize);
-
-		push_block  (e, ID_FONT, 1, block_end_color_font, oldSize != newSize, html_color != NULL);
 	} else if (strncmp (str, "/font", 5) == 0) {
-		pop_block (e, ID_FONT, clue);
+		pop_span (e, ID_FONT);
 	} else if (strncmp (str, "form", 4) == 0) {
                 gchar *action = NULL;
                 gchar *method = "GET";
@@ -2616,10 +2553,10 @@ parse_i (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 		parse_iframe (e, str + 7, _clue);
 	} else if ( strncmp (str, "i", 1 ) == 0 ) {
 		if ( str[1] == '>' || str[1] == ' ' ) {
-			add_font_style (e, GTK_HTML_FONT_STYLE_ITALIC);
+			push_span (e, ID_I, NULL, NULL, GTK_HTML_FONT_STYLE_ITALIC, GTK_HTML_FONT_STYLE_ITALIC);
 		}
 	} else if ( strncmp( str, "/i", 2 ) == 0 ) {
-		remove_font_style (e, GTK_HTML_FONT_STYLE_ITALIC);
+		pop_span (e, ID_I);
 	}
 }
 
@@ -2632,9 +2569,9 @@ static void
 parse_k (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 {
 	if ( strncmp(str, "kbd", 3 ) == 0 ) {
-		add_font_style (e, GTK_HTML_FONT_STYLE_FIXED);
+		push_span (e, ID_KBD, NULL, NULL, GTK_HTML_FONT_STYLE_FIXED, GTK_HTML_FONT_STYLE_FIXED);
 	} else if ( strncmp(str, "/kbd", 4 ) == 0 ) {
-		remove_font_style (e, GTK_HTML_FONT_STYLE_FIXED);
+		pop_span (e, ID_KBD);
 	}
 }
 
@@ -2957,13 +2894,13 @@ static void
 parse_s (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	if (strncmp (str, "small", 5) == 0) {
-		add_font_style (e, GTK_HTML_FONT_STYLE_SIZE_2);
+		push_span (e, ID_SMALL, NULL, NULL, GTK_HTML_FONT_STYLE_SIZE_2, GTK_HTML_FONT_STYLE_SIZE_MASK);
 	} else if (strncmp (str, "/small", 6) == 0 ) {
-		remove_font_style (e, GTK_HTML_FONT_STYLE_SIZE_2);
+		pop_span (e, ID_SMALL);
 	} else if (strncmp (str, "strong", 6) == 0) {
-		add_font_style (e, GTK_HTML_FONT_STYLE_BOLD);
+		push_span (e, ID_STRONG, NULL, NULL, GTK_HTML_FONT_STYLE_BOLD, GTK_HTML_FONT_STYLE_BOLD);
 	} else if (strncmp (str, "/strong", 7) == 0) {
-		remove_font_style (e, GTK_HTML_FONT_STYLE_BOLD);
+		pop_span (e, ID_STRONG);
 	} else if (strncmp (str, "select", 6) == 0) {
                 gchar *name = NULL;
 		gint size = 0;
@@ -3001,22 +2938,24 @@ parse_s (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		e->eat_space = FALSE;
 	} else if (strncmp (str, "sub", 3) == 0) {
 		if (str[3] == '>' || str[3] == ' ') {
-			add_font_style (e, GTK_HTML_FONT_STYLE_SUBSCRIPT);
+			push_span (e, ID_SUB, NULL, NULL, GTK_HTML_FONT_STYLE_SUBSCRIPT, GTK_HTML_FONT_STYLE_SUBSCRIPT);
 		}
 	} else if (strncmp (str, "/sub", 4) == 0) {
-		remove_font_style (e, GTK_HTML_FONT_STYLE_SUBSCRIPT);
+		pop_span (e, ID_SUB);
 	} else if (strncmp (str, "sup", 3) == 0) {
 		if (str[3] == '>' || str[3] == ' ') {
-			add_font_style (e, GTK_HTML_FONT_STYLE_SUPERSCRIPT);
+			push_span (e, ID_SUP, NULL, NULL, GTK_HTML_FONT_STYLE_SUPERSCRIPT, GTK_HTML_FONT_STYLE_SUPERSCRIPT);
 		}
 	} else if (strncmp (str, "/sup", 4) == 0) {
-		remove_font_style (e, GTK_HTML_FONT_STYLE_SUPERSCRIPT);
-	} else 	if (strncmp (str, "strike", 6) == 0
-		    || (strncmp (str, "s", 1) == 0 && (str[1] == '>' || str[1] == ' '))) {
-		add_font_style (e, GTK_HTML_FONT_STYLE_STRIKEOUT);
-	} else if (strncmp (str, "/strike", 7) == 0
-		   || (strncmp (str, "/s", 2) == 0 && (str[2] == '>' || str[2] == ' '))) {
-		remove_font_style (e, GTK_HTML_FONT_STYLE_STRIKEOUT);
+		pop_span (e, ID_SUP);
+	} else if (strncmp (str, "strike", 6) == 0) {
+		push_span (e, ID_STRIKE, NULL, NULL, GTK_HTML_FONT_STYLE_STRIKEOUT, GTK_HTML_FONT_STYLE_STRIKEOUT);
+	} else if (strncmp (str, "s", 1) == 0 && (str[1] == '>' || str[1] == ' ')) {
+		push_span (e, ID_S, NULL, NULL, GTK_HTML_FONT_STYLE_STRIKEOUT, GTK_HTML_FONT_STYLE_STRIKEOUT);
+	} else if (strncmp (str, "/strike", 7) == 0) {
+		pop_span (e, ID_STRIKE);
+	} else if (strncmp (str, "/s", 2) == 0 && (str[2] == '>' || str[2] == ' ')) {
+		pop_span (e, ID_S);
 	}
 }
 
@@ -3053,9 +2992,9 @@ parse_t (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		e->inTitle = FALSE;
 	}
 	else if ( strncmp( str, "tt", 2 ) == 0 ) {
-		add_font_style (e, GTK_HTML_FONT_STYLE_FIXED);
+		push_span (e, ID_TT, NULL, NULL, GTK_HTML_FONT_STYLE_FIXED, GTK_HTML_FONT_STYLE_FIXED);
 	} else if ( strncmp( str, "/tt", 3 ) == 0 ) {
-		remove_font_style (e, GTK_HTML_FONT_STYLE_FIXED);
+		pop_span (e, ID_TT);
 	}
 	else if (strncmp (str, "textarea", 8) == 0) {
                 gchar *name = NULL;
@@ -3142,10 +3081,10 @@ parse_u (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		new_flow (e, clue, NULL, HTML_CLEAR_NONE);
 	} else if (strncmp (str, "u", 1) == 0) {
 		if (str[1] == '>' || str[1] == ' ') {
-			add_font_style (e, GTK_HTML_FONT_STYLE_UNDERLINE);
+			push_span (e, ID_U, NULL, NULL, GTK_HTML_FONT_STYLE_UNDERLINE, GTK_HTML_FONT_STYLE_UNDERLINE);
 		}
 	} else if (strncmp (str, "/u", 2) == 0) {
-		remove_font_style (e, GTK_HTML_FONT_STYLE_UNDERLINE);
+		pop_span (e, ID_U);
 	}
 }
 
@@ -3158,9 +3097,9 @@ static void
 parse_v (HTMLEngine *e, HTMLObject * _clue, const char *str )
 {
 	if ( strncmp(str, "var", 3 ) == 0 ) {
-		add_font_style (e, GTK_HTML_FONT_STYLE_FIXED);
+		push_span (e, ID_VAR, NULL, NULL, GTK_HTML_FONT_STYLE_FIXED, GTK_HTML_FONT_STYLE_FIXED);
 	} else if ( strncmp( str, "/var", 4 ) == 0) {
-		remove_font_style (e, GTK_HTML_FONT_STYLE_FIXED);
+		pop_span (e, ID_VAR);
 	}
 }
 
@@ -3356,19 +3295,9 @@ html_engine_finalize (GObject *object)
 		engine->painter = NULL;
 	}
 
-	if (engine->color_stack) {
-		html_stack_destroy (engine->color_stack);
-		engine->color_stack = NULL;
-	}
-
-	if (engine->font_face_stack) {
-		html_stack_destroy (engine->font_face_stack);
-		engine->font_face_stack = NULL;
-	}
-
-	if (engine->font_size_stack) {
-		html_stack_destroy (engine->font_size_stack);
-		engine->font_size_stack = NULL;
+	if (engine->span_stack) {
+		html_stack_destroy (engine->span_stack);
+		engine->span_stack = NULL;
 	}
 
 	if (engine->clueflow_style_stack) {
@@ -3384,11 +3313,6 @@ html_engine_finalize (GObject *object)
 	if (engine->listStack) {
 		html_stack_destroy (engine->listStack);
 		engine->listStack = NULL;
-	}
-
-	if (engine->glossaryStack) {
-		html_stack_destroy (engine->glossaryStack);
-		engine->glossaryStack = NULL;
 	}
 
 	if (engine->embeddedStack) {
@@ -3595,15 +3519,11 @@ html_engine_init (HTMLEngine *engine)
 	engine->undo = html_undo_new ();
 
 	engine->body_stack = html_stack_new (NULL);
-	engine->font_style = GTK_HTML_FONT_STYLE_DEFAULT;
-	engine->font_size_stack = html_stack_new (NULL);
-	engine->font_face_stack = html_stack_new (g_free);
-	engine->color_stack = html_stack_new ((HTMLStackFreeFunc) html_color_unref);
+	engine->span_stack = html_stack_new (free_span);
 	engine->clueflow_style_stack = html_stack_new (NULL);
 	engine->frame_stack = html_stack_new (NULL);
 
 	engine->listStack = html_stack_new ((HTMLStackFreeFunc) html_list_destroy);
-	engine->glossaryStack = html_stack_new (NULL);
 	/* FIXME rodo engine->embeddedStack = html_stack_new ((HTMLStackFreeFunc) gtk_object_unref); */
 	engine->embeddedStack = html_stack_new (NULL);
 
@@ -3768,9 +3688,7 @@ html_engine_stop_parser (HTMLEngine *e)
 	
 	e->parsing = FALSE;
 
-	html_stack_clear (e->font_size_stack);
-	html_stack_clear (e->color_stack);
-	html_stack_clear (e->font_face_stack);
+	html_stack_clear (e->span_stack);
 	html_stack_clear (e->clueflow_style_stack);
 	html_stack_clear (e->frame_stack);
 
@@ -3846,8 +3764,6 @@ html_engine_begin (HTMLEngine *e, char *content_type)
 	
 	free_block (e); /* Clear the block stack */
 
-	e->font_style = GTK_HTML_FONT_STYLE_DEFAULT;
-	
 	html_engine_stop_parser (e);
 	e->writing = TRUE;
 	e->begin = TRUE;

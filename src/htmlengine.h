@@ -120,11 +120,7 @@ struct _HTMLEngine {
 	gboolean newPage;
 	gboolean begin;
  
-	GtkHTMLFontStyle font_style;
-	gint font_style_attrs [GTK_HTML_FONT_STYLE_SHIFT_LAST - GTK_HTML_FONT_STYLE_SHIFT_FIRST + 1];
-	HTMLStack *font_size_stack;
-	HTMLStack *font_face_stack;
-	HTMLStack *color_stack;	/* Color stack, elements are GdkColors.  */
+	HTMLStack *span_stack;
 	HTMLStack *clueflow_style_stack; /* Clueflow style stack, elements are HTMLClueFlowStyles.  */
 	HTMLStack *frame_stack;
 	HTMLStack *body_stack;
@@ -160,8 +156,6 @@ struct _HTMLEngine {
 	GtkHTML *widget;
 
         gpointer image_factory;
-
-	HTMLStack *glossaryStack; /* HTMLGlossaryEntry */
 
 	/*
 	 * This list holds strings which are displayed in the view,
