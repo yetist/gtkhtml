@@ -2,11 +2,11 @@ INCLUDES = -I$(top_srcdir) -I$(includedir) $(GNOME_INCLUDEDIR) \
 	$(EXTRA_GNOME_CFLAGS) \
 	-DG_LOG_DOMAIN=\"gtkhtml\"
 
-if BONOBO
-hc=html-component
-endif
+noinst_PROGRAMS = testgtkhtml
 
-bin_PROGRAMS = testgtkhtml $(hc)
+if BONOBO
+bin_PROGRAMS = html-component
+endif
 
 common_SOURCES =   \
 	debug.c		\
