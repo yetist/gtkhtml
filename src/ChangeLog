@@ -1,5 +1,8 @@
 2001-10-30  Radek Doulik  <rodo@ximian.com>
 
+	* htmltable.c (html_table_set_max_width): set max_width to
+	min_width if min_width > max_width
+
 	* htmlengine-edit-cut-and-paste.c (insert_empty_paragraph): move
 	undo level end to wrap event
 	(html_engine_insert_text): added event emitting, it need to be
