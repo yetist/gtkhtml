@@ -1,3 +1,15 @@
+2000-10-19  Radek Doulik  <rodo@helixcode.com>
+
+	* gtkhtml-input.c (focus_out): add focus_out signal handler for
+	entry
+	(set_html_focus): new helper function to set focus back to html
+	widget
+	(gtk_html_input_line_deactivate): don't set focus to html widget,
+	leave that on set_html_focus
+	(key_press_event): use set_html_focus
+	(focus_out): call set_html_focus in idle callback (otherwise focus
+	will be broken)
+
 2000-10-18  Radek Doulik  <rodo@helixcode.com>
 
 	* keybindingsrc.ms: like for emacs

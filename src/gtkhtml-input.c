@@ -82,6 +82,17 @@ html_size_allocate (GtkWidget *w, GtkAllocation *allocation, GtkHTMLInputLine *i
 		il->allocated = FALSE;
 }
 
+static gboolean
+set_html_focus (GtkHTMLInputLine *il)
+{
+	GtkWidget *window;
+
+	if ((window = gtk_widget_get_ancestor (GTK_WIDGET (il->html), gtk_window_get_type ())))
+		gtk_window_set_focus (GTK_WINDOW (window), GTK_WIDGET (il->html));
+
+	return FALSE;
+}
+
 static void
 value_changed (GtkAdjustment *adjustment, GtkHTMLInputLine *il)
 {
@@ -100,11 +111,21 @@ key_press_event (GtkWidget *widget, GdkEventKey *event, GtkHTMLInputLine *il)
 
 	if (!event->state && event->keyval == GDK_Escape) {
 		gtk_html_input_line_deactivate (il);
+		set_html_focus (il);
 		retval = TRUE;
 	} else if (il->key_press)
 		retval = (*(gint (*)(GtkWidget *, GdkEventKey *, gpointer)) il->key_press) (widget, event, il->data);
 
 	return retval;
+}
+
+static void
+focus_out (GtkWidget *w, GdkEventFocus *event, GtkHTMLInputLine *il)
+{
+	if (il->activated) {
+		gtk_html_input_line_deactivate (il);
+		gtk_idle_add ((GtkFunction) set_html_focus, il);
+	}
 }
 
 GtkHTMLInputLine *
@@ -127,6 +148,9 @@ gtk_html_input_line_new (GtkHTML *html)
 	gtk_signal_connect (GTK_OBJECT (il->ebox), "size_allocate", size_allocate, il);
 	gtk_signal_connect (GTK_OBJECT (il->html),  "size_allocate", html_size_allocate, il);
 	gtk_signal_connect (GTK_OBJECT (il->entry), "key_press_event", GTK_SIGNAL_FUNC (key_press_event), il);
+	gtk_signal_connect (GTK_OBJECT (il->entry), "focus_out_event", focus_out, il);
+
+	gtk_widget_add_events (il->entry, GDK_FOCUS_CHANGE);
 
 	hbox = gtk_hbox_new (FALSE, 3);
 	gtk_box_pack_start (GTK_BOX (hbox), il->label, FALSE, FALSE, 3);
@@ -181,6 +205,7 @@ gtk_html_input_line_deactivate (GtkHTMLInputLine *il)
 {
 	g_return_if_fail (il->activated);
 
+	il->activated = FALSE;
 	(*(void (*) (gpointer)) il->finish) (il->data);
 
 	if (il->changed) {
@@ -193,7 +218,4 @@ gtk_html_input_line_deactivate (GtkHTMLInputLine *il)
 	}
 	gtk_grab_remove (il->entry);
 	gtk_container_remove (GTK_CONTAINER (il->html), il->ebox);
-	gtk_widget_grab_focus (GTK_WIDGET (il->html));
-
-	il->activated = FALSE;
 }
