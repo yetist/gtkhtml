@@ -1,3 +1,9 @@
+2001-09-18  Larry Ewing  <lewing@ximian.com>
+
+	* htmlimage.c (html_image_factory_end_pixbuf): let the pointer
+	close the loader when it is freed, not before then so that
+	html_image_set_url works properly.
+
 2001-09-17  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine-edit.c (html_engine_prev_cell): don't call

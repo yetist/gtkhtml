@@ -914,8 +914,6 @@ html_image_factory_end_pixbuf (GtkHTMLStream *stream,
 	HTMLImagePointer *ip = user_data;
 
 	update_or_redraw (ip);
-	gtk_object_unref (GTK_OBJECT (ip->loader));
-	ip->loader = NULL;
 
 	html_image_pointer_unref (ip);
 }
@@ -1336,6 +1334,7 @@ void
 html_image_factory_unregister (HTMLImageFactory *factory, HTMLImagePointer *pointer, HTMLImage *i)
 {
 	pointer->interests = g_slist_remove (pointer->interests, i);
+
 	html_image_pointer_unref (pointer);
 	if (pointer->refcount == 1) {
 		g_assert (pointer->interests == NULL);
