@@ -1054,7 +1054,8 @@ write_pre_tags (HTMLClueFlow *self,
 	const char *prev_tag, *curr_tag;
 
 	prev = HTML_CLUEFLOW (HTML_OBJECT (self)->prev);
-	if (prev != NULL && prev->level == self->level && prev->style == self->style) {
+	if (prev != NULL && !HTML_IS_TABLE (HTML_CLUE (self)->head)
+	    && prev->level == self->level && prev->style == self->style) {
 		if (!is_item (self) && self->style != HTML_CLUEFLOW_STYLE_PRE) {
 			return html_engine_save_output_string (state, "<br>\n");
 		} else if (self->style == HTML_CLUEFLOW_STYLE_PRE) {
