@@ -24,7 +24,7 @@ AC_SUBST(GETTEXT_PACKAGE)
 GNOME_EXPLICIT_TRANSLATION_DOMAIN=${GTKHTML_RELEASE_STRING}
 AC_DEFINE_UNQUOTED(GNOME_EXPLICIT_TRANSLATION_DOMAIN, "${GNOME_EXPLICIT_TRANSLATION_DOMAIN}", [Gnome Explicit Translation Domain])
 
-AM_INIT_AUTOMAKE($PACKAGE, $GTKHTML_RELEASE.1)
+AM_INIT_AUTOMAKE($PACKAGE, $GTKHTML_RELEASE.2)
 
 EDITOR_API_VERSION=3.0
 AC_DEFINE_UNQUOTED(EDITOR_API_VERSION, "${EDITOR_API_VERSION}", [Editor API Version])
@@ -113,7 +113,7 @@ dnl **********************************
  
 dnl Increment the following if the interface has additions, changes,
 dnl removals.
-GTKHTML_CURRENT=0
+GTKHTML_CURRENT=1
 
 dnl Increment any time the source changes; set to 0 if you
 dnl increment CURRENT.
