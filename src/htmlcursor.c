@@ -34,6 +34,9 @@
 #include "htmlcursor.h"
 
 
+#define _HTML_CURSOR_DEBUG
+
+
 #ifdef _HTML_CURSOR_DEBUG
 static void
 debug_location (const HTMLCursor *cursor)
@@ -46,10 +49,9 @@ debug_location (const HTMLCursor *cursor)
 		return;
 	}
 
-	g_print ("Cursor in %s (%p), offset %d\n",
+	g_print ("Cursor in %s (%p), offset %d, relative %d\n",
 		 html_type_name (HTML_OBJECT_TYPE (object)),
-		 object,
-		 cursor->offset);
+		 object, cursor->offset, cursor->relative_position);
 }
 #else
 #define debug_location(cursor)
@@ -67,6 +69,8 @@ html_cursor_new (void)
 
 	new->target_x = 0;
 	new->have_target_x = FALSE;
+
+	new->relative_position = 0;
 
 	return new;
 }
@@ -168,6 +172,7 @@ html_cursor_home (HTMLCursor *cursor,
 
 	cursor->object = engine->clue;
 	cursor->offset = 0;
+	cursor->relative_position = 0;
 
 	html_cursor_forward (cursor, engine);
 
@@ -275,6 +280,7 @@ forward (HTMLCursor *cursor,
  end:
 	cursor->object = obj;
 	cursor->offset = offset;
+	cursor->relative_position++;
 
 	return TRUE;
 }
@@ -382,6 +388,7 @@ backward (HTMLCursor *cursor,
 	if (obj != NULL) {
 		cursor->object = obj;
 		cursor->offset = offset;
+		cursor->relative_position--;
 		return TRUE;
 	}
 
@@ -478,6 +485,7 @@ html_cursor_up (HTMLCursor *cursor,
 			if (prev_y == y && target_x - x >= prev_x - target_x) {
 				cursor->object = prev_cursor.object;
 				cursor->offset = prev_cursor.offset;
+				cursor->relative_position = prev_cursor.relative_position;
 			}
 
 			debug_location (cursor);
@@ -558,6 +566,7 @@ html_cursor_down (HTMLCursor *cursor,
 			if (prev_y == y && x - target_x >= target_x - prev_x) {
 				cursor->object = prev_cursor.object;
 				cursor->offset = prev_cursor.offset;
+				cursor->relative_position = prev_cursor.relative_position;
 			}
 
 			debug_location (cursor);
@@ -574,4 +583,21 @@ html_cursor_equal (HTMLCursor *a, HTMLCursor *b)
 	g_return_val_if_fail (b != NULL, FALSE);
 
 	return a->object == b->object && a->offset == b->offset;
+}
+
+
+gint
+html_cursor_get_relative (HTMLCursor *cursor)
+{
+	g_return_val_if_fail (cursor != NULL, 0);
+
+	return cursor->relative_position;
+}
+
+void
+html_cursor_reset_relative (HTMLCursor *cursor)
+{
+	g_return_val_if_fail (cursor != NULL, 0);
+
+	cursor->relative_position = 0;
 }

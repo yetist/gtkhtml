@@ -1,3 +1,18 @@
+2000-02-09  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlcursor.c (html_cursor_new): Initialize `relative_position'.
+	(html_cursor_get_relative): New function.
+	(html_cursor_reset_relative): New function.
+	(html_cursor_home): Set relative position to zero.
+	(forward): Increment relative position if successfull.
+	(backward): Decrement relative position if successfull.
+	(html_cursor_up): Update relative position.
+	(html_cursor_down): Likewise.
+	(debug_location): Print relative position too.
+	(_HTML_CURSOR_DEBUG): Enable.
+
+	* htmlcursor.h: New member `relative_position'.
+
 2000-02-08  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmltable.c (calc_min_width): Call `calc_col_info()' before

@@ -35,6 +35,8 @@ struct _HTMLCursor {
 
 	gint target_x;
 	gboolean have_target_x : 1;
+
+	gint relative_position;
 };
 typedef struct _HTMLCursor HTMLCursor;
 
@@ -60,5 +62,8 @@ gboolean  html_cursor_down      (HTMLCursor *cursor,
 
 gboolean  html_cursor_equal  (HTMLCursor *a,
 			      HTMLCursor *b);
+
+gint  html_cursor_get_relative    (HTMLCursor *cursor);
+void  html_cursor_reset_relative  (HTMLCursor *cursor);
 
 #endif
