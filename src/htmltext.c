@@ -1217,26 +1217,26 @@ html_text_get_pango_info (HTMLText *text, HTMLPainter *painter)
 		if (!HTML_IS_PLAIN_PAINTER (painter)) {
 			if (flow && e)
 				html_text_change_attrs (attrs, html_clueflow_get_default_font_style (flow), GTK_HTML (painter->widget)->engine, 0, text->text_bytes, TRUE);
+		}
 
-			if (text->links && e) {
-				HTMLColor *link_color = html_colorset_get_color (e->settings->color_set, HTMLLinkColor);
-				GSList *l;
+		if (text->links && e) {
+			HTMLColor *link_color = html_colorset_get_color (e->settings->color_set, HTMLLinkColor);
+			GSList *l;
 
-				for (l = text->links; l; l = l->next) {
-					PangoAttribute *attr;
-					Link *link;
+			for (l = text->links; l; l = l->next) {
+				PangoAttribute *attr;
+				Link *link;
 
-					link = (Link *) l->data;
-					attr = pango_attr_underline_new (PANGO_UNDERLINE_SINGLE);
-					attr->start_index = link->start_index;
-					attr->end_index = link->end_index;
-					pango_attr_list_change (attrs, attr);
+				link = (Link *) l->data;
+				attr = pango_attr_underline_new (PANGO_UNDERLINE_SINGLE);
+				attr->start_index = link->start_index;
+				attr->end_index = link->end_index;
+				pango_attr_list_change (attrs, attr);
 
-					attr = pango_attr_foreground_new (link_color->color.red, link_color->color.green, link_color->color.blue);
-					attr->start_index = link->start_index;
-					attr->end_index = link->end_index;
-					pango_attr_list_change (attrs, attr);
-				}
+				attr = pango_attr_foreground_new (link_color->color.red, link_color->color.green, link_color->color.blue);
+				attr->start_index = link->start_index;
+				attr->end_index = link->end_index;
+				pango_attr_list_change (attrs, attr);
 			}
 		}
 

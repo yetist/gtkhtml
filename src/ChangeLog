@@ -1,5 +1,10 @@
 2004-06-18  Radek Doulik  <rodo@ximian.com>
 
+	* htmltext.c (html_text_get_pango_info): add link format attrs for
+	plain as well
+
+	Fixes #60378
+
 	* htmlengine.c (new_parse_body): if tokenizer returns NULL even if
 	it claims it has more tokens, break the loop
 
