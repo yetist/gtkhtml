@@ -1,6 +1,9 @@
 2002-11-26  Larry Ewing  <lewing@ximian.com>
 
-	* gtkhtml.c (gtk_html_insert_html_generic): readd the form
+	* htmltablecell.c (draw_background_helper): don't try to get a
+	pixbuf from a NULL animation.
+
+	* gtkhtml.c (gtk_html_insert_html_generic): re-add the form
 	pasting fix tht seems to have been lost somewhere..
 
 2002-11-26  Not Zed  <NotZed@Ximian.com>

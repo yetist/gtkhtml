@@ -71,7 +71,7 @@ draw_background_helper (HTMLTableCell *cell,
 		if (cell->bgPixmap->animation) {
 			pixbuf = gdk_pixbuf_animation_get_static_image (cell->bgPixmap->animation);
 		}
-	} else if (t && t->bgPixmap)
+	} else if (t && t->bgPixmap && t->bgPixmap->animation)
 		pixbuf = gdk_pixbuf_animation_get_static_image (t->bgPixmap->animation);
 	
 	/* FIXME this should be moved into the painter interface */
