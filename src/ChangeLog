@@ -1,5 +1,8 @@
 2001-03-14  Radek Doulik  <rodo@ximian.com>
 
+	* htmlengine-edit-table.c (new_cell): set cell bgcolor, bgpixmap
+	and padding
+
 	* htmltext.c (calc_min_width): make minimal width be always >= 1
 	(calc_preferred_width): ditto
 

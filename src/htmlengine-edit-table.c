@@ -37,18 +37,23 @@ static void delete_table_row    (HTMLEngine *e, HTMLUndoDirection dir);
 static void insert_table_row    (HTMLEngine *e, gboolean after, HTMLUndoDirection dir);
 
 static HTMLTableCell *
-new_cell (HTMLEngine *e)
+new_cell (HTMLEngine *e, HTMLTable *table)
 {
 	HTMLObject    *cell;
 	HTMLObject    *text;
 	HTMLObject    *flow;
 	
-	cell  = html_table_cell_new (0, 1, 1, 1);
+	cell  = html_table_cell_new (0, 1, 1, table->padding);
 	flow  = html_clueflow_new (HTML_CLUEFLOW_STYLE_NORMAL, 0);
 	text  = html_engine_new_text_empty (e);
 
 	html_clue_append (HTML_CLUE (flow), text);
 	html_clue_append (HTML_CLUE (cell), flow);
+
+	if (table->bgColor)
+		html_object_set_bg_color (cell, table->bgColor);
+	if (table->bgPixmap)
+		html_table_cell_set_bg_pixmap (HTML_TABLE_CELL (cell), table->bgPixmap);
 
 	return HTML_TABLE_CELL (cell);
 }
@@ -72,7 +77,7 @@ html_engine_insert_table_1_1 (HTMLEngine *e)
 
 	table = html_table_new (0, 100, 1, 2, 1);
 
-	html_table_add_cell (HTML_TABLE (table), new_cell (e));
+	html_table_add_cell (HTML_TABLE (table), new_cell (e, HTML_TABLE (table)));
 
 	flow  = html_clueflow_new (HTML_CLUEFLOW_STYLE_NORMAL, 0);
 	html_clue_append (HTML_CLUE (flow), table);
@@ -128,7 +133,7 @@ insert_table_column (HTMLEngine *e, gboolean after, HTMLUndoDirection dir)
 			}
 		}
 		if (!t->cells [r][col]) {
-			html_table_set_cell (t, r, col, new_cell (e));
+			html_table_set_cell (t, r, col, new_cell (e, t));
 			html_table_cell_set_position (t->cells [r][col], r, col);
 			delta ++;
 			if (delta == 1)
@@ -322,7 +327,7 @@ insert_table_row (HTMLEngine *e, gboolean after, HTMLUndoDirection dir)
 			}
 		}
 		if (!t->cells [row][c]) {
-			html_table_set_cell (t, row, c, new_cell (e));
+			html_table_set_cell (t, row, c, new_cell (e, t));
 			html_table_cell_set_position (t->cells [row][c], row, c);
 			delta ++;
 			if (delta == 1)

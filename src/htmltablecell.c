@@ -64,6 +64,7 @@ draw_background_helper (HTMLTableCell *cell,
 			pixbuf = cell->bgPixmap->pixbuf;
 		}
 	}
+
 	html_painter_draw_background (p,
 				      color,
 				      pixbuf,
