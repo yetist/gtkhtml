@@ -1,5 +1,10 @@
 2000-04-15  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlsearch.c (html_search_new): updated to use GNU regex when
+	possible
+
+	* htmlclueflow.c (search_text): likewise
+
 	* htmltextslave.c (fit_line): removed eating of spaces at the
 	beggining of line. Lewing please could you take a look at it?
 	Is it ok to remove?

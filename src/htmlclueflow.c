@@ -25,6 +25,7 @@
 
 /* WARNING: it must always be the child of a clue.  */
 
+#include <config.h>
 #include "htmlclue.h"
 #include "htmlclueflow.h"
 #include "htmlcluealigned.h"
@@ -33,6 +34,7 @@
 #include "htmllinktextmaster.h"
 #include "htmltextslave.h"	/* FIXME */
 #include "htmlsearch.h"
+#include "htmlentity.h"
 
 
 HTMLClueFlowClass html_clueflow_class;
@@ -1126,10 +1128,12 @@ get_default_font_style (const HTMLClueFlow *self)
 }
 
 static void
-search_set_info (HTMLObject *cur, HTMLSearch *info, guint pos)
+search_set_info (HTMLObject *cur, HTMLSearch *info, guint pos, guint len)
 {
 	guint text_len = 0;
 	guint cur_len;
+
+	info->found_len = len;
 
 	while (cur) {
 		if (HTML_OBJECT_TYPE (cur) == HTML_TYPE_TEXTMASTER
@@ -1158,13 +1162,13 @@ static gboolean
 search_text (HTMLObject **beg, HTMLSearch *info)
 {
 	HTMLObject *cur = *beg;
-	gchar *par, *pp;
+	guchar *par, *pp;
 	guint text_len;
 	guint eq_len;
 	guint pos;
 	gboolean retval = FALSE;
 
-	printf ("search flow look for \"text\" %s\n", info->text);
+	/* printf ("search flow look for \"text\" %s\n", info->text); */
 
 	/* first get flow text_len */
 	text_len = 0;
@@ -1212,29 +1216,52 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 			if (info->reb) {
 				/* regex search */
 				gint rv;
+#ifndef HAVE_GNU_REGEX
 				regmatch_t match;
+				guchar *p=par+pos;
+
+				/* replace &nbsp;'s with spaces */
+				while (*p) {
+					if (*p == ENTITY_NBSP) {
+						*p = ' ';
+					}
+					p++;
+				}
 
 				while (pos < text_len) {
 					rv = regexec (info->reb, par+pos, 1, &match, 0);
 					if (rv == 0) {
-						info->found_len = match.rm_eo - match.rm_so;
-						printf ("found! start: %d len: %d\n",
-							pos + match.rm_so, info->found_len);
-						search_set_info (*beg, info, pos + match.rm_so);
-						retval=TRUE;
+						printf ("found! pos: %d start: %d len: %d\n",
+							pos, pos + match.rm_so, match.rm_eo - match.rm_so);
+						search_set_info (*beg, info, pos + match.rm_so, match.rm_eo - match.rm_so);
+						retval = TRUE;
 						break;
 					}
 					pos++;
 				}
+#else
+				rv = re_search (info->reb, par, text_len, pos, text_len-pos, NULL);
+				if (rv>=0) {
+					guint found_pos = rv;
+					rv = re_match (info->reb, par, text_len, found_pos, NULL);
+					if (rv < 0) {
+						g_warning ("re_match (...) error");
+					}
+					printf ("found! start: %d len: %d\n", found_pos, rv);
+					search_set_info (*beg, info, found_pos, rv);
+					retval = TRUE;
+				} else {
+					g_warning ("re_search (...) error");
+				}
+#endif
 			} else {
 				/* go thru par and look for info->text */
 				while (par [pos]) {
-					if (info->trans [info->text [eq_len]] == info->trans [par [pos]]) {
+					if (info->trans [(guchar) info->text [eq_len]] == info->trans [par [pos]]) {
 						eq_len++;
 						if (eq_len == info->text_len) {
 							printf ("found!\n");
-							info->found_len = info->text_len;
-							search_set_info (*beg, info, pos-eq_len+1);
+							search_set_info (*beg, info, pos-eq_len+1, info->text_len);
 							retval=TRUE;
 							break;
 						}

@@ -13,6 +13,7 @@
 #undef HAVE_IEEEFP_H
 #undef ENABLE_GNOME
 #undef HAVE_LIBWWW
+#undef HAVE_GNU_REGEX
 
 @BOTTOM@
 /* This is from libglade */

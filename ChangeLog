@@ -1,3 +1,9 @@
+2000-04-15  Radek Doulik  <rodo@helixcode.com>
+
+	* acconfig.h: added #undef HAVE_GNU_REGEX
+
+	* configure.in: added test for GNU regex
+
 2000-04-06  Radek Doulik  <rodo@helixcode.com>
 
 	* BUGS: removed http://www.stjerneskolan.com as it looks nice now

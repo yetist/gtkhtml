@@ -20,7 +20,7 @@
     Boston, MA 02111-1307, USA.
 
     TODO:
-           - use regular expressions
+
            - now we go thru the html tree without take care about vertical
              position of paragraph. so it is possible to find first match
              on bottom of page (ie. first column of table) and the second
@@ -29,6 +29,7 @@
 
 */
 
+#include <config.h>
 #include "htmlsearch.h"
 #include "htmlobject.h"
 #include "htmlentity.h"
@@ -59,9 +60,12 @@ html_search_new (const gchar *text, gboolean case_sensitive, gboolean forward, g
 		const gchar *rv;
 
 		ns->reb = g_new0 (regex_t, 1);
+#ifdef HAVE_GNU_REGEX
 		ns->reb->translate = ns->trans;
-
-		rv = regcomp (ns->reb, ns->text, 0);
+		rv = re_compile_pattern (ns->text, ns->text_len, ns->reb);
+#else
+		rv = regcomp (ns->reb, ns->text, (case_sensitive) ? 0 : REG_ICASE);
+#endif
 		if (rv) {
 			g_warning (rv);
 		}
@@ -79,7 +83,7 @@ html_search_destroy (HTMLSearch *search)
 	if (search->stack)
 		g_slist_free (search->stack);
 	if (search->reb) {
-		/* regfree (search->reb); */
+		/* FIXME why this segfault for me? regfree (search->reb); */
 		g_free (search->reb);
 	}
 	g_free (search->trans);
