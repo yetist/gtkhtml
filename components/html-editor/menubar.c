@@ -183,6 +183,6 @@ menubar_setup (BonoboUIComponent  *uic,
 	bonobo_ui_component_add_verb_list_with_data (uic, verbs, cd);
 
 	bonobo_ui_util_set_ui (uic, GNOMEDATADIR,
-			       "html-editor-control.xml",
-			       "html-editor-control");
+			       "GNOME_GtkHTML_Editor.xml",
+			       "GNOME_GtkHTML_Editor");
 }

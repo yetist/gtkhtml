@@ -527,5 +527,5 @@ editor_control_factory_init (void)
 					      NULL);
 
 	if (factory == NULL)
-		g_error ("I could not register the html-editor-control factory.");
+		g_error ("I could not register the GNOME_GtkHTML_Editor factory.");
 }

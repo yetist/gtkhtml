@@ -349,13 +349,13 @@ container_create (void)
 	BonoboControlFrame *frame;
 	HTMLEditorResolver *resolver;
 
-	win = bonobo_window_new ("test-html-editor-control",
-			      "HTML Editor Control Test");
+	win = bonobo_window_new ("test-gnome-gtkhtml-editor",
+				 "HTML Editor Control Test");
 	window = GTK_WINDOW (win);
 	gtk_window_set_default_size (window, 500, 440);
 	gtk_window_set_policy (window, TRUE, TRUE, FALSE);
 
-	component = bonobo_ui_component_new ("test-html-editor-control");
+	component = bonobo_ui_component_new ("test-gnome-gtkhtml-editor");
 
 	container = bonobo_ui_container_new ();
 	bonobo_ui_container_set_win (container, BONOBO_WINDOW (win));
@@ -393,7 +393,7 @@ container_create (void)
 static void
 init_corba (int *argc, char **argv)
 {
-	gnome_init_with_popt_table ("test-html-editor-control", "1.0", *argc, argv,
+	gnome_init_with_popt_table ("test-gnome-gtkhtml-editor", "1.0", *argc, argv,
 				    NULL, 0, NULL);
 	oaf_init (*argc, argv);
 }
@@ -409,7 +409,7 @@ init_corba (int *argc, char **argv)
 
 	CORBA_exception_init (&ev);
 
-	gnome_CORBA_init ("test-html-editor-control", "1.0", argc, argv, 0, &ev);
+	gnome_CORBA_init ("test-gnome-gtkhtml-editor", "1.0", argc, argv, 0, &ev);
 
 	CORBA_exception_free (&ev);
 }

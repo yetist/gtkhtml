@@ -123,14 +123,14 @@ gnorba_DATA = $(GNORBA_INFO)
 endif
 
 uidir = $(datadir)/gnome/ui
-ui_DATA = html-editor-control.xml
+ui_DATA = GNOME_GtkHTML_Editor.xml
 
 # The Test program
 
 noinst_PROGRAMS =				\
-	test-html-editor-control
+	test-editor
 
-test_html_editor_control_SOURCES =		\
+test_editor_SOURCES =				\
 	$(IDL_GENERATED)			\
 	resolver.c				\
 	resolver.h				\

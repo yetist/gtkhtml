@@ -1,5 +1,8 @@
 2000-12-07  Radek Doulik  <rodo@helixcode.com>
 
+	* menubar.c (menubar_setup): html-editor-control renamed to
+	GNOME_GtkHTML_Editor
+
 	* engine.c (impl_set_listener): updated to
 	IDL:GNOME/GtkHTML/Editor/Listener:1.0
 
