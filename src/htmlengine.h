@@ -137,6 +137,7 @@ struct _HTMLEngine {
 	/* Should the background be painted? */
 	gboolean bDrawBackground;
 
+	/* FIXME: replace with a `gchar *'?  */
 	GString *title;
 
 	gboolean writing;

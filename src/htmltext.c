@@ -168,10 +168,8 @@ save (HTMLObject *self,
 	HTMLText *text;
 
 	text = HTML_TEXT (self);
-	return (* state->receiver) (state->engine,
-				    text->text,
-				    text->text_len,
-				    state->user_data);
+
+	return html_engine_save_encode (state, text->text, text->text_len);
 }
 
 

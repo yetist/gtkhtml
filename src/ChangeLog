@@ -1,3 +1,15 @@
+2000-01-26  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmltext.c (save): Use `html_engine_save_encode()' to write the
+	string encoded with entities.
+
+	* htmlengine-save.c (encode_entities): New helper function to
+	encode a string through entities.
+	(html_engine_save_encode): New function to write an encoded
+	buffer.
+	(html_engine_save_encode_string): New to write an encoded
+	zero-terminated string.
+
 2000-01-25  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* gtkhtml.c (idle_handler): Call `gtk_html_calc_scrollbars' to
