@@ -1,0 +1,598 @@
+# gkthtml ja.po
+# Copyright (C) 2000 Free Software Foundation, Inc.
+# Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>, 2000.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gtkhtml 0.5\n"
+"POT-Creation-Date: 2000-07-20 23:37+0900\n"
+"PO-Revision-Date: 2000-07-21 00:04+09:00\n"
+"Last-Translator: Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>\n"
+"Language-Team: Japanese <translation@gnome.gr.jp>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=euc-jp\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: components/html-editor/body.c:107
+msgid "use background image"
+msgstr "背景画像を使用"
+
+#: components/html-editor/body.c:109
+msgid "Background image"
+msgstr "背景画像"
+
+#: components/html-editor/body.c:126
+msgid "Colors"
+msgstr "色"
+
+#: components/html-editor/editor-control-factory.c:129
+#: components/html-editor/popup.c:86
+msgid "Image"
+msgstr "画像"
+
+#: components/html-editor/editor-control-factory.c:138
+#: components/html-editor/popup.c:79
+msgid "Text"
+msgstr "テキスト"
+
+#: components/html-editor/editor-control-factory.c:150
+#: components/html-editor/popup.c:93
+msgid "Paragraph"
+msgstr "段落"
+
+#: components/html-editor/editor-control-factory.c:155
+#: components/html-editor/menubar.c:157 components/html-editor/popup.c:100
+msgid "Link"
+msgstr "リンク"
+
+#: components/html-editor/editor-control-factory.c:160
+#: components/html-editor/popup.c:107
+msgid "Page"
+msgstr "ページ"
+
+#: components/html-editor/image.c:409
+msgid "Image selection"
+msgstr "画像選択"
+
+#: components/html-editor/image.c:417
+msgid "Border"
+msgstr "境界"
+
+#. ADD_ITEM("Left",   GDK_F4);
+#. ADD_ITEM("Right",  GDK_F5);
+#: components/html-editor/image.c:450
+msgid "Alignment"
+msgstr "位置"
+
+#: components/html-editor/image.c:462 components/html-editor/rule.c:124
+#: components/html-editor/text.c:160
+msgid "Size"
+msgstr "大きさ"
+
+#: components/html-editor/image.c:489
+msgid "Padding"
+msgstr "パディング"
+
+#: components/html-editor/link.c:72
+msgid "Clear"
+msgstr "消去"
+
+#: components/html-editor/link.c:75
+msgid "URL"
+msgstr "URL"
+
+#: components/html-editor/main.c:64
+msgid "Could not initialize GNORBA"
+msgstr "GNORBAを初期化できません"
+
+#: components/html-editor/main.c:77
+msgid "Could not initialize Bonobo"
+msgstr "Bonobo を初期化できません"
+
+#: components/html-editor/menubar.c:60
+msgid "Find Rege_x..."
+msgstr "正規表現検索(_X)"
+
+#: components/html-editor/menubar.c:60
+msgid "Regular expressions search..."
+msgstr "正規表現で検索します..."
+
+#: components/html-editor/menubar.c:69
+msgid "_Image..."
+msgstr "画像(_I)..."
+
+#: components/html-editor/menubar.c:69
+msgid "Insert image into document..."
+msgstr "文書に画像を置く..."
+
+#: components/html-editor/menubar.c:70
+msgid "_Link..."
+msgstr "リンク(_L)..."
+
+#: components/html-editor/menubar.c:70
+msgid "Insert HTML link into document..."
+msgstr "文書にHTMLリンクを挿入..."
+
+#: components/html-editor/menubar.c:71
+msgid "_Rule..."
+msgstr "罫線(_R)..."
+
+#: components/html-editor/menubar.c:71
+msgid "Insert rule into document..."
+msgstr "文書に罫線を引きます..."
+
+#: components/html-editor/menubar.c:76
+msgid "_Insert"
+msgstr "挿入(_I)"
+
+#: components/html-editor/menubar.c:143
+msgid "Insert image"
+msgstr "画像を挿入"
+
+#: components/html-editor/menubar.c:175
+msgid "Cannot execute gtkhtml properties"
+msgstr "gtkhtml のプロパティを実行できません"
+
+#: components/html-editor/paragraph.c:74 components/html-editor/text.c:138
+msgid "Style"
+msgstr "スタイル"
+
+#: components/html-editor/paragraph.c:108
+msgid "Align"
+msgstr "位置"
+
+#: components/html-editor/paragraph.c:121
+msgid "Left"
+msgstr "左"
+
+#: components/html-editor/paragraph.c:122 components/html-editor/toolbar.c:485
+msgid "Center"
+msgstr "中央"
+
+#: components/html-editor/paragraph.c:123
+msgid "Right"
+msgstr "右"
+
+#: components/html-editor/properties.c:92
+#: components/html-editor/properties.c:93
+msgid "Insert"
+msgstr "挿入"
+
+#: components/html-editor/properties.c:95
+msgid "Properties"
+msgstr "プロパティ"
+
+#: components/html-editor/popup.c:161
+msgid "Remove link"
+msgstr "リンクを削除"
+
+#: components/html-editor/replace.c:83
+msgid "Replace confirmation"
+msgstr "置換確認"
+
+#: components/html-editor/replace.c:84 components/html-editor/replace.c:146
+#: components/html-editor/replace.c:158
+msgid "Replace"
+msgstr "置換"
+
+#: components/html-editor/replace.c:84
+msgid "Replace all"
+msgstr "すべて置換"
+
+#: components/html-editor/replace.c:84
+msgid "Next"
+msgstr "次"
+
+#: components/html-editor/replace.c:152 components/html-editor/search.c:66
+msgid "search backward"
+msgstr "後方検索"
+
+#: components/html-editor/replace.c:153 components/html-editor/search.c:67
+msgid "case sensitive"
+msgstr "大文字小文字を区別"
+
+#: components/html-editor/replace.c:161
+msgid "with"
+msgstr " "
+
+#: components/html-editor/rule.c:124
+msgid "Length"
+msgstr "長さ"
+
+#: components/html-editor/rule.c:124
+msgid "Percent"
+msgstr "パーセント"
+
+#: components/html-editor/rule.c:125
+msgid "Left Align"
+msgstr "左寄"
+
+#: components/html-editor/rule.c:125
+msgid "Center Align"
+msgstr "中央寄"
+
+#: components/html-editor/rule.c:125
+msgid "Right Align"
+msgstr "右寄"
+
+#: components/html-editor/rule.c:125
+msgid "None"
+msgstr "無し"
+
+#: components/html-editor/rule.c:129
+msgid "Rule"
+msgstr "罫線"
+
+#: components/html-editor/rule.c:132
+msgid "Set Shade"
+msgstr "影を付ける"
+
+#: components/html-editor/search.c:63
+msgid "Regex search"
+msgstr "正規表現検索"
+
+#: components/html-editor/search.c:63
+msgid "Search"
+msgstr "検索"
+
+#: components/html-editor/table.c:80
+msgid "Table"
+msgstr "テーブル"
+
+#: components/html-editor/test-html-editor-control.c:231
+msgid "Open file..."
+msgstr "ファイルを開く..."
+
+#: components/html-editor/test-html-editor-control.c:233
+msgid "Save file as..."
+msgstr "別名で保存..."
+
+#: components/html-editor/test-html-editor-control.c:299
+msgid "Open (PersistFile)"
+msgstr "開く (PersistFile)"
+
+#: components/html-editor/test-html-editor-control.c:299
+msgid "Open using the PersistFile interface"
+msgstr "PersistFile インターフェイスで開く"
+
+#: components/html-editor/test-html-editor-control.c:301
+msgid "Save as... (PersistFile)"
+msgstr "別名で保存... (PersistFile)"
+
+#: components/html-editor/test-html-editor-control.c:301
+msgid "Save using the PersistFile interface"
+msgstr "PersistFile インターフェイスで保存"
+
+#: components/html-editor/test-html-editor-control.c:304
+msgid "Open (PersistStream)"
+msgstr "開く (PersistStream)"
+
+#: components/html-editor/test-html-editor-control.c:304
+msgid "Open using the PersistStream interface"
+msgstr "PersistStream インターフェイスで開く"
+
+#: components/html-editor/test-html-editor-control.c:306
+msgid "Save as... (PersistStream)"
+msgstr "別名で保存... (PersistStream)"
+
+#: components/html-editor/test-html-editor-control.c:306
+msgid "Save using the PersistStream interface"
+msgstr "PersistStream インターフェイスで保存"
+
+#: components/html-editor/test-html-editor-control.c:320
+#: components/html-editor/toolbar.c:493
+msgid "Cut"
+msgstr "切り取り"
+
+#: components/html-editor/test-html-editor-control.c:320
+msgid "Cut selection to the clipboard"
+msgstr "選択した場所をクリップボードへ切り出す"
+
+#: components/html-editor/test-html-editor-control.c:322
+#: components/html-editor/toolbar.c:495
+msgid "Copy"
+msgstr "コピー"
+
+#: components/html-editor/test-html-editor-control.c:322
+msgid "Copy selection to the clipboard"
+msgstr "選択した場所をクリップボードへコピー"
+
+#: components/html-editor/test-html-editor-control.c:324
+#: components/html-editor/toolbar.c:497
+msgid "Paste"
+msgstr "貼り付け"
+
+#: components/html-editor/test-html-editor-control.c:324
+#: components/html-editor/toolbar.c:497
+msgid "Paste contents of the clipboard"
+msgstr "クリップボードの内容を貼り付け"
+
+#: components/html-editor/text.c:152 components/html-editor/toolbar.c:511
+msgid "Bold"
+msgstr "太文字"
+
+#: components/html-editor/text.c:153 components/html-editor/toolbar.c:513
+msgid "Italic"
+msgstr "斜体"
+
+#: components/html-editor/text.c:154 components/html-editor/toolbar.c:515
+msgid "Underline"
+msgstr "下線"
+
+#: components/html-editor/text.c:155 components/html-editor/toolbar.c:517
+msgid "Strikeout"
+msgstr "取り消し線"
+
+#. color selection
+#: components/html-editor/text.c:187
+msgid "Color"
+msgstr "色"
+
+#: components/html-editor/text.c:201
+msgid "text color"
+msgstr "文字色"
+
+#: components/html-editor/toolbar.c:45
+msgid "Normal"
+msgstr "通常"
+
+#: components/html-editor/toolbar.c:46
+msgid "Header 1"
+msgstr "ヘッダ1(H1)"
+
+#: components/html-editor/toolbar.c:47
+msgid "Header 2"
+msgstr "ヘッダ2(H2)"
+
+#: components/html-editor/toolbar.c:48
+msgid "Header 3"
+msgstr "ヘッダ3(H3)"
+
+#: components/html-editor/toolbar.c:49
+msgid "Header 4"
+msgstr "ヘッダ4(H4)"
+
+#: components/html-editor/toolbar.c:50
+msgid "Header 5"
+msgstr "ヘッダ5(H5)"
+
+#: components/html-editor/toolbar.c:51
+msgid "Header 6"
+msgstr "ヘッダ6(H6)"
+
+#: components/html-editor/toolbar.c:52
+msgid "Address"
+msgstr "アドレス"
+
+#: components/html-editor/toolbar.c:53
+msgid "Pre"
+msgstr "PRE"
+
+#: components/html-editor/toolbar.c:54
+msgid "List item (digit)"
+msgstr "一覧項目 (数字)"
+
+#: components/html-editor/toolbar.c:55
+msgid "List item (unnumbered)"
+msgstr "一覧項目 (番号無し)"
+
+#: components/html-editor/toolbar.c:56
+msgid "List item (roman)"
+msgstr "一覧項目 (ローマ数字)"
+
+#: components/html-editor/toolbar.c:236
+msgid "Default"
+msgstr "デフォルト"
+
+#: components/html-editor/toolbar.c:483
+msgid "Left align"
+msgstr "左寄せ"
+
+#: components/html-editor/toolbar.c:483
+msgid "Left justify paragraphs"
+msgstr "段落を左に寄せる"
+
+#: components/html-editor/toolbar.c:485
+msgid "Centers paragraphs"
+msgstr "段落を中央に寄せる"
+
+#: components/html-editor/toolbar.c:487
+msgid "Right align"
+msgstr "右寄せ"
+
+#: components/html-editor/toolbar.c:487
+msgid "Right justify paragraphs"
+msgstr "段落を右に寄せる"
+
+#: components/html-editor/toolbar.c:493
+msgid "Cut the selected region to the clipboard"
+msgstr "選択範囲をクリプボードへ切り出す"
+
+#: components/html-editor/toolbar.c:495
+msgid "Copy the selected region to the clipboard"
+msgstr "選択範囲をクリップボードへコピー"
+
+#: components/html-editor/toolbar.c:501
+msgid "Undo"
+msgstr "取り消し"
+
+#: components/html-editor/toolbar.c:501
+msgid "Undo last editor operation"
+msgstr "最後の編集操作を取り消す"
+
+#: components/html-editor/toolbar.c:503
+msgid "Redo"
+msgstr "やり直し"
+
+#: components/html-editor/toolbar.c:503
+msgid "Redo undone editor operation"
+msgstr "取り消した操作をやり直し"
+
+#: components/html-editor/toolbar.c:511
+msgid "Sets the bold font"
+msgstr "太文字フォントに設定"
+
+#: components/html-editor/toolbar.c:513
+msgid "Make the selection italic"
+msgstr "選択個所を斜体にする"
+
+#: components/html-editor/toolbar.c:515
+msgid "Make the selection underlined"
+msgstr "選択個所に下線を引く"
+
+#: components/html-editor/toolbar.c:517
+msgid "Make the selection striked out"
+msgstr "選択個所に取り消し線を引く"
+
+#: components/html-editor/toolbar.c:526
+msgid "Unindent"
+msgstr "インデント解除"
+
+#: components/html-editor/toolbar.c:526
+msgid "Indent paragraphs less"
+msgstr "段落のインデントを減らす"
+
+#: components/html-editor/toolbar.c:528
+msgid "Indent"
+msgstr "インデント"
+
+#: components/html-editor/toolbar.c:528
+msgid "Indent paragraphs more"
+msgstr "段落のインデントを増やす"
+
+#: glibwww/gnome-dialogs.c:85
+msgid "Transfer Progress"
+msgstr "転送状況"
+
+#: glibwww/gnome-dialogs.c:139
+#, c-format
+msgid "Looking up %s"
+msgstr "%s を検索中"
+
+#: glibwww/gnome-dialogs.c:145
+#, c-format
+msgid "Contacting %s"
+msgstr "%s に接続中"
+
+#: glibwww/gnome-dialogs.c:152
+msgid "Waiting for a connection..."
+msgstr "接続を待っています..."
+
+#: glibwww/gnome-dialogs.c:156
+msgid "Logging in..."
+msgstr "ログイン中..."
+
+#: glibwww/gnome-dialogs.c:165
+msgid "Read %d%%%% of %l"
+msgstr "%d%%%% 受信 (%l 中)"
+
+#: glibwww/gnome-dialogs.c:175 glibwww/gnome-dialogs.c:177
+#, c-format
+msgid "Read %d bytes"
+msgstr "%d バイト受信"
+
+#: glibwww/gnome-dialogs.c:179
+msgid "Reading..."
+msgstr "受信中..."
+
+#: glibwww/gnome-dialogs.c:194
+msgid "Writing %d%%%% of %l"
+msgstr "%d%%%% 送信 (%l 中)"
+
+#: glibwww/gnome-dialogs.c:204 glibwww/gnome-dialogs.c:206
+#, c-format
+msgid "Writing %d bytes"
+msgstr "%d バイト送信"
+
+#: glibwww/gnome-dialogs.c:208
+msgid "Writing..."
+msgstr "送信中..."
+
+#: glibwww/gnome-dialogs.c:216
+msgid "Done!"
+msgstr "完了!"
+
+#: glibwww/gnome-dialogs.c:220
+msgid "Interrupted!"
+msgstr "中断!"
+
+#: glibwww/gnome-dialogs.c:224
+msgid "Please wait..."
+msgstr "お待ちください..."
+
+#: glibwww/gnome-dialogs.c:228
+msgid "Request timeout!"
+msgstr "リクエストがタイムアウト!"
+
+#: glibwww/gnome-dialogs.c:232
+msgid "Unknown"
+msgstr "不明"
+
+#: glibwww/gnome-dialogs.c:275
+msgid "Enter Text"
+msgstr "テキスト入力"
+
+#: glibwww/gnome-dialogs.c:316 glibwww/gnome-dialogs.c:357
+msgid "Enter Password"
+msgstr "パスワード入力"
+
+#: src/gtkhtml.c:2326
+#, c-format
+msgid "Couldn't find keybinding file -- %s"
+msgstr "キー割り当てファイルを見付けられませんでした -- %s"
+
+#: src/html-component.c:219
+msgid "Html"
+msgstr "HTML"
+
+#: src/html-component.c:220
+msgid "Html test"
+msgstr "HTMLテスト"
+
+#: src/html-component.c:226
+msgid "Test1"
+msgstr "テスト1"
+
+#: src/html-component.c:233
+msgid "Test2"
+msgstr "テスト2"
+
+#: src/html-component.c:239
+msgid "Test3"
+msgstr "テスト3"
+
+#: src/html-component.c:245
+msgid "Test4"
+msgstr "テスト4"
+
+#: src/html-component.c:251
+msgid "Test5"
+msgstr "テスト5"
+
+#: src/html-component.c:257
+msgid "Test6"
+msgstr "テスト6"
+
+#: src/html-component.c:263
+msgid "Test7"
+msgstr "テスト7"
+
+#: src/html-component.c:617
+msgid "_Refresh"
+msgstr "再読込(_R)"
+
+#: src/html-component.c:618
+msgid "Reload the page"
+msgstr "ページを再読み込み"
+
+#: src/html-component.c:669
+msgid "Could not initialize Bonobo!"
+msgstr "Bonoboを初期化できませんでした!"
+
+#: src/testgtkhtml.c:110
+msgid "Print pre_view"
+msgstr "印刷プレビュー(_E)"
+
+#: src/testgtkhtml.c:110
+msgid "Print preview"
+msgstr "印刷プレビュー"
