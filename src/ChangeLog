@@ -2,6 +2,8 @@
 
 	* htmltextslave.c: fixed cursor movement, implemented new
 	functions for cursor movement, removed old code
+	(draw_text): draw selected glyph only if selection inersection
+	width is greater than zero
 
 	* htmltext.c: updated direction handling, fixed cursor movement,
 	fixed cursor base, implemented new functions for cursor movement

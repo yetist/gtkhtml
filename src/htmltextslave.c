@@ -772,7 +772,7 @@ draw_text (HTMLTextSlave *self,
 			int start_x, width, asc, height;
 			int cx, cy, cw, ch;
 
-			if (calc_glyph_range_size (text, &gi->glyph_item, selection_start_index, selection_end_index, &start_x, &width, &asc, &height)) {
+			if (calc_glyph_range_size (text, &gi->glyph_item, selection_start_index, selection_end_index, &start_x, &width, &asc, &height) && width > 0) {
 				html_painter_get_clip_rectangle (p, &cx, &cy, &cw, &ch);
 /* 				printf ("run_width; %d start_x %d index %d\n", run_width, start_x, selection_start_index); */
 				html_painter_set_clip_rectangle (p,
