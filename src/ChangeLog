@@ -16,6 +16,7 @@
 	* htmltextslave.c (could_remove_leading_space): new helper
 	function
 	(fit_line): use could_remove_leading_space
+	(could_remove_leading_space): don't remove on begin of para
 
 	* htmlengine.c (insert_text): eat space on beggining of link
 

@@ -163,6 +163,9 @@ could_remove_leading_space (HTMLTextSlave *slave, gboolean firstRun)
 	if (firstRun && (HTML_OBJECT (slave)->prev != o || o->prev))
 		return TRUE;
 
+	if (!o->prev)
+		return FALSE;
+
 	while (o->prev && HTML_OBJECT_TYPE (o->prev) == HTML_TYPE_CLUEALIGNED)
 		o = o->prev;
 
