@@ -1,3 +1,17 @@
+2002-10-16  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine.c: (parse_body): save & restore e->pending_para and
+	e->avoid_para
+	(parse_c): close flow only if non empty, otherwise just set its
+	halign
+	(parse_f): don't set pending para on <form>, just close flow if
+	non empty
+	(parse_table): don't add pending paragraph on end of cells
+	(form_begin): new extracted function
+	(form_end): ditto
+	(parse_i): if form is NULL create new default form around to at
+	least render it (as mozilla does)
+
 2002-10-04  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (gtk_html_get_paragraph_indentation): new method,
