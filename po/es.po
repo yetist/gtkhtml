@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.9.99.1\n"
-"POT-Creation-Date: 2001-09-16 16:18+0200\n"
+"POT-Creation-Date: 2001-09-21 14:56-0500\n"
 "PO-Revision-Date: 2001-07-13 00:44+0200\n"
 "Last-Translator: Héctor García Álvarez <hector@scouts-es.org>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -20,7 +20,7 @@ msgstr "<Nada>"
 
 #: capplet/gnome-bindings-prop.c:216 capplet/main.c:245
 #: components/html-editor/cell.c:385 components/html-editor/rule.c:315
-#: components/html-editor/table.c:525 components/html-editor/table.c:616
+#: components/html-editor/table.c:528 components/html-editor/table.c:619
 #: components/html-editor/template.c:243
 msgid "Could not load glade file."
 msgstr "No se pudo cargar el archivo glade."
@@ -718,12 +718,6 @@ msgstr "Habilitar"
 msgid "Colors"
 msgstr "Colores"
 
-#: components/html-editor/body.c:175 components/html-editor/cell.c:391
-#: components/html-editor/table.c:531 components/html-editor/text.c:221
-#: components/html-editor/toolbar.c:290
-msgid "Automatic"
-msgstr "Automático"
-
 #: components/html-editor/body.c:186
 #: components/html-editor/editor-control-factory.c:190
 #: components/html-editor/menubar.c:127 components/html-editor/popup.c:151
@@ -734,6 +728,11 @@ msgstr "Texto"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:5
 msgid "Background"
 msgstr "Fondo"
+
+#: components/html-editor/cell.c:391 components/html-editor/table.c:534
+#: components/html-editor/text.c:221 components/html-editor/toolbar.c:290
+msgid "Automatic"
+msgstr "Automático"
 
 #: components/html-editor/editor-control-factory.c:170
 #: components/html-editor/popup.c:143
@@ -860,13 +859,13 @@ msgid "Percent"
 msgstr "Porcentaje"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:28
-#: components/html-editor/image.c:260 components/html-editor/image.c:269
+#: components/html-editor/image.c:257 components/html-editor/image.c:266
 #, no-c-format
 msgid "Percent %"
 msgstr "Porcentaje %"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:29
-#: components/html-editor/image.c:259 components/html-editor/image.c:268
+#: components/html-editor/image.c:256 components/html-editor/image.c:265
 msgid "Pixels"
 msgstr "Pixels"
 
@@ -904,8 +903,9 @@ msgstr "Rango"
 msgid "Shaded"
 msgstr "Sombreado"
 
+#. size and spacing
 #: components/html-editor/gtkhtml-editor-properties.glade.h:39
-#: components/html-editor/image.c:252 components/html-editor/text.c:188
+#: components/html-editor/image.c:249 components/html-editor/text.c:188
 msgid "Size"
 msgstr "Tamaño"
 
@@ -959,16 +959,17 @@ msgstr "Selección de imagen"
 msgid "Border"
 msgstr "Borde"
 
-#: components/html-editor/image.c:225 components/html-editor/image.c:243
-#: components/html-editor/image.c:275
+#: components/html-editor/image.c:225 components/html-editor/image.c:242
+#: components/html-editor/image.c:272
 msgid "width"
 msgstr "ancho"
 
-#: components/html-editor/image.c:232
+#. spacing
+#: components/html-editor/image.c:231
 msgid "Padding"
 msgstr "Relleno"
 
-#: components/html-editor/image.c:244 components/html-editor/image.c:276
+#: components/html-editor/image.c:243 components/html-editor/image.c:273
 msgid "height"
 msgstr "alto"
 
@@ -1156,7 +1157,7 @@ msgstr "sensible a mayúsculas"
 msgid "with"
 msgstr "con"
 
-#: components/html-editor/rule.c:92 components/html-editor/table.c:189
+#: components/html-editor/rule.c:92 components/html-editor/table.c:190
 msgid "Plain"
 msgstr "Simple"
 
@@ -1180,11 +1181,11 @@ msgstr "Buscar una expresión regular"
 msgid "No misspelled word found"
 msgstr "No se encontro ninguna palabra erronea"
 
-#: components/html-editor/table.c:197
+#: components/html-editor/table.c:198
 msgid "Flat gray"
 msgstr "Gris plano"
 
-#: components/html-editor/table.c:206
+#: components/html-editor/table.c:207
 msgid "Dark header"
 msgstr "Cabecera oscura"
 
@@ -1194,21 +1195,15 @@ msgstr "Nota"
 
 #: components/html-editor/template.c:83
 msgid ""
-"<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
-"\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
-"cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
+"<table cellspacing=0 cellpadding=1 "
+"bgcolor=\"#ccccc0\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" "
+"cellpadding=3 cellspacing=0 width=\"100%\"><tr><td valign=top><img "
+"src=\"file://"
 msgstr ""
-"<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
-"\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
-"cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
-
-#: components/html-editor/template.c:85
-msgid ""
-"/bulb.png\" hspace=10></td><td width=\"100%\">Place your text here</td></"
-"tr></table></td></tr></table>"
-msgstr ""
-"/bulb.png\" hspace=10></td><td width=\"100%\">Escribe aquí tu texto</td></"
-"tr></table></td></tr></table>"
+"<table cellspacing=0 cellpadding=1 "
+"bgcolor=\"#ccccc0\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" "
+"cellpadding=3 cellspacing=0 width=\"100%\"><tr><td valign=top><img "
+"src=\"file://"
 
 #: components/html-editor/template.c:91
 msgid "Image frame"
@@ -1217,22 +1212,12 @@ msgstr "Frame de la imagen"
 #: components/html-editor/template.c:93
 msgid ""
 "<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" @width@@align@><tr><td><table "
-"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%"
-"\"><tr><td align=\"center\"><img src=\"file://"
+"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" "
+"width=\"100%\"><tr><td align=\"center\"><img src=\"file://"
 msgstr ""
 "<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" @width@@align@><tr><td><table "
-"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%"
-"\"><tr><td align=\"center\"><img src=\"file://"
-
-#: components/html-editor/template.c:97
-msgid ""
-"/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td>Image 1:"
-"&nbsp;<font size=\"3\"><b>description</b></font size=\"3\"></td></tr></"
-"table></td></tr></table>"
-msgstr ""
-"/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td>Imagen 1:"
-"&nbsp;<font size=\"3\"><b>descripción</b></font size=\"3\"></td></tr></"
-"table></td></tr></table>"
+"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" "
+"width=\"100%\"><tr><td align=\"center\"><img src=\"file://"
 
 #: components/html-editor/test-html-editor-control.c:276
 msgid "Open file..."
@@ -1306,7 +1291,7 @@ msgstr "Indenta más los párrafos"
 msgid "Sample"
 msgstr "Ejemplo"
 
-#: src/htmlgdkpainter.c:223
+#: src/htmlgdkpainter.c:225
 msgid "Can't load fixed font."
 msgstr "No peudo cargar la fuente fija."
 
@@ -1317,3 +1302,19 @@ msgstr "Pre_visualización de la impresión"
 #: src/testgtkhtml.c:112
 msgid "Print preview"
 msgstr "Previsualización de la impresión"
+
+#~ msgid ""
+#~ "/bulb.png\" hspace=10></td><td width=\"100%\">Place your text "
+#~ "here</td></tr></table></td></tr></table>"
+#~ msgstr ""
+#~ "/bulb.png\" hspace=10></td><td width=\"100%\">Escribe aquí tu "
+#~ "texto</td></tr></table></td></tr></table>"
+
+#~ msgid ""
+#~ "/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td>Image "
+#~ "1:&nbsp;<font size=\"3\"><b>description</b></font "
+#~ "size=\"3\"></td></tr></table></td></tr></table>"
+#~ msgstr ""
+#~ "/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td>Imagen "
+#~ "1:&nbsp;<font size=\"3\"><b>descripción</b></font "
+#~ "size=\"3\"></td></tr></table></td></tr></table>"

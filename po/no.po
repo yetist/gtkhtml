@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.8\n"
-"POT-Creation-Date: 2001-09-14 23:07+0200\n"
+"POT-Creation-Date: 2001-09-21 14:56-0500\n"
 "PO-Revision-Date: 2001-09-14 23:08+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <no@li.org>\n"
@@ -19,7 +19,7 @@ msgstr "<Ingen>"
 
 #: capplet/gnome-bindings-prop.c:216 capplet/main.c:245
 #: components/html-editor/cell.c:385 components/html-editor/rule.c:315
-#: components/html-editor/table.c:525 components/html-editor/table.c:616
+#: components/html-editor/table.c:528 components/html-editor/table.c:619
 #: components/html-editor/template.c:243
 msgid "Could not load glade file."
 msgstr "Kunne ikke lese glade-fil."
@@ -717,12 +717,6 @@ msgstr "Slå på"
 msgid "Colors"
 msgstr "Farger"
 
-#: components/html-editor/body.c:175 components/html-editor/cell.c:391
-#: components/html-editor/table.c:531 components/html-editor/text.c:221
-#: components/html-editor/toolbar.c:290
-msgid "Automatic"
-msgstr "Automatisk"
-
 #: components/html-editor/body.c:186
 #: components/html-editor/editor-control-factory.c:190
 #: components/html-editor/menubar.c:127 components/html-editor/popup.c:151
@@ -733,6 +727,11 @@ msgstr "Tekst"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:5
 msgid "Background"
 msgstr "Bakgrunn"
+
+#: components/html-editor/cell.c:391 components/html-editor/table.c:534
+#: components/html-editor/text.c:221 components/html-editor/toolbar.c:290
+msgid "Automatic"
+msgstr "Automatisk"
 
 #: components/html-editor/editor-control-factory.c:170
 #: components/html-editor/popup.c:143
@@ -859,13 +858,13 @@ msgid "Percent"
 msgstr "Prosent"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:28
-#: components/html-editor/image.c:260 components/html-editor/image.c:269
+#: components/html-editor/image.c:257 components/html-editor/image.c:266
 #, no-c-format
 msgid "Percent %"
 msgstr "Prosent %"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:29
-#: components/html-editor/image.c:259 components/html-editor/image.c:268
+#: components/html-editor/image.c:256 components/html-editor/image.c:265
 msgid "Pixels"
 msgstr "Piksler"
 
@@ -903,8 +902,9 @@ msgstr "Område"
 msgid "Shaded"
 msgstr "Skyggelagt"
 
+#. size and spacing
 #: components/html-editor/gtkhtml-editor-properties.glade.h:39
-#: components/html-editor/image.c:252 components/html-editor/text.c:188
+#: components/html-editor/image.c:249 components/html-editor/text.c:188
 msgid "Size"
 msgstr "Størrelse"
 
@@ -958,16 +958,17 @@ msgstr "Bildevalg"
 msgid "Border"
 msgstr "Kant"
 
-#: components/html-editor/image.c:225 components/html-editor/image.c:243
-#: components/html-editor/image.c:275
+#: components/html-editor/image.c:225 components/html-editor/image.c:242
+#: components/html-editor/image.c:272
 msgid "width"
 msgstr "bredde"
 
-#: components/html-editor/image.c:232
+#. spacing
+#: components/html-editor/image.c:231
 msgid "Padding"
 msgstr "Fyll"
 
-#: components/html-editor/image.c:244 components/html-editor/image.c:276
+#: components/html-editor/image.c:243 components/html-editor/image.c:273
 msgid "height"
 msgstr "høyde"
 
@@ -1155,7 +1156,7 @@ msgstr "skill mellom store/små bokstaver"
 msgid "with"
 msgstr "med"
 
-#: components/html-editor/rule.c:92 components/html-editor/table.c:189
+#: components/html-editor/rule.c:92 components/html-editor/table.c:190
 msgid "Plain"
 msgstr "Vanlig"
 
@@ -1179,11 +1180,11 @@ msgstr "Finn vanlig uttrykk"
 msgid "No misspelled word found"
 msgstr "Ingen feilstavede ord funnet"
 
-#: components/html-editor/table.c:197
+#: components/html-editor/table.c:198
 msgid "Flat gray"
 msgstr "Flat grå"
 
-#: components/html-editor/table.c:206
+#: components/html-editor/table.c:207
 msgid "Dark header"
 msgstr "Mørk topptekst"
 
@@ -1193,15 +1194,10 @@ msgstr "Merknad"
 
 #: components/html-editor/template.c:83
 msgid ""
-"<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
-"\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
-"cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
-msgstr ""
-
-#: components/html-editor/template.c:85
-msgid ""
-"/bulb.png\" hspace=10></td><td width=\"100%\">Place your text here</td></"
-"tr></table></td></tr></table>"
+"<table cellspacing=0 cellpadding=1 "
+"bgcolor=\"#ccccc0\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" "
+"cellpadding=3 cellspacing=0 width=\"100%\"><tr><td valign=top><img "
+"src=\"file://"
 msgstr ""
 
 #: components/html-editor/template.c:91
@@ -1211,15 +1207,8 @@ msgstr "Bilderamme"
 #: components/html-editor/template.c:93
 msgid ""
 "<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" @width@@align@><tr><td><table "
-"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%"
-"\"><tr><td align=\"center\"><img src=\"file://"
-msgstr ""
-
-#: components/html-editor/template.c:97
-msgid ""
-"/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td>Image 1:"
-"&nbsp;<font size=\"3\"><b>description</b></font size=\"3\"></td></tr></"
-"table></td></tr></table>"
+"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" "
+"width=\"100%\"><tr><td align=\"center\"><img src=\"file://"
 msgstr ""
 
 #: components/html-editor/test-html-editor-control.c:276
@@ -1294,7 +1283,7 @@ msgstr "Indenterer avsnittene mer"
 msgid "Sample"
 msgstr "Eksempel"
 
-#: src/htmlgdkpainter.c:223
+#: src/htmlgdkpainter.c:225
 msgid "Can't load fixed font."
 msgstr "Kan ikke laste fast skrifttype."
 
