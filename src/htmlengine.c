@@ -597,13 +597,10 @@ parse_body (HTMLEngine *p, HTMLObject *clue, const gchar *end[], gboolean toplev
 			}
 			
 			/* The tag used for line break when we are in <pre>...</pre> */
-			/* FIXME TODO.  */
-#if 0
 			if (*str == '\n')
-				p->pending_vspace++;
-#endif
-
-			parse_one_token (p, clue, str);
+				add_line_break (p, clue, HTML_CLEAR_NONE);
+			else
+				parse_one_token (p, clue, str);
 		}
 	}
 
