@@ -27,8 +27,9 @@
 #include <glib.h>
 
 typedef struct     _HTMLFontManager             HTMLFontManager;
-typedef gpointer (* HTMLFontManagerAllocFont)  (gchar *face_name, gdouble size, GtkHTMLFontStyle style);
-typedef void     (* HTMLFontManagerFreeFont)   (gpointer font);
+typedef gpointer (* HTMLFontManagerAllocFont)   (gchar *face_name, gdouble size, GtkHTMLFontStyle style);
+typedef void     (* HTMLFontManagerRefFont)     (gpointer font);
+typedef void     (* HTMLFontManagerUnrefFont)   (gpointer font);
 typedef gchar       HTMLFontFace;
 typedef struct     _HTMLFontSet                 HTMLFontSet;
 
@@ -41,7 +42,9 @@ struct _HTMLFontSet {
 };
 
 struct _HTMLFontManager {
-	GFreeFunc destroy_font;
+	HTMLFontManagerAllocFont alloc_font;
+	HTMLFontManagerRefFont     ref_font;
+	HTMLFontManagerUnrefFont unref_font;
 
 	GHashTable *font_sets;
 	HTMLFontSet variable;
@@ -52,7 +55,9 @@ struct _HTMLFontManager {
 };
 
 void                html_font_manager_init                    (HTMLFontManager *manager,
-							       HTMLFontManagerFreeFont free_font);
+							       HTMLFontManagerAllocFont alloc_font,
+							       HTMLFontManagerRefFont     ref_font,
+							       HTMLFontManagerUnrefFont unref_font);
 
 void                html_font_manager_finalize                (HTMLFontManager *manager);
 
@@ -63,7 +68,6 @@ void                html_font_manager_set_default             (HTMLFontManager *
 							       gint fix_size);
 gpointer            html_font_manager_get_font                (HTMLFontManager *manager,
 							       gchar *face,
-							       GtkHTMLFontStyle style,
-							       HTMLFontManagerAllocFont alloc_font);
+							       GtkHTMLFontStyle style);
 
 #endif

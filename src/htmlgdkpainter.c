@@ -1065,7 +1065,8 @@ class_init (GtkObjectClass *object_class)
 	painter_class->begin = begin;
 	painter_class->end = end;
 	painter_class->alloc_font = alloc_font;
-	painter_class->free_font = (HTMLFontManagerFreeFont) gdk_font_unref;
+	painter_class->ref_font   = (HTMLFontManagerRefFont)   gdk_font_ref;
+	painter_class->unref_font = (HTMLFontManagerUnrefFont) gdk_font_unref;
 	painter_class->alloc_color = alloc_color;
 	painter_class->free_color = free_color;
 	painter_class->calc_ascent = calc_ascent;

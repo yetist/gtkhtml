@@ -619,7 +619,7 @@ get_pixel_size (HTMLPainter *painter)
 }
 
 static gpointer
-alloc_font (gchar *face, gdouble size, GtkHTMLFontStyle style, gpointer data)
+alloc_font (gchar *face, gdouble size, GtkHTMLFontStyle style)
 {
 	GnomeFontWeight weight;
 	gboolean italic;
@@ -664,7 +664,8 @@ class_init (GtkObjectClass *object_class)
 	painter_class->begin = begin;
 	painter_class->end = end;
 	painter_class->alloc_font = alloc_font;
-	painter_class->free_font = (HTMLFontManagerFreeFont) gtk_object_unref;	
+	painter_class->ref_font   = (HTMLFontManagerRefFont)   gtk_object_ref;
+	painter_class->unref_font = (HTMLFontManagerUnrefFont) gtk_object_unref;	
 	painter_class->alloc_color = alloc_color;
 	painter_class->free_color = free_color;
 	painter_class->calc_ascent = calc_ascent;

@@ -64,10 +64,11 @@ struct _HTMLPainterClass {
 	void (* end) (HTMLPainter *painter);
 
 	HTMLFontManagerAllocFont  alloc_font;
-	HTMLFontManagerFreeFont    free_font;
+	HTMLFontManagerRefFont      ref_font;
+	HTMLFontManagerUnrefFont  unref_font;
 
 	void (* alloc_color) (HTMLPainter *painter, GdkColor *color);
-	void (* free_color) (HTMLPainter *painter, GdkColor *color);
+	void (* free_color)   (HTMLPainter *painter, GdkColor *color);
 
 	guint (* calc_ascent) (HTMLPainter *p, GtkHTMLFontStyle f, HTMLFontFace *face);
 	guint (* calc_descent) (HTMLPainter *p, GtkHTMLFontStyle f, HTMLFontFace *face);

@@ -61,7 +61,8 @@ DEFINE_UNIMPLEMENTED (begin);
 DEFINE_UNIMPLEMENTED (end);
 
 DEFINE_UNIMPLEMENTED (alloc_font);
-DEFINE_UNIMPLEMENTED (free_font);
+DEFINE_UNIMPLEMENTED (  ref_font);
+DEFINE_UNIMPLEMENTED (unref_font);
 
 DEFINE_UNIMPLEMENTED (alloc_color);
 DEFINE_UNIMPLEMENTED (free_color);
@@ -99,7 +100,7 @@ init (GtkObject *object, HTMLPainterClass *real_klass)
 	painter = HTML_PAINTER (object);
 	painter->color_set = html_colorset_new (NULL);
 
-	html_font_manager_init (&painter->font_manager, real_klass->free_font);
+	html_font_manager_init (&painter->font_manager, real_klass->alloc_font, real_klass->ref_font, real_klass->unref_font);
 	painter->font_style = GTK_HTML_FONT_STYLE_DEFAULT;
 	painter->font_face = NULL;
 }
@@ -117,7 +118,8 @@ class_init (GtkObjectClass *object_class)
 	class->end = (gpointer) end_unimplemented;
 
 	class->alloc_font = (gpointer) alloc_font_unimplemented;
-	class->free_font = (gpointer) free_font_unimplemented;
+	class->ref_font   = (gpointer)   ref_font_unimplemented;
+	class->unref_font = (gpointer) unref_font_unimplemented;
 
 	class->alloc_color = (gpointer) alloc_color_unimplemented;
 	class->free_color = (gpointer) free_color_unimplemented;
@@ -266,8 +268,7 @@ html_painter_set_font_face (HTMLPainter *painter,
 gpointer
 html_painter_get_font (HTMLPainter *painter, HTMLFontFace *face, GtkHTMLFontStyle style)
 {
-	return html_font_manager_get_font (&painter->font_manager, face, style,
-					   HTML_PAINTER_CLASS (GTK_OBJECT (painter)->klass)->alloc_font);
+	return html_font_manager_get_font (&painter->font_manager, face, style);
 }
 
 guint
