@@ -20,6 +20,7 @@
 */
 
 #include "htmlclue.h"
+#include "htmlclueflow.h"
 #include "htmltext.h"
 
 #include "htmlengine-edit-delete.h"
@@ -60,7 +61,7 @@ delete_different_parent (HTMLEngine *e,
 			 HTMLObject *start_object,
 			 gboolean destroy_start)
 {
-	HTMLObject *p, *pnext;
+	HTMLObject *p, *pnext, *pprev;
 	HTMLObject *start_parent;
 	HTMLObject *end_parent;
 
@@ -72,6 +73,8 @@ delete_different_parent (HTMLEngine *e,
 	else
 		p = html_object_next_not_slave (start_object);
 
+	/* First destroy the elements in the `start_object's paragraph.  */
+
 	while (p != NULL) {
 		pnext = p->next;
 
@@ -81,31 +84,40 @@ delete_different_parent (HTMLEngine *e,
 		p = pnext;
 	}
 
-	for (p = e->cursor->object; p != NULL; p = pnext) {
-		pnext = p->next;
+	/* Then move all the (remaining) objects from the `start_parent's to the cursor's
+           paragraph.  This will merge the two paragraphs.  */
 
-		html_clue_remove (HTML_CLUE (end_parent), p);
+	for (p = HTML_CLUE (start_parent)->tail; p != NULL; p = pprev) {
+		pprev = p->prev;
+
+		html_clue_remove (HTML_CLUE (start_parent), p);
 
 		if (HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE)
 			html_object_destroy (p);
 		else
-			html_clue_append (HTML_CLUE (start_parent), p);
+			html_clue_prepend (HTML_CLUE (end_parent), p);
 	}
 
-	p = start_parent->next;
+	/* Finally destroy all the paragraphs from the one after `start_object's, until
+	   the cursor's paragraph.  Of course, we don't destroy the cursor's paragraph.  */
+
+	p = start_parent;
 	while (1) {
 		pnext = p->next;
 
-		if (p->parent != NULL)
-			html_clue_remove (HTML_CLUE (p->parent), p);
-		html_object_destroy (p);
 		if (p == end_parent)
 			break;
+
+		if (p->parent != NULL)
+			html_clue_remove (HTML_CLUE (p->parent), p);
+
+		g_assert (HTML_OBJECT_TYPE (p) == HTML_TYPE_CLUEFLOW);
+		html_object_destroy (p);
 
 		p = pnext;
 	}
 
-	html_object_relayout (start_parent->parent, e, start_parent);
+	html_object_relayout (end_parent->parent, e, end_parent);
 }
 
 static guint

@@ -1,3 +1,26 @@
+2000-04-15  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlclue.c
+	(destroy): Made the code readable.
+
+	* htmlengine-edit-delete.c
+	(delete_different_parent): Make the style of the second paragraph
+	"win" over that of the first one, so that inserting a paragraph
+	break is specular to removing it.
+
+	* htmlengine-edit-paste.c
+	(update_cursor_position): Changed to return the number added to
+	the cursor's position counter.
+	(do_paste): New function, doing all of the pasting work previously
+	done by `html_engine_paste()'.  Also return the number of
+	character elements pasted.
+	(do_undo): New function, implementing the "undo" action.
+	(do_redo): New function, implementing the "redo" action.
+	(setup_undo): New function, to set up the "undo" action.
+	(setup_undo): New function, to set up the "redo" action.
+	(html_engine_paste): Rewritten to use these new function, and
+	support undo properly.
+
 2000-04-15  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlsearch.c (html_search_new): updated to use GNU regex when

@@ -24,6 +24,9 @@
 #include "htmltext.h"
 #include "htmltextmaster.h"
 
+#include "htmlengine-edit-movement.h"
+#include "htmlengine-edit-delete.h"
+
 #include "gtkhtmldebug.h"
 
 #include "htmlengine-edit-paste.h"
@@ -184,6 +187,7 @@ add_new_clueflow (HTMLEngine *engine,
 /* Add all the necessary HTMLClueFlows to paste the current selection.  */
 static gboolean
 prepare_clueflows (HTMLEngine *engine,
+		   GList *buffer,
 		   gboolean append)
 {
 	HTMLObject *clue;
@@ -200,7 +204,7 @@ prepare_clueflows (HTMLEngine *engine,
 
 	first = TRUE;
 	retval = FALSE;
-	for (p = engine->cut_buffer; p != NULL; p = p->next) {
+	for (p = buffer; p != NULL; p = p->next) {
 		HTMLObject *obj;
 
 		obj = (HTMLObject *) p->data;
@@ -344,48 +348,43 @@ remove_slaves_at_cursor (HTMLEngine *engine)
 	html_clueflow_remove_text_slaves (HTML_CLUEFLOW (parent));
 }
 
-static void
+static guint
 update_cursor_position (HTMLCursor *cursor,
 			GList *buffer)
 {
 	HTMLObject *obj;
 	GList *p;
-	gint position;
+	guint count;
 
-	position = cursor->position;
+	count = 0;
 	for (p = buffer; p != NULL; p = p->next) {
 		obj = HTML_OBJECT (p->data);
 
 		if (html_object_is_text (obj))
-			position += HTML_TEXT (obj)->text_len;
+			count += HTML_TEXT (obj)->text_len;
 		else
-			position++;
+			count ++;
 	}
 
-	cursor->position = position;
+	cursor->position += count;
+
+	return count;
 }
 
 
-void
-html_engine_paste (HTMLEngine *engine)
+static guint
+do_paste (HTMLEngine *engine,
+	  GList *buffer)
 {
 	/* Whether we need to append the elements at the cursor
 	   position or not.  */
 	gboolean append;
+	guint count;
 	GList *p;
-
-	g_return_if_fail (engine != NULL);
-	g_return_if_fail (HTML_IS_ENGINE (engine));
-	g_return_if_fail (engine->clue != NULL);
-
-	if (engine->cut_buffer == NULL)
-		return;
-
-	g_warning ("Paste!");
 
 #ifdef PARANOID_DEBUG
 	g_print ("\n**** Cut buffer contents:\n\n");
-	gtk_html_debug_dump_list_simple (engine->cut_buffer, 1);
+	gtk_html_debug_dump_list_simple (buffer, 1);
 #endif
 
 	/* 1. Freeze the engine.  */
@@ -414,7 +413,7 @@ html_engine_paste (HTMLEngine *engine)
 	/* 4. Prepare the HTMLClueFlows to hold the elements we want
 	   to paste.  */
 
-	if (prepare_clueflows (engine, append))
+	if (prepare_clueflows (engine, buffer, append))
 		append = TRUE;
 
 #ifdef PARANOID_DEBUG
@@ -427,7 +426,7 @@ html_engine_paste (HTMLEngine *engine)
 	/* 5. Duplicate the objects in the cut buffer, one by one, and
 	   insert them into the document.  */
 
-	for (p = engine->cut_buffer; p != NULL; p = p->next) {
+	for (p = buffer; p != NULL; p = p->next) {
 		HTMLObject *obj;
 
 		obj = (HTMLObject *) p->data;
@@ -524,7 +523,7 @@ html_engine_paste (HTMLEngine *engine)
 	/* 7. Update the cursor's absolute position counter by
 	   counting the elements in the cut buffer.  */
 
-	update_cursor_position (engine->cursor, engine->cut_buffer);
+	count = update_cursor_position (engine->cursor, buffer);
 
 	/* 8. Thaw the engine so that things are re-laid out again.
 	   FIXME: this might be a bit inefficient for cut & paste.  */
@@ -534,4 +533,166 @@ html_engine_paste (HTMLEngine *engine)
 	/* 9. Normalize the cursor pointer.  */
 
 	html_cursor_normalize (engine->cursor);
+
+	/* Return the number of character elements pasted, to make undo/redo possible.  */
+	return count;
+}
+
+
+/* Undo/redo.  */
+
+struct _ActionData {
+	/* Reference count.  This is necessary because we want to share the data between
+           undo and redo.  */
+	guint ref_count;
+
+	/* Contents of the cut buffer.  */
+	GList *buffer;
+
+	/* Number of character elements in the buffer.  */
+	guint buffer_count;
+};
+typedef struct _ActionData ActionData;
+
+static void  closure_destroy        (gpointer closure);
+static void  do_redo                (HTMLEngine *engine, gpointer closure);
+static void  do_undo                (HTMLEngine *engine, gpointer closure);
+static void  setup_undo             (HTMLEngine *engine, ActionData *data);
+static void  setup_redo             (HTMLEngine *engine, ActionData *data);
+
+static void
+closure_destroy (gpointer closure)
+{
+	ActionData *data;
+	GList *buffer;
+	GList *p;
+
+	data = (ActionData *) closure;
+	g_assert (data->ref_count > 0);
+
+	data->ref_count --;
+	if (data->ref_count == 0) {
+		buffer = data->buffer;
+
+		for (p = buffer; p != NULL; p = p->next)
+			html_object_destroy (HTML_OBJECT (p->data));
+
+		g_list_free (buffer);
+		g_free (data);
+	}
+
+	return;
+}
+
+static void
+do_redo (HTMLEngine *engine,
+	 gpointer closure)
+{
+	ActionData *data;
+
+	data = (ActionData *) closure;
+
+	do_paste (engine, data->buffer);
+
+	setup_undo (engine, data);
+}
+
+static void
+setup_redo (HTMLEngine *engine,
+	    ActionData *data)
+{
+	HTMLUndoAction *undo_action;
+
+	data->ref_count ++;
+
+	/* FIXME i18n */
+	undo_action = html_undo_action_new ("paste",
+					    do_redo,
+					    closure_destroy,
+					    data,
+					    html_cursor_get_position (engine->cursor));
+
+	html_undo_add_redo_action (engine->undo, undo_action);
+}
+
+static void
+do_undo (HTMLEngine *engine,
+	 gpointer closure)
+{
+	ActionData *data;
+
+	data = (ActionData *) closure;
+
+	html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_LEFT, data->buffer_count);
+	html_engine_delete (engine, data->buffer_count);
+
+	setup_redo (engine, data);
+}
+
+static void
+setup_undo (HTMLEngine *engine,
+	    ActionData *data)
+{
+	HTMLUndoAction *undo_action;
+
+	data->ref_count ++;
+
+	/* FIXME i18n */
+	undo_action = html_undo_action_new ("paste",
+					    do_undo,
+					    closure_destroy,
+					    data,
+					    html_cursor_get_position (engine->cursor));
+
+	html_undo_add_undo_action (engine->undo, undo_action);
+}
+
+static ActionData *
+action_data_from_cut_buffer (const GList *buffer,
+			     guint count)
+{
+	ActionData *data;
+	GList *new_buffer, *new_buffer_tail;
+	const GList *p;
+
+	new_buffer = NULL;
+	new_buffer_tail = NULL;
+
+	for (p = buffer; p != NULL; p = p->next) {
+		HTMLObject *obj_copy;
+
+		obj_copy = html_object_dup (HTML_OBJECT (p->data));
+
+		new_buffer_tail = g_list_append (new_buffer_tail, obj_copy);
+		if (new_buffer == NULL)
+			new_buffer = new_buffer_tail;
+		new_buffer_tail = new_buffer_tail->next;
+	}
+
+	data = g_new (ActionData, 1);
+	data->ref_count = 0;
+	data->buffer = new_buffer;
+	data->buffer_count = count;
+
+	return data;
+}
+
+
+void
+html_engine_paste (HTMLEngine *engine)
+{
+	guint count;
+
+	g_return_if_fail (engine != NULL);
+	g_return_if_fail (HTML_IS_ENGINE (engine));
+	g_return_if_fail (engine->clue != NULL);
+
+	if (engine->cut_buffer == NULL)
+		return;
+
+	html_undo_discard_redo (engine->undo);
+
+	count = do_paste (engine, engine->cut_buffer);
+
+	setup_undo (engine, action_data_from_cut_buffer (engine->cut_buffer, count));
 }

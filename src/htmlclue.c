@@ -36,15 +36,10 @@ HTMLObjectClass *parent_class = NULL;
 static void
 destroy (HTMLObject *o)
 {
-	HTMLObject *obj;
+	HTMLObject *p;
 
-	while (HTML_CLUE (o)->head) {
-		HTML_CLUE (o)->curr = HTML_CLUE (o)->head->next;
-		obj = HTML_CLUE(o)->head;
-		HTML_CLUE (o)->head = HTML_CLUE (o)->curr;
-
-		html_object_destroy (obj);
-	}
+	for (p = HTML_CLUE (o)->head; p != NULL; p = p->next)
+		html_object_destroy (p);
 
 	HTML_OBJECT_CLASS (parent_class)->destroy (o);
 }
