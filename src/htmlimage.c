@@ -913,6 +913,13 @@ html_image_factory_end_pixbuf (GtkHTMLStream *stream,
 {
 	HTMLImagePointer *ip = user_data;
 
+	gdk_pixbuf_loader_close (ip->loader);
+	if (!ip->animation && !ip->pixbuf) {
+		ip->pixbuf = gdk_pixbuf_loader_get_pixbuf (ip->loader);
+
+		if (ip->pixbuf)
+			gdk_pixbuf_ref (ip->pixbuf);
+	}
 	update_or_redraw (ip);
 
 	html_image_pointer_unref (ip);
