@@ -24,6 +24,7 @@
 
 #include <gdk/gdkkeysyms.h>
 #include <gdk/gdkprivate.h>
+#include <gdk-pixbuf/gdk-pixbuf.h>
 #include <gtk/gtk.h>
 #include <string.h>
 
@@ -2273,18 +2274,6 @@ next_uri (guchar **uri_list, gint *len, gint *list_len)
 	return uri;
 }
 
-static gchar *pic_extensions [] = {
-	".png",
-	".gif",
-	".jpg",
-	".xbm",
-	".xpm",
-	".bmp",
-	".svg",
-	".svgz",
-	NULL
-};
-
 static gchar *known_protocols [] = {
 	"http://",
 	"ftp://",
@@ -2301,14 +2290,14 @@ new_obj_from_uri (HTMLEngine *e, gchar *uri, gint len)
 	gint i;
 
 	if (!strncmp (uri, "file:", 5)) {
-
-		for (i = 0; pic_extensions [i]; i++) {
-			if (!strcasecmp (uri + len - strlen (pic_extensions [i]), pic_extensions [i])) {
-				return html_image_new (e->image_factory, uri,
-						       NULL, NULL, -1, -1, FALSE, FALSE, 0,
-						       html_colorset_get_color (e->settings->color_set, HTMLTextColor),
-						       HTML_VALIGN_BOTTOM, TRUE);
-			}
+		GdkPixbuf *pixbuf;
+		pixbuf = gdk_pixbuf_new_from_file(uri + 5, NULL);
+		if (pixbuf) {
+			g_object_unref (pixbuf);
+		 	return html_image_new (e->image_factory, uri,
+					       NULL, NULL, -1, -1, FALSE, FALSE, 0,
+					       html_colorset_get_color (e->settings->color_set, HTMLTextColor),
+					       HTML_VALIGN_BOTTOM, TRUE);
 		}
 	}
 
