@@ -1,3 +1,8 @@
+2000-06-20  Radek Doulik  <rodo@helixcode.com>
+
+	* popup.c (popup_show): added insert link to popup menu when
+	selection is active
+
 2000-06-17  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* editor-control-factory.c (editor_control_factory): Create a

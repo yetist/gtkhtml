@@ -31,6 +31,12 @@
 #include "link.h"
 
 static void
+insert_link (GtkWidget *mi, GtkHTMLControlData *cd)
+{
+	link_insert (cd);
+}
+
+static void
 copy (GtkWidget *mi, GtkHTMLControlData *cd)
 {
 	html_engine_copy (cd->html->engine);
@@ -98,6 +104,8 @@ popup_show (GtkHTMLControlData *cd, GdkEventButton *event)
 	menu = gtk_menu_new ();
 
 	if (e->active_selection) {
+		ADD_ITEM ("Insert link...", insert_link);
+		ADD_SEP;
 		ADD_ITEM ("Copy", copy);
 		ADD_ITEM ("Cut",  cut);
 	}
