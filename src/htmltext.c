@@ -82,7 +82,7 @@ get_tags (const HTMLText *text,
 
 	if (!html_color_equal (text->color, html_colorset_get_color (state->engine->settings->color_set, HTMLTextColor))
 	    && !html_color_equal (text->color, html_colorset_get_color (state->engine->settings->color_set, HTMLLinkColor))) {
-		opening_p += sprintf (opening_p, "<FONT COLOR=#%02x%02x%02x>",
+		opening_p += sprintf (opening_p, "<FONT COLOR=\"#%02x%02x%02x\">",
 				      text->color->color.red   >> 8,
 				      text->color->color.green >> 8,
 				      text->color->color.blue  >> 8);
@@ -91,7 +91,7 @@ get_tags (const HTMLText *text,
 
 	size = font_style & GTK_HTML_FONT_STYLE_SIZE_MASK;
 	if (size != 0) {
-		opening_p += sprintf (opening_p, "<FONT SIZE=%d>", size);
+		opening_p += sprintf (opening_p, "<FONT SIZE=\"%d\">", size);
 	}
 
 	if (font_style & GTK_HTML_FONT_STYLE_BOLD) {
@@ -132,7 +132,7 @@ get_tags (const HTMLText *text,
 	}
 
 	if (size != 0) {
-		ending_p += sprintf (ending_p, "</FONT SIZE=%d>", size);
+		ending_p += sprintf (ending_p, "</FONT SIZE=\"%d\">", size);
 	}
 
 

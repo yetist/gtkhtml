@@ -1,5 +1,7 @@
 2001-03-29  Radek Doulik  <rodo@ximian.com>
 
+	* htmltext.c (get_tags): added quotes
+
 	* htmlengine-save.c (color_to_string): use %02x instead of %2x to
 	avoid colors like <BODY BGCOLOR="#98cc 0">
 
