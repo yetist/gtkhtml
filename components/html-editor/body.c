@@ -43,19 +43,21 @@ struct _GtkHTMLEditBodyProperties {
 
 	GdkColor   color [HTMLColors];
 	gboolean   color_changed [HTMLColors];
+	gint       left_margin;
 
 	gint template;
 	GtkHTML   *sample;
 };
 typedef struct _GtkHTMLEditBodyProperties GtkHTMLEditBodyProperties;
 
-#define TEMPLATES 3
+#define TEMPLATES 4
 typedef struct {
 	gchar *name;
 	gchar *bg_pixmap;
 	GdkColor bg_color;
 	GdkColor text_color;
 	GdkColor link_color;
+	gint left_margin;
 } BodyTemplate;
 
 static BodyTemplate body_templates [TEMPLATES] = {
@@ -65,31 +67,43 @@ static BodyTemplate body_templates [TEMPLATES] = {
 		{0, 0, 0, 0},
 		{0, 0, 0, 0},
 		{0, 0, 0, 0},
+		10,
 	},
 	{
-		N_("Test"),
-		NULL,
-		{0, 0x7fff, 0x7fff, 0xffff},
-		{0, 0xefff, 0xefff, 0xefff},
-		{0, 0xffff, 0xffff, 0},
-	},
-	{
-		N_("Test 1"),
-		ICONDIR "/bg1.png",
+		N_("Perforated Paper"),
+		ICONDIR "/paper.png",
 		{0, 0xffff, 0xffff, 0xffff},
-		{0, 0x2fff, 0x2fff, 0x5fff},
-		{0, 0x7fff, 0x7fff, 0},
+		{0, 0, 0, 0},
+		{0, 0, 0x3380, 0x6680},
+		30,
+	},
+	{
+		N_("Blue Ink"),
+		ICONDIR "/texture.png",
+		{0, 0xffff, 0xffff, 0xffff},
+		{0, 0x1fff, 0x1fff, 0x8fff},
+		{0, 0, 0, 0xffff},
+		10,
+	},
+	{
+		N_("Rectangles"),
+		ICONDIR "/rect.png",
+		{0, 0xffff, 0xffff, 0xffff},
+		{0, 0, 0, 0},
+		{0, 0, 0, 0xffff},
+		10,
 	},
 };
 
 static void
 fill_sample (GtkHTMLEditBodyProperties *d)
 {
-	gchar *body, *body_tag, *bg_image, *fname;
+	gchar *body, *body_tag, *bg_image, *fname, *lm;
 	fname = gtk_entry_get_text (GTK_ENTRY (gnome_pixmap_entry_gtk_entry
 					       (GNOME_PIXMAP_ENTRY (d->pixmap_entry))));
-	bg_image = fname && *fname ? g_strdup_printf (" background=\"%s\"", fname) : g_strdup ("");
-	body_tag = g_strdup_printf ("<body bgcolor=#%02x%02x%02x link=#%02x%02x%02x text=#%02x%02x%02x%s>",
+	bg_image = fname && *fname ? g_strdup_printf (" BACKGROUND=\"%s\"", fname) : g_strdup ("");
+	lm = d->left_margin != 10 ? g_strdup_printf (" LEFTMARGIN=%d", d->left_margin) : g_strdup ("");
+	body_tag = g_strdup_printf ("<BODY BGCOLOR=#%02x%02x%02x LINK=#%02x%02x%02x TEXT=#%02x%02x%02x%s%s>",
 				    d->color [HTMLBgColor].red >> 8,
 				    d->color [HTMLBgColor].green >> 8,
 				    d->color [HTMLBgColor].blue >> 8,
@@ -99,7 +113,7 @@ fill_sample (GtkHTMLEditBodyProperties *d)
 				    d->color [HTMLTextColor].red >> 8,
 				    d->color [HTMLTextColor].green >> 8,
 				    d->color [HTMLTextColor].blue >> 8,
-				    bg_image);
+				    bg_image, lm);
 
 	body  = g_strconcat (body_tag,
 			     "The quick brown <a href=\"mailto:fox\">fox</a> jumps over the lazy <a href=\"mailto:dog\">dog</a>.",
@@ -107,6 +121,7 @@ fill_sample (GtkHTMLEditBodyProperties *d)
 
 	gtk_html_load_from_string (d->sample, body, -1);
 	g_free (bg_image);
+	g_free (lm);
 	g_free (body_tag);
 	g_free (body);
 }
@@ -163,6 +178,8 @@ changed_template (GtkWidget *w, GtkHTMLEditBodyProperties *d)
 		d->color_changed [HTMLLinkColor] = TRUE;
 		d->color [HTMLTextColor] = body_templates [d->template].text_color;
 		d->color_changed [HTMLTextColor] = TRUE;
+
+		d->left_margin = body_templates [d->template].left_margin;
 	} else {
 		color_combo_set_color (COLOR_COMBO (d->combo [2]),
 				       &html_colorset_get_color_allocated (d->cd->html->engine->painter,
@@ -183,6 +200,8 @@ changed_template (GtkWidget *w, GtkHTMLEditBodyProperties *d)
 		d->color [HTMLTextColor] = html_colorset_get_color (d->cd->html->engine->settings->color_set,
 								    HTMLTextColor)->color;
 		d->color_changed [HTMLTextColor] = FALSE;
+
+		d->left_margin = 10;
 	}
 
 	gtk_html_edit_properties_dialog_change (d->cd->properties_dialog);	
@@ -221,6 +240,7 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 
 	*set_data = data;
 	data->cd = cd;
+	data->left_margin = 10;
 
 	table = gtk_table_new (2, 2, FALSE);
 	gtk_container_border_width (GTK_CONTAINER (table), 3);
