@@ -71,41 +71,41 @@ finalize (GtkObject *object)
 		return 0;							\
 	}
 
-DEFINE_UNIMPLEMENTED (begin);
-DEFINE_UNIMPLEMENTED (end);
+DEFINE_UNIMPLEMENTED (begin)
+DEFINE_UNIMPLEMENTED (end)
 
-DEFINE_UNIMPLEMENTED (alloc_font);
-DEFINE_UNIMPLEMENTED (  ref_font);
-DEFINE_UNIMPLEMENTED (unref_font);
+DEFINE_UNIMPLEMENTED (alloc_font)
+DEFINE_UNIMPLEMENTED (  ref_font)
+DEFINE_UNIMPLEMENTED (unref_font)
 
-DEFINE_UNIMPLEMENTED (alloc_color);
-DEFINE_UNIMPLEMENTED (free_color);
+DEFINE_UNIMPLEMENTED (alloc_color)
+DEFINE_UNIMPLEMENTED (free_color)
 
-DEFINE_UNIMPLEMENTED (calc_ascent);
-DEFINE_UNIMPLEMENTED (calc_descent);
-DEFINE_UNIMPLEMENTED (calc_text_width);
+DEFINE_UNIMPLEMENTED (calc_ascent)
+DEFINE_UNIMPLEMENTED (calc_descent)
+DEFINE_UNIMPLEMENTED (calc_text_width)
 
-DEFINE_UNIMPLEMENTED (set_pen);
-DEFINE_UNIMPLEMENTED (get_black);
-DEFINE_UNIMPLEMENTED (draw_line);
-DEFINE_UNIMPLEMENTED (draw_rect);
-DEFINE_UNIMPLEMENTED (draw_text);
-DEFINE_UNIMPLEMENTED (draw_spell_error);
-DEFINE_UNIMPLEMENTED (fill_rect);
-DEFINE_UNIMPLEMENTED (draw_pixmap);
-DEFINE_UNIMPLEMENTED (draw_ellipse);
-DEFINE_UNIMPLEMENTED (clear);
-DEFINE_UNIMPLEMENTED (set_background_color);
-DEFINE_UNIMPLEMENTED (draw_shade_line);
-DEFINE_UNIMPLEMENTED (draw_panel);
+DEFINE_UNIMPLEMENTED (set_pen)
+DEFINE_UNIMPLEMENTED (get_black)
+DEFINE_UNIMPLEMENTED (draw_line)
+DEFINE_UNIMPLEMENTED (draw_rect)
+DEFINE_UNIMPLEMENTED (draw_text)
+DEFINE_UNIMPLEMENTED (draw_spell_error)
+DEFINE_UNIMPLEMENTED (fill_rect)
+DEFINE_UNIMPLEMENTED (draw_pixmap)
+DEFINE_UNIMPLEMENTED (draw_ellipse)
+DEFINE_UNIMPLEMENTED (clear)
+DEFINE_UNIMPLEMENTED (set_background_color)
+DEFINE_UNIMPLEMENTED (draw_shade_line)
+DEFINE_UNIMPLEMENTED (draw_panel)
 
-DEFINE_UNIMPLEMENTED (set_clip_rectangle);
-DEFINE_UNIMPLEMENTED (draw_background);
-DEFINE_UNIMPLEMENTED (draw_embedded);
+DEFINE_UNIMPLEMENTED (set_clip_rectangle)
+DEFINE_UNIMPLEMENTED (draw_background)
+DEFINE_UNIMPLEMENTED (draw_embedded)
 
-DEFINE_UNIMPLEMENTED (get_pixel_size);
-DEFINE_UNIMPLEMENTED (get_page_width);
-DEFINE_UNIMPLEMENTED (get_page_height);
+DEFINE_UNIMPLEMENTED (get_pixel_size)
+DEFINE_UNIMPLEMENTED (get_page_width)
+DEFINE_UNIMPLEMENTED (get_page_height)
 
 
 static void

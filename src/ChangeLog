@@ -1,3 +1,11 @@
+2002-01-24  Larry Ewing  <lewing@ximian.com>
+
+	* htmlpainter.c: remove uneeded semicolons after
+	DEFINE_UNIMPLEMENTED definitions.  They are spurious and cause
+	some compilers to complain.  Thanks to Tim Mooney
+	<mooney@dogbert.cc.ndsu.nodak.edu> for the patch.  Fixes
+	http://bugzilla.ximian.com/show_bug.cgi?id=19189
+	
 2002-01-14  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine-edit-cursor.c (html_engine_draw_cursor_in_area): wrap
