@@ -319,6 +319,7 @@ split_between_objects (HTMLObject *object, HTMLObject *other,
 			object_get_parent_list (object, d_object - 1, object_parents);
 			object_get_parent_list (other, d_other - 1, other_parents);
 
+#ifdef GTKHTML_DEBUG_TABLE
 			if (*object_parents) {
 				printf ("split object\n");
 				gtk_html_debug_dump_tree_simple ((*object_parents)->data, 0);
@@ -328,7 +329,7 @@ split_between_objects (HTMLObject *object, HTMLObject *other,
 				printf ("split other\n");
 				gtk_html_debug_dump_tree_simple ((*other_parents)->data, 0);
 			}
-
+#endif
 			if (!look_for_non_appendable (*object_parents) && !look_for_non_appendable (*object_parents)) {
 				g_list_free (*object_parents);
 				g_list_free (*other_parents);
@@ -390,8 +391,10 @@ html_engine_copy_object (HTMLEngine *e, HTMLObject **o, guint *len)
 		*len = 0;
 		*o    = html_object_op_copy (HTML_OBJECT (from->data), e,
 				from->next, to->next, len);
+#ifdef GTKHTML_DEBUG_TABLE
 		printf ("copy len: %d (parent %p)\n", *len, (*o)->parent);
 		gtk_html_debug_dump_tree_simple (*o, 0);
+#endif
 		html_engine_thaw (e);
 	}
 }
@@ -565,8 +568,11 @@ html_engine_cut (HTMLEngine *e)
 {
 	html_engine_clipboard_clear (e);
 	delete_object (e, &e->clipboard, &e->clipboard_len, HTML_UNDO_UNDO);
+
+#ifdef GTKHTML_DEBUG_TABLE
 	printf ("cut  len: %d\n", e->clipboard_len);
 	gtk_html_debug_dump_tree_simple (e->clipboard, 0);
+#endif
 }
 
 /*

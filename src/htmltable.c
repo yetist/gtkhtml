@@ -182,8 +182,9 @@ op_copy (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
 
 	start_col = end->row == start->row ? start->col : 0;
 
+#ifdef GTKHTML_DEBUG_TABLE
 	printf ("cols: %d rows: %d\n", cols, rows);
-
+#endif
 	for (r = 0; r < rows; r++)
 		for (c = 0; c < cols; c++) {
 			HTMLTableCell *cell = t->cells [start->row + r][c + start_col];
@@ -206,7 +207,9 @@ op_copy (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
 	if (end->col - start_col < cols - 1)
 		do_cspan (nt, nt->totalRows - 1, end->col - start_col, nt->cells [nt->totalRows - 1][end->col - start_col]);
 
+#ifdef GTKHTML_DEBUG_TABLE
 	printf ("copy end: %d\n", *len);
+#endif
 
 	return HTML_OBJECT (nt);
 }
@@ -225,7 +228,6 @@ get_recursive_length (HTMLObject *self)
 	/* if (len > 0)
 	   len --; */
 	len ++;
-	printf ("get_recursive_length %d\n", len);
 	return len;
 }
 
@@ -233,10 +235,18 @@ static void
 remove_cell (HTMLTable *t, HTMLTableCell *cell)
 {
 	gint r, c;
+
+#ifdef GTKHTML_DEBUG_TABLE
 	printf ("remove cell %d,%d %d,%d %d,%d\n", cell->col, cell->row, cell->rspan, cell->cspan, t->totalCols, t->totalRows);
+#endif
+
 	for (r = 0; r < cell->rspan && r + cell->row < t->totalRows; r++)
 		for (c = 0; c < cell->cspan && c + cell->col < t->totalCols; c++) {
+
+#ifdef GTKHTML_DEBUG_TABLE
 			printf ("clear: %d,%d (%d,%d) %d,%d\n", cell->row + r, cell->col + c, cell->rspan, cell->cspan, r, c);
+#endif
+
 			t->cells [cell->row + r][cell->col + c] = NULL;
 		}
 	HTML_OBJECT (cell)->parent = NULL;
@@ -248,6 +258,7 @@ cut_whole (HTMLObject *self, guint *len)
 	if (self->parent)
 		html_object_remove_child (self->parent, self);
 	*len = html_object_get_recursive_length (self) + 1;
+
 	printf ("removed whole table len: %d\n", *len);
 
 	return self;
@@ -328,8 +339,11 @@ cut_partial (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *lef
 	if (shrink)
 		t->totalCols -= end_col - start_col - 1;
 	t->totalRows -= end_row - start_row;
+
+#ifdef GTKHTML_DEBUG_TABLE
 	printf ("removed partial table len: %d\n", *len);
 	gtk_html_debug_dump_tree_simple (rv, 0);
+#endif
 
 	return rv;
 }
@@ -368,12 +382,14 @@ split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint lev
 	dup_cell  = HTML_TABLE_CELL ((*right)->data);
 	cell      = HTML_TABLE_CELL ((*left)->data);
 
+#ifdef GTKHTML_DEBUG_TABLE
 	printf ("before split\n");
 	printf ("-- self --\n");
 	gtk_html_debug_dump_tree_simple (self, 0);
 	printf ("-- child --\n");
 	gtk_html_debug_dump_tree_simple (child, 0);
 	printf ("-- child end --\n");
+#endif
 
 	rows      = t->totalRows - dup_cell->row;
 	cols      = t->totalRows - 1 == dup_cell->row ? t->totalCols - dup_cell->col : t->totalCols;
@@ -419,12 +435,14 @@ split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint lev
 	html_object_change_set (self, HTML_CHANGE_ALL_CALC);
 	html_object_change_set (dup,  HTML_CHANGE_ALL_CALC);
 
+#ifdef GTKHTML_DEBUG_TABLE
 	printf ("after split\n");
 	printf ("-- self --\n");
 	gtk_html_debug_dump_tree_simple (self,  0);
 	printf ("-- dup --\n");
 	gtk_html_debug_dump_tree_simple (dup, 0);
 	printf ("-- end split --\n");
+#endif
 
 	level--;
 	if (level)
@@ -451,6 +469,7 @@ merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList *left, GList *ri
 	    || t1->bgPixmap != t2->bgPixmap)
 		return FALSE;
 
+#ifdef GTKHTML_DEBUG_TABLE
 	printf ("before merge\n");
 	printf ("left\n");
 	gtk_html_debug_dump_tree_simple (left->data, 0);
@@ -461,6 +480,7 @@ merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList *left, GList *ri
 	printf ("-- with --\n");
 	gtk_html_debug_dump_tree_simple (with, 0);
 	printf ("-- end with --\n");
+#endif
 
 	if (t1->totalRows == 1) {
 		HTMLTableCell *head = HTML_TABLE_CELL (html_object_head (HTML_OBJECT (t2)));
@@ -516,12 +536,14 @@ merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList *left, GList *ri
 
 	html_object_change_set (self, HTML_CHANGE_ALL_CALC);
 
+#ifdef GTKHTML_DEBUG_TABLE
 	printf ("after merge\n");
 	printf ("-- self --\n");
 	gtk_html_debug_dump_tree_simple (self, 0);
 	printf ("-- with --\n");
 	gtk_html_debug_dump_tree_simple (with, 0);
 	printf ("-- end merge --\n");
+#endif
 
 	return TRUE;
 }
