@@ -1,3 +1,8 @@
+2001-12-18  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine-edit-clueflowstyle.c (set_clueflow_style_in_region):
+	avoid skipping end and continuing to the end of document
+
 2001-12-17  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (gtk_html_api_set_language): use engine language prior

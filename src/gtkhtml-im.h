@@ -1,6 +1,8 @@
 #ifndef GTKHTML_IM_H_
 #define GTKHTML_IM_H_
 
+#include "gtkhtml-types.h"
+
 void gtk_html_im_focus_in (GtkHTML *html);
 void gtk_html_im_focus_out (GtkHTML *html);
 void gtk_html_im_realize (GtkHTML *html);
