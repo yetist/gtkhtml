@@ -89,13 +89,31 @@ static void send_event_stream (GNOME_GtkHTML_Editor_Engine engine,
 /* This is the initialization that can only be performed after the
    control has been embedded (signal "set_frame").  */
 
-struct _SetFrameData {
+static struct _SetFrameData {
 	GtkWidget *html;
 	GtkWidget *vbox;
 };
 typedef struct _SetFrameData SetFrameData;
 
 static GtkHTMLEditorAPI *editor_api;
+
+static void
+activate_cb (BonoboControl      *control,
+	     gboolean            active,
+	     GtkHTMLControlData *cd)
+{
+	Bonobo_UIContainer remote_ui_container;
+	BonoboUIComponent *ui_component;
+
+	if (active) {
+		remote_ui_container = bonobo_control_get_remote_ui_container (control, NULL);
+		cd->uic = ui_component = bonobo_control_get_ui_component (control);
+		bonobo_ui_component_set_container (ui_component, remote_ui_container, NULL);
+		bonobo_object_release_unref (remote_ui_container, NULL);
+
+		menubar_setup (ui_component, cd);
+	}
+}
 
 static void
 set_frame_cb (BonoboControl *control,
@@ -113,6 +131,7 @@ set_frame_cb (BonoboControl *control,
 	frame = bonobo_control_get_control_frame (control, NULL);
 	if (frame == CORBA_OBJECT_NIL)
 		return;
+
 	CORBA_Object_release (frame, NULL);
 
 	remote_ui_container = bonobo_control_get_remote_ui_container (control, NULL);
@@ -420,7 +439,7 @@ editor_set_format (GtkHTMLControlData *cd, gboolean format_html)
 		
 }
 
-enum {
+static enum {
 	PROP_EDIT_HTML,
 	PROP_HTML_TITLE
 } EditorControlProps;
@@ -539,10 +558,13 @@ editor_control_construct (BonoboControl *control, GtkWidget *vbox)
 	bonobo_control_set_properties (control, BONOBO_OBJREF (pb), NULL);
 	bonobo_object_unref (BONOBO_OBJECT (pb));
 
+
+
 	/* Part of the initialization must be done after the control is
 	   embedded in its control frame.  We use the "set_frame" signal to
 	   handle that.  */
 
+	g_signal_connect (control, "activate", G_CALLBACK (activate_cb), cd);
 	g_signal_connect (control, "set_frame", G_CALLBACK (set_frame_cb), cd);
 	g_signal_connect (html_widget, "url_requested", G_CALLBACK (url_requested_cb), cd);
 	g_signal_connect (html_widget, "button_press_event", G_CALLBACK (html_button_pressed), cd);
@@ -742,6 +764,7 @@ editor_control_factory (BonoboGenericFactory *factory, const gchar *component_id
 
 	/* g_warning ("Creating a new GtkHTML editor control."); */
 	control = bonobo_control_new (vbox);
+	/* printf ("%s\n", bonobo_ui_component_get_name (bonobo_control_get_ui_component (control))); */
 
 	if (control){
 		editor_control_construct (control, vbox);

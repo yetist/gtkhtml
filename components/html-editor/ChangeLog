@@ -1,5 +1,7 @@
 2003-04-01  Larry Ewing  <lewing@ximian.com>
 
+	* editor-control-factory.c (activate_cb): add activate callback.
+
 	* test-html-editor-control.c (main): init libgnomeui so that we
 	get the indent icons.
 
