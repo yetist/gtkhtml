@@ -1,5 +1,8 @@
 2001-07-24  Radek Doulik  <rodo@ximian.com>
 
+	* htmlengine-edit-cut-and-paste.c (append_object): remove unwanted
+	empty flows, fix cursor position
+
 	* htmlengine-edit.c (html_engine_next_cell): fixed for multi flow
 	cells
 	(html_engine_prev_cell): likewise

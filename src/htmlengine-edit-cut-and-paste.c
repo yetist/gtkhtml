@@ -939,6 +939,7 @@ append_object (HTMLEngine *e, HTMLObject *o, guint len, HTMLUndoDirection dir)
 {
 	GList *left = NULL, *right = NULL;
 	HTMLObject *where;
+	gint back = 0;
 
 	html_engine_freeze (e);
 	if (html_clueflow_is_empty (HTML_CLUEFLOW (e->cursor->object->parent))) {
@@ -960,15 +961,35 @@ append_object (HTMLEngine *e, HTMLObject *o, guint len, HTMLUndoDirection dir)
 
 		html_object_split (e->cursor->object, e, NULL, e->cursor->offset, 2, &left, &right);
 		len += 2;
+		back = 1;
 
 		where = HTML_OBJECT (left->data);
 		html_clue_append_after (HTML_CLUE (where->parent), flow, where);
+
+		if (html_clueflow_is_empty (HTML_CLUEFLOW (where))) {
+			html_cursor_forward (e->cursor, e);
+			html_clue_remove (HTML_CLUE (where->parent), where);
+			html_object_destroy (where);
+			len --;
+			e->cursor->position --;
+		}
+		if (html_clueflow_is_empty (HTML_CLUEFLOW (HTML_OBJECT (flow)->next))) {
+			HTMLObject *empty;
+
+			empty = HTML_OBJECT (flow)->next;
+			html_clue_remove (HTML_CLUE (empty->parent), empty);
+			html_object_destroy (empty);
+			len --;
+			back = 0;
+		}
 	}
+
+	html_cursor_forward_n (e->cursor, e, len);
 	html_object_change_set (o, HTML_CHANGE_ALL_CALC);
 	html_engine_thaw (e);
 
-	html_cursor_forward_n (e->cursor, e, len);
 	insert_setup_undo (e, len, dir);
+	html_cursor_backward_n (e->cursor, e, back);
 }
 
 void
