@@ -44,6 +44,7 @@
 #include "htmlengine-cutbuffer.h"
 #include "htmlengine-edit-paste.h"
 #include "htmlengine-edit-selection-updater.h"
+#include "htmlengine-print.h"
 #include "htmlselection.h"
 #include "htmlcolor.h"
 #include "htmlinterval.h"
@@ -1713,6 +1714,7 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 				push_color (e, html_colorset_get_color (e->settings->color_set, HTMLLinkColor));
 		} else if ( strncmp( str, "/a", 2 ) == 0 ) {
 			close_anchor (e);
+			e->eat_space = FALSE;
 		}
 }
 
@@ -2212,7 +2214,6 @@ parse_i (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 		gboolean percent_height = FALSE;
 		
 		color        = current_color (e);
-		e->eat_space = FALSE;
 
 		if (e->url != NULL || e->target != NULL)
 			border = 2;

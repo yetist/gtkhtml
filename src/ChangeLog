@@ -1,3 +1,8 @@
+2000-12-14  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlengine.c (parse_i): don't set eat_space here
+	(parse_a): rather do it here
+
 2000-12-14  Larry Ewing  <lewing@helixcode.com>
 
 	* gtkhtml.c (destroy): free content_type.
