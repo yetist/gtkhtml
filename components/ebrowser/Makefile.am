@@ -45,7 +45,7 @@ test_ebrowser_SOURCES = \
 	$(EBROWSER_ENGINE_FILES) \
 	test-ebrowser.c test-ebrowser.h
 
-test_history_SOURCES = 
+test_history_SOURCES = \
 	test-history.c ebrowser-history.c
 
 oafdir = $(datadir)/oaf

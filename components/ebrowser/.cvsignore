@@ -5,3 +5,4 @@ Makefile
 ebrowser
 test
 test-ebrowser
+test-history

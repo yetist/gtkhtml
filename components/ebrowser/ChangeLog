@@ -1,3 +1,10 @@
+2000-11-01  Matt Bissiri  <bissiri@eecs.umich.edu>
+
+	* Makefile.am: Add missing "\" after "test_history_SOURCES = " so that
+	test-history will link correctly.
+
+	* .cvsignore: Add `test-history'.
+
 2000-11-01  Miguel de Icaza  <miguel@helixcode.com>
 
 	* ebrowser-widget.c (ebrowser_destroy): Destroy history.
