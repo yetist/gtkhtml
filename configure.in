@@ -2,7 +2,7 @@ dnl Initialization
 
 AC_INIT(src/gtkhtml.c)
 AM_CONFIG_HEADER(config.h)
-AM_INIT_AUTOMAKE(gtkhtml, 0.5)
+AM_INIT_AUTOMAKE(gtkhtml, 0.6)
 
 AM_MAINTAINER_MODE
 AM_ACLOCAL_INCLUDE(macros)
@@ -233,7 +233,7 @@ fi
 
 dnl gdk-pixbuf checks.
 
-AC_MSG_CHECKING([for gdk-pixbuf >= 0.7.0])
+AC_MSG_CHECKING([for gdk-pixbuf >= 0.8.0])
 
 if gnome-config --libs gdk_pixbuf > /dev/null 2>&1; then
 	vers=`gnome-config --modversion gdk_pixbuf | sed 's/^gdk-pixbuf-//'`
@@ -244,7 +244,7 @@ if gnome-config --libs gdk_pixbuf > /dev/null 2>&1; then
 		gdkpixbuf_ok=false
         elif [[ "x$major" = "x0" ]] ; then
 		case "$minor" in
-			[[0123456]])
+			[[01234567]])
 				gdkpixbuf_ok=false ;;
                         *)
 				gdkpixbuf_ok=true ;;
@@ -259,7 +259,7 @@ else
 fi
 
 if test x$gdkpixbuf_ok = xfalse ; then
-	AC_MSG_ERROR([gdk-pixbuf 0.7.0 or later is required to compile GtkHTML.])
+	AC_MSG_ERROR([gdk-pixbuf 0.8.0 or later is required to compile GtkHTML.])
 fi
 
 dnl Setup extra GNOME library flags.
@@ -285,7 +285,7 @@ dnl Library version information.
  
 dnl Increment the following if the interface has additions, changes,
 dnl removals.
-GTKHTML_CURRENT=3
+GTKHTML_CURRENT=4
 
 dnl Increment any time the source changes; set to 0 if you
 dnl increment CURRENT.

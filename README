@@ -2,8 +2,8 @@ This is GtkHTML, a lightweight HTML rendering/printing/editing engine.
 It was originally based on KHTMLW, part of the KDE project, but is now being 
 developed independently.
 
-In order to compile GtkHTML, you need gdk-pixbuf 0.7.0 (or later),
-Bonobo 0.15 (or later) and gnome-print 0.20 (or later).
+In order to compile GtkHTML, you need gdk-pixbuf 0.8.0 (or later),
+Bonobo 0.16 (or later) and gnome-print 0.20 (or later).
 
 Optionaly you may want to install GConf 0.4 (or later) to enable the
 configuration capplet.
