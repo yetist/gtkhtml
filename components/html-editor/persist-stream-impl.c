@@ -71,10 +71,9 @@ load (BonoboPersistStream *ps,
 		if (ev->_major != CORBA_NO_EXCEPTION)
 			break;
 
-		gtk_html_write (html, handle, buffer->_buffer, buffer->_length);
-
 		if (buffer->_length <= 0)
 			break;
+		gtk_html_write (html, handle, buffer->_buffer, buffer->_length);
 		CORBA_free (buffer);
 	} while (1);
 

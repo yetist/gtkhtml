@@ -229,7 +229,10 @@ realize_engine (GtkHTML *html, GtkHTMLControlData *cd)
 static void
 load_done (GtkHTML *html, GtkHTMLControlData *cd)
 {
-	set_color_combo (html, cd);
+	if (GTK_WIDGET_REALIZED (cd->html))
+		set_color_combo (html, cd);
+	else
+		gtk_signal_connect (GTK_OBJECT (cd->html), "realize", realize_engine, cd);
 }
 
 static GtkWidget *
