@@ -1,3 +1,11 @@
+2001-05-25  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine-edit-cut-and-paste.c (check_table_0): new helper
+	function
+	(check_table_1): ditto
+	(delete_object): shrink selection before delete (for some table
+	related cases)
+
 2001-05-24  Radek Doulik  <rodo@ximian.com>
 
 	* replaced HTML_VALIGN_CENTER with HTML_VALIGN_MIDDLE everywhere
