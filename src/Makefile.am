@@ -10,7 +10,7 @@ CFLAGS +=  $(GCONF_CFLAGS) $(PSPELL_CFLAGS)
 
 lib_LTLIBRARIES = libgtkhtml.la
 
-if LIBWWW
+if GLIBWWW
 noinst_PROGRAMS = testgtkhtml
 else
 noinst_PROGRAMS =
@@ -197,15 +197,14 @@ testgtkhtml_SOURCES = 		\
 	testgtkhtml.c		\
 	htmlurl.c
 
-GLIBWWW=$(top_builddir)/glibwww/libglibwww.a $(LIBWWW_LIBS)
-
+testgtkhtml_CFLAGS = $(GLIBWWW_CFLAGS)
 testgtkhtml_LDFLAGS += -static
 testgtkhtml_LDADD =				\
 	libgtkhtml.la				\
 	$(GNOMEUI_LIBS)				\
 	$(GNOME_LIBDIR)				\
 	$(EXTRA_GNOME_LIBS)                     \
-	$(GLIBWWW)				\
+	$(GLIBWWW_LIBS)				\
 	$(GCONF_LIBS)				\
 	$(PSPELL_LIBS)
 #	-lccmalloc -ldl

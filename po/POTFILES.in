@@ -16,7 +16,6 @@ components/html-editor/search.c
 components/html-editor/test-html-editor-control.c
 components/html-editor/text.c
 components/html-editor/toolbar.c
-glibwww/gnome-dialogs.c
 src/gtkhtml.c
 # src/html-component.c
 src/testgtkhtml.c

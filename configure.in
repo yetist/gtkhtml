@@ -29,40 +29,36 @@ dnl GNU regex checking
 
 AC_CHECK_FUNC(re_compile_pattern, AC_DEFINE(HAVE_GNU_REGEX))
 
-dnl Libwww checks.
+dnl glibwww checks.
+have_glibwww=false
+AC_MSG_CHECKING(for glibwww >= 0.2)
+#if gnome-config --libs glibwww > /dev/null 2>&1; then
+#	vers=`gnome-config --modversion glibwww | sed -e "s/glibwww-//" | \
+#		awk 'BEGIN { FS = "."; } { printf "%d", $1 * 1000 + $2;}'`
 
-AC_MSG_CHECKING([for libwww])
-if ! `libwww-config --version > /dev/null 2>&1` ; then
-	AC_MSG_RESULT([not found])
-	have_libwww=false
-else
-	vers=`libwww-config --version`
-	AC_MSG_RESULT([found ("$vers")])
+#	if test "$vers" -ge 2; then
+#		AC_MSG_RESULT([found])
 
-	LIBWWW_CFLAGS="`libwww-config --cflags`"
-	LIBWWW_LIBS="`libwww-config --libs`"
+#		GLIBWWW_CFLAGS="`gnome-config --cflags glibwww`"
+#		GLIBWWW_LIBS="`gnome-config --libs glibwww`"
 
-	AC_MSG_CHECKING([if libwww has zlib support built-in])
-	if ( libwww-config --libs | grep -w -- '-lz' > /dev/null ) ; then
-		AC_MSG_RESULT([yes])
-		have_libwww=true
-	else
-		AC_MSG_RESULT([no])
-		AC_MSG_WARN([libwww should be built with zlib support to be usable by the test program.])
-		AC_MSG_WARN([Your libwww does not seem to have zlib support.])
-		have_libwww=false
-	fi
-fi
+#		have_glibwww=true
+#	else
+#		AC_MSG_RESULT(not found)
+#	fi
+#else
+	AC_MSG_RESULT(not found)
+#fi
 
-if $have_libwww ; then
-	AC_DEFINE(HAVE_LIBWWW)
+if $have_glibwww ; then
+	AC_DEFINE(HAVE_GLIBWWW)
 else
 	AC_MSG_WARN([\`testgtkhtml' will not be built.])
 fi
 
-AC_SUBST(LIBWWW_CFLAGS)
-AC_SUBST(LIBWWW_LIBS)
-AM_CONDITIONAL(LIBWWW, $have_libwww)
+AC_SUBST(GLIBWWW_CFLAGS)
+AC_SUBST(GLIBWWW_LIBS)
+AM_CONDITIONAL(GLIBWWW, test x$have_glibwww = xtrue)
 
 dnl Bonobo checks.
 
@@ -309,7 +305,6 @@ po/Makefile.in
 macros/Makefile
 src/Makefile
 capplet/Makefile
-glibwww/Makefile
 components/Makefile
 components/html-editor/Makefile
 ])

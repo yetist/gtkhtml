@@ -1,9 +1,3 @@
-if LIBWWW
-DIR_GLIBWWW = glibwww
-else
-DIR_GLIBWWW =
-endif
-
 if BONOBO
 DIR_COMPONENTS = components
 else
@@ -29,7 +23,6 @@ gtkhtmlConf.sh: gtkhtmlConf.sh.in Makefile
 SUBDIRS =					\
 	po					\
 	macros					\
-	$(DIR_GLIBWWW)				\
 	src					\
 	capplet					\
 	$(DIR_COMPONENTS)

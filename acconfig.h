@@ -12,7 +12,7 @@
 #undef ENABLE_BONOBO
 #undef HAVE_IEEEFP_H
 #undef ENABLE_GNOME
-#undef HAVE_LIBWWW
+#undef HAVE_GLIBWWW
 #undef HAVE_GNU_REGEX
 #undef USING_OAF
 

@@ -1,3 +1,12 @@
+2000-08-24  JP Rosevear  <jpr@helixcode.com>
+
+	* acconfig.h: HAVE_GLIBWWW instead of HAVE_LIBWWW
+
+	* configure.in: Check for glibwww2 instead of libwww.  Disable
+	testgtkhtml until we update the source.
+
+	* Makefile.am: Don't need to build glibwww subdir anymore
+
 2000-08-17  Mathieu Lacage  <mathieu@eazel.com>
 
 	* capplet/Makefile.am: add EXTRA_GNOME_LIBS. This fixes
