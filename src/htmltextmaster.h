@@ -64,4 +64,7 @@ HTMLObject *html_text_master_new         (gchar               *text,
 HTMLObject *html_text_master_get_slave   (HTMLTextMaster      *master,
 					  guint                offset);
 
+gint        html_text_master_trail_space_width (HTMLTextMaster *master,
+						HTMLPainter *painter);
+
 #endif /* _HTMLTEXTMASTER_H_ */

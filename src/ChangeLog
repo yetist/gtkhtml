@@ -1,3 +1,17 @@
+2000-03-26  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlclueflow.c (calc_preferred_width): remove trailing space
+	width at end of line(s)
+	(calc_size): same as above
+
+	* htmltextslave.c (html_text_slave_trail_space_width): like bellow
+
+	* htmltextmaster.c (html_text_master_trail_space_width): new
+	function, returns trailing space width if it is here, otherwise 0
+
+	* gtkhtmldebug.c (gtk_html_debug_dump_tree): also print TextSlave
+	text
+
 2000-03-26  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlengine.c (insert_text): Reverted previous change, as it

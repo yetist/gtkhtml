@@ -30,6 +30,7 @@
 #include "htmlcluealigned.h"
 #include "htmltext.h"
 #include "htmlvspace.h"
+#include "htmllinktextmaster.h"
 #include "htmltextslave.h"	/* FIXME */
 
 
@@ -577,7 +578,13 @@ calc_size (HTMLObject *o,
 		/* if we need a new line, or all objects have been processed
 		   and need to be aligned. */
 		if ( newLine || !obj) {
+			HTMLObject *eol;
 			int extra;
+
+			/* remove trailing spaces */
+			eol = (obj) ? obj : clue->tail;
+			if (HTML_OBJECT_TYPE (eol) == HTML_TYPE_TEXTSLAVE)
+				w -= html_text_slave_trail_space_width (HTML_TEXT_SLAVE (eol), painter);
 
 			extra = 0;
 
@@ -666,15 +673,21 @@ calc_preferred_width (HTMLObject *o,
 	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next) {
 		if (!(obj->flags & HTML_OBJECT_FLAG_NEWLINE)) {
 			w += html_object_calc_preferred_width (obj, painter);
-		} else {
+		}
+		/* remove trailing space width on the end of line */
+		if (!obj->next || obj->flags & HTML_OBJECT_FLAG_NEWLINE) {
+			HTMLObject *eol = (obj->flags & HTML_OBJECT_FLAG_NEWLINE) ? obj->prev : obj;
+
+			if (HTML_OBJECT_TYPE (eol) == HTML_TYPE_TEXTMASTER
+			    || HTML_OBJECT_TYPE (eol) == HTML_TYPE_LINKTEXTMASTER) {
+				w -= html_text_master_trail_space_width (HTML_TEXT_MASTER (eol), painter);
+			}
+
 			if (w > maxw)
 				maxw = w;
 			w = 0;
 		}
 	}
-	
-	if (w > maxw)
-		maxw = w;
 
 	return maxw + get_indent (HTML_CLUEFLOW (o), painter);
 }

@@ -533,3 +533,16 @@ html_text_slave_get_offset_for_pointer (HTMLTextSlave *slave,
 
 	return slave->posLen;
 }
+
+gint
+html_text_slave_trail_space_width (HTMLTextSlave *slave, HTMLPainter *painter)
+{
+	if (HTML_TEXT (slave->owner)->text [slave->posStart + slave->posLen - 1] == ' ') {
+		GtkHTMLFontStyle font_style;
+
+		font_style = html_text_get_font_style (HTML_TEXT (slave->owner));
+		return html_painter_calc_text_width (painter, " ", 1, font_style);
+	} else {
+		return 0;
+	}
+}

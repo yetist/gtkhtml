@@ -64,4 +64,8 @@ guint  html_text_slave_get_offset_for_pointer  (HTMLTextSlave *slave,
 						gint           x,
 						gint           y);
 
+
+gint        html_text_slave_trail_space_width (HTMLTextSlave *slave,
+					       HTMLPainter *painter);
+
 #endif /* _HTMLTEXTSLAVE_H_ */

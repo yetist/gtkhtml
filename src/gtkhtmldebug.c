@@ -160,10 +160,16 @@ gtk_html_debug_dump_tree (HTMLObject *o,
 		if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_CLUEFLOW)
 			g_print (" [%s, %d]",
 				 clueflow_style_to_string (HTML_CLUEFLOW (obj)->style), HTML_CLUEFLOW (obj)->level);
-		else if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_TEXTSLAVE)
-			g_print ("[start %d end %d]",
+		else if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_TEXTSLAVE) {
+			gchar *sl_text = g_strndup (HTML_TEXT_SLAVE (obj)->owner->text.text
+						    + HTML_TEXT_SLAVE (obj)->posStart,
+						    HTML_TEXT_SLAVE (obj)->posLen);
+			g_print ("[start %d end %d] \"%s\" ",
 				 HTML_TEXT_SLAVE (obj)->posStart,
-				 HTML_TEXT_SLAVE (obj)->posStart + HTML_TEXT_SLAVE (obj)->posLen - 1);
+				 HTML_TEXT_SLAVE (obj)->posStart + HTML_TEXT_SLAVE (obj)->posLen - 1,
+				 sl_text);
+			g_free (sl_text);
+		}
 			
 
 		g_print ("\n");

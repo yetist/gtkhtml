@@ -97,6 +97,11 @@ calc_min_width (HTMLObject *self,
 		p++;
 	}
 
+	/* printf ("T \"%s\" min width %d\n", min_width);
+	if (!self->next)
+		min_width -= space_width;
+		printf ("T \"%s\" min width %d\n", min_width); */
+
 	return min_width;
 }
 
@@ -671,4 +676,19 @@ html_text_master_get_slave (HTMLTextMaster *master, guint offset)
 	}
 
 	return p;
+}
+
+gint
+html_text_master_trail_space_width (HTMLTextMaster *master, HTMLPainter *painter)
+{
+	HTMLText *text = HTML_TEXT (master);
+
+	if (text->text [text->text_len-1] == ' ') {
+		GtkHTMLFontStyle font_style;
+
+		font_style = html_text_get_font_style (text);
+		return html_painter_calc_text_width (painter, " ", 1, font_style);
+	} else {
+		return 0;
+	}
 }
