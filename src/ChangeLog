@@ -1,5 +1,32 @@
 2004-04-26  Radek Doulik  <rodo@ximian.com>
 
+	* gtkhtml.c (gtk_html_update_scrollbars_on_resize): do not set
+	adjusments when keep_scroll is set
+	(gtk_html_begin_full): handle new flags
+	(size_allocate): do not set adjusments when keep_scroll is set
+
+	* htmlengine.c (html_engine_stream_end): use new opened_streams
+	counter helper functions instead of accessing that counter
+	directly
+	(html_engine_update_event): do not set adjusments when keep_scroll
+	is set
+	(html_engine_begin): use new opened_streams counter helper
+	functions instead of accessing that counter directly
+
+	* htmlimage.c (html_image_pointer_load): use new opened_streams
+	counter helper functions instead of accessing that counter
+	directly
+	(html_image_factory_end_pixbuf): ditto
+
+	* htmlengine.c (html_engine_opened_streams_increment)
+	(html_engine_opened_streams_decrement)
+	(html_engine_opened_streams_set): new helper functions for setting
+	opened streams counter. it takes also care about new
+	HTMLEngine::keep_scroll flag
+
+	* gtkhtml-enums.h: added GTK_HTML_BEGIN_BLOCK_* flags for blocking
+	progressive updates while loading html document and images
+
 	* gtkhtml.c (gtk_html_begin_full): unref refed images after
 	html_engine_parse instead of doing that before that call as old
 	images are unrefed during it

@@ -255,6 +255,7 @@ struct _HTMLEngine {
 	gboolean block_images;
 	gint opened_streams;
 	gboolean stopped;
+	gboolean keep_scroll;
 
 	HTMLObject *focus_object;
 	gint focus_object_offset;
@@ -484,5 +485,8 @@ gint  html_engine_get_top_border     (HTMLEngine *e);
 gint  html_engine_get_bottom_border  (HTMLEngine *e);
 
 HTMLImageFactory *html_engine_get_image_factory (HTMLEngine *e);
+void html_engine_opened_streams_increment (HTMLEngine *e);
+void html_engine_opened_streams_decrement (HTMLEngine *e);
+void html_engine_opened_streams_set (HTMLEngine *e, int value);
 
 #endif /* _HTMLENGINE_H_ */

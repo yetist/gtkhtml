@@ -1044,13 +1044,15 @@ size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 		gtk_html_update_scrollbars_on_resize (html, old_doc_width, old_doc_height, old_width, old_height,
 						      &changed_x, &changed_y);
 	}
-	gtk_html_private_calc_scrollbars (html, &changed_x, &changed_y);
 
-	if (changed_x)
-		gtk_adjustment_value_changed (GTK_LAYOUT (html)->hadjustment);
-	if (changed_y)
-		gtk_adjustment_value_changed (GTK_LAYOUT (html)->vadjustment);
+	if (!html->engine->keep_scroll) {
+		gtk_html_private_calc_scrollbars (html, &changed_x, &changed_y);
 
+		if (changed_x)
+			gtk_adjustment_value_changed (GTK_LAYOUT (html)->hadjustment);
+		if (changed_y)
+			gtk_adjustment_value_changed (GTK_LAYOUT (html)->vadjustment);
+	}
 }
 
 static void
@@ -3220,8 +3222,23 @@ gtk_html_begin_full (GtkHTML           *html,
 	
 	g_return_val_if_fail (!gtk_html_get_editable (html), NULL);
 
+	if (flags & GTK_HTML_BEGIN_BLOCK_UPDATES)
+		gtk_html_set_blocking (html, TRUE);
+	else
+		gtk_html_set_blocking (html, FALSE);
+
+	if (flags & GTK_HTML_BEGIN_BLOCK_IMAGES)
+		gtk_html_set_images_blocking (html, TRUE);
+	else
+		gtk_html_set_images_blocking (html, FALSE);
+
 	if (flags & GTK_HTML_BEGIN_KEEP_IMAGES)
 		gtk_html_images_ref (html);
+
+	if (flags & GTK_HTML_BEGIN_KEEP_SCROLL)
+		html->engine->keep_scroll = TRUE;
+	else
+		html->engine->keep_scroll = FALSE;
 
 	if (!content_type)
 		content_type = html->priv->content_type;
@@ -3456,28 +3473,19 @@ gtk_html_update_scrollbars_on_resize (GtkHTML *html,
 	doc_height = html_engine_get_doc_height (html->engine);
 	doc_width  = html_engine_get_doc_width (html->engine);
 
-	if (old_doc_width - old_width > 0) {
-		html->engine->x_offset = (gint) (hadj->value * (doc_width - html->engine->width)
-						 / (old_doc_width - old_width));
+	if (!html->engine->keep_scroll) {
+		if (old_doc_width - old_width > 0) {
+			html->engine->x_offset = (gint) (hadj->value * (doc_width - html->engine->width)
+							 / (old_doc_width - old_width));
 
-		/* hacky part, I set layout {x,y}offset by hand to avoid unneccessary flicker */
-		/* FIX2 if (layout->xoffset != html->engine->x_offset) {
-			layout->xoffset = html->engine->x_offset;
-			if (changed_x)
-				*changed_x = TRUE;
-				} */
-		gtk_adjustment_set_value (hadj, html->engine->x_offset);
-	}
+			gtk_adjustment_set_value (hadj, html->engine->x_offset);
+		}
 
-	if (old_doc_height - old_height > 0) {
-		html->engine->y_offset = (gint) (vadj->value * (doc_height - html->engine->height)
-						 / (old_doc_height - old_height));
-		/* FIX2 if (layout->yoffset != html->engine->y_offset) {
-			layout->yoffset = html->engine->y_offset;
-			if (changed_y)
-				*changed_y = TRUE;
-				} */
-		gtk_adjustment_set_value (vadj, html->engine->y_offset);
+		if (old_doc_height - old_height > 0) {
+			html->engine->y_offset = (gint) (vadj->value * (doc_height - html->engine->height)
+							 / (old_doc_height - old_height));
+			gtk_adjustment_set_value (vadj, html->engine->y_offset);
+		}
 	}
 }
 

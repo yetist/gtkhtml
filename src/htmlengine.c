@@ -4293,7 +4293,7 @@ html_engine_begin (HTMLEngine *e, char *content_type)
 #ifdef LOG_INPUT
 	new_stream = gtk_html_stream_log_new (GTK_HTML (e->widget), new_stream);
 #endif
-	e->opened_streams = 1;
+	html_engine_opened_streams_set (e, 1);
 	e->stopped = FALSE;
 	
 	e->newPage = TRUE;
@@ -4408,7 +4408,8 @@ html_engine_update_event (HTMLEngine *e)
 	DI (printf ("continue %p\n", e);)
 
 	/* Adjust the scrollbars */
-	gtk_html_private_calc_scrollbars (e->widget, NULL, NULL);
+	if (!e->keep_scroll)
+		gtk_html_private_calc_scrollbars (e->widget, NULL, NULL);
 
 	/* Scroll page to the top on first display */
 	if (e->newPage) {
@@ -4418,23 +4419,24 @@ html_engine_update_event (HTMLEngine *e)
 			html_cursor_home (e->cursor, e);
 	}
 
-	/* Is y_offset too big? */
-	if (html_engine_get_doc_height (e) - e->y_offset < e->height) {
-		e->y_offset = html_engine_get_doc_height (e) - e->height;
-		if (e->y_offset < 0)
-			e->y_offset = 0;
-	}
+	if (!e->keep_scroll) {
+		/* Is y_offset too big? */
+		if (html_engine_get_doc_height (e) - e->y_offset < e->height) {
+			e->y_offset = html_engine_get_doc_height (e) - e->height;
+			if (e->y_offset < 0)
+				e->y_offset = 0;
+		}
 		
-	/* Is x_offset too big? */
-	if (html_engine_get_doc_width (e) - e->x_offset < e->width) {
-		e->x_offset = html_engine_get_doc_width (e) - e->width;
-		if (e->x_offset < 0)
-			e->x_offset = 0;
-	}
+		/* Is x_offset too big? */
+		if (html_engine_get_doc_width (e) - e->x_offset < e->width) {
+			e->x_offset = html_engine_get_doc_width (e) - e->width;
+			if (e->x_offset < 0)
+				e->x_offset = 0;
+		}
 	
-	gtk_adjustment_set_value (GTK_LAYOUT (e->widget)->vadjustment, e->y_offset);
-	gtk_adjustment_set_value (GTK_LAYOUT (e->widget)->hadjustment, e->x_offset);
-
+		gtk_adjustment_set_value (GTK_LAYOUT (e->widget)->vadjustment, e->y_offset);
+		gtk_adjustment_set_value (GTK_LAYOUT (e->widget)->hadjustment, e->x_offset);
+	}
 	html_image_factory_deactivate_animations (e->image_factory);
 	gtk_container_forall (GTK_CONTAINER (e->widget), update_embedded, e->widget);
 	html_engine_queue_redraw_all (e);
@@ -4601,7 +4603,7 @@ html_engine_stream_end (GtkHTMLStream *stream,
 		;
 
 	if (e->opened_streams)
-		e->opened_streams --;
+		html_engine_opened_streams_decrement (e);
 	DI (printf ("ENGINE(%p) opened streams: %d\n", e, e->opened_streams));
 	if (e->block && e->opened_streams == 0)
 		html_engine_schedule_update (e);
@@ -6355,4 +6357,29 @@ HTMLImageFactory *
 html_engine_get_image_factory (HTMLEngine *e)
 {
 	return html_engine_get_top_html_engine (e)->image_factory;
+}
+
+void
+html_engine_opened_streams_increment (HTMLEngine *e)
+{
+	html_engine_opened_streams_set (e, e->opened_streams + 1);
+}
+
+void
+html_engine_opened_streams_decrement (HTMLEngine *e)
+{
+	html_engine_opened_streams_set (e, e->opened_streams - 1);
+}
+
+void
+html_engine_opened_streams_set (HTMLEngine *e, int value)
+{
+	e->opened_streams = value;
+
+	if (value == 0 && e->keep_scroll) {
+		e->keep_scroll = FALSE;
+		/*html_engine_calc_size (e, FALSE);
+		  gtk_html_private_calc_scrollbars (e->widget, NULL, NULL);*/
+		html_engine_schedule_update (e);
+	}
 }

@@ -304,6 +304,8 @@ typedef enum {
 
 typedef enum {
 	GTK_HTML_BEGIN_KEEP_SCROLL = 1 << 0,
-	GTK_HTML_BEGIN_KEEP_IMAGES = 1 << 1
+	GTK_HTML_BEGIN_KEEP_IMAGES = 1 << 1,
+	GTK_HTML_BEGIN_BLOCK_UPDATES = 1 << 2,
+	GTK_HTML_BEGIN_BLOCK_IMAGES = 1 << 3
 } GtkHTMLBeginFlags;
 #endif
