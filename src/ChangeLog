@@ -8,7 +8,7 @@
 	(html_image_factory_register): load image only if != ""
 
 	* htmlengine-edit-paste.c (do_paste): possibly add "" to clueflow
-	if bailing out (this fixes pasting <BR> and undo after delete of <BR>)
+	if bailing out (this fixes pasting parbreak and undo after delete of parbreak)
 
 2000-05-07  Ettore Perazzoli  <ettore@helixcode.com>
 
@@ -25,7 +25,7 @@
 	* htmlengine-edit-delete.c
 	(html_engine_delete): Avoid looking for the end point beyond the
 	end of the text.
->>>>>>> 1.450
+
 	(merge_text_at_cursor): If merging is not possible, return the
 	current offset unmodified.
 
