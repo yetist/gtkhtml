@@ -1,7 +1,9 @@
 2003-02-28  Larry Ewing  <lewing@ximian.com>
 
-	* body.c (body_apply_cb): set the left margine if the template
-	requirtes it.
+	* editor-control-factory.c: fix the gvalue usage.
+
+	* body.c (body_apply_cb): set the left margin if the template
+	requires it.
 
 2003-02-25  Larry Ewing  <lewing@ximian.com>
 

@@ -589,7 +589,7 @@ send_event_str (GNOME_GtkHTML_Editor_Engine engine, GNOME_GtkHTML_Editor_Listene
 	if (ev._major == CORBA_NO_EXCEPTION) {
 		if (!bonobo_arg_type_is_equal (bonobo_retval->_type, TC_null, &ev)
 		    && !bonobo_arg_type_is_equal (bonobo_retval->_type, TC_void, &ev)) {
-			gvalue_retval = g_new (GValue, 1);
+			gvalue_retval = g_new0 (GValue, 1);
 			gvalue_retval = g_value_init (gvalue_retval, bonobo_arg_type_to_gtype (bonobo_retval->_type));
 			bonobo_arg_to_gvalue (gvalue_retval, bonobo_retval);
 		}
@@ -663,13 +663,13 @@ editor_api_event (GtkHTML *html, GtkHTMLEditorEventType event_type, GValue *args
 
 			switch (event_type) {
 			case GTK_HTML_EDITOR_EVENT_COMMAND_BEFORE:
-				retval = send_event_str (engine, listener, "command_before", &args [0]);
+				retval = send_event_str (engine, listener, "command_before", args);
 				break;
 			case GTK_HTML_EDITOR_EVENT_COMMAND_AFTER:
-				retval = send_event_str (engine, listener, "command_after", &args [0]);
+				retval = send_event_str (engine, listener, "command_after", args);
 				break;
 			case GTK_HTML_EDITOR_EVENT_IMAGE_URL:
-				retval = send_event_str (engine, listener, "image_url", &args [0]);
+				retval = send_event_str (engine, listener, "image_url", args);
 				break;
 			case GTK_HTML_EDITOR_EVENT_DELETE:
 				send_event_void (engine, listener, "delete");
