@@ -2752,6 +2752,8 @@ html_engine_destroy (GtkObject *object)
 		gtk_timeout_remove (engine->timerId);
 	if (engine->blinking_timer_id != 0)
 		gtk_timeout_remove (engine->blinking_timer_id);
+	if (engine->updateTimer != 0)
+		gtk_timeout_remove (engine->updateTimer);
 
 	GTK_OBJECT_CLASS (parent_class)->destroy (object);
 }
@@ -3239,8 +3241,10 @@ html_engine_timer_event (HTMLEngine *e)
 
  out:
 	if (!retval) {
-		if(e->updateTimer != 0)
+		if(e->updateTimer != 0) {
+			gtk_timeout_remove (e->updateTimer);
 			html_engine_update_event (e);
+		}
 			
 		e->timerId = 0;
 	}
@@ -3284,6 +3288,8 @@ html_engine_end (GtkHTMLStream *stream,
 
 	e->writing = FALSE;
 
+	if (e->timerId)
+		gtk_timeout_remove (e->timerId);
 	while (html_engine_timer_event (e))
 		;
 

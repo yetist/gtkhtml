@@ -1,3 +1,15 @@
+2000-04-24  Dan Winship  <danw@helixcode.com>
+
+	* htmlengine.c (html_engine_destroy): remove the updateTimer, if
+	it's active.
+	(html_engine_timer_event): if calling html_engine_update_event,
+	remove the updateTimer first, since update_event will clear it.
+	(html_engine_end): before calling html_engine_timer_event,
+	remove the timerId, since timer_event will clear it.
+
+	Fixes problems with timers being called after the object is
+	destroyed.
+
 2000-04-24  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlengine.c (html_engine_replace_do): updated to use ask
