@@ -16,7 +16,6 @@ libgtkhtmldir = $(includedir)/gtkhtml
 libgtkhtml_HEADERS =				\
 	debug.h					\
 	gtkhtml.h				\
-	gtkhtml-private.h			\
 	htmlanchor.h				\
 	htmlbullet.h				\
 	htmlcluealigned.h			\
@@ -63,6 +62,7 @@ libgtkhtml_HEADERS =				\
 	htmlimageinput.h
 
 libgtkhtml_la_SOURCES =				\
+	gtkhtml-private.h			\
 	debug.c					\
 	gtkhtml.c				\
 	htmlanchor.c				\

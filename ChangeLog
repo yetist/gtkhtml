@@ -1,3 +1,6 @@
+2000-01-05  Elliot Lee  <sopwith@redhat.com>
+	* src/Makefile.am: Don't install gtkhtml-private.h
+
 1999-12-29  Darin Adler  <darin@eazel.com>
 
 	* Makefile.am: Build glibwww first since src depends on it.
