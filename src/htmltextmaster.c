@@ -175,34 +175,39 @@ check_point (HTMLObject *self,
 	/* This scans all the HTMLTextSlaves that represent the various lines
            in which the text is split.  */
 	for (p = self->next; p != NULL && HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE; p = p->next) {
-		if (y < p->y + p->descent) {
-			/* If the cursor is on this line, there is a newline
-                           after this, and we want cursor-line behavior, then
-                           the position we want is the last on this line.  */
-			if (for_cursor
-			    && (p->next == NULL
-				|| (p->next->flags & HTML_OBJECT_FLAG_NEWLINE)
-				|| HTML_OBJECT_TYPE (p->next) == HTML_TYPE_TEXTSLAVE)
-			    && x >= p->x + p->width) {
-				if (offset_return != NULL) {
-					*offset_return = (HTML_TEXT_SLAVE (p)->posStart
-							  + HTML_TEXT_SLAVE (p)->posLen);
-					if (p->next == NULL
-					    || (p->next->flags & HTML_OBJECT_FLAG_NEWLINE))
-						(*offset_return)++;
-				}
-				return self;
-			}
+		if (y > p->y + p->descent)
+			continue;
 
-			/* Otherwise, we have to do the check the normal way.  */
-			if (x >= p->x && x < p->x + p->width) {
-				if (offset_return != NULL) {
-					*offset_return = html_text_slave_get_offset_for_pointer
-						(HTML_TEXT_SLAVE (p), painter, x, y);
-					*offset_return += HTML_TEXT_SLAVE (p)->posStart;
-				}
-				return self;
+		/* If the cursor is on this line, there is a newline
+		   after this, and we want cursor-like behavior, then
+		   the position we want is the last on this line.  */
+		if (for_cursor
+		    && (p->next == NULL
+			|| (p->next->flags & HTML_OBJECT_FLAG_NEWLINE)
+			|| HTML_OBJECT_TYPE (p->next) == HTML_TYPE_TEXTSLAVE
+			|| p->next->y != p->y)
+		    && x >= p->x + p->width) {
+			if (offset_return != NULL) {
+				HTMLTextSlave *slave;
+
+				slave = HTML_TEXT_SLAVE (p);
+				*offset_return = slave->posStart + slave->posLen;
+				if ((p->next == NULL
+				     || (p->next->flags & HTML_OBJECT_FLAG_NEWLINE))
+				    && *offset_return < HTML_TEXT (slave->owner)->text_len)
+					(*offset_return)++;
 			}
+			return self;
+		}
+
+		/* Otherwise, we have to do the check the normal way.  */
+		if (x >= p->x && x < p->x + p->width) {
+			if (offset_return != NULL) {
+				*offset_return = html_text_slave_get_offset_for_pointer
+					(HTML_TEXT_SLAVE (p), painter, x, y);
+				*offset_return += HTML_TEXT_SLAVE (p)->posStart;
+			}
+			return self;
 		}
 	}
 

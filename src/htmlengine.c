@@ -3368,12 +3368,36 @@ html_engine_get_object_at (HTMLEngine *e,
 			   guint *offset_return,
 			   gboolean for_cursor)
 {
+	HTMLObject *clue;
 	HTMLObject *obj;
 
-	if (e->clue == NULL)
+	clue = HTML_OBJECT (e->clue);
+	if (clue == NULL)
 		return NULL;
 
-	obj = html_object_check_point (HTML_OBJECT (e->clue),
+	if (for_cursor) {
+		gint width, height;
+
+		width = clue->width;
+		height = clue->ascent + clue->descent;
+
+		if (width == 0 || height == 0)
+			return NULL;
+
+		if (x < e->leftBorder)
+			x = e->leftBorder;
+		else if (x >= e->leftBorder + width)
+			x = e->leftBorder + width - 1;
+
+		if (y < e->topBorder)
+			y = e->topBorder;
+		else if (y >= e->topBorder + height) {
+			x = e->leftBorder + width - 1;
+			y = e->topBorder + height - 1;
+		}
+	}
+
+	obj = html_object_check_point (clue,
 				       e->painter,
 				       x - e->leftBorder, y - e->topBorder,
 				       offset_return,

@@ -1,3 +1,22 @@
+2000-03-12  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmltextmaster.c
+	(check_point): Do not make the offset be greater than the string's
+	length.
+
+	* htmlclueflow.c
+	(check_point): New function, implementation of
+	`HTMLObject::check_point'.
+	(html_clueflow_class_init): Install it.
+
+	* htmltextmaster.c
+	(check_point): Consider an object to be on a new line by comparing
+	the y coordinate too.
+
+	* htmlengine.c
+	(html_engine_get_object_at): If `for_cursor', clip the coordinates
+	to the cluev's area.
+
 2000-03-09  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* gtkhtml.c

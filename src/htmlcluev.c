@@ -301,20 +301,42 @@ check_point (HTMLObject *self,
 	     guint *offset_return,
 	     gboolean for_cursor)
 {
-	HTMLObject *obj2;
+	HTMLObject *p;
+	HTMLObject *obj;
 	HTMLClueAligned *clue;
-
-	if (x < self->x || x > self->x + self->width
-	    || y > self->y + self->descent || y < self->y - self->ascent)
-		return NULL;
-
-	obj2 = (* HTML_OBJECT_CLASS (parent_class)->check_point) (self, painter, x, y,
-								  offset_return, for_cursor);
-	if (obj2 != NULL)
-		return obj2;
 
 	x = x - self->x;
 	y = y - self->y + self->ascent;
+
+	for (p = HTML_CLUE (self)->head; p != 0; p = p->next) {
+		gint x1, y1;
+
+		if (! for_cursor) {
+			x1 = x;
+			y1 = y;
+		} else {
+			if (x >= p->width) {
+				x1 = p->width - 1;
+			} else if (x < p->x) {
+				x1 = p->x;
+			} else {
+				x1 = x;
+			}
+
+			if (p->next == NULL && y > p->y + p->descent) {
+				x1 = p->width - 1;
+				y1 = p->y + p->descent;
+			} else if (p->prev == NULL && y < p->y - p->ascent) {
+				y1 = p->y - p->ascent;
+			} else {
+				y1 = y;
+			}
+		}
+
+		obj = html_object_check_point (p, painter, x1, y1, offset_return, for_cursor);
+		if (obj != NULL)
+			return obj;
+	}
 
 	for (clue = HTML_CLUEALIGNED (HTML_CLUEV (self)->align_left_list);
 	     clue != NULL;
@@ -322,15 +344,15 @@ check_point (HTMLObject *self,
 		HTMLObject *parent;
 
 		parent = HTML_OBJECT (clue)->parent;
-		obj2 = html_object_check_point (HTML_OBJECT (clue),
-						painter,
-						x, y,
-						offset_return,
-						for_cursor);
-		if (obj2 != NULL) {
+		obj = html_object_check_point (HTML_OBJECT (clue),
+					       painter,
+					       x, y,
+					       offset_return,
+					       for_cursor);
+		if (obj != NULL) {
 			if (offset_return != NULL)
 				*offset_return = 0;
-			return obj2;
+			return obj;
 		}
 	}
 

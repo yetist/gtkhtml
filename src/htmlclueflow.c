@@ -644,6 +644,73 @@ draw (HTMLObject *self,
 							tx, ty);
 }
 
+static HTMLObject*
+check_point (HTMLObject *self,
+	     HTMLPainter *painter,
+	     gint x, gint y,
+	     guint *offset_return,
+	     gboolean for_cursor)
+{
+	HTMLObject *obj;
+	HTMLObject *p;
+	HTMLObject *pnext;
+	HTMLClue *clue;
+
+	if (x < self->x || x >= self->x + self->width
+	    || y < self->y - self->ascent + 1 || y > self->y + self->descent)
+		return NULL;
+
+	clue = HTML_CLUE (self);
+
+	x = x - self->x;
+	y = y - self->y + self->ascent;
+
+	for (p = clue->head; p != NULL; p = pnext) {
+		gint x1, y1;
+
+		pnext = p->next;
+
+		obj = html_object_check_point (p, painter, x, y, offset_return, for_cursor);
+		if (obj != NULL)
+			return obj;
+
+		if (! for_cursor)
+			continue;
+
+		if (p->prev == NULL && (x < p->x || y < p->y - p->ascent + 1)) {
+			x1 = p->x;
+			y1 = p->y - p->ascent + 1;
+			obj = html_object_check_point (p, painter, x1, y1, offset_return, for_cursor);
+			if (obj != NULL)
+				return obj;
+		} else if (pnext == NULL || (pnext->y != p->y
+					     && y >= p->y - p->ascent + 1
+					     && y <= p->y + p->descent)) {
+			HTMLObject *obj1;
+
+			x1 = p->x + p->width - 1;
+			y1 = p->y;
+
+			if (HTML_OBJECT_TYPE (p) != HTML_TYPE_TEXTSLAVE) {
+				obj1 = p;
+			} else {
+				for (obj1 = p;
+				     HTML_OBJECT_TYPE (obj1) == HTML_TYPE_TEXTSLAVE;
+				     obj1 = obj1->prev)
+					;
+			}
+
+			obj = html_object_check_point (obj1, painter, x1, y1, offset_return, for_cursor);
+			if (obj != NULL)
+				return obj;
+
+			g_print (" (2nd try failed)\n");
+		}
+	}
+
+	return NULL;
+}
+
 
 /* Saving support.  */
 
@@ -876,6 +943,7 @@ html_clueflow_class_init (HTMLClueFlowClass *klass,
 	object_class->draw = draw;
 	object_class->save = save;
 	object_class->check_page_split = check_page_split;
+	object_class->check_point = check_point;
 
 	klass->get_default_font_style = get_default_font_style;
 
