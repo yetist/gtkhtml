@@ -33,6 +33,8 @@ void html_engine_insert_table (HTMLEngine *e,
 			       gint spacing,
 			       gint border);
 
+void html_engine_insert_table_all (HTMLEngine *e, gint *values);
+
 HTMLObject * html_engine_insert_table_cell (HTMLEngine *e,
 					    gint percent,
 					    gint rs,
@@ -43,3 +45,4 @@ HTMLObject * html_engine_insert_table_cell (HTMLEngine *e,
 
 			       
 #endif
+
