@@ -53,6 +53,7 @@ calc_min_width (HTMLObject *self,
 	HTMLText *text;
 	const gchar *p;
 	gint min_width, run_width;
+	guint space_width;
 
 	master = HTML_TEXT_MASTER (self);
 	text = HTML_TEXT (self);
@@ -63,10 +64,13 @@ calc_min_width (HTMLObject *self,
 	run_width = 0;
 	p = text->text;
 
+	space_width = html_painter_calc_text_width (painter, " ", 1, font_style);
+
 	while (1) {
 		if (*p != ' ' && *p != 0) {
 			run_width += html_painter_calc_text_width (painter, p, 1, font_style);
 		} else {
+			run_width += space_width;
 			if (run_width > min_width)
 				min_width = run_width;
 			run_width = 0;

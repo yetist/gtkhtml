@@ -191,6 +191,9 @@ struct _HTMLEngine {
 	/* This is TRUE if we want a paragraph break to be inserted before the
            next element.  */
 	gboolean pending_para : 1;
+
+	/* Alignment for the pending paragraph we are going to insert.  */
+	HTMLHAlignType pending_para_alignment;
 };
 
 /* must be forward referenced *sigh* */

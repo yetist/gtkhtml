@@ -1,5 +1,17 @@
 2000-01-28  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmltextslave.c (calc_size): Inconditionally add the width of a
+	space.
+
+	* htmltextmaster.c (calc_min_width): Add the width of a space.
+
+	* htmlengine.c (html_engine_parse): Initialize
+	`pending_para_alignment' to `HTML_HALIGN_LEFT'.
+	(insert_paragraph_break): New parameter `align'.
+
+	* htmlengine.h: New member `pending_para_alignment' in
+	`htmlengine.h'.
+
 	* htmlengine.c (parse_table): Restore quote and list level and
 	flow pointer before adding the table to the tree.
 

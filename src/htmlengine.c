@@ -3334,6 +3334,8 @@ html_engine_parse (HTMLEngine *p)
 	p->avoid_para = TRUE;
 	p->pending_para = FALSE;
 
+	p->pending_para_alignment = HTML_HALIGN_LEFT;
+
 	p->timerId = gtk_timeout_add (TIMER_INTERVAL,
 				      (GtkFunction) html_engine_timer_event,
 				      p);
