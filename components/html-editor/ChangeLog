@@ -1,3 +1,8 @@
+2003-12-02  Rodney Dawes  <dobey@ximian.com>
+
+	* GNOME_GtkHTML_Editor.oaf.in.in:
+	* GNOME_GtkHTML_Editor.oafinfo: Removed unneeded files
+
 2003-12-02  Radek Doulik  <rodo@ximian.com>
 
 	* persist-file.c (impl_getCurrentFile): use CORBA_string_dup
