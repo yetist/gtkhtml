@@ -1,3 +1,7 @@
+1999-12-09  Miguel de Icaza  <miguel@gnu.org>
+
+	* htmlpainter.c (html_painter_draw_pixmap): fix the offsets.
+
 1999-12-09  Anders Carlsson  <andersca@gnu.org>
 
 	* htmltable.c (draw): Doh! Fixed a silly bug where

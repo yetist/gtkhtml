@@ -98,12 +98,17 @@ html_painter_draw_pixmap (HTMLPainter *painter, gint x, gint y, GdkPixbuf *pixbu
 	x -= painter->x1;
 	y -= painter->y1;
 
+	/*
+	 * the idea here is good, but we want to avoid to use the GC
+	 * stuff for clipping, to avoid sending to the X server all
+	 * this information
+	 */
 	if (clipwidth && clipheight)
 		html_painter_set_clip_rectangle (painter, clipx, clipy, clipwidth, clipheight);
-	
+
 	gdk_pixbuf_render_to_drawable_alpha (pixbuf, painter->pixmap,
 					     0, 0,
-					     x - painter->x1, y - painter->y1, /* dest x/y in pixmap*/
+					     x, y, /* dest x/y in pixmap*/
 					     pixbuf->art_pixbuf->width,
 					     pixbuf->art_pixbuf->height,
 					     GDK_PIXBUF_ALPHA_BILEVEL,
