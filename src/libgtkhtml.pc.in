@@ -7,6 +7,6 @@ gtkhtml_datadir=@datadir@/gtkhtml-@GTKHTML_RELEASE@
 Name: libgtkhtml
 Description: libgtkhtml
 Requires: @GTKHTML_MODULES@
-Version: @GTKHTML_RELEASE@
+Version: @VERSION@
 Libs: -L${libdir} -lgtkhtml-@GTKHTML_RELEASE@ -lgtkhtml-a11y-@GTKHTML_RELEASE@
 Cflags: -I${includedir}/libgtkhtml-@GTKHTML_RELEASE@
