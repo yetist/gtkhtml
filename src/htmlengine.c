@@ -2692,7 +2692,7 @@ html_engine_init (HTMLEngine *engine)
 
 	engine->newPage = FALSE;
 
-	engine->editable = TRUE;
+	engine->editable = FALSE;
 	engine->cursor = html_cursor_new ();
 
 	engine->ht = html_tokenizer_new ();

@@ -1,5 +1,10 @@
 2000-01-20  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* debug.c (debug_dump_tree): Display the HTMLTextSlave intervals
+	as [start, end] instead of [start, len].
+
+2000-01-20  Ettore Perazzoli  <ettore@helixcode.com>
+
 	* gtkhtml.c (button_press_event): Implemented.
 
 	* htmlengine-edit.c (html_engine_jump_to): Renamed to
