@@ -928,6 +928,9 @@ insert_text (HTMLEngine *e,
 	}
 
 	if (prev && HTML_IS_TEXT (prev)) {
+		if (prev->parent && HTML_IS_CLUEFLOW (prev->parent))
+			font_style = gtk_html_font_style_merge (html_clueflow_get_default_font_style (HTML_CLUEFLOW (prev->parent)), font_style);
+
 		apply_attributes (HTML_TEXT (prev), e, font_style, color, current_bg_color (e), last_bytes, create_link);
 		if (create_link)
 			html_text_add_link (HTML_TEXT (prev), e->url, e->target, last_pos, HTML_TEXT (prev)->text_len);

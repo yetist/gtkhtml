@@ -1,5 +1,9 @@
 2003-09-18  Radek Doulik  <rodo@ximian.com>
 
+	* htmltext.c (html_text_set_style_in_range): handle FIXED style
+
+	* htmlengine.c (insert_text): merge parent clueflow style
+
 	* htmlimage.c: take care for images blocking
 
 	* gtkhtml.c (gtk_html_set_images_blocking): added new method,
