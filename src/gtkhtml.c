@@ -803,6 +803,7 @@ on_object (GtkWidget *widget, GdkWindow *window, HTMLObject *obj)
 		if (html->pointer_url) {
 			html->pointer_url = NULL;
 			g_free (html->pointer_url);
+			gtk_signal_emit (GTK_OBJECT (html), signals [ON_URL], NULL);
 		}
 		gdk_window_set_cursor (window, html->arrow_cursor);
 	}
@@ -1829,7 +1830,7 @@ gtk_html_allow_selection (GtkHTML *html,
 
 
 
-/* #define LOG_INPUT */
+/*#define LOG_INPUT*/
 #ifdef LOG_INPUT
 static FILE *log_file;
 #endif
