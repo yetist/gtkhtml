@@ -90,8 +90,6 @@ draw (HTMLObject *o, HTMLPainter *p, HTMLCursor *cursor,
 		html_painter_draw_shade_line (p, xp, yp, w);
 	else
 		html_painter_fill_rect (p, xp, yp, w, o->ascent - 6);
-
-	(* html_object_class.draw) (o, p, cursor, x, y, w, height, tx, ty);
 }
 
 static gboolean

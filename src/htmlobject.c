@@ -63,8 +63,6 @@ draw (HTMLObject *o,
       gint width, gint height,
       gint tx, gint ty)
 {
-	if (cursor->object == o)
-		html_painter_draw_cursor (p, o->x + tx, o->y + ty, o->ascent, o->descent);
 }
 
 static HTMLFitType

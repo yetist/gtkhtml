@@ -136,7 +136,9 @@ html_engine_draw_pending_cb (HTMLEngine *engine,
 
 static void
 html_engine_redirect_cb (HTMLEngine *engine,
-			     const char *url, int delay, gpointer data)
+			 const char *url,
+			 int delay,
+			 gpointer data)
 {
 	GtkHTML *gtk_html;
 
@@ -147,7 +149,10 @@ html_engine_redirect_cb (HTMLEngine *engine,
 
 static void
 html_engine_submit_cb (HTMLEngine *engine,
-		       const gchar *method, const gchar *url, const gchar *encoding, gpointer data)
+		       const gchar *method,
+		       const gchar *url,
+		       const gchar *encoding,
+		       gpointer data)
 {
 	GtkHTML *gtk_html;
 

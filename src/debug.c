@@ -93,6 +93,8 @@ debug_dump_tree (HTMLObject *o, gint level)
 
 		if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_CLUEFLOW)
 			g_print (" [%s]", clueflow_style_to_string (HTML_CLUEFLOW (obj)->style));
+		else if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_TEXTSLAVE)
+			g_print ("[offset %d len %d]", HTML_TEXT_SLAVE (obj)->posStart, HTML_TEXT_SLAVE (obj)->posLen);
 
 		g_print ("\n");
 
@@ -108,6 +110,7 @@ debug_dump_tree (HTMLObject *o, gint level)
 				g_print (" ");
 			g_print ("Text: %s\n", HTML_TEXT (obj)->text);
 			break;
+
 		case HTML_TYPE_CLUEH:
 		case HTML_TYPE_CLUEV:
 		case HTML_TYPE_CLUEFLOW:
@@ -117,7 +120,7 @@ debug_dump_tree (HTMLObject *o, gint level)
 		case HTML_TYPE_TABLECELL:
 			debug_dump_tree (HTML_CLUE (obj)->head, level + 1);
 			break;
-			
+
 		default:
 			break;
 		}

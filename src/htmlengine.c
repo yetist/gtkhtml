@@ -2902,6 +2902,7 @@ html_engine_update_event (HTMLEngine *e)
 		}
 
 	}
+
 	html_engine_draw (e, 0, 0, e->width, e->height);
 	
 	if (!e->parsing) {
@@ -3021,10 +3022,10 @@ html_engine_end (GtkHTMLStreamHandle handle, GtkHTMLStreamStatus status, HTMLEng
 }
 
 
-static void
-draw_cursor (HTMLEngine *e,
-	     gint x, gint y,
-	     gint width, gint height)
+void
+html_engine_draw_cursor_in_area (HTMLEngine *e,
+				 gint x, gint y,
+				 gint width, gint height)
 {
 	HTMLObject *obj;
 	guint offset;
@@ -3098,13 +3099,13 @@ html_engine_draw (HTMLEngine *e,
 	html_painter_end (e->painter);
 
 	if (e->editable)
-		draw_cursor (e, x, y, width, height);
+		html_engine_draw_cursor_in_area (e, x, y, width, height);
 }
 
 void
 html_engine_draw_cursor (HTMLEngine *e)
 {
-	draw_cursor (e, 0, 0, -1, -1);
+	html_engine_draw_cursor_in_area (e, 0, 0, -1, -1);
 }
 
 

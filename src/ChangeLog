@@ -1,5 +1,17 @@
 2000-01-18  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlrule.c (draw): Don't call the parent class' `draw' method.
+
+	* htmlobject.c (draw): Don't draw the cursor.
+
+	* htmldrawqueue.c (draw_obj): Draw the cursor in the area we have
+	repainted.
+
+	* htmlengine.c (draw_cursor): Removed.
+	(html_engine_draw_cursor_in_area): Replaced by this one.
+	(html_engine_draw): Updated to use this one.
+	(html_engine_draw_cursor): Likewise.
+
 	* htmltextslave.c (fit_line): Do not skip leading space anymore.
 
 	* htmlengine.c (html_engine_make_cursor_visible): Argh.

@@ -218,8 +218,9 @@ gint	    html_engine_get_doc_width (HTMLEngine *e);
 
 void	    html_engine_make_cursor_visible (HTMLEngine *e);
 
-void html_engine_draw     (HTMLEngine *e, gint x, gint y, gint width, gint height);
-void html_engine_draw_cursor (HTMLEngine *e);
+void  html_engine_draw                (HTMLEngine *e, gint x, gint y, gint width, gint height);
+void  html_engine_draw_cursor         (HTMLEngine *e);
+void  html_engine_draw_cursor_in_area (HTMLEngine *e, gint x, gint y, gint width, gint height);
 
 void  html_engine_flush_draw_queue            (HTMLEngine *e);
 void  html_engine_queue_draw                  (HTMLEngine *e, HTMLObject *o);
