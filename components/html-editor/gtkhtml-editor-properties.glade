@@ -1339,7 +1339,7 @@ Bottom
 
 	    <widget>
 	      <class>GtkOptionMenu</class>
-	      <name>optionmenu5</name>
+	      <name>option_cell_style</name>
 	      <can_focus>True</can_focus>
 	      <items>Normal
 Header
@@ -1363,7 +1363,7 @@ Header
 
 	    <widget>
 	      <class>GtkOptionMenu</class>
-	      <name>optionmenu6</name>
+	      <name>option_cell_wrap</name>
 	      <can_focus>True</can_focus>
 	      <items>Wrap
 Don't wrap

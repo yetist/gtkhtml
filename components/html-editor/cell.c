@@ -83,6 +83,14 @@ typedef struct
 	GtkWidget *check_height;
 	GtkWidget *option_height;
 
+	gboolean   wrap;
+	gboolean   changed_wrap;
+	GtkWidget *option_wrap;
+
+	gboolean   heading;
+	gboolean   changed_heading;
+	GtkWidget *option_heading;
+
 	gboolean   disable_change;
 
 } GtkHTMLEditCellProperties;
@@ -93,7 +101,7 @@ typedef struct
 static void
 fill_sample (GtkHTMLEditCellProperties *d)
 {
-	gchar *body, *html, *bg_color, *bg_pixmap, *valign, *halign, *width, *height;
+	gchar *body, *html, *bg_color, *bg_pixmap, *valign, *halign, *width, *height, *wrap;
 
 	body      = html_engine_save_get_sample_body (d->cd->html->engine, NULL);
 
@@ -118,13 +126,15 @@ fill_sample (GtkHTMLEditCellProperties *d)
 		? g_strdup_printf (" width=\"%d%s\"", d->width, d->width_percent ? "%" : "") : g_strdup ("");
 	height  = d->height != 0 && d->has_height
 		? g_strdup_printf (" height=\"%d%s\"", d->height, d->height_percent ? "%" : "") : g_strdup ("");
+	wrap    = d->wrap ? " nowrap" : "";
 
 	html    = g_strconcat (body,
 			       "<table border=1 cellpadding=4 cellspacing=2>"
 			       "<tr><td>&nbsp;Other&nbsp;<br>&nbsp;Other&nbsp;<br>"
 			       "&nbsp;Other&nbsp;<br>&nbsp;Other&nbsp;<br>",
-			       "&nbsp;Other&nbsp;<br>&nbsp;Other&nbsp;</td><td",
-			       bg_color, bg_pixmap, halign, valign, width, height,
+			       "&nbsp;Other&nbsp;<br>&nbsp;Other&nbsp;</td><",
+			       d->heading ? "th" : "td",
+			       bg_color, bg_pixmap, halign, valign, width, height, wrap,
 			       ">The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog."
 			       "</td><td>&nbsp;Other&nbsp;<br>&nbsp;Other&nbsp;<br>"
 			       "&nbsp;Other&nbsp;<br>&nbsp;Other&nbsp;<br>",
@@ -292,6 +302,24 @@ changed_height_percent (GtkWidget *w, GtkHTMLEditCellProperties *d)
 	CHANGE;	
 }
 
+static void
+changed_wrap (GtkWidget *w, GtkHTMLEditCellProperties *d)
+{
+	d->wrap = g_list_index (GTK_MENU_SHELL (w)->children, gtk_menu_get_active (GTK_MENU (w))) ? TRUE : FALSE;
+	d->changed_wrap = TRUE;
+	FILL;
+	CHANGE;	
+}
+
+static void
+changed_heading (GtkWidget *w, GtkHTMLEditCellProperties *d)
+{
+	d->heading = g_list_index (GTK_MENU_SHELL (w)->children, gtk_menu_get_active (GTK_MENU (w))) ? TRUE : FALSE;
+	d->changed_heading = TRUE;
+	FILL;
+	CHANGE;	
+}
+
 static GtkWidget *
 cell_widget (GtkHTMLEditCellProperties *d)
 {
@@ -349,6 +377,13 @@ cell_widget (GtkHTMLEditCellProperties *d)
 	gtk_signal_connect (GTK_OBJECT (gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_height))), "selection-done",
 			    changed_height_percent, d);
 
+	d->option_wrap    = glade_xml_get_widget (xml, "option_cell_wrap");
+	gtk_signal_connect (GTK_OBJECT (gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_wrap))), "selection-done",
+			    changed_wrap, d);
+	d->option_heading = glade_xml_get_widget (xml, "option_cell_style");
+	gtk_signal_connect (GTK_OBJECT (gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_heading))), "selection-done",
+			    changed_heading, d);
+
 	gtk_box_pack_start (GTK_BOX (cell_page), sample_frame (&d->sample), FALSE, FALSE, 0);
 
 	gtk_widget_show_all (cell_page);
@@ -381,6 +416,9 @@ set_ui (GtkHTMLEditCellProperties *d)
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_height),  d->height);
 	gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_height), d->height_percent ? 1 : 0);
 
+	gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_wrap), d->wrap ? 1 : 0);
+	gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_heading), d->heading ? 1 : 0);
+
 	/* gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_spacing), d->spacing);
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_padding), d->padding);
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_border),  d->border); */
@@ -411,6 +449,7 @@ get_data (GtkHTMLEditCellProperties *d)
 
 	d->halign   = HTML_CLUE (d->cell)->halign;
 	d->valign   = HTML_CLUE (d->cell)->valign;
+	d->wrap     = d->cell->no_wrap;
 
 	/* d->spacing = d->table->spacing;
 	d->padding = d->table->padding;
