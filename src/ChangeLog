@@ -1,5 +1,8 @@
 2002-09-24  Radek Doulik  <rodo@ximian.com>
 
+	* htmltextslave.c (get_offset_for_pointer): check for space to be
+	!= NULL
+
 	* htmlclueflow.c (layout_line): do not wrap in PRE paragraphs
 
 	* gtkhtml.c (load_keybindings): removed Esc bindinding

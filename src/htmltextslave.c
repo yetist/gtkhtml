@@ -800,7 +800,7 @@ get_offset_for_pointer (HTMLTextSlave *slave, HTMLPainter *painter, gint x, gint
 		html_text_request_word_width (owner, painter);
 
 		ww = get_words_width (owner, painter, slave->start_word, word);
-		while (ww < x) {
+		while (ww < x && space) {
 			i = space - owner->text - slave->posStart;
 			space = strchr (space + 1, ' ');
 			if (space && space - owner->text - slave->posStart >= slave->posLen) {
