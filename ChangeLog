@@ -1,3 +1,7 @@
+2001-01-11  Radek Doulik  <rodo@helixcode.com>
+
+	* gtkhtml.spec.in (Requires): added missing %{prefix}/share/gnome/ui/GNOME_GtkHTML_Editor.xml
+
 2001-01-03  Dietmar Maurer  <dietmar@helixcode.com>
 
 	* configure.in: require Bonobo 0.32 (for ebrowser)

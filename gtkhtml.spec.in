@@ -83,6 +83,7 @@ rm -rf $RPM_BUILD_ROOT
 %{prefix}/lib/*.so*
 %{prefix}/share/control-center/Documents/*.desktop
 %{prefix}/share/gnome/apps/Settings/Documents/*.desktop
+%{prefix}/share/gnome/ui/GNOME_GtkHTML_Editor.xml
 %{prefix}/share/gtkhtml/*.emacs
 %{prefix}/share/gtkhtml/*.ms
 %{prefix}/share/gtkhtml/*.idl
