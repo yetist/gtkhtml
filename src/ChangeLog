@@ -1,3 +1,25 @@
+2000-10-12  Larry Ewing  <lewing@helixcode.com>
+
+	* htmlclueflow.c (save_plain): wrap the text contained within the
+	clue.
+	(plain_padding): helper function to determine line padding
+	(string_append_len): helper funtion to encode write lengths of
+	text.
+
+	* htmlclue.c (save_plain): add arg.
+
+	* htmltext.c (save_plain): add arg.
+
+	* htmlobject.h: add width args to save_plain functions.
+
+	* htmlobject.c (save_plain): add requested_width arg.
+	(html_object_save_plain): add arg.
+
+	* htmlengine-save.h: add prototype for save buffer functions.
+
+	* htmlengine-save.c: added functions to create a save buffer to
+	hold text before wrapping.
+	
 2000-10-12  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlrule.c (copy): copy also length and size

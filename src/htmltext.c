@@ -368,7 +368,8 @@ save (HTMLObject *self,
 
 static gboolean
 save_plain (HTMLObject *self,
-      HTMLEngineSaveState *state)
+	    HTMLEngineSaveState *state,
+	    gint requested_width)
 {
 	HTMLText *text;
 	text = HTML_TEXT (self);

@@ -67,4 +67,8 @@ gboolean  html_engine_save_plain  (const HTMLEngine         *engine,
 				   HTMLEngineSaveReceiverFn  receiver,
 				   gpointer                  user_data);
 
+
+void                 html_engine_save_buffer_free      (HTMLEngineSaveState *state);
+const gchar         *html_engine_save_buffer_peek_text (HTMLEngineSaveState *state);
+HTMLEngineSaveState *html_engine_save_buffer_new       (HTMLEngine *engine);
 #endif

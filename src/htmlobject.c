@@ -450,7 +450,8 @@ save (HTMLObject *self,
 
 static gboolean
 save_plain (HTMLObject *self,
-      HTMLEngineSaveState *state)
+	    HTMLEngineSaveState *state,
+	    gint requested_width)
 {
 	return TRUE;
 }
@@ -982,9 +983,10 @@ html_object_save (HTMLObject *self,
 
 gboolean
 html_object_save_plain (HTMLObject *self,
-			HTMLEngineSaveState *state)
+			HTMLEngineSaveState *state,
+			gint requested_width)
 {
-	return (* HO_CLASS (self)->save_plain) (self, state);
+	return (* HO_CLASS (self)->save_plain) (self, state, requested_width);
 }
 
 gint

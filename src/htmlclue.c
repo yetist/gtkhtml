@@ -332,7 +332,8 @@ save (HTMLObject *self,
 
 static gboolean
 save_plain (HTMLObject *self,
-      HTMLEngineSaveState *state)
+	    HTMLEngineSaveState *state,
+	    gint requested_width)
 {
 	HTMLObject *p;
 	HTMLClue *clue;
@@ -340,7 +341,7 @@ save_plain (HTMLObject *self,
 	clue = HTML_CLUE (self);
 
 	for (p = clue->head; p != NULL; p = p->next) {
-		if (! html_object_save_plain (p, state))
+		if (! html_object_save_plain (p, state, requested_width))
 		    return FALSE;
 	}
 

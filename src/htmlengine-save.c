@@ -309,11 +309,65 @@ html_engine_save_plain (const HTMLEngine *engine,
 	state.user_data = user_data;
 	state.last_level = 0;
 
-	html_object_save_plain (engine->clue, &state);
+	/* FIXME don't hardcode the length */
+	html_object_save_plain (engine->clue, &state, 72);
 	if (state.error)
 		return FALSE;
 
 	return TRUE;
 }
+
+static gboolean
+html_engine_save_buffer_receiver (const HTMLEngine *engine,
+				  const            *data,
+				  guint             len,
+				  gpointer          user_data)
+{
+	g_string_append ((GString *)user_data, (gchar *)data);
+
+	return TRUE;
+}
+	
+void
+html_engine_save_buffer_free (HTMLEngineSaveState *state)
+{
+	GString *string;
+
+	g_return_if_fail (state != NULL);
+	string = (GString *)state->user_data;
+
+	g_string_free (string, TRUE);
+	
+	g_free (state);
+}
+
+const gchar *
+html_engine_save_buffer_peek_text (HTMLEngineSaveState *state)
+{
+	GString *string;
+	
+	g_return_val_if_fail (state != NULL, NULL);
+	string = (GString *)state->user_data;
+	
+	return string->str;
+}
+
+HTMLEngineSaveState *
+html_engine_save_buffer_new (HTMLEngine *engine)
+{
+	HTMLEngineSaveState *state = g_new0 (HTMLEngineSaveState, 1);
+
+	if (state) {
+		state->engine = engine;
+		state->receiver = html_engine_save_buffer_receiver;
+		state->br_count = 0;
+		state->error = FALSE;
+		state->user_data = (gpointer) g_string_new ("");
+		state->last_level = 0;
+	}
+
+	return state;
+}
+
 
 

@@ -1099,38 +1099,130 @@ save (HTMLObject *self,
 	return write_post_tags (HTML_CLUEFLOW (self), state);
 }
 
-static gboolean
-save_plain (HTMLObject *self,
-	    HTMLEngineSaveState *state)
+static gint
+string_append_len (GString *out, guchar *s, gint length)
 {
-	HTMLClueFlow *clueflow;
+	gint len = length;
 
-	clueflow = HTML_CLUEFLOW (self);
+	while (len--) {
+		g_string_append_c (out, *s == '\240' ? ' ' : *s);
+		s++;
+	}
+	return length;
+}
 
-	if (get_pre_padding (clueflow, 1) > 0)
-		if (! html_engine_save_output_string (state, "\n"))
-			return FALSE;
+#define CLUEFLOW_ITEM_MARKER "* "
+#define CLUEFLOW_ITEM_PAD    "  "
+#define CLUEFLOW_INDENT      "    "
 
-	if (clueflow->level > 0) {
-		gint i;
+static gint 
+plain_padding (HTMLClueFlow *flow, GString *out, gboolean firstline)
+{
+	gint pad;
+	gint i;
+	       
+	pad = flow->level * strlen (CLUEFLOW_INDENT) 
+		+ (is_item (flow) ? strlen (CLUEFLOW_ITEM_PAD) : 0); 
 
-		for (i = 0; i < (gint) clueflow->level; i++) {
-			if (! html_engine_save_output_string (state, "\t"))
-				return FALSE;
+	if (out) {
+		for (i = 0; i < (gint) flow->level; i++) {
+			g_string_append (out, CLUEFLOW_INDENT);
+		}
+
+		if (is_item (flow)) {
+			if (firstline) {
+				g_string_append (out, CLUEFLOW_ITEM_MARKER);
+			} else {
+				g_string_append (out, CLUEFLOW_ITEM_PAD);
+			}
 		}
 	}
 
-	/* Paragraph's content.  */
-	if (! HTML_OBJECT_CLASS (&html_clue_class)->save_plain (self, state))
-		return FALSE;
+	return pad;
+}
 
-	if (!html_engine_save_output_string (state, "\n"))
+static gboolean
+save_plain (HTMLObject *self,
+	    HTMLEngineSaveState *state,
+	    gint requested_width)
+{
+	HTMLClueFlow *flow;
+	HTMLEngineSaveState *buffer_state;
+	GString *out = g_string_new ("");
+	size_t len;
+	gint pad;
+	gboolean firstline = TRUE;
+
+
+	flow = HTML_CLUEFLOW (self);
+
+	pad = plain_padding (flow, NULL, FALSE);
+	buffer_state = html_engine_save_buffer_new (state->engine);
+
+	/* buffer the paragraph's content into the save buffer */
+	if (HTML_OBJECT_CLASS (&html_clue_class)->save_plain (self, 
+							      buffer_state, 
+							      requested_width - pad)) {
+		guchar *s, *space;
+		
+		if (get_pre_padding (flow, 1) > 0)
+			g_string_append (out, "\n");
+
+		s = html_engine_save_buffer_peek_text (buffer_state);
+		
+		while (*s) {
+			/* FIXME we should allow wrapping on PRE sections as well */
+			len = strcspn (s, "\n");
+			
+			switch (flow->style) {
+			case HTML_CLUEFLOW_STYLE_PRE:
+			case HTML_CLUEFLOW_STYLE_NOWRAP:
+
+				plain_padding (flow, out, firstline);
+				s += string_append_len (out, s, len);
+
+				break;
+			default:
+
+				if (len > (requested_width - pad)) {
+					space = s + (requested_width - pad);
+					while (space > s && (*space != ' '
+							     || (*(space + 1) == '\240')
+							     || (*(space - 1) == '\240')))
+						space = unicode_previous_utf8 (s, space);
+					
+					if (space != s)
+						len = space - s;
+				}
+
+				plain_padding (flow, out, firstline);
+				s += string_append_len (out, s, len);
+
+				while (*s == ' ' || *s == '\240') 
+					s++;
+				
+				break;
+			}							
+
+			if (*s == '\n') 
+				s++;
+			
+			g_string_append_c (out, '\n');
+			firstline = FALSE;
+		}
+		
+		if (get_post_padding (flow, 1) > 0)
+			g_string_append (out, "\n");
+				
+	}
+	html_engine_save_buffer_free (buffer_state);
+		
+	if (!html_engine_save_output_string (state, out->str)) {
+		g_string_free (out, TRUE);
 		return FALSE;
+	}		
 	
-	if (get_post_padding (clueflow, 1) > 0)
-		if (! html_engine_save_output_string (state, "\n"))
-			return FALSE;
-
+	g_string_free (out, TRUE);
 	return TRUE;
 }
 
