@@ -317,9 +317,9 @@ print_preview_cb (GtkWidget *widget,
 
 	page_num = 1;
 	pages = gtk_html_print_get_pages_num (html, print_context,
-					      .0, gnome_font_get_ascender (font) + gnome_font_get_descender (font));
+					      .0, gnome_font_get_ascender (font) - gnome_font_get_descender (font));
 	gtk_html_print_with_header_footer (html, print_context,
-					   .0, gnome_font_get_ascender (font) + gnome_font_get_descender (font),
+					   .0, gnome_font_get_ascender (font) - gnome_font_get_descender (font),
 					   NULL, print_footer, NULL);
 	if (font)
 		g_object_unref (font);

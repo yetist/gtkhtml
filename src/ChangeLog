@@ -4,6 +4,26 @@
 
 2003-05-16  Radek Doulik  <rodo@ximian.com>
 
+	* htmlprinter.c (printer_get_page_width): don't convert value,
+	it's not needed
+	(printer_get_page_height): use gnome_print_config_get_page_size
+	instead of deprecated gnome_print_job_get_page_size_from_config
+	(BTW, the gnome_print_config_get_page_size calls this deprecated
+	function, funny :) * testgtkhtml.c (print_preview_cb): as below
+	(printer_get_page_width): ditto
+	after discussion with danw I made margins be fixed value (.5")
+
+	* htmlprinter.c (draw_text): descender is negative value in
+	gnome2, code updated
+	(calc_text_size): ditto
+	(calc_text_size_bytes): ditto
+
+	* htmlengine-print.c: remove SPACING_FACTOR - not needed and broken, 
+
+	* htmlprinter.c (TEMP_MARGIN): increase margins a little bit
+
+2003-05-16  Radek Doulik  <rodo@ximian.com>
+
 	* gtkhtml.c (add_bindings): as below
 
 	* keybindingsrc.emacs: don't use ISO_Left_Tab, Shift Tab is mapped

@@ -43,11 +43,9 @@ print_header_footer (HTMLPainter *painter, HTMLEngine *engine, gint width, gint 
 	gdouble gx, gy;
 
 	gnome_print_gsave (context);
-	html_painter_set_clip_rectangle (painter, 0, y,
-					 width, SCALE_GNOME_PRINT_TO_ENGINE (height));
+	html_painter_set_clip_rectangle (painter, 0, y, width, SCALE_GNOME_PRINT_TO_ENGINE (height));
 #ifdef CLIP_DEBUG
-	html_painter_draw_rect (painter, 0, y,
-				SCALE_GNOME_PRINT_TO_ENGINE (width), SCALE_GNOME_PRINT_TO_ENGINE (height));
+	html_painter_draw_rect (painter, 0, y, width, SCALE_GNOME_PRINT_TO_ENGINE (height));
 #endif
 	html_printer_coordinates_to_gnome_print (printer, 0, y, &gx, &gy);
 	(*cb) (GTK_HTML (engine->widget), context, gx, gy, SCALE_ENGINE_TO_GNOME_PRINT (width), height, user_data);

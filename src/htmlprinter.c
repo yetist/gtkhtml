@@ -42,9 +42,6 @@ static HTMLPainterClass *parent_class = NULL;
 /* The size of a pixel in the printed output, in points.  */
 #define PIXEL_SIZE .5
 
-/* Hm, this might need fixing.  */
-#define SPACING_FACTOR 1.2
-
 static void
 insure_config (HTMLPrinter *p)
 {
@@ -58,7 +55,7 @@ printer_get_page_height (HTMLPrinter *printer)
 	gdouble width, height = 0.0;
 
 	insure_config (printer);
-	gnome_print_job_get_page_size_from_config (printer->config, &width, &height);
+	gnome_print_config_get_page_size (printer->config, &width, &height);
 
 	return height;
 }
@@ -69,13 +66,13 @@ printer_get_page_width (HTMLPrinter *printer)
 	gdouble width = 0.0, height;
 
 	insure_config (printer);
-	gnome_print_job_get_page_size_from_config (printer->config, &width, &height);
-	gnome_print_convert_distance (&width, gnome_print_unit_get_identity (GNOME_PRINT_UNIT_DEVICE), GNOME_PRINT_PS_UNIT);
+	gnome_print_config_get_page_size (printer->config, &width, &height);
 
 	return width;
 }
 
-#define TEMP_MARGIN .05
+/* .5" in PS units */
+#define TEMP_MARGIN 72*.5
 
 static gdouble
 get_lmargin (HTMLPrinter *printer)
@@ -88,7 +85,7 @@ get_lmargin (HTMLPrinter *printer)
 	printf ("lmargin %f\n", lmargin);
 	return lmargin;*/
 
-	return printer_get_page_width (printer)*TEMP_MARGIN;
+	return TEMP_MARGIN;
 }
 
 static gdouble
@@ -101,7 +98,7 @@ get_rmargin (HTMLPrinter *printer)
 
 	return rmargin;*/
 
-	return printer_get_page_width (printer)*TEMP_MARGIN;
+	return TEMP_MARGIN;
 }
 
 static gdouble
@@ -114,7 +111,7 @@ get_tmargin (HTMLPrinter *printer)
 
 	return tmargin; */
 
-	return printer_get_page_width (printer)*TEMP_MARGIN;
+	return TEMP_MARGIN;
 }
 
 static gdouble
@@ -127,7 +124,7 @@ get_bmargin (HTMLPrinter *printer)
 
 	return bmargin; */
 
-	return printer_get_page_width (printer)*TEMP_MARGIN;
+	return TEMP_MARGIN;
 }
 
 gdouble
@@ -567,10 +564,9 @@ draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, GL
 
 	bytes = g_utf8_offset_to_pointer (text, len) - text;
 	font = html_painter_get_font (painter, painter->font_face, painter->font_style);
-	dsc = gnome_font_get_descender (font);
+	dsc = -gnome_font_get_descender (font);
 	asc = gnome_font_get_ascender (font);
 	html_printer_coordinates_to_gnome_print (printer, x, y, &print_x, &print_y);
-	print_y -= dsc;
 
 	gnome_print_newpath (printer->context);
 	gnome_print_moveto (printer->context, print_x, print_y);
@@ -665,8 +661,8 @@ calc_text_size (HTMLPainter *painter, const gchar *text, guint len, GList *items
 
 	*width = SCALE_GNOME_PRINT_TO_ENGINE (gnome_font_get_width_utf8_sized (font, text,
 									       g_utf8_offset_to_pointer (text, len) - text));
-	*asc = SCALE_GNOME_PRINT_TO_ENGINE (gnome_font_get_ascender (font) * SPACING_FACTOR);
-	*dsc = SCALE_GNOME_PRINT_TO_ENGINE (gnome_font_get_descender (font) * SPACING_FACTOR);
+	*asc = SCALE_GNOME_PRINT_TO_ENGINE (gnome_font_get_ascender (font));
+	*dsc = SCALE_GNOME_PRINT_TO_ENGINE (-gnome_font_get_descender (font));
 }
 
 static void
@@ -680,8 +676,8 @@ calc_text_size_bytes (HTMLPainter *painter, const gchar *text, guint len, GList 
 	g_return_if_fail (font != NULL);
 
 	*width = SCALE_GNOME_PRINT_TO_ENGINE (gnome_font_get_width_utf8_sized (font->data, text, len));
-	*asc = SCALE_GNOME_PRINT_TO_ENGINE (gnome_font_get_ascender (font->data) * SPACING_FACTOR);
-	*dsc = SCALE_GNOME_PRINT_TO_ENGINE (gnome_font_get_descender (font->data) * SPACING_FACTOR);
+	*asc = SCALE_GNOME_PRINT_TO_ENGINE (gnome_font_get_ascender (font->data));
+	*dsc = SCALE_GNOME_PRINT_TO_ENGINE (-gnome_font_get_descender (font->data));
 }
 
 static guint
