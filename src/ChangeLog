@@ -1,53 +1,7 @@
-2001-11-21  Radek Doulik  <rodo@ximian.com>
-
-	* htmlclueflow.c (calc_size): place check for changed size before
-	html_object_calc_size
-	(merge): set change size to head of self and tail of with
-	(split): set change size aroud and child object 
-
-2001-11-20  Radek Doulik  <rodo@ximian.com>
-
-	* htmlengine-edit-cut-and-paste.c (insert_empty_paragraph): check
-	if original paragraph is empty link and in such case replace link
-	with empty text
-
-	* htmllinktext.c (html_link_text_to_text): changed return value,
-	now this method return newly created object with the same text as
-	link and same text attributes as font style/face and with default
-	text color
-
-	* htmlengine-edit.c (html_engine_new_text): don't ever create
-	links here
-
-	* htmlengine-search.c (display_search_results): use move_to_found
-	only for non editable widget
-
-	* htmlclueflow.c (search_set_info): use strlen instead of
-	Text::text_len because of utf8
-	(search_set_info): use g_utf8_pointer_to_offset
-	(search_text): use strlen
-	(search_set_info): added text parameter
-
-2001-11-19  Radek Doulik  <rodo@ximian.com>
-
-	* htmlengine-search.c (display_search_results): hide/show cursor
-
-	* htmlselection.c (html_engine_select_interval): wrap in hide/show
-	cursor
-	(html_engine_unselect_all): ditto
-	(html_engine_disable_selection): ditto
-
-	* htmlengine-search.c (html_engine_search_next): if engine is
-	editable, use html_engine_search rather than
-	html_engine_search_next to respect cursor position 
-
-	* htmlengine.c (replace): don't replace with empty text's, just
-	delete selection in such case
-
 2001-11-15  Radek Doulik  <rodo@ximian.com>
-
-	* htmlcluev.c (do_layout): test if it's new flow by old_y and not
-	old_y_off
+ 
+ 	* htmlcluev.c (do_layout): test if it's new flow by old_y and not
+ 	old_y_off
 
 2001-11-15  Larry Ewing  <lewing@ximian.com>
 
