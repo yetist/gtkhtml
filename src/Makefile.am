@@ -223,10 +223,11 @@ gtest_SOURCES = \
 	test.c
 testgtkhtml_CFLAGS = 
 gtest_LDFLAGS += -static
-gtest_LDADD =				\
+gtest_LDADD =					\
 	libgtkhtml.la				\
 	$(GNOMEUI_LIBS)				\
 	$(GNOME_LIBDIR)				\
+	$(GCONF_LIBS)				\
 	$(EXTRA_GNOME_LIBS)                     
 
 dist-hook:

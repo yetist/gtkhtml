@@ -1,5 +1,7 @@
 2001-09-07  Radek Doulik  <rodo@ximian.com>
 
+	* Makefile.am (gtest_LDADD): added GCONF_LIBS
+
 	* htmltextslave.c (get_offset_for_bounded_width): for ' ' search
 	in sep instead of text->text
 	(calc_size): test for split only for slave->posLen > 1
