@@ -1,5 +1,11 @@
 1999-10-30  Michael Meeks  <mmeeks@gnu.org>
 
+	* html-component.c (embeddable_factory): Add persist stream interface.
+	Set stream item = NULL. (embeddable_destroy_cb): Kill stream after use.
+	(embeddable_load, load_html_from_stream): vicious hack. (save_html): stub.
+	(view_factory): Hack out view_date->html and move into embeddable_data,
+	far reaching change; we need doc / view.
+
 	* Makefile.am (gnorba_DATA): redundant ( kill ).
 
 1999-10-30  Michael Meeks  <mmeeks@gnu.org>

@@ -31,6 +31,12 @@
  */
 typedef struct {
 	GnomeEmbeddable     *embeddable;
+	GNOME_Stream         stream;
+	/*
+	 * The widget used to render the view of the html data.
+	 */
+	GtkHTML *html;
+	int views;
 } embeddable_data_t;
 
 /*
@@ -38,12 +44,7 @@ typedef struct {
  */
 typedef struct {
 	GnomeView	    *view;
-	embeddable_data_t   *embeddable_data;
-
-	/*
-	 * The widget used to render this view of the html data.
-	 */
-	GtkHTML *html;
+	embeddable_data_t   *bed;
 } view_data_t;
 
 /*                                                                              
@@ -66,6 +67,14 @@ embeddable_destroy_cb (GnomeEmbeddable *embeddable, embeddable_data_t *embeddabl
 	running_objects--;                                                      
 	if (running_objects > 0)                                             
 		return;                                                         
+
+	if (embeddable_data->stream) {
+		CORBA_Environment ev;
+		CORBA_exception_init (&ev);
+		CORBA_Object_release (embeddable_data->stream, &ev);
+		embeddable_data->stream = NULL;
+		CORBA_exception_free (&ev);
+	}
 	
 	/*                                                                      
 	 * When last object has gone unref the factory & quit.              
@@ -96,12 +105,12 @@ view_system_exception_cb (GnomeView *view, CORBA_Object corba_object,
 }
 
 static void 
-update_view (GnomeView *view, void *data)
+redraw_view (GnomeView *view, void *data)
 {
 	view_data_t *view_data;
 
 	view_data = gtk_object_get_data (GTK_OBJECT (view), "view_data");
-	gtk_widget_queue_draw (GTK_WIDGET (view_data->html));
+	gtk_widget_queue_draw (GTK_WIDGET (view_data->bed->html));
 }
 
 /*
@@ -115,7 +124,7 @@ embeddable_update_all_views (embeddable_data_t *embeddable_data)
 
 	embeddable = embeddable_data->embeddable;
 
-	gnome_embeddable_foreach_view (embeddable, update_view, NULL);
+	gnome_embeddable_foreach_view (embeddable, redraw_view, NULL);
 }
 
 static void
@@ -147,16 +156,16 @@ html_menu_test_cb (GnomeUIHandler *uih, view_data_t *view_data, gchar *path)
 
 	g_print ("Parsing file: %s\n", filename);
 
-	gtk_html_begin (view_data->html, filename);
-	gtk_html_parse (view_data->html);
+	gtk_html_begin (view_data->bed->html, filename);
+	gtk_html_parse (view_data->bed->html);
 
 	fil = fopen (filename, "r");
 	while (!feof (fil)) {
 		fgets (buffer, 32768, fil);
-		gtk_html_write (view_data->html, buffer);
+		gtk_html_write (view_data->bed->html, buffer);
 	}
 
-	gtk_html_end (view_data->html);
+	gtk_html_end (view_data->bed->html);
 	fclose (fil);
 	g_free (filename);
 }
@@ -308,8 +317,8 @@ static void
 view_size_query_cb (GnomeView *view, int *desired_width, int *desired_height,
 		    view_data_t *view_data)
 {
-	*desired_width  = view_data->html->engine->width;
-	*desired_height = view_data->html->engine->height;
+	*desired_width  = view_data->bed->html->engine->width;
+	*desired_height = view_data->bed->html->engine->height;
 }
 
 /*
@@ -321,9 +330,7 @@ view_refresh_cb (GnomeView *view, const char *verb_name, view_data_t *view_data)
 {
 	embeddable_data_t *embeddable_data;
 
-	/* FIXME: Do something here. */
-
-	embeddable_data = view_data->embeddable_data;
+	embeddable_data = view_data->bed;
 	embeddable_update_all_views (embeddable_data);
 }
 
@@ -348,13 +355,18 @@ view_factory (GnomeEmbeddable *embeddable,
 	 * Create the private view data.
 	 */
 	view_data = g_new0 (view_data_t, 1);
-	view_data->embeddable_data = embeddable_data;
+	view_data->bed = embeddable_data;
 
-	view_data->html = GTK_HTML (gtk_html_new (NULL, NULL));
+	if (view_data->bed->views > 0) {
+		g_warning ("Doc/View error");
+		g_free (view_data);
+		return NULL;
+	}
+	view_data->bed->views++;
 
 	vbox = gtk_vbox_new (FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (vbox),
-			    GTK_WIDGET (view_data->html),
+			    GTK_WIDGET (view_data->bed->html),
 			    TRUE, TRUE, 0);
 
 	gtk_widget_show_all (vbox);
@@ -412,6 +424,82 @@ view_factory (GnomeEmbeddable *embeddable,
 	return view;
 }
 
+static void 
+embeddable_load (embeddable_data_t *bed)
+{
+	CORBA_long len;
+	CORBA_Environment ev;
+	GNOME_Stream_iobuf *buffer;
+	#define CHUNK      4096
+
+	g_return_if_fail (bed != NULL);
+	g_return_if_fail (bed->stream != NULL);
+
+	gtk_html_begin (bed->html, "Unknown name");
+	gtk_html_parse (bed->html);
+	CORBA_exception_init (&ev);
+
+	do {
+		buffer = NULL;
+		len = GNOME_Stream_read (bed->stream, CHUNK, &buffer, &ev);
+		if (ev._major != CORBA_NO_EXCEPTION) {
+			g_warning ("Failed read");
+			CORBA_exception_free (&ev);
+			return;
+		}
+		{ /* Ugly hack; we need a better gtkhtml API */
+			char *tmp = g_malloc (CHUNK + 1);
+			g_return_if_fail (tmp != NULL);
+			memcpy (tmp, buffer->_buffer, buffer->_length);
+			tmp [CHUNK] = 0;
+			gtk_html_write (bed->html, tmp);
+			g_free (tmp);
+		}
+
+		CORBA_free (buffer);
+	} while (len > 0);
+	gtk_html_end (bed->html);
+
+	CORBA_exception_free (&ev);
+}
+
+/*
+ * Loads a HTML from a GNOME_Stream
+ */
+static int
+load_html_from_stream (GnomePersistStream *ps,
+		       GNOME_Stream stream, void *data)
+{
+	embeddable_data_t *bed = (embeddable_data_t *)data;
+	CORBA_Environment ev;
+
+	g_warning ("load_html");
+
+	if (bed->stream) {
+		g_warning ("Won't overwrite pre-existing stream: you wierdo");
+		return 0;
+	}
+	CORBA_exception_init (&ev);
+
+	/* We need this for later */
+	CORBA_Object_duplicate (stream, &ev);
+	g_return_val_if_fail (ev._major == CORBA_NO_EXCEPTION, 0);
+	bed->stream = stream;
+
+	embeddable_load (bed);
+
+	CORBA_exception_free (&ev);
+	return 0;
+}
+
+static int
+save_html (GnomePersistStream *ps,
+	   GNOME_Stream stream, void *data)
+{
+  g_warning ("Unimplemented");
+  return -1;
+}
+
 /*
  * When a container asks our EmbeddableFactory for a new paint
  * component, this function is called.  It creates the new
@@ -421,8 +509,9 @@ static GnomeObject *
 embeddable_factory (GnomeEmbeddableFactory *this,
 		    void *data)
 {
-	GnomeEmbeddable *embeddable;
-	embeddable_data_t *embeddable_data;
+	GnomeEmbeddable    *embeddable;
+	GnomePersistStream *stream;
+	embeddable_data_t  *embeddable_data;
 
 	g_message ("embeddable_factory");
 
@@ -431,14 +520,10 @@ embeddable_factory (GnomeEmbeddableFactory *this,
 	 * Embeddable-object-specific data about this document.
 	 */
 	embeddable_data = g_new0 (embeddable_data_t, 1);
-	if (embeddable_data == NULL)
+	if (embeddable_data == NULL) {
+		g_warning ("Failed to allocate data");
 		return NULL;
-
-	/*
-	 * The embeddable must maintain an internal representation of
-	 * the data for its document.
-	 */
-/*	embeddable_data->engine = html_engine_new ();*/
+	}
 
 	/*
 	 * Create the GnomeEmbeddable object.
@@ -448,11 +533,34 @@ embeddable_factory (GnomeEmbeddableFactory *this,
 
 	if (embeddable == NULL) {
 		g_free (embeddable_data);
+		g_warning ("Failed to create embeddable");
 		return NULL;
 	}
 
-	running_objects++;      
+	/*
+	 * Interface GNOME::PersistStream 
+	 */
 	embeddable_data->embeddable = embeddable;
+	embeddable_data->stream = NULL;
+	embeddable_data->html = GTK_HTML (gtk_html_new (NULL, NULL));
+	embeddable_data->views = 0;
+	stream = gnome_persist_stream_new ("embeddable:html-component",
+					   load_html_from_stream,
+					   save_html,
+					   embeddable_data);
+	if (stream == NULL) {
+		gtk_object_unref (GTK_OBJECT (embeddable));
+		g_free (embeddable_data);
+		g_warning ("Failed to bind persist stream interface");
+		return NULL;
+	}
+	/*
+	 * Bind the interfaces
+	 */
+	gnome_object_add_interface (GNOME_OBJECT (embeddable),
+				    GNOME_OBJECT (stream));
+
+	running_objects++;      
 
 	/*
 	 * Add some verbs to the embeddable.
@@ -496,6 +604,8 @@ embeddable_factory (GnomeEmbeddableFactory *this,
 	gtk_signal_connect (GTK_OBJECT (embeddable), "destroy",
 			    GTK_SIGNAL_FUNC (embeddable_destroy_cb),
 			    embeddable_data);
+
+	g_warning ("embeddable created OK");
 
 	return GNOME_OBJECT (embeddable);
 }

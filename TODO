@@ -15,3 +15,5 @@ Todo for gtkhtml:
 * Fix all those annoying bugs :)
 
 * Implement cool new features
+
+* gtk_html_write_data (GtkHTML *html, gchar *txt, guint len) API.
