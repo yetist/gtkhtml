@@ -79,5 +79,5 @@ const gchar         *html_engine_save_get_paragraph_style  (GtkHTMLParagraphStyl
 gchar               *html_encode_entities                  (const gchar               *input,
 							    guint                      len,
 							    guint                     *encoded_len_return);
-gint                 html_engine_save_string_append_nonbsp (GString *out, guchar *s, guint length);
+gint                 html_engine_save_string_append_nonbsp (GString *out, const guchar *s, guint length);
 #endif

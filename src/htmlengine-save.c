@@ -469,7 +469,7 @@ html_engine_save_get_paragraph_align (GtkHTMLParagraphAlignment align)
 }
 
 gint
-html_engine_save_string_append_nonbsp (GString *out, guchar *s, guint length)
+html_engine_save_string_append_nonbsp (GString *out, const guchar *s, guint length)
 {	
 	guint len = length;
 	
