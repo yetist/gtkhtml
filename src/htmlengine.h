@@ -127,8 +127,6 @@ struct _HTMLEngine {
 	gchar *url;
 	gchar *target;
 
-	HTMLBlockStackElement *blockStack;
-
 	/* timer id to schedule paint events */
 	guint updateTimer;
 

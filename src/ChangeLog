@@ -1,3 +1,18 @@
+2003-07-23  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c:  Rewrite the block stack and move most of the
+	closing element logic into the end functions.  make all the
+	various block elements have the same level.  Redo list parsing.
+	This patch encompasses a lot of changes it probably breaks a few
+	things.
+	(push_block_element): merge the block stack and the span stack
+	into one structure.
+
+	* htmltypes.h: remove the blockstack element typedef it shouldn't
+	have been here in the first place.
+
+	* htmlengine.h: remove the now unused blockstack.
+
 2003-07-23  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine.c (html_engine_set_painter): fix printing, don't

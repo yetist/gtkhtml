@@ -36,7 +36,6 @@
 
 typedef struct _HTMLAnchor HTMLAnchor;
 typedef struct _HTMLAnchorClass HTMLAnchorClass;
-typedef struct _HTMLBlockStackElement HTMLBlockStackElement;
 typedef struct _HTMLButton HTMLButton;
 typedef struct _HTMLButtonClass HTMLButtonClass;
 typedef struct _HTMLCheckBox HTMLCheckBox;

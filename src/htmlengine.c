@@ -172,7 +172,8 @@ static guint signals [LAST_SIGNAL] = { 0 };
 typedef enum {
 	ID_A,       ID_ADDRESS,  ID_B,      ID_BIG,    ID_BLOCKQUOTE, 
 	ID_BODY,    ID_CAPTION,  ID_CENTER, ID_CITE,   ID_CODE,
-	ID_DIR,     ID_DIV,      ID_DL,     ID_EM,     ID_FONT,
+	ID_DIR,     ID_DIV,      ID_DL,     ID_DT,     ID_DD,
+	ID_LI,      ID_EM,       ID_FONT,   ID_FORM,
 	ID_HEADING, ID_I,        ID_KBD,    ID_OL,     ID_P,
 	ID_PRE,     ID_SMALL,    ID_SPAN,   ID_STRONG, ID_U,
 	ID_UL,      ID_TEXTAREA, ID_TABLE,  ID_TD,     ID_TH, 
@@ -182,13 +183,12 @@ typedef enum {
 
 typedef enum {
 	DISPLAY_INLINE,
-	DISPLAY_BLOCK,
 	DISPLAY_LIST_ITEM,
+	DISPLAY_BLOCK,
 	DISPLAY_MARKER,
 	DISPLAY_NONE,
 	DISPLAY_RUN_IN,
 	DISPLAY_COMPACT,
-	DISPLAY_TABLE,
 	DISPLAY_INLINE_TABLE,
 	DISPLAY_TABLE_ROW_GROUP,
 	DISPLAY_TABLE_COLUMN,
@@ -197,7 +197,8 @@ typedef enum {
 	DISPLAY_TABLE_FOOTER_GROUP,
 	DISPLAY_TABLE_ROW,
 	DISPLAY_TABLE_CELL,
-        DISPLAY_TABLE_CAPTION
+        DISPLAY_TABLE_CAPTION,
+	DISPLAY_TABLE
 } HTMLDisplayType;
 
 
@@ -210,22 +211,17 @@ typedef enum {
 
 /* Font styles */
 typedef struct _HTMLElement HTMLElement;
+typedef void (*BlockFunc)(HTMLEngine *e, HTMLObject *clue, HTMLElement *el);
+
 struct _HTMLElement {
 	HTMLElementID    id;
-	char            *class;
 	HTMLStyle       *style;
 	HTMLDisplayType  display;
-};
 
-typedef void (*BlockFunc)(HTMLEngine *e, HTMLObject *clue, HTMLBlockStackElement *el);
-struct _HTMLBlockStackElement {
-	BlockFunc exitFunc;
-
-	gint id;
 	gint level;
 	gint miscData1;
 	gint miscData2;
-	HTMLBlockStackElement *next;
+	BlockFunc exitFunc;
 };
 
 #if 0
@@ -294,7 +290,6 @@ push_element (HTMLEngine *e, guint id, char *class, HTMLStyle *style)
 	HTMLElement *element = g_new0 (HTMLElement, 1);
 
 	element->id = id;
-	element->class = g_strdup (class);
 	element->style = style;
 	html_stack_push (e->span_stack, element);
 }
@@ -305,7 +300,6 @@ free_element (gpointer data)
 	HTMLElement *span = data;
 
 	html_style_free (span->style);
-	g_free (span->class);
 	g_free (span);
 }
 
@@ -345,6 +339,9 @@ current_color (HTMLEngine *e) {
 	
 	for (item = e->span_stack->list; item; item = item->next) {
 		span = item->data;
+		
+		if (span->level > 2)
+			break;
 
 		if (span->style && span->style->color)
 			return span->style->color;
@@ -506,8 +503,12 @@ current_alignment (HTMLEngine *e)
 	
 	for (item = e->span_stack->list; item; item = item->next) {
 		span = item->data;
+
 		if (span->style && (span->style->text_align != HTML_HALIGN_NONE))
 			return span->style->text_align;
+		
+		if (span->level > 2)
+			break;
 	}
 	return HTML_HALIGN_NONE;
 }
@@ -575,7 +576,7 @@ pop_clueflow_style (HTMLEngine *e)
 static void new_flow (HTMLEngine *e, HTMLObject *clue, HTMLObject *first_object, HTMLClearType clear);
 static void close_flow (HTMLEngine *e, HTMLObject *clue);
 static void finish_flow (HTMLEngine *e, HTMLObject *clue);
-static void pop_element (HTMLEngine *e, guint id);
+static void pop_element (HTMLEngine *e, gint id);
 
 static HTMLObject *
 text_new (HTMLEngine *e, const gchar *text, GtkHTMLFontStyle style, HTMLColor *color)
@@ -785,8 +786,7 @@ insert_text (HTMLEngine *e,
 	gchar *face;
 	gboolean create_link;
 
-	if (text [0] == ' ' && text [1] == 0) {
-		if (e->eat_space)
+	if (text [0] == ' ' && text [1] == 0) {		if (e->eat_space)
 			return;
 		else
 			e->eat_space = TRUE;
@@ -837,157 +837,150 @@ insert_text (HTMLEngine *e,
 
 /* Block stack.  */
 
-static HTMLBlockStackElement *
-block_stack_element_new (gint id, gint level, BlockFunc exitFunc, 
-			 gint miscData1, gint miscData2, HTMLBlockStackElement *next)
-{
-	HTMLBlockStackElement *se;
-
-	se = g_new0 (HTMLBlockStackElement, 1);
-	se->id = id;
-	se->level = level;
-	se->miscData1 = miscData1;
-	se->miscData2 = miscData2;
-	se->next = next;
-	se->exitFunc = exitFunc;
-	return se;
-}
-
 static void
-block_stack_element_free (HTMLBlockStackElement *elem)
+push_block_element (HTMLEngine *e,
+		    gint id,
+		    HTMLStyle *style,
+		    gint level,
+		    BlockFunc exitFunc,
+		    gint miscData1,
+		    gint miscData2)
 {
-	g_free (elem);
-}
-
-static void
-remove_element (HTMLEngine *e, guint id, GList *item)
-{
-	if (!item)
-		item = e->span_stack->list;
-
-	while (item) {
-		HTMLElement *span = item->data;
-		
-		if (span && span->id == id) {
-			e->span_stack->list = g_list_remove_link (e->span_stack->list, item);
-			g_list_free (item);
-			free_element (span);
-			return;
-		}
-
-		item = item->next;
-	}
-}
-
-static void
-pop_block_element (HTMLEngine *e, gint id)
-{
-	HTMLBlockStackElement *elem, *tmp;
-	gint maxLevel;
-
-	elem = e->blockStack;
-	maxLevel = 0;
-
-	while ((elem != NULL) && (elem->id != id)) {
-		if (maxLevel < elem->level) {
-			maxLevel = elem->level;
-		}
-		elem = elem->next;
-	}
-	if (elem == NULL)
-		return;
-	if (maxLevel > elem->level)
-		return;
-	
-	elem = e->blockStack;
-	
-	while (elem) {
-		tmp = elem;
-
-		remove_element (e, elem->id, NULL);
-		if (elem->exitFunc != NULL)
-			(*(elem->exitFunc))(e, e->clue, elem);
-		
-		if (elem->id == id) {
-			e->blockStack = elem->next;
-			elem = NULL;
-		}
-		else {
-			elem = elem->next;
-		}
-
-		block_stack_element_free (tmp);
-	}
-}
-
-
-static void
-pop_element (HTMLEngine *e, guint id)
-{
-	GList       *item = NULL;
-	HTMLElement *span;
-
-	/*
-	 * FIXME this is huge hack that first looks in the span stack the 
-	 * tries to remove it is as a block
-	 */
-	
-	for (item = e->span_stack->list; item; item = item->next) {
-		span = item->data;
-
-		if (span && span->id == id) {
-			if (span->display != DISPLAY_BLOCK) {
-				/* if is it is a block we need to remove it as a block */
-				remove_element (e, id, item);
-				return;
-			} else {
-				break;
-			}
-		}
-	}
-
-	/* if we didn't find it or it is a block try to remove it as a block */
-	pop_block_element (e, id);
-}
-
-static void
-push_block_element (HTMLEngine *e, gint id, HTMLStyle *style, gint level, 
-		    BlockFunc exitFunc, gint miscData1, gint miscData2)
-{
-	HTMLBlockStackElement *elem;
+	HTMLElement *element = g_new0 (HTMLElement, 1);
 	
 	pop_element (e, ID_P);
-	push_element (e, id, NULL, style);
-	((HTMLElement *)html_stack_top (e->span_stack))->display = DISPLAY_BLOCK;
-	elem = block_stack_element_new (id, level, exitFunc, miscData1, miscData2, e->blockStack);
-	e->blockStack = elem;
+
+	element->id = id;
+	element->style = style;
+	element->display = DISPLAY_BLOCK;
+	element->level = level;
+	element->exitFunc = exitFunc;
+	element->miscData1 = miscData1;
+	element->miscData2 = miscData2;
+
+	html_stack_push (e->span_stack, element);
 }
 
 static void
-push_block (HTMLEngine *e, gint id, gint level,
+push_block (HTMLEngine *e,
+	    gint id,
+	    gint level,
 	    BlockFunc exitFunc,
 	    gint miscData1,
 	    gint miscData2)
 {
-	HTMLBlockStackElement *elem;
+	HTMLElement *elem;
 	
-	pop_element (e, ID_P);
-	elem = block_stack_element_new (id, level, exitFunc, miscData1, miscData2, e->blockStack);
-	e->blockStack = elem;
+	push_block_element (e, id, NULL, level, exitFunc, miscData1, miscData2);
+}
+
+static GList *
+remove_element (HTMLEngine *e, GList *item)
+{
+	HTMLElement *elem = item->data;
+	GList *next = item->next;
+
+	if (elem->exitFunc)
+		(*(elem->exitFunc))(e, e->clue, elem);
+
+	e->span_stack->list = g_list_remove_link (e->span_stack->list, item);
+
+	g_list_free (item);
+	free_element (elem);
+	
+	return next;
 }
 
 static void
-free_block (HTMLEngine *e)
+pop_cell (HTMLEngine *e, HTMLElement *elem)
 {
-	HTMLBlockStackElement *elem = e->blockStack;
+	GList *l = e->span_stack->list;
 
-	while (elem != 0) {
-		HTMLBlockStackElement *tmp = elem;
-
-		elem = elem->next;
-		block_stack_element_free (tmp);
+	while (l) {
+		l = remove_element (e, l);
 	}
-	e->blockStack = 0;
+}
+
+static void
+pop_block (HTMLEngine *e, HTMLElement *elem)
+{
+	GList *l = e->span_stack->list;
+
+	g_return_if_fail (elem->display == DISPLAY_BLOCK);
+	
+	while (l) {
+		HTMLElement *cur = l->data;
+
+		if (cur == elem) {
+			l = remove_element (e, l);
+			return;
+		} else if (cur->display == DISPLAY_BLOCK || elem->level > 2) {
+			l = remove_element (e, l);
+		} else {
+			l = l->next;
+		}
+	}
+}
+
+static void
+pop_inline (HTMLEngine *e, HTMLElement *elem)
+{
+	GList *l = e->span_stack->list;
+
+	while (l) {
+		HTMLElement *cur = l->data;
+
+		if (cur->level > 2)
+			break;
+
+		if (cur == elem) {
+			l = remove_element (e, l);
+			return;
+		} else {
+			l = l->next;
+		}
+	}
+}
+     
+static void
+pop_element (HTMLEngine *e, gint id)
+{
+	HTMLElement *elem = NULL;
+	GList *l;
+	gint maxLevel;
+
+	l = e->span_stack->list;
+	maxLevel = 0;
+
+	while (l) {
+		elem = l->data;
+
+		if (elem->id == id)
+			break;
+
+		maxLevel = MAX (maxLevel, elem->level);
+		l = l->next;
+	}
+
+	if (l == NULL)
+		return;
+
+	switch (elem->display) {
+	case DISPLAY_BLOCK:
+		if (maxLevel > elem->level)
+			return;
+	
+		pop_block (e, elem);
+		break;
+	case DISPLAY_INLINE:
+		pop_inline (e, elem);
+		break;
+	case DISPLAY_TABLE_CELL:
+		pop_cell (e, elem);
+	default:
+		pop_inline (e, elem);
+		break;
+	}
 }
 
 /* The following are callbacks that are called at the end of a block.  */
@@ -995,16 +988,16 @@ free_block (HTMLEngine *e)
 static void
 block_end_clueflow_style (HTMLEngine *e,
 			  HTMLObject *clue,
-			  HTMLBlockStackElement *elem)
+			  HTMLElement *elem)
 {
-	close_flow (e, clue);
+	finish_flow (e, clue);
 	pop_clueflow_style (e);
 }
 
 static void
 block_end_heading (HTMLEngine *e,
 		   HTMLObject *clue,
-		   HTMLBlockStackElement *elem)
+		   HTMLElement *elem)
 {
 	block_end_clueflow_style (e, clue, elem);
 
@@ -1013,35 +1006,40 @@ block_end_heading (HTMLEngine *e,
 }
 
 static void
-block_end_pre ( HTMLEngine *e, HTMLObject *_clue, HTMLBlockStackElement *elem)
+block_end_pre (HTMLEngine *e, HTMLObject *_clue, HTMLElement *elem)
 {
 	block_end_clueflow_style (e, _clue, elem);
 	e->inPre = FALSE;
 }
 
 static void
-block_end_list (HTMLEngine *e, HTMLObject *clue, HTMLBlockStackElement *elem)
+block_end_list (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 {
 	html_list_destroy (html_stack_pop (e->listStack));
 
-	close_flow (e, clue);
-	
-	if (html_stack_is_empty (e->listStack)) {
-		e->pending_para = FALSE;
-		e->avoid_para = TRUE;
-	}
+	finish_flow (e, clue);
+
+	e->pending_para = FALSE;
+	e->avoid_para = FALSE;
 }
 
 static void
-block_end_glossary (HTMLEngine *e, HTMLObject *clue, HTMLBlockStackElement *elem)
+block_end_item (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
+{
+	finish_flow (e, clue);
+}
+
+static void
+block_end_glossary (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 {
 	html_list_destroy (html_stack_pop (e->listStack));
+	block_end_item (e, clue, elem);
 }
 
 static void
-block_end_quote (HTMLEngine *e, HTMLObject *clue, HTMLBlockStackElement *elem)
+block_end_quote (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 {
-	close_flow (e, clue);
+	finish_flow (e, clue);
 
 	html_list_destroy (html_stack_pop (e->listStack));
 
@@ -1050,7 +1048,7 @@ block_end_quote (HTMLEngine *e, HTMLObject *clue, HTMLBlockStackElement *elem)
 }
 
 static void
-block_end_div (HTMLEngine *e, HTMLObject *clue, HTMLBlockStackElement *elem)
+block_end_div (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 {
 	close_flow (e, clue);
 }
@@ -1058,13 +1056,13 @@ block_end_div (HTMLEngine *e, HTMLObject *clue, HTMLBlockStackElement *elem)
 static void
 push_clue (HTMLEngine *e, HTMLObject *clue)
 {
-	html_stack_push (e->body_stack, e->span_stack);
+	//html_stack_push (e->body_stack, e->span_stack);
 	html_stack_push (e->body_stack, e->clueflow_style_stack);
 	html_stack_push (e->body_stack, e->listStack);
 	html_stack_push (e->body_stack, e->clue);
 	html_stack_push (e->body_stack, e->flow);
 
-	e->span_stack = html_stack_new (free_element);
+	//e->span_stack = html_stack_new (free_element);
 	e->clueflow_style_stack = html_stack_new (NULL);
 	e->listStack = html_stack_new ((HTMLStackFreeFunc)html_list_destroy);
 	e->clue = clue;
@@ -1094,18 +1092,18 @@ pop_clue (HTMLEngine *e)
 	e->pending_para = GPOINTER_TO_INT (html_stack_pop (e->body_stack));
 	
 	html_stack_destroy (e->clueflow_style_stack);
-	html_stack_destroy (e->span_stack);
+	//html_stack_destroy (e->span_stack);
 
 	e->flow = html_stack_pop (e->body_stack);
 	e->clue = html_stack_pop (e->body_stack);
 	e->listStack = html_stack_pop (e->body_stack);
 	e->clueflow_style_stack = html_stack_pop (e->body_stack);
-	e->span_stack = html_stack_pop (e->body_stack);
+	//e->span_stack = html_stack_pop (e->body_stack);
 
 }
 
 static void
-block_end_cell (HTMLEngine *e, HTMLObject *clue, HTMLBlockStackElement *elem)
+block_end_cell (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 {
 	pop_clue (e);
 }
@@ -1682,7 +1680,7 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 		style = html_style_set_decoration (style, GTK_HTML_FONT_STYLE_ITALIC);
 		close_flow (e, _clue);
 		push_clueflow_style (e, HTML_CLUEFLOW_STYLE_ADDRESS);
-		push_block_element (e, ID_ADDRESS, style, 2, block_end_clueflow_style, 0, 0);
+		push_block_element (e, ID_ADDRESS, style, 1, block_end_clueflow_style, 0, 0);
 	} else if ( strncmp( str, "/address", 8) == 0 ) {
 		pop_element (e, ID_ADDRESS);
 	} else if ( strncmp( str, "a ", 2 ) == 0 ) {
@@ -1773,8 +1771,6 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
   <body
   <br
 */
-/* EP CHECK All done except for the color specifications in the `<body>'
-   tag.  */
 static void
 parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
@@ -1809,15 +1805,12 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		}
 
 		html_stack_push (e->listStack, html_list_new (type));
-		push_block (e, ID_BLOCKQUOTE, 2, block_end_quote, FALSE, FALSE);
+		push_block (e, ID_BLOCKQUOTE, 1, block_end_quote, FALSE, FALSE);
 		e->avoid_para = TRUE;
 		e->pending_para = FALSE;
 		finish_flow (e, clue);
 	} else if ( strncmp(str, "/blockquote", 11 ) == 0 ) {
-		e->avoid_para = TRUE;
-		finish_flow (e, clue);
 		pop_element (e, ID_BLOCKQUOTE);
-		new_flow (e, clue, NULL, HTML_CLEAR_NONE);
 	} else if (strncmp (str, "body", 4) == 0) {
 		html_string_tokenizer_tokenize (e->st, str + 5, " >");
 		while (html_string_tokenizer_has_more_tokens (e->st)) {
@@ -1929,7 +1922,6 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
   <cell>           </cell>
   <comment>        </comment>      unimplemented
 */
-/* EP CHECK OK except for the font in `<code>'.  */
 static void
 parse_c (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
@@ -2000,14 +1992,13 @@ parse_c (HTMLEngine *e, HTMLObject *clue, const gchar *str)
   <dt>             </dt>
   <data>           </data>
 */
-/* EP CHECK: dl/dt might be wrong.  */
 /* EP CHECK: dir might be wrong.  */
 static void
 parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 {
 	if ( strncmp( str, "dir", 3 ) == 0 ) {
 		close_anchor(e);
-		push_block (e, ID_DIR, 2, block_end_list, FALSE, FALSE);
+		push_block (e, ID_DIR, 1, block_end_list, FALSE, FALSE);
 		html_stack_push (e->listStack, html_list_new (HTML_LIST_TYPE_DIR));
 
 		/* FIXME shouldn't it create a new flow? */
@@ -2030,51 +2021,34 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 		pop_element (e, ID_DIV);
 	} else if ( strncmp( str, "dl", 2 ) == 0 ) {
 		close_anchor (e);
+		finish_flow (e, _clue);
 
-		push_block (e, ID_DL, 2, block_end_glossary, FALSE, FALSE);
-		
-		if (!html_stack_is_empty (e->listStack)) {
-			HTMLList *top = html_stack_top (e->listStack);
-
-			if (top->type == HTML_LIST_TYPE_GLOSSARY_DL)
-				top->type = HTML_LIST_TYPE_GLOSSARY_DD;
-
-		}
+		push_block (e, ID_DL, 1, block_end_list, FALSE, FALSE);
 		html_stack_push (e->listStack, html_list_new (HTML_LIST_TYPE_GLOSSARY_DL));
-
-		add_line_break (e, _clue, HTML_CLEAR_ALL);		
 	} else if ( strncmp( str, "/dl", 3 ) == 0 ) {
 		pop_element (e, ID_DL);
-
-		add_line_break (e, _clue, HTML_CLEAR_ALL);
 	} else if (strncmp( str, "dt", 2 ) == 0) {
-		HTMLList *top = html_stack_top (e->listStack);
-		if (top && (top->type == HTML_LIST_TYPE_GLOSSARY_DD || top->type == HTML_LIST_TYPE_GLOSSARY_DL)) {
-			top->type = HTML_LIST_TYPE_GLOSSARY_DL;
-			close_flow (e, _clue);
-			return;
-		}
+		pop_element (e, ID_DT);
+		pop_element (e, ID_DD);
 
 		close_anchor (e);
-		push_block (e, ID_DL, 2, block_end_glossary, FALSE, FALSE);		
+		close_flow (e, _clue);
+
+		push_block (e, ID_DT, 1, block_end_glossary, FALSE, FALSE);		
 		html_stack_push (e->listStack, html_list_new (HTML_LIST_TYPE_GLOSSARY_DL));
-
-		add_pending_paragraph_break (e, _clue);
-		finish_flow (e, _clue);
-	} else if (strncmp( str, "dd", 2 ) == 0) {
-		HTMLList *top = html_stack_top (e->listStack);
-		if (top && (top->type == HTML_LIST_TYPE_GLOSSARY_DD || top->type == HTML_LIST_TYPE_GLOSSARY_DL)) {
-			top->type = HTML_LIST_TYPE_GLOSSARY_DD;
-			close_flow (e, _clue);
-			return;
-		}
+	} else if (strncmp(str, "/dt", 3) == 0) {
+		pop_element (e, ID_DT);
+	} else if (strncmp(str, "dd", 2 ) == 0) {
+		pop_element (e, ID_DT);
+		pop_element (e, ID_DD);
 
 		close_anchor (e);
-		push_block (e, ID_DL, 2, block_end_glossary, FALSE, FALSE);
-		html_stack_push (e->listStack, html_list_new (HTML_LIST_TYPE_GLOSSARY_DD));
+		close_flow (e, _clue);
 
-		add_pending_paragraph_break (e, _clue);
-		finish_flow (e, _clue);
+		push_block (e, ID_DD, 1, block_end_glossary, FALSE, FALSE);
+		html_stack_push (e->listStack, html_list_new (HTML_LIST_TYPE_GLOSSARY_DD));
+	} else if (strncmp(str, "/dd", 3) == 0) {
+		pop_element (e, ID_DD);
 	} else if (strncmp (str, "data ", 5) == 0) {
 		gchar *key = NULL;
 		gchar *class_name = NULL;
@@ -2108,13 +2082,12 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 /*
   <em>             </em>
 */
-/* EP CHECK: OK.  */
 static void
 parse_e (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 {
-	if ( strncmp( str, "em", 2 ) == 0 ) {
+	if (strncmp(str, "em", 2 ) == 0) {
 		push_element (e, ID_EM, NULL, html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_ITALIC));
-	} else if ( strncmp( str, "/em", 3 ) == 0 ) {
+	} else if (strncmp(str, "/em", 3 ) == 0) {
 		pop_element (e, ID_EM);
 	}
 }
@@ -2124,23 +2097,23 @@ form_begin (HTMLEngine *e, HTMLObject *clue, gchar *action, gchar *method, gbool
 {
 	e->form = html_form_new (e, action, method);
 	e->formList = g_list_append (e->formList, e->form);
-	/*	
+
 	if (! e->avoid_para && close_paragraph) {
-		close_anchor (e);
 		if (e->flow && HTML_CLUE (e->flow)->head)
 			close_flow (e, clue);
 		e->avoid_para = FALSE;
 		e->pending_para = FALSE;
 	}
-	*/
 }
 
 static void
-form_end (HTMLEngine *e, gboolean close_paragraph)
+block_end_form (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 {
 	e->form = NULL;
+
+	close_flow (e, clue);
 	/*
-	if (! e->avoid_para && close_paragraph) {
+	if (!e->avoid_para && elem && elem->miscData1) {
 		close_anchor (e);
 		e->avoid_para = TRUE;
 		e->pending_para = TRUE;
@@ -2154,7 +2127,6 @@ form_end (HTMLEngine *e, gboolean close_paragraph)
   <frame           <frame>
   <frameset        </frameset>
 */
-/* EP CHECK: Fonts are done wrong, the rest is missing.  */
 static void
 parse_f (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
@@ -2215,18 +2187,12 @@ parse_f (HTMLEngine *e, HTMLObject *clue, const gchar *str)
                 }
 
 		form_begin (e, clue, action, method, TRUE);
-		
 		g_free(action);
 		g_free(target);
-		/*
-		if (! e->avoid_para) {
-			close_anchor (e);
-			e->avoid_para = TRUE;
-			e->pending_para = FALSE;
-		}
-		*/
+
+		push_block (e, ID_FORM, 1, block_end_form, TRUE, 0);
 	} else if (strncmp (str, "/form", 5) == 0) {
-		form_end (e, TRUE);
+		pop_element (e, ID_FORM);
 	} else if (strncmp (str, "frameset", 8) == 0) {
 		if (e->allow_frameset)
 			parse_frameset (e, clue, clue->max_width, str + 8);
@@ -2288,7 +2254,6 @@ parse_f (HTMLEngine *e, HTMLObject *clue, const gchar *str)
   <h[1-6]>         </h[1-6]>
   <hr
 */
-/* EP CHECK: OK */
 static void
 parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 {
@@ -2340,7 +2305,7 @@ parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		push_clueflow_style (p, fstyle);
 		close_flow (p, clue);
 
-		push_block_element (p, ID_HEADING, style, 2, block_end_heading, 0, 0);
+		push_block_element (p, ID_HEADING, style, 1, block_end_heading, 0, 0);
 
 		p->pending_para = FALSE;
 		p->avoid_para = TRUE;
@@ -2389,7 +2354,6 @@ parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str)
   <input                           partial
   <iframe                          partial
 */
-/* EP CHECK: map support missing.  `<input>' missing.  */
 static void
 parse_i (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 {
@@ -2438,8 +2402,7 @@ parse_i (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 			} else if (strncasecmp (token, "vspace=", 7) == 0) {
 				vspace = atoi (token + 7);
 			} else if (strncasecmp (token, "align=", 6) == 0) {
-				if (strcasecmp (token + 6, "left") == 0)
-					align = HTML_HALIGN_LEFT;
+				if (strcasecmp (token + 6, "left") == 0)					align = HTML_HALIGN_LEFT;
 				else if (strcasecmp (token + 6, "right") == 0)
 					align = HTML_HALIGN_RIGHT;
 				else if (strcasecmp (token + 6, "top") == 0)
@@ -2514,7 +2477,7 @@ parse_i (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 		parse_input (e, str + 6, _clue );
 
 		if (fix_form) {
-			form_end (e, FALSE);
+			block_end_form (e, _clue, NULL);
 		}
 	} else if (strncmp( str, "iframe", 6) == 0) {
 		parse_iframe (e, str + 7, _clue);
@@ -2546,7 +2509,6 @@ parse_i (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 /*
   <kbd>            </kbd>
 */
-/* EP CHECK: OK but font is wrong.  */
 static void
 parse_k (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 {
@@ -2581,9 +2543,8 @@ get_list_type (gchar c)
   <li>
   </li>
 */
-/* EP CHECK: OK */
 static void
-parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
+parse_l (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	if (strncmp (str, "link", 4) == 0) {
 	} else if (strncmp (str, "li", 2) == 0) {
@@ -2595,20 +2556,22 @@ parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		listLevel = 1;
 		itemNumber = 1;
 		
-		close_anchor (p);
+		pop_element (e, ID_LI);
+
+		close_anchor (e);
 		
-		if (!html_stack_is_empty (p->listStack)) {
+		if (!html_stack_is_empty (e->listStack)) {
 			HTMLList *top;
 			
-			top = html_stack_top (p->listStack);
+			top = html_stack_top (e->listStack);
 			
 			listType = top->type;
 			itemNumber = top->itemNumber;
 		}
 
-		html_string_tokenizer_tokenize (p->st, str + 3, " >");
-		while (html_string_tokenizer_has_more_tokens (p->st)) {
-			const gchar *token = html_string_tokenizer_next_token (p->st);
+		html_string_tokenizer_tokenize (e->st, str + 3, " >");
+		while (html_string_tokenizer_has_more_tokens (e->st)) {
+			const gchar *token = html_string_tokenizer_next_token (e->st);
 
 			if (!strncasecmp (token, "value=", 6))
 				itemNumber = atoi (token + 6);
@@ -2616,23 +2579,25 @@ parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 				listType = get_list_type (token [5]);
 		}
 
-		add_pending_paragraph_break (p, clue);
-		finish_flow (p, clue);
-
-		if (!html_stack_is_empty (p->listStack)) {
+		/*
+		add_pending_paragraph_break (e, clue);
+		finish_flow (e, clue);
+		*/
+		if (!html_stack_is_empty (e->listStack)) {
 			HTMLList *list;
 
-			list = html_stack_top (p->listStack);
+			list = html_stack_top (e->listStack);
 			list->itemNumber = itemNumber + 1;
 		}
 
- 		p->flow = flow_new (p, HTML_CLUEFLOW_STYLE_LIST_ITEM, listType, itemNumber, HTML_CLEAR_NONE);
-		html_clueflow_set_item_color (HTML_CLUEFLOW (p->flow), current_color (p));
+ 		e->flow = flow_new (e, HTML_CLUEFLOW_STYLE_LIST_ITEM, listType, itemNumber, HTML_CLEAR_NONE);
+		html_clueflow_set_item_color (HTML_CLUEFLOW (e->flow), current_color (e));
 
-		html_clue_append (HTML_CLUE (clue), p->flow);
-		p->avoid_para = TRUE;
+		html_clue_append (HTML_CLUE (clue), e->flow);
+		e->avoid_para = TRUE;
+		push_block (e, ID_LI, 1, block_end_item, FALSE, FALSE);
 	} else if (strncmp (str, "/li", 3) == 0) {
-		finish_flow (p, clue);
+		pop_element (e, ID_LI);
 	}
 }
 
@@ -2718,11 +2683,12 @@ parse_o (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 		HTMLList *list;
 		HTMLListType listType = HTML_LIST_TYPE_ORDERED_ARABIC;
 
+		pop_element (e, ID_LI);
 		close_anchor (e);
 		finish_flow (e, _clue);
 
 		/* FIXME */
-		push_block (e, ID_OL, 2, block_end_list, FALSE, FALSE);
+		push_block (e, ID_OL, 1, block_end_list, FALSE, FALSE);
 
 		html_string_tokenizer_tokenize( e->st, str + 3, " >" );
 
@@ -2739,8 +2705,6 @@ parse_o (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 	}
 	else if ( strncmp( str, "/ol", 3 ) == 0 ) {
 		pop_element (e, ID_OL);
-		close_flow (e, _clue);
-		new_flow (e, _clue, NULL, HTML_CLEAR_NONE);
 	}
 	else if ( strncmp( str, "option", 6 ) == 0 ) {
 		gchar *value = NULL;
@@ -2795,13 +2759,12 @@ static void
 parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	if ( strncmp( str, "pre", 3 ) == 0 ) {
-		finish_flow (e, clue);
+		close_flow (e, clue);
 		push_clueflow_style (e, HTML_CLUEFLOW_STYLE_PRE);
 		e->inPre = TRUE;
-		push_block (e, ID_PRE, 2, block_end_pre, 0, 0);
+		push_block (e, ID_PRE, 1, block_end_pre, 0, 0);
 	} else if ( strncmp( str, "/pre", 4 ) == 0 ) {
 		pop_element (e, ID_PRE);
-		close_flow (e, clue);
 	} else if ( strncmp( str, "param", 5) == 0 ) {
 		if (! html_stack_is_empty (e->embeddedStack)) {
 			GtkHTMLEmbedded *eb;
@@ -2961,19 +2924,12 @@ parse_s (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 }
 
 
-/*
-  <table           </table>        most
-  <textarea        </textarea>
-  <title>          </title>
-  <tt>             </tt>
-*/
-/* EP CHECK: `<tt>' uses the wrong font.  `<textarea>' is missing.  Rest is
-   OK.  */
 static void
-block_end_table (HTMLEngine *e, HTMLObject *clue, HTMLBlockStackElement *elem) 
+block_end_table (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem) 
 {
 	HTMLTable *table;
-	HTMLHAlignType align = elem->miscData1;
+	HTMLHAlignType table_align = elem->miscData1;
+	HTMLHAlignType clue_align = elem->miscData2;
 
 	table = html_stack_top (e->table_stack);
 	html_stack_pop (e->table_stack);
@@ -2984,20 +2940,26 @@ block_end_table (HTMLEngine *e, HTMLObject *clue, HTMLBlockStackElement *elem)
 			html_object_destroy (HTML_OBJECT (table));
 			return;
 		}
+		  
+		if (table_align != HTML_HALIGN_LEFT && table_align != HTML_HALIGN_RIGHT) {
 
-		if (align != HTML_HALIGN_LEFT && align != HTML_HALIGN_RIGHT) {
 		        finish_flow (e, clue);
 
 			DT(printf ("unaligned table(%p)\n", table);)
 			append_element (e, clue, HTML_OBJECT (table));
 
-			if (align != HTML_HALIGN_NONE && e->flow)
-				HTML_CLUE (e->flow)->halign = align;
+			if (table_align == HTML_HALIGN_NONE && e->flow)
+				/* use the alignment we saved from when the clue was created */
+				HTML_CLUE (e->flow)->halign = clue_align;
+			else {
+				/* for centering we don't need to create a cluealigned */
+				HTML_CLUE (e->flow)->halign = table_align;
+			}
 
 			close_flow (e, clue);
 		} else {
 			HTMLClueAligned *aligned = HTML_CLUEALIGNED (html_cluealigned_new (NULL, 0, 0, clue->max_width, 100));
-			HTML_CLUE (aligned)->halign = align;
+			HTML_CLUE (aligned)->halign = table_align;
 
 			DT(printf ("ALIGNED table(%p)\n", table);)
 
@@ -3008,7 +2970,7 @@ block_end_table (HTMLEngine *e, HTMLObject *clue, HTMLBlockStackElement *elem)
 }
 
 static void
-block_end_row (HTMLEngine *e, HTMLObject *clue, HTMLBlockStackElement *elem)
+block_end_row (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 {
 	HTMLTable *table = html_stack_top (e->table_stack);
 	
@@ -3069,6 +3031,12 @@ close_current_table (HTMLEngine *e)
 	pop_element (e, ID_TABLE);
 }
 
+/*
+  <table           </table>        most
+  <textarea        </textarea>
+  <title>          </title>
+  <tt>             </tt>
+*/
 static void
 parse_t (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
@@ -3138,9 +3106,8 @@ parse_t (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 			table->bgPixmap = html_image_factory_register (e->image_factory, NULL, style->bg_image, FALSE);
 		}
 		
-		//parse_table (e, clue, clue->max_width, str + 6);
 		html_stack_push (e->table_stack, table);
-		push_block_element (e, ID_TABLE, style, 6, block_end_table, align, 0);
+		push_block_element (e, ID_TABLE, style, 6, block_end_table, align, current_alignment (e));
 		
 		e->avoid_para = FALSE;
 	} else if (strncmp (str, "/table", 6) == 0) {
@@ -3164,8 +3131,6 @@ parse_t (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		gboolean have_bgColor = FALSE;
 		GdkColor bgColor;
 			
-		//printf ("debug table td\n");
-		
 		if (!table)
 			return;
 		
@@ -3286,8 +3251,8 @@ parse_t (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		html_table_add_cell (table, cell);
 		push_clue (e, HTML_OBJECT (cell));
 		push_block_element (e, ID_TD, style, 3, block_end_cell, 0, 0);
+		//((HTMLElement *)html_stack_top (e->span_stack))->display = DISPLAY_TABLE_CELL;
 	} else if (strncmp (str, "/td", 3) == 0) {
-		//printf ("end td \n");
 		pop_element (e, ID_TD);
 	} else if (strncmp (str, "th", 2) == 0) {
 		HTMLStyle *style = NULL;
@@ -3308,8 +3273,6 @@ parse_t (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		
 		gboolean have_bgColor = FALSE;
 		GdkColor bgColor;
-
-		//printf ("debug table th\n");
 
 		if (!table)
 			return;
@@ -3432,6 +3395,7 @@ parse_t (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		html_table_add_cell (table, cell);
 		push_clue (e, HTML_OBJECT (cell));
 		push_block_element (e, ID_TH, style, 3, block_end_cell, 0, 0);
+		//((HTMLElement *)html_stack_top (e->span_stack))->display = DISPLAY_TABLE_CELL;
 	} else if (strncmp (str, "/th", 3) == 0) {
 		pop_element (e, ID_TH);
 	} else if (strncmp (str, "tr", 2) == 0) {
@@ -3546,16 +3510,15 @@ parse_t (HTMLEngine *e, HTMLObject *clue, const gchar *str)
   <u>              </u>
   <ul              </ul>
 */
-/* EP CHECK: OK */
 static void
 parse_u (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	if (strncmp (str, "ul", 2) == 0) {
-
+		pop_element (e, ID_LI);
 		close_anchor (e);
 		finish_flow (e, clue);
 
-		push_block (e, ID_UL, 2, block_end_list, FALSE, FALSE);
+		push_block (e, ID_UL, 1, block_end_list, FALSE, FALSE);
 
 		html_string_tokenizer_tokenize (e->st, str + 3, " >");
 		while (html_string_tokenizer_has_more_tokens (e->st))
@@ -3563,16 +3526,16 @@ parse_u (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		
 		e->flow = NULL;
 
+		/*
 		if (!html_stack_is_empty (e->listStack))
 			add_pending_paragraph_break (e, clue);
+		*/
 
 		html_stack_push (e->listStack, html_list_new (HTML_LIST_TYPE_UNORDERED));
 
 		e->avoid_para = TRUE;
 	} else if (strncmp (str, "/ul", 3) == 0) {
 		pop_element (e, ID_UL);
-		close_flow (e, clue);
-		new_flow (e, clue, NULL, HTML_CLEAR_NONE);
 	} else if (strncmp (str, "u", 1) == 0) {
 		if (str[1] == '>' || str[1] == ' ') {
 			push_element (e, ID_U, NULL, html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_UNDERLINE));
@@ -3586,7 +3549,6 @@ parse_u (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 /*
   <var>            </var>
 */
-/* EP CHECK: OK */
 static void
 parse_v (HTMLEngine *e, HTMLObject * _clue, const char *str )
 {
@@ -4292,8 +4254,6 @@ html_engine_begin (HTMLEngine *e, char *content_type)
 	html_engine_clear_all_class_data (e);
 	html_tokenizer_begin (e->ht, content_type);
 	
-	free_block (e); /* Clear the block stack */
-
 	html_engine_stop_parser (e);
 	e->writing = TRUE;
 	e->begin = TRUE;
