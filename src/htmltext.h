@@ -40,7 +40,8 @@ struct _HTMLText {
 struct _HTMLTextClass {
 	HTMLObjectClass object_class;
 
-	void (* insert_text) (HTMLText *text, HTMLCursor *cursor, const gchar *p, guint len);
+	void (* insert_text) (HTMLText *text, HTMLEngine *engine, guint offset, const gchar *p, guint len);
+	void (* queue_draw) (HTMLText *text, HTMLEngine *engine, guint offset, guint len);
 };
 
 
@@ -51,6 +52,7 @@ void html_text_type_init (void);
 void html_text_class_init (HTMLTextClass *klass, HTMLType type);
 void html_text_init (HTMLText *text_object, HTMLTextClass *klass, gchar *text, HTMLFont *font, HTMLPainter *painter);
 HTMLObject *html_text_new  (gchar *text, HTMLFont *font, HTMLPainter *painter);
-void html_text_insert_text (HTMLText *text, HTMLCursor *cursor, const gchar *p, guint len);
+void html_text_insert_text (HTMLText *text, HTMLEngine *engine, guint offset, const gchar *p, guint len);
+void html_text_queue_draw (HTMLText *text, HTMLEngine *engine, guint offset, guint len);
 
 #endif /* _HTMLTEXT_H_ */

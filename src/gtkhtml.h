@@ -52,6 +52,8 @@ struct _GtkHTML {
 
 	guint hadj_connection;
 	guint vadj_connection;
+
+	guint idle_handler_id;
 };
 
 struct _GtkHTMLClass {

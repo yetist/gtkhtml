@@ -45,19 +45,22 @@ calc_min_width (HTMLObject *o)
 {
 	HTMLObject *obj;
 	gint w;
-	gint tempMinWidth=0;
+	gint tempMinWidth;
+
+	tempMinWidth = 0;
 
 	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next) {
 		w = html_object_calc_min_width (obj);
 		if (w > tempMinWidth)
 			tempMinWidth = w;
 	}
+
 	tempMinWidth += HTML_CLUEFLOW (o)->indent;
 
 	return tempMinWidth;
 }
 
-/* EP CHECK: should be mostly OK, except for the `FIXME' line.  */
+/* EP CHECK: should be mostly OK.  */
 static void
 calc_size (HTMLObject *o,
 	   HTMLObject *parent)
@@ -229,8 +232,9 @@ calc_size (HTMLObject *o,
 					   add this to both "y" and "ascent" */
 
 					new_y -= o->y;
-					o->y += new_y;
 					o->ascent += new_y;
+
+					/* o->y += new_y; FIXME */
 
 					lmargin = new_lmargin;
 					if (HTML_CLUEFLOW (o)->indent > lmargin)
@@ -260,13 +264,16 @@ calc_size (HTMLObject *o,
 		/* if we need a new line, or all objects have been processed
 		   and need to be aligned. */
 		if ( newLine || !obj) {
-			int extra = 0;
+			int extra;
+
+			extra = 0;
+
 			o->ascent += a + d;
-			o->y += a + d;
-			
-			if (w > o->width) {
+
+			/* o->y += a + d; FIXME */
+
+			if (w > o->width)
 				o->width = w;
-			}
 			
 			if (clue->halign == HTML_HALIGN_CENTER) {
 				extra = (rmargin - w) / 2;
@@ -329,7 +336,6 @@ calc_size (HTMLObject *o,
 	
 	if (o->width < o->max_width)
 		o->width = o->max_width;
-	
 }
 
 static gint

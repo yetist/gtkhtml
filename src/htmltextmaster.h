@@ -51,5 +51,6 @@ void html_text_master_type_init (void);
 void html_text_master_class_init (HTMLTextMasterClass *class, HTMLType type);
 void html_text_master_init (HTMLTextMaster *master, HTMLTextMasterClass *klass, gchar *text, HTMLFont *font, HTMLPainter *painter);
 HTMLObject *html_text_master_new (gchar *text, HTMLFont *font, HTMLPainter *painter);
+HTMLObject *html_text_master_get_slave (HTMLTextMaster *master, guint offset);
 
 #endif /* _HTMLTEXTMASTER_H_ */

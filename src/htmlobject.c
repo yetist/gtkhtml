@@ -1,7 +1,9 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
-/* This file is part of the KDE libraries
+/*  This file is part of the GtkHTML library
+
     Copyright (C) 1997 Martin Jones (mjones@kde.org)
-              (C) 1997 Torben Weis (weis@kde.org)
+    Copyright (C) 1997 Torben Weis (weis@kde.org)
+    Copyright (C) 1999 Helix Code, Inc.
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Library General Public
@@ -45,9 +47,6 @@ HTMLObjectClass html_object_class;
 static void
 destroy (HTMLObject *o)
 {
-	/* FIXME do we kill the `next' member as well?  This depends on whether
-           we want objects to work like lists or not.  */
-
 	if (o->font != NULL)
 		html_font_destroy (o->font);
 
@@ -79,28 +78,16 @@ static void
 calc_size (HTMLObject *o,
 	   HTMLObject *parent)
 {
-#if 0
-	g_warning ("`%s' does not implement `calc_size'.",
-		   html_type_name (HTML_OBJECT_TYPE (o)));
-#endif
 }
 
 static void
 set_max_ascent (HTMLObject *o, gint a)
 {
-#if 0
-	g_warning ("`%s' does not implement `set_max_ascent'.",
-		   html_type_name (HTML_OBJECT_TYPE (o)));
-#endif
 }
 	
 static void
 set_max_descent (HTMLObject *o, gint d)
 {
-#if 0
-	g_warning ("`%s' does not implement `set_max_descent'.",
-		   html_type_name (HTML_OBJECT_TYPE (o)));
-#endif
 }
 	
 static void
@@ -112,7 +99,6 @@ set_max_width (HTMLObject *o, gint max_width)
 static void
 reset (HTMLObject *o)
 {
-	/* FIXME: Do something here */
 }
 
 static gint
@@ -170,6 +156,52 @@ check_point (HTMLObject *o, gint _x, gint _y )
 	return 0L;
 }
 
+/* FIXME TODO this does not take account for the `child' argument yet, so we
+   actually relayout all the objects.  */
+static gboolean
+relayout (HTMLObject *self,
+	  HTMLEngine *engine,
+	  HTMLObject *child)
+{
+	/* FIXME int types of this stuff might change in `htmlobject.h',
+           remember to sync.  */
+	gshort prev_width;
+	gint prev_ascent, prev_descent;
+
+	prev_width = self->width;
+	prev_ascent = self->ascent;
+	prev_descent = self->descent;
+
+	html_object_reset (self);
+
+	/* FIXME extreme ugliness here.  It should use the `parent' member in
+           the object, instead of asking us to provide it ourselves.  */
+	html_object_calc_size (self, self->parent);
+
+	if (prev_width == self->width
+	    && prev_ascent == self->ascent
+	    && prev_descent == self->descent) {
+		g_print ("relayout: %s %p did not change.\n",
+			 html_type_name (HTML_OBJECT_TYPE (self)),
+			 self);
+		return FALSE;
+	} else {
+		g_print ("relayout: %s %p changed.\n",
+			 html_type_name (HTML_OBJECT_TYPE (self)),
+			 self);	
+		if (self->parent == NULL) {
+			/* FIXME resize the widget, e.g. scrollbars and such.  */
+			html_engine_queue_draw (engine, self);
+		} else {
+			/* Relayout our parent starting from us.  */
+			if (! html_object_relayout (self->parent, engine, self))
+				html_engine_queue_draw (engine, self);
+		}
+
+		return TRUE;
+	}
+}
+
 
 /* Class initialization.  */
 
@@ -205,6 +237,7 @@ html_object_class_init (HTMLObjectClass *klass,
 	klass->set_bg_color = set_bg_color;
 	klass->mouse_event = mouse_event;
 	klass->check_point = check_point;
+	klass->relayout = relayout;
 }
 
 void
@@ -229,6 +262,8 @@ html_object_init (HTMLObject *o,
 	o->percent = 0;
 
 	o->flags = HTML_OBJECT_FLAG_FIXEDWIDTH; /* FIXME Why? */
+
+	o->redraw_pending = FALSE;
 }
 
 HTMLObject *
@@ -264,24 +299,7 @@ void
 html_object_draw (HTMLObject *o, HTMLPainter *p, HTMLCursor *cursor,
 		  gint x, gint y, gint width, gint height, gint tx, gint ty)
 {
-#if 0
-	static guint level = 0;
-	guint i;
-
-	level++;
-	for (i = 0; i < level; i++)
-		putchar (' ');
-
-	printf ("Drawing %s %d %d %d %d %d %d\n",
-		html_type_name (o->klass->type),
-		x, y, width, height, tx, ty);
-#endif
-
 	(* HO_CLASS (o)->draw) (o, p, cursor, x, y, width, height, tx, ty);
-
-#if 0
-	level--;
-#endif
 }
 
 HTMLFitType
@@ -325,9 +343,7 @@ html_object_reset (HTMLObject *o)
 gint
 html_object_calc_min_width (HTMLObject *o)
 {
-	gint value = (* HO_CLASS (o)->calc_min_width) (o);
-
-	return value;
+	return (* HO_CLASS (o)->calc_min_width) (o);
 }
 
 gint
@@ -339,11 +355,7 @@ html_object_calc_preferred_width (HTMLObject *o)
 const gchar *
 html_object_get_url (HTMLObject *o)
 {
-	const gchar *url;
-
-	url = (* HO_CLASS (o)->get_url) (o);
-
-	return url;
+	return (* HO_CLASS (o)->get_url) (o);
 }
 
 const gchar *
@@ -376,22 +388,13 @@ html_object_mouse_event (HTMLObject *self, gint x, gint y,
 HTMLObject *
 html_object_check_point (HTMLObject *self, gint x, gint y)
 {
-	HTMLObject *object;
+	return (* HO_CLASS (self)->check_point) (self, x, y);
+}
 
-#if 0
-	static gint counter = 2;
-	for (i = 0; i < counter; i++)
-		putchar (' ');
-	printf ("check_point %s %d %d %d %d\n", html_type_name (HTML_OBJECT_TYPE (self)),
-		(int) self->x, (int) self->y, (int) self->width, (int) self->ascent);
-	counter++;
-#endif
-
-	object = (* HO_CLASS (self)->check_point) (self, x, y);
-
-#if 0
-	counter--;
-#endif
-
-	return object;
+gboolean
+html_object_relayout (HTMLObject *self,
+		      HTMLEngine *engine,
+		      HTMLObject *child)
+{
+	return (* HO_CLASS (self)->relayout) (self, engine, child);
 }

@@ -1,22 +1,24 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
-/* This file is part of the KDE libraries
-    Copyright (C) 1997 Martin Jones (mjones@kde.org)
-              (C) 1997 Torben Weis (weis@kde.org)
+/* This file is part of the GtkHTML library
 
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.
-
-    This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.
-
-    You should have received a copy of the GNU Library General Public License
-    along with this library; see the file COPYING.LIB.  If not, write to
-    the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-    Boston, MA 02111-1307, USA.
+   Copyright (C) 1997 Martin Jones (mjones@kde.org)
+   Copyright (C) 1997 Torben Weis (weis@kde.org)
+   Copyright (C) 1999 Helix Code, Inc.
+   
+   This library is free software; you can redistribute it and/or
+   modify it under the terms of the GNU Library General Public
+   License as published by the Free Software Foundation; either
+   version 2 of the License, or (at your option) any later version.
+   
+   This library is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+   Library General Public License for more details.
+   
+   You should have received a copy of the GNU Library General Public License
+   along with this library; see the file COPYING.LIB.  If not, write to
+   the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+   Boston, MA 02111-1307, USA.
 */
 
 #include "htmlobject.h"
@@ -47,7 +49,9 @@ calc_preferred_width (HTMLObject *o)
 }
 
 static HTMLFitType
-fit_line (HTMLObject *o, gboolean startOfLine, gboolean firstRun,
+fit_line (HTMLObject *o,
+	  gboolean startOfLine,
+	  gboolean firstRun,
 	  gint widthLeft) 
 {
 	HTMLTextMaster *textmaster; 
@@ -84,6 +88,46 @@ fit_line (HTMLObject *o, gboolean startOfLine, gboolean firstRun,
 }
 
 
+/* HTMLText methods.  */
+
+static void
+insert_text (HTMLText *self,
+	     HTMLEngine *engine,
+	     guint offset,
+	     const gchar *p,
+	     guint len)
+{
+	HTML_TEXT_MASTER (self)->strLen += len;
+
+	(* html_text_class.insert_text) (self, engine, offset, p, len);
+}
+
+static void
+queue_draw (HTMLText *text,
+	    HTMLEngine *engine,
+	    guint offset,
+	    guint len)
+{
+	HTMLObject *obj;
+
+	for (obj = HTML_OBJECT (text)->next; obj != NULL; obj = obj->next) {
+		HTMLTextSlave *slave;
+
+		if (HTML_OBJECT_TYPE (obj) != HTML_TYPE_TEXTSLAVE)
+			continue;
+
+		slave = HTML_TEXT_SLAVE (obj);
+
+		if (offset < slave->posStart + slave->posLen
+		    && (len == 0 || offset + len >= slave->posStart)) {
+			html_engine_queue_draw (engine, obj);
+			if (len != 0 && slave->posStart + slave->posLen > offset + len)
+				break;
+		}
+	}
+}
+
+
 void
 html_text_master_type_init (void)
 {
@@ -107,6 +151,9 @@ html_text_master_class_init (HTMLTextMasterClass *klass,
 	object_class->fit_line = fit_line;
 	object_class->calc_min_width = calc_min_width;
 	object_class->calc_preferred_width = calc_preferred_width;
+
+	text_class->insert_text = insert_text;
+	text_class->queue_draw = queue_draw;
 }
 
 void
@@ -164,4 +211,22 @@ html_text_master_new (gchar *text, HTMLFont *font, HTMLPainter *painter)
 			       text, font, painter);
 
 	return HTML_OBJECT (master);
+}
+
+
+HTMLObject *
+html_text_master_get_slave (HTMLTextMaster *master, guint offset)
+{
+	HTMLObject *p;
+
+	for (p = HTML_OBJECT (master)->next; p != NULL; p = p->next) {
+		HTMLTextSlave *slave;
+
+		slave = HTML_TEXT_SLAVE (p);
+		if (slave->posStart <= offset
+		    && slave->posStart + slave->posLen > offset)
+			break;
+	}
+
+	return p;
 }

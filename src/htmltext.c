@@ -1,27 +1,31 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
-/* This file is part of the KDE libraries
-    Copyright (C) 1997 Martin Jones (mjones@kde.org)
-              (C) 1997 Torben Weis (weis@kde.org)
+/* This file is part of the GtkHTML library.
 
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.
-
-    This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.
-
-    You should have received a copy of the GNU Library General Public License
-    along with this library; see the file COPYING.LIB.  If not, write to
-    the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-    Boston, MA 02111-1307, USA.
+   Copyright (C) 1997 Martin Jones (mjones@kde.org)
+   Copyright (C) 1997 Torben Weis (weis@kde.org)
+   Copyright (C) 1999 Helix Code, Inc.
+   
+   This library is free software; you can redistribute it and/or
+   modify it under the terms of the GNU Library General Public
+   License as published by the Free Software Foundation; either
+   version 2 of the License, or (at your option) any later version.
+   
+   This library is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+   Library General Public License for more details.
+   
+   You should have received a copy of the GNU Library General Public License
+   along with this library; see the file COPYING.LIB.  If not, write to
+   the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+   Boston, MA 02111-1307, USA.
 */
 
 #include "htmltext.h"
+#include "htmltextslave.h"
 #include "htmlcursor.h"
 
+
 HTMLTextClass html_text_class;
 
 #define HT_CLASS(x) HTML_TEXT_CLASS (HTML_OBJECT (x)->klass)
@@ -43,12 +47,13 @@ draw (HTMLObject *o, HTMLPainter *p, HTMLCursor *cursor,
 
 	html_painter_set_font (p, htmltext->font);
 	html_painter_set_pen (p, htmltext->font->textColor);
+
 	html_painter_draw_text (p, o->x + tx, o->y + ty, htmltext->text, -1);
 
 	if (cursor != NULL && cursor->object == o) {
-		x_offset = gdk_text_width (htmltext->font->gdk_font, htmltext->text,
+		x_offset = gdk_text_width (htmltext->font->gdk_font,
+					   htmltext->text,
 					   cursor->offset);
-
 		html_painter_draw_cursor (p,
 					  o->x + tx + x_offset, o->y + ty,
 					  o->ascent, o->descent);
@@ -59,7 +64,20 @@ draw (HTMLObject *o, HTMLPainter *p, HTMLCursor *cursor,
 /* HTMLText methods.  */
 
 static void
-insert_text (HTMLText *text, HTMLCursor *cursor, const gchar *s, guint len)
+queue_draw (HTMLText *text,
+	    HTMLEngine *engine,
+	    guint offset,
+	    guint len)
+{
+	html_engine_queue_draw (engine, HTML_OBJECT (text));
+}
+
+static void
+insert_text (HTMLText *text,
+	     HTMLEngine *engine,
+	     guint offset,
+	     const gchar *s,
+	     guint len)
 {
 	gchar *new_buffer;
 	guint old_len;
@@ -71,27 +89,32 @@ insert_text (HTMLText *text, HTMLCursor *cursor, const gchar *s, guint len)
 	old_len = strlen (text->text);
 	new_len = old_len + len;
 
-	if (cursor->offset > old_len) {
+	if (offset > old_len) {
 		g_warning ("Cursor offset out of range for HTMLText::insert_text().");
 
-		/* This should never happen, but this will make sure things are
-                   always fixed up in a non-breaking way.  */
-		cursor->offset = old_len;
+		/* This should never happen, but the following will make sure
+                   things are always fixed up in a non-segfaulting way.  */
+		offset = old_len;
 	}
 
 	new_buffer = g_malloc (new_len + 1);
 
-	if (cursor->offset > 0)
-		memcpy (new_buffer, text->text, cursor->offset);
+	if (offset > 0)
+		memcpy (new_buffer, text->text, offset);
 
-	memcpy (new_buffer + cursor->offset, s, len);
+	memcpy (new_buffer + offset, s, len);
 
-	if (cursor->offset < old_len)
-		memcpy (new_buffer + cursor->offset + len,
-			text->text + cursor->offset,
-			old_len - cursor->offset);
+	if (offset < old_len)
+		memcpy (new_buffer + offset + len, text->text + offset,
+			old_len - offset);
 
 	new_buffer[new_len] = '\0';
+
+	g_free (text->text);
+	text->text = new_buffer;
+
+	if (! html_object_relayout (HTML_OBJECT (text)->parent, engine, HTML_OBJECT (text)))
+		html_text_queue_draw (text, engine, offset, 0);
 }
 
 
@@ -114,6 +137,11 @@ html_text_class_init (HTMLTextClass *klass,
 	/* FIXME destroy */
 
 	object_class->draw = draw;
+
+	/* HTMLText methods.  */
+
+	klass->insert_text = insert_text;
+	klass->queue_draw = queue_draw;
 }
 
 void
@@ -150,14 +178,29 @@ html_text_new (gchar *text, HTMLFont *font, HTMLPainter *painter)
 }
 
 void
-html_text_insert_text (HTMLText *text, HTMLCursor *cursor, const gchar *p, guint len)
+html_text_insert_text (HTMLText *text,
+		       HTMLEngine *engine,
+		       guint offset,
+		       const gchar *p,
+		       guint len)
 {
 	g_return_if_fail (text != NULL);
 	g_return_if_fail (p != NULL);
-	g_return_if_fail (cursor->object != HTML_OBJECT (text));
 
 	if (len == 0)
 		return;
 
-	(* HT_CLASS (text)->insert_text) (text, cursor, p, len);
+	(* HT_CLASS (text)->insert_text) (text, engine, offset, p, len);
+}
+
+void
+html_text_queue_draw (HTMLText *text,
+		      HTMLEngine *engine,
+		      guint offset,
+		      guint len)
+{
+	g_return_if_fail (text != NULL);
+	g_return_if_fail (engine != NULL);
+
+	(* HT_CLASS (text)->queue_draw) (text, engine, offset, len);
 }

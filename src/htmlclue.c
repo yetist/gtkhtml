@@ -72,7 +72,7 @@ draw (HTMLObject *o, HTMLPainter *p, HTMLCursor *cursor,
 	}
 
 #if 0
-	/* FIXME FIXME!  Temporary hack.  :-)  */
+	/* FIXME FIXME!  Temporary hack.  */
 	/* Draw a rect around the clue */
 	if (HTML_OBJECT_TYPE (o) == HTML_TYPE_CLUEV) {
 		html_painter_set_pen (p, &red);
@@ -113,7 +113,6 @@ set_max_ascent (HTMLObject *o, gint a)
 	}
 
 	o->ascent = a;
-	
 }
 
 static void
@@ -145,7 +144,7 @@ reset (HTMLObject *clue)
 	for (obj = HTML_CLUE (clue)->head; obj != 0; obj = obj->next)
 		html_object_reset (obj);
 
-	HTML_CLUE (clue)->curr = 0;
+	HTML_CLUE (clue)->curr = NULL;
 }
 
 static void
@@ -154,12 +153,12 @@ calc_size (HTMLObject *o,
 {
 	/* If we have already called calc_size for the children, then just
 	   continue from the last object done in previous call. */
-	if (!HTML_CLUE (o)->curr) {
+	if (HTML_CLUE (o)->curr == NULL) {
 		o->ascent = 0;
 		HTML_CLUE (o)->curr = HTML_CLUE (o)->head;
 	}
 
-	while (HTML_CLUE (o)->curr != 0) {
+	while (HTML_CLUE (o)->curr != NULL) {
 		html_object_calc_size (HTML_CLUE (o)->curr, o);
 		HTML_CLUE (o)->curr = HTML_CLUE (o)->curr->next;
 	}

@@ -109,12 +109,12 @@ html_link_text_new (gchar *text, HTMLFont *font,
 
 	link_text_object = g_new (HTMLLinkText, 1);
 
-	printf ("%s (", __FUNCTION__);
+	g_print ("%s (", __FUNCTION__);
 	if (url != NULL)
-		printf ("url = `%s', ", url);
+		g_print ("url = `%s', ", url);
 	if (target != NULL)
-		printf ("target = `%s'", url);
-	printf (")\n");
+		g_print ("target = `%s'", url);
+	g_print (")\n");
 
 	html_link_text_init (link_text_object, &html_link_text_class,
 			     text, font, painter, url, target);

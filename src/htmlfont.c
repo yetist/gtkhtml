@@ -1,28 +1,67 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
-/* 
-    Copyright (C) 1997 Martin Jones (mjones@kde.org)
-              (C) 1997 Torben Weis (weis@kde.org)
-	      (C) 1999 Anders Carlson (andersca@gnu.org)
+/* This file is part of the GtkHTML library.
 
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.
+   Copyright (C) 1997 Martin Jones (mjones@kde.org)
+             (C) 1997 Torben Weis (weis@kde.org)
+             (C) 1999 Anders Carlson (andersca@gnu.org)
+	     (C) 1999 Helix Code, Inc.
 
-    This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.
-
-    You should have received a copy of the GNU Library General Public License
-    along with this library; see the file COPYING.LIB.  If not, write to
-    the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-    Boston, MA 02111-1307, USA.
+   This library is free software; you can redistribute it and/or
+   modify it under the terms of the GNU Library General Public
+   License as published by the Free Software Foundation; either
+   version 2 of the License, or (at your option) any later version.
+   
+   This library is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+   Library General Public License for more details.
+   
+   You should have received a copy of the GNU Library General Public License
+   along with this library; see the file COPYING.LIB.  If not, write to
+   the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+   Boston, MA 02111-1307, USA.
 */
+
 #include "htmlfont.h"
 
 
-static GdkFont *create_gdk_font (gchar *family, gint size, gboolean bold, gboolean italic);
+static GdkFont *
+create_gdk_font (const gchar *family, gint size, gboolean bold, gboolean italic)
+{
+	gchar *boldstr;
+	gchar *italicstr;
+	gchar *fontname;
+	gint realsize;
+	GdkFont *font;
+
+	realsize = size;
+
+	if (bold)
+		boldstr = "bold";
+	else
+		boldstr = "medium";
+
+	if (italic)
+		italicstr = "i";
+	else
+		italicstr = "r";
+	
+	fontname = g_strdup_printf ("-*-%s-%s-%s-normal-*-%d-*-*-*-*-*-*-*",
+				    family, boldstr, italicstr, realsize);
+	
+	font = gdk_font_load (fontname);
+	g_free (fontname);
+	if (font){
+		return font;
+	} else {
+		g_warning ("font not found, using helvetica");
+		fontname = g_strdup_printf ("-*-helvetica-medium-r-normal-*-*-%d-*-*-*-*-*-*",
+					    realsize);
+		font = gdk_font_load (fontname);
+		g_free (fontname);
+	}
+	return font;
+}
 
 
 HTMLFont *
@@ -33,7 +72,6 @@ html_font_new (const gchar *family,
 	       gboolean italic,
 	       gboolean underline)
 {
-	gchar *xlfd;
 	HTMLFont *f;
 
 	g_return_val_if_fail (family != NULL, NULL);
@@ -75,45 +113,6 @@ html_font_dup (HTMLFont *f)
 	new->gdk_font = gdk_font_ref (f->gdk_font);
 
 	return new;
-}
-
-static GdkFont *
-create_gdk_font (gchar *family, gint size, gboolean bold, gboolean italic)
-{
-	gboolean loaded = FALSE;
-	gchar *boldstr;
-	gchar *italicstr;
-	gchar *fontname;
-	gint realsize;
-	GdkFont *font;
-
-	realsize = size;
-
-	if (bold)
-		boldstr = "bold";
-	else
-		boldstr = "medium";
-
-	if (italic)
-		italicstr = "i";
-	else
-		italicstr = "r";
-	
-	fontname = g_strdup_printf ("-*-%s-%s-%s-normal-*-%d-*-*-*-*-*-*-*",
-				    family, boldstr, italicstr, realsize);
-	
-	font = gdk_font_load (fontname);
-	g_free (fontname);
-	if (font){
-		return font;
-	} else {
-		g_warning ("font not found, using helvetica");
-		fontname = g_strdup_printf ("-*-helvetica-medium-r-normal-*-*-%d-*-*-*-*-*-*",
-					    realsize);
-		font = gdk_font_load (fontname);
-		g_free (fontname);
-	}
-	return font;
 }
 
 void

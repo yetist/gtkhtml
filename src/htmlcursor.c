@@ -25,6 +25,7 @@
 
 #include <glib.h>
 
+#include "htmlclue.h"
 #include "htmltext.h"
 #include "htmltextslave.h"
 #include "htmltype.h"
@@ -153,6 +154,8 @@ html_cursor_forward (HTMLCursor *cursor,
 		switch (HTML_OBJECT_TYPE (obj)) {
 		case HTML_TYPE_TEXT:
 		case HTML_TYPE_LINKTEXT:
+		case HTML_TYPE_TEXTMASTER:
+		case HTML_TYPE_LINKTEXTMASTER:
 		{
 			const gchar *text;
 
@@ -164,34 +167,9 @@ html_cursor_forward (HTMLCursor *cursor,
 			break;
 		}
 
-		case HTML_TYPE_TEXTMASTER:
-		case HTML_TYPE_LINKTEXTMASTER:
-			/* Do nothing: go to the next element, which is the slave.  */
-			break;
-
 		case HTML_TYPE_TEXTSLAVE:
-		{
-			HTMLTextSlave *slave;
-
-			slave = HTML_TEXT_SLAVE (obj);
-			if (slave->posLen > 0 && offset < slave->posLen - 1) {
-				offset++;
-				g_print ("TextSlave (%p): %s\n",
-					 slave,
-					 HTML_TEXT (slave->owner)->text + slave->posStart + offset);
-				goto end;
-			} else {
-				if ((slave->posLen == 0 || offset == slave->posLen - 1)
-				    && obj->next == NULL) {
-					offset++;
-					g_print ("TextSlave (%p): %s\n",
-						 slave, HTML_TEXT (slave->owner)->text
-						 + slave->posStart + offset);
-					goto end;
-				}
-			}
+			/* Do nothing: go to the next element.  */
 			break;
-		}
 
 		default:
 			g_assert_not_reached ();
@@ -220,8 +198,7 @@ html_cursor_forward (HTMLCursor *cursor,
 		}
 
 		if (is_text (obj)
-		    && HTML_OBJECT_TYPE (obj) != HTML_TYPE_TEXTMASTER
-		    && HTML_OBJECT_TYPE (obj) != HTML_TYPE_LINKTEXTMASTER)
+		    && HTML_OBJECT_TYPE (obj) != HTML_TYPE_TEXTSLAVE)
 			break;
 
 		obj = next (obj);
@@ -231,8 +208,6 @@ html_cursor_forward (HTMLCursor *cursor,
  end:
 	cursor->object = obj;
 	cursor->offset = offset;
-
-	g_print ("%s (%p)\n", __FUNCTION__, cursor->object);
 }
 
 
@@ -254,24 +229,15 @@ html_cursor_backward (HTMLCursor *cursor,
 		switch (HTML_OBJECT_TYPE (obj)) {
 		case HTML_TYPE_TEXT:
 		case HTML_TYPE_LINKTEXT:
-		case HTML_TYPE_TEXTSLAVE:
+		case HTML_TYPE_TEXTMASTER:
+		case HTML_TYPE_LINKTEXTMASTER:
 			if (offset > 0) {
 				offset--;
-
-				if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_TEXTSLAVE) {
-					HTMLTextSlave *slave;
-
-					slave = HTML_TEXT_SLAVE (obj);
-					g_print ("TextSlave (%p): %s\n",
-						 slave,
-						 HTML_TEXT (slave->owner)->text + slave->posStart + offset);
-				}
 				goto end;
 			}
 			break;
 
-		case HTML_TYPE_TEXTMASTER:
-		case HTML_TYPE_LINKTEXTMASTER:
+		case HTML_TYPE_TEXTSLAVE:
 			/* Do nothing: go to the previous element, as this is
 			   not a suitable place for the cursor.  */
 			break;
@@ -302,16 +268,16 @@ html_cursor_backward (HTMLCursor *cursor,
 			switch (HTML_OBJECT_TYPE (obj)) {
 			case HTML_TYPE_TEXT:
 			case HTML_TYPE_LINKTEXT:
-				offset = strlen (HTML_TEXT (obj)->text);
-				goto end;
 			case HTML_TYPE_TEXTMASTER:
 			case HTML_TYPE_LINKTEXTMASTER:
+			offset = strlen (HTML_TEXT (obj)->text);
+				goto end;
+
+			case HTML_TYPE_TEXTSLAVE:
 				/* Do nothing: go to the previous element, as
 				   this is not a suitable place for the cursor.  */
 				break;
-			case HTML_TYPE_TEXTSLAVE:
-				offset = HTML_TEXT_SLAVE (obj)->posLen;
-				goto end;
+
 			default:
 				g_assert_not_reached ();
 			}
@@ -322,6 +288,4 @@ html_cursor_backward (HTMLCursor *cursor,
 	if (obj != NULL)
 		cursor->object = obj;
 	cursor->offset = offset;
-
-	g_print ("%s (%p)\n", __FUNCTION__, cursor->object);
 }

@@ -217,12 +217,16 @@ draw (HTMLObject *o,
 	}
 #endif
 
-	if (cursor != NULL && cursor->object == o) {
+	if (cursor != NULL
+	    && cursor->object == HTML_OBJECT (textslave->owner)
+	    && ((cursor->offset >= textslave->posStart
+		 && cursor->offset < textslave->posStart + textslave->posLen)
+		|| cursor->offset == textslave->owner->strLen)) {
 		gint x_offset;
 
 		x_offset = gdk_text_width (ownertext->font->gdk_font,
 					   ownertext->text + textslave->posStart,
-					   cursor->offset);
+					   cursor->offset - textslave->posStart);
 
 		html_painter_draw_cursor (p,
 					  o->x + tx + x_offset, o->y + ty,

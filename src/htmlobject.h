@@ -1,8 +1,9 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /* This file is part of the GtkHTML library
+
    Copyright (C) 1997 Martin Jones (mjones@kde.org)
    Copyright (C) 1997 Torben Weis (weis@kde.org)
-   Copyright 1999, Helix Code, Inc.
+   Copyright (C) 1999 Helix Code, Inc.
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -24,15 +25,6 @@
 #define _HTMLOBJECT_H_
 
 #include <glib.h>
-
-#include "htmltype.h"
-#include "htmlpainter.h"
-#include "htmlfont.h"
-
-
-#define HTML_OBJECT(x)		((HTMLObject *) (x))
-#define HTML_OBJECT_CLASS(x)	((HTMLObjectClass *) (x))
-#define HTML_OBJECT_TYPE(x)     (HTML_OBJECT (x)->klass->type)
 
 typedef struct _HTMLObjectClass HTMLObjectClass;
 typedef struct _HTMLAnchor HTMLAnchor;
@@ -80,6 +72,17 @@ typedef enum {
 	HTML_HALIGN_NONE
 } HTMLHAlignType;
 
+
+#include "htmlengine.h"
+#include "htmltype.h"
+#include "htmlpainter.h"
+#include "htmlfont.h"
+
+
+#define HTML_OBJECT(x)		((HTMLObject *) (x))
+#define HTML_OBJECT_CLASS(x)	((HTMLObjectClass *) (x))
+#define HTML_OBJECT_TYPE(x)     (HTML_OBJECT (x)->klass->type)
+
 struct _HTMLObject {
 	HTMLObjectClass *klass;
 
@@ -98,13 +101,20 @@ struct _HTMLObject {
 	gshort percent;
 
 	guchar flags;
+
+	/* FIXME maybe unify with `flags'?  */
+	gboolean redraw_pending : 1;
 };
 
 struct _HTMLObjectClass {
 	HTMLType type;
 
 	void (*destroy) (HTMLObject *o);
-	
+
+	/* Relayout object `o' starting from child `child'.  This method can be
+           called by the child when it changes any of its layout properties.  */
+	gboolean (* layout) (HTMLObject *o, HTMLObject *child);
+
         /* x & y are in object coordinates (e.g. the same coordinate system as
 	   o->x and o->y) tx & ty are used to translated object coordinates
 	   into painter coordinates */
@@ -145,6 +155,12 @@ struct _HTMLObjectClass {
 				      gint button, gint state);
 
 	HTMLObject * (* check_point) (HTMLObject *self, gint x, gint y);
+
+	/* Relayout this object.  The object will relayout all the children
+           starting from `child'.  Children before `child' are not affected.
+           The return value is FALSE if nothing has changed during relayout,
+           TRUE otherwise.  */
+	gboolean (* relayout) (HTMLObject *self, HTMLEngine *engine, HTMLObject *child);
 };
 
 
@@ -178,5 +194,7 @@ void html_object_set_bg_color (HTMLObject *o, GdkColor *color);
 HTMLObject *html_object_mouse_event (HTMLObject *clue, gint x, gint y,
 				     gint button, gint state);
 HTMLObject *html_object_check_point (HTMLObject *clue, gint x, gint y);
+
+gboolean html_object_relayout (HTMLObject *obj, HTMLEngine *engine, HTMLObject *child);
 
 #endif /* _HTMLOBJECT_H_ */

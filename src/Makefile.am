@@ -25,8 +25,9 @@ libgtkhtml_HEADERS =				\
 	htmlclueh.h				\
 	htmlcluev.h				\
 	htmlcursor.h				\
+	htmldrawqueue.h				\
 	htmlengine.h				\
-	htmlengine-cursor.h			\
+	htmlengine-edit.h			\
 	htmlentity.h				\
 	htmlfont.h				\
 	htmlhspace.h				\
@@ -62,8 +63,9 @@ libgtkhtml_la_SOURCES =				\
 	htmlclueh.c				\
 	htmlcluev.c				\
 	htmlcursor.c				\
+	htmldrawqueue.c				\
 	htmlengine.c				\
-	htmlengine-cursor.c			\
+	htmlengine-edit.c			\
 	htmlentity.c				\
 	htmlfont.c				\
 	htmlhspace.c				\

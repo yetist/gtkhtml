@@ -1,3 +1,166 @@
+1999-12-23  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine-edit.c (html_engine_move_cursor): Queue a redraw for
+	the cursor.
+
+	* htmltextmaster.c (queue_draw): New function, implementation for
+	the `queue_draw' method.
+	(html_text_master_class_init): Install it.
+
+	* htmltext.c (html_text_queue_draw): New function.
+	(queue_draw): Default implementation for the `queue_draw' method.
+	(html_text_class_init): Install it.
+	(insert_text): Queue a draw if the parent did not change after
+	relayout (and consequently did not queue a draw for itself).
+
+	* htmltext.h: New virtual method `queue_draw'.
+
+	* htmlclueflow.c (calc_size): Do not assign `o->y' anymore.  I am
+	not 100% sure that this does not break anything, but at the same
+	time I don't see any reason why the y value should be set here.
+	So if this breaks, probably it means that something is broken
+	somewhere else.
+
+	* htmlcluev.c (calc_size): Replaced hideous binary shift with a
+	multiplication.
+
+        [1999-12-22]
+
+	* htmlfont.c (create_gdk_font): `family' made const.
+	(html_font_new): Removed unused variable.
+	(create_gdk_font): Removed unused variable.
+
+	* htmlcursor.c: #include "htmlclue.h".
+
+	* htmlobject.h: Moved all the typedefs on top, before the #include
+	section.
+
+	* htmltext.c (html_text_insert_text): New parameter `engine'.
+	(insert_text): New parameter `engine'.  Queue a redraw for the
+	object.
+
+	* htmltext.h: New parameter `engine' in method `insert_text'.
+
+	* htmlobject.c (html_object_relayout): New argument `engine'.
+	(relayout): New argument `engine'.  Queue a redraw for the object
+	if the size changes and the object has no parent, or if the size
+	changes and the parent's size does not change.
+
+	* htmlobject.h: New argument `engine' in method `relayout'.
+
+	* htmlengine.c (html_engine_queue_draw): New function.
+
+	* htmlengine-edit.c (html_engine_move_cursor): Do not redraw
+	everything.
+
+	* htmlcursor.c (html_cursor_backward): Removed debugging message.
+	(html_cursor_forward): Removed debugging message.
+
+	* gtkhtml.c (html_engine_url_requested_cb): First argument
+	corrected from `GtkHTML' to `HTMLEngine'.
+	(html_engine_draw_pending_cb): New function.
+	(gtk_html_new): Connect it to the "draw_pending" signal of the
+	HTMLEngine.
+
+	* htmlengine.c: New signal `draw_pending'.
+	(html_engine_class_init): Install it.
+
+	* htmlengine.h: Type of first argument in the `url_requested'
+	method corrected from `GtkHTML' to `HTMLEngine'.  New signal
+	`draw_pending'.
+
+	* gtkhtml.c (idle_handler): New function, flushing the engine's
+	draw queue.
+	(init): Init it.
+	(destroy): Remove pending idle handler.
+	(queue_draw): New utility function installing the idle handler.
+
+	* htmlengine.c (html_engine_flush_draw_queue): New function.
+
+	* gtkhtml.h: New member `idle_handler_id' in `GtkHTML'.
+
+	* gtkhtml.c (destroy): Call the parent class' `destroy' method.
+
+	* htmlengine.h: New member `draw_queue' in `HTMLEngine'.
+	* htmlengine.c (html_engine_init): Init it.
+	(html_engine_destroy): Destroy it.
+
+	* gtkhtml.c: Cleaned up a bit.
+
+	[1999-12-21]
+
+	* htmllinktext.c (html_link_text_new): Use `g_print' instead of
+	`printf' for debugging messages.
+
+	* htmltext.c (draw): Removed debugging mesasge.
+
+	* htmlobject.h: New member `redraw_pending' in `HTMLObject'.
+	* htmlobject.c (html_object_init): Initialize it to FALSE.
+
+	* htmldrawqueue.c: New file.
+	* htmldrawqueue.h: New file.
+
+	* htmltextslave.c (draw): Draw the cursor if it's in the owner,
+	instead of the slave.
+
+	* htmlcursor.c (html_cursor_forward): Move on the masters instead
+	of the slaves.  The slaves are not a good place for anchoring the
+	cursor, as they can be destroyed/recreated without the cursor's
+	control.
+	(html_cursor_backward): Likewise.
+
+	[1999-12-20]
+
+	* htmlengine.c (html_engine_insert_text): `str' made const.
+	`g_strdup()' strings before passing to the text object creation
+	functions.
+
+	* htmltextmaster.c (insert_text): New HTMLTextMaster-specific
+	implementation for the `insert_text' virtual method.
+	(html_text_master_class_init): Install it.
+
+	* htmltext.c (insert_text): Make the text pointer point to the new
+	buffer.
+
+	* testgtkhtml.c (main): Removed unused variables.
+
+	* gtkhtml.c (key_press_event): If we are given a nonempty string,
+	insert it and move the cursor to the right.
+
+	* htmltext.c (insert_text): Relayout parent.
+	(html_text_class_init): Install `insert_text' as the default
+	implementation for the `insert_text' method.
+
+	* htmlengine-edit.c (html_engine_cursor_move): Renamed to
+	`html_engine_move_cursor'.
+	(html_engine_insert_text): New function; not quite finished yet.
+
+	* htmlengine-cursor.c: Renamed to `htmlengine-edit.c'.
+	* htmlengine-cursor.h: Renamed to `htmlengine-edit.h'.
+
+	* htmlengine.h: Member `show_cursor' in `HTMLEngine' renamed to
+	`editable'.
+
+	* htmlengine.c (html_engine_show_cursor): Renamed to
+	`html_engine_set_editable'.
+
+	* htmlobject.c (html_object_relayout): New function.
+	(relayout): Default implementation for `relayout'.
+	(html_object_class_init): Install it.
+
+	* htmlobject.h: New method `relayout'.
+
+	* htmltextmaster.c (htmL_text_master_get_slave): New function.
+
+	* htmltext.c: Make the `insert_text' method get an integer offset
+	instead of a pointer to an `HTMLCursor' object.
+	(html_text_insert_text): Updated accordingly.
+
+	[1999-12-13]
+
+	* htmlobject.c (html_object_check_point): Removed debugging code.
+	(html_object_draw): Removed debugging code.
+
 1999-12-20  Ariel Rios  <jarios@usa.net>
 
 	* gtkhtml.h: (gtk_html_stream_unref): Moved
@@ -16,21 +179,23 @@
 1999-12-15  Ariel Rios <jarios@usa.net>
 	
           Contributed by Marius Vollmer.
+
 	* gtkhtml-private.h: Add ref_count element in GtkHTML struct.
-	  (gtk_html_stream_unref), (gtk_html_stream_ref): New prototypes added.
+	(gtk_html_stream_unref): New prototype.
+	(gtk_html_stream_ref): New prototype.
 	  These two functions would maintain a reference count on a
 	  GtkHTMLStream handle so that the struct would only be freed when the
 	  ref count reaches zero. gtk_html_stream_new would return a stream
 	  with ref_count == 1 and gtk_html_stream_end would flag the stream as
 	  terminated and call gtk_html_stream_unref; gtk_html_stream_write
 	  would recognize a terminated stream.
-	* htmlstream.c: (gtk_html_stream_unref) Added.
-	  (gtk_html_stream_ref) Added.
-	  (gtk_html_stream_unref) Added.
-	  (gtk_html_stream_new) Added declararion of new ref_count element.
-	  (gtk_html_stream_write) Instead of g_freeing the stream here,
-	  we set write_callback and end_callback as NULL. Then we call
-	  gtk_html_stream_unref to g_free the handle.
+
+	* htmlstream.c (gtk_html_stream_unref): Added.
+	(gtk_html_stream_ref): Added.
+	(gtk_html_stream_new): Added declararion of new ref_count element.
+	(gtk_html_stream_write): Instead of g_freeing the stream here, we
+	set write_callback and end_callback as NULL. Then we call
+	gtk_html_stream_unref to g_free the handle.
 
 1999-12-15  Havoc Pennington  <hp@redhat.com>
 
@@ -561,7 +726,8 @@
 	(html_link_text_master_new): Likewise.
 	(get_url): Removed debugging message.
 
-	* htmllinktext.c (html_link_text_init): Strdup the URL and the target strings.
+	* htmllinktext.c (html_link_text_init): Strdup the URL and the
+	target strings.
 	(html_link_text_new): Made the `url' and `target' arguments const.
 	(html_link_text_init): Likewise.
 

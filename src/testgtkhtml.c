@@ -861,7 +861,6 @@ main (gint argc, gchar *argv[])
 {
 	GtkWidget *app, *bar;
 	GtkWidget *html_widget;
-	GtkWidget *hbox, *vscrollbar;
 	GtkWidget *scrolled_window;
 	poptContext ctx;
 	

@@ -1,5 +1,7 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
-/*  Copyright (C) 1997 Martin Jones (mjones@kde.org)
+/*  This file is part of the GtkHTML library.
+
+    Copyright (C) 1997 Martin Jones (mjones@kde.org)
     Copyright (C) 1997 Torben Weis (weis@kde.org)
     Copyright (C) 1999 Anders Carlsson (andersca@gnu.org)
     Copyright (C) 1999 Helix Code, Inc.
@@ -74,6 +76,7 @@ enum {
 	LOAD_DONE,
 	TITLE_CHANGED,
 	URL_REQUESTED,
+	DRAW_PENDING,
 	LAST_SIGNAL
 };
 	
@@ -2364,6 +2367,8 @@ html_engine_destroy (GtkObject *object)
 		g_free (p->data);
 	g_list_free (engine->tempStrings);
 
+	html_draw_queue_destroy (engine->draw_queue);
+
 	GTK_OBJECT_CLASS (parent_class)->destroy (object);
 }
 
@@ -2395,12 +2400,12 @@ html_engine_class_init (HTMLEngineClass *klass)
 				GTK_TYPE_STRING);
 
 	signals [LOAD_DONE] = 
-	  gtk_signal_new ("load_done",
-			  GTK_RUN_FIRST,
-			  object_class->type,
-			  GTK_SIGNAL_OFFSET (HTMLEngineClass, load_done),
-			  gtk_marshal_NONE__NONE,
-			  GTK_TYPE_NONE, 0);
+		gtk_signal_new ("load_done",
+				GTK_RUN_FIRST,
+				object_class->type,
+				GTK_SIGNAL_OFFSET (HTMLEngineClass, load_done),
+				gtk_marshal_NONE__NONE,
+				GTK_TYPE_NONE, 0);
 
 	signals [TITLE_CHANGED] = 
 		gtk_signal_new ("title_changed",
@@ -2411,14 +2416,22 @@ html_engine_class_init (HTMLEngineClass *klass)
 				GTK_TYPE_NONE, 0);
 
 	signals [URL_REQUESTED] =
-	  gtk_signal_new ("url_requested",
-			  GTK_RUN_FIRST,
-			  object_class->type,
-			  GTK_SIGNAL_OFFSET (HTMLEngineClass, url_requested),
-			  gtk_marshal_NONE__POINTER_POINTER,
-			  GTK_TYPE_NONE, 2,
-			  GTK_TYPE_STRING,
-			  GTK_TYPE_POINTER);
+		gtk_signal_new ("url_requested",
+				GTK_RUN_FIRST,
+				object_class->type,
+				GTK_SIGNAL_OFFSET (HTMLEngineClass, url_requested),
+				gtk_marshal_NONE__POINTER_POINTER,
+				GTK_TYPE_NONE, 2,
+				GTK_TYPE_STRING,
+				GTK_TYPE_POINTER);
+
+	signals [DRAW_PENDING] =
+		gtk_signal_new ("draw_pending",
+				GTK_RUN_FIRST,
+				object_class->type,
+				GTK_SIGNAL_OFFSET (HTMLEngineClass, draw_pending),
+				gtk_marshal_NONE__NONE,
+				GTK_TYPE_NONE, 0);
 
 	gtk_object_class_add_signals (object_class, signals, LAST_SIGNAL);
 
@@ -2436,7 +2449,7 @@ html_engine_init (HTMLEngine *engine)
 	engine->actualURL = NULL;
 	engine->newPage = FALSE;
 
-	engine->show_cursor = FALSE;
+	engine->editable = FALSE;
 	engine->cursor = html_cursor_new ();
 
 	engine->ht = html_tokenizer_new ();
@@ -2463,6 +2476,8 @@ html_engine_init (HTMLEngine *engine)
 	engine->inTitle = FALSE;
 
 	engine->tempStrings = NULL;
+
+	engine->draw_queue = html_draw_queue_new (engine);
 }
 
 HTMLEngine *
@@ -2579,8 +2594,7 @@ html_engine_update_event (HTMLEngine *e)
 	html_engine_calc_size (e);
 	
 	/* Scroll page to the top on first display */
-	if(e->newPage) {
-
+	if (e->newPage) {
 		gtk_adjustment_set_value (GTK_LAYOUT (e->widget)->vadjustment, 0);
 		e->newPage = FALSE;
 	}
@@ -2736,15 +2750,11 @@ html_engine_calc_size (HTMLEngine *p)
 	html_object_reset (p->clue);
 
 	max_width = p->width - p->leftBorder - p->rightBorder;
-
-	/* Set the clue size */
-	p->clue->width = p->width - p->leftBorder - p->rightBorder;
+	p->clue->width = max_width;
 
 	min_width = html_object_calc_min_width (p->clue);
-
-	if (min_width > max_width) {
+	if (min_width > max_width)
 		max_width = min_width;
-	}
 
 	html_object_set_max_width (p->clue, max_width);
 	html_object_calc_size (p->clue, NULL);
@@ -2896,9 +2906,8 @@ html_engine_pop_font (HTMLEngine *e)
 	e->underline = top->underline;
 }
 
-
 void
-html_engine_insert_text (HTMLEngine *e, gchar *str, HTMLFont *f)
+html_engine_insert_text (HTMLEngine *e, const gchar *str, HTMLFont *f)
 {
 	enum {unknown, fixed, variable} textType = unknown;
 	int i = 0;
@@ -2907,30 +2916,39 @@ html_engine_insert_text (HTMLEngine *e, gchar *str, HTMLFont *f)
 	gboolean insertSpace = FALSE;
 	gboolean insertNBSP = FALSE;
 	gboolean insertBlock = FALSE;
-	
+	gchar *s;
+	gchar *origStr;
+
+	/* FIXME: Huge waste here and ugliness.  But the way it was done
+           previously was just plainly broken.  We need to fix memory
+           management here in a major way.  */
+
+	origStr = g_strdup (str);
+	s = origStr;
+
 	for (;;) {
-		if (((guchar *)str)[i] == 0xa0) {
+		if (((guchar *)s)[i] == 0xa0) {
 			/* Non-breaking space */
 			if (textType == variable) {
-				/* We have a non-breaking space in a block of variable text We
+				/* We have a non-breaking space in a block of variable text.  We
 				   need to split the text and insert a seperate non-breaking
 				   space object */
-				str[i] = 0x00; /* End of string */
-				remainingStr = &(str[i+1]);
+				s[i] = 0x00; /* End of string */
+				remainingStr = &(s[i+1]);
 				insertBlock = TRUE; 
 				insertNBSP = TRUE;
 			} else {
 				/* We have a non-breaking space: this makes the block fixed. */
-				str[i] = 0x20; /* Normal space */
+				s[i] = 0x20; /* Normal space */
 				textType = fixed;
 			}
-		} else if (str[i] == 0x20) {
+		} else if (s[i] == 0x20) {
 			/* Normal space */
 			if (textType == fixed) {
 				/* We have a normal space in a block of fixed text.
 				   We need to split the text and insert a separate normal space. */
-				str[i] = 0x00; /* End of string */
-				remainingStr = &(str [i+1]);
+				s[i] = 0x00; /* End of string */
+				remainingStr = &(s [i+1]);
 				insertBlock = TRUE;
 				insertSpace = TRUE;
 			}
@@ -2938,21 +2956,21 @@ html_engine_insert_text (HTMLEngine *e, gchar *str, HTMLFont *f)
 				/* We have a normal space, if this is the first
 				   character, we insert a normal space and continue */
 				if (i == 0) {
-					if (str [i+1] == 0x00) {
-						str++;
+					if (s [i+1] == 0x00) {
+						s++;
 						remainingStr = 0;
 					}
 					else {
-						str [i] = 0x00; /* End of string */
-						remainingStr = str+1;
+						s [i] = 0x00; /* End of string */
+						remainingStr = s+1;
 					}
 					insertBlock = TRUE;	/* Block is zero-length, no actual insertion */
 					insertSpace = TRUE;
 				}
-				else if (str [i+1] == 0x00) {
+				else if (s [i+1] == 0x00) {
 					/* Last character is a space: Insert the block and 
 					   a normal space */
-					str[i] = 0x00;/* End of string */
+					s[i] = 0x00;/* End of string */
 					remainingStr = 0;
 					insertBlock = TRUE;
 					insertSpace = TRUE;
@@ -2961,14 +2979,14 @@ html_engine_insert_text (HTMLEngine *e, gchar *str, HTMLFont *f)
 				}
 			}
 		}
-		else if (str[i] == 0x00) {
+		else if (s[i] == 0x00) {
 			/* End of string */
 			insertBlock = TRUE;
 			remainingStr = 0;
 		}
 
 		if (insertBlock) {
-			if (*str) {
+			if (*s) {
 				gchar *url_string;
 
 				/* FIXME this sucks */
@@ -2980,17 +2998,17 @@ html_engine_insert_text (HTMLEngine *e, gchar *str, HTMLFont *f)
 				if (textType == variable) {
 					if (e->url || e->target)
 						obj = html_link_text_master_new
-							(str, f, e->painter, url_string, e->target);
+							(g_strdup (s), f, e->painter, url_string, e->target);
 					else
-						obj = html_text_master_new (str, f, e->painter);
+						obj = html_text_master_new (g_strdup (s), f, e->painter);
 					html_clue_append (HTML_CLUE (e->flow), obj);
 				}
 				else {
 					if (e->url || e->target)
-						obj = html_link_text_new (str, f,
+						obj = html_link_text_new (g_strdup (s), f,
 									  e->painter, url_string, e->target);
 					else
-						obj = html_text_new (str, f, e->painter);
+						obj = html_text_new (g_strdup (s), f, e->painter);
 					html_clue_append (HTML_CLUE (e->flow), obj);
 				}
 
@@ -3002,7 +3020,7 @@ html_engine_insert_text (HTMLEngine *e, gchar *str, HTMLFont *f)
 					gchar *url_string;
 
 					url_string = html_url_to_string (e->url);
-					obj = html_link_text_new (" ", f, e->painter,
+					obj = html_link_text_new (g_strdup (" "), f, e->painter,
 								  url_string, e->target);
 					obj->flags |= HTML_OBJECT_FLAG_SEPARATOR;
 					html_clue_append (HTML_CLUE (e->flow), obj);
@@ -3018,7 +3036,7 @@ html_engine_insert_text (HTMLEngine *e, gchar *str, HTMLFont *f)
 
 					/* FIXME this sucks */
 					url_string = html_url_to_string (e->url);
-					obj = html_link_text_new (" ", f, e->painter,
+					obj = html_link_text_new (g_strdup (" "), f, e->painter,
 								  url_string, e->target);
 					obj->flags &= ~HTML_OBJECT_FLAG_SEPARATOR;
 					html_clue_append (HTML_CLUE (e->flow), obj);
@@ -3030,10 +3048,13 @@ html_engine_insert_text (HTMLEngine *e, gchar *str, HTMLFont *f)
 				}
 			}
 		
-			str = remainingStr;
+			s = remainingStr;
 
-			if ((str == 0) || (*str == 0x00))
-				return; /* Finished */
+			if (s == 0 || *s == 0x00) {
+				g_free (origStr);
+				return;
+			}
+
 			i = 0;
 			textType = unknown;
 			insertBlock = FALSE;
@@ -3200,9 +3221,9 @@ html_engine_get_link_at (HTMLEngine *e, gint x, gint y)
 }
 
 void
-html_engine_show_cursor (HTMLEngine *e, gboolean show)
+html_engine_set_editable (HTMLEngine *e, gboolean editable)
 {
-	e->show_cursor = show;
+	e->editable = editable;
 }
 
 void
@@ -3213,4 +3234,22 @@ html_engine_set_base_url (HTMLEngine *e, const char *url)
 	e->actualURL = html_url_new (url);
 
 	gtk_signal_emit (GTK_OBJECT (e), signals[SET_BASE], url);
+}
+
+
+void
+html_engine_flush_draw_queue (HTMLEngine *e)
+{
+	g_return_if_fail (e != NULL);
+
+	html_draw_queue_flush (e->draw_queue);
+}
+
+void
+html_engine_queue_draw (HTMLEngine *e, HTMLObject *o)
+{
+	g_return_if_fail (e != NULL);
+	g_return_if_fail (o != NULL);
+
+	html_draw_queue_add (e->draw_queue, o);
 }

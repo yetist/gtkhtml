@@ -17,33 +17,14 @@
     the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
     Boston, MA 02111-1307, USA.
 */
+
 #include <stdio.h>
 #include <gdk/gdkkeysyms.h>
 #include <gtk/gtk.h>
+
 #include "htmlpainter.h"
-#include "htmlengine-cursor.h"
+#include "htmlengine-edit.h"
 #include "gtkhtml-private.h"
-
-
-guint           gtk_html_get_type (void);
-static void     gtk_html_class_init (GtkHTMLClass *klass);
-static void     gtk_html_init (GtkHTML* html);
-
-static void     gtk_html_size_allocate (GtkWidget *widget, GtkAllocation *allocation);
-static gint     gtk_html_expose        (GtkWidget *widget, GdkEventExpose *event);
-static void     gtk_html_realize       (GtkWidget *widget);
-static void     gtk_html_unrealize     (GtkWidget *widget);
-static void     gtk_html_draw          (GtkWidget *widget, GdkRectangle *area);
-void            gtk_html_calc_scrollbars (GtkHTML *html);
-static void     gtk_html_vertical_scroll (GtkAdjustment *adjustment, gpointer data);
-static void     gtk_html_horizontal_scroll (GtkAdjustment *adjustment, gpointer data);
-static gint	gtk_html_motion_notify_event (GtkWidget *widget, GdkEventMotion *event);
-static gint     gtk_html_button_press_event (GtkWidget *widget, GdkEventButton *event);
-static gint     gtk_html_button_release_event (GtkWidget *widget, GdkEventButton *event);
-static void     gtk_html_set_adjustments    (GtkLayout     *layout,
-					     GtkAdjustment *hadj,
-					     GtkAdjustment *vadj);
-static void     gtk_html_destroy            (GtkObject     *object);
 
 
 static GtkLayoutClass *parent_class = NULL;
@@ -59,6 +40,28 @@ enum {
 	LAST_SIGNAL
 };
 static guint signals [LAST_SIGNAL] = { 0 };
+
+
+/* GTK+ idle loop handler.  */
+
+static gint
+idle_handler (gpointer data)
+{
+	GtkHTML *html;
+
+	html = GTK_HTML (data);
+	html_engine_flush_draw_queue (html->engine);
+
+	html->idle_handler_id = 0;
+	return FALSE;
+}
+
+static void
+queue_draw (GtkHTML *html)
+{
+	if (html->idle_handler_id == 0)
+		html->idle_handler_id = gtk_idle_add (idle_handler, html);
+}
 
 
 /* HTMLEngine callbacks.  */
@@ -100,7 +103,7 @@ html_engine_load_done_cb (HTMLEngine *engine, gpointer data)
 }
 
 static void
-html_engine_url_requested_cb (GtkHTML *html,
+html_engine_url_requested_cb (HTMLEngine *engine,
 			      const char *url,
 			      GtkHTMLStreamHandle handle,
 			      gpointer data)
@@ -111,7 +114,71 @@ html_engine_url_requested_cb (GtkHTML *html,
 	gtk_signal_emit (GTK_OBJECT (gtk_html), signals[URL_REQUESTED], url, handle);
 }
 
+static void
+html_engine_draw_pending_cb (HTMLEngine *engine,
+			     gpointer data)
+{
+	GtkHTML *html;
+
+	puts (__FUNCTION__);
+	html = GTK_HTML (data);
+	queue_draw (html);
+}
+
 
+/* GtkAdjustment handling.  */
+
+static void
+vertical_scroll_cb (GtkAdjustment *adjustment, gpointer data)
+{
+	GtkHTML *html = GTK_HTML (data);
+
+	html->engine->y_offset = (gint)adjustment->value;
+}
+
+static void
+horizontal_scroll_cb (GtkAdjustment *adjustment, gpointer data)
+{
+	GtkHTML *html = GTK_HTML (data);
+		
+	html->engine->x_offset = (gint)adjustment->value;
+}
+
+static void
+connect_adjustments (GtkHTML *html,
+		     GtkAdjustment *hadj,
+		     GtkAdjustment *vadj)
+{
+	GtkLayout *layout;
+
+	layout = GTK_LAYOUT (html);
+
+	if (html->hadj_connection != 0)
+		gtk_signal_disconnect (GTK_OBJECT(layout->hadjustment),
+				       html->hadj_connection);
+
+	if (html->vadj_connection != 0)
+		gtk_signal_disconnect (GTK_OBJECT(layout->vadjustment),
+				       html->vadj_connection);
+
+	if (vadj != NULL)
+		html->vadj_connection =
+			gtk_signal_connect (GTK_OBJECT (vadj), "value_changed",
+					    GTK_SIGNAL_FUNC (vertical_scroll_cb), (gpointer)html);
+	else
+		html->vadj_connection = 0;
+	
+	if (hadj != NULL)
+		html->hadj_connection =
+			gtk_signal_connect (GTK_OBJECT (hadj), "value_changed",
+					    GTK_SIGNAL_FUNC (horizontal_scroll_cb), (gpointer)html);
+	else
+		html->hadj_connection = 0;
+}
+
+
+/* GtkObject methods.  */
+
 static void
 destroy (GtkObject *object)
 {
@@ -123,7 +190,18 @@ destroy (GtkObject *object)
 
 	gdk_cursor_destroy (html->hand_cursor);
 	gdk_cursor_destroy (html->arrow_cursor);
+
+	connect_adjustments (html, NULL, NULL);
+
+	if (html->idle_handler_id != 0)
+		gtk_idle_remove (html->idle_handler_id);
+
+	if (GTK_OBJECT_CLASS (parent_class)->destroy)
+		(*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
 }
+
+
+/* GtkWidget methods.  */
 
 static gint
 key_press_event (GtkWidget *widget,
@@ -133,58 +211,208 @@ key_press_event (GtkWidget *widget,
 	HTMLEngine *engine;
 	gboolean retval;
 
-	puts (__FUNCTION__);
-
 	html = GTK_HTML (widget);
 	engine = html->engine;
 
-	if (! engine->show_cursor) {
+	if (! engine->editable) {
 		/* FIXME handle differently in this case */
 		return FALSE;
 	}
 
 	switch (event->keyval) {
 	case GDK_Right:
-		html_engine_cursor_move (engine, HTML_ENGINE_CURSOR_RIGHT, 1);
+		html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_RIGHT, 1);
 		retval = TRUE;
 		break;
 	case GDK_Left:
-		html_engine_cursor_move (engine, HTML_ENGINE_CURSOR_LEFT, 1);
+		html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_LEFT, 1);
+		retval = TRUE;
+		break;
+	/* The following cases are for keys that we don't want to map yet, but
+           have an annoying default behavior if not handled. */
+	case GDK_Down:
+	case GDK_Up:
+	case GDK_Tab:
 		retval = TRUE;
 		break;
 	default:
-		retval = FALSE;
+		if (event->length == 0) {
+			retval = FALSE;
+		} else {
+			html_engine_insert (engine, event->string, event->length);
+			html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_RIGHT,
+						 1);
+			retval = TRUE;
+		}
 	}
 
 	return retval;
 }
 
-
-guint
-gtk_html_get_type (void)
+static void
+realize (GtkWidget *widget)
 {
-	static guint html_type = 0;
+	GtkHTML *html;
 
-	if (!html_type) {
-		static const GtkTypeInfo html_info = {
-			"GtkHTML",
-			sizeof (GtkHTML),
-			sizeof (GtkHTMLClass),
-			(GtkClassInitFunc) gtk_html_class_init,
-			(GtkObjectInitFunc) gtk_html_init,
-			/* reserved_1 */ NULL,
-			/* reserved_2 */ NULL,
-			(GtkClassInitFunc) NULL,
-		};
-		
-		html_type = gtk_type_unique (GTK_TYPE_LAYOUT, &html_info);
-	}
+	g_message ("realize");
+	g_return_if_fail (widget != NULL);
+	g_return_if_fail (GTK_IS_HTML (widget));
 
-	return html_type;
+	html = GTK_HTML (widget);
+
+	if (GTK_WIDGET_CLASS (parent_class)->realize)
+		(* GTK_WIDGET_CLASS (parent_class)->realize) (widget);
+
+	gdk_window_set_events (html->layout.bin_window,
+			       (gdk_window_get_events (html->layout.bin_window)
+				| GDK_EXPOSURE_MASK | GDK_POINTER_MOTION_MASK
+				| GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK
+				| GDK_KEY_PRESS_MASK | GDK_KEY_RELEASE_MASK));
+
+	html_settings_set_bgcolor (html->engine->settings, 
+				   &widget->style->bg[GTK_STATE_NORMAL]);
+
+	html_painter_realize (html->engine->painter, html->layout.bin_window);
+
+	gdk_window_set_cursor (widget->window, html->arrow_cursor);
 }
 
 static void
-gtk_html_class_init (GtkHTMLClass *klass)
+unrealize (GtkWidget *widget)
+{
+	GtkHTML *html = GTK_HTML (widget);
+	
+	html_painter_unrealize (html->engine->painter);
+
+	if (GTK_WIDGET_CLASS (parent_class)->unrealize)
+		(* GTK_WIDGET_CLASS (parent_class)->unrealize) (widget);
+}
+
+static gint
+expose (GtkWidget *widget, GdkEventExpose *event)
+{
+	if (GTK_WIDGET_CLASS (parent_class)->expose_event)
+		(* GTK_WIDGET_CLASS (parent_class)->expose_event) (widget, event);
+
+	html_engine_draw (GTK_HTML (widget)->engine,
+			  event->area.x, event->area.y,
+			  event->area.width, event->area.height);
+
+	return FALSE;
+}
+
+static void
+draw (GtkWidget *widget, GdkRectangle *area)
+{
+	GtkHTML *html = GTK_HTML (widget);
+	HTMLPainter *painter = html->engine->painter;
+
+	if (GTK_WIDGET_CLASS (parent_class)->draw)
+		(* GTK_WIDGET_CLASS (parent_class)->draw) (widget, area);
+	
+	html_painter_clear (painter);
+
+	html_engine_draw (GTK_HTML (widget)->engine,
+			  area->x, area->y,
+			  area->width, area->height);
+}
+
+static void
+size_allocate (GtkWidget *widget, GtkAllocation *allocation)
+{
+	GtkHTML *html;
+
+	g_return_if_fail (widget != NULL);
+	g_return_if_fail (GTK_IS_HTML (widget));
+	g_return_if_fail (allocation != NULL);
+	
+	html = GTK_HTML (widget);
+
+	if (GTK_WIDGET_CLASS (parent_class)->size_allocate)
+		( *GTK_WIDGET_CLASS (parent_class)->size_allocate) (widget, allocation);
+
+	html->engine->width = allocation->width;
+	html->engine->height = allocation->height;
+
+	html_engine_calc_size (html->engine);
+	
+	gtk_html_calc_scrollbars (html);
+}
+
+static gint
+motion_notify_event (GtkWidget *widget,
+		     GdkEventMotion *event)
+{
+	GtkHTML *html;
+	const gchar *url;
+
+	g_return_val_if_fail (widget != NULL, 0);
+	g_return_val_if_fail (GTK_IS_HTML (widget), 0);
+	g_return_val_if_fail (event != NULL, 0);
+
+	html = GTK_HTML (widget);
+
+	url = html_engine_get_link_at (GTK_HTML (widget)->engine, event->x, event->y);
+
+	if (url == NULL) {
+		if (html->pointer_url != NULL) {
+			g_free (html->pointer_url);
+			html->pointer_url = NULL;
+			gtk_signal_emit (GTK_OBJECT (html), signals[ON_URL], NULL);
+		}
+		gdk_window_set_cursor (widget->window, html->arrow_cursor);
+	} else {
+		if (html->pointer_url == NULL || strcmp (html->pointer_url, url) != 0) {
+			g_free (html->pointer_url);
+			html->pointer_url = g_strdup (url);
+			gtk_signal_emit (GTK_OBJECT (html), signals[ON_URL], url);
+		}
+		gdk_window_set_cursor (widget->window, html->hand_cursor);
+	}
+
+	return TRUE;
+}
+
+static gint
+button_press_event (GtkWidget *widget,
+		    GdkEventButton *event)
+{
+	return FALSE;
+}
+
+static gint
+button_release_event (GtkWidget *widget,
+		      GdkEventButton *event)
+{
+	GtkHTML *html;
+
+	html = GTK_HTML (widget);
+	if (event->button == 1 && html->pointer_url != NULL)
+		gtk_signal_emit (GTK_OBJECT (widget),
+				 signals[LINK_CLICKED],
+				 html->pointer_url);
+
+	return TRUE;
+}
+
+static void
+set_adjustments (GtkLayout     *layout,
+		 GtkAdjustment *hadj,
+		 GtkAdjustment *vadj)
+{
+	GtkHTML *html = GTK_HTML(layout);
+
+	connect_adjustments (html, hadj, vadj);
+	
+	if (parent_class->set_scroll_adjustments)
+		(* parent_class->set_scroll_adjustments) (layout, hadj, vadj);
+}
+
+
+/* Initialization.  */
+
+static void
+class_init (GtkHTMLClass *klass)
 {
 	GtkHTMLClass *html_class;
 	GtkWidgetClass *widget_class;
@@ -259,23 +487,23 @@ gtk_html_class_init (GtkHTMLClass *klass)
 	
 	gtk_object_class_add_signals (object_class, signals, LAST_SIGNAL);
 
-	object_class->destroy = gtk_html_destroy;
+	object_class->destroy = destroy;
 	
-	widget_class->realize = gtk_html_realize;
-	widget_class->unrealize = gtk_html_unrealize;
-	widget_class->draw = gtk_html_draw;
+	widget_class->realize = realize;
+	widget_class->unrealize = unrealize;
+	widget_class->draw = draw;
 	widget_class->key_press_event = key_press_event;
-	widget_class->expose_event  = gtk_html_expose;
-	widget_class->size_allocate = gtk_html_size_allocate;
-	widget_class->motion_notify_event = gtk_html_motion_notify_event;
-	widget_class->button_press_event = gtk_html_button_press_event;
-	widget_class->button_release_event = gtk_html_button_release_event;
+	widget_class->expose_event  = expose;
+	widget_class->size_allocate = size_allocate;
+	widget_class->motion_notify_event = motion_notify_event;
+	widget_class->button_press_event = button_press_event;
+	widget_class->button_release_event = button_release_event;
 
-	layout_class->set_scroll_adjustments = gtk_html_set_adjustments;
+	layout_class->set_scroll_adjustments = set_adjustments;
 }
 
 static void
-gtk_html_init (GtkHTML* html)
+init (GtkHTML* html)
 {
 	GTK_WIDGET_SET_FLAGS (GTK_WIDGET (html), GTK_CAN_FOCUS);
 	GTK_WIDGET_SET_FLAGS (GTK_WIDGET (html), GTK_APP_PAINTABLE);
@@ -285,6 +513,32 @@ gtk_html_init (GtkHTML* html)
 	html->arrow_cursor = gdk_cursor_new (GDK_LEFT_PTR);
 	html->hadj_connection = 0;
 	html->vadj_connection = 0;
+
+	html->idle_handler_id = 0;
+}
+
+
+guint
+gtk_html_get_type (void)
+{
+	static guint html_type = 0;
+
+	if (!html_type) {
+		static const GtkTypeInfo html_info = {
+			"GtkHTML",
+			sizeof (GtkHTML),
+			sizeof (GtkHTMLClass),
+			(GtkClassInitFunc) class_init,
+			(GtkObjectInitFunc) init,
+			/* reserved_1 */ NULL,
+			/* reserved_2 */ NULL,
+			(GtkClassInitFunc) NULL,
+		};
+		
+		html_type = gtk_type_unique (GTK_TYPE_LAYOUT, &html_info);
+	}
+
+	return html_type;
 }
 
 GtkWidget *
@@ -307,16 +561,10 @@ gtk_html_new (void)
 			    GTK_SIGNAL_FUNC (html_engine_load_done_cb), html);
 	gtk_signal_connect (GTK_OBJECT (html->engine), "url_requested",
 			    GTK_SIGNAL_FUNC (html_engine_url_requested_cb), html);
+	gtk_signal_connect (GTK_OBJECT (html->engine), "draw_pending",
+			    GTK_SIGNAL_FUNC (html_engine_draw_pending_cb), html);
 
 	return GTK_WIDGET (html);
-}
-
-void
-gtk_html_destroy (GtkObject *object)
-{
-	/* Disconnect our adjustments */
-	gtk_html_set_adjustments(GTK_LAYOUT(object), NULL, NULL);
-
 }
 
 void
@@ -340,6 +588,7 @@ gtk_html_write (GtkHTML *html, GtkHTMLStreamHandle handle, const gchar *buffer, 
 {
 	gtk_html_stream_write(handle, buffer, size);
 }
+
 void
 gtk_html_end (GtkHTML *html, GtkHTMLStreamHandle handle, GtkHTMLStreamStatus status)
 {
@@ -347,187 +596,7 @@ gtk_html_end (GtkHTML *html, GtkHTMLStreamHandle handle, GtkHTMLStreamStatus sta
 	gtk_html_stream_end(handle, status);
 }
 
-static void
-gtk_html_realize (GtkWidget *widget)
-{
-	GtkHTML *html;
-
-	g_message ("realize");
-	g_return_if_fail (widget != NULL);
-	g_return_if_fail (GTK_IS_HTML (widget));
-
-	html = GTK_HTML (widget);
-
-	if (GTK_WIDGET_CLASS (parent_class)->realize)
-		(* GTK_WIDGET_CLASS (parent_class)->realize) (widget);
-
-	gdk_window_set_events (html->layout.bin_window,
-			       (gdk_window_get_events (html->layout.bin_window)
-				| GDK_EXPOSURE_MASK | GDK_POINTER_MOTION_MASK
-				| GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK
-				| GDK_KEY_PRESS_MASK | GDK_KEY_RELEASE_MASK));
-
-	html_settings_set_bgcolor (html->engine->settings, 
-				   &widget->style->bg[GTK_STATE_NORMAL]);
-
-	html_painter_realize (html->engine->painter, html->layout.bin_window);
-
-	gdk_window_set_cursor (widget->window, html->arrow_cursor);
-}
-
-static void
-gtk_html_unrealize (GtkWidget *widget)
-{
-	GtkHTML *html = GTK_HTML (widget);
-	
-	html_painter_unrealize (html->engine->painter);
-
-	if (GTK_WIDGET_CLASS (parent_class)->unrealize)
-		(* GTK_WIDGET_CLASS (parent_class)->unrealize) (widget);
-}
-
-static gint
-gtk_html_expose (GtkWidget *widget, GdkEventExpose *event)
-{
-	if (GTK_WIDGET_CLASS (parent_class)->expose_event)
-		(* GTK_WIDGET_CLASS (parent_class)->expose_event) (widget, event);
-
-	html_engine_draw (GTK_HTML (widget)->engine,
-			  event->area.x, event->area.y,
-			  event->area.width, event->area.height);
-
-	return FALSE;
-}
-
-static void
-gtk_html_draw (GtkWidget *widget, GdkRectangle *area)
-{
-	GtkHTML *html = GTK_HTML (widget);
-	HTMLPainter *painter = html->engine->painter;
-
-	if (GTK_WIDGET_CLASS (parent_class)->draw)
-		(* GTK_WIDGET_CLASS (parent_class)->draw) (widget, area);
-	
-	html_painter_clear (painter);
-
-	html_engine_draw (GTK_HTML (widget)->engine,
-			  area->x, area->y,
-			  area->width, area->height);
-}
-
-static void
-gtk_html_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
-{
-	GtkHTML *html;
-
-	g_return_if_fail (widget != NULL);
-	g_return_if_fail (GTK_IS_HTML (widget));
-	g_return_if_fail (allocation != NULL);
-	
-	html = GTK_HTML (widget);
-
-	if (GTK_WIDGET_CLASS (parent_class)->size_allocate)
-		( *GTK_WIDGET_CLASS (parent_class)->size_allocate) (widget, allocation);
-
-	html->engine->width = allocation->width;
-	html->engine->height = allocation->height;
-
-	html_engine_calc_size (html->engine);
-	
-	gtk_html_calc_scrollbars (html);
-}
-
-static gint
-gtk_html_motion_notify_event (GtkWidget *widget,
-			      GdkEventMotion *event)
-{
-	GtkHTML *html;
-	const gchar *url;
-
-	g_return_val_if_fail (widget != NULL, 0);
-	g_return_val_if_fail (GTK_IS_HTML (widget), 0);
-	g_return_val_if_fail (event != NULL, 0);
-
-	html = GTK_HTML (widget);
-
-	url = html_engine_get_link_at (GTK_HTML (widget)->engine, event->x, event->y);
-
-	if (url == NULL) {
-		if (html->pointer_url != NULL) {
-			g_free (html->pointer_url);
-			html->pointer_url = NULL;
-			gtk_signal_emit (GTK_OBJECT (html), signals[ON_URL], NULL);
-		}
-		gdk_window_set_cursor (widget->window, html->arrow_cursor);
-	} else {
-		if (html->pointer_url == NULL || strcmp (html->pointer_url, url) != 0) {
-			g_free (html->pointer_url);
-			html->pointer_url = g_strdup (url);
-			gtk_signal_emit (GTK_OBJECT (html), signals[ON_URL], url);
-		}
-		gdk_window_set_cursor (widget->window, html->hand_cursor);
-	}
-
-	return TRUE;
-}
-
-static gint
-gtk_html_button_press_event (GtkWidget *widget,
-			     GdkEventButton *event)
-{
-	return FALSE;
-}
-
-static gint
-gtk_html_button_release_event (GtkWidget *widget,
-			       GdkEventButton *event)
-{
-	GtkHTML *html;
-
-	html = GTK_HTML (widget);
-	if (event->button == 1 && html->pointer_url != NULL)
-		gtk_signal_emit (GTK_OBJECT (widget),
-				 signals[LINK_CLICKED],
-				 html->pointer_url);
-
-	return TRUE;
-}
-
 
-static void
-gtk_html_set_adjustments    (GtkLayout     *layout,
-			     GtkAdjustment *hadj,
-			     GtkAdjustment *vadj)
-{
-	GtkHTML *html = GTK_HTML(layout);
-
-	if (html->hadj_connection != 0)
-		gtk_signal_disconnect(GTK_OBJECT(layout->hadjustment),
-				      html->hadj_connection);
-
-	if (html->vadj_connection != 0)
-		gtk_signal_disconnect(GTK_OBJECT(layout->vadjustment),
-				      html->vadj_connection);
-
-	if (vadj != NULL)
-		html->vadj_connection =
-			gtk_signal_connect (GTK_OBJECT (vadj), "value_changed",
-					    GTK_SIGNAL_FUNC (gtk_html_vertical_scroll), (gpointer)html);
-	else
-		html->vadj_connection = 0;
-	
-	if (hadj != NULL)
-		html->hadj_connection =
-			gtk_signal_connect (GTK_OBJECT (hadj), "value_changed",
-					    GTK_SIGNAL_FUNC (gtk_html_horizontal_scroll), (gpointer)html);
-	else
-		html->hadj_connection = 0;
-	
-	if (parent_class->set_scroll_adjustments)
-		(* parent_class->set_scroll_adjustments) (layout, hadj, vadj);
-}
-
-
 void
 gtk_html_calc_scrollbars (GtkHTML *html)
 {
@@ -549,22 +618,6 @@ gtk_html_calc_scrollbars (GtkHTML *html)
 	GTK_LAYOUT (html)->hadjustment->page_increment = html->engine->width;
 
 	gtk_layout_set_size (GTK_LAYOUT (html), width, height);
-}
-
-static void
-gtk_html_vertical_scroll (GtkAdjustment *adjustment, gpointer data)
-{
-	GtkHTML *html = GTK_HTML (data);
-
-	html->engine->y_offset = (gint)adjustment->value;
-}
-
-static void
-gtk_html_horizontal_scroll (GtkAdjustment *adjustment, gpointer data)
-{
-	GtkHTML *html = GTK_HTML (data);
-		
-	html->engine->x_offset = (gint)adjustment->value;
 }
 
 void

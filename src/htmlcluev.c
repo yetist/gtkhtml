@@ -121,8 +121,8 @@ calc_size (HTMLObject *o,
 			obj = obj->next;
 		}
 
-	    /* Remove any aligned objects previously added by the current
-	       object.  */
+		/* Remove any aligned objects previously added by the current
+		   object.  */
 		remove_aligned_by_parent (cluev, clue->curr);
 	}
 	else {
@@ -136,8 +136,10 @@ calc_size (HTMLObject *o,
 		   the top of this object is */
 		clue->curr->y = o->ascent;
 		html_object_calc_size (clue->curr, o);
-		if (clue->curr->width > o->width - (cluev->padding << 1))
-			o->width = clue->curr->width + (cluev->padding << 1);
+
+		if (clue->curr->width > o->width - 2 * cluev->padding)
+			o->width = clue->curr->width + 2 * cluev->padding;
+
 		o->ascent += clue->curr->ascent + clue->curr->descent;
 		clue->curr->x = lmargin;
 		clue->curr->y = o->ascent - clue->curr->descent;
@@ -156,18 +158,17 @@ calc_size (HTMLObject *o,
 	if (clue->halign == HTML_HALIGN_CENTER) {
 		for (obj = clue->head; obj != 0; obj = obj->next)
 			obj->x = lmargin + (o->width - obj->width) / 2;
-	}
-	else if (clue->halign == HTML_HALIGN_RIGHT) {
+	} else if (clue->halign == HTML_HALIGN_RIGHT) {
 		for (obj = clue->head; obj != 0; obj = obj->next)
 			obj->x = lmargin + (o->width - obj->width);
 	}
 	
-	for (aclue = cluev->align_left_list; aclue != 0; aclue = cluev_next_aligned (aclue)) {
-		if (aclue->y + aclue->parent->y - aclue->parent->ascent
-		    > o->ascent)
+	for (aclue = cluev->align_left_list; aclue != NULL; aclue = cluev_next_aligned (aclue)) {
+		if (aclue->y + aclue->parent->y - aclue->parent->ascent > o->ascent)
 			o->ascent = aclue->y + aclue->parent->y - aclue->parent->ascent;
 	}
-	for (aclue = cluev->align_right_list; aclue != 0; aclue = cluev_next_aligned (aclue)) {
+
+	for (aclue = cluev->align_right_list; aclue != NULL; aclue = cluev_next_aligned (aclue)) {
 		if (aclue->y + aclue->parent->y - aclue->parent->ascent > o->ascent)
 			o->ascent = aclue->y + aclue->parent->y - aclue->parent->ascent;
 	}
@@ -219,7 +220,6 @@ draw (HTMLObject *o,
 						    width, height,
 						    tx, ty);
 
-	/* print aligned objects */
 	if (y + height < o->y - o->ascent || y > o->y + o->descent)
 		return;
 
@@ -227,22 +227,22 @@ draw (HTMLObject *o,
 	ty += o->y - o->ascent;
 
 	for ( aclue = HTML_CLUEV (o)->align_left_list;
-	      aclue != 0;
+	      aclue != NULL;
 	      aclue = cluev_next_aligned (aclue) ) {
-		html_object_draw (aclue, p, cursor, 0, 0, 0xffff, 0xffff,
-				  tx + aclue->parent->x, 
-				  (ty + aclue->parent->y - aclue->parent->ascent));
+		html_object_draw (aclue, p, cursor,
+				  0, 0, 0xffff, 0xffff,
+				  tx + aclue->parent->x,
+				  ty + aclue->parent->y - aclue->parent->ascent);
 	}
 
 	for (aclue = HTML_CLUEV (o)->align_right_list;
-	     aclue != 0;
+	     aclue != NULL;
 	     aclue = cluev_next_aligned (aclue)) {
-		html_object_draw (aclue, p, cursor, 0, 0, 0xffff, 0xffff,
+		html_object_draw (aclue, p, cursor,
+				  0, 0, 0xffff, 0xffff,
 				  tx + aclue->parent->x, 
-				  (ty + aclue->parent->y
-				   - aclue->parent->ascent));
+				  ty + aclue->parent->y - aclue->parent->ascent);
 	}
-
 }
 
 static HTMLObject *
