@@ -1,3 +1,8 @@
+2002-01-08  Radek Doulik  <rodo@ximian.com>
+
+	* main.c: remove spell checking options and add button to call
+	gnome spell control applet
+
 2001-10-15  Radek Doulik  <rodo@ximian.com>
 
 	* main.c (APPLY): handle points attribute
