@@ -1,3 +1,12 @@
+2003-07-24  Yuedong Du  <yuedong.du>
+
+	* object.c: (gtk_html_a11y_get_focus_object),
+	(gtk_html_a11y_grab_focus_cb), (gtk_html_a11y_cursor_move_cb),
+	(gtk_html_a11y_new): emit atk object when focus move from one 
+	object to another, fix bug #45119
+	* utils.c: (create_accessible), (html_utils_get_accessible):add some
+	check to prevent crash
+
 2002-05-07  Radek Doulik  <rodo@ximian.com>
 
 	* Makefile.am: fixed .la versioning
