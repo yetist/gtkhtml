@@ -1,5 +1,16 @@
 2000-12-06  Larry Ewing  <lewing@helixcode.com>
 
+	* htmlengine.c (parse_object_params): use
+	html_tokenizer_peek_token check for pending <param> tags
+	nondestructively.
+	(parse_object): clean up the calls to parse_body, and discard_body
+	now that we have no longer already popped the token off the stack.
+
+	* htmltokenizer.h: add prototype for html_tokenizer_peek_token.
+
+	* htmltokenizer.c (html_tokenizer_peek_token): add a new function
+	to peek at the next token nondestructively.
+
 	* htmlengine.c (parse_object): make sure we actually match the end
 	tag properly.
 

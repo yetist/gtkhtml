@@ -1262,23 +1262,28 @@ parse_object_params(HTMLEngine *p, HTMLObject *clue)
 {
 	gchar *str;
 
-	/* <param> is sort of wierd. basically we just discard whitespace 
-	 * and parse <param> tags until we hit ANYTHING that's not a <param>, 
-	 * at which point we throw it back up. */ 
+	/* we peek at tokens looking for <param> elements and
+	 * as soon as we find something that is not whitespace or a param
+	 * element we bail and the caller deal with the rest
+	 */
 	while (html_tokenizer_has_more_tokens (p->ht) && p->parsing) {
-		str = html_tokenizer_next_token (p->ht);
+		str = html_tokenizer_peek_token (p->ht);
 		
 		if (*str == '\0' || 
 		    *str == '\n' ||
 		    (*str == ' ' && *(str + 1) == '\0')) {
-		} else if ((*str == TAG_ESCAPE) &&  
-			   !strncmp ("<param", str+1, 6)) {
+				str = html_tokenizer_next_token (p->ht);
+				/* printf ("\"%s\": was the string\n", str); */
+				continue;
+		} else if (*str == TAG_ESCAPE) {
 			str++;
-			parse_one_token (p, clue, str);
-			continue;
-		} else {
-			return str;
+			if (strncasecmp ("<param", str, 6) == 0) {
+				str = html_tokenizer_next_token (p->ht);
+				parse_one_token (p, clue, str);
+				continue;
+			}
 		}
+		return str;
 	}
 	
 	return NULL;	
@@ -1294,7 +1299,6 @@ parse_object (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	char *str = NULL;
 	char *data = NULL;
 	int width=-1,height=-1;
-	int body_left;
 	static const gchar *end[] = { "</object", 0};
 	GtkHTMLEmbedded *eb;
 	HTMLEmbedded *el;
@@ -1331,49 +1335,31 @@ parse_object (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	gtk_object_set_data (GTK_OBJECT(eb), "embeddedelement", el);
 	gtk_signal_connect (GTK_OBJECT(eb), "changed", html_object_changed, e);
 	
-	/* evaluate params and return the first non-<param> token */
-	str       = parse_object_params (e, clue);
-	printf ("\"%s\": was the string\n", str);
-	body_left = !((*str == TAG_ESCAPE) && !strncasecmp(str+1, "</object", 8));
-	if (!body_left) {
-		str++;
-	}
+	/* evaluate params */
+	parse_object_params (e, clue);
+
 	/* create the object */
         object_found = FALSE;
 	gtk_signal_emit (GTK_OBJECT (e), signals [OBJECT_REQUESTED], eb, &object_found);
 	
 	/* show alt text on TRUE */ 
 	if (object_found) {
-		printf ("appending embedded object %p\n", el);
 		append_element(e, clue, HTML_OBJECT(el));
 		/* automatically add this to a form if it is part of one */
 		if (e->form)
 			html_form_add_element (e->form, HTML_EMBEDDED (el));
-		
-		/* ignore the body, the object is good. */
-		if (body_left) {
-			str = discard_body(e, end);
-		}
+
+		/* throw away the contents we can deal with the object */
+		str = discard_body (e, end);
 	} else {
-		if (body_left) {
-			/* we have to deal with the first token specially */
-			if (*str != TAG_ESCAPE) {
-				insert_text (e, clue, str);
-			} else {
-				str++;
-				parse_one_token (e, clue, str);
-			}
-			/* parse the rest of the body to show the alt text */
-			str = parse_body (e, clue, end, FALSE);
-		}
-		
-		/* we won't be needing this .. */
-		printf ("destroying embedded object %p\n", el);
+		/* parse the body of the tag to display the alternative */
+		str = parse_body (e, clue, end, FALSE);
+
 		html_object_destroy (HTML_OBJECT (el));
 	}
 	
-	if ((!str || (strncasecmp( str, "</object", 8 ) == 0)) && 
-	    (! html_stack_is_empty (e->embeddedStack))) {
+	if ((!str || (strncasecmp (str, "</object", 8) == 0)) && 
+	    (!html_stack_is_empty (e->embeddedStack))) {
 		html_stack_pop (e->embeddedStack);
 	}
 	

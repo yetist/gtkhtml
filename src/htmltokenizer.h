@@ -37,6 +37,7 @@ void           html_tokenizer_write        (HTMLTokenizer *t,
 					    const gchar *string,
 					    size_t size);
 void           html_tokenizer_end          (HTMLTokenizer *t);
+gchar *        html_tokenizer_peek_token   (HTMLTokenizer *t);
 gchar *        html_tokenizer_next_token   (HTMLTokenizer *t);
 gboolean       html_tokenizer_has_more_tokens     (HTMLTokenizer *t);
 

@@ -224,6 +224,37 @@ html_tokenizer_destroy (HTMLTokenizer *tokenizer)
 }
 
 gchar *
+html_tokenizer_peek_token (HTMLTokenizer *t)
+{
+	gchar *token;
+
+	g_assert (t->read_buf);
+
+	if (t->read_buf->used > t->read_pos) {
+		token = t->read_buf->data + t->read_pos;
+	} else {
+		GList *next;
+		HTMLTokenBuffer *buffer;
+
+		g_assert (t->read_cur);
+		g_assert (t->read_buf);
+
+		/* lookup for next buffer */
+		next = t->read_cur->next;
+		g_assert (next);
+
+		buffer = (HTMLTokenBuffer *) next->data;
+
+		g_return_val_if_fail (buffer->used != 0, NULL);
+
+		/* finally get first token */
+		token = buffer->data;
+	}
+	
+	return token;
+}
+	
+gchar *
 html_tokenizer_next_token (HTMLTokenizer *t)
 {
 	gchar *token;
