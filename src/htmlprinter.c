@@ -61,6 +61,8 @@ insure_paper (HTMLPrinter *printer)
 	}
 	if (!paper)
 		paper = gnome_paper_with_name (_("US-Letter"));
+	if (!paper)
+		paper = gnome_paper_with_name (gnome_paper_name_default ()); 
 	g_assert (paper != NULL);
 }
 

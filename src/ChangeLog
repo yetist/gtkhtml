@@ -1,3 +1,8 @@
+2002-04-18  Radek Doulik  <rodo@ximian.com>
+
+	* htmlprinter.c (insure_paper): use default paper name in case of
+	wrong translation
+
 2002-04-18  Larry Ewing  <lewing@ximian.com>
 
         * htmlclueflow.c (draw_quotes): Alway draw the quote character at
