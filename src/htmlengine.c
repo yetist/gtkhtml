@@ -3126,6 +3126,7 @@ html_engine_destroy (GtkObject *object)
 		gtk_timeout_remove (engine->blinking_timer_id);
 	if (engine->updateTimer != 0)
 		gtk_timeout_remove (engine->updateTimer);
+	html_engine_thaw_idle_reset (engine);
 
 	if (engine->insertion_url) g_free (engine->insertion_url);
 	if (engine->insertion_target) g_free (engine->insertion_target);

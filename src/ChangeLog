@@ -1,3 +1,8 @@
+2001-10-24  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c (html_engine_destroy): remove the thaw idle if we
+	are destroyed.
+
 2001-10-24  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine-edit-cut-and-paste.c (insert_empty_paragraph): added
