@@ -3137,33 +3137,38 @@ gtk_html_private_calc_scrollbars (GtkHTML *html, gboolean *changed_x, gboolean *
 	hadj = layout->hadjustment;
 	vadj = layout->vadjustment;
 
+	if (!GTK_WIDGET_REALIZED (html))
+		return;
+
 	vadj->lower = 0;
 	vadj->upper = height;
 	vadj->page_size = html->engine->height;
 	vadj->step_increment = 14; /* FIXME */
 	vadj->page_increment = html->engine->height;
-
-	hadj->lower = 0.0;
-	hadj->upper = width;
-	hadj->page_size = html->engine->width;
-	hadj->step_increment = 14; /* FIXME */
-	hadj->page_increment = html->engine->width;
-
-	if (hadj->value > width - html->engine->width || hadj->value > MAX_WIDGET_WIDTH - html->engine->width) {
-		gtk_adjustment_set_value (hadj, MIN (width - html->engine->width, MAX_WIDGET_WIDTH - html->engine->width));
-		if (changed_x)
-			*changed_x = TRUE;
-	}
 	if (vadj->value > height - html->engine->height) {
 		gtk_adjustment_set_value (vadj, height - html->engine->height);
 		if (changed_y)
 			*changed_y = TRUE;
 	}
 
+	hadj->lower = 0.0;
+	hadj->upper = width;
+	hadj->page_size = html->engine->width;
+	hadj->step_increment = 14; /* FIXME */
+	hadj->page_increment = html->engine->width;
+	
+	if (hadj->value > width - html->engine->width 
+	    || hadj->value > MAX_WIDGET_WIDTH - html->engine->width) {
+		
+		gtk_adjustment_set_value (hadj, MIN (width - html->engine->width, MAX_WIDGET_WIDTH - html->engine->width));
+		if (changed_x)
+			*changed_x = TRUE;
+	}
+
 	if ((width != layout->width) || (height != layout->height)) {
 		/* printf ("set size\n"); */
 		gtk_signal_emit (GTK_OBJECT (html), signals[SIZE_CHANGED]);
-		gtk_layout_set_size (layout, hadj->upper, vadj->upper);
+		gtk_layout_set_size (layout, width, height);
 	}
 }
 
