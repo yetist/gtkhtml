@@ -1,5 +1,10 @@
 2000-04-13  Larry Ewing  <lewing@helixcode.com>
 
+	* htmlgdkpainter.c (draw_pixmap): do full alpha-blending on
+	images.  This is just testing code right now, and everything is
+	the same as it used to be if you turn off gdk_painter->alpha.  It
+	is dog slow for animations, but that is easy enough to fix.
+
 	* htmlimage.c (html_image_factory_frame_done): make the signature
 	of the signal that is now being emitted for frame done.  This
 	looks like a recent bug fix in gdk-pixbuf, you will need to update

@@ -462,6 +462,7 @@ draw_pixmap (HTMLPainter *painter,
 	gint orig_height;
 	gint paint_width;
 	gint paint_height;
+	GdkPixbuf *bgpix = NULL;
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
 
@@ -490,7 +491,8 @@ draw_pixmap (HTMLPainter *painter,
 	paint_width = paint.x1 - paint.x0;
 	paint_height = paint.y1 - paint.y0;
 
-	if (scale_width == orig_width && scale_height == orig_height && color == NULL) {
+
+	if (scale_width == orig_width && scale_height == orig_height && color == NULL && (!gdk_painter->alpha)) {
 		gdk_pixbuf_render_to_drawable_alpha (pixbuf, gdk_painter->pixmap,
 						     paint.x0 - image.x0,
 						     paint.y0 - image.y0,
@@ -505,21 +507,31 @@ draw_pixmap (HTMLPainter *painter,
 		return;
 	}
 
-	tmp_pixbuf = create_temporary_pixbuf (pixbuf,
-					      paint_width,
-					      paint_height);
+	if (gdk_pixbuf_get_has_alpha (pixbuf) && gdk_painter->alpha) {
+	    tmp_pixbuf = gdk_pixbuf_get_from_drawable(NULL,
+						      gdk_painter->pixmap,
+						      gdk_window_get_colormap (gdk_painter->window),
+						      paint.x0 - clip.x0, 
+						      paint.y0 - clip.y0,
+						      0, 0, paint_width, paint_height);
+	} else {
+		tmp_pixbuf = create_temporary_pixbuf (pixbuf,
+						      paint_width,
+						      paint_height);
+	}
+
 	if (tmp_pixbuf == NULL)
 		return;
 
-	gdk_pixbuf_scale (pixbuf, tmp_pixbuf,
-			  0, 0,
-			  paint_width,
-			  paint_height,
-			  -(paint.x0 - image.x0), 
-			  -(paint.y0 - image.y0),
-			  (gdouble) scale_width/ (gdouble) orig_width,
-			  (gdouble) scale_height/ (gdouble) orig_height,
-			  GDK_INTERP_BILINEAR);
+	gdk_pixbuf_composite (pixbuf, tmp_pixbuf,
+			      0,
+			      0,
+			      paint_width, paint_height,
+			      (double)-(paint.x0 - image.x0), 
+			      (double)-(paint.y0 - image.y0),
+			      (gdouble) scale_width/ (gdouble) orig_width,
+			      (gdouble) scale_height/ (gdouble) orig_height,
+			      GDK_INTERP_BILINEAR, 255);
 
 	if (color != NULL) {
 		guchar *p, *q;
@@ -739,6 +751,7 @@ init (GtkObject *object)
 
 	gdk_painter->window = NULL;
 
+	gdk_painter->alpha = TRUE;
 	gdk_painter->gc = NULL;
 
 	gdk_painter->double_buffer = TRUE;

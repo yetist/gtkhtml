@@ -49,6 +49,7 @@ struct _HTMLGdkPainter {
 	GdkColor background;
 	gboolean set_background;
 	gboolean do_clear;
+	gboolean alpha;
 
 	/* Font handling.  */
 	HTMLGdkFontManager *font_manager;
