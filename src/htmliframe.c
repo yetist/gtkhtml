@@ -453,6 +453,8 @@ html_iframe_init (HTMLIFrame *iframe,
 					border ? GTK_SHADOW_IN : GTK_SHADOW_NONE);
 
 #endif
+
+	iframe->scroll = scrolled_window;
 	html_iframe_set_scrolling (iframe, GTK_POLICY_AUTOMATIC);
 
 	new_widget = gtk_html_new ();
@@ -504,7 +506,6 @@ html_iframe_init (HTMLIFrame *iframe,
 	gtk_widget_set_usize (scrolled_window, width, height);
 
 	gtk_widget_show (scrolled_window);	
-	iframe->scroll = scrolled_window;
 
 	html_embedded_set_widget (em, scrolled_window);
 

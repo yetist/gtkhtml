@@ -1,3 +1,8 @@
+2001-10-31  Ettore Perazzoli  <ettore@ximian.com>
+
+	* htmliframe.c (html_iframe_init): Set ->scroll before calling
+	`html_iframe_set_scrolling()'.  Fixes #14098.
+
 2001-10-30  Larry Ewing  <lewing@ximian.com>
 
 	* htmlselection.c (html_selection_current_time): add helper
