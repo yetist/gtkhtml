@@ -2,6 +2,7 @@
 
 	* htmlstyle.c (html_style_add_attribute): add some new atttributes
 	to the attribute parsing code.
+	(html_style_add_attribute): fix accidental breakage.
 
 	* htmlengine.c: refactor the inline parsers to use html_element
 	code.
