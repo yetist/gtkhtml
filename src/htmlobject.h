@@ -208,6 +208,14 @@ struct _HTMLObjectClass {
            TRUE otherwise.  */
 	gboolean (* relayout) (HTMLObject *self, HTMLEngine *engine, HTMLObject *child);
 
+	/* Return the vertical alignment for the object in an HTMLClueFlow.  If
+           the returned value is `HTML_VALIGN_BOTTOM', the bottom of the object
+           is aligned to the base line; if the value is `HTML_VALIGN_TOP', the
+           top of the object is aligned to the top of the line; if the value is
+           `HTML_VALIGN_CENTER', the center of the object is aligned to the
+           baseline.  */
+	HTMLVAlignType (* get_valign) (HTMLObject *self);
+
 	/* Cursor handling.  */
 
 	gboolean (* accepts_cursor) (HTMLObject *self);
@@ -289,32 +297,33 @@ void      html_object_set_bg_color     (HTMLObject  *o,
 					GdkColor    *color);
 
 /* Layout.  */
-HTMLFitType  html_object_fit_line              (HTMLObject  *o,
-						HTMLPainter *painter,
-						gboolean     start_of_line,
-						gboolean     first_run,
-						gint         width_left);
-gboolean     html_object_calc_size             (HTMLObject  *o,
-						HTMLPainter *painter);
-void         html_object_set_max_ascent        (HTMLObject  *o,
-						HTMLPainter *painter,
-						gint         a);
-void         html_object_set_max_descent       (HTMLObject  *o,
-						HTMLPainter *painter,
-						gint         d);
-void         html_object_set_max_width         (HTMLObject  *o,
-						HTMLPainter *painter,
-						gint         max_width);
-gint         html_object_calc_min_width        (HTMLObject  *o,
-						HTMLPainter *painter);
-gint         html_object_calc_preferred_width  (HTMLObject  *o,
-						HTMLPainter *painter);
-void         html_object_calc_abs_position     (HTMLObject  *o,
-						gint        *x_return,
-						gint        *y_return);
-gboolean     html_object_relayout              (HTMLObject  *obj,
-						HTMLEngine  *engine,
-						HTMLObject  *child);
+HTMLFitType     html_object_fit_line              (HTMLObject  *o,
+						   HTMLPainter *painter,
+						   gboolean     start_of_line,
+						   gboolean     first_run,
+						   gint         width_left);
+gboolean        html_object_calc_size             (HTMLObject  *o,
+						   HTMLPainter *painter);
+void            html_object_set_max_ascent        (HTMLObject  *o,
+						   HTMLPainter *painter,
+						   gint         a);
+void            html_object_set_max_descent       (HTMLObject  *o,
+						   HTMLPainter *painter,
+						   gint         d);
+void            html_object_set_max_width         (HTMLObject  *o,
+						   HTMLPainter *painter,
+						   gint         max_width);
+gint            html_object_calc_min_width        (HTMLObject  *o,
+						   HTMLPainter *painter);
+gint            html_object_calc_preferred_width  (HTMLObject  *o,
+						   HTMLPainter *painter);
+void            html_object_calc_abs_position     (HTMLObject  *o,
+						   gint        *x_return,
+						   gint        *y_return);
+gboolean        html_object_relayout              (HTMLObject  *obj,
+						   HTMLEngine  *engine,
+						   HTMLObject  *child);
+HTMLVAlignType  html_object_get_valign            (HTMLObject  *self);
 
 /* Links.  */
 const gchar *html_object_get_url     (HTMLObject *o);

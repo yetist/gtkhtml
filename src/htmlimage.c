@@ -162,11 +162,13 @@ calc_size (HTMLObject *o,
 	width = get_actual_width (image, painter);
 	height = get_actual_height (image, painter);
 
-	o->width  = width + image->border * 2 * pixel_size + 2*image->hspace;
-	o->descent = image->border * pixel_size;
-	o->ascent = height + image->border * pixel_size + 2*image->vspace;
+	o->width  = width + image->border * 2 * pixel_size + 2 * image->hspace;
+	o->ascent = height + 2 * image->border * pixel_size + 2 * image->vspace;
+	o->descent = 0;
 
-	if (o->descent != old_descent || o->ascent != old_ascent || o->width != old_width)
+	if (o->descent != old_descent
+	    || o->ascent != old_ascent
+	    || o->width != old_width)
 		return TRUE;
 
 	return FALSE;
@@ -241,6 +243,16 @@ accepts_cursor (HTMLObject *o)
 	return TRUE;
 }
 
+static HTMLVAlignType
+get_valign (HTMLObject *self)
+{
+	HTMLImage *image;
+
+	image = HTML_IMAGE (self);
+
+	return image->valign;
+}
+
 
 void
 html_image_type_init (void)
@@ -270,6 +282,7 @@ html_image_class_init (HTMLImageClass *image_class,
 	object_class->get_url = get_url;
 	object_class->get_target = get_target;
 	object_class->accepts_cursor = accepts_cursor;
+	object_class->get_valign = get_valign;
 
 	parent_class = &html_object_class;
 }
@@ -282,7 +295,8 @@ html_image_init (HTMLImage *image,
 		 const gchar *url,
 		 const gchar *target,
 		 gint16 width, gint16 height,
-		 gint8 percent, gint8 border)
+		 gint8 percent, gint8 border,
+		 HTMLVAlignType valign)
 {
 	HTMLObject *object;
 
@@ -300,6 +314,10 @@ html_image_init (HTMLImage *image,
 	image->hspace = 0;
 	image->vspace = 0;
 
+	if (valign == HTML_VALIGN_NONE)
+		valign = HTML_VALIGN_BOTTOM;
+	image->valign = valign;
+
 	object->percent = percent;
 
 	image->image_ptr = html_image_factory_register (imf, image, filename);
@@ -311,14 +329,21 @@ html_image_new (HTMLImageFactory *imf,
 		const gchar *url,
 		const gchar *target,
 		gint16 width, gint16 height,
-		gint8 percent, gint8 border)
+		gint8 percent, gint8 border,
+		HTMLVAlignType valign)
 {
 	HTMLImage *image;
 
 	image = g_new(HTMLImage, 1);
 
-	html_image_init (image, &html_image_class, imf, filename,
-			 url, target, width, height, percent, border);
+	html_image_init (image, &html_image_class,
+			 imf,
+			 filename,
+			 url,
+			 target,
+			 width, height,
+			 percent, border,
+			 valign);
 
 	return HTML_OBJECT (image);
 }

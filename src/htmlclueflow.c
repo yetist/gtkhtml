@@ -346,6 +346,7 @@ calc_size (HTMLObject *o,
 	gboolean changed;
 	gint old_ascent, old_descent, old_width;
 	gint runWidth = 0;
+	gboolean have_valign_top;
 
 	changed = FALSE;
 	old_ascent = o->ascent;
@@ -381,6 +382,8 @@ calc_size (HTMLObject *o,
 	d = 0;
 	newLine = FALSE;
 	firstLine = TRUE;
+
+	have_valign_top = FALSE;
 
 	while (obj != NULL) {
 		if (obj->flags & HTML_OBJECT_FLAG_NEWLINE) {
@@ -468,6 +471,7 @@ calc_size (HTMLObject *o,
 				&& ! (run->flags & HTML_OBJECT_FLAG_NEWLINE)
 				&& ! (run->flags & HTML_OBJECT_FLAG_ALIGNED)) {
 				HTMLFitType fit;
+				HTMLVAlignType valign;
 				gint width_left;
 
 				run->max_width = rmargin - lmargin;
@@ -494,10 +498,42 @@ calc_size (HTMLObject *o,
 				html_object_calc_size (run, painter);
 				runWidth += run->width;
 
-				if (run->ascent > a)
-					a = run->ascent;
-				if (run->descent > d)
-					d = run->descent;
+				valign = html_object_get_valign (run);
+
+				/* Algorithm for dealing vertical alignment.
+				   Elements with `HTML_VALIGN_BOTTOM' and
+				   `HTML_VALIGN_CENTER' can be handled
+				   immediately.	 Objects with
+				   `HTML_VALIGN_TOP', instead, need to know the
+				   total height of the line, so need to be
+				   handled last.  */
+
+				switch (valign) {
+				case HTML_VALIGN_CENTER: {
+					gint height;
+					gint half_height;
+
+					height = run->ascent + run->descent;
+					half_height = height / 2;
+					if (half_height > a)
+						a = half_height;
+					if (height - half_height > d)
+						d = height - half_height;
+					break;
+				}
+				case HTML_VALIGN_BOTTOM:
+					if (run->ascent > a)
+						a = run->ascent;
+					if (run->descent > d)
+						d = run->descent;
+					break;
+				case HTML_VALIGN_TOP:
+					have_valign_top = TRUE;
+					/* Do nothing for now.	*/
+					break;
+				default:
+					g_assert_not_reached ();
+				}
 
 				run = run->next;
 
@@ -508,7 +544,6 @@ calc_size (HTMLObject *o,
 
 				if (! is_pre && runWidth > rmargin - lmargin)
 					break;
-
 			}
 
 			/* If these objects do not fit in the current line and we are
@@ -608,18 +643,55 @@ calc_size (HTMLObject *o,
 				if (extra < 0)
 					extra = 0;
 			}
-			
-			while (line != obj) {
-				if (!(line->flags & HTML_OBJECT_FLAG_ALIGNED)) {
+
+			/* Update the height for `HTML_VALIGN_TOP' objects.  */
+			if (have_valign_top) {
+				HTMLObject *p;
+
+				for (p = line; p != obj; p = p->next) {
+					gint height, rest;
+
+					if (html_object_get_valign (p) != HTML_VALIGN_TOP)
+						continue;
+
+					height = p->ascent + p->descent;
+					rest = height - a;
+
+					if (rest > d) {
+						o->ascent += rest - d;
+						d = rest;
+					}
+				}
+
+				have_valign_top = FALSE;
+			}
+
+			for (; line != obj; line = line->next) {
+				if (line->flags & HTML_OBJECT_FLAG_ALIGNED)
+					continue;
+
+				/* FIXME max_ascent/max_descent -- not quite
+				   sure what they are for. */
+
+				switch (html_object_get_valign (line)) {
+				case HTML_VALIGN_BOTTOM:
 					line->y = o->ascent - d;
 					html_object_set_max_ascent (line, painter, a);
 					html_object_set_max_descent (line, painter, d);
-					if (clue->halign == HTML_HALIGN_CENTER
-					    || clue->halign == HTML_HALIGN_RIGHT) {
-						line->x += extra;
-					}
+					break;
+				case HTML_VALIGN_CENTER:
+					line->y = o->ascent - a - d + line->ascent;
+					break;
+				case HTML_VALIGN_TOP:
+					line->y = o->ascent - a - d + line->ascent;
+					break;
+				default:
+					g_assert_not_reached ();
 				}
-				line = line->next;
+
+				if (clue->halign == HTML_HALIGN_CENTER
+				    || clue->halign == HTML_HALIGN_RIGHT)
+					line->x += extra;
 			}
 
 			oldy = o->y;

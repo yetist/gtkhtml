@@ -305,6 +305,12 @@ relayout (HTMLObject *self,
 	return TRUE;
 }
 
+static HTMLVAlignType
+get_valign (HTMLObject *self)
+{
+	return HTML_VALIGN_BOTTOM;
+}
+
 static gboolean
 accepts_cursor (HTMLObject *self)
 {
@@ -451,6 +457,7 @@ html_object_class_init (HTMLObjectClass *klass,
 	klass->set_bg_color = set_bg_color;
 	klass->check_point = check_point;
 	klass->relayout = relayout;
+	klass->get_valign = get_valign;
 	klass->accepts_cursor = accepts_cursor;
 	klass->get_cursor = get_cursor;
 	klass->get_cursor_base = get_cursor_base;
@@ -696,6 +703,14 @@ html_object_relayout (HTMLObject *self,
 		      HTMLObject *child)
 {
 	return (* HO_CLASS (self)->relayout) (self, engine, child);
+}
+
+HTMLVAlignType
+html_object_get_valign (HTMLObject *self)
+{
+	g_return_val_if_fail (self != NULL, HTML_VALIGN_BOTTOM);
+
+	return (* HO_CLASS (self)->get_valign) (self);
 }
 
 gboolean

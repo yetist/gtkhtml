@@ -1970,6 +1970,8 @@ parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 					align = HTML_HALIGN_RIGHT;
 				else if (strcasecmp (token + 6, "top") == 0)
 					valign = HTML_VALIGN_TOP;
+				else if (strcasecmp (token + 6, "center") == 0)
+					valign = HTML_VALIGN_CENTER;
 				else if (strcasecmp (token + 6, "bottom") ==0)
 					valign = HTML_VALIGN_BOTTOM;
 			}
@@ -1993,33 +1995,32 @@ parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 			}
 #endif
 		}
+
 		if (tmpurl != 0) {
+			if (align != HTML_HALIGN_NONE)
+				valign = HTML_VALIGN_BOTTOM;
+			else if (valign == HTML_VALIGN_NONE)
+				valign = HTML_VALIGN_NONE;
+
 			image = html_image_new (p->image_factory, tmpurl,
 						p->url, p->target,
 						width, height,
-						percent, border);
-			if (hspace <0) {
+						percent, border, valign);
+
+			if (hspace < 0)
 				hspace = 0;
-			}
-			if (vspace <0) {
+			if (vspace < 0)
 				vspace = 0;
-			}
+
 			html_image_set_spacing (HTML_IMAGE (image), hspace, vspace);
 
 			g_free(tmpurl);
 				
 			if (align == HTML_HALIGN_NONE) {
-				if (valign == HTML_VALIGN_NONE) {
-					append_element (p, _clue, image);
-				} else {
-					HTMLObject *valigned = html_clueh_new (0, 0, _clue->max_width);
-					HTML_CLUE (valigned)->valign = valign;
-					html_clue_append (HTML_CLUE (valigned), HTML_OBJECT (image));
-					append_element (p, _clue, valigned);
-				}
-			}
-			/* We need to put the image in a HTMLClueAligned */
-			else {
+				append_element (p, _clue, image);
+			} else {
+				/* We need to put the image in a HTMLClueAligned.  */
+				/* Man, this is *so* gross.  */
 				HTMLClueAligned *aligned = HTML_CLUEALIGNED (html_cluealigned_new (NULL, 0, 0, _clue->max_width, 100));
 				HTML_CLUE (aligned)->halign = align;
 				html_clue_append (HTML_CLUE (aligned), HTML_OBJECT (image));

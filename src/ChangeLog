@@ -1,3 +1,46 @@
+2000-03-31  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine.c
+	(parse_i): Handle attribute `align=center' for the `<img>' tag.
+
+	* htmlclueflow.c
+	(calc_size): Handle vertical alignment of objects properly.  Also,
+	I cleaned up the code a little bit.  (But it's still painfully
+	ugly.)
+
+	* htmlimage.c
+	(get_valign): New private function, implementation of
+	`HTMLObject::get_valign'.  Return the value of the `valign' member
+	in the `HTMLImage'.
+	(html_image_class_init): Install it.
+	(calc_size): Set the descent to zero.  Both horizontal borders go
+	into the ascent instead.
+
+	* htmlobject.c
+	(get_valign): New private function, default implementation for
+	`HTMLObject::get_valign'.  Always return `HTML_VALIGN_BOTTOM'.
+	(html_object_class_init): Install it.
+	(html_object_get_valign): New function.
+
+	* htmlobject.h: New virtual method `HTMLObject::get_valign'.
+
+	* htmlimageinput.c
+	(html_imageinput_init): Create the new image with
+	`HTML_VALIGN_BOTTOM' vertical alignment.
+
+	* htmlengine.c
+	(parse_i): Use the vertical alignment value as a parameter for the
+	new image.  Do not put the image into an HTMLClueAligned anymore
+	to make vertical alignment work.
+
+	* htmlimage.c
+	(html_image_init): New param `valign'.  Initialize the `valign'
+	member from it.
+	(html_image_new): New param `valign'.  Pass it to
+	`html_image_init()'.
+
+	* htmlimage.h: New member `valign' in `HTMLImage'.
+
 2000-03-30  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlimage.c

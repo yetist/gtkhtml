@@ -57,6 +57,8 @@ struct _HTMLImage {
 	gint8 hspace;
 	gint8 vspace;
 
+	gint8 valign;		/* HTMLVAlignType */
+
 	gchar *url;
 	gchar *target;
 };
@@ -82,7 +84,8 @@ void        html_image_init        (HTMLImage        *image,
 				    gint16            width,
 				    gint16            height,
 				    gint8             percent,
-				    gint8             border);
+				    gint8             border,
+				    HTMLVAlignType    valign);
 HTMLObject *html_image_new         (HTMLImageFactory *imf,
 				    gchar            *filename,
 				    const gchar      *url,
@@ -90,7 +93,8 @@ HTMLObject *html_image_new         (HTMLImageFactory *imf,
 				    gint16            width,
 				    gint16            height,
 				    gint8             percent,
-				    gint8             border);
+				    gint8             border,
+				    HTMLVAlignType    valign);
 
 void         html_image_set_spacing (HTMLImage *image, gint hspace, gint vspace);
 
