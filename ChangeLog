@@ -1,3 +1,7 @@
+2001-10-07  Gediminas Paulauskas <menesis@delfi.lt>
+
+	* configure.in (ALL_LINGUAS): added lv
+
 2001-10-05  Larry Ewing  <lewing@ximian.com>
 
 	* configure.in: bump version to 0.14.99.1 for the idl changes.
