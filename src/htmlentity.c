@@ -24,10 +24,10 @@
 #include <string.h>
 
 #include <glib.h>
-
+#include <unicode.h>
 #include "htmlentity.h"
 
-
+
 struct _EntityEntry {
 	guint value;
 	const gchar *str;
@@ -146,27 +146,41 @@ static EntityEntry entity_table[] = {
 	{ 255,	"yuml" }
 };
 
-
+
 /* FIXME FIXME this function just sucks.  We should use gperf or something instead.  */
 
 gulong
 html_entity_parse (const gchar *s, guint len)
 {
-	guint i;
+	static GHashTable *ehash = NULL;
+	gchar *t;
 
-	for (i = 0; i < sizeof (entity_table) / sizeof (*entity_table); i++) {
-		if (len == 0) {
-			if (strcmp (entity_table[i].str, s) == 0)
-				return entity_table[i].value;
-		} else {
-			if (strncmp (entity_table[i].str, s, len) == 0)
-				return entity_table[i].value;
+	if (!ehash) {
+		gint i;
+
+		ehash = g_hash_table_new (g_str_hash, g_str_equal);
+		g_hash_table_freeze (ehash);
+
+		for (i = 0; i < sizeof (entity_table) / sizeof (entity_table[0]); i++) {
+			g_hash_table_insert (ehash, entity_table[i].str, GINT_TO_POINTER (entity_table[i].value));
 		}
+
+		g_hash_table_thaw (ehash);
 	}
 
-	return 0;
+	if (len > 0) {
+		t = alloca (len + 1);
+		memcpy (t, s, len);
+		*(t + len) = '\0';
+	} else {
+		t = (gchar *) s;
+	}
+
+	return GPOINTER_TO_INT (g_hash_table_lookup (ehash, t));
 }
 
+#if 0
+/* We do not need that, as 0x160 is completely valid unicode character */
 /* prepares text to draw/get_width, returned text is allocated using g_strdup so it could be g_free'ed */
 gchar *
 html_entity_prepare (const gchar * text)
@@ -182,3 +196,4 @@ html_entity_prepare (const gchar * text)
 
 	return nt;
 }
+#endif

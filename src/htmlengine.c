@@ -138,6 +138,8 @@ static HTMLFontFace *
 parse_font_face (HTMLEngine *e, const gchar *families)
 {
 	HTMLFontFace *face = NULL;
+
+#if 0
 	gchar *s, *family;
 
 	/* go thru list of families separated by ',' */
@@ -149,6 +151,9 @@ parse_font_face (HTMLEngine *e, const gchar *families)
 		g_free (family);
 		families = s + 1;
 	} while (s && !face);
+#else
+	face = html_painter_find_font_face (e->painter, families);
+#endif
 
 	return face;
 }

@@ -26,14 +26,16 @@
 
 #include <glib.h>
 
-
-
+/* We name it with correct unicode name, but OK, later... Lauris */
 /* char used for &nbsp; - must correspond to table below */
 #define ENTITY_NBSP 160
 
 gulong html_entity_parse (const gchar *s, guint len);
 
+#if 0
+/* We do not need that - 0x160 is valid unicode character after all... Lauris */
 /* prepares text to draw/get_width, returned text is allocated using g_strdup so it could be g_free'ed */
 gchar * html_entity_prepare (const gchar *s);
+#endif
 
 #endif

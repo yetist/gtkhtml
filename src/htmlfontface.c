@@ -24,6 +24,7 @@
 #include <gdk/gdkx.h>
 #include "htmlfontface.h"
 
+#if 0
 static void      release_fonts      (HTMLFontFace *face);
 static GdkFont * get_closest_font   (HTMLFontFace *face, const gchar *weight,
 				     const gchar *slant, guint html_size);
@@ -70,6 +71,7 @@ html_font_face_get_font (HTMLFontFace *face, GtkHTMLFontStyle style)
 	return face->font [style];
 }
 
+#if 0
 void
 html_font_face_set_family (HTMLFontFace *face, const gchar *family)
 {
@@ -90,7 +92,9 @@ html_font_face_set_size (HTMLFontFace *face, gint size)
 		face->size = size;
 	}
 }
+#endif
 
+#if 0
 gboolean
 html_font_face_family_exists (const gchar *family)
 {
@@ -103,6 +107,7 @@ html_font_face_family_exists (const gchar *family)
 
 	return n > 0;
 }
+#endif
 
 /* static helper functions */
 
@@ -227,3 +232,4 @@ release_fonts (HTMLFontFace *face)
 		}
 	}
 }
+#endif

@@ -225,6 +225,19 @@ html_painter_free_color (HTMLPainter *painter,
 
 /* Font handling.  */
 
+HTMLFontFace *html_painter_find_font_face (HTMLPainter *painter,
+					   const gchar *families)
+{
+	g_return_val_if_fail (painter != NULL, NULL);
+	g_return_val_if_fail (HTML_IS_PAINTER (painter), NULL);
+
+	if (!families) families = "helvetica";
+
+	g_assert (HP_CLASS (painter)->find_font_face);
+
+	return (* HP_CLASS (painter)->find_font_face) (painter, families);
+}
+
 void
 html_painter_set_font_style (HTMLPainter *painter,
 			     GtkHTMLFontStyle font_style)

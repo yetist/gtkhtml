@@ -1181,15 +1181,21 @@ set_fonts_idle (GtkHTML *html)
 
 	/* little hackish - will be replaced soon */
 	if (html->engine) {
+#if 0
 		HTMLFontFace *var, *fix;
+#endif
 
 		manager = HTML_GDK_PAINTER (html->engine->painter)->font_manager;
+#if 0
 		var = html_gdk_font_manager_get_variable (manager);
 		fix = html_gdk_font_manager_get_fixed (manager);
 		html_font_face_set_family (var, prop->font_var_family);
 		html_font_face_set_family (fix, prop->font_fix_family);
 		html_font_face_set_size   (var, prop->font_var_size);
 		html_font_face_set_size   (fix, prop->font_fix_size);
+#endif
+		html_gdk_font_manager_set_fixed (manager, prop->font_fix_family, prop->font_fix_size);
+		html_gdk_font_manager_set_variable (manager, prop->font_var_family, prop->font_var_size);
 		html_gdk_font_manager_set_size (manager, prop->font_var_size);
 
 		/* tables don't resize correctly :( who knows the solution? */
@@ -1208,6 +1214,8 @@ set_fonts_idle (GtkHTML *html)
 	return FALSE;
 }
 
+#ifdef GTKHTML_HAVE_GCONF
+
 static void
 set_fonts (GtkHTML *html)
 {
@@ -1218,8 +1226,6 @@ set_fonts (GtkHTML *html)
 	set_fonts_idle (html);
 #endif
 }
-
-#ifdef GTKHTML_HAVE_GCONF
 
 static void
 client_notify_widget (GConfClient* client,

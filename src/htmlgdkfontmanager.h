@@ -27,25 +27,38 @@
 #include "gtkhtmlfontstyle.h"
 #include "htmlfontface.h"
 
+struct _HTMLGdkFontFace {
+	HTMLFontFace face;
+	GdkFont *font [GTK_HTML_FONT_STYLE_MAX];
+};
+typedef struct _HTMLGdkFontFace HTMLGdkFontFace;
+
 struct _HTMLGdkFontManager {
-	HTMLFontFace *variable;
-	HTMLFontFace *fixed;
+	HTMLGdkFontFace *variable;
+	HTMLGdkFontFace *fixed;
 
 	GHashTable *faces;
 };
 typedef struct _HTMLGdkFontManager HTMLGdkFontManager;
 
-
+
 HTMLGdkFontManager *html_gdk_font_manager_new                        (void);
 void                html_gdk_font_manager_destroy                    (HTMLGdkFontManager *manager);
 
-HTMLFontFace *      html_gdk_font_manager_get_face                   (HTMLGdkFontManager *manager,
-								      const gchar *family);
-HTMLFontFace *      html_gdk_font_manager_get_variable               (HTMLGdkFontManager *manager);
-HTMLFontFace *      html_gdk_font_manager_get_fixed                  (HTMLGdkFontManager *manager);
+HTMLGdkFontFace *   html_gdk_font_manager_find_face                  (HTMLGdkFontManager *manager,
+								      const gchar *families);
+
+HTMLGdkFontFace *   html_gdk_font_manager_get_variable               (HTMLGdkFontManager *manager);
+HTMLGdkFontFace *   html_gdk_font_manager_get_fixed                  (HTMLGdkFontManager *manager);
 GdkFont *           html_gdk_font_manager_get_font                   (HTMLGdkFontManager *manager,
 								      GtkHTMLFontStyle style,
-								      HTMLFontFace *face);
+								      HTMLGdkFontFace *face);
+void                html_gdk_font_manager_set_variable               (HTMLGdkFontManager *manager,
+								      const gchar *family,
+								      gint size);
+void                html_gdk_font_manager_set_fixed                  (HTMLGdkFontManager *manager,
+								      const gchar *family,
+								      gint size);
 void                html_gdk_font_manager_set_size                   (HTMLGdkFontManager *manager,
 								      gint size);
 #endif /* _HTMLGDKFONTMANAGER_H_ */

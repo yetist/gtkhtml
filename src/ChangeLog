@@ -1,3 +1,40 @@
+2000-08-27  Lauris Kaplinski  <lauris@helixcode.com>
+
+	* gtkhtml.c (set_fonts_idle): Use fontmanager method
+	(set_fonts): #ifdef GTKHTML_HAVE_GCONF to kill warning
+
+	* htmlengine.c (parse_font_face): Use painter method instead
+
+	* htmlentity.h: Removed html_entity_prepare, as 0x160 is valid
+	unicode char
+
+	* htmlentity.c (html_entity_parse): Use hash table
+
+	* htmlfont.h:
+	* htmlfont.c: Removed Gdk dependant parts (which were unused)
+
+	* htmlfontface.h: Removed Gdk dependant members and al methods
+
+	* htmlfontface.c: This is empty now, so will be removed
+
+	* htmlgdkfontmanager.h: Added HTMLGdkFontFace structure
+	(html_gdk_font_manager_find_face): Replacement
+	(html_gdk_font_manager_set_fixed): Set fixed family + size
+	(html_gdk_font_manager_set_variable): Set variable family + size
+
+	* htmlgdkfontmanager.c: Moved htmlfontface stuff here to increase
+	code managebility
+
+	* htmlgdkpainter.c (calc_ascent): Use (HTMLGdkFontFace *) cast
+	(calc_descent): Same
+	(calc_text_width): Same
+	(draw_text): Dont translate 0xa0 -> 0x20
+	(find_font_face): New class method
+
+	* htmlpainter.h (::find_font_face): New class method
+	(html_painter_find_font_face): New accessor function
+	* htmlpainter.c: Same
+	
 2000-08-24  JP Rosevear  <jpr@helixcode.com>
 
 	* Makefile.am: Build testgtkhtml with glibwww2

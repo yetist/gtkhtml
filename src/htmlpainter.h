@@ -63,6 +63,7 @@ struct _HTMLPainterClass {
 	void (* alloc_color) (HTMLPainter *painter, GdkColor *color);
 	void (* free_color) (HTMLPainter *painter, GdkColor *color);
 
+	HTMLFontFace *(* find_font_face) (HTMLPainter *p, const gchar *families);
 	void (* set_font_style) (HTMLPainter *p, GtkHTMLFontStyle  f);
 	void (* set_font_face)  (HTMLPainter *p, HTMLFontFace *face);
 	GtkHTMLFontStyle (* get_font_style) (HTMLPainter *p);
@@ -128,6 +129,8 @@ const GdkColor *html_painter_get_default_highlight_foreground_color  (HTMLPainte
 const GdkColor *html_painter_get_black                               (const HTMLPainter *painter);
 
 /* Font handling.  */
+HTMLFontFace     *html_painter_find_font_face   (HTMLPainter *p,
+						 const gchar *families);
 void              html_painter_set_font_style   (HTMLPainter      *p,
 						 GtkHTMLFontStyle  f);
 GtkHTMLFontStyle  html_painter_get_font_style   (HTMLPainter      *p);

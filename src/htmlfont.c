@@ -24,7 +24,7 @@
 
 #include "htmlfont.h"
 
-
+#if 0
 static GdkFont *
 create_gdk_font (const gchar *family, gint size, gboolean bold, gboolean italic)
 {
@@ -62,8 +62,8 @@ create_gdk_font (const gchar *family, gint size, gboolean bold, gboolean italic)
 	}
 	return font;
 }
+#endif
 
-
 HTMLFont *
 html_font_new (const gchar *family,
 	       gint size,
@@ -84,7 +84,9 @@ html_font_new (const gchar *family,
 	f->underline = underline;
 	f->pointSize = fontSizes [size];
 
+#if 0
 	f->gdk_font = create_gdk_font (family, fontSizes[size], bold, italic);
+#endif
 
 	f->textColor = NULL;
 
@@ -109,8 +111,10 @@ html_font_dup (HTMLFont *f)
 	new->italic = f->italic;
 	new->underline = f->underline;
 	new->textColor = gdk_color_copy (f->textColor);
-	
+
+#if 0
 	new->gdk_font = gdk_font_ref (f->gdk_font);
+#endif
 
 	return new;
 }
@@ -120,8 +124,11 @@ html_font_destroy (HTMLFont *html_font)
 {
 	g_return_if_fail (html_font != NULL);
 
+#if 0
 	if (html_font->gdk_font != NULL)
 		gdk_font_unref (html_font->gdk_font);
+#endif
+
 	g_free (html_font->family);
 
 	if (html_font->textColor)
@@ -141,7 +148,7 @@ html_font_set_color (HTMLFont *html_font,
 	html_font->textColor = gdk_color_copy ((GdkColor *) color);
 }
 
-
+#if 0
 gint
 html_font_calc_ascent (HTMLFont *f)
 {
@@ -173,3 +180,5 @@ html_font_calc_width (HTMLFont *f, const gchar *text, gint len)
 
 	return width;
 }
+#endif
+
