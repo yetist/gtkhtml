@@ -1,3 +1,11 @@
+2004-06-21  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml.c (reparent_embedded): new helper function to reparent
+	embedded objects from tmp html widget
+	(gtk_html_insert_html_generic): use reparent_embedded
+
+	Fixes #60394
+
 2004-06-18  Radek Doulik  <rodo@ximian.com>
 
 	* htmltext.c (html_text_get_pango_info): add link format attrs for

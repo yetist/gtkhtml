@@ -5330,6 +5330,30 @@ gtk_html_build_with_gconf ()
 	return TRUE;
 }
 
+static void
+reparent_embedded (HTMLObject *o, HTMLEngine *e, gpointer data)
+{
+	if (html_object_is_embedded (o)) {
+		HTMLEmbedded *eo = HTML_EMBEDDED (o);
+
+		if (eo->widget && eo->widget->parent && GTK_IS_HTML (eo->widget->parent) &&
+		    GTK_HTML (eo->widget->parent)->iframe_parent == NULL) {
+			g_object_ref (eo->widget);
+			gtk_container_remove (GTK_CONTAINER (eo->widget->parent), eo->widget);
+			GTK_OBJECT_FLAGS (eo->widget) = GTK_FLOATING;
+		}
+		eo->parent = data;
+	}
+
+	if (HTML_IS_IFRAME (o) && GTK_HTML (HTML_IFRAME (o)->html)->iframe_parent &&
+	    GTK_HTML (GTK_HTML (HTML_IFRAME (o)->html)->iframe_parent)->iframe_parent == NULL)
+		gtk_html_set_iframe_parent (GTK_HTML (HTML_IFRAME (o)->html), data, o);
+
+	if (HTML_IS_FRAME (o) && GTK_HTML (HTML_FRAME (o)->html)->iframe_parent &&
+	    GTK_HTML (GTK_HTML (HTML_FRAME (o)->html)->iframe_parent)->iframe_parent == NULL)
+		gtk_html_set_iframe_parent (GTK_HTML (HTML_FRAME (o)->html), data, o);
+
+}
 
 static void
 gtk_html_insert_html_generic (GtkHTML *html, GtkHTML *tmp, const gchar *html_src, gboolean obj_only)
@@ -5350,7 +5374,10 @@ gtk_html_insert_html_generic (GtkHTML *html, GtkHTML *tmp, const gchar *html_src
 	
 	/* copy the forms */
 	g_list_foreach (tmp->engine->formList, (GFunc)html_form_set_engine, html->engine);
-	
+
+	/* move top level iframes and embedded widgets from tmp to html */
+	html_object_forall (tmp->engine->clue, html->engine, reparent_embedded, html);
+
 	if (tmp->engine->formList && html->engine->formList) {
 		GList *form_last;
 		
