@@ -1,18 +1,21 @@
-# Copyright (C) 2000 Free Software Foundation, Inc.
+# translation of ru.po to Russian
+# Copyright (C) 2000, 2004 Free Software Foundation, Inc.
 # Valek Filippov <frob@df.ru>, 2000.
 # Dmitry Mastrukov <dmitry@taurussoft.org>, 2001-2003.
-# Leon Kanter <leon@asplinux.ru>, 2002-2003.
+# Leonid Kanter <leon@asplinux.ru>, 2002-2004.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml\n"
+"Project-Id-Version: ru\n"
 "POT-Creation-Date: 2004-03-05 12:45-0500\n"
-"PO-Revision-Date: 2003-05-15 12:55+0400\n"
-"Last-Translator: Dmitry. G. Mastrukov <dmitry@taurussoft.org>\n"
+"PO-Revision-Date: 2004-03-06 15:43+0200\n"
+"Last-Translator: Leonid Kanter <leon@asplinux.ru>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.3\n"
+"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -455,7 +458,6 @@ msgid "Make the current Paragraph style Normal"
 msgstr "Изменить стиль текущего параграфа на обычный текст"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:59
-#, fuzzy
 msgid "Make the current Paragraph style Preformat"
 msgstr "Изменить стиль текущего параграфа на \"Форматированный\""
 
@@ -467,8 +469,7 @@ msgstr "Изменить стиль текущего параграфа на м�
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:61
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
 msgid "Make the current paragraph a list with roman numerals"
-msgstr ""
-"Изменить стиль текущего параграфа на маркированный список с римскими цифрами"
+msgstr "Изменить стиль текущего параграфа на маркированный список с римскими цифрами"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:62
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:63
@@ -591,17 +592,17 @@ msgstr "Красный"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:85
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
 msgid "Redo"
-msgstr "Возвратить"
+msgstr "Вернуть"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
 msgid "Redo previously undone change"
-msgstr "Возвратить отмененное действие"
+msgstr "Вернуть ранее отмененное действие"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:87
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
 msgid "Redo the undone action"
-msgstr "Возвратить отмененное действие"
+msgstr "Вернуть отмененное действие"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:88
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
@@ -631,7 +632,7 @@ msgstr "Линейка"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:92
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
 msgid "Select _All"
-msgstr "Выделить вс_ё"
+msgstr "В_ыделить всё"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:93
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
@@ -643,7 +644,7 @@ msgstr "Выделить всё содержимое документа"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:69
 #: components/html-editor/text.c:239 components/html-editor/toolbar.c:526
 msgid "Strikeout"
-msgstr "Зачеркнутый"
+msgstr "Перечеркнутый"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:95
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
@@ -686,7 +687,7 @@ msgstr "_Шаблон..."
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:102
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
 msgid "Te_xt file..."
-msgstr "Те_кстовый файл..."
+msgstr "_Текстовый файл..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:103
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
@@ -750,7 +751,7 @@ msgstr "По _центру"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:114
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
 msgid "_Copy"
-msgstr "С_копировать"
+msgstr "_Копировать"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:115
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
@@ -780,7 +781,7 @@ msgstr "Н_асупившийся"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:120
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
 msgid "_HTML file..."
-msgstr "Файл формата _HTML..."
+msgstr "Файл в формате _HTML..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:121
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
@@ -900,7 +901,7 @@ msgstr "Проверить _орфографию..."
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:144
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:146
 msgid "_Strikeout"
-msgstr "Пере_чёркнутый"
+msgstr "Пере_черкнутый"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:145
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:147
@@ -930,7 +931,7 @@ msgstr "_Подчеркнутый"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:150
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:152
 msgid "_Undo"
-msgstr "_Откатить"
+msgstr "_Отменить"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:151
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:153
@@ -955,30 +956,25 @@ msgid "GNOME HTML Editor Factory"
 msgstr "Фабрика редактора формата HTML для среды Гном"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
-#, fuzzy
 msgid "Insert Sick smiley into document..."
-msgstr "Вставить значок \"Облизывающийся\" в документ..."
+msgstr "Вставить значок \"Больной\" в документ..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
-#, fuzzy
 msgid "Make the current Paragraph style Preformatted"
 msgstr "Изменить стиль текущего параграфа на \"Форматированный\""
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
 #: components/html-editor/paragraph.c:151
-#, fuzzy
 msgid "Preformatted"
 msgstr "Форматированный"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
-#, fuzzy
 msgid "S_ick"
-msgstr "Под_мигивающий"
+msgstr "_Больной"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:154
-#, fuzzy
 msgid "_Wrap Lines"
-msgstr "Перенос:"
+msgstr "Пе_реносить строки"
 
 #: components/html-editor/body.c:66
 #: components/html-editor/gtkhtml-editor-properties.glade.h:48
@@ -994,27 +990,24 @@ msgid "Blue Ink"
 msgstr "Синие чернила"
 
 #: components/html-editor/body.c:90
-#, fuzzy
 msgid "Paper"
-msgstr "Страница"
+msgstr "Бумага"
 
 #: components/html-editor/body.c:98
 msgid "Ribbon"
-msgstr ""
+msgstr "Лента"
 
 #: components/html-editor/body.c:106
-#, fuzzy
 msgid "Midnight"
-msgstr "Вправо"
+msgstr "Полночь"
 
 #: components/html-editor/body.c:114
-#, fuzzy
 msgid "Confidential"
-msgstr "Убрать отступ"
+msgstr "Конфиденциально"
 
 #: components/html-editor/body.c:122
 msgid "Draft"
-msgstr ""
+msgstr "Черновик"
 
 #: components/html-editor/body.c:130
 msgid "Graph paper"
@@ -1022,11 +1015,10 @@ msgstr ""
 
 #. string marked for translations is sample text. you may want to translate it to common sample text in your language
 #: components/html-editor/body.c:163
-#, fuzzy
 msgid ""
 "The quick brown <a href=\"mailto:fox\">fox</a> jumps over the lazy <a href="
 "\"mailto:dog\">dog</a>."
-msgstr "В чащах юга жил-был цитрус. Да, но фальшивый экземпляръ!"
+msgstr "В чащах юга жил-был <a href=\"mailto:citrus\">цитрус</a>. Да, но фальшивый экземпляръ!"
 
 #: components/html-editor/body.c:316 src/gtkhtml.c:2697
 msgid "Document Title"
@@ -1099,221 +1091,201 @@ msgstr "Страница"
 #. This is the default custom color
 #: components/html-editor/gi-color-palette.c:394
 msgid "custom"
-msgstr ""
+msgstr "другой"
 
 #. "Custom" color - we'll pop up a GnomeColorPicker
 #: components/html-editor/gi-color-palette.c:436
-#, fuzzy
 msgid "Custom Color:"
-msgstr "Цвет:"
+msgstr "Другой цвет:"
 
 #: components/html-editor/gi-color-palette.c:444
 msgid "Choose Custom Color"
-msgstr ""
+msgstr "Выберите другой цвет"
 
 #: components/html-editor/gi-color-palette.c:577
 msgid "black"
-msgstr ""
+msgstr "черный"
 
 #: components/html-editor/gi-color-palette.c:578
 msgid "light brown"
-msgstr ""
+msgstr "светло-коричневый"
 
 #: components/html-editor/gi-color-palette.c:579
 msgid "brown gold"
-msgstr ""
+msgstr "золотисто-коричневый"
 
 #: components/html-editor/gi-color-palette.c:580
 msgid "dark green #2"
-msgstr ""
+msgstr "темно-зеленый №2"
 
 #: components/html-editor/gi-color-palette.c:581
 msgid "navy"
-msgstr ""
+msgstr "морской"
 
 #: components/html-editor/gi-color-palette.c:582
 #: components/html-editor/gi-color-palette.c:638
 msgid "dark blue"
-msgstr ""
+msgstr "темно-синий"
 
 #: components/html-editor/gi-color-palette.c:583
-#, fuzzy
 msgid "purple #2"
-msgstr "Пурпурный"
+msgstr "пурпурный №2"
 
 #: components/html-editor/gi-color-palette.c:584
 msgid "very dark gray"
-msgstr ""
+msgstr "очень темный серый"
 
 #: components/html-editor/gi-color-palette.c:587
 #: components/html-editor/gi-color-palette.c:643
-#, fuzzy
 msgid "dark red"
-msgstr "Тёмный заголовок"
+msgstr "темно-красный"
 
 #: components/html-editor/gi-color-palette.c:588
-#, fuzzy
 msgid "red-orange"
-msgstr "Оранжевый"
+msgstr "красно-оранжевый"
 
 #: components/html-editor/gi-color-palette.c:589
-#, fuzzy
 msgid "gold"
-msgstr "Полужирный"
+msgstr "золотистый"
 
 #: components/html-editor/gi-color-palette.c:590
 msgid "dark green"
-msgstr ""
+msgstr "темно-зеленый"
 
 #: components/html-editor/gi-color-palette.c:591
 #: components/html-editor/gi-color-palette.c:644
 msgid "dull blue"
-msgstr ""
+msgstr "бледно-синий"
 
 #: components/html-editor/gi-color-palette.c:592
 #: components/html-editor/gi-color-palette.c:645
-#, fuzzy
 msgid "blue"
-msgstr "Синий"
+msgstr "синий"
 
 #: components/html-editor/gi-color-palette.c:593
 msgid "dull purple"
-msgstr ""
+msgstr "бледно-пурпурный"
 
 #: components/html-editor/gi-color-palette.c:594
 msgid "dark grey"
-msgstr ""
+msgstr "темно-серый"
 
 #: components/html-editor/gi-color-palette.c:597
-#, fuzzy
 msgid "red"
-msgstr "Красный"
+msgstr "красный"
 
 #: components/html-editor/gi-color-palette.c:598
-#, fuzzy
 msgid "orange"
-msgstr "Оранжевый"
+msgstr "оранжевый"
 
 #: components/html-editor/gi-color-palette.c:599
-#, fuzzy
 msgid "lime"
-msgstr "Выравнивание"
+msgstr "лимонный"
 
 #: components/html-editor/gi-color-palette.c:600
 msgid "dull green"
-msgstr ""
+msgstr "бледно-зеленый"
 
 #: components/html-editor/gi-color-palette.c:601
 msgid "dull blue #2"
-msgstr ""
+msgstr "бледно-синий №2"
 
 #: components/html-editor/gi-color-palette.c:602
 msgid "sky blue #2"
-msgstr ""
+msgstr "небесно-голубой №2"
 
 #: components/html-editor/gi-color-palette.c:603
 #: components/html-editor/gi-color-palette.c:642
-#, fuzzy
 msgid "purple"
-msgstr "Пурпурный"
+msgstr "пурпурный"
 
 #: components/html-editor/gi-color-palette.c:604
-#, fuzzy
 msgid "gray"
-msgstr "Плоское серое"
+msgstr "серый"
 
 #: components/html-editor/gi-color-palette.c:607
 #: components/html-editor/gi-color-palette.c:639
-#, fuzzy
 msgid "magenta"
-msgstr "Рисунок"
+msgstr "фуксин"
 
 #: components/html-editor/gi-color-palette.c:608
 msgid "bright orange"
-msgstr ""
+msgstr "ярко-оранжевый"
 
 #: components/html-editor/gi-color-palette.c:609
 #: components/html-editor/gi-color-palette.c:640
-#, fuzzy
 msgid "yellow"
-msgstr "Желтый"
+msgstr "желтый"
 
 #: components/html-editor/gi-color-palette.c:610
-#, fuzzy
 msgid "green"
-msgstr "Зеленый"
+msgstr "зеленый"
 
 #: components/html-editor/gi-color-palette.c:611
 #: components/html-editor/gi-color-palette.c:641
 msgid "cyan"
-msgstr ""
+msgstr "циан"
 
 #: components/html-editor/gi-color-palette.c:612
 msgid "bright blue"
-msgstr ""
+msgstr "ярко-синий"
 
 #: components/html-editor/gi-color-palette.c:613
 #: components/html-editor/gi-color-palette.c:630
-#, fuzzy
 msgid "red purple"
-msgstr "Пурпурный"
+msgstr "красно-пурпурный"
 
 #: components/html-editor/gi-color-palette.c:614
-#, fuzzy
 msgid "light grey"
-msgstr "Плоское серое"
+msgstr "светло-серый"
 
 #: components/html-editor/gi-color-palette.c:617
 #: components/html-editor/gi-color-palette.c:634
-#, fuzzy
 msgid "pink"
-msgstr "Ссылка"
+msgstr "розовый"
 
 #: components/html-editor/gi-color-palette.c:618
-#, fuzzy
 msgid "light orange"
-msgstr "Выровнять вправо"
+msgstr "светло-оранжевый"
 
 #: components/html-editor/gi-color-palette.c:619
 #: components/html-editor/gi-color-palette.c:631
 msgid "light yellow"
-msgstr ""
+msgstr "светло-желтый"
 
 #: components/html-editor/gi-color-palette.c:620
-#, fuzzy
 msgid "light green"
-msgstr "Выровнять вправо"
+msgstr "светло-зеленый"
 
 #: components/html-editor/gi-color-palette.c:621
-#, fuzzy
 msgid "light cyan"
-msgstr "Выровнять вправо"
+msgstr "светлый циан"
 
 #: components/html-editor/gi-color-palette.c:622
 #: components/html-editor/gi-color-palette.c:632
 msgid "light blue"
-msgstr ""
+msgstr "светло-синий"
 
 #: components/html-editor/gi-color-palette.c:623
 #: components/html-editor/gi-color-palette.c:636
 msgid "light purple"
-msgstr ""
+msgstr "светло-пурпурный"
 
 #: components/html-editor/gi-color-palette.c:624
 msgid "white"
-msgstr ""
+msgstr "белый"
 
 #: components/html-editor/gi-color-palette.c:629
 msgid "purplish blue"
-msgstr ""
+msgstr "пурпурно-синий"
 
 #: components/html-editor/gi-color-palette.c:633
 msgid "dark purple"
-msgstr ""
+msgstr "темно-пурпурный"
 
 #: components/html-editor/gi-color-palette.c:635
 msgid "sky blue"
-msgstr ""
+msgstr "небесно-голубой"
 
 #: components/html-editor/gnome-gtkhtml-editor.c:68
 msgid "GtkHTML Editor Control"
@@ -1434,7 +1406,7 @@ msgstr "Горизонтальное выравнивание:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:38
 msgid "Horizontal:"
-msgstr "Горизонтальное"
+msgstr "Горизонтальное:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:40
 #: components/html-editor/text.c:237 components/html-editor/toolbar.c:522
@@ -1452,7 +1424,7 @@ msgstr "Длина:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:43
 msgid "Link insert"
-msgstr "Вставка гиперссылки"
+msgstr "Вставить гиперссылку"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:44
 msgid "Link properties"
@@ -1485,7 +1457,7 @@ msgstr "Процент %"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:56
 msgid "Pixels"
-msgstr "Точки растра"
+msgstr "Пикселы"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:57
 msgid "Pixmap:"
@@ -1551,7 +1523,7 @@ msgstr "Вставить таблицу"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:75
 #: components/html-editor/link.c:85
 msgid "Test URL..."
-msgstr "Проверить ссылку (URL)..."
+msgstr "Проверить URL..."
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:77
 msgid "Thickness:"
@@ -1643,11 +1615,11 @@ msgstr ""
 msgid ""
 "This is sample text, designed to show you how text would flow around this "
 "image if you insert the image into your message."
-msgstr ""
+msgstr "Это образец текста, показывающий, как текст будет обтекать изображение, если вы вставите изображение в сообщение."
 
 #: components/html-editor/image.c:270
 msgid "No image selected"
-msgstr ""
+msgstr "Рисунок не выбран"
 
 #: components/html-editor/image.c:704
 msgid ""
@@ -1671,7 +1643,7 @@ msgstr ""
 
 #: components/html-editor/link.c:270
 msgid "Please fill 'Link text' and 'URL' entries"
-msgstr ""
+msgstr "Заполните поля \"Текст ссылки\" и \"URL\""
 
 #: components/html-editor/menubar.c:88 components/html-editor/menubar.c:104
 #: components/html-editor/menubar.c:122 components/html-editor/menubar.c:139
@@ -1683,7 +1655,7 @@ msgstr "Вставить"
 #: components/html-editor/menubar.c:252
 #, c-format
 msgid "Error loading file '%s': %s"
-msgstr "Произошла ошибка при загрузке файла \"%s\": %s"
+msgstr "Ошибка загрузки файла \"%s\": %s"
 
 #: components/html-editor/menubar.c:279
 msgid "Insert: HTML File"
@@ -1754,14 +1726,12 @@ msgid "Paste Quotation"
 msgstr "Вставить цитирование"
 
 #: components/html-editor/popup.c:461
-#, fuzzy
 msgid "Insert Link"
 msgstr "Вставить гиперссылку"
 
 #: components/html-editor/popup.c:468
-#, fuzzy
 msgid "Remove Link"
-msgstr "Удалить ссылку"
+msgstr "Удалить гиперссылку"
 
 #: components/html-editor/popup.c:477
 msgid "Text Style..."
@@ -1826,11 +1796,11 @@ msgstr "Содержимое ячейки"
 
 #: components/html-editor/popup.c:541
 msgid "Check Word Spelling..."
-msgstr ""
+msgstr "Проверить орфографию слова..."
 
 #: components/html-editor/popup.c:546
 msgid "Add Word to"
-msgstr ""
+msgstr "Добавить слово в"
 
 #: components/html-editor/popup.c:550
 #, c-format
@@ -1838,36 +1808,32 @@ msgid "%s Dictionary"
 msgstr "Словарь \"%s\""
 
 #: components/html-editor/popup.c:559
-#, fuzzy
 msgid "Add Word to Dictionary"
-msgstr "Словарь \"%s\""
+msgstr "Добавить в словарь"
 
 #: components/html-editor/popup.c:562
 msgid "Ignore Misspelled Word"
-msgstr ""
+msgstr "Игнорировать ошибочное слово"
 
 #: components/html-editor/popup.c:566
 msgid "Input Methods"
-msgstr ""
+msgstr "Методы ввода"
 
 #: components/html-editor/replace.c:75
 msgid "Replace confirmation"
 msgstr "Подтверждение замены"
 
 #: components/html-editor/replace.c:76
-#, fuzzy
 msgid "Replace _All"
-msgstr "Заменить всё"
+msgstr "Заменить _все"
 
 #: components/html-editor/replace.c:77
-#, fuzzy
 msgid "_Next"
-msgstr "След."
+msgstr "_След."
 
 #: components/html-editor/replace.c:79
-#, fuzzy
 msgid "_Replace"
-msgstr "Заменить"
+msgstr "_Заменить"
 
 #: components/html-editor/replace.c:165
 msgid "Search _backward"
@@ -1875,7 +1841,7 @@ msgstr "Поиск _назад"
 
 #: components/html-editor/replace.c:166 components/html-editor/search.c:83
 msgid "Case _sensitive"
-msgstr "Чувствительный к _регистру"
+msgstr "С учетом _регистра"
 
 #: components/html-editor/replace.c:176
 msgid "Replace:"
@@ -1887,11 +1853,11 @@ msgstr "На:"
 
 #: components/html-editor/rule.c:98
 msgid "Blue 3D"
-msgstr "Синее трёхмерное"
+msgstr "Синее трехмерное"
 
 #: components/html-editor/rule.c:110
 msgid "Yellow, flowers"
-msgstr "Жёлтые цветы"
+msgstr "Желтые цветы"
 
 #: components/html-editor/rule.c:422
 msgid ""
@@ -1911,11 +1877,11 @@ msgstr "Найти по регулярному выражению"
 
 #: components/html-editor/spell.c:278
 msgid "No misspelled word found"
-msgstr ""
+msgstr "Ошибочных слов не найдено"
 
 #: components/html-editor/spell.c:285
 msgid "Spell checker"
-msgstr "Проверка правописания"
+msgstr "Проверка орфографии"
 
 #: components/html-editor/spell.c:378
 msgid "Current _Languages"
@@ -1927,7 +1893,7 @@ msgstr "Плоское серое"
 
 #: components/html-editor/table.c:209
 msgid "Dark header"
-msgstr "Тёмный заголовок"
+msgstr "Темный заголовок"
 
 #: components/html-editor/table.c:813
 msgid ""
@@ -1951,7 +1917,7 @@ msgstr "Кадр изображения"
 
 #: components/html-editor/template.c:281
 msgid "Labels"
-msgstr ""
+msgstr "Ярлыки"
 
 #: components/html-editor/test-html-editor-control.c:323
 msgid "Open file..."
@@ -2010,7 +1976,7 @@ msgstr "Подчеркивает текст"
 
 #: components/html-editor/toolbar.c:526
 msgid "Strikes out the text"
-msgstr "Зачеркивает текст"
+msgstr "Перечеркивает текст"
 
 #: components/html-editor/toolbar.c:535
 msgid "Unindent"
@@ -2058,7 +2024,7 @@ msgstr "База цели"
 
 #: src/gtkhtml.c:2712
 msgid "The base URL of the targe frame"
-msgstr "Базовая ссылка (URL) для целевой рамки"
+msgstr "Базовая ссылка (URL) для целевого фрейма"
 
 #: src/gtkhtml.c:2721
 msgid "Fixed Width Font"
@@ -2070,19 +2036,19 @@ msgstr "Фиксированный шрифт для использования 
 
 #: src/gtkhtml.c:2728
 msgid "New Link Color"
-msgstr "Цвет непосещённой ссылки"
+msgstr "Цвет непосещенной ссылки"
 
 #: src/gtkhtml.c:2729
 msgid "The color of new link elements"
-msgstr "Цвет ещё непосещённой ссылки"
+msgstr "Цвет еще не посещенной ссылки"
 
 #: src/gtkhtml.c:2734
 msgid "Visited Link Color"
-msgstr "Цвет посещённой ссылки"
+msgstr "Цвет посещенной ссылки"
 
 #: src/gtkhtml.c:2735
 msgid "The color of visited link elements"
-msgstr "Цвет уже посещённой ссылки"
+msgstr "Цвет уже посещенной ссылки"
 
 #: src/gtkhtml.c:2740
 msgid "Active Link Color"
@@ -2098,7 +2064,7 @@ msgstr "Цвет неверного правописания"
 
 #: src/gtkhtml.c:2747
 msgid "The color of the spelling error markers"
-msgstr "Цвет, индицирующий ошибки правописания"
+msgstr "Цвет маркеров ошибок орфографии"
 
 #: src/html-component.c:219
 msgid "Html"
@@ -2106,7 +2072,7 @@ msgstr "Html"
 
 #: src/html-component.c:220
 msgid "Html test"
-msgstr "Тест"
+msgstr "Тест HTML"
 
 #: src/html-component.c:226
 msgid "Test1"
@@ -2146,7 +2112,7 @@ msgstr "Перезагрузить страницу"
 
 #: src/html-component.c:660
 msgid "Could not initialize Bonobo!"
-msgstr "Не удалось инициализировать систему Bonobo"
+msgstr "Не удалось инициализировать Bonobo!"
 
 #: src/htmlbutton.c:142
 msgid "Submit Query"
@@ -2154,7 +2120,7 @@ msgstr "Выполнить запрос"
 
 #: src/htmlbutton.c:145
 msgid "Reset"
-msgstr "Перезагрузить"
+msgstr "Сброс"
 
 #. TODO2 dialog instead of warning
 #: src/htmlengine-print.c:193
@@ -2163,26 +2129,17 @@ msgstr "Невозможно распределить исходный шриф�
 
 #: src/test.c:191
 msgid "GtkHTML Test"
-msgstr "Проверка"
+msgstr "Проверка GtkHTML"
 
 #: src/testgtkhtml.c:118
 msgid "Print pre_view"
-msgstr "Посмотреть образе_ц печати"
+msgstr "Образе_ц печати"
 
 #: src/testgtkhtml.c:118
 msgid "Print preview"
-msgstr "Посмотреть образец печатного документа"
+msgstr "Образец печати"
 
 #: src/testgtkhtml.c:989
 msgid "GtkHTML Test Application"
 msgstr "Тест редактора формата HTML для среды Гном"
 
-#, fuzzy
-#~ msgid "The quick brown fox jumps over the lazy dog.</div>"
-#~ msgstr "В чащах юга жил-был цитрус. Да, но фальшивый экземпляръ!"
-
-#~ msgid "Rectangles"
-#~ msgstr "Прямоугольники"
-
-#~ msgid "Pre"
-#~ msgstr "Pre"
