@@ -109,7 +109,7 @@ do_layout (HTMLObject *o,
 	changed = FALSE;
 
 	if (o->parent != NULL) {
-		lmargin = html_clue_get_left_margin (HTML_CLUE (o->parent), o->y);
+		lmargin = html_object_get_left_margin (o->parent, o->y);
 		lmargin += cluev->padding;
 	} else {
 		lmargin = cluev->padding;
@@ -453,15 +453,15 @@ check_page_split (HTMLObject *self,
 	return y;
 }
 
-
-/* HTMLClue methods.  */
-
 static gint
-get_left_margin (HTMLClue *clue, gint y)
+get_left_margin (HTMLObject *self, gint y)
 {
-	HTMLClueV *cluev = HTML_CLUEV (clue);
-	gint margin = 0;
 	HTMLObject *aclue;
+	HTMLClueV *cluev;
+	gint margin;
+
+	cluev = HTML_CLUEV (self);
+	margin = 0;
 	
 	for (aclue = cluev->align_left_list;
 	     aclue != NULL;
@@ -477,13 +477,16 @@ get_left_margin (HTMLClue *clue, gint y)
 }
 
 static gint
-get_right_margin (HTMLClue *o, gint y)
+get_right_margin (HTMLObject *self, gint y)
 {
-	HTMLClueV *cluev = HTML_CLUEV (o);
-	gint margin = HTML_OBJECT (o)->max_width;
+	HTMLClueV *cluev;
 	/* FIXME: Should be HTMLAligned */
 	HTMLObject *aclue;
+	gint margin;
 	
+	cluev = HTML_CLUEV (self);
+	margin = self->max_width;
+
 	for (aclue = cluev->align_right_list;
 	     aclue != NULL;
 	     aclue = cluev_next_aligned (aclue)) {
@@ -495,6 +498,9 @@ get_right_margin (HTMLClue *o, gint y)
 	
 	return margin;
 }
+
+
+/* HTMLClue methods.  */
 
 static void
 find_free_area (HTMLClue *clue, gint y, gint width, gint height,
@@ -788,9 +794,9 @@ html_cluev_class_init (HTMLClueVClass *klass,
 	object_class->draw = draw;
 	object_class->check_point = check_point;
 	object_class->check_page_split = check_page_split;
+	object_class->get_left_margin = get_left_margin;
+	object_class->get_right_margin = get_right_margin;
 
-	clue_class->get_left_margin = get_left_margin;
-	clue_class->get_right_margin = get_right_margin;
 	clue_class->get_left_clear = get_left_clear;
 	clue_class->get_right_clear = get_right_clear;
 	clue_class->find_free_area = find_free_area;

@@ -132,6 +132,18 @@ set_max_width (HTMLObject *o, HTMLPainter *painter, gint max_width)
 	o->max_width = max_width;
 }
 
+static gint
+get_left_margin (HTMLObject *self, gint y)
+{
+	return 0;
+}
+
+static gint
+get_right_margin (HTMLObject *self, gint y)
+{
+	return self->max_width;
+}
+
 static void
 reset (HTMLObject *o)
 {
@@ -398,6 +410,8 @@ html_object_class_init (HTMLObjectClass *klass,
 	klass->set_max_ascent = set_max_ascent;
 	klass->set_max_descent = set_max_descent;
 	klass->set_max_width = set_max_width;
+	klass->get_left_margin = get_left_margin;
+	klass->get_right_margin = get_right_margin;
 	klass->reset = reset;
 	klass->calc_min_width = calc_min_width;
 	klass->calc_preferred_width = calc_preferred_width;
@@ -558,6 +572,18 @@ void
 html_object_set_max_width (HTMLObject *o, HTMLPainter *painter, gint max_width)
 {
 	(* HO_CLASS (o)->set_max_width) (o, painter, max_width);
+}
+
+gint
+html_object_get_left_margin (HTMLObject *self, gint y)
+{
+	return (* HO_CLASS (self)->get_left_margin) (self, y);
+}
+
+gint
+html_object_get_right_margin (HTMLObject *self, gint y)
+{
+	return (* HO_CLASS (self)->get_right_margin) (self, y);
 }
 
 void

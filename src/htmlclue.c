@@ -3,7 +3,7 @@
 
     Copyright (C) 1997 Martin Jones (mjones@kde.org)
     Copyright (C) 1997 Torben Weis (weis@kde.org)
-    Copyright (C) 1999 Helix Code, Inc.
+    Copyright (C) 1999, 2000 Helix Code, Inc.
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Library General Public
@@ -309,18 +309,6 @@ save (HTMLObject *self,
 /* HTMLClue methods.  */
 
 static gint
-get_left_margin (HTMLClue *o, gint y)
-{
-	return 0;
-}
-
-static gint
-get_right_margin (HTMLClue *o, gint y)
-{
-	return HTML_OBJECT (o)->max_width;
-}
-
-static gint
 get_left_clear (HTMLClue *o, gint y)
 {
 	return y;
@@ -394,8 +382,6 @@ html_clue_class_init (HTMLClueClass *klass,
 	object_class->save = save;
 
 	/* HTMLClue methods.  */
-	klass->get_left_margin = get_left_margin;
-	klass->get_right_margin = get_right_margin;
 	klass->get_left_clear = get_left_clear;
 	klass->get_right_clear = get_right_clear;
 	klass->find_free_area = find_free_area;
@@ -423,18 +409,6 @@ html_clue_init (HTMLClue *clue,
 }
 
 
-gint
-html_clue_get_left_margin (HTMLClue *clue, gint y)
-{
-	return (* HC_CLASS (clue)->get_left_margin) (clue, y);
-}
-
-gint
-html_clue_get_right_margin (HTMLClue *clue, gint y)
-{
-	return (* HC_CLASS (clue)->get_right_margin) (clue, y);
-}
-
 gint
 html_clue_get_left_clear (HTMLClue *clue, gint y)
 {

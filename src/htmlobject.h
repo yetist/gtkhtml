@@ -148,6 +148,13 @@ struct _HTMLObjectClass {
 	void (*set_max_descent) (HTMLObject *o, HTMLPainter *painter, gint d);
 	void (*set_max_width) (HTMLObject *o, HTMLPainter *painter, gint max_width);
 
+	/* Margins.  This should actually be used only by objects that
+           contain other objects, so it should be in HTMLClue.  But
+           HTMLTable does not derive from HTMLClue and we don't want
+           to spend time reorganizing the hierarchy now.  */
+	gint (*get_left_margin) (HTMLObject *self, gint y);
+	gint (*get_right_margin) (HTMLObject *self, gint y);
+
 	void (*reset) (HTMLObject *o);
 	
 	HTMLFitType (*fit_line) (HTMLObject *o, HTMLPainter *painter,
@@ -202,27 +209,31 @@ extern HTMLObjectClass html_object_class;
 
 
 /* Basics.  */
-void        html_object_type_init       (void);
-void        html_object_init            (HTMLObject           *self,
-					 HTMLObjectClass      *klass);
-void        html_object_class_init      (HTMLObjectClass      *klass,
-					 HTMLType              type,
-					 guint                 object_size);
-HTMLObject *html_object_new             (HTMLObject           *parent);
-void        html_object_destroy         (HTMLObject           *self);
-void        html_object_copy            (HTMLObject           *self,
-					 HTMLObject           *dest);
-HTMLObject *html_object_dup             (HTMLObject           *self);
-void        html_object_set_parent      (HTMLObject           *self,
-					 HTMLObject           *parent);
-void        html_object_reset           (HTMLObject           *o);
-gboolean    html_object_is_text         (HTMLObject           *object);
-void        html_object_forall          (HTMLObject           *self,
-					 HTMLObjectForallFunc  func,
-					 gpointer              data);
-gboolean    html_object_is_container    (HTMLObject           *self);
-HTMLObject *html_object_next_not_slave  (HTMLObject           *self);
-HTMLObject *html_object_prev_not_slave  (HTMLObject           *self);
+void        html_object_type_init         (void);
+void        html_object_init              (HTMLObject           *self,
+					   HTMLObjectClass      *klass);
+void        html_object_class_init        (HTMLObjectClass      *klass,
+					   HTMLType              type,
+					   guint                 object_size);
+HTMLObject *html_object_new               (HTMLObject           *parent);
+void        html_object_destroy           (HTMLObject           *self);
+void        html_object_copy              (HTMLObject           *self,
+					   HTMLObject           *dest);
+HTMLObject *html_object_dup               (HTMLObject           *self);
+void        html_object_set_parent        (HTMLObject           *self,
+					   HTMLObject           *parent);
+gint        html_object_get_left_margin   (HTMLObject           *self,
+					   gint                  y);
+gint        html_object_get_right_margin  (HTMLObject           *self,
+					   gint                  y);
+void        html_object_reset             (HTMLObject           *o);
+gboolean    html_object_is_text           (HTMLObject           *object);
+void        html_object_forall            (HTMLObject           *self,
+					   HTMLObjectForallFunc  func,
+					   gpointer              data);
+gboolean    html_object_is_container      (HTMLObject           *self);
+HTMLObject *html_object_next_not_slave    (HTMLObject           *self);
+HTMLObject *html_object_prev_not_slave    (HTMLObject           *self);
 
 /* Drawing-related stuff.  */
 void  html_object_draw  (HTMLObject  *o,

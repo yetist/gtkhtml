@@ -23,6 +23,8 @@
 
 /* This is the object that defines a paragraph in the HTML document.  */
 
+/* WARNING: it must always be the child of a clue.  */
+
 #include "htmlclue.h"
 #include "htmlclueflow.h"
 #include "htmlcluealigned.h"
@@ -364,10 +366,10 @@ calc_size (HTMLObject *o,
 	padding = calc_padding (painter);
 	add_pre_padding (HTML_CLUEFLOW (o), padding);
 
-	lmargin = html_clue_get_left_margin (HTML_CLUE (o->parent), o->y);
+	lmargin = html_object_get_left_margin (o->parent, o->y);
 	if (indent > lmargin)
 		lmargin = indent;
-	rmargin = html_clue_get_right_margin (HTML_CLUE (o->parent), o->y);
+	rmargin = html_object_get_right_margin (o->parent, o->y);
 
 	w = lmargin;
 	a = 0;
@@ -416,7 +418,7 @@ calc_size (HTMLObject *o,
 					html_clue_append_left_aligned (HTML_CLUE (o->parent),
 								       HTML_CLUE (c));
 
-					lmargin = html_clue_get_left_margin (HTML_CLUE (o->parent), o->y);
+					lmargin = html_object_get_left_margin (o->parent, o->y);
 
 					if (indent > lmargin)
 						lmargin = indent;
@@ -439,7 +441,7 @@ calc_size (HTMLObject *o,
 					html_clue_append_right_aligned (HTML_CLUE (o->parent),
 									HTML_CLUE (c));
 
-					rmargin = html_clue_get_right_margin (HTML_CLUE (o->parent), o->y);
+					rmargin = html_object_get_right_margin (o->parent, o->y);
 				}
 			}
 
@@ -564,12 +566,12 @@ calc_size (HTMLObject *o,
 						obj = obj->next;
 					}
 				}
-				lmargin = html_clue_get_left_margin (HTML_CLUE (o->parent), o->y);
+				lmargin = html_object_get_left_margin (o->parent, o->y);
 				
 				if (indent > lmargin)
 					lmargin = indent;
 
-				rmargin = html_clue_get_right_margin (HTML_CLUE (o->parent), o->y);
+				rmargin = html_object_get_right_margin (o->parent, o->y);
 			}
 		}
 		
@@ -630,10 +632,10 @@ calc_size (HTMLObject *o,
 
 			o->ascent += o->y - oldy;
 
-			lmargin = html_clue_get_left_margin (HTML_CLUE (o->parent), o->y);
+			lmargin = html_object_get_left_margin (o->parent, o->y);
 			if (indent > lmargin)
 				lmargin = indent;
-			rmargin = html_clue_get_right_margin (HTML_CLUE (o->parent), o->y);
+			rmargin = html_object_get_right_margin (o->parent, o->y);
 
 			w = lmargin;
 			d = 0;

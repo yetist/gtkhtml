@@ -1,3 +1,49 @@
+2000-03-25  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlcluev.c
+	(do_layout): Use `html_object_get_left_margin()' instead of
+	`html_clue_get_left_margin()'.
+	(get_left_margin): Get an `HTMLObject *' instead of an `HTMLClue
+	*'.
+	(get_right_margin): Likewise.
+
+	* htmlclueh.c
+	(calc_size): Use `html_object_get_left_margin()' instead of
+	`html_clue_get_left_margin()'.
+
+	* htmlclueflow.c
+	(calc_size): Use `html_object_get_left_margin()' and
+	`html_object_get_right_margin()' instead of
+	`html_clue_get_left_margin()' and `html_clue_get_right_margin()'.
+
+	* gtkhtml-keybinding.c: #include "gtkhtmldebug.h".
+
+	* htmlobject.c
+	(get_left_margin): New function.
+	(get_right_margin): New function.
+	(html_object_class_init): Install them as the default
+	implementations of `get_left_margin' and `get_right_margin'.
+
+	* htmlobject.h: Moved here.  This is not very nice, but we need to
+	make it work.
+
+	* htmlclue.c
+	(get_left_margin): Removed.
+	(get_right_margin): Removed.
+	(html_clue_class_init): Do not install them anymore.
+	(html_clue_get_left_margin): Removed.
+	(html_clue_get_right_margin): Removed.
+
+	* htmlclue.h: Removed `get_left_margin', `get_right_margin'
+	methods.
+
+	* htmltable.c
+	(check_point): Do not reset `offset_return'.  (Why would you ever
+	want to do that!?!?!?)
+	(forall): New function, implementation of `HTMLObject::forall()'.
+	(html_table_class_init): Install it.
+	(set_cells): Set the cell's parent pointer.
+
 2000-03-24  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* Makefile.am [! LIBWWW]: Do not build `testgtkhtml'.

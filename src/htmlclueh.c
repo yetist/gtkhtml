@@ -74,7 +74,7 @@ calc_size (HTMLObject *clue,
 	changed = HTML_OBJECT_CLASS (&html_clue_class)->calc_size (clue, painter);
 
 	if (clue->parent != NULL)
-		lmargin = html_clue_get_left_margin (HTML_CLUE (clue->parent), clue->y);
+		lmargin = html_object_get_left_margin (clue->parent, clue->y);
 
 	clue->width = lmargin + HTML_CLUEH (clue)->indent;
 	clue->descent = 0;

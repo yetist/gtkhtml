@@ -39,6 +39,8 @@ HTMLTableClass html_table_class;
 static HTMLObjectClass *parent_class = NULL;
 
 
+/* HTMLObject methods.  */
+
 static void
 destroy (HTMLObject *o)
 {
@@ -80,6 +82,35 @@ static gboolean
 is_container (HTMLObject *object)
 {
 	return TRUE;
+}
+
+static void
+forall (HTMLObject *self,
+	HTMLObjectForallFunc func,
+	gpointer data)
+{
+	HTMLTableCell *cell;
+	HTMLTable *table;
+	guint r, c;
+
+	table = HTML_TABLE (self);
+
+	/* FIXME rowspan/colspan cells?  */
+
+	for (r = 0; r < table->totalRows; r++) {
+		for (c = 0; c < table->totalCols; c++) {
+			cell = table->cells[r][c];
+
+			if (cell == NULL)
+				continue;
+			if (c < table->totalCols - 1 && cell == table->cells[r][c + 1])
+				continue;
+			if (r < table->totalRows - 1 && table->cells[r + 1][c] == cell)
+				continue;
+
+			html_object_forall (HTML_OBJECT (cell), func, data);
+		}
+	}
 }
 
 
@@ -807,6 +838,10 @@ set_cells (HTMLTable *table, gint r, gint c, HTMLTableCell *cell)
 	gint endRow = r + cell->rspan;
 	gint endCol = c + cell->cspan;
 	gint tc;
+
+	g_return_if_fail (HTML_OBJECT (cell)->parent == NULL);
+
+	HTML_OBJECT (cell)->parent = HTML_OBJECT (table);
 	
 	if (endCol > table->totalCols)
 		add_columns (table, endCol - table->totalCols);
@@ -960,16 +995,16 @@ draw (HTMLObject *o,
 	/* Draw the cells */
 	for (r = 0; r < table->totalRows; r++) {
 		for (c = 0; c < table->totalCols; c++) {
-			if ((cell = table->cells[r][c]) == 0)
+			cell = table->cells[r][c];
+
+			if (cell == NULL)
 				continue;
-			if (c < table->totalCols - 1 && 
-			    cell == table->cells[r][c + 1])
+			if (c < table->totalCols - 1 && cell == table->cells[r][c + 1])
 				continue;
-			if (r < table->totalRows - 1 &&
-			    table->cells[r + 1][c] == cell)
+			if (r < table->totalRows - 1 && table->cells[r + 1][c] == cell)
 				continue;
-			html_object_draw (HTML_OBJECT (cell),
-					  p, 
+
+			html_object_draw (HTML_OBJECT (cell), p, 
 					  x - o->x, y - (o->y - o->ascent),
 					  width, height,
 					  tx, ty);
@@ -1118,10 +1153,10 @@ check_point (HTMLObject *self,
 	     guint *offset_return,
 	     gboolean for_cursor)
 {
-	unsigned int r, c;
 	HTMLTable *table;
 	HTMLObject *obj;
 	HTMLTableCell *cell;
+	unsigned int r, c;
 
 	if (_x < self->x || _x > self->x + self->width
 	    || _y > self->y + self->descent || _y < self->y - self->ascent)
@@ -1139,15 +1174,13 @@ check_point (HTMLObject *self,
 			if (r < table->totalRows - 1 && table->cells[r+1][c] == cell)
 				continue;
 
-			if ((obj = html_object_check_point (HTML_OBJECT (cell),
-							    painter,
-							    _x - self->x, _y - (self->y - self->ascent),
-							    offset_return,
-							    for_cursor)) != NULL) {
-				if (offset_return != NULL)
-					*offset_return = 0;
+			obj = html_object_check_point (HTML_OBJECT (cell),
+						       painter,
+						       _x - self->x, _y - (self->y - self->ascent),
+						       offset_return,
+						       for_cursor);
+			if (obj != NULL)
 				return obj;
-			}
 		}
 	}
 
@@ -1183,6 +1216,7 @@ html_table_class_init (HTMLTableClass *klass,
 	object_class->check_point = check_point;
 	object_class->find_anchor = find_anchor;
 	object_class->is_container = is_container;
+	object_class->forall = forall;
 }
 
 void

@@ -34,6 +34,7 @@
 #include "htmlengine-edit-movement.h"
 
 #include "gtkhtml-keybinding.h"
+#include "gtkhtmldebug.h"	/* FIXME */
 
 
 static void
