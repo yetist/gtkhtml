@@ -129,12 +129,23 @@ html_plain_painter_init (GObject *object)
 {
 }
 
+inline static void
+items_destroy (GList *items)
+{
+	GList *l;
+
+	for (l = items; l; l = l->next)
+		pango_item_free ((PangoItem *) l->data);
+	g_list_free (items);
+}
+
 static void
 draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, GList *items, PangoGlyphString *glyphs)
 {
 	HTMLGdkPainter *gdk_painter;
 	PangoFontDescription *desc;
 	gint blen;
+	gboolean temp_items = FALSE;
 
 	if (len == -1)
 		len = g_utf8_strlen (text, -1);
@@ -146,8 +157,18 @@ draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, GL
 
 	blen = g_utf8_offset_to_pointer (text, len) - text;
 	desc = html_painter_get_font (painter, painter->font_face, painter->font_style);
+	if (!items) {
+		items = html_gdk_painter_text_itemize_and_prepare_glyphs (gdk_painter, desc, text, blen, &glyphs);
+		temp_items = TRUE;
+	}
 	if (items && items->data)
 		gdk_draw_glyphs (gdk_painter->pixmap, gdk_painter->gc, ((PangoItem *) items->data)->analysis.font, x, y, glyphs);
+	if (temp_items) {
+		if (glyphs)
+			pango_glyph_string_free (glyphs);
+		if (items)
+			items_destroy (items);
+	}
 }
 
 static void

@@ -1,5 +1,8 @@
 2003-02-19  Radek Doulik  <rodo@ximian.com>
 
+	* htmlplainpainter.c (draw_text): prepare temporary items and
+	glyphs when needed
+
 	* htmltextslave.c (get_glyphs_part): translate text before shaping
 	(get_glyphs): ditto
 
