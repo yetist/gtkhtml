@@ -1,3 +1,8 @@
+2003-04-08  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml.c (get_line_height): calc the line height again, was
+	disabled during porting
+
 2003-04-08  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml-propmanager.h: fix object and class types.

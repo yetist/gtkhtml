@@ -3786,19 +3786,14 @@ gtk_html_get_object_by_id (GtkHTML *html, const gchar *id)
 static gint
 get_line_height (GtkHTML *html)
 {
-	HTMLPainter *p;
+	gint line_offset = 0, w, a, d;
 
 	if (!html->engine || !html->engine->painter)
 		return 0;
 
-	p = html->engine->painter;
+	html_painter_calc_text_size (html->engine->painter, "a", 1, NULL, NULL, 0, &line_offset, GTK_HTML_FONT_STYLE_SIZE_3, NULL, &w, &a, &d);
 
-	/* FIXME shall we use html_painter_calc_text_size now that these
-	 * are gone ?
-	 return html_painter_calc_ascent (p, GTK_HTML_FONT_STYLE_SIZE_3, NULL)
-	 + html_painter_calc_descent (p, GTK_HTML_FONT_STYLE_SIZE_3, NULL);
-	*/
-	return 0;
+	return a + d;
 }
 
 static void
