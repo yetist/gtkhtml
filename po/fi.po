@@ -6,10 +6,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 1.1.0.99\n"
-"POT-Creation-Date: 2003-03-06 16:02+0100\n"
-"PO-Revision-Date: 2003-01-04 18:22+0200\n"
+"POT-Creation-Date: 2003-03-08 22:24+0200\n"
+"PO-Revision-Date: 2003-03-08 21:25--200\n"
 "Last-Translator: Pauli Virtanen <pauli.virtanen@hut.fi>\n"
-"Language-Team: Finnish <fi@li.org>\n"
+"Language-Team: Gnome Finnish Translation Team <gnome-fi-laatu@lists."
+"sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -493,7 +494,7 @@ msgstr "Liitä"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
 msgid "Paste _Quotation"
-msgstr "Liitä _lainaus"
+msgstr "Liitä lai_naus"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
 msgid "Paste from clipboard"
@@ -817,7 +818,7 @@ msgstr "Ei mikään"
 
 #: components/html-editor/body.c:73
 msgid "Perforated Paper"
-msgstr "Reiällinen paperi"
+msgstr "Rei'itetty paperi"
 
 #: components/html-editor/body.c:81
 msgid "Blue Ink"
@@ -873,6 +874,8 @@ msgid ""
 "The editted cell was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
+"Muokattu solu on poistettu asiakirjasta.\n"
+"Muutoksia ei voi ottaa käyttöön."
 
 #: components/html-editor/editor-control-factory.c:169
 #: components/html-editor/menubar.c:316 components/html-editor/menubar.c:334
@@ -893,9 +896,8 @@ msgid "Page"
 msgstr "Sivu"
 
 #: components/html-editor/editor-control-factory.c:775
-#, fuzzy
 msgid "GtkHTML Editor Control"
-msgstr "GNOME HTML-muokkainsäädin"
+msgstr "GtkHTML-muokkainsäädin"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:2
 msgid "************"
@@ -1225,6 +1227,8 @@ msgid ""
 "The editted image was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
+"Muokattu kuva on poistettu asiakirjasta.\n"
+"Muutoksia ei voi ottaa käyttöön."
 
 #: components/html-editor/link.c:91
 msgid "Link text"
@@ -1235,6 +1239,8 @@ msgid ""
 "The editted link was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
+"Muokattu linkki on poistettu asiakirjasta.\n"
+"Muutoksia ei voi ottaa käyttöön."
 
 #: components/html-editor/menubar.c:125 components/html-editor/menubar.c:141
 #: components/html-editor/menubar.c:159 components/html-editor/menubar.c:176
@@ -1308,6 +1314,8 @@ msgid ""
 "The editted paragraph was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
+"Muokattu kappale on poistettu asiakirjasta.\n"
+"Muutoksia ei voi ottaa käyttöön."
 
 #: components/html-editor/popup.c:421
 msgid "Paste Quotation"
@@ -1442,6 +1450,8 @@ msgid ""
 "The editted rule was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
+"Muokattu viiva on poistettu asiakirjasta.\n"
+"Muutoksia ei voi ottaa käyttöön."
 
 #: components/html-editor/search.c:78
 msgid "backward"
@@ -1464,6 +1474,8 @@ msgid ""
 "The editted table was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
+"Muokattu taulukko on poistettu asiakirjasta.\n"
+"Muutoksia ei voi ottaa käyttöön."
 
 #: components/html-editor/template.c:83
 msgid "Note"
@@ -1495,6 +1507,8 @@ msgid ""
 "The editted text was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
+"Muokattu teksti on poistettu asiakirjasta.\n"
+"Muutoksia ei voi ottaa käyttöön."
 
 #: components/html-editor/toolbar.c:51
 msgid "Roman List"
@@ -1549,76 +1563,72 @@ msgid "Sample"
 msgstr "Esimerkki"
 
 #: src/gtkhtml.c:2640
-#, fuzzy
 msgid "Editable"
-msgstr "Käytä"
+msgstr "Muokattava"
 
 #: src/gtkhtml.c:2641
 msgid "Whether the html can be edited"
-msgstr ""
+msgstr "Voiko HTML-tiedostoa muokata"
 
 #: src/gtkhtml.c:2648
-#, fuzzy
 msgid "The title of the current document"
-msgstr "Oikolue asiakirja"
+msgstr "Nykyisen asiakirjan otsikko"
 
 #: src/gtkhtml.c:2654
-#, fuzzy
 msgid "Document Base"
-msgstr "Asiakirjan otsikko"
+msgstr "Asiakirjan kanta"
 
 #: src/gtkhtml.c:2655
 msgid "The base URL for relative references"
-msgstr ""
+msgstr "Suhteellisten viittausten kanta-URL"
 
 #: src/gtkhtml.c:2661
 msgid "Target Base"
-msgstr ""
+msgstr "Kohteen kanta"
 
 #: src/gtkhtml.c:2662
 msgid "The base URL of the targe frame"
-msgstr ""
+msgstr "Kohdekehyksen kanta-URL"
 
 #: src/gtkhtml.c:2671
-#, fuzzy
 msgid "Fixed Width Font"
-msgstr "Tasavälinen"
+msgstr "Tasavälinen kirjasin"
 
 #: src/gtkhtml.c:2672
 msgid "The Monospace font to use for typewriter text"
-msgstr ""
+msgstr "Kirjoituskonetekstissä käytettävä tasavälinen kirjasin"
 
 #: src/gtkhtml.c:2678
 msgid "New Link Color"
-msgstr ""
+msgstr "Uuden linkin väri"
 
 #: src/gtkhtml.c:2679
 msgid "The color of new link elements"
-msgstr ""
+msgstr "Uusien linkkielementtien väri"
 
 #: src/gtkhtml.c:2684
 msgid "Visited Link Color"
-msgstr ""
+msgstr "Käydyn linkin väri"
 
 #: src/gtkhtml.c:2685
 msgid "The color of visited link elements"
-msgstr ""
+msgstr "Käytyjen linkkielementtien väri"
 
 #: src/gtkhtml.c:2690
 msgid "Active Link Color"
-msgstr ""
+msgstr "Aktiivisen linkkielementin väri"
 
 #: src/gtkhtml.c:2691
 msgid "The color of active link elements"
-msgstr ""
+msgstr "Aktiivisten linkkielementtien väri"
 
 #: src/gtkhtml.c:2696
 msgid "Spelling Error Color"
-msgstr ""
+msgstr "Kirjoitusvirheen väri"
 
 #: src/gtkhtml.c:2697
 msgid "The color of the spelling error markers"
-msgstr ""
+msgstr "Kirjoitusvirheilmaisimen väri"
 
 #: src/html-component.c:219
 msgid "Html"
@@ -1692,15 +1702,3 @@ msgstr "_Esikatselu"
 #: src/testgtkhtml.c:103
 msgid "Print preview"
 msgstr "Esikatselu"
-
-#~ msgid "I could not initialize Bonobo"
-#~ msgstr "Ei voinut käynnistää Bonoboa"
-
-#~ msgid "Spell Checking _Languages"
-#~ msgstr "Oikoluettavat _kielet"
-
-#~ msgid "Sans"
-#~ msgstr "Sans"
-
-#~ msgid "Monospace"
-#~ msgstr "Monospace"
