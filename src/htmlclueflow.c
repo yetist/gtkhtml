@@ -93,6 +93,13 @@ add_pre_padding (HTMLClueFlow *flow)
 			return;
 		}
 
+		if (flow->style == HTML_CLUEFLOW_STYLE_PRE
+		    && prev->style != HTML_CLUEFLOW_STYLE_PRE
+		    && ! is_header (prev)) {
+			HTML_OBJECT (flow)->ascent += VERTICAL_PAD;
+			return;
+		}
+
 		if (is_header (flow) && ! is_header (prev)) {
 			HTML_OBJECT (flow)->ascent += VERTICAL_PAD;
 			return;
@@ -123,7 +130,13 @@ add_post_padding (HTMLClueFlow *flow)
 			return;
 		}
 
-		next = HTML_CLUEFLOW (next_object);
+		if (flow->style == HTML_CLUEFLOW_STYLE_PRE
+		    && next->style != HTML_CLUEFLOW_STYLE_PRE
+		    && ! is_header (next)) {
+			HTML_OBJECT (flow)->ascent += VERTICAL_PAD;
+			return;
+		}
+
 		if (is_header (flow)) {
 			HTML_OBJECT (flow)->ascent += VERTICAL_PAD;
 			return;
