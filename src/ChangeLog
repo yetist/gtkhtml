@@ -1,5 +1,8 @@
 2001-01-08  Radek Doulik  <rodo@helixcode.com>
 
+	* htmltext.c (calc_min_width): use strlen rather than
+	unicode_index_to_offset
+
 	* htmltextslave.c (get_offset_for_pointer): renamed from
 	html_text_slave_get_offset_for_pointer, make it private
 

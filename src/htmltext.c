@@ -452,7 +452,7 @@ calc_min_width (HTMLObject *self,
 		do {
 			space = strchr (t, ' ');
 			if (!space)
-				space = text->text + unicode_offset_to_index (text->text, text->text_len);
+				space = text->text + strlen (text->text);
 			w += html_painter_calc_text_width (painter, t, unicode_index_to_offset (t, space - t),
 							   font_style, text->face);
 			t = (*space) ? space + 1 : space;
