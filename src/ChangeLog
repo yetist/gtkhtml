@@ -1,5 +1,10 @@
 2000-01-21  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlimage.c (generate_pixbuf_for_selection): New helper
+	function.
+	(draw): By using it, display a color-composed image, using the
+	selection color.
+
 	* htmlcolorset.c (html_color_set_new): I never learn: use 16-bit
 	color values.  Also, make highlight foreground color different
 	from the highlight color.

@@ -402,8 +402,8 @@ void
 html_painter_draw_pixmap (HTMLPainter *painter,
 			  gint x, gint y,
 			  GdkPixbuf *pixbuf,
-			  gint clipx, gint clipy, gint
-			  clipwidth, gint clipheight)
+			  gint clipx, gint clipy,
+			  gint clipwidth, gint clipheight)
 {
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (pixbuf != NULL);
