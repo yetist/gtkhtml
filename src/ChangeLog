@@ -1,5 +1,9 @@
 2000-11-07  Radek Doulik  <rodo@helixcode.com>
 
+	* htmltextslave.c (could_remove_leading_space): new helper
+	function
+	(fit_line): use could_remove_leading_space
+
 	* htmlengine.c (insert_text): eat space on beggining of link
 
 	* htmlgdkpainter.c (calc_text_width): *sigh*, *sigh*, *sigh*,

@@ -155,6 +155,20 @@ get_next_nb_width (HTMLTextSlave *slave, HTMLPainter *painter)
 	return width;
 }
 
+static gboolean
+could_remove_leading_space (HTMLTextSlave *slave, gboolean firstRun)
+{
+	HTMLObject *o = HTML_OBJECT (slave->owner);
+
+	if (firstRun && (HTML_OBJECT (slave)->prev != o || o->prev))
+		return TRUE;
+
+	while (o->prev && HTML_OBJECT_TYPE (o->prev) == HTML_TYPE_CLUEALIGNED)
+		o = o->prev;
+
+	return o->prev ? FALSE : TRUE;
+}
+
 static HTMLFitType
 fit_line (HTMLObject *o,
 	  HTMLPainter *painter,
@@ -173,9 +187,7 @@ fit_line (HTMLObject *o,
 	slave = HTML_TEXT_SLAVE (o);
 	text  = HTML_TEXT (slave->owner);
 
-	/* if on begin of line (firstRun) and not on begin of para, remove beggining space */
-	if (firstRun && html_text_get_char (text, slave->posStart) == ' '
-	    && (o->prev != HTML_OBJECT (text) || HTML_OBJECT (text)->prev)) {
+	if (html_text_get_char (text, slave->posStart) == ' ' && could_remove_leading_space (slave, firstRun)) {
 		slave->posStart ++;
 		slave->posLen --;
 	}
