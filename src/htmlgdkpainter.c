@@ -979,6 +979,7 @@ draw_pixmap (HTMLPainter *painter,
 	gint orig_height;
 	gint paint_width;
 	gint paint_height;
+	gint bilinear;
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
 
@@ -1039,6 +1040,14 @@ draw_pixmap (HTMLPainter *painter,
 	if (tmp_pixbuf == NULL)
 		return;
 
+	/* 
+	 * FIXME this is a hack to work around a gdk-pixbuf bug 
+	 * it could be removed when 
+	 * http://bugzilla.ximian.com/show_bug.cgi?id=12968
+	 * is fixed.
+	 */
+	bilinear = !((scale_width == 1) && (scale_height == 1));
+
 	gdk_pixbuf_composite (pixbuf, tmp_pixbuf,
 			      0,
 			      0,
@@ -1047,7 +1056,8 @@ draw_pixmap (HTMLPainter *painter,
 			      (double)-(paint.y0 - image.y0),
 			      (gdouble) scale_width/ (gdouble) orig_width,
 			      (gdouble) scale_height/ (gdouble) orig_height,
-			      GDK_INTERP_BILINEAR, 255);
+			      bilinear ? GDK_INTERP_BILINEAR : GDK_INTERP_NEAREST,
+			      255);
 
 	if (color != NULL) {
 		guchar *p, *q;
