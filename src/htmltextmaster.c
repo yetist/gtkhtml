@@ -344,7 +344,7 @@ get_cursor_base (HTMLObject *self,
 
 		slave = HTML_TEXT_SLAVE (obj);
 
-		if (offset < slave->posStart + slave->posLen
+		if (offset <= slave->posStart + slave->posLen
 		    || obj->next == NULL
 		    || HTML_OBJECT_TYPE (obj->next) != HTML_TYPE_TEXTSLAVE) {
 			html_object_calc_abs_position (obj, x, y);

@@ -1,3 +1,8 @@
+2000-08-10  Radek Doulik  <rodo@helixcode.com>
+
+	* htmltextmaster.c (get_cursor_base): fix slave condition for
+	slave identification (replaced < with <=)
+
 2000-08-10  Larry Ewing  <lewing@helixcode.com>
 
 	* htmlengine.c (html_engine_unrealize): add an unrealize function
