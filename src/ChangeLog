@@ -1,5 +1,8 @@
 2000-01-28  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmltokenizer.c (html_tokenizer_new): Initialize all the members
+	of the struct individually.
+
 	* htmltextmaster.c (select_range): Take account for newline
 	selection when deciding whether to redraw or now.
 

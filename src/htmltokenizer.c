@@ -43,7 +43,46 @@ html_tokenizer_new (void)
 {
 	HTMLTokenizer *t;
 	
-	t = g_new0 (HTMLTokenizer, 1);
+	t = g_new (HTMLTokenizer, 1);
+
+	t->dest = NULL;
+	t->buffer = NULL;
+	t->size = 0;
+
+	t->tokenBufferList = NULL;
+	t->last = t->next = t->curr = NULL;
+
+	t->tokenBufferCurrIndex = 0;
+	t->tokenBufferSizeRemaining = 0;
+
+	t->skipLF = FALSE;
+	t->tag = FALSE;
+	t->tquote = FALSE;
+	t->startTag = FALSE;
+	t->comment = FALSE;
+	t->title = FALSE;
+	t->style = FALSE;
+	t->script = FALSE;
+	t->textarea = FALSE;
+	t->pre = FALSE;
+	t->select = FALSE;
+	t->charEntity = FALSE;
+
+	t->prePos = FALSE;
+
+	t->discard = NoneDiscard;
+	t->pending = NonePending;
+
+	memset (t->searchBuffer, 0, sizeof (t->searchBuffer));
+	t->searchCount = 0;
+
+	t->scriptCode = NULL;
+	t->scriptCodeSize = 0;
+	t->scriptCodeMaxSize = 0;
+
+	t->blocking = NULL;
+
+	t->searchFor = NULL;
 
 	return t;
 }
