@@ -1,3 +1,8 @@
+2001-06-21  Radek Doulik  <rodo@ximian.com>
+
+	* htmltable.c (calc_column_width_step): removed hopefully last
+	forgoten substract by table->padding
+
 2001-06-20  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine.c (parse_halign): helper function to parse halign

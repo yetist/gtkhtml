@@ -654,8 +654,8 @@ calc_column_width_step (HTMLTable *table, HTMLPainter *painter, GArray *array, g
 			if (cspan != span)
 				continue;
 
-			col_width  = (*calc_fn) (HTML_OBJECT (cell), painter) +
-				- (span - 1) * (table->padding * 2 + table->spacing + border_extra) * pixel_size;
+			col_width  = (*calc_fn) (HTML_OBJECT (cell), painter)
+				- (span - 1) * (table->spacing + border_extra) * pixel_size;
 			if (col_width <= 0)
 				continue;
 			span_width = ARR (cell->col + span) - ARR (cell->col);
