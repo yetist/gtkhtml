@@ -1,5 +1,9 @@
 2000-11-14  Radek Doulik  <rodo@helixcode.com>
 
+	* engine.c: updated to API changes
+
+	* HTMLEditor.idl: StudlyCapsulized
+
 	* spell.c: updated to API changes
 
 	* Spell.idl: copied updated Spell API

@@ -130,7 +130,7 @@ par_is_empty (HTMLClue *clue)
 }
 
 static CORBA_boolean
-impl_paragraph_is_empty (PortableServer_Servant servant, CORBA_Environment * ev)
+impl_is_paragraph_empty (PortableServer_Servant servant, CORBA_Environment * ev)
 {
 	HTMLEditorEngine *e = html_editor_engine_from_servant (servant);
 
@@ -143,7 +143,7 @@ impl_paragraph_is_empty (PortableServer_Servant servant, CORBA_Environment * ev)
 }
 
 static CORBA_boolean
-impl_paragraph_previous_is_empty (PortableServer_Servant servant, CORBA_Environment * ev)
+impl_is_previous_paragraph_empty (PortableServer_Servant servant, CORBA_Environment * ev)
 {
 	HTMLEditorEngine *e = html_editor_engine_from_servant (servant);
 
@@ -164,14 +164,14 @@ html_editor_engine_get_epv (void)
 
 	epv = g_new0 (POA_HTMLEditor_Engine__epv, 1);
 
-	epv->_set_listener               = impl_set_listener;
-	epv->_get_listener               = impl_get_listener;
-	epv->set_paragraph_data          = impl_set_paragraph_data;
-	epv->get_paragraph_data          = impl_get_paragraph_data;
-	epv->set_object_data_by_type     = impl_set_object_data_by_type;
-	epv->command                     = impl_command;
-	epv->paragraph_is_empty          = impl_paragraph_is_empty;
-	epv->paragraph_previous_is_empty = impl_paragraph_previous_is_empty;
+	epv->_set_listener            = impl_set_listener;
+	epv->_get_listener            = impl_get_listener;
+	epv->setParagraphData         = impl_set_paragraph_data;
+	epv->getParagraphData         = impl_get_paragraph_data;
+	epv->setObjectDataByType      = impl_set_object_data_by_type;
+	epv->command                  = impl_command;
+	epv->isParagraphEmpty         = impl_is_paragraph_empty;
+	epv->isPreviousParagraphEmpty = impl_is_previous_paragraph_empty;
 
 	return epv;
 }

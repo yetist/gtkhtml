@@ -28,12 +28,12 @@ module HTMLEditor {
 		/*
 		 * return data of current paragraph
 		 */
-		any  get_paragraph_data (in string key);
+		any  getParagraphData (in string key);
 
 		/*
 		 * sets data on current paragraph
 		 */
-		void set_paragraph_data (in string key, in any value);
+		void setParagraphData (in string key, in any value);
 
 		/*
 		 * set data which are set to objects of given type while inserting
@@ -41,7 +41,7 @@ module HTMLEditor {
 		 * and use that data later in editing to implement better reply
 		 * editing
 		 */
-		void set_object_data_by_type (in string type_name, in string key, in any data);
+		void setObjectDataByType (in string type_name, in string key, in any data);
 
 		/*
 		 * execute editor command
@@ -52,12 +52,12 @@ module HTMLEditor {
 		 * returns TRUE if current paragraph is empty (will be possibly replaced
 		 * by more general iface)
 		 */
-		boolean paragraph_is_empty ();
+		boolean isParagraphEmpty ();
 
 		/*
 		 * return TRUE if previous paragraph is empty (will be possibly replaced
 		 * by more general iface)
 		 */
-		boolean paragraph_previous_is_empty ();
+		boolean isPreviousParagraphEmpty ();
 	};
 };
