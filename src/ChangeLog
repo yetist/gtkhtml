@@ -1,5 +1,8 @@
 2001-03-27  Radek Doulik  <rodo@ximian.com>
 
+	* htmlengine-search.c (move_to_found): fixed coordinates
+	calculation
+
 	* htmlclueflow.c (calc_preferred_width): don't remove trailing
 	space width on the end of paragraph
 

@@ -61,7 +61,7 @@ move_to_found (HTMLSearch *info)
 	gint ny = e->y_offset;
 
 	/* x,y is top-left corner, ex+w,ey+h is bottom-right */
-	html_object_calc_abs_position (HTML_OBJECT (info->found->data), &x, &y);
+	html_object_calc_abs_position (first, &x, &y);
 	add_iframe_off (e, &x, &y);
 
 	/* find slave where starts selection and get its coordinates as upper-left corner */
@@ -88,8 +88,11 @@ move_to_found (HTMLSearch *info)
 		}
 	}
 
-	w = ex - x + last->width;
-	h = ey - y + last->ascent+last->descent;
+	y  -= first->ascent;
+	ex += last->width;
+	ey += last->descent;
+	w = ex - x;
+	h = ey - y;
 
 	/* now calculate gtkhtml adustments */
 	if (x <= ep->x_offset)
