@@ -1,3 +1,17 @@
+2003-12-05  Radek Doulik  <rodo@ximian.com>
+
+	* GNOME_GtkHTML_Editor.xml.in: as below, make it the same order
+	and grouping as in paragraph dialog
+
+	* paragraph.c (paragraph_properties): s/Pre/Preformatted,
+	reordered and added few separators
+
+	* menubar.c (menubar_update_format): allow alignment change in
+	plain text mode, we support this
+
+	* paragraph.c (paragraph_properties): disable headings and address
+	styles for plain text mode
+
 2003-12-03  Radek Doulik  <rodo@ximian.com>
 
 	* editor-control-factory.h: include config.h for

@@ -588,13 +588,6 @@ menubar_update_format (GtkHTMLControlData *cd)
 					      "sensitive", sensitive, &ev);
 		bonobo_ui_component_set_prop (uic, "/commands/FormatPlain",
 					      "sensitive", sensitive, &ev);
-	
-		bonobo_ui_component_set_prop (uic, "/commands/AlignLeft",
-					      "sensitive", sensitive, &ev);		
-		bonobo_ui_component_set_prop (uic, "/commands/AlignRight",
-					      "sensitive", sensitive, &ev);	
-		bonobo_ui_component_set_prop (uic, "/commands/AlignCenter",
-					      "sensitive", sensitive, &ev);	
 
 		bonobo_ui_component_set_prop (uic, "/commands/HeadingH1",
 					      "sensitive", sensitive, &ev);	
