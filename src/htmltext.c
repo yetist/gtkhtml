@@ -846,9 +846,6 @@ html_text_init (HTMLText *text_object,
 		text_object->text = g_strndup (text, len);
 	}
 
-	/* do <space>&nbsp;...&nbsp; hack */
-	convert_nbsp (text_object->text, text_object->text_len);
-
 	text_object->font_style = font_style;
 	text_object->face = NULL;
 	html_color_ref (color);

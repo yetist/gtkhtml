@@ -1,3 +1,15 @@
+2000-08-22  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlclueflow.c (calc_size): disabled width setting to rmargin -
+	o->x (Larry could you pls check this?)
+
+	* htmltext.c (html_text_init): don't call convert_nbsp here as we
+	want &nbsp; not disappear from texts
+
+	* htmlclueflow.c (calc_preferred_width): use
+	html_object_next_not_slave instead of obj->next and
+	html_object_prev_not_slave likewise
+
 2000-08-21  Mathieu Lacage <mathieu@eazel.com>
 
 	* src/Makefile.am : add LIBADD variable so that ldd reports correct

@@ -669,7 +669,7 @@ calc_size (HTMLObject *o,
 	if (o->width < o->max_width)
 		o->width = o->max_width;
 
-#if 1
+#if 0
 	if (o->width > rmargin - o->x)
 		o->width = rmargin - o->x;
 #endif
@@ -692,10 +692,11 @@ calc_preferred_width (HTMLObject *o,
 		if (!(obj->flags & HTML_OBJECT_FLAG_NEWLINE)) {
 			w += html_object_calc_preferred_width (obj, painter);
 		}
-		/* remove trailing space width on the end of line */
-		if (!obj->next || obj->flags & HTML_OBJECT_FLAG_NEWLINE) {
-			HTMLObject *eol = (obj->flags & HTML_OBJECT_FLAG_NEWLINE) ? obj->prev : obj;
 
+		if (obj->flags & HTML_OBJECT_FLAG_NEWLINE || !html_object_next_not_slave (obj)) {
+			HTMLObject *eol = (obj->flags & HTML_OBJECT_FLAG_NEWLINE) ? html_object_prev_not_slave (obj) : obj;
+
+			/* remove trailing space width on the end of line */
 			if (HTML_OBJECT_TYPE (eol) == HTML_TYPE_TEXTMASTER
 			    || HTML_OBJECT_TYPE (eol) == HTML_TYPE_LINKTEXTMASTER) {
 				w -= html_text_master_trail_space_width (HTML_TEXT_MASTER (eol), painter);
