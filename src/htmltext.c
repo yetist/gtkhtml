@@ -48,6 +48,7 @@
 
 HTMLTextClass html_text_class;
 static HTMLObjectClass *parent_class = NULL;
+static const PangoAttrClass html_pango_attr_font_size_klass;
 
 #define HT_CLASS(x) HTML_TEXT_CLASS (HTML_OBJECT (x)->klass)
 
@@ -1092,6 +1093,12 @@ html_text_get_pango_info (HTMLText *text, HTMLPainter *painter)
 			attr->start_index = 0;
 			attr->end_index = text->text_bytes;
 			pango_attr_list_insert (attrs, attr);
+			if (painter->font_manager.fix_size != painter->font_manager.var_size) {
+				attr = pango_attr_size_new (painter->font_manager.fix_size);
+				attr->start_index = 0;
+				attr->end_index = text->text_bytes;
+				pango_attr_list_insert (attrs, attr);
+			}
 		} else
 			attrs = pango_attr_list_copy (text->attr_list);
 		if (text->extra_attr_list)
@@ -1322,14 +1329,15 @@ save_open_attrs (HTMLEngineSaveState *state, GSList *attrs)
 		case PANGO_ATTR_STRIKETHROUGH:
 			tag = "<S>";
 			break;
-		case PANGO_ATTR_SIZE: {
-			HTMLPangoAttrFontSize *size = (HTMLPangoAttrFontSize *) attr;
-			if ((size->style & GTK_HTML_FONT_STYLE_SIZE_MASK) != GTK_HTML_FONT_STYLE_SIZE_3) {
-				tag = g_strdup_printf ("<FONT SIZE=\"%d\">", size->style & GTK_HTML_FONT_STYLE_SIZE_MASK);
-				free_tag = TRUE;
+		case PANGO_ATTR_SIZE:
+			if (attr->klass == &html_pango_attr_font_size_klass) {
+				HTMLPangoAttrFontSize *size = (HTMLPangoAttrFontSize *) attr;
+				if ((size->style & GTK_HTML_FONT_STYLE_SIZE_MASK) != GTK_HTML_FONT_STYLE_SIZE_3) {
+					tag = g_strdup_printf ("<FONT SIZE=\"%d\">", size->style & GTK_HTML_FONT_STYLE_SIZE_MASK);
+					free_tag = TRUE;
+				}
 			}
-		}
-		break;
+			break;
 		case PANGO_ATTR_FAMILY:
 			/* TODO */
 			break;
@@ -2755,25 +2763,25 @@ html_pango_attr_font_size_calc (HTMLPangoAttrFontSize *attr, HTMLEngine *e)
 {
 	gint size, base_size, real_size;
 
-	base_size = e->painter->font_manager.var_size;
+	base_size = (attr->style & GTK_HTML_FONT_STYLE_FIXED) ? e->painter->font_manager.fix_size : e->painter->font_manager.var_size;
 	size = (attr->style & GTK_HTML_FONT_STYLE_SIZE_MASK) - GTK_HTML_FONT_STYLE_SIZE_3;
 	real_size = e->painter->font_manager.magnification * ((gdouble) base_size + (size > 0 ? (1 << size) : size) * base_size/8.0);
 
 	attr->attr_int.value = real_size;
 }
 
+static const PangoAttrClass html_pango_attr_font_size_klass = {
+	PANGO_ATTR_SIZE,
+	html_pango_attr_font_size_copy,
+	html_pango_attr_font_size_destroy,
+	html_pango_attr_font_size_equal
+};
+
 PangoAttribute *
 html_pango_attr_font_size_new (GtkHTMLFontStyle style)
 {
-	static const PangoAttrClass klass = {
-		PANGO_ATTR_SIZE,
-		html_pango_attr_font_size_copy,
-		html_pango_attr_font_size_destroy,
-		html_pango_attr_font_size_equal
-	};
-
 	HTMLPangoAttrFontSize *result = g_new (HTMLPangoAttrFontSize, 1);
-	result->attr_int.attr.klass = &klass;
+	result->attr_int.attr.klass = &html_pango_attr_font_size_klass;
 	result->style = style;
 
 	return (PangoAttribute *) result;
@@ -2919,7 +2927,7 @@ html_text_set_style_in_range (HTMLText *text, GtkHTMLFontStyle style, HTMLEngine
 
 	/* size */
 	if (style & GTK_HTML_FONT_STYLE_SIZE_MASK) {
-		attr = html_pango_attr_font_size_new (style & GTK_HTML_FONT_STYLE_SIZE_MASK);
+		attr = html_pango_attr_font_size_new (style);
 		html_pango_attr_font_size_calc ((HTMLPangoAttrFontSize *) attr, e);
 		attr->start_index = start_index;
 		attr->end_index = end_index;

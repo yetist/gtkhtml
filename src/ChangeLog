@@ -1,3 +1,13 @@
+2004-01-19  Radek Doulik  <rodo@ximian.com>
+
+	* htmltext.c (html_text_get_pango_info): set plain text size if
+	necessary
+	(save_open_attrs): check the attr klass before accessing its
+	fields
+	(html_pango_attr_font_size_calc): use fix_size for fixed style
+	(html_text_set_style_in_range): don't mask the size style so that
+	we can identify fixed styles and set fixed size in that case
+
 2003-12-02  Jan Arne Petersen  <jpetersen@uni-bonn.de>
  
  	* htmlengine-edit-cut-and-paste.c: (use_pictograms): store
