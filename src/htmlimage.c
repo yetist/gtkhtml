@@ -929,7 +929,7 @@ update_or_redraw (HTMLImagePointer *ip)
 	if (!update) {
 		/* printf ("REDRAW\n"); */
 		for (list = ip->interests; list; list = list->next)
-			if (list->data) // && html_object_is_visible (HTML_OBJECT (list->data)))
+			if (list->data) /* && html_object_is_visible (HTML_OBJECT (list->data))) */
 				html_engine_queue_draw (ip->factory->engine, HTML_OBJECT (list->data));
 		if (ip->interests)
 			html_engine_flush_draw_queue (ip->factory->engine);
