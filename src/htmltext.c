@@ -38,6 +38,8 @@ static HTMLObjectClass *parent_class = NULL;
 #ifdef GTKHTML_HAVE_PSPELL
 static SpellError * spell_error_new     (guint off, guint len);
 static void         spell_error_destroy (SpellError *se);
+static void         move_spell_errors   (GList *spell_errors, guint offset, gint delta);
+static GList *      remove_spell_errors (GList *spell_errors, guint offset, guint len);
 #endif
 
 
@@ -147,6 +149,9 @@ copy_helper (HTMLText *src,
 		cur->data = spell_error_new (se->off, se->len);
 		cur = cur->next;
 	}
+	dest->spell_errors = remove_spell_errors (dest->spell_errors, 0, offset);
+	dest->spell_errors = remove_spell_errors (dest->spell_errors, offset+len, src->text_len - offset - len);
+	move_spell_errors (dest->spell_errors, 0, -offset);
 #endif
 }
 
@@ -446,6 +451,42 @@ convert_nbsp (guchar *s, guint len)
 #endif
 }
 
+#ifdef GTKHTML_HAVE_PSPELL
+static void 
+move_spell_errors (GList *spell_errors, guint offset, gint delta) 
+{ 
+	SpellError *se; 
+
+	if (!delta) return;
+
+	while (spell_errors) { 
+		se = (SpellError *) spell_errors->data; 
+		if (se->off >= offset) 
+			se->off += delta; 
+ 		spell_errors = spell_errors->next; 
+  	} 
+} 
+
+static GList *
+remove_spell_errors (GList *spell_errors, guint offset, guint len)
+{
+	SpellError *se; 
+	GList *cur, *cnext;
+
+	cur = spell_errors;
+	while (cur) { 
+		cnext = cur->next;
+		se = (SpellError *) cur->data; 
+		if (offset <= se->off && se->off <= offset + len) {
+			spell_errors = g_list_remove_link (spell_errors, cur);
+			spell_error_destroy (se);
+		}
+ 		cur = cnext;
+  	} 
+	return spell_errors;
+}
+#endif
+
 static guint
 insert_text (HTMLText *text,
 	     HTMLEngine *engine,
@@ -475,6 +516,10 @@ insert_text (HTMLText *text,
 	memcpy (new_buffer + offset + len, text->text+offset, old_len - offset);
 	new_buffer[new_len] = '\0';
 
+#ifdef GTKHTML_HAVE_PSPELL
+	/* spell checking update */
+	move_spell_errors (text->spell_errors, offset, len);
+#endif
 	/* do <space>&nbsp;...&nbsp; hack */
 	convert_nbsp (new_buffer, new_len);
 
@@ -526,6 +571,11 @@ remove_text (HTMLText *text,
 	memcpy (new_buffer,          text->text,                offset);
 	memcpy (new_buffer + offset, text->text + offset + len, old_len - offset - len + 1);
 
+#ifdef GTKHTML_HAVE_PSPELL
+	/* spell checking update */
+	text->spell_errors = remove_spell_errors (text->spell_errors, offset, len);
+	move_spell_errors (text->spell_errors, offset + len, -len);
+#endif
 	/* do <space>&nbsp;...&nbsp; hack */
 	convert_nbsp (new_buffer, new_len);
 
@@ -575,6 +625,31 @@ get_cursor_base (HTMLObject *self,
 }
 
 
+
+#ifdef GTKHTML_HAVE_PSPELL
+static void
+split_spell_errors (HTMLText *self, HTMLText *new, guint offset)
+{
+	GList *cur;
+	SpellError *se;
+
+	cur = self->spell_errors;
+	while (cur) {
+		se = (SpellError *) cur->data;
+		if (se->off >= offset) {
+			if (cur->prev)
+				cur->prev->next = NULL;
+			else
+				self->spell_errors = NULL;
+			new->spell_errors = cur;
+			move_spell_errors (new->spell_errors, offset, -offset);
+			break;
+		}
+		cur = cur->next;
+	}
+}
+#endif
+
 static HTMLText *
 split (HTMLText *self,
        guint offset)
@@ -589,6 +664,10 @@ split (HTMLText *self,
 	self->text[offset] = '\0';
 	self->text_len = offset;
 	html_object_change_set (HTML_OBJECT (self), HTML_CHANGE_MIN_WIDTH);
+
+#ifdef GTKHTML_HAVE_PSPELL
+	split_spell_errors (self, new, offset);
+#endif
 
 	return new;
 }
@@ -936,6 +1015,7 @@ html_text_set_text (HTMLText *text, const gchar *new_text)
 
 /* spell checking */
 
+#include "htmlinterval.h"
 
 static SpellError *
 spell_error_new (guint off, guint len)
@@ -963,9 +1043,59 @@ html_text_spell_errors_clear (HTMLText *text)
 }
 
 void
+html_text_spell_errors_clear_interval (HTMLText *text, HTMLInterval *i)
+{
+	GList *cur, *cnext;
+	SpellError *se;
+	guint offset, len;
+
+	offset = html_interval_get_start  (i, HTML_OBJECT (text));
+	len    = html_interval_get_length (i, HTML_OBJECT (text));
+	cur    = text->spell_errors;
+
+	/* printf ("html_text_spell_errors_clear_interval %d %d\n", offset, len); */
+
+	while (cur) {
+		cnext = cur->next;
+		se    = (SpellError *) cur->data;
+		/* test overlap */
+		if (MAX (offset, se->off) <= MIN (se->off + se->len, offset + len)) {
+			text->spell_errors = g_list_remove_link (text->spell_errors, cur);
+			g_list_free (cur);
+		}
+		cur = cnext;
+	}
+}
+
+static gint
+se_cmp (gconstpointer a, gconstpointer b)
+{
+	guint o1, o2;
+
+	o1 = ((SpellError *) a)->off;
+	o2 = ((SpellError *) b)->off;
+
+	if (o1 < o2)  return -1;
+	if (o1 == o2) return 0;
+	return 1;
+}
+
+void
 html_text_spell_errors_add (HTMLText *text, guint off, guint len)
 {
-	text->spell_errors = g_list_append (text->spell_errors, spell_error_new (off, len));
+	/* GList *cur;
+	   SpellError *se;
+	   cur = */
+
+	text->spell_errors = g_list_insert_sorted (text->spell_errors, spell_error_new (off, len), se_cmp);
+
+	/* printf ("---------------------------------------\n");
+	while (cur) {
+		se = (SpellError *) cur->data;
+		printf ("off: %d len: %d\n", se->off, se->len);
+		cur = cur->next;
+	}
+	printf ("---------------------------------------\n"); */
 }
 
 #endif

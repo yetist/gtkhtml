@@ -1,3 +1,62 @@
+2000-08-14  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlengine-edit-delete.c (html_engine_delete): use
+	html_engine_spell_check_range here
+
+	* htmltext.c (split_spell_errors): new helper function
+	(split): use split_spell_errors here
+	(html_text_spell_errors_add): use g_list_insert_sorted here as we
+	could now add new errors in the middle of list instead of
+	appending to the end
+
+2000-08-13  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlengine-edit-insert.c (insert_para): use
+	html_engine_spell_check_range here
+	(insert_chars): refactored, return only on end of function,
+	updated to use html_engine_spell_check_range here, do also
+	html_engine_move_cursor instead of calling it in do_insert twice
+
+	* htmlengine-edit.c (html_engine_spell_check_range): new function,
+	does spell checking on range given by two cursors - cursors must
+	be in same paragraph
+
+	* htmlclueflow.c (html_clueflow_spell_check): updated to work on
+	interval
+	(spell_check_word_mark): likewise
+	(next_obj_and_clear): likewise
+	(get_text): likewise
+
+	* htmlinterval.[ch]: new files for helper HTMLInterval API +
+	implementation
+
+	* htmltext.c (move_spell_errors): new helper function, moves spell
+	errors after offset by delta
+	(remove_spell_errors): new helper function remove spell errors in
+	length len after offset
+	(insert_text): use move_spell_errors here
+	(remove_text): use move_spell_errors and remove_spell_errors here
+	(html_text_spell_errors_clear_interval): new function, clears
+	spell errors in interval
+
+2000-08-11  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlengine.c (html_engine_get_word): don't use engine cursor but
+	make dup instead
+
+	* htmlclueflow.c (get_text): refactored
+	(interval_get_start): new helper function, computes starting
+	offset in obj relevant to interval
+	(interval_get_len): new helper function, computes object len
+	relevant to interval
+	(get_text_len): extracted from get_text, simplified
+	(get_text): uses get_text_len
+	(next_obj): simplified, uses html_object_get_length now
+
+	* htmltextslave.c (html_text_slave_class_init): added get_length
+	virtual method
+	(get_length): return 0 here
+
 2000-08-11  Larry Ewing  <lewing@helixcode.com>
 
 	* htmltextslave.c (html_text_slave_trail_space_width): removed

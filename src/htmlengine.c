@@ -4371,7 +4371,7 @@ static void
 check_paragraph (HTMLObject *o, HTMLEngine *e)
 {
 	if (HTML_OBJECT_TYPE (o) == HTML_TYPE_CLUEFLOW)
-		html_clueflow_spell_check (HTML_CLUEFLOW (o), e);
+		html_clueflow_spell_check (HTML_CLUEFLOW (o), e, NULL);
 }
 
 void
@@ -4393,30 +4393,30 @@ gchar *
 html_engine_get_word (HTMLEngine *e)
 {
 	GString *text;
+	HTMLCursor *cursor;
 	gchar *word, c;
 	gint pos;
 
 	if (!isalpha (html_cursor_get_current_char (e->cursor)) && !isalpha (html_cursor_get_prev_char (e->cursor)))
 		return NULL;
 
-	pos = e->cursor->position;
-	html_engine_selection_push (e);
+	cursor = html_cursor_dup (e->cursor);
+	pos    = cursor->position;
+	text   = g_string_new (NULL);
 
-	text = g_string_new (NULL);
 	/* move to the beginning of word */
-	while (isalpha (html_cursor_get_prev_char (e->cursor)))
-		html_cursor_backward (e->cursor, e);
+	while (isalpha (html_cursor_get_prev_char (cursor)))
+		html_cursor_backward (cursor, e);
 
 	/* move to the end of word */
-	while (isalpha (c = html_cursor_get_current_char (e->cursor))) {
+	while (isalpha (c = html_cursor_get_current_char (cursor))) {
 		text = g_string_append_c (text, c);
-		html_cursor_forward (e->cursor, e);
+		html_cursor_forward (cursor, e);
 	}
+
 	word = text->str;
 	g_string_free (text, FALSE);
-
-	html_cursor_jump_to_position (e->cursor, e, pos);
-	html_engine_selection_pop (e);
+	html_cursor_destroy (cursor);
 
 	return word;
 }

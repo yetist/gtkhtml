@@ -73,6 +73,7 @@ insert_para (HTMLEngine *engine)
 	HTMLObject *flow;
 	HTMLObject *next_flow;
 	HTMLObject *current;
+	HTMLCursor *orig;
 	guint offset;
 
 	current = engine->cursor->object;
@@ -86,6 +87,7 @@ insert_para (HTMLEngine *engine)
 	}
 
 	html_engine_hide_cursor (engine);
+	orig = html_cursor_dup (engine->cursor);
 
 	if (html_object_is_text (current))
 		html_text_master_destroy_slaves (HTML_TEXT_MASTER (current));
@@ -143,6 +145,11 @@ insert_para (HTMLEngine *engine)
 
 	engine->cursor->position++;
 
+#ifdef GTKHTML_HAVE_PSPELL
+	html_engine_spell_check_range (engine, orig, orig);
+	html_engine_spell_check_range (engine, engine->cursor, engine->cursor);
+#endif
+	html_cursor_destroy (orig);
 	html_engine_show_cursor (engine);
 }
 
@@ -295,32 +302,45 @@ insert_chars (HTMLEngine *e,
 	      const gchar *target)
 {
 	HTMLObject *curr;
+	HTMLCursor *orig;
+	guint rv;
 
+	orig = html_cursor_dup (e->cursor);
 	curr = e->cursor->object;
 
-	/* Case #1: the cursor is on an element that is not text.  */
+	/* try to find text before/after cursor */
 	if (! html_object_is_text (curr)) {
-		if (e->cursor->offset == 0) {
-			if (curr->prev == NULL || ! html_object_is_text (curr->prev))
-				return insert_chars_at_not_text (e, text, len, style, color, url, target);
-			e->cursor->object = curr->prev;
+		if (e->cursor->offset == 0 && curr->prev && html_object_is_text (curr->prev)) {
+			curr = e->cursor->object = curr->prev;
 			e->cursor->offset = HTML_TEXT (curr->prev)->text_len;
-		} else {
-			if (curr->next == NULL || ! html_object_is_text (curr->next))
-				return insert_chars_at_not_text (e, text, len, style, color, url, target);
-			e->cursor->object = curr->next;
+		} else if (e->cursor->offset == html_object_get_length (curr)
+			   && curr->next && html_object_is_text (curr->next)) {
+			curr = e->cursor->object = curr->next;
 			e->cursor->offset = 0;
 		}
 	}
 
-	/* Case #2: the cursor is on a text, element, but the style is
-           different.  This means that we possibly have to split the
-           element.  */
-	if (!equal_insertion (HTML_TEXT (curr), style, color, url, target))
-		return insert_chars_different_style (e, text, len, style, color, url, target);
+	/* Case #1: the cursor is on an element that is not text.  */
+	if (! html_object_is_text (curr))
+		rv = insert_chars_at_not_text (e, text, len, style, color, url, target);
+	else {
+		/* Case #2: the cursor is on a text, element, but the style is
+		   different.  This means that we possibly have to split the
+		   element.  */
+		if (!equal_insertion (HTML_TEXT (curr), style, color, url, target))
+			rv = insert_chars_different_style (e, text, len, style, color, url, target);
+		else
+			/* Case #3: we can simply add the text to the current element.  */
+			rv = insert_chars_same_style (e, text, len);
+	}
 
-	/* Case #3: we can simply add the text to the current element.  */
-	return insert_chars_same_style (e, text, len);
+	html_engine_move_cursor (e, HTML_ENGINE_CURSOR_RIGHT, rv);
+#ifdef GTKHTML_HAVE_PSPELL
+	html_engine_spell_check_range (e, orig, e->cursor);
+#endif
+	html_cursor_destroy (orig);
+
+	return rv;
 }
 
 static guint
@@ -333,7 +353,6 @@ do_insert (HTMLEngine *engine,
 	   const gchar *target)
 {
 	const gchar *p, *q;
-	guint count;
 	guint insert_count;
 
 	insert_count = 0;
@@ -343,19 +362,12 @@ do_insert (HTMLEngine *engine,
 		q = memchr (p, '\n', len);
 
 		if (q == NULL) {
-			count = insert_chars (engine, p, len, style, color, url, target);
-			SPELL_CHECK (engine->cursor->object->parent, engine);
-			html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_RIGHT, count);
-			insert_count += count;
+			insert_count += insert_chars (engine, p, len, style, color, url, target);
 			break;
 		}
 
-		if (q != p) {
-			count = insert_chars (engine, p, q - p, style, color, url, target);
-			SPELL_CHECK (engine->cursor->object->parent, engine);
-			html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_RIGHT, count);
-			insert_count += count;
-		}
+		if (q != p)
+			insert_count += insert_chars (engine, p, q - p, style, color, url, target);
 
 		while (*q == '\n') {
 			insert_para (engine);

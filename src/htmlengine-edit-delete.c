@@ -24,6 +24,7 @@
 #include "htmltext.h"
 #include "htmltextmaster.h"
 
+#include "htmlengine-edit.h"
 #include "htmlengine-edit-cursor.h"
 #include "htmlengine-edit-delete.h"
 #include "htmlengine-edit-movement.h"
@@ -658,7 +659,9 @@ html_engine_delete (HTMLEngine *e,
 
 		setup_undo (e, create_action_data (save_buffer, backwards));
 	}
-	SPELL_CHECK (e->cursor->object->parent, e);
+#ifdef GTKHTML_HAVE_PSPELL
+	html_engine_spell_check_range (e, e->cursor, e->cursor);
+#endif
 }
 
 

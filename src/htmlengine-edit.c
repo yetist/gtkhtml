@@ -22,6 +22,7 @@
 */
 
 
+#include <ctype.h>
 #include <glib.h>
 
 #include "htmlobject.h"
@@ -174,3 +175,30 @@ html_engine_cut_and_paste (HTMLEngine *e, gchar *op_name, GFunc iterator, gpoint
 	g_list_foreach (e->cut_buffer, iterator, data);
 	html_engine_cut_and_paste_end (e);
 }
+
+#ifdef GTKHTML_HAVE_PSPELL
+void
+html_engine_spell_check_range (HTMLEngine *e, HTMLCursor *begin, HTMLCursor *end)
+{
+	HTMLObject *parent;
+	HTMLInterval *i;
+
+	begin = html_cursor_dup (begin);
+	end   = html_cursor_dup (end);
+
+	g_assert (begin->object->parent == end->object->parent);
+
+	parent = begin->object->parent;
+
+	while (isalpha (html_cursor_get_prev_char (begin)))
+		if (html_cursor_backward (begin, e));
+	while (isalpha (html_cursor_get_current_char (end)))
+		if (html_cursor_forward (end, e));
+
+	i = html_interval_new_from_cursor (begin, end);
+	html_clueflow_spell_check (HTML_CLUEFLOW (parent), e, i);
+	html_interval_destroy (i);
+	html_cursor_destroy (begin);
+	html_cursor_destroy (end);
+}
+#endif

@@ -240,6 +240,12 @@ select_range (HTMLObject *self,
 	return FALSE;
 }
 
+static guint
+get_length (HTMLObject *self)
+{
+	return 0;
+}
+
 
 /* HTMLObject::draw() implementation.  */
 
@@ -454,6 +460,7 @@ html_text_slave_class_init (HTMLTextSlaveClass *klass,
 	object_class->calc_min_width = calc_min_width;
 	object_class->calc_preferred_width = calc_preferred_width;
 	object_class->get_url = get_url;
+	object_class->get_length = get_length;
 	object_class->check_point = check_point;
 
 	parent_class = &html_object_class;

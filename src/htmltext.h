@@ -25,6 +25,7 @@
 
 #include "htmlobject.h"
 #include "htmlcolor.h"
+#include "htmlinterval.h"
 
 typedef struct _HTMLText HTMLText;
 typedef struct _HTMLTextClass HTMLTextClass;
@@ -140,10 +141,12 @@ struct _SpellError {
 };
 typedef struct _SpellError SpellError;
 
-void  html_text_spell_errors_clear (HTMLText             *text);
-void  html_text_spell_errors_add   (HTMLText             *text,
-				    guint off,
-				    guint len);
+void  html_text_spell_errors_clear                 (HTMLText             *text);
+void  html_text_spell_errors_clear_interval        (HTMLText             *text,
+						    HTMLInterval         *i);
+void  html_text_spell_errors_add                   (HTMLText             *text,
+						    guint off,
+						    guint len);
 #endif
 
 #endif /* _HTMLTEXT_H_ */
