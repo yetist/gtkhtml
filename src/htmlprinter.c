@@ -558,24 +558,26 @@ draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, GL
 	HTMLPrinter *printer;
 	gint bytes;
 	gdouble print_x, print_y;
-	double text_width;
+	double text_width, asc, dsc;
 
 	printer = HTML_PRINTER (painter);
 	g_return_if_fail (printer->context != NULL);
 
-	html_printer_coordinates_to_gnome_print (printer, x, y, &print_x, &print_y);
-
-	gnome_print_newpath (printer->context);
-	gnome_print_moveto (printer->context, print_x, print_y);
 
 	bytes = g_utf8_offset_to_pointer (text, len) - text;
 	font = html_painter_get_font (painter, painter->font_face, painter->font_style);
+	dsc = gnome_font_get_descender (font);
+	asc = gnome_font_get_ascender (font);
+	html_printer_coordinates_to_gnome_print (printer, x, y, &print_x, &print_y);
+	print_y -= dsc;
+
+	gnome_print_newpath (printer->context);
+	gnome_print_moveto (printer->context, print_x, print_y);
 	gnome_print_setfont (printer->context, font);
 	gnome_print_show_sized (printer->context, text, bytes);
 
 	text_width = gnome_font_get_width_utf8_sized (font, text, bytes);
 	if (painter->font_style & (GTK_HTML_FONT_STYLE_UNDERLINE | GTK_HTML_FONT_STYLE_STRIKEOUT)) {
-		double ascender, descender;
 		double y;
 
 		gnome_print_gsave (printer->context);
@@ -585,7 +587,6 @@ draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, GL
 		gnome_print_setlinecap (printer->context, GDK_CAP_BUTT);
 
 		if (painter->font_style & GTK_HTML_FONT_STYLE_UNDERLINE) {
-			descender = gnome_font_get_descender (font);
 			y = print_y + gnome_font_get_underline_position (font);
 
 			gnome_print_newpath (printer->context);
@@ -597,8 +598,7 @@ draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, GL
 		}
 
 		if (painter->font_style & GTK_HTML_FONT_STYLE_STRIKEOUT) {
-			ascender = gnome_font_get_ascender (font);
-			y = print_y + ascender / 2.0;
+			y = print_y + asc / 2.0;
 			gnome_print_newpath (printer->context);
 			gnome_print_moveto (printer->context, print_x, y);
 			gnome_print_lineto (printer->context, print_x + text_width, y);

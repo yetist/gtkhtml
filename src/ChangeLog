@@ -1,3 +1,7 @@
+2003-03-11  Radek Doulik  <rodo@ximian.com>
+
+	* htmlprinter.c (draw_text): fix print_y position
+
 2003-03-10  Larry Ewing  <lewing@ximian.com>
 
 	* htmlprinter.c (print_pixbuf): add a helper function to print
