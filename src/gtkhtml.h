@@ -130,7 +130,7 @@ struct _GtkHTMLEditorAPI
 
 /* Creation.  */
 GtkType                    gtk_html_get_type                      (void);
-void                       gtk_html_construct                     (GtkWidget                 *html);
+void                       gtk_html_construct                     (GtkHTML                   *html);
 GtkWidget                 *gtk_html_new                           (void);
 void                       gtk_html_set_editor_api                (GtkHTML                   *html,
 								   GtkHTMLEditorAPI          *api,

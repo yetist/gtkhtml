@@ -221,7 +221,6 @@ html_frame_real_calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_
 {
 	HTMLFrame *frame;
 	HTMLEngine *e;
-	gint width, height;
 	gint old_width, old_ascent, old_descent;
 	
 	old_width = o->width;
@@ -232,19 +231,15 @@ html_frame_real_calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_
 	e     = GTK_HTML (frame->html)->engine;
 
 	if ((frame->width < 0) && (frame->height < 0)) {
-		e->width = o->max_width;
-		html_engine_calc_size (e, changed_objs);
-
-		height = html_engine_get_doc_height (e);
-		width = html_engine_get_doc_width (e);
-
-		gtk_widget_set_size_request (frame->scroll, width, height);
-		gtk_widget_queue_resize (frame->scroll);
-		
+		if (e->clue) {
+			html_engine_calc_size (e, changed_objs);
+			e->width = html_engine_get_doc_width (e);
+			e->height = html_engine_get_doc_height (e);
+		}
 		html_frame_set_scrolling (frame, GTK_POLICY_NEVER);
 
-		o->width = width;
-		o->ascent = height;
+		o->width = e->width;
+		o->ascent = e->height;
 		o->descent = 0;
 	} else
 		return (* HTML_OBJECT_CLASS (parent_class)->calc_size) (o, painter, changed_objs);

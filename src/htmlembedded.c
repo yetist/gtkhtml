@@ -145,6 +145,7 @@ calc_min_width (HTMLObject *self,
 	if (widget == NULL || !GTK_WIDGET_REALIZED (widget)) 
 		return 0;
      
+	requisition.width = requisition.height = 0;
 	gtk_widget_size_request (widget, &requisition);
 	pixel_size = html_painter_get_pixel_size (painter);
 
@@ -172,6 +173,7 @@ html_embedded_real_calc_size (HTMLObject *self, HTMLPainter *painter, GList **ch
 	old_ascent = self->ascent;
 	old_descent = self->descent;
 
+	requisition.width = requisition.height = 0;
 	gtk_widget_size_request (widget, &requisition);
 	
 	if (GTK_IS_HTML_EMBEDDED(widget))
@@ -384,8 +386,8 @@ html_embedded_allocate (GtkWidget *w, GtkAllocation  *allocation, HTMLEmbedded *
 		}
 		e->height = allocation->height;
 		
-		g_assert (GTK_IS_HTML (w->parent));
-		html_engine_schedule_update (GTK_HTML (w->parent)->engine);
+		if (GTK_IS_HTML (w->parent))
+			html_engine_schedule_update (GTK_HTML (w->parent)->engine);
 	}
 }
 

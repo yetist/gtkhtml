@@ -1032,19 +1032,55 @@ expose (GtkWidget *widget, GdkEventExpose *event)
 }
 
 static void
+gtk_html_size_request (GtkWidget *widget, GtkRequisition *requisition)
+{
+	HTMLEngine *e = GTK_HTML (widget)->engine;
+
+	if (!e->writing) {
+		e->width = requisition->width;
+		e->height = requisition->height;
+		html_engine_calc_size (e, NULL);
+		requisition->width = html_engine_get_doc_width (e);
+		requisition->height = html_engine_get_doc_height (e);
+	}
+}
+
+static void
+child_size_allocate (HTMLObject *o, HTMLEngine *e, gpointer data)
+{
+	if (html_object_is_embedded (o)) {
+		HTMLEmbedded *eo = HTML_EMBEDDED (o);
+
+		if (eo->widget) {
+			GtkAllocation allocation;
+
+			html_object_calc_abs_position (o, &allocation.x, &allocation.y);
+			allocation.y -= o->ascent;
+			allocation.width = o->width;
+			allocation.height = o->ascent + o->descent;
+			gtk_widget_size_allocate (eo->widget, &allocation);
+		}
+	}
+}
+
+static void
 size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 {
 	GtkHTML *html;
 	gboolean changed_x = FALSE, changed_y = FALSE;
+	GList *children;
 
 	g_return_if_fail (widget != NULL);
 	g_return_if_fail (GTK_IS_HTML (widget));
 	g_return_if_fail (allocation != NULL);
 	
-	if (GTK_WIDGET_CLASS (parent_class)->size_allocate)
-		( *GTK_WIDGET_CLASS (parent_class)->size_allocate) (widget, allocation);
-
-	/* printf ("size allocate\n"); */
+	/* isolate childs from layout - we want to set them after calc size is performed
+	   and we know the children positions */
+	children = GTK_LAYOUT (widget)->children;
+	GTK_LAYOUT (widget)->children = NULL;
+ 	if (GTK_WIDGET_CLASS (parent_class)->size_allocate)
+ 		(*GTK_WIDGET_CLASS (parent_class)->size_allocate) (widget, allocation);
+	GTK_LAYOUT (widget)->children = children;
 
 	html = GTK_HTML (widget);
 
@@ -1058,12 +1094,10 @@ size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 		old_width = e->width;
 		old_height = e->height;
 
-		/* printf ("allocate %d x %d\n", allocation->width, allocation->height); */
-
 		e->width  = allocation->width;
 		e->height = allocation->height;
 
-		html_engine_calc_size (html->engine, FALSE);
+		html_engine_calc_size (html->engine, NULL);
 		gtk_html_update_scrollbars_on_resize (html, old_doc_width, old_doc_height, old_width, old_height,
 						      &changed_x, &changed_y);
 	}
@@ -1076,6 +1110,9 @@ size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 		if (changed_y)
 			gtk_adjustment_value_changed (GTK_LAYOUT (html)->vadjustment);
 	}
+
+	if (html->engine->clue)
+		html_object_forall (html->engine->clue, html->engine, child_size_allocate, NULL);
 }
 
 static void
@@ -2886,6 +2923,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 	widget_class->key_press_event = key_press_event;
 	widget_class->key_release_event = key_release_event;
 	widget_class->expose_event  = expose;
+	widget_class->size_request = gtk_html_size_request;
 	widget_class->size_allocate = size_allocate;
 	widget_class->motion_notify_event = motion_notify_event;
 	widget_class->visibility_notify_event = visibility_notify_event;
@@ -3197,6 +3235,8 @@ gtk_html_init (GtkHTML* html)
 	html->priv->notify_monospace_font_id =
 		gconf_client_notify_add (gconf_client_get_default (), "/desktop/gnome/interface/monospace_font_name",
 					 client_notify_monospace_font, html, NULL, &gconf_error);
+
+	gtk_html_construct (html);
 }
 
 GType
@@ -3238,7 +3278,7 @@ gtk_html_new (void)
 	GtkWidget *html;
 
 	html = g_object_new (GTK_TYPE_HTML, NULL);
-	gtk_html_construct (html);
+
 	return html;
 }
 
@@ -3260,23 +3300,18 @@ gtk_html_new_from_string (const gchar *str, gint len)
 	GtkWidget *html;
 
 	html = g_object_new (GTK_TYPE_HTML, NULL);
-	gtk_html_construct  (html);
 	gtk_html_load_from_string (GTK_HTML (html), str, len);
 
 	return html;
 }
 
 void
-gtk_html_construct (GtkWidget *widget)
+gtk_html_construct (GtkHTML *html)
 {
-	GtkHTML *html;
+	g_return_if_fail (html != NULL);
+	g_return_if_fail (GTK_IS_HTML (html));
 
-	g_return_if_fail (widget != NULL);
-	g_return_if_fail (GTK_IS_HTML (widget));
-
-	html = GTK_HTML (widget);
-
-	html->engine        = html_engine_new (widget);
+	html->engine        = html_engine_new (GTK_WIDGET (html));
 	html->iframe_parent = NULL;
 	
 	g_signal_connect (G_OBJECT (html->engine), "title_changed",

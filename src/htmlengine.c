@@ -4613,10 +4613,12 @@ html_engine_stream_end (GtkHTMLStream *stream,
 		e->newPage = FALSE;
 	}
 
+	gtk_widget_queue_resize (GTK_WIDGET (e->widget));
+
 	g_signal_emit (e, signals [LOAD_DONE], 0);
 }
 
-static void
+void
 html_engine_draw_real (HTMLEngine *e, gint x, gint y, gint width, gint height, gboolean expose)
 {
 	gint x1, x2, y1, y2;
