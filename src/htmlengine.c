@@ -201,11 +201,21 @@ parse_color (const gchar *text,
 	if (gdk_color_parse (text, color))
 		return TRUE;
 
-	tmp = alloca (strlen (text) + 2);
-	*tmp = '#';
-	strcpy (tmp + 1, text);
+	if (*text == '#') {
+		gchar c [8];
+		gint  len = strlen (text);
+		c [7] = 0;
+		strncpy (c, text, 7);
+		if (len < 7)
+			memset (c + len, '0', 7-len);
+		return gdk_color_parse (c, color);
+	} else {
+		tmp = alloca (strlen (text) + 2);
+		*tmp = '#';
+		strcpy (tmp + 1, text);
 
-	return gdk_color_parse (tmp, color);
+		return gdk_color_parse (tmp, color);
+	}
 }
 
 
@@ -912,7 +922,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 							else if (strcasecmp (token + 6, "center") == 0)
 								rowhalign = HTML_HALIGN_CENTER;
 						} else if (strncasecmp (token, "bgcolor=", 8) == 0) {
-							have_rowColor = parse_color (token + 8, &rowColor);
+							have_rowColor |= parse_color (token + 8, &rowColor);
 						} else if (strncasecmp (token, "background=", 11) == 0
 							   && token [12]
 							   && !e->defaultSettings->forceDefault) {
@@ -1028,8 +1038,8 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 							}
 							else if (strncasecmp (token, "bgcolor=", 8) == 0
 								 && !e->defaultSettings->forceDefault) {
-								have_bgColor = parse_color (token + 8,
-											    &bgColor);
+								have_bgColor |= parse_color (token + 8,
+											     &bgColor);
 							}
 							else if (strncasecmp (token, "nowrap", 6) == 0) {
 
