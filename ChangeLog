@@ -1,3 +1,7 @@
+2001-11-05  Larry Ewing  <lewing@ximian.com>
+
+	* configure.in: bump for 0.16.0 release.
+
 2001-10-31  Ettore Perazzoli  <ettore@ximian.com>
 
 	* configure.in: Add `oaf' to `EXTRA_GNOME_LIBS' and
