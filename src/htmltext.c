@@ -2300,6 +2300,7 @@ static void
 paste_link (HTMLEngine *engine, HTMLText *text, gint so, gint eo, gchar *prefix)
 {
 	HTMLObject *new_obj;
+	HTMLText *new_text;
 	gchar *href;
 	gchar *base;
 	gint offset;
@@ -2314,7 +2315,11 @@ paste_link (HTMLEngine *engine, HTMLText *text, gint so, gint eo, gchar *prefix)
 		 eo - so,
 		 text->font_style,
 		 html_colorset_get_color (engine->settings->color_set, HTMLLinkColor));
-	html_text_add_link (HTML_TEXT (new_obj), href, NULL, 0, HTML_TEXT (new_obj)->text_len);
+	new_text = HTML_TEXT (new_obj);
+	html_text_add_link (new_text, href, NULL, 0, new_text->text_len);
+	html_text_set_color_in_range (new_text, html_colorset_get_color (engine->settings->color_set, HTMLLinkColor),
+				      0, new_text->text_bytes);
+	html_text_set_style_in_range (new_text, GTK_HTML_FONT_STYLE_UNDERLINE, engine, 0, new_text->text_bytes);
 
 	offset   = HTML_OBJECT (text) == engine->cursor->object ? engine->cursor->offset : 0;
 	position = engine->cursor->position;

@@ -1,3 +1,7 @@
+2003-11-07  Radek Doulik  <rodo@ximian.com>
+
+	* htmltext.c (paste_link): set link color and underline
+
 2003-10-22  Radek Doulik  <rodo@ximian.com>
 
 	* htmltext.c (save_open_attrs): save text size
