@@ -676,7 +676,6 @@ draw_normal (HTMLTextSlave *self,
 	HTMLObject *obj;
 	HTMLText *text = self->owner;
 	gchar *str;
-	gint lo;
 
 	obj = HTML_OBJECT (self);
 
@@ -875,8 +874,7 @@ get_offset_for_pointer (HTMLTextSlave *slave, HTMLPainter *painter, gint x, gint
 	GtkHTMLFontStyle font_style;
 	guint width, prev_width;
 	guint i;
-	gint line_offset, lo, word, ww;
-	gchar *space;
+	gint line_offset, lo, word;
 	gchar *text;
 
 	g_return_val_if_fail (slave != NULL, 0);
