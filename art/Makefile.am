@@ -33,6 +33,12 @@ icons_DATA = \
 	search-24.png			\
 	search-and-replace-16.png	\
 	search-and-replace-24.png	\
+	smiley-1.png			\
+	smiley-2.png			\
+	smiley-3.png			\
+	smiley-4.png			\
+	smiley-5.png			\
+	smiley-6.png			\
 	transparent.png			\
 	undo-16.png			\
 	undo-24.png			\
