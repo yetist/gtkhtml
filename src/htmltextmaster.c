@@ -190,9 +190,13 @@ check_point (HTMLObject *self,
 				|| (p->next->flags & HTML_OBJECT_FLAG_NEWLINE)
 				|| HTML_OBJECT_TYPE (p->next) == HTML_TYPE_TEXTSLAVE)
 			    && x >= p->x + p->width) {
-				if (offset_return != NULL)
+				if (offset_return != NULL) {
 					*offset_return = (HTML_TEXT_SLAVE (p)->posStart
 							  + HTML_TEXT_SLAVE (p)->posLen);
+					if (p->next == NULL
+					    || (p->next->flags & HTML_OBJECT_FLAG_NEWLINE))
+						(*offset_return)++;
+				}
 				return self;
 			}
 
@@ -224,8 +228,11 @@ select_range (HTMLObject *self,
 
 	master = HTML_TEXT_MASTER (self);
 
-	if (length < 0)
+	if (length < 0) {
 		length = HTML_TEXT (self)->text_len;
+		if (html_text_have_newline (HTML_TEXT (self)))
+			length++;
+	}
 
 	if (offset != master->select_start || length != master->select_length)
 		changed = TRUE;

@@ -181,6 +181,9 @@ calc_size (HTMLObject *self,
 	self->ascent = html_painter_calc_ascent (painter, font_style);
 	self->descent = html_painter_calc_descent (painter, font_style);
 	self->width = html_painter_calc_text_width (painter, text->text, text->text_len, font_style);
+
+	if (html_text_have_newline (text))
+		self->width += html_painter_calc_text_width (painter, " ", 1, font_style);
 }
 
 static void
@@ -202,7 +205,6 @@ draw (HTMLObject *o,
 	html_painter_set_font_style (p, font_style);
 
 	html_painter_set_pen (p, html_text_get_color (htmltext, p));
-
 	html_painter_draw_text (p, o->x + tx, o->y + ty, htmltext->text, -1);
 }
 
@@ -399,6 +401,23 @@ get_cursor_base (HTMLObject *self,
 	}
 }
 
+static gboolean
+have_newline (HTMLText *self)
+{
+	const HTMLObject *p;
+
+	p = HTML_OBJECT (self)->next;
+	while (p != NULL && HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE)
+		p = p->next;
+
+	if (p == NULL)
+		return TRUE;
+	if (p->flags & HTML_OBJECT_FLAG_NEWLINE)
+		return TRUE;
+
+	return FALSE;
+}
+
 
 static HTMLText *
 split (HTMLText *self,
@@ -487,6 +506,7 @@ html_text_class_init (HTMLTextClass *klass,
 	klass->split = split;
 	klass->get_font_style = get_font_style;
 	klass->get_color = get_color;
+	klass->have_newline = have_newline;
 }
 
 void
@@ -598,4 +618,13 @@ html_text_get_color (HTMLText *text,
 	g_return_val_if_fail (painter != NULL, NULL);
 
 	return (* HT_CLASS (text)->get_color) (text, painter);
+}
+
+
+gboolean
+html_text_have_newline (HTMLText *self)
+{
+	g_return_val_if_fail (self != NULL, FALSE);
+
+	return (* HT_CLASS (self)->have_newline) (self);
 }

@@ -1,4 +1,24 @@
-2000-01-26  NotZed  <notzed@zedzone.helixcode.com>
+2000-01-27  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmltextmaster.c (check_point): Select the newline.
+
+	* htmltextslave.c (calc_size): Add the size of a space if this is
+	the last slave of a newline'd text master.
+	(draw_newline): New helper function.
+	(draw_normal): Draw a space by using it, if we are before a new
+	line.
+	(draw_highlighted): Likewise.
+
+	* htmltext.c (html_text_have_newline): New function.
+	(have_new_line): New function, default implementation of
+	`HTMLText::have_newline'.
+	(html_text_class_init): Install it.
+	(calc_size): If the object has a new line add the width of a space
+	to it.
+
+	* htmltext.h: New virtual method `HTMLText::have_newline'.
+
+2000-01-26  Michael Zucchi  <notzed@zedzone.helixcode.com>
 
 	* Makefile.am (libgtkhtml_HEADERS): Renamed htmlelement.h,
 	to htmlembedded.h, added gtkhtml-embedded.h.
