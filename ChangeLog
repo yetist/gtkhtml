@@ -1,3 +1,7 @@
+2003-12-05  Radek Doulik  <rodo@ximian.com>
+
+	* configure.in: increased release minor number, gtk_html_flush added
+
 2003-12-02  Rodney Dawes  <dobey@ximian.com>
 
 	* Makefile.am: Create CLEANFILES rules that clean the right things
