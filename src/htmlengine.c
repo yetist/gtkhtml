@@ -3550,21 +3550,24 @@ html_engine_set_editable (HTMLEngine *e,
 	g_return_if_fail (e != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
-	if ((! e->editable && editable) || (e->editable && ! editable)) {
-		if (! e->editable && editable)
-			html_cursor_home (e->cursor, e);
+	if ((e->editable && editable) || (! e->editable && ! editable))
+		return;
 
-		html_engine_draw (e, 0, 0, e->width, e->height);
-		e->editable = editable;
+	html_engine_disable_selection (e);
 
-		if (editable) {
-			ensure_editable (e);
-			if (e->have_focus)
-				html_engine_setup_blinking_cursor (e);
-		} else {
-			if (e->have_focus)
-				html_engine_stop_blinking_cursor (e);
-		}
+	if (! e->editable && editable)
+		html_cursor_home (e->cursor, e);
+
+	html_engine_draw (e, 0, 0, e->width, e->height);
+	e->editable = editable;
+
+	if (editable) {
+		ensure_editable (e);
+		if (e->have_focus)
+			html_engine_setup_blinking_cursor (e);
+	} else {
+		if (e->have_focus)
+			html_engine_stop_blinking_cursor (e);
 	}
 }
 
@@ -3867,11 +3870,13 @@ html_engine_disable_selection (HTMLEngine *e)
 	g_return_if_fail (e != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
-	if (e->mark == NULL)
-		return;
+	if (e->editable) {
+		if (e->mark == NULL)
+			return;
 
-	html_cursor_destroy (e->mark);
-	e->mark = NULL;
+		html_cursor_destroy (e->mark);
+		e->mark = NULL;
+	}
 
 	html_engine_unselect_all (e, TRUE);
 }

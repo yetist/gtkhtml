@@ -710,7 +710,7 @@ motion_notify_event (GtkWidget *widget,
 
 		/* This will put the mark at the position of the
                    previous click.  */
-		if (engine->mark == NULL)
+		if (engine->mark == NULL && engine->editable)
 			html_engine_set_mark (engine);
 
 		html_engine_select_region (engine,

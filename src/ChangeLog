@@ -1,5 +1,16 @@
 2000-04-11  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlengine.c
+	(html_engine_disable_selection): Handle the mark only if the
+	engine is editable.
+	(html_engine_set_editable): Disable the selection before changing
+	the editable state.
+
+	* gtkhtml.c
+	(motion_notify_event): Do not set the mark if not editable.
+
+2000-04-11  Ettore Perazzoli  <ettore@helixcode.com>
+
 	* htmlengine-edit-cut.c
 	(html_engine_cut): Use `html_engine_disable_selection()' instead
 	of `html_engine_unselect_all()'.
