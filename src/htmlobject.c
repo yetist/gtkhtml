@@ -26,6 +26,7 @@
 
 #include "htmlclue.h"
 #include "htmlclueflow.h"
+#include "htmlcluealigned.h"
 #include "htmlcluev.h"
 #include "htmlcolor.h"
 #include "htmlcolorset.h"
@@ -1364,13 +1365,16 @@ html_object_cursor_forward (HTMLObject *self, HTMLCursor *cursor)
 gboolean
 html_object_cursor_backward (HTMLObject *self, HTMLCursor *cursor)
 {
+	HTMLObject *prev;
+
 	g_assert (self);
 	g_assert (cursor->object == self);
 
 	if (html_object_is_container (self))
 		return FALSE;
 
-	if (cursor->offset > 1 || (!html_object_prev_not_slave (self) && cursor->offset > 0)) {
+	if (cursor->offset > 1 || (cursor->offset > 0 && (! (prev = html_object_prev_not_slave (self))
+							  || HTML_IS_CLUEALIGNED (prev)))) {
 		cursor->offset --;
 		cursor->position --;
 		return TRUE;

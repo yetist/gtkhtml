@@ -4010,7 +4010,8 @@ html_engine_get_doc_height (HTMLEngine *e)
 gint
 html_engine_calc_min_width (HTMLEngine *e)
 {
-	return html_object_calc_min_width (e->clue, e->painter) + e->leftBorder + e->rightBorder;
+	return html_object_calc_min_width (e->clue, e->painter)
+		+ html_painter_get_pixel_size (e->painter) * (e->leftBorder + e->rightBorder);
 }
 
 gint

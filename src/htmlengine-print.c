@@ -38,7 +38,8 @@ static void
 print_header_footer (HTMLPainter *painter, HTMLEngine *engine, gint width, gint y, gint height,
 		     GtkHTMLPrintCallback cb, gpointer user_data)
 {
-	GnomePrintContext *context = HTML_PRINTER (painter)->print_context;
+	HTMLPrinter *printer = HTML_PRINTER (painter);
+	GnomePrintContext *context = printer->print_context;
 	gdouble gx, gy;
 
 	gnome_print_gsave (context);
@@ -46,9 +47,9 @@ print_header_footer (HTMLPainter *painter, HTMLEngine *engine, gint width, gint 
 #ifdef CLIP_DEBUG
 	html_painter_draw_rect (painter, 0, y, width, height);
 #endif
-	html_printer_coordinates_to_gnome_print (HTML_PRINTER (painter), 0, y, &gx, &gy);
+	html_printer_coordinates_to_gnome_print (printer, 0, y, &gx, &gy);
 	(*cb) (GTK_HTML (engine->widget), context, gx, gy,
-	       html_printer_scale_to_gnome_print (width), html_printer_scale_to_gnome_print (height), user_data);
+	       html_printer_scale_to_gnome_print (printer, width), html_printer_scale_to_gnome_print (printer, height), user_data);
 	gnome_print_grestore (context);
 }
 
@@ -163,6 +164,8 @@ html_engine_print_with_header_footer (HTMLEngine *engine,
 
 	printer = html_printer_new (print_context);
 	if (do_we_have_default_font (printer)) {
+		gint min_width, page_width;
+
 		old_painter = engine->painter;
 		html_font_manager_set_default (&printer->font_manager,
 					       prop->font_var_print,      prop->font_fix_print,
@@ -172,12 +175,18 @@ html_engine_print_with_header_footer (HTMLEngine *engine,
 		gtk_object_ref (GTK_OBJECT (old_painter));
 		html_engine_set_painter (engine, printer);
 
-		print_all_pages (HTML_PAINTER (printer), 
-				 engine, 
-				 header_height,
-				 footer_height, 
-				 header_print, 
-				 footer_print, 
+		min_width = html_engine_calc_min_width (engine);
+		page_width = html_painter_get_page_width (engine->painter, engine);
+		if (min_width > page_width) {
+			HTML_PRINTER (printer)->scale = ((gdouble) page_width) / min_width;
+			html_font_manager_clear_font_cache (&printer->font_manager);
+			html_object_change_set_down (engine->clue, HTML_CHANGE_ALL);
+			html_engine_calc_size (engine, NULL);
+		}
+
+		print_all_pages (HTML_PAINTER (printer), engine,
+				 header_height, footer_height,
+				 header_print, footer_print,
 				 user_data);
 
 		html_engine_set_painter (engine, old_painter);

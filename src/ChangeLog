@@ -1,5 +1,19 @@
 2001-10-29  Radek Doulik  <rodo@ximian.com>
 
+	* htmlobject.c (html_object_cursor_backward): handle aligned clues
+
+	* htmlengine.c (html_engine_calc_min_width): use pixel_size
+
+	* htmlprinter.c (get_font_size): new helper function
+	(alloc_font): use get_font_size, which uses scale attribute
+
+	* htmlengine-print.c (html_engine_print_with_header_footer): set
+	scale
+
+	* htmlprinter.c: use scale attribute
+
+	* htmlprinter.h: added scale attribute
+
 	* htmlpainter.c (html_painter_get_font): check if font is non-NULL
 	before dereferencing
 

@@ -576,6 +576,8 @@ draw (HTMLObject *o,
 	ArtIRect paint;
 	gint line_offset;
 
+	/* printf ("slave draw %p\n", o); */
+
 	html_object_calc_intersection (o, &paint, x, y, width, height);
 	if (art_irect_empty (&paint))
 		return;
