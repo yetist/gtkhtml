@@ -33,6 +33,8 @@ typedef struct _HTMLRuleClass HTMLRuleClass;
 struct _HTMLRule {
 	HTMLObject object;
 
+	guint length;
+	gchar size;
 	gboolean shade;
 	HTMLHAlignType halign;
 };
@@ -51,12 +53,12 @@ void        html_rule_class_init  (HTMLRuleClass  *klass,
 				   guint           object_size);
 void        html_rule_init        (HTMLRule       *rule,
 				   HTMLRuleClass  *klass,
-				   gint            max_width,
+				   gint            length,
 				   gint            percent,
 				   gint            size,
 				   gboolean        shade,
 				   HTMLHAlignType  halign);
-HTMLObject *html_rule_new         (gint            max_width,
+HTMLObject *html_rule_new         (gint            length,
 				   gint            percent,
 				   gint            size,
 				   gboolean        shade,

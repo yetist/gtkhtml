@@ -1,3 +1,36 @@
+2000-04-06  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine-edit-clueflowstyle.c: Added members `mask',
+	`alignment' to `SetClueFlowStyleForallData'.
+	(set_clueflow_style_in_region_forall): Change the attributes
+	associated with the bits set in `mask'.
+
+	* htmlengine-edit-clueflowstyle.h: Fix typo in
+	`HTMLEngineSetClueFlowStyleMast': `ENGNIE' -> `ENGINE'.
+
+	* htmlrule.c
+	(html_rule_new): @max_width renamed to @length.
+	(html_rule_init): Likewise.  Set `rule->lenght' and update the
+	`FIXEDWIDTH' flag appropriately.  Do not set ascent/descent here.
+	But do set the new member `size'.
+	(calc_min_width): Do the Right Thing.
+	(draw): Display the correct width, using `max_width' instead of
+	`width' as appropriate.
+	(calc_size): New function, implementation of
+	`HTMLObject::calc_size()'.
+	(html_rule_class_init): Install it.
+
+	* htmlrule.h: New members `length' and `size' in `HTMLRule'.
+
+	* htmltext.c
+	(html_text_init): Respect the passed length param @len properly.
+
+	* gtkhtmldebug.c
+	(gtk_html_debug_dump_tree): Print `text_len' for text objects too.
+
+	* htmlengine-edit-delete.c
+	(delete_same_parent): Prevent NULL crash.
+
 2000-04-06  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlimage.c (html_image_factory_area_prepared): ref pixbuf

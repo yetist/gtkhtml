@@ -21,8 +21,7 @@
 
 #include "htmlengine-edit-clueflowstyle.h"
 
-/* FIXME check if we should override the indentation for certain styles.
-   (Indentation *might* be invalid with certain styles.)  */
+/* FIXME undo/redo is incomplete/broken here.  */
 
 
 /* Undo/redo data for setting the style of a single paragraph.  */
@@ -515,6 +514,12 @@ struct _SetClueFlowStyleForallData {
 	/* Indentation delta.  */
 	gint indentation;
 
+	/* Alignment.  */
+	HTMLHAlignType alignment;
+
+	/* Mask of attributes that we really want to change.  */
+	HTMLEngineSetClueFlowStyleMask mask;
+
 	/* Previous parent checked.  */
 	HTMLObject *previous_clueflow;
 
@@ -548,7 +553,17 @@ set_clueflow_style_in_region_forall (HTMLObject *object,
 	undo_data->original_styles = g_list_prepend (undo_data->original_styles,
 						     GINT_TO_POINTER (HTML_CLUEFLOW (parent)->style));
 
-	html_clueflow_set_style (HTML_CLUEFLOW (parent), forall_data->engine, forall_data->style);
+	if (forall_data->mask & HTML_ENGINE_SET_CLUEFLOW_STYLE)
+		html_clueflow_set_style (HTML_CLUEFLOW (parent),
+					 forall_data->engine, forall_data->style);
+
+	if (forall_data->mask & HTML_ENGINE_SET_CLUEFLOW_ALIGNMENT)
+		html_clueflow_set_halignment (HTML_CLUEFLOW (parent),
+					      forall_data->engine, forall_data->alignment);
+
+	if (forall_data->mask & HTML_ENGINE_SET_CLUEFLOW_INDENTATION)
+		html_clueflow_indent (HTML_CLUEFLOW (parent),
+				      forall_data->engine, forall_data->indentation);
 
 	forall_data->previous_clueflow = parent;
 }
@@ -571,7 +586,9 @@ set_clueflow_style_in_region (HTMLEngine *engine,
 	data = g_new (SetClueFlowStyleForallData, 1);
 	data->engine = engine;
 	data->style = style;
+	data->alignment = alignment;
 	data->indentation = indentation;
+	data->mask = mask;
 	data->previous_clueflow = NULL;
 	data->undo_data = undo_data;
 

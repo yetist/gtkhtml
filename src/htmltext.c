@@ -620,9 +620,15 @@ html_text_init (HTMLText *text_object,
 
 	html_object_init (object, HTML_OBJECT_CLASS (klass));
 
-	text_object->text = (len == -1) ? g_strdup (text) : g_strndup (text, len);
+	if (len == -1) {
+		text_object->text_len = strlen (text);
+		text_object->text = g_strdup (text);
+	} else {
+		text_object->text_len = len;
+		text_object->text = g_strndup (text, len);
+	}
+
 	text_object->font_style = font_style;
-	text_object->text_len = strlen (text);
 
 	if (color != NULL) {
 		text_object->color = *color;

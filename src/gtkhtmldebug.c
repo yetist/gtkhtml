@@ -184,7 +184,8 @@ gtk_html_debug_dump_tree (HTMLObject *o,
 		case HTML_TYPE_LINKTEXTMASTER:
 			for (i = 0; i < level; i++)
 				g_print (" ");
-			g_print ("Text: \"%s\"\n", HTML_TEXT (obj)->text);
+			g_print ("Text (%d): \"%s\"\n",
+				 HTML_TEXT (obj)->text_len, HTML_TEXT (obj)->text);
 			break;
 
 		case HTML_TYPE_CLUEH:

@@ -448,4 +448,8 @@ html_engine_paste (HTMLEngine *engine)
            FIXME: this might be a bit inefficient for cut & paste.  */
 
 	html_engine_thaw (engine);
+
+	/* 7. Normalize the cursor pointer.  */
+
+	html_cursor_normalize (engine->cursor);
 }

@@ -50,12 +50,49 @@ static gint
 calc_min_width (HTMLObject *o,
 		HTMLPainter *painter)
 {
-	html_object_calc_size (o, painter);
+	gint pixel_size;
 
-	if (o->flags & HTML_OBJECT_FLAG_FIXEDWIDTH)
-		return o->width;
-	
-	return 1;
+	pixel_size = html_painter_get_pixel_size (painter);
+
+	if (HTML_RULE (o)->length > 0)
+		return HTML_RULE (o)->length * pixel_size;
+
+	return pixel_size;
+}
+
+static gboolean
+calc_size (HTMLObject *self,
+	   HTMLPainter *painter)
+{
+	HTMLRule *rule;
+	gint ascent, descent;
+	gint pixel_size;
+	gboolean changed;
+
+	rule = HTML_RULE (self);
+	pixel_size = html_painter_get_pixel_size (painter);
+
+	ascent = (6 + rule->size / 2) * pixel_size;
+	descent = (6 + rule->size / 2 + rule->size % 2) * pixel_size;
+
+	changed = FALSE;
+
+	if (self->width != self->max_width) {
+		self->width = self->max_width;
+		changed = TRUE;
+	}
+
+	if (ascent != self->ascent) {
+		self->ascent = ascent;
+		changed = TRUE;
+	}
+
+	if (descent != self->descent) {
+		self->descent = descent;
+		changed = TRUE;
+	}
+
+	return changed;
 }
 
 static void
@@ -78,11 +115,14 @@ draw (HTMLObject *o,
 	yp = o->y + ty;
 
 	if (o->percent == 0) {
-		w = o->width;
+		if (HTML_RULE (o)->length > 0)
+			w = HTML_RULE (o)->length * html_painter_get_pixel_size (p);
+		else
+			w = o->max_width;
 	} else {
 		/* The cast to `gdouble' is to avoid overflow (eg. when
                    printing).  */
-		w = ((gdouble) o->width * o->percent) / 100;
+		w = ((gdouble) o->max_width * o->percent) / 100;
 
 		switch (rule->halign) {
 		case HTML_HALIGN_LEFT:
@@ -141,6 +181,7 @@ html_rule_class_init (HTMLRuleClass *klass,
 	object_class->draw = draw;
 	object_class->set_max_width = set_max_width;
 	object_class->calc_min_width = calc_min_width;
+	object_class->calc_size = calc_size;
 	object_class->accepts_cursor = accepts_cursor;
 	object_class->save = save;
 
@@ -150,7 +191,7 @@ html_rule_class_init (HTMLRuleClass *klass,
 void
 html_rule_init (HTMLRule *rule,
 		HTMLRuleClass *klass,
-		gint max_width,
+		gint length,
 		gint percent,
 		gint size,
 		gboolean shade,
@@ -164,21 +205,26 @@ html_rule_init (HTMLRule *rule,
 
 	if (size < 1)
 		size = 1;	/* FIXME why? */
-
-	object->ascent = 6 + size / 2;
-	object->descent = 6 + size / 2 + size % 2;
+	rule->size = size;
 
 	object->percent = percent;
 
+	rule->length = length;
 	rule->shade = shade;
 	rule->halign = halign;
 
-	if (percent > 0)
+	if (percent > 0) {
 		object->flags &= ~ HTML_OBJECT_FLAG_FIXEDWIDTH;
+		rule->length = 0;
+	} else if (rule->length > 0) {
+		object->flags |= HTML_OBJECT_FLAG_FIXEDWIDTH;
+	} else {
+		object->flags &= ~ HTML_OBJECT_FLAG_FIXEDWIDTH;
+	}
 }
 
 HTMLObject *
-html_rule_new (gint max_width,
+html_rule_new (gint length,
 	       gint percent,
 	       gint size,
 	       gboolean shade,
@@ -187,7 +233,7 @@ html_rule_new (gint max_width,
 	HTMLRule *rule;
 
 	rule = g_new (HTMLRule, 1);
-	html_rule_init (rule, &html_rule_class, max_width, percent,
+	html_rule_init (rule, &html_rule_class, length, percent,
 			size, shade, halign);
 
 	return HTML_OBJECT (rule);

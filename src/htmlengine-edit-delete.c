@@ -41,7 +41,7 @@ delete_same_parent (HTMLEngine *e,
 	else
 		p = html_object_next_not_slave (start_object);
 
-	while (p != e->cursor->object) {
+	while (p != NULL && p != e->cursor->object) {
 		pnext = p->next;
 
 		html_clue_remove (HTML_CLUE (p->parent), p);
