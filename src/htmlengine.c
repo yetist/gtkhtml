@@ -4422,8 +4422,6 @@ clear_changed_area (HTMLEngine *e, HTMLObjectClearRectangle *cr)
 			html_painter_end (e->painter);
 		}
 	}
-
-	g_free (cr);
 }
 
 static void
@@ -4439,7 +4437,9 @@ draw_changed_objects (HTMLEngine *e, GList *changed_objs)
 			html_engine_queue_draw (e, o);
 		} else {
 			cur = cur->next;
-			clear_changed_area (e, (HTMLObjectClearRectangle *) cur->data);
+			if (e->window)
+				clear_changed_area (e, (HTMLObjectClearRectangle *) cur->data);
+			g_free (cur->data);
 		}
 	}
 	html_engine_flush_draw_queue (e);

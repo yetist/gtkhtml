@@ -1,5 +1,8 @@
 2001-10-12  Radek Doulik  <rodo@ximian.com>
 
+	* htmlengine.c (draw_changed_objects): test if we already have
+	window
+
 	* htmlobject.c (html_object_engine_intersection): new function,
 	extracted
 	(html_object_engine_translation): ditto
