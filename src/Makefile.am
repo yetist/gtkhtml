@@ -61,6 +61,7 @@ libgtkhtml_HEADERS =				\
 	htmlengine-edit-text.h			\
 	htmlengine-print.h			\
 	htmlengine-save.h			\
+	htmlengine-search.h			\
 	htmlengine.h				\
 	htmlentity.h				\
 	htmlfontmanager.h			\
@@ -144,6 +145,7 @@ libgtkhtml_la_SOURCES =				\
 	htmlengine-edit-text.c			\
 	htmlengine-print.c			\
 	htmlengine-save.c			\
+	htmlengine-search.c			\
 	htmlengine.c				\
 	htmlentity.c				\
 	htmlfontmanager.c			\

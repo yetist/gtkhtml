@@ -506,557 +506,602 @@ g_unichar_to_utf8 (gint c, gchar *outbuf)
   return len;
 }
 
+static void
+prepare_enough_space (HTMLTokenizer *t)
+{
+	/* I really do not understand it, but I added 5 for UTF-8 (Lauris) */
+	if ((t->dest - t->buffer + 5) > t->size) {
+		gchar *newbuf = g_malloc (t->size + 1024 + 20);
+		memcpy (newbuf, t->buffer, 
+			t->dest - t->buffer + 1);
+		t->dest = newbuf + (t->dest - t->buffer);
+		g_free (t->buffer);
+		t->buffer = newbuf;
+		t->size += 1024;
+	}
+}
+
+static void
+in_comment (HTMLTokenizer *t, const gchar **src)
+{
+	if (**src == '-') {	             /* Look for "-->" */
+		if (t->searchCount < 2)
+			t->searchCount++;
+	} else if (t->searchCount == 2 && (**src == '>')) {
+		t->comment = FALSE;          /* We've got a "-->" sequence */
+	} else
+		t->searchCount = 0;
+
+	(*src)++;
+}
+
+static void
+in_script_or_style (HTMLTokenizer *t, const gchar **src)
+{
+	/* Allocate memory to store the script or style */
+	if (t->scriptCodeSize + 11 > t->scriptCodeMaxSize) {
+		gchar *newbuf = g_malloc (t->scriptCodeSize + 1024);
+		memcpy (newbuf, t->scriptCode, t->scriptCodeSize);
+		g_free (t->scriptCode);
+		t->scriptCode = newbuf;
+		t->scriptCodeMaxSize += 1024;
+	}
+			
+	if ((**src == '>' ) && ( t->searchFor [t->searchCount] == '>')) {
+		(*src)++;
+		t->scriptCode [t->scriptCodeSize] = 0;
+		t->scriptCode [t->scriptCodeSize + 1] = 0;
+		if (t->script) {
+			t->script = FALSE;
+		}
+		else {
+			t->style = FALSE;
+		}
+		g_free (t->scriptCode);
+		t->scriptCode = NULL;
+	}
+	/* Check if a </script> tag is on its way */
+	else if (t->searchCount > 0) {
+		if (tolower (**src) == t->searchFor [t->searchCount]) {
+			t->searchBuffer [t->searchCount] = **src;
+			t->searchCount++;
+			(*src)++;
+		}
+		else {
+			gchar *p;
+
+			t->searchBuffer [t->searchCount] = 0;
+			p = t->searchBuffer;
+			while (*p)
+				t->scriptCode [t->scriptCodeSize++] = *p++;
+			t->scriptCode [t->scriptCodeSize] = **src; (*src)++;
+			t->searchCount = 0;
+		}
+	}
+	else if (**src == '<') {
+		t->searchCount = 1;
+		t->searchBuffer [0] = '<';
+		(*src)++;
+	}
+	else {
+		t->scriptCode [t->scriptCodeSize] = **src;
+		(*src)++;
+	}
+}
+
+static void
+in_entity (HTMLTokenizer *t, const gchar **src)
+{
+	gulong entityValue = 0;
+
+	/* See http://www.mozilla.org/newlayout/testcases/layout/entities.html for a complete entity list,
+	   ftp://ftp.unicode.org/Public/MAPPINGS/ISO8859/8859-1.TXT
+	   (or 'man iso_8859_1') for the character encodings. */
+
+	t->searchBuffer [t->searchCount + 1] = **src;
+	t->searchBuffer [t->searchCount + 2] = '\0';
+			
+			/* Check for &#0000 sequence */
+	if (t->searchBuffer[2] == '#') {
+		if ((t->searchCount > 1) &&
+		    (!isdigit (**src)) &&
+		    (t->searchBuffer[3] != 'x')) {
+			/* &#123 */
+			t->searchBuffer [t->searchCount + 1] = '\0';
+			entityValue = strtoul (&(t->searchBuffer [3]),
+					       NULL, 10);
+			t->charEntity = FALSE;
+		}
+		if ((t->searchCount > 1) &&
+		    (!isalnum (**src)) && 
+		    (t->searchBuffer[3] == 'x')) {
+			/* &x12AB */
+			t->searchBuffer [t->searchCount + 1] = '\0';
+			entityValue = strtoul (&(t->searchBuffer [4]),
+					       NULL, 16);
+			t->charEntity = FALSE;
+		}
+	}
+	else {
+				/* Check for &abc12 sequence */
+		if (!isalnum (**src)) {
+			t->charEntity = FALSE;
+			if ((t->searchBuffer [t->searchCount + 1] == ';') ||
+			    (!t->tag)) {
+				char *ename = t->searchBuffer + 2;
+						
+				t->searchBuffer [t->searchCount + 1] = '\0'; /* FIXME sucks */
+				entityValue = html_entity_parse (ename, 0);
+			}
+		}
+				
+	}
+			
+	switch (entityValue) {
+	case 139:
+		entityValue = 60;
+		break;
+	case 145:
+		entityValue = 96;
+		break;
+	case 146:
+		entityValue = 39;
+		break;
+
+	case 147:
+				//strcpy (t->searchBuffer+2, "ldquo");
+				//t->searchCount = 6;
+				//break;
+	case 148:
+				//strcpy(t->searchBuffer+2, "rdquo");
+				//searchCount = 6;
+		entityValue = 34;
+		break;
+	case 150:
+				//strcpy(t->searchBuffer+2, "ndash");
+				//t->searchCount = 6;
+				//break;
+	case 151:
+				//strcpy (t->searchBuffer+2, "mdash");
+				//t->searchCount = 6;
+		entityValue = 45;
+		break;
+	case 152:
+		entityValue = 126;
+		break;
+	case 155:
+		entityValue = 62;
+		break;
+	case 133:
+		strcpy (t->searchBuffer+2, "hellip");
+		t->searchCount = 7;
+		break;
+	case 149:
+		strcpy (t->searchBuffer+2, "bull");
+		t->searchCount = 5;
+		break;
+	case 153:
+		strcpy (t->searchBuffer+2, "trade");
+		t->searchCount = 6;
+		break;
+	default:;
+	}
+			
+	if (t->searchCount > 8) {
+				/* Ignore this sequence since it's too long */
+		t->charEntity = FALSE;
+		memcpy (t->dest, t->searchBuffer + 1, t->searchCount);
+		t->dest += t->searchCount;
+				
+		if (t->pre)
+			t->prePos += t->searchCount;
+	}
+	else if (t->charEntity) {
+				/* Keep searching for end of character entity */
+		t->searchCount++;
+		(*src)++;
+	}
+	else {
+		if(entityValue) {
+			/* Insert plain char */
+			t->dest += g_unichar_to_utf8 (entityValue, t->dest);
+			if (t->pre) t->prePos++;
+			if (**src == ';') (*src)++;
+		}
+				/* FIXME: Get entities */
+		else if (!entityValue) {
+			/* Ignore the sequence, just add it as plaintext */
+			memcpy (t->dest, t->searchBuffer + 1, t->searchCount);
+			t->dest += t->searchCount;
+			if (t->pre)
+				t->prePos += t->searchCount;
+
+		}
+#if 0
+		else if (!t->tag && !t->textarea && !t->select && !t->title) {
+			/* Add current token first */
+			if (t->dest > t->buffer) {
+				*(t->dest) = 0;
+				html_tokenizer_append_token (t, t->buffer,
+							     t->dest - t->buffer);
+				t->dest = t->buffer;
+			}
+
+			/* Add token with the amp sequence for further conversion */
+			html_tokenizer_append_token (t, t->searchBuffer, t->searchCount + 1);
+			t->dest = t->buffer;
+			if (t->pre)
+				t->prePos++;
+			if (**src == ';')
+				(*src)++;
+		}
+#endif
+		t->searchCount = 0;
+	}
+}
+
+static void
+in_tag (HTMLTokenizer *t, const gchar **src)
+{
+	t->startTag = FALSE;
+	if (**src == '/') {
+		if (t->pending == LFPending) {
+			t->pending = NonePending;
+		}
+	}
+	else if (((**src >= 'a') && (**src <= 'z'))
+		 || ((**src >= 'A') && (**src <= 'Z'))) {
+				/* Start of a start tag */
+	}
+	else if (**src == '!') {
+				/* <!-- comment --> */
+	}
+	else if (**src == '?') {
+				/* <? meta ?> */
+	}
+	else {
+				/* Invalid tag, just add it */
+		if (t->pending)
+			html_tokenizer_add_pending (t);
+		*(t->dest) = '<';     t->dest++;
+		*(t->dest)++ = **src; (*src)++;
+		return;
+	}
+			
+	if (t->pending)
+		html_tokenizer_add_pending (t);
+
+	if (t->dest > t->buffer) {
+		*(t->dest) = 0;
+		html_tokenizer_append_token (t, t->buffer, t->dest - t->buffer);
+		t->dest = t->buffer;
+	}
+	*(t->dest) = TAG_ESCAPE;
+	t->dest++;
+	*(t->dest) = '<';
+	t->dest++;
+	t->tag = TRUE;
+	t->searchCount = 1; /* Look for <!-- to start comment */
+}
+
+static void
+start_entity (HTMLTokenizer *t, const gchar **src)
+{
+	(*src)++;
+			
+	t->discard = NoneDiscard;
+			
+	if (t->pending)
+		html_tokenizer_add_pending (t);
+
+	t->charEntity      = TRUE;
+	t->searchBuffer[0] = TAG_ESCAPE;
+	t->searchBuffer[1] = '&';
+	t->searchCount     = 1;
+}
+
+static void
+start_tag (HTMLTokenizer *t, const gchar **src)
+{
+	(*src)++;
+	t->startTag = TRUE;
+	t->discard  = NoneDiscard;
+}
+
+static void
+end_tag (HTMLTokenizer *t, const gchar **src)
+{
+	gchar *ptr;
+
+	t->searchCount = 0; /* Stop looking for <!-- sequence */
+			
+	*(t->dest) = '>';
+	*(t->dest+1) = 0;
+			
+			/* Make the tag lower case */
+	ptr = t->buffer + 2;
+	if (*ptr == '/') {
+				/* End tag */
+		t->discard = NoneDiscard;
+	}
+	else {
+				/* Start tag */
+				/* Ignore CRLFs after a start tag */
+		t->discard = LFDiscard;
+	}
+	while (*ptr && *ptr !=' ') {
+		*ptr = tolower (*ptr);
+		ptr++;
+	}
+	html_tokenizer_append_token (t, t->buffer, t->dest - t->buffer + 1);
+	t->dest = t->buffer;
+			
+	t->tag = FALSE;
+	t->pending = NonePending;
+	(*src)++;
+			
+	if (strncmp (t->buffer + 2, "pre", 3) == 0) {
+		t->prePos = 0;
+		t->pre = TRUE;
+	}
+	else if (strncmp (t->buffer + 2, "/pre", 4) == 0) {
+		t->pre = FALSE;
+	}
+	else if (strncmp (t->buffer + 2, "textarea", 8) == 0) {
+		t->textarea = TRUE;
+	}
+	else if (strncmp (t->buffer + 2, "/textarea", 9) == 0) {
+		t->textarea = FALSE;
+	}
+	else if (strncmp (t->buffer + 2, "title", 5) == 0) {
+		t->title = TRUE;
+	}
+	else if (strncmp (t->buffer + 2, "/title", 6) == 0) {
+		t->title = FALSE;
+	}
+	else if (strncmp (t->buffer + 2, "script", 6) == 0) {
+		t->script = TRUE;
+		t->searchCount = 0;
+		t->searchFor = scriptEnd;
+		t->scriptCode = g_malloc (1024);
+		t->scriptCodeSize = 0;
+		t->scriptCodeMaxSize = 1024;
+	}
+	else if (strncmp (t->buffer + 2, "style", 5) == 0) {
+		t->style = TRUE;
+		t->searchCount = 0;
+		t->searchFor = styleEnd;
+		t->scriptCode = g_malloc (1024);
+		t->scriptCodeSize = 0;
+		t->scriptCodeMaxSize = 1024;
+	}
+	else if (strncmp (t->buffer + 2, "select", 6) == 0) {
+		t->select = TRUE;
+	}
+	else if (strncmp (t->buffer + 2, "/select", 7) == 0) {
+		t->select = FALSE;
+	}
+	else if (strncmp (t->buffer + 2, "frameset", 8) == 0) {
+		g_warning ("<frameset> tag not supported");
+	}
+	else if (strncmp (t->buffer + 2, "cell", 4) == 0) {
+		g_warning ("<cell> tag not supported");
+	}
+	else if (strncmp (t->buffer + 2, "table", 5) == 0) {
+		html_tokenizer_blocking_push (t, Table);
+	}
+	else {
+		if (t->blocking) {
+			const gchar *bn = html_tokenizer_blocking_get_name (t);
+
+			if (strncmp (t->buffer + 1, bn, strlen (bn)) == 0) {
+				html_tokenizer_blocking_pop (t);
+			}
+		}
+	}
+}
+
+static void
+in_crlf (HTMLTokenizer *t, const gchar **src)
+{
+	if (t->tquote) {
+		if (t->discard == NoneDiscard)
+			t->pending = SpacePending;
+	}
+	else if (t->tag) {
+		t->searchCount = 0; /* Stop looking for <!-- sequence */
+		if (t->discard == NoneDiscard)
+			t->pending = SpacePending; /* Treat LFs inside tags as spaces */
+	}
+	else if (t->pre || t->textarea) {
+		if (t->discard == LFDiscard) {
+			/* Ignore this LF */
+			t->discard = NoneDiscard; /*  We have discarded 1 LF */
+		} else {
+			/* Process this LF */
+			if (t->pending)
+				html_tokenizer_add_pending (t);
+			t->pending = LFPending;
+		}
+	}
+	else {
+		if (t->discard == LFDiscard) {
+			/* Ignore this LF */
+			t->discard = NoneDiscard; /* We have discarded 1 LF */
+		} else {
+			/* Process this LF */
+			if (t->pending == NonePending)
+				t->pending = LFPending;
+		}
+	}
+	/* Check for MS-DOS CRLF sequence */
+	if (**src == '\r') {
+		t->skipLF = TRUE;
+	}
+	(*src)++;
+}
+
+static void
+in_space_or_tab (HTMLTokenizer *t, const gchar **src)
+{
+	if (t->tquote) {
+		if (t->discard == NoneDiscard)
+			t->pending = SpacePending;
+	}
+	else if (t->tag) {
+		t->searchCount = 0; /* Stop looking for <!-- sequence */
+		if (t->discard == NoneDiscard)
+			t->pending = SpacePending;
+	}
+	else if (t->pre || t->textarea) {
+		if (t->pending)
+			html_tokenizer_add_pending (t);
+		if (**src == ' ')
+			t->pending = SpacePending;
+		else
+			t->pending = TabPending;
+	}
+	else {
+		t->pending = SpacePending;
+	}
+	(*src)++;
+}
+
+static void
+in_quoted (HTMLTokenizer *t, const gchar **src)
+{
+	/* We treat ' and " the same in tags */
+	t->discard = NoneDiscard;
+	if (t->tag) {
+		t->searchCount = 0; /* Stop looking for <!-- sequence */
+		if ((t->tquote == SINGLE_QUOTE && **src == '\"')
+		    || (t->tquote == DOUBLE_QUOTE && **src == '\'')) {
+			*(t->dest)++ = **src;
+		} else if (*(t->dest-1) == '=' && !t->tquote) {
+			t->discard = SpaceDiscard;
+			t->pending = NonePending;
+					
+			if (**src == '\"')
+				t->tquote = DOUBLE_QUOTE;
+			else
+				t->tquote = SINGLE_QUOTE;
+			*(t->dest)++ = **src;
+		}
+		else if (t->tquote) {
+			t->tquote = NO_QUOTE;
+			*(t->dest)++ = **src;
+			t->pending = SpacePending;
+		}
+		else {
+			/* Ignore stray "\'" */
+		}
+		(*src)++;
+	}
+	else {
+		if (t->pending)
+			html_tokenizer_add_pending (t);
+		if (t->pre)
+			t->prePos++;
+				
+		*(t->dest)++ = **src; (*src)++;
+	}
+}
+
+static void
+in_assignment (HTMLTokenizer *t, const gchar **src)
+{
+	t->discard = NoneDiscard;
+	if (t->tag) {
+		t->searchCount = 0; /* Stop looking for <!-- sequence */
+		*(t->dest)++ = '=';
+		if (!t->tquote) {
+			t->pending = NonePending;
+			t->discard = SpaceDiscard;
+		}
+	}
+	else {
+		if (t->pending)
+			html_tokenizer_add_pending (t);
+		if (t->pre)
+			t->prePos++;
+
+		*(t->dest)++ = '=';
+	}
+	(*src)++;
+}
+
+static void
+in_plain (HTMLTokenizer *t, const gchar **src)
+{
+	t->discard = NoneDiscard;
+	if (t->pending)
+		html_tokenizer_add_pending (t);
+			
+	if (t->tag) {
+		if (t->searchCount > 0) {
+			if (**src == commentStart[t->searchCount]) {
+				t->searchCount++;
+				if (t->searchCount == 4) {
+					/* Found <!-- sequence */
+					t->comment = TRUE;
+					t->dest = t->buffer;
+					t->tag = FALSE;
+					t->searchCount = 0;
+					return;
+				}
+			}
+			else {
+				t->searchCount = 0; /* Stop lookinf for <!-- sequence */
+			}
+		}
+	}
+	else if (t->pre) {
+		t->prePos++;
+	}
+	*(t->dest)++ = **src; (*src)++;
+}
+
 void
 html_tokenizer_write (HTMLTokenizer *t, const gchar *string, size_t size)
 {
 	const gchar *src = string;
-	gchar *p, *ptr;
-	gchar *srcPtr = 0;
 
 	if (!t->buffer)
 		html_tokenizer_begin(t);
 
 	while ((src - string) < size) {
-		/* Check if the buffer is too big */
-		/* I really do not understand it, but I added 5 for UTF-8 (Lauris) */
-		if ((t->dest - t->buffer + 5) > t->size) {
-			gchar *newbuf = g_malloc (t->size + 1024 + 20);
-			memcpy (newbuf, t->buffer, 
-				t->dest - t->buffer + 1);
-			t->dest = newbuf + (t->dest - t->buffer);
-			g_free (t->buffer);
-			t->buffer = newbuf;
-			t->size += 1024;
-		}
+		prepare_enough_space (t);
 		
-		if (t->skipLF && (*src != '\n')) {
+		if (t->skipLF && *src != '\n')
 			t->skipLF = FALSE;
-		}
 
-		if (t->skipLF) {
+		if (t->skipLF)
 			src++;
-		}
-		else if (t->comment) {
-			/* Look for "-->" */
-			if (*src == '-') {
-				if (t->searchCount < 2)
-					t->searchCount++;
-					
-			}
-			else if (t->searchCount == 2 && (*src == '>')) {
-				/* We've got a "-->" sequence */
-				t->comment = FALSE;
-			}
-			else {
-				t->searchCount = 0;
-			}
-			src++;
-		}
-		/* We are inside a <script> or a <style> tag. Look for ending
-		   tag which is </script> or </style> */
-		else if (t->script || t->style) {
-			/* Allocate memory to store the script or style */
-			if (t->scriptCodeSize + 11 > t->scriptCodeMaxSize) {
-				gchar *newbuf = g_malloc (t->scriptCodeSize + 1024);
-				memcpy (newbuf, t->scriptCode, t->scriptCodeSize);
-				g_free (t->scriptCode);
-				t->scriptCode = newbuf;
-				t->scriptCodeMaxSize += 1024;
-			}
-			
-			if ((*src == '>' ) && ( t->searchFor [t->searchCount] == '>')) {
-				src++;
-				t->scriptCode [t->scriptCodeSize] = 0;
-				t->scriptCode [t->scriptCodeSize + 1] = 0;
-				if (t->script) {
-					t->script = FALSE;
-				}
-				else {
-					t->style = FALSE;
-				}
-				g_free (t->scriptCode);
-				t->scriptCode = NULL;
-			}
-			/* Check if a </script> tag is on its way */
-			else if (t->searchCount > 0) {
-				if (tolower (*src) == t->searchFor [t->searchCount]) {
-					t->searchBuffer [t->searchCount] = *src;
-					t->searchCount++;
-					src++;
-				}
-				else {
-					t->searchBuffer [t->searchCount] = 0;
-					p = t->searchBuffer;
-					while (*p)
-						t->scriptCode [t->scriptCodeSize++] = *p++;
-					t->scriptCode [t->scriptCodeSize] = *src++;
-					t->searchCount = 0;
-				}
-			}
-			else if (*src == '<') {
-				t->searchCount = 1;
-				t->searchBuffer [0] = '<';
-				src++;
-			}
-			else
-				t->scriptCode [t->scriptCodeSize] = *src++;
-		}
-		else if (t->charEntity) {
-			gulong entityValue = 0;
-
-			/* See http://www.mozilla.org/newlayout/testcases/layout/entities.html for a complete entity list,
-			   ftp://ftp.unicode.org/Public/MAPPINGS/ISO8859/8859-1.TXT
-			   (or 'man iso_8859_1') for the character encodings. */
-
-
-			t->searchBuffer [t->searchCount + 1] = *src;
-			t->searchBuffer [t->searchCount + 2] = '\0';
-			
-			/* Check for &#0000 sequence */
-			if (t->searchBuffer[2] == '#') {
-				if ((t->searchCount > 1) &&
-				    (!isdigit (*src)) &&
-				    (t->searchBuffer[3] != 'x')) {
-					/* &#123 */
-					t->searchBuffer [t->searchCount + 1] = '\0';
-					entityValue = strtoul (&(t->searchBuffer [3]),
-							       NULL, 10);
-					t->charEntity = FALSE;
-				}
-				if ((t->searchCount > 1) &&
-				    (!isalnum (*src)) && 
-				    (t->searchBuffer[3] == 'x')) {
-					/* &x12AB */
-					t->searchBuffer [t->searchCount + 1] = '\0';
-					entityValue = strtoul (&(t->searchBuffer [4]),
-							       NULL, 16);
-					t->charEntity = FALSE;
-				}
-			}
-			else {
-				/* Check for &abc12 sequence */
-				if (!isalnum (*src)) {
-					t->charEntity = FALSE;
-					if ((t->searchBuffer [t->searchCount + 1] == ';') ||
-					    (!t->tag)) {
-						char *ename = t->searchBuffer + 2;
-						
-						t->searchBuffer [t->searchCount + 1] = '\0'; /* FIXME sucks */
-						entityValue = html_entity_parse (ename, 0);
-					}
-				}
-				
-			}
-			
-			switch (entityValue) {
-			case 139:
-				entityValue = 60;
-				break;
-			case 145:
-				entityValue = 96;
-				break;
-			case 146:
-				entityValue = 39;
-				break;
-
-			case 147:
-				//strcpy (t->searchBuffer+2, "ldquo");
-				//t->searchCount = 6;
-				//break;
-			case 148:
-				//strcpy(t->searchBuffer+2, "rdquo");
-				//searchCount = 6;
-				entityValue = 34;
-				break;
-			case 150:
-				//strcpy(t->searchBuffer+2, "ndash");
-				//t->searchCount = 6;
-				//break;
-			case 151:
-				//strcpy (t->searchBuffer+2, "mdash");
-				//t->searchCount = 6;
-				entityValue = 45;
-				break;
-			case 152:
-				entityValue = 126;
-				break;
-			case 155:
-				entityValue = 62;
-				break;
-			case 133:
-				strcpy (t->searchBuffer+2, "hellip");
-				t->searchCount = 7;
-				break;
-			case 149:
-				strcpy (t->searchBuffer+2, "bull");
-				t->searchCount = 5;
-				break;
-			case 153:
-				strcpy (t->searchBuffer+2, "trade");
-				t->searchCount = 6;
-				break;
-			default:;
-			}
-			
-			if (t->searchCount > 8) {
-				/* Ignore this sequence since it's too long */
-				t->charEntity = FALSE;
-				memcpy (t->dest, t->searchBuffer + 1, t->searchCount);
-				t->dest += t->searchCount;
-				
-				if (t->pre)
-					t->prePos += t->searchCount;
-			}
-			else if (t->charEntity) {
-				/* Keep searching for end of character entity */
-				t->searchCount++;
-				src++;
-			}
-			else {
-				if(entityValue) {
-					/* Insert plain ASCII */
-					/* I really do not understand it, but let's test it out (Lauris) */
-#if 0
-					*(t->dest)++ = (gchar) entityValue;
-					if (t->pre)
-						t->prePos++;
-					if (*src == ';')
-						src++;
-#else
-					t->dest += g_unichar_to_utf8 (entityValue, t->dest);
-					if (t->pre) t->prePos++;
-					if (*src == ';') src++;
-#endif
-				}
-				/* FIXME: Get entities */
-				else if (!entityValue) {
-					/* Ignore the sequence, just add it as plaintext */
-					memcpy (t->dest, t->searchBuffer + 1, t->searchCount);
-					t->dest += t->searchCount;
-					if (t->pre)
-						t->prePos += t->searchCount;
-
-				}
-#if 0
-				else if (!t->tag && !t->textarea && !t->select && !t->title) {
-					/* Add current token first */
-					if (t->dest > t->buffer) {
-						*(t->dest) = 0;
-						html_tokenizer_append_token (t, t->buffer,
-									     t->dest - t->buffer);
-						t->dest = t->buffer;
-					}
-
-					/* Add token with the amp sequence for further conversion */
-					html_tokenizer_append_token (t, t->searchBuffer, t->searchCount + 1);
-					t->dest = t->buffer;
-					if (t->pre)
-						t->prePos++;
-					if (*src == ';')
-						src++;
-				}
-#endif
-				t->searchCount = 0;
-			}
-		}
-		else if (t->startTag) {
-			t->startTag = FALSE;
-			if (*src == '/') {
-				if (t->pending == LFPending) {
-					t->pending = NonePending;
-				}
-			}
-			else if (((*src >= 'a') && (*src <= 'z'))
-				 || ((*src >= 'A') && (*src <= 'Z'))) {
-				/* Start of a start tag */
-			}
-			else if (*src == '!') {
-				/* <!-- comment --> */
-			}
-			else if (*src == '?') {
-				/* <? meta ?> */
-			}
-			else {
-				/* Invalid tag, just add it */
-				if (t->pending)
-					html_tokenizer_add_pending (t);
-				*(t->dest) = '<';
-				t->dest++;
-				*(t->dest)++ = *src++;
-				continue;
-			}
-			
-			if (t->pending)
-				html_tokenizer_add_pending (t);
-
-			if (t->dest > t->buffer) {
-				*(t->dest) = 0;
-				html_tokenizer_append_token (t, t->buffer, t->dest - t->buffer);
-				t->dest = t->buffer;
-			}
-			*(t->dest) = TAG_ESCAPE;
-			t->dest++;
-			*(t->dest) = '<';
-			t->dest++;
-			t->tag = TRUE;
-			t->searchCount = 1; /* Look for <!-- to start comment */
-		}
-		else if (*src == '&') {
-			src++;
-			
-			t->discard = NoneDiscard;
-			
-			if (t->pending)
-				html_tokenizer_add_pending (t);
-			t->charEntity = TRUE;
-			t->searchBuffer[0] = TAG_ESCAPE;
-			t->searchBuffer[1] = '&';
-			t->searchCount = 1;
-		}
-		else if (*src == '<' && !t->tag) {
-			src++;
-			t->startTag = TRUE;
-			t->discard = NoneDiscard;
-			
-		}
-		else if (*src == '>' && t->tag && !t->tquote) {
-
-			t->searchCount = 0; /* Stop looking for <!-- sequence */
-			
-			*(t->dest) = '>';
-			*(t->dest+1) = 0;
-			
-			/* Make the tag lower case */
-			ptr = t->buffer + 2;
-			if (*ptr == '/') {
-				/* End tag */
-				t->discard = NoneDiscard;
-			}
-			else {
-				/* Start tag */
-				/* Ignore CRLFs after a start tag */
-				t->discard = LFDiscard;
-			}
-			while (*ptr && *ptr !=' ') {
-				*ptr = tolower (*ptr);
-				ptr++;
-			}
-			html_tokenizer_append_token (t, t->buffer, t->dest - t->buffer + 1);
-			t->dest = t->buffer;
-			
-			t->tag = FALSE;
-			t->pending = NonePending;
-			src++;
-			
-			if (strncmp (t->buffer + 2, "pre", 3) == 0) {
-				t->prePos = 0;
-				t->pre = TRUE;
-			}
-			else if (strncmp (t->buffer + 2, "/pre", 4) == 0) {
-				t->pre = FALSE;
-			}
-			else if (strncmp (t->buffer + 2, "textarea", 8) == 0) {
-				t->textarea = TRUE;
-			}
-			else if (strncmp (t->buffer + 2, "/textarea", 9) == 0) {
-				t->textarea = FALSE;
-			}
-			else if (strncmp (t->buffer + 2, "title", 5) == 0) {
-				t->title = TRUE;
-			}
-			else if (strncmp (t->buffer + 2, "/title", 6) == 0) {
-				t->title = FALSE;
-			}
-			else if (strncmp (t->buffer + 2, "script", 6) == 0) {
-				t->script = TRUE;
-				t->searchCount = 0;
-				t->searchFor = scriptEnd;
-				t->scriptCode = g_malloc (1024);
-				t->scriptCodeSize = 0;
-				t->scriptCodeMaxSize = 1024;
-			}
-			else if (strncmp (t->buffer + 2, "style", 5) == 0) {
-				t->style = TRUE;
-				t->searchCount = 0;
-				t->searchFor = styleEnd;
-				t->scriptCode = g_malloc (1024);
-				t->scriptCodeSize = 0;
-				t->scriptCodeMaxSize = 1024;
-			}
-			else if (strncmp (t->buffer + 2, "select", 6) == 0) {
-				t->select = TRUE;
-			}
-			else if (strncmp (t->buffer + 2, "/select", 7) == 0) {
-				t->select = FALSE;
-			}
-			else if (strncmp (t->buffer + 2, "frameset", 8) == 0) {
-				g_warning ("<frameset> tag not supported");
-			}
-			else if (strncmp (t->buffer + 2, "cell", 4) == 0) {
-				g_warning ("<cell> tag not supported");
-			}
-			else if (strncmp (t->buffer + 2, "table", 5) == 0) {
-				html_tokenizer_blocking_push (t, Table);
-			}
-			else {
-				if (t->blocking) {
-					const gchar *bn = html_tokenizer_blocking_get_name (t);
-
-					if (strncmp (t->buffer + 1, bn, strlen (bn)) == 0) {
-						html_tokenizer_blocking_pop (t);
-					}
-				}
-			}
-		}
-		else if ((*src == '\n') || (*src == '\r')) {
-			if (t->tquote) {
-				if (t->discard == NoneDiscard)
-					t->pending = SpacePending;
-			}
-			else if (t->tag) {
-				t->searchCount = 0; /* Stop looking for <!-- sequence */
-				if (t->discard == NoneDiscard)
-					t->pending = SpacePending; /* Treat LFs inside tags as spaces */
-			}
-			else if (t->pre || t->textarea) {
-				if (t->discard == LFDiscard) {
-					/* Ignore this LF */
-					t->discard = NoneDiscard; /*  We have discarded 1 LF */
-				} else {
-					/* Process this LF */
-					if (t->pending)
-						html_tokenizer_add_pending (t);
-					t->pending = LFPending;
-				}
-			}
-			else {
-				if (t->discard == LFDiscard) {
-					/* Ignore this LF */
-					t->discard = NoneDiscard; /* We have discarded 1 LF */
-				} else {
-					/* Process this LF */
-					if (t->pending == NonePending)
-						t->pending = LFPending;
-				}
-			}
-			/* Check for MS-DOS CRLF sequence */
-			if (*src == '\r') {
-				t->skipLF = TRUE;
-			}
-			src++;
-		}
-		else if ((*src == ' ') || (*src == '\t')) {
-			if (t->tquote) {
-				if (t->discard == NoneDiscard)
-					t->pending = SpacePending;
-			}
-			else if (t->tag) {
-				t->searchCount = 0; /* Stop looking for <!-- sequence */
-				if (t->discard == NoneDiscard)
-					t->pending = SpacePending;
-			}
-			else if (t->pre || t->textarea) {
-				if (t->pending)
-					html_tokenizer_add_pending (t);
-				if (*src == ' ')
-					t->pending = SpacePending;
-				else
-					t->pending = TabPending;
-			}
-			else {
-				t->pending = SpacePending;
-			}
-			src++;
-		}
-		else if (*src == '\"' || *src == '\'') {
-			/* We treat ' and " the same in tags */
-			t->discard = NoneDiscard;
-			if (t->tag) {
-				t->searchCount = 0; /* Stop looking for <!-- sequence */
-				if ((t->tquote == SINGLE_QUOTE && *src == '\"')
-				    || (t->tquote == DOUBLE_QUOTE && *src == '\'')) {
-					*(t->dest)++ = *src;
-				} else if (*(t->dest-1) == '=' && !t->tquote) {
-					t->discard = SpaceDiscard;
-					t->pending = NonePending;
-					
-					if (*src == '\"')
-						t->tquote = DOUBLE_QUOTE;
-					else
-						t->tquote = SINGLE_QUOTE;
-					*(t->dest)++ = *src;
-				}
-				else if (t->tquote) {
-					t->tquote = NO_QUOTE;
-					*(t->dest)++ = *src;
-					t->pending = SpacePending;
-				}
-				else {
-					/* Ignore stray "\'" */
-				}
-				src++;
-			}
-			else {
-				if (t->pending)
-					html_tokenizer_add_pending (t);
-				if (t->pre)
-					t->prePos++;
-				
-				*(t->dest)++ = *src++;
-			}
-		}
-		else if (*src == '=') {
-			src++;
-			t->discard = NoneDiscard;
-			if (t->tag) {
-				t->searchCount = 0; /* Stop looking for <!-- sequence */
-				*(t->dest)++ = '=';
-				if (!t->tquote) {
-					t->pending = NonePending;
-					t->discard = SpaceDiscard;
-				}
-			}
-			else {
-				if (t->pending)
-					html_tokenizer_add_pending (t);
-				if (t->pre)
-					t->prePos++;
-
-				*(t->dest)++ = '=';
-			}
-		}
-		else {
-			t->discard = NoneDiscard;
-			if (t->pending)
-				html_tokenizer_add_pending (t);
-			
-			if (t->tag) {
-				if (t->searchCount > 0) {
-					if (*src == commentStart[t->searchCount]) {
-						t->searchCount++;
-						if (t->searchCount == 4) {
-							/* Found <!-- sequence */
-							t->comment = TRUE;
-							t->dest = t->buffer;
-							t->tag = FALSE;
-							t->searchCount = 0;
-							continue;
-						}
-					}
-					else {
-						t->searchCount = 0; /* Stop lookinf for <!-- sequence */
-					}
-				}
-			}
-			else if (t->pre) {
-				t->prePos++;
-			}
-			*(t->dest)++ = *src++;
-		}
+		else if (t->comment)
+			in_comment (t, &src);
+		else if (t->script || t->style)
+			in_script_or_style (t, &src);
+		else if (t->charEntity)
+			in_entity (t, &src);
+		else if (t->startTag)
+			in_tag (t, &src);
+		else if (*src == '&')
+			start_entity (t, &src);
+		else if (*src == '<' && !t->tag)
+			start_tag (t, &src);
+		else if (*src == '>' && t->tag && !t->tquote)
+			end_tag (t, &src);
+		else if ((*src == '\n') || (*src == '\r'))
+			in_crlf (t, &src);
+		else if ((*src == ' ') || (*src == '\t'))
+			in_space_or_tab (t, &src);
+		else if (*src == '\"' || *src == '\'')
+			in_quoted (t, &src);
+		else if (*src == '=')
+			in_assignment (t, &src);
+		else
+			in_plain (t, &src);
 	}
-	
-	if (srcPtr)
-		g_free (srcPtr);
 }
 
 gchar *

@@ -23,6 +23,7 @@
 #include <gdk/gdkkeysyms.h>
 #include "gtkhtml-search.h"
 #include "gtkhtml-input.h"
+#include "htmlengine-search.h"
 #include "htmlsearch.h"
 
 struct _GtkHTMLISearch {
@@ -52,11 +53,13 @@ key_press (GtkWidget *widget, GdkEventKey *event, GtkHTMLISearch *data)
 	gint rv = FALSE;
 
 	if (event->state == GDK_CONTROL_MASK && event->keyval == GDK_s) {
-		html_search_set_forward (e->search_info, TRUE);
+		if (e->search_info)
+			html_search_set_forward (e->search_info, TRUE);
 		html_engine_search_next (e);
 		rv = TRUE;
 	} else if (event->state == GDK_CONTROL_MASK && event->keyval == GDK_r) {
-		html_search_set_forward (e->search_info, FALSE);
+		if (e->search_info)
+			html_search_set_forward (e->search_info, FALSE);
 		html_engine_search_next (e);
 		rv = TRUE;
 	}

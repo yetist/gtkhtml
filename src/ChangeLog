@@ -1,3 +1,27 @@
+2000-09-26  Radek Doulik  <rodo@helixcode.com>
+
+	* gtkhtml-search.c (key_press): test e->search_info != NULL
+
+	* htmlsearch.c (html_search_set_forward): added assert
+
+	* gtkhtml.c (move_selection): set binding_handled = TRUE
+	(command): binding_handled = FALSE
+	(key_press_event): don't call parent key_press handler, as it
+	calls bindings_activate, which we don't want to be called again
+
+	* htmliframe.c (search): new virtual method implementation,
+	forwards search down the iframe
+
+	* htmlengine-search.c (display_search_results): unselect also for
+	root engine (right now it's iframe parent's engine if iframe
+	parent != NULL)
+	(get_root_engine): helper function
+
+	* htmlengine-search.[ch]: new files, search stuff moved here from
+	htmlengine.[ch]
+
+	* htmltokenizer.c (html_tokenizer_write): refactored
+
 2000-09-21  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlengine.c (html_engine_init): don't use gtk_object_unref in

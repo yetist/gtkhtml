@@ -613,7 +613,6 @@ key_press_event (GtkWidget *widget,
 	gtk_bindings_activate (GTK_OBJECT (widget), event->keyval, event->state);
 	retval = html->binding_handled;
 
-
 	if (! retval
 	    && html_engine_get_editable (html->engine)
 	    && ! (event->state & (GDK_CONTROL_MASK | GDK_MOD1_MASK))
@@ -627,9 +626,6 @@ key_press_event (GtkWidget *widget,
 		g_free (str);
 		retval = TRUE;
 	}
-
-	if (!retval && GTK_WIDGET_CLASS (parent_class)->key_press_event)
-		retval = GTK_WIDGET_CLASS (parent_class)->key_press_event (widget, event);
 
 	if (retval && html_engine_get_editable (html->engine))
 		html_engine_reset_blinking_cursor (html->engine);
@@ -2273,6 +2269,8 @@ move_selection (GtkHTML *html, GtkHTMLCommandType com_type)
 	default:
 		g_assert_not_reached ();
 	}
+
+	html->binding_handled = TRUE;
 }
 
 static void
@@ -2292,6 +2290,7 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		gtk_html_isearch (html, FALSE);
 		break;
 	default:
+		html->binding_handled = FALSE;
 	}
 
 	if (!html_engine_get_editable (e))
@@ -2476,6 +2475,7 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 	}
 #endif
 	default:
+		html->binding_handled = FALSE;
 	}
 }
 

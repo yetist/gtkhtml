@@ -35,6 +35,7 @@ struct _HTMLSearch {
 
 	gboolean case_sensitive;
 	gboolean forward;
+	gboolean regular;
 
 	GSList      *stack;
 	GList       *found;

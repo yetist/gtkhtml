@@ -21,6 +21,8 @@
 #include <gtk/gtk.h>
 #include <string.h>
 #include "htmliframe.h"
+#include "htmlengine-search.h"
+#include "htmlsearch.h"
 
 HTMLIFrameClass html_iframe_class;
 static HTMLEmbeddedClass *parent_class = NULL;
@@ -262,6 +264,23 @@ calc_size (HTMLObject *o,
 	return FALSE;
 }
 
+static gboolean
+search (HTMLObject *self, HTMLSearch *info)
+{
+	HTMLEngine *e = GTK_HTML (HTML_IFRAME (self)->html)->engine;
+
+	if (e->search_info && !e->search_info->found) {
+		html_search_destroy (e->search_info);
+		e->search_info = NULL;
+		return FALSE;
+	}
+
+	return e->search_info
+		? html_engine_search_next (e)
+		: html_engine_search (e, info->text, info->case_sensitive, info->forward, info->regular);
+}
+
+
 void 
 html_iframe_init (HTMLIFrame *iframe,
 		  HTMLIFrameClass *klass,
@@ -392,4 +411,5 @@ html_iframe_class_init (HTMLIFrameClass *klass,
 	object_class->set_max_width = set_max_width;
 	object_class->forall = forall;
 	object_class->check_page_split = check_page_split;
+	object_class->search = search;
 }

@@ -30,6 +30,7 @@
 */
 
 #include <config.h>
+#include <unicode.h>
 #include "htmlsearch.h"
 #include "htmlobject.h"
 #include "htmlentity.h"
@@ -38,7 +39,7 @@ static void
 set_text (HTMLSearch *s, const gchar *text)
 {
 	s->text           = g_strdup (text);
-	s->text_len       = strlen (text);
+	s->text_len       = unicode_strlen (text, -1);
 }
 
 HTMLSearch *
@@ -62,6 +63,7 @@ html_search_new (const gchar *text, gboolean case_sensitive, gboolean forward, g
 	}
 	ns->trans [ENTITY_NBSP] = ' ';
 
+	ns->regular = regular;
 	if (regular) {
 		const gchar *rv;
 
@@ -117,25 +119,15 @@ html_search_pop (HTMLSearch *search)
 gboolean
 html_search_child_on_stack (HTMLSearch *search, HTMLObject *obj)
 {
-	if (!search->stack) {
-		return FALSE;
-	}
-
-	if (HTML_OBJECT (search->stack->data)->parent != obj) {
-		return FALSE;
-	}
-
-	return TRUE;
+	return search->stack && HTML_OBJECT (search->stack->data)->parent == obj;
 }
 
 gboolean
 html_search_next_parent (HTMLSearch *search)
 {
-	if (search->stack
-	    && search->stack->next) {
-		return html_object_search (HTML_OBJECT (search->stack->next->data), search);
-	}
-	return FALSE;
+	return search->stack && search->stack->next
+		? html_object_search (HTML_OBJECT (search->stack->next->data), search)
+		: FALSE;
 }
 
 void
@@ -148,5 +140,7 @@ html_search_set_text (HTMLSearch *search, const gchar *text)
 void
 html_search_set_forward (HTMLSearch *search, gboolean forward)
 {
+	g_assert (search);
+
 	search->forward = forward;
 }

@@ -398,22 +398,20 @@ search (HTMLObject *obj, HTMLSearch *info)
 		cur  = html_search_pop (info);
 		cur = (info->forward) ? cur->next : cur->prev;
 		next = TRUE;
-	} else {
+	} else
 		cur = (info->forward) ? clue->head : clue->tail;
-	}
 
 	while (cur) {
 		html_search_push (info, cur);
-		if (html_object_search (cur, info)) {
+		if (html_object_search (cur, info))
 			return TRUE;
-		}
+
 		html_search_pop (info);
 		cur = (info->forward) ? cur->next : cur->prev;
 	}
 
-	if (next) {
+	if (next)
 		return html_search_next_parent (info);
-	}
 
 	return FALSE;
 }

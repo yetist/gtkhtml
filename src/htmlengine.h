@@ -381,14 +381,6 @@ void      html_engine_thaw    (HTMLEngine *engine);
 void      html_engine_load_empty                (HTMLEngine *engine);
 
 /* Search & Replace */
-gboolean  html_engine_search                    (HTMLEngine *e,
-						 const gchar *text,
-						 gboolean case_sensitive,
-						 gboolean forward,
-						 gboolean regular);
-gboolean  html_engine_search_next               (HTMLEngine *e);
-gboolean  html_engine_search_incremental        (HTMLEngine *e,
-						 const gchar *text);
 
 void      html_engine_replace                   (HTMLEngine *e,
 						 const gchar *text,
