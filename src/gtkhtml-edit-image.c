@@ -29,22 +29,74 @@ static void
 insert (GtkWidget *w, GtkHTMLImageDialog *d)
 {
 	gchar *file;
+	gint16 width;
+	gint16 height;
+	gint8 percent;
+	gint8 border;
+	gint8 hspace;
+	gint8 vspace;
+	HTMLHAlignType halign = HTML_HALIGN_NONE;
+	HTMLVAlignType valign = HTML_VALIGN_BOTTOM;
 
-	file = g_strconcat ("file:", gnome_pixmap_entry_get_filename (GNOME_PIXMAP_ENTRY (d->pentry)), NULL);
+	file    = g_strconcat ("file:", gnome_pixmap_entry_get_filename (GNOME_PIXMAP_ENTRY (d->pentry)), NULL);
+	width   = -1;
+	percent =  0;
+	if (d->set [GTK_HTML_EDIT_IMAGE_WIDTH]) {
+		if (d->percent) {
+			percent = GTK_ADJUSTMENT (d->adj [GTK_HTML_EDIT_IMAGE_WIDTH])->value;
+		} else {
+			width   = GTK_ADJUSTMENT (d->adj [GTK_HTML_EDIT_IMAGE_WIDTH])->value;
+		}
+	}
+	height = (d->set [GTK_HTML_EDIT_IMAGE_HEIGHT]) ? GTK_ADJUSTMENT (d->adj [GTK_HTML_EDIT_IMAGE_HEIGHT])->value : -1;
+	hspace = (d->set [GTK_HTML_EDIT_IMAGE_HSPACE]) ? GTK_ADJUSTMENT (d->adj [GTK_HTML_EDIT_IMAGE_HSPACE])->value : 0;
+	vspace = (d->set [GTK_HTML_EDIT_IMAGE_VSPACE]) ? GTK_ADJUSTMENT (d->adj [GTK_HTML_EDIT_IMAGE_VSPACE])->value : 0;
+	border = (d->set [GTK_HTML_EDIT_IMAGE_BWIDTH]) ? GTK_ADJUSTMENT (d->adj [GTK_HTML_EDIT_IMAGE_BWIDTH])->value : 0;
+
+	printf ("insert image align: %d\n", d->align);
+
+	switch (d->align) {
+	case 1:
+		valign = HTML_VALIGN_TOP;
+		break;
+	case 3:
+		valign = HTML_VALIGN_CENTER;
+		break;
+	case 4:
+		halign = HTML_HALIGN_LEFT;
+		break;
+	case 5:
+		halign = HTML_HALIGN_LEFT;
+		break;
+	}
 
 	html_engine_insert_image (d->html->engine,
 				  file,
-				  "", "", -1, -1, 0, 0, 0, HTML_VALIGN_TOP);
+				  "", "",
+				  width, height, percent, border, NULL,
+				  halign, valign,
+				  hspace, vspace);
 
 	g_free (file);
+}
+
+static void
+menu_activate (GtkWidget *mi, GtkHTMLImageDialog *d)
+{
+	d->align = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (mi), "idx"));
+}
+
+static void
+width_toggled (GtkWidget *check, GtkHTMLImageDialog *d)
+{
+	gtk_widget_set_sensitive (d->check_percent,
+				  gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check)));
 }
 
 static void
 percent_toggled (GtkWidget *check, GtkHTMLImageDialog *d)
 {
 	d->percent = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check));
-	gtk_widget_set_sensitive (d->check_percent,
-				  d->percent);
 }
 
 static void
@@ -75,13 +127,6 @@ checked_value (GtkHTMLImageDialog *d, gint idx, const gchar *name)
 	gtk_signal_connect (GTK_OBJECT (d->check [idx]), "toggled", GTK_SIGNAL_FUNC (check_toggled), d);
 }
 
-static void
-entry_activate (GtkWidget *entry, GtkHTMLImageDialog *d)
-{
-	printf ("entry activate\n");
-	// replace (NULL, d);
-}
-
 GtkHTMLImageDialog *
 gtk_html_image_dialog_new (GtkHTML *html)
 {
@@ -94,6 +139,7 @@ gtk_html_image_dialog_new (GtkHTML *html)
 	GtkWidget *menuitem;
 	GtkAccelGroup *accel_group;
 	gchar     *dir;
+	guint      malign = 0;
 
 	dialog->dialog         = GNOME_DIALOG (gnome_dialog_new (_("Image"), GNOME_STOCK_BUTTON_OK,
 								 GNOME_STOCK_BUTTON_CANCEL, NULL));
@@ -138,7 +184,10 @@ gtk_html_image_dialog_new (GtkHTML *html)
 	menuitem = gtk_menu_item_new_with_label (_(n)); \
         gtk_menu_append (GTK_MENU (menu), menuitem); \
         gtk_widget_show (menuitem); \
-        gtk_widget_add_accelerator (menuitem, "activate", accel_group, k, 0, GTK_ACCEL_VISIBLE);
+        gtk_widget_add_accelerator (menuitem, "activate", accel_group, k, 0, GTK_ACCEL_VISIBLE); \
+        gtk_signal_connect (GTK_OBJECT (menuitem), "activate", GTK_SIGNAL_FUNC (menu_activate), dialog); \
+        gtk_object_set_data (GTK_OBJECT (menuitem), "idx", GINT_TO_POINTER (malign)); \
+        malign++;
 
 	ADD_ITEM("None",   GDK_F1);
 	ADD_ITEM("Top",    GDK_F2);
@@ -156,13 +205,6 @@ gtk_html_image_dialog_new (GtkHTML *html)
 	gtk_box_pack_start_defaults (GTK_BOX (hb1), frame);
 	gtk_box_pack_start_defaults (GTK_BOX (dialog->dialog->vbox), hb1);
 	gtk_widget_show_all (hb1);
-
-	/* hbox = gtk_hbox_new (FALSE, 0);
-
-	label = gtk_label_new (_("Description"));
-	gtk_misc_set_alignment (GTK_MISC (label), 1.0, .5);
-	gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 2);
-	gtk_box_pack_start_defaults (GTK_BOX (hbox), dialog->entry_alt); */
 
 	/* size and spacing */
 	hbox = gtk_hbox_new (FALSE, 2);
@@ -184,6 +226,8 @@ gtk_html_image_dialog_new (GtkHTML *html)
 	dialog->check_percent = gtk_check_button_new_with_label ("%");
 	gtk_widget_set_sensitive (dialog->check_percent, dialog->set [GTK_HTML_EDIT_IMAGE_WIDTH]);
 	gtk_signal_connect (GTK_OBJECT (dialog->check [GTK_HTML_EDIT_IMAGE_WIDTH]), "toggled",
+					GTK_SIGNAL_FUNC (width_toggled), dialog);
+	gtk_signal_connect (GTK_OBJECT (dialog->check_percent), "toggled",
 					GTK_SIGNAL_FUNC (percent_toggled), dialog);
 	gtk_table_attach (GTK_TABLE (table), dialog->check_percent, 2, 3, 0, 1, GTK_FILL, 0, 0, 0);
 
@@ -211,9 +255,6 @@ gtk_html_image_dialog_new (GtkHTML *html)
 	gnome_dialog_set_close (dialog->dialog, TRUE);
 
 	gnome_dialog_set_default (dialog->dialog, 0);
-
-	gtk_signal_connect (GTK_OBJECT (dialog->entry_alt), "activate",
-			    entry_activate, dialog);
 
 	return dialog;
 }

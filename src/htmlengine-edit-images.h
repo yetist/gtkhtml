@@ -34,6 +34,9 @@ void  html_engine_insert_image  (HTMLEngine     *e,
 				 gint8           percent,
 				 gint8           border,
 				 const GdkColor *border_color,
-				 HTMLVAlignType  valign);
+				 HTMLHAlignType  halign,
+				 HTMLVAlignType  valign,
+				 gint8           hspace,
+				 gint8           vspace);
 
 #endif

@@ -1,3 +1,22 @@
+2000-04-24  Radek Doulik  <rodo@helixcode.com>
+
+	* gtkhtml-edit-image.c (gtk_html_image_dialog_new): lifted dialog
+	design up
+	(checked_value): creates check/spin button pair
+	(check_toggled): checkbuttons callback
+	(percent_toggled): percent toggle callback
+	(width_toggled): width toggle callback for percent checkbutton
+	(menu_activate): align menuitems callback
+	(insert): callback which calls image insertion
+
+	* htmlengine-edit-images.c (html_engine_insert_image): updated to
+	use valign/halign
+
+2000-04-23  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlengine-edit-images.c (html_engine_insert_image): added
+	halign, hspace, vspace args
+
 2000-04-23  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlengine-edit-delete.c: Implemented undo/redo.

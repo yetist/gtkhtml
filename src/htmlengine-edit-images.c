@@ -22,6 +22,7 @@
 #include "htmlengine.h"
 #include "htmlengine-edit-paste.h"
 #include "htmlimage.h"
+#include "htmlcluealigned.h"
 
 #include "htmlengine-edit-images.h"
 
@@ -36,12 +37,19 @@ html_engine_insert_image (HTMLEngine *e,
 			  gint8 percent,
 			  gint8 border,
 			  const GdkColor *border_color,
-			  HTMLVAlignType valign)
+			  HTMLHAlignType halign,
+			  HTMLVAlignType valign,
+			  gint8 hspace,
+			  gint8 vspace)
 {
 	HTMLObject *image;
+	HTMLObject *aligned;
 
 	g_return_if_fail (e != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (e));
+
+	printf ("insert image bw: %d hs: %d vs: %d file: %s percent: %d w: %d h: %d\n",
+		border, hspace, vspace, file, percent, width, height);
 
 	image = html_image_new (e->image_factory,
 				file,
@@ -53,9 +61,15 @@ html_engine_insert_image (HTMLEngine *e,
 				border_color,
 				valign);
 
-	printf ("insert image %s\n", file);
+	html_image_set_spacing (HTML_IMAGE (image), hspace, vspace);
 
-	html_engine_paste_object (e, image, TRUE);
+	/* !!! this is copied from htmlengine !!! */
+	if (halign != HTML_HALIGN_NONE) {
+		aligned = html_cluealigned_new (NULL, 0, 0, e->clue->max_width, 100);
+		HTML_CLUE (aligned)->halign = halign;
+		html_clue_append (HTML_CLUE (aligned), HTML_OBJECT (image));
+	}
 
-	html_object_destroy (image);
+	html_engine_paste_object (e, (halign == HTML_HALIGN_NONE) ? image : aligned, TRUE);
+	html_object_destroy ((halign == HTML_HALIGN_NONE) ? image : aligned);
 }
