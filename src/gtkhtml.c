@@ -4723,7 +4723,7 @@ gtk_html_select_all (GtkHTML *html)
 void
 gtk_html_api_set_language (GtkHTML *html)
 {
-	g_assert (GTK_IS_HTML (html));
+	g_return_if_fail (GTK_IS_HTML (html));
 
 	if (html->editor_api) {
 		gchar *language;

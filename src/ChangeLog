@@ -1,7 +1,12 @@
+2003-02-28  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml.c (gtk_html_api_set_language): change assertion to check.
+
 2003-02-27  Larry Ewing  <lewing@ximian.com>
 
 	* htmlclueflow.c (end_of_word): make sure we check for the end of
 	the buffer.
+	(copy): copy indent_width;
 
 	* htmltokenizer.c (add_unichar_validated): new helper function to
 	checkvalidity of unichar before adding it to the stream.
