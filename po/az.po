@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.11.99\n"
-"POT-Creation-Date: 2001-10-09 09:44-0500\n"
-"PO-Revision-Date: 2001-09-22 21:19GMT +0200\n"
+"POT-Creation-Date: 2001-10-21 16:32+0200\n"
+"PO-Revision-Date: 2001-10-03 18:47GMT +0200\n"
 "Last-Translator: Vasif İsmayıloğlu MD <azerb_linux@hotmail.com>\n"
 "Language-Team: Azerbaijani Turkish <linuxaz@azerimal.net>\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 msgid "<None>"
 msgstr "<Yox>"
 
-#: capplet/gnome-bindings-prop.c:216 capplet/main.c:245
+#: capplet/gnome-bindings-prop.c:216 capplet/main.c:252
 #: components/html-editor/cell.c:385 components/html-editor/rule.c:315
 #: components/html-editor/table.c:528 components/html-editor/table.c:619
 #: components/html-editor/template.c:243
@@ -467,9 +467,8 @@ msgid "Preformat"
 msgstr "Ön format"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:67
-#, fuzzy
 msgid "Purple"
-msgstr "Əvl"
+msgstr "Çəhrayı"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:68
 msgid "Red"
@@ -720,6 +719,12 @@ msgstr "Aç"
 msgid "Colors"
 msgstr "Rənglər"
 
+#: components/html-editor/body.c:175 components/html-editor/cell.c:391
+#: components/html-editor/table.c:534 components/html-editor/text.c:221
+#: components/html-editor/toolbar.c:290
+msgid "Automatic"
+msgstr "Avtomatik"
+
 #: components/html-editor/body.c:186
 #: components/html-editor/editor-control-factory.c:195
 #: components/html-editor/menubar.c:127 components/html-editor/popup.c:154
@@ -730,11 +735,6 @@ msgstr "Mətn"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:5
 msgid "Background"
 msgstr "Arxa plan"
-
-#: components/html-editor/cell.c:391 components/html-editor/table.c:534
-#: components/html-editor/text.c:221 components/html-editor/toolbar.c:290
-msgid "Automatic"
-msgstr "Avtomatik"
 
 #: components/html-editor/editor-control-factory.c:176
 #: components/html-editor/popup.c:146
@@ -1197,15 +1197,21 @@ msgstr "Qeyd"
 
 #: components/html-editor/template.c:83
 msgid ""
-"<table cellspacing=0 cellpadding=1 "
-"bgcolor=\"#ccccc0\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" "
-"cellpadding=3 cellspacing=0 width=\"100%\"><tr><td valign=top><img "
-"src=\"file://"
+"<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
+"\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
+"cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
 msgstr ""
-"<table cellspacing=0 cellpadding=1 "
-"bgcolor=\"#ccccc0\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" "
-"cellpadding=3 cellspacing=0 width=\"100%\"><tr><td valign=top><img "
-"src=\"file://"
+"<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
+"\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
+"cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
+
+#: components/html-editor/template.c:85
+msgid ""
+"/bulb.png\" hspace=10></td><td width=\"100%\">Place your text here</td></"
+"tr></table></td></tr></table>"
+msgstr ""
+"/bulb.png\" hspace=10></td><td width=\"100%\">Place your text here</td></"
+"tr></table></td></tr></table>"
 
 #: components/html-editor/template.c:91
 msgid "Image frame"
@@ -1214,12 +1220,22 @@ msgstr "Rəsm çərçivəsi"
 #: components/html-editor/template.c:93
 msgid ""
 "<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" @width@@align@><tr><td><table "
-"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" "
-"width=\"100%\"><tr><td align=\"center\"><img src=\"file://"
+"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%"
+"\"><tr><td align=\"center\"><img src=\"file://"
 msgstr ""
 "<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" @width@@align@><tr><td><table "
-"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" "
-"width=\"100%\"><tr><td align=\"center\"><img src=\"file://"
+"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%"
+"\"><tr><td align=\"center\"><img src=\"file://"
+
+#: components/html-editor/template.c:97
+#, fuzzy
+msgid ""
+"/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font size="
+"\"-1\">Image 1: <b>description</b></font></td></tr></table></td></tr></table>"
+msgstr ""
+"/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td>Image 1:"
+"&nbsp;<font size=\"3\"><b>description</b></font size=\"3\"></td></tr></"
+"table></td></tr></table>"
 
 #: components/html-editor/test-html-editor-control.c:276
 msgid "Open file..."
@@ -1307,76 +1323,3 @@ msgstr "Çap etmə önizləməsi"
 
 #~ msgid "_Numbered List"
 #~ msgstr "_Rəqəmli Siyahı"
-
-#~ msgid ""
-#~ "/bulb.png\" hspace=10></td><td width=\"100%\">Place your text "
-#~ "here</td></tr></table></td></tr></table>"
-#~ msgstr ""
-#~ "/bulb.png\" hspace=10></td><td width=\"100%\">Place your text "
-#~ "here</td></tr></table></td></tr></table>"
-
-#~ msgid ""
-#~ "/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td>Image "
-#~ "1:&nbsp;<font size=\"3\"><b>description</b></font "
-#~ "size=\"3\"></td></tr></table></td></tr></table>"
-#~ msgstr ""
-#~ "/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td>Image "
-#~ "1:&nbsp;<font size=\"3\"><b>description</b></font "
-#~ "size=\"3\"></td></tr></table></td></tr></table>"
-
-#~ msgid "_Header _3"
-#~ msgstr "_Başlıq 3"
-
-#~ msgid "_Header _4"
-#~ msgstr "_Başlıq 4"
-
-#~ msgid "_Header _5"
-#~ msgstr "_Başlıq 5"
-
-#~ msgid "_Header _6"
-#~ msgstr "_Başlıq 6"
-
-#~ msgid "Be careful! Tables code is still ALPHA quality."
-#~ msgstr "Diqqətli ol! Cədvəl kodu hələ ki ALPHA keyfiyyətindədir."
-
-#~ msgid "Miscelaneous"
-#~ msgstr "Qarışıq"
-
-#~ msgid "border"
-#~ msgstr "kənar"
-
-#~ msgid "color"
-#~ msgstr "rəng"
-
-#~ msgid "columns"
-#~ msgstr "sütun"
-
-#~ msgid "padding"
-#~ msgstr "kənarlama"
-
-#~ msgid "rows"
-#~ msgstr "sətir"
-
-#~ msgid "spacing"
-#~ msgstr "fasilə vermə"
-
-#~ msgid "style"
-#~ msgstr "tərz"
-
-#~ msgid "Item dot"
-#~ msgstr "Nöqtəli siyahı üzvü"
-
-#~ msgid "Item roman"
-#~ msgstr "Siyahı üzvü ( roman rəqəmli)"
-
-#~ msgid "Item digit"
-#~ msgstr "Siyahı üzvü ( rəqəm)"
-
-#~ msgid "List item (digit)"
-#~ msgstr "Siyahı üzvü ( rəqəm)"
-
-#~ msgid "List item (unnumbered)"
-#~ msgstr "Siyahı üzvü ( rəqəmsiz)"
-
-#~ msgid "List item (roman)"
-#~ msgstr "Siyahı üzvü ( roman rəqəmli)"
