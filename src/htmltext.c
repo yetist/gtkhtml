@@ -1504,28 +1504,8 @@ save_text_part (HTMLText *text, HTMLEngineSaveState *state, guint start_index, g
 }
 
 static gboolean
-save_link_open (Link *link, HTMLEngineSaveState *state, GSList **attrs)
+save_link_open (Link *link, HTMLEngineSaveState *state)
 {
-	GSList *l, *next;
-
-	if (attrs)
-		for (l = *attrs; l; l = next) {
-			PangoAttribute *attr = (PangoAttribute *) l->data;
-			next = l->next;
-			if (attr->klass->type == PANGO_ATTR_UNDERLINE) {
-				*attrs = g_slist_delete_link (*attrs, l);
-				pango_attribute_destroy (attr);
-			} else if (attr->klass->type == PANGO_ATTR_FOREGROUND) {
-				GdkColor *color = &html_colorset_get_color (state->engine->settings->color_set, HTMLLinkColor)->color;
-				PangoAttrColor *ac = (PangoAttrColor *) attr;
-
-				if (ac->color.red == color->red && ac->color.green == color->green && ac->color.blue == color->blue) {
-					*attrs = g_slist_delete_link (*attrs, l);
-					pango_attribute_destroy (attr);
-				}
-			}
-		}
-
 	return html_engine_save_output_string (state, "<A HREF=\"%s\">", link->url);
 }
 
@@ -1536,22 +1516,31 @@ save_link_close (Link *link, HTMLEngineSaveState *state)
 }
 
 static gboolean
-save_text (HTMLText *text, HTMLEngineSaveState *state, guint start_index, guint end_index, GSList **l, gboolean link_started)
+save_text (HTMLText *text, HTMLEngineSaveState *state, guint start_index, guint end_index, GSList **l, gboolean *link_started)
 {
-	if (link_started && *l) {
+	if (*l) {
 		Link *link;
 
 		link = (Link *) (*l)->data;
 
-		while (*l && link->end_index < end_index) {
-			if (!save_text_part (text, state, start_index, link->end_index))
-				return FALSE;
-			save_link_close (link, state);
-			(*l) = (*l)->next;
-			start_index = link->end_index;
-			if (*l) {
-				link = (Link *) (*l)->data;
-				save_link_open (link, state, NULL);
+		while (*l && ((!*link_started && start_index <= link->start_index && link->start_index <= end_index)
+			      || (*link_started && link->end_index < end_index))) {
+			if (!*link_started && start_index <= link->start_index && link->start_index < end_index) {
+				if (!save_text_part (text, state, start_index, link->start_index))
+					return FALSE;
+				*link_started = TRUE;
+				save_link_open (link, state);
+				start_index = link->start_index;
+			}
+			if (*link_started && link->end_index <= end_index) {
+				if (!save_text_part (text, state, start_index, link->end_index))
+					return FALSE;
+				save_link_close (link, state);
+				*link_started = FALSE;
+				(*l) = (*l)->next;
+				start_index = link->end_index;
+				if (*l)
+					link = (Link *) (*l)->data;
 			}
 		}
 
@@ -1586,30 +1575,13 @@ save (HTMLObject *self, HTMLEngineSaveState *state)
 			if (end_index > text->text_bytes)
 				end_index = text->text_bytes;
 
-			if (l && !link_started) {
-				Link *link = (Link *) l->data;
-
-				if (link && link->start_index == start_index) {
-					save_link_open (link, state, &attrs);
-					link_started = TRUE;
-				}
-			}
 			if (attrs)
 				save_open_attrs (state, attrs);
-			save_text (text, state, start_index, end_index, &l, link_started);
+			save_text (text, state, start_index, end_index, &l, &link_started);
 			if (attrs) {
 				attrs = g_slist_reverse (attrs);
 				save_close_attrs (state, attrs);
 				html_text_free_attrs (attrs);
-			}
-			if (l && link_started) {
-				Link *link = (Link *) l->data;
-
-				if (link->end_index == end_index) {
-					save_link_close (link, state);
-					l = l->next;
-					link_started = FALSE;
-				}
 			}
 		} while (pango_attr_iterator_next (iter));
 		g_slist_free (links);

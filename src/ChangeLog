@@ -1,3 +1,11 @@
+2004-04-21  Radek Doulik  <rodo@ximian.com>
+
+	* htmltext.c (save_link_open): do not bother with underline and
+	color attributes, they are not generated for links anymore
+	(save_link_close): ditto
+	(save): do not handle links here, as we want another tags first
+	(save_text): handle links saving here
+
 2004-04-20  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine-edit-table.c (html_engine_table_goto_col): cursor
