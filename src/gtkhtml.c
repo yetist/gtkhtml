@@ -2043,18 +2043,14 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 */
 
 static void
-load_keybindings (GtkHTMLClass *klass)
+clean_bindings_set (GtkBindingSet *binding_set)
 {
-	GtkBindingSet *binding_set;
 	GtkBindingEntry *cur;
 	GList *mods, *vals, *cm, *cv;
-	gchar *base;
-	gchar *rcfile;
 
-	/* keybindings */
-	binding_set = gtk_binding_set_by_class (klass);
+	if (!binding_set)
+		return;
 
-	/* remove old keybindings FIXME it will be implemented (different way) in gtk as gtk_binding_clear () */
 	mods = NULL;
 	vals = NULL;
 	cur = binding_set->entries;
@@ -2070,14 +2066,31 @@ load_keybindings (GtkHTMLClass *klass)
 	}
 	g_list_free (mods);
 	g_list_free (vals);
-	/* end of FIXME */
+}
+
+static void
+load_keybindings (GtkHTMLClass *klass)
+{
+	GtkBindingSet *binding_set;
+	gchar *base = NULL;
+	gchar *rcfile, *name;
+
+	/* FIXME add to gtk gtk_binding_set_clear & gtk_binding_set_remove_path */
+	clean_bindings_set (gtk_binding_set_find ("gtkhtml-bindings-emacs"));
+	clean_bindings_set (gtk_binding_set_find ("gtkhtml-bindings-ms"));
+	clean_bindings_set (gtk_binding_set_find ("gtkhtml-bindings-custom"));
 
 	/* ensure enums are defined */
 	gtk_html_cursor_skip_get_type ();
 	gtk_html_command_get_type ();
 
-	base = g_strconcat ("keybindingsrc.", klass->properties->keybindings_theme, NULL);
-	rcfile = g_concat_dir_and_file (PREFIX "/share/gtkhtml", base);
+	if (strcmp (klass->properties->keybindings_theme, "custom")) {
+		base = g_strconcat ("keybindingsrc.", klass->properties->keybindings_theme, NULL);
+		rcfile = g_concat_dir_and_file (PREFIX "/share/gtkhtml", base);
+		g_free (base);
+	} else {
+		rcfile = g_strconcat (gnome_util_user_home (), "/.gnome/gtkhtml-bindings-custom", NULL);
+	}
 
 	if (! g_file_exists (rcfile)) {
 		g_warning (_("Couldn't find keybinding file -- %s"), rcfile);
@@ -2089,7 +2102,15 @@ load_keybindings (GtkHTMLClass *klass)
 	g_warning ("Loading keybindings -- %s", rcfile);
 	gtk_rc_parse (rcfile);
 
-	g_free (base);
+	name = g_strconcat ("gtkhtml-bindings-", klass->properties->keybindings_theme, NULL);
+	binding_set = gtk_binding_set_find (name);
+	g_warning ("Looking for %s set\n", name);
+	g_assert (binding_set);
+	gtk_binding_set_add_path (binding_set,
+				  GTK_PATH_CLASS,
+				  gtk_type_name (GTK_OBJECT_CLASS (klass)->type),
+				  GTK_PATH_PRIO_GTK);
+	g_free (name);
 	g_free (rcfile);
 
 	/* layout scrolling */

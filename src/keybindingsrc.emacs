@@ -56,5 +56,3 @@ binding "gtkhtml-bindings-emacs"
   bind "<Ctrl><Alt>2"       { "command" (style-itemroman) }
   bind "<Ctrl><Alt>3"       { "command" (style-itemdigit) }
 }
-
-class "GtkHTML" binding "gtkhtml-bindings-emacs"

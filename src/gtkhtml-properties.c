@@ -88,9 +88,7 @@ gtk_html_class_properties_update (GtkHTMLClassProperties *p, GConfClient *client
 		SET (bool, "/magic_links", magic_links);
 	}
 
-	if (strcmp (p->keybindings_theme, old->keybindings_theme)) {
-		SET (string, "/keybindings_theme", keybindings_theme);
-	}
+	SET (string, "/keybindings_theme", keybindings_theme);
 }
 
 /* enums */
