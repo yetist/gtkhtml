@@ -57,6 +57,7 @@ static void         spell_error_destroy     (SpellError *se);
 static void         move_spell_errors       (GList *spell_errors, guint offset, gint delta);
 static GList *      remove_spell_errors     (GList *spell_errors, guint offset, guint len);
 static void         remove_text_slaves      (HTMLObject *self);
+static void         html_text_change_attrs  (PangoAttrList *attr_list, GtkHTMLFontStyle style, HTMLEngine *e, gint start_index, gint end_index);
 
 /* void
 debug_spell_errors (GList *se)
@@ -1122,7 +1123,11 @@ html_text_get_pango_info (HTMLText *text, HTMLPainter *painter)
 			attrs = pango_attr_list_copy (text->attr_list);
 		if (text->extra_attr_list)
 			pango_attr_list_splice (attrs, text->extra_attr_list, 0, text->text_len);
+		if (HTML_OBJECT (text)->parent && HTML_IS_CLUEFLOW (HTML_OBJECT (text)->parent) && painter->widget && GTK_IS_HTML (painter->widget)) {
+			GtkHTMLFontStyle parent_style = html_clueflow_get_default_font_style (HTML_CLUEFLOW (HTML_OBJECT (text)->parent));
 
+			html_text_change_attrs (attrs, parent_style, GTK_HTML (painter->widget)->engine, 0, text->text_bytes);
+		}
 		if (text->select_length) {
 			gchar *end;
 			gchar *start;
@@ -3038,8 +3043,8 @@ html_text_get_style_conflicts (HTMLText *text, GtkHTMLFontStyle style, gint star
 	return conflicts;
 }
 
-void
-html_text_set_style_in_range (HTMLText *text, GtkHTMLFontStyle style, HTMLEngine *e, gint start_index, gint end_index)
+static void
+html_text_change_attrs (PangoAttrList *attr_list, GtkHTMLFontStyle style, HTMLEngine *e, gint start_index, gint end_index)
 {
 	PangoAttribute *attr;
 
@@ -3048,35 +3053,35 @@ html_text_set_style_in_range (HTMLText *text, GtkHTMLFontStyle style, HTMLEngine
 		attr = pango_attr_weight_new (PANGO_WEIGHT_BOLD);
 		attr->start_index = start_index;
 		attr->end_index = end_index;
-		pango_attr_list_change (text->attr_list, attr);
+		pango_attr_list_change (attr_list, attr);
 	}
 
 	if (style & GTK_HTML_FONT_STYLE_ITALIC) {
 		attr = pango_attr_style_new (PANGO_STYLE_ITALIC);
 		attr->start_index = start_index;
 		attr->end_index = end_index;
-		pango_attr_list_change (text->attr_list, attr);
+		pango_attr_list_change (attr_list, attr);
 	}
 
 	if (style & GTK_HTML_FONT_STYLE_UNDERLINE) {
 		attr = pango_attr_underline_new (PANGO_UNDERLINE_SINGLE);
 		attr->start_index = start_index;
 		attr->end_index = end_index;
-		pango_attr_list_change (text->attr_list, attr);
+		pango_attr_list_change (attr_list, attr);
 	}
 
 	if (style & GTK_HTML_FONT_STYLE_STRIKEOUT) {
 		attr = pango_attr_strikethrough_new (TRUE);
 		attr->start_index = start_index;
 		attr->end_index = end_index;
-		pango_attr_list_change (text->attr_list, attr);
+		pango_attr_list_change (attr_list, attr);
 	}
 
 	if (style & GTK_HTML_FONT_STYLE_FIXED) {
 		attr = pango_attr_family_new (e->painter->font_manager.fixed.face ? e->painter->font_manager.fixed.face : "Monospace");
 		attr->start_index = start_index;
 		attr->end_index = end_index;
-		pango_attr_list_change (text->attr_list, attr);
+		pango_attr_list_change (attr_list, attr);
 	}
 
 	/* always apply size so that we can zoom */
@@ -3084,7 +3089,13 @@ html_text_set_style_in_range (HTMLText *text, GtkHTMLFontStyle style, HTMLEngine
 	html_pango_attr_font_size_calc ((HTMLPangoAttrFontSize *) attr, e);
 	attr->start_index = start_index;
 	attr->end_index = end_index;
-	pango_attr_list_change (text->attr_list, attr);
+	pango_attr_list_change (attr_list, attr);
+}
+
+void
+html_text_set_style_in_range (HTMLText *text, GtkHTMLFontStyle style, HTMLEngine *e, gint start_index, gint end_index)
+{
+	html_text_change_attrs (text->attr_list, style, e, start_index, end_index);
 }
 
 void

@@ -1,3 +1,14 @@
+2004-04-01  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine.c (insert_text): do not merge parent's flow style,
+	it's no more needed
+
+	* htmltext.c (html_text_change_attrs): extracted this new helper
+	function from html_text_set_style_in_range so that we are able to
+	set attributes on attribute lists as well
+	(html_text_get_pango_info): set parent's folder style to attrs
+	before processing
+
 2004-03-31  Radek Doulik  <rodo@ximian.com>
 
 	* htmltext.c (html_text_set_style_in_range): always apply size
