@@ -163,6 +163,9 @@ update_styles (GtkHTML *html)
 	HTMLEngine *engine;
 	guint indentation;
 
+	if (! html->editable)
+		return;
+
 	engine = html->engine;
 
 	clueflow_style = html_engine_get_current_clueflow_style (engine);

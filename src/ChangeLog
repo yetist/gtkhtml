@@ -1,5 +1,8 @@
 2000-03-03  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* gtkhtml.c (update_styles): Do nothing if the widget is not
+	editable.
+
 	* htmlengine.c (html_engine_init): Initialize `editable' to be
 	FALSE.
 
