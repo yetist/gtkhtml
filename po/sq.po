@@ -6,14 +6,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.HEAD\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-07-10 04:49+0200\n"
+"POT-Creation-Date: 2004-06-25 15:15-0400\n"
 "PO-Revision-Date: 2004-06-28 18:20+0200\n"
 "Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
 "Language-Team: Albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Report-Msgid-Bugs-To: \n"
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -286,7 +286,6 @@ msgstr ""
 msgid "Find and Replace"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:27
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:27
 msgid "For_mat"
@@ -529,7 +528,6 @@ msgstr ""
 msgid "Orange"
 msgstr "Portokalli"
 
-#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:74
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:75
 msgid "Other..."
@@ -2030,4 +2028,3 @@ msgstr "Pamja e parë e printimit"
 #: src/testgtkhtml.c:987
 msgid "GtkHTML Test Application"
 msgstr ""
-
