@@ -1,3 +1,9 @@
+2001-03-29  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine-edit-table.c (insert_table_row): fixed cursor
+	position, added row_cells parameter
+	(delete_row_setup_undo): rewritten to use cells data
+
 2001-03-29  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml.c (on_object): free the pointer_url before we set it to
