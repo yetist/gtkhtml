@@ -23,4 +23,5 @@ components/html-editor/text.c
 components/html-editor/toolbar.c
 components/html-editor/utils.c
 src/gtkhtml.c
+src/htmlgdkpainter.c
 src/testgtkhtml.c
