@@ -1,24 +1,29 @@
-Todo for gtkhtml:
+* Missing features in GtkHTML the renderer
+------------------------------------------
 
-* Font support must be improved, so that it picks up the X font with
-  more smartness.
+- Cursor keys do not work with the scrollbars.
 
-* Full support for all HTML tags
+- Numbered lists are not implemented.
 
-* Fix memory leaks
+- The HTML non-editing component is not finished.
 
-* Scrolling speed
+* Missing features in GtkHTML the editor
+----------------------------------------
 
-* Alignment is broken in some ways.  Slashdot is not always right, for
-  example: flowing around images is not correct.  Also `<br
-  align=right>' does not work as expected.
+- Keyboard-based selection is missing.  (Requires selection code
+  overhaul.)
 
-* The tokenizer eats spaces in stuff like <tag>something <tag>.
+- Search/replace is missing.
 
-* Itemized list do not support numbers (we have to make a simple
-  HTMLClueFlow hack for that).
+- Undo is not handled for all the operations.
 
-* rewrite HTMLMasterText, HTMLSlaveText - I believe that we may split
-  content of Flow first by potencial line breaks to HTMLClueNBreak objects.
-  HTMLClueNBreak will contain list of HTMLObjects - in case of text -
-  HTMLMasterText.
+- We don't allow editing of everything yet.
+
+- We need hooks to edit images and links.
+
+- We need a command to turn a whole region into a link.
+
+- Keybindings should be somewhat configurable.
+
+- The horizontal size of the document is not updated correctly if the
+  minimum size of the current edited line becomes larger than it.

@@ -27,19 +27,30 @@ Table problems
   it with lots of random/inappropriate data and let's make it sure
   this does not happen *ever*.
 
-- Animations are not handled.  We should be using the GdkPixbuf
-  interface for this.
-
 - We might want to speed up redraw on expose.
 
 - If a page renders with a link under the cursor, the link cannot be
   clicked unless you move the cursor off the link and then back on
 
-* Missing features:
--------------------
+- Lots of memory leaks.
 
-- Selection does not actually put anything into the X clipboard.
+* Sites that look wrong
+-----------------------
 
-- Cursor keys do not work with the scrollbars.
+- http://www.altavista.com is not 100% correct.
 
-- The HTML non-editing component is not finished.  (Easy.)
+- http://www.stjerneskolan.com is broken (some elements are laid out
+  horizontally instead of vertically).  Looks like a bug in the (table?)
+  parser: if I move spaces around in the source HTML, then things work
+  right.  The same problem happens somewhere after clicking on some
+  http://www.cocacola.com link.
+
+* Editor bugs
+-------------
+
+- Setting the paragraph style in a region is kind of broken in many
+  cases.
+
+- Pasting misbehaves in some cases.
+
+- The amount of scrolling performed by PageUp/PageDown is not correct.
