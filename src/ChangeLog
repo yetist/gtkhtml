@@ -1,3 +1,14 @@
+2001-08-23  Radek Doulik  <rodo@ximian.com>
+
+	* htmltext.c (check_last_white): new inlined helper function
+	(check_prev_white): ditto
+	(is_convert_nbsp_needed): updated, check for
+	&nbsp;...&nbsp;<space>
+	(write_prev_white_space):  new inlined helper function
+	(write_last_white_space): ditto
+	(convert_nbsp): updated, convert to &nbsp;...&nbsp;<space>
+	(merge_word_width): commented out unused condition
+
 2001-08-22  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine-edit-cursor.c (html_engine_setup_blinking_cursor):

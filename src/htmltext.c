@@ -223,7 +223,7 @@ html_text_clear_word_width (HTMLText *text)
 static void
 merge_word_width (HTMLText *t1, HTMLText *t2, HTMLPainter *p)
 {
-	guint len, i, words;
+	guint i, words;
 
 	/* printf ("before merge '%s' '%s'\n", t1->text, t2->text);
 	   debug_word_width (t1);
@@ -232,13 +232,15 @@ merge_word_width (HTMLText *t1, HTMLText *t2, HTMLPainter *p)
 	if (!t1->word_width)
 		return;
 
-	len = strlen (t1->text);
-	if (((len && t1->text [len - 1] == ' ')
-	     || (len > 1 && (guchar) t1->text [len - 1] == 0xa0 && (guchar) t1->text [len - 1] == 0xc2))
-	    && t2->text [0] == ' ') {
-		html_text_clear_word_width (t1);
-		return; /* we don't want do merge as convert_nbsp will 100% happen */
-	}
+	/* FIXME: once enabled, it should be revisited because we use &nbsp;...&nbsp;<space>
+	   order now
+	   len = strlen (t1->text);
+	   if (((len && t1->text [len - 1] == ' ')
+	   || (len > 1 && (guchar) t1->text [len - 1] == 0xa0 && (guchar) t1->text [len - 1] == 0xc2))
+	   && t2->text [0] == ' ') {
+	   html_text_clear_word_width (t1);
+	   return;
+	   } */
 
 	/* temporarily disable word width merging because of tabs */
 	html_text_clear_word_width (t1);
@@ -817,70 +819,99 @@ get_length (HTMLObject *self)
 
 /* #define DEBUG_NBSP */
 
-static gboolean
-is_convert_nbsp_needed (const gchar *s, gint *delta_out)
+static inline gboolean
+check_last_white (gboolean rv, gint white_space, gunichar last_white, gint *delta_out)
 {
-	gunichar uc;
-	gboolean rv = FALSE;
-	gboolean in_white_space;
-	const gchar *p, *op;
-
-	*delta_out = 0;
-
-	op = p = s;
-	in_white_space = FALSE;
-	while (*p && (p = e_unicode_get_utf8 (p, &uc))) {
-		if (uc == ENTITY_NBSP) {
-			if (!in_white_space) {
-				(*delta_out) --;
-				rv = TRUE;
-			}
-			in_white_space = TRUE;
-		} else if (uc == ' ') {
-			if (in_white_space) {
-				(*delta_out) ++;
-				rv = TRUE;
-			}
-			in_white_space = TRUE;
-		} else
-			in_white_space = FALSE;
-
-		op = p;
+	if (white_space > 0 && last_white == ENTITY_NBSP) {
+		(*delta_out) --;
+		rv = TRUE;
 	}
 
 	return rv;
 }
 
+static inline gboolean
+check_prev_white (gboolean rv, gint white_space, gunichar last_white, gint *delta_out)
+{
+	if (white_space > 0 && last_white == ' ') {
+		(*delta_out) ++;
+		rv = TRUE;
+	}
+
+	return rv;
+}
+
+static gboolean
+is_convert_nbsp_needed (const gchar *s, gint *delta_out)
+{
+	gunichar uc, last_white;
+	gboolean rv = FALSE;
+	gint white_space;
+	const gchar *p, *op;
+
+	*delta_out = 0;
+
+	op = p = s;
+	white_space = 0;
+	while (*p && (p = e_unicode_get_utf8 (p, &uc))) {
+		if (uc == ENTITY_NBSP || uc == ' ') {
+			rv = check_prev_white (rv, white_space, last_white, delta_out);
+			white_space ++;
+			last_white = uc;
+		} else {
+			rv = check_last_white (rv, white_space, last_white, delta_out);
+			white_space = 0;
+		}
+		op = p;
+	}
+	rv = check_last_white (rv, white_space, last_white, delta_out);
+
+	return rv;
+}
+
+static inline void
+write_prev_white_space (gint white_space, gchar **fill)
+{
+			if (white_space > 0) {
+#ifdef DEBUG_NBSP
+				printf ("&nbsp;");
+#endif
+				**fill = 0xc2; (*fill) ++;
+				**fill = 0xa0; (*fill) ++;
+			}
+}
+
+static inline void
+write_last_white_space (gint white_space, gchar **fill)
+{
+	if (white_space > 0) {
+#ifdef DEBUG_NBSP
+		printf (" ");
+#endif
+		**fill = ' '; (*fill) ++;
+	}
+}
+
 static void
 convert_nbsp (gchar *fill, const gchar *p)
 {
-	gboolean in_white_space;
+	gint white_space;
 	gunichar uc;
 	const gchar *op;
 
 #ifdef DEBUG_NBSP
-	printf ("convert_nbsp: %s --> ", s);
+	printf ("convert_nbsp: %s --> \"", p);
 #endif
 	op = p;
-	in_white_space = FALSE;
+	white_space = 0;
 
 	while (*p && (p = e_unicode_get_utf8 (p, &uc))) {
 		if (uc == ENTITY_NBSP || uc == ' ') {
-			if (in_white_space) {
-#ifdef DEBUG_NBSP
-				printf ("&nbsp;");
-#endif
-				*fill = 0xc2; fill ++;
-				*fill = 0xa0; fill ++;
-			} else {
-#ifdef DEBUG_NBSP
-				printf (" ");
-#endif
-				*fill = ' '; fill++;
-			}
-			in_white_space = TRUE;
+			write_prev_white_space (white_space, &fill);
+			white_space ++;
 		} else {
-			in_white_space = FALSE;
+			write_last_white_space (white_space, &fill);
+			white_space = 0;
 #ifdef DEBUG_NBSP
 			printf ("*");
 #endif
@@ -890,10 +921,11 @@ convert_nbsp (gchar *fill, const gchar *p)
 		op = p;
 	}
 
+	write_last_white_space (white_space, &fill);
 	*fill = 0;
 
 #ifdef DEBUG_NBSP
-	printf ("\n");
+	printf ("\"\n");
 #endif
 }
 
