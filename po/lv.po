@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2003-01-12 03:15+0100\n"
-"PO-Revision-Date: 2003-01-12 12:26+0200\n"
+"POT-Creation-Date: 2003-01-14 19:20+0100\n"
+"PO-Revision-Date: 2003-01-15 02:26+0200\n"
 "Last-Translator: Artis Trops <hornet@navigator.lv>\n"
 "Language-Team: Latvian <ll10nt@os.lv>\n"
 "MIME-Version: 1.0\n"
@@ -466,7 +466,7 @@ msgstr "Padarīt pašreizējo rindkopu par alfabētisku sarakstu"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
 #: components/html-editor/gtkhtml-editor-properties.glade.h:49
-#: components/html-editor/paragraph.c:124
+#: components/html-editor/paragraph.c:127
 #: components/html-editor/toolbar.c:47
 msgid "Normal"
 msgstr "Normāls"
@@ -575,7 +575,7 @@ msgstr "Izvelēties visu dokumenta saturu"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
 #: components/html-editor/gtkhtml-editor-properties.glade.h:69
-#: components/html-editor/text.c:233
+#: components/html-editor/text.c:237
 #: components/html-editor/toolbar.c:527
 msgid "Strikeout"
 msgstr "Pārsvītrot"
@@ -857,7 +857,7 @@ msgstr "Krāsas"
 #: components/html-editor/body.c:313
 #: components/html-editor/cell.c:423
 #: components/html-editor/table.c:535
-#: components/html-editor/text.c:291
+#: components/html-editor/text.c:295
 #: components/html-editor/toolbar.c:299
 msgid "Automatic"
 msgstr "Automātiski"
@@ -877,13 +877,19 @@ msgstr "Fons"
 
 #: components/html-editor/cell.c:172
 #: components/html-editor/cell.c:174
-#: components/html-editor/text.c:104
+#: components/html-editor/text.c:107
 msgid "The quick brown fox jumps over the lazy dog."
 msgstr "Glāžšķūņa rūķīši čiepj koncertflīģeļa vāku."
 
 #: components/html-editor/cell.c:177
 msgid "Other"
 msgstr "Cits"
+
+#: components/html-editor/cell.c:678
+msgid "The editted cell was removed from the document.\n"
+"Cannot apply your changes."
+msgstr "Rediģētā šūna tika izņemta no dokumenta.\n"
+"Nevaru pielietot jūsu izmaiņas."
 
 #: components/html-editor/editor-control-factory.c:165
 #: components/html-editor/menubar.c:313
@@ -936,7 +942,7 @@ msgid "Apply changes to:"
 msgstr "Pielietot izmaiņas:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:16
-#: components/html-editor/text.c:230
+#: components/html-editor/text.c:234
 #: components/html-editor/toolbar.c:521
 msgid "Bold"
 msgstr "Trekni"
@@ -959,14 +965,14 @@ msgid "Cell"
 msgstr "Šūna"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:21
-#: components/html-editor/paragraph.c:159
+#: components/html-editor/paragraph.c:162
 #: components/html-editor/toolbar.c:510
 msgid "Center"
 msgstr "Centrēt"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:22
 #: components/html-editor/link.c:107
-#: components/html-editor/text.c:241
+#: components/html-editor/text.c:245
 msgid "Click will follow this URL"
 msgstr "Klikšķis sekos šim URL"
 
@@ -1032,13 +1038,13 @@ msgid "Horizontal:"
 msgstr "Horizontāli:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:40
-#: components/html-editor/text.c:231
+#: components/html-editor/text.c:235
 #: components/html-editor/toolbar.c:523
 msgid "Italic"
 msgstr "Ieslīpi"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:41
-#: components/html-editor/paragraph.c:158
+#: components/html-editor/paragraph.c:161
 msgid "Left"
 msgstr "Pa Kreisi"
 
@@ -1092,7 +1098,7 @@ msgid "Points"
 msgstr "Punkti"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:59
-#: components/html-editor/paragraph.c:160
+#: components/html-editor/paragraph.c:163
 msgid "Right"
 msgstr "Pa Labi"
 
@@ -1118,7 +1124,7 @@ msgid "Shaded"
 msgstr "Ēnots"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:66
-#: components/html-editor/text.c:257
+#: components/html-editor/text.c:261
 msgid "Size"
 msgstr "Izmērs"
 
@@ -1131,8 +1137,8 @@ msgid "Spacing:"
 msgstr "Atstarpe:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:70
-#: components/html-editor/paragraph.c:110
-#: components/html-editor/text.c:217
+#: components/html-editor/paragraph.c:113
+#: components/html-editor/text.c:221
 msgid "Style"
 msgstr "Stils"
 
@@ -1158,7 +1164,7 @@ msgid "Top"
 msgstr "Augša"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:79
-#: components/html-editor/text.c:232
+#: components/html-editor/text.c:236
 #: components/html-editor/toolbar.c:525
 msgid "Underline"
 msgstr "Pasvītrot"
@@ -1218,7 +1224,7 @@ msgstr "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" cellpadding=@border
 msgid "The quick brown fox jumped over the lazy dog."
 msgstr "Mazie rūķīši nočiepa koncertflīģeļa vāku."
 
-#: components/html-editor/image.c:689
+#: components/html-editor/image.c:692
 msgid "The editted image was removed from the document.\n"
 "Cannot apply your changes."
 msgstr "Rediģētais attēls tika izņemts no dokumenta.\n"
@@ -1228,13 +1234,19 @@ msgstr "Rediģētais attēls tika izņemts no dokumenta.\n"
 msgid "Link text"
 msgstr "Saites teksts"
 
+#: components/html-editor/link.c:180
+msgid "The editted link was removed from the document.\n"
+"Cannot apply your changes."
+msgstr "Rediģētā saite tika izņemta no dokumenta.\n"
+"Nevaru pielietot jūsu izmaiņas."
+
 #: components/html-editor/menubar.c:122
 #: components/html-editor/menubar.c:138
 #: components/html-editor/menubar.c:156
 #: components/html-editor/menubar.c:173
 #: components/html-editor/menubar.c:196
 #: components/html-editor/popup.c:100
-#: components/html-editor/properties.c:139
+#: components/html-editor/properties.c:128
 msgid "Insert"
 msgstr "Ievietot"
 
@@ -1246,64 +1258,70 @@ msgstr "Ievietot HTML failu"
 msgid "Insert text file"
 msgstr "Ievietot teksta faiu"
 
-#: components/html-editor/paragraph.c:125
+#: components/html-editor/paragraph.c:128
 msgid "Pre"
 msgstr "Pre"
 
-#: components/html-editor/paragraph.c:126
+#: components/html-editor/paragraph.c:129
 #: components/html-editor/toolbar.c:53
 msgid "Header 1"
 msgstr "Galvene 1"
 
-#: components/html-editor/paragraph.c:127
+#: components/html-editor/paragraph.c:130
 #: components/html-editor/toolbar.c:54
 msgid "Header 2"
 msgstr "Galvene 2"
 
-#: components/html-editor/paragraph.c:128
+#: components/html-editor/paragraph.c:131
 #: components/html-editor/toolbar.c:55
 msgid "Header 3"
 msgstr "Galvene 3"
 
-#: components/html-editor/paragraph.c:129
+#: components/html-editor/paragraph.c:132
 #: components/html-editor/toolbar.c:56
 msgid "Header 4"
 msgstr "Galvene 4"
 
-#: components/html-editor/paragraph.c:130
+#: components/html-editor/paragraph.c:133
 #: components/html-editor/toolbar.c:57
 msgid "Header 5"
 msgstr "Galvene 5"
 
-#: components/html-editor/paragraph.c:131
+#: components/html-editor/paragraph.c:134
 #: components/html-editor/toolbar.c:58
 msgid "Header 6"
 msgstr "Galvene 6"
 
-#: components/html-editor/paragraph.c:132
+#: components/html-editor/paragraph.c:135
 #: components/html-editor/toolbar.c:59
 msgid "Address"
 msgstr "Adrese"
 
-#: components/html-editor/paragraph.c:133
+#: components/html-editor/paragraph.c:136
 msgid "Dot item"
 msgstr "Punkta vienība"
 
-#: components/html-editor/paragraph.c:134
+#: components/html-editor/paragraph.c:137
 msgid "Number item"
 msgstr "Numura vienība"
 
-#: components/html-editor/paragraph.c:135
+#: components/html-editor/paragraph.c:138
 msgid "Roman item"
 msgstr "Romiešu vienība"
 
-#: components/html-editor/paragraph.c:136
+#: components/html-editor/paragraph.c:139
 msgid "Alphabeta item"
 msgstr "Alfabēta vienība"
 
-#: components/html-editor/paragraph.c:145
+#: components/html-editor/paragraph.c:148
 msgid "Align"
 msgstr "Nolīdzināt"
+
+#: components/html-editor/paragraph.c:192
+msgid "The editted paragraph was removed from the document.\n"
+"Cannot apply your changes."
+msgstr "Rediģētais paragrāfs tika izņemts no dokumenta.\n"
+"Nevaru pielietot jūsu izmaiņas."
 
 #: components/html-editor/popup.c:420
 msgid "Paste Quotation"
@@ -1436,6 +1454,12 @@ msgstr "Zils 3D"
 msgid "Yellow, flowers"
 msgstr "Dzeltens, puķes"
 
+#: components/html-editor/rule.c:421
+msgid "The editted rule was removed from the document.\n"
+"Cannot apply your changes."
+msgstr "Rediģētais nosacījums tika izņemts no dokumenta.\n"
+"Nevaru pielietot jūsu izmaiņas."
+
 #: components/html-editor/search.c:78
 msgid "backward"
 msgstr "atpakļ"
@@ -1455,6 +1479,12 @@ msgstr "Pelēks"
 #: components/html-editor/table.c:208
 msgid "Dark header"
 msgstr "Tumša galvene"
+
+#: components/html-editor/table.c:812
+msgid "The editted table was removed from the document.\n"
+"Cannot apply your changes."
+msgstr "Rediģētā tabula tika izņemta no dokumenta.\n"
+"Nevaru pielietot jūsu izmaiņas."
 
 #: components/html-editor/template.c:83
 msgid "Note"
@@ -1478,9 +1508,15 @@ msgid "Save file as..."
 msgstr "Saglabāt failu kā..."
 
 #. color selection
-#: components/html-editor/text.c:287
+#: components/html-editor/text.c:291
 msgid "Color"
 msgstr "Krāsa"
+
+#: components/html-editor/text.c:333
+msgid "The editted text was removed from the document.\n"
+"Cannot apply your changes."
+msgstr "Rediģētais teksts tika izņemts no dokumenta.\n"
+"Nevaru pielietot jūsu izmaiņas."
 
 #: components/html-editor/toolbar.c:51
 msgid "Roman List"
