@@ -69,6 +69,38 @@ enum _GtkHTMLParagraphAlignment {
 };
 typedef enum _GtkHTMLParagraphAlignment GtkHTMLParagraphAlignment;
 
+enum _GtkHTMLCursorSkipType {
+	GTK_HTML_CURSOR_SKIP_ONE,
+	GTK_HTML_CURSOR_SKIP_WORD,
+	GTK_HTML_CURSOR_SKIP_PAGE,
+	GTK_HTML_CURSOR_SKIP_ALL,
+};
+typedef enum _GtkHTMLCursorSkipType GtkHTMLCursorSkipType;
+
+enum _GtkHTMLCommandType {
+	GTK_HTML_COMMAND_UNDO,
+	GTK_HTML_COMMAND_REDO,
+	GTK_HTML_COMMAND_COPY,
+	GTK_HTML_COMMAND_CUT,
+	GTK_HTML_COMMAND_PASTE,
+
+	GTK_HTML_COMMAND_INSERT_PARAGRAPH,
+	GTK_HTML_COMMAND_INSERT_RULE,
+	GTK_HTML_COMMAND_INSERT_RULE_PARAM,
+	GTK_HTML_COMMAND_INSERT_IMAGE_PARAM,
+
+	GTK_HTML_COMMAND_MAKE_LINK,
+	GTK_HTML_COMMAND_REMOVE_LINK,
+
+	GTK_HTML_COMMAND_DELETE,
+	GTK_HTML_COMMAND_DELETE_BACK,
+
+	GTK_HTML_COMMAND_SET_MARK,
+	GTK_HTML_COMMAND_DISABLE_SELECTION,
+
+};
+typedef enum _GtkHTMLCommandType GtkHTMLCommandType;
+
 
 #include "gtkhtml-embedded.h"
 
@@ -113,6 +145,8 @@ struct _GtkHTML {
 	GtkHTMLParagraphAlignment paragraph_alignment;
 
 	GtkHTMLFontStyle insertion_font_style;
+
+	gboolean binding_handled;
 };
 
 /* must be forward referenced *sigh* */
@@ -138,10 +172,12 @@ struct _GtkHTMLClass {
 	void (* current_paragraph_indentation_changed) (GtkHTML *html, guint new_indentation);
 	void (* insertion_font_style_changed) (GtkHTML *html, GtkHTMLFontStyle style);
 
-	void (* scroll_vertical)   (GtkHTML *html, GtkScrollType scroll_type, gfloat position);
-	void (* scroll_horizontal) (GtkHTML *html, GtkScrollType scroll_type, gfloat position);
-
         void (* size_changed)       (GtkHTML *html);
+
+	/* keybindings signals */
+	void (* scroll)               (GtkHTML *html, GtkOrientation orientation, GtkScrollType scroll_type, gfloat position);
+	void (* cursor_move)          (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType skip);
+	void (* command)              (GtkHTML *html, GtkHTMLCommandType com_type);
 };
 
 

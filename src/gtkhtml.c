@@ -29,6 +29,7 @@
 #include "htmlengine-edit-fontstyle.h"
 #include "htmlengine-edit-insert.h"
 #include "htmlengine-edit-movement.h"
+#include "htmlengine-edit-cursor.h"
 #include "htmlengine-edit-paste.h"
 #include "htmlengine-edit.h"
 #include "htmlengine-print.h"
@@ -41,6 +42,9 @@
 
 
 static GtkLayoutClass *parent_class = NULL;
+
+static GtkType GTK_TYPE_HTML_CURSOR_SKIP;
+static GtkType GTK_TYPE_HTML_COMMAND;
 
 enum {
 	TITLE_CHANGED,
@@ -57,13 +61,23 @@ enum {
 	CURRENT_PARAGRAPH_INDENTATION_CHANGED,
 	CURRENT_PARAGRAPH_ALIGNMENT_CHANGED,
 	INSERTION_FONT_STYLE_CHANGED,
-	SCROLL_VERTICAL,
-	SCROLL_HORIZONTAL,
 	SIZE_CHANGED,
+	/* keybindings signals */
+	SCROLL,
+	CURSOR_MOVE,
+	INSERT_PARAGRAPH,
+	/* now only last signal */
 	LAST_SIGNAL
 };
 static guint signals [LAST_SIGNAL] = { 0 };
 
+/* keybindings signal hadlers */
+static void scroll              (GtkHTML *html, GtkOrientation orientation, GtkScrollType scroll_type, gfloat position);
+static void cursor_move         (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType skip);
+static void command             (GtkHTML *html, GtkHTMLCommandType com_type);
+
+static void load_keybindings    (GtkHTMLClass *klass);
+static void register_enums      (void);
 
 /* Values for selection information.  FIXME: what about COMPOUND_STRING and
    TEXT?  */
@@ -554,31 +568,26 @@ static gint
 key_press_event (GtkWidget *widget,
 		 GdkEventKey *event)
 {
-	GtkHTML *html;
-	HTMLEngine *engine;
+	GtkHTML *html = GTK_HTML (widget);
 	gboolean retval;
-	gboolean do_update_styles;
 
-	html = GTK_HTML (widget);
-	engine = html->engine;
+	html->binding_handled = FALSE;
+	gtk_bindings_activate (GTK_OBJECT (widget), event->keyval, event->state);
+	retval = html->binding_handled;
 
-	if (! html_engine_get_editable (engine)) {
-		return (GTK_WIDGET_CLASS (parent_class)->key_press_event &&
-			GTK_WIDGET_CLASS (parent_class)->key_press_event (widget, event));
-	}
-
-	retval = gtk_html_handle_key_event (GTK_HTML (widget), event, &do_update_styles);
-
-	if (!retval
-	    && GTK_WIDGET_CLASS (parent_class)->key_press_event
-	    && GTK_WIDGET_CLASS (parent_class)->key_press_event (widget, event))
-		retval = TRUE;
-
-	if (retval == TRUE) {
-		queue_draw (html);
-		if (do_update_styles)
+	if (!retval && html_engine_get_editable (html->engine))
+		if (!(event->state & ~ GDK_SHIFT_MASK) && event->length > 0) {
+			html_engine_insert (html->engine, event->string, event->length);
+			queue_draw (html);
 			update_styles (html);
-	}
+			retval = TRUE;
+		}
+
+	if (!retval && GTK_WIDGET_CLASS (parent_class)->key_press_event)
+		retval = GTK_WIDGET_CLASS (parent_class)->key_press_event (widget, event);
+
+	if (retval && html_engine_get_editable (html->engine))
+		html_engine_reset_blinking_cursor (html->engine);
 
 	return retval;
 }
@@ -1033,48 +1042,6 @@ selection_clear_event (GtkWidget *widget,
 	return TRUE;
 }
 
-static void
-scroll (GtkAdjustment *adj, GtkScrollType scroll_type, gfloat position)
-{
-	gfloat delta;
-
-	switch (scroll_type) {
-	case GTK_SCROLL_STEP_FORWARD:
-		delta = adj->step_increment;
-		break;
-	case GTK_SCROLL_STEP_BACKWARD:
-		delta = -adj->step_increment;
-		break;
-	case GTK_SCROLL_PAGE_FORWARD:
-		delta = adj->page_increment;
-		break;
-	case GTK_SCROLL_PAGE_BACKWARD:
-		delta = -adj->page_increment;
-		break;
-	default:
-		g_assert_not_reached ();
-	}
-
-	adj->value = CLAMP (adj->value + delta, adj->lower, adj->upper - adj->page_size);
-	gtk_adjustment_value_changed (adj);
-}
-
-static void
-scroll_vertical (GtkHTML *html,
-		 GtkScrollType  scroll_type,
-		 gfloat         position)
-{
-	scroll (gtk_layout_get_vadjustment (GTK_LAYOUT (html)), scroll_type, position);
-}
-
-static void
-scroll_horizontal (GtkHTML *html,
-		   GtkScrollType  scroll_type,
-		   gfloat         position)
-{
-	scroll (gtk_layout_get_hadjustment (GTK_LAYOUT (html)), scroll_type, position);
-}
-
 
 static void
 set_adjustments (GtkLayout     *layout,
@@ -1099,8 +1066,9 @@ class_init (GtkHTMLClass *klass)
 	GtkWidgetClass *widget_class;
 	GtkObjectClass *object_class;
 	GtkLayoutClass *layout_class;
-	GtkBindingSet  *binding_set;
 	
+	register_enums ();
+
 	html_class = (GtkHTMLClass *)klass;
 	widget_class = (GtkWidgetClass *)klass;
 	object_class = (GtkObjectClass *)klass;
@@ -1234,22 +1202,6 @@ class_init (GtkHTMLClass *klass)
 				GTK_TYPE_NONE, 1,
 				GTK_TYPE_INT);
 	
-	signals [SCROLL_VERTICAL] =
-		gtk_signal_new ("scroll_vertical",
-				GTK_RUN_LAST | GTK_RUN_ACTION,
-				object_class->type,
-				GTK_SIGNAL_OFFSET (GtkHTMLClass, scroll_vertical),
-				gtk_marshal_NONE__ENUM_FLOAT,
-				GTK_TYPE_NONE, 2, GTK_TYPE_SCROLL_TYPE, GTK_TYPE_FLOAT);
-
-	signals [SCROLL_HORIZONTAL] =
-		gtk_signal_new ("scroll_horizontal",
-				GTK_RUN_LAST | GTK_RUN_ACTION,
-				object_class->type,
-				GTK_SIGNAL_OFFSET (GtkHTMLClass, scroll_horizontal),
-				gtk_marshal_NONE__ENUM_FLOAT,
-				GTK_TYPE_NONE, 2, GTK_TYPE_SCROLL_TYPE, GTK_TYPE_FLOAT);
-
 	signals [SIZE_CHANGED] = 
 		gtk_signal_new ("size_changed",
 				GTK_RUN_FIRST,
@@ -1257,7 +1209,34 @@ class_init (GtkHTMLClass *klass)
 				GTK_SIGNAL_OFFSET (GtkHTMLClass, size_changed),
 				gtk_marshal_NONE__NONE,
 				GTK_TYPE_NONE, 0);
-	
+
+	/* signals for keybindings */
+	signals [SCROLL] =
+		gtk_signal_new ("scroll",
+				GTK_RUN_LAST | GTK_RUN_ACTION,
+				object_class->type,
+				GTK_SIGNAL_OFFSET (GtkHTMLClass, scroll),
+				gtk_marshal_NONE__ENUM_FLOAT,
+				GTK_TYPE_NONE, 3,
+				GTK_TYPE_ORIENTATION,
+				GTK_TYPE_SCROLL_TYPE, GTK_TYPE_FLOAT);
+
+	signals [CURSOR_MOVE] =
+		gtk_signal_new ("cursor_move",
+				GTK_RUN_LAST | GTK_RUN_ACTION,
+				object_class->type,
+				GTK_SIGNAL_OFFSET (GtkHTMLClass, cursor_move),
+				gtk_marshal_NONE__INT_INT,
+				GTK_TYPE_NONE, 2, GTK_TYPE_DIRECTION_TYPE, GTK_TYPE_HTML_CURSOR_SKIP);
+
+	signals [INSERT_PARAGRAPH] =
+		gtk_signal_new ("command",
+				GTK_RUN_LAST | GTK_RUN_ACTION,
+				object_class->type,
+				GTK_SIGNAL_OFFSET (GtkHTMLClass, command),
+				gtk_marshal_NONE__ENUM,
+				GTK_TYPE_NONE, 1, GTK_TYPE_HTML_COMMAND);
+
 	gtk_object_class_add_signals (object_class, signals, LAST_SIGNAL);
 
 	object_class->destroy = destroy;
@@ -1280,50 +1259,11 @@ class_init (GtkHTMLClass *klass)
 
 	layout_class->set_scroll_adjustments = set_adjustments;
 
-	html_class->scroll_vertical   = scroll_vertical;
-	html_class->scroll_horizontal = scroll_horizontal;
+	html_class->scroll            = scroll;
+	html_class->cursor_move       = cursor_move;
+	html_class->command           = command;
 
-	binding_set = gtk_binding_set_by_class (klass);
-	gtk_binding_entry_add_signal (binding_set, GDK_Up, 0,
-				      "scroll_vertical", 2,
-				      GTK_TYPE_ENUM, GTK_SCROLL_STEP_BACKWARD,
-				      GTK_TYPE_FLOAT, 0.0);
-	gtk_binding_entry_add_signal (binding_set, GDK_Down, 0,
-				      "scroll_vertical", 2,
-				      GTK_TYPE_ENUM, GTK_SCROLL_STEP_FORWARD,
-				      GTK_TYPE_FLOAT, 0.0);
-	gtk_binding_entry_add_signal (binding_set, GDK_Page_Up, 0,
-				      "scroll_vertical", 2,
-				      GTK_TYPE_ENUM, GTK_SCROLL_PAGE_BACKWARD,
-				      GTK_TYPE_FLOAT, 0.0);
-	gtk_binding_entry_add_signal (binding_set, GDK_Page_Down, 0,
-				      "scroll_vertical", 2,
-				      GTK_TYPE_ENUM, GTK_SCROLL_PAGE_FORWARD,
-				      GTK_TYPE_FLOAT, 0.0);
-	gtk_binding_entry_add_signal (binding_set, GDK_BackSpace, 0,
-				      "scroll_vertical", 2,
-				      GTK_TYPE_ENUM, GTK_SCROLL_PAGE_BACKWARD,
-				      GTK_TYPE_FLOAT, 0.0);
-	gtk_binding_entry_add_signal (binding_set, GDK_space, 0,
-				      "scroll_vertical", 2,
-				      GTK_TYPE_ENUM, GTK_SCROLL_PAGE_FORWARD,
-				      GTK_TYPE_FLOAT, 0.0);
-	gtk_binding_entry_add_signal (binding_set, GDK_Left, 0,
-				      "scroll_horizontal", 2,
-				      GTK_TYPE_ENUM, GTK_SCROLL_STEP_BACKWARD,
-				      GTK_TYPE_FLOAT, 0.0);
-	gtk_binding_entry_add_signal (binding_set, GDK_Right, 0,
-				      "scroll_horizontal", 2,
-				      GTK_TYPE_ENUM, GTK_SCROLL_STEP_FORWARD,
-				      GTK_TYPE_FLOAT, 0.0);
-	gtk_binding_entry_add_signal (binding_set, GDK_Left, GDK_SHIFT_MASK,
-				      "scroll_horizontal", 2,
-				      GTK_TYPE_ENUM, GTK_SCROLL_PAGE_BACKWARD,
-				      GTK_TYPE_FLOAT, 0.0);
-	gtk_binding_entry_add_signal (binding_set, GDK_Right, GDK_SHIFT_MASK,
-				      "scroll_horizontal", 2,
-				      GTK_TYPE_ENUM, GTK_SCROLL_PAGE_FORWARD,
-				      GTK_TYPE_FLOAT, 0.0);
+	load_keybindings (klass);
 }
 
 static void
@@ -1754,4 +1694,333 @@ void
 gtk_html_set_default_background_color (GtkHTML *html, GdkColor *c)
 {
 	html_colorset_set_color (html->engine->defaultSettings->color_set, c, HTMLBgColor);
+}
+
+/*******************************************
+
+   keybindings
+
+*/
+
+static void
+scroll (GtkHTML *html,
+	GtkOrientation orientation,
+	GtkScrollType  scroll_type,
+	gfloat         position)
+{
+	GtkAdjustment *adj;
+	gfloat delta;
+
+	/* we dont want scroll in editable (move cursor instead) */
+	if (html_engine_get_editable (html->engine))
+		return;
+
+	adj = (orientation == GTK_ORIENTATION_VERTICAL)
+		? gtk_layout_get_vadjustment (GTK_LAYOUT (html)) : gtk_layout_get_hadjustment (GTK_LAYOUT (html));
+
+
+	switch (scroll_type) {
+	case GTK_SCROLL_STEP_FORWARD:
+		delta = adj->step_increment;
+		break;
+	case GTK_SCROLL_STEP_BACKWARD:
+		delta = -adj->step_increment;
+		break;
+	case GTK_SCROLL_PAGE_FORWARD:
+		delta = adj->page_increment;
+		break;
+	case GTK_SCROLL_PAGE_BACKWARD:
+		delta = -adj->page_increment;
+		break;
+	default:
+		g_assert_not_reached ();
+	}
+
+	adj->value = CLAMP (adj->value + delta, adj->lower, adj->upper - adj->page_size);
+	gtk_adjustment_value_changed (adj);
+
+	html->binding_handled = TRUE;
+}
+
+static void
+scroll_by_amount (GtkHTML *html,
+		  gint amount)
+{
+	GtkLayout *layout;
+	GtkAdjustment *adj;
+	gfloat new_value;
+
+	layout = GTK_LAYOUT (html);
+	adj = layout->vadjustment;
+
+	new_value = adj->value + (gfloat) amount;
+	if (new_value < adj->lower)
+		new_value = adj->lower;
+	else if (new_value > adj->upper)
+		new_value = adj->upper;
+
+	gtk_adjustment_set_value (adj, new_value);
+}
+
+static void
+cursor_move (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType skip)
+{
+	gint amount;
+
+	if (!html_engine_get_editable (html->engine))
+		return;
+
+	switch (skip) {
+	case GTK_HTML_CURSOR_SKIP_ONE:
+		switch (dir_type) {
+		case GTK_DIR_LEFT:
+			html_engine_move_cursor (html->engine, HTML_ENGINE_CURSOR_LEFT, 1);
+			break;
+		case GTK_DIR_RIGHT:
+			html_engine_move_cursor (html->engine, HTML_ENGINE_CURSOR_RIGHT, 1);
+			break;
+		case GTK_DIR_UP:
+			html_engine_move_cursor (html->engine, HTML_ENGINE_CURSOR_UP, 1);
+			break;
+		case GTK_DIR_DOWN:
+			html_engine_move_cursor (html->engine, HTML_ENGINE_CURSOR_DOWN, 1);
+			break;
+		default:
+			g_assert_not_reached ();
+		}
+		break;
+	case GTK_HTML_CURSOR_SKIP_WORD:
+		switch (dir_type) {
+		case GTK_DIR_UP:
+		case GTK_DIR_LEFT:
+			html_engine_backward_word (html->engine);
+			break;
+		case GTK_DIR_DOWN:
+		case GTK_DIR_RIGHT:
+			html_engine_forward_word (html->engine);
+			break;
+		default:
+			g_assert_not_reached ();
+		}
+		break;
+	case GTK_HTML_CURSOR_SKIP_PAGE:
+		switch (dir_type) {
+		case GTK_DIR_UP:
+		case GTK_DIR_LEFT:
+			if ((amount = html_engine_scroll_up (html->engine, GTK_WIDGET (html)->allocation.height)) > 0)
+				scroll_by_amount (html, - amount);
+			break;
+		case GTK_DIR_DOWN:
+		case GTK_DIR_RIGHT:
+			if ((amount = html_engine_scroll_down (html->engine, GTK_WIDGET (html)->allocation.height)) > 0)
+				scroll_by_amount (html, amount);
+			break;
+		default:
+			g_assert_not_reached ();
+		}
+		break;
+	case GTK_HTML_CURSOR_SKIP_ALL:
+		switch (dir_type) {
+		case GTK_DIR_LEFT:
+			html_engine_beginning_of_line (html->engine);
+			break;
+		case GTK_DIR_RIGHT:
+			html_engine_end_of_line (html->engine);
+			break;
+		case GTK_DIR_UP:
+			html_engine_beginning_of_document (html->engine);
+			break;
+		case GTK_DIR_DOWN:
+			html_engine_end_of_document (html->engine);
+			break;
+		default:
+			g_assert_not_reached ();
+		}
+		break;
+	default:
+		g_assert_not_reached ();
+	}
+
+	html->binding_handled = TRUE;
+}
+
+static void
+command (GtkHTML *html, GtkHTMLCommandType com_type)
+{
+	if (!html_engine_get_editable (html->engine))
+		return;
+
+	switch (com_type) {
+	case GTK_HTML_COMMAND_UNDO:
+		html_engine_undo (html->engine);
+		break;
+	case GTK_HTML_COMMAND_REDO:
+		html_engine_redo (html->engine);
+		break;
+	case GTK_HTML_COMMAND_COPY:
+		html_engine_copy (html->engine);
+		break;
+	case GTK_HTML_COMMAND_CUT:
+		html_engine_cut (html->engine, TRUE);
+		break;
+	case GTK_HTML_COMMAND_PASTE:
+		html_engine_paste (html->engine, TRUE);
+		break;
+	case GTK_HTML_COMMAND_INSERT_PARAGRAPH:
+		/* FIXME this should cut the selection instead.  */
+		html_engine_disable_selection (html->engine);
+		html_engine_insert (html->engine, "\n", 1);
+		break;
+	case GTK_HTML_COMMAND_DELETE:
+		/* FIXME this should cut the selection instead.  */
+		html_engine_disable_selection (html->engine);
+		html_engine_delete (html->engine, 1, TRUE, FALSE);
+		break;
+	case GTK_HTML_COMMAND_DELETE_BACK:
+		/* FIXME this should cut the selection instead.  */
+		html_engine_disable_selection (html->engine);
+		html_engine_delete (html->engine, 1, TRUE, TRUE);
+		break;
+	case GTK_HTML_COMMAND_SET_MARK:
+		html_engine_set_mark (html->engine);
+		break;
+	case GTK_HTML_COMMAND_DISABLE_SELECTION:
+		html_engine_disable_selection (html->engine);
+		break;
+	default:
+		return;
+	}
+
+	html->binding_handled = TRUE;
+}
+
+static GtkEnumValue _gtk_html_cursor_skip_values[] = {
+  { GTK_HTML_CURSOR_SKIP_ONE,  "GTK_HTML_CURSOR_SKIP_ONE",  "one" },
+  { GTK_HTML_CURSOR_SKIP_WORD, "GTK_HTML_CURSOR_SKIP_WORD", "word" },
+  { GTK_HTML_CURSOR_SKIP_PAGE, "GTK_HTML_CURSOR_SKIP_WORD", "page" },
+  { GTK_HTML_CURSOR_SKIP_ALL,  "GTK_HTML_CURSOR_SKIP_ALL",  "all" },
+  { 0, NULL, NULL }
+};
+
+static GtkEnumValue _gtk_html_command_values[] = {
+  { GTK_HTML_COMMAND_UNDO,  "GTK_HTML_COMMAND_UNDO",  "undo" },
+  { GTK_HTML_COMMAND_REDO,  "GTK_HTML_COMMAND_REDO",  "redo" },
+  { GTK_HTML_COMMAND_COPY,  "GTK_HTML_COMMAND_COPY",  "copy" },
+  { GTK_HTML_COMMAND_CUT,   "GTK_HTML_COMMAND_CUT",   "cut" },
+  { GTK_HTML_COMMAND_PASTE, "GTK_HTML_COMMAND_PASTE", "paste" },
+  { GTK_HTML_COMMAND_INSERT_PARAGRAPH, "GTK_HTML_COMMAND_INSERT_PARAGRAPH", "insert-paragraph" },
+  { GTK_HTML_COMMAND_DELETE, "GTK_HTML_COMMAND_DELETE", "delete" },
+  { GTK_HTML_COMMAND_SET_MARK, "GTK_HTML_COMMAND_SET_MARK", "set-mark" },
+  { GTK_HTML_COMMAND_DISABLE_SELECTION, "GTK_HTML_COMMAND_DISABLE_SELECTION", "disable-selection" },
+  { 0, NULL, NULL }
+};
+
+/*
+  default keybindings:
+
+  Viewer:
+
+  Up/Down ............................. scroll one line up/down
+  PageUp/PageDown ..................... scroll one page up/down
+  Space/BackSpace ..................... scroll one page up/down
+
+  Left/Right .......................... scroll one char left/right
+  Shift Left/Right .................... scroll more left/right
+
+  Editor:
+
+  Up/Down ............................. move cursor one line up/down
+  PageUp/PageDown ..................... move cursor one page up/down
+
+  Return .............................. insert paragraph
+
+*/
+
+static void
+load_keybindings (GtkHTMLClass *klass)
+{
+	GtkBindingSet  *binding_set;
+
+	/* keybindings */
+	binding_set = gtk_binding_set_by_class (klass);
+
+	/* gtk_rc_parse ("/home/rodo/gtkhtml/src/keybindingsrc.ms"); */
+
+	/* layout scrolling */
+
+#define BSCROLL(m,key,orient,sc) \
+	gtk_binding_entry_add_signal (binding_set, GDK_ ## key, m, \
+				      "scroll", 3, \
+				      GTK_TYPE_ORIENTATION, GTK_ORIENTATION_ ## orient, \
+				      GTK_TYPE_ENUM, GTK_SCROLL_ ## sc, \
+				      GTK_TYPE_FLOAT, 0.0); \
+
+	BSCROLL (0, Up, VERTICAL, STEP_BACKWARD);
+	BSCROLL (0, KP_Up, VERTICAL, STEP_BACKWARD);
+	BSCROLL (0, Down, VERTICAL, STEP_FORWARD);
+	BSCROLL (0, KP_Down, VERTICAL, STEP_FORWARD);
+
+	BSCROLL (0, Left, HORIZONTAL, STEP_BACKWARD);
+	BSCROLL (0, KP_Left, HORIZONTAL, STEP_BACKWARD);
+	BSCROLL (0, Right, HORIZONTAL, STEP_FORWARD);
+	BSCROLL (0, KP_Right, HORIZONTAL, STEP_FORWARD);
+
+	BSCROLL (0, Page_Up, VERTICAL, PAGE_BACKWARD);
+	BSCROLL (0, KP_Page_Up, VERTICAL, PAGE_BACKWARD);
+	BSCROLL (0, Page_Down, VERTICAL, PAGE_FORWARD);
+	BSCROLL (0, KP_Page_Down, VERTICAL, PAGE_FORWARD);
+	BSCROLL (0, BackSpace, VERTICAL, PAGE_BACKWARD);
+	BSCROLL (0, space, VERTICAL, PAGE_FORWARD);
+
+	BSCROLL (GDK_SHIFT_MASK, Left, HORIZONTAL, PAGE_BACKWARD);
+	BSCROLL (GDK_SHIFT_MASK, KP_Left, HORIZONTAL, PAGE_BACKWARD);
+	BSCROLL (GDK_SHIFT_MASK, Right, HORIZONTAL, PAGE_FORWARD);
+	BSCROLL (GDK_SHIFT_MASK, KP_Right, HORIZONTAL, PAGE_FORWARD);
+
+	/* editing */
+
+#define BMOVE(m,key,dir,sk) \
+	gtk_binding_entry_add_signal (binding_set, GDK_ ## key, m, \
+				      "cursor_move", 2, \
+				      GTK_TYPE_DIRECTION_TYPE, GTK_DIR_ ## dir, \
+				      GTK_TYPE_HTML_CURSOR_SKIP, GTK_HTML_CURSOR_SKIP_ ## sk);
+
+	BMOVE (0, Left,     LEFT,  ONE);
+	BMOVE (0, KP_Left,  LEFT,  ONE);
+	BMOVE (0, Right,    RIGHT, ONE);
+	BMOVE (0, KP_Right, RIGHT, ONE);
+	BMOVE (0, Up,       UP  ,  ONE);
+	BMOVE (0, KP_Up,    UP  ,  ONE);
+	BMOVE (0, Down,     DOWN,  ONE);
+	BMOVE (0, KP_Down,  DOWN,  ONE);
+
+	BMOVE (GDK_CONTROL_MASK, Left,  LEFT,  WORD);
+	BMOVE (GDK_CONTROL_MASK, KP_Left,  LEFT,  WORD);
+	BMOVE (GDK_CONTROL_MASK, Right, RIGHT, WORD);
+	BMOVE (GDK_CONTROL_MASK, KP_Right, RIGHT, WORD);
+
+	BMOVE (0, Page_Up,       UP,   PAGE);
+	BMOVE (0, KP_Page_Up,    UP,   PAGE);
+	BMOVE (0, Page_Down,     DOWN, PAGE);
+	BMOVE (0, KP_Page_Down,  DOWN, PAGE);
+
+	BMOVE (GDK_CONTROL_MASK, a, LEFT,  ALL);
+	BMOVE (GDK_CONTROL_MASK, e, RIGHT, ALL);
+
+#define BCOM(m,key,com) \
+	gtk_binding_entry_add_signal (binding_set, GDK_ ## key, m, \
+				      "command", 1, \
+				      GTK_TYPE_HTML_COMMAND, GTK_HTML_COMMAND_ ## com);
+
+	BCOM (0, Return, INSERT_PARAGRAPH);
+	BCOM (0, BackSpace, DELETE_BACK);
+	BCOM (0, Delete, DELETE);
+	BCOM (0, KP_Delete, DELETE);
+}
+
+static void
+register_enums (void)
+{
+	GTK_TYPE_HTML_CURSOR_SKIP = gtk_type_register_enum ("GTK_HTML_CURSOR_SKIP", _gtk_html_cursor_skip_values);
+	GTK_TYPE_HTML_COMMAND     = gtk_type_register_enum ("GTK_HTML_COMMAND",     _gtk_html_command_values);
 }

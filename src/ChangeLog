@@ -1,3 +1,21 @@
+2000-06-11  Radek Doulik  <rodo@helixcode.com>
+
+	* Makefile.am (libgtkhtml_la_SOURCES): removed
+	gtkhtml-keybinding.[ch] as they are obsolete now - keybings are
+	now in gtkhtml.[ch] + rc files
+
+	* gtkhtml.c (class_init): three keybindings signals -
+	scroll/cursor_move/command
+	default keybindings moved to new function
+	(load_keybindings): register default keybindings (+ load from file
+	- to be completed)
+	(register_enums): register new ENUM types for better rc bindings definition
+	(scroll): scroll signal handler
+	(cursor_move): cursor movement handler
+	(command): command signal handler
+	(key_press_event): rewritten, now it first tries activate
+	keybindings, next insert text and if not handled forward it to parent
+
 2000-06-09  Ariel Rios  <ariel@arcavia.com>
 
 	* Makefile.am: Added htmlengine-edit-rule.c and html-engine-rule.h
