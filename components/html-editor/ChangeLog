@@ -1,3 +1,7 @@
+2000-11-10  Radek Doulik  <rodo@helixcode.com>
+
+	* image.c (insert_or_apply): fixed compilation
+
 2000-11-08  Anna Marie Dirks  <anna@helixcode.com> 
         * html-editor-control.xml:  Added keyboard bindings to the composer.
 
