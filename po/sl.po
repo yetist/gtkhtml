@@ -366,7 +366,7 @@ msgstr "V dokument vstavi smejočega smeškota..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
 msgid "Insert Oh no! smiley into document..."
-msgstr "V dokument vstavi smeškota "O ne!"..."
+msgstr "V dokument vstavi smeškota \"O ne!\"..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
 msgid "Insert Smile smiley into document..."
