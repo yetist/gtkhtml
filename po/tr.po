@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.8.3\n"
 "POT-Creation-Date: 2001-03-11 13:53+0100\n"
-"PO-Revision-Date: 2001-03-11 13:55+0100\n"
+"PO-Revision-Date: 2001-03-11 15:00+0100\n"
 "Last-Translator: Fatih Demir <kabalak@gtranslator.org>\n"
 "Language-Team: Turkish <gnome-turk@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -402,7 +402,7 @@ msgstr "Piksel"
 #: components/html-editor/rule.c:231
 #, c-format
 msgid "Percent %"
-msgstr "Yüzdelik %s"
+msgstr "Yüzdelik %"
 
 #: components/html-editor/link.c:74
 msgid "Clear"
