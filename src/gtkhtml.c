@@ -1537,7 +1537,7 @@ init (GtkHTML* html)
 				   targets, n_targets);
 	set_fonts (html);
 #ifdef GTKHTML_HAVE_GCONF
-	html->set_font_id = 0;
+	/*	html->set_font_id = 0; */
 	gconf_client_notify_add (gconf_client, GTK_HTML_GCONF_DIR, client_notify_widget, html, NULL, NULL);
 #endif
 }
