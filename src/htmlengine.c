@@ -2306,7 +2306,7 @@ parse_f (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		if (! e->avoid_para) {
 			close_anchor (e);
 			e->avoid_para = TRUE;
-			e->pending_para = TRUE;
+			e->pending_para = FALSE;
 		}
 	} else if (strncmp (str, "/form", 5) == 0) {
 		form_end (e, TRUE);
