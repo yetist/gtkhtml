@@ -1,5 +1,9 @@
 2001-05-10  Larry Ewing  <lewing@ximian.com>
 
+	* gtkhtml.c (mouse_change_pos): make the magic distance threshold
+	depend on the space width.
+	(focus): start of new focus handler.
+
 	* htmltext.c: update the magic url matching regex to handle
 	unsername:passwd@ and % escapes and keep trailing slash.
 

@@ -689,7 +689,8 @@ realize (GtkWidget *widget)
 			       (gdk_window_get_events (html->layout.bin_window)
 				| GDK_EXPOSURE_MASK | GDK_POINTER_MOTION_MASK
 				| GDK_ENTER_NOTIFY_MASK
-				| GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK
+				| GDK_BUTTON_PRESS_MASK 
+				| GDK_BUTTON_RELEASE_MASK
 				| GDK_KEY_PRESS_MASK | GDK_KEY_RELEASE_MASK));
 
 	html_engine_realize (html->engine, html->layout.bin_window);
@@ -861,8 +862,12 @@ mouse_change_pos (GtkWidget *widget, GdkWindow *window, gint x, gint y)
 		}
 
 		if (HTML_DIST ((x + engine->x_offset - html->selection_x1),
-			  (y + engine->y_offset - html->selection_y1)) > 4)
+			       (y + engine->y_offset - html->selection_y1)) 
+		    > html_painter_get_space_width (engine->painter, 
+						    GTK_HTML_FONT_STYLE_SIZE_3,  
+						    NULL)) {
 			html->in_selection = TRUE;
+		}
 
 		need_scroll = FALSE;
 
@@ -1248,8 +1253,8 @@ selection_received (GtkWidget *widget,
 		if (selection_data->type != GDK_SELECTION_TYPE_STRING) {
 			html_engine_paste_text (GTK_HTML (widget)->engine, 
 						selection_data->data,
-						(guint) g_utf8_strlen (selection_data->data, 
-								       selection_data->length));
+						g_utf8_strlen (selection_data->data, 
+							       selection_data->length));
 		} else {
 			gchar *utf8 = NULL;
 			
@@ -1472,15 +1477,50 @@ init_properties (GtkHTMLClass *klass)
 }
 
 static gint
-focus (GtkContainer *c, GtkDirectionType direction)
+focus (GtkContainer *container, GtkDirectionType direction)
 {
+#if 1
 	gint rv;
-
-	GTK_WIDGET_UNSET_FLAGS (GTK_WIDGET (c), GTK_CAN_FOCUS);
-	rv = (*GTK_CONTAINER_CLASS (parent_class)->focus) (c, direction);
-	GTK_WIDGET_SET_FLAGS (GTK_WIDGET (c), GTK_CAN_FOCUS);
-
+	GTK_WIDGET_UNSET_FLAGS (GTK_WIDGET (container), GTK_CAN_FOCUS);
+	rv = (*GTK_CONTAINER_CLASS (parent_class)->focus) (container, direction);
+	GTK_WIDGET_SET_FLAGS (GTK_WIDGET (container), GTK_CAN_FOCUS);
 	return rv;
+#else
+	GtkWidget *focus_child;
+	GtkHTML *html;
+
+	g_return_val_if_fail (container != NULL, FALSE);
+	g_return_val_if_fail (GTK_IS_HTML (container), FALSE);
+
+	if (!GTK_WIDGET_IS_SENSITIVE (container))
+		return FALSE;
+
+	if (GTK_WIDGET_HAS_FOCUS (container))
+		return FALSE;
+	    
+	html = GTK_HTML (container);
+	focus_child = container->focus_child;
+	
+	switch (direction) {
+	case GTK_DIR_LEFT:
+	case GTK_DIR_RIGHT:
+		{
+		}
+	case GTK_DIR_DOWN:
+	case GTK_DIR_TAB_FORWARD:
+		{
+		}
+	case GTK_DIR_UP:
+	case GTK_DIR_TAB_BACKWARD:
+		{
+		}
+	default:
+		break;
+	}
+
+	gtk_container_set_focus_child (container, NULL);
+	return FALSE;
+#endif
 }
 
 typedef void (*GtkSignal_NONE__INT_INT_FLOAT) (GtkObject * object,
