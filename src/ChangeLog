@@ -1,3 +1,10 @@
+2000-12-12  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlengine-edit-movement.c (html_engine_forward_word): fixed one
+	char word case
+	(html_engine_backward_word): make it dual to
+	html_engine_forward_word
+
 2000-12-12  Iain Holmes  <iain@helixcode.com>
 
 	* gtkhtml.c (on_object): Emit the ON_URL signal when there is no object.
