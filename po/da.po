@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2003-01-12 12:37+0100\n"
-"PO-Revision-Date: 2003-01-12 12:35+0100\n"
+"POT-Creation-Date: 2003-01-15 12:09+0100\n"
+"PO-Revision-Date: 2003-01-15 12:10+0100\n"
 "Last-Translator: Ole Laursen <olau@hardworking.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
@@ -467,7 +467,7 @@ msgstr "Lav dette afsnit om til en alfabetisk liste"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
 #: components/html-editor/gtkhtml-editor-properties.glade.h:49
-#: components/html-editor/paragraph.c:124 components/html-editor/toolbar.c:47
+#: components/html-editor/paragraph.c:127 components/html-editor/toolbar.c:47
 msgid "Normal"
 msgstr "Normal"
 
@@ -572,7 +572,7 @@ msgstr "Markér alt indholdet i dokumentet"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
 #: components/html-editor/gtkhtml-editor-properties.glade.h:69
-#: components/html-editor/text.c:233 components/html-editor/toolbar.c:527
+#: components/html-editor/text.c:237 components/html-editor/toolbar.c:527
 msgid "Strikeout"
 msgstr "Gennemstreget"
 
@@ -848,7 +848,7 @@ msgid "Colors"
 msgstr "Farver"
 
 #: components/html-editor/body.c:313 components/html-editor/cell.c:423
-#: components/html-editor/table.c:535 components/html-editor/text.c:291
+#: components/html-editor/table.c:535 components/html-editor/text.c:295
 #: components/html-editor/toolbar.c:299
 msgid "Automatic"
 msgstr "Automatisk"
@@ -866,13 +866,21 @@ msgid "Background"
 msgstr "Baggrund"
 
 #: components/html-editor/cell.c:172 components/html-editor/cell.c:174
-#: components/html-editor/text.c:104
+#: components/html-editor/text.c:107
 msgid "The quick brown fox jumps over the lazy dog."
 msgstr "Cølibatisk havfrue på brynjeklædt wc med plexiglas i zoo."
 
 #: components/html-editor/cell.c:177
 msgid "Other"
 msgstr "Andet"
+
+#: components/html-editor/cell.c:678
+msgid ""
+"The editted cell was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+"Den redigerede celle blev fjernet fra dokumentet.\n"
+"Kan ikke anvende dine ændringer."
 
 #: components/html-editor/editor-control-factory.c:165
 #: components/html-editor/menubar.c:313 components/html-editor/menubar.c:331
@@ -921,7 +929,7 @@ msgid "Apply changes to:"
 msgstr "Anvend ændringer på:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:16
-#: components/html-editor/text.c:230 components/html-editor/toolbar.c:521
+#: components/html-editor/text.c:234 components/html-editor/toolbar.c:521
 msgid "Bold"
 msgstr "Fed"
 
@@ -943,12 +951,12 @@ msgid "Cell"
 msgstr "Celle"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:21
-#: components/html-editor/paragraph.c:159 components/html-editor/toolbar.c:510
+#: components/html-editor/paragraph.c:162 components/html-editor/toolbar.c:510
 msgid "Center"
 msgstr "Centrér"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:22
-#: components/html-editor/link.c:107 components/html-editor/text.c:241
+#: components/html-editor/link.c:107 components/html-editor/text.c:245
 msgid "Click will follow this URL"
 msgstr "Klik vil gå til adressen"
 
@@ -1014,12 +1022,12 @@ msgid "Horizontal:"
 msgstr "Vandret:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:40
-#: components/html-editor/text.c:231 components/html-editor/toolbar.c:523
+#: components/html-editor/text.c:235 components/html-editor/toolbar.c:523
 msgid "Italic"
 msgstr "Kursiv"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:41
-#: components/html-editor/paragraph.c:158
+#: components/html-editor/paragraph.c:161
 msgid "Left"
 msgstr "Venstre"
 
@@ -1073,7 +1081,7 @@ msgid "Points"
 msgstr "Typografipunkter"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:59
-#: components/html-editor/paragraph.c:160
+#: components/html-editor/paragraph.c:163
 msgid "Right"
 msgstr "Højre"
 
@@ -1099,7 +1107,7 @@ msgid "Shaded"
 msgstr "Skyggelagt"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:66
-#: components/html-editor/text.c:257
+#: components/html-editor/text.c:261
 msgid "Size"
 msgstr "Størrelse"
 
@@ -1112,7 +1120,7 @@ msgid "Spacing:"
 msgstr "Mellemrum:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:70
-#: components/html-editor/paragraph.c:110 components/html-editor/text.c:217
+#: components/html-editor/paragraph.c:113 components/html-editor/text.c:221
 msgid "Style"
 msgstr "Stil"
 
@@ -1138,7 +1146,7 @@ msgid "Top"
 msgstr "Top"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:79
-#: components/html-editor/text.c:232 components/html-editor/toolbar.c:525
+#: components/html-editor/text.c:236 components/html-editor/toolbar.c:525
 msgid "Underline"
 msgstr "Understreget"
 
@@ -1219,7 +1227,7 @@ msgstr ""
 msgid "The quick brown fox jumped over the lazy dog."
 msgstr "Cølibatisk havfrue på brynjeklædt wc med plexiglas i zoo."
 
-#: components/html-editor/image.c:689
+#: components/html-editor/image.c:692
 msgid ""
 "The editted image was removed from the document.\n"
 "Cannot apply your changes."
@@ -1231,10 +1239,18 @@ msgstr ""
 msgid "Link text"
 msgstr "Henvisningstekst"
 
+#: components/html-editor/link.c:180
+msgid ""
+"The editted link was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+"Den redigerede henvisning blev fjernet fra dokumentet.\n"
+"Kan ikke anvende dine ændringer."
+
 #: components/html-editor/menubar.c:122 components/html-editor/menubar.c:138
 #: components/html-editor/menubar.c:156 components/html-editor/menubar.c:173
 #: components/html-editor/menubar.c:196 components/html-editor/popup.c:100
-#: components/html-editor/properties.c:139
+#: components/html-editor/properties.c:128
 msgid "Insert"
 msgstr "Indsæt"
 
@@ -1246,57 +1262,65 @@ msgstr "Indsæt HTML-fil"
 msgid "Insert text file"
 msgstr "Indsæt tekstfil"
 
-#: components/html-editor/paragraph.c:125
+#: components/html-editor/paragraph.c:128
 msgid "Pre"
 msgstr "Præ"
 
-#: components/html-editor/paragraph.c:126 components/html-editor/toolbar.c:53
+#: components/html-editor/paragraph.c:129 components/html-editor/toolbar.c:53
 msgid "Header 1"
 msgstr "Titel 1"
 
-#: components/html-editor/paragraph.c:127 components/html-editor/toolbar.c:54
+#: components/html-editor/paragraph.c:130 components/html-editor/toolbar.c:54
 msgid "Header 2"
 msgstr "Titel 2"
 
-#: components/html-editor/paragraph.c:128 components/html-editor/toolbar.c:55
+#: components/html-editor/paragraph.c:131 components/html-editor/toolbar.c:55
 msgid "Header 3"
 msgstr "Titel 3"
 
-#: components/html-editor/paragraph.c:129 components/html-editor/toolbar.c:56
+#: components/html-editor/paragraph.c:132 components/html-editor/toolbar.c:56
 msgid "Header 4"
 msgstr "Titel 4"
 
-#: components/html-editor/paragraph.c:130 components/html-editor/toolbar.c:57
+#: components/html-editor/paragraph.c:133 components/html-editor/toolbar.c:57
 msgid "Header 5"
 msgstr "Titel 5"
 
-#: components/html-editor/paragraph.c:131 components/html-editor/toolbar.c:58
+#: components/html-editor/paragraph.c:134 components/html-editor/toolbar.c:58
 msgid "Header 6"
 msgstr "Titel 6"
 
-#: components/html-editor/paragraph.c:132 components/html-editor/toolbar.c:59
+#: components/html-editor/paragraph.c:135 components/html-editor/toolbar.c:59
 msgid "Address"
 msgstr "Adresse"
 
-#: components/html-editor/paragraph.c:133
+#: components/html-editor/paragraph.c:136
 msgid "Dot item"
 msgstr "Prikelement"
 
-#: components/html-editor/paragraph.c:134
+#: components/html-editor/paragraph.c:137
 msgid "Number item"
 msgstr "Talelement"
 
-#: components/html-editor/paragraph.c:135
+#: components/html-editor/paragraph.c:138
 msgid "Roman item"
 msgstr "Romersk element"
 
-#: components/html-editor/paragraph.c:136
+#: components/html-editor/paragraph.c:139
 msgid "Alphabeta item"
 msgstr "Alfabetisk element"
 
-#: components/html-editor/paragraph.c:145
+#: components/html-editor/paragraph.c:148
 msgid "Align"
 msgstr "Justér"
+
+#: components/html-editor/paragraph.c:192
+msgid ""
+"The editted paragraph was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+"Den redigerede paragraf blev fjernet fra dokumentet.\n"
+"Kan ikke anvende dine ændringer."
 
 #: components/html-editor/popup.c:420
 msgid "Paste Quotation"
@@ -1426,6 +1450,14 @@ msgstr "Blå 3D"
 msgid "Yellow, flowers"
 msgstr "Gul, blomster"
 
+#: components/html-editor/rule.c:421
+msgid ""
+"The editted rule was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+"Den redigerede linje blev fjernet fra dokumentet.\n"
+"Kan ikke anvende dine ændringer."
+
 #: components/html-editor/search.c:78
 msgid "backward"
 msgstr "baglæns"
@@ -1445,6 +1477,14 @@ msgstr "Flad grå"
 #: components/html-editor/table.c:208
 msgid "Dark header"
 msgstr "Mørk titel"
+
+#: components/html-editor/table.c:812
+msgid ""
+"The editted table was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+"Den redigerede tabel blev fjernet fra dokumentet.\n"
+"Kan ikke anvende dine ændringer."
 
 #: components/html-editor/template.c:83
 msgid "Note"
@@ -1467,9 +1507,17 @@ msgid "Save file as..."
 msgstr "Gem fil som..."
 
 #. color selection
-#: components/html-editor/text.c:287
+#: components/html-editor/text.c:291
 msgid "Color"
 msgstr "Farve"
+
+#: components/html-editor/text.c:333
+msgid ""
+"The editted text was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+"Den redigerede tekst blev fjernet fra dokumentet.\n"
+"Kan ikke anvende dine ændringer."
 
 #: components/html-editor/toolbar.c:51
 msgid "Roman List"
