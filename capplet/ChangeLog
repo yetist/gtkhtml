@@ -1,3 +1,9 @@
+2001-06-06  gtkhtml@thewrittenword.com
+
+	* gnome-bindings-prop.c (init):
+	Sun C complains about:
+	gchar *cols1 [2] = {_("Key"), _("Command")};
+
 2001-05-29  Radek Doulik  <rodo@ximian.com>
 
 	* Makefile.am (EXTRA_DIST): remove gtkhtml-capplet.glade.h

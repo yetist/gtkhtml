@@ -522,9 +522,14 @@ static void
 init (GnomeBindingsProperties *prop)
 {
 	GtkWidget *clist, *sw, *widget = GTK_WIDGET (prop), *hbox, *button, *vbox, *hbox1;
-	gchar *cols1 [2] = {_("Key"), _("Command")};
-	gchar *cols2 [1] = {_("Commands")};
-	gchar *cols3 [1] = {_("Keymaps")};
+	gchar *cols1 [2];
+	gchar *cols2 [1];
+	gchar *cols3 [1];
+
+	cols1 [0] = _("Key");
+	cols1 [1] = _("Command");
+	cols2 [0] = _("Commands");
+	cols3 [0] = _("Keymaps");
 
 	prop->bindingsets = g_hash_table_new (g_str_hash, g_str_equal);
 	prop->commands_active = FALSE;
