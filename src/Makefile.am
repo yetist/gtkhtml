@@ -92,6 +92,7 @@ libgtkhtml_HEADERS =				\
 	htmlundo-action.h			\
 	htmlurl.h				\
 	htmlvspace.h				\
+	gtkhtml-keybinding.h			\
 	htmliframe.h
 
 libgtkhtml_la_SOURCES =				\
