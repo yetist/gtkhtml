@@ -35,7 +35,6 @@
 #include "htmlengine-save.h"
 #include "htmlimage.h"
 #include "htmlpainter.h"
-#include "htmlplainpainter.h"
 #include "htmlsearch.h"
 #include "htmltable.h"
 #include "htmltablepriv.h"
@@ -224,67 +223,6 @@ op_copy (HTMLObject *self, HTMLObject *parent, HTMLEngine *e, GList *from, GList
 #endif
 
 	return HTML_OBJECT (nt);
-}
-
-static gint
-get_n_children (HTMLObject *self)
-{
-	HTMLTable *t = HTML_TABLE (self);
-	guint r, c, n_children = 0;
-
-	for (r = 0; r < t->totalRows; r++)
-		for (c = 0; c < t->totalCols; c++)
-			if (t->cells [r][c] && t->cells [r][c]->row == r && t->cells [r][c]->col == c)
-				n_children ++;
-
-	/* printf ("table n_children %d\n", n_children); */
-
-	return n_children;
-}
-
-static HTMLObject *
-get_child (HTMLObject *self, gint index)
-{
-	HTMLTable *t = HTML_TABLE (self);
-	HTMLObject *child = NULL;
-	guint r, c, n = 0;
-
-	for (r = 0; r < t->totalRows && !child; r++)
-		for (c = 0; c < t->totalCols; c++)
-			if (t->cells [r][c] && t->cells [r][c]->row == r && t->cells [r][c]->col == c) {
-				if (n == index) {
-					child = HTML_OBJECT (t->cells [r][c]);
-					break;
-				}
-				n ++;
-			}
-
-	/* printf ("table ref %d child %p\n", index, child); */
-
-	return child;
-}
-
-static gint
-get_child_index (HTMLObject *self, HTMLObject *child)
-{
-	HTMLTable *t = HTML_TABLE (self);
-	guint r, c;
-	gint n = 0;
-
-	for (r = 0; r < t->totalRows; r++)
-		for (c = 0; c < t->totalCols; c++) {
-			if (t->cells [r][c] && t->cells [r][c]->row == r && t->cells [r][c]->col == c) {
-				if (HTML_OBJECT (t->cells [r][c]) == child) {
-					/* printf ("table child %p index %d\n", child, n); */
-					return n;
-				}
-				n ++;
-			}
-		}
-
-	/* printf ("table child %p index %d\n", child, -1); */
-
-	return -1;
 }
 
 static guint
@@ -1183,51 +1121,6 @@ get_bounds (HTMLTable *table, gint x, gint y, gint width, gint height, gint *sc,
 }
 
 static void
-draw_background_helper (HTMLTable *table,
-			HTMLPainter *p,
-			GdkRectangle *paint,
-			gint tx, gint ty)
-{
-	GdkPixbuf  *pixbuf = NULL;
-	GdkColor   *color = table->bgColor;
-	HTMLObject *o = HTML_OBJECT (table);
-
-	if (table->bgPixmap && table->bgPixmap->animation)
-		pixbuf = gdk_pixbuf_animation_get_static_image (table->bgPixmap->animation);
-	
-	if (color)
-		html_painter_alloc_color (p, color);
-
-	if (!HTML_IS_PLAIN_PAINTER (p))
-		html_painter_draw_background (p,
-					      color,
-					      pixbuf,
-					      tx + paint->x,
-					      ty + paint->y,
-					      paint->width,
-					      paint->height,
-					      paint->x - o->x,
-					      paint->y - (o->y - o->ascent));
-}
-
-static void
-draw_background (HTMLObject *self,
-		 HTMLPainter *p,
-		 gint x, gint y, 
-		 gint width, gint height,
-		 gint tx, gint ty)
-{
-	GdkRectangle paint;
-	
-	(* HTML_OBJECT_CLASS (parent_class)->draw_background) (self, p, x, y, width, height, tx, ty);
-
-	if (!html_object_intersect (self, &paint, x, y, width, height))
-	    return;
-
-	draw_background_helper (HTML_TABLE (self), p, &paint, tx, ty);
-}
-
-static void
 draw (HTMLObject *o,
       HTMLPainter *p, 
       gint x, gint y,
@@ -1238,16 +1131,14 @@ draw (HTMLObject *o,
 	HTMLTable *table = HTML_TABLE (o);
 	gint pixel_size;
 	gint r, c, start_row, end_row, start_col, end_col;
-	GdkRectangle paint;
+	ArtIRect paint;
 
-	if (!html_object_intersect (o, &paint, x, y, width, height))
+	html_object_calc_intersection (o, &paint, x, y, width, height);
+	if (art_irect_empty (&paint))
 		return;
 
 	pixel_size = html_painter_get_pixel_size (p);
 	
-	/* Draw the background */
-	draw_background_helper (table, p, &paint, tx, ty);
-
 	tx += o->x;
 	ty += o->y - o->ascent;
 
@@ -2286,7 +2177,6 @@ html_table_class_init (HTMLTableClass *klass,
 	object_class->accepts_cursor = accepts_cursor;
 	object_class->calc_size = calc_size;
 	object_class->draw = draw;
-       	object_class->draw_background = draw_background;
 	object_class->destroy = destroy;
 	object_class->calc_min_width = calc_min_width;
 	object_class->calc_preferred_width = calc_preferred_width;
@@ -2310,9 +2200,6 @@ html_table_class_init (HTMLTableClass *klass,
 	object_class->get_bg_color = get_bg_color;
 	object_class->get_recursive_length = get_recursive_length;
 	object_class->remove_child = remove_child;
-	object_class->get_n_children = get_n_children;
-	object_class->get_child = get_child;
-	object_class->get_child_index = get_child_index;
 
 	parent_class = &html_object_class;
 }
