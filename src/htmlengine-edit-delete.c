@@ -578,7 +578,7 @@ html_engine_delete (HTMLEngine *e,
 	html_engine_hide_cursor (e);
 
 	start_object = e->cursor->object;
-	start_parent = start_object->parent;
+	start_parent = HTML_CLUEFLOW (start_object->parent);
 	start_offset = e->cursor->offset;
 	start_position = e->cursor->position;
 

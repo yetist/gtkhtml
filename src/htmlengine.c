@@ -3205,8 +3205,6 @@ html_engine_update_event (HTMLEngine *e)
 {
 	e->updateTimer = 0;
 
-	printf ("update event\n");
-
 	html_engine_calc_size (e);
 
 	if (GTK_LAYOUT (e->widget)->vadjustment == NULL
