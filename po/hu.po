@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml VERSION\n"
-"POT-Creation-Date: 2001-05-09 17:12+0200\n"
-"PO-Revision-Date: 2001-05-09 17:15+02:00\n"
+"POT-Creation-Date: 2001-05-11 14:11+0200\n"
+"PO-Revision-Date: 2001-05-11 14:21+02:00\n"
 "Last-Translator: András TÍmár <timar@gnome.hu>\n"
 "Language-Team: Hungarian <hu@gnome.hu>\n"
 "MIME-Version: 1.0\n"
@@ -41,6 +41,7 @@ msgstr "Hozzáadás"
 
 #: capplet/gnome-bindings-prop.c:548
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:2
+#: components/html-editor/popup.c:231
 msgid "Copy"
 msgstr "Másolás"
 
@@ -146,7 +147,7 @@ msgid "Factory for the EBrowser control"
 msgstr "Factory az EBrowser controlhoz"
 
 #: components/ebrowser/GNOME_GtkHTML_EBrowser.oaf.in.h:4
-msgid "HTML Browser conrtol"
+msgid "HTML Browser control"
 msgstr "HTML Browser control"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:1
@@ -174,6 +175,7 @@ msgid "Copy the selection"
 msgstr "Kijelölés másolása"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:5
+#: components/html-editor/popup.c:232
 msgid "Cut"
 msgstr "Kivágás"
 
@@ -231,6 +233,7 @@ msgid "Modify the file's properties"
 msgstr "Fájl tulajdonságainak módosítása"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:19
+#: components/html-editor/popup.c:238
 msgid "Paste"
 msgstr "Beillesztés"
 
@@ -332,6 +335,23 @@ msgstr "Engedélyezés"
 msgid "Colors"
 msgstr "Színek"
 
+#: components/html-editor/body.c:176
+#: components/html-editor/editor-control-factory.c:165
+#: components/html-editor/menubar.c:124 components/html-editor/popup.c:89
+msgid "Text"
+msgstr "Szöveg"
+
+#: components/html-editor/body.c:177
+#: components/html-editor/editor-control-factory.c:190
+#: components/html-editor/menubar.c:108 components/html-editor/menubar.c:129
+#: components/html-editor/popup.c:110
+msgid "Link"
+msgstr "Hivatkozás"
+
+#: components/html-editor/body.c:178
+msgid "Background"
+msgstr "Háttér"
+
 #: components/html-editor/editor-control-factory.c:145
 #: components/html-editor/popup.c:81
 msgid "Properties"
@@ -342,11 +362,6 @@ msgstr "Tulajdonságok"
 msgid "Image"
 msgstr "Kép"
 
-#: components/html-editor/editor-control-factory.c:165
-#: components/html-editor/menubar.c:124 components/html-editor/popup.c:89
-msgid "Text"
-msgstr "Szöveg"
-
 #: components/html-editor/editor-control-factory.c:176
 #: components/html-editor/menubar.c:147 components/html-editor/popup.c:124
 msgid "Rule"
@@ -356,12 +371,6 @@ msgstr "Szabály"
 #: components/html-editor/popup.c:103
 msgid "Paragraph"
 msgstr "Bekezdés"
-
-#: components/html-editor/editor-control-factory.c:190
-#: components/html-editor/menubar.c:108 components/html-editor/menubar.c:129
-#: components/html-editor/popup.c:110
-msgid "Link"
-msgstr "Hivatkozás"
 
 #: components/html-editor/editor-control-factory.c:195
 #: components/html-editor/popup.c:117
@@ -457,6 +466,54 @@ msgstr "Nem lehet végrehajtani a gtkhtml tulajdonságokat"
 msgid "Style"
 msgstr "Stílus"
 
+#: components/html-editor/paragraph.c:124 components/html-editor/toolbar.c:50
+msgid "Normal"
+msgstr "Szokásos"
+
+#: components/html-editor/paragraph.c:125
+msgid "Pre"
+msgstr "Pre"
+
+#: components/html-editor/paragraph.c:126 components/html-editor/toolbar.c:52
+msgid "Header 1"
+msgstr "Címsor 1"
+
+#: components/html-editor/paragraph.c:127 components/html-editor/toolbar.c:53
+msgid "Header 2"
+msgstr "Címsor 2"
+
+#: components/html-editor/paragraph.c:128 components/html-editor/toolbar.c:54
+msgid "Header 3"
+msgstr "Címsor 3"
+
+#: components/html-editor/paragraph.c:129 components/html-editor/toolbar.c:55
+msgid "Header 4"
+msgstr "Címsor 4"
+
+#: components/html-editor/paragraph.c:130 components/html-editor/toolbar.c:56
+msgid "Header 5"
+msgstr "Címsor 5"
+
+#: components/html-editor/paragraph.c:131 components/html-editor/toolbar.c:57
+msgid "Header 6"
+msgstr "Címsor 6"
+
+#: components/html-editor/paragraph.c:132 components/html-editor/toolbar.c:58
+msgid "Address"
+msgstr "Cím"
+
+#: components/html-editor/paragraph.c:133
+msgid "Item dot"
+msgstr "Listaelem (pötty)"
+
+#: components/html-editor/paragraph.c:134
+msgid "Item roman"
+msgstr "Listaelem (római szám)"
+
+#: components/html-editor/paragraph.c:135
+msgid "Item digit"
+msgstr "Listaelem (számjegy)"
+
 #: components/html-editor/paragraph.c:144
 msgid "Align"
 msgstr "Igazítás"
@@ -469,9 +526,39 @@ msgstr "Balra"
 msgid "Right"
 msgstr "Jobbra"
 
+#: components/html-editor/popup.c:217
+msgid "Suggest word"
+msgstr "Javasolt szó"
+
 #: components/html-editor/popup.c:226
 msgid "Remove link"
 msgstr "Hivatkozás eltávolítása"
+
+#: components/html-editor/popup.c:242 components/html-editor/popup.c:268
+msgid "Text..."
+msgstr "Szöveg..."
+
+#: components/html-editor/popup.c:244 components/html-editor/popup.c:259
+#: components/html-editor/popup.c:270
+msgid "Paragraph..."
+msgstr "Bekezdés..."
+
+#: components/html-editor/popup.c:246 components/html-editor/popup.c:261
+#: components/html-editor/popup.c:272
+msgid "Link..."
+msgstr "Hivatkozás..."
+
+#: components/html-editor/popup.c:252
+msgid "Rule..."
+msgstr "Szabály..."
+
+#: components/html-editor/popup.c:257
+msgid "Image..."
+msgstr "Kép..."
+
+#: components/html-editor/popup.c:280
+msgid "Page..."
+msgstr "Oldal..."
 
 #: components/html-editor/replace.c:83
 msgid "Replace confirmation"
@@ -541,41 +628,9 @@ msgstr "Áthúzott"
 msgid "Automatic"
 msgstr "Automatikus"
 
-#: components/html-editor/toolbar.c:50
-msgid "Normal"
-msgstr "Szokásos"
-
 #: components/html-editor/toolbar.c:51
 msgid "Preformat"
 msgstr "Elõre formázott"
-
-#: components/html-editor/toolbar.c:52
-msgid "Header 1"
-msgstr "Címsor 1"
-
-#: components/html-editor/toolbar.c:53
-msgid "Header 2"
-msgstr "Címsor 2"
-
-#: components/html-editor/toolbar.c:54
-msgid "Header 3"
-msgstr "Címsor 3"
-
-#: components/html-editor/toolbar.c:55
-msgid "Header 4"
-msgstr "Címsor 4"
-
-#: components/html-editor/toolbar.c:56
-msgid "Header 5"
-msgstr "Címsor 5"
-
-#: components/html-editor/toolbar.c:57
-msgid "Header 6"
-msgstr "Címsor 6"
-
-#: components/html-editor/toolbar.c:58
-msgid "Address"
-msgstr "Cím"
 
 #: components/html-editor/toolbar.c:59
 msgid "List item (digit)"
