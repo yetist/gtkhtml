@@ -6,7 +6,7 @@ INCLUDES = \
 	$(GNOME_INCLUDEDIR)	\
 	-I$(top_srcdir)/components
 
-CFLAGS += $(EXTRA_GNOME_CFLAGS)
+CFLAGS += $(EXTRA_GNOME_CFLAGS) $(GCONF_CFLAGS)
 
 EBROWSER_ENGINE_FILES = 		\
 	ebrowser-history.c		\

@@ -29,6 +29,9 @@
 #include "ebrowser-stream.h"
 #include "ebrowser.h"
 #include "ebrowser-ui.h"
+#ifdef GTKHTML_HAVE_GCONF
+#include <gconf/gconf-client.h>
+#endif
 
 static gint refcount = 0;
 
@@ -249,6 +252,9 @@ ebrowser_factory_init (void)
 
 int main (int argc, gchar ** argv)
 {
+#ifdef GTKHTML_HAVE_GCONF
+	GError  *gconf_error  = NULL;
+#endif
 	CORBA_Environment ev;
 	CORBA_ORB orb;
 
@@ -263,6 +269,14 @@ int main (int argc, gchar ** argv)
 	if (bonobo_init (orb, NULL, NULL) == FALSE)
 		g_error ("Couldn't initialize Bonobo");
 
+#ifdef GTKHTML_HAVE_GCONF
+	if (!gconf_init (argc, argv, &gconf_error)) {
+		g_assert (gconf_error != NULL);
+		g_error ("GConf init failed:\n  %s", gconf_error->message);
+		return 1;
+	}
+#endif
+
 	gdk_rgb_init ();
 	gtk_widget_set_default_colormap (gdk_rgb_get_cmap ());
 	gtk_widget_set_default_visual (gdk_rgb_get_visual ());
@@ -273,20 +287,3 @@ int main (int argc, gchar ** argv)
 
 	return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,3 +1,9 @@
+2001-03-05  Radek Doulik  <rodo@ximian.com>
+
+	* Makefile.am (CFLAGS): added GCONF_CFLAGS to CFLAGS
+
+	* ebrowser.c (main): call gconf_init if needed
+
 2001-02-07  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* GNOME_GtkHTML_EBrowser.oaf.in: Added. Not hooked up.
