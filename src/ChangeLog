@@ -1,3 +1,15 @@
+2000-08-02  Radek Doulik  <rodo@helixcode.com>
+
+	* htmltextslave.c (fit_line): split only when len < posLen
+
+	* gtkhtml.c (motion_notify_event): split
+	(mouse_change_pos): new helper function, uses on_url
+	(on_url): new helper function
+	(scroll_update_mouse): new helper function
+	(vertical_scroll_cb): call scroll_update_mouse, so mouse is
+	updated when scrolling
+	(horizontal_scroll_cb): likewise
+
 2000-08-01  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlengine-edit-insert.c: same as below

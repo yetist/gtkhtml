@@ -190,7 +190,7 @@ fit_line (HTMLObject *o,
 		/* so try partial fit atleast */
 		gchar *sep = NULL, *lsep;
 		gchar *begin;
-		gint width = 0;
+		gint width = 0, len;
 
 		sep = begin = text->text + slave->posStart;
 
@@ -215,7 +215,9 @@ fit_line (HTMLObject *o,
 			/* if only one pass has been made */
 			if (lsep == begin) lsep = sep;
 			/* split + set attributes */
-			split (slave, lsep - begin);
+			len = lsep - begin;
+			if (len < slave->posLen)
+				split (slave, lsep - begin);
 			o->width   = width;
 			o->ascent  = html_painter_calc_ascent (painter, font_style);
 			o->descent = html_painter_calc_descent (painter, font_style);
