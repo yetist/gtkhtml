@@ -47,5 +47,17 @@ module HTMLEditor {
 		 * execute editor command
 		 */
 		void command (in string command);
+
+		/*
+		 * returns TRUE if current paragraph is empty (will be possibly replaced
+		 * by more general iface)
+		 */
+		boolean paragraph_is_empty ();
+
+		/*
+		 * return TRUE if previous paragraph is empty (will be possibly replaced
+		 * by more general iface)
+		 */
+		boolean paragraph_previous_is_empty ();
 	};
 };

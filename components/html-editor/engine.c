@@ -24,6 +24,7 @@
 #include <bonobo.h>
 
 #include "htmlengine-edit.h"
+#include "htmltext.h"
 #include "engine.h"
 
 static BonoboObjectClass *engine_parent_class;
@@ -118,6 +119,44 @@ impl_command (PortableServer_Servant servant, const CORBA_char * command, CORBA_
 	gtk_html_editor_command (e->html, command);
 }
 
+static CORBA_boolean
+par_is_empty (HTMLClue *clue)
+{
+	if (clue->head && clue->head->next == clue->tail
+	    && html_object_is_text (clue->head) && !*HTML_TEXT (clue->head)->text
+	    && HTML_OBJECT_TYPE (clue->tail) == HTML_TYPE_TEXTSLAVE)
+		return CORBA_TRUE;
+	return CORBA_FALSE;
+}
+
+static CORBA_boolean
+impl_paragraph_is_empty (PortableServer_Servant servant, CORBA_Environment * ev)
+{
+	HTMLEditorEngine *e = html_editor_engine_from_servant (servant);
+
+	if (e->html->engine->cursor->object
+	    && e->html->engine->cursor->object->parent
+	    && HTML_OBJECT_TYPE (e->html->engine->cursor->object->parent) == HTML_TYPE_CLUEFLOW) {
+		return par_is_empty (HTML_CLUE (e->html->engine->cursor->object->parent));
+	}
+	return CORBA_FALSE;
+}
+
+static CORBA_boolean
+impl_paragraph_previous_is_empty (PortableServer_Servant servant, CORBA_Environment * ev)
+{
+	HTMLEditorEngine *e = html_editor_engine_from_servant (servant);
+
+	if (e->html->engine->cursor->object
+	    && e->html->engine->cursor->object->parent
+	    && e->html->engine->cursor->object->parent->prev
+	    && HTML_OBJECT_TYPE (e->html->engine->cursor->object->parent->prev) == HTML_TYPE_CLUEFLOW) {
+		return par_is_empty (HTML_CLUE (e->html->engine->cursor->object->parent->prev));
+	}
+	return CORBA_FALSE;
+}
+
+
 POA_HTMLEditor_Engine__epv *
 html_editor_engine_get_epv (void)
 {
@@ -125,12 +164,14 @@ html_editor_engine_get_epv (void)
 
 	epv = g_new0 (POA_HTMLEditor_Engine__epv, 1);
 
-	epv->_set_listener           = impl_set_listener;
-	epv->_get_listener           = impl_get_listener;
-	epv->set_paragraph_data      = impl_set_paragraph_data;
-	epv->get_paragraph_data      = impl_get_paragraph_data;
-	epv->set_object_data_by_type = impl_set_object_data_by_type;
-	epv->command                 = impl_command;
+	epv->_set_listener               = impl_set_listener;
+	epv->_get_listener               = impl_get_listener;
+	epv->set_paragraph_data          = impl_set_paragraph_data;
+	epv->get_paragraph_data          = impl_get_paragraph_data;
+	epv->set_object_data_by_type     = impl_set_object_data_by_type;
+	epv->command                     = impl_command;
+	epv->paragraph_is_empty          = impl_paragraph_is_empty;
+	epv->paragraph_previous_is_empty = impl_paragraph_previous_is_empty;
 
 	return epv;
 }

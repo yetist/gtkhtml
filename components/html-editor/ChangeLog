@@ -1,3 +1,11 @@
+2000-11-13  Radek Doulik  <rodo@helixcode.com>
+
+	* engine.c (impl_paragraph_previous_is_empty): new method impl
+	(impl_paragraph_is_empty): likewise
+	(par_is_empty): helper function, tests if paragraph is empty
+
+	* HTMLEditor.idl: added new methods used while replying
+
 2000-11-10  Radek Doulik  <rodo@helixcode.com>
 
 	* image.c (insert_or_apply): fixed compilation
