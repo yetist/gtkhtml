@@ -1,5 +1,16 @@
 2000-11-04  Larry Ewing  <lewing@helixcode.com>
 
+	* htmltext.c (save_plain): remove call to encode_text_to_8bit
+	because this actually breaks the mailer which now assumes it is
+	getting text/plain in utf-8 not an 8bit character set.  Also stop
+	stipping the nbsp here since we can use it in the wrapping code in
+	the clueflow. 
+
+	* htmlclueflow.c (save_plain): test for nbsp properly here, and
+	convert use append_nonbsp to spaces.
+	(string_append_nonbsp): convert utf-8 nbsp sequence to spaces so
+	that we put make things less difficult for other mailers.
+
 	* htmlengine.c (parse_i): parse the alt attribute when parsing the
 	img element.
 

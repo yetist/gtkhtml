@@ -392,13 +392,11 @@ save_plain (HTMLObject *self,
 	    gint requested_width)
 {
 	HTMLText *text;
-	guchar *raw;
 	gboolean rv;
+
 	text = HTML_TEXT (self);
 
-	raw = encode_text_to_8bit (text->text);
-	rv  = html_engine_save_output_string (state, "%s", raw);
-	g_free (raw);
+	rv  = html_engine_save_output_string (state, "%s", text->text);
 	
 	return rv;
 }

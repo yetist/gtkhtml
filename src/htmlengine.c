@@ -2120,7 +2120,7 @@ parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 */
 /* EP CHECK: map support missing.  `<input>' missing.  */
 static void
-parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
+parse_i (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 {
 	if (strncmp (str, "img", 3) == 0) {
 		HTMLObject *image = 0;
@@ -2128,6 +2128,7 @@ parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 		gint width = -1;
 		gchar *tmpurl = NULL;
 		gchar *imageid = NULL;
+		gchar *alt = NULL;
 		gint height = -1;
 		gint percent = 0;
 		gint hspace = 0;
@@ -2137,14 +2138,14 @@ parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 		HTMLVAlignType valign = HTML_VALIGN_NONE;
 		HTMLColor *color = NULL;
 		
-		color = current_color (p);
+		color = current_color (e);
 
-		if (p->url != NULL || p->target != NULL)
+		if (e->url != NULL || e->target != NULL)
 			border = 2;
 
-		html_string_tokenizer_tokenize (p->st, str + 4, " >");
-		while (html_string_tokenizer_has_more_tokens (p->st)) {
-			token = html_string_tokenizer_next_token (p->st);
+		html_string_tokenizer_tokenize (e->st, str + 4, " >");
+		while (html_string_tokenizer_has_more_tokens (e->st)) {
+			token = html_string_tokenizer_next_token (e->st);
 			if (strncasecmp (token, "src=", 4) == 0) {
 				tmpurl = g_strdup (token + 4);
 			} else if (strncasecmp (token, "width=", 6) == 0) {
@@ -2180,7 +2181,10 @@ parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 			else if (strncasecmp (token, "imageid=", 8) == 0) {
 				imageid = token + 8;
 			}
-#if 0							/* FIXME TODO map support */
+			else if (strncasecmp (token, "alt=", 4) == 0) {
+				alt = g_strdup (token + 4);
+			}
+#if 0			/* FIXME TODO map support */
 			else if ( strncasecmp( token, "usemap=", 7 ) == 0 )
 			{
 				if ( *(token + 7 ) == '#' )
@@ -2207,21 +2211,21 @@ parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 			else if (valign == HTML_VALIGN_NONE)
 				valign = HTML_VALIGN_BOTTOM;
 
-			image = html_image_new (p->image_factory, tmpurl,
-						p->url, p->target,
+			image = html_image_new (e->image_factory, tmpurl,
+						e->url, e->target,
 						width, height,
 						percent, border, color, valign);
 
 			if (imageid) {
 				gpointer old_key;
 				gpointer old_val;
-				if (!p->imageid_table) {
-					p->imageid_table = g_hash_table_new (g_str_hash, g_str_equal);
+				if (!e->imageid_table) {
+					e->imageid_table = g_hash_table_new (g_str_hash, g_str_equal);
 				}
-				if (g_hash_table_lookup_extended (p->imageid_table, imageid, &old_key,
+				if (g_hash_table_lookup_extended (e->imageid_table, imageid, &old_key,
 								  &old_val))
 					g_free (old_key);
-				g_hash_table_insert (p->imageid_table, g_strdup (imageid), image);
+				g_hash_table_insert (e->imageid_table, g_strdup (imageid), image);
 			}
 
 			if (hspace < 0)
@@ -2230,35 +2234,40 @@ parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 				vspace = 0;
 
 			html_image_set_spacing (HTML_IMAGE (image), hspace, vspace);
-
+			
+			if (alt) {
+				html_image_set_alt (HTML_IMAGE (image), alt);
+				g_free (alt);
+			}
+						    
 			g_free(tmpurl);
 				
 			if (align == HTML_HALIGN_NONE) {
-				append_element (p, _clue, image);
+				append_element (e, _clue, image);
 			} else {
 				/* We need to put the image in a HTMLClueAligned.  */
 				/* Man, this is *so* gross.  */
 				HTMLClueAligned *aligned = HTML_CLUEALIGNED (html_cluealigned_new (NULL, 0, 0, _clue->max_width, 100));
 				HTML_CLUE (aligned)->halign = align;
 				html_clue_append (HTML_CLUE (aligned), HTML_OBJECT (image));
-				append_element (p, _clue, HTML_OBJECT (aligned));
+				append_element (e, _clue, HTML_OBJECT (aligned));
 			}
 		}		       
 	}
 	else if (strncmp( str, "input", 5 ) == 0) {
-		if (p->form == NULL)
+		if (e->form == NULL)
 			return;
 		
-		parse_input( p, str + 6, _clue );
+		parse_input (e, str + 6, _clue );
 	} else if (strncmp( str, "iframe", 6) == 0) {
-		parse_iframe (p, str + 7, _clue);
+		parse_iframe (e, str + 7, _clue);
 	} else if ( strncmp (str, "i", 1 ) == 0 ) {
 		if ( str[1] == '>' || str[1] == ' ' ) {
-			push_font_style (p, GTK_HTML_FONT_STYLE_ITALIC);
-			push_block (p, ID_I, 1, block_end_font, FALSE, FALSE);
+			push_font_style (e, GTK_HTML_FONT_STYLE_ITALIC);
+			push_block (e, ID_I, 1, block_end_font, FALSE, FALSE);
 		}
 	} else if ( strncmp( str, "/i", 2 ) == 0 ) {
-		pop_block (p, ID_I, _clue);
+		pop_block (e, ID_I, _clue);
 	}
 }
 
