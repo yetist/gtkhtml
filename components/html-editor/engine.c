@@ -100,7 +100,7 @@ impl_set_listener (PortableServer_Servant servant, const GNOME_HTMLEditor_Listen
 
 	unref_listener (e);
 	e->listener_client = bonobo_object_client_from_corba (value);
-	e->listener        = bonobo_object_client_query_interface (e->listener_client, "IDL:HTMLEditor/Listener:1.0", ev);
+	e->listener        = bonobo_object_client_query_interface (e->listener_client, "IDL:GNOME/HTMLEditor/Listener:1.0", ev);
 }
 
 static GNOME_HTMLEditor_Listener

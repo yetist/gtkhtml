@@ -242,7 +242,7 @@ load_from_corba (BonoboControl *control,
 	Frame = bonobo_control_get_control_frame (control);
 	if (Frame != CORBA_OBJECT_NIL) {
 		resolver = Bonobo_Unknown_queryInterface (Frame,
-							   "IDL:HTMLEditor/Resolver:1.0",
+							   "IDL:GNOME/HTMLEditor/Resolver:1.0",
 							   &ev);
 		
 		if (resolver != CORBA_OBJECT_NIL) {

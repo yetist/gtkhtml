@@ -1,5 +1,9 @@
 2000-11-15  Radek Doulik  <rodo@helixcode.com>
 
+	* editor-control-factory.c (load_from_corba): update namespace
+
+	* engine.c (impl_set_listener): update namespace
+
 	* updated to API changes
 
 	* HTMLEditor.idl: moved to GNOME namespace
