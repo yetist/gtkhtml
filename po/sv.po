@@ -5,65 +5,85 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2000-09-11 02:09+0200\n"
-"PO-Revision-Date: 2000-09-11 02:22+0200\n"
+"POT-Creation-Date: 2000-09-14 23:59+0200\n"
+"PO-Revision-Date: 2000-09-15 00:01+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: capplet/gnome-bindings-prop.c:153 capplet/gnome-bindings-prop.c:221
-#: capplet/gnome-bindings-prop.c:296 capplet/gnome-bindings-prop.c:431
-#: capplet/gnome-bindings-prop.c:432
+#: capplet/gnome-bindings-prop.c:154 capplet/gnome-bindings-prop.c:222
+#: capplet/gnome-bindings-prop.c:297 capplet/gnome-bindings-prop.c:435
+#: capplet/gnome-bindings-prop.c:436
 msgid "<None>"
 msgstr "<Ingen>"
 
-#: capplet/gnome-bindings-prop.c:521
+#: capplet/gnome-bindings-prop.c:525
 msgid "Key"
 msgstr "Tangent"
 
-#: capplet/gnome-bindings-prop.c:521
+#: capplet/gnome-bindings-prop.c:525
 msgid "Command"
 msgstr "Kommando"
 
-#: capplet/gnome-bindings-prop.c:522
+#: capplet/gnome-bindings-prop.c:526
 msgid "Commands"
 msgstr "Kommandon"
 
-#: capplet/gnome-bindings-prop.c:523
+#: capplet/gnome-bindings-prop.c:527
 msgid "Keymaps"
 msgstr "Teckentabeller"
 
-#: capplet/gnome-bindings-prop.c:541
+#: capplet/gnome-bindings-prop.c:545
 msgid "Add"
 msgstr "Lägg till"
 
-#: capplet/gnome-bindings-prop.c:544
-#: components/html-editor/test-html-editor-control.c:325
+#: capplet/gnome-bindings-prop.c:548
+#: components/html-editor/test-html-editor-control.c:323
 #: components/html-editor/toolbar.c:495
 msgid "Copy"
 msgstr "Kopia"
 
-#: capplet/gnome-bindings-prop.c:547
+#: capplet/gnome-bindings-prop.c:551
 msgid "Delete"
 msgstr "Ta bort"
 
-#: capplet/gnome-bindings-prop.c:578
+#: capplet/gnome-bindings-prop.c:582
 msgid "Grab key"
 msgstr "Hämta nyckel"
 
-#: capplet/main.c:127 capplet/viewer.c:188
-msgid "Behaviour"
-msgstr "Beteende"
+#: capplet/main.c:220
+msgid "Spell checking"
+msgstr "Stavningskontroll"
 
-#: capplet/main.c:128
+#: capplet/main.c:223
+msgid "live spell checking"
+msgstr "aktiv stavningskontroll"
+
+#: capplet/main.c:232
+msgid "spell checking color"
+msgstr "färg för stavningskontroll"
+
+#: capplet/main.c:239
+msgid "language"
+msgstr "språk"
+
+#: capplet/main.c:245
+msgid "Miscelaneous"
+msgstr "Diverse"
+
+#: capplet/main.c:247
 msgid "magic links"
 msgstr "magiska länkar"
 
-#: capplet/main.c:135
-msgid "Keybindings"
-msgstr "Tangentbindningar"
+#: capplet/main.c:266
+msgid "Bindings"
+msgstr "Bindningar"
+
+#: capplet/main.c:267 capplet/viewer.c:188
+msgid "Behaviour"
+msgstr "Beteende"
 
 #: capplet/viewer.c:148
 msgid "Appearance"
@@ -129,7 +149,7 @@ msgid "Paragraph"
 msgstr "Stycke"
 
 #: components/html-editor/editor-control-factory.c:159
-#: components/html-editor/menubar.c:157 components/html-editor/popup.c:100
+#: components/html-editor/menubar.c:109 components/html-editor/popup.c:100
 msgid "Link"
 msgstr "Länk"
 
@@ -177,47 +197,11 @@ msgstr "Kunde inte initiera GNORBA"
 msgid "Could not initialize Bonobo"
 msgstr "Kunde inte initiera Bonobo"
 
-#: components/html-editor/menubar.c:60
-msgid "Find Rege_x..."
-msgstr "Sök _reguljärt uttryck..."
-
-#: components/html-editor/menubar.c:60
-msgid "Regular expressions search..."
-msgstr "Sökning med reguljärt uttryck..."
-
-#: components/html-editor/menubar.c:69
-msgid "_Image..."
-msgstr "_Bild..."
-
-#: components/html-editor/menubar.c:69
-msgid "Insert image into document..."
-msgstr "Infoga bild i dokument..."
-
-#: components/html-editor/menubar.c:70
-msgid "_Link..."
-msgstr "_Länk..."
-
-#: components/html-editor/menubar.c:70
-msgid "Insert HTML link into document..."
-msgstr "Infoga HTML-länk i dokument..."
-
-#: components/html-editor/menubar.c:71
-msgid "_Rule..."
-msgstr "Lin_je"
-
-#: components/html-editor/menubar.c:71
-msgid "Insert rule into document..."
-msgstr "Infoga linje i dokument..."
-
-#: components/html-editor/menubar.c:76
-msgid "_Insert"
-msgstr "_Infoga"
-
-#: components/html-editor/menubar.c:143
+#: components/html-editor/menubar.c:93
 msgid "Insert image"
 msgstr "Infoga bild"
 
-#: components/html-editor/menubar.c:175
+#: components/html-editor/menubar.c:128
 msgid "Cannot execute gtkhtml properties"
 msgstr "Kunde inte plocka fram egenskaperna för gtkhtml"
 
@@ -323,65 +307,65 @@ msgstr "Sökning med reg. uttryck"
 msgid "Search"
 msgstr "Sök"
 
-#: components/html-editor/test-html-editor-control.c:234
+#: components/html-editor/test-html-editor-control.c:232
 msgid "Open file..."
 msgstr "Öppna fil..."
 
-#: components/html-editor/test-html-editor-control.c:236
+#: components/html-editor/test-html-editor-control.c:234
 msgid "Save file as..."
 msgstr "Spara fil som..."
 
-#: components/html-editor/test-html-editor-control.c:302
+#: components/html-editor/test-html-editor-control.c:300
 msgid "Open (PersistFile)"
 msgstr "Öppna (PersistFile)"
 
-#: components/html-editor/test-html-editor-control.c:302
+#: components/html-editor/test-html-editor-control.c:300
 msgid "Open using the PersistFile interface"
 msgstr "Öppna med PersistFile-gränssnittet"
 
-#: components/html-editor/test-html-editor-control.c:304
+#: components/html-editor/test-html-editor-control.c:302
 msgid "Save as... (PersistFile)"
 msgstr "Spara som... (PersistFile)"
 
-#: components/html-editor/test-html-editor-control.c:304
+#: components/html-editor/test-html-editor-control.c:302
 msgid "Save using the PersistFile interface"
 msgstr "Spara med PersistFile-gränssnittet"
 
-#: components/html-editor/test-html-editor-control.c:307
+#: components/html-editor/test-html-editor-control.c:305
 msgid "Open (PersistStream)"
 msgstr "Öppna (PersistStream)"
 
-#: components/html-editor/test-html-editor-control.c:307
+#: components/html-editor/test-html-editor-control.c:305
 msgid "Open using the PersistStream interface"
 msgstr "Öppna med PersistStream-gränssnittet"
 
-#: components/html-editor/test-html-editor-control.c:309
+#: components/html-editor/test-html-editor-control.c:307
 msgid "Save as... (PersistStream)"
 msgstr "Spara som... (PersistStream)"
 
-#: components/html-editor/test-html-editor-control.c:309
+#: components/html-editor/test-html-editor-control.c:307
 msgid "Save using the PersistStream interface"
 msgstr "Spara med PersistStream-gränssnittet"
 
-#: components/html-editor/test-html-editor-control.c:323
+#: components/html-editor/test-html-editor-control.c:321
 #: components/html-editor/toolbar.c:493
 msgid "Cut"
 msgstr "Klipp ut"
 
-#: components/html-editor/test-html-editor-control.c:323
+#: components/html-editor/test-html-editor-control.c:321
 msgid "Cut selection to the clipboard"
 msgstr "Klipp ut markeringen och placera i urklipp"
 
-#: components/html-editor/test-html-editor-control.c:325
+#: components/html-editor/test-html-editor-control.c:323
 msgid "Copy selection to the clipboard"
 msgstr "Kopiera markeringen och placera i urklipp"
 
-#: components/html-editor/test-html-editor-control.c:327
+#: components/html-editor/test-html-editor-control.c:325
 #: components/html-editor/toolbar.c:497
 msgid "Paste"
 msgstr "Klistra in"
 
-#: components/html-editor/test-html-editor-control.c:327
+#: components/html-editor/test-html-editor-control.c:325
 #: components/html-editor/toolbar.c:497
 msgid "Paste contents of the clipboard"
 msgstr "Klistra in innehållet i urklipp"
@@ -546,3 +530,30 @@ msgstr "Förhands_granska"
 #: src/testgtkhtml.c:111
 msgid "Print preview"
 msgstr "Förhandsgranska"
+
+#~ msgid "Find Rege_x..."
+#~ msgstr "Sök _reguljärt uttryck..."
+
+#~ msgid "Regular expressions search..."
+#~ msgstr "Sökning med reguljärt uttryck..."
+
+#~ msgid "_Image..."
+#~ msgstr "_Bild..."
+
+#~ msgid "Insert image into document..."
+#~ msgstr "Infoga bild i dokument..."
+
+#~ msgid "_Link..."
+#~ msgstr "_Länk..."
+
+#~ msgid "Insert HTML link into document..."
+#~ msgstr "Infoga HTML-länk i dokument..."
+
+#~ msgid "_Rule..."
+#~ msgstr "Lin_je"
+
+#~ msgid "Insert rule into document..."
+#~ msgstr "Infoga linje i dokument..."
+
+#~ msgid "_Insert"
+#~ msgstr "_Infoga"
