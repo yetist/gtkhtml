@@ -100,9 +100,9 @@
 		<separator/>
 		<toolitem name="InsertImage" verb="" _label="Image"
                 pixtype="filename" pixname="@ICONSDIR@/insert-image-24.png"/>
-		<toolitem name="InsertLink" verb="" _lable="Link"
+		<toolitem name="InsertLink" verb="" _label="Link"
                 pixtype="filename" pixname="@ICONSDIR@/insert-link-24.png"/>
-		<toolitem name="InsertTable" verb="" _lable="Table"
+		<toolitem name="InsertTable" verb="" _label="Table"
                 pixtype="filename" pixname="@ICONSDIR@/insert-table-24.png"/>
 	</dockitem>
 </Root>
