@@ -209,7 +209,6 @@ fit_line (HTMLObject *o,
 	  gboolean next_to_floating,
 	  gint width_left)
 {
-	html_object_calc_size (o, painter, FALSE);
 	return (o->width <= width_left || (first_run && !next_to_floating)) ? HTML_FIT_COMPLETE : HTML_FIT_NONE;
 }
 

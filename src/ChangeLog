@@ -1,5 +1,8 @@
 2003-10-06  Larry Ewing  <lewing@ximian.com>
 
+	* htmlobject.c (html_object_fit_line): remove explicit call to
+	calc_size here.
+
 	* htmlengine.c: move more parsers to html_element interface.
 
 	* htmltable.c (html_table_class_init): remove fit_line
