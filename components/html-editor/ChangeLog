@@ -1,3 +1,8 @@
+2001-07-31  Radek Doulik  <rodo@ximian.com>
+
+	* engine.c (impl_get_paragraph_data): use CORBA_string_dup ("")
+	instead of CORBA_string_alloc (0)
+
 2001-07-30  Larry Ewing  <lewing@ximian.com>
 
 	* Makefile.am (oaf_in_in_files): move

@@ -54,7 +54,7 @@ impl_get_paragraph_data (PortableServer_Servant servant, const CORBA_char * key,
 
 	/* printf ("get paragraph data\n"); */
 
-	return value ? CORBA_string_dup (value) : CORBA_string_alloc (0);
+	return CORBA_string_dup (value ? value : "");
 }
 
 static void
