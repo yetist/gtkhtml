@@ -1,5 +1,16 @@
 2000-09-27  Radek Doulik  <rodo@helixcode.com>
 
+	* htmltextslave.c (calc_size): updated to UTF8 (I've missed this
+	one before, *sigh*)
+	(fit_line): use html_text_get_text
+	(fit_line): likewise
+	(draw_spell_errors): likewise
+	(draw_normal): likewise
+	(html_text_slave_get_offset_for_pointer): likewise
+
+	* gtkhtmldebug.c (gtk_html_debug_dump_object): new function
+	(gtk_html_debug_dump_object): updated slave printing to UTF8
+
 	* htmliframe.c (calc_min_width): don't call html_engine_calc_size
 	as it is not needed
 

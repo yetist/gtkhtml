@@ -143,68 +143,78 @@ gtk_html_debug_dump_table (HTMLObject *o,
 }
 
 void
+gtk_html_debug_dump_object (HTMLObject *obj,
+			    gint level)
+{
+	gint i;
+	for (i = 0; i < level; i++)
+		g_print (" ");
+
+	g_print ("Obj: %p, Parent: %p  Prev: %p Next: %p ObjectType: %s Pos: %d, %d, MinWidth: %d, Width: %d MaxWidth: %d ",
+		 obj, obj->parent, obj->prev, obj->next, html_type_name (HTML_OBJECT_TYPE (obj)),
+		 obj->x, obj->y, obj->min_width, obj->width, obj->max_width);
+
+	if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_CLUEFLOW)
+		g_print (" [%s, %d]",
+			 clueflow_style_to_string (HTML_CLUEFLOW (obj)->style), HTML_CLUEFLOW (obj)->level);
+	else if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_TEXTSLAVE) {
+		gchar *sl_text = g_strndup (html_text_get_text (HTML_TEXT (HTML_TEXT_SLAVE (obj)->owner),
+								HTML_TEXT_SLAVE (obj)->posStart),
+					    html_text_get_index (HTML_TEXT (HTML_TEXT_SLAVE (obj)->owner),
+								 HTML_TEXT_SLAVE (obj)->posStart
+								 + HTML_TEXT_SLAVE (obj)->posLen)
+					    - html_text_get_index (HTML_TEXT (HTML_TEXT_SLAVE (obj)->owner),
+								   HTML_TEXT_SLAVE (obj)->posStart));
+		g_print ("[start %d end %d] \"%s\" ",
+			 HTML_TEXT_SLAVE (obj)->posStart,
+			 HTML_TEXT_SLAVE (obj)->posStart + HTML_TEXT_SLAVE (obj)->posLen - 1,
+			 sl_text);
+		g_free (sl_text);
+	}
+			
+
+	g_print ("\n");
+
+	switch (HTML_OBJECT_TYPE (obj)) {
+	case HTML_TYPE_TABLE:
+		gtk_html_debug_dump_table (obj, level + 1);
+		break;
+	case HTML_TYPE_TEXT:
+	case HTML_TYPE_TEXTMASTER:
+	case HTML_TYPE_LINKTEXT:
+	case HTML_TYPE_LINKTEXTMASTER:
+		for (i = 0; i < level; i++)
+			g_print (" ");
+		g_print ("Text (%d): \"%s\"\n",
+			 HTML_TEXT (obj)->text_len, HTML_TEXT (obj)->text);
+		break;
+
+	case HTML_TYPE_CLUEH:
+	case HTML_TYPE_CLUEV:
+	case HTML_TYPE_CLUEFLOW:
+	case HTML_TYPE_CLUEALIGNED:
+	case HTML_TYPE_TABLECELL:
+		for (i = 0; i < level; i++) g_print (" ");
+		g_print ("HAlign: %s VAlign: %s\n",
+			 gtk_html_debug_print_halignment (HTML_CLUE (obj)->halign),
+			 gtk_html_debug_print_valignment (HTML_CLUE (obj)->valign));
+		gtk_html_debug_dump_tree (HTML_CLUE (obj)->head, level + 1);
+		break;
+
+	default:
+		break;
+	}
+}
+
+void
 gtk_html_debug_dump_tree (HTMLObject *o,
 			  gint level)
 {
 	HTMLObject *obj;
-	gint i;
 
 	obj = o;
 	while (obj) {
-		for (i = 0; i < level; i++)
-			g_print (" ");
-
-		g_print ("Obj: %p, Parent: %p  Prev: %p Next: %p ObjectType: %s Pos: %d, %d, MinWidth: %d, Width: %d MaxWidth: %d ",
-			 obj, obj->parent, obj->prev, obj->next, html_type_name (HTML_OBJECT_TYPE (obj)),
-			 obj->x, obj->y, obj->min_width, obj->width, obj->max_width);
-
-		if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_CLUEFLOW)
-			g_print (" [%s, %d]",
-				 clueflow_style_to_string (HTML_CLUEFLOW (obj)->style), HTML_CLUEFLOW (obj)->level);
-		else if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_TEXTSLAVE) {
-			gchar *sl_text = g_strndup (HTML_TEXT_SLAVE (obj)->owner->text.text
-						    + HTML_TEXT_SLAVE (obj)->posStart,
-						    HTML_TEXT_SLAVE (obj)->posLen);
-			g_print ("[start %d end %d] \"%s\" ",
-				 HTML_TEXT_SLAVE (obj)->posStart,
-				 HTML_TEXT_SLAVE (obj)->posStart + HTML_TEXT_SLAVE (obj)->posLen - 1,
-				 sl_text);
-			g_free (sl_text);
-		}
-			
-
-		g_print ("\n");
-
-		switch (HTML_OBJECT_TYPE (obj)) {
-		case HTML_TYPE_TABLE:
-			gtk_html_debug_dump_table (obj, level + 1);
-			break;
-		case HTML_TYPE_TEXT:
-		case HTML_TYPE_TEXTMASTER:
-		case HTML_TYPE_LINKTEXT:
-		case HTML_TYPE_LINKTEXTMASTER:
-			for (i = 0; i < level; i++)
-				g_print (" ");
-			g_print ("Text (%d): \"%s\"\n",
-				 HTML_TEXT (obj)->text_len, HTML_TEXT (obj)->text);
-			break;
-
-		case HTML_TYPE_CLUEH:
-		case HTML_TYPE_CLUEV:
-		case HTML_TYPE_CLUEFLOW:
-		case HTML_TYPE_CLUEALIGNED:
-		case HTML_TYPE_TABLECELL:
-			for (i = 0; i < level; i++) g_print (" ");
-			g_print ("HAlign: %s VAlign: %s\n",
-				 gtk_html_debug_print_halignment (HTML_CLUE (obj)->halign),
-				 gtk_html_debug_print_valignment (HTML_CLUE (obj)->valign));
-			gtk_html_debug_dump_tree (HTML_CLUE (obj)->head, level + 1);
-			break;
-
-		default:
-			break;
-		}
-
+		gtk_html_debug_dump_object (obj, level);
 		obj = obj->next;
 	}
 }

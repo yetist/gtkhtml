@@ -25,19 +25,19 @@
 #include "htmlobject.h"
 
 
-void  gtk_html_debug_log  (GtkHTML     *html,
-			   const gchar *format,
-			   ...);
-
-
-void  gtk_html_debug_dump_tree         (HTMLObject *o,
-					gint        level);
-void  gtk_html_debug_dump_object_type  (HTMLObject *o);
-void  gtk_html_debug_dump_table        (HTMLObject *o,
-					gint        level);
-void  gtk_html_debug_dump_tree_simple  (HTMLObject *o,
-					gint        level);
-void  gtk_html_debug_dump_list_simple  (GList      *list,
-					gint        level);
+void  gtk_html_debug_log               (GtkHTML     *html,
+					const gchar *format,
+					...);
+void  gtk_html_debug_dump_tree         (HTMLObject  *o,
+					gint         level);
+void  gtk_html_debug_dump_object_type  (HTMLObject  *o);
+void  gtk_html_debug_dump_table        (HTMLObject  *o,
+					gint         level);
+void  gtk_html_debug_dump_tree_simple  (HTMLObject  *o,
+					gint         level);
+void  gtk_html_debug_dump_list_simple  (GList       *list,
+					gint         level);
+void  gtk_html_debug_dump_object       (HTMLObject  *o,
+					gint         level);
 
 #endif /* _GTKHTML_DEBUG_H_ */

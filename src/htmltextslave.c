@@ -49,7 +49,6 @@ split (HTMLTextSlave *slave, gshort offset)
 	new = html_text_slave_new (slave->owner,
 				   slave->posStart + offset,
 				   slave->posLen - offset);
-
 	html_clue_append_after (HTML_CLUE (obj->parent), new, obj);
 
 	slave->posLen = offset;
@@ -88,7 +87,7 @@ calc_size (HTMLObject *self,
 	new_descent = html_painter_calc_descent (painter, font_style, owner->face);
 
 	new_width = html_painter_calc_text_width (painter,
-						  owner->text + slave->posStart,
+						  html_text_get_text (HTML_TEXT (owner), slave->posStart),
 						  slave->posLen,
 						  font_style, owner->face);
 
@@ -183,7 +182,7 @@ fit_line (HTMLObject *o,
 
 	/* try complete fit now */
 	font_style = html_text_get_font_style (text);
-	width      = html_painter_calc_text_width (painter, text->text + html_text_get_index (text, slave->posStart),
+	width      = html_painter_calc_text_width (painter, html_text_get_text (text, slave->posStart),
 						   slave->posLen,
 						   font_style, text->face);
 	next_width = get_next_nb_width (slave, painter);
@@ -196,7 +195,7 @@ fit_line (HTMLObject *o,
 		gchar *begin;
 		gint width = 0, len;
 
-		sep = begin = text->text + html_text_get_index (text, slave->posStart);
+		sep = begin = html_text_get_text (text, slave->posStart);
 
 		do {
 			lsep   = sep;
@@ -229,7 +228,7 @@ fit_line (HTMLObject *o,
 	}
 
 #ifdef HTML_TEXT_SLAVE_DEBUG
-	debug_print (rv, text->text + unicode_offset_to_index (text->text, slave->posStart), slave->posLen);
+	debug_print (rv, html_text_get_text (text, slave->posStart), slave->posLen);
 #endif
 
 	return rv;	
@@ -273,9 +272,8 @@ draw_spell_errors (HTMLTextSlave *slave, HTMLPainter *p, gint tx, gint ty)
 			html_painter_set_pen (p, &html_colorset_get_color_allocated (p, HTMLSpellErrorColor)->color);
 			/* printf ("spell error: %s\n", HTML_TEXT (slave->owner)->text + off); */
 			html_painter_draw_spell_error (p, obj->x + tx, obj->y + ty,
-						       HTML_TEXT (slave->owner)->text
-						       + unicode_offset_to_index (HTML_TEXT (slave->owner)->text,
-										  slave->posStart), off, len);
+						       html_text_get_text (HTML_TEXT (slave->owner), slave->posStart),
+						       off, len);
 		}
 		if (se->off > slave->posStart + slave->posLen)
 			break;
@@ -302,7 +300,7 @@ draw_normal (HTMLTextSlave *self,
 	html_painter_set_pen (p, &HTML_TEXT (self->owner)->color->color);
 	html_painter_draw_text (p,
 				obj->x + tx, obj->y + ty, 
-				HTML_TEXT (self->owner)->text + html_text_get_index (HTML_TEXT (self->owner), self->posStart),
+				html_text_get_text (HTML_TEXT (self->owner), self->posStart),
 				self->posLen);
 }
 
@@ -532,9 +530,8 @@ html_text_slave_get_offset_for_pointer (HTMLTextSlave *slave,
 	prev_width = 0;
 	for (i = 1; i <= slave->posLen; i++) {
 		width = html_painter_calc_text_width (painter,
-						      owner->text + html_text_get_index (owner, slave->posStart),
-						      i,
-						      font_style, owner->face);
+						      html_text_get_text (owner, slave->posStart),
+						      i, font_style, owner->face);
 
 		if ((width + prev_width) / 2 >= x)
 			return i - 1;
