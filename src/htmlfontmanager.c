@@ -227,10 +227,10 @@ get_name_from_face (HTMLFontManager *m, const gchar *face)
 {
 	gchar *enc1, *enc2, *rv;
 
-	enc1 = get_attr (m->variable.face, 12);
-	enc2 = get_attr (m->variable.face, 13);
+	enc1 = get_attr (m->variable.face, 13);
+	enc2 = get_attr (m->variable.face, 14);
 
-	rv = g_strdup_printf ("-*-%s-*-*-*-*-*-*-*-*-*-%s-%s", face, enc1, enc2);
+	rv = g_strdup_printf ("-*-%s-*-*-*-*-*-*-*-*-*-*-%s-%s", face, enc1, enc2);
 
 	g_free (enc1);
 	g_free (enc2);
@@ -253,6 +253,21 @@ manager_alloc_font (HTMLFontManager *manager, const gchar *face, GtkHTMLFontStyl
 	return font;
 }
 
+static gchar *
+strip_white_space (gchar *name)
+{
+	gint end;
+	while (name [0] == ' ' || name [0] == '\t')
+		name ++;
+	end = strlen (name);
+	while (end && (name [end - 1] == ' ' || name [end - 1] == '\t')) {
+		name [end - 1] = 0;
+		end --;
+	}
+
+	return name;
+}
+
 static HTMLFont *
 alloc_new_font (HTMLFontManager *manager, HTMLFontSet **set, gchar *face_list, GtkHTMLFontStyle style)
 {
@@ -263,14 +278,16 @@ alloc_new_font (HTMLFontManager *manager, HTMLFontSet **set, gchar *face_list, G
 	if (!(*set)) {
 		face = faces = g_strsplit (face_list, ",", 0);
 		while (*face) {
+			gchar *face_name = strip_white_space (*face);
+
 			/* first try to get font from available sets */
-			font = get_font (manager, set, *face, style);
+			font = get_font (manager, set, face_name, style);
 			if (!font)
-				font = manager_alloc_font (manager, *face, style);
+				font = manager_alloc_font (manager, face_name, style);
 			if (font) {
 				if (!(*set)) {
-					*set = html_font_set_new (*face);
-					g_hash_table_insert (manager->font_sets, g_strdup (*face), *set);
+					*set = html_font_set_new (face_name);
+					g_hash_table_insert (manager->font_sets, g_strdup (face_name), *set);
 				}
 				if (strcmp (face_list, *face)) {
 					(*set)->ref_count ++;

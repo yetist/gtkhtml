@@ -1,3 +1,12 @@
+2001-04-03  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine.c (check_prev): check faces
+
+	* htmlfontmanager.c (strip_white_space): new helper function
+	(alloc_new_font): allow white spaces in face list
+	(get_name_from_face): use 13th and 14th attribute instead of 12th
+	and 13th
+
 2001-04-02  Larry Ewing  <lewing@ximian.com>
 
 	* htmlclueflow.c (write_pre_tags): only write a \n for PRE flows,

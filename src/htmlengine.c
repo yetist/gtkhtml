@@ -429,10 +429,7 @@ append_element (HTMLEngine *e,
 
 
 static gboolean
-check_prev (const HTMLObject *p,
-	    HTMLType type,
-	    GtkHTMLFontStyle font_style,
-	    HTMLColor *color)
+check_prev (const HTMLObject *p, HTMLType type, GtkHTMLFontStyle font_style, HTMLColor *color, gchar *face)
 {
 	if (p == NULL)
 		return FALSE;
@@ -444,6 +441,10 @@ check_prev (const HTMLObject *p,
 		return FALSE;
 
 	if (! html_color_equal (HTML_TEXT (p)->color, color))
+		return FALSE;
+
+	if ((face && !HTML_TEXT (p)->face) || (!face && HTML_TEXT (p)->face)
+	    || (!face && !HTML_TEXT (p)->face) || !strcmp (face, HTML_TEXT (p)->face))
 		return FALSE;
 
 	return TRUE;
@@ -458,6 +459,7 @@ insert_text (HTMLEngine *e,
 	HTMLObject *prev;
 	HTMLType type;
 	HTMLColor *color;
+	gchar *face;
 	gboolean create_link;
 
 	if (text [0] == ' ' && text [1] == 0) {
@@ -476,6 +478,7 @@ insert_text (HTMLEngine *e,
 
 	font_style = current_font_style (e);
 	color = current_color (e);
+	face = current_font_face (e);
 
 	if ((create_link || e->pending_para || e->flow == NULL || HTML_CLUE (e->flow)->head == NULL) && !e->inPre) {
 		while (*text == ' ')
@@ -494,7 +497,7 @@ insert_text (HTMLEngine *e,
 	else
 		type = HTML_TYPE_TEXT;
 
-	if (! check_prev (prev, type, font_style, color) || e->pending_para) {
+	if (! check_prev (prev, type, font_style, color, face) || e->pending_para) {
 		HTMLObject *obj;
 
 		if (create_link)
