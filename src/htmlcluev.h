@@ -26,6 +26,7 @@
 
 #define HTML_CLUEV(x) ((HTMLClueV *)(x))
 #define HTML_CLUEV_CLASS(x) ((HTMLClueVClass *)(x))
+#define HTML_IS_CLUEV(x) (HTML_CHECK_TYPE ((x), HTML_TYPE_CLUEV))
 
 struct _HTMLClueV {
 	HTMLClue clue;

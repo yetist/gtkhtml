@@ -94,6 +94,7 @@ copy (HTMLObject *self,
 	HTML_TEXT_SLAVE (dest)->owner = HTML_TEXT_SLAVE (self)->owner;
 	HTML_TEXT_SLAVE (dest)->posStart = HTML_TEXT_SLAVE (self)->posStart;
 	HTML_TEXT_SLAVE (dest)->posLen = HTML_TEXT_SLAVE (self)->posLen;
+	HTML_TEXT_SLAVE (dest)->glyph_items = NULL;
 }
 
 static inline gint
@@ -1143,6 +1144,7 @@ html_text_slave_init (HTMLTextSlave *slave,
 	slave->charStart  = NULL;
 	slave->pi         = NULL;
 	slave->glyphs     = NULL;
+	slave->glyph_items = NULL;
 
 	/* text slaves have always min_width 0 */
 	object->min_width = 0;

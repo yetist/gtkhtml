@@ -201,7 +201,7 @@ dist-hook:
 if HAVE_SOUP
 test_programs = testgtkhtml
 endif
-noinst_PROGRAMS = $(test_programs) gtest
+noinst_PROGRAMS = $(test_programs) gtest test-suite
 
 testgtkhtml_SOURCES = 		\
 	testgtkhtml.c		\
@@ -216,6 +216,12 @@ gtest_SOURCES = \
 	test.c
 gtest_LDFLAGS =
 gtest_LDADD =	\
+	libgtkhtml-@GTKHTML_API_VERSION@.la
+
+test_suite_SOURCES = \
+	test-suite.c
+test_suite_LDFLAGS =
+test_suite_LDADD =	\
 	libgtkhtml-@GTKHTML_API_VERSION@.la
 
 pkgconfig_in_files = libgtkhtml.pc.in

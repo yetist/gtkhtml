@@ -1,3 +1,19 @@
+2005-01-22  Radek Doulik  <rodo@ximian.com>
+
+	* test-suite.c: added test for outer quotes inside div block
+
+	* added test-suite.c from RTL branch
+
+	* htmlengine.c (html_engine_ensure_editable): just make sure head
+	of top level clue is non null. head now can be cluev as well when
+	for example <div> is at the beggining of html document
+	(push_clue_style): do not push list stack so that we don't lose
+	quotes and lists in the inner block. Fixes broken quotes in
+	replies in evolution.
+
+	* htmltextslave.c (html_text_slave_init): make sure glyph_items is
+	initalized to NULL
+
 2005-01-21  Radek Doulik  <rodo@ximian.com>
 
 	* htmlobject.c (html_object_real_get_direction): do not traverse

@@ -188,16 +188,17 @@ gtk_html_debug_dump_object (HTMLObject *obj,
 		g_free (sl_text);
 
 		width = 0;
-		for (cur = HTML_TEXT_SLAVE (obj)->glyph_items; cur; cur = cur->next) {
-			HTMLTextSlaveGlyphItem *sgi = (HTMLTextSlaveGlyphItem *) cur->data;
-			PangoItem *item = sgi->glyph_item.item;
-			PangoRectangle log_rect;
+		if (HTML_TEXT_SLAVE (obj)->glyph_items)
+			for (cur = HTML_TEXT_SLAVE (obj)->glyph_items; cur; cur = cur->next) {
+				HTMLTextSlaveGlyphItem *sgi = (HTMLTextSlaveGlyphItem *) cur->data;
+				PangoItem *item = sgi->glyph_item.item;
+				PangoRectangle log_rect;
 
-			pango_glyph_string_extents (sgi->glyph_item.glyphs, sgi->glyph_item.item->analysis.font, NULL, &log_rect);
-			g_print ("type: %d item level: %d offset: %d length: %d width: %d chars %d glyphs %d\n", sgi->type, item->analysis.level, item->offset, item->length, log_rect.width, item->num_chars, sgi->glyph_item.glyphs->num_glyphs);
-			width += log_rect.width;
+				pango_glyph_string_extents (sgi->glyph_item.glyphs, sgi->glyph_item.item->analysis.font, NULL, &log_rect);
+				g_print ("type: %d item level: %d offset: %d length: %d width: %d chars %d glyphs %d\n", sgi->type, item->analysis.level, item->offset, item->length, log_rect.width, item->num_chars, sgi->glyph_item.glyphs->num_glyphs);
+				width += log_rect.width;
 
-		}
+			}
 
 		g_print ("total width by glyph string extents (in engine units): %d\n", (int)(0.5 + width / PANGO_SCALE));
 

@@ -1203,14 +1203,10 @@ block_end_textarea (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 static void
 push_clue_style (HTMLEngine *e)
 {
-	//html_stack_push (e->body_stack, e->span_stack);
 	html_stack_push (e->body_stack, e->clueflow_style_stack);
-	html_stack_push (e->body_stack, e->listStack);
 	/* CLUECHECK */
 
-	//e->span_stack = html_stack_new (free_elementggs);
 	e->clueflow_style_stack = html_stack_new (NULL);
-	e->listStack = html_stack_new ((HTMLStackFreeFunc)html_list_destroy);
 
 	html_stack_push (e->body_stack, GINT_TO_POINTER (e->avoid_para));
 	e->avoid_para = TRUE;
@@ -1240,12 +1236,9 @@ pop_clue_style (HTMLEngine *e)
 	e->avoid_para = GPOINTER_TO_INT (html_stack_pop (e->body_stack));
 	
 	html_stack_destroy (e->clueflow_style_stack);
-	//html_stack_destroy (e->span_stack);
 
 	/* CLUECHECK */
-	e->listStack = html_stack_pop (e->body_stack);
 	e->clueflow_style_stack = html_stack_pop (e->body_stack);
-	//e->span_stack = html_stack_pop (e->body_stack);
 }
 
 static void
@@ -4228,7 +4221,7 @@ html_engine_ensure_editable (HTMLEngine *engine)
 		engine->clue = engine->parser_clue = cluev = html_cluev_new (0, 0, 100);
 
 	head = HTML_CLUE (cluev)->head;
-	if (head == NULL || HTML_OBJECT_TYPE (head) != HTML_TYPE_CLUEFLOW) {
+	if (head == NULL) {
 		HTMLObject *clueflow;
 
 		clueflow = flow_new (engine, HTML_CLUEFLOW_STYLE_NORMAL, HTML_LIST_TYPE_BLOCKQUOTE, 0, HTML_CLEAR_NONE);
