@@ -270,8 +270,8 @@
 	</menu>
 
 	<dockitem name="Toolbar">
-		<toolitem name="EditUndo" pixtype="filename" verb="" _label="Undo" _tip="Undo previous changes"/>
-		<toolitem name="EditRedo" pixtype="filename" verb="" _label="Redo" _tip="Redo previously undone change"/>
+		<toolitem name="EditUndo" verb="" _label="Undo" _tip="Undo previous changes"/>
+		<toolitem name="EditRedo" verb="" _label="Redo" _tip="Redo previously undone change"/>
 
 		<separator/>
 

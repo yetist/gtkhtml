@@ -2,6 +2,7 @@
 
 	* GNOME_GtkHTML_Editor.xml.in: set pixtype to pixbuf for icons we
 	set from gnome icon theme
+	removed stalled pixtype="filename" by undo/redo icons in toolbar
 
 2004-11-24  Radek Doulik  <rodo@ximian.com>
 
