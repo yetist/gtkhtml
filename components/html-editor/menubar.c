@@ -478,7 +478,7 @@ static struct {
 	{"style-header6", "HeadingH6"},
 	{"style-address", "HeadingAddress"},
 	{"style-pre", "HeadingPreformat"},
-	{"style-dot", "HeadingBulletedList"},
+	{"style-itemdot", "HeadingBulletedList"},
 	{"style-itemroman", "HeadingRomanList"},
 	{"style-itemdigit", "HeadingNumberedList"},
 	{"style-itemalpha", "HeadingAlphabeticalList"},
