@@ -29,7 +29,7 @@ CLEANFILES = $(IDL_GENERATED)
 HTMLEditor-impl.o: HTMLEditor.h
 
 $(IDL_GENERATED): $(IDLS)
-	$(ORBIT_IDL) -I$(datadir)/idl -I`$(GNOME_CONFIG) --datadir`/idl	\
+	$(ORBIT_IDL) -I$(datadir)/idl -I`$(GNOME_CONFIG) --cflags idl`	\
 		-I$(srcdir) $(srcdir)/HTMLEditor.idl
 
 LDFLAGS += -dynamic
