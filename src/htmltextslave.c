@@ -879,7 +879,7 @@ draw_focus  (HTMLPainter *painter, GdkRectangle *box)
 	GdkGCValues values;
 	gchar dash [2];
 
-	if (HTML_IS_PRINTER (p))
+	if (HTML_IS_PRINTER (painter))
 		return;
 	
 	p = HTML_GDK_PAINTER (painter);

@@ -1,5 +1,12 @@
 2003-07-08  Larry Ewing  <lewing@ximian.com>
 
+	* htmltextslave.c (draw_focus): substitute p with painter (Thanks
+	to York for pointing it out).
+
+	* htmlimage.c (draw_focus): subsitute p with painter.
+
+	* htmlclueflow.c: remove draw_background.
+
 	* htmldrawqueue.c: don't do any drawing directly, simply
 	invalidate the regions, let the expose handler deal with the
 	drawing.  Remove a lot of unused cruft and focus drawing code.
