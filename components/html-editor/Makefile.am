@@ -139,10 +139,6 @@ test_editor_SOURCES =				\
 
 # Extra stuff to distribute.
 
-gtkhtml-editor-properties.c:	gtkhtml-editor-properties.h
-gtkhtml-editor-properties.h:	gtkhtml-editor-properties.glade
-	libglade-xgettext -c $< > $@
-
 EXTRA_DIST =					\
 	$(IDLS)					\
 	$(SPELL_IDLS)				\
@@ -151,8 +147,7 @@ EXTRA_DIST =					\
 	ChangeLog				\
 	tt.xpm					\
 	$(ui_DATA)				\
-	gtkhtml-editor-properties.glade		\
-	gtkhtml-editor-properties.h
+	gtkhtml-editor-properties.glade
 
 idldir = $(datadir)/gtkhtml
 idl_DATA = $(IDLS)
