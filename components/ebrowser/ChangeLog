@@ -1,3 +1,7 @@
+2001-01-04  Dietmar Maurer  <dietmar@helixcode.com>
+
+	* test-ebrowser.c (open_browser): _unref the property bag
+
 2001-01-03  Dietmar Maurer  <dietmar@helixcode.com>
 
 	* test-ebrowser.c (destroy_browser, prop_changed_cb, open_browser): 

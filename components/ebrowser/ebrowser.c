@@ -214,8 +214,8 @@ ebrowser_factory (BonoboGenericFactory * factory, void * closure)
 	bonobo_property_bag_add (pbag, "default_font", ARG_DEFAULT_FONT, BONOBO_ARG_STRING, NULL,
 				 "Whether to send HTML FORM data", 0);
 
-	bonobo_object_add_interface(BONOBO_OBJECT(control), 
-				    BONOBO_OBJECT(pbag));
+	bonobo_object_add_interface (BONOBO_OBJECT (control), 
+				     BONOBO_OBJECT (pbag));
 
 	gtk_signal_connect (GTK_OBJECT (browser), "url_set",
 			    GTK_SIGNAL_FUNC (browser_url_set), pbag);
@@ -225,10 +225,6 @@ ebrowser_factory (BonoboGenericFactory * factory, void * closure)
 	gtk_signal_connect (GTK_OBJECT (control), "activate",
 			    ebrowser_control_activate_cb, browser);
 
-#if 0
-	gtk_signal_connect (GTK_OBJECT (control), "destroy",
-			    control_destroy_cb, browser);
-#endif
 	gtk_signal_connect (GTK_OBJECT (w), "destroy",
 			    control_destroy_cb, control);
 

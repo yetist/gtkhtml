@@ -295,9 +295,7 @@ open_browser (GtkButton * button, gpointer data)
 	bonobo_event_source_client_add_listener (pb, prop_changed_cb, 
 						 "Bonobo/Property:change:url",
 						 NULL, bwin);
-
-	/* fixme: unref ??*/
-	/* bonobo_object_release_unref (pb, NULL); */
+	bonobo_object_release_unref (pb, NULL); 
 
 	gtk_widget_show_all (bwin);
 }
