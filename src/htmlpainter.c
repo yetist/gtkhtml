@@ -628,6 +628,12 @@ html_painter_get_space_dsc (HTMLPainter *painter, GtkHTMLFontStyle style, HTMLFo
 }
 
 guint
+html_painter_get_e_width (HTMLPainter *painter, GtkHTMLFontStyle style, HTMLFontFace *face)
+{
+	return html_font_manager_get_font (&painter->font_manager, face, style)->e_width;
+}
+
+guint
 html_painter_get_block_indent_width (HTMLPainter *painter, GtkHTMLFontStyle style, HTMLFontFace *face)
 {
 	return html_font_manager_get_font (&painter->font_manager, face, style)->indent_width;

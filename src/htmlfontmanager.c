@@ -372,6 +372,7 @@ html_font_new (gpointer data,
 	       guint space_dsc,
 	       guint nbsp_width, 
 	       guint tab_width,
+	       guint e_width,
 	       guint indent_width,
 	       guint cite_width)
 {
@@ -383,6 +384,7 @@ html_font_new (gpointer data,
 	font->space_dsc = space_dsc;
 	font->nbsp_width = nbsp_width;
 	font->tab_width = tab_width;
+	font->e_width = e_width;
 	font->indent_width = indent_width;
 	font->cite_width = cite_width;
 	font->ref_count = 1;

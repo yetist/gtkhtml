@@ -140,7 +140,8 @@ draw_rect (HTMLPainter *painter,
 static guint
 get_page_width (HTMLPainter *painter, HTMLEngine *e)
 {
-	return MIN (72 * html_painter_get_space_width (painter, GTK_HTML_FONT_STYLE_SIZE_3 | GTK_HTML_FONT_STYLE_FIXED, NULL),
+	return MIN (72 * MAX (html_painter_get_space_width (painter, GTK_HTML_FONT_STYLE_SIZE_3 | GTK_HTML_FONT_STYLE_FIXED, NULL),
+			      html_painter_get_e_width (painter, GTK_HTML_FONT_STYLE_SIZE_3 | GTK_HTML_FONT_STYLE_FIXED, NULL)),
 		    html_engine_get_view_width (e)) + (html_engine_get_left_border (e) + html_engine_get_right_border (e));
 }
 

@@ -271,6 +271,9 @@ guint             html_painter_get_space_asc                           (HTMLPain
 guint             html_painter_get_space_dsc                           (HTMLPainter       *painter,
 									GtkHTMLFontStyle   font_style,
 									HTMLFontFace      *face);
+guint             html_painter_get_e_width                             (HTMLPainter       *painter,
+									GtkHTMLFontStyle   font_style,
+									HTMLFontFace      *face);
 guint             html_painter_get_block_indent_width                  (HTMLPainter       *painter,
 									GtkHTMLFontStyle   font_style,
 									HTMLFontFace      *face);

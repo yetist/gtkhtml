@@ -1,5 +1,27 @@
 2004-05-17  Radek Doulik  <rodo@ximian.com>
 
+	* htmlgdkpainter.c (alloc_font): as below
+
+	* htmlclueflow.c (pref_right_margin): calculate the width as
+	MAX(width of space, width of e) for plain painter so that we get
+	"better" results in case user sets proportional font for fixed
+	width style
+
+	* htmlprinter.c (alloc_font): as below
+
+	* htmlgdkpainter.c (alloc_font): pass width of 'e' character to
+	html_font_new
+
+	* htmlpainter.c (html_painter_get_e_width): new helper function
+
+	* htmlfontmanager.c (html_font_new): added e_width parameter
+
+	* htmlfontmanager.h: cache width of char 'e'
+
+	Fixes a case when we have a proportional font set for fixed style
+	font, it's only a semisolution but it will save us hopefully a lot
+	of user questions
+
 	* htmlengine.c (element_parse_li): in case we are adding to
 	toplevel blockquote flow, change it's type to unordered list
 	(element_parse_blockquote): pop ID_LI in case we had <LI> items
