@@ -99,9 +99,10 @@ fill_sample (GtkHTMLEditTableProperties *d)
 		: g_strdup ("");
 	spacing = g_strdup_printf (" cellspacing=\"%d\" cellpadding=\"%d\" border=\"%d\"", d->spacing, d->padding, d->border);
 
-	align   = d->align != HTML_HALIGN_LEFT && d->align != HTML_HALIGN_NONE
+	align   = d->align != HTML_HALIGN_NONE
 		? g_strdup_printf (" align=\"%s\"",
-				   d->align == HTML_HALIGN_CENTER ? "center" : "right")
+				   d->align == HTML_HALIGN_CENTER ? "center"
+				   : (d->align == HTML_HALIGN_RIGHT ? "right" : "left"))
 		: g_strdup ("");
 
 	html      = g_strconcat (body, "<table", bg_color, bg_pixmap, spacing, align, ">"
@@ -305,8 +306,7 @@ set_ui (GtkHTMLEditTableProperties *d)
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_padding), d->padding);
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_border),  d->border);
 
-	gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_align), d->align == HTML_HALIGN_NONE ? 0
-				     : d->align - HTML_HALIGN_LEFT);
+	gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_align), d->align - HTML_HALIGN_LEFT);
 }
 
 static void

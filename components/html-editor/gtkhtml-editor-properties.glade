@@ -638,6 +638,7 @@ Percent
 	      <items>Left
 Center
 Right
+None
 </items>
 	      <initial_choice>0</initial_choice>
 	      <child>
