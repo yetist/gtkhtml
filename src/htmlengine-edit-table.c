@@ -35,6 +35,7 @@
 #include "htmltable.h"
 #include "htmltablecell.h"
 #include "htmltablepriv.h"
+#include "htmlselection.h"
 #include "htmlundo.h"
 
 HTMLTable *
@@ -432,6 +433,8 @@ html_engine_delete_table_column (HTMLEngine *e)
 {
 	HTMLTableCell *cell = html_engine_get_table_cell (e);
 
+	html_engine_disable_selection (e);
+
 	if (cell)
 		html_table_delete_column (html_engine_get_table (e), e, cell->col, HTML_UNDO_UNDO);
 }
@@ -630,6 +633,8 @@ void
 html_engine_delete_table_row (HTMLEngine *e)
 {
 	HTMLTableCell *cell = html_engine_get_table_cell (e);
+
+	html_engine_disable_selection (e);
 
 	if (cell)
 		html_table_delete_row (html_engine_get_table (e), e, cell->row, HTML_UNDO_UNDO);
@@ -1132,6 +1137,8 @@ void
 html_engine_delete_table (HTMLEngine *e)
 {
 	HTMLTable *table;
+
+	html_engine_disable_selection (e);
 
 	table = html_engine_get_table (e);
 

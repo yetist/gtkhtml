@@ -1,5 +1,8 @@
 2005-01-31  Radek Doulik  <rodo@ximian.com>
 
+	* htmlengine-edit-table.c: disable selection before deleting
+	row/column/table
+
 	* gtkhtml.c (child_size_allocate): use
 	html_object_calc_abs_position_in_frame instead of
 	html_object_calc_abs_position, it fixes the nested iframes
