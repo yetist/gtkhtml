@@ -1,3 +1,12 @@
+2001-10-08  Radek Doulik  <rodo@ximian.com>
+
+	* popup.c (prepare_properties_and_menu): utf8-ize popup menu
+
+	* spell.c (spell_set_language): new method
+
+	* editor-control-factory.c (new_editor_api): set set_language
+	method
+
 2001-10-06  Larry Ewing  <lewing@ximian.com>
 
 	* GNOME_GtkHTML_Editor.xml.in: change the shortcut for Numbered

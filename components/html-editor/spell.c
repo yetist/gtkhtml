@@ -23,6 +23,9 @@
 #include <config.h>
 #include <gal/widgets/e-scroll-frame.h>
 
+#include "gtkhtml.h"
+#include "gtkhtml-properties.h"
+
 #include "htmlclueflow.h"
 #include "htmlcursor.h"
 #include "htmlengine.h"
@@ -239,6 +242,34 @@ spell_add_to_personal (GtkHTML *html, const gchar *word, gpointer data)
 	CORBA_exception_free (&ev);
 }
 
+void
+spell_set_language (GtkHTML *html, const gchar *language, gpointer data)
+{
+	GtkHTMLControlData *cd = (GtkHTMLControlData *) data;
+	CORBA_Environment   ev;
+
+	if (!cd->dict)
+		return;
+
+	CORBA_exception_init (&ev);
+	GNOME_Spell_Dictionary_setTag (cd->dict, "language-tag", language, &ev);
+	CORBA_exception_free (&ev);
+}
+
+void
+spell_init (GtkHTML *html, GtkHTMLControlData *cd)
+{
+	CORBA_Environment   ev;
+
+	if (!cd->dict)
+		return;
+
+	CORBA_exception_init (&ev);
+	/* GNOME_Spell_Dictionary_setTag (cd->dict, "sug-mode", "fast", &ev); */
+	GNOME_Spell_Dictionary_setTag (cd->dict, "encoding", "utf-8", &ev);
+	CORBA_exception_free (&ev);
+}
+
 static void
 set_word (GtkHTMLControlData *cd)
 {
@@ -285,6 +316,8 @@ replace_cb (BonoboListener    *listener,
 	    gpointer           user_data)
 {
 	GtkHTMLControlData *cd = (GtkHTMLControlData *) user_data;
+
+	/* printf ("replace '%s'\n", BONOBO_ARG_GET_STRING (arg)); */
 
 	html_engine_replace_word_with (cd->html->engine, BONOBO_ARG_GET_STRING (arg));
 	check_next_word (cd, FALSE);
@@ -378,6 +411,9 @@ spell_check_dialog (GtkHTMLControlData *cd, gboolean whole_document)
 	cd->spell_dialog = dialog;
         cd->spell_control_pb = bonobo_control_frame_get_control_property_bag
 		(bonobo_widget_get_control_frame (BONOBO_WIDGET (control)), NULL);
+	bonobo_property_bag_client_set_value_string (cd->spell_control_pb, "language",
+						     GTK_HTML_CLASS (GTK_OBJECT (cd->html)->klass)->properties->language,
+						     NULL);
 	bonobo_event_source_client_add_listener (cd->spell_control_pb, replace_cb, "Bonobo/Property:change:replace", NULL, cd);
 	bonobo_event_source_client_add_listener (cd->spell_control_pb, add_cb, "Bonobo/Property:change:add", NULL, cd);
 	bonobo_event_source_client_add_listener (cd->spell_control_pb, ignore_cb, "Bonobo/Property:change:ignore",

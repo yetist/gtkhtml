@@ -24,7 +24,10 @@
 #include <config.h>
 #endif
 
+#include <gal/widgets/e-unicode.h>
+
 #include "gtkhtml.h"
+
 #include "htmlclueflow.h"
 #include "htmlcursor.h"
 #include "htmlengine.h"
@@ -273,13 +276,20 @@ insert_html (GtkWidget *mi, GtkHTMLControlData *cd)
 }
 #endif
 
-#define ADD_ITEM(l,f,t) \
-		menuitem = gtk_menu_item_new_with_label (l); \
+#define ADD_ITEM_BASE(f,t) \
                 gtk_object_set_data (GTK_OBJECT (menuitem), "type", GINT_TO_POINTER (GTK_HTML_EDIT_PROPERTY_ ## t)); \
 		gtk_menu_append (GTK_MENU (menu), menuitem); \
 		gtk_widget_show (menuitem); \
 		gtk_signal_connect (GTK_OBJECT (menuitem), "activate", GTK_SIGNAL_FUNC (f), cd); \
                 (*items)++; items_sep++
+
+#define ADD_ITEM(l,f,t) \
+		menuitem = gtk_menu_item_new_with_label (l); \
+                ADD_ITEM_BASE (f,t)
+
+#define ADD_ITEM_UTF8(l,f,t) \
+                menuitem = e_utf8_gtk_menu_item_new_with_label (GTK_MENU (menu), l); \
+                ADD_ITEM_BASE (f,t)
 
 #define ADD_SEP \
         if (items_sep) { \
@@ -332,20 +342,26 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items)
 #endif
 
 	if (!html_engine_is_selection_active (e) && obj && html_object_is_text (obj) && !html_engine_word_is_valid (e)) {
-		gchar *spell, *word, *ignore, *add;
+		gchar *spell, *word, *check_utf8, *add_utf8, *ignore_utf8, *ignore, *add;
 
 		word   = html_engine_get_word (e);
-		spell  = g_strdup_printf (_("Check '%s' spelling..."), word);
-		add    = g_strdup_printf (_("Add '%s' to dictionary"), word);
-		ignore = g_strdup_printf (_("Ignore '%s'"), word);
+		check_utf8 = e_utf8_from_locale_string (_("Check '%s' spelling..."));
+		spell  = g_strdup_printf (check_utf8, word);
+		g_free (check_utf8);
+		add_utf8 = e_utf8_from_locale_string (_("Add '%s' to dictionary"));
+		add    = g_strdup_printf (add_utf8, word);
+		g_free (add_utf8);
+		ignore_utf8 = e_utf8_from_locale_string (_("Ignore '%s'"));
+		ignore = g_strdup_printf (ignore_utf8, word);
+		g_free (ignore_utf8);
 		SUBMENU (N_("Spell checker"));
 		if (cd->has_spell_control) {
-			ADD_ITEM (spell, spell_check_cb, NONE);
+			ADD_ITEM_UTF8 (spell, spell_check_cb, NONE);
 		} else {
 			ADD_ITEM (_("Suggest word"), spell_suggest, NONE);
 		}
-		ADD_ITEM (add, spell_add, NONE);
-		ADD_ITEM (ignore, spell_ignore, NONE);
+		ADD_ITEM_UTF8 (add, spell_add, NONE);
+		ADD_ITEM_UTF8 (ignore, spell_ignore, NONE);
 		END_SUBMENU;
 
 		g_free (spell);

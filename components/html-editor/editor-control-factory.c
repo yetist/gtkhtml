@@ -759,6 +759,7 @@ new_editor_api ()
 	editor_api->suggestion_request = spell_suggestion_request;
 	editor_api->add_to_personal    = spell_add_to_personal;
 	editor_api->add_to_session     = spell_add_to_session;
+	editor_api->set_language       = spell_set_language;
 	editor_api->command            = editor_api_command;
 	editor_api->event              = editor_api_event;
 	editor_api->create_input_line  = editor_api_create_input_line;
