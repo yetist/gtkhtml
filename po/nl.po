@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml cvs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-07 17:25+0100\n"
-"PO-Revision-Date: 2005-01-31 00:10+0100\n"
+"POT-Creation-Date: 2005-02-11 15:27+0100\n"
+"PO-Revision-Date: 2005-02-11 18:21+0100\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
 "MIME-Version: 1.0\n"
@@ -979,9 +979,8 @@ msgid "Page"
 msgstr "Pagina"
 
 #: components/html-editor/gi-color-combo.c:187
-#, fuzzy
 msgid "color preview"
-msgstr "Afdrukvoorbeeld"
+msgstr "kleurvoorbeeld"
 
 # is dit de goede vertaling?
 #. This is the default custom color
@@ -1186,7 +1185,7 @@ msgstr "hemelsblauw"
 #. set the a11y name
 #: components/html-editor/gi-combo-box.c:419
 msgid "Popup"
-msgstr ""
+msgstr "Popup"
 
 #: components/html-editor/gnome-gtkhtml-editor.c:68
 msgid "GtkHTML Editor Control"
