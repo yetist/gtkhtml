@@ -27,7 +27,7 @@
 			<cmd name="InsertSmiley3" _label="_Smile" _tip="Insert Smile smiley into document..."/>
 			<cmd name="InsertSmiley7" _label="Smiley _7" _tip="Insert Smiley 7 smiley into document..."/>
 			<cmd name="InsertSmiley4" _label="_Wink" _tip="Insert Wink smiley into document..."/>
-			<cmd name="InsertSmiley5" _label="Su_rpriced" _tip="Insert Surpriced smiley into document..."/>
+			<cmd name="InsertSmiley5" _label="Su_rprised" _tip="Insert Surprised smiley into document..."/>
 			<cmd name="InsertSmiley1" _label="_Laughing" _tip="Insert Laughing smiley into document..."/>
 			<cmd name="InsertSmiley2" _label="Oh _no!" _tip="Insert Oh no! smiley into document..."/>
 			<cmd name="InsertSmiley6" _label="_Frown" _tip="Insert Frown smiley into document..."/>
