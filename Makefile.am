@@ -10,12 +10,6 @@ else
 DIR_COMPONENTS =
 endif
 
-if GCONF
-DIR_CAPPLET = capplet
-else
-DIR_CAPPLET =
-endif
-
 confexecdir = $(libdir)
 confexec_DATA = gtkhtmlConf.sh
 
@@ -37,7 +31,7 @@ SUBDIRS =					\
 	macros					\
 	$(DIR_GLIBWWW)				\
 	src					\
-	$(DIR_CAPPLET)				\
+	capplet					\
 	$(DIR_COMPONENTS)
 
 EXTRA_DIST =					\

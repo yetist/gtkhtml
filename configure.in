@@ -126,7 +126,7 @@ AM_CONDITIONAL(USING_OAF, test "x$using_oaf" = "xyes")
 
 dnl gconf checks
 
-try_gconf=true
+try_gconf=false
 have_gconf=false
 
 AC_ARG_WITH(gconf,
@@ -156,8 +156,6 @@ if $try_gconf; then
 fi
 AC_SUBST(GCONF_CFLAGS)
 AC_SUBST(GCONF_LIBS)
-
-AM_CONDITIONAL(GCONF, $have_gconf)
 
 dnl pspell checks
 

@@ -1,3 +1,10 @@
+2000-07-21  Radek Doulik  <rodo@helixcode.com>
+
+	* configure.in (try_gconf): don't try to find gconf by default,
+	use --with-gconf if you want it (this is because we don't want to
+	use it until it became more stable, we provide gnome_config
+	properties meanwhile)
+
 2000-07-21  Takayuki KUSANO  <AE5T-KSN@asahi-net.or.jp>
 
 	* configure.in: Add ja to ALL_LINGUAS.
