@@ -1,3 +1,8 @@
+2000-06-29  Larry Ewing  <lewing@helixcode.com>
+
+	* htmliframe.c (iframe_url_requested): remove "this is a note"
+	warning for peterw's peace of mind.
+
 2000-06-29  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlengine-edit-images.c (html_engine_insert_image): use

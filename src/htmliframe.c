@@ -33,7 +33,7 @@ iframe_url_requested (GtkHTML *html, const char *url, GtkHTMLStream *handle, gpo
 	GtkHTML *parent = GTK_HTML (HTML_EMBEDDED(iframe)->parent);
 	char *new_url = NULL;
 
-	g_warning (" this is a note");
+	/* FIXME this is not exactly the single safest method of expanding a relative url */
 	if (!strstr (url, ":"))
 		new_url = g_strconcat (iframe->url, url, NULL);
 	
