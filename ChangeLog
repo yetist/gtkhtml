@@ -1,5 +1,7 @@
 2003-02-12  Larry Ewing  <lewing@ximian.com>
 
+	* configure.in: bump version to 3.0.1
+	
 	* configure.in (GETTEXT_PACKAGE): work around intltool bug that
 	pulls GETTEXT_PACAKAGE out of configure.in without doing variable
 	substitution.
