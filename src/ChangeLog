@@ -1,3 +1,8 @@
+2002-11-07  Radek Doulik  <rodo@ximian.com>
+
+	* htmltext.c (calc_word_width): calc ascent/descent for empty
+	texts
+
 2002-11-07  Larry Ewing  <lewing@ximian.com>
 
 	* htmlselect.c (html_select_set_text): clear the requisition size

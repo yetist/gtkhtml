@@ -564,6 +564,7 @@ calc_word_width (HTMLText *text, HTMLPainter *painter, gint line_offset)
 	obj->ascent = obj->descent = 0;
 
 	begin            = text->text;
+
 	for (i = 0; i < text->words; i++) {
 		end   = strchr (begin + (i ? 1 : 0), ' ');
 		html_painter_calc_text_size_bytes (painter,
@@ -576,6 +577,10 @@ calc_word_width (HTMLText *text, HTMLPainter *painter, gint line_offset)
 		if (obj->descent < dsc)
 			obj->descent = dsc;
 		begin = end;
+	}
+	if (text->text_len == 0) {
+		gint lo = 0;
+		html_painter_calc_text_size_bytes (painter, " ", 1, &lo, font, style, &width, &obj->ascent, &obj->descent);
 	}
 
 	HTML_OBJECT (text)->change &= ~HTML_CHANGE_WORD_WIDTH;
