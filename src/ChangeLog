@@ -1,3 +1,10 @@
+2004-03-23  Radek Doulik  <rodo@ximian.com>
+
+	* htmlclueflow.c (write_flow_tag): write \n after start tag,
+	doesn't harm for non PRE and is needed fro PRE paragraphs
+	(write_flow_tag): write <BR> or \n if PRE or end of para with
+	different style than the next one, do it before end tag
+
 2004-03-22  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (command): added new commands implementation

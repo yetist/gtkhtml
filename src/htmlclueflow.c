@@ -1549,7 +1549,7 @@ write_flow_tag (HTMLClueFlow *self, HTMLEngineSaveState *state)
 		char *start = get_start_tag (self);
 
 		if (start) {
-			if (!save_indent_string (self, state, "<%s>", start))
+			if (!save_indent_string (self, state, "<%s>\n", start))
 				return FALSE;
 		} else {
 			if (!save_indent_string (self, state, ""))
@@ -1596,14 +1596,21 @@ write_flow_tag (HTMLClueFlow *self, HTMLEngineSaveState *state)
 	} else {
 		char *end = get_start_tag (self);
 
-		if (end) {
-			if (!html_engine_save_output_string (state, "</%s>\n", end))
-				return FALSE;
-		} else if (html_clueflow_is_empty (self)) {
-			if (!html_engine_save_output_string (state, "<BR>\n"))
-				return FALSE;
+		if (self->style != HTML_CLUEFLOW_STYLE_PRE) {
+			if ((!end && next && self->style == next->style) || html_clueflow_is_empty (self)) {
+				if (!html_engine_save_output_string (state, "<BR>\n"))
+					return FALSE;
+			} else {
+				if (!html_engine_save_output_string (state, "\n"))
+					return FALSE;
+			}
 		} else {
 			if (!html_engine_save_output_string (state, "\n"))
+				return FALSE;
+		}
+
+		if (end) {
+			if (!html_engine_save_output_string (state, "</%s>\n", end))
 				return FALSE;
 		}
 	}
