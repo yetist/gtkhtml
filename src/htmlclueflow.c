@@ -732,6 +732,10 @@ calc_size (HTMLObject *o,
 	if (o->width < o->max_width)
 		o->width = o->max_width;
 
+#if 0
+	if (o->width > rmargin - o->x)
+		o->width = rmargin - o->x;
+#endif
 	add_post_padding (HTML_CLUEFLOW (o), padding);
 
 	if (o->ascent != old_ascent || o->descent != old_descent || o->width != old_width)
@@ -980,6 +984,21 @@ get_tag_for_style (const HTMLClueFlow *flow)
 }
 
 static const gchar *
+get_tag_for_item_group (const HTMLClueFlow *flow)
+{
+	switch (flow->style) {
+	case HTML_CLUEFLOW_STYLE_ITEMDOTTED:
+		return "UL";
+	case HTML_CLUEFLOW_STYLE_ITEMROMAN:
+	case HTML_CLUEFLOW_STYLE_ITEMDIGIT:
+		return "OL";
+	default:
+		g_warning ("Unknown HTMLClueFlowStyle %d", flow->style);
+		return NULL;
+	}
+}
+
+static const gchar *
 halign_to_string (HTMLHAlignType halign)
 {
 	switch (halign) {
@@ -1000,14 +1019,7 @@ is_similar (HTMLObject *self, HTMLObject *friend)
 	if (friend &&  HTML_OBJECT_TYPE (friend) == HTML_TYPE_CLUEFLOW) {
 		if ((HTML_CLUEFLOW (friend)->style == HTML_CLUEFLOW (self)->style)
 		    && (HTML_CLUEFLOW (friend)->level == HTML_CLUEFLOW (self)->level)) {
-			switch (HTML_CLUEFLOW (friend)->style) {
-			case HTML_CLUEFLOW_STYLE_ITEMDOTTED:				
-			case HTML_CLUEFLOW_STYLE_ITEMROMAN:
-			case HTML_CLUEFLOW_STYLE_ITEMDIGIT:
-				return FALSE;
-			default:
 				return TRUE;
-			}
 		}
 	}
 	return FALSE;
@@ -1036,7 +1048,7 @@ save (HTMLObject *self,
 	if (is_similar (self, self->next))
 		end = FALSE;
 	
-	if (self->prev != NULL
+	if (self->prev != NULL && ! is_item (clueflow)
 	    && HTML_OBJECT_TYPE (HTML_CLUE (self)->tail) != HTML_TYPE_RULE) {
 		if (HTML_CLUEFLOW (self)->style != HTML_CLUEFLOW_STYLE_PRE) {
 			/* This is a nasty hack: the rule takes all of the space, so we
@@ -1052,12 +1064,17 @@ save (HTMLObject *self,
 
 	/* Alignment tag.  */
 	if (halign != HTML_HALIGN_NONE && halign != HTML_HALIGN_LEFT) {
-		if (! html_engine_save_output_string (state, "<DIV ALIGN=%s>", halign_to_string (halign)))
+		if (! html_engine_save_output_string (state, "<DIV ALIGN=%s>\n", halign_to_string (halign)))
 			return FALSE;
 	}
 
+	if (start && is_item (clueflow)) {
+		if (! html_engine_save_output_string (state, "<%s>\n", get_tag_for_item_group (self)))
+			return FALSE;
+	}		
+
 	/* Start tag.  */
-	if (tag != NULL && start
+	if (tag != NULL && (start || is_item (clueflow))
 	    && (! html_engine_save_output_string (state, "<%s>", tag)))
 		return FALSE;
 
@@ -1066,10 +1083,15 @@ save (HTMLObject *self,
 		return FALSE;
 
 	/* End tag.  */
-	if (tag && end) {
+	if (tag && (end || is_item (clueflow))) {
 		if (! html_engine_save_output_string (state, "</%s>", tag))
 			return FALSE;
 	}
+
+	if (end && is_item (clueflow)) {
+		if (! html_engine_save_output_string (state, "\n</%s>", get_tag_for_item_group (self)))
+			return FALSE;
+	}		
 
 	/* Close alignment tag.  */
 	if (halign != HTML_HALIGN_NONE && halign != HTML_HALIGN_LEFT) {
