@@ -6,11 +6,7 @@ cd src
 ./testgtkhtml
 
 To build the bonobo component, pass --with-bonobo to configure.
-Note that it doesn't really work yet, it's just an illusion ;)
-If you want to try it anyway, start a sample-container or 
-gnumeric-bonobo and add "a html component". Activate it and
-choose a test page in the Html menu.
-
-
-
-
+Note that this component is just a quick hack. The official
+html component is in gnome-fm/src/components/html/ and this
+one is not maintained much or at all. It will probably be
+removed soon.
