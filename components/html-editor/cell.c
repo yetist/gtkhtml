@@ -450,6 +450,7 @@ get_data (GtkHTMLEditCellProperties *d)
 	d->halign   = HTML_CLUE (d->cell)->halign;
 	d->valign   = HTML_CLUE (d->cell)->valign;
 	d->wrap     = d->cell->no_wrap;
+	d->heading  = d->cell->heading;
 
 	/* d->spacing = d->table->spacing;
 	d->padding = d->table->padding;
@@ -506,6 +507,14 @@ cell_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 	if (d->changed_valign) {
 		html_engine_table_cell_set_valign (d->cd->html->engine, d->cell, d->valign);
 		d->changed_valign = FALSE;
+	}
+	if (d->changed_wrap) {
+		html_engine_table_cell_set_no_wrap (d->cd->html->engine, d->cell, d->wrap);
+		d->changed_wrap = FALSE;
+	}
+	if (d->changed_heading) {
+		html_engine_table_cell_set_heading (d->cd->html->engine, d->cell, d->heading);
+		d->changed_heading = FALSE;
 	}
 	/* if (d->changed_spacing) {
 		html_engine_table_set_spacing (d->cd->html->engine, d->table, d->spacing);
