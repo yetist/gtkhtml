@@ -1,3 +1,7 @@
+2000-08-14  Yuri Syrota  <rasta@renome.rovno.ua>
+
+	* configure.in: Add uk to ALL_LINGUAS.
+
 2000-08-11  Larry Ewing  <lewing@helixcode.com>
 
 	* Version 0.6
