@@ -38,6 +38,7 @@
 
 #define SCALE_ENGINE_TO_GNOME_PRINT(x) ((printer->scale * (x)) / 1024.0)
 #define SCALE_GNOME_PRINT_TO_ENGINE(x) ((gint) (((x) * 1024.0 / printer->scale) + 0.5))
+#define SCALE_GNOME_PRINT_FONT_TO_ENGINE(x) ((gint) (((x) * 1024.0) + 0.5))
 
 struct _HTMLPrinter {
 	HTMLPainter base;

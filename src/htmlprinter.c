@@ -750,9 +750,9 @@ alloc_font (gchar *face, gdouble size, gboolean points, GtkHTMLFontStyle style)
 	}
 
 	return font ? html_font_new (font,
-				     gnome_font_get_width_utf8_sized (font, " ", 1),
-				     gnome_font_get_width_utf8_sized (font, "\xc2\xa0", 2),
-				     gnome_font_get_width_utf8_sized (font, "\t", 1))
+				     SCALE_GNOME_PRINT_FONT_TO_ENGINE (gnome_font_get_width_utf8_sized (font, " ", 1)),
+				     SCALE_GNOME_PRINT_FONT_TO_ENGINE (gnome_font_get_width_utf8_sized (font, "\xc2\xa0", 2)),
+				     SCALE_GNOME_PRINT_FONT_TO_ENGINE (gnome_font_get_width_utf8_sized (font, "\t", 1)))
 		: NULL;
 }
 
