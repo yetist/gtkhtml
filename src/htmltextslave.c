@@ -396,14 +396,14 @@ could_remove_leading_space (HTMLTextSlave *slave, gboolean lineBegin)
 	return o->prev ? FALSE : TRUE;
 }
 
-inline gint
+gint
 html_text_slave_nb_width (HTMLTextSlave *slave, HTMLPainter *painter, gint words)
 {
 	return get_words_width (slave, painter, words)
 		+ (slave->start_word + words == slave->owner->words ? get_next_nb_width (slave, painter) : 0);
 }
 
-inline gchar *
+gchar *
 html_text_slave_remove_leading_space (HTMLTextSlave *slave, HTMLPainter *painter, gboolean lineBegin)
 {
 	gchar *begin;

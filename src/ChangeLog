@@ -1,3 +1,17 @@
+2003-04-03  Not Zed  <NotZed@Ximian.com>
+
+	** for bug 40450, based on patch from <philip.zhao@sun.com>
+
+	* htmltextslave.c (html_text_slave_nb_width)
+	(html_text_slave_remove_leading_space): Remove inline keyword on
+	non-static methods.
+
+	* htmlobject.c (html_object_engine_translation): change the //
+	comment to a /* comment, // not supported by ansi c.
+	(html_object_next_leaf, html_object_prev_leaf,
+	html_object_next_cursor, html_object_prev_cursor): Remove inline
+	keyword on non-static methods.
+
 2003-04-02  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml-propmanager.c (gtk_html_propmanager_get_type): start

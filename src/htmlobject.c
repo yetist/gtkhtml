@@ -1445,7 +1445,7 @@ move_object (HTMLObject *obj, HTMLObject * (*next_fn ) (HTMLObject *, HTMLObject
 	return obj;
 }
 
-inline HTMLObject *
+HTMLObject *
 html_object_next_leaf (HTMLObject *self)
 {
 	return move_object (self, html_object_next, html_object_head);
@@ -1460,7 +1460,7 @@ html_object_next_leaf_not_type (HTMLObject *self, HTMLType t)
 	return rv;
 }
 
-inline HTMLObject *
+HTMLObject *
 html_object_prev_leaf (HTMLObject *self)
 {
 	return move_object (self, html_object_prev, html_object_tail);
@@ -1551,13 +1551,13 @@ move_object_cursor (HTMLObject *obj, gint *offset, gboolean forward,
 	return obj;
 }
 
-inline HTMLObject *
+HTMLObject *
 html_object_next_cursor (HTMLObject *self, gint *offset)
 {
 	return move_object_cursor (self, offset, TRUE, html_object_next_not_slave, html_object_head);
 }
 
-inline HTMLObject *
+HTMLObject *
 html_object_prev_cursor (HTMLObject *self, gint *offset)
 {
 	return move_object_cursor (self, offset, FALSE, html_object_prev_not_slave, html_object_tail_not_slave);
@@ -1925,8 +1925,8 @@ html_object_engine_translation (HTMLObject *o, HTMLEngine *e, gint *tx, gint *ty
 		*ty += p->y - p->ascent;
 	}
 
-	//*tx += e->leftBorder;
-	//*ty += e->topBorder;
+	/* *tx += e->leftBorder; */
+	/* *ty += e->topBorder; */
 }
 
 gboolean
