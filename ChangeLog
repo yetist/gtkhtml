@@ -1,4 +1,6 @@
 2001-07-13  Larry Ewing  <lewing@ximian.com>
+	
+	Make gtkhtml-0.10.0 release
 
 	* configure.in: bump version numbers for 0.10.0 release.
 
