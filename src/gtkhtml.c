@@ -31,6 +31,7 @@
 
 #include "htmlcolorset.h"
 #include "htmlcursor.h"
+#include "htmldrawqueue.h"
 #include "htmlengine-edit.h"
 #include "htmlengine-edit-clueflowstyle.h"
 #include "htmlengine-edit-cut-and-paste.h"
@@ -1641,8 +1642,8 @@ client_notify_widget (GConfClient* client,
 	} else if (!strcmp (tkey, "/language")) {
 		g_free (prop->language);
 		prop->language = g_strdup (gconf_client_get_string (client, entry->key, NULL));
-		gtk_html_api_set_language (html);
-		html_engine_spell_check (html->engine);
+		if (!html->engine->language)
+			gtk_html_api_set_language (html);
 	}
 }
 
@@ -3778,11 +3779,16 @@ gtk_html_api_set_language (GtkHTML *html)
 	g_assert (GTK_IS_HTML (html));
 
 	if (html->editor_api) {
+		gchar *language;
+
 		/* printf ("set language through API to '%s'\n",
 		   GTK_HTML_CLASS (GTK_OBJECT (html)->klass)->properties->language); */
 
-		html->editor_api->set_language (html, GTK_HTML_CLASS (GTK_OBJECT (html)->klass)->properties->language,
-						html->editor_data);
+		language = html->engine->language
+			? html->engine->language
+			: GTK_HTML_CLASS (GTK_OBJECT (html)->klass)->properties->language;
+		html->editor_api->set_language (html, language, html->editor_data);
+		html_engine_spell_check (html->engine);
 	}
 }
 

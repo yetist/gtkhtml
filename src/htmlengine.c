@@ -5103,3 +5103,12 @@ html_engine_redraw_selection (HTMLEngine *e)
 		html_engine_flush_draw_queue (e);
 	}
 }
+
+void
+html_engine_set_language (HTMLEngine *e, const gchar *language)
+{
+	g_free (e->language);
+	e->language = g_strdup (language);
+
+	gtk_html_api_set_language (GTK_HTML (e->widget));
+}

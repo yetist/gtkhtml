@@ -1,3 +1,13 @@
+2001-12-17  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml.c (gtk_html_api_set_language): use engine language prior
+	to class one
+
+	* htmlengine.c (html_engine_set_language): new method, set
+	language for spell checking
+
+	* htmlengine.h: added language item
+
 2001-12-14  Larry Ewing  <lewing@ximian.com>
 
 	* htmliframe.c (html_iframe_init): dup the url.
