@@ -54,10 +54,10 @@ insure_config (HTMLPrinter *p)
 static gdouble
 printer_get_page_height (HTMLPrinter *printer)
 {
-	gdouble height = 0.0;
+	gdouble width, height = 0.0;
 
 	insure_config (printer);
-	gnome_print_config_get_double (printer->config, GNOME_PRINT_KEY_PAPER_HEIGHT, &height);
+	gnome_print_master_get_page_size_from_config (printer->config, &width, &height);
 
 	return height;
 }
@@ -65,10 +65,10 @@ printer_get_page_height (HTMLPrinter *printer)
 static gdouble
 printer_get_page_width (HTMLPrinter *printer)
 {
-	gdouble width = 0.0;
+	gdouble width = 0.0, height;
 
 	insure_config (printer);
-	gnome_print_config_get_double (printer->config, GNOME_PRINT_KEY_PAPER_WIDTH, &width);
+	gnome_print_master_get_page_size_from_config (printer->config, &width, &height);
 
 	return width;
 }
