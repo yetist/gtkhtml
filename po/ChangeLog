@@ -1,6 +1,10 @@
-2004-08-07  Runa Bhattacharjee  <runab@redhat.com>
-	* bn.po: Added Bengali (bn) Translation
+2004-08-07  Danilo Šegan  <dsegan@gmx.net>
 
+	* sr.po, sr@Latn.po: Updated Serbian translation.
+
+2004-08-07  Runa Bhattacharjee  <runab@redhat.com>
+
+	* bn.po: Added Bengali (bn) Translation
 
 2004-08-05  Duarte Loreto <happyguy_pt@hotmail.com>
 
