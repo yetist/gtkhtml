@@ -2539,8 +2539,10 @@ client_notify_monospace_font (GConfClient* client, guint cnxn_id, GConfEntry* en
 {
 	GtkHTML *html = (GtkHTML *) data;
 	HTMLEngine *e = html->engine;
-	gtk_html_set_fonts (html, e->painter);
-	html_engine_refresh_fonts (e);
+	if (e && e->painter) {
+		gtk_html_set_fonts (html, e->painter);
+		html_engine_refresh_fonts (e);
+	}
 }
 
 static void
