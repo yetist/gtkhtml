@@ -1,3 +1,8 @@
+2003-12-03  Radek Doulik  <rodo@ximian.com>
+
+	* editor-control-factory.h: include config.h for
+	EDITOR_API_VERSION
+
 2003-12-02  Rodney Dawes  <dobey@ximian.com>
 
 	* GNOME_GtkHTML_Editor.oaf.in.in:
