@@ -1,5 +1,8 @@
 2003-04-09  Larry Ewing  <lewing@ximian.com>
 
+	* htmlengine.c (html_engine_finalize): remove any pending
+	redraw_idle functions;
+
 	* gtkhtml.c (client_notify_widget): remove spell color cruft.
 
 	* gtkhtml-properties.c: remove unused members.

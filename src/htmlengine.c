@@ -3268,6 +3268,10 @@ html_engine_finalize (GObject *object)
 		gtk_timeout_remove (engine->blinking_timer_id);
 		engine->blinking_timer_id = 0;
 	}
+	if (engine->redraw_idle_id != 0) {
+		gtk_timeout_remove (engine->redraw_idle_id);
+		engine->redraw_idle_id = 0;
+	}
 	/* remove all the timers associated with image pointers also */
 	if (engine->image_factory) {
 		html_image_factory_stop_animations (engine->image_factory);
