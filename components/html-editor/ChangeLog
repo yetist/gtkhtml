@@ -1,3 +1,12 @@
+2000-03-08  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* editor-control-factory.c
+	(MAKE_VBOX_CONTROL): New #define.  If this is not #defined, we
+	just put the GtkHTML widget into a scrolled window and make it a
+	control.  Otherwise, we create a vbox and put the scrolled window
+	with the GtkHTML widget and the toolbar in it.  Using the vbox
+	slows the whole widget down greatly, and I have no idea why.
+
 2000-03-03  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* editor-control-factory.c (editor_control_factory): Call

@@ -33,7 +33,11 @@
 
 #include "editor-control-factory.h"
 
+/* For some reason, enabling this slows things down *a lot*.  */
+#define MAKE_VBOX_CONTROL
+
 
+#ifdef MAKE_VBOX_CONTROL
 /* This is the initialization that can only be performed after the
    control has been embedded (signal "set_frame').  */
 
@@ -76,6 +80,7 @@ set_frame_cb (BonoboControl *control,
 
 	g_free (set_frame_data);
 }
+#endif
 
 static BonoboObject *
 editor_control_factory (BonoboGenericFactory *factory,
@@ -83,7 +88,6 @@ editor_control_factory (BonoboGenericFactory *factory,
 {
 	BonoboControl *control;
 	BonoboPersistStream *stream_impl;
-	SetFrameData *set_frame_data;
 	GtkWidget *html_widget;
 	GtkWidget *vbox;
 
@@ -96,7 +100,18 @@ editor_control_factory (BonoboGenericFactory *factory,
 	vbox = gtk_vbox_new (FALSE, 0);
 	gtk_widget_show (vbox);
 
+#ifdef MAKE_VBOX_CONTROL
 	control = bonobo_control_new (vbox);
+#else
+	{
+		GtkWidget *scrolled_window;
+
+		scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+		gtk_container_add (GTK_CONTAINER (scrolled_window), html_widget);
+		gtk_widget_show (scrolled_window);
+		control = bonobo_control_new (scrolled_window);
+	}
+#endif
 
 	/* Bonobo::PersistStream */
 
@@ -105,16 +120,22 @@ editor_control_factory (BonoboGenericFactory *factory,
 
 	g_warning ("Creating a new GtkHTML editor control.");
 
-	/* Part of the initialization must be done after the control is
-	   embedded in its control frame.  We use the "set_frame" signal to
-	   handle that.  */
+#ifdef MAKE_VBOX_CONTROL
+	{
+		SetFrameData *set_frame_data;
 
-	set_frame_data = g_new (SetFrameData, 1);
-	set_frame_data->html = html_widget;
-	set_frame_data->vbox = vbox;
+		/* Part of the initialization must be done after the control is
+		   embedded in its control frame.  We use the "set_frame" signal to
+		   handle that.  */
 
-	gtk_signal_connect (GTK_OBJECT (control), "set_frame",
-			    GTK_SIGNAL_FUNC (set_frame_cb), set_frame_data);
+		set_frame_data = g_new (SetFrameData, 1);
+		set_frame_data->html = html_widget;
+		set_frame_data->vbox = vbox;
+
+		gtk_signal_connect (GTK_OBJECT (control), "set_frame",
+				    GTK_SIGNAL_FUNC (set_frame_cb), set_frame_data);
+	}
+#endif
 
 	return BONOBO_OBJECT (control);
 }
