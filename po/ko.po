@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.8.3\n"
-"POT-Creation-Date: 2001-02-15 16:21+0900\n"
-"PO-Revision-Date: 2001-03-03 11:06+0900\n"
+"POT-Creation-Date: 2001-03-10 02:57+0900\n"
+"PO-Revision-Date: 2001-03-10 03:06+0900\n"
 "Last-Translator: Hwang, Chideok <hwang@mizi.co.kr>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -91,7 +91,7 @@ msgstr "언어"
 
 #: capplet/gtkhtml-capplet.glade.h:9
 msgid "Magic links (FIXME: better label)"
-msgstr ""
+msgstr "자동 링크"
 
 #: capplet/gtkhtml-capplet.glade.h:10
 msgid "Miscellaneous"
@@ -99,7 +99,7 @@ msgstr "기타"
 
 #: capplet/gtkhtml-capplet.glade.h:11
 msgid "On screen"
-msgstr ""
+msgstr "화면상"
 
 #: capplet/gtkhtml-capplet.glade.h:12
 msgid "Pick a color"
@@ -474,7 +474,7 @@ msgstr "대소문자 구별"
 
 #: components/html-editor/replace.c:161
 msgid "with"
-msgstr ""
+msgstr "로"
 
 #: components/html-editor/rule.c:239
 msgid "length"
@@ -514,7 +514,7 @@ msgstr "밑줄"
 
 #: components/html-editor/text.c:183 components/html-editor/toolbar.c:440
 msgid "Strikeout"
-msgstr ""
+msgstr "취소선"
 
 #: components/html-editor/text.c:221 components/html-editor/toolbar.c:212
 msgid "Automatic"
@@ -590,11 +590,11 @@ msgstr "문단을 오른쪽으로 정렬합니다"
 
 #: components/html-editor/toolbar.c:432
 msgid "Typewriter"
-msgstr ""
+msgstr "타자체"
 
 #: components/html-editor/toolbar.c:432
 msgid "Toggle typewriter font style"
-msgstr ""
+msgstr "타자체글꼴 토글"
 
 #: components/html-editor/toolbar.c:434
 msgid "Makes the text bold"
@@ -610,7 +610,7 @@ msgstr "밑줄을 귿습니다"
 
 #: components/html-editor/toolbar.c:440
 msgid "Strikes out the text"
-msgstr "글에 가로선을 칩니다"
+msgstr "취소선을 칩니다"
 
 #: components/html-editor/toolbar.c:449
 msgid "Unindent"
@@ -618,7 +618,7 @@ msgstr "들여쓰지않음"
 
 #: components/html-editor/toolbar.c:449
 msgid "Indents the paragraphs less"
-msgstr ""
+msgstr "문단을 덜 들여씁니다"
 
 #: components/html-editor/toolbar.c:451
 msgid "Indent"
@@ -626,7 +626,7 @@ msgstr "들여쓰기"
 
 #: components/html-editor/toolbar.c:451
 msgid "Indents the paragraphs more"
-msgstr ""
+msgstr "문단을 더 내어씁니다"
 
 #: components/html-editor/utils.c:104
 msgid "Sample"
@@ -639,5 +639,4 @@ msgstr "인쇄 미리보기(_v)"
 #: src/testgtkhtml.c:112
 msgid "Print preview"
 msgstr "인쇄가 되는 모습을 미리 확인해봅니다"
-
 
