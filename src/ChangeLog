@@ -1,3 +1,8 @@
+2003-03-25  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml.h (struct _GtkHTMLEditorAPI): added language argument to
+	add_to_personal
+
 2003-03-24  Radek Doulik  <rodo@ximian.com>
 
 	* htmltext.c (html_text_magic_link): avoid uninitialized uc use

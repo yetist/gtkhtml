@@ -4356,7 +4356,8 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 
 		if (word && html->editor_api) {
 			if (com_type == GTK_HTML_COMMAND_SPELL_PERSONAL_DICTIONARY_ADD)
-				(*html->editor_api->add_to_personal) (html, word, html->editor_data);
+				/* FIXME fire popup menu with more than 1 language enabled */
+				(*html->editor_api->add_to_personal) (html, word, html->engine->language, html->editor_data);
 			else
 				(*html->editor_api->add_to_session) (html, word, html->editor_data);
 			g_free (word);
