@@ -38,7 +38,7 @@ struct _HTMLTextSlave {
 	gchar *charStart;
 
 	GList *items;
-	PangoGlyphString *glyphs;
+	GList *glyphs;
 };
 
 struct _HTMLTextSlaveClass {

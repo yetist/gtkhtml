@@ -85,14 +85,14 @@ gtk_html_class_properties_new (GtkWidget *widget)
 	/* default values */
 	p->magic_links             = TRUE;
 	p->font_var                = var_name;
-	printf ("Variable Font: \"%s\"\n", p->font_var);
+	/* printf ("Variable Font: \"%s\"\n", p->font_var); */
 	p->font_fix                = fixed_name;
 	p->font_var_size           = PANGO_PIXELS (var_size);
 	p->font_fix_size           = PANGO_PIXELS (fixed_size);
 	p->font_var_points         = FALSE;
 	p->font_fix_points         = FALSE;
 	p->font_var_print          = g_strdup (pango_font_description_get_family (widget->style->font_desc));
-	printf ("Variable Printing Font: \"%s\"\n", p->font_var_print);
+	/* printf ("Variable Printing Font: \"%s\"\n", p->font_var_print); */
 	p->font_fix_print          = g_strdup (fixed_name);
 	p->font_var_size_print     = DEFAULT_FONT_SIZE_PRINT;
 	p->font_fix_size_print     = DEFAULT_FONT_SIZE_PRINT;

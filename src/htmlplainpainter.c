@@ -139,8 +139,18 @@ items_destroy (GList *items)
 	g_list_free (items);
 }
 
+inline static void
+glyphs_destroy (GList *glyphs)
+{
+	GList *l;
+
+	for (l = glyphs; l; l = l->next)
+		pango_glyph_string_free ((PangoGlyphString *) l->data);
+	g_list_free (glyphs);
+}
+
 static void
-draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, GList *items, PangoGlyphString *glyphs)
+draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, GList *items, GList *glyphs)
 {
 	HTMLGdkPainter *gdk_painter;
 	PangoFontDescription *desc;
@@ -161,11 +171,21 @@ draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, GL
 		items = html_gdk_painter_text_itemize_and_prepare_glyphs (gdk_painter, desc, text, blen, &glyphs);
 		temp_items = TRUE;
 	}
-	if (items && items->data)
-		gdk_draw_glyphs (gdk_painter->pixmap, gdk_painter->gc, ((PangoItem *) items->data)->analysis.font, x, y, glyphs);
+	if (items && items->data) {
+		PangoGlyphString *str;
+		GList *gl, *il;
+		guint i, width = 0;
+
+		for (gl = glyphs, il = items; il && gl; gl = gl->next, il = il->next) {
+			str = (PangoGlyphString *) gl->data;
+			gdk_draw_glyphs (gdk_painter->pixmap, gdk_painter->gc, ((PangoItem *) il->data)->analysis.font, x + width, y, str);
+			for (i=0; i < str->num_glyphs; i ++)
+				width += PANGO_PIXELS (str->glyphs [i].geometry.width);
+		}
+	}
 	if (temp_items) {
 		if (glyphs)
-			pango_glyph_string_free (glyphs);
+			glyphs_destroy (glyphs);
 		if (items)
 			items_destroy (items);
 	}

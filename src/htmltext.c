@@ -589,7 +589,7 @@ calc_word_width (HTMLText *text, HTMLPainter *painter, gint line_offset)
 {
 	GtkHTMLFontStyle style;
 	PangoGlyphString *glyphs = NULL;
-	GList *items;
+	GList *items = NULL;
 	HTMLFont *font;
 	HTMLObject *obj = HTML_OBJECT (text);
 	gchar *begin, *end;

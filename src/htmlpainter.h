@@ -64,17 +64,17 @@ struct _HTMLPainterClass {
 	void (* alloc_color)      (HTMLPainter *painter, GdkColor *color);
 	void (* free_color)       (HTMLPainter *painter, GdkColor *color);
 
-	void (* calc_text_size) (HTMLPainter *p, const gchar *text, guint len, GList *items, PangoGlyphString *glyphs,
+	void (* calc_text_size) (HTMLPainter *p, const gchar *text, guint len, GList *items, GList *glyphs,
 				 GtkHTMLFontStyle font_style, HTMLFontFace *face, gint *width, gint *asc, gint *dsc);
-	void (* calc_text_size_bytes) (HTMLPainter *p, const gchar *text, guint len, GList *items, PangoGlyphString *glyphs,
+	void (* calc_text_size_bytes) (HTMLPainter *p, const gchar *text, guint len, GList *items, GList *glyphs,
 				       HTMLFont *font, GtkHTMLFontStyle font_style, gint *width, gint *asc, gint *dsc);
 
 	void (* set_pen)          (HTMLPainter *painter, const GdkColor *color);
 	const GdkColor * (* get_black) (const HTMLPainter *painter);
 	void (* draw_line)        (HTMLPainter *painter, gint x1, gint y1, gint x2, gint y2);
 	void (* draw_rect)        (HTMLPainter *painter, gint x, gint y, gint width, gint height);
-	void (* draw_text)        (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, GList *items, PangoGlyphString *glyphs);
-	gint (* draw_spell_error) (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, GList *items, PangoGlyphString *glyphs);
+	void (* draw_text)        (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, GList *items, GList *glyphs);
+	gint (* draw_spell_error) (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, GList *items, GList *glyphs);
 	void (* fill_rect)        (HTMLPainter *painter, gint x, gint y, gint width, gint height);
 	void (* draw_pixmap)      (HTMLPainter *painter, GdkPixbuf *pixbuf, 
 				   gint x, gint y,
@@ -143,7 +143,7 @@ void              html_painter_calc_text_size                          (HTMLPain
 									const gchar       *text,
 									guint              len,
 									GList             *items,
-									PangoGlyphString  *glyphs,
+									GList             *glyphs,
 									gint              *line_offset,
 									GtkHTMLFontStyle   font_style,
 									HTMLFontFace      *face,
@@ -154,7 +154,7 @@ void              html_painter_calc_text_size_bytes                    (HTMLPain
 									const gchar       *text,
 									guint              len,
 									GList             *items,
-									PangoGlyphString  *glyphs,
+									GList             *glyphs,
 									gint              *line_offset,
 									HTMLFont          *font,
 									GtkHTMLFontStyle   font_style,
@@ -181,7 +181,7 @@ gint              html_painter_draw_text                               (HTMLPain
 									const gchar       *text,
 									gint               len,
 									GList             *items,
-									PangoGlyphString  *glyphs,
+									GList             *glyphs,
 									gint               line_offset);
 void              html_painter_fill_rect                               (HTMLPainter       *painter,
 									gint               x,
@@ -240,7 +240,7 @@ gint              html_painter_draw_spell_error                        (HTMLPain
 									const gchar       *text,
 									gint               len,
 									GList             *items,
-									PangoGlyphString  *glyphs);
+									GList             *glyphs);
 HTMLFont         *html_painter_alloc_font                              (HTMLPainter       *painter,
 									gchar             *face_name,
 									gdouble            size,

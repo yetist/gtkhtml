@@ -291,7 +291,7 @@ html_painter_get_font (HTMLPainter *painter, HTMLFontFace *face, GtkHTMLFontStyl
 void
 html_painter_calc_text_size (HTMLPainter *painter,
 			     const gchar *text,
-			     guint len, GList *items, PangoGlyphString *glyphs, gint *line_offset,
+			     guint len, GList *items, GList *glyphs, gint *line_offset,
 			     GtkHTMLFontStyle font_style,
 			     HTMLFontFace *face,
 			     gint *width, gint *asc, gint *dsc)
@@ -377,7 +377,7 @@ correct_width (const gchar *text, guint bytes_len, gint *lo, HTMLFont *font)
 void
 html_painter_calc_text_size_bytes (HTMLPainter *painter,
 				    const gchar *text,
-				    guint bytes_len, GList *items, PangoGlyphString *glyphs, gint *line_offset,
+				    guint bytes_len, GList *items, GList *glyphs, gint *line_offset,
 				    HTMLFont *font, GtkHTMLFontStyle style,
 				    gint *width, gint *asc, gint *dsc)
 {
@@ -534,7 +534,7 @@ html_painter_translate_text (const gchar *text, gint len, gint *line_offset, gin
 gint
 html_painter_draw_text (HTMLPainter *painter,
 			gint x, gint y,
-			const gchar *text, gint len, GList *items, PangoGlyphString *glyphs, gint line_offset)
+			const gchar *text, gint len, GList *items, GList *glyphs, gint line_offset)
 {
 	gchar *translated;
 	gchar *tmp = NULL;
@@ -691,7 +691,7 @@ gint
 html_painter_draw_spell_error (HTMLPainter *painter,
 			       gint x, gint y,
 			       const gchar *text,
-			       gint len, GList *items, PangoGlyphString *glyphs)
+			       gint len, GList *items, GList *glyphs)
 {
 	return (* HP_CLASS (painter)->draw_spell_error) (painter, x, y, text, len, items, glyphs);
 }

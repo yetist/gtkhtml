@@ -77,6 +77,6 @@ GList       *html_gdk_painter_text_itemize_and_prepare_glyphs  (HTMLGdkPainter  
 								PangoFontDescription  *desc,
 								const gchar           *text,
 								gint                   bytes,
-								PangoGlyphString     **glyphs);
+								GList                **glyphs);
 
 #endif /* _HTMLGDKPAINTER_H */

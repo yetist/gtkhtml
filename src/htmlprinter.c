@@ -531,7 +531,7 @@ fill_rect (HTMLPainter *painter, gint x, gint y, gint width, gint height)
 }
 
 static void
-draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, GList *items, PangoGlyphString *glyphs)
+draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, GList *items, GList *glyphs)
 {
 	GnomeFont *font;
 	HTMLPrinter *printer;
@@ -625,7 +625,7 @@ draw_shade_line (HTMLPainter *painter,
 }
 
 static void
-calc_text_size (HTMLPainter *painter, const gchar *text, guint len, GList *items, PangoGlyphString *glyphs,
+calc_text_size (HTMLPainter *painter, const gchar *text, guint len, GList *items, GList *glyphs,
 		GtkHTMLFontStyle style, HTMLFontFace *face, gint *width, gint *asc, gint *dsc)
 {
 	HTMLPrinter *printer;
@@ -644,7 +644,7 @@ calc_text_size (HTMLPainter *painter, const gchar *text, guint len, GList *items
 }
 
 static void
-calc_text_size_bytes (HTMLPainter *painter, const gchar *text, guint len, GList *items, PangoGlyphString *glyphs,
+calc_text_size_bytes (HTMLPainter *painter, const gchar *text, guint len, GList *items, GList *glyphs,
 		      HTMLFont *font, GtkHTMLFontStyle style, gint *width, gint *asc, gint *dsc)
 {
 	HTMLPrinter *printer;
