@@ -179,6 +179,10 @@ setup_color_option_menu (GtkHTMLControlData *cd)
 	gtk_box_pack_start_defaults (GTK_BOX (vbox), button);
 	gtk_box_pack_start_defaults (GTK_BOX (vbox), table);
 	cd->combo = gtk_combo_box_new (cd->cpicker, vbox);
+	if (!gnome_preferences_get_toolbar_relief_btn ()) {
+		gtk_combo_box_set_arrow_relief (GTK_COMBO_BOX (cd->combo), GTK_RELIEF_NONE);
+		gtk_button_set_relief (GTK_BUTTON (cd->cpicker), GTK_RELIEF_NONE);
+	}
 
 	gtk_widget_show_all (cd->combo);
 	return cd->combo;
