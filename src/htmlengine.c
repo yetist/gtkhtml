@@ -20,6 +20,8 @@
     Boston, MA 02111-1307, USA.
 */
 
+/* FIXME check all the `push_block()'s and `set_font()'s.  */
+
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
@@ -64,7 +66,7 @@ guint html_engine_signals [LAST_SIGNAL] = { 0 };
 
 extern gint defaultFontSizes [7];
 
-enum ID { ID_FONT, ID_B, ID_EM, ID_HEADER, ID_U, ID_UL, ID_TD };
+enum ID { ID_FONT, ID_B, ID_EM, ID_I, ID_HEADER, ID_U, ID_UL, ID_TD };
 
 
 static void
@@ -290,8 +292,7 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 		e->bold = FALSE;
 		/*  selectFont(); FIXME TODO */
 		html_engine_push_block (e, ID_ADDRESS, 2,
-								html_engine_block_end_font,
-								TRUE);
+								html_engine_block_end_font, TRUE);
     }
     else if ( strncmp( str, "/address", 8) == 0 )
     {
@@ -442,24 +443,11 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 			html_engine_select_font (e);
 			html_engine_push_block (e, ID_B, 1, 
 									html_engine_block_end_font,
-									0, 0);
+									FALSE, FALSE);
 		}
 	}
 	else if (strncmp (str, "/b", 2) == 0) {
 		html_engine_pop_block (e, ID_B, clue);
-	}
-}
-
-
-static void
-parse_e (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
-{
-	if ( strncmp( str, "em", 2 ) == 0 ) {
-		e->italic = TRUE;
-		html_engine_select_font (e);
-		html_engine_push_block (e, ID_EM, 1, html_engine_block_end_font, 0, 0);
-	} else if ( strncmp( str, "/em", 3 ) == 0 ) {
-		html_engine_pop_block (e, ID_EM, _clue);
 	}
 }
 
@@ -474,6 +462,20 @@ parse_c (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	else if (strncmp (str, "/center", 7) == 0) {
 		e->divAlign = Left;
 		e->flow = 0;
+	}
+}
+
+
+static void
+parse_e (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
+{
+	if ( strncmp( str, "em", 2 ) == 0 ) {
+		e->italic = TRUE;
+		html_engine_select_font (e);
+		html_engine_push_block (e, ID_EM, 1, html_engine_block_end_font,
+								FALSE, FALSE);
+	} else if ( strncmp( str, "/em", 3 ) == 0 ) {
+		html_engine_pop_block (e, ID_EM, _clue);
 	}
 }
 
@@ -504,10 +506,13 @@ parse_f (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 				html_engine_set_named_color (p, color, token + 6);
 			}
 		}
+
+		/* FIXME this is wrong */
 		p->fontsize = newSize;
 		html_color_stack_push (p->cs, color);
 		html_engine_select_font (p);
-		html_engine_push_block  (p, ID_FONT, 1, html_engine_block_end_color_font, 0, 0);
+		html_engine_push_block  (p, ID_FONT, 1, html_engine_block_end_color_font,
+								 FALSE, FALSE);
 	}
 	else if (strncmp (str, "/font", 5) == 0) {
 		html_engine_pop_block (p, ID_FONT, clue);
@@ -588,7 +593,8 @@ parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 
 		/* Insert a vertical space and restore the old font at the closing
            tag.  */
-		html_engine_push_block (p, ID_HEADER, 2, html_engine_block_end_font, TRUE, 0);
+		html_engine_push_block (p, ID_HEADER, 2, html_engine_block_end_font,
+								TRUE, 0);
 	} else if (*(str) == '/' && *(str + 1) == 'h' &&
 	    ( *(str+2)=='1' || *(str+2)=='2' || *(str+2)=='3' ||
  	      *(str+2)=='4' || *(str+2)=='5' || *(str+2)=='6' )) {
@@ -644,7 +650,7 @@ parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 
 
 static void
-parse_i (HTMLEngine *p, HTMLObject *clue, const gchar *str)
+parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 {
 	if (strncmp (str, "img", 3) == 0) {
 		gchar *filename = 0;
@@ -690,12 +696,12 @@ parse_i (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 
 		}
 		if (filename != 0) {
-		  filename = html_engine_canonicalize_url(p, filename);
-		  if (!p->flow)
-		    html_engine_new_flow (p, clue);
+			filename = html_engine_canonicalize_url(p, filename);
+			if (!p->flow)
+				html_engine_new_flow (p, _clue);
 
-		  image = html_image_new (p->image_factory, filename, clue->max_width, 
-					  width, height, percent, border);
+			image = html_image_new (p->image_factory, filename, _clue->max_width, 
+									width, height, percent, border);
 		}
 
 		if (align == None) {
@@ -703,7 +709,7 @@ parse_i (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 				html_clue_append (HTML_CLUE (p->flow), image);
 			}
 			else {
-				HTMLObject *valigned = html_clueh_new (0, 0, clue->max_width);
+				HTMLObject *valigned = html_clueh_new (0, 0, _clue->max_width);
 				HTML_CLUE (valigned)->valign = valign;
 				html_clue_append (HTML_CLUE (valigned), HTML_OBJECT (image));
 				html_clue_append (HTML_CLUE (p->flow), valigned);
@@ -711,12 +717,23 @@ parse_i (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		}
 		/* We need to put the image in a HTMLClueAligned */
 		else {
-			HTMLClueAligned *aligned = HTML_CLUEALIGNED (html_cluealigned_new (HTML_CLUE (p->flow), 0, 0, clue->max_width, 100));
+			HTMLClueAligned *aligned = HTML_CLUEALIGNED (html_cluealigned_new (HTML_CLUE (p->flow), 0, 0, _clue->max_width, 100));
 			HTML_CLUE (aligned)->halign = align;
 			html_clue_append (HTML_CLUE (aligned), HTML_OBJECT (image));
 			html_clue_append (HTML_CLUE (p->flow), HTML_OBJECT (aligned));
 		}
 		       
+	}
+    else if ( strncmp (str, "i", 1 ) == 0 ) {
+		if ( str[1] == '>' || str[1] == ' ' ) {
+			p->italic = TRUE;
+			html_engine_select_font (p);
+			html_engine_push_block (p, ID_I, 1, html_engine_block_end_font,
+									FALSE, FALSE);
+		}
+	}
+    else if ( strncmp( str, "/i", 2 ) == 0 ) {
+		html_engine_pop_block (p, ID_I, _clue);
 	}
 }
 
@@ -1201,8 +1218,7 @@ parse_u (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		if (html_list_stack_is_empty (p->listStack)) {
 			p->vspace_inserted = html_engine_insert_vspace (p, clue, p->vspace_inserted);
 			html_engine_push_block (p, ID_UL, 2, html_engine_block_end_list, p->indent, TRUE);
-		}
-		else {
+		} else {
 			html_engine_push_block (p, ID_UL, 2, html_engine_block_end_list, p->indent, FALSE);
 		}
 
@@ -1962,6 +1978,7 @@ html_engine_set_named_color (HTMLEngine *p, GdkColor *c, const gchar *name)
 	gdk_colormap_alloc_color (gdk_window_get_colormap
 							  (html_painter_get_window (p->painter)),
 							  c, FALSE, TRUE);
+	return TRUE;
 }
 
 void

@@ -64,11 +64,11 @@ create_gdk_font (gchar *family, gint size, gboolean bold, gboolean italic)
 		boldstr = "bold";
 	else
 		boldstr = "medium";
+
 	if (italic)
 		italicstr = "i";
 	else
 		italicstr = "r";
-	
 	
 	fontname = g_strdup_printf ("-*-%s-%s-%s-normal-*-%d-*-*-*-*-*-*-*",
 				    family, boldstr, italicstr, realsize);

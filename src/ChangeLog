@@ -1,7 +1,12 @@
 1999-11-25  Ettore Perazzoli  <ettore@gnu.org>
 
-	* htmlengine.c (parse_h): Removed extra
-	`html_engine_select_font()' call which should not be there.
+	* htmlengine.c: Added `ID_I' to enum `ID'.
+	(parse_h): Removed extra `html_engine_select_font()' call which
+	should not be there.
+	(parse_i): Added code to deal with the `<i>' tag.
+	(html_engine_set_named_color): Aaargh.  Return `TRUE'!
+	(parse_a): Pass `TRUE' as the last argument to
+	`html_engine_push_block()' when doing the "address" tag.
 
 	* htmlengine.c (html_engine_set_named_color): Return value made
 	`gboolean': return FALSE if the color could not be parsed.
