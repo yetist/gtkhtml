@@ -1,3 +1,10 @@
+2000-04-04  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlcluev.h: New parameter `specified_width' in `HTMLClueV'.
+
+	* htmlengine.c
+	(parse_h): Close the current flow before adding the object.
+
 2000-04-04  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlimage.c: don't use members of GdkPixbufAnimation directly

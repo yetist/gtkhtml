@@ -1890,6 +1890,8 @@ parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		if (p->flow)
 			oldAlign = align = HTML_CLUE (p->flow)->halign;
 
+		close_flow (p, clue);
+
 		html_string_tokenizer_tokenize (p->st, str + 3, " >");
 		while (html_string_tokenizer_has_more_tokens (p->st)) {
 			gchar *token = html_string_tokenizer_next_token (p->st);
