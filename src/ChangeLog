@@ -1,5 +1,7 @@
 2001-06-07  Radek Doulik  <rodo@ximian.com>
 
+	* Makefile.am (INCLUDES): added IMLIB cflags
+
 	* htmlengine-edit-cut-and-paste.c (delete_object): check table
 	only when cursor and mark are in non-empty flows
 	(insert_object_do): be more careful about paragraph inserting
