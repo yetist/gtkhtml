@@ -1,3 +1,7 @@
+2003-05-19  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml-enums.h: make the flags actually be flags.
+
 2003-05-18  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine.c (parse_iframe): fix the margin calculations.

@@ -300,7 +300,7 @@ typedef enum {
 } GtkHTMLStreamStatus;
 
 typedef enum {
-	GTK_HTML_BEGIN_KEEP_SCROLL,
-	GTK_HTML_BEGIN_KEEP_IMAGES
+	GTK_HTML_BEGIN_KEEP_SCROLL = 1 << 0,
+	GTK_HTML_BEGIN_KEEP_IMAGES = 1 << 1
 } GtkHTMLBeginFlags;
 #endif
