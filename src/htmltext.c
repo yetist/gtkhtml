@@ -436,7 +436,7 @@ convert_nbsp (gchar *s)
 	guint state, pass;
 	unicode_char_t uc;
 	gchar *p, *op;
-	guchar *rv, *rp;
+	guchar *rv = NULL, *rp = NULL;
 
 	pass  = 0;
 	delta = 0;
