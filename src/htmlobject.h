@@ -32,7 +32,11 @@
 #define HTML_OBJECT_CLASS(x)	((HTMLObjectClass *) (x))
 #define HTML_OBJECT_TYPE(x)     (HTML_OBJECT (x)->klass->type)
 
-typedef enum { HTMLNoFit, HTMLPartialFit, HTMLCompleteFit } HTMLFitType;
+typedef enum {
+	HTML_FIT_NONE,
+	HTML_FIT_PARTIAL,
+	HTML_FIT_COMPLETE
+} HTMLFitType;
 
 enum HTMLObjectFlags {
 	HTML_OBJECT_FLAG_NONE = 0,
@@ -46,9 +50,26 @@ enum HTMLObjectFlags {
 	HTML_OBJECT_FLAG_HIDDEN = 1 << 7
 };
 
-typedef enum { CNone, CLeft, CRight, CAll } ClearType;
-typedef enum { Top, Bottom, VCenter, VNone } VAlignType;
-typedef enum { Left, HCenter, Right, None } HAlignType;
+typedef enum {
+	HTML_CLEAR_NONE,
+	HTML_CLEAR_LEFT,
+	HTML_CLEAR_RIGHT,
+	HTML_CLEAR_ALL
+} HTMLClearType;
+
+typedef enum {
+	HTML_VALIGN_TOP,
+	HTML_VALIGN_CENTER,
+	HTML_VALIGN_BOTTOM,
+	HTML_VALIGN_NONE
+} HTMLVAlignType;
+
+typedef enum {
+	HTML_HALIGN_LEFT,
+	HTML_HALIGN_CENTER,
+	HTML_HALIGN_RIGHT,
+	HTML_HALIGN_NONE
+} HTMLHAlignType;
 
 typedef struct _HTMLObjectClass HTMLObjectClass;
 typedef struct _HTMLAnchor HTMLAnchor;

@@ -98,13 +98,13 @@ set_max_ascent (HTMLObject *o, gint a)
 	HTMLClue *clue = HTML_CLUE (o);
 	HTMLObject *obj;
 
-	if (clue->valign == VCenter) {
+	if (clue->valign == HTML_VALIGN_CENTER) {
 		for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next) {
 			obj->y = obj->y + ((a - o->ascent) / 2);
 		}
 	}
 
-	else if (clue->valign == Bottom) {
+	else if (clue->valign == HTML_VALIGN_BOTTOM) {
 		for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next) {
 			obj->y = obj->y + a - o->ascent;
 		}
@@ -120,12 +120,12 @@ set_max_descent (HTMLObject *o, gint d)
 	HTMLClue *clue = HTML_CLUE (o);
 	HTMLObject *obj;
 	
-	if (clue->valign == VCenter) {
+	if (clue->valign == HTML_VALIGN_CENTER) {
 		for (obj = clue->head; obj != 0; obj = obj->next) {
 			obj->y = obj->y + ((d - o->descent) / 2);
 		}
 	}
-	else if (clue->valign == Bottom) {
+	else if (clue->valign == HTML_VALIGN_BOTTOM) {
 		for (obj = clue->head; obj != 0; obj = obj->next) {
 			obj->y = obj->y + d - o->descent;
 		}
@@ -328,8 +328,8 @@ html_clue_init (HTMLClue *clue,
 	clue->tail = NULL;
 	clue->curr = NULL;
 
-	clue->valign = Top;
-	clue->halign = Left;
+	clue->valign = HTML_VALIGN_TOP;
+	clue->halign = HTML_HALIGN_LEFT;
 }
 
 

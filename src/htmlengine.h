@@ -79,7 +79,7 @@ struct _HTMLEngine {
 	gboolean vspace_inserted;
 	gboolean bodyParsed;
 
-	HAlignType divAlign;
+	HTMLHAlignType divAlign;
 
 	/* Number of tokens parsed in the current time-slice */
 	gint parseCount;

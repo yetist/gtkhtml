@@ -46,7 +46,7 @@ void
 html_vspace_init (HTMLVSpace *vspace,
 		  HTMLVSpaceClass *klass,
 		  gint space,
-		  ClearType clear)
+		  HTMLClearType clear)
 {
 	HTMLObject *object;
 
@@ -63,7 +63,8 @@ html_vspace_init (HTMLVSpace *vspace,
 }
 
 HTMLObject *
-html_vspace_new (gint space, ClearType clear)
+html_vspace_new (gint space,
+		 HTMLClearType clear)
 {
 	HTMLVSpace *vspace;
 

@@ -239,7 +239,7 @@ block_end_indent (HTMLEngine *e, HTMLObject *clue, HTMLBlockStackElement *elem)
 static void
 block_end_div (HTMLEngine *e, HTMLObject *clue, HTMLBlockStackElement *elem)
 {
-	e->divAlign =  (HAlignType) elem->miscData1;
+	e->divAlign =  (HTMLHAlignType) elem->miscData1;
 	e->flow = 0;
 }
 
@@ -443,13 +443,13 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	gboolean firstRow = TRUE;
 	gboolean noCell = TRUE;
 	gboolean tableEntry;
-	VAlignType rowvalign = VNone;
-	HAlignType rowhalign = None;
-	HAlignType align = None;
+	HTMLVAlignType rowvalign = HTML_VALIGN_NONE;
+	HTMLHAlignType rowhalign = HTML_HALIGN_NONE;
+	HTMLHAlignType align = HTML_HALIGN_NONE;
 	HTMLClueV *caption = 0;
 	HTMLTableCell *tmpCell = 0;
-	VAlignType capAlign = Bottom;
-	HAlignType olddivalign = e->divAlign;
+	HTMLVAlignType capAlign = HTML_VALIGN_BOTTOM;
+	HTMLHAlignType olddivalign = e->divAlign;
 	HTMLClue *oldflow = HTML_CLUE (e->flow);
 	gint oldindent = e->indent;
 	GdkColor tableColor, rowColor, bgColor;
@@ -459,7 +459,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	gint cellwidth;
 	gint cellpercent;
 	gboolean fixedWidth;
-	VAlignType valign;
+	HTMLVAlignType valign;
 	HTMLTableCell *cell;
 
 	have_tableColor = FALSE;
@@ -493,9 +493,9 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 		}
 		else if (strncasecmp (token, "align=", 6) == 0) {
 			if (strcasecmp (token + 6, "left") == 0)
-				align = Left;
+				align = HTML_HALIGN_LEFT;
 			else if (strcasecmp (token + 6, "right") == 0)
-				align = Right;
+				align = HTML_HALIGN_RIGHT;
 		}
 		else if (strncasecmp (token, "bgcolor=", 8) == 0
 			 && !e->defaultSettings->forceDefault) {
@@ -532,7 +532,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 						const char* token = string_tokenizer_next_token(e->st);
 						if ( strncasecmp( token, "align=", 6 ) == 0) {
 							if ( strncasecmp( token+6, "top", 3 ) == 0)
-								capAlign = Top;
+								capAlign = HTML_VALIGN_TOP;
 						}
 					}
 
@@ -541,7 +541,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 								HTML_OBJECT (clue)->max_width,
 								100 ));
 
-					e->divAlign = HCenter;
+					e->divAlign = HTML_HALIGN_CENTER;
 					e->flow = 0;
 
 					push_block (e, ID_CAPTION, 3, NULL, 0, 0);
@@ -582,8 +582,8 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 						html_table_end_row (table);
 					html_table_start_row (table);
 					firstRow = FALSE;
-					rowvalign = VNone;
-					rowhalign = None;
+					rowvalign = HTML_VALIGN_NONE;
+					rowhalign = HTML_HALIGN_NONE;
 
 					if (have_tableColor) {
 						rowColor = tableColor;
@@ -597,19 +597,19 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 						const gchar *token = string_tokenizer_next_token (e->st);
 						if (strncasecmp (token, "valign=", 7) == 0) {
 							if (strncasecmp (token + 7, "top", 3) == 0)
-								rowvalign = Top;
+								rowvalign = HTML_VALIGN_TOP;
 							else if (strncasecmp (token + 7, "bottom", 6) == 0)
-								rowvalign = Bottom;
+								rowvalign = HTML_VALIGN_BOTTOM;
 							else
-								rowvalign = VCenter;
+								rowvalign = HTML_VALIGN_CENTER;
 						}
 						else if (strncasecmp (token, "align", 6) == 0) {
 							if (strcasecmp (token + 6, "left") == 0)
-								rowhalign = Left;
+								rowhalign = HTML_HALIGN_LEFT;
 							else if (strcasecmp (token + 6, "right") == 0)
-								rowhalign = Right;
+								rowhalign = HTML_HALIGN_RIGHT;
 							else if (strcasecmp (token + 6, "center") == 0)
-								rowhalign = HCenter;
+								rowhalign = HTML_HALIGN_CENTER;
 						}
 						else if (strncasecmp (token, "bgcolor=", 8) == 0) {
 							have_rowColor
@@ -651,15 +651,15 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 						have_bgColor = FALSE;
 					}
 
-					valign = (rowvalign == VNone ?
-						  VCenter : rowvalign);
+					valign = (rowvalign == HTML_VALIGN_NONE ?
+						  HTML_VALIGN_CENTER : rowvalign);
 
 					if (heading)
-						e->divAlign = (rowhalign == None ? 
-							       HCenter: rowhalign);
+						e->divAlign = (rowhalign == HTML_HALIGN_NONE ? 
+							       HTML_HALIGN_CENTER : rowhalign);
 					else
-						e->divAlign = (rowhalign == None ?
-							       Left: rowhalign);
+						e->divAlign = (rowhalign == HTML_HALIGN_NONE ?
+							       HTML_HALIGN_LEFT : rowhalign);
 
 					if (tableEntry) {
 						string_tokenizer_tokenize (e->st, str + 4, " >");
@@ -677,19 +677,19 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 							}
 							else if (strncasecmp (token, "valign=", 7) == 0) {
 								if (strncasecmp (token + 7, "top", 3) == 0)
-									valign = Top;
+									valign = HTML_VALIGN_TOP;
 								else if (strncasecmp (token + 7, "bottom", 6) == 0)
-									valign = Bottom;
+									valign = HTML_VALIGN_BOTTOM;
 								else 
-									valign = VCenter;
+									valign = HTML_VALIGN_CENTER;
 							}
 							else if (strncasecmp (token, "align=", 6) == 0) {
 								if (strcasecmp (token + 6, "center") == 0)
-									e->divAlign = HCenter;
+									e->divAlign = HTML_HALIGN_CENTER;
 								else if (strcasecmp (token + 6, "right") == 0)
-									e->divAlign = Right;
+									e->divAlign = HTML_HALIGN_RIGHT;
 								else if (strcasecmp (token + 6, "left") == 0)
-									e->divAlign = Left;
+									e->divAlign = HTML_HALIGN_LEFT;
 							}
 							else if (strncasecmp (token, "width=", 6) == 0) {
 								if (strchr (token + 6, '%')) {
@@ -805,7 +805,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 		if (!firstRow)
 			html_table_end_row (table);
 		html_table_end_table (table);
-		if (align != Left && align != Right) {
+		if (align != HTML_HALIGN_LEFT && align != HTML_HALIGN_RIGHT) {
 			html_clue_append (HTML_CLUE (clue), HTML_OBJECT (table));
 		} else {
 			HTMLClueAligned *aligned;
@@ -1177,12 +1177,15 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		g_print ("parsed <body>\n");
 	}
 	else if (strncmp (str, "br", 2) == 0) {
-		ClearType clear = CNone;
+		HTMLClearType clear;
+
+		clear = HTML_CLEAR_NONE;
 
 		if (!e->flow)
 			html_engine_new_flow (e, clue);
 
-		html_clue_append (HTML_CLUE (e->flow), html_vspace_new (14, clear));
+		html_clue_append (HTML_CLUE (e->flow),
+				  html_vspace_new (14, clear));
 
 		e->vspace_inserted = FALSE;
 	}
@@ -1213,11 +1216,11 @@ static void
 parse_c (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	if (strncmp (str, "center", 6) == 0) {
-		e->divAlign = HCenter;
+		e->divAlign = HTML_HALIGN_CENTER;
 		e->flow = 0;
 	}
 	else if (strncmp (str, "/center", 7) == 0) {
-		e->divAlign = Left;
+		e->divAlign = HTML_HALIGN_LEFT;
 		e->flow = 0;
 	}
 	else if (strncmp( str, "cite", 4 ) == 0) {
@@ -1269,11 +1272,11 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 			if ( strncasecmp( token, "align=", 6 ) == 0 )
 			{
 				if ( strcasecmp( token + 6, "right" ) == 0 )
-					e->divAlign = Right;
+					e->divAlign = HTML_HALIGN_RIGHT;
 				else if ( strcasecmp( token + 6, "center" ) == 0 )
-					e->divAlign = HCenter;
+					e->divAlign = HTML_HALIGN_CENTER;
 				else if ( strcasecmp( token + 6, "left" ) == 0 )
-					e->divAlign = Left;
+					e->divAlign = HTML_HALIGN_LEFT;
 			}
 		}
 
@@ -1413,7 +1416,7 @@ parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 	if (*(str) == 'h' &&
 	    ( *(str+1)=='1' || *(str+1)=='2' || *(str+1)=='3' ||
 	      *(str+1)=='4' || *(str+1)=='5' || *(str+1)=='6' ) ) {
-		HAlignType align;
+		HTMLHAlignType align;
 
 		p->vspace_inserted = html_engine_insert_vspace (p, clue,
 								p->vspace_inserted);
@@ -1426,11 +1429,11 @@ parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 			token = string_tokenizer_next_token (p->st);
 			if ( strncasecmp( token, "align=", 6 ) == 0 ) {
 				if ( strcasecmp( token + 6, "center" ) == 0 )
-					align = HCenter;
+					align = HTML_HALIGN_CENTER;
 				else if ( strcasecmp( token + 6, "right" ) == 0 )
-					align = Right;
+					align = HTML_HALIGN_RIGHT;
 				else if ( strcasecmp( token + 6, "left" ) == 0 )
-					align = Left;
+					align = HTML_HALIGN_LEFT;
 			}
 		}
 		
@@ -1493,8 +1496,8 @@ parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		gint size = 1;
 		gint length = clue->max_width;
 		gint percent = 100;
-		HAlignType align = p->divAlign;
-		HAlignType oldAlign = p->divAlign;
+		HTMLHAlignType align = p->divAlign;
+		HTMLHAlignType oldAlign = p->divAlign;
 		gboolean shade = TRUE;
 
 		if (p->flow)
@@ -1505,11 +1508,11 @@ parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 			gchar *token = string_tokenizer_next_token (p->st);
 			if (strncasecmp (token, "align=", 6) == 0) {
 				if (strcasecmp (token + 6, "left") == 0)
-					align = Left;
+					align = HTML_HALIGN_LEFT;
 				else if (strcasecmp (token + 6, "right") == 0)
-					align = Right;
+					align = HTML_HALIGN_RIGHT;
 				else if (strcasecmp (token + 6, "center") == 0)
-					align = HCenter;
+					align = HTML_HALIGN_CENTER;
 			}
 			else if (strncasecmp (token, "size=", 5) == 0) {
 				size = atoi (token + 5);
@@ -1553,9 +1556,9 @@ parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 		gint width = -1;
 		gint height = -1;
 		gint percent = 0;
-		HAlignType align = None;
+		HTMLHAlignType align = HTML_HALIGN_NONE;
 		gint border = 0;
-		VAlignType valign = VNone;
+		HTMLVAlignType valign = HTML_VALIGN_NONE;
 		
 		p->vspace_inserted = FALSE;
 
@@ -1579,13 +1582,13 @@ parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 			}
 			else if (strncasecmp (token, "align=", 6) == 0) {
 				if (strcasecmp (token + 6, "left") == 0)
-					align = Left;
+					align = HTML_HALIGN_LEFT;
 				else if (strcasecmp (token + 6, "right") == 0)
-					align = Right;
+					align = HTML_HALIGN_RIGHT;
 				else if (strcasecmp (token + 6, "top") == 0)
-					valign = Top;
+					valign = HTML_VALIGN_TOP;
 				else if (strcasecmp (token + 6, "bottom") ==0)
-					valign = Bottom;
+					valign = HTML_VALIGN_BOTTOM;
 			}
 #if 0							/* FIXME TODO map support */
 			else if ( strncasecmp( token, "usemap=", 7 ) == 0 )
@@ -1615,8 +1618,8 @@ parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 						width, height, percent, border);
 		}
 
-		if (align == None) {
-			if (valign == VNone) {
+		if (align == HTML_HALIGN_NONE) {
+			if (valign == HTML_VALIGN_NONE) {
 				html_clue_append (HTML_CLUE (p->flow), image);
 			}
 			else {
@@ -1713,18 +1716,18 @@ parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 
 		html_clue_append (HTML_CLUE (clue), f);
 		c = html_clueh_new (0, 0, clue->max_width);
-		HTML_CLUE (c)->valign = Top;
+		HTML_CLUE (c)->valign = HTML_VALIGN_TOP;
 		html_clue_append (HTML_CLUE (f), c);
 
 		/* Fixed width spacer */
 		vc = html_cluev_new (0, 0, indentSize, 0);
-		HTML_CLUE (vc)->valign = Top;
+		HTML_CLUE (vc)->valign = HTML_VALIGN_TOP;
 		html_clue_append (HTML_CLUE (c), vc);
 
 		switch (listType) {
 		case HTML_LIST_TYPE_UNORDERED:
 			p->flow = html_clueflow_new (0, 0, vc->max_width, 0);
-			HTML_CLUE (p->flow)->halign = Right;
+			HTML_CLUE (p->flow)->halign = HTML_HALIGN_RIGHT;
 			html_clue_append (HTML_CLUE (vc), p->flow);
 			font = html_stack_top (p->fs);
 			html_clue_append (HTML_CLUE (p->flow),
@@ -1739,7 +1742,7 @@ parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 			gchar *item;
 
 			p->flow = html_clueflow_new ( 0, 0, vc->max_width, 0 );
-			HTML_CLUE (p->flow)->halign = Right;
+			HTML_CLUE (p->flow)->halign = HTML_HALIGN_RIGHT;
 			html_clue_append (HTML_CLUE (vc), p->flow);
 
 			switch ( listNumType )
@@ -1920,7 +1923,7 @@ parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	} else if ( strncmp( str, "/pre", 4 ) == 0 ) {
 		pop_block (e, ID_PRE, clue);
 	} else if (*(str) == 'p' && ( *(str + 1) == ' ' || *(str + 1) == '>')) {
-		HAlignType align;
+		HTMLHAlignType align;
 		gchar *token;
 
 		close_anchor (e);
@@ -1932,11 +1935,11 @@ parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 			token = string_tokenizer_next_token (e->st);
 			if (strncasecmp (token, "align=", 6) == 0) {
 				if (strcasecmp (token + 6, "center") == 0)
-					align = HCenter;
+					align = HTML_HALIGN_CENTER;
 				else if (strcasecmp (token + 6, "right") == 0)
-					align = Right;
+					align = HTML_HALIGN_RIGHT;
 				else if (strcasecmp (token + 6, "left") == 0)
-					align = Left;
+					align = HTML_HALIGN_LEFT;
 			}
 			
 		}
@@ -2520,8 +2523,8 @@ html_engine_parse (HTMLEngine *p)
 	p->flow = 0;
 
 	p->clue = html_cluev_new (0, 0, p->width - p->leftBorder - p->rightBorder, 100);
-	HTML_CLUE (p->clue)->valign = Top;
-	HTML_CLUE (p->clue)->halign = Left;
+	HTML_CLUE (p->clue)->valign = HTML_VALIGN_TOP;
+	HTML_CLUE (p->clue)->halign = HTML_HALIGN_LEFT;
 	
 	/* Initialize the font stack with the default font */
 	p->italic = FALSE;
@@ -2574,7 +2577,7 @@ html_engine_insert_vspace (HTMLEngine *e, HTMLObject *clue, gboolean vspace_inse
 
 		/* FIXME: correct font size */
 		t = html_vspace_new (e->defaultSettings->fontSizes[e->settings->fontBaseSize],
-				     CNone);
+				     HTML_CLEAR_NONE);
 		html_clue_append (HTML_CLUE (f), t);
 		
 		e->flow = NULL;

@@ -80,12 +80,12 @@ calc_size (HTMLObject *clue, HTMLObject *parent)
 	clue->ascent = a + d;
 
 	switch (HTML_CLUE (clue)->valign) {
-	case Top:
+	case HTML_VALIGN_TOP:
 		for (obj = HTML_CLUE (clue)->head; obj != 0; obj = obj->next)
 			obj->y = obj->ascent;
 		break;
 
-	case VCenter:
+	case HTML_VALIGN_CENTER:
 		for (obj = HTML_CLUE (clue)->head; obj != 0; obj = obj->next)
 			obj->y = clue->ascent / 2;
 		break;
@@ -157,8 +157,8 @@ html_clueh_init (HTMLClueH *clueh, HTMLClueHClass *klass,
 
 	html_clue_init (clue, HTML_CLUE_CLASS (klass));
 
-	clue->valign = Bottom;
-	clue->halign = Left;
+	clue->valign = HTML_VALIGN_BOTTOM;
+	clue->halign = HTML_HALIGN_LEFT;
 	clue->head = clue->tail = clue->curr = 0;
 
 	object->x = x;

@@ -829,7 +829,7 @@ calc_size (HTMLObject *o, HTMLObject *parent)
 		gint cellHeight;
 		
 		HTML_OBJECT (table)->ascent = a_rowheights (r + 1) - table->padding - table->spacing;
-		if (table->caption && table->capAlign == Top) {
+		if (table->caption && table->capAlign == HTML_VALIGN_TOP) {
 			g_print ("FIXME: caption support\n");
 		}
 
@@ -859,7 +859,7 @@ calc_size (HTMLObject *o, HTMLObject *parent)
 
 	}
 
-	if (table->caption && table->capAlign == Bottom) {
+	if (table->caption && table->capAlign == HTML_VALIGN_BOTTOM) {
 		g_print ("FIXME: Caption support\n");
 	}
 

@@ -63,7 +63,7 @@ struct _HTMLTable {
 	gint padding;
 	gint border;
 	HTMLClueV *caption;
-	VAlignType capAlign;
+	HTMLVAlignType capAlign;
 	
 	GArray *colInfo; /* ColInfo_t array */
 	GArray *colType; /* ColType array */

@@ -120,8 +120,8 @@ html_cluealigned_init (HTMLClueAligned *aligned,
 		object->width = max_width;
 	}
 
-	clue->valign = Bottom;
-	clue->halign = Left;
+	clue->valign = HTML_VALIGN_BOTTOM;
+	clue->halign = HTML_HALIGN_LEFT;
 
 	aligned->prnt = parent;
 	aligned->next_aligned = NULL;

@@ -71,7 +71,7 @@ fit_line (HTMLObject *o,
 	  gboolean first_run,
 	  gint width_left)
 {
-	return HTMLCompleteFit;
+	return HTML_FIT_COMPLETE;
 }
 
 static void

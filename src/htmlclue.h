@@ -36,8 +36,8 @@ struct _HTMLClue {
 	HTMLObject *tail;
 	HTMLObject *curr;
 	
-	VAlignType valign;
-	HAlignType halign;
+	HTMLVAlignType valign;
+	HTMLHAlignType halign;
 };
 
 struct _HTMLClueClass {

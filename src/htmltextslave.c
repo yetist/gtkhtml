@@ -67,14 +67,14 @@ fit_line (HTMLObject *o,
 		/* Text fits completely */
 		if (!o->next || (o->next->flags & (HTML_OBJECT_FLAG_SEPARATOR
 						   | HTML_OBJECT_FLAG_NEWLINE))) {
-			return_value = HTMLCompleteFit;
+			return_value = HTML_FIT_COMPLETE;
 			goto done;
 		}
 
 		/* Text is followed by more text...break it before the last word */
 		splitPtr = rindex (text + 1, ' ');
 		if (!splitPtr) {
-			return_value = HTMLCompleteFit;
+			return_value = HTML_FIT_COMPLETE;
 			goto done;
 		}
 	}
@@ -121,7 +121,7 @@ fit_line (HTMLObject *o,
 		/* No separator available */
 		if (firstRun == FALSE) {
 			/* Text does not fit, wait for next line */
-			return_value = HTMLNoFit;
+			return_value = HTML_FIT_NONE;
 			goto done;
 		}
 
@@ -140,7 +140,7 @@ fit_line (HTMLObject *o,
 	textslave->posLen = newLen;
 	o->width = newWidth;
 
-	return_value = HTMLPartialFit;
+	return_value = HTML_FIT_PARTIAL;
 
  done:
 #ifdef HTML_TEXT_SLAVE_DEBUG

@@ -1,3 +1,14 @@
+1999-12-03  Ettore Perazzoli  <ettore@gnu.org>
+
+	* htmllinktextmaster.c: The parent class is
+	`HTMLLinkTextMasterClass', not `HTMLTextMasterClass'.
+
+	* htmlobject.h: Renamed `ClearType' to `HTMLClearType'; made the
+	ids uppercase and prefixed with `HTML_CLEAR_'.  Similiar treatmant
+	for `HTMLVAlignType' and `HTMLHAlignType'.  Changed values for
+	`HTMLFitType' to be all uppercase and be prefixed with `HTML_FIT'
+	as well.  All instances updated.
+
 1999-11-28  Ettore Perazzoli  <ettore@gnu.org>
 
 	* htmlengine.c (parse_b): Handle `link=', `vlink=' and `text=' in

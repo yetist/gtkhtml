@@ -26,7 +26,7 @@
 
 HTMLLinkTextMasterClass html_link_text_master_class;
 
-static HTMLTextMasterClass *parent_class;
+static HTMLLinkTextMasterClass *parent_class;
 
 
 /* HTMLObject methods.  */

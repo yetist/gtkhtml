@@ -173,8 +173,8 @@ html_table_cell_init (HTMLTableCell *cell,
 	
 	object->flags &= ~HTML_OBJECT_FLAG_FIXEDWIDTH;
 
-	clue->valign = Bottom;
-	clue->halign = Left;
+	clue->valign = HTML_VALIGN_BOTTOM;
+	clue->halign = HTML_HALIGN_LEFT;
 
 	cell->padding = pad;
 	cell->refcount = 0;

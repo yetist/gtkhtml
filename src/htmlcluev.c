@@ -151,11 +151,11 @@ calc_size (HTMLObject *o,
 	if ((o->max_width != 0) && (o->width > o->max_width))
 		o->width = o->max_width;
 	
-	if (clue->halign == HCenter) {
+	if (clue->halign == HTML_HALIGN_CENTER) {
 		for (obj = clue->head; obj != 0; obj = obj->next)
 			obj->x = lmargin + (o->width - obj->width) / 2;
 	}
-	else if (clue->halign == Right) {
+	else if (clue->halign == HTML_HALIGN_RIGHT) {
 		for (obj = clue->head; obj != 0; obj = obj->next)
 			obj->x = lmargin + (o->width - obj->width);
 	}
@@ -370,7 +370,7 @@ appended (HTMLClue *clue, HTMLClue *aclue)
 	/* Returns whether aclue is already in the alignList */
 	HTMLClueAligned *aligned;
 	
-	if (aclue->halign == Left) {
+	if (aclue->halign == HTML_HALIGN_RIGHT) {
 		g_print ("FIIIIXMEEEE\n");
 		aligned = NULL;
 	}
@@ -505,8 +505,8 @@ html_cluev_init (HTMLClueV *cluev,
 	else
 		object->width = max_width;
 
-	clue->valign = Bottom;
-	clue->halign = Left;
+	clue->valign = HTML_VALIGN_BOTTOM;
+	clue->halign = HTML_HALIGN_LEFT;
 	clue->head = clue->tail = clue->curr = 0;
 
 	cluev->align_left_list = 0;

@@ -71,13 +71,13 @@ calc_size (HTMLObject *o,
 	gint lmargin, rmargin;
 	gint oldy;
 	gint w, a, d;
-	ClearType clear;
+	HTMLClearType clear;
 
 	clue = HTML_CLUE (o);
 
 	obj = clue->head;
 	line = clue->head;
-	clear = CNone;
+	clear = HTML_CLEAR_NONE;
 
 	o->ascent = 0;
 	o->descent = 0;
@@ -123,7 +123,7 @@ calc_size (HTMLObject *o,
 			if (! html_clue_appended (HTML_CLUE (parent), HTML_CLUE (c))) {
 				html_object_calc_size (obj, NULL);
 
-				if (HTML_CLUE (c)->halign == Left) {
+				if (HTML_CLUE (c)->halign == HTML_HALIGN_LEFT) {
 					/* FIXME TODO */
 					g_print ("Left\n");
 				} else {
@@ -161,7 +161,7 @@ calc_size (HTMLObject *o,
 											(obj == line),
 											rmargin - runWidth - w);
 
-				if (fit == HTMLNoFit) {
+				if (fit == HTML_FIT_NONE) {
 					newLine = TRUE;
 					break;
 				}
@@ -182,7 +182,7 @@ calc_size (HTMLObject *o,
 
 				run = run->next;
 
-				if (fit == HTMLPartialFit) {
+				if (fit == HTML_FIT_PARTIAL) {
 					/* Implicit separator */
 					break;
 				}
@@ -241,7 +241,7 @@ calc_size (HTMLObject *o,
 					a = 0;
 
 					newLine = FALSE;
-					clear = CNone;
+					clear = HTML_CLEAR_NONE;
 				}
 				else {
 					while (obj != run) {
@@ -265,12 +265,12 @@ calc_size (HTMLObject *o,
 				o->width = w;
 			}
 			
-			if (clue->halign == HCenter) {
+			if (clue->halign == HTML_HALIGN_CENTER) {
 				extra = (rmargin - w) / 2;
 				if (extra < 0)
 					extra = 0;
 			}
-			else if (clue->halign == Right) {
+			else if (clue->halign == HTML_HALIGN_RIGHT) {
 				extra = rmargin - w;
 				if (extra < 0)
 					extra = 0;
@@ -281,7 +281,8 @@ calc_size (HTMLObject *o,
 					line->y = o->ascent - d;
 					html_object_set_max_ascent (line, a);
 					html_object_set_max_descent (line, d);
-					if (clue->halign == HCenter || clue->halign == Right) {
+					if (clue->halign == HTML_HALIGN_CENTER
+					    || clue->halign == HTML_HALIGN_RIGHT) {
 						line->x += extra;
 					}
 				}
@@ -290,7 +291,7 @@ calc_size (HTMLObject *o,
 
 			oldy = o->y;
 			
-			if (clear == CAll) {
+			if (clear == HTML_CLEAR_ALL) {
 				int new_lmargin, new_rmargin;
 				
 				html_clue_find_free_area (HTML_CLUE (parent), oldy,
@@ -299,9 +300,9 @@ calc_size (HTMLObject *o,
 										  &o->y,
 										  &new_lmargin,
 										  &new_rmargin);
-			} else if (clear == CLeft) {
+			} else if (clear == HTML_CLEAR_LEFT) {
 				o->y = html_clue_get_left_clear (HTML_CLUE (parent), oldy);
-			} else if (clear == CRight) {
+			} else if (clear == HTML_CLEAR_RIGHT) {
 				o->y = html_clue_get_right_clear (HTML_CLUE (parent), oldy);
 			}
 
@@ -319,7 +320,7 @@ calc_size (HTMLObject *o,
 			a = 0;
 			
 			newLine = FALSE;
-			clear = CNone;
+			clear = HTML_CLEAR_NONE;
 		}
 	}
 	
@@ -397,8 +398,8 @@ html_clueflow_init (HTMLClueFlow *clueflow,
 	object->width = max_width;
 	object->flags &= ~ HTML_OBJECT_FLAG_FIXEDWIDTH;
 
-	clue->valign = Bottom;
-	clue->halign = Left;
+	clue->valign = HTML_VALIGN_BOTTOM;
+	clue->halign = HTML_HALIGN_LEFT;
 	clue->head = 0;
 	clue->tail = 0;
 	clue->curr = 0;

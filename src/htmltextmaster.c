@@ -56,7 +56,7 @@ fit_line (HTMLObject *o, gboolean startOfLine, gboolean firstRun,
 	HTMLObject *text_slave;
 
 	if (o->flags & HTML_OBJECT_FLAG_NEWLINE)
-		return HTMLCompleteFit;
+		return HTML_FIT_COMPLETE;
 	
 	/* Remove existing slaves */
 	next_obj = o->next;
@@ -73,7 +73,7 @@ fit_line (HTMLObject *o, gboolean startOfLine, gboolean firstRun,
 	text_slave->next = o->next;
 	o->next = text_slave;
 	
-	return HTMLCompleteFit;
+	return HTML_FIT_COMPLETE;
 }
 
 
