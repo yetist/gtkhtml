@@ -1138,15 +1138,13 @@ save (HTMLObject *self,
 	return write_post_tags (HTML_CLUEFLOW (self), state);
 }
 
-#define MATCH_UTF8_NBSP(s) (*s == (guchar)0xc2 && *(s + 1) == (guchar)0xa0)
- 
 static gint
 string_append_nonbsp (GString *out, guchar *s, gint length)
 {
 	gint len = length;
 
 	while (len--) {
-		if (MATCH_UTF8_NBSP (s)) {
+		if (IS_UTF8_NBSP (s)) {
 			g_string_append_c (out, ' ');
 			s += 2;
 			len--;
@@ -1229,8 +1227,8 @@ save_plain (HTMLObject *self,
 					space = s + unicode_offset_to_index (s, requested_width - pad);
 					while (space > s 
 					       && (*space != ' '))
-						// || (MATCH_UTF8_NBSP ((guchar *)unicode_next_utf8 (space)))
-						// || (MATCH_UTF8_NBSP ((guchar *)unicode_previous_utf8 (s, space)))))
+						// || (IS_UTF8_NBSP ((guchar *)unicode_next_utf8 (space)))
+						// || (IS_UTF8_NBSP ((guchar *)unicode_previous_utf8 (s, space)))))
 						space = unicode_previous_utf8 (s, space);
 					
 					if (space != s)
@@ -1242,7 +1240,7 @@ save_plain (HTMLObject *self,
 			s += string_append_nonbsp (out, s, len);
 			
 			/* Trim the space at the end */
-			while (*s == ' ' || MATCH_UTF8_NBSP (s)) 
+			while (*s == ' ' || IS_UTF8_NBSP (s)) 
 				s = unicode_next_utf8 (s);
 			
 			if (*s == '\n') 

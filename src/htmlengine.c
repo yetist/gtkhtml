@@ -55,6 +55,7 @@
 #include "htmldrawqueue.h"
 #include "htmlgdkpainter.h"
 #include "htmlreplace.h"
+#include "htmlentity.h"
 
 #include "htmlanchor.h"
 #include "htmlrule.h"
@@ -1240,6 +1241,18 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	return str;
 }
 
+static gboolean
+is_leading_space (guchar *str)
+{
+	while (*str != '\0') {
+		if (!(isspace (*str) || IS_UTF8_NBSP (str))) 
+			return FALSE;
+		
+		str = unicode_next_utf8 (str);
+	}
+	return TRUE;
+}
+
 static gchar * 
 parse_object_params(HTMLEngine *p, HTMLObject *clue) 
 {
@@ -1254,7 +1267,7 @@ parse_object_params(HTMLEngine *p, HTMLObject *clue)
 		
 		if (*str == '\0' || 
 		    *str == '\n' ||
-		    (*str == ' ' && *(str + 1) == '\0')) {
+		    is_leading_space (str)) {
 				str = html_tokenizer_next_token (p->ht);
 				/* printf ("\"%s\": was the string\n", str); */
 				continue;
@@ -2744,9 +2757,13 @@ parse_t (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		e->title = g_string_new ("");
 	}
 	else if (strncmp (str, "/title", 6) == 0) {
+		/*
+		 * only emit the title changed signal if we have a 
+		 * valid title 
+		 */
+		if (e->inTitle && e->title) 
+			gtk_signal_emit (GTK_OBJECT (e), signals[TITLE_CHANGED]);
 		e->inTitle = FALSE;
-
-		gtk_signal_emit (GTK_OBJECT (e), signals[TITLE_CHANGED]);
 	}
 	else if ( strncmp( str, "tt", 2 ) == 0 ) {
 		push_font_style (e, GTK_HTML_FONT_STYLE_FIXED);

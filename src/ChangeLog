@@ -1,3 +1,13 @@
+2001-03-08  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c (parse_object_params): handle the multiple leading
+	spaces you can get from tabs and &nbsp; correctly.
+	(is_leading_space): helper funtion to find leading whitespace.
+
+	* htmlclueflow.c: use IS_UTF8_NBSP.
+	
+	* htmlentity.h (IS_UTF8_NBSP): helper macro to match &nbsp;
+
 2001-03-08  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml-search.c (data_destroy): don't destroy widget, as this
