@@ -89,7 +89,12 @@ EDITOR_API_VERSION=3.0
 AC_DEFINE_UNQUOTED(EDITOR_API_VERSION, "${EDITOR_API_VERSION}")
 AC_SUBST(EDITOR_API_VERSION)
 
-dnl shlib_factory=yes
+dnl ******************************
+dnl shlib factory
+dnl ******************************
+
+AC_ARG_ENABLE(shlib-factory, [  --enable-shlib-factory  build editor factory as shared library [default=no]],shlib_factory="$enableval", shlib_factory="no")
+
 if test "x$shlib_factory" = "xyes"; then
 	GNOME_GTKHTML_EDITOR_SHLIB=1
 	GNOME_GTKHTML_EDITOR_TYPE="shlib"
