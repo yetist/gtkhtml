@@ -3,13 +3,13 @@
 # Christian Rose <menthos@menthos.com>, 2000, 2001.
 # Martin Norbäck <d95mback@dtek.chalmers.se>, 2000.
 #
-# $Id: sv.po,v 1.32 2001/09/11 12:51:06 menthos Exp $
+# $Id: sv.po,v 1.33 2001/09/12 12:54:17 menthos Exp $
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2001-09-11 14:49+0200\n"
-"PO-Revision-Date: 2001-09-11 14:50+0200\n"
+"POT-Creation-Date: 2001-09-12 14:44+0200\n"
+"PO-Revision-Date: 2001-09-12 14:53+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -23,6 +23,7 @@ msgstr "<Ingen>"
 #: capplet/gnome-bindings-prop.c:216 capplet/main.c:245
 #: components/html-editor/cell.c:385 components/html-editor/rule.c:315
 #: components/html-editor/table.c:525 components/html-editor/table.c:616
+#: components/html-editor/template.c:243
 msgid "Could not load glade file."
 msgstr "Kunde inte läsa in glade-filen."
 
@@ -580,7 +581,7 @@ msgid "_Alignment"
 msgstr "_Justering"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
-msgid "_Alpabetical List"
+msgid "_Alphabetical List"
 msgstr "_Alfabetisk lista"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
@@ -593,7 +594,7 @@ msgstr "_Punktlista"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
 msgid "_Center"
-msgstr "_Mitten"
+msgstr "_Centrera"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
 msgid "_Copy"
@@ -794,7 +795,7 @@ msgstr "Cell"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:9
 #: components/html-editor/paragraph.c:159 components/html-editor/toolbar.c:500
 msgid "Center"
-msgstr "Mitten"
+msgstr "Centrera"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:10
 msgid "Color:"
@@ -1053,7 +1054,7 @@ msgstr "Lägg till \"%s\" i ordboken"
 msgid "Ignore '%s'"
 msgstr "Ignorera \"%s\""
 
-#: components/html-editor/popup.c:347
+#: components/html-editor/popup.c:347 components/html-editor/spell.c:353
 msgid "Spell checker"
 msgstr "Stavningskontroll"
 
@@ -1183,6 +1184,36 @@ msgstr "Platt grå"
 msgid "Dark header"
 msgstr "Mörk rubrik"
 
+#: components/html-editor/template.c:81
+msgid "Note"
+msgstr "Anteckning"
+
+#: components/html-editor/template.c:83
+msgid ""
+"<table cellspacing=0 cellpadding=1 "
+"bgcolor=\"#ccccc0\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" "
+"cellpadding=3 cellspacing=0 width=\"100%\"><tr><td valign=top><img "
+"src=\"file://"
+msgstr ""
+"<table cellspacing=0 cellpadding=1 "
+"bgcolor=\"#ccccc0\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" "
+"cellpadding=3 cellspacing=0 width=\"100%\"><tr><td valign=top><img "
+"src=\"file://"
+
+#: components/html-editor/template.c:91
+msgid "Image frame"
+msgstr "Bildram"
+
+#: components/html-editor/template.c:93
+msgid ""
+"<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" @width@@align@><tr><td><table "
+"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" "
+"width=\"100%\"><tr><td align=\"center\"><img src=\"file://"
+msgstr ""
+"<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" @width@@align@><tr><td><table "
+"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" "
+"width=\"100%\"><tr><td align=\"center\"><img src=\"file://"
+
 #: components/html-editor/test-html-editor-control.c:276
 msgid "Open file..."
 msgstr "Öppna fil..."
@@ -1221,7 +1252,7 @@ msgstr "Använd/använd inte skrivmaskinstypsnitt"
 
 #: components/html-editor/toolbar.c:511
 msgid "Makes the text bold"
-msgstr "Gör texten fetstilad"
+msgstr "Gör texten fetstilt"
 
 #: components/html-editor/toolbar.c:513
 msgid "Makes the text italic"
@@ -1267,7 +1298,7 @@ msgstr "Förhands_granska"
 msgid "Print preview"
 msgstr "Förhandsgranska"
 
-#~ msgid "_Alphabetical List"
+#~ msgid "_Alpabetical List"
 #~ msgstr "_Alfabetisk lista"
 
 #~ msgid "Key"
