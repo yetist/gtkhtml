@@ -1,5 +1,13 @@
 2004-11-02  Radek Doulik  <rodo@ximian.com>
 
+	* htmlstyle.c: added padding
+
+	* htmlengine.c: put additional cluev around display blocks to be
+	able to draw borders specified in style="...", we will use that in
+	evolution mail view in <DIV></DIV> blocks
+
+	* htmlcluev.c: added background color, use padding from style
+
 	* gtkhtmldebug.c (gtk_html_debug_dump_object): moved debug details
 	for text object from simple to normal debug dump
 
