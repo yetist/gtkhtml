@@ -86,12 +86,12 @@ op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GL
 }
 
 static gboolean
-object_merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e)
+object_merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList *left, GList *right)
 {
 	return strcasecmp (HTML_LINK_TEXT (self)->url, HTML_LINK_TEXT (with)->url)
 		|| strcasecmp (HTML_LINK_TEXT (self)->target, HTML_LINK_TEXT (with)->target)
 		? FALSE
-		: (* HTML_OBJECT_CLASS (parent_class)->merge) (self, with, e);
+		: (* HTML_OBJECT_CLASS (parent_class)->merge) (self, with, e, left, right);
 }
 
 static const gchar *

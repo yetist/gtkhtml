@@ -98,6 +98,19 @@ copy (HTMLObject *self, HTMLObject *dest)
 	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
 }
 
+static gboolean
+merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList *left, GList *right)
+{
+	HTMLTableCell *c1 = HTML_TABLE_CELL (self);
+	HTMLTableCell *c2 = HTML_TABLE_CELL (with);
+
+	printf ("merge cells %d,%d %d,%d\n", c1->row, c1->col, c2->row, c2->col);
+
+	return c1->col == c2->col
+		? (* HTML_OBJECT_CLASS (parent_class)->merge) (self, with, e, left, right)
+		: FALSE;
+}
+
 static gint
 calc_min_width (HTMLObject *o,
 		HTMLPainter *painter)
@@ -297,6 +310,7 @@ html_table_cell_class_init (HTMLTableCellClass *klass,
 	object_class->set_bg_color = set_bg_color;
 	object_class->get_bg_color = get_bg_color;
 	object_class->save = save;
+	object_class->merge = merge;
 
 	parent_class = &html_cluev_class;
 }

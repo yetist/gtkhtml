@@ -139,7 +139,7 @@ op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GL
 }
 
 static gboolean
-merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e)
+merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList *left, GList *right)
 {
 	HTMLClue   *clue1, *clue2;
 
@@ -149,6 +149,8 @@ merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e)
 	html_clue_append (clue1, clue2->head);
 	clue2->head = NULL;
 	clue2->tail = NULL;
+
+	printf ("merge clues\n");
 
 	html_object_change_set (self, HTML_CHANGE_ALL);
 	return TRUE;
@@ -179,7 +181,7 @@ split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint lev
 	HTML_CLUE (dup)->head  = child;
 	set_parent (child, NULL, dup);
 
-	if (self->parent)
+	if (self->parent && HTML_OBJECT_TYPE (self->parent) != HTML_TYPE_TABLE)
 		html_clue_append_after (HTML_CLUE (self->parent), dup, self);
 
 	*left  = g_list_prepend (*left, self);

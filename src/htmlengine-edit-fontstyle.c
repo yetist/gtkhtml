@@ -241,7 +241,7 @@ object_set_font_style (HTMLObject *o, HTMLEngine *e, gpointer data)
 		HTML_TEXT (o)->font_style &= tf->and_mask;
 
 		if (o->prev)
-			html_object_merge (o->prev, o, e);
+			html_object_merge (o->prev, o, e, NULL, NULL);
 	}
 }
 
@@ -310,7 +310,7 @@ inc_dec_size_cb (HTMLObject *o, HTMLEngine *e, gpointer data)
 	if (html_object_is_text (o)) {
 		html_text_set_font_style (HTML_TEXT (o), e, inc_dec_size (HTML_TEXT (o)->font_style, GPOINTER_TO_INT (data)));
 		if (o->prev)
-			html_object_merge (o->prev, o, e);
+			html_object_merge (o->prev, o, e, NULL, NULL);
 	}
 }
 
@@ -331,7 +331,7 @@ set_color (HTMLObject *o, HTMLEngine *e, gpointer data)
 		html_text_set_color (HTML_TEXT (o), NULL, (HTMLColor *) data);
 
 		if (o->prev)
-			html_object_merge (o->prev, o, e);
+			html_object_merge (o->prev, o, e, NULL, NULL);
 	}
 }
 

@@ -95,7 +95,7 @@ split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint lev
 }
 
 static gboolean
-merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e)
+merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList *left, GList *right)
 {
 	HTMLClueFlow *cf1, *cf2;
 
@@ -105,7 +105,9 @@ merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e)
 	html_clueflow_remove_text_slaves (cf1);
 	html_clueflow_remove_text_slaves (cf2);
 
-	return (* HTML_OBJECT_CLASS (parent_class)->merge) (self, with, e);
+	printf ("merge flows\n");
+
+	return (* HTML_OBJECT_CLASS (parent_class)->merge) (self, with, e, left, right);
 }
 
 static guint

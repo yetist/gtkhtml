@@ -29,6 +29,7 @@
 #include "htmltext.h"
 #include "htmltextslave.h"
 #include "htmltable.h"
+#include "htmltablecell.h"
 #include "htmlclue.h"
 #include "htmlclueflow.h"
 #include "htmliframe.h"
@@ -155,7 +156,6 @@ gtk_html_debug_dump_object (HTMLObject *obj,
 			 sl_text);
 		g_free (sl_text);
 	}
-			
 
 	g_print ("\n");
 
@@ -242,6 +242,12 @@ dump_object_simple (HTMLObject *obj,
 		g_print ("%s `%s'\n",
 			 html_type_name (HTML_OBJECT_TYPE (obj)),
 			 text);
+	} else if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_TABLECELL) {
+		g_print ("%s %d,%d\n", html_type_name (HTML_OBJECT_TYPE (obj)),
+			 HTML_TABLE_CELL (obj)->row, HTML_TABLE_CELL (obj)->col);
+	} else if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_TABLE) {
+		g_print ("%s %d,%d\n", html_type_name (HTML_OBJECT_TYPE (obj)),
+			 HTML_TABLE (obj)->totalRows, HTML_TABLE (obj)->totalCols);
 	} else
 		g_print ("%s\n", html_type_name (HTML_OBJECT_TYPE (obj)));
 }
