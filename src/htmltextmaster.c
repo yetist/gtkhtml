@@ -440,53 +440,63 @@ split (HTMLText *self,
 
 static void
 merge (HTMLText *self,
-       HTMLText **list)
+       HTMLText *other,
+       gboolean prepend)
 {
-	HTMLText **p;
 	guint total_length;
 	guint select_start, select_length;
 	gchar *new_text;
-	gchar *sp;
 
-	total_length = self->text_len;
+	if (other->text_len == 0)
+		return;
 
-	select_length = HTML_TEXT_MASTER (self)->select_length;
-	select_start = HTML_TEXT_MASTER (self)->select_start;
+	/* Calculate the new selection.  */
 
-	for (p = list; *p != NULL; p++) {
-		g_return_if_fail (HTML_OBJECT_TYPE (*p) == HTML_OBJECT_TYPE (self));
-
-		/* XXX For this to make sense, selection must always be
-                   contiguous.  */
-
-		if (HTML_TEXT_MASTER (*p)->select_length > 0) {
-			if (select_length == 0)
-				select_start = total_length + HTML_TEXT_MASTER (*p)->select_start;
-			select_length += HTML_TEXT_MASTER (*p)->select_length;
+	if (prepend) {
+		if (HTML_TEXT_MASTER (self)->select_length == 0) {
+			select_start = HTML_TEXT_MASTER (other)->select_length;
+			select_length = HTML_TEXT_MASTER (other)->select_start;
+		} else if (HTML_TEXT_MASTER (other)->select_length == 0) {
+			select_start = HTML_TEXT (other)->text_len;
+			select_length = HTML_TEXT_MASTER (self)->select_length;
+		} else {
+			select_start = HTML_TEXT_MASTER (other)->select_start;
+			select_length = (HTML_TEXT (other)->text_len
+					 + HTML_TEXT_MASTER (self)->select_start
+					 + HTML_TEXT_MASTER (self)->select_length
+					 - HTML_TEXT_MASTER (other)->select_start);
 		}
-
-		if (! HTML_OBJECT (self)->selected && HTML_OBJECT (*p)->selected)
-			select_start = total_length + HTML_TEXT_MASTER (*p)->select_start;
-
-		total_length += HTML_TEXT (*p)->text_len;
+	} else {
+		if (HTML_TEXT_MASTER (self)->select_length == 0) {
+			select_start = (HTML_TEXT_MASTER (other)->select_length
+					+ HTML_TEXT (self)->text_len);
+			select_length = HTML_TEXT (other)->text_len;
+		} else if (HTML_TEXT_MASTER (other)->select_length == 0) {
+			select_start = HTML_TEXT_MASTER (self)->select_start;
+			select_length = HTML_TEXT_MASTER (self)->select_length;
+		} else {
+			select_start = HTML_TEXT_MASTER (self)->select_start;
+			select_length = (HTML_TEXT (self)->text_len
+					 + HTML_TEXT_MASTER (other)->select_start
+					 + HTML_TEXT_MASTER (other)->select_length
+					 - HTML_TEXT_MASTER (self)->select_start);
+		}
 	}
 
+	total_length = self->text_len + other->text_len;
 	new_text = g_malloc (total_length + 1);
-	sp = new_text;
 
-	if (self->text_len > 0) {
-		memcpy (sp, self->text, self->text_len);
-		sp += self->text_len;
+	if (prepend) {
+		memcpy (new_text, other->text, other->text_len);
+		if (self->text_len > 0)
+			memcpy (new_text + other->text_len, self->text, self->text_len);
+	} else {
+		if (self->text_len > 0)
+			memcpy (new_text, self->text, self->text_len);
+		memcpy (new_text + self->text_len, other->text, other->text_len);
 	}
 
-	for (p = list; *p != NULL; p++) {
-		if ((*p)->text_len > 0) {
-			memcpy (sp, (*p)->text, (*p)->text_len);
-			sp += (*p)->text_len;
-		}
-	}
-
-	*sp = 0;
+	new_text[total_length] = 0;
 
 	g_free (self->text);
 	self->text = new_text;
@@ -494,6 +504,11 @@ merge (HTMLText *self,
 
 	HTML_TEXT_MASTER (self)->select_start = select_start;
 	HTML_TEXT_MASTER (self)->select_length = select_length;
+
+	if (select_length > 0)
+		HTML_OBJECT (self)->selected = TRUE;
+	else
+		HTML_OBJECT (self)->selected = FALSE;
 }
 
 static guint

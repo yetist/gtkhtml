@@ -441,7 +441,8 @@ split (HTMLText *self,
 
 static void
 merge (HTMLText *text,
-       HTMLText **list)
+       HTMLText *other,
+       gboolean prepend)
 {
 	g_warning ("HTMLText::merge not implemented.");
 }
@@ -664,12 +665,14 @@ html_text_split (HTMLText *text,
 
 void
 html_text_merge (HTMLText *text,
-		 HTMLText **list)
+		 HTMLText *other,
+		 gboolean prepend)
 {
 	g_return_if_fail (text != NULL);
-	g_return_if_fail (list != NULL);
+	g_return_if_fail (other != NULL);
+	g_return_if_fail (HTML_OBJECT_TYPE (text) == HTML_OBJECT_TYPE (other));
 
-	return (* HT_CLASS (text)->merge) (text, list);
+	return (* HT_CLASS (text)->merge) (text, other, prepend);
 }
 
 gboolean

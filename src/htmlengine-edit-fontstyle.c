@@ -26,13 +26,34 @@
 #include "htmlengine-edit-fontstyle.h"
 
 
+/* This merges @text with @other, prepending as defined by @prepend,
+   and makes sure that @cursor is still valid (i.e. still points to a
+   valid object) after this.  */
+static void
+merge_safely (HTMLText *text,
+	      HTMLText *other,
+	      gboolean prepend,
+	      HTMLCursor *cursor)
+{
+	if (cursor->object == HTML_OBJECT (other)) {
+		if (! prepend)
+			cursor->offset += text->text_len;
+		cursor->object = HTML_OBJECT (text);
+	}
+
+	html_text_merge (text, other, prepend);
+	html_clue_remove (HTML_CLUE (HTML_OBJECT (text)->parent), HTML_OBJECT (other));
+	html_object_destroy (HTML_OBJECT (other));
+}
+
+/* This handles merging of consecutive text elements with the same
+   properties.  */
 static void
 merge_backward (HTMLObject *object,
 		HTMLCursor *cursor)
 {
 	GtkHTMLFontStyle font_style;
 	HTMLObject *p, *pprev;
-	static HTMLText *merge_list[2] = { NULL, NULL };
 
 	font_style = HTML_TEXT (object)->font_style;
 
@@ -43,16 +64,7 @@ merge_backward (HTMLObject *object,
 			html_object_destroy (p);
 		} else if (HTML_OBJECT_TYPE (object) == HTML_OBJECT_TYPE (p)
 			   && html_text_check_merge (HTML_TEXT (object), HTML_TEXT (p))) {
-			merge_list[0] = HTML_TEXT (object);
-			html_text_merge (HTML_TEXT (p), merge_list);
-			html_clue_remove (HTML_CLUE (object->parent), object);
-
-			if (object == cursor->object) {
-				cursor->object = p;
-				cursor->offset += HTML_TEXT (object)->text_len;
-			}
-
-			html_object_destroy (object);
+			merge_safely (HTML_TEXT (object), HTML_TEXT (p), TRUE, cursor);
 		} else {
 			break;
 		}
@@ -65,7 +77,6 @@ merge_forward (HTMLObject *object,
 {
 	GtkHTMLFontStyle font_style;
 	HTMLObject *p, *pnext;
-	static HTMLText *merge_list[2] = { NULL, NULL };
 
 	font_style = HTML_TEXT (object)->font_style;
 
@@ -76,10 +87,7 @@ merge_forward (HTMLObject *object,
 			html_object_destroy (p);
 		} else if (HTML_OBJECT_TYPE (object) == HTML_OBJECT_TYPE (p)
 			   && html_text_check_merge (HTML_TEXT (object), HTML_TEXT (p))) {
-			merge_list[0] = HTML_TEXT (p);
-			html_text_merge (HTML_TEXT (object), merge_list);
-			html_clue_remove (HTML_CLUE (p->parent), p);
-			html_object_destroy (p);
+			merge_safely (HTML_TEXT (object), HTML_TEXT (p), FALSE, cursor);
 		} else {
 			break;
 		}
@@ -147,15 +155,8 @@ set_font_style_in_selection_forall (HTMLObject *self,
 			   && next->selected
 			   && (((HTML_TEXT (next)->font_style & data->and_mask) | data->or_mask)
 			       == font_style)) {
-			static HTMLText *merge_list[2] = { NULL, NULL };
-
 			last_font_style = HTML_TEXT (next)->font_style;
-
-			merge_list[0] = HTML_TEXT (next);
-			html_text_merge (HTML_TEXT (curr), merge_list);
-
-			html_clue_remove (HTML_CLUE (next->parent), next);
-			html_object_destroy (next);
+			merge_safely (HTML_TEXT (curr), HTML_TEXT (next), FALSE, data->cursor);
 			next = HTML_OBJECT (curr)->next;
 		} else {
 			break;

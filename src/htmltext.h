@@ -51,7 +51,7 @@ struct _HTMLTextClass {
 	void  (* queue_draw) (HTMLText *text, HTMLEngine *engine, guint offset, guint len);
 
 	HTMLText *(* split) (HTMLText *text, guint offset);
-	void (* merge) (HTMLText *text, HTMLText **list);
+	void (* merge) (HTMLText *text, HTMLText *other, gboolean prepend);
 	gboolean (* check_merge) (HTMLText *self, HTMLText *text);
 	
 	GtkHTMLFontStyle (* get_font_style) (const HTMLText *text);
@@ -94,7 +94,8 @@ void        html_text_queue_draw   (HTMLText         *text,
 HTMLText *html_text_split        (HTMLText  *text,
 				  guint      offset);
 void      html_text_merge        (HTMLText  *text,
-				  HTMLText **list);
+				  HTMLText  *other,
+				  gboolean   prepend);
 gboolean  html_text_check_merge  (HTMLText  *self,
 				  HTMLText  *text);
 
