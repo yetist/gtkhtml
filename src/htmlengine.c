@@ -2834,7 +2834,8 @@ html_engine_destroy (GtkObject *object)
 	html_string_tokenizer_destroy (engine->st);
 	html_settings_destroy (engine->settings);
 	html_settings_destroy (engine->defaultSettings);
-	html_object_destroy (engine->clue);
+	if (engine->clue != NULL)
+		html_object_destroy (engine->clue);
 	engine->clue = NULL;
 	html_image_factory_free (engine->image_factory);
 
