@@ -1,13 +1,13 @@
 # Czech message catalog for Evolution.
 # Copyright (C) 2000 Free Software Foundation, Inc.
 # Radka Soukupova <Radka.Soukupova@centrum.cz>
-# Miloslav Trmac <mitr@volny.cz>, 2002.
+# Miloslav Trmac <mitr@volny.cz>, 2002, 2003.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml VERSION\n"
-"POT-Creation-Date: 2002-11-20 05:43+0100\n"
-"PO-Revision-Date: 2002-11-20 20:33+0100\n"
+"POT-Creation-Date: 2003-01-10 03:14+0100\n"
+"PO-Revision-Date: 2003-01-10 12:26+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,9 +19,9 @@ msgid "<None>"
 msgstr "<Žádný>"
 
 #: capplet/gnome-bindings-prop.c:211 capplet/main.c:241
-#: components/html-editor/cell.c:391 components/html-editor/image.c:532
+#: components/html-editor/cell.c:417 components/html-editor/image.c:532
 #: components/html-editor/rule.c:315 components/html-editor/table.c:529
-#: components/html-editor/table.c:613 components/html-editor/template.c:263
+#: components/html-editor/table.c:613 components/html-editor/template.c:271
 msgid "Could not load glade file."
 msgstr "Nemohu načíst soubor glade."
 
@@ -317,7 +317,7 @@ msgid "Header _6"
 msgstr "Hlavička _6"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
-#: components/html-editor/editor-control-factory.c:172
+#: components/html-editor/editor-control-factory.c:176
 #: components/html-editor/gtkhtml-editor-properties.glade.h:39
 #: components/html-editor/menubar.c:125 components/html-editor/popup.c:206
 msgid "Image"
@@ -550,7 +550,7 @@ msgid "Roman Numeral List"
 msgstr "Římsky číslovaný seznam"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
-#: components/html-editor/editor-control-factory.c:192
+#: components/html-editor/editor-control-factory.c:196
 #: components/html-editor/gtkhtml-editor-properties.glade.h:63
 #: components/html-editor/menubar.c:159 components/html-editor/popup.c:227
 msgid "Rule"
@@ -593,7 +593,7 @@ msgstr "Horní index"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
 #: components/html-editor/menubar.c:176 components/html-editor/popup.c:234
-#: components/html-editor/popup.c:505 components/html-editor/popup.c:514
+#: components/html-editor/popup.c:501 components/html-editor/popup.c:510
 msgid "Table"
 msgstr "Tabulka"
 
@@ -841,14 +841,14 @@ msgstr "Obrázek na pozadí"
 msgid "Colors"
 msgstr "Barvy"
 
-#: components/html-editor/body.c:313 components/html-editor/cell.c:397
+#: components/html-editor/body.c:313 components/html-editor/cell.c:423
 #: components/html-editor/table.c:535 components/html-editor/text.c:291
 #: components/html-editor/toolbar.c:299
 msgid "Automatic"
 msgstr "Automatický"
 
 #: components/html-editor/body.c:325
-#: components/html-editor/editor-control-factory.c:181
+#: components/html-editor/editor-control-factory.c:185
 #: components/html-editor/gtkhtml-editor-properties.glade.h:76
 #: components/html-editor/menubar.c:334 components/html-editor/popup.c:192
 msgid "Text"
@@ -859,34 +859,34 @@ msgstr "Text"
 msgid "Background"
 msgstr "Pozadí"
 
-#: components/html-editor/cell.c:164 components/html-editor/cell.c:166
+#: components/html-editor/cell.c:172 components/html-editor/cell.c:174
 #: components/html-editor/text.c:104
 msgid "The quick brown fox jumps over the lazy dog."
 msgstr "Příliš žluťoučký kůň úpěl ďábelské ódy."
 
-#: components/html-editor/cell.c:169
+#: components/html-editor/cell.c:177
 msgid "Other"
 msgstr "Jiné"
 
-#: components/html-editor/editor-control-factory.c:161
+#: components/html-editor/editor-control-factory.c:165
 #: components/html-editor/menubar.c:313 components/html-editor/menubar.c:331
 #: components/html-editor/menubar.c:349 components/html-editor/popup.c:184
 #: components/html-editor/popup.c:269
 msgid "Properties"
 msgstr "Vlastnosti"
 
-#: components/html-editor/editor-control-factory.c:202
+#: components/html-editor/editor-control-factory.c:206
 #: components/html-editor/menubar.c:352 components/html-editor/popup.c:213
 msgid "Paragraph"
 msgstr "Odstavec"
 
-#: components/html-editor/editor-control-factory.c:207
+#: components/html-editor/editor-control-factory.c:211
 #: components/html-editor/gtkhtml-editor-properties.glade.h:52
 #: components/html-editor/menubar.c:316 components/html-editor/popup.c:220
 msgid "Page"
 msgstr "Stránka"
 
-#: components/html-editor/editor-control-factory.c:746
+#: components/html-editor/editor-control-factory.c:770
 msgid "I could not initialize Bonobo"
 msgstr "Nemohu inicializovat Bonobo"
 
@@ -955,7 +955,7 @@ msgid "Color:"
 msgstr "Barva:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:26
-#: components/html-editor/popup.c:516
+#: components/html-editor/popup.c:512
 msgid "Column"
 msgstr "Sloupec"
 
@@ -1072,7 +1072,7 @@ msgid "Right"
 msgstr "Vpravo"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:60
-#: components/html-editor/popup.c:515
+#: components/html-editor/popup.c:511
 msgid "Row"
 msgstr "Řádek"
 
@@ -1213,6 +1213,14 @@ msgstr ""
 msgid "The quick brown fox jumped over the lazy dog."
 msgstr "Příliš žluťoučký kůň úpěl ďábelské ódy."
 
+#: components/html-editor/image.c:689
+msgid ""
+"The editted image was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+"Upravovaný obrázek byl z dokumentu odstraněn.\n"
+"Nemohu použít vaše změny."
+
 #: components/html-editor/link.c:91
 msgid "Link text"
 msgstr "Text odkazu"
@@ -1220,7 +1228,7 @@ msgstr "Text odkazu"
 #: components/html-editor/menubar.c:122 components/html-editor/menubar.c:138
 #: components/html-editor/menubar.c:156 components/html-editor/menubar.c:173
 #: components/html-editor/menubar.c:196 components/html-editor/popup.c:100
-#: components/html-editor/properties.c:134
+#: components/html-editor/properties.c:139
 msgid "Insert"
 msgstr "Vložit"
 
@@ -1340,43 +1348,43 @@ msgstr "Čára..."
 msgid "Image..."
 msgstr "Obrázek..."
 
-#: components/html-editor/popup.c:490 components/html-editor/popup.c:501
-msgid "Table..."
-msgstr "Tabulka..."
-
-#: components/html-editor/popup.c:498
+#: components/html-editor/popup.c:494
 msgid "Cell..."
 msgstr "Políčko tabulky..."
 
-#: components/html-editor/popup.c:504
+#: components/html-editor/popup.c:497
+msgid "Table..."
+msgstr "Tabulka..."
+
+#: components/html-editor/popup.c:500
 msgid "Table insert"
 msgstr "Vložit tabulku"
 
-#: components/html-editor/popup.c:507
+#: components/html-editor/popup.c:503
 msgid "Row above"
 msgstr "Řádek nad"
 
-#: components/html-editor/popup.c:508
+#: components/html-editor/popup.c:504
 msgid "Row below"
 msgstr "Řádek pod"
 
-#: components/html-editor/popup.c:510
+#: components/html-editor/popup.c:506
 msgid "Column before"
 msgstr "Sloupec před"
 
-#: components/html-editor/popup.c:511
+#: components/html-editor/popup.c:507
 msgid "Column after"
 msgstr "Sloupec po"
 
-#: components/html-editor/popup.c:513
+#: components/html-editor/popup.c:509
 msgid "Table delete"
 msgstr "Odstranit tabulku"
 
-#: components/html-editor/popup.c:517
+#: components/html-editor/popup.c:513
 msgid "Cell contents"
 msgstr "Obsah políčka"
 
-#: components/html-editor/popup.c:525
+#: components/html-editor/popup.c:521
 msgid "Page..."
 msgstr "Stránka..."
 
@@ -1420,7 +1428,7 @@ msgstr "zpět"
 msgid "Find Regular Expression"
 msgstr "Najít regulární výraz"
 
-#: components/html-editor/spell.c:351
+#: components/html-editor/spell.c:350
 msgid "Spell Checking _Languages"
 msgstr "_Jazyky kontroly pravopisu"
 
@@ -1436,17 +1444,13 @@ msgstr "Tmavá hlavička"
 msgid "Note"
 msgstr "Poznámka"
 
-#: components/html-editor/template.c:91
+#: components/html-editor/template.c:93 components/html-editor/template.c:112
 msgid "Place your text here"
 msgstr "Zde vložte svůj text"
 
-#: components/html-editor/template.c:94
+#: components/html-editor/template.c:96
 msgid "Image frame"
 msgstr "Zarámovaný obrázek"
-
-#: components/html-editor/template.c:104
-msgid "Image 1: <b>description</b>"
-msgstr "Obrázek 1: <b>popis</b>"
 
 #: components/html-editor/test-html-editor-control.c:312
 msgid "Open file..."
@@ -1617,9 +1621,6 @@ msgstr "Náhled tisku"
 
 #~ msgid "Clear"
 #~ msgstr "Vymazat"
-
-#~ msgid "URL"
-#~ msgstr "URL"
 
 #~ msgid "Image selection"
 #~ msgstr "Výběr obrázku"
