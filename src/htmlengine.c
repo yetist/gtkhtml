@@ -270,7 +270,7 @@ html_engine_begin (HTMLEngine *p, const char *url)
 	p->writing = TRUE;
 
 	return gtk_html_stream_new(GTK_HTML(p->widget),
-				   url,
+				   p->actualURL,
 				   (GtkHTMLStreamWriteFunc)html_engine_write,
 				   (GtkHTMLStreamEndFunc)html_engine_end,
 				   (gpointer)p);

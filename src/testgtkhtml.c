@@ -430,30 +430,11 @@ url_requested (GtkHTML *html, const char *url, GtkHTMLStreamHandle handle, gpoin
 #ifdef HAVE_LIBWWW
 	HTRequest *newreq;
 	BOOL status;
-
-#if 0
-	if(!strstr(url, "://")) {
-		if(g_file_exists(url))
-		{
-			char *cwd;
-
-			cwd = g_get_current_dir();
-			g_snprintf(buffer, sizeof(buffer), "file://%s%s%s",
-				   (*url != '/')?cwd:"",
-				   (*url != '/')?"/":"",
-				   url);
-			g_free(cwd);
-		}
-		else
-			g_snprintf(buffer, sizeof(buffer), "http://%s", url);
-
-		url = buffer;
-
-	}
-#endif
+	char *ctmp;
 
 	newreq = HTRequest_new();
 	g_assert(newreq);
+	ctmp = g_extension_pointer(url);
 
 	HTRequest_setOutputFormat(newreq, WWW_SOURCE);
 	{

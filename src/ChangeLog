@@ -1,3 +1,8 @@
+1999-11-11  Elliot Lee  <sopwith@redhat.com>
+
+	* testgtkhtml.c: WWW_SOURCE, not WWW_PRESENT (so it will work with local files).
+	* htmlengine.c: Use canonicalized URL for stream creation.
+
 1999-11-09  Ettore Perazzoli  <ettore@gnu.org>
 
 	* Makefile.am: Compile as a standalone library `libgtkhtml.la'.
