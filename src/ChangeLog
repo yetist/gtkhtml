@@ -1,3 +1,7 @@
+1999-12-12  Miguel de Icaza  <miguel@helixcode.com>
+
+	* htmlfont.c (create_gdk_font): Fixed memory leaks.
+
 1999-12-12  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* gtkhtml.c (gtk_html_init): Use `GDK_HAND2' and `GDK_LEFT_PTR'

@@ -103,14 +103,15 @@ create_gdk_font (gchar *family, gint size, gboolean bold, gboolean italic)
 				    family, boldstr, italicstr, realsize);
 	
 	font = gdk_font_load (fontname);
-	if (font)
+	g_free (fontname);
+	if (font){
 		return font;
-	else {
-		g_free (fontname);
+	} else {
 		g_warning ("font not found, using helvetica");
 		fontname = g_strdup_printf ("-*-helvetica-medium-r-normal-*-*-%d-*-*-*-*-*-*",
 					    realsize);
 		font = gdk_font_load (fontname);
+		g_free (fontname);
 	}
 	return font;
 }
