@@ -37,8 +37,8 @@
 /* Saving/loading through PersistStream.  */
 
 static void
-load_through_stream (const gchar *filename,
-		     Bonobo_PersistStream pstream)
+load_through_persist_stream (const gchar *filename,
+			     Bonobo_PersistStream pstream)
 {
 	BonoboStream *stream;
 	CORBA_Environment ev;
@@ -65,8 +65,8 @@ load_through_stream (const gchar *filename,
 }
 
 static void
-save_through_stream (const gchar *filename,
-		     Bonobo_PersistStream pstream)
+save_through_persist_stream (const gchar *filename,
+			     Bonobo_PersistStream pstream)
 {
 	BonoboStream *stream;
 	CORBA_Environment ev;
@@ -94,13 +94,50 @@ save_through_stream (const gchar *filename,
 }
 
 
+/* Loading/saving through PersistFile.  */
+
+static void
+load_through_persist_file (const gchar *filename,
+			   Bonobo_PersistFile pfile)
+{
+	CORBA_Environment ev;
+
+	CORBA_exception_init (&ev);
+
+	Bonobo_PersistFile_load (pfile, filename, &ev);
+
+	if (ev._major != CORBA_NO_EXCEPTION)
+		g_warning ("Cannot load.");
+
+	CORBA_exception_free (&ev);
+}
+
+static void
+save_through_persist_file (const gchar *filename,
+			   Bonobo_PersistFile pfile)
+{
+	CORBA_Environment ev;
+
+	CORBA_exception_init (&ev);
+
+	Bonobo_PersistFile_save (pfile, filename, &ev);
+
+	if (ev._major != CORBA_NO_EXCEPTION)
+		g_warning ("Cannot save.");
+
+	CORBA_exception_free (&ev);
+}
+
+
 /* Common file selection widget.  We make sure there is only one open at a
    given time.  */
 
 enum _FileSelectionOperation {
 	OP_NONE,
-	OP_SAVE,
-	OP_LOAD
+	OP_SAVE_THROUGH_PERSIST_STREAM,
+	OP_LOAD_THROUGH_PERSIST_STREAM,
+	OP_SAVE_THROUGH_PERSIST_FILE,
+	OP_LOAD_THROUGH_PERSIST_FILE
 };
 typedef enum _FileSelectionOperation FileSelectionOperation;
 
@@ -133,31 +170,44 @@ file_selection_ok_cb (GtkWidget *widget,
 {
 	CORBA_Object interface;
 	BonoboObjectClient *object_client;
+	const gchar *interface_name;
 
 	object_client = bonobo_widget_get_server (file_selection_info.control);
-	interface = bonobo_object_client_query_interface (object_client,
-							 "IDL:Bonobo/PersistStream:1.0",
-							 NULL);
 
-	if (interface != CORBA_OBJECT_NIL) {
+	if (file_selection_info.operation == OP_SAVE_THROUGH_PERSIST_FILE
+	    || file_selection_info.operation == OP_LOAD_THROUGH_PERSIST_FILE)
+		interface_name = "IDL:Bonobo/PersistFile:1.0";
+	else
+		interface_name = "IDL:Bonobo/PersistStream:1.0";
+
+	interface = bonobo_object_client_query_interface (object_client, interface_name,
+							  NULL);
+
+	if (interface == CORBA_OBJECT_NIL) {
+		g_warning ("The Control does not seem to support `%s'.", interface_name);
+	} else 	 {
 		const gchar *fname;
-
+	
 		fname = gtk_file_selection_get_filename
 			(GTK_FILE_SELECTION (file_selection_info.widget));
 
 		switch (file_selection_info.operation) {
-		case OP_LOAD:
-			load_through_stream (fname, interface);
+		case OP_LOAD_THROUGH_PERSIST_STREAM:
+			load_through_persist_stream (fname, interface);
 			break;
-		case OP_SAVE:
-			save_through_stream (fname, interface);
+		case OP_SAVE_THROUGH_PERSIST_STREAM:
+			save_through_persist_stream (fname, interface);
+			break;
+		case OP_LOAD_THROUGH_PERSIST_FILE:
+			load_through_persist_file (fname, interface);
+			break;
+		case OP_SAVE_THROUGH_PERSIST_FILE:
+			save_through_persist_file (fname, interface);
 			break;
 		default:
 			g_assert_not_reached ();
 		}
-	} else {
-		g_warning ("The Control does not implement any of the supported interfaces.");
-	}
+	} 
 
 	gtk_widget_destroy (file_selection_info.widget);
 }
@@ -177,7 +227,7 @@ open_or_save_as_dialog (GnomeApp *app,
 		return;
 	}
 
-	if (op == OP_LOAD)
+	if (op == OP_LOAD_THROUGH_PERSIST_FILE || op == OP_LOAD_THROUGH_PERSIST_STREAM)
 		widget = gtk_file_selection_new (_("Open file..."));
 	else
 		widget = gtk_file_selection_new (_("Save file as..."));
@@ -204,20 +254,36 @@ open_or_save_as_dialog (GnomeApp *app,
 	gtk_widget_show (file_selection_info.widget);
 }
 
-/* "Open" dialog.  */
+/* "Open through persist stream" dialog.  */
 static void
-open_cb (GtkWidget *widget,
-	 gpointer data)
+open_through_persist_stream_cb (GtkWidget *widget,
+				gpointer data)
 {
-	open_or_save_as_dialog (GNOME_APP (data), OP_LOAD);
+	open_or_save_as_dialog (GNOME_APP (data), OP_LOAD_THROUGH_PERSIST_STREAM);
 }
 
-/* "Save as" dialog.  */
+/* "Save through persist stream" dialog.  */
 static void
-save_as_cb (GtkWidget *widget,
-	    gpointer data)
+save_through_persist_stream_cb (GtkWidget *widget,
+				gpointer data)
 {
-	open_or_save_as_dialog (GNOME_APP (data), OP_SAVE);
+	open_or_save_as_dialog (GNOME_APP (data), OP_SAVE_THROUGH_PERSIST_STREAM);
+}
+
+/* "Open through persist file" dialog.  */
+static void
+open_through_persist_file_cb (GtkWidget *widget,
+				gpointer data)
+{
+	open_or_save_as_dialog (GNOME_APP (data), OP_LOAD_THROUGH_PERSIST_FILE);
+}
+
+/* "Save through persist file" dialog.  */
+static void
+save_through_persist_file_cb (GtkWidget *widget,
+				gpointer data)
+{
+	open_or_save_as_dialog (GNOME_APP (data), OP_SAVE_THROUGH_PERSIST_FILE);
 }
 
 
@@ -230,8 +296,15 @@ exit_cb (GtkWidget *widget,
 
 
 static GnomeUIInfo file_menu_info[] = {
-	GNOMEUIINFO_MENU_OPEN_ITEM (open_cb, NULL),
-	GNOMEUIINFO_MENU_SAVE_AS_ITEM (save_as_cb, NULL),
+	GNOMEUIINFO_ITEM_STOCK (N_("Open (PersistFile)"), N_("Open using the PersistFile interface"),
+				open_through_persist_file_cb, GNOME_STOCK_MENU_OPEN),
+	GNOMEUIINFO_ITEM_STOCK (N_("Save as... (PersistFile)"), N_("Save using the PersistFile interface"),
+				save_through_persist_file_cb, GNOME_STOCK_MENU_SAVE_AS),
+	GNOMEUIINFO_SEPARATOR,
+	GNOMEUIINFO_ITEM_STOCK (N_("Open (PersistStream)"), N_("Open using the PersistStream interface"),
+				open_through_persist_stream_cb, GNOME_STOCK_MENU_OPEN),
+	GNOMEUIINFO_ITEM_STOCK (N_("Save as... (PersistStream)"), N_("Save using the PersistStream interface"),
+				save_through_persist_stream_cb, GNOME_STOCK_MENU_SAVE_AS),
 	GNOMEUIINFO_SEPARATOR,
 	GNOMEUIINFO_MENU_EXIT_ITEM (exit_cb, NULL),
 	GNOMEUIINFO_END

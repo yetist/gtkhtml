@@ -26,10 +26,12 @@
 #include <bonobo.h>
 
 #include "gtkhtml.h"
-#include "persist-stream-impl.h"
+
 #include "menubar.h"
-#include "toolbar.h"
+#include "persist-file-impl.h"
+#include "persist-stream-impl.h"
 #include "popup.h"
+#include "toolbar.h"
 
 #include "editor-control-factory.h"
 
@@ -126,6 +128,7 @@ editor_control_factory (BonoboGenericFactory *factory,
 {
 	BonoboControl *control;
 	BonoboPersistStream *stream_impl;
+	BonoboPersistFile *file_impl;
 	GtkWidget *html_widget;
 	GtkWidget *vbox;
 	GtkHTMLControlData *control_data;
@@ -138,6 +141,7 @@ editor_control_factory (BonoboGenericFactory *factory,
 	vbox = gtk_vbox_new (FALSE, 0);
 	gtk_widget_show (vbox);
 
+	g_warning ("Creating a new GtkHTML editor control.");
 	control = bonobo_control_new (vbox);
 
 	/* Bonobo::PersistStream */
@@ -145,7 +149,10 @@ editor_control_factory (BonoboGenericFactory *factory,
 	stream_impl = persist_stream_impl_new (GTK_HTML (html_widget));
 	bonobo_object_add_interface (BONOBO_OBJECT (control), BONOBO_OBJECT (stream_impl));
 
-	g_warning ("Creating a new GtkHTML editor control.");
+	/* Bonobo::PersistFile */
+
+	file_impl = persist_file_impl_new (GTK_HTML (html_widget));
+	bonobo_object_add_interface (BONOBO_OBJECT (control), BONOBO_OBJECT (file_impl));
 
 	/* Part of the initialization must be done after the control is
 	   embedded in its control frame.  We use the "set_frame" signal to

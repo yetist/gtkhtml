@@ -49,6 +49,7 @@ load (BonoboPersistStream *ps,
 	CORBA_long bytes_read;
 	Bonobo_Stream_iobuf *buffer;
 	GtkHTMLStream *handle;
+	gboolean was_editable;
 
 	if (strcmp (type, "text/html") != 0) {
 		CORBA_exception_set (ev, CORBA_USER_EXCEPTION,
@@ -57,6 +58,10 @@ load (BonoboPersistStream *ps,
 	}
 
 	html = GTK_HTML (data);
+
+	was_editable = gtk_html_get_editable (html);
+	if (was_editable)
+		gtk_html_set_editable (html, FALSE);
 
 	handle = gtk_html_begin (html);
 
@@ -77,6 +82,9 @@ load (BonoboPersistStream *ps,
 		gtk_html_end (html, handle, GTK_HTML_STREAM_ERROR);
 	else
 		gtk_html_end (html, handle, GTK_HTML_STREAM_OK);
+
+	if (was_editable)
+		gtk_html_set_editable (html, TRUE);
 }
 
 
@@ -160,5 +168,3 @@ persist_stream_impl_new (GtkHTML *html)
 	return bonobo_persist_stream_new (load, save, NULL, get_content_types,
 					  html);
 }
-
-

@@ -38,6 +38,8 @@ html_editor_control_SOURCES =			\
 	main.c					\
 	menubar.c				\
 	menubar.h				\
+	persist-file-impl.c			\
+	persist-file-impl.h			\
 	persist-stream-impl.c			\
 	persist-stream-impl.h			\
 	popup.c					\
