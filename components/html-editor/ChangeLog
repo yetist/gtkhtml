@@ -1,3 +1,15 @@
+2002-12-05  Radek Doulik  <rodo@ximian.com>
+
+	* cell.c (fill_sample): use rspan/cspan
+	(changed_cspan): new handler
+	(changed_rspan): ditto
+	(cell_widget): connect cspan/rspan
+	(set_ui): set cspan/rspan
+	(get_data): get cspan/rspan
+	(cell_apply_1): apply cspan/rspan
+
+	* gtkhtml-editor-properties.glade: enabled cspan/rspan
+
 2002-12-02  Radek Doulik  <rodo@ximian.com>
 
 	* template.c: use template_image object data for Image frame
