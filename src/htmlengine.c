@@ -1273,6 +1273,8 @@ pop_clue (HTMLEngine *e)
 static void
 block_end_cell (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 {
+	if (html_clue_is_empty (HTML_CLUE (clue)))
+		new_flow (e, clue, create_empty_text (e), HTML_CLEAR_NONE);
 	pop_clue (e);
 }
 

@@ -423,17 +423,6 @@ op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GL
 		return cut_whole (self, len);
 }
 
-static gboolean
-cell_is_empty (HTMLTableCell *cell)
-{
-	g_assert (HTML_IS_TABLE_CELL (cell));
-
-	if (HTML_CLUE (cell)->head && HTML_CLUE (cell)->head == HTML_CLUE (cell)->tail
-	    && HTML_IS_CLUEFLOW (HTML_CLUE (cell)->head) && html_clueflow_is_empty (HTML_CLUEFLOW (HTML_CLUE (cell)->head)))
-		return TRUE;
-	return FALSE;
-}
-
 static void
 split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint level, GList **left, GList **right)
 {
@@ -452,7 +441,7 @@ split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint lev
 	dup_cell  = HTML_TABLE_CELL ((*right)->data);
 	cell      = HTML_TABLE_CELL ((*left)->data);
 
-	if (dup_cell->row == t->totalRows - 1 && dup_cell->col == t->totalCols - 1 && cell_is_empty (dup_cell)) {
+	if (dup_cell->row == t->totalRows - 1 && dup_cell->col == t->totalCols - 1 && html_clue_is_empty (HTML_CLUE (dup_cell))) {
 		dup = html_engine_new_text_empty (e);
 		html_object_destroy ((*right)->data);
 		g_list_free (*right);
@@ -569,10 +558,10 @@ could_merge (HTMLTable *t1, HTMLTable *t2)
 				return FALSE;
 
 			if (first) {
-				if (!cell_is_empty (c2))
+				if (!html_clue_is_empty (HTML_CLUE (c2)))
 					first = FALSE;
 			} else {
-				if (!cell_is_empty (c1))
+				if (!html_clue_is_empty (HTML_CLUE (c1)))
 					return FALSE;
 			}
 		}
@@ -662,9 +651,9 @@ merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList **left, GList **
 			c2 = t2->cells [r][c];
 
 			if (first) {
-				if (!cell_is_empty (c2)) {
+				if (!html_clue_is_empty (HTML_CLUE (c2))) {
 					t1_tail = prev_c1;
-					if (cell_is_empty (c1)) {
+					if (html_clue_is_empty (HTML_CLUE (c1))) {
 						move_cell (t1, t2, c1, c2, cursor_cell_1, cursor_cell_2,
 							   r, c, e->cursor, cursor);
 						c1 = c2;

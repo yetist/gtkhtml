@@ -1,5 +1,13 @@
 2004-03-18  Radek Doulik  <rodo@ximian.com>
 
+	* htmlengine.c (block_end_cell): make sure the cell doesn't end
+	empty. add new flow with an empty text in that case
+
+	* htmlclue.c (html_clue_is_empty): moved from
+	HTMLTableCell::html_table_cell_is_empty
+
+	Needed to fix #55735
+	
 	* htmltokenizer.c (add_unichar): translate characters from range
 	128 - 159 from win1252 encoding to unicode as other browsers
 	do. yup, we support more brokeness now

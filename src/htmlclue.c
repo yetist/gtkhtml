@@ -23,6 +23,7 @@
 
 #include <config.h>
 #include "htmlclue.h"
+#include "htmlclueflow.h"
 #include "htmlobject.h"
 #include "htmlsearch.h"
 #include "htmltextslave.h"
@@ -918,4 +919,16 @@ html_clue_remove_text_slaves (HTMLClue *clue)
 			html_object_destroy (p);
 		}
 	}
+}
+
+
+gboolean
+html_clue_is_empty (HTMLClue *clue)
+{
+	if (clue->head == NULL)
+		return TRUE;
+	if (clue->head == clue->tail
+	    && HTML_IS_CLUEFLOW (clue->head) && html_clueflow_is_empty (HTML_CLUEFLOW (clue->head)))
+		return TRUE;
+	return FALSE;
 }
