@@ -107,7 +107,6 @@ ask (HTMLEngine *e, gpointer data)
 		d->ask_dialog = ask_dialog_new (e);
 		gnome_dialog_run (d->ask_dialog->dialog);
 	} else {
-		printf ("ask going to show %p\n", d->ask_dialog->dialog);
 		gtk_widget_show (GTK_WIDGET (d->ask_dialog->dialog));
 		gdk_window_raise (GTK_WIDGET (d->ask_dialog->dialog)->window);
 	}	
@@ -116,8 +115,6 @@ ask (HTMLEngine *e, gpointer data)
 static void
 button_replace_cb (GtkWidget *but, GtkHTMLReplaceDialog *d)
 {
-	printf ("replace\n");
-
 	gnome_dialog_close  (d->dialog);	
 	html_engine_replace (d->html->engine,
 			     gtk_entry_get_text (GTK_ENTRY (d->entry_search)),
@@ -130,13 +127,11 @@ button_replace_cb (GtkWidget *but, GtkHTMLReplaceDialog *d)
 static void
 entry_changed (GtkWidget *entry, GtkHTMLReplaceDialog *d)
 {
-	printf ("entry changed\n");
 }
 
 static void
 entry_activate (GtkWidget *entry, GtkHTMLReplaceDialog *d)
 {
-	printf ("entry activate\n");
 	button_replace_cb (NULL, d);
 }
 

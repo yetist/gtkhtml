@@ -113,7 +113,6 @@ destroy (PageData *pd, GtkHTMLEditPropertiesDialog *d)
 void
 gtk_html_edit_properties_dialog_destroy (GtkHTMLEditPropertiesDialog *d)
 {
-	printf ("destroy properties\n");
 	g_list_foreach (d->page_data, (GFunc) destroy, d);
 	g_list_free    (d->page_data);
 	g_free (d);
@@ -165,7 +164,6 @@ gtk_html_edit_properties_dialog_set_page (GtkHTMLEditPropertiesDialog *d, GtkHTM
 {
 	gint pos = g_list_position (d->page_data, g_list_find_custom (d->page_data, GINT_TO_POINTER (t),
 								      (GCompareFunc) find_type));
-	printf ("pos: %d\n", pos);
 	if (pos >= 0)
 		gtk_notebook_set_page (GTK_NOTEBOOK (d->notebook), pos);
 }

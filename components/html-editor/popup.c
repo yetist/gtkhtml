@@ -38,7 +38,7 @@
 static void
 insert_link (GtkWidget *mi, GtkHTMLControlData *cd)
 {
-	link_insert (cd);
+	/* link_insert (cd); */
 }
 
 static void
@@ -66,25 +66,6 @@ remove_link (GtkWidget *mi, GtkHTMLControlData *cd)
 		html_engine_remove_link (cd->html->engine);
         else
 		html_engine_remove_link_object (cd->html->engine, cd->obj);
-}
-
-static void
-prop (GtkWidget *mi, GtkHTMLControlData *cd)
-{
-	printf ("prop\n");
-
-	switch (HTML_OBJECT_TYPE (cd->obj)) {
-	case HTML_TYPE_RULE:
-		rule_edit (cd, HTML_RULE (cd->obj));
-		break;
-	case HTML_TYPE_IMAGE:
-		image_edit (cd, HTML_IMAGE (cd->obj));
-		break;
-       	case HTML_TYPE_LINKTEXTMASTER:
-		link_edit (cd, HTML_LINK_TEXT_MASTER (cd->obj));
-		break;
-	default:
-	}
 }
 
 static void
@@ -140,7 +121,6 @@ prop_dialog (GtkWidget *mi, GtkHTMLControlData *cd)
 
 	t = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (mi), "type"));
 
-	printf ("mi: %p t: %d\n", mi, t);
 	gtk_html_edit_properties_dialog_show (cd->properties_dialog);
 	if (t >= 0)
 		gtk_html_edit_properties_dialog_set_page (cd->properties_dialog, t);
@@ -149,7 +129,6 @@ prop_dialog (GtkWidget *mi, GtkHTMLControlData *cd)
 #define ADD_ITEM(l,f,t) \
 		menuitem = gtk_menu_item_new_with_label (_(l)); \
                 gtk_object_set_data (GTK_OBJECT (menuitem), "type", GINT_TO_POINTER (t)); \
-                printf ("menuitem: %p t: %d\n", menuitem, t); \
 		gtk_menu_append (GTK_MENU (menu), menuitem); \
 		gtk_widget_show (menuitem); \
 		gtk_signal_connect (GTK_OBJECT (menuitem), "activate", GTK_SIGNAL_FUNC (f), cd); \
@@ -175,8 +154,6 @@ popup_show (GtkHTMLControlData *cd, GdkEventButton *event)
 	GtkWidget *menuitem;
 	guint items = 0;
 	guint items_sep = 0;
-
-	printf ("popup\n");
 
 	obj  = cd->html->engine->cursor->object;
 	menu = gtk_menu_new ();

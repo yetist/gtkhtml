@@ -48,7 +48,6 @@ struct _GtkHTMLControlData {
 
 	/* objects dialogs */
 	GtkHTMLImageDialog      *image_dialog;
-	GtkHTMLLinkDialog       *link_dialog;
 	GtkHTMLRuleDialog       *rule_dialog;
 
 	/* object from last button press event */

@@ -88,8 +88,6 @@ insert (GtkWidget *w, GtkHTMLImageDialog *d)
 	vspace = (d->set [GTK_HTML_EDIT_IMAGE_VSPACE]) ? GTK_ADJUSTMENT (d->adj [GTK_HTML_EDIT_IMAGE_VSPACE])->value : 0;
 	border = (d->set [GTK_HTML_EDIT_IMAGE_BWIDTH]) ? GTK_ADJUSTMENT (d->adj [GTK_HTML_EDIT_IMAGE_BWIDTH])->value : 0;
 
-	printf ("insert image align: %d\n", d->align);
-
 	switch (d->align) {
 	case ALIGN_TOP:
 		valign = HTML_VALIGN_TOP;
@@ -134,7 +132,6 @@ entry_changed (GtkWidget *entry, GtkHTMLImageDialog *d)
 	gchar *text;
 
 	text = gtk_entry_get_text (GTK_ENTRY (entry));
-	printf ("entry changed %s\n", text);
 	gnome_dialog_set_sensitive (d->dialog, 0, (text && *text));
 }
 
@@ -557,11 +554,9 @@ image_properties (GtkHTMLControlData *cd, gpointer *set_data)
 void
 image_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
-	printf ("image apply\n");
 }
 
 void
 image_close_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
-	printf ("image apply\n");
 }

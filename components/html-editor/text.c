@@ -75,8 +75,6 @@ set_size (GtkWidget *w, GtkHTMLEditTextProperties *data)
 {
 	gint size = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (w), "size"));
 
-	printf ("size %d\n", size);
-
 	data->style_and &= ~GTK_HTML_FONT_STYLE_SIZE_MASK;
 	data->style_or  |= size;
 	data->style_changed = TRUE;
@@ -239,7 +237,6 @@ text_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
 	GtkHTMLEditTextProperties *data = (GtkHTMLEditTextProperties *) get_data;
 	gint i;
-	printf ("text apply\n");
 
 	if (data->style_changed) {
 		for (i=0; i<STYLES; i++) {
@@ -264,7 +261,5 @@ text_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 void
 text_close_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
-	printf ("text close\n");
-
 	g_free (get_data);
 }

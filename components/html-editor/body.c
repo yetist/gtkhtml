@@ -41,7 +41,6 @@ set_color (GtkWidget *w, gushort r, gushort g, gushort b, gushort a, GtkHTMLEdit
 	gint idx;
 
 	idx = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (w), "type"));
-	printf ("set_color %d\n", idx);
 	data->color [idx].red   = r;
 	data->color [idx].green = g;
 	data->color [idx].blue  = b;
@@ -154,8 +153,6 @@ body_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 	GtkHTMLEditBodyProperties *data = (GtkHTMLEditBodyProperties *) get_data;
 	gboolean redraw = FALSE;
 
-	printf ("body apply\n");
-
 #define APPLY_COLOR(c) \
 	if (data->color_changed [c]) { \
 		html_colorset_set_color (cd->html->engine->settings->color_set, &data->color [c], c); \
@@ -173,6 +170,5 @@ body_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 void
 body_close_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
-	printf ("body close\n");
 	g_free (get_data);
 }

@@ -90,8 +90,6 @@ html_button_pressed (GtkWidget *html, GdkEventButton *event, GtkHTMLControlData 
 	HTMLObject *obj;
 	HTMLEngine *engine = cd->html->engine;
 
-	printf ("button pressed %d\n", event->button);
-
 	cd->obj = obj = html_engine_get_object_at (engine,
 						   event->x + engine->x_offset, event->y + engine->y_offset,
 						   NULL, FALSE);	
@@ -102,7 +100,7 @@ html_button_pressed (GtkWidget *html, GdkEventButton *event, GtkHTMLControlData 
 			image_edit (cd, HTML_IMAGE (obj));
 			break;
 		case HTML_TYPE_LINKTEXTMASTER:
-			link_edit (cd, HTML_LINK_TEXT_MASTER (obj));
+			/* link_edit (cd, HTML_LINK_TEXT_MASTER (obj)); */
 			break;
 		default:
 		}

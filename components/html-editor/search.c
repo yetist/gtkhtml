@@ -37,8 +37,6 @@ struct _GtkHTMLSearchDialog {
 static void
 search_cb (GtkWidget *but, GtkHTMLSearchDialog *d)
 {
-	printf ("search\n");
-
 	html_engine_search (d->html->engine, gtk_entry_get_text (GTK_ENTRY (d->entry)),
 			    GTK_TOGGLE_BUTTON (d->case_sensitive)->active,
 			    GTK_TOGGLE_BUTTON (d->backward)->active == 0, d->regular);
@@ -47,13 +45,11 @@ search_cb (GtkWidget *but, GtkHTMLSearchDialog *d)
 static void
 entry_changed (GtkWidget *entry, GtkHTMLSearchDialog *d)
 {
-	printf ("entry changed\n");
 }
 
 static void
 entry_activate (GtkWidget *entry, GtkHTMLSearchDialog *d)
 {
-	printf ("entry activate\n");
 	gnome_dialog_close (d->dialog);
 	search_cb (NULL, d);
 }

@@ -27,29 +27,6 @@
 #include "link.h"
 #include "htmlengine-edit-insert.h"
 
-struct _GtkHTMLLinkDialog {
-	GnomeDialog        *dialog;
-	GtkHTML            *html;
-	HTMLLinkTextMaster *html_link;
-
-	GtkWidget   *link;
-};
-
-static void
-button_link_cb (GtkWidget *but, GtkHTMLLinkDialog *d)
-{
-	gchar *link = gtk_entry_get_text (GTK_ENTRY (d->link));
-
-	if (d->html_link) {
-		gboolean changed = FALSE;
-
-		html_link_text_master_set_url (d->html_link, link);
-		if (changed)
-			html_engine_schedule_update (d->html->engine);
-	} else
-		html_engine_insert_link (d->html->engine, link, "");
-}
-
 static void
 set_entries (HTMLEngine *e, GtkWidget *el)
 {
@@ -61,8 +38,6 @@ set_entries (HTMLEngine *e, GtkWidget *el)
 	/* use only text part to \n */
 	found = strchr (text, '\n');
 	if (found) *found=0;
-
-	printf ("set_entries %s\n", text);
 
 	/* if it contains mailto: and '@'  we assume it is href */
 	if (text == (found = strstr (text, "mailto:")) && strchr (text, '@') > found) {
@@ -91,72 +66,17 @@ set_entries (HTMLEngine *e, GtkWidget *el)
 	return;
 }
 
-GtkHTMLLinkDialog *
-gtk_html_link_dialog_new (GtkHTML *html)
-{
-	GtkHTMLLinkDialog *d = g_new (GtkHTMLLinkDialog, 1);
-	GtkWidget *table;
-	GtkWidget *label;
-
-	d->dialog = GNOME_DIALOG (gnome_dialog_new (_("Link"), GNOME_STOCK_BUTTON_OK,
-						    GNOME_STOCK_BUTTON_CANCEL, NULL));
-	d->html = html;
-	d->link = gtk_entry_new ();
-
-	set_entries (html->engine, d->link);
-
-	table = gtk_table_new (2, 2, FALSE);
-	gtk_table_set_col_spacings (GTK_TABLE (table), 3);
-
-	label = gtk_label_new (_("Link"));
-	gtk_misc_set_alignment (GTK_MISC (label), 1.0, .5);
-	gtk_table_attach_defaults (GTK_TABLE (table), label,   0, 1, 1, 2);
-	gtk_table_attach_defaults (GTK_TABLE (table), d->link, 1, 2, 1, 2);
-
-	gtk_box_pack_start_defaults (GTK_BOX (d->dialog->vbox), table);
-	gtk_widget_show_all (table);
-
-	gnome_dialog_button_connect (d->dialog, 0, button_link_cb, d);
-	gnome_dialog_close_hides (d->dialog, TRUE);
-	gnome_dialog_set_close (d->dialog, TRUE);
-
-	gnome_dialog_set_default (d->dialog, 0);
-	gtk_widget_grab_focus (d->link);
-
-	return d;
-}
-
-void
-gtk_html_link_dialog_destroy (GtkHTMLLinkDialog *d)
-{
-}
-
-void
-link_insert (GtkHTMLControlData *cd)
-{
-	if (cd->link_dialog)
-		set_entries (cd->html->engine, cd->link_dialog->link);
-	RUN_DIALOG (link);
-	cd->link_dialog->html_link = NULL;
-}
-
-void
-link_edit (GtkHTMLControlData *cd, HTMLLinkTextMaster *link)
-{
-	RUN_DIALOG (link);
-	cd->link_dialog->html_link = link;
-	gtk_entry_set_text (GTK_ENTRY (cd->link_dialog->link), link->url);
-}
-
 struct _GtkHTMLEditLinkProperties {
 	GtkHTMLControlData *cd;
 	GtkWidget *entry;
+	gboolean url_changed;
 };
 typedef struct _GtkHTMLEditLinkProperties GtkHTMLEditLinkProperties;
 
 static void
 set_link (GtkWidget *w, GtkHTMLEditLinkProperties *data)
 {
+	data->url_changed = TRUE;
 	gtk_html_edit_properties_dialog_change (data->cd->properties_dialog);
 }
 
@@ -168,12 +88,16 @@ link_properties (GtkHTMLControlData *cd, gpointer *set_data)
 
 	*set_data = data;
 	data->cd = cd;
+	data->url_changed = FALSE;
 
 	vbox = gtk_vbox_new (FALSE, 0);
 	gtk_container_border_width (GTK_CONTAINER (vbox), 3);
 	hbox = gtk_hbox_new (FALSE, 3);
 
 	data->entry = gtk_entry_new ();
+	gtk_entry_set_text (GTK_ENTRY (data->entry), (cd->html->engine->active_selection)
+			    ? html_engine_get_document_url (cd->html->engine)
+			    : html_engine_get_url (cd->html->engine));
 	gtk_signal_connect (GTK_OBJECT (data->entry), "changed", set_link, data);
 	gtk_box_pack_start (GTK_BOX (hbox), gtk_label_new (_("URL")), FALSE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (hbox), data->entry, FALSE, FALSE, 0);
@@ -185,12 +109,23 @@ link_properties (GtkHTMLControlData *cd, gpointer *set_data)
 void
 link_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
-	printf ("link apply\n");
+	GtkHTMLEditLinkProperties *data = (GtkHTMLEditLinkProperties *) get_data;
+	HTMLEngine *e = cd->html->engine;
+	gchar *url;
+	gchar *target = "";
+
+	if (!data->url_changed)
+		return;
+
+	url = gtk_entry_get_text (GTK_ENTRY (data->entry));
+	if (*url)
+		html_engine_insert_link (e, url, target);
+	else
+		html_engine_remove_link (e);
 }
 
 void
 link_close_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
-	printf ("link close\n");
 	g_free (get_data);
 }
