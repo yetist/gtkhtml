@@ -56,14 +56,14 @@ struct _PageData {
 };
 typedef struct _PageData PageData;
 
-/* FIX2 static void
+static void
 apply_cb (PageData *pd, GtkHTMLEditPropertiesDialog *d)
 {
 	(*pd->apply) (d->control_data, pd->data);
 }
 
 static void
-apply (GtkWidget *w, GtkHTMLEditPropertiesDialog *d)
+apply (GtkHTMLEditPropertiesDialog *d)
 {
 	g_list_foreach (d->page_data, (GFunc) apply_cb, d);
 	gtk_dialog_set_response_sensitive (GTK_DIALOG (d->dialog), 0, FALSE);
@@ -72,18 +72,11 @@ apply (GtkWidget *w, GtkHTMLEditPropertiesDialog *d)
 }
 
 static void
-prop_close (GtkWidget *w, GtkHTMLEditPropertiesDialog *d)
+prop_close (GtkHTMLEditPropertiesDialog *d)
 {
 	gtk_dialog_response (GTK_DIALOG (d->dialog), GTK_RESPONSE_CLOSE);
 	gtk_html_edit_properties_dialog_destroy (d);
 }
-
-static void
-ok (GtkWidget *w, GtkHTMLEditPropertiesDialog *d)
-{
-	apply (w, d);
-	prop_close (w,d);
-} */
 
 static void
 switch_page (GtkWidget *w, GtkNotebookPage *page, gint num, GtkHTMLEditPropertiesDialog *d)
@@ -104,7 +97,26 @@ switch_page (GtkWidget *w, GtkNotebookPage *page, gint num, GtkHTMLEditPropertie
 static void
 destroy_dialog (GtkWidget *w, gpointer data)
 {
+	printf ("destroy\n");
 	((GtkHTMLEditPropertiesDialog *) data)->dialog = NULL;
+}
+
+static void
+dialog_response (GtkDialog *dialog, gint response_id, GtkHTMLEditPropertiesDialog *d)
+{
+	switch (response_id) {
+	case GTK_RESPONSE_CLOSE:
+		gtk_widget_destroy (GTK_WIDGET (dialog));
+		break;
+	case 0: /* OK */
+		apply (d);
+		prop_close (d);
+		break;
+	case 1: /* Insert/Apply */
+		apply (d);
+		if (d->insert)
+			prop_close (d);
+	}
 }
 
 GtkHTMLEditPropertiesDialog *
@@ -118,10 +130,10 @@ gtk_html_edit_properties_dialog_new (GtkHTMLControlData *cd, gboolean insert, gc
 	d->insert         = insert;
 	d->control_data   = cd;
 	parent = get_parent_window (GTK_WIDGET (cd->html));
-	d->dialog         = (insert) ? gtk_dialog_new_with_buttons (title, parent, 0,
-								    _("Insert"), 0,
-								    GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
-								    NULL)
+	d->dialog         = insert ? gtk_dialog_new_with_buttons (title, parent, 0,
+								  _("Insert"), 1,
+								  GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
+								  NULL)
 		:  gtk_dialog_new_with_buttons (title, parent, 0,
 						GTK_STOCK_OK, 0,
 						GTK_STOCK_APPLY, 1,
@@ -133,11 +145,7 @@ gtk_html_edit_properties_dialog_new (GtkHTMLControlData *cd, gboolean insert, gc
 	gtk_box_pack_start_defaults (GTK_BOX (GTK_DIALOG (d->dialog)->vbox), d->notebook);
 	gtk_widget_show (d->notebook);
 
-	/* gnome_dialog_button_connect (GNOME_DIALOG (d->dialog), 0, GTK_SIGNAL_FUNC (ok), d);
-	if (!insert)
-		gnome_dialog_button_connect (GNOME_DIALOG (d->dialog), 1, GTK_SIGNAL_FUNC (apply), d);
-	gnome_dialog_button_connect (GNOME_DIALOG (d->dialog), insert ? 1 : 2, GTK_SIGNAL_FUNC (prop_close), d);
-	gnome_dialog_set_default (GNOME_DIALOG (d->dialog), 0); */
+	g_signal_connect (d->dialog, "response", G_CALLBACK (dialog_response), d);
 
 	gnome_window_icon_set_from_file (GTK_WINDOW (d->dialog), icon_path);
 	gtk_dialog_set_response_sensitive (GTK_DIALOG (d->dialog), 0, FALSE);
