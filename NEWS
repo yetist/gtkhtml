@@ -1,6 +1,11 @@
-gtkhtml-3.1.6 "ficus" 2004-01-12
+gtkhtml-3.1.6 "Tree" 2004-01-26
 ------------------------------------------------
+
 New in this release
+   
+   * fixed font attribute handling.
+
+New in 3.1.5
 
    * improved IM preedit string display
    * removed gal dependency
