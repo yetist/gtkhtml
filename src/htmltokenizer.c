@@ -27,7 +27,7 @@
 #include "htmltokenizer.h"
 #include "htmlentity.h"
 
-#define TOKEN_BUFFER_SIZE (1 << 15)
+#define TOKEN_BUFFER_SIZE (1 << 10)
 
 typedef struct _HTMLBlockingToken HTMLBlockingToken;
 typedef struct _HTMLTokenBuffer   HTMLTokenBuffer;
@@ -304,10 +304,6 @@ html_tokenizer_begin (HTMLTokenizer *t)
 {
 	html_tokenizer_reset (t);
 
-	t->buffer = g_malloc (10240);
-	t->dest = t->buffer;
-	t->size = 1000;
-
 	t->dest = t->buffer;
 	t->tag = FALSE;
 	t->pending = NonePending;
@@ -347,6 +343,7 @@ html_tokenizer_end (HTMLTokenizer *t)
 	g_free (t->buffer);	
 
 	t->buffer = 0;
+	t->size = 0;
 
 	if (t->blocking) {
 		g_list_foreach (t->blocking, destroy_blocking, NULL);
@@ -385,7 +382,7 @@ html_tokenizer_append_token_buffer (HTMLTokenizer *t, gint min_size)
 	gint size = TOKEN_BUFFER_SIZE;
 
 	if (min_size > size)
-		size += min_size;
+		size = min_size + (min_size >> 2);
 
 	/* create new buffer and add it to list */
 	nb = html_token_buffer_new (size);
@@ -513,7 +510,7 @@ prepare_enough_space (HTMLTokenizer *t)
 	if ((t->dest - t->buffer + 5) > t->size) {
 		guint off = t->dest - t->buffer;
 
-		t->size  += 10240;
+		t->size  += (t->size >> 2) + 5;
 		t->buffer = g_realloc (t->buffer, t->size);
 		t->dest   = t->buffer + off;
 	}

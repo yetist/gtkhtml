@@ -1,3 +1,10 @@
+2000-11-01  Radek Doulik  <rodo@helixcode.com>
+
+	* htmltokenizer.c (html_tokenizer_begin): don't alloc buffer
+	(html_tokenizer_end): ser t->size to 0
+	(prepare_enough_space): grow t->size by 1/4*t->size + 5
+	(TOKEN_BUFFER_SIZE): changed initial token buffer size to 1 << 10
+
 2000-10-31  Radek Doulik  <rodo@helixcode.com>
 
 	* gtkhtml.c: likewise
