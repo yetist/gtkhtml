@@ -1,4 +1,8 @@
-h2001-03-30  Larry Ewing  <lewing@ximian.com>
+2001-03-30  Larry Ewing  <lewing@ximian.com>
+
+	* htmlplainpainter.c (alloc_fixed_font): use the parent class to
+	do the work, just override the settings.  remove a bunch of
+	duplicated support functions
 
 	* htmlengine.c (parse_table): close_anchor at the begining of a
 	new cell since <a> elements cannot span cells.  Remove it from the

@@ -35,7 +35,7 @@
 
 static HTMLGdkPainterClass *parent_class = NULL;
 
-static EFontStyle me_style (GtkHTMLFontStyle style);
+static EFontStyle e_style (GtkHTMLFontStyle style);
 
 static void
 draw_panel (HTMLPainter *painter,
@@ -56,10 +56,6 @@ draw_background (HTMLPainter *painter,
 		 gint tile_x, gint tile_y)
 {
 	HTMLGdkPainter *gdk_painter;
-	gint pw;
-	gint ph;
-	gint tile_width, tile_height;
-	gint w, h;
 	ArtIRect expose, paint, clip;
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
@@ -126,53 +122,20 @@ fill_rect (HTMLPainter *painter,
 }
 
 static EFontStyle
-me_style (GtkHTMLFontStyle style)
+e_style (GtkHTMLFontStyle style)
 {
 	EFontStyle rv = E_FONT_PLAIN;
-	return rv;
-}
-
-static gchar *
-font_name_substitute_attr (const gchar *name, gint nth, gchar *val)
-{
-	const gchar *s;
-	gchar *s1, *s2, *rv;
-
-	for (s = name; nth; nth--) {
-		s = strchr (s, '-');
-		g_assert (s);
-		s ++;
-	}
-	s1 = g_strndup (name, s - name);
-	s2 = strchr (s, '-');
-	g_assert (s);
-
-	rv = g_strconcat (s1, val, s2, NULL);
-	g_free (s1);
-
 	return rv;
 }
 
 static HTMLFont *
 alloc_fixed_font (HTMLPainter *painter, gchar *face, gdouble size, GtkHTMLFontStyle style)
 {
-	EFont *font;
-        gchar *name, *fixed_size;
-
-	fixed_size = g_strdup_printf ("%d", painter->font_manager.fix_size);
-	name = font_name_substitute_attr (painter->font_manager.fixed.face, 7, fixed_size);
-	font = e_font_from_gdk_name (name);
-	g_free (fixed_size);
-	g_free (name);
-	
-	if (!font) 
-		return NULL;
-	
-	return html_font_new (font, e_font_utf8_text_width (font, 
-							    me_style (style),
-							    " ", 1));
+	return HTML_PAINTER_CLASS (parent_class)->alloc_font (painter, 
+							      painter->font_manager.fixed.face,
+							      painter->font_manager.fix_size,
+							      GTK_HTML_FONT_STYLE_DEFAULT); 
 }
-
 
 
 static void
@@ -208,7 +171,7 @@ draw_text (HTMLPainter *painter,
 					painter->font_style);
 
 	e_font_draw_utf8_text (gdk_painter->pixmap, e_font, 
-			       me_style (painter->font_style), gdk_painter->gc,
+			       e_style (painter->font_style), gdk_painter->gc,
 			       x, y, text, 
 			       unicode_offset_to_index (text, len));
 
@@ -216,10 +179,11 @@ draw_text (HTMLPainter *painter,
 				   | GTK_HTML_FONT_STYLE_STRIKEOUT)) {
 		guint width;
 
-		width = e_font_utf8_text_width (e_font, 
-						me_style (painter->font_style),
-						text, unicode_offset_to_index (text, len));
 		/*
+		width = e_font_utf8_text_width (e_font, 
+						e_style (painter->font_style),
+						text, unicode_offset_to_index (text, len));
+
 		if (painter->font_style & GTK_HTML_FONT_STYLE_UNDERLINE)
 			gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc, 
 				       x, y + 1, 
@@ -248,7 +212,7 @@ calc_text_width (HTMLPainter *painter,
 	gdk_painter = HTML_GDK_PAINTER (painter);
 	e_font = html_painter_get_font (painter, face, style);
 
-	width = e_font_utf8_text_width (e_font, me_style (style),
+	width = e_font_utf8_text_width (e_font, e_style (style),
 					text, unicode_offset_to_index (text, len));
 
 	return width;
