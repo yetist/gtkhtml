@@ -1,3 +1,11 @@
+2001-08-09  Joe Shaw  <joe@ximian.com>
+
+	* gtkhtml.c (button_press_event): Don't grab the focus unless
+	button 1 is pressed or, in editable mode, button 2 or 3 are
+	pressed. This has the effect, in evolution, of allowing the folder
+	tree or the message list to keep its focus if you use the mouse
+	wheel in the message viewing pane.
+
 2001-08-09  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml-enums.h: added grab-focus command

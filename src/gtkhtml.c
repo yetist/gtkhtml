@@ -972,7 +972,9 @@ button_press_event (GtkWidget *widget,
 	html   = GTK_HTML (widget);
 	engine = html->engine;
 
-	gtk_widget_grab_focus (widget);
+	if (event->button == 1 || ((event->button == 2 || event->button == 3)
+				   && html_engine_get_editable (engine)))
+		gtk_widget_grab_focus (widget);
 
 	if (event->type == GDK_BUTTON_PRESS) {
 		GtkAdjustment *vadj;
