@@ -262,5 +262,7 @@ void      gtk_html_zoom_out                      (GtkHTML *html);
 void      gtk_html_zoom_reset                    (GtkHTML *html);
 
 void      gtk_html_update_styles                 (GtkHTML *html);
+void      gtk_html_set_allow_frameset            (GtkHTML *html, gboolean allow);
+gboolean  gtk_html_get_allow_frameset            (GtkHTML *html);
 
 #endif /* _GTKHTML_H_ */

@@ -3804,6 +3804,8 @@ gtk_html_edit_make_cursor_visible (GtkHTML *html)
 {
 	gboolean rv = FALSE;
 
+	g_return_val_if_fail (GTK_IS_HTML (html), rv);
+
 	html_engine_hide_cursor (html->engine);
 	if (html_engine_make_cursor_visible (html->engine)) {
 		gtk_adjustment_set_value (GTK_LAYOUT (html)->hadjustment, (gfloat) html->engine->x_offset);
@@ -3867,12 +3869,16 @@ gtk_html_insert_html_generic (GtkHTML *html, const gchar *html_src, gboolean obj
 void
 gtk_html_insert_html (GtkHTML *html, const gchar *html_src)
 {
+	g_return_if_fail (GTK_IS_HTML (html));
+
 	gtk_html_insert_html_generic (html, html_src, FALSE);
 }
 
 void
 gtk_html_append_html (GtkHTML *html, const gchar *html_src)
 {
+	g_return_if_fail (GTK_IS_HTML (html));
+
 	gtk_html_insert_html_generic (html, html_src, TRUE);
 }
 
@@ -3891,6 +3897,8 @@ set_magnification (HTMLObject *o, HTMLEngine *e, gpointer data)
 void
 gtk_html_set_magnification (GtkHTML *html, gdouble magnification)
 {
+	g_return_if_fail (GTK_IS_HTML (html));
+
 	if (magnification > 0.05 && magnification < 20.0
 	    && magnification * html->engine->painter->font_manager.var_size >= 4
 	    && magnification * html->engine->painter->font_manager.fix_size >= 4) {
@@ -3906,17 +3914,43 @@ gtk_html_set_magnification (GtkHTML *html, gdouble magnification)
 void
 gtk_html_zoom_in (GtkHTML *html)
 {
+	g_return_if_fail (GTK_IS_HTML (html));
+
 	gtk_html_set_magnification (html, html->engine->painter->font_manager.magnification * MAG_STEP);
 }
 
 void
 gtk_html_zoom_out (GtkHTML *html)
 {
+	g_return_if_fail (GTK_IS_HTML (html));
+	g_return_if_fail (HTML_IS_ENGINE (html->engine));
+
 	gtk_html_set_magnification (html, html->engine->painter->font_manager.magnification * (1.0/MAG_STEP));
 }
 
 void
 gtk_html_zoom_reset (GtkHTML *html)
 {
+	g_return_if_fail (GTK_IS_HTML (html));
+
 	gtk_html_set_magnification (html, 1.0);
 }
+
+void 
+gtk_html_set_allow_frameset (GtkHTML *html, gboolean allow)
+{
+	g_return_if_fail (GTK_IS_HTML (html));
+	g_return_if_fail (HTML_IS_ENGINE (html->engine));
+
+	html->engine->allow_frameset = allow;
+}
+
+gboolean
+gtk_html_get_allow_frameset (GtkHTML *html)
+{
+	g_return_val_if_fail (GTK_IS_HTML (html), FALSE);
+	g_return_val_if_fail (HTML_IS_ENGINE (html->engine), FALSE);
+
+	return html->engine->allow_frameset;	
+}
+

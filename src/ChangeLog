@@ -1,3 +1,9 @@
+2001-10-28  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml.c: add accessor to the allow_frameset disable code.
+
+	* gtkhtml.h: add prototypes.
+
 2001-10-27  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml.c (scroll_by_amount): fix this so that we never scroll
