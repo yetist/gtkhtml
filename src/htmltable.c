@@ -23,6 +23,7 @@
 */
 #include "htmlobject.h"
 #include "htmltable.h"
+#include <string.h>
 
 
 #define a_colinfo(x) (((ColInfo_t *)(table->colInfo)->data)[x])

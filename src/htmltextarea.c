@@ -20,6 +20,7 @@
 */
 
 #include "htmltextarea.h"
+#include <string.h>
 
 
 HTMLTextAreaClass html_textarea_class;

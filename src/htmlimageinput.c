@@ -20,6 +20,7 @@
 */
 #include "htmlimageinput.h"
 #include "htmlform.h"
+#include <string.h>
 
 
 HTMLImageInputClass html_imageinput_class;

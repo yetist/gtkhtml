@@ -23,6 +23,7 @@
 
 #include "htmltext.h"
 #include "htmllinktext.h"
+#include <string.h>
 
 
 HTMLLinkTextClass html_link_text_class;

@@ -20,6 +20,7 @@
 */
 
 #include "htmlselect.h"
+#include <string.h>
 
 
 HTMLSelectClass html_select_class;
@@ -291,7 +292,7 @@ void html_select_add_option (HTMLSelect *select,
 		select->values = g_list_append (select->values, NULL);
 
 	if(select->multi)
-		select->default_selection = g_list_append (select->default_selection, (gpointer)selected);
+		select->default_selection = g_list_append (select->default_selection, GINT_TO_POINTER(selected));
 }
 
 static char *
