@@ -1073,9 +1073,9 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		while ( string_tokenizer_has_more_tokens (e->st) ) {
 			const char* token = string_tokenizer_next_token(e->st);
 			if ( strncasecmp( token, "target=", 7 ) == 0 ) {
-				gtk_signal_emit (GTK_OBJECT (e), SET_BASE_TARGET, token + 7);
+				gtk_signal_emit (GTK_OBJECT (e), signals[SET_BASE_TARGET], token + 7);
 			} else if ( strncasecmp( token, "href=", 5 ) == 0 ) {
-				gtk_signal_emit (GTK_OBJECT (e), SET_BASE, token + 5);
+				gtk_signal_emit (GTK_OBJECT (e), signals[SET_BASE], token + 5);
 			}
 		}
 	}

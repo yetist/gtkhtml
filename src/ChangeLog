@@ -1,5 +1,7 @@
 1999-12-04  Ettore Perazzoli  <ettore@gnu.org>
 
+	* htmlengine.c (parse_b): Oops, fix the `gtk_signal_emit()' calls.
+
 	* htmlobject.c (html_object_get_url): Removed debugging message.
 
 	* gtkhtml.c (gtk_html_motion_notify_event): Keep track of the
