@@ -1,3 +1,7 @@
+2001-02-01  Radek Doulik  <rodo@ximian.com>
+
+	* README: added section about GtkHTML mailing list
+
 2001-01-30  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml 0.8.2 released
