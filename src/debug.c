@@ -51,8 +51,8 @@ debug_dump_tree (HTMLObject *o, gint level)
 		for (i = 0; i < level; i++)
 			g_print (" ");
 
-		g_print ("Obj: %p, Parent: %p  Next: %p ObjectType: %s\n",
-			 obj, obj->parent, obj->next, html_type_name (HTML_OBJECT_TYPE (obj)));
+		g_print ("Obj: %p, Parent: %p  Prev: %p Next: %p ObjectType: %s\n",
+			 obj, obj->parent, obj->prev, obj->next, html_type_name (HTML_OBJECT_TYPE (obj)));
 
 		switch (HTML_OBJECT_TYPE (obj)) {
 		case HTML_TYPE_TABLE:

@@ -224,3 +224,9 @@ html_cursor_forward (HTMLCursor *cursor,
 
 	g_print ("%s (%p)\n", __FUNCTION__, cursor->object);
 }
+
+void
+html_cursor_backward (HTMLCursor *cursor,
+		      HTMLEngine *engine)
+{
+}

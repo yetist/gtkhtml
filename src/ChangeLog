@@ -1,3 +1,17 @@
+1999-12-11  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmltextslave.c (fit_line): Update the `prev' pointer.
+
+	* htmltextmaster.c (fit_line): Update the `prev' pointer.
+
+	* htmlclue.c (html_clue_append): Set the `prev' pointer as well.
+
+	* htmlobject.c (html_object_init): Initialize it.
+
+	* htmlobject.h: New member `prev' in `HTMLObject'.
+
+	* htmlcursor.c (html_cursor_backward): New function, does nothing for now.
+
 1999-12-11  Matt Wilson  <msw@redhat.com>
 
 	* htmlurl.c (html_url_append_path): removed dependency on

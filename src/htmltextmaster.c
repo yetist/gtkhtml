@@ -73,8 +73,13 @@ fit_line (HTMLObject *o, gboolean startOfLine, gboolean firstRun,
 
 	text_slave->next = o->next;
 	text_slave->parent = o->parent;
+	text_slave->prev = o;
+
+	if (o->next != NULL)
+		o->next->prev = text_slave;
+
 	o->next = text_slave;
-	
+
 	return HTML_FIT_COMPLETE;
 }
 

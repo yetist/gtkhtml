@@ -84,6 +84,8 @@ struct _HTMLObject {
 	HTMLObjectClass *klass;
 
 	HTMLObject *parent;
+	HTMLObject *prev;
+	HTMLObject *next;
 
 	gint x, y;
 
@@ -100,8 +102,6 @@ struct _HTMLObject {
 	/* The absolute position of this object on the page */
 	gint abs_x;
 	gint abs_y;
-
-	HTMLObject *next;
 };
 
 struct _HTMLObjectClass {

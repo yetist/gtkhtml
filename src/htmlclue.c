@@ -441,8 +441,10 @@ html_clue_append (HTMLClue *clue, HTMLObject *o)
 {
 	if (! clue->head) {
 		clue->head = clue->tail = o;
+		o->prev = NULL;
 	} else {
 		clue->tail->next = o;
+		o->prev = clue->tail;
 		clue->tail = o;
 	}
 

@@ -115,7 +115,6 @@ html_tokenizer_reset (HTMLTokenizer *t)
 	g_list_free (t->tokenBufferList);
 	t->tokenBufferList = NULL;	
 
-
 	t->last = t->next = t->curr = 0;
 	t->tokenBufferSizeRemaining = 0;
 

@@ -220,7 +220,10 @@ html_object_init (HTMLObject *o,
 		  HTMLObjectClass *klass)
 {
 	o->klass = klass;
+
 	o->parent = NULL;
+	o->prev = NULL;
+	o->next = NULL;
 
 	o->x = 0;
 	o->y = 0;
@@ -237,8 +240,6 @@ html_object_init (HTMLObject *o,
 
 	o->abs_x = 0;
 	o->abs_y = 0;
-
-	o->next = NULL;
 }
 
 HTMLObject *
