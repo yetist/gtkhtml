@@ -91,7 +91,7 @@ static gint
 get_lmargin (HTMLObject *o, HTMLPainter *painter)
 {
 	return HTML_CLUEV (o)->padding * html_painter_get_pixel_size (painter)
-		+ (o->parent ?  html_object_get_left_margin (o->parent, o->y) : 0);
+		+ (o->parent ?  html_object_get_left_margin (o->parent, painter, o->y) : 0);
 }
 
 static gboolean
@@ -108,11 +108,15 @@ do_layout (HTMLObject *o,
 	gint old_width, old_ascent, old_descent;
 	gint new_x;
 	gint pixel_size;
-
-	pixel_size = html_painter_get_pixel_size (painter);
+	gint padding;
+	gint padding2;
 
 	cluev = HTML_CLUEV (o);
 	clue = HTML_CLUE (o);
+
+	pixel_size = html_painter_get_pixel_size (painter);
+	padding    = pixel_size * cluev->padding;
+	padding2   = 2 * padding;
 
 	old_width = o->width;
 	old_ascent = o->ascent;
@@ -153,8 +157,8 @@ do_layout (HTMLObject *o,
 		if (calc_size)
 			changed |= html_object_calc_size (clue->curr, painter);
 
-		if (o->width < clue->curr->width + 2 * pixel_size * cluev->padding)
-			o->width = clue->curr->width + 2 * pixel_size * cluev->padding;
+		if (o->width < clue->curr->width + padding2)
+			o->width = clue->curr->width + padding2;
 
 		o->ascent += clue->curr->ascent + clue->curr->descent;
 
@@ -175,7 +179,7 @@ do_layout (HTMLObject *o,
 	
 	if (clue->halign == HTML_HALIGN_CENTER) {
 		for (obj = clue->head; obj != 0; obj = obj->next) {
-			new_x = lmargin + (o->width - obj->width) / 2;
+			new_x = lmargin + (o->width - obj->width - padding2) / 2;
 			if (obj->x != new_x) {
 				obj->x = new_x;
 				changed = TRUE;
@@ -183,7 +187,7 @@ do_layout (HTMLObject *o,
 		}
 	} else if (clue->halign == HTML_HALIGN_RIGHT) {
 		for (obj = clue->head; obj != 0; obj = obj->next) {
-			new_x = lmargin + (o->width - obj->width);
+			new_x = lmargin + (o->width - obj->width - padding2);
 			if (obj->x != new_x) {
 				obj->x = new_x;
 				changed = TRUE;
@@ -230,12 +234,29 @@ calc_size (HTMLObject *o,
 	return do_layout (o, painter, TRUE);
 }
 
+static gint
+calc_min_width (HTMLObject *o,
+		HTMLPainter *painter)
+{
+	return (* HTML_OBJECT_CLASS (parent_class)->calc_min_width) (o, painter)
+		+ 2 * html_painter_get_pixel_size (painter) * HTML_CLUEV (o)->padding;
+}
+
+static gint
+calc_preferred_width (HTMLObject *o,
+		      HTMLPainter *painter)
+{
+	return (* HTML_OBJECT_CLASS (parent_class)->calc_preferred_width) (o, painter)
+		+ 2 * html_painter_get_pixel_size (painter) * HTML_CLUEV (o)->padding;
+}
+
 static void
 set_max_width (HTMLObject *o, HTMLPainter *painter, gint max_width)
 {
 	HTMLObject *obj;
 
 	o->max_width = max_width;
+	max_width   -= 2 * HTML_CLUEV (o)->padding * html_painter_get_pixel_size (painter);
 	for (obj = HTML_CLUE (o)->head; obj != NULL; obj = obj->next)
 		html_object_set_max_width (obj, painter, max_width);
 }
@@ -431,7 +452,7 @@ relayout (HTMLObject *self,
 }
 
 static gint
-get_left_margin (HTMLObject *self, gint y)
+get_left_margin (HTMLObject *self, HTMLPainter *painter, gint y)
 {
 	HTMLObject *aclue;
 	HTMLClueV *cluev;
@@ -454,7 +475,7 @@ get_left_margin (HTMLObject *self, gint y)
 }
 
 static gint
-get_right_margin (HTMLObject *self, gint y)
+get_right_margin (HTMLObject *self, HTMLPainter *painter, gint y)
 {
 	HTMLClueV *cluev;
 	/* FIXME: Should be HTMLAligned */
@@ -462,7 +483,7 @@ get_right_margin (HTMLObject *self, gint y)
 	gint margin;
 	
 	cluev = HTML_CLUEV (self);
-	margin = self->max_width;
+	margin = self->max_width - 2 * cluev->padding * html_painter_get_pixel_size (painter);
 
 	for (aclue = cluev->align_right_list;
 	     aclue != NULL;
@@ -763,6 +784,8 @@ html_cluev_class_init (HTMLClueVClass *klass,
 
 	object_class->copy = copy;
 	object_class->calc_size = calc_size;
+	object_class->calc_min_width = calc_min_width;
+	object_class->calc_preferred_width = calc_preferred_width;
 	object_class->relayout = relayout;
 	object_class->set_max_width = set_max_width;
 	object_class->reset = reset;

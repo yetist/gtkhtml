@@ -488,7 +488,8 @@ get_right_clear (HTMLClue *o, gint y)
 }
 
 static void
-find_free_area (HTMLClue *clue, gint y,
+find_free_area (HTMLClue *clue,
+		gint y,
 		gint width, gint height,
 		gint indent, gint *y_pos,
 		gint *lmargin, gint *rmargin)
@@ -657,13 +658,12 @@ html_clue_get_right_clear (HTMLClue *clue, gint y)
 }
 
 void
-html_clue_find_free_area (HTMLClue *clue, gint y,
+html_clue_find_free_area (HTMLClue *clue,
+			  gint y,
 			  gint width, gint height, gint indent, gint *y_pos,
 			  gint *lmargin, gint *rmargin)
 {
-	(* HC_CLASS (clue)->find_free_area) (clue, y, width, height,
-					     indent, y_pos,
-					     lmargin, rmargin);
+	(* HC_CLASS (clue)->find_free_area) (clue, y, width, height, indent, y_pos, lmargin, rmargin);
 }
 
 void

@@ -1,5 +1,19 @@
 2001-06-19  Radek Doulik  <rodo@ximian.com>
 
+	* htmltablecell.c (calc_min_width): use parent method
+
+	* htmltable.c (calc_column_width_step): don't add padding
+	(html_table_set_cells_max_width): don't substract padding
+
+	* htmlcluev.c (get_right_margin): substract 2 * padding
+	(do_layout): fix for padding
+	(calc_min_width): new method, takes care for padding
+	(calc_preferred_width): ditto
+	(set_max_width): fix for padding
+
+	* htmlobject.c (html_object_get_left_margin): added painter parameter
+	(html_object_get_right_margin): ditto
+
 	* htmlgdkpainter.c (alloc_e_font_try): added medium, bold, roman,
 	italic parameters
 	(try_font_possible_names): new function, try more weights/slants

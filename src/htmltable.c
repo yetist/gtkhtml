@@ -654,7 +654,7 @@ calc_column_width_step (HTMLTable *table, HTMLPainter *painter, GArray *array, g
 			if (cspan != span)
 				continue;
 
-			col_width  = (*calc_fn) (HTML_OBJECT (cell), painter) + pixel_size * table->padding * 2
+			col_width  = (*calc_fn) (HTML_OBJECT (cell), painter) +
 				- (span - 1) * (table->padding * 2 + table->spacing + border_extra) * pixel_size;
 			if (col_width <= 0)
 				continue;
@@ -1373,7 +1373,6 @@ html_table_set_cells_max_width (HTMLTable *table, HTMLPainter *painter, gint *ma
 				size = max_size [c] + (cell->col != c ? size : 0);
 				if (cell_end_col (table, cell) - 1 == c && cell->row == r)
 					html_object_set_max_width (HTML_OBJECT (cell), painter, size
-								   - pixel_size * table->padding * 2
 								   + pixel_size * (table->spacing + border_extra) * CSPAN);
 			}
 		}

@@ -123,24 +123,13 @@ static gint
 calc_min_width (HTMLObject *o,
 		HTMLPainter *painter)
 {
-	HTMLObject *obj;
-	gint minWidth = 0;
-
 	if (HTML_TABLE_CELL (o)->no_wrap)
 		return MAX ((* HTML_OBJECT_CLASS (parent_class)->calc_preferred_width) (o, painter),
 			    o->flags & HTML_OBJECT_FLAG_FIXEDWIDTH
 			    ? HTML_TABLE_CELL (o)->fixed_width * html_painter_get_pixel_size (painter)
 			    : 0);
 
-	for (obj = HTML_CLUE (o)->head; obj != NULL; obj = obj->next) {
-		gint w;
-
-		w = html_object_calc_min_width (obj, painter);
-		if (w > minWidth)
-			minWidth = w;
-	}
-
-	return minWidth;
+	return (* HTML_OBJECT_CLASS (parent_class)->calc_min_width) (o, painter);
 }
 
 static gint

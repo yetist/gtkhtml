@@ -161,8 +161,8 @@ struct _HTMLObjectClass {
            HTMLTable does not derive from HTMLClue and we don't want
            to spend time reorganizing the hierarchy now.  */
 
-	gint (* get_left_margin) (HTMLObject *self, gint y);
-	gint (* get_right_margin) (HTMLObject *self, gint y);
+	gint (* get_left_margin) (HTMLObject *self, HTMLPainter *painter, gint y);
+	gint (* get_right_margin) (HTMLObject *self, HTMLPainter *painter, gint y);
 
 	void (* set_painter) (HTMLObject *o, HTMLPainter *painter);
 
@@ -288,8 +288,10 @@ void            html_object_split                 (HTMLObject            *self,
 void            html_object_set_parent            (HTMLObject            *self,
 						   HTMLObject            *parent);
 gint            html_object_get_left_margin       (HTMLObject            *self,
+						   HTMLPainter           *painter,
 						   gint                   y);
 gint            html_object_get_right_margin      (HTMLObject            *self,
+						   HTMLPainter           *painter,
 						   gint                   y);
 void            html_object_set_painter           (HTMLObject            *o,
 						   HTMLPainter           *p);

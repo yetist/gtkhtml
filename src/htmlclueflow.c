@@ -427,10 +427,10 @@ calc_size (HTMLObject *o,
 	padding = calc_padding (painter);
 	add_pre_padding (HTML_CLUEFLOW (o), padding);
 
-	lmargin = html_object_get_left_margin (o->parent, o->y);
+	lmargin = html_object_get_left_margin (o->parent, painter, o->y);
 	if (indent > lmargin)
 		lmargin = indent;
-	rmargin = html_object_get_right_margin (o->parent, o->y);
+	rmargin = html_object_get_right_margin (o->parent, painter, o->y);
 
 	w = lmargin;
 	a = 0;
@@ -478,10 +478,9 @@ calc_size (HTMLObject *o,
 						obj->y = o->ascent + obj->ascent + a + d;
 						changed = TRUE;
 					}
-					html_clue_append_left_aligned (HTML_CLUE (o->parent),
-								       HTML_CLUE (c));
+					html_clue_append_left_aligned (HTML_CLUE (o->parent), HTML_CLUE (c));
 
-					lmargin = html_object_get_left_margin (o->parent, o->y);
+					lmargin = html_object_get_left_margin (o->parent, painter, o->y);
 
 					if (indent > lmargin)
 						lmargin = indent;
@@ -500,10 +499,9 @@ calc_size (HTMLObject *o,
 						changed = TRUE;
 					}
 					
-					html_clue_append_right_aligned (HTML_CLUE (o->parent),
-									HTML_CLUE (c));
+					html_clue_append_right_aligned (HTML_CLUE (o->parent), HTML_CLUE (c));
 
-					rmargin = html_object_get_right_margin (o->parent, o->y);
+					rmargin = html_object_get_right_margin (o->parent, painter, o->y);
 				}
 			}
 
@@ -602,11 +600,8 @@ calc_size (HTMLObject *o,
 
 				html_clue_find_free_area (HTML_CLUE (o->parent),
 							  o->y,
-							  rmargin - lmargin,
-							  a+d,
-							  indent,
-							  &new_y, &new_lmargin,
-							  &new_rmargin);
+							  rmargin - lmargin, a+d, indent, &new_y,
+							  &new_lmargin, &new_rmargin);
 				
 				if (new_y != o->y
 				    || new_lmargin > lmargin
@@ -640,12 +635,12 @@ calc_size (HTMLObject *o,
 					/* we've used up this line so insert a newline */
 					newLine = TRUE;
 				}
-				lmargin = html_object_get_left_margin (o->parent, o->y);
+				lmargin = html_object_get_left_margin (o->parent, painter, o->y);
 				
 				if (indent > lmargin)
 					lmargin = indent;
 
-				rmargin = html_object_get_right_margin (o->parent, o->y);
+				rmargin = html_object_get_right_margin (o->parent, painter, o->y);
 			}
 		}
 		
@@ -746,10 +741,10 @@ calc_size (HTMLObject *o,
 
 			o->ascent += o->y - oldy;
 
-			lmargin = html_object_get_left_margin (o->parent, o->y);
+			lmargin = html_object_get_left_margin (o->parent, painter, o->y);
 			if (indent > lmargin)
 				lmargin = indent;
-			rmargin = html_object_get_right_margin (o->parent, o->y);
+			rmargin = html_object_get_right_margin (o->parent, painter, o->y);
 
 			w = lmargin;
 			d = 0;

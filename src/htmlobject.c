@@ -269,13 +269,13 @@ set_max_width (HTMLObject *o, HTMLPainter *painter, gint max_width)
 }
 
 static gint
-get_left_margin (HTMLObject *self, gint y)
+get_left_margin (HTMLObject *self, HTMLPainter *painter, gint y)
 {
 	return 0;
 }
 
 static gint
-get_right_margin (HTMLObject *self, gint y)
+get_right_margin (HTMLObject *self, HTMLPainter *painter, gint y)
 {
 	return MAX (self->max_width, self->width);
 }
@@ -891,15 +891,15 @@ html_object_set_max_width (HTMLObject *o, HTMLPainter *painter, gint max_width)
 }
 
 gint
-html_object_get_left_margin (HTMLObject *self, gint y)
+html_object_get_left_margin (HTMLObject *self, HTMLPainter *painter, gint y)
 {
-	return (* HO_CLASS (self)->get_left_margin) (self, y);
+	return (* HO_CLASS (self)->get_left_margin) (self, painter, y);
 }
 
 gint
-html_object_get_right_margin (HTMLObject *self, gint y)
+html_object_get_right_margin (HTMLObject *self, HTMLPainter *painter, gint y)
 {
-	return (* HO_CLASS (self)->get_right_margin) (self, y);
+	return (* HO_CLASS (self)->get_right_margin) (self, painter, y);
 }
 
 static void
