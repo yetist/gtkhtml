@@ -448,8 +448,6 @@ split (HTMLText *self,
 	gchar *s;
 
 	len = strlen (self->text);
-	if (offset >= len || offset == 0)
-		return NULL;
 
 	s = g_strdup (self->text + offset);
 

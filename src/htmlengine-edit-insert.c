@@ -84,10 +84,6 @@ html_engine_insert_para (HTMLEngine *e,
 			html_clue_remove (HTML_CLUE (p->parent), p);
 			html_object_destroy (p);
 		}
-
-		current->next = p;
-		if (p != NULL)
-			p->prev = current;
 	}
 
 	if (offset > 0) {
@@ -120,6 +116,7 @@ html_engine_insert_para (HTMLEngine *e,
 		HTMLObject *text_next;
 
 		text_next = HTML_OBJECT (html_text_split (HTML_TEXT (current), offset));
+
 		html_clue_prepend (HTML_CLUE (next_flow), text_next);
 
 		/* FIXME relative offset?  */

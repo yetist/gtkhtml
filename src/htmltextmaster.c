@@ -405,9 +405,6 @@ split (HTMLText *self,
 
 	master = HTML_TEXT_MASTER (self);
 
-	if (offset >= HTML_TEXT (self)->text_len || offset == 0)
-		return NULL;
-
 	new = (* HTML_TEXT_CLASS (parent_class)->split) (self, offset);
 	if (new == NULL)
 		return NULL;

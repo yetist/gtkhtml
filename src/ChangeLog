@@ -1,5 +1,12 @@
 2000-02-25  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlengine-edit-insert (html_engine_insert_para): Removed some
+	bogocode.
+
+	* htmltext.c (split): Do return empty text elements if cutting at
+	the very beginning or the very end of the object.
+	* htmltextmaster.c (split): Likewise.
+
 	* htmlengine-edit-fontstyle.c (set_font_style_in_selection) [!
 	PARANOID_DEBUG]: Disabled debugging messages.
 
