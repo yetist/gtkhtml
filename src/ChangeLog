@@ -1,3 +1,7 @@
+2003-12-18  Dan Winship  <danw@ximian.com>
+
+	* testgtkhtml.c (main): s/soup_session_new/soup_session_async_new/
+
 2003-12-15  Radek Doulik  <rodo@ximian.com>
 
 	* htmlgdkpainter.c (text_size): use font metrics for

@@ -1013,7 +1013,7 @@ main (gint argc, gchar *argv[])
 	gnome_app_set_contents (GNOME_APP (app), scrolled_window);
 
 #ifndef HAVE_OLD_SOUP
-	session = soup_session_new ();
+	session = soup_session_async_new ();
 #endif
 
 	html_widget = gtk_html_new ();
