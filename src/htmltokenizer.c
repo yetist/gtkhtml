@@ -485,10 +485,7 @@ html_tokenizer_write (HTMLTokenizer *t, const gchar *string, size_t size)
 				src++;
 			}
 			else {
-				/* FIXME: get entities */
-				if (((entityValue < 128) &&
-				     (entityValue > 0)) ||
-				    ((entityValue == 160))) {
+				if(entityValue) {
 					/* Insert plain ASCII */
 					*(t->dest)++ = (gchar) entityValue;
 					if (t->pre)
@@ -505,6 +502,7 @@ html_tokenizer_write (HTMLTokenizer *t, const gchar *string, size_t size)
 						t->prePos += t->searchCount;
 
 				}
+#if 0
 				else if (!t->tag && !t->textarea && !t->select && !t->title) {
 					/* Add current token first */
 					if (t->dest > t->buffer) {
@@ -522,15 +520,7 @@ html_tokenizer_write (HTMLTokenizer *t, const gchar *string, size_t size)
 					if (*src == ';')
 						src++;
 				}
-				/* FIXME: Get entities */
-				else if (entityValue > 0) {
-					/* Insert the character, assume iso-8859-1 */
-					*(t->dest)++ = (gchar) entityValue;
-					if (t->pre)
-						t->prePos++;
-					if (*src == ';')
-						src++;
-				}
+#endif
 				t->searchCount = 0;
 			}
 		}

@@ -1,3 +1,11 @@
+1999-12-09  Jonas Borgström  <jonas_b@bitsmart.com>
+
+	* gtkhtml.c (gtk_html_begin): Scroll page to the top on new url
+	
+	* htmltokenizer.c (html_tokenizer_write): Fixing parsing of entity.
+	
+	* htmlentity.c: (html_entity_parse): Corrected function.
+	
 1999-12-09  Miguel de Icaza  <miguel@gnu.org>
 
 	* htmlpainter.c (html_painter_draw_pixmap): fix the offsets.

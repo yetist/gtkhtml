@@ -156,10 +156,10 @@ html_entity_parse (const gchar *s, guint len)
 
 	for (i = 0; i < sizeof (entity_table) / sizeof (*entity_table); i++) {
 		if (len == 0) {
-			if (strncasecmp (entity_table[i].str, s, len) == 0)
+			if (strcmp (entity_table[i].str, s) == 0)
 				return entity_table[i].value;
 		} else {
-			if (strcasecmp (entity_table[i].str, s) == 0)
+			if (strncmp (entity_table[i].str, s, len) == 0)
 				return entity_table[i].value;
 		}
 	}
