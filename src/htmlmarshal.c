@@ -1,3 +1,4 @@
+#include "htmlmarshal.h"
 
 #include	<glib-object.h>
 

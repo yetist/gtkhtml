@@ -263,15 +263,19 @@ dump_object_simple (HTMLObject *obj,
 				g_print ("item %d offset: %d length: %d\n", i, text->pi->entries [i].item->offset, text->pi->entries [i].item->length);
 				
 			for (i = 0; i < text->text_len; i ++) {
-				PangoLogAttr attr = text->pi->attrs [i];
-				g_print ("log attrs[%d]: %d\n\t", i, (*(int *)&attr) & 0x7ff);
-				if (attr.is_line_break)
+				union {
+					PangoLogAttr attr;
+					guint as_int;
+				} u;
+				u.attr = text->pi->attrs [i];
+				g_print ("log attrs[%d]: %d\n\t", i, u.as_int & 0x7ff);
+				if (u.attr.is_line_break)
 					g_print ("line break, ");
-				if (attr.is_mandatory_break)
+				if (u.attr.is_mandatory_break)
 					g_print ("mandatory break, ");
-				if (attr.is_char_break)
+				if (u.attr.is_char_break)
 					g_print ("char break, ");
-				if (attr.is_white)
+				if (u.attr.is_white)
 					g_print ("white, ");
 				g_print ("\n");
 			}
@@ -360,7 +364,7 @@ gtk_html_debug_dump_list_simple (GList *list,
 #define D_ATTR_TYPE(x, s) if ((attr = pango_attr_iterator_get (iter, PANGO_ATTR_ ## x))) g_print ("%3d-%3d: %s\n", attr->start_index, attr->end_index, s);
 #define D_ATTR_TYPE_INT(x, s) if ((attr = pango_attr_iterator_get (iter, PANGO_ATTR_ ## x))) { g_print ("%3d-%3d: %s %d\n", attr->start_index, attr->end_index, s, ((PangoAttrInt *)attr)->value); }
 
-void
+static void
 gtk_html_debug_list_attrs (PangoAttrList *attrs)
 {
 	PangoAttrIterator *iter = pango_attr_list_get_iterator (attrs);

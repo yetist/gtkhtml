@@ -1394,7 +1394,7 @@ html_image_pointer_unref (HTMLImagePointer *ip)
 	}
 }
 
-GtkHTMLStream *
+static GtkHTMLStream *
 html_image_pointer_load (HTMLImagePointer *ip)
 {
 	if (ip->factory->engine->stopped)

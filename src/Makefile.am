@@ -241,4 +241,5 @@ htmlmarshal.h:	htmlclosures.list
 	glib-genmarshal --header --prefix=html_g_cclosure_marshal $< > $@
 
 htmlmarshal.c:	htmlclosures.list
-	glib-genmarshal --body --prefix=html_g_cclosure_marshal $< > $@
+	( echo '#include "htmlmarshal.h"' > $@ &&				\
+	glib-genmarshal --body --prefix=html_g_cclosure_marshal $< >> $@ ) || rm -f $@

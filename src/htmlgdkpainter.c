@@ -505,7 +505,6 @@ draw_background (HTMLPainter *painter,
 	gint tile_width, tile_height;
 	gint w, h;
 	GdkRectangle expose, paint, clip;
-	GdkPixbufAlphaMode alpha_mode;
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
 
@@ -538,8 +537,6 @@ draw_background (HTMLPainter *painter,
 
 	if (!pixbuf)
 		return;
-
-	alpha_mode = gdk_painter->alpha ? GDK_PIXBUF_ALPHA_FULL : GDK_PIXBUF_ALPHA_BILEVEL;
 
 	pw = gdk_pixbuf_get_width (pixbuf);
 	ph = gdk_pixbuf_get_height (pixbuf);
@@ -579,7 +576,6 @@ draw_background (HTMLPainter *painter,
 		gint cw, ch, cx, cy;
 		gint dw, dh;
 		GdkGC *gc;
-		GdkBitmap *bitmap = NULL;
 		
 		dw = MIN (pw, tile_width);
 		dh = MIN (ph, tile_height);
@@ -596,14 +592,12 @@ draw_background (HTMLPainter *painter,
 						    dw, dh);
 			}	
 
-			gdk_pixbuf_render_to_drawable_alpha (pixbuf, pixmap,
-							     0, 0,
-							     0, 0, 
-							     dw, dh,
-							     alpha_mode,
-							     128,
-							     GDK_RGB_DITHER_NORMAL,
-							     paint.x, paint.y);
+			gdk_draw_pixbuf (pixmap, NULL, pixbuf,
+					 0, 0,
+					 0, 0, 
+					 dw, dh,
+					 GDK_RGB_DITHER_NORMAL,
+					 paint.x, paint.y);
 	
 			gdk_gc_set_tile (gc, pixmap);
 			gdk_gc_set_fill (gc, GDK_TILED);
@@ -617,16 +611,9 @@ draw_background (HTMLPainter *painter,
 			
 			g_object_unref (pixmap);			
 			g_object_unref (gc);			
-		} else if (alpha_mode == GDK_PIXBUF_ALPHA_FULL) {
+		} else {
 			int incr_x = 0;
 			int incr_y = 0;
-
-			if (color) {
-				gdk_gc_set_foreground (gc, color);
-				gdk_draw_rectangle (pixmap, gc,
-						    TRUE, 0, 0,
-						    dw, dh);
-			}	
 
 			cy = paint.y;
 			ch = paint.height;
@@ -640,15 +627,13 @@ draw_background (HTMLPainter *painter,
 				while (cw > 0) {
 					incr_x = dw - w;
 
-					gdk_pixbuf_render_to_drawable_alpha (pixbuf, gdk_painter->pixmap,
-									     w, h, 
-									     cx - clip.x, cy - clip.y,
-									     (cw >= incr_x) ? incr_x : cw,
-									     (ch >= incr_y) ? incr_y : ch,
-									     alpha_mode,
-									     128,
-									     GDK_RGB_DITHER_NORMAL,
-									     cx, cy);
+					gdk_draw_pixbuf (gdk_painter->pixmap, NULL, pixbuf,
+							 w, h, 
+							 cx - clip.x, cy - clip.y,
+							 (cw >= incr_x) ? incr_x : cw,
+							 (ch >= incr_y) ? incr_y : ch,
+							 GDK_RGB_DITHER_NORMAL,
+							 cx, cy);
 
 					cw -= incr_x;
 					cx += incr_x;
@@ -660,61 +645,6 @@ draw_background (HTMLPainter *painter,
 			}
 
 			g_object_unref (gc);			
-		} else {
-			int incr_x = 0;
-			int incr_y = 0;
-
-			/* Right now we only support GDK_PIXBUF_ALPHA_BILEVEL, so we
-			 * unconditionally create the clipping mask.
-			 */
-			bitmap = gdk_pixmap_new (NULL, dw, dh, 1);
-			gdk_pixbuf_render_threshold_alpha (pixbuf, bitmap,
-							   0, 0,
-							   0, 0,
-							   dw, dh,
-							   128);
-			gdk_gc_set_clip_mask (gc, bitmap);
-			
-			pixmap = gdk_pixmap_new (gdk_painter->window, dw, dh, -1);		
-			gdk_pixbuf_render_to_drawable (pixbuf, pixmap, gc,
-						       0, 0,
-						       0, 0, 
-						       dw, dh,
-						       GDK_RGB_DITHER_NORMAL,
-						       paint.x, paint.y);
-			
-			cy = paint.y;
-			ch = paint.height;
-			h = tile_y % ph;
-			while (ch > 0) {
-				incr_y = dh - h;
-
-				cx = paint.x;
-				cw = paint.width;
-				w = tile_x % pw;
-				while (cw > 0) {
-					incr_x = dw - w;
-
-					gdk_gc_set_clip_origin (gc, 
-								cx - w - clip.x,
-								cy - h - clip.y);
-					
-					gdk_draw_drawable (gdk_painter->pixmap, gc, pixmap,
-							   w, h, cx - clip.x, cy - clip.y,
-							   (cw >= incr_x) ? incr_x : cw,
-							   (ch >= incr_y) ? incr_y : ch);
-
-					cw -= incr_x;
-					cx += incr_x;
-					w = 0;
-				}
-				ch -= incr_y;
-				cy += incr_y;
-				h = 0;
-			}
-			g_object_unref (pixmap);			
-			g_object_unref (bitmap);
-			g_object_unref (gc);
 		}
 	} else {
 		if (color && gdk_pixbuf_get_has_alpha (pixbuf)) {
@@ -724,14 +654,12 @@ draw_background (HTMLPainter *painter,
 					    paint.width, paint.height);	
 		}
 		
-		gdk_pixbuf_render_to_drawable_alpha (pixbuf, gdk_painter->pixmap,
-						     tile_x % pw, tile_y % ph,
-						     paint.x - clip.x, paint.y - clip.y, 
-						     paint.width, paint.height,
-						     alpha_mode,
-						     128,
-						     GDK_RGB_DITHER_NORMAL,
-						     paint.x, paint.y);
+		gdk_draw_pixbuf (gdk_painter->pixmap, NULL, pixbuf,
+				 tile_x % pw, tile_y % ph,
+				 paint.x - clip.x, paint.y - clip.y, 
+				 paint.width, paint.height,
+				 GDK_RGB_DITHER_NORMAL,
+				 paint.x, paint.y);
 	}
 }
 
@@ -744,7 +672,6 @@ draw_pixmap (HTMLPainter *painter,
 {
 	GdkRectangle clip, image, paint;
 	HTMLGdkPainter *gdk_painter;
-	GdkPixbufAlphaMode alpha_mode;
 	GdkPixbuf *tmp_pixbuf;
 	guint n_channels;
 	gint orig_width;
@@ -774,20 +701,16 @@ draw_pixmap (HTMLPainter *painter,
 	if (!gdk_rectangle_intersect (&clip, &image, &paint))
 	    return;
 
-	alpha_mode = gdk_painter->alpha ? GDK_PIXBUF_ALPHA_FULL : GDK_PIXBUF_ALPHA_BILEVEL;
-
 	if (scale_width == orig_width && scale_height == orig_height && color == NULL) {
-		gdk_pixbuf_render_to_drawable_alpha (pixbuf, gdk_painter->pixmap,
-						     paint.x - image.x,
-						     paint.y - image.y,
-						     paint.x - clip.x,
-						     paint.y - clip.y,
-						     paint.width,
-						     paint.height,
-						     alpha_mode,
-						     128,
-						     GDK_RGB_DITHER_NORMAL,
-						     paint.x, paint.y);
+		gdk_draw_pixbuf (gdk_painter->pixmap, NULL, pixbuf,
+				 paint.x - image.x,
+				 paint.y - image.y,
+				 paint.x - clip.x,
+				 paint.y - clip.y,
+				 paint.width,
+				 paint.height,
+				 GDK_RGB_DITHER_NORMAL,
+				 paint.x, paint.y);
 		return;
 	}
 
@@ -856,17 +779,15 @@ draw_pixmap (HTMLPainter *painter,
 		}
 	}
 
-	gdk_pixbuf_render_to_drawable_alpha (tmp_pixbuf, gdk_painter->pixmap,
-					     0,
-					     0,
-					     paint.x - clip.x,
-					     paint.y - clip.y,
-					     paint.width,
-					     paint.height,
-					     alpha_mode,
-					     128,
-					     GDK_RGB_DITHER_NORMAL,
-					     paint.x, paint.y);
+	gdk_draw_pixbuf (gdk_painter->pixmap, NULL, tmp_pixbuf,
+			 0,
+			 0,
+			 paint.x - clip.x,
+			 paint.y - clip.y,
+			 paint.width,
+			 paint.height,
+			 GDK_RGB_DITHER_NORMAL,
+			 paint.x, paint.y);
 	gdk_pixbuf_unref (tmp_pixbuf);
 }
 
@@ -1184,7 +1105,6 @@ html_gdk_painter_init (GObject *object)
 
 	gdk_painter->window = NULL;
 
-	gdk_painter->alpha = TRUE;
 	gdk_painter->gc = NULL;
 
 	gdk_painter->double_buffer = TRUE;

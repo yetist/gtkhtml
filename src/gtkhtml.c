@@ -2377,7 +2377,7 @@ new_obj_from_uri (HTMLEngine *e, char *uri, char *title, gint len)
 
 	if (!strncmp (uri, "file:", 5)) {
 		if (!HTML_IS_PLAIN_PAINTER(e->painter)) {
-			GdkPixbuf *pixbuf;
+			GdkPixbuf *pixbuf = NULL;
 			char *img_path = g_filename_from_uri (uri, NULL, NULL);
 			if (img_path) {
 				pixbuf = gdk_pixbuf_new_from_file(img_path, NULL);
@@ -3944,7 +3944,7 @@ gtk_html_set_indent (GtkHTML *html,
 	gtk_html_update_styles (html);
 }
 
-void
+static void
 gtk_html_modify_indent_by_delta (GtkHTML *html,
 				 gint delta, guint8 *levels)
 {

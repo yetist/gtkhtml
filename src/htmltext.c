@@ -738,7 +738,7 @@ html_text_real_calc_size (HTMLObject *self, HTMLPainter *painter, GList **change
 	return FALSE;
 }
 
-const gchar *
+static const gchar *
 html_utf8_strnchr (const gchar *s, gchar c, gint len, gint *offset)
 {
 	const gchar *res = NULL;
@@ -858,7 +858,7 @@ update_asc_dsc (HTMLPainter *painter, PangoItem *item, gint *asc, gint *dsc)
 	pango_font_metrics_unref (pfm);
 }
 
-void
+static void
 html_text_get_attr_list_list (PangoAttrList *get_attrs, PangoAttrList *attr_list, gint start_index, gint end_index)
 {
 	PangoAttrIterator *iter = pango_attr_list_get_iterator (attr_list);
@@ -1140,7 +1140,7 @@ html_text_add_cite_color (PangoAttrList *attrs, HTMLText *text, HTMLClueFlow *fl
 	}
 }
 
-void
+static void
 html_text_remove_link_line_breaks (HTMLText *text)
 {
 	GSList *cur;
@@ -1709,30 +1709,30 @@ get_length (HTMLObject *self)
 
 struct TmpDeltaRecord
 {
-	int index;
-	int delta;
+	int index;		/* Byte index within original string  */
+	int delta;		/* New delta (character at index was modified,
+				 * new delta applies to characters afterwards)
+				 */
 };
 
+/* Called when current character is not white space or at end of string */
 static gboolean
-check_last_white (gint white_space, gunichar last_white, gint *delta_out, gboolean *rv_out)
+check_last_white (gint white_space, gunichar last_white, gint *delta_out)
 {
 	if (white_space > 0 && last_white == ENTITY_NBSP) {
-		(*delta_out) --;
-		*rv_out = TRUE;
-
+		(*delta_out) --; /* &nbsp; => &sp; is one byte shorter in UTF-8 */
 		return TRUE;
 	}
 
 	return FALSE;
 }
 
+/* Called when current character is white space */
 static gboolean
-check_prev_white (gint white_space, gunichar last_white, gint *delta_out, gboolean *rv_out)
+check_prev_white (gint white_space, gunichar last_white, gint *delta_out)
 {
 	if (white_space > 0 && last_white == ' ') {
-		(*delta_out) ++;
-		*rv_out = TRUE;
-
+		(*delta_out) ++; /* &sp; => &nbsp; is one byte longer in UTF-8 */
 		return TRUE;
 	}
 
@@ -1750,40 +1750,53 @@ add_change (GSList *list, int index, int delta)
 	return g_slist_prepend (list, rec);
 }
 
+/* This function does a pre-scan for the transformation in convert_nbsp,
+ * which converts a sequence of N white space characters (&sp; or &nbsp;)
+ * into N-1 &nbsp and 1 &sp;.
+ *
+ * delta_out: total change in byte length of string
+ * changes_out: location to store series of records for each change in offset
+ *              between the original string and the new string.
+ * returns: %TRUE if any records were stored in changes_out
+ */
 static gboolean
 is_convert_nbsp_needed (const gchar *s, gint *delta_out, GSList **changes_out)
 {
 	gunichar uc, last_white = 0;
-	gboolean rv = FALSE, change;
+	gboolean change;
 	gint white_space;
-	const gchar *p, *op, *bop;
+	const gchar *p, *last_p;
 
 	*delta_out = 0;
 
-	bop = p = s;
+	last_p = NULL;		/* Quiet GCC */
 	white_space = 0;
-	while (*p && (uc = g_utf8_get_char (p)) && (op = p) && (p = g_utf8_next_char (p))) {
+	for (p = s; *p; p = g_utf8_next_char (p)) {
+		uc = g_utf8_get_char (p);
+		
 		if (uc == ENTITY_NBSP || uc == ' ') {
-			change = check_prev_white (white_space, last_white, delta_out, &rv);
+			change = check_prev_white (white_space, last_white, delta_out);
 			white_space ++;
 			last_white = uc;
 		} else {
-			change = check_last_white (white_space, last_white, delta_out, &rv);
+			change = check_last_white (white_space, last_white, delta_out);
 			white_space = 0;
 		}
 		if (change)
-			*changes_out = add_change (*changes_out, bop - s, *delta_out);
-		bop = op;
+			*changes_out = add_change (*changes_out, last_p - s, *delta_out);
+		last_p = p;
 	}
 
-	if (check_last_white (white_space, last_white, delta_out, &rv))
-		*changes_out = add_change (*changes_out, op - s, *delta_out);
+	if (check_last_white (white_space, last_white, delta_out))
+		*changes_out = add_change (*changes_out, last_p - s, *delta_out);
+
 
 	*changes_out = g_slist_reverse (*changes_out);
 
-	return rv;
+	return *changes_out != NULL;
 }
 
+/* Called when current character is white space */
 static void
 write_prev_white_space (gint white_space, gchar **fill)
 {
@@ -1796,6 +1809,7 @@ write_prev_white_space (gint white_space, gchar **fill)
 	}
 }
 
+/* Called when current character is not white space or at end of string */
 static void
 write_last_white_space (gint white_space, gchar **fill)
 {
@@ -1807,20 +1821,27 @@ write_last_white_space (gint white_space, gchar **fill)
 	}
 }
 
+/* converts a sequence of N white space characters (&sp; or &nbsp;)
+ * into N-1 &nbsp and 1 &sp;.
+ */
 static void
 convert_nbsp (gchar *fill, const gchar *text)
 {
 	gint white_space;
 	gunichar uc;
-	const gchar *op, *p;
+	const gchar *this_p, *p;
 
 #ifdef DEBUG_NBSP
 	printf ("convert_nbsp: %s --> \"", p);
 #endif
-	op = p = text;
+	p = text;
 	white_space = 0;
 
-	while (*p && (uc = g_utf8_get_char (p)) && (p = g_utf8_next_char (p))) {
+	while (*p) {
+		this_p = p;
+		uc = g_utf8_get_char (p);
+		p = g_utf8_next_char (p);
+
 		if (uc == ENTITY_NBSP || uc == ' ') {
 			write_prev_white_space (white_space, &fill);
 			white_space ++;
@@ -1830,10 +1851,9 @@ convert_nbsp (gchar *fill, const gchar *text)
 #ifdef DEBUG_NBSP
 			printf ("*");
 #endif
-			strncpy (fill, op, p - op);
-			fill += p - op;
+			strncpy (fill, this_p, p - this_p);
+			fill += p - this_p;
 		}
-		op = p;
 	}
 
 	write_last_white_space (white_space, &fill);
@@ -2661,11 +2681,18 @@ html_text_magic_link (HTMLText *text, HTMLEngine *engine, guint offset)
 	cur = str = html_text_get_text (text, offset);
 
 	/* check forward to ensure chars are < 0x80, could be removed once we have utf8 regex */
-	do {
+	while (TRUE) {
 		cur = g_utf8_next_char (cur);
-		if (cur && *cur && (uc = g_utf8_get_char (cur)) >= 0x80)
+		if (!*cur)
+			break;
+		uc = g_utf8_get_char (cur);
+		if (uc >= 0x80) {
 			exec = FALSE;
-	} while (exec && cur && *cur && uc != ' ' && uc != ENTITY_NBSP);
+			break;
+		} else if (uc == ' ' || uc == ENTITY_NBSP) {
+			break;
+		}
+	}
 
 	uc = g_utf8_get_char (str);
 	if (uc >= 0x80)

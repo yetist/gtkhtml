@@ -54,7 +54,6 @@ struct _HTMLGdkPainter {
 	GdkColor background;
 	gboolean set_background;
 	gboolean do_clear;
-	gboolean alpha;
 
 	/* Colors used for shading.  */
 	GdkColor dark;

@@ -1,3 +1,45 @@
+Sat Jun  5 12:16:00 2004  Owen Taylor  <otaylor@redhat.com>
+
+	* gtkhtml.c (new_obj_from_uri): Fix unitialized variable usage.
+
+	* gtkhtml.c (gtk_html_modify_indent_by_delta)
+	  gtkhtmldebug.c (gtk_html_debug_list_attrs):
+	  htmlimage.c (html_image_pointer_load):
+	  htmltext.c (html_text_remove_link_line_breaks,
+	  html_text_get_attr_list_list, tml_utf8_strnchr): 
+	 Add missing statics.
+
+	* gtkhtmldebug.c (dump_object_simple): Fix aliasing problem.
+	
+	* htmlengine.c (html_element_get_attr): Use a GCC-specific
+	definition of html_element_get_attr to avoid stric-aliasing
+	warnings.
+
+	* htmlengine.c (html_engine_draw_focus_object):
+	Remove unused functions.
+
+	* htmlengine.c (html_element_parse_i18n, html_element_parse_events): 
+	#ifdef out unused functions.
+	
+	* htmlengine.c: Fix subscript/superscript confusion.
+
+	* htmlgdkpainter.c (draw_background, draw_pixmap): Remove usage
+	of deprecated gdk_pixbuf_render_to_drawable_*, remove support
+	for bilevel pixbuf rendering since the underlying GDK functions
+	always do full-alpha.
+
+	* htmlgdkpainter.[ch]: Remove HTMLGdkPainter.alpha member variable.
+	
+	* htmltext.c (html_text_magic_link): Rewrite scan-forward loop
+	to avoid spurious unitialized variable warning.
+
+	* htmltext.c (is_convert_nbsp_needed convert_nbsp): Rewrite
+	loop-over-UTF-8 loops to be more normal, add some comments, fix
+	a spurious unitialized variable warning.
+
+	* Makefile.am (htmlmarshal.c): Add #include htmarshal.h to the
+	top of the generated htmlmarshal.c.
+
 2004-06-04  Radek Doulik  <rodo@ximian.com>
 
 	* added few missing inludes of header files 

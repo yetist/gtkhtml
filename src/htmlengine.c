@@ -305,7 +305,17 @@ html_element_new (HTMLEngine *e, const char *str) {
 }
 
 #ifndef NO_ATTR_MACRO
-#define html_element_get_attr(node, key, value) (g_hash_table_lookup_extended (node->attributes, key, NULL, (gpointer *)value) && *value)
+/* Macro definition to avoid bogus warnings about strict aliasing.
+ */
+#  if __GNUC__ > 3 || (__GNUC__ == 3 && __GNUC_MINOR__ >= 3)
+#    define html_element_get_attr(node, key, value) ({					\
+	gpointer _tmp_;									\
+        (g_hash_table_lookup_extended (node->attributes, key, NULL, &_tmp_) && _tmp_) ?	\
+           (*value = _tmp_, TRUE) : FALSE;						\
+    }) 
+#  else
+#    define html_element_get_attr(node, key, value) (g_hash_table_lookup_extended (node->attributes, key, NULL, (gpointer *)value) && *value)
+#  endif
 #define html_element_has_attr(node, key) g_hash_table_lookup_extended (node->attributes, key, NULL, NULL)
 #else 
 gboolean
@@ -319,6 +329,7 @@ html_element_get_attr (HTMLElement *node, char *name, char **value)
 }
 #endif
 
+#if 0
 static void
 html_element_parse_i18n (HTMLElement *node)
 {
@@ -338,6 +349,7 @@ html_element_parse_i18n (HTMLElement *node)
 		printf ("lang = %s\n", value);
 	}
 }
+#endif
 
 static void
 html_element_parse_coreattrs (HTMLElement *node)
@@ -357,6 +369,7 @@ html_element_parse_coreattrs (HTMLElement *node)
 	}
 }
 
+#if 0
 static void
 html_element_parse_events (HTMLElement *node)
 {
@@ -375,6 +388,7 @@ html_element_parse_events (HTMLElement *node)
 	   >
 	*/
 }
+#endif
 
 static void
 html_element_free (HTMLElement *element)
@@ -3519,7 +3533,7 @@ HTMLDispatchEntry basic_table[] = {
 	{ID_STRONG,           element_parse_inline_bold},
 	{ID_SELECT,           element_parse_select},
 	{ID_S,                element_parse_inline_strikeout},
-	{ID_SUB,              element_parse_sup},
+	{ID_SUB,              element_parse_sub},
 	{ID_SUP,              element_parse_sup},
 	{ID_STRIKE,           element_parse_inline_strikeout},
 	{ID_U,                element_parse_u},
@@ -6119,14 +6133,6 @@ draw_focus_object (HTMLEngine *e, HTMLObject *o, gint offset)
 		draw_link_text (HTML_TEXT (o), e, offset);
 	else if (HTML_IS_IMAGE (o))
 		html_engine_queue_draw (e, o);
-}
-
-void
-html_engine_draw_focus_object (HTMLEngine *e)
-{
-	gint offset;
-
-	draw_focus_object (e, html_engine_get_focus_object (e, &offset), offset);
 }
 
 static void
