@@ -2792,7 +2792,21 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		gtk_html_set_indent (html, 0);
 		break;
 	case GTK_HTML_COMMAND_INDENT_INC:
-		gtk_html_modify_indent_by_delta (html, +1);
+			gtk_html_modify_indent_by_delta (html, +1);
+		break;
+	case GTK_HTML_COMMAND_INSERT_TAB:
+		if (!html_engine_is_selection_active (e) && e->cursor->object->parent
+		    && HTML_IS_CLUEFLOW (e->cursor->object->parent)
+		    && HTML_CLUEFLOW (e->cursor->object->parent)->style == HTML_CLUEFLOW_STYLE_PRE)
+			html_engine_insert_text (e, "\t", 1);
+		break;
+	case GTK_HTML_COMMAND_INSERT_TAB_OR_INDENT_MORE:
+		if (!html_engine_is_selection_active (e) && e->cursor->object->parent
+		    && HTML_IS_CLUEFLOW (e->cursor->object->parent)
+		    && HTML_CLUEFLOW (e->cursor->object->parent)->style == HTML_CLUEFLOW_STYLE_PRE)
+			html_engine_insert_text (e, "\t", 1);
+		else
+			gtk_html_modify_indent_by_delta (html, +1);
 		break;
 	case GTK_HTML_COMMAND_INDENT_DEC:
 		gtk_html_modify_indent_by_delta (html, -1);
