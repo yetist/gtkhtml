@@ -1,5 +1,9 @@
 2000-04-15  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlengine-edit-delete.c
+	(html_engine_delete): Restore the original `position' value in the
+	cursor after deleting.
+
 	* htmlengine-edit-paste.c
 	(skip): If this is the last HTMLClueFlow (`next' is NULL), put the
 	cursor at the end of the current object.
