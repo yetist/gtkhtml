@@ -40,8 +40,6 @@ Table problems
 
 - Selection does not actually put anything into the X clipboard.
 
-- Selecting off the visible region does not scroll the page
-
 - Cursor keys do not work with the scrollbars.
 
 - The HTML non-editing component is not finished.  (Easy.)
