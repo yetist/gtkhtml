@@ -3,7 +3,7 @@ Makefile
 .deps
 .libs
 gnome-gtkhtml-editor
-test-editor
+test_editor
 Editor-stubs.c
 Editor-skels.c
 Editor-common.c
@@ -14,5 +14,6 @@ Spell-stubs.c
 Spell.h
 *.oaf
 GNOME_GtkHTML_Editor.xml
-GNOME_GtkHTML_Editor.server
+GNOME_GtkHTML_Editor-emacs.xml
+GNOME_GtkHTML_Editor-3.1.server
 GNOME_GtkHTML_Editor.server.in
