@@ -868,7 +868,7 @@ key_press_event (GtkWidget *widget, GdkEventKey *event)
 {
 	GtkHTML *html = GTK_HTML (widget);
 	GtkHTMLClass *html_class = GTK_HTML_CLASS (GTK_WIDGET_GET_CLASS (html));
-	gboolean retval, update = TRUE;
+	gboolean retval = FALSE, update = TRUE;
 	HTMLObject *focus_object;
 	gint focus_object_offset;
 
@@ -888,9 +888,9 @@ key_press_event (GtkWidget *widget, GdkEventKey *event)
 		gtk_binding_set_activate (html_class->emacs_bindings, event->keyval, event->state, GTK_OBJECT (widget));
 
 	if (!html->binding_handled)
-		GTK_WIDGET_CLASS (parent_class)->key_press_event (widget, event);
+		retval = GTK_WIDGET_CLASS (parent_class)->key_press_event (widget, event);
 
-	retval = html->binding_handled;
+	retval = retval || html->binding_handled;
 	update = html->priv->update_styles;
 
 	if (retval && update)
@@ -2885,8 +2885,8 @@ gtk_html_class_init (GtkHTMLClass *klass)
 			      G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
 			      G_STRUCT_OFFSET (GtkHTMLClass, command),
 			      NULL, NULL,
-			      g_cclosure_marshal_VOID__ENUM,
-			      G_TYPE_NONE, 1, GTK_TYPE_HTML_COMMAND);
+			      html_g_cclosure_marshal_BOOL__ENUM,
+			      G_TYPE_BOOLEAN, 1, GTK_TYPE_HTML_COMMAND);
 
 	signals [CURSOR_CHANGED] = 
 		g_signal_new ("cursor_changed",
@@ -4615,6 +4615,7 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		break;
 
 	default:
+		rv = FALSE;
 		html->binding_handled = FALSE;
 	}
 

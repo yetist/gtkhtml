@@ -87,7 +87,46 @@ html_g_cclosure_marshal_BOOLEAN__OBJECT (GClosure     *closure,
   g_value_set_boolean (return_value, v_return);
 }
 
-/* VOID:STRING,POINTER (htmlclosures.list:2) */
+/* BOOL:ENUM (htmlclosures.list:2) */
+void
+html_g_cclosure_marshal_BOOLEAN__ENUM (GClosure     *closure,
+                                       GValue       *return_value,
+                                       guint         n_param_values,
+                                       const GValue *param_values,
+                                       gpointer      invocation_hint,
+                                       gpointer      marshal_data)
+{
+  typedef gboolean (*GMarshalFunc_BOOLEAN__ENUM) (gpointer     data1,
+                                                  gint         arg_1,
+                                                  gpointer     data2);
+  register GMarshalFunc_BOOLEAN__ENUM callback;
+  register GCClosure *cc = (GCClosure*) closure;
+  register gpointer data1, data2;
+  gboolean v_return;
+
+  g_return_if_fail (return_value != NULL);
+  g_return_if_fail (n_param_values == 2);
+
+  if (G_CCLOSURE_SWAP_DATA (closure))
+    {
+      data1 = closure->data;
+      data2 = g_value_peek_pointer (param_values + 0);
+    }
+  else
+    {
+      data1 = g_value_peek_pointer (param_values + 0);
+      data2 = closure->data;
+    }
+  callback = (GMarshalFunc_BOOLEAN__ENUM) (marshal_data ? marshal_data : cc->callback);
+
+  v_return = callback (data1,
+                       g_marshal_value_peek_enum (param_values + 1),
+                       data2);
+
+  g_value_set_boolean (return_value, v_return);
+}
+
+/* VOID:STRING,POINTER (htmlclosures.list:3) */
 void
 html_g_cclosure_marshal_VOID__STRING_POINTER (GClosure     *closure,
                                               GValue       *return_value,
@@ -124,7 +163,7 @@ html_g_cclosure_marshal_VOID__STRING_POINTER (GClosure     *closure,
             data2);
 }
 
-/* VOID:POINTER,INT (htmlclosures.list:3) */
+/* VOID:POINTER,INT (htmlclosures.list:4) */
 void
 html_g_cclosure_marshal_VOID__POINTER_INT (GClosure     *closure,
                                            GValue       *return_value,
@@ -161,7 +200,7 @@ html_g_cclosure_marshal_VOID__POINTER_INT (GClosure     *closure,
             data2);
 }
 
-/* VOID:STRING,STRING,STRING (htmlclosures.list:4) */
+/* VOID:STRING,STRING,STRING (htmlclosures.list:5) */
 void
 html_g_cclosure_marshal_VOID__STRING_STRING_STRING (GClosure     *closure,
                                                     GValue       *return_value,
@@ -200,7 +239,7 @@ html_g_cclosure_marshal_VOID__STRING_STRING_STRING (GClosure     *closure,
             data2);
 }
 
-/* VOID:INT,INT,FLOAT (htmlclosures.list:5) */
+/* VOID:INT,INT,FLOAT (htmlclosures.list:6) */
 void
 html_g_cclosure_marshal_VOID__INT_INT_FLOAT (GClosure     *closure,
                                              GValue       *return_value,
@@ -239,7 +278,7 @@ html_g_cclosure_marshal_VOID__INT_INT_FLOAT (GClosure     *closure,
             data2);
 }
 
-/* VOID:ENUM,ENUM,FLOAT (htmlclosures.list:6) */
+/* VOID:ENUM,ENUM,FLOAT (htmlclosures.list:7) */
 void
 html_g_cclosure_marshal_VOID__ENUM_ENUM_FLOAT (GClosure     *closure,
                                                GValue       *return_value,
@@ -278,7 +317,7 @@ html_g_cclosure_marshal_VOID__ENUM_ENUM_FLOAT (GClosure     *closure,
             data2);
 }
 
-/* VOID:INT,INT (htmlclosures.list:7) */
+/* VOID:INT,INT (htmlclosures.list:8) */
 void
 html_g_cclosure_marshal_VOID__INT_INT (GClosure     *closure,
                                        GValue       *return_value,
@@ -315,7 +354,7 @@ html_g_cclosure_marshal_VOID__INT_INT (GClosure     *closure,
             data2);
 }
 
-/* VOID:ENUM,ENUM (htmlclosures.list:8) */
+/* VOID:ENUM,ENUM (htmlclosures.list:9) */
 void
 html_g_cclosure_marshal_VOID__ENUM_ENUM (GClosure     *closure,
                                          GValue       *return_value,
@@ -352,7 +391,7 @@ html_g_cclosure_marshal_VOID__ENUM_ENUM (GClosure     *closure,
             data2);
 }
 
-/* VOID:POINTER,BOOL,BOOL,BOOL (htmlclosures.list:9) */
+/* VOID:POINTER,BOOL,BOOL,BOOL (htmlclosures.list:10) */
 void
 html_g_cclosure_marshal_VOID__POINTER_BOOLEAN_BOOLEAN_BOOLEAN (GClosure     *closure,
                                                                GValue       *return_value,
@@ -393,7 +432,7 @@ html_g_cclosure_marshal_VOID__POINTER_BOOLEAN_BOOLEAN_BOOLEAN (GClosure     *clo
             data2);
 }
 
-/* POINTER:VOID (htmlclosures.list:10) */
+/* POINTER:VOID (htmlclosures.list:11) */
 void
 html_g_cclosure_marshal_POINTER__VOID (GClosure     *closure,
                                        GValue       *return_value,
@@ -430,5 +469,5 @@ html_g_cclosure_marshal_POINTER__VOID (GClosure     *closure,
   g_value_set_pointer (return_value, v_return);
 }
 
-/* VOID:VOID (htmlclosures.list:11) */
+/* VOID:VOID (htmlclosures.list:12) */
 

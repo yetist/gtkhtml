@@ -6,6 +6,13 @@
 
 	* htmlclueflow.c: fixed margins calculation for RTL
 
+2005-02-08  Harry Lu <harry.lu@sun.com>
+
+	* gtkhtml.c: (key_press_event): return correct value.
+	 (gtk_html_class_init): define "command" signal correctly.
+	 (command): return correct value.
+	* htmlclosures.list: add a marshal.
+
 2005-02-07  Radek Doulik  <rodo@novell.com>
 
 	* htmlclueflow.c (draw_item): fixed RTL rendering
