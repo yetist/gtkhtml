@@ -101,6 +101,8 @@ destroy (HTMLObject *o)
 	if(element->widget) {
 		gtk_widget_hide (element->widget);
 		gtk_signal_disconnect_by_data (GTK_OBJECT (element->widget), element);
+		if (element->changed_id > 0)
+			gtk_signal_disconnect (GTK_OBJECT (element->widget), element->changed_id);
 		gtk_object_set_data (GTK_OBJECT (element->widget), "embeddedelement", NULL);
 		if (element->widget->parent && element->parent) {
 			g_assert (element->widget->parent == element->parent);
@@ -303,6 +305,7 @@ html_embedded_init (HTMLEmbedded *element,
 	element->width  = 0;
 	element->height = 0;
 	element->abs_x  = element->abs_y = -1;
+	element->changed_id = 0;
 }
 
 
@@ -313,8 +316,21 @@ html_embedded_grab_cursor(GtkWidget *eb, GdkEvent *event)
 	return TRUE;
 }
 
+/* called when some state in an embedded html object has changed ... do a redraw */
+static void
+html_embedded_object_changed (GtkHTMLEmbedded *eb, HTMLEngine *e)
+{
+	HTMLObject *object;
+
+	object = gtk_object_get_data(GTK_OBJECT(eb), "embeddedelement");
+	if (object)
+		html_object_calc_size (object, e->painter, FALSE);
+	
+	html_engine_schedule_update(e);
+}
+
 HTMLEmbedded *
-html_embedded_new_widget (GtkWidget *parent, GtkHTMLEmbedded *eb)
+html_embedded_new_widget (GtkWidget *parent, GtkHTMLEmbedded *eb, HTMLEngine *engine)
 {
 	HTMLEmbedded *em;
 
@@ -327,6 +343,8 @@ html_embedded_new_widget (GtkWidget *parent, GtkHTMLEmbedded *eb)
 	 */
 	gtk_signal_connect(GTK_OBJECT(eb), "button_press_event",
 			   GTK_SIGNAL_FUNC(html_embedded_grab_cursor), em);
+	em->changed_id = gtk_signal_connect (GTK_OBJECT (eb), "changed", html_embedded_object_changed, engine);
+	/* printf ("id %u\n", em->changed_id); */
 
 	return em;
 }

@@ -142,9 +142,6 @@ static void      parse_f                   (HTMLEngine *p,
 					    HTMLObject *clue,
 					    const gchar *str);
 
-static void      html_object_changed       (GtkHTMLEmbedded *eb,
-					    HTMLEngine *e);
-
 static void      update_embedded           (GtkWidget *widget,
 					    gpointer );
 
@@ -1354,8 +1351,7 @@ parse_object (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	eb = (GtkHTMLEmbedded *) gtk_html_embedded_new (classid, name, type, data, width, height);
 	html_stack_push (e->embeddedStack, eb);
 	
-	el = html_embedded_new_widget (GTK_WIDGET (e->widget), eb);		
-	gtk_signal_connect (GTK_OBJECT(eb), "changed", html_object_changed, e);
+	el = html_embedded_new_widget (GTK_WIDGET (e->widget), eb, e);
 	
 	/* evaluate params */
 	parse_object_params (e, clue);
@@ -2591,19 +2587,6 @@ parse_n (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 		if (e->allow_frameset)
 			discard_body (e, end);
 	}
-}
-
-/* called when some state in an embedded html object has changed ... do a redraw */
-static void
-html_object_changed(GtkHTMLEmbedded *eb, HTMLEngine *e)
-{
-	HTMLObject *object;
-
-	object = gtk_object_get_data(GTK_OBJECT(eb), "embeddedelement");
-	if (object)
-		html_object_calc_size (object, e->painter, FALSE);
-	
-	html_engine_schedule_update(e);
 }
 
 
@@ -4882,14 +4865,13 @@ html_engine_replace_word_with (HTMLEngine *e, const gchar *word)
 {
 	HTMLObject *replace = NULL;
 	HTMLText   *orig;
-	gint pos;
 
 	if (!html_is_in_word (html_cursor_get_current_char (e->cursor))
 	    && !html_is_in_word (html_cursor_get_prev_char (e->cursor)))
 		return;
 
-	pos = e->cursor->position;
-	html_engine_selection_push (e);
+	html_engine_disable_selection (e);
+	html_engine_edit_selection_updater_update_now (e->selection_updater);
 
 	/* move to the beginning of word */
 	while (html_is_in_word (html_cursor_get_prev_char (e->cursor)))
@@ -4916,7 +4898,6 @@ html_engine_replace_word_with (HTMLEngine *e, const gchar *word)
 	html_text_set_font_face (HTML_TEXT (replace), HTML_TEXT (orig)->face);
 	html_engine_edit_selection_updater_update_now (e->selection_updater);
 	html_engine_paste_object (e, replace, html_object_get_length (replace));
-	html_engine_selection_pop (e);
 }
 
 HTMLCursor *

@@ -1,3 +1,16 @@
+2001-11-01  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine.c (html_engine_replace_word_with): disable selection,
+	don't store selection across replace
+
+	* htmlembedded.c (destroy): if changed_id > 0 then disconnect it
+
+	* htmlembedded.h: added changed_id, where we store handler id from
+	connected html_embedded_object_changed
+
+	* htmlembedded.c (html_embedded_object_changed): moved from
+	htmlengine.c and renamed
+
 2001-10-31  Ettore Perazzoli  <ettore@ximian.com>
 
 	* htmliframe.c (html_iframe_init): Set ->scroll before calling
