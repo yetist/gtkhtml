@@ -1,17 +1,21 @@
 # Hungarian translation of gtkhtml
-# Copyright (C) 2001 Free Software Foundation, Inc.
-# András TÍmár, <timar@gnome.hu>, 2001.
+# Copyright (C) 2001, 2004 Free Software Foundation, Inc.
+# Andras Timar, <timar@gnome.hu>, 2001.
+# Gabor Kelemen <kg0021@stud.unideb.hu>, 2004.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml VERSION\n"
-"POT-Creation-Date: 2004-03-05 12:45-0500\n"
-"PO-Revision-Date: 2003-06-18 12:27+0200\n"
-"Last-Translator: Andras Timar <timar@gnome.hu>\n"
-"Language-Team: Hungarian <hu@gnome.hu>\n"
+"Project-Id-Version: gtkhtml\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-03-23 04:08+0100\n"
+"PO-Revision-Date: 2004-03-28 12:13+0200\n"
+"Last-Translator: Gabor Kelemen <kg0021@stud.unideb.hu>\n"
+"Language-Team: Hungarian <gnome@gnome.hu>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.3.1\n"
+"Plural-Forms:  nplurals=1; plural=0;\n"
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -104,19 +108,19 @@ msgstr "Képernyőn"
 
 #: capplet/gtkhtml-capplet.glade.h:21
 msgid "Select HTML fixed width font"
-msgstr "Válassz fix szélességű betűkészletet a HTML-hez"
+msgstr "Fix szélességű betűkészlet választása a HTML-hez"
 
 #: capplet/gtkhtml-capplet.glade.h:22
 msgid "Select HTML fixed width font for printing"
-msgstr "Válassz fix szélességű betűkészletet a HTML nyomtatásához"
+msgstr "Fix szélességű betűkészlet választása a HTML nyomtatásához"
 
 #: capplet/gtkhtml-capplet.glade.h:23
 msgid "Select HTML variable width font"
-msgstr "Válassz változó szélességű betűkészletet a HTML-hez"
+msgstr "Változó szélességű betűkészlet választása a HTML-hez"
 
 #: capplet/gtkhtml-capplet.glade.h:24
 msgid "Select HTML variable width font for printing"
-msgstr "Válassz változó szélességű betűkészletet a HTML nyomtatásához"
+msgstr "Változó szélességű betűkészlet választása a HTML nyomtatásához"
 
 #: capplet/gtkhtml-capplet.glade.h:25
 msgid "Shortcuts _type:"
@@ -143,8 +147,8 @@ msgid ""
 "Cannot execute GNOME Spell control applet\n"
 "Try to install GNOME Spell if you don't have it installed."
 msgstr ""
-"Nem sikerült futtatni a GNOME Spell control appletet\n"
-"Próbáld meg telepíteni a GNOME Spellt, ha nincs még telepítve."
+"Nem sikerült futtatni a GNOME Spell vezérlő kisalkalmazást\n"
+"Próbálja meg telepíteni a GNOME Spellt, ha nincs még telepítve."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:1
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
@@ -260,9 +264,10 @@ msgstr "Kijelölés kivágása a vágólapra"
 msgid "Cut the selection"
 msgstr "Kijelölés kivágása"
 
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
-#: components/html-editor/search.c:77 components/html-editor/search.c:129
+#: components/html-editor/search.c:79 components/html-editor/search.c:131
 msgid "Find"
 msgstr "Keresés"
 
@@ -454,9 +459,8 @@ msgid "Make the current Paragraph style Normal"
 msgstr "A bekezdés stílusa legyen Normal"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:59
-#, fuzzy
 msgid "Make the current Paragraph style Preformat"
-msgstr "A bekezdés stílusa legyen előre formázott"
+msgstr "Az aktuális bekezdés stílusa legyen előre formázott"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:60
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
@@ -579,7 +583,7 @@ msgstr "Előre formázott"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:83
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
 msgid "Purple"
-msgstr "Lila"
+msgstr "Bíbor"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:84
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
@@ -601,9 +605,10 @@ msgstr "Újra végrehajtja az előzőleg visszavont műveletet"
 msgid "Redo the undone action"
 msgstr "Újra végrehajtja a visszavont műveletet"
 
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:88
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
-#: components/html-editor/replace.c:157 components/html-editor/replace.c:219
+#: components/html-editor/replace.c:161 components/html-editor/replace.c:223
 msgid "Replace"
 msgstr "Csere"
 
@@ -953,25 +958,21 @@ msgid "GNOME HTML Editor Factory"
 msgstr "GNOME HTML-szerkesztő factory"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
-#, fuzzy
 msgid "Insert Sick smiley into document..."
-msgstr "Nyelvnyújtó hangulatjel beszúrása a dokumentumba..."
+msgstr "Beteg hangulatjel beszúrása a dokumentumba..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
-#, fuzzy
 msgid "Make the current Paragraph style Preformatted"
-msgstr "A bekezdés stílusa legyen előre formázott"
+msgstr "Az aktuális bekezdés stílusa legyen előre formázott"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
 #: components/html-editor/paragraph.c:151
-#, fuzzy
 msgid "Preformatted"
-msgstr "Előre formázott"
+msgstr "Előreformázott"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
-#, fuzzy
 msgid "S_ick"
-msgstr "_Kacsintás"
+msgstr "_Beteg"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:154
 msgid "_Wrap Lines"
@@ -991,41 +992,37 @@ msgid "Blue Ink"
 msgstr "Kék tinta"
 
 #: components/html-editor/body.c:90
-#, fuzzy
 msgid "Paper"
-msgstr "Oldal"
+msgstr "Papír"
 
 #: components/html-editor/body.c:98
 msgid "Ribbon"
-msgstr ""
+msgstr "Sáv"
 
 #: components/html-editor/body.c:106
-#, fuzzy
 msgid "Midnight"
-msgstr "Jobbra"
+msgstr "Éjfél"
 
 #: components/html-editor/body.c:114
-#, fuzzy
 msgid "Confidential"
-msgstr "Behúzás megszüntetése"
+msgstr "Bizalmas"
 
 #: components/html-editor/body.c:122
 msgid "Draft"
-msgstr ""
+msgstr "Piszkozat"
 
 #: components/html-editor/body.c:130
 msgid "Graph paper"
-msgstr ""
+msgstr "Milliméterpapír"
 
 #. string marked for translations is sample text. you may want to translate it to common sample text in your language
 #: components/html-editor/body.c:163
-#, fuzzy
 msgid ""
 "The quick brown <a href=\"mailto:fox\">fox</a> jumps over the lazy <a href="
 "\"mailto:dog\">dog</a>."
-msgstr "Árvíztűrő tükörfúrógép"
+msgstr "<a href=\"mailto:Árvíztűrő\">Árvíztűrő</a> <a href=\"mailto:tükörfúrógép\">tükörfúrógép</a>"
 
-#: components/html-editor/body.c:316 src/gtkhtml.c:2697
+#: components/html-editor/body.c:316 src/gtkhtml.c:2706
 msgid "Document Title"
 msgstr "Dokumentum címe"
 
@@ -1096,223 +1093,202 @@ msgstr "Oldal"
 #. This is the default custom color
 #: components/html-editor/gi-color-palette.c:394
 msgid "custom"
-msgstr ""
+msgstr "egyéni"
 
 #. "Custom" color - we'll pop up a GnomeColorPicker
 #: components/html-editor/gi-color-palette.c:436
-#, fuzzy
 msgid "Custom Color:"
-msgstr "Szín:"
+msgstr "Egyéni szín:"
 
 #: components/html-editor/gi-color-palette.c:444
 msgid "Choose Custom Color"
-msgstr ""
+msgstr "Egyéni szín választása"
 
 #: components/html-editor/gi-color-palette.c:577
 msgid "black"
-msgstr ""
+msgstr "fekete"
 
 #: components/html-editor/gi-color-palette.c:578
 msgid "light brown"
-msgstr ""
+msgstr "világosbarna"
 
 #: components/html-editor/gi-color-palette.c:579
 msgid "brown gold"
-msgstr ""
+msgstr "aranybarna"
 
 #: components/html-editor/gi-color-palette.c:580
 msgid "dark green #2"
-msgstr ""
+msgstr "sötétzöld #2"
 
 #: components/html-editor/gi-color-palette.c:581
 msgid "navy"
-msgstr ""
+msgstr "tengerkék"
 
 #: components/html-editor/gi-color-palette.c:582
 #: components/html-editor/gi-color-palette.c:638
 msgid "dark blue"
-msgstr ""
+msgstr "sötétkék"
 
 #: components/html-editor/gi-color-palette.c:583
-#, fuzzy
 msgid "purple #2"
-msgstr "Lila"
+msgstr "bíbor #2"
 
 #: components/html-editor/gi-color-palette.c:584
 msgid "very dark gray"
-msgstr ""
+msgstr "nagyon sötét szürke"
 
 #: components/html-editor/gi-color-palette.c:587
 #: components/html-editor/gi-color-palette.c:643
-#, fuzzy
 msgid "dark red"
-msgstr "Sötét fejléc"
+msgstr "Sötétvörös"
 
 #: components/html-editor/gi-color-palette.c:588
-#, fuzzy
 msgid "red-orange"
-msgstr "Narancs"
+msgstr "Narancsvörös"
 
 #: components/html-editor/gi-color-palette.c:589
-#, fuzzy
 msgid "gold"
-msgstr "Félkövér"
+msgstr "arany"
 
 #: components/html-editor/gi-color-palette.c:590
 msgid "dark green"
-msgstr ""
+msgstr "sötétzöld"
 
 #: components/html-editor/gi-color-palette.c:591
 #: components/html-editor/gi-color-palette.c:644
 msgid "dull blue"
-msgstr ""
+msgstr "matt kék"
 
 #: components/html-editor/gi-color-palette.c:592
 #: components/html-editor/gi-color-palette.c:645
-#, fuzzy
 msgid "blue"
-msgstr "Kék"
+msgstr "kék"
 
 #: components/html-editor/gi-color-palette.c:593
 msgid "dull purple"
-msgstr ""
+msgstr "matt bíbor"
 
 #: components/html-editor/gi-color-palette.c:594
 msgid "dark grey"
-msgstr ""
+msgstr "sötétszürke"
 
 #: components/html-editor/gi-color-palette.c:597
-#, fuzzy
 msgid "red"
-msgstr "Piros"
+msgstr "vörös"
 
 #: components/html-editor/gi-color-palette.c:598
-#, fuzzy
 msgid "orange"
-msgstr "Narancs"
+msgstr "narancs"
 
+#fixme
 #: components/html-editor/gi-color-palette.c:599
-#, fuzzy
 msgid "lime"
-msgstr "Igazítás"
+msgstr "borostyán"
 
 #: components/html-editor/gi-color-palette.c:600
 msgid "dull green"
-msgstr ""
+msgstr "matt zöld"
 
 #: components/html-editor/gi-color-palette.c:601
 msgid "dull blue #2"
-msgstr ""
+msgstr "matt kék #2"
 
 #: components/html-editor/gi-color-palette.c:602
 msgid "sky blue #2"
-msgstr ""
+msgstr "égszínkék #2"
 
 #: components/html-editor/gi-color-palette.c:603
 #: components/html-editor/gi-color-palette.c:642
-#, fuzzy
 msgid "purple"
-msgstr "Lila"
+msgstr "bíbor"
 
 #: components/html-editor/gi-color-palette.c:604
-#, fuzzy
 msgid "gray"
-msgstr "Lapos szürke"
+msgstr "szürke"
 
 #: components/html-editor/gi-color-palette.c:607
 #: components/html-editor/gi-color-palette.c:639
-#, fuzzy
 msgid "magenta"
-msgstr "Kép"
+msgstr "lila"
 
 #: components/html-editor/gi-color-palette.c:608
 msgid "bright orange"
-msgstr ""
+msgstr "világos narancs"
 
 #: components/html-editor/gi-color-palette.c:609
 #: components/html-editor/gi-color-palette.c:640
-#, fuzzy
 msgid "yellow"
-msgstr "Sárga"
+msgstr "sárga"
 
 #: components/html-editor/gi-color-palette.c:610
-#, fuzzy
 msgid "green"
-msgstr "Zöld"
+msgstr "zöld"
 
 #: components/html-editor/gi-color-palette.c:611
 #: components/html-editor/gi-color-palette.c:641
 msgid "cyan"
-msgstr ""
+msgstr "cián"
 
 #: components/html-editor/gi-color-palette.c:612
 msgid "bright blue"
-msgstr ""
+msgstr "világoskék"
 
 #: components/html-editor/gi-color-palette.c:613
 #: components/html-editor/gi-color-palette.c:630
-#, fuzzy
 msgid "red purple"
-msgstr "Lila"
+msgstr "bíborvörös"
 
 #: components/html-editor/gi-color-palette.c:614
-#, fuzzy
 msgid "light grey"
-msgstr "Lapos szürke"
+msgstr "világosszürke"
 
 #: components/html-editor/gi-color-palette.c:617
 #: components/html-editor/gi-color-palette.c:634
-#, fuzzy
 msgid "pink"
-msgstr "Hivatkozás"
+msgstr "rózsaszín"
 
 #: components/html-editor/gi-color-palette.c:618
-#, fuzzy
 msgid "light orange"
-msgstr "Jobbra igazítás"
+msgstr "világos narancs"
 
 #: components/html-editor/gi-color-palette.c:619
 #: components/html-editor/gi-color-palette.c:631
 msgid "light yellow"
-msgstr ""
+msgstr "világos sárga"
 
 #: components/html-editor/gi-color-palette.c:620
-#, fuzzy
 msgid "light green"
-msgstr "Jobbra igazítás"
+msgstr "világoszöld"
 
 #: components/html-editor/gi-color-palette.c:621
-#, fuzzy
 msgid "light cyan"
-msgstr "Jobbra igazítás"
+msgstr "világos cián"
 
 #: components/html-editor/gi-color-palette.c:622
 #: components/html-editor/gi-color-palette.c:632
 msgid "light blue"
-msgstr ""
+msgstr "világoskék"
 
 #: components/html-editor/gi-color-palette.c:623
 #: components/html-editor/gi-color-palette.c:636
 msgid "light purple"
-msgstr ""
+msgstr "világosbíbor"
 
 #: components/html-editor/gi-color-palette.c:624
-#, fuzzy
 msgid "white"
-msgstr "szélesség"
+msgstr "fehér"
 
 #: components/html-editor/gi-color-palette.c:629
 msgid "purplish blue"
-msgstr ""
+msgstr "bíborkék"
 
 #: components/html-editor/gi-color-palette.c:633
 msgid "dark purple"
-msgstr ""
+msgstr "sötétbíbor"
 
 #: components/html-editor/gi-color-palette.c:635
-#, fuzzy
 msgid "sky blue"
-msgstr "stílus"
+msgstr "égszínkék"
 
 #: components/html-editor/gnome-gtkhtml-editor.c:68
 msgid "GtkHTML Editor Control"
@@ -1635,21 +1611,20 @@ msgstr ""
 "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
 "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
 "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-"@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Írd ide a "
+"@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Írja ide a "
 "megjegyzést]</td></tr></table></td></tr></table></center>"
 
 #: components/html-editor/image.c:258 components/html-editor/image.c:264
 msgid ""
 "This is sample text, designed to show you how text would flow around this "
 "image if you insert the image into your message."
-msgstr ""
+msgstr "Ez egy mintaszöveg, annak bemutatására, hogyan fogja a szöveg körülfolyni a képet, ha beilleszti azt az üzenetébe."
 
 #: components/html-editor/image.c:270
-#, fuzzy
 msgid "No image selected"
-msgstr "Kép kijelölése"
+msgstr "Nincs kép kijelölve"
 
-#: components/html-editor/image.c:704
+#: components/html-editor/image.c:707
 msgid ""
 "The editted image was removed from the document.\n"
 "Cannot apply your changes."
@@ -1671,7 +1646,7 @@ msgstr ""
 
 #: components/html-editor/link.c:270
 msgid "Please fill 'Link text' and 'URL' entries"
-msgstr ""
+msgstr "Kérem töltse ki a 'hivatkozás szövege' és az 'URL' mezőket"
 
 #: components/html-editor/menubar.c:88 components/html-editor/menubar.c:104
 #: components/html-editor/menubar.c:122 components/html-editor/menubar.c:139
@@ -1754,12 +1729,10 @@ msgid "Paste Quotation"
 msgstr "Idézet beillesztése"
 
 #: components/html-editor/popup.c:461
-#, fuzzy
 msgid "Insert Link"
 msgstr "Hivatkozás beszúrása"
 
 #: components/html-editor/popup.c:468
-#, fuzzy
 msgid "Remove Link"
 msgstr "Hivatkozás eltávolítása"
 
@@ -1825,65 +1798,62 @@ msgid "Cell contents"
 msgstr "Cellatartalom"
 
 #: components/html-editor/popup.c:541
-#, fuzzy
 msgid "Check Word Spelling..."
-msgstr "_Helyesírás-ellenőrzés..."
+msgstr "Helyesírás-ellenőrzés..."
 
+#fixme
 #: components/html-editor/popup.c:546
 msgid "Add Word to"
-msgstr ""
+msgstr "Szó hozzáadása ehhez"
 
 #: components/html-editor/popup.c:550
 #, c-format
 msgid "%s Dictionary"
 msgstr "%s szótár"
 
+#fixme
 #: components/html-editor/popup.c:559
-#, fuzzy
 msgid "Add Word to Dictionary"
-msgstr "%s szótár"
+msgstr "Szó hozzáadása a szótárhoz"
 
 #: components/html-editor/popup.c:562
-#, fuzzy
 msgid "Ignore Misspelled Word"
-msgstr "Nem volt rosszul írt szó"
+msgstr "Rosszul írt szó mellőzése"
 
 #: components/html-editor/popup.c:566
 msgid "Input Methods"
-msgstr ""
+msgstr "Beviteli módok"
 
-#: components/html-editor/replace.c:75
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
+#: components/html-editor/replace.c:77
 msgid "Replace confirmation"
 msgstr "Megerősítés csere előtt"
 
-#: components/html-editor/replace.c:76
-#, fuzzy
+#: components/html-editor/replace.c:78
 msgid "Replace _All"
-msgstr "Minden cseréli"
-
-#: components/html-editor/replace.c:77
-#, fuzzy
-msgid "_Next"
-msgstr "Következő"
+msgstr "Mindet _cseréli"
 
 #: components/html-editor/replace.c:79
-#, fuzzy
-msgid "_Replace"
-msgstr "Csere"
+msgid "_Next"
+msgstr "_Következő"
 
-#: components/html-editor/replace.c:165
+#: components/html-editor/replace.c:81
+msgid "_Replace"
+msgstr "_Csere"
+
+#: components/html-editor/replace.c:169
 msgid "Search _backward"
 msgstr "keresés _hátrafele"
 
-#: components/html-editor/replace.c:166 components/html-editor/search.c:83
+#: components/html-editor/replace.c:170 components/html-editor/search.c:85
 msgid "Case _sensitive"
 msgstr "_Kis- és nagybetűk megkülönböztetése"
 
-#: components/html-editor/replace.c:176
+#: components/html-editor/replace.c:180
 msgid "Replace:"
 msgstr "Csere:"
 
-#: components/html-editor/replace.c:179
+#: components/html-editor/replace.c:183
 msgid "With:"
 msgstr "Szélesség:"
 
@@ -1903,16 +1873,15 @@ msgstr ""
 "A szerkesztett vonal törlődött a dokumentumból.\n"
 "A változtatásokat nem lehet alkalmazni."
 
-#: components/html-editor/search.c:82
+#: components/html-editor/search.c:84
 msgid "_Backward"
 msgstr "_Hátrafelé"
 
-#: components/html-editor/search.c:129
+#: components/html-editor/search.c:131
 msgid "Find Regular Expression"
 msgstr "Reguláris kifejezés keresése"
 
 #: components/html-editor/spell.c:278
-#, fuzzy
 msgid "No misspelled word found"
 msgstr "Nem volt rosszul írt szó"
 
@@ -1946,15 +1915,16 @@ msgstr "Megjegyzés"
 
 #: components/html-editor/template.c:94 components/html-editor/template.c:113
 msgid "Place your text here"
-msgstr "Írd ide a szöveget"
+msgstr "Írja ide a szöveget"
 
 #: components/html-editor/template.c:97
 msgid "Image frame"
 msgstr "Képkeret"
 
+#fixme
 #: components/html-editor/template.c:281
 msgid "Labels"
-msgstr ""
+msgstr "Címkék"
 
 #: components/html-editor/test-html-editor-control.c:323
 msgid "Open file..."
@@ -2033,71 +2003,71 @@ msgstr "Növeli a behúzást"
 msgid "Sample"
 msgstr "Minta"
 
-#: src/gtkhtml.c:2690
+#: src/gtkhtml.c:2699
 msgid "Editable"
 msgstr "Szerkeszthető"
 
-#: src/gtkhtml.c:2691
+#: src/gtkhtml.c:2700
 msgid "Whether the html can be edited"
 msgstr "Szerkeszthető-e a HTML"
 
-#: src/gtkhtml.c:2698
+#: src/gtkhtml.c:2707
 msgid "The title of the current document"
 msgstr "Az aktuális dokumentum címe"
 
-#: src/gtkhtml.c:2704
+#: src/gtkhtml.c:2713
 msgid "Document Base"
 msgstr "Dokumentum báziscíme"
 
-#: src/gtkhtml.c:2705
+#: src/gtkhtml.c:2714
 msgid "The base URL for relative references"
 msgstr "A relatív hivatkozások bázis URL-je"
 
-#: src/gtkhtml.c:2711
+#: src/gtkhtml.c:2720
 msgid "Target Base"
 msgstr "Cél báziscíme"
 
-#: src/gtkhtml.c:2712
+#: src/gtkhtml.c:2721
 msgid "The base URL of the targe frame"
 msgstr "A célkeret bázis URL-je"
 
-#: src/gtkhtml.c:2721
+#: src/gtkhtml.c:2730
 msgid "Fixed Width Font"
 msgstr "Fix szélességű betű"
 
-#: src/gtkhtml.c:2722
+#: src/gtkhtml.c:2731
 msgid "The Monospace font to use for typewriter text"
 msgstr "Az írógépszöveghez alkalmazott Monospace betűkészlet"
 
-#: src/gtkhtml.c:2728
+#: src/gtkhtml.c:2737
 msgid "New Link Color"
 msgstr "Új hivatkozás színe"
 
-#: src/gtkhtml.c:2729
+#: src/gtkhtml.c:2738
 msgid "The color of new link elements"
 msgstr "Az új hivatkozáselemek színe"
 
-#: src/gtkhtml.c:2734
+#: src/gtkhtml.c:2743
 msgid "Visited Link Color"
 msgstr "Látogatott hivatkozás színe"
 
-#: src/gtkhtml.c:2735
+#: src/gtkhtml.c:2744
 msgid "The color of visited link elements"
 msgstr "A látogatott hivatkozáselemek színe"
 
-#: src/gtkhtml.c:2740
+#: src/gtkhtml.c:2749
 msgid "Active Link Color"
 msgstr "Aktív hivatkozás színe"
 
-#: src/gtkhtml.c:2741
+#: src/gtkhtml.c:2750
 msgid "The color of active link elements"
 msgstr "Az aktív hivatkozáselemek színe"
 
-#: src/gtkhtml.c:2746
+#: src/gtkhtml.c:2755
 msgid "Spelling Error Color"
 msgstr "Helyesírási hiba színe"
 
-#: src/gtkhtml.c:2747
+#: src/gtkhtml.c:2756
 msgid "The color of the spelling error markers"
 msgstr "A helyesírási hibákat jelölő szín"
 
@@ -2160,8 +2130,7 @@ msgstr "Alapértékek"
 #. TODO2 dialog instead of warning
 #: src/htmlengine-print.c:193
 msgid "Cannot allocate default font for printing\n"
-msgstr ""
-"Nem sikerült betölteni az alapértelmezett betűkészletet a nyomtatáshoz.\n"
+msgstr "Nem sikerült betölteni az alapértelmezett betűkészletet a nyomtatáshoz.\n"
 
 #: src/test.c:191
 msgid "GtkHTML Test"
@@ -2179,259 +2148,3 @@ msgstr "Nyomtatási kép"
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML tesztalkalmazás"
 
-#, fuzzy
-#~ msgid "The quick brown fox jumps over the lazy dog.</div>"
-#~ msgstr "Árvíztűrő tükörfúrógép"
-
-#~ msgid "Rectangles"
-#~ msgstr "Téglalapok"
-
-#~ msgid "Pre"
-#~ msgstr "Előre formázott"
-
-#~ msgid "The quick brown fox jumped over the lazy dog."
-#~ msgstr "Árvíztűrő tükörfúrógép"
-
-#~ msgid "Check '%s' spelling..."
-#~ msgstr "'%s' helyesírás-ellenőrzése..."
-
-#~ msgid "Ignore '%s'"
-#~ msgstr "'%s' figyelmen kívül hagyása"
-
-#~ msgid "Suggest word"
-#~ msgstr "Javasolt szó"
-
-#~ msgid "Text..."
-#~ msgstr "Szöveg..."
-
-#~ msgid "Test"
-#~ msgstr "Teszt"
-
-#~ msgid "Test 1"
-#~ msgstr "1. teszt"
-
-#~ msgid "I could not initialize Bonobo"
-#~ msgstr "A Bonobo inicializálása nem sikerült"
-
-#~ msgid "The quick brown fox jumped over the lazy dog. "
-#~ msgstr "Árvíztűrő tükörfúrógép"
-
-#~ msgid ""
-#~ "<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
-#~ "\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
-#~ "cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
-#~ msgstr ""
-#~ "<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
-#~ "\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
-#~ "cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
-
-#~ msgid ""
-#~ "/bulb.png\" hspace=10></td><td width=\"100%\">Place your text here</td></"
-#~ "tr></table></td></tr></table>"
-#~ msgstr ""
-#~ "/bulb.png\" hspace=10></td><td width=\"100%\">Ide írhatsz.</td></tr></"
-#~ "table></td></tr></table>"
-
-#~ msgid ""
-#~ "<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "@width@@align@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img src="
-#~ "\"file://"
-#~ msgstr ""
-#~ "<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "@width@@align@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img src="
-#~ "\"file://"
-
-#~ msgid ""
-#~ "/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font "
-#~ "size=\"-1\">Image 1: <b>description</b></font></td></tr></table></td></"
-#~ "tr></table>"
-#~ msgstr ""
-#~ "/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font "
-#~ "size=\"-1\">1. kép: <b>leírás</b></font></td></tr></table></td></tr></"
-#~ "table>"
-
-#~ msgid "Sans"
-#~ msgstr "Sans"
-
-#~ msgid "Monospace"
-#~ msgstr "Monospace"
-
-#~ msgid "Modify the file's properties"
-#~ msgstr "Fájl tulajdonságainak módosítása"
-
-#~ msgid "Pr_operties..."
-#~ msgstr "_Tulajdonságok..."
-
-#~ msgid "Cannot execute gtkhtml properties"
-#~ msgstr "Nem lehet végrehajtani a gtkhtml tulajdonságokat"
-
-#~ msgid "Insert Smiley 7 smiley into document..."
-#~ msgstr "7. hangulatjel beszúrása a dokumentumba..."
-
-#~ msgid "Smiley _7"
-#~ msgstr "_7. hangulatjel"
-
-#~ msgid "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz"
-#~ msgstr "AaÁáBbCcDdEeÉéFfGgHhIiÍíJjKkLlMmNnOoÓóÖöŐőPpQqRrSsTtUuÚúÜüŰűVvWwXxYyZz"
-
-#~ msgid "Command"
-#~ msgstr "Parancs"
-
-#~ msgid "Select command "
-#~ msgstr "Válassz parancsot"
-
-#~ msgid "Shortcut"
-#~ msgstr "Billentyűparancs"
-
-#~ msgid "EBrowser control"
-#~ msgstr "EBrowser control"
-
-#~ msgid "EBrowser factory"
-#~ msgstr "EBrowser factory"
-
-#~ msgid "Factory for the EBrowser control"
-#~ msgstr "Factory az EBrowser controlhoz"
-
-#~ msgid "HTML Browser control"
-#~ msgstr "HTML Browser control"
-
-#~ msgid "Could not initialize GNORBA"
-#~ msgstr "A GNORBA inicializása nem sikerült"
-
-#~ msgid "Can't load fixed font."
-#~ msgstr "Nem sikerült betölteni a fix szélességű betűkészletet."
-
-#~ msgid "US-Letter"
-#~ msgstr "US-Letter"
-
-#~ msgid "Language"
-#~ msgstr "Nyelv"
-
-#~ msgid "Pick a color"
-#~ msgstr "Színválasztás"
-
-#~ msgid "Clear"
-#~ msgstr "Törlés"
-
-#~ msgid "URL"
-#~ msgstr "URL"
-
-#~ msgid "width"
-#~ msgstr "szélesség"
-
-#~ msgid "height"
-#~ msgstr "magasság"
-
-#~ msgid "_Numbered List"
-#~ msgstr "_Számozott lista"
-
-#~ msgid "_Alpabetical List"
-#~ msgstr "_Betűkkel jelölt lista"
-
-#, fuzzy
-#~ msgid "_Header _3"
-#~ msgstr "Címsor 3"
-
-#, fuzzy
-#~ msgid "_Header _4"
-#~ msgstr "Címsor 4"
-
-#, fuzzy
-#~ msgid "_Header _5"
-#~ msgstr "Címsor 5"
-
-#, fuzzy
-#~ msgid "_Header _6"
-#~ msgstr "Címsor 6"
-
-#~ msgid "Be careful! Tables code is still ALPHA quality."
-#~ msgstr "Légy óvatos! A táblázatokat kezelő kód még mindig alfa minőségű."
-
-#~ msgid "Miscelaneous"
-#~ msgstr "Egyebek"
-
-#~ msgid "alignment"
-#~ msgstr "igazítás"
-
-#~ msgid "border"
-#~ msgstr "keret"
-
-#~ msgid "color"
-#~ msgstr "szín"
-
-#~ msgid "columns"
-#~ msgstr "oszlopok"
-
-#~ msgid "rows"
-#~ msgstr "sorok"
-
-#~ msgid "spacing"
-#~ msgstr "távolságok"
-
-#~ msgid "Item dot"
-#~ msgstr "Listaelem (pötty)"
-
-#~ msgid "Item roman"
-#~ msgstr "Listaelem (római szám)"
-
-#~ msgid "Item digit"
-#~ msgstr "Listaelem (számjegy)"
-
-#~ msgid "List item (digit)"
-#~ msgstr "Listaelem (számjegy)"
-
-#~ msgid "List item (unnumbered)"
-#~ msgstr "Listaelem (számozatlan)"
-
-#~ msgid "List item (roman)"
-#~ msgstr "Listaelem (római szám)"
-
-#~ msgid "Key"
-#~ msgstr "Billentyű"
-
-#~ msgid "Commands"
-#~ msgstr "Parancsok"
-
-#~ msgid "Keymaps"
-#~ msgstr "Billentyűkiosztások"
-
-#~ msgid "C_ut"
-#~ msgstr "_Kivágás"
-
-#~ msgid "Find Rege_x..."
-#~ msgstr "Rege_x keresés..."
-
-#~ msgid "Regex find"
-#~ msgstr "Regex keresés"
-
-#~ msgid "Cells"
-#~ msgstr "Cellák"
-
-#~ msgid "Magic links (FIXME: better label)"
-#~ msgstr "Varázslinkek (FIXME: jobb felirat)"
-
-#~ msgid "Factory for the HTML Editor control"
-#~ msgstr "Factory a HTML Editor controlhoz"
-
-#~ msgid "HTML editor control"
-#~ msgstr "HTML editor control"
-
-#~ msgid "Replace a string"
-#~ msgstr "Karakterlánc cseréje"
-
-#~ msgid "Search again for the same string"
-#~ msgstr "Tovább keresi ugyanazt a karakterláncot"
-
-#~ msgid "Search and replace string"
-#~ msgstr "Karakterlánc keresése és cseréje"
-
-#~ msgid "Search for a string"
-#~ msgstr "Karakterlánc keresése"
-
-#~ msgid "Regex search"
-#~ msgstr "Regex keresés"
-
-#~ msgid "Search"
-#~ msgstr "Keresés"
