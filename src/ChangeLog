@@ -1,5 +1,7 @@
 2001-09-10  Radek Doulik  <rodo@ximian.com>
 
+	* htmlengine.c (html_engine_calc_size): use pixel size
+
 	* keybindingsrc.*: update TAB/Shift TAB bindings
 
 	* gtkhtml.c (load_keybindings): bind C-S-+ and C-+ to ZOOM_IN
