@@ -207,7 +207,9 @@ gtk_html_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 	html->engine->width = allocation->width;
 	html->engine->height = allocation->height;
 
+	g_print ("calcing size!\n");
 	html_engine_calc_size (html->engine);
+	html_engine_calc_absolute_pos (html->engine);
 
 	gtk_html_calc_scrollbars (html);
 

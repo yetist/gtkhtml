@@ -5,7 +5,7 @@
 
 static gint html_table_cell_calc_min_width (HTMLObject *o);
 static void html_table_cell_set_max_width (HTMLObject *o, gint max_width);
-
+static void html_table_cell_draw (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gint height, gint tx, gint ty);
 HTMLObject *
 html_table_cell_new (gint x, gint y, gint max_width, gint percent,
 		     gint rs, gint cs, gint pad)
@@ -23,7 +23,7 @@ html_table_cell_new (gint x, gint y, gint max_width, gint percent,
 	object->calc_preferred_width = html_clue_calc_preferred_width;
 
 	/* FIXME: fix backgrounds */
-	object->draw = html_cluev_draw;
+	object->draw = html_table_cell_draw;
 
 	/* HTMLClue functions */
 	clue->get_left_margin = html_cluev_get_left_margin;
@@ -79,7 +79,7 @@ html_table_cell_calc_min_width (HTMLObject *o)
 			minWidth = w;
 	}
 
-	if (o->flags & FixedWidth) {
+	if ((o->flags & FixedWidth)) {
 
 		/* Our minimum width is at least our fixed width */
 		if (o->max_width > minWidth)
@@ -91,6 +91,16 @@ html_table_cell_calc_min_width (HTMLObject *o)
 	}
 
 	return minWidth;
+}
+
+static void
+html_table_cell_draw (HTMLObject *o, HTMLPainter *p, gint x, gint y, 
+		      gint width, gint height, gint tx, gint ty)
+{
+	if (y + height < o->y - o->ascent || y > o->y + o->descent)
+		return;
+	
+	html_cluev_draw (o, p, x, y, width, height, tx, ty);
 }
 
 static void
@@ -118,7 +128,7 @@ html_table_cell_set_width (HTMLTableCell *cell, gint width)
 	HTMLObject *obj;
 	HTMLObject *o = HTML_OBJECT (cell);
 
-	o->width = 20;
+	o->width = width;
 	if (!(o->flags & FixedWidth))
 	    o->max_width = width;
 

@@ -34,8 +34,7 @@ html_hspace_new (HTMLFont *font, HTMLPainter *painter, gboolean hidden)
 	else
 		object->width = 0;
 
-		object->flags |= Separator;
-
+	object->flags |= Separator;
 	object->flags &= ~Hidden;
 
 	return object;

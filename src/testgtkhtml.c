@@ -8,6 +8,8 @@ static void exit_cb (GtkWidget *widget, gpointer data);
 static void test_cb (GtkWidget *widget, gpointer data);
 static void slow_cb (GtkWidget *widget, gpointer data);
 static void dump_cb (GtkWidget *widget, gpointer data);
+static void redraw_cb (GtkWidget *widget, gpointer data);
+static void resize_cb (GtkWidget *widget, gpointer data);
 static void title_changed_cb (HTMLEngine *engine, gpointer data);
 static gboolean load_timer_event (FILE *fil);
 
@@ -45,6 +47,10 @@ static GnomeUIInfo debug_menu[] = {
 	{ GNOME_APP_UI_ITEM, "Dump Object tree", "Dump Object tree to stdout",
 	  dump_cb, NULL, NULL, 0, 0, 0, 0},
 	GNOMEUIINFO_TOGGLEITEM("Slow loading", "Load documents slowly", slow_cb, NULL),
+	{ GNOME_APP_UI_ITEM, "Force resize", "Force a resize event",
+	  resize_cb, NULL, NULL, 0, 0, 0 },
+	{ GNOME_APP_UI_ITEM, "Force repaint", "Force a repaint event",
+	  redraw_cb, NULL, NULL, 0, 0, 0 },
 	GNOMEUIINFO_END
 };
 
@@ -133,6 +139,20 @@ dump_cb (GtkWidget *widget, gpointer data)
 	g_print ("-----------\n");
 
 	debug_dump_tree (html->engine->clue, 0);
+}
+
+static void
+resize_cb (GtkWidget *widget, gpointer data)
+{
+	g_print ("forcing resize\n");
+	html_engine_calc_size (html->engine);
+}
+
+static void
+redraw_cb (GtkWidget *widget, gpointer data)
+{
+	g_print ("forcing redraw\n");
+	gtk_widget_draw (GTK_WIDGET (html), NULL);
 }
 
 static void

@@ -5,6 +5,8 @@ static void html_clue_destroy (HTMLObject *o);
 static void html_clue_set_max_descent (HTMLObject *o, gint d);
 static gint html_clue_get_left_margin (HTMLClue *o, gint y);
 static gint html_clue_get_right_margin (HTMLClue *o, gint y);
+static gint html_clue_calc_min_width (HTMLObject *o);
+static void html_clue_calc_absolute_pos (HTMLObject *o, gint x, gint y);
 
 void
 html_clue_init (HTMLClue *clue, objectType ObjectType)
@@ -19,6 +21,8 @@ html_clue_init (HTMLClue *clue, objectType ObjectType)
 	object->destroy = html_clue_destroy;
 	object->reset = html_clue_reset;
 	object->calc_preferred_width = html_clue_calc_preferred_width;
+	object->calc_min_width = html_clue_calc_min_width;
+	object->calc_absolute_pos = html_clue_calc_absolute_pos;
 
 	/* HTMLClue functions */
 	clue->get_left_margin = html_clue_get_left_margin;
@@ -228,3 +232,35 @@ html_clue_calc_preferred_width (HTMLObject *o)
 
 	return prefWidth;
 }
+
+static void
+html_clue_calc_absolute_pos (HTMLObject *o, gint x, gint y)
+{
+	HTMLObject *obj;
+
+	gint lx = x + o->x;
+	gint ly = y + o->y - o->ascent;
+
+	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->nextObj)
+		obj->calc_absolute_pos (obj, lx, ly);
+}
+
+static gint
+html_clue_calc_min_width (HTMLObject *o) {
+	HTMLObject *obj;
+	gint minWidth = 0;
+	
+	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->nextObj) {
+		gint w = obj->calc_min_width (obj);
+		if (w > minWidth)
+			minWidth = w;
+	}
+	
+	if ((o->flags & FixedWidth)) {
+		if (o->width > minWidth)
+			minWidth = o->width;
+	}
+	
+	return minWidth;
+}
+

@@ -25,7 +25,8 @@ guint           html_engine_get_type (void);
 static void     html_engine_class_init (HTMLEngineClass *klass);
 static void     html_engine_init (HTMLEngine *engine);
 static gboolean html_engine_timer_event (HTMLEngine *e);
-
+static gboolean html_engine_update_event (HTMLEngine *e);
+static void html_engine_schedule_update (HTMLEngine *e, gboolean clear);
 static GtkLayoutClass *parent_class = NULL;
 guint html_engine_signals [LAST_SIGNAL] = { 0 };
 
@@ -189,6 +190,13 @@ html_engine_new (void)
 #endif
 
 void
+html_engine_calc_absolute_pos (HTMLEngine *e)
+{
+	if (e->clue)
+		e->clue->calc_absolute_pos (e->clue, 0, 0);
+}
+
+void
 html_engine_draw_background (HTMLEngine *e, gint xval, gint yval, gint x, gint y, gint w, gint h)
 {
 	gint xoff = 0;
@@ -263,6 +271,27 @@ html_engine_write (HTMLEngine *e, gchar *buffer)
 	}
 }
 
+static void
+html_engine_schedule_update (HTMLEngine *e, gboolean clear)
+{
+	if (clear)
+		e->bDrawBackground = TRUE;
+
+	if (!e->updateTimer) {
+		e->bDrawBackground = clear;
+		gtk_timeout_add (100, html_engine_update_event, e);
+	}
+
+}
+
+static gboolean
+html_engine_update_event (HTMLEngine *e)
+{
+	html_engine_draw (e, 0, 0, e->width, e->height);
+
+	return FALSE;
+}
+
 static gboolean
 html_engine_timer_event (HTMLEngine *e)
 {
@@ -295,14 +324,21 @@ html_engine_timer_event (HTMLEngine *e)
 	if (html_engine_parse_body (e, e->clue, end, TRUE))
 	  	html_engine_stop_parser (e);
 
+	g_print ("calcing size in htmlengine\n");
 	html_engine_calc_size (e);
-	
+	html_engine_calc_absolute_pos (e);
+
 	/* Restoring font */
 	html_painter_set_font (e->painter, oldFont);
 
 	html_painter_set_background_color (e->painter, e->settings->bgcolor);
 	gdk_window_clear (e->painter->window);
 	html_engine_draw (e, 0, 0, e->width, e->height);
+	
+	/* If the visible rectangle was not filled before the parsing and
+	   if we have something to display in the visible area now then repaint. */
+	if (lastHeight - e->y_offset < e->height * 2 && html_engine_get_doc_height (e) - e->y_offset > 0)
+		html_engine_schedule_update (e, FALSE);
 
 	if (!e->parsing) {
 		/* Parsing done */
@@ -333,6 +369,7 @@ html_engine_end (HTMLEngine *e)
 	e->writing = FALSE;
 
 	html_tokenizer_end (e->ht);
+
 }
 
 void
@@ -593,20 +630,25 @@ html_engine_insert_text (HTMLEngine *e, gchar *str, HTMLFont *f)
 	
 	for (;;) {
 		if (str[i] == 0x20) {
+			/* Normal space */
 			if (textType == fixed) {
-				str[i] = 0x00;
+				/* We have a normal space in a block of fixed text.
+				   We need to split the text and insert a separate normal space. */
+				str[i] = 0x00; /* End of string */
 				remainingStr = &(str [i+1]);
 				insertBlock = TRUE;
 				insertSpace = TRUE;
 			}
 			else {
+				/* We have a normal space, if this is the first
+				   character, we insert a normal space and continue */
 				if (i == 0) {
 					if (str [i+1] == 0x00) {
 						str++;
 						remainingStr = 0;
 					}
 					else {
-						str [i] = 0x00;
+						str [i] = 0x00; /* End of string */
 						remainingStr = str+1;
 					}
 					insertBlock = TRUE;
@@ -989,7 +1031,7 @@ html_engine_parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		gint listLevel = 1;
 		gint itemNumber = 1;
 		gint indentSize = INDENT_SIZE;
-		
+
 		if (html_list_stack_count (p->listStack) > 0) {
 			listType = (html_list_stack_top (p->listStack))->type;
 			listNumType = (html_list_stack_top (p->listStack))->numType;
@@ -997,9 +1039,9 @@ html_engine_parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 			listLevel = html_list_stack_count (p->listStack);
 			indentSize = p->indent;
 		}
-		f = html_clueflow_new (0, 0, p->clue->max_width);
+		f = html_clueflow_new (0, 0, clue->max_width);
 		html_clue_append (clue, f);
-		c = html_clueh_new (0, 0, p->clue->max_width);
+		c = html_clueh_new (0, 0, clue->max_width);
 		HTML_CLUE (c)->valign = Top;
 		html_clue_append (f, c);
 
@@ -1020,7 +1062,7 @@ html_engine_parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 			g_print ("Unknown listtype: %d\n", listType);
 		}
 
-		vc = html_cluev_new (0, 0, p->clue->max_width - indentSize, 100);
+		vc = html_cluev_new (0, 0, clue->max_width - indentSize, 100);
 		html_clue_append (c, vc);
 		p->flow = html_clueflow_new (0, 0, vc->max_width);
 		html_clue_append (vc, p->flow);
@@ -1095,6 +1137,7 @@ html_engine_parse_u (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 {
 	if (strncmp (str, "ul", 2) == 0) {
 		ListType type = Unordered;
+		return;
 		/* FIXME: should close anchor */
 
 		if (html_list_stack_is_empty (p->listStack)) {

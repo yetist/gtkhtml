@@ -81,8 +81,16 @@ struct _HTMLEngine {
 	HTMLStackElement *blockStack;
 	HTMLSettings *settings;
 
+	/* timer id to schedule paint events */
+	guint updateTimer;
+
 	/* timer id for parsing routine */
 	guint timerId;
+
+	/* Should the background be painted? */
+	gboolean bDrawBackground;
+
+
 
 	GString *title;
 
@@ -149,5 +157,6 @@ void        html_engine_write (HTMLEngine *e, gchar *buffer);
 void        html_engine_end (HTMLEngine *e);
 void        html_engine_block_end_list (HTMLEngine *e, HTMLObject *clue, HTMLStackElement *elem);
 void        html_engine_free_block (HTMLEngine *e);
+void        html_engine_calc_absolute_pos (HTMLEngine *e);
 
 #endif /* _HTMLENGINE_H_ */

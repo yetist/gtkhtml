@@ -24,7 +24,15 @@ html_clueh_new (gint x, gint y, gint max_width)
 	object->max_width = max_width;
 	object->percent = 100;
 
+	clue->valign = Bottom;
+	clue->halign = Left;
+	clue->head = clue->tail = clue->curr = 0;
+
+	object->width = object->max_width;
+	object->flags &= ~FixedWidth;
+
 	return object;
+
 }
 
 static void
@@ -54,12 +62,10 @@ html_clueh_calc_size (HTMLObject *clue, HTMLObject *parent)
 	gint lmargin = 0;
 	gint a = 0, d = 0;
 
+	/* Make sure the children are properly sized */
 	clue->set_max_width (clue, clue->max_width);
 
 	html_clue_calc_size (clue, parent);
-
-	/* FIXME : Why should this be needed?
-	   parent->calc_size (parent, parent); */
 
 	if (parent)
 		lmargin = HTML_CLUE (parent)->get_left_margin (HTML_CLUE (parent), clue->y);

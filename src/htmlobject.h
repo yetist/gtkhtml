@@ -34,7 +34,13 @@ struct _HTMLObject {
 	guchar flags;
 	HTMLObject *nextObj;
 	gint objCount;
+
+	/* FIXME: For HTMLClueAligned */
 	HTMLObject *prnt;
+
+	/* The absolute position of this object on the page */
+	gint absX;
+	gint absY;
 
 	void (*draw) (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gint height,
 		      gint tx, gint ty);
@@ -57,6 +63,8 @@ struct _HTMLObject {
 	gint (*calc_min_width) (HTMLObject *o);
 	
 	gint (*calc_preferred_width) (HTMLObject *o);
+
+	void (*calc_absolute_pos) (HTMLObject *o, gint x, gint y);
 };
 
 void        html_object_init (HTMLObject *o, objectType ObjectType);

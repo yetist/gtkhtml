@@ -29,7 +29,7 @@ debug_dump_tree (HTMLObject *o, gint level)
 	while (obj) {
 		for (i=0;i<level;i++) g_print (" ");
 
-		g_print ("Object Type: ");
+		g_print ("Obj: %d, Object Type: ", obj);
 		debug_dump_object_type (obj);
 
 		switch (obj->ObjectType) {
@@ -67,7 +67,7 @@ debug_dump_object_type (HTMLObject *o)
 		g_print ("HTMLTableCell\n");
 		break;
 	case TableType:
-		g_print ("HTMLTable blabla\n");
+		g_print ("HTMLTable\n");
 		break;
 	case Bullet:
 		g_print ("HTMLBullet\n");

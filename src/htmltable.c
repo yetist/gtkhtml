@@ -16,6 +16,7 @@ static void html_table_scale_columns (HTMLTable *table, gint c_start, gint c_end
 static gint html_table_calc_min_width (HTMLObject *o);
 static gint html_table_calc_preferred_width (HTMLObject *o);
 static void html_table_set_max_width (HTMLObject *o, gint max_width);
+static void html_table_calc_absolute_pos (HTMLObject *o, gint x, gint y);
 
 #define a_colinfo(x) (((ColInfo_t *)(table->colInfo)->data)[x])
 #define a_coltype(x) (((ColType *)(table->colType)->data)[x])
@@ -40,6 +41,7 @@ html_table_new (gint x, gint y, gint max_width, gint width, gint percent,
 	object->calc_min_width = html_table_calc_min_width;
 	object->calc_preferred_width = html_table_calc_preferred_width;
 	object->set_max_width = html_table_set_max_width;
+	object->calc_absolute_pos = html_table_calc_absolute_pos;
 
 	object->x = x;
 	object->y = y;
@@ -1086,4 +1088,28 @@ html_table_set_max_width (HTMLObject *o, gint max_width)
 	}
 }
 
+static void
+html_table_calc_absolute_pos (HTMLObject *o, gint x, gint y)
+{
+	gint lx = x + o->x;
+	gint ly = y + o->y - o->ascent;
+	HTMLTable *table = HTML_TABLE (o);
+	HTMLTableCell *cell;
 
+	guint r, c;
+
+	for (r = 0; r < table->totalRows; r++) {
+		for (c = 0; c < table->totalCols; c++) {
+			if ((cell = HTML_TABLE (o)->cells[r][c]) == 0)
+				continue;
+			if (c < table->totalCols - 1 &&
+			    cell == HTML_TABLE (o)->cells[r][c + 1])
+				continue;
+			if (r < table->totalRows - 1 &&
+			    cell == HTML_TABLE (o)->cells[r + 1][c])
+				continue;
+			
+			HTML_OBJECT (cell)->calc_absolute_pos (HTML_OBJECT (cell), lx, ly);
+		}
+	}
+}
