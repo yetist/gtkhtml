@@ -1,3 +1,13 @@
+2001-03-26  Larry Ewing  <lewing@ximian.com>
+
+	* htmlplainpainter.c: html painter for plain mode.  The idea here
+	is that rather than loosing valuable information when converting
+	from html to plain and back again we change the painter to draw
+	the html how it will render in text plain mode.  This is not close
+	to perfect yet, but with a little work it should get better.
+
+	* htmlplainpainter.h: header for plain mode.
+
 2001-03-22  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml.c: remove references to load_in_progress.
