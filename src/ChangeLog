@@ -1,3 +1,8 @@
+2003-06-26  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml.c (button_press_event): fix coordinates
+	(shift_to_iframe_parent): ditto
+
 2003-06-24  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine.c (parse_body): add helper functions to push/pop clue

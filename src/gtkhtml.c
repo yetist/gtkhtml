@@ -1352,9 +1352,9 @@ shift_to_iframe_parent (GtkWidget *widget, gint *x, gint *y)
 {
 	while (GTK_HTML (widget)->iframe_parent) {
 		if (x)
-			*x += widget->allocation.x;
+			*x += widget->allocation.x - GTK_HTML (widget)->engine->x_offset;
 		if (y)
-			*y += widget->allocation.y;
+			*y += widget->allocation.y - GTK_HTML (widget)->engine->y_offset;
 
 		widget = GTK_HTML (widget)->iframe_parent;
 		
@@ -1480,7 +1480,7 @@ button_press_event (GtkWidget *widget,
 				HTMLEngine *orig_e;
 
 				orig_e = GTK_HTML (orig_widget)->engine;
-				obj = html_engine_get_object_at (engine, x + engine->x_offset, y + engine->y_offset,
+				obj = html_engine_get_object_at (engine, x, y,
 								 NULL, FALSE);
 				if (obj && ((HTML_IS_IMAGE (obj) && HTML_IMAGE (obj)->url && *HTML_IMAGE (obj)->url)
 					    || HTML_IS_LINK_TEXT (obj)))
