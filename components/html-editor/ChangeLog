@@ -1,3 +1,7 @@
+2001-02-19    <rodo@ximian.com>
+
+	* Makefile.am: fix idl generating includes
+
 2001-02-12  Radek Doulik  <rodo@ximian.com>
 
 	* image.c (insert_or_apply): fix image width/height and percentage

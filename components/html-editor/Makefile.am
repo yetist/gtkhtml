@@ -34,15 +34,15 @@ SPELL_IDL_GENERATED = \
 
 CLEANFILES = $(IDL_GENERATED) $(SPELL_IDL_GENERATED)
 
-Editor-impl.o: Editor.h
-Spell-impl.o: Spell.h
+Editor-common.o: Editor.h
+Spell-common.o: Spell.h
 
 $(IDL_GENERATED): $(IDLS)
-	$(ORBIT_IDL) -I$(datadir)/idl -I`$(GNOME_CONFIG) --cflags idl`	\
+	$(ORBIT_IDL) -I$(datadir)/idl `$(GNOME_CONFIG) --cflags idl`	\
 		-I$(srcdir) $(srcdir)/Editor.idl
 
 $(SPELL_IDL_GENERATED): $(SPELL_IDLS)
-	$(ORBIT_IDL) -I$(datadir)/idl -I`$(GNOME_CONFIG) --cflags idl`	\
+	$(ORBIT_IDL) -I$(datadir)/idl `$(GNOME_CONFIG) --cflags idl`	\
 		-I$(srcdir) $(srcdir)/Spell.idl
 
 LDFLAGS += -dynamic
