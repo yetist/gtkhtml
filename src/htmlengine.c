@@ -3131,6 +3131,14 @@ html_engine_realize (HTMLEngine *e,
 	e->invert_gc = gdk_gc_new_with_values (e->window, &gc_values, GDK_GC_FUNCTION);
 }
 
+void
+html_engine_unrealize (HTMLEngine *e)
+{
+	html_gdk_painter_unrealize (HTML_GDK_PAINTER (e->painter));
+
+	e->window = NULL;
+}
+
 
 /* This function makes sure @engine can be edited properly.  In order
    to be editable, the beginning of the document must have the

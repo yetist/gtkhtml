@@ -276,6 +276,8 @@ guint       html_engine_get_type      (void);
 HTMLEngine *html_engine_new           (GtkWidget *);
 void        html_engine_realize       (HTMLEngine *engine,
 				       GdkWindow  *window);
+void        html_engine_unrealize     (HTMLEngine *engine);
+
 
 /* Editability control.  */
 void      html_engine_set_editable  (HTMLEngine *e,

@@ -669,7 +669,7 @@ unrealize (GtkWidget *widget)
 {
 	GtkHTML *html = GTK_HTML (widget);
 	
-	html_gdk_painter_unrealize (HTML_GDK_PAINTER (html->engine->painter));
+	html_engine_unrealize (html->engine);
 
 	if (GTK_WIDGET_CLASS (parent_class)->unrealize)
 		(* GTK_WIDGET_CLASS (parent_class)->unrealize) (widget);
