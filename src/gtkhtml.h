@@ -320,6 +320,7 @@ gboolean                   gtk_html_save                          (GtkHTML      
 								   gpointer                   data);
 GtkHTMLStream             *gtk_html_begin_content                 (GtkHTML                   *html,
 								   gchar                     *content_type);
+void                       gtk_html_drag_dest_set                 (GtkHTML                   *html);
 #endif
 
 #endif /* _GTKHTML_H_ */

@@ -5074,6 +5074,8 @@ html_engine_set_editable (HTMLEngine *e,
 			else 
 				html_engine_stop_blinking_cursor (e);
 	}
+
+	gtk_html_drag_dest_set (e->widget);
 }
 
 gboolean

@@ -912,6 +912,16 @@ key_release_event (GtkWidget *widget, GdkEventKey *event)
 	return GTK_WIDGET_CLASS (parent_class)->key_release_event (widget, event);
 }
 
+void
+gtk_html_drag_dest_set (GtkHTML *html)
+{
+	if (html_engine_get_editable (html->engine))
+		gtk_drag_dest_set (GTK_WIDGET (html), GTK_DEST_DEFAULT_ALL,
+				   dnd_link_sources, DND_LINK_SOURCES, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK);
+	else
+		gtk_drag_dest_unset (GTK_WIDGET (html));
+}
+
 static void
 realize (GtkWidget *widget)
 {
@@ -963,8 +973,7 @@ realize (GtkWidget *widget)
 		gtk_object_sink (GTK_OBJECT (layout->vadjustment));	
 	}
 
-	gtk_drag_dest_set (widget, GTK_DEST_DEFAULT_ALL,
-			   dnd_link_sources, DND_LINK_SOURCES, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK);
+	gtk_html_drag_dest_set (html);
 
 	gtk_im_context_set_client_window (html->priv->im_context, widget->window);
 

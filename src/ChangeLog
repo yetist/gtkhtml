@@ -1,5 +1,12 @@
 2004-03-18  Radek Doulik  <rodo@ximian.com>
 
+	* htmlengine.c (html_engine_set_editable): call
+	gtk_html_drag_dest_set
+
+	* gtkhtml.c (gtk_html_drag_dest_set): new helper function, sets
+	drag destination depending on editable state
+	(realize): call gtk_html_drag_dest_set
+
 	* htmlengine.c (block_end_cell): make sure the cell doesn't end
 	empty. add new flow with an empty text in that case
 
