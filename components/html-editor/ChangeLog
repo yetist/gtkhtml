@@ -1,3 +1,7 @@
+2001-08-27  Radek Doulik  <rodo@ximian.com>
+
+	* body.c (body_apply_cb): update to html_image_factory_register change
+
 2001-08-26  Larry Ewing  <lewing@ximian.com>
 
 	* menubar.c (menubar_update_format): add some missing formats.

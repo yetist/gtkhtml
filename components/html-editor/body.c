@@ -220,8 +220,8 @@ body_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 									 (GNOME_PIXMAP_ENTRY (data->pixmap_entry)))), NULL);
 
 		if (e->bgPixmapPtr != NULL)
-			html_image_factory_unregister(e->image_factory, e->bgPixmapPtr, NULL);
-		e->bgPixmapPtr = html_image_factory_register(e->image_factory, NULL, file);
+			html_image_factory_unregister (e->image_factory, e->bgPixmapPtr, NULL);
+		e->bgPixmapPtr = html_image_factory_register (e->image_factory, NULL, file, TRUE);
 		g_free (file);
 		redraw = TRUE;
 	}
