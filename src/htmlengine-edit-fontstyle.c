@@ -888,8 +888,8 @@ static void
 object_set_font_style (HTMLObject *o, struct tmp_font *tf)
 {
 	if (html_object_is_text (o)) {
-		HTML_TEXT (o)->font_style &= tf->and_mask;
 		HTML_TEXT (o)->font_style |= tf->or_mask;
+		HTML_TEXT (o)->font_style &= tf->and_mask;
 	}
 }
 
@@ -912,8 +912,8 @@ html_engine_set_font_style (HTMLEngine *e,
 	} else {
 		GtkHTMLFontStyle old = e->insertion_font_style;
 
-		e->insertion_font_style &= and_mask;
 		e->insertion_font_style |= or_mask;
+		e->insertion_font_style &= and_mask;
 
 		return (old == e->insertion_font_style) ? FALSE : TRUE;
 	}

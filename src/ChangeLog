@@ -1,5 +1,9 @@
 2000-10-17  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine-edit-fontstyle.c (object_set_font_style): changed
+	order or bit operations, first do OR and then AND
+	(html_engine_set_font_style): likewise
+
 	* gtkhtml.c (gtk_html_load_from_string): new helper function, does
 	begin, write, end to simplify short/easy html doc loading
 
