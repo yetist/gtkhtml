@@ -34,6 +34,7 @@
 #include "htmlsearch.h"
 #include "htmlselection.h"
 #include "htmlsettings.h"
+#include <libgnome/gnome-i18n.h>
 
 #ifndef USE_SCROLLED_WINDOW
 #include <gal/widgets/e-scroll-frame.h>
@@ -552,9 +553,13 @@ html_frame_init (HTMLFrame *frame,
 	  GTK_SIGNAL_FUNC (frame_button_press_event), frame);
 	*/
 
-	if (depth < 10)
+	if (depth < 10) {
 		gtk_signal_emit_by_name (GTK_OBJECT (parent_html->engine), 
 					 "url_requested", src, handle);
+	} else {
+		gtk_html_stream_printf (handle, "%s", _("Error: maximium frame depth exceded"));
+		gtk_html_stream_close (handle, GTK_HTML_STREAM_OK);
+	}
 
 	gtk_widget_set_usize (scrolled_window, width, height);
 

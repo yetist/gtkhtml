@@ -1,3 +1,9 @@
+2002-09-19  Larry Ewing  <lewing@ximian.com>
+
+	* htmlframe.c (html_frame_init): add message for frame depth error.
+
+	* htmliframe.c (html_iframe_init): same.
+
 2002-09-19  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine.c (html_engine_draw_real): crop iframes to avoid
