@@ -256,7 +256,7 @@ cut_attr_list (HTMLText *text, gint begin_index, gint end_index)
 }
 
 static void
-cut_links (HTMLText *text, gint start_offset, gint end_offset)
+cut_links (HTMLText *text, gint start_offset, gint end_offset, gint start_index, gint end_index)
 {
 	GSList *l, *next;
 	Link *link;
@@ -268,10 +268,13 @@ cut_links (HTMLText *text, gint start_offset, gint end_offset)
 		if (start_offset <= link->start_offset && link->end_offset <= end_offset) {
 			html_link_free (link);
 			text->links = g_slist_delete_link (text->links, l);
-		} else if (start_offset <= link->start_offset && link->start_offset <= end_offset)
+		} else if (start_offset <= link->start_offset && link->start_offset <= end_offset) {
 			link->start_offset = end_offset;
-		else if (start_offset <= link->end_offset && link->end_offset <= end_offset)
+			link->start_index = end_index;
+		} else if (start_offset <= link->end_offset && link->end_offset <= end_offset) {
 			link->end_offset = start_offset;
+			link->end_index = start_index;
+		}
 	}
 }
 
@@ -294,21 +297,20 @@ html_text_op_copy_helper (HTMLText *text, GList *from, GList *to, guint *len)
 
 	rv = html_object_dup (HTML_OBJECT (text));
 	rvt = HTML_TEXT (rv);
-
-	if (end_index < rvt->text_bytes)
-		cut_attr_list (rvt, end_index, rvt->text_bytes);
-	if (begin_index > 0)
-		cut_attr_list (rvt, 0, begin_index);
-	if (end < rvt->text_len)
-		cut_links (rvt, end, rvt->text_len);
-	if (begin > 0)
-		cut_links (rvt, 0, begin);
-
-	nt = g_strndup (rvt->text + begin_index, end_index - begin_index);
-	g_free (rvt->text);
-	rvt->text = nt;
 	rvt->text_len = end - begin;
 	rvt->text_bytes = end_index - begin_index;
+	nt = g_strndup (rvt->text + begin_index, rvt->text_bytes);
+	g_free (rvt->text);
+	rvt->text = nt;
+
+	if (end_index < text->text_bytes)
+		cut_attr_list (rvt, end_index, text->text_bytes);
+	if (begin_index > 0)
+		cut_attr_list (rvt, 0, begin_index);
+	if (end < text->text_len)
+		cut_links (rvt, end, text->text_len, end_index, text->text_bytes);
+	if (begin > 0)
+		cut_links (rvt, 0, begin, 0, begin_index);
 
 	return rv;
 }
@@ -350,11 +352,11 @@ html_text_op_cut_helper (HTMLText *text, HTMLEngine *e, GList *from, GList *to, 
 			cut_attr_list (rvt, end_index, rvt->text_bytes);
 		if (begin_index > 0)
 			cut_attr_list (rvt, 0, begin_index);
-		cut_links (text, begin, end);
+		cut_links (text, begin, end, begin_index, end_index);
 		if (end < rvt->text_len)
-			cut_links (rvt, end, rvt->text_len);
+			cut_links (rvt, end, rvt->text_len, end_index, rvt->text_bytes);
 		if (begin > 0)
-			cut_links (rvt, 0, begin);
+			cut_links (rvt, 0, begin, 0, begin_index);
 		nt = g_strconcat (text->text, tail, NULL);
 		g_free (text->text);
 
@@ -420,7 +422,9 @@ merge_links (HTMLText *t1, HTMLText *t2)
 			Link *link = (Link *) l->data;
 
 			link->start_offset += t1->text_len;
+			link->start_index += t1->text_bytes;
 			link->end_offset += t1->text_len;
+			link->end_index += t1->text_bytes;
 		}
 
 		if (t1->links) {
@@ -429,6 +433,7 @@ merge_links (HTMLText *t1, HTMLText *t2)
 
 			if (tail->start_offset == head->end_offset && html_link_equal (head, tail)) {
 				tail->start_offset = head->start_offset;
+				tail->start_index = head->start_index;
 				html_link_free (head);
 				t1->links = g_slist_delete_link (t1->links, t1->links);
 			}
@@ -548,7 +553,7 @@ split_attrs (HTMLText *t1, HTMLText *t2, gint index)
 }
 
 static void
-split_links (HTMLText *t1, HTMLText *t2, gint offset)
+split_links (HTMLText *t1, HTMLText *t2, gint offset, gint index)
 {
 	GSList *l, *prev = NULL;
 
@@ -556,8 +561,10 @@ split_links (HTMLText *t1, HTMLText *t2, gint offset)
 		Link *link = (Link *) l->data;
 
 		if (link->start_offset < offset) {
-			if (link->end_offset > offset)
+			if (link->end_offset > offset) {
 				link->end_offset = offset;
+				link->end_index = index;
+			}
 
 			if (prev) {
 				prev->next = NULL;
@@ -582,6 +589,7 @@ split_links (HTMLText *t1, HTMLText *t2, gint offset)
 		if (link->start_offset < offset) {
 			if (link->end_offset > offset) {
 				link->start_offset = offset;
+				link->start_index = index;
 				prev = l;
 				l = l->next;
 			}
@@ -601,7 +609,9 @@ split_links (HTMLText *t1, HTMLText *t2, gint offset)
 		Link *link = (Link *) l->data;
 
 		link->start_offset -= offset;
+		link->start_index -= index;
 		link->end_offset -= offset;
+		link->end_index -= index;
 	}
 }
 
@@ -633,7 +643,7 @@ object_split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, g
 	t2->text_len   -= offset;
 	t2->text_bytes -= split_index;
 	split_attrs (t1, t2, split_index);
-	split_links (t1, t2, offset);
+	split_links (t1, t2, offset, split_index);
 	if (!html_text_convert_nbsp (t2, FALSE))
 		t2->text = g_strdup (t2->text);
 	g_free (tt);
@@ -1384,6 +1394,12 @@ save_close_attrs (HTMLEngineSaveState *state, GSList *attrs)
 			tag = "</S>";
 			break;
 		case PANGO_ATTR_SIZE:
+			if (attr->klass == &html_pango_attr_font_size_klass) {
+				HTMLPangoAttrFontSize *size = (HTMLPangoAttrFontSize *) attr;
+				if ((size->style & GTK_HTML_FONT_STYLE_SIZE_MASK) != GTK_HTML_FONT_STYLE_SIZE_3)
+					tag = "</FONT>";
+			}
+			break;
 		case PANGO_ATTR_FOREGROUND:
 			tag = "</FONT>";
 			break;
@@ -1405,6 +1421,8 @@ save_text_part (HTMLText *text, HTMLEngineSaveState *state, guint start_index, g
 	gchar *str;
 	gint len;
 	gboolean rv;
+
+	printf ("save_text_part %d to %d\n", start_index, end_index);
 
 	str = g_strndup (text->text + start_index, end_index - start_index);
 	len = g_utf8_pointer_to_offset (text->text + start_index, text->text + end_index);
@@ -2504,10 +2522,13 @@ html_text_add_link_full (HTMLText *text, HTMLEngine *e, gchar *url, gchar *targe
 				html_link_free (link);
 				continue;
 			}
-			if (link->start_offset < end_offset && link->end_offset > end_offset)
+			if (link->start_offset < end_offset && link->end_offset > end_offset) {
 				link->start_offset = end_offset;
-			else if (link->end_offset > start_offset && link->end_offset <= end_offset)
+				link->start_index = end_index;
+			} else if (link->end_offset > start_offset && link->end_offset <= end_offset) {
 				link->end_offset = start_offset;
+				link->end_index = start_index;
+			}
 
 			if (link->end_offset <= start_offset) {
 				if (lprev)

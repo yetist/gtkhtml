@@ -372,6 +372,6 @@ gtk_html_debug_list_links (HTMLText *text)
 		if (l->data) {
 			Link *link = (Link *) l->data;
 
-			g_print ("%d-%d: %s#%s\n", link->start_offset, link->end_offset, link->url, link->target);
+			g_print ("%d-%d(%d-%d): %s#%s\n", link->start_offset, link->end_offset, link->start_index, link->end_index, link->url, link->target);
 		}
 }
