@@ -1170,8 +1170,10 @@ save_plain (HTMLObject *self,
 			g_string_append (out, "\n");
 
 		s = html_engine_save_buffer_peek_text (buffer_state);
-		
-		while (*s) {
+
+		if (*s == 0)
+			g_string_append (out, "\n");
+		else while (*s) {
 			/* FIXME we should allow wrapping on PRE sections as well */
 			len = strcspn (s, "\n");
 			

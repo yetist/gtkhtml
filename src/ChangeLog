@@ -1,5 +1,7 @@
 2000-10-18  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlclueflow.c (save_plain): add \n for empty paragraphs
+
 	* keybindingsrc.emacs: removed C-left, C-right as they are already
 	in standard bindings
 
