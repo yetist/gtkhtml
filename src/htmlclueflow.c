@@ -45,6 +45,7 @@
 #include "htmlpainter.h"
 #include "htmlplainpainter.h"
 #include "htmltable.h"
+#include "htmltablecell.h"
 #include "htmltext.h"
 #include "htmltextslave.h"	/* FIXME */
 #include "htmlsearch.h"
@@ -56,6 +57,8 @@ static HTMLClueClass *parent_class = NULL;
 
 #define HCF_CLASS(x) HTML_CLUEFLOW_CLASS (HTML_OBJECT (x)->klass)
 #define HTML_IS_PLAIN_PAINTER(obj)              (GTK_CHECK_TYPE ((obj), HTML_TYPE_PLAIN_PAINTER))
+
+inline HTMLHAlignType html_clueflow_get_halignment (HTMLClueFlow *flow);
 
 
 static void
@@ -399,6 +402,7 @@ calc_size (HTMLObject *o,
 {
 	HTMLVSpace *vspace;
 	HTMLClue *clue;
+	HTMLClueFlow *flow;
 	HTMLObject *obj;
 	HTMLObject *line;
 	HTMLClearType clear;
@@ -422,6 +426,7 @@ calc_size (HTMLObject *o,
 	old_width = o->width;
 
 	clue = HTML_CLUE (o);
+	flow = HTML_CLUEFLOW (o);
 
 	obj = clue->head;
 	line = clue->head;
@@ -660,19 +665,21 @@ calc_size (HTMLObject *o,
 		/* if we need a new line, or all objects have been processed
 		   and need to be aligned. */
 		if ( newLine || !obj) {
+			HTMLHAlignType halign;
 			int extra;
 
 			extra = 0;
+			halign = html_clueflow_get_halignment (flow);
 
 			if (w > o->width)
 				o->width = w;
 
-			if (clue->halign == HTML_HALIGN_CENTER) {
+			if (halign == HTML_HALIGN_CENTER) {
 				extra = (rmargin - w) / 2;
 				if (extra < 0)
 					extra = 0;
 			}
-			else if (clue->halign == HTML_HALIGN_RIGHT) {
+			else if (halign == HTML_HALIGN_RIGHT) {
 				extra = rmargin - w;
 				if (extra < 0)
 					extra = 0;
@@ -727,8 +734,8 @@ calc_size (HTMLObject *o,
 					g_assert_not_reached ();
 				}
 
-				if (clue->halign == HTML_HALIGN_CENTER
-				    || clue->halign == HTML_HALIGN_RIGHT)
+				if (halign == HTML_HALIGN_CENTER
+				    || halign == HTML_HALIGN_RIGHT)
 					line->x += extra;
 			}
 
@@ -1657,7 +1664,7 @@ html_clueflow_init (HTMLClueFlow *clueflow,
 	object->flags &= ~HTML_OBJECT_FLAG_FIXEDWIDTH;
 
 	clue->valign = HTML_VALIGN_BOTTOM;
-	clue->halign = HTML_HALIGN_LEFT;
+	clue->halign = HTML_HALIGN_NONE;
 
 	clueflow->style = style;
 	clueflow->level = level; 
@@ -1821,12 +1828,19 @@ html_clueflow_set_halignment (HTMLClueFlow *flow,
 	relayout_and_draw (HTML_OBJECT (flow), engine);
 }
 
-HTMLHAlignType
+inline HTMLHAlignType
 html_clueflow_get_halignment (HTMLClueFlow *flow)
 {
 	g_return_val_if_fail (flow != NULL, HTML_HALIGN_NONE);
 
-	return HTML_CLUE (flow)->halign;
+	if (HTML_CLUE (flow)->halign == HTML_HALIGN_NONE) {
+		if (HTML_OBJECT (flow)->parent && HTML_IS_TABLE_CELL (HTML_OBJECT (flow)->parent)
+		    && HTML_CLUE (HTML_OBJECT (flow)->parent)->halign != HTML_HALIGN_NONE)
+			return HTML_CLUE (HTML_OBJECT (flow)->parent)->halign;
+		else
+			return HTML_HALIGN_LEFT;
+	} else
+		return HTML_CLUE (flow)->halign;
 }
 
 void
