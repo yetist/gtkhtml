@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-13 12:58-0400\n"
+"POT-Creation-Date: 2004-08-19 12:04+0200\n"
 "PO-Revision-Date: 2004-06-28 18:20+0200\n"
 "Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
 "Language-Team: Albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
@@ -88,9 +88,10 @@ msgstr "Rrëmbe kyçet"
 msgid "Information"
 msgstr "Informacione"
 
+#. GRUT modified this item
 #: capplet/gtkhtml-capplet.glade.h:17
 msgid "Keyboard Shortcuts"
-msgstr "Kombinacionet përshpejtuese nga tastiera"
+msgstr "Kombinacione përshpejtuese nga tastiera"
 
 #: capplet/gtkhtml-capplet.glade.h:18
 msgid "Miscellaneous"
@@ -700,10 +701,11 @@ msgstr ""
 msgid "Undo the last action"
 msgstr "Anullo veprimin e fundit"
 
+#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:106
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
 msgid "Yellow"
-msgstr "I verdhë"
+msgstr "E verdhë"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:107
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
@@ -786,10 +788,11 @@ msgstr ""
 msgid "_Indifferent"
 msgstr ""
 
+#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:123
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
 msgid "_Insert"
-msgstr "_Shkruaj"
+msgstr "_Ndërfut"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
@@ -1733,9 +1736,10 @@ msgstr "_Zëvendëso"
 msgid "Search _backward"
 msgstr ""
 
+#. GRUT modified this item
 #: components/html-editor/replace.c:170 components/html-editor/search.c:114
 msgid "Case _sensitive"
-msgstr "Gërma _të mëdha/të vogla"
+msgstr "Ndje_shmëri gërma të mëdha/të vogla"
 
 #: components/html-editor/replace.c:180
 msgid "Replace:"
@@ -1872,9 +1876,10 @@ msgstr ""
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""
 
+#. GRUT modified this item
 #: src/gtkhtml.c:2853
 msgid "Editable"
-msgstr "E ndryshueshme"
+msgstr "Pjesë e ndryshueshme"
 
 #: src/gtkhtml.c:2854
 msgid "Whether the html can be edited"
@@ -1988,9 +1993,10 @@ msgstr ""
 msgid "Test7"
 msgstr ""
 
+#. GRUT modified this item
 #: src/html-component.c:612
 msgid "_Refresh"
-msgstr "_Fresko"
+msgstr "_Rifreskim"
 
 #: src/html-component.c:613
 msgid "Reload the page"
@@ -2028,3 +2034,4 @@ msgstr "Pamja e parë e printimit"
 #: src/testgtkhtml.c:987
 msgid "GtkHTML Test Application"
 msgstr ""
+
