@@ -130,7 +130,8 @@ set_props (HTMLEngine *engine,
 		if (style == HTML_CLUEFLOW_STYLE_LIST_ITEM && clueflow->style != HTML_CLUEFLOW_STYLE_LIST_ITEM
 		    && clueflow->levels->len == 0
 		    && !(mask & (HTML_ENGINE_SET_CLUEFLOW_INDENTATION | HTML_ENGINE_SET_CLUEFLOW_INDENTATION_DELTA))) {
-			html_clueflow_set_indentation (clueflow, engine, 1, &item_type);
+			guint8 tmp = item_type;
+			html_clueflow_set_indentation (clueflow, engine, 1, &tmp);
 		} else if (clueflow->style == HTML_CLUEFLOW_STYLE_LIST_ITEM && style != HTML_CLUEFLOW_STYLE_LIST_ITEM
 			   && clueflow->levels->len == 1 
 			   && !(mask & (HTML_ENGINE_SET_CLUEFLOW_INDENTATION | HTML_ENGINE_SET_CLUEFLOW_INDENTATION_DELTA))) {
