@@ -20,6 +20,8 @@
     Boston, MA 02111-1307, USA.
 */
 
+#include <gal/widgets/widget-color-combo.h>
+#include "gp_foreground_solid"
 #include "htmlengine-edit-clueflowstyle.h"
 #include "htmlimage.h"
 #include "body.h"
@@ -30,50 +32,24 @@ struct _GtkHTMLEditBodyProperties {
 	GtkHTMLControlData *cd;
 
 	GtkWidget *pixmap_entry;
-	GtkWidget *selected_color_picker;
 	GtkWidget *use_bg_image;
 
 	GdkColor   color [HTMLColors];
 	gboolean   color_changed [HTMLColors];
+
+	GtkHTML   *sample;
 };
 typedef struct _GtkHTMLEditBodyProperties GtkHTMLEditBodyProperties;
 
 static void
-set_color (GtkWidget *w, gushort r, gushort g, gushort b, gushort a, GtkHTMLEditBodyProperties *data)
+color_changed (GtkWidget *w, GdkColor *color, GtkHTMLEditBodyProperties *data)
 {
 	gint idx;
 
 	idx = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (w), "type"));
-	data->color [idx].red   = r;
-	data->color [idx].green = g;
-	data->color [idx].blue  = b;
+	data->color [idx] = *color;
 	data->color_changed [idx] = TRUE;
 	gtk_html_edit_properties_dialog_change (data->cd->properties_dialog);
-}
-
-static void
-set_color_button (GtkWidget *w, GtkHTMLEditBodyProperties *data)
-{
-	gdouble r, g, b, rn, gn, bn;
-
-	gnome_color_picker_get_d (GNOME_COLOR_PICKER (data->selected_color_picker), &r, &g, &b, NULL);
-
-	rn = ((gdouble) w->style->bg [GTK_STATE_NORMAL].red)  /0xffff;
-	gn = ((gdouble) w->style->bg [GTK_STATE_NORMAL].green)/0xffff;
-	bn = ((gdouble) w->style->bg [GTK_STATE_NORMAL].blue) /0xffff;
-
-	if (r != rn || g != gn || b != bn) {
-		gnome_color_picker_set_d (GNOME_COLOR_PICKER (data->selected_color_picker), rn, gn, bn, 1.0);
-		set_color (data->selected_color_picker, rn*0xffff, gn*0xffff, bn*0xffff, 0xffff, data);
-	}
-}
-
-static void
-select_color (GtkWidget *w, GtkHTMLEditBodyProperties *data)
-{
-	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (w))) {
-		data->selected_color_picker = GTK_WIDGET (gtk_object_get_data (GTK_OBJECT (w), "cpicker"));
-	}
 }
 
 static void
@@ -94,19 +70,23 @@ GtkWidget *
 body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 {
 	GtkHTMLEditBodyProperties *data = g_new0 (GtkHTMLEditBodyProperties, 1);
-	GtkWidget *hbox, *vbox, *table, *frame, *radio, *cpicker, *hbox1;
+	GtkWidget *hbox, *vbox, *frame, *combo, *table;
 	GSList *group;
-	GdkColor *color;
 
 	*set_data = data;
 	data->cd = cd;
 
-	hbox = gtk_hbox_new (FALSE, 3);
-	gtk_container_border_width (GTK_CONTAINER (hbox), 3);
+	table = gtk_table_new (2, 2, FALSE);
+	gtk_container_border_width (GTK_CONTAINER (table), 3);
+	gtk_table_set_col_spacings (GTK_TABLE (table), 3);
+	gtk_table_set_row_spacings (GTK_TABLE (table), 2);
+	frame = gtk_frame_new (_("Background Image"));
 	vbox = gtk_vbox_new (FALSE, 2);
-	data->use_bg_image = gtk_check_button_new_with_label (_("use background image"));
+	gtk_container_border_width (GTK_CONTAINER (vbox), 3);
+	data->use_bg_image = gtk_check_button_new_with_label (_("Enable"));
 	gtk_signal_connect (GTK_OBJECT (data->use_bg_image), "toggled", bg_check_cb, data);
-	data->pixmap_entry = gnome_pixmap_entry_new ("background_image", _("Background image"), TRUE);
+	data->pixmap_entry = gnome_pixmap_entry_new ("background_image", _("Background Image"), TRUE);
+	gnome_pixmap_entry_set_preview_size (GNOME_PIXMAP_ENTRY (data->pixmap_entry), 100, 100);
 	if (cd->html->engine->bgPixmapPtr) {
 		HTMLImagePointer *ip = (HTMLImagePointer *) cd->html->engine->bgPixmapPtr;
 		guint off = 0;
@@ -119,44 +99,38 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->use_bg_image), FALSE);
 	gtk_signal_connect (GTK_OBJECT (gnome_pixmap_entry_gtk_entry (GNOME_PIXMAP_ENTRY (data->pixmap_entry))),
 			    "changed", GTK_SIGNAL_FUNC (entry_changed), data);
+
 	gtk_box_pack_start (GTK_BOX (vbox), data->use_bg_image, FALSE, FALSE, 0);
-	gtk_box_pack_start_defaults (GTK_BOX (vbox), data->pixmap_entry);
-	gtk_box_pack_start (GTK_BOX (hbox), vbox, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (vbox), data->pixmap_entry, FALSE, FALSE, 0);
+	gtk_container_add (GTK_CONTAINER (frame), vbox);
+	gtk_table_attach_defaults (GTK_TABLE (table), frame, 0, 1, 0, 1);
+	gtk_table_attach_defaults (GTK_TABLE (table), sample_frame (&data->sample), 0, 2, 1, 2);
 
 	frame = gtk_frame_new (_("Colors"));
 	vbox = gtk_vbox_new (FALSE, 2);
 	gtk_container_border_width (GTK_CONTAINER (vbox), 3);
 
 	group = NULL;
-#define ADD_RADIO(x, ct) \
-	radio = gtk_radio_button_new (group); \
-	cpicker = gnome_color_picker_new (); \
-	gtk_container_border_width (GTK_CONTAINER (radio), 0); \
-        gtk_object_set_data (GTK_OBJECT (cpicker), "type", GINT_TO_POINTER (ct)); \
-        gtk_object_set_data (GTK_OBJECT (radio), "cpicker", cpicker); \
-        gtk_signal_connect (GTK_OBJECT (radio), "toggled", select_color, data); \
-        gtk_signal_connect (GTK_OBJECT (cpicker), "color_set", GTK_SIGNAL_FUNC (set_color), data); \
-	group = gtk_radio_button_group (GTK_RADIO_BUTTON (radio)); \
-        color = &html_colorset_get_color (cd->html->engine->settings->color_set, ct)->color; \
-        gnome_color_picker_set_d (GNOME_COLOR_PICKER (cpicker), (gdouble)color->red/0xffff, (gdouble)color->green/0xffff, (gdouble)color->blue/0xffff, 1.0); \
-	hbox1 = gtk_hbox_new (FALSE, 3); \
-	gtk_box_pack_start (GTK_BOX (hbox1), cpicker, FALSE, FALSE, 0); \
-	gtk_box_pack_start (GTK_BOX (hbox1), gtk_label_new (_(x)), FALSE, FALSE, 0); \
-	gtk_container_add (GTK_CONTAINER (radio), hbox1); \
-	gtk_box_pack_start (GTK_BOX (vbox), radio, FALSE, FALSE, 0);
+#define ADD_COLOR(x, ct, g) \
+        data->color [ct] = html_colorset_get_color_allocated (cd->html->engine->painter, ct)->color; \
+	combo = color_combo_new (snap, _("Automatic"), \
+				 &data->color [ct], \
+				 g); \
+        gtk_object_set_data (GTK_OBJECT (combo), "type", GINT_TO_POINTER (ct)); \
+        gtk_signal_connect (GTK_OBJECT (combo), "changed", GTK_SIGNAL_FUNC (color_changed), data); \
+	hbox = gtk_hbox_new (FALSE, 3); \
+	gtk_box_pack_start (GTK_BOX (hbox), combo, FALSE, FALSE, 0); \
+	gtk_box_pack_start (GTK_BOX (hbox), gtk_label_new (_(x)), FALSE, FALSE, 0); \
+	gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
 
-	ADD_RADIO ("Text", HTMLTextColor); data->selected_color_picker = cpicker;
-	ADD_RADIO ("Link", HTMLLinkColor);
-	ADD_RADIO ("Background", HTMLBgColor);
+	ADD_COLOR ("Text", HTMLTextColor, "text");
+	ADD_COLOR ("Link", HTMLLinkColor, "link");
+	ADD_COLOR ("Background", HTMLBgColor, "bg");
 
-	table = color_table_new (GTK_SIGNAL_FUNC (set_color_button), data);
-	hbox1 = gtk_hbox_new (FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (hbox1), table, FALSE, FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (vbox), hbox1, FALSE, FALSE, 0);
 	gtk_container_add (GTK_CONTAINER (frame), vbox);
-	gtk_box_pack_start (GTK_BOX (hbox), frame, FALSE, TRUE, 0);
+	gtk_table_attach_defaults (GTK_TABLE (table), frame, 1, 2, 0, 1);
 
-	return hbox;
+	return table;
 }
 
 void

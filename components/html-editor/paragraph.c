@@ -23,15 +23,44 @@
 #include "htmlengine-edit-clueflowstyle.h"
 #include "paragraph.h"
 #include "properties.h"
+#include "utils.h"
 
 struct _GtkHTMLEditParagraphProperties {
 	GtkHTMLControlData *cd;
 	GtkWidget *style_option;
 
 	GtkHTMLParagraphAlignment align;
+	gboolean align_changed;
+
 	GtkHTMLParagraphStyle     style;
+	gboolean style_changed;
+
+	GtkHTML *sample;
 };
 typedef struct _GtkHTMLEditParagraphProperties GtkHTMLEditParagraphProperties;
+
+static void
+fill_sample (GtkHTMLEditParagraphProperties *d)
+{
+	gchar *body, *bg, *style, *align;
+
+	bg    = html_engine_save_get_sample_body (d->cd->html->engine, NULL);
+	align = html_engine_save_get_paragraph_align (d->align)
+		? g_strdup_printf ("<div align=%s>", html_engine_save_get_paragraph_align (d->align)) : g_strdup ("");
+	style = html_engine_save_get_paragraph_style (d->style)
+		? g_strdup_printf ("<%s>", html_engine_save_get_paragraph_style (d->style)) : g_strdup ("");
+	body  = g_strconcat (bg,
+			     style,
+			     align,
+			     "The quick brown fox jumps over the lazy dog.</div>",
+			     NULL);
+	printf ("body: %s\n", body);
+	gtk_html_load_from_string (d->sample, body, -1);
+	g_free (style);
+	g_free (align);
+	g_free (bg);
+	g_free (body);
+}
 
 static void
 set_style (GtkWidget *w, GtkHTMLEditParagraphProperties *data)
@@ -40,7 +69,9 @@ set_style (GtkWidget *w, GtkHTMLEditParagraphProperties *data)
 
 	if (data->style != style) {
 		gtk_html_edit_properties_dialog_change (data->cd->properties_dialog);
+		data->style_changed = TRUE;
 		data->style = style;
+		fill_sample (data);
 	}
 }
 
@@ -50,15 +81,17 @@ set_align (GtkWidget *w, GtkHTMLEditParagraphProperties *data)
 	GtkHTMLParagraphAlignment align = GPOINTER_TO_UINT (gtk_object_get_data (GTK_OBJECT (w), "align"));
 	if (align != data->align && gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (w))) {
 		data->align = align;
+		data->align_changed = TRUE;
 		gtk_html_edit_properties_dialog_change (data->cd->properties_dialog);
+		fill_sample (data);
 	}
 }
 
 GtkWidget *
 paragraph_properties (GtkHTMLControlData *cd, gpointer *set_data)
 {
-	GtkHTMLEditParagraphProperties *data = g_new (GtkHTMLEditParagraphProperties, 1);
-	GtkWidget *vbox, *hbox, *menu, *menuitem, *frame, *radio, *mhb;
+	GtkHTMLEditParagraphProperties *data = g_new0 (GtkHTMLEditParagraphProperties, 1);
+	GtkWidget *hbox, *menu, *menuitem, *frame, *radio, *table;
 	GSList *group;
 	gint h=0, i=0;
 
@@ -67,12 +100,14 @@ paragraph_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	data->align = gtk_html_get_paragraph_alignment (cd->html);
 	data->style = gtk_html_get_paragraph_style     (cd->html);
 
-	vbox = gtk_vbox_new (FALSE, 2);
-	gtk_container_border_width (GTK_CONTAINER (vbox), 3);
+	table = gtk_table_new (2, 2, FALSE);
+	gtk_container_border_width (GTK_CONTAINER (table), 3);
+	gtk_table_set_col_spacings (GTK_TABLE (table), 3);
+	gtk_table_set_row_spacings (GTK_TABLE (table), 2);
 
-	hbox = gtk_hbox_new (FALSE, 3);
 	frame = gtk_frame_new (_("Style"));
-
+	hbox = gtk_hbox_new (FALSE, 0);
+	gtk_container_set_border_width (GTK_CONTAINER (hbox), 3);
 	menu = gtk_menu_new ();
 
 #undef ADD_ITEM
@@ -100,10 +135,9 @@ paragraph_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	data->style_option = gtk_option_menu_new ();
 	gtk_option_menu_set_menu (GTK_OPTION_MENU (data->style_option), menu);
 	gtk_option_menu_set_history (GTK_OPTION_MENU (data->style_option), h);
-
 	gtk_box_pack_start (GTK_BOX (hbox), data->style_option, FALSE, FALSE, 0);
 	gtk_container_add (GTK_CONTAINER (frame), hbox);
-	gtk_box_pack_start (GTK_BOX (vbox), frame, FALSE, FALSE, 0);
+	gtk_table_attach (GTK_TABLE (table), frame, 0, 1, 0, 1, GTK_FILL, GTK_FILL, 0, 0);
 
 	frame = gtk_frame_new (_("Align"));
 	hbox = gtk_hbox_new (FALSE, 3);
@@ -123,23 +157,21 @@ paragraph_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	ADD_RADIO (_("Right"), GTK_HTML_PARAGRAPH_ALIGNMENT_RIGHT);
 
 	gtk_container_add (GTK_CONTAINER (frame), hbox);
-	gtk_box_pack_start (GTK_BOX (vbox), frame, FALSE, FALSE, 0);
+	gtk_table_attach (GTK_TABLE (table), frame, 1, 2, 0, 1, GTK_FILL | GTK_EXPAND, GTK_FILL, 0, 0);
+	gtk_table_attach (GTK_TABLE (table), sample_frame (&data->sample), 0, 2, 1, 2, GTK_FILL | GTK_EXPAND, 0, 0, 0);
+	fill_sample (data);
 
-	mhb = gtk_hbox_new (FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (mhb), vbox, FALSE, FALSE, 0);
-	return mhb;
+	return table;
 }
 
 void
 paragraph_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
-	GtkHTMLParagraphAlignment align = gtk_html_get_paragraph_alignment (cd->html);
-	GtkHTMLParagraphStyle     style = gtk_html_get_paragraph_style     (cd->html);
 	GtkHTMLEditParagraphProperties *data = (GtkHTMLEditParagraphProperties *) get_data;
 
-	if (align != data->align)
+	if (data->align_changed)
 		gtk_html_set_paragraph_alignment (cd->html, data->align);
-	if (style != data->style)
+	if (data->style_changed)
 		gtk_html_set_paragraph_style (cd->html, data->style);
 }
 

@@ -20,6 +20,8 @@
     Boston, MA 02111-1307, USA.
 */
 
+#include <gal/widgets/widget-color-combo.h>
+#include "gp_foreground_solid"
 #include "htmlengine-edit.h"
 #include "htmlengine-edit-fontstyle.h"
 #include "htmlengine-save.h"
@@ -31,7 +33,7 @@ struct _GtkHTMLEditTextProperties {
 
 	GtkHTMLControlData *cd;
 
-	GtkWidget *color_picker;
+	GtkWidget *color_combo;
 	GtkWidget *style_option;
 	GtkWidget *sel_size;
 	GtkWidget *check [4];
@@ -87,31 +89,12 @@ fill_sample (GtkHTMLEditTextProperties *d)
 }
 
 static void
-set_color (GtkWidget *w, gushort r, gushort g, gushort b, gushort a, GtkHTMLEditTextProperties *data)
+color_changed (GtkWidget *w, GdkColor *color, GtkHTMLEditTextProperties *data)
 {
-	data->color.red   = r;
-	data->color.green = g;
-	data->color.blue  = b;
+	data->color = *color;
 	data->color_changed = TRUE;
 	gtk_html_edit_properties_dialog_change (data->cd->properties_dialog);
 	fill_sample (data);
-}
-
-static void
-set_color_button (GtkWidget *w, GtkHTMLEditTextProperties *data)
-{
-	gdouble r, g, b, rn, gn, bn;
-
-	gnome_color_picker_get_d (GNOME_COLOR_PICKER (data->color_picker), &r, &g, &b, NULL);
-
-	rn = ((gdouble) w->style->bg [GTK_STATE_NORMAL].red)  /0xffff;
-	gn = ((gdouble) w->style->bg [GTK_STATE_NORMAL].green)/0xffff;
-	bn = ((gdouble) w->style->bg [GTK_STATE_NORMAL].blue) /0xffff;
-
-	if (r != rn || g != gn || b != bn) {
-		gnome_color_picker_set_d (GNOME_COLOR_PICKER (data->color_picker), rn, gn, bn, 1.0);
-		set_color (data->color_picker, rn*0xffff, gn*0xffff, bn*0xffff, 0xffff, data);
-	}
 }
 
 static void
@@ -155,9 +138,8 @@ GtkWidget *
 text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 {
 	GtkHTMLEditTextProperties *data = g_new (GtkHTMLEditTextProperties, 1);
-	GtkWidget *mvbox, *vbox, *hbox, *frame, *table, *table1, *menu, *menuitem;
+	GtkWidget *mvbox, *vbox, *frame, *table, *menu, *menuitem;
 	gint i;
-	gdouble rn, gn, bn;
 
 	*set_data = data;
 
@@ -175,6 +157,7 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 
 	frame = gtk_frame_new (_("Style"));
 	vbox = gtk_vbox_new (FALSE, 2);
+	gtk_container_set_border_width (GTK_CONTAINER (vbox), 3);
 
 #define ADD_CHECK(x) \
 	data->check [i] = gtk_check_button_new_with_label (x); \
@@ -190,7 +173,7 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	ADD_CHECK (_("Strikeout"));
 
 	gtk_container_add (GTK_CONTAINER (frame), vbox);
-	gtk_table_attach_defaults (GTK_TABLE (table), frame, 0, 1, 0, 1);
+	gtk_table_attach (GTK_TABLE (table), frame, 0, 1, 0, 2, 0, 0, 0, 0);
 
 	frame = gtk_frame_new (_("Size"));
 	menu = gtk_menu_new ();
@@ -215,37 +198,30 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	data->sel_size = gtk_option_menu_new ();
 	gtk_option_menu_set_menu (GTK_OPTION_MENU (data->sel_size), menu);
 	gtk_option_menu_set_history (GTK_OPTION_MENU (data->sel_size), get_size (data->style_or));
-	gtk_container_add (GTK_CONTAINER (frame), data->sel_size);
-	gtk_table_attach_defaults (GTK_TABLE (table), frame, 0, 1, 1, 2);
+	vbox = gtk_vbox_new (FALSE, 0);
+	gtk_container_set_border_width (GTK_CONTAINER (vbox), 3);
+	gtk_box_pack_start (GTK_BOX (vbox), data->sel_size, FALSE, FALSE, 0);
+	gtk_container_add (GTK_CONTAINER (frame), vbox);
+	gtk_table_attach (GTK_TABLE (table), frame, 1, 2, 0, 1, GTK_FILL, GTK_FILL, 0, 0);
 
 	/* color selection */
 	frame = gtk_frame_new (_("Color"));
-	data->color_picker = gnome_color_picker_new ();
+	data->color_combo = color_combo_new (snap, _("Automatic"), &data->color, "gtkhtml");
 
-	rn = ((gdouble) data->color.red)  /0xffff;
-	gn = ((gdouble) data->color.green)/0xffff;
-	bn = ((gdouble) data->color.blue) /0xffff;
+        gtk_signal_connect (GTK_OBJECT (data->color_combo), "changed", GTK_SIGNAL_FUNC (color_changed), data);
 
-	gnome_color_picker_set_d (GNOME_COLOR_PICKER (data->color_picker), rn, gn, bn, 1.0);
-        gtk_signal_connect (GTK_OBJECT (data->color_picker), "color_set", GTK_SIGNAL_FUNC (set_color), data);
+	vbox = gtk_vbox_new (FALSE, 0);
+	gtk_container_set_border_width (GTK_CONTAINER (vbox), 3);
+	gtk_box_pack_start (GTK_BOX (vbox), data->color_combo, FALSE, FALSE, 0);
 
-	vbox = gtk_vbox_new (FALSE, 2);
-	hbox = gtk_hbox_new (FALSE, 5);
-	gtk_container_border_width (GTK_CONTAINER (vbox), 3);
-	gtk_box_pack_start (GTK_BOX (hbox), data->color_picker, FALSE, FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (hbox), gtk_label_new (_("text color")), FALSE, FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
-
-	table1 = color_table_new (set_color_button, data);
-	gtk_box_pack_start (GTK_BOX (vbox), table1, FALSE, FALSE, 0);
 	gtk_container_add (GTK_CONTAINER (frame), vbox);
-	gtk_table_attach (GTK_TABLE (table), frame, 1, 2, 0, 2, GTK_FILL, GTK_FILL, 0, 0);
+	gtk_table_attach (GTK_TABLE (table), frame, 1, 2, 1, 2, GTK_FILL, GTK_FILL, 0, 0);
 
 	mvbox = gtk_vbox_new (FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (mvbox), table, FALSE, FALSE, 0);
 
 	/* sample */
-	gtk_box_pack_start_defaults (GTK_BOX (mvbox), sample_frame (&data->sample));
+	gtk_box_pack_start (GTK_BOX (mvbox), sample_frame (&data->sample), FALSE, FALSE, 0);
 	fill_sample (data);
 
 	return mvbox;

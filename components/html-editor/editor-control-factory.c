@@ -326,8 +326,6 @@ destroy_control_data_cb (GtkObject *control, GtkHTMLControlData *cd)
 	printf ("active--\n");
 	active_controls --;
 
-	printf ("control_destroy %d\n", active_controls);
-
 	if (active_controls)
 		return;
 	bonobo_object_unref (BONOBO_OBJECT (factory));
