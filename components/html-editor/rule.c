@@ -286,6 +286,8 @@ rule_widget (GtkHTMLEditRuleProperties *data)
 
 	data->disable_change = FALSE;
 
+	gtk_widget_show_all (vbox);
+
 	return vbox;
 }
 
