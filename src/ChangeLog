@@ -1,3 +1,9 @@
+2002-09-19  Larry Ewing  <lewing@ximian.com>
+
+	* testgtkhtml.c (on_set_base): call gtk_html_set_base here so that
+	base_url stuff gets resolved better (testgtkhtml is still broken
+	of course).
+
 2002-09-19  Radek Doulik  <rodo@ximian.com>
 
 	* htmlclueflow.c (get_pre_padding): don't add pre padding for
@@ -27,7 +33,7 @@
 
 	* gtkhtml.h: fixup prototype.
 
-	* htmlframe.c (html_frame_init): limit max frame dpeth to 10.
+	* htmlframe.c (html_frame_init): limit max frame depth to 10.
 
 	* htmliframe.c (html_iframe_init): limit max frame depth to 10.
 

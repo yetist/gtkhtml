@@ -520,6 +520,8 @@ on_set_base (GtkHTML *html, const gchar *url, gpointer data)
 	if (baseURL)
 		html_url_destroy (baseURL);
 
+	if (html)
+		gtk_html_set_base (html, url);
 	baseURL = html_url_new (url);
 }
 
