@@ -225,12 +225,12 @@ delete_cells_undo_new (HTMLTableCell **cells, gint size, gboolean after)
 }
 
 static void
-delete_column_undo_action (HTMLEngine *e, HTMLUndoData *data, HTMLUndoDirection dir)
+delete_column_undo_action (HTMLEngine *e, HTMLUndoData *undo_data, HTMLUndoDirection dir)
 {
-	DeleteCellsUndo *delete_data = (DeleteCellsUndo *) data;
+	DeleteCellsUndo *data = (DeleteCellsUndo *) undo_data;
 
-	g_assert (delete_data->size == HTML_TABLE (html_object_nth_parent (e->cursor->object, 3))->totalRows);
-	insert_table_column (e, delete_data->after, delete_data->cells, html_undo_direction_reverse (dir));
+	g_assert (data->size == HTML_TABLE (html_object_nth_parent (e->cursor->object, 3))->totalRows);
+	insert_table_column (e, data->after, data->cells, html_undo_direction_reverse (dir));
 }
 
 static void
@@ -429,9 +429,12 @@ html_engine_insert_table_row (HTMLEngine *e, gboolean after)
  */
 
 static void
-delete_row_undo_action (HTMLEngine *e, HTMLUndoData *data, HTMLUndoDirection dir)
+delete_row_undo_action (HTMLEngine *e, HTMLUndoData *undo_data, HTMLUndoDirection dir)
 {
-	insert_table_row (e, TRUE, NULL, html_undo_direction_reverse (dir));
+	DeleteCellsUndo *data = (DeleteCellsUndo *) undo_data;
+
+	g_assert (data->size == HTML_TABLE (html_object_nth_parent (e->cursor->object, 3))->totalCols);
+	insert_table_row (e, data->after, data->cells, html_undo_direction_reverse (dir));
 }
 
 static void
@@ -451,61 +454,60 @@ delete_table_row (HTMLEngine *e, HTMLUndoDirection dir)
 {
 	HTMLTable *t;
 	HTMLTableCell *cell;
-	HTMLTableCell **row;
+	HTMLTableCell **row_cells;
 	HTMLObject *co;
-	gint r, c, col, delta = 0;
+	gint r, c, row, delta = 0;
 
 	t = HTML_TABLE (html_object_nth_parent (e->cursor->object, 3));
 
 	/* this command is valid only in table and when this table has > 1 row */
-	if (!t || !HTML_IS_TABLE (HTML_OBJECT (t)) || t->totalCols < 2)
+	if (!t || !HTML_IS_TABLE (HTML_OBJECT (t)) || t->totalRows < 2)
 		return;
 
 	html_engine_freeze (e);
 
-	cell   = HTML_TABLE_CELL (html_object_nth_parent (e->cursor->object, 2));
-	col    = cell->col;
-	row = g_new0 (HTMLTableCell *, t->totalRows);
+	cell      = HTML_TABLE_CELL (html_object_nth_parent (e->cursor->object, 2));
+	row       = cell->row;
+	row_cells = g_new0 (HTMLTableCell *, t->totalCols);
 
 	/* move cursor after/before this row (always keep it in table!) */
 	do {
-		if (col != t->totalCols - 1)
+		if (row != t->totalRows - 1)
 			html_cursor_forward (e->cursor, e);
 		else
 			html_cursor_backward (e->cursor, e);
 		co = html_object_nth_parent (e->cursor->object, 2);
 	} while (co && co->parent == HTML_OBJECT (t)
-		 && HTML_OBJECT_TYPE (co) == HTML_TYPE_TABLECELL && HTML_TABLE_CELL (co)->col == col);
+		 && HTML_OBJECT_TYPE (co) == HTML_TYPE_TABLECELL && HTML_TABLE_CELL (co)->row == row);
 
-	for (r = 0; r < t->totalRows; r ++) {
-		cell = t->cells [r][col];
+	for (c = 0; c < t->totalCols; c ++) {
+		cell = t->cells [row][c];
 
 		/* remove & keep old one */
-		if (cell && cell->col == col) {
+		if (cell && cell->row == row) {
 			HTML_OBJECT (cell)->parent = NULL;
-			row [r] = cell;
-			t->cells [r][col] = NULL;
-			delta += html_object_get_recursive_length (HTML_OBJECT (cell));
-			delta ++;
+			row_cells [c] = cell;
+			t->cells [row][c] = NULL;
+			delta += html_object_get_recursive_length (HTML_OBJECT (cell)) + 1;
 		}
 
-		for (c = col + 1; c < t->totalCols; c ++) {
+		for (r = row + 1; r < t->totalRows; r ++) {
 			cell = t->cells [r][c];
-			if (cell && cell->col != col) {
+			if (cell && cell->row != row) {
 				if (cell->row == r && cell->col == c)
-					html_table_cell_set_position (cell, r, c - 1);
-				t->cells [r][c - 1] = cell;
+					html_table_cell_set_position (cell, r - 1, c);
+				t->cells [r - 1][c] = cell;
 				t->cells [r][c]     = NULL;
 			}
 		}
 	}
 
-	if (col != t->totalCols - 1)
+	if (row != t->totalRows - 1)
 		e->cursor->position -= delta;
-	t->totalCols --;
+	t->totalRows --;
 
 	html_object_change_set (HTML_OBJECT (t), HTML_CHANGE_ALL);
-	delete_row_setup_undo (e, row, t->totalCols, col != t->totalCols - 1, dir);
+	delete_row_setup_undo (e, row_cells, t->totalCols, row != t->totalRows - 1, dir);
 	html_engine_thaw (e);
 }
 
