@@ -40,7 +40,6 @@ SPELL_IDLS = Spell.idl
 SPELL_IDL_GENERATED_H =		\
 	Spell.h
 SPELL_IDL_GENERATED_C = 	\
-	Spell.h			\
 	Spell-common.c		\
 	Spell-skels.c		\
 	Spell-stubs.c

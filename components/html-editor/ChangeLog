@@ -1,3 +1,8 @@
+2003-04-14  Larry Ewing  <lewing@ximian.com>
+
+	* Makefile.am (SPELL_IDL_GENERATED_C): remove spell.h that was
+	accidentally still there.
+
 2003-04-14  Radek Doulik  <rodo@ximian.com>
 
 	* test-html-editor-control.c (app_delete_cb): call quit
