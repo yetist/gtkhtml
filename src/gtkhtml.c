@@ -1787,9 +1787,9 @@ gtk_html_get_type (void)
  * gtk_html_new:
  * @void:
  *
- * GtkHTML widget contructor. Creates an empty GtkHTML widget.
+ * GtkHTML widget contructor. It creates an empty GtkHTML widget.
  *
- * Return value: newly created empty GtkHTML widget.
+ * Return value: A GtkHTML widget, newly created and empty.
  **/
 
 GtkWidget *
@@ -1802,17 +1802,41 @@ gtk_html_new (void)
 	return html;
 }
 
+/**
+ * gtk_html_new_from_string:
+ * @str: A string containing HTML source.
+ * @len: A length of @str, if @len == -1 then it will be computed using strlen.
+ *
+ * GtkHTML widget constructor. It creates an new GtkHTML widget and loads HTML source from @str.
+ * It is intended for simple creation. For more complicated loading you probably want to use
+ * #GtkHTMLStream. See #gtk_html_begin.
+ *
+ * Return value: A GtkHTML widget, newly created, containing document loaded from input @str.
+ **/
+
+GtkWidget *
+gtk_html_new_from_string (const gchar *str, gint len)
+{
+	GtkWidget *html;
+
+	html = gtk_type_new (gtk_html_get_type ());
+	gtk_html_construct  (html);
+	gtk_html_load_from_string (GTK_HTML (html), str, len);
+
+	return html;
+}
+
 void
-gtk_html_construct (GtkWidget *htmlw)
+gtk_html_construct (GtkWidget *widget)
 {
 	GtkHTML *html;
 
-	g_return_if_fail (htmlw != NULL);
-	g_return_if_fail (GTK_IS_HTML (htmlw));
+	g_return_if_fail (widget != NULL);
+	g_return_if_fail (GTK_IS_HTML (widget));
 
-	html = GTK_HTML (htmlw);
+	html = GTK_HTML (widget);
 
-	html->engine        = html_engine_new (htmlw);
+	html->engine        = html_engine_new (widget);
 	html->iframe_parent = NULL;
 	
 	gtk_signal_connect (GTK_OBJECT (html->engine), "title_changed",

@@ -1,6 +1,7 @@
 2001-01-25  Radek Doulik  <rodo@helixcode.com>
 
 	* gtkhtml.c (gtk_html_new): added doc comment to test doc stuff
+	(gtk_html_new_from_string): added new constructor
 
 	* gtkhtml-stream.h (gtk_html_stream_unref): moved
 	gtk_html_stream_ref, gtk_html_stream_unref from gtkhtml.h
