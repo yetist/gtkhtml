@@ -5333,3 +5333,9 @@ gtk_html_drop_undo (GtkHTML *html)
 {
 	html_undo_reset (html->engine->undo);
 }
+
+void
+gtk_html_flush (GtkHTML *html)
+{
+	html_engine_flush (html->engine);
+}

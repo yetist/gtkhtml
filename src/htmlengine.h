@@ -315,6 +315,7 @@ GtkHTMLStream *html_engine_begin            (HTMLEngine  *p,
 void           html_engine_parse            (HTMLEngine  *p);
 void           html_engine_stop_parser      (HTMLEngine  *e);
 void           html_engine_stop             (HTMLEngine  *e);
+void           html_engine_flush            (HTMLEngine  *e);
 
 /* Rendering control.  */
 gint  html_engine_calc_min_width       (HTMLEngine *e);

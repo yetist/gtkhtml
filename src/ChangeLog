@@ -1,3 +1,10 @@
+2003-12-05  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine.c (html_engine_flush): as below
+
+	* gtkhtml.c (gtk_html_flush): new method, does all scheduled
+	parsing
+
 2003-12-04  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml.c (selection_get): explicitly append a string terminator

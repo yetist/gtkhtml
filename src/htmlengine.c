@@ -4238,13 +4238,7 @@ html_engine_stop_parser (HTMLEngine *e)
 {
 	if (!e->parsing)
 		return;
-
-	if (e->timerId != 0) {
-		g_source_remove (e->timerId);
-		e->timerId = 0;
-		while (html_engine_timer_event (e))
-			;
-	}
+	html_engine_flush (e);
 	
 	e->parsing = FALSE;
 
@@ -6377,4 +6371,18 @@ gint
 html_engine_get_bottom_border (HTMLEngine *e)
 {
 	return HTML_IS_PLAIN_PAINTER (e->painter) ? BOTTOM_BORDER : e->bottomBorder;
+}
+
+void
+html_engine_flush (HTMLEngine *e)
+{
+	if (!e->parsing)
+		return;
+
+	if (e->timerId != 0) {
+		g_source_remove (e->timerId);
+		e->timerId = 0;
+		while (html_engine_timer_event (e))
+			;
+	}
 }
