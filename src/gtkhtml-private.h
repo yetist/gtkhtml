@@ -39,6 +39,12 @@ struct _GtkHTMLPrivate {
 	gboolean update_styles;
 
 	gint last_selection_type;
+	/* Used to hold the primary selection when
+	** pasting within ourselves
+	*/
+	HTMLObject *primary;
+	guint       primary_len;
+
 	gchar *content_type;
 
 	GtkWidget *search_input_line;
@@ -57,3 +63,5 @@ void  gtk_html_editor_event_command     (GtkHTML            *html,
 					 GtkHTMLCommandType  com_type);
 
 #endif /* _GTKHTML_PRIVATE_H */
+
+

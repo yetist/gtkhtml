@@ -1,3 +1,34 @@
+2001-07-30  Larry Ewing  <lewing@ximian.com>
+
+	The following is a patch from Damian Ivereigh <damian@cisco.com>
+	it has only the slight modification of moving the new members into
+	the priv structure rather than the public one.
+	
+	* htmlengine-edit-cut-and-paste.c (html_engine_copy_object): add
+	new function.
+	(html_engine_copy): use html_engine_copy_object.
+
+	* htmlengine-edit-cut-and-paste.h: add html_engine_copy_object.
+
+	* gtkhtml-private.h: add holders for the primary selection.
+
+	* gtkhtml.h: change the request_paste prototype.
+
+	* gtkhtml.c (button_press_event): update the primary selection.
+	and set in selection when if we've selected a word or line.
+	(button_release_event): copy to the primary selection.
+	(selection_get): get the selection based on which one atom is
+	passed.
+	(selection_received): distinguish between the clipboard and
+	primary.  Pass the selection type when we recurse.
+	(gtk_html_request_paste): add atom type parameter and pass it
+	along when we convert.
+	(init): initialize the primary selection holders and add the
+	clipboard target.
+	(gtk_html_cut): cut to the clipboard.
+	(gtk_html_copy): copy to the clipboard.
+	(gtk_html_paste): paste from the clipboard.
+
 2001-07-30  Radek Doulik  <rodo@ximian.com>
 
 	* htmlclueflow.c (pref_right_margin): reuse old hack to keep plain

@@ -380,20 +380,26 @@ split_and_add_empty_texts (HTMLEngine *e, gint level, GList **left, GList **righ
 /* end of helper */
 
 void
-html_engine_copy (HTMLEngine *e)
+html_engine_copy_object (HTMLEngine *e, HTMLObject **o, guint *len)
 {
 	GList *from, *to;
 
 	if (html_engine_is_selection_active (e)) {
 		html_engine_freeze (e);
 		prepare_delete_bounds (e, &from, &to, NULL, NULL);
-		e->clipboard_len = 0;
-		e->clipboard     = html_object_op_copy (HTML_OBJECT (from->data), e, from->next, to->next,
-							&e->clipboard_len);
-		printf ("copy len: %d (parent %p)\n", e->clipboard_len, e->clipboard->parent);
-		gtk_html_debug_dump_tree_simple (e->clipboard, 0);
+		*len = 0;
+		*o    = html_object_op_copy (HTML_OBJECT (from->data), e,
+				from->next, to->next, len);
+		printf ("copy len: %d (parent %p)\n", *len, (*o)->parent);
+		gtk_html_debug_dump_tree_simple (*o, 0);
 		html_engine_thaw (e);
 	}
+}
+
+void
+html_engine_copy (HTMLEngine *e)
+{
+	html_engine_copy_object(e, &e->clipboard, &e->clipboard_len);
 }
 
 struct _DeleteUndo {

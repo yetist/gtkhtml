@@ -27,6 +27,9 @@
 #include "htmltypes.h"
 
 void  html_engine_copy                    (HTMLEngine  *e);
+void  html_engine_copy_object             (HTMLEngine  *e,
+					   HTMLObject **o,
+					   guint       *len);
 void  html_engine_cut                     (HTMLEngine  *e);
 void  html_engine_cut_line                (HTMLEngine  *e);
 void  html_engine_delete                  (HTMLEngine  *e);

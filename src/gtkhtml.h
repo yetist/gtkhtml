@@ -154,6 +154,7 @@ void  gtk_html_select_paragraph           (GtkHTML  *html);
 void  gtk_html_select_paragraph_extended  (GtkHTML  *html);
 void  gtk_html_select_all                 (GtkHTML  *html);
 int   gtk_html_request_paste              (GtkHTML  *html,
+					   GdkAtom   selection,
 					   gint      type,
 					   gint32    time);
 /* Loading.  */

@@ -1015,7 +1015,7 @@ button_press_event (GtkWidget *widget,
 						     x + engine->x_offset,
 						     y + engine->y_offset);
 				update_styles (html);
-				gtk_html_request_paste (html, 0, event->time);
+				gtk_html_request_paste (html, GDK_SELECTION_PRIMARY, 0, event->time);
 				return TRUE;
 			}
 			break;
@@ -1057,10 +1057,14 @@ button_press_event (GtkWidget *widget,
 			break;
 		}
 	} else if (event->button == 1 && html->allow_selection) {
-		if (event->type == GDK_2BUTTON_PRESS)
+		if (event->type == GDK_2BUTTON_PRESS) {
 			gtk_html_select_word (html);
-		else if (event->type == GDK_3BUTTON_PRESS)
+			html->in_selection = TRUE;
+		}
+		else if (event->type == GDK_3BUTTON_PRESS) {
 			gtk_html_select_line (html);
+			html->in_selection = TRUE;
+		}
 	}
 
 	return TRUE;
@@ -1082,12 +1086,16 @@ button_release_event (GtkWidget *widget,
 		html->button1_pressed = FALSE;
 		
 		if (html->pointer_url != NULL && ! html->in_selection)
-			gtk_signal_emit (GTK_OBJECT (widget), signals[LINK_CLICKED], html->pointer_url);
+			gtk_signal_emit (GTK_OBJECT (widget), 
+					 signals[LINK_CLICKED], 
+					 html->pointer_url);
 	}
 
 	if (html->in_selection) {
-		if (html_engine_get_editable (html->engine))
-			gtk_html_copy (html);
+		/* Copy to primary save area */
+		html_engine_copy_object(html->engine,
+					&html->priv->primary,
+					&html->priv->primary_len);
 		html->in_selection = FALSE;
 		update_styles (html);
 	}
@@ -1198,9 +1206,22 @@ selection_get (GtkWidget        *widget,
 	g_return_if_fail (GTK_IS_HTML (widget));
 	
 	html = GTK_HTML (widget);
-	selection_string = html->engine->clipboard
-		? html_object_get_selection_string (html->engine->clipboard)
-		: html_engine_get_selection_string (html->engine);
+	if (selection_data->selection == GDK_SELECTION_PRIMARY)
+	  {
+		if (html->priv->primary) {
+			selection_string =
+			   html_object_get_selection_string (html->priv->primary);
+			g_print("primary paste: `%s'\n", selection_string);
+		}
+	  }
+	else	/* CLIPBOARD */
+	  {
+		if (html->engine->clipboard) {
+			selection_string =
+			   html_object_get_selection_string (html->engine->clipboard);
+			g_print("clipboard paste: `%s'\n", selection_string);
+		}
+	  }
 
 	/*
 	 * FIXME we should make e_utf8_to/from_string_target and 
@@ -1274,10 +1295,38 @@ selection_received (GtkWidget *widget,
 	
 	printf("got selection from system\n");
 
+	/* If the Widget is editable,
+	** and we are the owner of the atom requested
+	** then we are pasting between ourself and we
+	** need not do all the conversion.
+	*/
 	if (html_engine_get_editable (GTK_HTML (widget)->engine)
-	    && widget->window == gdk_selection_owner_get (selection_data->selection) && GTK_HTML (widget)->engine->clipboard) {
-		html_engine_paste (GTK_HTML (widget)->engine);
-		return;
+	    && widget->window == gdk_selection_owner_get (selection_data->selection)) {
+
+		/* Check which atom was requested (PRIMARY or CLIPBOARD) */
+		if (selection_data->selection == gdk_atom_intern ("CLIPBOARD", FALSE)
+ 			&& GTK_HTML (widget)->engine->clipboard) {
+
+			html_engine_paste (GTK_HTML (widget)->engine);
+			return;
+
+		} else if (selection_data->selection == GDK_SELECTION_PRIMARY
+ 			&& GTK_HTML (widget)->priv->primary) {
+
+			HTMLObject *copy;
+			guint len = 0;
+
+			/* Take a copy so that it can be put in the undo
+			** buffer
+			*/
+			copy = html_object_op_copy (GTK_HTML (widget)->priv->primary,
+				 GTK_HTML (widget)->engine, NULL, NULL, &len);
+
+			html_engine_paste_object (GTK_HTML (widget)->engine,
+				copy,
+				GTK_HTML (widget)->priv->primary_len);
+			return;
+		}
 	}
 
 	/* **** IMPORTANT **** Check to see if retrieval succeeded  */
@@ -1287,7 +1336,7 @@ selection_received (GtkWidget *widget,
 		gint type = GTK_HTML (widget)->priv->last_selection_type;
 		
 		/* now, try again with next selection type */
-		if (!gtk_html_request_paste (GTK_HTML (widget), type + 1, time))
+		if (!gtk_html_request_paste (GTK_HTML (widget), selection_data->selection, type + 1, time))
 			g_warning ("Selection retrieval failed\n");
 		return;
 	}
@@ -1326,7 +1375,7 @@ selection_received (GtkWidget *widget,
 }  
 
 gint
-gtk_html_request_paste (GtkHTML *html, gint type, gint32 time)
+gtk_html_request_paste (GtkHTML *html, GdkAtom selection, gint type, gint32 time)
 {
 	GdkAtom format_atom;
 	static char *formats[] = {"UTF8_STRING", "UTF-8", "STRING"};
@@ -1345,8 +1394,8 @@ gtk_html_request_paste (GtkHTML *html, gint type, gint32 time)
 	if (format_atom == GDK_NONE) {
 		g_warning("Could not get requested atom\n");
 	}
-	/* And request the format target for the primary selection */
-	gtk_selection_convert (GTK_WIDGET (html), GDK_SELECTION_PRIMARY, format_atom,
+	/* And request the format target for the required selection */
+	gtk_selection_convert (GTK_WIDGET (html), selection, format_atom,
 			       time);
 	return TRUE;
 }
@@ -1874,11 +1923,16 @@ init (GtkHTML* html)
 	html->priv->paragraph_indentation = 0;
 	html->priv->insertion_font_style = GTK_HTML_FONT_STYLE_DEFAULT;
 	html->priv->last_selection_type = -1;
+	html->priv->primary = NULL;
+	html->priv->primary_len = 0;
 	html->priv->content_type = NULL;
 	html->priv->search_input_line = NULL;
 
 	gtk_selection_add_targets (GTK_WIDGET (html),
 				   GDK_SELECTION_PRIMARY,
+				   targets, n_targets);
+	gtk_selection_add_targets (GTK_WIDGET (html),
+				   gdk_atom_intern ("CLIPBOARD", FALSE),
 				   targets, n_targets);
 }
 
@@ -2401,7 +2455,7 @@ gtk_html_cut (GtkHTML *html)
 	g_return_if_fail (GTK_IS_HTML (html));
 
 	html_engine_cut (html->engine);
-	gtk_selection_owner_set (GTK_WIDGET (html), GDK_SELECTION_PRIMARY, GDK_CURRENT_TIME);
+	gtk_selection_owner_set (GTK_WIDGET (html), gdk_atom_intern ("CLIPBOARD", FALSE), GDK_CURRENT_TIME);
 }
 
 void
@@ -2411,7 +2465,7 @@ gtk_html_copy (GtkHTML *html)
 	g_return_if_fail (GTK_IS_HTML (html));
 
 	html_engine_copy (html->engine);
-	gtk_selection_owner_set (GTK_WIDGET (html), GDK_SELECTION_PRIMARY, GDK_CURRENT_TIME);
+	gtk_selection_owner_set (GTK_WIDGET (html), gdk_atom_intern ("CLIPBOARD", FALSE), GDK_CURRENT_TIME);
 }
 
 void
@@ -2420,7 +2474,7 @@ gtk_html_paste (GtkHTML *html)
 	g_return_if_fail (html != NULL);
 	g_return_if_fail (GTK_IS_HTML (html));
 
-	gtk_html_request_paste (html, 0, GDK_CURRENT_TIME);
+	gtk_html_request_paste (html, gdk_atom_intern ("CLIPBOARD", FALSE), 0, GDK_CURRENT_TIME);
 }
 
 
