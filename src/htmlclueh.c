@@ -106,7 +106,7 @@ calc_size (HTMLObject *clue,
 		}
 		break;
 
-	case HTML_VALIGN_CENTER:
+	case HTML_VALIGN_MIDDLE:
 		clue->ascent = a + d;
 		for (obj = HTML_CLUE (clue)->head; obj != 0; obj = obj->next) {
 			if (obj->y != clue->ascent / 2) {

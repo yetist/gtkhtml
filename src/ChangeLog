@@ -1,3 +1,10 @@
+2001-05-24  Radek Doulik  <rodo@ximian.com>
+
+	* replaced HTML_VALIGN_CENTER with HTML_VALIGN_MIDDLE everywhere
+
+	* htmlengine.c (parse_i): replace align=center with align=middle
+	according to standard
+
 2001-05-23  Larry Ewing  <lewing@ximian.com>
 
 	* htmlprinter.c (draw_text): terminate the temporary string at the

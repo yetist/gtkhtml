@@ -195,7 +195,7 @@ calc_size (HTMLObject *o, HTMLPainter *painter)
 		switch (HTML_CLUE (o)->valign) {
 		case HTML_VALIGN_TOP:
 			break;
-		case HTML_VALIGN_CENTER:
+		case HTML_VALIGN_MIDDLE:
 			clue_move_children (HTML_CLUE (o), 0, remains >> 1);
 			break;
 		case HTML_VALIGN_NONE:
@@ -341,7 +341,7 @@ html_table_cell_init (HTMLTableCell *cell,
 
 	object->flags &= ~HTML_OBJECT_FLAG_FIXEDWIDTH;
 
-	clue->valign = HTML_VALIGN_CENTER;
+	clue->valign = HTML_VALIGN_MIDDLE;
 	clue->halign = HTML_HALIGN_NONE;
 
 	cell->fixed_width  = 0;

@@ -983,7 +983,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 							else if (strncasecmp (token + 7, "bottom", 6) == 0)
 								rowvalign = HTML_VALIGN_BOTTOM;
 							else
-								rowvalign = HTML_VALIGN_CENTER;
+								rowvalign = HTML_VALIGN_MIDDLE;
 						} else if (strncasecmp (token, "align", 6) == 0) {
 							if (strcasecmp (token + 6, "left") == 0)
 								rowhalign = HTML_HALIGN_LEFT;
@@ -1051,7 +1051,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 					}
 
 					valign = (rowvalign == HTML_VALIGN_NONE ?
-						  HTML_VALIGN_CENTER : rowvalign);
+						  HTML_VALIGN_MIDDLE : rowvalign);
 
 					if (heading)
 						e->divAlign = (rowhalign == HTML_HALIGN_NONE ? 
@@ -1080,7 +1080,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 								else if (strncasecmp (token + 7, "bottom", 6) == 0)
 									valign = HTML_VALIGN_BOTTOM;
 								else 
-									valign = HTML_VALIGN_CENTER;
+									valign = HTML_VALIGN_MIDDLE;
 							}
 							else if (strncasecmp (token, "align=", 6) == 0) {
 								if (strcasecmp (token + 6, "center") == 0)
@@ -2308,8 +2308,8 @@ parse_i (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 					align = HTML_HALIGN_RIGHT;
 				else if (strcasecmp (token + 6, "top") == 0)
 					valign = HTML_VALIGN_TOP;
-				else if (strcasecmp (token + 6, "center") == 0)
-					valign = HTML_VALIGN_CENTER;
+				else if (strcasecmp (token + 6, "middle") == 0)
+					valign = HTML_VALIGN_MIDDLE;
 				else if (strcasecmp (token + 6, "bottom") ==0)
 					valign = HTML_VALIGN_BOTTOM;
 			}

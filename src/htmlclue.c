@@ -226,7 +226,7 @@ set_max_ascent (HTMLObject *o,
 	HTMLClue *clue = HTML_CLUE (o);
 	HTMLObject *obj;
 
-	if (clue->valign == HTML_VALIGN_CENTER) {
+	if (clue->valign == HTML_VALIGN_MIDDLE) {
 		for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next) {
 			obj->y = obj->y + ((a - o->ascent) / 2);
 		}
@@ -247,7 +247,7 @@ set_max_descent (HTMLObject *o, HTMLPainter *painter, gint d)
 	HTMLClue *clue = HTML_CLUE (o);
 	HTMLObject *obj;
 	
-	if (clue->valign == HTML_VALIGN_CENTER) {
+	if (clue->valign == HTML_VALIGN_MIDDLE) {
 		for (obj = clue->head; obj != 0; obj = obj->next) {
 			obj->y = obj->y + ((d - o->descent) / 2);
 		}

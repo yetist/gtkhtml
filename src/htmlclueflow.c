@@ -559,14 +559,14 @@ calc_size (HTMLObject *o,
 
 				/* Algorithm for dealing vertical alignment.
 				   Elements with `HTML_VALIGN_BOTTOM' and
-				   `HTML_VALIGN_CENTER' can be handled
+				   `HTML_VALIGN_MIDDLE' can be handled
 				   immediately.	 Objects with
 				   `HTML_VALIGN_TOP', instead, need to know the
 				   total height of the line, so need to be
 				   handled last.  */
 
 				switch (valign) {
-				case HTML_VALIGN_CENTER: {
+				case HTML_VALIGN_MIDDLE: {
 					gint height;
 					gint half_height;
 
@@ -717,7 +717,7 @@ calc_size (HTMLObject *o,
 					html_object_set_max_ascent (line, painter, a);
 					html_object_set_max_descent (line, painter, d);
 					break;
-				case HTML_VALIGN_CENTER:
+				case HTML_VALIGN_MIDDLE:
 					line->y = o->ascent - a - d + line->ascent;
 					break;
 				case HTML_VALIGN_TOP:

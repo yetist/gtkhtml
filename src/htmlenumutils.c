@@ -29,7 +29,7 @@ html_valign_name (HTMLVAlignType va)
 	switch (va) {
 	case HTML_VALIGN_TOP:
 		return "top";
-	case HTML_VALIGN_CENTER:
+	case HTML_VALIGN_MIDDLE:
 		return "center";
 	case HTML_VALIGN_BOTTOM:
 		return "bottom";

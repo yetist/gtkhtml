@@ -190,7 +190,7 @@ struct _HTMLObjectClass {
            the returned value is `HTML_VALIGN_BOTTOM', the bottom of the object
            is aligned to the base line; if the value is `HTML_VALIGN_TOP', the
            top of the object is aligned to the top of the line; if the value is
-           `HTML_VALIGN_CENTER', the center of the object is aligned to the
+           `HTML_VALIGN_MIDDLE', the center of the object is aligned to the
            baseline.  */
 	HTMLVAlignType (* get_valign) (HTMLObject *self);
 
