@@ -385,7 +385,7 @@ gboolean  html_object_save  (HTMLObject          *self,
 			     HTMLEngineSaveState *state);
 
 /* set change flag f of this object and of all its parents */
-void html_object_change_set   (HTMLObject *self,
-			       HTMLChangeFlags f);
+void  html_object_change_set  (HTMLObject      *self,
+			       HTMLChangeFlags  f);
 
 #endif /* _HTMLOBJECT_H_ */

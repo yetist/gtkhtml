@@ -1,3 +1,33 @@
+2000-04-11  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlcursor.c
+	(forward_object): New helper function.
+	(forward): Use it.
+	(html_cursor_forward_object): New function.
+	(backward_object): New helper function.
+	(backward): Use it.
+	(html_cursor_backward_object): New function.
+	(html_cursor_home): Changed so that it does not need
+	`html_cursor_forward()' anymore.
+
+	* gtkhtml-keybinding.c
+	(set_mark): New helper function.
+	(handle_ctrl): Bind it to the `C-SPC'.
+	(unselect_all): New function.
+	(handle_ctrl): Bind it to `C-g'.
+
+	* htmlengine-edit.c
+	(html_engine_set_mark): New function.
+	(html_engine_redo): Added precondition: @e must be editable.
+	(html_engine_undo): Likewise.
+
+	* htmlengine.c
+	(html_engine_init): Initialize `mark' to NULL.
+	(html_engine_destroy): Destroy `mark' if not NULL.
+	(html_engine_unselect_all): Destroy `mark' and set it to NULL.
+
+	* htmlengine.h: New member `mark' in `HTMLEngine'.
+
 2000-04-10  Larry Ewing  <lewing@helixcode.com>
 
 	* htmlpainter.h: added new GtkHTMLEtchStyle enum and change the

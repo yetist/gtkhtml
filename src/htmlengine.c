@@ -2779,6 +2779,8 @@ html_engine_destroy (GtkObject *object)
 		gdk_gc_destroy (engine->invert_gc);
 
 	html_cursor_destroy (engine->cursor);
+	if (engine->mark != NULL)
+		html_cursor_destroy (engine->mark);
 	html_tokenizer_destroy (engine->ht);
 	html_string_tokenizer_destroy (engine->st);
 	html_settings_destroy (engine->settings);
@@ -2927,6 +2929,7 @@ html_engine_init (HTMLEngine *engine)
 	engine->cut_buffer = NULL;
 
 	engine->cursor = html_cursor_new ();
+	engine->mark = NULL;
 	engine->cursor_hide_count = 0;
 	engine->blinking_timer_id = 0;
 	engine->blinking_status = FALSE;
@@ -3871,6 +3874,10 @@ html_engine_unselect_all (HTMLEngine *e,
 	g_free (select_data);
 
 	e->active_selection = FALSE;
+
+	html_cursor_destroy (e->mark);
+	e->mark = NULL;
+
 	gtk_html_debug_log (e->widget, "Active selection: FALSE\n");
 }
 

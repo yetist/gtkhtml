@@ -168,6 +168,18 @@ end_of_document (GtkHTML *html)
 	html_engine_end_of_document (html->engine);
 }
 
+static void
+set_mark (GtkHTML *html)
+{
+	html_engine_set_mark (html->engine);
+}
+
+static void
+unselect_all (GtkHTML *html)
+{
+	html_engine_unselect_all (html->engine, TRUE);
+}
+
 
 /* CTRL keybindings.  */
 static gint
@@ -194,6 +206,9 @@ handle_ctrl (GtkHTML *html,
 	case 'f':
 		forward (html);
 		break;
+	case 'g':
+		unselect_all (html);
+		break;
 	case 'n':
 		down (html);
 		break;
@@ -206,6 +221,9 @@ handle_ctrl (GtkHTML *html,
 		break;
 	case 'v':
 		page_down (html);
+		break;
+	case ' ':
+		set_mark (html);
 		break;
 	case GDK_Home:
 		beginning_of_document (html);

@@ -42,46 +42,29 @@ struct _HTMLCursor {
 typedef struct _HTMLCursor HTMLCursor;
 
 
+/* Lifecycle.  */
+
 HTMLCursor *html_cursor_new      (void);
 void        html_cursor_destroy  (HTMLCursor       *cursor);
 HTMLCursor *html_cursor_dup      (const HTMLCursor *cursor);
 void        html_cursor_copy     (HTMLCursor       *dest,
 				  const HTMLCursor *src);
+/* Basic movement.   */
 
-void  html_cursor_normalize  (HTMLCursor *cursor);
-
-void  html_cursor_set_position  (HTMLCursor *cursor,
-				 HTMLObject *object,
-				 guint       offset);
-
-void      html_cursor_home      (HTMLCursor *cursor,
-				 HTMLEngine *engine);
-gboolean  html_cursor_forward   (HTMLCursor *cursor,
-				 HTMLEngine *engine);
-gboolean  html_cursor_backward  (HTMLCursor *cursor,
-				 HTMLEngine *engine);
-gboolean  html_cursor_up        (HTMLCursor *cursor,
-				 HTMLEngine *engine);
-gboolean  html_cursor_down      (HTMLCursor *cursor,
-				 HTMLEngine *engine);
-
-gboolean  html_cursor_jump_to  (HTMLCursor *cursor,
-				HTMLEngine *engine,
-				HTMLObject *obj,
-				guint       offset);
-
-gboolean  html_cursor_equal  (HTMLCursor *a,
-			      HTMLCursor *b);
-
-gint  html_cursor_get_relative    (HTMLCursor *cursor);
-void  html_cursor_set_relative    (HTMLCursor *cursor,
-				   gint        relative_position);
-void  html_cursor_reset_relative  (HTMLCursor *cursor);
-void  html_cursor_goto_zero       (HTMLCursor *cursor,
-				   HTMLEngine *engine);
-
-gchar  html_cursor_get_current_char  (HTMLCursor *cursor);
-
+void      html_cursor_home                   (HTMLCursor *cursor,
+					      HTMLEngine *engine);
+gboolean  html_cursor_forward                (HTMLCursor *cursor,
+					      HTMLEngine *engine);
+gboolean  html_cursor_forward_object         (HTMLCursor *cursor,
+					      HTMLEngine *engine);
+gboolean  html_cursor_backward               (HTMLCursor *cursor,
+					      HTMLEngine *engine);
+gboolean  html_cursor_backward_object        (HTMLCursor *cursor,
+					      HTMLEngine *engine);
+gboolean  html_cursor_up                     (HTMLCursor *cursor,
+					      HTMLEngine *engine);
+gboolean  html_cursor_down                   (HTMLCursor *cursor,
+					      HTMLEngine *engine);
 void      html_cursor_beginning_of_document  (HTMLCursor *cursor,
 					      HTMLEngine *engine);
 void      html_cursor_end_of_document        (HTMLCursor *cursor,
@@ -90,5 +73,32 @@ gboolean  html_cursor_beginning_of_line      (HTMLCursor *cursor,
 					      HTMLEngine *engine);
 gboolean  html_cursor_end_of_line            (HTMLCursor *cursor,
 					      HTMLEngine *engine);
+gboolean  html_cursor_jump_to                (HTMLCursor *cursor,
+					      HTMLEngine *engine,
+					      HTMLObject *obj,
+					      guint       offset);
+
+/* Comparison.  */
+gboolean  html_cursor_equal  (HTMLCursor *a,
+			      HTMLCursor *b);
+
+/* Internals.  */
+
+void  html_cursor_normalize     (HTMLCursor *cursor);
+void  html_cursor_set_position  (HTMLCursor *cursor,
+				 HTMLObject *object,
+				 guint       offset);
+
+gint  html_cursor_get_relative    (HTMLCursor *cursor);
+void  html_cursor_set_relative    (HTMLCursor *cursor,
+				   gint        relative_position);
+void  html_cursor_reset_relative  (HTMLCursor *cursor);
+void  html_cursor_goto_zero       (HTMLCursor *cursor,
+				   HTMLEngine *engine);
+
+/* Retrieving the character under the cursor.  */
+
+gchar  html_cursor_get_current_char  (HTMLCursor *cursor);
+
 
 #endif

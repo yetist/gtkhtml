@@ -91,20 +91,6 @@ struct _HTMLEngine {
 	gboolean editable;
 	GList *cut_buffer;
 
-	/* The cursor.  FIXME: Should be abstracted as a separate object.  */
-	HTMLCursor *cursor;
-	gint cursor_hide_count;
-	gint blinking_timer_id;
-	gboolean blinking_status;
-
-	/* Font style for insertion.  If HTML_FONT_STYLE_DEFAULT, use that of
-           the text we are in.  */
-	GtkHTMLFontStyle insertion_font_style;
-
-	/* This is set to TRUE when at least one element is selected (in whole
-           or in part), to FALSE when no item is selected at all.  */
-	gboolean active_selection;
-
 	/* Freeze counter.  When greater than zero, we never trigger relayouts
            nor repaints.  When going from nonzero to zero, we relayout and
            repaint everything.  */
@@ -223,6 +209,36 @@ struct _HTMLEngine {
 
 	/* Whether we have the keyboard focus.  */
 	gboolean have_focus : 1;
+
+	/* --- */
+
+	/* Editing stuff.  -- FIXME it should be in a separate object.  */
+
+	/* The current position of the cursor.  */
+	HTMLCursor *cursor;
+
+	/* If no region is active, this is NULL.  Otherwise, this is
+           one extreme of the selected region.  The other extreme is
+           always the cursor.  */
+	HTMLCursor *mark;
+
+	/* Hide counter for the cursor.  When greater than zero, it
+           means the cursor is invisible.  */
+	gint cursor_hide_count;
+
+	/* Timer ID for cursor blink.  */
+	gint blinking_timer_id;
+
+	/* Blinking status (visible/invisible).  */
+	gboolean blinking_status;
+
+	/* Font style for insertion.  If HTML_FONT_STYLE_DEFAULT, use that of
+           the text we are in.  */
+	GtkHTMLFontStyle insertion_font_style;
+
+	/* This is set to TRUE when at least one element is selected (in whole
+           or in part), to FALSE when no item is selected at all.  */
+	gboolean active_selection;
 };
 
 /* must be forward referenced *sigh* */

@@ -194,6 +194,8 @@ void
 html_cursor_home (HTMLCursor *cursor,
 		  HTMLEngine *engine)
 {
+	HTMLObject *obj;
+
 	g_return_if_fail (cursor != NULL);
 	g_return_if_fail (engine != NULL);
 
@@ -203,17 +205,53 @@ html_cursor_home (HTMLCursor *cursor,
 		return;
 	}
 
-	cursor->object = engine->clue;
+	obj = engine->clue;
+	while (is_clue (obj))
+		obj = HTML_CLUE (obj)->head;
+
+	cursor->object = obj;
 	cursor->offset = 0;
 	cursor->relative_position = 0;
 
-	html_cursor_forward (cursor, engine);
 	html_cursor_reset_relative (cursor);
 
 	debug_location (cursor);
 }
 
 
+static gboolean
+forward_object (HTMLCursor *cursor,
+		HTMLEngine *engine)
+{
+	HTMLObject *obj;
+
+	obj = next (cursor->object);
+
+	/* Traverse the tree in top-bottom, left-right order until an element
+           that accepts the cursor is found.  */
+
+	while (obj != NULL) {
+		if (is_clue (obj)) {
+			obj = HTML_CLUE (obj)->head;
+			continue;
+		}
+
+		if (html_object_accepts_cursor (obj))
+			break;
+
+		obj = next (obj);
+	}
+
+	if (obj == NULL)
+		return FALSE;
+
+	cursor->object = obj;
+	cursor->offset = 0;
+	cursor->relative_position++;
+
+	return TRUE;
+}
+
 static gboolean
 forward (HTMLCursor *cursor,
 	 HTMLEngine *engine)
@@ -234,8 +272,6 @@ forward (HTMLCursor *cursor,
 
 	if (html_object_is_text (obj)) {
 		switch (HTML_OBJECT_TYPE (obj)) {
-		case HTML_TYPE_TEXT:
-		case HTML_TYPE_LINKTEXT:
 		case HTML_TYPE_TEXTMASTER:
 		case HTML_TYPE_LINKTEXTMASTER:
 		{
@@ -247,35 +283,24 @@ forward (HTMLCursor *cursor,
 				break;
 
 			if (offset < text->text_len) {
-				offset++;
-				goto end;
+				cursor->offset++;
+				cursor->relative_position++;
+				return TRUE;
 			}
 
 			if (html_object_next_not_slave (obj) == NULL)
 				offset = 0;
 			else
 				offset = 1;
-
 			break;
 		}
 
 		case HTML_TYPE_TEXTSLAVE:
 			/* Do nothing: go to the next element.  */
-			offset = 0;
 			break;
 
 		default:
 			g_assert_not_reached ();
-		}
-		
-		obj = next (obj);
-		while (obj != NULL && html_object_is_text (obj)) {
-			if (HTML_OBJECT_TYPE (obj) != HTML_TYPE_TEXTMASTER
-			    && HTML_OBJECT_TYPE (obj) != HTML_TYPE_LINKTEXTMASTER) {
-				obj = next (obj);
-			} else {
-				goto end;
-			}
 		}
 	} else if (! is_clue (obj)) {
 		/* Objects that are not a clue or text are always skipped, as
@@ -285,37 +310,16 @@ forward (HTMLCursor *cursor,
                    clue.  */
 
 		if (obj->next == NULL && offset == 0) {
-			offset++;
-			goto end;
+			cursor->offset = 1;
+			cursor->relative_position++;
+			return TRUE;
 		}
-
-		obj = next (obj);
 	}
 
-	/* No more text.  Traverse the tree in top-bottom, left-right order
-           until an element that accepts the cursor is found.  */
-
-	while (obj != NULL) {
-		if (is_clue (obj)) {
-			obj = HTML_CLUE (obj)->head;
-			continue;
-		}
-
-		if (html_object_accepts_cursor (obj))
-			break;
-
-		obj = next (obj);
-	}
-
-	if (obj == NULL)
+	if (! forward_object (cursor, engine))
 		return FALSE;
-
- end:
-	cursor->object = obj;
-	cursor->offset = offset;
-	cursor->relative_position++;
-
-	return TRUE;
+	else
+		return TRUE;
 }
 
 gboolean
@@ -335,7 +339,71 @@ html_cursor_forward (HTMLCursor *cursor,
 	return retval;
 }
 
+gboolean
+html_cursor_forward_object (HTMLCursor *cursor,
+			    HTMLEngine *engine)
+{
+	g_return_val_if_fail (cursor != NULL, FALSE);
+
+	return forward_object (cursor, engine);
+}
+
 
+static gboolean
+backward_object (HTMLCursor *cursor,
+		 HTMLEngine *engine)
+{
+	HTMLObject *obj;
+
+	obj = cursor->object;
+
+	while (obj != NULL) {
+		while (obj != NULL && obj->prev == NULL)
+			obj = obj->parent;
+
+		if (obj == NULL)
+			break;
+
+		obj = obj->prev;
+		if (is_clue (obj)) {
+			while (is_clue (obj) && HTML_CLUE (obj)->head != NULL) {
+				obj = HTML_CLUE (obj)->head;
+				while (obj->next != NULL)
+					obj = obj->next;
+			}
+		}
+
+		if (html_object_is_text (obj)) {
+			switch (HTML_OBJECT_TYPE (obj)) {
+			case HTML_TYPE_TEXT:
+			case HTML_TYPE_LINKTEXT:
+			case HTML_TYPE_TEXTMASTER:
+			case HTML_TYPE_LINKTEXTMASTER:
+				cursor->object = obj;
+				cursor->offset = HTML_TEXT (obj)->text_len;
+				cursor->relative_position--;
+				return TRUE;
+
+			case HTML_TYPE_TEXTSLAVE:
+				/* Do nothing: go to the previous element, as
+				   this is not a suitable place for the
+				   cursor.  */
+				break;
+
+			default:
+				g_assert_not_reached ();
+			}
+		} else if (html_object_accepts_cursor (obj)) {
+			cursor->object = obj;
+			cursor->offset = 1;
+			cursor->relative_position--;
+			return TRUE;
+		}
+	}
+
+	return FALSE;
+}
+
 static gboolean
 backward (HTMLCursor *cursor,
 	  HTMLEngine *engine)
@@ -361,8 +429,9 @@ backward (HTMLCursor *cursor,
 		case HTML_TYPE_TEXTMASTER:
 		case HTML_TYPE_LINKTEXTMASTER:
 			if (offset > 1 || (offset == 1 && obj->prev == NULL)) {
-				offset--;
-				goto end;
+				cursor->offset = offset - 1;
+				cursor->relative_position--;
+				return TRUE;
 			}
 			break;
 
@@ -374,56 +443,13 @@ backward (HTMLCursor *cursor,
 		default:
 			g_assert_not_reached ();
 		}
-	}
-
-	while (obj != NULL) {
-		while (obj != NULL && obj->prev == NULL)
-			obj = obj->parent;
-
-		if (obj == NULL)
-			break;
-
-		obj = obj->prev;
-		if (is_clue (obj)) {
-			while (is_clue (obj) && HTML_CLUE (obj)->head != NULL) {
-				obj = HTML_CLUE (obj)->head;
-				while (obj->next != NULL)
-					obj = obj->next;
-			}
-		}
-
-		if (html_object_is_text (obj)) {
-			switch (HTML_OBJECT_TYPE (obj)) {
-			case HTML_TYPE_TEXT:
-			case HTML_TYPE_LINKTEXT:
-			case HTML_TYPE_TEXTMASTER:
-			case HTML_TYPE_LINKTEXTMASTER:
-				offset = HTML_TEXT (obj)->text_len;
-				goto end;
-
-			case HTML_TYPE_TEXTSLAVE:
-				/* Do nothing: go to the previous element, as
-				   this is not a suitable place for the
-				   cursor.  */
-				break;
-
-			default:
-				g_assert_not_reached ();
-			}
-		} else if (html_object_accepts_cursor (obj)) {
-			break;
-		}
-	}
-
- end:
-	if (obj != NULL) {
-		cursor->object = obj;
-		cursor->offset = offset;
+	} else if (offset > 0 && obj->prev == NULL) {
+		cursor->offset = 0;
 		cursor->relative_position--;
 		return TRUE;
 	}
 
-	return FALSE;
+	return backward_object (cursor, engine);
 }
 
 gboolean
@@ -441,6 +467,15 @@ html_cursor_backward (HTMLCursor *cursor,
 	debug_location (cursor);
 
 	return retval;
+}
+
+gboolean
+html_cursor_backward_object (HTMLCursor *cursor,
+			     HTMLEngine *engine)
+{
+	g_return_val_if_fail (cursor != NULL, FALSE);
+
+	return backward_object (cursor, engine);
 }
 
 
@@ -530,7 +565,6 @@ html_cursor_up (HTMLCursor *cursor,
 gboolean
 html_cursor_down (HTMLCursor *cursor,
 		  HTMLEngine *engine)
-
 {
 	HTMLCursor orig_cursor;
 	HTMLCursor prev_cursor;
@@ -655,98 +689,6 @@ html_cursor_jump_to (HTMLCursor *cursor,
 }
 
 
-/* Comparison.  */
-gboolean
-html_cursor_equal (HTMLCursor *a, HTMLCursor *b)
-{
-	g_return_val_if_fail (a != NULL, FALSE);
-	g_return_val_if_fail (b != NULL, FALSE);
-
-	return a->object == b->object && a->offset == b->offset;
-}
-
-
-/* Relative coordinate support.  This is used to keep track of how far
-   we have moved with the pointer, e.g. for undo/redo support.  */
-
-gint
-html_cursor_get_relative (HTMLCursor *cursor)
-{
-	g_return_val_if_fail (cursor != NULL, 0);
-
-	return cursor->relative_position;
-}
-
-void
-html_cursor_set_relative (HTMLCursor *cursor,
-			  gint relative_position)
-{
-	g_return_if_fail (cursor != NULL);
-
-	cursor->relative_position = relative_position;
-}
-
-void
-html_cursor_reset_relative (HTMLCursor *cursor)
-{
-	g_return_if_fail (cursor != NULL);
-
-	cursor->relative_position = 0;
-}
-
-void
-html_cursor_goto_zero (HTMLCursor *cursor,
-		       HTMLEngine *engine)
-{
-	g_return_if_fail (cursor != NULL);
-	g_return_if_fail (engine != NULL);
-	g_return_if_fail (HTML_IS_ENGINE (engine));
-
-	if (cursor->relative_position == 0)
-		return;
-
-	if (cursor->relative_position > 0) {
-		while (cursor->relative_position > 0)
-			backward (cursor, engine);
-	} else {
-		while (cursor->relative_position < 0)
-			forward (cursor, engine);
-	}
-
-	debug_location (cursor);
-}
-
-
-gchar
-html_cursor_get_current_char (HTMLCursor *cursor)
-{
-	HTMLObject *next;
-
-	g_return_val_if_fail (cursor != NULL, 0);
-
-	if (! html_object_is_text (cursor->object)) {
-		if (cursor->offset == 0)
-			return 0;
-
-		next = cursor->object->next;
-		if (next != NULL && html_object_is_text (next))
-			return HTML_TEXT (next)->text[0];
-
-		return 0;
-	}
-
-	if (cursor->offset < HTML_TEXT (cursor->object)->text_len)
-		return HTML_TEXT (cursor->object)->text[cursor->offset];
-
-	next = html_object_next_not_slave (cursor->object);
-
-	if (next == NULL || ! html_object_is_text (next))
-		return 0;
-
-	return HTML_TEXT (next)->text[0];
-}
-
-
 /* Complex cursor movement commands.  */
 
 void
@@ -837,4 +779,96 @@ html_cursor_beginning_of_line (HTMLCursor *cursor,
 
 		html_cursor_copy (&prev_cursor, cursor);
 	}
+}
+
+
+/* Comparison.  */
+gboolean
+html_cursor_equal (HTMLCursor *a, HTMLCursor *b)
+{
+	g_return_val_if_fail (a != NULL, FALSE);
+	g_return_val_if_fail (b != NULL, FALSE);
+
+	return a->object == b->object && a->offset == b->offset;
+}
+
+
+/* Relative coordinate support.  This is used to keep track of how far
+   we have moved with the pointer, e.g. for undo/redo support.  */
+
+gint
+html_cursor_get_relative (HTMLCursor *cursor)
+{
+	g_return_val_if_fail (cursor != NULL, 0);
+
+	return cursor->relative_position;
+}
+
+void
+html_cursor_set_relative (HTMLCursor *cursor,
+			  gint relative_position)
+{
+	g_return_if_fail (cursor != NULL);
+
+	cursor->relative_position = relative_position;
+}
+
+void
+html_cursor_reset_relative (HTMLCursor *cursor)
+{
+	g_return_if_fail (cursor != NULL);
+
+	cursor->relative_position = 0;
+}
+
+void
+html_cursor_goto_zero (HTMLCursor *cursor,
+		       HTMLEngine *engine)
+{
+	g_return_if_fail (cursor != NULL);
+	g_return_if_fail (engine != NULL);
+	g_return_if_fail (HTML_IS_ENGINE (engine));
+
+	if (cursor->relative_position == 0)
+		return;
+
+	if (cursor->relative_position > 0) {
+		while (cursor->relative_position > 0)
+			backward (cursor, engine);
+	} else {
+		while (cursor->relative_position < 0)
+			forward (cursor, engine);
+	}
+
+	debug_location (cursor);
+}
+
+
+gchar
+html_cursor_get_current_char (HTMLCursor *cursor)
+{
+	HTMLObject *next;
+
+	g_return_val_if_fail (cursor != NULL, 0);
+
+	if (! html_object_is_text (cursor->object)) {
+		if (cursor->offset == 0)
+			return 0;
+
+		next = cursor->object->next;
+		if (next != NULL && html_object_is_text (next))
+			return HTML_TEXT (next)->text[0];
+
+		return 0;
+	}
+
+	if (cursor->offset < HTML_TEXT (cursor->object)->text_len)
+		return HTML_TEXT (cursor->object)->text[cursor->offset];
+
+	next = html_object_next_not_slave (cursor->object);
+
+	if (next == NULL || ! html_object_is_text (next))
+		return 0;
+
+	return HTML_TEXT (next)->text[0];
 }

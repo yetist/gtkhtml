@@ -41,6 +41,7 @@ html_engine_undo (HTMLEngine *e)
 	g_return_if_fail (e != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (e));
 	g_return_if_fail (e->undo != NULL);
+	g_return_if_fail (e->editable);
 
 	g_warning ("*Undo!*");
 
@@ -69,4 +70,18 @@ html_engine_redo (HTMLEngine *e)
 	html_undo_do_redo (undo, e);
 
 	html_engine_thaw (e);
+}
+
+
+void
+html_engine_set_mark (HTMLEngine *e)
+{
+	g_return_if_fail (e != NULL);
+	g_return_if_fail (HTML_IS_ENGINE (e));
+	g_return_if_fail (e->editable);
+
+	if (e->mark != NULL)
+		html_engine_unselect_all (e, TRUE);
+
+	e->mark = html_cursor_dup (e->cursor);
 }
