@@ -1,3 +1,8 @@
+2002-10-03  Larry Ewing  <lewing@ximian.com>
+
+	* htmlclueflow.c (check_point): fix selection to take
+	indentation into acount.
+
 2002-10-04  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (gtk_html_get_paragraph_indentation): new method,
