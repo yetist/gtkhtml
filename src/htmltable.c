@@ -259,7 +259,8 @@ calc_column_width_template (HTMLTable *table, HTMLPainter *painter, GArray *arra
 {
 	gint c;
 	gint pixel_size = html_painter_get_pixel_size (painter);
-	gint cell_space = pixel_size * (table->spacing + (table->border == 0 ? 0 : 1) + 2 * table->padding);
+	gint border_extra = table->border ? 1 : 0;
+	gint cell_space = pixel_size * (table->spacing + 2 * border_extra + 2 * table->padding);
 
 	g_array_set_size (array, table->totalCols + 1);
 
@@ -331,16 +332,19 @@ alloc_cell (HTMLTable *table, gint r, gint c)
 		inc_rows (table, r + 1 - table->totalRows);
 }
 
+#define RSPAN (MIN (cell->row + cell->rspan, table->totalRows) - cell->row - 1)
+
 static void
 calc_row_heights (HTMLTable *table,
 		  HTMLPainter *painter)
 {
 	HTMLTableCell *cell;
 	gint r, c, rl, height, pixel_size = html_painter_get_pixel_size (painter);
+	gint border_extra = table->border ? 1 : 0;
 
 	g_array_set_size (table->rowHeights, table->totalRows + 1);
 	for (r = 0; r <= table->totalRows; r++)
-		ROW_HEIGHT (table, r) = pixel_size *(table->border + table->spacing);
+		ROW_HEIGHT (table, r) = pixel_size * (table->border + table->spacing);
 
 	for (r = 0; r < table->totalRows; r++) {
 		if (ROW_HEIGHT (table, r + 1) < ROW_HEIGHT (table, r))
@@ -351,7 +355,7 @@ calc_row_heights (HTMLTable *table,
 				rl = cell_end_row (table, cell);
 				height = (ROW_HEIGHT (table, cell->row)
 					  + HTML_OBJECT (cell)->ascent + HTML_OBJECT (cell)->descent
-					  + (pixel_size * (table->spacing + (table->border ? 1: 0))));
+					  + (pixel_size * (table->spacing + 2 * border_extra)));
 				if (height > ROW_HEIGHT (table, rl))
 					ROW_HEIGHT (table, rl) = height;
 			}
@@ -378,18 +382,19 @@ set_cells_position (HTMLTable *table, HTMLPainter *painter)
 {
 	HTMLTableCell *cell;
 	gint r, c, rl, pixel_size = html_painter_get_pixel_size (painter);
+	gint border_extra = table->border ? 1 : 0;
 
 	for (r = 0; r < table->totalRows; r++)
 		for (c = 0; c < table->totalCols; c++) {
 			cell = table->cells[r][c];
 			if (cell && cell->row == r && cell->col == c) {
 				rl = cell_end_row (table, cell);
-				HTML_OBJECT (cell)->x = COLUMN_OPT (table, c);
-				HTML_OBJECT (cell)->y = ROW_HEIGHT (table, rl) - pixel_size * (table->spacing)
+				HTML_OBJECT (cell)->x = COLUMN_OPT (table, c) + pixel_size * border_extra;
+				HTML_OBJECT (cell)->y = ROW_HEIGHT (table, rl) + pixel_size * (- table->spacing)
 					- HTML_OBJECT (cell)->descent;
 				html_object_set_max_ascent (HTML_OBJECT (cell), painter,
 							    ROW_HEIGHT (table, rl) - ROW_HEIGHT (table, cell->row)
-							    - pixel_size * (table->spacing));
+							    - pixel_size * (table->spacing + border_extra));
 			}
 		}
 }
@@ -784,6 +789,7 @@ set_cells_max_width (HTMLTable *table, HTMLPainter *painter, gint *max_size)
 {
 	HTMLTableCell *cell;
 	gint r, c, size, pixel_size = html_painter_get_pixel_size (painter);
+	gint border_extra = table->border ? 1 : 0;
 
 	for (r = 0; r < table->totalRows; r++)
 		for (c = 0; c < table->totalCols; c++) {
@@ -793,7 +799,7 @@ set_cells_max_width (HTMLTable *table, HTMLPainter *painter, gint *max_size)
 				if (cell_end_col (table, cell) - 1 == c && cell->row == r)
 					html_object_set_max_width (HTML_OBJECT (cell), painter, size
 								   - pixel_size * table->padding * 2
-								   + pixel_size * table->spacing * CSPAN);
+								   + pixel_size * (table->spacing + border_extra) * CSPAN);
 			}
 		}
 }
@@ -808,7 +814,7 @@ set_columns_optimal_width (HTMLTable *table, gint *max_size, gint pixel_size)
 
 	for (c = 0; c < table->totalCols; c++)
 		COLUMN_OPT (table, c + 1) = COLUMN_OPT (table, c) + max_size [c]
-			+ pixel_size * table->spacing;
+			+ pixel_size * (table->spacing + (table->border ? 1 : 0));
 }
 
 static void

@@ -1,5 +1,7 @@
 2000-12-07  Radek Doulik  <rodo@helixcode.com>
 
+	* htmltable.c: border extra tweakings
+
 	* htmlgdkpainter.c (draw_panel): changed border drawing
 	(find_font): if found bigger and smaller font than requsted,
 	choose according to size known from font style
