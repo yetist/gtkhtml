@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.8\n"
-"POT-Creation-Date: 2003-04-09 17:04-0400\n"
-"PO-Revision-Date: 2003-01-21 10:58+0100\n"
+"POT-Creation-Date: 2003-04-16 21:56+0200\n"
+"PO-Revision-Date: 2003-04-16 21:57+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -252,8 +252,7 @@ msgid "Cut the selection"
 msgstr "Klipp ut utvalget"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
-#: components/html-editor/search.c:73 components/html-editor/search.c:75
-#: components/html-editor/search.c:118
+#: components/html-editor/search.c:73 components/html-editor/search.c:121
 msgid "Find"
 msgstr "Finn"
 
@@ -530,8 +529,7 @@ msgstr "Gjenopprett angret handling"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
 #: components/html-editor/replace.c:78 components/html-editor/replace.c:152
-#: components/html-editor/replace.c:154 components/html-editor/replace.c:171
-#: components/html-editor/replace.c:207
+#: components/html-editor/replace.c:210
 msgid "Replace"
 msgstr "Erstatt"
 
@@ -821,7 +819,7 @@ msgstr "Blått blekk"
 msgid "Rectangles"
 msgstr "Rektangler"
 
-#: components/html-editor/body.c:274 src/gtkhtml.c:2591
+#: components/html-editor/body.c:274 src/gtkhtml.c:2593
 msgid "Document Title"
 msgstr "Dokumenttittel"
 
@@ -887,6 +885,10 @@ msgstr "Avsnitt"
 #: components/html-editor/menubar.c:270 components/html-editor/popup.c:221
 msgid "Page"
 msgstr "Side"
+
+#: components/html-editor/gnome-gtkhtml-editor.c:67
+msgid "GtkHTML Editor Control"
+msgstr "Redigerings-kontroll for GtkHTML"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:2
 msgid "************"
@@ -1319,45 +1321,37 @@ msgid "Remove link"
 msgstr "Fjern lenke"
 
 #: components/html-editor/popup.c:474
-#, fuzzy
 msgid "Text Style..."
-msgstr "Te_kstfil..."
+msgstr "Stil for tekst..."
 
 #: components/html-editor/popup.c:476 components/html-editor/popup.c:482
 #: components/html-editor/popup.c:492
-#, fuzzy
 msgid "Paragraph Style..."
-msgstr "Avsnitt..."
+msgstr "Stil for avsnitt..."
 
 #: components/html-editor/popup.c:480
-#, fuzzy
 msgid "Link Style..."
-msgstr "Lenke..."
+msgstr "Stil for lenke..."
 
 #: components/html-editor/popup.c:486
-#, fuzzy
 msgid "Rule Style..."
-msgstr "Regel..."
+msgstr "Stil for linjal..."
 
 #: components/html-editor/popup.c:490
-#, fuzzy
 msgid "Image Style..."
-msgstr "Bilde..."
+msgstr "Stil for bilde..."
 
 #: components/html-editor/popup.c:501
-#, fuzzy
 msgid "Cell Style..."
-msgstr "Celle..."
+msgstr "Stil for celler..."
 
 #: components/html-editor/popup.c:504
-#, fuzzy
 msgid "Table Style..."
-msgstr "Tabell..."
+msgstr "Stil for tabell..."
 
 #: components/html-editor/popup.c:510
-#, fuzzy
 msgid "Page Style..."
-msgstr "Bilde..."
+msgstr "Stil for side..."
 
 #: components/html-editor/popup.c:515
 msgid "Table insert"
@@ -1388,9 +1382,9 @@ msgid "Cell contents"
 msgstr "Celleinnhold"
 
 #: components/html-editor/popup.c:547
-#, fuzzy, c-format
+#, c-format
 msgid "%s Dictionary"
-msgstr "Legg til '%s' i ordboken"
+msgstr "%s ordbok"
 
 #: components/html-editor/replace.c:74
 msgid "Replace confirmation"
@@ -1405,16 +1399,20 @@ msgid "Next"
 msgstr "Neste"
 
 #: components/html-editor/replace.c:160
-msgid "search backward"
-msgstr "søk bakover"
+msgid "Search _backward"
+msgstr "Søk _bakover"
 
 #: components/html-editor/replace.c:161 components/html-editor/search.c:79
-msgid "case sensitive"
-msgstr "skill mellom store/små bokstaver"
+msgid "Case _sensitive"
+msgstr "_Skill mellom store/små bokstaver"
+
+#: components/html-editor/replace.c:171
+msgid "Replace:"
+msgstr "Erstatt:"
 
 #: components/html-editor/replace.c:174
-msgid "with"
-msgstr "med"
+msgid "With:"
+msgstr "Bredde:"
 
 #: components/html-editor/rule.c:97
 msgid "Blue 3D"
@@ -1433,10 +1431,10 @@ msgstr ""
 "Kan ikke bruke dine endringer."
 
 #: components/html-editor/search.c:78
-msgid "backward"
-msgstr "bakover"
+msgid "_Backward"
+msgstr "_Bakover"
 
-#: components/html-editor/search.c:118
+#: components/html-editor/search.c:121
 msgid "Find Regular Expression"
 msgstr "Finn vanlig uttrykk"
 
@@ -1445,9 +1443,8 @@ msgid "Spell checker"
 msgstr "Stavekontroll"
 
 #: components/html-editor/spell.c:358
-#, fuzzy
 msgid "Current _Languages"
-msgstr "S_pråkstøtte i stavekontroll"
+msgstr "Tilgjengelige _språk"
 
 #: components/html-editor/table.c:199
 msgid "Flat gray"
@@ -1485,10 +1482,9 @@ msgstr "Åpne fil..."
 msgid "Save file as..."
 msgstr "Lagre fil som..."
 
-#: components/html-editor/test-html-editor-control.c:554
-#, fuzzy
+#: components/html-editor/test-html-editor-control.c:540
 msgid "GtkHTML Editor Test Container"
-msgstr "Kontroll for GNOME HTML-redigering"
+msgstr "Testkontainer for GtkHTML-redigering"
 
 #. color selection
 #: components/html-editor/text.c:291
@@ -1555,77 +1551,73 @@ msgstr "Større innrykk for avsnittene"
 msgid "Sample"
 msgstr "Eksempel"
 
-#: src/gtkhtml.c:2584
-#, fuzzy
+#: src/gtkhtml.c:2586
 msgid "Editable"
-msgstr "Slå på"
+msgstr "Redigerbar"
 
-#: src/gtkhtml.c:2585
+#: src/gtkhtml.c:2587
 msgid "Whether the html can be edited"
-msgstr ""
+msgstr "Om HTML-koden kan redigeres"
 
-#: src/gtkhtml.c:2592
-#, fuzzy
+#: src/gtkhtml.c:2594
 msgid "The title of the current document"
-msgstr "Sjekk staving i dokumentet"
+msgstr "Tittel for aktivt dokument"
 
-#: src/gtkhtml.c:2598
-#, fuzzy
+#: src/gtkhtml.c:2600
 msgid "Document Base"
-msgstr "Dokumenttittel"
+msgstr "Dokumentbasis"
 
-#: src/gtkhtml.c:2599
+#: src/gtkhtml.c:2601
 msgid "The base URL for relative references"
-msgstr ""
+msgstr "Basis-URL for relative referanser"
 
-#: src/gtkhtml.c:2605
+#: src/gtkhtml.c:2607
 msgid "Target Base"
-msgstr ""
+msgstr "Målbasis"
 
-#: src/gtkhtml.c:2606
+#: src/gtkhtml.c:2608
 msgid "The base URL of the targe frame"
-msgstr ""
+msgstr "Basis-URL for målrammen"
 
-#: src/gtkhtml.c:2615
-#, fuzzy
+#: src/gtkhtml.c:2617
 msgid "Fixed Width Font"
-msgstr "Fast bredde"
+msgstr "Skrift med fast bredde"
 
-#: src/gtkhtml.c:2616
+#: src/gtkhtml.c:2618
 msgid "The Monospace font to use for typewriter text"
-msgstr ""
+msgstr "Skrift med fast bredde som skal brukes for skrivemaskintekst"
 
-#: src/gtkhtml.c:2622
+#: src/gtkhtml.c:2624
 msgid "New Link Color"
-msgstr ""
+msgstr "Farge for ny lenke"
 
-#: src/gtkhtml.c:2623
+#: src/gtkhtml.c:2625
 msgid "The color of new link elements"
-msgstr ""
+msgstr "Farge for nye lenkeelementer"
 
-#: src/gtkhtml.c:2628
+#: src/gtkhtml.c:2630
 msgid "Visited Link Color"
-msgstr ""
+msgstr "Farge for besøkt lenke"
 
-#: src/gtkhtml.c:2629
+#: src/gtkhtml.c:2631
 msgid "The color of visited link elements"
-msgstr ""
+msgstr "Farge for besøkte lenkeelementer"
 
-#: src/gtkhtml.c:2634
+#: src/gtkhtml.c:2636
 msgid "Active Link Color"
-msgstr ""
+msgstr "Farge for aktiv lenke"
 
-#: src/gtkhtml.c:2635
+#: src/gtkhtml.c:2637
 msgid "The color of active link elements"
-msgstr ""
+msgstr "Farge for aktive lenkeelementer"
 
-#: src/gtkhtml.c:2640
+#: src/gtkhtml.c:2642
 msgid "Spelling Error Color"
-msgstr ""
+msgstr "Farge for stavefeil"
 
-#: src/gtkhtml.c:2641
+#: src/gtkhtml.c:2643
 msgid "The color of the spelling error markers"
-msgstr ""
+msgstr "Farge for markering av stavefeil"
 
 #: src/html-component.c:219
 msgid "Html"
@@ -1699,18 +1691,3 @@ msgstr "Forhånds_visning"
 #: src/testgtkhtml.c:103
 msgid "Print preview"
 msgstr "Forhåndsvisning"
-
-#~ msgid "Check '%s' spelling..."
-#~ msgstr "Sjekk '%s' staving..."
-
-#~ msgid "Ignore '%s'"
-#~ msgstr "Ignorer '%s'"
-
-#~ msgid "Suggest word"
-#~ msgstr "Foreslå ord"
-
-#~ msgid "Text..."
-#~ msgstr "Tekst..."
-
-#~ msgid "I could not initialize Bonobo"
-#~ msgstr "Kunne ikke initiere Bonobo"
