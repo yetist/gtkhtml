@@ -363,7 +363,7 @@ netin_stream_free (HTStream * me)
 static int
 netin_stream_abort (HTStream * me, HTList * e)
 {
-	return HT_ERROR;
+	return HT_OK;
 }
 
 static const HTStreamClass netin_stream_class =
@@ -393,6 +393,7 @@ netin_stream_new (GtkHTMLStreamHandle handle, HTRequest *request)
 static gint
 do_request_delete(gpointer req)
 {
+	g_print("do_request_delete(%p)\n", req);
 	HTRequest_delete(req);
 	
 	return FALSE;
@@ -411,13 +412,13 @@ my_progress(HTRequest *request, HTAlertOpcode op,
 	case HT_PROG_DONE:
 	case HT_PROG_TIMEOUT:
 	case HT_PROG_INTERRUPT:
-		gtk_idle_add(do_request_delete, request);
+		g_idle_add_full(G_PRIORITY_LOW, do_request_delete, request, NULL);
 		break;
 	default:
 		break;
 	}
 
-	return YES;
+	return NO;
 }
 #endif
 

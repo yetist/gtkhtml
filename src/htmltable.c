@@ -325,7 +325,7 @@ html_table_calc_col_info (HTMLTable *table)
 	table->totalColInfos = 0;
 
 	for (r = 0; r < table->totalRows; r++) {
-		table->rowInfo[r].entry = (gint *)g_malloc (sizeof (gint) * table->totalCols);
+		table->rowInfo[r].entry = (gint *)g_new (gint, table->totalCols);
 		table->rowInfo[r].nrEntries = 0;
 		for (c = 0; c < table->totalCols; c++) {
 			HTMLTableCell *cell = table->cells[r][c];

@@ -201,7 +201,9 @@ static void html_image_factory_write_pixbuf  (GtkHTMLStreamHandle handle,
 					      const guchar *buffer, size_t size,
 					      gpointer user_data);
 static void html_image_factory_area_prepared (GdkPixbufLoader *loader, HTMLImagePointer *ip);
-static void html_image_factory_area_updated  (GdkPixbufLoader *loader, HTMLEngine *e);
+static void html_image_factory_area_updated  (GdkPixbufLoader *loader,
+					      guint x, guint y, guint width, guint height,
+					      HTMLEngine *e);
 
 static void
 html_image_factory_end_pixbuf (GtkHTMLStreamHandle handle, GtkHTMLStreamStatus status, gpointer user_data)
@@ -224,9 +226,15 @@ html_image_factory_write_pixbuf (GtkHTMLStreamHandle handle, const guchar *buffe
 }
 
 static void
-html_image_factory_area_updated (GdkPixbufLoader *loader, HTMLEngine *e)
+html_image_factory_area_updated  (GdkPixbufLoader *loader,
+				  guint x, guint y, guint width, guint height,
+				  HTMLEngine *e)
 {
+	/* XXX fixme - only if we are onscreen, and even then we just need to do something to redraw ourselves
+	   rather than the whole stupid area. Also should only redraw if a significant new amount of info has come in */
+#if 0
 	html_engine_schedule_update (e);
+#endif
 }
 
 static void
