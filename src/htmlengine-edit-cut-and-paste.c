@@ -446,8 +446,6 @@ delete_object (HTMLEngine *e, HTMLObject **ret_object, guint *ret_len, HTMLUndoD
 			*ret_object = html_object_op_copy (object, e, NULL, NULL, ret_len);
 			*ret_len    = len;
 		}
-		printf ("len %d\n", len);
-		gtk_html_debug_dump_tree_simple (object, 0);
 		delete_setup_undo (e, object, len, dir);
 	}
 }
