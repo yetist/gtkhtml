@@ -20,26 +20,15 @@
 */
 
 #include <gtk/gtkselection.h>
+#include <gtk/gtkmain.h>
+
 #include "htmlcursor.h"
 #include "htmlengine-edit-cursor.h"
-#include "htmlengine-edit-cut-and-paste.h"
 #include "htmlentity.h"
 #include "htmlinterval.h"
 #include "htmlselection.h"
 #include "htmlengine-edit.h"
 #include "htmlengine-edit-selection-updater.h"
-
-guint32
-html_selection_current_time (void)
-{
-	GdkEvent *event;
-
-	event = gtk_get_current_event ();
-	if (event != NULL)
-		return gdk_event_get_time (event);
-
-	return GDK_CURRENT_TIME;
-}
 
 static gboolean
 optimize_selection (HTMLEngine *e, HTMLInterval *i)
@@ -133,15 +122,6 @@ optimize_selection (HTMLEngine *e, HTMLInterval *i)
 	return optimized;
 }
 
-static void
-clear_primary (HTMLEngine *e) {
-	if (e->primary)
-		html_object_destroy (e->primary);
-
-	e->primary = NULL;
-	e->primary_len = 0;
-}
-
 void
 html_engine_select_interval (HTMLEngine *e, HTMLInterval *i)
 {
@@ -224,7 +204,6 @@ html_engine_clear_selection (HTMLEngine *e)
 		html_interval_destroy (e->selection);
 		html_engine_edit_selection_updater_reset (e->selection_updater);
 		e->selection = NULL;
-		
 		/*
 		if (gdk_selection_owner_get (GDK_SELECTION_PRIMARY) == GTK_WIDGET (e->widget)->window)
 			gtk_selection_owner_set (NULL, GDK_SELECTION_PRIMARY, 
@@ -399,8 +378,6 @@ html_engine_activate_selection (HTMLEngine *e, guint32 time)
 	if (e->selection && e->block_selection == 0 && GTK_WIDGET_REALIZED (e->widget)) {
 		gtk_selection_owner_set (GTK_WIDGET (e->widget), GDK_SELECTION_PRIMARY, time);	
 		/* printf ("activated (%u).\n", time); */
-		clear_primary (e);
-		html_engine_copy_object (e, &e->primary, &e->primary_len);
 	}
 }
 
@@ -420,7 +397,7 @@ void
 html_engine_update_selection_active_state (HTMLEngine *e, guint32 time)
 {
 	if (html_engine_is_selection_active (e))
-		html_engine_activate_selection (e, time ? time : html_selection_current_time ());
+		html_engine_activate_selection (e, time ? time : gtk_get_current_event_time ());
 	else
 		html_engine_deactivate_selection (e);
 }

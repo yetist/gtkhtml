@@ -31,10 +31,10 @@ typedef struct _HTMLPlainPainter HTMLPlainPainter;
 
 
 #define HTML_TYPE_PLAIN_PAINTER                 (html_plain_painter_get_type ())
-#define HTML_PLAIN_PAINTER(obj)                 (GTK_CHECK_CAST ((obj), HTML_TYPE_PLAIN_PAINTER, HTMLPlainPainter))
-#define HTML_PLAIN_PAINTER_CLASS(klass)         (GTK_CHECK_CLASS_CAST ((klass), HTML_TYPE_PLAIN_PAINTER, HTMLPlainPainterClass))
-#define HTML_IS_PLAIN_PAINTER(obj)              (GTK_CHECK_TYPE ((obj), HTML_TYPE_PLAIN_PAINTER))
-#define HTML_IS_PLAIN_PAINTER_CLASS(klass)      (GTK_CHECK_CLASS_TYPE ((klass), HTML_TYPE_PLAIN_PAINTER))
+#define HTML_PLAIN_PAINTER(obj)                 (G_TYPE_CHECK_INSTANCE_CAST ((obj), HTML_TYPE_PLAIN_PAINTER, HTMLPlainPainter))
+#define HTML_PLAIN_PAINTER_CLASS(klass)         (G_TYPE_CHECK_CLASS_CAST ((klass), HTML_TYPE_PLAIN_PAINTER, HTMLPlainPainterClass))
+#define HTML_IS_PLAIN_PAINTER(obj)              (G_TYPE_CHECK_INSTANCE_TYPE ((obj), HTML_TYPE_PLAIN_PAINTER))
+#define HTML_IS_PLAIN_PAINTER_CLASS(klass)      (G_TYPE_CHECK_CLASS_TYPE ((klass), HTML_TYPE_PLAIN_PAINTER))
 
 struct _HTMLPlainPainter {
 	HTMLGdkPainter base;
@@ -45,6 +45,6 @@ struct _HTMLPlainPainterClass {
 };
 
 GtkType      html_plain_painter_get_type (void);
-HTMLPainter *html_plain_painter_new      (gboolean double_buffer);
+HTMLPainter *html_plain_painter_new      (GtkWidget *widget, gboolean double_buffer);
 
 #endif /* _HTMLPLAINPAINTER_H */

@@ -11,7 +11,6 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <gtk/gtk.h>
-#include <libgnome/gnome-defs.h>
 #include <libgnome/gnome-util.h>
 #include <bonobo/bonobo-stream-memory.h>
 #include <bonobo/bonobo-exception.h>
@@ -23,13 +22,13 @@
 BonoboStreamMemClass *parent_class;
 
 static void
-html_stream_mem_write (BonoboStream *stream,
-		       const Bonobo_Stream_iobuf *buffer,
-		       CORBA_Environment *ev)
+mem_write (PortableServer_Servant servant,
+	   const Bonobo_Stream_iobuf *buffer,
+	   CORBA_Environment *ev)
 {
-	HTMLStreamMem *bhtml = HTML_STREAM_MEM (stream);
+	HTMLStreamMem *bhtml = HTML_STREAM_MEM (bonobo_object_from_servant (servant));
 
-	BONOBO_STREAM_CLASS (parent_class)->write (stream, buffer, ev);
+	parent_class->epv.write (servant, buffer, ev);
 	
 	if (bhtml->html_stream) {
 		if (ev->_major == CORBA_NO_EXCEPTION) {
@@ -42,7 +41,7 @@ html_stream_mem_write (BonoboStream *stream,
 }
 
 static void 
-html_stream_mem_destroy (GtkObject *object)
+html_stream_mem_finalize (GObject *object)
 {
 	HTMLStreamMem *bhtml = HTML_STREAM_MEM (object);
 
@@ -51,82 +50,54 @@ html_stream_mem_destroy (GtkObject *object)
 		bhtml->html_stream = NULL;
 	}
 
-	GTK_OBJECT_CLASS (parent_class)->destroy (object);		
+	G_OBJECT_CLASS (parent_class)->finalize (object);		
 }
 
 HTMLStreamMem *
-html_stream_mem_constuct (HTMLStreamMem *bhtml,
-			  Bonobo_Stream corba_stream,
-			  GtkHTMLStream *html_stream)
+html_stream_mem_construct (HTMLStreamMem *bhtml,
+			   GtkHTMLStream *html_stream)
 {
-	g_return_val_if_fail (corba_stream != CORBA_OBJECT_NIL, NULL);
 	g_return_val_if_fail (BONOBO_IS_STREAM_MEM (bhtml), NULL);
 	
 	bhtml->html_stream = html_stream;
 
 	return HTML_STREAM_MEM (bonobo_stream_mem_construct (BONOBO_STREAM_MEM (bhtml),
-							     corba_stream,
 							     NULL, 0,
 							     FALSE, TRUE));
 }
 
-BonoboStream *
+BonoboObject *
 html_stream_mem_create (GtkHTMLStream *html_stream) 
 {
 	HTMLStreamMem *bhtml;
-	Bonobo_Stream corba_stream;
 
-	bhtml = gtk_type_new (html_stream_mem_get_type ());
+	bhtml = g_object_new (HTML_STREAM_MEM_TYPE, NULL);
 	if (bhtml == NULL)
 		return NULL;
 
-	corba_stream = bonobo_stream_corba_object_create (BONOBO_OBJECT (bhtml));
+	return BONOBO_OBJECT (html_stream_mem_construct (bhtml, html_stream));
+}
 
-	if (corba_stream == CORBA_OBJECT_NIL) {
-		bonobo_object_unref (BONOBO_OBJECT (bhtml));
-		return NULL;
-	}
-
-	return BONOBO_STREAM (html_stream_mem_constuct (bhtml,
-							corba_stream,
-							html_stream));
-}	
+static void
+html_stream_mem_init (HTMLStreamMem *mem)
+{
+}
 
 static void 
 html_stream_mem_class_init (HTMLStreamMemClass *klass)
 {
-	BonoboStreamClass *sclass = BONOBO_STREAM_CLASS (klass);
-	GtkObjectClass *oclass = GTK_OBJECT_CLASS (klass);
+	GObjectClass *o_class = G_OBJECT_CLASS (klass);
+	POA_Bonobo_Stream__epv *epv = &klass->epv;
 
-	parent_class = gtk_type_class (bonobo_stream_mem_get_type ());
+	parent_class = g_type_class_ref (BONOBO_TYPE_STREAM_MEM);
+	epv->write = mem_write;
 	
-	sclass->write = html_stream_mem_write;
-	
-	oclass->destroy = html_stream_mem_destroy;	
+	o_class->finalize = html_stream_mem_finalize;
 
 }
 
-GtkType
-html_stream_mem_get_type (void)
-{
-	static GtkType type = 0;
-
-	if (!type) {
-		GtkTypeInfo info = {
-			"HTMLStreamMem",
-			sizeof (HTMLStreamMem),
-			sizeof (HTMLStreamMemClass),
-			(GtkClassInitFunc) html_stream_mem_class_init,
-			(GtkObjectInitFunc) NULL,
-			NULL,
-			NULL,
-			(GtkClassInitFunc) NULL
-		};
-
-		type = gtk_type_unique (bonobo_stream_mem_get_type (), &info);
-	}
-	
-	return type;
-}
-		
-
+BONOBO_TYPE_FUNC_FULL (
+	HTMLStreamMem,                 /* Glib class name */
+	Bonobo_Stream,                 /* CORBA interface name */
+	BONOBO_TYPE_STREAM_MEM,        /* parent type */
+	html_stream_mem);              /* local prefix ie. 'echo'_class_init */

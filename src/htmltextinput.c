@@ -20,11 +20,10 @@
 */
 
 #include <config.h>
+#include <string.h>
 #include <gdk/gdkkeysyms.h>
 #include <gtk/gtksignal.h>
 #include <gtk/gtkentry.h>
-#include <string.h>
-#include <gal/widgets/e-unicode.h>
 
 #include "htmltextinput.h"
 #include "htmlform.h"
@@ -66,7 +65,7 @@ copy (HTMLObject *self,
 static void
 reset (HTMLEmbedded *e)
 {
-	e_utf8_gtk_entry_set_text (GTK_ENTRY(e->widget), HTML_TEXTINPUT(e)->default_text);
+	gtk_entry_set_text (GTK_ENTRY (e->widget), HTML_TEXTINPUT (e)->default_text);
 }
 
 static gboolean
@@ -122,7 +121,7 @@ encode (HTMLEmbedded *e)
 
 		encoding = g_string_append_c (encoding, '=');
 
-		ptr = html_embedded_encode_string (e_utf8_gtk_entry_get_text (GTK_ENTRY (e->widget)));
+		ptr = html_embedded_encode_string (gtk_entry_get_text (GTK_ENTRY (e->widget)));
 		encoding = g_string_append (encoding, ptr);
 		g_free (ptr);
 	}
@@ -189,12 +188,10 @@ html_text_input_init (HTMLTextInput *ti,
 
 	entry = gtk_entry_new ();
 	html_embedded_set_widget (element, entry);
-	gtk_signal_connect_after (GTK_OBJECT (entry), "key_press_event",
-				  GTK_SIGNAL_FUNC (html_text_input_key_pressed),
-				  element);
+	g_signal_connect_after (entry, "key_press_event", G_CALLBACK (html_text_input_key_pressed), element);
 
 	if (strlen (element->value))	
-		e_utf8_gtk_entry_set_text (GTK_ENTRY(element->widget), element->value);
+		gtk_entry_set_text (GTK_ENTRY (element->widget), element->value);
 
 	ti->default_text = g_strdup (element->value);
 
@@ -203,7 +200,7 @@ html_text_input_init (HTMLTextInput *ti,
 
 	gtk_entry_set_visibility (GTK_ENTRY(element->widget), !password);
 	
-	min_width = gdk_char_width (element->widget->style->font, '0') * size + 8;
+	min_width = 0; /* FIX2 gdk_char_width (element->widget->style->font, '0') * size + 8; */
 	gtk_widget_set_usize (element->widget, min_width, -1);
 
 	ti->size = size;

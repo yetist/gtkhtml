@@ -25,6 +25,7 @@
 #include <gtk/gtkentry.h>
 #include <gtk/gtkmain.h>
 #include <gtk/gtksignal.h>
+#include <gtk/gtkobject.h>
 #include "gtkhtml.h"
 #include "gtkhtml-private.h"
 #include "gtkhtml-search.h"
@@ -74,7 +75,7 @@ continue_search (GtkHTMLISearch *data, gboolean forward)
 static gboolean
 hide (GtkHTMLISearch *data)
 {
-	gtk_signal_disconnect (GTK_OBJECT (data->html->priv->search_input_line), data->focus_out);
+	g_signal_handler_disconnect (data->html->priv->search_input_line, data->focus_out);
 	gtk_grab_remove (GTK_WIDGET (data->html->priv->search_input_line));
 	gtk_widget_grab_focus (GTK_WIDGET (data->html));
 	gtk_widget_hide (GTK_WIDGET (data->html->priv->search_input_line));
@@ -139,15 +140,12 @@ gtk_html_isearch (GtkHTML *html, gboolean forward)
 
 		data->html      = html;
 
-		gtk_signal_connect (GTK_OBJECT (html->priv->search_input_line), "key_press_event",
-				    GTK_SIGNAL_FUNC (key_press), data);
-		gtk_signal_connect (GTK_OBJECT (html->priv->search_input_line), "changed",
-				    GTK_SIGNAL_FUNC (changed), data);
-		gtk_signal_connect (GTK_OBJECT (html->priv->search_input_line), "destroy",
-				    GTK_SIGNAL_FUNC (destroy), data);
+		g_signal_connect (html->priv->search_input_line, "key_press_event", G_CALLBACK (key_press), data);
+		g_signal_connect (html->priv->search_input_line, "changed", G_CALLBACK (changed), data);
+		g_signal_connect (html->priv->search_input_line, "destroy", G_CALLBACK (destroy), data);
 	} else {
 		gtk_widget_show (GTK_WIDGET (html->priv->search_input_line));
-		data = gtk_object_get_data (GTK_OBJECT (html->priv->search_input_line), "search_data");
+		data = (GtkHTMLISearch *) gtk_object_get_data (GTK_OBJECT (html->priv->search_input_line), "search_data");
 	}
 
 	data->forward   = forward;
@@ -160,8 +158,8 @@ gtk_html_isearch (GtkHTML *html, gboolean forward)
 	}
 
 	gtk_widget_grab_focus (GTK_WIDGET (html->priv->search_input_line));
-	data->focus_out = gtk_signal_connect (GTK_OBJECT (html->priv->search_input_line), "focus_out_event",
-					      GTK_SIGNAL_FUNC (focus_out_event), data);
+	data->focus_out = g_signal_connect (html->priv->search_input_line, "focus_out_event",
+					    G_CALLBACK (focus_out_event), data);
 }
 
 gboolean

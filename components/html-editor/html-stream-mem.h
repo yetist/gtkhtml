@@ -28,12 +28,11 @@ struct _HTMLStreamMem {
   
 struct _HTMLStreamMemClass {
 	BonoboStreamMemClass parent_class;
+	POA_Bonobo_Stream__epv epv;
 };
 
 GtkType         html_stream_mem_get_type     (void);
-BonoboStream   *html_stream_mem_create       (GtkHTMLStream *html_stream);
-HTMLStreamMem  *html_stream_mem_constuct     (HTMLStreamMem *bhtml,
-					      Bonobo_Stream corba_stream,
-					      GtkHTMLStream *html_stream);
+BonoboObject   *html_stream_mem_create       (GtkHTMLStream *html_stream);
+HTMLStreamMem  *html_stream_mem_constuct     (HTMLStreamMem *bhtml, GtkHTMLStream *html_stream);
 
 #endif /* _HTML_STREAM_MEM_H_ */

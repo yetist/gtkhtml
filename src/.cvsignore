@@ -8,3 +8,4 @@ gtest
 html-component
 *.lo
 *.la
+libgtkhtml.pc

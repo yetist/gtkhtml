@@ -21,10 +21,7 @@
 */
 
 #include <config.h>
-#include <gal/widgets/e-unicode.h>
 #include <gal/widgets/widget-color-combo.h>
-#include <gal/util/e-unicode-i18n.h>
-
 #include "htmlcolor.h"
 #include "htmlcolorset.h"
 #include "htmlengine-edit.h"
@@ -90,20 +87,19 @@ fill_sample (GtkHTMLEditTextProperties *d)
 	bg    = html_engine_save_get_sample_body (d->cd->html->engine, NULL);
 	sa    = d->url && *d->url ? "</a>" : "";
 	size  = g_strdup_printf ("<font size=%d>", get_size (d->style_or) + 1);
-	
-	color = g_strdup_printf ("<font color=#%02x%02x%02x>",
-				 d->color->color.red   >> 8,
-				 d->color->color.green >> 8,
-				 d->color->color.blue  >> 8);
-	
+	color = d->color_changed ? g_strdup_printf ("<font color=#%02x%02x%02x>",
+						    d->color->color.red   >> 8,
+						    d->color->color.green >> 8,
+						    d->color->color.blue  >> 8)
+		: g_strdup ("");
 	body  = g_strconcat (bg, a,
 			     CVAL (0) ? "<b>" : "",
 			     CVAL (1) ? "<i>" : "",
 			     CVAL (2) ? "<u>" : "",
 			     CVAL (3) ? "<s>" : "",
 			     size, color,
-			     U_("The quick brown fox jumps over the lazy dog."), sa, NULL);
-	
+			     "The quick brown fox jumps over the lazy dog.", sa, NULL);
+
 	gtk_html_load_from_string (d->sample, body, -1);
 	g_free (color);
 	g_free (size);
@@ -113,7 +109,8 @@ fill_sample (GtkHTMLEditTextProperties *d)
 }
 
 static void
-color_changed (GtkWidget *w, GdkColor *color, gboolean by_user, GtkHTMLEditTextProperties *data)
+color_changed (GtkWidget *w, GdkColor *color, gboolean custom, gboolean by_user, gboolean is_default,
+	       GtkHTMLEditTextProperties *data)
 {
 	html_color_unref (data->color);
 	data->color = color
@@ -147,10 +144,8 @@ set_style (GtkWidget *w, GtkHTMLEditTextProperties *d)
 	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (w))) {
 		d->style_or  |= style;
 		d->style_and |= style;
-	} else {
-		d->style_or  &= ~style;
+	} else
 		d->style_and &= ~style;
-	}
 
 	d->style_changed = TRUE;
 	gtk_html_edit_properties_dialog_change (d->cd->properties_dialog);
@@ -169,7 +164,7 @@ static void
 set_url (GtkWidget *w, GtkHTMLEditTextProperties *data)
 {
 	g_free (data->url);
-	data->url = e_utf8_from_gtk_string (data->entry_url, gtk_entry_get_text (GTK_ENTRY (data->entry_url)));
+	data->url = g_strdup (gtk_entry_get_text (GTK_ENTRY (data->entry_url)));
 	data->url_changed = TRUE;
 
 	gtk_html_edit_properties_dialog_change (data->cd->properties_dialog);
@@ -183,7 +178,6 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	GtkWidget *vbox, *frame, *table, *menu, *menuitem, *hbox, *t1;
 	gboolean selection;
 	const gchar *target;
-	const gchar *url;
 	gint i;
 
 	selection = html_engine_is_selection_active (cd->html->engine);
@@ -198,18 +192,13 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	data->style_or        = html_engine_get_font_style (cd->html->engine);
 	data->color           = html_engine_get_color (cd->html->engine);
 
-	if (!data->color)
-		data->color = html_colorset_get_color (data->cd->html->engine->settings->color_set, 
-						       HTMLTextColor);
-
 	target = html_engine_get_target (cd->html->engine);
-	url  = html_engine_get_url (cd->html->engine);
-	data->url = selection ? g_strconcat (url ? url : "", target ? "#" : "", target, NULL) : NULL;
-
+	data->url             = selection ? g_strconcat (html_engine_get_url (cd->html->engine),
+							 target ? "#" : "", target, NULL) : NULL;
 	html_color_ref (data->color);
 
 	table = gtk_table_new (3, 2, FALSE);
-	gtk_container_border_width (GTK_CONTAINER (table), 3);
+	gtk_container_set_border_width (GTK_CONTAINER (table), 3);
 	gtk_table_set_col_spacings (GTK_TABLE (table), 3);
 	gtk_table_set_row_spacings (GTK_TABLE (table), 2);
 
@@ -222,7 +211,7 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	data->check [i] = gtk_check_button_new_with_label (x); \
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->check [i]), data->style_or & styles [i]); \
         gtk_object_set_data (GTK_OBJECT (data->check [i]), "style", GUINT_TO_POINTER (styles [i])); \
-        gtk_signal_connect (GTK_OBJECT (data->check [i]), "toggled", set_style, data); \
+        g_signal_connect (data->check [i], "toggled", G_CALLBACK (set_style), data); \
 	gtk_table_attach (GTK_TABLE (t1), data->check [i], c, c + 1, r, r + 1, GTK_FILL | GTK_EXPAND, 0, 0, 0); \
         i++
 
@@ -241,11 +230,7 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 		frame = gtk_frame_new (_("Click will follow this URL"));
 		data->entry_url = gtk_entry_new ();
 		if (data->url) {
-			gchar *url;
-
-			url = e_utf8_to_gtk_string (data->entry_url, data->url);
-			gtk_entry_set_text (GTK_ENTRY (data->entry_url), url);
-			g_free (url);
+			gtk_entry_set_text (GTK_ENTRY (data->entry_url), data->url);
 		}
 		f1 = gtk_frame_new (NULL);
 		gtk_container_set_border_width (GTK_CONTAINER (f1), 3);
@@ -253,7 +238,7 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 		gtk_container_add (GTK_CONTAINER (f1), data->entry_url);
 		gtk_container_add (GTK_CONTAINER (frame), f1);
 		gtk_box_pack_start_defaults (GTK_BOX (vbox), frame);
-		gtk_signal_connect (GTK_OBJECT (data->entry_url), "changed", GTK_SIGNAL_FUNC (set_url), data);
+		g_signal_connect (data->entry_url, "changed", G_CALLBACK (set_url), data);
 	}
 
 	gtk_table_attach_defaults (GTK_TABLE (table), vbox, 0, 1, 0, 2);
@@ -264,9 +249,9 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 #undef ADD_ITEM
 #define ADD_ITEM(n) \
 	menuitem = gtk_menu_item_new_with_label (_(n)); \
-        gtk_menu_append (GTK_MENU (menu), menuitem); \
+        gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem); \
         gtk_widget_show (menuitem); \
-        gtk_signal_connect (GTK_OBJECT (menuitem), "activate", GTK_SIGNAL_FUNC (set_size), data); \
+        g_signal_connect (menuitem, "activate", G_CALLBACK (set_size), data); \
         gtk_object_set_data (GTK_OBJECT (menuitem), "size", GINT_TO_POINTER (i)); i++;
 
 	i=GTK_HTML_FONT_STYLE_SIZE_1;
@@ -291,12 +276,11 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	frame = gtk_frame_new (_("Color"));
 	hbox = gtk_hbox_new (FALSE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (hbox), 3);
-
 	data->color_combo = color_combo_new (NULL, _("Automatic"),
-					     &data->color->color,
+					     &html_colorset_get_color (data->cd->html->engine->settings->color_set,
+								       HTMLTextColor)->color,
 					     color_group_fetch ("text", data->cd));
-        gtk_signal_connect (GTK_OBJECT (data->color_combo), "changed", 
-			    GTK_SIGNAL_FUNC (color_changed), data);
+        g_signal_connect (data->color_combo, "color_changed", G_CALLBACK (color_changed), data);
 
 	vbox = gtk_vbox_new (FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (vbox), data->color_combo, FALSE, FALSE, 0);

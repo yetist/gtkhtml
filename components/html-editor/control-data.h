@@ -30,6 +30,7 @@ typedef struct _GtkHTMLEditPropertiesDialog   GtkHTMLEditPropertiesDialog;
 
 #include <gtkhtml.h>
 #include <bonobo.h>
+#include "persist-stream.h"
 #include "htmlgdkpainter.h"
 #include "search.h"
 #include "replace.h"
@@ -90,10 +91,9 @@ struct _GtkHTMLControlData {
 	CORBA_sequence_GNOME_Spell_Language *languages;
 	gboolean                block_language_changes;
 	GNOME_Spell_Dictionary  dict;
-	BonoboObjectClient     *dict_client;
 	EditorEngine           *editor_bonobo_engine;
-	BonoboPersistStream    *persist_stream;
-	BonoboPersistFile      *persist_file;
+	BonoboObject           *persist_stream;
+        BonoboObject           *persist_file;
 	BonoboControl          *control;
 
 	GtkWidget *spell_dialog;

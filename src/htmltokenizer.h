@@ -25,7 +25,7 @@
 #ifndef _HTMLTOKENIZER_H_
 #define _HTMLTOKENIZER_H_
 
-#include <gtk/gtkobject.h>
+#include <glib-object.h>
 #include "htmltypes.h"
 
 #define TAG_ESCAPE 13
@@ -40,12 +40,12 @@
 struct _HTMLTokenizerPrivate;
 
 struct _HTMLTokenizer {
-	GtkObject parent;
+	GObject parent;
 	struct _HTMLTokenizerPrivate *priv;
 };
 
 struct _HTMLTokenizerClass {
-	GtkObjectClass parent_class;
+	GObjectClass parent_class;
 
 	/* signals */
 	void     (*begin)           (HTMLTokenizer *, gchar *content_type);
@@ -60,7 +60,7 @@ struct _HTMLTokenizerClass {
 	HTMLTokenizer *(*clone)      (HTMLTokenizer *);
 };
 
-GtkType        html_tokenizer_get_type        (void);
+GType          html_tokenizer_get_type        (void);
 
 HTMLTokenizer *html_tokenizer_new             (void);
 void           html_tokenizer_destroy         (HTMLTokenizer *tokenizer);

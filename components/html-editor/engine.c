@@ -84,23 +84,14 @@ impl_set_object_data_by_type (PortableServer_Servant servant,
 }
 
 static void
-unref_listener (EditorEngine *e)
-{
-	if (e->listener_client != CORBA_OBJECT_NIL)
-		bonobo_object_unref (BONOBO_OBJECT (e->listener_client));
-}
-
-static void
 impl_set_listener (PortableServer_Servant servant, const GNOME_GtkHTML_Editor_Listener value, CORBA_Environment * ev)
 {
 	EditorEngine *e = html_editor_engine_from_servant (servant);
 
 	/* printf ("set listener\n"); */
 
-	unref_listener (e);
-	e->listener_client = bonobo_object_client_from_corba (CORBA_Object_duplicate (value, ev));
-	e->listener        = bonobo_object_client_query_interface (e->listener_client,
-								   "IDL:GNOME/GtkHTML/Editor/Listener:1.0", ev);
+	bonobo_object_release_unref (e->listener, NULL);
+	e->listener        = bonobo_object_dup_ref (value, NULL);
 }
 
 static GNOME_GtkHTML_Editor_Listener
@@ -230,12 +221,32 @@ impl_drop_undo (PortableServer_Servant servant, CORBA_Environment * ev)
 	gtk_html_drop_undo (e->cd->html);
 }
 
-POA_GNOME_GtkHTML_Editor_Engine__epv *
-editor_engine_get_epv (void)
+static void
+engine_object_finalize (GObject *object)
 {
-	POA_GNOME_GtkHTML_Editor_Engine__epv *epv;
+	EditorEngine *e = EDITOR_ENGINE (object);
 
-	epv = g_new0 (POA_GNOME_GtkHTML_Editor_Engine__epv, 1);
+	bonobo_object_release_unref (e->listener, NULL);
+
+	G_OBJECT_CLASS (engine_parent_class)->finalize (object);
+}
+
+static void
+editor_engine_init (GObject *object)
+{
+	EditorEngine *e = EDITOR_ENGINE (object);
+
+	e->listener = CORBA_OBJECT_NIL;
+}
+
+static void
+editor_engine_class_init (EditorEngineClass *klass)
+{
+	GObjectClass *object_class = G_OBJECT_CLASS (klass);
+	POA_GNOME_GtkHTML_Editor_Engine__epv *epv = &klass->epv;
+
+	engine_parent_class = g_type_class_peek_parent (klass);
+	object_class->finalize = engine_object_finalize;
 
 	epv->_set_listener            = impl_set_listener;
 	epv->_get_listener            = impl_get_listener;
@@ -254,123 +265,22 @@ editor_engine_get_epv (void)
 	epv->ignoreWord               = impl_ignore_word;
 	epv->hasUndo                  = impl_has_undo;
 	epv->dropUndo                 = impl_drop_undo;
-
-	return epv;
 }
 
-static void
-init_engine_corba_class (void)
-{
-	engine_vepv.Bonobo_Unknown_epv    = bonobo_object_get_epv ();
-	engine_vepv.GNOME_GtkHTML_Editor_Engine_epv = editor_engine_get_epv ();
-}
-
-static void
-engine_object_init (GtkObject *object)
-{
-	EditorEngine *e = EDITOR_ENGINE (object);
-
-	e->listener_client = CORBA_OBJECT_NIL;
-}
-
-static void
-engine_object_destroy (GtkObject *object)
-{
-	EditorEngine *e = EDITOR_ENGINE (object);
-
-	unref_listener (e);
-
-	GTK_OBJECT_CLASS (engine_parent_class)->destroy (object);
-}
-
-static void
-engine_class_init (EditorEngineClass *klass)
-{
-	GtkObjectClass *object_class = (GtkObjectClass *) klass;
-
-	engine_parent_class   = gtk_type_class (bonobo_object_get_type ());
-	object_class->destroy = engine_object_destroy;
-
-	init_engine_corba_class ();
-}
-
-GtkType
-editor_engine_get_type (void)
-{
-	static GtkType type = 0;
-
-	if (!type){
-		GtkTypeInfo info = {
-			"EditorEngine",
-			sizeof (EditorEngine),
-			sizeof (EditorEngineClass),
-			(GtkClassInitFunc) engine_class_init,
-			(GtkObjectInitFunc) engine_object_init,
-			NULL, /* reserved 1 */
-			NULL, /* reserved 2 */
-			(GtkClassInitFunc) NULL
-		};
-
-		type = gtk_type_unique (bonobo_object_get_type (), &info);
-	}
-
-	return type;
-}
-
-EditorEngine *
-editor_engine_construct (EditorEngine *engine, GNOME_GtkHTML_Editor_Engine corba_engine)
-{
-	g_return_val_if_fail (engine != NULL, NULL);
-	g_return_val_if_fail (IS_EDITOR_ENGINE (engine), NULL);
-	g_return_val_if_fail (corba_engine != CORBA_OBJECT_NIL, NULL);
-
-	engine->listener_client = CORBA_OBJECT_NIL;
-
-	if (!bonobo_object_construct (BONOBO_OBJECT (engine), (CORBA_Object) corba_engine))
-		return NULL;
-
-	return engine;
-}
-
-static GNOME_GtkHTML_Editor_Engine
-create_engine (BonoboObject *engine)
-{
-	POA_GNOME_GtkHTML_Editor_Engine *servant;
-	CORBA_Environment ev;
-
-	servant = (POA_GNOME_GtkHTML_Editor_Engine *) g_new0 (BonoboObjectServant, 1);
-	servant->vepv = &engine_vepv;
-
-	CORBA_exception_init (&ev);
-	POA_GNOME_GtkHTML_Editor_Engine__init ((PortableServer_Servant) servant, &ev);
-	ORBIT_OBJECT_KEY(servant->_private)->object = NULL;
-
-	if (ev._major != CORBA_NO_EXCEPTION){
-		g_free (servant);
-		CORBA_exception_free (&ev);
-		return CORBA_OBJECT_NIL;
-	}
-
-	CORBA_exception_free (&ev);
-
-	return (GNOME_GtkHTML_Editor_Engine) bonobo_object_activate_servant (engine, servant);
-}
+BONOBO_TYPE_FUNC_FULL (
+	EditorEngine,                  /* Glib class name */
+	GNOME_GtkHTML_Editor_Engine,   /* CORBA interface name */
+	BONOBO_TYPE_OBJECT,            /* parent type */
+	editor_engine);                /* local prefix ie. 'echo'_class_init */
 
 EditorEngine *
 editor_engine_new (GtkHTMLControlData *cd)
 {
-	EditorEngine *engine;
-	GNOME_GtkHTML_Editor_Engine corba_engine;
+	EditorEngine *ee;
 
-	engine = gtk_type_new (EDITOR_ENGINE_TYPE);
-	engine->cd = cd;
+	ee = g_object_new (EDITOR_ENGINE_TYPE, NULL);
 
-	corba_engine = create_engine (BONOBO_OBJECT (engine));
+	ee->cd = cd;
 
-	if (corba_engine == CORBA_OBJECT_NIL) {
-		bonobo_object_unref (BONOBO_OBJECT (engine));
-		return NULL;
-	}
-	
-	return editor_engine_construct (engine, corba_engine);
+	return ee;
 }

@@ -14,4 +14,5 @@ Spell-stubs.c
 Spell.h
 *.oaf
 GNOME_GtkHTML_Editor.xml
-GNOME_GtkHTML_Editor.oaf.in
+GNOME_GtkHTML_Editor.server
+GNOME_GtkHTML_Editor.server.in

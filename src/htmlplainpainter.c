@@ -24,8 +24,6 @@
 #include <stdlib.h>
 #include <gdk/gdkx.h>
 #include <libart_lgpl/art_rect.h>
-#include <gal/unicode/gunicode.h>
-#include <gal/widgets/e-font.h>
 
 #include "htmlentity.h"
 #include "htmlgdkpainter.h"
@@ -35,8 +33,6 @@
 #include "htmlengine.h"
 
 static HTMLGdkPainterClass *parent_class = NULL;
-
-static EFontStyle e_style (GtkHTMLFontStyle style);
 
 static void
 draw_panel (HTMLPainter *painter,
@@ -122,24 +118,15 @@ fill_rect (HTMLPainter *painter,
 			    width, height);
 }
 
-static EFontStyle
-e_style (GtkHTMLFontStyle style)
-{
-	EFontStyle rv = E_FONT_PLAIN;
-	return rv;
-}
-
 static HTMLFont *
-alloc_fixed_font (gchar *face, gdouble size, gboolean points, GtkHTMLFontStyle style)
+alloc_fixed_font (HTMLPainter *painter, gchar *face, gdouble size, gboolean points, GtkHTMLFontStyle style)
 {
-	HTMLFontManager *fm = html_engine_class_gdk_font_manager ();
-	gpointer plain_font;
-
-	plain_font = html_font_manager_get_font (fm, NULL, GTK_HTML_FONT_STYLE_SIZE_3 | GTK_HTML_FONT_STYLE_FIXED);
-	HTML_PAINTER_CLASS (parent_class)->ref_font (plain_font);
-
-	return plain_font;
+	return HTML_PAINTER_CLASS (parent_class)->alloc_font (painter, 
+							      face ? painter->font_manager.fixed.face : NULL,
+							      painter->font_manager.fix_size, painter->font_manager.fix_points,
+							      GTK_HTML_FONT_STYLE_DEFAULT); 
 }
+
 
 static void
 draw_shade_line (HTMLPainter *painter,
@@ -149,7 +136,7 @@ draw_shade_line (HTMLPainter *painter,
 }
 
 static void
-init (GtkObject *object)
+html_plain_painter_init (GObject *object)
 {
 }
 
@@ -160,43 +147,25 @@ draw_text (HTMLPainter *painter,
 	   gint len)
 {
 	HTMLGdkPainter *gdk_painter;
-	EFont *e_font;
-
-	gdk_painter = HTML_GDK_PAINTER (painter);
+	PangoFontDescription *desc;
+	PangoLayout *layout;
+	gint blen;
 
 	if (len == -1)
 		len = g_utf8_strlen (text, -1);
 
+	gdk_painter = HTML_GDK_PAINTER (painter);
+	desc = html_painter_get_font (painter, painter->font_face, painter->font_style);
+	layout = pango_layout_new (gdk_painter->pc);
+	pango_layout_set_font_description (layout, desc);
+	blen = g_utf8_offset_to_pointer (text, len) - text;
+	pango_layout_set_text (layout, text, blen);
+
 	x -= gdk_painter->x1;
 	y -= gdk_painter->y1;
 
-	e_font = html_painter_get_font (painter, painter->font_face,
-					painter->font_style);
-
-	e_font_draw_utf8_text (gdk_painter->pixmap, e_font, 
-			       e_style (painter->font_style), gdk_painter->gc,
-			       x, y, text, 
-			       g_utf8_offset_to_pointer (text, len) - text);
-
-	if (painter->font_style & (GTK_HTML_FONT_STYLE_UNDERLINE
-				   | GTK_HTML_FONT_STYLE_STRIKEOUT)) {
-		/*
-		guint width;
-
-		width = e_font_utf8_text_width (e_font, e_style (painter->font_style),
-						text, g_utf8_offset_to_pointer (text, len) - text);
-
-		if (painter->font_style & GTK_HTML_FONT_STYLE_UNDERLINE)
-			gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc, 
-				       x, y + 1, 
-				       x + width, y + 1);
-
-		if (painter->font_style & GTK_HTML_FONT_STYLE_STRIKEOUT)
-			gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc, 
-				       x, y - e_font_ascent (e_font) / 2, 
-				       x + width, y - e_font_ascent (e_font) / 2);
-		*/
-	}
+	gdk_draw_layout (gdk_painter->pixmap, gdk_painter->gc, x, y, layout);
+	g_object_unref (layout);
 }
 
 static void
@@ -219,18 +188,13 @@ get_page_height (HTMLPainter *painter, HTMLEngine *e)
 	return html_engine_get_view_height (e) + e->topBorder + e->bottomBorder;
 }
 
-static HTMLFontManagerId
-get_font_manager_id ()
-{
-	return HTML_FONT_MANAGER_ID_PLAIN;
-}
-
 static void
-class_init (GtkObjectClass *object_class)
+html_plain_painter_class_init (GObjectClass *object_class)
 {
 	HTMLPainterClass *painter_class;
 
 	painter_class = HTML_PAINTER_CLASS (object_class);
+	parent_class = g_type_class_ref (HTML_TYPE_GDK_PAINTER);
 
 	painter_class->alloc_font = alloc_fixed_font;
 	painter_class->draw_rect = draw_rect;
@@ -242,43 +206,41 @@ class_init (GtkObjectClass *object_class)
 	painter_class->draw_background = draw_background;
 	painter_class->get_page_width = get_page_width;
 	painter_class->get_page_height = get_page_height;
-	painter_class->get_font_manager_id = get_font_manager_id;
-
-	parent_class = gtk_type_class (html_gdk_painter_get_type ());
 }
 
-GtkType
+GType
 html_plain_painter_get_type (void)
 {
-	static GtkType type = 0;
+	static GType html_plain_painter_type = 0;
 
-	if (type == 0) {
-		static const GtkTypeInfo info = {
-			"HTMLPlainPainter",
-			sizeof (HTMLPlainPainter),
+	if (html_plain_painter_type == 0) {
+		static const GTypeInfo html_plain_painter_info = {
 			sizeof (HTMLPlainPainterClass),
-			(GtkClassInitFunc) class_init,
-			(GtkObjectInitFunc) init,
-			/* reserved_1 */ NULL,
-			/* reserved_2 */ NULL,
-			(GtkClassInitFunc) NULL,
+			NULL,
+			NULL,
+			(GClassInitFunc) html_plain_painter_class_init,
+			NULL,
+			NULL,
+			sizeof (HTMLPlainPainter),
+			1,
+			(GInstanceInitFunc) html_plain_painter_init,
 		};
-
-		type = gtk_type_unique (HTML_TYPE_GDK_PAINTER, &info);
+		html_plain_painter_type = g_type_register_static (HTML_TYPE_GDK_PAINTER, "HTMLPlainPainter",
+								  &html_plain_painter_info, 0);
 	}
 
-	return type;
+	return html_plain_painter_type;
 }
 
-
 HTMLPainter *
-html_plain_painter_new (gboolean double_buffer)
+html_plain_painter_new (GtkWidget *widget, gboolean double_buffer)
 {
 	HTMLPlainPainter *new;
 
-	new = gtk_type_new (html_plain_painter_get_type ());
-
+	new = g_object_new (HTML_TYPE_PLAIN_PAINTER, NULL);
 	HTML_GDK_PAINTER (new)->double_buffer = double_buffer;
+	HTML_GDK_PAINTER (new)->pc = gtk_widget_get_pango_context (widget);
+	g_object_ref (HTML_GDK_PAINTER (new)->pc);
 
 	return HTML_PAINTER (new);
 }

@@ -20,7 +20,7 @@
 */
 
 #include <config.h>
-#include <gal/unicode/gunicode.h>
+
 #include "htmlcursor.h"
 #include "htmlengine.h"
 #include "htmlengine-edit.h"

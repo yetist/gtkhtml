@@ -23,7 +23,6 @@
 #ifndef _HTMLTEXT_H_
 #define _HTMLTEXT_H_
 
-#include <gal/unicode/gunicode.h>
 #include "htmlobject.h"
 
 #define HTML_TEXT(x) ((HTMLText *)(x))

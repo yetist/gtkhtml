@@ -22,7 +22,6 @@
 
 #include <config.h>
 #include <string.h>
-#include <gal/widgets/e-unicode.h>
 #include "htmlcolor.h"
 #include "htmlcolorset.h"
 #include "htmllinktext.h"
@@ -59,27 +58,22 @@ test_clicked (GtkWidget *w, GtkHTMLEditLinkProperties *data)
 	const char *url = gtk_entry_get_text (GTK_ENTRY (data->entry_url));
 
 	if (url)
-		gnome_url_show (url);
+		gnome_url_show (url, NULL);
 }
 
 static void
 set_ui (GtkHTMLEditLinkProperties *data)
 {
-	gchar *text;
-	gchar *url, *url8;
+	gchar *url;
 
-	text = e_utf8_to_gtk_string (data->entry_text, HTML_TEXT (data->link)->text);
-	gtk_entry_set_text (GTK_ENTRY (data->entry_text), text);
-	g_free (text);
+	gtk_entry_set_text (GTK_ENTRY (data->entry_text), HTML_TEXT (data->link)->text);
 
-	url8 = data->link->url && *data->link->url
+	url = data->link->url && *data->link->url
 		? g_strconcat (data->link->url, data->link->target && *data->link->target ? "#" : NULL,
 			       data->link->target, NULL)
 		: g_strdup ("");
-	url = e_utf8_to_gtk_string (data->entry_url, url8);
 	gtk_entry_set_text (GTK_ENTRY (data->entry_url), url);
 	g_free (url);
-	g_free (url8);
 }
 
 static GtkWidget *
@@ -103,13 +97,11 @@ link_widget (GtkHTMLEditLinkProperties *data, gboolean insert)
 	gtk_box_pack_start (GTK_BOX (vbox), frame, FALSE, FALSE, 0);
 
 	if (html_engine_is_selection_active (cd->html->engine)) {
-		gchar *str, *str_gtk;
+		gchar *str;
 
 		str = html_engine_get_selection_string (cd->html->engine);
-		str_gtk = e_utf8_to_gtk_string (data->entry_text, str);
-		gtk_entry_set_text (GTK_ENTRY (data->entry_text), str_gtk);
+		gtk_entry_set_text (GTK_ENTRY (data->entry_text), str);
 		g_free (str);
-		g_free (str_gtk);
 	}
 
 	frame = gtk_frame_new (_("Click will follow this URL"));
@@ -129,9 +121,9 @@ link_widget (GtkHTMLEditLinkProperties *data, gboolean insert)
 		set_ui (data);
 	}
 
-	gtk_signal_connect (GTK_OBJECT (data->entry_text), "changed", changed, data);
-	gtk_signal_connect (GTK_OBJECT (data->entry_url), "changed", changed, data);
-	gtk_signal_connect (GTK_OBJECT (button), "clicked", test_clicked, data);
+	g_signal_connect (data->entry_text, "changed", G_CALLBACK (changed), data);
+	g_signal_connect (data->entry_url, "changed", G_CALLBACK (changed), data);
+	g_signal_connect (button, "clicked", G_CALLBACK (test_clicked), data);
 
 	gtk_widget_show_all (vbox);
 
@@ -170,13 +162,13 @@ link_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 	GtkHTMLEditLinkProperties *data = (GtkHTMLEditLinkProperties *) get_data;
 	HTMLEngine *e = data->cd->html->engine;
 
-	gchar *url;
+	const gchar *url;
 	gchar *target;
 
 	if (data->url_changed) {
 		gchar *url_copy;
 
-		url  = e_utf8_from_gtk_string (data->entry_url, gtk_entry_get_text (GTK_ENTRY (data->entry_url)));
+		url  = gtk_entry_get_text (GTK_ENTRY (data->entry_url));
 
 		target = strchr (url, '#');
 
@@ -184,7 +176,6 @@ link_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 		html_link_text_set_url (data->link, url_copy, target);
 		html_engine_update_insertion_url_and_target (e);
 		g_free (url_copy);
-		g_free (url);
 	}
 }
 
@@ -193,18 +184,15 @@ link_insert_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
 	GtkHTMLEditLinkProperties *data = (GtkHTMLEditLinkProperties *) get_data;
 	HTMLEngine *e = cd->html->engine;
-	gchar *url;
+	const gchar *url;
 	gchar *target;
-	gchar *text;
+	const gchar *text;
 
 	url  = gtk_entry_get_text (GTK_ENTRY (data->entry_url));
 	text = gtk_entry_get_text (GTK_ENTRY (data->entry_text));
 	if (url && text && *url && *text) {
 		HTMLObject *new_link;
 		gchar *url_copy;
-
-		url  = e_utf8_from_gtk_string (data->entry_url, url);
-		text = e_utf8_from_gtk_string (data->entry_text, text);
 
 		target = strchr (url, '#');
 
@@ -216,8 +204,6 @@ link_insert_cb (GtkHTMLControlData *cd, gpointer get_data)
 		html_engine_paste_object (e, new_link, g_utf8_strlen (text, -1));
 
 		g_free (url_copy);
-		g_free (url);
-		g_free (text);
 	}
 }
 

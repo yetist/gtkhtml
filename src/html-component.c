@@ -404,30 +404,26 @@ view_factory (GnomeEmbeddable *embeddable,
 	 * The "size_query" signal is raised when the container asks
 	 * the component what size it wants to be.
 	 */
-	gtk_signal_connect (GTK_OBJECT (view), "size_query",
-			    GTK_SIGNAL_FUNC (view_size_query_cb), view_data);
+	g_signal_connect (view, "size_query", G_CALLBACK (view_size_query_cb), view_data);
 
 
 	/*
 	 * When our container wants to activate a given view of this
 	 * component, we will get the "view_activate" signal.
 	 */
-	gtk_signal_connect (GTK_OBJECT (view), "view_activate",
-			    GTK_SIGNAL_FUNC (view_activate_cb), view_data);
+	g_signal_connect (view, "view_activate", G_CALLBACK (view_activate_cb), view_data);
 
 	/*
 	 * The "system_exception" signal is raised when the GnomeView
 	 * encounters a fatal CORBA exception.
 	 */
-	gtk_signal_connect (GTK_OBJECT (view), "system_exception",
-			    GTK_SIGNAL_FUNC (view_system_exception_cb), view_data);
+	g_signal_connect (view, "system_exception", G_CALLBACK (view_system_exception_cb), view_data);
 
 	/*
 	 * We'll need to be able to cleanup when this view gets
 	 * destroyed.
 	 */
-	gtk_signal_connect (GTK_OBJECT (view), "destroy",
-			    GTK_SIGNAL_FUNC (view_destroy_cb), view_data);
+	g_signal_connect (view, "destroy", G_CALLBACK (view_destroy_cb), view_data);
 
 	return view;
 }
@@ -573,8 +569,7 @@ embeddable_factory (GnomeEmbeddableFactory *this,
 	embeddable_data->embeddable = embeddable;
 	embeddable_data->stream = NULL;
 	embeddable_data->html = GTK_HTML (gtk_html_new (NULL, NULL));
-	gtk_signal_connect(GTK_OBJECT(embeddable_data->html), "url_requested",
-			   load_url, embeddable_data);
+	g_signal_connect (embeddable_data->html, "url_requested", G_CALLBACK (load_url), embeddable_data);
 	embeddable_data->views = 0;
 	stream = gnome_persist_stream_new ("embeddable:html-component",
 					   load_html_from_stream,
@@ -624,18 +619,14 @@ embeddable_factory (GnomeEmbeddableFactory *this,
 	 * embeddable_system_exception_cb() -- destroys the defunct
 	 * GnomeEmbeddable object.
 	 */
-	gtk_signal_connect (GTK_OBJECT (embeddable), "system_exception",
-			    GTK_SIGNAL_FUNC (embeddable_system_exception_cb),
-			    embeddable_data);
+	g_signal_connect (embeddable, "system_exception", G_CALLBACK (embeddable_system_exception_cb), embeddable_data);
 
 	/*
 	 * Catch the destroy signal so that we can free up resources.
 	 * When an Embeddable is destroyed, its views will
 	 * automatically be destroyed.
 	 */
-	gtk_signal_connect (GTK_OBJECT (embeddable), "destroy",
-			    GTK_SIGNAL_FUNC (embeddable_destroy_cb),
-			    embeddable_data);
+	g_signal_connect (embeddable, "destroy", G_CALLBACK (embeddable_destroy_cb), embeddable_data);
 
 	g_warning ("embeddable created OK");
 

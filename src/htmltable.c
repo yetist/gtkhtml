@@ -225,6 +225,67 @@ op_copy (HTMLObject *self, HTMLObject *parent, HTMLEngine *e, GList *from, GList
 	return HTML_OBJECT (nt);
 }
 
+static gint
+get_n_children (HTMLObject *self)
+{
+	HTMLTable *t = HTML_TABLE (self);
+	guint r, c, n_children = 0;
+
+	for (r = 0; r < t->totalRows; r++)
+		for (c = 0; c < t->totalCols; c++)
+			if (t->cells [r][c] && t->cells [r][c]->row == r && t->cells [r][c]->col == c)
+				n_children ++;
+
+	/* printf ("table n_children %d\n", n_children); */
+
+	return n_children;
+}
+
+static HTMLObject *
+get_child (HTMLObject *self, gint index)
+{
+	HTMLTable *t = HTML_TABLE (self);
+	HTMLObject *child = NULL;
+	guint r, c, n = 0;
+
+	for (r = 0; r < t->totalRows && !child; r++)
+		for (c = 0; c < t->totalCols; c++)
+			if (t->cells [r][c] && t->cells [r][c]->row == r && t->cells [r][c]->col == c) {
+				if (n == index) {
+					child = HTML_OBJECT (t->cells [r][c]);
+					break;
+				}
+				n ++;
+			}
+
+	/* printf ("table ref %d child %p\n", index, child); */
+
+	return child;
+}
+
+static gint
+get_child_index (HTMLObject *self, HTMLObject *child)
+{
+	HTMLTable *t = HTML_TABLE (self);
+	guint r, c;
+	gint n = 0;
+
+	for (r = 0; r < t->totalRows; r++)
+		for (c = 0; c < t->totalCols; c++) {
+			if (t->cells [r][c] && t->cells [r][c]->row == r && t->cells [r][c]->col == c) {
+				if (HTML_OBJECT (t->cells [r][c]) == child) {
+					/* printf ("table child %p index %d\n", child, n); */
+					return n;
+				}
+				n ++;
+			}
+		}
+
+	/* printf ("table child %p index %d\n", child, -1); */
+
+	return -1;
+}
+
 static guint
 get_recursive_length (HTMLObject *self)
 {
@@ -1101,9 +1162,6 @@ get_bounds (HTMLTable *table, gint x, gint y, gint width, gint height, gint *sc,
 {
 	g_return_if_fail (table->rowHeights);
 	g_return_if_fail (table->columnOpt);
-	g_return_if_fail (table->rowHeights->data);
-	g_return_if_fail (table->columnOpt->data);
-
 
 	*sr = to_index (bin_search_index (table->rowHeights, 0, table->totalRows, y), 0, table->totalRows - 1);
 	if (y < ROW_HEIGHT (table, *sr) && (*sr) > 0)
@@ -1738,14 +1796,9 @@ check_point (HTMLObject *self,
 	if (x < self->x || x >= self->x + self->width
 	    || y >= self->y + self->descent || y < self->y - self->ascent)
 		return NULL;
-	
+
 	table = HTML_TABLE (self);
 
-	if (!table->rowHeights->data || !table->columnOpt->data) {
-		g_warning ("HTMLTable::get_point called before HTMLTable::calc_size");
-		return NULL;
-	}
-	
 	x -= self->x;
 	y -= self->y - self->ascent;
 
@@ -2201,6 +2254,9 @@ html_table_class_init (HTMLTableClass *klass,
 	object_class->get_bg_color = get_bg_color;
 	object_class->get_recursive_length = get_recursive_length;
 	object_class->remove_child = remove_child;
+	object_class->get_n_children = get_n_children;
+	object_class->get_child = get_child;
+	object_class->get_child_index = get_child_index;
 
 	parent_class = &html_object_class;
 }
@@ -2298,21 +2354,17 @@ html_table_end_row (HTMLTable *table)
 	table->row++;
 }
 
-gint
+void
 html_table_end_table (HTMLTable *table)
 {
-	gint r, c, cells = 0;
+	gint r, c;
 
 	for (r = 0; r < table->totalRows; r ++)
 		for (c = 0; c < table->totalCols; c ++)
-			if (table->cells [r][c]) {
-				if (HTML_CLUE (table->cells [r][c])->head == NULL) {
-					HTMLTableCell *cell = table->cells [r][c];
+			if (table->cells [r][c] && HTML_CLUE (table->cells [r][c])->head == NULL) {
+				HTMLTableCell *cell = table->cells [r][c];
 
-					remove_cell (table, cell);
-					html_object_destroy (HTML_OBJECT (cell));
-				} else
-					cells ++;
+				remove_cell (table, cell);
+				html_object_destroy (HTML_OBJECT (cell));
 			}
-	return cells;
 }

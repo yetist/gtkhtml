@@ -59,8 +59,6 @@ binding "gtkhtml-bindings-emacs"
 
   bind "<Ctrl>k"              { "command" (cut-line) }
 
-  bind "<Ctrl>slash"	      { "command" (undo) }
-
   bind "<Ctrl><Alt>b"         { "command" (bold-toggle) }
   bind "<Ctrl><Alt>i"         { "command" (italic-toggle) }
   bind "<Ctrl><Alt>u"         { "command" (underline-toggle) }
@@ -124,17 +122,4 @@ binding "gtkhtml-bindings-emacs"
   bind "<Alt>BackSpace"      { "command" (backward-kill-word) }
 
   bind "<Ctrl>o"              { "command" (text-color-apply) }
-
-  bind "F12"                  { "command" (redo) }
-  bind "F14"                  { "command" (undo) }
-  bind "F16"                  { "command" (copy) }
-  bind "F18"                  { "command" (paste) }
-  bind "F20"                  { "command" (cut) }
-  
-# no bindings for these right now
-#  bind "F11"                  { "command" (stop) }
-#  bind "F13"                  { "command" (props) }
-#  bind "F17"                  { "command" (open) }
-#  bind "F15"                  { "command" (front) }
-#  bind "F19"		       { "command" (find) }
 }

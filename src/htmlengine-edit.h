@@ -23,7 +23,6 @@
 #define _HTMLENGINE_EDIT_H
 
 #include <glib.h>
-#include <gal/unicode/gunicode.h>
 
 #include "htmlengine.h"
 #include "htmlclueflow.h"
@@ -70,7 +69,7 @@ HTMLObject *               html_engine_new_link                   (HTMLEngine   
 								   gchar                     *url);
 gboolean                   html_engine_cursor_on_bop              (HTMLEngine                *e);
 guint                      html_engine_get_indent                 (HTMLEngine                *e);
-void                       html_engine_indent_paragraph           (HTMLEngine                *e);
+void                       html_engine_indent_pre_paragraph       (HTMLEngine                *e);
 void                       html_engine_indent_pre_line            (HTMLEngine                *e);
 void                       html_engine_fill_pre_line              (HTMLEngine                *e);
 void                       html_engine_space_and_fill_line        (HTMLEngine                *e);

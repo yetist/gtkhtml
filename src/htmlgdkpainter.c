@@ -24,17 +24,13 @@
 
 #include <string.h>
 #include <stdlib.h>
-#include <ctype.h>
 
 #include <glib.h>
 #include <gdk/gdkx.h>
 #include <gtk/gtksignal.h>
 
-#include <libgnome/gnome-defs.h>
 #include <libgnome/gnome-i18n.h>
 #include <libart_lgpl/art_rect.h>
-#include <gal/unicode/gunicode.h>
-#include <gal/widgets/e-font.h>
 
 #include "htmlentity.h"
 #include "htmlgdkpainter.h"
@@ -46,459 +42,78 @@
 
 static HTMLPainterClass *parent_class = NULL;
 
-static EFontStyle e_style (GtkHTMLFontStyle style);
-
-/* GtkObject methods.  */
+/* GObject methods.  */
 
 static void
-finalize (GtkObject *object)
+finalize (GObject *object)
 {
 	HTMLGdkPainter *painter;
 
 	painter = HTML_GDK_PAINTER (object);
 
-	if (painter->gc != NULL)
-		gdk_gc_destroy (painter->gc);
+	if (painter->gc != NULL) {
+		gdk_gc_unref (painter->gc);
+		painter->gc = NULL;
+	}
 
-	if (painter->pixmap != NULL)
+	if (painter->pixmap != NULL) {
 		gdk_pixmap_unref (painter->pixmap);
-
-	(* GTK_OBJECT_CLASS (parent_class)->finalize) (object);
-}
-
-static gchar *
-get_font_attr (gchar *font_name, gint pos)
-{
-	gchar *s, *end, *rv = NULL;
-	gint n;
-
-	/* Search paramether */
-	for (s=font_name, n=pos; n; n--,s++)
-		s = strchr (s,'-');
-
-	if (s && *s != 0) {
-		end = strchr (s, '-');
-		if (end)
-			rv = g_strndup (s, end - s);
+		painter->pixmap = NULL;
 	}
 
-	return rv;
+	if (painter->pc) {
+		g_object_unref (painter->pc);
+		painter->pc = NULL;
+	}
+
+	if (painter->layout) {
+		g_object_unref (painter->layout);
+		painter->layout = NULL;
+	}
+
+	if (G_OBJECT_CLASS (parent_class)->finalize) {
+		(* G_OBJECT_CLASS (parent_class)->finalize) (object);
+	}
 }
 
 static gint
-get_size (gchar *font_name, gboolean points)
+text_width (PangoLayout *layout, PangoFontDescription *desc, const gchar *text, gint bytes)
 {
-    gchar *s, *end;
-    gint n;
+	gint width;
 
-    /* Search paramether */
-    for (s=font_name, n=points ? 8 : 7; n; n--,s++)
-	    s = strchr (s,'-');
+	pango_layout_set_font_description (layout, desc);
+	pango_layout_set_text (layout, text, bytes);
+	pango_layout_get_size (layout, &width, NULL);
 
-    if (s && *s != 0) {
-	    end = strchr (s, '-');
-	    if (end) {
-		    *end = 0;
-		    n = atoi (s);
-		    *end = '-';
-		    return n;
-	    } else
-		    return 0;
-    } else
-	    return 0;
-}
-
-static gchar *
-font_name_substitute_attr (const gchar *name, gint nth, gchar *val)
-{
-	const gchar *s;
-	gchar *s1, *s2, *rv;
-
-	if (!name)
-		return NULL;
-
-	for (s = name; nth; nth--) {
-		s = strchr (s, '-');
-		if (!s)
-			return NULL;
-		s ++;
-	}
-	s2 = strchr (s, '-');
-	if (!s2)
-		return NULL;
-	s1 = g_strndup (name, s - name);
-
-	rv = g_strconcat (s1, val, s2, NULL);
-	g_free (s1);
-
-	return rv;
-}
-
-static GHashTable *cache_x_list_fonts_results = NULL;
-typedef struct _HTMLGdkPainterFontList
-{
-	gchar **list;
-	gint n;
-} HTMLGdkPainterFontList;
-
-static gint
-html_str_case_equal (gconstpointer v, gconstpointer v2)
-{
-	return strcasecmp ((const gchar*) v, (const gchar*)v2) == 0;
-}
-
-static guint
-html_str_case_hash (gconstpointer key)
-{
-  const char *p = key;
-  guint h = tolower (*p);
-  
-  if (h)
-    for (p += 1; *p != '\0'; p++)
-      h = (h << 5) - h + tolower (*p);
-  
-  return h;
-}
-
-static gchar **
-lookup_fonts (gchar *face, gint *n)
-{
-	HTMLGdkPainterFontList *fl;
-
-	if (!cache_x_list_fonts_results)
-		cache_x_list_fonts_results = g_hash_table_new (html_str_case_hash, html_str_case_equal);
-
-	fl = (HTMLGdkPainterFontList *) g_hash_table_lookup (cache_x_list_fonts_results, face);
-	if (!fl) {
-		GTimer *timer;
-		gdouble elapsed;
-
-		fl = g_new (HTMLGdkPainterFontList, 1);
-
-		timer = g_timer_new ();
-		g_timer_start (timer);
-		fl->list = XListFonts (GDK_DISPLAY (), face, 0x7fff, &fl->n);
-		elapsed = g_timer_elapsed (timer, NULL);
-		g_timer_destroy (timer);
-
-		if (!fl->list)
-			fl->n = 0;
-		printf ("(%1.4fs) [list] %s --> %d\n", elapsed, face, fl->n);
-		/* printf ("inserting %d results for %s\n", fl->n, face); */
-		/* {
-			gint i;
-			for (i = 0; i < fl->n; i ++)
-				printf ("\t%s\n", fl->list [i]);
-				} */
-		g_hash_table_insert (cache_x_list_fonts_results, g_strdup (face), fl);
-	} /* else
-	     printf ("%d results found in cache (%s)\n", fl->n, face); */
-
-	*n = fl->n;
-
-	return fl->list;
-}
-
-static gchar **
-filter_fonts_with_style (gchar **list, gint *n, gchar *weight, gchar *slant)
-{
-	if (*n) {
-		GSList *cur, *tmp_list = NULL;
-		gchar **filtered, *fw, *fs;
-		gint i, nf;
-
-		nf = 0;
-		for (i = 0; i < *n; i ++) {
-			fw = get_font_attr (list [i], 3);
-			fs = get_font_attr (list [i], 4);
-			if (fw && fs) {
-				if (!strcasecmp (fw, weight) && !strcasecmp (fs, slant)) {
-					tmp_list = g_slist_prepend (tmp_list, list [i]);
-					nf ++;
-				}
-			}
-			g_free (fw);
-			g_free (fs);
-		}
-
-		filtered = g_new (gchar *, nf);
-		for (i = 0, cur = tmp_list; cur; i++, cur = cur->next)
-			filtered [i] = (gchar *) cur->data;
-		g_slist_free (tmp_list);
-		*n = nf;
-
-		/* printf ("found %d fonts (%s,%s)\n", *n, weight, slant); */
-
-		return filtered;
-	}
-
-	return list;
-}
-
-static gchar *
-find_font_with_similar_size (gchar **list, gint n, gint size, gboolean points, gboolean smaller)
-{
-	if (n) {
-		gint i, small, large, as, small_idx, large_idx;
-
-		small = large = small_idx = large_idx = 0;
-		for (i = 0; i < n; i++) {
-			as = get_size (list [i], points);
-
-			if (as > size && (as < large || !large)) {
-				large = as;
-				large_idx = i;
-			} else if (as < size && (as > small || !small)) {
-				small = as;
-				small_idx = i;
-			}
-		}
-
-		if (!small && !large)
-			return NULL;
-		if (!small && large)
-			return list [large_idx];
-		if (small && !large)
-			return list [small_idx];
-		return list [smaller ? small_idx : large_idx];
-	}
-
-	return NULL;
-}
-
-static gpointer
-load_font_with_name (gchar *name)
-{
-	GdkFont *gdk_font;
-	gboolean need_fontset = FALSE;
-	gpointer font;
-	GTimer *timer;
-	gdouble elapsed;
-
-	if (strchr (name, ','))
-		need_fontset = TRUE;
-
-	timer = g_timer_new ();
-	g_timer_start (timer);
-	gdk_font = need_fontset ? gdk_fontset_load (name) : gdk_font_load (name);
-	elapsed = g_timer_elapsed (timer, NULL);
-	g_timer_destroy (timer);
-	printf ("(%1.4fs) [load] %s --> %p\n", elapsed, name, gdk_font);
-
-	if (gdk_font) {
-		font = e_font_from_gdk_font_gtkhtml (gdk_font);
-		gdk_font_unref (gdk_font);
-	} else
-		font = NULL;
-
-	return font;
-}
-
-static gchar *
-e_font_lookup_face (gchar *face, gint size, gboolean points, gchar *weight, gchar *slant,
-		    gboolean known_size, gboolean smaller)
-{
-	gchar *f1, *f2, *f3, *f4, **list, **filtered = NULL;
-	gchar *font_name = NULL;
-	gint n;
-
-	/* clear weight, slant and size */
-	f1 = font_name_substitute_attr (face, 7, "*");
-	f2 = font_name_substitute_attr (f1, 8, "*");
-	g_free (f1);
-	f3 = font_name_substitute_attr (f2, 3, "*");
-	g_free (f2);
-	f4 = font_name_substitute_attr (f3, 4, "*");
-	g_free (f3);
-
-	if (!f4) {
-		g_warning ("Don't know how to use face: %s", face ? face : "NULL");
-		return NULL;
-	}
-
-	list = lookup_fonts (f4, &n);
-	g_free (f4);
-
-	if (n == 0)
-		return NULL;
-
-	filtered = filter_fonts_with_style (list, &n, weight, slant);
-	if (n) {
-		gchar *name;
-		if (known_size) {
-
-
-			name = find_font_with_similar_size (filtered, n, size, points, smaller);
-			
-			if (name)
-				font_name = g_strdup (name);
-		} else {
-			gchar *s;
-
-			f1 = font_name_substitute_attr (face, 3, weight);
-			f2 = font_name_substitute_attr (f1,   4, slant);
-			if (!f2) {
-				g_warning ("Don't know how to use face: %s", face ? face : "NULL");
-				return NULL;
-			}
-			s    = g_strdup_printf ("%d", size);
-			name = font_name_substitute_attr (f2, points ? 8 : 7, s);
-			if (!name) {
-				g_warning ("Don't know how to use face: %s", face ? face : "NULL");
-				return NULL;
-			}
-			g_free (f1);
-			g_free (f2);
-			g_free (s);
-
-			font_name = name;
-		}
-
-	}
-	if (filtered != list)
-		g_free (filtered);
-
-	return font_name;
-}
-
-static gpointer
-e_font_from_face (gchar *face, gint size, gboolean points, gchar *weight, gchar *slant,
-		  gboolean known_size, gboolean smaller)
-{
-	gchar *better_name;
-	gchar **fontnames;
-	GString *newface;
-	gint i;
-	gpointer font = NULL;
-	gboolean found = FALSE;
-
-	newface = g_string_new ("");
-	fontnames = g_strsplit (face, ",", 50);
-	for (i = 0; fontnames && fontnames[i] != NULL; i++) {
-		char *name = g_strstrip (fontnames[i]);
-
-		better_name = e_font_lookup_face (name, size, points, weight, slant, known_size, smaller);
-		
-		if (i)
-			g_string_append (newface, ",");
-		
-		if (better_name) {
-			g_string_append (newface, better_name);
-			g_free (better_name);
-			found = TRUE;
-		} else {
-			g_string_append (newface, name);
-		}
-	}
-	g_strfreev (fontnames);
-	
-	if (found)
-		font = load_font_with_name (newface->str);
-	g_string_free (newface, TRUE);
-	
-	return font;
-}
-
-static GdkFont *
-get_fallback_gdk_font (void)
-{
-	static GdkFont *fallback_font = NULL;
-
-	if (!fallback_font) {
-		GtkWidget *tmp_window = gtk_window_new (GTK_WINDOW_POPUP);
-		gtk_widget_ensure_style (tmp_window);
-		fallback_font = gdk_font_ref (tmp_window->style->font);
-		gtk_widget_destroy (tmp_window);
-	}
-
-	return fallback_font;
-}
-
-static gpointer
-alloc_e_font_try (gchar *face, gdouble size, gboolean points, GtkHTMLFontStyle style,
-		  gchar *medium, gchar *bold, gchar *roman, gchar *italic, gboolean known_size)
-{
-	EFont *font;
-
-	/* printf ("alloc font %s %f\n", face, size); */
-
-	if (face) {
-		font = e_font_from_face (face, MAX (1, size), points,
-					 style & GTK_HTML_FONT_STYLE_BOLD ? bold : medium,
-					 style & GTK_HTML_FONT_STYLE_ITALIC ? italic : roman,
-					 known_size, (style & GTK_HTML_FONT_STYLE_SIZE_MASK) > GTK_HTML_FONT_STYLE_SIZE_3);
-	} else {
-		font = e_font_from_gdk_font (get_fallback_gdk_font ());
-	}
-
-	return font;
-}
-
-static EFont *
-try_font_possible_names (gchar *face, gdouble size, gboolean points,
-			 GtkHTMLFontStyle style, gboolean known)
-{
-	EFont *font;
-
-	font = alloc_e_font_try (face, size, points, style, "medium", "bold", "r", "i", known);
-	if (!font && style & GTK_HTML_FONT_STYLE_ITALIC)
-		font = alloc_e_font_try (face, size, points, style, "medium", "bold", "r", "o", known);
-	if (!font)
-		font = alloc_e_font_try (face, size, points, style, "book",   "demi", "r", "i", known);
-	if (!font && style & GTK_HTML_FONT_STYLE_ITALIC)
-		font = alloc_e_font_try (face, size, points, style, "book",   "demi", "r", "o", known);
-	if (!font)
-		font = alloc_e_font_try (face, size, points, style, "light",   "demibold", "r", "i", known);
-	if (!font && style & GTK_HTML_FONT_STYLE_ITALIC)
-		font = alloc_e_font_try (face, size, points, style, "light",   "demibold", "r", "o", known);
-
-	return font;
+	return width / PANGO_SCALE;
 }
 
 static HTMLFont *
-alloc_e_font_do (gchar *face, gdouble size, gboolean points, GtkHTMLFontStyle style)
+alloc_font (HTMLPainter *painter, gchar *face, gdouble size, gboolean points, GtkHTMLFontStyle style)
 {
-	EFont *font;
+	PangoFontDescription *desc;
 
-	font = try_font_possible_names (face, size, points, style, FALSE);
-	if (!font)
-		font = try_font_possible_names (face, size, points, style, TRUE);
+	desc = pango_font_description_new ();
+	pango_font_description_set_family (desc, face ? face : (style & GTK_HTML_FONT_STYLE_FIXED ? "Monospace" : "Sans"));
+	pango_font_description_set_size (desc, size * PANGO_SCALE);
+	pango_font_description_set_style (desc, style & GTK_HTML_FONT_STYLE_ITALIC ? PANGO_STYLE_ITALIC : PANGO_STYLE_NORMAL);
+	pango_font_description_set_weight (desc, style & GTK_HTML_FONT_STYLE_BOLD ? PANGO_WEIGHT_BOLD : PANGO_WEIGHT_NORMAL);
 
-	return font ? html_font_new (font,
-				     e_font_utf8_text_width (font, e_style (style), " ", 1),
-				     e_font_utf8_text_width (font, e_style (style), "\xc2\xa0", 2),
-				     e_font_utf8_text_width (font, e_style (style), "\t", 1))
-
-		: NULL;
-}
-
-static HTMLFont *
-alloc_e_font (gchar *face, gdouble size, gboolean points, GtkHTMLFontStyle style)
-{
-	HTMLFont *font;
-
-	font = alloc_e_font_do (face, size, points, style);
-	if (!font && style & GTK_HTML_FONT_STYLE_BOLD)
-		font = alloc_e_font_do (face, size, points, style & (~GTK_HTML_FONT_STYLE_BOLD));
-	if (!font && style & GTK_HTML_FONT_STYLE_ITALIC)
-		font = alloc_e_font_do (face, size, points, style & (~GTK_HTML_FONT_STYLE_ITALIC));
-	if (!font && style & GTK_HTML_FONT_STYLE_ITALIC && style & GTK_HTML_FONT_STYLE_BOLD)
-		font = alloc_e_font_do (face, size, points,
-					style & ((~GTK_HTML_FONT_STYLE_ITALIC) & (~GTK_HTML_FONT_STYLE_BOLD)));
-
-	return font;
+	return html_font_new (desc,
+			      text_width (HTML_GDK_PAINTER (painter)->layout, desc, " ", 1),
+			      text_width (HTML_GDK_PAINTER (painter)->layout, desc, "\xc2\xa0", 2),
+			      text_width (HTML_GDK_PAINTER (painter)->layout, desc, "\t", 1));
 }
 
 static void
-ref_font (HTMLFont *font)
+ref_font (HTMLPainter *painter, HTMLFont *font)
 {
-	e_font_ref ((EFont *) font->data);
 }
 
 static void
-unref_font (HTMLFont *font)
+unref_font (HTMLPainter *painter, HTMLFont *font)
 {
-	e_font_unref ((EFont *) font->data);
+	/* FIX2 stop leaking font description */
 }
 
 
@@ -543,9 +158,7 @@ begin (HTMLPainter *painter, int x1, int y1, int x2, int y2)
 	/* printf ("painter begin %d,%d %d,%d\n", x1, y1, x2, y2); */
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
-	g_return_if_fail (gdk_painter->window != NULL);
 	visual = gdk_window_get_visual (gdk_painter->window);
-	g_return_if_fail (visual != NULL);
 
 	if (gdk_painter->double_buffer){
 		const int width = x2 - x1 + 1;
@@ -588,21 +201,15 @@ end (HTMLPainter *painter)
 	if (! gdk_painter->double_buffer)
 		return;
 
-	gdk_draw_pixmap (gdk_painter->window, gdk_painter->gc,
-			 gdk_painter->pixmap,
-			 0, 0,
-			 gdk_painter->x1, gdk_painter->y1,
-			 gdk_painter->x2 - gdk_painter->x1,
-			 gdk_painter->y2 - gdk_painter->y1);
+	gdk_draw_drawable (gdk_painter->window, gdk_painter->gc,
+			   gdk_painter->pixmap,
+			   0, 0,
+			   gdk_painter->x1, gdk_painter->y1,
+			   gdk_painter->x2 - gdk_painter->x1,
+			   gdk_painter->y2 - gdk_painter->y1);
 
 	gdk_pixmap_unref (gdk_painter->pixmap);
 	gdk_painter->pixmap = NULL;
-}
-
-static HTMLFontManagerId
-get_font_manager_id ()
-{
-	return HTML_FONT_MANAGER_ID_GDK;
 }
 
 static void
@@ -857,32 +464,6 @@ draw_background (HTMLPainter *painter,
 	pw = gdk_pixbuf_get_width (pixbuf);
 	ph = gdk_pixbuf_get_height (pixbuf);
 
-	/* optimize out some special cases */
-	if (pw == 1 && ph == 1) {
-		GdkColor pixcol;
-		guchar *p;
-
-		p = gdk_pixbuf_get_pixels (pixbuf);
-		
-		if (!(gdk_pixbuf_get_has_alpha (pixbuf) && (p[3] < 0x80))) {
-			pixcol.red = p[0] * 0xff;
-			pixcol.green = p[1] * 0xff; 
-			pixcol.blue = p[2] * 0xff;
-			
-			html_painter_alloc_color (painter, &pixcol);
-			color = &pixcol;
-		}
-
-		if (color) {
-			gdk_gc_set_foreground (gdk_painter->gc, color);
-			gdk_draw_rectangle (gdk_painter->pixmap, gdk_painter->gc,
-					    TRUE, x - gdk_painter->x1, y - gdk_painter->y1,
-					    width, height);
-		}	
-		
-		return;
-	}
-
 	tile_width = (tile_x % pw) + width;
 	tile_height = (tile_y % ph) + height;
 
@@ -1038,7 +619,6 @@ draw_pixmap (HTMLPainter *painter,
 	gint orig_height;
 	gint paint_width;
 	gint paint_height;
-	gint bilinear;
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
 
@@ -1099,14 +679,6 @@ draw_pixmap (HTMLPainter *painter,
 	if (tmp_pixbuf == NULL)
 		return;
 
-	/* 
-	 * FIXME this is a hack to work around a gdk-pixbuf bug 
-	 * it could be removed when 
-	 * http://bugzilla.ximian.com/show_bug.cgi?id=12968
-	 * is fixed.
-	 */
-	bilinear = !((scale_width == 1) && (scale_height == 1));
-
 	gdk_pixbuf_composite (pixbuf, tmp_pixbuf,
 			      0,
 			      0,
@@ -1115,8 +687,7 @@ draw_pixmap (HTMLPainter *painter,
 			      (double)-(paint.y0 - image.y0),
 			      (gdouble) scale_width/ (gdouble) orig_width,
 			      (gdouble) scale_height/ (gdouble) orig_height,
-			      bilinear ? GDK_INTERP_BILINEAR : GDK_INTERP_NEAREST,
-			      255);
+			      GDK_INTERP_BILINEAR, 255);
 
 	if (color != NULL) {
 		guchar *p, *q;
@@ -1181,22 +752,11 @@ fill_rect (HTMLPainter *painter,
 			    width, height);
 }
 
-static EFontStyle
-e_style (GtkHTMLFontStyle style)
-{
-	EFontStyle rv = E_FONT_PLAIN;
-
-	if (style & GTK_HTML_FONT_STYLE_BOLD)   rv |= E_FONT_BOLD;
-	if (style & GTK_HTML_FONT_STYLE_ITALIC) rv |= E_FONT_ITALIC;
-
-	return rv;
-}
-
 static gint
 draw_spell_error (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len)
 {
+	PangoFontDescription *desc;
 	HTMLGdkPainter *gdk_painter;
-	EFont *e_font;
 	GdkGCValues values;
 	guint width;
 	gchar dash [2];
@@ -1206,9 +766,9 @@ draw_spell_error (HTMLPainter *painter, gint x, gint y, const gchar *text, gint 
 	x -= gdk_painter->x1;
 	y -= gdk_painter->y1;
 
-	e_font  = html_painter_get_font  (painter, painter->font_face, painter->font_style);
-	width   = e_font_utf8_text_width (e_font, e_style (painter->font_style), text,
-					  g_utf8_offset_to_pointer (text, len) - text);
+
+	desc  = html_painter_get_font  (painter, painter->font_face, painter->font_style);
+	width = text_width (gdk_painter->layout, desc, text, g_utf8_offset_to_pointer (text, len) - text);
 
 	gdk_gc_get_values (gdk_painter->gc, &values);
 	gdk_gc_set_fill (gdk_painter->gc, GDK_OPAQUE_STIPPLED);
@@ -1248,6 +808,45 @@ draw_text (HTMLPainter *painter,
 	   gint len)
 {
 	HTMLGdkPainter *gdk_painter;
+	PangoFontDescription *desc;
+	gint blen;
+
+	if (len == -1)
+		len = g_utf8_strlen (text, -1);
+
+	gdk_painter = HTML_GDK_PAINTER (painter);
+	desc = html_painter_get_font (painter, painter->font_face, painter->font_style);
+
+	pango_layout_set_font_description (gdk_painter->layout, desc);
+	blen = g_utf8_offset_to_pointer (text, len) - text;
+	pango_layout_set_text (gdk_painter->layout, text, blen);
+
+	x -= gdk_painter->x1;
+	y -= gdk_painter->y1;
+
+	gdk_draw_layout (gdk_painter->pixmap, gdk_painter->gc, x, y, gdk_painter->layout);
+
+	if (painter->font_style & (GTK_HTML_FONT_STYLE_UNDERLINE
+				   | GTK_HTML_FONT_STYLE_STRIKEOUT)) {
+		gint width, height;
+
+
+		pango_layout_get_size (gdk_painter->layout, &width, &height);
+		width /= PANGO_SCALE;
+		height /= PANGO_SCALE;
+
+		if (painter->font_style & GTK_HTML_FONT_STYLE_UNDERLINE)
+			gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc, 
+				       x, y + height - 2, 
+				       x + width, y + height - 2);
+
+		if (painter->font_style & GTK_HTML_FONT_STYLE_STRIKEOUT)
+			gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc, 
+				       x, y + height / 2, 
+				       x + width, y + height / 2);
+	}
+
+	/* HTMLGdkPainter *gdk_painter;
 	EFont *e_font;
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
@@ -1288,7 +887,7 @@ draw_text (HTMLPainter *painter,
 			gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc, 
 				       x, y - e_font_ascent (e_font) / 2, 
 				       x + width, y - e_font_ascent (e_font) / 2);
-	}
+				       } */
 }
 
 static void
@@ -1309,66 +908,59 @@ draw_shade_line (HTMLPainter *painter,
 	gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc, x, y + 1, x + width, y + 1);
 }
 
-static guint
-calc_ascent (HTMLPainter *painter, GtkHTMLFontStyle style, HTMLFontFace *face)
+static void
+calc_text_size (HTMLPainter *painter,
+		const gchar *text,
+		guint len,
+		GtkHTMLFontStyle style,
+		HTMLFontFace *face,
+		gint *width, gint *asc, gint *dsc)
 {
-	HTMLGdkPainter *gdk_painter;
-	EFont *e_font;
-
-	gdk_painter = HTML_GDK_PAINTER (painter);
-
-	e_font = html_painter_get_font (painter, face, style);
-	if (e_font == NULL)
-		return 0;
-
-	return e_font_ascent (e_font);
-}
-
-static guint
-calc_descent (HTMLPainter *painter, GtkHTMLFontStyle style, HTMLFontFace *face)
-{
-	HTMLGdkPainter *gdk_painter;
-	EFont *e_font;
-
-	gdk_painter = HTML_GDK_PAINTER (painter);
-
-	e_font = html_painter_get_font (painter, face, style);
-	if (e_font == NULL)
-		return 0;
-
-	return e_font_descent (e_font);
-}
-
-static guint
-calc_text_width (HTMLPainter *painter,
-		 const gchar *text,
-		 guint len,
-		 GtkHTMLFontStyle style,
-		 HTMLFontFace *face)
-{
-	HTMLGdkPainter *gdk_painter;
 	HTMLFont *font;
-	EFont *e_font;
-	gint width;
+	HTMLGdkPainter *gdk_painter;
+	PangoRectangle logical_rect;
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
-	font = html_painter_get_html_font (painter, face, style);
-	e_font = font->data;
+	font = html_font_manager_get_font (&painter->font_manager, face, style);
 
-	width = e_font_utf8_text_width (e_font, e_style (style), text, g_utf8_offset_to_pointer (text, len) - text);
+	pango_layout_set_font_description (gdk_painter->layout, (const PangoFontDescription *) font->data);
+	pango_layout_set_text (gdk_painter->layout, text, g_utf8_offset_to_pointer (text, len) - text);
+	pango_layout_get_extents (gdk_painter->layout, NULL, &logical_rect);
 
-	/* printf ("calc_text_width text: %s len: %d\n", text, len);
-	{ gint i; printf ("["); for (i=0;i<g_utf8_offset_to_pointer (text, len)-text; i++)
-	printf ("%c", text [i]); printf ("] ");}
-	printf ("%d (%p)\n", width, e_font); */
-	return width;
+	*width = logical_rect.width / PANGO_SCALE;
+
+	*asc = PANGO_ASCENT (logical_rect) / PANGO_SCALE;
+	*dsc = PANGO_DESCENT (logical_rect) / PANGO_SCALE;
+	//*asc = ((3 * logical_rect.height) / 4) / PANGO_SCALE;
+	//*dsc = (logical_rect.height / PANGO_SCALE) - *asc;
 }
 
-static guint
-calc_text_width_bytes (HTMLPainter *painter, const gchar *text,
-		       guint bytes_len, HTMLFont *font, GtkHTMLFontStyle style)
+static void
+calc_text_size_bytes (HTMLPainter *painter, const gchar *text,
+		      guint bytes_len, HTMLFont *font, GtkHTMLFontStyle style,
+		      gint *width, gint *asc, gint *dsc)
 {
-	return e_font_utf8_text_width (font->data, e_style (style), text, bytes_len);
+	/* if (style & GTK_HTML_FONT_STYLE_FIXED) {
+		return g_utf8_pointer_to_offset (text, text + bytes_len) * font->space_width;
+	} else {
+		return e_font_utf8_text_width (font->data, e_style (style),
+					       text, bytes_len);
+					       } */
+	HTMLGdkPainter *gdk_painter;
+	PangoRectangle logical_rect;
+
+	gdk_painter = HTML_GDK_PAINTER (painter);
+
+	pango_layout_set_font_description (gdk_painter->layout, (const PangoFontDescription *) font->data);
+	pango_layout_set_text (gdk_painter->layout, text, bytes_len);
+	pango_layout_get_extents (gdk_painter->layout, NULL, &logical_rect);
+
+	*width = logical_rect.width / PANGO_SCALE;
+	*asc = PANGO_ASCENT (logical_rect) / PANGO_SCALE;
+	*dsc = PANGO_DESCENT (logical_rect) / PANGO_SCALE;
+
+	//*asc = ((3 * logical_rect.height) / 4) / PANGO_SCALE;
+	//*dsc = (logical_rect.height / PANGO_SCALE) - *asc;
 }
 
 static guint
@@ -1399,7 +991,7 @@ init_color (GdkColor *color, gushort red, gushort green, gushort blue)
 }
 
 static void
-init (GtkObject *object)
+html_gdk_painter_init (GObject *object)
 {
 	HTMLGdkPainter *gdk_painter;
 
@@ -1423,25 +1015,24 @@ init (GtkObject *object)
 }
 
 static void
-class_init (GtkObjectClass *object_class)
+html_gdk_painter_class_init (GObjectClass *object_class)
 {
 	HTMLPainterClass *painter_class;
 
 	painter_class = HTML_PAINTER_CLASS (object_class);
 
 	object_class->finalize = finalize;
+	parent_class = g_type_class_ref (HTML_TYPE_PAINTER);
 
 	painter_class->begin = begin;
 	painter_class->end = end;
-	painter_class->alloc_font = alloc_e_font;
+	painter_class->alloc_font = alloc_font;
 	painter_class->ref_font   = ref_font;
 	painter_class->unref_font = unref_font;
 	painter_class->alloc_color = alloc_color;
 	painter_class->free_color = free_color;
-	painter_class->calc_ascent = calc_ascent;
-	painter_class->calc_descent = calc_descent;
-	painter_class->calc_text_width = calc_text_width;
-	painter_class->calc_text_width_bytes = calc_text_width_bytes;
+	painter_class->calc_text_size = calc_text_size;
+	painter_class->calc_text_size_bytes = calc_text_size_bytes;
 	painter_class->set_pen = set_pen;
 	painter_class->get_black = get_black;
 	painter_class->draw_line = draw_line;
@@ -1461,43 +1052,43 @@ class_init (GtkObjectClass *object_class)
 	painter_class->draw_embedded = draw_embedded;
 	painter_class->get_page_width = get_page_width;
 	painter_class->get_page_height = get_page_height;
-	painter_class->get_font_manager_id = get_font_manager_id;
-
-	parent_class = gtk_type_class (html_painter_get_type ());
 }
 
-GtkType
+GType
 html_gdk_painter_get_type (void)
 {
-	static GtkType type = 0;
+	static GType html_gdk_painter_type = 0;
 
-	if (type == 0) {
-		static const GtkTypeInfo info = {
-			"HTMLGdkPainter",
-			sizeof (HTMLGdkPainter),
+	if (html_gdk_painter_type == 0) {
+		static const GTypeInfo html_gdk_painter_info = {
 			sizeof (HTMLGdkPainterClass),
-			(GtkClassInitFunc) class_init,
-			(GtkObjectInitFunc) init,
-			/* reserved_1 */ NULL,
-			/* reserved_2 */ NULL,
-			(GtkClassInitFunc) NULL,
+			NULL,
+			NULL,
+			(GClassInitFunc) html_gdk_painter_class_init,
+			NULL,
+			NULL,
+			sizeof (HTMLGdkPainter),
+			1,
+			(GInstanceInitFunc) html_gdk_painter_init,
 		};
-
-		type = gtk_type_unique (HTML_TYPE_PAINTER, &info);
+		html_gdk_painter_type = g_type_register_static (HTML_TYPE_PAINTER, "HTMLGdkPainter",
+								&html_gdk_painter_info, 0);
 	}
 
-	return type;
+	return html_gdk_painter_type;
 }
 
-
 HTMLPainter *
-html_gdk_painter_new (gboolean double_buffer)
+html_gdk_painter_new (GtkWidget *widget, gboolean double_buffer)
 {
 	HTMLGdkPainter *new;
 
-	new = gtk_type_new (html_gdk_painter_get_type ());
+	new = g_object_new (HTML_TYPE_GDK_PAINTER, NULL);
 
 	new->double_buffer = double_buffer;
+	new->pc = gtk_widget_get_pango_context (widget);
+	new->layout = pango_layout_new (new->pc);
+	g_object_ref (new->pc);
 
 	return HTML_PAINTER (new);
 }

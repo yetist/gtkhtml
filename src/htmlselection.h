@@ -52,6 +52,5 @@ void      html_engine_unblock_selection              (HTMLEngine   *e);
 gboolean  html_selection_word                        (gunichar      uc);
 gboolean  html_selection_spell_word                  (gunichar      uc,
 						      gboolean     *cited);
-guint32   html_selection_current_time                (void);
 
 #endif

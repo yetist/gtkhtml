@@ -47,6 +47,7 @@ binding "gtkhtml-bindings-ms"
   bind "<Ctrl>b"              { "command" (bold-toggle) }
   bind "<Ctrl>i"              { "command" (italic-toggle) }
   bind "<Ctrl>u"              { "command" (underline-toggle) }
+  bind "<Ctrl>s"              { "command" (strikeout-toggle) }
 
   bind "<Ctrl>z"              { "command" (undo) }
   bind "<Ctrl>r"              { "command" (redo) }
@@ -117,18 +118,4 @@ binding "gtkhtml-bindings-ms"
 
   bind "<Ctrl>Delete"         { "command" (kill-word) }
   bind "<Ctrl>BackSpace"      { "command" (backward-kill-word) }
-
-# Sun Edit Keys
-  bind "F12"                  { "command" (redo) }
-  bind "F14"                  { "command" (undo) }
-  bind "F16"                  { "command" (copy) }
-  bind "F18"                  { "command" (paste) }
-  bind "F20"                  { "command" (cut) }
-  
-# no bindings for these right now
-#  bind "F11"                  { "command" (stop) }
-#  bind "F13"                  { "command" (props) }
-#  bind "F17"                  { "command" (open) }
-#  bind "F15"                  { "command" (front) }
-#  bind "F19"		       { "command" (find) }
 }

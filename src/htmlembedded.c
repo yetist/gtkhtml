@@ -70,9 +70,9 @@ draw (HTMLObject *o,
 	if (!element->widget)
 		return;
 
-	if (element->parent) {
-		new_x = GTK_LAYOUT (element->parent)->hadjustment->value + o->x + tx;
-		new_y = GTK_LAYOUT (element->parent)->vadjustment->value + o->y + ty - o->ascent;
+	if (element->widget) {
+		new_x = o->x + tx;
+		new_y = o->y + ty - o->ascent;
 		
 		if (element->widget->parent) {
 			if (new_x != element->abs_x || new_y != element->abs_y)
@@ -80,10 +80,8 @@ draw (HTMLObject *o,
 			else
 				gtk_widget_queue_draw (element->widget);
 		}
-	
 		element->abs_x = new_x;
 		element->abs_y = new_y;
-		
 		if (!element->widget->parent)
 			gtk_layout_put (GTK_LAYOUT(element->parent), element->widget, new_x, new_y);
 	}
@@ -104,9 +102,9 @@ destroy (HTMLObject *o)
 		g_free(element->value);
 	if(element->widget) {
 		gtk_widget_hide (element->widget);
-		gtk_signal_disconnect_by_data (GTK_OBJECT (element->widget), element);
+		g_signal_handlers_disconnect_matched (element->widget, G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, element);
 		if (element->changed_id > 0)
-			gtk_signal_disconnect (GTK_OBJECT (element->widget), element->changed_id);
+			g_signal_handler_disconnect (element->widget, element->changed_id);
 		gtk_object_set_data (GTK_OBJECT (element->widget), "embeddedelement", NULL);
 		if (element->widget->parent && element->parent) {
 			g_assert (element->widget->parent == element->parent);
@@ -182,32 +180,17 @@ calc_size (HTMLObject *self, HTMLPainter *painter, GList **changed_objs)
 	return FALSE;
 }
 
-static gboolean
-accepts_cursor (HTMLObject *o)
+
+void
+html_embedded_reset (HTMLEmbedded *e)
 {
-	return TRUE;
-}
-
-static void
-reparent (HTMLEmbedded *e, GtkWidget *new_parent)
-{
-	e->parent = new_parent;
-	gtk_widget_ref (e->widget);
-	gtk_widget_unparent (e->widget);
-	gtk_layout_put (GTK_LAYOUT(e->parent), e->widget, 0, 0);
-	gtk_widget_unref (e->widget);
+	HTML_EMBEDDED_CLASS (HTML_OBJECT (e)->klass)->reset (e);
 }
 
 static gchar *
 encode (HTMLEmbedded *e)
 {
 	return g_strdup ("");
-}
-
-void
-html_embedded_reset (HTMLEmbedded *e)
-{
-	HTML_EMBEDDED_CLASS (HTML_OBJECT (e)->klass)->reset (e);
 }
 
 gchar *
@@ -217,19 +200,13 @@ html_embedded_encode (HTMLEmbedded *e)
 }
 
 void
-html_embedded_reparent (HTMLEmbedded *e, GtkWidget *new_parent)
-{
-	HTML_EMBEDDED_CLASS (HTML_OBJECT (e)->klass)->reparent (e, new_parent);
-}
-
-void
 html_embedded_set_form (HTMLEmbedded *e, HTMLForm *form)
 {
 	e->form = form;
 }
 
 gchar *
-html_embedded_encode_string (gchar *str)
+html_embedded_encode_string (const gchar *str)
 {
         static gchar *safe = "$-._!*(),"; /* RFC 1738 */
         unsigned pos = 0;
@@ -293,13 +270,11 @@ html_embedded_class_init (HTMLEmbeddedClass *klass,
 	/* HTMLEmbedded methods.   */
 	klass->reset = reset;
 	klass->encode = encode;
-	klass->reparent = reparent;
 
 	/* HTMLObject methods.   */
 	object_class->destroy = destroy;
 	object_class->copy = copy;
 	object_class->draw = draw;
-	object_class->accepts_cursor = accepts_cursor;
 	object_class->calc_size = calc_size;
 	object_class->calc_min_width = calc_min_width;
 
@@ -349,7 +324,7 @@ html_embedded_object_changed (GtkHTMLEmbedded *eb, HTMLEngine *e)
 {
 	HTMLObject *object;
 
-	object = gtk_object_get_data(GTK_OBJECT(eb), "embeddedelement");
+	object = HTML_OBJECT (gtk_object_get_data (GTK_OBJECT (eb), "embeddedelement"));
 	if (object)
 		html_object_calc_size (object, e->painter, FALSE);
 	
@@ -368,9 +343,8 @@ html_embedded_new_widget (GtkWidget *parent, GtkHTMLEmbedded *eb, HTMLEngine *en
 	/* pass em as the user_data so that the handler will disconnect 
 	 * when the object is destoyed
 	 */
-	gtk_signal_connect(GTK_OBJECT(eb), "button_press_event",
-			   GTK_SIGNAL_FUNC(html_embedded_grab_cursor), em);
-	em->changed_id = gtk_signal_connect (GTK_OBJECT (eb), "changed", html_embedded_object_changed, engine);
+	g_signal_connect(eb, "button_press_event", G_CALLBACK (html_embedded_grab_cursor), em);
+	em->changed_id = g_signal_connect (eb, "changed", G_CALLBACK (html_embedded_object_changed), engine);
 	/* printf ("id %u\n", em->changed_id); */
 
 	return em;
@@ -397,10 +371,9 @@ html_embedded_set_widget (HTMLEmbedded *emb, GtkWidget *w)
 	emb->widget = w;
 	
 	gtk_widget_show (w);
-	
+
 	gtk_object_set_data (GTK_OBJECT (w), "embeddedelement", emb);
-	gtk_signal_connect (GTK_OBJECT (w), "size_allocate",
-			    GTK_SIGNAL_FUNC (html_embedded_allocate), emb);
+	g_signal_connect (w, "size_allocate", G_CALLBACK (html_embedded_allocate), emb);
 }
 
 GtkWidget *
@@ -427,8 +400,6 @@ html_object_is_embedded (HTMLObject *o)
 	case HTML_TYPE_IFRAME:
 	case HTML_TYPE_FRAME:
 		rv = TRUE;
-	default:
-		;
 	}
 
 	return rv;

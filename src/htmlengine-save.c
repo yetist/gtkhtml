@@ -26,7 +26,7 @@
 
 #include <config.h>
 #include <string.h>
-#include <gal/unicode/gunicode.h>
+
 #include "config.h"
 #include "htmlcolor.h"
 #include "htmlengine.h"
@@ -161,20 +161,7 @@ html_engine_save_encode_string (HTMLEngineSaveState *state,
 	return html_engine_save_encode (state, s, len);
 }
 
-gboolean
-html_engine_save_output_stringv (HTMLEngineSaveState *state,
-				 const char *format,
-				 va_list ap)
-{
-	char *string;
-	gboolean retval;
 
-	string = g_strdup_vprintf (format, ap);
-	retval = state->receiver (state->engine, string, strlen (string), state->user_data);
-	g_free (string);
-
-	return retval;
-}
 
 gboolean
 html_engine_save_output_string (HTMLEngineSaveState *state,
@@ -182,15 +169,19 @@ html_engine_save_output_string (HTMLEngineSaveState *state,
 				...)
 {
   va_list args;
+  gchar *string;
   gboolean retval;
   
   g_return_val_if_fail (format != NULL, FALSE);
   g_return_val_if_fail (state != NULL, FALSE);
   
   va_start (args, format);
-  retval = html_engine_save_output_stringv (state, format, args);
+  string = g_strdup_vprintf (format, args);
   va_end (args);
   
+  retval = state->receiver (state->engine, string, strlen (string), state->user_data);
+
+  g_free (string);
   return retval;
 }
 
@@ -310,7 +301,6 @@ html_engine_save (HTMLEngine *engine,
 	state.receiver = receiver;
 	state.br_count = 0;
 	state.error = FALSE;
-	state.inline_frames = FALSE;
 	state.user_data = user_data;
 	state.last_level = 0;
 
@@ -345,7 +335,6 @@ html_engine_save_plain (HTMLEngine *engine,
 	state.receiver = receiver;
 	state.br_count = 0;
 	state.error = FALSE;
-	state.inline_frames = FALSE;
 	state.user_data = user_data;
 	state.last_level = 0;
 
@@ -393,7 +382,7 @@ html_engine_save_buffer_peek_text (HTMLEngineSaveState *state)
 }
 
 HTMLEngineSaveState *
-html_engine_save_buffer_new (HTMLEngine *engine, gboolean inline_frames)
+html_engine_save_buffer_new (HTMLEngine *engine)
 {
 	HTMLEngineSaveState *state = g_new0 (HTMLEngineSaveState, 1);
 
@@ -402,7 +391,6 @@ html_engine_save_buffer_new (HTMLEngine *engine, gboolean inline_frames)
 		state->receiver = (HTMLEngineSaveReceiverFn)html_engine_save_buffer_receiver;
 		state->br_count = 0;
 		state->error = FALSE;
-		state->inline_frames = inline_frames;
 		state->user_data = (gpointer) g_string_new ("");
 		state->last_level = 0;
 	}

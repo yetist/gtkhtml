@@ -144,7 +144,7 @@ gtk_html_debug_dump_object (HTMLObject *obj,
 
 	if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_CLUEFLOW)
 		g_print (" [%s, %d]",
-			 clueflow_style_to_string (HTML_CLUEFLOW (obj)->style), HTML_CLUEFLOW (obj)->levels->len);
+			 clueflow_style_to_string (HTML_CLUEFLOW (obj)->style), HTML_CLUEFLOW (obj)->level);
 	else if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_TEXTSLAVE) {
 		gchar *sl_text = g_strndup (html_text_get_text (HTML_TEXT (HTML_TEXT_SLAVE (obj)->owner),
 								HTML_TEXT_SLAVE (obj)->posStart),

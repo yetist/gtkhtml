@@ -25,9 +25,7 @@
 #include "htmlbutton.h"
 #include "htmlform.h"
 #include <string.h>
-#include <libgnome/gnome-defs.h>
 #include <libgnome/gnome-i18n.h>
-#include <gal/widgets/e-unicode.h>
 
 HTMLButtonClass html_button_class;
 
@@ -134,12 +132,7 @@ html_button_init (HTMLButton *button,
 	html_embedded_init (element, HTML_EMBEDDED_CLASS (klass), parent, name, value);
 	
 	if( strlen (element->value)) {
-		char *gtk_str;
-
-		gtk_str = e_utf8_to_gtk_string (parent, element->value);
-		widget = gtk_button_new_with_label (gtk_str);
-		g_free (gtk_str);
-
+		widget = gtk_button_new_with_label (element->value);
 	} else {
 		switch(type) {
 		case BUTTON_NORMAL:
@@ -158,8 +151,7 @@ html_button_init (HTMLButton *button,
 
 	html_embedded_set_widget (element, widget);
 
-	gtk_signal_connect (GTK_OBJECT (widget), "clicked",
-                            GTK_SIGNAL_FUNC (clicked_event), button);
+	g_signal_connect (widget, "clicked", G_CALLBACK (clicked_event), button);
 
 	button->type = type;
 	button->successful = FALSE;

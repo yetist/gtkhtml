@@ -44,8 +44,7 @@ enum _GtkHTMLEditPropertyType {
 
 GtkHTMLEditPropertiesDialog * gtk_html_edit_properties_dialog_new          (GtkHTMLControlData *cd,
 									    gboolean insert,
-									    gchar *title,
-									    gchar *icon_path);
+									    gchar *title);
 void                          gtk_html_edit_properties_dialog_destroy      (GtkHTMLEditPropertiesDialog *d);
 
 void                          gtk_html_edit_properties_dialog_add_entry    (GtkHTMLEditPropertiesDialog *d,

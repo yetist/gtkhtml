@@ -249,7 +249,11 @@ struct _HTMLObjectClass {
 	HTMLObject * (* head)            (HTMLObject *self);
 	HTMLObject * (* tail)            (HTMLObject *self);
 
-	HTMLClearType (* get_clear) (HTMLObject *self);
+	HTMLClearType (* get_clear)      (HTMLObject *self);
+
+	gint (* get_n_children)          (HTMLObject *self);
+	HTMLObject * (* get_child)       (HTMLObject *self, gint index);
+	gint (* get_child_index)         (HTMLObject *self, HTMLObject *child);
 };
 
 
@@ -511,6 +515,10 @@ void  html_object_change_set_down  (HTMLObject      *self,
 void      html_object_set_data               (HTMLObject          *object,
 					      const gchar         *key,
 					      const gchar         *value);
+void      html_object_set_data_full          (HTMLObject          *object,
+					      const gchar         *key,
+					      const gpointer       value,
+					      GDestroyNotify       func);
 gpointer  html_object_get_data               (HTMLObject          *object,
 					      const gchar         *key);
 void      html_object_copy_data_from_object  (HTMLObject          *dst,
@@ -557,6 +565,10 @@ gboolean  html_object_engine_intersection  (HTMLObject *o,
 
 void  html_object_add_to_changed  (GList      **changed_objs,
 				   HTMLObject  *o);
+
+gint html_object_get_n_children (HTMLObject *self);
+HTMLObject * html_object_get_child (HTMLObject *self, gint index);
+gint html_object_get_child_index (HTMLObject *self, HTMLObject *child);
 
 HTMLClearType html_object_get_clear (HTMLObject *self);
 

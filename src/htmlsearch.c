@@ -30,7 +30,7 @@
 */
 
 #include <config.h>
-#include <gal/unicode/gunicode.h>
+
 #include "htmlsearch.h"
 #include "htmlobject.h"
 #include "htmlentity.h"
@@ -76,12 +76,7 @@ html_search_new (HTMLEngine *e, const gchar *text, gboolean case_sensitive, gboo
 	for (i=0; i<256; i++) {
 		ns->trans [i] = (case_sensitive) ? i : ((i>='A' && i<='Z') ? i+('a'-'A') : i);
 	}
-	/* 
-	 * FIXME translating &nbsp; breaks horribly
-	 * with utf8 and nonutf8 regex (see bug #24446)
-	 * so we won't do it
-	 */
-	/* ns->trans [ENTITY_NBSP] = ' '; */
+	ns->trans [ENTITY_NBSP] = ' ';
 
 	ns->regular = regular;
 	if (regular) {
@@ -103,7 +98,7 @@ html_search_new (HTMLEngine *e, const gchar *text, gboolean case_sensitive, gboo
 		rv_int = regcomp (ns->reb, ns->text, (case_sensitive) ? 0 : REG_ICASE);
 		if (rv_int) {
 			char buf[1024];
-			if (regerror(rv_int, ns->reb, &buf, sizeof(buf))) {
+			if (regerror(rv_int, ns->reb, buf, sizeof(buf))) {
 				g_warning (buf);
 			} else {
 				g_warning ("regcomp failed, error code %d", rv_int);

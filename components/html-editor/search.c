@@ -21,9 +21,6 @@
 */
 
 #include <config.h>
-#include <gal/widgets/e-unicode.h>
-#include <gnome.h>
-#include <libgnomeui/gnome-window-icon.h>
 #include "search.h"
 #include "dialog.h"
 #include "htmlengine-search.h"
@@ -41,13 +38,9 @@ struct _GtkHTMLSearchDialog {
 static void
 search_cb (GtkWidget *but, GtkHTMLSearchDialog *d)
 {
-	char *text;
-
-	text = e_utf8_gtk_entry_get_text (GTK_ENTRY (d->entry));
-	html_engine_search (d->html->engine, text,
+	html_engine_search (d->html->engine, gtk_entry_get_text (GTK_ENTRY (d->entry)),
 			    GTK_TOGGLE_BUTTON (d->case_sensitive)->active,
 			    GTK_TOGGLE_BUTTON (d->backward)->active == 0, d->regular);
-	g_free (text);
 }
 
 static void
@@ -84,20 +77,16 @@ gtk_html_search_dialog_new (GtkHTML *html)
 	gtk_box_pack_start_defaults (GTK_BOX (dialog->dialog->vbox), hbox);
 	gtk_widget_show (dialog->entry);
 	gtk_widget_show_all (hbox);
-	
-	gnome_window_icon_set_from_file (GTK_WINDOW (dialog->dialog), ICONDIR "/search-24.png");
 
-	gnome_dialog_button_connect (dialog->dialog, 0, search_cb, dialog);
+	gnome_dialog_button_connect (dialog->dialog, 0, GTK_SIGNAL_FUNC (search_cb), dialog);
 	gnome_dialog_close_hides (dialog->dialog, TRUE);
 	gnome_dialog_set_close (dialog->dialog, TRUE);
 
 	gnome_dialog_set_default (dialog->dialog, 0);
 	gtk_widget_grab_focus (dialog->entry);
 
-	gtk_signal_connect (GTK_OBJECT (dialog->entry), "changed",
-			    entry_changed, dialog);
-	gtk_signal_connect (GTK_OBJECT (dialog->entry), "activate",
-			    entry_activate, dialog);
+	g_signal_connect (dialog->entry, "changed", G_CALLBACK (entry_changed), dialog);
+	g_signal_connect (dialog->entry, "activate", G_CALLBACK (entry_activate), dialog);
 
 	return dialog;
 }

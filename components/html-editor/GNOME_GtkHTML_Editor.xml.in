@@ -7,8 +7,7 @@
 			<cmd name="EditCut" _label="Cu_t" _tip="Cut the selection"/>
 			<cmd name="EditCopy" _label="_Copy" _tip="Copy the selection"/>
 			<cmd name="EditPaste" _label="_Paste" _tip="Paste the clipboard"/>
-			<cmd name="EditPasteQuotation" _label="Paste _Quotation" _tip="Paste the clipboard as a quotation"/>
-
+	
 			<cmd name="EditFind" _label="_Find..." _tip="Find"/>
 			<cmd name="EditFindRegex" _label="Find Regular E_xpression..." _tip="Find A Regular Expression"/>
 			<cmd name="EditFindAgain" _label="Find _Again" _tip="Find again"/>
@@ -94,8 +93,9 @@
 			<cmd name="FormatBold" _label="_Bold" type="toggle" accel="*Ctrl*b"/>
 			<cmd name="FormatItalic" _label="_Italic" type="toggle" accel="*Ctrl*i"/>
 			<cmd name="FormatUnderline" _label="_Underline" type="toggle" accel="*Ctrl*u"/>
-			<cmd name="FormatStrikeout" _label="Strikeout" type="toggle"/>
-			<cmd name="FormatFixed" _label="Typewriter" type="toggle" accel="*Ctrl*t"/>
+			<cmd name="FormatStrikeout" _label="Strikeout" type="toggle" accel="*Ctrl*s"/>
+			<cmd name="FormatFixed" _label="Typewriter" type="toggle" accel="*Ctrl*t"
+				pixtype="filename" pixname="@ICONSDIR@/font-tt-16.png"/>
 			<cmd name="FormatSubscript" _label="Subscript" type="toggle"/>
 			<cmd name="FormatSuperscript" _label="Superscript" type="toggle"/>
 
@@ -122,7 +122,6 @@
                                      pixtype="filename" pixname="@ICONSDIR@/16_copy.png"/>
 				     <menuitem name="EditPaste" verb="" accel="*Ctrl*V"
                                      pixtype="filename" pixname="@ICONSDIR@/16_paste.png"/>
-				     <menuitem name="EditPasteQuotation" verb=""/>
 				     <separator/>
 				     <menuitem name="EditSelectAll" verb="" accel="*Ctrl*A"/>
 			</placeholder>

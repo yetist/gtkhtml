@@ -24,22 +24,23 @@
 #ifndef _HTMLENGINE_H_
 #define _HTMLENGINE_H_
 
+#include <glib-object.h>
 #include <gdk/gdktypes.h>
-#include <gtk/gtkobject.h>
 #include <gtk/gtkwidget.h>
 #include "gtkhtml-types.h"
 
 #include "htmltypes.h"
 #include "htmlenums.h"
 #include "htmlcursor.h"
-#include "htmlfontmanager.h"
 
+
 #define HTML_TYPE_ENGINE                 (html_engine_get_type ())
-#define HTML_ENGINE(obj)                 (GTK_CHECK_CAST ((obj), HTML_TYPE_ENGINE, HTMLEngine))
-#define HTML_ENGINE_CLASS(klass)         (GTK_CHECK_CLASS_CAST ((klass), HTML_TYPE_ENGINE, HTMLEngineClass))
-#define HTML_IS_ENGINE(obj)              (GTK_CHECK_TYPE ((obj), HTML_TYPE_ENGINE))
-#define HTML_IS_ENGINE_CLASS(klass)      (GTK_CHECK_CLASS_TYPE ((klass), HTML_TYPE_ENGINE))
+#define HTML_ENGINE(obj)                 (G_TYPE_CHECK_INSTANCE_CAST ((obj), HTML_TYPE_ENGINE, HTMLEngine))
+#define HTML_ENGINE_CLASS(klass)         (G_TYPE_CHECK_CLASS_CAST ((klass), HTML_TYPE_ENGINE, HTMLEngineClass))
+#define HTML_IS_ENGINE(obj)              (G_TYPE_CHECK_INSTANCE_TYPE ((obj), HTML_TYPE_ENGINE))
+#define HTML_IS_ENGINE_CLASS(klass)      (G_TYPE_CHECK_CLASS_TYPE ((klass), HTML_TYPE_ENGINE))
 
+
 /* FIXME extreme hideous ugliness in the following lines.  */
 
 #define LEFT_BORDER 10
@@ -50,7 +51,7 @@
 /* FIXME this needs splitting.  */
 
 struct _HTMLEngine {
-	GtkObject parent;
+	GObject parent;
 	HTMLDrawQueue *draw_queue;
 
 	HTMLPainter *painter;
@@ -68,9 +69,6 @@ struct _HTMLEngine {
 	HTMLObject *clipboard;
 	guint       clipboard_len;
 	GList      *clipboard_stack;
-
-	HTMLObject *primary;
-	guint       primary_len;
 
 	/* Freeze counter.  When greater than zero, we never trigger relayouts
            nor repaints.  When going from nonzero to zero, we relayout and
@@ -279,10 +277,8 @@ struct _HTMLEngine {
 struct _HTMLEmbedded;
 
 struct _HTMLEngineClass {
-	GtkObjectClass parent_class;
-
-	HTMLFontManager font_manager [HTML_FONT_MANAGER_ID_N];
-
+	GObjectClass parent_class;
+	
 	void (* title_changed) (HTMLEngine *engine);
 	void (* set_base) (HTMLEngine *engine, const gchar *base);
 	void (* set_base_target) (HTMLEngine *engine, const gchar *base_target);
@@ -302,6 +298,8 @@ void        html_engine_realize       (HTMLEngine *engine,
 				       GdkWindow  *window);
 void        html_engine_unrealize     (HTMLEngine *engine);
 
+void      html_engine_saved     (HTMLEngine *e);
+gboolean  html_engine_is_saved  (HTMLEngine *e);
 
 /* Editability control.  */
 void      html_engine_set_editable  (HTMLEngine *e,
@@ -471,19 +469,8 @@ void        html_engine_set_focus_object   (HTMLEngine       *e,
 					    HTMLObject       *o);
 void        html_engine_draw_focus_object  (HTMLEngine       *e);
 
-void      html_engine_saved     (HTMLEngine *e);
-gboolean  html_engine_is_saved  (HTMLEngine *e);
-
 HTMLMap *html_engine_get_map  (HTMLEngine  *e,
 			       const gchar *name);
-
-HTMLFontManager *html_engine_gdk_font_manager           (HTMLEngine  *e);
-HTMLFontManager *html_engine_plain_font_manager         (HTMLEngine  *e);
-HTMLFontManager *html_engine_font_manager               (HTMLEngine  *e);
-HTMLFontManager *html_engine_font_manager_with_painter  (HTMLEngine  *e,
-							 HTMLPainter *p);
-HTMLFontManager *html_engine_class_gdk_font_manager     (void);
-HTMLFontManager *html_engine_class_plain_font_manager   (void);
 
 gboolean html_engine_selection_contains_object_type (HTMLEngine *e,
 						     HTMLType obj_type);

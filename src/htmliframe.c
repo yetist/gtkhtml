@@ -24,20 +24,17 @@
 #include <string.h>
 #include "gtkhtml.h"
 #include "gtkhtml-private.h"
-#include "gtkhtml-stream.h"
 #include "htmlcolorset.h"
 #include "htmlgdkpainter.h"
 #include "htmlprinter.h"
 #include "htmliframe.h"
 #include "htmlengine-search.h"
-#include "htmlengine-save.h"
 #include "htmlsearch.h"
 #include "htmlselection.h"
 #include "htmlsettings.h"
 #include "htmltokenizer.h"
-#include "htmlembedded.h"
-#include <libgnome/gnome-i18n.h>
 
+#define USE_SCROLLED_WINDOW 1
 #ifndef USE_SCROLLED_WINDOW
 #include <gal/widgets/e-scroll-frame.h>
 #endif
@@ -61,8 +58,7 @@ iframe_url_requested (GtkHTML *html, const char *url, GtkHTMLStream *handle, gpo
 	HTMLIFrame *iframe = HTML_IFRAME (data);
 	GtkHTML *parent = GTK_HTML (HTML_EMBEDDED(iframe)->parent);
 
-	gtk_signal_emit_by_name (GTK_OBJECT (parent->engine), "url_requested",
-				 url, handle);
+	g_signal_emit_by_name (parent->engine, "url_requested", url, handle);
 }
 
 static void
@@ -90,10 +86,10 @@ static void
 iframe_set_gdk_painter (HTMLIFrame *iframe, HTMLPainter *painter)
 {
 	if (painter)
-		gtk_object_ref (GTK_OBJECT (painter));
+		g_object_ref (G_OBJECT (painter));
 	
 	if (iframe->gdk_painter)
-		gtk_object_unref (GTK_OBJECT (iframe->gdk_painter));
+		g_object_unref (G_OBJECT (iframe->gdk_painter));
 
 	iframe->gdk_painter = painter;
 }
@@ -131,13 +127,7 @@ static gint
 calc_min_width (HTMLObject *o,
 		HTMLPainter *painter)
 {
-	HTMLIFrame *iframe;
-
-	iframe = HTML_IFRAME (o);
-	if (iframe->width < 0)
-		return html_engine_calc_min_width (GTK_HTML (HTML_IFRAME (o)->html)->engine);
-	else 
-		return iframe->width;
+	return html_engine_calc_min_width (GTK_HTML (HTML_IFRAME (o)->html)->engine);
 }
 
 static void
@@ -202,12 +192,12 @@ set_painter (HTMLObject *o, HTMLPainter *painter)
 	HTMLIFrame *iframe;
 
 	iframe = HTML_IFRAME (o);
-	if (GTK_OBJECT_TYPE (GTK_HTML (iframe->html)->engine->painter) != HTML_TYPE_PRINTER) {
+	if (G_OBJECT_TYPE (GTK_HTML (iframe->html)->engine->painter) != HTML_TYPE_PRINTER) {
 		iframe_set_gdk_painter (iframe, GTK_HTML (iframe->html)->engine->painter);
 	}
 	
 	html_engine_set_painter (GTK_HTML (iframe->html)->engine,
-				 GTK_OBJECT_TYPE (painter) != HTML_TYPE_PRINTER ? iframe->gdk_painter : painter);
+				 G_OBJECT_TYPE (painter) != HTML_TYPE_PRINTER ? iframe->gdk_painter : painter);
 }
 
 static void
@@ -226,19 +216,7 @@ forall (HTMLObject *self,
 static gint
 check_page_split (HTMLObject *self, gint y)
 {
-	gint y1, y2;
-	HTMLEngine *e = GTK_HTML (HTML_IFRAME (self)->html)->engine;
-
-	y1 = self->y - self->ascent + e->topBorder;
-	y2 = self->y + self->descent + e->topBorder;
-	
-	if (y1 > y) 
-		return 0;
-
-	if (y >= y1 && y < y2)
-		return html_object_check_page_split (e->clue, y - y1) + y1;
-	
-	return y;
+	return html_object_check_page_split (GTK_HTML (HTML_IFRAME (self)->html)->engine->clue, y);
 }
 
 static void
@@ -249,20 +227,10 @@ copy (HTMLObject *self,
         HTMLIFrame *d = HTML_IFRAME (dest);
 
 	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
-	/*
-	html_iframe_init (d, &html_iframe_class,
-			  HTML_EMBEDDED (dest)->parent,
-			  s->url,
-			  s->width,
-			  s->height,
-			  s->frameborder);
-	*/
-	d->scroll = s->scroll;
-	d->html = gtk_html_new ();
 
+	d->scroll = NULL;
+	d->html = gtk_html_new ();
 	d->gdk_painter = NULL;
-	d->old_painter = NULL;
-	d->parent_painter = NULL;
 
 	d->url = g_strdup (s->url);
 	d->width = s->width;
@@ -289,31 +257,9 @@ op_copy (HTMLObject *self, HTMLObject *parent, HTMLEngine *e, GList *from, GList
 }
 
 void
-html_iframe_set_margin_width (HTMLIFrame *iframe, gint margin_width)
-{
-	HTMLEngine *e;
-
-	e = GTK_HTML (iframe->html)->engine;
-
-	e->leftBorder = e->rightBorder = margin_width;
-	html_engine_schedule_redraw (e);
-}
-
-void
-html_iframe_set_margin_height (HTMLIFrame *iframe, gint margin_height)
-{
-	HTMLEngine *e;
-
-	e = GTK_HTML (iframe->html)->engine;
-
-	e->bottomBorder = e->topBorder = margin_height;
-	html_engine_schedule_redraw (e);
-}
-
-void
 html_iframe_set_scrolling (HTMLIFrame *iframe, GtkPolicyType scroll)
 {
-#if E_USE_SCROLLED_WINDOW
+#if USE_SCROLLED_WINDOW
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (iframe->scroll),
 					scroll, scroll);
 #else
@@ -336,9 +282,6 @@ calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 
 	iframe = HTML_IFRAME (o);
 	e      = GTK_HTML (iframe->html)->engine;
-	
-	if (HTML_EMBEDDED (o)->widget == NULL)
-		return TRUE;
 
 	if ((iframe->width < 0) && (iframe->height < 0)) {
 		e->width = o->max_width;
@@ -347,8 +290,7 @@ calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 		height = html_engine_get_doc_height (e);
 		width = html_engine_get_doc_width (e);
 
-		/* FIXME: fix frames for height > 32767 */
-		gtk_widget_set_usize (iframe->scroll, width, MIN (height, 32767));
+		gtk_widget_set_usize (iframe->scroll, width, height);
 		gtk_widget_queue_resize (iframe->scroll);
 		
 		html_iframe_set_scrolling (iframe, GTK_POLICY_NEVER);
@@ -453,17 +395,6 @@ append_selection_string (HTMLObject *self,
 	html_object_append_selection_string (GTK_HTML (HTML_IFRAME (self)->html)->engine->clue, buffer);
 }
 
-static void
-reparent (HTMLEmbedded *emb, GtkWidget *html)
-{
-	HTMLIFrame *iframe = HTML_IFRAME (emb);
-
-	gtk_html_set_iframe_parent (GTK_HTML (iframe->html), 
-				    html,
-				    GTK_HTML (iframe->html)->frame);
-	(* HTML_EMBEDDED_CLASS (parent_class)->reparent) (emb, html);
-}
-
 /* static gboolean
 select_range (HTMLObject *self,
 	      HTMLEngine *engine,
@@ -476,86 +407,6 @@ select_range (HTMLObject *self,
 					 start, length, queue_draw);
 } */
 
-static gboolean
-save (HTMLObject *s,
-      HTMLEngineSaveState *state)
-{
-	HTMLIFrame *iframe = HTML_IFRAME (s);
-	HTMLEngineSaveState *buffer;
-	HTMLEngine *e;
-
-	e = GTK_HTML (iframe->html)->engine;
-	
-	/*
-	 * FIXME: we should actually save the iframe definition if inline_frames is not
-	 * set, but that is a feature and not critical for release.  We should also probably
-	 * wrap the body in a <table> tag with a bg etc.
-	 */
-	if (state->inline_frames && e->clue) {
-		buffer = html_engine_save_buffer_new (e, state->inline_frames);
-		html_object_save (e->clue, buffer);
-		if (state->error || 
-		    !html_engine_save_output_string (state, html_engine_save_buffer_peek_text (buffer))) {
-			html_engine_save_buffer_free (buffer);
-			return FALSE;
-		}
-		html_engine_save_buffer_free (buffer);
-	} else {
-		HTMLEngine *e = GTK_HTML (iframe->html)->engine;
-
-		if (!html_engine_save_output_string (state, "<IFRAME SRC=\"%s\"", iframe->url))
-			 return FALSE;
-        
-		 if (iframe->width >= 0)
-			 if (!html_engine_save_output_string (state, " WIDTH=\"%d\"", iframe->width))
-				 return FALSE;
-
-		 if (iframe->width >= 0)
-			 if (!html_engine_save_output_string (state, " WIDTH=\"%d\"", iframe->width))
-				 return FALSE;
-
-		 if (e->topBorder != TOP_BORDER || e->bottomBorder != BOTTOM_BORDER)
-			 if (!html_engine_save_output_string (state, " MARGINHEIGHT=\"%d\"", e->topBorder))
-				 return FALSE;
-
-		 if (e->leftBorder != LEFT_BORDER || e->rightBorder != RIGHT_BORDER)
-			 if (!html_engine_save_output_string (state, " MARGINWIDTH=\"%d\"", e->leftBorder))
-				 return FALSE;
-
-		 if (!html_engine_save_output_string (state, " FRAMEBORDER=\"%d\"", iframe->frameborder))
-			 return FALSE;
-		 
-		 if (!html_engine_save_output_string (state, "></IFRAME>"))
-		     return FALSE;
-	}
-	return TRUE;
-}
-
-static gboolean
-save_plain (HTMLObject *s,
-	    HTMLEngineSaveState *state,
-	    gint requested_width)
-{
-	HTMLIFrame *iframe = HTML_IFRAME (s);
-	HTMLEngineSaveState *buffer;
-	HTMLEngine *e;
-
-	e = GTK_HTML (iframe->html)->engine;
-
-	if (state->inline_frames && e->clue) {
-		buffer = html_engine_save_buffer_new (e, state->inline_frames);
-		html_object_save_plain (e->clue, buffer, requested_width);
-		if (state->error || 
-		    !html_engine_save_output_string (state, html_engine_save_buffer_peek_text (buffer))) {
-			html_engine_save_buffer_free (buffer);
-			return FALSE;
-		}
-		html_engine_save_buffer_free (buffer);
-	}
-
-	return TRUE;
-}
-
 static void
 destroy (HTMLObject *o)
 {
@@ -566,13 +417,7 @@ destroy (HTMLObject *o)
 	g_free (iframe->url);
 
 	if (iframe->html) {
-		if (iframe->old_painter)
-			gtk_object_unref (GTK_OBJECT (iframe->old_painter));
-		if (iframe->parent_painter)
-			gtk_object_unref (GTK_OBJECT (iframe->parent_painter));
-		iframe->old_painter = iframe->parent_painter = NULL;
-
-		gtk_signal_disconnect_by_data (GTK_OBJECT (iframe->html), o);
+		g_signal_handlers_disconnect_matched (iframe->html, G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, o);
 		iframe->html = NULL;
 	}
 
@@ -595,7 +440,6 @@ html_iframe_init (HTMLIFrame *iframe,
 	GtkHTML   *parent_html;
 	GtkHTMLStream *handle;
 	GtkWidget *scrolled_window;
-	gint depth;
 
 	g_assert (GTK_IS_HTML (parent));
 	parent_html = GTK_HTML (parent);
@@ -618,22 +462,16 @@ html_iframe_init (HTMLIFrame *iframe,
 	new_widget = gtk_html_new ();
 	new_html = GTK_HTML (new_widget);
 
-	/* use parent_html font_manager */
-	gtk_object_ref (GTK_OBJECT (new_html->engine->painter));
-	gtk_object_ref (GTK_OBJECT (parent_html->engine->painter));
-	iframe->old_painter = new_html->engine->painter;
-	iframe->parent_painter = parent_html->engine->painter;
-
 	new_tokenizer = html_tokenizer_clone (parent_html->engine->ht);
 
 	html_engine_set_tokenizer (new_html->engine, new_tokenizer);
-	gtk_object_unref (GTK_OBJECT (new_tokenizer));
+	g_object_unref (G_OBJECT (new_tokenizer));
 	new_tokenizer = NULL;
 
 	gtk_html_set_default_content_type (new_html,
 					   parent_html->priv->content_type);
 	iframe->html = new_widget;
-	depth = gtk_html_set_iframe_parent (new_html, parent, HTML_OBJECT (iframe));
+	gtk_html_set_iframe_parent (new_html, parent, HTML_OBJECT (iframe));
 	gtk_container_add (GTK_CONTAINER (scrolled_window), new_widget);
 	gtk_widget_show (new_widget);
 
@@ -641,16 +479,13 @@ html_iframe_init (HTMLIFrame *iframe,
 	iframe->width = width;
 	iframe->height = height;
 	iframe->gdk_painter = NULL;
-	iframe->frameborder = border;
 	gtk_html_set_base (new_html, src);
 
 	handle = gtk_html_begin (new_html);
 
 	new_html->engine->clue->parent = HTML_OBJECT (iframe);
 
-	gtk_signal_connect (GTK_OBJECT (new_html), "url_requested",
-			    GTK_SIGNAL_FUNC (iframe_url_requested),
-			    (gpointer)iframe);
+	g_signal_connect (new_html, "url_requested", G_CALLBACK (iframe_url_requested), iframe);
 #if 0
 	/* NOTE: because of peculiarities of the frame/gtkhtml relationship
 	 * on_url and link_clicked are emitted from the toplevel widget not
@@ -663,37 +498,24 @@ html_iframe_init (HTMLIFrame *iframe,
 			    GTK_SIGNAL_FUNC (iframe_link_clicked),
 			    (gpointer)iframe);	
 #endif 
-	gtk_signal_connect (GTK_OBJECT (new_html), "size_changed",
-			    GTK_SIGNAL_FUNC (iframe_size_changed),
-			    (gpointer)iframe);	
-	gtk_signal_connect (GTK_OBJECT (new_html), "set_base",
-			    GTK_SIGNAL_FUNC (iframe_set_base),
-			    (gpointer)iframe);	
-	gtk_signal_connect (GTK_OBJECT (new_html), "object_requested",
-			    GTK_SIGNAL_FUNC (iframe_object_requested),
-			    (gpointer)iframe);	
+	g_signal_connect (new_html, "size_changed", G_CALLBACK (iframe_size_changed), iframe);	
+	g_signal_connect (new_html, "set_base", G_CALLBACK (iframe_set_base), iframe);	
+	g_signal_connect (new_html, "object_requested", G_CALLBACK (iframe_object_requested), iframe);	
 
 	/*
 	  gtk_signal_connect (GTK_OBJECT (html), "button_press_event",
 	  GTK_SIGNAL_FUNC (iframe_button_press_event), iframe);
 	*/
 
-	if (depth < 10) {
-		gtk_signal_emit_by_name (GTK_OBJECT (parent_html->engine), 
-					 "url_requested", src, handle);
-	} else {
-		gtk_html_stream_printf (handle, "%s", _("Error: maximium frame depth exceded"));
-		gtk_html_stream_close (handle, GTK_HTML_STREAM_OK);
-	}
+	g_signal_emit_by_name (parent_html->engine, "url_requested", src, handle);
 
-	/* FIXME: fix frames for height > 32767 */
-	gtk_widget_set_usize (scrolled_window, width, MIN (height, 32767));
+	gtk_widget_set_usize (scrolled_window, width, height);
+
 	gtk_widget_show (scrolled_window);	
 
 	html_embedded_set_widget (em, scrolled_window);
 
-	gtk_signal_connect(GTK_OBJECT (scrolled_window), "button_press_event",
-			   GTK_SIGNAL_FUNC (html_iframe_grab_cursor), NULL);
+	g_signal_connect (scrolled_window, "button_press_event", G_CALLBACK (html_iframe_grab_cursor), NULL);
 
 	/* inherit the current colors from our parent */
 	html_colorset_set_unchanged (new_html->engine->defaultSettings->color_set,
@@ -736,8 +558,6 @@ html_iframe_class_init (HTMLIFrameClass *klass,
 	parent_class = &html_embedded_class;
 
 	object_class->destroy                 = destroy;
-	object_class->save                    = save;
-	object_class->save_plain              = save_plain;
 	object_class->calc_size               = calc_size;
 	object_class->calc_min_width          = calc_min_width;
 	object_class->set_painter             = set_painter;
@@ -756,6 +576,4 @@ html_iframe_class_init (HTMLIFrameClass *klass,
 	object_class->is_container            = is_container;
 	object_class->draw_background         = draw_background;
 	object_class->append_selection_string = append_selection_string;
-	
-	embedded_class->reparent = reparent;
 }

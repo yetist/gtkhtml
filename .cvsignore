@@ -12,7 +12,7 @@ config.status
 config.sub
 configure
 gtkhtml.spec
-gtkhtml-1.1.pc
+gtkhtmlConf.sh
 install-sh
 intl
 libtool
@@ -24,3 +24,4 @@ po
 stamp-h
 stamp-h.in
 xml-i18n-*
+intltool-*

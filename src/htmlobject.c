@@ -23,6 +23,8 @@
 
 #include <config.h>
 #include <string.h>
+#include <glib/gdataset.h>
+#include <glib/gquark.h>
 
 #include "htmlclue.h"
 #include "htmlclueflow.h"
@@ -49,9 +51,6 @@
 HTMLObjectClass html_object_class;
 
 #define HO_CLASS(x) HTML_OBJECT_CLASS (HTML_OBJECT (x)->klass)
-
-
-/* HTMLObject virtual methods.  */
 
 static void
 destroy (HTMLObject *self)
@@ -795,10 +794,6 @@ html_object_calc_abs_position (HTMLObject *o,
 	for (p = o->parent; p != NULL; p = p->parent) {
 		*x_return += p->x;
 		*y_return += p->y - p->ascent;
-		if (html_object_is_frame (p)) {
-			*x_return += GTK_HTML (HTML_FRAME (p)->html)->engine->leftBorder;
-			*y_return += GTK_HTML (HTML_FRAME (p)->html)->engine->topBorder;
-		}
 	}
 }
 
@@ -1493,7 +1488,10 @@ next_object_uptree_cursor (HTMLObject *obj, HTMLObject * (*next_fn ) (HTMLObject
 static HTMLObject *
 move_object_downtree_cursor (HTMLObject *obj, HTMLObject * (*down_fn ) (HTMLObject *))
 {
-	while ((obj = (*down_fn) (obj))) {
+	HTMLObject *down;
+
+	while ((down = (*down_fn) (obj))) {
+		obj = down;
 		if (html_object_accepts_cursor (obj))
 			break;
 	}
@@ -1508,7 +1506,6 @@ move_object_cursor (HTMLObject *obj, gint *offset, gboolean forward,
 	HTMLObject *down, *before;
 
 	do {
-		gboolean found = FALSE;
 		if (((*offset == 0 && forward) || (*offset && !forward)) && html_object_is_container (obj))
 			if ((down = (*down_fn) (obj))) {
 				down = move_object_downtree_cursor (down, down_fn);
@@ -1520,27 +1517,19 @@ move_object_cursor (HTMLObject *obj, gint *offset, gboolean forward,
 			}
 
 		before = obj;
-		do {
-			obj = next_object_uptree_cursor (obj, next_fn);
-			if (obj) {
-				if (html_object_accepts_cursor (obj)) {
-					if (html_object_is_container (obj))
-						*offset = before->parent == obj->parent
-							? forward ? 0 : 1
-							: forward ? 1 : 0;
-					found = TRUE;
-				} else {
-					HTMLObject *down;
-					down = move_object_downtree_cursor (obj, down_fn);
-					if (down) {
-						if (html_object_is_container (down))
-							*offset = forward ? 0 : 1;
-						obj = down;
-						found = TRUE;
-					}
-				}
+		obj = next_object_uptree_cursor (obj, next_fn);
+		if (obj) {
+			if (html_object_accepts_cursor (obj)) {
+				if (html_object_is_container (obj))
+					*offset = before->parent == obj->parent
+						? forward ? 0 : 1
+						: forward ? 1 : 0;
+			} else {
+				obj = move_object_downtree_cursor (obj, down_fn);
+				if (html_object_is_container (obj))
+					*offset = forward ? 0 : 1;
 			}
-		} while (obj && !found);
+		}
 	} while (obj && !html_object_accepts_cursor (obj));
 
 	return obj;
@@ -1575,7 +1564,13 @@ html_object_get_index (HTMLObject *self, guint offset)
 void
 html_object_set_data (HTMLObject *object, const gchar *key, const gchar *value)
 {
-	g_datalist_set_data_full (&object->object_data, key, g_strdup (value), g_free);
+	g_datalist_set_data_full (&object->object_data, g_quark_from_string (key), g_strdup (value), g_free);
+}
+
+void
+html_object_set_data_full (HTMLObject *object, const gchar *key, const gpointer value, GDestroyNotify func)
+{
+	g_datalist_set_data_full (&object->object_data, g_quark_from_string (key), value, func);
 }
 
 gpointer
@@ -1589,10 +1584,9 @@ copy_data (GQuark key_id, gpointer data, gpointer user_data)
 {
 	HTMLObject *o = HTML_OBJECT (user_data);
 
-	/* printf ("copy key: '%s'\n", g_quark_to_string (key_id)); */
-	g_datalist_set_data_full (&o->object_data,
-				  g_strdup (g_quark_to_string (key_id)),
-				  g_strdup ((gchar *) data), g_free);
+	g_datalist_id_set_data_full (&o->object_data,
+				     key_id,
+				     g_strdup ((gchar *) data), g_free);
 }
 
 void
@@ -1629,7 +1623,6 @@ handle_object_data (gpointer key, gpointer value, gpointer data)
 		/* printf ("clear\n"); */
 		html_engine_save_output_string (state, "<!--+GtkHTML:<DATA class=\"%s\" clear=\"%s\">",
 						state->save_data_class_name, key);
-		
 		state->data_to_remove = g_slist_prepend (state->data_to_remove, key);
 	} else if (strcmp (value, str)) {
 		/* printf ("change\n"); */
@@ -1916,9 +1909,8 @@ html_object_engine_translation (HTMLObject *o, HTMLEngine *e, gint *tx, gint *ty
 		*ty += p->y - p->ascent;
 	}
 
-	*tx = *tx + e->leftBorder - e->x_offset;
-	*ty = *ty + e->topBorder - e->y_offset;
-
+	//*tx += e->leftBorder;
+	//*ty += e->topBorder;
 }
 
 gboolean
@@ -1955,6 +1947,25 @@ html_object_add_to_changed (GList **changed_objs, HTMLObject *o)
 	}
 
 	*changed_objs = g_list_prepend (*changed_objs, o);
+}
+
+gint
+html_object_get_n_children (HTMLObject *self)
+{
+	return HO_CLASS (self)->get_n_children ? (* HO_CLASS (self)->get_n_children) (self) : 0;
+}
+
+HTMLObject *
+html_object_get_child (HTMLObject *self, gint index)
+{
+	return HO_CLASS (self)->get_child ? (* HO_CLASS (self)->get_child) (self, index) : NULL;
+}
+
+
+gint
+html_object_get_child_index (HTMLObject *self, HTMLObject *child)
+{
+	return HO_CLASS (self)->get_child_index ? (* HO_CLASS (self)->get_child_index) (self, child) : -1;
 }
 
 HTMLClearType

@@ -23,8 +23,6 @@
 #include <config.h>
 #include "gtkhtml-compat.h"
 
-#include <gal/widgets/e-scroll-frame.h>
-
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -64,7 +62,7 @@ color_table_new (GtkSignalFunc f, gpointer data)
 				style->bg [GTK_STATE_NORMAL].green,
 				style->bg [GTK_STATE_NORMAL].blue); */
 
-			gtk_signal_connect (GTK_OBJECT (button), "clicked", f, data);
+			g_signal_connect (button, "clicked", G_CALLBACK (f), data);
 			gtk_widget_set_style (button, style);
 			gtk_table_attach_defaults (GTK_TABLE (table), button, i, i+1, j, j+1);
 		}
@@ -105,63 +103,14 @@ sample_frame (GtkHTML **html)
 
 	frame = gtk_frame_new (_("Sample"));
 	*html = GTK_HTML (gtk_html_new ());
-	scroll_frame = e_scroll_frame_new (NULL, NULL);
-	e_scroll_frame_set_shadow_type (E_SCROLL_FRAME (scroll_frame), GTK_SHADOW_IN);
-	gtk_container_border_width (GTK_CONTAINER (scroll_frame), 3);
-	e_scroll_frame_set_policy (E_SCROLL_FRAME (scroll_frame), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+	scroll_frame = gtk_scrolled_window_new (NULL, NULL);
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scroll_frame), GTK_SHADOW_IN);
+	gtk_container_set_border_width (GTK_CONTAINER (scroll_frame), 3);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scroll_frame), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	gtk_container_add (GTK_CONTAINER (scroll_frame), GTK_WIDGET (*html));
 	gtk_container_add (GTK_CONTAINER (frame), scroll_frame);
-	gtk_signal_connect (GTK_OBJECT (*html), "url_requested", url_requested, NULL);
+	g_signal_connect (*html, "url_requested", G_CALLBACK (url_requested), NULL);
 	gtk_widget_set_usize (frame, -1, 120);
 
 	return frame;
-}
-
-static GtkWidget *
-get_last_child (
-GnomePixmapEntry *entry)
-{
-	GList *children;
-	GtkWidget *list;
-
-	list = GTK_COMBO (gnome_pixmap_entry_gnome_entry (entry))->list;
-	children = GTK_LIST (list)->children;
-
-	return (children && children->data) ? GTK_WIDGET (children->data) : NULL;
-
-}
-
-void
-our_gnome_pixmap_entry_set_last_pixmap (GnomePixmapEntry *entry)
-{
-	GtkWidget *child;
-
-	child = get_last_child (entry);
-	if (child)
-		gtk_list_select_child (GTK_LIST (GTK_COMBO (gnome_pixmap_entry_gnome_entry (entry))->list), child);
-}
-
-void
-our_gnome_pixmap_entry_set_last_dir (GnomePixmapEntry *entry)
-{
-	GtkWidget *child;
-
-	child = get_last_child (entry);
-	if (child && GTK_IS_LIST_ITEM (child) && GTK_IS_LABEL (GTK_BIN (child)->child)) {
-		gchar *dir;
-
-		gtk_label_get (GTK_LABEL (GTK_BIN (child)->child), &dir);
-		if (dir && *dir) {
-			gchar *last;
-
-			dir = g_strdup (dir);
-			last = strrchr (dir, '/');
-			if (last) {
-				*(last + 1) = 0;
-				gnome_file_entry_set_default_path (GNOME_FILE_ENTRY
-								   (gnome_pixmap_entry_gnome_file_entry (entry)), dir);
-			}
-			g_free (dir);
-		}
-	}
 }

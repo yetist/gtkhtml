@@ -31,6 +31,7 @@ typedef struct _GnomeBindingsPropertiesClass GnomeBindingsPropertiesClass;
 #include <gtk/gtkframe.h>
 #include <gtk/gtkbindings.h>
 #include <gtk/gtktypeutils.h>
+#include <gtk/gtkliststore.h>
 
 #define GNOME_TYPE_BINDINGS_PROPERTIES            (gnome_bindings_properties_get_type ())
 #define GNOME_BINDINGS_PROPERTIES(obj)            (GTK_CHECK_CAST ((obj), \
@@ -46,7 +47,8 @@ struct _GnomeBindingsProperties {
 	GtkFrame base;
 
 	GtkWidget *option_keymap;
-	GtkWidget *clist_keymap;
+	GtkWidget *view_keymap;
+	GtkListStore *store;
 
 	/* GtkWidget *button_add;
 	   GtkWidget *button_delete;

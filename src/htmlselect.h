@@ -21,6 +21,7 @@
 #ifndef _HTMLSELECT_H_
 #define _HTMLSELECT_H_
 
+#include <gtk/gtkliststore.h>
 #include "htmlembedded.h"
 
 #define HTML_SELECT(x) ((HTMLSelect *) (x))
@@ -37,7 +38,8 @@ struct _HTMLSelect {
 	GList *strings;
 	GList *default_selection;
 
-	GtkWidget *clist;
+	GtkWidget *view;
+	GtkListStore *store;
 	gboolean needs_update;
 };
 

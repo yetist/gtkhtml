@@ -21,7 +21,6 @@
 */
 
 #include <config.h>
-#include <gal/widgets/e-unicode.h>
 #include <gal/widgets/widget-color-combo.h>
 #include "htmlengine-edit.h"
 #include "htmlengine-edit-clueflowstyle.h"
@@ -43,21 +42,19 @@ struct _GtkHTMLEditBodyProperties {
 
 	GdkColor   color [HTMLColors];
 	gboolean   color_changed [HTMLColors];
-	gint       left_margin;
 
 	gint template;
 	GtkHTML   *sample;
 };
 typedef struct _GtkHTMLEditBodyProperties GtkHTMLEditBodyProperties;
 
-#define TEMPLATES 4
+#define TEMPLATES 3
 typedef struct {
 	gchar *name;
 	gchar *bg_pixmap;
 	GdkColor bg_color;
 	GdkColor text_color;
 	GdkColor link_color;
-	gint left_margin;
 } BodyTemplate;
 
 static BodyTemplate body_templates [TEMPLATES] = {
@@ -67,43 +64,32 @@ static BodyTemplate body_templates [TEMPLATES] = {
 		{0, 0, 0, 0},
 		{0, 0, 0, 0},
 		{0, 0, 0, 0},
-		10,
 	},
 	{
-		N_("Perforated Paper"),
-		ICONDIR "/paper.png",
-		{0, 0xffff, 0xffff, 0xffff},
-		{0, 0, 0, 0},
-		{0, 0, 0x3380, 0x6680},
-		30,
+		N_("Test"),
+		NULL,
+		{0, 0x7fff, 0x7fff, 0xffff},
+		{0, 0xefff, 0xefff, 0xefff},
+		{0, 0xffff, 0xffff, 0},
 	},
 	{
-		N_("Blue Ink"),
-		ICONDIR "/texture.png",
+		N_("Test 1"),
+		ICONDIR "/bg1.png",
 		{0, 0xffff, 0xffff, 0xffff},
-		{0, 0x1fff, 0x1fff, 0x8fff},
-		{0, 0, 0, 0xffff},
-		10,
-	},
-	{
-		N_("Rectangles"),
-		ICONDIR "/rect.png",
-		{0, 0xffff, 0xffff, 0xffff},
-		{0, 0, 0, 0},
-		{0, 0, 0, 0xffff},
-		10,
+		{0, 0x2fff, 0x2fff, 0x5fff},
+		{0, 0x7fff, 0x7fff, 0},
 	},
 };
 
 static void
 fill_sample (GtkHTMLEditBodyProperties *d)
 {
-	gchar *body, *body_tag, *bg_image, *fname, *lm;
+	gchar *body, *body_tag, *bg_image;
+	const gchar *fname;
 	fname = gtk_entry_get_text (GTK_ENTRY (gnome_pixmap_entry_gtk_entry
 					       (GNOME_PIXMAP_ENTRY (d->pixmap_entry))));
-	bg_image = fname && *fname ? g_strdup_printf (" BACKGROUND=\"%s\"", fname) : g_strdup ("");
-	lm = d->left_margin != 10 ? g_strdup_printf (" LEFTMARGIN=%d", d->left_margin) : g_strdup ("");
-	body_tag = g_strdup_printf ("<BODY BGCOLOR=#%02x%02x%02x LINK=#%02x%02x%02x TEXT=#%02x%02x%02x%s%s>",
+	bg_image = fname && *fname ? g_strdup_printf (" background=\"%s\"", fname) : g_strdup ("");
+	body_tag = g_strdup_printf ("<body bgcolor=#%02x%02x%02x link=#%02x%02x%02x text=#%02x%02x%02x%s>",
 				    d->color [HTMLBgColor].red >> 8,
 				    d->color [HTMLBgColor].green >> 8,
 				    d->color [HTMLBgColor].blue >> 8,
@@ -113,7 +99,7 @@ fill_sample (GtkHTMLEditBodyProperties *d)
 				    d->color [HTMLTextColor].red >> 8,
 				    d->color [HTMLTextColor].green >> 8,
 				    d->color [HTMLTextColor].blue >> 8,
-				    bg_image, lm);
+				    bg_image);
 
 	body  = g_strconcat (body_tag,
 			     "The quick brown <a href=\"mailto:fox\">fox</a> jumps over the lazy <a href=\"mailto:dog\">dog</a>.",
@@ -121,13 +107,13 @@ fill_sample (GtkHTMLEditBodyProperties *d)
 
 	gtk_html_load_from_string (d->sample, body, -1);
 	g_free (bg_image);
-	g_free (lm);
 	g_free (body_tag);
 	g_free (body);
 }
 
 static void
-color_changed (GtkWidget *w, GdkColor *color, gboolean by_user, GtkHTMLEditBodyProperties *data)
+color_changed (GtkWidget *w, GdkColor *color, gboolean custom, gboolean by_user, gboolean is_default,
+	       GtkHTMLEditBodyProperties *data)
 {
 	gint idx;
 
@@ -178,8 +164,6 @@ changed_template (GtkWidget *w, GtkHTMLEditBodyProperties *d)
 		d->color_changed [HTMLLinkColor] = TRUE;
 		d->color [HTMLTextColor] = body_templates [d->template].text_color;
 		d->color_changed [HTMLTextColor] = TRUE;
-
-		d->left_margin = body_templates [d->template].left_margin;
 	} else {
 		color_combo_set_color (COLOR_COMBO (d->combo [2]),
 				       &html_colorset_get_color_allocated (d->cd->html->engine->painter,
@@ -200,8 +184,6 @@ changed_template (GtkWidget *w, GtkHTMLEditBodyProperties *d)
 		d->color [HTMLTextColor] = html_colorset_get_color (d->cd->html->engine->settings->color_set,
 								    HTMLTextColor)->color;
 		d->color_changed [HTMLTextColor] = FALSE;
-
-		d->left_margin = 10;
 	}
 
 	gtk_html_edit_properties_dialog_change (d->cd->properties_dialog);	
@@ -220,7 +202,7 @@ fill_templates (GtkHTMLEditBodyProperties *d)
 		GtkWidget *item;
 
 		item = gtk_menu_item_new_with_label (_(body_templates [i].name));
-		gtk_menu_append (GTK_MENU (menu), item);
+		gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
 		gtk_widget_show (item);
 		gdk_color_alloc (gdk_window_get_colormap (GTK_WIDGET (d->cd->html)->window), &body_templates [i].bg_color);
 		gdk_color_alloc (gdk_window_get_colormap (GTK_WIDGET (d->cd->html)->window), &body_templates [i].text_color);
@@ -240,10 +222,9 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 
 	*set_data = data;
 	data->cd = cd;
-	data->left_margin = 10;
 
 	table = gtk_table_new (2, 2, FALSE);
-	gtk_container_border_width (GTK_CONTAINER (table), 3);
+	gtk_container_set_border_width (GTK_CONTAINER (table), 3);
 	gtk_table_set_col_spacings (GTK_TABLE (table), 3);
 	gtk_table_set_row_spacings (GTK_TABLE (table), 2);
 
@@ -253,8 +234,8 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	frame = gtk_frame_new (_("Template"));
 	data->option_template = gtk_option_menu_new ();
 	fill_templates (data);
-	gtk_signal_connect (GTK_OBJECT (gtk_option_menu_get_menu (GTK_OPTION_MENU (data->option_template))),
-			    "selection-done", changed_template, data);
+	g_signal_connect (gtk_option_menu_get_menu (GTK_OPTION_MENU (data->option_template)),
+			  "selection-done", G_CALLBACK (changed_template), data);
 	gtk_box_pack_start (GTK_BOX (hbox), data->option_template, FALSE, TRUE, 0);
 	gtk_container_add (GTK_CONTAINER (frame), hbox);
 	gtk_box_pack_start (GTK_BOX (vb1), frame, FALSE, TRUE, 0);
@@ -266,7 +247,7 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 		e_utf8_gtk_entry_set_text (GTK_ENTRY (data->entry_title), 
 					   gtk_html_get_title (data->cd->html));
 	}
-	gtk_signal_connect (GTK_OBJECT (data->entry_title), "changed", entry_changed, data);
+	g_signal_connect (data->entry_title, "changed", G_CALLBACK (entry_changed), data);
 	gtk_box_pack_start_defaults (GTK_BOX (hbox), data->entry_title);
 	frame = gtk_frame_new (_("Document Title"));
 	gtk_container_add (GTK_CONTAINER (frame), hbox);
@@ -274,12 +255,8 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 
 	frame = gtk_frame_new (_("Background Image"));
 	vbox = gtk_vbox_new (FALSE, 2);
-	gtk_container_border_width (GTK_CONTAINER (vbox), 3);
-	data->pixmap_entry = gnome_pixmap_entry_new ("background_image", _("Background Image"), TRUE);
-
-	/* fix for broken gnome-libs, could be removed once gnome-libs are fixed */
-	gnome_entry_load_history (GNOME_ENTRY (gnome_pixmap_entry_gnome_entry (GNOME_PIXMAP_ENTRY (data->pixmap_entry))));
-	our_gnome_pixmap_entry_set_last_dir (GNOME_PIXMAP_ENTRY (data->pixmap_entry));
+	gtk_container_set_border_width (GTK_CONTAINER (vbox), 3);
+	data->pixmap_entry = gnome_pixmap_entry_new ("background_image", _("Background Image"), FALSE);
 
 	if (cd->html->engine->bgPixmapPtr) {
 		HTMLImagePointer *ip = (HTMLImagePointer *) cd->html->engine->bgPixmapPtr;
@@ -291,8 +268,8 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 				     ip->url + off);
 	}
 
-	gtk_signal_connect (GTK_OBJECT (gnome_pixmap_entry_gtk_entry (GNOME_PIXMAP_ENTRY (data->pixmap_entry))),
-			    "changed", GTK_SIGNAL_FUNC (entry_changed), data);
+	g_signal_connect (gnome_pixmap_entry_gtk_entry (GNOME_PIXMAP_ENTRY (data->pixmap_entry)),
+			  "changed", G_CALLBACK (entry_changed), data);
 
 	gtk_box_pack_start (GTK_BOX (vbox), data->pixmap_entry, FALSE, FALSE, 0);
 
@@ -303,7 +280,7 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 
 	frame = gtk_frame_new (_("Colors"));
 	vbox = gtk_vbox_new (FALSE, 2);
-	gtk_container_border_width (GTK_CONTAINER (vbox), 3);
+	gtk_container_set_border_width (GTK_CONTAINER (vbox), 3);
 
 	group = NULL;
 	i = 0;
@@ -316,7 +293,7 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 				 color_group_fetch ("body_" g, cd)); \
         color_combo_set_color (COLOR_COMBO (combo), &data->color [ct]); \
         gtk_object_set_data (GTK_OBJECT (combo), "type", GINT_TO_POINTER (ct)); \
-        gtk_signal_connect (GTK_OBJECT (combo), "changed", GTK_SIGNAL_FUNC (color_changed), data); \
+        g_signal_connect (combo, "color_changed", G_CALLBACK (color_changed), data); \
 	hbox = gtk_hbox_new (FALSE, 3); \
 	gtk_box_pack_start (GTK_BOX (hbox), combo, FALSE, FALSE, 0); \
 	gtk_box_pack_start (GTK_BOX (hbox), gtk_label_new (x), FALSE, FALSE, 0); \
@@ -333,7 +310,6 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	/* gtk_idle_add (hide_preview, data); */
 
 	gtk_widget_show_all (table);
-	gnome_pixmap_entry_set_preview (GNOME_PIXMAP_ENTRY (data->pixmap_entry), FALSE);
 
 	return table;
 }
@@ -343,7 +319,7 @@ body_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
 	GtkHTMLEditBodyProperties *data = (GtkHTMLEditBodyProperties *) get_data;
 	gboolean redraw = FALSE;
-	gchar *fname;
+	const gchar *fname;
 
 #define APPLY_COLOR(c) \
 	if (data->color_changed [c]) { \
@@ -369,7 +345,7 @@ body_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 
 	if (redraw)
 		gtk_widget_queue_draw (GTK_WIDGET (cd->html));
-	gtk_html_set_title (data->cd->html, e_utf8_gtk_entry_get_text (GTK_ENTRY (data->entry_title)));
+	gtk_html_set_title (data->cd->html, gtk_entry_get_text (GTK_ENTRY (data->entry_title)));
 }
 
 void

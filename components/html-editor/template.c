@@ -22,7 +22,6 @@
 
 #include <string.h>
 #include <glade/glade.h>
-#include <gal/util/e-unicode-i18n.h>
 
 #include "gtkhtml.h"
 #include "htmlcursor.h"
@@ -44,7 +43,8 @@ struct _GtkHTMLEditTemplateProperties {
 	GtkHTML *sample;
 
 	gint template;
-	GtkWidget *clist_template;
+	GtkWidget *tview_template;
+	GtkListStore *store;
 
 	gint width;
 	gboolean width_percent;
@@ -74,7 +74,6 @@ typedef struct {
 	HTMLHAlignType default_halign;
 
 	gchar *template;
-	gchar *translated_msg;
 } TemplateInsertTemplate;
 
 
@@ -82,26 +81,24 @@ static TemplateInsertTemplate template_templates [TEMPLATES] = {
 	{
 		N_("Note"), 4,
 		TRUE, TRUE, 80, TRUE, HTML_HALIGN_CENTER,
-		"<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0\"@width@@align@><tr><td>"
-		"<table bgcolor=\"#fffff0\" cellpadding=3 cellspacing=0 width=\"100%\">"
-		"<tr><td valign=top><img src=\"file://" ICONDIR "/bulb.png\" hspace=10></td>"
-		"<td width=\"100%\">"
-		"@message@"
-		"</td></tr></table></td></tr></table>",
-		N_("Place your text here")
+		N_("<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0\"@width@@align@><tr><td>"
+		   "<table bgcolor=\"#fffff0\" cellpadding=3 cellspacing=0 width=\"100%\">"
+		   "<tr><td valign=top><img src=\"file://" ICONDIR "/bulb.png\" hspace=10></td>"
+		   "<td width=\"100%\">"
+		   "Place your text here"
+		   "</td></tr></table></td></tr></table>")
 	},
 	{
 		N_("Image frame"), 4,
 		TRUE, TRUE, 200, FALSE, HTML_HALIGN_CENTER,
-		"<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" @width@@align@>"
-		"<tr><td>"
-		"<table bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%\">"
-		"<tr><td align=\"center\">"
-		"<img src=\"file://" ICONDIR "/empty_image.png\" align=\"top\" border=\"0\">"
-		"</td></tr>"
-		"<tr><td><font size=\"-1\">@message@</font></td>"
-		"</tr></table></td></tr></table>",
-		N_("Image 1: <b>description</b>")
+		N_("<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" @width@@align@>"
+		   "<tr><td>"
+		   "<table bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%\">"
+		   "<tr><td align=\"center\">"
+		   "<img src=\"file://" ICONDIR "/empty_image.png\" align=\"top\" border=\"0\">"
+		   "</td></tr>"
+		   "<tr><td><font size=\"-1\">Image 1: <b>description</b></font></td>"
+		   "</tr></table></td></tr></table>")
 	},
 };
 
@@ -136,10 +133,9 @@ get_sample_html (GtkHTMLEditTemplateProperties *d)
 				   ? "left" : (d->halign == HTML_HALIGN_RIGHT ? "right" : "center"))
 		: g_strdup ("");
 
-	template   = g_strdup (template_templates [d->template].template);
+	template   = g_strdup (_(template_templates [d->template].template));
 	template   = substitute_string (template, "@width@", width);
 	template   = substitute_string (template, "@align@", align);
-	template   = substitute_string (template, "@message@", U_(template_templates [d->template].translated_msg));
 
 	body   = html_engine_save_get_sample_body (d->cd->html->engine, NULL);
 	html   = g_strconcat (body, template, NULL);
@@ -186,9 +182,16 @@ data_new (GtkHTMLControlData *cd)
 static void
 set_ui (GtkHTMLEditTemplateProperties *d)
 {
+	GtkTreeIter iter;
+	gchar *row;
+
 	d->disable_change = TRUE;
 
-	gtk_clist_select_row (GTK_CLIST (d->clist_template), d->template, 0);
+	row = g_strdup_printf ("%d", d->template);
+	gtk_tree_model_get_iter_from_string (GTK_TREE_MODEL (d->store), &iter, row);
+	g_free (row);
+	gtk_tree_selection_select_iter (gtk_tree_view_get_selection (GTK_TREE_VIEW (d->tview_template)), &iter);
+
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_width), d->width);
 	gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_halign), d->halign - HTML_HALIGN_LEFT);
 	gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_width_percent), d->width_percent ? 1 : 0);
@@ -199,9 +202,17 @@ set_ui (GtkHTMLEditTemplateProperties *d)
 }
 
 static void
-changed_template (GtkWidget *w, gint row, gint column, GdkEvent *event, GtkHTMLEditTemplateProperties *d)
+selection_changed (GtkTreeSelection *selection, GtkHTMLEditTemplateProperties *d)
 {
-	d->template = row;
+	GtkTreeIter iter;
+	GtkTreePath *path;
+
+	if (!gtk_tree_selection_get_selected (selection, NULL, &iter))
+		return;
+
+	path = gtk_tree_model_get_path (GTK_TREE_MODEL (d->store), &iter);
+	d->template = gtk_tree_path_get_indices (path) [0];
+	gtk_tree_path_free (path);
 
 	if (!d->disable_change) {
 		gtk_widget_set_sensitive (d->spin_width, template_templates [d->template].has_width);
@@ -227,15 +238,15 @@ changed_template (GtkWidget *w, gint row, gint column, GdkEvent *event, GtkHTMLE
 static void
 fill_templates (GtkHTMLEditTemplateProperties *d)
 {
-	gchar *name [1];
+	GtkWidget *item;
+	GtkTreeIter iter;
 	gint i;
 
-	gtk_clist_freeze (GTK_CLIST (d->clist_template));
 	for (i = 0; i < TEMPLATES; i ++) {
-		name [0] = template_templates [i].name;
-		gtk_clist_append (GTK_CLIST (d->clist_template), name);
+		gtk_list_store_append (d->store, &iter);
+		gtk_list_store_set (d->store, &iter, 0, template_templates [i].name, -1);
+
 	}
-	gtk_clist_thaw (GTK_CLIST (d->clist_template));
 }
 
 static GtkWidget *
@@ -244,14 +255,22 @@ template_widget (GtkHTMLEditTemplateProperties *d, gboolean insert)
 	GtkWidget *template_page, *frame;
 	GladeXML *xml;
 
-	xml = glade_xml_new (GLADE_DATADIR "/gtkhtml-editor-properties.glade", "vbox_template");
+	xml = glade_xml_new (GLADE_DATADIR "/gtkhtml-editor-properties.glade", "vbox_template", NULL);
 	if (!xml)
 		g_error (_("Could not load glade file."));
 
 	template_page = glade_xml_get_widget (xml, "vbox_template");
 
-	d->clist_template = glade_xml_get_widget (xml, "clist_templates");
-	gtk_signal_connect (GTK_OBJECT (d->clist_template), "select_row", changed_template, d);
+	d->tview_template = glade_xml_get_widget (xml, "treeview_template");
+	d->store = gtk_list_store_new (1, G_TYPE_STRING);
+	gtk_tree_view_set_model (GTK_TREE_VIEW (d->tview_template), GTK_TREE_MODEL (d->store));
+
+	gtk_tree_view_append_column (GTK_TREE_VIEW (d->tview_template),
+				     gtk_tree_view_column_new_with_attributes ("Labels",
+									       gtk_cell_renderer_text_new (),
+									       "text", 0, NULL));
+	g_signal_connect (gtk_tree_view_get_selection (GTK_TREE_VIEW (d->tview_template)), "changed",
+			  G_CALLBACK (selection_changed), d);
 	fill_templates (d);
 
 	d->spin_width           = glade_xml_get_widget (xml, "spin_template_width");
@@ -279,7 +298,6 @@ template_insert (GtkHTMLControlData *cd, gpointer *set_data)
 	*set_data = data;
 	rv = template_widget (data, TRUE);
 	set_ui (data);
-	gtk_clist_select_row (GTK_CLIST (data->clist_template), 0, 0);
 	gtk_html_edit_properties_dialog_change (data->cd->properties_dialog);
 
 	return rv;

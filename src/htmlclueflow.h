@@ -40,13 +40,12 @@ struct _HTMLClueFlow {
 	HTMLClueFlowStyle style;
 
 	/* Indentation level for blockquote and lists.  */
-	GByteArray *levels;
+	guint8 level;
 
 	/* list item attributes - this will be ideally moved to list item type
 	   based on HTMLClueFlow once we have real types */
 	HTMLListType item_type;
 	gint         item_number;
-	HTMLColor   *item_color;
 };
 
 struct _HTMLClueFlowClass {
@@ -66,12 +65,12 @@ void               html_clueflow_class_init                   (HTMLClueFlowClass
 void               html_clueflow_init                         (HTMLClueFlow       *flow,
 							       HTMLClueFlowClass  *klass,
 							       HTMLClueFlowStyle   style,
-							       GByteArray         *levels,
+							       guint8              indentation,
 							       HTMLListType        item_type,
 							       gint                item_number,
 							       HTMLClearType       clear);
 HTMLObject        *html_clueflow_new                          (HTMLClueFlowStyle   style,
-							       GByteArray         *leves,
+							       guint8              indentation,
 							       HTMLListType        item_type,
 							       gint                item_number,
 							       HTMLClearType       clear);
@@ -93,18 +92,11 @@ void               html_clueflow_set_halignment               (HTMLClueFlow     
 HTMLHAlignType     html_clueflow_get_halignment               (HTMLClueFlow       *flow);
 void               html_clueflow_modify_indentation_by_delta  (HTMLClueFlow       *flow,
 							       HTMLEngine         *engine,
-							       gint                indentation,
-							       guint8             *indentation_levels);
+							       gint                indentation);
 void               html_clueflow_set_indentation              (HTMLClueFlow       *flow,
 							       HTMLEngine         *engine,
-							       gint               indentation,
-							       guint8             *indentation_levels);
+							       guint8              indentation);
 guint8             html_clueflow_get_indentation              (HTMLClueFlow       *flow);
-GByteArray *       html_clueflow_dup_levels                   (HTMLClueFlow       *flow);
-void               html_clueflow_set_levels                   (HTMLClueFlow       *flow,
-							       HTMLEngine         *engine,
-							       GByteArray         *levels);
-#if 0
 void               html_clueflow_set_properties               (HTMLClueFlow       *flow,
 							       HTMLEngine         *engine,
 							       HTMLClueFlowStyle   style,
@@ -114,7 +106,7 @@ void               html_clueflow_get_properties               (HTMLClueFlow     
 							       HTMLClueFlowStyle  *style_return,
 							       guint8             *indentation_return,
 							       HTMLHAlignType     *alignment_return);
-#endif
+void               html_clueflow_remove_text_slaves           (HTMLClueFlow       *flow);
 void               html_clueflow_spell_check                  (HTMLClueFlow       *flow,
 							       HTMLEngine         *e,
 							       HTMLInterval       *i);
@@ -124,10 +116,6 @@ gint               html_clueflow_get_line_offset              (HTMLClueFlow     
 							       HTMLObject         *child);
 gboolean           html_clueflow_tabs                         (HTMLClueFlow       *flow,
 							       HTMLPainter        *p);
-gboolean           html_clueflow_style_equals                 (HTMLClueFlow       *cf1,
-							       HTMLClueFlow       *cf2);
-void               html_clueflow_set_item_color               (HTMLClueFlow       *flow,
-							       HTMLColor          *color);
 
 #define SPELL_CHECK(f, e) if (f && HTML_OBJECT_TYPE (f) == HTML_TYPE_CLUEFLOW) \
                                    html_clueflow_spell_check (HTML_CLUEFLOW (f), e, NULL)

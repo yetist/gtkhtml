@@ -24,8 +24,6 @@
 #include <config.h>
 #endif
 
-#include <gal/widgets/e-unicode.h>
-
 #include "gtkhtml.h"
 
 #include "htmlclueflow.h"
@@ -58,39 +56,21 @@
 #endif
 
 static void
-undo (GtkWidget *mi, GtkHTMLControlData *cd)
-{
-	gtk_html_undo (cd->html);
-}
-
-static void
-redo (GtkWidget *mi, GtkHTMLControlData *cd)
-{
-	gtk_html_redo (cd->html);
-}
-
-static void
 copy (GtkWidget *mi, GtkHTMLControlData *cd)
 {
-	gtk_html_copy (cd->html);
+	html_engine_copy (cd->html->engine);
 }
 
 static void
 cut (GtkWidget *mi, GtkHTMLControlData *cd)
 {
-	gtk_html_cut (cd->html);
+	html_engine_cut (cd->html->engine);
 }
 
 static void
 paste (GtkWidget *mi, GtkHTMLControlData *cd)
 {
-	gtk_html_paste (cd->html, FALSE);
-}
-
-static void
-paste_cite (GtkWidget *mi, GtkHTMLControlData *cd)
-{
-	gtk_html_paste (cd->html, TRUE);
+	html_engine_paste (cd->html->engine);
 }
 
 static void
@@ -99,7 +79,7 @@ insert_link (GtkWidget *mi, GtkHTMLControlData *cd)
 	if (cd->properties_dialog)
 		gtk_html_edit_properties_dialog_close (cd->properties_dialog);
 
-	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, TRUE, _("Insert"), ICONDIR "/insert-link-24.png");
+	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, TRUE, _("Insert"));
 
 	gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
 						   GTK_HTML_EDIT_PROPERTY_LINK, _("Link"),
@@ -183,7 +163,7 @@ show_prop_dialog (GtkHTMLControlData *cd, GtkHTMLEditPropertyType start)
 
 	if (cd->properties_dialog)
 		gtk_html_edit_properties_dialog_close (cd->properties_dialog);
-	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, FALSE, _("Properties"), ICONDIR "/properties-16.png");
+	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, FALSE, _("Properties"));
 
 	cur = cd->properties_types;
 	while (cur) {
@@ -268,7 +248,7 @@ link_prop_dialog (GtkWidget *mi, GtkHTMLControlData *cd)
 	if (cd->properties_dialog)
 		gtk_html_edit_properties_dialog_close (cd->properties_dialog);
 
-	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, FALSE, _("Properties"), ICONDIR "/insert-link-24.png");
+	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, FALSE, _("Properties"));
 
 	gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
 						   GTK_HTML_EDIT_PROPERTY_LINK, _("Link"),
@@ -287,7 +267,7 @@ spell_suggest (GtkWidget *mi, GtkHTMLControlData *cd)
 
 	/* gtk_signal_emit_by_name (GTK_OBJECT (cd->html), "spell_suggestion_request",
 	   e->spell_checker, html_engine_get_word (e)); */
-	spell_suggestion_request (cd->html, html_engine_get_spell_word (e), cd);
+	spell_suggestion_request (cd->html, cd);
 }
 
 static void
@@ -346,28 +326,19 @@ insert_html (GtkWidget *mi, GtkHTMLControlData *cd)
 
 #define ADD_ITEM_BASE(f,t) \
                 gtk_object_set_data (GTK_OBJECT (menuitem), "type", GINT_TO_POINTER (GTK_HTML_EDIT_PROPERTY_ ## t)); \
-		gtk_menu_append (GTK_MENU (menu), menuitem); \
+		gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem); \
 		gtk_widget_show (menuitem); \
-		gtk_signal_connect (GTK_OBJECT (menuitem), "activate", GTK_SIGNAL_FUNC (f), cd); \
+		g_signal_connect (menuitem, "activate", G_CALLBACK (f), cd); \
                 (*items)++; items_sep++
 
 #define ADD_ITEM(l,f,t) \
 		menuitem = gtk_menu_item_new_with_label (l); \
                 ADD_ITEM_BASE (f,t)
 
-#define ADD_ITEM_SENSITIVE(l,f,t,s) \
-		menuitem = gtk_menu_item_new_with_label (l); \
-                ADD_ITEM_BASE (f,t); \
-                gtk_widget_set_sensitive (menuitem, s);
-
-#define ADD_ITEM_UTF8(l,f,t) \
-                menuitem = e_utf8_gtk_menu_item_new_with_label (GTK_MENU (menu), l); \
-                ADD_ITEM_BASE (f,t)
-
 #define ADD_SEP \
         if (items_sep) { \
                 menuitem = gtk_menu_item_new (); \
-                gtk_menu_append (GTK_MENU (menu), menuitem); \
+                gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem); \
                 gtk_widget_show (menuitem); \
 		items_sep = 0; \
         }
@@ -377,7 +348,7 @@ insert_html (GtkWidget *mi, GtkHTMLControlData *cd)
 
 #define SUBMENU(l) \
 		        menuitem = gtk_menu_item_new_with_label (_(l)); \
-			gtk_menu_append (GTK_MENU (menu), menuitem); \
+			gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem); \
 			gtk_widget_show (menuitem); \
 			(*items)++; items_sep++; \
 			submenu = gtk_menu_new (); \
@@ -398,10 +369,10 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items)
 	GtkWidget *submenu, *menuparent;
 	GtkWidget *menuitem;
 	guint items_sep = 0;
-	gboolean active = FALSE;
 
 	obj  = cd->html->engine->cursor->object;
 	menu = gtk_menu_new ();
+	*items = 0;
 
 	if (cd->properties_types) {
 		g_list_free (cd->properties_types);
@@ -414,20 +385,36 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items)
 	ADD_ITEM ("Insert HTML", insert_html, NONE);
 	ADD_SEP;
 #endif
-	active = html_engine_is_selection_active (e);
-	ADD_ITEM (_("Undo"), undo, NONE); 
-	ADD_ITEM (_("Redo"), redo, NONE); 
 
-	ADD_SEP;
-	ADD_ITEM_SENSITIVE (_("Copy"), copy, NONE, active);
-	ADD_ITEM_SENSITIVE (_("Cut"),  cut, NONE, active);
-	ADD_ITEM (_("Paste"),  paste, NONE);
-	ADD_ITEM (_("Paste Quotation"),  paste_cite, NONE);
+	if (!html_engine_is_selection_active (e) && obj && html_object_is_text (obj)
+	    && !html_engine_spell_word_is_valid (e)) {
+		gchar *spell, *word, *ignore, *add;
+
+		word   = html_engine_get_spell_word (e);
+		spell  = g_strdup_printf (_("Check '%s' spelling..."), word);
+		add    = g_strdup_printf (_("Add '%s' to dictionary"), word);
+		ignore = g_strdup_printf (_("Ignore '%s'"), word);
+		SUBMENU (N_("Spell checker"));
+		if (cd->has_spell_control) {
+			ADD_ITEM (spell, spell_check_cb, NONE);
+		} else {
+			ADD_ITEM (_("Suggest word"), spell_suggest, NONE);
+		}
+		ADD_ITEM (add, spell_add, NONE);
+		ADD_ITEM (ignore, spell_ignore, NONE);
+		END_SUBMENU;
+
+		g_free (spell);
+		g_free (add);
+		g_free (ignore);
+		g_free (word);
+	}
 
 	ADD_SEP;
 	ADD_ITEM (_("Insert link"), insert_link, NONE);
+
 	if (cd->format_html
-	    && ((active && html_engine_selection_contains_link (e))
+	    && ((html_engine_is_selection_active (e) && html_engine_selection_contains_link (e))
 		|| (obj
 		    && (HTML_OBJECT_TYPE (obj) == HTML_TYPE_LINKTEXT
 			|| (HTML_OBJECT_TYPE (obj) == HTML_TYPE_IMAGE
@@ -436,35 +423,16 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items)
 		ADD_ITEM (_("Remove link"), remove_link, NONE);
 	}
 
-	if (!active && obj && html_object_is_text (obj)
-	    && !html_engine_spell_word_is_valid (e)) {
-		gchar *spell, *word, *check_utf8, *add_utf8, *ignore_utf8, *ignore, *add;
-
-		word   = html_engine_get_spell_word (e);
-		check_utf8 = e_utf8_from_locale_string (_("Check '%s' spelling..."));
-		spell  = g_strdup_printf (check_utf8, word);
-		g_free (check_utf8);
-		add_utf8 = e_utf8_from_locale_string (_("Add '%s' to dictionary"));
-		add    = g_strdup_printf (add_utf8, word);
-		g_free (add_utf8);
-		ignore_utf8 = e_utf8_from_locale_string (_("Ignore '%s'"));
-		ignore = g_strdup_printf (ignore_utf8, word);
-		g_free (ignore_utf8);
+	if (html_engine_is_selection_active (e)) {
 		ADD_SEP;
-		SUBMENU (N_("Spell checker"));
-		if (cd->has_spell_control) {
-			ADD_ITEM_UTF8 (spell, spell_check_cb, NONE);
-		} else {
-			ADD_ITEM (_("Suggest word"), spell_suggest, NONE);
+		ADD_ITEM (_("Copy"), copy, NONE);
+		ADD_ITEM (_("Cut"),  cut, NONE);
+	}
+	if (e->clipboard) {
+		if (!html_engine_is_selection_active (e)) {
+			ADD_SEP;
 		}
-		ADD_ITEM_UTF8 (add, spell_add, NONE);
-		ADD_ITEM_UTF8 (ignore, spell_ignore, NONE);
-		END_SUBMENU;
-
-		g_free (spell);
-		g_free (add);
-		g_free (ignore);
-		g_free (word);
+		ADD_ITEM (_("Paste"),  paste, NONE);
 	}
 
 	if (cd->format_html && obj) {
@@ -535,7 +503,11 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items)
 		ADD_ITEM (_("Page..."), prop_dialog, BODY);
 	}
 
-	gtk_widget_show (menu);
+	if (*items == 0) {
+		gtk_object_sink (GTK_OBJECT (menu));
+		menu = NULL;
+	} else
+		gtk_widget_show (menu);
 
 	return menu;
 }
@@ -544,19 +516,19 @@ gint
 popup_show (GtkHTMLControlData *cd, GdkEventButton *event)
 {
 	GtkWidget *menu;
-	guint items = 0;
+	guint items;
 
 	menu = prepare_properties_and_menu (cd, &items);
+
 	if (items)
-		gtk_menu_popup (GTK_MENU (menu), NULL, NULL, NULL, NULL, 
+		gtk_menu_popup (GTK_MENU (menu), NULL, NULL, NULL, NULL,
 				event ? event->button : 0, event ? event->time : 0);
-	gtk_widget_unref (menu);
 
 	return (items > 0);
 }
 
 static void
-set_position (GtkMenu *menu, gint *x, gint *y, gpointer data)
+set_position (GtkMenu *menu, gint *x, gint *y, gboolean *push_in, gpointer data)
 {
 	GtkHTMLControlData *cd = (GtkHTMLControlData *) data;
 	HTMLEngine *e = cd->html->engine;
@@ -572,13 +544,12 @@ gint
 popup_show_at_cursor (GtkHTMLControlData *cd)
 {
 	GtkWidget *menu;
-	guint items = 0;
+	guint items;
 
 	menu = prepare_properties_and_menu (cd, &items);
 	gtk_widget_show (menu);
 	if (items)
 		gtk_menu_popup (GTK_MENU (menu), NULL, NULL, set_position, cd, 0, 0);
-	gtk_widget_unref (menu);
 
 	return (items > 0);
 }
@@ -586,9 +557,9 @@ popup_show_at_cursor (GtkHTMLControlData *cd)
 void
 property_dialog_show (GtkHTMLControlData *cd)
 {
-	guint items = 0;
+	guint items;
 
-	gtk_widget_unref (prepare_properties_and_menu (cd, &items));
+	prepare_properties_and_menu (cd, &items);
 	if (items)
 		show_prop_dialog (cd, GTK_HTML_EDIT_PROPERTY_NONE);
 }

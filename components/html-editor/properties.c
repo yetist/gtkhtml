@@ -23,7 +23,6 @@
 
 #include <config.h>
 #include "dialog.h"
-#include <libgnomeui/gnome-window-icon.h>
 #include "properties.h"
 
 #define GTK_HTML_EDIT_IMAGE_BWIDTH      0
@@ -108,7 +107,7 @@ destroy_dialog (GtkWidget *w, gpointer data)
 }
 
 GtkHTMLEditPropertiesDialog *
-gtk_html_edit_properties_dialog_new (GtkHTMLControlData *cd, gboolean insert, gchar *title, gchar *icon_path)
+gtk_html_edit_properties_dialog_new (GtkHTMLControlData *cd, gboolean insert, gchar *title)
 {
 	GtkHTMLEditPropertiesDialog *d = g_new (GtkHTMLEditPropertiesDialog, 1);
 	GtkWindow *parent;
@@ -129,19 +128,17 @@ gtk_html_edit_properties_dialog_new (GtkHTMLControlData *cd, gboolean insert, gc
 		gnome_dialog_set_parent (GNOME_DIALOG (d->dialog), parent);
 	}
 	d->notebook = gtk_notebook_new ();
-	gtk_signal_connect (GTK_OBJECT (d->dialog), "destroy", destroy_dialog, d);
-	gtk_signal_connect (GTK_OBJECT (d->notebook), "switch_page", switch_page, d);
+	g_signal_connect (d->dialog, "destroy", G_CALLBACK (destroy_dialog), d);
+	g_signal_connect (d->notebook, "switch_page", G_CALLBACK (switch_page), d);
 	gtk_box_pack_start_defaults (GTK_BOX (GNOME_DIALOG (d->dialog)->vbox), d->notebook);
 	gtk_widget_show (d->notebook);
 
-	gnome_dialog_button_connect (GNOME_DIALOG (d->dialog), 0, ok, d);
+	gnome_dialog_button_connect (GNOME_DIALOG (d->dialog), 0, GTK_SIGNAL_FUNC (ok), d);
 	if (!insert)
-		gnome_dialog_button_connect (GNOME_DIALOG (d->dialog), 1, apply, d);
-	gnome_dialog_button_connect (GNOME_DIALOG (d->dialog), insert ? 1 : 2, prop_close, d);
+		gnome_dialog_button_connect (GNOME_DIALOG (d->dialog), 1, GTK_SIGNAL_FUNC (apply), d);
+	gnome_dialog_button_connect (GNOME_DIALOG (d->dialog), insert ? 1 : 2, GTK_SIGNAL_FUNC (prop_close), d);
 	gnome_dialog_set_default (GNOME_DIALOG (d->dialog), 0);
 
-	
-	gnome_window_icon_set_from_file (GTK_WINDOW (d->dialog), icon_path);
 	gnome_dialog_set_sensitive (GNOME_DIALOG (d->dialog), 0, FALSE);
 	if (!insert)
 		gnome_dialog_set_sensitive (GNOME_DIALOG (d->dialog), 1, FALSE);
@@ -232,5 +229,5 @@ gtk_html_edit_properties_dialog_set_page (GtkHTMLEditPropertiesDialog *d, GtkHTM
 	gint pos = g_list_position (d->page_data, g_list_find_custom (d->page_data, GINT_TO_POINTER (t),
 								      (GCompareFunc) find_type));
 	if (pos >= 0)
-		gtk_notebook_set_page (GTK_NOTEBOOK (d->notebook), pos);
+		gtk_notebook_set_current_page (GTK_NOTEBOOK (d->notebook), pos);
 }

@@ -23,11 +23,11 @@
 #ifndef ENGINE_H_
 #define ENGINE_H_
 
-BEGIN_GNOME_DECLS
+G_BEGIN_DECLS
 
 typedef struct _EditorEngine EditorEngine;
 
-#include <libgnome/gnome-defs.h>
+#include <gtk/gtktypeutils.h>
 #include <bonobo/bonobo-object.h>
 #include "Editor.h"
 #include "control-data.h"
@@ -44,20 +44,18 @@ struct _EditorEngine {
 
 	GtkHTMLControlData *cd;
 
-	BonoboObjectClient *listener_client;
 	GNOME_GtkHTML_Editor_Listener listener;
 };
 
 typedef struct {
 	BonoboObjectClass parent_class;
+	POA_GNOME_GtkHTML_Editor_Engine__epv epv;
 } EditorEngineClass;
 
 GtkType                               editor_engine_get_type   (void);
-EditorEngine                         *editor_engine_construct  (EditorEngine                *engine,
-								GNOME_GtkHTML_Editor_Engine  corba_engine);
 EditorEngine                         *editor_engine_new        (GtkHTMLControlData          *cd);
 POA_GNOME_GtkHTML_Editor_Engine__epv *editor_engine_get_epv    (void);
 
-END_GNOME_DECLS
+G_END_DECLS
 
 #endif /* ENGINE_H_ */

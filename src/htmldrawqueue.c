@@ -157,7 +157,7 @@ html_draw_queue_add (HTMLDrawQueue *queue, HTMLObject *object)
 
 	queue->last = g_list_append (queue->last, object);
 	if (queue->elems == NULL && queue->clear_elems == NULL)
-		gtk_signal_emit_by_name (GTK_OBJECT (queue->engine), "draw_pending");
+		g_signal_emit_by_name (queue->engine, "draw_pending");
 
 	if (queue->elems == NULL)
 		queue->elems = queue->last;
@@ -172,7 +172,7 @@ add_clear (HTMLDrawQueue *queue,
 {
 	queue->clear_last = g_list_append (queue->clear_last, elem);
 	if (queue->elems == NULL && queue->clear_elems == NULL)
-		gtk_signal_emit_by_name (GTK_OBJECT (queue->engine), "draw_pending");
+		g_signal_emit_by_name (queue->engine, "draw_pending");
 
 	if (queue->clear_elems == NULL)
 		queue->clear_elems = queue->clear_last;
@@ -273,6 +273,8 @@ draw_obj (HTMLDrawQueue *queue,
 		return;
 
 	e = queue->engine;
+	e->clue->x = e->leftBorder;
+	e->clue->y = e->topBorder + e->clue->ascent;
 
 	html_object_engine_translation (obj, e, &tx, &ty);
 	if (!html_object_engine_intersection (obj, e, tx, ty, &x1, &y1, &x2, &y2))
@@ -335,9 +337,11 @@ clear (HTMLDrawQueue *queue,
 	gint x1, y1, x2, y2;
 
 	e = queue->engine;
+	e->clue->x = e->leftBorder;
+	e->clue->y = e->topBorder + e->clue->ascent;
 
-	x1 = elem->x + e->leftBorder - e->x_offset;
-	y1 = elem->y + e->topBorder - e->y_offset;
+	x1 = elem->x;
+	y1 = elem->y;
 
 	x2 = x1 + elem->width;
 	y2 = y1 + elem->height;
@@ -388,11 +392,6 @@ void
 html_draw_queue_flush (HTMLDrawQueue *queue)
 {
 	GList *p;
-	GdkVisual *vis;
-
-	/* check to make sure we have something to draw on */
-
-	vis = queue->engine->window ? gdk_window_get_visual (queue->engine->window): NULL;
 
 	/* Draw clear areas.  */
 
@@ -400,15 +399,14 @@ html_draw_queue_flush (HTMLDrawQueue *queue)
 		HTMLDrawQueueClearElement *clear_elem;
 
 		clear_elem = p->data;
-		if (vis)
-			clear (queue, clear_elem);
+		clear (queue, clear_elem);
 		clear_element_destroy (clear_elem);
 	}
 
 
 	/* Draw objects.  */
 
-	if (vis) {
+	if (GTK_WIDGET (queue->engine->widget)->window) {
 		for (p = queue->elems; p != NULL; p = p->next) {
 			HTMLObject *obj = HTML_OBJECT (p->data);
 			

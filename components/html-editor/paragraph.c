@@ -103,7 +103,7 @@ paragraph_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	data->style = gtk_html_get_paragraph_style     (cd->html);
 
 	table = gtk_table_new (2, 2, FALSE);
-	gtk_container_border_width (GTK_CONTAINER (table), 3);
+	gtk_container_set_border_width (GTK_CONTAINER (table), 3);
 	gtk_table_set_col_spacings (GTK_TABLE (table), 3);
 	gtk_table_set_row_spacings (GTK_TABLE (table), 2);
 
@@ -115,10 +115,10 @@ paragraph_properties (GtkHTMLControlData *cd, gpointer *set_data)
 #undef ADD_ITEM
 #define ADD_ITEM(n,s) \
 	menuitem = gtk_menu_item_new_with_label (n); \
-        gtk_menu_append (GTK_MENU (menu), menuitem); \
+        gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem); \
         gtk_widget_show (menuitem); \
         if (data->style == s) h=i; i++; \
-        gtk_signal_connect (GTK_OBJECT (menuitem), "activate", GTK_SIGNAL_FUNC (set_style), data); \
+        g_signal_connect (menuitem, "activate", G_CALLBACK (set_style), data); \
         gtk_object_set_data (GTK_OBJECT (menuitem), "style", GINT_TO_POINTER (s));
 
 	ADD_ITEM (_("Normal"),       GTK_HTML_PARAGRAPH_STYLE_NORMAL);
@@ -144,14 +144,14 @@ paragraph_properties (GtkHTMLControlData *cd, gpointer *set_data)
 
 	frame = gtk_frame_new (_("Align"));
 	hbox = gtk_hbox_new (FALSE, 3);
-	gtk_container_border_width (GTK_CONTAINER (hbox), 3);
+	gtk_container_set_border_width (GTK_CONTAINER (hbox), 3);
 
 #define ADD_RADIO(x,a) \
 	radio = gtk_radio_button_new_with_label (group, x); \
-	group = gtk_radio_button_group (GTK_RADIO_BUTTON (radio)); \
+	group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (radio)); \
 	gtk_box_pack_start (GTK_BOX (hbox), radio, FALSE, FALSE, 0); \
         if (a == data->align) gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE); \
-        gtk_signal_connect (GTK_OBJECT (radio), "toggled", set_align, data); \
+        g_signal_connect (radio, "toggled", G_CALLBACK (set_align), data); \
         gtk_object_set_data (GTK_OBJECT (radio), "align", GINT_TO_POINTER (a));
 
 	group = NULL;

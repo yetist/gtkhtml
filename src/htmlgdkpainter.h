@@ -22,19 +22,24 @@
 #ifndef _HTMLGDKPAINTER_H
 #define _HTMLGDKPAINTER_H
 
+#include <pango/pango-context.h>
+#include <pango/pango-layout.h>
+
+#include <gtk/gtkwidget.h>
+
 #include "htmlpainter.h"
 #include "htmlfontmanager.h"
 
-
 #define HTML_TYPE_GDK_PAINTER                 (html_gdk_painter_get_type ())
-#define HTML_GDK_PAINTER(obj)                 (GTK_CHECK_CAST ((obj), HTML_TYPE_GDK_PAINTER, HTMLGdkPainter))
-#define HTML_GDK_PAINTER_CLASS(klass)         (GTK_CHECK_CLASS_CAST ((klass), HTML_TYPE_GDK_PAINTER, HTMLGdkPainterClass))
-#define HTML_IS_GDK_PAINTER(obj)              (GTK_CHECK_TYPE ((obj), HTML_TYPE_GDK_PAINTER))
-#define HTML_IS_GDK_PAINTER_CLASS(klass)      (GTK_CHECK_CLASS_TYPE ((klass), HTML_TYPE_GDK_PAINTER))
+#define HTML_GDK_PAINTER(obj)                 (G_TYPE_CHECK_INSTANCE_CAST ((obj), HTML_TYPE_GDK_PAINTER, HTMLGdkPainter))
+#define HTML_GDK_PAINTER_CLASS(klass)         (G_TYPE_CHECK_CLASS_CAST ((klass), HTML_TYPE_GDK_PAINTER, HTMLGdkPainterClass))
+#define HTML_IS_GDK_PAINTER(obj)              (G_TYPE_CHECK_INSTANCE_TYPE ((obj), HTML_TYPE_GDK_PAINTER))
+#define HTML_IS_GDK_PAINTER_CLASS(klass)      (G_TYPE_CHECK_CLASS_TYPE ((klass), HTML_TYPE_GDK_PAINTER))
 
-
 struct _HTMLGdkPainter {
 	HTMLPainter base;
+	PangoContext *pc;
+	PangoLayout *layout;
 
 	/* GdkWindow to draw on */
 	GdkWindow *window;
@@ -62,8 +67,9 @@ struct _HTMLGdkPainterClass {
 };
 
 
-GtkType      html_gdk_painter_get_type   (void);
-HTMLPainter *html_gdk_painter_new        (gboolean        double_buffer);
+GType        html_gdk_painter_get_type   (void);
+HTMLPainter *html_gdk_painter_new        (GtkWidget      *widget,
+					  gboolean        double_buffer);
 void         html_gdk_painter_realize    (HTMLGdkPainter *painter,
 					  GdkWindow      *window);
 void         html_gdk_painter_unrealize  (HTMLGdkPainter *painter);

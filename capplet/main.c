@@ -34,13 +34,11 @@
 #define MS_KEYMAP_NAME "MS like"
 
 static GtkWidget *capplet, *variable, *variable_print, *fixed, *fixed_print, *anim_check;
-static GtkWidget *bi, *live_spell_check, *live_spell_frame, *magic_links_check, *magic_smileys_check, *button_cfg_spell;
+static GtkWidget *bi, *live_spell_check, *live_spell_frame, *magic_check, *button_cfg_spell;
 
 static gboolean active = FALSE;
-#ifdef GTKHTML_HAVE_GCONF
 static GError      *error  = NULL;
 static GConfClient *client = NULL;
-#endif
 static GtkHTMLClassProperties *saved_prop;
 static GtkHTMLClassProperties *orig_prop;
 static GtkHTMLClassProperties *actual_prop;
@@ -68,8 +66,7 @@ set_ui ()
 	SET_FONT (font_fix_print, fixed_print);
 
 	/* set to current state */
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (magic_links_check), actual_prop->magic_links);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (magic_smileys_check), actual_prop->magic_smileys);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (magic_check), actual_prop->magic_links);
 
 	if (!strcmp (actual_prop->keybindings_theme, "emacs")) {
 		keymap_name = EMACS_KEYMAP_NAME;
@@ -88,9 +85,9 @@ set_ui ()
 }
 
 static gchar *
-get_attr (gchar *font_name, gint n)
+get_attr (const gchar *font_name, gint n)
 {
-    gchar *s, *end;
+    const gchar *s, *end;
 
     /* Search paramether */
     for (s=font_name; n; n--,s++)
@@ -145,8 +142,7 @@ apply_editable (void)
 											      CUSTOM_KEYMAP_NAME));
 	*/
 	/* properties */
-	actual_prop->magic_links = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (magic_links_check));
-	actual_prop->magic_smileys = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (magic_smileys_check));
+	actual_prop->magic_links = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (magic_check));
 	keymap_name = gnome_bindings_properties_get_keymap_name (GNOME_BINDINGS_PROPERTIES (bi));
 	if (!keymap_name) {
 		keymap_id = "ms";
@@ -171,11 +167,7 @@ apply (void)
 {
 	apply_fonts ();
 	apply_editable ();
-#ifdef GTKHTML_HAVE_GCONF
 	gtk_html_class_properties_update (actual_prop, client, saved_prop);
-#else
-	gtk_html_class_properties_save (actual_prop);
-#endif
 	gtk_html_class_properties_copy   (saved_prop, actual_prop);
 
 }
@@ -188,11 +180,7 @@ revert (void)
 	saved_bindings = gnome_binding_entry_list_copy (orig_bindings);
 	gnome_bindings_properties_save_keymap (GNOME_BINDINGS_PROPERTIES (bi), CUSTOM_KEYMAP_NAME, home_rcfile);
 	*/
-#ifdef GTKHTML_HAVE_GCONF
 	gtk_html_class_properties_update (orig_prop, client, saved_prop);
-#else
-	gtk_html_class_properties_save (orig_prop);
-#endif
 	gtk_html_class_properties_copy   (saved_prop, orig_prop);
 	gtk_html_class_properties_copy   (actual_prop, orig_prop);
 
@@ -222,17 +210,17 @@ picker_clicked (GtkWidget *w, gpointer data)
 {
 	gchar *mono_spaced [] = { "c", "m", NULL };
 	
-	if (!GPOINTER_TO_INT (data))
+	/* FIX2 if (!GPOINTER_TO_INT (data))
 		gtk_font_selection_dialog_set_filter (SELECTOR (w),
 						      GTK_FONT_FILTER_BASE, GTK_FONT_ALL,
 						      NULL, NULL, NULL, NULL,
-						      mono_spaced, NULL);
+						      mono_spaced, NULL); */
 }
 
 static void
 cfg_spell (GtkWidget *w, gpointer data)
 {
-	gchar *argv[2] = {"gnome-spell-properties-capplet", NULL};
+	gchar *argv[2] = {"gnome-spell-properties-capplet-1.0", NULL};
 
 	if (gnome_execute_async (NULL, 1, argv) < 0)
 		gnome_error_dialog (_("Cannot execute GNOME Spell control applet\n"
@@ -247,13 +235,13 @@ setup (void)
 	gchar *base, *rcfile;
 
 	glade_gnome_init ();
-	xml = glade_xml_new (GLADE_DATADIR "/gtkhtml-capplet.glade", "prefs_widget");
+	xml = glade_xml_new (GLADE_DATADIR "/gtkhtml-capplet.glade", "prefs_widget", NULL);
 
 	if (!xml)
 		g_error (_("Could not load glade file."));
 
-	glade_xml_signal_connect (xml, "changed", GTK_SIGNAL_FUNC (changed));
-	glade_xml_signal_connect (xml, "live_changed", GTK_SIGNAL_FUNC (live_changed));
+	glade_xml_signal_connect (xml, "changed", G_CALLBACK (changed));
+	glade_xml_signal_connect (xml, "live_changed", G_CALLBACK (live_changed));
 
         capplet = capplet_widget_new();
 	vbox    = glade_xml_get_widget (xml, "prefs_widget");
@@ -263,22 +251,21 @@ setup (void)
 	fixed            = glade_xml_get_widget (xml, "screen_fixed");
 	fixed_print      = glade_xml_get_widget (xml, "print_fixed");
 
-	gtk_signal_connect (GTK_OBJECT (variable),        "clicked", picker_clicked, GINT_TO_POINTER (TRUE));
-	gtk_signal_connect (GTK_OBJECT (variable_print),  "clicked", picker_clicked, GINT_TO_POINTER (TRUE));
-	gtk_signal_connect (GTK_OBJECT (fixed),           "clicked", picker_clicked, GINT_TO_POINTER (FALSE));
-	gtk_signal_connect (GTK_OBJECT (fixed_print),     "clicked", picker_clicked, GINT_TO_POINTER (FALSE));
+	g_signal_connect (variable,        "clicked", G_CALLBACK (picker_clicked), GINT_TO_POINTER (TRUE));
+	g_signal_connect (variable_print,  "clicked", G_CALLBACK (picker_clicked), GINT_TO_POINTER (TRUE));
+	g_signal_connect (fixed,           "clicked", G_CALLBACK (picker_clicked), GINT_TO_POINTER (FALSE));
+	g_signal_connect (fixed_print,     "clicked", G_CALLBACK (picker_clicked), GINT_TO_POINTER (FALSE));
 
 	anim_check       = glade_xml_get_widget (xml, "anim_check");
-	magic_links_check = glade_xml_get_widget (xml, "magic_links_check");
-	magic_smileys_check = glade_xml_get_widget (xml, "magic_smileys_check");
+	magic_check      = glade_xml_get_widget (xml, "magic_check");
 	live_spell_check = glade_xml_get_widget (xml, "live_spell_check");
 	live_spell_frame = glade_xml_get_widget (xml, "live_spell_frame");
 	button_cfg_spell = glade_xml_get_widget (xml, "button_configure_spell_checking");
 
-	gtk_signal_connect (GTK_OBJECT (button_cfg_spell), "clicked", cfg_spell, NULL);
+	g_signal_connect (button_cfg_spell, "clicked", G_CALLBACK (cfg_spell), NULL);
 
 #define LOAD(x) \
-	base = g_strconcat ("gtkhtml/keybindingsrc.", x, NULL); \
+	base = g_strconcat ("gtkhtml-" GTKHTML_RELEASE  "/keybindingsrc.", x, NULL); \
 	rcfile = gnome_unconditional_datadir_file (base); \
         gtk_rc_parse (rcfile); \
         g_free (base); \
@@ -309,8 +296,8 @@ setup (void)
 						       (GNOME_BINDINGS_PROPERTIES (bi), CUSTOM_KEYMAP_NAME));
 	saved_bindings = gnome_binding_entry_list_copy (gnome_bindings_properties_get_keymap
 							(GNOME_BINDINGS_PROPERTIES (bi), CUSTOM_KEYMAP_NAME));
-							gtk_signal_connect (GTK_OBJECT (bi), "changed", changed, NULL); */
-	gtk_signal_connect (GTK_OBJECT (bi), "changed", changed, NULL);
+							g_signal_connect (bi, "changed", changed, NULL); */
+	g_signal_connect (bi, "changed", G_CALLBACK (changed), NULL);
 
 	ebox = glade_xml_get_widget (xml, "bindings_ebox");
 	gtk_container_add (GTK_CONTAINER (ebox), bi);
@@ -330,38 +317,27 @@ main (int argc, char **argv)
         if (gnome_capplet_init ("gtkhtml-properties", VERSION, argc, argv, NULL, 0, NULL) < 0)
 		return 1;
 
-#ifdef GTKHTML_HAVE_GCONF
-	if (!gconf_init(argc, argv, &error)) {
-		g_assert(error != NULL);
-		g_warning("GConf init failed:\n  %s", error->message);
-		return 1;
-	}
-
 	client = gconf_client_get_default ();
 	gconf_client_add_dir(client, GTK_HTML_GCONF_DIR, GCONF_CLIENT_PRELOAD_NONE, NULL);
-#endif
+
 	orig_prop = gtk_html_class_properties_new ();
 	saved_prop = gtk_html_class_properties_new ();
 	actual_prop = gtk_html_class_properties_new ();
-#ifdef GTKHTML_HAVE_GCONF
 	gtk_html_class_properties_load (actual_prop, client);
-#else
-	gtk_html_class_properties_load (actual_prop);
-#endif
 	gtk_html_class_properties_copy (saved_prop, actual_prop);
 	gtk_html_class_properties_copy (orig_prop, actual_prop);
 
         setup ();
 
 	/* connect signals */
-        gtk_signal_connect (GTK_OBJECT (capplet), "try",
-                            GTK_SIGNAL_FUNC (apply), NULL);
-        gtk_signal_connect (GTK_OBJECT (capplet), "revert",
-                            GTK_SIGNAL_FUNC (revert), NULL);
-        gtk_signal_connect (GTK_OBJECT (capplet), "ok",
-                            GTK_SIGNAL_FUNC (apply), NULL);
-        gtk_signal_connect (GTK_OBJECT (capplet), "cancel",
-                            GTK_SIGNAL_FUNC (revert), NULL);
+        g_signal_connect (GTK_OBJECT (capplet), "try",
+                            G_CALLBACK (apply), NULL);
+        g_signal_connect (GTK_OBJECT (capplet), "revert",
+                            G_CALLBACK (revert), NULL);
+        g_signal_connect (GTK_OBJECT (capplet), "ok",
+                            G_CALLBACK (apply), NULL);
+        g_signal_connect (GTK_OBJECT (capplet), "cancel",
+                            G_CALLBACK (revert), NULL);
 
         capplet_gtk_main ();
 

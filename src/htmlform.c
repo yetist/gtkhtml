@@ -15,7 +15,8 @@
 
     You should have received a copy of the GNU Library General Public License
     along with this library; see the file COPYING.LIB.  If not, write to
-    the Free Software Foundation, Inc., 59 Temple Place - Suite 330,    Boston, MA 02111-1307, USA.
+    the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+    Boston, MA 02111-1307, USA.
 
 */
 
@@ -36,7 +37,7 @@ html_form_new (HTMLEngine *engine, gchar *_action, gchar *_method)
 
 	new->elements = NULL;
 	new->hidden = NULL;
-	html_form_set_engine (new, engine);
+	new->engine = engine;
 
 	new->radio_group = g_hash_table_new (g_str_hash, g_str_equal);
 
@@ -79,7 +80,7 @@ html_form_add_radio (HTMLForm *form, char *name, GtkRadioButton *button)
 		gtk_widget_ref (GTK_WIDGET (button));
 		g_hash_table_insert (form->radio_group, key, button);
 	} else {
-		group = gtk_radio_button_group (GTK_RADIO_BUTTON (master));
+		group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (master));
 		gtk_radio_button_set_group (button, group);
 	}
 }
@@ -144,13 +145,6 @@ html_form_submit (HTMLForm *form)
 	html_engine_form_submitted (form->engine, form->method, form->action, encoding->str);
 
 	g_string_free (encoding, TRUE);
-}
-
-void
-html_form_set_engine (HTMLForm *form, HTMLEngine *engine)
-{
-	g_return_if_fail (HTML_IS_ENGINE (engine));
-	form->engine = engine;
 }
 
 void

@@ -299,7 +299,7 @@ fill_templates (GtkHTMLEditRuleProperties *d)
 	menu = gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_template));
 
 	for (i = 0; i < TEMPLATES; i ++)
-		gtk_menu_append (GTK_MENU (menu), gtk_menu_item_new_with_label (_(rule_templates [i].name)));
+		gtk_menu_shell_append (GTK_MENU_SHELL (menu), gtk_menu_item_new_with_label (_(rule_templates [i].name)));
 	gtk_menu_set_active (GTK_MENU (menu), 0);
 	gtk_container_remove (GTK_CONTAINER (menu), gtk_menu_get_active (GTK_MENU (menu)));
 }
@@ -310,36 +310,36 @@ rule_widget (GtkHTMLEditRuleProperties *d, gboolean insert)
 	GtkWidget *rule_page;
 	GladeXML *xml;
 
-	xml = glade_xml_new (GLADE_DATADIR "/gtkhtml-editor-properties.glade", "rule_page");
+	xml = glade_xml_new (GLADE_DATADIR "/gtkhtml-editor-properties.glade", "rule_page", NULL);
 	if (!xml)
 		g_error (_("Could not load glade file."));
 
 	rule_page = glade_xml_get_widget (xml, "rule_page");
 
 	d->spin_length   = glade_xml_get_widget (xml, "spin_rule_length");
-	gtk_signal_connect (GTK_OBJECT (d->spin_length), "changed", changed_length, d);
+	g_signal_connect (d->spin_length, "changed", G_CALLBACK (changed_length), d);
 	UPPER_FIX (length);
 	d->spin_width   = glade_xml_get_widget (xml, "spin_rule_width");
-	gtk_signal_connect (GTK_OBJECT (d->spin_width), "changed", changed_width, d);
+	g_signal_connect (d->spin_width, "changed", G_CALLBACK (changed_width), d);
 	UPPER_FIX (width);
 	d->option_length_percent = glade_xml_get_widget (xml, "option_rule_percent");
-	gtk_signal_connect (GTK_OBJECT (gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_length_percent))),
-			    "selection-done", changed_length_percent, d);
+	g_signal_connect (gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_length_percent)),
+			  "selection-done", G_CALLBACK (changed_length_percent), d);
 
 	d->option_align = glade_xml_get_widget (xml, "option_rule_align");
-	gtk_signal_connect (GTK_OBJECT (gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_align))),
-			    "selection-done", changed_align, d);
+	g_signal_connect (gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_align)),
+			  "selection-done", G_CALLBACK (changed_align), d);
 
 	d->check_shaded = glade_xml_get_widget (xml, "check_rule_shaded");
-	gtk_signal_connect (GTK_OBJECT (d->check_shaded), "toggled", shaded_toggled, d);
+	g_signal_connect (d->check_shaded, "toggled", G_CALLBACK (shaded_toggled), d);
 
 	gtk_box_pack_start (GTK_BOX (rule_page), sample_frame (&d->sample), FALSE, FALSE, 0);
 
 	d->insert = insert;
 	if (insert) {
 		d->option_template = glade_xml_get_widget (xml, "option_rule_template");
-		gtk_signal_connect (GTK_OBJECT (gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_template))),
-				    "selection-done", changed_template, d);
+		g_signal_connect (gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_template)),
+				  "selection-done", G_CALLBACK (changed_template), d);
 		fill_templates (d);
 		gtk_widget_show_all (rule_page);
 	} else {

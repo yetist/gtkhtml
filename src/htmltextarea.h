@@ -21,6 +21,7 @@
 #ifndef _HTMLTEXTAREA_H_
 #define _HTMLTEXTAREA_H_
 
+#include <gtk/gtktextbuffer.h>
 #include "htmlembedded.h"
 
 #define HTML_TEXTAREA(x) ((HTMLTextArea *) (x))
@@ -30,6 +31,7 @@ struct _HTMLTextArea {
 	HTMLEmbedded element;
 
 	GtkWidget *text;
+	GtkTextBuffer *buffer;
 
 	gchar *default_text;
 };

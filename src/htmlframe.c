@@ -24,7 +24,6 @@
 #include <gtk/gtk.h>
 #include <string.h>
 #include "gtkhtml.h"
-#include "gtkhtml-stream.h"
 #include "htmltokenizer.h"
 #include "gtkhtml-private.h"
 #include "htmlcolorset.h"
@@ -35,8 +34,8 @@
 #include "htmlsearch.h"
 #include "htmlselection.h"
 #include "htmlsettings.h"
-#include <libgnome/gnome-i18n.h>
 
+#define USE_SCROLLED_WINDOW 1
 #ifndef USE_SCROLLED_WINDOW
 #include <gal/widgets/e-scroll-frame.h>
 #endif
@@ -51,8 +50,7 @@ frame_url_requested (GtkHTML *html, const char *url, GtkHTMLStream *handle, gpoi
 	HTMLFrame *frame = HTML_FRAME (data);
 	GtkHTML *parent = GTK_HTML (HTML_EMBEDDED(frame)->parent);
 
-	gtk_signal_emit_by_name (GTK_OBJECT (parent->engine), "url_requested",
-				 url, handle);
+	g_signal_emit_by_name (parent->engine, "url_requested", url, handle);
 }
 
 static void
@@ -103,10 +101,10 @@ static void
 frame_set_gdk_painter (HTMLFrame *frame, HTMLPainter *painter)
 {
 	if (painter)
-		gtk_object_ref (GTK_OBJECT (painter));
+		g_object_ref (G_OBJECT (painter));
 	
 	if (frame->gdk_painter)
-		gtk_object_unref (GTK_OBJECT (frame->gdk_painter));
+		g_object_unref (G_OBJECT (frame->gdk_painter));
 
 	frame->gdk_painter = painter;
 }
@@ -216,7 +214,7 @@ set_painter (HTMLObject *o, HTMLPainter *painter)
 	HTMLFrame *frame;
 
 	frame = HTML_FRAME (o);
-	if (GTK_OBJECT_TYPE (GTK_HTML (frame->html)->engine->painter) != HTML_TYPE_PRINTER) {
+	if (G_OBJECT_TYPE (GTK_HTML (frame->html)->engine->painter) != HTML_TYPE_PRINTER) {
 		frame_set_gdk_painter (frame, GTK_HTML (frame->html)->engine->painter);
 	}
 	
@@ -370,17 +368,6 @@ append_selection_string (HTMLObject *self,
 	html_object_append_selection_string (GTK_HTML (HTML_FRAME (self)->html)->engine->clue, buffer);
 }
 
-static void
-reparent (HTMLEmbedded *emb, GtkWidget *html)
-{
-	HTMLFrame *frame = HTML_FRAME (emb);
-
-	gtk_html_set_iframe_parent (GTK_HTML (frame->html), 
-				    html,
-				    GTK_HTML (frame->html)->frame);
-	(* HTML_EMBEDDED_CLASS (parent_class)->reparent) (emb, html);
-}
-
 static gboolean
 select_range (HTMLObject *self,
 	      HTMLEngine *engine,
@@ -401,7 +388,7 @@ destroy (HTMLObject *o)
 	frame_set_gdk_painter (frame, NULL);
 
 	if (frame->html) {
-		gtk_signal_disconnect_by_data (GTK_OBJECT (frame->html), o);
+		g_signal_handlers_disconnect_matched (frame->html, G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, o);
 		frame->html = NULL;
 	}
 	g_free ((frame)->url);
@@ -434,7 +421,7 @@ html_frame_set_margin_height (HTMLFrame *frame, gint margin_height)
 void
 html_frame_set_scrolling (HTMLFrame *frame, GtkPolicyType scroll)
 {
-#if E_USE_SCROLLED_WINDOW
+#if USE_SCROLLED_WINDOW
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (frame->scroll),
 					scroll, scroll);
 #else
@@ -473,7 +460,6 @@ html_frame_init (HTMLFrame *frame,
 	GtkHTML   *parent_html;
 	GtkHTMLStream *handle;
 	GtkWidget *scrolled_window;
-	gint depth;
 
 	g_assert (GTK_IS_HTML (parent));
 	parent_html = GTK_HTML (parent);
@@ -496,13 +482,13 @@ html_frame_init (HTMLFrame *frame,
 	new_tokenizer = html_tokenizer_clone (parent_html->engine->ht);
 
 	html_engine_set_tokenizer (new_html->engine, new_tokenizer);
-	gtk_object_unref (GTK_OBJECT (new_tokenizer));
+	g_object_unref (G_OBJECT (new_tokenizer));
 	new_tokenizer = NULL;
 
 	gtk_html_set_default_content_type (new_html,
 					   parent_html->priv->content_type);
 	frame->html = new_widget;
-	depth = gtk_html_set_iframe_parent (new_html, parent, HTML_OBJECT (frame));
+	gtk_html_set_iframe_parent (new_html, parent, HTML_OBJECT (frame));
 	gtk_container_add (GTK_CONTAINER (scrolled_window), new_widget);
 	gtk_widget_show (new_widget);
 
@@ -518,9 +504,7 @@ html_frame_init (HTMLFrame *frame,
 	new_html->engine->clue->parent = HTML_OBJECT (frame);
 
 
-	gtk_signal_connect (GTK_OBJECT (new_html), "url_requested",
-			    GTK_SIGNAL_FUNC (frame_url_requested),
-			    (gpointer)frame);
+	g_signal_connect (new_html, "url_requested", G_CALLBACK (frame_url_requested), frame);
 #if 0
 	/* NOTE: because of peculiarities of the frame/gtkhtml relationship
 	 * on_url and link_clicked are emitted from the toplevel widget not
@@ -533,18 +517,10 @@ html_frame_init (HTMLFrame *frame,
 			    GTK_SIGNAL_FUNC (frame_link_clicked),
 			    (gpointer)frame);	
 #endif
-	gtk_signal_connect (GTK_OBJECT (new_html), "size_changed",
-			    GTK_SIGNAL_FUNC (frame_size_changed),
-			    (gpointer)frame);	
-	gtk_signal_connect (GTK_OBJECT (new_html), "object_requested",
-			    GTK_SIGNAL_FUNC (frame_object_requested),
-			    (gpointer)frame);	
-	gtk_signal_connect (GTK_OBJECT (new_html), "submit",
-			    GTK_SIGNAL_FUNC (frame_submit),
-			    (gpointer)frame);
-	gtk_signal_connect (GTK_OBJECT (new_html), "set_base",
-			    GTK_SIGNAL_FUNC (frame_set_base), 
-			    (gpointer)frame);
+	g_signal_connect (new_html, "size_changed", G_CALLBACK (frame_size_changed), frame);	
+	g_signal_connect (new_html, "object_requested", G_CALLBACK (frame_object_requested), frame);	
+	g_signal_connect (new_html, "submit", G_CALLBACK (frame_submit), frame);
+	g_signal_connect (new_html, "set_base", G_CALLBACK (frame_set_base), frame);
 
 	html_frame_set_margin_height (frame, 0);
 	html_frame_set_margin_width (frame, 0);
@@ -554,13 +530,7 @@ html_frame_init (HTMLFrame *frame,
 	  GTK_SIGNAL_FUNC (frame_button_press_event), frame);
 	*/
 
-	if (depth < 10) {
-		gtk_signal_emit_by_name (GTK_OBJECT (parent_html->engine), 
-					 "url_requested", src, handle);
-	} else {
-		gtk_html_stream_printf (handle, "%s", _("Error: maximium frame depth exceded"));
-		gtk_html_stream_close (handle, GTK_HTML_STREAM_OK);
-	}
+	g_signal_emit_by_name (parent_html->engine, "url_requested", src, handle);
 
 	gtk_widget_set_usize (scrolled_window, width, height);
 
@@ -570,8 +540,7 @@ html_frame_init (HTMLFrame *frame,
 
 	html_embedded_set_widget (em, scrolled_window);
 
-	gtk_signal_connect(GTK_OBJECT (scrolled_window), "button_press_event",
-			   GTK_SIGNAL_FUNC (html_frame_grab_cursor), NULL);
+	g_signal_connect (scrolled_window, "button_press_event", G_CALLBACK (html_frame_grab_cursor), NULL);
 
 	/* inherit the current colors from our parent */
 	html_colorset_set_unchanged (new_html->engine->defaultSettings->color_set,
@@ -580,14 +549,10 @@ html_frame_init (HTMLFrame *frame,
 				     parent_html->engine->settings->color_set);
 	html_painter_set_focus (new_html->engine->painter, parent_html->engine->have_focus);
 	/*
-	gtk_signal_connect (GTK_OBJECT (html), "title_changed",
-			    GTK_SIGNAL_FUNC (title_changed_cb), (gpointer)app);
-	gtk_signal_connect (GTK_OBJECT (html), "button_press_event",
-			    GTK_SIGNAL_FUNC (on_button_press_event), popup_menu);
-	gtk_signal_connect (GTK_OBJECT (html), "redirect",
-			    GTK_SIGNAL_FUNC (on_redirect), NULL);
-	gtk_signal_connect (GTK_OBJECT (html), "object_requested",
-			    GTK_SIGNAL_FUNC (object_requested_cmd), NULL);
+	g_signal_connect (html, "title_changed", G_CALLBACK (title_changed_cb), app);
+	g_signal_connect (html, "button_press_event", G_CALLBACK (on_button_press_event), popup_menu);
+	g_signal_connect (html, "redirect", G_CALLBACK (on_redirect), NULL);
+	g_signal_connect (html, "object_requested", G_CALLBACK (object_requested_cmd), NULL);
 	*/
 }
 
@@ -631,8 +596,6 @@ html_frame_class_init (HTMLFrameClass *klass,
 	object_class->draw_background         = draw_background;
 	object_class->append_selection_string = append_selection_string;
 	object_class->select_range            = select_range;
-
-	embedded_class->reparent = reparent;
 }
 
 

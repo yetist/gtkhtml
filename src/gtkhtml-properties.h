@@ -29,18 +29,13 @@
 #include <glib.h>
 #include <gdk/gdktypes.h>
 
-#ifdef GTKHTML_HAVE_GCONF
 #include <gconf/gconf-client.h>
-#else
-#include <libgnome/gnome-defs.h>
-#include <libgnome/gnome-config.h>
-#endif
 
 #include <gtk/gtkobject.h>
 #include "gtkhtml-types.h"
 #include "gtkhtml.h"
 
-#define GTK_HTML_PROPERTY(w,p)         (GTK_HTML_CLASS (GTK_OBJECT (w)->klass)->properties-> p)
+#define GTK_HTML_PROPERTY(w,p)         (GTK_HTML_CLASS (GTK_WIDGET_GET_CLASS (w))->properties-> p)
 
 struct _GtkHTMLClassProperties {
 	/* viewer */
@@ -60,32 +55,22 @@ struct _GtkHTMLClassProperties {
 
 	/* editor */
 	gboolean  magic_links;
-	gboolean  magic_smileys;
 	gchar    *keybindings_theme;
 
 	gboolean  live_spell_check;
 	GdkColor  spell_error_color;
 	gchar    *language;
-
-	gchar    *link_color;
-	gchar    *vlink_color;
-	gchar    *alink_color;
 };
 
 GtkHTMLClassProperties * gtk_html_class_properties_new       (void);
 void                     gtk_html_class_properties_destroy   (GtkHTMLClassProperties *p);
 void                     gtk_html_class_properties_copy      (GtkHTMLClassProperties *p1,
 							      GtkHTMLClassProperties *p2);
-#ifdef GTKHTML_HAVE_GCONF
 void                     gtk_html_class_properties_load      (GtkHTMLClassProperties *p,
 							      GConfClient *client);
 void                     gtk_html_class_properties_update    (GtkHTMLClassProperties *p,
 							      GConfClient *client,
 							      GtkHTMLClassProperties *old);
-#else
-void                     gtk_html_class_properties_load      (GtkHTMLClassProperties *p);
-void                     gtk_html_class_properties_save      (GtkHTMLClassProperties *p);
-#endif
 
 /* enum types */
 

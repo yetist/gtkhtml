@@ -48,26 +48,29 @@ enum {
 	
 static guint signals [LAST_SIGNAL] = { 0 };
 
-guint
+GType
 gtk_html_embedded_get_type (void)
 {
-	static guint select_paper_type = 0;
-	
-	if (!select_paper_type) {
-		GtkTypeInfo html_embedded_info = {
-			"GtkHTMLEmbedded",
-			sizeof (GtkHTMLEmbedded),
-			sizeof (GtkHTMLEmbeddedClass),
-			(GtkClassInitFunc) gtk_html_embedded_class_init,
-			(GtkObjectInitFunc) gtk_html_embedded_init,
-			NULL,
-			NULL
-		};
-    
-		select_paper_type = gtk_type_unique (gtk_bin_get_type (), &html_embedded_info);
+	static GType embedded_type = 0;
+  
+	if (!embedded_type) {
+		static const GTypeInfo embedded_info =
+			{
+				sizeof (GtkHTMLEmbeddedClass),
+				NULL,           /* base_init */
+				NULL,           /* base_finalize */
+				(GClassInitFunc) gtk_html_embedded_class_init,
+				NULL,           /* class_finalize */
+				NULL,           /* class_data */
+				sizeof (GtkHTMLEmbedded),
+				4,              /* n_preallocs */
+				(GInstanceInitFunc) gtk_html_embedded_init,
+			};
+
+		embedded_type = g_type_register_static (GTK_TYPE_BIN, "GtkHTMLEmbedded", &embedded_info, 0);
 	}
   
-	return select_paper_type;
+	return embedded_type;
 }
 
 static void
@@ -78,7 +81,7 @@ free_param(void *key, void *value, void *data)
 }
 
 static void
-gtk_html_embedded_finalize (GtkObject *object)
+gtk_html_embedded_finalize (GObject *object)
 {
 	GtkHTMLEmbedded *eb = GTK_HTML_EMBEDDED(object);
 
@@ -87,7 +90,7 @@ gtk_html_embedded_finalize (GtkObject *object)
 	g_free(eb->classid);
 	g_free(eb->type);
 
-	GTK_OBJECT_CLASS(parent_class)->finalize (object);
+	G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
 static void
@@ -121,57 +124,83 @@ typedef void (*draw_print_signal)(GtkObject *, gpointer, gpointer);
 typedef void (*draw_gdk_signal)(GtkObject *, gpointer, gpointer, gint, gint, gpointer);
 
 static void 
-draw_gdk_signal_marshaller(GtkObject * object, GtkSignalFunc func,
-			   gpointer func_data, GtkArg * args) {
-	draw_gdk_signal ff = (draw_gdk_signal)func;
-	(*ff)(object,
-	      GTK_VALUE_POINTER(args[0]),
-	      GTK_VALUE_POINTER(args[1]),
-	      GTK_VALUE_INT(args[2]),
-	      GTK_VALUE_INT(args[3]),
-	      func_data);
+draw_gdk_signal_marshaller (GClosure     *closure,
+			    GValue       *return_value,
+			    guint         n_param_values,
+			    const GValue *param_values,
+			    gpointer      invocation_hint,
+			    gpointer      marshal_data)
+{
+	register draw_gdk_signal ff;
+	register GCClosure *cc = (GCClosure*) closure;
+	register gpointer data1, data2;
+
+	g_return_if_fail (n_param_values == 5);
+
+	if (G_CCLOSURE_SWAP_DATA (closure))
+		{
+			data1 = closure->data;
+			data2 = g_value_peek_pointer (param_values + 0);
+		}
+	else
+		{
+			data1 = g_value_peek_pointer (param_values + 0);
+			data2 = closure->data;
+		}
+	ff = (draw_gdk_signal) (marshal_data ? marshal_data : cc->callback);
+
+	ff (data1,
+	    g_value_get_pointer (param_values + 1),
+	    g_value_get_pointer (param_values + 2),
+	    g_value_get_int (param_values + 3),
+	    g_value_get_int (param_values + 4),
+	    data2);
 }
 
 static void
 gtk_html_embedded_class_init (GtkHTMLEmbeddedClass *class)
 {
+	GObjectClass *gobject_class;
 	GtkObjectClass *object_class;
 	GtkWidgetClass *widget_class;
 	GtkContainerClass *container_class;
 	
-	object_class = (GtkObjectClass *) class;
-	widget_class = (GtkWidgetClass*) class;
-	container_class = (GtkContainerClass*) class;
+	gobject_class = G_OBJECT_CLASS (class);
+	object_class = GTK_OBJECT_CLASS (class);
+	widget_class = GTK_WIDGET_CLASS (class);
+	container_class = GTK_CONTAINER_CLASS (class);
 
 	parent_class = gtk_type_class (gtk_bin_get_type ());
 
 	signals [CHANGED] =
-		gtk_signal_new ("changed",
-				GTK_RUN_FIRST,
-				object_class->type,
-				GTK_SIGNAL_OFFSET (GtkHTMLEmbeddedClass, changed),
-				gtk_marshal_NONE__NONE,
-				GTK_TYPE_NONE, 0);
-	signals[DRAW_GDK] = 
-		gtk_signal_new("draw_gdk", GTK_RUN_FIRST,
-			       object_class->type, 
-			       GTK_SIGNAL_OFFSET(GtkHTMLEmbeddedClass, draw_gdk),
-			       draw_gdk_signal_marshaller, GTK_TYPE_NONE, 4,
-			       GTK_TYPE_POINTER, GTK_TYPE_POINTER,
-			       GTK_TYPE_INT, GTK_TYPE_INT);
+		g_signal_new ("changed",
+			      G_TYPE_FROM_CLASS (object_class),
+			      G_SIGNAL_RUN_FIRST,
+			      G_STRUCT_OFFSET (GtkHTMLEmbeddedClass, changed),
+			      NULL, NULL,
+			      g_cclosure_marshal_VOID__VOID,
+			      G_TYPE_NONE, 0);
+	signals [DRAW_GDK] = 
+		g_signal_new ("draw_gdk",
+			      G_TYPE_FROM_CLASS (object_class),
+			      G_SIGNAL_RUN_FIRST,
+			      G_STRUCT_OFFSET (GtkHTMLEmbeddedClass, draw_gdk),
+			      NULL, NULL,
+			      draw_gdk_signal_marshaller, G_TYPE_NONE, 4,
+			      G_TYPE_POINTER, G_TYPE_POINTER,
+			      G_TYPE_INT, G_TYPE_INT);
 	
-	signals[DRAW_PRINT] = 
-		gtk_signal_new("draw_print", GTK_RUN_FIRST,
-			       object_class->type,
-			       GTK_SIGNAL_OFFSET(GtkHTMLEmbeddedClass, draw_print),
-			       gtk_marshal_NONE__POINTER,
-			       GTK_TYPE_NONE, 1,
-			       GTK_TYPE_POINTER);
+	signals [DRAW_PRINT] = 
+		g_signal_new ("draw_print",
+			      G_TYPE_FROM_CLASS (object_class),
+			      G_SIGNAL_RUN_FIRST,
+			      G_STRUCT_OFFSET (GtkHTMLEmbeddedClass, draw_print),
+			      NULL, NULL,
+			      g_cclosure_marshal_VOID__POINTER,
+			      G_TYPE_NONE, 1,
+			      G_TYPE_POINTER);
 	
-
-	gtk_object_class_add_signals (object_class, signals, LAST_SIGNAL);
-
-	object_class->finalize = gtk_html_embedded_finalize;
+	gobject_class->finalize = gtk_html_embedded_finalize;
 
 	widget_class->size_request = gtk_html_embedded_size_request;
 	widget_class->size_allocate = gtk_html_embedded_size_allocate;

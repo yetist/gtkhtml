@@ -76,10 +76,10 @@ html_engine_show_cursor  (HTMLEngine *engine)
 static inline void
 move_rect (HTMLEngine *engine, gint *x1, gint *y1, gint *x2, gint *y2)
 {
-	*x1 = *x1 + engine->leftBorder - engine->x_offset;
-	*y1 = *y1 + engine->topBorder - engine->y_offset;
-	*x2 = *x2 + engine->leftBorder - engine->x_offset;
-	*y2 = *y2 + engine->topBorder - engine->y_offset;
+	//*x1 = *x1 + engine->leftBorder - engine->x_offset;
+	//*y1 = *y1 + engine->topBorder - engine->y_offset;
+	//*x2 = *x2 + engine->leftBorder - engine->x_offset;
+	//*y2 = *y2 + engine->topBorder - engine->y_offset;
 }
 
 static gboolean
@@ -110,7 +110,7 @@ draw_cursor_rectangle (HTMLEngine *e, gint x1, gint y1, gint x2, gint y2,
 	GdkColor color;
 	gint8 dashes [2] = { 2, 2 };
 
-	move_rect (e, &x1, &y1, &x2, &y2);
+	//move_rect (e, &x1, &y1, &x2, &y2);
 
 	gc = gdk_gc_new (e->window);
 	color = *on_color;
@@ -131,7 +131,7 @@ static inline void
 refresh_under_cursor (HTMLEngine *e, HTMLCursorRectangle *cr, gboolean *enabled)
 {
 	*enabled = cursor_enabled = FALSE;
-	html_engine_draw (e, e->leftBorder + cr->x1 - e->x_offset, e->topBorder + cr->y1 - e->y_offset,
+	html_engine_draw (e, cr->x1, cr->y1,
 			  cr->x2 - cr->x1 + 1, cr->y2 - cr->y1 + 1);
 	*enabled = cursor_enabled = TRUE;
 }
@@ -301,7 +301,7 @@ html_engine_draw_cursor_in_area (HTMLEngine *engine,
 	}
 
 	html_object_get_cursor (obj, engine->painter, offset, &x1, &y1, &x2, &y2);
-	move_rect (engine, &x1, &y1, &x2, &y2);
+	//move_rect (engine, &x1, &y1, &x2, &y2);
 	if (clip_rect (engine, x, y, width, height, &x1, &y1, &x2, &y2)) {
 		gdk_draw_line (engine->window, engine->invert_gc, x1, y1, x2, y2);
 #ifdef GTK_HTML_USE_XIM

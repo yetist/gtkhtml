@@ -20,13 +20,12 @@
 */
 
 #include <config.h>
+#include <string.h>
 #include <gtk/gtkeditable.h>
 #include <gtk/gtksignal.h>
 #include <gtk/gtkscrolledwindow.h>
-#include <gtk/gtktext.h>
+#include <gtk/gtktextview.h>
 #include "htmltextarea.h"
-#include <string.h>
-#include <gal/widgets/e-unicode.h>
 
 
 HTMLTextAreaClass html_textarea_class;
@@ -74,20 +73,21 @@ encode (HTMLEmbedded *e)
 	gchar *encoded_str, *utf8_str, *gtk_text;
 
 	if(strlen (e->name)) {
+		GtkTextIter first, last;
+
 		utf8_str = html_embedded_encode_string (e->name);
 		encoding = g_string_append (encoding, utf8_str);
 		g_free (utf8_str);
 
 		encoding = g_string_append_c (encoding, '=');
 
-		gtk_text = gtk_editable_get_chars (GTK_EDITABLE (HTML_TEXTAREA(e)->text), 0, -1);
-	        utf8_str = e_utf8_from_gtk_string (HTML_TEXTAREA(e)->text, gtk_text);
+		gtk_text_buffer_get_bounds (HTML_TEXTAREA (e)->buffer, &first, &last);
+		gtk_text = gtk_text_buffer_get_text (HTML_TEXTAREA (e)->buffer, &first, &last, FALSE);
 
-		encoded_str = html_embedded_encode_string (utf8_str);
+		encoded_str = html_embedded_encode_string (gtk_text);
 		encoding = g_string_append (encoding, encoded_str);
 
 		g_free (encoded_str);
-		g_free (utf8_str);
 		g_free (gtk_text);
 	}
 
@@ -95,12 +95,6 @@ encode (HTMLEmbedded *e)
 	g_string_free(encoding, FALSE);
 
 	return utf8_str;
-}
-
-static int
-on_button_press_event (GtkWidget *widget, GdkEventButton *event)
-{
-	return TRUE;
 }
 
 void
@@ -141,9 +135,11 @@ html_textarea_init (HTMLTextArea *ta,
 		      gint row,
 		      gint col)
 {
+	GtkWidget *sw;
 	HTMLEmbedded *element;
 	HTMLObject *object;
-	GtkWidget *widget;
+	PangoLayout *layout;
+	gint width, height;
 
 	element = HTML_EMBEDDED (ta);
 	object = HTML_OBJECT (ta);
@@ -151,29 +147,27 @@ html_textarea_init (HTMLTextArea *ta,
 	html_embedded_init (element, HTML_EMBEDDED_CLASS (klass),
 			   parent, name, NULL);
 
-	ta->text = gtk_text_new (NULL, NULL);
-	gtk_widget_show(ta->text);
-	gtk_text_set_editable (GTK_TEXT (ta->text), TRUE);
+	ta->buffer = gtk_text_buffer_new (NULL);
+	ta->text = gtk_text_view_new_with_buffer (ta->buffer);
+	gtk_text_view_set_editable (GTK_TEXT_VIEW (ta->text), TRUE);
 
 	gtk_widget_set_events (ta->text, GDK_BUTTON_PRESS_MASK);
 
-	gtk_signal_connect_after (GTK_OBJECT (ta->text), "button_press_event",
-			    GTK_SIGNAL_FUNC (on_button_press_event), NULL);
+	sw = gtk_scrolled_window_new (NULL, NULL);
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (sw), GTK_SHADOW_IN);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+	gtk_container_add (GTK_CONTAINER (sw), ta->text);
+	gtk_widget_show_all (sw);
+	html_embedded_set_widget (element, sw);
 
-	widget = gtk_scrolled_window_new (NULL, NULL);
-	html_embedded_set_widget (element, widget);
+	layout = pango_layout_new (gtk_widget_get_pango_context (ta->text));
+	pango_layout_set_font_description (layout, ta->text->style->font_desc);
+	pango_layout_set_text (layout, "0", 1);
+	pango_layout_get_size (layout, &width, &height);
+	g_object_unref (layout);
 
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (widget),
-					GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-	gtk_container_add (GTK_CONTAINER (widget), ta->text);
+	gtk_widget_set_usize (ta->text, (width / PANGO_SCALE) * col + 8, (height / PANGO_SCALE) * row + 4);
 
-#define FONT_HEIGHT(f)              ((f)->ascent + (f)->descent)
-
-	gtk_widget_set_usize ( GTK_WIDGET (widget), 
-			       gdk_char_width(widget->style->font, '0') * col + 8,
-			       FONT_HEIGHT(ta->text->style->font) * row + 4);
-
-#undef FONT_HEIGHT
 	ta->default_text = NULL;
 }
 
@@ -192,19 +186,15 @@ html_textarea_new (GtkWidget *parent,
 	return HTML_OBJECT (ta);
 }
 
-void html_textarea_set_text (HTMLTextArea *ta, 
-			   gchar *text) 
+void html_textarea_set_text (HTMLTextArea *ta, gchar *text) 
 {
-	char *gtk_text;
+	GtkTextIter begin, end;
 
 	if (!ta->default_text)
 		ta->default_text = g_strdup (text);
 
-	gtk_text = e_utf8_to_gtk_string (ta->text, text);
-	gtk_editable_delete_text (GTK_EDITABLE (ta->text), 0, -1);
-	gtk_text_insert (GTK_TEXT (ta->text), NULL, NULL, NULL, gtk_text, strlen (gtk_text));
-	g_free (gtk_text);
+	gtk_text_buffer_get_bounds (ta->buffer, &begin, &end);
+	gtk_text_buffer_delete (ta->buffer, &begin, &end);
+	gtk_text_buffer_get_bounds (ta->buffer, &begin, &end);
+	gtk_text_buffer_insert (ta->buffer, &begin, text, strlen (text));
 }
-
-
-

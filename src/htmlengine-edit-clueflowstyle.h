@@ -30,7 +30,6 @@ gboolean           html_engine_set_clueflow_style                (HTMLEngine    
 								  HTMLListType                    item_type,
 								  HTMLHAlignType                  alignment,
 								  gint                            indentation_delta,
-								  guint8                         *indentation_levels,
 								  HTMLEngineSetClueFlowStyleMask  mask,
 								  HTMLUndoDirection               dir,
 								  gboolean                        do_undo);
