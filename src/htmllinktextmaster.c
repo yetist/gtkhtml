@@ -234,3 +234,9 @@ html_link_text_master_new (const gchar *text,
 	return html_link_text_master_new_with_len (text, -1, font_style, color, url, target);
 }
 
+void
+html_link_text_master_set_url (HTMLLinkTextMaster *link, const gchar *url)
+{
+	g_free (link->url);
+	link->url = g_strdup (url);
+}

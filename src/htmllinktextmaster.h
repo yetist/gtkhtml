@@ -72,4 +72,7 @@ HTMLObject *html_link_text_master_new_with_len  (const gchar             *text,
 						 const gchar             *url,
 						 const gchar             *target);
 
+void        html_link_text_master_set_url       (HTMLLinkTextMaster      *link,
+						 const gchar             *url);
+
 #endif /* _HTMLLINKTEXTMASTER_H_ */

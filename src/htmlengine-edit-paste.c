@@ -33,7 +33,7 @@
 
 #include "htmlengine-edit-paste.h"
 
-#define PARANOID_DEBUG
+/* #define PARANOID_DEBUG */
 
 
 /* This function adds an empty HTMLTextMaster object to @flow; it is

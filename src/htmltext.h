@@ -117,11 +117,13 @@ GtkHTMLFontStyle  html_text_get_font_style  (const HTMLText *text);
 const GdkColor   *html_text_get_color       (HTMLText       *text,
 					     HTMLPainter    *painter);
 
-void  html_text_set_font_style  (HTMLText         *text,
-				 HTMLEngine       *engine,
-				 GtkHTMLFontStyle  style);
-void  html_text_set_color       (HTMLText         *text,
-				 HTMLEngine       *engine,
-				 const GdkColor   *color);
+void  html_text_set_font_style  (HTMLText             *text,
+				 HTMLEngine           *engine,
+				 GtkHTMLFontStyle      style);
+void  html_text_set_color       (HTMLText             *text,
+				 HTMLEngine           *engine,
+				 const GdkColor       *color);
+void  html_text_set_text        (HTMLText             *text,
+				 const gchar          *new_text);
 
 #endif /* _HTMLTEXT_H_ */

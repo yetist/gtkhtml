@@ -827,3 +827,10 @@ html_text_set_color (HTMLText *text,
 
 	return (* HT_CLASS (text)->set_color) (text, engine, color);
 }
+
+void
+html_text_set_text (HTMLText *text, const gchar *new_text)
+{
+	g_free (text->text);
+	text->text = g_strdup (new_text);
+}
