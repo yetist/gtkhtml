@@ -396,7 +396,7 @@ do_undo (HTMLEngine *engine,
 
 	data = (ActionData *) closure;
 
-	html_engine_delete (engine, 1);
+	html_engine_delete (engine, 1, FALSE, FALSE);
 
 	setup_redo (engine, data);
 }

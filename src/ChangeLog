@@ -1,3 +1,32 @@
+2000-04-23  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine-edit-delete.c: Implemented undo/redo.
+	(append_to_buffer): New function.
+	(delete_same_parent): Return a cut buffer with the stuff that we
+	have deleted in it.
+	(delete_different_parent): Likewise.
+	(html_engine_delete): Updated to setup the undo information too.
+	New params @do_undo and @backwards.  @do_undo specifies if we want
+	undo information or not, @backwards if we want to delete forwards
+	or backwards.
+
+	* htmltextmaster.c
+	(copy_text_master_members): New helper function.
+	(copy): Use it.
+	(extract_text): New function, implementation of
+	`HTMLText::extract_text()'.
+	(html_text_master_class_init): Install it.
+
+	* htmltext.c
+	(copy_helper): New helper function.
+	(copy): Use it.
+	(extract_text): New function, implementation of
+	`HTMLText::extract_text()'.
+	(html_text_extract_text): New function.
+	(html_text_class_init): Install it.
+
+	* htmltext.h: New virtual method `extract_text'.
+
 2000-04-23  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlengine-edit-paste.c (html_engine_paste_object): call

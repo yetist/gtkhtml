@@ -112,7 +112,7 @@ do_redo (HTMLEngine *engine,
 	if (data->mark_precedes_cursor)
 		html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_LEFT, data->buffer_count);
 
-	html_engine_delete (engine, data->buffer_count);
+	html_engine_delete (engine, data->buffer_count, FALSE, FALSE);
 
 	setup_undo (engine, data);
 }
@@ -179,7 +179,7 @@ html_engine_cut (HTMLEngine *engine,
 
 	if (mark_precedes_cursor)
 		html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_LEFT, elems_copied);
-	html_engine_delete (engine, elems_copied);
+	html_engine_delete (engine, elems_copied, FALSE, FALSE);
 
 	if (do_undo)
 		init_undo (engine, engine->cut_buffer, elems_copied, mark_precedes_cursor);

@@ -88,11 +88,12 @@ down (GtkHTML *html)
 }
 
 static void
-delete (GtkHTML *html)
+delete (GtkHTML *html,
+	gboolean backwards)
 {
 	/* FIXME this should cut the selection instead.  */
 	html_engine_disable_selection (html->engine);
-	html_engine_delete (html->engine, 1);
+	html_engine_delete (html->engine, 1, TRUE, backwards);
 }
 
 static void
@@ -210,7 +211,7 @@ handle_ctrl (GtkHTML *html,
 		backward (html);
 		break;
 	case 'd':
-		delete (html);
+		delete (html, TRUE);
 		break;
 	case 'e':
 		end_of_line (html);
@@ -345,17 +346,13 @@ handle_none (GtkHTML *html,
 		break;
 	case GDK_Delete:
 	case GDK_KP_Delete:
-		delete (html);
-		retval = TRUE;
+		delete (html, FALSE);
 		break;
 	case GDK_Return:
 		insert_para (html);
 		break;
 	case GDK_BackSpace:
-		html_engine_disable_selection (html->engine);
-		if (html_engine_move_cursor (html->engine, HTML_ENGINE_CURSOR_LEFT, 1) == 1)
-			html_engine_delete (html->engine, 1);
-		retval = TRUE;
+		delete (html, TRUE);
 		break;
 
 		/* FIXME these are temporary bindings.  */
@@ -385,7 +382,6 @@ handle_none (GtkHTML *html,
 		/* The following cases are for keys that we don't want to map yet, but
 		   have an annoying default behavior if not handled. */
 	case GDK_Tab:
-		retval = TRUE;
 		break;
 
 	default:

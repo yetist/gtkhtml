@@ -167,6 +167,23 @@ get_tags (const HTMLText *text,
 	*ending_p = 0;
 }
 
+static void
+copy_helper (HTMLText *src,
+	     HTMLText *dest,
+	     guint offset,
+	     gint len)
+{
+	if (len < 0)
+		len = strlen (src->text);
+
+	dest->text = g_strndup (src->text + offset, len);
+	dest->text_len = len;
+
+	dest->font_style = src->font_style;
+	dest->color = src->color;
+	dest->color_allocated = src->color_allocated;
+}
+
 
 /* HTMLObject methods.  */
 
@@ -187,12 +204,7 @@ copy (HTMLObject *self,
 {
 	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
 
-	HTML_TEXT (dest)->text = g_strdup (HTML_TEXT (self)->text);
-	HTML_TEXT (dest)->text_len = HTML_TEXT (self)->text_len;
-
-	HTML_TEXT (dest)->font_style = HTML_TEXT (self)->font_style;
-	HTML_TEXT (dest)->color = HTML_TEXT (self)->color;
-	HTML_TEXT (dest)->color_allocated = HTML_TEXT (self)->color_allocated;
+	copy_helper (HTML_TEXT (self), HTML_TEXT (dest), 0, -1);
 }
 
 static gboolean
@@ -298,6 +310,28 @@ queue_draw (HTMLText *text,
 	    guint len)
 {
 	html_engine_queue_draw (engine, HTML_OBJECT (text));
+}
+
+static HTMLText *
+extract_text (HTMLText *text,
+	      guint offset,
+	      gint len)
+{
+	HTMLText *new;
+
+	if (len < 0)
+		len = text->text_len;
+
+	if (offset + len > text->text_len)
+		len = text->text_len - offset;
+
+	new = g_malloc (HTML_OBJECT (text)->klass->object_size);
+
+	(* HTML_OBJECT_CLASS (parent_class)->copy) (HTML_OBJECT (text), HTML_OBJECT (new));
+
+	copy_helper (HTML_TEXT (text), HTML_TEXT (new), offset, len);
+
+	return new;
 }
 
 static guint
@@ -597,9 +631,10 @@ html_text_class_init (HTMLTextClass *klass,
 
 	/* HTMLText methods.  */
 
+	klass->queue_draw = queue_draw;
+	klass->extract_text = extract_text;
 	klass->insert_text = insert_text;
 	klass->remove_text = remove_text;
-	klass->queue_draw = queue_draw;
 	klass->split = split;
 	klass->get_font_style = get_font_style;
 	klass->get_color = get_color;
@@ -708,6 +743,17 @@ html_text_queue_draw (HTMLText *text,
 	g_return_if_fail (engine != NULL);
 
 	(* HT_CLASS (text)->queue_draw) (text, engine, offset, len);
+}
+
+HTMLText *
+html_text_extract_text (HTMLText *text,
+			guint offset,
+			gint len)
+{
+	g_return_val_if_fail (text != NULL, NULL);
+	g_return_val_if_fail (offset <= text->text_len, NULL);
+
+	return (* HT_CLASS (text)->extract_text) (text, offset, len);
 }
 
 HTMLText *

@@ -25,6 +25,8 @@
 #include "htmlengine.h"
 
 void  html_engine_delete  (HTMLEngine *e,
-			   guint       count);
+			   guint       count,
+			   gboolean    do_undo,
+			   gboolean    backwards);
 
 #endif /* _HTMLENGINE_EDIT_DELETE_H */

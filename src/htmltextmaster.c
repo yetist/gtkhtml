@@ -33,6 +33,15 @@ HTMLTextMasterClass html_text_master_class;
 static HTMLTextClass *parent_class = NULL;
 
 
+static void
+copy_text_master_members (HTMLTextMaster *self,
+			  HTMLTextMaster *dest)
+{
+	dest->select_start = self->select_start;
+	dest->select_length = self->select_length;
+}
+
+
 /* HTMLObject methods.  */
 
 static void
@@ -41,8 +50,8 @@ copy (HTMLObject *self,
 {
 	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
 
-	HTML_TEXT_MASTER (dest)->select_start = HTML_TEXT_MASTER (self)->select_start;
-	HTML_TEXT_MASTER (dest)->select_length = HTML_TEXT_MASTER (self)->select_length;
+	copy_text_master_members (HTML_TEXT_MASTER (self),
+				  HTML_TEXT_MASTER (dest));
 }
 
 static void
@@ -435,6 +444,21 @@ queue_draw (HTMLText *text,
 }
 
 static HTMLText *
+extract_text (HTMLText *text,
+	      guint offset,
+	      gint len)
+{
+	HTMLText *new;
+
+	new = (* HTML_TEXT_CLASS (parent_class)->extract_text) (text, offset, len);
+
+	copy_text_master_members (HTML_TEXT_MASTER (text),
+				  HTML_TEXT_MASTER (new));
+
+	return new;
+}
+
+static HTMLText *
 split (HTMLText *self,
        guint offset)
 {
@@ -637,6 +661,7 @@ html_text_master_class_init (HTMLTextMasterClass *klass,
 	/* HTMLText methods.  */
 
 	text_class->queue_draw = queue_draw;
+	text_class->extract_text = extract_text;
 	text_class->split = split;
 	text_class->merge = merge;
 	text_class->insert_text = insert_text;

@@ -37,6 +37,12 @@
 #include "htmlengine-cutbuffer.h"
 
 
+/**
+ * html_engine_cut_buffer_destroy:
+ * @cut_buffer: 
+ * 
+ * Destroy @cut_buffer.
+ **/
 void
 html_engine_cut_buffer_destroy (GList *cut_buffer)
 {
@@ -52,6 +58,14 @@ html_engine_cut_buffer_destroy (GList *cut_buffer)
 }
 
 
+/**
+ * html_engine_cut_buffer_dup:
+ * @cut_buffer: 
+ * 
+ * Duplicate @cut_buffer.
+ * 
+ * Return value: 
+ **/
 GList *
 html_engine_cut_buffer_dup (GList *cut_buffer)
 {

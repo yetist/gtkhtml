@@ -602,7 +602,7 @@ do_undo (HTMLEngine *engine,
 	data = (ActionData *) closure;
 
 	html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_LEFT, data->buffer_count);
-	html_engine_delete (engine, data->buffer_count);
+	html_engine_delete (engine, data->buffer_count, FALSE, FALSE);
 
 	setup_redo (engine, data);
 }
