@@ -91,6 +91,40 @@ clueflow_style_to_string (HTMLClueFlowStyle style)
 	}
 }
 
+static const gchar *
+gtk_html_debug_print_valignment (HTMLVAlignType a)
+{
+	switch (a) {
+	case HTML_VALIGN_TOP:
+		return "Top";
+	case HTML_VALIGN_CENTER:
+		return "Center";
+	case HTML_VALIGN_BOTTOM:
+		return "Bottom";
+	case HTML_VALIGN_NONE:
+		return "None";
+	default:
+		return "Unknown";
+	}
+}
+
+static const gchar *
+gtk_html_debug_print_halignment (HTMLHAlignType a)
+{
+	switch (a) {
+	case HTML_HALIGN_LEFT:
+		return "Left";
+	case HTML_HALIGN_CENTER:
+		return "Center";
+	case HTML_HALIGN_RIGHT:
+		return "Right";
+	case HTML_HALIGN_NONE:
+		return "None";
+	default:
+		return "Unknown";
+	}
+}
+
 
 void
 gtk_html_debug_dump_table (HTMLObject *o,
@@ -119,9 +153,9 @@ gtk_html_debug_dump_tree (HTMLObject *o,
 		for (i = 0; i < level; i++)
 			g_print (" ");
 
-		g_print ("Obj: %p, Parent: %p  Prev: %p Next: %p ObjectType: %s Pos: %d, %d,",
+		g_print ("Obj: %p, Parent: %p  Prev: %p Next: %p ObjectType: %s Pos: %d, %d, Width: %d MaxWidth: %d ",
 			 obj, obj->parent, obj->prev, obj->next, html_type_name (HTML_OBJECT_TYPE (obj)),
-			 obj->x, obj->y);
+			 obj->x, obj->y, obj->width, obj->max_width);
 
 		if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_CLUEFLOW)
 			g_print (" [%s, %d]",
@@ -130,6 +164,7 @@ gtk_html_debug_dump_tree (HTMLObject *o,
 			g_print ("[start %d end %d]",
 				 HTML_TEXT_SLAVE (obj)->posStart,
 				 HTML_TEXT_SLAVE (obj)->posStart + HTML_TEXT_SLAVE (obj)->posLen - 1);
+			
 
 		g_print ("\n");
 
@@ -143,16 +178,18 @@ gtk_html_debug_dump_tree (HTMLObject *o,
 		case HTML_TYPE_LINKTEXTMASTER:
 			for (i = 0; i < level; i++)
 				g_print (" ");
-			g_print ("Text: %s\n", HTML_TEXT (obj)->text);
+			g_print ("Text: \"%s\"\n", HTML_TEXT (obj)->text);
 			break;
 
 		case HTML_TYPE_CLUEH:
 		case HTML_TYPE_CLUEV:
 		case HTML_TYPE_CLUEFLOW:
 		case HTML_TYPE_CLUEALIGNED:
-			gtk_html_debug_dump_tree (HTML_CLUE (obj)->head, level + 1);
-			break;
 		case HTML_TYPE_TABLECELL:
+			for (i = 0; i < level; i++) g_print (" ");
+			g_print ("HAlign: %s VAlign: %s\n",
+				 gtk_html_debug_print_halignment (HTML_CLUE (obj)->halign),
+				 gtk_html_debug_print_valignment (HTML_CLUE (obj)->valign));
 			gtk_html_debug_dump_tree (HTML_CLUE (obj)->head, level + 1);
 			break;
 

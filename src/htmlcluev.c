@@ -485,7 +485,7 @@ get_right_margin (HTMLObject *self, gint y)
 	gint margin;
 	
 	cluev = HTML_CLUEV (self);
-	margin = self->max_width;
+	margin = MAX (self->max_width, self->width);
 
 	for (aclue = cluev->align_right_list;
 	     aclue != NULL;
@@ -516,7 +516,7 @@ find_free_area (HTMLClue *clue, gint y, gint width, gint height,
 
 	while (1) {
 		lmargin = indent;
-		rmargin = HTML_OBJECT (clue)->max_width;
+		rmargin = MAX (HTML_OBJECT (clue)->max_width, HTML_OBJECT (clue)->width);
 		next_y = 0;
 		
 		for (aclue = cluev->align_left_list; aclue != 0; aclue = cluev_next_aligned (aclue)) {

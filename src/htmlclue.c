@@ -328,7 +328,7 @@ find_free_area (HTMLClue *clue, gint y,
 {
 	*y_pos = y;
 	*lmargin = 0;
-	*rmargin = HTML_OBJECT (clue)->max_width;
+	*rmargin = MAX (HTML_OBJECT (clue)->max_width, HTML_OBJECT (clue)->width);
 }
 
 static void

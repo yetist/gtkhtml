@@ -1,3 +1,22 @@
+2000-03-26  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlcluev.c (find_free_area): choose rmargin as MAX(max_width,
+	width) so centering works happily now - like on helixcode page
+	(get_right_margin): the same
+
+	* htmlobject.c (get_right_margin): same as above
+
+	* htmlengine.c (insert_text): added trailing space eating, so we
+	have no problems with longer texts later (there was problem, when
+	sometimes we count them and sometimes not (Master::min_width and
+	others)) */
+
+2000-03-25  Radek Doulik  <rodo@helixcode.com>
+
+	* gtkhtmldebug.c (gtk_html_debug_dump_tree): added width,
+	max_width to HTMLObject dump and HAlign, VAlign to HTMLClue
+	descendants
+
 2000-03-25  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlcluev.c

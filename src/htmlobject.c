@@ -141,7 +141,7 @@ get_left_margin (HTMLObject *self, gint y)
 static gint
 get_right_margin (HTMLObject *self, gint y)
 {
-	return self->max_width;
+	return MAX (self->max_width, self->width);
 }
 
 static void

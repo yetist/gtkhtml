@@ -360,6 +360,7 @@ insert_text (HTMLEngine *e,
 	HTMLObject *prev;
 	HTMLType type;
 	const GdkColor *color;
+	gint len = strlen (text);
 
 	font_style = current_font_style (e);
 	color = current_color (e);
@@ -370,6 +371,11 @@ insert_text (HTMLEngine *e,
 
 		if (*text == 0)
 			return;
+	}
+
+	/* eat trailing space */
+	if (text [len-1] == ' ') {
+		len--;
 	}
 
 	if (e->flow == NULL)
@@ -386,13 +392,13 @@ insert_text (HTMLEngine *e,
 		HTMLObject *obj;
 
 		if (e->url != NULL || e->target != NULL)
-			obj = html_link_text_master_new (g_strdup (text),
+			obj = html_link_text_master_new (g_strndup (text, len),
 							 font_style,
 							 &e->settings->linkColor,
 							 e->url,
 							 e->target);
 		else
-			obj = html_text_master_new (g_strdup (text),
+			obj = html_text_master_new (g_strndup (text, len),
 						    font_style,
 						    color);
 
@@ -403,7 +409,8 @@ insert_text (HTMLEngine *e,
 
 		g_warning ("Reusing existing text.\n");
 
-		/* FIXME this sucks.  */
+		/* FIXME this sucks. */
+		/* Also we need to eat trailing space */
 
 		text_prev = HTML_TEXT (prev);
 

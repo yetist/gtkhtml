@@ -427,7 +427,6 @@ calc_size (HTMLObject *o,
 						w = lmargin;
 					else
 						w = runWidth + lmargin;
-
 				} else {
 					if (obj->x != rmargin - obj->width) {
 						obj->x = rmargin - obj->width;
@@ -587,7 +586,7 @@ calc_size (HTMLObject *o,
 
 			if (w > o->width)
 				o->width = w;
-			
+
 			if (clue->halign == HTML_HALIGN_CENTER) {
 				extra = (rmargin - w) / 2;
 				if (extra < 0)
