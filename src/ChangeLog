@@ -1,3 +1,31 @@
+2000-01-02  Jonas Borgström <jonas_b@bitsmart.com>
+
+	* htmlengine.c (parse_input): Added more support for <input> tag
+	
+	Ettore: http://www.slashdot.org/ looks bad, but I don't think it
+	is because of the forms.
+
+	* htmlbutton.[ch] : new files, button form element.
+
+	* htmltextinput.[ch]: New files, textinput form element.
+	
+	* htmlradio.[ch]: New files, radio form element.
+	The radio elements start flickering on mouseover.
+	
+	* htmlcheckbox.[ch]: New files, checkbox form element.
+
+	* htmlhidden.[ch]: New files, hidden form element.
+
+	* htmlclue.c (destroy): Enabled destroying again.
+
+	* htmllinktextmaster.c: Fixed incorrect parent_class.
+
+	* htmltable.c (destroy): New function, free objects.
+
+	* htmltype.[ch]: Added new classes.
+	
+	* Makefile.am: Added New files
+
 2000-01-01  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlanchor.c (set_max_ascent): Do not change the y.  I have no

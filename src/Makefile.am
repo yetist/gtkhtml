@@ -51,7 +51,13 @@ libgtkhtml_HEADERS =				\
 	htmlurl.h				\
 	htmlvspace.h				\
 	stringtokenizer.h			\
-	htmlform.h
+	htmlform.h				\
+	htmlelement.h				\
+	htmlbutton.h				\
+	htmltextinput.h				\
+	htmlradio.h				\
+	htmlcheckbox.h				\
+	htmlhidden.h
 
 libgtkhtml_la_SOURCES =				\
 	debug.c					\
@@ -90,7 +96,13 @@ libgtkhtml_la_SOURCES =				\
 	htmlurl.c				\
 	htmlvspace.c				\
 	stringtokenizer.c			\
-	htmlform.c
+	htmlform.c				\
+	htmlelement.c				\
+	htmlbutton.c				\
+	htmltextinput.c				\
+	htmlradio.c				\
+	htmlcheckbox.c				\
+	htmlhidden.c
 
 testgtkhtml_SOURCES = 		\
 	testgtkhtml.c

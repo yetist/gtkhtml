@@ -34,6 +34,31 @@
 
 HTMLTableClass html_table_class;
 
+static void destroy (HTMLObject *o) {
+	HTMLTable *table = HTML_TABLE (o);
+	HTMLTableCell *cell;
+	guint r, c;
+	
+	for (r = 0; r < table->totalRows; r++) {
+		for (c = 0; c < table->totalCols; c++) {
+			
+			if ((cell = table->cells[r][c]) == 0)
+				continue;
+			if (c < table->totalCols - 1 &&
+			    cell == table->cells[r][c + 1])
+				continue;
+			if (r < table->totalRows - 1 &&
+			    cell == table->cells[r + 1][c])
+				continue;
+			
+			html_object_destroy (HTML_OBJECT (cell));
+		}
+		g_free(table->cells[r]);
+	}
+	
+	HTML_OBJECT_CLASS (&html_object_class)->destroy (o);
+}
+
 
 static void
 add_row_info (HTMLTable *table, gint row, gint colInfoIndex)
@@ -1092,10 +1117,9 @@ html_table_class_init (HTMLTableClass *klass,
 
 	html_object_class_init (object_class, type);
 
-	/* FIXME destroy!!! */
-
 	object_class->calc_size = calc_size;
 	object_class->draw = draw;
+	object_class->destroy = destroy;
 	object_class->calc_min_width = calc_min_width;
 	object_class->calc_preferred_width = calc_preferred_width;
 	object_class->set_max_width = set_max_width;

@@ -110,7 +110,7 @@ html_link_text_master_class_init (HTMLLinkTextMasterClass *klass,
 
 	text_class->split = split;
 
-	parent_class = &html_link_text_master_class;
+	parent_class = &html_text_master_class;
 }
 
 void

@@ -31,18 +31,15 @@ HTMLClueClass html_clue_class;
 
 /* HTMLObject methods.  */
 
-/* FIXME TODO */
 static void
 destroy (HTMLObject *o)
 {
-#if 0
+
 	while (HTML_CLUE (o)->head) {
 		HTML_CLUE (o)->curr = HTML_CLUE (o)->head->next;
 		html_object_destroy (HTML_CLUE (o)->head);
 		HTML_CLUE (o)->head = HTML_CLUE (o)->curr;
 	}
-#endif
-
 	HTML_OBJECT_CLASS (&html_object_class)->destroy (o);
 }
 

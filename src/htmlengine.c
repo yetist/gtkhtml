@@ -55,6 +55,11 @@
 #include "htmlstack.h"
 #include "stringtokenizer.h"
 #include "htmlform.h"
+#include "htmlbutton.h"
+#include "htmltextinput.h"
+#include "htmlradio.h"
+#include "htmlcheckbox.h"
+#include "htmlhidden.h"
 
 
 static void     html_engine_class_init (HTMLEngineClass *klass);
@@ -966,29 +971,77 @@ parse_input (HTMLEngine *e, const gchar *str) {
 	}
 	switch ( type ) {
 	case CheckBox:
-		g_warning("Checkbox: name = '%s' value = '%s' checked = '%d'\n", name, value, checked);
+		{
+		HTMLObject *checkbox = html_checkbox_new(GTK_WIDGET(e->widget), name, value, checked);
+		html_clue_append (HTML_CLUE (e->flow), checkbox);
+
+		g_print("CheckBox: name = '%s' value = '%s' checked = '%d'\n", name, value, checked);
+		
 		break;
+		}
 	case Hidden:
-		g_warning("Hidden: name = '%s' value = '%s'\n", name, value);
+		{
+		HTMLObject *hidden = html_hidden_new(name, value);
+		html_clue_append (HTML_CLUE (e->flow), hidden);
+
+		g_print("Hidden: name = '%s' value = '%s'\n", name, value);
+		
 		break;
+		}
 	case Radio:
-		g_warning("Radio: name = '%s' value = '%s' checked = '%d'\n", name, value, checked);
+		{
+		HTMLObject *radio = html_radio_new(GTK_WIDGET(e->widget), name, value, checked);
+		html_clue_append (HTML_CLUE (e->flow), radio);
+
+		g_print("Radio: name = '%s' value = '%s' checked = '%d'\n", name, value, checked);
+		
 		break;
+		}
 	case Reset:
-		g_warning("Hidden: value = '%s'\n", value);
+		{
+		HTMLObject *reset;
+		if(value)
+			reset = html_button_new(GTK_WIDGET(e->widget), name, value);
+		else
+			reset = html_button_new(GTK_WIDGET(e->widget), name, "Reset");
+		html_clue_append (HTML_CLUE (e->flow), reset);
+
+		g_print("Reset: name = '%s' value = '%s'\n", name, value);
+		
 		break;
+		}
 	case Submit:
-		g_warning("Submit: name = '%s' value = '%s'\n", name, value);
+		{
+		HTMLObject *submit;
+		if(value)
+			submit = html_button_new(GTK_WIDGET(e->widget), name, value);
+		else
+			submit = html_button_new(GTK_WIDGET(e->widget), name, "Submit Query");
+		html_clue_append (HTML_CLUE (e->flow), submit);
+
+		g_print("Button: name = '%s' value = '%s'\n", name, value);
+		
 		break;
+		}
 	case Button:
-		g_warning("Button: name = '%s' value = '%s' size = '%d'\n", name, value, size);
+		{
+		HTMLObject *button = html_button_new(GTK_WIDGET(e->widget), name, value);
+		html_clue_append (HTML_CLUE (e->flow), button);
+
+		g_print("Button: name = '%s' value = '%s'\n", name, value);
+		
 		break;
+		}
 	case Text:
-		g_warning("Text: name = '%s' value = '%s' size = '%d'\n", name, value, size);
-		break;
 	case Password:
-		g_warning("Password: name = '%s' value = '%s' size = '%d'\n", name, value, size);
+		{
+		HTMLObject *button = html_text_input_new(GTK_WIDGET(e->widget), name, value, size, maxLen, (type == Password));
+		html_clue_append (HTML_CLUE (e->flow), button);
+
+		g_print("text/password: name = '%s' value = '%s'\n", name, value);
+		
 		break;
+		}
 	case Image:
 		{
 		gchar *url = NULL;
@@ -996,7 +1049,7 @@ parse_input (HTMLEngine *e, const gchar *str) {
 		if(imgSrc)
 			url = html_url_to_string(imgSrc);
 
-		g_warning("Image: imgsrc = '%s'\n", url);
+		g_warning("Image: imgsrc = '%s' IMPLEMENT!!!!!!\n", url);
 
 		if(url)
 			g_free(url);

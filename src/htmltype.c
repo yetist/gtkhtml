@@ -25,20 +25,26 @@
 
 #include "htmlanchor.h"
 #include "htmlbullet.h"
+#include "htmlbutton.h"
+#include "htmlcheckbox.h"
 #include "htmlclue.h"
 #include "htmlcluealigned.h"
 #include "htmlclueflow.h"
 #include "htmlclueh.h"
 #include "htmlcluev.h"
+#include "htmlelement.h"
+#include "htmlhidden.h"
 #include "htmlhspace.h"
 #include "htmlimage.h"
 #include "htmllinktext.h"
 #include "htmllinktextmaster.h"
 #include "htmlobject.h"
+#include "htmlradio.h"
 #include "htmlrule.h"
 #include "htmltable.h"
 #include "htmltablecell.h"
 #include "htmltext.h"
+#include "htmltextinput.h"
 #include "htmltextmaster.h"
 #include "htmltextslave.h"
 #include "htmlvspace.h"
@@ -56,19 +62,25 @@ html_types_init (void)
 
 	html_anchor_type_init ();
 	html_bullet_type_init ();
+	html_button_type_init();
+	html_checkbox_type_init ();
 	html_clue_type_init ();
 	html_cluealigned_type_init ();
 	html_clueflow_type_init ();
 	html_clueh_type_init ();
 	html_cluev_type_init ();
+	html_element_type_init ();
+	html_hidden_type_init ();
 	html_hspace_type_init ();
 	html_image_type_init ();
 	html_link_text_type_init ();
 	html_link_text_master_type_init ();
 	html_object_type_init ();
+	html_radio_type_init ();
 	html_rule_type_init ();
 	html_table_cell_type_init ();
 	html_table_type_init ();
+	html_text_input_type_init ();
 	html_text_master_type_init ();
 	html_text_slave_type_init ();
 	html_text_type_init ();
@@ -89,6 +101,10 @@ html_type_name (HTMLType type)
 		return "Anchor";
 	case HTML_TYPE_BULLET:
  		return "Bullet";
+	case HTML_TYPE_BUTTON:
+ 		return "Button";
+	case HTML_TYPE_CHECKBOX:
+ 		return "CheckBox";
 	case HTML_TYPE_CLUE:
  		return "Clue";
 	case HTML_TYPE_CLUEALIGNED:
@@ -99,6 +115,10 @@ html_type_name (HTMLType type)
  		return "ClueH";
 	case HTML_TYPE_CLUEV:
  		return "ClueV";
+	case HTML_TYPE_ELEMENT:
+ 		return "Element";
+	case HTML_TYPE_HIDDEN:
+ 		return "Hidden";
 	case HTML_TYPE_HSPACE:
  		return "HSpace";
 	case HTML_TYPE_IMAGE:
@@ -109,6 +129,8 @@ html_type_name (HTMLType type)
  		return "LinkTextMaster";
 	case HTML_TYPE_OBJECT:
  		return "Object";
+	case HTML_TYPE_RADIO:
+ 		return "Radio";
 	case HTML_TYPE_RULE:
  		return "Rule";
 	case HTML_TYPE_TABLE:
@@ -117,6 +139,8 @@ html_type_name (HTMLType type)
  		return "TableCell";
 	case HTML_TYPE_TEXT:
  		return "Text";
+	case HTML_TYPE_TEXTINPUT:
+ 		return "TextInput";
 	case HTML_TYPE_TEXTMASTER:
  		return "TextMaster";
 	case HTML_TYPE_TEXTSLAVE:
