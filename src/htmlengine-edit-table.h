@@ -83,11 +83,13 @@ gboolean       html_engine_table_goto_pos          (HTMLEngine         *e,
 void           html_engine_delete_table            (HTMLEngine         *e);
 HTMLTableCell *html_engine_new_cell                (HTMLEngine         *e,
 						    HTMLTable          *table);
-void           html_table_insert_row               (HTMLEngine         *e,
+void           html_table_insert_row               (HTMLTable          *table,
+						    HTMLEngine         *e,
 						    gint                row,
 						    HTMLTableCell     **row_cells,
 						    HTMLUndoDirection   dir);
-void           html_table_insert_column            (HTMLEngine         *e,
+void           html_table_insert_column            (HTMLTable          *table,
+						    HTMLEngine         *e,
 						    gint                col,
 						    HTMLTableCell     **column,
 						    HTMLUndoDirection   dir);
