@@ -123,66 +123,142 @@ setup_paragraph_style_option_menu (GtkHTML *html)
 
 
 /* Toolbar button callbacks.  */
-/* GnomeUIInfo sucks.  */
+/* (GnomeUIInfo sucks BTW.)  */
+
+struct _ToolbarFontStyleData {
+	guint font_style_changed_connection_id;
+
+	GtkWidget *html;
+
+	GtkWidget *bold_button;
+	GtkWidget *italic_button;
+	GtkWidget *underline_button;
+	GtkWidget *strikeout_button;
+};
+typedef struct _ToolbarFontStyleData ToolbarFontStyleData;
+
 
 static void
 editor_toolbar_bold_cb (GtkWidget *widget,
 			gpointer data)
 {
+	ToolbarFontStyleData *toolbar_data;
 	gboolean active;
 
+	toolbar_data = (ToolbarFontStyleData *) data;
 	active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget));
 	if (active)
-		gtk_html_set_font_style (GTK_HTML (data),
+		gtk_html_set_font_style (GTK_HTML (toolbar_data->html),
 					 GTK_HTML_FONT_STYLE_MAX,
 					 GTK_HTML_FONT_STYLE_BOLD);
 	else
-		gtk_html_set_font_style (GTK_HTML (data), ~GTK_HTML_FONT_STYLE_BOLD, 0);
+		gtk_html_set_font_style (GTK_HTML (toolbar_data->html), ~GTK_HTML_FONT_STYLE_BOLD, 0);
 }
 
 static void
 editor_toolbar_italic_cb (GtkWidget *widget,
 			  gpointer data)
 {
+	ToolbarFontStyleData *toolbar_data;
 	gboolean active;
+
+	toolbar_data = (ToolbarFontStyleData *) data;
 
 	active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget));
 	if (active)
-		gtk_html_set_font_style (GTK_HTML (data),
+		gtk_html_set_font_style (GTK_HTML (toolbar_data->html),
 					 GTK_HTML_FONT_STYLE_MAX,
 					 GTK_HTML_FONT_STYLE_ITALIC);
 	else
-		gtk_html_set_font_style (GTK_HTML (data), ~GTK_HTML_FONT_STYLE_ITALIC, 0);
+		gtk_html_set_font_style (GTK_HTML (toolbar_data->html), ~GTK_HTML_FONT_STYLE_ITALIC, 0);
 }
 
 static void
 editor_toolbar_underline_cb (GtkWidget *widget,
 			     gpointer data)
 {
+	ToolbarFontStyleData *toolbar_data;
 	gboolean active;
+
+	toolbar_data = (ToolbarFontStyleData *) data;
 
 	active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget));
 	if (active)
-		gtk_html_set_font_style (GTK_HTML (data),
+		gtk_html_set_font_style (GTK_HTML (toolbar_data->html),
 					 GTK_HTML_FONT_STYLE_MAX,
 					 GTK_HTML_FONT_STYLE_UNDERLINE);
 	else
-		gtk_html_set_font_style (GTK_HTML (data), ~GTK_HTML_FONT_STYLE_UNDERLINE, 0);
+		gtk_html_set_font_style (GTK_HTML (toolbar_data->html), ~GTK_HTML_FONT_STYLE_UNDERLINE, 0);
 }
 
 static void
 editor_toolbar_strikeout_cb (GtkWidget *widget,
 			     gpointer data)
 {
+	ToolbarFontStyleData *toolbar_data;
 	gboolean active;
+
+	toolbar_data = (ToolbarFontStyleData *) data;
 
 	active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget));
 	if (active)
-		gtk_html_set_font_style (GTK_HTML (data),
+		gtk_html_set_font_style (GTK_HTML (toolbar_data->html),
 					 GTK_HTML_FONT_STYLE_MAX,
 					 GTK_HTML_FONT_STYLE_STRIKEOUT);
 	else
-		gtk_html_set_font_style (GTK_HTML (data), ~GTK_HTML_FONT_STYLE_STRIKEOUT, 0);
+		gtk_html_set_font_style (GTK_HTML (toolbar_data->html), ~GTK_HTML_FONT_STYLE_STRIKEOUT, 0);
+}
+
+static void
+insertion_font_style_changed_cb (GtkHTML *widget,
+				 GtkHTMLFontStyle font_style,
+				 gpointer data)
+{
+	ToolbarFontStyleData *toolbar_data;
+
+	toolbar_data = (ToolbarFontStyleData *) data;
+
+#define BLOCK_SIGNAL(w)									\
+	gtk_signal_handler_block_by_func (GTK_OBJECT (toolbar_data->w##_button),	\
+					  editor_toolbar_##w##_cb, data)
+
+	BLOCK_SIGNAL (bold);
+	BLOCK_SIGNAL (italic);
+	BLOCK_SIGNAL (underline);
+	BLOCK_SIGNAL (strikeout);
+
+#undef BLOCK_SIGNAL
+
+	if (font_style & GTK_HTML_FONT_STYLE_BOLD)
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (toolbar_data->bold_button), TRUE);
+	else
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (toolbar_data->bold_button), FALSE);
+
+	if (font_style & GTK_HTML_FONT_STYLE_ITALIC)
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (toolbar_data->italic_button), TRUE);
+	else
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (toolbar_data->italic_button), FALSE);
+
+	if (font_style & GTK_HTML_FONT_STYLE_UNDERLINE)
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (toolbar_data->underline_button), TRUE);
+	else
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (toolbar_data->underline_button), FALSE);
+
+	if (font_style & GTK_HTML_FONT_STYLE_STRIKEOUT)
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (toolbar_data->strikeout_button), TRUE);
+	else
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (toolbar_data->strikeout_button), FALSE);
+
+#define UNBLOCK_SIGNAL(w)								\
+	gtk_signal_handler_unblock_by_func (GTK_OBJECT (toolbar_data->w##_button),	\
+					    editor_toolbar_##w##_cb, data)
+
+	UNBLOCK_SIGNAL (bold);
+	UNBLOCK_SIGNAL (italic);
+	UNBLOCK_SIGNAL (underline);
+	UNBLOCK_SIGNAL (strikeout);
+
+#undef UNBLOCK_SIGNAL
 }
 
 
@@ -214,7 +290,7 @@ static GnomeUIInfo editor_toolbar_alignment_group[] = {
 	GNOMEUIINFO_END
 };
 
-static GnomeUIInfo editor_toolbar_data[] = {
+static GnomeUIInfo editor_toolbar_uiinfo[] = {
 	{ GNOME_APP_UI_TOGGLEITEM, N_("Bold"), N_("Sets the bold font"),
 	  editor_toolbar_bold_cb, NULL, NULL, GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_PIXMAP_TEXT_BOLD },
 
@@ -234,16 +310,48 @@ static GnomeUIInfo editor_toolbar_data[] = {
 	GNOMEUIINFO_END
 };
 
+static void
+toolbar_destroy_cb (GtkObject *object,
+		    gpointer data)
+{
+	ToolbarFontStyleData *toolbar_data;
+
+	toolbar_data = (ToolbarFontStyleData *) data;
+
+	gtk_signal_disconnect (GTK_OBJECT (toolbar_data->html),
+			       toolbar_data->font_style_changed_connection_id);
+
+	g_free (toolbar_data);
+}
+
 static Bonobo_Control
 create_editor_toolbar (GtkHTML *html)
 {
-	GtkWidget *toolbar;
+	ToolbarFontStyleData *data;
 	BonoboControl *toolbar_control;
+	GtkWidget *toolbar;
 
 	toolbar = gtk_toolbar_new (GTK_ORIENTATION_HORIZONTAL, GTK_TOOLBAR_ICONS);
 	gtk_widget_show (toolbar);
 
-	gnome_app_fill_toolbar_with_data (GTK_TOOLBAR (toolbar), editor_toolbar_data, NULL, html);
+	data = g_new (ToolbarFontStyleData, 1);
+
+	gnome_app_fill_toolbar_with_data (GTK_TOOLBAR (toolbar), editor_toolbar_uiinfo, NULL, data);
+
+	data->font_style_changed_connection_id
+		= gtk_signal_connect (GTK_OBJECT (html), "insertion_font_style_changed",
+				      GTK_SIGNAL_FUNC (insertion_font_style_changed_cb),
+				      data);
+
+	/* This SUCKS!  */
+	data->html = GTK_WIDGET (html);
+	data->bold_button = editor_toolbar_uiinfo[0].widget;
+	data->italic_button = editor_toolbar_uiinfo[1].widget;
+	data->underline_button = editor_toolbar_uiinfo[2].widget;
+	data->strikeout_button = editor_toolbar_uiinfo[3].widget;
+
+	gtk_signal_connect (GTK_OBJECT (toolbar), "destroy",
+			    GTK_SIGNAL_FUNC (toolbar_destroy_cb), data);
 
 	gtk_toolbar_prepend_widget (GTK_TOOLBAR (toolbar),
 				    setup_paragraph_style_option_menu (html),
