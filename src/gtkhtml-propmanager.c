@@ -21,17 +21,14 @@
    Boston, MA 02111-1307, USA.
 */
 #include <config.h>
+#include <glib.h>
 #include <gnome.h>
 
 
 #include "gtkhtml-propmanager.h"
 #include "gtkhtml-properties.h"
 
-#if 0
 #define d(x) x;
-#else 
-#define d(x)
-#endif
 
 static GtkObject *parent_class;
 
@@ -70,6 +67,8 @@ struct _GtkHTMLPropmanagerPrivate {
 
 	guint notify_id;
 	gboolean active;
+
+	GHashTable *nametable;
 };
 
 static char *
@@ -81,8 +80,6 @@ keymap_option_get (GtkWidget *option)
 	
 	name = gtk_object_get_data (GTK_OBJECT (active), "GtkHTMLPropKeymap");
 
-	d(if (name) g_warning ("BALLS"); else g_warning ("TOPS %s", name));
-		
 	return name ? name : "ms";
 }
 
@@ -91,11 +88,8 @@ keymap_option_set (GtkWidget *option, char *name)
 {
 	int i = 0;
 	
-	d(g_warning ("don't ask me I just work here"));
 	while (i < KEYMAP_LAST) {
-		d(g_warning ("FUCKING NUN LOVES US"));
 		if (!strcmp (name, keymap_names[i])) {
-			d(g_warning ("FOUND THAT BUGGER %s", name));
 			gtk_option_menu_set_history (GTK_OPTION_MENU (option), i);
 		}
 		i++;
@@ -264,7 +258,7 @@ propmanager_add_keymap (GtkWidget *option, GtkHTMLPropmanager *pman, gboolean *f
 		items = GTK_MENU_SHELL (menu)->children;
 		while (items && (i < KEYMAP_LAST)) {
 			gtk_object_set_data (GTK_OBJECT (items->data), "GtkHTMLPropKeymap", keymap_names[i]);
-			d(g_warning("bloocks"));
+			items = items->next;
 			i++;
 		}
 		
@@ -274,6 +268,44 @@ propmanager_add_keymap (GtkWidget *option, GtkHTMLPropmanager *pman, gboolean *f
 	}
 
 	return option;
+}
+
+void
+gtk_html_propmanager_set_names (GtkHTMLPropmanager *pman, char ***names)
+{
+	GHashTable *ht;
+	int i;
+
+	g_return_if_fail (pman != NULL);
+	g_return_if_fail (names != NULL);
+
+	ht = g_hash_table_new (g_str_hash, g_str_equal);
+
+	i = 0;
+	while (names[i][0] != NULL) {
+		g_hash_table_insert (ht, names[i][0], names[i][1]);
+		i++;
+	}
+
+	gtk_html_propmanager_set_nametable (pman, ht);
+}
+
+void
+gtk_html_propmanager_set_nametable (GtkHTMLPropmanager *pman, GHashTable *ht)
+{
+	pman->priv->nametable = ht;
+}
+
+static GtkWidget *
+propmanager_get_widget (GtkHTMLPropmanager *pman, GladeXML *xml, char *name)
+{
+	char *xml_name;
+
+	xml_name = g_hash_table_lookup (pman->priv->nametable, name);
+	if (!xml_name)
+		xml_name = name;
+	
+	return glade_xml_get_widget (xml, xml_name);
 }
 
 gboolean
@@ -301,28 +333,28 @@ gtk_html_propmanager_set_xml (GtkHTMLPropmanager *pman, GladeXML *xml)
 	gtk_html_class_properties_copy (priv->saved_prop, priv->actual_prop);
 	gtk_html_class_properties_copy (priv->orig_prop, priv->actual_prop);
 
-	priv->anim_check = propmanager_add_toggle (glade_xml_get_widget (xml, "anim_check"), 
+	priv->anim_check = propmanager_add_toggle (propmanager_get_widget (pman, xml, "anim_check"), 
 						   pman, &found_widget);
-	priv->magic_check = propmanager_add_toggle (glade_xml_get_widget (xml, "magic_check"), 
+	priv->magic_check = propmanager_add_toggle (propmanager_get_widget (pman, xml, "magic_check"), 
 						    pman, &found_widget);
-	priv->live_spell_check = propmanager_add_toggle (glade_xml_get_widget (xml, "live_spell_check"), 
+	priv->live_spell_check = propmanager_add_toggle (propmanager_get_widget (pman, xml, "live_spell_check"), 
 							 pman, &found_widget);
 
 
-	if ((priv->button_cfg_spell = glade_xml_get_widget (xml, "button_configure_spell_checking"))) {
+	if ((priv->button_cfg_spell = propmanager_get_widget (pman, xml, "button_configure_spell_checking"))) {
 		found_widget = TRUE;
 	}
 	
-	priv->keymap = propmanager_add_keymap (glade_xml_get_widget (xml, "gtk_html_prop_keymap_option"),
+	priv->keymap = propmanager_add_keymap (propmanager_get_widget (pman, xml, "gtk_html_prop_keymap_option"),
 					       pman, &found_widget);
 
-	priv->variable = propmanager_add_picker (glade_xml_get_widget (xml, "screen_variable"),
+	priv->variable = propmanager_add_picker (propmanager_get_widget (pman, xml, "screen_variable"),
 						 pman, TRUE, &found_widget);
-	priv->variable_print = propmanager_add_picker (glade_xml_get_widget (xml, "print_variable"),
+	priv->variable_print = propmanager_add_picker (propmanager_get_widget (pman, xml, "print_variable"),
 						       pman, TRUE, &found_widget);
-	priv->fixed = propmanager_add_picker (glade_xml_get_widget (xml, "screen_fixed"),
+	priv->fixed = propmanager_add_picker (propmanager_get_widget (pman, xml, "screen_fixed"),
 					      pman, FALSE, &found_widget);
-	priv->fixed_print = propmanager_add_picker (glade_xml_get_widget (xml, "print_fixed"),
+	priv->fixed_print = propmanager_add_picker (propmanager_get_widget (pman, xml, "print_fixed"),
 						    pman, FALSE, &found_widget);
 
 	priv->notify_id = gconf_client_notify_add (client, GTK_HTML_GCONF_DIR, 
@@ -413,7 +445,16 @@ gtk_html_propmanager_apply (GtkHTMLPropmanager *pman)
 void
 gtk_html_propmanager_reset (GtkHTMLPropmanager *pman)
 {
+	GtkHTMLPropmanagerPrivate *priv;
 
+	g_return_if_fail (GTK_IS_HTML_PROPMANAGER (pman));
+	priv = pman->priv;
+	
+	gtk_html_class_properties_copy (priv->actual_prop, priv->orig_prop);
+	gtk_html_class_properties_update (priv->actual_prop, pman->client,
+					  priv->saved_prop);
+	gtk_html_class_properties_copy (priv->saved_prop, priv->orig_prop);
+	gtk_html_propmanager_sync_ui (pman);
 }
 
 static void
@@ -430,7 +471,6 @@ gtk_html_propmanager_init (GtkHTMLPropmanager *pman)
 {
 	GtkHTMLPropmanagerPrivate *priv;
 
-	d(g_warning ("init called"));
 	priv = g_new0 (GtkHTMLPropmanagerPrivate, 1);
 	
 	pman->priv = priv;

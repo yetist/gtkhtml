@@ -29,6 +29,7 @@
 #define GTK_TYPE_HTML_PROPMANAGER                (gtk_html_propmanager_get_type ())
 #define GTK_HTML_PROPMANAGER(w)                  (GTK_CHECK_CAST ((w), GTK_TYPE_HTML_PROPMANAGER, GtkHTMLPropmanager))
 #define GTK_HTML_PROPMANAGER_CLASS(klass)        (GTK_CHECK_CLASS_CAST ((klass), GTK_TYPE_HTML_PROPMANAGER, GtkHTMLPropmanagerClass))
+
 #define GTK_IS_HTML_PROPMANAGER(w)               (GTK_CHECK_TYPE ((w), GTK_TYPE_HTML_PROPMANAGER))
 
 typedef struct _GtkHTMLPropmanagerPrivate GtkHTMLPropmanagerPrivate;
@@ -49,11 +50,13 @@ struct _GtkHTMLPropmanagerClass {
 };
 
 GtkType          gtk_html_propmanager_get_type (void);
-GtkObject       *gtk_html_propmanager_new (GladeXML *xml);
+GtkObject *      gtk_html_propmanager_new (GladeXML *xml);
 gboolean         gtk_html_propmanager_set_xml (GtkHTMLPropmanager *pman, GladeXML *xml);
 void             gtk_html_propmanager_apply (GtkHTMLPropmanager *pman);
 void             gtk_html_propmanager_reset (GtkHTMLPropmanager *pman);
 
+void             gtk_html_propmanager_set_names (GtkHTMLPropmanager *pman, char ***names);
+void             gtk_html_propmanager_set_nametable (GtkHTMLPropmanager *pman, GHashTable *table);
 #endif /* __GTK_HTML_PROPMANAGER_H__ */
 
 
