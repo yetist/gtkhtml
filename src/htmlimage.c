@@ -104,7 +104,8 @@ get_actual_width (HTMLImage *image,
 			double scale;
 
 			scale =  ((double) get_actual_height (image, painter)) 
-				/ ((anim) ? gdk_pixbuf_animation_get_height (anim) : gdk_pixbuf_get_height (pixbuf));
+				/ (((anim) ? gdk_pixbuf_animation_get_height (anim) : gdk_pixbuf_get_height (pixbuf))
+				   * html_painter_get_pixel_size (painter));
 			
 			width *= scale;
 		}

@@ -1,3 +1,7 @@
+2001-10-30  Radek Doulik  <rodo@ximian.com>
+
+	* htmlimage.c (get_actual_width): fix scale for pixel size
+
 2001-10-30  Larry Ewing  <lewing@ximian.com>
 
 	* htmlcluev.c (do_layout): shut up compiler.
