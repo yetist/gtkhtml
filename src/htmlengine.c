@@ -3720,6 +3720,8 @@ html_engine_begin (HTMLEngine *e, char *content_type)
 	
 	free_block (e); /* Clear the block stack */
 
+	e->font_style = GTK_HTML_FONT_STYLE_DEFAULT;
+	
 	html_engine_stop_parser (e);
 	e->writing = TRUE;
 	e->begin = TRUE;

@@ -1,3 +1,7 @@
+2002-10-16  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c (html_engine_begin): clear the font style.
+
 2002-10-16  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine.c: (parse_body): save & restore e->pending_para and
@@ -14,7 +18,7 @@
 
 
 2002-10-16  Larry Ewing  <lewing@ximian.com>
- 
+
  	* gtkhtml.c (selection_get): Get the actual length of the ucs2
  	string rather than basing is on the utf8 length, and start the
  	selection buffer with a byte order marker (mozilla started doing
