@@ -1521,6 +1521,7 @@ button_release_event (GtkWidget *initial_widget,
 	widget = shift_to_iframe_parent (initial_widget, &x, &y);
 	html   = GTK_HTML (widget);
 
+	remove_scroll_timeout (html);
 	gtk_grab_remove (widget);
 	gdk_pointer_ungrab (0);
 	
@@ -1546,11 +1547,8 @@ button_release_event (GtkWidget *initial_widget,
 					   x + engine->x_offset, y + engine->y_offset);
 		html_engine_update_selection_active_state (engine, html->priv->event_time);
 		gtk_html_update_styles (html);
+		queue_draw (html);
 	}
-	
-	remove_scroll_timeout (html);
-
-	queue_draw (html);
 
 	return TRUE;
 }

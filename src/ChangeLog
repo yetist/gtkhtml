@@ -1,5 +1,8 @@
 2002-10-17  Larry Ewing  <lewing@ximian.com>
 
+	* gtkhtml.c (button_release_event): make scrolling via the scroll
+	wheel work again.
+
 	* htmlclueflow.c (append_selection_string): indent and quote
 	selected strings. (fixes #24529)
 
