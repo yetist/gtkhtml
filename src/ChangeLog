@@ -1,3 +1,10 @@
+2004-05-13  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c (html_engine_get_image_factory): we can't use the
+	toplevel engine here if we do we break relative urls and image
+	updating from loading and animations.  If we want to preserve
+	ifame factories through reloads we'll have to somethign else.
+
 2004-05-13  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine-edit.c (html_engine_new_text): do not check if color
@@ -16,7 +23,7 @@
 	it was lost somewhere during parser changes
 
 	Fixes #56543
-
+	
 2004-05-11  Radek Doulik  <rodo@ximian.com>
 
 	* htmltextslave.c (hts_fit_line): use html_text_slave_get_text
