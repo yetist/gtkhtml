@@ -1,5 +1,10 @@
 2002-04-18  Larry Ewing  <lewing@ximian.com>
 
+	* htmlclueflow.c (draw_quotes): add more drawing logic.
+	(is_cite): helper function to handle the cite test so that we can
+	change it from the current hack when we want to.
+	(get_indent): modify the indent level in cites.
+
 	* htmlimage.c (draw): stub out some cite drawing routines.
 
 2002-04-16  Radek Doulik  <rodo@ximian.com>
