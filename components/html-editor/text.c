@@ -141,8 +141,8 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	frame = gtk_frame_new (_("Style"));
 	vbox = gtk_vbox_new (FALSE, 2);
 
-	font_style = html_engine_get_font_style (cd->html->engine);
-	color      = html_engine_get_color      (cd->html->engine);
+	font_style =  html_engine_get_font_style (cd->html->engine);
+	color      = &html_engine_get_color      (cd->html->engine)->color;
 
 #define ADD_CHECK(x) \
 	data->check [i] = gtk_check_button_new_with_label (x); \
@@ -251,8 +251,11 @@ text_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 		html_engine_set_font_style (cd->html->engine, data->style_and, data->style_or);
 	}
 
-	if (data->color_changed)
-		html_engine_set_color (cd->html->engine, &data->color);
+	if (data->color_changed) {
+		HTMLColor *color = html_color_new_from_gdk_color (&data->color);
+		html_engine_set_color (cd->html->engine, color);
+		html_color_unref (color);
+	}
 
 	data->color_changed = FALSE;
 	data->style_changed = FALSE;

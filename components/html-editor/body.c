@@ -110,7 +110,7 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
         gtk_signal_connect (GTK_OBJECT (radio), "toggled", select_color, data); \
         gtk_signal_connect (GTK_OBJECT (cpicker), "color_set", GTK_SIGNAL_FUNC (set_color), data); \
 	group = gtk_radio_button_group (GTK_RADIO_BUTTON (radio)); \
-        color = html_colorset_get_color (cd->html->engine->settings->color_set, ct); \
+        color = &html_colorset_get_color (cd->html->engine->settings->color_set, ct)->color; \
         gnome_color_picker_set_d (GNOME_COLOR_PICKER (cpicker), (gdouble)color->red/0xffff, (gdouble)color->green/0xffff, (gdouble)color->blue/0xffff, 1.0); \
 	hbox1 = gtk_hbox_new (FALSE, 3); \
 	gtk_box_pack_start (GTK_BOX (hbox1), cpicker, FALSE, FALSE, 0); \
