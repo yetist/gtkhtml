@@ -476,7 +476,7 @@ gtk_html_propmanager_apply (GtkHTMLPropmanager *pman)
                 } else { \
                           priv->actual_prop-> f ## _points = FALSE; \
                 } \
-	        priv->actual_prop-> s = atoi (size_str); \
+	        priv->actual_prop-> s = PANGO_SCALE*atoi (size_str); \
 	        g_free (size_str); \
 	}
 

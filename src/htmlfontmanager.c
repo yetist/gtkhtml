@@ -21,6 +21,7 @@
 
 #include <config.h>
 #include <string.h>
+#include <pango/pango.h>
 
 #include "gtkhtmlfontstyle.h"
 #include "htmlfontmanager.h"
@@ -87,9 +88,9 @@ void
 html_font_manager_init (HTMLFontManager *manager, HTMLPainter *painter)
 {
 	manager->font_sets     = g_hash_table_new (g_str_hash, g_str_equal);
-	manager->var_size      = 12;
+	manager->var_size      = 12*PANGO_SCALE;
 	manager->var_points    = FALSE;
-	manager->fix_size      = 12;
+	manager->fix_size      = 12*PANGO_SCALE;
 	manager->fix_points    = FALSE;
 	manager->magnification = 1.0;
 	manager->painter       = painter;
@@ -210,7 +211,7 @@ get_real_font_size (HTMLFontManager *manager, GtkHTMLFontStyle style)
 	gint size = (get_font_num (style) & GTK_HTML_FONT_STYLE_SIZE_MASK) -  GTK_HTML_FONT_STYLE_SIZE_3;
 	gint base_size = style & GTK_HTML_FONT_STYLE_FIXED ? manager->fix_size : manager->var_size;
 
-	return manager->magnification * (base_size + (size > 0 ? (1 << size) : size) * base_size/8.0);
+	return PANGO_PIXELS (manager->magnification * (base_size + (size > 0 ? (1 << size) : size) * base_size/8.0));
 }
 
 static void

@@ -1,3 +1,21 @@
+2003-12-02  Radek Doulik  <rodo@ximian.com>
+
+	* htmltext.c (html_pango_attr_font_size_calc): scale down the font
+	size here, before setting to pango attribute, it's already
+	multiplied by 1000
+
+	* htmlfontmanager.c (html_font_manager_init): use PANGO_SCALE for font
+	sizes
+	(get_real_font_size): use PANGO_PIXELS to scale down font sizes
+
+	* gtkhtml.c (gtk_html_set_magnification): use PANGO_SCALE for font
+	sizes
+
+	* gtkhtml-propmanager.c (gtk_html_propmanager_apply): PANGO_SCALE
+	fonts
+
+	* gtkhtml.c (gtk_html_set_fonts): don't scale font size down here
+
 2003-11-24  Radek Doulik  <rodo@ximian.com>
 
 	* htmlgdkpainter.c (item_gc): set a default color

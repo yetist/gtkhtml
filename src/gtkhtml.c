@@ -742,7 +742,7 @@ gtk_html_set_fonts (GtkHTML *html, HTMLPainter *painter)
 	gint  font_var_size = 0;
 
 	font_var = pango_font_description_get_family (GTK_WIDGET (html)->style->font_desc);
-	font_var_size = PANGO_PIXELS (pango_font_description_get_size (GTK_WIDGET (html)->style->font_desc));
+	font_var_size = pango_font_description_get_size (GTK_WIDGET (html)->style->font_desc);
 		
 	gtk_widget_style_get (GTK_WIDGET (html), "fixed_font_name", &fixed_name, NULL);
 	if (fixed_name) {
@@ -5209,8 +5209,8 @@ gtk_html_set_magnification (GtkHTML *html, gdouble magnification)
 	g_return_if_fail (GTK_IS_HTML (html));
 
 	if (magnification > 0.05 && magnification < 20.0
-	    && magnification * html->engine->painter->font_manager.var_size >= 4
-	    && magnification * html->engine->painter->font_manager.fix_size >= 4) {
+	    && magnification * html->engine->painter->font_manager.var_size >= 4*PANGO_SCALE
+	    && magnification * html->engine->painter->font_manager.fix_size >= 4*PANGO_SCALE) {
 		html_font_manager_set_magnification (&html->engine->painter->font_manager, magnification);
 		if (html->engine->clue) {
 			html_object_forall (html->engine->clue, html->engine, 
