@@ -1,5 +1,8 @@
 2000-01-28  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* debug.c (debug_dump_tree): Also print the list/quote level for
+	HTMLClueFlows.
+
 	* testgtkhtml.c (object_timeout): Added `GTK_WIDGET()' cast.
 	(object_requested_cmd): Likewise.  Also, added a `GtkFunction'
 	cast.

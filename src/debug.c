@@ -93,7 +93,10 @@ debug_dump_tree (HTMLObject *o, gint level)
 			 obj->x, obj->y);
 
 		if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_CLUEFLOW)
-			g_print (" [%s]", clueflow_style_to_string (HTML_CLUEFLOW (obj)->style));
+			g_print (" [%s, %d, %d]",
+				 clueflow_style_to_string (HTML_CLUEFLOW (obj)->style),
+				 HTML_CLUEFLOW (obj)->list_level,
+				 HTML_CLUEFLOW (obj)->quote_level);
 		else if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_TEXTSLAVE)
 			g_print ("[start %d end %d]",
 				 HTML_TEXT_SLAVE (obj)->posStart,
