@@ -1,12 +1,13 @@
 <!-- ##### SECTION Title ##### -->
-GtkHTMLEmbedded
+GtkHTMLEmbedded widget
 
 <!-- ##### SECTION Short_Description ##### -->
-
+Container for widgets embedded in the document.
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-
+The GtkHTML Embedded widget is simple container designed to hold
+widgets embedded by using &lt;object&gt; elements.
 </para>
 
 <!-- ##### SECTION See_Also ##### -->
