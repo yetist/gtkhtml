@@ -1,3 +1,11 @@
+2004-03-18  Radek Doulik  <rodo@ximian.com>
+
+	* htmltokenizer.c (add_unichar): translate characters from range
+	128 - 159 from win1252 encoding to unicode as other browsers
+	do. yup, we support more brokeness now
+
+	Fixes #55707
+
 2004-03-15  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine.c (thaw_idle): do partial redraw only if widget is
