@@ -42,6 +42,33 @@ struct _GtkHTMLEditBodyProperties {
 typedef struct _GtkHTMLEditBodyProperties GtkHTMLEditBodyProperties;
 
 static void
+fill_sample (GtkHTMLEditBodyProperties *d)
+{
+	gchar *body, *body_tag, *bg_image;
+
+	bg_image = "";
+	body_tag = g_strdup_printf ("<body bgcolor=#%02x%02x%02x link=#%02x%02x%02x text=#%02x%02x%02x%s>",
+				    d->color [HTMLBgColor].red >> 8,
+				    d->color [HTMLBgColor].green >> 8,
+				    d->color [HTMLBgColor].blue >> 8,
+				    d->color [HTMLLinkColor].red >> 8,
+				    d->color [HTMLLinkColor].green >> 8,
+				    d->color [HTMLLinkColor].blue >> 8,
+				    d->color [HTMLTextColor].red >> 8,
+				    d->color [HTMLTextColor].green >> 8,
+				    d->color [HTMLTextColor].blue >> 8,
+				    bg_image);
+
+	body  = g_strconcat (body_tag,
+			     "The quick brown <a href=\"mailto:fox\">fox</a> jumps over the lazy <a href=\"mailto:dog\">dog</a>.",
+			     NULL);
+	printf ("body: %s\n", body);
+	gtk_html_load_from_string (d->sample, body, -1);
+	g_free (body_tag);
+	g_free (body);
+}
+
+static void
 color_changed (GtkWidget *w, GdkColor *color, GtkHTMLEditBodyProperties *data)
 {
 	gint idx;
@@ -50,12 +77,14 @@ color_changed (GtkWidget *w, GdkColor *color, GtkHTMLEditBodyProperties *data)
 	data->color [idx] = *color;
 	data->color_changed [idx] = TRUE;
 	gtk_html_edit_properties_dialog_change (data->cd->properties_dialog);
+	fill_sample (data);
 }
 
 static void
 bg_check_cb (GtkWidget *w, GtkHTMLEditBodyProperties *data)
 {
 	gtk_html_edit_properties_dialog_change (data->cd->properties_dialog);
+	fill_sample (data);
 }
 
 static void
@@ -64,6 +93,7 @@ entry_changed (GtkWidget *w, GtkHTMLEditBodyProperties *data)
 	gchar *text = gtk_entry_get_text (GTK_ENTRY (w));
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->use_bg_image), (*text) ? TRUE : FALSE);
 	gtk_html_edit_properties_dialog_change (data->cd->properties_dialog);	
+	fill_sample (data);
 }
 
 GtkWidget *
@@ -86,7 +116,6 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	data->use_bg_image = gtk_check_button_new_with_label (_("Enable"));
 	gtk_signal_connect (GTK_OBJECT (data->use_bg_image), "toggled", bg_check_cb, data);
 	data->pixmap_entry = gnome_pixmap_entry_new ("background_image", _("Background Image"), TRUE);
-	gnome_pixmap_entry_set_preview_size (GNOME_PIXMAP_ENTRY (data->pixmap_entry), 100, 100);
 	if (cd->html->engine->bgPixmapPtr) {
 		HTMLImagePointer *ip = (HTMLImagePointer *) cd->html->engine->bgPixmapPtr;
 		guint off = 0;
@@ -113,7 +142,7 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	group = NULL;
 #define ADD_COLOR(x, ct, g) \
         data->color [ct] = html_colorset_get_color_allocated (cd->html->engine->painter, ct)->color; \
-	combo = color_combo_new (snap, _("Automatic"), \
+	combo = color_combo_new (NULL, _("Automatic"), \
 				 &data->color [ct], \
 				 g); \
         gtk_object_set_data (GTK_OBJECT (combo), "type", GINT_TO_POINTER (ct)); \
@@ -129,6 +158,7 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 
 	gtk_container_add (GTK_CONTAINER (frame), vbox);
 	gtk_table_attach_defaults (GTK_TABLE (table), frame, 1, 2, 0, 1);
+	fill_sample (data);
 
 	return table;
 }

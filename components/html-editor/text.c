@@ -138,7 +138,7 @@ GtkWidget *
 text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 {
 	GtkHTMLEditTextProperties *data = g_new (GtkHTMLEditTextProperties, 1);
-	GtkWidget *mvbox, *vbox, *frame, *table, *menu, *menuitem;
+	GtkWidget *mvbox, *vbox, *frame, *table, *menu, *menuitem, *hbox;
 	gint i;
 
 	*set_data = data;
@@ -150,7 +150,7 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	data->style_or        = html_engine_get_font_style (cd->html->engine);
 	data->color           = html_engine_get_color (cd->html->engine)->color;
 
-	table = gtk_table_new (2, 2, FALSE);
+	table = gtk_table_new (2, 3, FALSE);
 	gtk_container_border_width (GTK_CONTAINER (table), 3);
 	gtk_table_set_col_spacings (GTK_TABLE (table), 3);
 	gtk_table_set_row_spacings (GTK_TABLE (table), 2);
@@ -173,7 +173,7 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	ADD_CHECK (_("Strikeout"));
 
 	gtk_container_add (GTK_CONTAINER (frame), vbox);
-	gtk_table_attach (GTK_TABLE (table), frame, 0, 1, 0, 2, 0, 0, 0, 0);
+	gtk_table_attach (GTK_TABLE (table), frame, 0, 1, 0, 2, GTK_FILL | GTK_EXPAND, 0, 0, 0);
 
 	frame = gtk_frame_new (_("Size"));
 	menu = gtk_menu_new ();
@@ -202,20 +202,22 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	gtk_container_set_border_width (GTK_CONTAINER (vbox), 3);
 	gtk_box_pack_start (GTK_BOX (vbox), data->sel_size, FALSE, FALSE, 0);
 	gtk_container_add (GTK_CONTAINER (frame), vbox);
-	gtk_table_attach (GTK_TABLE (table), frame, 1, 2, 0, 1, GTK_FILL, GTK_FILL, 0, 0);
+	gtk_table_attach (GTK_TABLE (table), frame, 1, 2, 0, 1, GTK_FILL | GTK_EXPAND, GTK_FILL, 0, 0);
 
 	/* color selection */
 	frame = gtk_frame_new (_("Color"));
-	data->color_combo = color_combo_new (snap, _("Automatic"), &data->color, "gtkhtml");
+	hbox = gtk_hbox_new (FALSE, 0);
+	gtk_container_set_border_width (GTK_CONTAINER (hbox), 3);
+	data->color_combo = color_combo_new (NULL, _("Automatic"), &data->color, "gtkhtml");
 
         gtk_signal_connect (GTK_OBJECT (data->color_combo), "changed", GTK_SIGNAL_FUNC (color_changed), data);
 
 	vbox = gtk_vbox_new (FALSE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (vbox), 3);
 	gtk_box_pack_start (GTK_BOX (vbox), data->color_combo, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox), vbox, FALSE, FALSE, 0);
 
-	gtk_container_add (GTK_CONTAINER (frame), vbox);
-	gtk_table_attach (GTK_TABLE (table), frame, 1, 2, 1, 2, GTK_FILL, GTK_FILL, 0, 0);
+	gtk_container_add (GTK_CONTAINER (frame), hbox);
+	gtk_table_attach (GTK_TABLE (table), frame, 1, 2, 1, 2, GTK_FILL | GTK_EXPAND, GTK_FILL, 0, 0);
 
 	mvbox = gtk_vbox_new (FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (mvbox), table, FALSE, FALSE, 0);
@@ -232,10 +234,8 @@ text_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
 	GtkHTMLEditTextProperties *data = (GtkHTMLEditTextProperties *) get_data;
 
-	if (data->style_changed) {
-		printf ("and: %x or: %x\n", data->style_and, data->style_or);
+	if (data->style_changed)
 		html_engine_set_font_style (cd->html->engine, data->style_and, data->style_or);
-	}
 
 	if (data->color_changed) {
 		HTMLColor *color = html_color_new_from_gdk_color (&data->color);
