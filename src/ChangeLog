@@ -1,3 +1,10 @@
+2001-03-26  Larry Ewing  <lewing@ximian.com>
+
+	* Makefile.am: add htmlplainpainter.[ch]
+
+	* htmlclueflow.c (pref_right_margin): determine the prefered
+	margin based on the width of the line in plain painters.
+
 2001-03-26  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml-search.c (gtk_html_engine_search_incremental): added

@@ -67,6 +67,7 @@ libgtkhtml_HEADERS =				\
 	htmlfontmanager.h			\
 	htmlform.h				\
 	htmlgdkpainter.h			\
+	htmlplainpainter.h			\
 	htmlhidden.h				\
 	htmlimage.h				\
 	htmlimageinput.h			\
@@ -146,6 +147,7 @@ libgtkhtml_la_SOURCES =				\
 	htmlfontmanager.c			\
 	htmlform.c				\
 	htmlgdkpainter.c			\
+	htmlplainpainter.c			\
 	htmlhidden.c				\
 	htmlimage.c				\
 	htmlimageinput.c			\
