@@ -189,147 +189,79 @@ setup_color_option_menu (GtkHTMLControlData *cd)
 }
 
 
-/* Data for the toolbar button callbacks.  */
-/* (GnomeUIInfo sucks BTW.)  */
-
-struct _ToolbarData {
-	guint font_style_changed_connection_id;
-
-	GtkWidget *html;
-
-	GtkWidget *bold_button;
-	GtkWidget *italic_button;
-	GtkWidget *underline_button;
-	GtkWidget *strikeout_button;
-
-	GtkWidget *left_align_button;
-	GtkWidget *center_button;
-	GtkWidget *right_align_button;
-};
-typedef struct _ToolbarData ToolbarData;
-
-
 /* Clipboard group.  */
 
 static void
-editor_toolbar_cut_cb (GtkWidget *widget,
-		       gpointer data)
+editor_toolbar_cut_cb (GtkWidget *widget, GtkHTMLControlData *cd)
 {
-	ToolbarData *toolbar_data;
-
-	toolbar_data = (ToolbarData *) data;
-
-	gtk_html_cut (GTK_HTML (toolbar_data->html));
+	gtk_html_cut (GTK_HTML (cd->html));
 }
 
 static void
-editor_toolbar_copy_cb (GtkWidget *widget,
-			gpointer data)
+editor_toolbar_copy_cb (GtkWidget *widget, GtkHTMLControlData *cd)
 {
-	ToolbarData *toolbar_data;
-
-	toolbar_data = (ToolbarData *) data;
-
-	gtk_html_copy (GTK_HTML (toolbar_data->html));
+	gtk_html_copy (GTK_HTML (cd->html));
 }
 
 static void
-editor_toolbar_paste_cb (GtkWidget *widget,
-			 gpointer data)
+editor_toolbar_paste_cb (GtkWidget *widget, GtkHTMLControlData *cd)
 {
-	ToolbarData *toolbar_data;
-
-	toolbar_data = (ToolbarData *) data;
-
-	gtk_html_paste (GTK_HTML (toolbar_data->html));
+	gtk_html_paste (GTK_HTML (cd->html));
 }
 
 
 /* Font style group.  */
 
 static void
-editor_toolbar_bold_cb (GtkWidget *widget,
-			gpointer data)
+editor_toolbar_bold_cb (GtkWidget *widget, GtkHTMLControlData *cd)
 {
-	ToolbarData *toolbar_data;
-	gboolean active;
-
-	toolbar_data = (ToolbarData *) data;
-	active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget));
-	if (active)
-		gtk_html_set_font_style (GTK_HTML (toolbar_data->html),
+	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget)))
+		gtk_html_set_font_style (GTK_HTML (cd->html),
 					 GTK_HTML_FONT_STYLE_MAX,
 					 GTK_HTML_FONT_STYLE_BOLD);
 	else
-		gtk_html_set_font_style (GTK_HTML (toolbar_data->html), ~GTK_HTML_FONT_STYLE_BOLD, 0);
+		gtk_html_set_font_style (GTK_HTML (cd->html), ~GTK_HTML_FONT_STYLE_BOLD, 0);
 }
 
 static void
-editor_toolbar_italic_cb (GtkWidget *widget,
-			  gpointer data)
+editor_toolbar_italic_cb (GtkWidget *widget, GtkHTMLControlData *cd)
 {
-	ToolbarData *toolbar_data;
-	gboolean active;
-
-	toolbar_data = (ToolbarData *) data;
-
-	active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget));
-	if (active)
-		gtk_html_set_font_style (GTK_HTML (toolbar_data->html),
+	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget)))
+		gtk_html_set_font_style (GTK_HTML (cd->html),
 					 GTK_HTML_FONT_STYLE_MAX,
 					 GTK_HTML_FONT_STYLE_ITALIC);
 	else
-		gtk_html_set_font_style (GTK_HTML (toolbar_data->html), ~GTK_HTML_FONT_STYLE_ITALIC, 0);
+		gtk_html_set_font_style (GTK_HTML (cd->html), ~GTK_HTML_FONT_STYLE_ITALIC, 0);
 }
 
 static void
-editor_toolbar_underline_cb (GtkWidget *widget,
-			     gpointer data)
+editor_toolbar_underline_cb (GtkWidget *widget, GtkHTMLControlData *cd)
 {
-	ToolbarData *toolbar_data;
-	gboolean active;
-
-	toolbar_data = (ToolbarData *) data;
-
-	active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget));
-	if (active)
-		gtk_html_set_font_style (GTK_HTML (toolbar_data->html),
+	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget)))
+		gtk_html_set_font_style (GTK_HTML (cd->html),
 					 GTK_HTML_FONT_STYLE_MAX,
 					 GTK_HTML_FONT_STYLE_UNDERLINE);
 	else
-		gtk_html_set_font_style (GTK_HTML (toolbar_data->html), ~GTK_HTML_FONT_STYLE_UNDERLINE, 0);
+		gtk_html_set_font_style (GTK_HTML (cd->html), ~GTK_HTML_FONT_STYLE_UNDERLINE, 0);
 }
 
 static void
-editor_toolbar_strikeout_cb (GtkWidget *widget,
-			     gpointer data)
+editor_toolbar_strikeout_cb (GtkWidget *widget, GtkHTMLControlData *cd)
 {
-	ToolbarData *toolbar_data;
-	gboolean active;
-
-	toolbar_data = (ToolbarData *) data;
-
-	active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget));
-	if (active)
-		gtk_html_set_font_style (GTK_HTML (toolbar_data->html),
+	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget)))
+		gtk_html_set_font_style (GTK_HTML (cd->html),
 					 GTK_HTML_FONT_STYLE_MAX,
 					 GTK_HTML_FONT_STYLE_STRIKEOUT);
 	else
-		gtk_html_set_font_style (GTK_HTML (toolbar_data->html), ~GTK_HTML_FONT_STYLE_STRIKEOUT, 0);
+		gtk_html_set_font_style (GTK_HTML (cd->html), ~GTK_HTML_FONT_STYLE_STRIKEOUT, 0);
 }
 
 static void
-insertion_font_style_changed_cb (GtkHTML *widget,
-				 GtkHTMLFontStyle font_style,
-				 gpointer data)
+insertion_font_style_changed_cb (GtkHTML *widget, GtkHTMLFontStyle font_style, GtkHTMLControlData *cd)
 {
-	ToolbarData *toolbar_data;
-
-	toolbar_data = (ToolbarData *) data;
-
 #define BLOCK_SIGNAL(w)									\
-	gtk_signal_handler_block_by_func (GTK_OBJECT (toolbar_data->w##_button),	\
-					  editor_toolbar_##w##_cb, data)
+	gtk_signal_handler_block_by_func (GTK_OBJECT (cd->w##_button),	\
+					  editor_toolbar_##w##_cb, cd)
 
 	BLOCK_SIGNAL (bold);
 	BLOCK_SIGNAL (italic);
@@ -339,28 +271,28 @@ insertion_font_style_changed_cb (GtkHTML *widget,
 #undef BLOCK_SIGNAL
 
 	if (font_style & GTK_HTML_FONT_STYLE_BOLD)
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (toolbar_data->bold_button), TRUE);
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (cd->bold_button), TRUE);
 	else
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (toolbar_data->bold_button), FALSE);
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (cd->bold_button), FALSE);
 
 	if (font_style & GTK_HTML_FONT_STYLE_ITALIC)
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (toolbar_data->italic_button), TRUE);
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (cd->italic_button), TRUE);
 	else
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (toolbar_data->italic_button), FALSE);
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (cd->italic_button), FALSE);
 
 	if (font_style & GTK_HTML_FONT_STYLE_UNDERLINE)
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (toolbar_data->underline_button), TRUE);
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (cd->underline_button), TRUE);
 	else
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (toolbar_data->underline_button), FALSE);
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (cd->underline_button), FALSE);
 
 	if (font_style & GTK_HTML_FONT_STYLE_STRIKEOUT)
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (toolbar_data->strikeout_button), TRUE);
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (cd->strikeout_button), TRUE);
 	else
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (toolbar_data->strikeout_button), FALSE);
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (cd->strikeout_button), FALSE);
 
 #define UNBLOCK_SIGNAL(w)								\
-	gtk_signal_handler_unblock_by_func (GTK_OBJECT (toolbar_data->w##_button),	\
-					    editor_toolbar_##w##_cb, data)
+	gtk_signal_handler_unblock_by_func (GTK_OBJECT (cd->w##_button),	\
+					    editor_toolbar_##w##_cb, cd)
 
 	UNBLOCK_SIGNAL (bold);
 	UNBLOCK_SIGNAL (italic);
@@ -387,49 +319,40 @@ color_changed_cb (GtkHTML *widget,
 
 static void
 editor_toolbar_left_align_cb (GtkWidget *widget,
-			      gpointer data)
+			      GtkHTMLControlData *cd)
 {
-	ToolbarData *toolbar_data;
-
 	/* If the button is not active at this point, it means that the user clicked on
            some other button in the radio group.  */
 	if (! gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget)))
 		return;
 
-	toolbar_data = (ToolbarData *) data;
-	gtk_html_set_paragraph_alignment (GTK_HTML (toolbar_data->html),
+	gtk_html_set_paragraph_alignment (GTK_HTML (cd->html),
 					  GTK_HTML_PARAGRAPH_ALIGNMENT_LEFT);
 }
 
 static void
 editor_toolbar_center_cb (GtkWidget *widget,
-			  gpointer data)
+			  GtkHTMLControlData *cd)
 {
-	ToolbarData *toolbar_data;
-
 	/* If the button is not active at this point, it means that the user clicked on
            some other button in the radio group.  */
 	if (! gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget)))
 		return;
 
-	toolbar_data = (ToolbarData *) data;
-	gtk_html_set_paragraph_alignment (GTK_HTML (toolbar_data->html),
+	gtk_html_set_paragraph_alignment (GTK_HTML (cd->html),
 					  GTK_HTML_PARAGRAPH_ALIGNMENT_CENTER);
 }
 
 static void
 editor_toolbar_right_align_cb (GtkWidget *widget,
-			       gpointer data)
+			       GtkHTMLControlData *cd)
 {
-	ToolbarData *toolbar_data;
-
 	/* If the button is not active at this point, it means that the user clicked on
            some other button in the radio group.  */
 	if (! gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget)))
 		return;
 
-	toolbar_data = (ToolbarData *) data;
-	gtk_html_set_paragraph_alignment (GTK_HTML (toolbar_data->html),
+	gtk_html_set_paragraph_alignment (GTK_HTML (cd->html),
 					  GTK_HTML_PARAGRAPH_ALIGNMENT_RIGHT);
 }
 
@@ -451,21 +374,17 @@ safe_set_active (GtkWidget *widget,
 static void
 paragraph_alignment_changed_cb (GtkHTML *widget,
 				GtkHTMLParagraphAlignment alignment,
-				gpointer data)
+				GtkHTMLControlData *cd)
 {
-	ToolbarData *toolbar_data;
-
-	toolbar_data = (ToolbarData *) data;
-
 	switch (alignment) {
 	case GTK_HTML_PARAGRAPH_ALIGNMENT_LEFT:
-		safe_set_active (toolbar_data->left_align_button, data);
+		safe_set_active (cd->left_align_button, cd);
 		break;
 	case GTK_HTML_PARAGRAPH_ALIGNMENT_CENTER:
-		safe_set_active (toolbar_data->center_button, data);
+		safe_set_active (cd->center_button, cd);
 		break;
 	case GTK_HTML_PARAGRAPH_ALIGNMENT_RIGHT:
-		safe_set_active (toolbar_data->right_align_button, data);
+		safe_set_active (cd->right_align_button, cd);
 		break;
 	default:
 		g_warning ("Unknown GtkHTMLParagraphAlignment %d.", alignment);
@@ -477,23 +396,34 @@ paragraph_alignment_changed_cb (GtkHTML *widget,
 
 static void
 editor_toolbar_indent_cb (GtkWidget *widget,
-			  gpointer data)
+			  GtkHTMLControlData *cd)
 {
-	ToolbarData *toolbar_data;
-
-	toolbar_data = (ToolbarData *) data;
-	gtk_html_indent (GTK_HTML (toolbar_data->html), +1);
+	gtk_html_indent (GTK_HTML (cd->html), +1);
 }
 
 static void
 editor_toolbar_unindent_cb (GtkWidget *widget,
-			    gpointer data)
+			    GtkHTMLControlData *cd)
 {
-	ToolbarData *toolbar_data;
-
-	toolbar_data = (ToolbarData *) data;
-	gtk_html_indent (GTK_HTML (toolbar_data->html), -1);
+	gtk_html_indent (GTK_HTML (cd->html), -1);
 }
+
+/* undo/redo */
+
+static void
+editor_toolbar_undo_cb (GtkWidget *widget,
+			GtkHTMLControlData *cd)
+{
+	gtk_html_undo (GTK_HTML (cd->html));
+}
+
+static void
+editor_toolbar_redo_cb (GtkWidget *widget,
+			GtkHTMLControlData *cd)
+{
+	gtk_html_redo (GTK_HTML (cd->html));
+}
+
 
 
 /* Editor toolbar.  */
@@ -508,15 +438,24 @@ static GnomeUIInfo editor_toolbar_alignment_group[] = {
 	GNOMEUIINFO_END
 };
 
-static GnomeUIInfo editor_toolbar_uiinfo[] = {
-	GNOMEUIINFO_SEPARATOR,
-
+static GnomeUIInfo toolbar_info[] = {
 	GNOMEUIINFO_ITEM_STOCK (N_("Cut"), N_("Cut the selected region to the clipboard"),
 				editor_toolbar_cut_cb, GNOME_STOCK_PIXMAP_CUT),
 	GNOMEUIINFO_ITEM_STOCK (N_("Copy"), N_("Copy the selected region to the clipboard"),
 				editor_toolbar_copy_cb, GNOME_STOCK_PIXMAP_COPY),
 	GNOMEUIINFO_ITEM_STOCK (N_("Paste"), N_("Paste contents of the clipboard"),
 				editor_toolbar_paste_cb, GNOME_STOCK_PIXMAP_PASTE),
+	GNOMEUIINFO_SEPARATOR,
+
+	GNOMEUIINFO_ITEM_STOCK (N_("Undo"), N_("Undo last editor operation"),
+				editor_toolbar_undo_cb, GNOME_STOCK_PIXMAP_UNDO),
+	GNOMEUIINFO_ITEM_STOCK (N_("Redo"), N_("Redo undone editor operation"),
+				editor_toolbar_redo_cb, GNOME_STOCK_PIXMAP_REDO),
+
+	GNOMEUIINFO_END
+};
+
+static GnomeUIInfo editor_toolbar_style_uiinfo[] = {
 
 	GNOMEUIINFO_SEPARATOR,
 
@@ -543,90 +482,99 @@ static GnomeUIInfo editor_toolbar_uiinfo[] = {
 	GNOMEUIINFO_END
 };
 
-static void
+/* static void
 toolbar_destroy_cb (GtkObject *object,
-		    gpointer data)
+		    GtkHTMLControlData *cd)
 {
-	ToolbarData *toolbar_data;
-
-	toolbar_data = (ToolbarData *) data;
-
-	gtk_signal_disconnect (GTK_OBJECT (toolbar_data->html),
-			       toolbar_data->font_style_changed_connection_id);
-
-	g_free (toolbar_data);
+	if (cd->html)
+		gtk_signal_disconnect (GTK_OBJECT (cd->html),
+				       cd->font_style_changed_connection_id);
 }
 
-static GtkWidget *
-create_editor_toolbar (GtkHTMLControlData *cd)
+static void
+html_destroy_cb (GtkObject *object,
+		 GtkHTMLControlData *cd)
 {
-	ToolbarData *data;
-	GtkWidget *toolbar;
-	GtkWidget *toolbar_frame;
+	cd->html = NULL;
+} */
 
-	toolbar = gtk_toolbar_new (GTK_ORIENTATION_HORIZONTAL, GTK_TOOLBAR_ICONS);
-	gtk_widget_show (toolbar);
+static GtkWidget *
+create_style_toolbar (GtkHTMLControlData *cd)
+{
+	GtkWidget *frame, *hbox;
 
-	toolbar_frame = gtk_frame_new (NULL);
-	gtk_frame_set_shadow_type (GTK_FRAME (toolbar_frame), GTK_SHADOW_OUT);
-	gtk_container_add (GTK_CONTAINER (toolbar_frame), toolbar);
-	gtk_widget_show (toolbar_frame);
+	hbox = gtk_hbox_new (FALSE, 0);
+	frame = gtk_frame_new (NULL);
+	gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_OUT);
 
-	gtk_toolbar_prepend_widget (GTK_TOOLBAR (toolbar),
+	cd->toolbar_style = gtk_toolbar_new (GTK_ORIENTATION_HORIZONTAL, GTK_TOOLBAR_ICONS);
+
+	gtk_container_add (GTK_CONTAINER (frame), cd->toolbar_style);
+	gtk_box_pack_start (GTK_BOX (hbox), frame, FALSE, FALSE, 0);
+
+	gtk_widget_show_all (hbox);
+
+	gtk_toolbar_prepend_widget (GTK_TOOLBAR (cd->toolbar_style),
 				    setup_paragraph_style_option_menu (cd->html),
 				    NULL, NULL);
 
-	data = g_new (ToolbarData, 1);
-
-	gnome_app_fill_toolbar_with_data (GTK_TOOLBAR (toolbar), editor_toolbar_uiinfo, NULL, data);
-	gtk_toolbar_append_widget (GTK_TOOLBAR (toolbar),
+	gnome_app_fill_toolbar_with_data (GTK_TOOLBAR (cd->toolbar_style), editor_toolbar_style_uiinfo, NULL, cd);
+	gtk_toolbar_append_widget (GTK_TOOLBAR (cd->toolbar_style),
 				   setup_color_option_menu (cd),
 				   NULL, NULL);
 
-	data->font_style_changed_connection_id
+	cd->font_style_changed_connection_id
 		= gtk_signal_connect (GTK_OBJECT (cd->html), "insertion_font_style_changed",
-				      GTK_SIGNAL_FUNC (insertion_font_style_changed_cb),
-				      data);
+				      GTK_SIGNAL_FUNC (insertion_font_style_changed_cb), cd);
 
 	/* The following SUCKS!  */
-
-	data->html = GTK_WIDGET (cd->html);
-	data->bold_button = editor_toolbar_uiinfo[5].widget;
-	data->italic_button = editor_toolbar_uiinfo[6].widget;
-	data->underline_button = editor_toolbar_uiinfo[7].widget;
-	data->strikeout_button = editor_toolbar_uiinfo[8].widget;
+	cd->bold_button = editor_toolbar_style_uiinfo[5].widget;
+	cd->italic_button = editor_toolbar_style_uiinfo[6].widget;
+	cd->underline_button = editor_toolbar_style_uiinfo[7].widget;
+	cd->strikeout_button = editor_toolbar_style_uiinfo[8].widget;
 	/* (FIXME TODO: Button for "fixed" style.)  */
 
-	data->left_align_button = editor_toolbar_alignment_group[0].widget;
-	data->center_button = editor_toolbar_alignment_group[1].widget;
-	data->right_align_button = editor_toolbar_alignment_group[2].widget;
+	cd->left_align_button = editor_toolbar_alignment_group[0].widget;
+	cd->center_button = editor_toolbar_alignment_group[1].widget;
+	cd->right_align_button = editor_toolbar_alignment_group[2].widget;
 
-	gtk_signal_connect (GTK_OBJECT (toolbar), "destroy",
-			    GTK_SIGNAL_FUNC (toolbar_destroy_cb), data);
+	/* gtk_signal_connect (GTK_OBJECT (cd->html), "destroy",
+			    GTK_SIGNAL_FUNC (html_destroy_cb), cd);
+
+	gtk_signal_connect (GTK_OBJECT (cd->toolbar_style), "destroy",
+	GTK_SIGNAL_FUNC (toolbar_destroy_cb), cd); */
 
 	gtk_signal_connect (GTK_OBJECT (cd->html), "current_paragraph_alignment_changed",
-			    GTK_SIGNAL_FUNC (paragraph_alignment_changed_cb), data);
+			    GTK_SIGNAL_FUNC (paragraph_alignment_changed_cb), cd);
 
 	gtk_signal_connect (GTK_OBJECT (cd->html), "insertion_color_changed",
-			    GTK_SIGNAL_FUNC (color_changed_cb),
-			    cd);
+			    GTK_SIGNAL_FUNC (color_changed_cb), cd);
 
-	return toolbar_frame;
+	return hbox;
 }
 
 
 GtkWidget *
-toolbar_setup (BonoboUIHandler *uih,
-	       GtkHTMLControlData *cd)
+toolbar_style (GtkHTMLControlData *cd)
 {
-	GtkWidget *toolbar;
-
-	g_return_val_if_fail (uih != NULL, NULL);
-	g_return_val_if_fail (BONOBO_IS_UI_HANDLER (uih), NULL);
 	g_return_val_if_fail (cd->html != NULL, NULL);
 	g_return_val_if_fail (GTK_IS_HTML (cd->html), NULL);
 
-	toolbar = create_editor_toolbar (cd);
+	return create_style_toolbar (cd);
+}
 
-	return toolbar;
+void
+toolbar_setup (BonoboUIHandler *uih,
+	       GtkHTMLControlData *cd)
+{
+	BonoboUIHandlerToolbarItem *tree;
+
+	g_return_if_fail (uih != NULL);
+	g_return_if_fail (BONOBO_IS_UI_HANDLER (uih));
+	g_return_if_fail (cd->html != NULL);
+	g_return_if_fail (GTK_IS_HTML (cd->html));
+
+	tree = bonobo_ui_handler_toolbar_parse_uiinfo_list_with_data (toolbar_info, cd);
+	bonobo_ui_handler_toolbar_add_list (uih, "/Toolbar", tree);
+	bonobo_ui_handler_toolbar_free_list (tree);
 }

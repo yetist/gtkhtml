@@ -351,6 +351,8 @@ container_create (void)
 	bonobo_ui_handler_menu_add_tree (uih, "/", tree);
 	bonobo_ui_handler_menu_free_tree (tree);
 
+	bonobo_ui_handler_create_toolbar (uih, "Toolbar");
+
 	control = bonobo_widget_new_control (HTML_EDITOR_CONTROL_ID,
 					     bonobo_object_corba_objref (BONOBO_OBJECT (uih)));
 

@@ -28,45 +28,6 @@
 #include "htmlengine-edit-fontstyle.h"
 #include "htmlengine-edit-insert.h"
 
-static void
-set_entries (HTMLEngine *e, GtkWidget *el)
-{
-	gchar *text;
-	gchar *found;
-
-	text = html_engine_get_selection_string (e);
-
-	/* use only text part to \n */
-	found = strchr (text, '\n');
-	if (found) *found=0;
-
-	/* if it contains mailto: and '@'  we assume it is href */
-	if (text == (found = strstr (text, "mailto:")) && strchr (text, '@') > found) {
-		gtk_entry_set_text (GTK_ENTRY (el), text);
-		goto end;
-	}
-
-	/* if it contains http: or ftp: we assume it's href */
-	if (text == strstr (text, "http:") || text == strstr (text, "ftp:")) {
-		gtk_entry_set_text (GTK_ENTRY (el), text);
-		goto end;
-	}
-
-	/* mailto addition */
-	if (strchr (text, '@')) {
-		gchar *link;
-
-		link = g_strconcat ("mailto:", text, NULL);
-		gtk_entry_set_text (GTK_ENTRY (el), link);
-		g_free (link);
-		goto end;
-	}
-
- end:
-	g_free (text);
-	return;
-}
-
 struct _GtkHTMLEditLinkProperties {
 	GtkHTMLControlData *cd;
 	GtkWidget *entry;

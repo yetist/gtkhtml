@@ -29,7 +29,8 @@
 #include "gtkhtml.h"
 #include "control-data.h"
 
-GtkWidget *toolbar_setup  (BonoboUIHandler *uih,
+GtkWidget *toolbar_style  (GtkHTMLControlData *cd);
+void       toolbar_setup  (BonoboUIHandler *uih,
 			   GtkHTMLControlData *cd);
 
 #endif /* _TOOLBAR_H */

@@ -1,3 +1,14 @@
+2000-07-10  Radek Doulik  <rodo@helixcode.com>
+
+	* toolbar.c (toolbar_setup): it now adds some commands to uih toolbar
+	(toolbar_style): old one toolbar is created here, also uses hbox,
+	so it doesn't eat all space
+	- removed ToolbarData structure, store this info in ControlData
+	- update all callbacks to use ControlData
+	- add Undo/Redo to toolbar
+
+	* test-html-editor-control.c (container_create): create toolbar here
+
 2000-07-10  Larry Ewing  <lewing@helixcode.com>
 
 	* editor-control-factory.c (release): initialize the default

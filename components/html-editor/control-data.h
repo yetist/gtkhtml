@@ -55,6 +55,20 @@ struct _GtkHTMLControlData {
 
 	/* button release signal id */
 	guint releaseId;
+
+	/* toolbars */
+	GtkWidget *toolbar_commands, *toolbar_style;
+
+	GtkWidget *bold_button;
+	GtkWidget *italic_button;
+	GtkWidget *underline_button;
+	GtkWidget *strikeout_button;
+
+	GtkWidget *left_align_button;
+	GtkWidget *center_button;
+	GtkWidget *right_align_button;
+
+	guint font_style_changed_connection_id;
 };
 
 GtkHTMLControlData * gtk_html_control_data_new       (GtkHTML *html, GtkWidget *vbox);

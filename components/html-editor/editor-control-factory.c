@@ -75,7 +75,7 @@ set_frame_cb (BonoboControl *control,
 
 	/* Setup the tool bar.  */
 
-	toolbar = toolbar_setup (uih, control_data);
+	toolbar = toolbar_style (control_data);
 	gtk_box_pack_start (GTK_BOX (control_data->vbox), toolbar, FALSE, FALSE, 0);
 
 	scrolled_window = gtk_scrolled_window_new (NULL, NULL);
@@ -88,6 +88,7 @@ set_frame_cb (BonoboControl *control,
 	/* Setup the menu bar.  */
 
 	menubar_setup (uih, control_data);
+	toolbar_setup (uih, control_data);
 }
 
 static gint
