@@ -35,6 +35,8 @@
 #include "htmltablecell.h"
 #include "htmlclue.h"
 #include "htmlclueflow.h"
+#include "htmlframe.h"
+#include "htmlframeset.h"
 #include "htmliframe.h"
 #include "htmlengine.h"
 #include "htmltype.h"
@@ -188,6 +190,17 @@ gtk_html_debug_dump_object (HTMLObject *obj,
 		break;
 	case HTML_TYPE_IFRAME:
 		gtk_html_debug_dump_tree (GTK_HTML (HTML_IFRAME (obj)->html)->engine->clue, level + 1);
+		break;
+	case HTML_TYPE_FRAME:
+		gtk_html_debug_dump_tree (GTK_HTML (HTML_FRAME (obj)->html)->engine->clue, level + 1);
+		break;
+	case HTML_TYPE_FRAMESET: {
+		gint i;
+
+		for (i = 0; i < HTML_FRAMESET (obj)->frames->len; i++)
+			gtk_html_debug_dump_tree (g_ptr_array_index (HTML_FRAMESET (obj)->frames, i), level + 1);
+		}
+		break;
 	default:
 		break;
 	}

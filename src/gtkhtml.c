@@ -3239,11 +3239,12 @@ load_keybindings (GtkHTMLClass *klass)
 }
 
 void
-gtk_html_set_iframe_parent (GtkHTML *html, GtkWidget *parent)
+gtk_html_set_iframe_parent (GtkHTML *html, GtkWidget *parent, HTMLObject *frame)
 {
 	g_assert (GTK_IS_HTML (parent));
 
 	html->iframe_parent = parent;
+	html->frame = frame;
 	gtk_signal_emit (GTK_OBJECT (html_engine_get_top_html_engine (html->engine)->widget),
 			 signals [IFRAME_CREATED], html);
 }

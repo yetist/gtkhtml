@@ -453,7 +453,7 @@ html_iframe_init (HTMLIFrame *iframe,
 	gtk_html_set_default_content_type (new_html,
 					   parent_html->priv->content_type);
 	iframe->html = new_widget;
-	gtk_html_set_iframe_parent (new_html, parent);
+	gtk_html_set_iframe_parent (new_html, parent, HTML_OBJECT (iframe));
 	gtk_container_add (GTK_CONTAINER (scrolled_window), new_widget);
 	gtk_widget_show (new_widget);
 

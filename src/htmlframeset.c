@@ -62,7 +62,7 @@ html_frameset_get_view_width (HTMLFrameset *set)
 
 	while (o->parent != NULL) {
 		if (HTML_OBJECT_TYPE (o->parent) == HTML_TYPE_FRAMESET) {
-			return (o->width);
+			return html_engine_get_view_width (HTML_FRAMESET (o->parent)->parent->engine);
 		}
 
 		o = o->parent;
@@ -299,15 +299,24 @@ destroy (HTMLObject *self)
 static void
 set_max_width (HTMLObject *o, HTMLPainter *painter, gint w)
 {
-	HTMLFrameset *set;
-	int i;
+	HTMLFrameset *set = HTML_FRAMESET (o);
+	gint remain_x;
+	gint c, i;
+	gint *widths;
 
 	(* HTML_OBJECT_CLASS (parent_class)->set_max_width) (o, painter, w);
+	widths     = g_malloc (set->cols->len * sizeof (gint));
 
-	set = HTML_FRAMESET (o);
-	for (i = 0; i < set->frames->len; i++)
-		html_object_set_max_width (g_ptr_array_index (set->frames, i), painter, w);
+	calc_dimension (set->cols, widths, w);
 
+	remain_x = w;
+	for (i = 0; i < set->frames->len; i++) {
+		c = i % set->cols->len;
+		if (i < set->frames->len)
+			html_object_set_max_width (HTML_OBJECT (g_ptr_array_index (set->frames, i)), painter, widths [c]);
+		remain_x -= widths[c];
+	}
+	g_free (widths);
 }
 
 static HTMLObject*

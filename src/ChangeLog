@@ -1,3 +1,18 @@
+2001-06-18  Radek Doulik  <rodo@ximian.com>
+
+	* htmlframeset.c (set_max_width): implemented
+
+	* gtkhtml.c (gtk_html_set_iframe_parent): added frame parameter,
+	remember frame in html
+
+	* htmlengine.c (html_engine_get_max_width): take care of FRAMES
+	and IFRAMES
+
+	* gtkhtmldebug.c (gtk_html_debug_dump_object): added FRAME and
+	FRAMESET
+
+	* gtkhtml.h: added frame pointer
+
 2001-06-14  Radek Doulik  <rodo@ximian.com>
 
 	* htmlgdkpainter.c (alloc_e_font_it_known): handle NULL face

@@ -44,6 +44,7 @@ struct _GtkHTML {
 
 	GtkBindingSet        *editor_bindings;
 	GtkWidget            *iframe_parent;
+	HTMLObject           *frame;
 	GtkHTMLEditorAPI     *editor_api;
 	gpointer              editor_data;
 	HTMLEngine           *engine;
@@ -137,7 +138,8 @@ void       gtk_html_set_editor_api  (GtkHTML          *html,
 
 /* parent iframe setting */
 void       gtk_html_set_iframe_parent       (GtkHTML *html,
-					     GtkWidget *parent);
+					     GtkWidget *parent,
+					     HTMLObject *frame);
 
 /* Debugging.  */
 void  gtk_html_enable_debug  (GtkHTML  *html,
