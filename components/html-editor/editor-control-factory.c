@@ -44,7 +44,9 @@
 #include "htmlengine-edit-selection-updater.h"
 #include "htmlselection.h"
 #include "htmlfontmanager.h"
+#include "htmlsettings.h"
 #include "htmlpainter.h"
+#include "htmlplainpainter.h"
 
 
 #include "engine.h"
@@ -358,11 +360,14 @@ editor_set_format (GtkHTMLControlData *cd, gboolean format_html)
 	prop = GTK_HTML_CLASS (GTK_OBJECT (html)->klass)->properties;
 	
 	if (!cd->plain_painter) {
-		cd->plain_painter = html_plain_painter_new (TRUE);
+		cd->plain_painter = HTML_PAINTER (html_plain_painter_new (TRUE));
 		html_font_manager_set_default (&HTML_PAINTER (cd->plain_painter)->font_manager,
 					       prop->font_var,      prop->font_fix,
 					       prop->font_var_size, prop->font_fix_size);
 		
+		html_colorset_add_slave (html->engine->settings->color_set, 
+					 HTML_PAINTER (cd->plain_painter)->color_set);
+
 		cd->gdk_painter = html->engine->painter;
 	}	
 	

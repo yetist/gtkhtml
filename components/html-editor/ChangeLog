@@ -1,3 +1,8 @@
+2001-03-28  Larry Ewing  <lewing@ximian.com>
+
+	* editor-control-factory.c (editor_set_format): slave the painters
+	color set and cleanup warnings.
+
 2001-03-27  Larry Ewing  <lewing@ximian.com>
 
 	* control-data.h: add format_html and gdk and plain painters.
