@@ -26,7 +26,8 @@
 #include <gnome.h>
 #include "control-data.h"
 
-typedef void (*GtkHTMLEditPropertyApplyFunc)(GtkHTMLControlData *cd);
+typedef GtkWidget * (*GtkHTMLEditPropertyCreateFunc) (GtkHTMLControlData *cd, gpointer *own_data);
+typedef void        (*GtkHTMLEditPropertyApplyFunc)  (GtkHTMLControlData *cd, gpointer  own_data);
 
 enum _GtkHTMLEditPropertyType {
 	GTK_HTML_EDIT_PROPERTY_PARAGRAPH,
@@ -39,9 +40,10 @@ GtkHTMLEditPropertiesDialog * gtk_html_edit_properties_dialog_new          (GtkH
 void                          gtk_html_edit_properties_dialog_destroy      (GtkHTMLEditPropertiesDialog *d);
 
 void                          gtk_html_edit_properties_dialog_add_entry    (GtkHTMLEditPropertiesDialog *d,
-									    GtkWidget *w,
 									    const gchar *name,
+									    GtkHTMLEditPropertyCreateFunc create,
 									    GtkHTMLEditPropertyApplyFunc apply_cb);
 void                          gtk_html_edit_properties_dialog_show         (GtkHTMLEditPropertiesDialog *d);
+void                          gtk_html_edit_properties_dialog_change       (GtkHTMLEditPropertiesDialog *d);
 
 #endif

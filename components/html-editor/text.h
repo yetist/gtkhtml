@@ -26,7 +26,7 @@
 #include <gtk/gtk.h>
 #include "control-data.h"
 
-GtkWidget             * text_properties      (GtkHTMLControlData *cd);
-void                    text_apply_cb        (GtkHTMLControlData *cd);
+GtkWidget             * text_properties      (GtkHTMLControlData *cd, gpointer *set_data);
+void                    text_apply_cb        (GtkHTMLControlData *cd, gpointer  get_data);
 
 #endif

@@ -100,28 +100,28 @@ prop_dialog (GtkWidget *mi, GtkHTMLControlData *cd)
 		switch (t) {
 		case GTK_HTML_EDIT_PROPERTY_TEXT:
 			gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
-								   text_properties (cd),
 								   _("Text"),
+								   text_properties,
 								   text_apply_cb);
 			break;
-		case GTK_HTML_EDIT_PROPERTY_IMAGE:
+			/* case GTK_HTML_EDIT_PROPERTY_IMAGE:
 			gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
-								   image_properties (cd),
 								   _("Image"),
+								   image_properties,
 								   image_apply_cb);
 			break;
 		case GTK_HTML_EDIT_PROPERTY_PARAGRAPH:
 			gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
-								   paragraph_properties (cd),
 								   _("Paragraph"),
+								   paragraph_properties,
 								   paragraph_apply_cb);
 			break;
 		case GTK_HTML_EDIT_PROPERTY_LINK:
 			gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
-								   link_properties (cd),
 								   _("Link"),
+								   link_properties,
 								   link_apply_cb);
-			break;
+								   break; */
 		}
 		cur = cur->next;
 	}
