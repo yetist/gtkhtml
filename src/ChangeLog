@@ -1,5 +1,11 @@
 2002-10-11  Larry Ewing  <lewing@ximian.com>
-  
+
+	* htmldrawqueue.c (html_draw_queue_flush): check to make sure we
+	still have a visual before trying to draw.
+
+	* htmlgdkpainter.c (begin): add precondition to make sure we have
+	a window and a visual before we try to draw on it.
+	
  	* gtkhtml.c (gtk_html_insert_html_generic): fix the form copying
  	problem correctly.
 
