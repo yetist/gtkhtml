@@ -1,3 +1,8 @@
+2004-04-22  Radek Doulik  <rodo@ximian.com>
+
+	* htmltext.c (save_text): use <= end_index in last part - bad typo
+	causing infinite loop
+
 2004-04-21  Radek Doulik  <rodo@ximian.com>
 
 	* htmltext.c (save_link_open): do not bother with underline and

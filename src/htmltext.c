@@ -1523,8 +1523,8 @@ save_text (HTMLText *text, HTMLEngineSaveState *state, guint start_index, guint 
 
 		link = (Link *) (*l)->data;
 
-		while (*l && ((!*link_started && start_index <= link->start_index && link->start_index <= end_index)
-			      || (*link_started && link->end_index < end_index))) {
+		while (*l && ((!*link_started && start_index <= link->start_index && link->start_index < end_index)
+			      || (*link_started && link->end_index <= end_index))) {
 			if (!*link_started && start_index <= link->start_index && link->start_index < end_index) {
 				if (!save_text_part (text, state, start_index, link->start_index))
 					return FALSE;
