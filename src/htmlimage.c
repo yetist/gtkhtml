@@ -116,7 +116,6 @@ get_actual_width (HTMLImage *image,
 {
 	GdkPixbuf *pixbuf = image->image_ptr->pixbuf;
 	GdkPixbufAnimation *anim = image->image_ptr->animation;
-
 	gint width;
 
 	if (image->specified_width > 0) {
@@ -129,11 +128,18 @@ get_actual_width (HTMLImage *image,
 	} else if (image->image_ptr == NULL || pixbuf == NULL) {
 		width = DEFAULT_SIZE * html_painter_get_pixel_size (painter);
 	} else {
-		if (anim != NULL)
-			width = gdk_pixbuf_animation_get_width (anim);
-		else
-			width = gdk_pixbuf_get_width (pixbuf);
-		width *= html_painter_get_pixel_size (painter);
+		width = (((anim) ? gdk_pixbuf_animation_get_width (anim) : gdk_pixbuf_get_width (pixbuf))
+			  * html_painter_get_pixel_size (painter));
+
+		if (image->specified_height > 0) {
+			double scale;
+
+			scale =  ((double)image->specified_height) 
+				/ ((anim) ? gdk_pixbuf_animation_get_height (anim) : gdk_pixbuf_get_height (pixbuf));
+			
+			width *= scale;
+		}
+
 	}
 
 	return width;
@@ -147,7 +153,7 @@ get_actual_height (HTMLImage *image,
 	GdkPixbuf *pixbuf = image->image_ptr->pixbuf;
 	GdkPixbufAnimation *anim = image->image_ptr->animation;
 	gint height;
-
+		
 	if (image->specified_height > 0) {
 		height = image->specified_height * html_painter_get_pixel_size (painter);
 	} else if (image->image_ptr == NULL || pixbuf == NULL) {
@@ -155,8 +161,18 @@ get_actual_height (HTMLImage *image,
 	} else {
 		height = (((anim) ? gdk_pixbuf_animation_get_height (anim) : gdk_pixbuf_get_height (pixbuf))
 			  * html_painter_get_pixel_size (painter));
-	}
 
+		if ((image->specified_width > 0) || (HTML_OBJECT(image)->percent > 0)) {
+			double scale;
+			
+			scale = ((double)get_actual_width (image, painter))
+				/ (((anim) ? gdk_pixbuf_animation_get_width (anim) : gdk_pixbuf_get_width (pixbuf))
+				   * html_painter_get_pixel_size (painter));
+			
+			height *= scale;
+		} 
+	}
+	
 	return height;
 }
 

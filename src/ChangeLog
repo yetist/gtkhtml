@@ -1,3 +1,12 @@
+2000-04-11  Larry Ewing  <lewing@helixcode.com>
+
+	* htmlimage.c (get_actual_height): 
+	(get_actual_width): copy netscapes method of scaling the image in
+	both dimensions even in only one dimension is specified.  This
+	should fix the flag problems on http://www.suse.com/
+
+	* htmlengine.c (parse_table): fix typo in alignment parsing.
+
 2000-04-11  Darin Adler  <darin@eazel.com>
 
 	* htmlgdkpainter.c: (create_temporary_pixbuf), (drawpixmap):
