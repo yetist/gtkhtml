@@ -106,7 +106,6 @@ fi
 AM_CONDITIONAL(BONOBO, $have_bonobo)
 
 dnl Check if Bonobo is OAFized
-
 AC_MSG_CHECKING(if Bonobo uses OAF)
 if ( gnome-config --libs bonobo | grep oaf ) > /dev/null 2>&1 ; then
 	using_oaf="yes"
@@ -117,7 +116,7 @@ fi
 
 AC_MSG_RESULT("$using_oaf")
 
-AM_CONDITIONAL(USING_OAF, test x"using_oaf" = "xyes")
+AM_CONDITIONAL(USING_OAF, test "x$using_oaf" = "xyes")
 
 dnl gnome-print checks.
 
