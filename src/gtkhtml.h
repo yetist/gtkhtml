@@ -308,6 +308,8 @@ void  			   gtk_html_indent                       (GtkHTML                   *ht
 void  			   gtk_html_set_font_style               (GtkHTML                   *html,
 								  GtkHTMLFontStyle           and_mask,
 								  GtkHTMLFontStyle           or_mask);
+void                       gtk_html_toggle_font_style            (GtkHTML                   *html,
+								  GtkHTMLFontStyle           style);
 GtkHTMLParagraphAlignment  gtk_html_get_paragraph_alignment      (GtkHTML                   *html);
 void  			   gtk_html_set_paragraph_alignment      (GtkHTML                   *html,
 								  GtkHTMLParagraphAlignment  alignment);

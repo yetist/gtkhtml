@@ -893,14 +893,14 @@ object_set_font_style (HTMLObject *o, struct tmp_font *tf)
 	}
 }
 
-void
+gboolean
 html_engine_set_font_style (HTMLEngine *e,
 			    GtkHTMLFontStyle and_mask,
 			    GtkHTMLFontStyle or_mask)
 {
-	g_return_if_fail (e != NULL);
-	g_return_if_fail (HTML_IS_ENGINE (e));
-	g_return_if_fail (e->editable);
+	g_return_val_if_fail (e != NULL, FALSE);
+	g_return_val_if_fail (HTML_IS_ENGINE (e), FALSE);
+	g_return_val_if_fail (e->editable, FALSE);
 
 	if (e->active_selection) {
 		struct tmp_font *tf = g_new (struct tmp_font, 1);
@@ -908,24 +908,28 @@ html_engine_set_font_style (HTMLEngine *e,
 		tf->or_mask  = or_mask;
 		html_engine_cut_and_paste (e, "Set font style", (GFunc) object_set_font_style, tf);
 		g_free (tf);
-		return;
+		return FALSE;
 	} else {
+		GtkHTMLFontStyle old = e->insertion_font_style;
+
 		e->insertion_font_style &= and_mask;
 		e->insertion_font_style |= or_mask;
+
+		return (old == e->insertion_font_style) ? FALSE : TRUE;
 	}
 }
 
-void
-html_engine_font_style_toggle (HTMLEngine *engine, GtkHTMLFontStyle style)
+gboolean
+html_engine_toggle_font_style (HTMLEngine *engine, GtkHTMLFontStyle style)
 {
 	GtkHTMLFontStyle cur_style;
 
 	cur_style = html_engine_get_font_style (engine);
 
 	if (cur_style & style)
-		html_engine_set_font_style (engine, GTK_HTML_FONT_STYLE_MAX & ~style, 0);
+		return html_engine_set_font_style (engine, GTK_HTML_FONT_STYLE_MAX & ~style, 0);
 	else
-		html_engine_set_font_style (engine, GTK_HTML_FONT_STYLE_MAX, style);
+		return html_engine_set_font_style (engine, GTK_HTML_FONT_STYLE_MAX, style);
 }
 
 static GtkHTMLFontStyle

@@ -1,3 +1,13 @@
+2000-07-11  Radek Doulik  <rodo@helixcode.com>
+
+	* gtkhtml.c (gtk_html_set_font_style): emit
+	INSERTION_FONT_STYLE_CHANGED signal
+	(command): use gtk_html_set_font_style and
+	gtk_html_toggle_font_style here
+
+	* htmlengine-edit-fontstyle.c (html_engine_set_font_style): return
+	TRUE if insertion_font_style changed
+
 2000-07-10  Radek Doulik  <rodo@helixcode.com>
 
 	* gtkhtml.c (load_keybindings): set binding_set to klass bindings
