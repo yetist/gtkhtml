@@ -577,10 +577,7 @@ union _HTMLTableUndoAttr {
 		gboolean has_bg_color;
 	} color;
 
-	struct {
-		HTMLImagePointer *pixmap;
-		gboolean has_bg_pixmap;
-	} pixmap;
+	gchar *pixmap;
 };
 typedef union _HTMLTableUndoAttr HTMLTableUndoAttr;
 
@@ -679,14 +676,14 @@ table_set_bg_color (HTMLEngine *e, HTMLTable *t, GdkColor *c, HTMLUndoDirection 
 {
 	HTMLTableSetAttrUndo *undo;
 
-	undo = attr_undo_new (HTML_TABLE_BORDER);
+	undo = attr_undo_new (HTML_TABLE_BGCOLOR);
 	if (t->bgColor) {
 		undo->attr.color.color        = *t->bgColor;
 		undo->attr.color.has_bg_color = TRUE;
 	} else
 		undo->attr.color.has_bg_color = FALSE;
 	html_undo_add_action (e->undo,
-			      html_undo_action_new ("Set border width", table_set_border_bg_color_undo_action,
+			      html_undo_action_new ("Set background color", table_set_border_bg_color_undo_action,
 						    HTML_UNDO_DATA (undo), html_cursor_get_position (e->cursor)), dir);
 	if (c) {
 		if (!t->bgColor)
@@ -706,16 +703,44 @@ html_engine_table_set_bg_color (HTMLEngine *e, HTMLTable *t, GdkColor *c)
 	table_set_bg_color (e, t, c, HTML_UNDO_UNDO);
 }
 
+/*
+ * bg pixmap
+ *
+ */
+
+void table_set_bg_pixmap (HTMLEngine *e, HTMLTable *t, gchar *url, HTMLUndoDirection dir);
+
+static void
+table_set_border_bg_pixmap_undo_action (HTMLEngine *e, HTMLUndoData *undo_data, HTMLUndoDirection dir)
+{
+	HTMLTableSetAttrUndo *data = (HTMLTableSetAttrUndo *) undo_data;
+
+	table_set_bg_pixmap (e, html_engine_get_table (e), data->attr.pixmap, html_undo_direction_reverse (dir));
+}
+
 void
-html_engine_table_set_bg_pixmap (HTMLEngine *e, HTMLTable *t, gchar *url)
+table_set_bg_pixmap (HTMLEngine *e, HTMLTable *t, gchar *url, HTMLUndoDirection dir)
 {
 	HTMLImagePointer *iptr;
+	HTMLTableSetAttrUndo *undo;
+
+	undo = attr_undo_new (HTML_TABLE_BGPIXMAP);
+	undo->attr.pixmap = t->bgPixmap ? g_strdup (t->bgPixmap->url) : NULL;
+	html_undo_add_action (e->undo,
+			      html_undo_action_new ("Set background pixmap", table_set_border_bg_pixmap_undo_action,
+						    HTML_UNDO_DATA (undo), html_cursor_get_position (e->cursor)), dir);
 
 	iptr = t->bgPixmap;
 	t->bgPixmap = url ? html_image_factory_register (e->image_factory, NULL, url) : NULL;
 	if (iptr)
 		html_image_factory_unregister (e->image_factory, iptr, NULL);
 	html_engine_queue_draw (e, HTML_OBJECT (t));
+}
+
+void
+html_engine_table_set_bg_pixmap (HTMLEngine *e, HTMLTable *t, gchar *url)
+{
+	table_set_bg_pixmap (e, t, url, HTML_UNDO_UNDO);
 }
 
 void
