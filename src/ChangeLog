@@ -1,5 +1,8 @@
 2001-02-08  Radek Doulik  <rodo@ximian.com>
 
+	* htmltable.c (divide_left_by_preferred_width): expand only
+	columns with pref > fixed
+
 	* htmltext.c (merge_word_width): fixed
 
 2001-02-07  Larry Ewing  <lewing@ximian.com>

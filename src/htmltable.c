@@ -40,6 +40,9 @@
 #define COLUMN_PREF(table, i)				\
 	(g_array_index (table->columnPref, gint, i))
 
+#define COLUMN_FIX(table, i)				\
+	(g_array_index (table->columnFixed, gint, i))
+
 #define COLUMN_OPT(table, i)				\
 	(g_array_index (table->columnOpt, gint, i))
 
@@ -842,9 +845,11 @@ divide_left_by_preferred_width (HTMLTable *table, HTMLPainter *painter,
 	gint total_fill, processed_pw, border_extra = table->border ? 2 : 0;
 
 	/* printf ("round 2 left: %d\n", left); */
+#define PW(c) COLUMN_PREF (table, c + 1) - COLUMN_PREF (table, c)
+#define FW(c) COLUMN_FIX (table, c + 1) - COLUMN_FIX (table, c)
 	pref = 0;
 	for (c = 0; c < table->totalCols; c++)
-		if (col_percent [c + 1] == col_percent [c])
+		if (col_percent [c + 1] == col_percent [c] && PW (c) > FW (c))
 			pref += COLUMN_PREF (table, c + 1) - COLUMN_PREF (table, c)
 				- pixel_size * (table->spacing + border_extra);
 			/* printf ("col pref: %d size: %d\n", COLUMN_PREF (table, c + 1)
@@ -857,7 +862,7 @@ divide_left_by_preferred_width (HTMLTable *table, HTMLPainter *painter,
 
 	if (pref)
 		for (c = 0; c < table->totalCols; c++) {
-			if (col_percent [c + 1] == col_percent [c]) {
+			if (col_percent [c + 1] == col_percent [c] && PW (c) > FW (c)) {
 				pw  = COLUMN_PREF (table, c + 1) - COLUMN_PREF (table, c)
 					- pixel_size * (table->spacing + border_extra);
 				processed_pw += pw;
