@@ -365,23 +365,6 @@ html_select_add_option (HTMLSelect *select, gchar *value, gboolean selected)
 		select->default_selection = g_list_append (select->default_selection, GINT_TO_POINTER(selected));
 }
 
-/* FIX2 static char *
-longest_string (HTMLSelect *s)
-{
-	GList *i = s->strings;
-	gint max = 0;
-	gchar *str = NULL;
-
-	while (i) {
-		if (strlen(i->data) > max) {
-			max = strlen (i->data);
-			str = i->data;
-		}
-		i = i->next;
-	}
-	return str;
-} */
-
 void 
 html_select_set_text (HTMLSelect *select, gchar *text) 
 {
@@ -425,13 +408,8 @@ html_select_set_text (HTMLSelect *select, gchar *text)
 			gtk_entry_set_text (GTK_ENTRY(GTK_COMBO(w)->entry), 
 					    g_list_nth(select->strings, select->default_selected)->data);
 
-			longest = NULL;
-			/* FIX2 
-			   longest = longest_string (select);
-			   HTML_OBJECT(select)->width = gdk_string_width (w->style->font, longest) + 30
-			*/
 		}
-		gtk_widget_set_size_request (GTK_WIDGET (w), HTML_OBJECT (select)->width, -1);
+		gtk_widget_set_size_request (w, -1, -1);
 	}
 
 	if (item >= 0 && g_list_nth (select->values, item)->data == NULL)

@@ -1,5 +1,8 @@
 2002-11-07  Larry Ewing  <lewing@ximian.com>
 
+	* htmlselect.c (html_select_set_text): clear the requisition size
+	whenever we add a string.
+
 	* htmltextinput.c: fix the requested width calculation.
 
 2002-11-06  Radek Doulik  <rodo@ximian.com>
