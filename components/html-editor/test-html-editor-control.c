@@ -37,6 +37,7 @@
 #endif
 
 GtkWidget *control;
+gint formatHTML = 1;
 
 
 /* Saving/loading through PersistStream.  */
@@ -315,12 +316,27 @@ static BonoboUIVerb verbs [] = {
 	BONOBO_UI_VERB_END
 };
 
+static void
+menu_format_html_cb (BonoboUIComponent           *component,
+		     const char                  *path,
+		     Bonobo_UIComponent_EventType type,
+		     const char                  *state,
+		     gpointer                     user_data)
+
+{
+	if (type != Bonobo_UIComponent_STATE_CHANGED)
+		return;
+	formatHTML = *state == '0' ? 0 : 1;
+	bonobo_widget_set_property (BONOBO_WIDGET (user_data), "FormatHTML", formatHTML, NULL);
+}
+
 /* A dirty, non-translatable hack */
 static char ui [] = 
 "<Root>"
 "	<commands>"
 "	        <cmd name=\"FileExit\" _label=\"Exit\" _tip=\"Exit the program\""
 "	         pixtype=\"stock\" pixname=\"Exit\" accel=\"*Control*q\"/>"
+"	        <cmd name=\"FormatHTML\" _label=\"HTML mode\" type=\"toggle\" _tip=\"HTML Format switch\"/>"
 "	</commands>"
 "	<menu>"
 "		<submenu name=\"File\" _label=\"_File\">"
@@ -336,6 +352,10 @@ static char ui [] =
 "			<separator/>"
 "			<menuitem name=\"FileExit\" verb=\"\" _label=\"E_xit\"/>"
 "		</submenu>"
+"		<placeholder name=\"Component\"/>"
+"		<submenu name=\"Format\" _label=\"For_mat\">"
+"			<menuitem name=\"FormatHTML\" verb=\"\"/>"
+"               </submenu>"
 "	</menu>"
 "	<dockitem name=\"Toolbar\" behavior=\"exclusive\">"
 "	</dockitem>"
@@ -377,6 +397,10 @@ container_create (void)
 
 	if (control == NULL)
 		g_error ("Cannot get `%s'.", HTML_EDITOR_CONTROL_ID);
+
+	bonobo_widget_set_property (BONOBO_WIDGET (control), "FormatHTML", formatHTML, NULL);
+	bonobo_ui_component_set_prop (component, "/commands/FormatHTML", "state", formatHTML ? "1" : "0", NULL);
+	bonobo_ui_component_add_listener (component, "FormatHTML", menu_format_html_cb, control);
 
 	resolver = htmleditor_resolver_new ();
 	frame = bonobo_widget_get_control_frame (BONOBO_WIDGET (control));
