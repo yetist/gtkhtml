@@ -219,7 +219,7 @@ table_widget (GtkHTMLEditTableProperties *d)
 	fill_sample (d);
 
 	gtk_widget_show_all (table_page);
-        gdk_color_alloc (gdk_window_get_colormap (table_page->window), &d->bg_color);
+        gdk_color_alloc (gdk_window_get_colormap (d->cd->html->engine->window), &d->bg_color);
 	gnome_pixmap_entry_set_preview (GNOME_PIXMAP_ENTRY (d->entry_bg_pixmap), FALSE);
 
 	return table_page;
