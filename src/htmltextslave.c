@@ -367,7 +367,7 @@ hts_fit_line (HTMLObject *o, HTMLPainter *painter,
 	ii = html_text_get_item_index (slave->owner, painter, offset, &io);
 
 	line_offset = html_text_get_line_offset (slave->owner, painter, offset);
-	lbsp = s = html_text_get_text (slave->owner, offset);
+	lbsp = s = html_text_slave_get_text (slave);
 
 	while ((force_fit || widthLeft > lbw) && offset < slave->posStart + slave->posLen) {
 		if (offset > slave->posStart && offset > lbo && html_text_is_line_break (pi->entries [ii].item, pi->entries [ii].attrs, io))

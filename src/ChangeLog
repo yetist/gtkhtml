@@ -1,5 +1,8 @@
 2004-05-11  Radek Doulik  <rodo@ximian.com>
 
+	* htmltextslave.c (hts_fit_line): use html_text_slave_get_text
+	instead of expensive html_text_get_text call
+
 	* htmltext.c (html_text_calc_part_width): added start parameter to
 	save html_text_get_text calls, updated every caller
 
