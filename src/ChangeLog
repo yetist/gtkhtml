@@ -3,6 +3,8 @@
 	* htmlengine.c (html_engine_get_cursor): check for cursor object,
 	fixes crash when double clicking outside a body clue
 
+	Fixes #69748
+
 2004-12-15  Mengjie Yu  <meng-jie.yu@sun.com>
 
 	* gtkhtml.c: (key_press_event):
