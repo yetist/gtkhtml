@@ -1162,6 +1162,7 @@ static gboolean
 search_text (HTMLObject **beg, HTMLSearch *info)
 {
 	HTMLObject *cur = *beg;
+	HTMLObject *end = cur;
 	guchar *par, *pp;
 	guint text_len;
 	guint eq_len;
@@ -1178,8 +1179,9 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 			text_len += HTML_TEXT (cur)->text_len;
 		} else if (HTML_OBJECT_TYPE (cur) != HTML_TYPE_TEXTSLAVE) {
 			break;
-		}		
-		cur = cur->next;
+		}
+		end = cur;
+		cur = (info->forward) ? cur->next : cur->prev;
 	}
 
 	if (text_len > 0) {
@@ -1187,7 +1189,7 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 		par [text_len] = 0;
 
 		/* now fill par with text */
-		cur = *beg;
+		cur = (info->forward) ? *beg : end;
 		while (cur) {
 			if (HTML_OBJECT_TYPE (cur) == HTML_TYPE_TEXTMASTER
 			    || HTML_OBJECT_TYPE (cur) == HTML_TYPE_LINKTEXTMASTER) {
@@ -1196,7 +1198,7 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 			} else if (HTML_OBJECT_TYPE (cur) != HTML_TYPE_TEXTSLAVE) {
 				break;
 			}		
-			cur = cur->next;
+			cur = (info->forward) ? cur->next : cur->prev;
 		}
 
 		printf ("text (%d): %s\n", text_len, par);
@@ -1204,15 +1206,15 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 		/* set eq_len and pos counters */
 		eq_len = 0;
 		if (info->found) {
-			pos = info->start_pos + ((info->forward) ? 1 : -1);
+			pos = info->start_pos + ((info->forward) ? 1 : info->text_len-2);
 			g_list_free (info->found);
 			info->found = NULL;
 			info->start_pos = 0;
 		} else {
-			pos = 0;
+			pos = (info->forward) ? 0 : text_len - 1;
 		}
 
-		if (pos < text_len) {
+		if (pos < text_len && pos>=0) {
 			if (info->reb) {
 				/* regex search */
 				gint rv;
@@ -1228,7 +1230,7 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 					p++;
 				}
 
-				while (pos < text_len) {
+				while (pos < text_len && pos>=0) {
 					rv = regexec (info->reb, par+pos, 1, &match, 0);
 					if (rv == 0) {
 						printf ("found! pos: %d start: %d len: %d\n",
@@ -1237,7 +1239,7 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 						retval = TRUE;
 						break;
 					}
-					pos++;
+					pos += (info->forward) ? 1 : -1;
 				}
 #else
 				rv = re_search (info->reb, par, text_len, pos, text_len-pos, NULL);
@@ -1251,25 +1253,31 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 					search_set_info (*beg, info, found_pos, rv);
 					retval = TRUE;
 				} else {
-					g_warning ("re_search (...) error");
+					if (rv < -1) {
+						g_warning ("re_search (...) error");
+					}
 				}
 #endif
 			} else {
-				/* go thru par and look for info->text */
+				/* substring search - simple one - could be improved
+				   go thru par and look for info->text */
 				while (par [pos]) {
-					if (info->trans [(guchar) info->text [eq_len]] == info->trans [par [pos]]) {
+					if (info->trans [(guchar) info->text
+							[(info->forward) ? eq_len : info->text_len - eq_len - 1]]
+					    == info->trans [par [pos]]) {
 						eq_len++;
 						if (eq_len == info->text_len) {
 							printf ("found!\n");
-							search_set_info (*beg, info, pos-eq_len+1, info->text_len);
+							search_set_info (*beg, info, pos - ((info->forward)
+									 ? eq_len+1 : 0), info->text_len);
 							retval=TRUE;
 							break;
 						}
 					} else {
-						pos -= eq_len;
+						pos += (info->forward) ? -eq_len : eq_len;
 						eq_len = 0;
 					}
-					pos++;
+					pos += (info->forward) ? 1 : -1;
 				}
 			}
 		}

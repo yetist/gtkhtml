@@ -1,3 +1,12 @@
+2000-04-17  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlclueflow.c (search_text): implemented backward substring
+	search, also search backwards thru childern
+
+2000-04-16  Radek Doulik  <rodo@helixcode.com>
+
+	* gtkhtml.c (search): set regular when showing dialog again
+
 2000-04-16  Larry Ewing  <lewing@helixcode.com>
 
 	* testgtkhtml.c (stop_cb): stop the stream handler takes care of

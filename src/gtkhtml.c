@@ -1507,6 +1507,7 @@ static void
 search (GtkHTML *html, gboolean regular)
 {
 	if (html->search_dialog) {
+		html->search_dialog->regular = regular;
 		gtk_widget_show (GTK_WIDGET (html->search_dialog->dialog));
 		gdk_window_raise (GTK_WIDGET (html->search_dialog->dialog)->window);
 		gtk_widget_grab_focus (html->search_dialog->entry);
