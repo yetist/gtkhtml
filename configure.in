@@ -106,6 +106,7 @@ AC_SUBST(EXTRA_GNOME_CFLAGS)
 
 AC_OUTPUT([
 Makefile
+gtkhtml.spec
 macros/Makefile
 src/Makefile
 glibwww/Makefile

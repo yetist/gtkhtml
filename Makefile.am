@@ -31,7 +31,13 @@ SUBDIRS =					\
 
 EXTRA_DIST =					\
 	html-component.gnorba			\
-	gtkhtmlConf.sh.in
+	gtkhtmlConf.sh.in			\
+	gtkhtml.spec.in				\
+	gtkhtml.spec
+
+dist-hook: gtkhtml.spec.in gtkhtml.spec
+	-cp gtkhtml.spec.in $(distdir)
+	-cp gtkhtml.spec $(distdir)
 
 if BONOBO
 gnorbadir = $(sysconfdir)/CORBA/servers
