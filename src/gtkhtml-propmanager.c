@@ -500,7 +500,7 @@ gtk_html_propmanager_real_changed (GtkHTMLPropmanager *pman)
 
 		d (g_warning ("spell sensitivity changed = %d", priv->actual_prop->live_spell_check));
 
-		sensitive = gtk_toggle_button_get_active (priv->live_spell_check);
+		sensitive = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->live_spell_check));
 		gtk_widget_set_sensitive (GTK_WIDGET (priv->live_spell_options), sensitive);
 	}
 }
