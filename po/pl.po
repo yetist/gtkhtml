@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2004-06-03 09:25-0400\n"
+"POT-Creation-Date: 2004-06-04 11:58-0400\n"
 "PO-Revision-Date: 2003-05-09 00:59+0100\n"
 "Last-Translator: GNOME PL Team <translators@gnome.pl>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
@@ -23,9 +23,9 @@ msgid "<None>"
 msgstr "<Brak>"
 
 #: capplet/gnome-bindings-prop.c:211 capplet/main.c:241
-#: components/html-editor/cell.c:333 components/html-editor/image.c:412
-#: components/html-editor/link.c:192 components/html-editor/rule.c:174
-#: components/html-editor/table.c:220 components/html-editor/template.c:272
+#: components/html-editor/cell.c:333 components/html-editor/image.c:350
+#: components/html-editor/link.c:182 components/html-editor/rule.c:174
+#: components/html-editor/table.c:220 components/html-editor/template.c:271
 #: components/html-editor/text.c:159
 msgid "Could not load glade file."
 msgstr "Nie można wczytać pliku glade."
@@ -437,7 +437,7 @@ msgstr "O_blizująca"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
-#: components/html-editor/menubar.c:113 components/html-editor/popup.c:106
+#: components/html-editor/menubar.c:115 components/html-editor/popup.c:106
 #: components/html-editor/popup.c:201 components/html-editor/popup.c:267
 msgid "Link"
 msgstr "Odnośnik"
@@ -615,7 +615,7 @@ msgstr "Lista numerowana liczbami rzymskimi"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
 #: components/html-editor/editor-control-factory.c:207
 #: components/html-editor/gtkhtml-editor-properties.glade.h:48
-#: components/html-editor/menubar.c:132 components/html-editor/popup.c:225
+#: components/html-editor/menubar.c:134 components/html-editor/popup.c:225
 msgid "Rule"
 msgstr "Linia"
 
@@ -664,7 +664,7 @@ msgstr "Indeks górny"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 #: components/html-editor/gtkhtml-editor-properties.glade.h:52
 #: components/html-editor/menubar.c:155 components/html-editor/popup.c:231
-#: components/html-editor/popup.c:511 components/html-editor/popup.c:523
+#: components/html-editor/popup.c:501 components/html-editor/popup.c:513
 msgid "Table"
 msgstr "Tabela"
 
@@ -1086,202 +1086,202 @@ msgid "Page"
 msgstr "Strona"
 
 #. This is the default custom color
-#: components/html-editor/gi-color-palette.c:394
+#: components/html-editor/gi-color-palette.c:395
 msgid "custom"
 msgstr "własny"
 
 #. "Custom" color - we'll pop up a GnomeColorPicker
-#: components/html-editor/gi-color-palette.c:436
+#: components/html-editor/gi-color-palette.c:437
 msgid "Custom Color:"
 msgstr "Własny kolor:"
 
-#: components/html-editor/gi-color-palette.c:444
+#: components/html-editor/gi-color-palette.c:445
 msgid "Choose Custom Color"
 msgstr "Wybór własnego koloru"
 
-#: components/html-editor/gi-color-palette.c:577
+#: components/html-editor/gi-color-palette.c:578
 msgid "black"
 msgstr "czarny"
 
-#: components/html-editor/gi-color-palette.c:578
+#: components/html-editor/gi-color-palette.c:579
 msgid "light brown"
 msgstr "jasnobrązowy"
 
-#: components/html-editor/gi-color-palette.c:579
+#: components/html-editor/gi-color-palette.c:580
 msgid "brown gold"
 msgstr "złotobrązowy"
 
-#: components/html-editor/gi-color-palette.c:580
+#: components/html-editor/gi-color-palette.c:581
 msgid "dark green #2"
 msgstr "ciemnozielony #2"
 
-#: components/html-editor/gi-color-palette.c:581
+#: components/html-editor/gi-color-palette.c:582
 msgid "navy"
 msgstr "granatowy"
 
-#: components/html-editor/gi-color-palette.c:582
-#: components/html-editor/gi-color-palette.c:638
+#: components/html-editor/gi-color-palette.c:583
+#: components/html-editor/gi-color-palette.c:639
 msgid "dark blue"
 msgstr "ciemnoniebieski"
 
-#: components/html-editor/gi-color-palette.c:583
+#: components/html-editor/gi-color-palette.c:584
 msgid "purple #2"
 msgstr "purpurowy #2"
 
-#: components/html-editor/gi-color-palette.c:584
+#: components/html-editor/gi-color-palette.c:585
 msgid "very dark gray"
 msgstr "bardzo ciemny szary"
 
-#: components/html-editor/gi-color-palette.c:587
-#: components/html-editor/gi-color-palette.c:643
+#: components/html-editor/gi-color-palette.c:588
+#: components/html-editor/gi-color-palette.c:644
 msgid "dark red"
 msgstr "ciemnoczerwony"
 
-#: components/html-editor/gi-color-palette.c:588
+#: components/html-editor/gi-color-palette.c:589
 msgid "red-orange"
 msgstr "czerwonopomarańczowy"
 
-#: components/html-editor/gi-color-palette.c:589
+#: components/html-editor/gi-color-palette.c:590
 msgid "gold"
 msgstr "złoty"
 
-#: components/html-editor/gi-color-palette.c:590
+#: components/html-editor/gi-color-palette.c:591
 msgid "dark green"
 msgstr "ciemnozielony"
 
-#: components/html-editor/gi-color-palette.c:591
-#: components/html-editor/gi-color-palette.c:644
+#: components/html-editor/gi-color-palette.c:592
+#: components/html-editor/gi-color-palette.c:645
 msgid "dull blue"
 msgstr "niebieski pastelowy"
 
-#: components/html-editor/gi-color-palette.c:592
-#: components/html-editor/gi-color-palette.c:645
+#: components/html-editor/gi-color-palette.c:593
+#: components/html-editor/gi-color-palette.c:646
 msgid "blue"
 msgstr "niebiski"
 
-#: components/html-editor/gi-color-palette.c:593
+#: components/html-editor/gi-color-palette.c:594
 msgid "dull purple"
 msgstr "purpurowy pastelowy"
 
-#: components/html-editor/gi-color-palette.c:594
+#: components/html-editor/gi-color-palette.c:595
 msgid "dark grey"
 msgstr "ciemnoszary"
 
-#: components/html-editor/gi-color-palette.c:597
+#: components/html-editor/gi-color-palette.c:598
 msgid "red"
 msgstr "czerwony"
 
-#: components/html-editor/gi-color-palette.c:598
+#: components/html-editor/gi-color-palette.c:599
 msgid "orange"
 msgstr "pomarańczowy"
 
 # FIXME - ja się nie znam na kolorach ;)
-#: components/html-editor/gi-color-palette.c:599
+#: components/html-editor/gi-color-palette.c:600
 msgid "lime"
 msgstr "wapienny"
 
-#: components/html-editor/gi-color-palette.c:600
+#: components/html-editor/gi-color-palette.c:601
 msgid "dull green"
 msgstr "zielony pastelowy"
 
-#: components/html-editor/gi-color-palette.c:601
+#: components/html-editor/gi-color-palette.c:602
 msgid "dull blue #2"
 msgstr "niebieski pastelowy #2"
 
-#: components/html-editor/gi-color-palette.c:602
+#: components/html-editor/gi-color-palette.c:603
 msgid "sky blue #2"
 msgstr "błękitny #2"
 
-#: components/html-editor/gi-color-palette.c:603
-#: components/html-editor/gi-color-palette.c:642
+#: components/html-editor/gi-color-palette.c:604
+#: components/html-editor/gi-color-palette.c:643
 msgid "purple"
 msgstr "purpurowy"
 
-#: components/html-editor/gi-color-palette.c:604
+#: components/html-editor/gi-color-palette.c:605
 msgid "gray"
 msgstr "szary"
 
-#: components/html-editor/gi-color-palette.c:607
-#: components/html-editor/gi-color-palette.c:639
+#: components/html-editor/gi-color-palette.c:608
+#: components/html-editor/gi-color-palette.c:640
 msgid "magenta"
 msgstr "karmazynowy"
 
-#: components/html-editor/gi-color-palette.c:608
+#: components/html-editor/gi-color-palette.c:609
 msgid "bright orange"
 msgstr "jasnopomarańczowy"
 
-#: components/html-editor/gi-color-palette.c:609
-#: components/html-editor/gi-color-palette.c:640
+#: components/html-editor/gi-color-palette.c:610
+#: components/html-editor/gi-color-palette.c:641
 msgid "yellow"
 msgstr "zółty"
 
-#: components/html-editor/gi-color-palette.c:610
+#: components/html-editor/gi-color-palette.c:611
 msgid "green"
 msgstr "zielony"
 
-#: components/html-editor/gi-color-palette.c:611
-#: components/html-editor/gi-color-palette.c:641
+#: components/html-editor/gi-color-palette.c:612
+#: components/html-editor/gi-color-palette.c:642
 msgid "cyan"
 msgstr "niebiskozielony"
 
-#: components/html-editor/gi-color-palette.c:612
+#: components/html-editor/gi-color-palette.c:613
 msgid "bright blue"
 msgstr "jaskrawoniebieski"
 
-#: components/html-editor/gi-color-palette.c:613
-#: components/html-editor/gi-color-palette.c:630
+#: components/html-editor/gi-color-palette.c:614
+#: components/html-editor/gi-color-palette.c:631
 msgid "red purple"
 msgstr "czerwonopurpurowy"
 
-#: components/html-editor/gi-color-palette.c:614
+#: components/html-editor/gi-color-palette.c:615
 msgid "light grey"
 msgstr "jasnoszary"
 
-#: components/html-editor/gi-color-palette.c:617
-#: components/html-editor/gi-color-palette.c:634
+#: components/html-editor/gi-color-palette.c:618
+#: components/html-editor/gi-color-palette.c:635
 msgid "pink"
 msgstr "różowy"
 
-#: components/html-editor/gi-color-palette.c:618
+#: components/html-editor/gi-color-palette.c:619
 msgid "light orange"
 msgstr "jasnopomarańczowy"
 
-#: components/html-editor/gi-color-palette.c:619
-#: components/html-editor/gi-color-palette.c:631
+#: components/html-editor/gi-color-palette.c:620
+#: components/html-editor/gi-color-palette.c:632
 msgid "light yellow"
 msgstr "jasnożółty"
 
-#: components/html-editor/gi-color-palette.c:620
+#: components/html-editor/gi-color-palette.c:621
 msgid "light green"
 msgstr "jasnozielony"
 
-#: components/html-editor/gi-color-palette.c:621
+#: components/html-editor/gi-color-palette.c:622
 msgid "light cyan"
 msgstr "jasny niebieskozielony"
 
-#: components/html-editor/gi-color-palette.c:622
-#: components/html-editor/gi-color-palette.c:632
+#: components/html-editor/gi-color-palette.c:623
+#: components/html-editor/gi-color-palette.c:633
 msgid "light blue"
 msgstr "jasnoniebieski"
 
-#: components/html-editor/gi-color-palette.c:623
-#: components/html-editor/gi-color-palette.c:636
+#: components/html-editor/gi-color-palette.c:624
+#: components/html-editor/gi-color-palette.c:637
 msgid "light purple"
 msgstr "jasnopurpurowy"
 
-#: components/html-editor/gi-color-palette.c:624
+#: components/html-editor/gi-color-palette.c:625
 msgid "white"
 msgstr "biały"
 
-#: components/html-editor/gi-color-palette.c:629
+#: components/html-editor/gi-color-palette.c:630
 msgid "purplish blue"
 msgstr "purpurowoniebieski"
 
-#: components/html-editor/gi-color-palette.c:633
+#: components/html-editor/gi-color-palette.c:634
 msgid "dark purple"
 msgstr "ciemnopourpurowy"
 
-#: components/html-editor/gi-color-palette.c:635
+#: components/html-editor/gi-color-palette.c:636
 msgid "sky blue"
 msgstr "błękitny"
 
@@ -1567,60 +1567,12 @@ msgstr ""
 msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
-#: components/html-editor/image.c:89
-msgid "Plain"
-msgstr "Zwykły"
-
-#: components/html-editor/image.c:91
-msgid ""
-"@link_begin@<img@alt@@width@@height@@align@ "
-"border=@border@@padh@@padv@@src@>@link_end@"
-msgstr ""
-"@link_begin@<img@alt@@width@@height@@align@ "
-"border=@border@@padh@@padv@@src@>@link_end@"
-
-#: components/html-editor/image.c:94
-msgid "Frame"
-msgstr "Ramka"
-
-#: components/html-editor/image.c:96
-msgid ""
-"<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-"cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-"cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-"@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
-"table></center>"
-msgstr ""
-"<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-"cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-"cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-"@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
-"table></center>"
-
-#: components/html-editor/image.c:104
-msgid "Caption"
-msgstr "Nagłówek"
-
-#: components/html-editor/image.c:106
-msgid ""
-"<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-"cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-"cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-"@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Place your "
-"comment here]</td></tr></table></td></tr></table></center>"
-msgstr ""
-"<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-"cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-"cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-"@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Umieść "
-"tutaj swój komentarz]</td></tr></table></td></tr></table></center>"
-
-#: components/html-editor/menubar.c:84
+#: components/html-editor/menubar.c:86
 #, fuzzy
 msgid "Insert image"
 msgstr "Wstaw odnośnik"
 
-#: components/html-editor/menubar.c:110 components/html-editor/menubar.c:129
+#: components/html-editor/menubar.c:112 components/html-editor/menubar.c:131
 #: components/html-editor/menubar.c:152 components/html-editor/menubar.c:174
 #: components/html-editor/popup.c:103
 msgid "Insert"
@@ -1688,115 +1640,115 @@ msgstr "Adres"
 msgid "_Style:"
 msgstr "_Styl"
 
-#: components/html-editor/popup.c:448
+#: components/html-editor/popup.c:438
 msgid "Paste Quotation"
 msgstr "Wklej cytat"
 
-#: components/html-editor/popup.c:452
+#: components/html-editor/popup.c:442
 #, fuzzy
 msgid "Insert Link"
 msgstr "Wstaw odnośnik"
 
-#: components/html-editor/popup.c:459
+#: components/html-editor/popup.c:449
 #, fuzzy
 msgid "Remove Link"
 msgstr "Usuń odnośnik"
 
-#: components/html-editor/popup.c:466
+#: components/html-editor/popup.c:456
 msgid "Style"
 msgstr "Styl"
 
-#: components/html-editor/popup.c:469
+#: components/html-editor/popup.c:459
 msgid "Text Style..."
 msgstr "Styl tekstu..."
 
-#: components/html-editor/popup.c:471 components/html-editor/popup.c:477
-#: components/html-editor/popup.c:487
+#: components/html-editor/popup.c:461 components/html-editor/popup.c:467
+#: components/html-editor/popup.c:477
 msgid "Paragraph Style..."
 msgstr "Styl akapitu..."
 
-#: components/html-editor/popup.c:475
+#: components/html-editor/popup.c:465
 msgid "Link Style..."
 msgstr "Styl odnośnika..."
 
-#: components/html-editor/popup.c:481
+#: components/html-editor/popup.c:471
 msgid "Rule Style..."
 msgstr "Styl zasady..."
 
-#: components/html-editor/popup.c:485
+#: components/html-editor/popup.c:475
 msgid "Image Style..."
 msgstr "Styl Obrazu..."
 
-#: components/html-editor/popup.c:496
+#: components/html-editor/popup.c:486
 msgid "Cell Style..."
 msgstr "Styl komórki..."
 
-#: components/html-editor/popup.c:499
+#: components/html-editor/popup.c:489
 msgid "Table Style..."
 msgstr "Styl tabeli..."
 
-#: components/html-editor/popup.c:505
+#: components/html-editor/popup.c:495
 msgid "Page Style..."
 msgstr "Styl strony..."
 
-#: components/html-editor/popup.c:510
+#: components/html-editor/popup.c:500
 msgid "Table insert"
 msgstr "Wstawienie do tabeli"
 
-#: components/html-editor/popup.c:513
+#: components/html-editor/popup.c:503
 msgid "Row above"
 msgstr "Wiersz powyżej"
 
-#: components/html-editor/popup.c:514
+#: components/html-editor/popup.c:504
 msgid "Row below"
 msgstr "Wiersz poniżej"
 
-#: components/html-editor/popup.c:516
+#: components/html-editor/popup.c:506
 msgid "Column before"
 msgstr "Kolumna przed"
 
-#: components/html-editor/popup.c:517
+#: components/html-editor/popup.c:507
 msgid "Column after"
 msgstr "Kolumna po"
 
-#: components/html-editor/popup.c:522
+#: components/html-editor/popup.c:512
 msgid "Table delete"
 msgstr "Usunięcie z tabeli"
 
-#: components/html-editor/popup.c:524
+#: components/html-editor/popup.c:514
 msgid "Row"
 msgstr "Wiersz"
 
-#: components/html-editor/popup.c:525
+#: components/html-editor/popup.c:515
 msgid "Column"
 msgstr "Kolumna"
 
-#: components/html-editor/popup.c:526
+#: components/html-editor/popup.c:516
 msgid "Cell contents"
 msgstr "Zawartość komórki"
 
-#: components/html-editor/popup.c:536
+#: components/html-editor/popup.c:524
 msgid "Check Word Spelling..."
 msgstr "Sprawdź pisownię..."
 
-#: components/html-editor/popup.c:541
+#: components/html-editor/popup.c:529
 msgid "Add Word to"
 msgstr "Dodaj słowo do"
 
-#: components/html-editor/popup.c:545
+#: components/html-editor/popup.c:533
 #, c-format
 msgid "%s Dictionary"
 msgstr "Słownik %s"
 
-#: components/html-editor/popup.c:554
+#: components/html-editor/popup.c:542
 msgid "Add Word to Dictionary"
 msgstr "Dodaj słowo do słownika"
 
-#: components/html-editor/popup.c:557
+#: components/html-editor/popup.c:545
 msgid "Ignore Misspelled Word"
 msgstr "Ignoruj źle wpisane słowa"
 
-#: components/html-editor/popup.c:561
+#: components/html-editor/popup.c:549
 msgid "Input Methods"
 msgstr "Metoda wprowadzania"
 
@@ -1866,7 +1818,7 @@ msgstr "Wstaw tutaj swój tekst"
 msgid "Image frame"
 msgstr "Ramka obrazu"
 
-#: components/html-editor/template.c:281
+#: components/html-editor/template.c:280
 msgid "Labels"
 msgstr "Etykiety"
 
@@ -1959,89 +1911,89 @@ msgstr ""
 "Zmodyfikowany tekst został usunięty z dokumentu.\n"
 "Nie można zastosować zmian."
 
-#: src/gtkhtml.c:2458
+#: src/gtkhtml.c:2464
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""
 
-#: src/gtkhtml.c:2779
+#: src/gtkhtml.c:2785
 msgid "Editable"
 msgstr "Modyfikowalny"
 
-#: src/gtkhtml.c:2780
+#: src/gtkhtml.c:2786
 msgid "Whether the html can be edited"
 msgstr "Określa, czy html może być edytowany"
 
-#: src/gtkhtml.c:2786
+#: src/gtkhtml.c:2792
 msgid "Document Title"
 msgstr "Tytuł dokumentu"
 
-#: src/gtkhtml.c:2787
+#: src/gtkhtml.c:2793
 msgid "The title of the current document"
 msgstr "Tytuł bieżącego dokumentu"
 
-#: src/gtkhtml.c:2793
+#: src/gtkhtml.c:2799
 msgid "Document Base"
 msgstr "Baza dokumentu"
 
-#: src/gtkhtml.c:2794
+#: src/gtkhtml.c:2800
 msgid "The base URL for relative references"
 msgstr "Bazowy adres URL dla odnosników relatywnych"
 
-#: src/gtkhtml.c:2800
+#: src/gtkhtml.c:2806
 msgid "Target Base"
 msgstr "Baza celu"
 
-#: src/gtkhtml.c:2801
+#: src/gtkhtml.c:2807
 msgid "The base URL of the targe frame"
 msgstr "Bazowy adres URL docelowej ramki"
 
-#: src/gtkhtml.c:2810
+#: src/gtkhtml.c:2816
 msgid "Fixed Width Font"
 msgstr "Zmienna szerokość czcionki"
 
-#: src/gtkhtml.c:2811
+#: src/gtkhtml.c:2817
 msgid "The Monospace font to use for typewriter text"
 msgstr "Czcionka jednorodna używana dla tekstu maszynowego"
 
-#: src/gtkhtml.c:2817
+#: src/gtkhtml.c:2823
 msgid "New Link Color"
 msgstr "Kolor nowego odnośnika"
 
-#: src/gtkhtml.c:2818
+#: src/gtkhtml.c:2824
 msgid "The color of new link elements"
 msgstr "Kolor elemntów nowego odnośnika"
 
-#: src/gtkhtml.c:2823
+#: src/gtkhtml.c:2829
 msgid "Visited Link Color"
 msgstr "Kolor odwiedzonych odnośników"
 
-#: src/gtkhtml.c:2824
+#: src/gtkhtml.c:2830
 msgid "The color of visited link elements"
 msgstr "Kolor elementów odwiedzonego odnośnika"
 
-#: src/gtkhtml.c:2829
+#: src/gtkhtml.c:2835
 msgid "Active Link Color"
 msgstr "Kolor aktywnego odnośnika"
 
-#: src/gtkhtml.c:2830
+#: src/gtkhtml.c:2836
 msgid "The color of active link elements"
 msgstr "Kolor elementów aktywnego odnośnika"
 
-#: src/gtkhtml.c:2835
+#: src/gtkhtml.c:2841
 msgid "Spelling Error Color"
 msgstr "Kolor błędów pisowni"
 
-#: src/gtkhtml.c:2836
+#: src/gtkhtml.c:2842
 msgid "The color of the spelling error markers"
 msgstr "Kolor znaczników błędów pisowni"
 
-#: src/gtkhtml.c:2841
+#: src/gtkhtml.c:2847
 #, fuzzy
 msgid "Cite Quotation Color"
 msgstr "Wklej cytat"
 
-#: src/gtkhtml.c:2842
+#: src/gtkhtml.c:2848
 #, fuzzy
 msgid "The color of the cited text"
 msgstr "Kolor elementów aktywnego odnośnika"
@@ -2103,7 +2055,7 @@ msgid "Reset"
 msgstr "Wyczyść"
 
 #. TODO2 dialog instead of warning
-#: src/htmlengine-print.c:193
+#: src/htmlengine-print.c:192
 msgid "Cannot allocate default font for printing\n"
 msgstr "Nie można uzyskać domyślnej czcionki do drukowania\n"
 
@@ -2111,17 +2063,59 @@ msgstr "Nie można uzyskać domyślnej czcionki do drukowania\n"
 msgid "GtkHTML Test"
 msgstr "Test GtkHTML-a"
 
-#: src/testgtkhtml.c:118
+#: src/testgtkhtml.c:117
 msgid "Print pre_view"
 msgstr "Podgląd _wydruku"
 
-#: src/testgtkhtml.c:118
+#: src/testgtkhtml.c:117
 msgid "Print preview"
 msgstr "Podgląd wydruku"
 
-#: src/testgtkhtml.c:989
+#: src/testgtkhtml.c:987
 msgid "GtkHTML Test Application"
 msgstr "Aplikacja testowa GtkHTML"
+
+#~ msgid "Plain"
+#~ msgstr "Zwykły"
+
+#~ msgid ""
+#~ "@link_begin@<img@alt@@width@@height@@align@ "
+#~ "border=@border@@padh@@padv@@src@>@link_end@"
+#~ msgstr ""
+#~ "@link_begin@<img@alt@@width@@height@@align@ "
+#~ "border=@border@@padh@@padv@@src@>@link_end@"
+
+#~ msgid "Frame"
+#~ msgstr "Ramka"
+
+#~ msgid ""
+#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
+#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
+#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
+#~ "@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
+#~ "table></center>"
+#~ msgstr ""
+#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
+#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
+#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
+#~ "@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
+#~ "table></center>"
+
+#~ msgid "Caption"
+#~ msgstr "Nagłówek"
+
+#~ msgid ""
+#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
+#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
+#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
+#~ "@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Place "
+#~ "your comment here]</td></tr></table></td></tr></table></center>"
+#~ msgstr ""
+#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
+#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
+#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
+#~ "@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Umieść "
+#~ "tutaj swój komentarz]</td></tr></table></td></tr></table></center>"
 
 #~ msgid "Find A Regular Expression"
 #~ msgstr "Wyszukuje według wyrażenia regularnego"

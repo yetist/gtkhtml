@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 3.1\n"
-"POT-Creation-Date: 2004-06-03 09:25-0400\n"
+"POT-Creation-Date: 2004-06-04 11:58-0400\n"
 "PO-Revision-Date: 2004-01-30 02:55+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: Korean <gnome-kr-translation@lists.sourceforge.net>\n"
@@ -20,9 +20,9 @@ msgid "<None>"
 msgstr "<없음>"
 
 #: capplet/gnome-bindings-prop.c:211 capplet/main.c:241
-#: components/html-editor/cell.c:333 components/html-editor/image.c:412
-#: components/html-editor/link.c:192 components/html-editor/rule.c:174
-#: components/html-editor/table.c:220 components/html-editor/template.c:272
+#: components/html-editor/cell.c:333 components/html-editor/image.c:350
+#: components/html-editor/link.c:182 components/html-editor/rule.c:174
+#: components/html-editor/table.c:220 components/html-editor/template.c:271
 #: components/html-editor/text.c:159
 msgid "Could not load glade file."
 msgstr "glade파일을 읽을 수 없습니다."
@@ -434,7 +434,7 @@ msgstr "메롱(_C)"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
-#: components/html-editor/menubar.c:113 components/html-editor/popup.c:106
+#: components/html-editor/menubar.c:115 components/html-editor/popup.c:106
 #: components/html-editor/popup.c:201 components/html-editor/popup.c:267
 msgid "Link"
 msgstr "링크"
@@ -612,7 +612,7 @@ msgstr "로마 숫자 매기기"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
 #: components/html-editor/editor-control-factory.c:207
 #: components/html-editor/gtkhtml-editor-properties.glade.h:48
-#: components/html-editor/menubar.c:132 components/html-editor/popup.c:225
+#: components/html-editor/menubar.c:134 components/html-editor/popup.c:225
 msgid "Rule"
 msgstr "구분선"
 
@@ -661,7 +661,7 @@ msgstr "위 첨자"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 #: components/html-editor/gtkhtml-editor-properties.glade.h:52
 #: components/html-editor/menubar.c:155 components/html-editor/popup.c:231
-#: components/html-editor/popup.c:511 components/html-editor/popup.c:523
+#: components/html-editor/popup.c:501 components/html-editor/popup.c:513
 msgid "Table"
 msgstr "표"
 
@@ -1082,201 +1082,201 @@ msgid "Page"
 msgstr "쪽"
 
 #. This is the default custom color
-#: components/html-editor/gi-color-palette.c:394
+#: components/html-editor/gi-color-palette.c:395
 msgid "custom"
 msgstr "사용자 지정"
 
 #. "Custom" color - we'll pop up a GnomeColorPicker
-#: components/html-editor/gi-color-palette.c:436
+#: components/html-editor/gi-color-palette.c:437
 msgid "Custom Color:"
 msgstr "사용자 지정 색:"
 
-#: components/html-editor/gi-color-palette.c:444
+#: components/html-editor/gi-color-palette.c:445
 msgid "Choose Custom Color"
 msgstr "사용자 지정 색을 고르십시오"
 
-#: components/html-editor/gi-color-palette.c:577
+#: components/html-editor/gi-color-palette.c:578
 msgid "black"
 msgstr "검정"
 
-#: components/html-editor/gi-color-palette.c:578
+#: components/html-editor/gi-color-palette.c:579
 msgid "light brown"
 msgstr "옅은 갈색"
 
-#: components/html-editor/gi-color-palette.c:579
+#: components/html-editor/gi-color-palette.c:580
 msgid "brown gold"
 msgstr "갈빛 금색"
 
-#: components/html-editor/gi-color-palette.c:580
+#: components/html-editor/gi-color-palette.c:581
 msgid "dark green #2"
 msgstr "어두운 녹색 #2"
 
-#: components/html-editor/gi-color-palette.c:581
+#: components/html-editor/gi-color-palette.c:582
 msgid "navy"
 msgstr "짙은 남색"
 
-#: components/html-editor/gi-color-palette.c:582
-#: components/html-editor/gi-color-palette.c:638
+#: components/html-editor/gi-color-palette.c:583
+#: components/html-editor/gi-color-palette.c:639
 msgid "dark blue"
 msgstr "어두운 파란색"
 
-#: components/html-editor/gi-color-palette.c:583
+#: components/html-editor/gi-color-palette.c:584
 msgid "purple #2"
 msgstr "자주색 #2"
 
-#: components/html-editor/gi-color-palette.c:584
+#: components/html-editor/gi-color-palette.c:585
 msgid "very dark gray"
 msgstr "아주 어두운 회색"
 
-#: components/html-editor/gi-color-palette.c:587
-#: components/html-editor/gi-color-palette.c:643
+#: components/html-editor/gi-color-palette.c:588
+#: components/html-editor/gi-color-palette.c:644
 msgid "dark red"
 msgstr "어두운 빨강"
 
-#: components/html-editor/gi-color-palette.c:588
+#: components/html-editor/gi-color-palette.c:589
 msgid "red-orange"
 msgstr "적홍색"
 
-#: components/html-editor/gi-color-palette.c:589
+#: components/html-editor/gi-color-palette.c:590
 msgid "gold"
 msgstr "금색"
 
-#: components/html-editor/gi-color-palette.c:590
+#: components/html-editor/gi-color-palette.c:591
 msgid "dark green"
 msgstr "어두운 녹색"
 
-#: components/html-editor/gi-color-palette.c:591
-#: components/html-editor/gi-color-palette.c:644
+#: components/html-editor/gi-color-palette.c:592
+#: components/html-editor/gi-color-palette.c:645
 msgid "dull blue"
 msgstr "흐린 파란색"
 
-#: components/html-editor/gi-color-palette.c:592
-#: components/html-editor/gi-color-palette.c:645
+#: components/html-editor/gi-color-palette.c:593
+#: components/html-editor/gi-color-palette.c:646
 msgid "blue"
 msgstr "파란색"
 
-#: components/html-editor/gi-color-palette.c:593
+#: components/html-editor/gi-color-palette.c:594
 msgid "dull purple"
 msgstr "흐린 자주색"
 
-#: components/html-editor/gi-color-palette.c:594
+#: components/html-editor/gi-color-palette.c:595
 msgid "dark grey"
 msgstr "어두운 회색"
 
-#: components/html-editor/gi-color-palette.c:597
+#: components/html-editor/gi-color-palette.c:598
 msgid "red"
 msgstr "빨간색"
 
-#: components/html-editor/gi-color-palette.c:598
+#: components/html-editor/gi-color-palette.c:599
 msgid "orange"
 msgstr "주홍색"
 
-#: components/html-editor/gi-color-palette.c:599
+#: components/html-editor/gi-color-palette.c:600
 msgid "lime"
 msgstr "라임색"
 
-#: components/html-editor/gi-color-palette.c:600
+#: components/html-editor/gi-color-palette.c:601
 msgid "dull green"
 msgstr "흐린 녹색"
 
-#: components/html-editor/gi-color-palette.c:601
+#: components/html-editor/gi-color-palette.c:602
 msgid "dull blue #2"
 msgstr "흐린 파란색 #2"
 
-#: components/html-editor/gi-color-palette.c:602
+#: components/html-editor/gi-color-palette.c:603
 msgid "sky blue #2"
 msgstr "흐린 하늘색 #2"
 
-#: components/html-editor/gi-color-palette.c:603
-#: components/html-editor/gi-color-palette.c:642
+#: components/html-editor/gi-color-palette.c:604
+#: components/html-editor/gi-color-palette.c:643
 msgid "purple"
 msgstr "자주색"
 
-#: components/html-editor/gi-color-palette.c:604
+#: components/html-editor/gi-color-palette.c:605
 msgid "gray"
 msgstr "회색"
 
-#: components/html-editor/gi-color-palette.c:607
-#: components/html-editor/gi-color-palette.c:639
+#: components/html-editor/gi-color-palette.c:608
+#: components/html-editor/gi-color-palette.c:640
 msgid "magenta"
 msgstr "자홍색"
 
-#: components/html-editor/gi-color-palette.c:608
+#: components/html-editor/gi-color-palette.c:609
 msgid "bright orange"
 msgstr "밝은 주홍색"
 
-#: components/html-editor/gi-color-palette.c:609
-#: components/html-editor/gi-color-palette.c:640
+#: components/html-editor/gi-color-palette.c:610
+#: components/html-editor/gi-color-palette.c:641
 msgid "yellow"
 msgstr "노란색"
 
-#: components/html-editor/gi-color-palette.c:610
+#: components/html-editor/gi-color-palette.c:611
 msgid "green"
 msgstr "녹색"
 
-#: components/html-editor/gi-color-palette.c:611
-#: components/html-editor/gi-color-palette.c:641
+#: components/html-editor/gi-color-palette.c:612
+#: components/html-editor/gi-color-palette.c:642
 msgid "cyan"
 msgstr "청록색"
 
-#: components/html-editor/gi-color-palette.c:612
+#: components/html-editor/gi-color-palette.c:613
 msgid "bright blue"
 msgstr "밝은 파란색"
 
-#: components/html-editor/gi-color-palette.c:613
-#: components/html-editor/gi-color-palette.c:630
+#: components/html-editor/gi-color-palette.c:614
+#: components/html-editor/gi-color-palette.c:631
 msgid "red purple"
 msgstr "빨간 자주색"
 
-#: components/html-editor/gi-color-palette.c:614
+#: components/html-editor/gi-color-palette.c:615
 msgid "light grey"
 msgstr "밝은 회색"
 
-#: components/html-editor/gi-color-palette.c:617
-#: components/html-editor/gi-color-palette.c:634
+#: components/html-editor/gi-color-palette.c:618
+#: components/html-editor/gi-color-palette.c:635
 msgid "pink"
 msgstr "분홍색"
 
-#: components/html-editor/gi-color-palette.c:618
+#: components/html-editor/gi-color-palette.c:619
 msgid "light orange"
 msgstr "밝은 주홍색"
 
-#: components/html-editor/gi-color-palette.c:619
-#: components/html-editor/gi-color-palette.c:631
+#: components/html-editor/gi-color-palette.c:620
+#: components/html-editor/gi-color-palette.c:632
 msgid "light yellow"
 msgstr "밝은 노란색"
 
-#: components/html-editor/gi-color-palette.c:620
+#: components/html-editor/gi-color-palette.c:621
 msgid "light green"
 msgstr "밝은 녹색"
 
-#: components/html-editor/gi-color-palette.c:621
+#: components/html-editor/gi-color-palette.c:622
 msgid "light cyan"
 msgstr "밝은 청록색"
 
-#: components/html-editor/gi-color-palette.c:622
-#: components/html-editor/gi-color-palette.c:632
+#: components/html-editor/gi-color-palette.c:623
+#: components/html-editor/gi-color-palette.c:633
 msgid "light blue"
 msgstr "밝은 파란색"
 
-#: components/html-editor/gi-color-palette.c:623
-#: components/html-editor/gi-color-palette.c:636
+#: components/html-editor/gi-color-palette.c:624
+#: components/html-editor/gi-color-palette.c:637
 msgid "light purple"
 msgstr "밝은 자주색"
 
-#: components/html-editor/gi-color-palette.c:624
+#: components/html-editor/gi-color-palette.c:625
 msgid "white"
 msgstr "흰색"
 
-#: components/html-editor/gi-color-palette.c:629
+#: components/html-editor/gi-color-palette.c:630
 msgid "purplish blue"
 msgstr "자주빛 파란색"
 
-#: components/html-editor/gi-color-palette.c:633
+#: components/html-editor/gi-color-palette.c:634
 msgid "dark purple"
 msgstr "어두운 자주색"
 
-#: components/html-editor/gi-color-palette.c:635
+#: components/html-editor/gi-color-palette.c:636
 msgid "sky blue"
 msgstr "하늘색"
 
@@ -1562,60 +1562,12 @@ msgstr ""
 msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
-#: components/html-editor/image.c:89
-msgid "Plain"
-msgstr "보통"
-
-#: components/html-editor/image.c:91
-msgid ""
-"@link_begin@<img@alt@@width@@height@@align@ "
-"border=@border@@padh@@padv@@src@>@link_end@"
-msgstr ""
-"@link_begin@<img@alt@@width@@height@@align@ "
-"border=@border@@padh@@padv@@src@>@link_end@"
-
-#: components/html-editor/image.c:94
-msgid "Frame"
-msgstr "프레임"
-
-#: components/html-editor/image.c:96
-msgid ""
-"<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-"cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-"cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-"@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
-"table></center>"
-msgstr ""
-"<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-"cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-"cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-"@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
-"table></center>"
-
-#: components/html-editor/image.c:104
-msgid "Caption"
-msgstr "설명"
-
-#: components/html-editor/image.c:106
-msgid ""
-"<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-"cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-"cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-"@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Place your "
-"comment here]</td></tr></table></td></tr></table></center>"
-msgstr ""
-"<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-"cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-"cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-"@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[설명을 입력"
-"하십시오]</td></tr></table></td></tr></table></center>"
-
-#: components/html-editor/menubar.c:84
+#: components/html-editor/menubar.c:86
 #, fuzzy
 msgid "Insert image"
 msgstr "바로가기 넣기"
 
-#: components/html-editor/menubar.c:110 components/html-editor/menubar.c:129
+#: components/html-editor/menubar.c:112 components/html-editor/menubar.c:131
 #: components/html-editor/menubar.c:152 components/html-editor/menubar.c:174
 #: components/html-editor/popup.c:103
 msgid "Insert"
@@ -1683,115 +1635,115 @@ msgstr "주소"
 msgid "_Style:"
 msgstr "스타일(_S)"
 
-#: components/html-editor/popup.c:448
+#: components/html-editor/popup.c:438
 msgid "Paste Quotation"
 msgstr "인용문 붙여 넣기"
 
-#: components/html-editor/popup.c:452
+#: components/html-editor/popup.c:442
 #, fuzzy
 msgid "Insert Link"
 msgstr "바로가기 넣기"
 
-#: components/html-editor/popup.c:459
+#: components/html-editor/popup.c:449
 #, fuzzy
 msgid "Remove Link"
 msgstr "바로가기 지우기"
 
-#: components/html-editor/popup.c:466
+#: components/html-editor/popup.c:456
 msgid "Style"
 msgstr "스타일"
 
-#: components/html-editor/popup.c:469
+#: components/html-editor/popup.c:459
 msgid "Text Style..."
 msgstr "텍스트 모양새..."
 
-#: components/html-editor/popup.c:471 components/html-editor/popup.c:477
-#: components/html-editor/popup.c:487
+#: components/html-editor/popup.c:461 components/html-editor/popup.c:467
+#: components/html-editor/popup.c:477
 msgid "Paragraph Style..."
 msgstr "문단 모양새..."
 
-#: components/html-editor/popup.c:475
+#: components/html-editor/popup.c:465
 msgid "Link Style..."
 msgstr "바로가기 모양새..."
 
-#: components/html-editor/popup.c:481
+#: components/html-editor/popup.c:471
 msgid "Rule Style..."
 msgstr "구분선 모양새..."
 
-#: components/html-editor/popup.c:485
+#: components/html-editor/popup.c:475
 msgid "Image Style..."
 msgstr "그림 모양새..."
 
-#: components/html-editor/popup.c:496
+#: components/html-editor/popup.c:486
 msgid "Cell Style..."
 msgstr "셀 모양새..."
 
-#: components/html-editor/popup.c:499
+#: components/html-editor/popup.c:489
 msgid "Table Style..."
 msgstr "표 모양새..."
 
-#: components/html-editor/popup.c:505
+#: components/html-editor/popup.c:495
 msgid "Page Style..."
 msgstr "페이지 모양새..."
 
-#: components/html-editor/popup.c:510
+#: components/html-editor/popup.c:500
 msgid "Table insert"
 msgstr "표 넣기"
 
-#: components/html-editor/popup.c:513
+#: components/html-editor/popup.c:503
 msgid "Row above"
 msgstr "위에 행"
 
-#: components/html-editor/popup.c:514
+#: components/html-editor/popup.c:504
 msgid "Row below"
 msgstr "아래에 행"
 
-#: components/html-editor/popup.c:516
+#: components/html-editor/popup.c:506
 msgid "Column before"
 msgstr "앞에 열"
 
-#: components/html-editor/popup.c:517
+#: components/html-editor/popup.c:507
 msgid "Column after"
 msgstr "뒤에 열"
 
-#: components/html-editor/popup.c:522
+#: components/html-editor/popup.c:512
 msgid "Table delete"
 msgstr "표 지우기"
 
-#: components/html-editor/popup.c:524
+#: components/html-editor/popup.c:514
 msgid "Row"
 msgstr "행"
 
-#: components/html-editor/popup.c:525
+#: components/html-editor/popup.c:515
 msgid "Column"
 msgstr "열"
 
-#: components/html-editor/popup.c:526
+#: components/html-editor/popup.c:516
 msgid "Cell contents"
 msgstr "셀 내용"
 
-#: components/html-editor/popup.c:536
+#: components/html-editor/popup.c:524
 msgid "Check Word Spelling..."
 msgstr "맞춤법 검사..."
 
-#: components/html-editor/popup.c:541
+#: components/html-editor/popup.c:529
 msgid "Add Word to"
 msgstr "단어 더할 위치"
 
-#: components/html-editor/popup.c:545
+#: components/html-editor/popup.c:533
 #, c-format
 msgid "%s Dictionary"
 msgstr "%s 사전"
 
-#: components/html-editor/popup.c:554
+#: components/html-editor/popup.c:542
 msgid "Add Word to Dictionary"
 msgstr "사전에 단어 더하기"
 
-#: components/html-editor/popup.c:557
+#: components/html-editor/popup.c:545
 msgid "Ignore Misspelled Word"
 msgstr "맞춤법이 잘못된 단어 무시"
 
-#: components/html-editor/popup.c:561
+#: components/html-editor/popup.c:549
 msgid "Input Methods"
 msgstr "입력기"
 
@@ -1861,7 +1813,7 @@ msgstr "여기에 텍스트를 쓰십시오"
 msgid "Image frame"
 msgstr "그림 프레임"
 
-#: components/html-editor/template.c:281
+#: components/html-editor/template.c:280
 msgid "Labels"
 msgstr "레이블"
 
@@ -1954,89 +1906,89 @@ msgstr ""
 "편집한 텍스트가 문서에서 지워졌습니다.\n"
 "바뀐 점을 적용할 수 없습니다."
 
-#: src/gtkhtml.c:2458
+#: src/gtkhtml.c:2464
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""
 
-#: src/gtkhtml.c:2779
+#: src/gtkhtml.c:2785
 msgid "Editable"
 msgstr "편집 가능"
 
-#: src/gtkhtml.c:2780
+#: src/gtkhtml.c:2786
 msgid "Whether the html can be edited"
 msgstr "HTML을 편집할 수 있는 지 여부"
 
-#: src/gtkhtml.c:2786
+#: src/gtkhtml.c:2792
 msgid "Document Title"
 msgstr "문서 제목"
 
-#: src/gtkhtml.c:2787
+#: src/gtkhtml.c:2793
 msgid "The title of the current document"
 msgstr "현재 문서의 제목"
 
-#: src/gtkhtml.c:2793
+#: src/gtkhtml.c:2799
 msgid "Document Base"
 msgstr "문서 기준"
 
-#: src/gtkhtml.c:2794
+#: src/gtkhtml.c:2800
 msgid "The base URL for relative references"
 msgstr "상대 참조할 때 기준 URL"
 
-#: src/gtkhtml.c:2800
+#: src/gtkhtml.c:2806
 msgid "Target Base"
 msgstr "목표 기준"
 
-#: src/gtkhtml.c:2801
+#: src/gtkhtml.c:2807
 msgid "The base URL of the targe frame"
 msgstr "목표 프레임의 기준 URL"
 
-#: src/gtkhtml.c:2810
+#: src/gtkhtml.c:2816
 msgid "Fixed Width Font"
 msgstr "고정폭 글꼴"
 
-#: src/gtkhtml.c:2811
+#: src/gtkhtml.c:2817
 msgid "The Monospace font to use for typewriter text"
 msgstr "타이프라이터 텍스트에 사용할 고정폭 글꼴"
 
-#: src/gtkhtml.c:2817
+#: src/gtkhtml.c:2823
 msgid "New Link Color"
 msgstr "새로운 바로가기 색"
 
-#: src/gtkhtml.c:2818
+#: src/gtkhtml.c:2824
 msgid "The color of new link elements"
 msgstr "새로운 바로가기에 사용할 색"
 
-#: src/gtkhtml.c:2823
+#: src/gtkhtml.c:2829
 msgid "Visited Link Color"
 msgstr "방문한 바로가기 색"
 
-#: src/gtkhtml.c:2824
+#: src/gtkhtml.c:2830
 msgid "The color of visited link elements"
 msgstr "방문한 바로가기에 사용할 색"
 
-#: src/gtkhtml.c:2829
+#: src/gtkhtml.c:2835
 msgid "Active Link Color"
 msgstr "활성 바로가기 색"
 
-#: src/gtkhtml.c:2830
+#: src/gtkhtml.c:2836
 msgid "The color of active link elements"
 msgstr "활성 바로가기에 사용할 색"
 
-#: src/gtkhtml.c:2835
+#: src/gtkhtml.c:2841
 msgid "Spelling Error Color"
 msgstr "맞춤법 오류 색"
 
-#: src/gtkhtml.c:2836
+#: src/gtkhtml.c:2842
 msgid "The color of the spelling error markers"
 msgstr "맞춤법 오류 표시할 때 사용할 색"
 
-#: src/gtkhtml.c:2841
+#: src/gtkhtml.c:2847
 #, fuzzy
 msgid "Cite Quotation Color"
 msgstr "인용문 붙여 넣기"
 
-#: src/gtkhtml.c:2842
+#: src/gtkhtml.c:2848
 #, fuzzy
 msgid "The color of the cited text"
 msgstr "활성 바로가기에 사용할 색"
@@ -2098,7 +2050,7 @@ msgid "Reset"
 msgstr "리셋"
 
 #. TODO2 dialog instead of warning
-#: src/htmlengine-print.c:193
+#: src/htmlengine-print.c:192
 msgid "Cannot allocate default font for printing\n"
 msgstr "인쇄용 기본 글꼴을 할당할 수 없습니다\n"
 
@@ -2106,17 +2058,59 @@ msgstr "인쇄용 기본 글꼴을 할당할 수 없습니다\n"
 msgid "GtkHTML Test"
 msgstr "GtkHTML 테스트"
 
-#: src/testgtkhtml.c:118
+#: src/testgtkhtml.c:117
 msgid "Print pre_view"
 msgstr "인쇄 미리보기(_V)"
 
-#: src/testgtkhtml.c:118
+#: src/testgtkhtml.c:117
 msgid "Print preview"
 msgstr "인쇄가 되는 모습을 미리 확인해봅니다"
 
-#: src/testgtkhtml.c:989
+#: src/testgtkhtml.c:987
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML 테스트 프로그램"
+
+#~ msgid "Plain"
+#~ msgstr "보통"
+
+#~ msgid ""
+#~ "@link_begin@<img@alt@@width@@height@@align@ "
+#~ "border=@border@@padh@@padv@@src@>@link_end@"
+#~ msgstr ""
+#~ "@link_begin@<img@alt@@width@@height@@align@ "
+#~ "border=@border@@padh@@padv@@src@>@link_end@"
+
+#~ msgid "Frame"
+#~ msgstr "프레임"
+
+#~ msgid ""
+#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
+#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
+#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
+#~ "@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
+#~ "table></center>"
+#~ msgstr ""
+#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
+#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
+#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
+#~ "@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
+#~ "table></center>"
+
+#~ msgid "Caption"
+#~ msgstr "설명"
+
+#~ msgid ""
+#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
+#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
+#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
+#~ "@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Place "
+#~ "your comment here]</td></tr></table></td></tr></table></center>"
+#~ msgstr ""
+#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
+#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
+#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
+#~ "@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[설명을 "
+#~ "입력하십시오]</td></tr></table></td></tr></table></center>"
 
 #~ msgid "Find A Regular Expression"
 #~ msgstr "정규 표현식으로 찾습니다"

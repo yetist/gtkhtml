@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml HEAD\n"
-"POT-Creation-Date: 2004-06-03 09:25-0400\n"
+"POT-Creation-Date: 2004-06-04 11:58-0400\n"
 "PO-Revision-Date: 2004-05-22 13:17+0900\n"
 "Last-Translator: Takeshi AIHANA <aihana@gnome.gr.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
@@ -22,9 +22,9 @@ msgid "<None>"
 msgstr "<無し>"
 
 #: capplet/gnome-bindings-prop.c:211 capplet/main.c:241
-#: components/html-editor/cell.c:333 components/html-editor/image.c:412
-#: components/html-editor/link.c:192 components/html-editor/rule.c:174
-#: components/html-editor/table.c:220 components/html-editor/template.c:272
+#: components/html-editor/cell.c:333 components/html-editor/image.c:350
+#: components/html-editor/link.c:182 components/html-editor/rule.c:174
+#: components/html-editor/table.c:220 components/html-editor/template.c:271
 #: components/html-editor/text.c:159
 msgid "Could not load glade file."
 msgstr "Glade ファイル (.glade) を読み込めませんでした。"
@@ -437,7 +437,7 @@ msgstr "しまった顔(_C)"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
-#: components/html-editor/menubar.c:113 components/html-editor/popup.c:106
+#: components/html-editor/menubar.c:115 components/html-editor/popup.c:106
 #: components/html-editor/popup.c:201 components/html-editor/popup.c:267
 msgid "Link"
 msgstr "リンク"
@@ -615,7 +615,7 @@ msgstr "ローマ数字付きリスト"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
 #: components/html-editor/editor-control-factory.c:207
 #: components/html-editor/gtkhtml-editor-properties.glade.h:48
-#: components/html-editor/menubar.c:132 components/html-editor/popup.c:225
+#: components/html-editor/menubar.c:134 components/html-editor/popup.c:225
 msgid "Rule"
 msgstr "罫線"
 
@@ -664,7 +664,7 @@ msgstr "Superscript"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 #: components/html-editor/gtkhtml-editor-properties.glade.h:52
 #: components/html-editor/menubar.c:155 components/html-editor/popup.c:231
-#: components/html-editor/popup.c:511 components/html-editor/popup.c:523
+#: components/html-editor/popup.c:501 components/html-editor/popup.c:513
 msgid "Table"
 msgstr "表"
 
@@ -1080,201 +1080,201 @@ msgid "Page"
 msgstr "ページ"
 
 #. This is the default custom color
-#: components/html-editor/gi-color-palette.c:394
+#: components/html-editor/gi-color-palette.c:395
 msgid "custom"
 msgstr "カスタム"
 
 #. "Custom" color - we'll pop up a GnomeColorPicker
-#: components/html-editor/gi-color-palette.c:436
+#: components/html-editor/gi-color-palette.c:437
 msgid "Custom Color:"
 msgstr "カスタム色:"
 
-#: components/html-editor/gi-color-palette.c:444
+#: components/html-editor/gi-color-palette.c:445
 msgid "Choose Custom Color"
 msgstr "カスタム・カラーの選択"
 
-#: components/html-editor/gi-color-palette.c:577
+#: components/html-editor/gi-color-palette.c:578
 msgid "black"
 msgstr "黒"
 
-#: components/html-editor/gi-color-palette.c:578
+#: components/html-editor/gi-color-palette.c:579
 msgid "light brown"
 msgstr "淡い茶"
 
-#: components/html-editor/gi-color-palette.c:579
+#: components/html-editor/gi-color-palette.c:580
 msgid "brown gold"
 msgstr "茶色い金"
 
-#: components/html-editor/gi-color-palette.c:580
+#: components/html-editor/gi-color-palette.c:581
 msgid "dark green #2"
 msgstr "暗い緑 #2"
 
-#: components/html-editor/gi-color-palette.c:581
+#: components/html-editor/gi-color-palette.c:582
 msgid "navy"
 msgstr "ネービー"
 
-#: components/html-editor/gi-color-palette.c:582
-#: components/html-editor/gi-color-palette.c:638
+#: components/html-editor/gi-color-palette.c:583
+#: components/html-editor/gi-color-palette.c:639
 msgid "dark blue"
 msgstr "暗い青"
 
-#: components/html-editor/gi-color-palette.c:583
+#: components/html-editor/gi-color-palette.c:584
 msgid "purple #2"
 msgstr "紫 #2"
 
-#: components/html-editor/gi-color-palette.c:584
+#: components/html-editor/gi-color-palette.c:585
 msgid "very dark gray"
 msgstr "とても暗い灰"
 
-#: components/html-editor/gi-color-palette.c:587
-#: components/html-editor/gi-color-palette.c:643
+#: components/html-editor/gi-color-palette.c:588
+#: components/html-editor/gi-color-palette.c:644
 msgid "dark red"
 msgstr "暗い赤"
 
-#: components/html-editor/gi-color-palette.c:588
+#: components/html-editor/gi-color-palette.c:589
 msgid "red-orange"
 msgstr "赤みの橙"
 
-#: components/html-editor/gi-color-palette.c:589
+#: components/html-editor/gi-color-palette.c:590
 msgid "gold"
 msgstr "金"
 
-#: components/html-editor/gi-color-palette.c:590
+#: components/html-editor/gi-color-palette.c:591
 msgid "dark green"
 msgstr "暗い緑"
 
-#: components/html-editor/gi-color-palette.c:591
-#: components/html-editor/gi-color-palette.c:644
+#: components/html-editor/gi-color-palette.c:592
+#: components/html-editor/gi-color-palette.c:645
 msgid "dull blue"
 msgstr "くすんだ青"
 
-#: components/html-editor/gi-color-palette.c:592
-#: components/html-editor/gi-color-palette.c:645
+#: components/html-editor/gi-color-palette.c:593
+#: components/html-editor/gi-color-palette.c:646
 msgid "blue"
 msgstr "青"
 
-#: components/html-editor/gi-color-palette.c:593
+#: components/html-editor/gi-color-palette.c:594
 msgid "dull purple"
 msgstr "くすんだ紫"
 
-#: components/html-editor/gi-color-palette.c:594
+#: components/html-editor/gi-color-palette.c:595
 msgid "dark grey"
 msgstr "暗い灰"
 
-#: components/html-editor/gi-color-palette.c:597
+#: components/html-editor/gi-color-palette.c:598
 msgid "red"
 msgstr "赤"
 
-#: components/html-editor/gi-color-palette.c:598
+#: components/html-editor/gi-color-palette.c:599
 msgid "orange"
 msgstr "橙"
 
-#: components/html-editor/gi-color-palette.c:599
+#: components/html-editor/gi-color-palette.c:600
 msgid "lime"
 msgstr "ライム"
 
-#: components/html-editor/gi-color-palette.c:600
+#: components/html-editor/gi-color-palette.c:601
 msgid "dull green"
 msgstr "くすんだ緑"
 
-#: components/html-editor/gi-color-palette.c:601
+#: components/html-editor/gi-color-palette.c:602
 msgid "dull blue #2"
 msgstr "くすんだ青 #2"
 
-#: components/html-editor/gi-color-palette.c:602
+#: components/html-editor/gi-color-palette.c:603
 msgid "sky blue #2"
 msgstr "スカイブルー #2"
 
-#: components/html-editor/gi-color-palette.c:603
-#: components/html-editor/gi-color-palette.c:642
+#: components/html-editor/gi-color-palette.c:604
+#: components/html-editor/gi-color-palette.c:643
 msgid "purple"
 msgstr "紫"
 
-#: components/html-editor/gi-color-palette.c:604
+#: components/html-editor/gi-color-palette.c:605
 msgid "gray"
 msgstr "灰"
 
-#: components/html-editor/gi-color-palette.c:607
-#: components/html-editor/gi-color-palette.c:639
+#: components/html-editor/gi-color-palette.c:608
+#: components/html-editor/gi-color-palette.c:640
 msgid "magenta"
 msgstr "マゼンタ"
 
-#: components/html-editor/gi-color-palette.c:608
+#: components/html-editor/gi-color-palette.c:609
 msgid "bright orange"
 msgstr "明るい橙"
 
-#: components/html-editor/gi-color-palette.c:609
-#: components/html-editor/gi-color-palette.c:640
+#: components/html-editor/gi-color-palette.c:610
+#: components/html-editor/gi-color-palette.c:641
 msgid "yellow"
 msgstr "黄"
 
-#: components/html-editor/gi-color-palette.c:610
+#: components/html-editor/gi-color-palette.c:611
 msgid "green"
 msgstr "緑"
 
-#: components/html-editor/gi-color-palette.c:611
-#: components/html-editor/gi-color-palette.c:641
+#: components/html-editor/gi-color-palette.c:612
+#: components/html-editor/gi-color-palette.c:642
 msgid "cyan"
 msgstr "シアン"
 
-#: components/html-editor/gi-color-palette.c:612
+#: components/html-editor/gi-color-palette.c:613
 msgid "bright blue"
 msgstr "明るい青"
 
-#: components/html-editor/gi-color-palette.c:613
-#: components/html-editor/gi-color-palette.c:630
+#: components/html-editor/gi-color-palette.c:614
+#: components/html-editor/gi-color-palette.c:631
 msgid "red purple"
 msgstr "赤紫"
 
-#: components/html-editor/gi-color-palette.c:614
+#: components/html-editor/gi-color-palette.c:615
 msgid "light grey"
 msgstr "淡い灰"
 
-#: components/html-editor/gi-color-palette.c:617
-#: components/html-editor/gi-color-palette.c:634
+#: components/html-editor/gi-color-palette.c:618
+#: components/html-editor/gi-color-palette.c:635
 msgid "pink"
 msgstr "ピンク"
 
-#: components/html-editor/gi-color-palette.c:618
+#: components/html-editor/gi-color-palette.c:619
 msgid "light orange"
 msgstr "淡い橙"
 
-#: components/html-editor/gi-color-palette.c:619
-#: components/html-editor/gi-color-palette.c:631
+#: components/html-editor/gi-color-palette.c:620
+#: components/html-editor/gi-color-palette.c:632
 msgid "light yellow"
 msgstr "淡い黄"
 
-#: components/html-editor/gi-color-palette.c:620
+#: components/html-editor/gi-color-palette.c:621
 msgid "light green"
 msgstr "淡い緑"
 
-#: components/html-editor/gi-color-palette.c:621
+#: components/html-editor/gi-color-palette.c:622
 msgid "light cyan"
 msgstr "淡いシアン"
 
-#: components/html-editor/gi-color-palette.c:622
-#: components/html-editor/gi-color-palette.c:632
+#: components/html-editor/gi-color-palette.c:623
+#: components/html-editor/gi-color-palette.c:633
 msgid "light blue"
 msgstr "淡い青"
 
-#: components/html-editor/gi-color-palette.c:623
-#: components/html-editor/gi-color-palette.c:636
+#: components/html-editor/gi-color-palette.c:624
+#: components/html-editor/gi-color-palette.c:637
 msgid "light purple"
 msgstr "淡い紫"
 
-#: components/html-editor/gi-color-palette.c:624
+#: components/html-editor/gi-color-palette.c:625
 msgid "white"
 msgstr "白"
 
-#: components/html-editor/gi-color-palette.c:629
+#: components/html-editor/gi-color-palette.c:630
 msgid "purplish blue"
 msgstr "紫みの青"
 
-#: components/html-editor/gi-color-palette.c:633
+#: components/html-editor/gi-color-palette.c:634
 msgid "dark purple"
 msgstr "暗い紫"
 
-#: components/html-editor/gi-color-palette.c:635
+#: components/html-editor/gi-color-palette.c:636
 msgid "sky blue"
 msgstr "スカイブルー"
 
@@ -1536,59 +1536,11 @@ msgstr "px"
 msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
-#: components/html-editor/image.c:89
-msgid "Plain"
-msgstr "テキスト"
-
-#: components/html-editor/image.c:91
-msgid ""
-"@link_begin@<img@alt@@width@@height@@align@ "
-"border=@border@@padh@@padv@@src@>@link_end@"
-msgstr ""
-"@link_begin@<img@alt@@width@@height@@align@ "
-"border=@border@@padh@@padv@@src@>@link_end@"
-
-#: components/html-editor/image.c:94
-msgid "Frame"
-msgstr "フレーム"
-
-#: components/html-editor/image.c:96
-msgid ""
-"<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-"cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-"cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-"@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
-"table></center>"
-msgstr ""
-"<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-"cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-"cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-"@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
-"table></center>"
-
-#: components/html-editor/image.c:104
-msgid "Caption"
-msgstr "タイトル"
-
-#: components/html-editor/image.c:106
-msgid ""
-"<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-"cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-"cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-"@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Place your "
-"comment here]</td></tr></table></td></tr></table></center>"
-msgstr ""
-"<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-"cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-"cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-"@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[ここにコメ"
-"ントを入れて下さい]</td></tr></table></td></tr></table></center>"
-
-#: components/html-editor/menubar.c:84
+#: components/html-editor/menubar.c:86
 msgid "Insert image"
 msgstr "画像の挿入"
 
-#: components/html-editor/menubar.c:110 components/html-editor/menubar.c:129
+#: components/html-editor/menubar.c:112 components/html-editor/menubar.c:131
 #: components/html-editor/menubar.c:152 components/html-editor/menubar.c:174
 #: components/html-editor/popup.c:103
 msgid "Insert"
@@ -1655,113 +1607,113 @@ msgstr "アドレス"
 msgid "_Style:"
 msgstr "スタイル(_S):"
 
-#: components/html-editor/popup.c:448
+#: components/html-editor/popup.c:438
 msgid "Paste Quotation"
 msgstr "引用して貼り付け"
 
-#: components/html-editor/popup.c:452
+#: components/html-editor/popup.c:442
 msgid "Insert Link"
 msgstr "リンクの挿入"
 
-#: components/html-editor/popup.c:459
+#: components/html-editor/popup.c:449
 msgid "Remove Link"
 msgstr "リンクの削除"
 
-#: components/html-editor/popup.c:466
+#: components/html-editor/popup.c:456
 msgid "Style"
 msgstr "スタイル"
 
-#: components/html-editor/popup.c:469
+#: components/html-editor/popup.c:459
 msgid "Text Style..."
 msgstr "テキストのスタイル..."
 
-#: components/html-editor/popup.c:471 components/html-editor/popup.c:477
-#: components/html-editor/popup.c:487
+#: components/html-editor/popup.c:461 components/html-editor/popup.c:467
+#: components/html-editor/popup.c:477
 msgid "Paragraph Style..."
 msgstr "段落のスタイル..."
 
-#: components/html-editor/popup.c:475
+#: components/html-editor/popup.c:465
 msgid "Link Style..."
 msgstr "リンクのスタイル..."
 
-#: components/html-editor/popup.c:481
+#: components/html-editor/popup.c:471
 msgid "Rule Style..."
 msgstr "罫線のスタイル..."
 
-#: components/html-editor/popup.c:485
+#: components/html-editor/popup.c:475
 msgid "Image Style..."
 msgstr "画像のスタイル.."
 
-#: components/html-editor/popup.c:496
+#: components/html-editor/popup.c:486
 msgid "Cell Style..."
 msgstr "セルのスタイル..."
 
-#: components/html-editor/popup.c:499
+#: components/html-editor/popup.c:489
 msgid "Table Style..."
 msgstr "表のスタイル..."
 
-#: components/html-editor/popup.c:505
+#: components/html-editor/popup.c:495
 msgid "Page Style..."
 msgstr "ページのスタイル..."
 
-#: components/html-editor/popup.c:510
+#: components/html-editor/popup.c:500
 msgid "Table insert"
 msgstr "表の挿入"
 
-#: components/html-editor/popup.c:513
+#: components/html-editor/popup.c:503
 msgid "Row above"
 msgstr "行を上に"
 
-#: components/html-editor/popup.c:514
+#: components/html-editor/popup.c:504
 msgid "Row below"
 msgstr "行を下に"
 
-#: components/html-editor/popup.c:516
+#: components/html-editor/popup.c:506
 msgid "Column before"
 msgstr "桁を前に"
 
-#: components/html-editor/popup.c:517
+#: components/html-editor/popup.c:507
 msgid "Column after"
 msgstr "列を後ろに"
 
-#: components/html-editor/popup.c:522
+#: components/html-editor/popup.c:512
 msgid "Table delete"
 msgstr "表の削除"
 
-#: components/html-editor/popup.c:524
+#: components/html-editor/popup.c:514
 msgid "Row"
 msgstr "行"
 
-#: components/html-editor/popup.c:525
+#: components/html-editor/popup.c:515
 msgid "Column"
 msgstr "列"
 
-#: components/html-editor/popup.c:526
+#: components/html-editor/popup.c:516
 msgid "Cell contents"
 msgstr "セルの内容"
 
-#: components/html-editor/popup.c:536
+#: components/html-editor/popup.c:524
 msgid "Check Word Spelling..."
 msgstr "スペルのチェック中..."
 
-#: components/html-editor/popup.c:541
+#: components/html-editor/popup.c:529
 msgid "Add Word to"
 msgstr "単語の追加先"
 
-#: components/html-editor/popup.c:545
+#: components/html-editor/popup.c:533
 #, c-format
 msgid "%s Dictionary"
 msgstr "%s の辞書"
 
-#: components/html-editor/popup.c:554
+#: components/html-editor/popup.c:542
 msgid "Add Word to Dictionary"
 msgstr "単語を辞書に追加する"
 
-#: components/html-editor/popup.c:557
+#: components/html-editor/popup.c:545
 msgid "Ignore Misspelled Word"
 msgstr "スペル間違いの単語を無視する"
 
-#: components/html-editor/popup.c:561
+#: components/html-editor/popup.c:549
 msgid "Input Methods"
 msgstr "入力メソッド"
 
@@ -1831,7 +1783,7 @@ msgstr "<ここがテキストを配置する場所>"
 msgid "Image frame"
 msgstr "画像フレーム"
 
-#: components/html-editor/template.c:281
+#: components/html-editor/template.c:280
 msgid "Labels"
 msgstr "ラベル"
 
@@ -1923,90 +1875,90 @@ msgstr ""
 "編集したテキストがドキュメントから削除されました。\n"
 "変更点を適用することができません。"
 
-#: src/gtkhtml.c:2458
+#: src/gtkhtml.c:2464
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""
 "コンポーザにドロップした Mozilla の URL の書式 (%d) またはサイズ (%d) が間"
 "違っています\n"
 
-#: src/gtkhtml.c:2779
+#: src/gtkhtml.c:2785
 msgid "Editable"
 msgstr "編集可"
 
-#: src/gtkhtml.c:2780
+#: src/gtkhtml.c:2786
 msgid "Whether the html can be edited"
 msgstr "HTML が編集可能かどうか"
 
-#: src/gtkhtml.c:2786
+#: src/gtkhtml.c:2792
 msgid "Document Title"
 msgstr "文書のタイトル"
 
-#: src/gtkhtml.c:2787
+#: src/gtkhtml.c:2793
 msgid "The title of the current document"
 msgstr "このドキュメントのタイトルです"
 
-#: src/gtkhtml.c:2793
+#: src/gtkhtml.c:2799
 msgid "Document Base"
 msgstr "ドキュメント・ベース"
 
-#: src/gtkhtml.c:2794
+#: src/gtkhtml.c:2800
 msgid "The base URL for relative references"
 msgstr "関連するリファレンスのベース URL です"
 
-#: src/gtkhtml.c:2800
+#: src/gtkhtml.c:2806
 msgid "Target Base"
 msgstr "ターゲット・ベース"
 
-#: src/gtkhtml.c:2801
+#: src/gtkhtml.c:2807
 msgid "The base URL of the targe frame"
 msgstr "ターゲット・フレームのベース URL です"
 
-#: src/gtkhtml.c:2810
+#: src/gtkhtml.c:2816
 msgid "Fixed Width Font"
 msgstr "等幅フォント"
 
-#: src/gtkhtml.c:2811
+#: src/gtkhtml.c:2817
 msgid "The Monospace font to use for typewriter text"
 msgstr "タイプライタのテキストに使用する等幅フォントです"
 
-#: src/gtkhtml.c:2817
+#: src/gtkhtml.c:2823
 msgid "New Link Color"
 msgstr "新しいリンクの色"
 
-#: src/gtkhtml.c:2818
+#: src/gtkhtml.c:2824
 msgid "The color of new link elements"
 msgstr "新しいリンク要素の色です"
 
-#: src/gtkhtml.c:2823
+#: src/gtkhtml.c:2829
 msgid "Visited Link Color"
 msgstr "訪問済みリンクの色"
 
-#: src/gtkhtml.c:2824
+#: src/gtkhtml.c:2830
 msgid "The color of visited link elements"
 msgstr "訪問したリンク要素の色です"
 
-#: src/gtkhtml.c:2829
+#: src/gtkhtml.c:2835
 msgid "Active Link Color"
 msgstr "アクティブなリンクの色"
 
-#: src/gtkhtml.c:2830
+#: src/gtkhtml.c:2836
 msgid "The color of active link elements"
 msgstr "有効なリンク要素の色です"
 
-#: src/gtkhtml.c:2835
+#: src/gtkhtml.c:2841
 msgid "Spelling Error Color"
 msgstr "スペルミスの色"
 
-#: src/gtkhtml.c:2836
+#: src/gtkhtml.c:2842
 msgid "The color of the spelling error markers"
 msgstr "スペル・チェックでエラーとなった色です"
 
-#: src/gtkhtml.c:2841
+#: src/gtkhtml.c:2847
 msgid "Cite Quotation Color"
 msgstr "引用の色"
 
-#: src/gtkhtml.c:2842
+#: src/gtkhtml.c:2848
 msgid "The color of the cited text"
 msgstr "引用したテキストの色です"
 
@@ -2067,7 +2019,7 @@ msgid "Reset"
 msgstr "リセット"
 
 #. TODO2 dialog instead of warning
-#: src/htmlengine-print.c:193
+#: src/htmlengine-print.c:192
 msgid "Cannot allocate default font for printing\n"
 msgstr "デフォルトの印刷用フォントをロードできません。\n"
 
@@ -2075,17 +2027,59 @@ msgstr "デフォルトの印刷用フォントをロードできません。\n"
 msgid "GtkHTML Test"
 msgstr "GtkHTML のテスト"
 
-#: src/testgtkhtml.c:118
+#: src/testgtkhtml.c:117
 msgid "Print pre_view"
 msgstr "印刷プレビュー(_V)"
 
-#: src/testgtkhtml.c:118
+#: src/testgtkhtml.c:117
 msgid "Print preview"
 msgstr "印刷イメージのプレビューを表示します"
 
-#: src/testgtkhtml.c:989
+#: src/testgtkhtml.c:987
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML テスト・アプリケーション"
+
+#~ msgid "Plain"
+#~ msgstr "テキスト"
+
+#~ msgid ""
+#~ "@link_begin@<img@alt@@width@@height@@align@ "
+#~ "border=@border@@padh@@padv@@src@>@link_end@"
+#~ msgstr ""
+#~ "@link_begin@<img@alt@@width@@height@@align@ "
+#~ "border=@border@@padh@@padv@@src@>@link_end@"
+
+#~ msgid "Frame"
+#~ msgstr "フレーム"
+
+#~ msgid ""
+#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
+#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
+#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
+#~ "@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
+#~ "table></center>"
+#~ msgstr ""
+#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
+#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
+#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
+#~ "@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
+#~ "table></center>"
+
+#~ msgid "Caption"
+#~ msgstr "タイトル"
+
+#~ msgid ""
+#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
+#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
+#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
+#~ "@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Place "
+#~ "your comment here]</td></tr></table></td></tr></table></center>"
+#~ msgstr ""
+#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
+#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
+#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
+#~ "@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[ここにコ"
+#~ "メントを入れて下さい]</td></tr></table></td></tr></table></center>"
 
 #~ msgid "Find A Regular Expression"
 #~ msgstr "正規表現の検索"
