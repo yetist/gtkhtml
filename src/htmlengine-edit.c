@@ -203,7 +203,8 @@ html_engine_spell_check_range (HTMLEngine *e, HTMLCursor *begin, HTMLCursor *end
 
 	e->need_spell_check = FALSE;
 
-	if (!e->widget->editor_api || !GTK_HTML_CLASS (GTK_OBJECT (e->widget)->klass)->properties->live_spell_check)
+	if (!e->widget->editor_api || !GTK_HTML_CLASS (GTK_OBJECT (e->widget)->klass)->properties->live_spell_check
+	    || !begin->object->parent)
 		return;
 
 	begin = html_cursor_dup (begin);
@@ -217,7 +218,7 @@ html_engine_spell_check_range (HTMLEngine *e, HTMLCursor *begin, HTMLCursor *end
 	i = html_interval_new_from_cursor (begin, end);
 	if (begin->object->parent != end->object->parent)
 		html_interval_forall (i, e, spell_check_object, i);
-	else if (begin->object->parent && HTML_IS_CLUEFLOW (begin->object->parent))
+	else if (HTML_IS_CLUEFLOW (begin->object->parent))
 		html_clueflow_spell_check (HTML_CLUEFLOW (begin->object->parent), e, i);
 	html_interval_destroy (i);
 	html_cursor_destroy (begin);

@@ -1,5 +1,8 @@
 2001-04-29  Radek Doulik  <rodo@ximian.com>
 
+	* htmlengine-edit.c (html_engine_spell_check_range): if (begin)
+	object hasn't parent just return
+
 	* htmlclueflow.c (html_clueflow_spell_check): keep
 	g_return_if_fail as spell_checking fail is not fatal, so we want
 	only warning and no crash
