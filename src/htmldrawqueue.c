@@ -20,6 +20,7 @@
 */
 
 #include <config.h>
+#include <gtk/gtksignal.h>
 #include "htmlengine-edit-cursor.h"
 #include "htmldrawqueue.h"
 #include "htmlengine.h"

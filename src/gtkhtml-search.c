@@ -22,6 +22,9 @@
 
 #include <config.h>
 #include <gdk/gdkkeysyms.h>
+#include <gtk/gtkentry.h>
+#include <gtk/gtkmain.h>
+#include <gtk/gtksignal.h>
 #include "gtkhtml.h"
 #include "gtkhtml-private.h"
 #include "gtkhtml-search.h"
@@ -42,9 +45,9 @@ static void
 changed (GtkEntry *entry, GtkHTMLISearch *data)
 {
 	/* printf ("isearch changed to '%s'\n", gtk_entry_get_text (entry)); */
-	if (*gtk_entry_get_text (data->html->priv->search_input_line)) {
+	if (*gtk_entry_get_text (GTK_ENTRY (data->html->priv->search_input_line))) {
 		html_engine_search_incremental (data->html->engine,
-						gtk_entry_get_text (data->html->priv->search_input_line),
+						gtk_entry_get_text (GTK_ENTRY (data->html->priv->search_input_line)),
 						data->forward);
 	} else
 		html_engine_unselect_all (data->html->engine);
@@ -57,10 +60,10 @@ continue_search (GtkHTMLISearch *data, gboolean forward)
 	HTMLEngine *e = data->html->engine;
 
 	if (!data->changed && data->last_text && *data->last_text) {
-		gtk_entry_set_text (data->html->priv->search_input_line, data->last_text);
+		gtk_entry_set_text (GTK_ENTRY (data->html->priv->search_input_line), data->last_text);
 		html_engine_search_incremental (data->html->engine, data->last_text, forward);
 		data->changed = TRUE;
-	} else if (*gtk_entry_get_text (data->html->priv->search_input_line)) {
+	} else if (*gtk_entry_get_text (GTK_ENTRY (data->html->priv->search_input_line))) {
 		if (e->search_info)
 			html_search_set_forward (e->search_info, forward);
 		html_engine_search_next (e);

@@ -23,6 +23,7 @@
 #define _GTKHTML_H_
 
 #include <sys/types.h>
+#include <gtk/gtkbindings.h>
 #include <gtk/gtklayout.h>
 #include <libgnomeprint/gnome-print.h>
 
@@ -121,7 +122,7 @@ struct _GtkHTMLEditorAPI
 	GtkArg  * (* event)                   (GtkHTML *html, GtkHTMLEditorEventType event_type, GtkArg **args, gpointer data);
 
 	/* input line */
-	GtkEntry * (* create_input_line)      (GtkHTML *html, gpointer data);
+	GtkWidget * (* create_input_line)     (GtkHTML *html, gpointer data);
 };
 
 
@@ -243,5 +244,5 @@ void      gtk_html_editor_command                (GtkHTML     *html,
 						  const gchar *command_name);
 gboolean  gtk_html_edit_make_cursor_visible      (GtkHTML     *html);
 
-gboolean  gtk_html_build_with_gconf              ();
+gboolean  gtk_html_build_with_gconf              (void);
 #endif /* _GTKHTML_H_ */

@@ -20,6 +20,8 @@
 */
 
 #include <config.h>
+#include <gtk/gtkcheckbutton.h>
+#include <gtk/gtktogglebutton.h>
 #include "htmlcheckbox.h"
 #include <string.h>
 

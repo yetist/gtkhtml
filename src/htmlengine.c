@@ -30,6 +30,9 @@
 #include <ctype.h>
 #include <time.h>
 
+#include <gtk/gtkmain.h>
+#include <gtk/gtksignal.h>
+
 #include "gtkhtml-embedded.h"
 #include "gtkhtml-private.h"
 #include "gtkhtml-stream.h"

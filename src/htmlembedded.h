@@ -21,6 +21,7 @@
 #ifndef HTMLEMBEDDED_H
 #define HTMLEMBEDDED_H
 
+#include <gtk/gtkwidget.h>
 #include "htmlobject.h"
 
 #define HTML_EMBEDDED(x) ((HTMLEmbedded *)(x))

@@ -20,6 +20,7 @@
 */
 
 #include <config.h>
+#include <gtk/gtkentry.h>
 #include "htmltextinput.h"
 #include <string.h>
 

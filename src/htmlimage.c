@@ -35,6 +35,8 @@
 #include <glib.h>
 #include <string.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
+#include <gtk/gtkmain.h>
+#include <gtk/gtksignal.h>
 
 #include "gtkhtml.h"
 #include "gtkhtml-properties.h"

@@ -45,6 +45,7 @@
 #include "htmlselection.h"
 #include "htmlcursor.h"
 
+#include "gtkhtml.h"
 #include "gtkhtml-embedded.h"
 #include "gtkhtml-im.h"
 #include "gtkhtml-keybinding.h"
@@ -1002,10 +1003,14 @@ button_press_event (GtkWidget *widget,
 		case 1:
 			html->button1_pressed = TRUE;
 			if (html_engine_get_editable (engine)) {
+				if (html->allow_selection) {
+					if (event->state & GDK_SHIFT_MASK)
+						html_engine_set_mark (engine);
+				}
+
 				html_engine_jump_at (engine,
 						     x + engine->x_offset,
 						     y + engine->y_offset);
-				update_styles (html);
 			}
 
 			if (html->allow_selection) {
@@ -1024,8 +1029,10 @@ button_press_event (GtkWidget *widget,
 						html->selection_y1 = y + engine->y_offset;
 					}
 				}
-
 			}
+
+			if (html_engine_get_editable (engine))
+				update_styles (html);
 			break;
 		default:
 			break;

@@ -1,3 +1,11 @@
+2001-04-11  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml.c (button_press_event): fixed Bug 2166:
+	With Evolution, start composing a new message; type out a few lines. Click
+	to insert the cursor somewhere, and then click backwards in the text to
+	select a range. Now click outside of the selection. The GtkHTML component
+	should go away, leaving a grey box.
+
 2001-04-07  Dan Winship  <danw@ximian.com>
 
 	* htmlprinter.c (DARK, LIGHT):

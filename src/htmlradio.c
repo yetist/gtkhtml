@@ -20,6 +20,7 @@
 */
 
 #include <config.h>
+#include <gtk/gtkradiobutton.h>
 #include "htmlradio.h"
 #include <string.h>
 

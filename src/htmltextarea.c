@@ -20,6 +20,10 @@
 */
 
 #include <config.h>
+#include <gtk/gtkeditable.h>
+#include <gtk/gtksignal.h>
+#include <gtk/gtkscrolledwindow.h>
+#include <gtk/gtktext.h>
 #include "htmltextarea.h"
 #include <string.h>
 

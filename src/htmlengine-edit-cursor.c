@@ -20,6 +20,7 @@
 */
 
 #include <config.h>
+#include <gtk/gtkmain.h>
 #include "htmlcursor.h"
 #include "htmlengine.h"
 #include "htmlengine-edit-cursor.h"

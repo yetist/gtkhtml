@@ -24,6 +24,7 @@
 #include <config.h>
 #include <string.h>
 #include <stdio.h>
+#include <gtk/gtksignal.h>
 #include "gtkhtml.h"
 #include "gtkhtml-embedded.h"
 #include "htmlembedded.h"

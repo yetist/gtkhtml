@@ -19,6 +19,7 @@
    Boston, MA 02111-1307, USA.
 */
 
+#include <gtk/gtkselection.h>
 #include "htmlcursor.h"
 #include "htmlinterval.h"
 #include "htmlselection.h"

@@ -20,6 +20,10 @@
 */
 
 #include <config.h>
+#include <gtk/gtkclist.h>
+#include <gtk/gtkcombo.h>
+#include <gtk/gtkentry.h>
+#include <gtk/gtkscrolledwindow.h>
 #include "htmlselect.h"
 #include <string.h>
 
