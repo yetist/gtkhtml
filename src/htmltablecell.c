@@ -26,6 +26,7 @@
 #include <libart_lgpl/art_rect.h>
 #include <string.h>
 #include "htmlcluev.h"
+#include "htmlengine-edit.h"
 #include "htmlengine-save.h"
 #include "htmlpainter.h"
 #include "htmltable.h"
@@ -291,6 +292,12 @@ save (HTMLObject *self,
 		SB " WIDTH=\"%d\"", cell->fixed_width SE;
 	if (cell->no_wrap)
 		SB " NOWRAP" SE;
+	if (HTML_CLUE (cell)->halign != HTML_HALIGN_NONE)
+		SB " ALIGN=\"%s\"",
+                   html_engine_save_get_paragraph_align (html_alignment_to_paragraph (HTML_CLUE (cell)->halign)) SE;
+	if (HTML_CLUE (cell)->valign != HTML_VALIGN_MIDDLE)
+		SB " VALIGN=\"%s\"",
+                   HTML_CLUE (cell)->valign == HTML_VALIGN_TOP ? "top" : "bottom" SE;
 	SB ">\n" SE;
 	if (!(*HTML_OBJECT_CLASS (parent_class)->save) (self, state))
 		return FALSE;
