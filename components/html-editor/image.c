@@ -65,6 +65,12 @@ typedef struct _GtkHTMLEditImageProperties GtkHTMLEditImageProperties;
 #define CHANGE if (!d->disable_change) gtk_html_edit_properties_dialog_change (d->cd->properties_dialog)
 
 static void
+value_changed (GtkAdjustment *adj, GtkHTMLEditImageProperties *d)
+{
+	CHANGE;
+}
+
+static void
 entry_changed (GtkWidget *entry, GtkHTMLEditImageProperties *d)
 {
 	gchar *text;
@@ -122,6 +128,7 @@ checked_val (GtkHTMLEditImageProperties *d, gint idx, const gchar *name)
 	gtk_widget_set_sensitive (d->spin [idx], d->set [idx]);
 
 	gtk_signal_connect (GTK_OBJECT (d->check [idx]), "toggled", GTK_SIGNAL_FUNC (check_toggled), d);
+	gtk_signal_connect (GTK_OBJECT (d->adj [idx]), "value_changed", GTK_SIGNAL_FUNC (value_changed), d);
 }
 
 GtkWidget *

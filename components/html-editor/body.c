@@ -61,7 +61,7 @@ fill_sample (GtkHTMLEditBodyProperties *d)
 	body  = g_strconcat (body_tag,
 			     "The quick brown <a href=\"mailto:fox\">fox</a> jumps over the lazy <a href=\"mailto:dog\">dog</a>.",
 			     NULL);
-	printf ("body: %s\n", body);
+
 	gtk_html_load_from_string (d->sample, body, -1);
 	g_free (body_tag);
 	g_free (body);

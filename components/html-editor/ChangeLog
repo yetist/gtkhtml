@@ -1,3 +1,14 @@
+2000-10-24  Radek Doulik  <rodo@helixcode.com>
+
+	* editor-control-factory.c (set_frame_cb): set vertical scrollbar
+	policy to always
+
+	* image.c (value_changed): new signal handler for adjustments
+
+	* Makefile.am (html_editor_control_SOURCES): removed
+	gtk-combo-box.[ch] as they are not needed anymore, we use widgets
+	from GAL now
+
 2000-10-20  Michael Meeks  <michael@helixcode.com>
 
 	* test-html-editor-control.c (container_create): re-write for new

@@ -79,7 +79,7 @@ fill_sample (GtkHTMLEditTextProperties *d)
 			     size,
 			     color,
 			     "The quick brown fox jumps over the lazy dog.", NULL);
-	printf ("body: %s\n", body);
+
 	gtk_html_load_from_string (d->sample, body, -1);
 	g_free (color);
 	g_free (size);

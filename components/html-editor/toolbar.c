@@ -29,7 +29,6 @@
 
 #include "toolbar.h"
 #include "utils.h"
-#include "gtk-combo-box.h"
 #include "htmlcolor.h"
 #include "htmlengine-edit-fontstyle.h"
 

@@ -96,7 +96,7 @@ set_frame_cb (BonoboControl *control,
 	gtk_box_pack_start (GTK_BOX (control_data->vbox), toolbar, FALSE, FALSE, 0);
 
 	scrolled_window = gtk_scrolled_window_new (NULL, NULL);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window), GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
 	gtk_container_add (GTK_CONTAINER (scrolled_window), GTK_WIDGET (control_data->html));
 	gtk_widget_show_all (scrolled_window);
 

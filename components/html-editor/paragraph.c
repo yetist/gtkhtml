@@ -54,7 +54,7 @@ fill_sample (GtkHTMLEditParagraphProperties *d)
 			     align,
 			     "The quick brown fox jumps over the lazy dog.</div>",
 			     NULL);
-	printf ("body: %s\n", body);
+
 	gtk_html_load_from_string (d->sample, body, -1);
 	g_free (style);
 	g_free (align);
