@@ -1,3 +1,10 @@
+2003-09-05  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c (pop_element_by_type): add new pop element variant
+	that takes the display type as an argument.  This cleans up the
+	places where we use pop_element to restructure the document as
+	little more.
+
 2003-09-05  Antonio Xu  <antonio.xu@sun.com>
 
 	* gtkhtml.c (new_obj_from_uri): Use HTML_IS_PLAIN_PAINTER to judge

@@ -1020,7 +1020,47 @@ pop_inline (HTMLEngine *e, HTMLElement *elem)
 		}
 	}
 }
-     
+
+static void
+pop_element_by_type (HTMLEngine *e, HTMLDisplayType display)
+{
+	HTMLElement *elem = NULL;
+	GList *l;
+	gint maxLevel = display;
+
+	l = e->span_stack->list;
+	
+	while (l) {
+		gint cd;
+		elem = l->data;
+		
+		cd = elem->style->display;
+		if (cd == display)
+			break;
+
+		if (cd > maxLevel) {
+			if (display != DISPLAY_INLINE 
+			    || cd > DISPLAY_BLOCK)
+				return;
+		}
+
+		l = l->next;
+	}
+		 
+	if (l == NULL)
+		return;
+
+	if (display == DISPLAY_INLINE) {
+		pop_inline (e, elem);
+	} else {
+		if (maxLevel > display)
+			return;
+	
+		pop_block (e, elem);
+	}
+}
+
+
 static void
 pop_element (HTMLEngine *e, char *name)
 {
@@ -2874,7 +2914,7 @@ close_current_table (HTMLEngine *e)
 	}
 
 	DT(printf ("pop_table\n");)
-	pop_element (e, ID_TABLE);
+	pop_element_by_type (e, DISPLAY_TABLE);
 }
 
 static void
@@ -3003,9 +3043,14 @@ element_parse_tr (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	if (!table)
 		return;
 	
+	pop_element_by_type (e, DISPLAY_TABLE_CAPTION);
+	pop_element_by_type (e, DISPLAY_TABLE_ROW);
+
+	/*	  
 	pop_element (e, ID_CAPTION);
 	pop_element (e, ID_TR);
-	
+	*/
+
 	have_rowColor = FALSE;
 	have_rowPixmap = FALSE;
 	
@@ -3047,8 +3092,13 @@ element_parse_caption (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	if (!table)
 			return;
 	
+	pop_element_by_type (e, DISPLAY_TABLE_ROW);
+	pop_element_by_type (e, DISPLAY_TABLE_CAPTION);
+
+	/*	  
 	pop_element (e, ID_TR);
 	pop_element (e, ID_CAPTION);
+	*/
 	
 	html_string_tokenizer_tokenize( e->st, str + 7, " >" );
 	while ( html_string_tokenizer_has_more_tokens (e->st) ) {
@@ -3097,10 +3147,15 @@ element_parse_td (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	if (!table)
 		return;
 	
+	pop_element_by_type (e, DISPLAY_TABLE_CELL);
+	pop_element_by_type (e, DISPLAY_TABLE_CAPTION);
+
+	/*
 	pop_element (e, ID_TH);
 	pop_element (e, ID_TD);
 	pop_element (e, ID_CAPTION);
-	
+	*/
+
 	valign = current_row_valign (e); 
 	halign = current_row_align (e);
 	
@@ -3241,9 +3296,14 @@ element_parse_th (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	if (!table)
 		return;
 		
+	pop_element_by_type (e, DISPLAY_TABLE_CELL);
+	pop_element_by_type (e, DISPLAY_TABLE_CAPTION);
+
+	/*
 	pop_element (e, ID_TH);
 	pop_element (e, ID_TD);
 	pop_element (e, ID_CAPTION);
+	*/
 	
 	valign = current_row_valign (e);
 	halign = current_row_align (e);
@@ -3750,7 +3810,7 @@ parse_one_token (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		pop_element (e, name + 1);
 	} else {
 		/* unknown open element do nothing for now */
-		printf ("generic open handler for <%s>\n", name);
+		DT (printf ("generic open handler for <%s>\n", name);)
 	}
 
 	g_free (name);
@@ -4324,7 +4384,7 @@ html_engine_stop_parser (HTMLEngine *e)
 	
 	e->parsing = FALSE;
 
-	pop_element (e, ID_DOCUMENT);
+	pop_element_by_type (e, DISPLAY_DOCUMENT);
 
 	html_stack_clear (e->span_stack);
 	html_stack_clear (e->clueflow_style_stack);
