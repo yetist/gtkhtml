@@ -1541,9 +1541,7 @@ paste_link (HTMLEngine *engine, HTMLText *text, gint so, gint eo, gchar *prefix)
 	html_engine_set_mark (engine);
 	html_cursor_jump_to_position (engine->cursor, engine, engine->cursor->position + eo - engine->cursor->offset);
 
-	html_undo_level_begin    (engine->undo, "Magic link");
 	html_engine_paste_object (engine, new_obj, eo - so);
-	html_undo_level_end      (engine->undo);
 
 	g_free (href);
 }

@@ -3,6 +3,7 @@
 	* htmltext.c (html_text_magic_link): save and restore cursor
 	position
 	(html_text_magic_link): wrapped in one undo step
+	(paste_link): ops, removed level step here
 
 2001-02-09  Radek Doulik  <rodo@ximian.com>
 
