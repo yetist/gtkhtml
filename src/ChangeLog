@@ -1,5 +1,7 @@
 2000-05-07  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine.c (html_engine_parse): reset indent_level to 0
+
 	* htmlengine-edit-paste.c (do_undo): removed delete bug workaround
 	as it seems to work now
 

@@ -3428,6 +3428,8 @@ html_engine_parse (HTMLEngine *e)
 
 	e->flow = NULL;
 
+	e->indent_level = 0;
+
 	/* reset to default border size */
 	e->leftBorder   = LEFT_BORDER;
 	e->rightBorder  = RIGHT_BORDER;
