@@ -350,8 +350,7 @@ calc_min_width (HTMLObject *o,
 	gint w = 0;
 	gboolean add;
 
-	add = (HTML_CLUEFLOW (o)->style == HTML_CLUEFLOW_STYLE_PRE
-	       || HTML_CLUEFLOW (o)->style == HTML_CLUEFLOW_STYLE_NOWRAP);
+	add = HTML_CLUEFLOW (o)->style == HTML_CLUEFLOW_STYLE_PRE;
 
 	cur = HTML_CLUE (o)->head;
 	while (cur) {
@@ -1018,7 +1017,6 @@ get_tag (HTMLClueFlow *flow)
 	case HTML_CLUEFLOW_STYLE_H6:
 	case HTML_CLUEFLOW_STYLE_ADDRESS:
 	case HTML_CLUEFLOW_STYLE_PRE:
-	case HTML_CLUEFLOW_STYLE_NOWRAP:
 	default:
 		return "blockquote";
 	}
@@ -1277,8 +1275,7 @@ save_plain (HTMLObject *self,
 			/* FIXME we should allow wrapping on PRE sections as well */
 			len = strcspn (s, "\n");
 			
-			if (flow->style != HTML_CLUEFLOW_STYLE_PRE
-			    && flow->style != HTML_CLUEFLOW_STYLE_NOWRAP) {
+			if (flow->style != HTML_CLUEFLOW_STYLE_PRE) {
 				
 				if (g_utf8_strlen (s, len) > (requested_width - pad)) {
 					space = g_utf8_offset_to_pointer (s, requested_width - pad);
@@ -1331,7 +1328,6 @@ get_default_font_style (const HTMLClueFlow *self)
 	case HTML_CLUEFLOW_STYLE_ITEMDOTTED:
 	case HTML_CLUEFLOW_STYLE_ITEMROMAN:
 	case HTML_CLUEFLOW_STYLE_ITEMDIGIT:
-	case HTML_CLUEFLOW_STYLE_NOWRAP:
 		return GTK_HTML_FONT_STYLE_SIZE_3;
 	case HTML_CLUEFLOW_STYLE_ADDRESS:
 		return GTK_HTML_FONT_STYLE_SIZE_3 | GTK_HTML_FONT_STYLE_ITALIC;

@@ -1,3 +1,13 @@
+2001-05-30  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine.c (parse_table): use Cell::no_wrap instead of setting
+	NOWRAP style, which has been removed (now we can have nowrap cells
+	with all possible clueflow styles, which was before impossible)
+
+	* htmltablecell.h: added no_wrap flag
+
+	* htmltablecell.c (calc_min_width): use no_wrap
+
 2001-05-30  Larry Ewing  <lewing@ximian.com>
 
 	* htmlimage.c (image_update_url): temp hack to piggyback url

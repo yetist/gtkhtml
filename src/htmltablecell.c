@@ -125,6 +125,9 @@ calc_min_width (HTMLObject *o,
 	HTMLObject *obj;
 	gint minWidth;
 
+	if (HTML_TABLE_CELL (o)->no_wrap)
+		return html_object_calc_preferred_width (o, painter);
+
 	minWidth = 0; 
 	for (obj = HTML_CLUE (o)->head; obj != NULL; obj = obj->next) {
 		gint w;

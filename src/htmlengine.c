@@ -822,7 +822,6 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	gboolean firstRow = TRUE;
 	gboolean noCell = TRUE;
 	gboolean tableEntry;
-	gboolean noWrap_save;
 	HTMLVAlignType rowvalign = HTML_VALIGN_NONE;
 	HTMLHAlignType rowhalign = HTML_HALIGN_NONE;
 	HTMLHAlignType align = HTML_HALIGN_NONE;
@@ -840,6 +839,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	gint cellheight;
 	gboolean cellwidth_percent;
 	gboolean cellheight_percent;
+	gboolean no_wrap;
 	gboolean fixedWidth;
 	gboolean fixedHeight;
 	HTMLVAlignType valign;
@@ -858,8 +858,6 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	have_bgColor = FALSE;
 
 	gtk_html_debug_log (e->widget, "start parse\n");
-
-	noWrap_save = e->noWrap;
 
 	html_string_tokenizer_tokenize (e->st, attr, " >");
 	while (html_string_tokenizer_has_more_tokens (e->st)) {
@@ -970,7 +968,6 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 						html_object_destroy (HTML_OBJECT (table));
 						e->divAlign = olddivalign;
 						e->flow = HTML_OBJECT (oldflow);
-						e->noWrap = noWrap_save;
 
 						return 0;
 					}
@@ -1050,13 +1047,13 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 						firstRow = FALSE;
 					}
 
+					no_wrap     = FALSE;
 					rowSpan     = 1;
 					colSpan     = 1;
 					cellwidth   = clue->max_width;
 					cellheight  = -1;
 					fixedWidth  = FALSE;
 					fixedHeight = FALSE;
-					e->noWrap   = FALSE;
 
 					if (have_rowColor) {
 						bgColor = rowColor;
@@ -1146,8 +1143,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 											     &bgColor);
 							}
 							else if (strncasecmp (token, "nowrap", 6) == 0) {
-
-								e->noWrap = TRUE;
+								no_wrap = TRUE;
 							}
 							else if (strncasecmp (token, "background=", 11) == 0
 								 && token [12]
@@ -1162,16 +1158,13 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 						}
 					}
 
-					if (e->noWrap) {
-						push_clueflow_style (e, HTML_CLUEFLOW_STYLE_NOWRAP);
-					}
-
 					if (e->pending_para) {
 						insert_paragraph_break (e, clue);
 						e->pending_para = FALSE;
 					}
 
 					cell = HTML_TABLE_CELL (html_table_cell_new (rowSpan, colSpan, padding));
+					cell->no_wrap = no_wrap;
 					html_object_set_bg_color (HTML_OBJECT (cell),
 								  have_bgColor ? &bgColor : NULL);
 
@@ -1233,14 +1226,8 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 						html_object_destroy (HTML_OBJECT (table));
 						e->divAlign = olddivalign;
 						e->flow = HTML_OBJECT (oldflow);
-						e->noWrap = noWrap_save;
 
 						return 0;
-					}
-					if (e->noWrap) {
-
-						e->noWrap = FALSE;
-						pop_clueflow_style (e);
 					}
 
 					if ((strncmp (str, "</td", 4) == 0) ||
@@ -1295,8 +1282,6 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 		html_object_destroy (HTML_OBJECT (table));
 	}
 
-	e->noWrap = noWrap_save;
-	
 	gtk_html_debug_log (e->widget, "Returning: %s\n", str);
 	return str;
 }
@@ -3355,7 +3340,6 @@ html_engine_init (HTMLEngine *engine)
 	engine->bottomBorder = BOTTOM_BORDER;
 
 	engine->inPre = FALSE;
-	engine->noWrap = FALSE;
 	engine->inTitle = FALSE;
 
 	engine->tempStrings = NULL;

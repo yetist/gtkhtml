@@ -167,7 +167,6 @@ struct _HTMLEngine {
 	HTMLTextArea *formTextArea;
 	GList *formList;
 	GString *formText;
-	gboolean noWrap;
 
 	/* This is TRUE if we cannot insert a paragraph break (which is just an
            extra empty line).  It's set to FALSE as soon as some element is
