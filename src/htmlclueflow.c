@@ -1138,7 +1138,7 @@ draw_quotes (HTMLObject *self, HTMLPainter *painter,
 	     gint tx, gint ty)
 {
 	HTMLClueFlow *flow;
-	ArtIRect paint, area, clip;
+	GdkRectangle paint, area, clip;
 	int i;
 	int indent = 0;
 	int last_indent = 0;
@@ -1151,23 +1151,22 @@ draw_quotes (HTMLObject *self, HTMLPainter *painter,
 		html_painter_set_pen (painter, &html_colorset_get_color_allocated (painter, HTMLLinkColor)->color);
 		if (is_cite (flow, i)) {
 			if (!HTML_IS_PLAIN_PAINTER (painter)) {
-				area.x0 = self->x + indent - 5;
-				area.x1 = area.x0 + 2;
-				area.y0 = self->y - self->ascent;
-				area.y1 = self->y + self->descent;
+				area.x = self->x + indent - 5;
+				area.width =  2;
+				area.y = self->y - self->ascent;
+				area.height = self->ascent + self->descent;
 				
-				clip.x0 = x;
-				clip.x1 = x + width;
-				clip.y0 = y;
-				clip.y1 = y + height;
+				clip.x = x;
+				clip.width = width;
+				clip.y = y;
+				clip.height = height;
 				
-				art_irect_intersect (&paint, &clip, &area);
-				if (art_irect_empty (&paint))
+				if (!gdk_rectangle_intersect (&clip, &area, &paint))
 					return;
-				
+
 				html_painter_fill_rect (painter, 
-							paint.x0 + tx, paint.y0 + ty,
-							paint.x1 - paint.x0, paint.y1 - paint.y0);
+							paint.x + tx, paint.y + ty,
+							paint.width, paint.height);
 			} else {
 				HTMLObject *cur = HTML_CLUE (self)->head;
 				gint baseline = 0;

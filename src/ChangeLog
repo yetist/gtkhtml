@@ -1,3 +1,11 @@
+2002-11-05  Larry Ewing  <lewing@ximian.com>
+
+	* htmlgdkpainter.c (draw_background): use GdkRectangles instead of
+	ArtIRects, support full alpha on table and body bg images.
+	(draw_pixmap): use GdkRectangles.
+
+	* htmlclueflow.c (draw_quotes): use GdkRectangles.
+
 2002-11-05  Radek Doulik  <rodo@ximian.com>
 
 	* htmlframe.c (frame_submit): use g_signal_emit_by_name
