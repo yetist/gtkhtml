@@ -12,6 +12,8 @@ icons_DATA = \
 	insert-image-24.png		\
 	insert-link-16.png		\
 	insert-link-24.png		\
+	insert-rule-16.png		\
+	insert-rule-24.png		\
 	search-24.png			\
 	search-and-replace-24.png	\
 	html-viewer.png			\
