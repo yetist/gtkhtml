@@ -23,7 +23,10 @@
 
 */
 
+#ifdef HAVE_CONFIG_H
 #include <config.h>
+#endif
+
 #include <string.h>
 #include <gnome.h>
 #include <bonobo.h>
@@ -767,8 +770,10 @@ main (int argc, char **argv)
 	bindtextdomain(GTKHTML_RELEASE_STRING, GNOMELOCALEDIR);
 	textdomain(GTKHTML_RELEASE_STRING);
 
-	if (!bonobo_ui_init ("gnome-gtkhtml-editor", VERSION, &argc, argv))
-		g_error (_("I could not initialize Bonobo"));
+	gnome_program_init(PACKAGE, VERSION, LIBGNOMEUI_MODULE, argc, argv, 
+			   GNOME_PROGRAM_STANDARD_PROPERTIES,
+			   GNOME_PARAM_HUMAN_READABLE_NAME, _("GtkHTML Editor Control"),			   
+			   NULL);
 
 	/* #ifdef GTKHTML_HAVE_GCONF
 	if (!gconf_init (argc, argv, &gconf_error)) {

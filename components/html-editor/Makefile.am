@@ -17,6 +17,10 @@ CFLAGS += \
 	-DGDK_DISABLE_DEPRECATED=1			\
 	-DG_DISABLE_DEPRECATED=1			\
 	-DGNOME_DISABLE_DEPRECATED=1			\
+	-DPREFIX=\""$(prefix)"\"			\
+	-DSYSCONFDIR=\""$(sysconfdir)"\"		\
+	-DDATADIR=\""$(datadir)"\"			\
+	-DLIBDIR=\""$(datadir)"\"			\
 	-DBONOBO_DISABLE_DEPRECATED=1
 
 # CORBA stuff

@@ -1,5 +1,7 @@
 2003-03-03  Larry Ewing  <lewing@ximian.com>
 
+	* Makefile.am: add defines that gnome_program_init wants.
+
 	* popup.c: remove debug define.
 
 2003-02-28  Larry Ewing  <lewing@ximian.com>
