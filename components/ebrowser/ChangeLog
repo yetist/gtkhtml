@@ -1,3 +1,9 @@
+2000-10-28  Lauris Kaplinski  <lauris@helixcode.com>
+
+	* ebrowser-widget.c (ebrowser_body_connect): Use strncmp, not strcmp
+
+	* eloader-http.c: Set cache size back to 1 megabyte
+
 2000-10-27  Maciej Stachowiak  <mjs@eazel.com>
 
 	* ebrowser.oafinfo: Made list of interfaces more complete, added

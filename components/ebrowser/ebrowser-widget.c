@@ -667,18 +667,18 @@ ebrowser_body_connect (ELoader * el, const gchar * url, const gchar * content_ty
 
 	proto = ebrowser_find_protocol (url, &location);
 
-	if (strcmp (content_type, "text/html") == 0) {
+	if (strncmp (content_type, "text/html", 9) == 0) {
 		GtkHTMLStream * stream;
 		/* We are std HTML, so give main stream to loader */
 		stream = gtk_html_begin (GTK_HTML (ebr));
 		eloader_set_stream (el, stream);
 	} else {
 		/* We are not the simplest case */
-		if ((strcmp (content_type, "image/jpeg") == 0) ||
-		    (strcmp (content_type, "image/x-bmp") == 0) ||
-		    (strcmp (content_type, "image/x-png") == 0) ||
-		    (strcmp (content_type, "image/x-pixmap") == 0) ||
-		    (strcmp (content_type, "image/gif") == 0)) {
+		if ((strncmp (content_type, "image/jpeg", 10) == 0) ||
+		    (strncmp (content_type, "image/x-bmp", 11) == 0) ||
+		    (strncmp (content_type, "image/x-png", 11) == 0) ||
+		    (strncmp (content_type, "image/x-pixmap", 14) == 0) ||
+		    (strncmp (content_type, "image/gif", 9) == 0)) {
 			GtkHTMLStream * stream;
 			gchar * str = g_strdup_printf ("<html><head><title>%s</title></head>"
 						       "<body><img src=\"internal:%s\"></body></html>",
@@ -688,7 +688,7 @@ ebrowser_body_connect (ELoader * el, const gchar * url, const gchar * content_ty
 			stream = gtk_html_begin (GTK_HTML (ebr));
 			gtk_html_stream_write (stream, str, strlen (str));
 			gtk_html_stream_close (stream, GTK_HTML_STREAM_OK);
-		} else if (strcmp (content_type, "text/plain") == 0) {
+		} else if (strncmp (content_type, "text/plain", 10) == 0) {
 			GtkHTMLStream * stream;
 			gchar * str = g_strdup_printf ("<html><head><title>%s</title></head>"
 						       "<body><pre>\n",

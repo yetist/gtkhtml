@@ -25,7 +25,7 @@
 #include "e-cache.h"
 #include "eloader-http.h"
 
-#define ELH_CACHE_SIZE (1 * 1)
+#define ELH_CACHE_SIZE (1024 * 1024)
 
 #define EL_DEBUG(str,section) if (FALSE) g_print ("%s:%d (%s) %s\n", __FILE__, __LINE__, __FUNCTION__, str);
 
