@@ -632,6 +632,18 @@ calc_size (HTMLObject *o,
 			runWidth = 0;
 			run = obj;
 			
+			if (lmargin >= rmargin) {
+				gint new_y;
+
+				html_object_calc_size (run, painter);
+				html_clue_find_free_area (HTML_CLUE (o->parent), o->y, run->min_width,
+							  run->ascent + run->descent, indent, &new_y,
+							  &lmargin, &rmargin);
+				o->ascent += new_y - o->y;
+				o->y       = new_y;
+				w          = lmargin;
+			}
+
 			while ( run
 				&& ! (run->flags & HTML_OBJECT_FLAG_SEPARATOR)
 				&& ! (run->flags & HTML_OBJECT_FLAG_NEWLINE)
@@ -748,14 +760,15 @@ calc_size (HTMLObject *o,
 					w = set_line_x (&obj, run, w, &changed);
 					/* we've used up this line so insert a newline */
 					newLine = TRUE;
-				}
-				lmargin = html_object_get_left_margin (o->parent, painter, o->y);
-				
-				if (indent > lmargin)
-					lmargin = indent;
 
-				/* rmargin = html_object_get_right_margin (o->parent, painter, o->y); */
-				rmargin = pref_right_margin (painter, HTML_CLUEFLOW (o), o->parent, o->y);
+					lmargin = html_object_get_left_margin (o->parent, painter, o->y);
+				
+					if (indent > lmargin)
+						lmargin = indent;
+
+				        /* rmargin = html_object_get_right_margin (o->parent, painter, o->y); */
+					rmargin = pref_right_margin (painter, HTML_CLUEFLOW (o), o->parent, o->y);
+				}
 			}
 		}
 		
@@ -769,7 +782,7 @@ calc_size (HTMLObject *o,
 			halign = html_clueflow_get_halignment (flow);
 
 			if (w > o->width)
-				o->width = MIN (w, o->max_width);
+				o->width = w; // MIN (w, o->max_width);
 
 			if (halign == HTML_HALIGN_CENTER) {
 				extra = (rmargin - w) / 2;

@@ -1,3 +1,25 @@
+2001-09-14  Radek Doulik  <rodo@ximian.com>
+
+	* htmlclueflow.c (calc_size): take care of case when lmargin >=
+	rmargin, could happen if there is wide aligned object, which takes
+	whole max_width, so we must find another free area, otherwise we
+	end in infinite loop, where width_left <= 0
+	(calc_size): recalc margins only if area was sufficient, in other
+	case we have already calculated new and right margins and there
+	they were recalculated to wrong values, which could trap us in an
+	infinite loop
+
+	* htmltextslave.c(slave_split_if_too_long): new function, use
+	html_object_calc_abs_position to calc absolute slave position and
+	bound width by MAX_WIDGET_WIDTH - x
+	(calc_size): if slave width > max_width, use slave_split_if_too_long
+
+	* htmlengine.c (html_engine_calc_size): don't use min_width as
+	lower bound of max_width
+
+	* htmltable.c (html_table_set_max_width): calc max_width as MAX
+	(max_width, min_width)
+
 2001-09-13  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine-save.c (html_engine_save_encode): actually free the

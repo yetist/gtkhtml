@@ -1465,11 +1465,9 @@ html_table_set_max_width (HTMLObject *o,
 	HTMLTable *table = HTML_TABLE (o);
 	gint *max_size, pixel_size, glue, border_extra = table->border ? 2 : 0;
 
-	html_object_calc_min_width (HTML_OBJECT (table), painter);
-
 	/* printf ("max_width: %d\n", max_width); */
 	pixel_size   = html_painter_get_pixel_size (painter);
-	o->max_width = max_width;
+	o->max_width = MAX (html_object_calc_min_width (o, painter), max_width);
 	max_width    = o->flags & HTML_OBJECT_FLAG_FIXEDWIDTH
 		? max_width = pixel_size * table->specified_width
 		: (o->percent

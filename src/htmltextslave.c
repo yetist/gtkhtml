@@ -150,6 +150,23 @@ get_offset_for_bounded_width (HTMLTextSlave *slave, HTMLPainter *painter, gint *
 	return len;
 }
 
+static void
+slave_split_if_too_long (HTMLTextSlave *slave, HTMLPainter *painter, gint *width) {
+	gint x, y;
+
+	html_object_calc_abs_position (HTML_OBJECT (slave), &x, &y);
+
+	if (*width + x > MAX_WIDGET_WIDTH && slave->posLen > 1) {
+		gint words, pos;
+
+		pos = get_offset_for_bounded_width (slave, painter, &words, MAX_WIDGET_WIDTH - x);
+		if (pos > 0 && pos < slave->posLen) {
+			split (slave, pos, slave->start_word + words);
+			*width = MAX (1, calc_width (slave, painter));
+		}
+	}
+}
+
 static gboolean
 calc_size (HTMLObject *self,
 	   HTMLPainter *painter)
@@ -181,15 +198,8 @@ calc_size (HTMLObject *self,
 	}
 
 	new_width = MAX (1, calc_width (slave, painter));
-	if (new_width > HTML_OBJECT (owner)->max_width && slave->posLen > 1) {
-		gint words, pos;
-
-		pos = get_offset_for_bounded_width (slave, painter, &words, HTML_OBJECT (owner)->max_width);
-		if (pos > 0) {
-			split (slave, pos, slave->start_word + words);
-			new_width = MAX (1, calc_width (slave, painter));
-		}
-	}
+	if (new_width > HTML_OBJECT (owner)->max_width)
+		slave_split_if_too_long (slave, painter, &new_width);
 
 	changed = FALSE;
 
