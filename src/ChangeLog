@@ -1,5 +1,7 @@
 2001-10-29  Radek Doulik  <rodo@ximian.com>
 
+	* htmlprinter.c: use gnome_font_get_width_utf8_sized
+
 	* htmlobject.c (html_object_cursor_backward): handle aligned clues
 
 	* htmlengine.c (html_engine_calc_min_width): use pixel_size

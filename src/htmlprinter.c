@@ -555,7 +555,7 @@ draw_text (HTMLPainter *painter,
 		gnome_print_setlinewidth (printer->print_context, 1.0);
 		gnome_print_setlinecap (printer->print_context, GDK_CAP_BUTT);
 
-		text_width = gnome_font_get_width_string_n (font, text, len);
+		text_width = gnome_font_get_width_utf8_sized (font, text, len);
 		if (painter->font_style & GTK_HTML_FONT_STYLE_UNDERLINE) {
 			descender = gnome_font_get_descender (font);
 			y = print_y + gnome_font_get_underline_position (font);
@@ -674,7 +674,7 @@ calc_text_width (HTMLPainter *painter,
 	font = html_painter_get_font (painter, face, style);
 	g_return_val_if_fail (font != NULL, 0);
 
-	width = gnome_font_get_width_string_n (font, text, len);
+	width = gnome_font_get_width_utf8_sized (font, text, len);
 
 	return SCALE_GNOME_PRINT_TO_ENGINE (width);
 }
@@ -735,7 +735,7 @@ alloc_font (HTMLPainter *painter, gchar *face, gdouble size, gboolean points, Gt
 		}
 	}
 
-	return font ? html_font_new (font, gnome_font_get_width_string_n (font, " ", 1)) : NULL;
+	return font ? html_font_new (font, gnome_font_get_width_utf8_sized (font, " ", 1)) : NULL;
 }
 
 static void
