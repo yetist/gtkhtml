@@ -481,8 +481,9 @@ html_engine_insert_link (HTMLEngine  *e, const gchar *text, const gchar *href)
 {
 	HTMLObject *link;
 
-	link  = html_link_text_master_new (text, e->insertion_font_style, &e->settings->linkColor,
-					  href, NULL);
+	link  = html_link_text_master_new (text, e->insertion_font_style,
+					   html_settings_get_color (e->settings, HTMLLinkColor),
+					   href, NULL);
 
 	html_engine_paste_object (e, link,  TRUE);
 	html_object_destroy (link);

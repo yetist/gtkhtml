@@ -426,7 +426,7 @@ html_painter_set_clip_rectangle (HTMLPainter *painter,
 /* Passing 0 for pix_width / pix_height makes it use the image width */
 void
 html_painter_draw_background (HTMLPainter *painter,
-			      GdkColor *color,
+			      const GdkColor *color,
 			      GdkPixbuf *pixbuf,
 			      gint x, gint y,
 			      gint width, gint height,

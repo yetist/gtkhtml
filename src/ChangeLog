@@ -1,3 +1,31 @@
+2000-04-30  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlpainter.c (html_painter_draw_background): added const to
+	color arg
+
+	* htmlengine.h: removed bgColor and bgColor_allocated
+
+	* gtkhtml.c (gtk_html_set_default_background_color): use new settings
+
+	* htmlengine-edit-insert.c (html_engine_insert_link): use new settings
+
+	* htmlsettings.c (html_settings_reset): new function used to reset
+	values (now only collors) from orig settings
+
+	* htmlengine.c (parse_b): update to new settings
+	(parse_b): added alink color parsing
+	(html_engine_parse): updated for new settings
+	(html_engine_draw_background): likewise
+	(html_engine_queue_clear): likewise
+
+	* htmlsettings.c (html_settings_set_color): new function for color setting
+	(html_settings_get_color): get color (possibly unallocated)
+	(html_settings_get_color_allocated): get allocated color
+	(html_settings_free_colors): free colors scheduled to be freed and
+	possibly also other colors
+
+	* htmlsettings.h: added alink and text color
+
 2000-04-29  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlengine-edit-insert.c

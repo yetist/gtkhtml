@@ -170,7 +170,7 @@ current_color (HTMLEngine *e)
 	const GdkColor *color;
 
 	if (html_stack_is_empty (e->color_stack))
-		color = & e->settings->fontBaseColor;
+		color = html_settings_get_color (e->settings, HTMLTextColor);
 	else
 		color = html_stack_top (e->color_stack);
 
@@ -179,9 +179,9 @@ current_color (HTMLEngine *e)
 
 static void
 push_color (HTMLEngine *e,
-	    GdkColor *color)
+	   const  GdkColor *color)
 {
-	html_stack_push (e->color_stack, color);
+	html_stack_push (e->color_stack, (gpointer) color);
 }
 
 static void
@@ -1433,7 +1433,7 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 			}
 
 			if (e->url != NULL || e->target != NULL)
-				push_color (e, & e->settings->linkColor);
+				push_color (e, html_settings_get_color (e->settings, HTMLLinkColor));
 		} else if ( strncmp( str, "/a", 2 ) == 0 ) {
 			close_anchor (e);
 		}
@@ -1454,6 +1454,8 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 static void
 parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
+	GdkColor color;
+
 	if (strncmp (str, "basefont", 8) == 0) {
 	}
 	else if ( strncmp(str, "base", 4 ) == 0 ) {
@@ -1482,9 +1484,6 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		e->avoid_para = TRUE;
 		pop_block (e, ID_BLOCKQUOTE, clue);
 	} else if (strncmp (str, "body", 4) == 0) {
-		GdkColor bgColor;
-		gboolean bgColorSet = FALSE;
-
 		html_string_tokenizer_tokenize (e->st, str + 5, " >");
 		while (html_string_tokenizer_has_more_tokens (e->st)) {
 			gchar *token;
@@ -1494,9 +1493,9 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 
 			if (strncasecmp (token, "bgcolor=", 8) == 0) {
 				gtk_html_debug_log (e->widget, "setting color\n");
-				if (parse_color (token + 8, &bgColor)) {
+				if (parse_color (token + 8, &color)) {
 					gtk_html_debug_log (e->widget, "bgcolor is set\n");
-					bgColorSet = TRUE;
+					html_settings_set_color (e->settings, HTMLBgColor, &color);
 				} else {
 					gtk_html_debug_log (e->widget, "Color `%s' could not be parsed\n", token);
 				}
@@ -1511,17 +1510,24 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 				g_free (bgurl);
 			} else if ( strncasecmp( token, "text=", 5 ) == 0
 				    && !e->defaultSettings->forceDefault ) {
-				if (parse_color (token + 5, &e->settings->fontBaseColor)) {
+				if (parse_color (token + 5, &color)) {
 					if (! html_stack_is_empty (e->color_stack))
 						pop_color (e);
-					push_color (e, gdk_color_copy (&e->settings->fontBaseColor));
+					html_settings_set_color (e->settings, HTMLTextColor, &color);
+					push_color (e, gdk_color_copy (&color));
 				}
 			} else if ( strncasecmp( token, "link=", 5 ) == 0
 				    && !e->defaultSettings->forceDefault ) {
-				parse_color (token + 5, &e->settings->linkColor);
+				parse_color (token + 5, &color);
+				html_settings_set_color (e->settings, HTMLLinkColor, &color);
 			} else if ( strncasecmp( token, "vlink=", 6 ) == 0
 				    && !e->defaultSettings->forceDefault ) {
-				parse_color (token + 6, &e->settings->vLinkColor);
+				parse_color (token + 6, &color);
+				html_settings_set_color (e->settings, HTMLVLinkColor, &color);
+			} else if ( strncasecmp( token, "alink=", 6 ) == 0
+				    && !e->defaultSettings->forceDefault ) {
+				parse_color (token + 6, &color);
+				html_settings_set_color (e->settings, HTMLALinkColor, &color);
 			} else if ( strncasecmp( token, "leftmargin=", 11 ) == 0) {
 				e->leftBorder = atoi (token + 11);
 			} else if ( strncasecmp( token, "rightmargin=", 12 ) == 0) {
@@ -1534,14 +1540,6 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 				e->leftBorder = e->rightBorder = atoi (token + 12);
 			} else if ( strncasecmp( token, "marginheight=", 13 ) == 0) {
 				e->topBorder = e->bottomBorder = atoi (token + 13);
-			}
-		}
-
-		if (bgColorSet) {
-			if (! gdk_color_equal (&bgColor, &e->bgColor)) {
-				/* FIXME dealloc existing color? */
-				e->bgColor_allocated = FALSE;
-				e->bgColor = bgColor;
 			}
 		}
 
@@ -2911,8 +2909,6 @@ html_engine_init (HTMLEngine *engine)
 	engine->formList = NULL;
 	engine->reference = NULL;
 
-	engine->bgColor_allocated = FALSE;
-
 	engine->avoid_para = TRUE;
 	engine->pending_para = FALSE;
 
@@ -3012,12 +3008,6 @@ html_engine_draw_background (HTMLEngine *e,
 	HTMLImagePointer *bgpixmap;
 	GdkPixbuf *pixbuf = NULL;
 
-	/* draw bgColor */
-	if (! e->bgColor_allocated) {
-		html_painter_alloc_color (e->painter, &e->bgColor);
-		e->bgColor_allocated = TRUE;
-	}
-
 	/* return if no background pixmap is set */
 	bgpixmap = e->bgPixmapPtr;
 	if (bgpixmap && bgpixmap->pixbuf) {
@@ -3025,7 +3015,7 @@ html_engine_draw_background (HTMLEngine *e,
 	}
 
 	html_painter_draw_background (e->painter, 
-				      &e->bgColor,
+				      html_settings_get_color_allocated (e->settings, HTMLBgColor, e->painter),
 				      pixbuf,
 				      x, y,
 				      w, h,
@@ -3273,7 +3263,7 @@ ensure_last_clueflow (HTMLEngine *engine)
 
 	new_textmaster = html_text_master_new ("",
 					       GTK_HTML_FONT_STYLE_DEFAULT,
-					       & engine->settings->fontBaseColor);
+					       html_settings_get_color (engine->settings, HTMLTextColor));
 	html_clue_prepend (last_clueflow, new_textmaster);
 }
 
@@ -3428,6 +3418,9 @@ html_engine_parse (HTMLEngine *p)
 	p->rightBorder  = RIGHT_BORDER;
 	p->topBorder    = TOP_BORDER;
 	p->bottomBorder = BOTTOM_BORDER;
+
+	/* reset settings to default ones */
+	html_settings_reset (p->settings, p->defaultSettings, p->painter);
 		
 	p->clue = html_cluev_new (0, 0, 100);
 	HTML_CLUE (p->clue)->valign = HTML_VALIGN_TOP;
@@ -3440,12 +3433,6 @@ html_engine_parse (HTMLEngine *p)
 		html_image_factory_unregister(p->image_factory, p->bgPixmapPtr, NULL);
 		p->bgPixmapPtr = NULL;
 	}
-
-	if (p->bgColor_allocated) {
-		html_painter_free_color (p->painter, &p->bgColor);
-		p->bgColor_allocated = FALSE;
-	}
-	p->bgColor = p->settings->bgColor;
 
 	p->parsing = TRUE;
 	p->avoid_para = TRUE;
@@ -3651,7 +3638,8 @@ html_engine_queue_clear (HTMLEngine *e,
 	g_return_if_fail (e != NULL);
 
 	if (e->freeze_count == 0)
-		html_draw_queue_add_clear (e->draw_queue, x, y, width, height, &e->bgColor);
+		html_draw_queue_add_clear (e->draw_queue, x, y, width, height,
+					   html_settings_get_color (e->settings, HTMLBgColor));
 }
 
 

@@ -161,10 +161,10 @@ struct _HTMLEngine {
         gpointer bgPixmapPtr;
   
 	/* The background color */
-	GdkColor bgColor;
+	/* GdkColor bgColor; */
 
 	/* Whether the background color has been allocated in the painter.  */
-	gboolean bgColor_allocated;
+	/* gboolean bgColor_allocated; */
 
 	/* Stack of lists currently active */
 	HTMLStack *listStack;

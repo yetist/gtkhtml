@@ -722,7 +722,7 @@ motion_notify_event (GtkWidget *widget,
 					     event->y + engine->y_offset);
 		return TRUE;
 	}
-		
+
 	if (obj != NULL)
 		url = html_object_get_url (obj);
 	else
@@ -1501,5 +1501,5 @@ gtk_html_redo (GtkHTML *html)
 void
 gtk_html_set_default_background_color (GtkHTML *html, GdkColor *c)
 {
-	html_settings_set_bgcolor (html->engine->settings, c);
+	html_settings_set_color (html->engine->settings, HTMLBgColor, c);
 }
