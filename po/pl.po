@@ -1,0 +1,511 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: gtkhtml\n"
+"POT-Creation-Date: 2000-10-17 02:54+0200\n"
+"PO-Revision-Date: 2000-10-18 18:03+0200\n"
+"Last-Translator: GNOME PL Team <translators@gnome.pl>\n"
+"Language-Team: Polish <pl@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-2\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: capplet/gnome-bindings-prop.c:1 capplet/gnome-bindings-prop.c:1
+#: capplet/gnome-bindings-prop.c:1 capplet/gnome-bindings-prop.c:1
+#: capplet/gnome-bindings-prop.c:1
+msgid "<None>"
+msgstr "<Brak>"
+
+#: capplet/gnome-bindings-prop.c:1
+msgid "Key"
+msgstr "Klawisz"
+
+#: capplet/gnome-bindings-prop.c:1
+msgid "Command"
+msgstr "Polecenie"
+
+#: capplet/gnome-bindings-prop.c:1
+msgid "Commands"
+msgstr "Polecenia"
+
+#: capplet/gnome-bindings-prop.c:1
+msgid "Keymaps"
+msgstr "Mapy klawiatury"
+
+#: capplet/gnome-bindings-prop.c:1
+msgid "Add"
+msgstr "Dodaj"
+
+#: capplet/gnome-bindings-prop.c:1
+#: components/html-editor/test-html-editor-control.c:1
+#: components/html-editor/toolbar.c:1
+msgid "Copy"
+msgstr "Kopiuj"
+
+#: capplet/gnome-bindings-prop.c:1
+msgid "Delete"
+msgstr "Usuñ"
+
+#: capplet/gnome-bindings-prop.c:1
+msgid "Grab key"
+msgstr "Przechwyæ klawisz"
+
+#: capplet/main.c:1
+msgid "Spell checking"
+msgstr "Sprawdzanie pisowni"
+
+#: capplet/main.c:1
+msgid "live spell checking"
+msgstr "Sprawdzanie w tle"
+
+#: capplet/main.c:1
+msgid "spell checking color"
+msgstr "Kolor wykorzystywany pry sprawdzaniu pisowni"
+
+#: capplet/main.c:1
+msgid "language"
+msgstr "jêzyk"
+
+#: capplet/main.c:1
+msgid "Miscellaneous"
+msgstr "Ró¿ne"
+
+#: capplet/main.c:1
+msgid "magic links"
+msgstr "Magiczne odno¶niki"
+
+#: capplet/main.c:1
+msgid "Bindings"
+msgstr "Powi±zania"
+
+#: capplet/main.c:1 capplet/viewer.c:1
+msgid "Behaviour"
+msgstr "Zachowanie"
+
+#: capplet/viewer.c:1
+msgid "Appearance"
+msgstr "Wygl±d"
+
+#: capplet/viewer.c:1
+msgid "Variable width font"
+msgstr "Czcionka o zmiennej szeroko¶ci"
+
+#: capplet/viewer.c:1
+msgid "Select HTML variable width font"
+msgstr "Wybór czcionki o zmiennej szeroko¶ci"
+
+#: capplet/viewer.c:1 capplet/viewer.c:1
+msgid "for printing"
+msgstr "do drukowania"
+
+#: capplet/viewer.c:1
+msgid "Select HTML variable width font for printing"
+msgstr "Wybór czcionki o zmiennej szeroko¶ci do drukowania"
+
+#: capplet/viewer.c:1
+msgid "Fixed width font"
+msgstr "Czcionka o sta³ej szeroko¶ci"
+
+#: capplet/viewer.c:1
+msgid "Select HTML fixed width font"
+msgstr "Wybór czcionki o sta³ej szeroko¶ci"
+
+#: capplet/viewer.c:1
+msgid "Select HTML fixed width font for printing"
+msgstr "Wybór czcionki o sta³ej szeroko¶ci do drukowania"
+
+#: capplet/viewer.c:1
+msgid "Animations"
+msgstr "Animacje"
+
+#: components/html-editor/body.c:1
+msgid "use background image"
+msgstr "Wykorzystanie obrazu w tle"
+
+#: components/html-editor/body.c:1
+msgid "Background image"
+msgstr "Obraz w tle"
+
+#: components/html-editor/body.c:1
+msgid "Colors"
+msgstr "Kolory"
+
+#: components/html-editor/editor-control-factory.c:1
+#: components/html-editor/popup.c:1
+msgid "Properties"
+msgstr "W³a¶ciwo¶ci"
+
+#: components/html-editor/editor-control-factory.c:1
+#: components/html-editor/menubar.c:1 components/html-editor/popup.c:1
+msgid "Image"
+msgstr "Obraz"
+
+#: components/html-editor/editor-control-factory.c:1
+#: components/html-editor/menubar.c:1 components/html-editor/popup.c:1
+msgid "Text"
+msgstr "Tekst"
+
+#: components/html-editor/editor-control-factory.c:1
+#: components/html-editor/menubar.c:1 components/html-editor/popup.c:1
+msgid "Rule"
+msgstr "Linia"
+
+#: components/html-editor/editor-control-factory.c:1
+#: components/html-editor/popup.c:1
+msgid "Paragraph"
+msgstr "Akapit"
+
+#: components/html-editor/editor-control-factory.c:1
+#: components/html-editor/menubar.c:1 components/html-editor/menubar.c:1
+#: components/html-editor/popup.c:1
+msgid "Link"
+msgstr "Odno¶nik"
+
+#: components/html-editor/editor-control-factory.c:1
+#: components/html-editor/popup.c:1
+msgid "Page"
+msgstr "Strona"
+
+#: components/html-editor/image.c:1
+msgid "Image selection"
+msgstr "Wybór obrazu"
+
+#: components/html-editor/image.c:1
+msgid "Alignment"
+msgstr "Wyrównanie"
+
+#: components/html-editor/image.c:1
+msgid "Border"
+msgstr "Krawêd¼"
+
+#: components/html-editor/image.c:1
+msgid "Padding"
+msgstr "Wy¶ció³ka"
+
+#: components/html-editor/image.c:1 components/html-editor/rule.c:1
+#: components/html-editor/text.c:1
+msgid "Size"
+msgstr "Rozmiar"
+
+#: components/html-editor/link.c:1
+msgid "Clear"
+msgstr "Wyczy¶æ"
+
+#: components/html-editor/link.c:1
+msgid "URL"
+msgstr "URL"
+
+#: components/html-editor/main.c:1
+msgid "Could not initialize GNORBA"
+msgstr "Nie mo¿na zainicjowaæ Gnorby"
+
+#: components/html-editor/main.c:1
+msgid "Could not initialize Bonobo"
+msgstr "Nie mo¿na zainicjowaæ Bonobo"
+
+#: components/html-editor/menubar.c:1 components/html-editor/menubar.c:1
+#: components/html-editor/menubar.c:1
+#: components/html-editor/properties.c:1
+msgid "Insert"
+msgstr "Wstaw"
+
+#: components/html-editor/menubar.c:1
+msgid "Cannot execute gtkhtml properties"
+msgstr "Nie mo¿na zastosowaæ w³a¶ciwo¶ci gtkhtml"
+
+#: components/html-editor/paragraph.c:1 components/html-editor/rule.c:1
+#: components/html-editor/text.c:1
+msgid "Style"
+msgstr "Styl"
+
+#: components/html-editor/paragraph.c:1 components/html-editor/rule.c:1
+msgid "Align"
+msgstr "Wyrównanie"
+
+#: components/html-editor/paragraph.c:1
+msgid "Left"
+msgstr "Do lewej"
+
+#: components/html-editor/paragraph.c:1 components/html-editor/toolbar.c:1
+msgid "Center"
+msgstr "Wy¶rodkowanie"
+
+#: components/html-editor/paragraph.c:1
+msgid "Right"
+msgstr "Do prawej"
+
+#: components/html-editor/popup.c:1
+msgid "Remove link"
+msgstr "Usuñ odno¶nik"
+
+#: components/html-editor/replace.c:1
+msgid "Replace confirmation"
+msgstr "Potwierdzenie zast±pienia"
+
+#: components/html-editor/replace.c:1 components/html-editor/replace.c:1
+#: components/html-editor/replace.c:1
+msgid "Replace"
+msgstr "Zast±p"
+
+#: components/html-editor/replace.c:1
+msgid "Replace all"
+msgstr "Zast±p wszystkie"
+
+#: components/html-editor/replace.c:1
+msgid "Next"
+msgstr "Nastêpne"
+
+#: components/html-editor/replace.c:1 components/html-editor/search.c:1
+msgid "search backward"
+msgstr "Wyszukiwanie wstecz"
+
+#: components/html-editor/replace.c:1 components/html-editor/search.c:1
+msgid "case sensitive"
+msgstr "Rozró¿nianie wielko¶ci liter"
+
+#: components/html-editor/replace.c:1
+msgid "with"
+msgstr "na"
+
+#: components/html-editor/rule.c:1
+msgid "shaded"
+msgstr "Cieniowana"
+
+#: components/html-editor/rule.c:1
+msgid "Weight"
+msgstr "Grubo¶æ"
+
+#: components/html-editor/rule.c:1
+msgid "Sample"
+msgstr "Próbka"
+
+#: components/html-editor/search.c:1
+msgid "Regex search"
+msgstr "Wyszukiwanie wg wyra¿enia równoleg³ego"
+
+#: components/html-editor/search.c:1
+msgid "Search"
+msgstr "Szukaj"
+
+#: components/html-editor/test-html-editor-control.c:1
+msgid "Open file..."
+msgstr "Otwórz plik..."
+
+#: components/html-editor/test-html-editor-control.c:1
+msgid "Save file as..."
+msgstr "Zapisz plik jako..."
+
+#: components/html-editor/test-html-editor-control.c:1
+msgid "Open (PersistFile)"
+msgstr "Otwórz (PersistFile)"
+
+#: components/html-editor/test-html-editor-control.c:1
+msgid "Open using the PersistFile interface"
+msgstr "Otwiera wykorzystuj±c interfejs PersistFile"
+
+#: components/html-editor/test-html-editor-control.c:1
+msgid "Save as... (PersistFile)"
+msgstr "Zapisz jako... (PersistFile)"
+
+#: components/html-editor/test-html-editor-control.c:1
+msgid "Save using the PersistFile interface"
+msgstr "Zapisuje wykorzystuj±c interfejs PersistFile"
+
+#: components/html-editor/test-html-editor-control.c:1
+msgid "Open (PersistStream)"
+msgstr "Otwórz (PersistStream)"
+
+#: components/html-editor/test-html-editor-control.c:1
+msgid "Open using the PersistStream interface"
+msgstr "Otwiera wykorzystuj±c interfejs PersistStream"
+
+#: components/html-editor/test-html-editor-control.c:1
+msgid "Save as... (PersistStream)"
+msgstr "Zapisz jako... (PersistStream)"
+
+#: components/html-editor/test-html-editor-control.c:1
+msgid "Save using the PersistStream interface"
+msgstr "Zapisuje wykorzystuj±c interfejs PersistStream"
+
+#: components/html-editor/test-html-editor-control.c:1
+#: components/html-editor/toolbar.c:1
+msgid "Cut"
+msgstr "Wytnij"
+
+#: components/html-editor/test-html-editor-control.c:1
+msgid "Cut selection to the clipboard"
+msgstr "Wycina zaznaczenie do schowka"
+
+#: components/html-editor/test-html-editor-control.c:1
+msgid "Copy selection to the clipboard"
+msgstr "Kopiuje zaznaczenie do schowka"
+
+#: components/html-editor/test-html-editor-control.c:1
+#: components/html-editor/toolbar.c:1
+msgid "Paste"
+msgstr "Wklej"
+
+#: components/html-editor/test-html-editor-control.c:1
+#: components/html-editor/toolbar.c:1
+msgid "Paste contents of the clipboard"
+msgstr "Wkleja zawarto¶æ schowka"
+
+#: components/html-editor/text.c:1 components/html-editor/toolbar.c:1
+msgid "Bold"
+msgstr "Pogrubienie"
+
+#: components/html-editor/text.c:1 components/html-editor/toolbar.c:1
+msgid "Italic"
+msgstr "Pochylenie"
+
+#: components/html-editor/text.c:1 components/html-editor/toolbar.c:1
+msgid "Underline"
+msgstr "Podkre¶lenie"
+
+#: components/html-editor/text.c:1 components/html-editor/toolbar.c:1
+msgid "Strikeout"
+msgstr "Przekre¶lenie"
+
+#: components/html-editor/text.c:1
+msgid "Color"
+msgstr "Kolor"
+
+#: components/html-editor/text.c:1
+msgid "text color"
+msgstr "Kolor tekstu"
+
+#: components/html-editor/toolbar.c:1
+msgid "Normal"
+msgstr "Zwyk³y"
+
+#: components/html-editor/toolbar.c:1
+msgid "Header 1"
+msgstr "Nag³ówek 1"
+
+#: components/html-editor/toolbar.c:1
+msgid "Header 2"
+msgstr "Nag³ówek 2"
+
+#: components/html-editor/toolbar.c:1
+msgid "Header 3"
+msgstr "Nag³ówek 3"
+
+#: components/html-editor/toolbar.c:1
+msgid "Header 4"
+msgstr "Nag³ówek 4"
+
+#: components/html-editor/toolbar.c:1
+msgid "Header 5"
+msgstr "Nag³ówek 5"
+
+#: components/html-editor/toolbar.c:1
+msgid "Header 6"
+msgstr "Nag³ówek 6"
+
+#: components/html-editor/toolbar.c:1
+msgid "Address"
+msgstr "Adres"
+
+#: components/html-editor/toolbar.c:1
+msgid "Pre"
+msgstr "Preformatowany"
+
+#: components/html-editor/toolbar.c:1
+msgid "List item (digit)"
+msgstr "Element listy (cyfry)"
+
+#: components/html-editor/toolbar.c:1
+msgid "List item (unnumbered)"
+msgstr "Element listy (bez numeracji)"
+
+#: components/html-editor/toolbar.c:1
+msgid "List item (roman)"
+msgstr "Element listy (rzymskie)"
+
+#: components/html-editor/toolbar.c:1
+msgid "Default"
+msgstr "Domy¶lny"
+
+#: components/html-editor/toolbar.c:1
+msgid "Left align"
+msgstr "Wyrównanie do lewej"
+
+#: components/html-editor/toolbar.c:1
+msgid "Left justify paragraphs"
+msgstr "Wyrównuje akapit do lewej"
+
+#: components/html-editor/toolbar.c:1
+msgid "Centers paragraphs"
+msgstr "Wy¶rodkowuje akapit"
+
+#: components/html-editor/toolbar.c:1
+msgid "Right align"
+msgstr "Wyrównanie do prawej"
+
+#: components/html-editor/toolbar.c:1
+msgid "Right justify paragraphs"
+msgstr "Wyrównuje akapit do prawej"
+
+#: components/html-editor/toolbar.c:1
+msgid "Cut the selected region to the clipboard"
+msgstr "Wycina zaznaczony obszar do schowka"
+
+#: components/html-editor/toolbar.c:1
+msgid "Copy the selected region to the clipboard"
+msgstr "Kopiuje zaznaczony obszar do schowka"
+
+#: components/html-editor/toolbar.c:1
+msgid "Undo"
+msgstr "Cofnij"
+
+#: components/html-editor/toolbar.c:1
+msgid "Undo last editor operation"
+msgstr "Cofa ostatni± operacjê"
+
+#: components/html-editor/toolbar.c:1
+msgid "Redo"
+msgstr "Ponów"
+
+#: components/html-editor/toolbar.c:1
+msgid "Redo undone editor operation"
+msgstr "Ponawia cofniêt± operacjê edytora"
+
+#: components/html-editor/toolbar.c:1
+msgid "Sets the bold font"
+msgstr "Ustawia czcionkê pogrubion±"
+
+#: components/html-editor/toolbar.c:1
+msgid "Make the selection italic"
+msgstr "Ustawia czcionkê pochylon±"
+
+#: components/html-editor/toolbar.c:1
+msgid "Make the selection underlined"
+msgstr "Ustawia czcionkê podkre¶lon±"
+
+#: components/html-editor/toolbar.c:1
+msgid "Make the selection striked out"
+msgstr "Ustawia czcionkê przekre¶lon±"
+
+#: components/html-editor/toolbar.c:1
+msgid "Unindent"
+msgstr "Zsuñ"
+
+#: components/html-editor/toolbar.c:1
+msgid "Indent paragraphs less"
+msgstr "Zmniejsza wsuniêcie akapitów"
+
+#: components/html-editor/toolbar.c:1
+msgid "Indent"
+msgstr "Wsuñ"
+
+#: components/html-editor/toolbar.c:1
+msgid "Indent paragraphs more"
+msgstr "Wsuwa akapity g³êbiej"
+
+#: src/testgtkhtml.c:1
+msgid "Print pre_view"
+msgstr "Podgl±d _wydruku"
+
+#: src/testgtkhtml.c:1
+msgid "Print preview"
+msgstr "Podgl±d wydruku"
