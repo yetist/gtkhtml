@@ -1,4 +1,10 @@
 2000-02-12  Joe Shaw <joe@helixcode.com>
+	* gtkhtml-embedded.c (gtk_html_set_parameter): g_strdup the parameter
+	name because we cannot assume that it won't be freed during the life
+	of the application.
+	* gtkhtml-embedded.c (free_param): Added freeing of the key.
+
+2000-02-12  Joe Shaw <joe@helixcode.com>
 	* gtkhtml.c (expose): Did the same thing as I did with the draw
 	method; see below.
 

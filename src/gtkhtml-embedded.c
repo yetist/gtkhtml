@@ -73,6 +73,7 @@ gtk_html_embedded_get_type (void)
 static void
 free_param(void *key, void *value, void *data)
 {
+	g_free(key);
 	g_free(value);
 }
 
@@ -227,7 +228,8 @@ gtk_html_embedded_set_parameter (GtkHTMLEmbedded *ge, char *param, char *value)
 {
 	if (param==0)
 		return;
-	g_hash_table_insert(ge->params, param, value?g_strdup(value):value);
+	g_hash_table_insert(ge->params, g_strdup(param), 
+			    value ? g_strdup(value) : NULL);
 }
 
 void
