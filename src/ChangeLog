@@ -1,3 +1,8 @@
+2002-10-12  Larry Ewing  <lewing@ximian.com>
+
+	* htmltokenizer.c (in_entity): make sure we don't write entity
+	that is our escape sequence to the stream. (fixes #26055)
+
 2002-10-09  Larry Ewing  <lewing@ximian.com>
 
 	* htmlclueflow.c (copy): copy the item_color.
