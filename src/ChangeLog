@@ -1,3 +1,12 @@
+2001-04-29  Radek Doulik  <rodo@ximian.com>
+
+	* htmlclueflow.c (html_clueflow_spell_check): keep
+	g_return_if_fail as spell_checking fail is not fatal, so we want
+	only warning and no crash
+
+	* htmlengine-edit.c (html_engine_spell_check_range): check if
+	object has parent and if it's clueflow
+
 2001-04-27  Larry Ewing  <lewing@ximian.com>
 
 	* htmlclueflow.c (html_clueflow_spell_check): change assertion

@@ -217,7 +217,7 @@ html_engine_spell_check_range (HTMLEngine *e, HTMLCursor *begin, HTMLCursor *end
 	i = html_interval_new_from_cursor (begin, end);
 	if (begin->object->parent != end->object->parent)
 		html_interval_forall (i, e, spell_check_object, i);
-	else
+	else if (begin->object->parent && HTML_IS_CLUEFLOW (begin->object->parent))
 		html_clueflow_spell_check (HTML_CLUEFLOW (begin->object->parent), e, i);
 	html_interval_destroy (i);
 	html_cursor_destroy (begin);
