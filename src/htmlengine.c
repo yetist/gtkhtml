@@ -2587,7 +2587,7 @@ parse_i (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 			
 			style = html_style_set_decoration (style, GTK_HTML_FONT_STYLE_ITALIC);
 			
-			html_string_tokenizer_tokenize (e->st, str + 4, " >");
+			html_string_tokenizer_tokenize (e->st, str + 1, " >");
 			while (html_string_tokenizer_has_more_tokens (e->st)) {
 				token = html_string_tokenizer_next_token (e->st);
 				if (strncasecmp (token, "style=", 6) == 0) {
