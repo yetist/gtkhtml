@@ -1,3 +1,8 @@
+2000-12-07  Larry Ewing  <lewing@helixcode.com>
+
+	* configure.in (GTKHTML_LIBS): add missing libs.
+	(GTKHTML_INCLUDEDIR): add missing libs.
+
 2000-11-28  Radek Doulik  <rodo@helixcode.com>
 
 	* gtkhtml.spec.in: aplied patch from Chipzz@ULYSSIS.Org
