@@ -2861,7 +2861,7 @@ static void
 parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	if ( strncmp( str, "pre", 3 ) == 0 ) {
-		close_flow (e, clue);
+		finish_flow (e, clue);
 		push_clueflow_style (e, HTML_CLUEFLOW_STYLE_PRE);
 		e->inPre = TRUE;
 		push_block (e, ID_PRE, 2, block_end_pre, e->divAlign, 0);
@@ -3971,7 +3971,7 @@ html_engine_update_event (HTMLEngine *e)
 
 	html_image_factory_deactivate_animations (e->image_factory);
 	gtk_container_forall (GTK_CONTAINER (e->widget), update_embedded, e->widget);
-	html_engine_draw (e, 0, 0, e->width, e->height);
+	html_engine_draw (e, e->x_offset, e->y_offset, e->width, e->height);
 
 	if (html_engine_get_editable (e))
 		html_engine_show_cursor (e);
@@ -4262,7 +4262,7 @@ static gint
 redraw_idle (HTMLEngine *e)
 {
 	e->redraw_idle_id = 0;
-	html_engine_draw (e, 0, 0, e->width, e->height);
+	html_engine_draw (e, e->x_offset, e->y_offset, e->width, e->height);
 
 	return FALSE;
 }
@@ -4291,7 +4291,7 @@ html_engine_unblock_redraw (HTMLEngine *e)
 
 	e->block_redraw --;
 	if (!e->block_redraw && e->need_redraw) {
-		html_engine_draw (e, 0, 0, e->width, e->height);
+		html_engine_draw (e, e->x_offset, e->y_offset, e->width, e->height);
 		e->need_redraw = FALSE;
 	}
 }
@@ -4557,7 +4557,7 @@ html_engine_set_editable (HTMLEngine *e,
 		html_engine_spell_check (e);
 	html_engine_disable_selection (e);
 
-	html_engine_draw (e, 0, 0, e->width, e->height);
+	html_engine_draw (e, e->x_offset, e->y_offset, e->width, e->height);
 
 	e->editable = editable;
 
@@ -4953,7 +4953,7 @@ thaw_idle (gpointer data)
 	if (redraw_whole) {
 		g_slist_foreach (e->pending_expose, free_expose_data, NULL);
 		html_draw_queue_clear (e->draw_queue);
-		html_engine_draw (e, 0, 0, e->width, e->height);
+		html_engine_draw (e, e->x_offset, e->y_offset, e->width, e->height);
 	} else {
 		GtkAdjustment *vadj, *hadj;
 		gint nw, nh;
@@ -5146,7 +5146,7 @@ html_engine_clear_spell_check (HTMLEngine *e)
 	e->need_spell_check = FALSE;
 
 	html_object_forall (e->clue, NULL, (HTMLObjectForallFunc) clear_spell_check, e);
-	html_engine_draw (e, 0, 0, e->width, e->height);
+	html_engine_draw (e, e->x_offset, e->y_offset, e->width, e->height);
 }
 
 gchar *
