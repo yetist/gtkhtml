@@ -1,5 +1,11 @@
 1999-12-31  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlclueflow.c (calc_size): Set `o->y' as for some reason it
+	does not work without it.  I have to find out what this is exactly
+	for.
+
+1999-12-31  Ettore Perazzoli  <ettore@helixcode.com>
+
 	* htmlengine.c (close_flow): Avoid segfault if there is no prev.
 
 1999-12-31  Ettore Perazzoli  <ettore@helixcode.com>

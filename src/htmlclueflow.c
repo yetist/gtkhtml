@@ -119,7 +119,7 @@ calc_size (HTMLObject *o,
 			/* FIXME I am not sure why this check is here, but it
                            causes a stand-alone hspace in a clueflow to be
                            given zero height.  -- EP */
-			if (TRUE /*  w != lmargin */) {
+			if (TRUE /* w != lmargin */) {
 				w += obj->width;
 				if (obj->ascent > a)
 					a = obj->ascent;
@@ -242,7 +242,7 @@ calc_size (HTMLObject *o,
 					new_y -= o->y;
 					o->ascent += new_y;
 
-					/* o->y += new_y; FIXME */
+					o->y += new_y;
 
 					lmargin = new_lmargin;
 					if (HTML_CLUEFLOW (o)->indent > lmargin)
