@@ -1,3 +1,7 @@
+2002-10-30  Larry Ewing  <lewing@ximian.com>
+
+	* configure.in: bump version for snaps.
+
 2002-10-28  Larry Ewing  <lewing@ximian.com>
 
 	* Make gtkhtml-1.1.5 release (eye of fatima).
