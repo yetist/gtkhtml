@@ -6,15 +6,15 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml 3.1.6\n"
-"POT-Creation-Date: 2004-03-05 12:45-0500\n"
-"PO-Revision-Date: 2004-01-21 13:08-0500\n"
+"Project-Id-Version: gtkhtml 3.1.7\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-03-11 13:00-0500\n"
+"PO-Revision-Date: 2004-03-11 13:12-0500\n"
 "Last-Translator: Gustavo Maciel Dias Vieira <gdvieira@zaz.com.br>\n"
 "Language-Team: Brazilian Portuguese <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -1092,221 +1092,201 @@ msgstr "Página"
 #. This is the default custom color
 #: components/html-editor/gi-color-palette.c:394
 msgid "custom"
-msgstr ""
+msgstr "personalizada"
 
 #. "Custom" color - we'll pop up a GnomeColorPicker
 #: components/html-editor/gi-color-palette.c:436
-#, fuzzy
 msgid "Custom Color:"
-msgstr "Cor:"
+msgstr "Cor personalizada:"
 
 #: components/html-editor/gi-color-palette.c:444
 msgid "Choose Custom Color"
-msgstr ""
+msgstr "Escolher cor personalizada"
 
 #: components/html-editor/gi-color-palette.c:577
 msgid "black"
-msgstr ""
+msgstr "preto"
 
 #: components/html-editor/gi-color-palette.c:578
 msgid "light brown"
-msgstr ""
+msgstr "marrom claro"
 
 #: components/html-editor/gi-color-palette.c:579
 msgid "brown gold"
-msgstr ""
+msgstr "marrom dourado"
 
 #: components/html-editor/gi-color-palette.c:580
 msgid "dark green #2"
-msgstr ""
+msgstr "verde escuro #2"
 
 #: components/html-editor/gi-color-palette.c:581
 msgid "navy"
-msgstr ""
+msgstr "marinho"
 
 #: components/html-editor/gi-color-palette.c:582
 #: components/html-editor/gi-color-palette.c:638
 msgid "dark blue"
-msgstr ""
+msgstr "azul escuro"
 
 #: components/html-editor/gi-color-palette.c:583
-#, fuzzy
 msgid "purple #2"
-msgstr "Roxo"
+msgstr "roxo #2"
 
 #: components/html-editor/gi-color-palette.c:584
 msgid "very dark gray"
-msgstr ""
+msgstr "cinza bem escuro"
 
 #: components/html-editor/gi-color-palette.c:587
 #: components/html-editor/gi-color-palette.c:643
-#, fuzzy
 msgid "dark red"
-msgstr "Cabeçalho escuro"
+msgstr "vermelho escuro"
 
 #: components/html-editor/gi-color-palette.c:588
-#, fuzzy
 msgid "red-orange"
-msgstr "Laranja"
+msgstr "laranja avermelhado"
 
 #: components/html-editor/gi-color-palette.c:589
-#, fuzzy
 msgid "gold"
-msgstr "Negrito"
+msgstr "ouro"
 
 #: components/html-editor/gi-color-palette.c:590
 msgid "dark green"
-msgstr ""
+msgstr "verde escuro"
 
 #: components/html-editor/gi-color-palette.c:591
 #: components/html-editor/gi-color-palette.c:644
 msgid "dull blue"
-msgstr ""
+msgstr "azul fosco"
 
 #: components/html-editor/gi-color-palette.c:592
 #: components/html-editor/gi-color-palette.c:645
-#, fuzzy
 msgid "blue"
-msgstr "Azul"
+msgstr "azul"
 
 #: components/html-editor/gi-color-palette.c:593
 msgid "dull purple"
-msgstr ""
+msgstr "roxo fosco"
 
 #: components/html-editor/gi-color-palette.c:594
 msgid "dark grey"
-msgstr ""
+msgstr "cinza escuro"
 
 #: components/html-editor/gi-color-palette.c:597
-#, fuzzy
 msgid "red"
-msgstr "Vermelho"
+msgstr "vermelho"
 
 #: components/html-editor/gi-color-palette.c:598
-#, fuzzy
 msgid "orange"
-msgstr "Laranja"
+msgstr "laranja"
 
 #: components/html-editor/gi-color-palette.c:599
-#, fuzzy
 msgid "lime"
-msgstr "Alinhamento"
+msgstr "lima"
 
 #: components/html-editor/gi-color-palette.c:600
 msgid "dull green"
-msgstr ""
+msgstr "verde fosco"
 
 #: components/html-editor/gi-color-palette.c:601
 msgid "dull blue #2"
-msgstr ""
+msgstr "azul fosco #2"
 
 #: components/html-editor/gi-color-palette.c:602
 msgid "sky blue #2"
-msgstr ""
+msgstr "azul celeste #2"
 
 #: components/html-editor/gi-color-palette.c:603
 #: components/html-editor/gi-color-palette.c:642
-#, fuzzy
 msgid "purple"
-msgstr "Roxo"
+msgstr "roxo"
 
 #: components/html-editor/gi-color-palette.c:604
-#, fuzzy
 msgid "gray"
-msgstr "Cinza simples"
+msgstr "cinza"
 
 #: components/html-editor/gi-color-palette.c:607
 #: components/html-editor/gi-color-palette.c:639
-#, fuzzy
 msgid "magenta"
-msgstr "Imagem"
+msgstr "magenta"
 
 #: components/html-editor/gi-color-palette.c:608
 msgid "bright orange"
-msgstr ""
+msgstr "laranja brilhante"
 
 #: components/html-editor/gi-color-palette.c:609
 #: components/html-editor/gi-color-palette.c:640
-#, fuzzy
 msgid "yellow"
-msgstr "Amarelo"
+msgstr "amarelo"
 
 #: components/html-editor/gi-color-palette.c:610
-#, fuzzy
 msgid "green"
-msgstr "Verde"
+msgstr "verde"
 
 #: components/html-editor/gi-color-palette.c:611
 #: components/html-editor/gi-color-palette.c:641
 msgid "cyan"
-msgstr ""
+msgstr "cyan"
 
 #: components/html-editor/gi-color-palette.c:612
 msgid "bright blue"
-msgstr ""
+msgstr "azul brilhante"
 
 #: components/html-editor/gi-color-palette.c:613
 #: components/html-editor/gi-color-palette.c:630
-#, fuzzy
 msgid "red purple"
-msgstr "Roxo"
+msgstr "roxo avermelhado"
 
 #: components/html-editor/gi-color-palette.c:614
-#, fuzzy
 msgid "light grey"
-msgstr "Cinza simples"
+msgstr "cinza claro"
 
 #: components/html-editor/gi-color-palette.c:617
 #: components/html-editor/gi-color-palette.c:634
-#, fuzzy
 msgid "pink"
-msgstr "Vínculo"
+msgstr "rosa"
 
 #: components/html-editor/gi-color-palette.c:618
-#, fuzzy
 msgid "light orange"
-msgstr "Alinhar à direita"
+msgstr "laranja claro"
 
 #: components/html-editor/gi-color-palette.c:619
 #: components/html-editor/gi-color-palette.c:631
 msgid "light yellow"
-msgstr ""
+msgstr "amarelo claro"
 
 #: components/html-editor/gi-color-palette.c:620
-#, fuzzy
 msgid "light green"
-msgstr "Alinhar à direita"
+msgstr "verde claro"
 
 #: components/html-editor/gi-color-palette.c:621
-#, fuzzy
 msgid "light cyan"
-msgstr "Alinhar à direita"
+msgstr "cyan claro"
 
 #: components/html-editor/gi-color-palette.c:622
 #: components/html-editor/gi-color-palette.c:632
 msgid "light blue"
-msgstr ""
+msgstr "azul claro"
 
 #: components/html-editor/gi-color-palette.c:623
 #: components/html-editor/gi-color-palette.c:636
 msgid "light purple"
-msgstr ""
+msgstr "roxo claro"
 
 #: components/html-editor/gi-color-palette.c:624
 msgid "white"
-msgstr ""
+msgstr "branco"
 
 #: components/html-editor/gi-color-palette.c:629
 msgid "purplish blue"
-msgstr ""
+msgstr "azul arroxeado"
 
 #: components/html-editor/gi-color-palette.c:633
 msgid "dark purple"
-msgstr ""
+msgstr "roxo escuro"
 
 #: components/html-editor/gi-color-palette.c:635
 msgid "sky blue"
-msgstr ""
+msgstr "azul celeste"
 
 #: components/html-editor/gnome-gtkhtml-editor.c:68
 msgid "GtkHTML Editor Control"
@@ -1666,7 +1646,7 @@ msgstr ""
 
 #: components/html-editor/link.c:270
 msgid "Please fill 'Link text' and 'URL' entries"
-msgstr ""
+msgstr "Por favor, preencha os campos 'Texto do vínculo' e 'URL'"
 
 #: components/html-editor/menubar.c:88 components/html-editor/menubar.c:104
 #: components/html-editor/menubar.c:122 components/html-editor/menubar.c:139
@@ -1749,12 +1729,10 @@ msgid "Paste Quotation"
 msgstr "Colar citação"
 
 #: components/html-editor/popup.c:461
-#, fuzzy
 msgid "Insert Link"
 msgstr "Inserir vínculo"
 
 #: components/html-editor/popup.c:468
-#, fuzzy
 msgid "Remove Link"
 msgstr "Remover vínculo"
 
