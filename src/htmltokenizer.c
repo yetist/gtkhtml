@@ -412,20 +412,20 @@ html_tokenizer_write (HTMLTokenizer *t, const gchar *string, size_t size)
 					if ((t->searchBuffer [t->searchCount + 1] == ';') ||
 					    (!t->tag)) {
 						char *ename = t->searchBuffer + 2;
-
+						
 						t->searchBuffer [t->searchCount + 1] = '\0';
-
+						
 						if (!strcasecmp(ename, "nbsp"))
-						  entityValue = 0xA0;
+							entityValue = 0xA0;
 						else if(!strcasecmp(ename, "lt"))
-						  entityValue = '<';
+							entityValue = '<';
 						else if(!strcasecmp(ename, "gt"))
-						  entityValue = '>';
+							entityValue = '>';
 						else if(!strcasecmp(ename, "amp"))
-						  entityValue = '&';
+							entityValue = '&';
 					}
 				}
-					    
+				
 			}
 			
 			switch (entityValue) {

@@ -71,7 +71,7 @@ testgtkhtml_SOURCES = 		\
 	testgtkhtml.c
 
 if LIBWWW
-GLIBWWW=-L$(top_builddir)/glibwww -lglibwww $(LIBWWW_LIBS)
+GLIBWWW=$(top_builddir)/glibwww/libglibwww.a $(LIBWWW_LIBS)
 else
 GLIBWWW=
 endif

@@ -71,7 +71,7 @@ GtkWidget *animator, *entry;
 static gint load_timer  = -1;
 static gboolean slow_loading = FALSE, exit_when_done = FALSE;
 
-static GnomeUIInfo file_menu[] = {
+static GnomeUIInfo file_menu [] = {
 	GNOMEUIINFO_MENU_EXIT_ITEM (exit_cb, NULL),
 	GNOMEUIINFO_END
 };
@@ -272,7 +272,7 @@ title_changed_cb (GtkHTML *html, gpointer data)
 static void
 entry_goto_url(GtkWidget *widget, gpointer data)
 {
-  goto_url(gtk_entry_get_text(GTK_ENTRY(widget)));
+	goto_url (gtk_entry_get_text (GTK_ENTRY (widget)));
 }
 
 
@@ -282,23 +282,24 @@ stop_cb (GtkWidget *widget, gpointer data)
 }
 
 static void
-load_done(GtkHTML *html)
+load_done (GtkHTML *html)
 {
-  gnome_animator_stop (GNOME_ANIMATOR (animator));
-  gnome_animator_goto_frame (GNOME_ANIMATOR (animator), 1);
-  gtk_entry_set_text(GTK_ENTRY(entry), html->engine->actualURL);
-  if(exit_when_done)
-    gtk_main_quit();
+	gnome_animator_stop (GNOME_ANIMATOR (animator));
+	gnome_animator_goto_frame (GNOME_ANIMATOR (animator), 1);
+	gtk_entry_set_text (GTK_ENTRY (entry), html->engine->actualURL);
+
+	if (exit_when_done)
+		gtk_main_quit();
 }
 
 static void
 fip_destroy(gpointer data)
 {
-  FileInProgress *fip = data;
-
-  gtk_html_end(html, fip->handle, GTK_HTML_STREAM_OK);
-  fclose(fip->fil);
-  g_free(fip);
+	FileInProgress *fip = data;
+	
+	gtk_html_end (html, fip->handle, GTK_HTML_STREAM_OK);
+	fclose (fip->fil);
+	g_free (fip);
 }
 
 static gboolean
@@ -319,81 +320,81 @@ load_timer_event (FileInProgress *fip)
 #ifdef HAVE_LIBWWW
 /* Lame hack */
 struct _HTStream {
-  const HTStreamClass *	isa;
-  GtkHTMLStreamHandle handle;
+	const HTStreamClass *	isa;
+	GtkHTMLStreamHandle handle;
 };
 
 static int
 netin_stream_put_character (HTStream * me, char c)
 {
-  return netin_stream_write(me, &c, 1);
+	return netin_stream_write(me, &c, 1);
 }
 
 static int
 netin_stream_put_string (HTStream * me, const char * s)
 {
-  return netin_stream_write(me, s, strlen(s));
+	return netin_stream_write(me, s, strlen(s));
 }
 
 static int
 netin_stream_write (HTStream * me, const char * s, int l)
 {
-  gtk_html_write(html, me->handle, s, l);
+	gtk_html_write(html, me->handle, s, l);
 
-  return HT_OK;
+	return HT_OK;
 }
 
 static int
 netin_stream_flush (HTStream * me)
 {
-  return HT_OK;
+	return HT_OK;
 }
 
 static int
 netin_stream_free (HTStream * me)
 {
-  gtk_html_end(html, me->handle, GTK_HTML_STREAM_OK);
-  g_free(me);
-
-  return HT_OK;
+	gtk_html_end(html, me->handle, GTK_HTML_STREAM_OK);
+	g_free(me);
+	
+	return HT_OK;
 }
 
 static int
 netin_stream_abort (HTStream * me, HTList * e)
 {
-  return HT_ERROR;
+	return HT_ERROR;
 }
 
 static const HTStreamClass netin_stream_class =
 {		
-    "netin_stream",
-    netin_stream_flush,
-    netin_stream_free,
-    netin_stream_abort,
-    netin_stream_put_character,
-    netin_stream_put_string,
-    netin_stream_write
+	"netin_stream",
+	netin_stream_flush,
+	netin_stream_free,
+	netin_stream_abort,
+	netin_stream_put_character,
+	netin_stream_put_string,
+	netin_stream_write
 }; 
 
 static HTStream *
 netin_stream_new (GtkHTMLStreamHandle handle, HTRequest *request)
 {
-  HTStream *retval;
+	HTStream *retval;
+	
+	retval = g_new0(HTStream, 1);
+	
+	retval->isa = &netin_stream_class;
+	retval->handle = handle;
 
-  retval = g_new0(HTStream, 1);
-
-  retval->isa = &netin_stream_class;
-  retval->handle = handle;
-
-  return retval;
+	return retval;
 }
 
 static gint
 do_request_delete(gpointer req)
 {
-  HTRequest_delete(req);
-
-  return FALSE;
+	HTRequest_delete(req);
+	
+	return FALSE;
 }
 
 static BOOL
@@ -401,21 +402,21 @@ my_progress(HTRequest *request, HTAlertOpcode op,
 	    int msgnum, const char *dfault, void *input,
 	    HTAlertPar *reply)
 {
-  if(!request)
-    return NO;
+	if(!request)
+		return NO;
 
-  switch(op)
-    {
-    case HT_PROG_DONE:
-    case HT_PROG_TIMEOUT:
-    case HT_PROG_INTERRUPT:
-      gtk_idle_add(do_request_delete, request);
-      break;
-    default:
-      break;
-    }
+	switch(op)
+	{
+	case HT_PROG_DONE:
+	case HT_PROG_TIMEOUT:
+	case HT_PROG_INTERRUPT:
+		gtk_idle_add(do_request_delete, request);
+		break;
+	default:
+		break;
+	}
 
-  return YES;
+	return YES;
 }
 #endif
 
@@ -431,21 +432,21 @@ url_requested (GtkHTML *html, const char *url, GtkHTMLStreamHandle handle, gpoin
 
 #if 0
 	if(!strstr(url, "://")) {
-	  if(g_file_exists(url))
-	    {
-	      char *cwd;
+		if(g_file_exists(url))
+		{
+			char *cwd;
 
-	      cwd = g_get_current_dir();
-	      g_snprintf(buffer, sizeof(buffer), "file://%s%s%s",
-			 (*url != '/')?cwd:"",
-			 (*url != '/')?"/":"",
-			 url);
-	      g_free(cwd);
-	    }
-	  else
-	    g_snprintf(buffer, sizeof(buffer), "http://%s", url);
+			cwd = g_get_current_dir();
+			g_snprintf(buffer, sizeof(buffer), "file://%s%s%s",
+				   (*url != '/')?cwd:"",
+				   (*url != '/')?"/":"",
+				   url);
+			g_free(cwd);
+		}
+		else
+			g_snprintf(buffer, sizeof(buffer), "http://%s", url);
 
-	  url = buffer;
+		url = buffer;
 
 	}
 #endif
@@ -455,9 +456,9 @@ url_requested (GtkHTML *html, const char *url, GtkHTMLStreamHandle handle, gpoin
 
 	HTRequest_setOutputFormat(newreq, WWW_SOURCE);
 	{
-	  HTStream *newstream = netin_stream_new(handle, newreq);
-	  status = HTLoadToStream(url, newstream, newreq);
-	  g_message("Loading URL %s to stream %p (status %d)", url, handle, status);
+		HTStream *newstream = netin_stream_new(handle, newreq);
+		status = HTLoadToStream(url, newstream, newreq);
+		g_message("Loading URL %s to stream %p (status %d)", url, handle, status);
 	}
 
 	return;
@@ -466,32 +467,32 @@ url_requested (GtkHTML *html, const char *url, GtkHTMLStreamHandle handle, gpoin
 	fil = fopen (url, "r");
 
 	if(!fil)
-	  {
-	    gtk_html_end (html, handle, GTK_HTML_STREAM_ERROR);
-	    return;
-	  }
+	{
+		gtk_html_end (html, handle, GTK_HTML_STREAM_ERROR);
+		return;
+	}
 
 	if (slow_loading)
-	  {
-	    FileInProgress *fip;
+	{
+		FileInProgress *fip;
 	    
-	    fip = g_new(FileInProgress, 1);
-	    fip->fil = fil;
-	    fip->handle = handle;
-	    load_timer = gtk_timeout_add_full (10,
-					       (GtkFunction) load_timer_event,
-					       NULL, fip,
-					       fip_destroy);
-	    return;
-	  }
+		fip = g_new(FileInProgress, 1);
+		fip->fil = fil;
+		fip->handle = handle;
+		load_timer = gtk_timeout_add_full (10,
+						   (GtkFunction) load_timer_event,
+						   NULL, fip,
+						   fip_destroy);
+		return;
+	}
 
 	while (!feof (fil))
-	  {
-	    int nread;
+	{
+		int nread;
 
-	    nread = fread(buffer, 1, sizeof(buffer), fil);
-	    gtk_html_write (html, handle, buffer, nread);
-	  }
+		nread = fread(buffer, 1, sizeof(buffer), fil);
+		gtk_html_write (html, handle, buffer, nread);
+	}
 
 	gtk_html_end (html, handle, GTK_HTML_STREAM_OK);
 	fclose (fil);
@@ -586,10 +587,11 @@ main (gint argc, gchar *argv[])
 	gtk_widget_show_all (app);
 
 	{
-	  const char **args;
-	  args = poptGetArgs(ctx);
-	  if (args && args[0])
-	    goto_url(args[0]);
+		const char **args;
+		args = poptGetArgs(ctx);
+
+		if (args && args[0])
+			goto_url (args[0]);
 	}
 
 	gtk_main ();
