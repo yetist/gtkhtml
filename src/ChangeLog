@@ -1,3 +1,8 @@
+2003-01-29  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine-edit-cursor.c (html_engine_draw_cursor_in_area):
+	updated for changed coordinates
+
 2003-01-28  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml-properties.c (gtk_html_class_properties_new): get

@@ -281,8 +281,8 @@ html_engine_draw_cursor_in_area (HTMLEngine *engine,
 	offset = engine->cursor->offset;
 
 	if (width < 0 || height < 0) {
-		width = engine->width;
-		height = engine->height;
+		width = html_engine_get_doc_width (engine);
+		height = html_engine_get_doc_height (engine);
 		x = 0;
 		y = 0;
 	}
