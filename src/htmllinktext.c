@@ -85,11 +85,23 @@ op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GL
 	return html_text_op_cut_helper (HTML_TEXT (self), e, from, to, left, right, len, new_link);
 }
 
+static int
+compare (char *str1, char *str2)
+{
+	if (str1 == str2)
+		return 0;
+	
+	if (str1 && str2)
+		return strcasecmp (str1, str2);
+	else 
+		return 1;
+}
+	 
 static gboolean
 object_merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList *left, GList *right)
 {
-	return strcasecmp (HTML_LINK_TEXT (self)->url, HTML_LINK_TEXT (with)->url)
-		|| strcasecmp (HTML_LINK_TEXT (self)->target, HTML_LINK_TEXT (with)->target)
+	return compare (HTML_LINK_TEXT (self)->url, HTML_LINK_TEXT (with)->url)
+		|| compare (HTML_LINK_TEXT (self)->target, HTML_LINK_TEXT (with)->target)
 		? FALSE
 		: (* HTML_OBJECT_CLASS (parent_class)->merge) (self, with, e, left, right);
 }

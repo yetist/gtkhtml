@@ -1408,7 +1408,7 @@ parse_input (HTMLEngine *e, const gchar *str, HTMLObject *_clue)
 				type = Button;
 			else if ( strncasecmp( p, "text", 5 ) == 0 )
 				type = Text;
-			else if ( strncasecmp( p, "Image", 5 ) == 0 )
+			else if ( strncasecmp( p, "image", 5 ) == 0 )
 				type = Image;
 		}
 		else if ( strncasecmp( token, "name=", 5 ) == 0 ) {
@@ -1517,7 +1517,7 @@ parse_iframe (HTMLEngine *e, const gchar *str, HTMLObject *_clue)
 			align = g_strdup( token + 6 );
 		} else if ( strncasecmp( token, "longdesc=", 9 ) == 0 ) {
 			/* TODO: Ignored */
-		} else if ( strncasecmp( token, "name=", 7 ) == 0 ) {
+		} else if ( strncasecmp( token, "name=", 5 ) == 0 ) {
 			/* TODO: Ignored */
 		} else if ( strncasecmp( token, "scrolling=", 7 ) == 0 ) {
 			/* TODO: implement this damn thing */
@@ -2170,7 +2170,7 @@ parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 					percent = 0;
 				}
 			}
-			else if (strncasecmp (token, "noshade", 6) == 0) {
+			else if (strncasecmp (token, "noshade", 7) == 0) {
 				shade = FALSE;
 			}
 		}
@@ -2658,10 +2658,10 @@ parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 static void
 parse_s (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
-	if (strncmp (str, "small", 3) == 0) {
+	if (strncmp (str, "small", 5) == 0) {
 		push_font_style (e, GTK_HTML_FONT_STYLE_SIZE_2);
 		push_block (e, ID_SMALL, 1, block_end_font, 0, 0);
-	} else if (strncmp (str, "/small", 4) == 0 ) {
+	} else if (strncmp (str, "/small", 6) == 0 ) {
 		pop_block (e, ID_SMALL, clue);
 	} else if (strncmp (str, "strong", 6) == 0) {
 		push_font_style (e, GTK_HTML_FONT_STYLE_BOLD);

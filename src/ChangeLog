@@ -1,6 +1,8 @@
 2001-03-20  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine.c (html_engine_begin): add LOG_INPUT ifdef here.
+	(parse_s): compare against the full length of the string.
+	(parse_h):  use the full length again.
 
 	* gtkhtml.c: Add documentation for several more functions.
 	(gtk_html_begin_content): remove LOG_INPUT #define, do this in
