@@ -360,7 +360,7 @@ sub Status{
 
     # Print status information about the po file
     #-------------------------------------------
-    $STATUS="msgfmt --statistics $LANG.po";
+    $STATUS="msgfmt --statistics $LANG.po -o/dev/null";
     
     system($STATUS);
     print "\n";   
