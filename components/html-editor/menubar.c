@@ -473,8 +473,8 @@ paragraph_align_cb (BonoboUIComponent           *component,
 			/* g_warning ("setting style to: %s", 
 			   paragraph_align_assoc[i].verb); */
 
-			gtk_html_set_paragraph_alignment (cd->html, 
-							  paragraph_align_assoc[i].style);
+			/* FIX2 gtk_html_set_paragraph_alignment (cd->html, 
+			   paragraph_align_assoc[i].style); */
 			return;
 		}
 	}
@@ -503,7 +503,7 @@ paragraph_style_cb (BonoboUIComponent           *component,
 			/* g_warning ("setting style to: %s", 
 			   paragraph_style_assoc[i].verb); */
 
-			gtk_html_set_paragraph_style (cd->html, paragraph_style_assoc[i].style);
+			/* FIX2 gtk_html_set_paragraph_style (cd->html, paragraph_style_assoc[i].style); */
 			return;
 		}
 	}
