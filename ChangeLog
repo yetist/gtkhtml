@@ -1,3 +1,8 @@
+2003-09-17  Dan Winship  <danw@ximian.com>
+
+	* configure.in: Check for libsoup-2.2 first, and then soup-2.0 if
+	that's not found. Define HAVE_OLD_SOUP if we find 2.0
+
 2003-09-04  Larry Ewing  <lewing@ximian.com>
 
 	* Makefile.am: change CLEANFILES to DISTCLEANFILES to fix Ximian

@@ -73,8 +73,13 @@ dnl **********************************
 dnl soup for testgtkhtml
 dnl **********************************
 
-PKG_CHECK_MODULES(SOUP, soup-2.0 >= 0.7.9,have_soup="yes",have_soup="no")
-AM_CONDITIONAL(HAVE_SOUP, test x$have_soup = xyes)
+PKG_CHECK_MODULES(SOUP, libsoup-2.2 >= 2.1.0, have_soup="yes", have_soup="no")
+if test "x$have_soup" = "xno"; then
+	PKG_CHECK_MODULES(SOUP, soup-2.0 >= 0.7.9, [have_soup="yes"
+						    AC_DEFINE(HAVE_OLD_SOUP)],
+						   have_soup="no")
+fi
+AM_CONDITIONAL(HAVE_SOUP, test x$have_soup != xno)
 AC_SUBST(SOUP_CFLAGS)
 AC_SUBST(SOUP_LIBS)
 
