@@ -3156,6 +3156,9 @@ style_from_attrs (PangoAttrIterator *iter)
 		case PANGO_ATTR_SIZE:
 			style |= ((HTMLPangoAttrFontSize *) attr)->style;
 			break;
+		case PANGO_ATTR_FAMILY:
+			style |= GTK_HTML_FONT_STYLE_FIXED;
+			break;
 		default:
 			break;
 		}
@@ -3300,6 +3303,10 @@ unset_style_filter (PangoAttribute *attr, gpointer data)
 		break;
 	case PANGO_ATTR_SIZE:
 		if (((HTMLPangoAttrFontSize *) attr)->style & style)
+			return TRUE;
+		break;
+	case PANGO_ATTR_FAMILY:
+		if (style & GTK_HTML_FONT_STYLE_FIXED)
 			return TRUE;
 		break;
 	default:
