@@ -24,8 +24,10 @@
 /* FIXME: Fix a better one */
 gint defaultFontSizes [7] = {8, 10, 12, 14, 18, 24, 24};
 
+static GdkFont *create_gdk_font (gchar *family, gint size, gboolean bold, gboolean italic);
+
 HTMLFont *
-html_font_new (gchar *family, gint size, gint *fontSizes, HTMLFontWeight weight, gboolean italic, gboolean underline)
+html_font_new (gchar *family, gint size, gint *fontSizes, gboolean bold, gboolean italic, gboolean underline)
 {
 	gchar *xlfd;
 	HTMLFont *f;
@@ -35,22 +37,53 @@ html_font_new (gchar *family, gint size, gint *fontSizes, HTMLFontWeight weight,
 	f = g_new0 (HTMLFont, 1);
 	f->family = g_strdup (family);
 	f->size = size;
-	f->weight = weight;
+	f->bold = bold;
 	f->italic = italic;
 	f->underline = underline;
 	f->pointSize = fontSizes [size];
 
-	xlfd = g_strdup_printf ("-*-%s-%s-r-normal-*-*-%d-*-*-p-*-iso8859-1", family, f->weight == Bold ? "bold" : "medium",
-				fontSizes[size] * 10);
-
-	/*	g_print ("xlfd is: %s\n", xlfd);*/
-
-	if (f->gdk_font)
-		gdk_font_unref (f->gdk_font);
-
-	f->gdk_font = gdk_font_load (xlfd);
+	f->gdk_font = create_gdk_font (family, size, bold, italic);
 
 	return f;
+}
+
+static GdkFont *
+create_gdk_font (gchar *family, gint size, gboolean bold, gboolean italic)
+{
+	gboolean loaded = FALSE;
+	gchar *boldstr;
+	gchar *italicstr;
+	gchar *fontname;
+	gint realsize;
+	GdkFont *font;
+
+	/* FIXME: a better way to find out the size */
+	realsize = size * 10;
+
+	if (bold)
+		boldstr = "bold";
+	else
+		boldstr = "medium";
+	if (italic)
+		italicstr = "i";
+	else
+		italicstr = "r";
+	
+	
+	fontname = g_strdup_printf ("-*-%s-%s-%s-normal-*-*-%d-*-*-*-*-*-*",
+				    family, boldstr, italicstr, realsize);
+	g_print ("trying: %s\n", fontname);
+	font = gdk_font_load (fontname);
+	if (font)
+		return font;
+	else {
+		g_free (fontname);
+		g_warning ("font not found, using helvetica");
+		fontname = g_strdup_printf ("-*-helvetica-medium-r-normal-*-*-%d-*-*-*-*-*-*",
+					    realsize);
+		font = gdk_font_load (fontname);
+	}
+	return font;
 }
 
 void

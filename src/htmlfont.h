@@ -25,11 +25,6 @@
 
 #define MAXFONTSIZES 7
 
-typedef enum {
-	Normal,
-	Bold
-} HTMLFontWeight;
-
 typedef struct _HTMLFont HTMLFont;
 typedef struct _HTMLFontStack HTMLFontStack;
 
@@ -37,7 +32,7 @@ struct _HTMLFont {
 	gchar *family;
 	gint size;
 	gint pointSize;
-	HTMLFontWeight weight;
+	gboolean bold;
 	gboolean italic;
 	gboolean underline;
 
@@ -51,7 +46,7 @@ struct _HTMLFontStack {
 };
 
 HTMLFont      *html_font_new           (gchar *family, gint size,
-				       	gint *fontSizes, HTMLFontWeight weight,
+				       	gint *fontSizes, gboolean bold,
 				       	gboolean italic, gboolean underline);
 void           html_font_destroy       (HTMLFont *html_font);
 gint  	       html_font_calc_width    (HTMLFont *f, gchar *text, gint len);
