@@ -864,8 +864,12 @@ realize (GtkWidget *widget)
 	gtk_html_im_realize (html);
 #endif /* GTK_HTML_USE_XIM */
 
+#ifdef GTK_HTML_DND_DEST
 	gtk_drag_dest_set (widget, GTK_DEST_DEFAULT_ALL,
-			   dnd_link_sources, DND_LINK_SOURCES, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK);
+			   dnd_link_sources, DND_LINK_SOURCES,
+			   GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK);
+#endif
+	
 }
 
 static void

@@ -1,5 +1,7 @@
 2002-10-12  Larry Ewing  <lewing@ximian.com>
 
+	* gtkhtml.c (realize): disable gtkhtml as a drop site.
+	
  	* gtkhtml.c (button_release_event): update the selection and
 	cursor position for the coords of the release point and queue a
 	drawing event for good measure.
