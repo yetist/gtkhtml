@@ -4653,14 +4653,14 @@ html_engine_make_cursor_visible (HTMLEngine *e)
 	yo = e->y_offset;
 
 	if (x1 < e->x_offset)
-		e->x_offset = x1;
-	if (x1 > e->x_offset + e->width)
-		e->x_offset = x1 - e->width;
+		e->x_offset = x1 - e->leftBorder;
+	if (x1 > e->x_offset + e->width - e->rightBorder)
+		e->x_offset = x1 - e->width + e->rightBorder;
 
 	if (y1 < e->y_offset)
-		e->y_offset = y1;
-	if (y2 >= e->y_offset + e->height)
-		e->y_offset = y2 - e->height + 1;
+		e->y_offset = y1 - e->topBorder;
+	if (y2 >= e->y_offset + e->height - e->bottomBorder)
+		e->y_offset = y2 - e->height + e->bottomBorder + 1;
 
 	return xo != e->x_offset || yo != e->y_offset;
 }
