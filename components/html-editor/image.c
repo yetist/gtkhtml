@@ -648,8 +648,10 @@ insert_or_apply (GtkHTMLControlData *cd, gpointer get_data, gboolean insert)
 				target ++;
 		}
 		html_object_set_link (HTML_OBJECT (d->image),
-				      html_colorset_get_color (d->cd->html->engine->settings->color_set, HTMLLinkColor),
-				      d->url, target);
+				      url && *url
+				      ? html_colorset_get_color (d->cd->html->engine->settings->color_set, HTMLLinkColor)
+				      : html_colorset_get_color (d->cd->html->engine->settings->color_set, HTMLTextColor),
+				      url, target);
 		if (target)
 			g_free (url);
 		g_free (target);

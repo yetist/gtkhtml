@@ -3,6 +3,7 @@
 	* image.c (get_data): avoid calling g_strconcat with NULL as 1st
 	parameter
 	(set_ui): avoid setting NULL as text for entries
+	(insert_or_apply): use Text color for non-linked images
 
 2001-11-20  Radek Doulik  <rodo@ximian.com>
 
