@@ -94,6 +94,7 @@ static GtkTargetEntry dnd_link_sources [] = {
 #define GNOME_SPELL_GCONF_DIR "/GNOME/Spell"
 
 #define d_s(x)
+#define D_IM(x)
 
 static GtkLayoutClass *parent_class = NULL;
 
@@ -2812,13 +2813,13 @@ void
 gtk_html_im_reset (GtkHTML *html)
 {
 	if (!html->priv->im_block_reset) {
-		printf ("IM reset requested\n");
+		D_IM (printf ("IM reset requested\n");)
 		if (html->priv->need_im_reset) {
 			if (html->engine->freeze_count == 1)
 				html_engine_thaw_idle_flush (html->engine);
 			html->priv->need_im_reset = FALSE;
 			gtk_im_context_reset (html->priv->im_context);
-			printf ("IM reset called\n");
+			D_IM (printf ("IM reset called\n");)
 		}
 	}
 }
@@ -2829,7 +2830,7 @@ gtk_html_im_commit_cb (GtkIMContext *context, const gchar *str, GtkHTML *html)
 	gboolean state = html->priv->im_block_reset;
 
 	html->priv->im_block_reset = TRUE;
-	printf ("IM commit %s\n", str);
+	D_IM(printf ("IM commit %s\n", str);)
 	html_engine_paste_text (html->engine, str, -1);
 	html->priv->im_block_reset = state;
 }
@@ -2845,7 +2846,7 @@ gtk_html_im_preedit_changed_cb (GtkIMContext *context, GtkHTML *html)
 	html->priv->im_block_reset = TRUE;
 
 	if (html->priv->im_pre_len > 0) {
-		printf ("IM delete last preedit %d + %d\n", html->priv->im_pre_pos, html->priv->im_pre_len);
+		D_IM (printf ("IM delete last preedit %d + %d\n", html->priv->im_pre_pos, html->priv->im_pre_len);)
 		
 		html_cursor_jump_to_position_no_spell (html->engine->cursor, html->engine, html->priv->im_pre_pos);
 		html_engine_set_mark (html->engine);
@@ -2856,7 +2857,7 @@ gtk_html_im_preedit_changed_cb (GtkIMContext *context, GtkHTML *html)
 
 	gtk_im_context_get_preedit_string (html->priv->im_context, &preedit_string, &attrs, &cursor_pos);
 
-	printf ("IM preedit changed to %s\n", preedit_string);
+	D_IM (printf ("IM preedit changed to %s\n", preedit_string);)
 	html->priv->im_pre_len = g_utf8_strlen (preedit_string, -1);
 
 	if (html->priv->im_pre_len > 0) {
@@ -2921,7 +2922,7 @@ gtk_html_im_retrieve_surrounding_cb (GtkIMContext *context, GtkHTML *html)
 {
 	gint offset;
 
-	printf ("IM gtk_html_im_retrieve_surrounding_cb\n");
+	D_IM (printf ("IM gtk_html_im_retrieve_surrounding_cb\n");)
 	gtk_im_context_set_surrounding (context, get_surrounding_text (html->engine, &offset), -1, offset);
 
 	return TRUE;
@@ -2930,7 +2931,7 @@ gtk_html_im_retrieve_surrounding_cb (GtkIMContext *context, GtkHTML *html)
 static gboolean
 gtk_html_im_delete_surrounding_cb (GtkIMContext *slave, gint offset, gint n_chars, GtkHTML *html)
 {
-	printf ("IM gtk_html_im_delete_surrounding_cb\n");
+	D_IM (printf ("IM gtk_html_im_delete_surrounding_cb\n");)
 	if (html_engine_get_editable (html->engine) && !html_engine_is_selection_active (html->engine)) {
 		gint orig_position = html->engine->cursor->position;
 

@@ -1,3 +1,8 @@
+2003-11-10  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml.c (D_IM): move all the IM debug spewage into D_IM
+	defines.
+
 2003-11-07  Radek Doulik  <rodo@ximian.com>
 
 	* htmltext.c (paste_link): set link color and underline
