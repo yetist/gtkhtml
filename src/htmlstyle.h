@@ -61,7 +61,7 @@ struct _HTMLStyle {
 	
 	/* bg settings */
 	char     *bg_image;
-	GdkColor *bg_color;
+	HTMLColor *bg_color;
 	HTMLDisplayType display;
 };	
 
@@ -77,7 +77,7 @@ HTMLStyle *html_style_add_font_face        (HTMLStyle *style, const HTMLFontFace
 HTMLStyle *html_style_add_color            (HTMLStyle *style, HTMLColor *face);
 HTMLStyle *html_style_add_attribute        (HTMLStyle *style, const char *attr);
 HTMLStyle *html_style_add_background_image (HTMLStyle *style, const char *url);
-HTMLStyle *html_style_add_background_color (HTMLStyle *style, GdkColor *color);
+HTMLStyle *html_style_add_background_color (HTMLStyle *style, HTMLColor *color);
 void       html_style_free                 (HTMLStyle *style);
 
 #endif /* __HTML_COLOR_H__ */

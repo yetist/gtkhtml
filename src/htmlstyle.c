@@ -80,7 +80,7 @@ html_style_free (HTMLStyle *style)
 		html_color_unref (style->color);
 
 	if (style->bg_color)
-		gdk_color_free (style->bg_color);
+		html_color_unref (style->bg_color);
 
 	g_free (style);
 }
@@ -88,16 +88,20 @@ html_style_free (HTMLStyle *style)
 HTMLStyle *
 html_style_add_color (HTMLStyle *style, HTMLColor *color)
 {
+	HTMLColor *old;
+	
 	if (!style)
 		style = html_style_new ();
 
-	if (style->color)
-		html_color_unref (style->color);
+	old = style->color;
 
 	style->color = color;
 
 	if (color)
 		html_color_ref (color);
+	
+	if (old)
+		html_color_unref (old);
 
 	return style;
 }      
@@ -176,12 +180,22 @@ html_style_add_text_valign (HTMLStyle *style, HTMLVAlignType type)
 }
 
 HTMLStyle *
-html_style_add_background_color (HTMLStyle *style, GdkColor *color)
+html_style_add_background_color (HTMLStyle *style, HTMLColor *color)
 {
+	HTMLColor *old;
+
 	if (!style)
 		style = html_style_new ();
 
-	style->bg_color = gdk_color_copy (color);
+	old = style->bg_color;
+
+	style->bg_color = color;
+
+	if (color)
+		html_color_ref (color);
+
+	if (old)
+		html_color_unref (old);
 
 	return style;
 }
@@ -233,17 +247,28 @@ html_style_add_attribute (HTMLStyle *style, const char *attr)
 			} else if (!strncasecmp ("background: ", text, 12)) {
 				GdkColor color;
 
-				if (parse_color (g_strstrip (text + 12), &color)) {
+				if (parse_color (text + 12, &color)) {
 					HTMLColor *hc = html_color_new_from_gdk_color (&color);
-					//style = html_style_add_background_color (style, hc);
+					style = html_style_add_background_color (style, hc);
 				        html_color_unref (hc);
 				}
 			} else if (!strncasecmp ("background-image: ", text, 18)) {
 				style = html_style_add_background_image (style, text + 18);
 			} else if (!strncasecmp ("text-decoration: none", text, 21)) {
 				style = html_style_unset_decoration (style, ~GTK_HTML_FONT_STYLE_SIZE_MASK);
-			} else if (!strncasecmp ("display: block", text, 14)) {
-				style = html_style_set_display (style, DISPLAY_BLOCK);
+			} else if (!strncasecmp ("display: ", text, 9)) {
+				char *value = text + 9;
+				if (!strcasecmp ("block", value)) { 
+					style = html_style_set_display (style, DISPLAY_BLOCK);
+				} else if (!strcasecmp ("inline", value)) {
+					style = html_style_set_display (style, DISPLAY_INLINE);
+				} else if (!strcasecmp ("none", value)) {
+					style = html_style_set_display (style, DISPLAY_NONE);
+				} else if (!strcasecmp ("inline-table", value)) {
+					style = html_style_set_display (style, DISPLAY_INLINE_TABLE);
+				}
+			} else if (!strncasecmp ("text-align: center", text, 18)) {
+				style = html_style_add_text_align (style, HTML_HALIGN_CENTER);
 			}
 		}
 		g_strfreev (prop);

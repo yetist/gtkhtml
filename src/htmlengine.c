@@ -463,7 +463,7 @@ current_row_bg_color (HTMLEngine *e)
 	for (item = e->span_stack->list; item; item = item->next) {
 		span = item->data;
 		if (span->style->display == DISPLAY_TABLE_ROW)
-			return span->style->bg_color;
+			return (GdkColor *)span->style->bg_color;
 
 		if (span->style->display == DISPLAY_TABLE)
 			break;
@@ -617,11 +617,12 @@ current_alignment (HTMLEngine *e)
 		 */
 		maxLevel = MAX (maxLevel, span->style->display);
 		
+		if (span->style->display >= DISPLAY_TABLE_CELL)
+			break;
+
 		if (span->style->text_align != HTML_HALIGN_NONE && maxLevel >= DISPLAY_BLOCK)
 			return span->style->text_align;
 		
-		if (span->style->display > DISPLAY_BLOCK)
-			break;
 	}
 	return HTML_HALIGN_NONE;
 }
@@ -919,6 +920,9 @@ insert_text (HTMLEngine *e,
 
 
 static void block_end_div (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem);
+static void block_end_row (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem);
+static void pop_element_by_type (HTMLEngine *e, HTMLDisplayType display);
+
 /* Block stack.  */
 static void
 html_element_push (HTMLElement *node, HTMLEngine *e, HTMLObject *clue)
@@ -931,6 +935,24 @@ html_element_push (HTMLElement *node, HTMLEngine *e, HTMLObject *clue)
 		html_stack_push (e->span_stack, node);
 		update_flow_align (e, clue);
 		node->exitFunc = block_end_div;
+		break;
+	case DISPLAY_TABLE_ROW:
+		{
+			HTMLTable *table = html_stack_top (e->table_stack);
+
+			if (!table) {
+				html_element_free (node);
+				return;
+			}
+		
+			pop_element_by_type (e, DISPLAY_TABLE_CAPTION);
+			pop_element_by_type (e, DISPLAY_TABLE_ROW);
+			
+			html_table_start_row (table);
+			
+			node->exitFunc = block_end_row;
+			html_stack_push (e->span_stack, node);
+		}
 		break;
 	case DISPLAY_INLINE:
 	default:
@@ -2911,6 +2933,12 @@ block_end_table (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 }
 
 static void
+block_end_inline_table (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem) 
+{
+	html_stack_pop (e->table_stack);	
+}
+
+static void
 close_current_table (HTMLEngine *e)
 {
 	HTMLElement *span;
@@ -2936,10 +2964,10 @@ close_current_table (HTMLEngine *e)
 static void
 element_parse_table (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
+	HTMLElement *element;
 	HTMLTable *table;
-	HTMLStyle *style = NULL;
-	HTMLHAlignType align = HTML_HALIGN_NONE;
-	
+	char *value;
+
 	GdkColor tableColor;
 	gboolean have_tableColor = FALSE;
 	
@@ -2951,61 +2979,98 @@ element_parse_table (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	
 	/* see test16.html test0023.html and test0024.html */
 	/* pop_element (e, ID_A); */
-	close_current_table (e);
 	
-	html_string_tokenizer_tokenize (e->st, str + 5, " >");
-	while (html_string_tokenizer_has_more_tokens (e->st)) {
-		const gchar *token = html_string_tokenizer_next_token (e->st);
-		if (strncasecmp (token, "cellpadding=", 12) == 0) {
-			padding = atoi (token + 12);
+	element = html_element_new (e, str);
+
+	if (html_element_get_attr (element, "cellpadding", &value) && value)
+		padding = atoi (value);
+	
+	if (html_element_get_attr (element, "cellspacing", &value) && value)
+		spacing = atoi (value);
+
+	if (html_element_get_attr (element, "border", &value))
+		if (value && *value) 
+			border = atoi (value);
+		else 
+			border = 1;
+
+	if (html_element_get_attr (element, "width", &value) && value) {
+		if (strchr (value, '%')) {
+			percent = atoi (value);
+		} else if (strchr (value, '*')) {
+			/* Ignore */
+		} else if (isdigit (*value)) {
+			width = atoi (value);
 		}
-		else if (strncasecmp (token, "cellspacing=", 12) == 0) {
-			spacing = atoi (token + 12);
-		}
-		else if (strncasecmp (token, "border", 6) == 0) {
-			if (*(token + 6) == '=')
-				border = atoi (token + 7);
-			else
-				border = 1;
-		}
-		else if (strncasecmp (token, "width=", 6) == 0) {
-			if (strchr (token + 6, '%')) {
-				percent = atoi (token + 6);
-			} else if (strchr (token + 6, '*')) {
-				/* Ignore */
-			} else if (isdigit (*(token + 6))) {
-				width = atoi (token + 6);
-			}
-		}
-		else if (strncasecmp (token, "align=", 6) == 0) {
-			align = parse_halign (token + 6, align);
-		}
-		else if (strncasecmp (token, "bgcolor=", 8) == 0
-			 && !e->defaultSettings->forceDefault) {
-			if (parse_color (token + 8, &tableColor)) {
-				have_tableColor = TRUE;
-			}
-		}
-		else if (strncasecmp (token, "background=", 11) == 0
-			 && token [12]
-			 && !e->defaultSettings->forceDefault) {
-			style = html_style_add_background_image (style, (char *)token + 11);
+	}
+		
+	if (html_element_get_attr (element, "align", &value))
+		element->style = html_style_add_text_align (element->style, parse_halign (value, HTML_HALIGN_NONE));
+	
+	if (html_element_get_attr (element, "bgcolor", &value)
+	    && !e->defaultSettings->forceDefault) {
+		GdkColor color;
+		
+		if (parse_color (value, &color)) {
+			HTMLColor *hcolor = html_color_new_from_gdk_color  (&color);
+			element->style = html_style_add_background_color (element->style, hcolor);
+			html_color_unref (hcolor);
 		}
 	}
 	
-	table = HTML_TABLE (html_table_new (width, percent, padding, spacing, border));
-	
-	if (have_tableColor)
-		table->bgColor = gdk_color_copy (&tableColor);
-	
-	if (style && style->bg_image) {
-		table->bgPixmap = html_image_factory_register (e->image_factory, NULL, style->bg_image, FALSE);
+	if (html_element_get_attr (element, "background", &value)
+	    && !e->defaultSettings->forceDefault)
+		element->style = html_style_add_background_image (element->style, value);
+
+	element->style = html_style_set_display (element->style, DISPLAY_TABLE);
+
+	html_element_parse_coreattrs (element);
+
+	switch (element->style->display) {
+	case DISPLAY_TABLE:
+		close_current_table (e);
+		
+		table = HTML_TABLE (html_table_new (width, percent, padding, spacing, border));
+		
+		if (element->style->bg_color)
+			table->bgColor = gdk_color_copy ((GdkColor *)element->style->bg_color);
+		
+		if (element->style->bg_image)
+			table->bgPixmap = html_image_factory_register (e->image_factory, NULL, element->style->bg_image, FALSE);
+		
+		html_stack_push (e->table_stack, table);
+
+		element->miscData1 = element->style->text_align;
+		element->miscData2 = current_alignment (e);
+		element->exitFunc = block_end_table;
+		html_stack_push (e->span_stack, element);
+
+		e->avoid_para = FALSE;
+		break;
+	case DISPLAY_INLINE_TABLE:
+		close_current_table (e);
+		
+		table = HTML_TABLE (html_table_new (width, percent, padding, spacing, border));
+		
+		if (element->style->bg_color)
+			table->bgColor = gdk_color_copy ((GdkColor *)element->style->bg_color);
+		
+		if (element->style->bg_image)
+			table->bgPixmap = html_image_factory_register (e->image_factory, NULL, element->style->bg_image, FALSE);
+		
+		html_stack_push (e->table_stack, table);
+
+		element->exitFunc = block_end_inline_table;
+		html_stack_push (e->span_stack, element);
+
+		append_element (e, clue, HTML_OBJECT (table));
+		break;
+	default:
+		html_element_push (element, e, clue);
+		break;
 	}
-	
-	html_stack_push (e->table_stack, table);
-	push_block_element (e, ID_TABLE, style, DISPLAY_TABLE, block_end_table, align, current_alignment (e));
-	
-	e->avoid_para = FALSE;
+
+
 }
      
 static void
@@ -3050,49 +3115,41 @@ block_ensure_row (HTMLEngine *e)
 static void
 element_parse_tr (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
-	HTMLTable *table = html_stack_top (e->table_stack);
-	gboolean have_rowColor;
-	gboolean have_rowPixmap;
-	GdkColor rowColor;
-	HTMLStyle *style = NULL;
-	
-	if (!table)
-		return;
-	
-	pop_element_by_type (e, DISPLAY_TABLE_CAPTION);
-	pop_element_by_type (e, DISPLAY_TABLE_ROW);
+	HTMLElement *element;
+	char *value;
 
-	/*	  
-	pop_element (e, ID_CAPTION);
-	pop_element (e, ID_TR);
-	*/
-
-	have_rowColor = FALSE;
-	have_rowPixmap = FALSE;
+	element = html_element_new (e, str);
 	
-	html_string_tokenizer_tokenize (e->st, str + 2, " >");
-	while (html_string_tokenizer_has_more_tokens (e->st)) {
-		const gchar *token = html_string_tokenizer_next_token (e->st);
-		if (strncasecmp (token, "valign=", 7) == 0) {
-			if (strncasecmp (token + 7, "top", 3) == 0)
-				style = html_style_add_text_valign (style, HTML_VALIGN_TOP);
-			else if (strncasecmp (token + 7, "bottom", 6) == 0)
-				style = html_style_add_text_valign (style, HTML_VALIGN_BOTTOM);
-			else
-				style = html_style_add_text_valign (style, HTML_VALIGN_MIDDLE);
-		} else if (strncasecmp (token, "align=", 6) == 0) {
-			style = html_style_add_text_align (style, parse_halign (token + 6, HTML_HALIGN_NONE));
-		} else if (strncasecmp (token, "bgcolor=", 8) == 0) {
-			if (parse_color (token + 8, &rowColor))
-				style = html_style_add_background_color (style, &rowColor);
-		} else if (strncasecmp (token, "background=", 11) == 0) {
-			if (strlen (token + 11) != 0)
-				style = html_style_add_background_image (style, token + 11);
+	if (html_element_get_attr (element, "valign", &value)) {
+		if (strncasecmp (value, "top", 3) == 0)
+			element->style = html_style_add_text_valign (element->style, HTML_VALIGN_TOP);
+		else if (strncasecmp (value, "bottom", 6) == 0)
+			element->style = html_style_add_text_valign (element->style, HTML_VALIGN_BOTTOM);
+		else
+			element->style = html_style_add_text_valign (element->style, HTML_VALIGN_MIDDLE);
+	}
+	
+	if (html_element_get_attr (element, "align", &value))
+		element->style = html_style_add_text_align (element->style, parse_halign (value, HTML_HALIGN_NONE));
+	
+	if (html_element_get_attr (element, "bgcolor", &value)) {
+		GdkColor color;
+		
+		if (parse_color (value, &color)) {
+			HTMLColor *hcolor = html_color_new_from_gdk_color (&color); 
+			element->style = html_style_add_background_color (element->style, hcolor);
+			html_color_unref (hcolor);
 		}
 	}
 	
-	html_table_start_row (table);
-	push_block_element (e, ID_TR, style, DISPLAY_TABLE_ROW, block_end_row, 0, 0);
+        if (html_element_get_attr (element, "background", &value) && value && *value)
+		element->style = html_style_add_background_image (element->style, value);
+	
+	element->style = html_style_set_display (element->style, DISPLAY_TABLE_ROW);
+	element->style = html_style_add_text_valign (element->style, HTML_VALIGN_MIDDLE);
+
+	html_element_parse_coreattrs  (element);
+	html_element_push (element, e, clue);
 }
 
 static void
@@ -3140,9 +3197,8 @@ element_parse_caption (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 }
 
 static void
-element_parse_td (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+element_parse_cell (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
-	HTMLStyle *style = NULL;
 	HTMLTable *table = html_stack_top (e->table_stack);
 	gint rowSpan = 1;
 	gint colSpan = 1;
@@ -3159,111 +3215,118 @@ element_parse_td (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	HTMLHAlignType halign;
 	gboolean have_bgColor = FALSE;
 	GdkColor bgColor;
+	gboolean heading;
+	HTMLElement *element;
+	char *value;
 	
-	if (!table)
-		return;
-	
-	pop_element_by_type (e, DISPLAY_TABLE_CELL);
-	pop_element_by_type (e, DISPLAY_TABLE_CAPTION);
-
 	/*
 	pop_element (e, ID_TH);
 	pop_element (e, ID_TD);
 	pop_element (e, ID_CAPTION);
 	*/
 
-	valign = current_row_valign (e); 
-	halign = current_row_align (e);
+	element = html_element_new (e, str);
+
+	heading = !strcasecmp (g_quark_to_string (element->id), "th");
 	
-	style = html_style_unset_decoration (style, 0xffff);
-	style = html_style_set_font_size (style, GTK_HTML_FONT_STYLE_SIZE_3);
+	element->style = html_style_unset_decoration (element->style, 0xffff);
+	element->style = html_style_set_font_size (element->style, GTK_HTML_FONT_STYLE_SIZE_3);
+	element->style = html_style_set_display (element->style, DISPLAY_TABLE_CELL);
+        
+	if (heading) {
+		element->style = html_style_set_decoration (element->style, GTK_HTML_FONT_STYLE_BOLD);
+		element->style = html_style_add_text_align (element->style, HTML_HALIGN_CENTER);
+	}
+
+	/* begin shared with row */
+	if (html_element_get_attr (element, "valign", &value)) {
+		if (strncasecmp (value, "top", 3) == 0)
+			element->style = html_style_add_text_valign (element->style, HTML_VALIGN_TOP);
+		else if (strncasecmp (value, "bottom", 6) == 0)
+			element->style = html_style_add_text_valign (element->style, HTML_VALIGN_BOTTOM);
+		else
+			element->style = html_style_add_text_valign (element->style, HTML_VALIGN_MIDDLE);
+	}
 	
-	html_string_tokenizer_tokenize (e->st, str + 2, " >");
-	while (html_string_tokenizer_has_more_tokens (e->st)) {
-		const gchar *token = html_string_tokenizer_next_token (e->st);
+	if (html_element_get_attr (element, "align", &value))
+		element->style = html_style_add_text_align (element->style, parse_halign (value, HTML_HALIGN_NONE));
+	
+	if (html_element_get_attr (element, "bgcolor", &value)) {
+		GdkColor color;
 		
-		if (strncasecmp (token, "rowspan=", 8) == 0) {
-			rowSpan = atoi (token + 8);
-			if (rowSpan < 1)
-				rowSpan = 1;
+		if (parse_color (value, &color)) {
+			HTMLColor *hcolor = html_color_new_from_gdk_color (&color); 
+			element->style = html_style_add_background_color (element->style, hcolor);
+			html_color_unref (hcolor);
 		}
-		else if (strncasecmp (token, "colspan=", 8) == 0) {
-			colSpan = atoi (token + 8);
+	}
+	
+        if (html_element_get_attr (element, "background", &value) && value && *value)
+		element->style = html_style_add_background_image (element->style, value);
+	/* end shared with row */
+
+	if (html_element_get_attr (element, "rowspan", &value)) {
+		rowSpan = atoi (value);
+		if (rowSpan < 1)
+			rowSpan = 1;
+	}
+		
+	if (html_element_get_attr (element, "colspan", &value)) {
+			colSpan = atoi (value);
 			if (colSpan < 1)
 				colSpan = 1;
-		}
-		else if (strncasecmp (token, "valign=", 7) == 0) {
-			if (strncasecmp (token + 7, "top", 3) == 0)
-				valign = HTML_VALIGN_TOP;
-			else if (strncasecmp (token + 7, "bottom", 6) == 0)
-				valign = HTML_VALIGN_BOTTOM;
-			else 
-				valign = HTML_VALIGN_MIDDLE;
-		}
-		else if (strncasecmp (token, "align=", 6) == 0) {
-			style = html_style_add_text_align (style, parse_halign (token + 6, HTML_HALIGN_NONE));
-		}
-		else if (strncasecmp (token, "height=", 7) == 0) {
-			if (strchr (token + 7, '%')) {
-				/* gtk_html_debug_log (e->widget, "percent!\n");
-				   cellheight = atoi (token + 7);
+	}
+
+	if (html_element_get_attr (element, "height", &value)) {
+		if (strchr (value, '%')) {
+			/* gtk_html_debug_log (e->widget, "percent!\n");
+			   cellheight = atoi (value);
 				   cellheight_percent = TRUE;
 				   fixedHeight = TRUE; */
-			}
-			else if (strchr (token + 7, '*')) {
+		} else if (strchr (value, '*')) {
 				/* ignore */
-			}
-			else if (isdigit (*(token + 7))) {
-				cellheight = atoi (token + 7);
-				cellheight_percent = FALSE;
-				fixedHeight = TRUE;
-			}
+		} else if (isdigit (*value)) {
+			cellheight = atoi (value);
+			cellheight_percent = FALSE;
+			fixedHeight = TRUE;
 		}
-		else if (strncasecmp (token, "width=", 6) == 0) {
-			if (strchr (token + 6, '%')) {
+	}
+
+	if (html_element_get_attr (element, "width", &value) == 0) {
+			if (strchr (value, '%')) {
 				gtk_html_debug_log (e->widget, "percent!\n");
-				cellwidth = atoi (token + 6);
+				cellwidth = atoi (value);
 				cellwidth_percent = TRUE;
 				fixedWidth = TRUE;
 			}
-			else if (strchr (token + 6, '*')) {
+			else if (strchr (value, '*')) {
 				/* ignore */
 			}
-			else if (isdigit (*(token + 6))) {
-				cellwidth = atoi (token + 6);
+			else if (isdigit (*value)) {
+				cellwidth = atoi (value);
 				cellwidth_percent = FALSE;
 				fixedWidth = TRUE;
 			}
-		}
-		else if (strncasecmp (token, "bgcolor=", 8) == 0
-			 && !e->defaultSettings->forceDefault) {
-			
-					
-			if (parse_color (token + 8, &bgColor))
-				have_bgColor = TRUE;
-		}
-		else if (strncasecmp (token, "nowrap", 6) == 0) {
-			no_wrap = TRUE;
-		}
-		else if (strncasecmp (token, "background=", 11) == 0
-			 && token [12]
-			 && !e->defaultSettings->forceDefault) {
-			
-			style = html_style_add_background_image (style, (char *)token + 11); 
-		}
 	}
+		
+	if (html_element_get_attr (element, "nowrap", &value))
+			no_wrap = TRUE;
 	
+	html_element_parse_coreattrs (element);
+
+	if (!table)
+		return;
+	
+	pop_element_by_type (e, DISPLAY_TABLE_CELL);
+	pop_element_by_type (e, DISPLAY_TABLE_CAPTION);
+
 	cell = HTML_TABLE_CELL (html_table_cell_new (rowSpan, colSpan, table->padding));
 	cell->no_wrap = no_wrap;
-	
-	html_object_set_bg_color (HTML_OBJECT (cell), have_bgColor ? &bgColor : current_row_bg_color (e));
-	
-	if (style && style->bg_image) {
-		image_url = style->bg_image;
-	} else {
-		image_url = current_row_bg_image (e);
-	}
-	
+	cell->heading = heading;
+
+	html_object_set_bg_color (HTML_OBJECT (cell), (GdkColor *)(element->style->bg_color ? element->style->bg_color : current_row_bg_color (e)));
+
+	image_url = element->style->bg_image ? element->style->bg_image : current_row_bg_image (e);	
 	if (image_url) {
 		HTMLImagePointer *ip;
 		
@@ -3271,8 +3334,8 @@ element_parse_td (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		html_table_cell_set_bg_pixmap (cell, ip);
 	}
 	
-	HTML_CLUE (cell)->valign = valign;
-	HTML_CLUE (cell)->halign = halign;
+	HTML_CLUE (cell)->valign = element->style->text_valign != HTML_VALIGN_NONE ? element->style->text_valign : current_row_valign (e);
+	HTML_CLUE (cell)->halign = element->style->text_align != HTML_HALIGN_NONE ? element->style->text_align : current_row_align (e);
 	
 	if (fixedWidth)
 		html_table_cell_set_fixed_width (cell, cellwidth, cellwidth_percent);
@@ -3282,157 +3345,9 @@ element_parse_td (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	block_ensure_row (e);
 	html_table_add_cell (table, cell);
 	push_clue (e, HTML_OBJECT (cell));
-	push_block_element (e, ID_TD, style, DISPLAY_TABLE_CELL, block_end_cell, 0, 0);
-}
 
-static void
-element_parse_th (HTMLEngine *e, HTMLObject *clue, const gchar *str)
-{
-	HTMLStyle *style = NULL;
-	HTMLTable *table = html_stack_top (e->table_stack);
-	gint rowSpan = 1;
-	gint colSpan = 1;
-	gint cellwidth =  clue->max_width;
-	gint cellheight = -1;
-	gboolean cellwidth_percent = FALSE;
-	gboolean cellheight_percent = FALSE;
-	gboolean no_wrap = FALSE;
-	gboolean fixedWidth = FALSE;
-	gboolean fixedHeight = FALSE;
-	HTMLVAlignType valign;
-	HTMLHAlignType halign;
-	HTMLTableCell *cell = NULL;
-	char *image_url = NULL;
-	
-	gboolean have_bgColor = FALSE;
-	GdkColor bgColor;
-	
-	if (!table)
-		return;
-		
-	pop_element_by_type (e, DISPLAY_TABLE_CELL);
-	pop_element_by_type (e, DISPLAY_TABLE_CAPTION);
-
-	/*
-	pop_element (e, ID_TH);
-	pop_element (e, ID_TD);
-	pop_element (e, ID_CAPTION);
-	*/
-	
-	valign = current_row_valign (e);
-	halign = current_row_align (e);
-	
-	style = html_style_unset_decoration (style, 0xffff);
-	style = html_style_set_decoration (style, GTK_HTML_FONT_STYLE_BOLD);
-	style = html_style_add_text_align (style, HTML_HALIGN_CENTER);
-	style = html_style_set_font_size (style, GTK_HTML_FONT_STYLE_SIZE_3);
-	
-	html_string_tokenizer_tokenize (e->st, str + 2, " >");
-	while (html_string_tokenizer_has_more_tokens (e->st)) {
-		const gchar *token = html_string_tokenizer_next_token (e->st);
-		
-		if (strncasecmp (token, "rowspan=", 8) == 0) {
-			rowSpan = atoi (token + 8);
-			if (rowSpan < 1)
-					rowSpan = 1;
-		}
-		else if (strncasecmp (token, "colspan=", 8) == 0) {
-			colSpan = atoi (token + 8);
-			if (colSpan < 1)
-				colSpan = 1;
-		}
-		else if (strncasecmp (token, "valign=", 7) == 0) {
-			if (strncasecmp (token + 7, "top", 3) == 0)
-				valign = HTML_VALIGN_TOP;
-			else if (strncasecmp (token + 7, "bottom", 6) == 0)
-				valign = HTML_VALIGN_BOTTOM;
-			else 
-				valign = HTML_VALIGN_MIDDLE;
-		}
-		else if (strncasecmp (token, "align=", 6) == 0) {
-			style = html_style_add_text_align (style, parse_halign (token + 6, HTML_HALIGN_NONE));
-		}
-		else if (strncasecmp (token, "height=", 7) == 0) {
-			if (strchr (token + 7, '%')) {
-				/* gtk_html_debug_log (e->widget, "percent!\n");
-				   cellheight = atoi (token + 7);
-				   cellheight_percent = TRUE;
-				   fixedHeight = TRUE; */
-			}
-			else if (strchr (token + 7, '*')) {
-				/* ignore */
-			}
-			else if (isdigit (*(token + 7))) {
-				cellheight = atoi (token + 7);
-				cellheight_percent = FALSE;
-				fixedHeight = TRUE;
-			}
-		}
-		else if (strncasecmp (token, "width=", 6) == 0) {
-			if (strchr (token + 6, '%')) {
-				gtk_html_debug_log (e->widget, "percent!\n");
-				cellwidth = atoi (token + 6);
-				cellwidth_percent = TRUE;
-				fixedWidth = TRUE;
-			}
-			else if (strchr (token + 6, '*')) {
-				/* ignore */
-			}
-			else if (isdigit (*(token + 6))) {
-				cellwidth = atoi (token + 6);
-				cellwidth_percent = FALSE;
-				fixedWidth = TRUE;
-			}
-		}
-		else if (strncasecmp (token, "bgcolor=", 8) == 0
-			 && !e->defaultSettings->forceDefault) {
-			
-			if (parse_color (token + 8, &bgColor))
-				have_bgColor = TRUE;
-		}
-		else if (strncasecmp (token, "nowrap", 6) == 0) {
-			no_wrap = TRUE;
-		}
-		else if (strncasecmp (token, "background=", 11) == 0
-			 && token [12]
-			 && !e->defaultSettings->forceDefault) {
-			
-			style = html_style_add_background_image (style, token + 11); 
-		}
-	}
-	
-	cell = HTML_TABLE_CELL (html_table_cell_new (rowSpan, colSpan, table->padding));
-	cell->no_wrap = no_wrap;
-	cell->heading = TRUE;
-	
-	html_object_set_bg_color (HTML_OBJECT (cell), have_bgColor ? &bgColor : current_row_bg_color (e));
-	
-	
-	if (style && style->bg_image) {
-		image_url = style->bg_image;
-	} else {
-		image_url = current_row_bg_image (e);
-	}
-	
-	if (image_url) {
-		HTMLImagePointer *ip;
-		
-		ip = html_image_factory_register(e->image_factory, NULL, image_url, FALSE);
-		html_table_cell_set_bg_pixmap (cell, ip);
-	}
-		
-	HTML_CLUE (cell)->valign = valign;
-	HTML_CLUE (cell)->halign = halign;
-	
-	if (fixedWidth)
-		html_table_cell_set_fixed_width (cell, cellwidth, cellwidth_percent);
-	if (fixedHeight)
-		html_table_cell_set_fixed_height (cell, cellheight, cellheight_percent);
-	
-	block_ensure_row (e);
-	html_table_add_cell (table, cell);
-	push_clue (e, HTML_OBJECT (cell));
-	push_block_element (e, ID_TH, style, DISPLAY_TABLE_CELL, block_end_cell, 0, 0);
+	element->exitFunc = block_end_cell;
+	html_stack_push (e->span_stack, element);
 }
 
 static void
@@ -3728,8 +3643,8 @@ HTMLDispatchEntry basic_table[] = {
 	{ID_UL,               element_parse_ul},
 	{ID_TEXTAREA,         element_parse_textarea},
 	{ID_TABLE,            element_parse_table},
-	{ID_TD,               element_parse_td},
-	{ID_TH,               element_parse_th},
+	{ID_TD,               element_parse_cell},
+	{ID_TH,               element_parse_cell},
 	{ID_TR,               element_parse_tr},
 	{ID_TT,               element_parse_inline_fixed},
 	{"title",             element_parse_title},

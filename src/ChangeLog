@@ -1,3 +1,16 @@
+2003-09-11  Larry Ewing  <lewing@ximian.com>
+
+	* htmlstyle.c (html_style_add_background_color): use htmlcolor.
+	(html_style_add_attribute): parse a few more attributes.
+
+	* htmlstyle.h: switch to using htmlcolor instead of gdkcolor.
+
+	* htmlengine.c (element_parse_table): support display:
+	inline-table, move to htmlelement code.
+	(element_parse_tr): move to htmlelement code.
+	(element_parse_cell): combine parse_th and parse_td logic into one
+	function, use htmlelement code.
+
 2003-09-10  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine.c (current_alignment): make alignment only work if we
