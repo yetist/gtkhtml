@@ -66,7 +66,7 @@
 	  <columns>2</columns>
 	  <homogeneous>False</homogeneous>
 	  <row_spacing>4</row_spacing>
-	  <column_spacing>4</column_spacing>
+	  <column_spacing>6</column_spacing>
 
 	  <widget>
 	    <class>GtkLabel</class>
@@ -173,7 +173,7 @@
 	      <bottom_attach>1</bottom_attach>
 	      <xpad>0</xpad>
 	      <ypad>0</ypad>
-	      <xexpand>True</xexpand>
+	      <xexpand>False</xexpand>
 	      <yexpand>False</yexpand>
 	      <xshrink>False</xshrink>
 	      <yshrink>False</yshrink>
@@ -204,7 +204,7 @@
 	  <columns>2</columns>
 	  <homogeneous>False</homogeneous>
 	  <row_spacing>4</row_spacing>
-	  <column_spacing>4</column_spacing>
+	  <column_spacing>6</column_spacing>
 
 	  <widget>
 	    <class>GtkLabel</class>
@@ -306,7 +306,7 @@
 	      <bottom_attach>1</bottom_attach>
 	      <xpad>0</xpad>
 	      <ypad>0</ypad>
-	      <xexpand>True</xexpand>
+	      <xexpand>False</xexpand>
 	      <yexpand>False</yexpand>
 	      <xshrink>False</xshrink>
 	      <yshrink>False</yshrink>
@@ -388,7 +388,7 @@
 	      <handler>changed</handler>
 	      <last_modification_time>Mon, 11 Dec 2000 13:57:07 GMT</last_modification_time>
 	    </signal>
-	    <label>Animated images</label>
+	    <label>Show animated images</label>
 	    <active>False</active>
 	    <draw_indicator>True</draw_indicator>
 	    <child>
@@ -407,7 +407,7 @@
 	      <handler>changed</handler>
 	      <last_modification_time>Mon, 11 Dec 2000 14:26:29 GMT</last_modification_time>
 	    </signal>
-	    <label>Automatic Link Detection</label>
+	    <label>Automatically detect links</label>
 	    <active>False</active>
 	    <draw_indicator>True</draw_indicator>
 	    <child>
@@ -426,7 +426,7 @@
 	      <handler>live_changed</handler>
 	      <last_modification_time>Mon, 11 Dec 2000 14:27:03 GMT</last_modification_time>
 	    </signal>
-	    <label>Spell checking</label>
+	    <label>Enable spell checking</label>
 	    <active>False</active>
 	    <draw_indicator>True</draw_indicator>
 	    <child>
@@ -458,7 +458,7 @@
 	  <columns>2</columns>
 	  <homogeneous>False</homogeneous>
 	  <row_spacing>4</row_spacing>
-	  <column_spacing>4</column_spacing>
+	  <column_spacing>6</column_spacing>
 
 	  <widget>
 	    <class>GtkLabel</class>
@@ -513,34 +513,6 @@
 	  </widget>
 
 	  <widget>
-	    <class>GnomeColorPicker</class>
-	    <name>live_spell_color</name>
-	    <can_focus>True</can_focus>
-	    <signal>
-	      <name>color_set</name>
-	      <handler>changed</handler>
-	      <last_modification_time>Mon, 11 Dec 2000 14:29:32 GMT</last_modification_time>
-	    </signal>
-	    <dither>True</dither>
-	    <use_alpha>False</use_alpha>
-	    <title>Pick a color</title>
-	    <child>
-	      <left_attach>1</left_attach>
-	      <right_attach>2</right_attach>
-	      <top_attach>0</top_attach>
-	      <bottom_attach>1</bottom_attach>
-	      <xpad>0</xpad>
-	      <ypad>0</ypad>
-	      <xexpand>False</xexpand>
-	      <yexpand>False</yexpand>
-	      <xshrink>False</xshrink>
-	      <yshrink>False</yshrink>
-	      <xfill>True</xfill>
-	      <yfill>False</yfill>
-	    </child>
-	  </widget>
-
-	  <widget>
 	    <class>GtkEntry</class>
 	    <name>live_spell_entry</name>
 	    <can_focus>True</can_focus>
@@ -560,13 +532,53 @@
 	      <bottom_attach>2</bottom_attach>
 	      <xpad>0</xpad>
 	      <ypad>0</ypad>
-	      <xexpand>True</xexpand>
+	      <xexpand>False</xexpand>
+	      <yexpand>False</yexpand>
+	      <xshrink>False</xshrink>
+	      <yshrink>False</yshrink>
+	      <xfill>False</xfill>
+	      <yfill>False</yfill>
+	    </child>
+	  </widget>
+
+	  <widget>
+	    <class>GtkHBox</class>
+	    <name>hbox1</name>
+	    <homogeneous>False</homogeneous>
+	    <spacing>0</spacing>
+	    <child>
+	      <left_attach>1</left_attach>
+	      <right_attach>2</right_attach>
+	      <top_attach>0</top_attach>
+	      <bottom_attach>1</bottom_attach>
+	      <xpad>0</xpad>
+	      <ypad>0</ypad>
+	      <xexpand>False</xexpand>
 	      <yexpand>False</yexpand>
 	      <xshrink>False</xshrink>
 	      <yshrink>False</yshrink>
 	      <xfill>True</xfill>
 	      <yfill>False</yfill>
 	    </child>
+
+	    <widget>
+	      <class>GnomeColorPicker</class>
+	      <name>live_spell_color</name>
+	      <can_focus>True</can_focus>
+	      <signal>
+		<name>color_set</name>
+		<handler>changed</handler>
+		<last_modification_time>Mon, 11 Dec 2000 14:29:32 GMT</last_modification_time>
+	      </signal>
+	      <dither>True</dither>
+	      <use_alpha>False</use_alpha>
+	      <title>Pick a color</title>
+	      <child>
+		<padding>0</padding>
+		<expand>False</expand>
+		<fill>False</fill>
+	      </child>
+	    </widget>
 	  </widget>
 	</widget>
       </widget>
