@@ -135,9 +135,9 @@ gtk_html_debug_dump_object (HTMLObject *obj,
 	for (i = 0; i < level; i++)
 		g_print (" ");
 
-	g_print ("ObjectType: %s Pos: %d, %d, MinWidth: %d, Width: %d MaxWidth: %d Ascent %d Descent %d",
+	g_print ("ObjectType: %s Pos: %d, %d, MinWidth: %d, Width: %d PrefWidth: %d MaxWidth: %d Ascent %d Descent %d",
 		 html_type_name (HTML_OBJECT_TYPE (obj)),
-		 obj->x, obj->y, obj->min_width, obj->width, obj->max_width, obj->ascent, obj->descent);
+		 obj->x, obj->y, obj->min_width, obj->width, obj->pref_width, obj->max_width, obj->ascent, obj->descent);
 
 	if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_CLUEFLOW)
 		g_print (" [%s, %d]",
@@ -174,7 +174,7 @@ gtk_html_debug_dump_object (HTMLObject *obj,
 	case HTML_TYPE_CLUEH:
 	case HTML_TYPE_CLUEV:
 	case HTML_TYPE_CLUEFLOW:
-		g_print ("Head: %p Tail: %p\n", HTML_CLUE (obj)->head, HTML_CLUE (obj)->tail);
+		/* g_print ("Head: %p Tail: %p\n", HTML_CLUE (obj)->head, HTML_CLUE (obj)->tail); */
 	case HTML_TYPE_CLUEALIGNED:
 	case HTML_TYPE_TABLECELL:
 		for (i = 0; i < level; i++) g_print (" ");

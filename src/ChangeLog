@@ -1,3 +1,8 @@
+2001-03-27  Radek Doulik  <rodo@ximian.com>
+
+	* htmlclueflow.c (calc_preferred_width): don't remove trailing
+	space width on the end of paragraph
+
 2001-03-26  Larry Ewing  <lewing@ximian.com>
 
 	* Makefile.am: add htmlplainpainter.[ch]

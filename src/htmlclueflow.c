@@ -755,7 +755,7 @@ static gint
 calc_preferred_width (HTMLObject *o,
 		      HTMLPainter *painter)
 {
-	HTMLObject *obj;
+	HTMLObject *obj, *next;
 	gint maxw = 0, w = 0;
 
 	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next) {
@@ -763,11 +763,11 @@ calc_preferred_width (HTMLObject *o,
 			w += html_object_calc_preferred_width (obj, painter);
 		}
 
-		if (obj->flags & HTML_OBJECT_FLAG_NEWLINE || !html_object_next_not_slave (obj)) {
+		if (obj->flags & HTML_OBJECT_FLAG_NEWLINE || !(next = html_object_next_not_slave (obj))) {
 			HTMLObject *eol = (obj->flags & HTML_OBJECT_FLAG_NEWLINE) ? html_object_prev_not_slave (obj) : obj;
 
-			/* remove trailing space width on the end of line */
-			if (html_object_is_text (eol))
+			/* remove trailing space width on the end of line which is not on end of paragraph */
+			if (next && html_object_is_text (eol))
 				w -= html_text_trail_space_width (HTML_TEXT (eol), painter);
 
 			if (w > maxw)
