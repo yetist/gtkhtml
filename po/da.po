@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.5\n"
 "POT-Creation-Date: 2000-07-16 01:20+0200\n"
-"PO-Revision-Date: 2000-09-27 01:30+0200\n"
+"PO-Revision-Date: 2000-10-20 01:30+0200\n"
 "Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
@@ -41,7 +41,7 @@ msgstr "Tilføj"
 
 #: capplet/gnome-bindings-prop.c:548
 #: components/html-editor/test-html-editor-control.c:323
-#: components/html-editor/toolbar.c:495
+#: components/html-editor/toolbar.c:496
 msgid "Copy"
 msgstr "Kopiér"
 
@@ -133,53 +133,65 @@ msgstr "Baggrundsbillede"
 msgid "Colors"
 msgstr "Farver"
 
-#: components/html-editor/editor-control-factory.c:136
-#: components/html-editor/popup.c:86
+#: components/html-editor/editor-control-factory.c:129
+#: components/html-editor/popup.c:73
+msgid "Properties"
+msgstr "Egenskaber"
+
+#: components/html-editor/editor-control-factory.c:140
+#: components/html-editor/menubar.c:96 components/html-editor/popup.c:88
 msgid "Image"
 msgstr "Billede"
 
-#: components/html-editor/editor-control-factory.c:145
-#: components/html-editor/popup.c:79
+#: components/html-editor/editor-control-factory.c:149
+#: components/html-editor/menubar.c:117 components/html-editor/popup.c:81
 msgid "Text"
 msgstr "Tekst"
 
-#: components/html-editor/editor-control-factory.c:157
-#: components/html-editor/popup.c:93
+#: components/html-editor/editor-control-factory.c:160
+#: components/html-editor/menubar.c:140 components/html-editor/popup.c:116
+msgid "Rule"
+msgstr "Regel"
+
+#: components/html-editor/editor-control-factory.c:169
+#: components/html-editor/popup.c:95
 msgid "Paragraph"
 msgstr "Afsnit"
 
-#: components/html-editor/editor-control-factory.c:162
-#: components/html-editor/menubar.c:109 components/html-editor/popup.c:100
+#: components/html-editor/editor-control-factory.c:174
+#: components/html-editor/menubar.c:101 components/html-editor/menubar.c:122
+#: components/html-editor/popup.c:102
 msgid "Link"
 msgstr "Lænke"
 
-#: components/html-editor/editor-control-factory.c:167
-#: components/html-editor/popup.c:107
+#: components/html-editor/editor-control-factory.c:179
+#: components/html-editor/popup.c:109
 msgid "Page"
 msgstr "Side"
 
-#: components/html-editor/image.c:409
+#: components/html-editor/image.c:149
 msgid "Image selection"
 msgstr "Billedvalg"
 
-#: components/html-editor/image.c:417
-msgid "Border"
-msgstr "Kant"
-
 #. ADD_ITEM("Left",   GDK_F4);
 #. ADD_ITEM("Right",  GDK_F5);
-#: components/html-editor/image.c:450
+#: components/html-editor/image.c:176
 msgid "Alignment"
 msgstr "Justering"
 
-#: components/html-editor/image.c:462 components/html-editor/rule.c:124
-#: components/html-editor/text.c:160
-msgid "Size"
-msgstr "Størrelse"
+#: components/html-editor/image.c:184
+msgid "Border"
+msgstr "Kant"
 
-#: components/html-editor/image.c:489
+#: components/html-editor/image.c:201
 msgid "Padding"
 msgstr "Fyld"
+
+#. size
+#: components/html-editor/image.c:221 components/html-editor/rule.c:222
+#: components/html-editor/text.c:195
+msgid "Size"
+msgstr "Størrelse"
 
 #: components/html-editor/link.c:72
 msgid "Clear"
@@ -197,15 +209,19 @@ msgstr "Kunne ikke initialisere GNORBA"
 msgid "Could not initialize Bonobo"
 msgstr "Kunne ikke initialisere Bonobo"
 
-#: components/html-editor/menubar.c:93
-msgid "Insert image"
-msgstr "Indsæt billede"
+#: components/html-editor/menubar.c:94 components/html-editor/menubar.c:114
+#: components/html-editor/menubar.c:137
+#: components/html-editor/properties.c:110
+msgid "Insert"
+msgstr "Indsæt"
 
-#: components/html-editor/menubar.c:128
+#: components/html-editor/menubar.c:153
 msgid "Cannot execute gtkhtml properties"
 msgstr "Kan ikke udføre gtkhtml egenskaber"
 
-#: components/html-editor/paragraph.c:74 components/html-editor/text.c:138
+#. style
+#: components/html-editor/paragraph.c:74 components/html-editor/rule.c:246
+#: components/html-editor/text.c:176
 msgid "Style"
 msgstr "Stil"
 
@@ -217,7 +233,7 @@ msgstr "Justér"
 msgid "Left"
 msgstr "Venstre"
 
-#: components/html-editor/paragraph.c:122 components/html-editor/toolbar.c:485
+#: components/html-editor/paragraph.c:122 components/html-editor/toolbar.c:486
 msgid "Center"
 msgstr "Center"
 
@@ -225,16 +241,7 @@ msgstr "Center"
 msgid "Right"
 msgstr "Højre"
 
-#: components/html-editor/properties.c:92
-#: components/html-editor/properties.c:93
-msgid "Insert"
-msgstr "Indsæt"
-
-#: components/html-editor/properties.c:95
-msgid "Properties"
-msgstr "Egenskaber"
-
-#: components/html-editor/popup.c:178
+#: components/html-editor/popup.c:185
 msgid "Remove link"
 msgstr "Fjern lænke"
 
@@ -261,43 +268,15 @@ msgstr "søg tilbage"
 
 #: components/html-editor/replace.c:153 components/html-editor/search.c:68
 msgid "case sensitive"
-msgstr "skeln mellem store og små bokstaver"
+msgstr "skeln mellem store og små bogstaver"
 
 #: components/html-editor/replace.c:161
 msgid "with"
 msgstr "med"
 
-#: components/html-editor/rule.c:124
-msgid "Length"
-msgstr "Længde"
-
-#: components/html-editor/rule.c:124
-msgid "Percent"
-msgstr "Procent"
-
-#: components/html-editor/rule.c:125
-msgid "Left Align"
-msgstr "Venstrejusteret"
-
-#: components/html-editor/rule.c:125
-msgid "Center Align"
-msgstr "Centreret"
-
-#: components/html-editor/rule.c:125
-msgid "Right Align"
-msgstr "Højrejusteret"
-
-#: components/html-editor/rule.c:125
-msgid "None"
-msgstr "Ingen"
-
-#: components/html-editor/rule.c:129
-msgid "Rule"
-msgstr "Regel"
-
-#: components/html-editor/rule.c:132
-msgid "Set Shade"
-msgstr "Sæt skygge"
+#: components/html-editor/rule.c:270
+msgid "shaded"
+msgstr "skygger"
 
 #: components/html-editor/search.c:64
 msgid "Regex search"
@@ -348,7 +327,7 @@ msgid "Save using the PersistStream interface"
 msgstr "Gem ved brug af PersistStream grænsesnittet"
 
 #: components/html-editor/test-html-editor-control.c:321
-#: components/html-editor/toolbar.c:493
+#: components/html-editor/toolbar.c:494
 msgid "Cut"
 msgstr "Klip ud"
 
@@ -361,37 +340,37 @@ msgid "Copy selection to the clipboard"
 msgstr "Kopiér udvalget til klippebordet"
 
 #: components/html-editor/test-html-editor-control.c:325
-#: components/html-editor/toolbar.c:497
+#: components/html-editor/toolbar.c:498
 msgid "Paste"
 msgstr "Indsæt"
 
 #: components/html-editor/test-html-editor-control.c:325
-#: components/html-editor/toolbar.c:497
+#: components/html-editor/toolbar.c:498
 msgid "Paste contents of the clipboard"
 msgstr "Indsæt indholdet af klippebordet"
 
-#: components/html-editor/text.c:152 components/html-editor/toolbar.c:511
+#: components/html-editor/text.c:187 components/html-editor/toolbar.c:512
 msgid "Bold"
 msgstr "Fremhævet"
 
-#: components/html-editor/text.c:153 components/html-editor/toolbar.c:513
+#: components/html-editor/text.c:188 components/html-editor/toolbar.c:514
 msgid "Italic"
 msgstr "Kursiv"
 
-#: components/html-editor/text.c:154 components/html-editor/toolbar.c:515
+#: components/html-editor/text.c:189 components/html-editor/toolbar.c:516
 msgid "Underline"
 msgstr "Understreget"
 
-#: components/html-editor/text.c:155 components/html-editor/toolbar.c:517
+#: components/html-editor/text.c:190 components/html-editor/toolbar.c:518
 msgid "Strikeout"
 msgstr "Gennemstreget"
 
 #. color selection
-#: components/html-editor/text.c:187
+#: components/html-editor/text.c:222
 msgid "Color"
 msgstr "Farve"
 
-#: components/html-editor/text.c:201
+#: components/html-editor/text.c:236
 msgid "text color"
 msgstr "tekstfarve"
 
@@ -443,83 +422,83 @@ msgstr "List opføring (unummereret)"
 msgid "List item (roman)"
 msgstr "List opføring (romansk)"
 
-#: components/html-editor/toolbar.c:236
+#: components/html-editor/toolbar.c:237
 msgid "Default"
 msgstr "Standard"
 
-#: components/html-editor/toolbar.c:483
+#: components/html-editor/toolbar.c:484
 msgid "Left align"
 msgstr "Venstrejustér"
 
-#: components/html-editor/toolbar.c:483
+#: components/html-editor/toolbar.c:484
 msgid "Left justify paragraphs"
 msgstr "Venstrejustér afsnit"
 
-#: components/html-editor/toolbar.c:485
+#: components/html-editor/toolbar.c:486
 msgid "Centers paragraphs"
 msgstr "Midtstiller afsnit"
 
-#: components/html-editor/toolbar.c:487
+#: components/html-editor/toolbar.c:488
 msgid "Right align"
 msgstr "Højrejustér"
 
-#: components/html-editor/toolbar.c:487
+#: components/html-editor/toolbar.c:488
 msgid "Right justify paragraphs"
 msgstr "Højrejustér afsnit"
 
-#: components/html-editor/toolbar.c:493
+#: components/html-editor/toolbar.c:494
 msgid "Cut the selected region to the clipboard"
 msgstr "Klip ud valgt område til klippebordet"
 
-#: components/html-editor/toolbar.c:495
+#: components/html-editor/toolbar.c:496
 msgid "Copy the selected region to the clipboard"
 msgstr "Kopiér valgt område til klippebordet"
 
-#: components/html-editor/toolbar.c:501
+#: components/html-editor/toolbar.c:502
 msgid "Undo"
 msgstr "Fortryd"
 
-#: components/html-editor/toolbar.c:501
+#: components/html-editor/toolbar.c:502
 msgid "Undo last editor operation"
 msgstr "Fortryd sidste redigeringsoperation"
 
-#: components/html-editor/toolbar.c:503
+#: components/html-editor/toolbar.c:504
 msgid "Redo"
 msgstr "Genopret"
 
-#: components/html-editor/toolbar.c:503
+#: components/html-editor/toolbar.c:504
 msgid "Redo undone editor operation"
 msgstr "Genopret fortrudt redigeringsoperation"
 
-#: components/html-editor/toolbar.c:511
+#: components/html-editor/toolbar.c:512
 msgid "Sets the bold font"
 msgstr "Sætter fremhævet skrifttype"
 
-#: components/html-editor/toolbar.c:513
+#: components/html-editor/toolbar.c:514
 msgid "Make the selection italic"
 msgstr "Gør det udvalgte kursiveret"
 
-#: components/html-editor/toolbar.c:515
+#: components/html-editor/toolbar.c:516
 msgid "Make the selection underlined"
 msgstr "Gør det udvalgte understreget"
 
-#: components/html-editor/toolbar.c:517
+#: components/html-editor/toolbar.c:518
 msgid "Make the selection striked out"
 msgstr "Gør det udvalgte gennemstreget"
 
-#: components/html-editor/toolbar.c:526
+#: components/html-editor/toolbar.c:527
 msgid "Unindent"
 msgstr "Indryk ikke"
 
-#: components/html-editor/toolbar.c:526
+#: components/html-editor/toolbar.c:527
 msgid "Indent paragraphs less"
 msgstr "Indryk afsnit mindre"
 
-#: components/html-editor/toolbar.c:528
+#: components/html-editor/toolbar.c:529
 msgid "Indent"
 msgstr "Indryk"
 
-#: components/html-editor/toolbar.c:528
+#: components/html-editor/toolbar.c:529
 msgid "Indent paragraphs more"
 msgstr "Indryk afsnit mere"
 
@@ -530,6 +509,30 @@ msgstr "Udskriv _smugkig"
 #: src/testgtkhtml.c:111
 msgid "Print preview"
 msgstr "Udskriv smugkig"
+
+#~ msgid "Insert image"
+#~ msgstr "Indsæt billede"
+
+#~ msgid "Length"
+#~ msgstr "Længde"
+
+#~ msgid "Percent"
+#~ msgstr "Procent"
+
+#~ msgid "Left Align"
+#~ msgstr "Venstrejusteret"
+
+#~ msgid "Center Align"
+#~ msgstr "Centreret"
+
+#~ msgid "Right Align"
+#~ msgstr "Højrejusteret"
+
+#~ msgid "None"
+#~ msgstr "Ingen"
+
+#~ msgid "Set Shade"
+#~ msgstr "Sæt skygge"
 
 #~ msgid "Find Rege_x..."
 #~ msgstr "Find rege_x..."
