@@ -626,7 +626,7 @@ editor_api_event (GtkHTML *html, GtkHTMLEditorEventType event_type, GtkArg **arg
 	return gtk_retval;
 }
 
-static GtkEntry *
+static GtkWidget *
 editor_api_create_input_line (GtkHTML *html, gpointer data)
 {
 	GtkHTMLControlData *cd = (GtkHTMLControlData *) data;
@@ -636,7 +636,7 @@ editor_api_create_input_line (GtkHTML *html, gpointer data)
 	gtk_box_pack_end (GTK_BOX (cd->vbox), entry, FALSE, FALSE, 0);
 	gtk_widget_show (entry);
 
-	return GTK_ENTRY (entry);
+	return entry;
 }
 
 static void
