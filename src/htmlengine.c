@@ -2175,7 +2175,7 @@ parse_f (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 			}
 		}
 		
-		frame = html_frame_new (GTK_WIDGET (e->widget), src ? src : "", -1 , -1, FALSE);
+		frame = html_frame_new (GTK_WIDGET (e->widget), src, -1 , -1, FALSE);
 		if (!html_frameset_append (html_stack_top (e->frame_stack), frame))
 			html_object_destroy (frame);
 		

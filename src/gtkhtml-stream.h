@@ -48,4 +48,17 @@ char **        gtk_html_stream_get_types (GtkHTMLStream *stream);
 
 GtkHTMLStream *gtk_html_stream_log_new   (GtkHTML *html, GtkHTMLStream *stream);
 
+int            gtk_html_stream_vprintf   (GtkHTMLStream *stream, 
+					  const char *format, 
+					  va_list ap);
+int            gtk_html_stream_printf    (GtkHTMLStream *stream, 
+					  const char *format, 
+					  ...);
+
 #endif /* _GTKHTML_STREAM_H */
+
+
+
+
+
+

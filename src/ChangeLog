@@ -1,5 +1,15 @@
 2001-10-01  Larry Ewing  <lewing@ximian.com>
 
+	* gtkhtml-stream.c (gtk_html_stream_vprintf): 
+	(gtk_html_stream_printf): add helper functions
+	for writing to streams to cut down the duplication of code that is
+	floating around.
+
+	* gtkhtml-stream.h: add prototypes for stream_printf and
+	stream_vfprintf
+
+	* htmlengine.c (parse_f): go ahead and pass the NULL on through.
+
 	* htmltokenizer.c (add_byte): make the unknown character a ? so
 	that we can distinguish it from a the underscore that camel will
 	provide.

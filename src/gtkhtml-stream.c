@@ -20,10 +20,11 @@
 */
 
 #include <config.h>
-
 #include <stdio.h>
 #include <sys/types.h>
+#include <glib.h>
 
+#include "gtkhtml-compat.h"
 #include "gtkhtml-stream.h"
 
 
@@ -65,6 +66,43 @@ gtk_html_stream_write (GtkHTMLStream *stream,
 	
 	if (stream->write_func != NULL)
 		stream->write_func (stream, buffer, size, stream->user_data);
+}
+
+int
+gtk_html_stream_vprintf (GtkHTMLStream *stream,
+			 const char *format,
+			 va_list ap)
+{
+	size_t len = g_printf_string_upper_bound (format, ap);
+	char *buf;
+	char *mbuf = NULL;
+	int rv;
+
+	buf = alloca (len);
+
+	if (buf == NULL)
+		buf = mbuf = g_malloc (len);
+		
+	rv = vsprintf (buf, format, ap);
+	gtk_html_stream_write (stream, buf, rv);
+
+	g_free (mbuf);
+	return rv;
+}
+
+int
+gtk_html_stream_printf (GtkHTMLStream *stream,
+			const char *format,
+			...)
+{
+	va_list ap;
+	int rv;
+
+	va_start (ap, format);
+	rv = gtk_html_stream_vprintf (stream, format, ap);
+	va_end (ap);
+
+	return rv;
 }
 
 void
