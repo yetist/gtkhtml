@@ -1,5 +1,4 @@
-# Big5 Translation.
-# Copyright (C) 2001 Free Software Foundation, Inc.
+# Big5 Translation.  # Copyright (C) 2001 Free Software Foundation, Inc.
 # Joe Man <trmetal@yahoo.com.hk>, 2001.
 # 
 msgid ""
@@ -112,8 +111,8 @@ msgstr "自動偵測連結"
 # capplet/gtkhtml-capplet.glade.h:2
 # capplet/gtkhtml-capplet.glade.h:2
 #: capplet/gtkhtml-capplet.glade.h:3
-msgid "Behavior"
-msgstr "進階功能"
+#msgid "Behavior"
+#msgstr "進階功能"
 
 # capplet/gtkhtml-capplet.glade.h:3
 # components/html-editor/text.c:218
