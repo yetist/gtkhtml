@@ -1,3 +1,15 @@
+2000-01-02  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine-edit.c (delete_same_parent): Save the parent before
+	destroying the object.
+
+	* htmlclueflow.c (html_clueflow_split): Set tail.
+
+	* htmlengine-edit.c (delete_different_parent): Do not move
+	TextSlaves; destroy them instead.
+
+	* htmltext.c (remove_text): Always queue a redraw for the parent.
+
 2000-01-02  Jonas Borgström <jonas_b@bitsmart.com>
 
 	* htmlengine.c (parse_input): Added more support for <input> tag

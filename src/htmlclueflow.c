@@ -524,10 +524,14 @@ html_clueflow_split (HTMLClueFlow *clue,
 	/* Remove the children from the original clue.  */
 
 	prev = child->prev;
-	if (prev != NULL)
+	if (prev != NULL) {
 		prev->next = NULL;
-	else
+		HTML_CLUE (clue)->tail = prev;
+	} else {
 		HTML_CLUE (clue)->head = NULL;
+		HTML_CLUE (clue)->tail = NULL;
+	}
+
 	child->prev = NULL;
 
 	/* The last text element in an HTMLClueFlow must be followed by an

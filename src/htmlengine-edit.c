@@ -189,6 +189,10 @@ html_engine_insert_para (HTMLEngine *e,
 		text_next = HTML_OBJECT (html_text_split (HTML_TEXT (current), offset));
 		html_clue_prepend (HTML_CLUE (next_flow), text_next);
 
+		html_clue_append_after (HTML_CLUE (current->parent),
+					html_hspace_new (HTML_TEXT (current)->font, TRUE),
+					current);
+
 		e->cursor->object = text_next;
 		e->cursor->offset = 0;
 		e->cursor->have_target_x = FALSE;
@@ -236,7 +240,10 @@ static void
 delete_same_parent (HTMLEngine *e,
 		    HTMLObject *start_object)
 {
+	HTMLObject *parent;
 	HTMLObject *p, *pnext;
+
+	parent = start_object->parent;
 
 	for (p = start_object; p != e->cursor->object; p = pnext) {
 		pnext = p->next;
@@ -245,7 +252,7 @@ delete_same_parent (HTMLEngine *e,
 		html_object_destroy (p);
 	}
 
-	html_object_relayout (start_object->parent, e, start_object);
+	html_object_relayout (parent, e, start_object);
 }
 
 static void
@@ -270,7 +277,11 @@ delete_different_parent (HTMLEngine *e,
 		pnext = p->next;
 
 		html_clue_remove (HTML_CLUE (end_parent), p);
-		html_clue_append (HTML_CLUE (start_parent), p);
+
+		if (HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE)
+			html_object_destroy (p);
+		else
+			html_clue_append (HTML_CLUE (start_parent), p);
 	}
 
 	p = start_parent->next;
