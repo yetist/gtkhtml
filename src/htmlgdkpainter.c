@@ -192,10 +192,24 @@ static gpointer
 alloc_e_font (gchar *face, gdouble size, GtkHTMLFontStyle style)
 {
 	EFont *font;
-	gchar *name = face ? g_strdup_printf ("-*-%s-%s-%s-normal-*-%d-*-*-*-*-*-*",
-					      face, style & GTK_HTML_FONT_STYLE_BOLD ? "bold" : "medium",
-					      style & GTK_HTML_FONT_STYLE_ITALIC ? "i" : "r",
-					      (gint) size) : g_strdup ("fixed");
+	gchar *name;
+
+
+	if (face) {
+		gint tsize;
+
+		name = g_strdup_printf ("-*-%s-%s-%s-normal-*-*-*-*-*-*-*-*",
+					face, style & GTK_HTML_FONT_STYLE_BOLD ? "bold" : "medium",
+					style & GTK_HTML_FONT_STYLE_ITALIC ? "i" : "r");
+		if (!find_font (name, size, &tsize))
+			tsize = size;
+		g_free (name);
+		name = g_strdup_printf ("-*-%s-%s-%s-normal-*-%d-*-*-*-*-*-*",
+					face, style & GTK_HTML_FONT_STYLE_BOLD ? "bold" : "medium",
+					style & GTK_HTML_FONT_STYLE_ITALIC ? "i" : "r", tsize);
+	} else
+		name = g_strdup ("fixed");
+
 	font = e_font_from_gdk_name (name);
 	g_free (name);
 
