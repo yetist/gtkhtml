@@ -1,3 +1,7 @@
+2002-10-07  Larry Ewing  <lewing@ximian.com>
+
+	* htmlclueflow.c (check_point): add cast to silence warning.
+
 2002-10-03  Larry Ewing  <lewing@ximian.com>
 
 	* htmlclueflow.c (check_point): fix selection to take

@@ -1233,7 +1233,7 @@ check_point (HTMLObject *self,
 	 * shift any selection inside the indent block to the 
 	 * left edge of the flow.
 	 */
-	x = MAX (x, get_indent (self, painter));
+	x = MAX (x, get_indent (HTML_CLUEFLOW (self), painter));
 
 	for (p = clue->head; p; ) {
 
