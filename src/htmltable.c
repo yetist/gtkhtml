@@ -1122,12 +1122,13 @@ draw (HTMLObject *o,
 	}
 
 	/* Draw the border */
-	if (table->border > 0) {
-		gint capOffset = 0;
+	if (table->border > 0 && table->rowHeights->len > 0) {
+		gint capOffset;
 
-		if (table->caption && table->capAlign == HTML_VALIGN_TOP) {
-			g_print ("fIXME: Support captions\n");
-		}
+		capOffset = 0;
+
+		if (table->caption && table->capAlign == HTML_VALIGN_TOP)
+			g_print ("FIXME: Support captions\n");
 
 		html_painter_draw_panel (p,  tx, ty + capOffset, 
 					 HTML_OBJECT (table)->width,

@@ -1,5 +1,15 @@
 2000-04-06  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlimage.c
+	(animation_actual_width): Return `w'.  Made static.
+	(animation_actual_height): Return `h'.  Made static.
+
+	* htmltable.c
+	(draw): Don't paint anything unless we have at least
+	one row.
+
+2000-04-06  Ettore Perazzoli  <ettore@helixcode.com>
+
 	* htmltablecell.c
 	(reset): New function, implementation of `HTMLObject::reset()'.
 	Set `bg_allocated' to `FALSE'.

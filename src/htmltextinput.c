@@ -136,28 +136,25 @@ html_text_input_init (HTMLTextInput *ti,
 			   parent, name, value);
 
 	element->widget = gtk_entry_new();
-	gtk_widget_size_request(element->widget, &req);
+	gtk_widget_size_request (element->widget, &req);
 
-	if(strlen (element->value))	
-		gtk_entry_set_text(GTK_ENTRY(element->widget), element->value);
+	if (strlen (element->value))	
+		gtk_entry_set_text (GTK_ENTRY(element->widget), element->value);
 
 	ti->default_text = g_strdup (element->value);
 
-	if(maxlen != -1)
+	if (maxlen != -1)
 		gtk_entry_set_max_length(GTK_ENTRY(element->widget), maxlen);
 
 	gtk_entry_set_visibility (GTK_ENTRY(element->widget), !password);
 	
-	req.width = gdk_char_width(element->widget->style->font, '0') * size + 8;
+	req.width = gdk_char_width (element->widget->style->font, '0') * size + 8;
 
-	gtk_widget_set_usize(element->widget, req.width, req.height);
+	gtk_widget_set_usize (element->widget, req.width, req.height);
 
 	object->descent = 0;
 	object->width = req.width;
 	object->ascent = req.height;
-
-	/*	gtk_widget_show(element->widget);
-		gtk_layout_put(GTK_LAYOUT(parent), element->widget, 0, 0);*/
 
 	ti->size = size;
 	ti->maxlen = maxlen;

@@ -69,6 +69,43 @@ static void render_cur_frame (HTMLImage *image, gint nx, gint ny);
 
 
 
+/* FIXME these will be replaced with the proper functions from gdk-pixbuf soon */
+static gint
+animation_actual_height (GdkPixbufAnimation *ganim) 
+{
+	GdkPixbufFrame    *frame;
+	GList *cur = gdk_pixbuf_animation_get_frames (ganim);
+	gint h = 0, nh;
+
+	while (cur) {
+		frame = (GdkPixbufFrame *) cur->data;
+
+		nh = gdk_pixbuf_get_height (frame->pixbuf) + frame->y_offset;
+		h = MAX (h, nh);
+		cur = cur->next;
+	}
+
+	return h;
+}
+
+static gint
+animation_actual_width (GdkPixbufAnimation *ganim) 
+{
+	GdkPixbufFrame    *frame;
+	GList *cur = gdk_pixbuf_animation_get_frames (ganim);
+	gint w = 0, nw;
+
+	while (cur) {
+		frame = (GdkPixbufFrame *) cur->data;
+
+		nw = gdk_pixbuf_get_width (frame->pixbuf) + frame->x_offset;
+		w = MAX (w, nw);
+		cur = cur->next;
+	}
+
+	return w;
+}
+
 static guint
 get_actual_width (HTMLImage *image,
 		  HTMLPainter *painter)
@@ -98,39 +135,6 @@ get_actual_width (HTMLImage *image,
 	return width;
 }
 
-
-/* FIXME these will be replaced with the proper functions from gdk-pixbuf soon */
-gint
-animation_actual_height (GdkPixbufAnimation *ganim) 
-{
-	GdkPixbufFrame    *frame;
-	GList *cur = gdk_pixbuf_animation_get_frames (ganim);
-	gint h = 0, nh;
-
-	while (cur) {
-		frame = (GdkPixbufFrame *) cur->data;
-
-		nh = gdk_pixbuf_get_height (frame->pixbuf) + frame->y_offset;
-		h = MAX (h, nh);
-		cur = cur->next;
-	}
-}
-
-gint
-animation_actual_width (GdkPixbufAnimation *ganim) 
-{
-	GdkPixbufFrame    *frame;
-	GList *cur = gdk_pixbuf_animation_get_frames (ganim);
-	gint w = 0, nw;
-
-	while (cur) {
-		frame = (GdkPixbufFrame *) cur->data;
-
-		nw = gdk_pixbuf_get_width (frame->pixbuf) + frame->x_offset;
-		w = MAX (w, nw);
-		cur = cur->next;
-	}
-}
 
 static guint
 get_actual_height (HTMLImage *image,
