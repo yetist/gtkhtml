@@ -6,8 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 1.1.0.99\n"
-"POT-Creation-Date: 2003-06-02 20:47+0200\n"
-"PO-Revision-Date: 2003-03-08 21:25--200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2003-06-17 20:59+0300\n"
+"PO-Revision-Date: 2003-06-17 20:41+0200\n"
 "Last-Translator: Pauli Virtanen <pauli.virtanen@hut.fi>\n"
 "Language-Team: Gnome Finnish Translation Team <gnome-fi-laatu@lists."
 "sourceforge.net>\n"
@@ -801,6 +802,10 @@ msgid "_Wink"
 msgstr "_Silmänisku"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:152
+msgid "_Wrap Lines"
+msgstr "_Rivitä"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:153
 msgid "etc..."
 msgstr "jne..."
 
@@ -821,7 +826,7 @@ msgstr "Sininen muste"
 msgid "Rectangles"
 msgstr "Suorakulmiot"
 
-#: components/html-editor/body.c:275 src/gtkhtml.c:2543
+#: components/html-editor/body.c:275 src/gtkhtml.c:2547
 msgid "Document Title"
 msgstr "Asiakirjan otsikko"
 
@@ -890,9 +895,8 @@ msgid "Page"
 msgstr "Sivu"
 
 #: components/html-editor/gnome-gtkhtml-editor.c:68
-#, fuzzy
 msgid "GtkHTML Editor Control"
-msgstr "GNOME HTML-muokkainsäädin"
+msgstr "GtkHTML-muokkainsäädin"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:2
 msgid "************"
@@ -1243,17 +1247,15 @@ msgstr "Lisää"
 #: components/html-editor/menubar.c:252
 #, c-format
 msgid "Error loading file '%s': %s"
-msgstr ""
+msgstr "Virhe tiedoston \"%s\" lataamisessa: %s"
 
 #: components/html-editor/menubar.c:279
-#, fuzzy
 msgid "Insert: HTML File"
-msgstr "Lisää HTML-tiedosto"
+msgstr "Lisää: HTML-tiedosto"
 
 #: components/html-editor/menubar.c:279
-#, fuzzy
 msgid "Insert: Text File"
-msgstr "Lisää tekstitiedosto"
+msgstr "Lisää: tekstitiedosto"
 
 #: components/html-editor/paragraph.c:130
 msgid "Pre"
@@ -1328,45 +1330,37 @@ msgid "Remove link"
 msgstr "Poista linkki"
 
 #: components/html-editor/popup.c:475
-#, fuzzy
 msgid "Text Style..."
-msgstr "_Tekstitiedosto..."
+msgstr "Tekstin tyyli..."
 
 #: components/html-editor/popup.c:477 components/html-editor/popup.c:483
 #: components/html-editor/popup.c:493
-#, fuzzy
 msgid "Paragraph Style..."
-msgstr "Kappale..."
+msgstr "Kappaleen tyyli..."
 
 #: components/html-editor/popup.c:481
-#, fuzzy
 msgid "Link Style..."
-msgstr "Linkki..."
+msgstr "Linkin tyyli..."
 
 #: components/html-editor/popup.c:487
-#, fuzzy
 msgid "Rule Style..."
-msgstr "Viiva..."
+msgstr "Viivan tyyli..."
 
 #: components/html-editor/popup.c:491
-#, fuzzy
 msgid "Image Style..."
-msgstr "Kuva..."
+msgstr "Kuvan tyyli..."
 
 #: components/html-editor/popup.c:502
-#, fuzzy
 msgid "Cell Style..."
-msgstr "Solu..."
+msgstr "Solun tyyli..."
 
 #: components/html-editor/popup.c:505
-#, fuzzy
 msgid "Table Style..."
-msgstr "Taulukko..."
+msgstr "Taulukon tyyli..."
 
 #: components/html-editor/popup.c:511
-#, fuzzy
 msgid "Page Style..."
-msgstr "Sivu..."
+msgstr "Sivun tyyli..."
 
 #: components/html-editor/popup.c:516
 msgid "Table insert"
@@ -1397,9 +1391,9 @@ msgid "Cell contents"
 msgstr "Solun sisältö"
 
 #: components/html-editor/popup.c:548
-#, fuzzy, c-format
+#, c-format
 msgid "%s Dictionary"
-msgstr "Lisää \"%s\" sanastoon"
+msgstr "Sanastoon %s"
 
 #: components/html-editor/replace.c:75
 msgid "Replace confirmation"
@@ -1414,24 +1408,20 @@ msgid "Next"
 msgstr "Seuraava"
 
 #: components/html-editor/replace.c:161
-#, fuzzy
 msgid "Search _backward"
-msgstr "etsi taaksepäin"
+msgstr "Etsi _edellinen"
 
 #: components/html-editor/replace.c:162 components/html-editor/search.c:80
-#, fuzzy
 msgid "Case _sensitive"
-msgstr "sama kirjainkoko"
+msgstr "_Sama kirjainkoko"
 
 #: components/html-editor/replace.c:172
-#, fuzzy
 msgid "Replace:"
-msgstr "Korvaa"
+msgstr "Korvattava:"
 
 #: components/html-editor/replace.c:175
-#, fuzzy
 msgid "With:"
-msgstr "Leveys:"
+msgstr "Korvaava:"
 
 #: components/html-editor/rule.c:98
 msgid "Blue 3D"
@@ -1450,9 +1440,8 @@ msgstr ""
 "Muutoksia ei voi ottaa käyttöön."
 
 #: components/html-editor/search.c:79
-#, fuzzy
 msgid "_Backward"
-msgstr "taaksepäin"
+msgstr "_Edellinen"
 
 #: components/html-editor/search.c:126
 msgid "Find Regular Expression"
@@ -1462,9 +1451,9 @@ msgstr "Etsi säännöllinen lauseke"
 msgid "Spell checker"
 msgstr "Oikoluku"
 
-#: components/html-editor/spell.c:358
+#: components/html-editor/spell.c:361
 msgid "Current _Languages"
-msgstr ""
+msgstr "Nykyiset _kielet"
 
 #: components/html-editor/table.c:200
 msgid "Flat gray"
@@ -1503,9 +1492,8 @@ msgid "Save file as..."
 msgstr "Tallenna tiedosto nimellä..."
 
 #: components/html-editor/test-html-editor-control.c:541
-#, fuzzy
 msgid "GtkHTML Editor Test Container"
-msgstr "GtkHTML-muokkainsäädin"
+msgstr "GtkHTML-muokkainsäätimen testisäilö"
 
 #. color selection
 #: components/html-editor/text.c:292
@@ -1572,71 +1560,71 @@ msgstr "Sisennä kappaleita enemmän"
 msgid "Sample"
 msgstr "Esimerkki"
 
-#: src/gtkhtml.c:2536
+#: src/gtkhtml.c:2540
 msgid "Editable"
 msgstr "Muokattava"
 
-#: src/gtkhtml.c:2537
+#: src/gtkhtml.c:2541
 msgid "Whether the html can be edited"
 msgstr "Voiko HTML-tiedostoa muokata"
 
-#: src/gtkhtml.c:2544
+#: src/gtkhtml.c:2548
 msgid "The title of the current document"
 msgstr "Nykyisen asiakirjan otsikko"
 
-#: src/gtkhtml.c:2550
+#: src/gtkhtml.c:2554
 msgid "Document Base"
 msgstr "Asiakirjan kanta"
 
-#: src/gtkhtml.c:2551
+#: src/gtkhtml.c:2555
 msgid "The base URL for relative references"
 msgstr "Suhteellisten viittausten kanta-URL"
 
-#: src/gtkhtml.c:2557
+#: src/gtkhtml.c:2561
 msgid "Target Base"
 msgstr "Kohteen kanta"
 
-#: src/gtkhtml.c:2558
+#: src/gtkhtml.c:2562
 msgid "The base URL of the targe frame"
 msgstr "Kohdekehyksen kanta-URL"
 
-#: src/gtkhtml.c:2567
+#: src/gtkhtml.c:2571
 msgid "Fixed Width Font"
 msgstr "Tasavälinen kirjasin"
 
-#: src/gtkhtml.c:2568
+#: src/gtkhtml.c:2572
 msgid "The Monospace font to use for typewriter text"
 msgstr "Kirjoituskonetekstissä käytettävä tasavälinen kirjasin"
 
-#: src/gtkhtml.c:2574
+#: src/gtkhtml.c:2578
 msgid "New Link Color"
 msgstr "Uuden linkin väri"
 
-#: src/gtkhtml.c:2575
+#: src/gtkhtml.c:2579
 msgid "The color of new link elements"
 msgstr "Uusien linkkielementtien väri"
 
-#: src/gtkhtml.c:2580
+#: src/gtkhtml.c:2584
 msgid "Visited Link Color"
 msgstr "Käydyn linkin väri"
 
-#: src/gtkhtml.c:2581
+#: src/gtkhtml.c:2585
 msgid "The color of visited link elements"
 msgstr "Käytyjen linkkielementtien väri"
 
-#: src/gtkhtml.c:2586
+#: src/gtkhtml.c:2590
 msgid "Active Link Color"
 msgstr "Aktiivisen linkkielementin väri"
 
-#: src/gtkhtml.c:2587
+#: src/gtkhtml.c:2591
 msgid "The color of active link elements"
 msgstr "Aktiivisten linkkielementtien väri"
 
-#: src/gtkhtml.c:2592
+#: src/gtkhtml.c:2596
 msgid "Spelling Error Color"
 msgstr "Kirjoitusvirheen väri"
 
-#: src/gtkhtml.c:2593
+#: src/gtkhtml.c:2597
 msgid "The color of the spelling error markers"
 msgstr "Kirjoitusvirheilmaisimen väri"
 
@@ -1714,24 +1702,5 @@ msgid "Print preview"
 msgstr "Esikatselu"
 
 #: src/testgtkhtml.c:973
-#, fuzzy
 msgid "GtkHTML Test Application"
-msgstr "GtkHTML-testi"
-
-#~ msgid "The quick brown fox jumped over the lazy dog."
-#~ msgstr "Äidin oma Åke lähtee yöhön vauhdikkaasti."
-
-#~ msgid "with"
-#~ msgstr "merkkijonolla"
-
-#~ msgid "Check '%s' spelling..."
-#~ msgstr "Oikolue \"%s\".."
-
-#~ msgid "Ignore '%s'"
-#~ msgstr "Sivuuta \"%s\""
-
-#~ msgid "Suggest word"
-#~ msgstr "Ehdota sanaa"
-
-#~ msgid "Text..."
-#~ msgstr "Teksti..."
+msgstr "GtkHTML-testisovellus"
