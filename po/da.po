@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.5\n"
 "POT-Creation-Date: 2000-07-16 01:20+0200\n"
-"PO-Revision-Date: 2000-10-20 01:30+0200\n"
+"PO-Revision-Date: 2000-11-03 01:30+0100\n"
 "Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
@@ -40,8 +40,6 @@ msgid "Add"
 msgstr "Tilføj"
 
 #: capplet/gnome-bindings-prop.c:548
-#: components/html-editor/test-html-editor-control.c:323
-#: components/html-editor/toolbar.c:496
 msgid "Copy"
 msgstr "Kopiér"
 
@@ -121,15 +119,15 @@ msgstr "Vælg HTML skrifttype med fast bredde for udskrift"
 msgid "Animations"
 msgstr "Animering"
 
-#: components/html-editor/body.c:107
-msgid "use background image"
-msgstr "brug baggrundsbillede"
-
-#: components/html-editor/body.c:109
-msgid "Background image"
+#: components/html-editor/body.c:123 components/html-editor/body.c:127
+msgid "Background Image"
 msgstr "Baggrundsbillede"
 
 #: components/html-editor/body.c:126
+msgid "Enable"
+msgstr "Aktivér"
+
+#: components/html-editor/body.c:149
 msgid "Colors"
 msgstr "Farver"
 
@@ -169,27 +167,27 @@ msgstr "Lænke"
 msgid "Page"
 msgstr "Side"
 
-#: components/html-editor/image.c:149
+#: components/html-editor/image.c:156
 msgid "Image selection"
 msgstr "Billedvalg"
 
 #. ADD_ITEM("Left",   GDK_F4);
 #. ADD_ITEM("Right",  GDK_F5);
-#: components/html-editor/image.c:176
+#: components/html-editor/image.c:183
 msgid "Alignment"
 msgstr "Justering"
 
-#: components/html-editor/image.c:184
+#: components/html-editor/image.c:191
 msgid "Border"
 msgstr "Kant"
 
-#: components/html-editor/image.c:201
+#: components/html-editor/image.c:208
 msgid "Padding"
 msgstr "Fyld"
 
 #. size
-#: components/html-editor/image.c:221 components/html-editor/rule.c:222
-#: components/html-editor/text.c:195
+#: components/html-editor/image.c:228 components/html-editor/rule.c:222
+#: components/html-editor/text.c:177
 msgid "Size"
 msgstr "Størrelse"
 
@@ -220,28 +218,28 @@ msgid "Cannot execute gtkhtml properties"
 msgstr "Kan ikke udføre gtkhtml egenskaber"
 
 #. style
-#: components/html-editor/paragraph.c:74 components/html-editor/rule.c:246
-#: components/html-editor/text.c:176
+#: components/html-editor/paragraph.c:108 components/html-editor/rule.c:246
+#: components/html-editor/text.c:157
 msgid "Style"
 msgstr "Stil"
 
-#: components/html-editor/paragraph.c:108
+#: components/html-editor/paragraph.c:142
 msgid "Align"
 msgstr "Justér"
 
-#: components/html-editor/paragraph.c:121
+#: components/html-editor/paragraph.c:155
 msgid "Left"
 msgstr "Venstre"
 
-#: components/html-editor/paragraph.c:122 components/html-editor/toolbar.c:486
+#: components/html-editor/paragraph.c:156 components/html-editor/toolbar.c:395
 msgid "Center"
 msgstr "Center"
 
-#: components/html-editor/paragraph.c:123
+#: components/html-editor/paragraph.c:157
 msgid "Right"
 msgstr "Højre"
 
-#: components/html-editor/popup.c:185
+#: components/html-editor/popup.c:193
 msgid "Remove link"
 msgstr "Fjern lænke"
 
@@ -286,93 +284,38 @@ msgstr "Regex-søg"
 msgid "Search"
 msgstr "Søg"
 
-#: components/html-editor/test-html-editor-control.c:232
+#: components/html-editor/test-html-editor-control.c:237
 msgid "Open file..."
 msgstr "Åbn fil..."
 
-#: components/html-editor/test-html-editor-control.c:234
+#: components/html-editor/test-html-editor-control.c:239
 msgid "Save file as..."
 msgstr "Gem fil som..."
 
-#: components/html-editor/test-html-editor-control.c:300
-msgid "Open (PersistFile)"
-msgstr "Åbn (PersistFile)"
-
-#: components/html-editor/test-html-editor-control.c:300
-msgid "Open using the PersistFile interface"
-msgstr "Åbn ved brug af PersistFile grænsesnittet"
-
-#: components/html-editor/test-html-editor-control.c:302
-msgid "Save as... (PersistFile)"
-msgstr "Gem som... (PersistFile)"
-
-#: components/html-editor/test-html-editor-control.c:302
-msgid "Save using the PersistFile interface"
-msgstr "Gem ved brug af PersistFile grænsesnittet"
-
-#: components/html-editor/test-html-editor-control.c:305
-msgid "Open (PersistStream)"
-msgstr "Åbn (PersistStream)"
-
-#: components/html-editor/test-html-editor-control.c:305
-msgid "Open using the PersistStream interface"
-msgstr "Åbn ved brug af PersistStream grænsesnittet"
-
-#: components/html-editor/test-html-editor-control.c:307
-msgid "Save as... (PersistStream)"
-msgstr "Gem som... (PersistStream)"
-
-#: components/html-editor/test-html-editor-control.c:307
-msgid "Save using the PersistStream interface"
-msgstr "Gem ved brug af PersistStream grænsesnittet"
-
-#: components/html-editor/test-html-editor-control.c:321
-#: components/html-editor/toolbar.c:494
-msgid "Cut"
-msgstr "Klip ud"
-
-#: components/html-editor/test-html-editor-control.c:321
-msgid "Cut selection to the clipboard"
-msgstr "Klip udvalget til klippebordet"
-
-#: components/html-editor/test-html-editor-control.c:323
-msgid "Copy selection to the clipboard"
-msgstr "Kopiér udvalget til klippebordet"
-
-#: components/html-editor/test-html-editor-control.c:325
-#: components/html-editor/toolbar.c:498
-msgid "Paste"
-msgstr "Indsæt"
-
-#: components/html-editor/test-html-editor-control.c:325
-#: components/html-editor/toolbar.c:498
-msgid "Paste contents of the clipboard"
-msgstr "Indsæt indholdet af klippebordet"
-
-#: components/html-editor/text.c:187 components/html-editor/toolbar.c:512
+#: components/html-editor/text.c:169 components/html-editor/toolbar.c:404
 msgid "Bold"
 msgstr "Fremhævet"
 
-#: components/html-editor/text.c:188 components/html-editor/toolbar.c:514
+#: components/html-editor/text.c:170 components/html-editor/toolbar.c:406
 msgid "Italic"
 msgstr "Kursiv"
 
-#: components/html-editor/text.c:189 components/html-editor/toolbar.c:516
+#: components/html-editor/text.c:171 components/html-editor/toolbar.c:408
 msgid "Underline"
 msgstr "Understreget"
 
-#: components/html-editor/text.c:190 components/html-editor/toolbar.c:518
+#: components/html-editor/text.c:172 components/html-editor/toolbar.c:410
 msgid "Strikeout"
 msgstr "Gennemstreget"
 
 #. color selection
-#: components/html-editor/text.c:222
+#: components/html-editor/text.c:207
 msgid "Color"
 msgstr "Farve"
 
-#: components/html-editor/text.c:236
-msgid "text color"
-msgstr "tekstfarve"
+#: components/html-editor/text.c:210 components/html-editor/toolbar.c:204
+msgid "Automatic"
+msgstr "Automatisk"
 
 #: components/html-editor/toolbar.c:45
 msgid "Normal"
@@ -422,85 +365,61 @@ msgstr "List opføring (unummereret)"
 msgid "List item (roman)"
 msgstr "List opføring (romansk)"
 
-#: components/html-editor/toolbar.c:237
-msgid "Default"
-msgstr "Standard"
-
-#: components/html-editor/toolbar.c:484
+#: components/html-editor/toolbar.c:393
 msgid "Left align"
 msgstr "Venstrejustér"
 
-#: components/html-editor/toolbar.c:484
+#: components/html-editor/toolbar.c:393
 msgid "Left justify paragraphs"
 msgstr "Venstrejustér afsnit"
 
-#: components/html-editor/toolbar.c:486
+#: components/html-editor/toolbar.c:395
 msgid "Centers paragraphs"
 msgstr "Midtstiller afsnit"
 
-#: components/html-editor/toolbar.c:488
+#: components/html-editor/toolbar.c:397
 msgid "Right align"
 msgstr "Højrejustér"
 
-#: components/html-editor/toolbar.c:488
+#: components/html-editor/toolbar.c:397
 msgid "Right justify paragraphs"
 msgstr "Højrejustér afsnit"
 
-#: components/html-editor/toolbar.c:494
-msgid "Cut the selected region to the clipboard"
-msgstr "Klip ud valgt område til klippebordet"
-
-#: components/html-editor/toolbar.c:496
-msgid "Copy the selected region to the clipboard"
-msgstr "Kopiér valgt område til klippebordet"
-
-#: components/html-editor/toolbar.c:502
-msgid "Undo"
-msgstr "Fortryd"
-
-#: components/html-editor/toolbar.c:502
-msgid "Undo last editor operation"
-msgstr "Fortryd sidste redigeringsoperation"
-
-#: components/html-editor/toolbar.c:504
-msgid "Redo"
-msgstr "Genopret"
-
-#: components/html-editor/toolbar.c:504
-msgid "Redo undone editor operation"
-msgstr "Genopret fortrudt redigeringsoperation"
-
-#: components/html-editor/toolbar.c:512
+#: components/html-editor/toolbar.c:404
 msgid "Sets the bold font"
 msgstr "Sætter fremhævet skrifttype"
 
-#: components/html-editor/toolbar.c:514
+#: components/html-editor/toolbar.c:406
 msgid "Make the selection italic"
 msgstr "Gør det udvalgte kursiveret"
 
-#: components/html-editor/toolbar.c:516
+#: components/html-editor/toolbar.c:408
 msgid "Make the selection underlined"
 msgstr "Gør det udvalgte understreget"
 
-#: components/html-editor/toolbar.c:518
+#: components/html-editor/toolbar.c:410
 msgid "Make the selection striked out"
 msgstr "Gør det udvalgte gennemstreget"
 
-#: components/html-editor/toolbar.c:527
+#: components/html-editor/toolbar.c:419
 msgid "Unindent"
 msgstr "Indryk ikke"
 
-#: components/html-editor/toolbar.c:527
+#: components/html-editor/toolbar.c:419
 msgid "Indent paragraphs less"
 msgstr "Indryk afsnit mindre"
 
-#: components/html-editor/toolbar.c:529
+#: components/html-editor/toolbar.c:421
 msgid "Indent"
 msgstr "Indryk"
 
-#: components/html-editor/toolbar.c:529
+#: components/html-editor/toolbar.c:421
 msgid "Indent paragraphs more"
 msgstr "Indryk afsnit mere"
+
+#: components/html-editor/utils.c:101
+msgid "Sample"
+msgstr "Prøve"
 
 #: src/testgtkhtml.c:111
 msgid "Print pre_view"
@@ -509,6 +428,72 @@ msgstr "Udskriv _smugkig"
 #: src/testgtkhtml.c:111
 msgid "Print preview"
 msgstr "Udskriv smugkig"
+
+#~ msgid "use background image"
+#~ msgstr "brug baggrundsbillede"
+
+#~ msgid "Open (PersistFile)"
+#~ msgstr "Åbn (PersistFile)"
+
+#~ msgid "Open using the PersistFile interface"
+#~ msgstr "Åbn ved brug af PersistFile grænsesnittet"
+
+#~ msgid "Save as... (PersistFile)"
+#~ msgstr "Gem som... (PersistFile)"
+
+#~ msgid "Save using the PersistFile interface"
+#~ msgstr "Gem ved brug af PersistFile grænsesnittet"
+
+#~ msgid "Open (PersistStream)"
+#~ msgstr "Åbn (PersistStream)"
+
+#~ msgid "Open using the PersistStream interface"
+#~ msgstr "Åbn ved brug af PersistStream grænsesnittet"
+
+#~ msgid "Save as... (PersistStream)"
+#~ msgstr "Gem som... (PersistStream)"
+
+#~ msgid "Save using the PersistStream interface"
+#~ msgstr "Gem ved brug af PersistStream grænsesnittet"
+
+#~ msgid "Cut"
+#~ msgstr "Klip ud"
+
+#~ msgid "Cut selection to the clipboard"
+#~ msgstr "Klip udvalget til klippebordet"
+
+#~ msgid "Copy selection to the clipboard"
+#~ msgstr "Kopiér udvalget til klippebordet"
+
+#~ msgid "Paste"
+#~ msgstr "Indsæt"
+
+#~ msgid "Paste contents of the clipboard"
+#~ msgstr "Indsæt indholdet af klippebordet"
+
+#~ msgid "text color"
+#~ msgstr "tekstfarve"
+
+#~ msgid "Default"
+#~ msgstr "Standard"
+
+#~ msgid "Cut the selected region to the clipboard"
+#~ msgstr "Klip ud valgt område til klippebordet"
+
+#~ msgid "Copy the selected region to the clipboard"
+#~ msgstr "Kopiér valgt område til klippebordet"
+
+#~ msgid "Undo"
+#~ msgstr "Fortryd"
+
+#~ msgid "Undo last editor operation"
+#~ msgstr "Fortryd sidste redigeringsoperation"
+
+#~ msgid "Redo"
+#~ msgstr "Genopret"
+
+#~ msgid "Redo undone editor operation"
+#~ msgstr "Genopret fortrudt redigeringsoperation"
 
 #~ msgid "Insert image"
 #~ msgstr "Indsæt billede"
@@ -614,9 +599,6 @@ msgstr "Udskriv smugkig"
 
 #~ msgid "Enter Password"
 #~ msgstr "Indtast adgangskode"
-
-#~ msgid "Table"
-#~ msgstr "Tabel"
 
 #~ msgid "Couldn't find keybinding file -- %s"
 #~ msgstr "Kunne ikke finde nøglebindings-fil -- %s"
