@@ -1,5 +1,7 @@
 2000-11-13  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine.c (parse_s): better <s>, </s> recognizing
+
 	* htmltable.c (calc_col_info): add border size to minimal size
 
 2000-11-12  Larry Ewing  <lewing@helixcode.com>
