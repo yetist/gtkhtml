@@ -1010,7 +1010,7 @@ get_offset_for_pointer (HTMLTextSlave *slave, HTMLPainter *painter, gint x, gint
 	line_offset = html_text_slave_get_line_offset (slave, 0, painter);	
 
 
-	while (upper - lower > 0) {
+	while (upper - lower > 1) {
 		lo = line_offset;
 		prev_width = width;
 
