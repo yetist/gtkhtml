@@ -1,0 +1,597 @@
+# Copyright (C) 2000 Free Software Foundation, Inc.
+# Valek Filippov <frob@df.ru>, 2000.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gtkhtml\n"
+"POT-Creation-Date: 2000-07-13 18:59+0000\n"
+"PO-Revision-Date: 2000-07-13 19:22+00:00\n"
+"Last-Translator: Valek Filippov <frob@df.ru>\n"
+"Language-Team: Russian <ru@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=koi8-r\n"
+"Content-Transfer-Encoding: 8-bit\n"
+
+#: components/html-editor/body.c:107
+msgid "use background image"
+msgstr "использовать фоновое изображение"
+
+#: components/html-editor/body.c:109
+msgid "Background image"
+msgstr "Изображение фона"
+
+#: components/html-editor/body.c:126
+msgid "Colors"
+msgstr "Цвета"
+
+#: components/html-editor/editor-control-factory.c:122
+#: components/html-editor/popup.c:86
+msgid "Image"
+msgstr "Изображение"
+
+#: components/html-editor/editor-control-factory.c:131
+#: components/html-editor/popup.c:79
+msgid "Text"
+msgstr "Текст"
+
+#: components/html-editor/editor-control-factory.c:143
+#: components/html-editor/popup.c:93
+msgid "Paragraph"
+msgstr "Абзац"
+
+#: components/html-editor/editor-control-factory.c:148
+#: components/html-editor/menubar.c:157 components/html-editor/popup.c:100
+msgid "Link"
+msgstr "Ссылка"
+
+#: components/html-editor/editor-control-factory.c:153
+#: components/html-editor/popup.c:107
+msgid "Page"
+msgstr "Страница"
+
+#: components/html-editor/image.c:409
+msgid "Image selection"
+msgstr "Выбор изображения"
+
+#: components/html-editor/image.c:417
+msgid "Border"
+msgstr "Рамка"
+
+#. ADD_ITEM("Left",   GDK_F4);
+#. ADD_ITEM("Right",  GDK_F5);
+#: components/html-editor/image.c:450
+msgid "Alignment"
+msgstr "Выравнивание"
+
+#: components/html-editor/image.c:462 components/html-editor/rule.c:124
+#: components/html-editor/text.c:160
+msgid "Size"
+msgstr "Размер"
+
+#: components/html-editor/image.c:489
+msgid "Padding"
+msgstr "Заполнение"
+
+#: components/html-editor/link.c:72
+msgid "Clear"
+msgstr "Очистить"
+
+#: components/html-editor/link.c:75
+msgid "URL"
+msgstr "URL"
+
+#: components/html-editor/main.c:64
+msgid "Could not initialize GNORBA"
+msgstr "Невозможно инициализировать GNORBA"
+
+#: components/html-editor/main.c:77
+msgid "Could not initialize Bonobo"
+msgstr "Невозможно инициализировать Bonobo"
+
+#: components/html-editor/menubar.c:60
+msgid "Find Rege_x..."
+msgstr "Найти рег.выражение..."
+
+#: components/html-editor/menubar.c:60
+msgid "Regular expressions search..."
+msgstr "Поиск регулярного выражения..."
+
+#: components/html-editor/menubar.c:69
+msgid "_Image..."
+msgstr "Изображение..."
+
+#: components/html-editor/menubar.c:69
+msgid "Insert image into document..."
+msgstr "Вставить изображение в документ..."
+
+#: components/html-editor/menubar.c:70
+msgid "_Link..."
+msgstr "Ссылка..."
+
+#: components/html-editor/menubar.c:70
+msgid "Insert HTML link into document..."
+msgstr "Вставить HTML-ссылку в документ..."
+
+#: components/html-editor/menubar.c:71
+msgid "_Rule..."
+msgstr "Линейка..."
+
+#: components/html-editor/menubar.c:71
+msgid "Insert rule into document..."
+msgstr "Вставить линейку в документ..."
+
+#: components/html-editor/menubar.c:76
+msgid "_Insert"
+msgstr "Вставить"
+
+#: components/html-editor/menubar.c:143
+msgid "Insert image"
+msgstr "Вставить изображение"
+
+#: components/html-editor/menubar.c:175
+msgid "Cannot execute gtkhtml properties"
+msgstr "Невозможно выполнить свойства gtkhtml"
+
+#: components/html-editor/paragraph.c:74 components/html-editor/text.c:138
+msgid "Style"
+msgstr "Стиль"
+
+#: components/html-editor/paragraph.c:108
+msgid "Align"
+msgstr "Выравнивание"
+
+#: components/html-editor/paragraph.c:121
+msgid "Left"
+msgstr "Влево"
+
+#: components/html-editor/paragraph.c:122 components/html-editor/toolbar.c:485
+msgid "Center"
+msgstr "По центру"
+
+#: components/html-editor/paragraph.c:123
+msgid "Right"
+msgstr "Вправо"
+
+#: components/html-editor/properties.c:92
+#: components/html-editor/properties.c:93
+msgid "Insert"
+msgstr "Вставить"
+
+#: components/html-editor/properties.c:95
+msgid "Properties"
+msgstr "Свойства"
+
+#: components/html-editor/popup.c:161
+msgid "Remove link"
+msgstr "Удалить ссылку"
+
+#: components/html-editor/replace.c:83
+msgid "Replace confirmation"
+msgstr "Подтверждение замены"
+
+#: components/html-editor/replace.c:84 components/html-editor/replace.c:146
+#: components/html-editor/replace.c:158
+msgid "Replace"
+msgstr "Заменить"
+
+#: components/html-editor/replace.c:84
+msgid "Replace all"
+msgstr "Заменить все"
+
+#: components/html-editor/replace.c:84
+msgid "Next"
+msgstr "След."
+
+#: components/html-editor/replace.c:152 components/html-editor/search.c:66
+msgid "search backward"
+msgstr "поиск назад"
+
+#: components/html-editor/replace.c:153 components/html-editor/search.c:67
+msgid "case sensitive"
+msgstr "чувствительный к регистру"
+
+#: components/html-editor/replace.c:161
+msgid "with"
+msgstr "с"
+
+#: components/html-editor/rule.c:124
+msgid "Length"
+msgstr "Длина"
+
+#: components/html-editor/rule.c:124
+msgid "Percent"
+msgstr "Процент"
+
+#: components/html-editor/rule.c:125
+msgid "Left Align"
+msgstr "Выключка влево"
+
+#: components/html-editor/rule.c:125
+msgid "Center Align"
+msgstr "Выключка по центру"
+
+#: components/html-editor/rule.c:125
+msgid "Right Align"
+msgstr "Выключка вправо"
+
+#: components/html-editor/rule.c:125
+msgid "None"
+msgstr "Нет"
+
+#: components/html-editor/rule.c:129
+msgid "Rule"
+msgstr "Линейка"
+
+#: components/html-editor/rule.c:132
+msgid "Set Shade"
+msgstr "Установить тень"
+
+#: components/html-editor/search.c:63
+msgid "Regex search"
+msgstr "Поиск рег.выражения"
+
+#: components/html-editor/search.c:63
+msgid "Search"
+msgstr "Поиск"
+
+#: components/html-editor/table.c:80
+msgid "Table"
+msgstr "Таблица"
+
+#: components/html-editor/test-html-editor-control.c:231
+msgid "Open file..."
+msgstr "Открыть файл..."
+
+#: components/html-editor/test-html-editor-control.c:233
+msgid "Save file as..."
+msgstr "Сохранить файл как..."
+
+#: components/html-editor/test-html-editor-control.c:299
+msgid "Open (PersistFile)"
+msgstr "Открыть (PersistFile)"
+
+#: components/html-editor/test-html-editor-control.c:299
+msgid "Open using the PersistFile interface"
+msgstr "Открыть используя интерфейс PersistFile"
+
+#: components/html-editor/test-html-editor-control.c:301
+msgid "Save as... (PersistFile)"
+msgstr "Сохранить как... (PersistFile)"
+
+#: components/html-editor/test-html-editor-control.c:301
+msgid "Save using the PersistFile interface"
+msgstr "Сохранить используя интерфейс PersistFile"
+
+#: components/html-editor/test-html-editor-control.c:304
+msgid "Open (PersistStream)"
+msgstr "Открыть (PersistStream)"
+
+#: components/html-editor/test-html-editor-control.c:304
+msgid "Open using the PersistStream interface"
+msgstr "Открыть используя интерфейс PersistStream"
+
+#: components/html-editor/test-html-editor-control.c:306
+msgid "Save as... (PersistStream)"
+msgstr "Сохранить как... (PersistStream)"
+
+#: components/html-editor/test-html-editor-control.c:306
+msgid "Save using the PersistStream interface"
+msgstr "Сохранить используя интерфейс PersistStream"
+
+#: components/html-editor/test-html-editor-control.c:320
+#: components/html-editor/toolbar.c:493
+msgid "Cut"
+msgstr "Вырезать"
+
+#: components/html-editor/test-html-editor-control.c:320
+msgid "Cut selection to the clipboard"
+msgstr "Вырезать выделение в буфер обмена"
+
+#: components/html-editor/test-html-editor-control.c:322
+#: components/html-editor/toolbar.c:495
+msgid "Copy"
+msgstr "Скопировать"
+
+#: components/html-editor/test-html-editor-control.c:322
+msgid "Copy selection to the clipboard"
+msgstr "Скопировать выделение в буфер обмена"
+
+#: components/html-editor/test-html-editor-control.c:324
+#: components/html-editor/toolbar.c:497
+msgid "Paste"
+msgstr "Вставить"
+
+#: components/html-editor/test-html-editor-control.c:324
+#: components/html-editor/toolbar.c:497
+msgid "Paste contents of the clipboard"
+msgstr "Вставить выделение из буфера обмена"
+
+#: components/html-editor/text.c:152 components/html-editor/toolbar.c:511
+msgid "Bold"
+msgstr "Полужирный"
+
+#: components/html-editor/text.c:153 components/html-editor/toolbar.c:513
+msgid "Italic"
+msgstr "Наклонный"
+
+#: components/html-editor/text.c:154 components/html-editor/toolbar.c:515
+msgid "Underline"
+msgstr "Подчеркнутый"
+
+#: components/html-editor/text.c:155 components/html-editor/toolbar.c:517
+msgid "Strikeout"
+msgstr "Зачеркнутый"
+
+#. color selection
+#: components/html-editor/text.c:187
+msgid "Color"
+msgstr "Цвет"
+
+#: components/html-editor/text.c:201
+msgid "text color"
+msgstr "цвет текста"
+
+#: components/html-editor/toolbar.c:45
+msgid "Normal"
+msgstr "Нормальный"
+
+#: components/html-editor/toolbar.c:46
+msgid "Header 1"
+msgstr "Заголовок 1"
+
+#: components/html-editor/toolbar.c:47
+msgid "Header 2"
+msgstr "Заголовок 2"
+
+#: components/html-editor/toolbar.c:48
+msgid "Header 3"
+msgstr "Заголовок 3"
+
+#: components/html-editor/toolbar.c:49
+msgid "Header 4"
+msgstr "Заголовок 4"
+
+#: components/html-editor/toolbar.c:50
+msgid "Header 5"
+msgstr "Заголовок 5"
+
+#: components/html-editor/toolbar.c:51
+msgid "Header 6"
+msgstr "Заголовок 6"
+
+#: components/html-editor/toolbar.c:52
+msgid "Address"
+msgstr "Адрес"
+
+#: components/html-editor/toolbar.c:53
+msgid "Pre"
+msgstr "Пре"
+
+#: components/html-editor/toolbar.c:54
+msgid "List item (digit)"
+msgstr "Список элементов (цифры)"
+
+#: components/html-editor/toolbar.c:55
+msgid "List item (unnumbered)"
+msgstr "Список элементов (ненумерованный)"
+
+#: components/html-editor/toolbar.c:56
+msgid "List item (roman)"
+msgstr "Список элементов (римские)"
+
+#: components/html-editor/toolbar.c:236
+msgid "Default"
+msgstr "По умолчанию"
+
+#: components/html-editor/toolbar.c:483
+msgid "Left align"
+msgstr "Выключка влево"
+
+#: components/html-editor/toolbar.c:483
+msgid "Left justify paragraphs"
+msgstr "Выравнивание абзацев по левому краю"
+
+#: components/html-editor/toolbar.c:485
+msgid "Centers paragraphs"
+msgstr "Центрирование абзацев"
+
+#: components/html-editor/toolbar.c:487
+msgid "Right align"
+msgstr "Выключка вправо"
+
+#: components/html-editor/toolbar.c:487
+msgid "Right justify paragraphs"
+msgstr "Выравнивание абзацев по левому краю"
+
+#: components/html-editor/toolbar.c:493
+msgid "Cut the selected region to the clipboard"
+msgstr "Вырезать выделенную область в буфер обмена"
+
+#: components/html-editor/toolbar.c:495
+msgid "Copy the selected region to the clipboard"
+msgstr "Скопировать выделенную область в буфер обмена"
+
+#: components/html-editor/toolbar.c:501
+msgid "Undo"
+msgstr "Откат"
+
+#: components/html-editor/toolbar.c:501
+msgid "Undo last editor operation"
+msgstr "Откатить выполнение последней операции редактирования"
+
+#: components/html-editor/toolbar.c:503
+msgid "Redo"
+msgstr "Возврат"
+
+#: components/html-editor/toolbar.c:503
+msgid "Redo undone editor operation"
+msgstr "Возврат отмененной операции редактирования"
+
+#: components/html-editor/toolbar.c:511
+msgid "Sets the bold font"
+msgstr "Установить шрифт полужирного начертания"
+
+#: components/html-editor/toolbar.c:513
+msgid "Make the selection italic"
+msgstr "Сделать шрифт в выделении наклонным"
+
+#: components/html-editor/toolbar.c:515
+msgid "Make the selection underlined"
+msgstr "Сделать шрифт в выделении подчеркнутым"
+
+#: components/html-editor/toolbar.c:517
+msgid "Make the selection striked out"
+msgstr "Сделать шрифт в выделении зачеркнутым"
+
+#: components/html-editor/toolbar.c:526
+msgid "Unindent"
+msgstr ""
+
+#: components/html-editor/toolbar.c:526
+msgid "Indent paragraphs less"
+msgstr ""
+
+#: components/html-editor/toolbar.c:528
+msgid "Indent"
+msgstr ""
+
+#: components/html-editor/toolbar.c:528
+msgid "Indent paragraphs more"
+msgstr ""
+
+#: glibwww/gnome-dialogs.c:85
+msgid "Transfer Progress"
+msgstr "Продвижение передачи"
+
+#: glibwww/gnome-dialogs.c:139
+#, c-format
+msgid "Looking up %s"
+msgstr "Поиск %s"
+
+#: glibwww/gnome-dialogs.c:145
+#, c-format
+msgid "Contacting %s"
+msgstr "Подключение к %s"
+
+#: glibwww/gnome-dialogs.c:152
+msgid "Waiting for a connection..."
+msgstr "Ожидание соединения..."
+
+#: glibwww/gnome-dialogs.c:156
+msgid "Logging in..."
+msgstr "Регистрация..."
+
+#: glibwww/gnome-dialogs.c:165
+msgid "Read %d%%%% of %l"
+msgstr "Чтение %d%%%% из %l"
+
+#: glibwww/gnome-dialogs.c:175 glibwww/gnome-dialogs.c:177
+#, c-format
+msgid "Read %d bytes"
+msgstr "Чтение %d байт"
+
+#: glibwww/gnome-dialogs.c:179
+msgid "Reading..."
+msgstr "Чтение..."
+
+#: glibwww/gnome-dialogs.c:194
+msgid "Writing %d%%%% of %l"
+msgstr "Запись %d%%%% в %l"
+
+#: glibwww/gnome-dialogs.c:204 glibwww/gnome-dialogs.c:206
+#, c-format
+msgid "Writing %d bytes"
+msgstr "Запись %d байт"
+
+#: glibwww/gnome-dialogs.c:208
+msgid "Writing..."
+msgstr "Запись..."
+
+#: glibwww/gnome-dialogs.c:216
+msgid "Done!"
+msgstr "Сделано!"
+
+#: glibwww/gnome-dialogs.c:220
+msgid "Interrupted!"
+msgstr "Прервано!"
+
+#: glibwww/gnome-dialogs.c:224
+msgid "Please wait..."
+msgstr "Пожалуйста, подождите..."
+
+#: glibwww/gnome-dialogs.c:228
+msgid "Request timeout!"
+msgstr "Превышено время ожидания!"
+
+#: glibwww/gnome-dialogs.c:232
+msgid "Unknown"
+msgstr "Неизвестный"
+
+#: glibwww/gnome-dialogs.c:275
+msgid "Enter Text"
+msgstr "Ввод текста"
+
+#: glibwww/gnome-dialogs.c:316 glibwww/gnome-dialogs.c:357
+msgid "Enter Password"
+msgstr "Ввод пароля"
+
+#: src/gtkhtml.c:2283
+#, c-format
+msgid "Couldn't find keybinding file -- %s"
+msgstr "Не удалось найти файл клавиатурных сокращений -- %s"
+
+#: src/html-component.c:219
+msgid "Html"
+msgstr "Html"
+
+#: src/html-component.c:220
+msgid "Html test"
+msgstr "Тест Html"
+
+#: src/html-component.c:226
+msgid "Test1"
+msgstr "Тест1"
+
+#: src/html-component.c:233
+msgid "Test2"
+msgstr "Тест2"
+
+#: src/html-component.c:239
+msgid "Test3"
+msgstr "Тест3"
+
+#: src/html-component.c:245
+msgid "Test4"
+msgstr "Тест4"
+
+#: src/html-component.c:251
+msgid "Test5"
+msgstr "Тест5"
+
+#: src/html-component.c:257
+msgid "Test6"
+msgstr "Тест6"
+
+#: src/html-component.c:263
+msgid "Test7"
+msgstr "Тест7"
+
+#: src/html-component.c:617
+msgid "_Refresh"
+msgstr "Обновить"
+
+#: src/html-component.c:618
+msgid "Reload the page"
+msgstr "Перезагрузить страницу"
+
+#: src/html-component.c:669
+msgid "Could not initialize Bonobo!"
+msgstr "Невозможно инициализировать Bonobo!"
+
+#: src/testgtkhtml.c:110
+msgid "Print pre_view"
+msgstr "Просмотр печати"
+
+#: src/testgtkhtml.c:110
+msgid "Print preview"
+msgstr "Просмотр печати"
