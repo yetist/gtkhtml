@@ -121,22 +121,22 @@ dnl *****************************
 AC_CHECK_FUNC(re_compile_pattern, AC_DEFINE(HAVE_GNU_REGEX))
 
 dnl *****************************
-dnl glibwww checks.
+dnl soup checks (for testgtkhtml)
 dnl *****************************
 
-have_glibwww=false
-AC_MSG_CHECKING(for glibwww >= 0.2)
-if gnome-config --libs glibwww > /dev/null 2>&1; then
-	vers=`gnome-config --modversion glibwww | sed -e "s/glibwww-//" | \
+have_soup=false
+AC_MSG_CHECKING(for soup >= 0.7)
+if gnome-config --libs soup > /dev/null 2>&1; then
+	vers=`gnome-config --modversion soup | sed -e "s/soup-//" | \
 		awk 'BEGIN { FS = "."; } { printf "%d", $1 * 1000 + $2;}'`
 
-	if test "$vers" -ge 2; then
+	if test "$vers" -ge 7; then
 		AC_MSG_RESULT([found])
 
-		GLIBWWW_CFLAGS="`gnome-config --cflags glibwww`"
-		GLIBWWW_LIBS="`gnome-config --libs glibwww` -lwwwhtml -lmd5"
+		SOUP_CFLAGS="`gnome-config --cflags soup`"
+		SOUP_LIBS="`gnome-config --libs soup`"
 
-		have_glibwww=true
+		have_soup=true
 	else
 		AC_MSG_RESULT(not found)
 	fi
@@ -144,15 +144,15 @@ else
 	AC_MSG_RESULT(not found)
 fi
 
-if $have_glibwww ; then
-	AC_DEFINE(HAVE_GLIBWWW)
+if $have_soup ; then
+	AC_DEFINE(HAVE_SOUP)
 else
 	AC_MSG_WARN([\`testgtkhtml' will not be built.])
 fi
 
-AC_SUBST(GLIBWWW_CFLAGS)
-AC_SUBST(GLIBWWW_LIBS)
-AM_CONDITIONAL(GLIBWWW, test x$have_glibwww = xtrue)
+AC_SUBST(SOUP_CFLAGS)
+AC_SUBST(SOUP_LIBS)
+AM_CONDITIONAL(SOUP, test x$have_soup = xtrue)
 
 dnl libghttp checks.
 have_ghttp=false
