@@ -2015,6 +2015,13 @@ end_of_word (gchar *ct)
 	return ct;
 }
 
+static void
+queue_draw (HTMLObject *o, HTMLEngine *e, HTMLInterval *i)
+{
+	if (html_object_is_text (o))
+		html_text_queue_draw (HTML_TEXT (o), e, html_interval_get_start (i, o), html_interval_get_length (i, o));
+}
+
 void
 html_clueflow_spell_check (HTMLClueFlow *flow, HTMLEngine *e, HTMLInterval *interval)
 {
@@ -2078,7 +2085,8 @@ html_clueflow_spell_check (HTMLClueFlow *flow, HTMLEngine *e, HTMLInterval *inte
 			}
 		}
 		g_free (text);
+		html_interval_forall (interval, e, (HTMLObjectForallFunc) queue_draw, interval);
+		html_engine_flush_draw_queue (e);
 		html_interval_destroy (new_interval);
 	}
 }
-

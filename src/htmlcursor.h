@@ -68,8 +68,10 @@ gboolean  html_cursor_beginning_of_line      (HTMLCursor *cursor,
 					      HTMLEngine *engine);
 gboolean  html_cursor_end_of_line            (HTMLCursor *cursor,
 					      HTMLEngine *engine);
-gboolean  html_cursor_beginning_of_paragraph (HTMLCursor *cursor);
-gboolean  html_cursor_end_of_paragraph       (HTMLCursor *cursor);
+gboolean  html_cursor_beginning_of_paragraph (HTMLCursor *cursor,
+					      HTMLEngine *engine);
+gboolean  html_cursor_end_of_paragraph       (HTMLCursor *cursor,
+					      HTMLEngine *engine);
 gboolean  html_cursor_jump_to                (HTMLCursor *cursor,
 					      HTMLEngine *engine,
 					      HTMLObject *obj,

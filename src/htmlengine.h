@@ -231,6 +231,8 @@ struct _HTMLEngine {
 	GHashTable *id_table;
 
 	gdouble min_split_index;
+
+	gboolean need_spell_check;
 };
 
 /* must be forward referenced *sigh* */

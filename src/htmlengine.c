@@ -3231,6 +3231,7 @@ html_engine_init (HTMLEngine *engine)
 	engine->selection_updater = html_engine_edit_selection_updater_new (engine);
 
 	engine->search_info = NULL;
+	engine->need_spell_check = FALSE;
 
 	html_engine_print_set_min_split_index (engine, .75);
 }
@@ -4196,6 +4197,8 @@ html_engine_spell_check (HTMLEngine *e)
 {
 	g_assert (HTML_IS_ENGINE (e));
 	g_assert (e->clue);
+
+	e->need_spell_check = FALSE;
 
 	if (e->widget->editor_api && e->widget->editor_api->check_word)
 		html_object_forall (e->clue, NULL, (HTMLObjectForallFunc) check_paragraph, e);

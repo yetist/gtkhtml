@@ -29,6 +29,7 @@
 
 #include "htmlclue.h"
 #include "htmlengine.h"
+#include "htmlengine-edit.h"
 #include "htmltext.h"
 #include "htmltextslave.h"
 #include "htmltype.h"
@@ -167,6 +168,9 @@ html_cursor_home (HTMLCursor *cursor,
 		return;
 	}
 
+	if (engine->need_spell_check)
+		html_engine_spell_check_range (engine, engine->cursor, engine->cursor);
+
 	obj = engine->clue;
 	while (is_clue (obj))
 		obj = HTML_CLUE (obj)->head;
@@ -208,6 +212,9 @@ html_cursor_forward (HTMLCursor *cursor, HTMLEngine *engine)
 	g_return_val_if_fail (cursor != NULL, FALSE);
 	g_return_val_if_fail (engine != NULL, FALSE);
 
+	if (engine->need_spell_check)
+		html_engine_spell_check_range (engine, engine->cursor, engine->cursor);
+
 	cursor->have_target_x = FALSE;
 	retval = forward (cursor);
 
@@ -247,6 +254,9 @@ html_cursor_backward (HTMLCursor *cursor,
 	g_return_val_if_fail (cursor != NULL, FALSE);
 	g_return_val_if_fail (engine != NULL, FALSE);
 
+	if (engine->need_spell_check)
+		html_engine_spell_check_range (engine, engine->cursor, engine->cursor);
+
 	cursor->have_target_x = FALSE;
 	retval = backward (cursor);
 
@@ -273,6 +283,9 @@ html_cursor_up (HTMLCursor *cursor,
 		html_cursor_home (cursor, engine);
 		return TRUE;
 	}
+
+	if (engine->need_spell_check)
+		html_engine_spell_check_range (engine, engine->cursor, engine->cursor);
 
 	html_cursor_copy (&orig_cursor, cursor);
 
@@ -357,6 +370,9 @@ html_cursor_down (HTMLCursor *cursor,
 		return TRUE;
 	}
 
+	if (engine->need_spell_check)
+		html_engine_spell_check_range (engine, engine->cursor, engine->cursor);
+
 	html_object_get_cursor_base (cursor->object,
 				     engine->painter, cursor->offset,
 				     &x, &y);
@@ -440,6 +456,9 @@ html_cursor_jump_to (HTMLCursor *cursor,
 	g_return_val_if_fail (cursor != NULL, FALSE);
 	g_return_val_if_fail (object != NULL, FALSE);
 
+	if (engine->need_spell_check)
+		html_engine_spell_check_range (engine, engine->cursor, engine->cursor);
+
 	html_cursor_normalize (cursor);
 	normalize (&object, &offset);
 
@@ -474,6 +493,9 @@ html_cursor_beginning_of_document (HTMLCursor *cursor,
 	g_return_if_fail (engine != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (engine));
 
+	if (engine->need_spell_check)
+		html_engine_spell_check_range (engine, engine->cursor, engine->cursor);
+
 	while (backward (cursor))
 		;
 }
@@ -485,6 +507,9 @@ html_cursor_end_of_document (HTMLCursor *cursor,
 	g_return_if_fail (cursor != NULL);
 	g_return_if_fail (engine != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (engine));
+
+	if (engine->need_spell_check)
+		html_engine_spell_check_range (engine, engine->cursor, engine->cursor);
 
 	while (forward (cursor))
 		;
@@ -502,6 +527,9 @@ html_cursor_end_of_line (HTMLCursor *cursor,
 	g_return_val_if_fail (HTML_IS_ENGINE (engine), FALSE);
 
 	cursor->have_target_x = FALSE;
+
+	if (engine->need_spell_check)
+		html_engine_spell_check_range (engine, engine->cursor, engine->cursor);
 
 	html_cursor_copy (&prev_cursor, cursor);
 	html_object_get_cursor_base (cursor->object, engine->painter, cursor->offset,
@@ -535,6 +563,9 @@ html_cursor_beginning_of_line (HTMLCursor *cursor,
 	g_return_val_if_fail (HTML_IS_ENGINE (engine), FALSE);
 
 	cursor->have_target_x = FALSE;
+
+	if (engine->need_spell_check)
+		html_engine_spell_check_range (engine, engine->cursor, engine->cursor);
 
 	html_cursor_copy (&prev_cursor, cursor);
 	html_object_get_cursor_base (cursor->object, engine->painter, cursor->offset,
@@ -572,6 +603,9 @@ html_cursor_jump_to_position (HTMLCursor *cursor,
 {
 	g_return_if_fail (cursor != NULL);
 	g_return_if_fail (position >= 0);
+
+	if (engine->need_spell_check)
+		html_engine_spell_check_range (engine, engine->cursor, engine->cursor);
 
 	if (cursor->position < position) {
 		while (cursor->position < position) {
@@ -666,9 +700,12 @@ html_cursor_get_prev_char (const HTMLCursor *cursor)
 }
 
 gboolean
-html_cursor_beginning_of_paragraph (HTMLCursor *cursor)
+html_cursor_beginning_of_paragraph (HTMLCursor *cursor, HTMLEngine *engine)
 {
 	gboolean rv = FALSE;
+
+	if (engine->need_spell_check)
+		html_engine_spell_check_range (engine, engine->cursor, engine->cursor);
 
 	while (cursor->offset || html_object_prev_not_slave (cursor->object)) {
 		backward (cursor);
@@ -679,9 +716,12 @@ html_cursor_beginning_of_paragraph (HTMLCursor *cursor)
 }
 
 gboolean
-html_cursor_end_of_paragraph (HTMLCursor *cursor)
+html_cursor_end_of_paragraph (HTMLCursor *cursor, HTMLEngine *engine)
 {
 	gboolean rv = FALSE;
+
+	if (engine->need_spell_check)
+		html_engine_spell_check_range (engine, engine->cursor, engine->cursor);
 
 	while (cursor->offset < html_object_get_length (cursor->object)
 	       || html_object_next_not_slave (cursor->object)) {

@@ -284,8 +284,10 @@ split_word_width (HTMLText *s, HTMLText *d, HTMLPainter *p, gint offset)
 		d->word_width [i] = s->word_width [words + i - 1] - s->word_width [words - 1] + d->word_width [0];
 
 	/* fill s */
-	s->words      = words;
-	g_renew (guint, s->word_width, s->words);
+	if (s->words != words) {
+		s->words = words;
+		g_renew (guint, s->word_width, s->words);
+	}
 
 	if (in_middle) {
 		str = strrchr (s->text, ' ');

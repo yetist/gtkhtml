@@ -1,5 +1,19 @@
 2001-01-24  Radek Doulik  <rodo@helixcode.com>
 
+	* htmltext.c (split_word_width): do renew only when words !=
+	s->words (not needed, but old way I got segv with efence, weird)
+
+	* htmlengine.c: added need_spell_check flag
+
+	* htmlengine-edit-cut-and-paste.c: do spell checking only on word
+	ends and use need_spell_check engine flag
+
+	* htmlcursor.c: check for need_spell_check before cursor move
+
+	* htmlclueflow.c (html_clueflow_spell_check): queue draw checked
+	interval
+	(queue_draw): helper function
+
 	* testgtkhtml.c (print_footer): add param to quiet warning
 
 2001-01-23  Larry Ewing  <lewing@helixcode.com>

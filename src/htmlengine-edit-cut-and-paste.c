@@ -47,7 +47,7 @@
 #include "htmlundo-action.h"
 
 static void        delete_object (HTMLEngine *e, HTMLObject **ret_object, guint *ret_len, HTMLUndoDirection dir);
-static void        insert_object (HTMLEngine *e, HTMLObject *obj, guint len, HTMLUndoDirection dir);
+static void        insert_object (HTMLEngine *e, HTMLObject *obj, guint len, HTMLUndoDirection dir, gboolean check);
 
 /* helper functions -- need refactor */
 
@@ -308,7 +308,7 @@ delete_undo_action (HTMLEngine *e, HTMLUndoData *data, HTMLUndoDirection dir)
 	DeleteUndo *undo;
 
 	undo = (DeleteUndo *) data;
-	insert_object (e, undo->buffer, undo->buffer_len, html_undo_direction_reverse (dir));
+	insert_object (e, undo->buffer, undo->buffer_len, html_undo_direction_reverse (dir), TRUE);
 	undo->buffer = NULL;
 }
 
@@ -445,7 +445,7 @@ html_engine_cut (HTMLEngine *e)
  */
 
 static void
-insert_object_do (HTMLEngine *e, HTMLObject *obj, guint len)
+insert_object_do (HTMLEngine *e, HTMLObject *obj, guint len, gboolean check)
 {
 	HTMLObject *cur;
 	HTMLCursor *orig;
@@ -487,7 +487,8 @@ insert_object_do (HTMLEngine *e, HTMLObject *obj, guint len)
 	remove_empty_and_merge (e, TRUE, last, right, orig);
 	remove_empty_and_merge (e, TRUE, left, first, orig);
 
-        // html_engine_spell_check_range (e, orig, e->cursor);
+	if (check)
+		html_engine_spell_check_range (e, orig, e->cursor);
 	html_cursor_destroy (orig);
 	html_engine_thaw (e);
 }
@@ -528,16 +529,16 @@ insert_setup_undo (HTMLEngine *e, guint len, HTMLUndoDirection dir)
 }
 
 static void
-insert_object (HTMLEngine *e, HTMLObject *obj, guint len, HTMLUndoDirection dir)
+insert_object (HTMLEngine *e, HTMLObject *obj, guint len, HTMLUndoDirection dir, gboolean check)
 {
-	insert_object_do (e, obj, len);
+	insert_object_do (e, obj, len, check);
 	insert_setup_undo (e, len, dir);
 }
 
 void
 html_engine_insert_object (HTMLEngine *e, HTMLObject *o, guint len)
 {
-	insert_object (e, o, len, HTML_UNDO_UNDO);
+	insert_object (e, o, len, HTML_UNDO_UNDO, TRUE);
 }
 
 void
@@ -610,15 +611,25 @@ html_engine_insert_text (HTMLEngine *e, const gchar *text, guint len)
 		nl   = unicode_strchr (text, '\n');
 		alen = nl ? unicode_index_to_offset (text, nl - text) : len;
 		if (alen) {
+			HTMLCursor *c = NULL;
 			HTMLObject *o;
 
 			check_magic_link (e, text, alen);
 			o = html_engine_new_text (e, text, alen);
 			html_text_convert_nbsp (HTML_TEXT (o), TRUE);
 
-			if (alen == 1 && !html_is_in_word (html_text_get_char (HTML_TEXT (o), 0)))
-				html_engine_spell_check_range (e, e->cursor, e->cursor);
-			html_engine_insert_object (e, o, html_object_get_length (o));
+			if (alen == 1) {
+				if (html_is_in_word (html_text_get_char (HTML_TEXT (o), 0)))
+					e->need_spell_check = TRUE;
+				else if (e->need_spell_check)
+					html_engine_spell_check_range (e, e->cursor, e->cursor);
+			} else
+				c = html_cursor_dup (e->cursor);
+			insert_object (e, o, html_object_get_length (o), HTML_UNDO_UNDO, FALSE);
+			if (c) {
+				html_engine_spell_check_range (e, c, e->cursor);
+				html_cursor_destroy (c);
+			}
 		}
 		if (nl) {
 			html_engine_insert_empty_paragraph (e);

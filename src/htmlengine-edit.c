@@ -197,6 +197,8 @@ html_engine_spell_check_range (HTMLEngine *e, HTMLCursor *begin, HTMLCursor *end
 {
 	HTMLInterval *i;
 
+	e->need_spell_check = FALSE;
+
 	begin = html_cursor_dup (begin);
 	end   = html_cursor_dup (end);
 
@@ -369,7 +371,7 @@ go_to_begin_of_pre_para (HTMLEngine *e)
 	HTMLObject *prev;
 
 	do {
-		html_cursor_beginning_of_paragraph (e->cursor);
+		html_cursor_beginning_of_paragraph (e->cursor, e);
 		prev = html_object_prev_leaf (e->cursor->object);
 		if (prev && html_object_get_length (prev))
 			html_cursor_backward (e->cursor, e);
