@@ -454,7 +454,6 @@ static GtkWidget *
 create_editor_toolbar (GtkHTML *html)
 {
 	ToolbarData *data;
-	BonoboControl *toolbar_control;
 	GtkWidget *toolbar;
 	GtkWidget *toolbar_frame;
 
@@ -508,10 +507,10 @@ toolbar_setup (BonoboUIHandler *uih,
 {
 	GtkWidget *toolbar;
 
-	g_return_if_fail (uih != NULL);
-	g_return_if_fail (BONOBO_IS_UI_HANDLER (uih));
-	g_return_if_fail (html != NULL);
-	g_return_if_fail (GTK_IS_HTML (html));
+	g_return_val_if_fail (uih != NULL, NULL);
+	g_return_val_if_fail (BONOBO_IS_UI_HANDLER (uih), NULL);
+	g_return_val_if_fail (html != NULL, NULL);
+	g_return_val_if_fail (GTK_IS_HTML (html), NULL);
 
 	toolbar = create_editor_toolbar (html);
 
