@@ -753,9 +753,7 @@ editor_control_factory (BonoboGenericFactory *factory, const gchar *component_id
 }
 
 #ifdef GNOME_GTKHTML_EDITOR_SHLIB
-
-BONOBO_OAF_SHLIB_FACTORY (CONTROL_FACTORY_ID, "GNOME HTML Editor factory", editor_control_factory, NULL);
-
+BONOBO_ACTIVATION_SHLIB_FACTORY (CONTROL_FACTORY_ID, "GNOME HTML Editor factory", editor_control_factory, NULL);
 #else
 
 int

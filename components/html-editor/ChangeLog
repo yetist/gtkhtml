@@ -1,3 +1,8 @@
+2003-03-13  Larry Ewing  <lewing@ximian.com>
+
+	* editor-control-factory.c: use bonobo activation instead of oaf
+	for shlib factories.
+
 2003-03-05  Larry Ewing  <lewing@ximian.com>
 
 	* Makefile.am (uninstall-hook): add uninstall-hook to remove
