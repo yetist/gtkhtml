@@ -1,7 +1,7 @@
 # The one and only funky gtkhtml dutch translation!
 # Copyright (C) 2000 Free Software Foundation, Inc.
 # Dennis Smit <synap@area101.penguin.nl>, 2000.
-# Tino Meinen <a.t.meinen@chello.nl>, 2002-2004.
+# Tino Meinen <a.t.meinen@chello.nl>, 2002, 2003, 2004, 2005
 #  
 # TODO
 #  	snelkoppelingen
@@ -10,13 +10,30 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml cvs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-29 16:53+0100\n"
-"PO-Revision-Date: 2004-11-03 03:03+0100\n"
+"POT-Creation-Date: 2005-01-01 12:34+0100\n"
+"PO-Revision-Date: 2005-01-01 16:07+0100\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
-"Language-Team: Dutch <vertaling@nl.linux.org>\n"
+"Language-Team: Dutch <vertaling@vrijschrift.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: a11y/image.c:149
+msgid "URL is "
+msgstr "URL is "
+
+#: a11y/image.c:152
+msgid ", Alternative Text is "
+msgstr ", alternatieve tekst is "
+
+# focus grijpen
+#: a11y/object.c:50 a11y/object.c:59 a11y/text.c:105
+msgid "grab focus"
+msgstr "aandacht grijpen"
+
+#: a11y/object.c:211
+msgid "Panel containing HTML"
+msgstr "Paneel met HTML"
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -83,10 +100,10 @@ msgstr "Lettertypen"
 msgid "For printing"
 msgstr "Voor afdrukken"
 
-# Toetsen grijpen?
+# Toetsen grijpen/Pluk een toets
 #: capplet/gtkhtml-capplet.glade.h:15
 msgid "Grab keys"
-msgstr "Pluk een toets"
+msgstr "Toetsen grijpen"
 
 #: capplet/gtkhtml-capplet.glade.h:16
 msgid "Information"
@@ -196,7 +213,7 @@ msgstr "A_dres"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:8
 #: components/html-editor/toolbar.c:53
 msgid "Alphabetical List"
-msgstr "Alphabetische Lijst"
+msgstr "Alfabetische lijst"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:9
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:9
@@ -212,7 +229,7 @@ msgstr "Blauw"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:11
 #: components/html-editor/toolbar.c:50
 msgid "Bulleted List"
-msgstr "Gestipte Lijst"
+msgstr "Gestipte lijst"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:12
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
@@ -522,7 +539,7 @@ msgstr "Genummerde lijst"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:71
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
 msgid "Numbered _List"
-msgstr "Genummerde _Lijst"
+msgstr "Genummerde _lijst"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:72
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
@@ -597,7 +614,7 @@ msgstr "De ongedaan gemaakte actie opnieuw uitvoeren"
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
-#: components/html-editor/replace.c:161 components/html-editor/replace.c:223
+#: components/html-editor/replace.c:163 components/html-editor/replace.c:225
 msgid "Replace"
 msgstr "Vervangen"
 
@@ -719,7 +736,7 @@ msgstr "_Uitlijning"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:108
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
 msgid "_Alphabetical List"
-msgstr "_Alphabetische Lijst"
+msgstr "_Alfabetische lijst"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:109
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
@@ -730,7 +747,7 @@ msgstr "_Vet"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
 msgid "_Bulleted List"
-msgstr "_Gestipte Lijst"
+msgstr "_Gestipte lijst"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:111
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
@@ -1746,20 +1763,20 @@ msgstr "_Volgende"
 msgid "_Replace"
 msgstr "_Vervangen"
 
-#: components/html-editor/replace.c:169
+#: components/html-editor/replace.c:171
 msgid "Search _backward"
 msgstr "_Achteruit zoeken"
 
-#: components/html-editor/replace.c:170 components/html-editor/search.c:114
+#: components/html-editor/replace.c:172 components/html-editor/search.c:114
 msgid "Case _sensitive"
 msgstr "Hoofdletterge_voelig"
 
-#: components/html-editor/replace.c:180
+#: components/html-editor/replace.c:182
 msgid "Replace:"
 msgstr "Vervangen:"
 
 # replace with
-#: components/html-editor/replace.c:183
+#: components/html-editor/replace.c:185
 msgid "With:"
 msgstr "Door:"
 
@@ -1896,7 +1913,7 @@ msgstr ""
 "Het bewerkte object is verwijderd uit het document.\n"
 "Kan uw aanpassingen niet toepassen."
 
-#: src/gtkhtml.c:2569
+#: src/gtkhtml.c:2579
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""
@@ -1904,83 +1921,83 @@ msgstr ""
 "d)\n"
 
 # Bewerkbaar? Kan bewerkt/aangepast worden?
-#: src/gtkhtml.c:2891
+#: src/gtkhtml.c:2929
 msgid "Editable"
 msgstr "Kan bewerken"
 
-#: src/gtkhtml.c:2892
+#: src/gtkhtml.c:2930
 msgid "Whether the html can be edited"
 msgstr "Of de html bewerkt kan worden"
 
-#: src/gtkhtml.c:2898
+#: src/gtkhtml.c:2936
 msgid "Document Title"
 msgstr "Documenttitel"
 
-#: src/gtkhtml.c:2899
+#: src/gtkhtml.c:2937
 msgid "The title of the current document"
 msgstr "De titel van het huidige document"
 
-#: src/gtkhtml.c:2905
+#: src/gtkhtml.c:2943
 msgid "Document Base"
 msgstr "Documentbasis"
 
-#: src/gtkhtml.c:2906
+#: src/gtkhtml.c:2944
 msgid "The base URL for relative references"
 msgstr "De basis-URL voor relatieve verwijzingen"
 
-#: src/gtkhtml.c:2912
+#: src/gtkhtml.c:2950
 msgid "Target Base"
 msgstr "Doelbasis"
 
-#: src/gtkhtml.c:2913
+#: src/gtkhtml.c:2951
 msgid "The base URL of the targe frame"
 msgstr "De basis-URL van het doelframe"
 
-#: src/gtkhtml.c:2922
+#: src/gtkhtml.c:2960
 msgid "Fixed Width Font"
 msgstr "Lettertype met vaste breedte"
 
-#: src/gtkhtml.c:2923
+#: src/gtkhtml.c:2961
 msgid "The Monospace font to use for typewriter text"
 msgstr "Het lettertype (monospace) voor typemachine-tekst"
 
-#: src/gtkhtml.c:2929
+#: src/gtkhtml.c:2967
 msgid "New Link Color"
 msgstr "Kleur nieuwe link"
 
-#: src/gtkhtml.c:2930
+#: src/gtkhtml.c:2968
 msgid "The color of new link elements"
 msgstr "De kleur van nieuwe links"
 
-#: src/gtkhtml.c:2935
+#: src/gtkhtml.c:2973
 msgid "Visited Link Color"
 msgstr "Kleur bezochte link"
 
-#: src/gtkhtml.c:2936
+#: src/gtkhtml.c:2974
 msgid "The color of visited link elements"
 msgstr "De kleur van bezochte links"
 
-#: src/gtkhtml.c:2941
+#: src/gtkhtml.c:2979
 msgid "Active Link Color"
 msgstr "Kleur actieve link"
 
-#: src/gtkhtml.c:2942
+#: src/gtkhtml.c:2980
 msgid "The color of active link elements"
 msgstr "De kleur van een actieve link"
 
-#: src/gtkhtml.c:2947
+#: src/gtkhtml.c:2985
 msgid "Spelling Error Color"
 msgstr "Kleur van spelfout"
 
-#: src/gtkhtml.c:2948
+#: src/gtkhtml.c:2986
 msgid "The color of the spelling error markers"
 msgstr "De kleur van de markering voor spelfouten"
 
-#: src/gtkhtml.c:2953
+#: src/gtkhtml.c:2991
 msgid "Cite Quotation Color"
 msgstr "Kleur citaat"
 
-#: src/gtkhtml.c:2954
+#: src/gtkhtml.c:2992
 msgid "The color of the cited text"
 msgstr "De kleur van de geciteerde text"
 
@@ -2049,62 +2066,23 @@ msgstr "Kon standaard lettertype voor printen niet toewijzen\n"
 msgid "GtkHTML Test"
 msgstr "GtkHTML test"
 
-#~ msgid "Print pre_view"
-#~ msgstr "Afdruk_voorbeeld"
+#: src/testgtkhtml.c:117
+msgid "Print pre_view"
+msgstr "Afdruk_voorbeeld"
 
-#~ msgid "Print preview"
-#~ msgstr "Afdrukvoorbeeld"
+#: src/testgtkhtml.c:117
+msgid "Print preview"
+msgstr "Afdrukvoorbeeld"
 
-#~ msgid "GtkHTML Test Application"
-#~ msgstr "GtkHTML test-toepassing"
+#: src/testgtkhtml.c:1004
+msgid "GtkHTML Test Application"
+msgstr "GtkHTML test-toepassing"
 
 #~ msgid "Plain"
 #~ msgstr "Gewoon"
 
-#~ msgid ""
-#~ "@link_begin@<img@alt@@width@@height@@align@ "
-#~ "border=@border@@padh@@padv@@src@>@link_end@"
-#~ msgstr ""
-#~ "@link_begin@<img@alt@@width@@height@@align@ "
-#~ "border=@border@@padh@@padv@@src@>@link_end@"
-
-#~ msgid "Frame"
-#~ msgstr "Frame"
-
-#~ msgid ""
-#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-#~ "@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
-#~ "table></center>"
-#~ msgstr ""
-#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-#~ "@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
-#~ "table></center>"
-
 #~ msgid "Caption"
 #~ msgstr "Onderschrift"
-
-#~ msgid ""
-#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-#~ "@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Place "
-#~ "your comment here]</td></tr></table></td></tr></table></center>"
-#~ msgstr ""
-#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-#~ "@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Zet "
-#~ "hier uw opmerkingen]</td></tr></table></td></tr></table></center>"
-
-#~ msgid "Find A Regular Expression"
-#~ msgstr "Een Reguliere Expressie Zoeken"
-
-#~ msgid "Find Regular E_xpression..."
-#~ msgstr "Zoeken Reguliere E_xpressie..."
 
 #~ msgid ""
 #~ "The quick brown <a href=\"mailto:fox\">fox</a> jumps over the lazy <a "
@@ -2126,24 +2104,6 @@ msgstr "GtkHTML test"
 #~ "De bewerkte cel is verwijderd uit het document.\n"
 #~ "Kan uw veranderingen niet toepassen."
 
-#~ msgid "************"
-#~ msgstr "************"
-
-#~ msgid "***text***"
-#~ msgstr "***tekst***"
-
-#~ msgid "Apply changes to:"
-#~ msgstr "Veranderingen toepassen op:"
-
-#~ msgid "Border"
-#~ msgstr "Rand"
-
-#~ msgid "Click will follow this URL"
-#~ msgstr "Klikken om de URL te volgen"
-
-#~ msgid "Click will follow this URL:"
-#~ msgstr "Klikken om de URL te volgen:"
-
 #~ msgid "Don't wrap"
 #~ msgstr "Geen doorloop"
 
@@ -2152,9 +2112,6 @@ msgstr "GtkHTML test"
 
 #~ msgid "Foreground color"
 #~ msgstr "Voorgrondkleur"
-
-#~ msgid "Header"
-#~ msgstr "Kop"
 
 #~ msgid "Link insert"
 #~ msgstr "Link invoeging"
@@ -2195,9 +2152,6 @@ msgstr "GtkHTML test"
 #~ msgid "Wrapping:"
 #~ msgstr "Doorlopend:"
 
-#~ msgid "xxxxxxxxx"
-#~ msgstr "xxxxxxxxx"
-
 #~ msgid ""
 #~ "This is sample text, designed to show you how text would flow around this "
 #~ "image if you insert the image into your message."
@@ -2215,23 +2169,6 @@ msgstr "GtkHTML test"
 #~ "De bewerkte afbeelding is verwijderd uit het document.\n"
 #~ "Kan uw veranderingen niet toepassen."
 
-# Link = bijv.nmwrd
-#~ msgid "Link text"
-#~ msgstr "Link-tekst"
-
-#~ msgid ""
-#~ "The editted link was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "De bewerkte link is verwijderd uit het document.\n"
-#~ "Kan uw veranderingen niet toepassen."
-
-#~ msgid "Please fill 'Link text' and 'URL' entries"
-#~ msgstr "U moet de velden 'link-tekst' en 'URL' nog invullen"
-
-#~ msgid "Align"
-#~ msgstr "Uitlijnen"
-
 #~ msgid ""
 #~ "The editted paragraph was removed from the document.\n"
 #~ "Cannot apply your changes."
@@ -2239,40 +2176,12 @@ msgstr "GtkHTML test"
 #~ "De bewerkte paragraaf is verwijderd uit het document.\n"
 #~ "Kan uw veranderingen niet toepassen."
 
-#~ msgid "Blue 3D"
-#~ msgstr "Blauw 3D"
-
-#~ msgid "Yellow, flowers"
-#~ msgstr "Geel, bloemen"
-
-#~ msgid ""
-#~ "The editted rule was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "De bewerkte regel is verwijderd uit het document.\n"
-#~ "Kan uw veranderingen niet toepassen."
-
-#~ msgid "Flat gray"
-#~ msgstr "Egaal grijs"
-
-#~ msgid "Dark header"
-#~ msgstr "Donkere kop"
-
 #~ msgid ""
 #~ "The editted table was removed from the document.\n"
 #~ "Cannot apply your changes."
 #~ msgstr ""
 #~ "De bewerkte tabel is verwijderd uit het document.\n"
 #~ "Kan uw veranderingen niet toepassen."
-
-#~ msgid "Color"
-#~ msgstr "Kleur"
-
-#~ msgid "The quick brown fox jumps over the lazy dog.</div>"
-#~ msgstr "Pa's wijze lynx bezag vroom het fikse aquaduct.</dev>"
-
-#~ msgid "Rectangles"
-#~ msgstr "Rechthoeken"
 
 #~ msgid "The quick brown fox jumped over the lazy dog."
 #~ msgstr "Pa's wijze lynx bezag vroom het fikse aquaduct."
