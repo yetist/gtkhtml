@@ -424,36 +424,69 @@ get_length (HTMLObject *self)
 
 /* #define DEBUG_NBSP */
 
-static void
-convert_nbsp (guchar *s, guint len)
+static gchar *
+convert_nbsp (gchar *s)
 {
 	/* state of automata:
 	   0..Text
 	   1..Sequence <space>&nbsp;...&nbsp;
 	*/
-	guint state=0;
+	gint delta;
+	guint state, pass;
+	unicode_char_t uc;
+	gchar *p, *op;
+	guchar *rv, *rp;
+
+	state = 0;
+	pass  = 0;
+	delta = 0;
 
 #ifdef DEBUG_NBSP
-	printf ("convert_nbsp: ");
+	printf ("convert_nbsp: %s --> ", s);
 #endif
-	while (len) {
-		if (*s == ENTITY_NBSP || *s == ' ') {
-			*s = state ? ENTITY_NBSP : ' ';
-			state = 1;
-		} else
-			state = 0;
+	for (pass=0; pass < 2; pass++) {
+		op = p = s;
+		while (*p && (p = unicode_get_utf8 (p, &uc))) {
+			if (uc == ENTITY_NBSP || uc == ' ') {
+				if (pass) {
+					if (state) {
 #ifdef DEBUG_NBSP
-		if (*s == ENTITY_NBSP)
-			printf ("&nbsp;");
-		else
-			printf ("%c", *s);
+						printf ("&nbsp;");
 #endif
-		len--;
-		s++;
+						*rp = 0xc2; rp ++;
+						*rp = 0xa0; rp ++;
+					} else {
+#ifdef DEBUG_NBSP
+						printf (" ");
+#endif
+						*rp = ' '; rp++;
+					}
+				} else {
+					if (uc == ENTITY_NBSP && !state) delta--;
+					if (uc == ' ' && state) delta++;
+				}
+				state = 1;
+			} else {
+				state = 0;
+				if (pass) {
+#ifdef DEBUG_NBSP
+					printf ("*");
+#endif
+					strncpy (rp, op, p - op);
+					rp += p - op;
+				}
+			}
+			op = p;
+		}
+		if (!pass) {
+			rp = rv = g_malloc (strlen (s) + delta + 1);
+			rv [strlen (s) + delta] = 0;
+		}
 	}
 #ifdef DEBUG_NBSP
 	printf ("\n");
 #endif
+	return rv;
 }
 
 #ifdef GTKHTML_HAVE_PSPELL
@@ -529,13 +562,11 @@ insert_text (HTMLText *text,
 	/* spell checking update */
 	move_spell_errors (text->spell_errors, offset, len);
 #endif
-	/* do <space>&nbsp;...&nbsp; hack */
-	convert_nbsp (new_buffer, new_len);
-
 	/* set new values */
 	g_free (text->text);
-	text->text = new_buffer;
+	text->text = convert_nbsp (new_buffer);
 	text->text_len = new_len;
+	g_free (new_buffer);
 
 	/* update */
 	html_object_change_set (HTML_OBJECT (text), HTML_CHANGE_ALL);
@@ -590,13 +621,11 @@ remove_text (HTMLText *text,
 	text->spell_errors = remove_spell_errors (text->spell_errors, offset, len);
 	move_spell_errors (text->spell_errors, offset + len, -len);
 #endif
-	/* do <space>&nbsp;...&nbsp; hack */
-	convert_nbsp (new_buffer, new_len);
-
 	/* set new values */
 	g_free (text->text);
-	text->text = new_buffer;
+	text->text = convert_nbsp (new_buffer);
 	text->text_len = new_len;
+	g_free (new_buffer);
 
 	/* update */
 	html_object_change_set (HTML_OBJECT (text), HTML_CHANGE_ALL);
@@ -1119,3 +1148,9 @@ html_text_spell_errors_add (HTMLText *text, guint off, guint len)
 }
 
 #endif
+
+gint
+html_text_get_bytes (HTMLText *text)
+{
+	return strlen (text->text);
+}
