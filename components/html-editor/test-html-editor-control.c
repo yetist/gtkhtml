@@ -26,6 +26,9 @@
 #include <gnome.h>
 #include <bonobo.h>
 
+#include <HTMLEditor.h>
+#include <resolver.h>
+
 
 #ifdef USING_OAF
 #define HTML_EDITOR_CONTROL_ID "OAFIID:control:html-editor:63c5499b-8b0c-475a-9948-81ec96a9662c"
@@ -335,6 +338,7 @@ container_create (void)
 	GtkWidget *control;
 	BonoboUIHandler *uih;
 	BonoboUIHandlerMenuItem *tree;
+	HTMLEditorResolver *resolver;
 
 	app = gnome_app_new ("test-html-editor-control",
 			     "HTML Editor Control Test");
@@ -352,6 +356,9 @@ container_create (void)
 	bonobo_ui_handler_menu_free_tree (tree);
 
 	bonobo_ui_handler_create_toolbar (uih, "Toolbar");
+
+	resolver = htmleditor_resolver_new ();
+	bonobo_object_add_interface (BONOBO_OBJECT (uih), BONOBO_OBJECT (resolver));
 
 	control = bonobo_widget_new_control (HTML_EDITOR_CONTROL_ID,
 					     bonobo_object_corba_objref (BONOBO_OBJECT (uih)));

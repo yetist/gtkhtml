@@ -11,10 +11,6 @@ INCLUDES =						\
 
 CFLAGS +=  $(GCONF_CFLAGS) $(PSPELL_CFLAGS)
 
-EXTRA_DIST = $(IDLS)
-
-CLEANFILES = $(IDL_GENERATED)
-
 # CORBA stuff
 
 IDLS = \
@@ -25,6 +21,10 @@ IDL_GENERATED = \
 	HTMLEditor-common.c	\
 	HTMLEditor-skels.c	\
 	HTMLEditor-stubs.c
+
+EXTRA_DIST = $(IDLS)
+
+CLEANFILES = $(IDL_GENERATED)
 
 HTMLEditor-impl.o: HTMLEditor.h
 
@@ -116,6 +116,7 @@ test_html_editor_control_SOURCES =		\
 # Extra stuff to distribute.
 
 EXTRA_DIST =					\
+	$(IDLS)					\
 	html-editor-control.gnorba		\
 	html-editor-control.oafinfo		\
 	ChangeLog
