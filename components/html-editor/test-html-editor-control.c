@@ -37,8 +37,8 @@
 #include "gtkhtml-properties.h"
 #include "htmlsourceview.h"
 
-GtkWidget *control;
-gint formatHTML = 1;
+static GtkWidget *control;
+static gint formatHTML = 1;
 
 
 /* Saving/loading through PersistStream.  */
@@ -549,7 +549,7 @@ main (int argc, char **argv)
 	bindtextdomain(GTKHTML_RELEASE_STRING, GNOMELOCALEDIR);
 	textdomain(GTKHTML_RELEASE_STRING);
 
-	gnome_program_init("test-editor", VERSION, LIBBONOBOUI_MODULE, argc, argv, 
+	gnome_program_init("test-editor", VERSION, LIBGNOMEUI_MODULE, argc, argv, 
 			   GNOME_PROGRAM_STANDARD_PROPERTIES,
 			   GNOME_PARAM_HUMAN_READABLE_NAME, _("GtkHTML Editor Test Container"),			   
 			   NULL);

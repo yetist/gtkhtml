@@ -1,4 +1,13 @@
+2003-04-01  Larry Ewing  <lewing@ximian.com>
+
+	* test-html-editor-control.c (main): init libgnomeui so that we
+	get the indent icons.
+
+	* menubar.c: make the verbs static, shlibs don't like globals.
+
 2003-03-30  Larry Ewing  <lewing@ximian.com>
+
+	* test-html-editor-control.c (main): use gnome_program_init.
 
 	* Makefile.am (libgnome_gtkhtml_editor_3_0_la): add a broken dep
 	onto the shlib until I can figure somethign else out
