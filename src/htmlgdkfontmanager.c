@@ -92,6 +92,7 @@ font_face_exists (const gchar *name)
 
 	font_name = g_strdup_printf ("-*-%s-*-*-normal-*-*-*-*-*-*-*-*-*", name);
 	list = XListFonts (GDK_DISPLAY (), font_name, 1, &n);
+	XFreeFontNames (list);
 	g_free (font_name);
 
 	return n > 0;
@@ -102,18 +103,18 @@ html_gdk_font_manager_find_face (HTMLGdkFontManager *manager, const gchar *famil
 {
 	HTMLGdkFontFace *face;
 	gchar **names;
-	gchar *name;
+	gchar **iterate;
 
 	names = g_strsplit (families, ",", 32);
 
 	face = NULL;
-	for (name = *names; name != NULL; name++) {
-		face = (HTMLGdkFontFace *) g_hash_table_lookup (manager->faces, name);
+	for (iterate = names; *iterate != NULL; iterate++) {
+		face = (HTMLGdkFontFace *) g_hash_table_lookup (manager->faces, *iterate);
 		if (face)
 			break;
-		if (font_face_exists (name)) {
-			face = html_gdk_font_face_new (name, manager->variable->face.size);
-			g_hash_table_insert (manager->faces, (gpointer) name, face);
+		if (font_face_exists (*iterate)) {
+			face = html_gdk_font_face_new (*iterate, manager->variable->face.size);
+			g_hash_table_insert (manager->faces, (gpointer) *iterate, face);
 			break;
 		}
 	}

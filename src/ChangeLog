@@ -1,5 +1,9 @@
 2000-08-31  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlgdkfontmanager.c (font_face_exists): free list
+	(html_gdk_font_manager_find_face): fixed walk thru families which
+	has been broken by Lauris rewrite
+
 	* htmliframe.c (draw): forwards draw to embeded widget
 	(set_painter): sets painter to embeded widget's engine
 	(forall): forward forall method
