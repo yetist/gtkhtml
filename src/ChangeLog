@@ -1,5 +1,9 @@
 2001-09-12  Radek Doulik  <rodo@ximian.com>
 
+	* gtkhtml.c (client_notify_widget): update tkey compares for
+	/font_variable instead of /font_variable_family and likewise for
+	/font_fixed
+
 	* htmlengine.c (html_engine_make_cursor_visible): allow cursor to
 	be 1 pixel outside view - it doesn't matter now, as we don't allow
 	edit margin widths in editor, once we do, we must take care about

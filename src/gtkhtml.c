@@ -1594,11 +1594,11 @@ client_notify_widget (GConfClient* client,
 	tkey = strrchr (entry->key, '/');
 	g_assert (tkey);
 
-	if (!strcmp (tkey, "/font_variable_family")) {
+	if (!strcmp (tkey, "/font_variable")) {
 		g_free (prop->font_var);
 		prop->font_var = gconf_client_get_string (client, entry->key, NULL);
 		set_fonts (html);
-	} else if (!strcmp (tkey, "/font_fixed_family")) {
+	} else if (!strcmp (tkey, "/font_fixed")) {
 		g_free (prop->font_fix);
 		prop->font_fix = gconf_client_get_string (client, entry->key, NULL);
 		set_fonts (html);
