@@ -167,30 +167,6 @@ html_engine_goto_table (HTMLEngine *e, HTMLTable *table, gint row, gint col)
 	} while (cell && html_cursor_forward (e->cursor, e));
 }
 
-static void
-go_after_col (HTMLEngine *e, HTMLObject *table, gint col)
-{
-	HTMLTableCell *cell;
-
-	do {
-		cell = html_engine_get_table_cell (e);
-		if (cell && cell->col == col)
-			break;
-	} while (html_cursor_forward (e->cursor, e));
-}
-
-static void
-go_after_row (HTMLEngine *e, HTMLObject *table, gint row)
-{
-	HTMLTableCell *cell;
-
-	do {
-		cell = html_engine_get_table_cell (e);
-		if (cell && cell->row == row)
-			break;
-	} while (html_cursor_forward (e->cursor, e));
-}
-
 void
 html_table_insert_column (HTMLTable *t, HTMLEngine *e, gint col, HTMLTableCell **column, HTMLUndoDirection dir)
 {
@@ -237,7 +213,6 @@ html_table_insert_column (HTMLTable *t, HTMLEngine *e, gint col, HTMLTableCell *
 		}
 	}
 
-	//go_after_col (e, HTML_OBJECT (t), col);
 	html_cursor_jump_to (e->cursor, e, pos.object, pos.offset);
 	insert_column_setup_undo (e, position_before, dir);
 	html_object_change_set (HTML_OBJECT (t), HTML_CHANGE_ALL_CALC);
@@ -387,7 +362,8 @@ delete_table_column (HTMLEngine *e, HTMLUndoDirection dir)
 			}
 		}
 	}
-	go_after_col (e, HTML_OBJECT (t), MIN (col, t->totalCols - 1));
+
+	html_cursor_jump_to (e->cursor, e, pos.object, pos.offset);
 	delete_column_setup_undo (e, column, t->totalRows, position_before, col, dir);
 	t->totalCols --;
 
@@ -474,12 +450,10 @@ html_table_insert_row (HTMLTable *t, HTMLEngine *e, gint row, HTMLTableCell **ro
 		}
 	}
 
-	//go_after_row (e, HTML_OBJECT (t), row);
 	html_cursor_jump_to (e->cursor, e, pos.object, pos.offset);
 	insert_row_setup_undo (e, position_before, dir);
 	html_object_change_set (HTML_OBJECT (t), HTML_CHANGE_ALL_CALC);
 	html_engine_queue_draw (e, HTML_OBJECT (t));
-	html_cursor_jump_to (e->cursor, e, pos.object, pos.offset);
 	html_engine_thaw (e);
 }
 
@@ -591,12 +565,11 @@ delete_table_row (HTMLEngine *e, HTMLUndoDirection dir)
 		}
 	}
 
-	go_after_row (e, HTML_OBJECT (t), MIN (row, t->totalCols - 1));
+	html_cursor_jump_to (e->cursor, e, pos.object, pos.offset);
 	t->totalRows --;
 	delete_row_setup_undo (e, row_cells, t->totalCols, position_before, row, dir);
 	html_object_change_set (HTML_OBJECT (t), HTML_CHANGE_ALL_CALC);
 	html_engine_queue_draw (e, HTML_OBJECT (t));
-	html_cursor_jump_to (e->cursor, e, pos.object, pos.offset);
 	html_engine_thaw (e);
 }
 
