@@ -1066,7 +1066,7 @@ html_engine_cut_and_paste_begin (HTMLEngine *e, const gchar *undo_op_name, const
 	html_engine_selection_push (e);
 	html_engine_clipboard_push (e);
 	html_undo_level_begin (e->undo, undo_op_name, redo_op_name);
-	position = MAX (e->cursor->position, e->mark->position);
+	position = e->mark ? MAX (e->cursor->position, e->mark->position) : e->cursor->position;
 	level = html_engine_cut (e);
 
 	e->cut_and_paste_stack = g_list_prepend (e->cut_and_paste_stack, GINT_TO_POINTER (level));

@@ -1,3 +1,12 @@
+2001-11-05  Radek Doulik  <rodo@ximian.com>
+ 
+	* htmlengine-edit-cut-and-paste.c
+	(html_engine_cut_and_paste_begin): check for e->mark != NULL
+ 
+2001-11-05  Larry Ewing  <lewing@ximian.com>
+
+	* htmlselection.h (html_selection_current_time): s/()/(void)/
+
 2001-11-02  Radek Doulik  <rodo@ximian.com>
 
 	* htmltext.c (get_cursor): if we are between two text objects, use
