@@ -25,7 +25,7 @@ msgstr "<없음>"
 #: components/html-editor/table.c:220 components/html-editor/template.c:271
 #: components/html-editor/text.c:159
 msgid "Could not load glade file."
-msgstr "glade파일을 읽을 수 없습니다."
+msgstr "glade 파일을 읽을 수 없습니다."
 
 #: capplet/gtkhtml-capplet.glade.h:1
 msgid "\n"
@@ -50,7 +50,7 @@ msgstr "바로가기 자동 감지"
 
 #: capplet/gtkhtml-capplet.glade.h:7
 msgid "Behavior"
-msgstr "행동"
+msgstr "동작"
 
 #: capplet/gtkhtml-capplet.glade.h:8
 msgid "Composer Properties"
@@ -102,7 +102,7 @@ msgstr "새 단축키:"
 
 #: capplet/gtkhtml-capplet.glade.h:20
 msgid "On screen"
-msgstr "화면상"
+msgstr "화면에"
 
 #: capplet/gtkhtml-capplet.glade.h:21
 msgid "Select HTML fixed width font"
@@ -791,7 +791,7 @@ msgstr "무관심(_I)"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:123
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
 msgid "_Insert"
-msgstr "삽입(_I)"
+msgstr "넣기(_I)"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
@@ -822,7 +822,7 @@ msgstr "보통(_N)"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:129
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
 msgid "_Page..."
-msgstr "쪽(_P)..."
+msgstr "페이지(_P)..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:130
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
@@ -847,7 +847,7 @@ msgstr "원래 모양대로(_P)"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:134
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
 msgid "_Redo"
-msgstr "재실행(_R)"
+msgstr "다시 실행(_R)"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:135
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
@@ -1036,7 +1036,7 @@ msgstr "바탕(_B):"
 #: components/html-editor/body.c:283
 #: components/html-editor/gtkhtml-editor-properties.glade.h:30
 msgid "Colors"
-msgstr "색상"
+msgstr "색"
 
 #: components/html-editor/body.c:285 components/html-editor/body.c:300
 #: components/html-editor/gtkhtml-editor-properties.glade.h:23
@@ -1769,7 +1769,7 @@ msgstr "현재 언어(_L)"
 
 #: components/html-editor/template.c:84
 msgid "Note"
-msgstr "참고"
+msgstr "알림"
 
 #: components/html-editor/template.c:94 components/html-editor/template.c:113
 msgid "Place your text here"
@@ -1833,11 +1833,11 @@ msgstr "밑줄"
 
 #: components/html-editor/toolbar.c:543
 msgid "Underlines the text"
-msgstr "밑줄을 귿습니다"
+msgstr "밑줄을 긋습니다"
 
 #: components/html-editor/toolbar.c:545
 msgid "Strikes out the text"
-msgstr "취소선을 칩니다"
+msgstr "취소선을 긋습니다"
 
 #: components/html-editor/toolbar.c:554
 msgid "Unindent"
