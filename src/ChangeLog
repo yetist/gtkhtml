@@ -1,5 +1,8 @@
 2002-11-03  Larry Ewing  <lewing@ximian.com>
 
+	* htmlgdkpainter.c (draw_pixmap): fix coloring logic.
+	(create_temporary_pixbuf): clear the pixbuf before we use it.
+
 	* htmltext.c (append_selection_string): use g_string_function that
 	exists now.
 
