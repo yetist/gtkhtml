@@ -146,4 +146,5 @@ HTMLObject       *html_text_op_cut_helper                (HTMLText           *te
 							  GList              *right,
 							  guint              *len,
 							  HTMLTextHelperFunc  f);
+void              html_text_clear_word_width             (HTMLText           *text);
 #endif /* _HTMLTEXT_H_ */

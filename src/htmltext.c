@@ -210,8 +210,8 @@ word_get_position (HTMLText *text, guint off, guint *word_out, guint *left_out, 
 	/* printf ("get position w: %d l: %d r: %d\n", *word_out, *left_out, *right_out); */
 }
 
-static void
-clear_word_width (HTMLText *text)
+void
+html_text_clear_word_width (HTMLText *text)
 {
 	g_free (text->word_width);
 	text->word_width = NULL;
@@ -234,7 +234,7 @@ merge_word_width (HTMLText *t1, HTMLText *t2, HTMLPainter *p)
 	if (((len && t1->text [len - 1] == ' ')
 	     || (len > 1 && (guchar) t1->text [len - 1] == 0xa0 && (guchar) t1->text [len - 1] == 0xc2))
 	    && t2->text [0] == ' ') {
-		clear_word_width (t1);
+		html_text_clear_word_width (t1);
 		return; /* we don't want do merge as convert_nbsp will 100% happen */
 	}
 
@@ -259,7 +259,7 @@ split_word_width (HTMLText *s, HTMLText *d, HTMLPainter *p, gint offset)
 	guint words, i;
 	gboolean in_middle;
 
-	clear_word_width (d);
+	html_text_clear_word_width (d);
 	if (!s->word_width)
 		return;
 
@@ -367,7 +367,7 @@ html_text_op_cut_helper (HTMLText *text, HTMLEngine *e, GList *from, GList *to, 
 		*len += text->text_len;
 	}
 
-	clear_word_width (text);
+	html_text_clear_word_width (text);
 	html_object_change_set (HTML_OBJECT (text), HTML_CHANGE_ALL);
 
 	/* printf ("after cut '%s'\n", text->text);
@@ -460,7 +460,7 @@ object_split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, g
 		if (t2->text [0] == ' '
 		    && ((len > 1 && (guchar) t1->text [len - 1] == 0xa0 && (guchar) t2->text [len - 2] == 0xc2)
 			|| (len && t1->text [len - 1] == ' ')))
-			clear_word_width (t1);
+			html_text_clear_word_width (t1);
 	}
 	g_free (tt);
 
@@ -496,8 +496,8 @@ object_split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, g
 	html_object_change_set (dup,  HTML_CHANGE_ALL);
 
 	split_word_width (HTML_TEXT (self), HTML_TEXT (dup), e->painter, offset);
-	//clear_word_width (HTML_TEXT (self));
-	//clear_word_width (HTML_TEXT (dup));
+	//html_text_clear_word_width (HTML_TEXT (self));
+	//html_text_clear_word_width (HTML_TEXT (dup));
 
 	level--;
 	if (level)
@@ -842,7 +842,7 @@ html_text_convert_nbsp (HTMLText *text, gboolean free_text)
 	gchar *to_free;
 
 	if (is_convert_nbsp_needed (text->text, &delta)) {
-		clear_word_width (text);
+		html_text_clear_word_width (text);
 		to_free    = text->text;
 		text->text = g_malloc (strlen (to_free) + delta + 1);
 		convert_nbsp (text->text, to_free);

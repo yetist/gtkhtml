@@ -1,3 +1,11 @@
+2001-01-19  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlengine.c (clear_word_width): new helper function
+	(html_engine_set_painter): clear word width cache
+
+	* htmltext.c (html_text_clear_word_width): make this function
+	public
+
 2001-01-18  Radek Doulik  <rodo@helixcode.com>
 
 	* htmltext.c (object_split): take care of split in &nbsp; sequence

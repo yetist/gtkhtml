@@ -48,6 +48,7 @@
 #include "htmlcolor.h"
 #include "htmlinterval.h"
 #include "htmlsettings.h"
+#include "htmltext.h"
 #include "htmltokenizer.h"
 #include "htmltype.h"
 #include "htmlundo.h"
@@ -4323,6 +4324,13 @@ html_engine_get_cursor (HTMLEngine *e)
 	return cursor;
 }
 
+static void
+clear_word_width (HTMLObject *o, HTMLEngine *e, gpointer data)
+{
+	if (html_object_is_text (o))
+		html_text_clear_word_width (HTML_TEXT (o));
+}
+
 void
 html_engine_set_painter (HTMLEngine *e, HTMLPainter *painter, gint max_width)
 {
@@ -4332,6 +4340,7 @@ html_engine_set_painter (HTMLEngine *e, HTMLPainter *painter, gint max_width)
 
 	html_object_set_painter (e->clue, painter, max_width);
 	html_object_change_set_down (e->clue, HTML_CHANGE_ALL);
+	html_object_forall (e->clue, e, clear_word_width, NULL);
 	html_object_reset (e->clue);
 
 	html_object_set_max_width (e->clue, painter, max_width);
