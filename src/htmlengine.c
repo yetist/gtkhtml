@@ -469,7 +469,7 @@ new_flow (HTMLEngine *e, HTMLObject *clue, HTMLObject *first_object)
 
 	e->flow = flow_new (e, current_clueflow_style (e), e->indent_level, HTML_LIST_TYPE_UNORDERED, 0);
 
-	HTML_CLUE (e->flow)->halign = e->divAlign;
+	HTML_CLUE (e->flow)->halign = e->pAlign;
 
 	if (first_object)
 		html_clue_append (HTML_CLUE (e->flow), first_object);
@@ -695,7 +695,7 @@ block_end_clueflow_style (HTMLEngine *e,
 	close_flow (e, clue);
 	pop_clueflow_style (e);
 
-	e->divAlign = elem->miscData1;
+	e->pAlign = elem->miscData1;
 }
 
 static void
@@ -744,7 +744,7 @@ block_end_div (HTMLEngine *e, HTMLObject *clue, HTMLBlockStackElement *elem)
 {
 	close_flow (e, clue);
 
-	e->divAlign =  (HTMLHAlignType) elem->miscData1;
+	e->pAlign =  (HTMLHAlignType) elem->miscData1;
 }
 
 
@@ -859,7 +859,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	HTMLHAlignType align = HTML_HALIGN_NONE;
 	HTMLClueV *caption = 0;
 	HTMLVAlignType capAlign = HTML_VALIGN_BOTTOM;
-	HTMLHAlignType olddivalign = e->divAlign;
+	HTMLHAlignType olddivalign = e->pAlign;
 	HTMLClue *oldflow = HTML_CLUE (e->flow);
 	gint old_indent_level = e->indent_level;
 	GdkColor tableColor, rowColor, bgColor;
@@ -974,7 +974,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 
 					caption = HTML_CLUEV (html_cluev_new (0, 0, 100));
 
-					e->divAlign = HTML_HALIGN_CENTER;
+					e->pAlign = HTML_HALIGN_CENTER;
 					e->flow = 0;
 
 					push_block (e, ID_CAPTION, 3, NULL, 0, 0);
@@ -1082,7 +1082,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 						have_bgPixmap = FALSE;
 					}
 
-					e->divAlign = HTML_HALIGN_NONE;
+					e->pAlign = HTML_HALIGN_NONE;
 					valign = rowvalign == HTML_VALIGN_NONE ? HTML_VALIGN_MIDDLE : rowvalign;
 					halign = rowhalign == HTML_HALIGN_NONE ? HTML_HALIGN_NONE   : rowhalign;
 
@@ -1229,7 +1229,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	}
 		
 	e->indent_level = old_indent_level;
-	e->divAlign = olddivalign;
+	e->pAlign = olddivalign;
 	e->flow = HTML_OBJECT (oldflow);
 
 	if (has_cell) {
@@ -1243,14 +1243,14 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 			close_flow (e, clue);
 
 			if (align != HTML_HALIGN_NONE) {
-				olddivalign = e->divAlign;
-				e->divAlign = align;
+				olddivalign = e->pAlign;
+				e->pAlign = align;
 			}
 			append_element (e, clue, HTML_OBJECT (table));
 
 			close_flow (e, clue);
 			if (align != HTML_HALIGN_NONE)
-				e->divAlign = olddivalign;
+				e->pAlign = olddivalign;
 		} else {
 			HTMLClueAligned *aligned = HTML_CLUEALIGNED (html_cluealigned_new (NULL, 0, 0, clue->max_width, 100));
 			HTML_CLUE (aligned)->halign = align;
@@ -1682,7 +1682,7 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 		push_clueflow_style (e, HTML_CLUEFLOW_STYLE_ADDRESS);
 		close_flow (e, _clue);
 		push_block (e, ID_ADDRESS, 2, block_end_clueflow_style,
-			    e->divAlign, 0);
+			    e->pAlign, 0);
 	} else if ( strncmp( str, "/address", 8) == 0 ) {
 		pop_block (e, ID_ADDRESS, _clue);
 	} else if ( strncmp( str, "a ", 2 ) == 0 ) {
@@ -1905,11 +1905,11 @@ parse_c (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	if (strncmp (str, "center", 6) == 0) {
 		close_flow (e, clue);
-		e->divAlign = HTML_HALIGN_CENTER;
+		e->pAlign = HTML_HALIGN_CENTER;
 	}
 	else if (strncmp (str, "/center", 7) == 0) {
 		close_flow (e, clue);
-		e->divAlign = HTML_HALIGN_NONE;
+		e->pAlign = e->divAlign;
 	}
 	else if (strncmp( str, "cite", 4 ) == 0) {
 		push_font_style (e, GTK_HTML_FONT_STYLE_ITALIC | GTK_HTML_FONT_STYLE_BOLD);
@@ -1947,13 +1947,13 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 	} else if ( strncmp( str, "/dir", 4 ) == 0 ) {
 		pop_block (e, ID_DIR, _clue);
 	} else if ( strncmp( str, "div", 3 ) == 0 ) {
-		push_block (e, ID_DIV, 1, block_end_div, e->divAlign, FALSE);
+		push_block (e, ID_DIV, 1, block_end_div, e->pAlign, FALSE);
 
 		html_string_tokenizer_tokenize( e->st, str + 4, " >" );
 		while ( html_string_tokenizer_has_more_tokens (e->st) ) {
 			const char* token = html_string_tokenizer_next_token (e->st);
 			if ( strncasecmp( token, "align=", 6 ) == 0 ) {
-				e->divAlign = parse_halign (token + 6, e->divAlign);
+				e->pAlign = e->divAlign = parse_halign (token + 6, e->pAlign);
 			}
 		}
 
@@ -1961,7 +1961,7 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 			if (HTML_CLUE (e->flow)->head != NULL)
 				close_flow (e, _clue);
 			else
-				HTML_CLUE (e->flow)->halign = e->divAlign;
+				HTML_CLUE (e->flow)->halign = e->pAlign;
 		}
 	} else if ( strncmp( str, "/div", 4 ) == 0 ) {
 		pop_block (e, ID_DIV, _clue );
@@ -2213,7 +2213,7 @@ parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 	    && (str[1] >= '1' && str[1] <= '6')) {
 		HTMLHAlignType align;
 
-		align = p->divAlign;
+		align = p->pAlign;
 
 		html_string_tokenizer_tokenize (p->st, str + 3, " >");
 		while (html_string_tokenizer_has_more_tokens (p->st)) {
@@ -2230,9 +2230,9 @@ parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		push_clueflow_style (p, HTML_CLUEFLOW_STYLE_H1 + (str[1] - '1'));
 		close_flow (p, clue);
 
-		push_block (p, ID_HEADER, 2, block_end_clueflow_style, p->divAlign, 0);
+		push_block (p, ID_HEADER, 2, block_end_clueflow_style, p->pAlign, 0);
 
-		p->divAlign = align;
+		p->pAlign = align;
 
 		p->pending_para = FALSE;
 		p->avoid_para = TRUE;
@@ -2697,7 +2697,7 @@ parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		close_flow (e, clue);
 		push_clueflow_style (e, HTML_CLUEFLOW_STYLE_PRE);
 		e->inPre = TRUE;
-		push_block (e, ID_PRE, 2, block_end_pre, e->divAlign, 0);
+		push_block (e, ID_PRE, 2, block_end_pre, e->pAlign, 0);
 	} else if ( strncmp( str, "/pre", 4 ) == 0 ) {
 		pop_block (e, ID_PRE, clue);
 		close_flow (e, clue);
@@ -2727,11 +2727,13 @@ parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	} else if (*(str) == 'p' && ( *(str + 1) == ' ' || *(str + 1) == '>')) {
 		gchar *token;
 
+		e->pAlign = e->divAlign;
+
 		html_string_tokenizer_tokenize (e->st, (gchar *)(str + 2), " >");
 		while (html_string_tokenizer_has_more_tokens (e->st)) {
 			token = html_string_tokenizer_next_token (e->st);
 			if (strncasecmp (token, "align=", 6) == 0) {
-				e->divAlign = parse_halign (token + 6, e->divAlign);
+				e->pAlign = parse_halign (token + 6, e->pAlign);
 			}
 		}
 
@@ -2742,7 +2744,7 @@ parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		}
 	} else if (*(str) == '/' && *(str + 1) == 'p'
 		   && (*(str + 2) == ' ' || *(str + 2) == '>')) {
-
+		e->pAlign = e->divAlign;
 		if (! e->avoid_para) {
 			e->avoid_para = TRUE;
 			e->pending_para = TRUE;
@@ -3296,6 +3298,9 @@ html_engine_init (HTMLEngine *engine)
 	engine->freeze_count = 0;
 	engine->thaw_idle_id = 0;
 	engine->pending_expose = NULL;
+
+	engine->pAlign = HTML_HALIGN_NONE;
+	engine->divAlign = HTML_HALIGN_NONE;
 
 	engine->window = NULL;
 	engine->invert_gc = NULL;
@@ -4097,6 +4102,7 @@ html_engine_parse (HTMLEngine *e)
 
 	e->flow = NULL;
 	e->divAlign = HTML_HALIGN_NONE;
+	e->pAlign = HTML_HALIGN_NONE;
 	e->indent_level = 0;
 
 	/* reset to default border size */

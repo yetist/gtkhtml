@@ -1,3 +1,25 @@
+2000-10-29  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c (parse_c): tweak reseting center.
+
+2001-10-29  Ettore Perazzoli  <ettore@ximian.com>
+ 
+ 	* htmlengine.c (html_engine_init): Init `->pAlign' and
+ 	`->divAlign' to `HTML_ALIGN_NONE'.
+ 	(new_flow): Use `->pAlign' instead of `->divAlign'.
+ 	(block_end_clueflow_style): Likewise.
+ 	(block_end_div): Likewise.
+ 	(parse_table): Likewise.
+ 	(parse_a): Likewise.
+ 	(parse_c): Likewise.
+ 	(parse_d): Likewise.
+ 	(parse_h): Likewise.
+ 	(parse_p): Likewise.
+ 	(parse_p): Set the pAlign to be the same as the divAlign by
+ 	default when starting a new paragraph.  When closing a paragraph,
+ 	set pAlign to be the same as divAlign.
+ 	(parse_d): Set both pAlign and divAlign for `<div>'.
+
 2001-10-30  Radek Doulik  <rodo@ximian.com>
 
 	* htmltext.c (set_color): remove call to relayout
