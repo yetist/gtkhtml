@@ -31,6 +31,7 @@
 #include "htmlcolorset.h"
 #include "htmlcursor.h"
 #include "htmlengine.h"
+#include "htmlengine-edit.h"
 #include "htmlobject.h"
 #include "htmlpainter.h"
 #include "htmltext.h"
@@ -93,7 +94,7 @@ copy (HTMLObject *self,
 }
 
 static HTMLObject *
-op_copy (HTMLObject *self, GList *from, GList *to, guint *len, HTMLObject *empty)
+op_copy (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
 {
 	gint l = html_object_get_length (self);
 
@@ -102,17 +103,22 @@ op_copy (HTMLObject *self, GList *from, GList *to, guint *len, HTMLObject *empty
 
 		return html_object_dup (self);
 	} else
-		return html_object_dup (empty);
+		return html_engine_new_text_empty (e);
 }
 
 static HTMLObject *
-op_cut (HTMLObject *self, GList *from, GList *to, guint *len, HTMLObject *empty)
+op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
 {
 	gint l = html_object_get_length (self);
 
 	if ((!from || GPOINTER_TO_INT (from->data) == 0) && (!to || GPOINTER_TO_INT (to->data) == l)) {
-		if ((from || to) && !self->next && !self->prev)
-			html_clue_append_after (HTML_CLUE (self->parent), html_object_dup (empty), self);
+		if ((from || to) && !self->next && !self->prev) {
+			HTMLObject *empty = html_engine_new_text_empty (e);
+
+			if (e->cursor->object == self)
+				e->cursor->object = empty;
+			html_clue_append_after (HTML_CLUE (self->parent), empty, self);
+		}
 
 		html_object_change_set   (self->parent, HTML_CHANGE_ALL);
 		html_object_change_set   (self, HTML_CHANGE_ALL);
@@ -122,7 +128,7 @@ op_cut (HTMLObject *self, GList *from, GList *to, guint *len, HTMLObject *empty)
 
 		return self;
 	} else
-		return html_object_dup (empty);
+		return html_engine_new_text_empty (e);
 }
 
 static gboolean
@@ -140,7 +146,7 @@ remove_child (HTMLObject *self, HTMLObject *child)
 }
 
 static void
-split (HTMLObject *self, HTMLObject *child, gint offset, gint level, GList **left, GList **right, HTMLObject *empty)
+split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint level, GList **left, GList **right)
 {
 	if (child || (offset && html_object_get_length (self) != offset)) {
 		g_warning ("don't know how to SPLIT ");
@@ -150,19 +156,19 @@ split (HTMLObject *self, HTMLObject *child, gint offset, gint level, GList **lef
 
 	if (offset) {
 		if (!self->next)
-			html_clue_append (HTML_CLUE (self->parent), html_object_dup (empty));
+			html_clue_append (HTML_CLUE (self->parent), html_engine_new_text_empty (e));
 		*left  = g_list_prepend (*left,  self);
 		*right = g_list_prepend (*right, self->next);
 	} else {
 		if (!self->prev)
-			html_clue_prepend (HTML_CLUE (self->parent), html_object_dup (empty));
+			html_clue_prepend (HTML_CLUE (self->parent), html_engine_new_text_empty (e));
 		*left  = g_list_prepend (*left,  self->prev);
 		*right = g_list_prepend (*right, self);
 	}
 	level--;
 
 	if (level && self->parent)
-		html_object_split (self->parent, offset ? self->next : self, 0, level, left, right, empty);
+		html_object_split (self->parent, e, offset ? self->next : self, 0, level, left, right);
 }
 
 static void
@@ -713,15 +719,15 @@ html_object_dup (HTMLObject *object)
 }
 
 HTMLObject *
-html_object_op_copy (HTMLObject *self, GList *from, GList *to, guint *len, HTMLObject *empty)
+html_object_op_copy (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
 {
-	return (* HO_CLASS (self)->op_copy) (self, from, to, len, empty);
+	return (* HO_CLASS (self)->op_copy) (self, e, from, to, len);
 }
 
 HTMLObject *
-html_object_op_cut (HTMLObject *self, GList *from, GList *to, guint *len, HTMLObject *empty)
+html_object_op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
 {
-	return (* HO_CLASS (self)->op_cut) (self, from, to, len, empty);
+	return (* HO_CLASS (self)->op_cut) (self, e, from, to, len);
 }
 
 gboolean
@@ -747,12 +753,12 @@ html_object_remove_child (HTMLObject *self, HTMLObject *child)
 }
 
 void
-html_object_split (HTMLObject *self, HTMLObject *child, gint offset, gint level,
-		   GList **left, GList **right, HTMLObject *empty)
+html_object_split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint level,
+		   GList **left, GList **right)
 {
 	g_assert (self);
 
-	(* HO_CLASS (self)->split) (self, child, offset, level, left, right, empty);
+	(* HO_CLASS (self)->split) (self, e, child, offset, level, left, right);
 }
 
 

@@ -29,6 +29,7 @@
 #include "htmlobject.h"
 #include "htmlclueflow.h"
 #include "htmlcursor.h"
+#include "htmllinktext.h"
 #include "htmltext.h"
 #include "htmltextslave.h"
 #include "htmlimage.h"
@@ -279,4 +280,19 @@ html_engine_clipboard_clear (HTMLEngine *e)
 		html_object_destroy (e->clipboard);
 		e->clipboard = NULL;
 	}
+}
+
+HTMLObject *
+html_engine_new_text (HTMLEngine *e, const gchar *text, gint len)
+{
+	return e->insertion_url
+		? html_link_text_new_with_len (text, len, e->insertion_font_style, e->insertion_color,
+					       e->insertion_url, e->insertion_target)
+		: html_text_new_with_len      (text, len, e->insertion_font_style, e->insertion_color);
+}
+
+HTMLObject *
+html_engine_new_text_empty (HTMLEngine *e)
+{
+	return html_engine_new_text (e, "", 0);
 }

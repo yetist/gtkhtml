@@ -48,7 +48,6 @@
 
 static void        delete_object (HTMLEngine *e, HTMLObject **ret_object, guint *ret_len, HTMLUndoDirection dir);
 static void        insert_object (HTMLEngine *e, HTMLObject *obj, guint len, HTMLUndoDirection dir);
-static HTMLObject *new_text      (HTMLEngine *e, const gchar *text, gint len);
 static HTMLObject *get_tail_leaf (HTMLObject *o);
 static HTMLObject *get_head_leaf (HTMLObject *o);
 
@@ -286,10 +285,7 @@ remove_empty_and_merge (HTMLEngine *e, gboolean merge, GList *left, GList *right
 static void
 split_and_add_empty_texts (HTMLEngine *e, gint level, GList **left, GList **right)
 {
-	HTMLObject *empty = new_text (e, "", 0);
-
-	html_object_split (e->cursor->object, NULL, e->cursor->offset, level, left, right, empty);
-	html_object_destroy (empty);
+	html_object_split (e->cursor->object, e, NULL, e->cursor->offset, level, left, right);
 }
 
 /* end of helper */
@@ -300,14 +296,11 @@ html_engine_copy (HTMLEngine *e)
 	GList *from, *to;
 
 	if (html_engine_is_selection_active (e)) {
-		HTMLObject *empty = new_text (e, "", 0);
-
 		html_engine_freeze (e);
 		prepare_delete_bounds (e, &from, &to, NULL, NULL);
 		e->clipboard_len = 0;
-		e->clipboard     = html_object_op_copy (HTML_OBJECT (from->data), from->next, to->next,
-							&e->clipboard_len, empty);
-		html_object_destroy (empty);
+		e->clipboard     = html_object_op_copy (HTML_OBJECT (from->data), e, from->next, to->next,
+							&e->clipboard_len);
 		html_engine_thaw (e);
 	}
 }
@@ -358,31 +351,17 @@ delete_setup_undo (HTMLEngine *e, HTMLObject *buffer, guint len, HTMLUndoDirecti
 }
 
 static void
-check_cursor (HTMLEngine *e)
-{
-	if (!e->cursor->object) {
-		e->cursor->object   = get_head_leaf (e->clue);
-		e->cursor->offset   = 0;
-		e->cursor->position = 0;
-	}
-}
-
-static void
 delete_object_do (HTMLEngine *e, HTMLObject **object, guint *len)
 {
 	GList *from, *to, *left, *right;
 
 	if (html_engine_is_selection_active (e)) {
-		HTMLObject *empty = new_text (e, "", 0);
-
 		html_engine_freeze (e);
 		prepare_delete_bounds (e, &from, &to, &left, &right);
 		html_engine_disable_selection (e);
 		*len     = 0;
-		*object  = html_object_op_cut  (HTML_OBJECT (from->data), from->next, to->next, len, empty);
-		html_object_destroy (empty);
+		*object  = html_object_op_cut  (HTML_OBJECT (from->data), e, from->next, to->next, len);
 		remove_empty_and_merge (e, TRUE, left, right, NULL);
-		check_cursor (e);
 		html_engine_spell_check_range (e, e->cursor, e->cursor);
 		html_engine_thaw (e);
 	}
@@ -415,17 +394,13 @@ delete_object (HTMLEngine *e, HTMLObject **ret_object, guint *ret_len, HTMLUndoD
 			}
 		}
 		if (!e->cursor->object || (e->cursor->object->prev == NULL && e->cursor->offset == 0)) {
-			if (e->cursor->object != e->mark->object) {
-				e->cursor->object = e->mark->object;
-				e->cursor->offset = 0;
-			} else {
-				e->cursor->object = NULL;
-			}
+			e->cursor->object = e->mark->object;
+			e->cursor->offset = 0;
 		}
 
 		delete_object_do (e, &object, &len);
 		if (ret_object && ret_len) {
-			*ret_object = html_object_op_copy (object, NULL, NULL, ret_len, NULL);
+			*ret_object = html_object_op_copy (object, e, NULL, NULL, ret_len);
 			*ret_len    = len;
 		}
 		delete_setup_undo (e, object, len, dir);
@@ -587,19 +562,9 @@ html_engine_paste (HTMLEngine *e)
 		HTMLObject *copy;
 		guint len = 0;
 
-		copy = html_object_op_copy (e->clipboard, NULL, NULL, &len, NULL);
+		copy = html_object_op_copy (e->clipboard, e, NULL, NULL, &len);
 		html_engine_paste_object (e, copy, e->clipboard_len);
 	}
-}
-
-
-static HTMLObject *
-new_text (HTMLEngine *e, const gchar *text, gint len)
-{
-	return (e->insertion_url)
-		? html_link_text_new_with_len (text, len, e->insertion_font_style, e->insertion_color,
-					       e->insertion_url, e->insertion_target)
-		: html_text_new_with_len      (text, len, e->insertion_font_style, e->insertion_color);
 }
 
 static void
@@ -652,7 +617,7 @@ html_engine_insert_text (HTMLEngine *e, const gchar *text, guint len)
 		alen = nl ? unicode_index_to_offset (text, nl - text) : len;
 		if (alen) {
 			check_magic_link (e, text, alen);
-			html_engine_insert_object (e, new_text (e, text, alen), alen);
+			html_engine_insert_object (e, html_engine_new_text (e, text, alen), alen);
 		}
 		if (nl) {
 			html_engine_insert_empty_paragraph (e);

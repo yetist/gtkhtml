@@ -1,3 +1,13 @@
+2001-01-05  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlengine-edit-cut-and-paste.c (delete_object): don't set
+	cursor to home, op_cut take care of cursor now
+
+	* htmlobject.c (html_object_op_copy): pass engine instead of empty
+	text
+	(html_object_op_cut): likewise
+	(op_cut): take care of cursor
+
 2001-01-04  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlengine-edit-cut-and-paste.c (check_magic_link): new helper

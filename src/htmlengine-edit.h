@@ -53,6 +53,10 @@ void                       html_engine_set_data_by_type       (HTMLEngine       
 							       const gchar               *key,
 							       const gpointer             value);
 void                       html_engine_ensure_editable        (HTMLEngine                *e);
+HTMLObject                *html_engine_new_text               (HTMLEngine                *e,
+							       const gchar               *text,
+							       gint                       len);
+HTMLObject                *html_engine_new_text_empty         (HTMLEngine                *e);
 /*
   static (non instance) methods
 */

@@ -69,7 +69,7 @@ copy (HTMLObject *self,
 }
 
 static HTMLObject *
-op_helper (HTMLObject *self, GList *from, GList *to, guint *len, HTMLObject *empty, gboolean cut)
+op_helper (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len, gboolean cut)
 {
 	HTMLClue *clue = HTML_CLUE (self);
 	HTMLObject *cc;
@@ -85,12 +85,12 @@ op_helper (HTMLObject *self, GList *from, GList *to, guint *len, HTMLObject *emp
 	while (1) {
 		cnext = html_object_next_not_slave (o);
 		html_clue_append (HTML_CLUE (cc), cut
-				  ? html_object_op_cut (o,
+				  ? html_object_op_cut (o, e,
 							html_object_get_bound_list (o, from),
-							html_object_get_bound_list (o, to), len, empty)
-				  : html_object_op_copy (o,
+							html_object_get_bound_list (o, to), len)
+				  : html_object_op_copy (o, e,
 							 html_object_get_bound_list (o, from),
-							 html_object_get_bound_list (o, to), len, empty));
+							 html_object_get_bound_list (o, to), len));
 
 		if (o == last)
 			break;
@@ -101,19 +101,19 @@ op_helper (HTMLObject *self, GList *from, GList *to, guint *len, HTMLObject *emp
 }
 
 static HTMLObject *
-op_copy (HTMLObject *self, GList *from, GList *to, guint *len, HTMLObject *empty)
+op_copy (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
 {
-	return op_helper (self, from, to, len, empty, FALSE);
+	return op_helper (self, e, from, to, len, FALSE);
 }
 
 static HTMLObject *
-op_cut (HTMLObject *self, GList *from, GList *to, guint *len, HTMLObject *empty)
+op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
 {
 	HTMLObject *rv;
 	HTMLClue *clue;
 
 	clue = HTML_CLUE (self);
-	rv   = op_helper (self, from, to, len, empty, TRUE);
+	rv   = op_helper (self, e, from, to, len, TRUE);
 	if (!clue->head) {
 		if (self->parent)
 			html_object_remove_child (self->parent, self);
@@ -150,7 +150,7 @@ remove_child (HTMLObject *self, HTMLObject *child)
 }
 
 static void
-split (HTMLObject *self, HTMLObject *child, gint offset, gint level, GList **left, GList **right, HTMLObject *empty)
+split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint level, GList **left, GList **right)
 {
 	HTMLObject *dup;
 	HTMLClue *clue;
@@ -176,7 +176,7 @@ split (HTMLObject *self, HTMLObject *child, gint offset, gint level, GList **lef
 
 	level--;
 	if (level)
-		html_object_split (self->parent, dup, 0, level, left, right, empty);
+		html_object_split (self->parent, e, dup, 0, level, left, right);
 }
 
 static void

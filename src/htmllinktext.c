@@ -74,13 +74,13 @@ new_link (HTMLText *t, gint begin, gint end)
 }
 
 static HTMLObject *
-op_copy (HTMLObject *self, GList *from, GList *to, guint *len, HTMLObject *empty)
+op_copy (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
 {
 	return html_text_op_copy_helper (HTML_TEXT (self), from, to, len, new_link);
 }
 
 static HTMLObject *
-op_cut (HTMLObject *self, GList *from, GList *to, guint *len, HTMLObject *empty)
+op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
 {
 	return html_text_op_cut_helper (HTML_TEXT (self), from, to, len, new_link);
 }

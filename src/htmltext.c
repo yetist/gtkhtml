@@ -242,13 +242,13 @@ new_text (HTMLText *t, gint begin, gint end)
 }
 
 static HTMLObject *
-op_copy (HTMLObject *self, GList *from, GList *to, guint *len, HTMLObject *empty)
+op_copy (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
 {
 	return html_text_op_copy_helper (HTML_TEXT (self), from, to, len, new_text);
 }
 
 static HTMLObject *
-op_cut (HTMLObject *self, GList *from, GList *to, guint *len, HTMLObject *empty)
+op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
 {
 	return html_text_op_cut_helper (HTML_TEXT (self), from, to, len, new_text);
 }
@@ -276,7 +276,7 @@ object_merge (HTMLObject *self, HTMLObject *with)
 }
 
 static void
-object_split (HTMLObject *self, HTMLObject *child, gint offset, gint level, GList **left, GList **right, HTMLObject *empty)
+object_split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint level, GList **left, GList **right)
 {
 	HTMLObject *dup, *prev;
 	HTMLText *text;
@@ -316,7 +316,7 @@ object_split (HTMLObject *self, HTMLObject *child, gint offset, gint level, GLis
 
 	level--;
 	if (level)
-		html_object_split (self->parent, dup, 0, level, left, right, empty);
+		html_object_split (self->parent, e, dup, 0, level, left, right);
 }
 
 static gboolean

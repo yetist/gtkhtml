@@ -84,26 +84,26 @@ struct _HTMLObjectClass {
 
 	/* copy/cut/paste operations */
 	HTMLObject * (* op_copy)         (HTMLObject *self,
+					  HTMLEngine *e,
 					  GList      *from,
 					  GList      *to,
-					  guint      *len,
-					  HTMLObject *empty);
+					  guint      *len);
 	HTMLObject * (* op_cut)          (HTMLObject *self,
+					  HTMLEngine *e,
 					  GList      *from,
 					  GList      *to,
-					  guint      *len,
-					  HTMLObject *empty);
+					  guint      *len);
 	gboolean     (* merge)           (HTMLObject *self,
 					  HTMLObject *o);
 	void         (* remove_child)    (HTMLObject *self,
 					  HTMLObject *child);
 	void         (* split)           (HTMLObject *self,
+					  HTMLEngine *e,
 					  HTMLObject *child,
 					  gint offset,
 					  gint level,
 					  GList **left,
-					  GList **right,
-					  HTMLObject *empty);
+					  GList **right);
 
 	/* Layout management and geometry handling.  */
 
@@ -255,27 +255,26 @@ HTMLObject *html_object_dup               (HTMLObject            *self);
 
 /* copy/cut/paste operations */
 HTMLObject *html_object_op_copy           (HTMLObject            *self,
+					   HTMLEngine            *e,
 					   GList                 *from,
 					   GList                 *to,
-					   guint                 *len,
-					   HTMLObject            *empty);
+					   guint                 *len);
 HTMLObject *html_object_op_cut            (HTMLObject            *self,
+					   HTMLEngine            *e,
 					   GList                 *from,
 					   GList                 *to,
-					   guint                 *len,
-					   HTMLObject            *empty);
+					   guint                 *len);
 gboolean    html_object_merge             (HTMLObject            *self,
 					   HTMLObject            *with);
 void        html_object_remove_child      (HTMLObject            *self,
 					   HTMLObject            *child);
 void        html_object_split             (HTMLObject            *self,
+					   HTMLEngine            *e,
 					   HTMLObject            *child,
 					   gint                   offset,
 					   gint                   level,
 					   GList                **left,
-					   GList                **right,
-					   HTMLObject            *empty);
-
+					   GList                **right);
 void        html_object_set_parent        (HTMLObject            *self,
 					   HTMLObject            *parent);
 gint        html_object_get_left_margin   (HTMLObject            *self,
