@@ -274,11 +274,11 @@ rule_widget (GtkHTMLEditRuleProperties *data)
 	gtk_box_pack_start_defaults (GTK_BOX (vb1), hbox);
 
 	gtk_container_add (GTK_CONTAINER (frame), vb1);
-	gtk_box_pack_start (GTK_BOX (mhb), frame, FALSE, FALSE, 0);
+	gtk_box_pack_start_defaults (GTK_BOX (mhb), frame);
 	gtk_box_pack_start (GTK_BOX (vbox), mhb, FALSE, FALSE, 0);
 
 	/* sample */
-	gtk_box_pack_start_defaults (GTK_BOX (vbox), sample_frame (&data->sample));
+	gtk_box_pack_start (GTK_BOX (vbox), sample_frame (&data->sample), FALSE, FALSE, 0);
 	fill_sample (data);
 
 	data->disable_change = FALSE;
