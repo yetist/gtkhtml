@@ -1,5 +1,12 @@
 2000-06-22  Larry Ewing  <lewing@helixcode.com>
 
+	* htmlclueflow.c (draw_background): draw our parent in the region
+	we are drawing our background bacause we may be flowing around
+	something.  This "fixes" bug #6 but now the image drawing code
+	needs to be written properly to only draw the region we actually
+	request otherwise we will get odd effects on images with
+	tranparency.
+
 	* htmlengine.c (html_engine_end): make sure we end the tokenizer
 	before we update the engine, otherwise we do not parse trailing
 	text because it is only appended after html_tokenizer_end is
