@@ -154,15 +154,15 @@ calc_size (HTMLObject *o,
 			runWidth = 0;
 			run = obj;
 			while ( run
-					&& ! (run->flags & HTML_OBJECT_FLAG_SEPARATOR)
-					&& ! (run->flags & HTML_OBJECT_FLAG_NEWLINE)
-					&& ! (run->flags & HTML_OBJECT_FLAG_ALIGNED)) {
+				&& ! (run->flags & HTML_OBJECT_FLAG_SEPARATOR)
+				&& ! (run->flags & HTML_OBJECT_FLAG_NEWLINE)
+				&& ! (run->flags & HTML_OBJECT_FLAG_ALIGNED)) {
 				HTMLFitType fit;
 			  
 				run->max_width = rmargin - lmargin;
 				fit = html_object_fit_line (run, (w + runWidth == lmargin),
-											(obj == line),
-											rmargin - runWidth - w);
+							    (obj == line),
+							    rmargin - runWidth - w);
 
 				if (fit == HTML_FIT_NONE) {
 					newLine = TRUE;
@@ -212,12 +212,12 @@ calc_size (HTMLObject *o,
 				   the rectangle will be rmargin-lmargin. */
 
 				html_clue_find_free_area (HTML_CLUE (parent),
-										  o->y,
-										  line->width,
-										  a+d,
-										  HTML_CLUEFLOW (o)->indent,
-										  &new_y, &new_lmargin,
-										  &new_rmargin);
+							  o->y,
+							  line->width,
+							  a+d,
+							  HTML_CLUEFLOW (o)->indent,
+							  &new_y, &new_lmargin,
+							  &new_rmargin);
 				
 				if (new_y != o->y
 				    || new_lmargin > lmargin
@@ -298,11 +298,11 @@ calc_size (HTMLObject *o,
 				int new_lmargin, new_rmargin;
 				
 				html_clue_find_free_area (HTML_CLUE (parent), oldy,
-										  o->max_width,
-										  1, 0,
-										  &o->y,
-										  &new_lmargin,
-										  &new_rmargin);
+							  o->max_width,
+							  1, 0,
+							  &o->y,
+							  &new_lmargin,
+							  &new_rmargin);
 			} else if (clear == HTML_CLEAR_LEFT) {
 				o->y = html_clue_get_left_clear (HTML_CLUE (parent), oldy);
 			} else if (clear == HTML_CLEAR_RIGHT) {
