@@ -4191,7 +4191,7 @@ gtk_html_set_color (GtkHTML *html, HTMLColor *color)
 	g_return_if_fail (GTK_IS_HTML (html));
 
 	if (html_engine_set_color (html->engine, color))
-		g_signal_emit (html, signals [INSERTION_COLOR_CHANGED], 0, html->engine->insertion_font_style);
+		g_signal_emit (html, signals [INSERTION_COLOR_CHANGED], 0, html->engine->insertion_color);
 }
 
 void

@@ -1,3 +1,10 @@
+2005-03-10  Mengjie Yu  <meng-jie.yu@sun.com>
+
+	* gtkhtml.c: (gtk_html_set_color):we should pass the insertion_color.
+
+	Fixes: #73216
+
+
 2005-03-07  Radek Doulik  <rodo@novell.com>
 
 	* htmltext.c (html_text_cursor_next_slave): make sure we handle
