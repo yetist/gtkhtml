@@ -32,8 +32,6 @@ SPELL_IDL_GENERATED = \
 	Spell-skels.c		\
 	Spell-stubs.c
 
-CLEANFILES = $(IDL_GENERATED) $(SPELL_IDL_GENERATED)
-
 Editor-common.o: Editor.h
 Spell-common.o: Spell.h
 
@@ -145,3 +143,9 @@ EXTRA_DIST =					\
 
 idldir = $(datadir)/gtkhtml
 idl_DATA = $(IDLS)
+
+CLEANFILES += $(IDL_GENERATED) $(SPELL_IDL_GENERATED)
+BUILT_SOURCE = $(IDL_GENERATED) $(SPELL_IDL_GENERATED)
+
+dist-hook:
+	cd $(distdir); rm -f $(BUILT_SOURCES)

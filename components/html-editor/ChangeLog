@@ -1,3 +1,7 @@
+2001-04-14  Michael Meeks  <michael@ximian.com>
+
+	* Makefile.am (dist-hook): remove built files from package.
+
 2001-04-12  Radek Doulik  <rodo@ximian.com>
 
 	* toolbar.c (load_done): set_color_combo only if html widget
