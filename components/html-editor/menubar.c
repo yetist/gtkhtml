@@ -530,6 +530,10 @@ menubar_update_format (GtkHTMLControlData *cd)
 				      "sensitive", sensitive, &ev);
 	bonobo_ui_component_set_prop (uic, "/commands/FormatUnderline",
 				      "sensitive", sensitive, &ev);
+	bonobo_ui_component_set_prop (uic, "/commands/FormatStrikeout",
+				      "sensitive", sensitive, &ev);
+	bonobo_ui_component_set_prop (uic, "/commands/FormatPlain",
+				      "sensitive", sensitive, &ev);
 	
 	bonobo_ui_component_set_prop (uic, "/commands/AlignLeft",
 				      "sensitive", sensitive, &ev);		

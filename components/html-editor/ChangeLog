@@ -1,3 +1,7 @@
+2001-08-26  Larry Ewing  <lewing@ximian.com>
+
+	* menubar.c (menubar_update_format): add some missing formats.
+
 2001-08-23  Larry Ewing  <lewing@ximian.com>
 
 	* GNOME_GtkHTML_Editor.xml.in: comment out separator.
