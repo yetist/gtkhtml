@@ -745,9 +745,9 @@ check_prev_white (gboolean rv, gint white_space, gunichar last_white, gint *delt
 static gboolean
 is_convert_nbsp_needed (const gchar *s, gint *delta_out)
 {
-	gunichar uc, last_white;
+	gunichar uc, last_white = 0;
 	gboolean rv = FALSE;
-	gint white_space = 0;
+	gint white_space;
 	const gchar *p, *op;
 
 	*delta_out = 0;
