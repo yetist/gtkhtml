@@ -1,3 +1,7 @@
+2001-02-07  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* GNOME_GtkHTML_Editor.oaf.in: Added this. Not hooked up yet.
+	
 2001-01-24  Larry Ewing  <lewing@ximian.com>
 
 	* persist-file-impl.c (impl_save): cast function to fix warning.
