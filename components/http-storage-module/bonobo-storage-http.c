@@ -17,6 +17,8 @@
 #include "bonobo-storage-http.h"
 #include "bonobo-stream-http.h"
 
+#define BONOBO_VERSION "0.29"
+
 static BonoboStorageClass *bonobo_storage_http_parent_class;
 
 static void
@@ -209,7 +211,7 @@ init_storage_plugin(StoragePlugin *plugin)
 
 	plugin->name = "http";
 	plugin->description = "HTTP driver";
-	plugin->version = "0.27";
+	plugin->version = BONOBO_VERSION;
 	
 	plugin->storage_open = bonobo_storage_http_open; 
 	plugin->stream_open = bonobo_stream_http_open; 
