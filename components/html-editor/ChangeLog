@@ -1,3 +1,8 @@
+2005-01-26  Mengjie Yu  <meng-jie.yu@sun.com>
+
+	* template.c: (template_widget):correct the a11y name for the 
+	treeview.
+
 2005-01-24  Radek Doulik  <rodo@ximian.com>
 
 	* GNOME_GtkHTML_Editor[-emacs].xml.in: use own icons for insert
