@@ -1,3 +1,12 @@
+2001-08-24  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine-edit-selection-updater.c: remove the
+	html_object_ref/unref calls on the engine.  They are are wrong.
+	html_engine_edit_selection_updater_destroy will never get
+	called because the ref in html_engine_edit_selection_updater_new
+	will keep html_engine_destroy from ever being run.  Thanks go to
+	Jacob for tracking this down. Fixes ximian #7168
+
 2001-08-24  Radek Doulik  <rodo@ximian.com>
 
 	* htmlprinter.c (alloc_font): extract family name from face and

@@ -54,7 +54,6 @@ html_engine_edit_selection_updater_new (HTMLEngine *engine)
 
 	new = g_new (HTMLEngineEditSelectionUpdater, 1);
 
-	gtk_object_ref (GTK_OBJECT (engine));
 	new->engine  = engine;
 	new->idle_id = 0;
 
@@ -75,7 +74,6 @@ html_engine_edit_selection_updater_destroy (HTMLEngineEditSelectionUpdater *upda
 	if (updater->idle_id != 0)
 		gtk_idle_remove (updater->idle_id);
 
-	gtk_object_unref (GTK_OBJECT (updater->engine));
 	g_free (updater);
 }
 
