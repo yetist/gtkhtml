@@ -1,3 +1,8 @@
+2002-09-19  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine.c (html_engine_draw_real): crop iframes to avoid
+	whole iframes drawing
+
 2002-09-18  Radek Doulik  <rodo@ximian.com>
 
 	* htmltextslave.c (calc_size): split just long words
