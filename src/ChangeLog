@@ -1,3 +1,8 @@
+2001-12-11  Radek Doulik  <rodo@ximian.com>
+
+	* htmlselect.c (html_select_set_text): make it safe when
+	select->strings == NULL
+
 2001-12-06  Radek Doulik  <rodo@ximian.com>
 
 	* htmltable.c (split): removed old obsolete forgotten code
