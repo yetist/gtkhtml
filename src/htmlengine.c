@@ -144,7 +144,6 @@ static void      update_embedded           (GtkWidget *widget,
 
 static void      html_engine_map_table_clear (HTMLEngine *e);
 static void      html_engine_add_map (HTMLEngine *e, HTMLMap *map);
-static void      crop_iframe_to_parent (HTMLEngine *e, gint x, gint y, gint *width, gint *height);
 static void      clear_pending_expose (HTMLEngine *e);
 
 static GtkLayoutClass *parent_class = NULL;
@@ -4149,24 +4148,10 @@ html_engine_stream_end (GtkHTMLStream *stream,
 }
 
 static void
-crop_iframe_to_parent (HTMLEngine *e, gint x, gint y, gint *width, gint *height)
-{
-	HTMLEngine *top = html_engine_get_top_html_engine (e);
-	gint abs_x, abs_y;
-
-	/* printf ("crop %d,%d %dx%d  -->  ", x, y, *width, *height); */
-	html_object_calc_abs_position (e->clue->parent, &abs_x, &abs_y);
-	abs_y -= e->clue->parent->ascent;
-	*width = MIN (top->width - MAX (0, abs_x + x - top->x_offset), *width);
-	*height = MIN (top->height - MAX (0, abs_y + y - top->y_offset), *height);
-
-	/* printf ("%d,%d %dx%d\n", x, y, *width, *height);
-	   printf ("y %d abs_y %d\n", y, abs_y); */
-}
-
-static void
 html_engine_draw_real (HTMLEngine *e, gint x, gint y, gint width, gint height, gboolean expose)
 {
+	gint x1, x2, y1, y2;
+	
 	if (e->block && e->opened_streams)
 		return;
 
@@ -4220,24 +4205,31 @@ html_engine_draw_real (HTMLEngine *e, gint x, gint y, gint width, gint height, g
 	   e->width, e->height, e->clue ? e->clue->ascent + e->clue->descent : 0); */
 
 	e->expose = expose;
-	if (e->widget->iframe_parent)
-		crop_iframe_to_parent (e, x, y, &width, &height);
-
-	html_painter_begin (e->painter, x, y, x + width, y + height);
-
-	html_engine_draw_background (e, x, y, width, height);
-
+	
+	x1 = x;
+	x2 = x + width;
+	y1 = y;
+	y2 = y + height;
+	
+	if (!html_engine_intersection (e, &x1, &y1, &x2, &y2))
+		return;
+	
+	html_painter_begin (e->painter, x1, y1, x2, y2);
+	
+	html_engine_draw_background (e, x1, y1, x2 - x1, y2 - y1);
+	
 	if (e->clue) {
 		e->clue->x = e->leftBorder;
 		e->clue->y = e->topBorder + e->clue->ascent;
-		html_object_draw (e->clue, e->painter, x, y, width, height, 0, 0);
+		html_object_draw (e->clue, e->painter, x1, y1, x2 - x1, y2 - y1, 0, 0);
 	}
 	html_painter_end (e->painter);
-
+	
 	if (e->editable)
-		html_engine_draw_cursor_in_area (e, x, y, width, height);
+		html_engine_draw_cursor_in_area (e, x1, y1, x2 - x1, y2 - y1);
 	else
 		html_engine_draw_focus_object (e);
+
 	e->expose = FALSE;
 }
 
@@ -4810,6 +4802,14 @@ html_engine_intersection (HTMLEngine *e, gint *x1, gint *y1, gint *x2, gint *y2)
 
 	html_engine_get_viewport (e, &clip);
 
+	draw.x = *x1;
+	draw.y = *y1;
+	draw.width = *x2 - *x1;
+	draw.height = *y2 - *y1;
+
+	if (!gdk_rectangle_intersect (&clip, &draw, &paint))
+		return FALSE;
+
 	if (e != top) {
 		GdkRectangle top_clip;
 		gint abs_x = 0, abs_y = 0;
@@ -4821,17 +4821,10 @@ html_engine_intersection (HTMLEngine *e, gint *x1, gint *y1, gint *x2, gint *y2)
 		top_clip.x -= abs_x;
 		top_clip.y -= abs_y;
 
-		if (!gdk_rectangle_intersect (&clip, &top_clip, &clip))
+		if (!gdk_rectangle_intersect (&paint, &top_clip, &paint))
 			return FALSE;
 	}
 
-	draw.x = *x1;
-	draw.y = *y1;
-	draw.width = *x2 - *x1;
-	draw.height = *y2 - *y1;
-
-	if (!gdk_rectangle_intersect (&clip, &draw, &paint))
-		return FALSE;
 
 	*x1 = paint.x;
 	*x2 = paint.x + paint.width;

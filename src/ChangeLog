@@ -1,3 +1,15 @@
+2003-04-30  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c (html_engine_draw_real): clip the bounds with
+	html_engine_intersection instead of the crop_iframe_to_parent.
+	(html_engine_intersection): reorder the logic.
+
+	* htmlobject.c (html_object_calc_abs_position): always take any
+	frame offset into account when calculating the position of the
+	object.
+
+	* htmltext.c: remove extra space at beginning of file.
+
 2003-04-29  Larry Ewing  <lewing@ximian.com>
 
 	* htmltext.c (calc_word_width): walk the string in our own loop

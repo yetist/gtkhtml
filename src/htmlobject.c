@@ -780,6 +780,18 @@ html_object_set_parent (HTMLObject *o, HTMLObject *parent)
 	o->parent = parent;
 }
 
+
+static void
+frame_offset (HTMLObject *o, 
+	      gint *x_return, gint *y_return)
+{
+	if (html_object_is_frame (o)) {
+		HTMLEngine *e = html_object_get_engine (o, NULL);
+		*x_return -= e->x_offset;
+		*y_return -= e->y_offset;
+	} 
+}
+
 void
 html_object_calc_abs_position (HTMLObject *o,
 			       gint *x_return, gint *y_return)
@@ -790,10 +802,14 @@ html_object_calc_abs_position (HTMLObject *o,
 
 	*x_return = o->x;
 	*y_return = o->y;
+	
+	frame_offset (o, x_return, y_return);
 
 	for (p = o->parent; p != NULL; p = p->parent) {
 		*x_return += p->x;
 		*y_return += p->y - p->ascent;
+		
+		frame_offset (p, x_return, y_return);
 	}
 }
 
