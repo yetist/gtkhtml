@@ -140,7 +140,7 @@ void                       gtk_html_set_editor_api                (GtkHTML      
 								   gpointer                   data);
 
 /* parent iframe setting */
-void                       gtk_html_set_iframe_parent             (GtkHTML                   *html,
+gint                       gtk_html_set_iframe_parent             (GtkHTML                   *html,
 								   GtkWidget                 *parent,
 								   HTMLObject                *frame);
 

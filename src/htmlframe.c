@@ -471,6 +471,7 @@ html_frame_init (HTMLFrame *frame,
 	GtkHTML   *parent_html;
 	GtkHTMLStream *handle;
 	GtkWidget *scrolled_window;
+	gint depth;
 
 	g_assert (GTK_IS_HTML (parent));
 	parent_html = GTK_HTML (parent);
@@ -499,7 +500,7 @@ html_frame_init (HTMLFrame *frame,
 	gtk_html_set_default_content_type (new_html,
 					   parent_html->priv->content_type);
 	frame->html = new_widget;
-	gtk_html_set_iframe_parent (new_html, parent, HTML_OBJECT (frame));
+	depth = gtk_html_set_iframe_parent (new_html, parent, HTML_OBJECT (frame));
 	gtk_container_add (GTK_CONTAINER (scrolled_window), new_widget);
 	gtk_widget_show (new_widget);
 
@@ -551,8 +552,9 @@ html_frame_init (HTMLFrame *frame,
 	  GTK_SIGNAL_FUNC (frame_button_press_event), frame);
 	*/
 
-	gtk_signal_emit_by_name (GTK_OBJECT (parent_html->engine), 
-				 "url_requested", src, handle);
+	if (depth < 10)
+		gtk_signal_emit_by_name (GTK_OBJECT (parent_html->engine), 
+					 "url_requested", src, handle);
 
 	gtk_widget_set_usize (scrolled_window, width, height);
 

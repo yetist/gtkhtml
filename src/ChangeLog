@@ -1,3 +1,14 @@
+2002-09-19  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml.c (gtk_html_set_iframe_parent): return the depth of the
+	frame stack.
+
+	* gtkhtml.h: fixup prototype.
+
+	* htmlframe.c (html_frame_init): limit max frame dpeth to 10.
+
+	* htmliframe.c (html_iframe_init): limit max frame depth to 10.
+
 2002-09-18  Radek Doulik  <rodo@ximian.com>
 
 	* htmltextslave.c (calc_size): split just long words

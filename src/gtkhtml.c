@@ -4480,15 +4480,23 @@ load_keybindings (GtkHTMLClass *klass)
 	BCOM (0, Escape, DISABLE_SELECTION);
 }
 
-void
+gint
 gtk_html_set_iframe_parent (GtkHTML *html, GtkWidget *parent, HTMLObject *frame)
 {
+	gint depth = 0;
 	g_assert (GTK_IS_HTML (parent));
 
 	html->iframe_parent = parent;
 	html->frame = frame;
 	gtk_signal_emit (GTK_OBJECT (html_engine_get_top_html_engine (html->engine)->widget),
 			 signals [IFRAME_CREATED], html);
+
+	while (html->iframe_parent) {
+		depth++;
+	        html = GTK_HTML (html->iframe_parent);
+	}
+	
+	return depth;
 }
 
 void

@@ -128,7 +128,13 @@ static gint
 calc_min_width (HTMLObject *o,
 		HTMLPainter *painter)
 {
-	return html_engine_calc_min_width (GTK_HTML (HTML_IFRAME (o)->html)->engine);
+	HTMLIFrame *iframe;
+
+	iframe = HTML_IFRAME (o);
+	if (iframe->width < 0)
+		return html_engine_calc_min_width (GTK_HTML (HTML_IFRAME (o)->html)->engine);
+	else 
+		return iframe->width;
 }
 
 static void
@@ -468,6 +474,7 @@ html_iframe_init (HTMLIFrame *iframe,
 	GtkHTML   *parent_html;
 	GtkHTMLStream *handle;
 	GtkWidget *scrolled_window;
+	gint depth;
 
 	g_assert (GTK_IS_HTML (parent));
 	parent_html = GTK_HTML (parent);
@@ -505,7 +512,7 @@ html_iframe_init (HTMLIFrame *iframe,
 	gtk_html_set_default_content_type (new_html,
 					   parent_html->priv->content_type);
 	iframe->html = new_widget;
-	gtk_html_set_iframe_parent (new_html, parent, HTML_OBJECT (iframe));
+	depth = gtk_html_set_iframe_parent (new_html, parent, HTML_OBJECT (iframe));
 	gtk_container_add (GTK_CONTAINER (scrolled_window), new_widget);
 	gtk_widget_show (new_widget);
 
@@ -549,8 +556,10 @@ html_iframe_init (HTMLIFrame *iframe,
 	  GTK_SIGNAL_FUNC (iframe_button_press_event), iframe);
 	*/
 
-	gtk_signal_emit_by_name (GTK_OBJECT (parent_html->engine), 
-				 "url_requested", src, handle);
+	if (depth < 10)
+		gtk_signal_emit_by_name (GTK_OBJECT (parent_html->engine), 
+					 "url_requested", src, handle);
+	
 
 	/* FIXME: fix frames for height > 32767 */
 	gtk_widget_set_usize (scrolled_window, width, MIN (height, 32767));
