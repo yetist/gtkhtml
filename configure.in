@@ -2,7 +2,7 @@ dnl Initialization
 
 AC_INIT(src/gtkhtml.c)
 AM_CONFIG_HEADER(config.h)
-AM_INIT_AUTOMAKE(gtkhtml, 0.9.99.1)
+AM_INIT_AUTOMAKE(gtkhtml, 0.10.0)
 
 AM_MAINTAINER_MODE
 AM_ACLOCAL_INCLUDE(macros)
@@ -340,7 +340,7 @@ dnl **********************************
  
 dnl Increment the following if the interface has additions, changes,
 dnl removals.
-GTKHTML_CURRENT=12
+GTKHTML_CURRENT=13
 
 dnl Increment any time the source changes; set to 0 if you
 dnl increment CURRENT.
@@ -349,7 +349,7 @@ GTKHTML_REVISION=0
 dnl Increment if any interfaces have been added; set to 0
 dnl if any interfaces have been removed. removal has 
 dnl precedence over adding, so set to 0 if both happened.
-GTKHTML_AGE=2
+GTKHTML_AGE=0
 
 AC_SUBST(GTKHTML_CURRENT)
 AC_SUBST(GTKHTML_REVISION)

@@ -1,3 +1,7 @@
+2001-07-13  Larry Ewing  <lewing@ximian.com>
+
+	* configure.in: bump version numbers for 0.10.0 release.
+
 2001-07-02  Larry Ewing  <lewing@ximian.com>
 
 	* configure.in: bump version because of get_src changes.
