@@ -28,7 +28,7 @@
 
 #include "htmlengine-edit-paste.h"
 
-#define PARANOID_DEBUG
+/* #define PARANOID_DEBUG */
 
 
 /* This function adds an empty HTMLTextMaster object to @flow; it is
@@ -144,6 +144,7 @@ split_first_clueflow_at_cursor (HTMLEngine *engine,
 	}
 
 	new_clueflow = html_object_dup (HTML_OBJECT (clue));
+	html_object_change_set (new_clueflow, HTML_CHANGE_ALL);
 
 	if (curr_clue->prev == NULL)
 		html_clue_prepend (HTML_CLUE (curr_clue->parent), new_clueflow);
@@ -173,6 +174,8 @@ add_new_clueflow (HTMLEngine *engine,
 	HTMLObject *new_clue;
 
 	new_clue = html_object_dup (HTML_OBJECT (clue));
+	html_object_change_set (new_clue, HTML_CHANGE_ALL);
+
 	html_clue_append_after (HTML_CLUE (where->parent), new_clue, where);
 
 	return new_clue;
@@ -435,6 +438,7 @@ html_engine_paste (HTMLEngine *engine)
 #endif
 
 			duplicate = html_object_dup (obj);
+			html_object_change_set (duplicate, HTML_CHANGE_ALL);
 
 			if (append)
 				append_object (engine, duplicate);
@@ -492,6 +496,8 @@ html_engine_paste (HTMLEngine *engine)
 #endif
 
 			obj_copy = html_object_dup (obj);
+			html_object_change_set (obj_copy, HTML_CHANGE_ALL);
+
 			html_clue_prepend (HTML_CLUE (next_clueflow), obj_copy);
 
 			/* Kind of evil, isn't it?  */

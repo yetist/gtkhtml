@@ -1,3 +1,12 @@
+2000-04-14  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine-edit-paste.c
+	(split_first_clueflow_at_cursor): Trigger a recalculation of
+	everything in the dupped HTMLClueFlow with
+	`html_object_change_set()'.
+	(add_new_clueflow): Likewise.
+	(html_engine_paste): Likewise.
+
 2000-04-15  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlsearch.c (html_search_new): use POSIX calls instead of GNU for better portability
