@@ -1,21 +1,20 @@
 # translation of gtkhtml.HEAD.be.po to Belarusian
 # translation of gtkhtml-3.0.po to belarusian
 # This file is distributed under the same license as the PACKAGE package.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# Copyright (C) 2004 THE PACKAGE'S COPYRIGHT HOLDER
 # Vital Khilko <dojlid@mova.org>, 2003
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.HEAD.be\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-26 15:35+0200\n"
-"PO-Revision-Date: 2003-06-16 23:02+0300\n"
+"POT-Creation-Date: 2004-07-27 04:03+0200\n"
+"PO-Revision-Date: 2004-08-13 10:09+0300\n"
 "Last-Translator: Vital Khilko <dojlid@mova.org>\n"
 "Language-Team: Belarusian <i18n@mova.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.0\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -436,7 +435,7 @@ msgstr "_Язык"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
-#: components/html-editor/menubar.c:136 components/html-editor/popup.c:106
+#: components/html-editor/menubar.c:115 components/html-editor/popup.c:106
 #: components/html-editor/popup.c:201 components/html-editor/popup.c:267
 msgid "Link"
 msgstr "Спасылка"
@@ -447,9 +446,8 @@ msgid "Make the current Paragraph style Normal"
 msgstr "Зрабіць стыль бягучага абзаца звычайным"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:57
-#, fuzzy
 msgid "Make the current Paragraph style Preformat"
-msgstr "Зрабіць стыль бягучага абзаца папярэдне фарматаваным"
+msgstr "Зрабіць стыль бягучага абзаца папярэднефарматаваным"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:58
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
@@ -615,7 +613,7 @@ msgstr "Сьпіс з рымскім нумараваньнем"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
 #: components/html-editor/editor-control-factory.c:207
 #: components/html-editor/gtkhtml-editor-properties.glade.h:48
-#: components/html-editor/menubar.c:155 components/html-editor/popup.c:225
+#: components/html-editor/menubar.c:134 components/html-editor/popup.c:225
 msgid "Rule"
 msgstr "Правіла"
 
@@ -663,7 +661,7 @@ msgstr "Верхні індэкс"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 #: components/html-editor/gtkhtml-editor-properties.glade.h:52
-#: components/html-editor/menubar.c:176 components/html-editor/popup.c:231
+#: components/html-editor/menubar.c:155 components/html-editor/popup.c:231
 #: components/html-editor/popup.c:501 components/html-editor/popup.c:513
 msgid "Table"
 msgstr "Табліца"
@@ -680,7 +678,7 @@ msgstr "_Тэкставы файл..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:101
 #: components/html-editor/gtkhtml-editor-properties.glade.h:53
-#: components/html-editor/menubar.c:198
+#: components/html-editor/menubar.c:177
 msgid "Template"
 msgstr "Узор"
 
@@ -947,25 +945,21 @@ msgid "GNOME HTML Editor Factory"
 msgstr "Вытворчасьць рэдактара HTML для GNOME"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
-#, fuzzy
 msgid "Insert Sick smiley into document..."
-msgstr "Уставіць смайлік \"язык\" ў дакумэнт..."
+msgstr "Уставіць усьмешку \"кволы\" ў дакумэнт..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:58
-#, fuzzy
 msgid "Make the current Paragraph style Preformatted"
-msgstr "Зрабіць стыль бягучага абзаца папярэдне фарматаваным"
+msgstr "Зрабіць стыль бягучага абзаца папярэднефарматаваным"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
 #: components/html-editor/paragraph.c:102
-#, fuzzy
 msgid "Preformatted"
 msgstr "Папярэднефарматаваны"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
-#, fuzzy
 msgid "S_ick"
-msgstr "_Падмігваньне"
+msgstr "_Кволы"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:151
 msgid "_Wrap Lines"
@@ -985,36 +979,32 @@ msgid "Blue Ink"
 msgstr "Блакітныя чарніла"
 
 #: components/html-editor/body.c:83
-#, fuzzy
 msgid "Paper"
-msgstr "Старонка"
+msgstr "Папера"
 
 #: components/html-editor/body.c:91
 msgid "Ribbon"
-msgstr ""
+msgstr "Стужка"
 
 #: components/html-editor/body.c:99
-#, fuzzy
 msgid "Midnight"
-msgstr "Зправа"
+msgstr "Начная"
 
 #: components/html-editor/body.c:107
-#, fuzzy
 msgid "Confidential"
-msgstr "Прыбраць водступ"
+msgstr "Сакрэтная"
 
 #: components/html-editor/body.c:115
 msgid "Draft"
-msgstr ""
+msgstr "Чарнавік"
 
 #: components/html-editor/body.c:123
 msgid "Graph paper"
-msgstr ""
+msgstr "Папера для графікаў"
 
 #: components/html-editor/body.c:246
-#, fuzzy
 msgid "T_emplate:"
-msgstr "Узор"
+msgstr "Узор:"
 
 #. data->entry_title = gtk_entry_new ();
 #. if (gtk_html_get_title (data->cd->html)) {
@@ -1024,9 +1014,8 @@ msgstr "Узор"
 #. g_signal_connect (data->entry_title, "changed", G_CALLBACK (entry_changed), data);
 #. editor_hig_attach_row (t1, _("T_itle:"), data->entry_title, 1);
 #: components/html-editor/body.c:256 components/html-editor/paragraph.c:112
-#, fuzzy
 msgid "General"
-msgstr "Цэнтар"
+msgstr "Асноўнае"
 
 #: components/html-editor/body.c:267 components/html-editor/text.c:162
 #: components/html-editor/toolbar.c:301
@@ -1034,19 +1023,16 @@ msgid "Automatic"
 msgstr "Аўтаматычна"
 
 #: components/html-editor/body.c:279
-#, fuzzy
 msgid "_Text:"
-msgstr "Тэкст"
+msgstr "Тэкст:"
 
 #: components/html-editor/body.c:280
-#, fuzzy
 msgid "_Link:"
-msgstr "Спасылка"
+msgstr "Спасылка:"
 
 #: components/html-editor/body.c:281
-#, fuzzy
 msgid "_Background:"
-msgstr "Тло"
+msgstr "Тло:"
 
 #: components/html-editor/body.c:283
 #: components/html-editor/gtkhtml-editor-properties.glade.h:30
@@ -1061,58 +1047,57 @@ msgstr "Відарыс тла"
 #: components/html-editor/body.c:298
 #: components/html-editor/gtkhtml-editor-properties.glade.h:71
 msgid "_Source:"
-msgstr ""
+msgstr "_Крыніца:"
 
 #: components/html-editor/cell.c:350 components/html-editor/table.c:231
 msgid "Transparent"
-msgstr ""
+msgstr "Празрыстасьць"
 
 #: components/html-editor/editor-control-factory.c:178
-#: components/html-editor/menubar.c:354 components/html-editor/menubar.c:372
-#: components/html-editor/menubar.c:390 components/html-editor/popup.c:186
+#: components/html-editor/menubar.c:328 components/html-editor/menubar.c:346
+#: components/html-editor/menubar.c:364 components/html-editor/popup.c:186
 #: components/html-editor/popup.c:264
 msgid "Properties"
 msgstr "Уласьцівасьці"
 
 #: components/html-editor/editor-control-factory.c:197
 #: components/html-editor/gtkhtml-editor-properties.glade.h:54
-#: components/html-editor/menubar.c:376 components/html-editor/popup.c:195
+#: components/html-editor/menubar.c:350 components/html-editor/popup.c:195
 msgid "Text"
 msgstr "Тэкст"
 
 #: components/html-editor/editor-control-factory.c:216
-#: components/html-editor/menubar.c:394 components/html-editor/popup.c:213
+#: components/html-editor/menubar.c:368 components/html-editor/popup.c:213
 msgid "Paragraph"
 msgstr "Абзац"
 
 #: components/html-editor/editor-control-factory.c:220
 #: components/html-editor/gtkhtml-editor-properties.glade.h:43
-#: components/html-editor/menubar.c:358 components/html-editor/popup.c:219
+#: components/html-editor/menubar.c:332 components/html-editor/popup.c:219
 msgid "Page"
 msgstr "Старонка"
 
 #. This is the default custom color
 #: components/html-editor/gi-color-palette.c:395
 msgid "custom"
-msgstr ""
+msgstr "асабісты выбар"
 
 #. "Custom" color - we'll pop up a GnomeColorPicker
 #: components/html-editor/gi-color-palette.c:437
-#, fuzzy
 msgid "Custom Color:"
-msgstr "Колер:"
+msgstr "Колер карыстальніка:"
 
 #: components/html-editor/gi-color-palette.c:445
 msgid "Choose Custom Color"
-msgstr ""
+msgstr "Выбярыце свой колер"
 
 #: components/html-editor/gi-color-palette.c:578
 msgid "black"
-msgstr ""
+msgstr "чорны"
 
 #: components/html-editor/gi-color-palette.c:579
 msgid "light brown"
-msgstr ""
+msgstr "сьветла-карычневы"
 
 #: components/html-editor/gi-color-palette.c:580
 msgid "brown gold"
@@ -1124,7 +1109,7 @@ msgstr ""
 
 #: components/html-editor/gi-color-palette.c:582
 msgid "navy"
-msgstr ""
+msgstr "марскі"
 
 #: components/html-editor/gi-color-palette.c:583
 #: components/html-editor/gi-color-palette.c:639
@@ -1132,9 +1117,8 @@ msgid "dark blue"
 msgstr ""
 
 #: components/html-editor/gi-color-palette.c:584
-#, fuzzy
 msgid "purple #2"
-msgstr "Пурпурны"
+msgstr "пурпурны #2"
 
 #: components/html-editor/gi-color-palette.c:585
 msgid "very dark gray"
@@ -1142,19 +1126,16 @@ msgstr ""
 
 #: components/html-editor/gi-color-palette.c:588
 #: components/html-editor/gi-color-palette.c:644
-#, fuzzy
 msgid "dark red"
-msgstr "Цёмны загаловак"
+msgstr "цёмна-чырвоны"
 
 #: components/html-editor/gi-color-palette.c:589
-#, fuzzy
 msgid "red-orange"
-msgstr "Цытрынавы"
+msgstr "чырвона-цытрынавы"
 
 #: components/html-editor/gi-color-palette.c:590
-#, fuzzy
 msgid "gold"
-msgstr "Тлусты"
+msgstr "залаты"
 
 #: components/html-editor/gi-color-palette.c:591
 msgid "dark green"
@@ -1167,9 +1148,8 @@ msgstr ""
 
 #: components/html-editor/gi-color-palette.c:593
 #: components/html-editor/gi-color-palette.c:646
-#, fuzzy
 msgid "blue"
-msgstr "Сіні"
+msgstr "сіні"
 
 #: components/html-editor/gi-color-palette.c:594
 msgid "dull purple"
@@ -1180,19 +1160,16 @@ msgid "dark grey"
 msgstr ""
 
 #: components/html-editor/gi-color-palette.c:598
-#, fuzzy
 msgid "red"
-msgstr "Чырвоны"
+msgstr "чырвоны"
 
 #: components/html-editor/gi-color-palette.c:599
-#, fuzzy
 msgid "orange"
-msgstr "Цытрынавы"
+msgstr "цытрынавы"
 
 #: components/html-editor/gi-color-palette.c:600
-#, fuzzy
 msgid "lime"
-msgstr "Раўнаньне"
+msgstr "вапна"
 
 #: components/html-editor/gi-color-palette.c:601
 msgid "dull green"
@@ -1204,24 +1181,21 @@ msgstr ""
 
 #: components/html-editor/gi-color-palette.c:603
 msgid "sky blue #2"
-msgstr ""
+msgstr "нябесна-блакітны #2"
 
 #: components/html-editor/gi-color-palette.c:604
 #: components/html-editor/gi-color-palette.c:643
-#, fuzzy
 msgid "purple"
-msgstr "Пурпурны"
+msgstr "пурпурны"
 
 #: components/html-editor/gi-color-palette.c:605
-#, fuzzy
 msgid "gray"
-msgstr "Роўны шэры"
+msgstr "шэры"
 
 #: components/html-editor/gi-color-palette.c:608
 #: components/html-editor/gi-color-palette.c:640
-#, fuzzy
 msgid "magenta"
-msgstr "Відарыс"
+msgstr "малінавы"
 
 #: components/html-editor/gi-color-palette.c:609
 msgid "bright orange"
@@ -1229,14 +1203,12 @@ msgstr ""
 
 #: components/html-editor/gi-color-palette.c:610
 #: components/html-editor/gi-color-palette.c:641
-#, fuzzy
 msgid "yellow"
-msgstr "Жоўты"
+msgstr "жоўты"
 
 #: components/html-editor/gi-color-palette.c:611
-#, fuzzy
 msgid "green"
-msgstr "Зялёны"
+msgstr "зялёны"
 
 #: components/html-editor/gi-color-palette.c:612
 #: components/html-editor/gi-color-palette.c:642
@@ -1249,25 +1221,21 @@ msgstr ""
 
 #: components/html-editor/gi-color-palette.c:614
 #: components/html-editor/gi-color-palette.c:631
-#, fuzzy
 msgid "red purple"
-msgstr "Пурпурны"
+msgstr "чырвона -пурпурны"
 
 #: components/html-editor/gi-color-palette.c:615
-#, fuzzy
 msgid "light grey"
-msgstr "Роўны шэры"
+msgstr "сьветла-шэры"
 
 #: components/html-editor/gi-color-palette.c:618
 #: components/html-editor/gi-color-palette.c:635
-#, fuzzy
 msgid "pink"
-msgstr "Спасылка"
+msgstr "ружовы"
 
 #: components/html-editor/gi-color-palette.c:619
-#, fuzzy
 msgid "light orange"
-msgstr "Раўнаньне па праваму баку"
+msgstr "сьветла-цытрынавы"
 
 #: components/html-editor/gi-color-palette.c:620
 #: components/html-editor/gi-color-palette.c:632
@@ -1275,14 +1243,12 @@ msgid "light yellow"
 msgstr ""
 
 #: components/html-editor/gi-color-palette.c:621
-#, fuzzy
 msgid "light green"
-msgstr "Раўнаньне па праваму баку"
+msgstr "сьветла-зялёны"
 
 #: components/html-editor/gi-color-palette.c:622
-#, fuzzy
 msgid "light cyan"
-msgstr "Раўнаньне па праваму баку"
+msgstr ""
 
 #: components/html-editor/gi-color-palette.c:623
 #: components/html-editor/gi-color-palette.c:633
@@ -1296,7 +1262,7 @@ msgstr ""
 
 #: components/html-editor/gi-color-palette.c:625
 msgid "white"
-msgstr ""
+msgstr "белы"
 
 #: components/html-editor/gi-color-palette.c:630
 msgid "purplish blue"
@@ -1316,12 +1282,12 @@ msgstr "Кіраваньне рэдактарам GtkHTML"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:1
 msgid "    "
-msgstr ""
+msgstr "    "
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:3
 #, no-c-format
 msgid "%"
-msgstr ""
+msgstr "%"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:8
 msgid "+4"
@@ -1329,48 +1295,47 @@ msgstr "+4"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:11
 msgid "<b>Alignment &amp; Behaviour</b>"
-msgstr ""
+msgstr "<b>Паводзіны раўнаньня</b>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:12
-#, fuzzy
 msgid "<b>Background</b>"
-msgstr "Тло"
+msgstr "<b>Тло</b>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:13
 msgid "<b>General</b>"
-msgstr ""
+msgstr "<b>Асноўнае</b>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:14
 msgid "<b>Layout</b>"
-msgstr ""
+msgstr "<b>Плян</b>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:15
 msgid "<b>Scope</b>"
-msgstr ""
+msgstr "<b>Межы</b>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:16
 msgid "<span weight=\"bold\">General</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">Асноўнае</span>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:17
 msgid "<span weight=\"bold\">Layout</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">Плян</span>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:18
 msgid "<span weight=\"bold\">Link</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">Спасылка</span>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:19
 msgid "<span weight=\"bold\">Size</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">Памер</span>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:20
 msgid "<span weight=\"bold\">Style</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">Стыль</span>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:21
 msgid "<span weight=\"bold\">Template</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">Узор</span>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:22
 #: components/html-editor/paragraph.c:131
@@ -1382,12 +1347,10 @@ msgid "Bottom"
 msgstr "Унізе"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:25
-#, fuzzy
 msgid "C_ell"
 msgstr "Ячэя"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:26
-#, fuzzy
 msgid "C_olor:"
 msgstr "Колер:"
 
@@ -1402,7 +1365,6 @@ msgid "Center"
 msgstr "Цэнтар"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:29
-#, fuzzy
 msgid "Col_umn"
 msgstr "Слупок"
 
@@ -1415,9 +1377,8 @@ msgid "Enable"
 msgstr "Уключыць"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:33
-#, fuzzy
 msgid "Hea_der style"
-msgstr "Загаловак 6"
+msgstr "Стыль загалоўку"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:34
 msgid "Horizontal alignment:"
@@ -1428,9 +1389,8 @@ msgid "Horizontal:"
 msgstr "Па гарызанталі:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:36
-#, fuzzy
 msgid "I_mage:"
-msgstr "Відарыс"
+msgstr "Відарыс:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:38
 #: components/html-editor/paragraph.c:127
@@ -1471,13 +1431,12 @@ msgid "Shaded"
 msgstr "У цяні"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:50
-#, fuzzy
 msgid "Si_ze:"
-msgstr "Памер"
+msgstr "Памер:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:51
 msgid "Standard"
-msgstr ""
+msgstr "Стандартны"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:55
 msgid "Thickness:"
@@ -1496,123 +1455,105 @@ msgid "Width:"
 msgstr "Шырыня:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:59
-#, fuzzy
 msgid "_Alignment:"
 msgstr "Раўнаньне:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:61
-#, fuzzy
 msgid "_Border:"
 msgstr "Рамка:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:62
-#, fuzzy
 msgid "_Color:"
 msgstr "Колер:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:63
-#, fuzzy
 msgid "_Columns:"
 msgstr "Слупкі:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:64
-#, fuzzy
 msgid "_Description:"
 msgstr "Апісаньне:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:65
-#, fuzzy
 msgid "_Height:"
 msgstr "Вышыня:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:66
-#, fuzzy
 msgid "_Image:"
-msgstr "Відарыс"
+msgstr "Відарыс:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:68
-#, fuzzy
 msgid "_Padding:"
 msgstr "Інтэрвал:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:69
-#, fuzzy
 msgid "_Row"
 msgstr "Радок"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:70
-#, fuzzy
 msgid "_Rows:"
 msgstr "Радкі:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
-#, fuzzy
 msgid "_Spacing:"
 msgstr "Прамежак:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:74
-#, fuzzy
 msgid "_Table"
 msgstr "Табліца"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:75
 msgid "_URL:"
-msgstr ""
+msgstr "_URL:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:77
-#, fuzzy
 msgid "_Width:"
 msgstr "Шырыня:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:78
-#, fuzzy
 msgid "_Wrap Text"
 msgstr "_Перанос радкоў"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:79
-#, fuzzy
 msgid "_X-Padding:"
-msgstr "Інтэрвал:"
+msgstr "X-Інтэрвал:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:80
-#, fuzzy
 msgid "_Y-Padding:"
-msgstr "Інтэрвал:"
+msgstr "Y-Інтэрвал:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:81
-#, fuzzy
 msgid "follow"
-msgstr "Сьледаваць"
+msgstr "прасачыць"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:82
 msgid "px"
-msgstr ""
+msgstr "px"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:83
 msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
-#: components/html-editor/menubar.c:96 components/html-editor/menubar.c:104
-#, fuzzy
+#: components/html-editor/menubar.c:86
 msgid "Insert image"
-msgstr "Уставіць спасылку"
+msgstr "Уставіць відарыс"
 
-#: components/html-editor/menubar.c:133 components/html-editor/menubar.c:152
-#: components/html-editor/menubar.c:173 components/html-editor/menubar.c:195
+#: components/html-editor/menubar.c:112 components/html-editor/menubar.c:131
+#: components/html-editor/menubar.c:152 components/html-editor/menubar.c:174
 #: components/html-editor/popup.c:103
 msgid "Insert"
 msgstr "Уставіць"
 
-#: components/html-editor/menubar.c:282
+#: components/html-editor/menubar.c:263
 #, c-format
 msgid "Error loading file '%s': %s"
 msgstr "Памылка загрузкі файла '%s': %s"
 
-#: components/html-editor/menubar.c:308 components/html-editor/menubar.c:317
+#: components/html-editor/menubar.c:290
 msgid "Insert: HTML File"
 msgstr "Уставіць: файл HTML"
 
-#: components/html-editor/menubar.c:308 components/html-editor/menubar.c:317
+#: components/html-editor/menubar.c:290
 msgid "Insert: Text File"
 msgstr "Уставіць: тэкставы файл"
 
@@ -1661,21 +1602,18 @@ msgid "Address"
 msgstr "Адрэса"
 
 #: components/html-editor/paragraph.c:109
-#, fuzzy
 msgid "_Style:"
-msgstr "_Стыль"
+msgstr "_Стыль:"
 
 #: components/html-editor/popup.c:438
 msgid "Paste Quotation"
 msgstr "Уставіць цытаваньне"
 
 #: components/html-editor/popup.c:442
-#, fuzzy
 msgid "Insert Link"
 msgstr "Уставіць спасылку"
 
 #: components/html-editor/popup.c:449
-#, fuzzy
 msgid "Remove Link"
 msgstr "Выдаліць спасылку"
 
@@ -1754,11 +1692,11 @@ msgstr "Зьмест ячэі"
 
 #: components/html-editor/popup.c:524
 msgid "Check Word Spelling..."
-msgstr ""
+msgstr "Праверыць правапіс слова..."
 
 #: components/html-editor/popup.c:529
 msgid "Add Word to"
-msgstr ""
+msgstr "Дадаць слова да"
 
 #: components/html-editor/popup.c:533
 #, c-format
@@ -1766,17 +1704,16 @@ msgid "%s Dictionary"
 msgstr "%s Слоўнік"
 
 #: components/html-editor/popup.c:542
-#, fuzzy
 msgid "Add Word to Dictionary"
-msgstr "%s Слоўнік"
+msgstr "Дадаць слова да слоўніку"
 
 #: components/html-editor/popup.c:545
 msgid "Ignore Misspelled Word"
-msgstr ""
+msgstr "Ігнараваць памылковае слова"
 
 #: components/html-editor/popup.c:549
 msgid "Input Methods"
-msgstr ""
+msgstr "Мэтады уводу"
 
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/replace.c:77
@@ -1784,17 +1721,14 @@ msgid "Replace confirmation"
 msgstr "Падцьверджаньне замены"
 
 #: components/html-editor/replace.c:78
-#, fuzzy
 msgid "Replace _All"
 msgstr "Замяніць усё"
 
 #: components/html-editor/replace.c:79
-#, fuzzy
 msgid "_Next"
 msgstr "Наступнае"
 
 #: components/html-editor/replace.c:81
-#, fuzzy
 msgid "_Replace"
 msgstr "Замяніць"
 
@@ -1819,13 +1753,12 @@ msgid "_Backward"
 msgstr "_Адваротны накірунак"
 
 #: components/html-editor/search.c:115
-#, fuzzy
 msgid "_Regular Expression"
-msgstr "Пошук сталага выраза"
+msgstr "Сталы выраз"
 
 #: components/html-editor/spell.c:278
 msgid "No misspelled word found"
-msgstr ""
+msgstr "Памылкова напісаныя словы адсутнічаюць"
 
 #: components/html-editor/spell.c:285
 msgid "Spell checker"
@@ -1849,7 +1782,7 @@ msgstr "Рамка відарыса"
 
 #: components/html-editor/template.c:280
 msgid "Labels"
-msgstr ""
+msgstr "Адмеціны"
 
 #: components/html-editor/test-html-editor-control.c:323
 msgid "Open file..."
@@ -1929,103 +1862,100 @@ msgstr "Узор"
 
 #: components/html-editor/utils.c:192
 msgid "_Visit..."
-msgstr ""
+msgstr "_Наведаць..."
 
 #: components/html-editor/utils.c:232
-#, fuzzy
 msgid ""
 "The editted object was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
-"Рэдагаваны тэкст выдалены з дакумэнта.\n"
-"Немагчыма ужыць вашыя зьмены."
+"Рэдагаваны аб'ект выдалены з дакумэнта.\n"
+"Немагчыма ужыць вашы зьмены."
 
 #: src/gtkhtml.c:2531
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""
 
-#: src/gtkhtml.c:2853
+#: src/gtkhtml.c:2852
 msgid "Editable"
 msgstr "Можа рэдагавацца"
 
-#: src/gtkhtml.c:2854
+#: src/gtkhtml.c:2853
 msgid "Whether the html can be edited"
 msgstr "Ці рэдагуецца html"
 
-#: src/gtkhtml.c:2860
+#: src/gtkhtml.c:2859
 msgid "Document Title"
 msgstr "Загаловак дакумэнта"
 
-#: src/gtkhtml.c:2861
+#: src/gtkhtml.c:2860
 msgid "The title of the current document"
 msgstr "Загаловак бягучага дакумэнта"
 
-#: src/gtkhtml.c:2867
+#: src/gtkhtml.c:2866
 msgid "Document Base"
 msgstr "База дакумэнта"
 
-#: src/gtkhtml.c:2868
+#: src/gtkhtml.c:2867
 msgid "The base URL for relative references"
 msgstr "Базавы URL для падобных спасылак"
 
-#: src/gtkhtml.c:2874
+#: src/gtkhtml.c:2873
 msgid "Target Base"
 msgstr "База мэты"
 
-#: src/gtkhtml.c:2875
+#: src/gtkhtml.c:2874
 msgid "The base URL of the targe frame"
 msgstr "Базавы URL фрэйма мэты"
 
-#: src/gtkhtml.c:2884
+#: src/gtkhtml.c:2883
 msgid "Fixed Width Font"
 msgstr "Шрыфт фіксаванае шырыні"
 
-#: src/gtkhtml.c:2885
+#: src/gtkhtml.c:2884
 msgid "The Monospace font to use for typewriter text"
 msgstr "Монашырыны шрыфт для выкарастаньня ў наборы"
 
-#: src/gtkhtml.c:2891
+#: src/gtkhtml.c:2890
 msgid "New Link Color"
 msgstr "Колер новых спасылак"
 
-#: src/gtkhtml.c:2892
+#: src/gtkhtml.c:2891
 msgid "The color of new link elements"
 msgstr "Колер новых спасылак"
 
-#: src/gtkhtml.c:2897
+#: src/gtkhtml.c:2896
 msgid "Visited Link Color"
 msgstr "Колер наведаных спасылак"
 
-#: src/gtkhtml.c:2898
+#: src/gtkhtml.c:2897
 msgid "The color of visited link elements"
 msgstr "Колер наведаных спасылак"
 
-#: src/gtkhtml.c:2903
+#: src/gtkhtml.c:2902
 msgid "Active Link Color"
 msgstr "Колер актыўных спасылак"
 
-#: src/gtkhtml.c:2904
+#: src/gtkhtml.c:2903
 msgid "The color of active link elements"
 msgstr "Колер актыўных спасылак"
 
-#: src/gtkhtml.c:2909
+#: src/gtkhtml.c:2908
 msgid "Spelling Error Color"
 msgstr "Колер памылак правапіса"
 
-#: src/gtkhtml.c:2910
+#: src/gtkhtml.c:2909
 msgid "The color of the spelling error markers"
 msgstr "Колер для падкрэсьленьня памылак правапіса"
 
-#: src/gtkhtml.c:2915
-#, fuzzy
+#: src/gtkhtml.c:2914
 msgid "Cite Quotation Color"
-msgstr "Уставіць цытаваньне"
+msgstr "Колер цытаваньня"
 
-#: src/gtkhtml.c:2916
-#, fuzzy
+#: src/gtkhtml.c:2915
 msgid "The color of the cited text"
-msgstr "Колер актыўных спасылак"
+msgstr "Колер цытаванага тэксту"
 
 #: src/html-component.c:219
 msgid "Html"
