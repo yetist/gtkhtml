@@ -1,5 +1,8 @@
 2001-01-11  Radek Doulik  <rodo@helixcode.com>
 
+	* gtkhtml.c (selection_received): paste only in editable
+	(gtk_html_request_paste): ditto
+
 	* htmlgdkpainter.c (alloc_e_font_it): substitute size by * when
 	looking for closest font
 

@@ -1046,7 +1046,8 @@ button_release_event (GtkWidget *widget,
 	}
 
 	if (html->in_selection) {
-		gtk_html_copy (html);
+		if (html_engine_get_editable (html->engine))
+			gtk_html_copy (html);
 		html->in_selection = FALSE;
 		update_styles (html);
 	}
@@ -1194,8 +1195,9 @@ selection_received (GtkWidget *widget,
 	g_return_if_fail (selection_data != NULL);
 	
 	printf("got selection from system\n");
-	
-	if (widget->window == gdk_selection_owner_get (selection_data->selection) && GTK_HTML (widget)->engine->clipboard) {
+
+	if (html_engine_get_editable (GTK_HTML (widget)->engine)
+	    && widget->window == gdk_selection_owner_get (selection_data->selection) && GTK_HTML (widget)->engine->clipboard) {
 		html_engine_paste (GTK_HTML (widget)->engine);
 		return;
 	}
@@ -1240,7 +1242,8 @@ selection_received (GtkWidget *widget,
 		return;
 	}
 
-	html_engine_paste (GTK_HTML (widget)->engine);
+	if (html_engine_get_editable (GTK_HTML (widget)->engine))
+		html_engine_paste (GTK_HTML (widget)->engine);
 }  
 
 gint
@@ -1252,7 +1255,8 @@ gtk_html_request_paste (GtkHTML *html, gint type, gint32 time)
 	if (type >= sizeof (formats) / sizeof (formats[0])) {
 		/* we have now tried all the slection types we support */
 		html->priv->last_selection_type = -1;
-		html_engine_paste (html->engine);
+		if (html_engine_get_editable (html->engine))
+			html_engine_paste (html->engine);
 		return FALSE;
 	}
 	
