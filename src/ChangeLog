@@ -1,3 +1,21 @@
+2000-11-04  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlimage.c (html_image_resolve_image_url): rename from
+	resolve_image_url, make it public
+
+	* htmlengine-save.c (get_body): use html_image_resolve_image_url
+
+2000-11-03  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlimage.c (resolve_image_url): new function, resolves image
+	URL using GTK_HTML_EDITOR_EVENT_IMAGE_URL
+	(save): use resolve_image_url
+
+2000-11-02  Radek Doulik  <rodo@helixcode.com>
+
+	* gtkhtml.h (struct _GtkHTMLEditorAPI): add return value for event
+	(_GtkHTMLEditorEventType): added IMAGE_URL editor event
+
 2000-11-03  Dan Winship  <danw@helixcode.com>
 
 	* htmlobject.c (destroy): Free self->object_data before freeing

@@ -198,13 +198,17 @@ get_body (HTMLEngine *e)
 	gchar *bg;
 	gchar *bg_image;
 	gchar *link;
+	gchar *url = NULL;
 
 	cset = e->settings->color_set;
 	text = (cset->changed [HTMLTextColor]) ? color_to_string ("TEXT", cset->color [HTMLTextColor]) : g_strdup ("");
 	link = (cset->changed [HTMLLinkColor]) ? color_to_string ("LINK", cset->color [HTMLLinkColor]) : g_strdup ("");
 	bg   = (cset->changed [HTMLBgColor]) ? color_to_string ("BGCOLOR", cset->color [HTMLBgColor]) : g_strdup ("");
-	bg_image = e->bgPixmapPtr ? g_strdup_printf (" BACKGROUND=\"%s\"", ((HTMLImagePointer *) e->bgPixmapPtr)->url)
+	bg_image = e->bgPixmapPtr ? g_strdup_printf (" BACKGROUND=\"%s\"",
+						     url = html_image_resolve_image_url
+						     (e->widget, ((HTMLImagePointer *) e->bgPixmapPtr)->url))
 		: g_strdup ("");
+	g_free (url);
 
 	body = g_strconcat ("<BODY", text, link, bg, bg_image, ">", NULL);
 

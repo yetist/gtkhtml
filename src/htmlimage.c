@@ -345,19 +345,51 @@ draw (HTMLObject *o,
 	}
 }
 
+gchar *
+html_image_resolve_image_url (GtkHTML *html, gchar *image_url)
+{
+	gchar *url = image_url;
+
+	if (html->editor_api) {
+		GtkArg *args [2];
+
+		args [0] = gtk_arg_new (GTK_TYPE_STRING);
+		GTK_VALUE_STRING (*args [0]) = image_url;
+
+		args [1] = (* html->editor_api->event) (html, GTK_HTML_EDITOR_EVENT_IMAGE_URL, args, html->editor_data);
+		gtk_arg_free (args [0], FALSE);
+
+		if (args [1]) {
+			if (args [1]->type == GTK_TYPE_STRING)
+				url = GTK_VALUE_STRING (*args [1]);
+			gtk_arg_free (args [1], FALSE);
+		}
+	}
+
+	/* printf ("image URL resolved to: %s (from: %s)\n", url, image_url); */
+
+	return url;
+}
+
 static gboolean
 save (HTMLObject *self,
       HTMLEngineSaveState *state)
 {
 	HTMLImage *image;
+	gchar *url;
+	gboolean result;
 
 	g_return_val_if_fail (self != NULL, FALSE);
 	g_return_val_if_fail (state != NULL, FALSE);
-	
-	image = HTML_IMAGE (self);
-	
-	if (!html_engine_save_output_string (state, "<IMG SRC=\"%s\"", image->image_ptr->url))
-	        return FALSE;	
+
+	image  = HTML_IMAGE (self);
+
+	url    = html_image_resolve_image_url (state->engine->widget, image->image_ptr->url);
+	result = html_engine_save_output_string (state, "<IMG SRC=\"%s\"", url);
+	if (url != image->image_ptr->url)
+		g_free (url);
+	if (!result)
+		return FALSE;	
 
 	if (image->specified_width > 0) {
 		if (!html_engine_save_output_string (state, " WIDTH=\"%d\"", image->specified_height))

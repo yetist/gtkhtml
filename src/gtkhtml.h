@@ -268,7 +268,8 @@ struct _GtkHTMLClass {
 
 enum _GtkHTMLEditorEventType
 {
-	GTK_HTML_EDITOR_EVENT_COMMAND
+	GTK_HTML_EDITOR_EVENT_COMMAND,
+	GTK_HTML_EDITOR_EVENT_IMAGE_URL
 };
 typedef enum _GtkHTMLEditorEventType GtkHTMLEditorEventType;
 
@@ -283,7 +284,7 @@ struct _GtkHTMLEditorAPI
 	/* unhandled commands */
 	gboolean  (* command)                 (GtkHTML *html, GtkHTMLCommandType com_type, gpointer data);
 
-	void      (* event)                   (GtkHTML *html, GtkHTMLEditorEventType event_type, GtkArg **args, gpointer data);
+	GtkArg  * (* event)                   (GtkHTML *html, GtkHTMLEditorEventType event_type, GtkArg **args, gpointer data);
 };
 
 

@@ -134,6 +134,8 @@ void         html_image_set_url            (HTMLImage *image, const gchar *url);
 void         html_image_set_valign         (HTMLImage *image, HTMLVAlignType valign);
 void         html_image_set_border         (HTMLImage *image, gint border);
 
+gchar *      html_image_resolve_image_url  (GtkHTML *html, gchar *image_url);
+
 /* FIXME move to htmlimagefactory.c */
 HTMLImageFactory *html_image_factory_new      (HTMLEngine       *e);
 void              html_image_factory_free     (HTMLImageFactory *factory);
@@ -147,5 +149,4 @@ HTMLImagePointer *html_image_factory_register    (HTMLImageFactory *factory,
 void              html_image_factory_unregister  (HTMLImageFactory *factory,
 						  HTMLImagePointer *pointer,
 						  HTMLImage        *i);
-
 #endif /* _HTMLIMAGE_H_ */
