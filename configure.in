@@ -28,14 +28,14 @@ AM_GNOME_GETTEXT
 dnl ******************************
 dnl Gnome App Lib checking
 dnl ******************************
-AC_MSG_CHECKING(for Gnome App libraries (GAL) >= 0.2)
+AC_MSG_CHECKING(for Gnome App libraries (GAL) >= 0.3)
 if gnome-config --libs gal > /dev/null 2>&1; then 
     vers=`gnome-config --modversion gal | sed -e "s/gal-//" -e 's/cvs$//' -e 's/pre$//' | \
         awk 'BEGIN { FS = "."; } { print $1 * 1000 + $2;}'`
-    if test "$vers" -ge 2; then
+    if test "$vers" -ge 3; then
         AC_MSG_RESULT(found)
     else
-        AC_MSG_ERROR(You need at least GNOME Application libs 0.2 for this version of GtkHTML)
+        AC_MSG_ERROR(You need at least GNOME Application libs 0.3 for this version of GtkHTML)
     fi
 else
     AC_MSG_ERROR(Did not find GnomeAppLib (GAL) installed)
@@ -154,12 +154,12 @@ AC_ARG_WITH(bonobo,
 )
 
 if $try_bonobo; then
-	AC_MSG_CHECKING(for Bonobo >= 0.27)
+	AC_MSG_CHECKING(for Bonobo >= 0.29)
 
 	if gnome-config --libs bonobox > /dev/null 2>&1; then
 		vers=`gnome-config --modversion bonobo | sed -e "s/bonobo-//" | \
 			awk 'BEGIN { FS = "."; } { printf "%d", $1 * 1000 + $2;}'`
-		if test "$vers" -ge 27; then
+		if test "$vers" -ge 29; then
 			bonobo_ok=true
 		else
 			bonobo_ok=false
