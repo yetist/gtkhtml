@@ -1,3 +1,8 @@
+2001-09-13  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine-save.c (html_engine_save_encode): actually free the
+	encoding buffer.  Wow that was a huge leak, fixes ximian #9691.
+
 2001-09-12  Larry Ewing  <lewing@ximian.com>
 
 	* htmlgdkpainter.c (alloc_e_font_try): free the temp strings even

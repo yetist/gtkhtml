@@ -133,6 +133,7 @@ html_engine_save_encode (HTMLEngineSaveState *state,
 {
 	guchar *encoded_buffer;
 	guint encoded_length;
+	gboolean success;
 
 	g_return_val_if_fail (state != NULL, FALSE);
 	g_return_val_if_fail (buffer != NULL, FALSE);
@@ -141,8 +142,10 @@ html_engine_save_encode (HTMLEngineSaveState *state,
 		return TRUE;
 
 	encoded_buffer = encode_entities ((const guchar *) buffer, length, &encoded_length);
+	success = state->receiver (state->engine, encoded_buffer, encoded_length, state->user_data);
 
-	return state->receiver (state->engine, encoded_buffer, encoded_length, state->user_data);
+	g_free (encoded_buffer);
+	return success;
 }
 
 gboolean
