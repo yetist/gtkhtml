@@ -1,125 +1,17 @@
 # german po for gtkhtml.
 # Copyright (C) 2000 Free Software Foundation, Inc.
-# Christian Meyer <linux@chrisime.de>, 2000.
 # Kai Lahmann <kl@linuxfaqs.de>, 2000.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml 0.6.1\n"
-"POT-Creation-Date: 2000-09-19 23:27+0200\n"
-"PO-Revision-Date: 2000-09-19 23:22+0200\n"
-"Last-Translator: Kai Lahmann <kl@linuxfaqs.de>\n"
-"Language-Team: German <gnome-de@gnome.org>\n"
+"Project-Id-Version: gtkhtml 0.5\n"
+"POT-Creation-Date: 2000-10-13 17:49+0200\n"
+"PO-Revision-Date: 2000-10-13 17:58+02:00\n"
+"Last-Translator: Matthias Warkus <mawarkus@gnome.org>\n"
+"Language-Team: de <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#: capplet/gnome-bindings-prop.c:154 capplet/gnome-bindings-prop.c:222
-#: capplet/gnome-bindings-prop.c:297 capplet/gnome-bindings-prop.c:435
-#: capplet/gnome-bindings-prop.c:436
-msgid "<None>"
-msgstr "<Nichts>"
-
-#: capplet/gnome-bindings-prop.c:525
-msgid "Key"
-msgstr "Hotkey"
-
-#: capplet/gnome-bindings-prop.c:525
-msgid "Command"
-msgstr "Befehl"
-
-#: capplet/gnome-bindings-prop.c:526
-msgid "Commands"
-msgstr "Befehle"
-
-#: capplet/gnome-bindings-prop.c:527
-msgid "Keymaps"
-msgstr "Tastentabelle"
-
-#: capplet/gnome-bindings-prop.c:545
-msgid "Add"
-msgstr "Hinzufügen"
-
-#: capplet/gnome-bindings-prop.c:548
-#: components/html-editor/test-html-editor-control.c:323
-#: components/html-editor/toolbar.c:495
-msgid "Copy"
-msgstr "Kopieren"
-
-#: capplet/gnome-bindings-prop.c:551
-msgid "Delete"
-msgstr "Löschen"
-
-#: capplet/gnome-bindings-prop.c:582
-msgid "Grab key"
-msgstr "Hotkey einstellen"
-
-#: capplet/main.c:220
-msgid "Spell checking"
-msgstr "Rechtschreibprüfung"
-
-#: capplet/main.c:223
-msgid "live spell checking"
-msgstr "sofortige Rechtschreibprüfung"
-
-#: capplet/main.c:232
-msgid "spell checking color"
-msgstr "Farbe bei Rechtschreibprüfung"
-
-#: capplet/main.c:239
-msgid "language"
-msgstr "Sprache"
-
-#: capplet/main.c:245
-msgid "Miscellaneous"
-msgstr "Verschiedenes"
-
-#: capplet/main.c:247
-msgid "magic links"
-msgstr "Magische Links"
-
-#: capplet/main.c:266
-msgid "Bindings"
-msgstr "Tastenkombinationen"
-
-#: capplet/main.c:267 capplet/viewer.c:188
-msgid "Behaviour"
-msgstr "Verhalten"
-
-#: capplet/viewer.c:148
-msgid "Appearance"
-msgstr "Erscheinungsbild"
-
-#: capplet/viewer.c:154
-msgid "Variable width font"
-msgstr "Font mit variabler Breite"
-
-#: capplet/viewer.c:158
-msgid "Select HTML variable width font"
-msgstr "Für HTML, Font mit variabler Breite wählen"
-
-#: capplet/viewer.c:162 capplet/viewer.c:177
-msgid "for printing"
-msgstr "zum Drucken"
-
-#: capplet/viewer.c:164
-msgid "Select HTML variable width font for printing"
-msgstr "Für HTML, Font mit variabler Breite zum Drucken wählen"
-
-#: capplet/viewer.c:169
-msgid "Fixed width font"
-msgstr "Font mit fester Breite"
-
-#: capplet/viewer.c:173
-msgid "Select HTML fixed width font"
-msgstr "Für HTML, Font mit fester Breite wählen"
-
-#: capplet/viewer.c:179
-msgid "Select HTML fixed width font for printing"
-msgstr "Für HTML, Font mit fester Breite zum Drucken wählen"
-
-#: capplet/viewer.c:189
-msgid "Animations"
-msgstr "Animationen"
 
 #: components/html-editor/body.c:107
 msgid "use background image"
@@ -133,53 +25,65 @@ msgstr "Hintergrundbild"
 msgid "Colors"
 msgstr "Farben"
 
-#: components/html-editor/editor-control-factory.c:133
-#: components/html-editor/popup.c:86
+#: components/html-editor/editor-control-factory.c:129
+#: components/html-editor/popup.c:73
+msgid "Properties"
+msgstr "Einstellungen"
+
+#: components/html-editor/editor-control-factory.c:140
+#: components/html-editor/menubar.c:96 components/html-editor/popup.c:88
 msgid "Image"
 msgstr "Bild"
 
-#: components/html-editor/editor-control-factory.c:142
-#: components/html-editor/popup.c:79
+#: components/html-editor/editor-control-factory.c:149
+#: components/html-editor/menubar.c:117 components/html-editor/popup.c:81
 msgid "Text"
 msgstr "Text"
 
-#: components/html-editor/editor-control-factory.c:154
-#: components/html-editor/popup.c:93
+#: components/html-editor/editor-control-factory.c:160
+#: components/html-editor/menubar.c:140 components/html-editor/popup.c:116
+msgid "Rule"
+msgstr "Linie"
+
+#: components/html-editor/editor-control-factory.c:169
+#: components/html-editor/popup.c:95
 msgid "Paragraph"
 msgstr "Absatz"
 
-#: components/html-editor/editor-control-factory.c:159
-#: components/html-editor/menubar.c:109 components/html-editor/popup.c:100
+#: components/html-editor/editor-control-factory.c:174
+#: components/html-editor/menubar.c:101 components/html-editor/menubar.c:122
+#: components/html-editor/popup.c:102
 msgid "Link"
 msgstr "Link"
 
-#: components/html-editor/editor-control-factory.c:164
-#: components/html-editor/popup.c:107
+#: components/html-editor/editor-control-factory.c:179
+#: components/html-editor/popup.c:109
 msgid "Page"
 msgstr "Seite"
 
-#: components/html-editor/image.c:409
+#: components/html-editor/image.c:149
 msgid "Image selection"
 msgstr "Bildauswahl"
 
-#: components/html-editor/image.c:417
-msgid "Border"
-msgstr "Rahmen"
-
 #. ADD_ITEM("Left",   GDK_F4);
 #. ADD_ITEM("Right",  GDK_F5);
-#: components/html-editor/image.c:450
+#: components/html-editor/image.c:176
 msgid "Alignment"
 msgstr "Ausrichtung"
 
-#: components/html-editor/image.c:462 components/html-editor/rule.c:124
+#: components/html-editor/image.c:184
+msgid "Border"
+msgstr "Rahmen"
+
+#: components/html-editor/image.c:201
+msgid "Padding"
+msgstr "Steg"
+
+#. size
+#: components/html-editor/image.c:221 components/html-editor/rule.c:235
 #: components/html-editor/text.c:160
 msgid "Size"
 msgstr "Größe"
-
-#: components/html-editor/image.c:489
-msgid "Padding"
-msgstr "Innenabstand"
 
 #: components/html-editor/link.c:72
 msgid "Clear"
@@ -191,25 +95,30 @@ msgstr "URL"
 
 #: components/html-editor/main.c:64
 msgid "Could not initialize GNORBA"
-msgstr "GNORBA konnte nicht initialisiet werden"
+msgstr "GNORBA konnte nicht initialisiert werden"
 
 #: components/html-editor/main.c:77
 msgid "Could not initialize Bonobo"
 msgstr "Bonobo konnte nicht initialisiert werden"
 
-#: components/html-editor/menubar.c:93
-msgid "Insert image"
-msgstr "Bild einfügen"
+#: components/html-editor/menubar.c:94 components/html-editor/menubar.c:114
+#: components/html-editor/menubar.c:137
+#: components/html-editor/properties.c:110
+msgid "Insert"
+msgstr "Einfügen"
 
-#: components/html-editor/menubar.c:128
+#: components/html-editor/menubar.c:153
 msgid "Cannot execute gtkhtml properties"
-msgstr "Die gtkhtml-Einstellungen können nicht ausgeführt werden"
+msgstr "Die gtkhtml-Einstellungen konnten nicht ausgeführt werden"
 
-#: components/html-editor/paragraph.c:74 components/html-editor/text.c:138
+#. style
+#: components/html-editor/paragraph.c:74 components/html-editor/rule.c:223
+#: components/html-editor/text.c:138
 msgid "Style"
 msgstr "Stil"
 
-#: components/html-editor/paragraph.c:108
+#. align
+#: components/html-editor/paragraph.c:108 components/html-editor/rule.c:259
 msgid "Align"
 msgstr "Ausrichtung"
 
@@ -225,16 +134,7 @@ msgstr "Zentriert"
 msgid "Right"
 msgstr "Rechts"
 
-#: components/html-editor/properties.c:92
-#: components/html-editor/properties.c:93
-msgid "Insert"
-msgstr "Einfügen"
-
-#: components/html-editor/properties.c:95
-msgid "Properties"
-msgstr "Einstellungen"
-
-#: components/html-editor/popup.c:178
+#: components/html-editor/popup.c:185
 msgid "Remove link"
 msgstr "Link entfernen"
 
@@ -249,17 +149,17 @@ msgstr "Ersetzen"
 
 #: components/html-editor/replace.c:84
 msgid "Replace all"
-msgstr "Alle Ersetzen"
+msgstr "Alle ersetzen"
 
 #: components/html-editor/replace.c:84
 msgid "Next"
 msgstr "Nächster"
 
-#: components/html-editor/replace.c:152 components/html-editor/search.c:66
+#: components/html-editor/replace.c:152 components/html-editor/search.c:67
 msgid "search backward"
-msgstr "rückwärts suchen"
+msgstr "Rückwärts suchen"
 
-#: components/html-editor/replace.c:153 components/html-editor/search.c:67
+#: components/html-editor/replace.c:153 components/html-editor/search.c:68
 msgid "case sensitive"
 msgstr "Groß-/Kleinschreibung beachten"
 
@@ -267,45 +167,31 @@ msgstr "Groß-/Kleinschreibung beachten"
 msgid "with"
 msgstr "mit"
 
-#: components/html-editor/rule.c:124
-msgid "Length"
-msgstr "Länge"
+#: components/html-editor/rule.c:227
+msgid "shaded"
+msgstr "schattiert"
 
-#: components/html-editor/rule.c:124
-msgid "Percent"
-msgstr "Prozent"
+#. weight
+#: components/html-editor/rule.c:275
+msgid "Weight"
+msgstr "Stärke"
 
-#: components/html-editor/rule.c:125
-msgid "Left Align"
-msgstr "linksausgerichtet"
+#. sample
+#: components/html-editor/rule.c:287
+msgid "Sample"
+msgstr "Beispiel"
 
-#: components/html-editor/rule.c:125
-msgid "Center Align"
-msgstr "zentriert"
-
-#: components/html-editor/rule.c:125
-msgid "Right Align"
-msgstr "rechtsausgerichtet"
-
-#: components/html-editor/rule.c:125
-msgid "None"
-msgstr "Nichts"
-
-#: components/html-editor/rule.c:129
-msgid "Rule"
-msgstr "Linie"
-
-#: components/html-editor/rule.c:132
-msgid "Set Shade"
-msgstr "Schatten setzen"
-
-#: components/html-editor/search.c:63
+#: components/html-editor/search.c:64
 msgid "Regex search"
-msgstr "Reguläre Suche"
+msgstr "Regex-Suche"
 
-#: components/html-editor/search.c:63
+#: components/html-editor/search.c:64
 msgid "Search"
 msgstr "Suchen"
+
+#: components/html-editor/table.c:80
+msgid "Table"
+msgstr "Tabelle"
 
 #: components/html-editor/test-html-editor-control.c:232
 msgid "Open file..."
@@ -321,7 +207,7 @@ msgstr "Öffnen (PersistFile)"
 
 #: components/html-editor/test-html-editor-control.c:300
 msgid "Open using the PersistFile interface"
-msgstr "Öffnen mit Nutzung der PersistFile-Schnittstelle"
+msgstr "öffnen mit PersistFile-Interface"
 
 #: components/html-editor/test-html-editor-control.c:302
 msgid "Save as... (PersistFile)"
@@ -329,15 +215,15 @@ msgstr "Speichern unter... (PersistFile)"
 
 #: components/html-editor/test-html-editor-control.c:302
 msgid "Save using the PersistFile interface"
-msgstr "Speichern mit Nutzung der PersistFile-Schnittstelle"
+msgstr "Speichern mit PersistFile-Interface"
 
 #: components/html-editor/test-html-editor-control.c:305
 msgid "Open (PersistStream)"
-msgstr "Öffnen (PersistStream)"
+msgstr "öffnen (PersistStream)"
 
 #: components/html-editor/test-html-editor-control.c:305
 msgid "Open using the PersistStream interface"
-msgstr "Öffnen mit Nutzung der PersistStream-Schnittstelle"
+msgstr "öffnen mit PersistStream-Interface"
 
 #: components/html-editor/test-html-editor-control.c:307
 msgid "Save as... (PersistStream)"
@@ -345,7 +231,7 @@ msgstr "Speichern unter... (PersistStream)"
 
 #: components/html-editor/test-html-editor-control.c:307
 msgid "Save using the PersistStream interface"
-msgstr "Speichern mit Nutzung der PersistStream-Schnittstelle"
+msgstr "Speichern mit PersistStream-Interface"
 
 #: components/html-editor/test-html-editor-control.c:321
 #: components/html-editor/toolbar.c:493
@@ -355,6 +241,11 @@ msgstr "Ausschneiden"
 #: components/html-editor/test-html-editor-control.c:321
 msgid "Cut selection to the clipboard"
 msgstr "Auswahl in die Zwischenablage ausschneiden"
+
+#: components/html-editor/test-html-editor-control.c:323
+#: components/html-editor/toolbar.c:495
+msgid "Copy"
+msgstr "Kopieren"
 
 #: components/html-editor/test-html-editor-control.c:323
 msgid "Copy selection to the clipboard"
@@ -429,31 +320,31 @@ msgstr "Adresse"
 
 #: components/html-editor/toolbar.c:53
 msgid "Pre"
-msgstr "Pre"
+msgstr "Vorformatiert"
 
 #: components/html-editor/toolbar.c:54
 msgid "List item (digit)"
-msgstr "Listenelement (Zahl)"
+msgstr "Listeneintrag (Zahl)"
 
 #: components/html-editor/toolbar.c:55
 msgid "List item (unnumbered)"
-msgstr "Listenelement (unnummeriert)"
+msgstr "Listeneintrag (unnummeriert)"
 
 #: components/html-editor/toolbar.c:56
 msgid "List item (roman)"
-msgstr "Listenelement (römisch)"
+msgstr "Listeneintrag (römisch)"
 
 #: components/html-editor/toolbar.c:236
 msgid "Default"
-msgstr "Vorgabe"
+msgstr "Standard"
 
 #: components/html-editor/toolbar.c:483
 msgid "Left align"
-msgstr "Links ausrichten"
+msgstr "Linksbündig"
 
 #: components/html-editor/toolbar.c:483
 msgid "Left justify paragraphs"
-msgstr "Absätze links ausrichten"
+msgstr "Absätze linksbündig ausrichten"
 
 #: components/html-editor/toolbar.c:485
 msgid "Centers paragraphs"
@@ -461,11 +352,11 @@ msgstr "Absätze zentrieren"
 
 #: components/html-editor/toolbar.c:487
 msgid "Right align"
-msgstr "Rechts ausrichten"
+msgstr "Rechtsbündig"
 
 #: components/html-editor/toolbar.c:487
 msgid "Right justify paragraphs"
-msgstr "Absätze rechts ausrichten"
+msgstr "Absätze rechtsbündig ausrichten"
 
 #: components/html-editor/toolbar.c:493
 msgid "Cut the selected region to the clipboard"
@@ -481,7 +372,7 @@ msgstr "Rückgängig"
 
 #: components/html-editor/toolbar.c:501
 msgid "Undo last editor operation"
-msgstr "Letzte Editor-Aktion rückgängig machen"
+msgstr "Die letzte Editor-Aktion rückgängig machen"
 
 #: components/html-editor/toolbar.c:503
 msgid "Redo"
@@ -489,23 +380,23 @@ msgstr "Wiederholen"
 
 #: components/html-editor/toolbar.c:503
 msgid "Redo undone editor operation"
-msgstr "Letzte Editor-Aktion wiederholen"
+msgstr "Die letzte rückgängig gemachte Editor-Aktion wiederholen"
 
 #: components/html-editor/toolbar.c:511
 msgid "Sets the bold font"
-msgstr "Setzt die Schrift fett"
+msgstr "Die Schrift fett setzen"
 
 #: components/html-editor/toolbar.c:513
 msgid "Make the selection italic"
-msgstr "Setzt die Schrift kursiv"
+msgstr "Die Auswahl kursiv setzen"
 
 #: components/html-editor/toolbar.c:515
 msgid "Make the selection underlined"
-msgstr "Setzt die Schrift unterstrichen"
+msgstr "Die Auswahl unterstreichen"
 
 #: components/html-editor/toolbar.c:517
 msgid "Make the selection striked out"
-msgstr "Setzt die Schrift durchgestrichen"
+msgstr "Die Auswahl durchstreichen"
 
 #: components/html-editor/toolbar.c:526
 msgid "Unindent"
@@ -513,7 +404,7 @@ msgstr "Ausrücken"
 
 #: components/html-editor/toolbar.c:526
 msgid "Indent paragraphs less"
-msgstr "Absätzte weniger einrücken"
+msgstr "Rückt Absätze weniger ein"
 
 #: components/html-editor/toolbar.c:528
 msgid "Indent"
@@ -521,11 +412,59 @@ msgstr "Einrücken"
 
 #: components/html-editor/toolbar.c:528
 msgid "Indent paragraphs more"
-msgstr "Absätzte mehr einrücken"
+msgstr "Rückt Absätzte mehr ein"
+
+#: src/html-component.c:219
+msgid "Html"
+msgstr "HTML"
+
+#: src/html-component.c:220
+msgid "Html test"
+msgstr "HTML-Test"
+
+#: src/html-component.c:226
+msgid "Test1"
+msgstr "Test1"
+
+#: src/html-component.c:233
+msgid "Test2"
+msgstr "Test2"
+
+#: src/html-component.c:239
+msgid "Test3"
+msgstr "Test3"
+
+#: src/html-component.c:245
+msgid "Test4"
+msgstr "Test4"
+
+#: src/html-component.c:251
+msgid "Test5"
+msgstr "Test5"
+
+#: src/html-component.c:257
+msgid "Test6"
+msgstr "Test6"
+
+#: src/html-component.c:263
+msgid "Test7"
+msgstr "Test7"
+
+#: src/html-component.c:617
+msgid "_Refresh"
+msgstr "Aktualisieren"
+
+#: src/html-component.c:618
+msgid "Reload the page"
+msgstr "Die Seite neu laden"
+
+#: src/html-component.c:669
+msgid "Could not initialize Bonobo!"
+msgstr "Bonobo konnte nicht initialisiert werden!"
 
 #: src/testgtkhtml.c:111
 msgid "Print pre_view"
-msgstr "Druck_vorschau"
+msgstr "Druckvorschau"
 
 #: src/testgtkhtml.c:111
 msgid "Print preview"
