@@ -12,9 +12,9 @@ INCLUDES =						\
 
 LDADD =						\
 	$(top_builddir)/src/libgtkhtml.la	\
+	$(EXTRA_GNOME_LIBS)			\
 	$(GNOMEUI_LIBS)				\
-	$(GNOME_LIBS)				\
-	$(EXTRA_GNOME_LIBS)
+	$(GNOME_LIBS)
 
 # The Editor Control
 
