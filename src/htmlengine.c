@@ -2444,6 +2444,7 @@ get_list_type (gchar c)
   <listing   unimplemented.
   <link      unimpemented.
   <li>
+  </li>
 */
 /* EP CHECK: OK */
 static void
@@ -2497,6 +2498,8 @@ parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 			list = html_stack_top (p->listStack);
 			list->itemNumber = itemNumber + 1;
 		}
+	} else if (strncmp (str, "/li", 3) == 0) {
+		close_flow (p, clue);
 	}
 }
 

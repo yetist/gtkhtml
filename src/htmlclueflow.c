@@ -330,8 +330,15 @@ get_pre_padding (HTMLClueFlow *flow, guint pad)
 		if (get_post_padding (HTML_CLUEFLOW (prev_object), 1))
 			return 0;
 
-		if (is_item (flow) && is_item (HTML_CLUEFLOW (prev_object)))
-			return 0;
+		if (is_item (HTML_CLUEFLOW (prev_object))) {
+			if (is_item (flow)) {
+				return 0;
+			} else {
+				return pad;
+			}
+		} else if (is_item (flow)) {
+			return pad;
+		}
 
 		prev = HTML_CLUEFLOW (prev_object);
 		if (prev->level > flow->level)
@@ -1359,7 +1366,8 @@ write_pre_tags (HTMLClueFlow *self,
 		}
 		if (curr_tag != NULL) {
 			if (prev && is_item (prev)) {
-				write_indentation_tags (state, prev->level, get_level (self), curr_tag);
+				write_indentation_tags (state, prev->level > 0 ? prev->level - 1 : 0,
+							get_level (self), curr_tag);
 			} else {
 				write_indentation_tags (state, 0, get_level (self), curr_tag);
 			}
@@ -1412,7 +1420,8 @@ need_list_begin (HTMLObject *self)
 	return !items_are_relative (self->prev, self)
 		&& (!self->prev
 		    || (HTML_IS_CLUEFLOW (self->prev)
-			&& HTML_CLUEFLOW (self->prev)->level < HTML_CLUEFLOW (self)->level))
+			&& (HTML_CLUEFLOW (self->prev)->level < HTML_CLUEFLOW (self)->level
+			    || !is_item (HTML_CLUEFLOW (self->prev)))))
 		    && HTML_CLUEFLOW (self)->level > 0;
 }
 
@@ -1422,7 +1431,8 @@ need_list_end (HTMLObject *self)
 	return !items_are_relative (self, self->next)
 		&& (!self->next
 		    || (HTML_IS_CLUEFLOW (self->next)
-			&& HTML_CLUEFLOW (self->next)->level < HTML_CLUEFLOW (self)->level))
+			&& (HTML_CLUEFLOW (self->next)->level < HTML_CLUEFLOW (self)->level
+			    || !is_item (HTML_CLUEFLOW (self->next)))))
 		    && HTML_CLUEFLOW (self)->level > 0;
 }
 

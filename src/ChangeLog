@@ -1,5 +1,12 @@
 2001-10-09  Radek Doulik  <rodo@ximian.com>
 
+	* htmlclueflow.c (get_pre_padding): fixed pre/post padding between
+	list and non list paragraphs
+	(need_list_begin): fix for list/non-list
+	(need_list_end): ditto
+
+	* htmlengine.c (parse_l): close flow on </li>
+
 	* htmlclueflow.c: fixed pre/post padding (was wrong between pre
 	and non-pre paragraphs with different indentation levels)
 	fixed list indentation (was wrong for indented lists and for inner
