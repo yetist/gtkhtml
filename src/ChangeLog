@@ -1,5 +1,17 @@
 2001-11-20  Radek Doulik  <rodo@ximian.com>
 
+	* htmlengine-edit-cut-and-paste.c (insert_empty_paragraph): check
+	if original paragraph is empty link and in such case replace link
+	with empty text
+
+	* htmllinktext.c (html_link_text_to_text): changed return value,
+	now this method return newly created object with the same text as
+	link and same text attributes as font style/face and with default
+	text color
+
+	* htmlengine-edit.c (html_engine_new_text): don't ever create
+	links here
+
 	* htmlengine-search.c (display_search_results): use move_to_found
 	only for non editable widget
 
