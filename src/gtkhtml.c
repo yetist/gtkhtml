@@ -817,7 +817,7 @@ key_press_event (GtkWidget *widget, GdkEventKey *event)
 	if (html_class->use_emacs_bindings && html_class->emacs_bindings && !html->binding_handled)
 		gtk_binding_set_activate (html_class->emacs_bindings, event->keyval, event->state, GTK_OBJECT (widget));
 
-	if (!html->binding_handled)
+	if (!html->binding_handled && !(event->state == GDK_SHIFT_MASK && (event->keyval == GDK_Tab || event->keyval == GDK_ISO_Left_Tab)))
 		GTK_WIDGET_CLASS (parent_class)->key_press_event (widget, event);
 	
 	retval = html->binding_handled;
