@@ -1,5 +1,14 @@
 2001-10-17  Radek Doulik  <rodo@ximian.com>
 
+	* htmlobject.c (html_object_add_to_changed): new function, adds
+	object to changed list and tries to minimalize repeated drawing
+
+	* htmlengine-edit-cut-and-paste.c (delete_object_do): flush queue
+	before delete to avoid deleted object drawing
+
+	* htmlengine.c (html_engine_flush_draw_queue): make it possible
+	flush draw queue when engine is frozen
+
 	* htmltext.c (html_text_op_cut_helper): fix rendering
 
 2001-10-16  Larry Ewing  <lewing@ximian.com>

@@ -4289,8 +4289,8 @@ html_engine_flush_draw_queue (HTMLEngine *e)
 	g_return_if_fail (e != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
-	if (e->freeze_count == 0)
-		html_draw_queue_flush (e->draw_queue);
+	/* if (e->freeze_count == 0) */
+	html_draw_queue_flush (e->draw_queue);
 }
 
 void

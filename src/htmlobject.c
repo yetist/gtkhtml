@@ -1815,3 +1815,28 @@ html_object_engine_intersection (HTMLObject *o, HTMLEngine *e, gint tx, gint ty,
 
 	return html_engine_intersection (e, x1, y1, x2, y2);
 }
+
+void
+html_object_add_to_changed (GList **changed_objs, HTMLObject *o)
+{
+	GList *l, *next;
+
+	if (!changed_objs || (*changed_objs && (*changed_objs)->data == o))
+		return;
+
+	for (l = *changed_objs; l; l = next) {
+		if (l->data == NULL) {
+			l = l->next;
+			next = l->next;
+			continue;
+		}
+		next = l->next;
+		if (html_object_is_parent (o, HTML_OBJECT (l->data))) {
+			*changed_objs = g_list_remove_link (*changed_objs, l);
+			g_list_free (l);
+		} else
+			break;
+	}
+
+	*changed_objs = g_list_prepend (*changed_objs, o);
+}

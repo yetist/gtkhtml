@@ -1021,16 +1021,6 @@ html_table_set_cells_position (HTMLTable *table, HTMLPainter *painter)
 }
 
 static void
-add_to_changed (GList **changed_objs, HTMLObject *o)
-{
-	if (!changed_objs || (*changed_objs && (*changed_objs)->data == o))
-		return;
-	*changed_objs = g_list_prepend (*changed_objs, o);
-	/* printf ("changed HTMLClueFlow %p\n", o);
-	   gtk_html_debug_dump_tree_simple (o, 0); */
-}
-
-static void
 add_clear_area (GList **changed_objs, HTMLObject *o, gint x, gint w)
 {
 	HTMLObjectClearRectangle *cr;
@@ -1072,7 +1062,7 @@ calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 	o->width  = COLUMN_OPT (table, table->totalCols) + pixel_size * table->border;
 	
 	if (o->width != old_width || o->ascent != old_ascent) {
-		add_to_changed (changed_objs, o);
+		html_object_add_to_changed (changed_objs, o);
 		if (o->width < old_width) {
 			if (o->parent && HTML_IS_CLUEFLOW (o->parent)) {
 				switch (HTML_CLUE (o->parent)->halign) {

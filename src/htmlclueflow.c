@@ -521,16 +521,6 @@ pref_right_margin (HTMLPainter *p, HTMLClueFlow *clueflow, HTMLObject *o, gint y
 }
 
 static void
-add_to_changed (GList **changed_objs, HTMLObject *o)
-{
-	if (!changed_objs || (*changed_objs && (*changed_objs)->data == o))
-		return;
-	*changed_objs = g_list_prepend (*changed_objs, o);
-	/* printf ("changed HTMLClueFlow %p\n", o);
-	   gtk_html_debug_dump_tree_simple (o, 0); */
-}
-
-static void
 add_clear_area (GList **changed_objs, HTMLObject *o, gint x, gint w)
 {
 	HTMLObjectClearRectangle *cr;
@@ -969,7 +959,7 @@ calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 			if (old_width > o->max_width && o->width < old_width) {
 				add_clear_area (changed_objs, o, o->width, old_width - o->width);
 			}
-			add_to_changed (changed_objs, o);
+			html_object_add_to_changed (changed_objs, o);
 		}
 	}
 

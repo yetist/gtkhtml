@@ -546,4 +546,7 @@ gboolean  html_object_engine_intersection  (HTMLObject *o,
 					    gint       *x2,
 					    gint       *y2);
 
+void  html_object_add_to_changed  (GList      **changed_objs,
+				   HTMLObject  *o);
+
 #endif /* _HTMLOBJECT_H_ */

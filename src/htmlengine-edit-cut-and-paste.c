@@ -424,6 +424,10 @@ delete_object_do (HTMLEngine *e, HTMLObject **object, guint *len)
 	place_cursor_before_mark (e);
 	move_cursor_before_delete (e);
 	html_engine_disable_selection (e);
+
+	/* draw pending */
+	html_engine_flush_draw_queue (e);
+
 	*len     = 0;
 	*object  = html_object_op_cut  (HTML_OBJECT (from->data), e, from->next, to->next, left, right, len);
 	position = e->cursor->position;
@@ -549,33 +553,12 @@ isolate_tables (HTMLEngine *e, HTMLCursor *orig, HTMLUndoDirection dir)
 static inline void
 insert_object_do (HTMLEngine *e, HTMLObject *obj, guint *len, gint level, gboolean check, HTMLUndoDirection dir)
 {
-	/* HTMLObject *cur; */
 	HTMLCursor *orig;
 	GList *left = NULL, *right = NULL;
 	GList *first = NULL, *last = NULL;
-	/* gint cursor_level; */
-
-	/* printf ("insert_object_do level: %d\n", level); */
 
 	html_engine_freeze (e);
-
-	/* level = 0;
-	cur   = html_object_get_head_leaf (obj);
-	while (cur) {
-		level++;
-		cur = cur->parent;
-	}
-	cursor_level = 0;
-	cur   = e->cursor->object;
-	while (cur) {
-		cursor_level++;
-		cur = cur->parent;
-		} */
 	orig = html_cursor_dup (e->cursor);
-
-	/* while (cursor_level < level)
-	level -= 3; */
-
 	html_object_change_set_down (obj, HTML_CHANGE_ALL);
 	split_and_add_empty_texts (e, level, &left, &right);
 	first = html_object_heads_list (obj);

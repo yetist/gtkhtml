@@ -95,16 +95,6 @@ get_lmargin (HTMLObject *o, HTMLPainter *painter)
 }
 
 static void
-add_to_changed (GList **changed_objs, HTMLObject *o)
-{
-	if (!changed_objs || (*changed_objs && (*changed_objs)->data == o))
-		return;
-	*changed_objs = g_list_prepend (*changed_objs, o);
-	/* printf ("changed HTMLClueV %p\n", o);
-	   gtk_html_debug_dump_tree_simple (o, 0); */
-}
-
-static void
 add_clear_area_behind (GList **changed_objs, HTMLObject *o, gint x, gint y, gint w, gint h)
 {
 	HTMLObjectClearRectangle *cr;
@@ -211,7 +201,7 @@ do_layout (HTMLObject *o, HTMLPainter *painter, gboolean calc_size, GList **chan
 					/* printf ("\nfirst_y_off: %d x %d --> %d\n", old_y, o->ascent - clue->curr->descent,
 					   first_y_off + clue->curr->ascent); */
 				}
-				add_to_changed (&local_changed_objs, clue->curr);
+				html_object_add_to_changed (&local_changed_objs, clue->curr);
 			}
 		}
 		clue->curr->x = lmargin;
