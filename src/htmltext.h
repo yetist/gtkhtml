@@ -34,7 +34,8 @@ struct _HTMLText {
 	HTMLFont *font;
 };
 
-HTMLObject *html_text_new (gchar *text, HTMLFont *font, HTMLPainter *painter);
-void        html_text_draw (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gint height, gint tx, gint ty);
+HTMLObject *html_text_new  (gchar *text, HTMLFont *font, HTMLPainter *painter);
+void        html_text_draw (HTMLObject *o, HTMLPainter *p, gint x, gint y,
+			    gint width, gint height, gint tx, gint ty);
 
 #endif /* _HTMLTEXT_H_ */

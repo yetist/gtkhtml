@@ -34,6 +34,15 @@ string_tokenizer_new (void)
 	return s;
 }
 
+void
+string_tokenizer_destroy (StringTokenizer *st)
+{
+	g_return_if_fail (st != NULL);
+
+	g_free (st->buffer);
+	g_free (st);
+}
+
 gboolean
 string_tokenizer_has_more_tokens (StringTokenizer *t)
 {

@@ -43,6 +43,7 @@ html_text_master_new (gchar *text, HTMLFont *font, HTMLPainter *painter)
 	object->width = 0;
 	object->ascent = html_font_calc_ascent (font);
 	object->descent = html_font_calc_descent (font);
+	
 	htmltext->font = font;
 	htmltext->text = text;
 	textmaster->prefWidth = html_font_calc_width (font, text, -1);
@@ -92,7 +93,7 @@ html_text_master_fit_line (HTMLObject *o, gboolean startOfLine, gboolean firstRu
 	next_obj = o->nextObj;
 	while (next_obj && (next_obj->ObjectType == TextSlave)) {
 		o->nextObj = next_obj->nextObj;
-		g_free (next_obj);
+		html_object_destroy (next_obj);
 		next_obj = o->nextObj;
 	}
 	

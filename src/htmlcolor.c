@@ -32,15 +32,38 @@ html_color_stack_new (void)
 }
 
 void
+html_color_stack_destroy (HTMLColorStack *cs)
+{
+	g_return_if_fail (cs != NULL);
+
+	html_color_stack_clear (cs);
+	g_free (cs);
+}
+
+void
 html_color_stack_push (HTMLColorStack *cs, GdkColor *c)
 {
+	g_return_if_fail (cs != NULL);
+	g_return_if_fail (c != NULL);
+	
 	cs->list = g_list_prepend (cs->list, (gpointer) c);
 }
 
 void
 html_color_stack_clear (HTMLColorStack *cs)
 {
-	/* FIXME: Should unref the colors */
+	GList *stack;
+	
+	g_return_if_fail (cs != NULL);
+
+	for (stack = cs->list; stack; stack = stack->next){
+		GdkColor *c = stack->data;
+		
+		gdk_color_free (c);
+	}
+	
+	g_list_free (cs->list);
+	cs->list = NULL;
 }
 
 GdkColor *

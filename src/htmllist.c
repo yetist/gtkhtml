@@ -22,25 +22,43 @@
 gboolean
 html_list_stack_is_empty (HTMLListStack *ls)
 {
+	g_return_val_if_fail (ls != NULL, TRUE);
+	
 	return (g_list_length (ls->list) == 0);
 }
 
 gint
 html_list_stack_count (HTMLListStack *ls)
 {
+	g_return_val_if_fail (ls != NULL, 0);
+	
 	return g_list_length (ls->list);
 }
 
 void
 html_list_stack_push (HTMLListStack *ls, HTMLList *l)
 {
+	g_return_if_fail (ls != NULL);
+	g_return_if_fail (l != NULL);
+	
 	ls->list = g_list_prepend (ls->list, (gpointer) l);
 }
 
 void
 html_list_stack_clear (HTMLListStack *ls)
 {
-	/* FIXME: Do something */
+	GList *stack;
+	
+	g_return_if_fail (ls != NULL);
+
+	for (stack = ls->list; stack; stack = stack->next){
+		HTMLList *list = stack->data;
+
+
+		html_list_destroy (list);
+	}
+	g_list_free (ls->list);
+	ls->list = NULL;
 }
 
 HTMLList *
@@ -48,6 +66,8 @@ html_list_stack_top (HTMLListStack *ls)
 {
 	HTMLList *list;
 
+	g_return_val_if_fail (ls != NULL, NULL);
+	
 	list = (HTMLList *)(g_list_first (ls->list))->data;
 
 	return list;
@@ -58,6 +78,8 @@ html_list_stack_pop (HTMLListStack *ls)
 {
 	HTMLList *list;
 
+	g_return_val_if_fail (ls != NULL, NULL);
+	
 	list = html_list_stack_top (ls);
 
 	ls->list = g_list_remove (ls->list, list);
@@ -75,6 +97,15 @@ html_list_stack_new (void)
 	return ls;
 }
 
+void
+html_list_stack_destroy (HTMLListStack *list_stack)
+{
+	g_return_if_fail (list_stack != NULL);
+
+	html_list_stack_clear (list_stack);
+	g_free (list_stack);
+}
+
 HTMLList *
 html_list_new (ListType t, ListNumType nt)
 {
@@ -86,4 +117,12 @@ html_list_new (ListType t, ListNumType nt)
 	list->itemNumber = 1;
 
 	return list;
+}
+
+void
+html_list_destroy (HTMLList *list)
+{
+	g_return_if_fail (list != NULL);
+	
+	g_free (list);
 }

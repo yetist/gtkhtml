@@ -38,14 +38,17 @@ struct _HTMLListStack {
 	GList *list;
 };
 
-HTMLListStack *html_list_stack_new (void);
+HTMLListStack *html_list_stack_new      (void);
+void           html_list_stack_destroy  (HTMLListStack *ls);
 gboolean       html_list_stack_is_empty (HTMLListStack *ls);
-gint           html_list_stack_count (HTMLListStack *ls);
-void           html_list_stack_push (HTMLListStack *ls, HTMLList *l);
-void           html_list_stack_clear (HTMLListStack *ls);
-HTMLList      *html_list_stack_top (HTMLListStack *ls);
-HTMLList      *html_list_stack_pop (HTMLListStack *ls);
-HTMLList      *html_list_new (ListType t, ListNumType nt);
+gint           html_list_stack_count    (HTMLListStack *ls);
+void           html_list_stack_push     (HTMLListStack *ls, HTMLList *l);
+void           html_list_stack_clear    (HTMLListStack *ls);
+HTMLList      *html_list_stack_top      (HTMLListStack *ls);
+HTMLList      *html_list_stack_pop      (HTMLListStack *ls);
+
+HTMLList      *html_list_new     (ListType t, ListNumType nt);
+void           html_list_destroy (HTMLList *list);
 
 #endif /* _HTMLLIST_H_ */
 

@@ -45,6 +45,15 @@ html_tokenizer_new (void)
 	return t;
 }
 
+void
+html_tokenizer_destroy (HTMLTokenizer *tokenizer)
+{
+	g_return_if_fail (tokenizer != NULL);
+
+	html_tokenizer_reset (tokenizer);
+	g_free (tokenizer);
+}
+
 gchar *
 html_tokenizer_next_token (HTMLTokenizer *t)
 {
@@ -88,8 +97,17 @@ html_tokenizer_has_more_tokens (HTMLTokenizer *t)
 void
 html_tokenizer_reset (HTMLTokenizer *t)
 {
-	/* FIXME: Should free the html buffers */
+	GList *buffers;
 	
+	/*
+	 * Free buffers here
+	 */
+	for (buffers = t->tokenBufferList; buffers; buffers = buffers->next)
+		g_free (buffers->data);
+	g_list_free (t->tokenBufferList);
+	t->tokenBufferList = NULL;	
+
+
 	t->last = t->next = t->curr = 0;
 	t->tokenBufferSizeRemaining = 0;
 
@@ -110,10 +128,6 @@ html_tokenizer_begin (HTMLTokenizer *t)
 	t->buffer = g_malloc (1024);
 	t->dest = t->buffer;
 	t->size = 1000;
-
-	
-	/* FIXME: The following line should be in reset */
-	t->tokenBufferList = NULL;
 
 	t->dest = t->buffer;
 	t->tag = FALSE;
@@ -386,7 +400,7 @@ html_tokenizer_write (HTMLTokenizer *t, gchar *string)
 					    (!t->tag)) {
 						t->searchBuffer [t->searchCount + 1] = '\0';
 						
-						/* FIXME: look up the seuqences somewhere */
+						printf ("Found: %s\b", t->searchBuffer);
 						len = 0;
 					}
 				}

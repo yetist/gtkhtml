@@ -83,9 +83,9 @@ struct _HTMLObject {
 	void (*calc_absolute_pos) (HTMLObject *o, gint x, gint y);
 };
 
-void        html_object_init (HTMLObject *o, objectType ObjectType);
-HTMLObject *html_object_new (void);
-
+void        html_object_init    (HTMLObject *o, objectType ObjectType);
+HTMLObject *html_object_new     (void);
+void        html_object_destroy (HTMLObject *o);
 #endif /* _HTMLOBJECT_H_ */
 
 

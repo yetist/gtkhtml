@@ -82,6 +82,22 @@ html_engine_get_type (void)
 }
 
 static void
+html_engine_destroy (GtkObject *object)
+{
+	HTMLEngine *engine = HTML_ENGINE (object);
+	
+	html_tokenizer_destroy   (engine->ht);
+	string_tokenizer_destroy (engine->st);
+	html_font_stack_destroy  (engine->fs);
+	html_color_stack_destroy (engine->cs);
+	html_list_stack_destroy  (engine->listStack);
+	html_settings_destroy    (engine->settings);
+	html_painter_destroy     (engine->painter);
+	
+	GTK_OBJECT_CLASS (parent_class)->destroy (object);
+}
+
+static void
 html_engine_class_init (HTMLEngineClass *klass)
 {
 	GtkObjectClass *object_class;
@@ -98,6 +114,8 @@ html_engine_class_init (HTMLEngineClass *klass)
 				gtk_marshal_NONE__NONE,
 				GTK_TYPE_NONE, 0);
 	gtk_object_class_add_signals (object_class, html_engine_signals, LAST_SIGNAL);
+
+	object_class->destroy = html_engine_destroy;
 }
 
 static void
@@ -821,7 +839,7 @@ void
 html_engine_parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	if (strncmp (str, "body", 4) == 0) {
-		GdkColor *bgcolor = g_new0 (GdkColor, 1);
+		GdkColor bgcolor;
 		gboolean bgColorSet = FALSE;
 
 		if (e->bodyParsed)
@@ -833,7 +851,7 @@ html_engine_parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		while (string_tokenizer_has_more_tokens (e->st)) {
 			gchar *token = string_tokenizer_next_token (e->st);
 			if (strncasecmp (token, "bgcolor=", 8) == 0) {
-				html_engine_set_named_color (e, bgcolor, token + 8);
+				html_engine_set_named_color (e, &bgcolor, token + 8);
 				g_print ("bgcolor is set\n");
 				bgColorSet = TRUE;
 			}
@@ -851,7 +869,7 @@ html_engine_parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 			/* FIXME: Do this in a better way */
 		}
 		else {
-			e->settings->bgcolor = bgcolor;
+			html_settings_set_bgcolor (e->settings, &bgcolor);
 			html_painter_set_background_color (e->painter, e->settings->bgcolor);			
 		}
 	}

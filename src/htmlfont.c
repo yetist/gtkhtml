@@ -72,6 +72,15 @@ html_font_stack_new (void)
 	return fs;
 }
 
+void
+html_font_stack_destroy (HTMLFontStack *stack)
+{
+	g_return_if_fail (stack != NULL);
+	
+	html_font_stack_clear (stack);
+	g_free (stack);
+}
+
 gint
 html_font_calc_ascent (HTMLFont *f)
 {

@@ -105,6 +105,8 @@ html_painter_draw_shade_line (HTMLPainter *p, gint x, gint y, gint width)
 	static GdkColor* dark = NULL;
 	static GdkColor* light = NULL;
 
+	g_return_if_fail (p != NULL);
+	
 	if (!dark) {
 		dark = g_new0 (GdkColor, 1);
 		dark->red = 32767;
@@ -129,6 +131,9 @@ html_painter_draw_shade_line (HTMLPainter *p, gint x, gint y, gint width)
 void
 html_painter_set_font (HTMLPainter *p, HTMLFont *f)
 {
+	g_return_if_fail (p != NULL);
+	g_return_if_fail (f != NULL);
+	
 	p->font = f;
 }
 
@@ -140,4 +145,12 @@ html_painter_new (void)
 	painter = g_new0 (HTMLPainter, 1);
 
 	return painter;
+}
+
+void
+html_painter_destroy (HTMLPainter *painter)
+{
+	g_return_if_fail (painter != NULL);
+
+	g_free (painter);
 }

@@ -29,6 +29,8 @@ struct _HTMLSettings {
 	GdkColor *bgcolor;
 };
 
-HTMLSettings *html_settings_new (void);
+HTMLSettings *html_settings_new         (void);
+void          html_settings_destroy     (HTMLSettings *settings);
+void          html_settings_set_bgcolor (HTMLSettings *settings, GdkColor *color);
 
 #endif /* _HTMLSETTINGS_H_ */

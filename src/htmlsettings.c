@@ -20,11 +20,31 @@
 #include <gdk/gdk.h>
 #include "htmlsettings.h"
 
-HTMLSettings 
-*html_settings_new (void)
+HTMLSettings *
+html_settings_new (void)
 {
 	HTMLSettings *s = g_new0 (HTMLSettings, 1);
 	
 	s->fontBaseSize = 3;
 	return s;
 }
+
+void
+html_settings_destroy (HTMLSettings *settings)
+{
+	g_return_if_fail (settings != NULL);
+
+	if (settings->bgcolor)
+		gdk_color_free (settings->bgcolor);
+	g_free (settings);
+}
+
+void
+html_settings_set_bgcolor (HTMLSettings *settings, GdkColor *color)
+{
+	g_return_if_fail (settings != NULL);
+	g_return_if_fail (color != NULL);
+
+	settings->bgcolor = gdk_color_copy (color);
+}
+

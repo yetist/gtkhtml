@@ -23,7 +23,7 @@
 
 void html_cluev_append_right_aligned (HTMLClue *clue, HTMLClue *aclue);
 
-HTMLObject *
+static HTMLObject *
 cluev_next_aligned (HTMLObject *aclue)
 {
 	return HTML_OBJECT (HTML_CLUEALIGNED (aclue)->nextAligned);

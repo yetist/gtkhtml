@@ -93,23 +93,33 @@ struct _HTMLBlockingToken {
 typedef struct  _HTMLTokenizer HTMLTokenizer;
 typedef struct  _HTMLBlockingToken HTMLBlockingToken;
 
-HTMLTokenizer *html_tokenizer_new (void);
-void           html_tokenizer_reset (HTMLTokenizer *t);
-void           html_tokenizer_begin (HTMLTokenizer *t);
-void           html_tokenizer_add_pending (HTMLTokenizer *t);
-void           html_tokenizer_append_token (HTMLTokenizer *t, const gchar *string, gint len);
-void           html_tokenizer_write (HTMLTokenizer *t, gchar *string);
-void           html_tokenizer_append_token_buffer (HTMLTokenizer *t, gint min_size);
-gboolean       html_tokenizer_has_more_tokens (HTMLTokenizer *t);
-gchar *        html_tokenizer_next_token (HTMLTokenizer *t);
-void           html_tokenizer_next_token_buffer (HTMLTokenizer *t);
-HTMLBlockingToken *html_blocking_token_new (TokenType ttype, TokenPtr tok);
-void           html_blocking_token_append (HTMLTokenizer *t, HTMLBlockingToken *bt);
-gchar         *html_blocking_token_get_token_name (HTMLBlockingToken *token);
-HTMLBlockingToken *html_blocking_token_get_last (HTMLTokenizer *t);
-void           html_tokenizer_end (HTMLTokenizer *t);
-gboolean       html_blocking_token_is_empty (HTMLTokenizer *t);
-HTMLBlockingToken *html_blocking_token_get_first (HTMLTokenizer *t);
-void          html_blocking_token_remove_last (HTMLTokenizer *t);
+HTMLTokenizer *html_tokenizer_new          (void);
+void           html_tokenizer_destroy      (HTMLTokenizer *tokenizer);
+void           html_tokenizer_reset        (HTMLTokenizer *t);
+void           html_tokenizer_begin        (HTMLTokenizer *t);
+void           html_tokenizer_add_pending  (HTMLTokenizer *t);
+void           html_tokenizer_append_token (HTMLTokenizer *t,
+					    const gchar *string, gint len);
+void           html_tokenizer_write        (HTMLTokenizer *t, gchar *string);
+gchar *        html_tokenizer_next_token   (HTMLTokenizer *t);
+void           html_tokenizer_end          (HTMLTokenizer *t);
+
+void           html_tokenizer_next_token_buffer   (HTMLTokenizer *t);
+void           html_tokenizer_append_token_buffer (HTMLTokenizer *t,
+						   gint min_size);
+gboolean       html_tokenizer_has_more_tokens     (HTMLTokenizer *t);
+
+
+HTMLBlockingToken *html_blocking_token_new            (TokenType ttype,
+						       TokenPtr tok);
+gchar             *html_blocking_token_get_token_name (HTMLBlockingToken *token);
+HTMLBlockingToken *html_blocking_token_get_last       (HTMLTokenizer *t);
+gboolean           html_blocking_token_is_empty       (HTMLTokenizer *t);
+HTMLBlockingToken *html_blocking_token_get_first      (HTMLTokenizer *t);
+
+void               html_blocking_token_remove_last    (HTMLTokenizer *t);
+void               html_blocking_token_append         (HTMLTokenizer *t,
+						       HTMLBlockingToken *bt);
+
 
 #endif /* _HTMLTOKENIZER_H_ */

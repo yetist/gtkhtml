@@ -1,5 +1,33 @@
 1999-10-23  Miguel de Icaza  <miguel@gnu.org>
 
+	* htmltextmaster.c (html_text_master_fit_line): Use
+	html_object_destroy here instead of g_free directly.
+
+	* htmlengine.c (html_engine_parse_b): Set the color using the
+	proper API to insure proper color allocation management (Gdk uses
+	chunks).
+
+	* htmlsettings.c (html_settings_destroy): New method.
+	(html_settings_set_bgcolor): New method.
+
+	* htmllist.c (html_list_destroy): New method.
+	(html_list_stack_clear): Implement.
+
+	* htmlcolor.c (html_color_stack_destroy): Added destroy method.
+	(html_color_stack_clear): Implemented.
+
+	* htmlfont.c (html_font_stack_destroy): Added destroy method.
+
+	* stringtokenizer.c (string_tokenizer_destroy): Added destroy method.
+
+	* htmltokenizer.c (html_tokenizer_destroy): Added destroy method
+	and release reosouorces.
+	(html_tokenizer_reset): Free buffers here.
+
+	* htmlengine.c (html_engine_class_init): Added destroy handler.
+
+	* htmltokenizer.c (html_tokenizer_begin): Fixed FIXME.
+
 	* htmlcluev.c (html_cluev_appended): Initialize this one.
 	(cluev_next_aligned): Utility routine to kill warnings.
 

@@ -30,7 +30,6 @@
 #include "htmlclue.h"
 #include "debug.h"
 
-static void html_object_destroy (HTMLObject *o);
 static gint html_object_calc_min_width (HTMLObject *o);
 static void html_object_set_max_width(HTMLObject *o, gint max_width);
 static HTMLFitType html_object_fit_line (HTMLObject *o, gboolean startOfLine, gboolean firstRun, gint widthLeft);
@@ -38,7 +37,7 @@ static void html_object_reset (HTMLObject *o);
 static gint html_object_calc_preferred_width (HTMLObject *o);
 static void html_object_calc_absolute_pos (HTMLObject *o, gint x, gint y);
 
-static void
+void
 html_object_destroy (HTMLObject *o)
 {
 	g_free (o);

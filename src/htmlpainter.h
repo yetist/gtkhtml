@@ -33,6 +33,7 @@ struct _HTMLPainter {
 typedef struct _HTMLPainter HTMLPainter;
 
 HTMLPainter *html_painter_new (void);
+void         html_painter_destroy (HTMLPainter *painter);
 void         html_painter_set_pen (HTMLPainter *painter, GdkColor *color);
 void         html_painter_draw_rect (HTMLPainter *painter, gint x, gint y, gint width, gint height);
 void         html_painter_draw_text (HTMLPainter *painter, gint x, gint y, gchar *text, gint len);
