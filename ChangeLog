@@ -1,3 +1,7 @@
+2004-01-20 Alastair McKinstry <mckinstry@computer.org>
+
+	* configure.in: Added Irish to ALL_LINGUAS
+
 2004-01-12  Radek Doulik  <rodo@ximian.com>
 
 	* configure.in: bumped version to 3.1.6 for the new release
