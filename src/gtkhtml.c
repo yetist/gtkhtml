@@ -583,6 +583,8 @@ scroll_timeout_cb (gpointer data)
 {
 	GtkWidget *widget;
 	GtkHTML *html;
+	HTMLEngine *engine;
+
 	GtkLayout *layout;
 	gint x_scroll, y_scroll;
 	gint x, y;
@@ -591,12 +593,14 @@ scroll_timeout_cb (gpointer data)
 
 	widget = GTK_WIDGET (data);
 	html = GTK_HTML (data);
+	engine = html->engine;
 
 	gdk_window_get_pointer (widget->window, &x, &y, NULL);
 
 	if (x < 0) {
 		x_scroll = x;
-		x = 0;
+		if (x + engine->x_offset >= 0)
+			x = 0;
 	} else if (x >= widget->allocation.width) {
 		x_scroll = x - widget->allocation.width + 1;
 		x = widget->allocation.width;
@@ -607,7 +611,8 @@ scroll_timeout_cb (gpointer data)
 
 	if (y < 0) {
 		y_scroll = y;
-		y = 0;
+		if (y + engine->y_offset >= 0)
+			y = 0;
 	} else if (y >= widget->allocation.height) {
 		y_scroll = y - widget->allocation.height + 1;
 		y = widget->allocation.height;
@@ -616,13 +621,9 @@ scroll_timeout_cb (gpointer data)
 	}
 	y_scroll /= 2;
 
-	if (html->in_selection && (x_scroll != 0 || y_scroll != 0)) {
-		HTMLEngine *engine;
-
-		engine = html->engine;
+	if (html->in_selection && (x_scroll != 0 || y_scroll != 0))
 		html_engine_select_region (engine, html->selection_x1, html->selection_y1,
 					   x + engine->x_offset, y + engine->y_offset);
-	}
 
 	layout = GTK_LAYOUT (widget);
 

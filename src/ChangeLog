@@ -2,6 +2,8 @@
 
 	* gtkhtml.c (gtk_html_set_paragraph_style): if selection is
 	active, change style everytime
+	(scroll_timeout_cb): don't clamp coordinates if we are already at
+	the boundaries
 
 	* htmlengine-edit-cut-and-paste.c (delete_object): update
 	selection after cursor/mark move
