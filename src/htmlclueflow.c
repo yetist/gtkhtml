@@ -1299,10 +1299,20 @@ html_clueflow_set_style (HTMLClueFlow *flow,
 			 HTMLClueFlowStyle style)
 {
 	g_return_if_fail (flow != NULL);
+	g_return_if_fail (engine != NULL);
+	g_return_if_fail (HTML_IS_ENGINE (engine));
 
 	flow->style = style;
 
 	relayout_and_draw (HTML_OBJECT (flow), engine);
+}
+
+HTMLClueFlowStyle
+html_clueflow_get_style (HTMLClueFlow *flow)
+{
+	g_return_val_if_fail (flow != NULL, HTML_CLUEFLOW_STYLE_NORMAL);
+
+	return flow->style;
 }
 
 void
@@ -1311,10 +1321,20 @@ html_clueflow_set_halignment (HTMLClueFlow *flow,
 			      HTMLHAlignType alignment)
 {
 	g_return_if_fail (flow != NULL);
+	g_return_if_fail (engine != NULL);
+	g_return_if_fail (HTML_IS_ENGINE (engine));
 
 	HTML_CLUE (flow)->halign = alignment;
 
 	relayout_and_draw (HTML_OBJECT (flow), engine);
+}
+
+HTMLHAlignType
+html_clueflow_get_halignment (HTMLClueFlow *flow)
+{
+	g_return_val_if_fail (flow != NULL, HTML_HALIGN_NONE);
+
+	return HTML_CLUE (flow)->halign;
 }
 
 void
@@ -1323,6 +1343,8 @@ html_clueflow_indent (HTMLClueFlow *flow,
 		      gint indentation)
 {
 	g_return_if_fail (flow != NULL);
+	g_return_if_fail (engine != NULL);
+	g_return_if_fail (HTML_IS_ENGINE (engine));
 
 	if (indentation == 0)
 		return;
@@ -1342,18 +1364,45 @@ html_clueflow_indent (HTMLClueFlow *flow,
 }
 
 void
+html_clueflow_set_indentation (HTMLClueFlow *flow,
+			       HTMLEngine *engine,
+			       guint8 indentation)
+{
+	g_return_if_fail (flow != NULL);
+	g_return_if_fail (engine != NULL);
+	g_return_if_fail (HTML_IS_ENGINE (engine));
+
+	if (flow->level == indentation)
+		return;
+
+	flow->level = indentation;
+
+	relayout_for_level_change (flow, engine);
+}
+
+guint8
+html_clueflow_get_indentation (HTMLClueFlow *flow)
+{
+	g_return_val_if_fail (flow != NULL, 0);
+
+	return flow->level;
+}
+
+void
 html_clueflow_set_properties (HTMLClueFlow *flow,
 			      HTMLEngine *engine,
 			      HTMLClueFlowStyle style,
-			      guint8 level,
+			      guint8 indentation,
 			      HTMLHAlignType alignment)
 {
 	g_return_if_fail (flow != NULL);
+	g_return_if_fail (engine != NULL);
+	g_return_if_fail (HTML_IS_ENGINE (engine));
 
 	HTML_CLUE (flow)->halign = alignment;
 
 	flow->style = style;
-	flow->level = level;
+	flow->level = indentation;
 
 	relayout_and_draw (HTML_OBJECT (flow), engine);
 }
@@ -1361,15 +1410,15 @@ html_clueflow_set_properties (HTMLClueFlow *flow,
 void
 html_clueflow_get_properties (HTMLClueFlow *flow,
 			      HTMLClueFlowStyle *style_return,
-			      guint8 *level_return,
+			      guint8 *indentation_return,
 			      HTMLHAlignType *alignment_return)
 {
 	g_return_if_fail (flow != NULL);
 
 	if (style_return != NULL)
 		*style_return = flow->style;
-	if (level_return != NULL)
-		*level_return = flow->level;
+	if (indentation_return != NULL)
+		*indentation_return = flow->level;
 	if (alignment_return != NULL)
 		*alignment_return = HTML_CLUE (flow)->halign;
 }

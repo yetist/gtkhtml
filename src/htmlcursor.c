@@ -49,9 +49,9 @@ debug_location (const HTMLCursor *cursor)
 		return;
 	}
 
-	g_print ("Cursor in %s (%p), offset %d, relative %d\n",
+	g_print ("Cursor in %s (%p), offset %d, position %d\n",
 		 html_type_name (HTML_OBJECT_TYPE (object)),
-		 object, cursor->offset, cursor->relative_position);
+		 object, cursor->offset, cursor->position);
 }
 #else
 #define debug_location(cursor)
@@ -90,7 +90,7 @@ html_cursor_new (void)
 	new->target_x = 0;
 	new->have_target_x = FALSE;
 
-	new->relative_position = 0;
+	new->position = 0;
 
 	return new;
 }
@@ -123,7 +123,7 @@ html_cursor_copy (HTMLCursor *dest,
 	dest->offset = src->offset;
 	dest->target_x = src->target_x;
 	dest->have_target_x = src->have_target_x;
-	dest->relative_position = src->relative_position;
+	dest->position = src->position;
 }
 
 HTMLCursor *
@@ -143,18 +143,6 @@ html_cursor_normalize (HTMLCursor *cursor)
 	g_return_if_fail (cursor != NULL);
 
 	normalize (&cursor->object, &cursor->offset);
-}
-
-
-void
-html_cursor_set_position (HTMLCursor *cursor,
-			  HTMLObject *object,
-			  guint offset)
-{
-	g_return_if_fail (cursor != NULL);
-
-	cursor->object = object;
-	cursor->offset = offset;
 }
 
 
@@ -211,21 +199,16 @@ html_cursor_home (HTMLCursor *cursor,
 
 	cursor->object = obj;
 	cursor->offset = 0;
-	cursor->relative_position = 0;
-
-	html_cursor_reset_relative (cursor);
+	cursor->position = 0;
 
 	debug_location (cursor);
 }
 
 
-static gboolean
-forward_object (HTMLCursor *cursor,
-		HTMLEngine *engine)
+static HTMLObject *
+forward_object (HTMLObject *obj)
 {
-	HTMLObject *obj;
-
-	obj = next (cursor->object);
+	obj = next (obj);
 
 	/* Traverse the tree in top-bottom, left-right order until an element
            that accepts the cursor is found.  */
@@ -243,13 +226,9 @@ forward_object (HTMLCursor *cursor,
 	}
 
 	if (obj == NULL)
-		return FALSE;
+		return NULL;
 
-	cursor->object = obj;
-	cursor->offset = 0;
-	cursor->relative_position++;
-
-	return TRUE;
+	return obj;
 }
 
 static gboolean
@@ -284,7 +263,7 @@ forward (HTMLCursor *cursor,
 
 			if (offset < text->text_len) {
 				cursor->offset++;
-				cursor->relative_position++;
+				cursor->position++;
 				return TRUE;
 			}
 
@@ -311,13 +290,18 @@ forward (HTMLCursor *cursor,
 
 		if (obj->next == NULL && offset == 0) {
 			cursor->offset = 1;
-			cursor->relative_position++;
+			cursor->position++;
 			return TRUE;
 		}
 	}
 
-	if (! forward_object (cursor, engine))
+	obj = forward_object (cursor->object);
+	if (obj == NULL)
 		return FALSE;
+
+	cursor->object = obj;
+	cursor->offset = 0;
+	cursor->position++;
 
 	if (cursor->object->prev != NULL)
 		cursor->offset++;
@@ -342,24 +326,18 @@ html_cursor_forward (HTMLCursor *cursor,
 	return retval;
 }
 
-gboolean
-html_cursor_forward_object (HTMLCursor *cursor,
-			    HTMLEngine *engine)
+HTMLObject *
+html_object_next_for_cursor (HTMLObject *obj)
 {
-	g_return_val_if_fail (cursor != NULL, FALSE);
+	g_return_val_if_fail (obj != NULL, NULL);
 
-	return forward_object (cursor, engine);
+	return forward_object (obj);
 }
 
 
-static gboolean
-backward_object (HTMLCursor *cursor,
-		 HTMLEngine *engine)
+static HTMLObject *
+backward_object (HTMLObject *obj)
 {
-	HTMLObject *obj;
-
-	obj = cursor->object;
-
 	while (obj != NULL) {
 		while (obj != NULL && obj->prev == NULL)
 			obj = obj->parent;
@@ -382,10 +360,7 @@ backward_object (HTMLCursor *cursor,
 			case HTML_TYPE_LINKTEXT:
 			case HTML_TYPE_TEXTMASTER:
 			case HTML_TYPE_LINKTEXTMASTER:
-				cursor->object = obj;
-				cursor->offset = HTML_TEXT (obj)->text_len;
-				cursor->relative_position--;
-				return TRUE;
+				return obj;
 
 			case HTML_TYPE_TEXTSLAVE:
 				/* Do nothing: go to the previous element, as
@@ -397,14 +372,11 @@ backward_object (HTMLCursor *cursor,
 				g_assert_not_reached ();
 			}
 		} else if (html_object_accepts_cursor (obj)) {
-			cursor->object = obj;
-			cursor->offset = 1;
-			cursor->relative_position--;
-			return TRUE;
+			return obj;
 		}
 	}
 
-	return FALSE;
+	return NULL;
 }
 
 static gboolean
@@ -433,7 +405,7 @@ backward (HTMLCursor *cursor,
 		case HTML_TYPE_LINKTEXTMASTER:
 			if (offset > 1 || (offset == 1 && obj->prev == NULL)) {
 				cursor->offset = offset - 1;
-				cursor->relative_position--;
+				cursor->position--;
 				return TRUE;
 			}
 			break;
@@ -448,11 +420,23 @@ backward (HTMLCursor *cursor,
 		}
 	} else if (offset > 0 && obj->prev == NULL) {
 		cursor->offset = 0;
-		cursor->relative_position--;
+		cursor->position--;
 		return TRUE;
 	}
 
-	return backward_object (cursor, engine);
+	obj = backward_object (obj);
+	if (obj == NULL)
+		return FALSE;
+
+	if (html_object_is_text (obj))
+		cursor->offset = HTML_TEXT (obj)->text_len;
+	else
+		cursor->offset = 1;
+
+	cursor->object = obj;
+	cursor->position--;
+
+	return TRUE;
 }
 
 gboolean
@@ -472,13 +456,12 @@ html_cursor_backward (HTMLCursor *cursor,
 	return retval;
 }
 
-gboolean
-html_cursor_backward_object (HTMLCursor *cursor,
-			     HTMLEngine *engine)
+HTMLObject *
+html_object_prev_for_cursor (HTMLObject *object)
 {
-	g_return_val_if_fail (cursor != NULL, FALSE);
+	g_return_val_if_fail (object != NULL, NULL);
 
-	return backward_object (cursor, engine);
+	return backward_object (object);
 }
 
 
@@ -555,7 +538,7 @@ html_cursor_up (HTMLCursor *cursor,
 			if (prev_y == y && target_x - x >= prev_x - target_x) {
 				cursor->object = prev_cursor.object;
 				cursor->offset = prev_cursor.offset;
-				cursor->relative_position = prev_cursor.relative_position;
+				cursor->position = prev_cursor.position;
 			}
 
 			debug_location (cursor);
@@ -635,7 +618,7 @@ html_cursor_down (HTMLCursor *cursor,
 			if (prev_y == y && x - target_x >= target_x - prev_x) {
 				cursor->object = prev_cursor.object;
 				cursor->offset = prev_cursor.offset;
-				cursor->relative_position = prev_cursor.relative_position;
+				cursor->position = prev_cursor.position;
 			}
 
 			debug_location (cursor);
@@ -785,7 +768,38 @@ html_cursor_beginning_of_line (HTMLCursor *cursor,
 }
 
 
+gint
+html_cursor_get_position (HTMLCursor *cursor)
+{
+	g_return_val_if_fail (cursor != NULL, 0);
+
+	return cursor->position;
+}
+
+void
+html_cursor_jump_to_position (HTMLCursor *cursor,
+			      HTMLEngine *engine,
+			      gint position)
+{
+	g_return_if_fail (cursor != NULL);
+	g_return_if_fail (position > 0);
+
+	if (cursor->position < position) {
+		while (cursor->position < position) {
+			if (! forward (cursor, engine))
+				break;
+		}
+	} else if (cursor->position > position) {
+		while (cursor->position > position) {
+			if (! backward (cursor, engine))
+				break;
+		}
+	}
+}
+
+
 /* Comparison.  */
+
 gboolean
 html_cursor_equal (const HTMLCursor *a,
 		   const HTMLCursor *b)
@@ -796,60 +810,29 @@ html_cursor_equal (const HTMLCursor *a,
 	return a->object == b->object && a->offset == b->offset;
 }
 
-
-/* Relative coordinate support.  This is used to keep track of how far
-   we have moved with the pointer, e.g. for undo/redo support.  */
-
-gint
-html_cursor_get_relative (HTMLCursor *cursor)
+gboolean
+html_cursor_precedes (const HTMLCursor *a,
+		      const HTMLCursor *b)
 {
-	g_return_val_if_fail (cursor != NULL, 0);
+	g_return_val_if_fail (a != NULL, FALSE);
+	g_return_val_if_fail (b != NULL, FALSE);
 
-	return cursor->relative_position;
+	return a->position < b->position;
 }
 
-void
-html_cursor_set_relative (HTMLCursor *cursor,
-			  gint relative_position)
+gboolean
+html_cursor_follows (const HTMLCursor *a,
+		     const HTMLCursor *b)
 {
-	g_return_if_fail (cursor != NULL);
+	g_return_val_if_fail (a != NULL, FALSE);
+	g_return_val_if_fail (b != NULL, FALSE);
 
-	cursor->relative_position = relative_position;
-}
-
-void
-html_cursor_reset_relative (HTMLCursor *cursor)
-{
-	g_return_if_fail (cursor != NULL);
-
-	cursor->relative_position = 0;
-}
-
-void
-html_cursor_goto_zero (HTMLCursor *cursor,
-		       HTMLEngine *engine)
-{
-	g_return_if_fail (cursor != NULL);
-	g_return_if_fail (engine != NULL);
-	g_return_if_fail (HTML_IS_ENGINE (engine));
-
-	if (cursor->relative_position == 0)
-		return;
-
-	if (cursor->relative_position > 0) {
-		while (cursor->relative_position > 0)
-			backward (cursor, engine);
-	} else {
-		while (cursor->relative_position < 0)
-			forward (cursor, engine);
-	}
-
-	debug_location (cursor);
+	return a->position > b->position;
 }
 
 
 gchar
-html_cursor_get_current_char (HTMLCursor *cursor)
+html_cursor_get_current_char (const HTMLCursor *cursor)
 {
 	HTMLObject *next;
 

@@ -38,52 +38,52 @@ extend_selection (HTMLEngine *engine,
 {
 	HTMLObject *prev_clueflow;
 	HTMLCursor *mark;
+	HTMLObject *obj;
 	gboolean forward;
-	HTMLCursor *c;
 	guint start;
 	gint length;
 
-	if (old_point->relative_position == new_point->relative_position) {
+	if (old_point->position == new_point->position) {
 		g_warning ("%s:%s Extending selection with same start/end???  This should not happen.",
 			   __FILE__, G_GNUC_FUNCTION);
 		return;
 	}
 
-	if (old_point->relative_position < new_point->relative_position)
+	if (html_cursor_precedes (old_point, new_point))
 		forward = TRUE;
 	else
 		forward = FALSE;
 
 	mark = engine->mark;
 
-	c = html_cursor_dup (old_point);
+	obj = old_point->object;
 
-	while (c->object != new_point->object) {
+	while (obj != new_point->object) {
 		if (forward) {
-			if (c->object == mark->object)
+			if (obj == mark->object)
 				start = mark->offset;
 			else
 				start = 0;
-			html_object_select_range (c->object, engine, start, -1, TRUE);
+			html_object_select_range (obj, engine, start, -1, TRUE);
 		} else {
-			if (c->object == mark->object)
+			if (obj == mark->object)
 				length = mark->offset;
 			else
 				length = -1;
-			html_object_select_range (c->object, engine, 0, length, TRUE);
+			html_object_select_range (obj, engine, 0, length, TRUE);
 		}
 
-		if (HTML_OBJECT_TYPE (c->object->parent) == HTML_TYPE_CLUEFLOW)
-			prev_clueflow = c->object->parent;
+		if (HTML_OBJECT_TYPE (obj->parent) == HTML_TYPE_CLUEFLOW)
+			prev_clueflow = obj->parent;
 		else
 			prev_clueflow = NULL;
 
 		if (forward)
-			html_cursor_forward_object (c, engine);
+			obj = html_object_next_for_cursor (obj);
 		else
-			html_cursor_backward_object (c, engine);
+			obj = html_object_prev_for_cursor (obj);
 
-		if (c->object->parent != prev_clueflow)
+		if (obj->parent != prev_clueflow)
 			html_object_select_range (prev_clueflow, engine, 0, -1, TRUE);
 	}
 
@@ -103,9 +103,7 @@ extend_selection (HTMLEngine *engine,
 			length = -1;
 	}
 
-	html_object_select_range (c->object, engine, start, length, TRUE);
-
-	html_cursor_destroy (c);
+	html_object_select_range (obj, engine, start, length, TRUE);
 }
 
 /* Unselect from @old_point to @new_point.  */
@@ -116,38 +114,38 @@ reduce_selection (HTMLEngine *engine,
 {
 	HTMLObject *prev_clueflow;
 	HTMLCursor *mark;
+	HTMLObject *obj;
 	gboolean forward;
-	HTMLCursor *c;
 
-	if (old_point->relative_position == new_point->relative_position) {
+	if (old_point->position == new_point->position) {
 		g_warning ("%s:%s Reducing selection with same start/end???  This should not happen.",
 			   __FILE__, G_GNUC_FUNCTION);
 		return;
 	}
 
-	if (old_point->relative_position < new_point->relative_position)
+	if (html_cursor_precedes (old_point, new_point))
 		forward = TRUE;
 	else
 		forward = FALSE;
 
 	mark = engine->mark;
 
-	c = html_cursor_dup (old_point);
+	obj = old_point->object;
 
-	while (c->object != new_point->object) {
-		html_object_select_range (c->object, engine, 0, 0, TRUE);
+	while (obj != new_point->object) {
+		html_object_select_range (obj, engine, 0, 0, TRUE);
 
-		if (HTML_OBJECT_TYPE (c->object->parent) == HTML_TYPE_CLUEFLOW)
-			prev_clueflow = c->object->parent;
+		if (HTML_OBJECT_TYPE (obj->parent) == HTML_TYPE_CLUEFLOW)
+			prev_clueflow = obj->parent;
 		else
 			prev_clueflow = NULL;
 
 		if (forward)
-			html_cursor_forward_object (c, engine);
+			obj = html_object_next_for_cursor (obj);
 		else
-			html_cursor_backward_object (c, engine);
+			obj = html_object_prev_for_cursor (obj);
 
-		if (c->object->parent != prev_clueflow)
+		if (obj->parent != prev_clueflow)
 			html_object_select_range (prev_clueflow, engine, 0, 1, TRUE);
 	}
 
@@ -177,8 +175,6 @@ reduce_selection (HTMLEngine *engine,
 						  0, new_point->offset,
 						  TRUE);
 	}
-
-	html_cursor_destroy (c);
 }
 
 static void
@@ -210,16 +206,15 @@ update_selection (HTMLEngine *engine,
 	   case, we can unselect everything and start selecting from
 	   the mark to the new point.  */
 
-	if ((new_point->relative_position < mark->relative_position
-	     && old_point->relative_position > mark->relative_position)
-	    || (new_point->relative_position > mark->relative_position
-		&& old_point->relative_position < mark->relative_position)) {
+	if ((html_cursor_precedes (new_point, mark) && html_cursor_follows (old_point, mark))
+	    || (html_cursor_follows (new_point, mark) && html_cursor_precedes (old_point, mark)))
+	{
 		html_engine_unselect_all (engine, TRUE);
 		old_point = mark;
 	}
 
-	delta_mark = new_point->relative_position - mark->relative_position;
-	delta_point = new_point->relative_position - old_point->relative_position;
+	delta_mark = new_point->position - mark->position;
+	delta_point = new_point->position - old_point->position;
 
 	/* (Notice that neither of the deltas can be zero at this
            point.)  */

@@ -41,7 +41,11 @@ HTMLHAlignType     html_engine_get_current_clueflow_alignment    (HTMLEngine *en
 gboolean           html_engine_set_clueflow_style                (HTMLEngine                     *engine,
 								  HTMLClueFlowStyle               style,
 								  HTMLHAlignType                  alignment,
-								  gint                            indentation,
+								  gint                            indentation_delta,
 								  HTMLEngineSetClueFlowStyleMask  mask);
+
+HTMLClueFlowStyle  html_engine_get_current_clueflow_style        (HTMLEngine *engine);
+guint              html_engine_get_current_clueflow_indentation  (HTMLEngine *engine);
+HTMLHAlignType     html_engine_get_current_clueflow_alignment    (HTMLEngine *engine);
 
 #endif /* _HTMLENGINE_EDIT_CLUEFLOW_STYLE_H */

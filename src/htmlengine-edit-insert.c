@@ -335,10 +335,9 @@ html_engine_insert (HTMLEngine *e,
 					    undo_insert,
 					    undo_insert_closure_destroy,
 					    GINT_TO_POINTER (len),
-					    html_cursor_get_relative (e->cursor));
+					    html_cursor_get_position (e->cursor));
 	html_undo_add_undo_action (e->undo, undo_action);
 
-	html_cursor_reset_relative (e->cursor);
 	html_engine_move_cursor (e, HTML_ENGINE_CURSOR_RIGHT, n);
 
 	html_engine_show_cursor (e);

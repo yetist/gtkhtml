@@ -27,7 +27,7 @@ html_undo_action_new (const gchar *description,
 		      HTMLUndoActionFunction function,
 		      HTMLUndoActionClosureDestroyFunction closure_destroy_function,
 		      gpointer closure,
-		      gint relative_cursor_position)
+		      gint position)
 {
 	HTMLUndoAction *action;
 
@@ -36,11 +36,11 @@ html_undo_action_new (const gchar *description,
 
 	action = g_new (HTMLUndoAction, 1);
 
-	action->description = description;
+	action->description = g_strdup (description);
 	action->function = function;
 	action->closure_destroy_function = closure_destroy_function;
 	action->closure = closure;
-	action->relative_cursor_position = relative_cursor_position;
+	action->position = position;
 
 	return action;
 }
@@ -52,5 +52,6 @@ html_undo_action_destroy (HTMLUndoAction *action)
 
 	(* action->closure_destroy_function) (action->closure);
 
+	g_free (action->description);
 	g_free (action);
 }

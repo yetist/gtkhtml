@@ -37,29 +37,23 @@ struct _HTMLCursor {
 	gint target_x;
 	gboolean have_target_x : 1;
 
-	gint relative_position;
+	gint position;
 };
 typedef struct _HTMLCursor HTMLCursor;
 
 
 /* Lifecycle.  */
-
 HTMLCursor *html_cursor_new      (void);
 void        html_cursor_destroy  (HTMLCursor       *cursor);
 HTMLCursor *html_cursor_dup      (const HTMLCursor *cursor);
 void        html_cursor_copy     (HTMLCursor       *dest,
 				  const HTMLCursor *src);
 /* Basic movement.   */
-
 void      html_cursor_home                   (HTMLCursor *cursor,
 					      HTMLEngine *engine);
 gboolean  html_cursor_forward                (HTMLCursor *cursor,
 					      HTMLEngine *engine);
-gboolean  html_cursor_forward_object         (HTMLCursor *cursor,
-					      HTMLEngine *engine);
 gboolean  html_cursor_backward               (HTMLCursor *cursor,
-					      HTMLEngine *engine);
-gboolean  html_cursor_backward_object        (HTMLCursor *cursor,
 					      HTMLEngine *engine);
 gboolean  html_cursor_up                     (HTMLCursor *cursor,
 					      HTMLEngine *engine);
@@ -78,27 +72,28 @@ gboolean  html_cursor_jump_to                (HTMLCursor *cursor,
 					      HTMLObject *obj,
 					      guint       offset);
 
-/* Comparison.  */
-gboolean  html_cursor_equal  (const HTMLCursor *a,
-			      const HTMLCursor *b);
+/* Utility functions for moving around the tree in cursor order.  */
+HTMLObject *html_object_next_for_cursor  (HTMLObject *object);
+HTMLObject *html_object_prev_for_cursor  (HTMLObject *object);
 
 /* Internals.  */
-
 void  html_cursor_normalize     (HTMLCursor *cursor);
-void  html_cursor_set_position  (HTMLCursor *cursor,
-				 HTMLObject *object,
-				 guint       offset);
 
-gint  html_cursor_get_relative    (HTMLCursor *cursor);
-void  html_cursor_set_relative    (HTMLCursor *cursor,
-				   gint        relative_position);
-void  html_cursor_reset_relative  (HTMLCursor *cursor);
-void  html_cursor_goto_zero       (HTMLCursor *cursor,
-				   HTMLEngine *engine);
+/* Position handling.  */
+gint  html_cursor_get_position      (HTMLCursor *cursor);
+void  html_cursor_jump_to_position  (HTMLCursor *cursor,
+				     HTMLEngine *engine,
+				     gint        position);
 
 /* Retrieving the character under the cursor.  */
+gchar  html_cursor_get_current_char  (const HTMLCursor *cursor);
 
-gchar  html_cursor_get_current_char  (HTMLCursor *cursor);
-
+/* Comparison.  */
+gboolean  html_cursor_equal     (const HTMLCursor *a,
+				 const HTMLCursor *b);
+gboolean  html_cursor_precedes  (const HTMLCursor *a,
+				 const HTMLCursor *b);
+gboolean  html_cursor_follows   (const HTMLCursor *a,
+				 const HTMLCursor *b);
 
 #endif

@@ -43,8 +43,8 @@ struct _HTMLUndoAction {
 	/* Function to call to destroy the closure.  */
 	HTMLUndoActionClosureDestroyFunction closure_destroy_function;
 
-	/* Relative cursor positionm, to be set when the action is executed.  */
-	gint relative_cursor_position;
+	/* Cursor position, to be set when the action is executed.  */
+	gint position;
 };
 
 
@@ -52,7 +52,7 @@ HTMLUndoAction *html_undo_action_new      (const gchar                          
 					   HTMLUndoActionFunction                undo_function,
 					   HTMLUndoActionClosureDestroyFunction  closure_destroy_function,
 					   gpointer                              closure,
-					   gint                                  relative_cursor_position);
+					   gint                                  position);
 void            html_undo_action_destroy  (HTMLUndoAction                       *action);
 
 #endif /* _HTML_UNDO_ACTION_H */

@@ -215,9 +215,9 @@ skip (HTMLEngine *engine)
 	curr = cursor->object;
 
 	if (html_object_is_text (curr))
-		cursor->relative_position += HTML_TEXT (curr)->text_len;
+		cursor->position += HTML_TEXT (curr)->text_len;
 	else
-		cursor->relative_position ++;
+		cursor->position ++;
 
 	cursor->object = curr->next;
 }
@@ -432,7 +432,7 @@ html_engine_paste (HTMLEngine *engine)
 			/* Kind of evil, isn't it?  */
 			engine->cursor->object = obj_copy;
 			engine->cursor->offset = 0;
-			engine->cursor->relative_position++;
+			engine->cursor->position++;
 		}
 	}
 

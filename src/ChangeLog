@@ -1,6 +1,96 @@
+2000-04-12  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine-edit-clueflowstyle.c: Rewritten in a better, cleaner
+	way, taking advantage of the changes in cursor and selection
+	handling.
+
+	* htmlengine-edit-selection-updater.c: Use `HTMLCursor''s member
+	`position' instead of `relative_position', which is now gone.
+
+	* htmlengine-edit-paste.c
+	(skip): Update `position' in the cursor, instead of
+	`relative_position', which is now gone.
+	(html_engine_paste): Likewise.
+
+	* htmlengine-edit-insert.c
+	(html_engine_insert): Use `html_cursor_get_position()' instead of
+	using the relative position.  Also, don't reset the relative
+	position.
+
+	* htmlundo.c
+	(do_action): Don't call `html_cursor_set_relative()'.  Instead,
+	use `html_cursor_jump_to_position()' to restore the cursor
+	position.
+	(html_undo_discard_redo): Set `redo_stack' to NULL.
+
+	* htmlundo-action.c
+	(html_undo_action_new): Strdup the description before storing it
+	into the struct.
+	(html_undo_action_destroy): Free the description.
+
+	* htmlundo-action.h: Member `relative_position' replaced by member
+	`position'.
+
+	* htmlcursor.c: Updated to use `position' instead of
+	`relative_position' throughout.
+	(html_cursor_home): Do not call `html_cursor_reset_relative()'
+	anymore.
+	(html_cursor_get_relative): Removed.
+	(html_cursor_set_relative): Removed.
+	(html_cursor_reset_relative): Removed.
+	(html_cursor_goto_zero): Removed.
+	(html_cursor_set_position): Removed.
+	(html_cursor_get_position): New function.
+	(html_cursor_jump_to_position): New function.
+
+	* htmlcursor.h: Member `relative_position' removed.  New member
+	`position'.
+
+	* htmlundo.c
+	(html_undo_add_undo_action): Don't destroy the redo list.
+
+	* htmlengine-edit-selection-updater.c
+	(extend_selection): Use `html_cursor_precedes()'.
+	(reduce_selection): Use `html_cursor_precedes()' and
+	`html_cursor_follows()'.
+
+	* htmlcursor.c
+	(html_cursor_precedes): New function.
+	(html_cursor_follows): New function.
+	(html_cursor_get_current_char): Made const-safe.
+
+	* htmlengine-edit-selection-updater.c
+	(extend_selection): Updated to use `html_object_next_for_cursor()'
+	and `html_object_prev_for_cursor()' instead of
+	`html_cursor_forward_object()' and
+	`html_cursor_backward_object()'.
+	(reduce_selection): Likewise.
+
+	* htmlcursor.c
+	(forward_object): Rewritten to only take and return an `HTMLObject
+	*'.
+	(forward): Updated accordingly.
+	(html_cursor_forward_object): Removed.
+	(html_next_object_for_cursor): New function.
+	(backward_object): Rewritten to only take and return an
+	`HTMLObject *'.
+	(backward): Updated accordingly.
+	(html_cursor_backward_object): Removed.
+	(html_prev_object_for_cursor): New function.
+
+	* htmlclueflow.c
+	(html_clueflow_indent): Added preconditions for @engine.
+	(html_clueflow_set_halignment): Likewise.
+	(html_clueflow_set_style): Likewise.
+	(html_clueflow_set_properties): Likewise.
+	(html_clueflow_get_style): New function.
+	(html_clueflow_get_halignment): New function.
+	(html_clueflow_set_indentation): New function.
+	(html_clueflow_get_indentation): New function.
+
 2000-04-12  Radek Doulik  <rodo@helixcode.com>
 
-	* htmltablecell.c (draw_background_helper): as bellow
+	* htmltablecell.c (draw_background_helper): as below
 
 	* htmlengine.c (draw_background): update to use modified
 	draw_background_pixmap

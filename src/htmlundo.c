@@ -68,18 +68,20 @@ do_action (HTMLUndo *undo,
 	HTMLUndoAction *action;
 	HTMLCursor *cursor;
 	GList *first;
+	gint current_position;
 
 	cursor = engine->cursor;
-
-	/* First of all, restore the cursor position.  */
-	html_cursor_goto_zero (cursor, engine);
+	current_position = html_cursor_get_position (cursor);
 
 	action = (HTMLUndoAction *) (*action_list)->data;
 
+	/* 1.  Restore the cursor position.  */
+	html_cursor_jump_to_position (cursor, engine, action->position);
+
+	/* 2.  Call the function that executes the action.  */
 	(* action->function) (engine, action->closure);
 
-	html_cursor_set_relative (engine->cursor, action->relative_cursor_position);
-
+	/* 3.  Destroy the action.  */
 	html_undo_action_destroy (action);
 
 	first = *action_list;
@@ -102,7 +104,7 @@ html_undo_do_undo (HTMLUndo *undo,
 	g_return_if_fail (engine != NULL);
 	g_return_if_fail (undo->undo_stack_size > 0);
 
-	printf ("%s: %d\n", __FUNCTION__, undo->undo_stack_size);
+	g_print ("%s: %d\n", __FUNCTION__, undo->undo_stack_size);
 
 	do_action (undo, engine, &undo->undo_stack);
 
@@ -132,6 +134,8 @@ html_undo_discard_redo (HTMLUndo *undo)
 		return;
 
 	destroy_action_list (undo->redo_stack);
+
+	undo->redo_stack = NULL;
 	undo->redo_stack_size = 0;
 }
 
@@ -142,8 +146,6 @@ html_undo_add_undo_action  (HTMLUndo *undo,
 {
 	g_return_if_fail (undo != NULL);
 	g_return_if_fail (action != NULL);
-
-	html_undo_discard_redo (undo);
 
 	if (undo->undo_stack_size >= HTML_UNDO_LIMIT) {
 		HTMLUndoAction *last_action;
