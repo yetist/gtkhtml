@@ -2,6 +2,8 @@
 
 	* htmlengine-edit-table.c (new_cell): don't set cell background
 	from table (it's resolved dynamically now)
+	(html_engine_table_set_bg_color): allow NULL c which means disable
+	bg color
 
 	* htmlimage.c (html_image_pointer_load): ref image pointer
 	(html_image_factory_register): don't ref image pointer before
