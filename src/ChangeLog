@@ -1,5 +1,8 @@
 2001-01-11  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlgdkpainter.c (alloc_e_font_it): substitute size by * when
+	looking for closest font
+
 	* gtkhtml.c (scroll): repeat two lines when scrolling by page
 	(scroll): use rather 2.5 * size
 	(cursor_move): try to repeat last 2 lines while scrolling by page
