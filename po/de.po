@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GtkHTML 3.1\n"
-"POT-Creation-Date: 2004-06-01 09:37-0400\n"
+"POT-Creation-Date: 2004-06-03 09:25-0400\n"
 "PO-Revision-Date: 2004-03-11 21:34+0100\n"
 "Last-Translator: Christian Neumair <chris@gnome-de.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
@@ -1957,7 +1957,7 @@ msgstr ""
 "Der bearbeitete Text wurde aus dem Dokument entfernt.\n"
 "Daher konnten Ihre Änderungen nicht übernommen werden."
 
-#: src/gtkhtml.c:2457
+#: src/gtkhtml.c:2458
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""

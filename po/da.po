@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2004-06-01 09:37-0400\n"
+"POT-Creation-Date: 2004-06-03 09:25-0400\n"
 "PO-Revision-Date: 2003-06-18 17:24+0200\n"
 "Last-Translator: Ole Laursen <olau@hardworking.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
@@ -1997,7 +1997,7 @@ msgstr ""
 "Den redigerede tekst blev fjernet fra dokumentet.\n"
 "Kan ikke anvende dine ændringer."
 
-#: src/gtkhtml.c:2457
+#: src/gtkhtml.c:2458
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""

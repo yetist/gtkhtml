@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 3.1\n"
-"POT-Creation-Date: 2004-06-01 09:37-0400\n"
+"POT-Creation-Date: 2004-06-03 09:25-0400\n"
 "PO-Revision-Date: 2004-01-30 02:55+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: Korean <gnome-kr-translation@lists.sourceforge.net>\n"
@@ -1954,7 +1954,7 @@ msgstr ""
 "편집한 텍스트가 문서에서 지워졌습니다.\n"
 "바뀐 점을 적용할 수 없습니다."
 
-#: src/gtkhtml.c:2457
+#: src/gtkhtml.c:2458
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2004-06-01 09:37-0400\n"
+"POT-Creation-Date: 2004-06-03 09:25-0400\n"
 "PO-Revision-Date: 2004-04-21 12:11+0200\n"
 "Last-Translator: Maxim Dziumanenko <mvd@mylinux.com.ua>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
@@ -1952,7 +1952,7 @@ msgstr ""
 "Введений текст було видалено з документа.\n"
 "Не вдається застосувати зміни."
 
-#: src/gtkhtml.c:2457
+#: src/gtkhtml.c:2458
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""

@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0\n"
-"POT-Creation-Date: 2004-06-01 09:37-0400\n"
+"POT-Creation-Date: 2004-06-03 09:25-0400\n"
 "PO-Revision-Date: 2004-03-20 14:58+CET\n"
 "Last-Translator: auto\n"
 "Language-Team: Croatian <lokalizacija@linux.hr>\n"
@@ -1950,7 +1950,7 @@ msgstr ""
 "Izmjenjeni tekst je uklonjen iz dokumenta.\n"
 "Ne mogu primijeniti vaše izmjene."
 
-#: src/gtkhtml.c:2457
+#: src/gtkhtml.c:2458
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""
