@@ -275,6 +275,13 @@ save (HTMLObject *self,
 			cell->bg.red >> 8,
 			cell->bg.green >> 8,
 			cell->bg.blue >> 8 SE;
+	
+	if (cell->cspan != 1)
+		SB " COLSPAN=\"%d\"", cell->cspan SE;
+
+	if (cell->rspan != 1)
+		SB " ROWSPAN=\"%d\"", cell->rspan SE;
+
 	if (self->percent > 0) {
 		SB " WIDTH=\"%d%%\"", self->percent SE;
 	} else if (self->flags & HTML_OBJECT_FLAG_FIXEDWIDTH)
