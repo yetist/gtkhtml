@@ -69,7 +69,7 @@ draw (HTMLObject *o, HTMLPainter *p,
 					  &blue, FALSE, TRUE);
 	}
 
-#if 1
+#if 0
 	/* FIXME FIXME!  Temporary hack.  :-)  */
 	/* Draw a rect around the clue */
 	if (HTML_OBJECT_TYPE (o) == HTML_TYPE_CLUEV) {

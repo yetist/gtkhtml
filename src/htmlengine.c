@@ -69,8 +69,8 @@ extern gint defaultFontSizes [7];
 
 enum ID {
 	ID_ADDRESS, ID_B, ID_BIG, ID_BLOCKQUOTE, ID_CAPTION, ID_CITE, ID_CODE,
-	ID_DIR, ID_DIV, ID_EM, ID_FONT, ID_HEADER, ID_I, ID_KBD, ID_OL, ID_U, ID_UL,
-	ID_TD, ID_TH
+	ID_DIR, ID_DIV, ID_EM, ID_FONT, ID_HEADER, ID_I, ID_KBD, ID_OL, ID_PRE,
+	ID_U, ID_UL, ID_TD, ID_TH, ID_VAR
 };
 
 
@@ -183,6 +183,27 @@ block_end_font (HTMLEngine *e, HTMLObject *clue, HTMLBlockStackElement *elem)
 	if (elem->miscData1) {
 		e->vspace_inserted = html_engine_insert_vspace (e, clue, e->vspace_inserted);
 	}
+}
+
+static void
+block_end_pre ( HTMLEngine *e, HTMLObject *_clue, HTMLBlockStackElement *elem)
+{
+    /* We add a hidden space to get the height
+	   If there is no flow box, we add one.  */
+
+    if (!e->flow)
+    	html_engine_new_flow (e, _clue );
+
+	html_clue_append (HTML_CLUE (e->flow),
+					  html_hspace_new ( html_engine_get_current_font (e),
+										e->painter,
+										TRUE ));
+
+    html_engine_pop_font (e);
+
+    e->vspace_inserted = html_engine_insert_vspace(e, _clue, e->vspace_inserted );
+    e->flow = 0;
+    e->inPre = FALSE;
 }
 
 static void
@@ -1626,19 +1647,22 @@ parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 */
 /* EP CHECK: OK but font should be set.  */
 static void
-parse_k (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
+parse_k (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 {
 	if ( strncmp(str, "kbd", 3 ) == 0 )
 	{
 #if 0
 		selectFont( settings->fixedFontFace, settings->fontBaseSize,
 		    QFont::Normal, FALSE );
+#else
+		e->bold = TRUE;
+		html_engine_select_font (e);
 #endif
-		push_block (p, ID_KBD, 1, block_end_font, 0, 0);
+		push_block (e, ID_KBD, 1, block_end_font, 0, 0);
 	}
 	else if ( strncmp(str, "/kbd", 4 ) == 0 )
 	{
-		pop_block (p, ID_KBD, _clue);
+		pop_block (e, ID_KBD, _clue);
 	}
 }
 
@@ -1869,19 +1893,40 @@ parse_o (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 }
 
 
+/*
+<p
+<pre             </pre>
+*/
+/* EP CHECK: OK except for the `<pre>' font.  */
 static void
-parse_p (HTMLEngine *p, HTMLObject *clue, const gchar *str)
+parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
-	if (*(str) == 'p' && ( *(str + 1) == ' ' || *(str + 1) == '>')) {
-		HAlignType align = p->divAlign;
+	if ( strncmp( str, "pre", 3 ) == 0 ) {
+		e->vspace_inserted = html_engine_insert_vspace (e, clue,
+														e->vspace_inserted );
+#if 0							/* FIXME */
+		selectFont( settings->fixedFontFace, settings->fontBaseSize,
+		    QFont::Normal, FALSE );
+#else
+		e->bold = TRUE;			/* fake, so that we get a font on the stack */
+		html_engine_select_font (e);
+#endif
+		e->flow = 0;
+		e->inPre = TRUE;
+		push_block (e, ID_PRE, 2, block_end_pre, 0, 0);
+	} else if ( strncmp( str, "/pre", 4 ) == 0 ) {
+		pop_block (e, ID_PRE, clue);
+	} else if (*(str) == 'p' && ( *(str + 1) == ' ' || *(str + 1) == '>')) {
+		HAlignType align;
 		gchar *token;
 
-		/* FIXME: CloseAnchor */
-		p->vspace_inserted = html_engine_insert_vspace (p, clue, p->vspace_inserted);
+		close_anchor (e);
+		e->vspace_inserted = html_engine_insert_vspace (e, clue, e->vspace_inserted);
+		align = e->divAlign;
 		
-		string_tokenizer_tokenize (p->st, (gchar *)(str + 2), " >");
-		while (string_tokenizer_has_more_tokens (p->st)) {
-			token = string_tokenizer_next_token (p->st);
+		string_tokenizer_tokenize (e->st, (gchar *)(str + 2), " >");
+		while (string_tokenizer_has_more_tokens (e->st)) {
+			token = string_tokenizer_next_token (e->st);
 			if (strncasecmp (token, "align=", 6) == 0) {
 				if (strcasecmp (token + 6, "center") == 0)
 					align = HCenter;
@@ -1892,17 +1937,17 @@ parse_p (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 			}
 			
 		}
-		if (align != p->divAlign) {
-			if (p->flow == 0) {
-			  html_engine_new_flow (p, clue);
-			  HTML_CLUE (p->flow)->halign = align;
+		if (align != e->divAlign) {
+			if (e->flow == 0) {
+			  html_engine_new_flow (e, clue);
+			  HTML_CLUE (e->flow)->halign = align;
 			}
 		}
 	}
 	else if (*(str) == '/' && *(str + 1) == 'p' && 
 		 (*(str + 2) == ' ' || *(str + 2) == '>')) {
-		/* FIXME: CloseAnchor */
-		p->vspace_inserted = html_engine_insert_vspace (p, clue, p->vspace_inserted);
+		close_anchor (e);
+		e->vspace_inserted = html_engine_insert_vspace (e, clue, e->vspace_inserted);
 	}
 }
 
@@ -1931,45 +1976,68 @@ parse_t (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 }
 
 
+/*
+<u>              </u>
+<ul              </ul>
+*/
 static void
-parse_u (HTMLEngine *p, HTMLObject *clue, const gchar *str)
+parse_u (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	if (strncmp (str, "ul", 2) == 0) {
-		HTMLListType type = HTML_LIST_TYPE_UNORDERED;
-		return;					/* FIXME TODO */
-		/* FIXME: should close anchor */
+		HTMLListType type;
 
-		if (html_stack_is_empty (p->listStack)) {
-			p->vspace_inserted = html_engine_insert_vspace (p, clue, p->vspace_inserted);
-			push_block (p, ID_UL, 2, block_end_list, p->indent, TRUE);
+		close_anchor (e);
+
+		if (html_stack_is_empty (e->listStack)) {
+			e->vspace_inserted = html_engine_insert_vspace (e, clue, e->vspace_inserted);
+			push_block (e, ID_UL, 2, block_end_list, e->indent, TRUE);
 		} else {
-			push_block (p, ID_UL, 2, block_end_list, p->indent, FALSE);
+			push_block (e, ID_UL, 2, block_end_list, e->indent, FALSE);
 		}
 
-		string_tokenizer_tokenize (p->st, str + 3, " >");
-		while (string_tokenizer_has_more_tokens (p->st)) {
-			gchar *token = string_tokenizer_next_token (p->st);
+		type = HTML_LIST_TYPE_UNORDERED;
+
+		string_tokenizer_tokenize (e->st, str + 3, " >");
+		while (string_tokenizer_has_more_tokens (e->st)) {
+			gchar *token = string_tokenizer_next_token (e->st);
 			if (strncasecmp (token, "plain", 5) == 0)
 				type = HTML_LIST_TYPE_UNORDEREDPLAIN;
 		}
 		
-		html_stack_push (p->listStack,
+		html_stack_push (e->listStack,
 						 html_list_new (type, HTML_LIST_NUM_TYPE_NUMERIC));
-		p->indent += INDENT_SIZE;
-		p->flow = 0;
+		e->indent += INDENT_SIZE;
+		e->flow = 0;
 	}
 	else if (strncmp (str, "/ul", 3) == 0) {
-		pop_block (p, ID_UL, clue);
+		pop_block (e, ID_UL, clue);
 	}
 	else if (strncmp (str, "u", 1) == 0) {
 		if (str[1] == '>' || str[1] == ' ') {
-			p->underline = TRUE;
-			html_engine_select_font (p);
-			push_block (p, ID_U, 1, block_end_font, FALSE, FALSE);
+			e->underline = TRUE;
+			html_engine_select_font (e);
+			push_block (e, ID_U, 1, block_end_font, FALSE, FALSE);
 		}
 	}
 	else if (strncmp (str, "/u", 2) == 0) {
-		pop_block (p, ID_U, clue);
+		pop_block (e, ID_U, clue);
+	}
+}
+
+
+/*
+<var>            </var>
+*/
+/* EP CHECK: OK */
+static void
+parse_v (HTMLEngine *e, HTMLObject * _clue, const char *str )
+{
+	if ( strncmp(str, "var", 3 ) == 0 ) {
+		e->italic = TRUE;
+		html_engine_select_font (e);
+	   	push_block(e, ID_VAR, 1, block_end_font, 0, 0);
+	} else if ( strncmp( str, "/var", 4 ) == 0) {
+		pop_block(e, ID_VAR, _clue);
 	}
 }
 
@@ -2052,6 +2120,8 @@ html_engine_class_init (HTMLEngineClass *klass)
 static void
 html_engine_init (HTMLEngine *engine)
 {
+	/* STUFF might be missing here!   */
+
 	engine->ht = html_tokenizer_new ();
 	engine->st = string_tokenizer_new ();
 	engine->settings = html_settings_new ();
@@ -2071,6 +2141,9 @@ html_engine_init (HTMLEngine *engine)
 	engine->rightBorder = RIGHT_BORDER;
 	engine->topBorder = TOP_BORDER;
 	engine->bottomBorder = BOTTOM_BORDER;
+
+	engine->inPre = FALSE;
+	engine->inTitle = FALSE;
 
 	engine->tempStrings = NULL;
 	
@@ -2096,7 +2169,7 @@ html_engine_init (HTMLEngine *engine)
 	engine->parseFuncArray[18] = NULL;
 	engine->parseFuncArray[19] = parse_t;
 	engine->parseFuncArray[20] = parse_u;
-	engine->parseFuncArray[21] = NULL;
+	engine->parseFuncArray[21] = parse_v;
 	engine->parseFuncArray[22] = NULL;
 	engine->parseFuncArray[23] = NULL;
 	engine->parseFuncArray[24] = NULL;
@@ -2383,16 +2456,17 @@ html_engine_calc_size (HTMLEngine *p)
 }
 
 void
-html_engine_new_flow (HTMLEngine *p, HTMLObject *clue)
+html_engine_new_flow (HTMLEngine *e, HTMLObject *clue)
 {
-	
-	/* FIXME: If inpre */
-	p->flow = html_clueflow_new (0, 0, clue->max_width, 100);
+	if (e->inPre) 
+		e->flow = html_clueh_new ( 0, 0, clue->max_width );
+	else
+		e->flow = html_clueflow_new (0, 0, clue->max_width, 100);
 
-	HTML_CLUEFLOW (p->flow)->indent = p->indent;
-	HTML_CLUE (p->flow)->halign = p->divAlign;
+	HTML_CLUEFLOW (e->flow)->indent = e->indent;
+	HTML_CLUE (e->flow)->halign = e->divAlign;
 
-	html_clue_append (HTML_CLUE (clue), p->flow);
+	html_clue_append (HTML_CLUE (clue), e->flow);
 }
 
 void
@@ -2504,8 +2578,11 @@ html_engine_pop_font (HTMLEngine *e)
 	html_stack_pop (e->fs);
 	
 	top = html_stack_top (e->fs);
+	if (! top) {
+		g_warning ("No fonts on top.");
+		return;
+	}
 
-	/* FIXME: Check for empty */
 	html_painter_set_font (e->painter, top);
 
 	e->fontsize = top->size;

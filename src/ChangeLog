@@ -1,5 +1,20 @@
 1999-11-26  Ettore Perazzoli  <ettore@gnu.org>
 
+	* htmlengine.c (html_engine_init): Init `inPre', `inTitle'.
+	(block_end_pre): New function.
+	(parse_p): Implemented `<pre>' handling.  Also, call
+	`close_anchor()' appropriately for the `<p>' case.
+	(html_engine_pop_font): Report a warning if the stack is empty
+	after popping to prevent segfault.
+	(html_engine_new_flow): Handle `inPre'.
+	(parse_v): New function, implementing `<var>'.
+	(html_engine_init): Install it in the parsing vtable.
+	(parse_u): Enable code for `<ul>'.
+
+	* htmlengine.h: New member `inPre' in `HTMLEngine'.
+
+1999-11-26  Ettore Perazzoli  <ettore@gnu.org>
+
 	* htmlengine.c (html_engine_init): Init `tempStrings'.
 	(html_engine_destroy): Free it.
 	(to_roman): New function.

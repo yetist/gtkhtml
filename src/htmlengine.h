@@ -90,6 +90,7 @@ struct _HTMLEngine {
 	gint x_offset, y_offset;
 
 	gboolean inTitle;
+	gboolean inPre;
 
 	gboolean bold;
 	gboolean italic;
