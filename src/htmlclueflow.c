@@ -2417,13 +2417,16 @@ html_clueflow_modify_indentation_by_delta (HTMLClueFlow *flow,
 	g_return_if_fail (engine != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (engine));
 
-	indentation = MAX (flow->levels->len + indentation_delta, 0);
+	indentation = flow->levels->len + indentation_delta;
+	indentation = indentation < 0 ? 0 : indentation;
 
-	g_byte_array_set_size (flow->levels, indentation);
+	if (indentation_delta > 0)
+		g_byte_array_append (flow->levels, indentation_levels, indentation_delta);
+	else 
+		g_byte_array_set_size (flow->levels, indentation);
 
-	while (indentation_delta-- > 0) {
-		flow->levels->data[indentation + indentation_delta] = indentation_levels[indentation_delta];
-	}
+	update_items_after_indentation_change (flow);
+	relayout_with_siblings (flow, engine);
 }
 
 void
