@@ -848,6 +848,9 @@ key_press_event (GtkWidget *widget, GdkEventKey *event)
 		}
 	}
 
+	if (retval)
+		html_engine_reset_blinking_cursor (html->engine);
+
 	/* printf ("retval: %d\n", retval); */
 
 	return retval;

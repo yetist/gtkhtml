@@ -1,3 +1,12 @@
+2003-07-03  Radek Doulik  <rodo@ximian.com>
+
+	* htmlobject.c (html_object_cursor_backward): allow offset == 0 if
+	prev object doesn't accept cursor
+	(move_object_downtree_cursor): skip cursor non-accepting objects
+
+	* gtkhtml.c (key_press_event): reset blinking cursor if key was
+	used
+
 2003-07-09  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine.c (html_engine_freeze):  only process the updates on
