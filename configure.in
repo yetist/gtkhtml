@@ -29,14 +29,14 @@ AM_GNOME_GETTEXT
 dnl ******************************
 dnl Gnome App Lib checking
 dnl ******************************
-AC_MSG_CHECKING(for Gnome App libraries (GAL) >= 0.7.99.0)
+AC_MSG_CHECKING(for Gnome App libraries (GAL) >= 0.7.99.1)
 if gnome-config --libs gal > /dev/null 2>&1; then 
     vers=`gnome-config --modversion gal | sed -e "s/gal-//" -e 's/cvs$//' -e 's/pre$//' | \
         awk 'BEGIN { FS = "."; } { print $1 * 1000000 + $2 * 10000 + $3 * 100 + $4;}'`
-    if test "$vers" -ge 79900; then
+    if test "$vers" -ge 79901; then
         AC_MSG_RESULT(found)
     else
-        AC_MSG_ERROR(You need at least GNOME Application libs 0.7.99.0 for this version of GtkHTML)
+        AC_MSG_ERROR(You need at least GNOME Application libs 0.7.99.1 for this version of GtkHTML)
     fi
 else
     AC_MSG_ERROR(Did not find GnomeAppLib (GAL) installed)
@@ -285,8 +285,8 @@ fi
 
 dnl Setup extra GNOME library flags.
 
-EXTRA_GNOME_LIBS=`gnome-config --libs gnomeui gdk_pixbuf print unicode gal $bonobo libglade`
-EXTRA_GNOME_CFLAGS=`gnome-config --cflags gnomeui gdk_pixbuf print unicode gal $bonobo libglade`
+EXTRA_GNOME_LIBS=`gnome-config --libs gnomeui gdk_pixbuf print gal $bonobo libglade`
+EXTRA_GNOME_CFLAGS=`gnome-config --cflags gnomeui gdk_pixbuf print gal $bonobo libglade`
 
 AC_SUBST(EXTRA_GNOME_LIBS)
 AC_SUBST(EXTRA_GNOME_CFLAGS)
@@ -295,8 +295,8 @@ dnl gtkhtmlConf.sh stuff.
 
 GTKHTML_LIBDIR="-L${libdir}"
 GTKHTML_INCLUDEDIR="-I${includedir}"
-GTKHTML_INCLUDEDIR="$GTKHTML_INCLUDEDIR `$GNOME_CONFIG --cflags gdk_pixbuf print unicode gal` $GCONF_CFLAGS"
-GTKHTML_LIBS="-lgtkhtml `$GNOME_CONFIG --libs gdk_pixbuf print unicode gal` $GCONF_LIBS"
+GTKHTML_INCLUDEDIR="$GTKHTML_INCLUDEDIR `$GNOME_CONFIG --cflags gdk_pixbuf print gal` $GCONF_CFLAGS"
+GTKHTML_LIBS="-lgtkhtml `$GNOME_CONFIG --libs gdk_pixbuf print gal` $GCONF_LIBS"
 
 AC_SUBST(GTKHTML_LIBDIR)
 AC_SUBST(GTKHTML_INCLUDEDIR)

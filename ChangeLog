@@ -1,3 +1,9 @@
+2001-04-23  Dan Winship  <danw@ximian.com>
+
+	* configure.in: depend on gal 0.7.99.1 or later, for gunicode
+	(EXTRA_GNOME_LIBS, EXTRA_GNOME_CFLAGS, GTKHTML_INCLUDEDIR,
+	GTKHTML_LIBS): Remove unicode from the list of libraries
+
 2001-04-17  Radek Doulik  <rodo@ximian.com>
 
         * configure.in: require gal >= 0.7.99.0
