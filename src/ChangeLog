@@ -1,3 +1,8 @@
+2000-04-17  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine.c (html_engine_destroy): Remove the timeout
+	associated with `timerId', if any.
+
 2000-04-15  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlclue.c

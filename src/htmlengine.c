@@ -2786,14 +2786,17 @@ html_engine_destroy (GtkObject *object)
 
 	html_draw_queue_destroy (engine->draw_queue);
 
-	if (engine->blinking_timer_id != 0)
-		gtk_timeout_remove (engine->blinking_timer_id);
-
 	html_engine_edit_selection_updater_destroy (engine->selection_updater);
 
-	if (engine->search_info) {
+	if (engine->search_info)
 		html_search_destroy (engine->search_info);
-	}
+
+        /* Finally, destroy timers.  */
+
+	if (engine->timerId != 0)
+		gtk_timeout_remove (engine->timerId);
+	if (engine->blinking_timer_id != 0)
+		gtk_timeout_remove (engine->blinking_timer_id);
 
 	GTK_OBJECT_CLASS (parent_class)->destroy (object);
 }
