@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2001-09-21 16:39-0500\n"
+"POT-Creation-Date: 2001-09-16 23:23+0200\n"
 "PO-Revision-Date: 2000-08-06 22:43+0200\n"
 "Last-Translator: Andraz Tori <andraz.tori1@guest.arnes.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
@@ -19,7 +19,7 @@ msgstr "<Brez>"
 
 #: capplet/gnome-bindings-prop.c:216 capplet/main.c:245
 #: components/html-editor/cell.c:385 components/html-editor/rule.c:315
-#: components/html-editor/table.c:528 components/html-editor/table.c:619
+#: components/html-editor/table.c:525 components/html-editor/table.c:616
 #: components/html-editor/template.c:243
 msgid "Could not load glade file."
 msgstr "Nisem mogel nalo¾iti datoteke glade."
@@ -184,64 +184,58 @@ msgstr "Tovarna urejevalnika HTML GNOME"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
 msgid "+0"
-msgstr ""
+msgstr "+0"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:2
 msgid "+1"
-msgstr ""
+msgstr "+1"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:3
 msgid "+2"
-msgstr ""
+msgstr "+2"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:4
 msgid "+3"
-msgstr ""
+msgstr "+3"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:5
 msgid "-1"
-msgstr ""
+msgstr "-1"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:6
 msgid "-2"
-msgstr ""
+msgstr "-2"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:7
-#, fuzzy
 msgid "A_ddress"
-msgstr "Naslov"
+msgstr "_Naslov"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:8
 #: components/html-editor/toolbar.c:62
-#, fuzzy
 msgid "Alphabetical List"
-msgstr "Abecedno o¹tevilèen predmet"
+msgstr "Abecedno o¹tevilèen seznam"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:9
-#, fuzzy
 msgid "Background Color"
-msgstr "Ozadje"
+msgstr "Barva ozadja"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:10
-#, fuzzy
 msgid "Blue"
-msgstr "modro 3d"
+msgstr "modra"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:11
 #: components/html-editor/toolbar.c:59
 msgid "Bulleted List"
-msgstr ""
+msgstr "Neo¹tevilèen seznam"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
 #: components/html-editor/toolbar.c:500
-#, fuzzy
 msgid "Center justifies the paragraphs"
-msgstr "Poravnaj odstavke levo"
+msgstr "Sredinjenje poravna odstavke"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:13
-#, fuzzy
 msgid "Check spelling of the document"
-msgstr "Izberi celotno vsebino dokumenta"
+msgstr "Preveri èrkovanje dokumenta"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:14
 #: components/html-editor/popup.c:369
@@ -303,43 +297,36 @@ msgid "Find and Replace"
 msgstr "Poi¹èi in zamenjaj"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:28
-#, fuzzy
 msgid "For_mat"
-msgstr "Predoblikovanje"
+msgstr "_Oblikuj"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:29
 msgid "Green"
-msgstr ""
+msgstr "zelena"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:30
-#, fuzzy
 msgid "Header _1"
-msgstr "Glava 1"
+msgstr "Glava _1"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:31
-#, fuzzy
 msgid "Header _2"
-msgstr "Glava 2"
+msgstr "Glava _2"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:32
-#, fuzzy
 msgid "Header _3"
-msgstr "Glava 3"
+msgstr "Glava _3"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:33
-#, fuzzy
 msgid "Header _4"
-msgstr "Glava 4"
+msgstr "Glava _4"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:34
-#, fuzzy
 msgid "Header _5"
-msgstr "Glava 5"
+msgstr "Glava _5"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
-#, fuzzy
 msgid "Header _6"
-msgstr "Glava 6"
+msgstr "Glava _6"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
 #: components/html-editor/editor-control-factory.c:181
@@ -382,51 +369,51 @@ msgstr "Povezava"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
 msgid "Make the current Paragraph style Normal"
-msgstr ""
+msgstr "Trenutni odstavek naj postene obièajen"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
 msgid "Make the current paragraph a bulleted list"
-msgstr ""
+msgstr "Trenutni odstavek naj postane neo¹tevilèen seznam"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
 msgid "Make the current paragraph a list with roman numerals"
-msgstr ""
+msgstr "Trenutni odstavek naj postane rimsko o¹tevilèen seznam"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
 msgid "Make the current paragraph a numbered list"
-msgstr ""
+msgstr "Trenutni odstavek naj postane o¹tevilèen seznam"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
 msgid "Make the current paragraph an H1 header"
-msgstr ""
+msgstr "Trenutni odstavek naj postane glava H1"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
 msgid "Make the current paragraph an H2 header"
-msgstr ""
+msgstr "Trenutni odstavek naj postane glava H2"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
 msgid "Make the current paragraph an H3 header"
-msgstr ""
+msgstr "Trenutni odstavek naj postane glava H3"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
 msgid "Make the current paragraph an H4 header"
-msgstr ""
+msgstr "Trenutni odstavek naj postane glava H4"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:52
 msgid "Make the current paragraph an H5 header"
-msgstr ""
+msgstr "Trenutni odstavek naj postane glava H5"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:53
 msgid "Make the current paragraph an H6 header"
-msgstr ""
+msgstr "Trenutni odstavek naj postane glava H6"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
 msgid "Make the current paragraph an address"
-msgstr ""
+msgstr "Trenutni odstavek naj postane naslov"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
 msgid "Make the current paragraph an alphabetical list"
-msgstr ""
+msgstr "Trenutni odstavek naj postane abecedno o¹tevilèen seznam"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
 msgid "Modify the file's properties"
@@ -440,18 +427,16 @@ msgstr "Obièajna"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:58
 #: components/html-editor/toolbar.c:60
-#, fuzzy
 msgid "Numbered List"
-msgstr "O¹tevilèen predmet"
+msgstr "O¹tevilèen seznam"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
-#, fuzzy
 msgid "Orange"
-msgstr "Stran"
+msgstr "Oran¾na"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
 msgid "Other..."
-msgstr ""
+msgstr "Druga..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
 #: components/html-editor/popup.c:376
@@ -476,14 +461,12 @@ msgid "Preformat"
 msgstr "Predoblikovanje"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:66
-#, fuzzy
 msgid "Purple"
-msgstr "Pred"
+msgstr "vijolièna"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:67
-#, fuzzy
 msgid "Red"
-msgstr "Obnovi"
+msgstr "rdeèa"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:68
 msgid "Redo"
@@ -510,7 +493,7 @@ msgstr "Poravnaj odstavke desno"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
 msgid "Roman Numeral List"
-msgstr ""
+msgstr "Rimsko o¹tevilèen seznam"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
 #: components/html-editor/editor-control-factory.c:201
@@ -534,19 +517,19 @@ msgstr "Preèrtano"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
 msgid "Su_perscript"
-msgstr ""
+msgstr "_Nadpisano"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
 msgid "Subs_cript"
-msgstr ""
+msgstr "P_odpisano"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
 msgid "Subscript"
-msgstr ""
+msgstr "Podpisano"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
 msgid "Superscript"
-msgstr ""
+msgstr "Nadpisano"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
 #: components/html-editor/gtkhtml-editor-properties.glade.h:44
@@ -583,34 +566,28 @@ msgid "Undo the last action"
 msgstr "Razveljavi zadnje dejanje"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
-#, fuzzy
 msgid "Yellow"
-msgstr "Celica"
+msgstr "rumena"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
-#, fuzzy
 msgid "_Alignment"
-msgstr "Poravnava"
+msgstr "_Poravnava"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
-#, fuzzy
 msgid "_Alphabetical List"
-msgstr "Abecedno o¹tevilèen predmet"
+msgstr "_Abecedno o¹tevilèen seznam"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
-#, fuzzy
 msgid "_Bold"
-msgstr "Polkrepko"
+msgstr "_Polkrepko"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
-#, fuzzy
 msgid "_Bulleted List"
-msgstr "O¹tevilèen predmet"
+msgstr "_Neo¹tevilèen seznam"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
-#, fuzzy
 msgid "_Center"
-msgstr "Sredina"
+msgstr "_Sredina"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
 msgid "_Copy"
@@ -618,7 +595,7 @@ msgstr "_Kopiraj"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
 msgid "_Decrease Indent"
-msgstr ""
+msgstr "_Zmanj¹aj zamik"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
 msgid "_Edit"
@@ -630,12 +607,11 @@ msgstr "_Poi¹èi..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
 msgid "_Font Size"
-msgstr ""
+msgstr "Velikost _pisave"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
-#, fuzzy
 msgid "_Heading"
-msgstr "polnjenje"
+msgstr "_Glava"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
 msgid "_Image..."
@@ -643,49 +619,43 @@ msgstr "_Slika..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
 msgid "_Increase Indent"
-msgstr ""
+msgstr "_Poveèaj zamik"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
 msgid "_Insert"
 msgstr "Vstav_i"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
-#, fuzzy
 msgid "_Italic"
-msgstr "Le¾eèe"
+msgstr "_Le¾eèe"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
-#, fuzzy
 msgid "_Left"
-msgstr "Levo"
+msgstr "_Levo"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
 msgid "_Link..."
 msgstr "Po_vezava..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
-#, fuzzy
 msgid "_Normal"
-msgstr "Obièajna"
+msgstr "_Obièajna"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
-#, fuzzy
 msgid "_Numbered List"
-msgstr "O¹tevilèen predmet"
+msgstr "_O¹tevilèen seznam"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
 msgid "_Paste"
 msgstr "_Prilepi"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
-#, fuzzy
 msgid "_Plain text"
-msgstr "pusto"
+msgstr "_Èisto besedilo"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
-#, fuzzy
 msgid "_Preformat"
-msgstr "Predoblikovanje"
+msgstr "_Predoblikovanje"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
 msgid "_Redo"
@@ -696,51 +666,44 @@ msgid "_Replace..."
 msgstr "_Zamenjaj..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
-#, fuzzy
 msgid "_Right"
-msgstr "Desno"
+msgstr "_Desno"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
-#, fuzzy
 msgid "_Roman Numeral List"
-msgstr "Rimsko o¹tevilèen predmet"
+msgstr "_Rimsko o¹tevilèen seznam"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
 msgid "_Rule..."
 msgstr "P_ravilo..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
-#, fuzzy
 msgid "_Spell check document..."
-msgstr "Preverjanje èrkovanja"
+msgstr "_Preveri èrkovanje dokumenta..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
-#, fuzzy
 msgid "_Strikeout"
-msgstr "Preèrtano"
+msgstr "P_reèrtano"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
-#, fuzzy
 msgid "_Style"
-msgstr "Slog"
+msgstr "_Slog"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
 msgid "_Table..."
 msgstr "_Tabela..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
-#, fuzzy
 msgid "_Underline"
-msgstr "Podèrtano"
+msgstr "Po_dèrtano"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
 msgid "_Undo"
 msgstr "Ra_zveljavi"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
-#, fuzzy
 msgid "etc..."
-msgstr "Besedilo..."
+msgstr "itd..."
 
 #: components/html-editor/body.c:134 components/html-editor/body.c:138
 msgid "Background Image"
@@ -754,6 +717,12 @@ msgstr "Vkljuèi"
 msgid "Colors"
 msgstr "Barve"
 
+#: components/html-editor/body.c:175 components/html-editor/cell.c:391
+#: components/html-editor/table.c:531 components/html-editor/text.c:221
+#: components/html-editor/toolbar.c:290
+msgid "Automatic"
+msgstr "Samodejno"
+
 #: components/html-editor/body.c:186
 #: components/html-editor/editor-control-factory.c:190
 #: components/html-editor/menubar.c:127 components/html-editor/popup.c:151
@@ -764,11 +733,6 @@ msgstr "Besedilo"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:5
 msgid "Background"
 msgstr "Ozadje"
-
-#: components/html-editor/cell.c:391 components/html-editor/table.c:534
-#: components/html-editor/text.c:221 components/html-editor/toolbar.c:290
-msgid "Automatic"
-msgstr "Samodejno"
 
 #: components/html-editor/editor-control-factory.c:170
 #: components/html-editor/popup.c:143
@@ -805,19 +769,16 @@ msgid "Alignment"
 msgstr "Poravnava"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:3
-#, fuzzy
 msgid "Alignment:"
-msgstr "Poravnava"
+msgstr "Poravnava:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:4
-#, fuzzy
 msgid "Apply changes to:"
-msgstr "Uveljavi spremembe nad"
+msgstr "Uveljavi spremembe nad:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:6
-#, fuzzy
 msgid "Border:"
-msgstr "Rob"
+msgstr "Rob:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:7
 #: components/html-editor/image.c:203
@@ -835,9 +796,8 @@ msgid "Center"
 msgstr "Sredina"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:10
-#, fuzzy
 msgid "Color:"
-msgstr "Barva"
+msgstr "Barva:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:11
 #: components/html-editor/popup.c:440
@@ -845,14 +805,12 @@ msgid "Column"
 msgstr "Stolpec"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:12
-#, fuzzy
 msgid "Column span:"
-msgstr "seganje stolpca"
+msgstr "Seganje stolpca:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:13
-#, fuzzy
 msgid "Columns:"
-msgstr "Stolpec"
+msgstr "Stolpcov:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:14
 msgid "Don't wrap"
@@ -863,19 +821,16 @@ msgid "Header"
 msgstr "Glava"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:16
-#, fuzzy
 msgid "Height:"
-msgstr "vi¹ina"
+msgstr "Vi¹ina:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:17
-#, fuzzy
 msgid "Horizontal alignment:"
-msgstr "vodoravna poravnava"
+msgstr "Vodoravna poravnava:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:18
-#, fuzzy
 msgid "Horizontal:"
-msgstr "vodoravno"
+msgstr "Vodoravno:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:19
 #: components/html-editor/paragraph.c:158
@@ -883,9 +838,8 @@ msgid "Left"
 msgstr "Levo"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:20
-#, fuzzy
 msgid "Length:"
-msgstr "dol¾ina"
+msgstr "Dol¾ina:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:21
 #: components/html-editor/image.c:202
@@ -897,29 +851,27 @@ msgid "None"
 msgstr "Brez"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:25
-#, fuzzy
 msgid "Padding:"
-msgstr "Polnjenje"
+msgstr "Polnjenje:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:26
 msgid "Percent"
 msgstr "Odstotek"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:28
-#: components/html-editor/image.c:257 components/html-editor/image.c:266
+#: components/html-editor/image.c:260 components/html-editor/image.c:269
 #, no-c-format
 msgid "Percent %"
 msgstr "Odstotek %"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:29
-#: components/html-editor/image.c:256 components/html-editor/image.c:265
+#: components/html-editor/image.c:259 components/html-editor/image.c:268
 msgid "Pixels"
 msgstr "Pikslov"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:30
-#, fuzzy
 msgid "Pixmap:"
-msgstr "bitna slika"
+msgstr "Bitna slika:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:31
 msgid "Points"
@@ -936,27 +888,23 @@ msgid "Row"
 msgstr "Vrstica"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:34
-#, fuzzy
 msgid "Row span:"
-msgstr "seganje vrstice"
+msgstr "Seganje vrstice:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:35
-#, fuzzy
 msgid "Rows:"
-msgstr "Vrstica"
+msgstr "Vrstic:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:37
 msgid "Scope"
 msgstr "Obmoèje"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:38
-#, fuzzy
 msgid "Shaded"
-msgstr "senèeno"
+msgstr "Senèeno"
 
-#. size and spacing
 #: components/html-editor/gtkhtml-editor-properties.glade.h:39
-#: components/html-editor/image.c:249 components/html-editor/text.c:188
+#: components/html-editor/image.c:252 components/html-editor/text.c:188
 msgid "Size"
 msgstr "Velikost"
 
@@ -965,9 +913,8 @@ msgid "Spacing"
 msgstr "Presledki"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:41
-#, fuzzy
 msgid "Spacing:"
-msgstr "Presledki"
+msgstr "Presledki:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:42
 #: components/html-editor/paragraph.c:110 components/html-editor/text.c:168
@@ -975,9 +922,8 @@ msgid "Style"
 msgstr "Slog"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:43
-#, fuzzy
 msgid "Style:"
-msgstr "Slog"
+msgstr "Slog:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:45
 msgid "Table Insert"
@@ -989,23 +935,20 @@ msgid "Top"
 msgstr "Vrh"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:48
-#, fuzzy
 msgid "Vertical:"
-msgstr "navpièno"
+msgstr "Navpièno:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:49
-#, fuzzy
 msgid "Width:"
-msgstr "¹irina"
+msgstr "©irina:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:50
 msgid "Wrap"
 msgstr "Lom"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:51
-#, fuzzy
 msgid "Wrapping:"
-msgstr "lomljenje"
+msgstr "Lomljenje:"
 
 #: components/html-editor/image.c:179
 msgid "Image selection"
@@ -1015,17 +958,16 @@ msgstr "Izbira slike"
 msgid "Border"
 msgstr "Rob"
 
-#: components/html-editor/image.c:225 components/html-editor/image.c:242
-#: components/html-editor/image.c:272
+#: components/html-editor/image.c:225 components/html-editor/image.c:243
+#: components/html-editor/image.c:275
 msgid "width"
 msgstr "¹irina"
 
-#. spacing
-#: components/html-editor/image.c:231
+#: components/html-editor/image.c:232
 msgid "Padding"
 msgstr "Polnjenje"
 
-#: components/html-editor/image.c:243 components/html-editor/image.c:273
+#: components/html-editor/image.c:244 components/html-editor/image.c:276
 msgid "height"
 msgstr "vi¹ina"
 
@@ -1103,22 +1045,21 @@ msgstr "Poravnaj"
 #: components/html-editor/popup.c:338
 #, c-format
 msgid "Check '%s' spelling..."
-msgstr ""
+msgstr "Preveri èrkovanje '%s'..."
 
 #: components/html-editor/popup.c:339
 #, c-format
 msgid "Add '%s' to dictionary"
-msgstr ""
+msgstr "Dodaj '%s' v slovar"
 
 #: components/html-editor/popup.c:340
 #, c-format
 msgid "Ignore '%s'"
-msgstr ""
+msgstr "Prezri '%s'"
 
 #: components/html-editor/popup.c:341 components/html-editor/spell.c:369
-#, fuzzy
 msgid "Spell checker"
-msgstr "Preverjanje èrkovanja"
+msgstr "Èrkovalnik"
 
 #: components/html-editor/popup.c:345
 msgid "Suggest word"
@@ -1214,7 +1155,7 @@ msgstr "razlikuj velike in male èrke"
 msgid "with"
 msgstr "z"
 
-#: components/html-editor/rule.c:92 components/html-editor/table.c:190
+#: components/html-editor/rule.c:92 components/html-editor/table.c:189
 msgid "Plain"
 msgstr "pusto"
 
@@ -1236,40 +1177,61 @@ msgstr "Poi¹èi regularni izraz"
 
 #: components/html-editor/spell.c:364
 msgid "No misspelled word found"
-msgstr ""
+msgstr "Nobena narobe èrkovana beseda ni bila najdena"
 
-#: components/html-editor/table.c:198
+#: components/html-editor/table.c:197
 msgid "Flat gray"
 msgstr "siva"
 
-#: components/html-editor/table.c:207
+#: components/html-editor/table.c:206
 msgid "Dark header"
 msgstr "temna glava"
 
 #: components/html-editor/template.c:81
-#, fuzzy
 msgid "Note"
-msgstr "Brez"
+msgstr "Opomba"
 
 #: components/html-editor/template.c:83
 msgid ""
-"<table cellspacing=0 cellpadding=1 "
-"bgcolor=\"#ccccc0\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" "
-"cellpadding=3 cellspacing=0 width=\"100%\"><tr><td valign=top><img "
-"src=\"file://"
+"<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
+"\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
+"cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
 msgstr ""
+"<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
+"\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
+"cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
+
+#: components/html-editor/template.c:85
+msgid ""
+"/bulb.png\" hspace=10></td><td width=\"100%\">Place your text here</td></"
+"tr></table></td></tr></table>"
+msgstr ""
+"/bulb.png\" hspace=10></td><td width=\"100%\">Sem vpi¹ite svoje besedilo</td></"
+"tr></table></td></tr></table>"
 
 #: components/html-editor/template.c:91
-#, fuzzy
 msgid "Image frame"
-msgstr "Slika"
+msgstr "Okvir slike"
 
 #: components/html-editor/template.c:93
 msgid ""
 "<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" @width@@align@><tr><td><table "
-"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" "
-"width=\"100%\"><tr><td align=\"center\"><img src=\"file://"
+"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%"
+"\"><tr><td align=\"center\"><img src=\"file://"
 msgstr ""
+"<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" @width@@align@><tr><td><table "
+"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%"
+"\"><tr><td align=\"center\"><img src=\"file://"
+
+#: components/html-editor/template.c:97
+msgid ""
+"/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td>Image 1:"
+"&nbsp;<font size=\"3\"><b>description</b></font size=\"3\"></td></tr></"
+"table></td></tr></table>"
+msgstr ""
+"/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td>Image 1:"
+"&nbsp;<font size=\"3\"><b>description</b></font size=\"3\"></td></tr></"
+"table></td></tr></table>"
 
 #: components/html-editor/test-html-editor-control.c:276
 msgid "Open file..."
@@ -1292,9 +1254,8 @@ msgid "Underline"
 msgstr "Podèrtano"
 
 #: components/html-editor/toolbar.c:61
-#, fuzzy
 msgid "Roman List"
-msgstr "Rimsko o¹tevilèen predmet"
+msgstr "Rimsko o¹tevilèen seznam"
 
 #: components/html-editor/toolbar.c:498
 msgid "Left align"
@@ -1344,7 +1305,7 @@ msgstr "Bolj zamakni odstavke"
 msgid "Sample"
 msgstr "Vzorec"
 
-#: src/htmlgdkpainter.c:225
+#: src/htmlgdkpainter.c:223
 msgid "Can't load fixed font."
 msgstr "Ne morem nalo¾iti pisave s stalno ¹irino"
 
@@ -1355,26 +1316,6 @@ msgstr "_Predogled tiskanja"
 #: src/testgtkhtml.c:112
 msgid "Print preview"
 msgstr "Predogled tiskanja"
-
-#, fuzzy
-#~ msgid "_Alpabetical List"
-#~ msgstr "Abecedno o¹tevilèen predmet"
-
-#, fuzzy
-#~ msgid "_Header _3"
-#~ msgstr "Glava 3"
-
-#, fuzzy
-#~ msgid "_Header _4"
-#~ msgstr "Glava 4"
-
-#, fuzzy
-#~ msgid "_Header _5"
-#~ msgstr "Glava 5"
-
-#, fuzzy
-#~ msgid "_Header _6"
-#~ msgstr "Glava 6"
 
 #~ msgid "Be careful! Tables code is still ALPHA quality."
 #~ msgstr "Bodite previdni! Tabele so ¹e vedno v ALPHA fazi."
@@ -1393,6 +1334,9 @@ msgstr "Predogled tiskanja"
 
 #~ msgid "columns"
 #~ msgstr "stolpcev"
+
+#~ msgid "padding"
+#~ msgstr "polnjenje"
 
 #~ msgid "rows"
 #~ msgstr "vrstic"
@@ -1573,9 +1517,6 @@ msgstr "Predogled tiskanja"
 
 #~ msgid "Read %d bytes"
 #~ msgstr "Berem %d bajtov"
-
-#~ msgid "Reading..."
-#~ msgstr "Branje..."
 
 #~ msgid "Writing %d%%%% of %l"
 #~ msgstr "Pi¹em %d%%%% od %l"
