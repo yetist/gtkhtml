@@ -27,7 +27,8 @@
 
 
 HTMLForm *
-html_form_new (HTMLEngine *engine, gchar *_action, gchar *_method) {
+html_form_new (HTMLEngine *engine, gchar *_action, gchar *_method) 
+{
 	HTMLForm *new;
 	
 	new = g_new (HTMLForm, 1);
@@ -38,7 +39,7 @@ html_form_new (HTMLEngine *engine, gchar *_action, gchar *_method) {
 	new->hidden = NULL;
 	new->engine = engine;
 
-	new->radio_group = NULL;
+	new->radio_group = g_hash_table_new (g_str_hash, g_str_equal);
 
 	return new;
 }
@@ -59,10 +60,36 @@ html_form_add_hidden (HTMLForm *form, HTMLHidden *hidden)
 	form->hidden = g_list_append (form->hidden, hidden);
 }
 
+void
+html_form_add_radio (HTMLForm *form, char *name, GtkRadioButton *button)
+{
+	GtkWidget *master;
+	GSList *group;
+	char *key = name;
+
+	master = g_hash_table_lookup (form->radio_group, key);
+	if (master == NULL) {
+		/* if there is no entry we dup the key because the table will own it */
+		key = g_strdup (key);
+		gtk_widget_ref (GTK_WIDGET (button));
+		g_hash_table_insert (form->radio_group, key, button);
+	} else {
+		group = gtk_radio_button_group (GTK_RADIO_BUTTON (master));
+		gtk_radio_button_set_group (button, group);
+	}
+}
+
 static void
 destroy_hidden (gpointer o, gpointer data)
 {
 	html_object_destroy (HTML_OBJECT (o));
+}
+
+static void
+destroy_radio (char *key, gpointer *master)
+{
+	g_free (key);
+	gtk_widget_unref (GTK_WIDGET (master));
 }
 
 static void
@@ -78,13 +105,11 @@ html_form_destroy (HTMLForm *form)
 	g_list_free (form->elements);
 	g_list_free (form->hidden);
 
+	g_hash_table_foreach (form->radio_group, (GHFunc)destroy_radio, NULL);
+	g_hash_table_destroy (form->radio_group);
 
-	if (form->action)
-		g_free (form->action);
-
-	if (form->method)
-		g_free (form->method);
-
+	g_free (form->action);
+	g_free (form->method);
 	g_free (form);
 }
 

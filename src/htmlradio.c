@@ -21,6 +21,7 @@
 
 #include <config.h>
 #include <gtk/gtkradiobutton.h>
+#include "htmlform.h"
 #include "htmlradio.h"
 #include <string.h>
 
@@ -109,7 +110,7 @@ html_radio_init (HTMLRadio *radio,
 		 gchar *name, 
 		 gchar *value, 
 		 gboolean checked,
-		 GSList **radio_group)
+		 HTMLForm *form)
 {
 	HTMLEmbedded *element;
 	HTMLObject *object;
@@ -123,17 +124,12 @@ html_radio_init (HTMLRadio *radio,
 
 	html_embedded_init (element, HTML_EMBEDDED_CLASS (klass), parent, name, value);
 
-	widget = gtk_radio_button_new (*radio_group);
+	widget = gtk_radio_button_new (NULL);
 	html_embedded_set_widget (element, widget);
+	html_form_add_radio (form, name, GTK_RADIO_BUTTON (widget));
 
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget), checked);
-
-	*radio_group = gtk_radio_button_group (GTK_RADIO_BUTTON (widget));
-
 	radio->default_checked = checked;
-
-	/*	gtk_widget_show(element->widget);
-		gtk_layout_put(GTK_LAYOUT(parent), element->widget, 0, 0);*/
 }
 
 HTMLObject *
@@ -141,12 +137,12 @@ html_radio_new (GtkWidget *parent,
 		gchar *name, 
 		gchar *value, 
 		gboolean checked,
-		GSList **radio_group)
+		HTMLForm *form)
 {
 	HTMLRadio *radio;
 
 	radio = g_new0 (HTMLRadio, 1);
-	html_radio_init (radio, &html_radio_class, parent, name, value, checked, radio_group);
+	html_radio_init (radio, &html_radio_class, parent, name, value, checked, form);
 
 	return HTML_OBJECT (radio);
 }

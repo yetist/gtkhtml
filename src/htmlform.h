@@ -14,8 +14,7 @@
     Library General Public License for more details.
 
     You should have received a copy of the GNU Library General Public License
-    along with this library; see the file COPYING.LIB.  If not, write to
-    the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+    along with this library; see the file COPYING.LIB.  If not, write to    the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
     Boston, MA 02111-1307, USA.
 */
 
@@ -36,7 +35,7 @@ struct _HTMLForm {
 	GList *hidden;
 
 	/* Used by radio buttons */
-	GSList *radio_group;
+	GHashTable *radio_group;
 
 	HTMLEngine *engine;
 };
@@ -49,5 +48,9 @@ void html_form_remove_element (HTMLForm *form, HTMLEmbedded *e);
 void html_form_submit (HTMLForm *form);
 void html_form_reset (HTMLForm *form);
 void html_form_destroy (HTMLForm *form);
+void html_form_add_radio (HTMLForm *form, char *name, GtkRadioButton *button);
 
 #endif /* _HTMLFORM_H_ */
+
+
+

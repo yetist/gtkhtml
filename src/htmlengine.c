@@ -1486,7 +1486,7 @@ parse_input (HTMLEngine *e, const gchar *str, HTMLObject *_clue)
 		break;
 		}
 	case Radio:
-		element = html_radio_new(GTK_WIDGET(e->widget), name, value, checked, &e->form->radio_group);
+		element = html_radio_new(GTK_WIDGET(e->widget), name, value, checked, e->form);
 		break;
 	case Reset:
 		element = html_button_new(GTK_WIDGET(e->widget), name, value, BUTTON_RESET);

@@ -1,3 +1,21 @@
+2001-06-05  Larry Ewing  <lewing@ximian.com>
+
+	* htmlradio.c (html_radio_init): call html_form_add_radio and
+	change protype.
+	(html_radio_new): change prototype.
+
+	* htmlradio.h (html_radio_new): change prototype.
+
+	* htmlengine.c (parse_input): fix to html_radio_new to match the
+	new protoype.
+
+	* htmlform.h: add prototype for html_form_add_radio.
+
+	* htmlform.c (html_form_destroy): free the group hash.
+	(html_form_add_radio): new function to handle radio groups
+	correctly.
+	(destroy_radio): helper to destroy the has entries.
+
 2001-06-05  Radek Doulik  <rodo@ximian.com>
 
 	* htmltablecell.c (calc_min_width): fixed for NOWRAP and

@@ -49,11 +49,11 @@ void        html_radio_init        (HTMLRadio      *radio,
 				    gchar          *name,
 				    gchar          *value,
 				    gboolean        checked,
-				    GSList        **radio_group);
+				    HTMLForm       *form);
 HTMLObject *html_radio_new         (GtkWidget      *parent,
 				    gchar          *name,
 				    gchar          *value,
 				    gboolean        checked,
-				    GSList        **radio_group);
+				    HTMLForm       *form);
 
 #endif /* _HTMLRADIO_H_ */
