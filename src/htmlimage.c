@@ -797,7 +797,7 @@ html_image_factory_area_prepared (GdkPixbufLoader *loader, HTMLImagePointer *ip)
 		while (cur) {
 			if (cur->data) {
 				o = HTML_OBJECT (cur->data);
-				html_object_change_set (o, HTML_CHANGE_MIN_WIDTH);
+				html_object_change_set (o, HTML_CHANGE_ALL);
 			}
 			cur = cur->next;
 		}

@@ -119,8 +119,8 @@ gtk_html_debug_dump_object (HTMLObject *obj,
 	for (i = 0; i < level; i++)
 		g_print (" ");
 
-	g_print ("Obj: %p, Parent: %p  Prev: %p Next: %p ObjectType: %s Pos: %d, %d, MinWidth: %d, Width: %d MaxWidth: %d Ascent %d Descent %d",
-		 obj, obj->parent, obj->prev, obj->next, html_type_name (HTML_OBJECT_TYPE (obj)),
+	g_print ("ObjectType: %s Pos: %d, %d, MinWidth: %d, Width: %d MaxWidth: %d Ascent %d Descent %d",
+		 html_type_name (HTML_OBJECT_TYPE (obj)),
 		 obj->x, obj->y, obj->min_width, obj->width, obj->max_width, obj->ascent, obj->descent);
 
 	if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_CLUEFLOW)

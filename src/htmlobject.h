@@ -51,6 +51,7 @@ struct _HTMLObject {
 
 	gint min_width;
 	gint width;
+	gint pref_width;
 	gint max_width;
 
 	gint percent;

@@ -350,7 +350,7 @@ allocate (GtkWidget *w, GtkAllocation  *allocation, HTMLEmbedded *e)
 {
 	if (e->width != allocation->width || e->height != allocation->height) {
 		if (e->width != allocation->width) {
-			html_object_change_set (HTML_OBJECT (e), HTML_CHANGE_MIN_WIDTH);
+			html_object_change_set (HTML_OBJECT (e), HTML_CHANGE_ALL);
 			e->width = allocation->width;
 		}
 		e->height = allocation->height;

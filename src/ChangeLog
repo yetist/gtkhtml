@@ -1,5 +1,16 @@
 2000-12-06  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlobject.c (html_object_calc_preferred_width): cache
+	pref_width
+
+	* htmlobject.h: added pref_width
+
+	* htmlembedded.c (allocate): set HTML_CHANGE_ALL
+
+	* htmltext.c (split): set HTML_CHANGE_ALL
+
+	* htmlimage.c (html_image_factory_area_prepared): set HTML_CHANGE_ALL
+
 	* htmlinterval.c (select_object): use top engine for select_in and
 	"right one" for select_range call
 

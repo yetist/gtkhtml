@@ -803,7 +803,11 @@ gint
 html_object_calc_preferred_width (HTMLObject *o,
 				  HTMLPainter *painter)
 {
-	return (* HO_CLASS (o)->calc_preferred_width) (o, painter);
+	if (o->change & HTML_CHANGE_PREF_WIDTH) {
+		o->pref_width = (* HO_CLASS (o)->calc_preferred_width) (o, painter);
+		o->change &= ~HTML_CHANGE_PREF_WIDTH;
+	}
+	return o->pref_width;
 }
 
 const gchar *

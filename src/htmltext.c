@@ -704,7 +704,7 @@ split (HTMLText *self,
 	self->text = g_realloc (self->text, unicode_offset_to_index (self->text, offset) + 1);
 	self->text [unicode_offset_to_index (self->text, offset)] = '\0';
 	self->text_len = offset;
-	html_object_change_set (HTML_OBJECT (self), HTML_CHANGE_MIN_WIDTH);
+	html_object_change_set (HTML_OBJECT (self), HTML_CHANGE_ALL);
 	split_spell_errors (self, new, offset);
 
 	return new;
