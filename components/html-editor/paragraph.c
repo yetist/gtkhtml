@@ -183,7 +183,7 @@ paragraph_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 
 		position = e->cursor->position;
 
-		if (!html_engine_selection_is_active (e) && e->cursor->object->parent != HTML_OBJECT (data->flow))
+		if (!html_engine_is_selection_active (e) && e->cursor->object->parent != HTML_OBJECT (data->flow))
 			if (!html_cursor_jump_to (e->cursor, e, html_object_head (HTML_OBJECT (data->flow)), 0)) {
 				GtkWidget *dialog;
 				printf ("d: %p\n", data->cd->properties_dialog);

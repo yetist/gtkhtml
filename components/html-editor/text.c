@@ -324,7 +324,7 @@ text_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 
 		position = e->cursor->position;
 
-		if (!html_engine_selection_is_active (e) && e->cursor->object != HTML_OBJECT (data->text))
+		if (!html_engine_is_selection_active (e) && e->cursor->object != HTML_OBJECT (data->text))
 			if (!html_cursor_jump_to (e->cursor, e, HTML_OBJECT (data->text), 1)) {
 				GtkWidget *dialog;
 				printf ("d: %p\n", data->cd->properties_dialog);
