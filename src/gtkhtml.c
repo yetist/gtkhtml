@@ -2883,6 +2883,13 @@ insert_tab_or_indent_more_or_next_cell (GtkHTML *html)
 	}
 }
 
+inline static void
+indent_more_or_next_cell (GtkHTML *html)
+{
+	if (!html_engine_next_cell (html->engine, TRUE))
+		gtk_html_modify_indent_by_delta (html, +1);
+}
+
 static void
 indent_less_or_prev_cell (GtkHTML *html)
 {
@@ -3095,7 +3102,10 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		gtk_html_set_indent (html, 0);
 		break;
 	case GTK_HTML_COMMAND_INDENT_INC:
-			gtk_html_modify_indent_by_delta (html, +1);
+		gtk_html_modify_indent_by_delta (html, +1);
+		break;
+	case GTK_HTML_COMMAND_INDENT_INC_OR_NEXT_CELL:
+		indent_more_or_next_cell (html);
 		break;
 	case GTK_HTML_COMMAND_INSERT_TAB:
 		if (!html_engine_is_selection_active (e)

@@ -1,5 +1,11 @@
 2001-08-17  Radek Doulik  <rodo@ximian.com>
 
+	* gtkhtml.c (insert_tab_or_indent_more_or_next_cell): new helper
+	function for new GTK_HTML_COMMAND_INDENT_INC_OR_NEXT_CELL command
+
+	* keybindingsrc.{ms,emacs,xeamcs}: added C-TAB for
+	indent-more-or-next-cell
+
 	* htmlengine-edit-cursor.c: added table and image cursor, fixed
 	few problems
 

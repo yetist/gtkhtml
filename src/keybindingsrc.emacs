@@ -49,29 +49,31 @@ binding "gtkhtml-bindings-emacs"
   bind "<Shift>Insert"        { "command" (paste) }
   bind "<Shift>KP_Insert"     { "command" (paste) }
 
-  bind "<Ctrl>d"            { "command" (delete) }
-  bind "<Ctrl>g"            { "command" (disable-selection) }
-  bind "<Ctrl>m"            { "command" (insert-paragraph) }
-  bind "<Ctrl>j"            { "command" (insert-paragraph) }
-  bind "<Ctrl>w"            { "command" (cut) }
-  bind "<Alt>w"             { "command" (copy-and-disable-selection) }
-  bind "<Ctrl>y"            { "command" (paste) }
+  bind "<Ctrl>d"              { "command" (delete) }
+  bind "<Ctrl>g"              { "command" (disable-selection) }
+  bind "<Ctrl>m"              { "command" (insert-paragraph) }
+  bind "<Ctrl>j"              { "command" (insert-paragraph) }
+  bind "<Ctrl>w"              { "command" (cut) }
+  bind "<Alt>w"               { "command" (copy-and-disable-selection) }
+  bind "<Ctrl>y"              { "command" (paste) }
 
-  bind "<Ctrl>k"            { "command" (cut-line) }
+  bind "<Ctrl>k"              { "command" (cut-line) }
 
-  bind "<Ctrl><Alt>b"       { "command" (bold-toggle) }
-  bind "<Ctrl><Alt>i"       { "command" (italic-toggle) }
-  bind "<Ctrl><Alt>u"       { "command" (underline-toggle) }
-  bind "<Ctrl><Alt>s"       { "command" (strikeout-toggle) }
+  bind "<Ctrl><Alt>b"         { "command" (bold-toggle) }
+  bind "<Ctrl><Alt>i"         { "command" (italic-toggle) }
+  bind "<Ctrl><Alt>u"         { "command" (underline-toggle) }
+  bind "<Ctrl><Alt>s"         { "command" (strikeout-toggle) }
 
-  bind "<Ctrl><Alt>l"       { "command" (align-left) }
-  bind "<Ctrl><Alt>c"       { "command" (align-center) }
-  bind "<Ctrl><Alt>r"       { "command" (align-right) }
+  bind "<Ctrl><Alt>l"         { "command" (align-left) }
+  bind "<Ctrl><Alt>c"         { "command" (align-center) }
+  bind "<Ctrl><Alt>r"         { "command" (align-right) }
 
-  bind "Tab"                     { "command" (insert-tab-or-indent-more-or-next-cell) }
-  bind "ISO_Left_Tab"            { "command" (insert-tab-or-indent-more-or-next-cell) }
-  bind "<Shift>Tab"              { "command" (indent-less-or-prev-cell) }
-  bind "<Shift>ISO_Left_Tab"     { "command" (indent-less-or-prev-cell) }
+  bind "Tab"                  { "command" (insert-tab-or-indent-more-or-next-cell) }
+  bind "ISO_Left_Tab"         { "command" (insert-tab-or-indent-more-or-next-cell) }
+  bind "<Ctrl>Tab"            { "command" (indent-more-or-next-cell) }
+  bind "<Ctrl>ISO_Left_Tab"   { "command" (indent-more-or-next-cell) }
+  bind "<Shift>Tab"           { "command" (indent-less-or-prev-cell) }
+  bind "<Shift>ISO_Left_Tab"  { "command" (indent-less-or-prev-cell) }
 
   bind "<Ctrl>0"             { "command" (style-normal) }
   bind "<Ctrl>1"             { "command" (style-header1) }
