@@ -1044,9 +1044,11 @@ write_pre_tags (HTMLClueFlow *self,
 
 	prev = HTML_CLUEFLOW (HTML_OBJECT (self)->prev);
 	if (prev != NULL && prev->level == self->level && prev->style == self->style) {
-		if (! is_item (self))
+		if (!is_item (self) && self->style != HTML_CLUEFLOW_STYLE_PRE) {
 			return html_engine_save_output_string (state, "<br>\n");
-		else
+		} else if (self->style == HTML_CLUEFLOW_STYLE_PRE) {
+			return html_engine_save_output_string (state, "\n");
+		} else
 			return TRUE;
 	}
 

@@ -1,3 +1,8 @@
+2001-04-02  Larry Ewing  <lewing@ximian.com>
+
+	* htmlclueflow.c (write_pre_tags): only write a \n for PRE flows,
+	rather than a <br>\n.
+
 2001-03-30  Larry Ewing  <lewing@ximian.com>
 
 	* htmlobject.c (copy): copy pref_width.
