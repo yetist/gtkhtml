@@ -23,11 +23,11 @@ typedef struct {
 	BonoboObjectClass parent_class;
 } HTMLEditorResolverClass;
 
-GtkType                     htmleditor_resolver_get_type  (void);
-HTMLEditorResolver         *htmleditor_resolver_construct (HTMLEditorResolver *resolver, HTMLEditor_Resolver corba_resolver);
-HTMLEditorResolver         *htmleditor_resolver_new       (void);
-
-POA_HTMLEditor_Resolver__epv *htmleditor_resolver_get_epv (void);
+GtkType                             htmleditor_resolver_get_type   (void);
+HTMLEditorResolver                 *htmleditor_resolver_construct  (HTMLEditorResolver        *resolver,
+								    GNOME_HTMLEditor_Resolver  corba_resolver);
+HTMLEditorResolver                 *htmleditor_resolver_new        (void);
+POA_GNOME_HTMLEditor_Resolver__epv *htmleditor_resolver_get_epv    (void);
 
 END_GNOME_DECLS
 

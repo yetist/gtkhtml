@@ -30,11 +30,11 @@
 
 BEGIN_GNOME_DECLS
 
-#define HTML_EDITOR_ENGINE_TYPE        (html_editor_engine_get_type ())
-#define HTML_EDITOR_ENGINE(o)          (GTK_CHECK_CAST ((o), HTML_EDITOR_ENGINE_TYPE, HTMLEditorEngine))
-#define HTML_EDITOR_ENGINE_CLASS(k)    (GTK_CHECK_CLASS_CAST((k), HTML_EDITOR_ENGINE_TYPE, HTMLEditorEngineClass))
-#define IS_HTML_EDITOR_ENGINE(o)       (GTK_CHECK_TYPE ((o), HTML_EDITOR_ENGINE_TYPE))
-#define IS_HTML_EDITOR_ENGINE_CLASS(k) (GTK_CHECK_CLASS_TYPE ((k), HTML_EDITOR_ENGINE_TYPE))
+#define HTMLEDITOR_ENGINE_TYPE        (htmleditor_engine_get_type ())
+#define HTMLEDITOR_ENGINE(o)          (GTK_CHECK_CAST ((o), HTMLEDITOR_ENGINE_TYPE, HTMLEditorEngine))
+#define HTMLEDITOR_ENGINE_CLASS(k)    (GTK_CHECK_CLASS_CAST((k), HTMLEDITOR_ENGINE_TYPE, HTMLEditorEngineClass))
+#define IS_HTMLEDITOR_ENGINE(o)       (GTK_CHECK_TYPE ((o), HTMLEDITOR_ENGINE_TYPE))
+#define IS_HTMLEDITOR_ENGINE_CLASS(k) (GTK_CHECK_CLASS_TYPE ((k), HTMLEDITOR_ENGINE_TYPE))
 
 typedef struct {
 	BonoboObject parent;
@@ -42,18 +42,18 @@ typedef struct {
 	GtkHTML *html;
 
 	BonoboObjectClient *listener_client;
-	HTMLEditor_Listener listener;
+	GNOME_HTMLEditor_Listener listener;
 } HTMLEditorEngine;
 
 typedef struct {
 	BonoboObjectClass parent_class;
 } HTMLEditorEngineClass;
 
-GtkType                     html_editor_engine_get_type   (void);
-HTMLEditorEngine           *html_editor_engine_construct  (HTMLEditorEngine  *engine,
-							   HTMLEditor_Engine  corba_engine);
-HTMLEditorEngine           *html_editor_engine_new        (GtkHTML *html);
-POA_HTMLEditor_Engine__epv *html_editor_engine_get_epv    (void);
+GtkType                           htmleditor_engine_get_type   (void);
+HTMLEditorEngine                 *htmleditor_engine_construct  (HTMLEditorEngine        *engine,
+								GNOME_HTMLEditor_Engine  corba_engine);
+HTMLEditorEngine                 *htmleditor_engine_new        (GtkHTML                 *html);
+POA_GNOME_HTMLEditor_Engine__epv *htmleditor_engine_get_epv    (void);
 
 END_GNOME_DECLS
 

@@ -28,12 +28,12 @@
 #include "engine.h"
 
 static BonoboObjectClass *engine_parent_class;
-static POA_HTMLEditor_Engine__vepv engine_vepv;
+static POA_GNOME_HTMLEditor_Engine__vepv engine_vepv;
 
 inline static HTMLEditorEngine *
 html_editor_engine_from_servant (PortableServer_Servant servant)
 {
-	return HTML_EDITOR_ENGINE (bonobo_object_from_servant (servant));
+	return HTMLEDITOR_ENGINE (bonobo_object_from_servant (servant));
 }
 
 static CORBA_any *
@@ -92,7 +92,7 @@ unref_listener (HTMLEditorEngine *e)
 }
 
 static void
-impl_set_listener (PortableServer_Servant servant, const HTMLEditor_Listener value, CORBA_Environment * ev)
+impl_set_listener (PortableServer_Servant servant, const GNOME_HTMLEditor_Listener value, CORBA_Environment * ev)
 {
 	HTMLEditorEngine *e = html_editor_engine_from_servant (servant);
 
@@ -103,7 +103,7 @@ impl_set_listener (PortableServer_Servant servant, const HTMLEditor_Listener val
 	e->listener        = bonobo_object_client_query_interface (e->listener_client, "IDL:HTMLEditor/Listener:1.0", ev);
 }
 
-static HTMLEditor_Listener
+static GNOME_HTMLEditor_Listener
 impl_get_listener (PortableServer_Servant servant, CORBA_Environment * ev)
 {
 	return html_editor_engine_from_servant (servant)->listener;
@@ -157,12 +157,12 @@ impl_is_previous_paragraph_empty (PortableServer_Servant servant, CORBA_Environm
 }
 
 
-POA_HTMLEditor_Engine__epv *
-html_editor_engine_get_epv (void)
+POA_GNOME_HTMLEditor_Engine__epv *
+htmleditor_engine_get_epv (void)
 {
-	POA_HTMLEditor_Engine__epv *epv;
+	POA_GNOME_HTMLEditor_Engine__epv *epv;
 
-	epv = g_new0 (POA_HTMLEditor_Engine__epv, 1);
+	epv = g_new0 (POA_GNOME_HTMLEditor_Engine__epv, 1);
 
 	epv->_set_listener            = impl_set_listener;
 	epv->_get_listener            = impl_get_listener;
@@ -180,13 +180,13 @@ static void
 init_engine_corba_class (void)
 {
 	engine_vepv.Bonobo_Unknown_epv    = bonobo_object_get_epv ();
-	engine_vepv.HTMLEditor_Engine_epv = html_editor_engine_get_epv ();
+	engine_vepv.GNOME_HTMLEditor_Engine_epv = htmleditor_engine_get_epv ();
 }
 
 static void
 engine_object_init (GtkObject *object)
 {
-	HTMLEditorEngine *e = HTML_EDITOR_ENGINE (object);
+	HTMLEditorEngine *e = HTMLEDITOR_ENGINE (object);
 
 	e->listener_client = CORBA_OBJECT_NIL;
 }
@@ -194,7 +194,7 @@ engine_object_init (GtkObject *object)
 static void
 engine_object_destroy (GtkObject *object)
 {
-	HTMLEditorEngine *e = HTML_EDITOR_ENGINE (object);
+	HTMLEditorEngine *e = HTMLEDITOR_ENGINE (object);
 
 	unref_listener (e);
 
@@ -213,7 +213,7 @@ engine_class_init (HTMLEditorEngineClass *klass)
 }
 
 GtkType
-html_editor_engine_get_type (void)
+htmleditor_engine_get_type (void)
 {
 	static GtkType type = 0;
 
@@ -236,10 +236,10 @@ html_editor_engine_get_type (void)
 }
 
 HTMLEditorEngine *
-html_editor_engine_construct (HTMLEditorEngine *engine, HTMLEditor_Engine corba_engine)
+htmleditor_engine_construct (HTMLEditorEngine *engine, GNOME_HTMLEditor_Engine corba_engine)
 {
 	g_return_val_if_fail (engine != NULL, NULL);
-	g_return_val_if_fail (IS_HTML_EDITOR_ENGINE (engine), NULL);
+	g_return_val_if_fail (IS_HTMLEDITOR_ENGINE (engine), NULL);
 	g_return_val_if_fail (corba_engine != CORBA_OBJECT_NIL, NULL);
 
 	engine->listener_client = CORBA_OBJECT_NIL;
@@ -250,17 +250,17 @@ html_editor_engine_construct (HTMLEditorEngine *engine, HTMLEditor_Engine corba_
 	return engine;
 }
 
-static HTMLEditor_Engine
+static GNOME_HTMLEditor_Engine
 create_engine (BonoboObject *engine)
 {
-	POA_HTMLEditor_Engine *servant;
+	POA_GNOME_HTMLEditor_Engine *servant;
 	CORBA_Environment ev;
 
-	servant = (POA_HTMLEditor_Engine *) g_new0 (BonoboObjectServant, 1);
+	servant = (POA_GNOME_HTMLEditor_Engine *) g_new0 (BonoboObjectServant, 1);
 	servant->vepv = &engine_vepv;
 
 	CORBA_exception_init (&ev);
-	POA_HTMLEditor_Engine__init ((PortableServer_Servant) servant, &ev);
+	POA_GNOME_HTMLEditor_Engine__init ((PortableServer_Servant) servant, &ev);
 	ORBIT_OBJECT_KEY(servant->_private)->object = NULL;
 
 	if (ev._major != CORBA_NO_EXCEPTION){
@@ -271,16 +271,16 @@ create_engine (BonoboObject *engine)
 
 	CORBA_exception_free (&ev);
 
-	return (HTMLEditor_Engine) bonobo_object_activate_servant (engine, servant);
+	return (GNOME_HTMLEditor_Engine) bonobo_object_activate_servant (engine, servant);
 }
 
 HTMLEditorEngine *
-html_editor_engine_new (GtkHTML *html)
+htmleditor_engine_new (GtkHTML *html)
 {
 	HTMLEditorEngine *engine;
-	HTMLEditor_Engine corba_engine;
+	GNOME_HTMLEditor_Engine corba_engine;
 
-	engine = gtk_type_new (HTML_EDITOR_ENGINE_TYPE);
+	engine = gtk_type_new (HTMLEDITOR_ENGINE_TYPE);
 	engine->html = html;
 
 	corba_engine = create_engine (BONOBO_OBJECT (engine));
@@ -290,5 +290,5 @@ html_editor_engine_new (GtkHTML *html)
 		return NULL;
 	}
 	
-	return html_editor_engine_construct (engine, corba_engine);
+	return htmleditor_engine_construct (engine, corba_engine);
 }

@@ -41,8 +41,8 @@
 #include "resolver.h"
 
 static BonoboObjectClass *resolver_parent_class;
-static POA_HTMLEditor_Resolver__vepv htmleditor_resolver_vepv;
-HTMLEditor_Resolver *htmleditor_resolver_corba_object_create (BonoboObject *object);
+static POA_GNOME_HTMLEditor_Resolver__vepv htmleditor_resolver_vepv;
+GNOME_HTMLEditor_Resolver *htmleditor_resolver_corba_object_create (BonoboObject *object);
 
 #define CORBA_BLOCK_SIZE 4096
 
@@ -89,7 +89,7 @@ resolver_load_from_file (const Bonobo_ProgressiveDataSink sink,
 }
 
 static void
-impl_HTMLEditor_Resolver_loadURL (PortableServer_Servant servant,
+impl_GNOME_HTMLEditor_Resolver_loadURL (PortableServer_Servant servant,
 				  const Bonobo_ProgressiveDataSink sink,
 				  const CORBA_char *url,
 				  CORBA_Environment *ev)
@@ -116,20 +116,20 @@ impl_HTMLEditor_Resolver_loadURL (PortableServer_Servant servant,
 		/* FIXME this is not passing correct information */
 		CORBA_exception_set (ev,
 				     CORBA_USER_EXCEPTION,
-				     ex_HTMLEditor_Resolver_NotFound,
+				     ex_GNOME_HTMLEditor_Resolver_NotFound,
 				     NULL);
 	}			
 	CORBA_exception_free (&our_ev);	
 }
 
-POA_HTMLEditor_Resolver__epv *
+POA_GNOME_HTMLEditor_Resolver__epv *
 htmleditor_resolver_get_epv (void)
 {
-	POA_HTMLEditor_Resolver__epv *epv;
+	POA_GNOME_HTMLEditor_Resolver__epv *epv;
 
-	epv = g_new0 (POA_HTMLEditor_Resolver__epv, 1);
+	epv = g_new0 (POA_GNOME_HTMLEditor_Resolver__epv, 1);
 		
-	epv->loadURL = impl_HTMLEditor_Resolver_loadURL;
+	epv->loadURL = impl_GNOME_HTMLEditor_Resolver_loadURL;
 
 	return epv;
 }
@@ -139,7 +139,7 @@ static void
 init_htmleditor_resolver_corba_class (void)
 {
 	htmleditor_resolver_vepv.Bonobo_Unknown_epv = bonobo_object_get_epv ();
-	htmleditor_resolver_vepv.HTMLEditor_Resolver_epv = htmleditor_resolver_get_epv ();
+	htmleditor_resolver_vepv.GNOME_HTMLEditor_Resolver_epv = htmleditor_resolver_get_epv ();
 }
 
 static void
@@ -149,17 +149,17 @@ htmleditor_resolver_class_init (HTMLEditorResolverClass *resolver_class)
 	init_htmleditor_resolver_corba_class ();
 }
 
-HTMLEditor_Resolver *
+GNOME_HTMLEditor_Resolver *
 htmleditor_resolver_corba_object_create (BonoboObject *object)
 {
-	POA_HTMLEditor_Resolver *servant;
+	POA_GNOME_HTMLEditor_Resolver *servant;
 	CORBA_Environment ev;
 
-	servant = (POA_HTMLEditor_Resolver *) g_new0 (BonoboObjectServant, 1);
+	servant = (POA_GNOME_HTMLEditor_Resolver *) g_new0 (BonoboObjectServant, 1);
 	servant->vepv = &htmleditor_resolver_vepv;
 
 	CORBA_exception_init (&ev);
-	POA_HTMLEditor_Resolver__init ((PortableServer_Servant) servant, &ev);
+	POA_GNOME_HTMLEditor_Resolver__init ((PortableServer_Servant) servant, &ev);
 	ORBIT_OBJECT_KEY(servant->_private)->object = NULL;
 
 	if (ev._major != CORBA_NO_EXCEPTION) {
@@ -170,7 +170,7 @@ htmleditor_resolver_corba_object_create (BonoboObject *object)
 
 	CORBA_exception_free (&ev);
 
-	return (HTMLEditor_Resolver*) bonobo_object_activate_servant (object, servant);
+	return (GNOME_HTMLEditor_Resolver*) bonobo_object_activate_servant (object, servant);
 }
 
 GtkType
@@ -199,7 +199,7 @@ HTMLEditorResolver *
 htmleditor_resolver_new (void)
 {
 	HTMLEditorResolver *resolver;
-	HTMLEditor_Resolver *corba_resolver;
+	GNOME_HTMLEditor_Resolver *corba_resolver;
 
 	resolver = gtk_type_new (htmleditor_resolver_get_type ());
 

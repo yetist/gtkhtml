@@ -232,7 +232,7 @@ load_from_corba (BonoboControl *control,
 		 const char *url, 
 		 GtkHTMLStream *handle)
 {
-	HTMLEditor_Resolver resolver;
+	GNOME_HTMLEditor_Resolver resolver;
 	Bonobo_ControlFrame Frame;
 	CORBA_Environment ev;	
 	int ret_val = FALSE;
@@ -253,7 +253,7 @@ load_from_corba (BonoboControl *control,
 
 			sink = bonobo_object_corba_objref (object);
 			
-			HTMLEditor_Resolver_loadURL (resolver, sink, url, &ev);
+			GNOME_HTMLEditor_Resolver_loadURL (resolver, sink, url, &ev);
 			if (ev._major != CORBA_NO_EXCEPTION){
 				g_warning ("Corba load exception");
 			} else {
@@ -354,7 +354,7 @@ editor_control_construct (BonoboControl *control, GtkWidget *vbox)
 
 	/* HTMLEditor::Engine */
 
-	control_data->editor_bonobo_engine = html_editor_engine_new (GTK_HTML (html_widget));
+	control_data->editor_bonobo_engine = htmleditor_engine_new (GTK_HTML (html_widget));
 	bonobo_object_add_interface (BONOBO_OBJECT (control), BONOBO_OBJECT (control_data->editor_bonobo_engine));
 
 	/* Bonobo::PersistStream */
@@ -463,13 +463,13 @@ editor_api_event (GtkHTML *html, GtkHTMLEditorEventType event_type, GtkArg **arg
 		return NULL;
 	}
 	if (cd->editor_bonobo_engine) {
-		HTMLEditor_Engine engine;
-		HTMLEditor_Listener listener;
+		GNOME_HTMLEditor_Engine engine;
+		GNOME_HTMLEditor_Listener listener;
 		CORBA_Environment ev;
 
 		engine = bonobo_object_corba_objref (BONOBO_OBJECT (cd->editor_bonobo_engine));
 		if (engine != CORBA_OBJECT_NIL
-		    && (listener = HTMLEditor_Engine__get_listener (engine, &ev)) != CORBA_OBJECT_NIL) {
+		    && (listener = GNOME_HTMLEditor_Engine__get_listener (engine, &ev)) != CORBA_OBJECT_NIL) {
 
 			BonoboArg *arg = bonobo_arg_new (bonobo_arg_type_from_gtk (args [0]->type));
 			BonoboArg *bonobo_retval;
@@ -478,10 +478,10 @@ editor_api_event (GtkHTML *html, GtkHTMLEditorEventType event_type, GtkArg **arg
 
 			/* printf ("sending to listener\n"); */
 			CORBA_exception_init (&ev);
-			bonobo_retval = HTMLEditor_Listener_event (listener,
-								   event_type ==  GTK_HTML_EDITOR_EVENT_COMMAND
-								   ? "command" : "image_url",
-								   arg, &ev);
+			bonobo_retval = GNOME_HTMLEditor_Listener_event (listener,
+									 event_type ==  GTK_HTML_EDITOR_EVENT_COMMAND
+									 ? "command" : "image_url",
+									 arg, &ev);
 			CORBA_free (arg);
 
 			if (ev._major == CORBA_NO_EXCEPTION) {

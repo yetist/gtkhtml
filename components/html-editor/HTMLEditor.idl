@@ -11,53 +11,55 @@
 
 #include <Bonobo.idl>
 
-module HTMLEditor {
-	interface Resolver : Bonobo::Unknown {
-		exception NotFound {};
+module GNOME {
+	module HTMLEditor {
+		interface Resolver : Bonobo::Unknown {
+			exception NotFound {};
 		
-		void loadURL (in Bonobo::ProgressiveDataSink sink, in string url) raises (NotFound);
-	};
+			void loadURL (in Bonobo::ProgressiveDataSink sink, in string url) raises (NotFound);
+		};
 
-	interface Listener : Bonobo::Unknown {
-		any event (in string name, in any arg);
-	};
+		interface Listener : Bonobo::Unknown {
+			any event (in string name, in any arg);
+		};
 
-	interface Engine : Bonobo::Unknown {
-		attribute Listener listener;
+		interface Engine : Bonobo::Unknown {
+			attribute Listener listener;
 
-		/*
-		 * return data of current paragraph
-		 */
-		any  getParagraphData (in string key);
+			/*
+			 * return data of current paragraph
+			 */
+			any  getParagraphData (in string key);
 
-		/*
-		 * sets data on current paragraph
-		 */
-		void setParagraphData (in string key, in any value);
+			/*
+			 * sets data on current paragraph
+			 */
+			void setParagraphData (in string key, in any value);
 
-		/*
-		 * set data which are set to objects of given type while inserting
-		 * we will use that to mark original text paragraph(s) in composer
-		 * and use that data later in editing to implement better reply
-		 * editing
-		 */
-		void setObjectDataByType (in string type_name, in string key, in any data);
+			/*
+			 * set data which are set to objects of given type while inserting
+			 * we will use that to mark original text paragraph(s) in composer
+			 * and use that data later in editing to implement better reply
+			 * editing
+			 */
+			void setObjectDataByType (in string type_name, in string key, in any data);
 
-		/*
-		 * execute editor command
-		 */
-		void runCommand (in string command);
+			/*
+			 * execute editor command
+			 */
+			void runCommand (in string command);
 
-		/*
-		 * returns TRUE if current paragraph is empty (will be possibly replaced
-		 * by more general iface)
-		 */
-		boolean isParagraphEmpty ();
+			/*
+			 * returns TRUE if current paragraph is empty (will be possibly replaced
+			 * by more general iface)
+			 */
+			boolean isParagraphEmpty ();
 
-		/*
-		 * return TRUE if previous paragraph is empty (will be possibly replaced
-		 * by more general iface)
-		 */
-		boolean isPreviousParagraphEmpty ();
+			/*
+			 * return TRUE if previous paragraph is empty (will be possibly replaced
+			 * by more general iface)
+			 */
+			boolean isPreviousParagraphEmpty ();
+		};
 	};
 };

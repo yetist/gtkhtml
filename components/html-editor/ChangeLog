@@ -1,3 +1,9 @@
+2000-11-15  Radek Doulik  <rodo@helixcode.com>
+
+	* updated to API changes
+
+	* HTMLEditor.idl: moved to GNOME namespace
+
 2000-11-14  Radek Doulik  <rodo@helixcode.com>
 
 	* engine.c (impl_run_command): renamed
