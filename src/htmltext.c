@@ -22,6 +22,7 @@
 */
 
 #include <stdio.h>
+#include <string.h>
 
 #include "htmltext.h"
 #include "htmlclueflow.h"

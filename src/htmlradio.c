@@ -19,6 +19,7 @@
     Boston, MA 02111-1307, USA.
 */
 #include "htmlradio.h"
+#include <string.h>
 
 
 HTMLRadioClass html_radio_class;

@@ -1,3 +1,8 @@
+2000-03-07 Elliot Lee  <sopwith@redhat.com>
+	* htmlbutton.c, htmlcheckbox.c, htmlengine-save.c, htmlgdkfontmanager.c, htmlgdkpainter.c
+	 htmlhidden.c, htmlprintfontmanager.c, htmlradio.c, htmltext.c, htmltextinput.c,
+	 htmltextmaster.c: #include <string.h>
+
 2000-03-07  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* gtkhtml.c

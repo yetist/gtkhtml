@@ -20,6 +20,7 @@
 */
 #include <libart_lgpl/art_rect.h>
 #include "htmlgdkpainter.h"
+#include <string.h>
 
 
 static HTMLPainterClass *parent_class = NULL;

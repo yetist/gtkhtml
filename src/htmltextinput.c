@@ -20,6 +20,7 @@
 */
 
 #include "htmltextinput.h"
+#include <string.h>
 
 
 HTMLTextInputClass html_text_input_class;

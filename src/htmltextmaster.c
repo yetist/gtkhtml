@@ -26,6 +26,7 @@
 #include "htmlclueflow.h"
 #include "htmltextmaster.h"
 #include "htmltextslave.h"
+#include <string.h>
 
 
 HTMLTextMasterClass html_text_master_class;

@@ -22,6 +22,7 @@
 #include <libgnomeprint/gnome-print.h>
 
 #include "htmlprintfontmanager.h"
+#include <string.h>
 
 
 static void

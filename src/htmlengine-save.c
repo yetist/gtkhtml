@@ -25,6 +25,7 @@
 */
 
 #include "htmlengine.h"
+#include <string.h>
 
 
 /* This routine was originally written by Daniel Velliard, (C) 1998 World Wide

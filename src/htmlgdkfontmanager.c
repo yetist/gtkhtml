@@ -21,6 +21,7 @@
 
 
 #include "htmlgdkfontmanager.h"
+#include <string.h>
 
 
 /* FIXME this should be dynamically done, and based on the base font name.  */

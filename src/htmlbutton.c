@@ -21,6 +21,7 @@
 
 #include "htmlbutton.h"
 #include "htmlform.h"
+#include <string.h>
 
 HTMLButtonClass html_button_class;
 

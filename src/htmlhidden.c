@@ -19,6 +19,7 @@
     Boston, MA 02111-1307, USA.
 */
 #include "htmlhidden.h"
+#include <string.h>
 
 HTMLHiddenClass html_hidden_class;
 static HTMLEmbeddedClass *parent_class = NULL;
