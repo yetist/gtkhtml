@@ -60,8 +60,11 @@ struct _HTMLClueFlow {
 	/* Paragraph style.  */
 	HTMLClueFlowStyle style;
 
-	/* Level for itemized lists and indented paragraphs.  */
-	guint8 level;
+	/* Level for itemized lists.  */
+	guint8 list_level;
+
+	/* Level for blockquote.  */
+	guint8 quote_level;
 };
 
 struct _HTMLClueFlowClass {
@@ -74,14 +77,22 @@ struct _HTMLClueFlowClass {
 extern HTMLClueFlowClass html_clueflow_class;
 
 
-void html_clueflow_type_init (void);
-void html_clueflow_class_init (HTMLClueFlowClass *klass, HTMLType type);
-void html_clueflow_init (HTMLClueFlow *flow, HTMLClueFlowClass *klass,
-			 HTMLFont *font, HTMLClueFlowStyle style, guint8 level);
-HTMLObject *html_clueflow_new (HTMLFont *font, HTMLClueFlowStyle style, guint8 level);
+void           html_clueflow_type_init               (void);
+void           html_clueflow_class_init              (HTMLClueFlowClass  *klass,
+						      HTMLType            type);
+void           html_clueflow_init                    (HTMLClueFlow       *flow,
+						      HTMLClueFlowClass  *klass,
+						      HTMLFont           *font,
+						      HTMLClueFlowStyle   style,
+						      guint8              list_level,
+						      guint8              quote_level);
+HTMLObject    *html_clueflow_new                     (HTMLFont           *font,
+						      HTMLClueFlowStyle   style,
+						      guint8              list_level,
+						      guint8              quote_level);
 
-HTMLFontStyle html_clueflow_get_default_font_style (const HTMLClueFlow *self);
-
-HTMLClueFlow *html_clueflow_split (HTMLClueFlow *clue, HTMLObject *child);
+HTMLFontStyle  html_clueflow_get_default_font_style  (const HTMLClueFlow *self);
+HTMLClueFlow  *html_clueflow_split                   (HTMLClueFlow       *clue,
+						      HTMLObject         *child);
 
 #endif /* _HTMLCLUEFLOW_H_ */

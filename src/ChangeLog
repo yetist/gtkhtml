@@ -1,5 +1,39 @@
 2000-01-27  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlengine-edit.c (html_engine_insert_para): Use both
+	`list_level' and `quote_level'.
+
+	* htmlengine.c (html_engine_init): Init `quote_level',
+	`list_level'.
+	(block_end_list): Renamed to `block_end_level'.  Set `list_level'
+	and `quote_level'.
+	(block_end_indent): Renamed to `block_end_quote'.  Use
+	`quote_level'.
+	(parse_table): Restore both `quote_level' and `list_level'.
+	(parse_d): Increase `list_level' for `<dir>'.  (I am not sure how
+	to handle this for now.)  Increase/decrease `quote_level' for
+	`<dl>', `<dd>' and `<dt>'.
+	(parse_l): Use `list_level' and `quote_level' when creating the
+	new clueflow.
+	(parse_o): Use `list_level' for `<ol>'.
+	(parse_u): Use `quote_level' for `<ul>'.
+	(parse_b): Use `quote_level' for `<blockquote>'.
+
+	* htmlengine.h: `indent' replaced by `quote_level', `list_level'.
+
+	* htmlclueflow.c (html_clueflow_new): New params `list_level',
+	`quote_level'.
+	(html_clueflow_init): Likewise.
+	(add_pre_padding): A change in quote level always adds a space.  A
+	change in list level works like before.
+	(add_post_padding): Likewise.
+	(draw): Updated to just use `list_level' for deciding the bullet's
+	shape.
+	(get_indent): Updated to use `list_level' and `quote_level'.
+
+	* htmlclueflow.h: Member `level' replaced by `list_level',
+	`quote_level'.
+
 	* htmlengine.c (parse_u): Insert a paragraph break if a paragraph
 	space is pending and the indentation level is greater than zero.
 	(block_end_list): Only erase pending paragraph spaces and prohibit

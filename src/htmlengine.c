@@ -283,7 +283,8 @@ new_flow (HTMLEngine *e,
 
 	e->flow = html_clueflow_new (HTML_FONT_STYLE_DEFAULT,
 				     current_clueflow_style (e),
-				     e->indent);
+				     e->list_level,
+				     e->quote_level);
 
 	HTML_CLUE (e->flow)->halign = e->divAlign;
 
@@ -536,20 +537,22 @@ block_end_list (HTMLEngine *e, HTMLObject *clue, HTMLBlockStackElement *elem)
 
 	close_flow (e, clue);
 	
-	e->indent = elem->miscData1;
+	e->list_level = elem->miscData1;
 
-	if (e->indent == 0) {
+	if (e->list_level == 0) {
 		e->pending_para = FALSE;
 		e->avoid_para = TRUE;
 	}
 }
 
 static void
-block_end_indent (HTMLEngine *e, HTMLObject *clue, HTMLBlockStackElement *elem)
+block_end_quote (HTMLEngine *e, HTMLObject *clue, HTMLBlockStackElement *elem)
 {
 	close_flow (e, clue);
 
-	e->indent = elem->miscData1;
+	e->quote_level = elem->miscData1;
+	e->list_level = elem->miscData2;
+
 	e->pending_para = FALSE;
 	e->avoid_para = TRUE;
 }
@@ -647,7 +650,8 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	HTMLVAlignType capAlign = HTML_VALIGN_BOTTOM;
 	HTMLHAlignType olddivalign = e->divAlign;
 	HTMLClue *oldflow = HTML_CLUE (e->flow);
-	gint oldindent = e->indent;
+	gint old_quote_level = e->quote_level;
+	gint old_list_level = e->list_level;
 	GdkColor tableColor, rowColor, bgColor;
 	gboolean have_tableColor, have_rowColor, have_bgColor;
 	gboolean have_tablePixmap, have_rowPixmap, have_bgPixmap;
@@ -722,7 +726,9 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	table = HTML_TABLE (html_table_new (0, 0, max_width, width, 
 					    percent, padding,
 					    spacing, border));
-	e->indent = 0;
+	e->list_level = 0;
+	e->quote_level = 0;
+
 	while (!done && html_tokenizer_has_more_tokens (e->ht)) {
 		str = html_tokenizer_next_token (e->ht);
 		
@@ -1084,7 +1090,9 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 		html_object_destroy (HTML_OBJECT (table));
 	}
 	
-	e->indent = oldindent;
+	e->quote_level = old_quote_level;
+	e->list_level = old_list_level;
+
 	e->divAlign = olddivalign;
 	e->flow = HTML_OBJECT (oldflow);
 
@@ -1411,11 +1419,12 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	} else if ( strncmp(str, "/big", 4 ) == 0 ) {
 		pop_block (e, ID_BIG, clue);
 	} else if ( strncmp(str, "blockquote", 10 ) == 0 ) {
-		push_block (e, ID_BLOCKQUOTE, 2,
-			    block_end_indent, e->indent, 0);
+		push_block (e, ID_BLOCKQUOTE, 2, block_end_quote, e->quote_level, e->list_level);
 		e->avoid_para = TRUE;
+		e->pending_para = FALSE;
+		e->quote_level = e->quote_level + e->list_level + 1;
+		e->list_level = 0;
 		close_flow (e, clue);
-		e->indent++;
 	} else if ( strncmp(str, "/blockquote", 11 ) == 0 ) {
 		e->avoid_para = TRUE;
 		pop_block (e, ID_BLOCKQUOTE, clue);
@@ -1597,16 +1606,16 @@ parse_c (HTMLEngine *e, HTMLObject *clue, const gchar *str)
   <dt>             </dt>
 */
 /* EP CHECK: dl/dt might be wrong.  */
+/* EP CHECK: dir might be wrong.  */
 static void
 parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 {
 	if ( strncmp( str, "dir", 3 ) == 0 ) {
 		close_anchor(e);
-		push_block (e, ID_DIR, 2, block_end_list,
-			    e->indent, FALSE);
+		push_block (e, ID_DIR, 2, block_end_list, e->list_level, FALSE);
 		html_stack_push (e->listStack, html_list_new (HTML_LIST_TYPE_DIR,
 							      HTML_LIST_NUM_TYPE_NUMERIC));
-		e->indent++;
+		e->list_level++;
 		/* FIXME shouldn't it create a new flow? */
 	} else if ( strncmp( str, "/dir", 4 ) == 0 ) {
 		pop_block (e, ID_DIR, _clue);
@@ -1634,7 +1643,7 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 	} else if ( strncmp( str, "dl", 2 ) == 0 ) {
 		close_anchor (e);
 		if ( html_stack_top(e->glossaryStack) != NULL )
-			e->indent++;
+			e->quote_level++;
 		html_stack_push (e->glossaryStack, GINT_TO_POINTER (HTML_GLOSSARY_DL));
 		/* FIXME shouldn't it create a new flow? */
 		add_line_break (e, _clue, HTML_CLEAR_ALL);
@@ -1645,14 +1654,14 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 		if ( GPOINTER_TO_INT (html_stack_top (e->glossaryStack))
 		     == HTML_GLOSSARY_DD ) {
 			html_stack_pop (e->glossaryStack);
-			if (e->indent > 0)
-				e->indent--;
+			if (e->quote_level > 0)
+				e->quote_level--;
 		}
 
 		html_stack_pop (e->glossaryStack);
 		if ( html_stack_top (e->glossaryStack) != NULL ) {
-			if (e->indent > 0)
-				e->indent--;
+			if (e->quote_level > 0)
+				e->quote_level--;
 		}
 
 		add_line_break (e, _clue, HTML_CLEAR_ALL);
@@ -1660,11 +1669,10 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 		if (html_stack_top (e->glossaryStack) == NULL)
 			return;
 
-		if (GPOINTER_TO_INT (html_stack_top (e->glossaryStack))
-		    == HTML_GLOSSARY_DD) {
+		if (GPOINTER_TO_INT (html_stack_top (e->glossaryStack)) == HTML_GLOSSARY_DD) {
 			html_stack_pop (e->glossaryStack);
-			if (e->indent > 0)
-				e->indent--;
+			if (e->quote_level > 0)
+				e->quote_level--;
 		}
 
 		add_line_break (e, _clue, HTML_CLEAR_ALL);
@@ -1676,7 +1684,7 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 		    != HTML_GLOSSARY_DD ) {
 			html_stack_push (e->glossaryStack,
 					 GINT_TO_POINTER (HTML_GLOSSARY_DD) );
-			e->indent++;
+			e->quote_level++;
 		}
 
 		add_line_break (e, _clue, HTML_CLEAR_ALL);
@@ -2057,7 +2065,8 @@ parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 
 		p->flow = html_clueflow_new (HTML_FONT_STYLE_DEFAULT,
 					     HTML_CLUEFLOW_STYLE_ITEMDOTTED,
-					     p->indent);
+					     p->list_level,
+					     p->quote_level);
 		html_clue_append (HTML_CLUE (clue), p->flow);
 
 		p->avoid_para = TRUE;
@@ -2149,9 +2158,9 @@ parse_o (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 
 		if ( html_stack_is_empty (e->listStack) ) {
 			/* FIXME */
-			push_block (e, ID_OL, 2, block_end_list, e->indent, TRUE);
+			push_block (e, ID_OL, 2, block_end_list, e->list_level, TRUE);
 		} else {
-			push_block (e, ID_OL, 2, block_end_list, e->indent, FALSE);
+			push_block (e, ID_OL, 2, block_end_list, e->list_level, FALSE);
 		}
 
 		listNumType = HTML_LIST_NUM_TYPE_NUMERIC;
@@ -2188,7 +2197,7 @@ parse_o (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 		list = html_list_new (HTML_LIST_TYPE_ORDERED, listNumType);
 		html_stack_push (e->listStack, list);
 
-		e->indent++;
+		e->list_level++;
 	}
 	else if ( strncmp( str, "/ol", 3 ) == 0 ) {
 		pop_block (e, ID_OL, _clue);
@@ -2515,11 +2524,10 @@ parse_u (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		close_anchor (e);
 		close_flow (e, clue);
 
-		if (html_stack_is_empty (e->listStack)) {
-			push_block (e, ID_UL, 2, block_end_list, e->indent, TRUE);
-		} else {
-			push_block (e, ID_UL, 2, block_end_list, e->indent, FALSE);
-		}
+		if (html_stack_is_empty (e->listStack))
+			push_block (e, ID_UL, 2, block_end_list, e->list_level, TRUE);
+		else
+			push_block (e, ID_UL, 2, block_end_list, e->list_level, FALSE);
 
 		type = HTML_LIST_TYPE_UNORDERED;
 
@@ -2533,10 +2541,10 @@ parse_u (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		html_stack_push (e->listStack, html_list_new (type, HTML_LIST_NUM_TYPE_NUMERIC));
 		e->flow = NULL;
 
-		if (e->pending_para && e->indent > 0)
+		if (e->pending_para && e->list_level > 0)
 			insert_paragraph_break (e, clue);
 
-		e->indent++;
+		e->list_level++;
 
 		e->avoid_para = TRUE;
 		e->pending_para = FALSE;
@@ -2844,6 +2852,9 @@ html_engine_init (HTMLEngine *engine)
 
 	engine->avoid_para = TRUE;
 	engine->pending_para = FALSE;
+
+	engine->quote_level = 0;
+	engine->list_level = 0;
 }
 
 HTMLEngine *

@@ -88,7 +88,12 @@ add_pre_padding (HTMLClueFlow *flow)
 		HTMLClueFlow *prev;
 
 		prev = HTML_CLUEFLOW (prev_object);
-		if (prev->level > 0 && flow->level == 0) {
+		if (prev->list_level > 0 && flow->list_level == 0) {
+			HTML_OBJECT (flow)->ascent += VERTICAL_PAD;
+			return;
+		}
+
+		if (prev->quote_level != flow->quote_level) {
 			HTML_OBJECT (flow)->ascent += VERTICAL_PAD;
 			return;
 		}
@@ -108,7 +113,7 @@ add_pre_padding (HTMLClueFlow *flow)
 		return;
 	}
 
-	if (is_header (flow) || flow->level > 0)
+	if (is_header (flow) || flow->quote_level > 0 || flow->list_level > 0)
 		HTML_OBJECT (flow)->ascent += VERTICAL_PAD;
 }
 
@@ -125,7 +130,12 @@ add_post_padding (HTMLClueFlow *flow)
 		HTMLClueFlow *next;
 
 		next = HTML_CLUEFLOW (next_object);
-		if (next->level > 0 && flow->level == 0) {
+		if (next->list_level > 0 && flow->list_level == 0) {
+			HTML_OBJECT (flow)->ascent += VERTICAL_PAD;
+			return;
+		}
+
+		if (next->quote_level != flow->quote_level) {
 			HTML_OBJECT (flow)->ascent += VERTICAL_PAD;
 			return;
 		}
@@ -145,17 +155,20 @@ add_post_padding (HTMLClueFlow *flow)
 		return;
 	}
 
-	if (is_header (flow) || flow->level > 0)
+	if (is_header (flow) || flow->quote_level > 0 || flow->list_level > 0)
 		HTML_OBJECT (flow)->ascent += VERTICAL_PAD;
 }
 
 static guint
 get_indent (HTMLClueFlow *flow)
 {
+	guint total_level;
 	guint indent;
 
-	if (flow->level > 0 || ! is_item (flow))
-		indent = flow->level * INDENT_UNIT;
+	total_level = flow->quote_level + flow->list_level;
+
+	if (total_level > 0 || ! is_item (flow))
+		indent = total_level * INDENT_UNIT;
 	else
 		indent = BULLET_SIZE + 2 * BULLET_HPAD;
 
@@ -563,8 +576,7 @@ draw (HTMLObject *self,
 	HTMLClueFlow *clueflow;
 	HTMLObject *first;
 
-	if (y > self->y + self->descent
-	    || y + height < self->y - self->ascent)
+	if (y > self->y + self->descent || y + height < self->y - self->ascent)
 		return;
 
 	clueflow = HTML_CLUEFLOW (self);
@@ -581,7 +593,7 @@ draw (HTMLObject *self,
 
 		html_painter_set_pen (painter, html_painter_get_black (painter));
 
-		if (clueflow->level == 0 || (clueflow->level & 1) != 0)
+		if (clueflow->list_level == 0 || (clueflow->list_level & 1) != 0)
 			html_painter_fill_rect (painter, xp, yp, BULLET_SIZE, BULLET_SIZE);
 		else
 			html_painter_draw_rect (painter, xp, yp, BULLET_SIZE, BULLET_SIZE);
@@ -700,7 +712,8 @@ html_clueflow_init (HTMLClueFlow *clueflow,
 		    HTMLClueFlowClass *klass,
 		    HTMLFont *font,
 		    HTMLClueFlowStyle style,
-		    guint8 level)
+		    guint8 list_level,
+		    guint8 quote_level)
 {
 	HTMLObject *object;
 	HTMLClue *clue;
@@ -717,19 +730,22 @@ html_clueflow_init (HTMLClueFlow *clueflow,
 
 	clueflow->font = font;
 	clueflow->style = style;
-	clueflow->level = level;
+
+	clueflow->list_level = list_level;
+	clueflow->quote_level = quote_level; 
 }
 
 HTMLObject *
 html_clueflow_new (HTMLFont *font,
 		   HTMLClueFlowStyle style,
-		   guint8 level)
+		   guint8 list_level,
+		   guint8 quote_level)
 {
 	HTMLClueFlow *clueflow;
 
 	clueflow = g_new (HTMLClueFlow, 1);
-	html_clueflow_init (clueflow, &html_clueflow_class,
-			    font, style, level);
+	html_clueflow_init (clueflow, &html_clueflow_class, font, style,
+			    list_level, quote_level);
 
 	return HTML_OBJECT (clueflow);
 }
@@ -770,7 +786,10 @@ html_clueflow_split (HTMLClueFlow *clue,
 
 	/* Create the new clue.  */
 
-	new = HTML_CLUEFLOW (html_clueflow_new (clue->font, clue->style, clue->level));
+	new = HTML_CLUEFLOW (html_clueflow_new (clue->font,
+						clue->style,
+						clue->list_level,
+						clue->quote_level));
 
 	/* Remove the children from the original clue.  */
 

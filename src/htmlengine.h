@@ -95,8 +95,9 @@ struct _HTMLEngine {
 	gint topBorder;
 	gint bottomBorder;
 
-	/* Size of current indenting */
-	gint indent;
+	/* Current indentation level.  */
+	guint quote_level;
+	guint list_level;
 
 	/* For the widget */
 	gint width;
