@@ -318,9 +318,9 @@ update_lb (HTMLTextSlave *slave, HTMLPainter *painter, gint widthLeft, gint offs
 {
 	gint new_ltw, new_lwl, aw;
 
-	new_ltw = PANGO_PIXELS (html_text_tail_white_space (slave->owner, painter, offset, ii, io, &new_lwl, line_offset, s));
+	new_ltw = html_text_tail_white_space (slave->owner, painter, offset, ii, io, &new_lwl, line_offset, s);
 	if (HTML_IS_GDK_PAINTER (painter) || HTML_IS_PLAIN_PAINTER (painter)) {
-		aw = *w - new_lwl;
+		aw = *w - new_ltw;
 	} else {
 		gint lo = html_text_get_line_offset (slave->owner, painter, *lbo - *lwl);
 				/* printf ("s: %s l: %d\n", html_text_get_text (slave->owner, lbo - lwl), offset - new_lwl - lbo + lwl); */

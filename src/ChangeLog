@@ -1,5 +1,9 @@
 2003-09-25  Radek Doulik  <rodo@ximian.com>
 
+	* htmltextslave.c (update_lb): don't scale new_ltw by
+	PANGO_PIXELS, it's already in pixels, use new_ltw(width) for new aw
+	instead of new_lwl(len)
+
 	* htmlclueflow.c (save_plain): use pango_itemize and pango_break
 	to decide where break lines
 
