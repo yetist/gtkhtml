@@ -1,3 +1,15 @@
+2004-09-23  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml.c (expand_relative): do not search for ":" in url, it
+	may be used in other parts than uri scheme delimiter. instead
+	parse beginning of url to see if it has url scheme (and thus is
+	absolute url)
+	(html_engine_set_base_cb): set base when received set_base from
+	engine
+	(url_is_absolute): new helper function to identify absolute url's
+
+	Fixes #48058
+
 2004-09-22  Radek Doulik  <rodo@ximian.com>
 
 	* htmltext.c (html_text_remove_unwanted_line_breaks): added '-' to

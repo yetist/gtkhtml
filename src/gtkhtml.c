@@ -398,6 +398,7 @@ html_engine_set_base_cb (HTMLEngine *engine, const gchar *base, gpointer data)
 	GtkHTML *gtk_html;
 
 	gtk_html = GTK_HTML (data);
+	gtk_html_set_base (gtk_html, base);
 	g_signal_emit (gtk_html, signals[SET_BASE], 0, base);
 }
 
@@ -1383,6 +1384,33 @@ collapse_path (char *url)
 }
 #endif
 
+static gboolean
+url_is_absolute (const char *url)
+{
+	/*
+	  URI Syntactic Components
+
+	  The URI syntax is dependent upon the scheme.  In general, absolute
+	  URI are written as follows:
+
+	  <scheme>:<scheme-specific-part>
+
+	  scheme        = alpha *( alpha | digit | "+" | "-" | "." )
+	*/
+
+	if (!url)
+		return FALSE;
+
+	if (!isalpha (*url))
+		return FALSE;
+	url ++;
+
+	while (*url && (isalnum (*url) || *url == '+' || *url == '-' || *url == '.'))
+		url ++;
+
+	return *url && *url == ':';
+}
+
 static char *
 expand_relative (const char *base, const char *url)
 {
@@ -1390,7 +1418,7 @@ expand_relative (const char *base, const char *url)
 	size_t base_len, url_len;
 	gboolean absolute = FALSE;
 
-	if (!base || (url && strstr (url, ":"))) {
+	if (!base || url_is_absolute (url)) {
 		/*
 		  g_warning ("base = %s url = %s new_url = %s",
 		  base, url, new_url);
