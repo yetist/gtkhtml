@@ -129,7 +129,7 @@ HTMLObject *html_image_new         (HTMLImageFactory *imf,
 
 void         html_image_set_size           (HTMLImage *image, gint w, gint percent, gint h);
 void         html_image_set_spacing        (HTMLImage *image, gint hspace, gint vspace);
-void         html_image_set_filename       (HTMLImage *image, const gchar *file);
+void         html_image_set_url            (HTMLImage *image, const gchar *url);
 void         html_image_set_valign         (HTMLImage *image, HTMLVAlignType valign);
 void         html_image_set_border         (HTMLImage *image, gint border);
 

@@ -385,6 +385,64 @@ draw (HTMLObject *o,
 	}
 }
 
+static gboolean
+save (HTMLObject *self,
+      HTMLEngineSaveState *state)
+{
+	HTMLImage *image;
+
+	g_return_val_if_fail (self != NULL, FALSE);
+	g_return_val_if_fail (state != NULL, FALSE);
+	
+	image = HTML_IMAGE (self);
+	
+	if (!html_engine_save_output_string (state, "<IMG SRC=\"%s\"", image->image_ptr->url))
+	        return FALSE;	
+
+	if (image->specified_width > 0) {
+		if (!html_engine_save_output_string (state, " WIDTH=\"%d\"", image->specified_height))
+			return FALSE;
+	} else if (self->percent) {
+		if (!html_engine_save_output_string (state, " WIDTH=\"%d\%\"", self->percent))
+			return FALSE;
+	}
+
+	/* FIXME percent heights are supported in netscape/mozilla */
+	if (image->specified_height > 0) {
+		if (!html_engine_save_output_string (state, " HEIGHT=\"%d\"", image->specified_height))
+			return FALSE;
+	}
+
+	if (image->vspace) {
+		if (!html_engine_save_output_string (state, " VSPACE=\"%d\"", image->vspace))
+			return FALSE;
+	}
+
+	if (image->hspace) {
+		if (!html_engine_save_output_string (state, " HSPACE=\"%d\"", image->hspace))
+			return FALSE;
+	}
+
+	if (image->vspace) {
+		if (!html_engine_save_output_string (state, " VSPACE=\"%d\"", image->vspace))
+			return FALSE;
+	}
+
+	/* FIXME this is the default set in htmlengine.c but there is no real way to tell
+	 * if the usr specified it directly
+	 */
+	if (image->border != 2) {
+		if (!html_engine_save_output_string (state, " BORDER=\"%d\"", image->border))
+			return FALSE;
+	}
+
+	/* FIXME we are not preserving alt tags */
+	if (!html_engine_save_output_string (state, ">"))
+		return FALSE;
+	
+	return TRUE;
+}
+
 static const gchar *
 get_url (HTMLObject *o)
 {
@@ -448,6 +506,7 @@ html_image_class_init (HTMLImageClass *image_class,
 	object_class->get_target = get_target;
 	object_class->accepts_cursor = accepts_cursor;
 	object_class->get_valign = get_valign;
+	object_class->save = save;
 
 	parent_class = &html_object_class;
 }
@@ -546,16 +605,16 @@ html_image_set_spacing (HTMLImage *image, gint hspace, gint vspace)
 }
 
 void
-html_image_set_filename (HTMLImage *image, const gchar *filename)
+html_image_set_url (HTMLImage *image, const gchar *url)
 {
-	g_assert (filename);
-	g_assert (*filename);
+	g_assert (url);
+	g_assert (*url);
 
-	if (strcmp (image->image_ptr->url, filename)) {
+	if (strcmp (image->image_ptr->url, url)) {
 		HTMLImageFactory *imf = image->image_ptr->factory;
 
 		html_image_factory_unregister (imf, image->image_ptr, HTML_IMAGE (image));
-		image->image_ptr = html_image_factory_register (imf, image, filename);
+		image->image_ptr = html_image_factory_register (imf, image, url);
 	}
 }
 

@@ -1,3 +1,7 @@
+2000-05-16  Larry Ewing  <lewing@helixcode.com>
+
+	* image.c (insert): renamed html_image_set_filename to html_image_set_url.
+
 2000-05-09  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* test-html-editor-control.c: #if 0 the unused toolbar

@@ -728,6 +728,7 @@ calc_size (HTMLObject *o,
 		}
 	}
 	
+       
 	if (o->width < o->max_width)
 		o->width = o->max_width;
 
@@ -906,9 +907,7 @@ write_indentation_tags_helper (HTMLEngineSaveState *state,
 					return FALSE;
 			}
 
-			if (! html_engine_save_output_string (state, "<")
-			    || ! html_engine_save_output_string (state, tag)
-			    || ! html_engine_save_output_string (state, ">\n"))
+			if (! html_engine_save_output_string (state, "<%s>\n", tag))
 				return FALSE;
 		}
 	} else {
@@ -920,9 +919,7 @@ write_indentation_tags_helper (HTMLEngineSaveState *state,
 				}
 			}
 
-			if (! html_engine_save_output_string (state, "</")
-			    || ! html_engine_save_output_string (state, tag)
-			    || ! html_engine_save_output_string (state, ">\n"))
+			if (! html_engine_save_output_string (state, "</%s>\n", tag))
 				return FALSE;
 		}
 	}
@@ -1055,17 +1052,13 @@ save (HTMLObject *self,
 
 	/* Alignment tag.  */
 	if (halign != HTML_HALIGN_NONE && halign != HTML_HALIGN_LEFT) {
-		if (! html_engine_save_output_string (state, "<DIV ALIGN=")
-		    || ! html_engine_save_output_string (state, halign_to_string (halign))
-		    || ! html_engine_save_output_string (state, ">"))
+		if (! html_engine_save_output_string (state, "<DIV ALIGN=%s>", halign_to_string (halign)))
 			return FALSE;
 	}
 
 	/* Start tag.  */
 	if (tag != NULL && start
-	    && (! html_engine_save_output_string (state, "<")
-		|| ! html_engine_save_output_string (state, tag)
-		|| ! html_engine_save_output_string (state, ">")))
+	    && (! html_engine_save_output_string (state, "<%s>", tag)))
 		return FALSE;
 
 	/* Paragraph's content.  */
@@ -1074,9 +1067,7 @@ save (HTMLObject *self,
 
 	/* End tag.  */
 	if (tag && end) {
-		if (! html_engine_save_output_string (state, "</")
-		    || ! html_engine_save_output_string (state, tag)
-		    || ! html_engine_save_output_string (state, ">"))
+		if (! html_engine_save_output_string (state, "</%s>", tag))
 			return FALSE;
 	}
 

@@ -1,3 +1,19 @@
+2000-05-16  Larry Ewing  <lewing@helixcode.com>
+
+	* htmlengine-save.c (html_engine_save_output_string): change to
+	use va_list... the old interface was just too tedious.
+
+	* htmlengine-save.h: change to match new va_list interface.
+
+	* htmlclueflow.c (write_indentation_tags_helper): change to use
+	new output string interface.
+	(save) the same.
+
+	* htmlimage.c (save): add a save function.
+	(html_image_set_url): rename from html_image_set_filename.
+
+	* htmlimage.h: rename html_image_set_filename to html_image_set_url.
+
 2000-05-11  Larry Ewing  <lewing@helixcode.com>
 
 	* htmlclueflow.c (is_similar): don't merge list items.

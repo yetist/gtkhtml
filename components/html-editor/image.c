@@ -114,7 +114,7 @@ insert (GtkWidget *w, GtkHTMLImageDialog *d)
 		if (d->set [GTK_HTML_EDIT_IMAGE_BWIDTH])
 			html_image_set_border (d->image, border);
 		html_image_set_size     (d->image, width, percent, height);
-		html_image_set_filename (d->image, file);
+		html_image_set_url      (d->image, file);
 		html_image_set_spacing  (d->image, hspace, vspace);
 		html_image_set_valign   (d->image, valign);
 	} else

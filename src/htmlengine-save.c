@@ -143,12 +143,24 @@ html_engine_save_encode_string (HTMLEngineSaveState *state,
 
 gboolean
 html_engine_save_output_string (HTMLEngineSaveState *state,
-				const gchar *s)
+				const gchar *format,
+				...)
 {
-	g_return_val_if_fail (state != NULL, FALSE);
-	g_return_val_if_fail (s != NULL, FALSE);
+  va_list args;
+  gchar *string;
+  gboolean retval;
+  
+  g_return_val_if_fail (format != NULL, FALSE);
+  g_return_val_if_fail (state != NULL, FALSE);
+  
+  va_start (args, format);
+  string = g_strdup_vprintf (format, args);
+  va_end (args);
+  
+  retval = state->receiver (state->engine, string, strlen (string), state->user_data);
 
-	return state->receiver (state->engine, s, strlen (s), state->user_data);
+  g_free (string);
+  return retval;
 }
 
 
