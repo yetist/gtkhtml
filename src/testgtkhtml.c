@@ -129,8 +129,10 @@ static GnomeUIInfo test_menu[] = {
 	  test_cb, GINT_TO_POINTER (8), NULL, 0, 0, 0, 0},
 	{ GNOME_APP_UI_ITEM, "Test 9", "Run test 9 (Form Test)",
 	  test_cb, GINT_TO_POINTER (9), NULL, 0, 0, 0, 0},
-	{ GNOME_APP_UI_ITEM, "Test 10", "Run test 9 (Object Test)",
+	{ GNOME_APP_UI_ITEM, "Test 10", "Run test 10 (Object Test)",
 	  test_cb, GINT_TO_POINTER (10), NULL, 0, 0, 0, 0},
+	{ GNOME_APP_UI_ITEM, "Test 11", "Run test 11 (Nowrap)",
+	  test_cb, GINT_TO_POINTER (11), NULL, 0, 0, 0, 0},
 	GNOMEUIINFO_END
 };
 

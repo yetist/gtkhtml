@@ -963,9 +963,8 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 							}
 							else if (strncasecmp (token, "nowrap", 6) == 0) {
 
-								e->flow = 0;
 								e->noWrap = TRUE;
-
+								push_clueflow_style (e, HTML_CLUEFLOW_STYLE_NOWRAP);
 							}
 							else if (strncasecmp (token, "background=", 11) == 0
 								 && !e->defaultSettings->forceDefault) {
@@ -1052,8 +1051,11 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 						e->flow = HTML_OBJECT (oldflow);
 						return 0;
 					}
+					if (e->noWrap) {
 
-					e->noWrap = FALSE;
+						e->noWrap = FALSE;
+						pop_clueflow_style (e);
+					}
 
 					if ((strncmp (str, "</td", 4) == 0) ||
 					    (strncmp (str, "</th", 4) == 0)) {

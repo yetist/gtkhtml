@@ -272,16 +272,17 @@ calc_min_width (HTMLObject *o,
 	HTMLObject *obj;
 	gint w;
 	gint tempMinWidth;
-	gboolean is_pre;
+	gboolean is_pre, is_nowrap;
 
 	tempMinWidth = 0;
 	w = 0;
 	is_pre = (HTML_CLUEFLOW (o)->style == HTML_CLUEFLOW_STYLE_PRE);
+	is_nowrap = (HTML_CLUEFLOW (o)->style == HTML_CLUEFLOW_STYLE_NOWRAP);
 
 	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next) {
 		w += html_object_calc_min_width (obj, painter);
 
-		if (is_pre
+		if ((is_pre || is_nowrap)
 		    && ! (obj->flags & HTML_OBJECT_FLAG_NEWLINE)
 		    && obj->next != NULL)
 			continue;
@@ -733,6 +734,7 @@ get_default_font_style (const HTMLClueFlow *self)
 	case HTML_CLUEFLOW_STYLE_ITEMDOTTED:
 	case HTML_CLUEFLOW_STYLE_ITEMROMAN:
 	case HTML_CLUEFLOW_STYLE_ITEMDIGIT:
+	case HTML_CLUEFLOW_STYLE_NOWRAP:
 		return HTML_FONT_STYLE_SIZE_3;
 	case HTML_CLUEFLOW_STYLE_ADDRESS:
 		return HTML_FONT_STYLE_SIZE_3 | HTML_FONT_STYLE_ITALIC;

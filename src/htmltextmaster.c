@@ -23,6 +23,7 @@
 
 #include "htmlobject.h"
 #include "htmlclue.h"
+#include "htmlclueflow.h"
 #include "htmltextmaster.h"
 #include "htmltextslave.h"
 
@@ -68,6 +69,13 @@ calc_min_width (HTMLObject *self,
 	text = HTML_TEXT (self);
 
 	font_style = html_text_get_font_style (text);
+	/* Check to see if we want any word wrapping, ugly but it works. */
+	if ((self->parent != NULL && 
+	     (HTML_OBJECT_TYPE (self->parent) == HTML_TYPE_CLUEFLOW)) &&
+	    HTML_CLUEFLOW(self->parent)->style == HTML_CLUEFLOW_STYLE_NOWRAP) {
+
+			return html_painter_calc_text_width (painter, text->text, text->text_len, font_style);
+	}
 
 	min_width = 0;
 	run_width = 0;
