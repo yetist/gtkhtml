@@ -1,3 +1,16 @@
+2001-03-27  Larry Ewing  <lewing@ximian.com>
+
+	* control-data.h: add format_html and gdk and plain painters.
+
+	* control-data.c (gtk_html_control_data_new): initialize
+	format_html and gdk and plain painters.
+
+	* editor-control-factory.c (editor_control_construct): add a
+	property bag with the FormatHTML property.
+	(editor_set_prop): property bag set funtion.
+	(editor_get_prop): proprty bag get function.
+	(editor_set_format): toggle the painter based on the mode setting.
+
 2001-03-16  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* Makefile.am: Hook up the .oaf.in build stuff and remove

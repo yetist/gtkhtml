@@ -37,6 +37,9 @@ gtk_html_control_data_new (GtkHTML *html, GtkWidget *vbox)
 	ncd->block_font_style_change = FALSE;
 	ncd->dict_client             = spell_new_dictionary ();
 	ncd->dict                    = ncd->dict_client ? bonobo_object_corba_objref (BONOBO_OBJECT (ncd->dict_client)) : NULL;
+	ncd->gdk_painter             = NULL;
+	ncd->plain_painter           = NULL;
+	ncd->format_html             = FALSE;
 
 	return ncd;
 }

@@ -37,11 +37,15 @@
 #include "Editor.h"
 
 #include "gtkhtml.h"
+#include "gtkhtml-properties.h"
 #include "htmlcursor.h"
 #include "htmlengine.h"
 #include "htmlengine-edit.h"
 #include "htmlengine-edit-selection-updater.h"
 #include "htmlselection.h"
+#include "htmlfontmanager.h"
+#include "htmlpainter.h"
+
 
 #include "engine.h"
 #include "menubar.h"
@@ -340,12 +344,100 @@ destroy_control_data_cb (GtkObject *control, GtkHTMLControlData *cd)
 }
 
 static void
+editor_set_format (GtkHTMLControlData *cd, gboolean format_html)
+{
+	HTMLPainter *p, *old_p;
+	GtkHTML *html;
+	GtkHTMLClassProperties *prop;
+
+	g_return_if_fail (cd != NULL);
+	
+	cd->format_html = format_html;
+
+	html = cd->html;
+	prop = GTK_HTML_CLASS (GTK_OBJECT (html)->klass)->properties;
+	
+	if (!cd->plain_painter) {
+		cd->plain_painter = html_plain_painter_new (TRUE);
+		html_font_manager_set_default (&HTML_PAINTER (cd->plain_painter)->font_manager,
+					       prop->font_var,      prop->font_fix,
+					       prop->font_var_size, prop->font_fix_size);
+		
+		cd->gdk_painter = html->engine->painter;
+	}	
+	
+	if (format_html) {
+		p = cd->gdk_painter;
+		old_p = cd->plain_painter;
+	} else {
+		p = cd->plain_painter;
+		old_p = cd->gdk_painter;
+	}		
+
+	if (html->engine->painter != p) {
+		html_gdk_painter_unrealize (old_p);
+		html_gdk_painter_realize (p, html->engine->window);
+
+		html_engine_set_painter (html->engine, p, 
+					 html->engine->width);
+		
+		html_engine_draw (html->engine, 0, 0, html->engine->width, html->engine->height);
+	}
+		
+}
+
+enum {
+	PROP_EDIT_HTML
+} EditorControlProps;
+
+static void
+editor_get_prop (BonoboPropertyBag *bag,
+		 BonoboArg         *arg,
+		 guint              arg_id,
+		 CORBA_Environment *ev,
+		 gpointer           user_data)
+{
+	GtkHTMLControlData *cd = user_data;
+	
+	switch (arg_id) {
+	case PROP_EDIT_HTML:
+		BONOBO_ARG_SET_BOOLEAN (arg, cd->format_html);
+		break;
+	default:
+		bonobo_exception_set (ev, ex_Bonobo_PropertyBag_NotFound);
+		break;
+	}
+}
+
+static void
+editor_set_prop (BonoboPropertyBag *bag,
+		 const BonoboArg   *arg,
+		 guint              arg_id,
+		 CORBA_Environment *ev,
+		 gpointer           user_data)
+{
+	GtkHTMLControlData *cd = user_data;
+	
+	g_warning ("set_prop");
+	switch (arg_id) {
+	case PROP_EDIT_HTML:
+		editor_set_format (cd, BONOBO_ARG_GET_BOOLEAN (arg));
+		break;
+	default:
+		bonobo_exception_set (ev, ex_Bonobo_PropertyBag_NotFound);
+		break;
+	}
+}
+
+static void
 editor_control_construct (BonoboControl *control, GtkWidget *vbox)
 {
 	GtkHTMLControlData *control_data;
 	BonoboPersistStream *stream_impl;
 	BonoboPersistFile *file_impl;
 	GtkWidget *html_widget;
+	BonoboPropertyBag  *pb;
+	BonoboArg          *def;
 
 	active_controls++;
 
@@ -361,7 +453,8 @@ editor_control_construct (BonoboControl *control, GtkWidget *vbox)
 	/* HTMLEditor::Engine */
 
 	control_data->editor_bonobo_engine = editor_engine_new (GTK_HTML (html_widget));
-	bonobo_object_add_interface (BONOBO_OBJECT (control), BONOBO_OBJECT (control_data->editor_bonobo_engine));
+	bonobo_object_add_interface (BONOBO_OBJECT (control), 
+				     BONOBO_OBJECT (control_data->editor_bonobo_engine));
 
 	/* Bonobo::PersistStream */
 
@@ -372,6 +465,30 @@ editor_control_construct (BonoboControl *control, GtkWidget *vbox)
 
 	file_impl = persist_file_impl_new (GTK_HTML (html_widget));
 	bonobo_object_add_interface (BONOBO_OBJECT (control), BONOBO_OBJECT (file_impl));
+
+	/* PropertyBag */
+	pb = bonobo_property_bag_new (editor_get_prop, editor_set_prop, control_data);
+	bonobo_control_set_properties (control, pb);
+
+	def = bonobo_arg_new (BONOBO_ARG_BOOLEAN);
+	BONOBO_ARG_SET_BOOLEAN (def, TRUE);
+
+	bonobo_property_bag_add (pb, "FormatHTML", PROP_EDIT_HTML,
+				 BONOBO_ARG_BOOLEAN, def,
+				 "Whether or not to edit in HTML mode", 
+				 0);
+
+	/*
+	def = bonobo_arg_new (BONOBO_ARG_STRING);
+	BONOBO_ARG_SET_STRING (def, "");
+
+	bonobo_property_bag_add (pb, "OnURL", PROP_EDIT_HTML,
+				 BONOBO_ARG_STRING, def,
+				 "The URL of the link the mouse is currently over", 
+				 0);
+	*/
+
+	bonobo_object_unref (BONOBO_OBJECT (pb));
 
 	/* Part of the initialization must be done after the control is
 	   embedded in its control frame.  We use the "set_frame" signal to

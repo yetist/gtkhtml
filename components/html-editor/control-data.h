@@ -30,6 +30,7 @@ typedef struct _GtkHTMLEditPropertiesDialog   GtkHTMLEditPropertiesDialog;
 
 #include <gtkhtml.h>
 #include <bonobo.h>
+#include "htmlgdkpainter.h"
 #include "search.h"
 #include "replace.h"
 #include "image.h"
@@ -48,6 +49,11 @@ struct _GtkHTMLControlData {
 	/* search & replace dialogs */
 	GtkHTMLSearchDialog     *search_dialog;
 	GtkHTMLReplaceDialog    *replace_dialog;
+
+	/* html/plain mode settings */
+	gboolean format_html;
+	HTMLGdkPainter *gdk_painter;
+	HTMLGdkPainter *plain_painter;
 
 	/* object from last button press event */
 	HTMLObject *obj;
