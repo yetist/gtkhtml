@@ -1,3 +1,7 @@
+2001-01-12  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlclueflow.c (search): fixed crash for empty document
+
 2001-01-11  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlclue.c (merge): merge all clues

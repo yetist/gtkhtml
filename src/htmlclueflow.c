@@ -1490,9 +1490,10 @@ search (HTMLObject *obj, HTMLSearch *info)
 		}
 	}
 	while (cur) {
-		if (html_object_is_text (cur) && search_text (&cur, info))
+		if (html_object_is_text (cur)) {
+			if (search_text (&cur, info))
 				return TRUE;
-		else {
+		} else {
 			html_search_push (info, cur);
 			if (html_object_search (cur, info))
 				return TRUE;
