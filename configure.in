@@ -326,4 +326,5 @@ capplet/Makefile
 components/Makefile
 components/html-editor/Makefile
 components/ebrowser/Makefile
+components/http-storage-module/Makefile
 ])

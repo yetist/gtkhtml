@@ -1,3 +1,17 @@
+2000-10-27  Joe Shaw  <joe@helixcode.com>
+
+	* configure.in: Add components/http-storage-module/Makefile
+
+	* components/Makefile.am: Compile http-storage-module along with
+	ebrowser.
+
+	* components/http-storage-module: Added. This is a bonobo storage
+	backend for doing HTTP requests using libghttp.
+	* components/http-storage-module/bonobo-storage-http.c: Added.
+	* components/http-storage-module/bonobo-storage-http.h: Added.
+	* components/http-storage-module/bonobo-stream-http.c: Added.
+	* components/http-storage-module/bonobo-stream-http.h: Added.
+	
 2000-10-26  Radek Doulik  <rodo@helixcode.com>
 
 	* acconfig.h: added GTK_HTML_USE_XIM

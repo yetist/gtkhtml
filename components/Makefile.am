@@ -1,5 +1,5 @@
 if GHTTP
-EBROWSERDIRS = ebrowser
+EBROWSERDIRS = ebrowser http-storage-module
 endif
 
 SUBDIRS =					\
