@@ -139,14 +139,6 @@ fit_line (HTMLObject *o,
 
 	split_at_newline (HTML_TEXT_SLAVE (o));
 
-#if 0
-	if (startOfLine && text[textslave->posStart] == ' ' && widthLeft >= 0) {
-		/* Skip leading space */
-		textslave->posStart++;
-		textslave->posLen--;
-	}
-#endif
-
 	text += textslave->posStart;
 
 	o->width = html_painter_calc_text_width (painter, text, textslave->posLen, font_style);

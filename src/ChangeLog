@@ -1,5 +1,7 @@
 2000-01-19  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmltextslave.c (fit_line): Removed `#if 0'ed code.
+
 	* htmlobject.h: New parameter `offset_return' in
 	`HTMLObject::check_point'.  Through this, the object can also
 	return a cursor offset.
