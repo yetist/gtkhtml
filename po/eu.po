@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
-"POT-Creation-Date: 2004-04-15 21:00+0200\n"
+"POT-Creation-Date: 2004-05-19 11:07-0400\n"
 "PO-Revision-Date: 2004-04-16 11:03+0200\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>\n"
 "Language-Team: Basque <itzulpena@euskalgnu.org>\n"
@@ -265,7 +265,7 @@ msgstr "Hautapena ebakitzen du"
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
-#: components/html-editor/search.c:79 components/html-editor/search.c:131
+#: components/html-editor/search.c:101 components/html-editor/search.c:157
 msgid "Find"
 msgstr "Bilatu"
 
@@ -405,7 +405,8 @@ msgstr "Harritutako smiley aurpegiera txertatzen du dokumentuan..."
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:49
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
 msgid "Insert Undecided smiley into document..."
-msgstr "Zalantza adierazten duen smiley aurpegiera txertatzen du dokumentuan..."
+msgstr ""
+"Zalantza adierazten duen smiley aurpegiera txertatzen du dokumentuan..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:50
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
@@ -1019,10 +1020,11 @@ msgid ""
 "The quick brown <a href=\"mailto:fox\">fox</a> jumps over the lazy <a href="
 "\"mailto:dog\">dog</a>."
 msgstr ""
-"<a href=\"mailto:gorrotxategi\">Iñaki Gorrotxategiren</a> familia jatorrak ez ditu probatu nahi Quebec-eko vodka "
-"eta <a href=\"mailto:whiskya>whiskya</a>."
+"<a href=\"mailto:gorrotxategi\">Iñaki Gorrotxategiren</a> familia jatorrak "
+"ez ditu probatu nahi Quebec-eko vodka eta <a href=\"mailto:whiskya>whiskya</"
+"a>."
 
-#: components/html-editor/body.c:316 src/gtkhtml.c:2706
+#: components/html-editor/body.c:316 src/gtkhtml.c:2786
 msgid "Document Title"
 msgstr "Dokumentuaren titulua"
 
@@ -1846,7 +1848,7 @@ msgstr "_Ordeztu"
 msgid "Search _backward"
 msgstr "Bilatu g_orantz"
 
-#: components/html-editor/replace.c:170 components/html-editor/search.c:85
+#: components/html-editor/replace.c:170 components/html-editor/search.c:107
 msgid "Case _sensitive"
 msgstr "_Bereizi maiuskulak eta minuskulak"
 
@@ -1874,11 +1876,11 @@ msgstr ""
 "Editatutako marra kendu egin da dokumentutik.\n"
 "Egindako aldaketak ezin dira aplikatu."
 
-#: components/html-editor/search.c:84
+#: components/html-editor/search.c:106
 msgid "_Backward"
 msgstr "_Gorantz"
 
-#: components/html-editor/search.c:131
+#: components/html-editor/search.c:157
 msgid "Find Regular Expression"
 msgstr "Bilatu adierazpen erregularra"
 
@@ -2003,73 +2005,88 @@ msgstr "Paragrafoen koska handitzen du"
 msgid "Sample"
 msgstr "Adibidea"
 
-#: src/gtkhtml.c:2699
+#: src/gtkhtml.c:2457
+#, c-format
+msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
+msgstr ""
+
+#: src/gtkhtml.c:2779
 msgid "Editable"
 msgstr "Editagarria"
 
-#: src/gtkhtml.c:2700
+#: src/gtkhtml.c:2780
 msgid "Whether the html can be edited"
 msgstr "HTMLa edita daitekeen"
 
-#: src/gtkhtml.c:2707
+#: src/gtkhtml.c:2787
 msgid "The title of the current document"
 msgstr "Uneko dokumentuaren titulua"
 
-#: src/gtkhtml.c:2713
+#: src/gtkhtml.c:2793
 msgid "Document Base"
 msgstr "Dokumentuaren oinarria"
 
-#: src/gtkhtml.c:2714
+#: src/gtkhtml.c:2794
 msgid "The base URL for relative references"
 msgstr "Erreferentzia erlatiboetarako oinarrizko URLa"
 
-#: src/gtkhtml.c:2720
+#: src/gtkhtml.c:2800
 msgid "Target Base"
 msgstr "Helburuaren oinarria"
 
-#: src/gtkhtml.c:2721
+#: src/gtkhtml.c:2801
 msgid "The base URL of the targe frame"
 msgstr "Helburuko markoaren oinarriko URLa"
 
-#: src/gtkhtml.c:2730
+#: src/gtkhtml.c:2810
 msgid "Fixed Width Font"
 msgstr "Zabalera finkoko letra-tipoa"
 
-#: src/gtkhtml.c:2731
+#: src/gtkhtml.c:2811
 msgid "The Monospace font to use for typewriter text"
 msgstr "Idazmakinako testuetan erabiltzeko tarte bakarreko letra-tipoa"
 
-#: src/gtkhtml.c:2737
+#: src/gtkhtml.c:2817
 msgid "New Link Color"
 msgstr "Esteka berrien kolorea"
 
-#: src/gtkhtml.c:2738
+#: src/gtkhtml.c:2818
 msgid "The color of new link elements"
 msgstr "Esteka berriek izango duten kolorea"
 
-#: src/gtkhtml.c:2743
+#: src/gtkhtml.c:2823
 msgid "Visited Link Color"
 msgstr "Bisitatutako esteken kolorea"
 
-#: src/gtkhtml.c:2744
+#: src/gtkhtml.c:2824
 msgid "The color of visited link elements"
 msgstr "Bisitatutako estekek izango duten kolorea"
 
-#: src/gtkhtml.c:2749
+#: src/gtkhtml.c:2829
 msgid "Active Link Color"
 msgstr "Esteka aktiboen kolorea"
 
-#: src/gtkhtml.c:2750
+#: src/gtkhtml.c:2830
 msgid "The color of active link elements"
 msgstr "Esteka aktiboek izango duten kolorea"
 
-#: src/gtkhtml.c:2755
+#: src/gtkhtml.c:2835
 msgid "Spelling Error Color"
 msgstr "Ortografia-akatsen kolorea"
 
-#: src/gtkhtml.c:2756
+#: src/gtkhtml.c:2836
 msgid "The color of the spelling error markers"
 msgstr "Ortografia-akatsen markek izango duten kolorea"
+
+#: src/gtkhtml.c:2841
+#, fuzzy
+msgid "Cite Quotation Color"
+msgstr "Itsatsi aipamena"
+
+#: src/gtkhtml.c:2842
+#, fuzzy
+msgid "The color of the cited text"
+msgstr "Esteka aktiboek izango duten kolorea"
 
 #: src/html-component.c:219
 msgid "Html"
@@ -2279,4 +2296,3 @@ msgstr "GtkHTML probako aplikazioa"
 #, fuzzy
 #~ msgid "I could not initialize Bonobo"
 #~ msgstr "Ezin da Bonobo hasieratu"
-

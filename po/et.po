@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2004-02-27 04:19+0100\n"
+"POT-Creation-Date: 2004-05-19 11:07-0400\n"
 "PO-Revision-Date: 2004-05-02 23:36+0300\n"
 "Last-Translator: Priit Laes <amd@tt.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
@@ -18,14 +18,10 @@ msgstr ""
 msgid "<None>"
 msgstr "<Ei ole>"
 
-#: capplet/gnome-bindings-prop.c:211
-#: capplet/main.c:241
-#: components/html-editor/cell.c:419
-#: components/html-editor/image.c:543
-#: components/html-editor/rule.c:316
-#: components/html-editor/table.c:530
-#: components/html-editor/table.c:614
-#: components/html-editor/template.c:272
+#: capplet/gnome-bindings-prop.c:211 capplet/main.c:241
+#: components/html-editor/cell.c:419 components/html-editor/image.c:543
+#: components/html-editor/rule.c:316 components/html-editor/table.c:530
+#: components/html-editor/table.c:614 components/html-editor/template.c:272
 msgid "Could not load glade file."
 msgstr "Ei saa glade faili laadida."
 
@@ -268,8 +264,7 @@ msgstr "Lõika valik välja"
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
-#: components/html-editor/search.c:93
-#: components/html-editor/search.c:148
+#: components/html-editor/search.c:101 components/html-editor/search.c:157
 msgid "Find"
 msgstr "Otsi"
 
@@ -349,8 +344,7 @@ msgstr "Päis _6"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
 #: components/html-editor/editor-control-factory.c:189
 #: components/html-editor/gtkhtml-editor-properties.glade.h:39
-#: components/html-editor/menubar.c:91
-#: components/html-editor/popup.c:209
+#: components/html-editor/menubar.c:91 components/html-editor/popup.c:209
 msgid "Image"
 msgstr "Pilt"
 
@@ -462,10 +456,8 @@ msgstr "L_ugu"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:57
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:58
-#: components/html-editor/body.c:368
-#: components/html-editor/menubar.c:107
-#: components/html-editor/popup.c:106
-#: components/html-editor/popup.c:202
+#: components/html-editor/body.c:368 components/html-editor/menubar.c:107
+#: components/html-editor/popup.c:106 components/html-editor/popup.c:202
 #: components/html-editor/popup.c:275
 msgid "Link"
 msgstr "Viit"
@@ -548,8 +540,7 @@ msgstr "Tee see lõik H1 päiseks"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:71
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
 #: components/html-editor/gtkhtml-editor-properties.glade.h:49
-#: components/html-editor/paragraph.c:132
-#: components/html-editor/toolbar.c:48
+#: components/html-editor/paragraph.c:132 components/html-editor/toolbar.c:48
 msgid "Normal"
 msgstr "Tavaline"
 
@@ -635,10 +626,10 @@ msgid "Redo the undone action"
 msgstr "Soorita tühistatud tegevus uuesti"
 
 #  we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:88
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
-#: components/html-editor/replace.c:161
-#: components/html-editor/replace.c:223
+#: components/html-editor/replace.c:161 components/html-editor/replace.c:223
 msgid "Replace"
 msgstr "Asenda"
 
@@ -658,8 +649,7 @@ msgstr "<b>Akende nimistu sisu</b>"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
 #: components/html-editor/editor-control-factory.c:209
 #: components/html-editor/gtkhtml-editor-properties.glade.h:63
-#: components/html-editor/menubar.c:125
-#: components/html-editor/popup.c:230
+#: components/html-editor/menubar.c:125 components/html-editor/popup.c:230
 msgid "Rule"
 msgstr "Reegel"
 
@@ -676,8 +666,7 @@ msgstr "Vali kogu dokumendi sisu"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:94
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
 #: components/html-editor/gtkhtml-editor-properties.glade.h:69
-#: components/html-editor/text.c:239
-#: components/html-editor/toolbar.c:526
+#: components/html-editor/text.c:239 components/html-editor/toolbar.c:526
 msgid "Strikeout"
 msgstr "Läbikriipsutatud"
 
@@ -709,10 +698,8 @@ msgstr "Ülatekst"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:100
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
-#: components/html-editor/menubar.c:142
-#: components/html-editor/popup.c:237
-#: components/html-editor/popup.c:520
-#: components/html-editor/popup.c:532
+#: components/html-editor/menubar.c:142 components/html-editor/popup.c:237
+#: components/html-editor/popup.c:520 components/html-editor/popup.c:532
 msgid "Table"
 msgstr "Table"
 
@@ -1061,17 +1048,20 @@ msgid "Graph paper"
 msgstr "Paberi _suurus:"
 
 #  string marked for translations is sample text. you may want to translate it to common sample text in your language
+#. string marked for translations is sample text. you may want to translate it to common sample text in your language
 #: components/html-editor/body.c:163
-msgid "The quick brown <a href=\"mailto:fox\">fox</a> jumps over the lazy <a href=\"mailto:dog\">dog</a>."
-msgstr "Kiire pruun <a href=\"mailto:fox\">rebane</a> hüppas üle laisa  <a href=\"mailto:dog\">koera</a>."
+msgid ""
+"The quick brown <a href=\"mailto:fox\">fox</a> jumps over the lazy <a href="
+"\"mailto:dog\">dog</a>."
+msgstr ""
+"Kiire pruun <a href=\"mailto:fox\">rebane</a> hüppas üle laisa  <a href="
+"\"mailto:dog\">koera</a>."
 
-#: components/html-editor/body.c:316
-#: src/gtkhtml.c:2708
+#: components/html-editor/body.c:316 src/gtkhtml.c:2786
 msgid "Document Title"
 msgstr "Dokumendi pealkiri"
 
-#: components/html-editor/body.c:320
-#: components/html-editor/body.c:323
+#: components/html-editor/body.c:320 components/html-editor/body.c:323
 #: components/html-editor/gtkhtml-editor-properties.glade.h:15
 msgid "Background Image"
 msgstr "Taustapilt"
@@ -1081,10 +1071,8 @@ msgstr "Taustapilt"
 msgid "Colors"
 msgstr "Värvid"
 
-#: components/html-editor/body.c:355
-#: components/html-editor/cell.c:425
-#: components/html-editor/table.c:536
-#: components/html-editor/text.c:297
+#: components/html-editor/body.c:355 components/html-editor/cell.c:425
+#: components/html-editor/table.c:536 components/html-editor/text.c:297
 #: components/html-editor/toolbar.c:300
 msgid "Automatic"
 msgstr "Automaatne"
@@ -1092,8 +1080,7 @@ msgstr "Automaatne"
 #: components/html-editor/body.c:367
 #: components/html-editor/editor-control-factory.c:198
 #: components/html-editor/gtkhtml-editor-properties.glade.h:76
-#: components/html-editor/menubar.c:338
-#: components/html-editor/popup.c:195
+#: components/html-editor/menubar.c:338 components/html-editor/popup.c:195
 msgid "Text"
 msgstr "Tekst"
 
@@ -1103,10 +1090,9 @@ msgid "Background"
 msgstr "Taust"
 
 #  string marked for translations is sample text. you may want to translate it to common sample text in your language
-#: components/html-editor/cell.c:174
-#: components/html-editor/cell.c:176
-#: components/html-editor/paragraph.c:62
-#: components/html-editor/text.c:109
+#. string marked for translations is sample text. you may want to translate it to common sample text in your language
+#: components/html-editor/cell.c:174 components/html-editor/cell.c:176
+#: components/html-editor/paragraph.c:62 components/html-editor/text.c:109
 msgid "The quick brown fox jumps over the lazy dog."
 msgstr "Kiire pruun rebane hüppas üle laisa koera."
 
@@ -1121,33 +1107,31 @@ msgid ""
 msgstr ""
 
 #: components/html-editor/editor-control-factory.c:178
-#: components/html-editor/menubar.c:317
-#: components/html-editor/menubar.c:335
-#: components/html-editor/menubar.c:353
-#: components/html-editor/popup.c:187
+#: components/html-editor/menubar.c:317 components/html-editor/menubar.c:335
+#: components/html-editor/menubar.c:353 components/html-editor/popup.c:187
 #: components/html-editor/popup.c:272
 msgid "Properties"
 msgstr "Omadused"
 
 #: components/html-editor/editor-control-factory.c:219
-#: components/html-editor/menubar.c:356
-#: components/html-editor/popup.c:216
+#: components/html-editor/menubar.c:356 components/html-editor/popup.c:216
 msgid "Paragraph"
 msgstr "Lõik"
 
 #: components/html-editor/editor-control-factory.c:224
 #: components/html-editor/gtkhtml-editor-properties.glade.h:52
-#: components/html-editor/menubar.c:320
-#: components/html-editor/popup.c:223
+#: components/html-editor/menubar.c:320 components/html-editor/popup.c:223
 msgid "Page"
 msgstr "Lehekülg"
 
 #  This is the default custom color
+#. This is the default custom color
 #: components/html-editor/gi-color-palette.c:394
 msgid "custom"
 msgstr "kohandatud"
 
 #  "Custom" color - we'll pop up a GnomeColorPicker
+#. "Custom" color - we'll pop up a GnomeColorPicker
 #: components/html-editor/gi-color-palette.c:436
 msgid "Custom Color:"
 msgstr "Kohandatud värv:"
@@ -1372,8 +1356,7 @@ msgid "Apply changes to:"
 msgstr "Rakenda aktiivse sessiooni muudatused"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:16
-#: components/html-editor/text.c:236
-#: components/html-editor/toolbar.c:520
+#: components/html-editor/text.c:236 components/html-editor/toolbar.c:520
 msgid "Bold"
 msgstr "Rasvane"
 
@@ -1395,14 +1378,12 @@ msgid "Cell"
 msgstr "Lahter"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:21
-#: components/html-editor/paragraph.c:174
-#: components/html-editor/toolbar.c:509
+#: components/html-editor/paragraph.c:174 components/html-editor/toolbar.c:509
 msgid "Center"
 msgstr "Tsenter"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:22
-#: components/html-editor/link.c:137
-#: components/html-editor/text.c:247
+#: components/html-editor/link.c:137 components/html-editor/text.c:247
 #, fuzzy
 msgid "Click will follow this URL"
 msgstr "Toimeta selle dokumendi URLi: "
@@ -1471,8 +1452,7 @@ msgid "Horizontal:"
 msgstr "Horisontaalne:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:40
-#: components/html-editor/text.c:237
-#: components/html-editor/toolbar.c:522
+#: components/html-editor/text.c:237 components/html-editor/toolbar.c:522
 msgid "Italic"
 msgstr "Kaldkiri"
 
@@ -1575,8 +1555,7 @@ msgid "Spacing:"
 msgstr "Jaotus:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:70
-#: components/html-editor/paragraph.c:117
-#: components/html-editor/popup.c:475
+#: components/html-editor/paragraph.c:117 components/html-editor/popup.c:475
 #: components/html-editor/text.c:223
 msgid "Style"
 msgstr "Laad"
@@ -1605,8 +1584,7 @@ msgid "Top"
 msgstr "Üleval"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:79
-#: components/html-editor/text.c:238
-#: components/html-editor/toolbar.c:524
+#: components/html-editor/text.c:238 components/html-editor/toolbar.c:524
 msgid "Underline"
 msgstr "Allakriipsutus"
 
@@ -1637,23 +1615,36 @@ msgstr "xxxxxxxxx"
 msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
-#: components/html-editor/image.c:118
-#: components/html-editor/rule.c:93
+#: components/html-editor/image.c:118 components/html-editor/rule.c:93
 #: components/html-editor/table.c:192
 msgid "Plain"
 msgstr "Lihtne"
 
 #: components/html-editor/image.c:120
-msgid "@link_begin@<img@alt@@width@@height@@align@ border=@border@@padh@@padv@@src@>@link_end@"
-msgstr "@link_begin@<img@alt@@width@@height@@align@ border=@border@@padh@@padv@@src@>@link_end@"
+msgid ""
+"@link_begin@<img@alt@@width@@height@@align@ "
+"border=@border@@padh@@padv@@src@>@link_end@"
+msgstr ""
+"@link_begin@<img@alt@@width@@height@@align@ "
+"border=@border@@padh@@padv@@src@>@link_end@"
 
 #: components/html-editor/image.c:123
 msgid "Frame"
 msgstr "Raam"
 
 #: components/html-editor/image.c:125
-msgid "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img @src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></table></center>"
-msgstr "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img @src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></table></center>"
+msgid ""
+"<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
+"cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
+"cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
+"@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
+"table></center>"
+msgstr ""
+"<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
+"cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
+"cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
+"@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
+"table></center>"
 
 #: components/html-editor/image.c:133
 #, fuzzy
@@ -1661,13 +1652,26 @@ msgid "Caption"
 msgstr "Pealdis"
 
 #: components/html-editor/image.c:135
-msgid "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img @src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Place your comment here]</td></tr></table></td></tr></table></center>"
-msgstr "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img @src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Place your comment here]</td></tr></table></td></tr></table></center>"
+msgid ""
+"<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
+"cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
+"cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
+"@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Place your "
+"comment here]</td></tr></table></td></tr></table></center>"
+msgstr ""
+"<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
+"cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
+"cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
+"@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Place your "
+"comment here]</td></tr></table></td></tr></table></center>"
 
-#: components/html-editor/image.c:258
-#: components/html-editor/image.c:264
-msgid "This is sample text, designed to show you how text would flow around this image if you insert the image into your message."
-msgstr "See on näitetekst, mis on mõeldud selleks, et näidata kuidas tekst ümbritseb pilti juhul kui sisestada pilt siia sõnumisse."
+#: components/html-editor/image.c:258 components/html-editor/image.c:264
+msgid ""
+"This is sample text, designed to show you how text would flow around this "
+"image if you insert the image into your message."
+msgstr ""
+"See on näitetekst, mis on mõeldud selleks, et näidata kuidas tekst ümbritseb "
+"pilti juhul kui sisestada pilt siia sõnumisse."
 
 #: components/html-editor/image.c:270
 #, fuzzy
@@ -1695,12 +1699,9 @@ msgstr ""
 msgid "Please fill 'Link text' and 'URL' entries"
 msgstr ""
 
-#: components/html-editor/menubar.c:88
-#: components/html-editor/menubar.c:104
-#: components/html-editor/menubar.c:122
-#: components/html-editor/menubar.c:139
-#: components/html-editor/menubar.c:162
-#: components/html-editor/popup.c:103
+#: components/html-editor/menubar.c:88 components/html-editor/menubar.c:104
+#: components/html-editor/menubar.c:122 components/html-editor/menubar.c:139
+#: components/html-editor/menubar.c:162 components/html-editor/popup.c:103
 #: components/html-editor/properties.c:125
 msgid "Insert"
 msgstr "Lisa"
@@ -1720,33 +1721,27 @@ msgstr "Name=HTML fail..."
 msgid "Insert: Text File"
 msgstr "Lisa tekstifail..."
 
-#: components/html-editor/paragraph.c:135
-#: components/html-editor/toolbar.c:54
+#: components/html-editor/paragraph.c:135 components/html-editor/toolbar.c:54
 msgid "Header 1"
 msgstr "Päis 1"
 
-#: components/html-editor/paragraph.c:136
-#: components/html-editor/toolbar.c:55
+#: components/html-editor/paragraph.c:136 components/html-editor/toolbar.c:55
 msgid "Header 2"
 msgstr "Päis 2"
 
-#: components/html-editor/paragraph.c:137
-#: components/html-editor/toolbar.c:56
+#: components/html-editor/paragraph.c:137 components/html-editor/toolbar.c:56
 msgid "Header 3"
 msgstr "Päis 3"
 
-#: components/html-editor/paragraph.c:138
-#: components/html-editor/toolbar.c:57
+#: components/html-editor/paragraph.c:138 components/html-editor/toolbar.c:57
 msgid "Header 4"
 msgstr "Päis 4"
 
-#: components/html-editor/paragraph.c:139
-#: components/html-editor/toolbar.c:58
+#: components/html-editor/paragraph.c:139 components/html-editor/toolbar.c:58
 msgid "Header 5"
 msgstr "Päis 5"
 
-#: components/html-editor/paragraph.c:140
-#: components/html-editor/toolbar.c:59
+#: components/html-editor/paragraph.c:140 components/html-editor/toolbar.c:59
 msgid "Header 6"
 msgstr "Päis 6"
 
@@ -1770,8 +1765,7 @@ msgstr "Kustuta"
 msgid "Alphabeta item"
 msgstr "Kustuta"
 
-#: components/html-editor/paragraph.c:149
-#: components/html-editor/toolbar.c:60
+#: components/html-editor/paragraph.c:149 components/html-editor/toolbar.c:60
 msgid "Address"
 msgstr "Aadress"
 
@@ -1802,8 +1796,7 @@ msgstr "Eemalda viit"
 msgid "Text Style..."
 msgstr "Teksti laad..."
 
-#: components/html-editor/popup.c:480
-#: components/html-editor/popup.c:486
+#: components/html-editor/popup.c:480 components/html-editor/popup.c:486
 #: components/html-editor/popup.c:496
 msgid "Paragraph Style..."
 msgstr "Lõigu laad..."
@@ -1889,6 +1882,7 @@ msgid "Input Methods"
 msgstr "Sisestusmeetodid"
 
 #  we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/replace.c:77
 #, fuzzy
 msgid "Replace confirmation"
@@ -1910,8 +1904,7 @@ msgstr "_Asenda"
 msgid "Search _backward"
 msgstr "Otsi _tahapoole"
 
-#: components/html-editor/replace.c:170
-#: components/html-editor/search.c:99
+#: components/html-editor/replace.c:170 components/html-editor/search.c:107
 msgid "Case _sensitive"
 msgstr "_Tõstutundlik"
 
@@ -1940,11 +1933,11 @@ msgid ""
 "Cannot apply your changes."
 msgstr ""
 
-#: components/html-editor/search.c:98
+#: components/html-editor/search.c:106
 msgid "_Backward"
 msgstr "_Tagasi"
 
-#: components/html-editor/search.c:148
+#: components/html-editor/search.c:157
 #, fuzzy
 msgid "Find Regular Expression"
 msgstr "Vigane regulaaravaldis"
@@ -1982,8 +1975,7 @@ msgstr ""
 msgid "Note"
 msgstr "Märkus"
 
-#: components/html-editor/template.c:94
-#: components/html-editor/template.c:113
+#: components/html-editor/template.c:94 components/html-editor/template.c:113
 msgid "Place your text here"
 msgstr "Aseta oma tekst siia"
 
@@ -2075,77 +2067,92 @@ msgstr "Rohkem partitsioone ei ole"
 msgid "Sample"
 msgstr "Näidis"
 
-#: src/gtkhtml.c:2701
+#: src/gtkhtml.c:2457
+#, c-format
+msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
+msgstr ""
+
+#: src/gtkhtml.c:2779
 msgid "Editable"
 msgstr "Redigeeritav"
 
-#: src/gtkhtml.c:2702
+#: src/gtkhtml.c:2780
 msgid "Whether the html can be edited"
 msgstr "Kas html'i saab redigeerida"
 
-#: src/gtkhtml.c:2709
+#: src/gtkhtml.c:2787
 msgid "The title of the current document"
 msgstr "Aktiivse dokumendi pealkiri"
 
-#: src/gtkhtml.c:2715
+#: src/gtkhtml.c:2793
 msgid "Document Base"
 msgstr "Dokumendi baas"
 
-#: src/gtkhtml.c:2716
+#: src/gtkhtml.c:2794
 msgid "The base URL for relative references"
 msgstr ""
 
-#: src/gtkhtml.c:2722
+#: src/gtkhtml.c:2800
 #, fuzzy
 msgid "Target Base"
 msgstr "alus,astendaja"
 
-#: src/gtkhtml.c:2723
+#: src/gtkhtml.c:2801
 msgid "The base URL of the targe frame"
 msgstr ""
 
-#: src/gtkhtml.c:2732
+#: src/gtkhtml.c:2810
 msgid "Fixed Width Font"
 msgstr "Fikseeritud laiusega font"
 
-#: src/gtkhtml.c:2733
+#: src/gtkhtml.c:2811
 msgid "The Monospace font to use for typewriter text"
 msgstr ""
 
-#: src/gtkhtml.c:2739
+#: src/gtkhtml.c:2817
 msgid "New Link Color"
 msgstr "Uus viidavärv"
 
-#: src/gtkhtml.c:2740
+#: src/gtkhtml.c:2818
 msgid "The color of new link elements"
 msgstr "Uute viidaelementide värv"
 
-#: src/gtkhtml.c:2745
+#: src/gtkhtml.c:2823
 msgid "Visited Link Color"
 msgstr "Külastatud viida värv"
 
-#: src/gtkhtml.c:2746
+#: src/gtkhtml.c:2824
 msgid "The color of visited link elements"
 msgstr "Külastatud viidaelementide värv"
 
-#: src/gtkhtml.c:2751
+#: src/gtkhtml.c:2829
 msgid "Active Link Color"
 msgstr "Aktiivse viida värv"
 
-#: src/gtkhtml.c:2752
+#: src/gtkhtml.c:2830
 #, fuzzy
 msgid "The color of active link elements"
 msgstr "Uute viidaelementide värv"
 
-#: src/gtkhtml.c:2757
+#: src/gtkhtml.c:2835
 #, fuzzy
 msgid "Spelling Error Color"
 msgstr "Vali kohandatud värv"
 
-#: src/gtkhtml.c:2758
+#: src/gtkhtml.c:2836
 #, fuzzy
 msgid "The color of the spelling error markers"
 msgstr "Vea korral &muudetakse teksti värvi"
+
+#: src/gtkhtml.c:2841
+#, fuzzy
+msgid "Cite Quotation Color"
+msgstr "Aseta _tsiteering"
+
+#: src/gtkhtml.c:2842
+#, fuzzy
+msgid "The color of the cited text"
+msgstr "Uute viidaelementide värv"
 
 #: src/html-component.c:219
 msgid "Html"
@@ -2225,4 +2232,3 @@ msgstr "Printimise eelvaade"
 #: src/testgtkhtml.c:989
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML testrakendus"
-

@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2004-04-19 10:31-0400\n"
+"POT-Creation-Date: 2004-05-19 11:07-0400\n"
 "PO-Revision-Date: 2003-06-18 17:24+0200\n"
 "Last-Translator: Ole Laursen <olau@hardworking.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
@@ -272,7 +272,7 @@ msgstr "Klip det markerede"
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
-#: components/html-editor/search.c:79 components/html-editor/search.c:131
+#: components/html-editor/search.c:101 components/html-editor/search.c:157
 msgid "Find"
 msgstr "Søg"
 
@@ -683,7 +683,7 @@ msgstr "Hævet skrift"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
 #: components/html-editor/menubar.c:142 components/html-editor/popup.c:237
-#: components/html-editor/popup.c:519 components/html-editor/popup.c:528
+#: components/html-editor/popup.c:520 components/html-editor/popup.c:532
 msgid "Table"
 msgstr "Tabel"
 
@@ -1036,7 +1036,7 @@ msgid ""
 "\"mailto:dog\">dog</a>."
 msgstr "Cølibatisk havfrue på brynjeklædt wc med plexiglas i zoo."
 
-#: components/html-editor/body.c:316 src/gtkhtml.c:2706
+#: components/html-editor/body.c:316 src/gtkhtml.c:2786
 msgid "Document Title"
 msgstr "Dokumenttitel"
 
@@ -1393,7 +1393,7 @@ msgid "Color:"
 msgstr "Farve:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:26
-#: components/html-editor/popup.c:530
+#: components/html-editor/popup.c:534
 msgid "Column"
 msgstr "Kolonne"
 
@@ -1510,7 +1510,7 @@ msgid "Right"
 msgstr "Højre"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:60
-#: components/html-editor/popup.c:529
+#: components/html-editor/popup.c:533
 msgid "Row"
 msgstr "Række"
 
@@ -1544,7 +1544,7 @@ msgid "Spacing:"
 msgstr "Mellemrum:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:70
-#: components/html-editor/paragraph.c:117 components/html-editor/popup.c:474
+#: components/html-editor/paragraph.c:117 components/html-editor/popup.c:475
 #: components/html-editor/text.c:223
 msgid "Style"
 msgstr "Stil"
@@ -1772,92 +1772,92 @@ msgstr "Indsæt henvisning"
 msgid "Remove Link"
 msgstr "Fjern henvisning"
 
-#: components/html-editor/popup.c:477
+#: components/html-editor/popup.c:478
 msgid "Text Style..."
 msgstr "Tekststil..."
 
-#: components/html-editor/popup.c:479 components/html-editor/popup.c:485
-#: components/html-editor/popup.c:495
+#: components/html-editor/popup.c:480 components/html-editor/popup.c:486
+#: components/html-editor/popup.c:496
 msgid "Paragraph Style..."
 msgstr "Afsnitsstil..."
 
-#: components/html-editor/popup.c:483
+#: components/html-editor/popup.c:484
 msgid "Link Style..."
 msgstr "Henvisningsstil..."
 
-#: components/html-editor/popup.c:489
+#: components/html-editor/popup.c:490
 msgid "Rule Style..."
 msgstr "Linjestil..."
 
-#: components/html-editor/popup.c:493
+#: components/html-editor/popup.c:494
 msgid "Image Style..."
 msgstr "Billedestil..."
 
-#: components/html-editor/popup.c:504
+#: components/html-editor/popup.c:505
 msgid "Cell Style..."
 msgstr "Cellestil..."
 
-#: components/html-editor/popup.c:507
+#: components/html-editor/popup.c:508
 msgid "Table Style..."
 msgstr "Tabelstil..."
 
-#: components/html-editor/popup.c:513
+#: components/html-editor/popup.c:514
 msgid "Page Style..."
 msgstr "Sidestil..."
 
-#: components/html-editor/popup.c:518
+#: components/html-editor/popup.c:519
 msgid "Table insert"
 msgstr "Indsæt tabel"
 
-#: components/html-editor/popup.c:521
+#: components/html-editor/popup.c:522
 msgid "Row above"
 msgstr "Rækken ovenover"
 
-#: components/html-editor/popup.c:522
+#: components/html-editor/popup.c:523
 msgid "Row below"
 msgstr "Rækken nedenunder"
 
-#: components/html-editor/popup.c:524
+#: components/html-editor/popup.c:525
 msgid "Column before"
 msgstr "Kolonnen før"
 
-#: components/html-editor/popup.c:525
+#: components/html-editor/popup.c:526
 msgid "Column after"
 msgstr "Kolonnen efter"
 
-#: components/html-editor/popup.c:527
+#: components/html-editor/popup.c:531
 msgid "Table delete"
 msgstr "Slet tabel"
 
-#: components/html-editor/popup.c:531
+#: components/html-editor/popup.c:535
 msgid "Cell contents"
 msgstr "Celleindhold"
 
-#: components/html-editor/popup.c:541
+#: components/html-editor/popup.c:545
 #, fuzzy
 msgid "Check Word Spelling..."
 msgstr "Kontrollér stavning af '%s'..."
 
-#: components/html-editor/popup.c:546
+#: components/html-editor/popup.c:550
 msgid "Add Word to"
 msgstr ""
 
-#: components/html-editor/popup.c:550
+#: components/html-editor/popup.c:554
 #, c-format
 msgid "%s Dictionary"
 msgstr "%s ordbog"
 
-#: components/html-editor/popup.c:559
+#: components/html-editor/popup.c:563
 #, fuzzy
 msgid "Add Word to Dictionary"
 msgstr "%s ordbog"
 
-#: components/html-editor/popup.c:562
+#: components/html-editor/popup.c:566
 #, fuzzy
 msgid "Ignore Misspelled Word"
 msgstr "Ingen forkert stavede ord fundet"
 
-#: components/html-editor/popup.c:566
+#: components/html-editor/popup.c:570
 msgid "Input Methods"
 msgstr ""
 
@@ -1885,7 +1885,7 @@ msgstr "Erstat"
 msgid "Search _backward"
 msgstr "Søg _tilbage"
 
-#: components/html-editor/replace.c:170 components/html-editor/search.c:85
+#: components/html-editor/replace.c:170 components/html-editor/search.c:107
 msgid "Case _sensitive"
 msgstr "_Skeln mellem store og små bogstaver"
 
@@ -1913,11 +1913,11 @@ msgstr ""
 "Den redigerede linje blev fjernet fra dokumentet.\n"
 "Kan ikke anvende dine ændringer."
 
-#: components/html-editor/search.c:84
+#: components/html-editor/search.c:106
 msgid "_Backward"
 msgstr "_Baglæns"
 
-#: components/html-editor/search.c:131
+#: components/html-editor/search.c:157
 msgid "Find Regular Expression"
 msgstr "Søg efter regulært udtryk"
 
@@ -2043,73 +2043,88 @@ msgstr "Forøger indrykningen af afsnittene"
 msgid "Sample"
 msgstr "Prøve"
 
-#: src/gtkhtml.c:2699
+#: src/gtkhtml.c:2457
+#, c-format
+msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
+msgstr ""
+
+#: src/gtkhtml.c:2779
 msgid "Editable"
 msgstr "Redigérbar"
 
-#: src/gtkhtml.c:2700
+#: src/gtkhtml.c:2780
 msgid "Whether the html can be edited"
 msgstr "Om HTML'en kan redigeres"
 
-#: src/gtkhtml.c:2707
+#: src/gtkhtml.c:2787
 msgid "The title of the current document"
 msgstr "Titlen for det aktuelle dokument"
 
-#: src/gtkhtml.c:2713
+#: src/gtkhtml.c:2793
 msgid "Document Base"
 msgstr "Grundadresse"
 
-#: src/gtkhtml.c:2714
+#: src/gtkhtml.c:2794
 msgid "The base URL for relative references"
 msgstr "Grundadressen for relative referencer"
 
-#: src/gtkhtml.c:2720
+#: src/gtkhtml.c:2800
 msgid "Target Base"
 msgstr "Måladresse"
 
-#: src/gtkhtml.c:2721
+#: src/gtkhtml.c:2801
 msgid "The base URL of the targe frame"
 msgstr "Grundadressen for målrammen"
 
-#: src/gtkhtml.c:2730
+#: src/gtkhtml.c:2810
 msgid "Fixed Width Font"
 msgstr "Fast bredde-skrifttype"
 
-#: src/gtkhtml.c:2731
+#: src/gtkhtml.c:2811
 msgid "The Monospace font to use for typewriter text"
 msgstr "Fast bredde-skrifttype til skrivemaskineskrift"
 
-#: src/gtkhtml.c:2737
+#: src/gtkhtml.c:2817
 msgid "New Link Color"
 msgstr "Farve for ny henvisning"
 
-#: src/gtkhtml.c:2738
+#: src/gtkhtml.c:2818
 msgid "The color of new link elements"
 msgstr "Farven for nye henvisningselementer"
 
-#: src/gtkhtml.c:2743
+#: src/gtkhtml.c:2823
 msgid "Visited Link Color"
 msgstr "Farve for besøgt henvisning"
 
-#: src/gtkhtml.c:2744
+#: src/gtkhtml.c:2824
 msgid "The color of visited link elements"
 msgstr "Farven for besøgte henvisningselementer"
 
-#: src/gtkhtml.c:2749
+#: src/gtkhtml.c:2829
 msgid "Active Link Color"
 msgstr "Farve for aktiv henvisning"
 
-#: src/gtkhtml.c:2750
+#: src/gtkhtml.c:2830
 msgid "The color of active link elements"
 msgstr "Farven for aktive henvisningselementer"
 
-#: src/gtkhtml.c:2755
+#: src/gtkhtml.c:2835
 msgid "Spelling Error Color"
 msgstr "Farve for stavefejl"
 
-#: src/gtkhtml.c:2756
+#: src/gtkhtml.c:2836
 msgid "The color of the spelling error markers"
 msgstr "Farven for markeringer af stavefejl"
+
+#: src/gtkhtml.c:2841
+#, fuzzy
+msgid "Cite Quotation Color"
+msgstr "Indsæt citat"
+
+#: src/gtkhtml.c:2842
+#, fuzzy
+msgid "The color of the cited text"
+msgstr "Farven for aktive henvisningselementer"
 
 #: src/html-component.c:219
 msgid "Html"

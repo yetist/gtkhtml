@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 3.0.3\n"
-"POT-Creation-Date: 2004-04-19 10:31-0400\n"
+"POT-Creation-Date: 2004-05-19 11:07-0400\n"
 "PO-Revision-Date: 2003-05-17 05:23+0800\n"
 "Last-Translator: Abel Cheung <maddog@linux.org.hk>\n"
 "Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
@@ -264,7 +264,7 @@ msgstr "剪下選定範圍"
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
-#: components/html-editor/search.c:79 components/html-editor/search.c:131
+#: components/html-editor/search.c:101 components/html-editor/search.c:157
 msgid "Find"
 msgstr "搜尋"
 
@@ -675,7 +675,7 @@ msgstr "上標"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
 #: components/html-editor/menubar.c:142 components/html-editor/popup.c:237
-#: components/html-editor/popup.c:519 components/html-editor/popup.c:528
+#: components/html-editor/popup.c:520 components/html-editor/popup.c:532
 msgid "Table"
 msgstr "表格"
 
@@ -1029,7 +1029,7 @@ msgid ""
 "\"mailto:dog\">dog</a>."
 msgstr "The following is Chinese: '中文測試'"
 
-#: components/html-editor/body.c:316 src/gtkhtml.c:2706
+#: components/html-editor/body.c:316 src/gtkhtml.c:2786
 msgid "Document Title"
 msgstr "文件標題"
 
@@ -1385,7 +1385,7 @@ msgid "Color:"
 msgstr "色彩："
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:26
-#: components/html-editor/popup.c:530
+#: components/html-editor/popup.c:534
 msgid "Column"
 msgstr "列"
 
@@ -1502,7 +1502,7 @@ msgid "Right"
 msgstr "右"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:60
-#: components/html-editor/popup.c:529
+#: components/html-editor/popup.c:533
 msgid "Row"
 msgstr "行"
 
@@ -1536,7 +1536,7 @@ msgid "Spacing:"
 msgstr "間隔："
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:70
-#: components/html-editor/paragraph.c:117 components/html-editor/popup.c:474
+#: components/html-editor/paragraph.c:117 components/html-editor/popup.c:475
 #: components/html-editor/text.c:223
 msgid "Style"
 msgstr "樣式"
@@ -1764,90 +1764,90 @@ msgstr "插入鏈結"
 msgid "Remove Link"
 msgstr "移除鏈結"
 
-#: components/html-editor/popup.c:477
+#: components/html-editor/popup.c:478
 msgid "Text Style..."
 msgstr "文字樣式..."
 
-#: components/html-editor/popup.c:479 components/html-editor/popup.c:485
-#: components/html-editor/popup.c:495
+#: components/html-editor/popup.c:480 components/html-editor/popup.c:486
+#: components/html-editor/popup.c:496
 msgid "Paragraph Style..."
 msgstr "段落樣式..."
 
-#: components/html-editor/popup.c:483
+#: components/html-editor/popup.c:484
 msgid "Link Style..."
 msgstr "鏈結樣式..."
 
-#: components/html-editor/popup.c:489
+#: components/html-editor/popup.c:490
 msgid "Rule Style..."
 msgstr "水平線樣式..."
 
-#: components/html-editor/popup.c:493
+#: components/html-editor/popup.c:494
 msgid "Image Style..."
 msgstr "圖像樣式..."
 
-#: components/html-editor/popup.c:504
+#: components/html-editor/popup.c:505
 msgid "Cell Style..."
 msgstr "儲存格樣式..."
 
-#: components/html-editor/popup.c:507
+#: components/html-editor/popup.c:508
 msgid "Table Style..."
 msgstr "表格樣式..."
 
-#: components/html-editor/popup.c:513
+#: components/html-editor/popup.c:514
 msgid "Page Style..."
 msgstr "頁面樣式..."
 
-#: components/html-editor/popup.c:518
+#: components/html-editor/popup.c:519
 msgid "Table insert"
 msgstr "插入表格項目"
 
-#: components/html-editor/popup.c:521
+#: components/html-editor/popup.c:522
 msgid "Row above"
 msgstr "該行之上"
 
-#: components/html-editor/popup.c:522
+#: components/html-editor/popup.c:523
 msgid "Row below"
 msgstr "該行之下"
 
-#: components/html-editor/popup.c:524
+#: components/html-editor/popup.c:525
 msgid "Column before"
 msgstr "該列之前"
 
-#: components/html-editor/popup.c:525
+#: components/html-editor/popup.c:526
 msgid "Column after"
 msgstr "該列之後"
 
-#: components/html-editor/popup.c:527
+#: components/html-editor/popup.c:531
 msgid "Table delete"
 msgstr "刪除表格項目"
 
-#: components/html-editor/popup.c:531
+#: components/html-editor/popup.c:535
 msgid "Cell contents"
 msgstr "儲存格內容"
 
-#: components/html-editor/popup.c:541
+#: components/html-editor/popup.c:545
 msgid "Check Word Spelling..."
 msgstr ""
 
-#: components/html-editor/popup.c:546
+#: components/html-editor/popup.c:550
 msgid "Add Word to"
 msgstr ""
 
-#: components/html-editor/popup.c:550
+#: components/html-editor/popup.c:554
 #, c-format
 msgid "%s Dictionary"
 msgstr "%s 字典"
 
-#: components/html-editor/popup.c:559
+#: components/html-editor/popup.c:563
 #, fuzzy
 msgid "Add Word to Dictionary"
 msgstr "%s 字典"
 
-#: components/html-editor/popup.c:562
+#: components/html-editor/popup.c:566
 msgid "Ignore Misspelled Word"
 msgstr ""
 
-#: components/html-editor/popup.c:566
+#: components/html-editor/popup.c:570
 msgid "Input Methods"
 msgstr ""
 
@@ -1875,7 +1875,7 @@ msgstr "取代"
 msgid "Search _backward"
 msgstr "向後搜尋(_B)"
 
-#: components/html-editor/replace.c:170 components/html-editor/search.c:85
+#: components/html-editor/replace.c:170 components/html-editor/search.c:107
 msgid "Case _sensitive"
 msgstr "區分大小寫(_S)"
 
@@ -1903,11 +1903,11 @@ msgstr ""
 "編輯過的水平線早已經從文件中刪除。\n"
 "無法寫入更改後的內容。"
 
-#: components/html-editor/search.c:84
+#: components/html-editor/search.c:106
 msgid "_Backward"
 msgstr "向後(_B)"
 
-#: components/html-editor/search.c:131
+#: components/html-editor/search.c:157
 msgid "Find Regular Expression"
 msgstr "使用正規表示式的方式搜尋"
 
@@ -2032,73 +2032,88 @@ msgstr "增加段落的縮排"
 msgid "Sample"
 msgstr "範例"
 
-#: src/gtkhtml.c:2699
+#: src/gtkhtml.c:2457
+#, c-format
+msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
+msgstr ""
+
+#: src/gtkhtml.c:2779
 msgid "Editable"
 msgstr "可編輯"
 
-#: src/gtkhtml.c:2700
+#: src/gtkhtml.c:2780
 msgid "Whether the html can be edited"
 msgstr "可否編輯 html"
 
-#: src/gtkhtml.c:2707
+#: src/gtkhtml.c:2787
 msgid "The title of the current document"
 msgstr "目前的文件的標題"
 
-#: src/gtkhtml.c:2713
+#: src/gtkhtml.c:2793
 msgid "Document Base"
 msgstr ""
 
-#: src/gtkhtml.c:2714
+#: src/gtkhtml.c:2794
 msgid "The base URL for relative references"
 msgstr ""
 
-#: src/gtkhtml.c:2720
+#: src/gtkhtml.c:2800
 msgid "Target Base"
 msgstr ""
 
-#: src/gtkhtml.c:2721
+#: src/gtkhtml.c:2801
 msgid "The base URL of the targe frame"
 msgstr ""
 
-#: src/gtkhtml.c:2730
+#: src/gtkhtml.c:2810
 msgid "Fixed Width Font"
 msgstr "固定寬度字型"
 
-#: src/gtkhtml.c:2731
+#: src/gtkhtml.c:2811
 msgid "The Monospace font to use for typewriter text"
 msgstr "作為打字機字型使用的固定寬度字型"
 
-#: src/gtkhtml.c:2737
+#: src/gtkhtml.c:2817
 msgid "New Link Color"
 msgstr "未瀏覽鏈結顏色"
 
-#: src/gtkhtml.c:2738
+#: src/gtkhtml.c:2818
 msgid "The color of new link elements"
 msgstr "未瀏覽的鏈結的顏色"
 
-#: src/gtkhtml.c:2743
+#: src/gtkhtml.c:2823
 msgid "Visited Link Color"
 msgstr "已瀏覽鏈結顏色"
 
-#: src/gtkhtml.c:2744
+#: src/gtkhtml.c:2824
 msgid "The color of visited link elements"
 msgstr "已瀏覽的鏈結的顏色"
 
-#: src/gtkhtml.c:2749
+#: src/gtkhtml.c:2829
 msgid "Active Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2750
+#: src/gtkhtml.c:2830
 msgid "The color of active link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2755
+#: src/gtkhtml.c:2835
 msgid "Spelling Error Color"
 msgstr "拼字錯誤顏色"
 
-#: src/gtkhtml.c:2756
+#: src/gtkhtml.c:2836
 msgid "The color of the spelling error markers"
 msgstr "表示拼字錯誤的標記的顏色"
+
+#: src/gtkhtml.c:2841
+#, fuzzy
+msgid "Cite Quotation Color"
+msgstr "已瀏覽鏈結顏色"
+
+#: src/gtkhtml.c:2842
+#, fuzzy
+msgid "The color of the cited text"
+msgstr "未瀏覽的鏈結的顏色"
 
 #: src/html-component.c:219
 msgid "Html"

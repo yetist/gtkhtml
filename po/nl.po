@@ -9,14 +9,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml cvs\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-05-14 15:30+0200\n"
+"POT-Creation-Date: 2004-05-19 11:07-0400\n"
 "PO-Revision-Date: 2004-05-14 19:53+0200\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Report-Msgid-Bugs-To: \n"
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -1026,7 +1026,7 @@ msgstr ""
 "Pa's wijze <a href=\"mailto:lynx\">lynx</a> bezag vroom het fikse <a href="
 "\"mailto:aquaduct\">aquaduct</a>."
 
-#: components/html-editor/body.c:316 src/gtkhtml.c:2781
+#: components/html-editor/body.c:316 src/gtkhtml.c:2786
 msgid "Document Title"
 msgstr "Documenttitel"
 
@@ -2011,85 +2011,87 @@ msgstr "Inspringafstand van de paragraaf vergroten"
 msgid "Sample"
 msgstr "Voorbeeld"
 
-#: src/gtkhtml.c:2452
+#: src/gtkhtml.c:2457
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
-msgstr "Mozilla url losgelaten op Composer had een verkeerd formaat (%d) of lengte (%d)\n"
+msgstr ""
+"Mozilla url losgelaten op Composer had een verkeerd formaat (%d) of lengte (%"
+"d)\n"
 
 # Bewerkbaar? Kan bewerkt/aangepast worden?
-#: src/gtkhtml.c:2774
+#: src/gtkhtml.c:2779
 msgid "Editable"
 msgstr "Kan bewerken"
 
-#: src/gtkhtml.c:2775
+#: src/gtkhtml.c:2780
 msgid "Whether the html can be edited"
 msgstr "Of de html bewerkt kan worden"
 
-#: src/gtkhtml.c:2782
+#: src/gtkhtml.c:2787
 msgid "The title of the current document"
 msgstr "De titel van het huidige document"
 
-#: src/gtkhtml.c:2788
+#: src/gtkhtml.c:2793
 msgid "Document Base"
 msgstr "Documentbasis"
 
-#: src/gtkhtml.c:2789
+#: src/gtkhtml.c:2794
 msgid "The base URL for relative references"
 msgstr "De basis-URL voor relatieve verwijzingen"
 
-#: src/gtkhtml.c:2795
+#: src/gtkhtml.c:2800
 msgid "Target Base"
 msgstr "Doelbasis"
 
-#: src/gtkhtml.c:2796
+#: src/gtkhtml.c:2801
 msgid "The base URL of the targe frame"
 msgstr "De basis-URL van het doelframe"
 
-#: src/gtkhtml.c:2805
+#: src/gtkhtml.c:2810
 msgid "Fixed Width Font"
 msgstr "Lettertype met vaste breedte"
 
-#: src/gtkhtml.c:2806
+#: src/gtkhtml.c:2811
 msgid "The Monospace font to use for typewriter text"
 msgstr "Het lettertype (monospace) voor typemachine-tekst"
 
-#: src/gtkhtml.c:2812
+#: src/gtkhtml.c:2817
 msgid "New Link Color"
 msgstr "Kleur nieuwe link"
 
-#: src/gtkhtml.c:2813
+#: src/gtkhtml.c:2818
 msgid "The color of new link elements"
 msgstr "De kleur van nieuwe links"
 
-#: src/gtkhtml.c:2818
+#: src/gtkhtml.c:2823
 msgid "Visited Link Color"
 msgstr "Kleur bezochte link"
 
-#: src/gtkhtml.c:2819
+#: src/gtkhtml.c:2824
 msgid "The color of visited link elements"
 msgstr "De kleur van bezochte links"
 
-#: src/gtkhtml.c:2824
+#: src/gtkhtml.c:2829
 msgid "Active Link Color"
 msgstr "Kleur actieve link"
 
-#: src/gtkhtml.c:2825
+#: src/gtkhtml.c:2830
 msgid "The color of active link elements"
 msgstr "De kleur van een actieve link"
 
-#: src/gtkhtml.c:2830
+#: src/gtkhtml.c:2835
 msgid "Spelling Error Color"
 msgstr "Kleur van spelfout"
 
-#: src/gtkhtml.c:2831
+#: src/gtkhtml.c:2836
 msgid "The color of the spelling error markers"
 msgstr "De kleur van de markering voor spelfouten"
 
-#: src/gtkhtml.c:2836
+#: src/gtkhtml.c:2841
 msgid "Cite Quotation Color"
 msgstr "Kleur citaat"
 
-#: src/gtkhtml.c:2837
+#: src/gtkhtml.c:2842
 msgid "The color of the cited text"
 msgstr "De kleur van de geciteerde text"
 

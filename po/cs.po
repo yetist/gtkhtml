@@ -7,14 +7,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-05-11 04:24+0200\n"
+"POT-Creation-Date: 2004-05-19 11:07-0400\n"
 "PO-Revision-Date: 2004-05-11 13:11+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Report-Msgid-Bugs-To: \n"
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -1023,7 +1023,7 @@ msgstr ""
 "Příliš žluťoučký <a href=\"mailto:kun\">kůň</a> úpěl ďábelské <a href="
 "\"mailto:ody\">ódy</a>."
 
-#: components/html-editor/body.c:316 src/gtkhtml.c:2781
+#: components/html-editor/body.c:316 src/gtkhtml.c:2786
 msgid "Document Title"
 msgstr "Nadpis dokumentu"
 
@@ -2002,85 +2002,85 @@ msgstr "Odsadí odstavec Více"
 msgid "Sample"
 msgstr "Příklad"
 
-#: src/gtkhtml.c:2452
+#: src/gtkhtml.c:2457
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""
 "URL z Mozilly upuštěné do editoru mělo špatný formát (%d) enbo délku (%d)\n"
 
-#: src/gtkhtml.c:2774
+#: src/gtkhtml.c:2779
 msgid "Editable"
 msgstr "Upravitelný"
 
-#: src/gtkhtml.c:2775
+#: src/gtkhtml.c:2780
 msgid "Whether the html can be edited"
 msgstr "Jestli může být html upravováno"
 
-#: src/gtkhtml.c:2782
+#: src/gtkhtml.c:2787
 msgid "The title of the current document"
 msgstr "Nadpis aktuálního dokumentu"
 
-#: src/gtkhtml.c:2788
+#: src/gtkhtml.c:2793
 msgid "Document Base"
 msgstr "Základ dokumentu"
 
-#: src/gtkhtml.c:2789
+#: src/gtkhtml.c:2794
 msgid "The base URL for relative references"
 msgstr "Základní URL pro relativní odkazy"
 
-#: src/gtkhtml.c:2795
+#: src/gtkhtml.c:2800
 msgid "Target Base"
 msgstr "Základ cíle"
 
-#: src/gtkhtml.c:2796
+#: src/gtkhtml.c:2801
 msgid "The base URL of the targe frame"
 msgstr "Základní URL cílového rámce"
 
-#: src/gtkhtml.c:2805
+#: src/gtkhtml.c:2810
 msgid "Fixed Width Font"
 msgstr "Písmo s pevnou šířkou"
 
-#: src/gtkhtml.c:2806
+#: src/gtkhtml.c:2811
 msgid "The Monospace font to use for typewriter text"
 msgstr "Písmo monospace, které použít pro text psacího stroje"
 
-#: src/gtkhtml.c:2812
+#: src/gtkhtml.c:2817
 msgid "New Link Color"
 msgstr "Barva nového odkazu"
 
-#: src/gtkhtml.c:2813
+#: src/gtkhtml.c:2818
 msgid "The color of new link elements"
 msgstr "Barva nových elementů odkaz"
 
-#: src/gtkhtml.c:2818
+#: src/gtkhtml.c:2823
 msgid "Visited Link Color"
 msgstr "Barva navštíveného odkazu"
 
-#: src/gtkhtml.c:2819
+#: src/gtkhtml.c:2824
 msgid "The color of visited link elements"
 msgstr "Barva navštívených elementů odkaz"
 
-#: src/gtkhtml.c:2824
+#: src/gtkhtml.c:2829
 msgid "Active Link Color"
 msgstr "Barva aktivního odkazu"
 
-#: src/gtkhtml.c:2825
+#: src/gtkhtml.c:2830
 msgid "The color of active link elements"
 msgstr "Barva aktivních elementů odkaz"
 
-#: src/gtkhtml.c:2830
+#: src/gtkhtml.c:2835
 msgid "Spelling Error Color"
 msgstr "Barva pravopisné chyby"
 
-#: src/gtkhtml.c:2831
+#: src/gtkhtml.c:2836
 msgid "The color of the spelling error markers"
 msgstr "Barva označení pravopisných chyb"
 
-#: src/gtkhtml.c:2836
+#: src/gtkhtml.c:2841
 msgid "Cite Quotation Color"
 msgstr "Barva citátu"
 
-#: src/gtkhtml.c:2837
+#: src/gtkhtml.c:2842
 msgid "The color of the cited text"
 msgstr "Barva citovaného textu"
 

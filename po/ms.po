@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 1.1.x\n"
-"POT-Creation-Date: 2004-04-19 10:31-0400\n"
+"POT-Creation-Date: 2004-05-19 11:07-0400\n"
 "PO-Revision-Date: 2002-05-25 02:09+0800\n"
 "Last-Translator: Hasbullah Bin Pit <sebol@ikhlas.com>\n"
 "Language-Team: Projek Gabai <gabai-penyumbang@lists.sourceforge.org>\n"
@@ -265,7 +265,7 @@ msgstr "Potong pilihan"
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
-#: components/html-editor/search.c:79 components/html-editor/search.c:131
+#: components/html-editor/search.c:101 components/html-editor/search.c:157
 msgid "Find"
 msgstr "Cari"
 
@@ -677,7 +677,7 @@ msgstr "Superscript"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
 #: components/html-editor/menubar.c:142 components/html-editor/popup.c:237
-#: components/html-editor/popup.c:519 components/html-editor/popup.c:528
+#: components/html-editor/popup.c:520 components/html-editor/popup.c:532
 msgid "Table"
 msgstr "Jadual"
 
@@ -1036,7 +1036,7 @@ msgid ""
 "\"mailto:dog\">dog</a>."
 msgstr "Seekor arnab memakan kangkung bersama tiong."
 
-#: components/html-editor/body.c:316 src/gtkhtml.c:2706
+#: components/html-editor/body.c:316 src/gtkhtml.c:2786
 msgid "Document Title"
 msgstr "Tajuk Dokumen"
 
@@ -1398,7 +1398,7 @@ msgid "Color:"
 msgstr "Warna:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:26
-#: components/html-editor/popup.c:530
+#: components/html-editor/popup.c:534
 msgid "Column"
 msgstr "Kolum"
 
@@ -1520,7 +1520,7 @@ msgid "Right"
 msgstr "Kanan"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:60
-#: components/html-editor/popup.c:529
+#: components/html-editor/popup.c:533
 msgid "Row"
 msgstr "Baris"
 
@@ -1554,7 +1554,7 @@ msgid "Spacing:"
 msgstr "Jarak Ruang:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:70
-#: components/html-editor/paragraph.c:117 components/html-editor/popup.c:474
+#: components/html-editor/paragraph.c:117 components/html-editor/popup.c:475
 #: components/html-editor/text.c:223
 msgid "Style"
 msgstr "Gaya"
@@ -1779,101 +1779,101 @@ msgstr "Selit pautan"
 msgid "Remove Link"
 msgstr "Buang Pautan"
 
-#: components/html-editor/popup.c:477
+#: components/html-editor/popup.c:478
 #, fuzzy
 msgid "Text Style..."
 msgstr "Fail teks..."
 
-#: components/html-editor/popup.c:479 components/html-editor/popup.c:485
-#: components/html-editor/popup.c:495
+#: components/html-editor/popup.c:480 components/html-editor/popup.c:486
+#: components/html-editor/popup.c:496
 #, fuzzy
 msgid "Paragraph Style..."
 msgstr "Perenggan..."
 
-#: components/html-editor/popup.c:483
+#: components/html-editor/popup.c:484
 #, fuzzy
 msgid "Link Style..."
 msgstr "Pautan..."
 
-#: components/html-editor/popup.c:489
+#: components/html-editor/popup.c:490
 #, fuzzy
 msgid "Rule Style..."
 msgstr "Rule..."
 
 # ui/galeon.glade.h:176
-#: components/html-editor/popup.c:493
+#: components/html-editor/popup.c:494
 #, fuzzy
 msgid "Image Style..."
 msgstr "Imej..."
 
-#: components/html-editor/popup.c:504
+#: components/html-editor/popup.c:505
 #, fuzzy
 msgid "Cell Style..."
 msgstr "Sel..."
 
-#: components/html-editor/popup.c:507
+#: components/html-editor/popup.c:508
 #, fuzzy
 msgid "Table Style..."
 msgstr "Jadual..."
 
-#: components/html-editor/popup.c:513
+#: components/html-editor/popup.c:514
 #, fuzzy
 msgid "Page Style..."
 msgstr "Halaman..."
 
-#: components/html-editor/popup.c:518
+#: components/html-editor/popup.c:519
 msgid "Table insert"
 msgstr "Selitan Jadual"
 
-#: components/html-editor/popup.c:521
+#: components/html-editor/popup.c:522
 msgid "Row above"
 msgstr "Baris di atas"
 
-#: components/html-editor/popup.c:522
+#: components/html-editor/popup.c:523
 msgid "Row below"
 msgstr "Baris di bawah"
 
-#: components/html-editor/popup.c:524
+#: components/html-editor/popup.c:525
 msgid "Column before"
 msgstr "Kolum sebelum"
 
-#: components/html-editor/popup.c:525
+#: components/html-editor/popup.c:526
 msgid "Column after"
 msgstr "Kolum selepas"
 
-#: components/html-editor/popup.c:527
+#: components/html-editor/popup.c:531
 msgid "Table delete"
 msgstr "Padaman Jadual"
 
-#: components/html-editor/popup.c:531
+#: components/html-editor/popup.c:535
 msgid "Cell contents"
 msgstr "Kandungan sel"
 
-#: components/html-editor/popup.c:541
+#: components/html-editor/popup.c:545
 #, fuzzy
 msgid "Check Word Spelling..."
 msgstr "Semak ejaan '%s'"
 
-#: components/html-editor/popup.c:546
+#: components/html-editor/popup.c:550
 msgid "Add Word to"
 msgstr ""
 
-#: components/html-editor/popup.c:550
+#: components/html-editor/popup.c:554
 #, fuzzy, c-format
 msgid "%s Dictionary"
 msgstr "Tambah '%s' ke kamus"
 
-#: components/html-editor/popup.c:559
+#: components/html-editor/popup.c:563
 #, fuzzy
 msgid "Add Word to Dictionary"
 msgstr "Tambah '%s' ke kamus"
 
-#: components/html-editor/popup.c:562
+#: components/html-editor/popup.c:566
 #, fuzzy
 msgid "Ignore Misspelled Word"
 msgstr "Tiada perkataan tersalah eja dijumpai"
 
-#: components/html-editor/popup.c:566
+#: components/html-editor/popup.c:570
 msgid "Input Methods"
 msgstr ""
 
@@ -1902,7 +1902,7 @@ msgstr "Ganti"
 msgid "Search _backward"
 msgstr "Cari kebelakang"
 
-#: components/html-editor/replace.c:170 components/html-editor/search.c:85
+#: components/html-editor/replace.c:170 components/html-editor/search.c:107
 #, fuzzy
 msgid "Case _sensitive"
 msgstr "case sensitive"
@@ -1931,12 +1931,12 @@ msgid ""
 "Cannot apply your changes."
 msgstr ""
 
-#: components/html-editor/search.c:84
+#: components/html-editor/search.c:106
 #, fuzzy
 msgid "_Backward"
 msgstr "mengundur"
 
-#: components/html-editor/search.c:131
+#: components/html-editor/search.c:157
 msgid "Find Regular Expression"
 msgstr "Cari regular expression (regex)"
 
@@ -2061,77 +2061,92 @@ msgstr "Naikkan inden perenggan"
 msgid "Sample"
 msgstr "Sampel"
 
-#: src/gtkhtml.c:2699
+#: src/gtkhtml.c:2457
+#, c-format
+msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
+msgstr ""
+
+#: src/gtkhtml.c:2779
 #, fuzzy
 msgid "Editable"
 msgstr "Hidupkan"
 
-#: src/gtkhtml.c:2700
+#: src/gtkhtml.c:2780
 msgid "Whether the html can be edited"
 msgstr ""
 
-#: src/gtkhtml.c:2707
+#: src/gtkhtml.c:2787
 #, fuzzy
 msgid "The title of the current document"
 msgstr "Semak ejaan dokumen"
 
-#: src/gtkhtml.c:2713
+#: src/gtkhtml.c:2793
 #, fuzzy
 msgid "Document Base"
 msgstr "Tajuk Dokumen"
 
-#: src/gtkhtml.c:2714
+#: src/gtkhtml.c:2794
 msgid "The base URL for relative references"
 msgstr ""
 
-#: src/gtkhtml.c:2720
+#: src/gtkhtml.c:2800
 msgid "Target Base"
 msgstr ""
 
-#: src/gtkhtml.c:2721
+#: src/gtkhtml.c:2801
 msgid "The base URL of the targe frame"
 msgstr ""
 
-#: src/gtkhtml.c:2730
+#: src/gtkhtml.c:2810
 #, fuzzy
 msgid "Fixed Width Font"
 msgstr "Lebar tetap"
 
-#: src/gtkhtml.c:2731
+#: src/gtkhtml.c:2811
 msgid "The Monospace font to use for typewriter text"
 msgstr ""
 
-#: src/gtkhtml.c:2737
+#: src/gtkhtml.c:2817
 msgid "New Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2738
+#: src/gtkhtml.c:2818
 msgid "The color of new link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2743
+#: src/gtkhtml.c:2823
 msgid "Visited Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2744
+#: src/gtkhtml.c:2824
 msgid "The color of visited link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2749
+#: src/gtkhtml.c:2829
 msgid "Active Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2750
+#: src/gtkhtml.c:2830
 msgid "The color of active link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2755
+#: src/gtkhtml.c:2835
 msgid "Spelling Error Color"
 msgstr ""
 
-#: src/gtkhtml.c:2756
+#: src/gtkhtml.c:2836
 msgid "The color of the spelling error markers"
 msgstr ""
+
+#: src/gtkhtml.c:2841
+#, fuzzy
+msgid "Cite Quotation Color"
+msgstr "Tepek Petikan"
+
+#: src/gtkhtml.c:2842
+#, fuzzy
+msgid "The color of the cited text"
+msgstr "Semak ejaan dokumen"
 
 #: src/html-component.c:219
 msgid "Html"
