@@ -414,7 +414,7 @@ gint
 popup_show (GtkHTMLControlData *cd, GdkEventButton *event)
 {
 	GtkWidget *menu;
-	guint items;
+	guint items = 0;
 
 	menu = prepare_properties_and_menu (cd, &items);
 	if (items)
