@@ -1,3 +1,9 @@
+2003-09-24  Radek Doulik  <rodo@ximian.com>
+
+	* spell.c (spell_check_dialog): added missing dialog, set
+	temporary inline spelling in case it's disabled and whole document
+	has to be checked
+
 2003-12-05  Radek Doulik  <rodo@ximian.com>
 
 	* GNOME_GtkHTML_Editor.xml.in: as below, make it the same order
