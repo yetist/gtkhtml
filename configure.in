@@ -118,14 +118,14 @@ if gnome-config --libs print > /dev/null 2>&1; then
 				gnomeprint_ok=true ;;
 		esac
 	fi
-else
-	gnomeprint_ok=false
-fi
 
-if $gnomeprint_ok ; then
 	AC_MSG_RESULT([found ("$vers")])
 else
 	AC_MSG_RESULT([not found])
+	gnomeprint_ok=false
+fi
+
+if ! $gnomeprint_ok ; then
 	AC_MSG_ERROR([gnome-print 0.13 or later is required to compile GtkHTML.])
 fi
 
@@ -143,7 +143,6 @@ if gnome-config --libs gdk_pixbuf > /dev/null 2>&1; then
         elif [[ "x$major" = "x0" ]] ; then
 		case "$minor" in
 			[[012345]])
-				echo HERE
 				gdkpixbuf_ok=false ;;
                         *)
 				gdkpixbuf_ok=true ;;
@@ -151,14 +150,13 @@ if gnome-config --libs gdk_pixbuf > /dev/null 2>&1; then
 	else
 		gdkpixbuf_ok=true
 	fi
-else
-	gdkpixbuf_ok=false
-fi
-
-if $gdkpixbuf_ok ; then
 	AC_MSG_RESULT([found ("$vers")])
 else
+	gdkpixbuf_ok=false
 	AC_MSG_RESULT([not found])
+fi
+
+if ! $gdkpixbuf_ok ; then
 	AC_MSG_ERROR([gdk-pixbuf 0.6.0 or later is required to compile GtkHTML.])
 fi
 
