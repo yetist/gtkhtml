@@ -845,6 +845,9 @@ parse_body (HTMLEngine *e, HTMLObject *clue, const gchar *end[], gboolean toplev
 		font_style_attr_reset (e->font_style_attrs);
 		html_stack_push (e->body_stack, old_font_style_attrs);
 
+		html_stack_push (e->body_stack, GINT_TO_POINTER (e->pending_para));
+		html_stack_push (e->body_stack, GINT_TO_POINTER (e->avoid_para));
+
 		push_block (e, ID_BODY, 4, NULL, 0, 0);
 	}
 
@@ -901,6 +904,9 @@ parse_body (HTMLEngine *e, HTMLObject *clue, const gchar *end[], gboolean toplev
 		gint *old_font_style_attrs;
 
 		pop_block (e, ID_BODY, clue);
+
+		e->avoid_para = GPOINTER_TO_INT (html_stack_pop (e->body_stack));
+		e->pending_para = GPOINTER_TO_INT (html_stack_pop (e->body_stack));
 
 		old_font_style_attrs = html_stack_pop (e->body_stack);
 		font_style_attr_copy (e->font_style_attrs, old_font_style_attrs);
@@ -1329,7 +1335,6 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 						if (HTML_CLUE (cell)->head == NULL)
 							insert_paragraph_break (e, HTML_OBJECT (cell));
 						pop_block (e, heading ? ID_TH : ID_TD, HTML_OBJECT (cell));
-						add_pending_paragraph_break (e, HTML_OBJECT (cell));
 						close_flow (e, HTML_OBJECT (cell));
 					}
 
@@ -2041,8 +2046,14 @@ static void
 parse_c (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	if (strncmp (str, "center", 6) == 0) {
-		close_flow (e, clue);
 		e->pAlign = HTML_HALIGN_CENTER;
+		if (e->flow) {
+			if (HTML_CLUE (e->flow)->head) {
+				close_flow (e, clue);
+			} else {
+				HTML_CLUE (e->flow)->halign = e->pAlign;
+			}
+		}
 	} else if (strncmp (str, "/center", 7) == 0) {
 		close_flow (e, clue);
 		e->pAlign = e->divAlign;
@@ -2188,7 +2199,34 @@ parse_e (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 	}
 }
 
-
+static void
+form_begin (HTMLEngine *e, HTMLObject *clue, gchar *action, gchar *method, gboolean close_paragraph)
+{
+	e->form = html_form_new (e, action, method);
+	e->formList = g_list_append (e->formList, e->form);
+		
+	if (! e->avoid_para && close_paragraph) {
+		close_anchor (e);
+		if (e->flow && HTML_CLUE (e->flow)->head)
+			close_flow (e, clue);
+		e->avoid_para = FALSE;
+		e->pending_para = FALSE;
+	}
+
+}
+
+static void
+form_end (HTMLEngine *e, gboolean close_paragraph)
+{
+	e->form = NULL;
+
+	if (! e->avoid_para && close_paragraph) {
+		close_anchor (e);
+		e->avoid_para = TRUE;
+		e->pending_para = TRUE;
+	}
+}
+
 /*
   <font>           </font>
   <form>           </form>         partial
@@ -2265,8 +2303,7 @@ parse_f (HTMLEngine *e, HTMLObject *clue, const gchar *str)
                         }
                 }
 
-                e->form = html_form_new (e, action, method);
-                e->formList = g_list_append (e->formList, e->form);
+		form_begin (e, clue, action, method, TRUE);
 		
 		g_free(action);
 		g_free(target);
@@ -2277,13 +2314,7 @@ parse_f (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 			e->pending_para = TRUE;
 		}
 	} else if (strncmp (str, "/form", 5) == 0) {
-		e->form = NULL;
-
-		if (! e->avoid_para) {
-			close_anchor (e);
-			e->avoid_para = TRUE;
-			e->pending_para = TRUE;
-		}
+		form_end (e, TRUE);
 	} else if (strncmp (str, "frameset", 8) == 0) {
 		if (e->allow_frameset)
 			parse_frameset (e, clue, clue->max_width, str + 8);
@@ -2537,12 +2568,19 @@ parse_i (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 				append_element (e, _clue, HTML_OBJECT (aligned));
 			}
 		}		       
-	}
-	else if (strncmp( str, "input", 5 ) == 0) {
-		if (e->form == NULL)
-			return;
-		
+	} else if (strncmp( str, "input", 5 ) == 0) {
+		gboolean fix_form = FALSE;
+
+		if (e->form == NULL) {
+			fix_form = TRUE;
+			form_begin (e, _clue, NULL, "GET", FALSE);
+		}		
+
 		parse_input (e, str + 6, _clue );
+
+		if (fix_form) {
+			form_end (e, FALSE);
+		}
 	} else if (strncmp( str, "iframe", 6) == 0) {
 		parse_iframe (e, str + 7, _clue);
 	} else if ( strncmp (str, "i", 1 ) == 0 ) {
