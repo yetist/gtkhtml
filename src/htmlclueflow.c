@@ -568,15 +568,14 @@ get_level_indent (HTMLClueFlow *flow,
 		  gint level,
 		  HTMLPainter *painter)
 {
-	GtkHTMLFontStyle style;
 	int line_offset = 0;
 	guint indent = 0;
 	gint i = 0;
-	
-	style = html_clueflow_get_default_font_style (flow);
 
 	if (flow->levels->len > 0 || ! is_item (flow)) {
-		gint cite_width, indent_width, asc, dsc;
+		static gint cite_width = -1, indent_width = -1;
+		gint asc, dsc;
+
 		html_painter_calc_text_size (painter, 
 					     CLUEFLOW_BLOCKQUOTE_CITE, 
 					     strlen (CLUEFLOW_BLOCKQUOTE_CITE), &line_offset,
@@ -588,7 +587,7 @@ get_level_indent (HTMLClueFlow *flow,
 					     strlen (CLUEFLOW_INDENT), &line_offset,
 					     GTK_HTML_FONT_STYLE_SIZE_3, NULL,
 					     &indent_width, &asc, &dsc);
-
+		
 		while (i <= level) {
 			switch (flow->levels->data[i]) {
 			case HTML_LIST_TYPE_BLOCKQUOTE_CITE:
@@ -604,6 +603,9 @@ get_level_indent (HTMLClueFlow *flow,
 			i++;
 		}
 	} else {
+		GtkHTMLFontStyle style;
+		style = html_clueflow_get_default_font_style (flow);
+
 		indent = 4 * html_painter_get_space_width (painter, style, NULL);
 	}
 
@@ -614,7 +616,10 @@ static guint
 get_indent (HTMLClueFlow *flow,
 	    HTMLPainter *painter)
 {
-	return get_level_indent (flow, flow->levels->len - 1, painter);
+	if (flow->indent_width < 0 )
+		flow->indent_width = get_level_indent (flow, flow->levels->len -1, painter);
+
+	return flow->indent_width;
 } 
  
 /* HTMLObject methods.  */
@@ -958,7 +963,7 @@ static gboolean
 calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 {
 	HTMLClueFlow *cf = HTML_CLUEFLOW (o);
-	gint oa, od, ow, padding;
+	gint oa, od, ow, oi, padding;
 	gboolean leaf_children_changed_size = FALSE;
 	gboolean changed, changed_size = FALSE;
 
@@ -966,6 +971,9 @@ calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 	oa = o->ascent;
 	od = o->descent;
 	ow = o->width;
+
+	cf->indent_width = -1;
+
 	o->ascent = 0;
 	o->descent = 0;
 	o->width = MAX (o->max_width, html_object_calc_min_width (o, painter));
@@ -1211,7 +1219,7 @@ draw_item (HTMLObject *self, HTMLPainter *painter, gint x, gint y, gint width, g
 	} else
 		html_painter_set_pen (painter, &html_colorset_get_color_allocated (painter, HTMLTextColor)->color);
 
-	indent = get_level_indent (flow, flow->levels->len - 1, painter);
+	indent = get_indent (flow, painter);
 	if (flow->item_type == HTML_LIST_TYPE_UNORDERED) {
 		guint bullet_size;
 		gint xp, yp;
@@ -2264,6 +2272,7 @@ html_clueflow_init (HTMLClueFlow *clueflow, HTMLClueFlowClass *klass,
 
 	clueflow->style = style;
 	clueflow->levels = levels; 
+	clueflow->indent_width = -1;
 
 	clueflow->item_type   = item_type;
 	clueflow->item_number = item_number;

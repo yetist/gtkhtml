@@ -41,6 +41,7 @@ struct _HTMLClueFlow {
 
 	/* Indentation level for blockquote and lists.  */
 	GByteArray *levels;
+	gint indent_width;
 
 	/* list item attributes - this will be ideally moved to list item type
 	   based on HTMLClueFlow once we have real types */

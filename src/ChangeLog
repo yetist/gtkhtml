@@ -1,3 +1,10 @@
+2003-02-04  Larry Ewing  <lewing@ximian.com>
+
+	* htmlclueflow.c (get_indent): cache the indent level since this
+	gets called a lot.
+
+	* htmlclueflow.h: add indent_width member.
+
 2003-01-29  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine-edit-cursor.c (html_engine_draw_cursor_in_area):
