@@ -1,3 +1,9 @@
+2003-07-24  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c (parse_d): don't push another level for DT just
+	keep the DL level.  We should however set the item flag but we can
+	do that later.
+
 2003-07-23  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine.c:  Rewrite the block stack and move most of the
@@ -7,6 +13,10 @@
 	things.
 	(push_block_element): merge the block stack and the span stack
 	into one structure.
+	(block_end_map): a new end function for maps.  This is tested and
+	conforms to what mozilla does.
+	(block_end_option): a nes end function for options, has not yet
+	been tested.
 
 	* htmltypes.h: remove the blockstack element typedef it shouldn't
 	have been here in the first place.

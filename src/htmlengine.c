@@ -170,15 +170,15 @@ static guint signals [LAST_SIGNAL] = { 0 };
 #define DF(x) ;
 
 typedef enum {
-	ID_A,       ID_ADDRESS,  ID_B,      ID_BIG,    ID_BLOCKQUOTE, 
-	ID_BODY,    ID_CAPTION,  ID_CENTER, ID_CITE,   ID_CODE,
-	ID_DIR,     ID_DIV,      ID_DL,     ID_DT,     ID_DD,
-	ID_LI,      ID_EM,       ID_FONT,   ID_FORM,
-	ID_HEADING, ID_I,        ID_KBD,    ID_OL,     ID_P,
-	ID_PRE,     ID_SMALL,    ID_SPAN,   ID_STRONG, ID_U,
-	ID_UL,      ID_TEXTAREA, ID_TABLE,  ID_TD,     ID_TH, 
-	ID_TR,      ID_TT,       ID_VAR,    ID_S,      ID_SUB, 
-	ID_SUP,     ID_STRIKE,   ID_HTML, ID_DOCUMENT
+	ID_A,       ID_ADDRESS,  ID_B,      ID_BIG,      ID_BLOCKQUOTE, 
+	ID_BODY,    ID_CAPTION,  ID_CENTER, ID_CITE,     ID_CODE,
+	ID_DIR,     ID_DIV,      ID_DL,     ID_DT,       ID_DD,
+	ID_LI,      ID_EM,       ID_FONT,   ID_FORM,     ID_MAP,
+	ID_HEADING, ID_I,        ID_KBD,    ID_OL,       ID_P,
+	ID_PRE,     ID_SMALL,    ID_SPAN,   ID_STRONG,   ID_U,
+	ID_UL,      ID_TEXTAREA, ID_TABLE,  ID_TD,       ID_TH, 
+	ID_TR,      ID_TT,       ID_VAR,    ID_S,        ID_SUB, 
+	ID_SUP,     ID_STRIKE,   ID_HTML,   ID_DOCUMENT, ID_OPTION
 } HTMLElementID;
 
 typedef enum {
@@ -1051,6 +1051,21 @@ static void
 block_end_div (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 {
 	close_flow (e, clue);
+}
+
+static void
+block_end_map (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
+{
+	e->map = NULL;
+}
+
+static void
+block_end_option (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
+{
+	if ( e->inOption )
+		html_select_set_text (e->formSelect, e->formText->str);
+	
+	e->inOption = FALSE;
 }
 
 static void
@@ -2033,9 +2048,9 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 
 		close_anchor (e);
 		close_flow (e, _clue);
-
-		push_block (e, ID_DT, 1, block_end_glossary, FALSE, FALSE);		
-		html_stack_push (e->listStack, html_list_new (HTML_LIST_TYPE_GLOSSARY_DL));
+		
+		/* FIXME this should set the item flag */
+		push_block (e, ID_DT, 1, block_end_item, FALSE, FALSE);		
 	} else if (strncmp(str, "/dt", 3) == 0) {
 		pop_element (e, ID_DT);
 	} else if (strncmp(str, "dd", 2 ) == 0) {
@@ -2111,14 +2126,10 @@ block_end_form (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 {
 	e->form = NULL;
 
-	close_flow (e, clue);
-	/*
 	if (!e->avoid_para && elem && elem->miscData1) {
 		close_anchor (e);
-		e->avoid_para = TRUE;
-		e->pending_para = TRUE;
+		close_flow (e, clue);
 	}
-	*/
 }
 
 /*
@@ -2644,6 +2655,8 @@ parse_m (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 			}
 		}
 	} else if (strncmp (str, "map", 3) == 0) {
+		pop_element (e, ID_MAP);
+
 		html_string_tokenizer_tokenize (e->st, str + 3, " >");
 		while (html_string_tokenizer_has_more_tokens (e->st)) {
 			const char* token = html_string_tokenizer_next_token (e->st);
@@ -2653,8 +2666,10 @@ parse_m (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 				html_engine_add_map (e, name);
 			}
 		}
+		/* FIXME map nesting */
+		push_block (e, ID_MAP, 0, block_end_map, FALSE, FALSE);
 	} else if (strncmp (str, "/map", 4) == 0) {
-		e->map = NULL;
+		pop_element (e, ID_MAP);
 	}
 }
 
@@ -2739,13 +2754,14 @@ parse_o (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 
 		e->inOption = TRUE;
 		g_string_assign (e->formText, "");
-	} else if ( strncmp( str, "/option", 7 ) == 0 ) {
-		if ( e->inOption )
-			html_select_set_text (e->formSelect, e->formText->str);
+		
 
-		e->inOption = FALSE;
+		push_block (e, ID_OPTION, 0, block_end_option, FALSE, FALSE);
+	} else if ( strncmp( str, "/option", 7 ) == 0 ) {
+		pop_element (e, ID_OPTION);
 	} else if ( strncmp( str, "object", 6 ) == 0 ) {
 		parse_object (e, _clue, _clue->max_width, str + 6);
+
 	}
 }
 
