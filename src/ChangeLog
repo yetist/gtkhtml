@@ -1,3 +1,10 @@
+2000-08-24  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* gtkhtml.c (motion_notify_event): Return FALSE if this is not the
+	window we are interested in.
+	(button_press_event): Don't add a GTK+ grab.  Check the result of
+	the grab.  Use the right window.  Don't set `owner_events'.
+
 2000-08-22  Radek Doulik  <rodo@helixcode.com>
 
 	* gtkhtml-properties.c (gtk_html_class_properties_new): defaults

@@ -787,6 +787,8 @@ mouse_change_pos (GtkWidget *widget, gint x, gint y)
 					 NULL, FALSE);
 
 	if (html->button_pressed && html->allow_selection) {
+		gboolean need_scroll;
+
 		if (obj) {
 			type = HTML_OBJECT_TYPE (obj);
 
@@ -807,8 +809,25 @@ mouse_change_pos (GtkWidget *widget, gint x, gint y)
 
 		html->in_selection = TRUE;
 
-		if (x < 0 || x >= widget->allocation.width
-		    || y < 0 || y >= widget->allocation.height)
+		need_scroll = FALSE;
+
+		if (x < 0) {
+			x = 0;
+			need_scroll = TRUE;
+		} else if (x >= widget->allocation.width) {
+			x = widget->allocation.width - 1;
+			need_scroll = TRUE;
+		}
+
+		if (y < 0) {
+			y = 0;
+			need_scroll = TRUE;
+		} else if (y >= widget->allocation.height) {
+			y = widget->allocation.height - 1;
+			need_scroll = TRUE;
+		}
+
+		if (need_scroll)
 			setup_scroll_timeout (html);
 		else
 			remove_scroll_timeout (html);
@@ -915,21 +934,20 @@ button_press_event (GtkWidget *widget,
 	}
 
 	if (html->allow_selection && !(event->state & GDK_SHIFT_MASK)) {
-		gtk_grab_add (widget);
-		gdk_pointer_grab (widget->window, TRUE,
-				  (GDK_BUTTON_RELEASE_MASK
-				   | GDK_BUTTON_MOTION_MASK
-				   | GDK_POINTER_MOTION_HINT_MASK),
-				  NULL, NULL, 0);
+		if (gdk_pointer_grab (GTK_LAYOUT (widget)->bin_window, FALSE,
+				      (GDK_BUTTON_RELEASE_MASK
+				       | GDK_BUTTON_MOTION_MASK
+				       | GDK_POINTER_MOTION_HINT_MASK),
+				      NULL, NULL, 0) == 0) {
+			html->selection_x1 = event->x + engine->x_offset;
+			html->selection_y1 = event->y + engine->y_offset;
 
-		html->selection_x1 = event->x + engine->x_offset;
-		html->selection_y1 = event->y + engine->y_offset;
-
-		if (event->button == 1) {
-			if (event->type == GDK_2BUTTON_PRESS && !event->state)
-				gtk_html_select_word (html);
-			else if (event->type == GDK_3BUTTON_PRESS && !event->state)
-				gtk_html_select_line (html);
+			if (event->button == 1) {
+				if (event->type == GDK_2BUTTON_PRESS && !event->state)
+					gtk_html_select_word (html);
+				else if (event->type == GDK_3BUTTON_PRESS && !event->state)
+					gtk_html_select_line (html);
+			}
 		}
 	}
 
