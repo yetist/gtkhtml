@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-24 16:35+0100\n"
+"POT-Creation-Date: 2005-01-26 10:14+0100\n"
 "PO-Revision-Date: 2005-01-19 15:37+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <i18n-nb@lister.ping.uio.no>\n"
@@ -28,7 +28,7 @@ msgstr "URL er %s"
 msgid "grab focus"
 msgstr "ta fokus"
 
-#: a11y/object.c:211
+#: a11y/object.c:256
 msgid "Panel containing HTML"
 msgstr "Panel som inneholder HTML"
 

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.10\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-24 16:35+0100\n"
-"PO-Revision-Date: 2002-01-26 01:46+0100\n"
+"POT-Creation-Date: 2005-01-26 10:14+0100\n"
+"PO-Revision-Date: 2005-01-26 10:29+0100\n"
 "Last-Translator: Roy-Magne Mo <rmo@sunnmore.net>\n"
 "Language-Team: Norwegian/Nynorsk <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -30,7 +30,7 @@ msgstr ""
 msgid "grab focus"
 msgstr ""
 
-#: a11y/object.c:211
+#: a11y/object.c:256
 msgid "Panel containing HTML"
 msgstr ""
 
@@ -448,9 +448,8 @@ msgstr "Sett inn tabell i dokumentet ..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:52
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:53
-#, fuzzy
 msgid "Insert text file into document..."
-msgstr "Sett inn tabell i dokumentet ..."
+msgstr "Sett inn tekstfil i dokumentet ..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:53
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
@@ -460,9 +459,8 @@ msgstr "Venstrejusterar avsnitta"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:54
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
-#, fuzzy
 msgid "Li_ck"
-msgstr "Lenkje"
+msgstr "Slei_k"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
@@ -477,9 +475,8 @@ msgid "Make the current Paragraph style Normal"
 msgstr "Gjer avsnittet om til Normal stil"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:57
-#, fuzzy
 msgid "Make the current Paragraph style Preformat"
-msgstr "Gjer denne paragrafen om til stilen preformatert"
+msgstr "Set stil for dette avsnittet til preformatert"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:58
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
@@ -556,7 +553,7 @@ msgstr "Nummerert _liste"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:72
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
 msgid "Oh _no!"
-msgstr ""
+msgstr "Å _nei!"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:73
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
@@ -702,13 +699,12 @@ msgstr "Tabell"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:99
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
 msgid "Te_mplate..."
-msgstr "_Mal ..."
+msgstr "_Mal..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:100
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
-#, fuzzy
 msgid "Te_xt file..."
-msgstr "Opne fil ..."
+msgstr "Te_kstfil..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:101
 #: components/html-editor/gtkhtml-editor-properties.glade.h:53
@@ -800,9 +796,8 @@ msgstr ""
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:118
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
-#, fuzzy
 msgid "_HTML file..."
-msgstr "Opne fil ..."
+msgstr "_HTML-fil..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:119
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
@@ -812,7 +807,7 @@ msgstr "_Tittel"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:120
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
 msgid "_Image..."
-msgstr "_Bilete ..."
+msgstr "_Bilete..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:121
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
@@ -849,7 +844,7 @@ msgstr "_Venstre"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:127
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:128
 msgid "_Link..."
-msgstr "_Lenke ..."
+msgstr "_Lenke..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:128
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
@@ -859,12 +854,12 @@ msgstr "_Vanleg"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:129
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
 msgid "_Page..."
-msgstr "_Side ..."
+msgstr "_Side..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:130
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
 msgid "_Paragraph..."
-msgstr "_Avsnitt ..."
+msgstr "_Avsnitt..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:131
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
@@ -889,7 +884,7 @@ msgstr "Gje_r om"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:135
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
 msgid "_Replace..."
-msgstr "_Erstatt ..."
+msgstr "_Erstatt..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:136
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
@@ -904,19 +899,17 @@ msgstr "_Romersk numerisk liste"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:138
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:139
 msgid "_Rule..."
-msgstr "_Regel ..."
+msgstr "_Regel..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:139
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:140
-#, fuzzy
 msgid "_Smile"
-msgstr "Prøve"
+msgstr "_Smil"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:140
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:141
-#, fuzzy
 msgid "_Smiley"
-msgstr "_Stil"
+msgstr "_Smilefjes"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:141
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:142
@@ -946,9 +939,8 @@ msgstr "_Tekst ..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:146
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:147
-#, fuzzy
 msgid "_Undecided"
-msgstr "_Understreka"
+msgstr "_Ubestemt"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:147
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:148
@@ -963,9 +955,8 @@ msgstr "_Angre"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:149
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:150
-#, fuzzy
 msgid "_Wink"
-msgstr "Lenkje"
+msgstr "_Blunk"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:150
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:152
@@ -996,19 +987,16 @@ msgstr "Gjer denne paragrafen om til stilen preformatert"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
 #: components/html-editor/paragraph.c:102
-#, fuzzy
 msgid "Preformatted"
-msgstr "Preformater"
+msgstr "Preformatert"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
-#, fuzzy
 msgid "S_ick"
-msgstr "Lenkje"
+msgstr "Sj_uk"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:151
-#, fuzzy
 msgid "_Wrap Lines"
-msgstr "Bryting:"
+msgstr "_Bryt linjer:"
 
 #: components/html-editor/body.c:59
 #: components/html-editor/gtkhtml-editor-properties.glade.h:42
@@ -1020,41 +1008,36 @@ msgid "Perforated Paper"
 msgstr ""
 
 #: components/html-editor/body.c:75
-#, fuzzy
 msgid "Blue Ink"
-msgstr "Blå 3D"
+msgstr "Blått blekk"
 
 #: components/html-editor/body.c:83
-#, fuzzy
 msgid "Paper"
-msgstr "Side"
+msgstr "Papir"
 
 #: components/html-editor/body.c:91
 msgid "Ribbon"
-msgstr ""
+msgstr "Band"
 
 #: components/html-editor/body.c:99
-#, fuzzy
 msgid "Midnight"
-msgstr "Høgre"
+msgstr "Midnatt"
 
 #: components/html-editor/body.c:107
-#, fuzzy
 msgid "Confidential"
-msgstr "Fjern innrykk"
+msgstr "Konfidensiell"
 
 #: components/html-editor/body.c:115
 msgid "Draft"
-msgstr ""
+msgstr "Skisse"
 
 #: components/html-editor/body.c:123
 msgid "Graph paper"
 msgstr ""
 
 #: components/html-editor/body.c:246
-#, fuzzy
 msgid "T_emplate:"
-msgstr "Mal"
+msgstr "M_al:"
 
 #. data->entry_title = gtk_entry_new ();
 #. if (gtk_html_get_title (data->cd->html)) {
@@ -1064,9 +1047,8 @@ msgstr "Mal"
 #. g_signal_connect (data->entry_title, "changed", G_CALLBACK (entry_changed), data);
 #. editor_hig_attach_row (t1, _("T_itle:"), data->entry_title, 1);
 #: components/html-editor/body.c:256 components/html-editor/paragraph.c:112
-#, fuzzy
 msgid "General"
-msgstr "Midtstill"
+msgstr "Generell"
 
 #: components/html-editor/body.c:267 components/html-editor/text.c:162
 #: components/html-editor/toolbar.c:301
@@ -1074,19 +1056,16 @@ msgid "Automatic"
 msgstr "Automatisk"
 
 #: components/html-editor/body.c:279
-#, fuzzy
 msgid "_Text:"
-msgstr "Tekst"
+msgstr "_Tekst:"
 
 #: components/html-editor/body.c:280
-#, fuzzy
 msgid "_Link:"
-msgstr "Lenkje"
+msgstr "_Lenkje:"
 
 #: components/html-editor/body.c:281
-#, fuzzy
 msgid "_Background:"
-msgstr "Bakgrunn"
+msgstr "_Bakgrunn:"
 
 #: components/html-editor/body.c:283
 #: components/html-editor/gtkhtml-editor-properties.glade.h:30
@@ -1101,7 +1080,7 @@ msgstr "Bakgrunnsbilete"
 #: components/html-editor/body.c:298
 #: components/html-editor/gtkhtml-editor-properties.glade.h:71
 msgid "_Source:"
-msgstr ""
+msgstr "_Kelde:"
 
 #: components/html-editor/cell.c:350 components/html-editor/table.c:231
 msgid "Transparent"
@@ -1138,9 +1117,8 @@ msgstr ""
 
 #. "Custom" color - we'll pop up a GnomeColorPicker
 #: components/html-editor/gi-color-palette.c:437
-#, fuzzy
 msgid "Custom Color:"
-msgstr "Farge:"
+msgstr "Eigedefinert farge:"
 
 #: components/html-editor/gi-color-palette.c:445
 msgid "Choose Custom Color"
@@ -1148,11 +1126,11 @@ msgstr ""
 
 #: components/html-editor/gi-color-palette.c:578
 msgid "black"
-msgstr ""
+msgstr "svart"
 
 #: components/html-editor/gi-color-palette.c:579
 msgid "light brown"
-msgstr ""
+msgstr "lys brun"
 
 #: components/html-editor/gi-color-palette.c:580
 msgid "brown gold"
@@ -1164,7 +1142,7 @@ msgstr ""
 
 #: components/html-editor/gi-color-palette.c:582
 msgid "navy"
-msgstr ""
+msgstr "marineblå"
 
 #: components/html-editor/gi-color-palette.c:583
 #: components/html-editor/gi-color-palette.c:639
@@ -1172,9 +1150,8 @@ msgid "dark blue"
 msgstr ""
 
 #: components/html-editor/gi-color-palette.c:584
-#, fuzzy
 msgid "purple #2"
-msgstr "Lilla"
+msgstr "lilla #2"
 
 #: components/html-editor/gi-color-palette.c:585
 msgid "very dark gray"
@@ -1182,23 +1159,20 @@ msgstr ""
 
 #: components/html-editor/gi-color-palette.c:588
 #: components/html-editor/gi-color-palette.c:644
-#, fuzzy
 msgid "dark red"
-msgstr "Mørk topptekst"
+msgstr "mørk raud"
 
 #: components/html-editor/gi-color-palette.c:589
-#, fuzzy
 msgid "red-orange"
-msgstr "Oransje"
+msgstr "raud-oransje"
 
 #: components/html-editor/gi-color-palette.c:590
-#, fuzzy
 msgid "gold"
-msgstr "Feit"
+msgstr "gull"
 
 #: components/html-editor/gi-color-palette.c:591
 msgid "dark green"
-msgstr ""
+msgstr "mørk grøn"
 
 #: components/html-editor/gi-color-palette.c:592
 #: components/html-editor/gi-color-palette.c:645
@@ -1207,9 +1181,8 @@ msgstr ""
 
 #: components/html-editor/gi-color-palette.c:593
 #: components/html-editor/gi-color-palette.c:646
-#, fuzzy
 msgid "blue"
-msgstr "Blå"
+msgstr "blå"
 
 #: components/html-editor/gi-color-palette.c:594
 msgid "dull purple"
@@ -1220,14 +1193,12 @@ msgid "dark grey"
 msgstr ""
 
 #: components/html-editor/gi-color-palette.c:598
-#, fuzzy
 msgid "red"
-msgstr "Raud"
+msgstr "raud"
 
 #: components/html-editor/gi-color-palette.c:599
-#, fuzzy
 msgid "orange"
-msgstr "Oransje"
+msgstr "oransje"
 
 #: components/html-editor/gi-color-palette.c:600
 #, fuzzy
@@ -1244,24 +1215,21 @@ msgstr ""
 
 #: components/html-editor/gi-color-palette.c:603
 msgid "sky blue #2"
-msgstr ""
+msgstr "himmelblå #2"
 
 #: components/html-editor/gi-color-palette.c:604
 #: components/html-editor/gi-color-palette.c:643
-#, fuzzy
 msgid "purple"
-msgstr "Lilla"
+msgstr "lilla"
 
 #: components/html-editor/gi-color-palette.c:605
-#, fuzzy
 msgid "gray"
-msgstr "Flat grå"
+msgstr "grå"
 
 #: components/html-editor/gi-color-palette.c:608
 #: components/html-editor/gi-color-palette.c:640
-#, fuzzy
 msgid "magenta"
-msgstr "Bilete"
+msgstr "magenta"
 
 #: components/html-editor/gi-color-palette.c:609
 msgid "bright orange"
@@ -1269,88 +1237,78 @@ msgstr ""
 
 #: components/html-editor/gi-color-palette.c:610
 #: components/html-editor/gi-color-palette.c:641
-#, fuzzy
 msgid "yellow"
-msgstr "Gul"
+msgstr "gul"
 
 #: components/html-editor/gi-color-palette.c:611
-#, fuzzy
 msgid "green"
-msgstr "Grøn"
+msgstr "grøn"
 
 #: components/html-editor/gi-color-palette.c:612
 #: components/html-editor/gi-color-palette.c:642
 msgid "cyan"
-msgstr ""
+msgstr "cyan"
 
 #: components/html-editor/gi-color-palette.c:613
 msgid "bright blue"
-msgstr ""
+msgstr "lys blå"
 
 #: components/html-editor/gi-color-palette.c:614
 #: components/html-editor/gi-color-palette.c:631
-#, fuzzy
 msgid "red purple"
-msgstr "Lilla"
+msgstr "raud-lilla"
 
 #: components/html-editor/gi-color-palette.c:615
-#, fuzzy
 msgid "light grey"
-msgstr "Flat grå"
+msgstr "lys grå"
 
 #: components/html-editor/gi-color-palette.c:618
 #: components/html-editor/gi-color-palette.c:635
-#, fuzzy
 msgid "pink"
-msgstr "Lenkje"
+msgstr "rosa"
 
 #: components/html-editor/gi-color-palette.c:619
-#, fuzzy
 msgid "light orange"
-msgstr "Høgrejustering"
+msgstr "lys oransje"
 
 #: components/html-editor/gi-color-palette.c:620
 #: components/html-editor/gi-color-palette.c:632
 msgid "light yellow"
-msgstr ""
+msgstr "lys gul"
 
 #: components/html-editor/gi-color-palette.c:621
-#, fuzzy
 msgid "light green"
-msgstr "Høgrejustering"
+msgstr "lys grøn"
 
 #: components/html-editor/gi-color-palette.c:622
-#, fuzzy
 msgid "light cyan"
-msgstr "Høgrejustering"
+msgstr "lys cyan"
 
 #: components/html-editor/gi-color-palette.c:623
 #: components/html-editor/gi-color-palette.c:633
 msgid "light blue"
-msgstr ""
+msgstr "lys blå"
 
 #: components/html-editor/gi-color-palette.c:624
 #: components/html-editor/gi-color-palette.c:637
 msgid "light purple"
-msgstr ""
+msgstr "lys lilla"
 
 #: components/html-editor/gi-color-palette.c:625
-#, fuzzy
 msgid "white"
-msgstr "med"
+msgstr "kvit"
 
 #: components/html-editor/gi-color-palette.c:630
 msgid "purplish blue"
-msgstr ""
+msgstr "lillaliknande blå"
 
 #: components/html-editor/gi-color-palette.c:634
 msgid "dark purple"
-msgstr ""
+msgstr "mørk lilla"
 
 #: components/html-editor/gi-color-palette.c:636
-#, fuzzy
 msgid "sky blue"
-msgstr "Stil"
+msgstr "himmelblå"
 
 #: components/html-editor/gnome-gtkhtml-editor.c:68
 #, fuzzy
@@ -1359,12 +1317,12 @@ msgstr "GNOME HTML redigerarkontroll"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:1
 msgid "    "
-msgstr ""
+msgstr "    "
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:3
 #, no-c-format
 msgid "%"
-msgstr ""
+msgstr "%"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:8
 msgid "+4"
@@ -1375,17 +1333,16 @@ msgid "<b>Alignment &amp; Behaviour</b>"
 msgstr ""
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:12
-#, fuzzy
 msgid "<b>Background</b>"
-msgstr "Bakgrunn"
+msgstr "<b>Bakgrunn</b>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:13
 msgid "<b>General</b>"
-msgstr ""
+msgstr "<b>Generelt</b>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:14
 msgid "<b>Layout</b>"
-msgstr ""
+msgstr "<b>Utforming</b>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:15
 msgid "<b>Scope</b>"
@@ -1425,14 +1382,12 @@ msgid "Bottom"
 msgstr "Nederst"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:25
-#, fuzzy
 msgid "C_ell"
-msgstr "Celle"
+msgstr "C_elle"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:26
-#, fuzzy
 msgid "C_olor:"
-msgstr "Farge:"
+msgstr "F_arge:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:27
 #: components/html-editor/popup.c:237
@@ -1445,9 +1400,8 @@ msgid "Center"
 msgstr "Midtstill"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:29
-#, fuzzy
 msgid "Col_umn"
-msgstr "Kolonne"
+msgstr "Kol_onne"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:31
 msgid "Column span:"
@@ -1458,9 +1412,8 @@ msgid "Enable"
 msgstr "Skru på"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:33
-#, fuzzy
 msgid "Hea_der style"
-msgstr "Tittel 6"
+msgstr "Stil for tittel"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:34
 msgid "Horizontal alignment:"
@@ -1471,9 +1424,8 @@ msgid "Horizontal:"
 msgstr "Vassrett:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:36
-#, fuzzy
 msgid "I_mage:"
-msgstr "Bilete"
+msgstr "Bi_lete:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:38
 #: components/html-editor/paragraph.c:127
@@ -1514,13 +1466,12 @@ msgid "Shaded"
 msgstr "Skuggelagd"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:50
-#, fuzzy
 msgid "Si_ze:"
-msgstr "Storleik"
+msgstr "Stor_leik:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:51
 msgid "Standard"
-msgstr ""
+msgstr "Standard"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:55
 msgid "Thickness:"
@@ -1539,107 +1490,88 @@ msgid "Width:"
 msgstr "Breidd:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:59
-#, fuzzy
 msgid "_Alignment:"
-msgstr "Justering:"
+msgstr "_Justering:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:61
-#, fuzzy
 msgid "_Border:"
-msgstr "Kantlinje:"
+msgstr "_Kantlinje:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:62
-#, fuzzy
 msgid "_Color:"
-msgstr "Farge:"
+msgstr "_Farge:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:63
-#, fuzzy
 msgid "_Columns:"
-msgstr "Kolonnar:"
+msgstr "K_olonnar:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:64
-#, fuzzy
 msgid "_Description:"
-msgstr "Heva"
+msgstr ""
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:65
-#, fuzzy
 msgid "_Height:"
-msgstr "Høgd:"
+msgstr "_Høgd:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:66
-#, fuzzy
 msgid "_Image:"
-msgstr "Bilete"
+msgstr "B_ilete:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:68
-#, fuzzy
 msgid "_Padding:"
-msgstr "Fyll"
+msgstr "_Fyll:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:69
-#, fuzzy
 msgid "_Row"
-msgstr "Rad"
+msgstr "_Rad"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:70
-#, fuzzy
 msgid "_Rows:"
-msgstr "Rader:"
+msgstr "_Rader:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
-#, fuzzy
 msgid "_Spacing:"
-msgstr "Mellomrom:"
+msgstr "_Mellomrom:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:74
-#, fuzzy
 msgid "_Table"
-msgstr "Tabell"
+msgstr "_Tabell"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:75
-#, fuzzy
 msgid "_URL:"
-msgstr "URL"
+msgstr "_URL:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:77
-#, fuzzy
 msgid "_Width:"
-msgstr "Breidd:"
+msgstr "_Breidd:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:78
-#, fuzzy
 msgid "_Wrap Text"
-msgstr "Bryting:"
+msgstr "Br_yt tekst"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:79
-#, fuzzy
 msgid "_X-Padding:"
-msgstr "Fyll"
+msgstr "_Horisontalt fyll:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:80
-#, fuzzy
 msgid "_Y-Padding:"
-msgstr "Fyll"
+msgstr "_Vertikalt fyll:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:81
-#, fuzzy
 msgid "follow"
-msgstr "Følg"
+msgstr "følg"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:82
 msgid "px"
-msgstr ""
+msgstr "pkt"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:83
 msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
 #: components/html-editor/menubar.c:96 components/html-editor/menubar.c:104
-#, fuzzy
 msgid "Insert image"
-msgstr "Set inn"
+msgstr "Set inn bilete"
 
 #: components/html-editor/menubar.c:133 components/html-editor/menubar.c:152
 #: components/html-editor/menubar.c:173 components/html-editor/menubar.c:195
@@ -1653,13 +1585,12 @@ msgid "Error loading file '%s': %s"
 msgstr ""
 
 #: components/html-editor/menubar.c:308 components/html-editor/menubar.c:317
-#, fuzzy
 msgid "Insert: HTML File"
-msgstr "Sett inn HTML-lenke i dokumentet ..."
+msgstr "Sett inn: HTML-fil"
 
 #: components/html-editor/menubar.c:308 components/html-editor/menubar.c:317
 msgid "Insert: Text File"
-msgstr ""
+msgstr "Sett inn: tekstfil"
 
 #: components/html-editor/paragraph.c:86 components/html-editor/toolbar.c:54
 msgid "Header 1"
@@ -1706,68 +1637,57 @@ msgid "Address"
 msgstr "Adresse"
 
 #: components/html-editor/paragraph.c:109
-#, fuzzy
 msgid "_Style:"
-msgstr "_Stil"
+msgstr "_Stil:"
 
 #: components/html-editor/popup.c:438
 msgid "Paste Quotation"
 msgstr ""
 
 #: components/html-editor/popup.c:442
-#, fuzzy
 msgid "Insert Link"
-msgstr "Set inn"
+msgstr "Set inn lenkje"
 
 #: components/html-editor/popup.c:449
-#, fuzzy
 msgid "Remove Link"
-msgstr "Fjern lenke"
+msgstr "Fjern lenkje"
 
 #: components/html-editor/popup.c:456
 msgid "Style"
 msgstr "Stil"
 
 #: components/html-editor/popup.c:459
-#, fuzzy
 msgid "Text Style..."
-msgstr "Opne fil ..."
+msgstr "Tekststil..."
 
 #: components/html-editor/popup.c:461 components/html-editor/popup.c:467
 #: components/html-editor/popup.c:477
-#, fuzzy
 msgid "Paragraph Style..."
-msgstr "Avsnitt ..."
+msgstr "Avsnittstil..."
 
 #: components/html-editor/popup.c:465
-#, fuzzy
 msgid "Link Style..."
-msgstr "Lenke ..."
+msgstr "Lenkjestil..."
 
 #: components/html-editor/popup.c:471
-#, fuzzy
 msgid "Rule Style..."
-msgstr "Regel ..."
+msgstr "Regelstil..."
 
 #: components/html-editor/popup.c:475
-#, fuzzy
 msgid "Image Style..."
-msgstr "Bilete ..."
+msgstr "Stil for bilete..."
 
 #: components/html-editor/popup.c:486
-#, fuzzy
 msgid "Cell Style..."
-msgstr "Celle ..."
+msgstr "Cellestil..."
 
 #: components/html-editor/popup.c:489
-#, fuzzy
 msgid "Table Style..."
-msgstr "Tabell ..."
+msgstr "Stil for tabell..."
 
 #: components/html-editor/popup.c:495
-#, fuzzy
 msgid "Page Style..."
-msgstr "Side ..."
+msgstr "Sidestil..."
 
 #: components/html-editor/popup.c:500
 msgid "Table insert"
@@ -1806,28 +1726,25 @@ msgid "Cell contents"
 msgstr "Celleinnhald"
 
 #: components/html-editor/popup.c:524
-#, fuzzy
 msgid "Check Word Spelling..."
-msgstr "Sjekk «%s» staving ..."
+msgstr "Sjekk staving av ord..."
 
 #: components/html-editor/popup.c:529
 msgid "Add Word to"
-msgstr ""
+msgstr "Legg til ord i"
 
 #: components/html-editor/popup.c:533
-#, fuzzy, c-format
+#, c-format
 msgid "%s Dictionary"
-msgstr "Legg til «%s» til ordliste"
+msgstr "ordlista %s"
 
 #: components/html-editor/popup.c:542
-#, fuzzy
 msgid "Add Word to Dictionary"
-msgstr "Legg til «%s» til ordliste"
+msgstr "Legg til ord i ordliste"
 
 #: components/html-editor/popup.c:545
-#, fuzzy
 msgid "Ignore Misspelled Word"
-msgstr "Ingen feilstava ord"
+msgstr "Oversjå feilstava ord"
 
 #: components/html-editor/popup.c:549
 msgid "Input Methods"
@@ -1839,49 +1756,40 @@ msgid "Replace confirmation"
 msgstr "Stadfest erstatting"
 
 #: components/html-editor/replace.c:78
-#, fuzzy
 msgid "Replace _All"
-msgstr "Erstatt alle"
+msgstr "Byt ut _alle"
 
 #: components/html-editor/replace.c:79
-#, fuzzy
 msgid "_Next"
-msgstr "Neste"
+msgstr "_Neste"
 
 #: components/html-editor/replace.c:81
-#, fuzzy
 msgid "_Replace"
-msgstr "Byt ut"
+msgstr "_Byt ut"
 
 #: components/html-editor/replace.c:171
-#, fuzzy
 msgid "Search _backward"
-msgstr "søk bakover"
+msgstr "Søk _bakover"
 
 #: components/html-editor/replace.c:172 components/html-editor/search.c:114
-#, fuzzy
 msgid "Case _sensitive"
-msgstr "skil mellom små og store bokstavar"
+msgstr "_Skil mellom små og store bokstavar"
 
 #: components/html-editor/replace.c:182
-#, fuzzy
 msgid "Replace:"
-msgstr "Byt ut"
+msgstr "Byt ut:"
 
 #: components/html-editor/replace.c:185
-#, fuzzy
 msgid "With:"
-msgstr "Breidd:"
+msgstr "Med:"
 
 #: components/html-editor/search.c:113
-#, fuzzy
 msgid "_Backward"
-msgstr "baklengs"
+msgstr "_Bakover"
 
 #: components/html-editor/search.c:115
-#, fuzzy
 msgid "_Regular Expression"
-msgstr "Finn regulært uttrykk"
+msgstr "_Regulært uttrykk"
 
 #: components/html-editor/spell.c:110
 msgid ""
@@ -1890,9 +1798,8 @@ msgid ""
 msgstr ""
 
 #: components/html-editor/spell.c:298
-#, fuzzy
 msgid "No misspelled word found"
-msgstr "Ingen feilstava ord"
+msgstr "Ingen feilstava ord vart funne"
 
 #: components/html-editor/spell.c:305
 msgid "Spell checker"
@@ -1917,15 +1824,15 @@ msgstr "Bileterame"
 
 #: components/html-editor/template.c:280
 msgid "Labels"
-msgstr ""
+msgstr "Etikettar"
 
 #: components/html-editor/test-html-editor-control.c:333
 msgid "Open file..."
-msgstr "Opne fil ..."
+msgstr "Opne fil..."
 
 #: components/html-editor/test-html-editor-control.c:335
 msgid "Save file as..."
-msgstr "Lagra fil som ..."
+msgstr "Lagra fil som..."
 
 #: components/html-editor/test-html-editor-control.c:567
 #, fuzzy
@@ -2012,9 +1919,8 @@ msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""
 
 #: src/gtkhtml.c:2929
-#, fuzzy
 msgid "Editable"
-msgstr "Skru på"
+msgstr "Kan redigeras"
 
 #: src/gtkhtml.c:2930
 msgid "Whether the html can be edited"
@@ -2047,9 +1953,8 @@ msgid "The base URL of the targe frame"
 msgstr ""
 
 #: src/gtkhtml.c:2960
-#, fuzzy
 msgid "Fixed Width Font"
-msgstr "Fast breidd"
+msgstr "Skrift med fast breidd"
 
 #: src/gtkhtml.c:2961
 msgid "The Monospace font to use for typewriter text"
@@ -2088,14 +1993,12 @@ msgid "The color of the spelling error markers"
 msgstr ""
 
 #: src/gtkhtml.c:2991
-#, fuzzy
 msgid "Cite Quotation Color"
-msgstr "Farge:"
+msgstr ""
 
 #: src/gtkhtml.c:2992
-#, fuzzy
 msgid "The color of the cited text"
-msgstr "Køyr stavekontroll på sokumentet"
+msgstr ""
 
 #: src/html-component.c:220
 msgid "Html"
@@ -2150,14 +2053,13 @@ msgid "Submit Query"
 msgstr ""
 
 #: src/htmlbutton.c:145
-#, fuzzy
 msgid "Reset"
-msgstr "Tekst"
+msgstr ""
 
 #. TODO2 dialog instead of warning
 #: src/htmlengine-print.c:192
 msgid "Cannot allocate default font for printing\n"
-msgstr "Klarar ikkje å allokére standard skrifttype for utskrift\n"
+msgstr "Klarar ikkje å allokere standard skrift for utskrift\n"
 
 #: src/test.c:375
 msgid "GtkHTML Test"
@@ -2172,368 +2074,5 @@ msgid "Print preview"
 msgstr "Førehandsvising av utskrift"
 
 #: src/testgtkhtml.c:1004
-#, fuzzy
 msgid "GtkHTML Test Application"
-msgstr "GNOME HTML redigerarkontroll"
-
-#~ msgid "Plain"
-#~ msgstr "Enkel"
-
-#, fuzzy
-#~ msgid ""
-#~ "@link_begin@<img@alt@@width@@height@@align@ "
-#~ "border=@border@@padh@@padv@@src@>@link_end@"
-#~ msgstr ""
-#~ "@link_begin@<img@width@@height@@align@ "
-#~ "border=@border@@padh@@padv@@src@>@link_end@"
-
-#~ msgid "Frame"
-#~ msgstr "Ramme"
-
-#, fuzzy
-#~ msgid ""
-#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-#~ "@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
-#~ "table></center>"
-#~ msgstr ""
-#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-#~ "@src@@width@@height@align=top border=0></td></tr></table></td></tr></"
-#~ "table></center>"
-
-#~ msgid "Caption"
-#~ msgstr "Tittel"
-
-#, fuzzy
-#~ msgid ""
-#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-#~ "@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Place "
-#~ "your comment here]</td></tr></table></td></tr></table></center>"
-#~ msgstr ""
-#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-#~ "@src@@width@@height@align=top border=0></td></tr><tr><td><b>[Place your "
-#~ "comment here]</td></tr></table></td></tr></table></center>"
-
-#~ msgid "Find A Regular Expression"
-#~ msgstr "Finn eit regulært uttrykk"
-
-#~ msgid "Find Regular E_xpression..."
-#~ msgstr "Finn eit regulært _uttrykk ..."
-
-#, fuzzy
-#~ msgid ""
-#~ "The quick brown <a href=\"mailto:fox\">fox</a> jumps over the lazy <a "
-#~ "href=\"mailto:dog\">dog</a>."
-#~ msgstr "The quick brown fox jumped over the lazy dog. æøå "
-
-#, fuzzy
-#~ msgid "The quick brown fox jumps over the lazy dog."
-#~ msgstr "The quick brown fox jumped over the lazy dog. æøå "
-
-#, fuzzy
-#~ msgid "Other"
-#~ msgstr "Andre ..."
-
-#~ msgid "************"
-#~ msgstr "************"
-
-#~ msgid "***text***"
-#~ msgstr "***tekst***"
-
-#~ msgid "Apply changes to:"
-#~ msgstr "Påfør endringar på:"
-
-#~ msgid "Border"
-#~ msgstr "Kant"
-
-#~ msgid "Click will follow this URL"
-#~ msgstr "Klikk for å følgje denne URLen"
-
-#, fuzzy
-#~ msgid "Click will follow this URL:"
-#~ msgstr "Klikk for å følgje denne URLen"
-
-#~ msgid "Don't wrap"
-#~ msgstr "Ikkje bryt"
-
-#~ msgid "Font size"
-#~ msgstr "Skriftstorleik"
-
-#~ msgid "Foreground color"
-#~ msgstr "Framgrunnsfarge"
-
-#~ msgid "Header"
-#~ msgstr "Tittel"
-
-#~ msgid "Link insert"
-#~ msgstr "Set inn lenkje"
-
-#~ msgid "Location"
-#~ msgstr "Adresse"
-
-#~ msgid "Padding"
-#~ msgstr "Fyll"
-
-#~ msgid "Percent %"
-#~ msgstr "Prosent %"
-
-#~ msgid "Pixmap:"
-#~ msgstr "Bilete:"
-
-#~ msgid "Points"
-#~ msgstr "Punkt"
-
-#~ msgid "Scope"
-#~ msgstr "Område"
-
-#~ msgid "Spacing"
-#~ msgstr "Avstand"
-
-#~ msgid "Style:"
-#~ msgstr "Stil:"
-
-#~ msgid "Table Insert"
-#~ msgstr "Sett inn tabell"
-
-#, fuzzy
-#~ msgid "Test URL..."
-#~ msgstr "Test 1"
-
-#~ msgid "Wrap"
-#~ msgstr "Bryt"
-
-#~ msgid "Wrapping:"
-#~ msgstr "Bryting:"
-
-#~ msgid "xxxxxxxxx"
-#~ msgstr "xxxxxxxxx"
-
-#, fuzzy
-#~ msgid "No image selected"
-#~ msgstr "Bileteval"
-
-#~ msgid "Link text"
-#~ msgstr "Lenkjetekst"
-
-#~ msgid "Align"
-#~ msgstr "Juster"
-
-#~ msgid "Blue 3D"
-#~ msgstr "Blå 3D"
-
-#~ msgid "Yellow, flowers"
-#~ msgstr "Gul, blomstrar"
-
-#~ msgid "Flat gray"
-#~ msgstr "Flat grå"
-
-#~ msgid "Dark header"
-#~ msgstr "Mørk topptekst"
-
-#~ msgid "Color"
-#~ msgstr "Farge"
-
-#, fuzzy
-#~ msgid "The quick brown fox jumps over the lazy dog.</div>"
-#~ msgstr "The quick brown fox jumped over the lazy dog. æøå "
-
-#~ msgid "Pre"
-#~ msgstr "Pre"
-
-#~ msgid "The quick brown fox jumped over the lazy dog."
-#~ msgstr "The quick brown fox jumped over the lazy dog. æøå "
-
-#~ msgid "Ignore '%s'"
-#~ msgstr "Oversjå «%s»"
-
-#~ msgid "Suggest word"
-#~ msgstr "Foreslå ord"
-
-#~ msgid "Text..."
-#~ msgstr "Tekst ..."
-
-#~ msgid "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz"
-#~ msgstr "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZzÆæØøÅå"
-
-#~ msgid "Command"
-#~ msgstr "Kommando"
-
-#~ msgid "Select command "
-#~ msgstr "Vel kommando"
-
-#~ msgid "Shortcut"
-#~ msgstr "Snarveg"
-
-#~ msgid "EBrowser control"
-#~ msgstr "EBrowser kontroll"
-
-#~ msgid "EBrowser factory"
-#~ msgstr "EBrowser fabrikk"
-
-#~ msgid "Factory for the EBrowser control"
-#~ msgstr "Fabrikk for EBrowser-kontroll"
-
-#~ msgid "HTML Browser control"
-#~ msgstr "HTML-lesar kontroll"
-
-#~ msgid "Modify the file's properties"
-#~ msgstr "Endre eigenskapar for fila"
-
-#~ msgid "Pr_operties..."
-#~ msgstr "_Eigenskapar ..."
-
-#~ msgid "Test 1"
-#~ msgstr "Test 1"
-
-#, fuzzy
-#~ msgid "I could not initialize Bonobo"
-#~ msgstr "Klarte ikkje initialisere Bonobo"
-
-#~ msgid "The quick brown fox jumped over the lazy dog. "
-#~ msgstr "The quick brown fox jumped over the lazy dog.  æøå"
-
-#~ msgid "Cannot execute gtkhtml properties"
-#~ msgstr "Kan ikkje køyre gtkhtml eigenskapar"
-
-#~ msgid ""
-#~ "<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
-#~ "\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
-#~ "cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
-#~ msgstr ""
-#~ "<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
-#~ "\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
-#~ "cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
-
-#~ msgid ""
-#~ "/bulb.png\" hspace=10></td><td width=\"100%\">Place your text here</td></"
-#~ "tr></table></td></tr></table>"
-#~ msgstr ""
-#~ "/bulb.png\" hspace=10></td><td width=\"100%\">Plasser teksta di her</td></"
-#~ "tr></table></td></tr></table>"
-
-#~ msgid ""
-#~ "<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "@width@@align@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img src="
-#~ "\"file://"
-#~ msgstr ""
-#~ "<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "@width@@align@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img src="
-#~ "\"file://"
-
-#~ msgid ""
-#~ "/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font "
-#~ "size=\"-1\">Image 1: <b>description</b></font></td></tr></table></td></"
-#~ "tr></table>"
-#~ msgstr ""
-#~ "/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font "
-#~ "size=\"-1\">Bilete 1: <b>skildring</b></font></td></tr></table></td></"
-#~ "tr></table>"
-
-#~ msgid "Could not initialize GNORBA"
-#~ msgstr "Klarte ikkje å initialisere GNORBA"
-
-#~ msgid "Can't load fixed font."
-#~ msgstr "Kan ikkje laste fast skrifttype"
-
-#~ msgid "US-Letter"
-#~ msgstr "US-Letter"
-
-#~ msgid "Language"
-#~ msgstr "Språk"
-
-#~ msgid "Pick a color"
-#~ msgstr "Vel ein farge"
-
-#~ msgid "width"
-#~ msgstr "breidd"
-
-#~ msgid "height"
-#~ msgstr "høgd"
-
-#~ msgid "Clear"
-#~ msgstr "Tøm"
-
-#, fuzzy
-#~ msgid "_Header _3"
-#~ msgstr "Deklarasjonsfil"
-
-#, fuzzy
-#~ msgid "_Header _4"
-#~ msgstr "Deklarasjonsfil"
-
-#, fuzzy
-#~ msgid "_Header _5"
-#~ msgstr "Deklarasjonsfil"
-
-#, fuzzy
-#~ msgid "_Header _6"
-#~ msgstr "Deklarasjonsfil"
-
-#~ msgid "Key"
-#~ msgstr "Nøkkel"
-
-#~ msgid "Commands"
-#~ msgstr "Kommandoar"
-
-#~ msgid "Keymaps"
-#~ msgstr "Tastekart"
-
-#, fuzzy
-#~ msgid "C_ut"
-#~ msgstr "Klipp ut"
-
-#, fuzzy
-#~ msgid "Find Rege_x..."
-#~ msgstr "Finn og erstatt ..."
-
-#, fuzzy
-#~ msgid "Miscelaneous"
-#~ msgstr "Ymse"
-
-#, fuzzy
-#~ msgid "border"
-#~ msgstr "kantar"
-
-#~ msgid "color"
-#~ msgstr "farge"
-
-#, fuzzy
-#~ msgid "columns"
-#~ msgstr "Kolonnar:"
-
-#, fuzzy
-#~ msgid "spacing"
-#~ msgstr "Mellomrom"
-
-#, fuzzy
-#~ msgid "Item dot"
-#~ msgstr "Elementskrifttype"
-
-#, fuzzy
-#~ msgid "Item roman"
-#~ msgstr "Elementskrifttype"
-
-#, fuzzy
-#~ msgid "Item digit"
-#~ msgstr "Middels"
-
-#, fuzzy
-#~ msgid "Regex find"
-#~ msgstr "Endra storleik på indeks"
-
-#, fuzzy
-#~ msgid "List item (unnumbered)"
-#~ msgstr "Siste stat-oppføring sletta"
-
-#, fuzzy
-#~ msgid "Cells"
-#~ msgstr "Celle"
+msgstr ""
