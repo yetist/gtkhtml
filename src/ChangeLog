@@ -1,3 +1,13 @@
+2000-05-17  Larry Ewing  <lewing@helixcode.com>
+
+	* htmlclueflow.c (save): fixup the save code for lists a little,
+	now the clueflow save code is scattered with is_item checks
+	we need to rework how lists are done, I'll probably do
+	it shortly.
+	(get_tag_for_item_group): another hack for lists.
+
+	* htmlclueflow.c (is_similar): remove the special case for lists.
+
 2000-05-16  Larry Ewing  <lewing@helixcode.com>
 
 	* htmlrule.c (save): add shade option and and FIXME comment for
@@ -23,7 +33,11 @@
 	(calc_size): rework to make sure we don't include the height of
 	the first item in a new line in the previous lines ascent
 	calculation, we now assume whenever a run ends there is an
-	implicit newline.
+	implicit newline.2000-05-16  Larry Ewing  <lewing@helixcode.com>
+
+	* htmlrule.c (save): add shade option and and FIXME comment for
+	all the possible missing parameters. 
+
 
 	* htmlgdkpainter.c (draw_background): optimize this greatly for a couple
 	of special cases.
