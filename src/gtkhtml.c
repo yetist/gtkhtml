@@ -1088,12 +1088,12 @@ skip_host (const char *url)
 		url = host;
 
 		if (*host == '/') {
-			url = host++;
+			host++;
 
-			if ((host = strchr (host, '/')))
-				url = host;
-			else
-				url += strlen (url);
+			while (*host && (*host != '/'))
+				host++;
+			
+			url = host;
 		}
 	}		
 	
