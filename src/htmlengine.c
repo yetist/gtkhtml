@@ -2196,7 +2196,7 @@ parse_i (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 					valign = HTML_VALIGN_BOTTOM;
 			}
 			else if (strncasecmp (token, "id=", 3) == 0) {
-				id = token + 8;
+				id = token + 3;
 			}
 			else if (strncasecmp (token, "alt=", 4) == 0) {
 				alt = g_strdup (token + 4);

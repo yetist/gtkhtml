@@ -1,3 +1,9 @@
+2000-11-21  Joe Shaw  <joe@helixcode.com>
+
+	* htmlengine.c (parse_i): Advance the token by only 3 spaces instead of
+	8 for the "id" tag. This is a holdover from when it was called
+	"imageid".
+
 2000-11-21  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlengine.c (clear_selection): new helper function
