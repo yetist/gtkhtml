@@ -95,7 +95,7 @@ static guint signals [LAST_SIGNAL] = { 0 };
 static void    scroll                 (GtkHTML *html, GtkOrientation orientation, GtkScrollType scroll_type, gfloat position);
 static void    cursor_move            (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType skip);
 static void    command                (GtkHTML *html, GtkHTMLCommandType com_type);
-static gint    mouse_change_pos       (GtkWidget *widget, gint x, gint y);
+static gint    mouse_change_pos       (GtkWidget *widget, GdkWindow *window, gint x, gint y);
 static void    load_keybindings       (GtkHTMLClass *klass);
 static void    set_editor_keybindings (GtkHTML *html, gboolean editable);
 static gchar * get_value_nick         (GtkHTMLCommandType com_type);
@@ -399,7 +399,7 @@ scroll_update_mouse (GtkWidget *widget)
 
 	if (GTK_WIDGET_REALIZED (widget)) {
 		gdk_window_get_pointer (GTK_LAYOUT (widget)->bin_window, &x, &y, NULL);
-		mouse_change_pos (widget, x, y);
+		mouse_change_pos (widget, widget->window, x, y);
 	}
 }
 
@@ -774,7 +774,7 @@ size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 }
 
 static void
-on_object (GtkWidget *widget, HTMLObject *obj)
+on_object (GtkWidget *widget, GdkWindow *window, HTMLObject *obj)
 {
 	GtkHTML *html = GTK_HTML (widget);
 	const gchar *url;
@@ -788,9 +788,9 @@ on_object (GtkWidget *widget, HTMLObject *obj)
 			}
 
 			if (html->engine->editable)
-				gdk_window_set_cursor (widget->window, html->ibeam_cursor);
+				gdk_window_set_cursor (window, html->ibeam_cursor);
 			else
-				gdk_window_set_cursor (widget->window, html->hand_cursor);
+				gdk_window_set_cursor (window, html->hand_cursor);
 		} else {
 			if (html->pointer_url != NULL) {
 				g_free (html->pointer_url);
@@ -799,21 +799,21 @@ on_object (GtkWidget *widget, HTMLObject *obj)
 			}
 
 			if (obj != NULL && html_object_is_text (obj) && html->allow_selection)
-				gdk_window_set_cursor (widget->window, html->ibeam_cursor);
+				gdk_window_set_cursor (window, html->ibeam_cursor);
 			else
-				gdk_window_set_cursor (widget->window, html->arrow_cursor);
+				gdk_window_set_cursor (window, html->arrow_cursor);
 		}
 	} else {
 		if (html->pointer_url) {
 			html->pointer_url = NULL;
 			g_free (html->pointer_url);
 		}
-		gdk_window_set_cursor (widget->window, html->arrow_cursor);
+		gdk_window_set_cursor (window, html->arrow_cursor);
 	}
 }
 
 static gint
-mouse_change_pos (GtkWidget *widget, gint x, gint y)
+mouse_change_pos (GtkWidget *widget, GdkWindow *window, gint x, gint y)
 {
 	GtkHTML *html;
 	HTMLEngine *engine;
@@ -882,7 +882,7 @@ mouse_change_pos (GtkWidget *widget, gint x, gint y)
 					   x + engine->x_offset, y + engine->y_offset);
 	}
 
-	on_object (widget, obj);
+	on_object (widget, window, obj);
 
 	return TRUE;
 }
@@ -905,6 +905,7 @@ static gint
 motion_notify_event (GtkWidget *widget,
 		     GdkEventMotion *event)
 {
+	GdkWindow *window = widget->window;
 	HTMLEngine *engine;
 	gint x, y;
 
@@ -922,7 +923,7 @@ motion_notify_event (GtkWidget *widget,
 		gdk_window_get_pointer (GTK_LAYOUT (widget)->bin_window, &x, &y, NULL);
 	}
 
-	if (!mouse_change_pos (widget, x, y))
+	if (!mouse_change_pos (widget, window, x, y))
 		return FALSE;
 
 	engine = GTK_HTML (widget)->engine;
@@ -1102,7 +1103,7 @@ focus_out_event (GtkWidget *widget,
 static gint
 enter_notify_event (GtkWidget *widget, GdkEventCrossing *event)
 {
-	mouse_change_pos (widget, event->x, event->y);
+	mouse_change_pos (widget, widget->window, event->x, event->y);
 	return TRUE;
 }
 

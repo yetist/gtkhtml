@@ -1,5 +1,11 @@
 2000-11-21  Radek Doulik  <rodo@helixcode.com>
 
+	* gtkhtml.c (mouse_change_pos): added window parameter
+	(on_object): likewise
+	(scroll_update_mouse): updated
+	(motion_notify_event): updated
+	(enter_notify_event): updated
+
 	* htmlselection.c (html_engine_unselect_all): use
 	html_engine_get_top_html_engine
 
