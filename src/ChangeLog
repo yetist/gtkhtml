@@ -1,3 +1,8 @@
+2002-04-28  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml-propmanager.c (gtk_html_propmanager_real_changed): stop
+	referencing the removed widget.
+
 2002-04-27  Larry Ewing  <lewing@ximian.com>
 
 	* Makefile.am: add gtkhtml-propmanager.[ch] to the build.
