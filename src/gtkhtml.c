@@ -1603,6 +1603,7 @@ selection_get (GtkWidget        *widget,
 			g_warning ("BUFFER = %s", buffer->str);
 			selection_string = e_utf8_to_charset_string_sized ("ucs2", buffer->str, buffer->len);
 			
+down
 			if (selection_string)
 				gtk_selection_data_set (selection_data,
 							gdk_atom_intern ("text/html", FALSE), 16,
@@ -1612,7 +1613,8 @@ selection_get (GtkWidget        *widget,
 			html_engine_save_buffer_free (state);
 		}				
 	} else {
-		selection_string = html_object_get_selection_string (selection_object, html->engine);
+		if (selection_object)
+			selection_string = html_object_get_selection_string (selection_object, html->engine);
 
 		if (selection_string != NULL) {
 			if (info == TARGET_UTF8_STRING) {

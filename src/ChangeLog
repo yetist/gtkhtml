@@ -1,5 +1,8 @@
 2002-06-02  Larry Ewing  <lewing@ximian.com>
 
+	* gtkhtml.c (selection_get): check for a selection object before
+	pasting.
+
 	* ChangeLog: Merge multicite branch.
 
 2002-05-22  Larry Ewing  <lewing@ximian.com>
