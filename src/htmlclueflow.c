@@ -2085,8 +2085,12 @@ html_clueflow_spell_check (HTMLClueFlow *flow, HTMLEngine *e, HTMLInterval *inte
 			}
 		}
 		g_free (text);
-		html_interval_forall (interval, e, (HTMLObjectForallFunc) queue_draw, interval);
-		html_engine_flush_draw_queue (e);
+
+		if (!html_engine_frozen (e)) {
+			/* html_engine_queue_clear (e); */
+			html_interval_forall (interval, e, (HTMLObjectForallFunc) queue_draw, interval);
+			html_engine_flush_draw_queue (e);
+		}
 		html_interval_destroy (new_interval);
 	}
 }

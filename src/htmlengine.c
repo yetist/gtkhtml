@@ -1103,10 +1103,6 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 						}
 					}
 
-					/* why did we do this ?
-					   if (e->noWrap && (cellpercent != -1 || fixedWidth)) {
-						e->noWrap = FALSE;
-						} else */
 					if (e->noWrap) {
 						push_clueflow_style (e, HTML_CLUEFLOW_STYLE_NOWRAP);
 					}
