@@ -888,18 +888,23 @@ draw_spell_error (HTMLPainter *painter, gint x, gint y, const gchar *text, gint 
 	PangoFontDescription *desc;
 	HTMLGdkPainter *gdk_painter;
 	GdkGCValues values;
-	guint width;
 	gchar dash [2];
+	GList *gl, *il;
+	PangoRectangle log_rect;
+	gint width;
+
+	if (!items || !glyphs)
+		return;
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
 
 	x -= gdk_painter->x1;
 	y -= gdk_painter->y1;
 
+	for (gl = glyphs, il = items; gl && il; gl = gl->next, il = il->next)
+		pango_glyph_string_extents ((PangoGlyphString *) gl->data, ((PangoItem *) il->data)->analysis.font, NULL, &log_rect);
 
-	/* FIXME
-	desc  = html_painter_get_font  (painter, painter->font_face, painter->font_style);
-	width = text_width (gdk_painter->pc, desc, text, g_utf8_offset_to_pointer (text, len) - text);
+	width = PANGO_PIXELS (log_rect.width);
 
 	gdk_gc_get_values (gdk_painter->gc, &values);
 	gdk_gc_set_fill (gdk_painter->gc, GDK_OPAQUE_STIPPLED);
@@ -912,7 +917,7 @@ draw_spell_error (HTMLPainter *painter, gint x, gint y, const gchar *text, gint 
 	gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc, x, y + 1, x + width, y + 1);
 	gdk_gc_set_line_attributes (gdk_painter->gc, values.line_width,
 				    values.line_style, values.cap_style, values.join_style);
-	*/
+
 	return width;
 }
 

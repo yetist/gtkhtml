@@ -43,6 +43,7 @@ static HTMLObjectClass *parent_class = NULL;
 
 static GList * get_items (HTMLTextSlave *slave, HTMLPainter *painter);
 static GList * get_glyphs (HTMLTextSlave *slave, HTMLPainter *painter, gint line_offset);
+static GList * get_glyphs_part (HTMLTextSlave *slave, HTMLPainter *painter, guint offset, guint len, gint line_offset, GList **items);
 
 char *
 html_text_slave_get_text (HTMLTextSlave *slave)
@@ -511,6 +512,7 @@ draw_spell_errors (HTMLTextSlave *slave, HTMLPainter *p, gint tx, gint ty, gint 
 		ma = MAX (se->off, slave->posStart);
 		mi = MIN (se->off + se->len, slave->posStart + slave->posLen);
 		if (ma < mi) {
+			GList *items, *glyphs;
 			guint off = ma - slave->posStart;
 			guint len = mi - ma;
 			gint lo, width, asc, dsc;
@@ -519,17 +521,19 @@ draw_spell_errors (HTMLTextSlave *slave, HTMLPainter *p, gint tx, gint ty, gint 
 			/* printf ("spell error: %s\n", html_text_get_text (slave->owner, off)); */
 			lo = line_offset;
 			
-			/* FIXME: cache items and glyphs? */
+			glyphs = get_glyphs_part (slave, p, last_off, off - last_off, line_offset, &items);
 			html_painter_calc_text_size (p, text,
-						     off - last_off, NULL, NULL, &line_offset,
+						     off - last_off, items, glyphs, &line_offset,
 						     p->font_style,
 						     p->font_face, &width, &asc, &dsc);
+			glyphs_destroy (glyphs);
 			x_off += width;
 			text = g_utf8_offset_to_pointer (text, off - last_off);
-			/* FIXME: cache items and glyphs? */
+			glyphs = get_glyphs_part (slave, p, off, len, line_offset, &items);
 			x_off += html_painter_draw_spell_error (p, obj->x + tx + x_off,
 								obj->y + ty + get_ys (HTML_TEXT (slave->owner), p),
-								text, len, NULL, NULL);
+								text, len, items, glyphs);
+			glyphs_destroy (glyphs);
 			last_off = off + len;
 			line_offset += len;
 			text = g_utf8_offset_to_pointer (text, len);
