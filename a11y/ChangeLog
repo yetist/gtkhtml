@@ -1,3 +1,17 @@
+2005-01-19  Mengjie Yu  <meng-jie.yu@sun.com>
+
+	* html.c: (html_a11y_get_n_children), (html_a11y_ref_child):
+	fix #70083 check defunct state before ref child.
+
+	* object.c: (gtk_html_a11y_get_n_children),
+	(gtk_html_a11y_ref_child):
+	fix #70083 refuse ref child when parsing. Add judgement to avoid a11y
+		   component access null point.
+
+	* utils.c: (acc_unref):
+	fix #70083 Add defunct state after unref a atk object.
+
+
 2005-01-05  Mengjie Yu  <meng-jie.yu@sun.com>
 
 	Fixes #70871

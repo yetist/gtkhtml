@@ -211,6 +211,14 @@ html_a11y_get_n_children (AtkObject *accessible)
 {
 	HTMLObject *parent;
 	gint n_children = 0;
+	AtkStateSet * ss;
+
+	ss = html_a11y_ref_state_set (accessible);
+	if (atk_state_set_contains_state (ss, ATK_STATE_DEFUNCT)) {
+		g_object_unref (ss);
+		return 0;
+	}
+	g_object_unref (ss);
 
 	parent = HTML_A11Y_HTML (accessible);
 	if (parent) {
@@ -227,6 +235,15 @@ html_a11y_ref_child (AtkObject *accessible, gint index)
 {
 	HTMLObject *parent, *child;
 	AtkObject *accessible_child = NULL;
+
+	AtkStateSet * ss;
+
+	ss = html_a11y_ref_state_set(accessible);
+	if (atk_state_set_contains_state (ss, ATK_STATE_DEFUNCT)) {
+		g_object_unref (ss);	
+		return NULL;
+	}	
+	g_object_unref (ss);
 
 	parent = HTML_A11Y_HTML (accessible);
 	if (parent) {

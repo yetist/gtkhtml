@@ -166,15 +166,39 @@ gtk_html_a11y_initialize (AtkObject *obj, gpointer data)
 	g_object_set_data (G_OBJECT (obj), GTK_HTML_ID, data);
 }
 
+
 static gint
 gtk_html_a11y_get_n_children (AtkObject *accessible)
 {
 	HTMLObject *clue;
 	gint n_children = 0;
+	AtkStateSet *ss;
+
+	if (GTK_HTML_A11Y_GTKHTML (accessible)->engine->parsing)
+		return 0;
+
+	ss = atk_object_ref_state_set (accessible);
+	if (atk_state_set_contains_state (ss, ATK_STATE_DEFUNCT)) {
+		g_object_unref (ss);
+		return 0;
+	}
+	g_object_unref (ss);
 
 	clue = GTK_HTML_A11Y_GTKHTML (accessible)->engine->clue;
-	if (clue)
+	if (clue) {
+		AtkObject *atk_clue = html_utils_get_accessible (clue, NULL);
+		if (atk_clue) {
+			AtkStateSet *ss_clue = atk_object_ref_state_set (atk_clue);
+			if (atk_state_set_contains_state (ss_clue, ATK_STATE_DEFUNCT)) {
+				g_object_unref (ss_clue);
+				return 0;
+			}
+			g_object_unref (ss_clue);
+		}
+		
 		n_children = html_object_get_n_children (GTK_HTML_A11Y_GTKHTML (accessible)->engine->clue);
+	}
+		
 
 	/* printf ("gtk_html_a11y_get_n_children resolves to %d\n", n_children); */
 
@@ -186,8 +210,29 @@ gtk_html_a11y_ref_child (AtkObject *accessible, gint index)
 {
 	HTMLObject *child;
 	AtkObject *accessible_child = NULL;
-	
+	AtkStateSet *ss;
+
+	if (GTK_HTML_A11Y_GTKHTML (accessible)->engine->parsing)
+		return NULL;
+
+	ss = atk_object_ref_state_set (accessible);
+	if (atk_state_set_contains_state (ss, ATK_STATE_DEFUNCT)) {
+		g_object_unref (ss);
+		return NULL;
+	}
+	g_object_unref (ss);
+
 	if (GTK_HTML_A11Y_GTKHTML (accessible)->engine->clue) {
+		AtkObject *atk_clue = html_utils_get_accessible (GTK_HTML_A11Y_GTKHTML (accessible)->engine->clue, NULL);
+		if (atk_clue) {
+			AtkStateSet *ss_clue = atk_object_ref_state_set (atk_clue);
+			if (atk_state_set_contains_state (ss_clue, ATK_STATE_DEFUNCT)) {
+				g_object_unref (ss_clue);
+				return NULL;
+			}
+			g_object_unref (ss_clue);
+		}
+
 		child = html_object_get_child (GTK_HTML_A11Y_GTKHTML (accessible)->engine->clue, index);
 		if (child) {
 			accessible_child = html_utils_get_accessible (child, accessible);

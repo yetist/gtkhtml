@@ -95,7 +95,13 @@ create_accessible (HTMLObject *o, AtkObject *parent)
 static void
 acc_unref(gpointer data)
 {
+	AtkStateSet * ss;
+
 	g_object_set_data(G_OBJECT(data), HTML_ID, NULL);
+	ss = atk_object_ref_state_set (data);
+
+	atk_state_set_add_state (ss, ATK_STATE_DEFUNCT);
+	atk_object_notify_state_change (data, ATK_STATE_DEFUNCT, TRUE);
 	g_object_unref(G_OBJECT(data));
 }
 
