@@ -1498,7 +1498,7 @@ button_press_event (GtkWidget *widget,
 							      (GDK_BUTTON_RELEASE_MASK
 							       | GDK_BUTTON_MOTION_MASK
 							       | GDK_POINTER_MOTION_HINT_MASK),
-							      NULL, NULL, 0) == 0) {
+							      NULL, NULL, event->time) == 0) {
 						html->selection_x1 = x;
 						html->selection_y1 = y;
 					}
@@ -1546,7 +1546,7 @@ button_release_event (GtkWidget *initial_widget,
 
 	remove_scroll_timeout (html);
 	gtk_grab_remove (widget);
-	gdk_pointer_ungrab (0);
+	gdk_pointer_ungrab (event->time);
 
 	engine =  html->engine;
 

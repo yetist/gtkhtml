@@ -1,3 +1,9 @@
+2003-05-07  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml.c (button_press_event): pass event->time to
+	gdk_pointer_grab instead of 0.
+	(button_release_event): pass event->time instead of 0.
+
 2003-05-06  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (drag_data_received): call move_before_paste only
