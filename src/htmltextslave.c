@@ -146,6 +146,9 @@ fit_line (HTMLObject *o,
 		textSlave->prev = o;
 		textSlave->parent = o->parent;
 
+		if (o->next != NULL)
+			o->next->prev = textSlave;
+
 		o->next = textSlave;
 	}
 

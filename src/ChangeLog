@@ -1,14 +1,26 @@
+1999-12-12  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmltextslave.c (fit_line): Set `prev' on the next, if any.
+
+	* gtkhtml.c (key_press_event): Move left too.
+
+	* htmlcursor.c (html_cursor_backward): Implemented.
+	(prev): Removed.
+
 1999-12-11  Jonas Borgström  <jonas_b@bitsmart.com>
+
 	* htmlengine.c (parse_table): Added support for backgrounds in tables.
 	(parse_href): Better handling of "" hrefs.
 
-	* htmlimage.c (html_image_factory_register(): Insert url into list before emitting signal.
+	* htmlimage.c (html_image_factory_register(): Insert url into list
+	before emitting signal.
 
-	* htmlpainter.c (html_painter_draw_background: Added two parameters, pix_width, pix_height.
+	* htmlpainter.c (html_painter_draw_background: Added two
+	parameters, pix_width, pix_height.
 
-	* htmltablecell.c (draw): Added support for backgrounds: http.//www.themes.org looks great now :)
+	* htmltablecell.c (draw): Added support for backgrounds:
+	http.//www.themes.org looks great now :)
 	(html_table_cell_set_pixmap): New function.
-	
 
 1999-12-12  Ettore Perazzoli  <ettore@helixcode.com>
 
@@ -70,7 +82,7 @@
 	* htmlurl.c (html_url_append_path): removed dependency on
 	gnome by re-implementing g_concat_dir_and_file
 
-1999-12-11  Elliot Turner <turnere@MimeStar.com>
+1999-12-11  Elliot Turner  <turnere@MimeStar.com>
 
 	* htmlengine.c (parse_m): New function to deal with the `meta'
 	tag.

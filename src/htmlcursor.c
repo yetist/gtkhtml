@@ -18,6 +18,11 @@
    Boston, MA 02111-1307, USA.
 */
 
+/* This file is a bit of a hack.  To make things work in a really nice way, we
+   should have some extra methods in the various subclasses to implement cursor
+   movement.  Also, tables are not handled at all yet (FIXME TODO).  But for
+   now, I think this is a reasonable way to get things to work.  */
+
 #include <glib.h>
 
 #include "htmltext.h"
@@ -106,6 +111,7 @@ next (HTMLObject *object)
 	}
 }
 
+
 void
 html_cursor_home (HTMLCursor *cursor,
 		  HTMLEngine *engine)
@@ -133,8 +139,12 @@ html_cursor_forward (HTMLCursor *cursor,
 	guint offset;
 
 	obj = cursor->object;
-	if (obj == NULL)
+	if (obj == NULL) {
+		/* FIXME this is probably not the way it should be.  */
+		g_warning ("The cursor is in a NULL position: going home.");
+		html_cursor_home (cursor, engine);
 		return;
+	}		
 
 	offset = cursor->offset;
 	obj = cursor->object;
@@ -225,8 +235,93 @@ html_cursor_forward (HTMLCursor *cursor,
 	g_print ("%s (%p)\n", __FUNCTION__, cursor->object);
 }
 
+
 void
 html_cursor_backward (HTMLCursor *cursor,
 		      HTMLEngine *engine)
 {
+	HTMLObject *obj;
+	guint offset;
+
+	obj = cursor->object;
+	if (obj == NULL)
+		return;
+
+	offset = cursor->offset;
+	obj = cursor->object;
+
+	if (is_text (obj)) {
+		switch (HTML_OBJECT_TYPE (obj)) {
+		case HTML_TYPE_TEXT:
+		case HTML_TYPE_LINKTEXT:
+		case HTML_TYPE_TEXTSLAVE:
+			if (offset > 0) {
+				offset--;
+
+				if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_TEXTSLAVE) {
+					HTMLTextSlave *slave;
+
+					slave = HTML_TEXT_SLAVE (obj);
+					g_print ("TextSlave (%p): %s\n",
+						 slave,
+						 HTML_TEXT (slave->owner)->text + slave->posStart + offset);
+				}
+				goto end;
+			}
+			break;
+
+		case HTML_TYPE_TEXTMASTER:
+		case HTML_TYPE_LINKTEXTMASTER:
+			/* Do nothing: go to the previous element, as this is
+			   not a suitable place for the cursor.  */
+			break;
+
+		default:
+			g_assert_not_reached ();
+		}
+	}
+
+	while (obj != NULL) {
+
+		while (obj != NULL && obj->prev == NULL)
+			obj = obj->parent;
+
+		if (obj == NULL)
+			break;
+
+		obj = obj->prev;
+		if (is_clue (obj)) {
+			while (is_clue (obj) && HTML_CLUE (obj)->head != NULL) {
+				obj = HTML_CLUE (obj)->head;
+				while (obj->next != NULL)
+					obj = obj->next;
+			}
+		}
+
+		if (is_text (obj)) {
+			switch (HTML_OBJECT_TYPE (obj)) {
+			case HTML_TYPE_TEXT:
+			case HTML_TYPE_LINKTEXT:
+				offset = strlen (HTML_TEXT (obj)->text);
+				goto end;
+			case HTML_TYPE_TEXTMASTER:
+			case HTML_TYPE_LINKTEXTMASTER:
+				/* Do nothing: go to the previous element, as
+				   this is not a suitable place for the cursor.  */
+				break;
+			case HTML_TYPE_TEXTSLAVE:
+				offset = HTML_TEXT_SLAVE (obj)->posLen;
+				goto end;
+			default:
+				g_assert_not_reached ();
+			}
+		}
+	}
+
+ end:
+	if (obj != NULL)
+		cursor->object = obj;
+	cursor->offset = offset;
+
+	g_print ("%s (%p)\n", __FUNCTION__, cursor->object);
 }

@@ -43,7 +43,13 @@ html_engine_cursor_move (HTMLEngine *e,
 		for (i = 0; i < count; i++)
 			html_cursor_forward (e->cursor, e);
 		break;
+	case HTML_ENGINE_CURSOR_LEFT:
+		for (i = 0; i < count; i++)
+			html_cursor_backward (e->cursor, e);
+		break;
 	default:
 		g_warning ("Unsupported movement %d\n", (gint) movement);
 	}
+
+	html_engine_draw (e, 0, 0, e->width, e->height); /* FIXME tmp hack */
 }

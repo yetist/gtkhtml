@@ -144,6 +144,10 @@ key_press_event (GtkWidget *widget,
 		html_engine_cursor_move (engine, HTML_ENGINE_CURSOR_RIGHT, 1);
 		retval = TRUE;
 		break;
+	case GDK_Left:
+		html_engine_cursor_move (engine, HTML_ENGINE_CURSOR_LEFT, 1);
+		retval = TRUE;
+		break;
 	default:
 		retval = FALSE;
 	}
