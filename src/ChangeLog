@@ -1,3 +1,9 @@
+2004-05-19  Radek Doulik  <rodo@ximian.com>
+
+	* htmlselection.c (html_engine_is_selection_active): put back the
+	change Larry reverted and add test for editable so that it doesn't
+	break the non editable mode
+
 2004-05-18  Larry Ewing  <lewing@ximian.com>
 
 	* htmlselection.c (html_engine_is_selection_active): revert the
