@@ -47,6 +47,7 @@ static HTMLObjectClass *parent_class = NULL;
 
 static GList * get_glyphs (HTMLTextSlave *slave, HTMLPainter *painter);
 static GList * get_glyphs_part (HTMLTextSlave *slave, HTMLPainter *painter, guint offset, guint len);
+static void    clear_glyphs (HTMLTextSlave *slave);
 
 char *
 html_text_slave_get_text (HTMLTextSlave *slave)
@@ -537,6 +538,8 @@ static GList *
 get_glyphs (HTMLTextSlave *slave, HTMLPainter *painter)
 {
 	if (!slave->glyphs || (HTML_OBJECT (slave)->change & HTML_CHANGE_RECALC_PI)) {
+		clear_glyphs (slave);
+
 		HTML_OBJECT (slave)->change &= ~HTML_CHANGE_RECALC_PI;
 		slave->glyphs = get_glyphs_part (slave, painter, 0, slave->posLen);
 	}
@@ -790,14 +793,20 @@ check_point (HTMLObject *self,
 }
 
 static void
-destroy (HTMLObject *obj)
+clear_glyphs (HTMLTextSlave *slave)
 {
-	HTMLTextSlave *slave = HTML_TEXT_SLAVE (obj);
-
 	if (slave->glyphs) {
 		glyphs_destroy (slave->glyphs);
 		slave->glyphs = NULL;
 	}
+}
+
+static void
+destroy (HTMLObject *obj)
+{
+	HTMLTextSlave *slave = HTML_TEXT_SLAVE (obj);
+
+	clear_glyphs (slave);
 
 	HTML_OBJECT_CLASS (parent_class)->destroy (obj);
 }

@@ -1,3 +1,12 @@
+2004-06-15  Radek Doulik  <rodo@ximian.com>
+
+	* htmltextslave.c (clear_glyphs): new helper function
+	(destroy): call clear_glyphs
+	(get_glyphs): call clear_glyphs so that we don't leak glyphs when
+	recalculating
+
+	This leak fix is from Owen Taylor <owen@redhat.com>
+
 2004-06-08  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine-save.c (html_engine_save_buffer_peek_text_bytes):
