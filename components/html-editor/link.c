@@ -28,6 +28,7 @@
 #include "htmlcolor.h"
 #include "htmlcolorset.h"
 #include "htmlengine-edit.h"
+#include "htmlengine-edit-text.h"
 #include "htmlengine-edit-fontstyle.h"
 #include "htmlengine-edit-cut-and-paste.h"
 #include "htmlimage.h"
@@ -105,19 +106,9 @@ description_changed (GtkWidget *w, GtkHTMLEditLinkProperties *d)
 }
 
 static void
-test_clicked (GtkWidget *w, GtkHTMLEditLinkProperties *data)
-{
-	const char *url = gtk_entry_get_text (GTK_ENTRY (data->entry_url));
-
-	if (url)
-		gnome_url_show (url, NULL);
-}
-
-static void
 link_set_ui (GtkHTMLEditLinkProperties *d)
 {
 	HTMLEngine *e = d->cd->html->engine;
-	gchar *url, *link_text;
 
 	d->disable_change = TRUE;
 
@@ -183,7 +174,6 @@ test_url_clicked (GtkWidget *w, GtkHTMLEditLinkProperties *d)
 static GtkWidget *
 link_widget (GtkHTMLEditLinkProperties *d, gboolean insert)
 {
-	GtkHTMLControlData *cd = d->cd;
 	GtkWidget *link_page, *button;
 	GladeXML *xml;
 
@@ -263,104 +253,10 @@ link_properties (GtkHTMLControlData *cd, gpointer *set_data)
 {
 	GtkHTMLEditLinkProperties *data = g_new0 (GtkHTMLEditLinkProperties, 1);
 
-	g_return_val_if_fail (cd->html->engine->cursor->object, NULL);
-	g_return_val_if_fail (HTML_IS_LINK_TEXT (cd->html->engine->cursor->object), NULL);
-
 	*set_data = data;
 	data->cd = cd;
-	//data->text = HTML_TEXT (cd->html->engine->cursor->object);
-	//data->offset = cd->html->engine->cursor->offset;
 
 	return link_widget (data, FALSE);
-}
-
-gboolean
-link_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
-{
-	GtkHTMLEditLinkProperties *data = (GtkHTMLEditLinkProperties *) get_data;
-	HTMLEngine *e = data->cd->html->engine;
-
-	const gchar *url;
-	gchar *target;
-
-	/* if (data->url_changed) {
-		gchar *url_copy;
-		gint position;
-
-		position = e->cursor->position;
-
-		if (e->cursor->object != HTML_OBJECT (data->text))
-			if (!html_cursor_jump_to (e->cursor, e, HTML_OBJECT (data->text), data->offset)) {
-				GtkWidget *dialog;
-				printf ("d: %p\n", data->cd->properties_dialog);
-				dialog = gtk_message_dialog_new (GTK_WINDOW (data->cd->properties_dialog->dialog),
-								 GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_INFO, GTK_BUTTONS_OK,
-								 _("The editted link was removed from the document.\nCannot apply your changes."));
-				gtk_dialog_run (GTK_DIALOG (dialog));
-				gtk_widget_destroy (dialog);
-				html_cursor_jump_to_position (e->cursor, e, position);
-				return FALSE;
-			}
-
-		url  = gtk_entry_get_text (GTK_ENTRY (data->entry_url));
-
-		target = strchr (url, '#');
-
-		url_copy = target ? g_strndup (url, target - url) : g_strdup (url);
-		html_link_set_url_and_target (html_text_get_link_at_offset (data->text, data->offset), url_copy, target);
-		html_engine_update_insertion_url_and_target (e);
-		g_free (url_copy);
-		html_cursor_jump_to_position (e->cursor, e, position);
-		} */
-
-	return TRUE;
-}
-
-gboolean
-link_insert_cb (GtkHTMLControlData *cd, gpointer get_data)
-{
-	GtkHTMLEditLinkProperties *data = (GtkHTMLEditLinkProperties *) get_data;
-	HTMLEngine *e = cd->html->engine;
-	const gchar *url;
-	gchar *target;
-	const gchar *text;
-
-	/* url  = gtk_entry_get_text (GTK_ENTRY (data->entry_url));
-	text = gtk_entry_get_text (GTK_ENTRY (data->entry_text));
-	if (url && text && *url && *text) {
-		HTMLObject *new_text;
-		gchar *url_copy;
-
-		target = strchr (url, '#');
-
-		url_copy = target ? g_strndup (url, target - url) : g_strdup (url);
-		new_text = html_text_new (text, GTK_HTML_FONT_STYLE_DEFAULT,
-					  html_colorset_get_color (e->settings->color_set, HTMLLinkColor));
-		html_text_add_link (HTML_TEXT (new_text), e, url_copy, target, 0, HTML_TEXT (new_text)->text_len);
-
-		html_engine_paste_object (e, new_text, HTML_TEXT (new_text)->text_len);
-
-		g_free (url_copy);
-
-		return TRUE;
-	} else {
-		GtkWidget *toplevel;
-		GtkWidget *dialog;
-
-		toplevel = gtk_widget_get_toplevel (cd->properties_dialog->dialog);
-		if (!GTK_WIDGET_TOPLEVEL (toplevel))
-			toplevel = NULL;
-
-		dialog = gtk_message_dialog_new (GTK_WINDOW (toplevel),
-						 GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-						 GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
-						 _("Please fill 'Link text' and 'URL' entries"));
-
-		gtk_dialog_run (GTK_DIALOG (dialog));
-		gtk_widget_destroy (dialog);
-		} */
-
-	return FALSE;
 }
 
 void

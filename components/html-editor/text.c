@@ -193,5 +193,5 @@ text_close_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
 	GtkHTMLEditTextProperties *data = (GtkHTMLEditTextProperties *) get_data;
 
-	g_free (get_data);
+	g_free (data);
 }

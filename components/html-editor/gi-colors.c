@@ -26,6 +26,7 @@
  */
 
 #include <config.h>
+#include <gdk/gdkrgb.h>
 #include <gtk/gtkwidget.h>
 #include "gi-colors.h"
 

@@ -34,6 +34,8 @@
 
 #include "htmlengine.h"
 #include "htmlengine-edit-cut-and-paste.h"
+#include "htmlengine-edit-rule.h"
+#include "htmlengine-edit-table.h"
 #include "htmlimage.h"
 #include "htmlrule.h"
 #include "htmltable.h"
@@ -139,8 +141,6 @@ insert_rule_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cnam
 void
 insert_table (GtkHTMLControlData *cd)
 {
-	HTMLObject *table;
-
 	if (cd->properties_dialog)
 		gtk_html_edit_properties_dialog_close (cd->properties_dialog);
 

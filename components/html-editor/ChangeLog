@@ -1,5 +1,18 @@
 2004-06-04  Radek Doulik  <rodo@ximian.com>
 
+	* clean all unused variables and other compiler warnings
+
+	* gi-combo-box.c (gtk_combo_tearoff_bg_copy): replace deprecated
+	calls
+
+	* link.c (link_set_ui): removed unused variables
+	removed unused variables and old unused methods
+
+	* image.c (load_done): added return value
+	remove unused old methods
+
+	* cell.c (data_new): make sure we always return value
+
 	* utils.c (editor_hig_vbox): return value (pointed out by Miguel Ibarra)
 
 2004-05-31  Radek Doulik  <rodo@ximian.com>

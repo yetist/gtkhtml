@@ -84,9 +84,9 @@ data_new (GtkHTMLControlData *cd, HTMLTableCell *cell)
 	data->cd = cd;
 	data->scope = CELL_SCOPE_CELL;
 	data->cell = cell;
-	g_return_if_fail (data->cell);
+	g_return_val_if_fail (data->cell, NULL);
 	data->table = HTML_TABLE (HTML_OBJECT (data->cell)->parent);
-	g_return_if_fail (data->table && HTML_IS_TABLE (data->table));
+	g_return_val_if_fail (data->table && HTML_IS_TABLE (data->table), NULL);
 
 	return data;
 }

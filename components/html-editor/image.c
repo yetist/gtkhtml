@@ -84,36 +84,6 @@ typedef struct {
 	gchar *image;
 } ImageInsertTemplate;
 
-static ImageInsertTemplate image_templates [TEMPLATES] = {
-	{
-		N_("Plain"), 1,
-		TRUE, TRUE, TRUE, TRUE, HTML_VALIGN_TOP, 0, 0, 0, 0, FALSE, 0, FALSE,
-		N_("@link_begin@<img@alt@@width@@height@@align@ border=@border@@padh@@padv@@src@>@link_end@")
-	},
-	{
-		N_("Frame"), 1,
-		FALSE, TRUE, FALSE, TRUE, HTML_VALIGN_TOP, 1, 0, 0, 0, FALSE, 0, FALSE,
-		N_("<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" cellpadding=@border@>"
-		   "<tr><td>"
-		   "<table bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%\">"
-		   "<tr><td align=\"center\">"
-		   "<img @src@@alt@@width@@height@align=top border=0>"
-		   "</td></tr></table></td></tr></table></center>")
-	},
-	{
-		N_("Caption"), 1,
-		FALSE, TRUE, FALSE, TRUE, HTML_VALIGN_TOP, 1, 0, 0, 0, FALSE, 0, FALSE,
-		N_("<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" cellpadding=@border@>"
-		   "<tr><td>"
-		   "<table bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%\">"
-		   "<tr><td align=\"center\">"
-		   "<img @src@@alt@@width@@height@align=top border=0>"
-		   "</td></tr>"
-		   "<tr><td><b>[Place your comment here]</td></tr>"
-		   "</table></td></tr></table></center>")
-	},
-};
-
 static GtkHTMLEditImageProperties *
 data_new (GtkHTMLControlData *cd, HTMLImage *image)
 {
@@ -125,24 +95,6 @@ data_new (GtkHTMLControlData *cd, HTMLImage *image)
 	data->image          = image;
 
 	return data;
-}
-
-static gchar *
-substitute_string (gchar *str, const gchar *var_name, const gchar *value)
-{
-	gchar *substr;
-
-	substr = strstr (str, var_name);
-	if (substr) {
-		gchar *new_str;
-
-		*substr = 0;
-		new_str = g_strdup_printf ("%s%s%s", str, value, substr + strlen (var_name));
-		g_free (str);
-		str = new_str;
-	}
-
-	return str;
 }
 
 static gchar *
@@ -274,20 +226,6 @@ changed_padding (GtkWidget *check, GtkHTMLEditImageProperties *d)
 }
 
 static void
-fill_templates (GtkHTMLEditImageProperties *d)
-{
-	GtkWidget *menu;
-	gint i;
-
-	menu = gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_template));
-
-	for (i = 0; i < TEMPLATES; i ++)
-		gtk_menu_shell_append (GTK_MENU_SHELL (menu), gtk_menu_item_new_with_label (_(image_templates [i].name)));
-	gtk_menu_set_active (GTK_MENU (menu), 0);
-	gtk_container_remove (GTK_CONTAINER (menu), gtk_menu_get_active (GTK_MENU (menu)));
-}
-
-static void
 image_set_ui (GtkHTMLEditImageProperties *d)
 {
 	HTMLImage *image = d->image;
@@ -389,7 +327,7 @@ set_size_all (HTMLObject *o, HTMLEngine *e, GtkHTMLEditImageProperties *d)
 /* FIXME
    we need image_loaded signal in gtkhtml so that we can update width/height values in the UI when new image is loaded
 */
-static
+static gboolean
 load_done (GtkHTML *html, GtkHTMLEditImageProperties *d)
 {
 	printf ("load done\n");

@@ -431,7 +431,7 @@ editor_set_format (GtkHTMLControlData *cd, gboolean format_html)
 		
 }
 
-static enum {
+typedef enum {
 	PROP_EDIT_HTML,
 	PROP_HTML_TITLE,
 	PROP_INLINE_SPELLING,
@@ -442,7 +442,7 @@ static enum {
 static void
 editor_get_prop (BonoboPropertyBag *bag,
 		 BonoboArg         *arg,
-		 guint              arg_id,
+		 EditorControlProps arg_id,
 		 CORBA_Environment *ev,
 		 gpointer           user_data)
 {

@@ -244,7 +244,6 @@ selection_changed (GtkTreeSelection *selection, GtkHTMLEditTemplateProperties *d
 		else {
 			FILL;
 		}
-		CHANGE;
 	}
 }
 
@@ -310,7 +309,6 @@ template_insert (GtkHTMLControlData *cd, gpointer *set_data)
 	*set_data = data;
 	rv = template_widget (data, TRUE);
 	set_ui (data);
-	gtk_html_edit_properties_dialog_change (data->cd->properties_dialog);
 
 	return rv;
 }

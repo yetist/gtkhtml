@@ -72,7 +72,6 @@ switch_page (GtkWidget *w, GtkNotebookPage *page, gint num, GtkHTMLEditPropertie
 static void
 destroy_dialog (GtkWidget *w, gpointer data)
 {
-	printf ("destroy\n");
 	((GtkHTMLEditPropertiesDialog *) data)->dialog = NULL;
 }
 

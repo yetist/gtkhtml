@@ -224,7 +224,7 @@ GtkWidget *
 body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 {
 	GtkHTMLEditBodyProperties *data = g_new0 (GtkHTMLEditBodyProperties, 1);
-	GtkWidget *main_vbox, *hbox, *vbox, *combo, *table, *label, *t1;
+	GtkWidget *main_vbox, *hbox, *combo, *label, *t1;
 	GSList *group;
 	HTMLColor *color;
 	gint i;

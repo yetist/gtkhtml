@@ -273,16 +273,6 @@ link_prop_dialog (GtkWidget *mi, GtkHTMLControlData *cd)
 }
 
 static void
-spell_suggest (GtkWidget *mi, GtkHTMLControlData *cd)
-{
-	/* HTMLEngine *e = cd->html->engine;
-
-	   gtk_signal_emit_by_name (GTK_OBJECT (cd->html), "spell_suggestion_request",
-	   e->spell_checker, html_engine_get_word (e)); */
-	spell_suggestion_request (cd->html, cd);
-}
-
-static void
 spell_check_cb (GtkWidget *mi, GtkHTMLControlData *cd)
 {
 	spell_check_dialog (cd, FALSE);
@@ -530,8 +520,6 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items, guint *props)
 
 	if (!active && obj && html_object_is_text (obj)
 	    && !html_engine_spell_word_is_valid (e)) {
-		gchar *spell, *word, *ignore, *add;
-
 		ADD_SEP;
 		ADD_ITEM (_("Check Word Spelling..."), spell_check_cb, NONE);
 		if (get_n_languages (cd) > 1) {

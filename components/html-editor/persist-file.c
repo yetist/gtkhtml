@@ -28,8 +28,11 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
+
 #include "gtkhtml.h"
 #include "htmlengine.h"
+#include "htmlundo.h"
+
 #include "persist-file.h"
 #include "editor-control-factory.h"
 

@@ -105,7 +105,7 @@ url_requested (GtkHTML *html, const gchar *url, GtkHTMLStream *handle)
 GtkWidget *
 sample_frame (GtkHTML **html)
 {
-	GtkWidget *frame, *scroll_frame, *vbox;
+	GtkWidget *scroll_frame, *vbox;
 
 	*html = GTK_HTML (gtk_html_new ());
 	scroll_frame = gtk_scrolled_window_new (NULL, NULL);

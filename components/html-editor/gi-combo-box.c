@@ -25,6 +25,8 @@
  */
 
 #include <config.h>
+#include <gdk/gdkwindow.h>
+#include <gdk/gdkdrawable.h>
 #include <gtk/gtkhbox.h>
 #include <gtk/gtktogglebutton.h>
 #include <gtk/gtkarrow.h>
@@ -614,10 +616,10 @@ gtk_combo_tearoff_bg_copy (GalComboBox *combo)
 					 widget->allocation.height,
 					 -1);
 
-		gdk_draw_pixmap (pixmap, gc,
-				 widget->window,
-				 0, 0, 0, 0, -1, -1);
-		gdk_gc_unref (gc);
+		gdk_draw_drawable (pixmap, gc,
+				   widget->window,
+				   0, 0, 0, 0, -1, -1);
+		g_object_unref (gc);
       
 		gtk_widget_set_usize (combo->priv->tearoff_window,
 				      widget->allocation.width,
@@ -625,7 +627,7 @@ gtk_combo_tearoff_bg_copy (GalComboBox *combo)
       
 		gdk_window_set_back_pixmap
 			(combo->priv->tearoff_window->window, pixmap, FALSE);
-		gdk_pixmap_unref (pixmap);
+		g_object_unref (pixmap);
 	}
 }
 

@@ -52,5 +52,6 @@ void       editor_hig_attach_row  (GtkWidget *table,
 				   int        row);
 gboolean   editor_has_html_object (GtkHTMLControlData *cd,
 				   HTMLObject *o);
+void       editor_check_stock     (void);
 
 #endif
