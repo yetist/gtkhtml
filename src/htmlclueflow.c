@@ -1113,6 +1113,8 @@ draw_item (HTMLObject *self, HTMLPainter *painter, gint x, gint y, gint width, g
 	gint indent;
 
 	first = HTML_CLUE (self)->head;
+	if (html_object_is_text (first) && first->next)
+		first = first->next;
 
 	flow = HTML_CLUEFLOW (self);
 	html_painter_set_pen (painter, &html_colorset_get_color_allocated (painter, HTMLTextColor)->color);

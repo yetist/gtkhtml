@@ -1,3 +1,9 @@
+2002-07-08  Radek Doulik  <rodo@ximian.com>
+
+	* htmlclueflow.c (draw_item): use first slave for postion
+	calculation instead of text object, this fixes item drawing with
+	new layouting
+
 2002-07-05  Radek Doulik  <rodo@ximian.com>
 
 	* htmlselect.c (html_select_set_text): use e_utf8_to_gtk_string
