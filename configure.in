@@ -284,8 +284,8 @@ fi
 
 dnl Setup extra GNOME library flags.
 
-EXTRA_GNOME_LIBS=`gnome-config --libs gnomeui gdk_pixbuf print unicode gal $bonobo`
-EXTRA_GNOME_CFLAGS=`gnome-config --cflags gnomeui gdk_pixbuf print unicode gal $bonobo`
+EXTRA_GNOME_LIBS=`gnome-config --libs gnomeui gdk_pixbuf print unicode gal $bonobo glade`
+EXTRA_GNOME_CFLAGS=`gnome-config --cflags gnomeui gdk_pixbuf print unicode gal $bonobo glade`
 
 AC_SUBST(EXTRA_GNOME_LIBS)
 AC_SUBST(EXTRA_GNOME_CFLAGS)

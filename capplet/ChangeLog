@@ -1,3 +1,9 @@
+2000-12-11  Jacob "Ulysses" Berkman  <jacob@helixcode.com>
+
+	* main.c: merge with viewer.c, and gladify
+
+	* Makefile.am: only build one capplet
+
 2000-11-28  Radek Doulik  <rodo@helixcode.com>
 
 	* viewer.c (main): updated for latest gconf

@@ -1,19 +1,18 @@
+gladedir = $(datadir)/gtkhtml
+glade_DATA = gtkhtml-capplet.glade
+
 INCLUDES =					\
 	-I$(top_srcdir)/src			\
 	-I$(includedir)				\
 	$(GNOME_INCLUDEDIR)			\
 	$(EXTRA_GNOME_CFLAGS)			\
-	-DGNOMELOCALEDIR=\"$(datadir)/locale\"
+	-DGNOMELOCALEDIR=\"$(datadir)/locale\"	\
+	-DGLADE_DATADIR=\"$(gladedir)\"
 
 CFLAGS +=  $(GCONF_CFLAGS)
 
-bin_PROGRAMS = gtkhtml-properties-capplet gtkhtml-editor-properties-capplet
+bin_PROGRAMS = gtkhtml-properties-capplet
 gtkhtml_properties_capplet_SOURCES = 		\
-	gnome-bindings-prop.h 			\
-	gnome-bindings-prop.c			\
-	viewer.c
-
-gtkhtml_editor_properties_capplet_SOURCES = 		\
 	gnome-bindings-prop.h 			\
 	gnome-bindings-prop.c			\
 	main.c
@@ -26,11 +25,10 @@ LDADD = \
 	$(top_builddir)/src/libgtkhtml.la
 
 EXTRA_DIST = \
-	gtkhtml-properties.desktop		\
-	gtkhtml-editor-properties.desktop
+	gtkhtml-properties.desktop
 
 sysdir = $(datadir)/control-center/Documents/
-sys_DATA = gtkhtml-properties.desktop gtkhtml-editor-properties.desktop
+sys_DATA = gtkhtml-properties.desktop
 
 deskdir = $(datadir)/gnome/apps/Settings/Documents/
-desk_DATA = gtkhtml-properties.desktop gtkhtml-editor-properties.desktop
+desk_DATA = gtkhtml-properties.desktop

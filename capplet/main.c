@@ -24,6 +24,7 @@
 #include <gnome.h>
 #include <capplet-widget.h>
 #include <gtkhtml-properties.h>
+#include <glade/glade.h>
 #include "gnome-bindings-prop.h"
 #include "../src/gtkhtml.h"
 
@@ -31,7 +32,9 @@
 #define EMACS_KEYMAP_NAME "Emacs like"
 #define MS_KEYMAP_NAME "MS like"
 
-static GtkWidget *capplet, *check, *bi, *live_spell_check, *language, *live_spell_color;
+static GtkWidget *capplet, *variable, *variable_print, *fixed, *fixed_print, *anim_check;
+static GtkWidget *bi, *live_spell_check, *language, *live_spell_color, *live_spell_frame, *magic_check;
+
 static gboolean active = FALSE;
 #ifdef GTKHTML_HAVE_GCONF
 static GError      *error  = NULL;
@@ -49,12 +52,25 @@ static gchar *home_rcfile;
 static void
 set_ui ()
 {
-	gchar *keymap_name;
+	gchar *font_name, *keymap_name;
 
 	active = FALSE;
 
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (anim_check), actual_prop->animations);
+
+#define SET_FONT(f,s,w) \
+	font_name = g_strdup_printf ("-*-%s-*-*-normal-*-%d-*-*-*-*-*-*-*", \
+						 actual_prop-> ## f, actual_prop-> ## s); \
+	gnome_font_picker_set_font_name (GNOME_FONT_PICKER (w), font_name); \
+	g_free (font_name)
+
+	SET_FONT (font_var_family,       font_var_size,       variable);
+	SET_FONT (font_fix_family,       font_fix_size,       fixed);
+	SET_FONT (font_var_family_print, font_var_size_print, variable_print);
+	SET_FONT (font_fix_family_print, font_fix_size_print, fixed_print);
+
 	/* set to current state */
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), actual_prop->magic_links);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (magic_check), actual_prop->magic_links);
 
 	if (!strcmp (actual_prop->keybindings_theme, "emacs")) {
 		keymap_name = EMACS_KEYMAP_NAME;
@@ -69,13 +85,52 @@ set_ui ()
 							actual_prop->spell_error_color.red,
 							actual_prop->spell_error_color.green,
 							actual_prop->spell_error_color.blue, 0);
-	gtk_entry_set_text (GTK_ENTRY (language), actual_prop->language);
+	gtk_entry_set_text (GTK_ENTRY (language), actual_prop->language);	
 
 	active = TRUE;
 }
 
+static gchar *
+get_attr (gchar *font_name, gint n)
+{
+    gchar *s, *end;
+
+    /* Search paramether */
+    for (s=font_name; n; n--,s++)
+	    s = strchr (s,'-');
+
+    if (s && *s != 0) {
+	    end = strchr (s, '-');
+	    if (end)
+		    return g_strndup (s, end - s);
+	    else
+		    return g_strdup (s);
+    } else
+	    return g_strdup ("Unknown");
+}
+
 static void
-apply (void)
+apply_fonts ()
+{
+	gchar *size_str;
+
+	actual_prop->animations = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (anim_check));
+
+#define APPLY(f,s,w) \
+	g_free (actual_prop-> ## f); \
+	actual_prop-> ## f = get_attr (gnome_font_picker_get_font_name (GNOME_FONT_PICKER (w)), 2); \
+	size_str = get_attr (gnome_font_picker_get_font_name (GNOME_FONT_PICKER (w)), 7); \
+	actual_prop-> ## s = atoi (size_str); \
+	g_free (size_str)
+
+	APPLY (font_var_family,       font_var_size,       variable);
+	APPLY (font_fix_family,       font_fix_size,       fixed);
+	APPLY (font_var_family_print, font_var_size_print, variable_print);
+	APPLY (font_fix_family_print, font_fix_size_print, fixed_print);
+}
+
+static void
+apply_editable (void)
 {
 	gchar *keymap_id, *keymap_name;
 
@@ -86,7 +141,7 @@ apply (void)
 											      CUSTOM_KEYMAP_NAME));
 
 	/* properties */
-	actual_prop->magic_links = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check));
+	actual_prop->magic_links = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (magic_check));
 	keymap_name = gnome_bindings_properties_get_keymap_name (GNOME_BINDINGS_PROPERTIES (bi));
 	if (!strcmp (keymap_name, EMACS_KEYMAP_NAME)) {
 		keymap_id = "emacs";
@@ -105,7 +160,13 @@ apply (void)
 				    &actual_prop->spell_error_color.blue, NULL);
 	g_free (actual_prop->language);
 	actual_prop->language = g_strdup (gtk_entry_get_text (GTK_ENTRY (language)));
+}
 
+static void
+apply (void)
+{
+	apply_fonts ();
+	apply_editable ();
 #ifdef GTKHTML_HAVE_GCONF
 	gtk_html_class_properties_update (actual_prop, client, saved_prop);
 #else
@@ -135,39 +196,50 @@ revert (void)
 }
 
 static void
-changed (GtkWidget *widget)
+changed (GtkWidget *widget, gpointer null)
 {
 	if (active)
 		capplet_widget_state_changed (CAPPLET_WIDGET (capplet), TRUE);
 }
 
-static GtkWidget *
-setup_bindings (void)
+static void
+live_changed (GtkWidget *widget, gpointer null)
 {
-	GtkWidget *vbox;
-	guchar *base, *rcfile;
+	gtk_widget_set_sensitive (live_spell_frame,
+				  GTK_TOGGLE_BUTTON (live_spell_check)->active);
 
-	vbox  = gtk_vbox_new (FALSE, 3);
-	gtk_container_set_border_width (GTK_CONTAINER (vbox), 3);
+	changed (widget, null);
+}
+static void
+setup (void)
+{
+	GtkWidget *vbox, *ebox;
+	GladeXML *xml;
+	char *base, *rcfile;
 
-	/* hbox  = gtk_hbox_new (FALSE, 3);
-	option = gtk_option_menu_new ();
-	menu   = gtk_menu_new ();
+	glade_gnome_init ();
+	xml = glade_xml_new (GLADE_DATADIR "/gtkhtml-capplet.glade", "prefs_widget");
 
-#define ADD(l,v) \
-	mi = gtk_menu_item_new_with_label (_(l)); \
-	gtk_menu_append (GTK_MENU (menu), mi); \
-        gtk_signal_connect (GTK_OBJECT (mi), "activate", changed, NULL); \
-        gtk_object_set_data (GTK_OBJECT (mi), "theme", v);
+	if (!xml)
+		g_error (_("Could not load glade file."));
 
-	gtk_option_menu_set_menu (GTK_OPTION_MENU (option), menu);
-	gtk_option_menu_update_contents
-	ADD ("Emacs like", "emacs");
-	ADD ("MS like", "ms");
-	ADD (CUSTOM_KEYMAP_NAME, "custom");
+	glade_xml_signal_connect (xml, "changed", GTK_SIGNAL_FUNC (changed));
+	glade_xml_signal_connect (xml, "live_changed", GTK_SIGNAL_FUNC (live_changed));
 
-	gtk_box_pack_start (GTK_BOX (hbox), option, FALSE, FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0); */
+        capplet = capplet_widget_new();
+	vbox    = glade_xml_get_widget (xml, "prefs_widget");
+
+	variable         = glade_xml_get_widget (xml, "screen_variable");
+	variable_print   = glade_xml_get_widget (xml, "print_variable");
+	fixed            = glade_xml_get_widget (xml, "screen_fixed");
+	fixed_print      = glade_xml_get_widget (xml, "print_fixed");
+
+	anim_check       = glade_xml_get_widget (xml, "anim_check");
+	magic_check      = glade_xml_get_widget (xml, "magic_check");
+	live_spell_check = glade_xml_get_widget (xml, "live_spell_check");
+	live_spell_color = glade_xml_get_widget (xml, "live_spell_color");
+	language         = glade_xml_get_widget (xml, "live_spell_entry");
+	live_spell_frame = glade_xml_get_widget (xml, "live_spell_frame");
 
 #define LOAD(x) \
 	base = g_strconcat ("gtkhtml/keybindingsrc.", x, NULL); \
@@ -175,7 +247,7 @@ setup_bindings (void)
         gtk_rc_parse (rcfile); \
         g_free (base); \
 	g_free (rcfile)
-
+	
 	home_rcfile = g_strconcat (gnome_util_user_home (), "/.gnome/gtkhtml-bindings-custom", NULL);
 	gtk_rc_parse (home_rcfile);
 	LOAD ("emacs");
@@ -197,75 +269,11 @@ setup_bindings (void)
 	saved_bindings = gnome_binding_entry_list_copy (gnome_bindings_properties_get_keymap
 							(GNOME_BINDINGS_PROPERTIES (bi), CUSTOM_KEYMAP_NAME));
 	gtk_signal_connect (GTK_OBJECT (bi), "changed", changed, NULL);
-	gtk_box_pack_start_defaults (GTK_BOX (vbox), bi);
 
-	return vbox;
-}
+	ebox = glade_xml_get_widget (xml, "bindings_ebox");
+	gtk_container_add (GTK_CONTAINER (ebox), bi);
 
-static void
-live_changed (GtkWidget *w)
-{
-	gtk_widget_set_sensitive (live_spell_color, gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (live_spell_check)));
-	changed (w);
-}
-
-static GtkWidget *
-setup_behaviour (void)
-{
-	GtkWidget *frame, *vbox, *hbox, *vb1;
-
-	vbox  = gtk_vbox_new (FALSE, 2);
-	gtk_container_set_border_width (GTK_CONTAINER (vbox), 3);
-
-	frame = gtk_frame_new (_("Spell checking"));
-	hbox  = gtk_hbox_new (FALSE, 0);
-	vb1   = gtk_vbox_new (FALSE, 2);
-	live_spell_check = gtk_check_button_new_with_label (_("live spell checking"));
-	gtk_signal_connect (GTK_OBJECT (live_spell_check), "toggled", live_changed, NULL);
-	gtk_container_set_border_width (GTK_CONTAINER (vb1), 3);
-	gtk_box_pack_start (GTK_BOX (hbox), live_spell_check, FALSE, FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (vb1), hbox, FALSE, FALSE, 0);
-
-	live_spell_color = gnome_color_picker_new ();
-	hbox  = gtk_hbox_new (FALSE, 5);
-	gtk_signal_connect (GTK_OBJECT (live_spell_color), "color_set", changed, NULL);
-	gtk_box_pack_start (GTK_BOX (hbox), gtk_label_new (_("spell checking color")), FALSE, FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (hbox), live_spell_color, FALSE, FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (vb1), hbox, FALSE, FALSE, 0);
-
-	language = gtk_entry_new ();
-	hbox  = gtk_hbox_new (FALSE, 5);
-	gtk_signal_connect (GTK_OBJECT (language), "changed", changed, NULL);
-	gtk_box_pack_start (GTK_BOX (hbox), gtk_label_new (_("language")), FALSE, FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (hbox), language, FALSE, FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (vb1), hbox, FALSE, FALSE, 0);
-	gtk_container_add (GTK_CONTAINER (frame), vb1);
-	gtk_box_pack_start (GTK_BOX (vbox), frame, FALSE, FALSE, 0);
-
-	frame = gtk_frame_new (_("Miscellaneous"));
-	hbox  = gtk_hbox_new (FALSE, 0);
-	check = gtk_check_button_new_with_label (_("magic links"));
-	gtk_container_set_border_width (GTK_CONTAINER (hbox), 3);
-	gtk_signal_connect (GTK_OBJECT (check), "toggled", changed, NULL);
-	gtk_box_pack_start (GTK_BOX (hbox), check, FALSE, FALSE, 0);
-	gtk_container_add (GTK_CONTAINER (frame), hbox);
-
-	gtk_box_pack_start (GTK_BOX (vbox), frame, FALSE, FALSE, 0);
-
-	return vbox;
-}
-
-static void
-setup(void)
-{
-	GtkWidget *notebook;
-
-        capplet  = capplet_widget_new ();
-	notebook = gtk_notebook_new ();
-
-	gtk_notebook_append_page (GTK_NOTEBOOK (notebook), setup_bindings (), gtk_label_new (_("Bindings")));
-	gtk_notebook_append_page (GTK_NOTEBOOK (notebook), setup_behaviour (), gtk_label_new (_("Behaviour")));
-        gtk_container_add (GTK_CONTAINER (capplet), notebook);
+        gtk_container_add (GTK_CONTAINER (capplet), vbox);
         gtk_widget_show_all (capplet);
 
 	set_ui ();
@@ -277,13 +285,13 @@ main (int argc, char **argv)
         bindtextdomain (PACKAGE, GNOMELOCALEDIR);
         textdomain (PACKAGE);
 
-        if (gnome_capplet_init ("gtkhtml-editor-properties", VERSION, argc, argv, NULL, 0, NULL) < 0)
+        if (gnome_capplet_init ("gtkhtml-properties", VERSION, argc, argv, NULL, 0, NULL) < 0)
 		return 1;
 
 #ifdef GTKHTML_HAVE_GCONF
 	if (!gconf_init(argc, argv, &error)) {
-		g_assert (error != NULL);
-		g_warning ("GConf init failed:\n  %s", error->message);
+		g_assert(error != NULL);
+		g_warning("GConf init failed:\n  %s", error->message);
 		return 1;
 	}
 
