@@ -340,9 +340,10 @@ netin_stream_put_string (HTStream * me, const char * s)
   return netin_stream_write(me, s, strlen(s));
 }
 
-static gboolean
+static gint
 do_request_delete(HTRequest *req)
 {
+  g_print("do_request_delete(%p)\n", req);
   HTRequest_delete(req);
 
   return FALSE;
@@ -351,15 +352,18 @@ do_request_delete(HTRequest *req)
 static int
 netin_stream_write (HTStream * me, const char * s, int l)
 {
+  int reqlen;
+  g_print("netin_stream_write(%p, %d bytes) for %p\n", me->handle, l, me->request);
+
   if(!me->response)
     me->response = netin_request_response(me->request);
 
   me->read_len += l;
 
-  g_print("netin_stream_write(%p, %d bytes)\n", me->handle, l);
   gtk_html_write(html, me->handle, s, l);
 
-  if(me->read_len >= HTResponse_length(me->response))
+  reqlen = HTResponse_length(me->response);
+  if((reqlen > 0) && (me->read_len >= reqlen))
     gtk_idle_add(do_request_delete, me->request);
 
   return HT_OK;
@@ -406,6 +410,8 @@ static HTResponse *
 netin_request_response(HTRequest *request)
 {
   HTResponse *retval;
+
+  g_print("netin_request_response(%p)\n", request);
   while(!(retval = HTRequest_response(request)))
     g_main_iteration(TRUE);
 
@@ -437,15 +443,33 @@ url_requested (GtkHTML *html, const char *url, GtkHTMLStreamHandle handle, gpoin
 	HTRequest *newreq;
 	BOOL status;
 
+	if(!strstr(url, "://")) {
+	  if(g_file_exists(url))
+	    {
+	      char *cwd;
+
+	      cwd = g_get_current_dir();
+	      g_snprintf(buffer, sizeof(buffer), "file://localhost/%s%s%s",
+			 (*url != '/')?cwd:"",
+			 (*url != '/')?"/":"",
+			 url);
+	      g_free(cwd);
+	    }
+	  else
+	    g_snprintf(buffer, sizeof(buffer), "http://%s", url);
+
+	  url = buffer;
+
+	  g_message("Actual URL is %s", url);
+	}
+
 	newreq = HTRequest_new();
 	g_assert(newreq);
 
 	HTRequest_setOutputFormat(newreq, WWW_SOURCE);
 	status = HTLoadToStream(url, netin_stream_new(handle, newreq), newreq);
-	g_assert(status);
 
-	if(newreq)
-	  return;
+	return;
 #endif
 
 	fil = fopen (url, "r");

@@ -131,7 +131,7 @@ html_image_end_pixbuf(GtkHTMLStreamHandle handle, GtkHTMLStreamStatus status, gp
   g_print("end_pixbuf\n");
 
   if(!i->pixmap)
-      html_image_area_prepared(i->loader, i);
+    html_image_area_prepared(i->loader, i);
   else
     html_engine_schedule_update(i->engine);
 
@@ -165,7 +165,9 @@ html_image_area_prepared(GdkPixbufLoader *loader, HTMLImage *i)
     html_image_init (i);
 
   g_print("area_prepared - our size is now (%d, %d)\n", HTML_OBJECT(i)->width, HTML_OBJECT(i)->ascent);
-  html_engine_schedule_update(i->engine);
+
+  if(!i->predefinedWidth && !i->predefinedHeight && !HTML_OBJECT(i)->percent)
+    html_engine_schedule_update(i->engine);
 }
 
 static void
