@@ -49,7 +49,7 @@
 
 static GtkLayoutClass *parent_class = NULL;
 
-#ifdef HAVE_GCONF
+#ifdef GTKHTML_HAVE_GCONF
 GConfClient *gconf_client = NULL;
 GConfError  *gconf_error  = NULL;
 #endif
@@ -1079,7 +1079,7 @@ set_adjustments (GtkLayout     *layout,
 
 /* Initialization.  */
 
-#ifdef HAVE_GCONF
+#ifdef GTKHTML_HAVE_GCONF
 
 static void
 client_notify (GConfClient* client,
@@ -1117,11 +1117,11 @@ static void
 init_properties (GtkHTMLClass *klass)
 {
 	klass->properties = gtk_html_class_properties_new ();
-#ifdef HAVE_GCONF
+#ifdef GTKHTML_HAVE_GCONF
 	gtk_html_class_properties_load (klass->properties, gconf_client);
 #endif
 	load_keybindings (klass);
-#ifdef HAVE_GCONF
+#ifdef GTKHTML_HAVE_GCONF
 	gconf_client_notify_add (gconf_client, GTK_HTML_GCONF_DIR, client_notify, klass, NULL, NULL);
 #endif
 }
@@ -1994,7 +1994,7 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 	if (!html_engine_get_editable (html->engine))
 		return;
 
-	printf ("command %d\n", com_type);
+	/* printf ("command %d\n", com_type); */
 
 	switch (com_type) {
 	case GTK_HTML_COMMAND_UNDO:
@@ -2312,7 +2312,7 @@ load_keybindings (GtkHTMLClass *klass)
 gboolean
 gtkhtmllib_init (gint argc, gchar **argv)
 {
-#ifdef HAVE_GCONF
+#ifdef GTKHTML_HAVE_GCONF
 	if (!gconf_init (argc, argv, &gconf_error)) {
 		g_assert (gconf_error != NULL);
 		g_warning ("GConf init failed:\n  %s", gconf_error->str);

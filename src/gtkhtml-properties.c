@@ -50,7 +50,7 @@ gtk_html_class_properties_destroy (GtkHTMLClassProperties *p)
         gconf_value_destroy (val); } \
         g_free (key);
 
-#ifdef HAVE_GCONF
+#ifdef GTKHTML_HAVE_GCONF
 
 void
 gtk_html_class_properties_load (GtkHTMLClassProperties *p, GConfClient *client)
@@ -82,7 +82,7 @@ gtk_html_class_properties_copy (GtkHTMLClassProperties *p1,
         gconf_client_set_ ## t (client, key, p-> ## prop, NULL); \
         g_free (key);
 
-#ifdef HAVE_GCONF
+#ifdef GTKHTML_HAVE_GCONF
 
 void
 gtk_html_class_properties_update (GtkHTMLClassProperties *p, GConfClient *client, GtkHTMLClassProperties *old)

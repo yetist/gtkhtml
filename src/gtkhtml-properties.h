@@ -28,9 +28,8 @@
 typedef enum _GtkHTMLClassPropertiesItem GtkHTMLClassPropertiesItem;
 typedef struct _GtkHTMLClassProperties GtkHTMLClassProperties;
 
-#include <config.h>
 #include <glib.h>
-#ifdef HAVE_GCONF
+#ifdef GTKHTML_HAVE_GCONF
 #include <gconf/gconf-client.h>
 #endif
 
@@ -49,7 +48,7 @@ GtkHTMLClassProperties * gtk_html_class_properties_new       (void);
 void                     gtk_html_class_properties_destroy   (GtkHTMLClassProperties *p);
 void                     gtk_html_class_properties_copy      (GtkHTMLClassProperties *p1,
 							      GtkHTMLClassProperties *p2);
-#ifdef HAVE_GCONF
+#ifdef GTKHTML_HAVE_GCONF
 void                     gtk_html_class_properties_load      (GtkHTMLClassProperties *p,
 							      GConfClient *client);
 void                     gtk_html_class_properties_update    (GtkHTMLClassProperties *p,

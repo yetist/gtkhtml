@@ -26,14 +26,9 @@
 typedef struct _GtkHTML	GtkHTML;
 typedef struct _GtkHTMLClass	GtkHTMLClass;
 
-#include <config.h>
 #include <sys/types.h>
 #include <gtk/gtk.h>
 #include <libgnomeprint/gnome-print.h>
-
-#ifdef HAVE_GCONF
-#include <gconf/gconf-client.h>
-#endif
 
 
 #define GTK_TYPE_HTML                  (gtk_html_get_type ())

@@ -1,3 +1,7 @@
+2000-06-29  Radek Doulik  <rodo@helixcode.com>
+
+	* configure.in: add -DGTKHTML_HAVE_GCONF to cflags when gconf used
+
 2000-06-28  Radek Doulik  <rodo@helixcode.com>
 
 	* configure.in: gconf testing independent of gconf.m4
