@@ -111,16 +111,12 @@ gnome_gtkhtml_editor_SOURCES =			\
 #	table.c					\
 #	table.h					\
 
-OAF_INFO = GNOME_GtkHTML_Editor.oafinfo
-GNORBA_INFO = html-editor-control.gnorba
+oaf_in_files = GNOME_GtkHTML_Editor.oaf.in
+oaf_DATA = $(oaf_in_files:.oaf.in=.oaf)
 
-if USING_OAF
 oafdir = $(datadir)/oaf
-oaf_DATA = $(OAF_INFO)
-else
-gnorbadir = $(sysconfdir)/CORBA/servers
-gnorba_DATA = $(GNORBA_INFO)
-endif
+
+@XML_I18N_MERGE_OAF_RULE@
 
 uidir = $(datadir)/gnome/ui
 ui_DATA = GNOME_GtkHTML_Editor.xml
@@ -141,8 +137,8 @@ test_editor_SOURCES =				\
 EXTRA_DIST =					\
 	$(IDLS)					\
 	$(SPELL_IDLS)				\
-	$(GNORBA_INFO)				\
-	$(OAF_INFO)				\
+	$(oaf_in_files)				\
+	$(oaf_DATA)				\
 	ChangeLog				\
 	tt.xpm					\
 	$(ui_DATA)

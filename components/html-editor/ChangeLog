@@ -1,3 +1,8 @@
+2001-03-16  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* Makefile.am: Hook up the .oaf.in build stuff and remove
+	gnorba stuff since that is obsolete.
+	
 2001-03-14  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* popup.c: Added #include <config.h>.
