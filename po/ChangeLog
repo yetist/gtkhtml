@@ -1,3 +1,7 @@
+2004-12-29  Mengjie Yu  <meng-jie.yu@sun.com>
+
+	* POTFILES.in: add a11y/image.c
+
 2004-12-29  Christian Rose  <menthos@menthos.com>
 
 	* sv.po: Updated Swedish translation.

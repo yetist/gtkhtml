@@ -1,6 +1,7 @@
 # List of source files containing translatable strings.
 # Please keep this file sorted alphabetically.
 a11y/object.c
+a11y/image.c
 capplet/gnome-bindings-prop.c
 capplet/gtkhtml-capplet.glade
 capplet/gtkhtml-properties.desktop.in
