@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Gtkhtml\n"
-"POT-Creation-Date: 2000-07-13 18:59+0000\n"
-"PO-Revision-Date: 2000-07-13 19:22+00:00\n"
+"POT-Creation-Date: 2000-07-20 17:01+0000\n"
+"PO-Revision-Date: 2000-07-20 17:02+00:00\n"
 "Last-Translator: Valek Filippov <frob@df.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -24,27 +24,27 @@ msgstr "Изображение фона"
 msgid "Colors"
 msgstr "Цвета"
 
-#: components/html-editor/editor-control-factory.c:122
+#: components/html-editor/editor-control-factory.c:129
 #: components/html-editor/popup.c:86
 msgid "Image"
 msgstr "Изображение"
 
-#: components/html-editor/editor-control-factory.c:131
+#: components/html-editor/editor-control-factory.c:138
 #: components/html-editor/popup.c:79
 msgid "Text"
 msgstr "Текст"
 
-#: components/html-editor/editor-control-factory.c:143
+#: components/html-editor/editor-control-factory.c:150
 #: components/html-editor/popup.c:93
 msgid "Paragraph"
 msgstr "Абзац"
 
-#: components/html-editor/editor-control-factory.c:148
+#: components/html-editor/editor-control-factory.c:155
 #: components/html-editor/menubar.c:157 components/html-editor/popup.c:100
 msgid "Link"
 msgstr "Ссылка"
 
-#: components/html-editor/editor-control-factory.c:153
+#: components/html-editor/editor-control-factory.c:160
 #: components/html-editor/popup.c:107
 msgid "Page"
 msgstr "Страница"
@@ -445,19 +445,19 @@ msgstr "Сделать шрифт в выделении зачеркнутым"
 
 #: components/html-editor/toolbar.c:526
 msgid "Unindent"
-msgstr ""
+msgstr "Убрать отступ"
 
 #: components/html-editor/toolbar.c:526
 msgid "Indent paragraphs less"
-msgstr ""
+msgstr "Уменьшить отступ абзацев"
 
 #: components/html-editor/toolbar.c:528
 msgid "Indent"
-msgstr ""
+msgstr "Отступ"
 
 #: components/html-editor/toolbar.c:528
 msgid "Indent paragraphs more"
-msgstr ""
+msgstr "Увеличить отступ абзацев"
 
 #: glibwww/gnome-dialogs.c:85
 msgid "Transfer Progress"
@@ -535,7 +535,7 @@ msgstr "Ввод текста"
 msgid "Enter Password"
 msgstr "Ввод пароля"
 
-#: src/gtkhtml.c:2283
+#: src/gtkhtml.c:2325
 #, c-format
 msgid "Couldn't find keybinding file -- %s"
 msgstr "Не удалось найти файл клавиатурных сокращений -- %s"
