@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 1.1.x\n"
-"POT-Creation-Date: 2002-02-27 13:25+0800\n"
+"POT-Creation-Date: 2002-05-10 00:44+0800\n"
 "PO-Revision-Date: 2002-01-25 02:09+0800\n"
 "Last-Translator: Hasbullah Bin Pit <sebol@ikhlas.com>\n"
 "Language-Team: Projek Gabai <gabai-penyumbang@lists.sourceforge.org>\n"
@@ -218,7 +218,7 @@ msgid "A_ddress"
 msgstr "_Alamat"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:8
-#: components/html-editor/toolbar.c:62
+#: components/html-editor/toolbar.c:55
 msgid "Alphabetical List"
 msgstr "Senarai Akaun"
 
@@ -231,7 +231,7 @@ msgid "Blue"
 msgstr "Biru"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:11
-#: components/html-editor/toolbar.c:59
+#: components/html-editor/toolbar.c:52
 msgid "Bulleted List"
 msgstr "Senarai Bulet"
 
@@ -437,7 +437,7 @@ msgid "Normal"
 msgstr "Normal"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
-#: components/html-editor/toolbar.c:60
+#: components/html-editor/toolbar.c:53
 msgid "Numbered List"
 msgstr "Senarai Bernombor"
 
@@ -962,11 +962,11 @@ msgstr "Peratus"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:52
 #, no-c-format
 msgid "Percent %"
-msgstr "Peratus%"
+msgstr "Peratus %"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:53
 msgid "Pixels"
-msgstr "PIksel"
+msgstr "Piksel"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:54
 msgid "Pixmap:"
@@ -989,7 +989,7 @@ msgstr "Baris"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:58
 msgid "Row span:"
-msgstr "Span Baris:"
+msgstr "Span baris:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:59
 msgid "Rows:"
@@ -1057,7 +1057,7 @@ msgstr "Balut"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:79
 msgid "Wrapping:"
-msgstr "Membalut"
+msgstr "Membalut:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:80
 msgid "xxxxxxxxx"
@@ -1148,31 +1148,31 @@ msgstr "Gagal melaksanakan ciri-ciri gtkhtml"
 msgid "Pre"
 msgstr "Pre"
 
-#: components/html-editor/paragraph.c:126 components/html-editor/toolbar.c:52
+#: components/html-editor/paragraph.c:126 components/html-editor/toolbar.c:56
 msgid "Header 1"
 msgstr "Pengepala 1"
 
-#: components/html-editor/paragraph.c:127 components/html-editor/toolbar.c:53
+#: components/html-editor/paragraph.c:127 components/html-editor/toolbar.c:57
 msgid "Header 2"
 msgstr "Pengepala 2"
 
-#: components/html-editor/paragraph.c:128 components/html-editor/toolbar.c:54
+#: components/html-editor/paragraph.c:128 components/html-editor/toolbar.c:58
 msgid "Header 3"
 msgstr "Pengepala 3"
 
-#: components/html-editor/paragraph.c:129 components/html-editor/toolbar.c:55
+#: components/html-editor/paragraph.c:129 components/html-editor/toolbar.c:59
 msgid "Header 4"
 msgstr "Pengepala 4"
 
-#: components/html-editor/paragraph.c:130 components/html-editor/toolbar.c:56
+#: components/html-editor/paragraph.c:130 components/html-editor/toolbar.c:60
 msgid "Header 5"
 msgstr "Pengepala 5"
 
-#: components/html-editor/paragraph.c:131 components/html-editor/toolbar.c:57
+#: components/html-editor/paragraph.c:131 components/html-editor/toolbar.c:61
 msgid "Header 6"
 msgstr "Pengepala 6"
 
-#: components/html-editor/paragraph.c:132 components/html-editor/toolbar.c:58
+#: components/html-editor/paragraph.c:132 components/html-editor/toolbar.c:62
 msgid "Address"
 msgstr "Alamat"
 
@@ -1398,7 +1398,7 @@ msgstr "Simpan fail sebagai..."
 msgid "Color"
 msgstr "Warna"
 
-#: components/html-editor/toolbar.c:61
+#: components/html-editor/toolbar.c:54
 msgid "Roman List"
 msgstr "Senarai Roman"
 
@@ -1451,54 +1451,6 @@ msgstr "Naikkan inden perenggan"
 msgid "Sample"
 msgstr "Sampel"
 
-#: src/html-component.c:219
-msgid "Html"
-msgstr "Html"
-
-#: src/html-component.c:220
-msgid "Html test"
-msgstr "Ujian Html"
-
-#: src/html-component.c:226
-msgid "Test1"
-msgstr "Ujian1"
-
-#: src/html-component.c:233
-msgid "Test2"
-msgstr "Ujian2"
-
-#: src/html-component.c:239
-msgid "Test3"
-msgstr "Ujian3"
-
-#: src/html-component.c:245
-msgid "Test4"
-msgstr "Ujian3"
-
-#: src/html-component.c:251
-msgid "Test5"
-msgstr "Ujian4"
-
-#: src/html-component.c:257
-msgid "Test6"
-msgstr "Ujian6"
-
-#: src/html-component.c:263
-msgid "Test7"
-msgstr "Ujian7"
-
-#: src/html-component.c:617
-msgid "_Refresh"
-msgstr "_Segarkan"
-
-#: src/html-component.c:618
-msgid "Reload the page"
-msgstr "Ulangmuat laman"
-
-#: src/html-component.c:669
-msgid "Could not initialize Bonobo!"
-msgstr "Gagal menginitialisasikan Bonobo!"
-
 #: src/htmlengine-print.c:198
 msgid "Cannot allocate default font for printing\n"
 msgstr "Tak dapat memperuntukkan font default untuk cetakan\n"
@@ -1513,11 +1465,47 @@ msgstr "US-Letter"
 
 #: src/testgtkhtml.c:113
 msgid "Print pre_view"
-msgstr "Pra_lihat Cetakan"
+msgstr "Pre_biu Cetakan"
 
 #: src/testgtkhtml.c:113
 msgid "Print preview"
-msgstr "Pralihat Cetakan"
+msgstr "Prebiu Cetakan"
+
+#~ msgid "Html"
+#~ msgstr "Html"
+
+#~ msgid "Html test"
+#~ msgstr "Ujian Html"
+
+#~ msgid "Test1"
+#~ msgstr "Ujian1"
+
+#~ msgid "Test2"
+#~ msgstr "Ujian2"
+
+#~ msgid "Test3"
+#~ msgstr "Ujian3"
+
+#~ msgid "Test4"
+#~ msgstr "Ujian3"
+
+#~ msgid "Test5"
+#~ msgstr "Ujian4"
+
+#~ msgid "Test6"
+#~ msgstr "Ujian6"
+
+#~ msgid "Test7"
+#~ msgstr "Ujian7"
+
+#~ msgid "_Refresh"
+#~ msgstr "_Segarkan"
+
+#~ msgid "Reload the page"
+#~ msgstr "Ulangmuat laman"
+
+#~ msgid "Could not initialize Bonobo!"
+#~ msgstr "Gagal menginitialisasikan Bonobo!"
 
 #~ msgid "_Languages"
 #~ msgstr "_Bahasa"
