@@ -27,6 +27,7 @@
 #include <string.h>
 
 #include "htmlengine.h"
+#include "htmlimage.h"
 #include "htmlentity.h"
 #include "gtkhtmldebug.h"
 #include "config.h"
@@ -195,18 +196,22 @@ get_body (HTMLEngine *e)
 	gchar *body;
 	gchar *text;
 	gchar *bg;
+	gchar *bg_image;
 	gchar *link;
 
 	cset = e->settings->color_set;
 	text = (cset->changed [HTMLTextColor]) ? color_to_string ("TEXT", cset->color [HTMLTextColor]) : g_strdup ("");
 	link = (cset->changed [HTMLLinkColor]) ? color_to_string ("LINK", cset->color [HTMLLinkColor]) : g_strdup ("");
 	bg   = (cset->changed [HTMLBgColor]) ? color_to_string ("BGCOLOR", cset->color [HTMLBgColor]) : g_strdup ("");
+	bg_image = e->bgPixmapPtr ? g_strdup_printf (" BACKGROUND=\"%s\"", ((HTMLImagePointer *) e->bgPixmapPtr)->url)
+		: g_strdup ("");
 
-	body = g_strconcat ("<BODY", text, link, bg, ">", NULL);
+	body = g_strconcat ("<BODY", text, link, bg, bg_image, ">", NULL);
 
 	g_free (text);
 	g_free (link);
 	g_free (bg);
+	g_free (bg_image);
 
 	return body;
 }
