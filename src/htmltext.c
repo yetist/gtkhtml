@@ -57,7 +57,6 @@ static void         spell_error_destroy     (SpellError *se);
 static void         move_spell_errors       (GList *spell_errors, guint offset, gint delta);
 static GList *      remove_spell_errors     (GList *spell_errors, guint offset, guint len);
 static void         remove_text_slaves      (HTMLObject *self);
-static void         html_text_change_attrs  (PangoAttrList *attr_list, GtkHTMLFontStyle style, HTMLEngine *e, gint start_index, gint end_index, gboolean avoid_default_size);
 
 /* void
 debug_spell_errors (GList *se)
@@ -918,7 +917,19 @@ html_text_calc_text_size (HTMLText *t, HTMLPainter *painter,
 		char *text = t->text + start_byte_offset;
 
 		if (HTML_IS_PRINTER (painter)) {
+			HTMLClueFlow *flow = NULL;
+			HTMLEngine *e = NULL;
+
 			attrs = html_text_get_attr_list (t, start_byte_offset, start_byte_offset + (g_utf8_offset_to_pointer (text, len) - text));
+
+			if (painter->widget && GTK_IS_HTML (painter->widget))
+				e = GTK_HTML (painter->widget)->engine;
+
+			if (HTML_OBJECT (t)->parent && HTML_IS_CLUEFLOW (HTML_OBJECT (t)->parent))
+				flow = HTML_CLUEFLOW (HTML_OBJECT (t)->parent);
+
+			if (flow && e)
+				html_text_change_attrs (attrs, html_clueflow_get_default_font_style (flow), GTK_HTML (painter->widget)->engine, 0, t->text_bytes, TRUE);
 		}
 		
 		html_painter_calc_text_size (painter, text, len, pi, attrs, glyphs,
@@ -3215,7 +3226,7 @@ html_text_get_style_conflicts (HTMLText *text, GtkHTMLFontStyle style, gint star
 	return conflicts;
 }
 
-static void
+void
 html_text_change_attrs (PangoAttrList *attr_list, GtkHTMLFontStyle style, HTMLEngine *e, gint start_index, gint end_index, gboolean avoid_default_size)
 {
 	PangoAttribute *attr;

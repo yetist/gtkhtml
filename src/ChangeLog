@@ -1,3 +1,16 @@
+2004-09-02  Radek Doulik  <rodo@ximian.com>
+
+	* htmlprinter.c (process_attrs): get fixed style from pango family
+	attributes
+
+	* htmltextslave.c (draw_normal): add flow style when printing
+
+	* htmltext.c (html_text_change_attrs): make this method public so
+	that we can use it in htmltextslave.c
+	(html_text_calc_text_size): add flow style when printing
+
+	Fixes #63508
+
 2004-09-20  Radek Doulik  <rodo@ximian.com>
 
 	* htmltext.c (style_from_attrs): handle PANGO_ATTR_FAMILY, we use
