@@ -1151,12 +1151,13 @@ set_fonts_idle (GtkHTML *html)
 
 		manager = HTML_GDK_PAINTER (html->engine->painter)->font_manager;
 		var = html_gdk_font_manager_get_variable (manager);
-		fix = html_gdk_font_manager_get_variable (manager);
+		fix = html_gdk_font_manager_get_fixed (manager);
 		html_font_face_set_family (var, prop->font_var_family);
 		html_font_face_set_family (fix, prop->font_fix_family);
 		html_font_face_set_size   (var, prop->font_var_size);
 		html_font_face_set_size   (fix, prop->font_fix_size);
-		
+		html_gdk_font_manager_set_size (manager, prop->font_var_size);
+
 		/* tables don't resize correctly :( who knows the solution? */
 		if (html->engine->clue) {
 			html_object_reset (html->engine->clue);

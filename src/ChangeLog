@@ -1,5 +1,13 @@
 2000-08-21  Radek Doulik  <rodo@helixcode.com>
 
+	* gtkhtml.c (set_fonts_idle): use html_gdk_font_manager_set_size,
+	so fonts scale nicely when changing size of variable width fonts
+	in capplet
+	(set_fonts_idle): get fixed face for fix and not variable
+
+	* htmlgdkfontmanager.c (html_gdk_font_manager_set_size): new
+	function, sets size to all non-default faces
+
 	* htmlgdkfontmanager.[ch]: rewritten
 
 	* htmlfontface.[ch]: new files

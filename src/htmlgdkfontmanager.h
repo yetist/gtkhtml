@@ -46,4 +46,6 @@ HTMLFontFace *      html_gdk_font_manager_get_fixed                  (HTMLGdkFon
 GdkFont *           html_gdk_font_manager_get_font                   (HTMLGdkFontManager *manager,
 								      GtkHTMLFontStyle style,
 								      HTMLFontFace *face);
+void                html_gdk_font_manager_set_size                   (HTMLGdkFontManager *manager,
+								      gint size);
 #endif /* _HTMLGDKFONTMANAGER_H_ */

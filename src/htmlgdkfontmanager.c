@@ -90,3 +90,15 @@ html_gdk_font_manager_get_font (HTMLGdkFontManager *manager, GtkHTMLFontStyle st
 
 	return html_font_face_get_font (face, style);
 }
+
+static void
+set_size (gchar *family, HTMLFontFace *face, gpointer size)
+{
+	html_font_face_set_size (face, GPOINTER_TO_INT (size));
+}
+
+void
+html_gdk_font_manager_set_size (HTMLGdkFontManager *manager, gint size)
+{
+	g_hash_table_foreach (manager->faces, (GHFunc) set_size, GINT_TO_POINTER (size));
+}
