@@ -1,5 +1,8 @@
 2001-08-13  Radek Doulik  <rodo@ximian.com>
 
+	* editor-control-factory.c (html_button_pressed): take care of
+	selection on button #3 press
+
 	* template.c: added hspace=10 to Note bulb.png
 
 	* menubar.c (menubar_update_format): set sensitivity for InsertTable and

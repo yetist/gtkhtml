@@ -346,16 +346,18 @@ html_button_pressed (GtkWidget *html, GdkEventButton *event, GtkHTMLControlData 
 		/* pass this for pasting */
 		return TRUE;
 	case 3:
-		html_engine_disable_selection (cd->html->engine);
-		html_engine_jump_at (engine,
-				     event->x + engine->x_offset,
-				     event->y + engine->y_offset);
-		gtk_html_update_styles (cd->html);
+		if (!html_engine_is_selection_active (engine)) {
+			html_engine_jump_at (engine,
+					     event->x + engine->x_offset,
+					     event->y + engine->y_offset);
+			gtk_html_update_styles (cd->html);
 
-		cd->obj = html_engine_get_object_at (engine,
-						     event->x + engine->x_offset,
-						     event->y + engine->y_offset,
-						     NULL, FALSE);
+			cd->obj = html_engine_get_object_at (engine,
+							     event->x + engine->x_offset,
+							     event->y + engine->y_offset,
+							     NULL, FALSE);
+		}
+
 		if (popup_show (cd, event))
 			gtk_signal_emit_stop_by_name (GTK_OBJECT (html), "button_press_event");
 		break;
