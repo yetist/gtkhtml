@@ -126,7 +126,7 @@ static void
 set_has_bg_color (GtkWidget *check, GtkHTMLEditTableProperties *d)
 {
 	d->has_bg_color = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (d->check_bg_color));
-	gtk_widget_set_sensitive (d->combo_bg_color, d->has_bg_color);
+	//gtk_widget_set_sensitive (d->combo_bg_color, d->has_bg_color);
 	FILL;
 	CHANGE;
 	d->changed_bg_color = TRUE;
@@ -136,7 +136,7 @@ static void
 set_has_bg_pixmap (GtkWidget *check, GtkHTMLEditTableProperties *d)
 {
 	d->has_bg_pixmap = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (d->check_bg_pixmap));
-	gtk_widget_set_sensitive (d->entry_bg_pixmap, d->has_bg_pixmap);
+	// gtk_widget_set_sensitive (d->entry_bg_pixmap, d->has_bg_pixmap);
 	FILL;
 	CHANGE;
 	d->changed_bg_pixmap = TRUE;
@@ -152,9 +152,28 @@ changed_bg_color (GtkWidget *w, GdkColor *color, gboolean by_user, GtkHTMLEditTa
 	d->bg_color = color
 		? *color
 		: html_colorset_get_color (d->cd->html->engine->defaultSettings->color_set, HTMLBgColor)->color;
-	d->has_bg_color = TRUE;
-	FILL;
-	CHANGE;
+	d->changed_bg_color = TRUE;
+	if (!d->has_bg_color)
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (d->check_bg_color), TRUE);
+	else {
+		FILL;
+		CHANGE;
+	}
+}
+
+static void
+changed_bg_pixmap (GtkWidget *w, GtkHTMLEditTableProperties *d)
+{
+	d->bg_pixmap = gtk_entry_get_text (GTK_ENTRY (w));
+	d->changed_bg_pixmap = TRUE;
+	if (!d->has_bg_pixmap && d->bg_pixmap && *d->bg_pixmap)
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (d->check_bg_pixmap), TRUE);
+	else {
+		if (!d->bg_pixmap || !*d->bg_pixmap)
+			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (d->check_bg_pixmap), FALSE);
+		FILL;
+		CHANGE;
+	}
 }
 
 static GtkWidget *
@@ -163,6 +182,7 @@ table_widget (GtkHTMLEditTableProperties *d)
 	HTMLColor *color;
 	GtkWidget *table_page;
 	GladeXML *xml;
+	gchar     *dir;
 
 	xml = glade_xml_new (GLADE_DATADIR "/gtkhtml-editor-properties.glade", "table_page");
 	if (!xml)
@@ -184,6 +204,11 @@ table_widget (GtkHTMLEditTableProperties *d)
 	d->check_bg_pixmap = glade_xml_get_widget (xml, "check_table_bg_pixmap");
 	gtk_signal_connect (GTK_OBJECT (d->check_bg_pixmap), "toggled", set_has_bg_pixmap, d);
 	d->entry_bg_pixmap = glade_xml_get_widget (xml, "entry_table_bg_pixmap");
+	gtk_signal_connect (GTK_OBJECT (gnome_pixmap_entry_gtk_entry (GNOME_PIXMAP_ENTRY (d->entry_bg_pixmap))),
+			    "changed", GTK_SIGNAL_FUNC (changed_bg_pixmap), d);
+	dir = getcwd (NULL, 0);
+	gnome_pixmap_entry_set_pixmap_subdir (GNOME_PIXMAP_ENTRY (d->entry_bg_pixmap), dir);
+	free (dir);
 
 	gtk_box_pack_start (GTK_BOX (table_page), sample_frame (&d->sample), FALSE, FALSE, 0);
 	fill_sample (d);
@@ -197,9 +222,9 @@ table_widget (GtkHTMLEditTableProperties *d)
 static void
 set_ui (GtkHTMLEditTableProperties *d)
 {
-	gtk_widget_set_sensitive (d->combo_bg_color, d->has_bg_color);
+	//gtk_widget_set_sensitive (d->combo_bg_color, d->has_bg_color);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (d->check_bg_color), d->has_bg_color);
-	gtk_widget_set_sensitive (d->entry_bg_pixmap, d->has_bg_pixmap);
+	//gtk_widget_set_sensitive (d->entry_bg_pixmap, d->has_bg_pixmap);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (d->check_bg_pixmap), d->has_bg_pixmap);
 }
 
