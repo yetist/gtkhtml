@@ -81,10 +81,5 @@ gtk_html_control_data_destroy (GtkHTMLControlData *cd)
 	if (cd->languages)
 		CORBA_free (cd->languages);
 
-	if (cd->menubar_style_changed_id) {
-		g_signal_handler_disconnect (cd->html, cd->menubar_style_changed_id);
-		cd->menubar_style_changed_id = 0;
-	}
-
 	g_free (cd);
 }
