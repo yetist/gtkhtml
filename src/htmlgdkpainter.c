@@ -77,7 +77,7 @@ get_size (gchar *font_name)
 }
 
 static gboolean
-find_font (gchar *font_name, gdouble req_size, gint *font_size)
+find_font (gchar *font_name, gdouble req_size, gint *font_size, GtkHTMLFontStyle style)
 {
 	gint n;
 	gdouble size, smaller, bigger;
@@ -109,7 +109,8 @@ find_font (gchar *font_name, gdouble req_size, gint *font_size)
 		if (smaller == .0)
 			size = bigger;
 		if (bigger != .0 && smaller != .0)
-			size = (bigger - req_size <= req_size - smaller) ? bigger : smaller;
+			size = ((style & GTK_HTML_FONT_STYLE_SIZE_MASK) > GTK_HTML_FONT_STYLE_SIZE_3) ? bigger : smaller;
+		/* size = (bigger - req_size <= req_size - smaller) ? bigger : smaller; */
 		*font_size = size;
 		rv = TRUE;
 	}
@@ -149,7 +150,7 @@ alloc_e_font_it (gchar *face, gdouble size, GtkHTMLFontStyle style, gchar *it)
 		name = g_strdup_printf ("-*-%s-%s-%s-normal-*-*-*-*-*-*-*-*",
 					face, style & GTK_HTML_FONT_STYLE_BOLD ? "bold" : "medium",
 					style & GTK_HTML_FONT_STYLE_ITALIC ? it : "r");
-		if (!find_font (name, size, &tsize))
+		if (!find_font (name, size, &tsize, style))
 			tsize = size;
 		g_free (name);
 		name = g_strdup_printf ("-*-%s-%s-%s-normal-*-%d-*-*-*-*-*-*",
@@ -411,22 +412,12 @@ draw_panel (HTMLPainter *painter,
 	HTMLGdkPainter *gdk_painter;
 	GdkColor *col1 = NULL, *col2 = NULL;
 	GdkColor *bg, dark, light;
-	gint value, ldelta, ddelta;
 
-#define DARK(c) 	dark. ## c  = MIN (MAX (((gint) bg-> ## c) + (gint) ddelta*(((gdouble) bg-> ## c)/0xffff), 0), 0xffff);
-#define LIGHT(c)	light. ## c = MIN (MAX (((gint) bg-> ## c) + (gint) ldelta*(((gdouble) bg-> ## c)/0xffff), 0), 0xffff);
-#define THOLD 0x2aaa
+	#define INC 0x8000
+	#define DARK(c)  dark.  ## c = MAX (((gint) bg-> ## c) - INC, 0)
+	#define LIGHT(c) light. ## c = MIN (((gint) bg-> ## c) + INC, 0xffff)
 
 	bg = &((html_colorset_get_color (painter->color_set, HTMLBgColor))->color);
-
-	value = MAX (bg->red, MAX (bg->green, bg->blue));
-	if (value > 0x7fff) {
-		ldelta = -THOLD;
-		ddelta = -3*THOLD;
-	} else {
-		ldelta = 3*THOLD;
-		ddelta = THOLD;
-	}
 
 	DARK(red);
 	DARK(green);
