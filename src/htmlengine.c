@@ -1387,7 +1387,7 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 								  html_anchor_new (p + 5));
 					else
 						html_clue_append (HTML_CLUE (e->flow),
-								  html_anchor_new (p+5));
+								  html_anchor_new (p + 5));
 				} else if ( strncasecmp( p, "target=", 7 ) == 0 ) {
 #if 0							/* FIXME TODO */
 					target = g_strdup (p + 7);
@@ -3095,13 +3095,19 @@ html_engine_begin (HTMLEngine *p, const char *url)
 
 	/* Is it a reference? */
 	if (*url == '#') {
+		if (p->reference) {
+			g_free (p->reference);
+			p->reference = NULL;
+		}
 		p->reference = g_strdup (url + 1);
 		
-		if (! html_engine_goto_anchor (p, url)) /* If anchor not found, scroll to the top of the page */
+		if (! html_engine_goto_anchor (p, url + 1)) {
+			/* If anchor not found, scroll to the top of the page */
 			gtk_adjustment_set_value (GTK_LAYOUT (p->widget)->vadjustment, 0);
+		}		
 
 		gtk_signal_emit (GTK_OBJECT (p), signals[LOAD_DONE]);
-
+		
 		return NULL;
 	}
 
@@ -3166,13 +3172,6 @@ html_engine_update_event (HTMLEngine *e)
 		e->newPage = FALSE;
 	}
 
-	if (e->reference ) {
-		if (html_engine_goto_anchor (e, e->reference)) {
-			g_free (e->reference);
-			e->reference = NULL;
-		}
-	}
-
 	if (! e->parsing && e->editable)
 		html_cursor_home (e->cursor, e);
 
@@ -3198,6 +3197,10 @@ html_engine_update_event (HTMLEngine *e)
 
 		/* Adjust the scrollbars */
 		gtk_html_private_calc_scrollbars (e->widget);
+	}
+
+	if (e->reference && !e->editable) {
+		html_engine_goto_anchor (e, e->reference);
 	}
 
 	return FALSE;
@@ -3230,8 +3233,10 @@ html_engine_goto_anchor (HTMLEngine *e,
 	x = y = 0;
 	a = html_object_find_anchor (e->clue, anchor, &x, &y);
 
-	if (a == NULL)
+	if (a == NULL) {
+		/* g_warning ("Anchor: \"%s\" not found", anchor); */
 		return FALSE;
+	}
 
 	vadj = GTK_LAYOUT (e->widget)->vadjustment;
 

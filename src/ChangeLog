@@ -1,6 +1,14 @@
 2000-04-07  Larry Ewing  <lewing@helixcode.com>
 
 	* htmlengine.c (parse_h): set the default size of rules to 2 pixels.
+	(html_engine_update_event): Jump to the anchor after adjusting the
+	document bounds and Keep jumping to the position of the
+	anchor.  This corrects some problems when the layout changes but
+	is still a bit of a hack.
+	(html_engine_begin): remember to strip the leading # from the
+	value we look up so that we look for the same thing we store.
+	Always free the reference before setting it now that we don't
+	constantly remove it.
 
 	* htmlrule.c (calc_size): mimic the netscape behaviour by having a
 	minimum hr size then padding every larger size with one pixel on
@@ -9,7 +17,6 @@
 	size arguments and set the pen color for noshade.  Also make sure
 	that we always put the extra padding at the bottom of the rule.
 	
-
 2000-04-07  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlimage.c (draw): use 1st frame when printing
