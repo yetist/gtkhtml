@@ -858,7 +858,7 @@ add_byte (HTMLTokenizer *t, const gchar **src)
 		p->utf8_length++;
 
 		wc = g_utf8_get_char_extended ((const gchar *)p->utf8_buffer, p->utf8_length);
-		if (wc == -1) {
+		if (wc == -1 || p->utf8_length >= (sizeof(p->utf8_buffer)/sizeof(p->utf8_buffer[0]))) {
 			*(p->dest)++ = '_';
 			
 			p->utf8_length = 0;

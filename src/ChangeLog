@@ -1,3 +1,9 @@
+2001-09-19    <NotZed@Ximian.com>
+
+	* htmltokenizer.c (add_byte): Check that utf8_length doesn't
+	outgrow our buffer.  The g_utf_get_char_extended function seems
+	broken in a way i can't fathom right now.
+
 2001-09-18  Larry Ewing  <lewing@ximian.com>
 
 	* htmlimage.c (html_image_factory_end_pixbuf): let the pointer
