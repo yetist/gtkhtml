@@ -209,7 +209,7 @@ data_new (GtkHTMLControlData *cd)
 static GtkWidget *
 rule_widget (GtkHTMLEditRuleProperties *data)
 {
-	GtkWidget *vbox, *mhb, *hbox, *frame, *sw, *menu, *menuitem, *vb1, *vb2;
+	GtkWidget *vbox, *mhb, *hbox, *frame, *sw, *menu, *menuitem, *vb1;
 	gint mcounter;
 
 	/* prepare content */
@@ -217,31 +217,20 @@ rule_widget (GtkHTMLEditRuleProperties *data)
 	gtk_container_border_width (GTK_CONTAINER (vbox), 3);
 
 	mhb  = gtk_hbox_new (FALSE, 3);
-	vb2  = gtk_vbox_new (FALSE, 2);
-
-	/* style */
-	frame = gtk_frame_new (_("Style"));
-	HBOX;
-	menu  = gtk_menu_new ();
-	mcounter = 0;
-	data->shaded_check = gtk_check_button_new_with_label (_("shaded"));
-	gtk_signal_connect (GTK_OBJECT (data->shaded_check), "toggled", shade_toggled, data);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->shaded_check), data->shaded);
-	gtk_box_pack_start_defaults (GTK_BOX (hbox), data->shaded_check);
-	gtk_container_add (GTK_CONTAINER (frame), hbox);
-	gtk_box_pack_start_defaults (GTK_BOX (vb2), frame);
 
 	/* size */
 	frame = gtk_frame_new (_("Size"));
 	vb1   = gtk_vbox_new (FALSE, 2);
 	menu  = gtk_menu_new ();
 	mcounter = 0;
+	HBOX;
 	ADD_ITEM ("Pixels", percent_menu_activate);
 	ADD_ITEM ("Percent %", percent_menu_activate);
 	data->width_measure = gtk_option_menu_new ();
 	gtk_option_menu_set_menu (GTK_OPTION_MENU (data->width_measure), menu);
 	gtk_option_menu_set_history (GTK_OPTION_MENU (data->width_measure), data->percent);
-	gtk_box_pack_start_defaults (GTK_BOX (vb1), data->width_measure);
+	gtk_box_pack_start (GTK_BOX (hbox), data->width_measure, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (vb1), hbox, FALSE, FALSE, 0);
 
 	HBOX;
 	ADD_VAL (GTK_HTML_EDIT_RULE_WIDTH, "length");
@@ -249,39 +238,42 @@ rule_widget (GtkHTMLEditRuleProperties *data)
 	gtk_widget_set_sensitive (data->width_measure, data->set [GTK_HTML_EDIT_RULE_WIDTH]);
 	gtk_signal_connect (GTK_OBJECT (data->check [GTK_HTML_EDIT_RULE_WIDTH]), "toggled",
 			    GTK_SIGNAL_FUNC (width_toggled), data);
-	gtk_box_pack_start_defaults (GTK_BOX (vb1), hbox);
+	gtk_box_pack_start (GTK_BOX (vb1), hbox, FALSE, FALSE, 0);
 	gtk_container_add (GTK_CONTAINER (frame), vb1);
-	gtk_box_pack_start_defaults (GTK_BOX (vb2), frame);
-	gtk_box_pack_start (GTK_BOX (mhb), vb2, FALSE, FALSE, 0);
-	vb2  = gtk_vbox_new (FALSE, 2);
+	gtk_box_pack_start_defaults (GTK_BOX (mhb), frame);
+
+	/* style */
+	frame = gtk_frame_new (_("Style"));
+	vb1   = gtk_vbox_new (FALSE, 2);
 
 	/* align */
-	frame = gtk_frame_new (_("Align"));
-	vb1   = gtk_vbox_new (FALSE, 2);
+	HBOX;
 	menu  = gtk_menu_new ();
 	mcounter = HTML_HALIGN_LEFT;
-	gtk_container_border_width (GTK_CONTAINER (vb1), 3);
 	ADD_ITEM ("Left", align_menu_activate);
 	ADD_ITEM ("Center", align_menu_activate);
 	ADD_ITEM ("Right", align_menu_activate);
 	data->align_option = gtk_option_menu_new ();
 	gtk_option_menu_set_menu (GTK_OPTION_MENU (data->align_option), menu);
 	gtk_option_menu_set_history (GTK_OPTION_MENU (data->align_option), data->align);
-	gtk_box_pack_start (GTK_BOX (vb1), data->align_option, FALSE, FALSE, 0);
-	gtk_container_add (GTK_CONTAINER (frame), vb1);
-	gtk_box_pack_start_defaults (GTK_BOX (vb2), frame);
+	gtk_box_pack_start (GTK_BOX (hbox), data->align_option, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (vb1), hbox, FALSE, FALSE, 0);
 
 	/* weight */
-	frame = gtk_frame_new (_("Weight"));
 	HBOX;
 	ADD_VAL (GTK_HTML_EDIT_RULE_SIZE, "width");
 	gtk_adjustment_set_value (GTK_ADJUSTMENT (data->adj [GTK_HTML_EDIT_RULE_SIZE]), data->size);
-	vb1 = gtk_vbox_new (FALSE, 0);
-	gtk_box_pack_end (GTK_BOX (vb1), hbox, FALSE, FALSE, 0);
+
+	/* shaded */
+	data->shaded_check = gtk_check_button_new_with_label (_("shaded"));
+	gtk_signal_connect (GTK_OBJECT (data->shaded_check), "toggled", shade_toggled, data);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->shaded_check), data->shaded);
+	gtk_box_pack_start_defaults (GTK_BOX (hbox), data->shaded_check);
+	gtk_box_pack_start_defaults (GTK_BOX (vb1), hbox);
+
 	gtk_container_add (GTK_CONTAINER (frame), vb1);
-	gtk_box_pack_start (GTK_BOX (vb2), frame, FALSE, FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (mhb), vb2, FALSE, FALSE, 0);
-	gtk_box_pack_start_defaults (GTK_BOX (vbox), mhb);
+	gtk_box_pack_start_defaults (GTK_BOX (mhb), frame);
+	gtk_box_pack_start (GTK_BOX (vbox), mhb, FALSE, FALSE, 0);
 
 	/* sample */
 	frame = gtk_frame_new (_("Sample"));
