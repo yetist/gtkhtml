@@ -196,7 +196,7 @@ msgstr "V dokument vstavi sliko..."
 
 #: po/tmp/GNOME_GtkHTML_Editor.xml.h:18
 msgid "Insert rule into document..."
-msgstr "V dokument vstavi pravilo"
+msgstr "V dokument vstavi pravilo..."
 
 #: po/tmp/GNOME_GtkHTML_Editor.xml.h:19
 msgid "Modify the file's properties"
@@ -297,7 +297,7 @@ msgstr "_Prilepi"
 
 #: po/tmp/GNOME_GtkHTML_Editor.xml.h:43
 msgid "_Properties..."
-msgstr "_Lastnosti"
+msgstr "_Lastnosti..."
 
 #: po/tmp/GNOME_GtkHTML_Editor.xml.h:44
 msgid "_Redo"
@@ -305,7 +305,7 @@ msgstr "_Obnovi"
 
 #: po/tmp/GNOME_GtkHTML_Editor.xml.h:45
 msgid "_Replace..."
-msgstr "_Zamenjaj"
+msgstr "_Zamenjaj..."
 
 #: po/tmp/GNOME_GtkHTML_Editor.xml.h:46
 msgid "_Rule..."
