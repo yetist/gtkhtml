@@ -40,6 +40,7 @@
 #include "htmlinterval.h"
 #include "htmllinktext.h"
 #include "htmlobject.h"
+#include "htmltable.h"
 #include "htmlselection.h"
 #include "htmlsettings.h"
 #include "htmltext.h"
@@ -546,7 +547,8 @@ html_engine_cut (HTMLEngine *e)
 {
 	html_engine_clipboard_clear (e);
 	delete_object (e, &e->clipboard, &e->clipboard_len, HTML_UNDO_UNDO);
-	/* printf ("cut  len: %d\n", e->clipboard_len); */
+	printf ("cut  len: %d\n", e->clipboard_len);
+	gtk_html_debug_dump_tree_simple (e->clipboard, 0);
 }
 
 /*
@@ -562,20 +564,26 @@ insert_object_do (HTMLEngine *e, HTMLObject *obj, guint len, gboolean check)
 	GList *first = NULL, *last = NULL;
 	gint level;
 
-	html_engine_freeze (e);
 	/* FIXME for tables */
-	if (0 && obj->klass->type == HTML_TYPE_TABLE) {
-		level = 1;
+	if (obj->klass->type == HTML_TYPE_TABLE) {
+		html_engine_append_object (e, obj, len);
+		return;
+	}
+
+	html_engine_freeze (e);
+	if (HTML_IS_TABLE (e->cursor->object)) {
+		gint offset = e->cursor->offset;
+
 		html_engine_insert_empty_paragraph (e);
-		html_engine_insert_empty_paragraph (e);
-		html_cursor_backward (e->cursor, e);
-	} else {
-		level = 0;
-		cur   = html_object_get_head_leaf (obj);
-		while (cur) {
-			level++;
-			cur = cur->parent;
-		}
+		if (offset == 0)
+			html_cursor_backward (e->cursor, e);
+	}
+
+	level = 0;
+	cur   = html_object_get_head_leaf (obj);
+	while (cur) {
+		level++;
+		cur = cur->parent;
 	}
 	orig = html_cursor_dup (e->cursor);
 
@@ -870,16 +878,34 @@ html_engine_insert_link (HTMLEngine *e, const gchar *url, const gchar *target)
 }
 
 void
-html_engine_append_object (HTMLEngine *e, HTMLObject *o, guint len, gint level)
+html_engine_append_object (HTMLEngine *e, HTMLObject *o, guint len)
 {
 	GList *left = NULL, *right = NULL;
 	HTMLObject *where;
 
 	html_engine_freeze (e);
-	html_object_split (e->cursor->object, e, NULL, e->cursor->offset, level, &left, &right);
+	if (html_clueflow_is_empty (HTML_CLUEFLOW (e->cursor->object->parent))) {
+		HTMLObject *c, *cn;
+		HTMLClue *clue = HTML_CLUE (e->cursor->object->parent);
+		for (c = clue->head; c; c = cn) {
+			cn = c->next;
+			html_object_destroy (c);
+		}
+		clue->head = clue->tail = o;
+		e->cursor->object = o;
+		e->cursor->offset = 0;
+		o->parent = HTML_OBJECT (clue);
+	} else {
+		HTMLObject *flow;
 
-	where = HTML_OBJECT (left->data);
-	html_clue_append_after (HTML_CLUE (where->parent), o, where);
+		flow  = html_clueflow_new (HTML_CLUEFLOW_STYLE_NORMAL, 0);
+		html_clue_append (HTML_CLUE (flow), o);
+
+		html_object_split (e->cursor->object, e, NULL, e->cursor->offset, 2, &left, &right);
+
+		where = HTML_OBJECT (left->data);
+		html_clue_append_after (HTML_CLUE (where->parent), flow, where);
+	}
 
 	html_cursor_forward_n (e->cursor, e, len);
 	insert_setup_undo (e, len, HTML_UNDO_UNDO);	

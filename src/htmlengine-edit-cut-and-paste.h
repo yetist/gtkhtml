@@ -45,8 +45,7 @@ void  html_engine_insert_object           (HTMLEngine  *e,
 					   guint        len);
 void  html_engine_append_object           (HTMLEngine  *e,
 					   HTMLObject  *o,
-					   guint        len,
-					   gint         level);
+					   guint        len);
 void  html_engine_insert_link             (HTMLEngine  *e,
 					   const gchar *url,
 					   const gchar *target);

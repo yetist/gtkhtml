@@ -41,6 +41,7 @@
 #include "htmlengine-save.h"
 #include "htmllinktext.h"
 #include "htmlpainter.h"
+#include "htmltable.h"
 #include "htmltext.h"
 #include "htmltextslave.h"	/* FIXME */
 #include "htmlsearch.h"
@@ -106,6 +107,10 @@ merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList *left, GList *ri
 	html_clueflow_remove_text_slaves (cf2);
 
 	printf ("merge flows\n");
+
+	if ((HTML_IS_TABLE (HTML_CLUE (self)->tail) && !html_clueflow_is_empty (cf2))
+	    || (HTML_IS_TABLE (HTML_CLUE (with)->head) && !html_clueflow_is_empty (cf1)))
+		return FALSE;
 
 	return (* HTML_OBJECT_CLASS (parent_class)->merge) (self, with, e, left, right);
 }
@@ -2101,4 +2106,18 @@ html_clueflow_spell_check (HTMLClueFlow *flow, HTMLEngine *e, HTMLInterval *inte
 		}
 		html_interval_destroy (new_interval);
 	}
+}
+
+gboolean
+html_clueflow_is_empty (HTMLClueFlow *flow)
+{
+	HTMLClue *clue;
+	g_return_val_if_fail (HTML_IS_CLUEFLOW (flow), TRUE);
+
+	clue = HTML_CLUE (flow);
+
+	if (clue->head && html_object_is_text (clue->head)
+	    && HTML_TEXT (clue->head)->text_len == 0 && !html_object_next_not_slave (clue->head))
+		return TRUE;
+	return FALSE;
 }

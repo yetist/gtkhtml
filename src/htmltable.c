@@ -27,6 +27,7 @@
 #include "htmlcolor.h"
 #include "htmlcolorset.h"
 #include "htmlengine.h"
+#include "htmlengine-edit.h"
 #include "htmlengine-save.h"
 #include "htmlimage.h"
 #include "htmlpainter.h"
@@ -140,6 +141,18 @@ copy (HTMLObject *self, HTMLObject *dest)
 	copy_sized (self, dest, HTML_TABLE (self)->totalRows, HTML_TABLE (self)->totalCols);
 }
 
+static HTMLObject * op_copy (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len);
+
+static HTMLObject *
+copy_as_leaf (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
+{
+	if ((!from || GPOINTER_TO_INT (from->data) == 0)
+	    && (!to || GPOINTER_TO_INT (to->data) == html_object_get_length (self)))
+		return op_copy (self, e, NULL, NULL, len);
+	else
+		return html_engine_new_text_empty (e);
+}
+
 static HTMLObject *
 op_copy (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
 {
@@ -148,6 +161,11 @@ op_copy (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
 	gint r, c, rows, cols, start_col;
 
 	g_assert (HTML_IS_TABLE (self));
+
+	if ((from || to)
+	    && (!from || !from->next)
+	    && (!to || !to->next))
+		return copy_as_leaf (self, e, from, to, len);
 
 	t  = HTML_TABLE (self);
 	nt = g_new0 (HTMLTable, 1);
@@ -202,8 +220,9 @@ get_recursive_length (HTMLObject *self)
 			if (t->cells [r][c] && t->cells [r][c]->row == r && t->cells [r][c]->col == c)
 				len += html_object_get_recursive_length (HTML_OBJECT (t->cells [r][c])) + 1;
 
-	if (len > 0)
-		len --;
+	/* if (len > 0)
+	   len --; */
+	len ++;
 	printf ("get_recursive_length %d\n", len);
 	return len;
 }
@@ -313,6 +332,12 @@ cut_partial (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *lef
 static HTMLObject *
 op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GList *right, guint *len)
 {
+	if ((!from || !from->next) && (!to || !to->next))
+		return (*parent_class->op_cut) (self, e, from, to, left, right, len);
+
+	/* if ((to && !to->next && GPOINTER_TO_INT (to->data) == 0)
+	    || (from && !from->next && GPOINTER_TO_INT (from->data) == 1))
+	    return html_engine_new_text_empty (e); */
 
 	if (from || to)
 		return cut_partial (self, e, from, to, left, right, len);
@@ -326,9 +351,17 @@ split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint lev
 	HTMLObject *dup;
 	HTMLTable *nt;
 	HTMLTable *t = HTML_TABLE (self);
-	HTMLTableCell *dup_cell  = HTML_TABLE_CELL ((*right)->data);
-	HTMLTableCell *cell = HTML_TABLE_CELL ((*left)->data);
+	HTMLTableCell *dup_cell;
+	HTMLTableCell *cell;
 	gint r, c, rows, cols, start_col, dup_row, dup_col;
+
+	if (*left == NULL && *right == NULL) {
+		(*parent_class->split)(self, e, child, offset, level, left, right);
+		return;
+	}
+
+	dup_cell  = HTML_TABLE_CELL ((*right)->data);
+	cell      = HTML_TABLE_CELL ((*left)->data);
 
 	printf ("before split\n");
 	printf ("-- self --\n");

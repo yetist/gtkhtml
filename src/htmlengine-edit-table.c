@@ -72,17 +72,13 @@ new_cell (HTMLEngine *e, HTMLTable *table)
 void
 html_engine_insert_table_1_1 (HTMLEngine *e)
 {
-	HTMLObject    *flow;
 	HTMLObject    *table;
 
 	table = html_table_new (0, 100, 1, 2, 1);
 
 	html_table_add_cell (HTML_TABLE (table), new_cell (e, HTML_TABLE (table)));
 
-	flow  = html_clueflow_new (HTML_CLUEFLOW_STYLE_NORMAL, 0);
-	html_clue_append (HTML_CLUE (flow), table);
-
-	html_engine_append_object (e, flow, 2, 2);
+	html_engine_append_object (e, table, 2);
 	html_cursor_backward (e->cursor, e);
 }
 

@@ -29,6 +29,7 @@
 
 #define HTML_CLUEFLOW(x) ((HTMLClueFlow *)(x))
 #define HTML_CLUEFLOW_CLASS(x) ((HTMLClueFlowClass *)(x))
+#define HTML_IS_CLUEFLOW(x) (HTML_CHECK_TYPE ((x), HTML_TYPE_CLUEFLOW))
 
 struct _HTMLClueFlow {
 	HTMLClue clue;
@@ -92,6 +93,7 @@ void               html_clueflow_remove_text_slaves           (HTMLClueFlow     
 void               html_clueflow_spell_check                  (HTMLClueFlow       *flow,
 							       HTMLEngine         *e,
 							       HTMLInterval       *i);
+gboolean           html_clueflow_is_empty                     (HTMLClueFlow       *flow);
 #define SPELL_CHECK(f, e) if (f && HTML_OBJECT_TYPE (f) == HTML_TYPE_CLUEFLOW) \
                                    html_clueflow_spell_check (HTML_CLUEFLOW (f), e, NULL)
 

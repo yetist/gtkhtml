@@ -97,10 +97,9 @@ copy (HTMLObject *self,
 static HTMLObject *
 op_copy (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
 {
-	gint l = html_object_get_length (self);
-
-	if ((!from || GPOINTER_TO_INT (from->data) == 0) && (!to || GPOINTER_TO_INT (to->data) == l)) {
-		*len += html_object_get_length (self);
+	if ((!from || GPOINTER_TO_INT (from->data) == 0)
+	    && (!to || GPOINTER_TO_INT (to->data) == html_object_get_length (self))) {
+		*len += html_object_get_recursive_length (self);
 
 		return html_object_dup (self);
 	} else
@@ -110,9 +109,8 @@ op_copy (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
 static HTMLObject *
 op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GList *right, guint *len)
 {
-	gint l = html_object_get_length (self);
-
-	if ((!from || GPOINTER_TO_INT (from->data) == 0) && (!to || GPOINTER_TO_INT (to->data) == l)) {
+	if ((!from || GPOINTER_TO_INT (from->data) == 0)
+	    && (!to || GPOINTER_TO_INT (to->data) == html_object_get_length (self))) {
 		if (!html_object_could_remove_whole (self, from, to, left, right)) {
 			HTMLObject *empty = html_engine_new_text_empty (e);
 
@@ -126,8 +124,7 @@ op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GL
 
 		html_object_change_set   (self,  HTML_CHANGE_ALL);
 		html_object_remove_child (self->parent, self);
-		*len += l;
-
+		*len += html_object_get_recursive_length (self);
 
 		return self;
 	} else
@@ -167,6 +164,8 @@ split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint lev
 			html_clue_prepend (HTML_CLUE (self->parent), html_engine_new_text_empty (e));
 		*left  = g_list_prepend (*left,  self->prev);
 		*right = g_list_prepend (*right, self);
+		e->cursor->object = self->prev;
+		e->cursor->offset = html_object_get_length (self->prev);
 	}
 	level--;
 

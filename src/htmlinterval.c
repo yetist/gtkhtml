@@ -238,6 +238,37 @@ interval_forall (HTMLObject *parent, GSList *from_down, GSList *to_down, HTMLEng
 }
 
 void
+html_point_to_leaf (HTMLPoint *p)
+{
+	if (html_object_is_container (p->object)) {
+		if (p->offset == 0)
+			p->object = html_object_get_head_leaf (p->object);
+		else if (p->offset == html_object_get_length (p->object)) {
+			p->object = html_object_get_tail_leaf (p->object);
+			p->offset = html_object_get_length (p->object);
+		} else
+			g_warning ("Can't transform point to leaf\n");
+	}
+}
+
+inline HTMLInterval *
+html_interval_dup (HTMLInterval *i)
+{
+	return html_interval_new_from_points (&i->from, &i->to);
+}
+
+HTMLInterval *
+html_interval_flat (HTMLInterval *i)
+{
+	HTMLInterval *ni = html_interval_dup (i);
+
+	html_point_to_leaf (&ni->from);
+	html_point_to_leaf (&ni->to);
+
+	return ni;
+}
+
+void
 html_interval_forall (HTMLInterval *i, HTMLEngine *e, HTMLObjectForallFunc f, gpointer data)
 {
 	GSList *from_downline, *to_downline;
@@ -245,6 +276,8 @@ html_interval_forall (HTMLInterval *i, HTMLEngine *e, HTMLObjectForallFunc f, gp
 
 	g_return_if_fail (i->from.object);
 	g_return_if_fail (i->to.object);
+
+	i = html_interval_flat (i);
 
 	from_downline = get_downtree_line (i->from.object);
 	to_downline   = get_downtree_line (i->to.object);
@@ -260,6 +293,7 @@ html_interval_forall (HTMLInterval *i, HTMLEngine *e, HTMLObjectForallFunc f, gp
 
 	g_slist_free (from_downline);
 	g_slist_free (to_downline);
+	html_interval_destroy (i);
 }
 
 static HTMLObject *
