@@ -1,3 +1,7 @@
+2003-05-19  Larry Ewing  <lewing@ximian.com>
+
+	* htmlurl.c: fix some of the url code to make testgtkhtml happier.
+
 2003-05-16  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (add_bindings): as below

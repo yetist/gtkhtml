@@ -16,10 +16,16 @@
     Boston, MA 02111-1307, USA.
 */
 
-#define MEMDEBUG
-
 #include "config.h"
+#include <libgnome/gnome-i18n.h>
+#include <gnome.h>
+#include <bonobo.h>
+#include <sys/types.h>
 
+#include <glib.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+ 
 #include <gnome.h>
 #include <gtk/gtk.h>
 #include <gtk/gtkbutton.h>
@@ -62,6 +68,7 @@ static void print_preview_cb (GtkWidget *widget, gpointer data);
 static void test_cb (GtkWidget *widget, gpointer data);
 static void bug_cb (GtkWidget *widget, gpointer data);
 static void slow_cb (GtkWidget *widget, gpointer data);
+static void animate_cb (GtkWidget *widget, gpointer data);
 static void stop_cb (GtkWidget *widget, gpointer data);
 static void dump_cb (GtkWidget *widget, gpointer data);
 static void dump_simple_cb (GtkWidget *widget, gpointer data);
@@ -147,6 +154,8 @@ static GnomeUIInfo debug_menu[] = {
 	  redraw_cb, NULL, NULL, 0, 0, 0 },
 	{ GNOME_APP_UI_ITEM, "Select all", "Select all",
 	  select_all_cb, NULL, NULL, 0, 0, 0 },
+	GNOMEUIINFO_TOGGLEITEM ("Disable Animations", "Disable Animated Images",  animate_cb, NULL),
+	 
 	GNOMEUIINFO_END
 };
 
@@ -368,6 +377,12 @@ slow_cb (GtkWidget *widget, gpointer data)
 }
 
 static void
+animate_cb (GtkWidget *widget, gpointer data)
+{
+	gtk_html_set_animate (html, !gtk_html_get_animate (html));
+}
+
+static void
 title_changed_cb (GtkHTML *html, const gchar *title, gpointer data)
 {
 	gchar *s;
@@ -515,8 +530,10 @@ on_set_base (GtkHTML *html, const gchar *url, gpointer data)
 	if (baseURL)
 		html_url_destroy (baseURL);
 
-	if (html)
+	if (html) {
 		gtk_html_set_base (html, url);
+	} 
+		
 	baseURL = html_url_new (url);
 }
 
@@ -952,16 +969,9 @@ main (gint argc, gchar *argv[])
 	/* gnome_init_with_popt_table (PACKAGE, VERSION,
 	   argc, argv, options, 0, &ctx); */
 	gnome_program_init ("testgtkhtml", VERSION, LIBGNOMEUI_MODULE, argc, argv,
-			    GNOME_PARAM_POPT_TABLE, options,
-			    NULL);
-	if (!gconf_init (argc, argv, &gconf_error)) {
-		g_assert (gconf_error != NULL);
-		g_error ("GConf init failed:\n  %s", gconf_error->message);
-		return FALSE;
-	}
 
-	/* RM2 gtk_widget_set_default_colormap (gdk_rgb_get_cmap ());
-	   gtk_widget_set_default_visual (gdk_rgb_get_visual ()); */
+			    GNOME_PARAM_HUMAN_READABLE_NAME, _("GtkHTML Test Application"),
+			    NULL);
 
 	app = gnome_app_new ("testgtkhtml", "GtkHTML: testbed application");
 
