@@ -1,3 +1,61 @@
+2004-06-04  Radek Doulik  <rodo@ximian.com>
+
+	* added few missing inludes of header files 
+
+	* testgtkhtml.c (main): remove unused variable
+
+	* htmltextslave.c (draw_normal): remove unused variable
+	(calc_offset): ditto
+
+	* htmltext.c (html_text_get_pango_info): remove unused variable
+	(calc_min_width): ditto
+	(save): ditto
+	(convert_nbsp): ditto, change return type to void
+	(html_text_convert_nbsp): ditto
+	(paste_link): ditto
+
+	* htmltable.c (check_page_split): remove unused variable
+
+	* htmlstyle.c: always return value
+
+	* htmlprinter.c (draw_text): remove unused variable
+	(draw_text): ditto
+
+	* htmlimage.c (html_image_pointer_update): removed unused variable
+
+	* htmlgdkpainter.c (text_width): removed unused variable
+
+	* htmlengine.c (current_row_valign): return default return value
+	if table stack is empty
+	(current_row_align): ditto
+	(push_block): removed unused variable
+	(element_parse_iframe): added braces
+	(element_parse_a): removed unused variables
+	(element_parse_img): added braces
+	(element_parse_ol): removed unused variable
+	(element_parse_table): added braces
+	(element_parse_table): removed unused variable
+	(parse_one_token): ditto
+
+	* htmlengine-save.c (get_body): remove unused variable 'margins'
+
+	* htmlengine-print.c (print_with_header_footer): remove unused
+	variable 'prop'
+
+	* htmlengine-edit-fontstyle.c (html_engine_get_document_color):
+	remove unused variable 'index'
+
+	* htmlcluev.c (set_max_height): removed unused variable 'obj'
+
+	* htmlclueflow.c: removed some unused variables and methods
+
+	* gtkhtml.c (gtk_html_set_fonts): remove unused variable 'name'
+	(toplevel_unmap): return FALSE. it wasn't returning any value and
+	we don't want to stop the event propagation
+	(focus): avoid ambiguous else
+	(focus): remove unused 'cur' variable
+	(gtk_html_begin_content): remove unused variable 'handle'
+
 2004-06-03  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (style_set): refresh pango info

@@ -593,6 +593,8 @@ process_attrs (HTMLPrinter *printer, GSList *attrs, GtkHTMLFontStyle *style, gbo
 			if (style)
 				*style |= ((HTMLPangoAttrFontSize *) attr)->style;
 			break;
+		default:
+			break;
 		}
 		attrs = attrs->next;
 	}
@@ -627,10 +629,10 @@ draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, HT
 	asc = gnome_font_get_ascender (font);
 
 	if (pi && pi->n) {
-		GList *gl, *il;
+		GList *gl;
 		PangoGlyphString *str;
 		GtkHTMLFontStyle style;
-		guint i, char_offset = 0;
+		guint char_offset = 0;
 		gint ii;
 		const gchar *c_text = text;
 		PangoAttrIterator *iter = NULL;
@@ -639,7 +641,7 @@ draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, HT
 		c_text = text;
 		for (gl = glyphs; gl && char_offset < len; gl = gl->next) {
 			GnomeFont *c_font;
-			GdkGC *gc, *bg_gc;
+			GdkGC *bg_gc;
 			gboolean underline, strikethrough, bgcolor;
 			gint c_bytes, begin, end;
 			double cw = 0.0;
@@ -793,8 +795,8 @@ text_size (HTMLPainter *painter, const gchar *text, guint blen, HTMLTextPangoInf
 	}
 
 	if (pi && pi->n) {
-		GList *gl, *il;
-		guint i, char_offset = 0;
+		GList *gl;
+		guint char_offset = 0;
 		gint ii;
 		const gchar *c_text = text;
 		PangoGlyphString *str;
@@ -867,7 +869,6 @@ calc_text_size (HTMLPainter *painter, const gchar *text, guint len, HTMLTextPang
 		GtkHTMLFontStyle style, HTMLFontFace *face, gint *width, gint *asc, gint *dsc)
 {
 	HTMLPrinter *printer;
-	GnomeFont *font;
 
 	printer = HTML_PRINTER (painter);
 	g_return_if_fail (printer->context != NULL);

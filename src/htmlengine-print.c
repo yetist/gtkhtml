@@ -153,7 +153,6 @@ print_with_header_footer (HTMLEngine *engine,
 {
 	HTMLPainter *printer;
 	HTMLPainter *old_painter;
-	GtkHTMLClassProperties *prop = GTK_HTML_CLASS (GTK_WIDGET_GET_CLASS (engine->widget))->properties;
 	gint pages = 0;
 
 	g_return_val_if_fail (engine->clue != NULL, 0);

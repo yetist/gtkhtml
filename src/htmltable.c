@@ -2200,7 +2200,6 @@ static gint
 check_page_split (HTMLObject *self, HTMLPainter *painter, gint y)
 {
 	HTMLTable     *table;
-	int pixel_size = html_painter_get_pixel_size (painter);
 	int r, min_y;
 
 	table = HTML_TABLE (self);

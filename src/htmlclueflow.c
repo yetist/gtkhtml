@@ -1773,34 +1773,6 @@ append_selection_string (HTMLObject *self,
 	}
 }
 
-static void
-forward_items (PangoItem **items, int *ii, int *io, int n)
-{
-	while (n > 0) {
-		if (items [*ii]->num_chars - *io > n) {
-			*io += n;
-			return;
-		}
-		n -= items [*ii]->num_chars - *io;
-		(*ii) ++;
-		*io = 0;
-	}
-}
-
-static void
-backward_items (PangoItem **items, int *ii, int *io, int n)
-{
-	while (n > 0) {
-		if (*io >= n) {
-			*io -= n;
-			return;
-		}
-		n -= *io;
-		(*ii) --;
-		*io = items [*ii]->num_chars - 1;
-	}
-}
-
 static gboolean
 save_plain (HTMLObject *self,
 	    HTMLEngineSaveState *state,
@@ -1824,7 +1796,7 @@ save_plain (HTMLObject *self,
 	if (HTML_OBJECT_CLASS (&html_clue_class)->save_plain (self, 
 							      buffer_state, 
 							      max_len)) {
-		guchar *s, *space;
+		guchar *s;
 		int offset;
 		
 		if (get_pre_padding (flow, calc_padding (state->engine->painter)) > 0) {
@@ -1839,7 +1811,7 @@ save_plain (HTMLObject *self,
 			g_string_append (out, "\n");
 		} else {
 			PangoAttrList *attrs = pango_attr_list_new ();
-			gint bytes = strlen (s), i, slen = g_utf8_strlen (s, -1), clen, n_items, cii, cio;
+			gint bytes = strlen (s), i, slen = g_utf8_strlen (s, -1), clen, n_items;
 			GList *items_list, *cur;
 			PangoContext *pc = gtk_widget_get_pango_context (GTK_WIDGET (state->engine->widget));
 			PangoLogAttr *lattrs;
@@ -1856,7 +1828,6 @@ save_plain (HTMLObject *self,
 			offset = 0;
 			for (i = 0; i < n_items; i ++) {
 				PangoItem tmp_item;
-				PangoLogAttr *attrs;
 				int start_i, start_offset;
 
 				start_i = i;
@@ -1891,7 +1862,6 @@ save_plain (HTMLObject *self,
 				if ((flow->style != HTML_CLUEFLOW_STYLE_PRE) 
 				    && !HTML_IS_TABLE (HTML_CLUE (flow)->head)) {
 					if (len > max_len) {
-						gint l = max_len;
 						gboolean look_backward = TRUE;
 						gint wi, wl;
 

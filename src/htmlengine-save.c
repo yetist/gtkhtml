@@ -221,7 +221,7 @@ get_body (HTMLEngine *e)
 	gchar *bg;
 	gchar *bg_image;
 	gchar *link;
-	gchar *margins, *lm, *rm, *tm, *bm;
+	gchar *lm, *rm, *tm, *bm;
 	gchar *url = NULL;
 
 	cset = e->settings->color_set;

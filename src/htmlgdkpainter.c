@@ -27,6 +27,8 @@
 
 #include <glib.h>
 #include <gdk/gdkx.h>
+#include <gdk/gdkgc.h>
+#include <gdk-pixbuf/gdk-pixbuf.h>
 #include <gtk/gtksignal.h>
 
 #include <libgnome/gnome-i18n.h>
@@ -88,7 +90,7 @@ text_width (HTMLGdkPainter *painter, PangoFontDescription *desc, const gchar *te
 {
 	HTMLTextPangoInfo *pi;
 	GList *glyphs;
-	gint width = 0, n_pi;
+	gint width = 0;
 
 	pi = html_painter_text_itemize_and_prepare_glyphs (HTML_PAINTER (painter), desc, text, bytes, &glyphs, NULL);
 
@@ -976,7 +978,7 @@ item_gc (HTMLPainter *p, PangoItem *item, GdkDrawable *drawable, GdkGC *orig_gc,
 				gdk_gc_set_foreground (new_gc, &color);
 			else {
 				if (*bg_gc)
-					gdk_gc_unref (*bg_gc);
+					g_object_unref (*bg_gc);
 				*bg_gc = gdk_gc_new (drawable);
 				gdk_gc_copy (*bg_gc, orig_gc);
 				gdk_gc_set_foreground (*bg_gc, &color);
@@ -989,6 +991,8 @@ item_gc (HTMLPainter *p, PangoItem *item, GdkDrawable *drawable, GdkGC *orig_gc,
 			break;
 		case PANGO_ATTR_STRIKETHROUGH:
 			*strikethrough = TRUE;
+			break;
+		default:
 			break;
 		}
 		tmp_list = tmp_list->next;
@@ -1043,7 +1047,7 @@ draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, HT
 		temp_pi = TRUE;
 	}
 	if (pi && pi->n) {
-		GList *gl, *il;
+		GList *gl;
 		guint i, char_offset = 0;
 
 		c_text = text;
@@ -1064,7 +1068,7 @@ draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, HT
 				pango_glyph_string_extents (str, pi->entries [ii].item->analysis.font, NULL, &log_rect);
 				gdk_draw_rectangle (gdk_painter->pixmap, bg_gc, TRUE, x + width, y - PANGO_PIXELS (PANGO_ASCENT (log_rect)),
 						    PANGO_PIXELS (log_rect.width), PANGO_PIXELS (log_rect.height));
-				gdk_gc_unref (bg_gc);
+				g_object_unref (bg_gc);
 			}
 			gdk_draw_glyphs (gdk_painter->pixmap, gc,
 					 pi->entries [ii].item->analysis.font, x + width, y, str);
@@ -1073,7 +1077,7 @@ draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, HT
 			else
 				for (i=0; i < str->num_glyphs; i ++)
 					cw += PANGO_PIXELS (str->glyphs [i].geometry.width);
-			gdk_gc_unref (gc);
+			g_object_unref (gc);
 			width += cw;
 			c_text = g_utf8_offset_to_pointer (c_text, str->num_glyphs);
 			char_offset += str->num_glyphs;

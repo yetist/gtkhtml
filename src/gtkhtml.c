@@ -776,7 +776,6 @@ gtk_html_set_fonts (GtkHTML *html, HTMLPainter *painter)
 	}
 		
 	if (!fixed_name) {
-		char *name;
 		GConfClient *gconf;
 
 		gconf = gconf_client_get_default ();
@@ -1018,6 +1017,7 @@ unrealize (GtkWidget *widget)
 		(* GTK_WIDGET_CLASS (parent_class)->unrealize) (widget);
 }
 
+static gboolean
 expose (GtkWidget *widget, GdkEventExpose *event)
 {
 	/* printf ("expose x: %d y: %d\n", GTK_HTML (widget)->engine->x_offset, GTK_HTML (widget)->engine->y_offset); */
@@ -1506,6 +1506,8 @@ static gboolean
 toplevel_unmap (GtkWidget *widget, GdkEvent *event, GtkHTML *html)
 {
 	html_image_factory_stop_animations (html->engine->image_factory);	
+
+	return FALSE;
 }
 
 static void
@@ -2213,16 +2215,16 @@ focus (GtkWidget *w, GtkDirectionType direction)
 
 	if (html_engine_focus (e, direction) && e->focus_object) {
 		gint offset;
-		HTMLObject *cur, *obj = html_engine_get_focus_object (e, &offset);
+		HTMLObject *obj = html_engine_get_focus_object (e, &offset);
 		gint x1, y1, x2, y2, xo, yo;
 
 		xo = e->x_offset;
 		yo = e->y_offset;
 
-		if (HTML_IS_TEXT (obj))
+		if (HTML_IS_TEXT (obj)) {
 			if (!html_text_get_link_rectangle (HTML_TEXT (obj), e->painter, offset, &x1, &y1, &x2, &y2))
 				return FALSE;
-		else {
+		} else {
 			html_object_calc_abs_position (obj, &x1, &y1);
 			y2 = y1 + obj->descent;
 			x2 = x1 + obj->width;
@@ -3379,8 +3381,6 @@ gtk_html_begin (GtkHTML *html)
 GtkHTMLStream *
 gtk_html_begin_content (GtkHTML *html, gchar *content_type)
 {
-	GtkHTMLStream *handle;
-
 	g_return_val_if_fail (! gtk_html_get_editable (html), NULL);
 
 	return gtk_html_begin_full (html, NULL, NULL, 0);

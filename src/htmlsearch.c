@@ -30,6 +30,7 @@
 */
 
 #include <config.h>
+#include <string.h>
 
 #include "htmlsearch.h"
 #include "htmlobject.h"

@@ -1651,7 +1651,7 @@ object_save_data (GQuark key_id, gpointer data, gpointer user_data)
 	if (!str) {
 		/* printf ("save %s %s -> %s\n", state->save_data_class_name, g_quark_to_string (key_id), (gchar *) data); */
 		html_engine_save_output_string (state, "<!--+GtkHTML:<DATA class=\"%s\" key=\"%s\" value=\"%s\">-->",
-						state->save_data_class_name, g_quark_to_string (key_id), data);
+						state->save_data_class_name, g_quark_to_string (key_id), (char *) data);
 		html_engine_set_class_data (state->engine, state->save_data_class_name, g_quark_to_string (key_id), data);
 	}
 }
@@ -1667,12 +1667,12 @@ handle_object_data (gpointer key, gpointer value, gpointer data)
 	if (!str) {
 		/* printf ("clear\n"); */
 		html_engine_save_output_string (state, "<!--+GtkHTML:<DATA class=\"%s\" clear=\"%s\">-->",
-						state->save_data_class_name, key);
+						state->save_data_class_name, (char *) key);
 		state->data_to_remove = g_slist_prepend (state->data_to_remove, key);
 	} else if (strcmp (value, str)) {
 		/* printf ("change\n"); */
 		html_engine_save_output_string (state, "<!--+GtkHTML:<DATA class=\"%s\" key=\"%s\" value=\"%s\">-->",
-						state->save_data_class_name, key, str);
+						state->save_data_class_name, (char *) key, str);
 		html_engine_set_class_data (state->engine, state->save_data_class_name, key, value);
 	}
 }

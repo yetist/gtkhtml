@@ -40,7 +40,6 @@
 
 HTMLIFrameClass html_iframe_class;
 static HTMLEmbeddedClass *parent_class = NULL;
-static gboolean calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs);
 	
 static void
 iframe_set_base (GtkHTML *html, const char *url, gpointer data)

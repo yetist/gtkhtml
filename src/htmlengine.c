@@ -248,7 +248,7 @@ parse_element_name (const char *str)
 	while (*ep && *ep != ' ' && *ep != '>' && *ep != '/')
 		ep++;
 	
-	if (ep - str == 0 || *str == '/' && ep - str == 1) {
+	if (ep - str == 0 || (*str == '/' && ep - str == 1)) {
 		g_warning ("found token with no valid name");
 		return NULL;
 	}
@@ -491,7 +491,7 @@ current_row_valign (HTMLEngine *e)
 
 	if (!html_stack_top (e->table_stack)) {
 		DT (g_warning ("missing table");)
-		return;
+		return rv;
 	}
 
 	for (item = e->span_stack->list; item; item = item->next) {
@@ -527,7 +527,7 @@ current_row_align (HTMLEngine *e)
 
 	if (!html_stack_top (e->table_stack)) {
 		DT (g_warning ("missing table");)
-		return;
+		return rv;
 	}
 
 	for (item = e->span_stack->list; item; item = item->next) {
@@ -983,8 +983,6 @@ push_block (HTMLEngine *e,
 	    gint miscData1,
 	    gint miscData2)
 {
-	HTMLElement *elem;
-	
 	push_block_element (e, name, NULL, level, exitFunc, miscData1, miscData2);
 }
 
@@ -1004,16 +1002,6 @@ remove_element (HTMLEngine *e, GList *item)
 	free_element (elem);
 	
 	return next;
-}
-
-static void
-pop_cell (HTMLEngine *e, HTMLElement *elem)
-{
-	GList *l = e->span_stack->list;
-
-	while (l) {
-		l = remove_element (e, l);
-	}
 }
 
 static void
@@ -1425,7 +1413,6 @@ element_parse_object (HTMLEngine *e, HTMLObject *clue, const gchar *attr)
 	char *data    = NULL;
 	char *value   = NULL;
 	int width=-1,height=-1;
-	gint max_width = clue->max_width;
 	static const gchar *end[] = { "</object", 0};
 	GtkHTMLEmbedded *eb;
 	HTMLEmbedded *el;
@@ -1602,7 +1589,7 @@ element_parse_iframe (HTMLEngine *e, HTMLObject *clue, const char *str)
 	if (html_element_get_attr (element, "frameborder", &value))
 		border = atoi (value);
 
-	if (html_element_get_attr (element, "align", &value))
+	if (html_element_get_attr (element, "align", &value)) {
 		if (strcasecmp ("left", value) == 0)
 			halign = HTML_HALIGN_LEFT;
 		else if (strcasecmp ("right", value) == 0)
@@ -1613,7 +1600,7 @@ element_parse_iframe (HTMLEngine *e, HTMLObject *clue, const char *str)
 			valign = HTML_VALIGN_MIDDLE;
 		else if (strcasecmp ("bottom", value) == 0) 
 			valign = HTML_VALIGN_BOTTOM;
-	
+	}
         element->style = html_style_set_display (element->style, DISPLAY_NONE);
 	/*
 	html_element_get_attr (element, "longdesc", &value);
@@ -1710,14 +1697,10 @@ element_parse_a (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	HTMLElement *element;
 	gchar *url = NULL;
 	gchar *id = NULL;
-	HTMLStyle *style = NULL;
-	char *style_attr = NULL;
 	char *type = NULL;
 	char *coords = NULL;
 	char *target = NULL;
 	char *value;
-	
-	const gchar *p;
 	
 	pop_element (e, ID_A);
 	
@@ -2456,7 +2439,7 @@ element_parse_img (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	if (html_element_get_attr (element, "hspace", &value))
 		hspace = atoi (value);
 	
-	if (html_element_get_attr (element, "align", &value))
+	if (html_element_get_attr (element, "align", &value)) {
 		if (strcasecmp ("left", value) == 0)
 			align = HTML_HALIGN_LEFT;
 		else if (strcasecmp ("right", value) == 0)
@@ -2467,7 +2450,7 @@ element_parse_img (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 			valign = HTML_VALIGN_MIDDLE;
 		else if (strcasecmp ("bottom", value) == 0) 
 			valign = HTML_VALIGN_BOTTOM;
-	
+	}
 	if (html_element_get_attr (element, "id", &value))
 		id = value;
 
@@ -2684,7 +2667,6 @@ block_end_list (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 static void
 element_parse_ol (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
-	HTMLList *list;
 	HTMLListType listType = HTML_LIST_TYPE_ORDERED_ARABIC;
 	
 	pop_element (e, ID_LI);
@@ -2941,10 +2923,6 @@ element_parse_table (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	char *value;
 	HTMLLength *len;
 
-	GdkColor tableColor;
-	gboolean have_tableColor = FALSE;
-	
-	gint percent = 0;
 	gint padding = 1;
 	gint spacing = 2;
 	gint border = 0;
@@ -2960,12 +2938,12 @@ element_parse_table (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	if (html_element_get_attr (element, "cellspacing", &value) && value)
 		spacing = atoi (value);
 
-	if (html_element_get_attr (element, "border", &value))
+	if (html_element_get_attr (element, "border", &value)) {
 		if (value && *value) 
 			border = atoi (value);
 		else 
 			border = 1;
-
+	}
 	if (html_element_get_attr (element, "width", &value))
 		element->style = html_style_add_width (element->style, value);
 	
@@ -3463,7 +3441,7 @@ element_parse_font (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		if (*value == '+' || *value == '-')
 			size += GTK_HTML_FONT_STYLE_SIZE_3;
 		
-		CLAMP (size, GTK_HTML_FONT_STYLE_SIZE_1, GTK_HTML_FONT_STYLE_SIZE_MAX);
+		size = CLAMP (size, GTK_HTML_FONT_STYLE_SIZE_1, GTK_HTML_FONT_STYLE_SIZE_MAX);
 		element->style = html_style_set_font_size (element->style, size);
 	}
 	
@@ -3599,7 +3577,7 @@ static void
 parse_one_token (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	static GHashTable *basic = NULL;
-	char *name, *ep;
+	char *name;
 	HTMLDispatchEntry *entry;
 
 	if (basic == NULL)
@@ -5025,11 +5003,12 @@ html_engine_set_editable (HTMLEngine *e,
 		if (e->have_focus)
 			html_engine_setup_blinking_cursor (e);
 	} else {
-		if (e->have_focus)
+		if (e->have_focus) {
 			if (e->caret_mode)
 				html_engine_setup_blinking_cursor (e);
 			else 
 				html_engine_stop_blinking_cursor (e);
+		}
 	}
 
 	gtk_html_drag_dest_set (e->widget);

@@ -475,6 +475,8 @@ HTMLObject     *html_object_next_cursor           (HTMLObject            *self,
 						   gint                  *offset);
 HTMLObject     *html_object_prev_cursor           (HTMLObject            *self,
 						   gint                  *offset);
+GdkRectangle   *html_object_get_bounds            (HTMLObject            *o,
+						   GdkRectangle          *bounds);
 
 /* Page splitting.  */
 gint  html_object_check_page_split  (HTMLObject  *self,

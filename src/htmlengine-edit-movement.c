@@ -22,6 +22,8 @@
 #include <config.h>
 #include <ctype.h>
 
+#include "gtkhtml.h"
+#include "gtkhtml-private.h"
 #include "htmlengine-edit-cursor.h"
 #include "htmlengine-edit-selection-updater.h"
 #include "htmlengine-edit-movement.h"

@@ -20,6 +20,7 @@
 */
 
 #include <string.h>
+#include <ctype.h>
 #include "htmlstyle.h"
 
 /* Color handling.  */
@@ -52,12 +53,12 @@ static HTMLLength *
 parse_length (char *str) {
 	char *cur = str;
 	HTMLLength *len;
-
+	
+	len = g_new0 (HTMLLength, 1);
+	
 	if (!str)
-		return;
-	
-	len = g_new (HTMLLength, 1);
-	
+		return len;
+
 	/* g_warning ("begin \"%s\"", *str); */
 
 	while (isspace (*cur)) cur++;

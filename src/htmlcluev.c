@@ -192,6 +192,9 @@ html_cluev_do_layout (HTMLObject *o, HTMLPainter *painter, gboolean calc_size, G
 			break;
 		case HTML_CLEAR_NONE:
 			break;
+		case HTML_CLEAR_INHERIT:
+			/* TODO */
+			break;
 		}
 
 		o->ascent = clue->curr->y;
@@ -329,7 +332,6 @@ static void
 set_max_height (HTMLObject *o, HTMLPainter *painter, gint height)
 {
 	HTMLClue *clue = HTML_CLUE (o);
-	HTMLObject *obj;
 
 	html_object_calc_size (o, painter, NULL);
 	if (o->ascent < height) {

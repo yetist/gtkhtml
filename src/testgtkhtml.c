@@ -109,7 +109,6 @@ static int go_position;
 static gboolean use_redirect_filter;
 
 static gboolean slow_loading = FALSE;
-static gboolean exit_when_done = FALSE;
 
 static gint redirect_timerId = 0;
 static gchar *redirect_url = NULL;
@@ -965,11 +964,11 @@ exit_cb (GtkWidget *widget, gpointer data)
 	gtk_main_quit ();
 }
 
-static struct poptOption options[] = {
+/* static struct poptOption options[] = {
   {"slow-loading", '\0', POPT_ARG_NONE, &slow_loading, 0, "Load the document as slowly as possible", NULL},
   {"exit-when-done", '\0', POPT_ARG_NONE, &exit_when_done, 0, "Exit the program as soon as the document is loaded", NULL},
   {NULL}
-};
+  }; */
 
 gint
 main (gint argc, gchar *argv[])
@@ -977,7 +976,6 @@ main (gint argc, gchar *argv[])
 	GtkWidget *app, *bar;
 	GtkWidget *html_widget;
 	GtkWidget *scrolled_window;
-	GError  *gconf_error  = NULL;
 
 #ifdef MEMDEBUG
 	void *p = malloc (1024);	/* to make linker happy with ccmalloc */

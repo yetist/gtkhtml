@@ -1272,7 +1272,6 @@ html_text_get_pango_info (HTMLText *text, HTMLPainter *painter)
 		text->pi->attrs = g_new (PangoLogAttr, text->text_len + 1);
 		for (i = 0; i < text->pi->n; i ++) {
 			PangoItem tmp_item;
-			PangoLogAttr *attrs;
 			int start_i, start_offset;
 
 			start_i = i;
@@ -1425,8 +1424,6 @@ calc_min_width (HTMLObject *self, HTMLPainter *painter)
 	line_offset = html_text_get_line_offset (text, painter, 0);
 	s = text->text;
 	while (offset < text->text_len) {
-		gint skip;
-
 		if (offset > 0 && html_text_is_line_break (pi->attrs [offset]))
 			update_mw (text, painter, offset, &last_offset, &ww, &mw, ii, io, s, line_offset);
 
@@ -1516,6 +1513,8 @@ save_open_attrs (HTMLEngineSaveState *state, GSList *attrs)
 			free_tag = TRUE;
 		}
 			break;
+		default:
+			break;
 		}
 
 		if (tag) {
@@ -1562,6 +1561,8 @@ save_close_attrs (HTMLEngineSaveState *state, GSList *attrs)
 			tag = "</FONT>";
 			break;
 		case PANGO_ATTR_FAMILY:
+			break;
+		default:
 			break;
 		}
 
@@ -1642,8 +1643,6 @@ save (HTMLObject *self, HTMLEngineSaveState *state)
 {
 	HTMLText *text = HTML_TEXT (self);
 	PangoAttrIterator *iter = pango_attr_list_get_iterator (text->attr_list);
-	guint last_index = 0;
-	guint last_written = 0;
 
 	if (iter) {
 		GSList *l, *links = g_slist_reverse (g_slist_copy (text->links));
@@ -1808,10 +1807,9 @@ write_last_white_space (gint white_space, gchar **fill)
 	}
 }
 
-static GSList *
+static void
 convert_nbsp (gchar *fill, const gchar *text)
 {
-	GSList *changes = NULL; 
 	gint white_space;
 	gunichar uc;
 	const gchar *op, *p;
@@ -1928,7 +1926,6 @@ html_text_convert_nbsp (HTMLText *text, gboolean free_text)
 	gint delta;
 
 	if (is_convert_nbsp_needed (text->text, &delta, &changes)) {
-		GSList *attrs, *extra_attrs;
 		gchar *to_free;
 
 		to_free = text->text;
@@ -2197,7 +2194,7 @@ select_range (HTMLObject *self,
 static HTMLObject *
 set_link (HTMLObject *self, HTMLColor *color, const gchar *url, const gchar *target)
 {
-	HTMLText *text = HTML_TEXT (self);
+	/* HTMLText *text = HTML_TEXT (self); */
 
 	/* FIXME-link return url ? html_link_text_new_with_len (text->text, text->text_len, text->font_style, color, url, target) : NULL; */
 	return NULL;
@@ -2631,12 +2628,8 @@ html_engine_init_magic_links (void)
 static void
 paste_link (HTMLEngine *engine, HTMLText *text, gint so, gint eo, gchar *prefix)
 {
-	HTMLObject *new_obj;
-	HTMLText *new_text;
 	gchar *href;
 	gchar *base;
-	gint offset;
-	guint position;
 
 	base = g_strndup (html_text_get_text (text, so), html_text_get_index (text, eo) - html_text_get_index (text, so));
 	href = (prefix) ? g_strconcat (prefix, base, NULL) : g_strdup (base);
@@ -2759,8 +2752,8 @@ html_text_append_link (HTMLText *text, gchar *url, gchar *target, gint start_off
 void
 html_text_add_link_full (HTMLText *text, HTMLEngine *e, gchar *url, gchar *target, gint start_index, gint end_index, gint start_offset, gint end_offset)
 {
-	GSList *l, *lnext, *prev = NULL;
-	Link *link, *plink = NULL;
+	GSList *l, *prev = NULL;
+	Link *link;
 
 	cut_links_full (text, start_offset, end_offset, start_index, end_index, 0, 0);
 
@@ -3119,6 +3112,8 @@ style_from_attrs (PangoAttrIterator *iter)
 		case PANGO_ATTR_SIZE:
 			style |= ((HTMLPangoAttrFontSize *) attr)->style;
 			break;
+		default:
+			break;
 		}
 	}
 
@@ -3263,6 +3258,8 @@ unset_style_filter (PangoAttribute *attr, gpointer data)
 		if (((HTMLPangoAttrFontSize *) attr)->style & style)
 			return TRUE;
 		break;
+	default:
+		break;
 	}
 
 	return FALSE;
@@ -3289,6 +3286,8 @@ color_from_attrs (PangoAttrIterator *iter)
 		case PANGO_ATTR_FOREGROUND:
 			ca = (PangoAttrColor *) attr;
 			color = html_color_new_from_rgb (ca->color.red, ca->color.green, ca->color.blue);
+			break;
+		default:
 			break;
 		}
 	}

@@ -21,6 +21,7 @@
 
 #include <config.h>
 #include <ctype.h>
+#include <string.h>
 #include "htmlcolorset.h"
 #include "htmlcursor.h"
 #include "htmlengine-edit-text.h"

@@ -168,7 +168,7 @@ html_engine_get_document_color (HTMLEngine *engine)
 			return NULL;
 		else {
 			HTMLObject *obj;
-			gint offset, index;
+			gint offset;
 
 			obj = html_engine_text_style_object (engine, &offset);
 			return obj

@@ -38,7 +38,6 @@
 
 HTMLFrameClass html_frame_class;
 static HTMLEmbeddedClass *parent_class = NULL;
-static gboolean calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs);
 
 static void
 frame_url_requested (GtkHTML *html, const char *url, GtkHTMLStream *handle, gpointer data)
@@ -157,27 +156,6 @@ set_max_width (HTMLObject *o, HTMLPainter *painter, gint max_width)
 	o->max_width = max_width;
 	html_object_set_max_width (e->clue, e->painter, max_width - (html_engine_get_left_border (e) + html_engine_get_right_border (e)));
 }
-
-/* static void
-reset (HTMLObject *o)
-{
-	HTMLFrame *frame;
-
-	(* HTML_OBJECT_CLASS (parent_class)->reset) (o);
-	frame = HTML_FRAME (o);
-	html_object_reset (GTK_HTML (frame->html)->engine->clue);
-} */
-
-static void
-draw_background (HTMLObject *self,
-		 HTMLPainter *p,
-		 gint x, gint y,
-		 gint width, gint height,
-		 gint tx, gint ty)
-{
-}
-
-/* FIXME rodo - draw + set_painter is not much clean now, needs refactoring */
 
 static void
 draw (HTMLObject *o,

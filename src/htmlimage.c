@@ -170,11 +170,6 @@ destroy (HTMLObject *o)
 	HTML_OBJECT_CLASS (parent_class)->destroy (o);
 }
 
-static HTMLObject *
-op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GList *right, guint *len)
-{
-}
-
 static void
 copy (HTMLObject *self,
       HTMLObject *dest)
@@ -1166,8 +1161,7 @@ html_image_pointer_queue_animation (HTMLImagePointer *ip)
 static gint
 html_image_pointer_update (HTMLImagePointer *ip)
 {
-	GdkPixbufAnimationIter  *iter = ip->iter;
-	HTMLEngine              *engine = ip->factory->engine;
+	HTMLEngine *engine = ip->factory->engine;
 	GSList *cur;
 
 	g_return_val_if_fail (ip->factory != NULL, FALSE);
