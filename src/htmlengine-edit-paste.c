@@ -422,6 +422,8 @@ do_paste (HTMLEngine *engine,
 			engine->cursor->position ++;
 
 			if (p->next == NULL) {
+				if (HTML_CLUE (clueflow)->head == NULL)
+					add_empty_text_master_to_clueflow (HTML_CLUEFLOW (clueflow));
 				engine->cursor->object = HTML_CLUE (clueflow)->head;
 				engine->cursor->offset = 0;
 				break;
