@@ -1752,7 +1752,8 @@ save_plain (HTMLObject *self,
 	flow = HTML_CLUEFLOW (self);
 
 	pad = plain_padding (flow, NULL, FALSE);
-	buffer_state = html_engine_save_buffer_new (state->engine);
+	buffer_state = html_engine_save_buffer_new (state->engine, 
+						    state->inline_frames);
 
 	max_len = MAX (requested_width - pad, 0);
 	/* buffer the paragraph's content into the save buffer */

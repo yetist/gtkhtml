@@ -87,7 +87,7 @@ static GtkTargetEntry dnd_link_sources [] = {
 
 #define GNOME_SPELL_GCONF_DIR "/GNOME/Spell"
 
-#define d_s(x) 
+#define d_s(x)
 
 static GtkLayoutClass *parent_class = NULL;
 
@@ -1428,10 +1428,6 @@ button_press_event (GtkWidget *widget,
 			break;
 		case 2:
 			if (html_engine_get_editable (engine)) {
-				if (gdk_selection_owner_get (GDK_SELECTION_PRIMARY) == GTK_WIDGET (html)->window) {
-					html_engine_copy_object (html->engine, &html->priv->primary, &html->priv->primary_len);
-				}
-
 				html_engine_disable_selection (html->engine);
 				html_engine_jump_at (engine,
 						     x + engine->x_offset,
@@ -1702,7 +1698,10 @@ selection_get (GtkWidget        *widget,
 	
 	html = GTK_HTML (widget);
 	if (selection_data->selection == GDK_SELECTION_PRIMARY) {
-		html_engine_copy_object (html->engine, &selection_object, &selection_object_len);
+		if (html->engine->primary) {
+			selection_object = html->engine->primary;
+			selection_object_len = html->engine->primary_len;
+		}			
 	} else	/* CLIPBOARD */ {
 		if (html->engine->clipboard) {
 			selection_object = html->engine->clipboard;
@@ -1723,7 +1722,7 @@ selection_get (GtkWidget        *widget,
 			HTMLEngineSaveState *state;
 			GString *buffer;
 
-			state = html_engine_save_buffer_new (html->engine);
+			state = html_engine_save_buffer_new (html->engine, TRUE);
 			buffer = (GString *)state->user_data;
 
 			/* prepend a byte order marker (ZWNBSP) to the selection */
@@ -1735,7 +1734,7 @@ selection_get (GtkWidget        *widget,
 			
 			if (selection_string)
 				gtk_selection_data_set (selection_data,
-							gdk_atom_intern ("text/html", FALSE), 8,
+							gdk_atom_intern ("text/html", FALSE), 16,
 							selection_string,
 							ucs2_len (selection_string));
 			
@@ -1794,9 +1793,6 @@ selection_get (GtkWidget        *widget,
 		}
 		g_free (selection_string);
 		g_free (localized_string);
-		if (selection_object && selection_data->selection == GDK_SELECTION_PRIMARY) {
-			html_object_destroy (selection_object);
-		}
 	}
 }
 
@@ -1837,11 +1833,13 @@ selection_received (GtkWidget *widget,
 			return;
 
 		} else if (selection_data->selection == GDK_SELECTION_PRIMARY
-			   && GTK_HTML (widget)->priv->primary) {
+			   && e->primary) {
+			HTMLObject *copy;
+			guint len = 0;
 
-			html_engine_paste_object (e, GTK_HTML (widget)->priv->primary, 
-						  GTK_HTML (widget)->priv->primary_len);
-			GTK_HTML (widget)->priv->primary = NULL;
+			copy = html_object_op_copy (e->primary, NULL, e, NULL, NULL, &len);
+			html_engine_paste_object (e, copy, len);
+
 			return;
 		}
 	}
@@ -2890,8 +2888,6 @@ init (GtkHTML* html)
 	html->priv->insertion_font_style = GTK_HTML_FONT_STYLE_DEFAULT;
 	html->priv->selection_type = -1;
 	html->priv->selection_as_cite = FALSE;
-	html->priv->primary = NULL;
-	html->priv->primary_len = 0;
 	html->priv->content_type = NULL;
 	html->priv->search_input_line = NULL;
 

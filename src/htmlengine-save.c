@@ -310,6 +310,7 @@ html_engine_save (HTMLEngine *engine,
 	state.receiver = receiver;
 	state.br_count = 0;
 	state.error = FALSE;
+	state.inline_frames = FALSE;
 	state.user_data = user_data;
 	state.last_level = 0;
 
@@ -344,6 +345,7 @@ html_engine_save_plain (HTMLEngine *engine,
 	state.receiver = receiver;
 	state.br_count = 0;
 	state.error = FALSE;
+	state.inline_frames = FALSE;
 	state.user_data = user_data;
 	state.last_level = 0;
 
@@ -391,7 +393,7 @@ html_engine_save_buffer_peek_text (HTMLEngineSaveState *state)
 }
 
 HTMLEngineSaveState *
-html_engine_save_buffer_new (HTMLEngine *engine)
+html_engine_save_buffer_new (HTMLEngine *engine, gboolean inline_frames)
 {
 	HTMLEngineSaveState *state = g_new0 (HTMLEngineSaveState, 1);
 
@@ -400,6 +402,7 @@ html_engine_save_buffer_new (HTMLEngine *engine)
 		state->receiver = (HTMLEngineSaveReceiverFn)html_engine_save_buffer_receiver;
 		state->br_count = 0;
 		state->error = FALSE;
+		state->inline_frames = inline_frames;
 		state->user_data = (gpointer) g_string_new ("");
 		state->last_level = 0;
 	}

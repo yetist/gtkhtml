@@ -30,6 +30,7 @@
 #include "htmlprinter.h"
 #include "htmliframe.h"
 #include "htmlengine-search.h"
+#include "htmlengine-save.h"
 #include "htmlsearch.h"
 #include "htmlselection.h"
 #include "htmlsettings.h"
@@ -225,7 +226,19 @@ forall (HTMLObject *self,
 static gint
 check_page_split (HTMLObject *self, gint y)
 {
-	return html_object_check_page_split (GTK_HTML (HTML_IFRAME (self)->html)->engine->clue, y);
+	gint y1, y2;
+	HTMLEngine *e = GTK_HTML (HTML_IFRAME (self)->html)->engine->clue;
+
+	y1 = self->y - self->ascent + e->topBorder;
+	y2 = self->y + self->descent + e->topBorder;
+	
+	if (y1 > y) 
+		return 0;
+
+	if (y >= y1 && y < y2)
+		return html_object_check_page_split (e->clue, y - y1) + y1;
+	
+	return y;
 }
 
 static void
@@ -237,15 +250,16 @@ copy (HTMLObject *self,
 
 	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
 	/*
-	html_iframe_init (s, &html_iframe_class,
+	html_iframe_init (d, &html_iframe_class,
 			  HTML_EMBEDDED (dest)->parent,
 			  s->url,
 			  s->width,
 			  s->height,
 			  s->frameborder);
 	*/
-	d->scroll = NULL;
+	d->scroll = s->scroll;
 	d->html = gtk_html_new ();
+
 	d->gdk_painter = NULL;
 	d->old_painter = NULL;
 	d->parent_painter = NULL;
@@ -322,6 +336,9 @@ calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 
 	iframe = HTML_IFRAME (o);
 	e      = GTK_HTML (iframe->html)->engine;
+	
+	if (HTML_EMBEDDED (o)->widget == NULL)
+		return TRUE;
 
 	if ((iframe->width < 0) && (iframe->height < 0)) {
 		e->width = o->max_width;
@@ -459,6 +476,86 @@ select_range (HTMLObject *self,
 					 start, length, queue_draw);
 } */
 
+static gboolean
+save (HTMLObject *s,
+      HTMLEngineSaveState *state)
+{
+	HTMLIFrame *iframe = HTML_IFRAME (s);
+	HTMLEngineSaveState *buffer;
+	HTMLEngine *e;
+
+	e = GTK_HTML (iframe->html)->engine;
+	
+	/*
+	 * FIXME: we should actually save the iframe definition if inline_frames is not
+	 * set, but that is a feature and not critical for release.  We should also probably
+	 * wrap the body in a <table> tag with a bg etc.
+	 */
+	if (state->inline_frames && e->clue) {
+		buffer = html_engine_save_buffer_new (e, state->inline_frames);
+		html_object_save (e->clue, buffer);
+		if (state->error || 
+		    !html_engine_save_output_string (state, html_engine_save_buffer_peek_text (buffer))) {
+			html_engine_save_buffer_free (buffer);
+			return FALSE;
+		}
+		html_engine_save_buffer_free (buffer);
+	} else {
+		HTMLEngine *e = GTK_HTML (iframe->html)->engine;
+
+		if (!html_engine_save_output_string (state, "<IFRAME SRC=\"%s\"", iframe->url))
+			 return FALSE;
+        
+		 if (iframe->width >= 0)
+			 if (!html_engine_save_output_string (state, " WIDTH=\"%d\"", iframe->width))
+				 return FALSE;
+
+		 if (iframe->width >= 0)
+			 if (!html_engine_save_output_string (state, " WIDTH=\"%d\"", iframe->width))
+				 return FALSE;
+
+		 if (e->topBorder != TOP_BORDER || e->bottomBorder != BOTTOM_BORDER)
+			 if (!html_engine_save_output_string (state, " MARGINHEIGHT=\"%d\"", e->topBorder))
+				 return FALSE;
+
+		 if (e->leftBorder != LEFT_BORDER || e->rightBorder != RIGHT_BORDER)
+			 if (!html_engine_save_output_string (state, " MARGINWIDTH=\"%d\"", e->leftBorder))
+				 return FALSE;
+
+		 if (!html_engine_save_output_string (state, " FRAMEBORDER=\"%d\"", iframe->frameborder))
+			 return FALSE;
+		 
+		 if (!html_engine_save_output_string (state, "></IFRAME>"))
+		     return FALSE;
+	}
+	return TRUE;
+}
+
+static gboolean
+save_plain (HTMLObject *s,
+	    HTMLEngineSaveState *state,
+	    gint requested_width)
+{
+	HTMLIFrame *iframe = HTML_IFRAME (s);
+	HTMLEngineSaveState *buffer;
+	HTMLEngine *e;
+
+	e = GTK_HTML (iframe->html)->engine;
+
+	if (state->inline_frames && e->clue) {
+		buffer = html_engine_save_buffer_new (e, state->inline_frames);
+		html_object_save_plain (e->clue, buffer, requested_width);
+		if (state->error || 
+		    !html_engine_save_output_string (state, html_engine_save_buffer_peek_text (buffer))) {
+			html_engine_save_buffer_free (buffer);
+			return FALSE;
+		}
+		html_engine_save_buffer_free (buffer);
+	}
+
+	return TRUE;
+}
+
 static void
 destroy (HTMLObject *o)
 {
@@ -544,6 +641,7 @@ html_iframe_init (HTMLIFrame *iframe,
 	iframe->width = width;
 	iframe->height = height;
 	iframe->gdk_painter = NULL;
+	iframe->frameborder = border;
 	gtk_html_set_base (new_html, src);
 
 	handle = gtk_html_begin (new_html);
@@ -638,6 +736,8 @@ html_iframe_class_init (HTMLIFrameClass *klass,
 	parent_class = &html_embedded_class;
 
 	object_class->destroy                 = destroy;
+	object_class->save                    = save;
+	object_class->save_plain              = save_plain;
 	object_class->calc_size               = calc_size;
 	object_class->calc_min_width          = calc_min_width;
 	object_class->set_painter             = set_painter;

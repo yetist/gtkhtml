@@ -1,3 +1,25 @@
+2002-10-19  Larry Ewing  <lewing@ximian.com>
+
+	* htmliframe.c (save): if inline_frames is set copy save the
+	iframe contents.
+	(save_plain): the same.
+
+	* gtkhtml.c (selection_get): add inline_frame argument.
+
+2002-10-18  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml.c (selection_received): use the new primary for
+	internal pastes that are not quoted..
+	(selection_get): use the primary object rather than copying from
+	the selection.
+
+	* htmlengine.h: move primary holder to the engine.
+	
+	* gtkhtml-private.h: remove unused primary holders.
+
+	* htmlselection.c (html_engine_activate_selection): copy the
+	current slection into primary.
+
 2002-10-24  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine-edit-fontstyle.c (get_color_from_selection): change

@@ -42,11 +42,6 @@ struct _GtkHTMLPrivate {
 	gboolean update_styles;
 
 	gint selection_type;
-	/* Used to hold the primary selection when
-	** pasting within ourselves
-	*/
-	HTMLObject *primary;
-	guint       primary_len;
 
 	gchar *content_type;
 	char  *base_url;
