@@ -69,7 +69,7 @@
 	    <class>GtkCheckButton</class>
 	    <name>check_table_bg_color</name>
 	    <can_focus>True</can_focus>
-	    <label>color</label>
+	    <label>Color:</label>
 	    <active>False</active>
 	    <draw_indicator>True</draw_indicator>
 	    <child>
@@ -92,7 +92,7 @@
 	    <class>GtkCheckButton</class>
 	    <name>check_table_bg_pixmap</name>
 	    <can_focus>True</can_focus>
-	    <label>pixmap</label>
+	    <label>Pixmap:</label>
 	    <active>False</active>
 	    <draw_indicator>True</draw_indicator>
 	    <child>
@@ -180,7 +180,7 @@
 	  <widget>
 	    <class>GtkLabel</class>
 	    <name>label1</name>
-	    <label>rows</label>
+	    <label>Rows:</label>
 	    <justify>GTK_JUSTIFY_CENTER</justify>
 	    <wrap>False</wrap>
 	    <xalign>0</xalign>
@@ -206,7 +206,7 @@
 	  <widget>
 	    <class>GtkLabel</class>
 	    <name>label2</name>
-	    <label>columns</label>
+	    <label>Columns:</label>
 	    <justify>GTK_JUSTIFY_CENTER</justify>
 	    <wrap>False</wrap>
 	    <xalign>0</xalign>
@@ -233,7 +233,7 @@
 	    <class>GtkCheckButton</class>
 	    <name>check_table_width</name>
 	    <can_focus>True</can_focus>
-	    <label>width</label>
+	    <label>Width:</label>
 	    <active>False</active>
 	    <draw_indicator>True</draw_indicator>
 	    <child>
@@ -377,7 +377,7 @@ Percent
 	    <name>checkbutton1</name>
 	    <sensitive>False</sensitive>
 	    <can_focus>True</can_focus>
-	    <label>height</label>
+	    <label>Height:</label>
 	    <active>False</active>
 	    <draw_indicator>True</draw_indicator>
 	    <child>
@@ -557,7 +557,7 @@ Percent
 	    <widget>
 	      <class>GtkLabel</class>
 	      <name>label5</name>
-	      <label>spacing</label>
+	      <label>Spacing:</label>
 	      <justify>GTK_JUSTIFY_CENTER</justify>
 	      <wrap>False</wrap>
 	      <xalign>0</xalign>
@@ -615,7 +615,7 @@ Percent
 	    <widget>
 	      <class>GtkLabel</class>
 	      <name>label6</name>
-	      <label>padding</label>
+	      <label>Padding:</label>
 	      <justify>GTK_JUSTIFY_CENTER</justify>
 	      <wrap>False</wrap>
 	      <xalign>0</xalign>
@@ -641,7 +641,7 @@ Percent
 	    <widget>
 	      <class>GtkLabel</class>
 	      <name>label7</name>
-	      <label>border</label>
+	      <label>Border:</label>
 	      <justify>GTK_JUSTIFY_CENTER</justify>
 	      <wrap>False</wrap>
 	      <xalign>0</xalign>
@@ -670,7 +670,7 @@ Percent
 	  <class>GtkFrame</class>
 	  <name>frame3</name>
 	  <border_width>2</border_width>
-	  <label>Miscelaneous</label>
+	  <label>Miscellaneous</label>
 	  <label_xalign>0</label_xalign>
 	  <shadow_type>GTK_SHADOW_ETCHED_IN</shadow_type>
 	  <child>
@@ -692,7 +692,7 @@ Percent
 	    <widget>
 	      <class>GtkLabel</class>
 	      <name>label3</name>
-	      <label>alignment</label>
+	      <label>Alignment:</label>
 	      <justify>GTK_JUSTIFY_CENTER</justify>
 	      <wrap>False</wrap>
 	      <xalign>0</xalign>
@@ -791,7 +791,7 @@ None
 	  <widget>
 	    <class>GtkLabel</class>
 	    <name>label21</name>
-	    <label>Apply changes to</label>
+	    <label>Apply changes to:</label>
 	    <justify>GTK_JUSTIFY_CENTER</justify>
 	    <wrap>False</wrap>
 	    <xalign>0</xalign>
@@ -869,7 +869,7 @@ Table
 	    <class>GtkCheckButton</class>
 	    <name>check_cell_bg_color</name>
 	    <can_focus>True</can_focus>
-	    <label>color</label>
+	    <label>Color:</label>
 	    <active>False</active>
 	    <draw_indicator>True</draw_indicator>
 	    <child>
@@ -892,7 +892,7 @@ Table
 	    <class>GtkCheckButton</class>
 	    <name>check_cell_bg_pixmap</name>
 	    <can_focus>True</can_focus>
-	    <label>pixmap</label>
+	    <label>Pixmap:</label>
 	    <active>False</active>
 	    <draw_indicator>True</draw_indicator>
 	    <child>
@@ -981,7 +981,7 @@ Table
 	    <class>GtkCheckButton</class>
 	    <name>check_cell_width</name>
 	    <can_focus>True</can_focus>
-	    <label>width</label>
+	    <label>Width:</label>
 	    <active>False</active>
 	    <draw_indicator>True</draw_indicator>
 	    <child>
@@ -1061,7 +1061,7 @@ Percent
 	    <name>check_cell_height</name>
 	    <sensitive>False</sensitive>
 	    <can_focus>True</can_focus>
-	    <label>height</label>
+	    <label>Height:</label>
 	    <active>False</active>
 	    <draw_indicator>True</draw_indicator>
 	    <child>
@@ -1207,7 +1207,7 @@ Percent
 	  <widget>
 	    <class>GtkLabel</class>
 	    <name>label13</name>
-	    <label>row span</label>
+	    <label>Row span:</label>
 	    <justify>GTK_JUSTIFY_CENTER</justify>
 	    <wrap>False</wrap>
 	    <xalign>0</xalign>
@@ -1233,7 +1233,7 @@ Percent
 	  <widget>
 	    <class>GtkLabel</class>
 	    <name>label12</name>
-	    <label>column span</label>
+	    <label>Column span:</label>
 	    <justify>GTK_JUSTIFY_CENTER</justify>
 	    <wrap>False</wrap>
 	    <xalign>0</xalign>
@@ -1346,7 +1346,7 @@ Bottom
 	    <widget>
 	      <class>GtkLabel</class>
 	      <name>label8</name>
-	      <label>horizontal</label>
+	      <label>Horizontal:</label>
 	      <justify>GTK_JUSTIFY_CENTER</justify>
 	      <wrap>False</wrap>
 	      <xalign>0</xalign>
@@ -1372,7 +1372,7 @@ Bottom
 	    <widget>
 	      <class>GtkLabel</class>
 	      <name>label9</name>
-	      <label>vertical</label>
+	      <label>Vertical:</label>
 	      <justify>GTK_JUSTIFY_CENTER</justify>
 	      <wrap>False</wrap>
 	      <xalign>0</xalign>
@@ -1471,7 +1471,7 @@ Don't wrap
 	    <widget>
 	      <class>GtkLabel</class>
 	      <name>label10</name>
-	      <label>style</label>
+	      <label>Style:</label>
 	      <justify>GTK_JUSTIFY_CENTER</justify>
 	      <wrap>False</wrap>
 	      <xalign>0</xalign>
@@ -1497,7 +1497,7 @@ Don't wrap
 	    <widget>
 	      <class>GtkLabel</class>
 	      <name>label11</name>
-	      <label>wrapping</label>
+	      <label>Wrapping:</label>
 	      <justify>GTK_JUSTIFY_CENTER</justify>
 	      <wrap>False</wrap>
 	      <xalign>0</xalign>
@@ -1668,7 +1668,7 @@ Percent
 	    <class>GtkCheckButton</class>
 	    <name>check_table_width</name>
 	    <can_focus>True</can_focus>
-	    <label>width</label>
+	    <label>Width:</label>
 	    <active>False</active>
 	    <draw_indicator>True</draw_indicator>
 	    <child>
@@ -1692,7 +1692,7 @@ Percent
 	    <name>check_table_height</name>
 	    <sensitive>False</sensitive>
 	    <can_focus>True</can_focus>
-	    <label>height</label>
+	    <label>Height:</label>
 	    <active>False</active>
 	    <draw_indicator>True</draw_indicator>
 	    <child>
@@ -1714,7 +1714,7 @@ Percent
 	  <widget>
 	    <class>GtkLabel</class>
 	    <name>label15</name>
-	    <label>rows</label>
+	    <label>Rows:</label>
 	    <justify>GTK_JUSTIFY_CENTER</justify>
 	    <wrap>False</wrap>
 	    <xalign>0</xalign>
@@ -1740,7 +1740,7 @@ Percent
 	  <widget>
 	    <class>GtkLabel</class>
 	    <name>label16</name>
-	    <label>columns</label>
+	    <label>Columns:</label>
 	    <justify>GTK_JUSTIFY_CENTER</justify>
 	    <wrap>False</wrap>
 	    <xalign>0</xalign>
@@ -1984,7 +1984,7 @@ Percent
 	  <widget>
 	    <class>GtkLabel</class>
 	    <name>label18</name>
-	    <label>spacing</label>
+	    <label>Spacing:</label>
 	    <justify>GTK_JUSTIFY_CENTER</justify>
 	    <wrap>False</wrap>
 	    <xalign>0</xalign>
@@ -2010,7 +2010,7 @@ Percent
 	  <widget>
 	    <class>GtkLabel</class>
 	    <name>label19</name>
-	    <label>padding</label>
+	    <label>Padding:</label>
 	    <justify>GTK_JUSTIFY_CENTER</justify>
 	    <wrap>False</wrap>
 	    <xalign>0</xalign>
@@ -2036,7 +2036,7 @@ Percent
 	  <widget>
 	    <class>GtkLabel</class>
 	    <name>label20</name>
-	    <label>border</label>
+	    <label>Border:</label>
 	    <justify>GTK_JUSTIFY_CENTER</justify>
 	    <wrap>False</wrap>
 	    <xalign>0</xalign>
@@ -2239,7 +2239,7 @@ Percent %
 	      <widget>
 		<class>GtkLabel</class>
 		<name>label22</name>
-		<label>length</label>
+		<label>Length:</label>
 		<justify>GTK_JUSTIFY_CENTER</justify>
 		<wrap>False</wrap>
 		<xalign>0.5</xalign>
@@ -2330,7 +2330,7 @@ Right
 	      <widget>
 		<class>GtkLabel</class>
 		<name>label23</name>
-		<label>width</label>
+		<label>Width:</label>
 		<justify>GTK_JUSTIFY_CENTER</justify>
 		<wrap>False</wrap>
 		<xalign>0.5</xalign>
@@ -2372,7 +2372,7 @@ Right
 	      <class>GtkCheckButton</class>
 	      <name>check_rule_shaded</name>
 	      <can_focus>True</can_focus>
-	      <label>shaded</label>
+	      <label>Shaded</label>
 	      <active>False</active>
 	      <draw_indicator>True</draw_indicator>
 	      <child>
@@ -2508,7 +2508,7 @@ None
 	    <widget>
 	      <class>GtkLabel</class>
 	      <name>label28</name>
-	      <label>horizontal alignment</label>
+	      <label>Horizontal alignment:</label>
 	      <justify>GTK_JUSTIFY_CENTER</justify>
 	      <wrap>False</wrap>
 	      <xalign>0</xalign>
@@ -2590,7 +2590,7 @@ Percent
 	    <widget>
 	      <class>GtkLabel</class>
 	      <name>label30</name>
-	      <label>width</label>
+	      <label>Width:</label>
 	      <justify>GTK_JUSTIFY_CENTER</justify>
 	      <wrap>False</wrap>
 	      <xalign>0</xalign>
