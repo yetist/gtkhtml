@@ -4592,7 +4592,7 @@ update_embedded_object_parent (HTMLObject *o, HTMLEngine *e, gpointer data)
 {
 	HTMLEngine *toplevel = data;
  
-	if (html_object_is_embedded (o) && e == toplevel) {
+	if (html_object_is_embedded (o)) {
 		html_embedded_reparent (HTML_EMBEDDED (o), GTK_WIDGET (toplevel->widget));
 	}
 }
@@ -4613,7 +4613,7 @@ gtk_html_insert_html_generic (GtkHTML *html, GtkHTML *tmp, const gchar *html_src
 	gtk_container_add (GTK_CONTAINER (sw), GTK_WIDGET (tmp));
 	gtk_widget_realize (GTK_WIDGET (tmp));
 	html_image_factory_move_images (html->engine->image_factory, tmp->engine->image_factory);	
-	html_object_forall (tmp->engine->clue, tmp->engine, update_embedded_object_parent, html);
+	html_object_forall (tmp->engine->clue, tmp->engine, update_embedded_object_parent, html->engine);
 	if (obj_only) {
 		HTMLObject *next;
 		g_return_if_fail (tmp->engine->clue && HTML_CLUE (tmp->engine->clue)->head

@@ -1,5 +1,11 @@
 2002-07-18  Larry Ewing  <lewing@ximian.com>
 
+	* gtkhtml.c (gtk_html_insert_html_generic): pass the engine.
+	(update_embedded_object_parent): remove the condition.
+
+	* htmlembedded.c (html_embedded_class_init): actually attach the
+	reparent method.
+
 	* htmlembedded.h: add new reparent method.
 
 	* htmlembedded.c (html_embedded_reparent): add new reparent function.

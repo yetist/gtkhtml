@@ -287,6 +287,7 @@ html_embedded_class_init (HTMLEmbeddedClass *klass,
 	/* HTMLEmbedded methods.   */
 	klass->reset = reset;
 	klass->encode = encode;
+	klass->reparent = reparent;
 
 	/* HTMLObject methods.   */
 	object_class->destroy = destroy;
