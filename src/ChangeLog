@@ -1,5 +1,8 @@
 2001-05-29  Larry Ewing  <lewing@ximian.com>
 
+	* gtkhtml.c (on_object): remove redundant checks.
+	(set_pointer_url): move logic here.
+
 	* htmlframeset.h:
 	* htmlframeset.c:
 	* htmlframe.c:

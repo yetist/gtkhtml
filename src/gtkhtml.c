@@ -787,9 +787,16 @@ size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 static void
 set_pointer_url (GtkHTML *html, const char *url)
 {
+	if (url == html->pointer_url)
+		return;
+
+	if (url && html->pointer_url && !strcmp (url, html->pointer_url))
+		return;
+		
 	g_free (html->pointer_url);
 	html->pointer_url = url ? g_strdup (url) : NULL;
-	gtk_signal_emit (GTK_OBJECT (html), signals[ON_URL], html->pointer_url);
+	gtk_signal_emit (GTK_OBJECT (html), 
+			 signals[ON_URL], html->pointer_url);
 }
 
 static void
@@ -799,29 +806,25 @@ on_object (GtkWidget *widget, GdkWindow *window, HTMLObject *obj)
 	const gchar *url;
 
 	if (obj) {
-		if ((url = (obj) ? html_object_get_url (obj) : NULL)) {
-			if (html->pointer_url == NULL || strcmp (html->pointer_url, url) != 0) {
-				set_pointer_url (html, url);
-			}
-
+		url = html_object_get_url (obj);
+		if (url != NULL) {
+			set_pointer_url (html, url);
+			
 			if (html->engine->editable)
 				gdk_window_set_cursor (window, html->ibeam_cursor);
 			else
 				gdk_window_set_cursor (window, html->hand_cursor);
 		} else {
-			if (html->pointer_url != NULL) {
-				set_pointer_url (html, NULL);				
-			}
-
-			if (obj != NULL && html_object_is_text (obj) && html->allow_selection)
+			set_pointer_url (html, NULL);				
+			
+			if (html_object_is_text (obj) && html->allow_selection)
 				gdk_window_set_cursor (window, html->ibeam_cursor);
 			else
 				gdk_window_set_cursor (window, html->arrow_cursor);
 		}
 	} else {
-		if (html->pointer_url) {
-			set_pointer_url (html, NULL);
-		}
+		set_pointer_url (html, NULL);
+
 		gdk_window_set_cursor (window, html->arrow_cursor);
 	}
 }
@@ -900,8 +903,10 @@ mouse_change_pos (GtkWidget *widget, GdkWindow *window, gint x, gint y)
 		if (engine->mark == NULL && engine->editable)
 			html_engine_set_mark (engine);
 
-		html_engine_select_region (engine, html->selection_x1, html->selection_y1,
-					   x + engine->x_offset, y + engine->y_offset);
+		html_engine_select_region (engine, html->selection_x1,
+					   html->selection_y1,
+					   x + engine->x_offset, 
+					   y + engine->y_offset);
 	}
 
 	on_object (widget, window, obj);
