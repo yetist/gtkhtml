@@ -552,7 +552,8 @@ draw_spell_errors (HTMLTextSlave *slave, HTMLPainter *p, gint tx, gint ty)
 								text, len, items, glyphs, text - slave->owner->text);
 			glyphs_destroy (glyphs);
 			last_off = off + len;
-			line_offset += len;
+			if (line_offset != -1)
+				line_offset += len;
 			text = g_utf8_offset_to_pointer (text, len);
 		}
 		if (se->off > slave->posStart + slave->posLen)

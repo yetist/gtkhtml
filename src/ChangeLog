@@ -1,3 +1,10 @@
+2003-03-26  Radek Doulik  <rodo@ximian.com>
+
+	* htmltextslave.c (draw_spell_errors): as below
+
+	* htmltext.c (html_text_text_line_length): take care about line
+	offset -1 (notabs)
+
 2003-03-25  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.h (struct _GtkHTMLEditorAPI): added language argument to

@@ -537,17 +537,20 @@ html_text_text_line_length (const gchar *text, gint *line_offset, guint len, gin
 	if (tabs)
 		*tabs = 0;
 	l = 0;
-	sum_skip = 0;
+	sum_skip = skip = 0;
 	tab = text;
 	while (tab && (found_tab = html_utf8_strnchr (tab, '\t', len - l, &cl)) && l < len) {
 		l   += cl;
 		if (l >= len)
 			break;
-		*line_offset  += cl;
-		skip = 8 - (*line_offset % 8);
+		if (*line_offset != -1) {
+			*line_offset  += cl;
+			skip = 8 - (*line_offset % 8);
+		}
 		tab  = found_tab + 1;
 		*line_offset  += skip;
-		sum_skip += skip - 1;
+		if (*line_offset != -1)
+			sum_skip += skip - 1;
 		l ++;
 		if (tabs)
 			(*tabs) ++;
