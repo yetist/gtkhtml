@@ -186,6 +186,8 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	fill_sample (data);
 	/* gtk_idle_add (hide_preview, data); */
 
+	gtk_widget_show_all (table);
+
 	return table;
 }
 

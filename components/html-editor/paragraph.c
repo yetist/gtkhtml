@@ -163,6 +163,8 @@ paragraph_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	gtk_table_attach (GTK_TABLE (table), sample_frame (&data->sample), 0, 2, 1, 2, GTK_FILL | GTK_EXPAND, 0, 0, 0);
 	fill_sample (data);
 
+	gtk_widget_show_all (table);
+
 	return table;
 }
 

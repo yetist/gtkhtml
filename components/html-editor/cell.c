@@ -32,6 +32,8 @@ typedef struct
 {	
 	GtkHTMLControlData *cd;
 	HTMLTableCell *cell;
+
+	GtkWidget *entry_bg_pixmap;
 } GtkHTMLEditCellProperties;
 
 static void
@@ -93,7 +95,11 @@ cell_widget (GtkHTMLEditCellProperties *d)
 	if (!xml)
 		g_error (_("Could not load glade file."));
 
-	cell_page = glade_xml_get_widget (xml, "cell_page");
+	cell_page          = glade_xml_get_widget (xml, "cell_page");
+	d->entry_bg_pixmap = glade_xml_get_widget (xml, "entry_cell_bg_pixmap");
+
+	gtk_widget_show_all (cell_page);
+	gnome_pixmap_entry_set_preview (GNOME_PIXMAP_ENTRY (d->entry_bg_pixmap), FALSE);
 
 	return cell_page;
 }
