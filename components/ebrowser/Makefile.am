@@ -2,7 +2,10 @@
 bin_PROGRAMS = ebrowser
 
 INCLUDES = \
+	-I$(top_srcdir)/src	\
 	$(GNOME_INCLUDEDIR)
+
+CFLAGS += $(EXTRA_GNOME_CFLAGS)
 
 EBROWSER_ENGINE_FILES = \
 	ebrowser-widget.c ebrowser-widget.h \

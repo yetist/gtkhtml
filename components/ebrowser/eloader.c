@@ -22,7 +22,6 @@
     Author: Lauris Kaplinski  <lauris@helixcode.com>
 */
 
-#include <gtkhtml/gtkhtml-stream.h>
 #include "eloader.h"
 
 #define EL_DEBUG(str,section) if (FALSE) g_print ("%s:%d (%s) %s\n", __FILE__, __LINE__, __FUNCTION__, str);

@@ -24,7 +24,7 @@
 */
 
 #include <libgnome/gnome-defs.h>
-#include <gtkhtml/gtkhtml-stream.h>
+#include <gtkhtml-stream.h>
 #include "ebrowser-widget.h"
 
 BEGIN_GNOME_DECLS

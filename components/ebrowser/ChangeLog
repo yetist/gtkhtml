@@ -1,3 +1,16 @@
+2000-10-25    <jpr@helixcode.com>
+
+	* Makefile.am: Add flags and include $(top_srcdir)/src else
+	we can't build without installing gtkhtml first
+
+	* ebrowser-widget.h: Alter include because of above
+	
+	* eloader.h: ditto
+
+	* eloader.c: ditto
+
+	* .cvsignore: shush
+	
 2000-10-24  Lauris Kaplinski  <lauris@helixcode.com>
 
 	* Initial CVS version
