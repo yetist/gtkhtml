@@ -28,7 +28,7 @@
 static gboolean
 find_first (HTMLEngine *e)
 {
-	gchar c;
+	guchar c;
 
 	c = html_cursor_get_current_char (e->cursor);
 	while (c == 0 || ! isalnum ((gint) c) || c == ' ') {
@@ -44,7 +44,7 @@ static void
 upper_lower (HTMLObject *obj, gpointer data)
 {
 	gboolean up = GPOINTER_TO_INT (data);
-	gchar *text;
+	guchar *text;
 
 	g_assert (html_object_is_text (obj));
 

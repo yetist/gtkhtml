@@ -627,7 +627,7 @@ alloc_font (gchar *face, gdouble size, GtkHTMLFontStyle style)
 {
 	GnomeFontWeight weight;
 	gboolean italic;
-	gchar *s = face;
+	guchar *s = face;
 
 	weight = (style & GTK_HTML_FONT_STYLE_BOLD) ? GNOME_FONT_BOLD : GNOME_FONT_BOOK;
 	italic = (style & GTK_HTML_FONT_STYLE_ITALIC);

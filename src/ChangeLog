@@ -1,3 +1,11 @@
+2000-10-26  Michael Meeks  <michael@helixcode.com>
+
+	* htmlprinter.c (alloc_font): signdness fix.
+
+	* htmlengine-edit-text.c (upper_lower): ditto.
+
+	* htmlengine-edit-text.c (find_first): ditto.
+
 2000-10-26  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlengine.c (parse_body): call insert_text also for spaces
