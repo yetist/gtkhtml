@@ -37,6 +37,7 @@
 #include "htmltextslave.h"	/* FIXME */
 #include "htmlsearch.h"
 #include "htmlentity.h"
+#include "htmlengine-edit.h"
 
 
 HTMLClueFlowClass html_clueflow_class;
@@ -1892,10 +1893,10 @@ html_clueflow_spell_check (HTMLClueFlow *flow, HTMLEngine *e, HTMLInterval *i)
 		ct = text;
 		while (*ct) {
 			/* find begin of word */
-			while (*ct && !isalpha (*ct)) ct++;
+			while (*ct && !html_is_in_word (*ct)) ct++;
 			word = ct;
 			/* find end of word */
-			while (isalpha (*ct)) ct++;
+			while (html_is_in_word (*ct)) ct++;
 
 			/* test if we have found word */
 			if (word != ct) {

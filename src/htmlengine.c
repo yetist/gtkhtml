@@ -4391,7 +4391,8 @@ html_engine_get_word (HTMLEngine *e)
 	gchar *word, c;
 	gint pos;
 
-	if (!isalpha (html_cursor_get_current_char (e->cursor)) && !isalpha (html_cursor_get_prev_char (e->cursor)))
+	if (!html_is_in_word (html_cursor_get_current_char (e->cursor))
+	    && !html_is_in_word (html_cursor_get_prev_char (e->cursor)))
 		return NULL;
 
 	cursor = html_cursor_dup (e->cursor);
@@ -4399,11 +4400,11 @@ html_engine_get_word (HTMLEngine *e)
 	text   = g_string_new (NULL);
 
 	/* move to the beginning of word */
-	while (isalpha (html_cursor_get_prev_char (cursor)))
+	while (html_is_in_word (html_cursor_get_prev_char (cursor)))
 		html_cursor_backward (cursor, e);
 
 	/* move to the end of word */
-	while (isalpha (c = html_cursor_get_current_char (cursor))) {
+	while (html_is_in_word (c = html_cursor_get_current_char (cursor))) {
 		text = g_string_append_c (text, c);
 		html_cursor_forward (cursor, e);
 	}
@@ -4429,10 +4430,10 @@ html_engine_word_is_valid (HTMLEngine *e)
 	curr = html_cursor_get_current_char (e->cursor);
 
 	/* if we are not in word always return TRUE so we care only about invalid words */
-	if (!isalpha (prev) && !isalpha (curr))
+	if (!html_is_in_word (prev) && !html_is_in_word (curr))
 		return TRUE;
 
-	if (isalpha (curr)) {
+	if (html_is_in_word (curr)) {
 		gboolean end;
 
 		end    = (e->cursor->offset == html_object_get_length (e->cursor->object));
@@ -4471,19 +4472,20 @@ html_engine_replace_word_with (HTMLEngine *e, const gchar *word)
 	HTMLText   *orig;
 	gint pos;
 
-	if (!isalpha (html_cursor_get_current_char (e->cursor)) && !isalpha (html_cursor_get_prev_char (e->cursor)))
+	if (!html_is_in_word (html_cursor_get_current_char (e->cursor))
+	    && !html_is_in_word (html_cursor_get_prev_char (e->cursor)))
 		return;
 
 	pos = e->cursor->position;
 	html_engine_selection_push (e);
 
 	/* move to the beginning of word */
-	while (isalpha (html_cursor_get_prev_char (e->cursor)))
+	while (html_is_in_word (html_cursor_get_prev_char (e->cursor)))
 		html_cursor_backward (e->cursor, e);
 	html_engine_set_mark (e);
 
 	/* move to the end of word */
-	while (isalpha (html_cursor_get_current_char (e->cursor)))
+	while (html_is_in_word (html_cursor_get_current_char (e->cursor)))
 		html_cursor_forward (e->cursor, e);
 
 	orig = HTML_TEXT (e->mark->object);

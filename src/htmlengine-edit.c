@@ -191,9 +191,9 @@ html_engine_spell_check_range (HTMLEngine *e, HTMLCursor *begin, HTMLCursor *end
 
 	parent = begin->object->parent;
 
-	while (isalpha (html_cursor_get_prev_char (begin)))
+	while (html_is_in_word (html_cursor_get_prev_char (begin)))
 		if (html_cursor_backward (begin, e));
-	while (isalpha (html_cursor_get_current_char (end)))
+	while (html_is_in_word (html_cursor_get_current_char (end)))
 		if (html_cursor_forward (end, e));
 
 	i = html_interval_new_from_cursor (begin, end);

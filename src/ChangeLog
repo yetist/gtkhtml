@@ -1,3 +1,14 @@
+2000-08-15  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlengine.c (html_engine_get_word): likewise
+	(html_engine_word_is_valid): likewise
+	(html_engine_replace_word_with): likewise
+
+	* htmlengine-edit.c (html_engine_spell_check_range): likewise
+
+	* htmlclueflow.c (html_clueflow_spell_check): use html_is_in_word
+	instead of isalpha
+
 2000-08-14  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlengine.c (selection_helper): new helper function
