@@ -40,6 +40,98 @@ html_selection_current_time (void)
 	return GDK_CURRENT_TIME;
 }
 
+static gboolean
+optimize_selection (HTMLEngine *e, HTMLInterval *i)
+{
+	HTMLInterval *s = e->selection;
+	gboolean optimized = FALSE;
+
+	g_return_val_if_fail (s, FALSE);
+
+	/* printf ("change selection (%3d,%3d) --> (%3d,%3d)\n",
+	   s->from.offset, s->to.offset,
+	   i->from.offset, i->to.offset); */
+	if (html_point_eq (&i->from, &s->from)) {
+		HTMLPoint *max;
+
+		max = html_point_max (&i->to, &s->to);
+		if (max) {
+			if (max == &i->to) {
+				HTMLInterval *sel;
+
+				sel = html_interval_new (s->to.object, i->to.object,
+							 i->from.object == s->to.object
+							 ? i->from.offset : 0, i->to.offset);
+				html_interval_select (sel, e);
+				html_interval_destroy (sel);
+				html_interval_destroy (s);
+				e->selection = i;
+				optimized = TRUE;
+			} else {
+				HTMLInterval *usel;
+
+				usel = html_interval_new (i->to.object, s->to.object,
+							  0, s->to.offset);
+				html_interval_unselect (usel, e);
+				if (i->to.offset) {
+					gint from = i->from.object == i->to.object ? i->from.offset : 0;
+					html_object_select_range (i->to.object, e,
+								  from, i->to.offset - from,
+								  !html_engine_frozen (e));
+				}
+				html_interval_destroy (usel);
+				html_interval_destroy (s);
+				e->selection = i;
+				optimized = TRUE;
+			}
+		}
+	} else if (html_point_eq (&i->to, &s->to)) {
+		HTMLPoint *min;
+
+		min = html_point_min (&i->from, &s->from);
+		if (min) {
+			if (min == &i->from) {
+				HTMLInterval *sel;
+
+				sel = html_interval_new (i->from.object, s->from.object,
+							 i->from.offset,
+							 i->to.object == s->from.object
+							 ? i->to.offset
+							 : html_object_get_length (s->from.object));
+				html_interval_select (sel, e);
+				html_interval_destroy (sel);
+				html_interval_destroy (s);
+				e->selection = i;
+				optimized = TRUE;
+			} else {
+				HTMLInterval *usel;
+
+				usel = html_interval_new (s->from.object, i->from.object,
+							  s->from.offset,
+							  html_object_get_length (i->from.object));
+				html_interval_unselect (usel, e);
+				if (i->from.offset != html_object_get_length (i->from.object)) {
+					gint to = i->to.object == i->from.object
+						? s->to.offset
+						: html_object_get_length (i->from.object);
+					html_object_select_range (i->from.object, e,
+								  i->from.offset, to - i->from.offset,
+								  !html_engine_frozen (e));
+				}
+				html_interval_destroy (usel);
+				html_interval_destroy (s);
+				e->selection = i;
+				optimized = TRUE;
+			}
+		}
+	}
+
+	/* if (optimized)
+	   printf ("Optimized\n"); */
+
+	return optimized;
+}
+
 void
 html_engine_select_interval (HTMLEngine *e, HTMLInterval *i)
 {
@@ -48,9 +140,11 @@ html_engine_select_interval (HTMLEngine *e, HTMLInterval *i)
 	if (e->selection && html_interval_eq (e->selection, i))
 		html_interval_destroy (i);
 	else {
-		html_engine_unselect_all (e);
-		e->selection = i;
-		html_interval_select (e->selection, e);
+		if (!e->selection || !optimize_selection (e, i)) {
+			html_engine_unselect_all (e);
+			e->selection = i;
+			html_interval_select (e->selection, e);
+		}
 	}
 
 	html_engine_show_cursor (e);

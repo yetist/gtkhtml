@@ -633,9 +633,12 @@ select_range (HTMLObject *self,
 	      gint length,
 	      gboolean queue_draw)
 {
+	/* printf ("IMAGE: select range\n"); */
 	if ((*parent_class->select_range) (self, engine, offset, length, queue_draw)) {
-		if (queue_draw)
+		if (queue_draw) {
 			html_engine_queue_draw (engine, self);
+			/* printf ("IMAGE: draw queued\n"); */
+		}
 		return TRUE;
 	} else
 		return FALSE;
