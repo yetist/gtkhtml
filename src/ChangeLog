@@ -1,3 +1,8 @@
+2002-12-14  Larry Ewing  <lewing@ximian.com>
+
+	* htmlimage.c (html_image_factory_register): make sure we add an
+	aimation to the image.
+
 2002-12-13  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine-edit-cursor.c (draw_cursor_rectangle): fix color

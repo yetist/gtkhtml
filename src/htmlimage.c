@@ -1375,9 +1375,7 @@ html_image_factory_register (HTMLImageFactory *factory, HTMLImage *i, const char
 	if (i) {
 		i->image_ptr = ip;
 
-		if (ip->animation) {
-			i->animation = html_image_animation_new (i);
-		}
+		i->animation = html_image_animation_new (i);
 	}
 
 	return ip;
