@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.16\n"
-"POT-Creation-Date: 2001-10-14 11:44-0200\n"
-"PO-Revision-Date: 2001-10-17 14:07-02:00\n"
+"POT-Creation-Date: 2001-10-31 06:21-0500\n"
+"PO-Revision-Date: 2001-10-31 10:35-02:00\n"
 "Last-Translator: Gustavo Maciel Dias Vieira <gdvieira@zaz.com.br>\n"
 "Language-Team: Brazilian Portuguese <ldp-br@bazar.conectiva.com.br>\n"
 "MIME-Version: 1.0\n"
@@ -17,10 +17,10 @@ msgstr ""
 msgid "<None>"
 msgstr "<Nenhum>"
 
-#: capplet/gnome-bindings-prop.c:216 capplet/main.c:245
+#: capplet/gnome-bindings-prop.c:216 capplet/main.c:252
 #: components/html-editor/cell.c:385 components/html-editor/rule.c:315
 #: components/html-editor/table.c:528 components/html-editor/table.c:619
-#: components/html-editor/template.c:243
+#: components/html-editor/template.c:244
 msgid "Could not load glade file."
 msgstr "Não foi possível carregar arquivo glade."
 
@@ -238,7 +238,7 @@ msgid "Check spelling of the document"
 msgstr "Verificar a ortografia do documento"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:14
-#: components/html-editor/popup.c:385
+#: components/html-editor/popup.c:395
 msgid "Copy"
 msgstr "Copiar"
 
@@ -255,7 +255,7 @@ msgid "Cu_t"
 msgstr "Recor_tar"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:18
-#: components/html-editor/popup.c:386
+#: components/html-editor/popup.c:396
 msgid "Cut"
 msgstr "Recortar"
 
@@ -268,7 +268,7 @@ msgid "Cut the selection"
 msgstr "Recortar a seleção"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:21
-#: components/html-editor/search.c:69 components/html-editor/search.c:112
+#: components/html-editor/search.c:69 components/html-editor/search.c:110
 msgid "Find"
 msgstr "Localizar"
 
@@ -443,7 +443,7 @@ msgid "Other..."
 msgstr "Outro..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
-#: components/html-editor/popup.c:392
+#: components/html-editor/popup.c:402
 msgid "Paste"
 msgstr "Colar"
 
@@ -538,7 +538,7 @@ msgstr "Sobrescrito"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
 #: components/html-editor/gtkhtml-editor-properties.glade.h:44
 #: components/html-editor/menubar.c:167 components/html-editor/popup.c:196
-#: components/html-editor/popup.c:445 components/html-editor/popup.c:454
+#: components/html-editor/popup.c:455 components/html-editor/popup.c:464
 msgid "Table"
 msgstr "Tabela"
 
@@ -717,6 +717,12 @@ msgstr "Ativar"
 msgid "Colors"
 msgstr "Cores"
 
+#: components/html-editor/body.c:175 components/html-editor/cell.c:391
+#: components/html-editor/table.c:534 components/html-editor/text.c:221
+#: components/html-editor/toolbar.c:290
+msgid "Automatic"
+msgstr "Automático"
+
 #: components/html-editor/body.c:186
 #: components/html-editor/editor-control-factory.c:195
 #: components/html-editor/menubar.c:127 components/html-editor/popup.c:154
@@ -727,11 +733,6 @@ msgstr "Texto"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:5
 msgid "Background"
 msgstr "Fundo"
-
-#: components/html-editor/cell.c:391 components/html-editor/table.c:534
-#: components/html-editor/text.c:221 components/html-editor/toolbar.c:290
-msgid "Automatic"
-msgstr "Automático"
 
 #: components/html-editor/editor-control-factory.c:176
 #: components/html-editor/popup.c:146
@@ -748,11 +749,11 @@ msgstr "Parágrafo"
 msgid "Page"
 msgstr "Página"
 
-#: components/html-editor/editor-control-factory.c:840
+#: components/html-editor/editor-control-factory.c:843
 msgid "Could not initialize GNORBA"
 msgstr "Não foi possível iniciar GNORBA"
 
-#: components/html-editor/editor-control-factory.c:853
+#: components/html-editor/editor-control-factory.c:856
 msgid "Could not initialize Bonobo"
 msgstr "Não foi possível iniciar Bonobo"
 
@@ -799,7 +800,7 @@ msgid "Color:"
 msgstr "Cor:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:11
-#: components/html-editor/popup.c:456
+#: components/html-editor/popup.c:466
 msgid "Column"
 msgstr "Coluna"
 
@@ -882,7 +883,7 @@ msgid "Right"
 msgstr "Direita"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:33
-#: components/html-editor/popup.c:455
+#: components/html-editor/popup.c:465
 msgid "Row"
 msgstr "Linha"
 
@@ -972,11 +973,11 @@ msgstr "Espaçamento"
 msgid "height"
 msgstr "altura"
 
-#: components/html-editor/link.c:73
+#: components/html-editor/link.c:85
 msgid "Clear"
 msgstr "Limpar"
 
-#: components/html-editor/link.c:76
+#: components/html-editor/link.c:88
 msgid "URL"
 msgstr "URL"
 
@@ -1043,92 +1044,92 @@ msgstr "Item alfabético"
 msgid "Align"
 msgstr "Alinhamento"
 
-#: components/html-editor/popup.c:348
+#: components/html-editor/popup.c:358
 #, c-format
 msgid "Check '%s' spelling..."
 msgstr "Verificar ortografia de '%s'..."
 
-#: components/html-editor/popup.c:351
+#: components/html-editor/popup.c:361
 #, c-format
 msgid "Add '%s' to dictionary"
 msgstr "Adicionar '%s' ao dicionário"
 
-#: components/html-editor/popup.c:354
+#: components/html-editor/popup.c:364
 #, c-format
 msgid "Ignore '%s'"
 msgstr "Ignorar '%s'"
 
-#: components/html-editor/popup.c:357 components/html-editor/spell.c:402
+#: components/html-editor/popup.c:367 components/html-editor/spell.c:416
 msgid "Spell checker"
 msgstr "Verificador ortográfico"
 
-#: components/html-editor/popup.c:361
+#: components/html-editor/popup.c:371
 msgid "Suggest word"
 msgstr "Sugerir palavra"
 
-#: components/html-editor/popup.c:380
+#: components/html-editor/popup.c:390
 msgid "Remove link"
 msgstr "Remover vínculo"
 
-#: components/html-editor/popup.c:396 components/html-editor/popup.c:422
+#: components/html-editor/popup.c:406 components/html-editor/popup.c:432
 msgid "Text..."
 msgstr "Texto..."
 
-#: components/html-editor/popup.c:398 components/html-editor/popup.c:413
-#: components/html-editor/popup.c:424
+#: components/html-editor/popup.c:408 components/html-editor/popup.c:423
+#: components/html-editor/popup.c:434
 msgid "Paragraph..."
 msgstr "Parágrafo..."
 
-#: components/html-editor/popup.c:400 components/html-editor/popup.c:415
-#: components/html-editor/popup.c:426
+#: components/html-editor/popup.c:410 components/html-editor/popup.c:425
+#: components/html-editor/popup.c:436
 msgid "Link..."
 msgstr "Vínculo..."
 
-#: components/html-editor/popup.c:406
+#: components/html-editor/popup.c:416
 msgid "Rule..."
 msgstr "Régua..."
 
-#: components/html-editor/popup.c:411
+#: components/html-editor/popup.c:421
 msgid "Image..."
 msgstr "Imagem..."
 
-#: components/html-editor/popup.c:431 components/html-editor/popup.c:441
+#: components/html-editor/popup.c:441 components/html-editor/popup.c:451
 msgid "Table..."
 msgstr "Tabela..."
 
-#: components/html-editor/popup.c:438
+#: components/html-editor/popup.c:448
 msgid "Cell..."
 msgstr "Célula..."
 
-#: components/html-editor/popup.c:444
+#: components/html-editor/popup.c:454
 msgid "Table insert"
 msgstr "Inserção de tabela"
 
-#: components/html-editor/popup.c:447
+#: components/html-editor/popup.c:457
 msgid "Row above"
 msgstr "Linha acima"
 
-#: components/html-editor/popup.c:448
+#: components/html-editor/popup.c:458
 msgid "Row below"
 msgstr "Linha abaixo"
 
-#: components/html-editor/popup.c:450
+#: components/html-editor/popup.c:460
 msgid "Column before"
 msgstr "Coluna antes"
 
-#: components/html-editor/popup.c:451
+#: components/html-editor/popup.c:461
 msgid "Column after"
 msgstr "Coluna após"
 
-#: components/html-editor/popup.c:453
+#: components/html-editor/popup.c:463
 msgid "Table delete"
 msgstr "Exclusão de tabela"
 
-#: components/html-editor/popup.c:457
+#: components/html-editor/popup.c:467
 msgid "Cell contents"
 msgstr "Conteúdo da célula"
 
-#: components/html-editor/popup.c:465
+#: components/html-editor/popup.c:475
 msgid "Page..."
 msgstr "Página..."
 
@@ -1172,11 +1173,11 @@ msgstr "Amarelo, flores"
 msgid "backward"
 msgstr "regressivo"
 
-#: components/html-editor/search.c:112
+#: components/html-editor/search.c:110
 msgid "Find Regular Expression"
 msgstr "Localizar expressão regular"
 
-#: components/html-editor/spell.c:397
+#: components/html-editor/spell.c:411
 msgid "No misspelled word found"
 msgstr "Não foi encontrada palavra com ortografia errada"
 
@@ -1194,11 +1195,19 @@ msgstr "Nota"
 
 #: components/html-editor/template.c:83
 msgid ""
-"<table cellspacing=0 cellpadding=1 "
-"bgcolor=\"#ccccc0\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" "
-"cellpadding=3 cellspacing=0 width=\"100%\"><tr><td valign=top><img "
-"src=\"file://"
-msgstr "<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
+"<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
+"\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
+"cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
+msgstr ""
+"<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
+"\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
+"cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
+
+#: components/html-editor/template.c:85
+msgid ""
+"/bulb.png\" hspace=10></td><td width=\"100%\">Place your text here</td></"
+"tr></table></td></tr></table>"
+msgstr "/bulb.png\" hspace=10></td><td width=\"100%\">Coloque o seu texto aqui</td></tr></table></td></tr></table>"
 
 #: components/html-editor/template.c:91
 msgid "Image frame"
@@ -1207,9 +1216,18 @@ msgstr "Moldura de imagem"
 #: components/html-editor/template.c:93
 msgid ""
 "<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" @width@@align@><tr><td><table "
-"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" "
-"width=\"100%\"><tr><td align=\"center\"><img src=\"file://"
-msgstr "<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" @width@@align@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img src=\"file://"
+"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%"
+"\"><tr><td align=\"center\"><img src=\"file://"
+msgstr ""
+"<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" @width@@align@><tr><td><table "
+"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%"
+"\"><tr><td align=\"center\"><img src=\"file://"
+
+#: components/html-editor/template.c:97
+msgid ""
+"/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font size="
+"\"-1\">Image 1: <b>description</b></font></td></tr></table></td></tr></table>"
+msgstr "/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font size=\"-1\">Imagem 1: <b>descrição</b></font></td></tr></table></td></tr></table>"
 
 #: components/html-editor/test-html-editor-control.c:276
 msgid "Open file..."
