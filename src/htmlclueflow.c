@@ -930,6 +930,11 @@ calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 	return changed;
 }
 
+static void
+set_max_height (HTMLObject *o, HTMLPainter *painter, gint max_height)
+{
+}
+
 static HTMLClearType
 get_clear (HTMLObject *self)
 {
@@ -2119,6 +2124,7 @@ html_clueflow_class_init (HTMLClueFlowClass *klass,
 	object_class->merge = merge;
 	object_class->calc_size = calc_size;
 	object_class->set_max_width = set_max_width;
+	object_class->set_max_height = set_max_height;
 	object_class->calc_min_width = calc_min_width;
 	object_class->calc_preferred_width = calc_preferred_width;
 	object_class->draw = draw;

@@ -263,6 +263,7 @@ struct _HTMLEngine {
 	HTMLObject *focus_object;
 
 	gboolean save_data;
+	gint saved_step_count;
 };
 
 /* must be forward referenced *sigh* */
@@ -458,5 +459,7 @@ void        html_engine_set_focus_object   (HTMLEngine       *e,
 					    HTMLObject       *o);
 void        html_engine_draw_focus_object  (HTMLEngine       *e);
 
+void      html_engine_saved     (HTMLEngine *e);
+gboolean  html_engine_is_saved  (HTMLEngine *e);
 
 #endif /* _HTMLENGINE_H_ */

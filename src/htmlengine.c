@@ -3394,6 +3394,7 @@ html_engine_init (HTMLEngine *engine)
 
 	engine->block = FALSE;
 	engine->save_data = FALSE;
+	engine->saved_step_count = -1;
 }
 
 HTMLEngine *
@@ -4132,7 +4133,7 @@ html_engine_get_max_height (HTMLEngine *e)
 gboolean
 html_engine_calc_size (HTMLEngine *e, GList **changed_objs)
 {
-	gint max_width, max_height;
+	gint max_width; /* , max_height; */
 	gboolean redraw_whole;
 
 	if (e->clue == 0)
@@ -4143,13 +4144,13 @@ html_engine_calc_size (HTMLEngine *e, GList **changed_objs)
 	max_width = MIN (html_engine_get_max_width (e),
 			 html_painter_get_pixel_size (e->painter)
 			 * (MAX_WIDGET_WIDTH - e->leftBorder - e->rightBorder));
-	max_height = MIN (html_engine_get_max_height (e),
+	/* max_height = MIN (html_engine_get_max_height (e),
 			 html_painter_get_pixel_size (e->painter)
-			 * (MAX_WIDGET_WIDTH - e->topBorder - e->bottomBorder));
+			 * (MAX_WIDGET_WIDTH - e->topBorder - e->bottomBorder)); */
 
 	redraw_whole = max_width != e->clue->max_width;
 	html_object_set_max_width (e->clue, e->painter, max_width);
-	html_object_set_max_height (e->clue, e->painter, max_height);
+	/* html_object_set_max_height (e->clue, e->painter, max_height); */
 	/* printf ("calc size %d\n", e->clue->max_width); */
 	if (changed_objs)
 		*changed_objs = NULL;
@@ -5431,4 +5432,16 @@ html_engine_set_focus_object (HTMLEngine *e, HTMLObject *o)
 		}
 		set_frame_parents_focus_object (e);
 	}
+}
+
+gboolean
+html_engine_is_saved (HTMLEngine *e)
+{
+	return e->saved_step_count != -1 && e->saved_step_count == html_undo_get_step_count (e->undo);
+}
+
+void
+html_engine_saved (HTMLEngine *e)
+{
+	e->saved_step_count = html_undo_get_step_count (e->undo);
 }

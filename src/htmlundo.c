@@ -616,3 +616,9 @@ html_undo_has_undo_steps (HTMLUndo *undo)
 
 	return undo->step_counter > 0;
 }
+
+gint
+html_undo_get_step_count (HTMLUndo *undo)
+{
+	return undo->step_counter;
+}
