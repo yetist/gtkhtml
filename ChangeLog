@@ -1,3 +1,8 @@
+2002-11-28  Bastien Nocera  <hadess@hadess.net>
+
+	* configure.in: added GETTEXT_PACKAGE substitution, so the .po files
+	install correctly
+
 2002-11-05  Larry Ewing  <lewing@ximian.com>
 
 	* configure.in: look four soup-2.0 
