@@ -712,6 +712,7 @@ destroy (GtkObject *object)
 }
 
 static void set_fonts (GtkHTML *html);
+static gint set_fonts_idle (GtkHTML *html);
 
 /* GtkWidget methods.  */
 static void
@@ -726,7 +727,11 @@ style_set (GtkWidget *widget,
 	prop->font_var = pango_font_description_to_string (widget->style->font_desc);
 	prop->font_var_size = PANGO_PIXELS (pango_font_description_get_size (widget->style->font_desc));
 	prop->font_fix_size = PANGO_PIXELS (pango_font_description_get_size (widget->style->font_desc));
-	set_fonts (GTK_HTML (widget));
+
+	/* we don't need to set font's in idle time so call idle callback directly to avoid
+	   recalculating whole document
+	*/
+	set_fonts_idle (GTK_HTML (widget));
 
 	html_colorset_set_style (engine->defaultSettings->color_set,
 				 widget->style);

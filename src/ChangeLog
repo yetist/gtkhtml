@@ -1,5 +1,9 @@
 2003-02-20  Radek Doulik  <rodo@ximian.com>
 
+	* gtkhtml.c (style_set): don't set fonts in idle time, but right
+	now, this avoids recalculating whole document (after content is
+	loaded)
+
 	* htmltext.c (html_text_text_line_length): modify line_offset
 	parameter
 	(translated_len): new helper function
