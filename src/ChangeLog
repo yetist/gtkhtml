@@ -1,5 +1,7 @@
 2003-03-11  Radek Doulik  <rodo@ximian.com>
 
+	* htmltextslave.c (get_glyphs_base_text): return glyphs
+
 	* htmlprinter.c (draw_text): fix print_y position
 
 2003-03-10  Larry Ewing  <lewing@ximian.com>

@@ -628,6 +628,8 @@ get_glyphs_base_text (GList *glyphs, PangoItem *item, const gchar *text, gint by
 	str = pango_glyph_string_new ();
 	pango_shape (text, bytes, &item->analysis, str);
 	glyphs = g_list_prepend (glyphs, str);
+
+	return glyphs;
 }
 
 GList *
