@@ -722,7 +722,7 @@ calc_not_percented (HTMLTable *table, gint *col_percent)
 static gint
 divide_into_percented (HTMLTable *table, gint *col_percent, gint *max_size, gint max_width, gint left)
 {
-	gint added, add, c, to_fill, request;
+	gint added, add, c, to_fill, request, filled;
 
 	to_fill = 0;
 	for (c = 0; c < table->totalCols; c++) {
@@ -731,18 +731,21 @@ divide_into_percented (HTMLTable *table, gint *col_percent, gint *max_size, gint
 			to_fill += request - max_size [c];
 	}
 
+	/* printf ("to fill %d\n", to_fill); */
 	left  = MIN (to_fill, left);
-	added = 0;
+	added  = 0;
+	filled = 0;
 	if (left) {
 		for (c = 0; c < table->totalCols; c++) {
 			request = (LL max_width * (PERC (c))) / 100;
 			if (max_size [c] < request) {
-				add = LL left * (request - max_size [c] + added) / to_fill;
-				if (LL left * (request - max_size [c] + added) - LL add * to_fill >
-				    LL (add + 1) * to_fill - LL left * (request - max_size [c] + added))
+				add     = LL left * (request - max_size [c] + filled) / to_fill;
+				if (LL left * (request - max_size [c] + filled) - LL add * to_fill >
+				    LL (add + 1) * to_fill - LL left * (request - max_size [c] + filled))
 					add ++;
 				add          -= added;
 				added        += add;
+				filled       += request - max_size [c];
 				max_size [c] += add;
 			}
 		}

@@ -1,3 +1,8 @@
+2000-12-29  Radek Doulik  <rodo@helixcode.com>
+
+	* htmltable.c (divide_into_percented): fixed, there was error in
+	part calculation in case left < to_fill
+
 2000-12-21  Radek Doulik  <rodo@helixcode.com>
 
 	* htmltable.c (html_table_end_row): fixed crash for empty row
