@@ -83,6 +83,7 @@ struct _HTMLImage {
 	gint16 specified_height;
 	gboolean percent_width  : 1;
 	gboolean percent_height : 1;
+	gboolean ismap : 1;
 
 	gint8 hspace;
 	gint8 vspace;
@@ -93,6 +94,7 @@ struct _HTMLImage {
 	gchar *target;
 	gchar *alt;
 	gchar *usemap;
+	gchar *final_url;	
 };
 
 struct _HTMLImageClass {
@@ -147,8 +149,9 @@ void        html_image_set_border         (HTMLImage        *image,
 					   gint              border);
 void        html_image_set_alt            (HTMLImage        *image,
 					   gchar            *alt);
-void        html_image_set_usemap         (HTMLImage        *image,
-					   gchar            *usemap);
+void        html_image_set_map            (HTMLImage        *image,
+					   gchar            *mapuri,
+					   gboolean         ismap);
 gchar      *html_image_resolve_image_url  (GtkHTML          *html,
 					   gchar            *image_url);
 

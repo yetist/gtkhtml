@@ -2298,6 +2298,7 @@ parse_i (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 		gint border = 0;
 		gboolean percent_width  = FALSE;
 		gboolean percent_height = FALSE;
+		gboolean ismap = FALSE;
 		color        = current_color (e);
 
 		if (e->url != NULL || e->target != NULL)
@@ -2340,7 +2341,7 @@ parse_i (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 			} else if (strncasecmp (token, "usemap=", 7) == 0) {
 				mapname = g_strdup (token + 7);
 			} else if (strncasecmp (token, "ismap", 5) == 0) {
-				/* FIXME implement me */
+				ismap = TRUE;
 			}
 		}
 
@@ -2371,11 +2372,10 @@ parse_i (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 				g_free (alt);
 			}
 			
-			if (mapname) {
-				html_image_set_usemap (HTML_IMAGE (image), mapname);
-				g_free (mapname);
-			}	    
-			g_free(tmpurl);
+			html_image_set_map (HTML_IMAGE (image), mapname, ismap);
+
+			g_free (tmpurl);
+			g_free (mapname);
 				
 			if (align == HTML_HALIGN_NONE) {
 				append_element (e, _clue, image);

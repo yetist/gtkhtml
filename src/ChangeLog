@@ -1,3 +1,15 @@
+2001-05-31  Larry Ewing  <lewing@ximian.com>
+
+	* htmlimage.c (html_image_set_map): rename and add ismap logic. 
+	(destroy): free final_url.
+	(copy): copy new members.
+	(image_update_url): add ismap logic.
+	(html_image_init): initialize new members.
+
+	* htmlimage.h: Add ismap and final_url members.
+
+	* htmlengine.c (parse_i): add ismap support.
+
 2001-05-30  Radek Doulik  <rodo@ximian.com>
 
 	* htmltablecell.c (save): save align/valign

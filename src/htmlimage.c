@@ -170,6 +170,7 @@ destroy (HTMLObject *o)
 	g_free (image->target);
 	g_free (image->alt);
 	g_free (image->usemap);
+	g_free (image->final_url);
 
 	if (image->color)
 		html_color_unref (image->color);
@@ -202,6 +203,7 @@ copy (HTMLObject *self,
 	dimg->specified_height = simg->specified_height;
 	dimg->percent_width = simg->percent_width;
 	dimg->percent_height = simg->percent_height;
+	dimg->ismap = simg->ismap;
 
 	dimg->hspace = simg->hspace;
 	dimg->vspace = simg->vspace;
@@ -212,6 +214,8 @@ copy (HTMLObject *self,
 	dimg->target = g_strdup (simg->target);
 	dimg->alt = g_strdup (simg->alt);
 	dimg->usemap = g_strdup (simg->usemap);
+	dimg->final_url = NULL;
+
 	/* add dest to image_ptr interests */
 	dimg->image_ptr->interests = g_slist_prepend (dimg->image_ptr->interests, dimg);
 }
@@ -221,24 +225,33 @@ image_update_url (HTMLImage *image, gint x, gint y)
 {
 	HTMLMap *map;
 	HTMLObject *o = HTML_OBJECT (image);
-	char *url;
-
-	if (image->usemap == NULL)
-		return;
+	char *url = NULL;
 
 	/* 
 	 * FIXME this is a huge hack waiting until we implement events for now we write
 	 * over the image->url for every point since we always call point before get_url
 	 * it is sick, I know.
 	 */
-	map = (HTMLMap *)html_engine_get_object_by_id (image->image_ptr->factory->engine, image->usemap + 1);
-
-	if (map) {
-		url = html_map_calc_point (map, x - o->x , y - (o->y - o->ascent));
-
-		g_free (image->url);
-		image->url = url ? g_strdup (url) : NULL;
+	if (image->usemap != NULL) {
+		map = (HTMLMap *)html_engine_get_object_by_id (image->image_ptr->factory->engine, 
+							       image->usemap + 1);
+		
+		if (map) {
+			url = html_map_calc_point (map, x - o->x , y - (o->y - o->ascent));
+			
+			if (url)
+				url = g_strdup (url);
+		}
+	} else if (image->ismap) {
+		if (image->url)
+			url = g_strdup_printf ("%s?%d,%d", image->url, x, y);
+	} else {
+		if (image->url)
+			url = g_strdup (image->url);
 	}
+	
+	g_free (image->final_url);
+	image->final_url = url;
 }
 
 static HTMLObject *
@@ -543,7 +556,7 @@ get_url (HTMLObject *o)
 	HTMLImage *image;
 
 	image = HTML_IMAGE (o);
-	return image->url;
+	return image->final_url;
 }
 
 static const gchar *
@@ -667,6 +680,8 @@ html_image_init (HTMLImage *image,
 	image->url = g_strdup (url);
 	image->target = g_strdup (url);
 	image->usemap = NULL;
+	image->final_url = NULL;
+	image->ismap = FALSE;
 
 	image->specified_width  = width;
 	image->specified_height = height;
@@ -781,10 +796,19 @@ html_image_set_alt (HTMLImage *image, gchar *alt)
 }
 
 void
-html_image_set_usemap (HTMLImage *image, gchar *usemap)
+html_image_set_map (HTMLImage *image, gchar *usemap, gboolean ismap)
 {
+	char *url = NULL;
+
 	g_free (image->usemap);
-	image->usemap = g_strdup (usemap);
+
+	if (usemap != NULL) {
+		image->ismap = FALSE;
+		url = g_strdup (usemap);
+	} else {
+		image->ismap = ismap;
+	}
+	image->usemap = url;
 }
 
 void
