@@ -1,3 +1,16 @@
+1999-12-31  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine-edit.c (html_engine_insert_para): Inserting a
+	paragraph at the beginning of a paragraph correctly results in an
+	empty paragraph now.
+
+	* htmlclueflow.c (html_clueflow_split): Deal with splitting at the
+	head of the clue correctly.
+	(calc_size): Consider the object's height even if at the left
+	margin.  I am not sure this is correct fix, but I don't see the
+	reason for not doing it this way, and the previous code did not
+	handle a hspace alone in a clueflow as expected.
+
 1999-12-30  Jonas Borgström <jonas_b@bitsmart.com>
 
 	* htmlengine.c (parse_m): Added support for META refresh

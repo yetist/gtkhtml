@@ -116,7 +116,10 @@ calc_size (HTMLObject *o,
 		else if (obj->flags & HTML_OBJECT_FLAG_SEPARATOR) {
 			obj->x = w;
 
-			if (w != lmargin) {
+			/* FIXME I am not sure why this check is here, but it
+                           causes a stand-alone hspace in a clueflow to be
+                           given zero height.  -- EP */
+			if (TRUE /*  w != lmargin */) {
 				w += obj->width;
 				if (obj->ascent > a)
 					a = obj->ascent;
@@ -467,14 +470,16 @@ html_clueflow_split (HTMLClueFlow *clue,
 	/* Remove the children from the original clue.  */
 
 	prev = child->prev;
-
-	child->prev->next = NULL;
+	if (prev != NULL)
+		prev->next = NULL;
+	else
+		HTML_CLUE (clue)->head = NULL;
 	child->prev = NULL;
 
 	/* The last text element in an HTMLClueFlow must be followed by an
            hidden hspace.  */
 
-	if (html_object_is_text (prev)) {
+	if (prev != NULL && html_object_is_text (prev)) {
 		HTMLObject *hspace;
 
 		hspace = html_hspace_new (HTML_TEXT (prev)->font, TRUE);

@@ -2533,7 +2533,7 @@ html_engine_init (HTMLEngine *engine)
 	engine->actualURL = NULL;
 	engine->newPage = FALSE;
 
-	engine->editable = FALSE;
+	engine->editable = TRUE;
 	engine->cursor = html_cursor_new ();
 
 	engine->ht = html_tokenizer_new ();

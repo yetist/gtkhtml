@@ -24,6 +24,7 @@
 #include "htmlobject.h"
 #include "htmlclueflow.h"
 #include "htmlcursor.h"
+#include "htmlhspace.h"
 #include "htmltext.h"
 #include "htmltextslave.h"
 
@@ -111,10 +112,10 @@ get_flow (HTMLObject *object)
 
 void
 html_engine_insert_para (HTMLEngine *e,
-			 gboolean vskip)
+			 gboolean vspace)
 {
 	HTMLObject *flow;
-	HTMLObject *flow_next;
+	HTMLObject *next_flow;
 	HTMLObject *current;
 	guint offset;
 
@@ -151,26 +152,43 @@ html_engine_insert_para (HTMLEngine *e,
 			p->prev = current;
 	}
 
-	if (current->next != NULL) {
-		flow_next = HTML_OBJECT (html_clueflow_split (HTML_CLUEFLOW (flow),
-							      current->next));
+	if (offset > 0) {
+		if (current->next != NULL) {
+			next_flow = HTML_OBJECT (html_clueflow_split (HTML_CLUEFLOW (flow),
+								      current->next));
+		} else {
+			/* FIXME not sure about the values to pass here.  */
+			next_flow = html_clueflow_new (0, 0, 100, 100);
+		}
 	} else {
-		/* FIXME not sure about the values to pass here.  */
-		flow_next = html_clueflow_new (0, 0, 100, 100);
+		next_flow = HTML_OBJECT (html_clueflow_split (HTML_CLUEFLOW (flow), current));
+		if (current->prev == NULL) {
+			HTMLObject *hspace;
+
+			/* We don't want the clue to be empty: so we add an
+                           hidden hspace with an appropriate font.  FIXME FIXME
+                           FIXME: Currently, "appropriate font" makes sense
+                           when we are on a text object only.  So, in the other
+                           cases, we don't do anything, which is broken.  */
+
+			if (html_object_is_text (current)) {
+				hspace = html_hspace_new (HTML_TEXT (current)->font, TRUE);
+				html_clue_append (HTML_CLUE (flow), hspace);
+			}
+		}
 	}
 
-	html_clue_append_after (HTML_CLUE (flow->parent), flow_next, flow);
+	html_clue_append_after (HTML_CLUE (flow->parent), next_flow, flow);
 
-	if (html_object_is_text (current)) {
+	if (offset > 0 && html_object_is_text (current)) {
 		HTMLObject *text_next;
 
 		text_next = HTML_OBJECT (html_text_split (HTML_TEXT (current), offset));
-		html_clue_prepend (HTML_CLUE (flow_next), text_next);
+		html_clue_prepend (HTML_CLUE (next_flow), text_next);
+
 		e->cursor->object = text_next;
 		e->cursor->offset = 0;
 		e->cursor->have_target_x = FALSE;
-	} else {
-		/* FIXME */
 	}
 
 	if (flow->parent == NULL) {
