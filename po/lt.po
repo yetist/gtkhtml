@@ -1,21 +1,37 @@
 # Lithuanian translation of gtkhtml.
-# Copyright (C) 2000-2001 Free Software Foundation, Inc.
-# Gediminas Paulauskas <menesis@delfi.lt>, 2001
+# Copyright (C) 2000-2005 Free Software Foundation, Inc.
+# Gediminas Paulauskas <menesis@delfi.lt>, 2001-2004.
 # Tomas Kuliavas <tokul@users.sourceforge.net>, 2004.
-# Žygimantas Beručka <uid0@akl.lt>, 2004.
+# Žygimantas Beručka <uid0@akl.lt>, 2004-2005.
 # 
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-29 16:53+0100\n"
-"PO-Revision-Date: 2004-03-07 15:52+0200\n"
+"POT-Creation-Date: 2005-01-01 11:18+0200\n"
+"PO-Revision-Date: 2005-01-01 11:33+0200\n"
 "Last-Translator: Žygimantas Beručka <uid0@akl.lt>\n"
 "Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: a11y/image.c:149
+msgid "URL is "
+msgstr "URL yra "
+
+#: a11y/image.c:152
+msgid ", Alternative Text is "
+msgstr ", Alternatyvus tekstas yra "
+
+#: a11y/object.c:50 a11y/object.c:59 a11y/text.c:105
+msgid "grab focus"
+msgstr "fokusuoti"
+
+#: a11y/object.c:211
+msgid "Panel containing HTML"
+msgstr "Skydelyje yra HTML"
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -595,7 +611,7 @@ msgstr "Pakartoti atšauktą veiksmą"
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
-#: components/html-editor/replace.c:161 components/html-editor/replace.c:223
+#: components/html-editor/replace.c:163 components/html-editor/replace.c:225
 msgid "Replace"
 msgstr "Pakeisti"
 
@@ -1001,12 +1017,11 @@ msgstr "Juodraštis"
 
 #: components/html-editor/body.c:123
 msgid "Graph paper"
-msgstr "Grafinis Popierius"
+msgstr "Grafinis popierius"
 
 #: components/html-editor/body.c:246
-#, fuzzy
 msgid "T_emplate:"
-msgstr "Šablonas"
+msgstr "Ša_blonas:"
 
 #. data->entry_title = gtk_entry_new ();
 #. if (gtk_html_get_title (data->cd->html)) {
@@ -1016,9 +1031,8 @@ msgstr "Šablonas"
 #. g_signal_connect (data->entry_title, "changed", G_CALLBACK (entry_changed), data);
 #. editor_hig_attach_row (t1, _("T_itle:"), data->entry_title, 1);
 #: components/html-editor/body.c:256 components/html-editor/paragraph.c:112
-#, fuzzy
 msgid "General"
-msgstr "Centruoti"
+msgstr "Bendra"
 
 #: components/html-editor/body.c:267 components/html-editor/text.c:162
 #: components/html-editor/toolbar.c:301
@@ -1026,19 +1040,16 @@ msgid "Automatic"
 msgstr "Automatinė"
 
 #: components/html-editor/body.c:279
-#, fuzzy
 msgid "_Text:"
-msgstr "Tekstas"
+msgstr "_Tekstas:"
 
 #: components/html-editor/body.c:280
-#, fuzzy
 msgid "_Link:"
-msgstr "Nuoroda"
+msgstr "_Nuoroda:"
 
 #: components/html-editor/body.c:281
-#, fuzzy
 msgid "_Background:"
-msgstr "Fonas"
+msgstr "_Fonas:"
 
 #: components/html-editor/body.c:283
 #: components/html-editor/gtkhtml-editor-properties.glade.h:30
@@ -1053,11 +1064,11 @@ msgstr "Fono paveikslėlis"
 #: components/html-editor/body.c:298
 #: components/html-editor/gtkhtml-editor-properties.glade.h:71
 msgid "_Source:"
-msgstr ""
+msgstr "Š_altinis:"
 
 #: components/html-editor/cell.c:350 components/html-editor/table.c:231
 msgid "Transparent"
-msgstr ""
+msgstr "Permatomas"
 
 #: components/html-editor/editor-control-factory.c:178
 #: components/html-editor/menubar.c:354 components/html-editor/menubar.c:372
@@ -1284,16 +1295,16 @@ msgstr "dangaus mėlynumo"
 
 #: components/html-editor/gnome-gtkhtml-editor.c:68
 msgid "GtkHTML Editor Control"
-msgstr "GtkHTML Redaktoriaus Valdymas"
+msgstr "GtkHTML redaktoriaus valdymas"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:1
 msgid "    "
-msgstr ""
+msgstr "    "
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:3
 #, no-c-format
 msgid "%"
-msgstr ""
+msgstr "%"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:8
 msgid "+4"
@@ -1301,48 +1312,47 @@ msgstr "+4"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:11
 msgid "<b>Alignment &amp; Behaviour</b>"
-msgstr ""
+msgstr "<b>Lygiavimas ir elgesys</b>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:12
-#, fuzzy
 msgid "<b>Background</b>"
-msgstr "Fonas"
+msgstr "<b>Fonas</b>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:13
 msgid "<b>General</b>"
-msgstr ""
+msgstr "<b>Bendra</b>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:14
 msgid "<b>Layout</b>"
-msgstr ""
+msgstr "<b>Išdėstymas</b>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:15
 msgid "<b>Scope</b>"
-msgstr ""
+msgstr "<b>Sritis</b>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:16
 msgid "<span weight=\"bold\">General</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">Bendra</span>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:17
 msgid "<span weight=\"bold\">Layout</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">Išdėstymas</span>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:18
 msgid "<span weight=\"bold\">Link</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">Nuoroda</span>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:19
 msgid "<span weight=\"bold\">Size</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">Dydis</span>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:20
 msgid "<span weight=\"bold\">Style</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">Stilius</span>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:21
 msgid "<span weight=\"bold\">Template</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">Šablonas</span>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:22
 #: components/html-editor/paragraph.c:131
@@ -1354,14 +1364,12 @@ msgid "Bottom"
 msgstr "Pagal apačią"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:25
-#, fuzzy
 msgid "C_ell"
-msgstr "Ląstelė"
+msgstr "Ląst_elė"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:26
-#, fuzzy
 msgid "C_olor:"
-msgstr "Spalva:"
+msgstr "S_palva:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:27
 #: components/html-editor/popup.c:237
@@ -1374,9 +1382,8 @@ msgid "Center"
 msgstr "Centruoti"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:29
-#, fuzzy
 msgid "Col_umn"
-msgstr "Stulpelis"
+msgstr "St_ulpelis"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:31
 msgid "Column span:"
@@ -1387,9 +1394,8 @@ msgid "Enable"
 msgstr "Leisti"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:33
-#, fuzzy
 msgid "Hea_der style"
-msgstr "Antraštė 6"
+msgstr "Ant_raštės stlius"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:34
 msgid "Horizontal alignment:"
@@ -1400,9 +1406,8 @@ msgid "Horizontal:"
 msgstr "Horizontaliai:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:36
-#, fuzzy
 msgid "I_mage:"
-msgstr "Paveikslėlis"
+msgstr "Pa_veikslėlis:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:38
 #: components/html-editor/paragraph.c:127
@@ -1443,13 +1448,12 @@ msgid "Shaded"
 msgstr "Su šešėliu"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:50
-#, fuzzy
 msgid "Si_ze:"
-msgstr "Dydis"
+msgstr "_Dydis:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:51
 msgid "Standard"
-msgstr ""
+msgstr "Standartinis"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:55
 msgid "Thickness:"
@@ -1468,106 +1472,88 @@ msgid "Width:"
 msgstr "Plotis:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:59
-#, fuzzy
 msgid "_Alignment:"
-msgstr "Lygiavimas:"
+msgstr "_Lygiavimas:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:61
-#, fuzzy
 msgid "_Border:"
-msgstr "Rėmelis:"
+msgstr "_Rėmelis:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:62
-#, fuzzy
 msgid "_Color:"
-msgstr "Spalva:"
+msgstr "_Spalva:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:63
-#, fuzzy
 msgid "_Columns:"
-msgstr "Stulpeliai:"
+msgstr "_Stulpeliai:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:64
-#, fuzzy
 msgid "_Description:"
-msgstr "Aprašymas:"
+msgstr "_Aprašymas:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:65
-#, fuzzy
 msgid "_Height:"
-msgstr "Aukštis:"
+msgstr "_Aukštis:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:66
-#, fuzzy
 msgid "_Image:"
-msgstr "Paveikslėlis"
+msgstr "_Paveikslėlis:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:68
-#, fuzzy
 msgid "_Padding:"
-msgstr "Apvalkalas:"
+msgstr "_Apvalkalas:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:69
-#, fuzzy
 msgid "_Row"
-msgstr "Eilutė"
+msgstr "_Eilutė"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:70
-#, fuzzy
 msgid "_Rows:"
-msgstr "Eilutės:"
+msgstr "_Eilutės:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
-#, fuzzy
 msgid "_Spacing:"
-msgstr "Tankis:"
+msgstr "_Tankis:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:74
-#, fuzzy
 msgid "_Table"
-msgstr "Lentelė"
+msgstr "_Lentelė:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:75
 msgid "_URL:"
-msgstr ""
+msgstr "_URL:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:77
-#, fuzzy
 msgid "_Width:"
-msgstr "Plotis:"
+msgstr "_Plotis:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:78
-#, fuzzy
 msgid "_Wrap Text"
-msgstr "_Laužyti eilutes"
+msgstr "_Laužyti tekstą"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:79
-#, fuzzy
 msgid "_X-Padding:"
-msgstr "Apvalkalas:"
+msgstr "_X-apvalkalas:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:80
-#, fuzzy
 msgid "_Y-Padding:"
-msgstr "Apvalkalas:"
+msgstr "_Y-apvalkalas:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:81
-#, fuzzy
 msgid "follow"
-msgstr "Pereiti"
+msgstr "sekti"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:82
 msgid "px"
-msgstr ""
+msgstr "px"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:83
 msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
 #: components/html-editor/menubar.c:96 components/html-editor/menubar.c:104
-#, fuzzy
 msgid "Insert image"
-msgstr "Įterpti nuorodą"
+msgstr "Įterpti paveikslėlį"
 
 #: components/html-editor/menubar.c:133 components/html-editor/menubar.c:152
 #: components/html-editor/menubar.c:173 components/html-editor/menubar.c:195
@@ -1633,9 +1619,8 @@ msgid "Address"
 msgstr "Adresas"
 
 #: components/html-editor/paragraph.c:109
-#, fuzzy
 msgid "_Style:"
-msgstr "_Stilius"
+msgstr "_Stilius:"
 
 #: components/html-editor/popup.c:438
 msgid "Paste Quotation"
@@ -1764,19 +1749,19 @@ msgstr "_Kitas"
 msgid "_Replace"
 msgstr "_Pakeisti"
 
-#: components/html-editor/replace.c:169
+#: components/html-editor/replace.c:171
 msgid "Search _backward"
 msgstr "Ieškoti _atgal"
 
-#: components/html-editor/replace.c:170 components/html-editor/search.c:114
+#: components/html-editor/replace.c:172 components/html-editor/search.c:114
 msgid "Case _sensitive"
 msgstr "Jautrus _raidžių dydžiui"
 
-#: components/html-editor/replace.c:180
+#: components/html-editor/replace.c:182
 msgid "Replace:"
 msgstr "Pakeisti:"
 
-#: components/html-editor/replace.c:183
+#: components/html-editor/replace.c:185
 msgid "With:"
 msgstr "Su:"
 
@@ -1785,15 +1770,16 @@ msgid "_Backward"
 msgstr "Ieškoti _atgal"
 
 #: components/html-editor/search.c:115
-#, fuzzy
 msgid "_Regular Expression"
-msgstr "Rasti reguliarią išraišką"
+msgstr "_Reguliari išraiška"
 
 #: components/html-editor/spell.c:110
 msgid ""
 "Unable to add word to dictionary,\n"
 "language settings are broken.\n"
 msgstr ""
+"Nepavyko į žodyną įdėti žodžio,\n"
+"kalbos nustatymai yra sugadinti.\n"
 
 #: components/html-editor/spell.c:298
 msgid "No misspelled word found"
@@ -1901,10 +1887,9 @@ msgstr "Pavyzdys"
 
 #: components/html-editor/utils.c:192
 msgid "_Visit..."
-msgstr ""
+msgstr "Ap_lankyti..."
 
 #: components/html-editor/utils.c:232
-#, fuzzy
 msgid ""
 "The editted object was removed from the document.\n"
 "Cannot apply your changes."
@@ -1912,92 +1897,91 @@ msgstr ""
 "Taisomas tekstas buvo pašalintas iš dokumento.\n"
 "Negalima pritaikyti Jūsų pakeitimų."
 
-#: src/gtkhtml.c:2569
+#: src/gtkhtml.c:2579
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""
+"Mozilla url numestas ant Rašyklės turėjo blogą formatą (%d) arba ilgį (%d)\n"
 
-#: src/gtkhtml.c:2891
+#: src/gtkhtml.c:2929
 msgid "Editable"
 msgstr "Redaguojamas"
 
-#: src/gtkhtml.c:2892
+#: src/gtkhtml.c:2930
 msgid "Whether the html can be edited"
 msgstr "Ar html gali būti keičiamas"
 
-#: src/gtkhtml.c:2898
+#: src/gtkhtml.c:2936
 msgid "Document Title"
 msgstr "Dokumento Antraštė"
 
-#: src/gtkhtml.c:2899
+#: src/gtkhtml.c:2937
 msgid "The title of the current document"
 msgstr "Esamo dokumento antraštė"
 
-#: src/gtkhtml.c:2905
+#: src/gtkhtml.c:2943
 msgid "Document Base"
-msgstr "Dokumento Pagrindas"
+msgstr "Dokumento pagrindas"
 
-#: src/gtkhtml.c:2906
+#: src/gtkhtml.c:2944
 msgid "The base URL for relative references"
 msgstr "Santykinių nuorodų bazinis adresas"
 
-#: src/gtkhtml.c:2912
+#: src/gtkhtml.c:2950
 msgid "Target Base"
 msgstr "Tikslinis pagrindas"
 
-#: src/gtkhtml.c:2913
+#: src/gtkhtml.c:2951
 msgid "The base URL of the targe frame"
 msgstr "Tikslinio rėmelio bazinis adresas"
 
-#: src/gtkhtml.c:2922
+#: src/gtkhtml.c:2960
 msgid "Fixed Width Font"
 msgstr "Fiksuoto pločio šriftas"
 
-#: src/gtkhtml.c:2923
+#: src/gtkhtml.c:2961
 msgid "The Monospace font to use for typewriter text"
 msgstr "Lygiaplotis šriftas naudojamas atvaizduoti mašininiam tekstui"
 
-#: src/gtkhtml.c:2929
+#: src/gtkhtml.c:2967
 msgid "New Link Color"
 msgstr "Naujos nuorodos spalva"
 
-#: src/gtkhtml.c:2930
+#: src/gtkhtml.c:2968
 msgid "The color of new link elements"
 msgstr "Naujų nuorodų elementų spalva"
 
-#: src/gtkhtml.c:2935
+#: src/gtkhtml.c:2973
 msgid "Visited Link Color"
 msgstr "Aplankytos nuorodos spalva"
 
-#: src/gtkhtml.c:2936
+#: src/gtkhtml.c:2974
 msgid "The color of visited link elements"
 msgstr "Aplankytų nuorodų elementų spalva"
 
-#: src/gtkhtml.c:2941
+#: src/gtkhtml.c:2979
 msgid "Active Link Color"
 msgstr "Aktyvios nuorodos spalva"
 
-#: src/gtkhtml.c:2942
+#: src/gtkhtml.c:2980
 msgid "The color of active link elements"
 msgstr "Aktyvių nuorodų elementų spalva"
 
-#: src/gtkhtml.c:2947
+#: src/gtkhtml.c:2985
 msgid "Spelling Error Color"
 msgstr "Rašybos klaidų spalva"
 
-#: src/gtkhtml.c:2948
+#: src/gtkhtml.c:2986
 msgid "The color of the spelling error markers"
 msgstr "Rašybos klaidų žymėjimo spalva"
 
-#: src/gtkhtml.c:2953
-#, fuzzy
+#: src/gtkhtml.c:2991
 msgid "Cite Quotation Color"
-msgstr "Įterpti citatą"
+msgstr "Citatos skyrybos spalva"
 
-#: src/gtkhtml.c:2954
-#, fuzzy
+#: src/gtkhtml.c:2992
 msgid "The color of the cited text"
-msgstr "Aktyvių nuorodų elementų spalva"
+msgstr "Cituoto teksto spalva"
 
 #: src/html-component.c:220
 msgid "Html"
@@ -2062,226 +2046,16 @@ msgstr "Nepavyko aptikti įprasto spausdinimo šrifto\n"
 
 #: src/test.c:375
 msgid "GtkHTML Test"
-msgstr "GtkHTML Testas"
+msgstr "GtkHTML testas"
 
-#~ msgid "Print pre_view"
-#~ msgstr "Spaudinio p_eržiūra"
+#: src/testgtkhtml.c:117
+msgid "Print pre_view"
+msgstr "Spaudinio p_eržiūra"
 
-#~ msgid "Print preview"
-#~ msgstr "Spaudinio peržiūra"
+#: src/testgtkhtml.c:117
+msgid "Print preview"
+msgstr "Spaudinio peržiūra"
 
-#~ msgid "GtkHTML Test Application"
-#~ msgstr "GtkHTML Bandomoji Programa"
-
-#~ msgid "Plain"
-#~ msgstr "Plokščias"
-
-#~ msgid ""
-#~ "@link_begin@<img@alt@@width@@height@@align@ "
-#~ "border=@border@@padh@@padv@@src@>@link_end@"
-#~ msgstr ""
-#~ "@link_begin@<img@alt@@width@@height@@align@ "
-#~ "border=@border@@padh@@padv@@src@>@link_end@"
-
-#~ msgid "Frame"
-#~ msgstr "Rėmelis"
-
-#~ msgid ""
-#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-#~ "@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
-#~ "table></center>"
-#~ msgstr ""
-#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-#~ "@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
-#~ "table></center>"
-
-#~ msgid "Caption"
-#~ msgstr "Intarpas"
-
-#~ msgid ""
-#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-#~ "@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Place "
-#~ "your comment here]</td></tr></table></td></tr></table></center>"
-#~ msgstr ""
-#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-#~ "@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>"
-#~ "[Rašykite savo pastabas čia]</td></tr></table></td></tr></table></center>"
-
-#~ msgid "Find A Regular Expression"
-#~ msgstr "Rasti reguliarią išraišką"
-
-#~ msgid "Find Regular E_xpression..."
-#~ msgstr "Rasti re_guliarią išraišką..."
-
-#~ msgid ""
-#~ "The quick brown <a href=\"mailto:fox\">fox</a> jumps over the lazy <a "
-#~ "href=\"mailto:dog\">dog</a>."
-#~ msgstr ""
-#~ "Įlinkdama fechtuotojo <a href=\"mailto:spaga\">špaga</a> sublykčiojusi "
-#~ "pragręžė apvalų <a href=\"mailto:arbuza\">arbūzą</a>."
-
-#~ msgid "The quick brown fox jumps over the lazy dog."
-#~ msgstr "Įlinkdama fechtuotojo špaga sublykčiojusi pragręžė apvalų arbūzą."
-
-#~ msgid "Other"
-#~ msgstr "Kitas"
-
-#~ msgid ""
-#~ "The editted cell was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "Taisomas laukas buvo pašalintas iš dokumento.\n"
-#~ "Negalima pritaikyti Jūsų pakeitimų."
-
-#~ msgid "************"
-#~ msgstr "************"
-
-#~ msgid "***text***"
-#~ msgstr "***tekstas***"
-
-#~ msgid "Apply changes to:"
-#~ msgstr "Pritaikyti pakeitimus kam:"
-
-#~ msgid "Border"
-#~ msgstr "Rėmelis"
-
-#~ msgid "Click will follow this URL"
-#~ msgstr "Paspauskite, kad pereiti į nurodytą adresą"
-
-#~ msgid "Click will follow this URL:"
-#~ msgstr "Paspauskite, kad pereiti į nurodytą adresą:"
-
-#~ msgid "Don't wrap"
-#~ msgstr "Nelaužyti"
-
-#~ msgid "Font size"
-#~ msgstr "Šrifto dydis"
-
-#~ msgid "Foreground color"
-#~ msgstr "Priekinio plano spalva"
-
-#~ msgid "Header"
-#~ msgstr "Antraštė"
-
-#~ msgid "Link insert"
-#~ msgstr "Įterpti nuorodą"
-
-#~ msgid "Location"
-#~ msgstr "Vieta"
-
-#~ msgid "Padding"
-#~ msgstr "Apvalkalas"
-
-#~ msgid "Percent %"
-#~ msgstr "Procentais %"
-
-#~ msgid "Pixmap:"
-#~ msgstr "Paveikslėlis:"
-
-#~ msgid "Points"
-#~ msgstr "Taškais"
-
-#~ msgid "Scope"
-#~ msgstr "Sritis"
-
-#~ msgid "Spacing"
-#~ msgstr "Tankis"
-
-#~ msgid "Style:"
-#~ msgstr "Stilius:"
-
-#~ msgid "Table Insert"
-#~ msgstr "Įterpti lentelę"
-
-#~ msgid "Test URL..."
-#~ msgstr "Patikrinti URL..."
-
-#~ msgid "Wrap"
-#~ msgstr "Laužyti"
-
-#~ msgid "Wrapping:"
-#~ msgstr "Laužymas:"
-
-#~ msgid "xxxxxxxxx"
-#~ msgstr "xxxxxxxxx"
-
-#~ msgid ""
-#~ "This is sample text, designed to show you how text would flow around this "
-#~ "image if you insert the image into your message."
-#~ msgstr ""
-#~ "Tai yra bandomasis tekstas, skirtas parodyti Jums, kaip tekstas judės "
-#~ "apie šį piešinį, jei Jūs įterpsite jį į savo dokumentą."
-
-#~ msgid "No image selected"
-#~ msgstr "Nepasirinktas joks paveikslėlis"
-
-#~ msgid ""
-#~ "The editted image was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "Taisomas paveikslėlis buvo pašalintas iš dokumento.\n"
-#~ "Negalima pritaikyti Jūsų pakeitimų."
-
-#~ msgid "Link text"
-#~ msgstr "Nuorodos tekstas"
-
-#~ msgid ""
-#~ "The editted link was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "Taisoma nuoroda buvo pašalinta iš dokumento.\n"
-#~ "Negalima pritaikyti Jūsų pakeitimų."
-
-#~ msgid "Please fill 'Link text' and 'URL' entries"
-#~ msgstr "Prašom užpildyti „Nuorodos tekstas“ ir „URL“ įrašus"
-
-#~ msgid "Align"
-#~ msgstr "Lygiuoti"
-
-#~ msgid ""
-#~ "The editted paragraph was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "Taisoma pastraipa buvo pašalinta iš dokumento.\n"
-#~ "Negalima pritaikyti Jūsų pakeitimų."
-
-#~ msgid "Blue 3D"
-#~ msgstr "Mėlyna 3D"
-
-#~ msgid "Yellow, flowers"
-#~ msgstr "Geltona, gėlės"
-
-#~ msgid ""
-#~ "The editted rule was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "Taisoma linija buvo pašalinta iš dokumento.\n"
-#~ "Negalima pritaikyti Jūsų pakeitimų."
-
-#~ msgid "Flat gray"
-#~ msgstr "Plokščia pilka"
-
-#~ msgid "Dark header"
-#~ msgstr "Tamsi antraštė"
-
-#~ msgid ""
-#~ "The editted table was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "Taisoma lentelė buvo pašalinta iš dokumento.\n"
-#~ "Negalima pritaikyti Jūsų pakeitimų."
-
-#~ msgid "Color"
-#~ msgstr "Spalva"
-
-#~ msgid "The quick brown fox jumps over the lazy dog.</div>"
-#~ msgstr ""
-#~ "Įlinkdama fechtuotojo špaga sublykčiojusi pragręžė apvalų arbūzą.</div>"
+#: src/testgtkhtml.c:1004
+msgid "GtkHTML Test Application"
+msgstr "GtkHTML bandomoji programa"
