@@ -70,7 +70,7 @@ GtkHTML *html;
 GtkWidget *animator, *entry;
 
 static gint load_timer  = -1;
-static gboolean slow_loading = FALSE;
+static gboolean slow_loading = FALSE, exit_when_done = FALSE;
 
 static GnomeUIInfo file_menu[] = {
 	GNOMEUIINFO_MENU_EXIT_ITEM (exit_cb, NULL),
@@ -277,16 +277,6 @@ entry_goto_url(GtkWidget *widget, gpointer data)
 }
 
 
-#ifdef HAVE_LIBWWW
-
-static void
-www_incoming(const char *url, const char *buffer, int size, int status, GtkHTMLStreamHandle handle)
-{
-  gtk_html_write(html, handle, buffer, size);
-  gtk_html_end(html, handle, GTK_HTML_STREAM_OK);
-}
-#endif
-
 static void
 stop_cb (GtkWidget *widget, gpointer data)
 {
@@ -298,6 +288,8 @@ load_done(GtkHTML *html)
   gnome_animator_stop (GNOME_ANIMATOR (animator));
   gnome_animator_goto_frame (GNOME_ANIMATOR (animator), 1);
   gtk_entry_set_text(GTK_ENTRY(entry), html->engine->baseURL);
+  if(exit_when_done)
+    gtk_main_quit();
 }
 
 static void
@@ -314,8 +306,6 @@ static gboolean
 load_timer_event (FileInProgress *fip)
 {
 	gchar buffer[32768];
-
-	g_print ("LOAD\n");
 
         if (!feof (fip->fil)) {
 		fgets (buffer, 32768, fip->fil);
@@ -349,20 +339,10 @@ netin_stream_put_string (HTStream * me, const char * s)
   return netin_stream_write(me, s, strlen(s));
 }
 
-static gint
-do_request_delete(HTRequest *req)
-{
-  HTRequest_delete(req);
-
-  return FALSE;
-}
-
 static int
 netin_stream_write (HTStream * me, const char * s, int l)
 {
   int reqlen;
-
-  g_print("netin_stream_write(%p, %d bytes)\n", me->handle, l);
 
   if(!me->response)
     me->response = netin_request_response(me->request);
@@ -372,9 +352,12 @@ netin_stream_write (HTStream * me, const char * s, int l)
   gtk_html_write(html, me->handle, s, l);
 
   reqlen = HTResponse_length(me->response);
-  g_print("reqlen on %p is %d (so far %d)\n", me->handle, reqlen, me->read_len);
+
+#if 0
+  g_print("reqlen on %p is %d (so far %ld)\n", me->handle, reqlen, me->read_len);
   if((reqlen > 0) && (me->read_len >= reqlen))
-    gtk_idle_add(do_request_delete, me->request);
+    gtk_idle_add((GtkFunction)do_request_delete, me->request);
+#endif
 
   return HT_OK;
 }
@@ -388,7 +371,6 @@ netin_stream_flush (HTStream * me)
 static int
 netin_stream_free (HTStream * me)
 {
-  g_print("netin_stream_free on %p\n", me->handle);
   gtk_html_end(html, me->handle, GTK_HTML_STREAM_OK);
   g_free(me);
 
@@ -418,7 +400,9 @@ netin_request_response(HTRequest *request)
   HTResponse *retval;
 
   while(!(retval = HTRequest_response(request)))
-    g_main_iteration(TRUE);
+    {
+      g_main_iteration(TRUE);
+    }
 
   return retval;
 }
@@ -435,6 +419,36 @@ netin_stream_new (GtkHTMLStreamHandle handle, HTRequest *request)
   retval->request = request;
 
   return retval;
+}
+
+static gint
+do_request_delete(gpointer req)
+{
+  HTRequest_delete(req);
+
+  return FALSE;
+}
+
+static BOOL
+my_progress(HTRequest *request, HTAlertOpcode op,
+	    int msgnum, const char *dfault, void *input,
+	    HTAlertPar *reply)
+{
+  if(!request)
+    return NO;
+
+  switch(op)
+    {
+    case HT_PROG_DONE:
+    case HT_PROG_TIMEOUT:
+    case HT_PROG_INTERRUPT:
+      gtk_idle_add(do_request_delete, request);
+      break;
+    default:
+      break;
+    }
+
+  return YES;
 }
 #endif
 
@@ -474,7 +488,9 @@ url_requested (GtkHTML *html, const char *url, GtkHTMLStreamHandle handle, gpoin
 	{
 	  HTStream *newstream = netin_stream_new(handle, newreq);
 	  status = HTLoadToStream(url, newstream, newreq);
+	  newstream->response = netin_request_response(newreq);
 	  g_message("Loading URL %s to stream %p (status %d)", url, handle, status);
+	  HTRequest_setContext(newreq, newstream);
 	}
 
 	return;
@@ -563,17 +579,24 @@ exit_cb (GtkWidget *widget, gpointer data)
 	gtk_main_quit ();
 }
 
+static struct poptOption options[] = {
+  {"slow-loading", '\0', POPT_ARG_NONE, &slow_loading, 0, "Load the document as slowly as possible", NULL},
+  {"exit-when-done", '\0', POPT_ARG_NONE, &exit_when_done, 0, "Exit the program as soon as the document is loaded", NULL},
+  {NULL}
+};
+
 gint
 main (gint argc, gchar *argv[])
 {
 	GtkWidget *app, *bar;
 	GtkWidget *hbox, *vscrollbar;
+	poptContext ctx;
 	
-	gnome_init (PACKAGE, VERSION,
-		    argc, argv);
+	gnome_init_with_popt_table (PACKAGE, VERSION,
+				    argc, argv, options, 0, &ctx);
 #ifdef HAVE_LIBWWW
 	glibwww_init(PACKAGE, VERSION);
-	glibwww_register_gnome_dialogs();
+	HTAlert_add(my_progress, HT_A_PROGRESS);
 #endif
 
 	gdk_rgb_init ();
@@ -616,8 +639,12 @@ main (gint argc, gchar *argv[])
 
 	gtk_widget_show_all (app);
 
-	if (argc > 1)
-	  goto_url(argv[1]);
+	{
+	  char **args;
+	  args = poptGetArgs(ctx);
+	  if (args && args[0])
+	    goto_url(args[0]);
+	}
 
 	gtk_main ();
 
