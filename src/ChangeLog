@@ -1,3 +1,10 @@
+2004-10-13  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine-edit-text.c (upper_lower): set text_len and
+	text_bytes to right values
+
+	Fixes #68092
+
 2004-10-11  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (gtk_html_size_request): make sure we keep layout in
