@@ -28,9 +28,10 @@
 #include "htmlcolorset.h"
 #include "htmlcursor.h"
 #include "htmlengine.h"
+#include "htmlengine-edit-tablecell.h"
 #include "htmlengine-save.h"
 #include "htmlimage.h"
-#include "htmltable.h"
+#include "htmltablecell.h"
 #include "htmlsettings.h"
 
 #include "config.h"
@@ -104,15 +105,12 @@ data_new (GtkHTMLControlData *cd)
 	GtkHTMLEditCellProperties *data = g_new0 (GtkHTMLEditCellProperties, 1);
 
 	/* fill data */
-	data->cd             = cd;
-	data->cell          = NULL;
+	data->cd                = cd;
+	data->cell              = NULL;
 
-	/* default values
-	data->width          = 100;
-	data->size           = 2;
-	data->percent        = TRUE;
-	data->shaded         = TRUE;
-	data->align          = HTML_HALIGN_CENTER; */
+	data->bg_color          = html_colorset_get_color (data->cd->html->engine->settings->color_set,
+							   HTMLBgColor)->color;
+	data->bg_pixmap         = "";
 
 	return data;
 }
@@ -242,23 +240,23 @@ set_ui (GtkHTMLEditCellProperties *d)
 static void
 get_data (GtkHTMLEditCellProperties *d)
 {
-	/* d->cell = html_engine_get_table (d->cd->html->engine);
-	g_return_if_fail (d->table);
+	d->cell = html_engine_get_table_cell (d->cd->html->engine);
+	g_return_if_fail (d->cell);
 
-	if (d->table->bgColor) {
+	if (d->cell->have_bg) {
 		d->has_bg_color = TRUE;
-		d->bg_color     = *d->table->bgColor;
+		d->bg_color     = d->cell->bg;
 	}
-	if (d->table->bgPixmap) {
+	if (d->cell->have_bgPixmap) {
 		d->has_bg_pixmap = TRUE;
-		d->bg_pixmap = strncasecmp ("file://", d->table->bgPixmap->url, 7)
-			? (strncasecmp ("file://", d->table->bgPixmap->url, 5)
-			   ? d->table->bgPixmap->url
-			   : d->table->bgPixmap->url + 5)
-			: d->table->bgPixmap->url + 7;
+		d->bg_pixmap = strncasecmp ("file://", d->cell->bgPixmap->url, 7)
+			? (strncasecmp ("file://", d->cell->bgPixmap->url, 5)
+			   ? d->cell->bgPixmap->url
+			   : d->cell->bgPixmap->url + 5)
+			: d->cell->bgPixmap->url + 7;
 	}
 
-	d->spacing = d->table->spacing;
+	/* d->spacing = d->table->spacing;
 	d->padding = d->table->padding;
 	d->border  = d->table->border;
 
@@ -295,6 +293,38 @@ cell_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
 	GtkHTMLEditCellProperties *d = (GtkHTMLEditCellProperties *) get_data;
 
+	if (d->changed_bg_color) {
+		html_engine_table_cell_set_bg_color (d->cd->html->engine, d->cell, d->has_bg_color ? &d->bg_color : NULL);
+		d->changed_bg_color = FALSE;
+	}
+	if (d->changed_bg_pixmap) {
+		gchar *url = d->has_bg_pixmap ? g_strconcat ("file://", d->bg_pixmap, NULL) : NULL;
+
+		html_engine_table_cell_set_bg_pixmap (d->cd->html->engine, d->cell, url);
+		g_free (url);
+		d->changed_bg_pixmap = FALSE;
+	}
+	/* if (d->changed_spacing) {
+		html_engine_table_set_spacing (d->cd->html->engine, d->table, d->spacing);
+		d->changed_spacing = FALSE;
+	}
+	if (d->changed_padding) {
+		html_engine_table_set_padding (d->cd->html->engine, d->table, d->padding);
+		d->changed_padding = FALSE;
+	}
+	if (d->changed_border) {
+		html_engine_table_set_border_width (d->cd->html->engine, d->table, d->border, FALSE);
+		d->changed_border = FALSE;
+	}
+	if (d->changed_align) {
+		html_engine_table_set_align (d->cd->html->engine, d->table, d->align);
+		d->changed_align = FALSE;
+	}
+	if (d->changed_width) {
+		html_engine_table_set_width (d->cd->html->engine, d->table,
+					     d->has_width ? d->width : 0, d->has_width ? d->width_percent : FALSE);
+		d->changed_width = FALSE;
+		} */
 }
 
 void

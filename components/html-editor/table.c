@@ -140,7 +140,7 @@ data_new (GtkHTMLControlData *cd)
 	data->cd                = cd;
 	data->table             = NULL;
 
-	data->bg_color          = html_colorset_get_color (data->cd->html->engine->defaultSettings->color_set,
+	data->bg_color          = html_colorset_get_color (data->cd->html->engine->settings->color_set,
 							   HTMLBgColor)->color;
 	data->bg_pixmap         = "";
 	data->border            = 1;
