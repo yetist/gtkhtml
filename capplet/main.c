@@ -30,6 +30,7 @@
 
 #define CUSTOM_KEYMAP_NAME "Custom"
 #define EMACS_KEYMAP_NAME "Emacs like"
+#define XEMACS_KEYMAP_NAME "XEmacs like"
 #define MS_KEYMAP_NAME "MS like"
 
 static GtkWidget *capplet, *variable, *variable_print, *fixed, *fixed_print, *anim_check;
@@ -72,6 +73,8 @@ set_ui ()
 
 	if (!strcmp (actual_prop->keybindings_theme, "emacs")) {
 		keymap_name = EMACS_KEYMAP_NAME;
+	} else if (!strcmp (actual_prop->keybindings_theme, "xemacs")) {
+		keymap_name = XEMACS_KEYMAP_NAME;
 	} else if (!strcmp (actual_prop->keybindings_theme, "ms")) {
 		keymap_name = MS_KEYMAP_NAME;
 	} else
@@ -143,6 +146,8 @@ apply_editable (void)
 	keymap_name = gnome_bindings_properties_get_keymap_name (GNOME_BINDINGS_PROPERTIES (bi));
 	if (!strcmp (keymap_name, EMACS_KEYMAP_NAME)) {
 		keymap_id = "emacs";
+	} else if (!strcmp (keymap_name, XEMACS_KEYMAP_NAME)) {
+		keymap_id = "xemacs";
 	} else if (!strcmp (keymap_name, MS_KEYMAP_NAME)) {
 		keymap_id = "ms";
 	} else
@@ -249,11 +254,15 @@ setup (void)
 	home_rcfile = g_strconcat (gnome_util_user_home (), "/.gnome/gtkhtml-bindings-custom", NULL);
 	gtk_rc_parse (home_rcfile);
 	LOAD ("emacs");
+	LOAD ("xemacs");
 	LOAD ("ms");
 
 	bi = gnome_bindings_properties_new ();
 	gnome_bindings_properties_add_keymap (GNOME_BINDINGS_PROPERTIES (bi),
 					      EMACS_KEYMAP_NAME, "gtkhtml-bindings-emacs", "command",
+					      GTK_TYPE_HTML_COMMAND, FALSE);
+	gnome_bindings_properties_add_keymap (GNOME_BINDINGS_PROPERTIES (bi),
+					      XEMACS_KEYMAP_NAME, "gtkhtml-bindings-xemacs", "command",
 					      GTK_TYPE_HTML_COMMAND, FALSE);
 	gnome_bindings_properties_add_keymap (GNOME_BINDINGS_PROPERTIES (bi),
 					      MS_KEYMAP_NAME, "gtkhtml-bindings-ms", "command",

@@ -1,3 +1,7 @@
+2001-01-24  Radek Doulik  <rodo@helixcode.com>
+
+	* main.c: added xemacs bindings
+
 2001-01-19  Stanislav Visnovsky  <visnovsky@nenya.ms.mff.cuni.cz>
 
 	* gtkhtml-properties.desktop: added Slovak translation
