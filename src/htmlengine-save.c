@@ -169,10 +169,14 @@ write_header (HTMLEngineSaveState *state)
 		return FALSE;
 
 	/* Title.  */
-	if (! html_engine_save_output_string (state, "  <TITLE>")
-	    || ! html_engine_save_encode_string (state, state->engine->title->str)
-	    || ! html_engine_save_output_string (state, "</TITLE>\n"))
-		return FALSE;
+	if (state->engine->title != NULL
+	    && state->engine->title->str != NULL
+	    && state->engine->title->str[0] != '\0') {
+		if (! html_engine_save_output_string (state, "  <TITLE>")
+		    || ! html_engine_save_encode_string (state, state->engine->title->str)
+		    || ! html_engine_save_output_string (state, "</TITLE>\n"))
+			return FALSE;
+	}
 
 	/* End of header.  */
 	if (! html_engine_save_output_string (state, "</HEAD>\n"))
