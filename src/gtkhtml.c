@@ -2160,6 +2160,7 @@ load_keybindings (GtkHTMLClass *klass)
 
 	BCOM (0, Return, INSERT_PARAGRAPH);
 	BCOM (0, BackSpace, DELETE_BACK);
+	BCOM (GDK_SHIFT_MASK, BackSpace, DELETE_BACK);
 	BCOM (0, Delete, DELETE);
 	BCOM (0, KP_Delete, DELETE);
 }
