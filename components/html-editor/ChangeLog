@@ -1,3 +1,8 @@
+2001-07-13  Larry Ewing  <lewing@ximian.com>
+
+	* persist-file-impl.c (persist_file_impl_new): fix a stupid error
+	in the previous change.
+
 2001-07-09  Larry Ewing  <lewing@ximian.com>
 
 	* persist-stream-impl.c (persist_stream_impl_new): ref the html

@@ -168,10 +168,12 @@ persist_file_impl_new (GtkHTML *html)
 	
 	gtk_object_ref (GTK_OBJECT (html));
 
+	pf = bonobo_persist_file_new (pf_impl_load, pf_impl_save, html);
+
 	gtk_signal_connect (GTK_OBJECT (pf), "destroy",
 			    pf_destroy, html);
 
-	return bonobo_persist_file_new (pf_impl_load, pf_impl_save, html);
+	return pf;
 }
 
 
