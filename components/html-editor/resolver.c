@@ -24,7 +24,12 @@
 
 #include <config.h>
 #include <bonobo.h>
-
+#include <stdio.h>
+#include <glib.h>
+#include <errno.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 /*
  * This pulls the CORBA definitions for the Demo::Echo server
  */
@@ -38,6 +43,51 @@
 static BonoboObjectClass *resolver_parent_class;
 static POA_HTMLEditor_Resolver__vepv htmleditor_resolver_vepv;
 HTMLEditor_Resolver *htmleditor_resolver_corba_object_create (BonoboObject *object);
+
+#define CORBA_BLOCK_SIZE 4096
+
+static int
+load_from_file (const Bonobo_ProgressiveDataSink sink,
+		const char *url)
+{
+	unsigned char buffer[CORBA_BLOCK_SIZE];
+	int len;
+	int fd;
+        const char *path;
+	CORBA_Environment ev;
+	Bonobo_Stream_iobuf *buf;
+	CORBA_long v;
+
+        if (strncmp (url, "file:", 5) != 0) {
+		g_warning ("Unsupported image url: %s", url);
+		return FALSE;
+	} 
+	path = url + 5; 
+
+	if ((fd = open (path, O_RDONLY)) == -1) {
+		g_warning ("%s", g_strerror (errno));
+		return FALSE;
+	}
+
+	buf = Bonobo_Stream_iobuf__alloc ();
+       	while ((len = read (fd, buffer, CORBA_BLOCK_SIZE)) > 0) {
+		buf->_buffer = buffer;
+		buf->_length = len;
+		buf->_maximum = CORBA_BLOCK_SIZE;
+		Bonobo_ProgressiveDataSink_add_data (sink, buf, &ev);
+	}
+
+	if (len < 0) {
+		/* check to see if we stopped because of an error */
+		Bonobo_ProgressiveDataSink_end (sink, &ev);
+		g_warning ("%s", g_strerror (errno));
+		return FALSE;
+	}	
+	/* done with no errors */
+	Bonobo_ProgressiveDataSink_end (sink, &ev);
+	close (fd);
+	return TRUE;
+}
 
 static void
 impl_HTMLEditor_Resolver_loadURL (PortableServer_Servant servant,
@@ -53,13 +103,14 @@ impl_HTMLEditor_Resolver_loadURL (PortableServer_Servant servant,
 		g_warning ("perhaps this sounds better: %s", url);
 		if (sink != CORBA_OBJECT_NIL) {
 			Bonobo_ProgressiveDataSink_start (sink, &ev2);
-		} else {
+			load_from_file (sink, url);
+  		} else {
 			g_warning ("what the hell are we fighting for");
+			CORBA_exception_set (ev,
+					     CORBA_USER_EXCEPTION,
+					     ex_HTMLEditor_Resolver_NotFound,
+					     NULL);
 		}
-		CORBA_exception_set (ev,
-				     CORBA_USER_EXCEPTION,
-				     ex_HTMLEditor_Resolver_NotFound,
-				     NULL);
 	}
 	
 		

@@ -1,3 +1,14 @@
+2000-10-06  Larry Ewing  <lewing@helixcode.com>
+
+	* resolver.c (impl_HTMLEditor_Resolver_loadURL): only set the
+	exception if we don't know how to open the file.
+
+	* resolver-progressive-impl.c (resolver_sink_add_data): actually
+	write the incomming data to the stream.
+
+	* editor-control-factory.c (load_from_corba): use proper return
+	valuse if the corba loading is successfull.
+
 2000-10-06  Radek Doulik  <rodo@helixcode.com>
 
 	* properties.c: add title to GtkHTMLEditPropertiesDialog

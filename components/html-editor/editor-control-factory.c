@@ -224,10 +224,10 @@ load_from_corba (BonoboControl *control,
 	HTMLEditor_Resolver resolver;
 	Bonobo_ControlFrame Frame;
 	CORBA_Environment ev;	
+	int ret_val = FALSE;
 
 	CORBA_exception_init (&ev);
 
-	/* FIXME: is this going to work ? it looks extremely strange */
 	Frame = bonobo_control_get_control_frame (control);
 	if (Frame != CORBA_OBJECT_NIL) {
 		resolver = Bonobo_Unknown_query_interface (Frame, "IDL:HTMLEditor/Resolver:1.0", &ev);
@@ -242,16 +242,16 @@ load_from_corba (BonoboControl *control,
 			
 			HTMLEditor_Resolver_loadURL (resolver, sink, url, &ev);
 			if (ev._major != CORBA_NO_EXCEPTION){
-				/* g_warning ("Got exception!!!"); */
+				g_warning ("Corba load exception");
 			} else {
-				/* g_warning ("No Exceptions made"); */
-			}		
-			
+				/* g_print ("Corba Load successfull"); */
+				ret_val = TRUE;
+			}       
 		}
 	}
 	CORBA_exception_free (&ev);
 
-	return FALSE;
+	return ret_val;
 }
 
 static void

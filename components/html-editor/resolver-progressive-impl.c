@@ -69,7 +69,10 @@ resolver_sink_add_data (BonoboProgressiveDataSink *psink,
 
 	SINK_PRINT ("Sink ADD_DATA");
 
-	//gtk_html_write (data->html, data->handle, buffer, len);
+	if (buffer->_length >0) {
+		gtk_html_write (data->html, data->handle, 
+				buffer->_buffer, buffer->_length);
+	}
 
 	return 0;
 }
