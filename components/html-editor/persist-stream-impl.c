@@ -50,7 +50,7 @@ load (BonoboPersistStream *ps,
 	Bonobo_Stream_iobuf *buffer;
 	GtkHTMLStream *handle;
 
-	if (strcmp (type, "text/html") != 0)
+	if (strcmp (type, "text/html") != 0) {
 		CORBA_exception_set (ev, CORBA_USER_EXCEPTION,
 				     ex_Bonobo_Persist_WrongDataType, NULL);
 		return;
