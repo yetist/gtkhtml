@@ -64,5 +64,6 @@ html_engine_print (HTMLEngine *e,
 
 	/* FIXME ugly hack pt. 2.  */
 	e->width = old_width;
+	html_object_reset (e->clue);
 	html_engine_calc_size (e);
 }

@@ -44,7 +44,6 @@ calc_min_width (HTMLObject *o,
 	}
 
 	if ((o->flags & HTML_OBJECT_FLAG_FIXEDWIDTH)) {
-
 		/* Our minimum width is at least our fixed width */
 		if (o->max_width > minWidth)
 			minWidth = o->max_width;

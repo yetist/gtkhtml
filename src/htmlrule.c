@@ -43,7 +43,8 @@ static gint
 calc_min_width (HTMLObject *o,
 		HTMLPainter *painter)
 {
-	/* FIXME why? */
+	html_object_calc_size (o, painter);
+
 	if (o->flags & HTML_OBJECT_FLAG_FIXEDWIDTH)
 		return o->width;
 	

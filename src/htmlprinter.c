@@ -324,7 +324,7 @@ draw_pixmap (HTMLPainter *painter,
 	     const GdkColor *color)
 {
 	HTMLPrinter *printer;
-	gint width, height, rowstride;
+	gint width, height, rowstride, n_channels;
 	double print_x, print_y;
 	double print_scale_width, print_scale_height;
 	gchar *pixels;
@@ -335,12 +335,49 @@ draw_pixmap (HTMLPainter *painter,
 	width = gdk_pixbuf_get_width (pixbuf);
 	height = gdk_pixbuf_get_height (pixbuf);
 	rowstride = gdk_pixbuf_get_rowstride (pixbuf);
-	pixels = gdk_pixbuf_get_pixels (pixbuf);
+	n_channels = gdk_pixbuf_get_n_channels (pixbuf);
 
 	engine_coordinates_to_gnome_print (printer, x, y, &print_x, &print_y);
 
 	print_scale_width = SCALE_ENGINE_TO_GNOME_PRINT (scale_width);
 	print_scale_height = SCALE_ENGINE_TO_GNOME_PRINT (scale_height);
+
+	if (n_channels == 3) {
+		pixels = gdk_pixbuf_get_pixels (pixbuf);
+	} else {
+		guint i, j;
+		guchar *slp, *sp, *dp;
+
+		/* Image has alpha channel, remove it.  FIXME: This needs
+                   fixing.  */
+
+		pixels = alloca (3 * width * height);
+
+		slp = gdk_pixbuf_get_pixels (pixbuf);
+		dp = pixels;
+		for (i = 0; i < height; i++) {
+			sp = slp;
+
+			for (j = 0; j < width; j++) {
+				if (sp[3] < 128) {
+					dp[0] = 0xff;
+					dp[1] = 0xff;
+					dp[2] = 0xff;
+				} else {
+					dp[0] = sp[0];
+					dp[1] = sp[1];
+					dp[2] = sp[2];
+				}
+
+				dp += 3;
+				sp += n_channels;
+			}
+
+			slp += rowstride;
+		}
+
+		rowstride = 3 * width;
+	}
 
 	gnome_print_gsave (printer->print_context);
 	gnome_print_translate (printer->print_context, print_x, print_y - print_scale_height);

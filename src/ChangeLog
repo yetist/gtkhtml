@@ -1,5 +1,12 @@
 2000-02-03  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlobject.c (calc_min_width): Calc size before returning the
+	width.
+	(calc_preferred_width): Likewise.
+	* htmlrule.c (calc_min_width): Likewise.
+	* htmltable.c (calc_min_width): Likewise.
+	(calc_preferred_width): Likewise.
+
 	* htmlimage.c (draw): Multiply scaled width/height by the pixel
 	size.
 
