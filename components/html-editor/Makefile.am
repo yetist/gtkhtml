@@ -12,7 +12,7 @@ INCLUDES =						\
 CFLAGS +=  $(GCONF_CFLAGS) $(PSPELL_CFLAGS)
 
 LDFLAGS += -dynamic
-LDADD =	-lpspell				\
+LDADD =	$(PSPELL_LIBS)				\
 	$(top_builddir)/src/libgtkhtml.la	\
 	$(EXTRA_GNOME_LIBS)			\
 	$(GNOMEUI_LIBS)				\

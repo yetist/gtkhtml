@@ -1,3 +1,11 @@
+2000-07-17  Pavel Cisler  <pavel@eazel.com>
+
+	* Makefile.am:
+	Fix a hard dependency on pspell, making it build if you don't have
+	pspell installed.
+	Radek broke that earlier today and forgot to add a ChangeLog entry 
+	about it.
+
 2000-07-15  Larry Ewing  <lewing@helixcode.com>
 
 	* editor-control-factory.c (editor_control_factory): connect to
