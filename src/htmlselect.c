@@ -76,7 +76,8 @@ copy (HTMLObject *self,
 
 	(* HTML_OBJECT_CLASS (parent_class)->copy) (self,dest);
 
-	g_warning ("HTMLSelect::copy() is broken");
+	
+	/* FIXME g_warning ("HTMLSelect::copy() is not complete."); */
 	d->size =    s->size;
 	d->multi =   s->multi;
 	

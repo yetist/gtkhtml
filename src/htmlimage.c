@@ -1079,12 +1079,11 @@ html_image_pointer_queue_animation (HTMLImagePointer *ip)
 {
 	gint delay = gdk_pixbuf_animation_iter_get_delay_time (ip->iter);
 
-	if (delay >= 0)
+	if (delay >= 0 && !ip->animation_timeout) {
 		ip->animation_timeout = g_timeout_add (delay, 
 						       (GtkFunction) html_image_pointer_run_animation, 
 						       (gpointer) ip);
-	else
-		ip->animation_timeout = 0;
+	}	
 }
 
 static gint
@@ -1094,6 +1093,7 @@ html_image_pointer_run_animation (HTMLImagePointer *ip)
 	HTMLEngine              *engine = ip->factory->engine;
 	
 	g_return_val_if_fail (ip->factory != NULL, FALSE);
+	ip->animation_timeout = 0;
 
 	/* printf ("animation_timeout\n"); */
 	if (gdk_pixbuf_animation_iter_advance (iter, NULL)) {
@@ -1102,9 +1102,10 @@ html_image_pointer_run_animation (HTMLImagePointer *ip)
 		for (cur = ip->interests; cur; cur = cur->next) {
 			HTMLImage           *image = cur->data;
 
-			if (image && image->animation_active)
+			if (image && image->animation_active) {
+				image->animation_active = FALSE;
 				html_engine_queue_draw (engine, HTML_OBJECT (image));
-
+			}
 		}
 	}
 		

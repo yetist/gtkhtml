@@ -59,7 +59,7 @@ copy (HTMLObject *self,
 	HTML_TEXTINPUT (dest)->password = HTML_TEXTINPUT (self)->password;
 	HTML_TEXTINPUT (dest)->default_text = g_strdup (HTML_TEXTINPUT (self)->default_text);
 
-	g_warning ("HTMLTextInput::copy is not complete");
+	/* g_warning ("HTMLTextInput::copy is not complete"); */
 }
 
 static void

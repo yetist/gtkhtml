@@ -1,5 +1,17 @@
 2003-04-16  Larry Ewing  <lewing@ximian.com>
 
+	* htmlembedded.c (copy): comment out debug wanring.
+
+	* htmltextarea.c (copy): comment out debug warning.
+
+	* htmlselect.c (copy): comment out debug warning.
+
+	* htmltextinput.c (copy): comment out debug warning.
+
+	* htmlimage.c (html_image_pointer_queue_animation): only queue the
+	animation if one hasn't already been queued.
+	(html_image_pointer_run_animation): clear the timeout source.
+
 	* htmlstyle.c (html_style_free): actually free the style.
 
 	* gtkhtml-properties.c (gtk_html_class_properties_new): don't dup

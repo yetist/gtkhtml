@@ -44,7 +44,7 @@ copy (HTMLObject *self,
 {
 	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
 
-	g_warning ("HTMLEmbedded::copy is broken.");
+	/* FIXME g_warning ("HTMLEmbedded::copy is not complete."); */
 
 	HTML_EMBEDDED (dest)->name = g_strdup (HTML_EMBEDDED (self)->name);
 	HTML_EMBEDDED (dest)->value = g_strdup (HTML_EMBEDDED (self)->value);

@@ -56,7 +56,7 @@ copy (HTMLObject *self,
 	HTML_TEXTAREA (dest)->text = NULL;
 	HTML_TEXTAREA (dest)->default_text = g_strdup (HTML_TEXTAREA (self)->default_text);
 
-	g_warning ("HTMLTextArea::copy is not complte.");
+	/* FIXME g_warning ("HTMLTextArea::copy is not complete."); */
 }
 
 
