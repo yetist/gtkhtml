@@ -1691,20 +1691,20 @@ parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 			if (!p->flow)
 				html_engine_new_flow (p, _clue);
 
-			string_url = html_url_to_string (p->url);
+			string_url = p->url ? html_url_to_string (p->url) : NULL;
 			string_url2 = html_url_to_string (tmpurl);
 
 			html_url_destroy(tmpurl);
 
-			/* FIXME this sucks we end up having two copies of the
-                           URL string for no reason.  */
 			image = html_image_new (p->image_factory, string_url2,
 						string_url,
 						p->target,
 						_clue->max_width, 
 						width, height, percent, border);
 			g_free(string_url2);
-			g_free(string_url);
+
+			if(string_url)
+				g_free(string_url);
 		}
 
 		if (align == HTML_HALIGN_NONE) {

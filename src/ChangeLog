@@ -1,3 +1,7 @@
+1999-12-10  Jonas Borgström  <jonas_b@bitsmart.com>
+
+	* htmlengine.c (parse_i): Do not pass NULL pointer to html_url_to_string.
+	
 1999-12-10  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* All files: updated to match these changes.
@@ -9,7 +13,7 @@
 	* htmlobject.c (html_object_init): Set it to NULL.
 	(html_object_set_parent): New function.
 
-1999-12-09  Jonas Borgström  <jonas_b@bitsmart.com>
+1999-12-10  Jonas Borgström  <jonas_b@bitsmart.com>
 
 	* gtkhtml.c (gtk_html_begin): Scroll page to the top on new url
 	
