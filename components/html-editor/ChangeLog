@@ -5,6 +5,17 @@
 	regex/Search again/Replace
 	(menubar_setup): use _list functions instead of _tree ones as we
 	have more menu subtrees now :)
+	(menubar_setup): once more changed :) use _list_with_data to pass
+	html thru
+	(undo_cb): new callback
+	(redo_cb): likewise
+	(cut_cb): likewise
+	(copy_cb): likewise
+	(paste_cb): likewise
+	(search_cb): likewise
+	(search_regex_cb): likewise
+	(search_next_cb): likewise
+	(replace_cb): likewise
 
 	* test-html-editor-control.c (container_create): create control
 	after menu is prepared

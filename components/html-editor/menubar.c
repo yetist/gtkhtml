@@ -25,11 +25,19 @@
 #include <bonobo.h>
 
 #include "menubar.h"
+#include "gtkhtml.h"
 
-static void search_cb           (GtkWidget *widget, gpointer data);
-static void search_regex_cb     (GtkWidget *widget, gpointer data);
-static void search_next_cb      (GtkWidget *widget, gpointer data);
-static void replace_cb          (GtkWidget *widget, gpointer data);
+static void undo_cb             (GtkWidget *widget, GtkHTML *html);
+static void redo_cb             (GtkWidget *widget, GtkHTML *html);
+
+static void cut_cb              (GtkWidget *widget, GtkHTML *html);
+static void copy_cb             (GtkWidget *widget, GtkHTML *html);
+static void paste_cb            (GtkWidget *widget, GtkHTML *html);
+
+static void search_cb           (GtkWidget *widget, GtkHTML *html);
+static void search_regex_cb     (GtkWidget *widget, GtkHTML *html);
+static void search_next_cb      (GtkWidget *widget, GtkHTML *html);
+static void replace_cb          (GtkWidget *widget, GtkHTML *html);
 
 
 static GnomeUIInfo format_subtree_info[] = {
@@ -43,21 +51,18 @@ static GnomeUIInfo format_subtree_info[] = {
 };
 
 static GnomeUIInfo edit_subtree_info[] = {
-	GNOMEUIINFO_MENU_CUT_ITEM (NULL, NULL),
-	GNOMEUIINFO_MENU_COPY_ITEM (NULL, NULL),
-	GNOMEUIINFO_MENU_PASTE_ITEM (NULL, NULL),
+	GNOMEUIINFO_MENU_UNDO_ITEM (undo_cb, NULL),
+	GNOMEUIINFO_MENU_REDO_ITEM (redo_cb, NULL),
+	GNOMEUIINFO_SEPARATOR,
+	GNOMEUIINFO_MENU_CUT_ITEM (cut_cb, NULL),
+	GNOMEUIINFO_MENU_COPY_ITEM (copy_cb, NULL),
+	GNOMEUIINFO_MENU_PASTE_ITEM (paste_cb, NULL),
 	GNOMEUIINFO_SEPARATOR,
 	GNOMEUIINFO_MENU_FIND_ITEM (search_cb, NULL),
 	GNOMEUIINFO_ITEM_NONE (N_("Search rege_x..."), N_("Regular expressions search..."), search_regex_cb),
 	GNOMEUIINFO_MENU_FIND_AGAIN_ITEM (search_next_cb, NULL),
 	GNOMEUIINFO_MENU_REPLACE_ITEM (replace_cb, NULL),
 	GNOMEUIINFO_END	
-};
-
-static GnomeUIInfo edit_tree_info[] = {
-	GNOMEUIINFO_MENU_EDIT_TREE (edit_subtree_info),
-	GNOMEUIINFO_SUBTREE (N_("F_ormat"), format_subtree_info),
-	GNOMEUIINFO_END
 };
 
 static GnomeUIInfo menu_info[] = {
@@ -69,23 +74,57 @@ static GnomeUIInfo menu_info[] = {
 
 
 static void
-search_cb (GtkWidget *widget, gpointer data)
+undo_cb (GtkWidget *widget, GtkHTML *html)
 {
+	gtk_html_undo (html);
 }
 
 static void
-search_regex_cb (GtkWidget *widget, gpointer data)
+redo_cb (GtkWidget *widget, GtkHTML *html)
 {
+	gtk_html_redo (html);
 }
 
 static void
-search_next_cb (GtkWidget *widget, gpointer data)
+cut_cb (GtkWidget *widget, GtkHTML *html)
 {
+	gtk_html_cut (html);
 }
 
 static void
-replace_cb (GtkWidget *widget, gpointer data)
+copy_cb (GtkWidget *widget, GtkHTML *html)
 {
+	gtk_html_copy (html);
+}
+
+static void
+paste_cb (GtkWidget *widget, GtkHTML *html)
+{
+	gtk_html_paste (html);
+}
+
+static void
+search_cb (GtkWidget *widget, GtkHTML *html)
+{
+	gtk_html_search (html);
+}
+
+static void
+search_regex_cb (GtkWidget *widget, GtkHTML *html)
+{
+	gtk_html_search_regex (html);
+}
+
+static void
+search_next_cb (GtkWidget *widget, GtkHTML *html)
+{
+	gtk_html_search_next (html);
+}
+
+static void
+replace_cb (GtkWidget *widget, GtkHTML *html)
+{
+	gtk_html_replace (html);
 }
 
 void
@@ -99,7 +138,7 @@ menubar_setup (BonoboUIHandler *uih,
 	g_return_if_fail (html != NULL);
 	g_return_if_fail (GTK_IS_HTML (html));
 
-	tree = bonobo_ui_handler_menu_parse_uiinfo_list (menu_info);
+	tree = bonobo_ui_handler_menu_parse_uiinfo_list_with_data (menu_info, html);
 	bonobo_ui_handler_menu_add_list (uih, "/", tree);
 	bonobo_ui_handler_menu_free_list (tree);
 }
