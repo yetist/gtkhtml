@@ -288,15 +288,17 @@ gboolean  gtk_html_jump_to_anchor  (GtkHTML *html,
 
 /* Editing functions.  */
 
-void  gtk_html_set_paragraph_style  (GtkHTML                   *html,
-				     GtkHTMLParagraphStyle      style);
-void  gtk_html_indent               (GtkHTML                   *html,
-				     gint                       delta);
-void  gtk_html_set_font_style       (GtkHTML                   *html,
-				     GtkHTMLFontStyle           and_mask,
-				     GtkHTMLFontStyle           or_mask);
-void  gtk_html_align_paragraph      (GtkHTML                   *html,
-				     GtkHTMLParagraphAlignment  alignment);
+GtkHTMLParagraphStyle	   gtk_html_get_paragraph_style          (GtkHTML                   *html);
+void  			   gtk_html_set_paragraph_style          (GtkHTML                   *html,
+								  GtkHTMLParagraphStyle      style);
+void  			   gtk_html_indent                       (GtkHTML                   *html,
+								  gint                       delta);
+void  			   gtk_html_set_font_style               (GtkHTML                   *html,
+								  GtkHTMLFontStyle           and_mask,
+								  GtkHTMLFontStyle           or_mask);
+GtkHTMLParagraphAlignment  gtk_html_get_paragraph_alignment      (GtkHTML                   *html);
+void  			   gtk_html_set_paragraph_alignment      (GtkHTML                   *html,
+								  GtkHTMLParagraphAlignment  alignment);
 
 void  gtk_html_cut    (GtkHTML *html);
 void  gtk_html_copy   (GtkHTML *html);

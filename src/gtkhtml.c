@@ -1667,6 +1667,12 @@ gtk_html_set_paragraph_style (GtkHTML *html,
 			 style);
 }
 
+GtkHTMLParagraphStyle
+gtk_html_get_paragraph_style (GtkHTML *html)
+{
+	return html_engine_get_current_clueflow_style (html->engine);
+}
+
 void
 gtk_html_indent (GtkHTML *html,
 		 gint delta)
@@ -1691,8 +1697,14 @@ gtk_html_set_font_style (GtkHTML *html,
 	html_engine_set_font_style (html->engine, and_mask, or_mask);
 }
 
+GtkHTMLParagraphAlignment
+gtk_html_get_paragraph_alignment (GtkHTML *html)
+{
+	return paragraph_alignment_to_html (html_engine_get_current_clueflow_alignment (html->engine));
+}
+
 void
-gtk_html_align_paragraph (GtkHTML *html,
+gtk_html_set_paragraph_alignment (GtkHTML *html,
 			  GtkHTMLParagraphAlignment alignment)
 {
 	HTMLHAlignType align;
@@ -1999,13 +2011,13 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		html_engine_set_font_style (html->engine, ~GTK_HTML_FONT_STYLE_SIZE_MASK, GTK_HTML_FONT_STYLE_SIZE_7);
 		break;
 	case GTK_HTML_COMMAND_ALIGN_LEFT:
-		gtk_html_align_paragraph (html, GTK_HTML_PARAGRAPH_ALIGNMENT_LEFT);
+		gtk_html_set_paragraph_alignment (html, GTK_HTML_PARAGRAPH_ALIGNMENT_LEFT);
 		break;
 	case GTK_HTML_COMMAND_ALIGN_CENTER:
-		gtk_html_align_paragraph (html, GTK_HTML_PARAGRAPH_ALIGNMENT_CENTER);
+		gtk_html_set_paragraph_alignment (html, GTK_HTML_PARAGRAPH_ALIGNMENT_CENTER);
 		break;
 	case GTK_HTML_COMMAND_ALIGN_RIGHT:
-		gtk_html_align_paragraph (html, GTK_HTML_PARAGRAPH_ALIGNMENT_RIGHT);
+		gtk_html_set_paragraph_alignment (html, GTK_HTML_PARAGRAPH_ALIGNMENT_RIGHT);
 		break;
 	case GTK_HTML_COMMAND_INDENT_INC:
 		gtk_html_indent (html, +1);
