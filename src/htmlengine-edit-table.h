@@ -35,6 +35,9 @@ void  html_engine_delete_table_row        (HTMLEngine *e);
 void  html_engine_table_set_border_width  (HTMLEngine *e,
 					   gint        border_width,
 					   gboolean    relative);
+void  html_engine_table_set_bg_color      (HTMLEngine *e,
+					   HTMLTable  *t,
+					   GdkColor   *c);
 			       
 #endif
 

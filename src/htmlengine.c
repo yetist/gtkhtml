@@ -971,12 +971,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 					rowvalign = HTML_VALIGN_NONE;
 					rowhalign = HTML_HALIGN_NONE;
 
-					if (have_tableColor) {
-						rowColor = tableColor;
-						have_rowColor = TRUE;
-					} else {
-						have_rowColor = FALSE;
-					}
+					have_rowColor = FALSE;
 
 					if (have_tablePixmap) {
 						rowPixmapPtr = tablePixmapPtr;

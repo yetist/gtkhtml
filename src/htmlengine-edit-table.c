@@ -547,3 +547,10 @@ html_engine_table_set_border_width (HTMLEngine *e, gint border_width, gboolean r
 	html_object_change_set (HTML_OBJECT (t), HTML_CHANGE_ALL_CALC);
 	html_engine_thaw (e);
 }
+
+void
+html_engine_table_set_bg_color (HTMLEngine *e, HTMLTable *t, GdkColor *c)
+{
+	*t->bgColor = *c;
+	html_engine_queue_draw (e, HTML_OBJECT (t));
+}

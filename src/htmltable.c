@@ -981,7 +981,7 @@ draw (HTMLObject *o,
 					 ROW_HEIGHT (table, table->totalRows) +
 					 pixel_size * table->border, GTK_HTML_ETCH_OUT,
 					 pixel_size * table->border);
-		
+
 		/* Draw borders around each cell */
 		for (r = start_row; r <= end_row; r++) {
 			for (c = start_col; c <= end_col; c++) {

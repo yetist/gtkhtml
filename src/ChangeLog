@@ -1,3 +1,14 @@
+2001-05-17  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine-edit-table.c (html_engine_table_set_bg_color): new
+	method
+
+	* htmlengine.c (parse_table): don't use table bg color as starting
+	row color
+
+	* htmltablecell.c (draw_background_helper): use table bg color if
+	needed
+
 2001-05-15  Radek Doulik  <rodo@ximian.com>
 
 	* htmltablecell.h (HTML_IS_TABLE_CELL): renamed from

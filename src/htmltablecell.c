@@ -46,10 +46,12 @@ draw_background_helper (HTMLTableCell *cell,
 			gint tx, gint ty)
 {
 	HTMLObject *o;
+	HTMLTable  *t;
 	GdkPixbuf  *pixbuf = NULL;
 	GdkColor   *color = NULL;
 
 	o = HTML_OBJECT (cell);
+	t = HTML_IS_TABLE (o->parent) ? HTML_TABLE (o->parent) : NULL;
 
 	if (cell->have_bg) {
 		if (! cell->bg_allocated) {
@@ -57,6 +59,9 @@ draw_background_helper (HTMLTableCell *cell,
 			cell->bg_allocated = TRUE;
 		}
 		color = &cell->bg;
+	} else if (t && t->bgColor) {
+		html_painter_alloc_color (p, t->bgColor);
+		color = t->bgColor;
 	}
 
 	if (cell->have_bgPixmap) {
