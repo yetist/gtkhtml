@@ -36,7 +36,7 @@
 HTMLEmbeddedClass html_embedded_class;
 static HTMLObjectClass *parent_class = NULL;
 
-#define d(x) x
+#define d(x)
 
 static void
 copy (HTMLObject *self,
