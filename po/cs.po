@@ -1,28 +1,30 @@
 # Czech translation of gtkhtml.
 # Copyright (C) 2000 Free Software Foundation, Inc.
-# Copyright (C) 2004 Miloslav Trmac <mitr@volny.cz>
+# Copyright (C) 2004, 2005 Miloslav Trmac <mitr@volny.cz>
 # Radka Soukupova <Radka.Soukupova@centrum.cz>
-# Miloslav Trmac <mitr@volny.cz>, 2002, 2003, 2004.
+# Miloslav Trmac <mitr@volny.cz>, 2002, 2003, 2004, 2005.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-02 12:26+0100\n"
-"PO-Revision-Date: 2005-01-02 15:09+0100\n"
+"POT-Creation-Date: 2005-01-06 12:24+0100\n"
+"PO-Revision-Date: 2005-01-06 20:46+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: a11y/image.c:149
-msgid "URL is "
-msgstr "URL je "
+#: a11y/image.c:150
+#, c-format
+msgid "URL is %s, Alternative Text is %s"
+msgstr "URL je %s, alternativní text je %s"
 
 #: a11y/image.c:152
-msgid ", Alternative Text is "
-msgstr ", alternativní text je "
+#, c-format
+msgid "URL is %s"
+msgstr "URL je %s"
 
 #: a11y/object.c:50 a11y/object.c:59 a11y/text.c:105
 msgid "grab focus"
