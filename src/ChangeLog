@@ -1,3 +1,8 @@
+2001-08-02  Radek Doulik  <rodo@ximian.com>
+
+	* htmlobject.c (html_object_get_cursor): make cursor of non-text
+	objects be at least 10 points high
+
 2001-07-31  Larry Ewing  <lewing@ximian.com>
 
 	* htmltable.c: wrap debug ouput with #ifdef GTKHTML_DEBUG_TABLE

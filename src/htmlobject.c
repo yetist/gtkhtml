@@ -1041,6 +1041,12 @@ html_object_get_cursor (HTMLObject *self,
 			gint *x2, gint *y2)
 {
 	(* HO_CLASS (self)->get_cursor) (self, painter, offset, x1, y1, x2, y2);
+	if (!html_object_is_text (self) && *y2 - *y1 < 10) {
+		gint missing = 10 - (*y2 - *y1);
+
+		*y1 -= (missing >> 1) + ((missing >> 1) & 1);
+		*y2 += missing >> 1;
+	}
 }
 
 /* Warning: `calc_size()' must have been called on `self' before this so that
