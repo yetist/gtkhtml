@@ -1,3 +1,12 @@
+2003-07-29  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c: change the id from a static enum to a gquark so
+	that we can move towards a dispatch table.  Remove pending_para it
+	was evil and never actually turned on anymore.
+
+	* htmlengine.h: remove pending_para it was the wrong way to do
+	this and leads to more trouble than good.
+
 2003-07-29  Radek Doulik  <rodo@ximian.com>
 
 	* htmlgdkpainter.c (draw_text): use str instead of dereferencing

@@ -176,10 +176,6 @@ struct _HTMLEngine {
            their own.  */
 	gboolean avoid_para;
 
-	/* This is TRUE if we want a paragraph break to be inserted before the
-           next element.  */
-	gboolean pending_para;
-
 	/* Whether we have the keyboard focus.  */
 	guint have_focus : 1;
 
