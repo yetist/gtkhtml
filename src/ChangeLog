@@ -1,5 +1,7 @@
 2000-01-19  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* debug.c (debug_dump_tree): Print the object position.
+
 	* htmlengine-edit.c (merge_text_at_cursor): Return the amount of
 	characters added to the current element.
 	(html_engine_delete): Sum it to the cursor's current offset.

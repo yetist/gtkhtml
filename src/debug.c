@@ -88,8 +88,9 @@ debug_dump_tree (HTMLObject *o, gint level)
 		for (i = 0; i < level; i++)
 			g_print (" ");
 
-		g_print ("Obj: %p, Parent: %p  Prev: %p Next: %p ObjectType: %s",
-			 obj, obj->parent, obj->prev, obj->next, html_type_name (HTML_OBJECT_TYPE (obj)));
+		g_print ("Obj: %p, Parent: %p  Prev: %p Next: %p ObjectType: %s Pos: %d, %d,",
+			 obj, obj->parent, obj->prev, obj->next, html_type_name (HTML_OBJECT_TYPE (obj)),
+			 obj->x, obj->y);
 
 		if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_CLUEFLOW)
 			g_print (" [%s]", clueflow_style_to_string (HTML_CLUEFLOW (obj)->style));
