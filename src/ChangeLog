@@ -1,3 +1,12 @@
+2000-07-10  Larry Ewing  <lewing@helixcode.com>
+
+	* htmlengine-edit-fontstyle.c: remove
+	html_engine_set_font_style_old as it is no longer being used
+	anywhere
+
+	* htmlgdkpainter.c (draw_panel): clean up an an incorrect cast of
+	a colorset.
+
 2000-07-07  Radek Doulik  <rodo@helixcode.com>
 
 	* gtkhtml.c (init_properties): be more verbose about gconf errors

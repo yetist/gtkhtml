@@ -294,7 +294,7 @@ draw_panel (HTMLPainter *painter,
 #define LIGHT(c)	light. ## c = MIN (MAX (((gint) bg-> ## c) + (gint) ldelta*(((gdouble) bg-> ## c)/0xffff), 0), 0xffff);
 #define THOLD 0x2aaa
 
-	bg = html_colorset_get_color (painter->color_set, HTMLBgColor);
+	bg = &((html_colorset_get_color (painter->color_set, HTMLBgColor))->color);
 
 	value = MAX (bg->red, MAX (bg->green, bg->blue));
 	if (value > 0x7fff) {

@@ -879,27 +879,6 @@ html_engine_update_insertion_color (HTMLEngine *engine)
  * from the current one, through an AND mask and an OR mask.
  *
  **/
-void
-html_engine_set_font_style_old (HTMLEngine *engine,
-				GtkHTMLFontStyle and_mask,
-				GtkHTMLFontStyle or_mask)
-{
-	g_return_if_fail (engine != NULL);
-	g_return_if_fail (HTML_IS_ENGINE (engine));
-	g_return_if_fail (engine->editable);
-
-	if (engine->active_selection) {
-		/* FIXME freeze/thaw sucks.  */
-		html_engine_freeze (engine);
-		set_font_style_in_selection (engine, and_mask, or_mask, TRUE);
-		html_engine_thaw (engine);
-		return;
-	} else {
-		engine->insertion_font_style &= and_mask;
-		engine->insertion_font_style |= or_mask;
-	}
-}
-
 struct tmp_font {
 	GtkHTMLFontStyle and_mask;
 	GtkHTMLFontStyle or_mask;
