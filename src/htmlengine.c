@@ -1082,7 +1082,7 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 					gchar *url_string;
 
 					url_string = html_url_to_string (e->url);
-					printf ("HREF: %s\n", url_string);
+					g_print ("HREF: %s\n", url_string);
 					g_free (url_string);
 				}
 
@@ -1121,6 +1121,11 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 			if ( strncasecmp( token, "target=", 7 ) == 0 ) {
 				gtk_signal_emit (GTK_OBJECT (e), signals[SET_BASE_TARGET], token + 7);
 			} else if ( strncasecmp( token, "href=", 5 ) == 0 ) {
+
+				if (e->actualURL != NULL)
+					html_url_destroy (e->actualURL);
+				e->actualURL = html_url_new (token + 5);
+				
 				gtk_signal_emit (GTK_OBJECT (e), signals[SET_BASE], token + 5);
 			}
 		}
@@ -1165,7 +1170,17 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 			else if (strncasecmp (token, "background=", 11) == 0
 				 && !e->defaultSettings->forceDefault) {
 
-				e->bgPixmapPtr = html_image_factory_register(e->image_factory, NULL, token + 11);
+				HTMLURL *bgurl;
+				gchar *string_url;
+
+				bgurl = parse_href (e, token + 11);
+				string_url = html_url_to_string (bgurl);
+				
+				e->bgPixmapPtr = html_image_factory_register(e->image_factory, NULL, string_url);
+
+				g_free(string_url);
+				html_url_destroy(bgurl);
+
 			} else if ( strncasecmp( token, "text=", 5 ) == 0
 				    && !e->defaultSettings->forceDefault ) {
 				html_engine_set_named_color (e,
@@ -1607,9 +1622,9 @@ static void
 parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 {
 	if (strncmp (str, "img", 3) == 0) {
-		gchar *filename = 0;
 		HTMLObject *image = 0;
-		gchar *token = 0;
+		gchar *token = 0; 
+		HTMLURL *tmpurl = NULL;
 		gint width = -1;
 		gint height = -1;
 		gint percent = 0;
@@ -1623,7 +1638,8 @@ parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 		while (string_tokenizer_has_more_tokens (p->st)) {
 			token = string_tokenizer_next_token (p->st);
 			if (strncasecmp (token, "src=", 4) == 0) {
-				filename = token + 4;
+
+				tmpurl = parse_href (p, token + 4);
 			}
 			else if (strncasecmp (token, "width=", 6) == 0) {
 				if (strchr (token + 6, '%'))
@@ -1667,22 +1683,27 @@ parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 			}
 #endif
 		}
-		if (filename != 0) {
+		if (tmpurl != 0) {
 			gchar *string_url;
+			gchar *string_url2;
 
 			if (!p->flow)
 				html_engine_new_flow (p, _clue);
 
 			string_url = html_url_to_string (p->url);
+			string_url2 = html_url_to_string (tmpurl);
+
+			html_url_destroy(tmpurl);
 
 			/* FIXME this sucks we end up having two copies of the
                            URL string for no reason.  */
-			image = html_image_new (p->image_factory, filename,
+			image = html_image_new (p->image_factory, string_url2,
 						string_url,
 						p->target,
 						_clue->max_width, 
 						width, height, percent, border);
-			g_free (string_url);
+			g_free(string_url2);
+			g_free(string_url);
 		}
 
 		if (align == HTML_HALIGN_NONE) {

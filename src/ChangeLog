@@ -1,3 +1,17 @@
+1999-12-09  Jonas Borgström  <jonas_b@bitsmart.com>
+
+	* htmlengine.c (parse_a, parse_b, parse_i): Send Absolute urls to images.
+
+	* testgtkhtml.c: New Features:
+	  * Follow links with mouse click works now.
+	  * Implemented Back, Forward, Reload, Home.
+	  * Added popup menu (Back, Forward, Home)
+	  * Added Go menu (Back, Forward, Home and History list)
+	  * Added Wheel mouse scrolling support.
+	  * Prepend "http://" To urls if needed.
+	  
+	* htmlurl.c (html_url_append_path): Fixed correct url handling.
+
 1999-12-08  Miguel de Icaza  <miguel@gnu.org>
 
 	* htmlpainter.c (html_painter_end): Another off-by one error fix.
