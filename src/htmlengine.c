@@ -6178,6 +6178,14 @@ set_frame_parents_focus_object (HTMLEngine *e)
 	}
 }
 
+void 
+html_engine_update_focus_if_necessary (HTMLEngine *e, HTMLObject *obj, gint offset)
+{
+	if (obj && (((HTML_IS_IMAGE (obj) && HTML_IMAGE (obj)->url && *HTML_IMAGE (obj)->url)) 
+		     || (HTML_IS_TEXT (obj) && html_object_get_complete_url (obj, offset))))
+		html_engine_set_focus_object (e, obj, offset);
+}
+
 void
 html_engine_set_focus_object (HTMLEngine *e, HTMLObject *o, gint offset)
 {

@@ -471,6 +471,9 @@ HTMLObject *html_engine_get_focus_object   (HTMLEngine       *e,
 void        html_engine_set_focus_object   (HTMLEngine       *e,
 					    HTMLObject       *o,
 					    gint              offset);
+void        html_engine_update_focus_if_necessary (HTMLEngine	*e, 
+						   HTMLObject	*o,
+						   gint		offset);
 
 HTMLMap *html_engine_get_map  (HTMLEngine  *e,
 			       const gchar *name);

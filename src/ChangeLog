@@ -1,3 +1,17 @@
+2004-06-06  Eric Zhao  <eric.zhao@sun.com>
+
+       Fixes #46761, make the caret consistent with focus.
+
+	* gtkhtml.c: (focus): change caret to the focused object.
+	* htmlengine-edit-movement.c: (html_engine_move_cursor),
+	(html_engine_beginning_of_document), (html_engine_end_of_document),
+	(html_engine_beginning_of_line), (html_engine_end_of_line),
+	(html_engine_beginning_of_paragraph),
+	(html_engine_end_of_paragraph), (html_engine_scroll_down),
+	it's focusable.
+	* htmlengine.c: (html_engine_update_focus_if_necessary):
+	* htmlengine.h: set focus to the object if it's focusable.
+
 Sat Jun  5 12:16:00 2004  Owen Taylor  <otaylor@redhat.com>
 
 	* gtkhtml.c (new_obj_from_uri): Fix unitialized variable usage.

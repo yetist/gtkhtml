@@ -83,6 +83,7 @@ html_engine_move_cursor (HTMLEngine *e,
 			break;
 	}
 
+	html_engine_update_focus_if_necessary (e, e->cursor->object, e->cursor->offset);
 	html_engine_show_cursor (e);
 	html_engine_update_selection_if_necessary (e);
 
@@ -159,6 +160,7 @@ html_engine_beginning_of_document (HTMLEngine *engine)
 
 	html_engine_hide_cursor (engine);
 	html_cursor_beginning_of_document (engine->cursor, engine);
+	html_engine_update_focus_if_necessary (engine, engine->cursor->object, engine->cursor->offset);
 	html_engine_show_cursor (engine);
 
 	html_engine_update_selection_if_necessary (engine);
@@ -172,6 +174,7 @@ html_engine_end_of_document (HTMLEngine *engine)
 
 	html_engine_hide_cursor (engine);
 	html_cursor_end_of_document (engine->cursor, engine);
+	html_engine_update_focus_if_necessary (engine, engine->cursor->object, engine->cursor->offset);
 	html_engine_show_cursor (engine);
 
 	html_engine_update_selection_if_necessary (engine);
@@ -188,6 +191,7 @@ html_engine_beginning_of_line (HTMLEngine *engine)
 
 	html_engine_hide_cursor (engine);
 	retval = html_cursor_beginning_of_line (engine->cursor, engine);
+	html_engine_update_focus_if_necessary (engine, engine->cursor->object, engine->cursor->offset);
 	html_engine_show_cursor (engine);
 
 	html_engine_update_selection_if_necessary (engine);
@@ -205,6 +209,7 @@ html_engine_end_of_line (HTMLEngine *engine)
 
 	html_engine_hide_cursor (engine);
 	retval = html_cursor_end_of_line (engine->cursor, engine);
+	html_engine_update_focus_if_necessary (engine, engine->cursor->object, engine->cursor->offset);
 	html_engine_show_cursor (engine);
 
 	html_engine_update_selection_if_necessary (engine);
@@ -222,6 +227,7 @@ html_engine_beginning_of_paragraph (HTMLEngine *engine)
 
 	html_engine_hide_cursor (engine);
 	retval = html_cursor_beginning_of_paragraph (engine->cursor, engine);
+	html_engine_update_focus_if_necessary (engine, engine->cursor->object, engine->cursor->offset);
 	html_engine_show_cursor (engine);
 
 	html_engine_update_selection_if_necessary (engine);
@@ -239,6 +245,7 @@ html_engine_end_of_paragraph (HTMLEngine *engine)
 
 	html_engine_hide_cursor (engine);
 	retval = html_cursor_end_of_paragraph (engine->cursor, engine);
+	html_engine_update_focus_if_necessary (engine, engine->cursor->object, engine->cursor->offset);
 	html_engine_show_cursor (engine);
 
 	html_engine_update_selection_if_necessary (engine);
@@ -292,6 +299,7 @@ html_engine_scroll_down (HTMLEngine *engine,
 		y = new_y;
 	}
 
+	html_engine_update_focus_if_necessary (engine, engine->cursor->object, engine->cursor->offset);
 	html_engine_show_cursor (engine);
 
 	html_engine_update_selection_if_necessary (engine);
@@ -344,6 +352,7 @@ html_engine_scroll_up (HTMLEngine *engine,
 		y = new_y;
 	}
 
+	html_engine_update_focus_if_necessary (engine, engine->cursor->object, engine->cursor->offset);
 	html_engine_show_cursor (engine);
 
 	html_engine_update_selection_if_necessary (engine);
@@ -365,6 +374,7 @@ html_engine_forward_word (HTMLEngine *e)
 		rv = TRUE;
 	while (g_unichar_isalnum (html_cursor_get_current_char (e->cursor)) && html_cursor_forward (e->cursor, e))
 		rv = TRUE;
+	html_engine_update_focus_if_necessary (e, e->cursor->object, e->cursor->offset);
 	html_engine_show_cursor (e);
 	html_engine_update_selection_if_necessary (e);
 
@@ -384,6 +394,7 @@ html_engine_backward_word (HTMLEngine *e)
 		rv = TRUE;
 	while (g_unichar_isalnum (html_cursor_get_prev_char (e->cursor)) && html_cursor_backward (e->cursor, e))
 		rv = TRUE;
+	html_engine_update_focus_if_necessary (e, e->cursor->object, e->cursor->offset);
 	html_engine_show_cursor (e);
 	html_engine_update_selection_if_necessary (e);
 

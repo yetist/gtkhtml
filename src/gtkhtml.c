@@ -2262,6 +2262,8 @@ focus (GtkWidget *w, GtkDirectionType direction)
 
 		if (!GTK_WIDGET_HAS_FOCUS (w) && !html_object_is_embedded (obj))
 			gtk_widget_grab_focus (w);
+		if (e->caret_mode)
+			html_engine_jump_to_object (e, obj, offset);
 
 		return TRUE;
 	}
