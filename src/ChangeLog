@@ -1,5 +1,15 @@
 2000-05-30  Larry Ewing  <lewing@helixcode.com>
 
+	* htmlengine.c (parse_object): call gtk_html_embedded_new with
+	content type argment.
+
+	* gtkhtml-embedded.h: add type to object definition.
+
+	* gtkhtml-embedded.c (gtk_html_embedded_new): add type argument.
+	(gtk_html_embedded_finalize): free type member.
+
+2000-05-30  Larry Ewing  <lewing@helixcode.com>
+
 	* gtkhtml.c (html_engine_object_requested_cb): check and return
 	the return value.
 	(class_init): change the object_requested signal to have a return value.

@@ -1217,7 +1217,7 @@ parse_object (HTMLEngine *e, HTMLObject *clue, gint max_width,
 		HTMLEmbedded *el;
 		gboolean ret_val;
 		
-		eb = (GtkHTMLEmbedded *)gtk_html_embedded_new(classid, name, width, height);
+		eb = (GtkHTMLEmbedded *)gtk_html_embedded_new(classid, name, type, width, height);
 		html_stack_push (e->embeddedStack, eb);
 		
 		el = html_embedded_new_widget(GTK_WIDGET (e->widget), eb);

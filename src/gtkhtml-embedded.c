@@ -86,6 +86,7 @@ gtk_html_embedded_finalize (GtkObject *object)
 	g_hash_table_destroy(eb->params);
 	g_free(eb->classid);
 	g_free(eb->priv);
+	g_free(eb->type);
 
 	GTK_OBJECT_CLASS(parent_class)->finalize (object);
 }
@@ -204,13 +205,14 @@ gtk_html_embedded_init (GtkHTMLEmbedded *ge)
  * Return value: A new GtkHTMLEmbedded widget.
  **/
 GtkWidget *
-gtk_html_embedded_new (char *classid, char *name, int width, int height)
+gtk_html_embedded_new (char *classid, char *name, char *type, int width, int height)
 {
 	GtkHTMLEmbedded *em;
 
 	em = (GtkHTMLEmbedded *)( gtk_type_new (gtk_html_embedded_get_type ()));
 	em->width = width;
 	em->height = height;
+	em->type = type ? g_strdup(type) : NULL;
 	em->classid = g_strdup(classid);
 	em->name = g_strdup(name);
 
