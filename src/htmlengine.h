@@ -87,7 +87,7 @@ struct _HTMLEngine {
 
 	gboolean inTitle;
 
-	HTMLFontWeight weight;
+	gboolean bold;
 	gboolean italic;
 	gboolean underline;
  
