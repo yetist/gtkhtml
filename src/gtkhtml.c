@@ -104,6 +104,8 @@ static gchar * get_value_nick         (GtkHTMLCommandType com_type);
 /* Values for selection information.  FIXME: what about COMPOUND_STRING and
    TEXT?  */
 enum _TargetInfo {  
+	TARGET_UTF8_STRING,
+	TARGET_UTF8,
 	TARGET_STRING,
 	TARGET_TEXT,
 	TARGET_COMPOUND_TEXT
@@ -1100,13 +1102,14 @@ enter_notify_event (GtkWidget *widget, GdkEventCrossing *event)
 
 static void
 selection_get (GtkWidget        *widget, 
-	       GtkSelectionData *selection_data_ptr,
+	       GtkSelectionData *selection_data,
 	       guint             info,
 	       guint             time)
 {
 	GtkHTML *html;
-	gchar *selection_string;
-	
+	gchar *selection_string = NULL;
+	gchar *localized_string = NULL;
+
 	g_return_if_fail (widget != NULL);
 	g_return_if_fail (GTK_IS_HTML (widget));
 	
@@ -1114,29 +1117,41 @@ selection_get (GtkWidget        *widget,
 	selection_string = html_engine_get_selection_string (html->engine);
 	
 	if (selection_string != NULL) {
-		if (info == TARGET_STRING)
-			{
-				gtk_selection_data_set (selection_data_ptr,
-							GDK_SELECTION_TYPE_STRING, 8,
-							(const guchar *) selection_string, 
-							strlen (selection_string));
-			}
-		else if ((info == TARGET_TEXT) || (info == TARGET_COMPOUND_TEXT))
-			{
-				guchar *text;
-				GdkAtom encoding;
-				gint format;
-				gint new_length;
-				
-				gdk_string_to_compound_text (selection_string, 
-							     &encoding, &format,
-							     &text, &new_length);
+		if (info == TARGET_STRING) {
+			localized_string = e_utf8_to_gtk_string (widget,
+								 selection_string);
 
-				gtk_selection_data_set (selection_data_ptr,
-							encoding, format,
-							text, new_length);
-				gdk_free_compound_text (text);
-			}
+			gtk_selection_data_set (selection_data,
+						GDK_SELECTION_TYPE_STRING, 8,
+						(const guchar *) localized_string, 
+						strlen (localized_string));
+			
+		} else if (info == TARGET_UTF8) {
+			gtk_selection_data_set (selection_data,
+						gdk_atom_intern ("UTF-8", FALSE), 8,
+						(const guchar *) selection_string,
+						strlen (selection_string));
+		} else if (info == TARGET_UTF8_STRING) {
+			gtk_selection_data_set (selection_data,
+						gdk_atom_intern ("UTF8_STRING", FALSE), 8,
+						(const guchar *) selection_string,
+						strlen (selection_string));
+		} else if ((info == TARGET_TEXT) 
+			   || (info == TARGET_COMPOUND_TEXT)) {
+			guchar *text;
+			GdkAtom encoding;
+			gint format;
+			gint new_length;
+			
+			gdk_string_to_compound_text (selection_string, 
+						     &encoding, &format,
+						     &text, &new_length);
+			
+			gtk_selection_data_set (selection_data,
+						encoding, format,
+						text, new_length);
+			gdk_free_compound_text (text);
+		}
 		g_free (selection_string);
 	}
 }
@@ -1197,11 +1212,11 @@ gtk_html_request_paste (GtkWidget *widget, gint32 time)
   string_atom = gdk_atom_intern ("STRING", FALSE);
 
   if (string_atom == GDK_NONE) {
-    g_warning("WARNING: Could not get string atom\n");
+	  g_warning("WARNING: Could not get string atom\n");
   }
   /* And request the "STRING" target for the primary selection */
-    gtk_selection_convert (widget, GDK_SELECTION_PRIMARY, string_atom,
-			   time);
+  gtk_selection_convert (widget, GDK_SELECTION_PRIMARY, string_atom,
+			 time);
   return 1;
 }
 
@@ -1647,9 +1662,11 @@ static void
 init (GtkHTML* html)
 {
 	static const GtkTargetEntry targets[] = {
+		{ "UTF8_STRING", 0, TARGET_UTF8_STRING },
+		{ "UTF-8", 0, TARGET_UTF8 },
 		{ "STRING", 0, TARGET_STRING },
-		{ "TEXT",   0, TARGET_TEXT }, 
 		{ "COMPOUND_TEXT", 0, TARGET_COMPOUND_TEXT },
+		{ "TEXT",   0, TARGET_TEXT }
 	};
 	static const gint n_targets = sizeof(targets) / sizeof(targets[0]);
 
