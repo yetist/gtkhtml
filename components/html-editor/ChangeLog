@@ -1,3 +1,9 @@
+2000-07-06  Radek Doulik  <rodo@helixcode.com>
+
+	* image.c (insert_or_apply): new helper function
+	(image_apply_cb): use insert_or_apply
+	(image_insert_cb): likewise
+
 2000-07-05  Radek Doulik  <rodo@helixcode.com>
 
 	* properties.c (gtk_html_edit_properties_dialog_new): added insert
