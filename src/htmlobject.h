@@ -242,6 +242,7 @@ struct _HTMLObjectClass {
 	gboolean (* select_range) (HTMLObject *self, HTMLEngine *engine, guint start, gint length,
 				   gboolean queue_draw);
 	HTMLObject * (* get_selection) (HTMLObject *self, guint *size_return);
+	void (* append_selection_string) (HTMLObject *self, GString *buffer);
 };
 
 
@@ -360,13 +361,15 @@ gint  html_object_check_page_split  (HTMLObject *self,
 				     gint        y);
 
 /* Selection.  */
-gboolean    html_object_select_range   (HTMLObject *self,
-					HTMLEngine *engine,
-					guint       start,
-					gint        length,
-					gboolean    queue_draw);
-HTMLObject *html_object_get_selection  (HTMLObject *self,
-					guint      *size_return);
+gboolean    html_object_select_range             (HTMLObject *self,
+						  HTMLEngine *engine,
+						  guint       start,
+						  gint        length,
+						  gboolean    queue_draw);
+HTMLObject *html_object_get_selection            (HTMLObject *self,
+						  guint      *size_return);
+void        html_object_append_selection_string  (HTMLObject *self,
+						  GString    *buffer);
 
 /* Saving.  */
 gboolean  html_object_save  (HTMLObject          *self,

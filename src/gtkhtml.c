@@ -57,6 +57,14 @@ enum {
 };
 static guint signals [LAST_SIGNAL] = { 0 };
 
+/* Values for selection information.  FIXME: what about COMPOUND_STRING and
+   TEXT?  */
+
+enum _TargetInfo {
+	TARGET_INFO_STRING
+};
+typedef enum _TargetInfo TargetInfo;
+
 
 static GtkHTMLParagraphStyle
 clueflow_style_to_paragraph_style (HTMLClueFlowStyle style)
@@ -709,6 +717,7 @@ button_release_event (GtkWidget *widget,
 	html->button_pressed = FALSE;
 
 	if (html->in_selection) {
+		gtk_selection_owner_set (widget, GDK_SELECTION_PRIMARY, event->time);
 		html->in_selection = FALSE;
 		update_styles (html);
 	}
@@ -736,6 +745,52 @@ focus_out_event (GtkWidget *widget,
 	html_engine_set_focus (GTK_HTML (widget)->engine, FALSE);
 
 	return FALSE;
+}
+
+
+/* X11 selection support.  */
+
+static void
+selection_get (GtkWidget        *widget, 
+	       GtkSelectionData *selection_data_ptr,
+	       guint             info,
+	       guint             time)
+{
+	GtkHTML *html;
+	gchar *selection_string;
+
+	g_return_if_fail (widget != NULL);
+	g_return_if_fail (GTK_IS_HTML (widget));
+
+	if (info != TARGET_INFO_STRING)
+		return;
+
+	html = GTK_HTML (widget);
+	selection_string = html_engine_get_selection_string (html->engine);
+
+	if (selection_string != NULL) {
+		gtk_selection_data_set (selection_data_ptr,
+					GDK_SELECTION_TYPE_STRING, 8,
+					selection_string, strlen (selection_string));
+		g_free (selection_string);
+	}
+}
+
+static gint
+selection_clear_event (GtkWidget *widget,
+		       GdkEventSelection *event)
+{
+	GtkHTML *html;
+
+	if (! gtk_selection_clear (widget, event))
+		return FALSE;
+
+	html = GTK_HTML (widget);
+
+	html_engine_unselect_all (html->engine, TRUE);
+	html->in_selection = FALSE;
+
+	return TRUE;
 }
 
 
@@ -911,6 +966,8 @@ class_init (GtkHTMLClass *klass)
 	widget_class->button_release_event = button_release_event;
 	widget_class->focus_in_event = focus_in_event;
 	widget_class->focus_out_event = focus_out_event;
+	widget_class->selection_get = selection_get;
+	widget_class->selection_clear_event = selection_clear_event;
 
 	layout_class->set_scroll_adjustments = set_adjustments;
 }
@@ -918,6 +975,11 @@ class_init (GtkHTMLClass *klass)
 static void
 init (GtkHTML* html)
 {
+	static const GtkTargetEntry targets[] = {
+		{ "STRING", 0, TARGET_INFO_STRING },
+	};
+	static const gint n_targets = sizeof(targets) / sizeof(targets[0]);
+
 	GTK_WIDGET_SET_FLAGS (GTK_WIDGET (html), GTK_CAN_FOCUS);
 	GTK_WIDGET_SET_FLAGS (GTK_WIDGET (html), GTK_APP_PAINTABLE);
 
@@ -946,6 +1008,10 @@ init (GtkHTML* html)
 	html->paragraph_indentation = 0;
 
 	html->insertion_font_style = GTK_HTML_FONT_STYLE_DEFAULT;
+
+	gtk_selection_add_targets (GTK_WIDGET (html),
+				   GDK_SELECTION_PRIMARY,
+				   targets, n_targets);
 }
 
 
@@ -1080,11 +1146,21 @@ gtk_html_get_title (GtkHTML *html)
 	g_return_val_if_fail (html != NULL, NULL);
 	g_return_val_if_fail (GTK_IS_HTML (html), NULL);
 
-	/* should this be g_return_val_if_fail () ?? */
-	if (!html->engine->title)
+	if (html->engine->title == NULL)
 		return NULL;
 
 	return html->engine->title->str;
+}
+
+
+gboolean
+gtk_html_jump_to_anchor (GtkHTML *html,
+			 const gchar *anchor)
+{
+	g_return_val_if_fail (html != NULL, FALSE);
+	g_return_val_if_fail (GTK_IS_HTML (html), FALSE);
+
+	return html_engine_goto_anchor (html->engine, anchor);
 }
 
 

@@ -738,9 +738,10 @@ html_text_set_font_style (HTMLText *text,
 	return (* HT_CLASS (text)->set_font_style) (text, engine, style);
 }
 
-void  html_text_set_color (HTMLText *text,
-			   HTMLEngine *engine,
-			   const GdkColor *color)
+void
+html_text_set_color (HTMLText *text,
+		     HTMLEngine *engine,
+		     const GdkColor *color)
 {
 	g_return_if_fail (text != NULL);
 	g_return_if_fail (color != NULL);

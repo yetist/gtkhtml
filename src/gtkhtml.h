@@ -184,6 +184,10 @@ void  gtk_html_print  (GtkHTML           *html,
 /* Title.  */
 const gchar *gtk_html_get_title  (GtkHTML *html);
 
+/* Anchors.  */
+gboolean  gtk_html_jump_to_anchor  (GtkHTML *html,
+				    const gchar *anchor);
+
 
 /* Internal PRIVATE stuff -- don't use.  */
 

@@ -388,6 +388,12 @@ get_selection (HTMLObject *self,
 }
 
 static void
+append_selection_string (HTMLObject *self,
+			 GString *buffer)
+{
+}
+
+static void
 forall (HTMLObject *self,
 	HTMLObjectForallFunc func,
 	gpointer data)
@@ -463,6 +469,7 @@ html_object_class_init (HTMLObjectClass *klass,
 	klass->get_cursor_base = get_cursor_base;
 	klass->select_range = select_range;
 	klass->get_selection = get_selection;
+	klass->append_selection_string = append_selection_string;
 	klass->forall = forall;
 	klass->is_container = is_container;
 	klass->save = save;
@@ -758,6 +765,16 @@ html_object_get_selection (HTMLObject *self,
 			   guint *size_return)
 {
 	return (* HO_CLASS (self)->get_selection) (self, size_return);
+}
+
+void
+html_object_append_selection_string (HTMLObject *self,
+				     GString *buffer)
+{
+	g_return_if_fail (self != NULL);
+	g_return_if_fail (buffer != NULL);
+
+	(* HO_CLASS (self)->append_selection_string) (self, buffer);
 }
 
 

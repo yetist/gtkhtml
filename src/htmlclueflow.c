@@ -877,6 +877,17 @@ check_point (HTMLObject *self,
 	return NULL;
 }
 
+static void
+append_selection_string (HTMLObject *self,
+			 GString *buffer)
+{
+	if (! self->selected)
+		return;
+
+	putchar ('\n');
+	g_string_append_c (buffer, '\n');
+}
+
 
 /* Saving support.  */
 
@@ -1144,6 +1155,7 @@ html_clueflow_class_init (HTMLClueFlowClass *klass,
 	object_class->save = save;
 	object_class->check_page_split = check_page_split;
 	object_class->check_point = check_point;
+	object_class->append_selection_string = append_selection_string;
 
 	klass->get_default_font_style = get_default_font_style;
 

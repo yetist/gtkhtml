@@ -1,3 +1,44 @@
+2000-04-03  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmltextmaster.c
+	(select_range): Make sure we don't select beyond the end of the
+	text.
+
+	* gtkhtml.c
+	(button_release_event): Become owner of the X11 selection if we
+	were doing a mouse selection.
+	(selection_get): New function.
+	(selection_clear_event): New function.
+	(class_init): Install them as implementation of the corresponding
+	GtkWidget virtual methods.
+	(init): Add "STRING" selection targets to the widget.
+
+	* htmlengine.c
+	(html_engine_goto_anchor): New param @anchor.  Made non-static,
+	cleaned up a bit.
+	(html_engine_get_selection_string): New function.
+	
+	* gtkhtml.c
+	(gtk_html_jump_to_anchor): New function.
+
+	* htmlclueflow.c
+	(append_selection_string): New function,
+	implementation of `HTMLObject::append_selection_string()'.
+	(html_clueflow_class_init): Install it.
+
+	* htmltextmaster.c
+	(append_selection_string): New function, implementation of
+	`HTMLObject::append_selection_string()'.
+	(html_text_master_class_init): Install it.
+
+	* htmlobject.c
+	(append_selection_string): New function, default implementation of
+	`HTMLObject::append_selection_string'
+	(html_object_class_init): Install it.
+	(html_object_append_selection_string): New function.
+
+	* htmlobject.h: New virtual method `HTMLObject::append_selection_string'.
+
 2000-04-03  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlimage.c (get_actual_width): updated to use

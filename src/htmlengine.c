@@ -82,7 +82,6 @@ static void html_engine_end (GtkHTMLStreamHandle handle, GtkHTMLStreamStatus sta
 static void parse_one_token (HTMLEngine *p, HTMLObject *clue, const gchar *str);
 static void parse_input (HTMLEngine *e, const gchar *s, HTMLObject *_clue);
 static void parse_f (HTMLEngine *p, HTMLObject *clue, const gchar *str);
-static gboolean html_engine_goto_anchor (HTMLEngine *e);
 
 
 static GtkLayoutClass *parent_class = NULL;
@@ -3079,7 +3078,7 @@ html_engine_begin (HTMLEngine *p, const char *url)
 	if (*url == '#') {
 		p->reference = g_strdup (url + 1);
 		
-		if (!html_engine_goto_anchor (p)) /* If anchor not found, scroll to the top of the page */
+		if (! html_engine_goto_anchor (p, url)) /* If anchor not found, scroll to the top of the page */
 			gtk_adjustment_set_value (GTK_LAYOUT (p->widget)->vadjustment, 0);
 
 		gtk_signal_emit (GTK_OBJECT (p), signals[LOAD_DONE]);
@@ -3149,7 +3148,7 @@ html_engine_update_event (HTMLEngine *e)
 	}
 
 	if (e->reference ) {
-		if (html_engine_goto_anchor (e)) {
+		if (html_engine_goto_anchor (e, e->reference)) {
 			g_free (e->reference);
 			e->reference = NULL;
 		}
@@ -3196,25 +3195,31 @@ html_engine_schedule_update (HTMLEngine *p)
 }
 
 
-static gboolean
-html_engine_goto_anchor (HTMLEngine *e)
+gboolean
+html_engine_goto_anchor (HTMLEngine *e,
+			 const gchar *anchor)
 {
+	GtkAdjustment *vadj;
 	HTMLAnchor *a;
-	gint x = 0, y = 0;
+	gint x, y;
 
-	if (!e->clue || !e->reference)
+	g_return_val_if_fail (anchor != NULL, FALSE);
+
+	if (!e->clue)
 		return FALSE;
 
-	if ((a = html_object_find_anchor (e->clue, e->reference, &x, &y)) == NULL)
+	x = y = 0;
+	a = html_object_find_anchor (e->clue, anchor, &x, &y);
+
+	if (a == NULL)
 		return FALSE;
 
-	if (y < ( GTK_LAYOUT (e->widget)->vadjustment->upper - 
-		  GTK_LAYOUT (e->widget)->vadjustment->page_size) )
-		gtk_adjustment_set_value (GTK_LAYOUT (e->widget)->vadjustment, y);
+	vadj = GTK_LAYOUT (e->widget)->vadjustment;
+
+	if (y < vadj->upper - vadj->page_size)
+		gtk_adjustment_set_value (vadj, y);
 	else
-		gtk_adjustment_set_value (GTK_LAYOUT (e->widget)->vadjustment, 
-					  GTK_LAYOUT (e->widget)->vadjustment->upper -
-					  GTK_LAYOUT (e->widget)->vadjustment->page_size);
+		gtk_adjustment_set_value (vadj, vadj->upper - vadj->page_size);
 
 	return TRUE;
 }
@@ -3798,6 +3803,40 @@ html_engine_unselect_all (HTMLEngine *e,
 
 	e->active_selection = FALSE;
 	gtk_html_debug_log (e->widget, "Active selection: FALSE\n");
+}
+
+
+/* Retrieving the selection as a string.  */
+
+static void
+get_selection_forall_func (HTMLObject *self,
+			   gpointer data)
+{
+	GString *buffer;
+
+	buffer = (GString *) data;
+	html_object_append_selection_string (self, buffer);
+}
+
+gchar *
+html_engine_get_selection_string (HTMLEngine *engine)
+{
+	GString *buffer;
+	gchar *string;
+
+	g_return_val_if_fail (engine != NULL, NULL);
+	g_return_val_if_fail (HTML_IS_ENGINE (engine), NULL);
+
+	if (engine->clue == NULL)
+		return NULL;
+
+	buffer = g_string_new (NULL);
+	html_object_forall (engine->clue, get_selection_forall_func, buffer);
+
+	string = buffer->str;
+	g_string_free (buffer, FALSE);
+
+	return string;
 }
 
 

@@ -97,11 +97,6 @@ calc_min_width (HTMLObject *self,
 		p++;
 	}
 
-	/* printf ("T \"%s\" min width %d\n", min_width);
-	if (!self->next)
-		min_width -= space_width;
-		printf ("T \"%s\" min width %d\n", min_width); */
-
 	return min_width;
 }
 
@@ -233,8 +228,8 @@ select_range (HTMLObject *self,
 
 	master = HTML_TEXT_MASTER (self);
 
-	if (length < 0)
-		length = HTML_TEXT (self)->text_len;
+	if (length < 0 || length + offset > HTML_TEXT (self)->text_len)
+		length = HTML_TEXT (self)->text_len - offset;
 
 	if (offset != master->select_start || length != master->select_length)
 		changed = TRUE;
@@ -259,8 +254,7 @@ select_range (HTMLObject *self,
 			else
 				was_selected = FALSE;
 
-			if (offset + length > slave->posStart &&
-			    offset < max)
+			if (offset + length > slave->posStart && offset < max)
 				is_selected = TRUE;
 			else
 				is_selected = FALSE;
@@ -324,6 +318,28 @@ get_selection (HTMLObject *self,
 		*size_return = select_length;
 
 	return new;
+}
+
+static void
+append_selection_string (HTMLObject *self,
+			 GString *buffer)
+{
+	HTMLTextMaster *text_master;
+	const gchar *p;
+	guint i;
+
+	text_master = HTML_TEXT_MASTER (self);
+	if (text_master->select_length == 0)
+		return;
+
+	/* FIXME: we need a `g_string_append()' that takes the number of
+           characters to append as an extra parameter.  */
+
+	p = HTML_TEXT (text_master)->text + text_master->select_start;
+	for (i = 0; i < text_master->select_length; i++) {
+		g_string_append_c (buffer, *p);
+		p++;
+	}
 }
 
 static void
@@ -616,6 +632,7 @@ html_text_master_class_init (HTMLTextMasterClass *klass,
 	object_class->check_point = check_point;
 	object_class->select_range = select_range;
 	object_class->get_selection = get_selection;
+	object_class->append_selection_string = append_selection_string;
 
 	/* HTMLText methods.  */
 

@@ -44,6 +44,7 @@ typedef struct _HTMLEngineClass HTMLEngineClass;
 #include "htmlstringtokenizer.h"
 #include "gtkhtml-embedded.h"
 
+
 #define HTML_TYPE_ENGINE                 (html_engine_get_type ())
 #define HTML_ENGINE(obj)                 (GTK_CHECK_CAST ((obj), HTML_TYPE_ENGINE, HTMLEngine))
 #define HTML_ENGINE_CLASS(klass)         (GTK_CHECK_CLASS_CAST ((klass), HTML_TYPE_ENGINE, HTMLEngineClass))
@@ -280,8 +281,11 @@ void  html_engine_draw                 (HTMLEngine *e,
 					gint        width,
 					gint        height);
 
-void  html_engine_schedule_update      (HTMLEngine *p);
-void  html_engine_make_cursor_visible  (HTMLEngine *e);
+/* Scrolling.  */
+void      html_engine_schedule_update      (HTMLEngine  *p);
+void      html_engine_make_cursor_visible  (HTMLEngine  *e);
+gboolean  html_engine_goto_anchor          (HTMLEngine  *e,
+					    const gchar *anchor);
 
 /* Draw/clear queue.  */
 void  html_engine_flush_draw_queue  (HTMLEngine *e);
@@ -314,14 +318,15 @@ gchar *html_engine_canonicalize_url  (HTMLEngine *e,
 				      const char *in_url);
 
 /* Selection.  (FIXME: Maybe `htmlengine-edit' instead?)  */
-void  html_engine_select_region  (HTMLEngine *e,
-				  gint        x1,
-				  gint        y1,
-				  gint        x2,
-				  gint        y2,
-				  gboolean    queue_draw);
-void  html_engine_unselect_all   (HTMLEngine *e,
-				  gboolean    queue_draw);
+void   html_engine_select_region         (HTMLEngine *e,
+					  gint        x1,
+					  gint        y1,
+					  gint        x2,
+					  gint        y2,
+					  gboolean    queue_draw);
+void   html_engine_unselect_all          (HTMLEngine *e,
+					  gboolean    queue_draw);
+gchar *html_engine_get_selection_string  (HTMLEngine *e);
 
 /* Freezing/thawing.  */
 gboolean  html_engine_frozen  (HTMLEngine *engine);
