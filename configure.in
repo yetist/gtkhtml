@@ -87,7 +87,7 @@ if gnome-config --libs glibwww > /dev/null 2>&1; then
 		AC_MSG_RESULT([found])
 
 		GLIBWWW_CFLAGS="`gnome-config --cflags glibwww`"
-		GLIBWWW_LIBS="`gnome-config --libs glibwww`"
+		GLIBWWW_LIBS="`gnome-config --libs glibwww` -lwwwhtml"
 
 		have_glibwww=true
 	else

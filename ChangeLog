@@ -1,3 +1,8 @@
+2001-08-23  Radek Doulik  <rodo@ximian.com>
+
+	* configure.in (GLIBWWW_LIBS): added -lwwwhtml to end, this fixes
+	linkage of testgtkhtml, ximian #4540
+
 2001-08-21  Larry Ewing  <lewing@ximian.com>
 
 	* configure.in: bump versions for 0.12 release.
