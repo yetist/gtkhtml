@@ -597,6 +597,12 @@ get_level_indent (HTMLClueFlow *flow,
 	return indent;
 }
 
+static void
+set_painter (HTMLObject *o, HTMLPainter *painter)
+{
+	HTML_CLUEFLOW (o)->indent_width = -1;
+}
+
 static guint
 get_indent (HTMLClueFlow *flow,
 	    HTMLPainter *painter)
@@ -2218,6 +2224,7 @@ html_clueflow_class_init (HTMLClueFlowClass *klass,
 	object_class->relayout = relayout;
 	object_class->get_recursive_length = get_recursive_length;
 	object_class->get_clear = get_clear;
+	object_class->set_painter = set_painter;
 
 	klass->get_default_font_style = get_default_font_style;
 

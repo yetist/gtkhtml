@@ -1,5 +1,7 @@
 2003-04-08  Radek Doulik  <rodo@ximian.com>
 
+	* htmlclueflow.c (set_painter): new method, reset indent_width
+
 	* gtkhtml.c (get_line_height): calc the line height again, was
 	disabled during porting
 
