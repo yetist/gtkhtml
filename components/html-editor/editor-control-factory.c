@@ -348,7 +348,7 @@ destroy_control_data_cb (GtkObject *control, GtkHTMLControlData *cd)
 static void
 editor_set_format (GtkHTMLControlData *cd, gboolean format_html)
 {
-	HTMLPainter *p, *old_p;
+	HTMLGdkPainter *p, *old_p;
 	GtkHTML *html;
 	GtkHTMLClassProperties *prop;
 
@@ -360,7 +360,7 @@ editor_set_format (GtkHTMLControlData *cd, gboolean format_html)
 	prop = GTK_HTML_CLASS (GTK_OBJECT (html)->klass)->properties;
 	
 	if (!cd->plain_painter) {
-		cd->plain_painter = HTML_PAINTER (html_plain_painter_new (TRUE));
+		cd->plain_painter = HTML_GDK_PAINTER (html_plain_painter_new (TRUE));
 		html_font_manager_set_default (&HTML_PAINTER (cd->plain_painter)->font_manager,
 					       prop->font_var,      prop->font_fix,
 					       prop->font_var_size, prop->font_fix_size);
@@ -368,7 +368,7 @@ editor_set_format (GtkHTMLControlData *cd, gboolean format_html)
 		html_colorset_add_slave (html->engine->settings->color_set, 
 					 HTML_PAINTER (cd->plain_painter)->color_set);
 
-		cd->gdk_painter = html->engine->painter;
+		cd->gdk_painter = HTML_GDK_PAINTER (html->engine->painter);
 	}	
 	
 	if (format_html) {
@@ -379,11 +379,11 @@ editor_set_format (GtkHTMLControlData *cd, gboolean format_html)
 		old_p = cd->gdk_painter;
 	}		
 
-	if (html->engine->painter != p) {
+	if (html->engine->painter != (HTMLPainter *)p) {
 		html_gdk_painter_unrealize (old_p);
 		html_gdk_painter_realize (p, html->engine->window);
 
-		html_engine_set_painter (html->engine, p, 
+		html_engine_set_painter (html->engine, HTML_PAINTER (p), 
 					 html->engine->width);
 		
 		html_engine_draw (html->engine, 0, 0, html->engine->width, html->engine->height);
