@@ -324,6 +324,9 @@ get_default_fonts (gchar **var_name, gchar **fix_name)
 		*fix_name = g_strdup_printf ("-*-courier-*-*-*-*-12-*-*-*-*-*-%s-%s", enc1, enc2);
 
 		/* printf ("default encoding %s-%s\n%s\n%s\n", enc1, enc2, *var_name, *fix_name); */
+		g_free (font_name);
+		g_free (enc1);
+		g_free (enc2);
 	} else {
 		*var_name = g_strdup ("-*-helvetica-*-*-*-*-12-*-*-*-*-*-*-*");
 		*fix_name = g_strdup ("-*-courier-*-*-*-*-12-*-*-*-*-*-*-*");
