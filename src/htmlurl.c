@@ -23,8 +23,6 @@
 #include <stdio.h>
 #include <string.h>
 
-#include <gnome.h>	/* `g_concat_dir_and_file()' */
-
 #include "htmlurl.h"
 
 
@@ -429,6 +427,20 @@ html_url_to_string (const HTMLURL *url)
 	return s;
 }
 
+#define PATH_SEP '/'
+#define PATH_SEP_STR "/"
+
+char *
+concat_dir_and_file (const char *dir, const char *file)
+{
+        /* If the directory name doesn't have a / on the end, we need
+	   to add one so we get a proper path to the file */
+	if (dir [strlen(dir) - 1] != PATH_SEP)
+		return g_strconcat (dir, PATH_SEP_STR, file, NULL);
+	else
+		return g_strconcat (dir, file, NULL);
+}
+
 HTMLURL *
 html_url_append_path (const HTMLURL *url,
 		      const gchar *path)
@@ -438,7 +450,7 @@ html_url_append_path (const HTMLURL *url,
 
 	new = html_url_dup (url, HTML_URL_DUP_NOPATH);
 
-	new_path = g_concat_dir_and_file (url->path ? url->path : *path == '/' ? "" : "/", path);
+	new_path = concat_dir_and_file (url->path ? url->path : *path == '/' ? "" : "/", path);
 	html_url_set_path (new, new_path);
 	g_free (new_path);
 
