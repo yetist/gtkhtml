@@ -286,6 +286,13 @@ load_done (GtkHTML *html, GtkHTMLControlData *cd)
 		g_signal_connect (cd->html, "realize", G_CALLBACK (realize_engine), cd);
 }
 
+static void
+insertion_color_changed_cb (GtkHTML *widget, GdkColor *color, GtkHTMLControlData *cd)
+{
+	gi_color_combo_set_color ((GiColorCombo *) cd->combo, color);
+}
+
+
 static GtkWidget *
 setup_gi_color_combo (GtkHTMLControlData *cd)
 {
@@ -299,7 +306,8 @@ setup_gi_color_combo (GtkHTMLControlData *cd)
         g_signal_connect (cd->html, "load_done", G_CALLBACK (load_done), cd);
 
 	cd->combo = gi_color_combo_new (NULL, _("Automatic"), &color->color, color_group_fetch ("toolbar_text", cd));
-        g_signal_connect (cd->combo, "color_changed", G_CALLBACK (color_changed), cd);
+	g_signal_connect (cd->combo, "color_changed", G_CALLBACK (color_changed), cd);
+	g_signal_connect (cd->html, "insertion_color_changed", G_CALLBACK (insertion_color_changed_cb), cd);
 
 	gtk_widget_show_all (cd->combo);
 	return cd->combo;

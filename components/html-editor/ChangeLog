@@ -1,3 +1,10 @@
+2005-03-10  Mengjie Yu  <meng-jie.yu@sun.com>
+
+	* toolbar.c: (insertion_color_changed_cb), (setup_gi_color_combo):
+	we should connect to the insertion_color_changed signal and handle it.
+
+	Fixes #73216
+
 2005-01-31  Hans Petter Jansson  <hpj@novell.com>
 
 	* spell.[ch]: Renamed to spellchecker.[ch] since the old name would
