@@ -39,6 +39,7 @@
 #include "htmlengine.h"
 #include "htmltextslave.h"
 #include "gtkhtml-embedded.h"
+#include "gtkhtml.h"
 
 static HTMLPainterClass *parent_class = NULL;
 
@@ -935,12 +936,17 @@ draw_embedded (HTMLPainter * p, HTMLEmbedded *o, gint x, gint y)
 }
 
 static GdkGC *
-item_gc (PangoItem *item, GdkDrawable *drawable, GdkGC *orig_gc, gboolean *underline, gboolean *strikethrough, gboolean *bgcolor, GdkGC **bg_gc)
+item_gc (HTMLPainter *p, PangoItem *item, GdkDrawable *drawable, GdkGC *orig_gc, gboolean *underline, gboolean *strikethrough, gboolean *bgcolor, GdkGC **bg_gc)
 {
 	GdkGC *new_gc = NULL;
 	GSList *tmp_list = item->analysis.extra_attrs;
+	HTMLEngine *e = GTK_HTML (p->widget)->engine;
 
 	*bgcolor = *underline = *strikethrough = FALSE;
+	new_gc = gdk_gc_new (drawable);
+	gdk_gc_copy (new_gc, orig_gc);
+	gdk_gc_set_foreground (new_gc,
+			       &html_colorset_get_color_allocated (e->painter, HTMLTextColor)->color);
 
 	while (tmp_list) {
 		PangoAttribute *attr = tmp_list->data;
@@ -957,13 +963,9 @@ item_gc (PangoItem *item, GdkDrawable *drawable, GdkGC *orig_gc, gboolean *under
 			color.blue = pc.blue;
 
 			gdk_rgb_find_color (gdk_drawable_get_colormap (drawable), &color);
-			if (attr->klass->type == PANGO_ATTR_FOREGROUND) {
-				if (!new_gc) {
-					new_gc = gdk_gc_new (drawable);
-					gdk_gc_copy (new_gc, orig_gc);
-				}
+			if (attr->klass->type == PANGO_ATTR_FOREGROUND)
 				gdk_gc_set_foreground (new_gc, &color);
-			} else {
+			else {
 				if (*bg_gc)
 					gdk_gc_unref (*bg_gc);
 				*bg_gc = gdk_gc_new (drawable);
@@ -981,11 +983,6 @@ item_gc (PangoItem *item, GdkDrawable *drawable, GdkGC *orig_gc, gboolean *under
 			break;
 		}
 		tmp_list = tmp_list->next;
-	}
-
-	if (!new_gc) {
-		new_gc = orig_gc;
-		gdk_gc_ref (orig_gc);
 	}
 
 	return new_gc;
@@ -1050,7 +1047,7 @@ draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, HT
 			gl = gl->next;
 			ii = GPOINTER_TO_INT (gl->data);
 			bg_gc = NULL;
-			gc = item_gc (pi->entries [ii].item, gdk_painter->pixmap, painter->widget->style->text_gc [painter->widget->state],
+			gc = item_gc (painter, pi->entries [ii].item, gdk_painter->pixmap, painter->widget->style->text_gc [painter->widget->state],
 				      &underline, &strikethrough, &bgcolor, &bg_gc);
 			if (bgcolor) {
 				PangoRectangle log_rect;
