@@ -22,6 +22,7 @@
 #include <config.h>
 
 #include <gdk/gdkkeysyms.h>
+#include <gdk/gdkprivate.h>
 #include <gtk/gtk.h>
 #include <string.h>
 #include <gal/widgets/e-unicode.h>
@@ -976,7 +977,12 @@ button_press_event (GtkWidget *widget,
 			break;
 		case 2:
 			if (html_engine_get_editable (engine)) {
-				gtk_html_request_paste (widget, 0, event->time);
+				html_engine_disable_selection (html->engine);
+				html_engine_jump_at (engine,
+						     x + engine->x_offset,
+						     y + engine->y_offset);
+				update_styles (html);
+				gtk_html_request_paste (html, 0, event->time);
 				return TRUE;
 			}
 			break;
@@ -1043,6 +1049,7 @@ button_release_event (GtkWidget *widget,
 		gtk_selection_owner_set (widget, GDK_SELECTION_PRIMARY, event->time);
 		html->in_selection = FALSE;
 		update_styles (html);
+		html_engine_copy (html->engine);
 	}
 
 	remove_scroll_timeout (html);
@@ -1121,7 +1128,7 @@ selection_get (GtkWidget        *widget,
 	
 	html = GTK_HTML (widget);
 	selection_string = html_engine_get_selection_string (html->engine);
-	
+
 	/*
 	 * FIXME we should make e_utf8_to/from_string_target and 
 	 * e_utf8_to/from_compound_string in e-unicode.c but I'll wait until
@@ -1187,6 +1194,11 @@ selection_received (GtkWidget *widget,
 	
 	printf("got selection from system\n");
 	
+	if (widget->window == gdk_selection_owner_get (selection_data->selection) && GTK_HTML (widget)->engine->clipboard) {
+		html_engine_paste (GTK_HTML (widget)->engine);
+		return;
+	}
+
 	/* **** IMPORTANT **** Check to see if retrieval succeeded  */
 	/* If we have more selection types we can ask for, try the next one,
 	   until there are none left */
@@ -1194,7 +1206,7 @@ selection_received (GtkWidget *widget,
 		gint type = GTK_HTML (widget)->priv->last_selection_type;
 		
 		/* now, try again with next selection type */
-		if (!gtk_html_request_paste(widget, type + 1, time))
+		if (!gtk_html_request_paste (GTK_HTML (widget), type + 1, time))
 			g_warning ("Selection retrieval failed\n");
 		return;
 	}
@@ -1204,10 +1216,7 @@ selection_received (GtkWidget *widget,
 	    && (selection_data->type != GDK_SELECTION_TYPE_STRING)
 	    && (selection_data->type != gdk_atom_intern ("UTF-8", FALSE))) {
 		g_warning ("Selection \"STRING\" was not returned as strings!\n");
-		return;
-	}
-	
-	if (selection_data->length > 0) {
+	} else if (selection_data->length > 0) {
 		printf ("selection text \"%.*s\"\n",
 			selection_data->length, selection_data->data); 
 
@@ -1226,30 +1235,34 @@ selection_received (GtkWidget *widget,
 						utf8, unicode_strlen (utf8, -1));
 
 			g_free (utf8);
-		} 
+		}
+		return;
 	}
+
+	html_engine_paste (GTK_HTML (widget)->engine);
 }  
 
 gint
-gtk_html_request_paste (GtkWidget *widget, gint type, gint32 time)
+gtk_html_request_paste (GtkHTML *html, gint type, gint32 time)
 {
 	GdkAtom format_atom;
-	char *formats[] = {"UTF8_STRING", "UTF-8", "STRING"};
+	static char *formats[] = {"UTF8_STRING", "UTF-8", "STRING"};
 
 	if (type >= sizeof (formats) / sizeof (formats[0])) {
 		/* we have now tried all the slection types we support */
-		GTK_HTML (widget)->priv->last_selection_type = -1;
+		html->priv->last_selection_type = -1;
+		html_engine_paste (html->engine);
 		return FALSE;
 	}
 	
-	GTK_HTML (widget)->priv->last_selection_type = type;
-	format_atom = gdk_atom_intern (formats[type], FALSE);
+	html->priv->last_selection_type = type;
+	format_atom = gdk_atom_intern (formats [type], FALSE);
 	
 	if (format_atom == GDK_NONE) {
 		g_warning("Could not get requested atom\n");
 	}
 	/* And request the format target for the primary selection */
-	gtk_selection_convert (widget, GDK_SELECTION_PRIMARY, format_atom,
+	gtk_selection_convert (GTK_WIDGET (html), GDK_SELECTION_PRIMARY, format_atom,
 			       time);
 	return TRUE;
 }
@@ -1835,7 +1848,7 @@ gtk_html_allow_selection (GtkHTML *html,
 
 
 
-/*#define LOG_INPUT*/
+/* #define LOG_INPUT */
 #ifdef LOG_INPUT
 static FILE *log_file;
 #endif
@@ -2189,7 +2202,7 @@ gtk_html_paste (GtkHTML *html)
 	g_return_if_fail (html != NULL);
 	g_return_if_fail (GTK_IS_HTML (html));
 
-	html_engine_paste (html->engine);
+	gtk_html_request_paste (html, 0, GDK_CURRENT_TIME);
 }
 
 
@@ -2502,7 +2515,7 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		html_engine_cut_line (e);
 		break;
 	case GTK_HTML_COMMAND_PASTE:
-		html_engine_paste (e);
+		gtk_html_paste (html);
 		break;
 	case GTK_HTML_COMMAND_INSERT_RULE:
 		html_engine_cut (e);

@@ -1,3 +1,15 @@
+2001-01-10  Radek Doulik  <rodo@helixcode.com>
+
+	* gtkhtml.c (gtk_html_request_paste): do PASTE if no selection
+	available
+	(button_release_event): copy selection to clipboard
+	(gtk_html_paste): use gtk_html_request_paste instead of
+	html_engine_paste
+	(selection_received): if it's selection from us, use
+	html_engine_paste rather than text version of data
+	(command): call gtk_html_paste rather than html_engine_paste as we
+	want take care of XSelection while pasting
+
 2001-01-09  Dave Camp <dave@helixcode.com>
 
 	* Makefile.am (libgtkhtml_HEADERS): Added htmlengine-cut-and-paste.h
