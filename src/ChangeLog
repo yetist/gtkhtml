@@ -1,3 +1,15 @@
+2001-03-20  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c (html_engine_begin): add LOG_INPUT ifdef here.
+
+	* gtkhtml.c: Add documentation for several more functions.
+	(gtk_html_begin_content): remove LOG_INPUT #define, do this in
+	html_engine_begin, with gtk_html_stream_log_being now.
+	(gtk_html_write): removed logging code.
+	(gtk_html_end): removed logging code.
+	(gtk_html_export): rename the content and data
+	arguments for clarity.
+	
 2001-03-19  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml-stream.c (gtk_html_stream_log_new): helper function to

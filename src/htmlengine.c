@@ -3415,11 +3415,18 @@ html_engine_begin (HTMLEngine *e, char *content_type)
 	html_image_factory_stop_animations (e->image_factory);
 	html_image_factory_cleanup (e->image_factory);
 
+#ifdef LOG_INPUT
+	new_stream = gtk_html_stream_log_new (GTK_HTML (e->widget),
+					      html_engine_write,
+					      html_engine_end,
+					      e);
+#else
 	new_stream = gtk_html_stream_new (GTK_HTML (e->widget),
 					  html_engine_write,
 					  html_engine_end,
 					  e);
-
+#endif
+	
 	e->newPage = TRUE;
 	clear_selection (e);
 

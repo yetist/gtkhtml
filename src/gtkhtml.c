@@ -1896,32 +1896,35 @@ gtk_html_allow_selection (GtkHTML *html,
 }
 
 
-
-/* #define LOG_INPUT */
-#ifdef LOG_INPUT
-static FILE *log_file = NULL;
-static gint  log_num = 1;
-#endif
-
+/**
+ * gtk_html_begin:
+ * @html: the html widget to operate on.
+ * 
+ * Opens a new stream to load new content into the GtkHTML widget @html.
+ *
+ * Returns: a new GtkHTMLStream to store new content.
+ **/
 GtkHTMLStream *
 gtk_html_begin (GtkHTML *html)
 {
 	return gtk_html_begin_content (html, html->priv->content_type);
 }
 
+/**
+ * gtk_html_begin_content:
+ * @html: the html widget to operate on.
+ * @content_type: a string listing the type of content to expect on the stream.
+ *
+ * Opens a new stream to load new content of type @content_type into 
+ * the GtkHTML widget given in @html.
+ *
+ * Returns: a new GtkHTMLStream to store new content.
+ **/
 GtkHTMLStream *
 gtk_html_begin_content (GtkHTML *html, gchar *content_type)
 {
 	GtkHTMLStream *handle;
 
-#ifdef LOG_INPUT
-	gchar *fname = g_strdup_printf ("gtkhtml.log.%d", log_num);
-	log_num ++;
-	if (log_file)
-		fclose (log_file);
-	log_file = fopen (fname, "w+");
-	g_free (fname);
-#endif
 	g_return_val_if_fail (! gtk_html_get_editable (html), NULL);
 
 	handle = html_engine_begin (html->engine, content_type);
@@ -1935,36 +1938,52 @@ gtk_html_begin_content (GtkHTML *html, gchar *content_type)
 	return handle;
 }
 
+/**
+ * gtk_html_write:
+ * @html: the GtkHTML widget the stream belongs to (unused)
+ * @handle: the GkHTMLStream to write to.
+ * @buffer: the data to write to the stream.
+ * @size: the length of data to read from @buffer
+ * 
+ * Writes @size bytes of @buffer to the stream pointed to by @stream.
+ **/
 void
 gtk_html_write (GtkHTML *html,
 		GtkHTMLStream *handle,
 		const gchar *buffer,
 		size_t size)
 {
-#ifdef LOG_INPUT
-	gint i;
-	for (i=0; i<size; i++)
-		fprintf (log_file, "%c", buffer [i]);
-#endif
 	gtk_html_stream_write (handle, buffer, size);
 }
 
+/**
+ * gtk_html_end:
+ * @html: the GtkHTML widget the stream belongs to.
+ * @handle: the GtkHTMLStream to close.
+ * @status: the GtkHTMLStreamStatus representing the state of the stream when closed.
+ *
+ * Close the GtkHTMLStream represented by @stream and notify @html that is 
+ * should not expect any more content from that stream.
+ **/
 void
 gtk_html_end (GtkHTML *html,
 	      GtkHTMLStream *handle,
 	      GtkHTMLStreamStatus status)
 {
-#ifdef LOG_INPUT
-	if (log_file)
-		fclose (log_file);
-	log_file = NULL;
-#endif
 	gtk_html_stream_close (handle, status);
 
 	html->load_in_progress = FALSE;
 }
 
 
+/**
+ * gtk_html_get_title:
+ * @html: The GtkHTML widget.
+ *
+ * Retrieve the title of the document currently loaded in the GtkHTML widget.
+ *
+ * Returns: the title of the current document
+ **/
 const gchar *
 gtk_html_get_title (GtkHTML *html)
 {
@@ -1978,6 +1997,15 @@ gtk_html_get_title (GtkHTML *html)
 }
 
 
+/**
+ * gtk_html_jump_to_anchor:
+ * @html: the GtkHTML widget.
+ * @anchor: a string containing the name of the anchor.
+ *
+ * Scroll the document display to show the HTML anchor listed in @anchor
+ *
+ * Returns: TRUE if the anchor is found, FALSE otherwise.
+ **/
 gboolean
 gtk_html_jump_to_anchor (GtkHTML *html,
 			 const gchar *anchor)
@@ -2001,21 +2029,34 @@ gtk_html_save (GtkHTML *html,
 	return html_engine_save (html->engine, receiver, data);
 }
 
+/**
+ * gtk_html_export:
+ * @html: the GtkHTML widget
+ * @content_type: the expected content_type 
+ * @receiver: 
+ * @user_data: pointer to maintain user state. 
+ *
+ * Export the current document into the content type given by @content_type,
+ * by calling the function listed in @receiver data becomes avaiable.  When @receiver is 
+ * called @user_data is passed in as the user_data parameter.
+ * 
+ * Returns: TRUE if the export was successfull, FALSE otherwise.
+ **/
 gboolean
 gtk_html_export (GtkHTML *html,
-		 const char *type,
+		 const char *content_type,
 		 GtkHTMLSaveReceiverFn receiver,
-		 gpointer data)
+		 gpointer user_data)
 {
 	g_return_val_if_fail (html != NULL, FALSE);
 	g_return_val_if_fail (GTK_IS_HTML (html), FALSE);
 	g_return_val_if_fail (receiver != NULL, FALSE);
 	
-	if (strcmp (type, "text/html") == 0) {
-		return html_engine_save (html->engine, receiver, data);
-	} else if (strcmp (type, "text/plain") == 0) {
+	if (strcmp (content_type, "text/html") == 0) {
+		return html_engine_save (html->engine, receiver, user_data);
+	} else if (strcmp (content_type, "text/plain") == 0) {
 		return html_engine_save_plain (html->engine, receiver,
-					       data);  
+					       user_data);  
 	} else {
 		return FALSE;
 	}
