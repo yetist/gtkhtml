@@ -2,6 +2,7 @@
 
 	* configure.in: add horrible cruft to version translation files.
 	fix cruft a little.
+	(GTKHTML_DATADIR): append version information here.
 
 2002-03-26  Larry Ewing  <lewing@ximian.com>
 
