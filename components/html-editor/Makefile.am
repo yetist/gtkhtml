@@ -154,7 +154,10 @@ libexec_PROGRAMS = $(MY_PRGS)
 serverdir = $(libdir)/bonobo/servers
 server_in_files = GNOME_GtkHTML_Editor.server.in.in
 
-server_DATA = $(server_in_files:.server.in.in=.server)
+server_DATA = $(server_in_files:.server.in.in=-$(EDITOR_API_VERSION).server)
+%-$(EDITOR_API_VERSION).server: %.server
+	mv $< $@
+
 %.server.in: %.server.in.in Makefile
 	sed -e "s|\@GNOME_GTKHTML_EDITOR_LOCATION\@|$(location)|g" \
 	-e "s|\@EDITOR_API_VERSION\@|$(EDITOR_API_VERSION)|g" \
@@ -162,14 +165,12 @@ server_DATA = $(server_in_files:.server.in.in=.server)
 
 @INTLTOOL_SERVER_RULE@
 
-GNOME_GtkHTML_Editor.xml: GNOME_GtkHTML_Editor.xml.in Makefile
-	sed -e 's|\@ICONSDIR\@|$(gtkhtml_data)/icons|g' $< > $@
-
-GNOME_GtkHTML_Editor-emacs.xml: GNOME_GtkHTML_Editor-emacs.xml.in Makefile
-	sed -e 's|\@ICONSDIR\@|$(gtkhtml_data)/icons|g' $< > $@
-
 uidir = $(gtkhtml_data)
-ui_DATA = GNOME_GtkHTML_Editor.xml GNOME_GtkHTML_Editor-emacs.xml
+ui_in_files = GNOME_GtkHTML_Editor.xml.in GNOME_GtkHTML_Editor-emacs.xml.in
+ui_DATA = $(ui_in_files:.xml.in=.xml)
+
+%.xml: %.xml.in
+	sed -e 's|\@ICONSDIR\@|$(gtkhtml_data)/icons|g' $< > $@
 
 # The Test program
 
@@ -188,20 +189,18 @@ EXTRA_DIST =					\
 	$(IDLS)					\
 	$(SPELL_IDLS)				\
 	ChangeLog				\
-	$(ui_DATA)				\
-	GNOME_GtkHTML_Editor.xml.in		\
-	GNOME_GtkHTML_Editor-emacs.xml.in	\
 	gtkhtml-editor-properties.glade		\
-	$(server_in_files) $(server_DATA)
+	$(ui_in_files)				\
+	$(server_in_files)
+
 idldir = $(gtkhtml_data)
 idl_DATA = $(IDLS)
 
 dist-hook:
 	cd $(distdir); rm -f $(BUILT_SOURCES)
 
-BUILT_SOURCES = $(IDL_GENERATED) $(SPELL_IDL_GENERATED) $(server_DATA)
+BUILT_SOURCES = $(IDL_GENERATED) $(SPELL_IDL_GENERATED) $(server_DATA) $(ui_DATA)
 
 CLEANFILES = \
-	GNOME_GtkHTML_Editor.xml		\
-	GNOME_GtkHTML_Editor-emacs.xml		\
 	$(BUILT_SOURCES)
+

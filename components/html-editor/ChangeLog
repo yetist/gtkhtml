@@ -1,3 +1,8 @@
+2003-10-02  Rodney Dawes  <dobey@ximian.com>
+
+	* Makefile.am: Version the server file, Clean up some of the
+	unneeded rules, and condense them, Don't dist generated files
+
 2003-09-23  Ettore Perazzoli  <ettore@ximian.com>
 
 	* editor-control-factory.c (send_event_str): Work around the fact
