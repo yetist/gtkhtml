@@ -117,8 +117,8 @@ gtk_html_class_properties_load (GtkHTMLClassProperties *p)
 	GETS (keybindings_theme, "keybindings_theme=ms");
 	GETS (font_var_family, "font_variable_family=lucida");
 	GETS (font_fix_family, "font_fixed_family=courier");
-	GET  (int, font_var_size, "font_variable_size=8");
-	GET  (int, font_fix_size, "font_fixed_size=8");
+	GET  (int, font_var_size, "font_variable_size=12");
+	GET  (int, font_fix_size, "font_fixed_size=12");
 	gnome_config_pop_prefix ();
 	gnome_config_sync ();
 }

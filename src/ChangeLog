@@ -1,5 +1,8 @@
 2000-08-22  Radek Doulik  <rodo@helixcode.com>
 
+	* gtkhtml-properties.c (gtk_html_class_properties_load): changed
+	gnome-config default font size to 12pt
+
 	* gtkhtml.c (on_object): renamed from on_url
 	(on_object): reset html->pointer_url to NULL and mouse cursor to
 	html->arrow_cursor
