@@ -414,6 +414,7 @@ pop_clueflow_style (HTMLEngine *e)
 
 static void new_flow (HTMLEngine *e, HTMLObject *clue, HTMLObject *first_object, HTMLClearType clear);
 static void close_flow (HTMLEngine *e, HTMLObject *clue);
+static void finish_flow (HTMLEngine *e, HTMLObject *clue);
 
 static HTMLObject *
 text_new (HTMLEngine *e, const gchar *text, GtkHTMLFontStyle style, HTMLColor *color)
@@ -507,8 +508,19 @@ close_anchor (HTMLEngine *e)
 }
 
 static void
-close_flow (HTMLEngine *e,
-	    HTMLObject *clue)
+finish_flow (HTMLEngine *e, HTMLObject *clue) {
+	if (e->flow && HTML_CLUE (e->flow)->tail == NULL) {
+		html_clue_remove (HTML_CLUE (clue), e->flow);
+		html_object_destroy (e->flow);
+		e->flow = NULL;
+		e->pending_para = FALSE;
+	}
+	close_flow (e, clue);
+}
+
+
+static void
+close_flow (HTMLEngine *e, HTMLObject *clue)
 {
 	HTMLObject *last;
 
@@ -911,29 +923,37 @@ parse_body (HTMLEngine *e, HTMLObject *clue, const gchar *end[], gboolean toplev
 		html_engine_stop_parser (e);
 
  end_body:
-	if (final && !toplevel) {
-		gint *old_font_style_attrs;
+	if (final) {
+		if (e->flow && HTML_CLUE (e->flow)->tail == NULL) {
+			html_clue_remove (HTML_CLUE (clue), e->flow);
+			html_object_destroy (e->flow);
+			e->flow = NULL;
+		}
 
-		pop_block (e, ID_BODY, clue);
+		if (!toplevel) {
+			gint *old_font_style_attrs;
+
+			pop_block (e, ID_BODY, clue);
 
 		e->avoid_para = GPOINTER_TO_INT (html_stack_pop (e->body_stack));
 		e->pending_para = GPOINTER_TO_INT (html_stack_pop (e->body_stack));
 
-		old_font_style_attrs = html_stack_pop (e->body_stack);
-		font_style_attr_copy (e->font_style_attrs, old_font_style_attrs);
-		g_free (old_font_style_attrs);
+			old_font_style_attrs = html_stack_pop (e->body_stack);
+			font_style_attr_copy (e->font_style_attrs, old_font_style_attrs);
+			g_free (old_font_style_attrs);
 
-		e->font_style = GPOINTER_TO_INT (html_stack_pop (e->body_stack));
+			e->font_style = GPOINTER_TO_INT (html_stack_pop (e->body_stack));
 
-		html_stack_destroy (e->clueflow_style_stack);
-		html_stack_destroy (e->color_stack);
-		html_stack_destroy (e->font_face_stack);
-		html_stack_destroy (e->font_size_stack);
+			html_stack_destroy (e->clueflow_style_stack);
+			html_stack_destroy (e->color_stack);
+			html_stack_destroy (e->font_face_stack);
+			html_stack_destroy (e->font_size_stack);
 
-		e->font_size_stack = html_stack_pop (e->body_stack);
-		e->color_stack = html_stack_pop (e->body_stack);
-		e->font_face_stack = html_stack_pop (e->body_stack);
-		e->clueflow_style_stack = html_stack_pop (e->body_stack);
+			e->font_size_stack = html_stack_pop (e->body_stack);
+			e->color_stack = html_stack_pop (e->body_stack);
+			e->font_face_stack = html_stack_pop (e->body_stack);
+			e->clueflow_style_stack = html_stack_pop (e->body_stack);
+		}
 	}
 
 	return rv;
@@ -1955,10 +1975,12 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		push_block (e, ID_BLOCKQUOTE, 2, block_end_quote, FALSE, FALSE);
 		e->avoid_para = TRUE;
 		e->pending_para = FALSE;
-		close_flow (e, clue);
+		finish_flow (e, clue);
 	} else if ( strncmp(str, "/blockquote", 11 ) == 0 ) {
 		e->avoid_para = TRUE;
+		finish_flow (e, clue);
 		pop_block (e, ID_BLOCKQUOTE, clue);
+		new_flow (e, clue, NULL, HTML_CLEAR_NONE);
 	} else if (strncmp (str, "body", 4) == 0) {
 		html_string_tokenizer_tokenize (e->st, str + 5, " >");
 		while (html_string_tokenizer_has_more_tokens (e->st)) {
@@ -2676,8 +2698,7 @@ parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		}
 
 		add_pending_paragraph_break (p, clue);
-			
-		close_flow (p, clue);
+		finish_flow (p, clue);
 		
 		if (!html_stack_is_empty (p->listStack)) {
 			HTMLList *list;
@@ -2692,7 +2713,7 @@ parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		html_clue_append (HTML_CLUE (clue), p->flow);
 		p->avoid_para = TRUE;
 	} else if (strncmp (str, "/li", 3) == 0) {
-		close_flow (p, clue);
+		finish_flow (p, clue);
 	}
 }
 
@@ -2784,6 +2805,7 @@ parse_o (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 		HTMLListType listType = HTML_LIST_TYPE_ORDERED_ARABIC;
 
 		close_anchor (e);
+		finish_flow (e, _clue);
 
 		/* FIXME */
 		push_block (e, ID_OL, 2, block_end_list, FALSE, FALSE);
@@ -2803,6 +2825,8 @@ parse_o (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 	}
 	else if ( strncmp( str, "/ol", 3 ) == 0 ) {
 		pop_block (e, ID_OL, _clue);
+		close_flow (e, _clue);
+		new_flow (e, _clue, NULL, HTML_CLEAR_NONE);
 	}
 	else if ( strncmp( str, "option", 6 ) == 0 ) {
 		gchar *value = NULL;
@@ -3090,7 +3114,7 @@ parse_u (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	if (strncmp (str, "ul", 2) == 0) {
 
 		close_anchor (e);
-		close_flow (e, clue);
+		finish_flow (e, clue);
 
 		push_block (e, ID_UL, 2, block_end_list, FALSE, FALSE);
 
@@ -3108,6 +3132,8 @@ parse_u (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		e->avoid_para = TRUE;
 	} else if (strncmp (str, "/ul", 3) == 0) {
 		pop_block (e, ID_UL, clue);
+		close_flow (e, clue);
+		new_flow (e, clue, NULL, HTML_CLEAR_NONE);
 	} else if (strncmp (str, "u", 1) == 0) {
 		if (str[1] == '>' || str[1] == ' ') {
 			add_font_style (e, GTK_HTML_FONT_STYLE_UNDERLINE);
@@ -4011,9 +4037,8 @@ html_engine_timer_event (HTMLEngine *e)
 
 /* This makes sure that the last HTMLClueFlow is non-empty.  */
 static void
-ensure_last_clueflow (HTMLEngine *engine)
+fix_last_clueflow (HTMLEngine *engine)
 {
-	HTMLObject *new_text;
 	HTMLClue *clue;
 	HTMLClue *last_clueflow;
 
@@ -4028,10 +4053,8 @@ ensure_last_clueflow (HTMLEngine *engine)
 	if (last_clueflow->tail != NULL)
 		return;
 
-	new_text = text_new (engine, "", GTK_HTML_FONT_STYLE_DEFAULT,
-			     html_colorset_get_color (engine->settings->color_set, HTMLTextColor));
-	html_text_set_font_face (HTML_TEXT (new_text), current_font_face (engine));
-	html_clue_prepend (last_clueflow, new_text);
+	html_clue_remove (HTML_CLUE (clue), HTML_OBJECT (last_clueflow));
+	engine->flow = NULL;
 }
 
 static void
@@ -4059,7 +4082,7 @@ html_engine_stream_end (GtkHTMLStream *stream,
 		e->timerId = 0;
 	}
 
-	ensure_last_clueflow (e);
+	fix_last_clueflow (e);
 	html_engine_class_data_clear (e);
 	
 	if (e->editable) {

@@ -1,3 +1,23 @@
+2002-10-17  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine.c: set pending_para to FALSE
+	call close_flow as well
+	(parse_o): use finish_flow in <ol>
+	(parse_u): use finish_flow in <ul>
+
+2002-10-16  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine.c (parse_b): use finish_flow instead of close_flow to
+	avoid unwanted empty flows
+
+2002-10-11  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine.c (fix_last_clueflow): renamed from
+	ensure_last_clueflow, discard last flow if empty
+	(parse_u): close flow and add new empty one on </ul>
+	(parse_o): as above for </ol>
+	(parse_body): discard last flow if empty
+
 2002-10-16  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine.c parse_table: make the parser create a new row if
