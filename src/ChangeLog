@@ -1,3 +1,7 @@
+2003-09-03  Dan Winship  <danw@ximian.com>
+
+	* Makefile.am (testgtkhtml_LDFLAGS): Remove -static again
+
 2003-09-02  Maxx Cao  <maxx.cao@sun.com>
 	* gtkhtml.c (focus): reset selection when focus moved
 	(move_selection):  add consideration for caret mode
@@ -9,7 +13,7 @@
 	* htmlselection.c (remove_mark): consider caret mode
 
 2003-09-01  Yuedong Du  <yuedong.du@sun.com>
-                                                                                
+
         * htmlobject.c: (destroy), (copy), (html_object_init),
         (html_object_get_index), (html_object_set_data_nocp),
         (html_object_set_data_full_nocp), (html_object_get_data_nocp): add
