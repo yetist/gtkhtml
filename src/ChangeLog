@@ -1,4 +1,12 @@
-2000-06-04  Radek Doulik  <rodo@helixcode.com>
+2000-06-03  Ariel Rios  <ariel@arcavia.com>
+
+	* htmlengine-edit-table.c: New file needed to add table editing capabilities.
+	(html_engine_insert_table): Creates a new table and paste it.	
+	(html_engine_insert_table): Creates and returns a new cell.
+	
+	* htmlengine-edit-table.h: Ditto.
+
+2000-06-04  Radek Doulik  <rodo@heltixcode.com>
 
 	* htmlengine-edit-insert.c (html_engine_insert): use magic links
 	when inserting ' ' or '\n'
