@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 2.10\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-07 17:25+0100\n"
-"PO-Revision-Date: 2005-01-27 01:15+0000\n"
+"POT-Creation-Date: 2005-02-18 00:50+0000\n"
+"PO-Revision-Date: 2005-02-18 00:50+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -930,9 +930,8 @@ msgid "Background Image"
 msgstr "Imagem de Fundo"
 
 #: components/html-editor/body.c:298
-#, fuzzy
 msgid "Background Image File Path"
-msgstr "Imagem de Fundo"
+msgstr "Caminho do Ficheiro de Imagem de Fundo"
 
 #: components/html-editor/body.c:301
 #: components/html-editor/gtkhtml-editor-properties.glade.h:71
@@ -975,9 +974,8 @@ msgid "Page"
 msgstr "Página"
 
 #: components/html-editor/gi-color-combo.c:187
-#, fuzzy
 msgid "color preview"
-msgstr "Antever a impressão"
+msgstr "antevisão de cor"
 
 #. This is the default custom color
 #: components/html-editor/gi-color-palette.c:395
@@ -1181,7 +1179,7 @@ msgstr "azul céu"
 #. set the a11y name
 #: components/html-editor/gi-combo-box.c:419
 msgid "Popup"
-msgstr ""
+msgstr "Popup"
 
 #: components/html-editor/gnome-gtkhtml-editor.c:68
 msgid "GtkHTML Editor Control"
@@ -1446,14 +1444,12 @@ msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
 #: components/html-editor/link.c:194
-#, fuzzy
 msgid "URL:"
-msgstr "_URL:"
+msgstr "URL:"
 
 #: components/html-editor/link.c:198
-#, fuzzy
 msgid "Description:"
-msgstr "_Descrição:"
+msgstr "Descrição:"
 
 #: components/html-editor/menubar.c:96 components/html-editor/menubar.c:104
 msgid "Insert image"
@@ -1662,14 +1658,12 @@ msgid "Case _sensitive"
 msgstr "_Sensível à capitalização"
 
 #: components/html-editor/replace.c:182
-#, fuzzy
 msgid "R_eplace:"
-msgstr "Substituir:"
+msgstr "S_ubstituir:"
 
 #: components/html-editor/replace.c:186
-#, fuzzy
 msgid "_With:"
-msgstr "_Largura:"
+msgstr "_Por:"
 
 #: components/html-editor/search.c:112
 msgid "_Backward"
@@ -1681,7 +1675,7 @@ msgstr "Expressão _Regular"
 
 #: components/html-editor/search.c:118
 msgid "Input the words you want to search here"
-msgstr ""
+msgstr "Introduza aqui as palavras que deseja procurar"
 
 #: components/html-editor/spellchecker.c:110
 msgid ""
