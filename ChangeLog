@@ -1,3 +1,8 @@
+2003-09-19  Radek Doulik  <rodo@ximian.com>
+
+	* configure.in: incremented GTKHTML_CURRENT as GtkHTML struct
+	changed
+
 2003-09-17  Dan Winship  <danw@ximian.com>
 
 	* configure.in: Check for libsoup-2.2 first, and then soup-2.0 if
