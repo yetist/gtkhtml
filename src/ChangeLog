@@ -1,3 +1,16 @@
+2000-04-26  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlengine-edit-paste.c (skip): removed
+	(obj_len): new function, returns 1 for non-text, text_len else
+	(append_object): don't use skip, keep cursor consistent
+	(prepend_object): likewise
+	(do_paste): keep cursor consistent, don't use skip, also merge
+	objects copied from ClueFlows
+	(do_undo): use backward arg of html_engine_delete instead of
+	calling html_engine_move_cursor
+	hack around html_engine_delete bug - loop buffer_count times and
+	remove one char each time - hopefully I correct it
+
 2000-04-25  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlengine-edit-insert.c (html_engine_insert_link): new function
