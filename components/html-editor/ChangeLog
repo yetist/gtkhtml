@@ -1,3 +1,12 @@
+2002-09-25  Larry Ewing  <lewing@ximian.com>
+
+	* GNOME_GtkHTML_Editor.xml.in: fix accelerator for Quotation
+	pasting.
+
+	* popup.c (prepare_properties_and_menu): fix the cut/copy/paste
+	items to use the CLIPBOARD selection and make them show up all the
+	time (use sensitivity if the selection is not active).
+
 2002-09-16  Radek Doulik  <rodo@ximian.com>
 
 	* popup.c (prepare_properties_and_menu): check if selection

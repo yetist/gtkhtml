@@ -7,7 +7,7 @@
 			<cmd name="EditCut" _label="Cu_t" _tip="Cut the selection"/>
 			<cmd name="EditCopy" _label="_Copy" _tip="Copy the selection"/>
 			<cmd name="EditPaste" _label="_Paste" _tip="Paste the clipboard"/>
-			<cmd name="EditPasteQuotation" _label="_Paste Quotation" _tip="Paste the clipboard as a quotation"/>
+			<cmd name="EditPasteQuotation" _label="Paste _Quotation" _tip="Paste the clipboard as a quotation"/>
 
 			<cmd name="EditFind" _label="_Find..." _tip="Find"/>
 			<cmd name="EditFindRegex" _label="Find Regular E_xpression..." _tip="Find A Regular Expression"/>
