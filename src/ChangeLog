@@ -1,5 +1,17 @@
 2000-01-02  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlengine-edit.c (html_engine_delete): Rewritten in a saner
+	way.
+	(delete_same_parent): Helper function for `html_engine_delete'.
+	(delete_different_parent): Helper function for
+	`html_engine_delete'.
+
+	* htmldrawqueue.c (draw_obj): Renamed `x', `y', `width', `height'
+	to `x1',`y1', `x2', `y2' so that the names make sense.  Also, clip
+	the painting region.
+
+2000-01-02  Ettore Perazzoli  <ettore@helixcode.com>
+
 	* htmlengine.c (parse_l): Do not use `indentSize' anymore -- just
 	use `listLevel'.
 

@@ -84,7 +84,7 @@ draw_obj (HTMLDrawQueue *queue,
 {
 	HTMLEngine *e;
 	HTMLObject *o;
-	gint x, y, width, height;
+	gint x1, y1, x2, y2;
 	gint tx, ty;
 
 	e = queue->engine;
@@ -102,18 +102,30 @@ draw_obj (HTMLDrawQueue *queue,
 	/* Then prepare for drawing.  We will only update this object, so we
            only allocate enough size for it.  */
 
-	x = obj->x + tx;
-	y = obj->y - obj->ascent + ty;
-	width = obj->x + obj->width + tx;
-	height = obj->y + obj->descent + ty;
+	x1 = obj->x + tx;
+	y1 = obj->y - obj->ascent + ty;
+	x2 = obj->x + obj->width + tx;
+	y2 = obj->y + obj->descent + ty;
 
-	html_painter_begin (e->painter, x, y, width, height);
+	if (x2 < 0 || y2 < 0 || x1 > e->width || y1 > e->height)
+		return;
+
+	if (x1 < 0)
+		x1 = 0;
+	if (y1 < 0)
+		y1 = 0;
+	if (x2 > e->width)
+		x2 = e->width;
+	if (y2 > e->height)
+		y2 = e->height;
+
+	html_painter_begin (e->painter, x1, y1, x2, y2);
 
 	/* FIXME we are duplicating code from HTMLEngine here.  Instead, there
            should be a function in HTMLEngine to paint stuff.  */
 
 	html_painter_set_pen (e->painter, &e->bgColor);
-	html_painter_fill_rect (e->painter, x, y, width, height);
+	html_painter_fill_rect (e->painter, x1, y1, x2, y2);
 
 	/* Draw the actual object.  */
 

@@ -1,7 +1,7 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*  This file is part of the GtkHTML library.
 
-    Copyright (C) 1999 Helix Code, Inc.
+    Copyright (C) 1999, 2000 Helix Code, Inc.
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Library General Public
@@ -204,7 +204,6 @@ html_engine_insert_para (HTMLEngine *e,
 }
 
 
-
 /* FIXME This should actually do a lot more.  */
 void
 html_engine_insert (HTMLEngine *e,
@@ -232,83 +231,133 @@ html_engine_insert (HTMLEngine *e,
 			       e->cursor->offset, text, len);
 }
 
-/* FIXME This should actually do a lot more.  */
+
+static void
+delete_same_parent (HTMLEngine *e,
+		    HTMLObject *start_object)
+{
+	HTMLObject *p, *pnext;
+
+	for (p = start_object; p != e->cursor->object; p = pnext) {
+		pnext = p->next;
+
+		html_clue_remove (HTML_CLUE (p->parent), p);
+		html_object_destroy (p);
+	}
+
+	html_object_relayout (start_object->parent, e, start_object);
+}
+
+static void
+delete_different_parent (HTMLEngine *e,
+			 HTMLObject *start_object)
+{
+	HTMLObject *p, *pnext;
+	HTMLObject *start_parent;
+	HTMLObject *end_parent;
+
+	start_parent = start_object->parent;
+	end_parent = e->cursor->object->parent;
+
+	for (p = start_object; p != NULL; p = pnext) {
+		pnext = p->next;
+
+		html_clue_remove (HTML_CLUE (start_parent), p);
+		html_object_destroy (p);
+	}
+
+	for (p = e->cursor->object; p != NULL; p = pnext) {
+		pnext = p->next;
+
+		html_clue_remove (HTML_CLUE (end_parent), p);
+		html_clue_append (HTML_CLUE (start_parent), p);
+	}
+
+	p = start_parent->next;
+	while (1) {
+		pnext = p->next;
+
+		if (p->parent != NULL)
+			html_clue_remove (HTML_CLUE (p->parent), p);
+		html_object_destroy (p);
+		if (p == end_parent)
+			break;
+
+		p = pnext;
+	}
+
+	html_object_relayout (start_parent->parent, e, start_parent);
+}
+
 void
 html_engine_delete (HTMLEngine *e,
 		    guint count)
 {
-	HTMLObject *current_object;
-	HTMLObject *parent;
-	HTMLObject *next;
-	HTMLType type;
+	HTMLObject *orig_object;
+	HTMLObject *prev;
+	HTMLObject *curr;
+	guint orig_offset;
+	guint prev_offset;
 
-	g_return_if_fail (e != NULL);
-	g_return_if_fail (HTML_IS_ENGINE (e));
+	queue_draw_for_cursor (e);
 
-	current_object = e->cursor->object;
+	orig_object = e->cursor->object;
+	orig_offset = e->cursor->offset;
+
+	if (orig_object->parent == NULL || orig_object->parent == NULL)
+		return;
+
+	if (html_object_is_text (orig_object))
+		count -= html_text_remove_text (HTML_TEXT (orig_object), e,
+						e->cursor->offset, count);
+
+	/* If the text object has become empty, then itself needs to be
+           destroyed.  */
+
+	if (HTML_TEXT (orig_object)->text[0] == '\0')
+		count++;
+
+	if (count == 0)
+		return;
+
+	/* Look for the end point.  We want to delete `count'
+           characters/elements from the current position.  While moving
+           forward, we must check that: (1) all the elements are children of
+           HTMLClueFlow and (2) the parent HTMLClueFlow is always child of the
+           same clue.  */
 
 	while (count > 0) {
+		prev = e->cursor->object;
+		prev_offset = e->cursor->offset;
 
-		/* Check the parent.  */
+		html_cursor_forward (e->cursor, e);
 
-		parent = current_object->parent;
-		if (parent == NULL) {
-			g_warning ("Cannot delete in object %p that has no parent.",
-				   current_object);
+		curr = e->cursor->object;
+
+		if (curr->parent == NULL
+		    || curr->parent->parent != prev->parent->parent
+		    || HTML_OBJECT_TYPE (curr->parent) != HTML_TYPE_CLUEFLOW) {
+			e->cursor->object = prev;
+			e->cursor->offset = prev_offset;
 			break;
 		}
-		if (HTML_OBJECT_TYPE (parent) != HTML_TYPE_CLUEFLOW) {
-			g_warning ("Cannot delete in object %p whose parent is a %s.",
-				   current_object,
-				   html_type_name (HTML_OBJECT_TYPE (current_object)));
-			break;
-		}
 
-		if (html_object_is_text (current_object)) {
-			count -= html_text_remove_text (HTML_TEXT (current_object), e,
-							e->cursor->offset, count);
-			continue;
-		}
+		/* The rule is special, as it is always alone in a line.  */
 
-		/* Not a text object: it must be deleted completely.  */
-
-		e->cursor->offset = 0;
-
-		next = current_object->next;
-		type = HTML_OBJECT_TYPE (current_object);
-
-		html_clue_remove (HTML_CLUE (current_object->parent),
-				  current_object);
-		html_object_destroy (current_object);
-
-		/* FIXME optimize?  */
-		html_object_relayout (parent, e, next);
-
-		if (type == HTML_TYPE_HSPACE && next == NULL) {
-			HTMLObject *next_para;
-
-			/* This is the trailing hspace for the paragraph: we
-                           have to merge this with the following paragraph.  */
-
-			next_para = parent->next;
-			if (next_para == NULL
-			    || HTML_OBJECT_TYPE (next_para) != HTML_TYPE_CLUEFLOW)
-				break;
-			if (next_para->parent == NULL)
-				break;
-
-			next = HTML_CLUE (next_para)->head;
-			html_clue_append (HTML_CLUE (parent), HTML_CLUE (next_para)->head);
-
-			html_clue_remove (HTML_CLUE (next_para->parent), next_para);
-			HTML_CLUE (next_para)->head = NULL;
-			html_object_destroy (next_para);
-		}
-
-		count--;
-
-		current_object = next;
+		if (HTML_OBJECT_TYPE (curr) != HTML_TYPE_RULE)
+			count--;
 	}
 
-	e->cursor->object = current_object;
+	if (e->cursor->offset > 1 && html_object_is_text (e->cursor->object))
+		html_text_remove_text (HTML_TEXT (e->cursor->object), e,
+				       0, e->cursor->offset - 1);
+
+	e->cursor->offset = 0;
+
+	if (curr->parent == orig_object->parent)
+		delete_same_parent (e, orig_object);
+	else
+		delete_different_parent (e, orig_object);
+
+	queue_draw_for_cursor (e);
 }
