@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.HEAD.be\n"
-"POT-Creation-Date: 2003-12-07 14:35-0600\n"
+"POT-Creation-Date: 2003-12-29 11:44-0500\n"
 "PO-Revision-Date: 2003-06-16 23:02+0300\n"
 "Last-Translator: Vital Khilko <dojlid@mova.org>\n"
 "Language-Team: Belarusian <i18n@mova.org>\n"
@@ -150,6 +150,800 @@ msgstr ""
 "Немагчыма выканаць аплет кіраваньня праверкай правапіса\n"
 "для GNOME. Паспрабуйце усталяваць \"GNOME Spell\"."
 
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:1
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
+#: components/html-editor/gtkhtml-editor-properties.glade.h:4
+msgid "+0"
+msgstr "+0"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:2
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:2
+#: components/html-editor/gtkhtml-editor-properties.glade.h:5
+msgid "+1"
+msgstr "+1"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:3
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:3
+#: components/html-editor/gtkhtml-editor-properties.glade.h:6
+msgid "+2"
+msgstr "+2"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:4
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:4
+#: components/html-editor/gtkhtml-editor-properties.glade.h:7
+msgid "+3"
+msgstr "+3"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:5
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:5
+#: components/html-editor/gtkhtml-editor-properties.glade.h:9
+msgid "-1"
+msgstr "-1"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:6
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:6
+#: components/html-editor/gtkhtml-editor-properties.glade.h:10
+msgid "-2"
+msgstr "-2"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:7
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:7
+msgid "A_ddress"
+msgstr "_Адрэса"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:8
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:8
+#: components/html-editor/toolbar.c:53
+msgid "Alphabetical List"
+msgstr "Сьпіс па альфабэце"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:9
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:9
+msgid "Background Color"
+msgstr "Колер тла"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:10
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:10
+msgid "Blue"
+msgstr "Сіні"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:11
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:11
+#: components/html-editor/toolbar.c:50
+msgid "Bulleted List"
+msgstr "Сьпіс з пунктаў"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:12
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
+#: components/html-editor/toolbar.c:511
+msgid "Center justifies the paragraphs"
+msgstr "Параўнаны па цэнтары абзац"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:13
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:13
+msgid "Check spelling of the document"
+msgstr "Праверыць правапіс дакумэнта"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:14
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:14
+msgid "Copy"
+msgstr "Капіяваць"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:15
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:15
+msgid "Copy selection to clipboard"
+msgstr "Капіяваць вылучанае ў буфэр абмену"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:16
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:16
+msgid "Copy the selection"
+msgstr "Капіяваць вылучанае"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:17
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:17
+msgid "Cr_ying"
+msgstr "П_лаксівасьць"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:18
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:18
+msgid "Cu_t"
+msgstr "_Выразаць"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:19
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:19
+msgid "Cut"
+msgstr "Выразаць"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:20
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:20
+msgid "Cut selection to clipboard"
+msgstr "Выразаць вылучанае ў буфэр абмену"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:21
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:21
+msgid "Cut the selection"
+msgstr "Выразаць вылучанае"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
+#: components/html-editor/search.c:77 components/html-editor/search.c:129
+msgid "Find"
+msgstr "Шукаць"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:23
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:23
+msgid "Find A Regular Expression"
+msgstr "Шукаць сталы выраз"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:24
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:24
+msgid "Find And Replace"
+msgstr "Адшукаць і замяніць"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:25
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:25
+msgid "Find Regular E_xpression..."
+msgstr "Шукаць сталы _выраз..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:26
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:26
+msgid "Find _Again"
+msgstr "Шукаць далей"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:27
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:27
+msgid "Find again"
+msgstr "Шукаць далей"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:28
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:28
+msgid "Find and Replace"
+msgstr "Адшукаць і замяніць"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:29
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:29
+msgid "For_mat"
+msgstr "_Фармат"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:30
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:30
+msgid "Green"
+msgstr "Зялёны"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:31
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:31
+msgid "Header _1"
+msgstr "Загаловак _1"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:32
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:32
+msgid "Header _2"
+msgstr "Загаловак _2"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:33
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:33
+msgid "Header _3"
+msgstr "Загаловак _3"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:34
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:34
+msgid "Header _4"
+msgstr "Загаловак _4"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:35
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
+msgid "Header _5"
+msgstr "Загаловак _5"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:36
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
+msgid "Header _6"
+msgstr "Загаловак _6"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:37
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
+#: components/html-editor/editor-control-factory.c:189
+#: components/html-editor/gtkhtml-editor-properties.glade.h:39
+#: components/html-editor/menubar.c:91 components/html-editor/popup.c:209
+msgid "Image"
+msgstr "Відарыс"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:38
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
+msgid "Insert Crying smiley into document..."
+msgstr "Уставіць смайлік плаксівасьці ў дакумэнт..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:39
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
+msgid "Insert Frown smiley into document..."
+msgstr "Уставіць смайлік хмурнасьці ў дакумэнт..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:40
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:40
+msgid "Insert HTML file into document..."
+msgstr "Уставіць файл HTML у дакумэнт..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:41
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
+msgid "Insert HTML link into document..."
+msgstr "Уставіць спасылку HTML у дакумэнт..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:42
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
+msgid "Insert HTML template into document..."
+msgstr "Уставіць узор HTML у дакумэнт..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:43
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
+msgid "Insert Indifferent smiley into document..."
+msgstr "Уставіць смайлік раўнадушша ў дакумэнт..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:44
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
+msgid "Insert Laughing smiley into document..."
+msgstr "Уставіць смайлік весялосьці ў дакумэнт..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:45
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
+msgid "Insert Lick smiley into document..."
+msgstr "Уставіць смайлік \"язык\" ў дакумэнт..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:46
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
+msgid "Insert Oh no! smiley into document..."
+msgstr "Уставіць смайлік \"О-о не!\" ў дакумэнт..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:47
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
+msgid "Insert Smile smiley into document..."
+msgstr "Уставіць смайлік улыбкі ў дакумэнт..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:48
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
+msgid "Insert Surprised smiley into document..."
+msgstr "Уставіць смайлік зьдзіўленьня ў дакумэнт..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:49
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
+msgid "Insert Undecided smiley into document..."
+msgstr "Уставіць смайлік нявызначанасьці ў дакумэнт..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:50
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
+msgid "Insert Wink smiley into document..."
+msgstr "Уставіць смайлік падмігваньня ў дакумэнт..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:51
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:52
+msgid "Insert image into document..."
+msgstr "Уставіць відарыс у дакумэнт..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:52
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:53
+msgid "Insert rule into document..."
+msgstr "Уставіць правіла ў дакумэнт..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:53
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
+msgid "Insert table into document..."
+msgstr "Уставіць табліцу у дакумэнт..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:54
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
+msgid "Insert text file into document..."
+msgstr "Уставіць тэкставы файл у дакумэнт..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
+#: components/html-editor/toolbar.c:509
+msgid "Left justifies the paragraphs"
+msgstr "Абзац параўнаны па левым баку"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:56
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
+msgid "Li_ck"
+msgstr "_Язык"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:57
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:58
+#: components/html-editor/body.c:368 components/html-editor/menubar.c:107
+#: components/html-editor/popup.c:106 components/html-editor/popup.c:202
+#: components/html-editor/popup.c:275
+msgid "Link"
+msgstr "Спасылка"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:58
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
+msgid "Make the current Paragraph style Normal"
+msgstr "Зрабіць стыль бягучага абзаца звычайным"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:59
+#, fuzzy
+msgid "Make the current Paragraph style Preformat"
+msgstr "Зрабіць стыль бягучага абзаца папярэдне фарматаваным"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:60
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
+msgid "Make the current paragraph a bulleted list"
+msgstr "Зрабіць бягучы абзац сьпісам з пунктамі"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:61
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
+msgid "Make the current paragraph a list with roman numerals"
+msgstr "Зрабіць бягучы абзац сьпісам з рымскім нумараваньнем"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:62
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:63
+msgid "Make the current paragraph a numbered list"
+msgstr "Зрабіць бягучы абзац нумараваным сьпісам"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:63
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:64
+msgid "Make the current paragraph an H1 header"
+msgstr "Зрабіць бягучы абзац загалоўкам H1"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:64
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:65
+msgid "Make the current paragraph an H2 header"
+msgstr "Зрабіць бягучы абзац загалоўкам H2"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:65
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:66
+msgid "Make the current paragraph an H3 header"
+msgstr "Зрабіць бягучы абзац загалоўкам H3"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:66
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:67
+msgid "Make the current paragraph an H4 header"
+msgstr "Зрабіць бягучы абзац загалоўкам H4"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:67
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:68
+msgid "Make the current paragraph an H5 header"
+msgstr "Зрабіць бягучы абзац загалоўкам H5"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:68
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:69
+msgid "Make the current paragraph an H6 header"
+msgstr "Зрабіць бягучы абзац загалоўкам H6"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:69
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:70
+msgid "Make the current paragraph an address"
+msgstr "Зрабіць бягучы абзац адрэсай"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:70
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
+msgid "Make the current paragraph an alphabetical list"
+msgstr "Зрабіць бягучы абзац сьпісам па альфабэце"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:71
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
+#: components/html-editor/gtkhtml-editor-properties.glade.h:49
+#: components/html-editor/paragraph.c:131 components/html-editor/toolbar.c:48
+msgid "Normal"
+msgstr "Нармальны"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:72
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
+#: components/html-editor/toolbar.c:51
+msgid "Numbered List"
+msgstr "Нумараваны сьпіс"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:73
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
+msgid "Numbered _List"
+msgstr "_Нумараваны сьпіс"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:74
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:75
+msgid "Oh _no!"
+msgstr "О-о _не!"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:75
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
+msgid "Orange"
+msgstr "Цытрынавы"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:76
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
+msgid "Other..."
+msgstr "Іншае..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:77
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
+msgid "Paste"
+msgstr "Уставіць"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:78
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
+msgid "Paste _Quotation"
+msgstr "Уставіць _цытаваньне"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:79
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
+msgid "Paste from clipboard"
+msgstr "Уставіць з буфэра абмену"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:80
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
+msgid "Paste the clipboard"
+msgstr "Уставіць з буфэра абмену"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:81
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
+msgid "Paste the clipboard as a quotation"
+msgstr "Уставіць з буфэра абмену як цытаваньне"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:82
+#: components/html-editor/toolbar.c:49
+msgid "Preformat"
+msgstr "Папярэднефарматаваны"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:83
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
+msgid "Purple"
+msgstr "Пурпурны"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:84
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
+msgid "Red"
+msgstr "Чырвоны"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:85
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
+msgid "Redo"
+msgstr "Вяртаньне"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
+msgid "Redo previously undone change"
+msgstr "Адмяніць папярэднія незавершаныя зьмены"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:87
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
+msgid "Redo the undone action"
+msgstr "Аднавіць апошні крок"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:88
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
+#: components/html-editor/replace.c:157 components/html-editor/replace.c:219
+msgid "Replace"
+msgstr "Замяніць"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:89
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
+#: components/html-editor/toolbar.c:513
+msgid "Right justifies the paragraphs"
+msgstr "Абзац раўнаны па праваму баку"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:90
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
+msgid "Roman Numeral List"
+msgstr "Сьпіс з рымскім нумараваньнем"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:91
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
+#: components/html-editor/editor-control-factory.c:209
+#: components/html-editor/gtkhtml-editor-properties.glade.h:63
+#: components/html-editor/menubar.c:125 components/html-editor/popup.c:230
+msgid "Rule"
+msgstr "Правіла"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:92
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
+msgid "Select _All"
+msgstr "Вылучыць _усе"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:93
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
+msgid "Select the entire contents of the document"
+msgstr "Выбар ўвсяго зьместу дакумэнта"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:94
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
+#: components/html-editor/gtkhtml-editor-properties.glade.h:69
+#: components/html-editor/text.c:239 components/html-editor/toolbar.c:528
+msgid "Strikeout"
+msgstr "Перакрэсьленьне"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:95
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
+msgid "Su_perscript"
+msgstr "_Верхні індэкс"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:96
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
+msgid "Su_rprised"
+msgstr "Зьдзіўленьне"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:97
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
+msgid "Subs_cript"
+msgstr "_Ніжні індэкс"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
+msgid "Subscript"
+msgstr "Ніжні індэкс"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:99
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
+msgid "Superscript"
+msgstr "Верхні індэкс"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:100
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
+#: components/html-editor/gtkhtml-editor-properties.glade.h:72
+#: components/html-editor/menubar.c:142 components/html-editor/popup.c:237
+#: components/html-editor/popup.c:518 components/html-editor/popup.c:527
+msgid "Table"
+msgstr "Табліца"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:101
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
+msgid "Te_mplate..."
+msgstr "_Узор..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:102
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
+msgid "Te_xt file..."
+msgstr "_Тэкставы файл..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:103
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
+#: components/html-editor/body.c:298
+#: components/html-editor/gtkhtml-editor-properties.glade.h:74
+#: components/html-editor/menubar.c:165
+msgid "Template"
+msgstr "Узор"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:104
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
+#: components/html-editor/toolbar.c:520
+msgid "Typewriter"
+msgstr "Набор"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:105
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
+msgid "Undo"
+msgstr "Адкаціць"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:106
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
+msgid "Undo previous changes"
+msgstr "Адмяніць папярэднія зьмены"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:107
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
+msgid "Undo the last action"
+msgstr "Адкаціцца на адзін крок"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:108
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
+msgid "Yellow"
+msgstr "Жоўты"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:109
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
+msgid "_Alignment"
+msgstr "_Раўнаньне"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
+msgid "_Alphabetical List"
+msgstr "_Сьпіс па альфабэце"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:111
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
+msgid "_Bold"
+msgstr "_Тлусты"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:112
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
+msgid "_Bulleted List"
+msgstr "_Сьпіс з пунктаў"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:113
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
+msgid "_Center"
+msgstr "_Цэнтар"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:114
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
+msgid "_Copy"
+msgstr "_Капіяваць"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:115
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
+msgid "_Decrease Indent"
+msgstr "Па_меншыць водступ"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:116
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
+msgid "_Edit"
+msgstr "_Рэдагаваньне"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:117
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
+msgid "_Find..."
+msgstr "_Пошук..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:118
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
+msgid "_Font Size"
+msgstr "Памер _шрыфта"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:119
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
+msgid "_Frown"
+msgstr "_Хмуры"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:120
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
+msgid "_HTML file..."
+msgstr "Файл _HTML"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:121
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
+msgid "_Heading"
+msgstr "_Загаловак"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:122
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
+msgid "_Image..."
+msgstr "_Відарыс..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:123
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
+msgid "_Increase Indent"
+msgstr "Па_вялічыць водступ"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
+msgid "_Indifferent"
+msgstr "_Раўнадушша"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:125
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:127
+msgid "_Insert"
+msgstr "_Уставіць"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:126
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:128
+msgid "_Italic"
+msgstr "_Нахілены"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:127
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
+msgid "_Laughing"
+msgstr "_Весялосьць"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:128
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
+msgid "_Left"
+msgstr "_Лева"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:129
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
+msgid "_Link..."
+msgstr "_Спасылка..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:130
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
+msgid "_Normal"
+msgstr "_Нармальны"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:131
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:133
+msgid "_Page..."
+msgstr "_Старонка..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:132
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:134
+msgid "_Paragraph..."
+msgstr "_Абзац..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:133
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
+msgid "_Paste"
+msgstr "_Уставіць"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:134
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
+msgid "_Plain text"
+msgstr "_Звычайны тэкст"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:135
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
+msgid "_Preformat"
+msgstr "_Папярэднефарматаваны"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:136
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
+msgid "_Redo"
+msgstr "_Вяртаньне"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:137
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:139
+msgid "_Replace..."
+msgstr "За_мяніць..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:138
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:140
+msgid "_Right"
+msgstr "_Права"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:139
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:141
+msgid "_Roman Numeral List"
+msgstr "_Сьпіс з рымскім нумараваньнем"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:140
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:142
+msgid "_Rule..."
+msgstr "_Правіла..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:141
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:143
+msgid "_Smile"
+msgstr "_Усьмешка"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:142
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:144
+msgid "_Smiley"
+msgstr "_Усьмешкі"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:143
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:145
+msgid "_Spell Check Document..."
+msgstr "_Праверка правапіса дакумэнта..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:144
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:146
+msgid "_Strikeout"
+msgstr "_Перакрэсьленьне"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:145
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:147
+msgid "_Style"
+msgstr "_Стыль"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:146
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:148
+msgid "_Table..."
+msgstr "_Табліца..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:147
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:149
+msgid "_Text..."
+msgstr "_Тэкст..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:148
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:150
+msgid "_Undecided"
+msgstr "_Нявызначанасьць"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:149
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:151
+msgid "_Underline"
+msgstr "_Падкрэсьленьне"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:150
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:152
+msgid "_Undo"
+msgstr "_Адкаціць"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:151
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:153
+msgid "_Wink"
+msgstr "_Падмігваньне"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:152
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:155
+msgid "etc..."
+msgstr "г.д."
+
 #: components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:1
 msgid "GNOME HTML Editor"
 msgstr "Рэдактар HTML для GNOME"
@@ -162,355 +956,15 @@ msgstr "Кіраваньне рэдактара HTML для GNOME"
 msgid "GNOME HTML Editor Factory"
 msgstr "Вытворчасьць рэдактара HTML для GNOME"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
-#: components/html-editor/gtkhtml-editor-properties.glade.h:4
-msgid "+0"
-msgstr "+0"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:2
-#: components/html-editor/gtkhtml-editor-properties.glade.h:5
-msgid "+1"
-msgstr "+1"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:3
-#: components/html-editor/gtkhtml-editor-properties.glade.h:6
-msgid "+2"
-msgstr "+2"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:4
-#: components/html-editor/gtkhtml-editor-properties.glade.h:7
-msgid "+3"
-msgstr "+3"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:5
-#: components/html-editor/gtkhtml-editor-properties.glade.h:9
-msgid "-1"
-msgstr "-1"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:6
-#: components/html-editor/gtkhtml-editor-properties.glade.h:10
-msgid "-2"
-msgstr "-2"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:7
-msgid "A_ddress"
-msgstr "_Адрэса"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:8
-#: components/html-editor/toolbar.c:53
-msgid "Alphabetical List"
-msgstr "Сьпіс па альфабэце"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:9
-msgid "Background Color"
-msgstr "Колер тла"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:10
-msgid "Blue"
-msgstr "Сіні"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:11
-#: components/html-editor/toolbar.c:50
-msgid "Bulleted List"
-msgstr "Сьпіс з пунктаў"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
-#: components/html-editor/toolbar.c:511
-msgid "Center justifies the paragraphs"
-msgstr "Параўнаны па цэнтары абзац"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:13
-msgid "Check spelling of the document"
-msgstr "Праверыць правапіс дакумэнта"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:14
-msgid "Copy"
-msgstr "Капіяваць"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:15
-msgid "Copy selection to clipboard"
-msgstr "Капіяваць вылучанае ў буфэр абмену"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:16
-msgid "Copy the selection"
-msgstr "Капіяваць вылучанае"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:17
-msgid "Cr_ying"
-msgstr "П_лаксівасьць"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:18
-msgid "Cu_t"
-msgstr "_Выразаць"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:19
-msgid "Cut"
-msgstr "Выразаць"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:20
-msgid "Cut selection to clipboard"
-msgstr "Выразаць вылучанае ў буфэр абмену"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:21
-msgid "Cut the selection"
-msgstr "Выразаць вылучанае"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
-#: components/html-editor/search.c:77 components/html-editor/search.c:129
-msgid "Find"
-msgstr "Шукаць"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:23
-msgid "Find A Regular Expression"
-msgstr "Шукаць сталы выраз"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:24
-msgid "Find And Replace"
-msgstr "Адшукаць і замяніць"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:25
-msgid "Find Regular E_xpression..."
-msgstr "Шукаць сталы _выраз..."
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:26
-msgid "Find _Again"
-msgstr "Шукаць далей"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:27
-msgid "Find again"
-msgstr "Шукаць далей"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:28
-msgid "Find and Replace"
-msgstr "Адшукаць і замяніць"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:29
-msgid "For_mat"
-msgstr "_Фармат"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:30
-msgid "Green"
-msgstr "Зялёны"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:31
-msgid "Header _1"
-msgstr "Загаловак _1"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:32
-msgid "Header _2"
-msgstr "Загаловак _2"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:33
-msgid "Header _3"
-msgstr "Загаловак _3"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:34
-msgid "Header _4"
-msgstr "Загаловак _4"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
-msgid "Header _5"
-msgstr "Загаловак _5"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
-msgid "Header _6"
-msgstr "Загаловак _6"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
-#: components/html-editor/editor-control-factory.c:189
-#: components/html-editor/gtkhtml-editor-properties.glade.h:39
-#: components/html-editor/menubar.c:91 components/html-editor/popup.c:209
-msgid "Image"
-msgstr "Відарыс"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
-msgid "Insert Crying smiley into document..."
-msgstr "Уставіць смайлік плаксівасьці ў дакумэнт..."
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
-msgid "Insert Frown smiley into document..."
-msgstr "Уставіць смайлік хмурнасьці ў дакумэнт..."
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:40
-msgid "Insert HTML file into document..."
-msgstr "Уставіць файл HTML у дакумэнт..."
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
-msgid "Insert HTML link into document..."
-msgstr "Уставіць спасылку HTML у дакумэнт..."
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
-msgid "Insert HTML template into document..."
-msgstr "Уставіць узор HTML у дакумэнт..."
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
-msgid "Insert Indifferent smiley into document..."
-msgstr "Уставіць смайлік раўнадушша ў дакумэнт..."
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
-msgid "Insert Laughing smiley into document..."
-msgstr "Уставіць смайлік весялосьці ў дакумэнт..."
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
-msgid "Insert Lick smiley into document..."
-msgstr "Уставіць смайлік \"язык\" ў дакумэнт..."
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
-msgid "Insert Oh no! smiley into document..."
-msgstr "Уставіць смайлік \"О-о не!\" ў дакумэнт..."
-
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
 #, fuzzy
 msgid "Insert Sick smiley into document..."
 msgstr "Уставіць смайлік \"язык\" ў дакумэнт..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
-msgid "Insert Smile smiley into document..."
-msgstr "Уставіць смайлік улыбкі ў дакумэнт..."
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
-msgid "Insert Surprised smiley into document..."
-msgstr "Уставіць смайлік зьдзіўленьня ў дакумэнт..."
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
-msgid "Insert Undecided smiley into document..."
-msgstr "Уставіць смайлік нявызначанасьці ў дакумэнт..."
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
-msgid "Insert Wink smiley into document..."
-msgstr "Уставіць смайлік падмігваньня ў дакумэнт..."
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:52
-msgid "Insert image into document..."
-msgstr "Уставіць відарыс у дакумэнт..."
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:53
-msgid "Insert rule into document..."
-msgstr "Уставіць правіла ў дакумэнт..."
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
-msgid "Insert table into document..."
-msgstr "Уставіць табліцу у дакумэнт..."
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
-msgid "Insert text file into document..."
-msgstr "Уставіць тэкставы файл у дакумэнт..."
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
-#: components/html-editor/toolbar.c:509
-msgid "Left justifies the paragraphs"
-msgstr "Абзац параўнаны па левым баку"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
-msgid "Li_ck"
-msgstr "_Язык"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:58
-#: components/html-editor/body.c:368 components/html-editor/menubar.c:107
-#: components/html-editor/popup.c:106 components/html-editor/popup.c:202
-#: components/html-editor/popup.c:275
-msgid "Link"
-msgstr "Спасылка"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
-msgid "Make the current Paragraph style Normal"
-msgstr "Зрабіць стыль бягучага абзаца звычайным"
-
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
 #, fuzzy
 msgid "Make the current Paragraph style Preformatted"
 msgstr "Зрабіць стыль бягучага абзаца папярэдне фарматаваным"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
-msgid "Make the current paragraph a bulleted list"
-msgstr "Зрабіць бягучы абзац сьпісам з пунктамі"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
-msgid "Make the current paragraph a list with roman numerals"
-msgstr "Зрабіць бягучы абзац сьпісам з рымскім нумараваньнем"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:63
-msgid "Make the current paragraph a numbered list"
-msgstr "Зрабіць бягучы абзац нумараваным сьпісам"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:64
-msgid "Make the current paragraph an H1 header"
-msgstr "Зрабіць бягучы абзац загалоўкам H1"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:65
-msgid "Make the current paragraph an H2 header"
-msgstr "Зрабіць бягучы абзац загалоўкам H2"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:66
-msgid "Make the current paragraph an H3 header"
-msgstr "Зрабіць бягучы абзац загалоўкам H3"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:67
-msgid "Make the current paragraph an H4 header"
-msgstr "Зрабіць бягучы абзац загалоўкам H4"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:68
-msgid "Make the current paragraph an H5 header"
-msgstr "Зрабіць бягучы абзац загалоўкам H5"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:69
-msgid "Make the current paragraph an H6 header"
-msgstr "Зрабіць бягучы абзац загалоўкам H6"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:70
-msgid "Make the current paragraph an address"
-msgstr "Зрабіць бягучы абзац адрэсай"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
-msgid "Make the current paragraph an alphabetical list"
-msgstr "Зрабіць бягучы абзац сьпісам па альфабэце"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
-#: components/html-editor/gtkhtml-editor-properties.glade.h:49
-#: components/html-editor/paragraph.c:131 components/html-editor/toolbar.c:48
-msgid "Normal"
-msgstr "Нармальны"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
-#: components/html-editor/toolbar.c:51
-msgid "Numbered List"
-msgstr "Нумараваны сьпіс"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
-msgid "Numbered _List"
-msgstr "_Нумараваны сьпіс"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:75
-msgid "Oh _no!"
-msgstr "О-о _не!"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
-msgid "Orange"
-msgstr "Цытрынавы"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
-msgid "Other..."
-msgstr "Іншае..."
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
-msgid "Paste"
-msgstr "Уставіць"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
-msgid "Paste _Quotation"
-msgstr "Уставіць _цытаваньне"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
-msgid "Paste from clipboard"
-msgstr "Уставіць з буфэра абмену"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
-msgid "Paste the clipboard"
-msgstr "Уставіць з буфэра абмену"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
-msgid "Paste the clipboard as a quotation"
-msgstr "Уставіць з буфэра абмену як цытаваньне"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
 #: components/html-editor/paragraph.c:150
@@ -518,309 +972,14 @@ msgstr "Уставіць з буфэра абмену як цытаваньне"
 msgid "Preformatted"
 msgstr "Папярэднефарматаваны"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
-msgid "Purple"
-msgstr "Пурпурны"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
-msgid "Red"
-msgstr "Чырвоны"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
-msgid "Redo"
-msgstr "Вяртаньне"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
-msgid "Redo previously undone change"
-msgstr "Адмяніць папярэднія незавершаныя зьмены"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
-msgid "Redo the undone action"
-msgstr "Аднавіць апошні крок"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
-#: components/html-editor/replace.c:79 components/html-editor/replace.c:157
-#: components/html-editor/replace.c:219
-msgid "Replace"
-msgstr "Замяніць"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
-#: components/html-editor/toolbar.c:513
-msgid "Right justifies the paragraphs"
-msgstr "Абзац раўнаны па праваму баку"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
-msgid "Roman Numeral List"
-msgstr "Сьпіс з рымскім нумараваньнем"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
-#: components/html-editor/editor-control-factory.c:209
-#: components/html-editor/gtkhtml-editor-properties.glade.h:63
-#: components/html-editor/menubar.c:125 components/html-editor/popup.c:230
-msgid "Rule"
-msgstr "Правіла"
-
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
 #, fuzzy
 msgid "S_ick"
 msgstr "_Падмігваньне"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
-msgid "Select _All"
-msgstr "Вылучыць _усе"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
-msgid "Select the entire contents of the document"
-msgstr "Выбар ўвсяго зьместу дакумэнта"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
-#: components/html-editor/gtkhtml-editor-properties.glade.h:69
-#: components/html-editor/text.c:239 components/html-editor/toolbar.c:528
-msgid "Strikeout"
-msgstr "Перакрэсьленьне"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
-msgid "Su_perscript"
-msgstr "_Верхні індэкс"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
-msgid "Su_rprised"
-msgstr "Зьдзіўленьне"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
-msgid "Subs_cript"
-msgstr "_Ніжні індэкс"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
-msgid "Subscript"
-msgstr "Ніжні індэкс"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
-msgid "Superscript"
-msgstr "Верхні індэкс"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
-#: components/html-editor/gtkhtml-editor-properties.glade.h:72
-#: components/html-editor/menubar.c:142 components/html-editor/popup.c:237
-#: components/html-editor/popup.c:518 components/html-editor/popup.c:527
-msgid "Table"
-msgstr "Табліца"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
-msgid "Te_mplate..."
-msgstr "_Узор..."
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
-msgid "Te_xt file..."
-msgstr "_Тэкставы файл..."
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
-#: components/html-editor/body.c:298
-#: components/html-editor/gtkhtml-editor-properties.glade.h:74
-#: components/html-editor/menubar.c:165
-msgid "Template"
-msgstr "Узор"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
-#: components/html-editor/toolbar.c:520
-msgid "Typewriter"
-msgstr "Набор"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
-msgid "Undo"
-msgstr "Адкаціць"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
-msgid "Undo previous changes"
-msgstr "Адмяніць папярэднія зьмены"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
-msgid "Undo the last action"
-msgstr "Адкаціцца на адзін крок"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
-msgid "Yellow"
-msgstr "Жоўты"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
-msgid "_Alignment"
-msgstr "_Раўнаньне"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
-msgid "_Alphabetical List"
-msgstr "_Сьпіс па альфабэце"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
-msgid "_Bold"
-msgstr "_Тлусты"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
-msgid "_Bulleted List"
-msgstr "_Сьпіс з пунктаў"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
-msgid "_Center"
-msgstr "_Цэнтар"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
-msgid "_Copy"
-msgstr "_Капіяваць"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
-msgid "_Decrease Indent"
-msgstr "Па_меншыць водступ"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
-msgid "_Edit"
-msgstr "_Рэдагаваньне"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
-msgid "_Find..."
-msgstr "_Пошук..."
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
-msgid "_Font Size"
-msgstr "Памер _шрыфта"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
-msgid "_Frown"
-msgstr "_Хмуры"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
-msgid "_HTML file..."
-msgstr "Файл _HTML"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
-msgid "_Heading"
-msgstr "_Загаловак"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
-msgid "_Image..."
-msgstr "_Відарыс..."
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
-msgid "_Increase Indent"
-msgstr "Па_вялічыць водступ"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
-msgid "_Indifferent"
-msgstr "_Раўнадушша"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:127
-msgid "_Insert"
-msgstr "_Уставіць"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:128
-msgid "_Italic"
-msgstr "_Нахілены"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
-msgid "_Laughing"
-msgstr "_Весялосьць"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
-msgid "_Left"
-msgstr "_Лева"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
-msgid "_Link..."
-msgstr "_Спасылка..."
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
-msgid "_Normal"
-msgstr "_Нармальны"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:133
-msgid "_Page..."
-msgstr "_Старонка..."
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:134
-msgid "_Paragraph..."
-msgstr "_Абзац..."
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
-msgid "_Paste"
-msgstr "_Уставіць"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
-msgid "_Plain text"
-msgstr "_Звычайны тэкст"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
-msgid "_Preformat"
-msgstr "_Папярэднефарматаваны"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
-msgid "_Redo"
-msgstr "_Вяртаньне"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:139
-msgid "_Replace..."
-msgstr "За_мяніць..."
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:140
-msgid "_Right"
-msgstr "_Права"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:141
-msgid "_Roman Numeral List"
-msgstr "_Сьпіс з рымскім нумараваньнем"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:142
-msgid "_Rule..."
-msgstr "_Правіла..."
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:143
-msgid "_Smile"
-msgstr "_Усьмешка"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:144
-msgid "_Smiley"
-msgstr "_Усьмешкі"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:145
-msgid "_Spell Check Document..."
-msgstr "_Праверка правапіса дакумэнта..."
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:146
-msgid "_Strikeout"
-msgstr "_Перакрэсьленьне"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:147
-msgid "_Style"
-msgstr "_Стыль"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:148
-msgid "_Table..."
-msgstr "_Табліца..."
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:149
-msgid "_Text..."
-msgstr "_Тэкст..."
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:150
-msgid "_Undecided"
-msgstr "_Нявызначанасьць"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:151
-msgid "_Underline"
-msgstr "_Падкрэсьленьне"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:152
-msgid "_Undo"
-msgstr "_Адкаціць"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:153
-msgid "_Wink"
-msgstr "_Падмігваньне"
-
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:154
 msgid "_Wrap Lines"
 msgstr "_Перанос радкоў"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:155
-msgid "etc..."
-msgstr "г.д."
 
 #: components/html-editor/body.c:66
 #: components/html-editor/gtkhtml-editor-properties.glade.h:48
@@ -1478,12 +1637,19 @@ msgid "Replace confirmation"
 msgstr "Падцьверджаньне замены"
 
 #: components/html-editor/replace.c:76
-msgid "Replace all"
+#, fuzzy
+msgid "Replace _All"
 msgstr "Замяніць усё"
 
 #: components/html-editor/replace.c:77
-msgid "Next"
+#, fuzzy
+msgid "_Next"
 msgstr "Наступнае"
+
+#: components/html-editor/replace.c:79
+#, fuzzy
+msgid "_Replace"
+msgstr "Замяніць"
 
 #: components/html-editor/replace.c:165
 msgid "Search _backward"
@@ -1525,11 +1691,15 @@ msgstr "_Адваротны накірунак"
 msgid "Find Regular Expression"
 msgstr "Пошук сталага выраза"
 
-#: components/html-editor/spell.c:277
+#: components/html-editor/spell.c:278
+msgid "No misspelled word found"
+msgstr ""
+
+#: components/html-editor/spell.c:285
 msgid "Spell checker"
 msgstr "Праверка правапіса"
 
-#: components/html-editor/spell.c:366
+#: components/html-editor/spell.c:378
 msgid "Current _Languages"
 msgstr "Бягучыя _мовы"
 
@@ -1589,10 +1759,6 @@ msgid ""
 msgstr ""
 "Рэдагаваны тэкст выдалены з дакумэнта.\n"
 "Немагчыма ужыць вашыя зьмены."
-
-#: components/html-editor/toolbar.c:49
-msgid "Preformat"
-msgstr "Папярэднефарматаваны"
 
 #: components/html-editor/toolbar.c:52
 msgid "Roman List"

@@ -8,14 +8,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-12-14 11:42+0100\n"
+"POT-Creation-Date: 2003-12-29 11:44-0500\n"
 "PO-Revision-Date: 2003-12-14 11:44+0100\n"
 "Last-Translator: Danilo Šegan <danilo@prevod.org>\n"
 "Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Report-Msgid-Bugs-To: \n"
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -1423,8 +1423,8 @@ msgid ""
 "This is sample text, designed to show you how text would flow around this "
 "image if you insert the image into your message."
 msgstr ""
-"Ovo je probni tekst, napravljen da vam pokaže kako će tekst ići oko ove slike "
-"ako ubacite sliku u vašu poruku."
+"Ovo je probni tekst, napravljen da vam pokaže kako će tekst ići oko ove "
+"slike ako ubacite sliku u vašu poruku."
 
 #: components/html-editor/image.c:270
 msgid "No image selected"

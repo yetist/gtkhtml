@@ -1,3 +1,7 @@
+2003-12-29  JP Rosevear <jpr@ximian.com>
+
+	* configure.in: bump gal, libsoup requirements and libtool numbers
+
 2003-12-07  Larry Ewing  <lewing@ximian.com>
 
 	* NEWS: update news for 3.1.4.
