@@ -69,8 +69,6 @@ static void                html_image_pointer_unref             (HTMLImagePointe
 static gboolean            html_image_pointer_timeout           (HTMLImagePointer *ip);
 static gint                html_image_pointer_run_animation     (HTMLImagePointer *ip);
 static void                html_image_pointer_start_animation   (HTMLImagePointer *ip);
-static HTMLImageAnimation *html_image_animation_new             (HTMLImage *image);
-static void                html_image_animation_destroy         (HTMLImageAnimation *anim);
 
 guint
 html_image_get_actual_width (HTMLImage *image, HTMLPainter *painter)
@@ -152,9 +150,6 @@ destroy (HTMLObject *o)
 	html_image_factory_unregister (image->image_ptr->factory,
 				       image->image_ptr, HTML_IMAGE (image));
 
-	if (image->animation)
-		html_image_animation_destroy (image->animation);
-
 	g_free (image->url);
 	g_free (image->target);
 	g_free (image->alt);
@@ -179,7 +174,6 @@ copy (HTMLObject *self,
 	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
 
 	dimg->image_ptr = simg->image_ptr;
-	dimg->animation = NULL;          /* don't bother with animation copying now. TODO */
 	dimg->color = simg->color;
 	if (simg->color)
 		html_color_ref (dimg->color);
@@ -373,7 +367,7 @@ draw (HTMLObject *o,
 		return;
 
 	if (HTML_IS_PLAIN_PAINTER (painter)) {
-		draw_plain (o, painter, x, y, width, height, tx, ty);
+	draw_plain (o, painter, x, y, width, height, tx, ty);
 		return;
 	}
 
@@ -447,13 +441,7 @@ draw (HTMLObject *o,
 		
 	}
 	
-	if (image->animation) {
-		image->animation->active = TRUE;
-		image->animation->x = base_x;
-		image->animation->y = base_y;
-		image->animation->ex = image->image_ptr->factory->engine->x_offset;
-		image->animation->ey = image->image_ptr->factory->engine->y_offset;
-	}
+	image->animation_active = TRUE;
 	html_painter_draw_pixmap (painter, pixbuf,
 				  base_x, base_y,
 				  scale_width, scale_height,
@@ -752,7 +740,6 @@ html_image_init (HTMLImage *image,
 		image->have_color = FALSE;
 	}
 
-	image->animation = NULL;
 	image->alt = NULL;
 
 	image->hspace = 0;
@@ -1092,35 +1079,11 @@ html_image_pointer_run_animation (HTMLImagePointer *ip)
 		GSList *cur;
 
 		for (cur = ip->interests; cur; cur = cur->next) {
-			if (cur->data) {
-				HTMLImage           *image = cur->data;
-				HTMLImageAnimation  *anim = image->animation;
+			HTMLImage           *image = cur->data;
 
-				if (!anim)
-					continue;
+			if (image && image->animation_active)
+				html_engine_queue_draw (engine, HTML_OBJECT (image));
 
-				/* draw only if animation is active - onscreen */
-				nx = anim->x - (engine->x_offset - anim->ex);
-				ny = anim->y - (engine->y_offset - anim->ey);
-				
-				if (anim->active) {
-					gint aw, ah;
-					
-					aw = gdk_pixbuf_animation_get_width (ganim);
-					ah = gdk_pixbuf_animation_get_height (ganim);
-					
-					/*
-					  if (MAX(0, nx) < MIN(engine->width, nx+aw)
-					  && MAX(0, ny) < MIN(engine->height, ny+ah)) {
-					*/
-					html_engine_draw (engine,
-							  nx, ny,
-							  aw, ah);
-					/*
-					  }
-					*/
-				}
-			}
 		}
 	}
 		
@@ -1200,29 +1163,6 @@ html_image_factory_free (HTMLImageFactory *factory)
 	g_free (factory);
 }
 
-static HTMLImageAnimation *
-html_image_animation_new (HTMLImage *image)
-{
-	HTMLImageAnimation *animation;
-
-	animation = g_new (HTMLImageAnimation, 1);
-	animation->cur_frame = NULL; /* FIX2 gdk_pixbuf_animation_get_frames (image->image_ptr->animation); */
-	animation->cur_n = 0;
-	animation->x = 0;
-	animation->y = 0;
-	animation->ex = 0;
-	animation->ey = 0;
-	animation->active = FALSE;
-
-	return animation;
-}
-
-static void
-html_image_animation_destroy (HTMLImageAnimation *anim)
-{
-	g_free (anim);
-}
-
 #define STALL_INTERVAL 1000
 
 static HTMLImagePointer *
@@ -1270,7 +1210,7 @@ html_image_pointer_timeout (HTMLImagePointer *ip)
 			list = list->next;
 		}
 	}
-	ip->stall_timeout = 0;
+	//ip->stall_timeout = 0;
 	return FALSE;
 }
 
@@ -1376,8 +1316,6 @@ html_image_factory_register (HTMLImageFactory *factory, HTMLImage *i, const char
 
 	if (i) {
 		i->image_ptr = ip;
-
-		i->animation = html_image_animation_new (i);
 	}
 
 	return ip;
@@ -1449,9 +1387,7 @@ deactivate_anim (gpointer key, gpointer value, gpointer user_data)
 	while (cur) {
 		if (cur->data) {
 			image = (HTMLImage *) cur->data;
-			if (image->animation) {
-				image->animation->active = FALSE;
-			}
+			image->animation_active = FALSE;
 		}
 		cur = cur->next;
 	}

@@ -44,30 +44,12 @@ struct _HTMLImagePointer {
 	guint animation_timeout;
 };
 
-struct _HTMLImageAnimation {
-	/* stuff for animated image */
-	/* draw coordination */
-	gint x;
-	gint y;
-
-	/* remember engine offset */
-	gint ex, ey;
-
-	/* current frame */
-	GList *cur_frame;
-	gint cur_n;
-
-	/* active draw flag */
-	gint active;
-};
-
 #define HTML_IMAGE(x) ((HTMLImage *)(x))
 #define HTML_IMAGE_POINTER(x) ((HTMLImagePointer *)(x))
 
 struct _HTMLImage {
 	HTMLObject object;
         HTMLImagePointer *image_ptr;
-	HTMLImageAnimation *animation;
 
 	HTMLColor *color;
 
@@ -80,6 +62,7 @@ struct _HTMLImage {
 	gboolean percent_width  : 1;
 	gboolean percent_height : 1;
 	gboolean ismap : 1;
+	gboolean animation_active : 1;
 
 	gint8 hspace;
 	gint8 vspace;

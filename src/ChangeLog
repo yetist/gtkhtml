@@ -1,5 +1,8 @@
 2003-02-21  Larry Ewing  <lewing@ximian.com>
 
+	* htmlimage.c: refactor animation drawing, remove broken
+	HTMLImageAnimation structure, fix drawing while scrolling.
+	
 	* gtkhtml.c (gtk_html_begin_full): pass priv->content_type if the
 	arg is NULL.
 
