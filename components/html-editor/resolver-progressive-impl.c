@@ -25,6 +25,7 @@
 #include <config.h>
 
 #include <gnome.h>
+#include <libgnome/gnome-i18n.h>
 #include <bonobo.h>
 #include "gtkhtml.h"
 #include "resolver-progressive-impl.h"

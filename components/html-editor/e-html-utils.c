@@ -18,6 +18,8 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#include <config.h>
+#include <libgnome/gnome-i18n.h>
 #include <ctype.h>
 #include <stdio.h>
 #include <string.h>

@@ -22,8 +22,9 @@
 
 
 #include <config.h>
-#include "dialog.h"
+#include <libgnome/gnome-i18n.h>
 #include <libgnomeui/gnome-window-icon.h>
+#include "dialog.h"
 #include "properties.h"
 
 #define GTK_HTML_EDIT_IMAGE_BWIDTH      0

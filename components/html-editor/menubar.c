@@ -22,6 +22,7 @@
 */
 
 #include <config.h>
+#include <libgnome/gnome-i18n.h>
 #include <string.h>
 #include <unistd.h>
 #include <sys/types.h>

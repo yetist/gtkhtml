@@ -21,6 +21,7 @@
 */
 
 #include <config.h>
+#include <libgnome/gnome-i18n.h>
 #include <string.h>
 #include <gal/widgets/widget-color-combo.h>
 #include "htmlengine-edit.h"

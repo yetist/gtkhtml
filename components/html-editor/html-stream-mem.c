@@ -8,6 +8,7 @@
  * Copyright 2001, Ximian, Inc.
  */
 #include <config.h>
+#include <libgnome/gnome-i18n.h>
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <gtk/gtk.h>

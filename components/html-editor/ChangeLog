@@ -1,3 +1,14 @@
+2003-05-08  Radek Doulik  <rodo@ximian.com>
+
+	* include config.h and gnome-i18n.h everywhere so that we use
+	explicit translation domain
+
+	* editor-control-shlib.c (editor_shlib_init): new helper method,
+	initializes i18n
+
+	* gnome-gtkhtml-editor.c (main): call bind_textdomain_codeset with
+	utf-8
+
 2003-05-02  Radek Doulik  <rodo@ximian.com>
 
 	* properties.c (gtk_html_edit_properties_dialog_new): remove apply

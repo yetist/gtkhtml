@@ -20,6 +20,8 @@
     Boston, MA 02111-1307, USA.
 */
 
+#include <config.h>
+#include <libgnome/gnome-i18n.h>
 #include <string.h>
 #include <glade/glade.h>
 #include <gal/widgets/widget-color-combo.h>
@@ -37,7 +39,6 @@
 #include "htmltable.h"
 #include "htmlsettings.h"
 
-#include "config.h"
 #include "properties.h"
 #include "table.h"
 #include "utils.h"

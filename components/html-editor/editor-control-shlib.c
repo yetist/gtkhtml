@@ -28,7 +28,30 @@
 #endif
 
 #include <bonobo/bonobo-shlib-factory.h>
+#include <libgnome/gnome-i18n.h>
 
 #include "editor-control-factory.h"
 
-BONOBO_ACTIVATION_SHLIB_FACTORY (CONTROL_FACTORY_ID, "GNOME HTML Editor factory", editor_control_factory, NULL);
+static void
+editor_shlib_init (void)
+{
+	static gboolean initialized = FALSE;
+
+	if (!initialized) {
+		initialized = TRUE;
+
+		/* Initialize the i18n support */
+		bindtextdomain (GNOME_EXPLICIT_TRANSLATION_DOMAIN, GNOMELOCALEDIR);
+		bind_textdomain_codeset (GNOME_EXPLICIT_TRANSLATION_DOMAIN, "UTF-8");
+	}
+}
+
+BonoboObject *
+editor_control_shlib_factory (BonoboGenericFactory *factory, const gchar *component_id, gpointer closure)
+{
+	editor_shlib_init ();
+
+	return editor_control_factory (factory, component_id, closure);
+}
+
+BONOBO_ACTIVATION_SHLIB_FACTORY (CONTROL_FACTORY_ID, "GNOME HTML Editor factory", editor_control_shlib_factory, NULL);

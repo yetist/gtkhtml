@@ -24,6 +24,7 @@
 #include <config.h>
 #endif
 
+#include <libgnome/gnome-i18n.h>
 #include "gtkhtml.h"
 #include "gtkhtml-private.h"
 

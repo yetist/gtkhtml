@@ -20,6 +20,8 @@
     Boston, MA 02111-1307, USA.
 */
 
+#include <config.h>
+#include <libgnome/gnome-i18n.h>
 #include <string.h>
 #include <glade/glade.h>
 
@@ -29,7 +31,6 @@
 #include "htmlengine-edit-cut-and-paste.h"
 #include "htmlengine-save.h"
 
-#include "config.h"
 #include "properties.h"
 #include "template.h"
 #include "utils.h"
