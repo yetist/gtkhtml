@@ -774,14 +774,21 @@ menubar_setup (BonoboUIComponent  *uic,
 
 	for (i = 0; i < sizeof (pixmaps_map) / sizeof (pixmaps_map [0]); i ++)
 	{
-		GdkPixbuf *pixbuf;
-		char *xml_pixbuf;
+		char *filename;
 
-		pixbuf = gdk_pixbuf_new_from_file (gnome_icon_theme_lookup_icon (cd->icon_theme, pixmaps_map [i].stock_name, pixmaps_map [i].size, NULL, NULL), NULL);
-		xml_pixbuf = bonobo_ui_util_pixbuf_to_xml (pixbuf);
-		g_object_unref (pixbuf);
+		filename = gnome_icon_theme_lookup_icon (cd->icon_theme, pixmaps_map [i].stock_name, pixmaps_map [i].size, NULL, NULL);
 
-		bonobo_ui_component_set_prop (uic, pixmaps_map [i].path, "pixname", xml_pixbuf, NULL);
+		if (filename) {
+			GdkPixbuf *pixbuf;
+			char *xml_pixbuf;
+
+			pixbuf = gdk_pixbuf_new_from_file (filename, NULL);
+			xml_pixbuf = bonobo_ui_util_pixbuf_to_xml (pixbuf);
+			g_object_unref (pixbuf);
+
+			bonobo_ui_component_set_prop (uic, pixmaps_map [i].path, "pixname", xml_pixbuf, NULL);
+		} else
+			g_warning ("cannot find icon: '%s' in gnome icon theme", pixmaps_map [i].stock_name);
 	}
 
 	spell_create_language_menu (cd);

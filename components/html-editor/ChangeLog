@@ -1,5 +1,8 @@
 2004-11-29  Radek Doulik  <rodo@ximian.com>
 
+	* menubar.c (menubar_setup): in case git doesn't contain an icon
+	we want print a warning
+
 	* GNOME_GtkHTML_Editor.xml.in: set pixtype to pixbuf for icons we
 	set from gnome icon theme
 	removed stalled pixtype="filename" by undo/redo icons in toolbar
