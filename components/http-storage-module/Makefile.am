@@ -6,7 +6,7 @@ INCLUDES =                                              \
 	-I$(top_builddir)				\
 	-DPLUGIN_DIR=\""$(PLUGIN_DIR)"\"		\
         -I$(includedir)                                 \
-        $(GNOME_INCLUDEDIR)
+	$(EXTRA_GNOME_CFLAGS)
 
 common_ldflags = -avoid-version
 
