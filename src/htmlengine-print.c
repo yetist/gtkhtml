@@ -81,8 +81,6 @@ html_engine_print (HTMLEngine *engine,
 
 	g_return_if_fail (engine->clue != NULL);
 
-	html_object_reset (engine->clue);
-
 	printer = html_printer_new (print_context);
 
 	/* FIXME ugly hack, but this is the way it's supposed to work with the
@@ -90,18 +88,21 @@ html_engine_print (HTMLEngine *engine,
 
 	old_width = engine->width;
 
+	html_object_change_set_down (engine->clue, HTML_CHANGE_ALL);
+	html_object_reset (engine->clue);
 	max_width = engine->width = html_printer_get_page_width (HTML_PRINTER (printer));
 	engine->clue->width = max_width;
 	html_object_set_max_width (engine->clue, printer, max_width);
 	html_object_calc_size (engine->clue, printer);
 
 	min_width = html_object_calc_min_width (engine->clue, printer);
-	if (min_width > max_width)
+	if (min_width > max_width) {
 		max_width = min_width;
 
-	html_object_set_max_width (engine->clue, printer, max_width);
-	html_object_calc_size (engine->clue, printer);
-
+		html_object_change_set_down (engine->clue, HTML_CHANGE_ALL);
+		html_object_set_max_width (engine->clue, printer, max_width);
+		html_object_calc_size (engine->clue, printer);
+	}
 	engine->clue->x = 0;
 	engine->clue->y = engine->clue->ascent;
 
@@ -112,10 +113,10 @@ html_engine_print (HTMLEngine *engine,
 	/* FIXME ugly hack pt. 2.  */
 	engine->width = old_width;
 	html_object_reset (engine->clue);
+	html_object_change_set_down (engine->clue, HTML_CHANGE_ALL);
 
 	/* FIXME this is because of HTMLTable/HTMLEngine brokenness.  */
 	html_object_set_max_width (engine->clue, engine->painter, engine->width);
 	html_object_calc_size (engine->clue, engine->painter);
-
 	html_engine_calc_size (engine);
 }

@@ -419,4 +419,8 @@ gboolean  html_object_save_plain  (HTMLObject          *self,
 void  html_object_change_set  (HTMLObject      *self,
 			       HTMLChangeFlags  f);
 
+/* set change flag f for this object and all childern */
+void  html_object_change_set_down  (HTMLObject      *self,
+				    HTMLChangeFlags  f);
+
 #endif /* _HTMLOBJECT_H_ */

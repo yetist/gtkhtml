@@ -1,3 +1,11 @@
+2000-08-04  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlengine-print.c (html_engine_print): use
+	html_object_change_set_down here to force complete calcsize
+
+	* htmlobject.c (html_object_change_set_down): new function, set
+	changes to this object and all it's childern
+
 2000-08-03  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlengine-edit.c (html_engine_cut_and_paste_begin): hide cursor

@@ -941,6 +941,18 @@ html_object_change_set (HTMLObject *self, HTMLChangeFlags f)
 	}
 }
 
+static void
+change (HTMLObject *o, gpointer data)
+{
+	o->change |= GPOINTER_TO_INT (data);
+}
+
+void
+html_object_change_set_down (HTMLObject *self, HTMLChangeFlags f)
+{
+	html_object_forall (self, (HTMLObjectForallFunc) change, GINT_TO_POINTER (f));
+}
+
 gboolean
 html_object_search (HTMLObject *self, HTMLSearch *info)
 {
