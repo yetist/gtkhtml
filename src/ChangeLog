@@ -1,3 +1,18 @@
+2000-06-27  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlclueflow.c (write_pre_tags): Renamed from
+	`write_indentation_tags'.  Write an initial `<BR>' if appropriate.
+	(write_post_tags): New.
+	(write_indentation_tags): Renamed from
+	`write_indentation_tags_helper'.  Write an initial newline if
+	@last_value is different from @new_value.
+	(save): Use it.  Don't output the <BR> here.
+	(append_selection_string): Removed bogus `putchar'.
+	(write_indent): New.
+	(write_indentation_tags): Use it.
+	(save): Use it to write indentation spaces before the actual
+	contents if the paragraph is not a PRE paragraph.
+
 2000-06-27  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlengine.c (push_color): ref color when pushing on stack

@@ -937,7 +937,6 @@ append_selection_string (HTMLObject *self,
 	if (! self->selected)
 		return;
 
-	putchar ('\n');
 	g_string_append_c (buffer, '\n');
 }
 
@@ -945,17 +944,53 @@ append_selection_string (HTMLObject *self,
 /* Saving support.  */
 
 static gboolean
-write_indentation_tags_helper (HTMLEngineSaveState *state,
-			       guint last_value,
-			       guint new_value,
-			       const gchar *tag)
+write_indent (HTMLEngineSaveState *state)
+{
+	return html_engine_save_output_string (state, "    ");
+}
+
+static const char *
+get_tag (HTMLClueFlow *flow)
+{
+	switch (flow->style) {
+	case HTML_CLUEFLOW_STYLE_ITEMDOTTED:
+		return "UL";
+	case HTML_CLUEFLOW_STYLE_ITEMROMAN:
+	case HTML_CLUEFLOW_STYLE_ITEMDIGIT:
+		return "OL";
+	case HTML_CLUEFLOW_STYLE_NORMAL:
+	case HTML_CLUEFLOW_STYLE_H1:
+	case HTML_CLUEFLOW_STYLE_H2:
+	case HTML_CLUEFLOW_STYLE_H3:
+	case HTML_CLUEFLOW_STYLE_H4:
+	case HTML_CLUEFLOW_STYLE_H5:
+	case HTML_CLUEFLOW_STYLE_H6:
+	case HTML_CLUEFLOW_STYLE_ADDRESS:
+	case HTML_CLUEFLOW_STYLE_PRE:
+	case HTML_CLUEFLOW_STYLE_NOWRAP:
+	default:
+		return "BLOCKQUOTE";
+	}
+}
+
+static gboolean
+write_indentation_tags (HTMLEngineSaveState *state,
+			guint last_value,
+			guint new_value,
+			const gchar *tag)
 {
 	guint i, j;
+
+	if (new_value == last_value)
+		return TRUE;
+
+	if (! html_engine_save_output_string (state, "\n"))
+		return FALSE;
 
 	if (new_value > last_value) {
 		for (i = last_value; i < new_value; i++) {
 			for (j = 0; j < i; j++) {
-				if (! html_engine_save_output_string (state, "    "))
+				if (! write_indent (state))
 					return FALSE;
 			}
 
@@ -980,21 +1015,49 @@ write_indentation_tags_helper (HTMLEngineSaveState *state,
 }
 
 static gboolean
-write_indentation_tags (HTMLClueFlow *self,
-			HTMLEngineSaveState *state)
+write_pre_tags (HTMLClueFlow *self,
+		HTMLEngineSaveState *state)
 {
-	if (state->last_level == self->level)
+	HTMLClueFlow *prev;
+	const char *prev_tag, *curr_tag;
+
+	prev = HTML_CLUEFLOW (HTML_OBJECT (self)->prev);
+	if (prev != NULL && prev->level == self->level && prev->style == self->style) {
+		if (! is_item (self))
+			return html_engine_save_output_string (state, "<BR>\n");
+		else
+			return TRUE;
+	}
+
+	if (prev != NULL)
+		prev_tag = get_tag (prev);
+	else
+		prev_tag = NULL;
+
+	curr_tag = get_tag (self);
+
+	if (prev != NULL && strcmp (prev_tag, curr_tag) == 0) {
+		write_indentation_tags (state, prev->level, self->level, prev_tag);
+	} else {
+		if (prev != NULL)
+			write_indentation_tags (state, prev->level, 0, prev_tag);
+		write_indentation_tags (state, 0, self->level, curr_tag);
+	}
+
+	return TRUE;
+}
+
+static gboolean
+write_post_tags (HTMLClueFlow *self,
+		 HTMLEngineSaveState *state)
+{
+	const char *tag;
+
+	if (HTML_OBJECT (self)->next != NULL)
 		return TRUE;
 
-	/* FIXME should use UL appropriately.  */
-
-	if (! write_indentation_tags_helper (state,
-					     state->last_level,
-					     self->level,
-					     "BLOCKQUOTE"))
-		return FALSE;
-
-	state->last_level = self->level;
+	tag = get_tag (self);
+	write_indentation_tags (state, self->level, 0, tag);
 
 	return TRUE;
 }
@@ -1052,7 +1115,7 @@ is_similar (HTMLObject *self, HTMLObject *friend)
 	if (friend &&  HTML_OBJECT_TYPE (friend) == HTML_TYPE_CLUEFLOW) {
 		if ((HTML_CLUEFLOW (friend)->style == HTML_CLUEFLOW (self)->style)
 		    && (HTML_CLUEFLOW (friend)->level == HTML_CLUEFLOW (self)->level)) {
-				return TRUE;
+			return TRUE;
 		}
 	}
 	return FALSE;
@@ -1066,11 +1129,12 @@ save (HTMLObject *self,
 	HTMLHAlignType halign;
 	const gchar *tag;
 	gboolean start = TRUE, end = TRUE;
+	gint i;
 
 	clueflow = HTML_CLUEFLOW (self);
 	halign = HTML_CLUE (self)->halign;
 
-	if (! write_indentation_tags (clueflow, state))
+	if (! write_pre_tags (clueflow, state))
 		return FALSE;
 
 	tag = get_tag_for_style (clueflow);
@@ -1080,21 +1144,15 @@ save (HTMLObject *self,
 
 	if (is_similar (self, self->next))
 		end = FALSE;
-	
-	if (self->prev != NULL && ! is_item (clueflow)
-	    && HTML_OBJECT_TYPE (HTML_CLUE (self)->tail) != HTML_TYPE_RULE) {
-		if (HTML_CLUEFLOW (self)->style != HTML_CLUEFLOW_STYLE_PRE) {
-			/* This is a nasty hack: the rule takes all of the space, so we
-			   don't want it to create a new newline if it's the last
-			   element on the paragraph.  Also, everything but the "normal"
-			   paragraph style would get an extra newline if we add a
-			   `<BR>'.  */
-			html_engine_save_output_string (state, "<BR>\n");
-		} else {
-			html_engine_save_output_string (state, "\n");
+
+	/* Indentation.  */
+	if (clueflow->style != HTML_CLUEFLOW_STYLE_PRE) {
+		for (i = 0; i < clueflow->level; i++) {
+			if (! write_indent (state))
+				return FALSE;
 		}
 	}
-
+	
 	/* Alignment tag.  */
 	if (halign != HTML_HALIGN_NONE && halign != HTML_HALIGN_LEFT) {
 		if (! html_engine_save_output_string (state, "<DIV ALIGN=%s>\n", halign_to_string (halign)))
@@ -1126,7 +1184,7 @@ save (HTMLObject *self,
 			return FALSE;
 	}
 
-	return TRUE;
+	return write_post_tags (HTML_CLUEFLOW (self), state);
 }
 
 static gboolean
@@ -1396,7 +1454,7 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 						if (eq_len == info->text_len) {
 							printf ("found! pos %d\n", pos);
 							search_set_info (head, info, pos - ((info->forward)
-									 ? eq_len-1 : 0), info->text_len);
+											    ? eq_len-1 : 0), info->text_len);
 							retval=TRUE;
 							break;
 						}
