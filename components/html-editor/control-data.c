@@ -24,7 +24,6 @@
 #include <config.h>
 #include "control-data.h"
 #include "spell.h"
-#include "properties.h"
 
 GtkHTMLControlData *
 gtk_html_control_data_new (GtkHTML *html, GtkWidget *vbox)

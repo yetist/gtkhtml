@@ -42,7 +42,7 @@
 struct _HTMLPainter {
 	GtkObject base;
 
-	HTMLFontManager    *font_manager;
+	HTMLFontManager     font_manager;
 	HTMLColorSet       *color_set;
 	HTMLFontFace       *font_face;
 	GtkHTMLFontStyle    font_style;
@@ -67,8 +67,6 @@ struct _HTMLPainterClass {
 	guint (* calc_descent)    (HTMLPainter *p, GtkHTMLFontStyle f, HTMLFontFace *face);
 	guint (* calc_text_width) (HTMLPainter *p, const gchar *text, guint len,
 				   GtkHTMLFontStyle font_style, HTMLFontFace *face);
-	guint (* calc_text_width_bytes) (HTMLPainter *p, const gchar *text, guint len,
-					 HTMLFont *font, GtkHTMLFontStyle font_style);
 
 	void (* set_pen)          (HTMLPainter *painter, const GdkColor *color);
 	const GdkColor * (* get_black) (const HTMLPainter *painter);
@@ -152,12 +150,6 @@ guint             html_painter_calc_text_width                         (HTMLPain
 									gint              *line_offset,
 									GtkHTMLFontStyle   font_style,
 									HTMLFontFace      *face);
-guint             html_painter_calc_text_width_bytes                   (HTMLPainter       *p,
-									const gchar       *text,
-									guint              len,
-									gint              *line_offset,
-									HTMLFont          *font,
-									GtkHTMLFontStyle   font_style);
 
 /* The actual paint operations.  */
 void              html_painter_set_pen                                 (HTMLPainter       *painter,

@@ -52,8 +52,7 @@ finalize (GtkObject *object)
 	HTMLPainter *painter;
 
 	painter = HTML_PAINTER (object);
-	html_font_manager_finalize (painter->font_manager);
-	g_free (painter->font_manager);
+	html_font_manager_finalize (&painter->font_manager);
 
 	html_colorset_destroy (painter->color_set);
 
@@ -72,42 +71,41 @@ finalize (GtkObject *object)
 		return 0;							\
 	}
 
-DEFINE_UNIMPLEMENTED (begin)
-DEFINE_UNIMPLEMENTED (end)
+DEFINE_UNIMPLEMENTED (begin);
+DEFINE_UNIMPLEMENTED (end);
 
-DEFINE_UNIMPLEMENTED (alloc_font)
-DEFINE_UNIMPLEMENTED (  ref_font)
-DEFINE_UNIMPLEMENTED (unref_font)
+DEFINE_UNIMPLEMENTED (alloc_font);
+DEFINE_UNIMPLEMENTED (  ref_font);
+DEFINE_UNIMPLEMENTED (unref_font);
 
-DEFINE_UNIMPLEMENTED (alloc_color)
-DEFINE_UNIMPLEMENTED (free_color)
+DEFINE_UNIMPLEMENTED (alloc_color);
+DEFINE_UNIMPLEMENTED (free_color);
 
-DEFINE_UNIMPLEMENTED (calc_ascent)
-DEFINE_UNIMPLEMENTED (calc_descent)
-DEFINE_UNIMPLEMENTED (calc_text_width)
-DEFINE_UNIMPLEMENTED (calc_text_width_bytes)
+DEFINE_UNIMPLEMENTED (calc_ascent);
+DEFINE_UNIMPLEMENTED (calc_descent);
+DEFINE_UNIMPLEMENTED (calc_text_width);
 
-DEFINE_UNIMPLEMENTED (set_pen)
-DEFINE_UNIMPLEMENTED (get_black)
-DEFINE_UNIMPLEMENTED (draw_line)
-DEFINE_UNIMPLEMENTED (draw_rect)
-DEFINE_UNIMPLEMENTED (draw_text)
-DEFINE_UNIMPLEMENTED (draw_spell_error)
-DEFINE_UNIMPLEMENTED (fill_rect)
-DEFINE_UNIMPLEMENTED (draw_pixmap)
-DEFINE_UNIMPLEMENTED (draw_ellipse)
-DEFINE_UNIMPLEMENTED (clear)
-DEFINE_UNIMPLEMENTED (set_background_color)
-DEFINE_UNIMPLEMENTED (draw_shade_line)
-DEFINE_UNIMPLEMENTED (draw_panel)
+DEFINE_UNIMPLEMENTED (set_pen);
+DEFINE_UNIMPLEMENTED (get_black);
+DEFINE_UNIMPLEMENTED (draw_line);
+DEFINE_UNIMPLEMENTED (draw_rect);
+DEFINE_UNIMPLEMENTED (draw_text);
+DEFINE_UNIMPLEMENTED (draw_spell_error);
+DEFINE_UNIMPLEMENTED (fill_rect);
+DEFINE_UNIMPLEMENTED (draw_pixmap);
+DEFINE_UNIMPLEMENTED (draw_ellipse);
+DEFINE_UNIMPLEMENTED (clear);
+DEFINE_UNIMPLEMENTED (set_background_color);
+DEFINE_UNIMPLEMENTED (draw_shade_line);
+DEFINE_UNIMPLEMENTED (draw_panel);
 
-DEFINE_UNIMPLEMENTED (set_clip_rectangle)
-DEFINE_UNIMPLEMENTED (draw_background)
-DEFINE_UNIMPLEMENTED (draw_embedded)
+DEFINE_UNIMPLEMENTED (set_clip_rectangle);
+DEFINE_UNIMPLEMENTED (draw_background);
+DEFINE_UNIMPLEMENTED (draw_embedded);
 
-DEFINE_UNIMPLEMENTED (get_pixel_size)
-DEFINE_UNIMPLEMENTED (get_page_width)
-DEFINE_UNIMPLEMENTED (get_page_height)
+DEFINE_UNIMPLEMENTED (get_pixel_size);
+DEFINE_UNIMPLEMENTED (get_page_width);
+DEFINE_UNIMPLEMENTED (get_page_height);
 
 
 static void
@@ -118,8 +116,7 @@ init (GtkObject *object, HTMLPainterClass *real_klass)
 	painter = HTML_PAINTER (object);
 	painter->color_set = html_colorset_new (NULL);
 
-	painter->font_manager = g_new0 (HTMLFontManager, 1);
-	html_font_manager_init (painter->font_manager, painter);
+	html_font_manager_init (&painter->font_manager, painter);
 	painter->font_style = GTK_HTML_FONT_STYLE_DEFAULT;
 	painter->font_face = NULL;
 }
@@ -146,7 +143,6 @@ class_init (GtkObjectClass *object_class)
 	class->calc_ascent = (gpointer) calc_ascent_unimplemented;
 	class->calc_descent = (gpointer) calc_descent_unimplemented;
 	class->calc_text_width = (gpointer) calc_text_width_unimplemented;
-	class->calc_text_width_bytes = (gpointer) calc_text_width_bytes_unimplemented;
 
 	class->set_pen = (gpointer) set_pen_unimplemented;
 	class->get_black = (gpointer) get_black_unimplemented;
@@ -291,7 +287,7 @@ html_painter_get_font (HTMLPainter *painter, HTMLFontFace *face, GtkHTMLFontStyl
 {
 	HTMLFont *font;
 
-	font = html_font_manager_get_font (painter->font_manager, face, style);
+	font = html_font_manager_get_font (&painter->font_manager, face, style);
 	return font ? font->data : NULL;
 }
 
@@ -344,79 +340,7 @@ html_painter_calc_text_width (HTMLPainter *painter,
 	return width;
 }
 
-static gint
-correct_width (const gchar *text, guint bytes_len, gint *lo, HTMLFont *font)
-{
-	gint delta = 0;
-	gunichar uc;
-	const gchar *s, *end = text + bytes_len;
-	gint skip, line_offset = *lo;
-	gboolean tabs = *lo != -1;
-
-	if (!tabs) {
-		if (font->space_width == font->nbsp_width) {
-			if (font->space_width == font->tab_width) {
-				return 0;
-			} else {
-				while (text < end) {
-					if (*text == '\t')
-						delta += font->space_width - font->tab_width;
-					text ++;
-				}
-
-				return delta;
-			}
-		}
-	}
-
-	s = text;
-	while (s < end && (uc = g_utf8_get_char (s))) {
-		switch (uc) {
-		case ENTITY_NBSP:
-			line_offset ++;
-			delta += font->space_width - font->nbsp_width;
-			break;
-		case '\t':
-			if (tabs) {
-				skip = 8 - (line_offset % 8);
-				line_offset += skip;
-				delta += skip * font->space_width - font->tab_width;
-			} else {
-				delta += font->space_width - font->tab_width;
-				line_offset ++;
-			}
-			break;
-		default:
-			line_offset ++;
-		}
-		s = g_utf8_next_char (s);
-	}
-
-	if (tabs)
-		*lo = line_offset;
-
-	return delta;
-}
-
-guint
-html_painter_calc_text_width_bytes (HTMLPainter *painter,
-				    const gchar *text,
-				    guint bytes_len, gint *line_offset,
-				    HTMLFont *font, GtkHTMLFontStyle style)
-{
-	guint width;
-
-	g_return_val_if_fail (painter != NULL, 0);
-	g_return_val_if_fail (HTML_IS_PAINTER (painter), 0);
-	g_return_val_if_fail (text != NULL, 0);
-	g_return_val_if_fail (style != GTK_HTML_FONT_STYLE_DEFAULT, 0);
-
-	width = (* HP_CLASS (painter)->calc_text_width_bytes) (painter, text, bytes_len, font, style);
-	width += correct_width (text, bytes_len, line_offset, font);
-
-	return width;
-}
-
+
 /* The actual paint operations.  */
 
 void
@@ -722,7 +646,7 @@ html_painter_unref_font (HTMLPainter *painter, HTMLFont *font)
 guint
 html_painter_get_space_width (HTMLPainter *painter, GtkHTMLFontStyle style, HTMLFontFace *face)
 {
-	return html_font_manager_get_font (painter->font_manager, face, style)->space_width;
+	return html_font_manager_get_font (&painter->font_manager, face, style)->space_width;
 }
 
 guint
