@@ -1,3 +1,7 @@
+2000-12-17  Larry Ewing  <lewing@helixcode.com>
+
+	* gtkhtml.spec.in: change the controls name in the files section
+
 2000-12-14  Larry Ewing  <lewing@helixcode.com>
 	
 	* Make gtkhtml-0.8 release.
