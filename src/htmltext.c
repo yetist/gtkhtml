@@ -61,6 +61,9 @@ debug_spell_errors (GList *se)
 	for (;se;se = se->next)
 		printf ("SE: %4d, %4d\n", ((SpellError *) se->data)->off, ((SpellError *) se->data)->len);
 } */
+gint h_utf8_pointer_to_offset (const gchar *str, const gchar *pos);
+gint h_utf8_strlen (const gchar *p, gint max);
+gchar *h_utf8_offset_to_pointer  (const gchar *str, gint         offset);
 
 static void
 get_tags (const HTMLText *text,
@@ -436,7 +439,7 @@ html_text_text_line_length (const gchar *text, gint line_offset, guint len)
 	sum_skip = 0;
 	tab = text;
 	while (tab && (found_tab = strchr (tab, '\t')) && l < len) {
-		cl   = g_utf8_pointer_to_offset (tab, found_tab);
+		cl   = h_utf8_pointer_to_offset (tab, found_tab);
 		l   += cl;
 		if (l >= len)
 			break;
@@ -459,11 +462,12 @@ get_line_length (HTMLObject *self, HTMLPainter *p, gint line_offset)
 		: HTML_TEXT (self)->text_len;
 }
 
-inline gint
+gint
 html_text_get_line_offset (HTMLText *text, HTMLPainter *painter)
 {
 	return html_clueflow_tabs (HTML_CLUEFLOW (HTML_OBJECT (text)->parent), painter)
-		? html_clueflow_get_line_offset (HTML_CLUEFLOW (HTML_OBJECT (text)->parent), painter, HTML_OBJECT (text))
+		? html_clueflow_get_line_offset (HTML_CLUEFLOW (HTML_OBJECT (text)->parent), 
+						 painter, HTML_OBJECT (text))
 		: -1;
 }
 
@@ -498,8 +502,8 @@ calc_word_width (HTMLText *text, HTMLPainter *painter, gint line_offset)
 		end   = strchr (begin + (i ? 1 : 0), ' ');
 		text->word_width [i] = (i ? text->word_width [i - 1] : 0)
 			+ html_painter_calc_text_width (painter,
-							begin, end ? g_utf8_pointer_to_offset (begin, end)
-							: g_utf8_strlen (begin, -1),
+							begin, end ? h_utf8_pointer_to_offset (begin, end)
+							: h_utf8_strlen (begin, -1),
 							&line_offset, font_style, text->face);
 		begin = end;
 	}
@@ -510,8 +514,12 @@ calc_word_width (HTMLText *text, HTMLPainter *painter, gint line_offset)
 void
 html_text_request_word_width (HTMLText *text, HTMLPainter *painter)
 {
-	if (!text->word_width || HTML_OBJECT (text)->change & HTML_CHANGE_WORD_WIDTH)
-		calc_word_width (text, painter, html_text_get_line_offset (text, painter));
+	if (!text->word_width || (HTML_OBJECT (text)->change & HTML_CHANGE_WORD_WIDTH)) {
+		gint offset;
+
+		offset = html_text_get_line_offset (text, painter);
+		calc_word_width (text, painter, offset);
+	}
 }
 
 static gint
@@ -544,11 +552,11 @@ remove_text_slaves (HTMLObject *self)
 }
 
 static HTMLFitType
-fit_line (HTMLObject *o,
-	  HTMLPainter *painter,
-	  gboolean startOfLine,
-	  gboolean firstRun,
-	  gint widthLeft) 
+ht_fit_line (HTMLObject *o,
+	     HTMLPainter *painter,
+	     gboolean startOfLine,
+	     gboolean firstRun,
+	     gint widthLeft) 
 {
 	HTMLText *text; 
 	HTMLObject *text_slave;
@@ -609,7 +617,7 @@ get_next_nb_width (HTMLText *text, HTMLPainter *painter, gboolean begin)
 		return html_text_get_nb_width (HTML_TEXT (obj), painter, begin);
 }
 
-static inline guint
+static guint
 word_width (HTMLText *text, HTMLPainter *p, guint i)
 {
 	g_assert (i < text->words);
@@ -733,7 +741,7 @@ get_length (HTMLObject *self)
 
 /* #define DEBUG_NBSP */
 
-static inline gboolean
+static gboolean
 check_last_white (gboolean rv, gint white_space, gunichar last_white, gint *delta_out)
 {
 	if (white_space > 0 && last_white == ENTITY_NBSP) {
@@ -744,7 +752,7 @@ check_last_white (gboolean rv, gint white_space, gunichar last_white, gint *delt
 	return rv;
 }
 
-static inline gboolean
+static gboolean
 check_prev_white (gboolean rv, gint white_space, gunichar last_white, gint *delta_out)
 {
 	if (white_space > 0 && last_white == ' ') {
@@ -783,7 +791,7 @@ is_convert_nbsp_needed (const gchar *s, gint *delta_out)
 	return rv;
 }
 
-static inline void
+static void
 write_prev_white_space (gint white_space, gchar **fill)
 {
 			if (white_space > 0) {
@@ -795,7 +803,7 @@ write_prev_white_space (gint white_space, gchar **fill)
 			}
 }
 
-static inline void
+static void
 write_last_white_space (gint white_space, gchar **fill)
 {
 	if (white_space > 0) {
@@ -876,7 +884,7 @@ move_spell_errors (GList *spell_errors, guint offset, gint delta)
   	} 
 } 
 
-inline static GList *
+static GList *
 remove_one (GList *list, GList *link)
 {
 	spell_error_destroy ((SpellError *) link->data);
@@ -1134,7 +1142,12 @@ append_selection_string (HTMLObject *self,
            characters to append as an extra parameter.  */
 
 	p    = html_text_get_text (text, text->select_start);
-	last = html_text_get_text (text, text->select_start + text->select_length);
+	last = h_utf8_offset_to_pointer (p, text->select_length);
+	
+	/* OPTIMIZED
+	last = html_text_get_text (text,
+				   text->select_start + text->select_length);
+	*/
 	for (; p < last;) {
 		g_string_append_c (buffer, *p);
 		p++;
@@ -1254,7 +1267,7 @@ html_text_class_init (HTMLTextClass *klass,
 	object_class->calc_size = calc_size;
 	object_class->calc_preferred_width = calc_preferred_width;
 	object_class->calc_min_width = calc_min_width;
-	object_class->fit_line = fit_line;
+	object_class->fit_line = ht_fit_line;
 	object_class->get_cursor = get_cursor;
 	object_class->get_cursor_base = get_cursor_base;
 	object_class->save = save;
@@ -1277,11 +1290,11 @@ html_text_class_init (HTMLTextClass *klass,
 	parent_class = &html_object_class;
 }
 
-inline static gint
+static gint
 text_len (const gchar *str, gint len)
 {
 	if (len == -1) {
-		return g_utf8_validate (str, -1, NULL) ? g_utf8_strlen (str, -1) : 0;
+		return g_utf8_validate (str, -1, NULL) ? h_utf8_strlen (str, -1) : 0;
 	}
 
 	return len;
@@ -1299,7 +1312,7 @@ html_text_init (HTMLText *text,
 
 	html_object_init (HTML_OBJECT (text), HTML_OBJECT_CLASS (klass));
 
-	text->text          = len == -1 ? g_strdup (str) : g_strndup (str, g_utf8_offset_to_pointer (str, len) - str);
+	text->text          = len == -1 ? g_strdup (str) : g_strndup (str, h_utf8_offset_to_pointer (str, len) - str);
 	text->text_len      = text_len (str, len);
 	text->font_style    = font_style;
 	text->face          = NULL;
@@ -1497,7 +1510,12 @@ html_text_get_bytes (HTMLText *text)
 gchar *
 html_text_get_text (HTMLText *text, guint offset)
 {
-	return g_utf8_offset_to_pointer (text->text, offset);
+	gchar *s = text->text;
+
+	while (offset--)
+		s = g_utf8_next_char (s);
+
+	return s;
 }
 
 guint
@@ -1589,6 +1607,8 @@ html_text_magic_link (HTMLText *text, HTMLEngine *engine, guint offset)
 	gint i;
 	gboolean rv = FALSE;
 	gint saved_position;
+	gunichar uc;
+	char *str;
 
 	if (!offset)
 		return FALSE;
@@ -1599,22 +1619,30 @@ html_text_magic_link (HTMLText *text, HTMLEngine *engine, guint offset)
 	html_undo_level_begin (engine->undo, "Magic link", "Remove magic link");
 	saved_position = engine->cursor->position;
 
-	while (html_text_get_char (text, offset) != ' ' && html_text_get_char (text, offset) != ENTITY_NBSP && offset)
+	str = html_text_get_text (text, offset);
+	uc = g_utf8_get_char (str);
+	while (uc != ' ' && uc != ENTITY_NBSP && offset) {
+		str = g_utf8_prev_char (str);
+		uc = g_utf8_get_char (str);
 		offset--;
-	if (html_text_get_char (text, offset) == ' ' || html_text_get_char (text, offset) == ENTITY_NBSP)
+	}
+
+	if (uc == ' ' || uc == ENTITY_NBSP) {
+		str = g_utf8_next_char (str);
 		offset++;
+	}
 
 	while (offset < text->text_len && !rv) {
 		for (i=0; i<MIM_N; i++) {
-			if (mim [i].preg && !regexec (mim [i].preg, html_text_get_text (text, offset), 2, pmatch, 0)) {
-				char *o = html_text_get_text (text, offset);
+			if (mim [i].preg && !regexec (mim [i].preg, str, 2, pmatch, 0)) {
 				paste_link (engine, text,
-					    g_utf8_pointer_to_offset (text->text, o + pmatch [0].rm_so),
-					    g_utf8_pointer_to_offset (text->text, o + pmatch [0].rm_eo), mim [i].prefix);
+					    h_utf8_pointer_to_offset (text->text, str + pmatch [0].rm_so),
+					    h_utf8_pointer_to_offset (text->text, str + pmatch [0].rm_eo), mim [i].prefix);
 				rv = TRUE;
 				break;
 			}
 		}
+		str = g_utf8_next_char (str);
 		offset++;
 	}
 
