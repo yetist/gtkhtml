@@ -1,4 +1,22 @@
 2000-02-20  Jonas Borgström  <jonas_b@bitsmart.com>
+
+	* htmlclueflow.c (calc_min_width): Don't do any wrapping with the 
+	HTML_CLUEFLOW_STYLE_NOWRAP style.
+
+	* htmlclueflow.h: Added new style HTML_CLUEFLOW_STYLE_NOWRAP.
+
+	* htmlengine.c (parse_table): Use style HTML_CLUEFLOW_STYLE_NOWRAP on
+	tablecells with the "nowrap" keyword.
+
+	* htmltextmaster.c (calc_min_width): Don't do any wrapping with the 
+	HTML_CLUEFLOW_STYLE_NOWRAP style.
+
+	* testgtkhtml.c: Added tests/test11.html.
+
+	* tests/test1.html: New testcase for tables with the "nowrap" keyword.	
+
+	
+2000-02-20  Jonas Borgström  <jonas_b@bitsmart.com>
 	
 	* htmlcheckbox.c (encode): New function.
 	(html_checkbox_init): Set value to "on" if it's NULL.
