@@ -1,5 +1,12 @@
 2000-10-18  Radek Doulik  <rodo@helixcode.com>
 
+	* keybindingsrc.ms: like for emacs
+
+	* keybindingsrc.emacs: changed indentation bindings
+
+	* gtkhtml.c (command): reset html->binding_handled to TRUE in
+	editable part
+
 	* htmlclueflow.c (save_plain): add \n for empty paragraphs
 
 	* keybindingsrc.emacs: removed C-left, C-right as they are already

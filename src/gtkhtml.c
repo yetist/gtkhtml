@@ -617,7 +617,8 @@ key_press_event (GtkWidget *widget,
 	html->binding_handled = FALSE;
 	if (html->editor_bindings && html_engine_get_editable (html->engine))
 		gtk_binding_set_activate (html->editor_bindings, event->keyval, event->state, GTK_OBJECT (widget));
-	gtk_bindings_activate (GTK_OBJECT (widget), event->keyval, event->state);
+	if (!html->binding_handled)
+		gtk_bindings_activate (GTK_OBJECT (widget), event->keyval, event->state);
 	retval = html->binding_handled;
 
 	if (! retval
@@ -2354,6 +2355,8 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 
 	if (!html_engine_get_editable (e))
 		return;
+
+	html->binding_handled = TRUE;
 
 	/* editable commands only */
 	switch (com_type) {

@@ -63,8 +63,10 @@ binding "gtkhtml-bindings-emacs"
   bind "<Ctrl><Alt>c"       { "command" (align-center) }
   bind "<Ctrl><Alt>r"       { "command" (align-right) }
 
-  bind "Tab"                { "command" (indent-more) }
-  bind "<Ctrl><Alt>Tab"     { "command" (indent-less) }
+  bind "Tab"                     { "command" (indent-more) }
+  bind "ISO_Left_Tab"            { "command" (indent-more) }
+  bind "<Shift>Tab"              { "command" (indent-less) }
+  bind "<Shift>ISO_Left_Tab"     { "command" (indent-less) }
 
   bind "<Ctrl>0"            { "command" (style-normal) }
   bind "<Ctrl>1"            { "command" (style-header1) }
