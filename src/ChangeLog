@@ -1,5 +1,8 @@
 2002-04-18  Larry Ewing  <lewing@ximian.com>
 
+        * htmlclueflow.c (get_indent): Add #ifdef DRAW_QUOTES here for
+	now.
+	
 	* htmlclueflow.c (draw_quotes): add more drawing logic.
 	(is_cite): helper function to handle the cite test so that we can
 	change it from the current hack when we want to.

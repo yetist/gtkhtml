@@ -477,12 +477,14 @@ get_indent (HTMLClueFlow *flow,
 
 	if (level > 0 || ! is_item (flow)) {
 		if (HTML_IS_PLAIN_PAINTER (painter) && is_cite (flow)) {
+#ifdef DRAW_QUOTES
 			int line_offset = 0;
 			
 			indent = html_painter_calc_text_width (painter, ">", 1, &line_offset, style, NULL)
 				                     + html_painter_get_space_width (painter, style, NULL);
 			
 			level--;
+#endif
 		} 
 			
 		indent += level * calc_indent_unit (painter);
@@ -1132,6 +1134,7 @@ draw_quotes (HTMLObject *self, HTMLPainter *painter,
 	     gint x, gint y, gint width, gint height,
 	     gint tx, gint ty)
 {
+#define DRAW_QUOTES
 #ifdef DRAW_QUOTES
 	HTMLClueFlow *flow;
 	ArtIRect paint, area, clip;
