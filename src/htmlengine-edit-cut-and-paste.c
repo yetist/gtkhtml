@@ -395,29 +395,6 @@ delete_object (HTMLEngine *e, HTMLObject **ret_object, guint *ret_len, HTMLUndoD
 		HTMLObject *object;
 		guint len;
 
-		/* if (e->mark->position < e->cursor->position) {
-			HTMLCursor *tmp;
-
-			tmp = e->cursor;
-			e->cursor = e->mark;
-			e->mark = tmp;
-		}
-
-		{
-			HTMLObject *obj;
-			gint off;
-
-			html_cursor_get_left (e->cursor, &obj, &off);
-			if (obj) {
-				e->cursor->object = obj;
-				e->cursor->offset = off;
-			}
-		}
-		if (!e->cursor->object || (e->cursor->object->prev == NULL && e->cursor->offset == 0)) {
-			e->cursor->object = e->mark->object;
-			e->cursor->offset = 0;
-			} */
-
 		delete_object_do (e, &object, &len);
 		if (ret_object && ret_len) {
 			*ret_object = html_object_op_copy (object, e, NULL, NULL, ret_len);

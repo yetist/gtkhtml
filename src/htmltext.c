@@ -1553,30 +1553,37 @@ html_text_magic_link (HTMLText *text, HTMLEngine *engine, guint offset)
 {
 	regmatch_t pmatch [2];
 	gint i;
+	gboolean rv = FALSE;
+	gint saved_position;
 
 	if (!offset)
 		return FALSE;
 	offset--;
+
+	saved_position = engine->cursor->position;
 
 	while (html_text_get_char (text, offset) != ' ' && html_text_get_char (text, offset) != ENTITY_NBSP && offset)
 		offset--;
 	if (html_text_get_char (text, offset) == ' ' || html_text_get_char (text, offset) == ENTITY_NBSP)
 		offset++;
 
-	while (offset < text->text_len) {
+	while (offset < text->text_len && !rv) {
 		for (i=0; i<MIM_N; i++) {
 			if (mim [i].preg && !regexec (mim [i].preg, html_text_get_text (text, offset), 2, pmatch, 0)) {
 				gint o = html_text_get_text (text, offset) - text->text;
 				paste_link (engine, text,
 					    unicode_index_to_offset (text->text, pmatch [0].rm_so + o),
 					    unicode_index_to_offset (text->text, pmatch [0].rm_eo + o), mim [i].prefix);
-				return TRUE;
+				rv = TRUE;
+				break;
 			}
 		}
 		offset++;
 	}
 
-	return FALSE;
+	html_cursor_jump_to_position (engine->cursor, engine, saved_position);
+
+	return rv;
 }
 
 /*
