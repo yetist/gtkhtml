@@ -206,7 +206,7 @@ get_font (HTMLFontManager *manager, HTMLFontSet **set, gchar *face, GtkHTMLFontS
 static gpointer
 alloc_new_font (HTMLFontManager *manager, HTMLFontSet **set, gchar *face_list, GtkHTMLFontStyle style)
 {
-	gpointer font;
+	gpointer font = NULL;
 	gchar **faces;
 	gchar **face;
 

@@ -1,5 +1,7 @@
 2000-10-09  Larry Ewing  <lewing@helixcode.com>
 
+	* htmlfontmanager.c (alloc_new_font): initialize font to NULL.
+
 	* gtkhtml.c: update to use priv structure.
 	(destroy): free priv structure.
 	(init): allocate the priv structure.
