@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 1.0.x\n"
-"POT-Creation-Date: 2003-04-16 14:30+0200\n"
+"POT-Creation-Date: 2003-04-29 12:01-0500\n"
 "PO-Revision-Date: 2003-04-16 14:04+0200\n"
 "Last-Translator: Christian Neumair <chris@gnome-de.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
@@ -319,7 +319,7 @@ msgstr "Überschrift _6"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
 #: components/html-editor/editor-control-factory.c:197
 #: components/html-editor/gtkhtml-editor-properties.glade.h:39
-#: components/html-editor/menubar.c:91 components/html-editor/popup.c:207
+#: components/html-editor/menubar.c:90 components/html-editor/popup.c:207
 msgid "Image"
 msgstr "Bild"
 
@@ -401,7 +401,7 @@ msgid "Li_ck"
 msgstr "Le_ckend"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
-#: components/html-editor/body.c:326 components/html-editor/menubar.c:107
+#: components/html-editor/body.c:326 components/html-editor/menubar.c:106
 #: components/html-editor/popup.c:104 components/html-editor/popup.c:200
 #: components/html-editor/popup.c:273
 msgid "Link"
@@ -549,7 +549,7 @@ msgstr "Römisch nummerierte Liste"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
 #: components/html-editor/editor-control-factory.c:217
 #: components/html-editor/gtkhtml-editor-properties.glade.h:63
-#: components/html-editor/menubar.c:125 components/html-editor/popup.c:228
+#: components/html-editor/menubar.c:124 components/html-editor/popup.c:228
 msgid "Rule"
 msgstr "Trennlinie"
 
@@ -589,7 +589,7 @@ msgstr "Hochgestellt"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
-#: components/html-editor/menubar.c:142 components/html-editor/popup.c:235
+#: components/html-editor/menubar.c:141 components/html-editor/popup.c:235
 #: components/html-editor/popup.c:516 components/html-editor/popup.c:525
 msgid "Table"
 msgstr "Tabelle"
@@ -605,7 +605,7 @@ msgstr "Te_xtdatei..."
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
 #: components/html-editor/body.c:256
 #: components/html-editor/gtkhtml-editor-properties.glade.h:74
-#: components/html-editor/menubar.c:165
+#: components/html-editor/menubar.c:164
 msgid "Template"
 msgstr "Vorlage"
 
@@ -823,7 +823,7 @@ msgstr "Blaue Tinte"
 msgid "Rectangles"
 msgstr "Rechtecke"
 
-#: components/html-editor/body.c:274 src/gtkhtml.c:2591
+#: components/html-editor/body.c:274 src/gtkhtml.c:2593
 msgid "Document Title"
 msgstr "Titel des Dokuments"
 
@@ -846,7 +846,7 @@ msgstr "Automatisch"
 #: components/html-editor/body.c:325
 #: components/html-editor/editor-control-factory.c:206
 #: components/html-editor/gtkhtml-editor-properties.glade.h:76
-#: components/html-editor/menubar.c:288 components/html-editor/popup.c:193
+#: components/html-editor/menubar.c:287 components/html-editor/popup.c:193
 msgid "Text"
 msgstr "Text"
 
@@ -873,20 +873,20 @@ msgstr ""
 "Daher konnten Ihre Änderungen nicht übernommen werden."
 
 #: components/html-editor/editor-control-factory.c:186
-#: components/html-editor/menubar.c:267 components/html-editor/menubar.c:285
-#: components/html-editor/menubar.c:303 components/html-editor/popup.c:185
+#: components/html-editor/menubar.c:266 components/html-editor/menubar.c:284
+#: components/html-editor/menubar.c:302 components/html-editor/popup.c:185
 #: components/html-editor/popup.c:270
 msgid "Properties"
 msgstr "Eigenschaften"
 
 #: components/html-editor/editor-control-factory.c:227
-#: components/html-editor/menubar.c:306 components/html-editor/popup.c:214
+#: components/html-editor/menubar.c:305 components/html-editor/popup.c:214
 msgid "Paragraph"
 msgstr "Absatz"
 
 #: components/html-editor/editor-control-factory.c:232
 #: components/html-editor/gtkhtml-editor-properties.glade.h:52
-#: components/html-editor/menubar.c:270 components/html-editor/popup.c:221
+#: components/html-editor/menubar.c:269 components/html-editor/popup.c:221
 msgid "Page"
 msgstr "Seite"
 
@@ -1237,18 +1237,18 @@ msgstr ""
 "Der bearbeitete Link wurde aus dem Dokument entfernt.\n"
 "Daher konnten Ihre Änderungen nicht übernommen werden."
 
-#: components/html-editor/menubar.c:88 components/html-editor/menubar.c:104
-#: components/html-editor/menubar.c:122 components/html-editor/menubar.c:139
-#: components/html-editor/menubar.c:162 components/html-editor/popup.c:101
+#: components/html-editor/menubar.c:87 components/html-editor/menubar.c:103
+#: components/html-editor/menubar.c:121 components/html-editor/menubar.c:138
+#: components/html-editor/menubar.c:161 components/html-editor/popup.c:101
 #: components/html-editor/properties.c:129
 msgid "Insert"
 msgstr "Einfügen"
 
-#: components/html-editor/menubar.c:229
+#: components/html-editor/menubar.c:228
 msgid "Insert HTML file"
 msgstr "HTML-Datei einfügen"
 
-#: components/html-editor/menubar.c:229
+#: components/html-editor/menubar.c:228
 msgid "Insert text file"
 msgstr "Textdatei einfügen"
 
@@ -1555,71 +1555,71 @@ msgstr "Rückt Absätze weiter ein"
 msgid "Sample"
 msgstr "Beispiel"
 
-#: src/gtkhtml.c:2584
+#: src/gtkhtml.c:2586
 msgid "Editable"
 msgstr "Editierbar"
 
-#: src/gtkhtml.c:2585
+#: src/gtkhtml.c:2587
 msgid "Whether the html can be edited"
 msgstr "Soll das HTML editiert werden können?"
 
-#: src/gtkhtml.c:2592
+#: src/gtkhtml.c:2594
 msgid "The title of the current document"
 msgstr "Der Titel des momentan geöffneten Dokuments"
 
-#: src/gtkhtml.c:2598
+#: src/gtkhtml.c:2600
 msgid "Document Base"
 msgstr "Dokumentenbasis"
 
-#: src/gtkhtml.c:2599
+#: src/gtkhtml.c:2601
 msgid "The base URL for relative references"
 msgstr "Die Basisadresse für relative Verweise"
 
-#: src/gtkhtml.c:2605
+#: src/gtkhtml.c:2607
 msgid "Target Base"
 msgstr "Zielbasis"
 
-#: src/gtkhtml.c:2606
+#: src/gtkhtml.c:2608
 msgid "The base URL of the targe frame"
 msgstr "Die Basisadresse für das Ziel-Frame"
 
-#: src/gtkhtml.c:2615
+#: src/gtkhtml.c:2617
 msgid "Fixed Width Font"
 msgstr "Dicktengleiche Schrift"
 
-#: src/gtkhtml.c:2616
+#: src/gtkhtml.c:2618
 msgid "The Monospace font to use for typewriter text"
 msgstr "Die für typewriter-Text zu verwendende dicktengleiche Schrift"
 
-#: src/gtkhtml.c:2622
+#: src/gtkhtml.c:2624
 msgid "New Link Color"
 msgstr "Farbe für neue Links"
 
-#: src/gtkhtml.c:2623
+#: src/gtkhtml.c:2625
 msgid "The color of new link elements"
 msgstr "Die Farbe für neue Link-Elemente"
 
-#: src/gtkhtml.c:2628
+#: src/gtkhtml.c:2630
 msgid "Visited Link Color"
 msgstr "Farbe für besuchte Links"
 
-#: src/gtkhtml.c:2629
+#: src/gtkhtml.c:2631
 msgid "The color of visited link elements"
 msgstr "Die Farbe für besuchte Link-Elemente"
 
-#: src/gtkhtml.c:2634
+#: src/gtkhtml.c:2636
 msgid "Active Link Color"
 msgstr "Farbe für aktive Links"
 
-#: src/gtkhtml.c:2635
+#: src/gtkhtml.c:2637
 msgid "The color of active link elements"
 msgstr "Die Farbe für aktive Link-Elemente"
 
-#: src/gtkhtml.c:2640
+#: src/gtkhtml.c:2642
 msgid "Spelling Error Color"
 msgstr "Farbe für Rechtschreibfehler"
 
-#: src/gtkhtml.c:2641
+#: src/gtkhtml.c:2643
 msgid "The color of the spelling error markers"
 msgstr "Die für die Hervorhebung von Rechtschreibfehlern verwendete Farbe"
 

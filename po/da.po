@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2003-04-15 20:31+0200\n"
+"POT-Creation-Date: 2003-04-29 12:01-0500\n"
 "PO-Revision-Date: 2003-04-15 20:42+0200\n"
 "Last-Translator: Ole Laursen <olau@hardworking.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
@@ -323,7 +323,7 @@ msgstr "Titel _6"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
 #: components/html-editor/editor-control-factory.c:197
 #: components/html-editor/gtkhtml-editor-properties.glade.h:39
-#: components/html-editor/menubar.c:91 components/html-editor/popup.c:207
+#: components/html-editor/menubar.c:90 components/html-editor/popup.c:207
 msgid "Image"
 msgstr "Billede"
 
@@ -405,7 +405,7 @@ msgid "Li_ck"
 msgstr "_Tungerækkende"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
-#: components/html-editor/body.c:326 components/html-editor/menubar.c:107
+#: components/html-editor/body.c:326 components/html-editor/menubar.c:106
 #: components/html-editor/popup.c:104 components/html-editor/popup.c:200
 #: components/html-editor/popup.c:273
 msgid "Link"
@@ -553,7 +553,7 @@ msgstr "Liste med romerske tal"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
 #: components/html-editor/editor-control-factory.c:217
 #: components/html-editor/gtkhtml-editor-properties.glade.h:63
-#: components/html-editor/menubar.c:125 components/html-editor/popup.c:228
+#: components/html-editor/menubar.c:124 components/html-editor/popup.c:228
 msgid "Rule"
 msgstr "Linje"
 
@@ -593,7 +593,7 @@ msgstr "Hævet skrift"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
-#: components/html-editor/menubar.c:142 components/html-editor/popup.c:235
+#: components/html-editor/menubar.c:141 components/html-editor/popup.c:235
 #: components/html-editor/popup.c:516 components/html-editor/popup.c:525
 msgid "Table"
 msgstr "Tabel"
@@ -609,7 +609,7 @@ msgstr "Te_kstfil..."
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
 #: components/html-editor/body.c:256
 #: components/html-editor/gtkhtml-editor-properties.glade.h:74
-#: components/html-editor/menubar.c:165
+#: components/html-editor/menubar.c:164
 msgid "Template"
 msgstr "Skabelon"
 
@@ -827,7 +827,7 @@ msgstr "Blåt blæk"
 msgid "Rectangles"
 msgstr "Rektangler"
 
-#: components/html-editor/body.c:274 src/gtkhtml.c:2591
+#: components/html-editor/body.c:274 src/gtkhtml.c:2593
 msgid "Document Title"
 msgstr "Dokumenttitel"
 
@@ -850,7 +850,7 @@ msgstr "Automatisk"
 #: components/html-editor/body.c:325
 #: components/html-editor/editor-control-factory.c:206
 #: components/html-editor/gtkhtml-editor-properties.glade.h:76
-#: components/html-editor/menubar.c:288 components/html-editor/popup.c:193
+#: components/html-editor/menubar.c:287 components/html-editor/popup.c:193
 msgid "Text"
 msgstr "Tekst"
 
@@ -877,22 +877,27 @@ msgstr ""
 "Kan ikke anvende dine ændringer."
 
 #: components/html-editor/editor-control-factory.c:186
-#: components/html-editor/menubar.c:267 components/html-editor/menubar.c:285
-#: components/html-editor/menubar.c:303 components/html-editor/popup.c:185
+#: components/html-editor/menubar.c:266 components/html-editor/menubar.c:284
+#: components/html-editor/menubar.c:302 components/html-editor/popup.c:185
 #: components/html-editor/popup.c:270
 msgid "Properties"
 msgstr "Indstillinger"
 
 #: components/html-editor/editor-control-factory.c:227
-#: components/html-editor/menubar.c:306 components/html-editor/popup.c:214
+#: components/html-editor/menubar.c:305 components/html-editor/popup.c:214
 msgid "Paragraph"
 msgstr "Afsnit"
 
 #: components/html-editor/editor-control-factory.c:232
 #: components/html-editor/gtkhtml-editor-properties.glade.h:52
-#: components/html-editor/menubar.c:270 components/html-editor/popup.c:221
+#: components/html-editor/menubar.c:269 components/html-editor/popup.c:221
 msgid "Page"
 msgstr "Side"
+
+#: components/html-editor/gnome-gtkhtml-editor.c:67
+#, fuzzy
+msgid "GtkHTML Editor Control"
+msgstr "Gnome HTML-redigeringskontrol"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:2
 msgid "************"
@@ -1237,18 +1242,18 @@ msgstr ""
 "Den redigerede henvisning blev fjernet fra dokumentet.\n"
 "Kan ikke anvende dine ændringer."
 
-#: components/html-editor/menubar.c:88 components/html-editor/menubar.c:104
-#: components/html-editor/menubar.c:122 components/html-editor/menubar.c:139
-#: components/html-editor/menubar.c:162 components/html-editor/popup.c:101
+#: components/html-editor/menubar.c:87 components/html-editor/menubar.c:103
+#: components/html-editor/menubar.c:121 components/html-editor/menubar.c:138
+#: components/html-editor/menubar.c:161 components/html-editor/popup.c:101
 #: components/html-editor/properties.c:129
 msgid "Insert"
 msgstr "Indsæt"
 
-#: components/html-editor/menubar.c:229
+#: components/html-editor/menubar.c:228
 msgid "Insert HTML file"
 msgstr "Indsæt HTML-fil"
 
-#: components/html-editor/menubar.c:229
+#: components/html-editor/menubar.c:228
 msgid "Insert text file"
 msgstr "Indsæt tekstfil"
 
@@ -1555,71 +1560,71 @@ msgstr "Forøger indrykningen af afsnittene"
 msgid "Sample"
 msgstr "Prøve"
 
-#: src/gtkhtml.c:2584
+#: src/gtkhtml.c:2586
 msgid "Editable"
 msgstr "Redigérbar"
 
-#: src/gtkhtml.c:2585
+#: src/gtkhtml.c:2587
 msgid "Whether the html can be edited"
 msgstr "Om HTML'en kan redigeres"
 
-#: src/gtkhtml.c:2592
+#: src/gtkhtml.c:2594
 msgid "The title of the current document"
 msgstr "Titlen for det aktuelle dokument"
 
-#: src/gtkhtml.c:2598
+#: src/gtkhtml.c:2600
 msgid "Document Base"
 msgstr "Grundadresse"
 
-#: src/gtkhtml.c:2599
+#: src/gtkhtml.c:2601
 msgid "The base URL for relative references"
 msgstr "Grundadressen for relative referencer"
 
-#: src/gtkhtml.c:2605
+#: src/gtkhtml.c:2607
 msgid "Target Base"
 msgstr "Måladresse"
 
-#: src/gtkhtml.c:2606
+#: src/gtkhtml.c:2608
 msgid "The base URL of the targe frame"
 msgstr "Grundadressen for målrammen"
 
-#: src/gtkhtml.c:2615
+#: src/gtkhtml.c:2617
 msgid "Fixed Width Font"
 msgstr "Fast bredde-skrifttype"
 
-#: src/gtkhtml.c:2616
+#: src/gtkhtml.c:2618
 msgid "The Monospace font to use for typewriter text"
 msgstr "Fast bredde-skrifttype til skrivemaskineskrift"
 
-#: src/gtkhtml.c:2622
+#: src/gtkhtml.c:2624
 msgid "New Link Color"
 msgstr "Farve for ny henvisning"
 
-#: src/gtkhtml.c:2623
+#: src/gtkhtml.c:2625
 msgid "The color of new link elements"
 msgstr "Farven for nye henvisningselementer"
 
-#: src/gtkhtml.c:2628
+#: src/gtkhtml.c:2630
 msgid "Visited Link Color"
 msgstr "Farve for besøgt henvisning"
 
-#: src/gtkhtml.c:2629
+#: src/gtkhtml.c:2631
 msgid "The color of visited link elements"
 msgstr "Farven for besøgte henvisningselementer"
 
-#: src/gtkhtml.c:2634
+#: src/gtkhtml.c:2636
 msgid "Active Link Color"
 msgstr "Farve for aktiv henvisning"
 
-#: src/gtkhtml.c:2635
+#: src/gtkhtml.c:2637
 msgid "The color of active link elements"
 msgstr "Farven for aktive henvisningselementer"
 
-#: src/gtkhtml.c:2640
+#: src/gtkhtml.c:2642
 msgid "Spelling Error Color"
 msgstr "Farve for stavefejl"
 
-#: src/gtkhtml.c:2641
+#: src/gtkhtml.c:2643
 msgid "The color of the spelling error markers"
 msgstr "Farven for markeringer af stavefejl"
 

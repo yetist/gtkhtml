@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.HEAD.sk\n"
-"POT-Creation-Date: 2003-04-09 17:04-0400\n"
+"POT-Creation-Date: 2003-04-29 12:01-0500\n"
 "PO-Revision-Date: 2003-03-11 22:08+0100\n"
 "Last-Translator: Stanislav Visnovsky <visnovsky@kde.org>\n"
 "Language-Team: Slovak <sk-i18n@linux.sk>\n"
@@ -256,8 +256,7 @@ msgid "Cut the selection"
 msgstr "Vystrihne výber"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
-#: components/html-editor/search.c:73 components/html-editor/search.c:75
-#: components/html-editor/search.c:118
+#: components/html-editor/search.c:73 components/html-editor/search.c:121
 msgid "Find"
 msgstr "Nájsť"
 
@@ -320,7 +319,7 @@ msgstr "Hlavička _6"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
 #: components/html-editor/editor-control-factory.c:197
 #: components/html-editor/gtkhtml-editor-properties.glade.h:39
-#: components/html-editor/menubar.c:91 components/html-editor/popup.c:207
+#: components/html-editor/menubar.c:90 components/html-editor/popup.c:207
 msgid "Image"
 msgstr "Obrázok"
 
@@ -402,7 +401,7 @@ msgid "Li_ck"
 msgstr "Ob_lizovanie"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
-#: components/html-editor/body.c:326 components/html-editor/menubar.c:107
+#: components/html-editor/body.c:326 components/html-editor/menubar.c:106
 #: components/html-editor/popup.c:104 components/html-editor/popup.c:200
 #: components/html-editor/popup.c:273
 msgid "Link"
@@ -534,8 +533,7 @@ msgstr "Opakuje vrátené zmeny"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
 #: components/html-editor/replace.c:78 components/html-editor/replace.c:152
-#: components/html-editor/replace.c:154 components/html-editor/replace.c:171
-#: components/html-editor/replace.c:207
+#: components/html-editor/replace.c:210
 msgid "Replace"
 msgstr "Nahradiť"
 
@@ -551,7 +549,7 @@ msgstr "Zoznam s rímskymi číslicami"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
 #: components/html-editor/editor-control-factory.c:217
 #: components/html-editor/gtkhtml-editor-properties.glade.h:63
-#: components/html-editor/menubar.c:125 components/html-editor/popup.c:228
+#: components/html-editor/menubar.c:124 components/html-editor/popup.c:228
 msgid "Rule"
 msgstr "Pravidlo"
 
@@ -591,7 +589,7 @@ msgstr "Horný index"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
-#: components/html-editor/menubar.c:142 components/html-editor/popup.c:235
+#: components/html-editor/menubar.c:141 components/html-editor/popup.c:235
 #: components/html-editor/popup.c:516 components/html-editor/popup.c:525
 msgid "Table"
 msgstr "Tabuľka"
@@ -607,7 +605,7 @@ msgstr "Te_xtový súbor..."
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
 #: components/html-editor/body.c:256
 #: components/html-editor/gtkhtml-editor-properties.glade.h:74
-#: components/html-editor/menubar.c:165
+#: components/html-editor/menubar.c:164
 msgid "Template"
 msgstr "Šablóna"
 
@@ -825,7 +823,7 @@ msgstr "Modrý atrament"
 msgid "Rectangles"
 msgstr "Pravouholník"
 
-#: components/html-editor/body.c:274 src/gtkhtml.c:2591
+#: components/html-editor/body.c:274 src/gtkhtml.c:2593
 msgid "Document Title"
 msgstr "Titulok dokumentu"
 
@@ -848,7 +846,7 @@ msgstr "Automatické"
 #: components/html-editor/body.c:325
 #: components/html-editor/editor-control-factory.c:206
 #: components/html-editor/gtkhtml-editor-properties.glade.h:76
-#: components/html-editor/menubar.c:288 components/html-editor/popup.c:193
+#: components/html-editor/menubar.c:287 components/html-editor/popup.c:193
 msgid "Text"
 msgstr "Text"
 
@@ -875,22 +873,27 @@ msgstr ""
 "Vaše zmeny nie je možné použiť."
 
 #: components/html-editor/editor-control-factory.c:186
-#: components/html-editor/menubar.c:267 components/html-editor/menubar.c:285
-#: components/html-editor/menubar.c:303 components/html-editor/popup.c:185
+#: components/html-editor/menubar.c:266 components/html-editor/menubar.c:284
+#: components/html-editor/menubar.c:302 components/html-editor/popup.c:185
 #: components/html-editor/popup.c:270
 msgid "Properties"
 msgstr "Vlastnosti"
 
 #: components/html-editor/editor-control-factory.c:227
-#: components/html-editor/menubar.c:306 components/html-editor/popup.c:214
+#: components/html-editor/menubar.c:305 components/html-editor/popup.c:214
 msgid "Paragraph"
 msgstr "Odstavec"
 
 #: components/html-editor/editor-control-factory.c:232
 #: components/html-editor/gtkhtml-editor-properties.glade.h:52
-#: components/html-editor/menubar.c:270 components/html-editor/popup.c:221
+#: components/html-editor/menubar.c:269 components/html-editor/popup.c:221
 msgid "Page"
 msgstr "Stránka"
+
+#: components/html-editor/gnome-gtkhtml-editor.c:67
+#, fuzzy
+msgid "GtkHTML Editor Control"
+msgstr "Ovládací prvok GNOME HTML editor"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:2
 msgid "************"
@@ -1235,18 +1238,18 @@ msgstr ""
 "Upravovaný odkaz bol z dokumentu dostránený.\n"
 "Vaše zmeny nie je možné použiť."
 
-#: components/html-editor/menubar.c:88 components/html-editor/menubar.c:104
-#: components/html-editor/menubar.c:122 components/html-editor/menubar.c:139
-#: components/html-editor/menubar.c:162 components/html-editor/popup.c:101
+#: components/html-editor/menubar.c:87 components/html-editor/menubar.c:103
+#: components/html-editor/menubar.c:121 components/html-editor/menubar.c:138
+#: components/html-editor/menubar.c:161 components/html-editor/popup.c:101
 #: components/html-editor/properties.c:129
 msgid "Insert"
 msgstr "Vložiť"
 
-#: components/html-editor/menubar.c:229
+#: components/html-editor/menubar.c:228
 msgid "Insert HTML file"
 msgstr "Vložiť HTML súbor"
 
-#: components/html-editor/menubar.c:229
+#: components/html-editor/menubar.c:228
 msgid "Insert text file"
 msgstr "Vložiť textový súbor"
 
@@ -1409,16 +1412,24 @@ msgid "Next"
 msgstr "Nasledujúca"
 
 #: components/html-editor/replace.c:160
-msgid "search backward"
+#, fuzzy
+msgid "Search _backward"
 msgstr "hľadať dozadu"
 
 #: components/html-editor/replace.c:161 components/html-editor/search.c:79
-msgid "case sensitive"
+#, fuzzy
+msgid "Case _sensitive"
 msgstr "rozlišovať veľkosť písmen"
 
+#: components/html-editor/replace.c:171
+#, fuzzy
+msgid "Replace:"
+msgstr "Nahradiť"
+
 #: components/html-editor/replace.c:174
-msgid "with"
-msgstr "s"
+#, fuzzy
+msgid "With:"
+msgstr "Šírka:"
 
 #: components/html-editor/rule.c:97
 msgid "Blue 3D"
@@ -1437,10 +1448,11 @@ msgstr ""
 "Vaše zmeny nie je možné použiť."
 
 #: components/html-editor/search.c:78
-msgid "backward"
+#, fuzzy
+msgid "_Backward"
 msgstr "hľadať dozadu"
 
-#: components/html-editor/search.c:118
+#: components/html-editor/search.c:121
 msgid "Find Regular Expression"
 msgstr "Hľadať regulárny výraz"
 
@@ -1488,7 +1500,7 @@ msgstr "Otvoriť súbor..."
 msgid "Save file as..."
 msgstr "Uložiť súbor ako..."
 
-#: components/html-editor/test-html-editor-control.c:554
+#: components/html-editor/test-html-editor-control.c:540
 #, fuzzy
 msgid "GtkHTML Editor Test Container"
 msgstr "Ovládací prvok GtkHTML editor"
@@ -1558,71 +1570,71 @@ msgstr "Zväčší odsadenie odstavcov"
 msgid "Sample"
 msgstr "Príklad"
 
-#: src/gtkhtml.c:2584
+#: src/gtkhtml.c:2586
 msgid "Editable"
 msgstr "Upraviteľné"
 
-#: src/gtkhtml.c:2585
+#: src/gtkhtml.c:2587
 msgid "Whether the html can be edited"
 msgstr "Či je možné HTML upravovať"
 
-#: src/gtkhtml.c:2592
+#: src/gtkhtml.c:2594
 msgid "The title of the current document"
 msgstr "Titulok aktuálneho dokumentu"
 
-#: src/gtkhtml.c:2598
+#: src/gtkhtml.c:2600
 msgid "Document Base"
 msgstr "Základné umiestnenie dokumentu"
 
-#: src/gtkhtml.c:2599
+#: src/gtkhtml.c:2601
 msgid "The base URL for relative references"
 msgstr "Základné URL pre relatívne odkazy"
 
-#: src/gtkhtml.c:2605
+#: src/gtkhtml.c:2607
 msgid "Target Base"
 msgstr "Základné umiestnenie rámca"
 
-#: src/gtkhtml.c:2606
+#: src/gtkhtml.c:2608
 msgid "The base URL of the targe frame"
 msgstr "Základné URL cieľového rámca"
 
-#: src/gtkhtml.c:2615
+#: src/gtkhtml.c:2617
 msgid "Fixed Width Font"
 msgstr "Písmo s pevnou šírkou"
 
-#: src/gtkhtml.c:2616
+#: src/gtkhtml.c:2618
 msgid "The Monospace font to use for typewriter text"
 msgstr "Písmo s pevnou šírkou pre text typu typewriter"
 
-#: src/gtkhtml.c:2622
+#: src/gtkhtml.c:2624
 msgid "New Link Color"
 msgstr "Farba nového odkazu"
 
-#: src/gtkhtml.c:2623
+#: src/gtkhtml.c:2625
 msgid "The color of new link elements"
 msgstr "Farba nového odkazu"
 
-#: src/gtkhtml.c:2628
+#: src/gtkhtml.c:2630
 msgid "Visited Link Color"
 msgstr "Farba navštíveného odkazu"
 
-#: src/gtkhtml.c:2629
+#: src/gtkhtml.c:2631
 msgid "The color of visited link elements"
 msgstr "Farba navštíveného odkazu"
 
-#: src/gtkhtml.c:2634
+#: src/gtkhtml.c:2636
 msgid "Active Link Color"
 msgstr "Farba aktívneho odkazu"
 
-#: src/gtkhtml.c:2635
+#: src/gtkhtml.c:2637
 msgid "The color of active link elements"
 msgstr "Farba aktívneho odkazu"
 
-#: src/gtkhtml.c:2640
+#: src/gtkhtml.c:2642
 msgid "Spelling Error Color"
 msgstr "Farba chyby pravopisu"
 
-#: src/gtkhtml.c:2641
+#: src/gtkhtml.c:2643
 msgid "The color of the spelling error markers"
 msgstr "Farba označenia chyby v pravopise"
 
@@ -1698,6 +1710,9 @@ msgstr "U_kážka pred tlačou"
 #: src/testgtkhtml.c:103
 msgid "Print preview"
 msgstr "Ukážka pred tlačou"
+
+#~ msgid "with"
+#~ msgstr "s"
 
 #~ msgid "Check '%s' spelling..."
 #~ msgstr "Kontrola pravopisu '%s'..."
