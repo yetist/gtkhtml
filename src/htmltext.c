@@ -621,7 +621,6 @@ calc_word_width (HTMLText *text, HTMLPainter *painter, gint line_offset)
 	if (text->text_len == 0) {
 		gint lo = 0;
 		/* FIXME: cache items and glyphs? */
-		printf ("space size\n");
 		html_painter_calc_text_size_bytes (painter, " ", 1, NULL, NULL, &lo, font, style, &width, &obj->ascent, &obj->descent);
 	}
 
