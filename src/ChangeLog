@@ -1,3 +1,8 @@
+2001-10-19  Dan Winship  <danw@frotz.mysterion.org>
+
+	* gtkhtml-stream.c (gtk_html_stream_vprintf): Fix another
+	ppc-breaking stdarg buglet.
+
 2001-10-19  Radek Doulik  <rodo@ximian.com>
 
 	* htmlinterval.c (unselect_object): queue draw only if engine is
