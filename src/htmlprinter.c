@@ -519,7 +519,7 @@ draw_text (HTMLPainter *painter,
 	GnomeFont *font;
 	HTMLPrinter *printer;
 	gdouble print_x, print_y;
-	gchar *end, *text_tmp;
+	gchar *end;
 
 	printer = HTML_PRINTER (painter);
 	g_return_if_fail (printer->print_context != NULL);
@@ -529,16 +529,9 @@ draw_text (HTMLPainter *painter,
 	gnome_print_newpath (printer->print_context);
 	gnome_print_moveto (printer->print_context, print_x, print_y);
 
-	/* Oh boy, this sucks so much.  The GnomePrint API could be improved to
-           avoid this.  */
-	end = g_utf8_offset_to_pointer (text, len);
-	text_tmp = alloca (end - text + 1);
-	memcpy (text_tmp, text, end - text);
-	text_tmp [end - text] = '\0';
-
 	font = html_painter_get_font (painter, painter->font_face, painter->font_style);
 	gnome_print_setfont (printer->print_context, font);
-	gnome_print_show (printer->print_context, text_tmp);
+	gnome_print_show_sized (printer->print_context, text, g_utf8_offset_to_pointer (text, len) - text);
 
 	if (painter->font_style & (GTK_HTML_FONT_STYLE_UNDERLINE | GTK_HTML_FONT_STYLE_STRIKEOUT)) {
 		double text_width;
