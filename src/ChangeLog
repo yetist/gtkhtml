@@ -1,5 +1,8 @@
 2002-02-12  Radek Doulik  <rodo@ximian.com>
 
+	* htmlimage.c (html_image_animation_timeout): test if delay is >
+	0 (before we have been testing for != 0)
+
 	* gtkhtml.c (gtk_html_has_undo): renamed from gtk_html_is_dirty
 
 	* htmlundo.c (html_undo_has_undo_steps): renamed from
