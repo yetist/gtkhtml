@@ -656,7 +656,6 @@ url_requested (GtkHTML *html, const char *url, GtkHTMLStream *handle, gpointer d
 		SoupContext *ctx;
 		SoupMessage *msg;
 
-		g_warning ("full_url=$s", full_url);
 		ctx = soup_context_get (full_url);
 		msg = soup_message_new (ctx, SOUP_METHOD_GET);
 
