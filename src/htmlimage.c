@@ -221,7 +221,8 @@ copy (HTMLObject *self,
 	dimg->url = g_strdup (simg->url);
 	dimg->target = g_strdup (simg->target);
 	dimg->color = simg->color;
-	html_color_ref (dimg->color);
+	if (simg->color)
+		html_color_ref (dimg->color);
 	dimg->have_color = simg->have_color;
 	dimg->valign = simg->valign;
 	dimg->animation = NULL;          /* don't bother with animation copying now. TODO */

@@ -183,6 +183,7 @@ push_color (HTMLEngine *e,
 	    HTMLColor *color)
 {
 	html_stack_push (e->color_stack, color);
+	html_color_ref (color);
 }
 
 static void
