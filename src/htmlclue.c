@@ -406,10 +406,12 @@ forall (HTMLObject *self,
 	HTMLObjectForallFunc func,
 	gpointer data)
 {
-	HTMLObject *p;
+	HTMLObject *p, *pnext;
 
-	for (p = HTML_CLUE (self)->head; p != NULL; p = p->next)
+	for (p = HTML_CLUE (self)->head; p != NULL; p = pnext) {
+		pnext = p->next;
 		html_object_forall (p, e, func, data);
+	}
 
 	html_object_class.forall (self, e, func, data);
 }

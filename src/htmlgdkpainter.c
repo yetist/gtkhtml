@@ -32,10 +32,10 @@
 #include "htmlcolor.h"
 #include "htmlcolorset.h"
 
-
 static HTMLPainterClass *parent_class = NULL;
 
-
+static EFontStyle e_style (GtkHTMLFontStyle style);
+
 /* GtkObject methods.  */
 
 static void
@@ -205,19 +205,33 @@ alloc_e_font_it (gchar *face, gdouble size, GtkHTMLFontStyle style, gchar *it)
 	return font;
 }
 
-static gpointer
-alloc_e_font (gchar *face, gdouble size, GtkHTMLFontStyle style)
+static HTMLFont *
+alloc_e_font (HTMLPainter *painter, gchar *face, gdouble size, GtkHTMLFontStyle style)
 {
-	
-
 	EFont *font;
 
 	font = alloc_e_font_it (face, size, style, "i");
 	if (!font && style & GTK_HTML_FONT_STYLE_ITALIC)
 		font = alloc_e_font_it (face, size, style, "o");
 
-	return font;
+	if (!font)
+		return NULL;
+
+	return html_font_new (font, e_font_utf8_text_width (font, e_style (style), " ", 1));
 }
+
+static void
+ref_font (HTMLPainter *painter, HTMLFont *font)
+{
+	e_font_ref ((EFont *) font->data);
+}
+
+static void
+unref_font (HTMLPainter *painter, HTMLFont *font)
+{
+	e_font_unref ((EFont *) font->data);
+}
+
 
 static void
 alloc_color (HTMLPainter *painter,
@@ -1118,8 +1132,8 @@ class_init (GtkObjectClass *object_class)
 	painter_class->begin = begin;
 	painter_class->end = end;
 	painter_class->alloc_font = alloc_e_font;
-	painter_class->ref_font   = (HTMLFontManagerRefFont)   e_font_ref;
-	painter_class->unref_font = (HTMLFontManagerUnrefFont) e_font_unref;
+	painter_class->ref_font   = ref_font;
+	painter_class->unref_font = unref_font;
 	painter_class->alloc_color = alloc_color;
 	painter_class->free_color = free_color;
 	painter_class->calc_ascent = calc_ascent;

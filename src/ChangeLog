@@ -1,5 +1,16 @@
 2001-01-16  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlclue.c (forall): use pnext to remember p->next as p could be
+	removed in func call
+
+	* gtkhtml.c (gtk_html_set_color): new function
+
+	* htmltext.c (html_text_op_cut_helper): remove spell errors from
+	cuted part
+
+	* htmlengine-edit-cut-and-paste.c (prepare_delete_bounds): if
+	level > 1 prepend NULL before left and right
+
 	* htmlclueflow.c (get_post_padding): add post padding for header
 	preceding another header too
 

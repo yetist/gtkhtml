@@ -54,9 +54,9 @@ struct _HTMLPainterClass {
 	void (* begin) (HTMLPainter *painter, int x1, int y1, int x2, int y2);
 	void (* end) (HTMLPainter *painter);
 
-	HTMLFontManagerAllocFont  alloc_font;
-	HTMLFontManagerRefFont      ref_font;
-	HTMLFontManagerUnrefFont  unref_font;
+        HTMLFont * (* alloc_font)   (HTMLPainter *p, gchar *face_name, gdouble size, GtkHTMLFontStyle  style);
+	void       (* ref_font)     (HTMLPainter *p, HTMLFont *font);
+	void       (* unref_font)   (HTMLPainter *p, HTMLFont *font);
 
 	void (* alloc_color) (HTMLPainter *painter, GdkColor *color);
 	void (* free_color)   (HTMLPainter *painter, GdkColor *color);
@@ -94,130 +94,140 @@ struct _HTMLPainterClass {
 
 
 /* Creation.  */
-GtkType      html_painter_get_type   (void);
-HTMLPainter *html_painter_new        (void);
+GtkType           html_painter_get_type                                (void);
+HTMLPainter      *html_painter_new                                     (void);
 
 /* Functions to drive the painting process.  */
-void         html_painter_begin      (HTMLPainter *painter,
-				      int          x1,
-				      int          y1,
-				      int          x2,
-				      int          y2);
-void         html_painter_end        (HTMLPainter *painter);
+void              html_painter_begin                                   (HTMLPainter       *painter,
+									int                x1,
+									int                y1,
+									int                x2,
+									int                y2);
+void              html_painter_end                                     (HTMLPainter       *painter);
 
 /* Color control.  */
-void  html_painter_alloc_color  (HTMLPainter *painter,
-				 GdkColor    *color);
-void  html_painter_free_color   (HTMLPainter *painter,
-				 GdkColor    *color);
+void              html_painter_alloc_color                             (HTMLPainter       *painter,
+									GdkColor          *color);
+void              html_painter_free_color                              (HTMLPainter       *painter,
+									GdkColor          *color);
 
 /* Color set handling.  */
-void            html_painter_set_color_set                           (HTMLPainter       *painter,
-								      HTMLColorSet      *color_set);
-const GdkColor *html_painter_get_default_background_color            (HTMLPainter       *painter);
-const GdkColor *html_painter_get_default_foreground_color            (HTMLPainter       *painter);
-const GdkColor *html_painter_get_default_link_color                  (HTMLPainter       *painter);
-const GdkColor *html_painter_get_default_highlight_color             (HTMLPainter       *painter);
-const GdkColor *html_painter_get_default_highlight_foreground_color  (HTMLPainter       *painter);
-const GdkColor *html_painter_get_black                               (const HTMLPainter *painter);
+void              html_painter_set_color_set                           (HTMLPainter       *painter,
+									HTMLColorSet      *color_set);
+const GdkColor   *html_painter_get_default_background_color            (HTMLPainter       *painter);
+const GdkColor   *html_painter_get_default_foreground_color            (HTMLPainter       *painter);
+const GdkColor   *html_painter_get_default_link_color                  (HTMLPainter       *painter);
+const GdkColor   *html_painter_get_default_highlight_color             (HTMLPainter       *painter);
+const GdkColor   *html_painter_get_default_highlight_foreground_color  (HTMLPainter       *painter);
+const GdkColor   *html_painter_get_black                               (const HTMLPainter *painter);
 
 /* Font handling.  */
-HTMLFontFace     *html_painter_find_font_face   (HTMLPainter *p,
-						 const gchar *families);
-void              html_painter_set_font_style   (HTMLPainter      *p,
-						 GtkHTMLFontStyle  f);
-GtkHTMLFontStyle  html_painter_get_font_style   (HTMLPainter      *p);
-void              html_painter_set_font_face    (HTMLPainter      *p,
-						 HTMLFontFace     *f);
-gpointer          html_painter_get_font         (HTMLPainter *painter,
-						 HTMLFontFace *face,
-						 GtkHTMLFontStyle style);
-guint             html_painter_calc_ascent      (HTMLPainter      *p,
-						 GtkHTMLFontStyle  f,
-						 HTMLFontFace     *face);
-guint             html_painter_calc_descent     (HTMLPainter      *p,
-						 GtkHTMLFontStyle  f,
-						 HTMLFontFace     *face);
-guint             html_painter_calc_text_width  (HTMLPainter      *p,
-						 const gchar      *text,
-						 guint             len,
-						 GtkHTMLFontStyle  font_style,
-						 HTMLFontFace     *face);
+HTMLFontFace     *html_painter_find_font_face                          (HTMLPainter       *p,
+									const gchar       *families);
+void              html_painter_set_font_style                          (HTMLPainter       *p,
+									GtkHTMLFontStyle   f);
+GtkHTMLFontStyle  html_painter_get_font_style                          (HTMLPainter       *p);
+void              html_painter_set_font_face                           (HTMLPainter       *p,
+									HTMLFontFace      *f);
+gpointer          html_painter_get_font                                (HTMLPainter       *painter,
+									HTMLFontFace      *face,
+									GtkHTMLFontStyle   style);
+guint             html_painter_calc_ascent                             (HTMLPainter       *p,
+									GtkHTMLFontStyle   f,
+									HTMLFontFace      *face);
+guint             html_painter_calc_descent                            (HTMLPainter       *p,
+									GtkHTMLFontStyle   f,
+									HTMLFontFace      *face);
+guint             html_painter_calc_text_width                         (HTMLPainter       *p,
+									const gchar       *text,
+									guint              len,
+									GtkHTMLFontStyle   font_style,
+									HTMLFontFace      *face);
 
 /* The actual paint operations.  */
-void  html_painter_set_pen               (HTMLPainter    *painter,
-					  const GdkColor *color);
-void  html_painter_draw_line             (HTMLPainter    *painter,
-					  gint            x1,
-					  gint            y1,
-					  gint            x2,
-					  gint            y2);
-void  html_painter_draw_rect             (HTMLPainter    *painter,
-					  gint            x,
-					  gint            y,
-					  gint            width,
-					  gint            height);
-void  html_painter_draw_text             (HTMLPainter    *painter,
-					  gint            x,
-					  gint            y,
-					  const gchar    *text,
-					  gint            len);
-void  html_painter_fill_rect             (HTMLPainter    *painter,
-					  gint            x,
-					  gint            y,
-					  gint            width,
-					  gint            height);
-void  html_painter_draw_pixmap           (HTMLPainter    *painter,
-					  GdkPixbuf      *pixbuf,
-					  gint            x,
-					  gint            y,
-					  gint            scale_width,
-					  gint            scale_height,
-					  const GdkColor *color);
-void  html_painter_draw_ellipse          (HTMLPainter    *painter,
-					  gint            x,
-					  gint            y,
-					  gint            width,
-					  gint            height);
-void  html_painter_clear                 (HTMLPainter    *painter);
-void  html_painter_set_background_color  (HTMLPainter    *painter,
-					  const GdkColor *color);
-void  html_painter_draw_shade_line       (HTMLPainter    *p,
-					  gint            x,
-					  gint            y,
-					  gint            width);
-void  html_painter_draw_panel            (HTMLPainter    *painter,
-					  GdkColor       *bg,
-					  gint            x,
-					  gint            y,
-					  gint            width,
-					  gint            height,
-					  GtkHTMLEtchStyle inset,
-					  gint            bordersize);
+void              html_painter_set_pen                                 (HTMLPainter       *painter,
+									const GdkColor    *color);
+void              html_painter_draw_line                               (HTMLPainter       *painter,
+									gint               x1,
+									gint               y1,
+									gint               x2,
+									gint               y2);
+void              html_painter_draw_rect                               (HTMLPainter       *painter,
+									gint               x,
+									gint               y,
+									gint               width,
+									gint               height);
+void              html_painter_draw_text                               (HTMLPainter       *painter,
+									gint               x,
+									gint               y,
+									const gchar       *text,
+									gint               len);
+void              html_painter_fill_rect                               (HTMLPainter       *painter,
+									gint               x,
+									gint               y,
+									gint               width,
+									gint               height);
+void              html_painter_draw_pixmap                             (HTMLPainter       *painter,
+									GdkPixbuf         *pixbuf,
+									gint               x,
+									gint               y,
+									gint               scale_width,
+									gint               scale_height,
+									const GdkColor    *color);
+void              html_painter_draw_ellipse                            (HTMLPainter       *painter,
+									gint               x,
+									gint               y,
+									gint               width,
+									gint               height);
+void              html_painter_clear                                   (HTMLPainter       *painter);
+void              html_painter_set_background_color                    (HTMLPainter       *painter,
+									const GdkColor    *color);
+void              html_painter_draw_shade_line                         (HTMLPainter       *p,
+									gint               x,
+									gint               y,
+									gint               width);
+void              html_painter_draw_panel                              (HTMLPainter       *painter,
+									GdkColor          *bg,
+									gint               x,
+									gint               y,
+									gint               width,
+									gint               height,
+									GtkHTMLEtchStyle   inset,
+									gint               bordersize);
 
 /* Passing 0 for width/height means remove clip rectangle */
-void  html_painter_set_clip_rectangle  (HTMLPainter *painter,
-					gint         x,
-					gint         y,
-					gint         width,
-					gint         height);
+void              html_painter_set_clip_rectangle                      (HTMLPainter       *painter,
+									gint               x,
+									gint               y,
+									gint               width,
+									gint               height);
 
 /* Passing 0 for pix_width / pix_height makes it use the image width */
-void  html_painter_draw_background  (HTMLPainter *painter,
-				     GdkColor *color,
-				     GdkPixbuf   *pixbuf,
-				     gint         x,
-				     gint         y,
-				     gint         width,
-				     gint         height,
-				     gint         tile_x,
-				     gint         tile_y);
-
-guint  html_painter_get_pixel_size  (HTMLPainter *painter);
-
-void   html_painter_draw_spell_error (HTMLPainter *painter,
-				      gint x, gint y,
-				      const gchar *text,
-				      guint off, gint len);
-
+void              html_painter_draw_background                         (HTMLPainter       *painter,
+									GdkColor          *color,
+									GdkPixbuf         *pixbuf,
+									gint               x,
+									gint               y,
+									gint               width,
+									gint               height,
+									gint               tile_x,
+									gint               tile_y);
+guint             html_painter_get_pixel_size                          (HTMLPainter       *painter);
+void              html_painter_draw_spell_error                        (HTMLPainter       *painter,
+									gint               x,
+									gint               y,
+									const gchar       *text,
+									guint              off,
+									gint               len);
+HTMLFont         *html_painter_alloc_font                              (HTMLPainter       *painter,
+									gchar             *face_name,
+									gdouble            size,
+									GtkHTMLFontStyle   style);
+void              html_painter_ref_font                                (HTMLPainter       *painter,
+									HTMLFont          *font);
+void              html_painter_unref_font                              (HTMLPainter       *painter,
+									HTMLFont          *font);
+guint             html_painter_get_space_width                         (HTMLPainter       *painter,
+									GtkHTMLFontStyle   font_style,
+									HTMLFontFace      *face);
 #endif /* _HTMLPAINTER_H_ */

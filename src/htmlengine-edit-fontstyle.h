@@ -39,7 +39,7 @@ void               html_engine_font_size_inc_dec                 (HTMLEngine    
 
 /* colors */
 gboolean           html_engine_update_insertion_color            (HTMLEngine       *engine);
-void               html_engine_set_color                         (HTMLEngine       *engine,
+gboolean           html_engine_set_color                         (HTMLEngine       *engine,
 								  HTMLColor        *color);
 HTMLColor *        html_engine_get_color                         (HTMLEngine       *engine);
 HTMLColor *        html_engine_get_document_color                (HTMLEngine       *engine);

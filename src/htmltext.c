@@ -42,7 +42,6 @@
 #include "htmltextslave.h"
 #include "htmlundo.h"
 
-
 HTMLTextClass html_text_class;
 static HTMLObjectClass *parent_class = NULL;
 
@@ -141,22 +140,20 @@ get_tags (const HTMLText *text,
 	*ending_p = 0;
 }
 
+/* HTMLObject methods.  */
+
 static void
-copy_helper (HTMLText *src,
-	     HTMLText *dest,
-	     guint offset,
-	     gint len)
+copy (HTMLObject *s,
+      HTMLObject *d)
 {
+	HTMLText *src  = HTML_TEXT (s);
+	HTMLText *dest = HTML_TEXT (d);
 	GList *cur;
 
-	if (len < 0)
-		len = unicode_strlen (src->text, -1);
+	(* HTML_OBJECT_CLASS (parent_class)->copy) (s, d);
 
-	dest->text = g_strndup (html_text_get_text (src, offset),
-				unicode_offset_to_index (src->text, offset + len)
-				- unicode_offset_to_index (src->text, offset));
-
-	dest->text_len      = len;
+	dest->text = g_strdup (src->text);
+	dest->text_len      = src->text_len;
 	dest->font_style    = src->font_style;
 	dest->face          = src->face;
 	dest->color         = src->color;
@@ -172,21 +169,46 @@ copy_helper (HTMLText *src,
 		cur->data = spell_error_new (se->off, se->len);
 		cur = cur->next;
 	}
-	dest->spell_errors = remove_spell_errors (dest->spell_errors, 0, offset);
-	dest->spell_errors = remove_spell_errors (dest->spell_errors, offset + len, src->text_len - offset - len);
-	move_spell_errors (dest->spell_errors, 0, -offset);
+
+	if (src->word_width) {
+		dest->words = src->words;
+		dest->word_width = g_new (guint, dest->words);
+		g_memmove (dest->word_width, src->word_width, dest->words * sizeof (guint));
+	} else {
+		dest->words      = 0;
+		dest->word_width = NULL;
+	}
 }
 
-
-/* HTMLObject methods.  */
+/* static void
+word_get_position (HTMLText *text, guint off, guint *word_out, guint *left_out, guint *right_out)
+{
+	const gchar *s, *ls;
+	guint coff, loff;
+
+	coff      = 0;
+	*word_out = 0;
+	s         = text->text;
+	do {
+		ls    = s;
+		loff  = coff;
+		s     = strchr (s, ' ');
+		coff += s ? unicode_index_to_offset (ls, s - ls) : unicode_strlen (ls, -1);
+		(*word_out) ++;
+		if (s)
+			s ++;
+	} while (s && coff < off);
+
+	*left_out  = off - loff;
+	*right_out = coff - off;
+} */
 
 static void
-copy (HTMLObject *self,
-      HTMLObject *dest)
+clear_word_width (HTMLText *text)
 {
-	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
-
-	copy_helper (HTML_TEXT (self), HTML_TEXT (dest), 0, -1);
+	g_free (text->word_width);
+	text->word_width = NULL;
+	text->words = 0;
 }
 
 HTMLObject *
@@ -200,6 +222,16 @@ html_text_op_copy_helper (HTMLText *text, GList *from, GList *to, guint *len, HT
 	*len += end - begin;
 
 	return (*f) (text, begin, end);
+
+	/* word_get_position (text, begin, &w1, &o1l, &o1r);
+	word_get_position (text, end,   &w2, &o2l, &o2r);
+
+	ct->words      = w2 - w1 + (o1r == 0 ? 1 : 0);
+	ct->word_width = g_new (guint, ct->words);
+
+	ct->word_width [0] = 0;
+	for (i = 1; i < ct->words; i++)
+	ct->word_width [i] = text->word_width [w1 + i]; */
 }
 
 HTMLObject *
@@ -231,7 +263,10 @@ html_text_op_cut_helper (HTMLText *text, HTMLEngine *e, GList *from, GList *to, 
 		text->text_len -= end - begin;
 		*len           += end - begin;
 
+		text->spell_errors = remove_spell_errors (text->spell_errors, begin, end - begin);
 		move_spell_errors (text->spell_errors, end, - (end - begin));
+
+		clear_word_width (text);
 	} else {
 		text->spell_errors = remove_spell_errors (text->spell_errors, 0, text->text_len);
 		html_object_move_cursor_before_remove (HTML_OBJECT (text), e);
@@ -291,7 +326,8 @@ object_merge (HTMLObject *self, HTMLObject *with)
 	/* printf ("--- after merge\n");
 	debug_spell_errors (t1->spell_errors);
 	printf ("---\n"); */
-
+	
+	clear_word_width (t1);
 	html_object_change_set (self, HTML_CHANGE_ALL);
 
 	return TRUE;
@@ -355,6 +391,9 @@ object_split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, g
 	html_object_change_set (self, HTML_CHANGE_ALL);
 	html_object_change_set (dup,  HTML_CHANGE_ALL);
 
+	clear_word_width (HTML_TEXT (self));
+	clear_word_width (HTML_TEXT (dup));
+
 	level--;
 	if (level)
 		html_object_split (self->parent, e, dup, 0, level, left, right);
@@ -374,19 +413,64 @@ calc_size (HTMLObject *self,
 	return FALSE;
 }
 
+static guint
+get_words (const gchar *s)
+{
+	guint words = 1;
+
+	while ((s = strchr (s, ' '))) {
+		words ++;
+		s ++;
+	}
+
+	return words;
+}
+
+static void
+calc_word_width (HTMLText *text, HTMLPainter *painter)
+{
+	GtkHTMLFontStyle font_style;
+	gchar *begin, *end;
+	gint i;
+
+	text->words      = get_words (text->text);
+	text->word_width = g_new (guint, text->words);
+	font_style       = html_text_get_font_style (text);
+
+	begin = text->text;
+
+	for (i = 0; i < text->words; i++) {
+		end   = strchr (begin + (i ? 1 : 0), ' ');
+		text->word_width [i] = (i ? text->word_width [i - 1] : 0)
+			+ html_painter_calc_text_width (painter,
+							begin, end ? unicode_index_to_offset (begin, end - begin)
+							: unicode_strlen (begin, -1), font_style, text->face);
+		begin = end;
+	}
+}
+
+void
+html_text_request_word_width (HTMLText *text, HTMLPainter *painter)
+{
+	if (!text->word_width)
+		calc_word_width (text, painter);
+}
+
 static gint
 calc_preferred_width (HTMLObject *self,
 		      HTMLPainter *painter)
 {
 	HTMLText *text;
-	GtkHTMLFontStyle font_style;
 
 	text = HTML_TEXT (self);
-	font_style = html_text_get_font_style (text);
 
-	return html_painter_calc_text_width (painter,
+	html_text_request_word_width (text, painter);
+
+	return text->word_width [text->words - 1];
+
+	/* return html_painter_calc_text_width (painter,
 					     text->text, text->text_len,
-					     font_style, text->face);
+					     font_style, text->face); */
 }
 
 static HTMLFitType
@@ -416,7 +500,7 @@ fit_line (HTMLObject *o,
 	}
 	
 	/* Turn all text over to our slaves */
-	text_slave = html_text_slave_new (text, 0, HTML_TEXT (text)->text_len);
+	text_slave = html_text_slave_new (text, 0, HTML_TEXT (text)->text_len, 0);
 	html_clue_append_after (HTML_CLUE (o->parent), text_slave, o);
 
 	return HTML_FIT_COMPLETE;
@@ -443,12 +527,20 @@ forward_get_nb_width (HTMLText *text, HTMLPainter *painter, gboolean begin)
 		return html_text_get_nb_width (HTML_TEXT (obj), painter, begin);
 }
 
+static inline guint
+word_width (HTMLText *text, HTMLPainter *p, guint i)
+{
+	g_assert (i < text->words);
+
+	return text->word_width [i]
+		- (i > 0 ? text->word_width [i - 1]
+		   + html_painter_get_space_width (p, html_text_get_font_style (text), text->face) : 0);
+}
+
 /* return non-breakable text width on begin/end of this text */
 gint
 html_text_get_nb_width (HTMLText *text, HTMLPainter *painter, gboolean begin)
 {
-	gchar *t = text->text;
-
 	/* handle "" case */
 	if (text->text_len == 0)
 		return forward_get_nb_width (text, painter, begin);
@@ -458,60 +550,37 @@ html_text_get_nb_width (HTMLText *text, HTMLPainter *painter, gboolean begin)
 	    || (!begin && html_text_get_char (text, text->text_len - 1) == ' '))
 		return 0;
 
-	/* find end/begin of nb text */
-	t = (begin) ? unicode_strchr (t, ' ') : strrchr (t, ' '); /* unicode_strrchr (t, ' '); */
-	if (!t)
-		return html_object_calc_preferred_width (HTML_OBJECT (text), painter);
-	return html_painter_calc_text_width (painter, (begin) ? text->text : t + 1,
-					     (begin)
-					     ? unicode_index_to_offset (text->text, t - text->text)
-					     : text->text_len - unicode_index_to_offset (text->text, t - text->text) + 1,
-					     html_text_get_font_style (text), text->face);
+	html_text_request_word_width (text, painter);
+
+	return word_width (text, painter, begin ? 0 : text->words - 1);
 }
 
 static gint
-calc_min_width (HTMLObject *self,
-		HTMLPainter *painter)
+calc_min_width (HTMLObject *self, HTMLPainter *painter)
 {
-	GtkHTMLFontStyle font_style;
+	HTMLText *text = HTML_TEXT (self);
 	HTMLObject *obj;
-	HTMLText *text;
-	gchar *t, *space;
-	gint w = 0, min_width = 0;
+	guint i, w, mw;
 
-	text       = HTML_TEXT (self);
-	font_style = html_text_get_font_style (text);
-	t          = text->text;
+	html_text_request_word_width (text, painter);
+	mw = 0;
 
-	if (text->text_len == 0 || html_text_get_char (text, 0) != ' ') {
-		obj = html_object_prev_not_slave (self);
-		w = (obj && html_object_is_text (obj)) ? html_text_get_nb_width (HTML_TEXT (obj), painter, FALSE) : 0;
+	for (i = 0; i < text->words; i++) {
+		w = word_width (text, painter, i);
+		if (i == 0) {
+			obj = html_object_prev_not_slave (self);
+			if (obj && html_object_is_text (obj))
+				w += html_text_get_nb_width (HTML_TEXT (obj), painter, FALSE);
+		} else if (i == text->words - 1) {
+			obj = html_object_next_not_slave (self);
+			if (obj && html_object_is_text (obj))
+				w += html_text_get_nb_width (HTML_TEXT (obj), painter, TRUE);
+		}
+		if (w > mw)
+			mw = w;
 	}
 
-	if (text->text_len)
-		do {
-			space = strchr (t, ' ');
-			if (!space)
-				space = text->text + strlen (text->text);
-			w += html_painter_calc_text_width (painter, t, unicode_index_to_offset (t, space - t),
-							   font_style, text->face);
-			t = (*space) ? space + 1 : space;
-			if (!(*t))
-				break;
-			if (w > min_width)
-				min_width = w;
-			w = 0;
-		} while (1);
-
-	if (text->text_len == 0 || html_text_get_char (text, text->text_len - 1) != ' ') {
-		obj = html_object_next_not_slave (self);
-		w += (obj && html_object_is_text (obj)) ? html_text_get_nb_width (HTML_TEXT (obj), painter, TRUE) : 0;
-	}
-
-	if (w > min_width)
-		min_width = w;
-
-	return min_width;
+	return mw;
 }
 
 static void
@@ -809,6 +878,8 @@ destroy (HTMLObject *obj)
 	html_color_unref (text->color);
 	html_text_spell_errors_clear (text);
 	g_free (text->text);
+	g_free (text->word_width);
+
 	HTML_OBJECT_CLASS (parent_class)->destroy (obj);
 }
 
@@ -1064,6 +1135,8 @@ html_text_init (HTMLText *text,
 	text->spell_errors  = NULL;
 	text->select_start  = 0;
 	text->select_length = 0;
+	text->word_width    = NULL;
+	text->words         = 0;
 
 	html_color_ref (color);
 }
@@ -1371,14 +1444,8 @@ html_text_magic_link (HTMLText *text, HTMLEngine *engine, guint offset)
 gint
 html_text_trail_space_width (HTMLText *text, HTMLPainter *painter)
 {
-	if (text->text_len > 0 && html_text_get_char (text, text->text_len - 1) == ' ') {
-		GtkHTMLFontStyle font_style;
-
-		font_style = html_text_get_font_style (text);
-		return html_painter_calc_text_width (painter, " ", 1, font_style, text->face);
-	} else {
-		return 0;
-	}
+	return text->text_len > 0 && html_text_get_char (text, text->text_len - 1) == ' '
+		? html_painter_get_space_width (painter, html_text_get_font_style (text), text->face) : 0;
 }
 
 void

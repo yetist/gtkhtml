@@ -40,7 +40,7 @@ static HTMLObjectClass *parent_class = NULL;
 
 /* Split this TextSlave at the specified offset.  */
 static void
-split (HTMLTextSlave *slave, gshort offset)
+split (HTMLTextSlave *slave, guint offset, guint start_word)
 {
 	HTMLObject *obj;
 	HTMLObject *new;
@@ -52,7 +52,7 @@ split (HTMLTextSlave *slave, gshort offset)
 
 	new = html_text_slave_new (slave->owner,
 				   slave->posStart + offset,
-				   slave->posLen - offset);
+				   slave->posLen - offset, start_word);
 	html_clue_append_after (HTML_CLUE (obj->parent), new, obj);
 
 	slave->posLen = offset;
@@ -71,6 +71,29 @@ copy (HTMLObject *self,
 	HTML_TEXT_SLAVE (dest)->owner = HTML_TEXT_SLAVE (self)->owner;
 	HTML_TEXT_SLAVE (dest)->posStart = HTML_TEXT_SLAVE (self)->posStart;
 	HTML_TEXT_SLAVE (dest)->posLen = HTML_TEXT_SLAVE (self)->posLen;
+}
+
+inline static guint
+get_words_width (HTMLText *text, HTMLPainter *p, guint start_word, guint words)
+{
+	return text->word_width [start_word + words - 1]
+		- (start_word ? text->word_width [start_word - 1]
+		   + html_painter_get_space_width (p, html_text_get_font_style (text), text->face) : 0);
+}
+
+static guint
+calc_width (HTMLTextSlave *slave, HTMLPainter *painter)
+{
+	HTMLText *text = slave->owner;
+	HTMLObject *o;
+
+	if (slave->posStart == 0 && slave->posLen == text->text_len)
+		return text->word_width [text->words - 1];
+
+	o = HTML_OBJECT (slave)->next;
+	return get_words_width (text, painter, slave->start_word,
+				(o && HTML_OBJECT_TYPE (o) == HTML_TYPE_TEXTSLAVE
+				 ? HTML_TEXT_SLAVE (o)->start_word : text->words) - slave->start_word);
 }
 
 static gboolean
@@ -103,10 +126,7 @@ calc_size (HTMLObject *self,
 		}
 	}
 
-	new_width = html_painter_calc_text_width (painter,
-						  html_text_get_text (HTML_TEXT (owner), slave->posStart),
-						  slave->posLen,
-						  font_style, owner->face);
+	new_width = calc_width (slave, painter);
 
 	changed = FALSE;
 
@@ -196,67 +216,67 @@ fit_line (HTMLObject *o,
 	  gboolean firstRun,
 	  gint widthLeft)
 {
-	GtkHTMLFontStyle font_style;
-	HTMLFitType rv;
+	HTMLFitType rv = HTML_FIT_PARTIAL;
 	HTMLTextSlave *slave;
 	HTMLText *text;
-	gint width, next_width = 0;
+	guint  pos = 0;
+	gchar *sep = NULL, *lsep;
+	gchar *begin;
+	guint words = 0;
 
 	/* printf ("fit_line %d left: %d\n", firstRun, widthLeft); */
 
 	slave = HTML_TEXT_SLAVE (o);
 	text  = HTML_TEXT (slave->owner);
 
-	if (html_text_get_char (text, slave->posStart) == ' ' && could_remove_leading_space (slave, firstRun)) {
-		slave->posStart ++;
-		slave->posLen --;
+	html_text_request_word_width (text, painter);
+
+	if (html_text_get_char (text, slave->posStart) == ' ') {
+		if (could_remove_leading_space (slave, firstRun)) {
+			if (slave->posStart == 0)
+				slave->start_word ++;
+			slave->posStart ++;
+			slave->posLen --;
+		} /* else {
+			if (slave->posStart == 0)
+				words ++;
+			else
+				add_width = text->space_width;
+			pos ++;
+			} */
 	}
 
-	/* try complete fit now */
-	font_style = html_text_get_font_style (text);
-	width      = html_painter_calc_text_width (painter, html_text_get_text (text, slave->posStart),
-						   slave->posLen,
-						   font_style, text->face);
-	next_width = get_next_nb_width (slave, painter);
+	sep = begin = html_text_get_text (text, slave->posStart);
 
-	if (width + next_width <= widthLeft)
+	while (sep
+	       && widthLeft >= get_words_width (text, painter, slave->start_word, words + 1)
+	       + (slave->start_word + words + 1 == text->words ? get_next_nb_width (slave, painter) : 0)) {
+		words ++;
+		lsep   = sep;
+		sep    = strchr (lsep + (words > 1 ? 1 : 0), ' ');
+		pos    = sep ? unicode_index_to_offset (begin, sep - begin) : unicode_strlen (begin, -1);
+		if (words + slave->start_word >= text->words)
+			break;
+	}
+
+	if (words + slave->start_word == text->words)
 		rv = HTML_FIT_COMPLETE;
-	else {
-		/* so try partial fit atleast */
-		gchar *sep = NULL, *lsep;
-		gchar *begin;
-		gint width = 0, len;
-
-		sep = begin = html_text_get_text (text, slave->posStart);
-
-		do {
-			lsep   = sep;
-			sep    = unicode_strchr (lsep + 1, ' ');
-			if (!sep || unicode_index_to_offset (begin, sep - begin) >= slave->posLen) {
-				sep = begin + unicode_offset_to_index (begin, slave->posLen);
-				break;
-			}
-			width += html_painter_calc_text_width
-				(painter, lsep, unicode_index_to_offset (lsep, sep - lsep), font_style, text->face);
-		} while (width <= widthLeft);
-
-		g_assert (lsep);
-
-		if (lsep == begin && !firstRun)
+	else if (words == 0 || get_words_width (text, painter, slave->start_word, words) == 0) {
+		if (!firstRun)
 			rv = HTML_FIT_NONE;
+		else if (slave->start_word + 1 == text->words)
+			rv = HTML_FIT_COMPLETE;
 		else {
-			/* partial fit, we split this slave to this and new one which becomes next */
-			rv = HTML_FIT_PARTIAL;
-			/* if only one pass has been made */
-			if (lsep == begin) lsep = sep;
-			/* split + set attributes */
-			len = unicode_index_to_offset (begin, lsep - begin);
-			if (len < slave->posLen)
-				split (slave, len);
-			o->width   = width;
-			o->ascent  = html_painter_calc_ascent (painter, font_style, text->face);
-			o->descent = html_painter_calc_descent (painter, font_style, text->face);
+			words ++;
+			sep    = strchr (sep + (words > 1 ? 0 : 1), ' ');
+			pos    = sep ? unicode_index_to_offset (begin, sep - begin) : unicode_strlen (begin, -1);
 		}
+	}
+
+	if (rv == HTML_FIT_PARTIAL) {
+		if (pos < slave->posLen)
+			split (slave, pos, slave->start_word + words);
+		o->width = get_words_width (text, painter, slave->start_word, words);
 	}
 
 #ifdef HTML_TEXT_SLAVE_DEBUG
@@ -315,7 +335,7 @@ draw_spell_errors (HTMLTextSlave *slave, HTMLPainter *p, gint tx, gint ty)
 			guint len = mi - ma;
 
 			html_painter_set_pen (p, &html_colorset_get_color_allocated (p, HTMLSpellErrorColor)->color);
-			/* printf ("spell error: %s\n", HTML_TEXT (slave->owner)->text + off); */
+			/* printf ("spell error: %s\n", html_text_get_text (slave->owner, off)); */
 			html_painter_draw_spell_error (p, obj->x + tx, obj->y + ty + get_ys (HTML_TEXT (slave->owner), p),
 						       html_text_get_text (HTML_TEXT (slave->owner), slave->posStart),
 						       off, len);
@@ -562,8 +582,9 @@ void
 html_text_slave_init (HTMLTextSlave *slave,
 		      HTMLTextSlaveClass *klass,
 		      HTMLText *owner,
-		      gint posStart,
-		      gint posLen)
+		      guint posStart,
+		      guint posLen,
+		      guint start_word)
 {
 	HTMLText *owner_text;
 	HTMLObject *object;
@@ -576,9 +597,10 @@ html_text_slave_init (HTMLTextSlave *slave,
 	object->ascent = HTML_OBJECT (owner)->ascent;
 	object->descent = HTML_OBJECT (owner)->descent;
 
-	slave->posStart = posStart;
-	slave->posLen = posLen;
-	slave->owner = owner;
+	slave->posStart   = posStart;
+	slave->posLen     = posLen;
+	slave->start_word = start_word;
+	slave->owner      = owner;
 
 	/* text slaves has always min_width 0 */
 	object->min_width = 0;
@@ -586,12 +608,12 @@ html_text_slave_init (HTMLTextSlave *slave,
 }
 
 HTMLObject *
-html_text_slave_new (HTMLText *owner, gint posStart, gint posLen)
+html_text_slave_new (HTMLText *owner, guint posStart, guint posLen, guint start_word)
 {
 	HTMLTextSlave *slave;
 
 	slave = g_new (HTMLTextSlave, 1);
-	html_text_slave_init (slave, &html_text_slave_class, owner, posStart, posLen);
+	html_text_slave_init (slave, &html_text_slave_class, owner, posStart, posLen, start_word);
 
 	return HTML_OBJECT (slave);
 }

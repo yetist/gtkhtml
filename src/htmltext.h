@@ -37,8 +37,10 @@ struct _SpellError {
 struct _HTMLText {
 	HTMLObject object;
 	
-	gchar *text;
-	guint text_len;
+	gchar   *text;
+	guint    text_len;
+	guint   *word_width;
+	guint    words;
 
 	GtkHTMLFontStyle  font_style;
 	HTMLFontFace     *face;
@@ -122,6 +124,8 @@ gboolean          html_text_magic_link                   (HTMLText           *te
 							  HTMLEngine         *engine,
 							  guint               offset);
 gint              html_text_trail_space_width            (HTMLText           *text,
+							  HTMLPainter        *painter);
+void              html_text_request_word_width           (HTMLText           *text,
 							  HTMLPainter        *painter);
 /*
  * protected

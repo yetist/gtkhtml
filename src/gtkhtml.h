@@ -218,6 +218,8 @@ void  			   gtk_html_modify_indent_by_delta       (GtkHTML                   *ht
 void  			   gtk_html_set_font_style               (GtkHTML                   *html,
 								  GtkHTMLFontStyle           and_mask,
 								  GtkHTMLFontStyle           or_mask);
+void  			   gtk_html_set_color                    (GtkHTML                   *html,
+								  HTMLColor                 *color);
 void                       gtk_html_toggle_font_style            (GtkHTML                   *html,
 								  GtkHTMLFontStyle           style);
 GtkHTMLParagraphAlignment  gtk_html_get_paragraph_alignment      (GtkHTML                   *html);

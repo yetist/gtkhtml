@@ -31,8 +31,9 @@ struct _HTMLTextSlave {
 	HTMLObject object;
 
 	HTMLText *owner;
-	gshort posStart;
-	gshort posLen;
+	guint posStart;
+	guint posLen;
+	guint start_word;
 };
 
 struct _HTMLTextSlaveClass {
@@ -48,9 +49,11 @@ void        html_text_slave_class_init              (HTMLTextSlaveClass *klass,
 void        html_text_slave_init                    (HTMLTextSlave      *slave,
 						     HTMLTextSlaveClass *klass,
 						     HTMLText           *owner,
-						     gint                posStart,
-						     gint                posLen);
+						     guint               posStart,
+						     guint               posLen,
+						     guint               start_word);
 HTMLObject *html_text_slave_new                     (HTMLText           *owner,
-						     gint                posStart,
-						     gint                posLen);
+						     guint               posStart,
+						     guint               posLen,
+						     guint               start_word);
 #endif /* _HTMLTEXTSLAVE_H_ */

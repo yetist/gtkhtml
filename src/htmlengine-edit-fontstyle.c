@@ -260,7 +260,7 @@ html_engine_set_font_style (HTMLEngine *e,
 		tf->or_mask  = or_mask;
 		html_engine_cut_and_paste (e, "Set font style", object_set_font_style, tf);
 		g_free (tf);
-		return FALSE;
+		return TRUE;
 	} else {
 		GtkHTMLFontStyle old = e->insertion_font_style;
 
@@ -329,24 +329,34 @@ set_color (HTMLObject *o, HTMLEngine *e, gpointer data)
 {
 	if (html_object_is_text (o)) {
 		html_text_set_color (HTML_TEXT (o), NULL, (HTMLColor *) data);
+
 		if (o->prev)
 			html_object_merge (o->prev, o);
 	}
 }
 
-void
+gboolean
 html_engine_set_color (HTMLEngine *e, HTMLColor *color)
 {
+	gboolean rv = TRUE;
+
 	if (!color)
 		color = html_colorset_get_color (e->settings->color_set, HTMLTextColor);
 
-	if (html_engine_is_selection_active (e))
+	if (html_engine_is_selection_active (e)) {
 		html_engine_cut_and_paste (e, "Set color", set_color, color);
-	else {
+		return TRUE;
+	} else {
+
+		if (gdk_color_equal (&e->insertion_color->color, &color->color))
+			rv = FALSE;
+
 		html_color_unref (e->insertion_color);
 		e->insertion_color = color;
 		html_color_ref (e->insertion_color);
 	}
+
+	return rv;
 }
 
 /* URL/Target

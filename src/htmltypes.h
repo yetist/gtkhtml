@@ -61,6 +61,7 @@ typedef struct _HTMLEngineClass HTMLEngineClass;
 typedef struct _HTMLEngineEditSelectionUpdater HTMLEngineEditSelectionUpdater;
 typedef struct _HTMLEngineSaveState HTMLEngineSaveState;
 typedef gchar HTMLFontFace;
+typedef struct _HTMLFont HTMLFont;
 typedef struct _HTMLFontManager HTMLFontManager;
 typedef struct _HTMLFontSet HTMLFontSet;
 typedef struct _HTMLForm HTMLForm;

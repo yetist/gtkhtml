@@ -2148,6 +2148,17 @@ gtk_html_set_font_style (GtkHTML *html,
 }
 
 void
+gtk_html_set_color (GtkHTML *html, HTMLColor *color)
+{
+	g_return_if_fail (html != NULL);
+	g_return_if_fail (GTK_IS_HTML (html));
+
+	if (html_engine_set_color (html->engine, color))
+		gtk_signal_emit (GTK_OBJECT (html), signals [INSERTION_COLOR_CHANGED],
+				 html->engine->insertion_font_style);
+}
+
+void
 gtk_html_toggle_font_style (GtkHTML *html,
 			    GtkHTMLFontStyle style)
 {

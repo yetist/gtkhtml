@@ -184,6 +184,13 @@ prepare_delete_bounds (HTMLEngine *e, GList **from_list, GList **to_list,
 
 		*bound_left  = b_left.object ? get_parent_list (&b_left, level - 1, FALSE) : NULL;
 		*bound_right = b_right.object ? get_parent_list (&b_right, level - 1, FALSE) : NULL;
+
+		if (level > 1) {
+			if (*bound_left)
+				*bound_left  = g_list_prepend (*bound_left, NULL);
+			if (*bound_right)
+				*bound_right = g_list_prepend (*bound_right, NULL);
+		}
 	}
 }
 
@@ -193,7 +200,9 @@ remove_empty_and_merge (HTMLEngine *e, gboolean merge, GList *left, GList *right
 	HTMLObject *lo, *ro, *prev;
 	gint len;
 
-	/* if (left && left->data) {
+	/* printf ("before merge\n");
+	gtk_html_debug_dump_tree_simple (e->clue, 0);
+	if (left && left->data) {
 		printf ("left\n");
 		gtk_html_debug_dump_tree_simple (left->data, 0);
 	}
@@ -222,6 +231,9 @@ remove_empty_and_merge (HTMLEngine *e, gboolean merge, GList *left, GList *right
 			lo = nlo;
 		} else if (html_object_is_text (ro) && !*HTML_TEXT (ro)->text && (html_object_next_not_slave (ro) || merge)) {
 			HTMLObject *nro = html_object_next_not_slave (ro);
+
+			if (e->cursor->object == ro)
+				e->cursor->object = lo;
 
 			html_object_remove_child (ro->parent, ro);
 			html_object_destroy (ro);
@@ -369,7 +381,7 @@ delete_object_do (HTMLEngine *e, HTMLObject **object, guint *len)
 		html_engine_disable_selection (e);
 		*len     = 0;
 		*object  = html_object_op_cut  (HTML_OBJECT (from->data), e, from->next, to->next, left, right, len);
-		remove_empty_and_merge (e, TRUE, left, right, NULL);
+		remove_empty_and_merge (e, TRUE, left ? left->next : NULL, right ? right->next : NULL, NULL);
 		html_engine_spell_check_range (e, e->cursor, e->cursor);
 		html_engine_thaw (e);
 	}

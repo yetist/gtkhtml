@@ -648,10 +648,11 @@ get_pixel_size (HTMLPainter *painter)
 	return SCALE_GNOME_PRINT_TO_ENGINE (PIXEL_SIZE);
 }
 
-static gpointer
-alloc_font (gchar *face, gdouble size, GtkHTMLFontStyle style)
+static HTMLFont *
+alloc_font (HTMLPainter *painter, gchar *face, gdouble size, GtkHTMLFontStyle style)
 {
 	GnomeFontWeight weight;
+	GnomeFont *font;
 	gboolean italic;
 	guchar *s = face;
 
@@ -669,7 +670,22 @@ alloc_font (gchar *face, gdouble size, GtkHTMLFontStyle style)
 		}
 	}
 
-	return gnome_font_new_closest ((face) ? face : "Courier", weight, italic, size);
+	if (!(font = gnome_font_new_closest ((face) ? face : "Courier", weight, italic, size)))
+		return NULL;
+
+	return html_font_new (font, gnome_font_get_width_string_n (font, " ", 1));
+}
+
+static void
+ref_font (HTMLPainter *painter, HTMLFont *font)
+{
+	gtk_object_ref (GTK_OBJECT (font->data));
+}
+
+static void
+unref_font (HTMLPainter *painter, HTMLFont *font)
+{
+	gtk_object_unref (GTK_OBJECT (font->data));
 }
 
 
@@ -694,8 +710,8 @@ class_init (GtkObjectClass *object_class)
 	painter_class->begin = begin;
 	painter_class->end = end;
 	painter_class->alloc_font = alloc_font;
-	painter_class->ref_font   = (HTMLFontManagerRefFont)   gtk_object_ref;
-	painter_class->unref_font = (HTMLFontManagerUnrefFont) gtk_object_unref;	
+	painter_class->ref_font   = ref_font;
+	painter_class->unref_font = unref_font;
 	painter_class->alloc_color = alloc_color;
 	painter_class->free_color = free_color;
 	painter_class->calc_ascent = calc_ascent;

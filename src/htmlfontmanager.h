@@ -28,16 +28,20 @@
 #include "gtkhtml-enums.h"
 #include "gtkhtmlfontstyle.h"
 
-struct _HTMLFontSet {
-	gpointer font [GTK_HTML_FONT_STYLE_MAX_FONT];
+struct _HTMLFont {
+	gpointer data;
+	guint    space_width;
 	gint     ref_count;
-	gchar   *face;
+};
+
+struct _HTMLFontSet {
+	HTMLFont *font [GTK_HTML_FONT_STYLE_MAX_FONT];
+	gint      ref_count;
+	gchar    *face;
 };
 
 struct _HTMLFontManager {
-	HTMLFontManagerAllocFont alloc_font;
-	HTMLFontManagerRefFont     ref_font;
-	HTMLFontManagerUnrefFont unref_font;
+	HTMLPainter *painter;
 
 	GHashTable *font_sets;
 	HTMLFontSet variable;
@@ -48,10 +52,7 @@ struct _HTMLFontManager {
 };
 
 void                html_font_manager_init                    (HTMLFontManager *manager,
-							       HTMLFontManagerAllocFont alloc_font,
-							       HTMLFontManagerRefFont     ref_font,
-							       HTMLFontManagerUnrefFont unref_font);
-
+							       HTMLPainter *painter);
 void                html_font_manager_finalize                (HTMLFontManager *manager);
 
 void                html_font_manager_set_default             (HTMLFontManager *manager,
@@ -59,8 +60,17 @@ void                html_font_manager_set_default             (HTMLFontManager *
 							       gchar *fixed,
 							       gint var_size,
 							       gint fix_size);
-gpointer            html_font_manager_get_font                (HTMLFontManager *manager,
+HTMLFont           *html_font_manager_get_font                (HTMLFontManager *manager,
 							       gchar *face,
 							       GtkHTMLFontStyle style);
-
+/*
+ * HTMLFont
+ */
+HTMLFont *html_font_new      (gpointer     data,
+			      guint        space_width);
+void      html_font_destroy  (HTMLFont    *font);
+void      html_font_ref      (HTMLFont    *font,
+			      HTMLPainter *painter);
+void      html_font_unref    (HTMLFont    *font,
+			      HTMLPainter *painter);
 #endif

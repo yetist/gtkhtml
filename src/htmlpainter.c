@@ -100,7 +100,7 @@ init (GtkObject *object, HTMLPainterClass *real_klass)
 	painter = HTML_PAINTER (object);
 	painter->color_set = html_colorset_new (NULL);
 
-	html_font_manager_init (&painter->font_manager, real_klass->alloc_font, real_klass->ref_font, real_klass->unref_font);
+	html_font_manager_init (&painter->font_manager, painter);
 	painter->font_style = GTK_HTML_FONT_STYLE_DEFAULT;
 	painter->font_face = NULL;
 }
@@ -266,7 +266,7 @@ html_painter_set_font_face (HTMLPainter *painter,
 gpointer
 html_painter_get_font (HTMLPainter *painter, HTMLFontFace *face, GtkHTMLFontStyle style)
 {
-	return html_font_manager_get_font (&painter->font_manager, face, style);
+	return html_font_manager_get_font (&painter->font_manager, face, style)->data;
 }
 
 guint
@@ -479,4 +479,28 @@ html_painter_draw_spell_error (HTMLPainter *painter,
 			       guint off, gint len)
 {
 	(* HP_CLASS (painter)->draw_spell_error) (painter, x, y, text, off, len);
+}
+
+HTMLFont *
+html_painter_alloc_font (HTMLPainter *painter, gchar *face_name, gdouble size, GtkHTMLFontStyle style)
+{
+	return (* HP_CLASS (painter)->alloc_font) (painter, face_name, size, style);
+}
+
+void
+html_painter_ref_font (HTMLPainter *painter, HTMLFont *font)
+{
+	(* HP_CLASS (painter)->ref_font) (painter, font);
+}
+
+void
+html_painter_unref_font (HTMLPainter *painter, HTMLFont *font)
+{
+	(* HP_CLASS (painter)->unref_font) (painter, font);
+}
+
+guint
+html_painter_get_space_width (HTMLPainter *painter, GtkHTMLFontStyle style, HTMLFontFace *face)
+{
+	return html_font_manager_get_font (&painter->font_manager, face, style)->space_width;
 }
