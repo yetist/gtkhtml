@@ -1,3 +1,7 @@
+2003-03-07  Radek Doulik  <rodo@ximian.com>
+
+	* Makefile.am (CFLAGS): add -@GTKHTML_RELEASE@ to ICONDIR
+
 2003-03-05  Larry Ewing  <lewing@ximian.com>
 
 	* Makefile.am (uninstall-hook): add unistall-hook to remove
