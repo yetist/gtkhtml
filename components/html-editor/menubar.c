@@ -674,12 +674,26 @@ menubar_setup (BonoboUIComponent  *uic,
 	g_return_if_fail (GTK_IS_HTML (cd->html));
 	g_return_if_fail (BONOBO_IS_UI_COMPONENT (uic));
 
+	gchar *domain;
 
 	/* printf ("xml: %s/%s\n", GTKHTML_DATADIR, "GNOME_GtkHTML_Editor.xml"); */
 
+	/*
+	  FIXME
+
+	  we should pass domain to bonobo (once it provides such functionality in its API)
+	  now we could "steal" domain from other threads until it's restored back
+	  also hopefully no one else is doing this hack so we end with the right domain :(
+	*/
+
+	domain = g_strdup (textdomain (NULL));
+	textdomain (GNOME_EXPLICIT_TRANSLATION_DOMAIN);
 	bonobo_ui_component_add_verb_list_with_data (uic, editor_verbs, cd);
 	bonobo_ui_util_set_ui (uic, GTKHTML_DATADIR, "GNOME_GtkHTML_Editor.xml", "GNOME_GtkHTML_Editor", NULL);
 
 	spell_create_language_menu (cd);
 	menubar_update_format (cd);
+
+	textdomain (domain);
+	g_free (domain);
 }

@@ -1,3 +1,10 @@
+2003-05-20  Radek Doulik  <rodo@ximian.com>
+
+	* menubar.c (menubar_setup): set gettext domain before calling
+	bonobo bonobo_ui_util_set_ui so that labels get translated and
+	restore it afterwards. see FIXME comment for explanation what's
+	wrong with this hack
+
 2003-05-20  Larry Ewing  <lewing@ximian.com>
 
 	* editor-control-factory.c: add inline smiley and link bonobo
