@@ -717,7 +717,6 @@ update_top_height (HTMLObject *begin, HTMLObject *end, gint *a, gint *d, gint *h
 			gint rest = begin->ascent + begin->descent - *a;
 
 			if (rest > *d) {
-				*a += rest - *d;
 				*d = rest;
 				*height = MAX (*height, *a + *d);
 			}
