@@ -1,3 +1,8 @@
+2003-03-19  Larry Ewing  <lewing@ximian.com>
+
+	* htmliframe.c (check_point): fix the point calculation for
+	iframes.
+
 2003-03-18  Larry Ewing  <lewing@ximian.com>
 
 	* htmlprinter.c (draw_text): add return value.
