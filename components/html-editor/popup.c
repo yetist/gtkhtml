@@ -20,6 +20,10 @@
     Boston, MA 02111-1307, USA.
 */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include "gtkhtml.h"
 #include "htmlcursor.h"
 #include "htmlengine.h"
@@ -28,7 +32,6 @@
 #include "htmlimage.h"
 #include "htmlselection.h"
 
-#include "config.h"
 #include "popup.h"
 #include "spell.h"
 #include "properties.h"

@@ -1,3 +1,7 @@
+2001-03-14  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* popup.c: Added #include <config.h>.
+	
 2001-03-06  Miguel de Icaza  <miguel@ximian.com>
 
 	* GNOME_GtkHTML_Editor.xml: Adjust to new layout (Insert of
