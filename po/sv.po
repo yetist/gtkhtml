@@ -3,13 +3,13 @@
 # Christian Rose <menthos@menthos.com>, 2000, 2001.
 # Martin Norbäck <d95mback@dtek.chalmers.se>, 2000.
 #
-# $Id: sv.po,v 1.44 2001/12/15 15:53:41 menthos Exp $
+# $Id: sv.po,v 1.45 2001/12/19 20:15:02 menthos Exp $
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2001-12-15 16:52+0100\n"
-"PO-Revision-Date: 2001-12-15 16:52+0100\n"
+"POT-Creation-Date: 2001-12-19 21:14+0100\n"
+"PO-Revision-Date: 2001-12-19 21:14+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -342,7 +342,7 @@ msgid "Header _6"
 msgstr "Rubrik _6"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
-#: components/html-editor/editor-control-factory.c:186
+#: components/html-editor/editor-control-factory.c:188
 #: components/html-editor/gtkhtml-editor-properties.glade.h:36
 #: components/html-editor/menubar.c:106 components/html-editor/popup.c:166
 msgid "Image"
@@ -375,7 +375,7 @@ msgstr "Vänsterställer styckena"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
 #: components/html-editor/body.c:187
-#: components/html-editor/editor-control-factory.c:221
+#: components/html-editor/editor-control-factory.c:223
 #: components/html-editor/menubar.c:127 components/html-editor/popup.c:180
 msgid "Link"
 msgstr "Länk"
@@ -513,7 +513,7 @@ msgid "Roman Numeral List"
 msgstr "Romerskt numrerad lista"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:75
-#: components/html-editor/editor-control-factory.c:206
+#: components/html-editor/editor-control-factory.c:208
 #: components/html-editor/gtkhtml-editor-properties.glade.h:60
 #: components/html-editor/menubar.c:145 components/html-editor/popup.c:194
 msgid "Rule"
@@ -741,7 +741,7 @@ msgid "Automatic"
 msgstr "Automatisk"
 
 #: components/html-editor/body.c:186
-#: components/html-editor/editor-control-factory.c:195
+#: components/html-editor/editor-control-factory.c:197
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
 #: components/html-editor/menubar.c:122 components/html-editor/popup.c:159
 msgid "Text"
@@ -752,27 +752,27 @@ msgstr "Text"
 msgid "Background"
 msgstr "Bakgrund"
 
-#: components/html-editor/editor-control-factory.c:176
+#: components/html-editor/editor-control-factory.c:178
 #: components/html-editor/popup.c:151
 msgid "Properties"
 msgstr "Egenskaper"
 
-#: components/html-editor/editor-control-factory.c:216
+#: components/html-editor/editor-control-factory.c:218
 #: components/html-editor/popup.c:173
 msgid "Paragraph"
 msgstr "Stycke"
 
-#: components/html-editor/editor-control-factory.c:226
+#: components/html-editor/editor-control-factory.c:228
 #: components/html-editor/gtkhtml-editor-properties.glade.h:49
 #: components/html-editor/popup.c:187
 msgid "Page"
 msgstr "Sida"
 
-#: components/html-editor/editor-control-factory.c:843
+#: components/html-editor/editor-control-factory.c:844
 msgid "Could not initialize GNORBA"
 msgstr "Kunde inte initiera GNORBA"
 
-#: components/html-editor/editor-control-factory.c:856
+#: components/html-editor/editor-control-factory.c:857
 msgid "Could not initialize Bonobo"
 msgstr "Kunde inte initiera Bonobo"
 
@@ -1175,7 +1175,7 @@ msgstr "Lägg till \"%s\" i ordboken"
 msgid "Ignore '%s'"
 msgstr "Ignorera \"%s\""
 
-#: components/html-editor/popup.c:373 components/html-editor/spell.c:419
+#: components/html-editor/popup.c:373 components/html-editor/spell.c:418
 msgid "Spell checker"
 msgstr "Stavningskontroll"
 
@@ -1289,9 +1289,13 @@ msgstr "bakåt"
 msgid "Find Regular Expression"
 msgstr "Sök reguljärt uttryck"
 
-#: components/html-editor/spell.c:414
+#: components/html-editor/spell.c:413
 msgid "No misspelled word found"
 msgstr "Inget felstavat ord hittades"
+
+#: components/html-editor/spell.c:490
+msgid "_Languages"
+msgstr "_Språk"
 
 #: components/html-editor/table.c:198
 msgid "Flat gray"
