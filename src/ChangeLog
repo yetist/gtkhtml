@@ -1,5 +1,15 @@
 2002-11-03  Larry Ewing  <lewing@ximian.com>
 
+	* htmlgdkpainter.c (draw_pixmap): remove a bunch of code now that
+	gdk can do real alpha blending.
+	(html_gdk_painter_realize): use html_painter_alloc_color instead
+	of doing ourselves.
+	(alloc_color): get the color from the gdkrgb color cube, don't try
+	to alloc it ourselves.
+	(free_color): don't need to do anything here now.  The color code
+	can be vastly simplified now with the new interfaces but we should
+	do a step by step refactoring and this is the first step.
+
 	* htmlimage.c: move the timeout into the image_pointer so that we
 	only queue one per url, refactor start, stop and timeout functions
 	for the new logic.

@@ -128,24 +128,13 @@ alloc_color (HTMLPainter *painter,
 	g_return_if_fail (gdk_painter->window != NULL);
 
 	colormap = gdk_window_get_colormap (gdk_painter->window);
-
-	gdk_colormap_alloc_color (colormap, color, FALSE, TRUE);
+	gdk_rgb_find_color (colormap, color);
 }
 
 static void
 free_color (HTMLPainter *painter,
 	    GdkColor *color)
 {
-	HTMLGdkPainter *gdk_painter;
-	GdkColormap *colormap;
-
-	gdk_painter = HTML_GDK_PAINTER (painter);
-
-	g_return_if_fail (gdk_painter->window != NULL);
-	g_return_if_fail (gdk_painter->gc != NULL);
-
-	colormap = gdk_window_get_colormap (gdk_painter->window);
-	gdk_colormap_free_colors (colormap, color, 1);
 }
 
 
@@ -641,6 +630,7 @@ draw_pixmap (HTMLPainter *painter,
 {
 	ArtIRect clip, image, paint;
 	HTMLGdkPainter *gdk_painter;
+	GdkPixbufAlphaMode alpha_mode;
 	GdkPixbuf *tmp_pixbuf;
 	guint n_channels;
 	gint orig_width;
@@ -676,8 +666,9 @@ draw_pixmap (HTMLPainter *painter,
 	paint_width = paint.x1 - paint.x0;
 	paint_height = paint.y1 - paint.y0;
 
+	alpha_mode = gdk_painter->alpha ? GDK_PIXBUF_ALPHA_FULL : GDK_PIXBUF_ALPHA_BILEVEL;
 
-	if (scale_width == orig_width && scale_height == orig_height && color == NULL && (!gdk_painter->alpha)) {
+	if (scale_width == orig_width && scale_height == orig_height && color == NULL) {
 		gdk_pixbuf_render_to_drawable_alpha (pixbuf, gdk_painter->pixmap,
 						     paint.x0 - image.x0,
 						     paint.y0 - image.y0,
@@ -685,25 +676,16 @@ draw_pixmap (HTMLPainter *painter,
 						     paint.y0 - clip.y0,
 						     paint_width,
 						     paint_height,
-						     GDK_PIXBUF_ALPHA_BILEVEL,
+						     alpha_mode,
 						     128,
 						     GDK_RGB_DITHER_NORMAL,
 						     x, y);
 		return;
 	}
 
-	if (gdk_pixbuf_get_has_alpha (pixbuf) && gdk_painter->alpha) {
-	    tmp_pixbuf = gdk_pixbuf_get_from_drawable(NULL,
-						      gdk_painter->pixmap,
-						      gdk_window_get_colormap (gdk_painter->window),
-						      paint.x0 - clip.x0, 
-						      paint.y0 - clip.y0,
-						      0, 0, paint_width, paint_height);
-	} else {
-		tmp_pixbuf = create_temporary_pixbuf (pixbuf,
-						      paint_width,
-						      paint_height);
-	}
+       	tmp_pixbuf = create_temporary_pixbuf (pixbuf,
+					      paint_width,
+					      paint_height);
 
 	if (tmp_pixbuf == NULL)
 		return;
@@ -769,7 +751,7 @@ draw_pixmap (HTMLPainter *painter,
 					     paint.y0 - clip.y0,
 					     paint_width,
 					     paint_height,
-					     GDK_PIXBUF_ALPHA_BILEVEL,
+					     alpha_mode,
 					     128,
 					     GDK_RGB_DITHER_NORMAL,
 					     x, y);
@@ -1143,22 +1125,20 @@ html_gdk_painter_realize (HTMLGdkPainter *gdk_painter,
 	gdk_painter->gc = gdk_gc_new (window);
 	gdk_painter->window = window;
 
-	colormap = gdk_window_get_colormap (window);
-
 	gdk_painter->light.red = 0xffff;
 	gdk_painter->light.green = 0xffff;
 	gdk_painter->light.blue = 0xffff;
-	gdk_colormap_alloc_color (colormap, &gdk_painter->light, TRUE, TRUE);
+	html_painter_alloc_color (HTML_PAINTER (gdk_painter), &gdk_painter->light);
 
 	gdk_painter->dark.red = 0x7fff;
 	gdk_painter->dark.green = 0x7fff;
 	gdk_painter->dark.blue = 0x7fff;
-	gdk_colormap_alloc_color (colormap, &gdk_painter->dark, TRUE, TRUE);
+	html_painter_alloc_color (HTML_PAINTER (gdk_painter), &gdk_painter->dark);
 
 	gdk_painter->black.red = 0x0000;
 	gdk_painter->black.green = 0x0000;
 	gdk_painter->black.blue = 0x0000;
-	gdk_colormap_alloc_color (colormap, &gdk_painter->black, TRUE, TRUE);
+	html_painter_alloc_color (HTML_PAINTER (gdk_painter), &gdk_painter->black);
 }
 
 void
