@@ -870,7 +870,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 					gboolean heading = FALSE;
 					noCell = FALSE;
 
-					if (*(str + 2) == 'h') {
+					if (tableEntry && *(str + 2) == 'h') {
 						gtk_html_debug_log (e->widget, "<th>\n");
 						heading = TRUE;
 					}
@@ -943,6 +943,11 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 								else if (strcasecmp (token + 6, "left") == 0)
 									e->divAlign = HTML_HALIGN_LEFT;
 							}
+							else if (strncasecmp (token, "height=", 6) == 0) {
+								/* FIXME cell height negotiation needs to be added
+								 * it shouldn't be very difficult
+								 */
+							}
 							else if (strncasecmp (token, "width=", 6) == 0) {
 								if (strchr (token + 6, '%')) {
 									gtk_html_debug_log (e->widget, "percent!\n");
@@ -997,25 +1002,12 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 					HTML_CLUE (cell)->valign = valign;
 					if (fixedWidth)
 						HTML_OBJECT (cell)->flags |= HTML_OBJECT_FLAG_FIXEDWIDTH;
+ 
 					html_table_add_cell (table, cell);
 					has_cell = 1;
 					e->flow = NULL;
 
 					e->avoid_para = TRUE;
-
-					if (heading) {
-						/* FIXME this is wrong.  */
-						push_font_style (e, GTK_HTML_FONT_STYLE_BOLD);
-						push_block (e, ID_TH, 3,
-							    block_end_font,
-							    FALSE, 0);
-						str = parse_body (e, HTML_OBJECT (cell), endthtd, FALSE);
-						pop_block (e, ID_TH, HTML_OBJECT (cell));
-						if (e->pending_para) {
-							insert_paragraph_break (e, HTML_OBJECT (cell));
-							e->pending_para = FALSE;
-						}
-					}
 
 					if (!tableEntry) {
 						/* Put all the junk between <table>
@@ -1032,9 +1024,18 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 						html_table_end_row (table);
 						html_table_start_row (table);
 					} else {
-						push_block (e, ID_TD, 3, NULL, 0, 0);
-						str = parse_body (e, HTML_OBJECT (cell), endthtd, FALSE);
-						pop_block (e, ID_TD, HTML_OBJECT (cell));
+						if (heading) {
+							push_font_style (e, GTK_HTML_FONT_STYLE_BOLD);
+							push_block (e, ID_TH, 3,
+								    block_end_font,
+								    FALSE, 0);
+							str = parse_body (e, HTML_OBJECT (cell), endthtd, FALSE);
+							pop_block (e, ID_TH, HTML_OBJECT (cell));
+						} else {
+							push_block (e, ID_TD, 3, NULL, 0, 0);
+							str = parse_body (e, HTML_OBJECT (cell), endthtd, FALSE);
+							pop_block (e, ID_TD, HTML_OBJECT (cell));
+						}
 						if (e->pending_para) {
 							insert_paragraph_break (e, HTML_OBJECT (cell));
 							e->pending_para = FALSE;
@@ -1496,6 +1497,10 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 				parse_color (token + 6, &e->settings->vLinkColor);
 			}
 		}
+		/* FIXME http://www.linux-india.org/itcom99/ shows what
+		 * happens when you don't pay attention to the various
+		 * margin settings in the body tag
+		 */
 #if 0
 		if ( !bgColorSet || defaultSettings->forceDefault )
 		{
