@@ -379,7 +379,7 @@ slow_cb (GtkWidget *widget, gpointer data)
 static void
 animate_cb (GtkWidget *widget, gpointer data)
 {
-	gtk_html_set_animate (html, !gtk_html_get_animate (html));
+	/* gtk_html_set_animate (html, !gtk_html_get_animate (html)); */
 }
 
 static void
