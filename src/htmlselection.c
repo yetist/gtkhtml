@@ -77,7 +77,7 @@ html_engine_select_region (HTMLEngine *e,
 	if (a && b) {
 		HTMLInterval *new_selection;
 
-		new_selection = html_interval_new_from_points (a ,b);
+		new_selection = html_interval_new_from_points (a, b);
 		html_interval_validate (new_selection);
 		html_engine_select_interval (e, new_selection);
 	}
@@ -86,6 +86,30 @@ html_engine_select_region (HTMLEngine *e,
 		html_point_destroy (a);
 	if (b)
 		html_point_destroy (b);
+}
+
+void
+html_engine_select_all (HTMLEngine *e)
+{
+	HTMLObject *a, *b;
+
+	g_return_if_fail (e != NULL);
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
+	e = html_engine_get_top_html_engine (e);
+	if (e->clue == NULL)
+		return;
+
+	a = html_object_get_head_leaf (e->clue);
+	b = html_object_get_tail_leaf (e->clue);
+
+	if (a && b) {
+		HTMLInterval *new_selection;
+
+		new_selection = html_interval_new (a, b, 0, html_object_get_length (b));
+		html_interval_validate (new_selection);
+		html_engine_select_interval (e, new_selection);
+	}
 }
 
 void

@@ -39,6 +39,8 @@
 #include <gtk/gtkmain.h>
 #include <gtk/gtksignal.h>
 
+#include <gal/widgets/e-scroll-frame.h>
+
 #include "gtkhtml-embedded.h"
 #include "gtkhtml-private.h"
 #include "gtkhtml-stream.h"
@@ -3343,7 +3345,7 @@ html_engine_init (HTMLEngine *engine)
 
 	engine->cursor = html_cursor_new ();
 	engine->mark = NULL;
-	engine->cursor_hide_count = 0;
+	engine->cursor_hide_count = 1;
 	engine->blinking_timer_id = 0;
 	engine->blinking_status = FALSE;
 	engine->insertion_font_style = GTK_HTML_FONT_STYLE_DEFAULT;
@@ -3361,6 +3363,8 @@ html_engine_init (HTMLEngine *engine)
 	engine->need_spell_check = FALSE;
 
 	html_engine_print_set_min_split_index (engine, .75);
+
+	engine->block = FALSE;
 }
 
 HTMLEngine *
@@ -3566,6 +3570,7 @@ html_engine_begin (HTMLEngine *e, char *content_type)
 #ifdef LOG_INPUT
 	new_stream = gtk_html_stream_log_new (GTK_HTML (e->widget), new_stream);
 #endif
+	e->opened_streams = 1;
 	
 	e->newPage = TRUE;
 	clear_selection (e);
@@ -3726,6 +3731,8 @@ html_engine_update_event (HTMLEngine *e)
 void
 html_engine_schedule_update (HTMLEngine *p)
 {
+	if (p->block && p->opened_streams)
+		return;
 	/* printf ("html_engine_schedule_update\n"); */
 	if(p->updateTimer == 0)
 		p->updateTimer = gtk_idle_add ((GtkFunction) html_engine_update_event, p);
@@ -3869,6 +3876,12 @@ html_engine_stream_end (GtkHTMLStream *stream,
 	while (html_engine_timer_event (e))
 		;
 
+	if (e->opened_streams)
+		e->opened_streams --;
+	printf ("ENGINE(%p) opened streams: %d\n", e, e->opened_streams);
+	if (e->block && e->opened_streams == 0)
+		html_engine_schedule_update (e);
+
 	if (e->timerId != 0) {		gtk_idle_remove (e->timerId);
 		e->timerId = 0;
 	}
@@ -3891,9 +3904,59 @@ html_engine_draw_real (HTMLEngine *e, gint x, gint y, gint width, gint height)
 {
 	gint tx, ty;
 
+	if (e->block && e->opened_streams)
+		return;
+
+	/* don't draw in case we are longer than available space and scrollbar is going to be shown */
+	if (e->clue && e->clue->ascent + e->clue->descent > e->height) {
+		if (GTK_WIDGET (e->widget)->parent) {
+			if (GTK_IS_SCROLLED_WINDOW (GTK_WIDGET (e->widget)->parent)) {
+				if (GTK_SCROLLED_WINDOW (GTK_WIDGET (e->widget)->parent)->vscrollbar
+				    && !GTK_WIDGET_VISIBLE (GTK_SCROLLED_WINDOW (GTK_WIDGET (e->widget)->parent)->vscrollbar)
+				    && GTK_SCROLLED_WINDOW (GTK_WIDGET (e->widget)->parent)->vscrollbar_policy == GTK_POLICY_AUTOMATIC)
+					return;
+			} else if (E_IS_SCROLL_FRAME (GTK_WIDGET (e->widget)->parent)) {
+				GtkPolicyType policy;
+
+				e_scroll_frame_get_policy (E_SCROLL_FRAME (GTK_WIDGET (e->widget)->parent), NULL, &policy);
+				/* printf ("SHOW: policy %d visible %d\n",
+				   policy, e_scroll_frame_get_vscrollbar_visible
+				   (E_SCROLL_FRAME (GTK_WIDGET (e->widget)->parent))); */
+				if (policy == GTK_POLICY_AUTOMATIC
+				    && !e_scroll_frame_get_vscrollbar_visible (E_SCROLL_FRAME (GTK_WIDGET (e->widget)->parent)))
+					return;
+			}
+		}
+	}
+
+	/* don't draw in case we are shorter than available space and scrollbar is going to be hidden */
+	if (e->clue && e->clue->ascent + e->clue->descent <= e->height) {
+		if (GTK_WIDGET (e->widget)->parent) {
+			if (GTK_IS_SCROLLED_WINDOW (GTK_WIDGET (e->widget)->parent)) {
+				if (GTK_SCROLLED_WINDOW (GTK_WIDGET (e->widget)->parent)->vscrollbar
+				    && GTK_WIDGET_VISIBLE (GTK_SCROLLED_WINDOW (GTK_WIDGET (e->widget)->parent)->vscrollbar)
+				    && GTK_SCROLLED_WINDOW (GTK_WIDGET (e->widget)->parent)->vscrollbar_policy == GTK_POLICY_AUTOMATIC)
+					return;
+			} else if (E_IS_SCROLL_FRAME (GTK_WIDGET (e->widget)->parent)) {
+				GtkPolicyType policy;
+
+				e_scroll_frame_get_policy (E_SCROLL_FRAME (GTK_WIDGET (e->widget)->parent), NULL, &policy);
+				/* printf ("HIDE: policy %d visible %d\n",
+				   policy, e_scroll_frame_get_vscrollbar_visible
+				   (E_SCROLL_FRAME (GTK_WIDGET (e->widget)->parent))); */
+				if (policy == GTK_POLICY_AUTOMATIC
+				    && e_scroll_frame_get_vscrollbar_visible (E_SCROLL_FRAME (GTK_WIDGET (e->widget)->parent)))
+					return;
+			}
+		}
+	}
+
 	/* This case happens when the widget has not been shown yet.  */
 	if (width == 0 || height == 0)
 		return;
+
+	/* printf ("html_engine_draw_real %d x %d, %d\n",
+	   e->width, e->height, e->clue ? e->clue->ascent + e->clue->descent : 0); */
 
 	tx = -e->x_offset + e->leftBorder;
 	ty = -e->y_offset + e->topBorder;

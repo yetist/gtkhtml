@@ -271,3 +271,12 @@ html_link_text_to_text (HTMLLinkText *link, HTMLEngine *e)
 
 	return new_text;
 }
+
+void
+html_link_text_set_url (HTMLLinkText *link, gchar *url, gchar *target)
+{
+	g_free (link->url);
+	g_free (link->target);
+	link->url = g_strdup (url);
+	link->target = g_strdup (target);
+}

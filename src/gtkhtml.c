@@ -1202,9 +1202,11 @@ button_release_event (GtkWidget *widget,
 
 	if (html->in_selection) {
 		/* Copy to primary save area */
-		html_engine_copy_object(html->engine,
-					&html->priv->primary,
-					&html->priv->primary_len);
+		if (html->priv->primary) {
+			html_object_destroy (html->priv->primary);
+		}
+
+		html_engine_copy_object (html->engine, &html->priv->primary, &html->priv->primary_len);
 		html->in_selection = FALSE;
 		gtk_html_update_styles (html);
 	}
@@ -3802,11 +3804,17 @@ gtk_html_select_all (GtkHTML *html)
 		return;
 
 	e = html->engine;
+
 	if (html_engine_get_editable (e))
 		html_engine_select_all_editable (e);
-	/* FIXME: does anybody need this? if so bother me. rodo
-	   else
-	   html_engine_select_all (e); */
+	else {
+		html_engine_select_all (e);
+	}
+
+	if (html->priv->primary) {
+		html_object_destroy (html->priv->primary);
+	}
+	html_engine_copy_object (e, &html->priv->primary, &html->priv->primary_len);
 }
 
 void
@@ -4083,4 +4091,10 @@ void
 gtk_html_image_preload (GtkHTML *html, const gchar *url)
 {
 	html_image_factory_register (HTML_IMAGE_FACTORY (html->engine->image_factory), NULL, url, FALSE);
+}
+
+void
+gtk_html_set_blocking (GtkHTML *html, gboolean block)
+{
+	html->engine->block = block;
 }

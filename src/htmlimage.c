@@ -955,7 +955,11 @@ html_image_factory_end_pixbuf (GtkHTMLStream *stream,
 	}
 
 	update_or_redraw (ip);
-	
+	if (ip->factory->engine->opened_streams)
+		ip->factory->engine->opened_streams --;
+	/* printf ("IMAGE(%p) opened streams: %d\n", ip->factory->engine, ip->factory->engine->opened_streams); */
+	if (ip->factory->engine->opened_streams == 0 && ip->factory->engine->block)
+		html_engine_schedule_update (ip->factory->engine);
 	html_image_pointer_unref (ip);
 }
 
@@ -1346,6 +1350,7 @@ html_image_pointer_load (HTMLImagePointer *ip)
 				      html_image_factory_write_pixbuf,
 				      html_image_factory_end_pixbuf,
 				      ip);
+	ip->factory->engine->opened_streams ++;
 
 	/* This is a bit evil, I think.  But it's a lot better here
 	   than in the HTMLImage object.  FIXME anyway -- ettore  */

@@ -256,6 +256,9 @@ struct _HTMLEngine {
 	HTMLCursorRectangle cursor_image;
 
 	GList *cut_and_paste_stack;
+
+	gboolean block;
+	gint opened_streams;
 };
 
 /* must be forward referenced *sigh* */

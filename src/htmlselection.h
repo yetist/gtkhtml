@@ -33,6 +33,7 @@ void      html_engine_select_region         (HTMLEngine *e,
 					     gint        y2);
 void      html_engine_select_word           (HTMLEngine *e);
 void      html_engine_select_line           (HTMLEngine *e);
+void      html_engine_select_all            (HTMLEngine *e);
 void      html_engine_unselect_all          (HTMLEngine *e);
 void      html_engine_clear_selection       (HTMLEngine *e);
 void      html_engine_deactivate_selection  (HTMLEngine *e);
