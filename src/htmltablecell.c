@@ -202,6 +202,10 @@ save (HTMLObject *self,
 			cell->bg.red >> 8,
 			cell->bg.green >> 8,
 			cell->bg.blue >> 8 SE;
+	if (self->percent > 0) {
+		SB " WIDTH=\"%d%%\"", self->percent SE;
+	} else if (self->flags & HTML_OBJECT_FLAG_FIXEDWIDTH)
+		SB " WIDTH=\"%d\"", cell->fixed_width SE;
 	SB ">\n" SE;
 	if (!(*HTML_OBJECT_CLASS (parent_class)->save) (self, state))
 		return FALSE;
