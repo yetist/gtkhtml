@@ -1,3 +1,8 @@
+2001-01-12  Dietmar Maurer  <dietmar@helixcode.com>
+
+	* *.c: changed the signature of the property_bag get/set
+	functions.
+
 2001-01-11  Radek Doulik  <rodo@helixcode.com>
 
 	* gtkhtml.spec.in (Requires): added missing %{prefix}/share/gnome/ui/GNOME_GtkHTML_Editor.xml

@@ -45,7 +45,8 @@ enum {
 };
 
 static void
-get_prop (BonoboPropertyBag * bag, BonoboArg * arg, guint arg_id, gpointer data)
+get_prop (BonoboPropertyBag * bag, BonoboArg * arg, guint arg_id, 
+	  CORBA_Environment *ev, gpointer data)
 {
 	EBrowser * ebr;
 
@@ -88,7 +89,8 @@ get_prop (BonoboPropertyBag * bag, BonoboArg * arg, guint arg_id, gpointer data)
 }
 
 static void
-set_prop (BonoboPropertyBag * bag, const BonoboArg * arg, guint arg_id, gpointer browser)
+set_prop (BonoboPropertyBag * bag, const BonoboArg * arg, guint arg_id, 
+	  CORBA_Environment *ev, gpointer browser)
 {
 	switch (arg_id) {
 	case ARG_URL:
