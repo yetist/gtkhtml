@@ -1,3 +1,8 @@
+2002-08-26  Radek Doulik  <rodo@ximian.com>
+
+	* htmlobject.c (move_object_cursor): don't allow objects not
+	capable of accepting cursor to accept it
+
 2002-08-23  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine-edit-cut-and-paste.c (validate_tables): new function,
