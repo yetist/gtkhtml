@@ -257,7 +257,7 @@ write_header (HTMLEngineSaveState *state)
 
 	/* Start of body.  */
 	body = get_body (state->engine);
-	if (!html_engine_save_output_string (state, body))
+	if (!html_engine_save_output_string (state, "%s", body))
 		retval = FALSE;
 	g_free (body);
 
@@ -338,7 +338,7 @@ html_engine_save_plain (const HTMLEngine *engine,
 
 static gboolean
 html_engine_save_buffer_receiver (const HTMLEngine *engine,
-				  const            *data,
+				  const gchar      *data,
 				  guint             len,
 				  gpointer          user_data)
 {

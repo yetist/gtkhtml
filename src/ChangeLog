@@ -1,5 +1,11 @@
 2000-11-07  Larry Ewing  <lewing@helixcode.com>
 
+	* htmlclueflow.c (save_plain): use format string.
+
+	* htmlengine-save.c (write_header): use a format string rather
+	than passing the body directly.
+	(html_engine_save_buffer_receiver): fix argument type.
+	
 	* htmlclueflow.c (string_append_nonbsp): make sure we count the
 	extra bytes we lose when converting nbsp to a space.
 	(save_plain): make sure we deal with byte length and character

@@ -1174,7 +1174,7 @@ save_plain (HTMLObject *self,
 	}
 	html_engine_save_buffer_free (buffer_state);
 		
-	if (!html_engine_save_output_string (state, out->str)) {
+	if (!html_engine_save_output_string (state, "%s", out->str)) {
 		g_string_free (out, TRUE);
 		return FALSE;
 	}		
