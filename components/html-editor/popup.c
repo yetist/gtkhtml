@@ -146,6 +146,8 @@ show_prop_dialog (GtkHTMLControlData *cd, GtkHTMLEditPropertyType start)
 	GtkHTMLEditPropertyType t;
 	GList *cur;
 
+	if (cd->properties_dialog)
+		gtk_html_edit_properties_dialog_destroy (cd->properties_dialog);
 	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, FALSE, _("Properties"));
 
 	cur = cd->properties_types;
@@ -501,7 +503,7 @@ popup_show (GtkHTMLControlData *cd, GdkEventButton *event)
 void
 property_dialog_show (GtkHTMLControlData *cd)
 {
-	guint items;
+	guint items = 0;
 
 	gtk_widget_unref (prepare_properties_and_menu (cd, &items));
 	if (items)
