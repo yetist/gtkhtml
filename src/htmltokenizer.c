@@ -463,6 +463,9 @@ html_tokenizer_write (HTMLTokenizer *t, const gchar *string, size_t size)
 	gchar *p, *ptr;
 	gchar *srcPtr = 0;
 
+	if (!t->buffer)
+		html_tokenizer_begin(t);
+
 	while ((src - string) < size) {
 		/* Check if the buffer is too big */
 		if ((t->dest - t->buffer) > t->size) {
