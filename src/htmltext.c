@@ -529,12 +529,14 @@ html_utf8_strnchr (const gchar *s, gchar c, gint len, gint *offset)
 }
 
 gint
-html_text_text_line_length (const gchar *text, gint *line_offset, guint len)
+html_text_text_line_length (const gchar *text, gint *line_offset, guint len, gint *tabs)
 {
 	const gchar *tab, *found_tab;
 	gint cl, l, skip, sum_skip;
 
-	/* printf ("lo: %d o: %d t: '%s'\n", line_offset, len, text); */
+	/* printf ("lo: %d len: %d t: '%s'\n", line_offset, len, text); */
+	if (tabs)
+		*tabs = 0;
 	l = 0;
 	sum_skip = 0;
 	tab = text;
@@ -548,7 +550,12 @@ html_text_text_line_length (const gchar *text, gint *line_offset, guint len)
 		*line_offset  += skip;
 		sum_skip += skip - 1;
 		l ++;
+		if (tabs)
+			(*tabs) ++;
 	}
+
+	(*line_offset) += len - l;
+	/* printf ("ll: %d\n", len + sum_skip); */
 
 	return len + sum_skip;
 }
@@ -556,8 +563,8 @@ html_text_text_line_length (const gchar *text, gint *line_offset, guint len)
 static guint
 get_line_length (HTMLObject *self, HTMLPainter *p, gint line_offset)
 {
-	return html_clueflow_tabs (HTML_CLUEFLOW (self->parent), p) || line_offset == -1
-		? html_text_text_line_length (HTML_TEXT (self)->text, &line_offset, HTML_TEXT (self)->text_len)
+	return html_clueflow_tabs (HTML_CLUEFLOW (self->parent), p)
+		? html_text_text_line_length (HTML_TEXT (self)->text, &line_offset, HTML_TEXT (self)->text_len, NULL)
 		: HTML_TEXT (self)->text_len;
 }
 
@@ -659,8 +666,8 @@ calc_word_width (HTMLText *text, HTMLPainter *painter, gint line_offset)
 			cl = word_size (cl, start_offset, end_offset, &il, &gl, &width, &asc, &dsc);
 		} else
 			html_painter_calc_text_size_bytes (painter,
-							   begin, end ? end - begin : strlen (begin), NULL, NULL,
-							   &line_offset, font, style, &width, &asc, &dsc);
+							   begin, end ? end - begin : strlen (begin), NULL, NULL, 0,
+							   NULL, font, style, &width, &asc, &dsc);
 		text->word_width [i] = (i ? text->word_width [i - 1] : 0) + width;
 
 		if (obj->ascent < asc)
@@ -679,7 +686,7 @@ calc_word_width (HTMLText *text, HTMLPainter *painter, gint line_offset)
 	if (text->text_len == 0) {
 		gint lo = 0;
 		/* FIXME: cache items and glyphs? */
-		html_painter_calc_text_size_bytes (painter, " ", 1, NULL, NULL, &lo, font, style, &width, &obj->ascent, &obj->descent);
+		html_painter_calc_text_size_bytes (painter, " ", 1, NULL, NULL, 0, NULL, font, style, &width, &obj->ascent, &obj->descent);
 	}
 
 	HTML_OBJECT (text)->change &= ~HTML_CHANGE_WORD_WIDTH;
@@ -1455,18 +1462,17 @@ get_cursor_base (HTMLObject *self,
 				HTMLText *text;
 				GtkHTMLFontStyle font_style;
 				gint line_offset, width, asc, dsc;
+				gchar *slave_text;
 
 				text = HTML_TEXT (self);
 
 				font_style = html_text_get_font_style (text);
-				line_offset = html_text_slave_get_line_offset (slave,
-									       html_text_get_line_offset (HTML_TEXT (self),
-													  painter),
-									       slave->posStart, painter);
+				line_offset = html_text_slave_get_line_offset (slave, 0, painter);
 				/* FIXME: cache items and glyphs? */
+				slave_text = html_text_get_text (text, slave->posStart);
 				html_painter_calc_text_size (painter,
-							     html_text_get_text (text, slave->posStart),
-							     offset - slave->posStart, NULL, NULL, &line_offset,
+							     slave_text,
+							     offset - slave->posStart, NULL, NULL, 0, &line_offset,
 							     font_style, text->face, &width, &asc, &dsc);
 
 				*x += width;

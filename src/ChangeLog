@@ -5,6 +5,15 @@
 
 2003-03-12  Radek Doulik  <rodo@ximian.com>
 
+	* htmltext.c (html_text_text_line_length): fix line_offset
+	calculation
+
+	* htmltextslave.c (html_text_slave_get_line_offset): removed
+	line_offset parameter, updated all callers
+
+	* htmlclueflow.c (html_clueflow_get_line_offset): don't allow head
+	to be set to NULL
+
 	* htmltextslave.c (calc_width): fix width calculation for tabs
 
 2003-03-11  Radek Doulik  <rodo@ximian.com>

@@ -1108,7 +1108,7 @@ draw_gt_line (HTMLObject *cur, HTMLPainter *p, gint offset, gint x, gint y)
 
 	/* FIXME: cache items and glyphs? */
 	html_painter_calc_text_size (p, HTML_BLOCK_CITE, 
-				     strlen (HTML_BLOCK_CITE), NULL, NULL, &line_offset,
+				     strlen (HTML_BLOCK_CITE), NULL, NULL, 0, &line_offset,
 				     GTK_HTML_FONT_STYLE_SIZE_3, NULL,
 				     &w, &a, &d);
 
@@ -1116,7 +1116,7 @@ draw_gt_line (HTMLObject *cur, HTMLPainter *p, gint offset, gint x, gint y)
 	while (cy + a <= cur->ascent) {
 		/* FIXME: cache items and glyphs? */
 		html_painter_draw_text (p, x, y + cur->y - cy,
-					HTML_BLOCK_CITE, 1, NULL, NULL, 0);
+					HTML_BLOCK_CITE, 1, NULL, NULL, 0, 0);
 		cy += a + d;
 	}
 
@@ -1124,7 +1124,7 @@ draw_gt_line (HTMLObject *cur, HTMLPainter *p, gint offset, gint x, gint y)
 	while (cy + d <= cur->descent) {
 		/* FIXME: cache items and glyphs? */
 		html_painter_draw_text (p, x, y + cur->y + cy,
-					HTML_BLOCK_CITE, 1, NULL, NULL, 0);
+					HTML_BLOCK_CITE, 1, NULL, NULL, 0, 0);
 		cy += a + d;
 	}
 }
@@ -1241,7 +1241,7 @@ draw_item (HTMLObject *self, HTMLPainter *painter, gint x, gint y, gint width, g
 
 			len   = strlen (number);
 			/* FIXME: cache items and glyphs? */
-			html_painter_calc_text_size (painter, number, len, NULL, NULL, &line_offset,
+			html_painter_calc_text_size (painter, number, len, NULL, NULL, 0, &line_offset,
 						     html_clueflow_get_default_font_style (flow), NULL, &width, &asc, &dsc);
 			width += html_painter_get_space_width (painter, html_clueflow_get_default_font_style (flow), NULL);
 			html_painter_set_font_style (painter, html_clueflow_get_default_font_style (flow));
@@ -1249,7 +1249,7 @@ draw_item (HTMLObject *self, HTMLPainter *painter, gint x, gint y, gint width, g
 			/* FIXME: cache items and glyphs? */
 			html_painter_draw_text (painter, self->x + first->x - width + tx,
 						self->y - self->ascent + first->y + ty,
-						number, strlen (number), NULL, NULL, 0);
+						number, strlen (number), NULL, NULL, 0, 0);
 		}
 		g_free (number);
 	}
@@ -2880,16 +2880,18 @@ html_clueflow_get_line_offset (HTMLClueFlow *flow, HTMLPainter *painter, HTMLObj
 	o = head = child;
 	while (o) {
 		o = head->prev;
-		if (o && o->y + o->descent - 1 < child->y - child->ascent)
-			break;
-		else
-			head = o;
+		if (o) {
+			if (o->y + o->descent - 1 < child->y - child->ascent)
+				break;
+			else
+				head = o;
+		}
 	}
 
 	if (HTML_IS_TEXT_SLAVE (head)) {
 		HTMLTextSlave *bol = HTML_TEXT_SLAVE (head);
 		line_offset = html_text_text_line_length (html_text_get_text (bol->owner, bol->posStart),
-							  0, bol->owner->text_len - bol->posStart);
+							  0, bol->owner->text_len - bol->posStart, NULL);
 		head = html_object_next_not_slave (head);
 	}
 

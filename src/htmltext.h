@@ -136,7 +136,8 @@ gint              html_text_get_line_offset              (HTMLText         *text
 							  HTMLPainter      *painter);
 gint              html_text_text_line_length             (const gchar      *text,
 							  gint             *line_offset,
-							  guint             len);
+							  guint             len,
+							  gint             *tabs);
 /*
  * protected
  */

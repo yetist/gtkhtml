@@ -60,7 +60,6 @@ HTMLObject *html_text_slave_new                   (HTMLText           *owner,
 						   guint               posLen,
 						   guint               start_word);
 gint        html_text_slave_get_line_offset       (HTMLTextSlave      *slave,
-						   gint                line_offset,
 						   gint                offset,
 						   HTMLPainter        *p);
 char       *html_text_slave_get_text              (HTMLTextSlave      *slave);
