@@ -536,6 +536,19 @@ html_engine_cut (HTMLEngine *e)
  */
 
 static void
+set_cursor_at_end_of_object (HTMLEngine *e, HTMLObject *o, guint len)
+{
+	guint save_position;
+
+	save_position       = e->cursor->position;
+	e->cursor->object   = html_object_get_tail_leaf (o);
+	while (html_cursor_forward (e->cursor, e))
+		;
+	e->cursor->position = save_position + len;
+	e->cursor->offset   = html_object_get_length (e->cursor->object);
+}
+
+static void
 insert_object_do (HTMLEngine *e, HTMLObject *obj, guint len, gboolean check)
 {
 	HTMLObject *cur;
@@ -566,15 +579,12 @@ insert_object_do (HTMLEngine *e, HTMLObject *obj, guint len, gboolean check)
 		cur = cur->parent;
 	}
 	orig = html_cursor_dup (e->cursor);
+	set_cursor_at_end_of_object (e, obj, len);
 
 	html_object_change_set_down (obj, HTML_CHANGE_ALL);
 	split_and_add_empty_texts (e, level, &left, &right);
 	first = html_object_heads_list (obj);
 	last  = html_object_tails_list (obj);
-
-	e->cursor->position += len;
-	e->cursor->object    = html_object_get_tail_leaf (obj);
-	e->cursor->offset    = html_object_get_length (e->cursor->object);
 
 	if ((left && left->data) || (right && (right->data))) {
 		HTMLObject *parent, *where;
