@@ -1,3 +1,9 @@
+2000-06-12  Dan Winship  <danw@helixcode.com>
+
+	* htmltextmaster.c: fix up the MagicInsertMatch regexps: "[_-a-z]"
+	doesn't even compile on my machine, and backslashes aren't needed
+	(or correct) inside [].
+
 2000-06-12  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlcolorset.c (html_colorset_set_style): Use ->base instead of
