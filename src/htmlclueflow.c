@@ -380,7 +380,7 @@ static guint
 calc_padding (HTMLPainter *painter)
 {
 	if (!HTML_IS_PLAIN_PAINTER (painter)) {
-		return html_painter_get_space_width (painter, GTK_HTML_FONT_STYLE_SIZE_3, NULL);
+		return 2 * html_painter_get_space_width (painter, GTK_HTML_FONT_STYLE_SIZE_3, NULL);
 	}
 	return 0;
 }

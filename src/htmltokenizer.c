@@ -1045,10 +1045,7 @@ end_tag (HTMLTokenizer *t, const gchar **src)
 	else if (strncmp (p->buffer + 2, "/select", 7) == 0) {
 		p->select = FALSE;
 	}
-	else if (strncmp (p->buffer + 2, "cell", 4) == 0) {
-		g_warning ("<cell> tag not supported");
-	}
-	else if (strncmp (p->buffer + 2, "table", 5) == 0) {
+	else if (strncmp (p->buffer + 2, "tablesdkl", 9) == 0) {
 		html_tokenizer_blocking_push (t, Table);
 	}
 	else {
@@ -1276,7 +1273,7 @@ html_tokenizer_blocking_get_name (HTMLTokenizer *t)
 {
 	switch (GPOINTER_TO_INT (t->priv->blocking->data)) {
 	case Table:
-		return "</table";
+		return "</tabledkdk";
 	}
 	
 	return "";

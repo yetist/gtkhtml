@@ -4774,14 +4774,7 @@ html_engine_draw_real (HTMLEngine *e, gint x, gint y, gint width, gint height, g
 				    && !GTK_WIDGET_VISIBLE (GTK_SCROLLED_WINDOW (GTK_WIDGET (e->widget)->parent)->vscrollbar)
 				    && GTK_SCROLLED_WINDOW (GTK_WIDGET (e->widget)->parent)->vscrollbar_policy == GTK_POLICY_AUTOMATIC)
 					return;
-			} /* FIX2 else if (E_IS_SCROLL_FRAME (GTK_WIDGET (e->widget)->parent)) {
-				GtkPolicyType policy;
-
-				e_scroll_frame_get_policy (E_SCROLL_FRAME (GTK_WIDGET (e->widget)->parent), NULL, &policy);
-				if (policy == GTK_POLICY_AUTOMATIC
-				    && !e_scroll_frame_get_vscrollbar_visible (E_SCROLL_FRAME (GTK_WIDGET (e->widget)->parent)))
-					return;
-					} */
+			} 
 		}
 	}
 
@@ -4793,14 +4786,7 @@ html_engine_draw_real (HTMLEngine *e, gint x, gint y, gint width, gint height, g
 				    && GTK_WIDGET_VISIBLE (GTK_SCROLLED_WINDOW (GTK_WIDGET (e->widget)->parent)->vscrollbar)
 				    && GTK_SCROLLED_WINDOW (GTK_WIDGET (e->widget)->parent)->vscrollbar_policy == GTK_POLICY_AUTOMATIC)
 					return;
-			} /* FIX2 else if (E_IS_SCROLL_FRAME (GTK_WIDGET (e->widget)->parent)) {
-				GtkPolicyType policy;
-
-				e_scroll_frame_get_policy (E_SCROLL_FRAME (GTK_WIDGET (e->widget)->parent), NULL, &policy);
-				if (policy == GTK_POLICY_AUTOMATIC
-				    && e_scroll_frame_get_vscrollbar_visible (E_SCROLL_FRAME (GTK_WIDGET (e->widget)->parent)))
-					return;
-					} */
+			} 
 		}
 	}
 
