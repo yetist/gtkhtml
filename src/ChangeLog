@@ -1,5 +1,8 @@
 2002-08-22  Radek Doulik  <rodo@ximian.com>
 
+	* htmltext.c: allow + in user name in mail addres and don't allow
+	wwwblabla, ftpbla, ...
+
 	* gtkhtml.c (drag_begin): select dragged object
 	(dnd_link_set): no dnd in edit mode
 	(dnd_link_unset): ditto
