@@ -612,13 +612,13 @@ html_painter_get_pixel_size (HTMLPainter *painter)
 	return (* HP_CLASS (painter)->get_pixel_size) (painter);
 }
 
-void
+gint
 html_painter_draw_spell_error (HTMLPainter *painter,
 			       gint x, gint y,
 			       const gchar *text,
 			       gint len)
 {
-	(* HP_CLASS (painter)->draw_spell_error) (painter, x, y, text, len);
+	return (* HP_CLASS (painter)->draw_spell_error) (painter, x, y, text, len);
 }
 
 HTMLFont *

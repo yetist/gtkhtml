@@ -1,3 +1,11 @@
+2001-10-22  Radek Doulik  <rodo@ximian.com>
+
+	* htmlpainter.c (html_painter_draw_spell_error): return width of
+	spell error underline (which is width of underlined text)
+
+	* htmltextslave.c (draw_spell_errors): fixed misplaced
+	misspell-underlines, optimized
+
 2001-10-21  Larry Ewing  <lewing@ximian.com>
 
 	* htmldrawqueue.c (html_draw_queue_clear): take care of

@@ -60,9 +60,9 @@ destroy (HTMLObject *self)
 {
 #define GTKHTML_MEM_DEBUG 1
 #if GTKHTML_MEM_DEBUG
-	self->parent = 0xdeadbeef;
-	self->next = 0xdeadbeef;
-	self->prev = 0xdeadbeef;
+	self->parent = HTML_OBJECT (0xdeadbeef);
+	self->next = HTML_OBJECT (0xdeadbeef);
+	self->prev = HTML_OBJECT (0xdeadbeef);
 #else
 	self->next = NULL;
 	self->prev = NULL;

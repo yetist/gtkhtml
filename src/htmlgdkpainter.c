@@ -954,7 +954,7 @@ e_style (GtkHTMLFontStyle style)
 	return rv;
 }
 
-static void
+static gint
 draw_spell_error (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len)
 {
 	HTMLGdkPainter *gdk_painter;
@@ -983,6 +983,8 @@ draw_spell_error (HTMLPainter *painter, gint x, gint y, const gchar *text, gint 
 	gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc, x, y + 1, x + width, y + 1);
 	gdk_gc_set_line_attributes (gdk_painter->gc, values.line_width,
 				    values.line_style, values.cap_style, values.join_style);
+
+	return width;
 }
 
 static void
