@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-26 22:25-0500\n"
-"PO-Revision-Date: 2005-01-26 15:11-0400\n"
+"POT-Creation-Date: 2005-01-29 00:09-0500\n"
+"PO-Revision-Date: 2005-01-29 15:11-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: English/Canada <adamw@FreeBSD.org>\n"
 "MIME-Version: 1.0\n"
@@ -283,7 +283,7 @@ msgstr "Cut the selection"
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
-#: components/html-editor/search.c:108 components/html-editor/search.c:166
+#: components/html-editor/search.c:107 components/html-editor/search.c:167
 msgid "Find"
 msgstr "Find"
 
@@ -612,7 +612,7 @@ msgstr "Redo the undone action"
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
-#: components/html-editor/replace.c:163 components/html-editor/replace.c:225
+#: components/html-editor/replace.c:163 components/html-editor/replace.c:227
 msgid "Replace"
 msgstr "Replace"
 
@@ -1014,7 +1014,13 @@ msgstr "Draft"
 msgid "Graph paper"
 msgstr "Graph paper"
 
-#: components/html-editor/body.c:246
+#: components/html-editor/body.c:243
+#: components/html-editor/gtkhtml-editor-properties.glade.h:53
+#: components/html-editor/menubar.c:198
+msgid "Template"
+msgstr "Template"
+
+#: components/html-editor/body.c:247
 msgid "T_emplate:"
 msgstr "T_emplate:"
 
@@ -1025,38 +1031,42 @@ msgstr "T_emplate:"
 #. }
 #. g_signal_connect (data->entry_title, "changed", G_CALLBACK (entry_changed), data);
 #. editor_hig_attach_row (t1, _("T_itle:"), data->entry_title, 1);
-#: components/html-editor/body.c:256 components/html-editor/paragraph.c:112
+#: components/html-editor/body.c:257 components/html-editor/paragraph.c:112
 msgid "General"
 msgstr "General"
 
-#: components/html-editor/body.c:267 components/html-editor/text.c:162
+#: components/html-editor/body.c:268 components/html-editor/text.c:162
 #: components/html-editor/toolbar.c:301
 msgid "Automatic"
 msgstr "Automatic"
 
-#: components/html-editor/body.c:279
+#: components/html-editor/body.c:280
 msgid "_Text:"
 msgstr "_Text:"
 
-#: components/html-editor/body.c:280
+#: components/html-editor/body.c:281
 msgid "_Link:"
 msgstr "_Link:"
 
-#: components/html-editor/body.c:281
+#: components/html-editor/body.c:282
 msgid "_Background:"
 msgstr "_Background:"
 
-#: components/html-editor/body.c:283
+#: components/html-editor/body.c:284
 #: components/html-editor/gtkhtml-editor-properties.glade.h:30
 msgid "Colors"
 msgstr "Colours"
 
-#: components/html-editor/body.c:285 components/html-editor/body.c:300
+#: components/html-editor/body.c:286 components/html-editor/body.c:303
 #: components/html-editor/gtkhtml-editor-properties.glade.h:23
 msgid "Background Image"
 msgstr "Background Image"
 
 #: components/html-editor/body.c:298
+msgid "Background Image File Path"
+msgstr "Background Image File Path"
+
+#: components/html-editor/body.c:301
 #: components/html-editor/gtkhtml-editor-properties.glade.h:71
 msgid "_Source:"
 msgstr "_Source:"
@@ -1450,11 +1460,6 @@ msgstr "Si_ze:"
 msgid "Standard"
 msgstr "Standard"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:53
-#: components/html-editor/menubar.c:198
-msgid "Template"
-msgstr "Template"
-
 #: components/html-editor/gtkhtml-editor-properties.glade.h:55
 msgid "Thickness:"
 msgstr "Thickness:"
@@ -1550,6 +1555,14 @@ msgstr "px"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:83
 msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
+
+#: components/html-editor/link.c:194
+msgid "URL:"
+msgstr "URL:"
+
+#: components/html-editor/link.c:198
+msgid "Description:"
+msgstr "Description:"
 
 #: components/html-editor/menubar.c:96 components/html-editor/menubar.c:104
 msgid "Insert image"
@@ -1753,25 +1766,29 @@ msgstr "_Replace"
 msgid "Search _backward"
 msgstr "Search _backward"
 
-#: components/html-editor/replace.c:172 components/html-editor/search.c:114
+#: components/html-editor/replace.c:172 components/html-editor/search.c:113
 msgid "Case _sensitive"
 msgstr "Case _sensitive"
 
 #: components/html-editor/replace.c:182
-msgid "Replace:"
-msgstr "Replace:"
+msgid "R_eplace:"
+msgstr "R_eplace:"
 
-#: components/html-editor/replace.c:185
-msgid "With:"
-msgstr "With:"
+#: components/html-editor/replace.c:186
+msgid "_With:"
+msgstr "_With:"
 
-#: components/html-editor/search.c:113
+#: components/html-editor/search.c:112
 msgid "_Backward"
 msgstr "_Backward"
 
-#: components/html-editor/search.c:115
+#: components/html-editor/search.c:114
 msgid "_Regular Expression"
 msgstr "_Regular Expression"
+
+#: components/html-editor/search.c:118
+msgid "Input the words you want to search here"
+msgstr "Enter the words you want to search for here"
 
 #: components/html-editor/spell.c:110
 msgid ""
