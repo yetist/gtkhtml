@@ -54,5 +54,9 @@ void           html_engine_set_cspan                   (HTMLEngine     *e,
 							gint            cspan);
 void           html_engine_set_rspan                   (HTMLEngine     *e,
 							gint            rspan);
+gboolean       html_engine_cspan_delta                 (HTMLEngine     *e,
+							gint            delta);
+gboolean       html_engine_rspan_delta                 (HTMLEngine     *e,
+							gint            delta);
 
 #endif

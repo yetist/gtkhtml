@@ -117,4 +117,9 @@ binding "gtkhtml-bindings-ms"
 
   bind "<Ctrl>Delete"         { "command" (kill-word) }
   bind "<Ctrl>BackSpace"      { "command" (backward-kill-word) }
+
+  bind "<Ctrl><Shift><Alt>Left"   { "command" (cspan-dec) }
+  bind "<Ctrl><Shift><Alt>Right"  { "command" (cspan-inc) }
+  bind "<Ctrl><Shift><Alt>Up"     { "command" (rspan-dec) }
+  bind "<Ctrl><Shift><Alt>Down"   { "command" (rspan-inc) }
 }

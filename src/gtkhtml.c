@@ -4251,6 +4251,18 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 	case GTK_HTML_COMMAND_IS_SAVED:
 		rv = html_engine_is_saved (html->engine);
 		break;
+	case GTK_HTML_COMMAND_CELL_CSPAN_INC:
+		rv = html_engine_cspan_delta (html->engine, 1);
+		break;
+	case GTK_HTML_COMMAND_CELL_RSPAN_INC:
+		rv = html_engine_rspan_delta (html->engine, 1);
+		break;
+	case GTK_HTML_COMMAND_CELL_CSPAN_DEC:
+		rv = html_engine_cspan_delta (html->engine, -1);
+		break;
+	case GTK_HTML_COMMAND_CELL_RSPAN_DEC:
+		rv = html_engine_rspan_delta (html->engine, -1);
+		break;
 	default:
 		html->binding_handled = FALSE;
 	}

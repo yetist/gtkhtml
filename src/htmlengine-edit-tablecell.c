@@ -444,7 +444,7 @@ expand_cspan (HTMLEngine *e, HTMLTableCell *cell, gint cspan, HTMLUndoDirection 
 	html_engine_freeze (e);
 	move_rows = g_new0 (gint, cell->rspan);
 	for (r = cell->row; r < cell->row + cell->rspan; r ++)
-		for (c = cell->col + 1; c < MIN (cell->col + cspan, table->totalCols); c ++)
+		for (c = cell->col + cell->cspan; c < MIN (cell->col + cspan, table->totalCols); c ++)
 			if (table->cells [r][c] && !html_table_cell_is_empty (table->cells [r][c]) && move_rows [r - cell->row] == 0)
 				move_rows [r - cell->row] = cspan - (c - cell->col);
 
@@ -498,12 +498,10 @@ html_engine_set_cspan (HTMLEngine *e, gint cspan)
 		return;
 
 	table = HTML_TABLE (HTML_OBJECT (cell)->parent);
-	html_engine_goto_table_0 (e, table);
 	if (cspan > cell->cspan)
 		expand_cspan (e, cell, cspan, HTML_UNDO_UNDO);
 	else
 		collapse_cspan (e, cell, cspan, HTML_UNDO_UNDO);
-	html_engine_goto_table (e, table, cell->row, cell->col);
 }
 
 static void
@@ -515,7 +513,7 @@ expand_rspan (HTMLEngine *e, HTMLTableCell *cell, gint rspan, HTMLUndoDirection 
 	html_engine_freeze (e);
 	move_cols = g_new0 (gint, cell->cspan);
 	for (c = cell->col; c < cell->col + cell->cspan; c ++)
-		for (r = cell->row + 1; r < MIN (cell->row + rspan, table->totalRows); r ++)
+		for (r = cell->row + cell->rspan; r < MIN (cell->row + rspan, table->totalRows); r ++)
 			if (table->cells [r][c] && !html_table_cell_is_empty (table->cells [r][c]) && move_cols [c - cell->col] == 0)
 				move_cols [c - cell->col] = rspan - (r - cell->row);
 
@@ -568,10 +566,40 @@ html_engine_set_rspan (HTMLEngine *e, gint rspan)
 		return;
 
 	table = HTML_TABLE (HTML_OBJECT (cell)->parent);
-	html_engine_goto_table_0 (e, table);
 	if (rspan > cell->rspan)
 		expand_rspan (e, cell, rspan, HTML_UNDO_UNDO);
 	else
 		collapse_rspan (e, cell, rspan, HTML_UNDO_UNDO);
-	html_engine_goto_table (e, table, cell->row, cell->col);
+}
+
+gboolean
+html_engine_cspan_delta (HTMLEngine *e, gint delta)
+{
+	HTMLTableCell *cell;
+
+	cell = html_engine_get_table_cell (e);
+	if (cell) {
+		if (cell->cspan + delta > 0) {
+			html_engine_set_cspan (e, cell->cspan + delta);
+			return TRUE;
+		}
+	}
+
+	return FALSE;
+}
+
+gboolean
+html_engine_rspan_delta (HTMLEngine *e, gint delta)
+{
+	HTMLTableCell *cell;
+
+	cell = html_engine_get_table_cell (e);
+	if (cell) {
+		if (cell->rspan + delta > 0) {
+			html_engine_set_rspan (e, cell->rspan + delta);
+			return TRUE;
+		}
+	}
+
+	return FALSE;
 }

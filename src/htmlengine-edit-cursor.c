@@ -31,7 +31,6 @@
 #include "htmlobject.h"
 #include "htmltable.h"
 
-
 #define BLINK_TIMEOUT 500
 
 static GdkColor table_stipple_active_on      = { 0, 0,      0,      0xffff };
@@ -39,15 +38,14 @@ static GdkColor table_stipple_active_off     = { 0, 0xffff, 0xffff, 0xffff };
 static GdkColor table_stipple_non_active_on  = { 0, 0xaaaa, 0xaaaa, 0xaaaa };
 static GdkColor table_stipple_non_active_off = { 0, 0xffff, 0xffff, 0xffff };
 
-static GdkColor cell_stipple_active_on      = { 0, 0xffff, 0xffff, 0 };
-static GdkColor cell_stipple_active_off     = { 0, 0,      0,      0 };
-static GdkColor cell_stipple_non_active_on  = { 0, 0xaaaa, 0xaaaa, 0xaaaa };
+static GdkColor cell_stipple_active_on      = { 0, 0x7fff, 0x7fff, 0 };
+static GdkColor cell_stipple_active_off     = { 0, 0xffff, 0xffff, 0xffff };
+static GdkColor cell_stipple_non_active_on  = { 0, 0x7aaa, 0x7aaa, 0x7aaa };
 static GdkColor cell_stipple_non_active_off = { 0, 0xffff, 0xffff, 0xffff };
 
 static GdkColor image_stipple_active_on      = { 0, 0xffff, 0,      0 };
-static GdkColor image_stipple_active_off     = { 0, 0,      0,      0 };
+static GdkColor image_stipple_active_off     = { 0, 0xffff, 0xffff, 0xffff };
 
-
 void
 html_engine_hide_cursor  (HTMLEngine *engine)
 {
@@ -71,15 +69,6 @@ html_engine_show_cursor  (HTMLEngine *engine)
 		if (engine->editable && engine->cursor_hide_count == 0)
 			html_engine_draw_cursor_in_area (engine, 0, 0, -1, -1);
 	}
-}
-
-static inline void
-move_rect (HTMLEngine *engine, gint *x1, gint *y1, gint *x2, gint *y2)
-{
-	//*x1 = *x1 + engine->leftBorder - engine->x_offset;
-	//*y1 = *y1 + engine->topBorder - engine->y_offset;
-	//*x2 = *x2 + engine->leftBorder - engine->x_offset;
-	//*y2 = *y2 + engine->topBorder - engine->y_offset;
 }
 
 static gboolean
@@ -108,16 +97,14 @@ draw_cursor_rectangle (HTMLEngine *e, gint x1, gint y1, gint x2, gint y2,
 {
 	GdkGC *gc;
 	GdkColor color;
-	gint8 dashes [2] = { 2, 2 };
-
-	//move_rect (e, &x1, &y1, &x2, &y2);
+	gint8 dashes [2] = { 1, 3 };
 
 	gc = gdk_gc_new (e->window);
 	color = *on_color;
-	/* RM2 gdk_color_alloc (gdk_window_get_colormap (e->window), &color); */
+	gdk_rgb_find_color (gdk_drawable_get_colormap (e->window), &color);
 	gdk_gc_set_foreground (gc, &color);
 	color = *off_color;
-	/* RM2 gdk_color_alloc (gdk_window_get_colormap (e->window), &color); */
+	gdk_rgb_find_color (gdk_drawable_get_colormap (e->window), &color);
 	gdk_gc_set_background (gc, &color);
 	gdk_gc_set_line_attributes (gc, 1, GDK_LINE_DOUBLE_DASH, GDK_CAP_ROUND, GDK_JOIN_ROUND);
 	gdk_gc_set_dashes (gc, offset, dashes, 2);
@@ -301,7 +288,6 @@ html_engine_draw_cursor_in_area (HTMLEngine *engine,
 	}
 
 	html_object_get_cursor (obj, engine->painter, offset, &x1, &y1, &x2, &y2);
-	//move_rect (engine, &x1, &y1, &x2, &y2);
 	if (clip_rect (engine, x, y, width, height, &x1, &y1, &x2, &y2)) {
 		gdk_draw_line (engine->window, engine->invert_gc, x1, y1, x2, y2);
 #ifdef GTK_HTML_USE_XIM

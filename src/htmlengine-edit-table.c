@@ -31,6 +31,7 @@
 #include "htmlengine-edit-cut-and-paste.h"
 #include "htmlengine-edit-table.h"
 #include "htmlengine-edit-tablecell.h"
+#include "htmlinterval.h"
 #include "htmltable.h"
 #include "htmltablecell.h"
 #include "htmltablepriv.h"
@@ -194,12 +195,16 @@ void
 html_table_insert_column (HTMLTable *t, HTMLEngine *e, gint col, HTMLTableCell **column, HTMLUndoDirection dir)
 {
 	HTMLTableCell *cell;
+	HTMLPoint pos;
 	gint c, r;
 	guint position_before;
 
 	html_engine_freeze (e);
 
 	position_before = e->cursor->position;
+	pos.object = e->cursor->object;
+	pos.offset = e->cursor->offset;
+	
 	html_engine_goto_table_0 (e, t);
 
 	html_table_alloc_cell (t, 0, t->totalCols);
@@ -232,7 +237,8 @@ html_table_insert_column (HTMLTable *t, HTMLEngine *e, gint col, HTMLTableCell *
 		}
 	}
 
-	go_after_col (e, HTML_OBJECT (t), col);
+	//go_after_col (e, HTML_OBJECT (t), col);
+	html_cursor_jump_to (e->cursor, e, pos.object, pos.offset);
 	insert_column_setup_undo (e, position_before, dir);
 	html_object_change_set (HTML_OBJECT (t), HTML_CHANGE_ALL_CALC);
 	html_engine_queue_draw (e, HTML_OBJECT (t));
@@ -411,11 +417,14 @@ void
 html_table_insert_row (HTMLTable *t, HTMLEngine *e, gint row, HTMLTableCell **row_cells, HTMLUndoDirection dir)
 {
 	HTMLTableCell *cell;
+	HTMLPoint pos;
 	gint r, c;
 	guint position_before;
 
 	html_engine_freeze (e);
 	position_before = e->cursor->position;
+	pos.object = e->cursor->object;
+	pos.offset = e->cursor->offset;
 	html_engine_goto_table_0 (e, t);
 
 	html_table_alloc_cell (t, t->totalRows, 0);
@@ -448,7 +457,8 @@ html_table_insert_row (HTMLTable *t, HTMLEngine *e, gint row, HTMLTableCell **ro
 		}
 	}
 
-	go_after_row (e, HTML_OBJECT (t), row);
+	//go_after_row (e, HTML_OBJECT (t), row);
+	html_cursor_jump_to (e->cursor, e, pos.object, pos.offset);
 	insert_row_setup_undo (e, position_before, dir);
 	html_object_change_set (HTML_OBJECT (t), HTML_CHANGE_ALL_CALC);
 	html_engine_queue_draw (e, HTML_OBJECT (t));
