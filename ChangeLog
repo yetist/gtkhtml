@@ -1,3 +1,7 @@
+2001-03-29  Radek Doulik  <rodo@ximian.com>
+
+	* configure.in: require GAL >= 0.5.99.13
+
 2001-03-18  Larry Ewing  <lewing@ximian.com>
 
 	* configure.in: move AM_PROG_XML_I18N_TOOLS in an attempt to keep
