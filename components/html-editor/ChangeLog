@@ -1,3 +1,10 @@
+2001-07-02  Dan Winship  <danw@ximian.com>
+
+	* persist-file-impl.c (impl_save): Add O_TRUNC to the open() flags
+	so saving over an existing file doesn't leave garbage at the end.
+	(save_receiver): Fix this to not keep rewriting the same data over
+	and over in the case of a partial write.
+
 2001-06-26  JP Rosevear  <jpr@ximian.com>
 
 	* Makefile.am: Remove non-existent file

@@ -119,6 +119,7 @@ save_receiver  (const HTMLEngine *engine,
 			return FALSE;
 
 		len -= count;
+		data += count;
 	}
 
 	return TRUE;
@@ -136,7 +137,7 @@ impl_save (BonoboPersistFile *pf,
 
 	html = GTK_HTML (closure);
 
-	fd = open (filename, O_WRONLY | O_CREAT, 0600);
+	fd = open (filename, O_WRONLY | O_CREAT | O_TRUNC, 0600);
 
 	if (fd == -1)
 		return -1;
