@@ -1,3 +1,10 @@
+2003-02-07  Larry Ewing  <lewing@ximian.com>
+
+	* configure.in: fix the GETTEXT_PACKAGE mess and define
+	GNOME_EXPLICIT_TRANSLATION_DOMAIN.
+
+	* acconfig.h: add GNOME_EXPLICIT_TRANSLATION_DOMAIN.
+
 2003-01-22  Pablo Saratxaga <pablo@mandrakesoft.com>
 
 	* configure.in: Added Amharic (am) and Arabic (ar) to ALL_LINGUAS
