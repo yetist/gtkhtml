@@ -102,9 +102,6 @@ struct _HTMLEngine {
 	gint width;
 	gint height;
 
-	HTMLHAlignType divAlign;
-	HTMLHAlignType pAlign;
-
 	/* Number of tokens parsed in the current time-slice */
 	gint parseCount;
 	gint granularity;
@@ -125,6 +122,7 @@ struct _HTMLEngine {
 	HTMLStack *clueflow_style_stack; /* Clueflow style stack, elements are HTMLClueFlowStyles.  */
 	HTMLStack *frame_stack;
 	HTMLStack *body_stack;
+	HTMLStack *table_stack;
 
 	gchar *url;
 	gchar *target;
@@ -183,9 +181,6 @@ struct _HTMLEngine {
 	/* This is TRUE if we want a paragraph break to be inserted before the
            next element.  */
 	gboolean pending_para;
-
-	/* Alignment for the pending paragraph we are going to insert.  */
-	HTMLHAlignType pending_para_alignment;
 
 	/* Whether we have the keyboard focus.  */
 	guint have_focus : 1;
