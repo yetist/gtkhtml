@@ -20,6 +20,7 @@
 */
 
 #include <config.h>
+#include "htmlcluealigned.h"
 #include "htmlclueflow.h"
 #include "htmlcursor.h"
 #include "htmlimage.h"
@@ -612,7 +613,29 @@ html_engine_table_set_align (HTMLEngine *e, HTMLTable *t, HTMLHAlignType align)
 {
 	g_return_if_fail (HTML_OBJECT (t)->parent);
 
-	HTML_CLUE (HTML_OBJECT (t)->parent)->halign = align;
+	if (align == HTML_HALIGN_NONE || align == HTML_HALIGN_CENTER) {
+		if (HTML_IS_CLUEALIGNED (HTML_OBJECT (t)->parent)) {
+			HTMLObject *aclue = HTML_OBJECT (t)->parent;
+
+			html_clue_remove (HTML_CLUE (aclue), HTML_OBJECT (t));
+			html_clue_append_after (HTML_CLUE (aclue->parent), HTML_OBJECT (t), aclue);
+			html_clue_remove (HTML_CLUE (aclue->parent), aclue);
+			html_object_destroy (aclue);
+		}
+		HTML_CLUE (HTML_OBJECT (t)->parent)->halign = align;
+	} else if (align == HTML_HALIGN_LEFT || align == HTML_HALIGN_RIGHT) {
+		if (HTML_IS_CLUEFLOW (HTML_OBJECT (t)->parent)) {
+			HTMLObject *aclue, *flow = HTML_OBJECT (t)->parent;
+
+			html_clue_remove (HTML_CLUE (flow), HTML_OBJECT (t));
+			aclue = html_cluealigned_new (NULL, 0, 0, flow->max_width, 100);
+			html_clue_append (HTML_CLUE (flow), aclue);
+			html_clue_append (HTML_CLUE (aclue), HTML_OBJECT (t));
+		}
+		HTML_CLUE (HTML_OBJECT (t)->parent)->halign = align;
+	} else
+		g_assert_not_reached ();
+
 	html_object_change_set (HTML_OBJECT (t)->parent, HTML_CHANGE_ALL_CALC);
 	html_engine_schedule_update (e);
 }

@@ -25,6 +25,7 @@
 
 #define HTML_CLUEALIGNED(x)       ((HTMLClueAligned *)(x))
 #define HTML_CLUEALIGNED_CLASS(x) ((HTMLClueAlignedClass *)(x))
+#define HTML_IS_CLUEALIGNED(x) (HTML_CHECK_TYPE ((x), HTML_TYPE_CLUEALIGNED))
 
 struct _HTMLClueAligned {
 	HTMLClue clue;
