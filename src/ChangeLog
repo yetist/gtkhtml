@@ -1,3 +1,157 @@
+2002-06-02  Larry Ewing  <lewing@ximian.com>
+
+	* ChangeLog: Merge multicite branch.
+
+2002-05-22  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml.c: merge undo changes. Cleanup skip_host.
+
+	* htmlengine-edit-cut-and-paste.c: merge undo changes and compare
+	levels in check_flows () to make sure when push when we need to.
+
+	* htmlengine-edit-clueflowstyle.c: merge undo changes from radek's
+	paragraph fix.
+
+	* htmlengine-edit-clueflowstyle.h: merge more undo changes.
+
+2002-05-22  Larry Ewing  <lewing@ximian.com>
+
+	* htmlclueflow.c (save_plain): make len a gint, the unsignedness
+	was causing a nasty loop in the padding calculation.
+	(html_clueflow_set_item_type): preserve the toplevel type if it is
+	a blockquote.
+
+2002-05-21  Larry Ewing  <lewing@ximian.com>
+
+	* htmlclueflow.c (draw_item): draw the item number offset by the
+	indent amount not the first->x offset this fixes the difference
+	between out rendering and the rendering of mozilla of aligned
+	paragraphs.
+	(save_plain): align the paragraph in plain mode.  Yes NotZed this
+	is fun.
+
+2002-05-20  Larry Ewing  <lewing@ximian.com>
+
+	* htmlclueflow.c (write_flow_tag): Fix handling for empty
+	paragraphs that where the type changes but there is no end tag.
+	(get_level_indent): make the indent match the
+	plain indent so that the wrap length is exact.
+	(plain_padding): rewrite this to be a little more sane and use the
+	new write_item_marker function.
+	(write_item_marker): overwrite any available spaces with the item
+	number string when saving plain text.  This means double indents
+	get more space for the item marker.  If the marker string is too
+	long, we don't really care, we just write out the full string and
+	let the indent get slightly messed up for the first line.  Doing
+	it this way means the line breaks will match the display breaks
+	and we don't have to calculate the longest value possible.
+	(html_clueflow_dup_levels): new function to handle duplicating the
+	levels array.
+	(html_clueflow_set_levels): copy the provided levels array into
+	the current flow.
+
+	* htmlengine-edit-clueflowstyle.c: store the entire indent array
+	for each op.
+	(free_prop): free the array.
+	(get_props): dup the levels.
+	(undo_or_redo): set the levels.
+
+2002-05-17  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine-edit-clueflowstyle.c: refactor in preparation for
+	indentation undo changes.  
+	(set_props): refactor, no longer return props, let that happen one
+	level up, clears up FIXME about getting then freeing props.
+	(free_prop): centralize prop destruction.
+
+	* gtkhtml.c (get_class_properties): move the gconf initialization
+	into the instance initialization to make michael happy.
+	(init_properties_widget): call get_class_properties to ensure the
+	props are set.
+	(set_editor_keybindings): use get_class_properties.
+
+2002-05-15  Larry Ewing  <lewing@ximian.com>
+
+	* htmlclueflow.c (html_clueflow_set_indentation): if indentation
+	is less than zero set it to zero.
+
+	* htmlengine-edit-clueflowstyle.c (get_props_and_set): move the
+	indentation changes before the style changes and explicitly set
+	indentation for items.  As long as indentation is changed before
+	the item type we can correctly set the toplevel value of the
+	indentation array.
+
+	* htmlclueflow.h: change set_indentation prototype.
+
+	* gtkhtml.c (paragraph_style_to_clueflow_style): make the default
+	style be blockquote, and make item dotted be unordered.
+
+2002-05-14  Larry Ewing  <lewing@ximian.com>
+
+	* htmlclueflow.c (write_flow_tag): fix prev calc, rework <br>
+	output.
+	(save2): fix prev calc.
+	(html_clueflow_set_item_type): set the toplevel type to match the
+	new setting.
+	(html_clueflow_modify_indentation_by_delta): always update the
+	indentation.
+
+2002-05-10  Larry Ewing  <lewing@ximian.com>
+
+	* htmlclueflow.c (get_tag): remove unused function.
+
+	* gtkhtml-propmanager.c (gtk_html_propmanager_class_init): small
+	cleanups.
+
+	* htmlengine-save.h: add prototype for html_engine_save_output_stringv.
+
+	* htmlengine-save.c (html_engine_save_output_stringv): add a
+	varargs version of save output string.  This stuff should really
+	be combinded with the htmlengine streams.
+
+	* htmlclueflow.c: rewrite the save logic to use the levels array.
+
+2002-05-09  Larry Ewing  <lewing@ximian.com>
+
+	* htmlclueflow.c (is_levels_equal): return true if both levels are 0.
+
+	* htmlengine-edit-table.c (html_engine_new_cell): initialize level
+	with a new byte array.
+
+	* htmlclueflow.c (get_level_indent): fix the indent calculation.
+	(get_level_indent): fix typo.
+
+2002-05-07  Larry Ewing  <lewing@ximian.com>
+
+	* htmlclueflow.c (plain_padding): more tweaks to make save_plain
+	mostly work.  More to come.
+
+2002-05-06  Larry Ewing  <lewing@ximian.com>
+
+	* htmlclueflow.c: chain to the parent class destroy method.
+	(get_level_indent): tweak indent settings.
+
+2002-05-03  Larry Ewing  <lewing@ximian.com>
+
+	* htmlenums.h: add some clueflow styles (this should probably be
+	renamed).
+
+	* htmlengine-edit-clueflowstyle.c (get_props): use indentation
+	(this still needs fixing later).
+	(get_props_and_set): update to use index->levels (FIXME too)
+
+	* htmlengine-edit.c (html_engine_get_indent): use get_indentation.
+
+	* htmlengine.c: lots of changes for the new indent logic.  Parse
+	type argument in clueflow.
+
+	* htmlclueflow.h: make the level value an array.
+
+	* htmlclueflow.c: lots of changes for making different levels of
+	citing.
+
+	* gtkhtmldebug.c (gtk_html_debug_dump_object): fix for levels.
+
 2002-05-30  Radek Doulik  <rodo@ximian.com>
 
 	* htmltable.c (draw): call get_body with table coordinates
@@ -15,6 +169,11 @@
 
 	* gtkhtml.c: moved properties initialization to instance init,
 	suggested by Michael Meeks
+
+2002-05-24  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml.c (selection_get): handle pasting text/html.
+	(init): add text/html target.
 
 22002-05-23  Larry Ewing  <lewing@ximian.com>
 

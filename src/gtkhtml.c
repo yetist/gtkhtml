@@ -135,7 +135,8 @@ static gchar *  get_value_nick         (GtkHTMLCommandType com_type);
 
 /* Values for selection information.  FIXME: what about COMPOUND_STRING and
    TEXT?  */
-enum _TargetInfo {  
+enum _TargetInfo {
+	TARGET_HTML,
 	TARGET_UTF8_STRING,
 	TARGET_UTF8,
 	TARGET_COMPOUND_TEXT,
@@ -194,7 +195,7 @@ clueflow_style_to_paragraph_style (HTMLClueFlowStyle style, HTMLListType item_ty
 void
 paragraph_style_to_clueflow_style (GtkHTMLParagraphStyle style, HTMLClueFlowStyle *flow_style, HTMLListType *item_type)
 {
-	*item_type = HTML_LIST_TYPE_UNORDERED;
+	*item_type = HTML_LIST_TYPE_BLOCKQUOTE;
 	*flow_style = HTML_CLUEFLOW_STYLE_LIST_ITEM;
 
 	switch (style) {
@@ -226,6 +227,7 @@ paragraph_style_to_clueflow_style (GtkHTMLParagraphStyle style, HTMLClueFlowStyl
 		*flow_style = HTML_CLUEFLOW_STYLE_PRE;
 		break;
 	case GTK_HTML_PARAGRAPH_STYLE_ITEMDOTTED:
+		*item_type = HTML_LIST_TYPE_UNORDERED;
 		break;
 	case GTK_HTML_PARAGRAPH_STYLE_ITEMROMAN:
 		*item_type = HTML_LIST_TYPE_ORDERED_UPPER_ROMAN;
@@ -1566,31 +1568,21 @@ selection_get (GtkWidget        *widget,
 	GtkHTML *html;
 	gchar *selection_string = NULL;
 	gchar *localized_string = NULL;
+	HTMLObject *selection_object = NULL;
+	guint selection_object_len = 0;
 
 	g_return_if_fail (widget != NULL);
 	g_return_if_fail (GTK_IS_HTML (widget));
 	
 	html = GTK_HTML (widget);
-	if (selection_data->selection == GDK_SELECTION_PRIMARY)
-	  {
-		  if (html->priv->primary) {
-			  selection_string =  html_object_get_selection_string (html->priv->primary, html->engine);
-			  html_object_destroy (html->priv->primary);
-			  html->priv->primary = NULL;
-		  } else {
-			  selection_string = html_engine_get_selection_string (html->engine);
-		  }
-		  if (selection_string)
-			  g_print("primary paste: `%s'\n", selection_string);
-	  }
-	else	/* CLIPBOARD */
-	  {
+	if (selection_data->selection == GDK_SELECTION_PRIMARY) {
+		html_engine_copy_object (html->engine, &selection_object, &selection_object_len);
+	} else	/* CLIPBOARD */ {
 		if (html->engine->clipboard) {
-			selection_string =
-			   html_object_get_selection_string (html->engine->clipboard, html->engine);
-			/* g_print("clipboard paste: `%s'\n", selection_string); */
+			selection_object = html->engine->clipboard;
+			selection_object_len = html->engine->clipboard_len;
 		}
-	  }
+	}
 
 	/*
 	 * FIXME we should make e_utf8_to/from_string_target and 
@@ -1600,54 +1592,80 @@ selection_get (GtkWidget        *widget,
 	 * should be localized.
 	 */
 	
-	if (selection_string != NULL) {
-		if (info == TARGET_UTF8_STRING) {
-			/* printf ("UTF8_STRING\n"); */
-			gtk_selection_data_set (selection_data,
-						gdk_atom_intern ("UTF8_STRING", FALSE), 8,
-						(const guchar *) selection_string,
-						strlen (selection_string));
-		} else if (info == TARGET_UTF8) {
-			/* printf ("UTF-8\n"); */
-			gtk_selection_data_set (selection_data,
-						gdk_atom_intern ("UTF-8", FALSE), 8,
-						(const guchar *) selection_string,
-						strlen (selection_string));
-		} else if (info == TARGET_STRING || info == TARGET_TEXT || info == TARGET_COMPOUND_TEXT) {
-			gchar *to_be_freed;
+	if (info == TARGET_HTML) {
+		if (selection_object) {
+			HTMLEngineSaveState *state = html_engine_save_buffer_new (html->engine);
+			GString *buffer;
+			
+			html_object_save (selection_object, state);
+			buffer = (GString *)state->user_data;
+			
+			g_warning ("BUFFER = %s", buffer->str);
+			selection_string = e_utf8_to_charset_string_sized ("ucs2", buffer->str, buffer->len);
+			
+			if (selection_string)
+				gtk_selection_data_set (selection_data,
+							gdk_atom_intern ("text/html", FALSE), 16,
+							selection_string,
+							g_utf8_strlen (buffer->str, buffer->len) * 2); /* FIXME semi bogus length */
+			
+			html_engine_save_buffer_free (state);
+		}				
+	} else {
+		selection_string = html_object_get_selection_string (selection_object, html->engine);
 
-			to_be_freed = selection_string;
-			selection_string = replace_nbsp (selection_string);
-			g_free (to_be_freed);
-			localized_string = e_utf8_to_gtk_string (widget,
+		if (selection_string != NULL) {
+			if (info == TARGET_UTF8_STRING) {
+				/* printf ("UTF8_STRING\n"); */
+				gtk_selection_data_set (selection_data,
+							gdk_atom_intern ("UTF8_STRING", FALSE), 8,
+							(const guchar *) selection_string,
+							strlen (selection_string));
+			} else if (info == TARGET_UTF8) {
+				/* printf ("UTF-8\n"); */
+				gtk_selection_data_set (selection_data,
+							gdk_atom_intern ("UTF-8", FALSE), 8,
+							(const guchar *) selection_string,
+							strlen (selection_string));
+			} else if (info == TARGET_STRING || info == TARGET_TEXT || info == TARGET_COMPOUND_TEXT) {
+				gchar *to_be_freed;
+				
+				to_be_freed = selection_string;
+				selection_string = replace_nbsp (selection_string);
+				g_free (to_be_freed);
+				localized_string = e_utf8_to_gtk_string (widget,
 								 selection_string);
-
-			if (info == TARGET_STRING) {
-				/* printf ("STRING\n"); */
-				gtk_selection_data_set (selection_data,
-							GDK_SELECTION_TYPE_STRING, 8,
-							(const guchar *) localized_string, 
-							strlen (localized_string));
-			} else {
-				guchar *text;
-				GdkAtom encoding;
-				gint format;
-				gint new_length;
-			
-				/* printf ("TEXT or COMPOUND_TEXT\n"); */
-				gdk_string_to_compound_text (localized_string, 
-							     &encoding, &format,
-							     &text, &new_length);
-
-				gtk_selection_data_set (selection_data,
-							encoding, format,
-							text, new_length);
-				gdk_free_compound_text (text);
+				
+				if (info == TARGET_STRING) {
+					/* printf ("STRING\n"); */
+					gtk_selection_data_set (selection_data,
+								GDK_SELECTION_TYPE_STRING, 8,
+								(const guchar *) localized_string, 
+								strlen (localized_string));
+				} else {
+					guchar *text;
+					GdkAtom encoding;
+					gint format;
+					gint new_length;
+					
+					/* printf ("TEXT or COMPOUND_TEXT\n"); */
+					gdk_string_to_compound_text (localized_string, 
+								     &encoding, &format,
+								     &text, &new_length);
+					
+					gtk_selection_data_set (selection_data,
+								encoding, format,
+								text, new_length);
+					gdk_free_compound_text (text);
+				}
+				
 			}
-			
 		}
 		g_free (selection_string);
 		g_free (localized_string);
+		if (selection_object && selection_data->selection == GDK_SELECTION_PRIMARY) {
+			html_object_destroy (selection_object);
+		}
 	}
 }
 
@@ -1962,47 +1980,49 @@ client_notify_class (GConfClient* client,
 
 #endif
 
-static void
-init_properties (GtkHTMLClass *klass)
+static GtkHTMLClassProperties *
+get_class_properties (GtkHTML *html)
 {
-	static gboolean initialized = FALSE;
+	GtkHTMLClass *klass;
 
-	if (initialized)
-		return;
+	klass = GTK_HTML_CLASS (GTK_OBJECT (html)->klass);
 
-	klass->properties = gtk_html_class_properties_new ();
+	if (!klass->properties) {
+		klass->properties = gtk_html_class_properties_new ();
+
 #ifdef GTKHTML_HAVE_GCONF
-	if (!gconf_is_initialized ()) {
+		if (!gconf_is_initialized ()) {
 		char *argv[] = { "gtkhtml", NULL };
-
+		
 		g_warning ("gconf is not initialized, please call gconf_init before using GtkHTML library. "
 			   "Meanwhile it's initialized by gtkhtml itself.");
 		gconf_init (1, argv, &gconf_error);
 		if (gconf_error)
 			g_error ("gconf error: %s\n", gconf_error->message);
+		}
+		
+		gconf_client = gconf_client_get_default ();
+		if (!gconf_client)
+			g_error ("cannot create gconf_client\n");
+		gconf_client_add_dir (gconf_client, GTK_HTML_GCONF_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, &gconf_error);
+		if (gconf_error)
+			g_error ("gconf error: %s\n", gconf_error->message);
+		gconf_client_add_dir (gconf_client, GNOME_SPELL_GCONF_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, &gconf_error);
+		if (gconf_error)
+		g_error ("gconf error: %s\n", gconf_error->message);
+		gtk_html_class_properties_load (klass->properties, gconf_client);
+#else
+		gtk_html_class_properties_load (klass->properties);
+#endif
+		load_keybindings (klass);
+#ifdef GTKHTML_HAVE_GCONF
+		gconf_client_notify_add (gconf_client, GTK_HTML_GCONF_DIR, client_notify_class, klass, NULL, &gconf_error);
+		if (gconf_error)
+			g_warning ("gconf error: %s\n", gconf_error->message);
+#endif
 	}
 
-	gconf_client = gconf_client_get_default ();
-	if (!gconf_client)
-		g_error ("cannot create gconf_client\n");
-	gconf_client_add_dir (gconf_client, GTK_HTML_GCONF_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, &gconf_error);
-	if (gconf_error)
-		g_error ("gconf error: %s\n", gconf_error->message);
-	gconf_client_add_dir (gconf_client, GNOME_SPELL_GCONF_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, &gconf_error);
-	if (gconf_error)
-		g_error ("gconf error: %s\n", gconf_error->message);
-	gtk_html_class_properties_load (klass->properties, gconf_client);
-#else
-	gtk_html_class_properties_load (klass->properties);
-#endif
-	load_keybindings (klass);
-#ifdef GTKHTML_HAVE_GCONF
-	gconf_client_notify_add (gconf_client, GTK_HTML_GCONF_DIR, client_notify_class, klass, NULL, &gconf_error);
-	if (gconf_error)
-		g_warning ("gconf error: %s\n", gconf_error->message);
-#endif
-
-	initialized = TRUE;
+	return klass->properties;
 }
 
 static gint
@@ -2500,12 +2520,14 @@ init_properties_widget (GtkHTML *html)
 {
 	GtkHTMLClassProperties *prop;
 
-	/* printf ("init_properties_widget\n"); */
-	prop = GTK_HTML_CLASS (GTK_OBJECT (html)->klass)->properties;
+
+	prop = get_class_properties (html);
+
 	set_fonts_idle (html);
 	html_colorset_set_color (html->engine->defaultSettings->color_set, &prop->spell_error_color, HTMLSpellErrorColor);
 
 #ifdef GTKHTML_HAVE_GCONF
+
 	html->priv->notify_id = gconf_client_notify_add (gconf_client, GTK_HTML_GCONF_DIR,
 							 client_notify_widget, html, NULL, &gconf_error);
 	if (gconf_error) {
@@ -2526,6 +2548,7 @@ static void
 init (GtkHTML* html)
 {
 	static const GtkTargetEntry targets[] = {
+		{ "text/html", 0, TARGET_HTML },
 		{ "UTF8_STRING", 0, TARGET_UTF8_STRING },
 		{ "UTF-8", 0, TARGET_UTF8 },
 		{ "COMPOUND_TEXT", 0, TARGET_COMPOUND_TEXT },
@@ -2533,8 +2556,6 @@ init (GtkHTML* html)
 		{ "TEXT",   0, TARGET_TEXT }
 	};
 	static const gint n_targets = sizeof(targets) / sizeof(targets[0]);
-
-	init_properties (GTK_HTML_CLASS (GTK_OBJECT (html)->klass));
 
 	GTK_WIDGET_SET_FLAGS (GTK_WIDGET (html), GTK_CAN_FOCUS);
 	GTK_WIDGET_SET_FLAGS (GTK_WIDGET (html), GTK_APP_PAINTABLE);
@@ -4070,11 +4091,13 @@ clean_bindings_set (GtkBindingSet *binding_set)
 static void
 set_editor_keybindings (GtkHTML *html, gboolean editable)
 {
-	if (editable) {
+	if (editable) {		
 		gchar *name;
+		GtkHTMLClassProperties *prop;
+		
+		prop = get_class_properties (html);
+		name = g_strconcat ("gtkhtml-bindings-", prop->keybindings_theme, NULL);
 
-		name = g_strconcat ("gtkhtml-bindings-",
-				    GTK_HTML_CLASS (GTK_OBJECT (html)->klass)->properties->keybindings_theme, NULL);
 		html->editor_bindings = gtk_binding_set_find (name);
 		if (!html->editor_bindings)
 			g_warning ("cannot find %s bindings", name);

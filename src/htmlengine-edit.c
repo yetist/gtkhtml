@@ -383,7 +383,7 @@ html_engine_get_indent (HTMLEngine *e)
 
 	return e->cursor->object && e->cursor->object->parent
 		&& HTML_OBJECT_TYPE (e->cursor->object->parent) == HTML_TYPE_CLUEFLOW
-		? HTML_CLUEFLOW (e->cursor->object->parent)->level : 0;
+		? html_clueflow_get_indentation (HTML_CLUEFLOW (e->cursor->object->parent)) : 0;
 }
 
 #define LINE_LEN 71

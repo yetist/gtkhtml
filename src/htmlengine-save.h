@@ -51,6 +51,9 @@ gboolean             html_engine_save_encode_string        (HTMLEngineSaveState 
 
 /* Output function (no encoding).  This is used for tags and other things that
    must not be entity-encoded.  */
+gboolean             html_engine_save_output_stringv       (HTMLEngineSaveState       *state,
+							    const gchar               *format,
+							    va_list                    ap);
 gboolean             html_engine_save_output_string        (HTMLEngineSaveState       *state,
 							    const gchar               *format,
 							    ...);

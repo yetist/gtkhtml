@@ -64,7 +64,7 @@ html_engine_new_cell (HTMLEngine *e, HTMLTable *table)
 	HTMLObject    *flow;
 	
 	cell  = html_table_cell_new (1, 1, table->padding);
-	flow  = html_clueflow_new (HTML_CLUEFLOW_STYLE_NORMAL, 0, HTML_LIST_TYPE_UNORDERED, 0);
+	flow  = html_clueflow_new (HTML_CLUEFLOW_STYLE_NORMAL, g_byte_array_new (), HTML_LIST_TYPE_UNORDERED, 0);
 	text  = html_engine_new_text_empty (e);
 
 	html_clue_append (HTML_CLUE (flow), text);

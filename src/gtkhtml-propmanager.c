@@ -568,12 +568,10 @@ gtk_html_propmanager_finalize (GtkObject *object)
 }
 
 static void
-gtk_html_propmanager_class_init (GtkHTMLPropmanagerClass *class)
+gtk_html_propmanager_class_init (GtkHTMLPropmanagerClass *klass)
 {
 	GtkObjectClass *object_class;
-	GtkHTMLPropmanagerClass *propmanager_class;
-	object_class = (GtkObjectClass *)class;
-	propmanager_class = (GtkHTMLPropmanagerClass *)class;
+	object_class = (GtkObjectClass *)klass;
 
 	parent_class = gtk_type_class (gtk_object_get_type ());
 
@@ -588,7 +586,7 @@ gtk_html_propmanager_class_init (GtkHTMLPropmanagerClass *class)
 	gtk_object_class_add_signals (object_class, signals, LAST_SIGNAL);
 	
 	object_class->finalize = gtk_html_propmanager_finalize;
-	class->changed = gtk_html_propmanager_real_changed;
+	klass->changed = gtk_html_propmanager_real_changed;
 }
 
 	
