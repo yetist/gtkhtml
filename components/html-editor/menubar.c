@@ -31,6 +31,8 @@
 #include <bonobo.h>
 #include <gal/widgets/e-unicode.h>
 
+#include "htmlengine-edit-cut-and-paste.h"
+
 #include "e-html-utils.h"
 #include "menubar.h"
 #include "gtkhtml.h"
@@ -231,11 +233,7 @@ file_dialog_ok (GtkWidget *w, GtkHTMLControlData *cd)
 			if (cd->file_html) {
 				gtk_html_write (tmp, stream, native, -1);
 			} else {
-				gchar *html;
-
-				html = e_text_to_html (native, E_TEXT_TO_HTML_CONVERT_SPACES);
-				gtk_html_write (tmp, stream, html, -1);
-				g_free (html);
+				html_engine_paste_text (cd->html->engine, native, g_utf8_strlen (native, -1));
 			}
 			g_free (native);
 		}
@@ -748,6 +746,9 @@ menubar_set_languages (GtkHTMLControlData *cd, const gchar *lstr)
 	GString *str;
 	gboolean enabled;
 	gint i;
+
+	if (!cd->languages)
+		return;
 
 	str = g_string_new (NULL);
 	cd->block_language_changes = TRUE;
