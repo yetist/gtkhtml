@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-07 17:25+0100\n"
+"POT-Creation-Date: 2005-02-08 23:28+0100\n"
 "PO-Revision-Date: 2005-02-02 14:31+0200\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
@@ -974,9 +974,8 @@ msgid "Page"
 msgstr "Lehekülg"
 
 #: components/html-editor/gi-color-combo.c:187
-#, fuzzy
 msgid "color preview"
-msgstr "Trükkimise eelvaade"
+msgstr "värvi eelvaade"
 
 #. This is the default custom color
 #: components/html-editor/gi-color-palette.c:395
@@ -1799,6 +1798,8 @@ msgid ""
 "The editted object was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
+"Redigeeritav objekt eemaldati dokumendist.\n"
+"Sinu muudatusi pole võimalik rakendada."
 
 #: src/gtkhtml.c:2579
 #, c-format
