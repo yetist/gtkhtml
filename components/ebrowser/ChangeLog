@@ -1,3 +1,7 @@
+2001-03-18  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* Makefile.am: Hook up the xml-i18n-tools stuff for .oaf.in.
+	
 2001-03-05  Radek Doulik  <rodo@ximian.com>
 
 	* Makefile.am (CFLAGS): added GCONF_CFLAGS to CFLAGS

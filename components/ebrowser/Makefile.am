@@ -52,12 +52,14 @@ test_history_SOURCES = \
 
 oafdir = $(datadir)/oaf
 
-OAF_FILES = GNOME_GtkHTML_EBrowser.oafinfo
+oaf_in_files = GNOME_GtkHTML_EBrowser.oaf.in
+oaf_DATA = $(oaf_in_files:.oaf.in=.oaf)
 
-oaf_DATA = $(OAF_FILES)
+@XML-I18N_MERGE_OAF_RULE@
 
 EXTRA_DIST = \
-	$(OAF_FILES)	\
+	$(oaf_in_files)	\
+	$(oaf_DATA)	\
 	ChangeLog
 
 
