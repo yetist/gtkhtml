@@ -516,6 +516,11 @@ cell_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 		html_engine_table_cell_set_heading (d->cd->html->engine, d->cell, d->heading);
 		d->changed_heading = FALSE;
 	}
+	if (d->changed_width) {
+		html_engine_table_cell_set_width (d->cd->html->engine, d->cell,
+						  d->has_width ? d->width : 0, d->has_width ? d->width_percent : FALSE);
+		d->changed_width = FALSE;
+	}
 	/* if (d->changed_spacing) {
 		html_engine_table_set_spacing (d->cd->html->engine, d->table, d->spacing);
 		d->changed_spacing = FALSE;
