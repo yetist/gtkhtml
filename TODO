@@ -12,3 +12,5 @@ Todo for gtkhtml:
 * Alignment is broken in some ways.  Slashdot is not always right, for
   example: flowing around images is not correct.  Also `<br
   align=right>' does not work as expected.
+
+* The tokenizer eats spaces in stuff like <tag>something <tag>.
