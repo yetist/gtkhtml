@@ -169,16 +169,49 @@ alloc_font (gchar *face, gdouble size, GtkHTMLFontStyle style)
 					  (style & GTK_HTML_FONT_STYLE_ITALIC) ? "i" : "r", size) : gdk_font_load ("fixed");
 }
 
+static void
+gtkhtml_private_split_name (gchar * c[], gchar * name)
+{
+	gchar *p;
+	gint i;
+
+	p = name;
+
+	for (i = 0; i < 13; i++) {
+		c[i] = p;
+		/* Skip text */
+		while (*p && (*p != '-')) p++;
+		/* Replace hyphen with '\0' */
+		if (*p) *p++ = '\0';
+	}
+
+	c[i] = p;
+}
+
 static gpointer
 alloc_e_font (gchar *face, gdouble size, GtkHTMLFontStyle style)
 {
 	EFont *font;
-	gchar *name = g_strdup_printf ("-*-%s-%s-%s-normal-*-%d-*-*-*-*-*-*",
-				       face, style & GTK_HTML_FONT_STYLE_BOLD ? "bold" : "medium",
-				       style & GTK_HTML_FONT_STYLE_ITALIC ? "i" : "r",
-				       (gint) size);
+	gchar *name = face ? g_strdup_printf ("-*-%s-%s-%s-normal-*-%d-*-*-*-*-*-*",
+					      face, style & GTK_HTML_FONT_STYLE_BOLD ? "bold" : "medium",
+					      style & GTK_HTML_FONT_STYLE_ITALIC ? "i" : "r",
+					      (gint) size) : g_strdup ("fixed");
 	font = e_font_from_gdk_name (name);
 	g_free (name);
+
+	if (face) {
+		gchar *c [14];
+
+		name = e_font_get_name (font);
+		if (name) {
+			gtkhtml_private_split_name (c, name);
+			if (!strcasecmp (c [2], "fixed") && strcasecmp (c [2], face)) {
+				e_font_unref (font);
+				font = NULL;
+			}
+			g_free (name);
+		}
+	}
 
 	return font;
 }

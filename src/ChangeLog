@@ -2,6 +2,7 @@
 
 	* htmlgdkpainter.c (alloc_e_font): drop our heuristic and let
 	EFont do the job
+	(alloc_e_font): drop fixed font if face != NULL
 
 	* htmltable.c (divide_into_variable_all): more tuning
 
