@@ -1,3 +1,8 @@
+2002-10-11  Larry Ewing  <lewing@ximian.com>
+  
+ 	* gtkhtml.c (gtk_html_insert_html_generic): fix the form copying
+ 	problem correctly.
+
 2002-10-12  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml.c (realize): disable gtkhtml as a drop site.
