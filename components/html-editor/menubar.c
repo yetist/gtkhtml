@@ -395,6 +395,7 @@ static BonoboUIVerb editor_verbs [] = {
 	BONOBO_UI_UNSAFE_VERB ("InsertSmiley9", smiley_cb),
 	BONOBO_UI_UNSAFE_VERB ("InsertSmiley10", smiley_cb),
 	BONOBO_UI_UNSAFE_VERB ("InsertSmiley11", smiley_cb),
+	BONOBO_UI_UNSAFE_VERB ("InsertSmiley12", smiley_cb),
 
 	BONOBO_UI_UNSAFE_VERB ("IndentMore", command_cb),
 	BONOBO_UI_UNSAFE_VERB ("IndentLess", command_cb),
@@ -636,7 +637,7 @@ menubar_set_languages (GtkHTMLControlData *cd)
 	cd->block_language_changes = FALSE;
 }
 
-#define SMILEYS 11
+#define SMILEYS 12
 static gchar *smiley [SMILEYS] = {
 	":D",
 	":O",
@@ -648,7 +649,8 @@ static gchar *smiley [SMILEYS] = {
 	":-|",
 	":-/",
 	":-P",
-	":~("
+	":~(",
+	":-Q"
 };
 
 static void

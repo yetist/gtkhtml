@@ -38,6 +38,7 @@
 			<cmd name="InsertSmiley9" _label="_Undecided" _tip="Insert Undecided smiley into document..."/>
 			<cmd name="InsertSmiley10" _label="Li_ck" _tip="Insert Lick smiley into document..."/>
 			<cmd name="InsertSmiley11" _label="Cr_ying" _tip="Insert Crying smiley into document..."/>
+			<cmd name="InsertSmiley12" _label="S_ick" _tip="Insert Sick smiley into document..."/>
 
 			<cmd name="HeadingNormal" _label="Normal"
 		        _tip="Make the current Paragraph style Normal"
@@ -189,6 +190,8 @@
         	                        pixtype="filename" pixname="@ICONSDIR@/smiley-10.png"/>
 					<menuitem name="InsertSmiley11" verb=""
         	                        pixtype="filename" pixname="@ICONSDIR@/smiley-11.png"/>
+					<menuitem name="InsertSmiley12" verb=""
+        	                        pixtype="filename" pixname="@ICONSDIR@/smiley-12.png"/>
 				</submenu>
 			</placeholder>
 		</submenu>
