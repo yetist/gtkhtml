@@ -273,7 +273,14 @@ gtk_html_parse (GtkHTML *html)
 GtkHTMLStreamHandle
 gtk_html_begin (GtkHTML *html, const char *url)
 {
-	return html_engine_begin (html->engine, url);
+	GtkHTMLStreamHandle *handle;
+
+	handle = html_engine_begin (html->engine, url);
+
+	/* Scroll to the top of the page */
+	gtk_adjustment_set_value (GTK_LAYOUT (html)->vadjustment, 0);
+
+	return handle;
 }
 
 void
@@ -281,7 +288,6 @@ gtk_html_write (GtkHTML *html, GtkHTMLStreamHandle handle, const gchar *buffer, 
 {
 	gtk_html_stream_write(handle, buffer, size);
 }
-
 void
 gtk_html_end (GtkHTML *html, GtkHTMLStreamHandle handle, GtkHTMLStreamStatus status)
 {
