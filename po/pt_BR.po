@@ -1,15 +1,15 @@
 # gtkhtml: translation to Brazilian Portuguese (pt_BR)
 # Copyright (C) 2000-2003 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gtkhtml package.
-# Gustavo Maciel Dias Vieira <gdvieira@zaz.com.br>, 2000-2002.
+# Gustavo Maciel Dias Vieira <gdvieira@zaz.com.br>, 2000-2003.
 # Alexandre Folle de Menezes <afmenez@terra.com.br>, 2002-2003.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml 1.1.6\n"
-"POT-Creation-Date: 2003-06-02 20:47+0200\n"
-"PO-Revision-Date: 2003-04-08 03:00-0300\n"
-"Last-Translator: Alexandre Folle de Menezes <afmenez@terra.com.br>\n"
+"Project-Id-Version: gtkhtml 3.0.1\n"
+"POT-Creation-Date: 2003-06-10 19:25-0300\n"
+"PO-Revision-Date: 2003-06-10 19:25-0300\n"
+"Last-Translator: Gustavo Maciel Dias Vieira <gdvieira@zaz.com.br>\n"
 "Language-Team: Brazilian Portuguese <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -801,6 +801,10 @@ msgid "_Wink"
 msgstr "_Piscando"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:152
+msgid "_Wrap Lines"
+msgstr "_Quebrar linhas"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:153
 msgid "etc..."
 msgstr "etc..."
 
@@ -890,9 +894,8 @@ msgid "Page"
 msgstr "Página"
 
 #: components/html-editor/gnome-gtkhtml-editor.c:68
-#, fuzzy
 msgid "GtkHTML Editor Control"
-msgstr "Controle do editor HTML do GNOME"
+msgstr "Controle do editor GtkHTML"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:2
 msgid "************"
@@ -1243,17 +1246,15 @@ msgstr "Inserir"
 #: components/html-editor/menubar.c:252
 #, c-format
 msgid "Error loading file '%s': %s"
-msgstr ""
+msgstr "Erro ao carregar arquivo '%s': %s"
 
 #: components/html-editor/menubar.c:279
-#, fuzzy
 msgid "Insert: HTML File"
-msgstr "Inserir arquivo HTML"
+msgstr "Inserir: Arquivo HTML"
 
 #: components/html-editor/menubar.c:279
-#, fuzzy
 msgid "Insert: Text File"
-msgstr "Inserir arquivo texto"
+msgstr "Inserir: Arquivo texto"
 
 #: components/html-editor/paragraph.c:130
 msgid "Pre"
@@ -1328,45 +1329,37 @@ msgid "Remove link"
 msgstr "Remover vínculo"
 
 #: components/html-editor/popup.c:475
-#, fuzzy
 msgid "Text Style..."
-msgstr "Arquivo te_xto..."
+msgstr "Estilo do texto..."
 
 #: components/html-editor/popup.c:477 components/html-editor/popup.c:483
 #: components/html-editor/popup.c:493
-#, fuzzy
 msgid "Paragraph Style..."
-msgstr "Parágrafo..."
+msgstr "Estilo do parágrafo..."
 
 #: components/html-editor/popup.c:481
-#, fuzzy
 msgid "Link Style..."
-msgstr "Vínculo..."
+msgstr "Estilo do vínculo..."
 
 #: components/html-editor/popup.c:487
-#, fuzzy
 msgid "Rule Style..."
-msgstr "Régua..."
+msgstr "Estilo da régua..."
 
 #: components/html-editor/popup.c:491
-#, fuzzy
 msgid "Image Style..."
-msgstr "Imagem..."
+msgstr "Estilo da imagem..."
 
 #: components/html-editor/popup.c:502
-#, fuzzy
 msgid "Cell Style..."
-msgstr "Célula..."
+msgstr "Estilo da célula..."
 
 #: components/html-editor/popup.c:505
-#, fuzzy
 msgid "Table Style..."
-msgstr "Tabela..."
+msgstr "Estilo da tabela..."
 
 #: components/html-editor/popup.c:511
-#, fuzzy
 msgid "Page Style..."
-msgstr "Página..."
+msgstr "Estilo da página..."
 
 #: components/html-editor/popup.c:516
 msgid "Table insert"
@@ -1397,9 +1390,9 @@ msgid "Cell contents"
 msgstr "Conteúdo da célula"
 
 #: components/html-editor/popup.c:548
-#, fuzzy, c-format
+#, c-format
 msgid "%s Dictionary"
-msgstr "Adicionar '%s' ao dicionário"
+msgstr "Dicionário em %s"
 
 #: components/html-editor/replace.c:75
 msgid "Replace confirmation"
@@ -1414,24 +1407,20 @@ msgid "Next"
 msgstr "Próximo"
 
 #: components/html-editor/replace.c:161
-#, fuzzy
 msgid "Search _backward"
-msgstr "busca regressiva"
+msgstr "Busca _regressiva"
 
 #: components/html-editor/replace.c:162 components/html-editor/search.c:80
-#, fuzzy
 msgid "Case _sensitive"
-msgstr "diferenciar maiúsculas de minúsculas"
+msgstr "_Diferenciar maiúsculas de minúsculas"
 
 #: components/html-editor/replace.c:172
-#, fuzzy
 msgid "Replace:"
-msgstr "Substituir"
+msgstr "Substituir:"
 
 #: components/html-editor/replace.c:175
-#, fuzzy
 msgid "With:"
-msgstr "Largura:"
+msgstr "Com:"
 
 #: components/html-editor/rule.c:98
 msgid "Blue 3D"
@@ -1450,9 +1439,8 @@ msgstr ""
 "Impossível aplicar suas mudanças."
 
 #: components/html-editor/search.c:79
-#, fuzzy
 msgid "_Backward"
-msgstr "regressivo"
+msgstr "_Regressivo"
 
 #: components/html-editor/search.c:126
 msgid "Find Regular Expression"
@@ -1463,9 +1451,8 @@ msgid "Spell checker"
 msgstr "Verificador ortográfico"
 
 #: components/html-editor/spell.c:358
-#, fuzzy
 msgid "Current _Languages"
-msgstr "_Línguas para verificação ortográfica"
+msgstr "_Línguas atuais"
 
 #: components/html-editor/table.c:200
 msgid "Flat gray"
@@ -1504,9 +1491,8 @@ msgid "Save file as..."
 msgstr "Salvar arquivo como..."
 
 #: components/html-editor/test-html-editor-control.c:541
-#, fuzzy
 msgid "GtkHTML Editor Test Container"
-msgstr "Controle do editor GtkHTML"
+msgstr "Repositório de teste do editor GtkHTML"
 
 #. color selection
 #: components/html-editor/text.c:292
@@ -1715,36 +1701,5 @@ msgid "Print preview"
 msgstr "Visualizar impressão"
 
 #: src/testgtkhtml.c:973
-#, fuzzy
 msgid "GtkHTML Test Application"
-msgstr "Teste do GtkHTML"
-
-#~ msgid "The quick brown fox jumped over the lazy dog."
-#~ msgstr "Gazeta publica hoje breve anúncio de faxina na quermesse."
-
-#~ msgid "with"
-#~ msgstr "por"
-
-#~ msgid "Check '%s' spelling..."
-#~ msgstr "Verificar ortografia de '%s'..."
-
-#~ msgid "Ignore '%s'"
-#~ msgstr "Ignorar '%s'"
-
-#~ msgid "Suggest word"
-#~ msgstr "Sugerir palavra"
-
-#~ msgid "Text..."
-#~ msgstr "Texto..."
-
-#~ msgid "I could not initialize Bonobo"
-#~ msgstr "Não foi possível iniciar Bonobo"
-
-#~ msgid "Image 1: <b>description</b>"
-#~ msgstr "Imagem 1: <b>descrição</b>"
-
-#~ msgid "Sans"
-#~ msgstr "Sans"
-
-#~ msgid "Monospace"
-#~ msgstr "Monospace"
+msgstr "Aplicação de teste do GtkHTML"
