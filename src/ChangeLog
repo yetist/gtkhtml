@@ -1,3 +1,8 @@
+2002-05-30  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine.c (html_engine_draw_real): substract borders from
+	engine height before comparing with engine clue height
+
 2002-05-23  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (client_notify_class): watch for smileys

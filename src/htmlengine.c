@@ -3911,8 +3911,12 @@ html_engine_draw_real (HTMLEngine *e, gint x, gint y, gint width, gint height)
 	if (e->block && e->opened_streams)
 		return;
 
+	/* This case happens when the widget has not been shown yet.  */
+	if (width == 0 || height == 0)
+		return;
+
 	/* don't draw in case we are longer than available space and scrollbar is going to be shown */
-	if (e->clue && e->clue->ascent + e->clue->descent > e->height) {
+	if (e->clue && e->clue->ascent + e->clue->descent > e->height - e->topBorder - e->bottomBorder) {
 		if (GTK_WIDGET (e->widget)->parent) {
 			if (GTK_IS_SCROLLED_WINDOW (GTK_WIDGET (e->widget)->parent)) {
 				if (GTK_SCROLLED_WINDOW (GTK_WIDGET (e->widget)->parent)->vscrollbar
@@ -3934,7 +3938,7 @@ html_engine_draw_real (HTMLEngine *e, gint x, gint y, gint width, gint height)
 	}
 
 	/* don't draw in case we are shorter than available space and scrollbar is going to be hidden */
-	if (e->clue && e->clue->ascent + e->clue->descent <= e->height) {
+	if (e->clue && e->clue->ascent + e->clue->descent <= e->height - e->topBorder - e->bottomBorder) {
 		if (GTK_WIDGET (e->widget)->parent) {
 			if (GTK_IS_SCROLLED_WINDOW (GTK_WIDGET (e->widget)->parent)) {
 				if (GTK_SCROLLED_WINDOW (GTK_WIDGET (e->widget)->parent)->vscrollbar
@@ -3954,10 +3958,6 @@ html_engine_draw_real (HTMLEngine *e, gint x, gint y, gint width, gint height)
 			}
 		}
 	}
-
-	/* This case happens when the widget has not been shown yet.  */
-	if (width == 0 || height == 0)
-		return;
 
 	/* printf ("html_engine_draw_real %d x %d, %d\n",
 	   e->width, e->height, e->clue ? e->clue->ascent + e->clue->descent : 0); */
