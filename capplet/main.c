@@ -48,7 +48,7 @@ static GtkHTMLClassProperties *actual_prop;
 /* static GList *saved_bindings;
    static GList *orig_bindings; */
 
-static gchar *home_rcfile;
+/* static gchar *home_rcfile; */
 
 static void
 set_ui ()
@@ -144,7 +144,9 @@ apply_editable (void)
 	/* properties */
 	actual_prop->magic_links = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (magic_check));
 	keymap_name = gnome_bindings_properties_get_keymap_name (GNOME_BINDINGS_PROPERTIES (bi));
-	if (!strcmp (keymap_name, EMACS_KEYMAP_NAME)) {
+	if (!keymap_name) {
+		keymap_id = "ms";
+	} else if (!strcmp (keymap_name, EMACS_KEYMAP_NAME)) {
 		keymap_id = "emacs";
 	} else if (!strcmp (keymap_name, XEMACS_KEYMAP_NAME)) {
 		keymap_id = "xemacs";
@@ -272,9 +274,9 @@ setup (void)
         g_free (base); \
 	g_free (rcfile)
 	
-	home_rcfile = g_strconcat (gnome_util_user_home (), "/.gnome/gtkhtml-bindings-custom", NULL);
-	gtk_rc_parse (home_rcfile);
-	g_free (home_rcfile);
+	/* home_rcfile = g_strconcat (gnome_util_user_home (), "/.gnome/gtkhtml-bindings-custom", NULL);
+	   gtk_rc_parse (home_rcfile); */
+
 	LOAD ("emacs");
 	LOAD ("xemacs");
 	LOAD ("ms");
@@ -353,7 +355,7 @@ main (int argc, char **argv)
 
         capplet_gtk_main ();
 
-	g_free (home_rcfile);
+	/* g_free (home_rcfile); */
 
         return 0;
 }

@@ -1,3 +1,14 @@
+2001-08-28  Radek Doulik  <rodo@ximian.com>
+
+	* gnome-bindings-prop.c (get_keymap): be more carefull about
+	active item
+	(gnome_bindings_properties_get_keymap_name): be more carefull
+	about keymap entry
+
+	* main.c (main): commented out use of homerc_file, don't free it
+	twice
+
+
 2001-08-12  Radek Doulik  <rodo@ximian.com>
 
 	* used next part of UI designed by Anna, removed custom

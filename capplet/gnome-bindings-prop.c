@@ -159,10 +159,11 @@ string_from_key (guint keyval, guint mods)
 static KeymapEntry *
 get_keymap (GnomeBindingsProperties *prop)
 {
-	return (KeymapEntry *) gtk_object_get_data
-		(GTK_OBJECT (gtk_menu_get_active
-			     (GTK_MENU (gtk_option_menu_get_menu (GTK_OPTION_MENU (prop->option_keymap))))),
-		 "keymap");
+	GtkWidget *active;
+
+	active = gtk_menu_get_active (GTK_MENU (gtk_option_menu_get_menu (GTK_OPTION_MENU (prop->option_keymap))));
+
+	return active ? (KeymapEntry *) gtk_object_get_data (GTK_OBJECT (active), "keymap") : NULL;
 }
 
 static void
@@ -344,5 +345,9 @@ gnome_bindings_properties_select_keymap (GnomeBindingsProperties *prop,
 gchar *
 gnome_bindings_properties_get_keymap_name (GnomeBindingsProperties *prop)
 {
-	return get_keymap (prop)->name;
+	KeymapEntry *ke;
+
+	ke = get_keymap (prop);
+
+	return ke ? ke->name : NULL;
 }
