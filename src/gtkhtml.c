@@ -1962,6 +1962,11 @@ client_notify_class (GConfClient* client,
 static void
 init_properties (GtkHTMLClass *klass)
 {
+	static gboolean initialized = FALSE;
+
+	if (initialized)
+		return;
+
 	klass->properties = gtk_html_class_properties_new ();
 #ifdef GTKHTML_HAVE_GCONF
 	if (!gconf_is_initialized ()) {
@@ -1993,6 +1998,8 @@ init_properties (GtkHTMLClass *klass)
 	if (gconf_error)
 		g_warning ("gconf error: %s\n", gconf_error->message);
 #endif
+
+	initialized = TRUE;
 }
 
 static gint
@@ -2482,8 +2489,6 @@ class_init (GtkHTMLClass *klass)
 	html_class->cursor_move       = cursor_move;
 	html_class->command           = command;
 
-	init_properties (klass);
-
 	gdk_rgb_init ();
 }
 
@@ -2525,6 +2530,8 @@ init (GtkHTML* html)
 		{ "TEXT",   0, TARGET_TEXT }
 	};
 	static const gint n_targets = sizeof(targets) / sizeof(targets[0]);
+
+	init_properties (GTK_OBJECT (html)->klass);
 
 	GTK_WIDGET_SET_FLAGS (GTK_WIDGET (html), GTK_CAN_FOCUS);
 	GTK_WIDGET_SET_FLAGS (GTK_WIDGET (html), GTK_APP_PAINTABLE);
