@@ -859,13 +859,13 @@ add_byte (HTMLTokenizer *t, const gchar **src)
 
 		wc = g_utf8_get_char_extended ((const gchar *)p->utf8_buffer, p->utf8_length);
 		if (wc == -1 || p->utf8_length >= (sizeof(p->utf8_buffer)/sizeof(p->utf8_buffer[0]))) {
-			*(p->dest)++ = '_';
+			*(p->dest)++ = '?';
 			
 			p->utf8_length = 0;
 			(*src)++;
 			return;
 		} else if (wc == -2) {
-			/* incomplete character check argan*/
+			/* incomplete character check again */
 			(*src)++;
 			return;
 		} else {

@@ -1,3 +1,9 @@
+2001-10-01  Larry Ewing  <lewing@ximian.com>
+
+	* htmltokenizer.c (add_byte): make the unknown character a ? so
+	that we can distinguish it from a the underscore that camel will
+	provide.
+
 2001-09-26  Larry Ewing  <lewing@ximian.com>
 
 	* htmlform.c (html_form_add_radio): handle a NULL name for the
