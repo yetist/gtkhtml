@@ -1,3 +1,8 @@
+2001-07-13  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c (parse_table): initialize cellwidth_percent and
+	cellheight_percent each time through the loop.
+
 2001-07-12  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml-stream.h: add types include.

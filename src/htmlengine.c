@@ -1066,6 +1066,8 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 					colSpan     = 1;
 					cellwidth   = clue->max_width;
 					cellheight  = -1;
+					cellwidth_percent = FALSE;
+					cellheight_percent = FALSE;
 					fixedWidth  = FALSE;
 					fixedHeight = FALSE;
 
