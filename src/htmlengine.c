@@ -102,6 +102,9 @@
 #include "htmlmap.h"
 
 /* #define CHECK_CURSOR */
+#ifdef CHECK_CURSOR
+#include <libgnomeui/gnome-dialog-util.h>
+#endif
 
 static void      html_engine_class_init       (HTMLEngineClass     *klass);
 static void      html_engine_init             (HTMLEngine          *engine);
