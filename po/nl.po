@@ -1679,9 +1679,10 @@ msgstr ""
 "De bewerkte regel is verwijderd uit het document.\n"
 "Kan uw veranderingen niet toepassen."
 
+#. GRUT modified this item
 #: components/html-editor/search.c:82
 msgid "_Backward"
-msgstr "_achteruit"
+msgstr "_Achteruit"
 
 #: components/html-editor/search.c:129
 msgid "Find Regular Expression"
