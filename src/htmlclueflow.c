@@ -1152,14 +1152,6 @@ draw_background (HTMLObject *self,
 		 gint width, gint height,
 		 gint tx, gint ty)
 {
-	
-	html_object_draw (self->parent, p,
-			  x + self->parent->x,
-			  y + self->parent->y - self->parent->ascent,
-			  width, height,
-			  tx - self->parent->x,
-			  ty - self->parent->y + self->parent->ascent);
-	
 	html_object_draw_background (self->parent, p,
 				     x + self->parent->x,
 				     y + self->parent->y - self->parent->ascent,

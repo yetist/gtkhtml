@@ -2,6 +2,11 @@
 
 	* htmlclueflow.c (calc_size): if width_left < 0 and ! firstRun,
 	then break line here
+	(draw_background): don't call html_object_draw for parent as this
+	means we draw itself too (so when flow is drawed from drawing
+	queue, it's rendered twice which means uglyness for gdkxft) I've
+	tried to reproduce bug #6, for which this was intended as fix, but
+	can't reproduce it, so I hope #6 is fixed properly now.
 
 	* htmlobject.c (html_object_is_clue): added HTML_TYPE_CLUEALIGNED,
 	which Larry probably forgot commit
