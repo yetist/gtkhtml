@@ -128,7 +128,7 @@ do_layout (HTMLObject *o, HTMLPainter *painter, gboolean calc_size, GList **chan
 	gint padding;
 	gint padding2;
 	gboolean first_change;
-	gint first_y_off;
+	gint first_y_off = 0;
 
 	/* printf ("HTMLClueV::do_layout\n"); */
 

@@ -1,5 +1,7 @@
 2001-10-30  Larry Ewing  <lewing@ximian.com>
 
+	* htmlcluev.c (do_layout): shut up compiler.
+
 	* htmltokenizer.c: get rid of cut & pasted functions they are in
 	gal now.
 
