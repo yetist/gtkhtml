@@ -115,7 +115,7 @@ struct _HTMLObject {
 	/* If an object has a redraw pending and is being destroyed, this flag
            is set to TRUE instead of g_free()ing the object.  When the draw
            queue is flushed, the g_free() is performed.  */
-	gboolean free_pending : 1;
+	gboolean free_pending /* : 1 */;
 };
 
 struct _HTMLObjectClass {

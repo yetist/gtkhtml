@@ -677,9 +677,9 @@ check_point (HTMLObject *self,
 		if (! for_cursor)
 			continue;
 
-		if (p->prev == NULL && (x < p->x || y < p->y - p->ascent + 1)) {
-			x1 = p->x;
-			y1 = p->y - p->ascent + 1;
+		if (p->prev == NULL && (x < self->x || y < self->y - self->ascent + 1)) {
+			x1 = self->x;
+			y1 = self->y - self->ascent + 1;
 			obj = html_object_check_point (p, painter, x1, y1, offset_return, for_cursor);
 			if (obj != NULL)
 				return obj;
@@ -703,8 +703,6 @@ check_point (HTMLObject *self,
 			obj = html_object_check_point (obj1, painter, x1, y1, offset_return, for_cursor);
 			if (obj != NULL)
 				return obj;
-
-			g_print (" (2nd try failed)\n");
 		}
 	}
 

@@ -1,5 +1,15 @@
 2000-03-12  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* gtkhtml.c
+	(size_allocate): Recalculate size and toolbars only if the size
+	has changed.
+
+	* htmlclueflow.c
+	(check_point): Fix clicking in the blank area on top/left of the
+	HTMLClueFlow.
+
+2000-03-12  Ettore Perazzoli  <ettore@helixcode.com>
+
 	* htmlengine-edit-cursor.c
 	(html_engine_hide_cursor): Draw the cursor only if the engine is
 	editable.

@@ -519,12 +519,15 @@ size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 	if (GTK_WIDGET_CLASS (parent_class)->size_allocate)
 		( *GTK_WIDGET_CLASS (parent_class)->size_allocate) (widget, allocation);
 
-	html->engine->width = allocation->width;
-	html->engine->height = allocation->height;
+	if (html->engine->width != allocation->width
+	    || html->engine->height != allocation->height) {
+		html->engine->width = allocation->width;
+		html->engine->height = allocation->height;
 
-	html_engine_calc_size (html->engine);
-	
-	gtk_html_calc_scrollbars (html);
+		html_engine_calc_size (html->engine);
+
+		gtk_html_calc_scrollbars (html);
+	}
 }
 
 static gint
