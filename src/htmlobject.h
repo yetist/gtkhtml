@@ -155,7 +155,7 @@ struct _HTMLObjectClass {
 	HTMLObject * (* mouse_event) (HTMLObject *self, gint x, gint y,
 				      gint button, gint state);
 
-	HTMLObject * (* check_point) (HTMLObject *self, gint x, gint y);
+	HTMLObject * (* check_point) (HTMLObject *self, gint x, gint y, guint *offset_return);
 
 	/* Relayout this object.  The object will relayout all the children
            starting from `child'.  Children before `child' are not affected.
@@ -235,7 +235,8 @@ HTMLObject *html_object_mouse_event  (HTMLObject  *clue,
 				      gint         state);
 HTMLObject *html_object_check_point  (HTMLObject  *clue,
 				      gint         x,
-				      gint         y);
+				      gint         y,
+				      guint 	  *offset_return);
 
 gboolean  html_object_relayout  (HTMLObject *obj,
 				 HTMLEngine *engine,

@@ -1,5 +1,18 @@
 2000-01-19  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlobject.h: New parameter `offset_return' in
+	`HTMLObject::check_point'.  Through this, the object can also
+	return a cursor offset.
+	* htmlobject.c (html_object_check_point): Accordingly, new
+	parameter `offset_return'.
+	* htmlengine.c (html_engine_get_link_at): Updated accordingly.
+	* htmlclue.c (check_point): Updated to get the extra parameter.
+	* htmlcluev.c (check_point): Likewise.
+	* htmlobject.c (check_point): Likewise.
+
+	* htmlengine-edit.c (html_engine_delete): When a non-text, destroy
+	the element.
+
 	* htmlcursor.c (html_cursor_up): Use
 	`html_object_get_cursor_base', not `html_object_get_cursor'.
 	(html_cursor_down): Likewise.

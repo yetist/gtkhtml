@@ -294,34 +294,39 @@ mouse_event ( HTMLObject *object, gint _x, gint _y, gint button, gint state )
 }
 
 static HTMLObject *
-check_point ( HTMLObject *o, int _x, int _y )
+check_point (HTMLObject *self,
+	     gint x, gint y,
+	     guint *offset_return)
 {
 	HTMLObject *obj2;
 	HTMLClueAligned *clue;
 
-	if ( ( obj2 = (* HTML_OBJECT_CLASS (parent_class)->check_point)
-	       (o, _x, _y ) ) != 0L )
+	if (x < self->x || x > self->x + self->width
+	    || y > self->y + self->descent || y < self->y - self->ascent)
+		return NULL;
+
+	obj2 = (* HTML_OBJECT_CLASS (parent_class)->check_point) (self, x, y, offset_return);
+	if (obj2 != NULL)
 		return obj2;
 
-	if ( _x < o->x || _x > o->x + o->width
-	     || _y > o->y + o->descent || _y < o->y - o->ascent)
-		return 0L;
-
-	for ( clue = HTML_CLUEALIGNED (HTML_CLUEV (o)->align_left_list);
-	      clue != NULL;
-	      clue = clue->next_aligned ) {
+	for (clue = HTML_CLUEALIGNED (HTML_CLUEV (self)->align_left_list);
+	     clue != NULL;
+	     clue = clue->next_aligned) {
 		HTMLObject *parent;
 
 		parent = HTML_OBJECT (clue)->parent;
 		obj2 = html_object_check_point (HTML_OBJECT (clue),
-						_x - o->x - parent->x,
-						_y - (o->y - o->ascent)
-						- parent->y - parent->ascent );
-		if (obj2 != 0L)
+						x - self->x - parent->x,
+						y - (self->y - self->ascent) - parent->y - parent->ascent,
+						offset_return);
+		if (obj2 != NULL) {
+			if (offset_return != NULL)
+				*offset_return = 0;
 			return obj2;
+		}
 	}
 
-	return 0L;
+	return NULL;
 }
 
 

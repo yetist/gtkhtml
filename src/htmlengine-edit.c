@@ -373,23 +373,26 @@ html_engine_delete (HTMLEngine *e,
 	if (orig_object->parent == NULL || orig_object->parent == NULL)
 		return;
 
-	if (html_object_is_text (orig_object))
+	if (! html_object_is_text (orig_object)) {
+		/*  count++; */
+	} else {
 		count -= html_text_remove_text (HTML_TEXT (orig_object), e,
 						e->cursor->offset, count);
 
-	/* If the text object has become empty, then itself needs to be
-           destroyed unless it's the only one on the line (because we don't
-           want any clueflows to be empty) or the next element is a vspace
-           (because a vspace alone in a clueflow does not give us an empty
-           line).  */
+		/* If the text object has become empty, then itself needs to be
+		   destroyed unless it's the only one on the line (because we don't
+		   want any clueflows to be empty) or the next element is a vspace
+		   (because a vspace alone in a clueflow does not give us an empty
+		   line).  */
 
-	if (HTML_TEXT (orig_object)->text[0] == '\0'
-	    && orig_object->next != NULL
-	    && HTML_OBJECT_TYPE (orig_object->next) != HTML_TYPE_VSPACE) {
-		count++;
-		destroy_orig = TRUE;
-	} else {
-		destroy_orig = FALSE;
+		if (HTML_TEXT (orig_object)->text[0] == '\0'
+		    && orig_object->next != NULL
+		    && HTML_OBJECT_TYPE (orig_object->next) != HTML_TYPE_VSPACE) {
+			count++;
+			destroy_orig = TRUE;
+		} else {
+			destroy_orig = FALSE;
+		}
 	}
 
 	if (count == 0)

@@ -1115,19 +1115,20 @@ mouse_event (HTMLObject *self, gint _x, gint _y, gint button, gint state)
 }
 
 static HTMLObject *
-check_point (HTMLObject *o,
-	     gint _x, gint _y)
+check_point (HTMLObject *self,
+	     gint _x, gint _y,
+	     guint *offset_return)
 {
 	unsigned int r, c;
 	HTMLTable *table;
 	HTMLObject *obj;
 	HTMLTableCell *cell;
 
-	if (_x < o->x || _x > o->x + o->width
-	    || _y > o->y + o->descent || _y < o->y - o->ascent)
+	if (_x < self->x || _x > self->x + self->width
+	    || _y > self->y + self->descent || _y < self->y - self->ascent)
 		return NULL;
 
-	table = HTML_TABLE (o);
+	table = HTML_TABLE (self);
 
 	for (r = 0; r < table->totalRows; r++) {
 		for (c = 0; c < table->totalCols; c++) {
@@ -1140,9 +1141,13 @@ check_point (HTMLObject *o,
 				continue;
 
 			if ((obj = html_object_check_point (HTML_OBJECT (cell),
-							    _x - o->x,
-							    _y - (o->y - o->ascent))) != NULL)
+							    _x - self->x,
+							    _y - (self->y - self->ascent),
+							    offset_return)) != NULL) {
+				if (offset_return != NULL)
+					*offset_return = 0;
 				return obj;
+			}
 		}
 	}
 

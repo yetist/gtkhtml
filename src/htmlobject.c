@@ -150,13 +150,20 @@ mouse_event (HTMLObject *o,
 }
 
 static HTMLObject*
-check_point (HTMLObject *o, gint _x, gint _y )
+check_point (HTMLObject *self,
+	     gint x, gint y,
+	     guint *offset_return)
 {
-	if ( _x >= o->x && _x < o->x + o->width )
-		if ( _y > o->y - o->ascent && _y < o->y + o->descent + 1 )
-			return o;
+	if (x >= self->x
+	    && x < self->x + self->width
+	    && y >= self->y - self->ascent
+	    && y < self->y + self->descent) {
+		if (offset_return != NULL)
+			*offset_return = 0;
+		return self;
+	}
     
-	return 0L;
+	return NULL;
 }
 
 /* FIXME TODO this does not take account for the `child' argument yet, so we
@@ -446,9 +453,11 @@ html_object_mouse_event (HTMLObject *self, gint x, gint y,
 }
 
 HTMLObject *
-html_object_check_point (HTMLObject *self, gint x, gint y)
+html_object_check_point (HTMLObject *self,
+			 gint x, gint y,
+			 guint *offset_return)
 {
-	return (* HO_CLASS (self)->check_point) (self, x, y);
+	return (* HO_CLASS (self)->check_point) (self, x, y, offset_return);
 }
 
 gboolean

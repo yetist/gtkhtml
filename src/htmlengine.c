@@ -3235,9 +3235,10 @@ html_engine_get_link_at (HTMLEngine *e, gint x, gint y)
 
 	obj = html_object_check_point (HTML_OBJECT (e->clue),
 				       x + e->x_offset - e->leftBorder,
-				       y + e->y_offset - e->topBorder);
+				       y + e->y_offset - e->topBorder,
+				       NULL);
 
-	if ( obj != 0 )
+	if (obj != 0)
 		return html_object_get_url (obj);
 
 	return NULL;
