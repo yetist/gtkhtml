@@ -1,5 +1,8 @@
 2001-03-13  Radek Doulik  <rodo@ximian.com>
 
+	* htmltext.c: fixed matching, removed * from final char match,
+	which made it useless, added ?!;: to forbidden terminal characters
+
 	* htmlengine-edit-cut-and-paste.c (html_engine_insert_text): stop
 	inserting links after ' ' (space)
 
