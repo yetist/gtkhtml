@@ -649,9 +649,7 @@ html_cursor_jump_to (HTMLCursor *cursor,
 	g_return_val_if_fail (cursor != NULL, FALSE);
 	g_return_val_if_fail (object != NULL, FALSE);
 
-	if (cursor->object == object && cursor->offset == offset)
-		return TRUE;
-
+	html_cursor_normalize (cursor);
 	normalize (&object, &offset);
 
 	if (cursor->object == object && cursor->offset == offset)

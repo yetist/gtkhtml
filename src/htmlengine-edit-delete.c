@@ -22,12 +22,79 @@
 #include "htmlclue.h"
 #include "htmlclueflow.h"
 #include "htmltext.h"
+#include "htmltextmaster.h"
 
 #include "htmlengine-edit-cursor.h"
 #include "htmlengine-edit-delete.h"
 #include "htmlengine-edit-movement.h"
 #include "htmlengine-edit-paste.h"
 #include "htmlengine-cutbuffer.h"
+
+
+/* Utility functions.  */
+
+static void
+append (GList **list,
+	GList **tail,
+	gpointer data)
+{
+	*tail = g_list_append (*tail, data);
+	if (*list == NULL)
+		*list = *tail;
+	else
+		*tail = (* tail)->next;
+}
+
+static void
+safe_remove (HTMLEngine *e,
+	     HTMLObject *object)
+{
+	HTMLObject *p;
+	HTMLCursor *cursor;
+
+	cursor = e->cursor;
+
+	if (object == cursor->object) {
+		HTMLObject *prev, *next;
+
+		prev = html_object_prev_not_slave (object);
+		if (prev != NULL) {
+			e->cursor->object = prev;
+			if (html_object_is_text (prev))
+				e->cursor->offset = HTML_TEXT (prev)->text_len;
+			else
+				e->cursor->offset = 1;
+		} else {
+			next = html_object_next_not_slave (object);
+
+			if (next != NULL) {
+				e->cursor->object = next;
+				e->cursor->offset = 0;
+			} else {
+				HTMLObject *master;
+				GdkColor black = { 0, 0, 0 };
+
+				/* FIXME black.  */
+				master = html_text_master_new ("",
+							       GTK_HTML_FONT_STYLE_DEFAULT,
+							       &black);
+				html_clue_prepend (HTML_CLUE (object->parent), master);
+
+				e->cursor->object = master;
+				e->cursor->offset = 0;
+			}
+		}
+	}
+
+	for (p = object->next;
+	     p != NULL && HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE;
+	     p = p->next) {
+		html_clue_remove (HTML_CLUE (p->parent), p);
+		html_object_destroy (p);
+	}
+
+	html_clue_remove (HTML_CLUE (object->parent), object);
+}
 
 
 /* Undo/redo support.  */
@@ -212,12 +279,14 @@ delete_same_parent (HTMLEngine *e,
 		pnext = p->next;
 
 		html_clue_remove (HTML_CLUE (p->parent), p);
-		append_to_buffer (buffer, buffer_last, p);
+
+		if (HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE)
+			html_object_destroy (p);
+		else
+			append_to_buffer (buffer, buffer_last, p);
 
 		p = pnext;
 	}
-
-	html_object_relayout (parent, e, e->cursor->object);
 }
 
 static void
@@ -272,7 +341,10 @@ delete_different_parent (HTMLEngine *e,
 		pnext = p->next;
 
 		html_clue_remove (HTML_CLUE (start_parent), p);
-		append_to_buffer (buffer, buffer_last, p);
+		if (HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE)
+			html_object_destroy (p);
+		else
+			append_to_buffer (buffer, buffer_last, p);
 
 		p = pnext;
 	}
@@ -321,83 +393,98 @@ delete_different_parent (HTMLEngine *e,
 		m = m->next;
 	}
 	g_list_free (merge);
-
-	html_object_relayout (end_parent->parent, e, end_parent);
 }
 
-static guint
-merge_text_at_cursor (HTMLEngine *e)
+static void
+destroy_slaves_for_merge (HTMLObject *a,
+			  HTMLObject *b)
 {
-	HTMLObject *curr, *prev, *next;
 	HTMLObject *p;
-	gchar *next_string, *prev_string;
-	gchar *new_string;
-	guint retval;
-	gint offset;
+	HTMLObject *pnext;
+	gboolean slaves_only;
 
-	curr = e->cursor->object;
-	offset = e->cursor->offset;
-
-	if (! html_object_is_text (curr))
-		return offset;
-
-	if (offset > 0 && offset < HTML_TEXT (curr)->text_len-1)
-		return offset;
-
-	if (offset) {
-		/* merge with next */
-		next = html_object_next_not_slave (curr);
-		if (next == NULL || ! html_object_is_text (next))
-			return offset;
-		prev = curr;
-	} else {
-		/* merge with prev */
-		prev = html_object_prev_not_slave (curr);
-		if (prev == NULL || ! html_object_is_text (prev))
-			return offset;
-		next = curr;
-	}
-
-	if (HTML_OBJECT_TYPE (prev) != HTML_OBJECT_TYPE (next))
-		return offset;
-	if (! gdk_color_equal (& HTML_TEXT (prev)->color, & HTML_TEXT (next)->color))
-		return offset;
-	if (HTML_TEXT (prev)->font_style != HTML_TEXT (next)->font_style)
-		return offset;
-
-	/* The items can be merged: remove the slaves in between.  */
-
-	p = prev->next;
-	while (HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE) {
-		HTMLObject *pnext;
-
+	slaves_only = FALSE;
+	for (p = a->next; p != NULL; p = pnext) {
 		pnext = p->next;
+
+		if (slaves_only && HTML_OBJECT_TYPE (p) != HTML_TYPE_TEXTSLAVE)
+			break;
+
 		html_clue_remove (HTML_CLUE (p->parent), p);
 		html_object_destroy (p);
-		p = pnext;
+
+		if (p == b)
+			slaves_only = TRUE;
+	}
+}
+
+static void
+merge_text_at_cursor (HTMLEngine *e)
+{
+	HTMLCursor *cursor;
+	HTMLObject *object;
+	HTMLObject *prev;
+	HTMLObject *next;
+
+	cursor = e->cursor;
+	object = cursor->object;
+
+	if (! html_object_is_text (object))
+		return;
+
+	prev = html_object_prev_not_slave (object);
+	if (prev != NULL
+	    && html_object_is_text (prev)
+	    && html_text_check_merge (HTML_TEXT (prev), HTML_TEXT (object))) {
+		cursor->object = prev;
+		cursor->offset += HTML_TEXT (prev)->text_len;
+		html_text_merge (HTML_TEXT (prev), HTML_TEXT (object), FALSE);
+		destroy_slaves_for_merge (prev, object);
 	}
 
-	prev_string = HTML_TEXT (prev)->text;
-	next_string = HTML_TEXT (next)->text;
+	object = cursor->object;
 
-	new_string = g_strconcat (prev_string, next_string, NULL);
-	retval = HTML_TEXT (prev)->text_len;
-
-	g_free (HTML_TEXT (curr)->text);
-	HTML_TEXT (curr)->text = new_string;
-	HTML_TEXT (curr)->text_len = HTML_TEXT (prev)->text_len + HTML_TEXT (next)->text_len;
-
-	html_clue_remove (HTML_CLUE (prev->parent), (curr == next) ? prev : next);
-	html_object_destroy ((curr == next) ? prev : next);
-
-	html_object_calc_size (curr->parent, e->painter);
-	if (curr->parent->parent != NULL)
-		html_object_relayout (curr->parent->parent, e, curr);
-
-	return retval;
+	next = html_object_next_not_slave (object);
+	if (next != NULL
+	    && html_object_is_text (next)
+	    && html_text_check_merge (HTML_TEXT (next), HTML_TEXT (object))) {
+		html_text_merge (HTML_TEXT (object), HTML_TEXT (next), FALSE);
+		destroy_slaves_for_merge (object, next);
+	}
 }
 
 
+static HTMLObject *
+delete_in_object (HTMLEngine *e,
+		  HTMLObject *object,
+		  guint start_offset,
+		  guint end_offset)
+{
+	HTMLText *extracted_text;
+
+	if (end_offset == start_offset)
+		return NULL;
+
+	if (! html_object_is_text (object)
+	    || (start_offset == 0 && end_offset >= HTML_TEXT (object)->text_len)) {
+		safe_remove (e, object);
+		return object;
+	}
+
+	extracted_text = html_text_extract_text (HTML_TEXT (object),
+						 start_offset, end_offset - start_offset);
+	html_text_remove_text (HTML_TEXT (object), e, start_offset, end_offset - start_offset);
+
+	if (e->cursor->object == object && e->cursor->offset > start_offset) {
+		if (end_offset - start_offset < e->cursor->offset)
+			e->cursor->offset -= end_offset - start_offset;
+		else
+			e->cursor->offset = 0;
+	}
+
+	return HTML_OBJECT (extracted_text);
+}
+
 /**
  * html_engine_delete:
  * @e: 
@@ -412,15 +499,12 @@ html_engine_delete (HTMLEngine *e,
 		    gboolean do_undo,
 		    gboolean backwards)
 {
-	HTMLObject *orig_object;
-	HTMLObject *prev;
-	HTMLObject *curr;
-	guint orig_offset;
-	guint prev_offset;
-	gboolean destroy_orig;
-	gint saved_position;
+	HTMLObject *start_object;
+	guint start_offset;
+	guint start_position;
 	GList *save_buffer;
-	GList *save_buffer_last;
+	GList *save_buffer_tail;
+	HTMLObject *obj;
 
 	g_return_if_fail (e != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (e));
@@ -428,132 +512,58 @@ html_engine_delete (HTMLEngine *e,
 	if (e->cursor->object->parent == NULL || e->cursor->object->parent == NULL)
 		return;
 
-	if (backwards)
-		count = html_engine_move_cursor (e, HTML_ENGINE_CURSOR_LEFT, count);
-
 	if (count == 0)
 		return;
 
+	if (backwards)
+		count = html_engine_move_cursor (e, HTML_ENGINE_CURSOR_LEFT, count);
+
 	save_buffer = NULL;
-	save_buffer_last = NULL;
+	save_buffer_tail = NULL;
 
 	html_engine_hide_cursor (e);
 
-	saved_position = e->cursor->position;
+	start_object = e->cursor->object;
+	start_offset = e->cursor->offset;
+	start_position = e->cursor->position;
 
-	if (html_object_is_text (e->cursor->object)
-	    && e->cursor->offset == HTML_TEXT (e->cursor->object)->text_len) {
-		HTMLObject *next;
+	/* Find the other end.  */
+	html_engine_move_cursor (e, HTML_ENGINE_CURSOR_RIGHT, count);
 
-		next = html_object_next_not_slave (e->cursor->object);
-
-		if (next != NULL) {
-			e->cursor->object = next;
-			e->cursor->offset = 0;
-		}
-	}
-
-	orig_object = e->cursor->object;
-	orig_offset = e->cursor->offset;
-
-	if (! html_object_is_text (orig_object)) {
-		if (orig_offset)
-			destroy_orig = FALSE;
-		else {
-			destroy_orig = TRUE;
-			count++;
-		}
+	if (e->cursor->object == start_object) {
+		obj = delete_in_object (e, start_object, start_offset, e->cursor->offset);
+		if (obj != NULL)
+			append (&save_buffer, &save_buffer_tail, obj);
 	} else {
-		append_to_buffer (&save_buffer, &save_buffer_last,
-				  HTML_OBJECT (html_text_extract_text (HTML_TEXT (orig_object),
-								       e->cursor->offset,
-								       count)));
+		if (start_object->parent != e->cursor->object->parent)
+			delete_different_parent (e, start_object, FALSE,
+						 &save_buffer, &save_buffer_tail);
+		else
+			delete_same_parent (e, start_object, FALSE,
+					    &save_buffer, &save_buffer_tail);
 
-		count -= html_text_remove_text (HTML_TEXT (orig_object), e,
-						e->cursor->offset, count);
-
-		/* If the text object has become empty, then itself needs to be
-		   destroyed unless it's the only one on the line (because we don't
-		   want any clueflows to be empty) or the next element is a vspace
-		   (because a vspace alone in a clueflow does not give us an empty
-		   line).  */
-
-		if (HTML_TEXT (orig_object)->text[0] == '\0') {
-			HTMLObject *next;
-
-			next = html_object_next_not_slave (orig_object);
-			if (next != NULL && HTML_OBJECT_TYPE (next) != HTML_TYPE_VSPACE) {
-				count++;
-				destroy_orig = TRUE;
-			} else {
-				destroy_orig = FALSE;
-			}
-		} else {
-			destroy_orig = FALSE;
+		obj = delete_in_object (e, start_object, start_offset, (guint) -1);
+		if (obj != NULL) {
+			save_buffer = g_list_prepend (save_buffer, obj);
+			if (save_buffer_tail == NULL)
+				save_buffer_tail = save_buffer;
 		}
+
+		obj = delete_in_object (e, e->cursor->object, 0, e->cursor->offset);
+		if (obj != NULL)
+			append (&save_buffer, &save_buffer_tail, obj);
 	}
 
-	if (count == 0)
-		goto end;
+	merge_text_at_cursor (e);
 
-	/* Look for the end point.  We want to delete `count'
-           characters/elements from the current position.  While moving
-           forward, we must check that: (1) all the elements are children of
-           HTMLClueFlow and (2) the parent HTMLClueFlow is always child of the
-           same clue.  */
+	html_object_relayout (e->cursor->object->parent->parent, e,
+			      e->cursor->object->parent);
 
-	while (count > 0) {
-		prev = e->cursor->object;
-		prev_offset = e->cursor->offset;
-
-		if (! html_cursor_forward (e->cursor, e)) {
-			/* Cannot delete more.  */
-			goto merge;
-		}
-
-		curr = e->cursor->object;
-
-		if (curr->parent == NULL
-		    || curr->parent->parent != prev->parent->parent
-		    || HTML_OBJECT_TYPE (curr->parent) != HTML_TYPE_CLUEFLOW) {
-			e->cursor->object = prev;
-			e->cursor->offset = prev_offset;
-			break;
-		}
-
-		/* The rule is special, as it is always alone in a line.  */
-
-		if (HTML_OBJECT_TYPE (curr) != HTML_TYPE_RULE)
-			count--;
-	}
-
-	if (curr->parent == orig_object->parent)
-		delete_same_parent (e, orig_object, destroy_orig, &save_buffer, &save_buffer_last);
-	else
-		delete_different_parent (e, orig_object, destroy_orig, &save_buffer, &save_buffer_last);
-
-	if (destroy_orig)
-		html_cursor_backward (e->cursor, e);
-	else {
-		if (e->cursor->offset >= 1 && html_object_is_text (e->cursor->object)) {
-			append_to_buffer (&save_buffer, &save_buffer_last,
-					  HTML_OBJECT (html_text_extract_text (HTML_TEXT (e->cursor->object),
-									       0, e->cursor->offset)));
-			html_text_remove_text (HTML_TEXT (e->cursor->object), e,
-					       0, e->cursor->offset);
-			e->cursor->offset = 0;
-		}
-	}
-
- merge:
-	e->cursor->offset = merge_text_at_cursor (e);
-
- end:
-	e->cursor->position = saved_position;
-
-	if (do_undo)
-		setup_undo (e, create_action_data (save_buffer, backwards));
+	e->cursor->position = start_position;
 
 	html_cursor_normalize (e->cursor);
 	html_engine_show_cursor (e);
+
+	if (do_undo)
+		setup_undo (e, create_action_data (save_buffer, backwards));
 }

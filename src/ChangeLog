@@ -1,3 +1,30 @@
+2000-05-18  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmltextmaster.c (merge): Call `html_object_change_set()' with
+	`HTML_CHANGE_ALL' to trigger a complete layout recalculation for
+	the object.
+
+	* htmlengine-edit-delete.c: Redone in a cleaner way.
+
+	* htmlengine-edit-fontstyle.c (set_font_style): Normalize the
+	cursor before returning.
+
+	* htmlcursor.c (html_cursor_jump_to): Normalize the cursor before
+	moving.
+
+	* htmlengine-edit-fontstyle.c (set_font_style_in_selection):
+	@do_undo renamed to @want_undo to avoid conflicts with the
+	`do_undo()' function.
+	(set_font_style): Likewise.
+	(move_to_next_text_segment_forwards): New helper function that
+	moves the cursor to the right until there is a non-empty text
+	segment on the right of the cursor.
+	(move_to_next_text_segment_backwards): Similiar helper function,
+	but checking and moving to the left.
+	(do_undo): Use them after moving the cursor by the size of the
+	changed segment.  This makes sure we correctly handle the case
+	with end-of-paragraphs within the selection.
+
 2000-05-17  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlengine-edit-clueflowstyle.c (set_clueflow_style_in_region):

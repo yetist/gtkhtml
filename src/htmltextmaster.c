@@ -574,6 +574,8 @@ merge (HTMLText *self,
 		HTML_OBJECT (self)->selected = TRUE;
 	else
 		HTML_OBJECT (self)->selected = FALSE;
+
+	html_object_change_set (HTML_OBJECT (self), HTML_CHANGE_ALL);
 }
 
 static guint

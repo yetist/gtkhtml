@@ -249,13 +249,16 @@ set_font_style (HTMLEngine *engine,
 		GtkHTMLFontStyle or_mask,
 		guint count,
 		gboolean backwards,
-		gboolean do_undo)
+		gboolean want_undo)
 {
 	GtkHTMLFontStyle font_style;
 	GtkHTMLFontStyle last_font_style;
 	HTMLObject *p, *pparent;
 	GList *orig_styles;
+	GList *lp;
 	guint total_merged;
+
+	g_print ("%s -- setting %d elements.\n", __FUNCTION__, count);
 
 	p = engine->cursor->object;
 	last_font_style = GTK_HTML_FONT_STYLE_DEFAULT;
@@ -312,7 +315,7 @@ set_font_style (HTMLEngine *engine,
 		}
 
 		/* Save the original style for undo.  */
-		if (do_undo)
+		if (want_undo)
 			prepend_style_segment (&orig_styles,
 					       HTML_TEXT (curr)->font_style,
 					       end - start);
@@ -374,17 +377,21 @@ set_font_style (HTMLEngine *engine,
 			merge_forward (p, engine->cursor, engine->mark);
 	}
 
-	if (do_undo)
-		return g_list_reverse (orig_styles);
-	else
+	html_cursor_normalize (engine->cursor);
+
+	if (! want_undo)
 		return NULL;
+
+	orig_styles = g_list_reverse (orig_styles);
+
+	return orig_styles;
 }
 
 static void
 set_font_style_in_selection (HTMLEngine *engine,
 			     GtkHTMLFontStyle and_mask,
 			     GtkHTMLFontStyle or_mask,
-			     gboolean do_undo)
+			     gboolean want_undo)
 {
 	gboolean backwards;
 	GList *orig_styles;
@@ -412,14 +419,14 @@ set_font_style_in_selection (HTMLEngine *engine,
 		backwards = FALSE;
 	}
 
-	orig_styles = set_font_style (engine, and_mask, or_mask, count, backwards, do_undo);
+	orig_styles = set_font_style (engine, and_mask, or_mask, count, backwards, want_undo);
 
 #ifdef PARANOID_DEBUG
 	g_print ("Tree after changing font style:\n");
 	gtk_html_debug_dump_tree_simple (engine->clue, 2);
 #endif
 
-	if (! do_undo)
+	if (! want_undo)
 		return;
 
 	setup_undo (engine,
@@ -491,6 +498,79 @@ setup_redo (HTMLEngine *engine,
 	html_undo_add_redo_action (engine->undo, action);
 }
 
+static gboolean
+move_to_next_text_segment_forwards (HTMLEngine *engine)
+{
+	HTMLCursor *cursor;
+	gboolean retval;
+
+	cursor = engine->cursor;
+
+	while (1) {
+		guint object_length;
+
+		/* Check if there is a text element on the immediate right of the cursor.  */
+
+		if (html_object_is_text (cursor->object))
+			object_length = HTML_TEXT (cursor->object)->text_len;
+		else
+			object_length = 1;
+
+		if (cursor->offset == object_length) {
+			HTMLObject *next;
+
+			next = cursor->object->next;
+			if (next != NULL && html_object_is_text (next)) {
+				retval = TRUE;
+				break;
+			}
+		} else if (html_object_is_text (cursor->object)) {
+			retval = TRUE;
+			break;
+		}
+
+		if (! html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_RIGHT, 1)) {
+			retval = FALSE;
+			break;
+		}
+	}
+
+	return retval;
+}
+
+static gboolean
+move_to_next_text_segment_backwards (HTMLEngine *engine)
+{
+	HTMLCursor *cursor;
+	gboolean retval;
+
+	cursor = engine->cursor;
+
+	while (1) {
+		/* Check if there is a text element on the immediate left of the cursor.  */
+
+		if (cursor->offset == 0) {
+			HTMLObject *prev;
+
+			prev = cursor->object->prev;
+			if (prev != NULL && html_object_is_text (prev)) {
+				retval = TRUE;
+				break;
+			}
+		} else if (html_object_is_text (cursor->object)) {
+			retval = TRUE;
+			break;
+		}
+
+		if (! html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_LEFT, 1)) {
+			retval = FALSE;
+			break;
+		}
+	}
+
+	return retval;
+}
+
 static void
 do_undo (HTMLEngine *engine,
 	 gpointer closure)
@@ -509,10 +589,17 @@ do_undo (HTMLEngine *engine,
 				segment->style, segment->count,
 				data->backwards, FALSE);
 
-		if (data->backwards)
-			html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_LEFT, segment->count);
-		else
-			html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_RIGHT, segment->count);
+		if (data->backwards) {
+			html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_LEFT,
+						 segment->count);
+			if (! move_to_next_text_segment_backwards (engine))
+				break;
+		} else {
+			html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_RIGHT,
+						 segment->count);
+			if (! move_to_next_text_segment_forwards (engine))
+				break;
+		}
 	}
 
 	setup_redo (engine, data);
