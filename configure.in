@@ -88,8 +88,8 @@ dnl gtkhtmlConf.sh stuff
 
 GTKHTML_LIBDIR="-L${libdir}"
 GTKHTML_INCLUDEDIR="-I${includedir}"
-GTKHTML_INCLUDEDIR="$GTKHTML_INCLUDEDIR `$GNOME_CONFIG --cflags gdk_pixbuf`"
-GTKHTML_LIBS="-lgtkhtml `$GNOME_CONFIG --libs gdk_pixbuf`"
+GTKHTML_INCLUDEDIR="$GTKHTML_INCLUDEDIR `$GNOME_CONFIG --cflags gdk_pixbuf print`"
+GTKHTML_LIBS="-lgtkhtml `$GNOME_CONFIG --libs gdk_pixbuf print`"
 
 AC_SUBST(GTKHTML_LIBDIR)
 AC_SUBST(GTKHTML_INCLUDEDIR)
@@ -99,8 +99,8 @@ AC_SUBST(LIBWWW_CFLAGS)
 AC_SUBST(LIBWWW_LIBS)
 AM_CONDITIONAL(LIBWWW, $have_libwww)
 
-EXTRA_GNOME_LIBS=`gnome-config --libs gnomeui gdk_pixbuf $bonobo`
-EXTRA_GNOME_CFLAGS=`gnome-config --cflags gnomeui gdk_pixbuf $bonobo`
+EXTRA_GNOME_LIBS=`gnome-config --libs gnomeui gdk_pixbuf print $bonobo`
+EXTRA_GNOME_CFLAGS=`gnome-config --cflags gnomeui gdk_pixbuf print $bonobo`
 AC_SUBST(EXTRA_GNOME_LIBS)
 AC_SUBST(EXTRA_GNOME_CFLAGS)
 
