@@ -1955,6 +1955,9 @@ client_notify_class (GConfClient* client,
 	if (!strcmp (tkey, "/magic_links")) {
 		prop->magic_links = gconf_client_get_bool (client, entry->key, NULL);
 	}
+	if (!strcmp (tkey, "/magic_smileys")) {
+		prop->magic_smileys = gconf_client_get_bool (client, entry->key, NULL);
+	}
 }
 
 #endif
