@@ -24,16 +24,23 @@
 #include <config.h>
 #include <stdio.h>
 #include <string.h>
+#include <sys/types.h>
+#include <regex.h>
 
 #include "htmltext.h"
 #include "htmlcolor.h"
 #include "htmlcolorset.h"
 #include "htmlclueflow.h"
+#include "htmlcursor.h"
 #include "htmlengine.h"
+#include "htmlengine-edit.h"
+#include "htmlengine-edit-cut-and-paste.h"
 #include "htmlengine-save.h"
 #include "htmlentity.h"
+#include "htmllinktextmaster.h"
 #include "htmlsettings.h"
 #include "htmltextslave.h"
+#include "htmlundo.h"
 
 
 HTMLTextClass html_text_class;
@@ -1309,4 +1316,99 @@ gchar *
 html_text_get_text (HTMLText *text, guint offset)
 {
 	return text->text + html_text_get_index (text, offset);
+}
+
+/* magic links */
+
+struct _HTMLMagicInsertMatch
+{
+	gchar *regex;
+	regex_t *preg;
+	gchar *prefix;
+};
+
+typedef struct _HTMLMagicInsertMatch HTMLMagicInsertMatch;
+
+static HTMLMagicInsertMatch mim [] = {
+	{ "(news|telnet|nttp|file|http|ftp|https)://[-a-z0-9.]+[-a-z0-9](:[0-9]*)?(/[-a-z0-9_$.+!*(),;:@&=?/~#]*[^]'.}>) ,\"]*)?", NULL, NULL },
+	{ "www[-a-z0-9.]+[-a-z0-9](:[0-9]*)?(/[-A-Za-z0-9_$.+!*(),;:@&=?/~#]*[^]'.}>) ,\"]*)?", NULL, "http://" },
+	{ "ftp[-a-z0-9.]+[-a-z0-9](:[0-9]*)?(/[-A-Za-z0-9_$.+!*(),;:@&=?/~#]*[^]'.}>) ,\"]*)?", NULL, "ftp://" },
+	{ "[-_a-z0-9.]+@[-_a-z0-9.]+", NULL, "mailto:" }
+};
+
+#define MIM_N (sizeof (mim) / sizeof (mim [0]))
+
+void
+html_engine_init_magic_links (void)
+{
+	gint i;
+
+	for (i=0; i<MIM_N; i++) {
+		mim [i].preg = g_new0 (regex_t, 1);
+		if (regcomp (mim [i].preg, mim [i].regex, REG_EXTENDED | REG_ICASE)) {
+			/* error */
+			g_free (mim [i].preg);
+			mim [i].preg = 0;
+		}
+	}
+}
+
+static void
+paste_link (HTMLEngine *engine, HTMLText *text, gint so, gint eo, gchar *prefix)
+{
+	HTMLObject *new_obj;
+	gchar *href;
+	gchar *base;
+
+	base = g_strndup (html_text_get_text (text, so), html_text_get_index (text, eo) - html_text_get_index (text, so));
+	href = (prefix) ? g_strconcat (prefix, base, NULL) : g_strdup (base);
+	g_free (base);
+
+	new_obj = html_link_text_master_new_with_len
+		(html_text_get_text (text, so),
+		 eo - so,
+		 text->font_style,
+		 html_colorset_get_color (engine->settings->color_set, HTMLLinkColor),
+		 href, NULL);
+
+	html_cursor_jump_to_position (engine->cursor, engine, engine->cursor->position + so - engine->cursor->offset);
+	html_engine_set_mark (engine);
+	html_cursor_jump_to_position (engine->cursor, engine, engine->cursor->position + eo - engine->cursor->offset);
+
+	html_undo_level_begin    (engine->undo, "Magic link");
+	html_engine_paste_object (engine, new_obj, eo - so);
+	html_undo_level_end      (engine->undo);
+
+	g_free (href);
+}
+
+gboolean
+html_text_magic_link (HTMLText *text, HTMLEngine *engine, guint offset)
+{
+	regmatch_t pmatch [2];
+	gint i;
+
+	if (!offset)
+		return FALSE;
+	offset--;
+
+	while (html_text_get_char (text, offset) != ' ' && html_text_get_char (text, offset) != ENTITY_NBSP && offset)
+		offset--;
+	if (html_text_get_char (text, offset) == ' ' || html_text_get_char (text, offset) == ENTITY_NBSP)
+		offset++;
+
+	while (offset < text->text_len) {
+		for (i=0; i<MIM_N; i++) {
+			if (mim [i].preg && !regexec (mim [i].preg, html_text_get_text (text, offset), 2, pmatch, 0)) {
+				gint o = html_text_get_text (text, offset) - text->text;
+				paste_link (engine, text,
+					    unicode_index_to_offset (text->text, pmatch [0].rm_so + o),
+					    unicode_index_to_offset (text->text, pmatch [0].rm_eo + o), mim [i].prefix);
+				return TRUE;
+			}
+		}
+		offset++;
+	}
+
+	return FALSE;
 }

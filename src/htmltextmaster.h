@@ -70,8 +70,5 @@ gint        html_text_master_trail_space_width (HTMLTextMaster *master,
 
 void        html_text_master_destroy_slaves    (HTMLTextMaster *master);
 
-gboolean    html_text_master_magic_link        (HTMLTextMaster *master,
-						HTMLEngine *engine,
-						guint offset);
 
 #endif /* _HTMLTEXTMASTER_H_ */

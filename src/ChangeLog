@@ -1,5 +1,13 @@
 2001-01-04  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine-edit-cut-and-paste.c (check_magic_link): new helper
+	function
+	(html_engine_insert_empty_paragraph): use check_magic_link
+	(html_engine_insert_text): likewise
+
+	* htmltext.c (html_text_magic_link): moved magic links code here
+	(paste_link): use paste_object + undo levels
+
 	* htmlengine-edit-table.c (html_engine_insert_table): likewise
 
 	* htmlengine-edit-rule.c (html_engine_insert_rule): don't destroy

@@ -26,6 +26,7 @@
 
 #include "gtkhtmldebug.h"
 #include "gtkhtml-private.h"
+#include "gtkhtml-properties.h"
 
 #include "htmlclue.h"
 #include "htmlcursor.h"
@@ -601,6 +602,14 @@ new_text (HTMLEngine *e, const gchar *text, gint len)
 		: html_text_master_new_with_len	(text, len, e->insertion_font_style, e->insertion_color);
 }
 
+static void
+check_magic_link (HTMLEngine *e, const gchar *text, guint len)
+{
+	if (GTK_HTML_PROPERTY (e->widget, magic_links) && len == 1
+	    && (*text == ' ' || text [0] == '\n' || text [0] == '>' || text [0] == ')'))
+		html_text_magic_link (HTML_TEXT (e->cursor->object), e, html_object_get_length (e->cursor->object));
+}
+
 void
 html_engine_insert_empty_paragraph (HTMLEngine *e)
 {
@@ -617,6 +626,11 @@ html_engine_insert_empty_paragraph (HTMLEngine *e)
 	g_list_free (right);
 	html_engine_spell_check_range (e, orig, e->cursor);
 	html_cursor_destroy (orig);
+
+	html_cursor_backward (e->cursor, e);
+	check_magic_link (e, "\n", 1);
+	html_cursor_forward (e->cursor, e);
+
 	html_engine_thaw (e);
 
 	gtk_html_editor_event_command (e->widget, GTK_HTML_COMMAND_INSERT_PARAGRAPH);
@@ -636,8 +650,10 @@ html_engine_insert_text (HTMLEngine *e, const gchar *text, guint len)
 	do {
 		nl   = unicode_strchr (text, '\n');
 		alen = nl ? unicode_index_to_offset (text, nl - text) : len;
-		if (alen)
+		if (alen) {
+			check_magic_link (e, text, alen);
 			html_engine_insert_object (e, new_text (e, text, alen), alen);
+		}
 		if (nl) {
 			html_engine_insert_empty_paragraph (e);
 			len -= unicode_index_to_offset (text, nl - text) + 1;
