@@ -1,3 +1,14 @@
+2000-12-10  Radek Doulik  <rodo@helixcode.com>
+
+	* htmltable.c (forall): call func also on self
+
+	* htmlcluev.c (find_free_area): break cycle if try_y == next_y to
+	avoid infinite cycles
+
+	* htmltable.c (calc_min_width): use pixel_size for specified_width
+	(calc_preferred_width): likewise
+	(html_table_set_max_width): likewise
+
 2000-12-08  Larry Ewing  <lewing@helixcode.com>
 
 	* htmlengine.c (parse_object_params): make sure we parse the
