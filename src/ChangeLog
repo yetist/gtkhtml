@@ -1,3 +1,8 @@
+2001-11-06  Radek Doulik  <rodo@ximian.com>
+
+	* htmlgdkpainter.c (alloc_e_font_try): try to use gdk_font_load
+	for fixed font, if gdk_fontset_load doesn't load fixed font for us
+
 2001-11-05  Radek Doulik  <rodo@ximian.com>
  
 	* htmlengine-edit-cut-and-paste.c
