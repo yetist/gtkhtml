@@ -1,3 +1,7 @@
+2002-12-18  Christophe Merlet  <redfox@redfoxcenter.org>
+
+	* fr.po: Updated French translation.
+
 2002-12-15  Ole Laursen  <olau@hardworking.dk>
 
 	* da.po: Updated Danish translation.
@@ -532,8 +536,8 @@
 2001-10-13  Héctor García Álvarez <hector@scouts-es.org>
 
         * es.po: Updated Spanish translation.
-	
-2001-10-13  Christophe Merlet  <redfox@eikonex.org>
+
+2001-10-13  Christophe Merlet  <christophe@merlet.net>
 
 	* fr.po: Updated French translation.
 
@@ -571,7 +575,7 @@
 
 	* lt.po: Updated Lithuanian translation.
 
-2001-09-22 Christophe Merlet  <redfox@eikonex.org>
+2001-09-22 Christophe Merlet  <christophe@merlet.net>
 
 	* fr.po: Updated French translation.
 
@@ -616,7 +620,7 @@
 
 	* lt.po: Updated Lithuanian translation..
 	
-2001-09-02 Christophe Merlet  <redfox@eikonex.org>
+2001-09-02 Christophe Merlet  <christophe@merlet.net>
 
 	* fr.po: Updated French translation.
 
@@ -954,7 +958,7 @@
 	* POTFILES.in: Adapt to xml-i18n-tools.
 	* no.po: Updated Norwegian translation.
 	
-2001-02-05 Christophe Merlet  <redfox@eikonex.org>
+2001-02-05 Christophe Merlet  <christophe@merlet.net>
 
 	* fr.po: Updated French translation.
 
@@ -966,7 +970,7 @@
 
 	* el.po: Added initial Greek translation.
 
-2001-01-28 Christophe Merlet  <redfox@eikonex.org>
+2001-01-28 Christophe Merlet  <christophe@merlet.net>
 
 	* fr.po: Updated French translation.
 
@@ -999,7 +1003,7 @@
 
 	* no.po: Updated Norwegian (bokmål) translation.
 
-2001-01-07 Christophe Merlet  <redfox@eikonex.org>
+2001-01-07 Christophe Merlet  <christophe@merlet.net>
 
 	* fr.po: Updated French translation.
 
@@ -1063,7 +1067,7 @@
 
         * es.po: Updated Spanish translation.
 
-2000-12-12 Christophe Merlet  <redfox@eikonex.org>
+2000-12-12 Christophe Merlet  <christophe@merlet.net>
 
 	* fr.po: Updated French translation.
 
