@@ -1,5 +1,7 @@
 2001-08-02  Radek Doulik  <rodo@ximian.com>
 
+	* htmltablecell.c (save): save BACKGROUND as well
+
 	* htmlobject.c (html_object_get_cursor): make cursor of non-text
 	objects be at least 10 points high
 

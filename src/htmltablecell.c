@@ -283,6 +283,11 @@ save (HTMLObject *self,
 			cell->bg.green >> 8,
 			cell->bg.blue >> 8 SE;
 	
+	if (cell->have_bgPixmap) {
+		gchar * url = html_image_resolve_image_url (state->engine->widget, cell->bgPixmap->url);
+		SB " BACKGROUND=\"%s\"", url SE;
+		g_free (url);
+	}
 	if (cell->cspan != 1)
 		SB " COLSPAN=\"%d\"", cell->cspan SE;
 
