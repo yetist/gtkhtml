@@ -1,3 +1,7 @@
+2001-12-06  Radek Doulik  <rodo@ximian.com>
+
+	* htmltable.c (split): removed old obsolete forgotten code
+
 2001-12-05  Radek Doulik  <rodo@ximian.com>
 
 	* htmlprinter.c (insure_paper): use _("US-Letter") as fallback,
