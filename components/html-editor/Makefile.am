@@ -139,6 +139,7 @@ test_editor_SOURCES =				\
 
 # Extra stuff to distribute.
 
+gtkhtml-editor-properties.c:	gtkhtml-editor-properties.h
 gtkhtml-editor-properties.h:	gtkhtml-editor-properties.glade
 	libglade-xgettext -c $< > $@
 

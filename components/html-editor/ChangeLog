@@ -1,5 +1,9 @@
 2001-05-15  Radek Doulik  <rodo@ximian.com>
 
+	* Makefile.am (gtkhtml-editor-properties.h): added
+	gtkhtml-editor-properties.c:	gtkhtml-editor-properties.h
+	dependency
+
 	* added Format/HTML mode menu item to test application
 
 2001-05-12  Almer S. Tigelaar  <almer@gnome.org>
