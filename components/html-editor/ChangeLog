@@ -1,3 +1,7 @@
+2002-01-30  Radek Doulik  <rodo@ximian.com>
+
+	* Makefile.am (LDADD): removed unwanted -dynamic link flag
+
 2002-01-27  Larry Ewing  <lewing@ximian.com>
 
 	* editor-control-factory.c (editor_set_prop): add bonobo property

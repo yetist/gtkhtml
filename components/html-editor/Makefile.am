@@ -47,8 +47,6 @@ $(SPELL_IDL_GENERATED): $(SPELL_IDLS)
 	$(ORBIT_IDL) -I$(datadir)/idl `$(GNOME_CONFIG) --cflags idl`	\
 		-I$(srcdir) $(srcdir)/Spell.idl
 
-LDFLAGS += -dynamic
-
 LDADD =	\
 	$(top_builddir)/src/libgtkhtml.la	\
 	$(EXTRA_GNOME_LIBS)			\
