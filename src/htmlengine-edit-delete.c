@@ -614,8 +614,14 @@ html_engine_delete (HTMLEngine *e,
 	if (html_object_is_text (e->cursor->object)) {
 		merge_text_at_cursor (e);
 
-		if (HTML_TEXT (e->cursor->object)->text_len == 0)
+		if (HTML_TEXT (e->cursor->object)->text_len == 0) {
+			/* FIXME: this is broken queueing this draw is far to agressive in what 
+			   it redraws, but since this only happens once in a while and it leaves
+			   bad artifacts without the redraw we will hack it in for now */
+
+			html_engine_queue_draw (e, e->cursor->object->parent->parent);
 			remove_empty_text_at_cursor_if_necessary (e);
+		}
 	}
 
 	html_object_relayout (e->cursor->object->parent->parent, e,
@@ -646,3 +652,5 @@ html_engine_delete (HTMLEngine *e,
 		setup_undo (e, create_action_data (save_buffer, backwards));
 	}
 }
+
+
