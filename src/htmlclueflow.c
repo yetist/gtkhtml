@@ -232,18 +232,18 @@ should_break (HTMLObject *obj)
 
 	/* it is on the beginning of Clue */
 	if (!prev)
-		return TRUE;
+		return FALSE;
 
 	/* skip prev Master */
 	if ((HTML_OBJECT_TYPE (prev) == HTML_TYPE_TEXTMASTER ||
 	     HTML_OBJECT_TYPE (prev) == HTML_TYPE_LINKTEXTMASTER) &&
 	    HTML_OBJECT_TYPE (obj)  == HTML_TYPE_TEXTSLAVE  &&
-	    HTML_TEXT_SLAVE (obj)->owner == HTML_TEXT_MASTER (prev))
+	    HTML_TEXT_SLAVE (obj)->owner == HTML_TEXT_MASTER (prev)) {
 		prev = prev->prev;
-
-	/* it is on the beginning of Clue */
-	if (!prev)
-		return TRUE;
+		/* it is Master->Slave on the beginning */
+		if (!prev)
+			return FALSE;
+	}
 
 	/* get end */
 	if (HTML_OBJECT_TYPE (prev) == HTML_TYPE_TEXTSLAVE) {
