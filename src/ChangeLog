@@ -1,5 +1,8 @@
 2000-08-22  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine.c (parse_body): don't insert " ", this fixes problem
+	with linked images but maybe broke another cases? any complains?
+
 	* htmlclueflow.c (calc_size): disabled width setting to rmargin -
 	o->x (Larry could you pls check this?)
 

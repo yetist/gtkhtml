@@ -689,8 +689,6 @@ parse_body (HTMLEngine *p, HTMLObject *clue, const gchar *end[], gboolean toplev
 				p->formText = g_string_append (p->formText, " ");
 			else if (p->inTitle) {
 				g_string_append (p->title, " ");
-			} else if (p->flow != NULL) {
-				insert_text (p, clue, " ");
 			}
 		} else if (*str != TAG_ESCAPE) {
 			if (p->inOption || p->inTextArea)
