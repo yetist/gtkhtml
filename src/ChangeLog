@@ -1,3 +1,9 @@
+2005-04-06  Radek Doulik  <rodo@novell.com>
+
+	* added [un]block-selection commands. these are going to be used
+	from evolution's composer to avoid selection overriding when
+	changing signature (#36972)
+
 2005-04-07  Tor Lillqvist  <tml@novell.com>
 
 	Port to Windows, initial commit.

@@ -4679,6 +4679,12 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 	case GTK_HTML_COMMAND_EDITABLE_OFF:
 		gtk_html_set_editable (html, FALSE);
 		break;
+	case GTK_HTML_COMMAND_BLOCK_SELECTION:
+		html_engine_block_selection (html->engine);
+		break;
+	case GTK_HTML_COMMAND_UNBLOCK_SELECTION:
+		html_engine_unblock_selection (html->engine);
+		break;
 
 	default:
 		rv = FALSE;
