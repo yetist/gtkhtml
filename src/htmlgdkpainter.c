@@ -26,7 +26,6 @@
 #include <stdlib.h>
 
 #include <glib.h>
-#include <gdk/gdkx.h>
 #include <gdk/gdkgc.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <gtk/gtksignal.h>

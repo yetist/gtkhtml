@@ -23,7 +23,6 @@ Boston, MA 02111-1307, USA.
 #include <config.h>
 #include <string.h>
 #include <locale.h>
-#include <gdk/gdkx.h>
 #include <glib/gi18n.h>
 #include "gtkhtml.h"
 #include "gtkhtml-properties.h"
@@ -41,7 +40,11 @@ get_locale_language ()
 	gchar *locale;
 	gchar *locale_language = NULL;
 	
+#ifndef G_OS_WIN32
 	locale = setlocale (LC_ALL, NULL);
+#else
+	locale = g_win32_getlocale ();
+#endif
 	if (locale && strcmp (locale, "C") && strcmp (locale, "POSIX")) {
 		char *codeset, *lang;
 	

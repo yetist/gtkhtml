@@ -1,0 +1,27 @@
+#!/bin/sh
+
+# Build zipfile distribution of gtkhtml for Win32. Separate runtime
+# and developer zipfiles. Run after make install.
+
+ZIP=/tmp/gtkhtml-@VERSION@.zip
+DEVZIP=/tmp/gtkhtml-dev-@VERSION@.zip
+
+cd @prefix@
+rm $ZIP
+
+current_minus_age=`expr @GTKHTML_CURRENT@ - @GTKHTML_AGE@`
+
+zip -r $ZIP -@ <<EOF
+bin/libgtkhtml-3.8-$current_minus_age.dll
+lib/bonobo/servers/GNOME_GtkHTML_Editor-3.8.server
+lib/gtkhtml/libgnome-gtkhtml-editor-3.8.dll
+share/gtkhtml-3.8
+EOF
+
+zip $ZIP lib/locale/*/LC_MESSAGES/gtkhtml-3.8.mo
+
+rm $DEVZIP
+zip -r $DEVZIP -@ <<EOF
+lib/libgtkhtml-3.8.dll.a
+include/libgtkhtml-3.8
+EOF

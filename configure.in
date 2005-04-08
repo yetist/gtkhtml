@@ -38,6 +38,7 @@ AC_PROG_INTLTOOL([0.30])
 AC_ISC_POSIX
 AC_PROG_CC
 AC_STDC_HEADERS
+AC_LIBTOOL_WIN32_DLL
 AM_PROG_LIBTOOL
 
 GNOME_COMPILE_WARNINGS(yes)
@@ -107,6 +108,12 @@ dnl * Gnome Icon Theme
 dnl **************************************************
 PKG_CHECK_MODULES(GIT, gnome-icon-theme >= 1.2.0)
 
+dnl **************************************************
+dnl * regex library
+dnl **************************************************
+AC_CHECK_FUNCS(regexec,,[AC_CHECK_LIB(regex,regexec,[REGEX_LIBS=-lregex],[AC_MSG_ERROR([No regex library found])])])
+AC_SUBST(REGEX_LIBS)
+
 dnl ******************************
 dnl shlib factory
 dnl ******************************
@@ -152,6 +159,7 @@ dnl **************
 AC_OUTPUT([
 Makefile
 gtkhtml.spec
+gtkhtml-zip
 po/Makefile.in
 src/Makefile
 src/libgtkhtml.pc

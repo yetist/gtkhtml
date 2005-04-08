@@ -1,3 +1,16 @@
+2005-04-07  Tor Lillqvist  <tml@novell.com>
+
+	Port to Windows, initial commit.
+
+	* Makefile.am (libgtkhtml_3_8_la_LDFLAGS): Add -no-undefined.
+	(libgtkhtml_3_8_la_LIBADD): Add REGEX_LIBS.
+
+	* gtkhtml-properties.c (get_locale_language): Use
+	g_win32_getlocale() on Windows.
+
+	* htmlgdkpainter.c
+	* htmlplainpainter.c: Remove unused gdkx.h.
+
 2005-04-04  Yu Mengjie  <meng-jie.yu@sun.com>
 
 	* gtkhtml.c: (idle_handler), (gtk_html_adjust_cursor_position):

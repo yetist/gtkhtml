@@ -1,3 +1,7 @@
+2005-04-07  Tor Lillqvist  <tml@novell.com>
+
+	* utils.c: Remove inclusion of now nonexistent link.h.
+
 2005-04-04  Yu Mengjie  <meng-jie.yu@sun.com>
 
 	* Makefile.am:

@@ -1,3 +1,9 @@
+2005-04-07  Tor Lillqvist  <tml@novell.com>
+
+	* Makefile.am (libgnome_gtkhtml_editor_3_8_la_LDFLAGS): Add
+	-no-undefined.
+	(test_editor_LDADD): Reorder.
+
 2005-03-17  Radek Doulik  <rodo@localhost.localdomain>
 
 	* table.c (changed_cols): jump to table,1 and go backward before

@@ -1,3 +1,17 @@
+2005-04-07  Tor Lillqvist  <tml@novell.com>
+
+	Port to Windows, initial commit. Still need to add installation
+	location independence.
+
+	* gtkhtml-zip.in: New file, used to build zipfile distribution of
+	gtkhtml for Win32.
+	* configure.in
+	* Makefile.am: Expand and distribute it.
+
+	* configure.in: Add AC_LIBTOOL_WIN32_DLL. Check if separate
+	-lregex is needed for regex functionality, if so put it in
+	REGEX_LIBS.
+
 2005-04-01  Adi Attar  <aattar@cvs.gnome.org>
 
 	* configure.in: Added "xh" to ALL_LINGUAS.

@@ -22,7 +22,6 @@
 #include <config.h>
 #include <string.h>
 #include <stdlib.h>
-#include <gdk/gdkx.h>
 #include <libart_lgpl/art_rect.h>
 
 #include "htmlentity.h"

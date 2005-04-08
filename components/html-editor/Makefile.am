@@ -138,7 +138,7 @@ libgnome_gtkhtml_editor_3_8_la_SOURCES =	\
 	editor-control-shlib.c
 
 libgnome_gtkhtml_editor_3_8_la_LDFLAGS =	\
-	-avoid-version -module
+	-avoid-version -module -no-undefined
 
 libgnome_gtkhtml_editor_3_8_la_LIBADD =	\
 	$(LDADD)			\
@@ -190,7 +190,7 @@ test_editor_SOURCES =				\
 	htmlsourceview.h			\
 	test-html-editor-control.c
 
-test_editor_LDADD = $(LDADD) libgnome-gtkhtml-editor.la
+test_editor_LDADD = libgnome-gtkhtml-editor.la $(LDADD)
 
 # Extra stuff to distribute.
 
