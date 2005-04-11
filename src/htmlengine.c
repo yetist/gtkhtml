@@ -799,7 +799,6 @@ close_flow (HTMLEngine *e, HTMLObject *clue)
 static void
 update_flow_align (HTMLEngine *e, HTMLObject *clue)
 {
-	printf ("update flow align\n");
 	if (e->flow != NULL) {
 		if (HTML_CLUE (e->flow)->head != NULL)
 			close_flow (e, clue);
@@ -1919,7 +1918,7 @@ element_parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		html_string_tokenizer_tokenize (e->st, (gchar *)(str + 2), " >");
 		while (html_string_tokenizer_has_more_tokens (e->st)) {
 			token = html_string_tokenizer_next_token (e->st);
-			printf ("p token: %s\n", token);
+
 			if (strncasecmp (token, "align=", 6) == 0) {
 				style = html_style_add_text_align (style, parse_halign (token + 6, HTML_HALIGN_NONE));
 			} else if (strncasecmp (token, "class=", 6) == 0) {
