@@ -657,6 +657,7 @@ menubar_set_languages (GtkHTMLControlData *cd)
 		g_string_printf (str, "/commands/SpellLanguage%d", i + 1);
 		bonobo_ui_component_set_prop (cd->uic, str->str, "state", enabled ? "1" : "0", NULL);
 	}
+	g_string_free (str, TRUE);
 	cd->block_language_changes = FALSE;
 }
 
@@ -783,6 +784,7 @@ menubar_setup (BonoboUIComponent  *uic,
 			bonobo_ui_component_set_prop (uic, pixmaps_map [i].path, "pixname", filename, NULL);
 		} else
 			g_warning ("cannot find icon: '%s' in gnome icon theme", pixmaps_map [i].stock_name);
+		g_free (filename);
 	}
 
 	spell_create_language_menu (cd);
