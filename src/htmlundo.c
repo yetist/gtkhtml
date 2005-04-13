@@ -54,6 +54,7 @@ static void html_undo_debug (HTMLUndo *undo);
 #endif
 
 static void add_used_and_redo_to_undo (HTMLUndo *undo);
+static void level_destroy (HTMLUndoData *data);
 
 inline static void
 stack_copy (HTMLUndoStack *src, HTMLUndoStack *dst)
@@ -75,7 +76,16 @@ destroy_action_list (GList *lp)
 	GList *p;
 
 	for (p = lp; p != NULL; p = p->next)
-		html_undo_action_destroy ((HTMLUndoAction *) p->data);
+		html_undo_action_destroy (HTML_UNDO_ACTION (p->data));
+}
+
+static void
+destroy_levels_list (GSList *lp)
+{
+	GSList *p;
+
+	for (p = lp; p != NULL; p = p->next)
+		level_destroy (p->data);
 }
 
 
@@ -97,6 +107,16 @@ html_undo_destroy  (HTMLUndo *undo)
 	destroy_action_list (undo->undo.stack);
 	destroy_action_list (undo->undo_used.stack);
 	destroy_action_list (undo->redo.stack);
+
+	g_list_free (undo->undo.stack);
+	g_list_free (undo->undo_used.stack);
+	g_list_free (undo->redo.stack);
+
+	destroy_levels_list (undo->undo_levels);
+	destroy_levels_list (undo->redo_levels);
+
+	g_slist_free (undo->undo_levels);
+	g_slist_free (undo->redo_levels);
 
 	g_free (undo);
 }
@@ -347,8 +367,8 @@ level_destroy (HTMLUndoData *data)
 
 	level = HTML_UNDO_LEVEL (data);
 
-	for (; level->stack.stack; level->stack.stack = level->stack.stack->next)
-		html_undo_action_destroy (HTML_UNDO_ACTION (level->stack.stack->data));
+	destroy_action_list (level->stack.stack);
+	g_list_free (level->stack.stack);
 
 	g_free (level->description [HTML_UNDO_UNDO]);
 	g_free (level->description [HTML_UNDO_REDO]);

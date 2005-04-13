@@ -450,6 +450,8 @@ gtk_html_debug_list_attrs (PangoAttrList *attrs)
 		D_ATTR_TYPE (SCALE, "Scale");
 		g_print ("------------\n");
 	} while (pango_attr_iterator_next (iter));
+
+	pango_attr_iterator_destroy (iter);
 }
 
 void

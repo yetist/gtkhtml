@@ -174,22 +174,24 @@ glyphs_destroy (GList *glyphs)
 }
 
 inline static void
-glyph_items_destroy (GList *glyph_items)
+glyph_items_destroy (GSList *glyph_items)
 {
-	GList *l;
+	GSList *l;
 
-	for (l = glyph_items; l; l = l->next->next) {
-		HTMLTextSlaveGlyphItem *gi = (HTMLTextSlaveGlyphItem *) gi;
+	for (l = glyph_items; l; l = l->next) {
+		HTMLTextSlaveGlyphItem *gi = (HTMLTextSlaveGlyphItem *) l->data;
 
 		if (gi->type == HTML_TEXT_SLAVE_GLYPH_ITEM_CREATED) {
-			pango_item_free (gi->glyph_item.item);
-			pango_glyph_string_free (gi->glyph_item.glyphs);
+			if (gi->glyph_item.item)
+				pango_item_free (gi->glyph_item.item);
+			if (gi->glyph_item.glyphs)
+				pango_glyph_string_free (gi->glyph_item.glyphs);
 			g_free (gi->widths);
 		}
 
 		g_free (gi);
 	}
-	g_list_free (glyph_items);
+	g_slist_free (glyph_items);
 }
 
 static gboolean
@@ -644,8 +646,13 @@ get_glyph_items_in_range (HTMLTextSlave *slave, HTMLPainter *painter, int start_
 		offset += item->num_chars;
 	}
 
-	if (glyph_items)
-		glyph_items = reorder_glyph_items (g_slist_reverse (glyph_items), n_items);
+	if (glyph_items) {
+		GSList *reversed;
+
+		reversed = g_slist_reverse (glyph_items);
+		glyph_items = reorder_glyph_items (reversed, n_items);
+		g_slist_free (reversed);
+	}
 
 	return glyph_items;
 }
@@ -1058,8 +1065,8 @@ static void
 clear_glyph_items (HTMLTextSlave *slave)
 {
 	if (slave->glyph_items) {
-		glyph_items_destroy (slave->glyphs);
-		slave->glyphs = NULL;
+		glyph_items_destroy (slave->glyph_items);
+		slave->glyph_items = NULL;
 	}
 }
 
@@ -1069,6 +1076,7 @@ destroy (HTMLObject *obj)
 	HTMLTextSlave *slave = HTML_TEXT_SLAVE (obj);
 
 	clear_glyphs (slave);
+	clear_glyph_items (slave);
 
 	HTML_OBJECT_CLASS (parent_class)->destroy (obj);
 }

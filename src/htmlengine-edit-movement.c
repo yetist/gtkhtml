@@ -413,6 +413,8 @@ html_engine_edit_cursor_position_save (HTMLEngine *e)
 void
 html_engine_edit_cursor_position_restore (HTMLEngine *e)
 {
+	GSList *link;
+
 	g_return_if_fail (e != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
@@ -421,6 +423,8 @@ html_engine_edit_cursor_position_restore (HTMLEngine *e)
 
 	html_engine_hide_cursor (e);
 	html_cursor_jump_to_position (e->cursor, e, GPOINTER_TO_INT (e->cursor_position_stack->data));
-	e->cursor_position_stack = g_slist_remove_link (e->cursor_position_stack, e->cursor_position_stack);
+	link = e->cursor_position_stack;
+	e->cursor_position_stack = g_slist_remove_link (e->cursor_position_stack, link);
+	g_slist_free (link);
 	html_engine_show_cursor (e);
 }

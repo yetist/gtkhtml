@@ -1,3 +1,30 @@
+2005-04-11  Radek Doulik  <rodo@novell.com>
+
+	* htmlundo.c (html_undo_destroy): destroy lists and levels as well
+	(level_destroy): use destroy_action_list
+
+	* htmltextslave.c (glyph_items_destroy): destroy only non NULL
+	glyph strings, fix list type
+	(get_glyph_items_in_range): destroy old list
+	(clear_glyph_items): cdestroy glyph items and not glyphs list
+	(destroy): destroy glyph items as well
+
+	* htmltext.c (html_text_get_attr_list_list): destroy iterator
+	(save): destroy iterator
+	(remove_one): destroy link when it's removed
+
+	* htmlinterval.c (do_downtree_lines_intersection): as below
+
+	* htmlengine-edit-movement.c
+	(html_engine_edit_cursor_position_restore): free the link once
+	it's removed
+
+	* htmlengine-edit-cut-and-paste.c (delete_object_do): destroy all
+	the lists
+	(insert_object_do): likewise
+
+	* gtkhtmldebug.c (gtk_html_debug_list_attrs): destroy iterator
+
 2005-04-06  Radek Doulik  <rodo@novell.com>
 
 	* added [un]block-selection commands. these are going to be used

@@ -898,6 +898,8 @@ html_text_get_attr_list_list (PangoAttrList *get_attrs, PangoAttrList *attr_list
 				g_slist_free (l);
 			}
 		} while (pango_attr_iterator_next (iter));
+
+		pango_attr_iterator_destroy (iter);
 	}
 }
 
@@ -1800,6 +1802,8 @@ save (HTMLObject *self, HTMLEngineSaveState *state)
 				html_text_free_attrs (attrs);
 			}
 		} while (pango_attr_iterator_next (iter));
+
+		pango_attr_iterator_destroy (iter);
 		g_slist_free (links);
 	}
 
@@ -2108,7 +2112,10 @@ static GList *
 remove_one (GList *list, GList *link)
 {
 	spell_error_destroy ((SpellError *) link->data);
-	return g_list_remove_link (list, link);
+	list = g_list_remove_link (list, link);
+	g_list_free (link);
+
+	return list;
 }
 
 static GList *

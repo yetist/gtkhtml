@@ -218,12 +218,19 @@ get_downtree_line (HTMLObject *o)
 static HTMLEngine *
 do_downtree_lines_intersection (GSList **l1, GSList **l2, HTMLEngine *e)
 {
+	GSList *link;
+
 	g_assert ((*l1)->data == (*l2)->data);
 
 	while (*l1 && *l2 && (*l1)->data == (*l2)->data) {
 		e = html_object_get_engine (HTML_OBJECT ((*l1)->data), e);
-		*l1 = g_slist_remove_link (*l1, *l1);
-		*l2 = g_slist_remove_link (*l2, *l2);
+		link = *l1;
+		*l1 = g_slist_remove_link (*l1, link);
+		g_slist_free (link);
+
+		link = *l2;
+		*l2 = g_slist_remove_link (*l2, link);
+		g_slist_free (link);
 	}
 
 	return e;

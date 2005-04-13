@@ -567,6 +567,12 @@ delete_object_do (HTMLEngine *e, HTMLObject **object, guint *len, HTMLUndoDirect
 	*object  = html_object_op_cut  (HTML_OBJECT (from->data), e, from->next, to->next, left, right, len);
 	position = e->cursor->position;
 	remove_empty_and_merge (e, TRUE, left ? left->next : NULL, right ? right->next : NULL, NULL);
+
+	g_list_free (from);
+	g_list_free (to);
+	g_list_free (left);
+	g_list_free (right);
+
 	e->cursor->position = position;
 	html_engine_spell_check_range (e, e->cursor, e->cursor);
 	html_engine_thaw (e);
@@ -875,6 +881,12 @@ insert_object_do (HTMLEngine *e, HTMLObject *obj, guint *len, gint level, guint 
 #endif
 	remove_empty_and_merge (e, TRUE, last, right, orig);
 	remove_empty_and_merge (e, TRUE, left, first, orig);
+
+	g_list_free (first);
+	g_list_free (last);
+	g_list_free (left);
+	g_list_free (right);
+
 #ifdef OP_DEBUG
 	printf ("position after merge %d\n", e->cursor->position);
 #endif
