@@ -1,4 +1,35 @@
-gtkhtml-3.5.7 "Snow white" 2004-02-28
+gtkhtml-3.7.0 "Changing guards" 2005-04-26
+------------------------------------------------
+
+New in this release
+
+   * a11y changes (Mengjie Yu)
+   * fixed crash happening when editing nested cluevs
+   * fixed infinite loop in cursor navigation
+   * fixed crash happening with invalid parsed structure
+   * fixed insertion color tracking (Mengjie Yu)
+   * introduced stress test
+   * fixed table cell parsing
+   * fixed deletion around tables
+   * fixed cursor movement around images
+   * fixed fonts zooming
+   * fixed table size editing
+   * fixed text foreground color
+   * fixed padding of table cells
+   * fixed scrolling in caret mode (Mengjie Yu)
+   * fixed cursor navigation around anchors
+   * fixed parsing of DIV blocks
+   * fixed cusror tracking in caret mode (Mengjie Yu)
+   * fixed the building process to compile on win32 (Tor Lillqvist)
+   * added [un]block selection commands
+   * cleaned up the debug prints
+   * fixed many memory leaks
+   * added more tests
+   * updated translations (Laszlo Dvornik, Abel Cheung, Baris Cicek,
+     Pawan Chitrakar, Ahmad Riza H Nst, Adam Weinberger,
+     Roozbeh Pournader, Steve Murphy, Adi Attar)
+
+gtkhtml-3.5.7 "Snow white" 2005-02-28
 ------------------------------------------------
 
 New in this release
@@ -22,7 +53,7 @@ New in this release
      Trmač, Christophe Merlet, Martin Willemoes Hansen, Ankit Patel,
      Amanpreet Singh Alamwala, Jordi Mallach, Artur Flinta)
 
-gtkhtml-3.5.6 "Winter mood" 2004-02-07
+gtkhtml-3.5.6 "Winter mood" 2005-02-07
 ------------------------------------------------
 
 New in this release
@@ -39,7 +70,7 @@ New in this release
      Frank Arnold, Pauli Virtanen, Adam Weinberger, Priit Laes,
      Miloslav Trmac)
 
-gtkhtml-3.5.5 "Try RTL" 2004-01-31
+gtkhtml-3.5.5 "Try RTL" 2005-01-31
 ------------------------------------------------
 
 New in this release
@@ -59,7 +90,7 @@ New in this release
      Miloslav Trmac, Priit Laes, Žygimantas Beručka, Christian Rose,
      Vincent van Adrighem, Funda Wang)
 
-gtkhtml-3.5.4 "Snowman" 2004-01-24
+gtkhtml-3.5.4 "Snowman" 2005-01-24
 ------------------------------------------------
 
 New in this release

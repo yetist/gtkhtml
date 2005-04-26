@@ -32,7 +32,6 @@ components/html-editor/toolbar.c
 components/html-editor/utils.c
 src/gtkhtml-properties.c
 src/gtkhtml.c
-src/html-component.c
 src/htmlbutton.c
 src/htmlengine-print.c
 src/htmlgdkpainter.c

@@ -2,3 +2,4 @@ capplet/gnome-bindings-prop.c
 capplet/gtkhtml-capplet.glade
 capplet/gtkhtml-properties.desktop.in
 capplet/main.c
+src/html-component.c
