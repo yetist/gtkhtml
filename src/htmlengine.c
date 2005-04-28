@@ -258,9 +258,20 @@ parse_element_name (const char *str)
 	return g_strndup (str, ep - str);
 }
 
+static HTMLElement *
+html_element_new (HTMLEngine *e, const char *name)
+{
+	HTMLElement *element;
+
+	element = g_new0 (HTMLElement, 1);
+	element->id = g_quark_from_string (name);
+
+
+	return element;
+}
 
 static HTMLElement *
-html_element_new (HTMLEngine *e, const char *str) {
+html_element_new_parse (HTMLEngine *e, const char *str) {
 	HTMLElement *element;
 	char *name;
 
@@ -269,9 +280,7 @@ html_element_new (HTMLEngine *e, const char *str) {
 	if (!name)
 		return NULL;
 
-	element = g_new0 (HTMLElement, 1);
-	element->id = g_quark_from_string (name);
-
+	element = html_element_new (e, name);
 	element->attributes = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
 
 	html_string_tokenizer_tokenize (e->st, str + strlen (name), " >");
@@ -400,7 +409,8 @@ html_element_parse_events (HTMLElement *node)
 static void
 html_element_free (HTMLElement *element)
 {
-	g_hash_table_destroy (element->attributes);
+	if (element->attributes)
+		g_hash_table_destroy (element->attributes);
 
 	html_style_free (element->style);
 	g_free (element);
@@ -409,20 +419,10 @@ html_element_free (HTMLElement *element)
 static void
 push_element (HTMLEngine *e, char *name, char *class, HTMLStyle *style)
 {
-	HTMLElement *element = g_new0 (HTMLElement, 1);
+	HTMLElement *element = html_element_new (e, name);
 
-	element->id = g_quark_from_string (name);
 	element->style = html_style_set_display (style, DISPLAY_INLINE);
 	html_stack_push (e->span_stack, element);
-}
-
-static void
-free_element (gpointer data)
-{
-	HTMLElement *span = data;
-
-	html_style_free (span->style);
-	g_free (span);
 }
 
 #define DI(x)
@@ -991,9 +991,8 @@ push_block_element (HTMLEngine *e,
 		    gint miscData1,
 		    gint miscData2)
 {
-	HTMLElement *element = g_new0 (HTMLElement, 1);
+	HTMLElement *element = html_element_new (e, name);
 	
-	element->id = g_quark_from_string (name);
 	element->style = html_style_set_display (style, level);
 	element->exitFunc = exitFunc;
 	element->miscData1 = miscData1;
@@ -1029,7 +1028,7 @@ remove_element (HTMLEngine *e, GList *item)
 	e->span_stack->list = g_list_remove_link (e->span_stack->list, item);
 
 	g_list_free (item);
-	free_element (elem);
+	html_element_free (elem);
 	
 	return next;
 }
@@ -1413,7 +1412,7 @@ element_parse_param (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	
 	eb = html_stack_top (e->embeddedStack);
 	
-	element = html_element_new (e, str);
+	element = html_element_new_parse (e, str);
 
 	html_element_get_attr (element, "value", &value);
 	if (html_element_get_attr (element, "name", &name) && name)
@@ -1486,7 +1485,7 @@ element_parse_object (HTMLEngine *e, HTMLObject *clue, const gchar *attr)
 	/* this might have to do something different for form object
 	   elements - check the spec MPZ */
 	
-	element = html_element_new (e, attr);
+	element = html_element_new_parse (e, attr);
 
 	if (html_element_get_attr (element, "classid", &value))
 		classid = g_strdup (value);
@@ -1582,7 +1581,7 @@ element_parse_frameset (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	if (e->allow_frameset)
 		return;
 
-	element = html_element_new (e, str);
+	element = html_element_new_parse (e, str);
 
 	if (html_element_get_attr (element, "rows", &value))
 		rows = value;
@@ -1630,7 +1629,7 @@ element_parse_iframe (HTMLEngine *e, HTMLObject *clue, const char *str)
 	HTMLHAlignType halign = HTML_HALIGN_NONE;
 	HTMLVAlignType valign = HTML_VALIGN_NONE;
 
-	element = html_element_new (e, str);
+	element = html_element_new_parse (e, str);
 
 	if (html_element_get_attr (element, "src", &value))
 		src = value;
@@ -1768,7 +1767,7 @@ element_parse_a (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	
 	pop_element (e, ID_A);
 	
-	element = html_element_new (e, str);
+	element = html_element_new_parse (e, str);
 	element->style = html_style_set_display (element->style, DISPLAY_INLINE);
 	
 	if (html_element_get_attr (element, "href", &value)) {
@@ -1864,7 +1863,7 @@ element_parse_center (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	HTMLElement *element;
 
-	element = html_element_new (e, str);
+	element = html_element_new_parse (e, str);
 	
 	element->style = html_style_set_display (element->style, DISPLAY_BLOCK);
 	element->style = html_style_add_text_align (element->style, HTML_HALIGN_CENTER);
@@ -1879,7 +1878,7 @@ element_parse_html (HTMLEngine *e, HTMLObject *clue, const char *str)
 	HTMLElement *element;
 	char *value;
 
-	element = html_element_new (e, str);
+	element = html_element_new_parse (e, str);
 	
 	if (e->parser_clue && html_element_get_attr (element, "dir", &value)) {
 		if (!strcasecmp (value, "ltr"))
@@ -1895,7 +1894,7 @@ element_parse_div (HTMLEngine *e, HTMLObject *clue, const char *str)
 	HTMLElement *element;
 	char *value;
 
-	element = html_element_new (e, str);
+	element = html_element_new_parse (e, str);
 
 	element->style = html_style_set_display (element->style, DISPLAY_BLOCK);
 
@@ -2316,7 +2315,7 @@ element_parse_frame (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	
 	src = NULL;
 
-	element = html_element_new (e, str);
+	element = html_element_new_parse (e, str);
 
 	if (html_element_get_attr (element, "src", &value))
 		src = value;
@@ -2374,7 +2373,7 @@ element_parse_hr (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	HTMLLength *len;
 	
 
-	element = html_element_new (e, str);
+	element = html_element_new_parse (e, str);
 
 	if (html_element_get_attr (element, "align", &value))
 		align = parse_halign (value, align);
@@ -2523,7 +2522,7 @@ element_parse_img (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	if (e->url != NULL || e->target != NULL)
 		border = 2;
 	
-	element = html_element_new (e, str);
+	element = html_element_new_parse (e, str);
 	
 	if (html_element_get_attr (element, "src", &value))
 		tmpurl = value;
@@ -2882,7 +2881,7 @@ element_parse_option (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	if (!e->formSelect)
 		return;
 	
-	element = html_element_new (e, str);
+	element = html_element_new_parse (e, str);
 
 	html_element_get_attr (element, "value", &value);
 	
@@ -2913,7 +2912,7 @@ element_parse_select (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	if (!e->form)
 		return;
 	
-	element = html_element_new (e, str);
+	element = html_element_new_parse (e, str);
        
 	if (html_element_get_attr (element, "name", &value))
 		name = g_strdup (value);
@@ -3043,7 +3042,7 @@ element_parse_table (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	/* see test16.html test0023.html and test0024.html */
 	/* pop_element (e, ID_A); */
 	
-	element = html_element_new (e, str);
+	element = html_element_new_parse (e, str);
 
 	if (html_element_get_attr (element, "cellpadding", &value) && value)
 		padding = atoi (value);
@@ -3184,7 +3183,7 @@ element_parse_tr (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	HTMLElement *element;
 	char *value;
 
-	element = html_element_new (e, str);
+	element = html_element_new_parse (e, str);
 	
 	if (html_element_get_attr (element, "valign", &value)) {
 		if (strncasecmp (value, "top", 3) == 0)
@@ -3277,7 +3276,7 @@ element_parse_cell (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	HTMLLength *len;
 	HTMLDirection dir = HTML_DIRECTION_DERIVED;
 	
-	element = html_element_new (e, str);
+	element = html_element_new_parse (e, str);
 
 	heading = !strcasecmp (g_quark_to_string (element->id), "th");
 	
@@ -3430,7 +3429,7 @@ element_parse_textarea (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 static void
 element_parse_big (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
-	HTMLElement *element = html_element_new (e, str);
+	HTMLElement *element = html_element_new_parse (e, str);
 
 	element->style = html_style_set_font_size (element->style, GTK_HTML_FONT_STYLE_SIZE_4);
 	element->style = html_style_set_display (element->style, DISPLAY_INLINE);
@@ -3442,7 +3441,7 @@ element_parse_big (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 static void
 element_parse_cite (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
-	HTMLElement *element = html_element_new (e, str);
+	HTMLElement *element = html_element_new_parse (e, str);
 
 	element->style = html_style_set_decoration (element->style, GTK_HTML_FONT_STYLE_ITALIC | GTK_HTML_FONT_STYLE_BOLD);
 	element->style = html_style_set_display (element->style, DISPLAY_INLINE);
@@ -3455,7 +3454,7 @@ element_parse_cite (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 static void
 element_parse_small (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
-	HTMLElement *element = html_element_new (e, str);
+	HTMLElement *element = html_element_new_parse (e, str);
 
 	element->style = html_style_set_font_size (element->style, GTK_HTML_FONT_STYLE_SIZE_2);
 	element->style = html_style_set_display (element->style, DISPLAY_INLINE);
@@ -3467,7 +3466,7 @@ element_parse_small (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 static void
 element_parse_sub (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
-	HTMLElement *element = html_element_new (e, str);
+	HTMLElement *element = html_element_new_parse (e, str);
 
 	element->style = html_style_set_decoration (element->style, GTK_HTML_FONT_STYLE_SUBSCRIPT);
 	element->style = html_style_set_display (element->style, DISPLAY_INLINE);
@@ -3479,7 +3478,7 @@ element_parse_sub (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 static void
 element_parse_sup (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
-	HTMLElement *element = html_element_new (e, str);
+	HTMLElement *element = html_element_new_parse (e, str);
 
 	element->style = html_style_set_decoration (element->style, GTK_HTML_FONT_STYLE_SUPERSCRIPT);
 	element->style = html_style_set_display (element->style, DISPLAY_INLINE);
@@ -3491,7 +3490,7 @@ element_parse_sup (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 static void
 element_parse_inline_strikeout (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
-	HTMLElement *element = html_element_new (e, str);
+	HTMLElement *element = html_element_new_parse (e, str);
 
 	element->style = html_style_set_decoration (element->style, GTK_HTML_FONT_STYLE_STRIKEOUT);
 	element->style = html_style_set_display (element->style, DISPLAY_INLINE);
@@ -3503,7 +3502,7 @@ element_parse_inline_strikeout (HTMLEngine *e, HTMLObject *clue, const gchar *st
 static void
 element_parse_u (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
-	HTMLElement *element = html_element_new (e, str);
+	HTMLElement *element = html_element_new_parse (e, str);
 
 	element->style = html_style_set_decoration (element->style, GTK_HTML_FONT_STYLE_UNDERLINE);
 	element->style = html_style_set_display (element->style, DISPLAY_INLINE);
@@ -3515,7 +3514,7 @@ element_parse_u (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 static void
 element_parse_inline_fixed (HTMLEngine *e, HTMLObject *clue, const char *str )
 {
-	HTMLElement *element = html_element_new (e, str);
+	HTMLElement *element = html_element_new_parse (e, str);
 
 	element->style = html_style_set_decoration (element->style, GTK_HTML_FONT_STYLE_FIXED);
 	element->style = html_style_set_display (element->style, DISPLAY_INLINE);
@@ -3527,7 +3526,7 @@ element_parse_inline_fixed (HTMLEngine *e, HTMLObject *clue, const char *str )
 static void
 element_parse_inline_italic (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
-	HTMLElement *element = html_element_new (e, str);
+	HTMLElement *element = html_element_new_parse (e, str);
 
 	element->style = html_style_set_decoration (element->style, GTK_HTML_FONT_STYLE_ITALIC);
 	element->style = html_style_set_display (element->style, DISPLAY_INLINE);
@@ -3539,7 +3538,7 @@ element_parse_inline_italic (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 static void
 element_parse_inline_bold (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
-	HTMLElement *element = html_element_new (e, str);
+	HTMLElement *element = html_element_new_parse (e, str);
 
 	element->style = html_style_set_decoration (element->style, GTK_HTML_FONT_STYLE_BOLD);
 	element->style = html_style_set_display (element->style, DISPLAY_INLINE);
@@ -3551,7 +3550,7 @@ element_parse_inline_bold (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 static void
 element_parse_span (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
-	HTMLElement *element = html_element_new (e, str);
+	HTMLElement *element = html_element_new_parse (e, str);
 
 	element->style = html_style_set_display (element->style, DISPLAY_INLINE);
 
@@ -3562,7 +3561,7 @@ element_parse_span (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 static void
 element_parse_font (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
-	HTMLElement *element = html_element_new (e, str);
+	HTMLElement *element = html_element_new_parse (e, str);
 	char *value;
 	
 	if (html_element_get_attr (element, "size", &value)) {
@@ -4130,7 +4129,7 @@ html_engine_init (HTMLEngine *engine)
 	engine->undo = html_undo_new ();
 
 	engine->body_stack = html_stack_new (NULL);
-	engine->span_stack = html_stack_new (free_element);
+	engine->span_stack = html_stack_new ((HTMLStackFreeFunc) html_element_free);
 	engine->clueflow_style_stack = html_stack_new (NULL);
 	engine->frame_stack = html_stack_new (NULL);
 	engine->table_stack = html_stack_new (NULL);
@@ -5688,7 +5687,7 @@ replace (HTMLEngine *e)
 gboolean
 html_engine_replace_do (HTMLEngine *e, HTMLReplaceQueryAnswer answer)
 {
-	gboolean finished;
+	gboolean finished = FALSE;
 
 	g_assert (e->replace_info);
 

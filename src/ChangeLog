@@ -1,3 +1,12 @@
+2005-04-28  Radek Doulik  <rodo@site>
+
+	* htmlengine.c: created new html_element_new constructor and
+	renamed the old one to html_element_new_parse. make all the places
+	to call new constructor instead of creating element structure
+	themselfs. all the uses of html_element_new were updated to use
+	the html_element_new_parse. removed free_element function and call
+	html_element_free destructor instead of it.
+
 2005-04-11  Radek Doulik  <rodo@novell.com>
 
 	* htmlundo.c (html_undo_destroy): destroy lists and levels as well
