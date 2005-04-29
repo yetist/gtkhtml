@@ -1,3 +1,14 @@
+2005-04-29  Radek Doulik  <rodo@site>
+
+	* htmlcluev.c (html_cluev_set_style): unref background color
+	before setting new value we get from style. fix typo where we were
+	unrefing border color twice instead of freeing background_color
+	(html_cluev_destroy): added destructor so that we unref colors we
+	got from style
+
+	* htmlengine.c (element_parse_html): free the element before
+	leaving the function
+
 2005-04-28  Radek Doulik  <rodo@site>
 
 	* htmlengine.c: created new html_element_new constructor and

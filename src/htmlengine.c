@@ -1880,11 +1880,15 @@ element_parse_html (HTMLEngine *e, HTMLObject *clue, const char *str)
 
 	element = html_element_new_parse (e, str);
 	
-	if (e->parser_clue && html_element_get_attr (element, "dir", &value)) {
-		if (!strcasecmp (value, "ltr"))
-			HTML_CLUEV (e->parser_clue)->dir = HTML_DIRECTION_LTR;
-		else if (!strcasecmp (value, "rtl"))
-			HTML_CLUEV (e->parser_clue)->dir = HTML_DIRECTION_RTL;
+	if (element) {
+		if (e->parser_clue && html_element_get_attr (element, "dir", &value)) {
+			if (!strcasecmp (value, "ltr"))
+				HTML_CLUEV (e->parser_clue)->dir = HTML_DIRECTION_LTR;
+			else if (!strcasecmp (value, "rtl"))
+				HTML_CLUEV (e->parser_clue)->dir = HTML_DIRECTION_RTL;
+		}
+
+		html_element_free (element);
 	}
 }
 

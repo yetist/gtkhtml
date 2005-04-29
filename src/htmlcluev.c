@@ -892,6 +892,22 @@ html_cluev_real_get_direction (HTMLObject *o)
 	return HTML_CLUEV (o)->dir;
 }
 
+static void
+html_cluev_destroy (HTMLObject *self)
+{
+	HTMLClueV *cluev = HTML_CLUEV (self);
+
+	if (cluev->border_color)
+		html_color_unref (cluev->border_color);
+	cluev->border_color = NULL;
+
+	if (cluev->background_color)
+		html_color_unref (cluev->background_color);
+	cluev->background_color = NULL;
+
+	(* HTML_OBJECT_CLASS (parent_class)->destroy) (self);
+}
+
 
 void
 html_cluev_type_init (void)
@@ -925,6 +941,7 @@ html_cluev_class_init (HTMLClueVClass *klass,
 	object_class->get_left_margin = get_left_margin;
 	object_class->get_right_margin = get_right_margin;
 	object_class->get_direction = html_cluev_real_get_direction;
+	object_class->destroy = html_cluev_destroy;
 
 	clue_class->get_left_clear = get_left_clear;
 	clue_class->get_right_clear = get_right_clear;
@@ -986,6 +1003,9 @@ html_cluev_set_style (HTMLClueV *cluev, HTMLStyle *style)
 		if (cluev->border_color)
 			html_color_unref (cluev->border_color);
 
+		if (cluev->background_color)
+			html_color_unref (cluev->background_color);
+
 		cluev->padding = style->padding;
 
 		cluev->border_style = style->border_style;
@@ -1001,7 +1021,7 @@ html_cluev_set_style (HTMLClueV *cluev, HTMLStyle *style)
 		if (cluev->border_color)
 			html_color_unref (cluev->border_color);
 
-		if (cluev->border_color)
+		if (cluev->background_color)
 			html_color_unref (cluev->background_color);
 
 		cluev->border_style = HTML_BORDER_NONE;
