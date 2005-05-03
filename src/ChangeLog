@@ -1,3 +1,9 @@
+2005-05-03  Radek Doulik  <rodo@site>
+
+	* gtkhtml.c (selection_get): free save buffer
+
+	* htmlengine.c (element_parse_a): free target before leaving
+
 2005-04-29  Radek Doulik  <rodo@site>
 
 	* htmlcluev.c (html_cluev_set_style): unref background color

@@ -1987,7 +1987,7 @@ selection_get (GtkWidget        *widget,
 							selection_string,
 							len);
   			
-			//html_engine_save_buffer_free (state);
+			html_engine_save_buffer_free (state);
 		}				
 	} else {
 		if (selection_object)

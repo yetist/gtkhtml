@@ -1804,6 +1804,8 @@ element_parse_a (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 					  html_anchor_new (id));
 		g_free (id);
 	}
+
+	g_free (target);
 	
 	html_element_parse_coreattrs (element);
 	
