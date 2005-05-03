@@ -1053,15 +1053,6 @@ check_point (HTMLObject *self,
 }
 
 static void
-clear_glyphs (HTMLTextSlave *slave)
-{
-	if (slave->glyphs) {
-		glyphs_destroy (slave->glyphs);
-		slave->glyphs = NULL;
-	}
-}
-
-static void
 clear_glyph_items (HTMLTextSlave *slave)
 {
 	if (slave->glyph_items) {
@@ -1075,7 +1066,6 @@ destroy (HTMLObject *obj)
 {
 	HTMLTextSlave *slave = HTML_TEXT_SLAVE (obj);
 
-	clear_glyphs (slave);
 	clear_glyph_items (slave);
 
 	HTML_OBJECT_CLASS (parent_class)->destroy (obj);
@@ -1136,7 +1126,6 @@ html_text_slave_init (HTMLTextSlave *slave,
 	slave->owner      = owner;
 	slave->charStart  = NULL;
 	slave->pi         = NULL;
-	slave->glyphs     = NULL;
 	slave->glyph_items = NULL;
 
 	/* text slaves have always min_width 0 */
@@ -1185,6 +1174,8 @@ html_text_slave_get_glyph_item_at_offset (HTMLTextSlave *slave, HTMLPainter *pai
 	HTMLTextSlave *next_slave = HTML_OBJECT (slave)->next && HTML_IS_TEXT_SLAVE (HTML_OBJECT (slave)->next) ? HTML_TEXT_SLAVE (HTML_OBJECT (slave)->next) : NULL;
 	GSList *cur;
 	int index;
+
+	prev_gi = next_gi = NULL;
 
 	index = g_utf8_offset_to_pointer (html_text_slave_get_text (slave), offset) - slave->owner->text;
 	if (index_out)

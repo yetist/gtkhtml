@@ -66,8 +66,13 @@ struct _HTMLPangoAttrFontSize {
 struct _HTMLText {
 	HTMLObject object;
 	
+	/* utf-8 encoded text */
 	gchar   *text;
+
+	/* text length in charactes */
 	guint    text_len;
+
+	/* text length in bytes */
 	guint    text_bytes;
 
 	PangoAttrList    *attr_list;

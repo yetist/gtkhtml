@@ -1,5 +1,7 @@
 2005-05-03  Radek Doulik  <rodo@site>
 
+	* htmltextslave.[ch]: removed deprecated glyphs field
+
 	* gtkhtml.c (selection_get): free save buffer
 
 	* htmlengine.c (element_parse_a): free target before leaving
