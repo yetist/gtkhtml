@@ -41,7 +41,7 @@ html_colorset_new (GtkWidget *w)
 	} else {
 		s->color [HTMLLinkColor]            = html_color_new_from_rgb (0, 0, 0xffff);
 		s->color [HTMLALinkColor]           = html_color_new_from_rgb (0, 0, 0xffff);
-		s->color [HTMLVLinkColor]           = html_color_new_from_rgb (0, 0, 0xffff);
+		s->color [HTMLVLinkColor]           = html_color_new_from_rgb (0xffff, 0, 0);
 		s->color [HTMLSpellErrorColor]      = html_color_new_from_rgb (0xffff, 0, 0);
 		s->color [HTMLBgColor]              = html_color_new_from_rgb (0xffff, 0xffff, 0xffff);
 		s->color [HTMLHighlightColor]       = html_color_new_from_rgb (0x7fff, 0x7fff, 0xffff);
@@ -181,7 +181,7 @@ html_colorset_set_style (HTMLColorSet *s, GtkWidget *w)
 	color = get_prop_color (w, "alink_color", "#0000ff", NULL);
 	SET_GCOLOR (ALink, *color);
 	gdk_color_free (color);
-	color = get_prop_color (w, "vlink_color", "#0000ff", NULL);
+	color = get_prop_color (w, "vlink_color", "#ff0000", NULL); 
 	SET_GCOLOR (VLink, *color);  
 	gdk_color_free (color);
 	color = get_prop_color (w, "spell_error_color", "#ff0000", NULL);

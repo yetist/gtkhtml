@@ -1223,7 +1223,7 @@ prepare_attrs (HTMLText *text, HTMLPainter *painter)
 	}
 
 	if (text->links && e) {
-		HTMLColor *link_color = html_colorset_get_color (e->settings->color_set, HTMLLinkColor);
+		HTMLColor *link_color;
 		GSList *l;
 
 		for (l = text->links; l; l = l->next) {
@@ -1231,6 +1231,11 @@ prepare_attrs (HTMLText *text, HTMLPainter *painter)
 			Link *link;
 
 			link = (Link *) l->data;
+
+			if(link->is_visited == 0) 
+				link_color = html_colorset_get_color (e->settings->color_set, HTMLLinkColor);
+			else 
+				link_color = html_colorset_get_color (e->settings->color_set, HTMLVLinkColor);
 			attr = pango_attr_underline_new (PANGO_UNDERLINE_SINGLE);
 			attr->start_index = link->start_index;
 			attr->end_index = link->end_index;
@@ -3720,4 +3725,29 @@ html_text_direction_pango_to_html (PangoDirection pdir)
 	default:
 		return HTML_DIRECTION_DERIVED;
 	}
+}
+
+void
+html_text_change_set (HTMLText *text, HTMLChangeFlags flags)
+{
+	HTMLObject *slave = HTML_OBJECT (text)->next;
+
+	for (; slave && HTML_IS_TEXT_SLAVE (slave) && HTML_TEXT_SLAVE (slave)->owner == text; slave = slave->next)
+		slave->change |= flags;
+
+	html_object_change_set (HTML_OBJECT (text), flags);
+}
+
+void
+html_text_set_link_visited (HTMLText *text, gint offset, HTMLEngine *engine, gboolean is_visited)
+{
+        HTMLEngine *object_engine=html_object_engine(HTML_OBJECT(text),engine); 
+        Link *link = html_text_get_link_at_offset (text,offset);
+
+	if (link) {
+                link->is_visited  = is_visited;
+                html_text_change_set (text, HTML_CHANGE_RECALC_PI);
+                html_text_queue_draw (text, object_engine, offset, 1);
+                html_engine_flush_draw_queue (object_engine);
+        }
 }

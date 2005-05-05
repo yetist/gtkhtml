@@ -41,6 +41,7 @@ struct _Link {
 	gint end_offset;
 	gchar *url;
 	gchar *target;
+	gboolean is_visited;  
 };
 
 struct _HTMLTextPangoInfoEntry {
@@ -122,6 +123,8 @@ HTMLObject       *html_text_new_with_len                 (const gchar        *te
 							  gint                len,
 							  GtkHTMLFontStyle    font_style,
 							  HTMLColor          *color);
+void              html_text_change_set                   (HTMLText           *text,
+							  HTMLChangeFlags     flags);
 void              html_text_queue_draw                   (HTMLText           *text,
 							  HTMLEngine         *engine,
 							  guint               offset,
@@ -221,6 +224,10 @@ void              html_text_add_link_full                (HTMLText           *te
 							  gint                end_index,
 							  gint                start_offset,
 							  gint                end_offset);
+void              html_text_set_link_visited 		 (HTMLText *text, 
+							  gint offset, 
+							  HTMLEngine *engine, 
+							  gboolean is_visited);
 void              html_text_remove_links                 (HTMLText           *text);
 gboolean          html_text_get_link_rectangle           (HTMLText           *text,
 							  HTMLPainter        *painter,

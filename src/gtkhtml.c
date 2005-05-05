@@ -932,6 +932,9 @@ key_press_event (GtkWidget *widget, GdkEventKey *event)
 				if (url) {
 					/* printf ("link clicked: %s\n", url); */
 					g_signal_emit (html, signals [LINK_CLICKED], 0, url);
+                                        if (HTML_IS_TEXT(focus_object)) {
+						html_text_set_link_visited (HTML_TEXT (focus_object), focus_object_offset, html->engine, TRUE);
+					}   
 					g_free (url);
 				}
 			}
@@ -1800,6 +1803,8 @@ button_release_event (GtkWidget *initial_widget,
 	GtkHTML *html;
 	HTMLEngine *engine;
 	gint x, y;
+	HTMLObject *focus_object;
+	gint focus_object_offset;
 
 	/* printf ("button_release_event\n"); */
 
@@ -1831,8 +1836,13 @@ button_release_event (GtkWidget *initial_widget,
 		html->in_selection_drag = FALSE;
 
 		if (!html->priv->dnd_in_progress
-		    && html->pointer_url != NULL && ! html->in_selection)
+		    && html->pointer_url != NULL && ! html->in_selection) {
 			g_signal_emit (widget,  signals[LINK_CLICKED], 0, html->pointer_url);
+			focus_object = html_engine_get_focus_object (html->engine, &focus_object_offset);
+			if (HTML_IS_TEXT(focus_object)) {
+				html_text_set_link_visited (HTML_TEXT(focus_object), focus_object_offset, html->engine, TRUE);
+			}   
+		}
 	}
 
 	html->in_selection = FALSE;

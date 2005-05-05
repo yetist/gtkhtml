@@ -1,3 +1,26 @@
+2005-05-04  Ganesh  <rganesan@novell.com>
+
+        * htmltext.c (html_text_set_link_visited): new function to set the
+        visited link flag
+
+        * htmltext.c (html_text_change_set): new function to set change to
+        text and all its slaves
+
+        * gtkhtml.c (key_press_event): call the html_set_link_visited function
+        to set the flag for key press (Enter key).
+
+        * gtkhtml.c (button_release_event): call the html_set_link_visited function
+        to set the flag for mouse click.
+
+        * htmlcolorset.c (html_colorset_new): set the clink color to red.
+
+        * htmlcolorset.c (html_colorset_set_style): set the vlink color to red.
+
+        * htmltext.c (prepare_attrs) : prepare the pango attribute with appropriate
+        color.
+
+        * htmltext.h : Declare new funciton and variable.
+
 2005-05-03  Radek Doulik  <rodo@site>
 
 	* htmltextslave.[ch]: removed deprecated glyphs field
