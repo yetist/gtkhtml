@@ -71,7 +71,8 @@ gboolean             html_engine_save                           (HTMLEngine     
 gboolean             html_engine_save_plain                     (HTMLEngine                *engine,
 								 HTMLEngineSaveReceiverFn   receiver,
 								 gpointer                   user_data);
-void                 html_engine_save_buffer_free               (HTMLEngineSaveState       *state);
+char                *html_engine_save_buffer_free               (HTMLEngineSaveState       *state,
+								 gboolean                   free_string);
 guchar              *html_engine_save_buffer_peek_text          (HTMLEngineSaveState       *state);
 int                  html_engine_save_buffer_peek_text_bytes    (HTMLEngineSaveState       *state);
 void                 html_engine_save_buffer_clear_line_breaks  (HTMLEngineSaveState       *state,

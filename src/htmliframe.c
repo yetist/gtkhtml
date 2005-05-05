@@ -467,10 +467,10 @@ save (HTMLObject *s,
 		    !html_engine_save_output_buffer (state,
 						     html_engine_save_buffer_peek_text (buffer),
 						     html_engine_save_buffer_peek_text_bytes (buffer))) {
-			html_engine_save_buffer_free (buffer);
+			html_engine_save_buffer_free (buffer, TRUE);
 			return FALSE;
 		}
-		html_engine_save_buffer_free (buffer);
+		html_engine_save_buffer_free (buffer, TRUE);
 	} else {
 		HTMLEngine *e = GTK_HTML (iframe->html)->engine;
 
@@ -520,10 +520,10 @@ save_plain (HTMLObject *s,
 		    !html_engine_save_output_buffer (state,
 						     html_engine_save_buffer_peek_text (buffer),
 						     html_engine_save_buffer_peek_text_bytes (buffer))) {
-			html_engine_save_buffer_free (buffer);
+			html_engine_save_buffer_free (buffer, TRUE);
 			return FALSE;
 		}
-		html_engine_save_buffer_free (buffer);
+		html_engine_save_buffer_free (buffer, TRUE);
 	}
 
 	return TRUE;

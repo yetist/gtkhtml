@@ -2111,7 +2111,7 @@ save_plain (HTMLObject *self,
 			g_string_append (out, "\n");
 		}
 	}
-	html_engine_save_buffer_free (buffer_state);
+	html_engine_save_buffer_free (buffer_state, TRUE);
 		
 	if (!html_engine_save_output_string (state, "%s", out->str)) {
 		g_string_free (out, TRUE);

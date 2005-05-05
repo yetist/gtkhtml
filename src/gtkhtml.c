@@ -1947,6 +1947,71 @@ ucs2_order (gboolean swap)
 	
 }
 
+static char *
+get_selection_string (GtkHTML *html, int *len, gboolean selection, gboolean primary, gboolean html_format, gboolean order_marker)
+{
+	HTMLObject *selection_object = NULL;
+	guint selection_object_len = 0;
+	char *selection_string = NULL;
+	gboolean free_object = FALSE;
+
+	if (selection && html_engine_is_selection_active (html->engine)) {
+		guint selection_len;
+		html_engine_copy_object (html->engine, &selection_object, &selection_len);
+		free_object = TRUE;
+	} else {
+		if (primary) {
+			if (html->engine->primary) {
+				selection_object = html->engine->primary;
+				selection_object_len = html->engine->primary_len;
+			}			
+		} else	/* CLIPBOARD */ {
+			if (html->engine->clipboard) {
+				selection_object = html->engine->clipboard;
+				selection_object_len = html->engine->clipboard_len;
+			}
+		}
+	}
+
+	if (html_format) {
+		if (selection_object) {
+			HTMLEngineSaveState *state;
+			GString *buffer;
+			
+			state = html_engine_save_buffer_new (html->engine, TRUE);
+  			buffer = (GString *)state->user_data;
+
+			if (order_marker) {
+				/* prepend a byte order marker (ZWNBSP) to the selection */
+				g_string_append_unichar (buffer, 0xfeff);
+			}
+
+       			html_object_save (selection_object, state);
+			g_string_append_unichar (buffer, 0x0000);
+
+			if (len)
+				*len = buffer->len;
+			selection_string = html_engine_save_buffer_free (state, FALSE);
+		}
+	} else {
+		if (selection_object)
+			selection_string = html_object_get_selection_string (selection_object, html->engine);
+		if (len && selection_string)
+			*len = strlen (selection_string);
+	}
+
+	if (selection_object && free_object)
+		html_object_destroy (selection_object);
+
+	return selection_string;
+}
+
+char *
+gtk_html_get_selection_html (GtkHTML *html, int *len)
+{
+	return get_selection_string (html, len, TRUE, FALSE, TRUE, FALSE);
+}
+
 static void
 selection_get (GtkWidget        *widget, 
 	       GtkSelectionData *selection_data,
@@ -1955,61 +2020,42 @@ selection_get (GtkWidget        *widget,
 {
 	GtkHTML *html;
 	gchar *selection_string = NULL;
-	HTMLObject *selection_object = NULL;
-	guint selection_object_len = 0;
 
 	g_return_if_fail (widget != NULL);
 	g_return_if_fail (GTK_IS_HTML (widget));
 	
 	html = GTK_HTML (widget);
-	if (selection_data->selection == GDK_SELECTION_PRIMARY) {
-		if (html->engine->primary) {
-			selection_object = html->engine->primary;
-			selection_object_len = html->engine->primary_len;
-		}			
-	} else	/* CLIPBOARD */ {
-  		if (html->engine->clipboard) {
-			selection_object = html->engine->clipboard;
-			selection_object_len = html->engine->clipboard_len;
-  		}
-	}
   
  	if (info == TARGET_HTML) {
-		if (selection_object) {
-			HTMLEngineSaveState *state;
-			GString *buffer;
-			gsize len;
-			
-			state = html_engine_save_buffer_new (html->engine, TRUE);
-  			buffer = (GString *)state->user_data;
+		gsize len;
+		int html_len;
+		char *html_string;
 
-			/* prepend a byte order marker (ZWNBSP) to the selection */
-			g_string_append_unichar (buffer, 0xfeff);
-			html_object_save (selection_object, state);
-			g_string_append_unichar (buffer, 0x0000);
+		html_string = get_selection_string (html, &html_len,FALSE,
+						    selection_data->selection == GDK_SELECTION_PRIMARY, TRUE, TRUE);
 
+		if (html_string) {
 			d_s(g_warning ("BUFFER = %s", buffer->str);)
-			selection_string = g_convert (buffer->str, buffer->len, "UCS-2", "UTF-8", NULL, &len, NULL);
-			
-			if (selection_string)
-  				gtk_selection_data_set (selection_data,
-							gdk_atom_intern ("text/html", FALSE), 8,
-							selection_string,
-							len);
-  			
-			html_engine_save_buffer_free (state);
-		}				
-	} else {
-		if (selection_object)
-			selection_string = html_object_get_selection_string (selection_object, html->engine);
-  		
+			selection_string = g_convert (html_string, html_len, "UCS-2", "UTF-8", NULL, &len, NULL);
+		}
+
 		if (selection_string)
-			gtk_selection_data_set_text (selection_data, selection_string, strlen (selection_string));
-		
+			gtk_selection_data_set (selection_data,
+						gdk_atom_intern ("text/html", FALSE), 8,
+						selection_string,
+						len);
+
+		g_free (html_string);
+	} else {
+		int len;
+		selection_string = get_selection_string (html, &len, FALSE,
+							 selection_data->selection == GDK_SELECTION_PRIMARY, FALSE, FALSE);
+
+		if (selection_string)
+			gtk_selection_data_set_text (selection_data, selection_string, len);
 	}
 
 	g_free (selection_string);
-
 }
 
 static gchar *
@@ -4694,6 +4740,10 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		break;
 	case GTK_HTML_COMMAND_UNBLOCK_SELECTION:
 		html_engine_unblock_selection (html->engine);
+		break;
+
+	case GTK_HTML_COMMAND_IS_SELECTION_ACTIVE:
+		rv = html_engine_is_selection_active (html->engine);
 		break;
 
 	default:

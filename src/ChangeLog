@@ -1,3 +1,19 @@
+2005-05-05  Radek Doulik  <rodo@novell.com>
+
+	* htmlengine-save.c (html_engine_save_buffer_free): make it
+	possible to get the buffer string from freed buffer, for that pass
+	FALSE as string_free. it works similar to g_string_free
+
+	* gtkhtml-enums.h: added GTK_HTML_COMMAND_IS_SELECTION_ACTIVE
+
+	* gtkhtml-properties.c: added GTK_HTML_COMMAND_IS_SELECTION_ACTIVE
+
+	* gtkhtml.c: added GTK_HTML_COMMAND_IS_SELECTION_ACTIVE
+	(get_selection_string): new helper function to get selection
+	string for text/html or text/plain
+	(gtk_html_get_selection_html): new method to get text/html
+	selection from gtkhtml
+
 2005-05-04  Ganesh  <rganesan@novell.com>
 
         * htmltext.c (html_text_set_link_visited): new function to set the
@@ -21,7 +37,7 @@
 
         * htmltext.h : Declare new funciton and variable.
 
-2005-05-03  Radek Doulik  <rodo@site>
+2005-05-03  Radek Doulik  <rodo@novell.com>
 
 	* htmltextslave.[ch]: removed deprecated glyphs field
 
@@ -29,7 +45,7 @@
 
 	* htmlengine.c (element_parse_a): free target before leaving
 
-2005-04-29  Radek Doulik  <rodo@site>
+2005-04-29  Radek Doulik  <rodo@novell.com>
 
 	* htmlcluev.c (html_cluev_set_style): unref background color
 	before setting new value we get from style. fix typo where we were
@@ -40,7 +56,7 @@
 	* htmlengine.c (element_parse_html): free the element before
 	leaving the function
 
-2005-04-28  Radek Doulik  <rodo@site>
+2005-04-28  Radek Doulik  <rodo@novell.com>
 
 	* htmlengine.c: created new html_element_new constructor and
 	renamed the old one to html_element_new_parse. make all the places

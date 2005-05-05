@@ -393,17 +393,22 @@ html_engine_save_buffer_receiver (const HTMLEngine *engine,
 	return TRUE;
 }
 	
-void
-html_engine_save_buffer_free (HTMLEngineSaveState *state)
+char *
+html_engine_save_buffer_free (HTMLEngineSaveState *state, gboolean free_string)
 {
 	GString *string;
+	char *rv = NULL;
 
-	g_return_if_fail (state != NULL);
+	g_return_val_if_fail (state != NULL, NULL);
 	string = (GString *)state->user_data;
 
-	g_string_free (string, TRUE);
+	if (!free_string)
+		rv = string->str;
+	g_string_free (string, free_string);
 
 	g_free (state);
+
+	return rv;
 }
 
 guchar *
