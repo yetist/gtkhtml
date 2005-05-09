@@ -294,7 +294,8 @@ Link     *html_link_new                 (gchar *url,
 					 guint  start_index,
 					 guint  end_index,
 					 gint   start_offset,
-					 gint   end_offset);
+					 gint   end_offset,
+					 gboolean is_visited);
 Link     *html_link_dup                 (Link  *link);
 void      html_link_free                (Link  *link);
 gboolean  html_link_equal               (Link  *l1,

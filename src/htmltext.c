@@ -1232,7 +1232,7 @@ prepare_attrs (HTMLText *text, HTMLPainter *painter)
 
 			link = (Link *) l->data;
 
-			if(link->is_visited == 0) 
+			if(link->is_visited == FALSE) 
 				link_color = html_colorset_get_color (e->settings->color_set, HTMLLinkColor);
 			else 
 				link_color = html_colorset_get_color (e->settings->color_set, HTMLVLinkColor);
@@ -3072,7 +3072,7 @@ html_text_append (HTMLText *text, const gchar *str, gint len)
 void
 html_text_append_link_full (HTMLText *text, gchar *url, gchar *target, gint start_index, gint end_index, gint start_offset, gint end_offset)
 {
-	text->links = g_slist_prepend (text->links, html_link_new (url, target, start_index, end_index, start_offset, end_offset));
+	text->links = g_slist_prepend (text->links, html_link_new (url, target, start_index, end_index, start_offset, end_offset, FALSE));
 }
 
 static void
@@ -3102,7 +3102,7 @@ html_text_add_link_full (HTMLText *text, HTMLEngine *e, gchar *url, gchar *targe
 	if (text->links == NULL)
 		html_text_append_link_full (text, url, target, start_index, end_index, start_offset, end_offset);
 	else {
-		Link *plink = NULL, *new_link = html_link_new (url, target, start_index, end_index, start_offset, end_offset);
+		Link *plink = NULL, *new_link = html_link_new (url, target, start_index, end_index, start_offset, end_offset, FALSE);
 
 		for (l = text->links; new_link && l; l = l->next) {
 			link = (Link *) l->data;
@@ -3318,6 +3318,7 @@ html_link_dup (Link *l)
 	nl->end_offset = l->end_offset;
 	nl->start_index = l->start_index;
 	nl->end_index = l->end_index;
+	nl->is_visited = l->is_visited;
 
 	return nl;
 }
@@ -3340,7 +3341,7 @@ html_link_equal (Link *l1, Link *l2)
 }
 
 Link *
-html_link_new (gchar *url, gchar *target, guint start_index, guint end_index, gint start_offset, gint end_offset)
+html_link_new (gchar *url, gchar *target, guint start_index, guint end_index, gint start_offset, gint end_offset, gboolean is_visited)
 {
 	Link *link = g_new0 (Link, 1);
 
@@ -3350,6 +3351,7 @@ html_link_new (gchar *url, gchar *target, guint start_index, guint end_index, gi
 	link->end_offset = end_offset;
 	link->start_index = start_index;
 	link->end_index = end_index;
+	link->is_visited = is_visited;
 
 	return link;
 }
