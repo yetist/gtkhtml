@@ -342,18 +342,23 @@ delete_column_undo_action (HTMLEngine *e, HTMLUndoData *undo_data, HTMLUndoDirec
 	HTMLTable *table;
 
 	table = html_engine_get_table (e);
+	if (!table) {
+		html_cursor_jump_to_position (e->cursor, e, position_after + 1);
+		table = html_engine_get_table (e);
+	}
+	g_assert (table);
 	g_assert (data->size == table->totalRows);
 	html_table_insert_column (table, e, data->pos, data->cells, html_undo_direction_reverse (dir));
 }
 
 static void
-delete_column_setup_undo (HTMLEngine *e, HTMLTableCell **column, gint size, guint position_before, gint col, HTMLUndoDirection dir)
+delete_column_setup_undo (HTMLEngine *e, HTMLTableCell **column, gint size, guint position_after, gint col, HTMLUndoDirection dir)
 {
 	html_undo_add_action (e->undo,
 			      html_undo_action_new ("Delete table column", delete_column_undo_action,
 						    HTML_UNDO_DATA (delete_cells_undo_new (column, size, col)),
 						    html_cursor_get_position (e->cursor),
-						    position_before), dir);
+						    position_after), dir);
 }
 
 static void
@@ -375,7 +380,7 @@ html_table_delete_column (HTMLTable *t, HTMLEngine *e, gint col, HTMLUndoDirecti
 	HTMLTableCell *cell;
 	HTMLPoint pos;
 	gint r, c;
-	guint position_before;
+	guint position_after;
 
 	/* this command is valid only in table and when this table has > 1 column */
 	if (!t || t->totalCols < 2)
@@ -383,7 +388,6 @@ html_table_delete_column (HTMLTable *t, HTMLEngine *e, gint col, HTMLUndoDirecti
 
 	html_engine_freeze (e);
 
-	position_before = e->cursor->position;
 	column = g_new0 (HTMLTableCell *, t->totalRows);
 
 	backward_before_col (e, t, col);
@@ -413,7 +417,8 @@ html_table_delete_column (HTMLTable *t, HTMLEngine *e, gint col, HTMLUndoDirecti
 	}
 
 	html_cursor_jump_to (e->cursor, e, pos.object, pos.offset);
-	delete_column_setup_undo (e, column, t->totalRows, position_before, col, dir);
+	position_after = e->cursor->position;
+	delete_column_setup_undo (e, column, t->totalRows, position_after, col, dir);
 	t->totalCols --;
 
 	html_object_change_set (HTML_OBJECT (t), HTML_CHANGE_ALL_CALC);
@@ -544,19 +549,24 @@ delete_row_undo_action (HTMLEngine *e, HTMLUndoData *undo_data, HTMLUndoDirectio
 	HTMLTable *table;
 
 	table = html_engine_get_table (e);
+	if (!table) {
+		html_cursor_jump_to_position (e->cursor, e, position_after + 1);
+		table = html_engine_get_table (e);
+	}
+	g_assert (table);
 	g_assert (data->size == table->totalCols);
 	html_table_insert_row (table, e, data->pos, data->cells, html_undo_direction_reverse (dir));
 }
 
 static void
-delete_row_setup_undo (HTMLEngine *e, HTMLTableCell **row_cells, gint size, guint position_before,
+delete_row_setup_undo (HTMLEngine *e, HTMLTableCell **row_cells, gint size, guint position_after,
 		       gint row, HTMLUndoDirection dir)
 {
 	html_undo_add_action (e->undo,
 			      html_undo_action_new ("Delete table row", delete_row_undo_action,
 						    HTML_UNDO_DATA (delete_cells_undo_new (row_cells, size, row)),
 						    html_cursor_get_position (e->cursor),
-						    position_before), dir);
+						    position_after), dir);
 }
 
 static void
@@ -578,7 +588,7 @@ html_table_delete_row (HTMLTable *t, HTMLEngine *e, gint row, HTMLUndoDirection 
 	HTMLTableCell *cell;
 	HTMLPoint pos;
 	gint r, c;
-	guint position_before;
+	guint position_after;
 
 	/* this command is valid only in table and when this table has > 1 row */
 	if (!t || t->totalRows < 2)
@@ -586,7 +596,6 @@ html_table_delete_row (HTMLTable *t, HTMLEngine *e, gint row, HTMLUndoDirection 
 
 	html_engine_freeze (e);
 
-	position_before = e->cursor->position;
 	row_cells = g_new0 (HTMLTableCell *, t->totalCols);
 
 	backward_before_row (e, t, row);
@@ -617,7 +626,8 @@ html_table_delete_row (HTMLTable *t, HTMLEngine *e, gint row, HTMLUndoDirection 
 
 	html_cursor_jump_to (e->cursor, e, pos.object, pos.offset);
 	t->totalRows --;
-	delete_row_setup_undo (e, row_cells, t->totalCols, position_before, row, dir);
+	position_after = e->cursor->position;
+	delete_row_setup_undo (e, row_cells, t->totalCols, position_after, row, dir);
 	html_object_change_set (HTML_OBJECT (t), HTML_CHANGE_ALL_CALC);
 	html_engine_queue_draw (e, HTML_OBJECT (t));
 	html_engine_thaw (e);

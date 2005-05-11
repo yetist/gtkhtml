@@ -1,3 +1,13 @@
+2005-05-11  Mengjie Yu  <meng-jie.yu@sun.com>
+
+	* htmlengine-edit-table.c: (delete_column_undo_action),
+	(delete_column_setup_undo), (html_table_delete_column),
+	(delete_row_undo_action), (delete_row_setup_undo),
+	(html_table_delete_row):
+	Make sure we can get right table object before Undo.
+
+	Fixes #303449
+
 2005-05-04  Ganesh  <rganesan@novell.com>
 	* htmltext.c (prepare_attrs): checking for FALSE instead of 0
 
