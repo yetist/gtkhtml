@@ -29,7 +29,7 @@
 #include "html.h"
 #include "image.h"
 
-#include <glib/gi18n.h>
+#include <glib/gi18n-lib.h>
 
 static void html_a11y_image_class_init    (HTMLA11YImageClass *klass);
 static void html_a11y_image_init          (HTMLA11YImage *a11y_image);

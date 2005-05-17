@@ -1,3 +1,14 @@
+2005-05-13  Changwoo Ryu  <cwryu@debian.org>
+
+	* Makefile.am (INCLUDES): use I18N_LIB_CFLAGS.
+	* html.c: include <glib/gi18n-lib.h> instead of <glib/gi18n.h> to
+	specify the translation domain explicitly.
+	* object.c: likewise.
+	* image.c: likewise.
+	* text.c: likewise.
+
+	Fixes #301120
+
 2005-04-07  Tor Lillqvist  <tml@novell.com>
 
 	* utils.c: Remove inclusion of now nonexistent link.h.
