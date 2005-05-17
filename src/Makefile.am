@@ -24,91 +24,16 @@ libgtkhtmldir = $(includedir)/libgtkhtml-@GTKHTML_API_VERSION@/gtkhtml
 # FIXME not all the stuff should be installed!
 
 libgtkhtml_HEADERS =				\
-	gtkhtml-compat.h			\
 	gtkhtml-embedded.h			\
 	gtkhtml-enums.h				\
-	gtkhtml-private.h			\
 	gtkhtml-properties.h			\
 	gtkhtml-search.h			\
 	gtkhtml-stream.h			\
 	gtkhtml-types.h				\
 	gtkhtml.h				\
-	gtkhtmldebug.h				\
-	gtkhtmlfontstyle.h			\
-	htmlanchor.h				\
-	htmlbutton.h				\
-	htmlcheckbox.h				\
-	htmlclue.h				\
-	htmlcluealigned.h			\
-	htmlclueflow.h				\
-	htmlclueh.h				\
-	htmlcluev.h				\
-	htmlcolor.h				\
-	htmlcolorset.h				\
-	htmlcursor.h				\
-	htmldrawqueue.h				\
-	htmlembedded.h				\
-	htmlengine-edit.h			\
-	htmlengine-edit-clueflowstyle.h		\
-	htmlengine-edit-cursor.h		\
-	htmlengine-edit-cut-and-paste.h         \
-	htmlengine-edit-fontstyle.h		\
-	htmlengine-edit-images.h		\
-	htmlengine-edit-movement.h		\
-	htmlengine-edit-rule.h			\
-	htmlengine-edit-selection-updater.h	\
-	htmlengine-edit-table.h			\
-	htmlengine-edit-tablecell.h		\
-	htmlengine-edit-text.h			\
-	htmlengine-print.h			\
-	htmlengine-save.h			\
-	htmlengine-search.h			\
-	htmlengine.h				\
-	htmlentity.h				\
-	htmlenums.h				\
-	htmlenumutils.h				\
-	htmlfontmanager.h			\
-	htmlform.h				\
-	htmlgdkpainter.h			\
-	htmlplainpainter.h			\
-	htmlhidden.h				\
-	htmlimage.h				\
-	htmlimageinput.h			\
-	htmlinterval.h				\
-	htmllist.h				\
-	htmlmap.h				\
-	htmlmarshal.h				\
-	htmlobject.h				\
-	htmlpainter.h				\
-	htmlprinter.h				\
-	htmlradio.h				\
-	htmlrule.h				\
-	htmlsearch.h				\
-	htmlreplace.h				\
-	htmlselect.h				\
-	htmlselection.h				\
-	htmlsettings.h				\
-	htmlshape.h				\
-	htmlstack.h				\
-	htmlstringtokenizer.h			\
-	htmlstyle.h				\
-	htmltable.h				\
-	htmltablepriv.h				\
-	htmltablecell.h				\
-	htmltext.h				\
-	htmltextarea.h				\
-	htmltextinput.h				\
-	htmltextslave.h				\
-	htmltokenizer.h				\
-	htmltype.h				\
 	htmltypes.h				\
-	htmlundo.h				\
-	htmlundo-action.h			\
-	gtkhtml-keybinding.h			\
-	htmliframe.h				\
-	htmlframe.h				\
-	htmlframeset.h				\
-	htmlengine-edit-table.h			\
+	htmlenums.h				\
+	htmltokenizer.h				\
 	$(NULL)
 
 libgtkhtml_3_8_la_SOURCES =			\
@@ -188,6 +113,81 @@ libgtkhtml_3_8_la_SOURCES =			\
 	htmliframe.c				\
 	htmlframe.c				\
 	htmlframeset.c				\
+	gtkhtml-compat.h			\
+	gtkhtml-keybinding.h			\
+	gtkhtml-private.h			\
+	gtkhtmldebug.h				\
+	gtkhtmlfontstyle.h			\
+	htmlanchor.h				\
+	htmlbutton.h				\
+	htmlcheckbox.h				\
+	htmlclue.h				\
+	htmlcluealigned.h			\
+	htmlclueflow.h				\
+	htmlclueh.h				\
+	htmlcluev.h				\
+	htmlcolor.h				\
+	htmlcolorset.h				\
+	htmlcursor.h				\
+	htmldrawqueue.h				\
+	htmlembedded.h				\
+	htmlengine-edit.h			\
+	htmlengine-edit-clueflowstyle.h		\
+	htmlengine-edit-cursor.h		\
+	htmlengine-edit-cut-and-paste.h         \
+	htmlengine-edit-fontstyle.h		\
+	htmlengine-edit-images.h		\
+	htmlengine-edit-movement.h		\
+	htmlengine-edit-rule.h			\
+	htmlengine-edit-selection-updater.h	\
+	htmlengine-edit-table.h			\
+	htmlengine-edit-tablecell.h		\
+	htmlengine-edit-text.h			\
+	htmlengine-print.h			\
+	htmlengine-save.h			\
+	htmlengine-search.h			\
+	htmlengine.h				\
+	htmlentity.h				\
+	htmlenumutils.h				\
+	htmlfontmanager.h			\
+	htmlform.h				\
+	htmlgdkpainter.h			\
+	htmlplainpainter.h			\
+	htmlhidden.h				\
+	htmlimage.h				\
+	htmlimageinput.h			\
+	htmlinterval.h				\
+	htmllist.h				\
+	htmlmap.h				\
+	htmlmarshal.h				\
+	htmlobject.h				\
+	htmlpainter.h				\
+	htmlprinter.h				\
+	htmlradio.h				\
+	htmlrule.h				\
+	htmlsearch.h				\
+	htmlreplace.h				\
+	htmlselect.h				\
+	htmlselection.h				\
+	htmlsettings.h				\
+	htmlshape.h				\
+	htmlstack.h				\
+	htmlstringtokenizer.h			\
+	htmlstyle.h				\
+	htmltable.h				\
+	htmltablepriv.h				\
+	htmltablecell.h				\
+	htmltext.h				\
+	htmltextarea.h				\
+	htmltextinput.h				\
+	htmltextslave.h				\
+	htmltype.h				\
+	htmlundo.h				\
+	htmlundo-action.h			\
+	htmliframe.h				\
+	htmlframe.h				\
+	htmlframeset.h				\
+	htmlengine-edit-table.h			\
 	$(NULL)
 
 libgtkhtml_3_8_la_LDFLAGS = -version-info $(GTKHTML_CURRENT):$(GTKHTML_REVISION):$(GTKHTML_AGE) -no-undefined

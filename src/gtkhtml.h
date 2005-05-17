@@ -314,6 +314,12 @@ void                       gtk_html_set_images_blocking           (GtkHTML      
 								   gboolean                   block);
 gboolean                   gtk_html_has_undo                      (GtkHTML                   *html);
 void                       gtk_html_drop_undo                     (GtkHTML                   *html);
+char *                     gtk_html_get_url_at                    (GtkHTML                   *html,
+								   int                        x,
+								   int                        y);
+char *                     gtk_html_get_cursor_url                (GtkHTML                   *html);
+void                       gtk_html_set_tokenizer                 (GtkHTML                   *html,
+								   HTMLTokenizer             *tokenizer);
 
 /* DEPRECATED */
 #if 1
@@ -329,6 +335,7 @@ gboolean                   gtk_html_save                          (GtkHTML      
 GtkHTMLStream             *gtk_html_begin_content                 (GtkHTML                   *html,
 								   gchar                     *content_type);
 void                       gtk_html_drag_dest_set                 (GtkHTML                   *html);
+
 #endif
 
 #endif /* _GTKHTML_H_ */

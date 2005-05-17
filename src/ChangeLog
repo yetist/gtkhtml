@@ -1,3 +1,15 @@
+2005-05-17  Radek Doulik  <rodo@novell.com>
+
+	* gtkhtml.c (gtk_html_get_url_at): new helper function to get url
+	at given position
+	(gtk_html_get_cursor_url): new helper function to get url of
+	cursor/focus object
+	(gtk_html_set_tokenizer): new helper function to set tokenizer for
+	gtkhtml widget
+
+	* Makefile.am: moved private .h files to sources so that they
+	don't get installed
+
 2005-05-11  Mengjie Yu  <meng-jie.yu@sun.com>
 
 	* htmlengine-edit-table.c: (delete_column_undo_action),

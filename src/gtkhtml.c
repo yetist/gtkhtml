@@ -5871,3 +5871,47 @@ gtk_html_get_object_id_at (GtkHTML *html, int x, int y)
 
 	return id;
 }
+
+char *
+gtk_html_get_url_at (GtkHTML *html, int x, int y)
+{
+	HTMLObject *obj;
+	int offset;
+
+	g_return_val_if_fail (GTK_IS_HTML (html), NULL);
+
+	obj = html_engine_get_object_at (html->engine, x, y, &offset, FALSE);
+
+	if (obj)
+		return gtk_html_get_url_object_relative (html, obj, html_object_get_url (obj, offset));
+
+	return NULL;
+}
+
+char *
+gtk_html_get_cursor_url (GtkHTML *html)
+{
+	HTMLObject *obj;
+	int offset;
+
+	g_return_val_if_fail (GTK_IS_HTML (html), NULL);
+
+	if (html->engine->caret_mode) {
+		obj = html->engine->cursor->object;
+		offset = html->engine->cursor->offset;
+	} else
+		obj = html_engine_get_focus_object (html->engine, &offset);
+
+	if (obj)
+		return gtk_html_get_url_object_relative (html, obj, html_object_get_url (obj, offset));
+
+	return NULL;
+}
+
+void
+gtk_html_set_tokenizer (GtkHTML *html, HTMLTokenizer *tokenizer)
+{
+	g_return_if_fail (GTK_IS_HTML (html));
+
+	html_engine_set_tokenizer (html->engine, tokenizer);
+}
