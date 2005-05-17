@@ -22,7 +22,7 @@
 */
 
 #include <config.h>
-#include <glib/gi18n.h>
+#include <glib/gi18n-lib.h>
 #include "htmlcolor.h"
 #include "htmlcolorset.h"
 #include "htmlengine-save.h"

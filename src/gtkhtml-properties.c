@@ -23,7 +23,7 @@ Boston, MA 02111-1307, USA.
 #include <config.h>
 #include <string.h>
 #include <locale.h>
-#include <glib/gi18n.h>
+#include <glib/gi18n-lib.h>
 #include "gtkhtml.h"
 #include "gtkhtml-properties.h"
 #include "htmlfontmanager.h"

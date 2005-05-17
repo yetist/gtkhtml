@@ -6,6 +6,7 @@ INCLUDES = 				\
 	-I$(includedir)			\
 	$(GTKHTML_CFLAGS)		\
 	$(SOUP_CFLAGS)			\
+	$(I18N_LIB_CFLAGS)		\
 	-DG_LOG_DOMAIN=\"gtkhtml\"	\
 	-DSRCDIR=\"$(srcdir)\"		\
 	-DPREFIX=\"$(prefix)\"

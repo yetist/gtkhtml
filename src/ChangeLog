@@ -1,3 +1,18 @@
+2005-05-17  Changwoo Ryu  <cwryu@debian.org>
+
+	* Makefile.am (INCLUDES): use I18N_LIB_CFLAGS.
+	* htmlgdkpainter.c: include <glib/gi18n-lib.h> instead of
+	<glib/gi18n.h> to specify the translation domain explicitly.
+	* htmlengine-print.c: likewise.
+	* htmlbutton.c: likewise.
+	* html-component.c: likewise.
+	* htmlembedded.c: likewise.
+	* htmlrule.c: likewise.
+	* gtkhtml-properties.c: likewise.
+	* gtkhtml.c: likewise.
+
+	Fixes #301120.
+
 2005-05-17  Radek Doulik  <rodo@novell.com>
 
 	* gtkhtml.c (gtk_html_get_url_at): new helper function to get url

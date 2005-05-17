@@ -25,7 +25,7 @@
 #include "htmlbutton.h"
 #include "htmlform.h"
 #include <string.h>
-#include <glib/gi18n.h>
+#include <glib/gi18n-lib.h>
 
 HTMLButtonClass html_button_class;
 

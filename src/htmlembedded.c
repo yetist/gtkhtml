@@ -25,7 +25,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <gtk/gtksignal.h>
-#include <glib/gi18n.h>
+#include <glib/gi18n-lib.h>
 #include "gtkhtml.h"
 #include "gtkhtml-embedded.h"
 #include "htmlembedded.h"

@@ -27,7 +27,7 @@
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <gtk/gtkwidget.h>
 #include <gtk/gtk.h>
-#include <glib/gi18n.h>
+#include <glib/gi18n-lib.h>
 #include <string.h>
 
 #include <gnome.h>

@@ -21,7 +21,7 @@
 
 #include <config.h>
 #include <gtk/gtk.h>
-#include <glib/gi18n.h>
+#include <glib/gi18n-lib.h>
 #include <libgnomeui/gnome-dialog-util.h>
 #include "gtkhtml.h"
 #include "gtkhtml-private.h"
