@@ -1,4 +1,12 @@
 gtkhtml-3.7.0 "Changing guards" 2005-04-26
+-----------------------------------------------
+
+New in this release
+
+   * Fixed a table crash on undo
+   * Added visited link change of color feature.
+   * Cleaned up cluev and text slave code and made it more organized.
+gtkhtml-3.7.0 "Changing guards" 2005-04-26
 ------------------------------------------------
 
 New in this release
