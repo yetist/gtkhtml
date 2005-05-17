@@ -21,7 +21,11 @@
 */
 
 #include <config.h>
+#ifdef GNOME_GTKHTML_EDITOR_SHLIB
+#include <glib/gi18n-lib.h>
+#else
 #include <glib/gi18n.h>
+#endif
 #include "htmlengine-edit-clueflowstyle.h"
 #include "htmlengine-save.h"
 #include "htmlselection.h"

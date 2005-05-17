@@ -24,7 +24,11 @@
 #include <config.h>
 #endif
 
+#ifdef GNOME_GTKHTML_EDITOR_SHLIB
+#include <glib/gi18n-lib.h>
+#else
 #include <glib/gi18n.h>
+#endif
 #include <string.h>
 #include "gtkhtml.h"
 #include "gtkhtml-private.h"

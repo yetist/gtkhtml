@@ -35,7 +35,11 @@
 #include <libgnomecanvas/gnome-canvas.h>
 #include <libgnomecanvas/gnome-canvas-pixbuf.h>
 #include <libgnomecanvas/gnome-canvas-rect-ellipse.h>
+#ifdef GNOME_GTKHTML_EDITOR_SHLIB
+#include <glib/gi18n-lib.h>
+#else
 #include <glib/gi18n.h>
+#endif
 #include "htmlmarshal.h"
 #include "gi-colors.h"
 #include "gi-color-combo.h"

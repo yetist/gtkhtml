@@ -22,7 +22,11 @@
 
 
 #include <config.h>
+#ifdef GNOME_GTKHTML_EDITOR_SHLIB
+#include <glib/gi18n-lib.h>
+#else
 #include <glib/gi18n.h>
+#endif
 #include <libgnomeui/gnome-window-icon.h>
 #include "dialog.h"
 #include "properties.h"

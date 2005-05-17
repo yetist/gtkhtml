@@ -39,7 +39,11 @@
 #include <gtk/gtktearoffmenuitem.h>
 #include <gdk/gdkkeysyms.h>
 #include <gdk/gdkcursor.h>
+#ifdef GNOME_GTKHTML_EDITOR_SHLIB
+#include <glib/gi18n-lib.h>
+#else
 #include <glib/gi18n.h>
+#endif
 #include "gi-combo-box.h"
 #include "gi-utils.h"
 #include "htmlmarshal.h"

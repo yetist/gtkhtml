@@ -32,7 +32,11 @@
 #include <gtk/gtklabel.h>
 #include <gtk/gtksignal.h>
 #include <gtk/gtktable.h>
+#ifdef GNOME_GTKHTML_EDITOR_SHLIB
+#include <glib/gi18n-lib.h>
+#else
 #include <glib/gi18n.h>
+#endif
 #include <libgnomecanvas/gnome-canvas.h>
 #include <libgnomecanvas/gnome-canvas-rect-ellipse.h>
 #include <gdk/gdkcolor.h>

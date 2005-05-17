@@ -2,7 +2,11 @@
 #include <config.h>
 #endif
 
+#ifdef GNOME_GTKHTML_EDITOR_SHLIB
+#include <glib/gi18n-lib.h>
+#else
 #include <glib/gi18n.h>
+#endif
 #include <string.h>
 #include <gnome.h>
 #include <bonobo.h>
@@ -60,6 +64,7 @@ main (int argc, char **argv)
 #endif
 
 	/* Initialize the i18n support */
+	textdomain (GETTEXT_PACKAGE);
 	bindtextdomain (GETTEXT_PACKAGE, GNOMELOCALEDIR);
 	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 

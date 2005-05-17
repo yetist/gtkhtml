@@ -28,7 +28,11 @@
 #endif
 
 #include <bonobo/bonobo-shlib-factory.h>
+#ifdef GNOME_GTKHTML_EDITOR_SHLIB
+#include <glib/gi18n-lib.h>
+#else
 #include <glib/gi18n.h>
+#endif
 
 #include "editor-control-factory.h"
 

@@ -5,7 +5,13 @@ gtkhtml_data = $(datadir)/gtkhtml-@GTKHTML_API_VERSION@
 gladedir = $(gtkhtml_data)
 glade_DATA = gtkhtml-editor-properties.glade
 
-INCLUDES = -I$(top_srcdir)/src -I$(srcdir) -I$(includedir) $(GTKHTML_CFLAGS) $(SOUP_CFLAGS) \
+if EDITOR_SHLIB
+EDITOR_I18N_CFLAGS = $(I18N_LIB_CFLAGS)
+else
+EDITOR_I18N_CFLAGS =
+endif
+
+INCLUDES = -I$(top_srcdir)/src -I$(srcdir) -I$(includedir) $(GTKHTML_CFLAGS) $(SOUP_CFLAGS) $(EDITOR_I18N_CFLAGS) \
 	-DG_LOG_DOMAIN=\"gtkhtml\" \
 	-DSRCDIR=\"$(srcdir)\" \
 	-DPREFIX=\"$(prefix)\"

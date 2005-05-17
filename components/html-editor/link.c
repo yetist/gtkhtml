@@ -22,7 +22,11 @@
 
 #include <config.h>
 #include <string.h>
+#ifdef GNOME_GTKHTML_EDITOR_SHLIB
+#include <glib/gi18n-lib.h>
+#else
 #include <glib/gi18n.h>
+#endif
 #include <glade/glade.h>
 
 #include "htmlcolor.h"
@@ -177,7 +181,7 @@ link_widget (GtkHTMLEditLinkProperties *d, gboolean insert)
 	GtkWidget *link_page, *button;
 	GladeXML *xml;
 
-	xml = glade_xml_new (GLADE_DATADIR "/gtkhtml-editor-properties.glade", "link_page", NULL);
+	xml = glade_xml_new (GLADE_DATADIR "/gtkhtml-editor-properties.glade", "link_page", GETTEXT_PACKAGE);
 	if (!xml)
 		g_error (_("Could not load glade file."));
 

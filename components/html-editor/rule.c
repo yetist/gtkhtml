@@ -21,7 +21,11 @@
 */
 
 #include <config.h>
+#ifdef GNOME_GTKHTML_EDITOR_SHLIB
+#include <glib/gi18n-lib.h>
+#else
 #include <glib/gi18n.h>
+#endif
 #include <string.h>
 #include <glade/glade.h>
 
@@ -169,7 +173,7 @@ rule_widget (GtkHTMLEditRuleProperties *d, gboolean insert)
 	GtkWidget *rule_page;
 	GladeXML *xml;
 
-	xml = glade_xml_new (GLADE_DATADIR "/gtkhtml-editor-properties.glade", "rule_page", NULL);
+	xml = glade_xml_new (GLADE_DATADIR "/gtkhtml-editor-properties.glade", "rule_page", GETTEXT_PACKAGE);
 	if (!xml)
 		g_error (_("Could not load glade file."));
 

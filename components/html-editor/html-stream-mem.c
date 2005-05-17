@@ -8,7 +8,11 @@
  * Copyright 2001, Ximian, Inc.
  */
 #include <config.h>
+#ifdef GNOME_GTKHTML_EDITOR_SHLIB
+#include <glib/gi18n-lib.h>
+#else
 #include <glib/gi18n.h>
+#endif
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <gtk/gtk.h>

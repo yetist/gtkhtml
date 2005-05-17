@@ -19,7 +19,11 @@
  */
 
 #include <config.h>
+#ifdef GNOME_GTKHTML_EDITOR_SHLIB
+#include <glib/gi18n-lib.h>
+#else
 #include <glib/gi18n.h>
+#endif
 #include <ctype.h>
 #include <stdio.h>
 #include <string.h>
