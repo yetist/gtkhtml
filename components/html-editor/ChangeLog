@@ -1,3 +1,53 @@
+2005-05-17  Changwoo Ryu  <cwryu@debian.org>
+
+	* Makefile.am (EDITOR_I18N_CFLAGS): if the component type is
+	shlib, then use I18N_LIB_CFLAGS.
+
+	* link.c (link_widget): specify the translation domain of the
+	glade file.
+	* rule.c (rule_widget): likewise.
+
+	* dialog.c: if the component type is shlib, then include
+	<glib/gi18n-lib.h> instead of <glib/gi18n.h> to specify the
+	translation domain explicitly.
+	* utils.c: likewise.
+	* gnome-gtkhtml-editor.c: likewise.
+	* toolbar.c: likewise.
+	* editor-control-shlib.c: likewise.
+	* spellchecker.c: likewise.
+	* paragraph.c: likewise.
+	* engine.c: likewise.
+	* persist-file.c: likewise.
+	* rule.c: likewise.
+	* image.c: likewise.
+	* e-html-utils.c: likewise.
+	* text.c: likewise.
+	* menubar.c: likewise.
+	* persist-file-impl.c: likewise.
+	* gi-color-combo.c: likewise.
+	* html-stream-mem.c: likewise.
+	* htmlsourceview.c: likewise.
+	* persist-stream.c: likewise.
+	* table.c: likewise.
+	* resolver.c: likewise.
+	* popup.c: likewise.
+	* template.c: likewise.
+	* cell.c: likewise.
+	* persist-stream-impl.c: likewise.
+	* test-html-editor-control.c: likewise.
+	* search.c: likewise.
+	* resolver-progressive-impl.c: likewise.
+	* gi-color-palette.c: likewise.
+	* editor-control-factory.c: likewise.
+	* replace.c: likewise.
+	* gi-combo-box.c: likewise.
+	* control-data.c: likewise.
+	* properties.c: likewise.
+	* body.c: likewise.
+	* link.c: likewise.
+
+	Fixes #301120
+
 2005-04-11  Radek Doulik  <rodo@novell.com>
 
 	* menubar.c (menubar_set_languages): free str when we don't need
