@@ -1,3 +1,9 @@
+2005-05-19  Changwoo Ryu  <rganesan@novell.com>
+        * htmlclueflow.c: function search_text(..) pass a non negative value to 
+          g_utf8_offset_to_pointer call.
+        * htmlsearch.c  : function html_search_new (..)Set the cursor position
+          to 0 if it is negative.               
+
 2005-05-17  Changwoo Ryu  <cwryu@debian.org>
 
 	* Makefile.am (INCLUDES): use I18N_LIB_CFLAGS.

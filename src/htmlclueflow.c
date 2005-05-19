@@ -2251,7 +2251,10 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 		/* set eq_bytes and pos counters */
 		eq_bytes = 0;
 		if (info->found) {
-			index = ((guchar *)g_utf8_offset_to_pointer (par, info->start_pos + ((info->forward) ? 1 : -1))) - par;
+                	if (info->start_pos > 0)
+	                        index = ((guchar *)g_utf8_offset_to_pointer (par, info->start_pos + ((info->forward) ? 1 : -1))) - par;
+			else
+				index = ((guchar *)g_utf8_offset_to_pointer (par, info->start_pos + ((info->forward) ? 1 : 0))) - par;
 		} else {
 			index = (info->forward) ? 0 : text_bytes - 1;
 		}
