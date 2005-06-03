@@ -76,8 +76,12 @@
 #include <libgnome/gnome-util.h>
 
 enum DndTargetType {
+	DND_TARGET_TYPE_MESSAGE_RFC822,
+	DND_TARGET_TYPE_X_UID_LIST,	
 	DND_TARGET_TYPE_TEXT_URI_LIST,
 	DND_TARGET_TYPE_MOZILLA_URL,
+	DND_TARGET_TYPE_TEXT_VCARD,
+	DND_TARGET_TYPE_TEXT_CALENDAR,
 	DND_TARGET_TYPE_TEXT_HTML,
 	DND_TARGET_TYPE_UTF8_STRING,
 	DND_TARGET_TYPE_TEXT_PLAIN,
@@ -85,8 +89,12 @@ enum DndTargetType {
 };
 
 static GtkTargetEntry dnd_link_sources [] = {
+	{ "message/rfc822", 0, DND_TARGET_TYPE_MESSAGE_RFC822 },
+	{ "x-uid-list", 0, DND_TARGET_TYPE_X_UID_LIST },
 	{ "text/uri-list", 0, DND_TARGET_TYPE_TEXT_URI_LIST },
-	{ "text/x-moz-url", 0, DND_TARGET_TYPE_MOZILLA_URL },
+	{ "_NETSCAPE_URL", 0, DND_TARGET_TYPE_MOZILLA_URL },
+	{ "text/x-vcard", 0, DND_TARGET_TYPE_TEXT_VCARD },
+	{ "text/calendar", 0, DND_TARGET_TYPE_TEXT_CALENDAR },
 	{ "text/html", 0, DND_TARGET_TYPE_TEXT_HTML },
 	{ "UTF8_STRING", 0, DND_TARGET_TYPE_UTF8_STRING },
 	{ "text/plain", 0, DND_TARGET_TYPE_TEXT_PLAIN },
@@ -2161,6 +2169,7 @@ selection_received (GtkWidget *widget,
 	    && (selection_data->type != GDK_SELECTION_TYPE_STRING)
 	    && (selection_data->type != gdk_atom_intern ("COMPOUND_TEXT", FALSE))
 	    && (selection_data->type != gdk_atom_intern ("TEXT", FALSE))
+	    && (selection_data->type != gdk_atom_intern ("text/plain", FALSE))
 	    && (selection_data->type != gdk_atom_intern ("text/html", FALSE))) {
 		g_warning ("Selection \"STRING\" was not returned as strings!\n");
 	} else if (selection_data->length > 0) {
@@ -2657,62 +2666,8 @@ drag_data_received (GtkWidget *widget, GdkDragContext *context,
 		selection_received (widget, selection_data, time);
 		pasted = TRUE;
 		break;
-	case DND_TARGET_TYPE_MOZILLA_URL  : {
-		HTMLObject *obj;
-		char *utf8, *title;
-				
-		/* MOZ_URL is in UCS-2 but in format 8. BROKEN!
-		 *
-		 * The data contains the URL, a \n, then the
-		 * title of the web page.
-		 */
-
-		if (selection_data->format != 8 ||
-		    selection_data->length == 0 ||
-		    (selection_data->length % 2) != 0) {
-		    	g_printerr (_("Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"),
-				selection_data->format,
-				selection_data->length);
-			/* get out of the switch */
-			break;
-		}
-
-		utf8 = ucs2_to_utf8_with_bom_check (selection_data->data, selection_data->length);
-		title = strchr (utf8, '\n');
-		if (title) {
-			*title = 0;
-			title ++;
-		}
-
-		html_undo_level_begin (engine->undo, "Dropped URI(s)", "Remove Dropped URI(s)");
-
-		obj = new_obj_from_uri (engine, utf8, (HTML_IS_PLAIN_PAINTER (engine->painter) && context->action <= GDK_ACTION_COPY) ? utf8 : title, -1);
-		if (obj) {
-			html_engine_paste_object (engine, obj, html_object_get_length (obj));
-			pasted = TRUE;
-		}
-		html_undo_level_end (engine->undo);
-		g_free (utf8);
-	}
-	break;
-
-	case DND_TARGET_TYPE_TEXT_URI_LIST: {
-		HTMLObject *obj;
-		gint list_len, len;
-		gchar *uri;
-
-		html_undo_level_begin (engine->undo, "Dropped URI(s)", "Remove Dropped URI(s)");
-		list_len = selection_data->length;
-		do {
-			uri = next_uri (&selection_data->data, &len, &list_len);
-			obj = new_obj_from_uri (engine, uri, NULL, -1);
-			if (obj) {
-				html_engine_paste_object (engine, obj, html_object_get_length (obj));
-				pasted = TRUE;
-			}
-		} while (list_len);
-		html_undo_level_end (engine->undo);
-	}
+	case DND_TARGET_TYPE_MOZILLA_URL  : 
+	case DND_TARGET_TYPE_TEXT_URI_LIST: 
 	break;
 	}
 	gtk_drag_finish (context, pasted, FALSE, time);

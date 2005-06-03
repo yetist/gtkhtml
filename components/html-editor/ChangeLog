@@ -1,3 +1,9 @@
+2005-06-03  Srinivasa Ragavan <sragavan@novell.com>
+
+	* engine.c (editor_engine_new): Added the GtkHTML widget to the engine as a data to the
+	object, so that it can be fetched at the evolution side for
+	DnD support.
+
 2005-05-17  Changwoo Ryu  <cwryu@debian.org>
 
 	* Makefile.am (EDITOR_I18N_CFLAGS): if the component type is

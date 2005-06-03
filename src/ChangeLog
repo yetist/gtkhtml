@@ -1,3 +1,8 @@
+2005-05-03  Srinivasa Ragavan <sragavan@novell.com>
+	* gtkhtml.c (selection_received), (drag_data_received):
+	  Added code to support DnD of evolution mail, contacts, caldendar,
+	  tasks.
+
 2005-05-19  Changwoo Ryu  <rganesan@novell.com>
         * htmlclueflow.c: function search_text(..) pass a non negative value to 
           g_utf8_offset_to_pointer call.
