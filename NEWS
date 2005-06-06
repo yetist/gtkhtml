@@ -1,4 +1,14 @@
-gtkhtml-3.7.0 "Changing guards" 2005-04-26
+
+gtkhtml-3.7.2 "Changing guards" 2005-06-06
+-----------------------------------------------
+
+New in this release
+   * Public API cleanup (Rodo)
+   * Fixed translation issues (Changwoo Ryu bug #301120)
+   * Fixed Find/Replace crash
+   * Enhaced DnD support (sragavan)
+
+gtkhtml-3.7.1 "Changing guards" 2005-05-18
 -----------------------------------------------
 
 New in this release
