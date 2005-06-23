@@ -1,0 +1,1978 @@
+# GtkHTML in Welsh/yn Gymraeg (cy).
+# This file is distributed under the same license as the GtkHTML package.
+# Rhys Jones <rhys@sgwarnog.com>, 2005.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gtkhtml\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-06-23 23:17+0100\n"
+"PO-Revision-Date: 2005-06-23 17:13-0000\n"
+"Last-Translator: Rhys Jones <rhys@sgwarnog.com>\n"
+"Language-Team: Cymraeg <gnome-cy@pengwyn.linux.org.uk>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../a11y/image.c:150
+#, c-format
+msgid "URL is %s, Alternative Text is %s"
+msgstr "LAU yw %s, Testun Amgen yw %s"
+
+#: ../a11y/image.c:152
+#, c-format
+msgid "URL is %s"
+msgstr "LAU yw %s"
+
+#: ../a11y/object.c:52 ../a11y/object.c:61 ../a11y/text.c:122
+msgid "grab focus"
+msgstr "cipio ffocws"
+
+#: ../a11y/object.c:258
+msgid "Panel containing HTML"
+msgstr "Panel yn cynnwys HTML"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:1
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
+msgid "+0"
+msgstr "+0"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:2
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:2
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:5
+msgid "+1"
+msgstr "+1"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:3
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:3
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:6
+msgid "+2"
+msgstr "+2"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:4
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:4
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:7
+msgid "+3"
+msgstr "+3"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:5
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:5
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:9
+msgid "-1"
+msgstr "-1"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:6
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:6
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:10
+msgid "-2"
+msgstr "-2"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:7
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:7
+msgid "A_ddress"
+msgstr "_Cyfeiriad"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:8
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:8
+#: ../components/html-editor/toolbar.c:57
+msgid "Alphabetical List"
+msgstr "Rhestr trefn yr wyddor"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:9
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:9
+msgid "Background Color"
+msgstr "Lliw Cefndir"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:10
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:10
+msgid "Blue"
+msgstr "Glas"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:11
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:11
+#: ../components/html-editor/toolbar.c:54
+msgid "Bulleted List"
+msgstr "Rhestr Fwledig"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:12
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
+#: ../components/html-editor/toolbar.c:527
+msgid "Center justifies the paragraphs"
+msgstr "Canol unioni'r paragraffau"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:13
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:13
+msgid "Check spelling of the document"
+msgstr "Gwirio sillafu'r ddogfen"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:14
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:14
+msgid "Copy"
+msgstr "Copïo"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:15
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:15
+msgid "Copy selection to clipboard"
+msgstr "Copïo'r dewis i'r clipfwrdd"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:16
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:16
+msgid "Copy the selection"
+msgstr "Copïo'r dewis"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:17
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:17
+msgid "Cr_ying"
+msgstr "_Crio"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:18
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:18
+msgid "Cu_t"
+msgstr "_Torri"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:19
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:19
+msgid "Cut"
+msgstr "Torri"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:20
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:20
+msgid "Cut selection to clipboard"
+msgstr "Torri'r dewis i'r clipfwrdd"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:21
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:21
+msgid "Cut the selection"
+msgstr "Torri'r dewis"
+
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
+#: ../components/html-editor/search.c:111
+#: ../components/html-editor/search.c:171
+msgid "Find"
+msgstr "Canfod"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:23
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:23
+msgid "Find And Replace"
+msgstr "Canfod ac Amnewid"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:24
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:24
+msgid "Find _Again"
+msgstr "Canfod _Eto"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:25
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:25
+msgid "Find again"
+msgstr "Canfod eto"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:26
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:26
+msgid "Find and Replace"
+msgstr "Canfod ac Amnewid"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:27
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:27
+msgid "For_mat"
+msgstr "_Fformat"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:28
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:28
+msgid "Green"
+msgstr "Gwyrdd"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:29
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:29
+msgid "Header _1"
+msgstr "Pennawd _1"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:30
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:30
+msgid "Header _2"
+msgstr "Pennawd _2"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:31
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:31
+msgid "Header _3"
+msgstr "Pennawd _3"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:32
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:32
+msgid "Header _4"
+msgstr "Pennawd _4"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:33
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:33
+msgid "Header _5"
+msgstr "Pennawd _5"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:34
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:34
+msgid "Header _6"
+msgstr "Pennawd _6"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:35
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
+#: ../components/html-editor/editor-control-factory.c:193
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:37
+#: ../components/html-editor/popup.c:211
+msgid "Image"
+msgstr "Delwedd"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:36
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
+msgid "Insert Crying smiley into document..."
+msgstr "Rhoi gwenoglun Crio mewn i'r ddogfen..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:37
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
+msgid "Insert Frown smiley into document..."
+msgstr "Rhoi gwenoglun Gwgu mewn i'r ddogfen..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:38
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
+msgid "Insert HTML file into document..."
+msgstr "Rhoi ffeil HTML mewn i'r ddogfen..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:39
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
+msgid "Insert HTML link into document..."
+msgstr "Rhoi cyswllt HTML mewn i'r ddogfen..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:40
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:40
+msgid "Insert HTML template into document..."
+msgstr "Rhoi templed HTML mewn i'r ddogfen..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:41
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
+msgid "Insert Indifferent smiley into document..."
+msgstr "Rhoi gwenoglun Difater mewn i'r ddogfen..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:42
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
+msgid "Insert Laughing smiley into document..."
+msgstr "Rhoi gwenoglun Chwerthin mewn i'r ddogfen..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:43
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
+msgid "Insert Lick smiley into document..."
+msgstr "Rhoi gwenoglun Llyfu mewn i'r ddogfen..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:44
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
+msgid "Insert Oh no! smiley into document..."
+msgstr "Rhoi gwenoglun O Na! mewn i'r ddogfen..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:45
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
+msgid "Insert Smile smiley into document..."
+msgstr "Rhoi gwenoglun Gwenu mewn i'r ddogfen..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:46
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
+msgid "Insert Surprised smiley into document..."
+msgstr "Rhoi gwenoglun Syndod mewn i'r ddogfen..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:47
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
+msgid "Insert Undecided smiley into document..."
+msgstr "Rhoi gwenoglun Heb Benderfynu mewn i'r ddogfen..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:48
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
+msgid "Insert Wink smiley into document..."
+msgstr "Rhoi gwenoglun Wincio mewn i'r ddogfen..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:49
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
+msgid "Insert image into document..."
+msgstr "Rhoi delwedd mewn i'r ddogfen..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:50
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
+msgid "Insert rule into document..."
+msgstr "Rhoi riwl mewn i'r ddogfen..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:51
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:52
+msgid "Insert table into document..."
+msgstr "Rhoi tabl mewn i'r ddogfen..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:52
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:53
+msgid "Insert text file into document..."
+msgstr "Rhoi ffeil destun mewn i'r ddogfen..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:53
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
+#: ../components/html-editor/toolbar.c:525
+msgid "Left justifies the paragraphs"
+msgstr "Chwith unioni'r paragraffau"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:54
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
+msgid "Li_ck"
+msgstr "_Llyfu"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
+#: ../components/html-editor/menubar.c:140
+#: ../components/html-editor/popup.c:110 ../components/html-editor/popup.c:205
+#: ../components/html-editor/popup.c:271
+msgid "Link"
+msgstr "Cyswllt"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:56
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
+msgid "Make the current Paragraph style Normal"
+msgstr "Gwneud y paragraff cyfredol yn arddull Normal"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:57
+msgid "Make the current Paragraph style Preformat"
+msgstr "Gwneud y paragraff cyfredol yn arddull Rhagfformat"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:58
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
+msgid "Make the current paragraph a bulleted list"
+msgstr "Gwneud y paragraff cyfredol yn rhestr fwledig"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:59
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
+msgid "Make the current paragraph a list with roman numerals"
+msgstr "Gwneud y paragraff cyfredol yn rhestr â rhifolion Rhufeinig"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:60
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
+msgid "Make the current paragraph a numbered list"
+msgstr "Gwneud y paragraff cyfredol yn rhestr wedi rhifo"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:61
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
+msgid "Make the current paragraph an H1 header"
+msgstr "Gwneud y paragraff cyfredol yn bennawd H1"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:62
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:63
+msgid "Make the current paragraph an H2 header"
+msgstr "Gwneud y paragraff cyfredol yn bennawd H2"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:63
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:64
+msgid "Make the current paragraph an H3 header"
+msgstr "Gwneud y paragraff cyfredol yn bennawd H3"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:64
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:65
+msgid "Make the current paragraph an H4 header"
+msgstr "Gwneud y paragraff cyfredol yn bennawd H4"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:65
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:66
+msgid "Make the current paragraph an H5 header"
+msgstr "Gwneud y paragraff cyfredol yn bennawd H5"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:66
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:67
+msgid "Make the current paragraph an H6 header"
+msgstr "Gwneud y paragraff cyfredol yn bennawd H6"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:67
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:68
+msgid "Make the current paragraph an address"
+msgstr "Gwneud y paragraff cyfredol yn gyfeiriad"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:68
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:69
+msgid "Make the current paragraph an alphabetical list"
+msgstr "Gwneud y paragraff cyfredol yn rhestr trefn yr wyddor"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:69
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:70
+#: ../components/html-editor/paragraph.c:87
+#: ../components/html-editor/toolbar.c:52
+msgid "Normal"
+msgstr "Normal"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:70
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
+#: ../components/html-editor/toolbar.c:55
+msgid "Numbered List"
+msgstr "Rhestr wedi Rhifo"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:71
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
+msgid "Numbered _List"
+msgstr "Rhestr wedi _Rhifo"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:72
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
+msgid "Oh _no!"
+msgstr "O _na!"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:73
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
+msgid "Orange"
+msgstr "Oren"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:74
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:75
+msgid "Other..."
+msgstr "Arall..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:75
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
+msgid "Paste"
+msgstr "Gludo"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:76
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
+msgid "Paste _Quotation"
+msgstr "Gludo _Dyfyniad"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:77
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
+msgid "Paste from clipboard"
+msgstr "Gludo o'r clipfwrdd"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:78
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
+msgid "Paste the clipboard"
+msgstr "Gludo'r clipfwrdd"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:79
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
+msgid "Paste the clipboard as a quotation"
+msgstr "Gludo'r clipfwrdd fel dyfyniad"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:80
+#: ../components/html-editor/toolbar.c:53
+msgid "Preformat"
+msgstr "Eisoes wedi fformatio"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:81
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
+msgid "Purple"
+msgstr "Porffor"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:82
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
+msgid "Red"
+msgstr "Coch"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:83
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
+msgid "Redo"
+msgstr "Ail-wneud"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:84
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
+msgid "Redo previously undone change"
+msgstr "Ail-wneud y newid gafodd ei ddadwneud"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:85
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
+msgid "Redo the undone action"
+msgstr "Ail-wneud y weithred gafodd ei dadwneud"
+
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
+#: ../components/html-editor/replace.c:167
+#: ../components/html-editor/replace.c:231
+msgid "Replace"
+msgstr "Amnewid"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:87
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
+#: ../components/html-editor/toolbar.c:529
+msgid "Right justifies the paragraphs"
+msgstr "Dde unioni'r paragraffau"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:88
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
+msgid "Roman Numeral List"
+msgstr "Rhestr â Rhifolion Rhufeinig"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:89
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
+#: ../components/html-editor/editor-control-factory.c:211
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:48
+#: ../components/html-editor/menubar.c:159
+#: ../components/html-editor/popup.c:229
+msgid "Rule"
+msgstr "Llinell"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:90
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
+msgid "Select _All"
+msgstr "Dewis y _Cyfan"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:91
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
+msgid "Select the entire contents of the document"
+msgstr "Dewis holl gynnwys y ddogfen"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:92
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
+#: ../components/html-editor/toolbar.c:557
+msgid "Strikeout"
+msgstr "Taro Allan"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:93
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
+msgid "Su_perscript"
+msgstr "_Uwchysgrif"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:94
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
+msgid "Su_rprised"
+msgstr "_Syndod"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:95
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
+msgid "Subs_cript"
+msgstr "_Isysgrif"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:96
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
+msgid "Subscript"
+msgstr "Isysgrif"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:97
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
+msgid "Superscript"
+msgstr "Uwchysgrif"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:52
+#: ../components/html-editor/menubar.c:180
+#: ../components/html-editor/popup.c:235 ../components/html-editor/popup.c:505
+#: ../components/html-editor/popup.c:517
+msgid "Table"
+msgstr "Tabl"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:99
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
+msgid "Te_mplate..."
+msgstr "_Templed..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:100
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
+msgid "Te_xt file..."
+msgstr "Ffeil _destun..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:101
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
+#: ../components/html-editor/toolbar.c:549
+msgid "Typewriter"
+msgstr "Teipiadur"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:102
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
+msgid "Undo"
+msgstr "Datwneud"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:103
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
+msgid "Undo previous changes"
+msgstr "Datwneud newidiadau blaenorol"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:104
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
+msgid "Undo the last action"
+msgstr "Datwneud y weithred ddiweddaraf"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:105
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
+msgid "Yellow"
+msgstr "Melyn"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:106
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
+msgid "_Alignment"
+msgstr "_Aliniad"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:107
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
+msgid "_Alphabetical List"
+msgstr "_Rhestr Trefn y Wyddor"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:108
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:60
+msgid "_Bold"
+msgstr "_Bras"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:109
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
+msgid "_Bulleted List"
+msgstr "_Rhestr Fwledig"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
+msgid "_Center"
+msgstr "_Canoli"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:111
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
+msgid "_Copy"
+msgstr "_Copïo"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:112
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
+msgid "_Decrease Indent"
+msgstr "_Lleihau Mewnoliad"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:113
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
+msgid "_Edit"
+msgstr "_Golygu"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:114
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
+msgid "_Find..."
+msgstr "_Canfod..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:115
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
+msgid "_Font Size"
+msgstr "_Maint Ffont"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:116
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
+msgid "_Frown"
+msgstr "_Gwgu"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:117
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
+msgid "_HTML file..."
+msgstr "_Ffeil HTML..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:118
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
+msgid "_Heading"
+msgstr "_Pennawd"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:119
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
+msgid "_Image..."
+msgstr "_Delwedd..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:120
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
+msgid "_Increase Indent"
+msgstr "_Cynyddu Mewnoliad"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:121
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
+msgid "_Indifferent"
+msgstr "_Difater"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:122
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
+msgid "_Insert"
+msgstr "_Mewnosod"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:123
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:67
+msgid "_Italic"
+msgstr "_Italig"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
+msgid "_Laughing"
+msgstr "_Chwerthin"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:125
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:127
+msgid "_Left"
+msgstr "_Chwith"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:126
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:128
+msgid "_Link..."
+msgstr "_Cyswllt..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:127
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
+msgid "_Normal"
+msgstr "_Normal"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:128
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
+msgid "_Page..."
+msgstr "_Tudalen..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:129
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
+msgid "_Paragraph..."
+msgstr "_Paragraff..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:130
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
+msgid "_Paste"
+msgstr "_Gludo"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:131
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:133
+msgid "_Plain text"
+msgstr "_Testun plaen"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:132
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:134
+msgid "_Preformat"
+msgstr "_Eisoes wedi fformatio"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:133
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
+msgid "_Redo"
+msgstr "_Ail-wneud"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:134
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
+msgid "_Replace..."
+msgstr "_Amnewid..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:135
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
+msgid "_Right"
+msgstr "_Dde"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:136
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
+msgid "_Roman Numeral List"
+msgstr "_Rhestr â Rhifolion Rhufeinig"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:137
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:139
+msgid "_Rule..."
+msgstr "_Llinell..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:138
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:140
+msgid "_Smile"
+msgstr "_Gwenu"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:139
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:141
+msgid "_Smiley"
+msgstr "_Gwenoglun"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:140
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:142
+msgid "_Spell Check Document..."
+msgstr "_Gwirio Sillafu'r Ddogfen..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:141
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:143
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:73
+msgid "_Strikeout"
+msgstr "_Taro Drwodd"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:142
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:144
+msgid "_Style"
+msgstr "_Arddull"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:143
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:145
+msgid "_Table..."
+msgstr "_Tabl..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:144
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:146
+msgid "_Text..."
+msgstr "_Testun..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:145
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:147
+msgid "_Undecided"
+msgstr "_Heb Benderfynu"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:146
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:148
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:76
+msgid "_Underline"
+msgstr "_Tanlinellu"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:147
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:149
+msgid "_Undo"
+msgstr "_Datwneud"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:148
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:150
+msgid "_Wink"
+msgstr "_Wincio"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:149
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:152
+msgid "etc..."
+msgstr "a.y.b..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:1
+msgid "GNOME HTML Editor"
+msgstr "Golygydd HTML GNOME"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:2
+msgid "GNOME HTML Editor Control"
+msgstr "Rheolydd Golygu HTML GNOME"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:3
+msgid "GNOME HTML Editor Factory"
+msgstr "Ffatri Golygu HTML GNOME"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
+msgid "Insert Sick smiley into document..."
+msgstr "Rhoi gwenoglun Gwael i mewn i'r ddogfen..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:58
+msgid "Make the current Paragraph style Preformatted"
+msgstr "Gwneud y paragraff cyfredol yn arddull Wedi'i fformatio"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
+#: ../components/html-editor/paragraph.c:106
+msgid "Preformatted"
+msgstr "Wedi'i fformatio"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
+msgid "S_ick"
+msgstr "G_wael"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:151
+msgid "_Wrap Lines"
+msgstr "Am_lapio Llinellau"
+
+#: ../components/html-editor/body.c:63
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:42
+msgid "None"
+msgstr "Dim"
+
+#: ../components/html-editor/body.c:71
+msgid "Perforated Paper"
+msgstr "Papur Tyllog"
+
+#: ../components/html-editor/body.c:79
+msgid "Blue Ink"
+msgstr "Inc Glas"
+
+#: ../components/html-editor/body.c:87
+msgid "Paper"
+msgstr "Papur"
+
+#: ../components/html-editor/body.c:95
+msgid "Ribbon"
+msgstr "Rhuban"
+
+#: ../components/html-editor/body.c:103
+msgid "Midnight"
+msgstr "Hanner Nos"
+
+#: ../components/html-editor/body.c:111
+msgid "Confidential"
+msgstr "Cyfrinachol"
+
+#: ../components/html-editor/body.c:119
+msgid "Draft"
+msgstr "Drafft"
+
+#: ../components/html-editor/body.c:127
+msgid "Graph paper"
+msgstr "Papur graff"
+
+#: ../components/html-editor/body.c:247
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:53
+#: ../components/html-editor/menubar.c:202
+msgid "Template"
+msgstr "Templed"
+
+#: ../components/html-editor/body.c:251
+msgid "T_emplate:"
+msgstr "_Templed:"
+
+#. data->entry_title = gtk_entry_new ();
+#. if (gtk_html_get_title (data->cd->html)) {
+#. gtk_entry_set_text (GTK_ENTRY (data->entry_title),
+#. gtk_html_get_title (data->cd->html));
+#. }
+#. g_signal_connect (data->entry_title, "changed", G_CALLBACK (entry_changed), data);
+#. editor_hig_attach_row (t1, _("T_itle:"), data->entry_title, 1);
+#: ../components/html-editor/body.c:261
+#: ../components/html-editor/paragraph.c:116
+msgid "General"
+msgstr "Cyffredinol"
+
+#: ../components/html-editor/body.c:272 ../components/html-editor/text.c:166
+#: ../components/html-editor/toolbar.c:312
+msgid "Automatic"
+msgstr "Awtomatig"
+
+#: ../components/html-editor/body.c:284
+msgid "_Text:"
+msgstr "_Testun:"
+
+#: ../components/html-editor/body.c:285
+msgid "_Link:"
+msgstr "_Cyswllt:"
+
+#: ../components/html-editor/body.c:286
+msgid "_Background:"
+msgstr "_Cefndir:"
+
+#: ../components/html-editor/body.c:288
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:30
+msgid "Colors"
+msgstr "Lliwiau"
+
+#: ../components/html-editor/body.c:290 ../components/html-editor/body.c:307
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:23
+msgid "Background Image"
+msgstr "Delwedd Gefndir"
+
+#: ../components/html-editor/body.c:302
+msgid "Background Image File Path"
+msgstr "Llwybr Ffeil Delwedd Gefndir"
+
+#: ../components/html-editor/body.c:305
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:71
+msgid "_Source:"
+msgstr "_Ffynhonnell:"
+
+#: ../components/html-editor/cell.c:337 ../components/html-editor/image.c:354
+#: ../components/html-editor/link.c:186 ../components/html-editor/rule.c:178
+#: ../components/html-editor/table.c:226
+#: ../components/html-editor/template.c:275
+#: ../components/html-editor/text.c:163
+msgid "Could not load glade file."
+msgstr "Methu llwytho ffeil glade."
+
+#: ../components/html-editor/cell.c:354 ../components/html-editor/table.c:237
+msgid "Transparent"
+msgstr "Tryloyw"
+
+#: ../components/html-editor/editor-control-factory.c:182
+#: ../components/html-editor/menubar.c:358
+#: ../components/html-editor/menubar.c:376
+#: ../components/html-editor/menubar.c:394
+#: ../components/html-editor/popup.c:190 ../components/html-editor/popup.c:268
+msgid "Properties"
+msgstr "Priodweddau"
+
+#: ../components/html-editor/editor-control-factory.c:201
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:54
+#: ../components/html-editor/menubar.c:380
+#: ../components/html-editor/popup.c:199
+msgid "Text"
+msgstr "Testun"
+
+#: ../components/html-editor/editor-control-factory.c:220
+#: ../components/html-editor/menubar.c:398
+#: ../components/html-editor/popup.c:217
+msgid "Paragraph"
+msgstr "Paragraff"
+
+#: ../components/html-editor/editor-control-factory.c:224
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:43
+#: ../components/html-editor/menubar.c:362
+#: ../components/html-editor/popup.c:223
+msgid "Page"
+msgstr "Tudalen"
+
+#: ../components/html-editor/gi-color-combo.c:191
+msgid "color preview"
+msgstr "rhagolwg lliw"
+
+#. This is the default custom color
+#: ../components/html-editor/gi-color-palette.c:399
+msgid "custom"
+msgstr "addasedig"
+
+#. "Custom" color - we'll pop up a GnomeColorPicker
+#: ../components/html-editor/gi-color-palette.c:441
+msgid "Custom Color:"
+msgstr "Addasu Lliw:"
+
+#: ../components/html-editor/gi-color-palette.c:449
+msgid "Choose Custom Color"
+msgstr "Dewis Lliw Addasedig:"
+
+#: ../components/html-editor/gi-color-palette.c:582
+msgid "black"
+msgstr "du"
+
+#: ../components/html-editor/gi-color-palette.c:583
+msgid "light brown"
+msgstr "brown golau"
+
+#: ../components/html-editor/gi-color-palette.c:584
+msgid "brown gold"
+msgstr "brown euraid"
+
+#: ../components/html-editor/gi-color-palette.c:585
+msgid "dark green #2"
+msgstr "gwyrdd tywyll #2"
+
+#: ../components/html-editor/gi-color-palette.c:586
+msgid "navy"
+msgstr "nefi"
+
+#: ../components/html-editor/gi-color-palette.c:587
+#: ../components/html-editor/gi-color-palette.c:643
+msgid "dark blue"
+msgstr "glas tywyll"
+
+#: ../components/html-editor/gi-color-palette.c:588
+msgid "purple #2"
+msgstr "porffor #2"
+
+#: ../components/html-editor/gi-color-palette.c:589
+msgid "very dark gray"
+msgstr "llwyd tywyll iawn"
+
+#: ../components/html-editor/gi-color-palette.c:592
+#: ../components/html-editor/gi-color-palette.c:648
+msgid "dark red"
+msgstr "coch tywyll"
+
+#: ../components/html-editor/gi-color-palette.c:593
+msgid "red-orange"
+msgstr "oren-goch"
+
+#: ../components/html-editor/gi-color-palette.c:594
+msgid "gold"
+msgstr "aur"
+
+#: ../components/html-editor/gi-color-palette.c:595
+msgid "dark green"
+msgstr "gwyrdd tywyll"
+
+#: ../components/html-editor/gi-color-palette.c:596
+#: ../components/html-editor/gi-color-palette.c:649
+msgid "dull blue"
+msgstr "glas pŵl"
+
+#: ../components/html-editor/gi-color-palette.c:597
+#: ../components/html-editor/gi-color-palette.c:650
+msgid "blue"
+msgstr "glas"
+
+#: ../components/html-editor/gi-color-palette.c:598
+msgid "dull purple"
+msgstr "porffor pŵl"
+
+#: ../components/html-editor/gi-color-palette.c:599
+msgid "dark grey"
+msgstr "llwyd tywyll"
+
+#: ../components/html-editor/gi-color-palette.c:602
+msgid "red"
+msgstr "coch"
+
+#: ../components/html-editor/gi-color-palette.c:603
+msgid "orange"
+msgstr "oren"
+
+#: ../components/html-editor/gi-color-palette.c:604
+msgid "lime"
+msgstr "leim"
+
+#: ../components/html-editor/gi-color-palette.c:605
+msgid "dull green"
+msgstr "gwyrdd pŵl"
+
+#: ../components/html-editor/gi-color-palette.c:606
+msgid "dull blue #2"
+msgstr "glas pŵl #2"
+
+#: ../components/html-editor/gi-color-palette.c:607
+msgid "sky blue #2"
+msgstr "glas y wybren #2"
+
+#: ../components/html-editor/gi-color-palette.c:608
+#: ../components/html-editor/gi-color-palette.c:647
+msgid "purple"
+msgstr "porffor"
+
+#: ../components/html-editor/gi-color-palette.c:609
+msgid "gray"
+msgstr "llwyd"
+
+#: ../components/html-editor/gi-color-palette.c:612
+#: ../components/html-editor/gi-color-palette.c:644
+msgid "magenta"
+msgstr "magenta"
+
+#: ../components/html-editor/gi-color-palette.c:613
+msgid "bright orange"
+msgstr "oren llachar"
+
+#: ../components/html-editor/gi-color-palette.c:614
+#: ../components/html-editor/gi-color-palette.c:645
+msgid "yellow"
+msgstr "melyn"
+
+#: ../components/html-editor/gi-color-palette.c:615
+msgid "green"
+msgstr "gwyrdd"
+
+#: ../components/html-editor/gi-color-palette.c:616
+#: ../components/html-editor/gi-color-palette.c:646
+msgid "cyan"
+msgstr "gwyrddlas"
+
+#: ../components/html-editor/gi-color-palette.c:617
+msgid "bright blue"
+msgstr "glas llachar"
+
+#: ../components/html-editor/gi-color-palette.c:618
+#: ../components/html-editor/gi-color-palette.c:635
+msgid "red purple"
+msgstr "porffor-goch"
+
+#: ../components/html-editor/gi-color-palette.c:619
+msgid "light grey"
+msgstr "llwyd golau"
+
+#: ../components/html-editor/gi-color-palette.c:622
+#: ../components/html-editor/gi-color-palette.c:639
+msgid "pink"
+msgstr "pinc"
+
+#: ../components/html-editor/gi-color-palette.c:623
+msgid "light orange"
+msgstr "oren golau"
+
+#: ../components/html-editor/gi-color-palette.c:624
+#: ../components/html-editor/gi-color-palette.c:636
+msgid "light yellow"
+msgstr "melyn golau"
+
+#: ../components/html-editor/gi-color-palette.c:625
+msgid "light green"
+msgstr "gwyrdd golau"
+
+#: ../components/html-editor/gi-color-palette.c:626
+msgid "light cyan"
+msgstr "gwyrddlas golau"
+
+#: ../components/html-editor/gi-color-palette.c:627
+#: ../components/html-editor/gi-color-palette.c:637
+msgid "light blue"
+msgstr "glas golau"
+
+#: ../components/html-editor/gi-color-palette.c:628
+#: ../components/html-editor/gi-color-palette.c:641
+msgid "light purple"
+msgstr "porffor golau"
+
+#: ../components/html-editor/gi-color-palette.c:629
+msgid "white"
+msgstr "gwyn"
+
+#: ../components/html-editor/gi-color-palette.c:634
+msgid "purplish blue"
+msgstr "porffor-las"
+
+#: ../components/html-editor/gi-color-palette.c:638
+msgid "dark purple"
+msgstr "porffor tywyll"
+
+#: ../components/html-editor/gi-color-palette.c:640
+msgid "sky blue"
+msgstr "glas y wybren"
+
+#. set the a11y name
+#: ../components/html-editor/gi-combo-box.c:423
+msgid "Popup"
+msgstr "Naidlen"
+
+#: ../components/html-editor/gnome-gtkhtml-editor.c:73
+msgid "GtkHTML Editor Control"
+msgstr "Rheolwr Golygu GtkHTML"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:1
+msgid "    "
+msgstr "    "
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:3
+#, no-c-format
+msgid "%"
+msgstr "%"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:4
+msgid "*"
+msgstr "*"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:8
+msgid "+4"
+msgstr "+4"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:11
+msgid "<b>Alignment &amp; Behaviour</b>"
+msgstr "<b>Aliniad ac Ymddygiad</b>"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:12
+msgid "<b>Background</b>"
+msgstr "<b>Cefndir</b>"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:13
+msgid "<b>General</b>"
+msgstr "<b>Cyffredinol</b>"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:14
+msgid "<b>Layout</b>"
+msgstr "<b>Cynllun</b>"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:15
+msgid "<b>Scope</b>"
+msgstr "<b>Cwmpas</b>"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:16
+msgid "<span weight=\"bold\">General</span>"
+msgstr "<span weight=\"bold\">Cyffredinol</span>"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:17
+msgid "<span weight=\"bold\">Layout</span>"
+msgstr "<span weight=\"bold\">Cynllun</span>"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:18
+msgid "<span weight=\"bold\">Link</span>"
+msgstr "<span weight=\"bold\">Cyswllt</span>"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:19
+msgid "<span weight=\"bold\">Size</span>"
+msgstr "<span weight=\"bold\">Maint</span>"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:20
+msgid "<span weight=\"bold\">Style</span>"
+msgstr "<span weight=\"bold\">Arddull</span>"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:21
+msgid "<span weight=\"bold\">Template</span>"
+msgstr "<span weight=\"bold\">Templed</span>"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:22
+#: ../components/html-editor/paragraph.c:135
+msgid "Alignment"
+msgstr "Aliniad"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:24
+msgid "Bottom"
+msgstr "Gwaelod"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:25
+msgid "C_ell"
+msgstr "_Cell"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:26
+msgid "C_olor:"
+msgstr "_Lliw:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:27
+#: ../components/html-editor/popup.c:241
+msgid "Cell"
+msgstr "Cell"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:28
+#: ../components/html-editor/paragraph.c:132
+#: ../components/html-editor/toolbar.c:527
+msgid "Center"
+msgstr "Canoli"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:29
+msgid "Col_umn"
+msgstr "_Colofn"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:31
+msgid "Column span:"
+msgstr "Rhychwant colofn:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:32
+msgid "Enable"
+msgstr "Galluogi"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:33
+msgid "Hea_der style"
+msgstr "Arddull _pennawd"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:34
+msgid "Horizontal alignment:"
+msgstr "Aliniad llorweddol:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:35
+msgid "Horizontal:"
+msgstr "Llorweddol:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:36
+msgid "I_mage:"
+msgstr "_Delwedd:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:38
+#: ../components/html-editor/paragraph.c:131
+msgid "Left"
+msgstr "Chwith"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:39
+msgid "Length:"
+msgstr "Hyd:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:40
+msgid "Link properties"
+msgstr "Priodweddau cyswllt"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:41
+msgid "Middle"
+msgstr "Canol"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:44
+msgid "Percent"
+msgstr "Canran"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:45
+msgid "Pixels"
+msgstr "Picseli"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:46
+#: ../components/html-editor/paragraph.c:133
+msgid "Right"
+msgstr "Dde"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:47
+msgid "Row span:"
+msgstr "Rhychwant rhes:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:49
+msgid "Shaded"
+msgstr "Wedi graddliwio"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:50
+msgid "Si_ze:"
+msgstr "_Maint:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:51
+msgid "Standard"
+msgstr "Safonol"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:55
+msgid "Thickness:"
+msgstr "Trwch:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:56
+msgid "Top"
+msgstr "Top"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:57
+msgid "Vertical:"
+msgstr "Fertigol:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:58
+msgid "Width:"
+msgstr "Lled:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:59
+msgid "_Alignment:"
+msgstr "_Aliniad:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:61
+msgid "_Border:"
+msgstr "_Border:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:62
+msgid "_Color:"
+msgstr "_Lliw:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:63
+msgid "_Columns:"
+msgstr "_Colofnau:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:64
+msgid "_Description:"
+msgstr "_Disgrifiad:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:65
+msgid "_Height:"
+msgstr "_Uchder:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:66
+msgid "_Image:"
+msgstr "_Delwedd:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:68
+msgid "_Padding:"
+msgstr "_Padin:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:69
+msgid "_Row"
+msgstr "_Rhes:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:70
+msgid "_Rows:"
+msgstr "_Rhesi:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:72
+msgid "_Spacing:"
+msgstr "_Bylchiad:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:74
+msgid "_Table"
+msgstr "_Tabl"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:75
+msgid "_URL:"
+msgstr "_LAU:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:77
+msgid "_Width:"
+msgstr "_Lled:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:78
+msgid "_Wrap Text"
+msgstr "_Amlapio Testun"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:79
+msgid "_X-Padding:"
+msgstr "_Padin cyfeiriad X:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:80
+msgid "_Y-Padding:"
+msgstr "_Padin cyfeiriad Y:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:81
+msgid "follow"
+msgstr "dilyn"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:82
+msgid "px"
+msgstr "px"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:83
+msgid "xxxxxxxxxxxxxx"
+msgstr "xxxxxxxxxxxxxx"
+
+#: ../components/html-editor/link.c:198
+msgid "URL:"
+msgstr "LAU:"
+
+#: ../components/html-editor/link.c:202
+msgid "Description:"
+msgstr "Disgrifiad:"
+
+#: ../components/html-editor/menubar.c:100
+#: ../components/html-editor/menubar.c:108
+msgid "Insert image"
+msgstr "Mewnosod delwedd"
+
+#: ../components/html-editor/menubar.c:137
+#: ../components/html-editor/menubar.c:156
+#: ../components/html-editor/menubar.c:177
+#: ../components/html-editor/menubar.c:199
+#: ../components/html-editor/popup.c:107
+msgid "Insert"
+msgstr "Mewnosod"
+
+#: ../components/html-editor/menubar.c:286
+#, c-format
+msgid "Error loading file '%s': %s"
+msgstr "Gwall wrth lwytho ffeil '%s': %s"
+
+#: ../components/html-editor/menubar.c:312
+#: ../components/html-editor/menubar.c:321
+msgid "Insert: HTML File"
+msgstr "Mewnosod: Ffeil HTML"
+
+#: ../components/html-editor/menubar.c:312
+#: ../components/html-editor/menubar.c:321
+msgid "Insert: Text File"
+msgstr "Mewnosod: Ffeil Destun"
+
+#: ../components/html-editor/paragraph.c:90
+#: ../components/html-editor/toolbar.c:58
+msgid "Header 1"
+msgstr "Pennawd 1"
+
+#: ../components/html-editor/paragraph.c:91
+#: ../components/html-editor/toolbar.c:59
+msgid "Header 2"
+msgstr "Pennawd 2"
+
+#: ../components/html-editor/paragraph.c:92
+#: ../components/html-editor/toolbar.c:60
+msgid "Header 3"
+msgstr "Pennawd 3"
+
+#: ../components/html-editor/paragraph.c:93
+#: ../components/html-editor/toolbar.c:61
+msgid "Header 4"
+msgstr "Pennawd 4"
+
+#: ../components/html-editor/paragraph.c:94
+#: ../components/html-editor/toolbar.c:62
+msgid "Header 5"
+msgstr "Pennawd 5"
+
+#: ../components/html-editor/paragraph.c:95
+#: ../components/html-editor/toolbar.c:63
+msgid "Header 6"
+msgstr "Pennawd 6"
+
+#: ../components/html-editor/paragraph.c:98
+msgid "Dot item"
+msgstr "Eitem ddot"
+
+#: ../components/html-editor/paragraph.c:99
+msgid "Number item"
+msgstr "Eitem rif"
+
+#: ../components/html-editor/paragraph.c:100
+msgid "Roman item"
+msgstr "Eitem Rufeinig"
+
+#: ../components/html-editor/paragraph.c:101
+msgid "Alphabeta item"
+msgstr "Eitem alffabeta"
+
+#: ../components/html-editor/paragraph.c:104
+#: ../components/html-editor/toolbar.c:64
+msgid "Address"
+msgstr "Cyfeiriad"
+
+#: ../components/html-editor/paragraph.c:113
+msgid "_Style:"
+msgstr "_Arddull:"
+
+#: ../components/html-editor/popup.c:442
+msgid "Paste Quotation"
+msgstr "Gludo Dyfyniad"
+
+#: ../components/html-editor/popup.c:446
+msgid "Insert Link"
+msgstr "Mewnosod Cyswllt"
+
+#: ../components/html-editor/popup.c:453
+msgid "Remove Link"
+msgstr "Tynnu Cyswllt"
+
+#: ../components/html-editor/popup.c:460
+msgid "Style"
+msgstr "Arddull"
+
+#: ../components/html-editor/popup.c:463
+msgid "Text Style..."
+msgstr "Arddull Testun..."
+
+#: ../components/html-editor/popup.c:465 ../components/html-editor/popup.c:471
+#: ../components/html-editor/popup.c:481
+msgid "Paragraph Style..."
+msgstr "Arddull Paragraff..."
+
+#: ../components/html-editor/popup.c:469
+msgid "Link Style..."
+msgstr "Arddull Cyswllt..."
+
+#: ../components/html-editor/popup.c:475
+msgid "Rule Style..."
+msgstr "Arddull Llinell..."
+
+#: ../components/html-editor/popup.c:479
+msgid "Image Style..."
+msgstr "Arddull Delwedd..."
+
+#: ../components/html-editor/popup.c:490
+msgid "Cell Style..."
+msgstr "Arddull Cell..."
+
+#: ../components/html-editor/popup.c:493
+msgid "Table Style..."
+msgstr "Arddull Tabl..."
+
+#: ../components/html-editor/popup.c:499
+msgid "Page Style..."
+msgstr "Arddull Tudalen..."
+
+#: ../components/html-editor/popup.c:504
+msgid "Table insert"
+msgstr "Mewnosod tabl"
+
+#: ../components/html-editor/popup.c:507
+msgid "Row above"
+msgstr "Rhes uwchben"
+
+#: ../components/html-editor/popup.c:508
+msgid "Row below"
+msgstr "Rhes oddi tanodd"
+
+#: ../components/html-editor/popup.c:510
+msgid "Column before"
+msgstr "Colofn o flaen"
+
+#: ../components/html-editor/popup.c:511
+msgid "Column after"
+msgstr "Colofn ar ôl"
+
+#: ../components/html-editor/popup.c:516
+msgid "Table delete"
+msgstr "Dileu tabl"
+
+#: ../components/html-editor/popup.c:518
+msgid "Row"
+msgstr "Rhes"
+
+#: ../components/html-editor/popup.c:519
+msgid "Column"
+msgstr "Colofn"
+
+#: ../components/html-editor/popup.c:520
+msgid "Cell contents"
+msgstr "Cynnwys cell"
+
+#: ../components/html-editor/popup.c:528
+msgid "Check Word Spelling..."
+msgstr "Gwirio Sillafiad Gair..."
+
+#: ../components/html-editor/popup.c:533
+msgid "Add Word to"
+msgstr "Ychwanegu Gair i"
+
+#: ../components/html-editor/popup.c:537
+#, c-format
+msgid "%s Dictionary"
+msgstr "Geiriadur %s"
+
+#: ../components/html-editor/popup.c:546
+msgid "Add Word to Dictionary"
+msgstr "Ychwanegu Gair i'r Geiriadur"
+
+#: ../components/html-editor/popup.c:549
+msgid "Ignore Misspelled Word"
+msgstr "Anwybyddu Gair wedi ei Gamsillafu"
+
+#: ../components/html-editor/popup.c:553
+msgid "Input Methods"
+msgstr "Moddau Mewnbwn"
+
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
+#: ../components/html-editor/replace.c:81
+msgid "Replace confirmation"
+msgstr "Cadarnhau amnewid"
+
+#: ../components/html-editor/replace.c:82
+msgid "Replace _All"
+msgstr "Amnewid _Pob Un"
+
+#: ../components/html-editor/replace.c:83
+msgid "_Next"
+msgstr "_Nesaf"
+
+#: ../components/html-editor/replace.c:85
+msgid "_Replace"
+msgstr "_Amnewid"
+
+#: ../components/html-editor/replace.c:175
+msgid "Search _backward"
+msgstr "Chwilio am _yn ôl"
+
+#: ../components/html-editor/replace.c:176
+#: ../components/html-editor/search.c:117
+msgid "Case _sensitive"
+msgstr "_Ymwybodol o lythrennau bach/mawr"
+
+#: ../components/html-editor/replace.c:186
+msgid "R_eplace:"
+msgstr "_Amnewid:"
+
+#: ../components/html-editor/replace.c:190
+msgid "_With:"
+msgstr "_Gyda:"
+
+#: ../components/html-editor/search.c:116
+msgid "_Backward"
+msgstr "_Yn ôl"
+
+#: ../components/html-editor/search.c:118
+msgid "_Regular Expression"
+msgstr "_Mynegiad Rheolaidd"
+
+#: ../components/html-editor/search.c:122
+msgid "Input the words you want to search here"
+msgstr "Rhowch y geiriau i chwilio amdanynt fan hyn"
+
+#: ../components/html-editor/spellchecker.c:114
+msgid ""
+"Unable to add word to dictionary,\n"
+"language settings are broken.\n"
+msgstr ""
+"Methu ychwanegu gair i'r geiriadur:\n"
+"gosodiadau iaith wedi torri.\n"
+
+#: ../components/html-editor/spellchecker.c:302
+msgid "No misspelled word found"
+msgstr "Heb ganfod gair wedi ei gamsillafu"
+
+#: ../components/html-editor/spellchecker.c:309
+msgid "Spell checker"
+msgstr "Gwirydd sillafu"
+
+#: ../components/html-editor/spellchecker.c:402
+msgid "Current _Languages"
+msgstr "Ieithoedd _Presennol"
+
+#: ../components/html-editor/template.c:88
+msgid "Note"
+msgstr "Nodyn"
+
+#: ../components/html-editor/template.c:98
+#: ../components/html-editor/template.c:117
+msgid "Place your text here"
+msgstr "Rhowch eich testun fan hyn"
+
+#: ../components/html-editor/template.c:101
+msgid "Image frame"
+msgstr "Ffrâm delwedd"
+
+#: ../components/html-editor/template.c:284
+msgid "Template Labels"
+msgstr "Labeli Templed"
+
+#: ../components/html-editor/test-html-editor-control.c:337
+msgid "Open file..."
+msgstr "Agor ffeil..."
+
+#: ../components/html-editor/test-html-editor-control.c:339
+msgid "Save file as..."
+msgstr "Dewisiadau cadw ffeil..."
+
+#: ../components/html-editor/test-html-editor-control.c:571
+msgid "GtkHTML Editor Test Container"
+msgstr "Cynhwysydd Prawf Golygydd GtkHTML"
+
+#: ../components/html-editor/toolbar.c:56
+msgid "Roman List"
+msgstr "Rhestr Rufeinig"
+
+#: ../components/html-editor/toolbar.c:525
+msgid "Left align"
+msgstr "Alinio'r ochr chwith"
+
+#: ../components/html-editor/toolbar.c:529
+msgid "Right align"
+msgstr "Alinio'r ochr dde"
+
+#: ../components/html-editor/toolbar.c:549
+msgid "Toggle typewriter font style"
+msgstr "Toglu math ffont teipiadur"
+
+#: ../components/html-editor/toolbar.c:551
+msgid "Bold"
+msgstr "Bras"
+
+#: ../components/html-editor/toolbar.c:551
+msgid "Makes the text bold"
+msgstr "Gwneud y testun yn fras"
+
+#: ../components/html-editor/toolbar.c:553
+msgid "Italic"
+msgstr "Italig"
+
+#: ../components/html-editor/toolbar.c:553
+msgid "Makes the text italic"
+msgstr "Gwneud y testun yn italig"
+
+#: ../components/html-editor/toolbar.c:555
+msgid "Underline"
+msgstr "Tanlinellu"
+
+#: ../components/html-editor/toolbar.c:555
+msgid "Underlines the text"
+msgstr "Tanlinellu'r testun"
+
+#: ../components/html-editor/toolbar.c:557
+msgid "Strikes out the text"
+msgstr "Tynnu llinell drwy'r testun"
+
+#: ../components/html-editor/toolbar.c:566
+msgid "Unindent"
+msgstr "Dad-fewnoli"
+
+#: ../components/html-editor/toolbar.c:566
+msgid "Indents the paragraphs less"
+msgstr "Mewnoli'r paragraffau'n llai"
+
+#: ../components/html-editor/toolbar.c:568
+msgid "Indent"
+msgstr "Mewnoli"
+
+#: ../components/html-editor/toolbar.c:568
+msgid "Indents the paragraphs more"
+msgstr "Mewnoli'r paragraffau'n fwy"
+
+#: ../components/html-editor/utils.c:123
+msgid "Sample"
+msgstr "Sampl"
+
+#: ../components/html-editor/utils.c:196
+msgid "_Visit..."
+msgstr "_Ymweld â..."
+
+#: ../components/html-editor/utils.c:236
+msgid ""
+"The editted object was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+"Tynnwyd o'r ddogfen y gwrthrych gafodd ei olygu.\n"
+"Methu defnyddio'ch newidiadau."
+
+#: ../src/gtkhtml.c:3005
+msgid "Editable"
+msgstr "Medru Golygu"
+
+#: ../src/gtkhtml.c:3006
+msgid "Whether the html can be edited"
+msgstr "A fedrir golygu'r html"
+
+#: ../src/gtkhtml.c:3012
+msgid "Document Title"
+msgstr "Teitl Dogfen"
+
+#: ../src/gtkhtml.c:3013
+msgid "The title of the current document"
+msgstr "Teitl y ddogfen bresennol"
+
+#: ../src/gtkhtml.c:3019
+msgid "Document Base"
+msgstr "Sail Dogfen"
+
+#: ../src/gtkhtml.c:3020
+msgid "The base URL for relative references"
+msgstr "LAU sy'n sail i gyfeiriadau perthynol"
+
+#: ../src/gtkhtml.c:3026
+msgid "Target Base"
+msgstr "Sail targed"
+
+#: ../src/gtkhtml.c:3027
+msgid "The base URL of the targe frame"
+msgstr "LAU sy'n sail i'r ffrâm darged"
+
+#: ../src/gtkhtml.c:3036
+msgid "Fixed Width Font"
+msgstr "Ffont Lled Benodol"
+
+#: ../src/gtkhtml.c:3037
+msgid "The Monospace font to use for typewriter text"
+msgstr "Y ffont lled sefydlog i'w ddefnyddio ar gyfer testun teipiadur"
+
+#: ../src/gtkhtml.c:3043
+msgid "New Link Color"
+msgstr "Lliw Cyswllt Newydd"
+
+#: ../src/gtkhtml.c:3044
+msgid "The color of new link elements"
+msgstr "Lliw elfen cysylltau newydd"
+
+#: ../src/gtkhtml.c:3049
+msgid "Visited Link Color"
+msgstr "Lliw Cyswllt wedi Ymweld"
+
+#: ../src/gtkhtml.c:3050
+msgid "The color of visited link elements"
+msgstr "Lliw elfen cysylltau ymwelwyd â hwy eisoes"
+
+#: ../src/gtkhtml.c:3055
+msgid "Active Link Color"
+msgstr "Lliw Cyswllt Gweithredol"
+
+#: ../src/gtkhtml.c:3056
+msgid "The color of active link elements"
+msgstr "Lliw elfen cysylltau gweithredol"
+
+#: ../src/gtkhtml.c:3061
+msgid "Spelling Error Color"
+msgstr "Lliw Gwall Sillafu"
+
+#: ../src/gtkhtml.c:3062
+msgid "The color of the spelling error markers"
+msgstr "Lliw'r marcwyr gwallau sillafu"
+
+#: ../src/gtkhtml.c:3067
+msgid "Cite Quotation Color"
+msgstr "Lliw Testun Dyfyniad"
+
+#: ../src/gtkhtml.c:3068
+msgid "The color of the cited text"
+msgstr "Lliw'r testun a ddyfynnwyd"
+
+#: ../src/htmlbutton.c:142
+msgid "Submit Query"
+msgstr "Anfon Ymholiad"
+
+#: ../src/htmlbutton.c:145
+msgid "Reset"
+msgstr "Ailosod"
+
+#. TODO2 dialog instead of warning
+#: ../src/htmlengine-print.c:192
+msgid "Cannot allocate default font for printing\n"
+msgstr "Methu dyrannu ffont ragosodedig ar gyfer argraffu\n"
+
+#: ../src/test.c:375
+msgid "GtkHTML Test"
+msgstr "Profi GtkHTML"
+
+#: ../src/testgtkhtml.c:117
+msgid "Print pre_view"
+msgstr "Rhag_olwg argraffu"
+
+#: ../src/testgtkhtml.c:117
+msgid "Print preview"
+msgstr "Rhagolwg argraffu"
+
+#: ../src/testgtkhtml.c:1004
+msgid "GtkHTML Test Application"
+msgstr "Rhaglen Profi GtkHTML"
+
+#~ msgid ""
+#~ "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
+#~ msgstr ""
+#~ "Roedd gan y lau Mozilla ollyngwyd ar y Cyfansoddwr y fformat (%d) neu'r "
+#~ "hyd (%d) anghywir\n"
+
+#~ msgid "Html"
+#~ msgstr "Html"
+
+#~ msgid "Html test"
+#~ msgstr "Prawf Html"
+
+#~ msgid "Test1"
+#~ msgstr "Prawf1"
+
+#~ msgid "Test2"
+#~ msgstr "Prawf2"
+
+#~ msgid "Test3"
+#~ msgstr "Prawf3"
+
+#~ msgid "Test4"
+#~ msgstr "Prawf4"
+
+#~ msgid "Test5"
+#~ msgstr "Prawf5"
+
+#~ msgid "Test6"
+#~ msgstr "Prawf6"
+
+#~ msgid "Test7"
+#~ msgstr "Prawf7"
+
+#~ msgid "_Refresh"
+#~ msgstr "_Ail-lwytho"
+
+#~ msgid "Reload the page"
+#~ msgstr "Ail-lwytho'r dudalen"
+
+#~ msgid "Could not initialize Bonobo!"
+#~ msgstr "Methu ymgychwyn Bonobo!"

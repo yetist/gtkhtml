@@ -1,3 +1,7 @@
+2005-06-23  Rhys Jones  <rhys@sucs.org>
+
+	* configure.in: Added "cy" (Welsh) to ALL_LINGUAS.
+
 2005-05-13  Changwoo Ryu  <cwryu@debian.org>
 
 	* acconfig.h: remove GNOME_EXPLICIT_TRANSLATION_DOMAIN.
