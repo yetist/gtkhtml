@@ -1,8 +1,17 @@
+gtkhtml-3.7.3 "Shri Ganpati" 2005-07-01
+-----------------------------------------------
+
+New in this release
+
+   * Added "cy" (Welsh) to ALL_LINGUAS (Rhys Jones)
+   * Updated translations (Priit Laes, Rhys Jones, Marcel Telka,
+     Abel Cheung)
 
 gtkhtml-3.7.2 "Changing guards" 2005-06-06
 -----------------------------------------------
 
 New in this release
+
    * Public API cleanup (Rodo)
    * Fixed translation issues (Changwoo Ryu bug #301120)
    * Fixed Find/Replace crash
@@ -16,6 +25,7 @@ New in this release
    * Fixed a table crash on undo
    * Added visited link change of color feature.
    * Cleaned up cluev and text slave code and made it more organized.
+
 gtkhtml-3.7.0 "Changing guards" 2005-04-26
 ------------------------------------------------
 
