@@ -1,3 +1,16 @@
+2005-07-06  Mengjie Yu  <meng-jie.yu@sun.com>
+
+	* gtkhtml.c: (gtk_html_class_init):
+	* gtkhtml.h:
+	Change the signal name object_deleted to object_delete.
+
+	* htmlengine-edit-cut-and-paste.c: (html_engine_delete):
+        We should emit the object_delete signal before we really delete it
+        since gnopernicus will check them before deleting.
+
+        Fixes #306238
+
+
 2005-07-06  Kaushal Kumar  <kakumar@novell.com>
 
 	* gtkhtml.c (gtk_html_class_init): Fix typo. Fixes bug #309242.

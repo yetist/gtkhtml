@@ -103,7 +103,7 @@ struct _GtkHTMLClass {
 	gboolean (* command)              (GtkHTML *html, GtkHTMLCommandType com_type);
 	void (* cursor_changed)       (GtkHTML *html);
 	void (* object_inserted)       (GtkHTML *html, int pos, int len);
-	void (* object_deleted)        (GtkHTML *html, int pos, int len);
+	void (* object_delete)        (GtkHTML *html, int pos, int len);
 
 	/* properties */
 	GtkHTMLClassProperties *properties;

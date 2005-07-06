@@ -136,7 +136,7 @@ enum {
 	COMMAND,
 	CURSOR_CHANGED,
 	OBJECT_INSERTED,
-	OBJECT_DELETED,
+	OBJECT_DELETE,
 	/* now only last signal */
 	LAST_SIGNAL
 };
@@ -2983,11 +2983,11 @@ gtk_html_class_init (GtkHTMLClass *klass)
 			      G_TYPE_NONE, 2,
 			      G_TYPE_INT, G_TYPE_INT);
 
-	signals [OBJECT_DELETED] = 
-		g_signal_new ("object_deleted",
+	signals [OBJECT_DELETE] = 
+		g_signal_new ("object_delete",
 			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
-			      G_STRUCT_OFFSET (GtkHTMLClass, object_deleted),
+			      G_STRUCT_OFFSET (GtkHTMLClass, object_delete),
 			      NULL, NULL,
 			      html_g_cclosure_marshal_VOID__INT_INT,
 			      G_TYPE_NONE, 2,

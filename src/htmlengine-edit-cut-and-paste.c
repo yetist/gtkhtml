@@ -1769,6 +1769,10 @@ html_engine_delete (HTMLEngine *e)
 		gint start_position = start->position;
 		gint end_position = end->position;
 
+		if (end_position - start_position > 0) {
+			int len = end_position - start_position;
+			g_signal_emit_by_name (e->widget, "object_delete", start_position, len);
+		}
 
 		while (start->position < end->position) {
 			if (check_for_simple_delete (start->object, end->object)) {
@@ -1815,10 +1819,7 @@ html_engine_delete (HTMLEngine *e)
 			html_cursor_destroy (end);
 		html_cursor_jump_to_position (e->cursor, e, start_position);
 
-		if (end_position - start_position > 0) {
-			int len = end_position - start_position;
-			g_signal_emit_by_name (e->widget, "object_deleted", start_position, len);
-		}
+
 	}
 	html_undo_level_end (e->undo);
 }
