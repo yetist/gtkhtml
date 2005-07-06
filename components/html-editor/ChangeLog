@@ -1,3 +1,7 @@
+2005-07-06  Kaushal Kumar  <kakumar@novell.com>
+
+	* utils.c (editor_has_html_object): Fix typo. Fixes bug #309242.
+
 2005-06-03  Srinivasa Ragavan <sragavan@novell.com>
 
 	* engine.c (editor_engine_new): Added the GtkHTML widget to the engine as a data to the

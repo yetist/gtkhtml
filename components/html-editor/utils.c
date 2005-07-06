@@ -233,7 +233,7 @@ editor_has_html_object (GtkHTMLControlData *cd, HTMLObject *o)
 			printf ("d: %p\n", cd->properties_dialog);
 			dialog = gtk_message_dialog_new (GTK_WINDOW (cd->properties_dialog->dialog),
 							 GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_INFO, GTK_BUTTONS_OK,
-							 _("The editted object was removed from the document.\nCannot apply your changes."));
+							 _("The edited object was removed from the document.\nCannot apply your changes."));
 			gtk_dialog_run (GTK_DIALOG (dialog));
 			gtk_widget_destroy (dialog);
 			html_cursor_jump_to_position (e->cursor, e, position);

@@ -3024,7 +3024,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 					 PROP_TARGET_BASE,
 					 g_param_spec_string ("target_base",
 							      _("Target Base"),
-							      _("The base URL of the targe frame"),
+							      _("The base URL of the target frame"),
 							      NULL,
 							      G_PARAM_WRITABLE | G_PARAM_READABLE));
 
