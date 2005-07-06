@@ -1,3 +1,17 @@
+2005-07-06  Mengjie Yu  <meng-jie.yu@sun.com>
+
+	* object.c: (gtk_html_a11y_insert_object_cb),
+	(gtk_html_a11y_delete_object_cb), (gtk_html_a11y_new):
+	We should pass the correct offset of the text instead of the absolute position
+	of the whole document to the callback funtion.
+
+	* text.c: (html_a11y_text_get_text_at_offset):
+	We should assign the correct start_offset and end_offset and return the text content
+	if start_slave or end_slave doesn't exist.
+
+	Fixes #306238
+
+
 2005-05-13  Changwoo Ryu  <cwryu@debian.org>
 
 	* Makefile.am (INCLUDES): use I18N_LIB_CFLAGS.

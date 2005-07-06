@@ -351,6 +351,10 @@ gtk_html_a11y_insert_object_cb (GtkWidget * widget, int pos, int len)
 {
 	AtkObject * a11y, *obj;
 
+
+	HTMLCursor *cursor = GTK_HTML (widget)->engine->cursor;
+
+
         obj = gtk_widget_get_accessible (widget);
 	a11y = gtk_html_a11y_get_focus_object (widget);
 	g_return_if_fail (a11y != NULL);
@@ -362,7 +366,7 @@ gtk_html_a11y_insert_object_cb (GtkWidget * widget, int pos, int len)
 	}
 
 	if (G_IS_HTML_A11Y_TEXT(a11y)) {
-		g_signal_emit_by_name (a11y, "text_changed::insert", pos, len);
+		g_signal_emit_by_name (a11y, "text_changed::insert", cursor->offset - len, len);
 
 	} 
 }
@@ -371,6 +375,7 @@ static void
 gtk_html_a11y_delete_object_cb (GtkWidget * widget, int pos, int len) 
 {
 	AtkObject * a11y, *obj;
+	HTMLCursor *cursor = GTK_HTML (widget)->engine->cursor;
 
         obj = gtk_widget_get_accessible (widget);
 	a11y = gtk_html_a11y_get_focus_object (widget);
@@ -383,7 +388,7 @@ gtk_html_a11y_delete_object_cb (GtkWidget * widget, int pos, int len)
 	}
 
 	if (G_IS_HTML_A11Y_TEXT(a11y)) {
-		g_signal_emit_by_name (a11y, "text_changed::delete", pos, len);
+		g_signal_emit_by_name (a11y, "text_changed::delete", cursor->offset, len);
 	}
 }
 
@@ -410,7 +415,7 @@ gtk_html_a11y_new (GtkWidget *widget)
 	g_signal_connect_after (widget, "object_inserted",
 			G_CALLBACK(gtk_html_a11y_insert_object_cb),
 			NULL);
-	g_signal_connect_after (widget, "object_deleted",
+	g_signal_connect_after (widget, "object_delete",
 			G_CALLBACK(gtk_html_a11y_delete_object_cb),
 			NULL);
 
