@@ -1,3 +1,17 @@
+gtkhtml-3.7.4 "Hare Rama" 2005-07-11
+-----------------------------------------------
+
+New in this release
+
+   * Fixed the passing of correct offsets and signal for the screen 
+     reader (Mengjie Yu)
+   * Fixed the setting of offsets when start/end slave value is 
+     not available (Mengjie Yu)
+   * Fixed two strings to resolve translation issues.
+   * Fixed the Solaris x86 Forte build failure (Damien Carbery) 
+   * Updated translations (Vincent van Adrighem, Priit Laes,
+     Adam Weinberger, Francisco Javier F. Serrador, Jens Seidel).
+ 
 gtkhtml-3.7.3 "Shri Ganpati" 2005-07-01
 -----------------------------------------------
 

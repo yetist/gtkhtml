@@ -1,3 +1,9 @@
+2005-07-11  Kaushal Kumar  <kakumar@novell.com>
+
+	* configure.in: bumped version to 3.7.4 for the new release.
+
+	* NEWS: updated for the 3.7.4 release.
+
 2005-07-01  Kaushal Kumar  <kakumar@novell.com>
 
 	* configure.in: bumped version to 3.7.3 for the new release.
