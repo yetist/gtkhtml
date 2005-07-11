@@ -970,7 +970,7 @@ html_painter_set_focus (HTMLPainter *p, gboolean focus)
 void
 html_painter_set_widget (HTMLPainter *painter, GtkWidget *widget)
 {
-	return 	(* HP_CLASS (painter)->set_widget) (painter, widget);
+	(* HP_CLASS (painter)->set_widget) (painter, widget);
 }
 
 HTMLTextPangoInfo *

@@ -1,3 +1,9 @@
+2005-07-11  Kaushal Kumar  <kakumar@novell.com>
+
+	* htmlpainter.c (html_painter_set_widget): Call the set_widget directly 
+	instead of returning it.
+	Patch from Damien Carbery. Fixes bug #309785.
+
 2005-07-06  Mengjie Yu  <meng-jie.yu@sun.com>
 
 	* gtkhtml.c: (gtk_html_class_init):
