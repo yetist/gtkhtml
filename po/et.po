@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-06 22:16+0000\n"
-"PO-Revision-Date: 2005-07-07 08:32+0300\n"
+"POT-Creation-Date: 2005-07-12 06:27+0000\n"
+"PO-Revision-Date: 2005-07-12 14:04+0300\n"
 "Last-Translator: Priit Laes <amd@store20.com>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -780,7 +780,6 @@ msgstr "_Dokumendi õigekirjakontroll..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:141
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:143
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:73
 msgid "_Strikeout"
 msgstr "_Läbikriipsutatud"
 
@@ -972,8 +971,6 @@ msgstr "Läbipaistev"
 
 #: ../components/html-editor/editor-control-factory.c:182
 #: ../components/html-editor/menubar.c:358
-#: ../components/html-editor/menubar.c:376
-#: ../components/html-editor/menubar.c:394
 #: ../components/html-editor/popup.c:190
 #: ../components/html-editor/popup.c:268
 msgid "Properties"
@@ -1434,6 +1431,10 @@ msgstr "_Ridu:"
 msgid "_Spacing:"
 msgstr "_Jaotus:"
 
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:73
+msgid "_Strikethrough"
+msgstr "_Läbikriipsutatud"
+
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:74
 msgid "_Table"
 msgstr "_Tabel"
@@ -1505,6 +1506,11 @@ msgstr "HTML faili lisamine"
 #: ../components/html-editor/menubar.c:321
 msgid "Insert: Text File"
 msgstr "Tekstifaili lisamine"
+
+#: ../components/html-editor/menubar.c:376
+#: ../components/html-editor/menubar.c:394
+msgid "Format"
+msgstr "Vorming"
 
 #: ../components/html-editor/paragraph.c:90
 #: ../components/html-editor/toolbar.c:58
