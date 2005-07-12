@@ -1,3 +1,13 @@
+2005-07-12  Kaushal Kumar  <kakumar@novell.com>
+
+	Patch given by: H.A.Riyaz Ahmed.
+
+	* menubar.c : HIGify the Text and Paragraph dialog names in Format.
+
+	* gtkhtml-editor-properties.glade : Fixed a label as per the HIG.
+
+	Fixes bug #246239, #246242.
+ 
 2005-07-06  Kaushal Kumar  <kakumar@novell.com>
 
 	* utils.c (editor_has_html_object): Fix typo. Fixes bug #309242.
