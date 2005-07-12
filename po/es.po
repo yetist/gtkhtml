@@ -1,7 +1,3 @@
-# traducción de es.po al Spanish
-# translation of es.po to
-# translation of es.po to Spanish
-# translation of gtkhtml.HEAD.es.po to Spanish
 # Translations of gtkhtml into spanish.
 # Copyright © 2000-2003 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gtkhtml package.
@@ -9,16 +5,14 @@
 # Héctor García Álvarez <hector@scouts-es.org>, 2000-2001.
 # Juan Manuel García Molina <juanma_gm@wanadoo.es>, 2002.
 # Germán Poo Caamaño <gpoo@ubiobio.cl>, 2003.
-# Francisco Javier Fernandez <serrador@arrakis.es>, 2003.
-# Francisco Javier F. Serrador <serrador@arrakis.es>, 2003.
-# Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2004, 2005.
+# Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2002, 2003, 2004, 2005.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-06 18:25+0200\n"
-"PO-Revision-Date: 2005-07-06 18:26+0200\n"
+"POT-Creation-Date: 2005-07-13 00:19+0200\n"
+"PO-Revision-Date: 2005-07-13 00:21+0200\n"
 "Last-Translator: Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -783,7 +777,6 @@ msgstr "_Comprobar la ortografía..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:141
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:143
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:73
 msgid "_Strikeout"
 msgstr "_Tachado"
 
@@ -970,8 +963,6 @@ msgstr "Transparente"
 
 #: ../components/html-editor/editor-control-factory.c:182
 #: ../components/html-editor/menubar.c:358
-#: ../components/html-editor/menubar.c:376
-#: ../components/html-editor/menubar.c:394
 #: ../components/html-editor/popup.c:190 ../components/html-editor/popup.c:268
 msgid "Properties"
 msgstr "Propiedades"
@@ -1431,6 +1422,10 @@ msgstr "_Filas:"
 msgid "_Spacing:"
 msgstr "E_spaciado:"
 
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:73
+msgid "_Strikethrough"
+msgstr "_Tachado"
+
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:74
 msgid "_Table"
 msgstr "_Tabla"
@@ -1502,6 +1497,11 @@ msgstr "Insertar: archivo HTML"
 #: ../components/html-editor/menubar.c:321
 msgid "Insert: Text File"
 msgstr "Insertar: archivo de texto"
+
+#: ../components/html-editor/menubar.c:376
+#: ../components/html-editor/menubar.c:394
+msgid "Format"
+msgstr "Formato"
 
 #: ../components/html-editor/paragraph.c:90
 #: ../components/html-editor/toolbar.c:58
