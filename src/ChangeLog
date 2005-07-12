@@ -16,17 +16,18 @@
 
         Fixes #306238
 
-
 2005-07-06  Kaushal Kumar  <kakumar@novell.com>
 
 	* gtkhtml.c (gtk_html_class_init): Fix typo. Fixes bug #309242.
 
 2005-05-03  Srinivasa Ragavan <sragavan@novell.com>
+
 	* gtkhtml.c (selection_received), (drag_data_received):
-	  Added code to support DnD of evolution mail, contacts, caldendar,
+	  Added code to support DnD of evolution mail, contacts, calendar,
 	  tasks.
 
-2005-05-19  Changwoo Ryu  <rganesan@novell.com>
+2005-05-19  Changwoo Ryu  <cwryu@debian.org>
+
         * htmlclueflow.c: function search_text(..) pass a non negative value to 
           g_utf8_offset_to_pointer call.
         * htmlsearch.c  : function html_search_new (..)Set the cursor position
@@ -70,6 +71,7 @@
 	Fixes #303449
 
 2005-05-04  Ganesh  <rganesan@novell.com>
+
 	* htmltext.c (prepare_attrs): checking for FALSE instead of 0
 
 	* htmltext.c (html_text_append): Passing FALSE to initialize the link
