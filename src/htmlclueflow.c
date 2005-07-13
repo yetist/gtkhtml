@@ -1833,6 +1833,7 @@ write_item_marker (GString *pad_string, HTMLClueFlow *flow)
 			g_string_truncate (pad_string, len);
 
 		g_string_append (pad_string, marker);
+		g_free (marker);
 	}
 }
 

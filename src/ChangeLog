@@ -1,3 +1,7 @@
+2005-07-07  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* htmlclueflow.c: (write_item_marker): Plug a leak 
+
 2005-07-11  Kaushal Kumar  <kakumar@novell.com>
 
 	* htmlpainter.c (html_painter_set_widget): Call the set_widget directly 
