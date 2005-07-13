@@ -1,3 +1,10 @@
+2005-07-11  Diego Gonzalez  <diego@pemas.net>
+
+	* htmldrawqueue.c (clear_element_destroy): replace deprecated
+	  gdk_pixbuf_unref call and use g_object_unref instead.
+	* htmlgdkpainter.c (draw_pixmap): ditto
+	* htmlimage.c (html_image_factory_free): ditto
+
 2005-07-07  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* htmlclueflow.c: (write_item_marker): Plug a leak 

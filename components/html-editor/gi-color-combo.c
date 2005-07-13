@@ -203,7 +203,7 @@ gi_color_combo_construct (GiColorCombo *cc, GdkPixbuf *icon,
 			"y",      0.0,
 			"anchor", GTK_ANCHOR_NW,
 			NULL);
-		gdk_pixbuf_unref (icon);
+		g_object_unref (icon);
 
 		cc->preview_color_item = gnome_canvas_item_new (
 			GNOME_CANVAS_GROUP (gnome_canvas_root (cc->preview_canvas)),

@@ -1292,7 +1292,7 @@ html_image_factory_free (HTMLImageFactory *factory)
 	g_hash_table_destroy (factory->loaded_images);
 
 	if (factory->missing)
-		gdk_pixbuf_unref (factory->missing);
+		g_object_unref (factory->missing);
 
 	g_free (factory);
 }

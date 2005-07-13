@@ -1,3 +1,8 @@
+2005-07-13  Diego Gonzalez  <diego@pemas.net>
+
+        * gi-color-combo.c (gi_color_combo_construct): remove deprecated use
+          of gdk_pixbuf_unref.
+
 2005-07-12  Kaushal Kumar  <kakumar@novell.com>
 
 	Patch given by: H.A.Riyaz Ahmed.

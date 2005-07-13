@@ -71,7 +71,7 @@ clear_element_destroy (HTMLDrawQueueClearElement *elem)
 		gdk_color_free (elem->background_color);
 
 	if (elem->background_image != NULL)
-		gdk_pixbuf_unref (elem->background_image);
+		g_object_unref (elem->background_image);
 
 	g_free (elem);
 }

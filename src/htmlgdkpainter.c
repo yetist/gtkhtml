@@ -650,7 +650,7 @@ draw_pixmap (HTMLPainter *painter,
 			 paint.height,
 			 GDK_RGB_DITHER_NORMAL,
 			 paint.x, paint.y);
-	gdk_pixbuf_unref (tmp_pixbuf);
+	g_object_unref (tmp_pixbuf);
 }
 
 static void
