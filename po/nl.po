@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml cvs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-08 22:25+0000\n"
-"PO-Revision-Date: 2005-07-09 03:39+0200\n"
+"POT-Creation-Date: 2005-07-17 14:56+0000\n"
+"PO-Revision-Date: 2005-07-18 00:10+0200\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
 "MIME-Version: 1.0\n"
@@ -775,7 +775,6 @@ msgstr "_Spellingscontrole op Document..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:141
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:143
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:73
 msgid "_Strikeout"
 msgstr "Doorgestreept"
 
@@ -964,8 +963,6 @@ msgstr "Transparant"
 
 #: ../components/html-editor/editor-control-factory.c:182
 #: ../components/html-editor/menubar.c:358
-#: ../components/html-editor/menubar.c:376
-#: ../components/html-editor/menubar.c:394
 #: ../components/html-editor/popup.c:190 ../components/html-editor/popup.c:268
 msgid "Properties"
 msgstr "Eigenschappen"
@@ -1430,6 +1427,10 @@ msgstr "_Rijen:"
 msgid "_Spacing:"
 msgstr "_Spatiëring:"
 
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:73
+msgid "_Strikethrough"
+msgstr "_Doorgestreept"
+
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:74
 msgid "_Table"
 msgstr "_Tabel"
@@ -1504,6 +1505,12 @@ msgstr "Invoegen: HTML-bestand"
 #: ../components/html-editor/menubar.c:321
 msgid "Insert: Text File"
 msgstr "Invoegen: Tekstbestand"
+
+# formaat/format
+#: ../components/html-editor/menubar.c:376
+#: ../components/html-editor/menubar.c:394
+msgid "Format"
+msgstr "Format"
 
 #: ../components/html-editor/paragraph.c:90
 #: ../components/html-editor/toolbar.c:58
