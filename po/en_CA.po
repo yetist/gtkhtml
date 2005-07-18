@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-06 18:38-0400\n"
-"PO-Revision-Date: 2005-07-06 15:11-0400\n"
+"POT-Creation-Date: 2005-07-18 04:57-0400\n"
+"PO-Revision-Date: 2005-07-18 15:11-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -766,7 +766,6 @@ msgstr "_Spell Check Document..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:141
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:143
-#: components/html-editor/gtkhtml-editor-properties.glade.h:73
 msgid "_Strikeout"
 msgstr "_Strikeout"
 
@@ -950,8 +949,7 @@ msgid "Transparent"
 msgstr "Transparent"
 
 #: components/html-editor/editor-control-factory.c:182
-#: components/html-editor/menubar.c:358 components/html-editor/menubar.c:376
-#: components/html-editor/menubar.c:394 components/html-editor/popup.c:190
+#: components/html-editor/menubar.c:358 components/html-editor/popup.c:190
 #: components/html-editor/popup.c:268
 msgid "Properties"
 msgstr "Properties"
@@ -1407,6 +1405,10 @@ msgstr "_Rows:"
 msgid "_Spacing:"
 msgstr "_Spacing:"
 
+#: components/html-editor/gtkhtml-editor-properties.glade.h:73
+msgid "_Strikethrough"
+msgstr "_Strikeout"
+
 #: components/html-editor/gtkhtml-editor-properties.glade.h:74
 msgid "_Table"
 msgstr "_Table"
@@ -1473,6 +1475,10 @@ msgstr "Insert: HTML File"
 #: components/html-editor/menubar.c:312 components/html-editor/menubar.c:321
 msgid "Insert: Text File"
 msgstr "Insert: Text File"
+
+#: components/html-editor/menubar.c:376 components/html-editor/menubar.c:394
+msgid "Format"
+msgstr "Format"
 
 #: components/html-editor/paragraph.c:90 components/html-editor/toolbar.c:58
 msgid "Header 1"
