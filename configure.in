@@ -41,6 +41,21 @@ AC_STDC_HEADERS
 AC_LIBTOOL_WIN32_DLL
 AM_PROG_LIBTOOL
 
+dnl Win32
+AC_MSG_CHECKING([for Win32])
+case "$host" in
+*-mingw*)
+    os_win32=yes
+    SOEXT='.dll'
+    ;;
+*)  os_win32=no
+    SOEXT='.so'
+    ;;
+esac
+AC_MSG_RESULT([$os_win32])
+AM_CONDITIONAL(OS_WIN32, [test $os_win32 = yes])
+AC_SUBST(SOEXT)
+
 GNOME_COMPILE_WARNINGS(yes)
 CFLAGS="$CFLAGS $warning_flags"
 

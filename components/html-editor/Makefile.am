@@ -133,11 +133,11 @@ libgnome_gtkhtml_editor_la_SOURCES =		\
 if EDITOR_SHLIB
 MY_PRGS =
 MY_LIBS = libgnome-gtkhtml-editor-3.8.la
-location = "${privlibdir}/libgnome-gtkhtml-editor-$(EDITOR_API_VERSION).so"
+location = "${privlibdir}/libgnome-gtkhtml-editor-$(EDITOR_API_VERSION)$(SOEXT)"
 else
 MY_PRGS = gnome-gtkhtml-editor-3.8
 MY_LIBS =
-location = "${libexecdir}/$(MY_PRGS)"
+location = "${libexecdir}/$(MY_PRGS)$(EXEEXT)"
 endif
 
 libgnome_gtkhtml_editor_3_8_la_SOURCES =	\
