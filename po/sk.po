@@ -8,14 +8,14 @@
 # Stanislav Visnovsky <visnovsky@kde.org>, 2003.
 # Marcel Telka <marcel@telka.sk>, 2005.
 #
-# $Id: sk.po,v 1.87 2005/06/23 22:53:10 marcel Exp $
+# $Id: sk.po,v 1.88 2005/07/20 20:43:46 marcel Exp $
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-06-24 00:50+0200\n"
-"PO-Revision-Date: 2005-06-24 00:51+0200\n"
+"POT-Creation-Date: 2005-07-20 22:15+0200\n"
+"PO-Revision-Date: 2005-07-20 22:43+0200\n"
 "Last-Translator: Marcel Telka <marcel@telka.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
@@ -34,7 +34,7 @@ msgstr "URL je %s"
 
 #: ../a11y/object.c:52 ../a11y/object.c:61 ../a11y/text.c:122
 msgid "grab focus"
-msgstr ""
+msgstr "získať ohnisko"
 
 #: ../a11y/object.c:258
 msgid "Panel containing HTML"
@@ -339,7 +339,6 @@ msgid "Make the current Paragraph style Normal"
 msgstr "Nastaviť aktuálny štýl odstavca na Normálny"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:57
-#, fuzzy
 msgid "Make the current Paragraph style Preformat"
 msgstr "Nastaviť aktuálny štýl odstavca na Predformátovaný"
 
@@ -779,7 +778,6 @@ msgstr "_Kontrola pravopisu..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:141
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:143
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:73
 msgid "_Strikeout"
 msgstr "P_rečiarknuté"
 
@@ -837,25 +835,21 @@ msgid "GNOME HTML Editor Factory"
 msgstr "Vytváracie rozhranie pre GNOME HTML editor"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
-#, fuzzy
 msgid "Insert Sick smiley into document..."
-msgstr "Vložiť olizujúceho sa smajlíka do dokumentu..."
+msgstr "Vložiť smutného smajlíka do dokumentu..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:58
-#, fuzzy
 msgid "Make the current Paragraph style Preformatted"
 msgstr "Nastaviť aktuálny štýl odstavca na Predformátovaný"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
 #: ../components/html-editor/paragraph.c:106
-#, fuzzy
 msgid "Preformatted"
-msgstr "Predformátovať"
+msgstr "Predformátovaný"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
-#, fuzzy
 msgid "S_ick"
-msgstr "Ž_murkanie"
+msgstr "Sm_utný"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:151
 msgid "_Wrap Lines"
@@ -880,16 +874,15 @@ msgstr "Papier"
 
 #: ../components/html-editor/body.c:95
 msgid "Ribbon"
-msgstr ""
+msgstr "Stuha"
 
 #: ../components/html-editor/body.c:103
 msgid "Midnight"
 msgstr "Polnoc"
 
 #: ../components/html-editor/body.c:111
-#, fuzzy
 msgid "Confidential"
-msgstr "Zrušiť odsadenie"
+msgstr "Dôverné"
 
 #: ../components/html-editor/body.c:119
 msgid "Draft"
@@ -897,7 +890,7 @@ msgstr "Návrh"
 
 #: ../components/html-editor/body.c:127
 msgid "Graph paper"
-msgstr ""
+msgstr "Milimetrový papier"
 
 #: ../components/html-editor/body.c:247
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:53
@@ -918,9 +911,8 @@ msgstr "Š_ablóna:"
 #. editor_hig_attach_row (t1, _("T_itle:"), data->entry_title, 1);
 #: ../components/html-editor/body.c:261
 #: ../components/html-editor/paragraph.c:116
-#, fuzzy
 msgid "General"
-msgstr "V strede"
+msgstr "Všeobecné"
 
 #: ../components/html-editor/body.c:272 ../components/html-editor/text.c:166
 #: ../components/html-editor/toolbar.c:312
@@ -928,19 +920,16 @@ msgid "Automatic"
 msgstr "Automatické"
 
 #: ../components/html-editor/body.c:284
-#, fuzzy
 msgid "_Text:"
-msgstr "Text"
+msgstr "_Text:"
 
 #: ../components/html-editor/body.c:285
-#, fuzzy
 msgid "_Link:"
-msgstr "Odkaz"
+msgstr "_Odkaz:"
 
 #: ../components/html-editor/body.c:286
-#, fuzzy
 msgid "_Background:"
-msgstr "Pozadie"
+msgstr "_Pozadie:"
 
 #: ../components/html-editor/body.c:288
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:30
@@ -971,12 +960,10 @@ msgstr "Nie je možné načítať glade súbor."
 
 #: ../components/html-editor/cell.c:354 ../components/html-editor/table.c:237
 msgid "Transparent"
-msgstr ""
+msgstr "Priehľadné"
 
 #: ../components/html-editor/editor-control-factory.c:182
 #: ../components/html-editor/menubar.c:358
-#: ../components/html-editor/menubar.c:376
-#: ../components/html-editor/menubar.c:394
 #: ../components/html-editor/popup.c:190 ../components/html-editor/popup.c:268
 msgid "Properties"
 msgstr "Vlastnosti"
@@ -1002,9 +989,8 @@ msgid "Page"
 msgstr "Stránka"
 
 #: ../components/html-editor/gi-color-combo.c:191
-#, fuzzy
 msgid "color preview"
-msgstr "Ukážka pred tlačou"
+msgstr "náhľad farby"
 
 #. This is the default custom color
 #: ../components/html-editor/gi-color-palette.c:399
@@ -1034,11 +1020,11 @@ msgstr "zlatohnedá"
 
 #: ../components/html-editor/gi-color-palette.c:585
 msgid "dark green #2"
-msgstr ""
+msgstr "tmavozelená č. 2"
 
 #: ../components/html-editor/gi-color-palette.c:586
 msgid "navy"
-msgstr ""
+msgstr "morská modrá"
 
 #: ../components/html-editor/gi-color-palette.c:587
 #: ../components/html-editor/gi-color-palette.c:643
@@ -1047,11 +1033,11 @@ msgstr "tmavomodrá"
 
 #: ../components/html-editor/gi-color-palette.c:588
 msgid "purple #2"
-msgstr "purpurová #2"
+msgstr "fialová #2"
 
 #: ../components/html-editor/gi-color-palette.c:589
 msgid "very dark gray"
-msgstr ""
+msgstr "veľmi tmavá sivá"
 
 #: ../components/html-editor/gi-color-palette.c:592
 #: ../components/html-editor/gi-color-palette.c:648
@@ -1073,7 +1059,7 @@ msgstr "tmavozelená"
 #: ../components/html-editor/gi-color-palette.c:596
 #: ../components/html-editor/gi-color-palette.c:649
 msgid "dull blue"
-msgstr ""
+msgstr "nevýrazná modrá"
 
 #: ../components/html-editor/gi-color-palette.c:597
 #: ../components/html-editor/gi-color-palette.c:650
@@ -1082,7 +1068,7 @@ msgstr "modrá"
 
 #: ../components/html-editor/gi-color-palette.c:598
 msgid "dull purple"
-msgstr ""
+msgstr "nevýrazná fialová"
 
 #: ../components/html-editor/gi-color-palette.c:599
 msgid "dark grey"
@@ -1097,72 +1083,65 @@ msgid "orange"
 msgstr "oranžová"
 
 #: ../components/html-editor/gi-color-palette.c:604
-#, fuzzy
 msgid "lime"
-msgstr "Zarovnanie"
+msgstr "lipovo zelená"
 
 #: ../components/html-editor/gi-color-palette.c:605
 msgid "dull green"
-msgstr ""
+msgstr "nevýrazná zelená"
 
 #: ../components/html-editor/gi-color-palette.c:606
 msgid "dull blue #2"
-msgstr ""
+msgstr "nevýrazná modrá č. 2"
 
 #: ../components/html-editor/gi-color-palette.c:607
 msgid "sky blue #2"
-msgstr ""
+msgstr "belasá č. 2"
 
 #: ../components/html-editor/gi-color-palette.c:608
 #: ../components/html-editor/gi-color-palette.c:647
 msgid "purple"
-msgstr "purpurová"
+msgstr "fialová"
 
 #: ../components/html-editor/gi-color-palette.c:609
-#, fuzzy
 msgid "gray"
-msgstr "Rovná šedá"
+msgstr "sivá"
 
 #: ../components/html-editor/gi-color-palette.c:612
 #: ../components/html-editor/gi-color-palette.c:644
-#, fuzzy
 msgid "magenta"
-msgstr "Obrázok"
+msgstr "purpurová"
 
 #: ../components/html-editor/gi-color-palette.c:613
 msgid "bright orange"
-msgstr ""
+msgstr "jasná oranžová"
 
 #: ../components/html-editor/gi-color-palette.c:614
 #: ../components/html-editor/gi-color-palette.c:645
-#, fuzzy
 msgid "yellow"
-msgstr "Žltá"
+msgstr "žltá"
 
 #: ../components/html-editor/gi-color-palette.c:615
-#, fuzzy
 msgid "green"
-msgstr "Zelená"
+msgstr "zelená"
 
 #: ../components/html-editor/gi-color-palette.c:616
 #: ../components/html-editor/gi-color-palette.c:646
 msgid "cyan"
-msgstr ""
+msgstr "zelenomodrá"
 
 #: ../components/html-editor/gi-color-palette.c:617
 msgid "bright blue"
-msgstr ""
+msgstr "jasná modrá"
 
 #: ../components/html-editor/gi-color-palette.c:618
 #: ../components/html-editor/gi-color-palette.c:635
-#, fuzzy
 msgid "red purple"
-msgstr "Purpurová"
+msgstr "červenofialová"
 
 #: ../components/html-editor/gi-color-palette.c:619
-#, fuzzy
 msgid "light grey"
-msgstr "Rovná šedá"
+msgstr "svetlosivá"
 
 #: ../components/html-editor/gi-color-palette.c:622
 #: ../components/html-editor/gi-color-palette.c:639
@@ -1170,23 +1149,21 @@ msgid "pink"
 msgstr "ružová"
 
 #: ../components/html-editor/gi-color-palette.c:623
-#, fuzzy
 msgid "light orange"
-msgstr "Zarovnať vpravo"
+msgstr "svetlooranžová"
 
 #: ../components/html-editor/gi-color-palette.c:624
 #: ../components/html-editor/gi-color-palette.c:636
 msgid "light yellow"
-msgstr ""
+msgstr "svetložltá"
 
 #: ../components/html-editor/gi-color-palette.c:625
 msgid "light green"
 msgstr "svetlozelená"
 
 #: ../components/html-editor/gi-color-palette.c:626
-#, fuzzy
 msgid "light cyan"
-msgstr "Zarovnať vpravo"
+msgstr "svetlá zelenomodrá"
 
 #: ../components/html-editor/gi-color-palette.c:627
 #: ../components/html-editor/gi-color-palette.c:637
@@ -1196,7 +1173,7 @@ msgstr "svetlomodrá"
 #: ../components/html-editor/gi-color-palette.c:628
 #: ../components/html-editor/gi-color-palette.c:641
 msgid "light purple"
-msgstr ""
+msgstr "svetlofialová"
 
 #: ../components/html-editor/gi-color-palette.c:629
 msgid "white"
@@ -1204,20 +1181,20 @@ msgstr "biela"
 
 #: ../components/html-editor/gi-color-palette.c:634
 msgid "purplish blue"
-msgstr ""
+msgstr "fialovomodrá"
 
 #: ../components/html-editor/gi-color-palette.c:638
 msgid "dark purple"
-msgstr ""
+msgstr "tmavofialová"
 
 #: ../components/html-editor/gi-color-palette.c:640
 msgid "sky blue"
-msgstr ""
+msgstr "belasá"
 
 #. set the a11y name
 #: ../components/html-editor/gi-combo-box.c:423
 msgid "Popup"
-msgstr ""
+msgstr "Vyskakovacie"
 
 #: ../components/html-editor/gnome-gtkhtml-editor.c:73
 msgid "GtkHTML Editor Control"
@@ -1242,7 +1219,7 @@ msgstr "+4"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:11
 msgid "<b>Alignment &amp; Behaviour</b>"
-msgstr ""
+msgstr "<b>Zarovnanie a správanie</b>"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:12
 msgid "<b>Background</b>"
@@ -1254,23 +1231,23 @@ msgstr "<b>Všeobecné</b>"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:14
 msgid "<b>Layout</b>"
-msgstr ""
+msgstr "<b>Rozloženie</b>"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:15
 msgid "<b>Scope</b>"
-msgstr ""
+msgstr "<b>Rozsah</b>"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:16
 msgid "<span weight=\"bold\">General</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">Všeobecné</span>"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:17
 msgid "<span weight=\"bold\">Layout</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">Rozloženie</span>"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:18
 msgid "<span weight=\"bold\">Link</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">Odkaz</span>"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:19
 msgid "<span weight=\"bold\">Size</span>"
@@ -1278,11 +1255,11 @@ msgstr "<span weight=\"bold\">Veľkosť</span>"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:20
 msgid "<span weight=\"bold\">Style</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">Štýl</span>"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:21
 msgid "<span weight=\"bold\">Template</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">Šablóna</span>"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:22
 #: ../components/html-editor/paragraph.c:135
@@ -1325,9 +1302,8 @@ msgid "Enable"
 msgstr "Povoliť"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:33
-#, fuzzy
 msgid "Hea_der style"
-msgstr "Hlavička 6"
+msgstr "Štýl hla_vičky"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:34
 msgid "Horizontal alignment:"
@@ -1338,9 +1314,8 @@ msgid "Horizontal:"
 msgstr "Horizontalna:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:36
-#, fuzzy
 msgid "I_mage:"
-msgstr "Obrázok"
+msgstr "O_brázok:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:38
 #: ../components/html-editor/paragraph.c:131
@@ -1386,7 +1361,7 @@ msgstr "Veľ_kosť:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:51
 msgid "Standard"
-msgstr ""
+msgstr "Štandardné"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:55
 msgid "Thickness:"
@@ -1448,6 +1423,10 @@ msgstr "_Riadky:"
 msgid "_Spacing:"
 msgstr "_Medzery:"
 
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:73
+msgid "_Strikethrough"
+msgstr "P_rečiarknuté"
+
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:74
 msgid "_Table"
 msgstr "_Tabuľka"
@@ -1473,13 +1452,12 @@ msgid "_Y-Padding:"
 msgstr "_Y-výplň:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:81
-#, fuzzy
 msgid "follow"
-msgstr "Sledovať"
+msgstr "sledovať"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:82
 msgid "px"
-msgstr ""
+msgstr "b"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:83
 msgid "xxxxxxxxxxxxxx"
@@ -1487,7 +1465,7 @@ msgstr "xxxxxxxxxxxxxx"
 
 #: ../components/html-editor/link.c:198
 msgid "URL:"
-msgstr ""
+msgstr "URL:"
 
 #: ../components/html-editor/link.c:202
 msgid "Description:"
@@ -1520,6 +1498,11 @@ msgstr "Vložiť: HTML súbor"
 #: ../components/html-editor/menubar.c:321
 msgid "Insert: Text File"
 msgstr "Vložiť: textový súbor"
+
+#: ../components/html-editor/menubar.c:376
+#: ../components/html-editor/menubar.c:394
+msgid "Format"
+msgstr "Formátovať"
 
 #: ../components/html-editor/paragraph.c:90
 #: ../components/html-editor/toolbar.c:58
@@ -1692,19 +1675,16 @@ msgid "Replace confirmation"
 msgstr "Potvrdenie nahradenia"
 
 #: ../components/html-editor/replace.c:82
-#, fuzzy
 msgid "Replace _All"
-msgstr "Nahradiť všetky"
+msgstr "Nahradiť _všetky"
 
 #: ../components/html-editor/replace.c:83
-#, fuzzy
 msgid "_Next"
-msgstr "Nasledujúca"
+msgstr "_Nasledujúce"
 
 #: ../components/html-editor/replace.c:85
-#, fuzzy
 msgid "_Replace"
-msgstr "Nahradiť"
+msgstr "_Nahradiť"
 
 #: ../components/html-editor/replace.c:175
 msgid "Search _backward"
@@ -1716,13 +1696,12 @@ msgid "Case _sensitive"
 msgstr "Rozlišovať _veľkosť písmen"
 
 #: ../components/html-editor/replace.c:186
-#, fuzzy
 msgid "R_eplace:"
-msgstr "Nahradiť:"
+msgstr "N_ahradiť:"
 
 #: ../components/html-editor/replace.c:190
 msgid "_With:"
-msgstr "Ší_rka:"
+msgstr "Nahradiť _s:"
 
 #: ../components/html-editor/search.c:116
 msgid "_Backward"
@@ -1741,11 +1720,12 @@ msgid ""
 "Unable to add word to dictionary,\n"
 "language settings are broken.\n"
 msgstr ""
+"Nepodarilo sa pridať slovo do slovníka.\n"
+"Jazykové nastavenia sú pokazené.\n"
 
 #: ../components/html-editor/spellchecker.c:302
-#, fuzzy
 msgid "No misspelled word found"
-msgstr "Ignorovať nesprávne slovo"
+msgstr "Nebolo nájdené nesprávne slovo"
 
 #: ../components/html-editor/spellchecker.c:309
 msgid "Spell checker"
@@ -1769,9 +1749,8 @@ msgid "Image frame"
 msgstr "Rámec obrázku"
 
 #: ../components/html-editor/template.c:284
-#, fuzzy
 msgid "Template Labels"
-msgstr "Šablóna"
+msgstr "Návestia šablón"
 
 #: ../components/html-editor/test-html-editor-control.c:337
 msgid "Open file..."
@@ -1854,12 +1833,11 @@ msgid "_Visit..."
 msgstr "_Navštíviť..."
 
 #: ../components/html-editor/utils.c:236
-#, fuzzy
 msgid ""
-"The editted object was removed from the document.\n"
+"The edited object was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
-"Upravovaný text bol z dokumentu dostránený.\n"
+"Upravovaný objekt bol z dokumentu odstránený.\n"
 "Vaše zmeny nie je možné použiť."
 
 #: ../src/gtkhtml.c:3005
@@ -1891,7 +1869,7 @@ msgid "Target Base"
 msgstr "Základné umiestnenie rámca"
 
 #: ../src/gtkhtml.c:3027
-msgid "The base URL of the targe frame"
+msgid "The base URL of the target frame"
 msgstr "Základné URL cieľového rámca"
 
 #: ../src/gtkhtml.c:3036
