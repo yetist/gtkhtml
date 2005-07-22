@@ -579,6 +579,8 @@ menubar_update_format (GtkHTMLControlData *cd)
 
 		bonobo_ui_component_set_prop (uic, "/commands/InsertImage",
 					      "sensitive", sensitive, &ev);
+		bonobo_ui_component_set_prop (uic, "/commands/FormatPage",
+					      "sensitive", sensitive, &ev);
 		bonobo_ui_component_set_prop (uic, "/commands/InsertLink",
 					      "sensitive", sensitive, &ev);
 		bonobo_ui_component_set_prop (uic, "/commands/InsertRule",

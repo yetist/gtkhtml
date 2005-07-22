@@ -1,5 +1,12 @@
 2005-07-22  Kaushal Kumar  <kakumar@novell.com>
 
+	* menubar.c (menubar_update_format): Set Page format option sensitive 
+	only for html mode. 
+
+	Fixes bug #310961.
+
+2005-07-22  Kaushal Kumar  <kakumar@novell.com>
+
 	* body.c: HIGify two template strings.
 
 	* menubar.c (format_page_cb): HIGify dialog title.
