@@ -68,7 +68,7 @@ static BodyTemplate body_templates [TEMPLATES] = {
 		10,
 	},
 	{
-		N_("Perforated Paper"),
+		N_("Perforated paper"),
 		ICONDIR "/paper.png",
 		{0, 0xffff, 0xffff, 0xffff},
 		{0, 0, 0, 0},
@@ -76,7 +76,7 @@ static BodyTemplate body_templates [TEMPLATES] = {
 		30,
 	},
 	{
-		N_("Blue Ink"),
+		N_("Blue ink"),
 		ICONDIR "/texture.png",
 		{0, 0xffff, 0xffff, 0xffff},
 		{0, 0x1fff, 0x1fff, 0x8fff},

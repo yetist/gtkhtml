@@ -66,7 +66,7 @@ switch_page (GtkWidget *w, GtkNotebookPage *page, gint num, GtkHTMLEditPropertie
 		pd = (PageData *) g_list_nth (d->page_data, num)->data;
 		if (pd) {
 			gchar *title;
-			title = g_strconcat (d->title, ": ", pd->name, NULL);
+			title = g_strconcat (d->title, " ", pd->name, NULL);
 			gtk_window_set_title (GTK_WINDOW (d->dialog), title);
 			g_free (title);
 		}

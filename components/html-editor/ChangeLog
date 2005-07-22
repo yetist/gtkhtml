@@ -1,3 +1,14 @@
+2005-07-22  Kaushal Kumar  <kakumar@novell.com>
+
+	* body.c: HIGify two template strings.
+
+	* menubar.c (format_page_cb): HIGify dialog title.
+
+	* properties.c (switch_page): HIGify title display.
+
+	Based on patch from H.A.Riyaz Ahmed.
+	Fixes bug #246244.
+
 2005-07-19  Tor Lillqvist  <tml@novell.com>
 
 	* Makefile.am: Use SOEXT instead of hardcoded .so. Append EXEEXT
