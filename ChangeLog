@@ -1,3 +1,7 @@
+2005-07-22  Kaushal Kumar  <kakumar@novell.com>
+
+	* MAINTAINERS: Updated with my email id.
+
 2005-07-19  Tor Lillqvist  <tml@novell.com>
 
 	* configure.in: Check for Win32, set SOEXT to .dll or
