@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-18 04:57-0400\n"
-"PO-Revision-Date: 2005-07-18 15:11-0400\n"
+"POT-Creation-Date: 2005-07-23 14:49-0400\n"
+"PO-Revision-Date: 2005-07-23 15:11-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -849,12 +849,12 @@ msgid "None"
 msgstr "None"
 
 #: components/html-editor/body.c:71
-msgid "Perforated Paper"
-msgstr "Perforated Paper"
+msgid "Perforated paper"
+msgstr "Perforated paper"
 
 #: components/html-editor/body.c:79
-msgid "Blue Ink"
-msgstr "Blue Ink"
+msgid "Blue ink"
+msgstr "Blue ink"
 
 #: components/html-editor/body.c:87
 msgid "Paper"
@@ -949,8 +949,7 @@ msgid "Transparent"
 msgstr "Transparent"
 
 #: components/html-editor/editor-control-factory.c:182
-#: components/html-editor/menubar.c:358 components/html-editor/popup.c:190
-#: components/html-editor/popup.c:268
+#: components/html-editor/popup.c:190 components/html-editor/popup.c:268
 msgid "Properties"
 msgstr "Properties"
 
@@ -1476,7 +1475,8 @@ msgstr "Insert: HTML File"
 msgid "Insert: Text File"
 msgstr "Insert: Text File"
 
-#: components/html-editor/menubar.c:376 components/html-editor/menubar.c:394
+#: components/html-editor/menubar.c:358 components/html-editor/menubar.c:376
+#: components/html-editor/menubar.c:394
 msgid "Format"
 msgstr "Format"
 
