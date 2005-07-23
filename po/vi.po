@@ -5,27 +5,27 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml GNOME 2.10\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-21 06:38+0000\n"
-"PO-Revision-Date: 2005-07-01 13:50+0930\n"
+"Project-Id-Version: gtkhtml GNOME 2.12\n"
+"POT-Creation-Date: 2005-07-23 06:39+0000\n"
+"PO-Revision-Date: 2005-07-23 20:44+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Report-Msgid-Bugs-To: \n"
 "Plural-Forms: nplurals=1; plural=0\n"
 "X-Generator: LocFactoryEditor 1.2.2\n"
 
 #: ../a11y/image.c:150
 #, c-format
 msgid "URL is %s, Alternative Text is %s"
-msgstr "Địa chỉ Mạng là «%s», chữ thay thế là «%s»"
+msgstr "Địa chỉ Mạng là « %s », chữ thay thế là « %s »"
 
 #: ../a11y/image.c:152
 #, c-format
 msgid "URL is %s"
-msgstr "Địa chỉ Mạng là «%s»"
+msgstr "Địa chỉ Mạng là « %s »"
 
 #: ../a11y/object.c:52 ../a11y/object.c:61 ../a11y/text.c:122
 msgid "grab focus"
@@ -856,11 +856,11 @@ msgid "None"
 msgstr "Không"
 
 #: ../components/html-editor/body.c:71
-msgid "Perforated Paper"
+msgid "Perforated paper"
 msgstr "Giấy bị khoan"
 
 #: ../components/html-editor/body.c:79
-msgid "Blue Ink"
+msgid "Blue ink"
 msgstr "Mực xanh dương"
 
 #: ../components/html-editor/body.c:87
@@ -958,7 +958,6 @@ msgid "Transparent"
 msgstr "Trong suốt"
 
 #: ../components/html-editor/editor-control-factory.c:182
-#: ../components/html-editor/menubar.c:358
 #: ../components/html-editor/popup.c:190 ../components/html-editor/popup.c:268
 msgid "Properties"
 msgstr "Thuộc tính"
@@ -1419,7 +1418,6 @@ msgid "_Spacing:"
 msgstr "_Khoảng trống:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:73
-#, fuzzy
 msgid "_Strikethrough"
 msgstr "_Gạch đè"
 
@@ -1483,7 +1481,7 @@ msgstr "Chèn"
 #: ../components/html-editor/menubar.c:286
 #, c-format
 msgid "Error loading file '%s': %s"
-msgstr "Gặp lỗi khi tải tập tin «%s»: %s"
+msgstr "Gặp lỗi khi tải tập tin « %s »: %s"
 
 #: ../components/html-editor/menubar.c:312
 #: ../components/html-editor/menubar.c:321
@@ -1495,11 +1493,11 @@ msgstr "Chèn: tập tin HTML"
 msgid "Insert: Text File"
 msgstr "Chèn: tập tin văn bản"
 
+#: ../components/html-editor/menubar.c:358
 #: ../components/html-editor/menubar.c:376
 #: ../components/html-editor/menubar.c:394
-#, fuzzy
 msgid "Format"
-msgstr "Đị_nh dạng"
+msgstr "Định dạng"
 
 #: ../components/html-editor/paragraph.c:90
 #: ../components/html-editor/toolbar.c:58
@@ -1830,7 +1828,6 @@ msgid "_Visit..."
 msgstr "_Tham gia..."
 
 #: ../components/html-editor/utils.c:236
-#, fuzzy
 msgid ""
 "The edited object was removed from the document.\n"
 "Cannot apply your changes."
@@ -1867,9 +1864,8 @@ msgid "Target Base"
 msgstr "Cơ bản đích"
 
 #: ../src/gtkhtml.c:3027
-#, fuzzy
 msgid "The base URL of the target frame"
-msgstr "Địa chỉ Mạng của khung đích"
+msgstr "Địa chỉ Mạng cơ bản của khung đích"
 
 #: ../src/gtkhtml.c:3036
 msgid "Fixed Width Font"
@@ -1984,15 +1980,14 @@ msgstr "Tải lại trang"
 msgid "Could not initialize Bonobo!"
 msgstr "Không thể khởi động Bonobo."
 
-#, fuzzy
 msgid "<None>"
-msgstr "Không"
+msgstr "<Không có>"
 
 msgid "\n"
 msgstr "\n"
 
 msgid "*********************"
-msgstr "*********************"
+msgstr "━━━━━━━━━━"
 
 msgid "Add Keyboard Shortcuts"
 msgstr "Thêm phím tắt"
@@ -2003,9 +1998,8 @@ msgstr "Tự động xác định liên kết"
 msgid "Behavior"
 msgstr "Hành vi"
 
-#, fuzzy
 msgid "Composer Properties"
-msgstr "Thuộc tính"
+msgstr "Thuộc tính trình biên soạn"
 
 msgid "Composer Properties planned"
 msgstr "Thuộc tính Bộ biên soạn đã được lên kế hoạch"
@@ -2016,12 +2010,11 @@ msgstr "Cấu hình kiểm tra chính tả"
 msgid "Enable spell checking"
 msgstr "Bật kiểm tra chính tả"
 
-#, fuzzy
 msgid "Fixed width"
-msgstr "Phông chữ độ rộng cứng"
+msgstr "Độ rộng cứng"
 
 msgid "Fonts"
-msgstr "Font"
+msgstr "Phông chữ"
 
 msgid "For printing"
 msgstr "Để in"
@@ -2029,9 +2022,8 @@ msgstr "Để in"
 msgid "Grab keys"
 msgstr "Bắt phím"
 
-#, fuzzy
 msgid "Information"
-msgstr "Tiền định dạng"
+msgstr "Thông tin"
 
 msgid "Keyboard Shortcuts"
 msgstr "Phím tắt"
@@ -2048,16 +2040,14 @@ msgstr "Trên màn hình"
 msgid "Select HTML fixed width font"
 msgstr "Chọn font HTML cứng"
 
-#, fuzzy
 msgid "Select HTML fixed width font for printing"
-msgstr "Không thể cấp phát phông chữ in mặc định\n"
+msgstr "Chọn phông chữ HTML cứng để in"
 
 msgid "Select HTML variable width font"
 msgstr "Chọn font HTML co dãn"
 
-#, fuzzy
 msgid "Select HTML variable width font for printing"
-msgstr "Không thể cấp phát phông chữ in mặc định\n"
+msgstr "Chọn phông chữ HTML co dãn để in"
 
 msgid "Shortcuts _type:"
 msgstr "_Kiểu lối tắt:"
@@ -2081,13 +2071,11 @@ msgstr ""
 "Không thể thực thi applet GNOME Spell\n"
 "Hãy cài đặt GNOME Spell nếu bạn chưa cài."
 
-#, fuzzy
 msgid "With:"
-msgstr "_Bằng:"
+msgstr "Với:"
 
-#, fuzzy
 msgid "Plain"
-msgstr "Văn _bản thô"
+msgstr "Thô"
 
 msgid ""
 "@link_begin@<img@alt@@width@@height@@align@ "
@@ -2125,89 +2113,75 @@ msgstr ""
 "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
 "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
 "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-"@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Place your "
-"comment here]</td></tr></table></td></tr></table></center>"
+"@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Chèn chú thích vào đây]</td></tr></table></td></tr></table></center>"
 
-#, fuzzy
 msgid "Find A Regular Expression"
-msgstr "_Biểu thức chính quy"
+msgstr "Tìm biểu thức chính quy"
 
-#, fuzzy
 msgid "Find Regular E_xpression..."
-msgstr "_Biểu thức chính quy"
+msgstr "Tìm biểu thức chính quy..."
 
-#, fuzzy
 msgid ""
-"The quick brown <a href=\"mailto:fox\">fox</a> jumps over the lazy <a href="
-"\"mailto:dog\">dog</a>."
-msgstr "Con chồn xám nhanh nhẹn nhảy qua con chó lười."
+"The quick brown <a href=\"mailto:fox\">fox</a> jumps over the lazy <a href=\"mailto:dog\">dog</a>."
+msgstr "<a href=\"mailto:fox\">Con chồn</a> xám nhanh nhẹn nhảy qua <a href=\"mailto:dog\">con chó</a> lười."
 
 msgid "The quick brown fox jumps over the lazy dog."
 msgstr "Con chồn xám nhanh nhẹn nhảy qua con chó lười."
 
-#, fuzzy
 msgid "Other"
-msgstr "Khác..."
+msgstr "Khác"
 
-#, fuzzy
 msgid ""
 "The editted cell was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
-"Đối tượng bị sửa đổi đã bị loại khỏi tài liệu.\n"
+"Ô bị sửa đổi đã bị loại khỏi tài liệu.\n"
 "Không thể áp dụng các thay đổi của bạn."
 
 msgid "************"
-msgstr "************"
+msgstr "━━━━━━"
 
 msgid "***text***"
-msgstr "***text***"
+msgstr "━chữ━"
 
 msgid "Apply changes to:"
 msgstr "Áp dụng thay đổi cho:"
 
-#, fuzzy
 msgid "Border"
-msgstr "_Viền:"
+msgstr "Viền"
 
 msgid "Click will follow this URL"
-msgstr "Nhấn URL sau đây"
+msgstr "Nhấn sẽ theo địa chỉ Mạng này"
 
 msgid "Click will follow this URL:"
-msgstr "Nhấn vào sẽ dẫn tới URL này:"
+msgstr "Nhấn sẽ theo địa chỉ Mạng này:"
 
 msgid "Don't wrap"
 msgstr "Không cuộn"
 
-#, fuzzy
 msgid "Font size"
-msgstr "Cỡ _phông chữ"
+msgstr "Cỡ phông chữ"
 
-#, fuzzy
 msgid "Foreground color"
-msgstr "Màu nền"
+msgstr "Màu chữ"
 
-#, fuzzy
 msgid "Header"
-msgstr "Tiêu đề 6"
+msgstr "Tiêu đề"
 
-#, fuzzy
 msgid "Link insert"
-msgstr "Thuộc tính liên kết"
+msgstr "Chèn liên kết"
 
 msgid "Location"
 msgstr "Địa điểm"
 
-#, fuzzy
 msgid "Padding"
-msgstr "_Đệm:"
+msgstr "Đệm"
 
-#, fuzzy
 msgid "Percent %"
-msgstr "Phần trăm"
+msgstr "Phần trăm %"
 
 msgid "Pixmap:"
-msgstr "Pixmap:"
+msgstr "Ảnh xạ điểm:"
 
 msgid "Points"
 msgstr "Điểm"
@@ -2215,135 +2189,112 @@ msgstr "Điểm"
 msgid "Scope"
 msgstr "Phạm vi"
 
-#, fuzzy
 msgid "Spacing"
-msgstr "_Khoảng trống:"
+msgstr "Khoảng trống:"
 
-#, fuzzy
 msgid "Style:"
-msgstr "_Kiểu"
+msgstr "Kiểu dạng"
 
-#, fuzzy
 msgid "Table Insert"
-msgstr "Bảng chèn"
+msgstr "Chèn bảng"
 
-#, fuzzy
 msgid "Test URL..."
-msgstr "_Chữ..."
+msgstr "Kiểm tra địa chỉ Mạng..."
 
 msgid "Wrap"
-msgstr "Cuộn"
+msgstr "Ngắt dòng"
 
-#, fuzzy
 msgid "Wrapping:"
-msgstr "_Ngắt dòng"
+msgstr "Ngắt dòng:"
 
-#, fuzzy
 msgid "xxxxxxxxx"
-msgstr "xxxxxxxxxxxxxx"
+msgstr "xxxxxxxxx"
 
-#, fuzzy
 msgid ""
 "The editted image was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
-"Đối tượng bị sửa đổi đã bị loại khỏi tài liệu.\n"
+"Ảnh bị sửa đổi đã bị loại khỏi tài liệu.\n"
 "Không thể áp dụng các thay đổi của bạn."
 
-#, fuzzy
 msgid "Link text"
-msgstr "Văn _bản thô"
+msgstr "Chữ liên kết"
 
-#, fuzzy
 msgid ""
 "The editted link was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
-"Đối tượng bị sửa đổi đã bị loại khỏi tài liệu.\n"
+"Liên kết bị sửa đổi đã bị loại khỏi tài liệu.\n"
 "Không thể áp dụng các thay đổi của bạn."
 
-#, fuzzy
 msgid "Align"
-msgstr "Canh hàng"
+msgstr "Canh lề"
 
-#, fuzzy
 msgid ""
 "The editted paragraph was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
-"Đối tượng bị sửa đổi đã bị loại khỏi tài liệu.\n"
+"Đoạn văn bị sửa đổi đã bị loại khỏi tài liệu.\n"
 "Không thể áp dụng các thay đổi của bạn."
 
-#, fuzzy
 msgid "Blue 3D"
-msgstr "Xanh dương"
+msgstr "Xanh dương Ba chiều"
 
 msgid "Yellow, flowers"
 msgstr "Vàng, hoa"
 
-#, fuzzy
 msgid ""
 "The editted rule was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
-"Đối tượng bị sửa đổi đã bị loại khỏi tài liệu.\n"
+"Quy tắc bị sửa đổi đã bị loại khỏi tài liệu.\n"
 "Không thể áp dụng các thay đổi của bạn."
 
-#, fuzzy
 msgid "Flat gray"
-msgstr "xám sáng"
+msgstr "Xám mặc phẳng"
 
-#, fuzzy
 msgid "Dark header"
-msgstr "đỏ sẫm"
+msgstr "Tiêu đề sẫm"
 
-#, fuzzy
 msgid ""
 "The editted table was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
-"Đối tượng bị sửa đổi đã bị loại khỏi tài liệu.\n"
+"Bảng bị sửa đổi đã bị loại khỏi tài liệu.\n"
 "Không thể áp dụng các thay đổi của bạn."
 
-#, fuzzy
 msgid "Color"
 msgstr "Màu sắc"
 
-#, fuzzy
 msgid "The quick brown fox jumps over the lazy dog.</div>"
-msgstr "Con chồn xám nhanh nhẹn nhảy qua con chó lười."
+msgstr "Con chồn xám nhanh nhẹn nhảy qua con chó lười.</div>"
 
 msgid "Rectangles"
-msgstr "Hình chữ nhật"
+msgstr "Chữ nhật"
 
-#, fuzzy
 msgid "Pre"
-msgstr "đỏ"
+msgstr "Trước"
 
 msgid "The quick brown fox jumped over the lazy dog."
 msgstr "Con chồn xám nhanh nhẩu nhảy qua con chó lười."
 
 msgid "Ignore '%s'"
-msgstr "Bỏ qua '%s'"
+msgstr "Bỏ qua « %s »"
 
 msgid "Suggest word"
 msgstr "Đề nghị từ"
 
-#, fuzzy
 msgid "Text..."
-msgstr "_Chữ..."
+msgstr "Chữ..."
 
-#, fuzzy
 msgid "I could not initialize Bonobo"
 msgstr "Không thể khởi động Bonobo."
 
-#, fuzzy
 msgid "Test"
-msgstr "Test7"
+msgstr "Kiểm tra"
 
-#, fuzzy
 msgid "Test 1"
-msgstr "Test1"
+msgstr "Kiểm tra 1"
 
 msgid "The quick brown fox jumped over the lazy dog. "
 msgstr "Con chồn xám nhanh nhẩu nhảy qua con chó lười. "
@@ -2361,7 +2312,7 @@ msgid ""
 "/bulb.png\" hspace=10></td><td width=\"100%\">Place your text here</td></"
 "tr></table></td></tr></table>"
 msgstr ""
-"/bulb.png\" hspace=10></td><td width=\"100%\">Dat text o day</td></tr></"
+"/bulb.png\" hspace=10></td><td width=\"100%\">Chèn câu vào đây</td></tr></"
 "table></td></tr></table>"
 
 msgid ""
@@ -2381,62 +2332,49 @@ msgstr ""
 "\"-1\">Image 1: <b>description</b></font></td></tr></table></td></tr></table>"
 
 msgid "Sans"
-msgstr "Sans"
+msgstr "Không chân"
 
 msgid "Monospace"
-msgstr "Cứng"
+msgstr "Đơn cách"
 
-#, fuzzy
 msgid "Insert Smiley 10 smiley into document..."
-msgstr "Chèn Biểu tượng Mỉm cười vào tài liệu..."
+msgstr "Chèn Biểu tượng Mỉm cười số 10 vào tài liệu..."
 
-#, fuzzy
 msgid "Insert Smiley 11 smiley into document..."
-msgstr "Chèn Biểu tượng Mỉm cười vào tài liệu..."
+msgstr "Chèn Biểu tượng Mỉm cười số 11 vào tài liệu..."
 
-#, fuzzy
 msgid "Insert Smiley 8 smiley into document..."
-msgstr "Chèn Biểu tượng Mỉm cười vào tài liệu..."
+msgstr "Chèn Biểu tượng Mỉm cười số 8 vào tài liệu..."
 
-#, fuzzy
 msgid "Insert Smiley 9 smiley into document..."
-msgstr "Chèn Biểu tượng Mỉm cười vào tài liệu..."
+msgstr "Chèn Biểu tượng Mỉm cười số 9 vào tài liệu..."
 
 msgid "Modify the file's properties"
-msgstr "Đổi thuộc tính tập tin"
+msgstr "Sửa đổi thuộc tính tập tin"
 
-#, fuzzy
 msgid "Pr_operties..."
-msgstr "Thuộc tính"
+msgstr "T_huộc tính..."
 
-#, fuzzy
 msgid "Smiley _10"
-msgstr "_Biểu tượng xúc cảm"
+msgstr "Biểu tượng xúc cảm số _10"
 
-#, fuzzy
 msgid "Smiley _11"
-msgstr "_Biểu tượng xúc cảm"
+msgstr "Biểu tượng xúc cảm số _11"
 
-#, fuzzy
 msgid "Smiley _8"
-msgstr "_Biểu tượng xúc cảm"
+msgstr "Biểu tượng xúc cảm số _8"
 
-#, fuzzy
 msgid "Smiley _9"
-msgstr "_Biểu tượng xúc cảm"
+msgstr "Biểu tượng xúc cảm số _9"
 
 msgid "Cannot execute gtkhtml properties"
 msgstr "Không thể thực hiện thuộc tính gtkhtml"
 
 msgid "EBrowser control"
-msgstr "Điều khiển EBrowser"
+msgstr "Điều khiển EDuyệt"
 
-#, fuzzy
 msgid "HTML Browser control"
-msgstr "Điều khiển Biên soạn GtkHTML"
+msgstr "Điều khiển Trình duyệt HTML"
 
-#~ msgid ""
-#~ "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
-#~ msgstr ""
-#~ "Địa chỉ Mạng Mozilla được thả trên trình Composer có định dạng không đúng "
-#~ "(%d) hay độ dài không đúng (%d).\n"
+msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
+msgstr "Địa chỉ Mạng Mozilla được thả trên trình Composer có định dạng không đúng (%d) hay độ dài không đúng (%d).\n"
