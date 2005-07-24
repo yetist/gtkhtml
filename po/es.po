@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-13 00:19+0200\n"
-"PO-Revision-Date: 2005-07-13 00:21+0200\n"
+"POT-Creation-Date: 2005-07-24 17:59+0200\n"
+"PO-Revision-Date: 2005-07-24 17:59+0200\n"
 "Last-Translator: Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -860,11 +860,11 @@ msgid "None"
 msgstr "Nada"
 
 #: ../components/html-editor/body.c:71
-msgid "Perforated Paper"
+msgid "Perforated paper"
 msgstr "Papel perforado"
 
 #: ../components/html-editor/body.c:79
-msgid "Blue Ink"
+msgid "Blue ink"
 msgstr "Tinta azul"
 
 #: ../components/html-editor/body.c:87
@@ -962,7 +962,6 @@ msgid "Transparent"
 msgstr "Transparente"
 
 #: ../components/html-editor/editor-control-factory.c:182
-#: ../components/html-editor/menubar.c:358
 #: ../components/html-editor/popup.c:190 ../components/html-editor/popup.c:268
 msgid "Properties"
 msgstr "Propiedades"
@@ -1498,6 +1497,7 @@ msgstr "Insertar: archivo HTML"
 msgid "Insert: Text File"
 msgstr "Insertar: archivo de texto"
 
+#: ../components/html-editor/menubar.c:358
 #: ../components/html-editor/menubar.c:376
 #: ../components/html-editor/menubar.c:394
 msgid "Format"
