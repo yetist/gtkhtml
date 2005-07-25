@@ -1,3 +1,9 @@
+2005-07-25  Kaushal Kumar  <kakumar@novell.com>
+
+	* configure.in: bumped version to 3.7.5 for the new release.
+
+	* NEWS: updated.
+
 2005-07-22  Kaushal Kumar  <kakumar@novell.com>
 
 	* MAINTAINERS: Updated with my email id.

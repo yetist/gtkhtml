@@ -1,3 +1,20 @@
+gtkhtml-3.7.5 "White Rose" 2005-07-25
+-----------------------------------------------
+
+New in this release
+
+   * HIGification of few dialog titles and labels (H.A.Riyaz Ahmed)
+   * Removal of deprecated calls (Diego Gonzalez)
+   * Make Win32 compatible (Tor Lillqvist)
+   * HIGification of more strings, titles, etc.
+   * Fix UI issue with Page format dialog.
+   * Plug leaks (Kjartan Maraas)
+   * Updated translations (Roozbeh Pournader, Priit Laes,
+     Francisco Javier F. Serrador, Miloslav Trmac, 
+     Vincent van Adrighem, Adam Weinberger, Marcel Telka,
+     Ankit Patel, Takeshi AIHANA, Ignacio Casal Quinteiro,
+     Clytie Siddall, Kjartan Maraas, Baris Cicek, Ilkka Tuohela)
+
 gtkhtml-3.7.4 "Hare Rama" 2005-07-11
 -----------------------------------------------
 
