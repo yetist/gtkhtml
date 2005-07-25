@@ -2,891 +2,898 @@
 # Suomennos: http://gnome-fi.sourceforge.net/
 #
 # Copyright (C) 2002 Free Software Foundation, Inc.
-# Pauli Virtanen <pauli.virtanen@hut.fi>, 2000-2002.
+# Pauli Virtanen <pauli.virtanen@hut.fi>, 2000-2005.
+# Ilkka Tuohela <hile@iki.fi>, 2002-2005.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 1.1.0.99\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-28 19:13+0100\n"
-"PO-Revision-Date: 2005-02-04 11:56+0200\n"
-"Last-Translator: Pauli Virtanen <pauli.virtanen@hut.fi>\n"
+"POT-Creation-Date: 2005-07-25 05:48+0300\n"
+"PO-Revision-Date: 2005-07-25 05:50+0300\n"
+"Last-Translator: Hile Tuohela <hile@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: a11y/image.c:150
+#: ../a11y/image.c:150
 #, c-format
 msgid "URL is %s, Alternative Text is %s"
 msgstr "URL on %s, vaihtoehtoinen teksti on %s"
 
-#: a11y/image.c:152
+#: ../a11y/image.c:152
 #, c-format
 msgid "URL is %s"
 msgstr "URL on %s"
 
-#: a11y/object.c:50 a11y/object.c:59 a11y/text.c:111
+#: ../a11y/object.c:52 ../a11y/object.c:61 ../a11y/text.c:122
 msgid "grab focus"
 msgstr "kaappaa kohdistus"
 
-#: a11y/object.c:256
+#: ../a11y/object.c:258
 msgid "Panel containing HTML"
 msgstr "HTML:ää sisältävä paneeli"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:1
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:1
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
 msgid "+0"
 msgstr "+0"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:2
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:2
-#: components/html-editor/gtkhtml-editor-properties.glade.h:5
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:2
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:2
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:5
 msgid "+1"
 msgstr "+1"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:3
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:3
-#: components/html-editor/gtkhtml-editor-properties.glade.h:6
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:3
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:3
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:6
 msgid "+2"
 msgstr "+2"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:4
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:4
-#: components/html-editor/gtkhtml-editor-properties.glade.h:7
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:4
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:4
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:7
 msgid "+3"
 msgstr "+3"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:5
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:5
-#: components/html-editor/gtkhtml-editor-properties.glade.h:9
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:5
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:5
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:9
 msgid "-1"
 msgstr "-1"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:6
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:6
-#: components/html-editor/gtkhtml-editor-properties.glade.h:10
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:6
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:6
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:10
 msgid "-2"
 msgstr "-2"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:7
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:7
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:7
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:7
 msgid "A_ddress"
 msgstr "_Osoite"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:8
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:8
-#: components/html-editor/toolbar.c:53
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:8
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:8
+#: ../components/html-editor/toolbar.c:57
 msgid "Alphabetical List"
 msgstr "Aakkosellinen luettelo"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:9
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:9
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:9
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:9
 msgid "Background Color"
 msgstr "Taustaväri"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:10
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:10
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:10
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:10
 msgid "Blue"
 msgstr "Sininen"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:11
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:11
-#: components/html-editor/toolbar.c:50
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:11
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:11
+#: ../components/html-editor/toolbar.c:54
 msgid "Bulleted List"
 msgstr "Merkkiluettelo"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:12
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
-#: components/html-editor/toolbar.c:515
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:12
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
+#: ../components/html-editor/toolbar.c:527
 msgid "Center justifies the paragraphs"
 msgstr "Tasaa kappaleet keskelle"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:13
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:13
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:13
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:13
 msgid "Check spelling of the document"
 msgstr "Oikolue asiakirja"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:14
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:14
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:14
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:14
 msgid "Copy"
 msgstr "Kopioi"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:15
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:15
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:15
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:15
 msgid "Copy selection to clipboard"
 msgstr "Kopioi valinta leikepöydälle"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:16
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:16
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:16
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:16
 msgid "Copy the selection"
 msgstr "Kopioi valinta"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:17
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:17
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:17
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:17
 msgid "Cr_ying"
 msgstr "Itkev_ä"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:18
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:18
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:18
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:18
 msgid "Cu_t"
 msgstr "_Leikkaa"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:19
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:19
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:19
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:19
 msgid "Cut"
 msgstr "Leikkaa"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:20
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:20
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:20
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:20
 msgid "Cut selection to clipboard"
 msgstr "Leikkaa valinta leikepöydälle"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:21
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:21
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:21
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:21
 msgid "Cut the selection"
 msgstr "Leikkaa valinta"
 
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
-#: components/html-editor/search.c:107 components/html-editor/search.c:167
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
+#: ../components/html-editor/search.c:111
+#: ../components/html-editor/search.c:171
 msgid "Find"
 msgstr "Etsi"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:23
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:23
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:23
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:23
 msgid "Find And Replace"
 msgstr "Etsi ja korvaa"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:24
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:24
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:24
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:24
 msgid "Find _Again"
 msgstr "Etsi uu_delleen"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:25
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:25
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:25
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:25
 msgid "Find again"
 msgstr "Etsi uudelleen"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:26
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:26
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:26
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:26
 msgid "Find and Replace"
 msgstr "Etsi ja korvaa"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:27
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:27
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:27
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:27
 msgid "For_mat"
 msgstr "M_uotoiltu"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:28
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:28
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:28
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:28
 msgid "Green"
 msgstr "Vihreä"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:29
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:29
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:29
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:29
 msgid "Header _1"
 msgstr "Otsikko _1"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:30
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:30
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:30
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:30
 msgid "Header _2"
 msgstr "Otsikko _2"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:31
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:31
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:31
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:31
 msgid "Header _3"
 msgstr "Otsikko _3"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:32
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:32
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:32
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:32
 msgid "Header _4"
 msgstr "Otsikko _4"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:33
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:33
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:33
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:33
 msgid "Header _5"
 msgstr "Otsikko _5"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:34
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:34
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:34
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:34
 msgid "Header _6"
 msgstr "Otsikko _6"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:35
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
-#: components/html-editor/editor-control-factory.c:189
-#: components/html-editor/gtkhtml-editor-properties.glade.h:37
-#: components/html-editor/popup.c:207
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:35
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
+#: ../components/html-editor/editor-control-factory.c:193
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:37
+#: ../components/html-editor/popup.c:211
 msgid "Image"
 msgstr "Kuva"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:36
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:36
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
 msgid "Insert Crying smiley into document..."
 msgstr "Lisää asiakirjaan itkevä hymiö..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:37
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:37
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
 msgid "Insert Frown smiley into document..."
 msgstr "Lisää asiakirjaan paheksuva hymiö..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:38
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:38
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
 msgid "Insert HTML file into document..."
 msgstr "Lisää HTML-tiedosto asiakirjaan..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:39
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:39
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
 msgid "Insert HTML link into document..."
 msgstr "Lisää HTML-linkki asiakirjaan..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:40
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:40
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:40
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:40
 msgid "Insert HTML template into document..."
 msgstr "Lisää HTML-malli asiakirjaan..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:41
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:41
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
 msgid "Insert Indifferent smiley into document..."
 msgstr "Lisää asiakirjaan välinpitämätön hymiö..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:42
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:42
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
 msgid "Insert Laughing smiley into document..."
 msgstr "Lisää asiakirjaan naurava hymiö..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:43
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:43
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
 msgid "Insert Lick smiley into document..."
 msgstr "Lisää asiakirjaan nuolaiseva hymiö..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:44
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:44
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
 msgid "Insert Oh no! smiley into document..."
 msgstr "Lisää asiakirjaan voi ei -hymiö..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:45
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:45
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
 msgid "Insert Smile smiley into document..."
 msgstr "Lisää asiakirjaan hymiö..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:46
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:46
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
 msgid "Insert Surprised smiley into document..."
 msgstr "Lisää asiakirjaan yllättynyt hymiö..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:47
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:47
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
 msgid "Insert Undecided smiley into document..."
 msgstr "Lisää asiakirjaan päättämätön hymiö..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:48
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:48
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
 msgid "Insert Wink smiley into document..."
 msgstr "Lisää asiakirjaan silmää iskevä hymiö..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:49
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:49
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
 msgid "Insert image into document..."
 msgstr "Lisää kuva asiakirjaan..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:50
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:50
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
 msgid "Insert rule into document..."
 msgstr "Lisää asiakirjaan viiva..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:51
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:52
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:51
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:52
 msgid "Insert table into document..."
 msgstr "Lisää asiakirjaan taulukko..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:52
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:53
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:52
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:53
 msgid "Insert text file into document..."
 msgstr "Lisää tekstitiedosto asiakirjaan..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:53
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
-#: components/html-editor/toolbar.c:513
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:53
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
+#: ../components/html-editor/toolbar.c:525
 msgid "Left justifies the paragraphs"
 msgstr "Tasaa kappaleet vasemmalle"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:54
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:54
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
 msgid "Li_ck"
 msgstr "_Nuolaiseva"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
-#: components/html-editor/menubar.c:136 components/html-editor/popup.c:106
-#: components/html-editor/popup.c:201 components/html-editor/popup.c:267
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
+#: ../components/html-editor/menubar.c:140
+#: ../components/html-editor/popup.c:110 ../components/html-editor/popup.c:205
+#: ../components/html-editor/popup.c:271
 msgid "Link"
 msgstr "Linkki"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:56
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:56
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
 msgid "Make the current Paragraph style Normal"
 msgstr "Vaihda nykyisen kappaleen tyyli tavalliseksi"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:57
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:57
 msgid "Make the current Paragraph style Preformat"
 msgstr "Vaihda nykyisen kappaleen tyyli esimuotoilluksi"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:58
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:58
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
 msgid "Make the current paragraph a bulleted list"
 msgstr "Tee nykyisestä kappaleesta merkkiluettelo"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:59
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:59
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
 msgid "Make the current paragraph a list with roman numerals"
 msgstr "Tee nykyisestä kappaleesta luettelo, jossa on roomalaiset numerot"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:60
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:60
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
 msgid "Make the current paragraph a numbered list"
 msgstr "Tee nykyisestä kappaleesta numeroluettelo"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:61
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:61
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
 msgid "Make the current paragraph an H1 header"
 msgstr "Tee nykyisestä kappaleesta tason 1 otsikko"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:62
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:63
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:62
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:63
 msgid "Make the current paragraph an H2 header"
 msgstr "Tee nykyisestä kappaleesta tason 2 otsikko"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:63
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:64
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:63
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:64
 msgid "Make the current paragraph an H3 header"
 msgstr "Tee nykyisestä kappaleesta tason 3 otsikko"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:64
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:65
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:64
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:65
 msgid "Make the current paragraph an H4 header"
 msgstr "Tee nykyisestä kappaleesta tason 4 otsikko"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:65
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:66
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:65
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:66
 msgid "Make the current paragraph an H5 header"
 msgstr "Tee nykyisestä kappaleesta tason 5 otsikko"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:66
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:67
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:66
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:67
 msgid "Make the current paragraph an H6 header"
 msgstr "Tee nykyisestä kappaleesta tason 6 otsikko"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:67
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:68
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:67
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:68
 msgid "Make the current paragraph an address"
 msgstr "Tee nykyisestä kappaleesta osoite"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:68
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:69
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:68
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:69
 msgid "Make the current paragraph an alphabetical list"
 msgstr "Tee nykyisestä kappaleesta aakkosellinen luettelo"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:69
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:70
-#: components/html-editor/paragraph.c:83 components/html-editor/toolbar.c:48
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:69
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:70
+#: ../components/html-editor/paragraph.c:87
+#: ../components/html-editor/toolbar.c:52
 msgid "Normal"
 msgstr "Tavallinen"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:70
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
-#: components/html-editor/toolbar.c:51
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:70
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
+#: ../components/html-editor/toolbar.c:55
 msgid "Numbered List"
 msgstr "Numeroluettelo"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:71
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:71
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
 msgid "Numbered _List"
 msgstr "_Numeroluettelo"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:72
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:72
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
 msgid "Oh _no!"
 msgstr "Voi _ei!"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:73
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:73
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
 msgid "Orange"
 msgstr "Oranssi"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:74
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:75
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:74
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:75
 msgid "Other..."
 msgstr "Muu..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:75
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:75
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
 msgid "Paste"
 msgstr "Liitä"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:76
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:76
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
 msgid "Paste _Quotation"
 msgstr "Liitä lai_naus"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:77
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:77
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
 msgid "Paste from clipboard"
 msgstr "Liitä leikepöydältä"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:78
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:78
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
 msgid "Paste the clipboard"
 msgstr "Liitä leikepöydän sisältö"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:79
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:79
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
 msgid "Paste the clipboard as a quotation"
 msgstr "Liitä leikepöydän sisältö lainauksena"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:80
-#: components/html-editor/toolbar.c:49
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:80
+#: ../components/html-editor/toolbar.c:53
 msgid "Preformat"
 msgstr "Esimuotoiltu"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:81
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:81
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
 msgid "Purple"
 msgstr "Purppura"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:82
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:82
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
 msgid "Red"
 msgstr "Punainen"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:83
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:83
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
 msgid "Redo"
 msgstr "Tee uudelleen"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:84
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:84
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
 msgid "Redo previously undone change"
 msgstr "Tee kumotut muutokset uudelleen"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:85
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:85
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
 msgid "Redo the undone action"
 msgstr "Tekee kumotun toiminnon uudelleen"
 
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
-#: components/html-editor/replace.c:163 components/html-editor/replace.c:227
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
+#: ../components/html-editor/replace.c:167
+#: ../components/html-editor/replace.c:231
 msgid "Replace"
 msgstr "Korvaa"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:87
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
-#: components/html-editor/toolbar.c:517
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:87
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
+#: ../components/html-editor/toolbar.c:529
 msgid "Right justifies the paragraphs"
 msgstr "Tasaa kappaleet oikealle"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:88
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:88
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
 msgid "Roman Numeral List"
 msgstr "Luettelo roomalaisin numeroin"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:89
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
-#: components/html-editor/editor-control-factory.c:207
-#: components/html-editor/gtkhtml-editor-properties.glade.h:48
-#: components/html-editor/menubar.c:155 components/html-editor/popup.c:225
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:89
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
+#: ../components/html-editor/editor-control-factory.c:211
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:48
+#: ../components/html-editor/menubar.c:159
+#: ../components/html-editor/popup.c:229
 msgid "Rule"
 msgstr "Viiva"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:90
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:90
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
 msgid "Select _All"
 msgstr "_Valitse kaikki"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:91
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:91
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
 msgid "Select the entire contents of the document"
 msgstr "Valitse asiakirjan koko sisältö"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:92
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
-#: components/html-editor/toolbar.c:545
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:92
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
+#: ../components/html-editor/toolbar.c:557
 msgid "Strikeout"
 msgstr "Yliviivaa"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:93
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:93
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
 msgid "Su_perscript"
 msgstr "Yläi_ndeksi"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:94
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:94
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
 msgid "Su_rprised"
 msgstr "_Yllättynyt"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:95
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:95
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
 msgid "Subs_cript"
 msgstr "Ala_indeksi"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:96
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:96
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
 msgid "Subscript"
 msgstr "Alaindeksi"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:97
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:97
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
 msgid "Superscript"
 msgstr "Yläindeksi"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
-#: components/html-editor/gtkhtml-editor-properties.glade.h:52
-#: components/html-editor/menubar.c:176 components/html-editor/popup.c:231
-#: components/html-editor/popup.c:501 components/html-editor/popup.c:513
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:52
+#: ../components/html-editor/menubar.c:180
+#: ../components/html-editor/popup.c:235 ../components/html-editor/popup.c:505
+#: ../components/html-editor/popup.c:517
 msgid "Table"
 msgstr "Taulukko"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:99
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:99
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
 msgid "Te_mplate..."
 msgstr "_Malli..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:100
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:100
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
 msgid "Te_xt file..."
 msgstr "_Tekstitiedosto..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:101
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
-#: components/html-editor/toolbar.c:537
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:101
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
+#: ../components/html-editor/toolbar.c:549
 msgid "Typewriter"
 msgstr "Kirjoituskone"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:102
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:102
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
 msgid "Undo"
 msgstr "Kumoa"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:103
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:103
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
 msgid "Undo previous changes"
 msgstr "Kumoa edelliset muutokset"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:104
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:104
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
 msgid "Undo the last action"
 msgstr "Kumoa viimeisin toiminto"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:105
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:105
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
 msgid "Yellow"
 msgstr "Keltainen"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:106
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:106
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
 msgid "_Alignment"
 msgstr "Ta_saus"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:107
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:107
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
 msgid "_Alphabetical List"
 msgstr "_Aakkosellinen luettelo"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:108
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
-#: components/html-editor/gtkhtml-editor-properties.glade.h:60
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:108
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:60
 msgid "_Bold"
 msgstr "_Lihava"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:109
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:109
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
 msgid "_Bulleted List"
 msgstr "_Merkkiluettelo"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
 msgid "_Center"
 msgstr "_Keskitä"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:111
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:111
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
 msgid "_Copy"
 msgstr "_Kopioi"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:112
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:112
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
 msgid "_Decrease Indent"
 msgstr "Sisennä _vähemmän"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:113
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:113
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
 msgid "_Edit"
 msgstr "_Muokkaa"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:114
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:114
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
 msgid "_Find..."
 msgstr "_Etsi..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:115
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:115
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
 msgid "_Font Size"
 msgstr "_Kirjasinkoko"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:116
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:116
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
 msgid "_Frown"
 msgstr "_Paheksuva"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:117
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:117
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
 msgid "_HTML file..."
 msgstr "_HTML-tiedosto..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:118
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:118
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
 msgid "_Heading"
 msgstr "_Otsikko"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:119
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:119
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
 msgid "_Image..."
 msgstr "_Kuva..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:120
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:120
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
 msgid "_Increase Indent"
 msgstr "Sisennä _enemmän"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:121
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:121
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
 msgid "_Indifferent"
 msgstr "_Välinpitämätön"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:122
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:122
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
 msgid "_Insert"
 msgstr "_Lisää"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:123
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
-#: components/html-editor/gtkhtml-editor-properties.glade.h:67
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:123
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:67
 msgid "_Italic"
 msgstr "_Kursiivi"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
 msgid "_Laughing"
 msgstr "_Naurava"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:125
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:127
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:125
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:127
 msgid "_Left"
 msgstr "_Vasen"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:126
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:128
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:126
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:128
 msgid "_Link..."
 msgstr "_Linkki..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:127
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:127
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
 msgid "_Normal"
 msgstr "_Tavallinen"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:128
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:128
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
 msgid "_Page..."
 msgstr "_Sivu..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:129
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:129
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
 msgid "_Paragraph..."
 msgstr "_Kappale..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:130
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:130
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
 msgid "_Paste"
 msgstr "L_iitä"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:131
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:133
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:131
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:133
 msgid "_Plain text"
 msgstr "_Tavallinen teksti"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:132
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:134
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:132
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:134
 msgid "_Preformat"
 msgstr "_Esimuotoiltu"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:133
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:133
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
 msgid "_Redo"
 msgstr "_Tee uudelleen"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:134
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:134
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
 msgid "_Replace..."
 msgstr "Ko_rvaa..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:135
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:135
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
 msgid "_Right"
 msgstr "_Oikea"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:136
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:136
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
 msgid "_Roman Numeral List"
 msgstr "Luettelo _roomalaisin numeroin"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:137
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:139
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:137
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:139
 msgid "_Rule..."
 msgstr "_Viiva..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:138
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:140
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:138
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:140
 msgid "_Smile"
 msgstr "_Hymy"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:139
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:141
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:139
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:141
 msgid "_Smiley"
 msgstr "_Hymiö"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:140
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:142
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:140
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:142
 msgid "_Spell Check Document..."
 msgstr "_Oikolue asiakirja..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:141
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:143
-#: components/html-editor/gtkhtml-editor-properties.glade.h:73
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:141
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:143
 msgid "_Strikeout"
 msgstr "_Yliviivaus"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:142
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:144
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:142
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:144
 msgid "_Style"
 msgstr "_Tyyli"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:143
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:145
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:143
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:145
 msgid "_Table..."
 msgstr "_Taulukko..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:144
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:146
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:144
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:146
 msgid "_Text..."
 msgstr "_Teksti..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:145
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:147
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:145
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:147
 msgid "_Undecided"
 msgstr "_Päättämätön"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:146
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:148
-#: components/html-editor/gtkhtml-editor-properties.glade.h:76
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:146
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:148
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:76
 msgid "_Underline"
 msgstr "_Alleviivaus"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:147
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:149
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:147
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:149
 msgid "_Undo"
 msgstr "K_umoa"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:148
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:150
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:148
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:150
 msgid "_Wink"
 msgstr "_Silmänisku"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:149
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:152
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:149
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:152
 msgid "etc..."
 msgstr "jne..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:1
+#: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:1
 msgid "GNOME HTML Editor"
 msgstr "GNOME HTML-muokkain"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:2
+#: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:2
 msgid "GNOME HTML Editor Control"
 msgstr "GNOME HTML-muokkainsäädin"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:3
+#: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:3
 msgid "GNOME HTML Editor Factory"
 msgstr "GNOME HTML-muokkaintehdas"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
 msgid "Insert Sick smiley into document..."
 msgstr "Lisää asiakirjaan pahoinvoiva hymiö..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:58
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:58
 msgid "Make the current Paragraph style Preformatted"
 msgstr "Vaihda nykyisen kappaleen tyyli esimuotoilluksi"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
-#: components/html-editor/paragraph.c:102
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
+#: ../components/html-editor/paragraph.c:106
 msgid "Preformatted"
 msgstr "Esimuotoiltu"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
 msgid "S_ick"
 msgstr "_Pahoinvoiva"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:151
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:151
 msgid "_Wrap Lines"
 msgstr "_Rivitä"
 
-#: components/html-editor/body.c:59
-#: components/html-editor/gtkhtml-editor-properties.glade.h:42
+#: ../components/html-editor/body.c:63
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:42
 msgid "None"
 msgstr "Ei mikään"
 
-#: components/html-editor/body.c:67
-msgid "Perforated Paper"
+#: ../components/html-editor/body.c:71
+msgid "Perforated paper"
 msgstr "Rei'itetty paperi"
 
-#: components/html-editor/body.c:75
-msgid "Blue Ink"
+#: ../components/html-editor/body.c:79
+msgid "Blue ink"
 msgstr "Sininen muste"
 
-#: components/html-editor/body.c:83
+#: ../components/html-editor/body.c:87
 msgid "Paper"
 msgstr "Paperi"
 
-#: components/html-editor/body.c:91
+#: ../components/html-editor/body.c:95
 msgid "Ribbon"
 msgstr "Nauha"
 
-#: components/html-editor/body.c:99
+#: ../components/html-editor/body.c:103
 msgid "Midnight"
 msgstr "Keskiyö"
 
-#: components/html-editor/body.c:107
+#: ../components/html-editor/body.c:111
 msgid "Confidential"
 msgstr "Luottamuksellinen"
 
-#: components/html-editor/body.c:115
+#: ../components/html-editor/body.c:119
 msgid "Draft"
 msgstr "Luonnos"
 
-#: components/html-editor/body.c:123
+#: ../components/html-editor/body.c:127
 msgid "Graph paper"
 msgstr "Graafipaperi"
 
-#: components/html-editor/body.c:243
-#: components/html-editor/gtkhtml-editor-properties.glade.h:53
-#: components/html-editor/menubar.c:198
+#: ../components/html-editor/body.c:247
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:53
+#: ../components/html-editor/menubar.c:202
 msgid "Template"
 msgstr "Malli"
 
-#: components/html-editor/body.c:247
+#: ../components/html-editor/body.c:251
 msgid "T_emplate:"
 msgstr "_Malli:"
 
@@ -897,786 +904,813 @@ msgstr "_Malli:"
 #. }
 #. g_signal_connect (data->entry_title, "changed", G_CALLBACK (entry_changed), data);
 #. editor_hig_attach_row (t1, _("T_itle:"), data->entry_title, 1);
-#: components/html-editor/body.c:257 components/html-editor/paragraph.c:112
+#: ../components/html-editor/body.c:261
+#: ../components/html-editor/paragraph.c:116
 msgid "General"
 msgstr "Yleinen"
 
-#: components/html-editor/body.c:268 components/html-editor/text.c:162
-#: components/html-editor/toolbar.c:301
+#: ../components/html-editor/body.c:272 ../components/html-editor/text.c:166
+#: ../components/html-editor/toolbar.c:312
 msgid "Automatic"
 msgstr "Automaattinen"
 
-#: components/html-editor/body.c:280
+#: ../components/html-editor/body.c:284
 msgid "_Text:"
 msgstr "_Teksti:"
 
-#: components/html-editor/body.c:281
+#: ../components/html-editor/body.c:285
 msgid "_Link:"
 msgstr "_Linkki:"
 
-#: components/html-editor/body.c:282
+#: ../components/html-editor/body.c:286
 msgid "_Background:"
 msgstr "_Tausta:"
 
-#: components/html-editor/body.c:284
-#: components/html-editor/gtkhtml-editor-properties.glade.h:30
+#: ../components/html-editor/body.c:288
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:30
 msgid "Colors"
 msgstr "Värit"
 
-#: components/html-editor/body.c:286 components/html-editor/body.c:303
-#: components/html-editor/gtkhtml-editor-properties.glade.h:23
+#: ../components/html-editor/body.c:290 ../components/html-editor/body.c:307
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:23
 msgid "Background Image"
 msgstr "Taustakuva"
 
-#: components/html-editor/body.c:298
+#: ../components/html-editor/body.c:302
 msgid "Background Image File Path"
 msgstr "Taustakuvan tiedoston polku"
 
-#: components/html-editor/body.c:301
-#: components/html-editor/gtkhtml-editor-properties.glade.h:71
+#: ../components/html-editor/body.c:305
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:71
 msgid "_Source:"
 msgstr "_Lähde:"
 
-#: components/html-editor/cell.c:333 components/html-editor/image.c:350
-#: components/html-editor/link.c:182 components/html-editor/rule.c:174
-#: components/html-editor/table.c:220 components/html-editor/template.c:271
-#: components/html-editor/text.c:159
+#: ../components/html-editor/cell.c:337 ../components/html-editor/image.c:354
+#: ../components/html-editor/link.c:186 ../components/html-editor/rule.c:178
+#: ../components/html-editor/table.c:226
+#: ../components/html-editor/template.c:275
+#: ../components/html-editor/text.c:163
 msgid "Could not load glade file."
 msgstr "Glade-tiedostoa ei voitu ladata."
 
-#: components/html-editor/cell.c:350 components/html-editor/table.c:231
+#: ../components/html-editor/cell.c:354 ../components/html-editor/table.c:237
 msgid "Transparent"
 msgstr "Läpinäkyvä"
 
-#: components/html-editor/editor-control-factory.c:178
-#: components/html-editor/menubar.c:354 components/html-editor/menubar.c:372
-#: components/html-editor/menubar.c:390 components/html-editor/popup.c:186
-#: components/html-editor/popup.c:264
+#: ../components/html-editor/editor-control-factory.c:182
+#: ../components/html-editor/popup.c:190 ../components/html-editor/popup.c:268
 msgid "Properties"
 msgstr "Ominaisuudet"
 
-#: components/html-editor/editor-control-factory.c:197
-#: components/html-editor/gtkhtml-editor-properties.glade.h:54
-#: components/html-editor/menubar.c:376 components/html-editor/popup.c:195
+#: ../components/html-editor/editor-control-factory.c:201
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:54
+#: ../components/html-editor/menubar.c:380
+#: ../components/html-editor/popup.c:199
 msgid "Text"
 msgstr "Teksti"
 
-#: components/html-editor/editor-control-factory.c:216
-#: components/html-editor/menubar.c:394 components/html-editor/popup.c:213
+#: ../components/html-editor/editor-control-factory.c:220
+#: ../components/html-editor/menubar.c:398
+#: ../components/html-editor/popup.c:217
 msgid "Paragraph"
 msgstr "Kappale"
 
-#: components/html-editor/editor-control-factory.c:220
-#: components/html-editor/gtkhtml-editor-properties.glade.h:43
-#: components/html-editor/menubar.c:358 components/html-editor/popup.c:219
+#: ../components/html-editor/editor-control-factory.c:224
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:43
+#: ../components/html-editor/menubar.c:362
+#: ../components/html-editor/popup.c:223
 msgid "Page"
 msgstr "Sivu"
 
-#: components/html-editor/gi-color-combo.c:187
+#: ../components/html-editor/gi-color-combo.c:191
 msgid "color preview"
 msgstr "värin esikatselu"
 
 #. This is the default custom color
-#: components/html-editor/gi-color-palette.c:395
+#: ../components/html-editor/gi-color-palette.c:399
 msgid "custom"
 msgstr "muu"
 
 #. "Custom" color - we'll pop up a GnomeColorPicker
-#: components/html-editor/gi-color-palette.c:437
+#: ../components/html-editor/gi-color-palette.c:441
 msgid "Custom Color:"
 msgstr "Muu väri:"
 
-#: components/html-editor/gi-color-palette.c:445
+#: ../components/html-editor/gi-color-palette.c:449
 msgid "Choose Custom Color"
 msgstr "Valitse muu väri"
 
-#: components/html-editor/gi-color-palette.c:578
+#: ../components/html-editor/gi-color-palette.c:582
 msgid "black"
 msgstr "musta"
 
-#: components/html-editor/gi-color-palette.c:579
+#: ../components/html-editor/gi-color-palette.c:583
 msgid "light brown"
 msgstr "vaaleanruskea"
 
-#: components/html-editor/gi-color-palette.c:580
+#: ../components/html-editor/gi-color-palette.c:584
 msgid "brown gold"
 msgstr "kullanruskea"
 
-#: components/html-editor/gi-color-palette.c:581
+#: ../components/html-editor/gi-color-palette.c:585
 msgid "dark green #2"
 msgstr "tummanvihreä 2."
 
-#: components/html-editor/gi-color-palette.c:582
+#: ../components/html-editor/gi-color-palette.c:586
 msgid "navy"
 msgstr "laivastonsininen"
 
-#: components/html-editor/gi-color-palette.c:583
-#: components/html-editor/gi-color-palette.c:639
+#: ../components/html-editor/gi-color-palette.c:587
+#: ../components/html-editor/gi-color-palette.c:643
 msgid "dark blue"
 msgstr "tummansininen"
 
-#: components/html-editor/gi-color-palette.c:584
+#: ../components/html-editor/gi-color-palette.c:588
 msgid "purple #2"
 msgstr "purppura 2."
 
-#: components/html-editor/gi-color-palette.c:585
+#: ../components/html-editor/gi-color-palette.c:589
 msgid "very dark gray"
 msgstr "hyvin tumma harmaa"
 
-#: components/html-editor/gi-color-palette.c:588
-#: components/html-editor/gi-color-palette.c:644
+#: ../components/html-editor/gi-color-palette.c:592
+#: ../components/html-editor/gi-color-palette.c:648
 msgid "dark red"
 msgstr "tummanpunainen"
 
-#: components/html-editor/gi-color-palette.c:589
+#: ../components/html-editor/gi-color-palette.c:593
 msgid "red-orange"
 msgstr "punaoranssi"
 
-#: components/html-editor/gi-color-palette.c:590
+#: ../components/html-editor/gi-color-palette.c:594
 msgid "gold"
 msgstr "kulta"
 
-#: components/html-editor/gi-color-palette.c:591
+#: ../components/html-editor/gi-color-palette.c:595
 msgid "dark green"
 msgstr "tummanvihreä"
 
-#: components/html-editor/gi-color-palette.c:592
-#: components/html-editor/gi-color-palette.c:645
+#: ../components/html-editor/gi-color-palette.c:596
+#: ../components/html-editor/gi-color-palette.c:649
 msgid "dull blue"
 msgstr "himmeä sininen"
 
-#: components/html-editor/gi-color-palette.c:593
-#: components/html-editor/gi-color-palette.c:646
+#: ../components/html-editor/gi-color-palette.c:597
+#: ../components/html-editor/gi-color-palette.c:650
 msgid "blue"
 msgstr "sininen"
 
-#: components/html-editor/gi-color-palette.c:594
+#: ../components/html-editor/gi-color-palette.c:598
 msgid "dull purple"
 msgstr "himmeä purppura"
 
-#: components/html-editor/gi-color-palette.c:595
+#: ../components/html-editor/gi-color-palette.c:599
 msgid "dark grey"
 msgstr "tummanharmaa"
 
-#: components/html-editor/gi-color-palette.c:598
+#: ../components/html-editor/gi-color-palette.c:602
 msgid "red"
 msgstr "punainen"
 
-#: components/html-editor/gi-color-palette.c:599
+#: ../components/html-editor/gi-color-palette.c:603
 msgid "orange"
 msgstr "oranssi"
 
-#: components/html-editor/gi-color-palette.c:600
+#: ../components/html-editor/gi-color-palette.c:604
 msgid "lime"
 msgstr "limetti"
 
-#: components/html-editor/gi-color-palette.c:601
+#: ../components/html-editor/gi-color-palette.c:605
 msgid "dull green"
 msgstr "himmeä vihreä"
 
-#: components/html-editor/gi-color-palette.c:602
+#: ../components/html-editor/gi-color-palette.c:606
 msgid "dull blue #2"
 msgstr "himmeä sininen 2."
 
-#: components/html-editor/gi-color-palette.c:603
+#: ../components/html-editor/gi-color-palette.c:607
 msgid "sky blue #2"
 msgstr "taivaansininen 2."
 
-#: components/html-editor/gi-color-palette.c:604
-#: components/html-editor/gi-color-palette.c:643
+#: ../components/html-editor/gi-color-palette.c:608
+#: ../components/html-editor/gi-color-palette.c:647
 msgid "purple"
 msgstr "purppura"
 
-#: components/html-editor/gi-color-palette.c:605
+#: ../components/html-editor/gi-color-palette.c:609
 msgid "gray"
 msgstr "harmaa"
 
-#: components/html-editor/gi-color-palette.c:608
-#: components/html-editor/gi-color-palette.c:640
+#: ../components/html-editor/gi-color-palette.c:612
+#: ../components/html-editor/gi-color-palette.c:644
 msgid "magenta"
 msgstr "violetti"
 
-#: components/html-editor/gi-color-palette.c:609
+#: ../components/html-editor/gi-color-palette.c:613
 msgid "bright orange"
 msgstr "kirkas oranssi"
 
-#: components/html-editor/gi-color-palette.c:610
-#: components/html-editor/gi-color-palette.c:641
+#: ../components/html-editor/gi-color-palette.c:614
+#: ../components/html-editor/gi-color-palette.c:645
 msgid "yellow"
 msgstr "keltainen"
 
-#: components/html-editor/gi-color-palette.c:611
+#: ../components/html-editor/gi-color-palette.c:615
 msgid "green"
 msgstr "vihreä"
 
-#: components/html-editor/gi-color-palette.c:612
-#: components/html-editor/gi-color-palette.c:642
+#: ../components/html-editor/gi-color-palette.c:616
+#: ../components/html-editor/gi-color-palette.c:646
 msgid "cyan"
 msgstr "syaani"
 
-#: components/html-editor/gi-color-palette.c:613
+#: ../components/html-editor/gi-color-palette.c:617
 msgid "bright blue"
 msgstr "kirkkaansininen"
 
-#: components/html-editor/gi-color-palette.c:614
-#: components/html-editor/gi-color-palette.c:631
+#: ../components/html-editor/gi-color-palette.c:618
+#: ../components/html-editor/gi-color-palette.c:635
 msgid "red purple"
 msgstr "punavioletti"
 
-#: components/html-editor/gi-color-palette.c:615
+#: ../components/html-editor/gi-color-palette.c:619
 msgid "light grey"
 msgstr "vaaleanharmaa"
 
-#: components/html-editor/gi-color-palette.c:618
-#: components/html-editor/gi-color-palette.c:635
+#: ../components/html-editor/gi-color-palette.c:622
+#: ../components/html-editor/gi-color-palette.c:639
 msgid "pink"
 msgstr "vaaleanpunainen"
 
-#: components/html-editor/gi-color-palette.c:619
+#: ../components/html-editor/gi-color-palette.c:623
 msgid "light orange"
 msgstr "vaalea oranssi"
 
-#: components/html-editor/gi-color-palette.c:620
-#: components/html-editor/gi-color-palette.c:632
+#: ../components/html-editor/gi-color-palette.c:624
+#: ../components/html-editor/gi-color-palette.c:636
 msgid "light yellow"
 msgstr "vaalea keltainen"
 
-#: components/html-editor/gi-color-palette.c:621
+#: ../components/html-editor/gi-color-palette.c:625
 msgid "light green"
 msgstr "vaaleanvihreä"
 
-#: components/html-editor/gi-color-palette.c:622
+#: ../components/html-editor/gi-color-palette.c:626
 msgid "light cyan"
 msgstr "vaalea syaani"
 
-#: components/html-editor/gi-color-palette.c:623
-#: components/html-editor/gi-color-palette.c:633
+#: ../components/html-editor/gi-color-palette.c:627
+#: ../components/html-editor/gi-color-palette.c:637
 msgid "light blue"
 msgstr "vaaleansininen"
 
-#: components/html-editor/gi-color-palette.c:624
-#: components/html-editor/gi-color-palette.c:637
+#: ../components/html-editor/gi-color-palette.c:628
+#: ../components/html-editor/gi-color-palette.c:641
 msgid "light purple"
 msgstr "vaalea purppura"
 
-#: components/html-editor/gi-color-palette.c:625
+#: ../components/html-editor/gi-color-palette.c:629
 msgid "white"
 msgstr "valkoinen"
 
-#: components/html-editor/gi-color-palette.c:630
+#: ../components/html-editor/gi-color-palette.c:634
 msgid "purplish blue"
 msgstr "purppuransininen"
 
-#: components/html-editor/gi-color-palette.c:634
+#: ../components/html-editor/gi-color-palette.c:638
 msgid "dark purple"
 msgstr "tumma purppura"
 
-#: components/html-editor/gi-color-palette.c:636
+#: ../components/html-editor/gi-color-palette.c:640
 msgid "sky blue"
 msgstr "taivaansininen"
 
 #. set the a11y name
-#: components/html-editor/gi-combo-box.c:419
+#: ../components/html-editor/gi-combo-box.c:423
 msgid "Popup"
 msgstr "Ponnahdusikkuna"
 
-#: components/html-editor/gnome-gtkhtml-editor.c:68
+#: ../components/html-editor/gnome-gtkhtml-editor.c:73
 msgid "GtkHTML Editor Control"
 msgstr "GtkHTML-muokkainsäädin"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:1
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:1
 msgid "    "
 msgstr "    "
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:3
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:3
 #, no-c-format
 msgid "%"
 msgstr "%"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:4
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:4
 msgid "*"
 msgstr "*"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:8
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:8
 msgid "+4"
 msgstr "+4"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:11
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:11
 msgid "<b>Alignment &amp; Behaviour</b>"
 msgstr "<b>Tasaus ja toiminta</b>"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:12
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:12
 msgid "<b>Background</b>"
 msgstr "<b>Tausta</b>"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:13
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:13
 msgid "<b>General</b>"
 msgstr "<b>Yleinen</b>"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:14
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:14
 msgid "<b>Layout</b>"
 msgstr "<b>Asettelu</b>"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:15
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:15
 msgid "<b>Scope</b>"
 msgstr "<b>Näkyvyys</b>"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:16
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:16
 msgid "<span weight=\"bold\">General</span>"
 msgstr "<span weight=\"bold\">Yleinen</span>"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:17
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:17
 msgid "<span weight=\"bold\">Layout</span>"
 msgstr "<span weight=\"bold\">Asettelu</span>"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:18
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:18
 msgid "<span weight=\"bold\">Link</span>"
 msgstr "<span weight=\"bold\">Linkki</span>"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:19
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:19
 msgid "<span weight=\"bold\">Size</span>"
 msgstr "<span weight=\"bold\">Koko</span>"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:20
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:20
 msgid "<span weight=\"bold\">Style</span>"
 msgstr "<span weight=\"bold\">Tyyli</span>"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:21
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:21
 msgid "<span weight=\"bold\">Template</span>"
 msgstr "<span weight=\"bold\">Malli</span>"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:22
-#: components/html-editor/paragraph.c:131
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:22
+#: ../components/html-editor/paragraph.c:135
 msgid "Alignment"
 msgstr "Tasaus"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:24
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:24
 msgid "Bottom"
 msgstr "Ala"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:25
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:25
 msgid "C_ell"
 msgstr "_Solu"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:26
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:26
 msgid "C_olor:"
 msgstr "_Väri:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:27
-#: components/html-editor/popup.c:237
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:27
+#: ../components/html-editor/popup.c:241
 msgid "Cell"
 msgstr "Solu"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:28
-#: components/html-editor/paragraph.c:128 components/html-editor/toolbar.c:515
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:28
+#: ../components/html-editor/paragraph.c:132
+#: ../components/html-editor/toolbar.c:527
 msgid "Center"
 msgstr "Keski"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:29
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:29
 msgid "Col_umn"
 msgstr "Sa_rake"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:31
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:31
 msgid "Column span:"
 msgstr "Sarakkeiden väli:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:32
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:32
 msgid "Enable"
 msgstr "Käytä"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:33
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:33
 msgid "Hea_der style"
 msgstr "Otsakkeen t_yyli"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:34
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:34
 msgid "Horizontal alignment:"
 msgstr "Vaakatasaus:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:35
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:35
 msgid "Horizontal:"
 msgstr "Vaaka:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:36
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:36
 msgid "I_mage:"
 msgstr "K_uva:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:38
-#: components/html-editor/paragraph.c:127
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:38
+#: ../components/html-editor/paragraph.c:131
 msgid "Left"
 msgstr "Vasen"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:39
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:39
 msgid "Length:"
 msgstr "Pituus:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:40
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:40
 msgid "Link properties"
 msgstr "Linkin ominaisuudet"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:41
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:41
 msgid "Middle"
 msgstr "Keski"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:44
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:44
 msgid "Percent"
 msgstr "Prosenttia"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:45
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:45
 msgid "Pixels"
 msgstr "Pikseliä"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:46
-#: components/html-editor/paragraph.c:129
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:46
+#: ../components/html-editor/paragraph.c:133
 msgid "Right"
 msgstr "Oikea"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:47
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:47
 msgid "Row span:"
 msgstr "Rivien väli:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:49
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:49
 msgid "Shaded"
 msgstr "Varjostettu"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:50
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:50
 msgid "Si_ze:"
 msgstr "K_oko:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:51
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:51
 msgid "Standard"
 msgstr "Tavallinen"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:55
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:55
 msgid "Thickness:"
 msgstr "Paksuus:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:56
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:56
 msgid "Top"
 msgstr "Ylä"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:57
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:57
 msgid "Vertical:"
 msgstr "Pysty:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:58
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:58
 msgid "Width:"
 msgstr "Leveys:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:59
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:59
 msgid "_Alignment:"
 msgstr "_Tasaus:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:61
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:61
 msgid "_Border:"
 msgstr "Reu_nus:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:62
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:62
 msgid "_Color:"
 msgstr "_Väri:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:63
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:63
 msgid "_Columns:"
 msgstr "_Sarakkeita:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:64
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:64
 msgid "_Description:"
 msgstr "_Kuvaus:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:65
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:65
 msgid "_Height:"
 msgstr "K_orkeus:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:66
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:66
 msgid "_Image:"
 msgstr "_Kuva:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:68
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:68
 msgid "_Padding:"
 msgstr "_Täyttö:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:69
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:69
 msgid "_Row"
 msgstr "_Rivi"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:70
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:70
 msgid "_Rows:"
 msgstr "_Rivejä:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:72
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:72
 msgid "_Spacing:"
 msgstr "_Välit:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:74
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:73
+msgid "_Strikethrough"
+msgstr "_Yliviivaus"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:74
 msgid "_Table"
 msgstr "_Taulukko"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:75
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:75
 msgid "_URL:"
 msgstr "_URL:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:77
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:77
 msgid "_Width:"
 msgstr "_Leveys:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:78
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:78
 msgid "_Wrap Text"
 msgstr "_Rivitä teksti"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:79
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:79
 msgid "_X-Padding:"
 msgstr "_Vaakatäyttö:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:80
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:80
 msgid "_Y-Padding:"
 msgstr "_Pystytäyttö:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:81
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:81
 msgid "follow"
 msgstr "seuraa"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:82
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:82
 msgid "px"
 msgstr "px"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:83
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:83
 msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
-#: components/html-editor/link.c:194
+#: ../components/html-editor/link.c:198
 msgid "URL:"
 msgstr "URL:"
 
-#: components/html-editor/link.c:198
+#: ../components/html-editor/link.c:202
 msgid "Description:"
 msgstr "Kuvaus:"
 
-#: components/html-editor/menubar.c:96 components/html-editor/menubar.c:104
+#: ../components/html-editor/menubar.c:100
+#: ../components/html-editor/menubar.c:108
 msgid "Insert image"
 msgstr "Lisää kuva"
 
-#: components/html-editor/menubar.c:133 components/html-editor/menubar.c:152
-#: components/html-editor/menubar.c:173 components/html-editor/menubar.c:195
-#: components/html-editor/popup.c:103
+#: ../components/html-editor/menubar.c:137
+#: ../components/html-editor/menubar.c:156
+#: ../components/html-editor/menubar.c:177
+#: ../components/html-editor/menubar.c:199
+#: ../components/html-editor/popup.c:107
 msgid "Insert"
 msgstr "Lisää"
 
-#: components/html-editor/menubar.c:282
+#: ../components/html-editor/menubar.c:286
 #, c-format
 msgid "Error loading file '%s': %s"
 msgstr "Virhe tiedoston \"%s\" lataamisessa: %s"
 
-#: components/html-editor/menubar.c:308 components/html-editor/menubar.c:317
+#: ../components/html-editor/menubar.c:312
+#: ../components/html-editor/menubar.c:321
 msgid "Insert: HTML File"
 msgstr "Lisää: HTML-tiedosto"
 
-#: components/html-editor/menubar.c:308 components/html-editor/menubar.c:317
+#: ../components/html-editor/menubar.c:312
+#: ../components/html-editor/menubar.c:321
 msgid "Insert: Text File"
 msgstr "Lisää: tekstitiedosto"
 
-#: components/html-editor/paragraph.c:86 components/html-editor/toolbar.c:54
+#: ../components/html-editor/menubar.c:358
+#: ../components/html-editor/menubar.c:376
+#: ../components/html-editor/menubar.c:394
+msgid "Format"
+msgstr "Muotoilu"
+
+#: ../components/html-editor/paragraph.c:90
+#: ../components/html-editor/toolbar.c:58
 msgid "Header 1"
 msgstr "Otsikko 1"
 
-#: components/html-editor/paragraph.c:87 components/html-editor/toolbar.c:55
+#: ../components/html-editor/paragraph.c:91
+#: ../components/html-editor/toolbar.c:59
 msgid "Header 2"
 msgstr "Otsikko 2"
 
-#: components/html-editor/paragraph.c:88 components/html-editor/toolbar.c:56
+#: ../components/html-editor/paragraph.c:92
+#: ../components/html-editor/toolbar.c:60
 msgid "Header 3"
 msgstr "Otsikko 3"
 
-#: components/html-editor/paragraph.c:89 components/html-editor/toolbar.c:57
+#: ../components/html-editor/paragraph.c:93
+#: ../components/html-editor/toolbar.c:61
 msgid "Header 4"
 msgstr "Otsikko 4"
 
-#: components/html-editor/paragraph.c:90 components/html-editor/toolbar.c:58
+#: ../components/html-editor/paragraph.c:94
+#: ../components/html-editor/toolbar.c:62
 msgid "Header 5"
 msgstr "Otsikko 5"
 
-#: components/html-editor/paragraph.c:91 components/html-editor/toolbar.c:59
+#: ../components/html-editor/paragraph.c:95
+#: ../components/html-editor/toolbar.c:63
 msgid "Header 6"
 msgstr "Otsikko 6"
 
-#: components/html-editor/paragraph.c:94
+#: ../components/html-editor/paragraph.c:98
 msgid "Dot item"
 msgstr "Pistekohta"
 
-#: components/html-editor/paragraph.c:95
+#: ../components/html-editor/paragraph.c:99
 msgid "Number item"
 msgstr "Numerokohta"
 
-#: components/html-editor/paragraph.c:96
+#: ../components/html-editor/paragraph.c:100
 msgid "Roman item"
 msgstr "Room. kohta"
 
-#: components/html-editor/paragraph.c:97
+#: ../components/html-editor/paragraph.c:101
 msgid "Alphabeta item"
 msgstr "Aakkoskohta"
 
-#: components/html-editor/paragraph.c:100 components/html-editor/toolbar.c:60
+#: ../components/html-editor/paragraph.c:104
+#: ../components/html-editor/toolbar.c:64
 msgid "Address"
 msgstr "Osoite"
 
-#: components/html-editor/paragraph.c:109
+#: ../components/html-editor/paragraph.c:113
 msgid "_Style:"
 msgstr "_Tyyli:"
 
-#: components/html-editor/popup.c:438
+#: ../components/html-editor/popup.c:442
 msgid "Paste Quotation"
 msgstr "Liitä lainaus"
 
-#: components/html-editor/popup.c:442
+#: ../components/html-editor/popup.c:446
 msgid "Insert Link"
 msgstr "Lisää linkki"
 
-#: components/html-editor/popup.c:449
+#: ../components/html-editor/popup.c:453
 msgid "Remove Link"
 msgstr "Poista linkki"
 
-#: components/html-editor/popup.c:456
+#: ../components/html-editor/popup.c:460
 msgid "Style"
 msgstr "Tyyli"
 
-#: components/html-editor/popup.c:459
+#: ../components/html-editor/popup.c:463
 msgid "Text Style..."
 msgstr "Tekstin tyyli..."
 
-#: components/html-editor/popup.c:461 components/html-editor/popup.c:467
-#: components/html-editor/popup.c:477
+#: ../components/html-editor/popup.c:465 ../components/html-editor/popup.c:471
+#: ../components/html-editor/popup.c:481
 msgid "Paragraph Style..."
 msgstr "Kappaleen tyyli..."
 
-#: components/html-editor/popup.c:465
+#: ../components/html-editor/popup.c:469
 msgid "Link Style..."
 msgstr "Linkin tyyli..."
 
-#: components/html-editor/popup.c:471
+#: ../components/html-editor/popup.c:475
 msgid "Rule Style..."
 msgstr "Viivan tyyli..."
 
-#: components/html-editor/popup.c:475
+#: ../components/html-editor/popup.c:479
 msgid "Image Style..."
 msgstr "Kuvan tyyli..."
 
-#: components/html-editor/popup.c:486
+#: ../components/html-editor/popup.c:490
 msgid "Cell Style..."
 msgstr "Solun tyyli..."
 
-#: components/html-editor/popup.c:489
+#: ../components/html-editor/popup.c:493
 msgid "Table Style..."
 msgstr "Taulukon tyyli..."
 
-#: components/html-editor/popup.c:495
+#: ../components/html-editor/popup.c:499
 msgid "Page Style..."
 msgstr "Sivun tyyli..."
 
-#: components/html-editor/popup.c:500
+#: ../components/html-editor/popup.c:504
 msgid "Table insert"
 msgstr "Lisää taulukko"
 
-#: components/html-editor/popup.c:503
+#: ../components/html-editor/popup.c:507
 msgid "Row above"
 msgstr "Rivi yllä"
 
-#: components/html-editor/popup.c:504
+#: ../components/html-editor/popup.c:508
 msgid "Row below"
 msgstr "Rivi alla"
 
-#: components/html-editor/popup.c:506
+#: ../components/html-editor/popup.c:510
 msgid "Column before"
 msgstr "Edeltävä sarake"
 
-#: components/html-editor/popup.c:507
+#: ../components/html-editor/popup.c:511
 msgid "Column after"
 msgstr "Seuraava sarake"
 
-#: components/html-editor/popup.c:512
+#: ../components/html-editor/popup.c:516
 msgid "Table delete"
 msgstr "Poista taulukko"
 
-#: components/html-editor/popup.c:514
+#: ../components/html-editor/popup.c:518
 msgid "Row"
 msgstr "Rivi"
 
-#: components/html-editor/popup.c:515
+#: ../components/html-editor/popup.c:519
 msgid "Column"
 msgstr "Sarake"
 
-#: components/html-editor/popup.c:516
+#: ../components/html-editor/popup.c:520
 msgid "Cell contents"
 msgstr "Solun sisältö"
 
-#: components/html-editor/popup.c:524
+#: ../components/html-editor/popup.c:528
 msgid "Check Word Spelling..."
 msgstr "Tarkasta oikeinkirjoitus..."
 
-#: components/html-editor/popup.c:529
+#: ../components/html-editor/popup.c:533
 msgid "Add Word to"
 msgstr "Lisää sana"
 
-#: components/html-editor/popup.c:533
+#: ../components/html-editor/popup.c:537
 #, c-format
 msgid "%s Dictionary"
 msgstr "Sanastoon %s"
 
-#: components/html-editor/popup.c:542
+#: ../components/html-editor/popup.c:546
 msgid "Add Word to Dictionary"
 msgstr "Lisää sana sanastoon"
 
-#: components/html-editor/popup.c:545
+#: ../components/html-editor/popup.c:549
 msgid "Ignore Misspelled Word"
 msgstr "Sivuuta väärin kirjoitetut sanat"
 
-#: components/html-editor/popup.c:549
+#: ../components/html-editor/popup.c:553
 msgid "Input Methods"
 msgstr "Syöttötavat"
 
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
-#: components/html-editor/replace.c:77
+#: ../components/html-editor/replace.c:81
 msgid "Replace confirmation"
 msgstr "Vahvista korvaus"
 
-#: components/html-editor/replace.c:78
+#: ../components/html-editor/replace.c:82
 msgid "Replace _All"
 msgstr "Korvaa k_aikki"
 
-#: components/html-editor/replace.c:79
+#: ../components/html-editor/replace.c:83
 msgid "_Next"
 msgstr "_Seuraava"
 
-#: components/html-editor/replace.c:81
+#: ../components/html-editor/replace.c:85
 msgid "_Replace"
 msgstr "_Korvaa"
 
-#: components/html-editor/replace.c:171
+#: ../components/html-editor/replace.c:175
 msgid "Search _backward"
 msgstr "Etsi _edellinen"
 
-#: components/html-editor/replace.c:172 components/html-editor/search.c:113
+#: ../components/html-editor/replace.c:176
+#: ../components/html-editor/search.c:117
 msgid "Case _sensitive"
 msgstr "S_ama kirjainkoko"
 
-#: components/html-editor/replace.c:182
+#: ../components/html-editor/replace.c:186
 msgid "R_eplace:"
 msgstr "_Korvaa:"
 
-#: components/html-editor/replace.c:186
+#: ../components/html-editor/replace.c:190
 msgid "_With:"
 msgstr "Ko_rvaava:"
 
-#: components/html-editor/search.c:112
+#: ../components/html-editor/search.c:116
 msgid "_Backward"
 msgstr "_Edellinen"
 
-#: components/html-editor/search.c:114
+#: ../components/html-editor/search.c:118
 msgid "_Regular Expression"
 msgstr "Säännöllinen _lauseke"
 
-#: components/html-editor/search.c:118
+#: ../components/html-editor/search.c:122
 msgid "Input the words you want to search here"
 msgstr "Kirjoita etsittävät sanat tähän"
 
-#: components/html-editor/spellchecker.c:110
+#: ../components/html-editor/spellchecker.c:114
 msgid ""
 "Unable to add word to dictionary,\n"
 "language settings are broken.\n"
@@ -1684,285 +1718,273 @@ msgstr ""
 "Sanan lisääminen sanakirjaan epäonnistui,\n"
 "kieliasetukset ovat virheelliset.\n"
 
-#: components/html-editor/spellchecker.c:298
+#: ../components/html-editor/spellchecker.c:302
 msgid "No misspelled word found"
 msgstr "Väärin kirjoitettuja sanoja ei löytynyt"
 
-#: components/html-editor/spellchecker.c:305
+#: ../components/html-editor/spellchecker.c:309
 msgid "Spell checker"
 msgstr "Oikoluku"
 
-#: components/html-editor/spellchecker.c:398
+#: ../components/html-editor/spellchecker.c:402
 msgid "Current _Languages"
 msgstr "Nykyiset _kielet"
 
-#: components/html-editor/template.c:84
+#: ../components/html-editor/template.c:88
 msgid "Note"
 msgstr "Muistiinpano"
 
-#: components/html-editor/template.c:94 components/html-editor/template.c:113
+#: ../components/html-editor/template.c:98
+#: ../components/html-editor/template.c:117
 msgid "Place your text here"
 msgstr "Kirjoita tekstisi tähän"
 
-#: components/html-editor/template.c:97
+#: ../components/html-editor/template.c:101
 msgid "Image frame"
 msgstr "Kuvan kehys"
 
-#: components/html-editor/template.c:280
+#: ../components/html-editor/template.c:284
 msgid "Template Labels"
 msgstr "Mallien nimiöt"
 
-#: components/html-editor/test-html-editor-control.c:333
+#: ../components/html-editor/test-html-editor-control.c:337
 msgid "Open file..."
 msgstr "Avaa tiedosto..."
 
-#: components/html-editor/test-html-editor-control.c:335
+#: ../components/html-editor/test-html-editor-control.c:339
 msgid "Save file as..."
 msgstr "Tallenna tiedosto nimellä..."
 
-#: components/html-editor/test-html-editor-control.c:567
+#: ../components/html-editor/test-html-editor-control.c:571
 msgid "GtkHTML Editor Test Container"
 msgstr "GtkHTML-muokkainsäätimen testisäilö"
 
-#: components/html-editor/toolbar.c:52
+#: ../components/html-editor/toolbar.c:56
 msgid "Roman List"
 msgstr "Room. luettelo"
 
-#: components/html-editor/toolbar.c:513
+#: ../components/html-editor/toolbar.c:525
 msgid "Left align"
 msgstr "Tasaa vasemmalle"
 
-#: components/html-editor/toolbar.c:517
+#: ../components/html-editor/toolbar.c:529
 msgid "Right align"
 msgstr "Tasaa oikealle"
 
-#: components/html-editor/toolbar.c:537
+#: ../components/html-editor/toolbar.c:549
 msgid "Toggle typewriter font style"
 msgstr "Käytä kirjoituskonekirjasinta"
 
-#: components/html-editor/toolbar.c:539
+#: ../components/html-editor/toolbar.c:551
 msgid "Bold"
 msgstr "Lihavoi"
 
-#: components/html-editor/toolbar.c:539
+#: ../components/html-editor/toolbar.c:551
 msgid "Makes the text bold"
 msgstr "Lihavoi teksti"
 
-#: components/html-editor/toolbar.c:541
+#: ../components/html-editor/toolbar.c:553
 msgid "Italic"
 msgstr "Kursivoi"
 
-#: components/html-editor/toolbar.c:541
+#: ../components/html-editor/toolbar.c:553
 msgid "Makes the text italic"
 msgstr "Kursivoi valinta"
 
-#: components/html-editor/toolbar.c:543
+#: ../components/html-editor/toolbar.c:555
 msgid "Underline"
 msgstr "Alleviivaa"
 
-#: components/html-editor/toolbar.c:543
+#: ../components/html-editor/toolbar.c:555
 msgid "Underlines the text"
 msgstr "Alleviivaa teksti"
 
-#: components/html-editor/toolbar.c:545
+#: ../components/html-editor/toolbar.c:557
 msgid "Strikes out the text"
 msgstr "Yliviivaa teksti"
 
-#: components/html-editor/toolbar.c:554
+#: ../components/html-editor/toolbar.c:566
 msgid "Unindent"
 msgstr "Poista sisennys"
 
-#: components/html-editor/toolbar.c:554
+#: ../components/html-editor/toolbar.c:566
 msgid "Indents the paragraphs less"
 msgstr "Sisennä kappaleita vähemmän"
 
-#: components/html-editor/toolbar.c:556
+#: ../components/html-editor/toolbar.c:568
 msgid "Indent"
 msgstr "Sisennä"
 
-#: components/html-editor/toolbar.c:556
+#: ../components/html-editor/toolbar.c:568
 msgid "Indents the paragraphs more"
 msgstr "Sisennä kappaleita enemmän"
 
-#: components/html-editor/utils.c:119
+#: ../components/html-editor/utils.c:123
 msgid "Sample"
 msgstr "Esimerkki"
 
-#: components/html-editor/utils.c:192
+#: ../components/html-editor/utils.c:196
 msgid "_Visit..."
 msgstr "_Vieraile..."
 
-#: components/html-editor/utils.c:232
+#: ../components/html-editor/utils.c:236
 msgid ""
-"The editted object was removed from the document.\n"
+"The edited object was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
 "Muokattu kohde on poistettu asiakirjasta.\n"
-"Muutoksia ei voi ottaa käyttöön."
+"Muutoksia ei voida ottaa käyttöön."
 
-#: src/gtkhtml.c:2599
-#, c-format
-msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
-msgstr ""
-"Mozillasta editoriin pudotettu URL oli väärän muotoinen (%d) tai pituinen (%"
-"d)\n"
-
-#: src/gtkhtml.c:2976
+#: ../src/gtkhtml.c:3005
 msgid "Editable"
 msgstr "Muokattava"
 
-#: src/gtkhtml.c:2977
+#: ../src/gtkhtml.c:3006
 msgid "Whether the html can be edited"
 msgstr "Voiko HTML-tiedostoa muokata"
 
-#: src/gtkhtml.c:2983
+#: ../src/gtkhtml.c:3012
 msgid "Document Title"
 msgstr "Asiakirjan otsikko"
 
-#: src/gtkhtml.c:2984
+#: ../src/gtkhtml.c:3013
 msgid "The title of the current document"
 msgstr "Nykyisen asiakirjan otsikko"
 
-#: src/gtkhtml.c:2990
+#: ../src/gtkhtml.c:3019
 msgid "Document Base"
 msgstr "Asiakirjan kanta"
 
-#: src/gtkhtml.c:2991
+#: ../src/gtkhtml.c:3020
 msgid "The base URL for relative references"
 msgstr "Suhteellisten viittausten kanta-URL"
 
-#: src/gtkhtml.c:2997
+#: ../src/gtkhtml.c:3026
 msgid "Target Base"
 msgstr "Kohteen kanta"
 
-#: src/gtkhtml.c:2998
-msgid "The base URL of the targe frame"
+#: ../src/gtkhtml.c:3027
+msgid "The base URL of the target frame"
 msgstr "Kohdekehyksen kanta-URL"
 
-#: src/gtkhtml.c:3007
+#: ../src/gtkhtml.c:3036
 msgid "Fixed Width Font"
 msgstr "Tasavälinen kirjasin"
 
-#: src/gtkhtml.c:3008
+#: ../src/gtkhtml.c:3037
 msgid "The Monospace font to use for typewriter text"
 msgstr "Kirjoituskonetekstissä käytettävä tasavälinen kirjasin"
 
-#: src/gtkhtml.c:3014
+#: ../src/gtkhtml.c:3043
 msgid "New Link Color"
 msgstr "Uuden linkin väri"
 
-#: src/gtkhtml.c:3015
+#: ../src/gtkhtml.c:3044
 msgid "The color of new link elements"
 msgstr "Uusien linkkielementtien väri"
 
-#: src/gtkhtml.c:3020
+#: ../src/gtkhtml.c:3049
 msgid "Visited Link Color"
 msgstr "Käydyn linkin väri"
 
-#: src/gtkhtml.c:3021
+#: ../src/gtkhtml.c:3050
 msgid "The color of visited link elements"
 msgstr "Käytyjen linkkielementtien väri"
 
-#: src/gtkhtml.c:3026
+#: ../src/gtkhtml.c:3055
 msgid "Active Link Color"
 msgstr "Aktiivisen linkkielementin väri"
 
-#: src/gtkhtml.c:3027
+#: ../src/gtkhtml.c:3056
 msgid "The color of active link elements"
 msgstr "Aktiivisten linkkielementtien väri"
 
-#: src/gtkhtml.c:3032
+#: ../src/gtkhtml.c:3061
 msgid "Spelling Error Color"
 msgstr "Kirjoitusvirheen väri"
 
-#: src/gtkhtml.c:3033
+#: ../src/gtkhtml.c:3062
 msgid "The color of the spelling error markers"
 msgstr "Kirjoitusvirheilmaisimen väri"
 
-#: src/gtkhtml.c:3038
+#: ../src/gtkhtml.c:3067
 msgid "Cite Quotation Color"
 msgstr "Lainauksen väri"
 
-#: src/gtkhtml.c:3039
+#: ../src/gtkhtml.c:3068
 msgid "The color of the cited text"
 msgstr "Lainatun tekstin väri"
 
-#: src/html-component.c:220
-msgid "Html"
-msgstr "Html"
-
-#: src/html-component.c:221
-msgid "Html test"
-msgstr "Html-testi"
-
-#: src/html-component.c:227
-msgid "Test1"
-msgstr "Testi1"
-
-#: src/html-component.c:234
-msgid "Test2"
-msgstr "Testi2"
-
-#: src/html-component.c:240
-msgid "Test3"
-msgstr "Testi3"
-
-#: src/html-component.c:246
-msgid "Test4"
-msgstr "Testi4"
-
-#: src/html-component.c:252
-msgid "Test5"
-msgstr "Testi5"
-
-#: src/html-component.c:258
-msgid "Test6"
-msgstr "Testi6"
-
-#: src/html-component.c:264
-msgid "Test7"
-msgstr "Testi7"
-
-#: src/html-component.c:613
-msgid "_Refresh"
-msgstr "_Päivitä"
-
-#: src/html-component.c:614
-msgid "Reload the page"
-msgstr "Lataa sivu uudelleen"
-
-#: src/html-component.c:661
-msgid "Could not initialize Bonobo!"
-msgstr "Ei voinut käynnistää Bonoboa!"
-
-#: src/htmlbutton.c:142
+#: ../src/htmlbutton.c:142
 msgid "Submit Query"
 msgstr "Lähetä kysely"
 
-#: src/htmlbutton.c:145
+#: ../src/htmlbutton.c:145
 msgid "Reset"
 msgstr "Alusta"
 
 #. TODO2 dialog instead of warning
-#: src/htmlengine-print.c:192
+#: ../src/htmlengine-print.c:192
 msgid "Cannot allocate default font for printing\n"
 msgstr "Ei voinut varata oletuskirjasinta tulostamista varten\n"
 
-#: src/test.c:375
+#: ../src/test.c:375
 msgid "GtkHTML Test"
 msgstr "GtkHTML-testi"
 
-#: src/testgtkhtml.c:117
+#: ../src/testgtkhtml.c:117
 msgid "Print pre_view"
 msgstr "_Esikatselu"
 
-#: src/testgtkhtml.c:117
+#: ../src/testgtkhtml.c:117
 msgid "Print preview"
 msgstr "Esikatselu"
 
-#: src/testgtkhtml.c:1004
+#: ../src/testgtkhtml.c:1004
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML-testisovellus"
+
+#~ msgid ""
+#~ "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
+#~ msgstr ""
+#~ "Mozillasta editoriin pudotettu URL oli väärän muotoinen (%d) tai pituinen "
+#~ "(%d)\n"
+
+#~ msgid "Html"
+#~ msgstr "Html"
+
+#~ msgid "Html test"
+#~ msgstr "Html-testi"
+
+#~ msgid "Test1"
+#~ msgstr "Testi1"
+
+#~ msgid "Test2"
+#~ msgstr "Testi2"
+
+#~ msgid "Test3"
+#~ msgstr "Testi3"
+
+#~ msgid "Test4"
+#~ msgstr "Testi4"
+
+#~ msgid "Test5"
+#~ msgstr "Testi5"
+
+#~ msgid "Test6"
+#~ msgstr "Testi6"
+
+#~ msgid "Test7"
+#~ msgstr "Testi7"
+
+#~ msgid "_Refresh"
+#~ msgstr "_Päivitä"
+
+#~ msgid "Reload the page"
+#~ msgstr "Lataa sivu uudelleen"
+
+#~ msgid "Could not initialize Bonobo!"
+#~ msgstr "Ei voinut käynnistää Bonoboa!"
 
 #~ msgid "<None>"
 #~ msgstr "<Ei mikään>"
