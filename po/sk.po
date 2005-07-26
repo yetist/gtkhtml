@@ -8,14 +8,14 @@
 # Stanislav Visnovsky <visnovsky@kde.org>, 2003.
 # Marcel Telka <marcel@telka.sk>, 2005.
 #
-# $Id: sk.po,v 1.88 2005/07/20 20:43:46 marcel Exp $
+# $Id: sk.po,v 1.89 2005/07/26 04:58:28 marcel Exp $
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-20 22:15+0200\n"
-"PO-Revision-Date: 2005-07-20 22:43+0200\n"
+"POT-Creation-Date: 2005-07-26 06:57+0200\n"
+"PO-Revision-Date: 2005-07-26 06:57+0200\n"
 "Last-Translator: Marcel Telka <marcel@telka.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
@@ -861,11 +861,11 @@ msgid "None"
 msgstr "Žiadne"
 
 #: ../components/html-editor/body.c:71
-msgid "Perforated Paper"
+msgid "Perforated paper"
 msgstr "Dierkovaný papier"
 
 #: ../components/html-editor/body.c:79
-msgid "Blue Ink"
+msgid "Blue ink"
 msgstr "Modrý atrament"
 
 #: ../components/html-editor/body.c:87
@@ -963,7 +963,6 @@ msgid "Transparent"
 msgstr "Priehľadné"
 
 #: ../components/html-editor/editor-control-factory.c:182
-#: ../components/html-editor/menubar.c:358
 #: ../components/html-editor/popup.c:190 ../components/html-editor/popup.c:268
 msgid "Properties"
 msgstr "Vlastnosti"
@@ -1499,6 +1498,7 @@ msgstr "Vložiť: HTML súbor"
 msgid "Insert: Text File"
 msgstr "Vložiť: textový súbor"
 
+#: ../components/html-editor/menubar.c:358
 #: ../components/html-editor/menubar.c:376
 #: ../components/html-editor/menubar.c:394
 msgid "Format"
