@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-12 06:27+0000\n"
-"PO-Revision-Date: 2005-07-12 14:04+0300\n"
+"POT-Creation-Date: 2005-07-25 22:39+0000\n"
+"PO-Revision-Date: 2005-07-26 09:05+0300\n"
 "Last-Translator: Priit Laes <amd@store20.com>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -863,11 +863,11 @@ msgid "None"
 msgstr "Puudub"
 
 #: ../components/html-editor/body.c:71
-msgid "Perforated Paper"
+msgid "Perforated paper"
 msgstr "Perforeeritud paber"
 
 #: ../components/html-editor/body.c:79
-msgid "Blue Ink"
+msgid "Blue ink"
 msgstr "Sinine tint"
 
 #: ../components/html-editor/body.c:87
@@ -970,7 +970,6 @@ msgid "Transparent"
 msgstr "Läbipaistev"
 
 #: ../components/html-editor/editor-control-factory.c:182
-#: ../components/html-editor/menubar.c:358
 #: ../components/html-editor/popup.c:190
 #: ../components/html-editor/popup.c:268
 msgid "Properties"
@@ -1507,6 +1506,7 @@ msgstr "HTML faili lisamine"
 msgid "Insert: Text File"
 msgstr "Tekstifaili lisamine"
 
+#: ../components/html-editor/menubar.c:358
 #: ../components/html-editor/menubar.c:376
 #: ../components/html-editor/menubar.c:394
 msgid "Format"
