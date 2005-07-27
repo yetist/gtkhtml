@@ -2,15 +2,18 @@
 # Ankit Patel <ankit644@yahoo.com>, 2005.
 msgid ""
 msgstr ""
-"Last-Translator: Ankit Patel <ankit644@yahoo.com>\n"
-"PO-Revision-Date: 2005-07-21 13:00+0530\n"
 "Project-Id-Version: gtkhtml.HEAD.gu\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-07-26 06:42+0000\n"
+"PO-Revision-Date: 2005-07-26 21:17+0530\n"
+"Last-Translator: Ankit Patel <ankit644@yahoo.com>\n"
 "Language-Team: Gujarati <indianoss-gujarati@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
-"MIME-Version: 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
+"\n"
 
 #: ../a11y/image.c:150
 #, c-format
@@ -851,11 +854,11 @@ msgid "None"
 msgstr "કંઈ નહિં"
 
 #: ../components/html-editor/body.c:71
-msgid "Perforated Paper"
-msgstr "Perforated Paper"
+msgid "Perforated paper"
+msgstr "છિદ્રવાળું કાગળ"
 
 #: ../components/html-editor/body.c:79
-msgid "Blue Ink"
+msgid "Blue ink"
 msgstr "ભૂરી શાહી"
 
 #: ../components/html-editor/body.c:87
@@ -953,7 +956,6 @@ msgid "Transparent"
 msgstr "પારદર્શક"
 
 #: ../components/html-editor/editor-control-factory.c:182
-#: ../components/html-editor/menubar.c:358
 #: ../components/html-editor/popup.c:190 ../components/html-editor/popup.c:268
 msgid "Properties"
 msgstr "ગુણધર્મો"
@@ -1489,6 +1491,7 @@ msgstr "દાખલ કરો: HTML ફાઈલ"
 msgid "Insert: Text File"
 msgstr "દાખલ કરો: લખાણ ફાઈલ"
 
+#: ../components/html-editor/menubar.c:358
 #: ../components/html-editor/menubar.c:376
 #: ../components/html-editor/menubar.c:394
 msgid "Format"
