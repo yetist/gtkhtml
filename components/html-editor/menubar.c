@@ -49,6 +49,7 @@
 #include "htmlimage.h"
 #include "htmlrule.h"
 #include "htmltable.h"
+#include "htmlselection.h"
 
 #include "menubar.h"
 #include "gtkhtml.h"
@@ -168,6 +169,9 @@ insert_table (GtkHTMLControlData *cd)
 {
 	if (cd->properties_dialog)
 		gtk_html_edit_properties_dialog_close (cd->properties_dialog);
+
+	if (cd->html->engine && cd->html->engine->selection)
+		html_engine_unselect_all (cd->html->engine);
 
 	html_engine_insert_table_1_1 (cd->html->engine);
 	if (html_engine_get_table (cd->html->engine)) {

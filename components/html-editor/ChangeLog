@@ -1,3 +1,10 @@
+2005-08-01  Kaushal Kumar  <kakumar@novell.com>
+
+	* menubar.c (insert_table): Handle the case when a table is being 
+	inserted over a selection.
+
+	Fixes bug #309686.
+
 2005-07-22  Kaushal Kumar  <kakumar@novell.com>
 
 	* menubar.c (menubar_update_format): Set Page format option sensitive 
