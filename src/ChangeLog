@@ -1,3 +1,10 @@
+2005-08-03  Kaushal Kumar  <kakumar@novell.com>
+
+	* htmlengine-edit-cut-and-paste.c (check_for_simple_containers): Fix the 
+	handling of simple deletion of text from table cells. 
+
+	Fixes bugs #300130, 309174.
+
 2005-07-11  Diego Gonzalez  <diego@pemas.net>
 
 	* htmldrawqueue.c (clear_element_destroy): replace deprecated

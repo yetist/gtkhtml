@@ -1736,6 +1736,7 @@ check_for_simple_containers (HTMLObject *child, HTMLObject *parent)
 			case HTML_TYPE_CLUEFLOW:
 			case HTML_TYPE_CLUEV:
 			case HTML_TYPE_TABLECELL:
+			case HTML_TYPE_TABLE:
 				break;
 			default:
 				return FALSE;
