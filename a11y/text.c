@@ -28,7 +28,7 @@
 #include <atk/atkhyperlink.h>
 #include <glib/gi18n-lib.h>
 #include <glib/gmacros.h>
-
+#include <pango/pango.h>
 #include "gtkhtml.h"
 #include "htmlengine.h"
 #include "htmlengine-edit.h"
@@ -106,6 +106,11 @@ static void	html_a11y_text_paste_text	(AtkEditableText      *text,
 						 gint                 position);
 
 static AtkStateSet* html_a11y_text_ref_state_set	(AtkObject	*accessible);
+
+static AtkAttributeSet* html_a11y_text_get_run_attributes	(AtkText *text, 
+								 gint offset, 
+								 gint *start_offset, 
+								 gint *end_offset);
 
 static AtkObjectClass *parent_class = NULL;
 
@@ -238,6 +243,7 @@ atk_text_interface_init (AtkTextIface *iface)
 	iface->set_caret_offset = html_a11y_text_set_caret_offset;
 	iface->get_character_extents = html_a11y_text_get_character_extents;
 	iface->get_offset_at_point = html_a11y_text_get_offset_at_point;
+	iface->get_run_attributes = html_a11y_text_get_run_attributes;
 }
 
 static void
@@ -710,24 +716,171 @@ html_a11y_text_set_selection (AtkText *text, gint selection_num, gint start_offs
 }
 
 
-/*
-  AtkAttributeSet* (* get_run_attributes)         (AtkText	    *text,
-						   gint	  	    offset,
-						   gint             *start_offset,
-						   gint	 	    *end_offset);
-  AtkAttributeSet* (* get_default_attributes)     (AtkText	    *text);
-  void           (* get_character_extents)        (AtkText          *text,
-                                                   gint             offset,
-                                                   gint             *x,
-                                                   gint             *y,
-                                                   gint             *width,
-                                                   gint             *height,
-                                                   AtkCoordType	    coords);
-  gint           (* get_offset_at_point)          (AtkText          *text,
-                                                   gint             x,
-                                                   gint             y,
-                                                   AtkCoordType	    coords);
+/* Most of the code of the following function is copied from */
+/* libgail-util/gailmisc.c gail_misc_layout_get_run_attributes */
 
+static AtkAttributeSet *
+html_a11y_text_get_run_attributes (AtkText *text, 
+				   gint offset, 
+				   gint *start_offset, 
+				   gint *end_offset)
+{
+	PangoAttrIterator *iter;
+	PangoAttrList *attr;  
+	PangoAttrString *pango_string;
+	PangoAttrInt *pango_int;
+	PangoAttrColor *pango_color;
+	PangoAttrLanguage *pango_lang;
+	PangoAttrFloat *pango_float;
+	gint index, start_index, end_index;
+	gboolean is_next = TRUE;
+	gchar *value = NULL;
+	glong len;
+	gchar *textstring;
+	AtkAttributeSet *attrib_set = NULL;
+	HTMLText *t = HTML_TEXT (HTML_A11Y_HTML (text));	
+	
+	g_return_val_if_fail (t, NULL);
+
+	textstring = t->text;
+	attr = t->attr_list;
+
+	g_return_val_if_fail (attr && textstring, NULL);
+
+	len = g_utf8_strlen (textstring, -1);
+	iter = pango_attr_list_get_iterator (attr);
+
+	/* Get invariant range offsets */
+	/* If offset out of range, set offset in range */
+	if (offset > len)
+		offset = len;
+	else if (offset < 0)
+		offset = 0;
+
+	index = g_utf8_offset_to_pointer (textstring, offset) - textstring;
+	pango_attr_iterator_range (iter, &start_index, &end_index);
+
+	while (is_next) {
+		if (index >= start_index && index < end_index) {
+			*start_offset = g_utf8_pointer_to_offset (textstring, textstring + start_index);  
+			if (end_index == G_MAXINT)
+			/* Last iterator */
+			end_index = len;
+
+			*end_offset = g_utf8_pointer_to_offset (textstring, textstring + end_index);  
+			break;
+		}  
+		is_next = pango_attr_iterator_next (iter);
+		pango_attr_iterator_range (iter, &start_index, &end_index);
+	}
+
+	/* Get attributes */
+	if ((pango_string = (PangoAttrString*) pango_attr_iterator_get (iter, 
+						PANGO_ATTR_FAMILY)) != NULL) {
+		value = g_strdup_printf("%s", pango_string->value);
+		attrib_set = gail_misc_add_attribute (attrib_set, 
+				ATK_TEXT_ATTR_FAMILY_NAME, 
+				value);
+	} 
+	if ((pango_int = (PangoAttrInt*) pango_attr_iterator_get (iter, 
+						PANGO_ATTR_STYLE)) != NULL) {
+		attrib_set = gail_misc_add_attribute (attrib_set, 
+				ATK_TEXT_ATTR_STYLE, 
+				g_strdup (atk_text_attribute_get_value (ATK_TEXT_ATTR_STYLE, 
+									pango_int->value)));
+	} 
+
+	if ((pango_int = (PangoAttrInt*) pango_attr_iterator_get (iter, 
+						PANGO_ATTR_WEIGHT)) != NULL) {
+		value = g_strdup_printf("%i", pango_int->value);
+		attrib_set = gail_misc_add_attribute (attrib_set, 
+				ATK_TEXT_ATTR_WEIGHT, 
+				value);
+	} 
+	if ((pango_int = (PangoAttrInt*) pango_attr_iterator_get (iter, 
+						PANGO_ATTR_VARIANT)) != NULL) {
+		attrib_set = gail_misc_add_attribute (attrib_set, 
+				ATK_TEXT_ATTR_VARIANT, 
+				g_strdup (atk_text_attribute_get_value (ATK_TEXT_ATTR_VARIANT, 
+									pango_int->value)));
+	} 
+	if ((pango_int = (PangoAttrInt*) pango_attr_iterator_get (iter, 
+						PANGO_ATTR_STRETCH)) != NULL) {
+		attrib_set = gail_misc_add_attribute (attrib_set, 
+				ATK_TEXT_ATTR_STRETCH, 
+				g_strdup (atk_text_attribute_get_value (ATK_TEXT_ATTR_STRETCH, 
+									pango_int->value)));
+	} 
+	if ((pango_int = (PangoAttrInt*) pango_attr_iterator_get (iter, 
+						PANGO_ATTR_SIZE)) != NULL) {
+		value = g_strdup_printf("%i", pango_int->value / PANGO_SCALE);
+		attrib_set = gail_misc_add_attribute (attrib_set, 
+				ATK_TEXT_ATTR_SIZE,
+				value);
+	} 
+	if ((pango_int = (PangoAttrInt*) pango_attr_iterator_get (iter, 
+						PANGO_ATTR_UNDERLINE)) != NULL) {
+		attrib_set = gail_misc_add_attribute (attrib_set, 
+				ATK_TEXT_ATTR_UNDERLINE, 
+				g_strdup (atk_text_attribute_get_value (ATK_TEXT_ATTR_UNDERLINE, 
+									pango_int->value)));
+	} 
+	if ((pango_int = (PangoAttrInt*) pango_attr_iterator_get (iter, 
+						PANGO_ATTR_STRIKETHROUGH)) != NULL) {
+		attrib_set = gail_misc_add_attribute (attrib_set, 
+				ATK_TEXT_ATTR_STRIKETHROUGH, 
+				g_strdup (atk_text_attribute_get_value (ATK_TEXT_ATTR_STRIKETHROUGH, 
+									pango_int->value)));
+	} 
+	if ((pango_int = (PangoAttrInt*) pango_attr_iterator_get (iter, 
+						PANGO_ATTR_RISE)) != NULL) {
+		value = g_strdup_printf("%i", pango_int->value);
+		attrib_set = gail_misc_add_attribute (attrib_set, 
+				ATK_TEXT_ATTR_RISE,
+				value);
+	} 
+	if ((pango_lang = (PangoAttrLanguage*) pango_attr_iterator_get (iter, 
+						PANGO_ATTR_LANGUAGE)) != NULL) {
+		value = g_strdup( pango_language_to_string( pango_lang->value));
+		attrib_set = gail_misc_add_attribute (attrib_set, 
+				ATK_TEXT_ATTR_LANGUAGE, 
+				value);
+	} 
+	if ((pango_float = (PangoAttrFloat*) pango_attr_iterator_get (iter, 
+						PANGO_ATTR_SCALE)) != NULL) {
+		value = g_strdup_printf("%g", pango_float->value);
+		attrib_set = gail_misc_add_attribute (attrib_set, 
+				ATK_TEXT_ATTR_SCALE, 
+				value);
+	} 
+	if ((pango_color = (PangoAttrColor*) pango_attr_iterator_get (iter, 
+						PANGO_ATTR_FOREGROUND)) != NULL) {
+		value = g_strdup_printf ("%u,%u,%u", 
+				pango_color->color.red, 
+				pango_color->color.green, 
+				pango_color->color.blue);
+		attrib_set = gail_misc_add_attribute (attrib_set, 
+				ATK_TEXT_ATTR_FG_COLOR, 
+				value);
+	} 
+	if ((pango_color = (PangoAttrColor*) pango_attr_iterator_get (iter, 
+						PANGO_ATTR_BACKGROUND)) != NULL) {
+		value = g_strdup_printf ("%u,%u,%u", 
+				pango_color->color.red, 
+				pango_color->color.green, 
+				pango_color->color.blue);
+		attrib_set = gail_misc_add_attribute (attrib_set, 
+				ATK_TEXT_ATTR_BG_COLOR, 
+				value);
+	} 
+
+	pango_attr_iterator_destroy (iter);
+	return attrib_set;
+
+}
+
+/*
+  AtkAttributeSet* (* get_default_attributes)     (AtkText	    *text);
 */
 
 static gint

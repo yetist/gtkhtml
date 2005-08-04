@@ -1,3 +1,12 @@
+2005-08-04  Mengjie Yu  <meng-jie.yu@sun.com>
+
+	* text.c: (atk_text_interface_init),
+	(html_a11y_text_get_run_attributes):
+	Implement get_run_attributes function to inform atktools the attributes of the text.
+
+	Fixes #312189
+
+
 2005-07-06  Mengjie Yu  <meng-jie.yu@sun.com>
 
 	* object.c: (gtk_html_a11y_insert_object_cb),
