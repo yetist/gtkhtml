@@ -585,6 +585,22 @@ menubar_update_format (GtkHTMLControlData *cd)
 					      "sensitive", sensitive, &ev);
 		bonobo_ui_component_set_prop (uic, "/commands/FormatPage",
 					      "sensitive", sensitive, &ev);
+		bonobo_ui_component_set_prop (uic, "/commands/FormatText",
+					      "sensitive", sensitive, &ev);
+		bonobo_ui_component_set_prop (uic, "/commands/FontSizeNegTwo",
+					      "sensitive", sensitive, &ev);
+		bonobo_ui_component_set_prop (uic, "/commands/FontSizeNegOne",
+					      "sensitive", sensitive, &ev);
+		bonobo_ui_component_set_prop (uic, "/commands/FontSizeZero",
+					      "sensitive", sensitive, &ev);
+		bonobo_ui_component_set_prop (uic, "/commands/FontSizeOne",
+					      "sensitive", sensitive, &ev);
+		bonobo_ui_component_set_prop (uic, "/commands/FontSizeTwo",
+					      "sensitive", sensitive, &ev);
+		bonobo_ui_component_set_prop (uic, "/commands/FontSizeThree",
+					      "sensitive", sensitive, &ev);
+		bonobo_ui_component_set_prop (uic, "/commands/FontSizeFour",
+					      "sensitive", sensitive, &ev);
 		bonobo_ui_component_set_prop (uic, "/commands/InsertLink",
 					      "sensitive", sensitive, &ev);
 		bonobo_ui_component_set_prop (uic, "/commands/InsertRule",
@@ -626,7 +642,7 @@ menubar_update_format (GtkHTMLControlData *cd)
 					      "sensitive", sensitive, &ev);
 		bonobo_ui_component_set_prop (uic, "/commands/FormatStrikeout",
 					      "sensitive", sensitive, &ev);
-		bonobo_ui_component_set_prop (uic, "/commands/FormatPlain",
+		bonobo_ui_component_set_prop (uic, "/commands/FormatFixed",
 					      "sensitive", sensitive, &ev);
 
 		bonobo_ui_component_set_prop (uic, "/commands/HeadingH1",

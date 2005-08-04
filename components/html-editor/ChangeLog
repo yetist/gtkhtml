@@ -1,3 +1,11 @@
+2005-08-04  Kaushal Kumar  <kakumar@novell.com>
+
+	* menubar.c (menubar_update_format): Set the sensitization of Format menu
+	items like Text, Font sizes, and Styles, based on the format mode. 
+
+	Fixes bug #311106.
+	Patch committed after approval from release team.
+
 2005-08-01  Kaushal Kumar  <kakumar@novell.com>
 
 	* menubar.c (insert_table): Handle the case when a table is being 
