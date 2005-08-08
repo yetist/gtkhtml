@@ -1,3 +1,10 @@
+2005-08-05  Kaushal Kumar  <kakumar@novell.com>
+
+	* htmlengine-edit.c (html_engine_get_insert_level_for_object): Advance clue 
+	to next level to fix infinite looping for cursor level. 
+
+	Fixes bug #300696.
+
 2005-08-03  Kaushal Kumar  <kakumar@novell.com>
 
 	* htmlengine-edit-cut-and-paste.c (check_for_simple_containers): Fix the 

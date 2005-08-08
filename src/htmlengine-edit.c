@@ -773,8 +773,10 @@ html_engine_get_insert_level_for_object (HTMLEngine *e, HTMLObject *o)
 		if (e && e->cursor->object && e->cursor->object->parent && e->cursor->object->parent->parent && html_object_is_clue (e->cursor->object->parent->parent)) {
 			HTMLObject *clue = e->cursor->object->parent->parent;
 
-			while (clue && clue->parent && (HTML_IS_CLUEV (clue->parent) || HTML_IS_TABLE_CELL (clue->parent)))
-			       cursor_level ++;
+			while (clue && clue->parent && (HTML_IS_CLUEV (clue->parent) || HTML_IS_TABLE_CELL (clue->parent))) {
+				clue = clue->parent;
+				cursor_level ++;
+			}
 		}
 	}
 
