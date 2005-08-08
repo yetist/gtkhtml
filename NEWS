@@ -1,3 +1,23 @@
+gtkhtml-3.7.6 "Look mom, there ain't no bizarre bugs no more!!" 2005-08-08
+--------------------------------------------------------------------------
+
+New in this release
+
+   * Fix insertion of tables over selections (Kaushal Kumar)
+   * Fix UI sensitivity for Text, Font, Style options (Kaushal Kumar)
+   * Enable all the atk attributes for text (Mengjie Yu)
+   * Fix handling of simple deletion of text from table (Kaushal Kumar)
+   * Fix infinite looping for cursor level (Kaushal Kumar)
+   * Updated translations 
+     - Marcel Telka (sk)
+     - Priit Laes (et)
+     - Tino Meinen (nl)
+     - Ankit Patel (gu)
+     - Funda Wang (zh_CN)
+     - GNOME PL Team (pl)
+     - Takeshi AIHANA (ja)
+     - Alexander Shopov (bg)
+
 gtkhtml-3.7.5 "White Rose" 2005-07-25
 -----------------------------------------------
 

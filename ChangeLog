@@ -1,3 +1,9 @@
+2005-08-08  Kaushal Kumar  <kakumar@novell.com>
+
+	* configure.in: bumped version to 3.7.6 for the new release.
+
+	* NEWS: updated.
+
 2005-07-25  Kaushal Kumar  <kakumar@novell.com>
 
 	* configure.in: bumped version to 3.7.5 for the new release.
@@ -58,7 +64,7 @@
 
 2005-03-31  Steve Murphy  <murf@e-tools.com>
 
-        * configure.in: Added "rw" to ALL_LINGUAS.
+	* configure.in: Added "rw" to ALL_LINGUAS.
 
 2005-03-22  Roozbeh Pournader  <roozbeh@farsiweb.info>
 
@@ -205,7 +211,7 @@ Sat Jun  5 12:25:46 2004  Owen Taylor  <otaylor@redhat.com>
 
 2004-02-07  Robert Sedak  <robert.sedak@sk.htnet.hr>
 
-        * configure.in: Added "hr" (Croatian) to ALL_LINGUAS.
+	* configure.in: Added "hr" (Croatian) to ALL_LINGUAS.
 
 2004-01-30  Yong Sun <Yong.Sun@sun.com>
 
@@ -496,7 +502,7 @@ Sat Jun  5 12:25:46 2004  Owen Taylor  <otaylor@redhat.com>
 
 2001-10-14  Carlos Perelló Marín <carlos@gnome-db.org>
 
-        * configure.in (ALL_LINGUAS): Added pt.
+	* configure.in (ALL_LINGUAS): Added pt.
 
 2001-10-12  Larry Ewing  <lewing@ximian.com>
 
@@ -573,7 +579,7 @@ Sat Jun  5 12:25:46 2004  Owen Taylor  <otaylor@redhat.com>
 	Make 0.11.1 release
 
 	* configure.in: drop version back to 0.11.1 and bump current
-          to one for a new release.
+	to one for a new release.
 
 2001-07-31  Larry Ewing  <lewing@ximian.com>
 	
@@ -664,21 +670,21 @@ Sat Jun  5 12:25:46 2004  Owen Taylor  <otaylor@redhat.com>
 
 2001-04-17  Radek Doulik  <rodo@ximian.com>
 
-        * configure.in: require gal >= 0.7.99.0
+	* configure.in: require gal >= 0.7.99.0
 
 2001-04-17  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml-0.9.3 released.
 	
 	* configure.in: bump version numbers for 0.9.3.  This is
-          starting to get fun.
+	starting to get fun.
 
 2001-04-16  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml-0.9.2 released.
 	
 	* configure.in: bump version numbers for 0.9.2 release and
-          don't mess up the .so version this time. (brown bag)
+	don't mess up the .so version this time. (brown bag)
 
 2001-04-16  Larry Ewing  <lewing@ximian.com>
 
