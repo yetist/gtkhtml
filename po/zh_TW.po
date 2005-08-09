@@ -3,12 +3,13 @@
 # Joe Man <trmetal@yahoo.com.hk>, 2001.
 # Abel Cheung <abel@oaka.org>, 2003.
 # 
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 3.0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-06-23 22:03+0000\n"
-"PO-Revision-Date: 2005-03-08 08:22+0800\n"
+"POT-Creation-Date: 2005-08-09 06:53+0000\n"
+"PO-Revision-Date: 2005-08-03 10:24+0800\n"
 "Last-Translator: Craig Jeffares <cjeffares@novell.com>\n"
 "Language-Team: Chinese (traditional) <community@linuxhall.org>\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +26,7 @@ msgstr "URL 是 %s，形容文字是 %s"
 msgid "URL is %s"
 msgstr "URL 是 %s"
 
-#: ../a11y/object.c:52 ../a11y/object.c:61 ../a11y/text.c:122
+#: ../a11y/object.c:52 ../a11y/object.c:61 ../a11y/text.c:127
 msgid "grab focus"
 msgstr "取得焦點"
 
@@ -71,7 +72,7 @@ msgstr "-2"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:7
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:7
 msgid "A_ddress"
-msgstr "地址[斜體字](_D)"
+msgstr "地址(_D)"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:8
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:8
@@ -152,12 +153,12 @@ msgstr "剪下選定範圍"
 #: ../components/html-editor/search.c:111
 #: ../components/html-editor/search.c:171
 msgid "Find"
-msgstr "搜尋"
+msgstr "尋找"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:23
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:23
 msgid "Find And Replace"
-msgstr "搜尋及取代"
+msgstr "尋找及取代"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:24
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:24
@@ -167,12 +168,12 @@ msgstr "找下一個(_A)"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:25
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:25
 msgid "Find again"
-msgstr "搜尋下一個"
+msgstr "搜找下一個"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:26
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:26
 msgid "Find and Replace"
-msgstr "搜尋及取代"
+msgstr "尋找及取代"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:27
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:27
@@ -322,11 +323,11 @@ msgstr "吐舌頭(_C)"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
-#: ../components/html-editor/menubar.c:140
+#: ../components/html-editor/menubar.c:141
 #: ../components/html-editor/popup.c:110 ../components/html-editor/popup.c:205
 #: ../components/html-editor/popup.c:271
 msgid "Link"
-msgstr "鏈結"
+msgstr "連結"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:56
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
@@ -414,7 +415,7 @@ msgstr "阿拉伯數字清單(_L)"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:72
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
 msgid "Oh _no!"
-msgstr "糟了！(_N)"
+msgstr "糟糕！(_N)"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:73
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
@@ -507,7 +508,7 @@ msgstr "羅馬數字清單"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
 #: ../components/html-editor/editor-control-factory.c:211
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:48
-#: ../components/html-editor/menubar.c:159
+#: ../components/html-editor/menubar.c:160
 #: ../components/html-editor/popup.c:229
 msgid "Rule"
 msgstr "水平線"
@@ -556,7 +557,7 @@ msgstr "上標"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:52
-#: ../components/html-editor/menubar.c:180
+#: ../components/html-editor/menubar.c:184
 #: ../components/html-editor/popup.c:235 ../components/html-editor/popup.c:505
 #: ../components/html-editor/popup.c:517
 msgid "Table"
@@ -778,7 +779,6 @@ msgstr "為文件進行拼字檢查(_S)..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:141
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:143
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:73
 msgid "_Strikeout"
 msgstr "刪除線(_S)"
 
@@ -868,13 +868,13 @@ msgstr "無"
 
 # Novell Translation
 #: ../components/html-editor/body.c:71
-msgid "Perforated Paper"
+msgid "Perforated paper"
 msgstr "有排孔的紙張"
 
 # Novell Translation
 #: ../components/html-editor/body.c:79
-msgid "Blue Ink"
-msgstr "藍墨水"
+msgid "Blue ink"
+msgstr "藍色墨水"
 
 # Novell Translation
 #: ../components/html-editor/body.c:87
@@ -908,7 +908,7 @@ msgstr "圖形紙張"
 
 #: ../components/html-editor/body.c:247
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:53
-#: ../components/html-editor/menubar.c:202
+#: ../components/html-editor/menubar.c:206
 msgid "Template"
 msgstr "範本"
 
@@ -984,29 +984,26 @@ msgid "Transparent"
 msgstr "透明"
 
 #: ../components/html-editor/editor-control-factory.c:182
-#: ../components/html-editor/menubar.c:358
-#: ../components/html-editor/menubar.c:376
-#: ../components/html-editor/menubar.c:394
 #: ../components/html-editor/popup.c:190 ../components/html-editor/popup.c:268
 msgid "Properties"
 msgstr "屬性"
 
 #: ../components/html-editor/editor-control-factory.c:201
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:54
-#: ../components/html-editor/menubar.c:380
+#: ../components/html-editor/menubar.c:384
 #: ../components/html-editor/popup.c:199
 msgid "Text"
 msgstr "文字"
 
 #: ../components/html-editor/editor-control-factory.c:220
-#: ../components/html-editor/menubar.c:398
+#: ../components/html-editor/menubar.c:402
 #: ../components/html-editor/popup.c:217
 msgid "Paragraph"
 msgstr "段落"
 
 #: ../components/html-editor/editor-control-factory.c:224
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:43
-#: ../components/html-editor/menubar.c:362
+#: ../components/html-editor/menubar.c:366
 #: ../components/html-editor/popup.c:223
 msgid "Page"
 msgstr "頁面"
@@ -1055,7 +1052,7 @@ msgstr "深綠色 #2"
 # Novell Translation
 #: ../components/html-editor/gi-color-palette.c:586
 msgid "navy"
-msgstr "海軍藍色"
+msgstr "海軍藍"
 
 # Novell Translation
 #: ../components/html-editor/gi-color-palette.c:587
@@ -1144,7 +1141,7 @@ msgstr "暗藍色 #2"
 # Novell Translation
 #: ../components/html-editor/gi-color-palette.c:607
 msgid "sky blue #2"
-msgstr "天空藍色 #2"
+msgstr "天空藍 #2"
 
 # Novell Translation
 #: ../components/html-editor/gi-color-palette.c:608
@@ -1258,7 +1255,7 @@ msgstr "深紫色"
 # Novell Translation
 #: ../components/html-editor/gi-color-palette.c:640
 msgid "sky blue"
-msgstr "天空藍色"
+msgstr "天空藍"
 
 #. set the a11y name
 #: ../components/html-editor/gi-combo-box.c:423
@@ -1523,6 +1520,10 @@ msgstr "列(_R)："
 msgid "_Spacing:"
 msgstr "間距(_S)："
 
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:73
+msgid "_Strikethrough"
+msgstr "刪除線(_S)"
+
 # Novell Translation
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:74
 msgid "_Table"
@@ -1570,7 +1571,7 @@ msgstr "xxxxxxxxxxxxxx"
 # Novell Translation
 #: ../components/html-editor/link.c:198
 msgid "URL:"
-msgstr "URL："
+msgstr "URL:"
 
 # Novell Translation
 #: ../components/html-editor/link.c:202
@@ -1578,34 +1579,40 @@ msgid "Description:"
 msgstr "描述："
 
 # Novell Translation
-#: ../components/html-editor/menubar.c:100
-#: ../components/html-editor/menubar.c:108
+#: ../components/html-editor/menubar.c:101
+#: ../components/html-editor/menubar.c:109
 msgid "Insert image"
 msgstr "插入影像"
 
-#: ../components/html-editor/menubar.c:137
-#: ../components/html-editor/menubar.c:156
-#: ../components/html-editor/menubar.c:177
-#: ../components/html-editor/menubar.c:199
+#: ../components/html-editor/menubar.c:138
+#: ../components/html-editor/menubar.c:157
+#: ../components/html-editor/menubar.c:181
+#: ../components/html-editor/menubar.c:203
 #: ../components/html-editor/popup.c:107
 msgid "Insert"
 msgstr "插入"
 
 # Novell Translation
-#: ../components/html-editor/menubar.c:286
+#: ../components/html-editor/menubar.c:290
 #, c-format
 msgid "Error loading file '%s': %s"
 msgstr "載入檔案 '%s' 時發生錯誤： %s"
 
-#: ../components/html-editor/menubar.c:312
-#: ../components/html-editor/menubar.c:321
+#: ../components/html-editor/menubar.c:316
+#: ../components/html-editor/menubar.c:325
 msgid "Insert: HTML File"
 msgstr "插入：HTML 檔案"
 
-#: ../components/html-editor/menubar.c:312
-#: ../components/html-editor/menubar.c:321
+#: ../components/html-editor/menubar.c:316
+#: ../components/html-editor/menubar.c:325
 msgid "Insert: Text File"
 msgstr "插入：文字檔"
+
+#: ../components/html-editor/menubar.c:362
+#: ../components/html-editor/menubar.c:380
+#: ../components/html-editor/menubar.c:398
+msgid "Format"
+msgstr "格式"
 
 #: ../components/html-editor/paragraph.c:90
 #: ../components/html-editor/toolbar.c:58
@@ -1954,7 +1961,7 @@ msgstr "瀏覽(_V)..."
 # Novell Translation
 #: ../components/html-editor/utils.c:236
 msgid ""
-"The editted object was removed from the document.\n"
+"The edited object was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
 "編輯的物件已從文件中移除。\n"
@@ -1993,7 +2000,7 @@ msgstr "目標基礎"
 
 # Novell Translation
 #: ../src/gtkhtml.c:3027
-msgid "The base URL of the targe frame"
+msgid "The base URL of the target frame"
 msgstr "目標框架的基礎 URL"
 
 #: ../src/gtkhtml.c:3036
