@@ -491,8 +491,8 @@ static struct {
 	const gchar *command;
 	const gchar *verb;
 } command_assoc[] = {
-	{"size-minus-two", "FontSizeNegTwo"},
-	{"size-minus-one", "FontSizeNegOne"},
+	{"size-minus-2", "FontSizeNegTwo"},
+	{"size-minus-1", "FontSizeNegOne"},
 	{"size-plus-0", "FontSizeZero"},
 	{"size-plus-1", "FontSizeOne"},
 	{"size-plus-2", "FontSizeTwo"},

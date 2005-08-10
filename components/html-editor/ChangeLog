@@ -1,3 +1,9 @@
+2005-08-10  Kaushal Kumar  <kakumar@novell.com>
+
+	* menubar.c: Fix the command association for font sizes -2, -1.
+
+	Fixes bug #313014.
+
 2005-08-04  Kaushal Kumar  <kakumar@novell.com>
 
 	* menubar.c (menubar_update_format): Set the sensitization of Format menu
