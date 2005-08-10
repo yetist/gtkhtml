@@ -1,3 +1,8 @@
+2005-08-10  Kaushal Kumar  <kakumar@novell.com>
+
+	* configure.in: Up the versions requirement for gail, 
+	libgnomeui, just enough to avoid linking to any pre-2.0 stuff.
+
 2005-08-08  Kaushal Kumar  <kakumar@novell.com>
 
 	* configure.in: bumped version to 3.7.6 for the new release.

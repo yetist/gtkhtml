@@ -66,13 +66,13 @@ AC_SUBST(LDFLAGS)
 ALL_LINGUAS="am ar az be bg bn ca cs cy da de el en_CA en_GB es et eu fa fi fr ga gl gu he hi hr hu id it ja ko lt lv mk ml ms nb ne nl nn no pa pl pt pt_BR ru rw sk sl sq sr sr@Latn sv ta tr uk vi xh zh_CN zh_TW"
 AM_GLIB_GNU_GETTEXT
 
-GAIL_MODULES="gail >= 0.13"
+GAIL_MODULES="gail >= 1.1.0"
 PKG_CHECK_MODULES(GAIL, $GAIL_MODULES)
 AC_SUBST(GAIL_CFLAGS)
 AC_SUBST(GAIL_LIBS)
 AC_SUBST(GAIL_MODULES)
 
-GTKHTML_MODULES="gtk+-2.0 >= 2.2.0 libgnomeui-2.0 >= 1.112.1 libgnomeprint-2.2 >= 2.8.0 libgnomeprintui-2.2 >= 2.2.1 libglade-2.0 >= 2.0.0"
+GTKHTML_MODULES="libgnomeui-2.0 >= 2.0.0 libgnomeprintui-2.2 >= 2.2.1 libglade-2.0 >= 2.0.0"
 PKG_CHECK_MODULES(GTKHTML, $GTKHTML_MODULES)
 AC_SUBST(GTKHTML_CFLAGS)
 AC_SUBST(GTKHTML_LIBS)
