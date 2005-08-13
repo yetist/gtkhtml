@@ -1,3 +1,11 @@
+2005-08-12  Kaushal Kumar  <kakumar@novell.com>
+
+	* gtkhtml-stream.c (gtk_html_stream_vprintf): Use g_strdup_vprintf instead of 
+	g_printf_string_upper_bound since the latter returns incorrect values. 
+
+	Fixes tasks and contact list dump in evolution.
+	Fix bug #270844.
+
 2005-08-05  Kaushal Kumar  <kakumar@novell.com>
 
 	* htmlengine-edit.c (html_engine_get_insert_level_for_object): Advance clue 

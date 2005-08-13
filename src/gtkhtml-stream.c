@@ -24,6 +24,7 @@
 #include <sys/types.h>
 #include <glib.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "gtkhtml-compat.h"
 #include "gtkhtml-stream.h"
@@ -86,11 +87,14 @@ gtk_html_stream_vprintf (GtkHTMLStream *stream,
 	size_t len;
 	char *buf = NULL;
 	char *mbuf = NULL;
+	char *tmp_buf = NULL;
 	int rv;
 	va_list ap_copy;
 
 	G_VA_COPY (ap_copy, ap);
-	len = g_printf_string_upper_bound (format, ap_copy);
+	tmp_buf = g_strdup_vprintf (format, ap_copy);
+	len = strlen (tmp_buf);
+	g_free (tmp_buf);
 
 	if (len < 8192)
 		buf = alloca (len);
