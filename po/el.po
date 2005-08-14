@@ -11,14 +11,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: el\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-13 13:03+0300\n"
-"PO-Revision-Date: 2005-08-13 13:03+0300\n"
+"POT-Creation-Date: 2005-08-15 01:27+0300\n"
+"PO-Revision-Date: 2005-08-15 01:28+0300\n"
 "Last-Translator: Nikos Charonitakis <charosn@her.forthnet.gr>\n"
 "Language-Team:  <team@gnome.gr>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);"
 
 #: ../a11y/image.c:150
 #, c-format
@@ -786,7 +786,7 @@ msgstr "_Smiley"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:140
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:142
 msgid "_Spell Check Document..."
-msgstr "'Ελεγ_χος Ορθογραφίας στο Έγγραφο..."
+msgstr "Έλεγ_χος Ορθογραφίας στο Έγγραφο..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:141
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:143
