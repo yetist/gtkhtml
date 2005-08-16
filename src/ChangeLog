@@ -1,3 +1,7 @@
+2005-08-16  Kaushal Kumar  <kakumar@novell.com>
+
+	* gtkhtml-stream.c (gtk_html_stream_vprintf): Some clean-ups. 
+
 2005-08-12  Kaushal Kumar  <kakumar@novell.com>
 
 	* gtkhtml-stream.c (gtk_html_stream_vprintf): Use g_strdup_vprintf instead of 
