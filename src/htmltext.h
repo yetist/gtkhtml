@@ -362,4 +362,8 @@ html_tmp_fix_pango_glyph_string_get_logical_widths (PangoGlyphString *glyphs,
 						    int               length,
 						    int               embedding_level,
 						    int              *logical_widths);
+
+PangoAttrList *html_text_prepare_attrs (HTMLText *text, 
+					HTMLPainter *painter);
+
 #endif /* _HTMLTEXT_H_ */

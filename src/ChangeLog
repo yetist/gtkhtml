@@ -1,3 +1,13 @@
+2005-08-17  Mengjie Yu  <meng-jie.yu@sun.com>
+
+	* htmltext.c: (html_text_prepare_attrs),
+	(html_text_get_pango_info):
+	* htmltext.h:
+	Change function name prepare_attrs to html_text_prepare_attrs and make it
+	a new public API. We will call it in a11y part.
+
+	Fixes #312189
+
 2005-08-16  Kaushal Kumar  <kakumar@novell.com>
 
 	* gtkhtml-stream.c (gtk_html_stream_vprintf): Some clean-ups. 

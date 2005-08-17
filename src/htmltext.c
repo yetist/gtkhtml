@@ -1175,8 +1175,8 @@ html_text_remove_unwanted_line_breaks (char *s, int len, PangoLogAttr *attrs)
 	}
 }
 
-static PangoAttrList *
-prepare_attrs (HTMLText *text, HTMLPainter *painter)
+PangoAttrList *
+html_text_prepare_attrs (HTMLText *text, HTMLPainter *painter)
 {
 	PangoAttrList *attrs;
 	HTMLClueFlow *flow = NULL;
@@ -1381,7 +1381,7 @@ html_text_get_pango_info (HTMLText *text, HTMLPainter *painter)
 		PangoAttrList *attrs;
 		int i, offset;
 
-		attrs = prepare_attrs (text, painter);
+		attrs = html_text_prepare_attrs (text, painter);
 		items = pango_itemize_with_base_dir (painter->pango_context, get_pango_base_direction (text), text->text, 0, text->text_bytes, attrs, NULL);
 		pango_attr_list_unref (attrs);
 
