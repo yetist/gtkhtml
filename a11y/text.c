@@ -738,14 +738,25 @@ html_a11y_text_get_run_attributes (AtkText *text,
 	glong len;
 	gchar *textstring;
 	AtkAttributeSet *attrib_set = NULL;
+	GtkHTMLA11Y *a11y;
+	GtkHTML *html;
+	HTMLEngine *e;
 	HTMLText *t = HTML_TEXT (HTML_A11Y_HTML (text));	
 	
 	g_return_val_if_fail (t, NULL);
-
 	textstring = t->text;
-	attr = t->attr_list;
+	g_return_val_if_fail (textstring, NULL);
 
-	g_return_val_if_fail (attr && textstring, NULL);
+	a11y = html_a11y_get_top_gtkhtml_parent (HTML_A11Y (text));
+	g_return_val_if_fail (a11y, NULL);
+
+	html = GTK_HTML_A11Y_GTKHTML (a11y);
+	g_return_val_if_fail (html && GTK_IS_HTML(html) && html->engine, NULL);
+
+	e = html->engine;
+	attr = html_text_prepare_attrs (t, e->painter);
+	g_return_val_if_fail (attr, NULL);
+
 
 	len = g_utf8_strlen (textstring, -1);
 	iter = pango_attr_list_get_iterator (attr);
@@ -875,6 +886,7 @@ html_a11y_text_get_run_attributes (AtkText *text,
 	} 
 
 	pango_attr_iterator_destroy (iter);
+	pango_attr_list_unref (attr);
 	return attrib_set;
 
 }
