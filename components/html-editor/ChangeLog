@@ -1,3 +1,7 @@
+2005-08-17  Kaushal Kumar  <kakumar@novell.com>
+
+	* utils.c (url_requested): Added the missing close call for fd.
+
 2005-08-10  Kaushal Kumar  <kakumar@novell.com>
 
 	* menubar.c: Fix the command association for font sizes -2, -1.
