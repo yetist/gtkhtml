@@ -1526,9 +1526,11 @@ element_parse_object (HTMLEngine *e, HTMLObject *clue, const gchar *attr)
 
 	/* create the object */
         object_found = FALSE;
-	printf ("requesting object classid: %s\n", classid ? classid : "(null)");
+	gtk_html_debug_log (e->widget, 
+			    "requesting object classid: %s\n", 
+			    classid ? classid : "(null)");
 	g_signal_emit (e, signals [OBJECT_REQUESTED], 0, eb, &object_found);
-	printf ("object_found: %d\n", object_found);
+	gtk_html_debug_log (e->widget, "object_found: %d\n", object_found);
 	
 	/* show alt text on TRUE */ 
 	if (object_found) {
