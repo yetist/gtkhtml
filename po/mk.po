@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-20 06:36+0000\n"
-"PO-Revision-Date: 2005-07-20 16:56+0200\n"
+"POT-Creation-Date: 2005-08-19 22:44+0000\n"
+"PO-Revision-Date: 2005-08-20 10:30+0200\n"
 "Last-Translator: Арангел Ангов <ufo@linux.net.mk>\n"
 "Language-Team: Macedonian <ossm-members@hedona.on.net.mk>\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +31,7 @@ msgstr "Адресата е %s, алтернативниот текст е %s"
 msgid "URL is %s"
 msgstr "Адресата е %s"
 
-#: ../a11y/object.c:52 ../a11y/object.c:61 ../a11y/text.c:122
+#: ../a11y/object.c:52 ../a11y/object.c:61 ../a11y/text.c:127
 msgid "grab focus"
 msgstr "земи фокус"
 
@@ -326,7 +326,7 @@ msgstr "Лижи"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
-#: ../components/html-editor/menubar.c:140
+#: ../components/html-editor/menubar.c:141
 #: ../components/html-editor/popup.c:110 ../components/html-editor/popup.c:205
 #: ../components/html-editor/popup.c:271
 msgid "Link"
@@ -507,7 +507,7 @@ msgstr "Листа нумерирана со римски цифри"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
 #: ../components/html-editor/editor-control-factory.c:211
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:48
-#: ../components/html-editor/menubar.c:159
+#: ../components/html-editor/menubar.c:160
 #: ../components/html-editor/popup.c:229
 msgid "Rule"
 msgstr "Правило"
@@ -556,7 +556,7 @@ msgstr "Натписмо"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:52
-#: ../components/html-editor/menubar.c:180
+#: ../components/html-editor/menubar.c:184
 #: ../components/html-editor/popup.c:235 ../components/html-editor/popup.c:505
 #: ../components/html-editor/popup.c:517
 msgid "Table"
@@ -860,11 +860,11 @@ msgid "None"
 msgstr "Ништо"
 
 #: ../components/html-editor/body.c:71
-msgid "Perforated Paper"
+msgid "Perforated paper"
 msgstr "Перфорирана хартија"
 
 #: ../components/html-editor/body.c:79
-msgid "Blue Ink"
+msgid "Blue ink"
 msgstr "Сино мастило"
 
 #: ../components/html-editor/body.c:87
@@ -893,7 +893,7 @@ msgstr "Хартија за графици"
 
 #: ../components/html-editor/body.c:247
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:53
-#: ../components/html-editor/menubar.c:202
+#: ../components/html-editor/menubar.c:206
 msgid "Template"
 msgstr "Шаблон"
 
@@ -962,27 +962,26 @@ msgid "Transparent"
 msgstr "Транспарентно"
 
 #: ../components/html-editor/editor-control-factory.c:182
-#: ../components/html-editor/menubar.c:358
 #: ../components/html-editor/popup.c:190 ../components/html-editor/popup.c:268
 msgid "Properties"
 msgstr "Својства"
 
 #: ../components/html-editor/editor-control-factory.c:201
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:54
-#: ../components/html-editor/menubar.c:380
+#: ../components/html-editor/menubar.c:384
 #: ../components/html-editor/popup.c:199
 msgid "Text"
 msgstr "Текст"
 
 #: ../components/html-editor/editor-control-factory.c:220
-#: ../components/html-editor/menubar.c:398
+#: ../components/html-editor/menubar.c:402
 #: ../components/html-editor/popup.c:217
 msgid "Paragraph"
 msgstr "Пасус"
 
 #: ../components/html-editor/editor-control-factory.c:224
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:43
-#: ../components/html-editor/menubar.c:362
+#: ../components/html-editor/menubar.c:366
 #: ../components/html-editor/popup.c:223
 msgid "Page"
 msgstr "Страница"
@@ -1470,36 +1469,37 @@ msgstr "Адреса:"
 msgid "Description:"
 msgstr "Опис:"
 
-#: ../components/html-editor/menubar.c:100
-#: ../components/html-editor/menubar.c:108
+#: ../components/html-editor/menubar.c:101
+#: ../components/html-editor/menubar.c:109
 msgid "Insert image"
 msgstr "Вметни слика"
 
-#: ../components/html-editor/menubar.c:137
-#: ../components/html-editor/menubar.c:156
-#: ../components/html-editor/menubar.c:177
-#: ../components/html-editor/menubar.c:199
+#: ../components/html-editor/menubar.c:138
+#: ../components/html-editor/menubar.c:157
+#: ../components/html-editor/menubar.c:181
+#: ../components/html-editor/menubar.c:203
 #: ../components/html-editor/popup.c:107
 msgid "Insert"
 msgstr "Внеси"
 
-#: ../components/html-editor/menubar.c:286
+#: ../components/html-editor/menubar.c:290
 #, c-format
 msgid "Error loading file '%s': %s"
 msgstr "Грешка при вчитување на датотеката '%s': %s"
 
-#: ../components/html-editor/menubar.c:312
-#: ../components/html-editor/menubar.c:321
+#: ../components/html-editor/menubar.c:316
+#: ../components/html-editor/menubar.c:325
 msgid "Insert: HTML File"
 msgstr "Вметни HTML датотека"
 
-#: ../components/html-editor/menubar.c:312
-#: ../components/html-editor/menubar.c:321
+#: ../components/html-editor/menubar.c:316
+#: ../components/html-editor/menubar.c:325
 msgid "Insert: Text File"
 msgstr "Вметни: текстуална датотека"
 
-#: ../components/html-editor/menubar.c:376
-#: ../components/html-editor/menubar.c:394
+#: ../components/html-editor/menubar.c:362
+#: ../components/html-editor/menubar.c:380
+#: ../components/html-editor/menubar.c:398
 msgid "Format"
 msgstr "Форматирај"
 
@@ -1823,15 +1823,15 @@ msgstr "Вовлекување"
 msgid "Indents the paragraphs more"
 msgstr "Повеќе го вовлекува пасусот"
 
-#: ../components/html-editor/utils.c:123
+#: ../components/html-editor/utils.c:125
 msgid "Sample"
 msgstr "Пример"
 
-#: ../components/html-editor/utils.c:196
+#: ../components/html-editor/utils.c:198
 msgid "_Visit..."
 msgstr "_Посетете го..."
 
-#: ../components/html-editor/utils.c:236
+#: ../components/html-editor/utils.c:238
 msgid ""
 "The edited object was removed from the document.\n"
 "Cannot apply your changes."
