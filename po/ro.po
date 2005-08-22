@@ -1,0 +1,1947 @@
+# Romanian translations for gtkhtml package.
+# This file is distributed under the same license as the PACKAGE package.
+# Ruşeţ Zeno <ruset.zeno@gmail.com>, 2005.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gtkhtml\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-08-16 22:44+0000\n"
+"PO-Revision-Date: 2005-08-23 02:09+0300\n"
+"Last-Translator: Ruşeţ Zeno <ruset.zeno@gmail.com>\n"
+"Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../a11y/image.c:150
+#, c-format
+msgid "URL is %s, Alternative Text is %s"
+msgstr "URL este %s, Textul Alternativ este %s"
+
+#: ../a11y/image.c:152
+#, c-format
+msgid "URL is %s"
+msgstr "URL este %s"
+
+#: ../a11y/object.c:52 ../a11y/object.c:61 ../a11y/text.c:127
+msgid "grab focus"
+msgstr "capturează focusul"
+
+#: ../a11y/object.c:258
+msgid "Panel containing HTML"
+msgstr "Panou conţinând HTML"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:1
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
+msgid "+0"
+msgstr "+0"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:2
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:2
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:5
+msgid "+1"
+msgstr "+1"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:3
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:3
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:6
+msgid "+2"
+msgstr "+2"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:4
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:4
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:7
+msgid "+3"
+msgstr "+3"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:5
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:5
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:9
+msgid "-1"
+msgstr "-1"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:6
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:6
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:10
+msgid "-2"
+msgstr "-2"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:7
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:7
+msgid "A_ddress"
+msgstr "A_dresă"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:8
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:8
+#: ../components/html-editor/toolbar.c:57
+msgid "Alphabetical List"
+msgstr "Listă alfabetică"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:9
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:9
+msgid "Background Color"
+msgstr "Culoare de fond"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:10
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:10
+msgid "Blue"
+msgstr "Albastru"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:11
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:11
+#: ../components/html-editor/toolbar.c:54
+msgid "Bulleted List"
+msgstr "Listă cu buline"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:12
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
+#: ../components/html-editor/toolbar.c:527
+msgid "Center justifies the paragraphs"
+msgstr "Paragraf aliniat pe mijloc"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:13
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:13
+msgid "Check spelling of the document"
+msgstr "Verifică corectura ortografică a documentului"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:14
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:14
+msgid "Copy"
+msgstr "Copiază"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:15
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:15
+msgid "Copy selection to clipboard"
+msgstr "Copiază zona selectată în clipboard"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:16
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:16
+msgid "Copy the selection"
+msgstr "Copiază zona selectată"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:17
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:17
+msgid "Cr_ying"
+msgstr "Cr_ying"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:18
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:18
+msgid "Cu_t"
+msgstr "Decu_pează"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:19
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:19
+msgid "Cut"
+msgstr "Decupează"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:20
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:20
+msgid "Cut selection to clipboard"
+msgstr "Decupează zona selectată şi mut-o în clipboard"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:21
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:21
+msgid "Cut the selection"
+msgstr "Decupează zona selectată"
+
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
+#: ../components/html-editor/search.c:111
+#: ../components/html-editor/search.c:171
+msgid "Find"
+msgstr "Caută"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:23
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:23
+msgid "Find And Replace"
+msgstr "Caută şi înlocuieşte"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:24
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:24
+msgid "Find _Again"
+msgstr "C_aută din nou"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:25
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:25
+msgid "Find again"
+msgstr "Caută din nou"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:26
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:26
+msgid "Find and Replace"
+msgstr "Caută şi înlocuieşte"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:27
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:27
+msgid "For_mat"
+msgstr "For_mat"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:28
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:28
+msgid "Green"
+msgstr "Verde"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:29
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:29
+msgid "Header _1"
+msgstr "Subtitlu _1"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:30
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:30
+msgid "Header _2"
+msgstr "Subtitlu _2"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:31
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:31
+msgid "Header _3"
+msgstr "Subtitlu _2"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:32
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:32
+msgid "Header _4"
+msgstr "Subtitlu _4"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:33
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:33
+msgid "Header _5"
+msgstr "Subtitlu _5"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:34
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:34
+msgid "Header _6"
+msgstr "Subtitlu _6"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:35
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
+#: ../components/html-editor/editor-control-factory.c:193
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:37
+#: ../components/html-editor/popup.c:211
+msgid "Image"
+msgstr "Imagine"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:36
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
+msgid "Insert Crying smiley into document..."
+msgstr "Inserează iconiţa simbolică Crying în document..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:37
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
+msgid "Insert Frown smiley into document..."
+msgstr "Inserează iconiţa simbolică Frown în document..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:38
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
+msgid "Insert HTML file into document..."
+msgstr "Inserează un fişier HTML în document..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:39
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
+msgid "Insert HTML link into document..."
+msgstr "Inserează o legătură HTML în document..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:40
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:40
+msgid "Insert HTML template into document..."
+msgstr "Inserează un şablon HTML în document..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:41
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
+msgid "Insert Indifferent smiley into document..."
+msgstr "Inserează iconiţa simbolică Indifferent în document..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:42
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
+msgid "Insert Laughing smiley into document..."
+msgstr "Inserează iconiţa simbolică Laughing în document..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:43
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
+msgid "Insert Lick smiley into document..."
+msgstr "Inserează iconiţa simbolică Lick în document..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:44
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
+msgid "Insert Oh no! smiley into document..."
+msgstr "Inserează iconiţa simbolică Oh no! în document..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:45
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
+msgid "Insert Smile smiley into document..."
+msgstr "Inserează iconiţa simbolică Smile în document..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:46
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
+msgid "Insert Surprised smiley into document..."
+msgstr "Inserează iconiţa simbolică Surprised în document..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:47
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
+msgid "Insert Undecided smiley into document..."
+msgstr "Inserează iconiţa simbolică Undecided în document..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:48
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
+msgid "Insert Wink smiley into document..."
+msgstr "Inserează iconiţa simbolică Wink în document..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:49
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
+msgid "Insert image into document..."
+msgstr "Inserează o imagine în document..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:50
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
+msgid "Insert rule into document..."
+msgstr "Inserează o riglă în document..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:51
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:52
+msgid "Insert table into document..."
+msgstr "Inserează un tabel în document..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:52
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:53
+msgid "Insert text file into document..."
+msgstr "Inserează un fişier text în document..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:53
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
+#: ../components/html-editor/toolbar.c:525
+msgid "Left justifies the paragraphs"
+msgstr "Paragrafe aliniate la stânga"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:54
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
+msgid "Li_ck"
+msgstr "Li_ck"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
+#: ../components/html-editor/menubar.c:141
+#: ../components/html-editor/popup.c:110 ../components/html-editor/popup.c:205
+#: ../components/html-editor/popup.c:271
+msgid "Link"
+msgstr "Legătură"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:56
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
+msgid "Make the current Paragraph style Normal"
+msgstr "Aplică stilul „Normal” paragrafului curent"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:57
+msgid "Make the current Paragraph style Preformat"
+msgstr "Aplică stilul „Preformatat” paragrafului curent"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:58
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
+msgid "Make the current paragraph a bulleted list"
+msgstr "Transformă paragraful curent într-o listă cu buline"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:59
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
+msgid "Make the current paragraph a list with roman numerals"
+msgstr "Transformă paragraful curent într-o listă cu numerale romane"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:60
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
+msgid "Make the current paragraph a numbered list"
+msgstr "Transformă paragraful curent într-o listă numerotată"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:61
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
+msgid "Make the current paragraph an H1 header"
+msgstr "Transformă paragraful curent într-un subtitlu H1"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:62
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:63
+msgid "Make the current paragraph an H2 header"
+msgstr "Transformă paragraful curent într-un subtitlu H2"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:63
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:64
+msgid "Make the current paragraph an H3 header"
+msgstr "Transformă paragraful curent într-un subtitlu H3"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:64
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:65
+msgid "Make the current paragraph an H4 header"
+msgstr "Transformă paragraful curent într-un subtitlu H4"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:65
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:66
+msgid "Make the current paragraph an H5 header"
+msgstr "Transformă paragraful curent într-un subtitlu H5"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:66
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:67
+msgid "Make the current paragraph an H6 header"
+msgstr "Transformă paragraful curent într-un subtitlu H6"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:67
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:68
+msgid "Make the current paragraph an address"
+msgstr "Transformă paragraful curent într-o adresă"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:68
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:69
+msgid "Make the current paragraph an alphabetical list"
+msgstr "Transformă paragraful curent într-o listă alfabetică"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:69
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:70
+#: ../components/html-editor/paragraph.c:87
+#: ../components/html-editor/toolbar.c:52
+msgid "Normal"
+msgstr "Normal"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:70
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
+#: ../components/html-editor/toolbar.c:55
+msgid "Numbered List"
+msgstr "Listă numerotată"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:71
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
+msgid "Numbered _List"
+msgstr "_Listă numerotată"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:72
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
+msgid "Oh _no!"
+msgstr "O _nu!"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:73
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
+msgid "Orange"
+msgstr "Portocaliu"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:74
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:75
+msgid "Other..."
+msgstr "Altele..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:75
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
+msgid "Paste"
+msgstr "Inserează"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:76
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
+msgid "Paste _Quotation"
+msgstr "Inserează ci_tat"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:77
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
+msgid "Paste from clipboard"
+msgstr "Inserează din clipboard"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:78
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
+msgid "Paste the clipboard"
+msgstr "Inserează clipboard"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:79
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
+msgid "Paste the clipboard as a quotation"
+msgstr "Inserează din clipboard ca citat"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:80
+#: ../components/html-editor/toolbar.c:53
+msgid "Preformat"
+msgstr "Preformatat"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:81
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
+msgid "Purple"
+msgstr "Purpuriu"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:82
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
+msgid "Red"
+msgstr "Roşu"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:83
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
+msgid "Redo"
+msgstr "Refă"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:84
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
+msgid "Redo previously undone change"
+msgstr "Refă precedenta modificare anulată"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:85
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
+msgid "Redo the undone action"
+msgstr "Refă acţiunea anulată"
+
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
+#: ../components/html-editor/replace.c:167
+#: ../components/html-editor/replace.c:231
+msgid "Replace"
+msgstr "Înlocuieşte"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:87
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
+#: ../components/html-editor/toolbar.c:529
+msgid "Right justifies the paragraphs"
+msgstr "Paragrafe aliniate la dreapta"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:88
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
+msgid "Roman Numeral List"
+msgstr "Listă numerotată roman"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:89
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
+#: ../components/html-editor/editor-control-factory.c:211
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:48
+#: ../components/html-editor/menubar.c:160
+#: ../components/html-editor/popup.c:229
+msgid "Rule"
+msgstr "Riglă"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:90
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
+msgid "Select _All"
+msgstr "Selecte_ază tot"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:91
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
+msgid "Select the entire contents of the document"
+msgstr "Selectează întregul conţinut al documentului"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:92
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
+#: ../components/html-editor/toolbar.c:557
+msgid "Strikeout"
+msgstr "Tăiat"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:93
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
+msgid "Su_perscript"
+msgstr "Ex_ponent"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:94
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
+msgid "Su_rprised"
+msgstr "Su_rprins"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:95
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
+msgid "Subs_cript"
+msgstr "Indi_ce"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:96
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
+msgid "Subscript"
+msgstr "Indice"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:97
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
+msgid "Superscript"
+msgstr "Exponent"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:52
+#: ../components/html-editor/menubar.c:184
+#: ../components/html-editor/popup.c:235 ../components/html-editor/popup.c:505
+#: ../components/html-editor/popup.c:517
+msgid "Table"
+msgstr "Tabelă"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:99
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
+msgid "Te_mplate..."
+msgstr "Şa_blon..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:100
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
+msgid "Te_xt file..."
+msgstr "Fişier te_xt..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:101
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
+#: ../components/html-editor/toolbar.c:549
+msgid "Typewriter"
+msgstr "Stil dactilografiat"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:102
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
+msgid "Undo"
+msgstr "Anulează"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:103
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
+msgid "Undo previous changes"
+msgstr "Anulează modificările anterioare"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:104
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
+msgid "Undo the last action"
+msgstr "Anulează ultima acţiune"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:105
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
+msgid "Yellow"
+msgstr "Galben"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:106
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
+msgid "_Alignment"
+msgstr "_Aliniere"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:107
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
+msgid "_Alphabetical List"
+msgstr "Listă _alfabetică"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:108
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:60
+msgid "_Bold"
+msgstr "_Aldin"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:109
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
+msgid "_Bulleted List"
+msgstr "Listă cu _buline"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
+msgid "_Center"
+msgstr "_Centru"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:111
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
+msgid "_Copy"
+msgstr "_Copiază"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:112
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
+msgid "_Decrease Indent"
+msgstr "Re_du indentarea"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:113
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
+msgid "_Edit"
+msgstr "_Editare"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:114
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
+msgid "_Find..."
+msgstr "Cău_tare..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:115
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
+msgid "_Font Size"
+msgstr "Mărime _font"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:116
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
+msgid "_Frown"
+msgstr "_Frown"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:117
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
+msgid "_HTML file..."
+msgstr "Fişier _HTML..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:118
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
+msgid "_Heading"
+msgstr "_Subtitlu"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:119
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
+msgid "_Image..."
+msgstr "_Imagine..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:120
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
+msgid "_Increase Indent"
+msgstr "Măreşte _indentarea"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:121
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
+msgid "_Indifferent"
+msgstr "_Indiferent"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:122
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
+msgid "_Insert"
+msgstr "_Inserează"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:123
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:67
+msgid "_Italic"
+msgstr "_Italic"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
+msgid "_Laughing"
+msgstr "_Laughing"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:125
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:127
+msgid "_Left"
+msgstr "_Stânga"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:126
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:128
+msgid "_Link..."
+msgstr "_Legătură..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:127
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
+msgid "_Normal"
+msgstr "_Normal"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:128
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
+msgid "_Page..."
+msgstr "_Pagină..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:129
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
+msgid "_Paragraph..."
+msgstr "_Paragraf..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:130
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
+msgid "_Paste"
+msgstr "I_nserează"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:131
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:133
+msgid "_Plain text"
+msgstr "Text _simplu"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:132
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:134
+msgid "_Preformat"
+msgstr "_Preformatat"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:133
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
+msgid "_Redo"
+msgstr "_Refă"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:134
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
+msgid "_Replace..."
+msgstr "Înlocuire..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:135
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
+msgid "_Right"
+msgstr "D_reapta"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:136
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
+msgid "_Roman Numeral List"
+msgstr "Listă numerotată _roman"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:137
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:139
+msgid "_Rule..."
+msgstr "_Riglă..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:138
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:140
+msgid "_Smile"
+msgstr "_Smile"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:139
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:141
+msgid "_Smiley"
+msgstr "Iconiţă _simbolică"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:140
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:142
+msgid "_Spell Check Document..."
+msgstr "_Verificare ortografică a documentului..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:141
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:143
+msgid "_Strikeout"
+msgstr "_Tăiat"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:142
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:144
+msgid "_Style"
+msgstr "_Stil"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:143
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:145
+msgid "_Table..."
+msgstr "_Tabelă..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:144
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:146
+msgid "_Text..."
+msgstr "_Text..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:145
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:147
+msgid "_Undecided"
+msgstr "_Undecided"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:146
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:148
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:76
+msgid "_Underline"
+msgstr "S_ubliniat"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:147
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:149
+msgid "_Undo"
+msgstr "_Anulează"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:148
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:150
+msgid "_Wink"
+msgstr "_Wink"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:149
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:152
+msgid "etc..."
+msgstr "etc..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:1
+msgid "GNOME HTML Editor"
+msgstr "Editor HTML GNOME"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:2
+msgid "GNOME HTML Editor Control"
+msgstr "Control editor HTML GNOME"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:3
+msgid "GNOME HTML Editor Factory"
+msgstr "Factory editor HTML GNOME"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
+msgid "Insert Sick smiley into document..."
+msgstr "Inserează iconiţa simbolică Sick în document..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:58
+msgid "Make the current Paragraph style Preformatted"
+msgstr "Aplică stilul „Preformatat” paragrafului curent"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
+#: ../components/html-editor/paragraph.c:106
+msgid "Preformatted"
+msgstr "Preformatat"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
+msgid "S_ick"
+msgstr "S_ick"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:151
+msgid "_Wrap Lines"
+msgstr "_Desparte pe linii"
+
+#: ../components/html-editor/body.c:63
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:42
+msgid "None"
+msgstr "Nimic"
+
+#: ../components/html-editor/body.c:71
+msgid "Perforated paper"
+msgstr "Hârtie perforată"
+
+#: ../components/html-editor/body.c:79
+msgid "Blue ink"
+msgstr "Cerneală albastră"
+
+#: ../components/html-editor/body.c:87
+msgid "Paper"
+msgstr "Hârtie"
+
+#: ../components/html-editor/body.c:95
+msgid "Ribbon"
+msgstr "Cartuş"
+
+#: ../components/html-editor/body.c:103
+msgid "Midnight"
+msgstr "Miezul nopţii"
+
+#: ../components/html-editor/body.c:111
+msgid "Confidential"
+msgstr "Confidenţial"
+
+#: ../components/html-editor/body.c:119
+msgid "Draft"
+msgstr "Ciornă"
+
+# dand: vezi /usr/share/gtkhtml*/icons/draft-paper.png
+#: ../components/html-editor/body.c:127
+msgid "Graph paper"
+msgstr "Hârtie haşurată"
+
+#: ../components/html-editor/body.c:247
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:53
+#: ../components/html-editor/menubar.c:206
+msgid "Template"
+msgstr "Şablon"
+
+#: ../components/html-editor/body.c:251
+msgid "T_emplate:"
+msgstr "Şa_blon:"
+
+#. data->entry_title = gtk_entry_new ();
+#. if (gtk_html_get_title (data->cd->html)) {
+#. gtk_entry_set_text (GTK_ENTRY (data->entry_title),
+#. gtk_html_get_title (data->cd->html));
+#. }
+#. g_signal_connect (data->entry_title, "changed", G_CALLBACK (entry_changed), data);
+#. editor_hig_attach_row (t1, _("T_itle:"), data->entry_title, 1);
+#: ../components/html-editor/body.c:261
+#: ../components/html-editor/paragraph.c:116
+msgid "General"
+msgstr "General"
+
+#: ../components/html-editor/body.c:272 ../components/html-editor/text.c:166
+#: ../components/html-editor/toolbar.c:312
+msgid "Automatic"
+msgstr "Automat"
+
+#: ../components/html-editor/body.c:284
+msgid "_Text:"
+msgstr "_Text:"
+
+#: ../components/html-editor/body.c:285
+msgid "_Link:"
+msgstr "_Legătură:"
+
+#: ../components/html-editor/body.c:286
+msgid "_Background:"
+msgstr "_Fundal:"
+
+#: ../components/html-editor/body.c:288
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:30
+msgid "Colors"
+msgstr "Culori"
+
+#: ../components/html-editor/body.c:290 ../components/html-editor/body.c:307
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:23
+msgid "Background Image"
+msgstr "Imagine fundal"
+
+#: ../components/html-editor/body.c:302
+msgid "Background Image File Path"
+msgstr "Calea către imaginea fundal"
+
+#: ../components/html-editor/body.c:305
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:71
+msgid "_Source:"
+msgstr "_Sursă:"
+
+#: ../components/html-editor/cell.c:337 ../components/html-editor/image.c:354
+#: ../components/html-editor/link.c:186 ../components/html-editor/rule.c:178
+#: ../components/html-editor/table.c:226
+#: ../components/html-editor/template.c:275
+#: ../components/html-editor/text.c:163
+msgid "Could not load glade file."
+msgstr "Nu pot încărca fişierul Glade."
+
+#: ../components/html-editor/cell.c:354 ../components/html-editor/table.c:237
+msgid "Transparent"
+msgstr "Transparent"
+
+#: ../components/html-editor/editor-control-factory.c:182
+#: ../components/html-editor/popup.c:190 ../components/html-editor/popup.c:268
+msgid "Properties"
+msgstr "Proprietăţi"
+
+#: ../components/html-editor/editor-control-factory.c:201
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:54
+#: ../components/html-editor/menubar.c:384
+#: ../components/html-editor/popup.c:199
+msgid "Text"
+msgstr "Text"
+
+#: ../components/html-editor/editor-control-factory.c:220
+#: ../components/html-editor/menubar.c:402
+#: ../components/html-editor/popup.c:217
+msgid "Paragraph"
+msgstr "Paragraf"
+
+#: ../components/html-editor/editor-control-factory.c:224
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:43
+#: ../components/html-editor/menubar.c:366
+#: ../components/html-editor/popup.c:223
+msgid "Page"
+msgstr "Pagină"
+
+#: ../components/html-editor/gi-color-combo.c:191
+msgid "color preview"
+msgstr "previzualizare culori"
+
+#. This is the default custom color
+#: ../components/html-editor/gi-color-palette.c:399
+msgid "custom"
+msgstr "personalizat"
+
+#. "Custom" color - we'll pop up a GnomeColorPicker
+#: ../components/html-editor/gi-color-palette.c:441
+msgid "Custom Color:"
+msgstr "Culoare personalizată:"
+
+#: ../components/html-editor/gi-color-palette.c:449
+msgid "Choose Custom Color"
+msgstr "Alegeţi culoarea personalizată"
+
+#: ../components/html-editor/gi-color-palette.c:582
+msgid "black"
+msgstr "negru"
+
+#: ../components/html-editor/gi-color-palette.c:583
+msgid "light brown"
+msgstr "maro deschis"
+
+#: ../components/html-editor/gi-color-palette.c:584
+msgid "brown gold"
+msgstr "maro aurit"
+
+#: ../components/html-editor/gi-color-palette.c:585
+msgid "dark green #2"
+msgstr "verde închis #2"
+
+#: ../components/html-editor/gi-color-palette.c:586
+msgid "navy"
+msgstr "albastru închis"
+
+#: ../components/html-editor/gi-color-palette.c:587
+#: ../components/html-editor/gi-color-palette.c:643
+msgid "dark blue"
+msgstr "albastru întunecat"
+
+#: ../components/html-editor/gi-color-palette.c:588
+msgid "purple #2"
+msgstr "purpuriu #2"
+
+#: ../components/html-editor/gi-color-palette.c:589
+msgid "very dark gray"
+msgstr "gri foarte închis"
+
+#: ../components/html-editor/gi-color-palette.c:592
+#: ../components/html-editor/gi-color-palette.c:648
+msgid "dark red"
+msgstr "roşu închis"
+
+#: ../components/html-editor/gi-color-palette.c:593
+msgid "red-orange"
+msgstr "roşu-portocaliu"
+
+#: ../components/html-editor/gi-color-palette.c:594
+msgid "gold"
+msgstr "auriu"
+
+#: ../components/html-editor/gi-color-palette.c:595
+msgid "dark green"
+msgstr "verde închis"
+
+#: ../components/html-editor/gi-color-palette.c:596
+#: ../components/html-editor/gi-color-palette.c:649
+msgid "dull blue"
+msgstr "albastru întunecat"
+
+#: ../components/html-editor/gi-color-palette.c:597
+#: ../components/html-editor/gi-color-palette.c:650
+msgid "blue"
+msgstr "albastru"
+
+#: ../components/html-editor/gi-color-palette.c:598
+msgid "dull purple"
+msgstr "purpuriu întunecat"
+
+#: ../components/html-editor/gi-color-palette.c:599
+msgid "dark grey"
+msgstr "gri închis"
+
+#: ../components/html-editor/gi-color-palette.c:602
+msgid "red"
+msgstr "roşu"
+
+#: ../components/html-editor/gi-color-palette.c:603
+msgid "orange"
+msgstr "portocaliu"
+
+#: ../components/html-editor/gi-color-palette.c:604
+msgid "lime"
+msgstr "galben lămâie"
+
+#: ../components/html-editor/gi-color-palette.c:605
+msgid "dull green"
+msgstr "verde întunecat"
+
+#: ../components/html-editor/gi-color-palette.c:606
+msgid "dull blue #2"
+msgstr "albastru întunecat #2"
+
+#: ../components/html-editor/gi-color-palette.c:607
+msgid "sky blue #2"
+msgstr "albastru ciel #2"
+
+#: ../components/html-editor/gi-color-palette.c:608
+#: ../components/html-editor/gi-color-palette.c:647
+msgid "purple"
+msgstr "purpuriu"
+
+#: ../components/html-editor/gi-color-palette.c:609
+msgid "gray"
+msgstr "gri"
+
+#: ../components/html-editor/gi-color-palette.c:612
+#: ../components/html-editor/gi-color-palette.c:644
+msgid "magenta"
+msgstr "magenta"
+
+#: ../components/html-editor/gi-color-palette.c:613
+msgid "bright orange"
+msgstr "portocaliu aprins"
+
+#: ../components/html-editor/gi-color-palette.c:614
+#: ../components/html-editor/gi-color-palette.c:645
+msgid "yellow"
+msgstr "galben"
+
+#: ../components/html-editor/gi-color-palette.c:615
+msgid "green"
+msgstr "verde"
+
+#: ../components/html-editor/gi-color-palette.c:616
+#: ../components/html-editor/gi-color-palette.c:646
+msgid "cyan"
+msgstr "cian"
+
+#: ../components/html-editor/gi-color-palette.c:617
+msgid "bright blue"
+msgstr "albastru aprins"
+
+#: ../components/html-editor/gi-color-palette.c:618
+#: ../components/html-editor/gi-color-palette.c:635
+msgid "red purple"
+msgstr "roşu purpuriu"
+
+#: ../components/html-editor/gi-color-palette.c:619
+msgid "light grey"
+msgstr "gri deschis"
+
+#: ../components/html-editor/gi-color-palette.c:622
+#: ../components/html-editor/gi-color-palette.c:639
+msgid "pink"
+msgstr "roz"
+
+#: ../components/html-editor/gi-color-palette.c:623
+msgid "light orange"
+msgstr "portocaliu deschis"
+
+#: ../components/html-editor/gi-color-palette.c:624
+#: ../components/html-editor/gi-color-palette.c:636
+msgid "light yellow"
+msgstr "galben deschis"
+
+#: ../components/html-editor/gi-color-palette.c:625
+msgid "light green"
+msgstr "verde deschis"
+
+#: ../components/html-editor/gi-color-palette.c:626
+msgid "light cyan"
+msgstr "cian deschis"
+
+#: ../components/html-editor/gi-color-palette.c:627
+#: ../components/html-editor/gi-color-palette.c:637
+msgid "light blue"
+msgstr "albastru deschis"
+
+#: ../components/html-editor/gi-color-palette.c:628
+#: ../components/html-editor/gi-color-palette.c:641
+msgid "light purple"
+msgstr "purpuriu deschis"
+
+#: ../components/html-editor/gi-color-palette.c:629
+msgid "white"
+msgstr "alb"
+
+#: ../components/html-editor/gi-color-palette.c:634
+msgid "purplish blue"
+msgstr "albastru purpuriu"
+
+#: ../components/html-editor/gi-color-palette.c:638
+msgid "dark purple"
+msgstr "purpuriu închis"
+
+#: ../components/html-editor/gi-color-palette.c:640
+msgid "sky blue"
+msgstr "albastru ciel"
+
+#. set the a11y name
+#: ../components/html-editor/gi-combo-box.c:423
+msgid "Popup"
+msgstr "Dialog"
+
+#: ../components/html-editor/gnome-gtkhtml-editor.c:73
+msgid "GtkHTML Editor Control"
+msgstr "Controlul Editorului GtkHTML"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:1
+msgid "    "
+msgstr "    "
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:3
+#, no-c-format
+msgid "%"
+msgstr "%"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:4
+msgid "*"
+msgstr "*"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:8
+msgid "+4"
+msgstr "+4"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:11
+msgid "<b>Alignment &amp; Behaviour</b>"
+msgstr "<b>Comportament &amp; de aliniere</b>"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:12
+msgid "<b>Background</b>"
+msgstr "<b>Fundal</b>"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:13
+msgid "<b>General</b>"
+msgstr "<b>General</b>"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:14
+msgid "<b>Layout</b>"
+msgstr "<b>Aspect</b>"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:15
+msgid "<b>Scope</b>"
+msgstr "<b>Domeniu</b>"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:16
+msgid "<span weight=\"bold\">General</span>"
+msgstr "<span weight=\"bold\">General</span>"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:17
+msgid "<span weight=\"bold\">Layout</span>"
+msgstr "<span weight=\"bold\">Aspect</span>"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:18
+msgid "<span weight=\"bold\">Link</span>"
+msgstr "<span weight=\"bold\">Legătură</span>"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:19
+msgid "<span weight=\"bold\">Size</span>"
+msgstr "<span weight=\"bold\">Mărime</span>"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:20
+msgid "<span weight=\"bold\">Style</span>"
+msgstr "<span weight=\"bold\">Stil</span>"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:21
+msgid "<span weight=\"bold\">Template</span>"
+msgstr "<span weight=\"bold\">Şablon</span>"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:22
+#: ../components/html-editor/paragraph.c:135
+msgid "Alignment"
+msgstr "Aliniere"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:24
+msgid "Bottom"
+msgstr "Jos"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:25
+msgid "C_ell"
+msgstr "C_elulă"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:26
+msgid "C_olor:"
+msgstr "Cul_oare:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:27
+#: ../components/html-editor/popup.c:241
+msgid "Cell"
+msgstr "Celulă"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:28
+#: ../components/html-editor/paragraph.c:132
+#: ../components/html-editor/toolbar.c:527
+msgid "Center"
+msgstr "Centru"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:29
+msgid "Col_umn"
+msgstr "Col_oană"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:31
+msgid "Column span:"
+msgstr "Întindere coloană:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:32
+msgid "Enable"
+msgstr "Activare"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:33
+msgid "Hea_der style"
+msgstr "_Stil subtitlu"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:34
+msgid "Horizontal alignment:"
+msgstr "Aliniere orizontală:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:35
+msgid "Horizontal:"
+msgstr "Orizontal:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:36
+msgid "I_mage:"
+msgstr "I_magine:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:38
+#: ../components/html-editor/paragraph.c:131
+msgid "Left"
+msgstr "Stânga"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:39
+msgid "Length:"
+msgstr "Lungime:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:40
+msgid "Link properties"
+msgstr "Proprietăţi legătură"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:41
+msgid "Middle"
+msgstr "Mijloc"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:44
+msgid "Percent"
+msgstr "Procent"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:45
+msgid "Pixels"
+msgstr "Pixeli"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:46
+#: ../components/html-editor/paragraph.c:133
+msgid "Right"
+msgstr "Dreapta"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:47
+msgid "Row span:"
+msgstr "Întindere rânduri:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:49
+msgid "Shaded"
+msgstr "Umbrit"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:50
+msgid "Si_ze:"
+msgstr "_Mărime:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:51
+msgid "Standard"
+msgstr "Standard"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:55
+msgid "Thickness:"
+msgstr "Grosime:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:56
+msgid "Top"
+msgstr "Sus"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:57
+msgid "Vertical:"
+msgstr "Vertical:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:58
+msgid "Width:"
+msgstr "Lăţime:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:59
+msgid "_Alignment:"
+msgstr "_Aliniere:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:61
+msgid "_Border:"
+msgstr "Ma_rgine:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:62
+msgid "_Color:"
+msgstr "_Culoare:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:63
+msgid "_Columns:"
+msgstr "_Coloane:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:64
+msgid "_Description:"
+msgstr "_Descriere:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:65
+msgid "_Height:"
+msgstr "Înă_lţime:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:66
+msgid "_Image:"
+msgstr "_Imagine:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:68
+msgid "_Padding:"
+msgstr "_Spaţiu interior:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:69
+msgid "_Row"
+msgstr "_Rând"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:70
+msgid "_Rows:"
+msgstr "_Rânduri:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:72
+msgid "_Spacing:"
+msgstr "_Spaţiere:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:73
+msgid "_Strikethrough"
+msgstr "Tăi_ere"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:74
+msgid "_Table"
+msgstr "_Tabelă"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:75
+msgid "_URL:"
+msgstr "_URL:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:77
+msgid "_Width:"
+msgstr "Laţi_me:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:78
+msgid "_Wrap Text"
+msgstr "_Desparte textul pe linii"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:79
+msgid "_X-Padding:"
+msgstr "Spaţiu interior _x:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:80
+msgid "_Y-Padding:"
+msgstr "Spaţiu interior _y:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:81
+msgid "follow"
+msgstr "urmează"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:82
+msgid "px"
+msgstr "px"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:83
+msgid "xxxxxxxxxxxxxx"
+msgstr "xxxxxxxxxxxxxx"
+
+#: ../components/html-editor/link.c:198
+msgid "URL:"
+msgstr "URL:"
+
+#: ../components/html-editor/link.c:202
+msgid "Description:"
+msgstr "Descriere:"
+
+#: ../components/html-editor/menubar.c:101
+#: ../components/html-editor/menubar.c:109
+msgid "Insert image"
+msgstr "Inserează imagine"
+
+#: ../components/html-editor/menubar.c:138
+#: ../components/html-editor/menubar.c:157
+#: ../components/html-editor/menubar.c:181
+#: ../components/html-editor/menubar.c:203
+#: ../components/html-editor/popup.c:107
+msgid "Insert"
+msgstr "Inserează"
+
+#: ../components/html-editor/menubar.c:290
+#, c-format
+msgid "Error loading file '%s': %s"
+msgstr "Eroare la încărcarea fişierului '%s': %s"
+
+#: ../components/html-editor/menubar.c:316
+#: ../components/html-editor/menubar.c:325
+msgid "Insert: HTML File"
+msgstr "Inserează: Fişier HTML"
+
+#: ../components/html-editor/menubar.c:316
+#: ../components/html-editor/menubar.c:325
+msgid "Insert: Text File"
+msgstr "Inserează: Fişier Text"
+
+#: ../components/html-editor/menubar.c:362
+#: ../components/html-editor/menubar.c:380
+#: ../components/html-editor/menubar.c:398
+msgid "Format"
+msgstr "Formatare"
+
+#: ../components/html-editor/paragraph.c:90
+#: ../components/html-editor/toolbar.c:58
+msgid "Header 1"
+msgstr "Subtitlu 1"
+
+#: ../components/html-editor/paragraph.c:91
+#: ../components/html-editor/toolbar.c:59
+msgid "Header 2"
+msgstr "Subtitlu 2"
+
+#: ../components/html-editor/paragraph.c:92
+#: ../components/html-editor/toolbar.c:60
+msgid "Header 3"
+msgstr "Subtitlu 3"
+
+#: ../components/html-editor/paragraph.c:93
+#: ../components/html-editor/toolbar.c:61
+msgid "Header 4"
+msgstr "Subtitlu 4"
+
+#: ../components/html-editor/paragraph.c:94
+#: ../components/html-editor/toolbar.c:62
+msgid "Header 5"
+msgstr "Subtitlu 5"
+
+#: ../components/html-editor/paragraph.c:95
+#: ../components/html-editor/toolbar.c:63
+msgid "Header 6"
+msgstr "Subtitlu 6"
+
+#: ../components/html-editor/paragraph.c:98
+msgid "Dot item"
+msgstr "Element cu punct"
+
+#: ../components/html-editor/paragraph.c:99
+msgid "Number item"
+msgstr "Element cu număr"
+
+#: ../components/html-editor/paragraph.c:100
+msgid "Roman item"
+msgstr "Element cu număr roman"
+
+#: ../components/html-editor/paragraph.c:101
+msgid "Alphabeta item"
+msgstr "Element cu literă"
+
+#: ../components/html-editor/paragraph.c:104
+#: ../components/html-editor/toolbar.c:64
+msgid "Address"
+msgstr "Adresă"
+
+#: ../components/html-editor/paragraph.c:113
+msgid "_Style:"
+msgstr "_Stil:"
+
+#: ../components/html-editor/popup.c:442
+msgid "Paste Quotation"
+msgstr "Inserează citat"
+
+#: ../components/html-editor/popup.c:446
+msgid "Insert Link"
+msgstr "Inserează legătură"
+
+#: ../components/html-editor/popup.c:453
+msgid "Remove Link"
+msgstr "Elimină legătură"
+
+#: ../components/html-editor/popup.c:460
+msgid "Style"
+msgstr "Stil"
+
+#: ../components/html-editor/popup.c:463
+msgid "Text Style..."
+msgstr "Stil text..."
+
+#: ../components/html-editor/popup.c:465 ../components/html-editor/popup.c:471
+#: ../components/html-editor/popup.c:481
+msgid "Paragraph Style..."
+msgstr "Stil paragraf..."
+
+#: ../components/html-editor/popup.c:469
+msgid "Link Style..."
+msgstr "Stil legătură..."
+
+#: ../components/html-editor/popup.c:475
+msgid "Rule Style..."
+msgstr "Stil riglă..."
+
+#: ../components/html-editor/popup.c:479
+msgid "Image Style..."
+msgstr "Stil imagine..."
+
+#: ../components/html-editor/popup.c:490
+msgid "Cell Style..."
+msgstr "Stil celulă..."
+
+#: ../components/html-editor/popup.c:493
+msgid "Table Style..."
+msgstr "Stil tabelă..."
+
+#: ../components/html-editor/popup.c:499
+msgid "Page Style..."
+msgstr "Stil pagină..."
+
+#: ../components/html-editor/popup.c:504
+msgid "Table insert"
+msgstr "Inserare tabelă"
+
+#: ../components/html-editor/popup.c:507
+msgid "Row above"
+msgstr "Rândul anterior"
+
+#: ../components/html-editor/popup.c:508
+msgid "Row below"
+msgstr "Rândul următor"
+
+#: ../components/html-editor/popup.c:510
+msgid "Column before"
+msgstr "Coloana anterioară"
+
+#: ../components/html-editor/popup.c:511
+msgid "Column after"
+msgstr "Coloana următoare"
+
+#: ../components/html-editor/popup.c:516
+msgid "Table delete"
+msgstr "Ştergere tabelă"
+
+#: ../components/html-editor/popup.c:518
+msgid "Row"
+msgstr "Rând"
+
+#: ../components/html-editor/popup.c:519
+msgid "Column"
+msgstr "Coloană"
+
+#: ../components/html-editor/popup.c:520
+msgid "Cell contents"
+msgstr "Conţinut celulă"
+
+#: ../components/html-editor/popup.c:528
+msgid "Check Word Spelling..."
+msgstr "Verificare ortografică..."
+
+#: ../components/html-editor/popup.c:533
+msgid "Add Word to"
+msgstr "Adaugă cuvântul în"
+
+#: ../components/html-editor/popup.c:537
+#, c-format
+msgid "%s Dictionary"
+msgstr "Dicţionarul %s"
+
+#: ../components/html-editor/popup.c:546
+msgid "Add Word to Dictionary"
+msgstr "Adaugă cuvântul în dicţionar"
+
+#: ../components/html-editor/popup.c:549
+msgid "Ignore Misspelled Word"
+msgstr "Ignoră cuvântul incorect"
+
+#: ../components/html-editor/popup.c:553
+msgid "Input Methods"
+msgstr "Metode de intrare"
+
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
+#: ../components/html-editor/replace.c:81
+msgid "Replace confirmation"
+msgstr "Confirmare înlocuire"
+
+#: ../components/html-editor/replace.c:82
+msgid "Replace _All"
+msgstr "Înlo_cuieşte tot"
+
+#: ../components/html-editor/replace.c:83
+msgid "_Next"
+msgstr "_Următorul"
+
+#: ../components/html-editor/replace.c:85
+msgid "_Replace"
+msgstr "Înlocuieşte"
+
+#: ../components/html-editor/replace.c:175
+msgid "Search _backward"
+msgstr "Caută îna_poi"
+
+#: ../components/html-editor/replace.c:176
+#: ../components/html-editor/search.c:117
+msgid "Case _sensitive"
+msgstr "Majuscule _semnificative"
+
+#: ../components/html-editor/replace.c:186
+msgid "R_eplace:"
+msgstr "Înlo_cuieşte"
+
+#: ../components/html-editor/replace.c:190
+msgid "_With:"
+msgstr "_Lăţime:"
+
+#: ../components/html-editor/search.c:116
+msgid "_Backward"
+msgstr "Îna_poi"
+
+#: ../components/html-editor/search.c:118
+msgid "_Regular Expression"
+msgstr "Expresie _regulată"
+
+#: ../components/html-editor/search.c:122
+msgid "Input the words you want to search here"
+msgstr "Introduceţi cuvintele pe care doriţi să le căutaţi aici"
+
+#: ../components/html-editor/spellchecker.c:114
+msgid ""
+"Unable to add word to dictionary,\n"
+"language settings are broken.\n"
+msgstr ""
+"Nu pot adăuga cuvântul în dicţionar,\n"
+"setările limbii sunt incorecte\n"
+
+#: ../components/html-editor/spellchecker.c:302
+msgid "No misspelled word found"
+msgstr "Nu am găsit cuvinte ortografiate greşit"
+
+#: ../components/html-editor/spellchecker.c:309
+msgid "Spell checker"
+msgstr "Corector ortografic"
+
+#: ../components/html-editor/spellchecker.c:402
+msgid "Current _Languages"
+msgstr "_Limbile curente"
+
+#: ../components/html-editor/template.c:88
+msgid "Note"
+msgstr "Notă"
+
+#: ../components/html-editor/template.c:98
+#: ../components/html-editor/template.c:117
+msgid "Place your text here"
+msgstr "Introduceţi textul dvs. aici"
+
+#: ../components/html-editor/template.c:101
+msgid "Image frame"
+msgstr "Cadru imagine"
+
+# trebuie verificat plurarul cui e: şabloane/etichete/ambele
+#: ../components/html-editor/template.c:284
+msgid "Template Labels"
+msgstr "Etichete şablone"
+
+#: ../components/html-editor/test-html-editor-control.c:337
+msgid "Open file..."
+msgstr "Deschide fişier..."
+
+#: ../components/html-editor/test-html-editor-control.c:339
+msgid "Save file as..."
+msgstr "Salvează fişierul ca..."
+
+#: ../components/html-editor/test-html-editor-control.c:571
+msgid "GtkHTML Editor Test Container"
+msgstr "Container de test al editorului GtkHTML"
+
+#: ../components/html-editor/toolbar.c:56
+msgid "Roman List"
+msgstr "Listă enumerată roman"
+
+#: ../components/html-editor/toolbar.c:525
+msgid "Left align"
+msgstr "Alinere sânga"
+
+#: ../components/html-editor/toolbar.c:529
+msgid "Right align"
+msgstr "Aliniere dreapta"
+
+#: ../components/html-editor/toolbar.c:549
+msgid "Toggle typewriter font style"
+msgstr "Comută stilul fonturilor dactilografiate"
+
+#: ../components/html-editor/toolbar.c:551
+msgid "Bold"
+msgstr "Aldin"
+
+#: ../components/html-editor/toolbar.c:551
+msgid "Makes the text bold"
+msgstr "Îngroaşă corpul textului"
+
+#: ../components/html-editor/toolbar.c:553
+msgid "Italic"
+msgstr "Italic"
+
+#: ../components/html-editor/toolbar.c:553
+msgid "Makes the text italic"
+msgstr "Înclină corpul textului"
+
+#: ../components/html-editor/toolbar.c:555
+msgid "Underline"
+msgstr "Subliniat"
+
+#: ../components/html-editor/toolbar.c:555
+msgid "Underlines the text"
+msgstr "Subliniază textul"
+
+#: ../components/html-editor/toolbar.c:557
+msgid "Strikes out the text"
+msgstr "Taie textul"
+
+#: ../components/html-editor/toolbar.c:566
+msgid "Unindent"
+msgstr "Neidentat"
+
+#: ../components/html-editor/toolbar.c:566
+msgid "Indents the paragraphs less"
+msgstr "Identează paragraful mai puţin"
+
+#: ../components/html-editor/toolbar.c:568
+msgid "Indent"
+msgstr "Identează"
+
+#: ../components/html-editor/toolbar.c:568
+msgid "Indents the paragraphs more"
+msgstr "Identează paragraful mai mult"
+
+#: ../components/html-editor/utils.c:123
+msgid "Sample"
+msgstr "Mostră"
+
+#: ../components/html-editor/utils.c:196
+msgid "_Visit..."
+msgstr "_Vizitează..."
+
+#: ../components/html-editor/utils.c:236
+msgid ""
+"The edited object was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+"Obiectul editat a fost eliminat din document.\n"
+"Nu se pot efectua modificările."
+
+#: ../src/gtkhtml.c:3005
+msgid "Editable"
+msgstr "Editabil"
+
+#: ../src/gtkhtml.c:3006
+msgid "Whether the html can be edited"
+msgstr "Dacă HTML-ul poate fi editat"
+
+#: ../src/gtkhtml.c:3012
+msgid "Document Title"
+msgstr "Titlu document"
+
+#: ../src/gtkhtml.c:3013
+msgid "The title of the current document"
+msgstr "Titlul documentului curent"
+
+#: ../src/gtkhtml.c:3019
+msgid "Document Base"
+msgstr "Bază document"
+
+#: ../src/gtkhtml.c:3020
+msgid "The base URL for relative references"
+msgstr "URL-ul de bază pentru referinţele relative"
+
+# de văzut în surse: ţinta de bază sau baza ţintei
+# dand: e vorba de fereastra destinaţie in care se va deschide un URL,
+# vezi următorul mesaj
+#: ../src/gtkhtml.c:3026
+msgid "Target Base"
+msgstr "Bază destinaţie"
+
+#: ../src/gtkhtml.c:3027
+msgid "The base URL of the target frame"
+msgstr "URL de bază pentru cadrul destinaţie"
+
+#: ../src/gtkhtml.c:3036
+msgid "Fixed Width Font"
+msgstr "Font cu lăţime fixă"
+
+#: ../src/gtkhtml.c:3037
+msgid "The Monospace font to use for typewriter text"
+msgstr "Font monospaţiat utilizat pentru text de tipul dactilografiat"
+
+#: ../src/gtkhtml.c:3043
+msgid "New Link Color"
+msgstr "Culoare legătură nouă"
+
+#: ../src/gtkhtml.c:3044
+msgid "The color of new link elements"
+msgstr "Culoarea legăturilor noi"
+
+#: ../src/gtkhtml.c:3049
+msgid "Visited Link Color"
+msgstr "Culoare legătură vizitată"
+
+#: ../src/gtkhtml.c:3050
+msgid "The color of visited link elements"
+msgstr "Culoarea legăturilor vizitate"
+
+#: ../src/gtkhtml.c:3055
+msgid "Active Link Color"
+msgstr "Culoarea legăturii active"
+
+#: ../src/gtkhtml.c:3056
+msgid "The color of active link elements"
+msgstr "Culoarea legăturilor active"
+
+#: ../src/gtkhtml.c:3061
+msgid "Spelling Error Color"
+msgstr "Culoare greşeli ortografice"
+
+#: ../src/gtkhtml.c:3062
+msgid "The color of the spelling error markers"
+msgstr "Culoarea marcajelor de erori ortografice"
+
+#: ../src/gtkhtml.c:3067
+msgid "Cite Quotation Color"
+msgstr "Culoare marcaj de citat"
+
+#: ../src/gtkhtml.c:3068
+msgid "The color of the cited text"
+msgstr "Culoarea textului citat"
+
+#: ../src/htmlbutton.c:142
+msgid "Submit Query"
+msgstr "Trimite cererea"
+
+#: ../src/htmlbutton.c:145
+msgid "Reset"
+msgstr "Resetează"
+
+#. TODO2 dialog instead of warning
+#: ../src/htmlengine-print.c:192
+msgid "Cannot allocate default font for printing\n"
+msgstr "Nu pot aloca fontul implicit pentru tipărire\n"
+
+#: ../src/test.c:375
+msgid "GtkHTML Test"
+msgstr "Test GtkHTML"
+
+#: ../src/testgtkhtml.c:117
+msgid "Print pre_view"
+msgstr "Pre_vizualizare tipărire"
+
+#: ../src/testgtkhtml.c:117
+msgid "Print preview"
+msgstr "Previzualizare tipărire"
+
+#: ../src/testgtkhtml.c:1004
+msgid "GtkHTML Test Application"
+msgstr "Aplicaţie de Test GtkHTML"
