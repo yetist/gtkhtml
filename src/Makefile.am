@@ -1,4 +1,13 @@
+if OS_WIN32
+PLATFORM_DEP_SOURCES = dllmain.c
+else
+PLATFORM_DEP_SOURCES = 
+endif
+
 NULL=
+
+gtkhtml_data = $(datadir)/gtkhtml-@GTKHTML_API_VERSION@
+gladedir = $(gtkhtml_data)
 
 INCLUDES = 				\
 	-I$(top_srcdir)			\
@@ -7,15 +16,20 @@ INCLUDES = 				\
 	$(GTKHTML_CFLAGS)		\
 	$(SOUP_CFLAGS)			\
 	$(I18N_LIB_CFLAGS)		\
-	-DG_LOG_DOMAIN=\"gtkhtml\"	\
-	-DSRCDIR=\"$(srcdir)\"		\
-	-DPREFIX=\"$(prefix)\"
+	-DG_LOG_DOMAIN=\"gtkhtml\"
 
-AM_CFLAGS = 								\
-	-DICONDIR=\"$(datadir)/gtkhtml-@GTKHTML_API_VERSION@/icons\"	\
-	-DGDK_DISABLE_DEPRECATED=1					\
-	-DG_DISABLE_DEPRECATED=1					\
-	-DGNOME_DISABLE_DEPRECATED=1
+AM_CFLAGS = 						\
+	-DGDK_DISABLE_DEPRECATED=1			\
+	-DG_DISABLE_DEPRECATED=1			\
+	-DGNOME_DISABLE_DEPRECATED=1			\
+	-DPREFIX=\""$(prefix)"\"			\
+	-DLIBDIR=\""$(datadir)"\"			\
+	-DDATADIR=\""$(datadir)"\"			\
+	-DSYSCONFDIR=\""$(sysconfdir)"\"		\
+	-DICONDIR=\"$(gtkhtml_data)/icons\"		\
+        -DGTKHTML_DATADIR=\""$(gtkhtml_data)"\"		\
+	-DGLADE_DATADIR=\"$(gladedir)\"			\
+        -DGNOMELOCALEDIR=\""$(prefix)/$(DATADIRNAME)/locale"\"
 #	-DGTK_DISABLE_DEPRECATED=1
 
 lib_LTLIBRARIES = libgtkhtml-3.8.la
@@ -189,6 +203,7 @@ libgtkhtml_3_8_la_SOURCES =			\
 	htmlframe.h				\
 	htmlframeset.h				\
 	htmlengine-edit-table.h			\
+	$(PLATFORM_DEP_SOURCES)			\
 	$(NULL)
 
 libgtkhtml_3_8_la_LDFLAGS = -version-info $(GTKHTML_CURRENT):$(GTKHTML_REVISION):$(GTKHTML_AGE) -no-undefined

@@ -2757,6 +2757,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 	GtkObjectClass    *object_class;
 	GtkLayoutClass    *layout_class;
 	GtkContainerClass *container_class;
+	gchar *filename;
 	
 	html_class = (GtkHTMLClass *) klass;
 	gobject_class = (GObjectClass *) klass;
@@ -3109,7 +3110,9 @@ gtk_html_class_init (GtkHTMLClass *klass)
 	add_bindings (klass);
 	gtk_html_accessibility_init ();
 
-	gtk_rc_parse (PREFIX "/share/" GTKHTML_RELEASE_STRING "/keybindingsrc.emacs");
+	filename = g_build_filename (PREFIX, "share", GTKHTML_RELEASE_STRING, "keybindingsrc.emacs", NULL);
+	gtk_rc_parse (filename);
+	g_free (filename);
 	html_class->emacs_bindings = gtk_binding_set_find ("gtkhtml-bindings-emacs");
 	read_key_theme (html_class);
 	gconf_client_notify_add (gconf_client_get_default (), "/desktop/gnome/interface/gtk_key_theme",

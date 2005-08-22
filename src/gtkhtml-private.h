@@ -94,4 +94,41 @@ void  gtk_html_im_reset                 (GtkHTML                *html);
 void  gtk_html_set_fonts                (GtkHTML                *html,
 					 HTMLPainter            *painter);
 
+#ifdef G_OS_WIN32
+
+const char *_get_icondir (void) G_GNUC_CONST;
+const char *_get_gtkhtml_datadir (void) G_GNUC_CONST;
+const char *_get_localedir (void) G_GNUC_CONST;
+const char *_get_glade_datadir (void) G_GNUC_CONST;
+const char *_get_prefix (void) G_GNUC_CONST;
+const char *_get_sysconfdir (void) G_GNUC_CONST;
+const char *_get_datadir (void) G_GNUC_CONST;
+const char *_get_libdir (void) G_GNUC_CONST;
+
+#undef ICONDIR
+#define ICONDIR _get_icondir ()
+
+#undef GTKHTML_DATADIR
+#define GTKHTML_DATADIR _get_gtkhtml_datadir ()
+
+#undef GNOMELOCALEDIR
+#define GNOMELOCALEDIR _get_localedir ()
+
+#undef GLADE_DATADIR
+#define GLADE_DATADIR _get_glade_datadir ()
+
+#undef PREFIX
+#define PREFIX _get_prefix ()
+
+#undef SYSCONFDIR
+#define SYSCONFDIR _get_sysconfdir ()
+
+#undef DATADIR
+#define DATADIR _get_datadir ()
+
+#undef LIBDIR
+#define LIBDIR _get_libdir ()
+
+#endif
+
 #endif /* _GTKHTML_PRIVATE_H */

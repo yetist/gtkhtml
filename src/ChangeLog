@@ -1,7 +1,22 @@
 2005-08-22  Tor Lillqvist  <tml@novell.com>
 
+	* Makefile.am: Include dllmain.c on Win32. Pass all the pathname
+	defines in AM_CFLAGS so the path mangling in dllmain.c can use
+	them.
+
 	* dllmain.c: New file. Contains the run-time path construction
 	mechanism used on Win32.
+
+	* gtkhtml-private.h: On Win32 redefine the compile-time pathname
+	macros as calls to the functions in dllmain.c instead.
+
+	* gtkhtml.c (gtk_html_class_init): Construct filename to parse at
+	run-time, as PREFIX expands to a function call on Win32.
+
+	* htmlengine-edit-cut-and-paste.c (use_pictograms): Construct
+	filename at run-time. Use g_filename_to_uri() to construct the URI
+	instead of just prefixing with file://, which doesn't work for
+	Win32 file: URIs which look like file:///c:/foo/bar/tem.png.
 
 2005-08-19  Kaushal Kumar  <kakumar@novell.com>
 

@@ -1272,6 +1272,7 @@ use_pictograms (HTMLEngine *e)
 	if (state < 0) {
 		HTMLObject *picto;
 		gchar *filename;
+		gchar *filename_uri;
 		gchar *alt;
 		gint len;
 
@@ -1287,9 +1288,12 @@ use_pictograms (HTMLEngine *e)
 		html_engine_set_mark (e);
 		html_cursor_forward_n (e->cursor, e, len);
 
-		filename = g_strconcat ("file://" ICONDIR "/", picto_images [-state - 1], NULL);
-		picto = html_image_new (html_engine_get_image_factory (e), filename, NULL, NULL, -1, -1, FALSE, FALSE, 0, NULL,
+		filename = g_build_filename (ICONDIR, picto_images [-state - 1], NULL);
+		filename_uri = g_filename_to_uri (filename, NULL, NULL);
+		g_free (filename);
+		picto = html_image_new (html_engine_get_image_factory (e), filename_uri, NULL, NULL, -1, -1, FALSE, FALSE, 0, NULL,
 					HTML_VALIGN_MIDDLE, FALSE);
+		g_free (filename_uri);
 		html_image_set_alt (HTML_IMAGE (picto), alt);
 		html_object_set_data (HTML_OBJECT (picto), "picto", alt);
 		g_free (alt);
