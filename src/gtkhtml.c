@@ -1596,15 +1596,9 @@ motion_notify_event (GtkWidget *widget,
 	if (GTK_HTML (widget)->priv->dnd_in_progress)
 		return TRUE;
 
-	if (!event->is_hint) {
-		x = event->x;
-		y = event->y;
-	}
 	widget = shift_to_iframe_parent (widget, &x, &y);
 
-	if (event->is_hint) {
-		gdk_window_get_pointer (GTK_LAYOUT (widget)->bin_window, &x, &y, NULL);
-	}
+	gdk_window_get_pointer (GTK_LAYOUT (widget)->bin_window, &x, &y, NULL);
 
 	if (!mouse_change_pos (widget, window, x, y, event->state))
 		return FALSE;
