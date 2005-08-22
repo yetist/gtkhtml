@@ -1,3 +1,30 @@
+gtkhtml-3.7.7 "Rose Dew" 2005-08-22
+----------------------------------------
+
+New in this release
+
+   * Punt some dependency version requirements (Kaushal)
+   * Fix handling of font size -2, -1 (Kaushal)
+   * Fix the dumps due to faulty variable list stream parsing (Kaushal)
+   * Clean up stream parsing (Kaushal)
+   * Convert an attribute function into an API for a11y (Mengjie Yu)
+   * Redirect commandline spew to debug log (Julien Gilli)
+   * Path construction using dllmain on Win32 (Tor Lillqvist)
+   * Fix the html List item parsing (Kaushal)
+   * Fetch the coordinates correctly for icon list window (S.Ragavan)
+   * Fix an argument evaluation order, fix warning (David Malcolm)
+   * Close stray file descriptor (Kaushal)
+   * Updated translations 
+     - Chao-Hsiung Liao (zh_TW)
+     - Duarte Loreto (pt)
+     - Kostas Papadimas (el)
+     - Gabor Kelemen (hu)
+     - Nikos Charonitakis (el)
+     - Maxim Dziumanenko (uk)
+     - Laurent Dhima (sq)
+     - Xavier Conde Rueda (ca)
+     - Žygimantas Beručka (lt)
+
 gtkhtml-3.7.6 "Look mom, there ain't no bizarre bugs no more!!" 2005-08-08
 --------------------------------------------------------------------------
 
