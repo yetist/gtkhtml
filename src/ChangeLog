@@ -1,3 +1,10 @@
+2005-08-22  Kaushal Kumar  <kakumar@novell.com>
+
+	* htmlengine.c (element_parse_li): Push the list item display type as
+	DISPLAY_LIST_ITEM instead of DISPLAY_BLOCK.
+
+	Fixes bug #306751.
+
 2005-08-22  Tor Lillqvist  <tml@novell.com>
 
 	* Makefile.am: Include dllmain.c on Win32. Pass all the pathname

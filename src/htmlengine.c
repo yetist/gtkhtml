@@ -2754,7 +2754,7 @@ element_parse_li (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	
 	html_clue_append (HTML_CLUE (clue), e->flow);
 	e->avoid_para = TRUE;
-	push_block (e, ID_LI, DISPLAY_BLOCK, block_end_item, FALSE, FALSE);
+	push_block (e, ID_LI, DISPLAY_LIST_ITEM, block_end_item, FALSE, FALSE);
 }
 
 static void
