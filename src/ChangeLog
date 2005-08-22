@@ -1,3 +1,8 @@
+2005-08-22  Tor Lillqvist  <tml@novell.com>
+
+	* dllmain.c: New file. Contains the run-time path construction
+	mechanism used on Win32.
+
 2005-08-19  Kaushal Kumar  <kakumar@novell.com>
 
 	* htmlengine.c (element_parse_object): Redirect commandline spew as debug log.
