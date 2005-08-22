@@ -3305,10 +3305,13 @@ get_surrounding_text (HTMLEngine *e, gint *offset)
 static gboolean
 gtk_html_im_retrieve_surrounding_cb (GtkIMContext *context, GtkHTML *html)
 {
-	gint offset;
+	gint offset = 0;
+	gchar *text;
 
 	D_IM (printf ("IM gtk_html_im_retrieve_surrounding_cb\n");)
-	gtk_im_context_set_surrounding (context, get_surrounding_text (html->engine, &offset), -1, offset);
+
+	text = get_surrounding_text (html->engine, &offset);
+	gtk_im_context_set_surrounding (context, text, -1, offset);
 
 	return TRUE;
 }

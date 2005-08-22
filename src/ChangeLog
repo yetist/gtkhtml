@@ -1,3 +1,8 @@
+2005-08-22  David Malcolm  <dmalcolm@redhat.com>
+
+	* gtkhtml.c (gtk_html_im_retrieve_surrounding_cb): Remove assumption
+	about order of evaluation of arguments; fix warning.
+
 2005-08-22  Kaushal Kumar  <kakumar@novell.com>
 
 	* gtkhtml.c (motion_notify_event): Fetch the mouse motion coordinates
