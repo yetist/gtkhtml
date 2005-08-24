@@ -1,3 +1,15 @@
+2005-08-24  Kaushal Kumar  <kakumar@novell.com>
+
+	* link.c (description_changed): Request for delete only if start and
+	end offsets are different.
+	Once the link object is inserted, use it for further editing instead
+	of using the old cursor object which pointed to the previous object.
+	Do not run for blank texts.
+	
+	* link.c (link_set_ui): For non-text objects, initialize offsets to 0.
+
+	Fixes bug #310585.
+
 2005-08-23  Not Zed  <NotZed@Ximian.com>
 
 	* gi-colors.c: undefine GDK_DISABLE_DEPRECATED if set, we need it.

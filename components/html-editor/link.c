@@ -95,18 +95,21 @@ description_changed (GtkWidget *w, GtkHTMLEditLinkProperties *d)
 	if (d->disable_change || !editor_has_html_object (d->cd, d->insert_object))
 		return;
 
-	html_cursor_jump_to (e->cursor, e, d->insert_object, d->insert_start_offset);
-	html_engine_set_mark (e);
-	html_cursor_jump_to (e->cursor, e, d->insert_object, d->insert_end_offset);
-	html_engine_delete (e);
 	text = gtk_entry_get_text (GTK_ENTRY (w));
 	if (text && *text) {
 		len = g_utf8_strlen (text, -1);
+
+		if (d->insert_start_offset != d->insert_end_offset) {
+			html_cursor_jump_to (e->cursor, e, d->insert_object, d->insert_start_offset);
+			html_engine_set_mark (e);
+			html_cursor_jump_to (e->cursor, e, d->insert_object, d->insert_end_offset);
+			html_engine_delete (e);
+		}
+
 		html_engine_paste_link (e, text, len, gtk_entry_get_text (GTK_ENTRY (d->entry_url)));
-		d->insert_object = e->cursor->object;
-	} else
-		len = 0;
-	d->insert_end_offset = d->insert_start_offset + len;
+		d->insert_object = e->cursor->object; 
+		d->insert_end_offset = d->insert_start_offset + len;
+	}
 }
 
 static void
@@ -149,9 +152,12 @@ link_set_ui (GtkHTMLEditLinkProperties *d)
 				}
 			}
 		} else {
+			if (!HTML_IS_TEXT (d->insert_object))
+				d->insert_start_offset = d->insert_end_offset = 0;
+			else
+				d->insert_start_offset = d->insert_end_offset = e->cursor->offset;
+		
 			gtk_entry_set_text (GTK_ENTRY (d->entry_url), "http://");
-
-			d->insert_start_offset = d->insert_end_offset = e->cursor->offset;
 		}
 	}
 
