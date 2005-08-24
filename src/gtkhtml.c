@@ -2510,7 +2510,7 @@ drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkSelectionData *sel
 					 */
 					char *ucs2;
 					char *utf8;
-					int written_len;
+					gsize written_len;
 
 					if (HTML_IS_TEXT (obj)) {
 						Link *link = html_text_get_link_at_offset (HTML_TEXT (obj), offset);

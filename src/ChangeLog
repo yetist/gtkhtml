@@ -1,3 +1,15 @@
+2005-08-23  Not Zed  <NotZed@Ximian.com>
+
+	* test-suite.c (plain_save_receiver): use right type for len.
+
+	* gtkhtml.c (drag_data_get): use right type for g_convert.
+
+2005-01-11  Not Zed  <NotZed@Ximian.com>
+
+	* Makefile.am: put the version in pkgconfig_DATA and remove the
+	install-data-hook.  This was breaking on amd64 systems with a
+	different libdir.
+
 2005-08-22  David Malcolm  <dmalcolm@redhat.com>
 
 	* gtkhtml.c (gtk_html_im_retrieve_surrounding_cb): Remove assumption

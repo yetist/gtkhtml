@@ -234,6 +234,9 @@ gtest_LDFLAGS =
 gtest_LDADD =	\
 	libgtkhtml-@GTKHTML_API_VERSION@.la
 
+%-@GTKHTML_API_VERSION@.pc: %.pc
+	 cp $< $@
+
 test_suite_SOURCES = \
 	test-suite.c
 test_suite_LDFLAGS =
@@ -248,7 +251,7 @@ test_stress_LDADD =	\
 
 pkgconfig_in_files = libgtkhtml.pc.in
 pkgconfigdir = $(libdir)/pkgconfig
-pkgconfig_DATA = $(pkgconfig_in_files:.pc.in=.pc)
+pkgconfig_DATA = $(pkgconfig_in_files:.pc.in=-@GTKHTML_API_VERSION@.pc)
 
 keybindingsdir = $(datadir)/gtkhtml-@GTKHTML_API_VERSION@
 keybindings_DATA =		\
@@ -258,12 +261,6 @@ EXTRA_DIST =			\
 	htmlclosures.list	\
 	$(keybindings_DATA)	\
 	$(NULL)
-
-install-data-hook:
-	mv $(DESTDIR)$(libdir)/pkgconfig/libgtkhtml.pc $(DESTDIR)$(libdir)/pkgconfig/libgtkhtml-@GTKHTML_API_VERSION@.pc
-
-uninstall-hook:
-	rm -f $(DESTDIR)$(libdir)/pkgconfig/libgtkhtml-@GTKHTML_API_VERSION@.pc	
 
 htmlmarshal.h:	htmlclosures.list
 	glib-genmarshal --header --prefix=html_g_cclosure_marshal $< > $@
