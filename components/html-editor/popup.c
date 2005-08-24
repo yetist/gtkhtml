@@ -38,6 +38,7 @@
 #include "htmlengine.h"
 #include "htmltext.h"
 #include "htmlengine-edit.h"
+#include "htmlengine-edit-text.h"
 #include "htmlengine-edit-cut-and-paste.h"
 #include "htmlengine-edit-table.h"
 #include "htmlengine-edit-tablecell.h"

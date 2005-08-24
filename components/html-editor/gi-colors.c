@@ -26,6 +26,12 @@
  */
 
 #include <config.h>
+
+/* gdk_rgb_xpixel_from_rgb is deprecated */
+#ifdef GDK_DISABLE_DEPRECATED
+#undef GDK_DISABLE_DEPRECATED
+#endif
+
 #include <gdk/gdkrgb.h>
 #include <gtk/gtkwidget.h>
 #include "gi-colors.h"

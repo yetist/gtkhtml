@@ -292,7 +292,7 @@ editor_engine_new (GtkHTMLControlData *cd)
 	 * provide DnD to the composer window's GtkHTML component
 	 */
 
-	g_object_set_data (ee, "html-widget", cd->html);
+	g_object_set_data ((GObject *)ee, "html-widget", cd->html);
 	
 	return ee;
 }

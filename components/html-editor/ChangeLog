@@ -1,3 +1,15 @@
+2005-08-23  Not Zed  <NotZed@Ximian.com>
+
+	* gi-colors.c: undefine GDK_DISABLE_DEPRECATED if set, we need it.
+
+	* table.c (changed_cols, changed_rows): add missing casts.
+
+	* replace.c (gtk_html_replace_dialog_new): cast warnings.
+
+	* popup.c: include missing header.
+
+	* engine.c (editor_engine_new): cast away warning.
+
 2005-08-17  Kaushal Kumar  <kakumar@novell.com>
 
 	* utils.c (url_requested): Added the missing close call for fd.
