@@ -1,7 +1,8 @@
 # Gtkhtml eesti keele tõlge.
-# Estonian translation of GtkHtml
+# Estonian translation of GtkHtml.
 #
-# Copyright (C) 2002 Free Software Foundation, Inc.
+# Copyright (C) 2002, 2004-2005 Free Software Foundation, Inc.
+# This file is distributed under the same license as the gtkhtml package.
 #
 # Tõivo Leedjärv <leedjarv@interest.ee>, 2002.
 # Priit Laes <amd@store20.com>, 2004-2005.
@@ -9,11 +10,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml\n"
+"Project-Id-Version: gtkhtml HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-07-25 22:39+0000\n"
-"PO-Revision-Date: 2005-07-26 09:05+0300\n"
-"Last-Translator: Priit Laes <amd@store20.com>\n"
+"PO-Revision-Date: 2005-08-24 16:17+0300\n"
+"Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,7 +39,7 @@ msgstr "haara fookus"
 
 #: ../a11y/object.c:258
 msgid "Panel containing HTML"
-msgstr "Paneel sisaldab HTML'i"
+msgstr "Paneel sisaldab HTML-i"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:1
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
@@ -242,17 +243,17 @@ msgstr "Kulmukortsutuse emotikoni lisamine dokumendile..."
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:38
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
 msgid "Insert HTML file into document..."
-msgstr "HTML faili lisamine dokumendile..."
+msgstr "HTML-faili lisamine dokumendile..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:39
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
 msgid "Insert HTML link into document..."
-msgstr "HTML viida lisamine dokumendile..."
+msgstr "HTML-viida lisamine dokumendile..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:40
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:40
 msgid "Insert HTML template into document..."
-msgstr "HTML malli lisamine dokumendile..."
+msgstr "HTML-malli lisamine dokumendile..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:41
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
@@ -361,32 +362,32 @@ msgstr "Nummerdatud loendi määramine käesoleva lõigu laadiks"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:61
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
 msgid "Make the current paragraph an H1 header"
-msgstr "H1 päise määramine käesoleva lõigu laadiks"
+msgstr "H1-päise määramine käesoleva lõigu laadiks"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:62
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:63
 msgid "Make the current paragraph an H2 header"
-msgstr "H2 päise määramine käesoleva lõigu laadiks"
+msgstr "H2-päise määramine käesoleva lõigu laadiks"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:63
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:64
 msgid "Make the current paragraph an H3 header"
-msgstr "H3 päise määramine käesoleva lõigu laadiks"
+msgstr "H3-päise määramine käesoleva lõigu laadiks"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:64
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:65
 msgid "Make the current paragraph an H4 header"
-msgstr "H4 päise määramine käesoleva lõigu laadiks"
+msgstr "H4-päise määramine käesoleva lõigu laadiks"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:65
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:66
 msgid "Make the current paragraph an H5 header"
-msgstr "H5 päise määramine käesoleva lõigu laadiks"
+msgstr "H5-päise määramine käesoleva lõigu laadiks"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:66
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:67
 msgid "Make the current paragraph an H6 header"
-msgstr "H6 päise määramine käesoleva lõigu laadiks"
+msgstr "H6-päise määramine käesoleva lõigu laadiks"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:67
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:68
@@ -660,7 +661,7 @@ msgstr "_Kulmukortsutus"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:117
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
 msgid "_HTML file..."
-msgstr "_HTML fail..."
+msgstr "_HTML-fail..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:118
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
@@ -830,7 +831,7 @@ msgstr "GNOME HTML Redaktor"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:2
 msgid "GNOME HTML Editor Control"
-msgstr "GNOME HTML redaktori juhtimine"
+msgstr "GNOME HTML-redaktori juhtimine"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:3
 msgid "GNOME HTML Editor Factory"
@@ -1205,7 +1206,7 @@ msgstr "Hüpik"
 
 #: ../components/html-editor/gnome-gtkhtml-editor.c:73
 msgid "GtkHTML Editor Control"
-msgstr "GtkHTML redaktori juhtimine"
+msgstr "GtkHTML-redaktori juhtimine"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:1
 msgid "    "
@@ -1499,7 +1500,7 @@ msgstr "Viga faili '%s' laadimisel: %s"
 #: ../components/html-editor/menubar.c:312
 #: ../components/html-editor/menubar.c:321
 msgid "Insert: HTML File"
-msgstr "HTML faili lisamine"
+msgstr "HTML-faili lisamine"
 
 #: ../components/html-editor/menubar.c:312
 #: ../components/html-editor/menubar.c:321
@@ -1771,7 +1772,7 @@ msgstr "Salvesta fail kui..."
 
 #: ../components/html-editor/test-html-editor-control.c:571
 msgid "GtkHTML Editor Test Container"
-msgstr "GtkHTML redaktori testkonteiner"
+msgstr "GtkHTML-redaktori testkonteiner"
 
 #: ../components/html-editor/toolbar.c:56
 msgid "Roman List"
@@ -1940,7 +1941,7 @@ msgstr "Algväärtusta"
 #. TODO2 dialog instead of warning
 #: ../src/htmlengine-print.c:192
 msgid "Cannot allocate default font for printing\n"
-msgstr "Trükkimise vaikefonti pole võimalik eraldada\n"
+msgstr "Printimise vaikefonti pole võimalik eraldada\n"
 
 #: ../src/test.c:375
 msgid "GtkHTML Test"
@@ -1948,79 +1949,13 @@ msgstr "GtkHTML test"
 
 #: ../src/testgtkhtml.c:117
 msgid "Print pre_view"
-msgstr "Trükkimise eel_vaade"
+msgstr "Printimise eel_vaade"
 
 #: ../src/testgtkhtml.c:117
 msgid "Print preview"
-msgstr "Trükkimise eelvaade"
+msgstr "Printimise eelvaade"
 
 #: ../src/testgtkhtml.c:1004
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML testrakendus"
-
-#~ msgid ""
-#~ "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
-#~ msgstr ""
-#~ "Mozilla url, mis söödeti Composer'ile oli vales vormingus (%d) või "
-#~ "pikkuses (%d)\n"
-#~ msgid "_Refresh"
-#~ msgstr "_Värskenda"
-#~ msgid "Reload the page"
-#~ msgstr "Lae lehekülg uuesti"
-#~ msgid "Could not initialize Bonobo!"
-#~ msgstr "Bonobo lähtestamine nurjus!"
-#~ msgid "<None>"
-#~ msgstr "<Ei ole>"
-#~ msgid "\n"
-#~ msgstr "\n"
-#~ msgid "*********************"
-#~ msgstr "*********************"
-#~ msgid "Add Keyboard Shortcuts"
-#~ msgstr "Lisa kiirklahve"
-#~ msgid "Automatically detect links"
-#~ msgstr "Leia viidad automaatselt"
-#~ msgid "Behavior"
-#~ msgstr "Käitumine"
-#~ msgid "Composer Properties"
-#~ msgstr "Koostaja eelistused"
-#~ msgid "Configure spell checking"
-#~ msgstr "Õigekirjakontrolli seadistamine"
-#~ msgid "Enable spell checking"
-#~ msgstr "Õigekirja kontroll"
-#~ msgid "Fixed width"
-#~ msgstr "Fikseeritud laiusega"
-#~ msgid "Fonts"
-#~ msgstr "Kirjatüübid"
-#~ msgid "For printing"
-#~ msgstr "Trükkimiseks"
-#~ msgid "Grab keys"
-#~ msgstr "Haara klahvid"
-#~ msgid "Information"
-#~ msgstr "Teave"
-#~ msgid "Keyboard Shortcuts"
-#~ msgstr "Kiirklahvid"
-#~ msgid "Miscellaneous"
-#~ msgstr "Mitmesugust"
-#~ msgid "New shortcut:"
-#~ msgstr "Uus kiirklahv:"
-#~ msgid "On screen"
-#~ msgstr "Ekraanil"
-#~ msgid "Select HTML fixed width font"
-#~ msgstr "Vali HTML fikseeritud laiusega kirjatüüp"
-#~ msgid "Select HTML fixed width font for printing"
-#~ msgstr "Vali trükkimise jaoks HTML fikseeritud laiusega kirjatüüp"
-#~ msgid "Select HTML variable width font"
-#~ msgstr "Vali HTML muutuva laiusega kirjatüüp"
-#~ msgid "Select HTML variable width font for printing"
-#~ msgstr "Vali trükkimise jaoks HTML muutuva laiusega kirjatüüp"
-#~ msgid "Shortcuts _type:"
-#~ msgstr "Kiirklahvide _tüüp:"
-#~ msgid "Show animated images"
-#~ msgstr "Näita animeeritud pilte"
-#~ msgid "Variable width"
-#~ msgstr "Muutuva laiusega"
-#~ msgid "_Add"
-#~ msgstr "_Lisa"
-#~ msgid "_Delete"
-#~ msgstr "_Kustuta"
 
