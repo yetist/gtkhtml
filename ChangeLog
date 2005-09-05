@@ -1,3 +1,7 @@
+2005-09-05  Kaushal Kumar  <kakumar@novell.com>
+
+	* Makefile.am: Fix the make distclean for .pc file.
+
 2005-08-23  Dan Damian  <dand@gnome.ro>
 
 	* configure.in: Added "ro" to ALL_LINGUAS.

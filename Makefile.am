@@ -11,7 +11,8 @@ CLEANFILES =					\
 DISTCLEANFILES =				\
 	intltool-extract			\
 	intltool-update				\
-	intltool-merge
+	intltool-merge				\
+	src/libgtkhtml-@GTKHTML_API_VERSION@.pc
 
 MAINTAINERCLEANFILES =				\
 	Makefile.in				\
