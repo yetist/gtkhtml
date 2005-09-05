@@ -1,3 +1,24 @@
+GtkHTML-3.8.0 "Nilgiri Sunrise" 2005-09-05
+------------------------------------------
+
+New in this release
+
+   * Fix insertion of HTML Links on images (Kaushal Kumar)
+   * Code clean-up for link handling (Kaushal Kumar)
+   * Added ro for translations (Dan Damian)
+   * AMD (64 bit) related build, warning fixes (Not Zed)
+   * Fix the distclean of the .pc file (Kaushal Kumar)
+   * Updated translations 
+     - Nickolay V. Shmyrev (ru)
+     - Zeno Ruset (ro)
+     - Ivar Smolin (et)
+     - Mohammad DAMT (id)
+     - Christophe Merlet (fr)
+     - Telsa Gwynne (cy)
+     - Alexander Shopov (bg)
+     - Hendrik Richter (de)
+     - Runa Bhattacharjee (bn)
+
 gtkhtml-3.7.7 "Rose Dew" 2005-08-22
 ----------------------------------------
 

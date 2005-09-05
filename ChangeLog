@@ -1,5 +1,12 @@
 2005-09-05  Kaushal Kumar  <kakumar@novell.com>
 
+	* configure.in: Bumped version to 3.8.0 for the stable (Gnome 2.12)
+	release.
+
+	* NEWS: updated.
+
+2005-09-05  Kaushal Kumar  <kakumar@novell.com>
+
 	* Makefile.am: Fix the make distclean for .pc file.
 
 2005-08-23  Dan Damian  <dand@gnome.ro>
