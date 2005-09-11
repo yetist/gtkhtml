@@ -6035,7 +6035,6 @@ gtk_html_filename_to_uri (const gchar *filename)
 		retval = new_retval;
 	}
 #endif
-	g_free (fake_uri);
 	
 	return retval;
 }
