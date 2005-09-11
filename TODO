@@ -30,7 +30,8 @@
   distributions presumably use UTF-8 if freshly installed, but there
   are loads of sites where legacy charsets like ISO-8859-1 still are
   used. (Note that on Windows, GLib provides an UTF-8 API, including
-  the gstdio wrappers.)
+  the gstdio wrappers, even though the C library uses system codepage
+  for file names (or UTF-16, if you use the wchar_t versions.)
 
 - If editing an HTML file loaded (or already saved at least once) where
   we thus know its location in the file system, pathnames for images,
