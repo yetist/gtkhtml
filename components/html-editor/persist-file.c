@@ -40,6 +40,8 @@
 #include "persist-file.h"
 #include "editor-control-factory.h"
 
+#include <glib/gstdio.h>
+
 #ifndef O_BINARY
 #define O_BINARY 0
 #endif
