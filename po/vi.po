@@ -673,7 +673,7 @@ msgstr "_Tăng canh lề"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:121
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
 msgid "_Indifferent"
-msgstr "Thơ _ơ"
+msgstr "_Không khác"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:122
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
@@ -754,7 +754,7 @@ msgstr "Danh sách đánh số _Roman"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:137
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:139
 msgid "_Rule..."
-msgstr "_Đường..."
+msgstr "Đườ_ng..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:138
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:140
@@ -1266,7 +1266,7 @@ msgstr "Đáy"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:25
 msgid "C_ell"
-msgstr "_Ô"
+msgstr "Ô"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:26
 msgid "C_olor:"
@@ -1403,7 +1403,7 @@ msgstr "Ả_nh:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:68
 msgid "_Padding:"
-msgstr "_Đệm:"
+msgstr "Đệ_m:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:69
 msgid "_Row"
@@ -1427,7 +1427,7 @@ msgstr "_Bảng"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:75
 msgid "_URL:"
-msgstr "_Địa chỉ Mạng:"
+msgstr "_URL:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:77
 msgid "_Width:"
