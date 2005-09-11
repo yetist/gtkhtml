@@ -23,6 +23,7 @@
 #include <sys/types.h>
 
 #include <glib.h>
+#include <glib/gstdio.h>
 #include <sys/stat.h>
 #include <fcntl.h>
  
@@ -47,8 +48,13 @@
 #include "htmlengine.h"
 #include "gtkhtml-embedded.h"
 #include "gtkhtml-properties.h"
+#include "gtkhtml-private.h"
 
 #include "gtkhtmldebug.h"
+
+#ifndef O_BINARY
+#define O_BINARY 0
+#endif
 
 typedef struct {
   FILE *fil;
@@ -573,7 +579,7 @@ on_submit (GtkHTML *html, const gchar *method, const gchar *action, const gchar 
 
 	g_print("submitting '%s' to '%s' using method '%s'\n", encoding, action, method);
 
-	if(strcasecmp(method, "GET") == 0) {
+	if(g_ascii_strcasecmp(method, "GET") == 0) {
 
 		tmpstr = g_string_append_c (tmpstr, '?');
 		tmpstr = g_string_append (tmpstr, encoding);
@@ -674,11 +680,13 @@ url_requested (GtkHTML *html, const char *url, GtkHTMLStream *handle, gpointer d
 		soup_session_queue_message (session, msg, got_data, handle);
 #endif
 	} else if (full_url && !strncmp (full_url, "file:", 5)) {
+		char *filename = gtk_html_filename_from_uri (full_url);
 		struct stat st;
 		char *buf;
 		int fd, nread, total;
 
-		fd = open (full_url + 5, O_RDONLY);
+		fd = g_open (filename, O_RDONLY|O_BINARY, 0);
+		g_free (filename);
 		if (fd != -1 && fstat (fd, &st) != -1) {
 			buf = g_malloc (st.st_size);
 			for (nread = total = 0; total < st.st_size; total += nread) {
@@ -938,23 +946,28 @@ goto_url(const char *url, int back_or_forward)
 static void
 bug_cb (GtkWidget *widget, gpointer data)
 {
-	gchar cwd[PATH_MAX], *filename;
+	gchar cwd[PATH_MAX], *filename, *url;
 
 	getcwd(cwd, sizeof (cwd));
-	filename = g_strdup_printf("file:%s/bugs.html", cwd);
-	goto_url(filename, 0);
+	filename = g_strdup_printf("%s/bugs.html", cwd);
+	url = g_filename_to_uri(filename, NULL, NULL);
+	goto_url(url, 0);
+	g_free(url);
 	g_free(filename);
 }
 
 static void
 test_cb (GtkWidget *widget, gpointer data)
 {
-	gchar cwd[PATH_MAX], *filename;
+	gchar cwd[PATH_MAX], *filename, *url;
 
 	getcwd(cwd, sizeof (cwd));
-	filename = g_strdup_printf ("file:%s/tests/test%d.html", cwd,
+	filename = g_strdup_printf ("%s/tests/test%d.html", cwd,
 				    GPOINTER_TO_INT (data));
-	goto_url(filename, 0);
+	url = g_filename_to_uri (filename, NULL, NULL);
+	
+	goto_url(url, 0);
+	g_free(url);
 	g_free(filename);
 }
 

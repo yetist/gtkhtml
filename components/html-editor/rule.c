@@ -36,6 +36,7 @@
 #include "htmlengine-edit-rule.h"
 #include "htmlengine-save.h"
 #include "htmlrule.h"
+#include "gtkhtml-private.h"
 
 #include "properties.h"
 #include "rule.h"
@@ -172,8 +173,11 @@ rule_widget (GtkHTMLEditRuleProperties *d, gboolean insert)
 {
 	GtkWidget *rule_page;
 	GladeXML *xml;
+	gchar *filename;
 
-	xml = glade_xml_new (GLADE_DATADIR "/gtkhtml-editor-properties.glade", "rule_page", GETTEXT_PACKAGE);
+	filename = g_build_filename (GLADE_DATADIR, "gtkhtml-editor-properties.glade", NULL);
+	xml = glade_xml_new (filename, "rule_page", GETTEXT_PACKAGE);
+	g_free (filename);
 	if (!xml)
 		g_error (_("Could not load glade file."));
 

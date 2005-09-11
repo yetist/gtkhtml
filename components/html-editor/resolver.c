@@ -27,6 +27,7 @@
 #include <bonobo.h>
 #include <stdio.h>
 #include <glib.h>
+#include <glib/gstdio.h>
 #include <errno.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -55,19 +56,21 @@ resolver_load_from_file (const Bonobo_ProgressiveDataSink sink,
 	unsigned char buffer[CORBA_BLOCK_SIZE];
 	int len;
 	int fd;
-        const char *path;
+        char *path;
 	Bonobo_Stream_iobuf *buf;
         
 	if (strncmp (url, "file:", 5) != 0) {
 		g_warning ("Unsupported image url: %s", url);
 		return FALSE;
 	} 
-	path = url + 5; 
+	path = g_filename_from_uri (url, NULL, NULL);
 
-	if ((fd = open (path, O_RDONLY)) == -1) {
+	if ((fd = g_open (path, O_RDONLY, 0)) == -1) {
+		g_free (path);
 		g_warning ("%s", g_strerror (errno));
 		return FALSE;
 	}
+	g_free (path);
 
 	buf = Bonobo_Stream_iobuf__alloc ();
        	while ((len = read (fd, buffer, CORBA_BLOCK_SIZE)) > 0) {

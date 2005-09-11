@@ -20,7 +20,7 @@ AM_CFLAGS = \
 	$(EDITOR_CFLAGS)				\
 	-DICONDIR=\"$(gtkhtml_data)/icons\"		\
         -DGTKHTML_DATADIR=\""$(gtkhtml_data)"\"		\
-        -DGNOMELOCALEDIR=\""$(datadir)/locale"\"	\
+        -DGNOMELOCALEDIR=\""$(prefix)/$(DATADIRNAME)/locale"\"\
 	-DGLADE_DATADIR=\"$(gladedir)\"			\
 	-DGDK_DISABLE_DEPRECATED=1			\
 	-DG_DISABLE_DEPRECATED=1			\
@@ -185,7 +185,17 @@ ui_in_files = GNOME_GtkHTML_Editor.xml.in GNOME_GtkHTML_Editor-emacs.xml.in
 ui_DATA = $(ui_in_files:.xml.in=.xml)
 
 %.xml: %.xml.in
+if OS_WIN32
+# Use a relative path to the icons dir in the xml files, so it works
+# on Win32 where the installation path is freely chosen by the
+# end-user. The path is relative to "$prefix/share/pixmaps" (see
+# gnome-program.c:gnome_program_locate_file()).
+	sed -e 's|\@ICONSDIR\@|../gtkhtml-@GTKHTML_API_VERSION@/icons|g' $< > $@
+else
+# On Unix we use an absolute path, as the paths to be used on the
+# end-user systems are decided at build time.
 	sed -e 's|\@ICONSDIR\@|$(gtkhtml_data)/icons|g' $< > $@
+endif
 
 # The Test program
 

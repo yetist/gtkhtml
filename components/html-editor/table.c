@@ -42,6 +42,7 @@
 #include "htmlimage.h"
 #include "htmltable.h"
 #include "htmlsettings.h"
+#include "gtkhtml-private.h"
 
 #include "properties.h"
 #include "table.h"
@@ -102,7 +103,7 @@ changed_bg_pixmap (GtkWidget *w, GtkHTMLEditTableProperties *d)
 	html_cursor_forward (d->cd->html->engine->cursor, d->cd->html->engine);
 	file = gtk_entry_get_text (GTK_ENTRY (w));
 	if (file && *file)
-		url = g_strconcat ("file://", file, NULL);
+		url = g_filename_to_uri (file, NULL, NULL);
 	else
 		url = NULL;
 	html_engine_table_set_bg_pixmap (d->cd->html->engine, d->table, url);
@@ -220,19 +221,26 @@ table_widget (GtkHTMLEditTableProperties *d)
 {
 	GtkWidget *table_page;
 	GladeXML *xml;
+	gchar *filename;
 
-	xml = glade_xml_new (GLADE_DATADIR "/gtkhtml-editor-properties.glade", "table_page", GETTEXT_PACKAGE);
+	filename = g_build_filename (GLADE_DATADIR, "gtkhtml-editor-properties.glade", NULL);
+	xml = glade_xml_new (filename, "table_page", GETTEXT_PACKAGE);
+	g_free (filename);
 	if (!xml)
 		g_error (_("Could not load glade file."));
 
 	table_page = glade_xml_get_widget (xml, "table_page");
 
+	filename = g_build_filename (ICONDIR, "table-row-16.png", NULL);
 	gtk_box_pack_start (GTK_BOX (glade_xml_get_widget (xml, "table_rows_hbox")),
-			    gtk_image_new_from_file (ICONDIR "/table-row-16.png"),
+			    gtk_image_new_from_file (filename),
 			    FALSE, FALSE, 0);
+	g_free (filename);
+	filename = g_build_filename (ICONDIR, "table-column-16.png", NULL);
 	gtk_box_pack_start (GTK_BOX (glade_xml_get_widget (xml, "table_cols_hbox")),
-			    gtk_image_new_from_file (ICONDIR "/table-column-16.png"),
+			    gtk_image_new_from_file (filename),
 			    FALSE, FALSE, 0);
+	g_free (filename);
 
 	d->combo_bg_color = gi_color_combo_new (NULL, _("Transparent"), NULL,
 					     color_group_fetch ("table_bg_color", d->cd));
@@ -294,15 +302,11 @@ set_ui (GtkHTMLEditTableProperties *d)
 		gi_color_combo_set_color (GI_COLOR_COMBO (d->combo_bg_color), d->table->bgColor);
 
 		if (d->table->bgPixmap) {
-			int off = 0;
-
-			if (!strncasecmp ("file://", d->table->bgPixmap->url, 7))
-				off = 7;
-			else if (!strncasecmp ("file:", d->table->bgPixmap->url, 5))
-				off = 5;
+			gchar *filename = gtk_html_filename_from_uri (d->table->bgPixmap->url);
 
 			gtk_entry_set_text (GTK_ENTRY (gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY (d->entry_bg_pixmap))),
-					    d->table->bgPixmap->url + off);
+					    filename);
+			g_free (filename);
 		}
 
 		gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_spacing), d->table->spacing);

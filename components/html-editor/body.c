@@ -34,6 +34,8 @@
 #include "htmlcolor.h"
 #include "htmlcolorset.h"
 #include "htmlsettings.h"
+#include "gtkhtml-private.h"
+
 #include "body.h"
 #include "properties.h"
 #include "utils.h"
@@ -69,7 +71,7 @@ static BodyTemplate body_templates [TEMPLATES] = {
 	},
 	{
 		N_("Perforated paper"),
-		ICONDIR "/paper.png",
+		"paper.png",
 		{0, 0xffff, 0xffff, 0xffff},
 		{0, 0, 0, 0},
 		{0, 0, 0x3380, 0x6680},
@@ -77,7 +79,7 @@ static BodyTemplate body_templates [TEMPLATES] = {
 	},
 	{
 		N_("Blue ink"),
-		ICONDIR "/texture.png",
+		"texture.png",
 		{0, 0xffff, 0xffff, 0xffff},
 		{0, 0x1fff, 0x1fff, 0x8fff},
 		{0, 0, 0, 0xffff},
@@ -85,7 +87,7 @@ static BodyTemplate body_templates [TEMPLATES] = {
 	},
 	{
 		N_("Paper"),
-		ICONDIR "/rect.png",
+		"rect.png",
 		{0, 0xffff, 0xffff, 0xffff},
 		{0, 0, 0, 0},
 		{0, 0, 0, 0xffff},
@@ -93,7 +95,7 @@ static BodyTemplate body_templates [TEMPLATES] = {
   	},
 	{
 		N_("Ribbon"),
-		ICONDIR "/ribbon.jpg",
+		"ribbon.jpg",
 		{0, 0xffff, 0xffff, 0xffff},
 		{0, 0, 0, 0},
 		{0, 0x9900, 0x3300, 0x6600},
@@ -101,7 +103,7 @@ static BodyTemplate body_templates [TEMPLATES] = {
   	},
 	{
 		N_("Midnight"),
-		ICONDIR "/midnight-stars.jpg",
+		"midnight-stars.jpg",
 		{0, 0, 0, 0},
 		{0, 0xffff, 0xffff, 0xffff},
 		{0, 0xffff, 0x9900, 0},
@@ -109,7 +111,7 @@ static BodyTemplate body_templates [TEMPLATES] = {
   	},
 	{
 		N_("Confidential"),
-		ICONDIR "/confidential-stamp.jpg",
+		"confidential-stamp.jpg",
 		{0, 0xffff, 0xffff, 0xffff},
 		{0, 0, 0, 0},
 		{0, 0, 0, 0xffff},
@@ -117,7 +119,7 @@ static BodyTemplate body_templates [TEMPLATES] = {
   	},
 	{
 		N_("Draft"),
-		ICONDIR "/draft-stamp.jpg",
+		"draft-stamp.jpg",
 		{0, 0xffff, 0xffff, 0xffff},
 		{0, 0, 0, 0},
 		{0, 0, 0, 0xffff},
@@ -125,7 +127,7 @@ static BodyTemplate body_templates [TEMPLATES] = {
   	},
 	{
 		N_("Graph paper"),
-		ICONDIR "/draft-paper.png",
+		"draft-paper.png",
 		{0, 0xffff, 0xffff, 0xffff},
 		{0, 0, 0, 0x8000},
 		{0, 0xe300, 0x2100, 0x2300},
@@ -176,11 +178,16 @@ static void
 changed_template (GtkWidget *w, GtkHTMLEditBodyProperties *d)
 {
 	gint template, left_margin = 10;
+	gchar *filename;
 
 	template = g_list_index (GTK_MENU_SHELL (w)->children, gtk_menu_get_active (GTK_MENU (w)));
 
+	filename = (body_templates [template].bg_pixmap ?
+		    g_build_filename (ICONDIR, body_templates [template].bg_pixmap, NULL) :
+		    g_strdup (""));
 	gtk_entry_set_text (GTK_ENTRY (gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY (d->pixmap_entry))),
-			    body_templates [template].bg_pixmap ? body_templates [template].bg_pixmap : "");
+			    filename);
+	g_free (filename);
 
 	if (template) {
 		gi_color_combo_set_color (GI_COLOR_COMBO (d->combo [2]), &body_templates [template].bg_color);

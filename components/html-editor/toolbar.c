@@ -39,6 +39,7 @@
 #include "htmlcolorset.h"
 #include "htmlengine-edit-fontstyle.h"
 #include "htmlsettings.h"
+#include "gtkhtml-private.h"
 
 #define EDITOR_TOOLBAR_PATH "/HTMLEditor"
 
@@ -598,6 +599,7 @@ create_style_toolbar (GtkHTMLControlData *cd)
 {
 	GtkWidget *hbox;
 	gchar *domain;
+	gchar *filename;
 	
 	hbox = gtk_hbox_new (FALSE, 0);
 
@@ -622,7 +624,8 @@ create_style_toolbar (GtkHTMLControlData *cd)
 	domain = g_strdup (textdomain (NULL));
 	textdomain (GETTEXT_PACKAGE);
 	
-	editor_toolbar_style_uiinfo [EDITOR_TOOLBAR_TT].pixmap_info = GTKHTML_DATADIR "/icons/font-tt-24.png";
+	filename = g_build_filename (GTKHTML_DATADIR, "icons", "font-tt-24.png", NULL);
+	editor_toolbar_style_uiinfo [EDITOR_TOOLBAR_TT].pixmap_info = filename;
 	editor_toolbar_style_uiinfo [EDITOR_TOOLBAR_BOLD].pixmap_info = gnome_icon_theme_lookup_icon (cd->icon_theme, "stock_text_bold", 24, NULL, NULL);
 	editor_toolbar_style_uiinfo [EDITOR_TOOLBAR_ITALIC].pixmap_info = gnome_icon_theme_lookup_icon (cd->icon_theme, "stock_text_italic", 24, NULL, NULL);
 	editor_toolbar_style_uiinfo [EDITOR_TOOLBAR_UNDERLINE].pixmap_info = gnome_icon_theme_lookup_icon (cd->icon_theme, "stock_text_underlined", 24, NULL, NULL);

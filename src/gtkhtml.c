@@ -5870,3 +5870,325 @@ gtk_html_set_tokenizer (GtkHTML *html, HTMLTokenizer *tokenizer)
 
 	html_engine_set_tokenizer (html->engine, tokenizer);
 }
+
+gchar *
+gtk_html_filename_from_uri (const gchar *uri)
+{
+	const gchar *relative_fpath;
+	gchar *temp_uri, *temp_filename;
+	gchar *retval;
+
+	if (!uri || !*uri)
+		return NULL;
+
+	if (g_ascii_strncasecmp (uri, "file://", 7) == 0)
+		return g_filename_from_uri (uri, NULL, NULL);
+
+	if (g_ascii_strncasecmp (uri, "file:", 5) == 0) {
+		/* Relative (file or other) URIs shouldn't contain the
+		 * scheme prefix at all. But accept such broken URIs
+		 * anyway. Whether they are URI-encoded or not is
+		 * anybody's guess, assume they are.
+		 */
+		relative_fpath = uri + 5;
+	} else {
+		/* A proper relative file URI. Just do the URI-decoding. */
+		relative_fpath = uri;
+	}
+	    
+	if (g_path_is_absolute (relative_fpath)) {
+		/* The totally broken case of "file:" followed
+		 * directly by an absolute pathname.
+		 */
+		/* file:/foo/bar.zap or file:c:/foo/bar.zap */
+#ifdef G_OS_WIN32
+		if (g_ascii_isalpha (relative_fpath[0]) && relative_fpath[1] == ':')
+			temp_uri = g_strconcat ("file:///", relative_fpath, NULL);
+		else
+			temp_uri = g_strconcat ("file://", relative_fpath, NULL);
+#else
+		temp_uri = g_strconcat ("file://", relative_fpath, NULL);
+#endif
+		retval = g_filename_from_uri (temp_uri, NULL, NULL);
+		g_free (temp_uri);
+		
+		return retval;
+	}
+
+	/* Create a dummy absolute file: URI and call
+	 * g_filename_from_uri(), then strip off the dummy
+	 * prefix.
+	 */
+#ifdef G_OS_WIN32
+	if (g_ascii_isalpha (relative_fpath[0]) && relative_fpath[1] == ':') {
+		/* file:c:relative/path/foo.bar */
+		gchar drive_letter = relative_fpath[0];
+		
+		temp_uri = g_strconcat ("file:///dummy/", relative_fpath + 2, NULL);
+		temp_filename = g_filename_from_uri (temp_uri, NULL, NULL);
+		g_free (temp_uri);
+		
+		if (temp_filename == NULL)
+			return NULL;
+			       
+		g_assert (strncmp (temp_filename, G_DIR_SEPARATOR_S "dummy" G_DIR_SEPARATOR_S, 7) == 0);
+
+		retval = g_strdup_printf ("%c:%s", drive_letter, temp_filename + 7);
+		g_free (temp_filename);
+		
+		return retval;
+	}
+#endif
+	temp_uri = g_strconcat ("file:///dummy/", relative_fpath, NULL);
+	temp_filename = g_filename_from_uri (temp_uri, NULL, NULL);
+	g_free (temp_uri);
+	
+	if (temp_filename == NULL)
+		return NULL;
+	
+	g_assert (strncmp (temp_filename, G_DIR_SEPARATOR_S "dummy" G_DIR_SEPARATOR_S, 7) == 0);
+	
+	retval = g_strdup (temp_filename + 7);
+	g_free (temp_filename);
+	
+	return retval;
+}
+
+gchar *
+gtk_html_filename_to_uri (const gchar *filename)
+{
+	gchar *fake_filename, *fake_uri, *retval;
+	const char dummy_prefix[] = "file:///dummy/";
+	const int dummy_prefix_len = sizeof (dummy_prefix) - 1;
+#ifdef G_OS_WIN32
+	gchar drive_letter = 0;
+#else
+	gchar *first_end, *colon;
+#endif
+
+	if (!filename || !*filename)
+		return NULL;
+
+	if (g_path_is_absolute (filename))
+		return g_filename_to_uri (filename, NULL, NULL);
+
+	/* filename is a relative path, and the corresponding URI is
+	 * filename as such but URI-escaped. Instead of yet again
+	 * copy-pasteing the URI-escape code from gconvert.c (or
+	 * somewhere else), prefix a fake top-level directory to make
+	 * it into an absolute path, call g_filename_to_uri() to turn it
+	 * into a full file: URI, and then strip away the file:/// and
+	 * the fake top-level directory.
+	 */
+	
+#ifdef G_OS_WIN32
+	if (g_ascii_isalpha (*filename) && filename[1] == ':') {
+		/* A non-absolute path, but with a drive letter. Ugh. */
+		drive_letter = *filename;
+		filename += 2;
+	}
+#endif
+	fake_filename = g_build_filename ("/dummy", filename, NULL);
+	fake_uri = g_filename_to_uri (fake_filename, NULL, NULL);
+	g_free (fake_filename);
+
+	if (fake_uri == NULL)
+		return NULL;
+
+	g_assert (strncmp (fake_uri, dummy_prefix, dummy_prefix_len) == 0);
+
+#ifdef G_OS_WIN32
+	/* Re-insert the drive letter if we had one. Double ugh.
+	 * URI-encode the colon so the drive letter isn't taken for a
+	 * URI scheme!
+	 */
+	if (drive_letter)
+		retval = g_strdup_printf ("%c%%3a%s",
+					  drive_letter,
+					  fake_uri + dummy_prefix_len);
+	else
+		retval = g_strdup (fake_uri + dummy_prefix_len);
+#else
+	retval = g_strdup (fake_uri + dummy_prefix_len);
+#endif
+	g_free (fake_uri);
+
+#ifdef G_OS_UNIX
+	/* Check if there are colons in the first component of the
+	 * pathname, and URI-encode them so that the part up to the
+	 * colon isn't taken for a URI scheme name! This isn't
+	 * necessary on Win32 as there can't be colons in a file name
+	 * in the first place.
+	 */
+	first_end = strchr (retval, '/');
+	if (first_end == NULL)
+		first_end = retval + strlen (retval);
+
+	while ((colon = strchr (retval, ':')) != NULL && colon < first_end) {
+		gchar *new_retval = g_malloc (strlen (retval) + 3);
+
+		strncpy (new_retval, retval, colon - retval);
+		strcpy (new_retval + (colon - retval), "%3a");
+		strcpy (new_retval + (colon - retval) + 3, colon + 1);
+
+		g_free (retval);
+		retval = new_retval;
+	}
+#endif
+	g_free (fake_uri);
+	
+	return retval;
+}
+
+#ifdef UNIT_TEST_URI_CONVERSIONS
+
+/* To test the uri<->filename code, cut&paste the above two functions
+ * and this part into a separate file, insert #include <glib.h>, and
+ * build with -DUNIT_TEST_URI_CONVERSIONS.
+ */
+
+static const char *const tests[][3] = {
+	/* Each test case has three strings:
+	 *
+	 * 0) a URI, the source for the uri->filename conversion test,
+	 * or NULL if this test is only for the filename->uri
+	 * direction.
+	 *
+	 * 1) a filename or NULL, the expected result from
+	 * uri->filename conversion. If non-NULL also the source for
+	 * the filename->uri conversion test,
+	 *
+	 * 2) a URI if the expected result from filename->uri is
+	 * different than string 0, or NULL if the result should be
+	 * equal to string 0.
+	 */
+	{ "file:///top/s%20pace%20d/sub/file", "/top/s pace d/sub/file", NULL },
+	{ "file:///top/sub/sub/", "/top/sub/sub/", NULL },
+	{ "file:///top/sub/file#segment", NULL, NULL },
+	{ "file://tem", NULL, NULL },
+	{ "file:/tem", "/tem", "file:///tem" },
+	{ "file:sub/tem", "sub/tem", "sub/tem" },
+	{ "sub/tem", "sub/tem", NULL },
+	{ "s%20pace%20d/tem", "s pace d/tem", NULL },
+	{ "tem", "tem", NULL },
+	{ "tem#segment", NULL, NULL },
+#ifdef G_OS_WIN32
+	/* More or less same tests, but including a drive letter */
+	{ "file:///x:/top/s%20pace%20d/sub/file", "x:/top/s pace d/sub/file", NULL },
+	{ "file:///x:top/sub/sub/", "x:top/sub/sub/", "x%3atop/sub/sub/" },
+	{ "file:///x:top/sub/file#segment", NULL, NULL },
+	{ "file://x:tem", NULL, NULL },
+	{ "file:x:/tem", "x:/tem", "file:///x:/tem" },
+	{ "file:x:tem", "x:tem", "x%3atem" },
+	{ "file:x:sub/tem", "x:sub/tem", "x%3asub/tem" },
+	{ "x%3as%20pace%20d/tem", "x:s pace d/tem", NULL },
+	{ "x%3atem", "x:tem", NULL },
+	{ "x%3atem#segment", NULL, NULL },
+#endif
+#ifdef G_OS_UNIX
+	/* Test filenames with a colon in them. That's not possible on Win32 */
+	{ "file:///top/silly:name/bar", "/top/silly:name/bar", NULL },
+	{ "silly%3aname/bar", "silly:name/bar", NULL },
+	{ "silly%3aname", "silly:name", NULL },
+#endif
+  { NULL, NULL }
+};
+
+int
+main (int argc, char **argv)
+{
+	int failures = 0;
+	int i;
+
+	for (i = 0; i < G_N_ELEMENTS (tests); i++) {
+		gchar *filename;
+#ifdef G_OS_WIN32
+		gchar *expected_result;
+		gchar *slash;
+#else
+		const gchar *expected_result;
+#endif
+		if (tests[i][0] == NULL)
+			continue;
+
+		filename = gtk_html_filename_from_uri (tests[i][0]);
+#ifdef G_OS_WIN32
+		expected_result = g_strdup (tests[i][1]);
+		if (expected_result)
+			while ((slash = strchr (expected_result, '/')) != NULL)
+				*slash = '\\';
+#else
+		expected_result = tests[i][1];
+#endif
+
+		if (((filename == NULL) != (expected_result == NULL)) ||
+		    (filename != NULL && strcmp (filename, expected_result) != 0)) {
+			g_print ("FAIL: %s -> %s, GOT: %s\n",
+				 tests[i][0],
+				 expected_result ? expected_result : "NULL",
+				 filename ? filename : "NULL");
+			failures++;
+		} else {
+			g_print ("OK: %s -> %s\n",
+				 tests[i][0],
+				 filename ? filename : "NULL");
+		}
+	}
+
+	for (i = 0; i < G_N_ELEMENTS (tests); i++) {
+		gchar *uri;
+		const gchar *expected_result;
+
+		if (tests[i][1] == NULL)
+			continue;
+
+		uri = gtk_html_filename_to_uri (tests[i][1]);
+		expected_result = tests[i][2] ? tests[i][2] : tests[i][0];
+		if (((uri == NULL) != (expected_result == NULL)) ||
+		    (uri != NULL && strcmp (uri, expected_result) != 0)) {
+			g_printf ("FAIL: %s -> %s, GOT: %s\n",
+				  tests[i][1],
+				  expected_result ? expected_result : "NULL",
+				  uri ? uri : "NULL");
+			failures++;
+		} else {
+			g_print ("OK: %s -> %s\n",
+				 tests[i][1],
+				 uri ? uri : "NULL");
+		}
+	}
+
+#ifdef G_OS_WIN32
+	/* Test filename->uri also with backslashes */
+	for (i = 0; i < G_N_ELEMENTS (tests); i++) {
+		gchar *uri;
+		gchar *filename, *slash;
+		const gchar *expected_result;
+
+		if (tests[i][1] == NULL || strchr (tests[i][1], '/') == NULL)
+			continue;
+
+		filename = g_strdup (tests[i][1]);
+		while ((slash = strchr (filename, '/')) != NULL)
+			*slash = '\\';
+		uri = gtk_html_filename_to_uri (tests[i][1]);
+		expected_result = tests[i][2] ? tests[i][2] : tests[i][0];
+		if (((uri == NULL) != (expected_result == NULL)) ||
+		    (uri != NULL && strcmp (uri, expected_result) != 0)) {
+			g_printf ("FAIL: %s -> %s, GOT: %s\n",
+				  filename,
+				  expected_result ? expected_result : "NULL",
+				  uri ? uri : "NULL");
+			failures++;
+		} else {
+			g_print ("OK: %s -> %s\n",
+				 filename,
+				 uri ? uri : "NULL");
+		}
+	}
+#endif
+	
+	return failures != 0;
+}
+
+#endif

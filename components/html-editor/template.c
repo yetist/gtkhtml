@@ -34,6 +34,7 @@
 #include "htmlengine-edit-fontstyle.h"
 #include "htmlengine-edit-cut-and-paste.h"
 #include "htmlengine-save.h"
+#include "gtkhtml-private.h"
 
 #include "properties.h"
 #include "template.h"
@@ -79,6 +80,7 @@ typedef struct {
 	HTMLHAlignType default_halign;
 
 	gchar *template;
+	gchar *icon_filename;
 	gchar *translated_msg;
 } TemplateInsertTemplate;
 
@@ -89,12 +91,13 @@ static TemplateInsertTemplate template_templates [TEMPLATES] = {
 		TRUE, TRUE, 80, TRUE, HTML_HALIGN_CENTER,
 		"<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0\"@width@@align@><tr><td>"
 		"<table bgcolor=\"#fffff0\" cellpadding=3 cellspacing=0 width=\"100%\">"
-		"<tr><td valign=top><img src=\"file://" ICONDIR "/info_bulb.png\" hspace=3 vspace=2></td><td width=\"100%\">"
+		"<tr><td valign=top><img src=\"@icon@\" hspace=3 vspace=2></td><td width=\"100%\">"
 		"<!--+GtkHTML:<DATA class=\"ClueFlow\" key=\"template_text\" value=\"1\">-->"
 		"@message@"
 		"<!--+GtkHTML:<DATA class=\"ClueFlow\" clear=\"template_text\">-->"
 		"</td></tr></table>"
 		"</td></tr></table>",
+		"info_bulb.png",
 		N_("Place your text here")
 	},
 	{
@@ -105,7 +108,7 @@ static TemplateInsertTemplate template_templates [TEMPLATES] = {
 		"<table bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%\">"
 		"<tr><td align=\"center\">"
 		"<!--+GtkHTML:<DATA class=\"ClueFlow\" key=\"template_image\" value=\"1\">-->"
-		"<img src=\"file://" ICONDIR "/empty_image.png\" align=\"top\" border=\"0\">"
+		"<img src=\"@icon@\" align=\"top\" border=\"0\">"
 		"<!--+GtkHTML:<DATA class=\"ClueFlow\" clear=\"template_image\">-->"
 		"</td></tr>"
 		"<tr><td><font size=\"-1\">"
@@ -114,6 +117,7 @@ static TemplateInsertTemplate template_templates [TEMPLATES] = {
 		"<!--+GtkHTML:<DATA class=\"ClueFlow\" clear=\"template_text\">-->"
 		"</font></td>"
 		"</tr></table></td></tr></table>",
+		"empty_image.png",
 		N_("Place your text here")
 	},
 };
@@ -139,7 +143,7 @@ substitute_string (gchar *str, const gchar *var_name, const gchar *value)
 static gchar *
 get_sample_html (GtkHTMLEditTemplateProperties *d)
 {
-	gchar *html, *template, *body, *width, *align;
+	gchar *html, *template, *body, *width, *align, *filename, *filename_uri;
 
 	width = template_templates [d->template].has_width
 		? g_strdup_printf (" width=\"%d%s\"", d->width, d->width_percent ? "%" : "")
@@ -153,6 +157,11 @@ get_sample_html (GtkHTMLEditTemplateProperties *d)
 	template   = substitute_string (template, "@width@", width);
 	template   = substitute_string (template, "@align@", align);
 	template   = substitute_string (template, "@message@", _(template_templates [d->template].translated_msg));
+	filename = g_build_filename (ICONDIR, template_templates [d->template].icon_filename, NULL);
+	filename_uri = g_filename_to_uri (filename, NULL, NULL);
+	g_free (filename);
+	template   = substitute_string (template, "@icon@", filename_uri);
+	g_free (filename_uri);
 
 	body   = html_engine_save_get_sample_body (d->cd->html->engine, NULL);
 	html   = g_strconcat (body, template, NULL);
@@ -269,8 +278,11 @@ template_widget (GtkHTMLEditTemplateProperties *d, gboolean insert)
 {
 	GtkWidget *template_page, *frame;
 	GladeXML *xml;
+	gchar *filename;
 
-	xml = glade_xml_new (GLADE_DATADIR "/gtkhtml-editor-properties.glade", "vbox_template", GETTEXT_PACKAGE);
+	filename = g_build_filename (GLADE_DATADIR, "gtkhtml-editor-properties.glade", NULL);
+	xml = glade_xml_new (filename, "vbox_template", GETTEXT_PACKAGE);
+	g_free (filename);
 	if (!xml)
 		g_error (_("Could not load glade file."));
 

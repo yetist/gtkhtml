@@ -259,18 +259,18 @@ e_text_to_html_full (const char *input, unsigned int flags, guint32 color)
 		    (flags & E_TEXT_TO_HTML_CONVERT_URLS)) {
 			char *tmpurl = NULL, *refurl = NULL, *dispurl = NULL;
 
-			if (!strncasecmp (cur, "http://", 7) ||
-			    !strncasecmp (cur, "https://", 8) ||
-			    !strncasecmp (cur, "ftp://", 6) ||
-			    !strncasecmp (cur, "nntp://", 7) ||
-			    !strncasecmp (cur, "mailto:", 7) ||
-			    !strncasecmp (cur, "news:", 5)) {
+			if (!g_ascii_strncasecmp (cur, "http://", 7) ||
+			    !g_ascii_strncasecmp (cur, "https://", 8) ||
+			    !g_ascii_strncasecmp (cur, "ftp://", 6) ||
+			    !g_ascii_strncasecmp (cur, "nntp://", 7) ||
+			    !g_ascii_strncasecmp (cur, "mailto:", 7) ||
+			    !g_ascii_strncasecmp (cur, "news:", 5)) {
 				tmpurl = url_extract (&cur, TRUE);
 				if (tmpurl) {
 					refurl = e_text_to_html (tmpurl, 0);
 					dispurl = g_strdup (refurl);
 				}
-			} else if (!strncasecmp (cur, "www.", 4) &&
+			} else if (!g_ascii_strncasecmp (cur, "www.", 4) &&
 				   (*(cur + 4) < 0x80) &&
 				   g_unichar_isalnum (*(cur + 4))) {
 				tmpurl = url_extract (&cur, FALSE);

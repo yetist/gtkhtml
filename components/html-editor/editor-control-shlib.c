@@ -33,6 +33,7 @@
 #else
 #include <glib/gi18n.h>
 #endif
+#include "gtkhtml-private.h"
 
 #include "editor-control-factory.h"
 

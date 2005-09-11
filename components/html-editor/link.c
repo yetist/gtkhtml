@@ -39,6 +39,7 @@
 #include "htmlselection.h"
 #include "htmlsettings.h"
 #include "htmltext.h"
+#include "gtkhtml-private.h"
 
 #include "properties.h"
 #include "link.h"
@@ -186,8 +187,11 @@ link_widget (GtkHTMLEditLinkProperties *d, gboolean insert)
 {
 	GtkWidget *link_page, *button;
 	GladeXML *xml;
+	gchar *filename;
 
-	xml = glade_xml_new (GLADE_DATADIR "/gtkhtml-editor-properties.glade", "link_page", GETTEXT_PACKAGE);
+	filename = g_build_filename (GLADE_DATADIR, "gtkhtml-editor-properties.glade", NULL);
+	xml = glade_xml_new (filename, "link_page", GETTEXT_PACKAGE);
+	g_free (filename);
 	if (!xml)
 		g_error (_("Could not load glade file."));
 

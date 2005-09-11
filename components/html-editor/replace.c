@@ -31,6 +31,8 @@
 #include "replace.h"
 #include "dialog.h"
 #include "htmlengine.h"
+#include "gtkhtml-private.h"
+
 
 struct _GtkHTMLReplaceAskDialog {
 	GtkDialog  *dialog;
@@ -75,6 +77,7 @@ static GtkHTMLReplaceAskDialog *
 ask_dialog_new (HTMLEngine *e)
 {
 	GtkHTMLReplaceAskDialog *d;
+	char *filename;
 
 	d = g_new (GtkHTMLReplaceAskDialog, 1);
 	/* we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c */
@@ -87,7 +90,10 @@ ask_dialog_new (HTMLEngine *e)
 	d->engine = e;
 	d->finished = FALSE;
 
-	gnome_window_icon_set_from_file (GTK_WINDOW (d->dialog), ICONDIR "/search-and-replace-24.png");
+	filename = g_build_filename (ICONDIR, "search-and-replace-24.png", NULL);
+	gnome_window_icon_set_from_file (GTK_WINDOW (d->dialog), filename);
+	g_free (filename);
+
 	g_signal_connect (d->dialog, "response", G_CALLBACK (ask_dialog_response), d);
 
 	return d;
@@ -162,6 +168,7 @@ gtk_html_replace_dialog_new (GtkHTML *html, GtkHTMLControlData *cd)
 	GtkWidget *hbox, *vbox;
 	GtkWidget *table;
 	GtkWidget *label;
+	gchar *filename;
 
 	/* we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c */
 	dialog->dialog         = GTK_DIALOG (gtk_dialog_new_with_buttons (_("Replace"), NULL, 0,
@@ -212,7 +219,9 @@ gtk_html_replace_dialog_new (GtkHTML *html, GtkHTMLControlData *cd)
 	gtk_widget_show_all (table);
 	gtk_widget_show_all (hbox);
 
-	gnome_window_icon_set_from_file (GTK_WINDOW (dialog->dialog), ICONDIR "/search-and-replace-24.png");
+	filename = g_build_filename (ICONDIR, "search-and-replace-24.png", NULL);
+	gnome_window_icon_set_from_file (GTK_WINDOW (dialog->dialog), filename);
+	g_free (filename);
 
 	gtk_widget_grab_focus (dialog->entry_search);
 

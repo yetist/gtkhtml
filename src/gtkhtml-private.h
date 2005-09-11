@@ -94,6 +94,9 @@ void  gtk_html_im_reset                 (GtkHTML                *html);
 void  gtk_html_set_fonts                (GtkHTML                *html,
 					 HTMLPainter            *painter);
 
+gchar *gtk_html_filename_to_uri		(const gchar		*filename);
+gchar *gtk_html_filename_from_uri	(const gchar		*uri);
+
 #ifdef G_OS_WIN32
 
 const char *_get_icondir (void) G_GNUC_CONST;

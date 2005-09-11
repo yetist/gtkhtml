@@ -178,6 +178,12 @@ html_url_new (const gchar *s)
 					       ((reference_ptr - 1)
 						- path_start));
 	} else {
+#ifdef G_OS_WIN32
+		if (path_start[0] == '/' &&
+		    g_ascii_isalpha (path_start[1]) &&
+		    path_start[2] == ':')
+			path_start++;
+#endif
 		new->path = strdup_nonempty_or_null (path_start);
 	}
 

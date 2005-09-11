@@ -27,10 +27,13 @@
 #include <glib/gi18n.h>
 #endif
 #include <string.h>
+#include <glib.h>
+#include <glib/gstdio.h>
 #include "gtkhtml-compat.h"
 #include "htmlcursor.h"
 #include "htmlengine.h"
 #include "htmlobject.h"
+#include "gtkhtml-private.h"
 
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -38,6 +41,10 @@
 #include <gnome.h>
 #include "utils.h"
 #include "properties.h"
+
+#ifndef O_BINARY
+#define O_BINARY 0
+#endif
 
 GtkWidget *
 color_table_new (GtkSignalFunc f, gpointer data)
@@ -85,11 +92,11 @@ url_requested (GtkHTML *html, const gchar *url, GtkHTMLStream *handle)
 {
 	GtkHTMLStreamStatus status;
 	gint fd;
+	gchar *filename;
 
-	if (!strncmp (url, "file:", 5))
-		url += 5;
-
-	fd = open (url, O_RDONLY);
+	filename = gtk_html_filename_from_uri (url);
+	fd = g_open (filename, O_RDONLY|O_BINARY, 0);
+	g_free (filename);
 	status = GTK_HTML_STREAM_OK;
 	if (fd != -1) {
 		ssize_t size;
@@ -204,8 +211,11 @@ editor_check_stock ()
 	if (!stock_test_url_added) {
 		GdkPixbuf *pixbuf;
 		GError *error = NULL;
+		gchar *filename;
 
-		pixbuf = gdk_pixbuf_new_from_file (ICONDIR "/insert-link-16.png", &error);
+		filename = g_build_filename (ICONDIR, "insert-link-16.png", NULL);
+		pixbuf = gdk_pixbuf_new_from_file (filename, &error);
+		g_free (filename);
 		if (!pixbuf) {
 			g_error_free (error);
 		} else {

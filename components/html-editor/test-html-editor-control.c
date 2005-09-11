@@ -39,6 +39,7 @@
 #include "editor-control-factory.h"
 
 #include "gtkhtml.h"
+#include "gtkhtml-private.h"
 #include "gtkhtml-properties.h"
 #include "htmlsourceview.h"
 

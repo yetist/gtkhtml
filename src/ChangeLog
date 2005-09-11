@@ -1,3 +1,36 @@
+2005-09-11  Tor Lillqvist  <tml@novell.com>
+
+	* gtkhtml.c (gtk_html_filename_to_uri,
+	gtk_html_filename_from_uri): New functions. Like
+	g_filename_to_uri() and _from_uri(), except also accept
+	non-absolute filenames and URIs pointing to such. As far as I know
+	relative file: URIs should *not* contain the file: scheme prefix,
+	or any hostname including slashes around hostname. But accept URIs
+	like file:foo.bar, or even foo:/dir/path/foo.bar anyway for
+	backward compatibility. URI-encode and decode. Handle drive
+	letters on Win32.
+	(main) Unit test (obvously not compiled normally, copy-paste to a
+	new file to test).
+
+	* gtkhtml-private.h: Declare above new functions.
+
+	* htmlurl.c (host_url_new): On Win32, skip slash in front of drive
+	letter.
+
+	* testgtkhtml.c: Use stdio wrapper to open file. Use binary mode
+	on Win32. Use gtk_html_filename_from_uri() instead of just
+	stripping away the file: prefix. Use f_filename_to_uri() instead
+	of just prefixing file:.
+	
+	* htmlengine.c
+	* htmlentity.c
+	* htmlshape.c
+	* htmlstyle.c
+	* htmltext.c
+	* testgtkhtml.c: Use g_ascii_strcasecmp() for portability and
+	well-definedness instead of strcasecmp(). Ditto for
+	g_ascii_strncasecmp() instead of strncasecmp().
+
 2005-08-23  Not Zed  <NotZed@Ximian.com>
 
 	* test-suite.c (plain_save_receiver): use right type for len.

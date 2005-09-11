@@ -102,10 +102,14 @@ paste_cite (GtkWidget *mi, GtkHTMLControlData *cd)
 static void
 insert_link (GtkWidget *mi, GtkHTMLControlData *cd)
 {
+	char *filename;
+
 	if (cd->properties_dialog)
 		gtk_html_edit_properties_dialog_close (cd->properties_dialog);
 
-	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, _("Insert"), ICONDIR "/insert-link-24.png");
+	filename = g_build_filename (ICONDIR, "insert-link-24.png", NULL);
+	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, _("Insert"), filename);
+	g_free (filename);
 
 	gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
 						   GTK_HTML_EDIT_PROPERTY_LINK, _("Link"),
@@ -263,10 +267,14 @@ prop_dialog (GtkWidget *mi, GtkHTMLControlData *cd)
 static void
 link_prop_dialog (GtkWidget *mi, GtkHTMLControlData *cd)
 {
+	char *filename;
+
 	if (cd->properties_dialog)
 		gtk_html_edit_properties_dialog_close (cd->properties_dialog);
 
-	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, _("Properties"), ICONDIR "/insert-link-24.png");
+	filename = g_build_filename (ICONDIR, "insert-link-24.png", NULL);
+	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, _("Properties"), filename);
+	g_free (filename);
 
 	gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
 						   GTK_HTML_EDIT_PROPERTY_LINK, _("Link"),

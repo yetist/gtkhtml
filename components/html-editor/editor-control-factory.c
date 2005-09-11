@@ -37,10 +37,15 @@
 #include <bonobo.h>
 #include <stdio.h>
 #include <glib.h>
+#include <glib/gstdio.h>
 #include <errno.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+
+#ifndef O_BINARY
+#define O_BINARY 0
+#endif
 
 #include <gtk/gtkscrolledwindow.h>
 
@@ -248,7 +253,7 @@ load_from_file (GtkHTML *html,
 	else
 		path = g_strdup(url);
 
-	fd = open (path, O_RDONLY);
+	fd = g_open (path, O_RDONLY|O_BINARY, 0);
 	g_free(path);
 
 	if (fd == -1) {

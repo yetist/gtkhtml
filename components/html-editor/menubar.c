@@ -50,6 +50,7 @@
 #include "htmlrule.h"
 #include "htmltable.h"
 #include "htmlselection.h"
+#include "gtkhtml-private.h"
 
 #include "menubar.h"
 #include "gtkhtml.h"
@@ -118,8 +119,7 @@ insert_image_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cna
 #else
 			filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION (filesel));
 #endif
-			if (filename)
-				url = g_strconcat ("file://", filename, NULL);
+			url = gtk_html_filename_to_uri (filename);
 			img = html_image_new (html_engine_get_image_factory (cd->html->engine), url,
 					      NULL, NULL, 0, 0, 0, 0, 0, NULL, HTML_VALIGN_NONE, FALSE);
 			html_engine_paste_object (cd->html->engine, img, 1);
@@ -132,10 +132,14 @@ insert_image_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cna
 static void
 insert_link_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
+	char *filename;
+
 	if (cd->properties_dialog)
 		gtk_html_edit_properties_dialog_close (cd->properties_dialog);
 
-	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, _("Insert"), ICONDIR "/insert-link-24.png");
+	filename = g_build_filename (ICONDIR, "insert-link-24.png", NULL);
+	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, _("Insert"), filename);
+	g_free (filename);
 
 	gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
 						   GTK_HTML_EDIT_PROPERTY_LINK, _("Link"),
@@ -149,12 +153,16 @@ insert_link_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cnam
 static void
 insert_rule_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
+	char *filename;
+
 	if (cd->properties_dialog)
 		gtk_html_edit_properties_dialog_close (cd->properties_dialog);
 
 	html_engine_insert_rule (cd->html->engine, 0, 100, 2, FALSE, HTML_HALIGN_LEFT);
 
-	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, _("Insert"), ICONDIR "/insert-rule-24.png");
+	filename = g_build_filename (ICONDIR, "insert-rule-24.png", NULL);
+	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, _("Insert"), filename);
+	g_free (filename);
 
 	gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
 						   GTK_HTML_EDIT_PROPERTY_RULE, _("Rule"),
@@ -167,6 +175,8 @@ insert_rule_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cnam
 void
 insert_table (GtkHTMLControlData *cd)
 {
+	char *filename;
+
 	if (cd->properties_dialog)
 		gtk_html_edit_properties_dialog_close (cd->properties_dialog);
 
@@ -178,7 +188,9 @@ insert_table (GtkHTMLControlData *cd)
 		html_engine_table_set_cols (cd->html->engine, 3);
 		html_engine_table_set_rows (cd->html->engine, 3);
 	}
-	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, _("Insert"), ICONDIR "/insert-table-24.png");
+	filename = g_build_filename (ICONDIR, "insert-table-24.png", NULL);
+	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, _("Insert"), filename);
+	g_free (filename);
 
 	gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
 						   GTK_HTML_EDIT_PROPERTY_TABLE, _("Table"),
@@ -197,10 +209,14 @@ insert_table_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cna
 static void
 insert_template_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
+	char *filename;
+
 	if (cd->properties_dialog)
 		gtk_html_edit_properties_dialog_close (cd->properties_dialog);
 
-	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, _("Insert"), ICONDIR "/insert-object-24.png");
+	filename = g_build_filename (ICONDIR, "insert-object-24.png", NULL);
+	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, _("Insert"), filename);
+	g_free (filename);
 
 	gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
 						   GTK_HTML_EDIT_PROPERTY_TABLE, _("Template"),
@@ -707,6 +723,8 @@ static void
 smiley_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
 	gint i;
+	char *filename;
+	char *filename_uri;
 
 	g_return_if_fail (cname);
 
@@ -714,7 +732,13 @@ smiley_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 
 	if (i >=0 && i < SMILEYS) {
 		gchar *s;
-		s = g_strdup_printf ("<IMG ALT=\"%s\" SRC=\"file://" ICONDIR "/smiley-%d.png\">", smiley [i], i + 1);
+		s = g_strdup_printf ("smiley-%d.png", i + 1);
+		filename = g_build_filename (ICONDIR, s, NULL);
+		g_free (s);
+		filename_uri = gtk_html_filename_to_uri (filename);
+		g_free (filename);
+		s = g_strdup_printf ("<IMG ALT=\"%s\" SRC=\"%s\">", smiley [i], filename_uri);
+		g_free (filename_uri);
 		gtk_html_insert_html (cd->html, s);
 		g_free (s);
 	}

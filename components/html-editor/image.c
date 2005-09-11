@@ -38,6 +38,7 @@
 #include "htmlengine-save.h"
 #include "htmlimage.h"
 #include "htmlsettings.h"
+#include "gtkhtml-private.h"
 
 #include "image.h"
 #include "properties.h"
@@ -109,11 +110,11 @@ get_location (GtkHTMLEditImageProperties *d)
 
 	file = gnome_pixmap_entry_get_filename (GNOME_PIXMAP_ENTRY (d->pentry));
 	if (file) {
-		url = g_strconcat ("file://", file, NULL);
+		url = gtk_html_filename_to_uri (file);
 	} else {
 		GtkWidget *entry = gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY (d->pentry));
 
-		url = g_strdup (gtk_entry_get_text (GTK_ENTRY (entry)));
+		url = gtk_html_filename_to_uri (gtk_entry_get_text (GTK_ENTRY (entry)));
 	}
 
 	if (!url)
@@ -280,12 +281,10 @@ image_set_ui (GtkHTMLEditImageProperties *d)
 		if (!HTML_OBJECT (image)->parent || !html_object_get_data (HTML_OBJECT (image)->parent, "template_image")) {
 
 			if (ip->url) {
-				gint off = 0;
-				if (!strncmp (ip->url, "file://", 7))
-					off = 7;
-				else if (!strncmp (ip->url, "file:", 5))
-					off = 5;
-				gtk_entry_set_text (GTK_ENTRY (gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY (d->pentry))), ip->url + off);
+				gchar *filename = gtk_html_filename_from_uri (ip->url);
+				
+				gtk_entry_set_text (GTK_ENTRY (gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY (d->pentry))), filename);
+				g_free (filename);
 			}
 		}
 
@@ -348,8 +347,11 @@ image_widget (GtkHTMLEditImageProperties *d, gboolean insert)
 {
 	GladeXML *xml;
 	GtkWidget *frame_template, *button;
+	gchar *filename;
 
-	xml = glade_xml_new (GLADE_DATADIR "/gtkhtml-editor-properties.glade", "image_page", GETTEXT_PACKAGE);
+	filename = g_build_filename (GLADE_DATADIR, "gtkhtml-editor-properties.glade", NULL);
+	xml = glade_xml_new (filename, "image_page", GETTEXT_PACKAGE);
+	g_free (filename);
 	if (!xml)
 		g_error (_("Could not load glade file."));
 

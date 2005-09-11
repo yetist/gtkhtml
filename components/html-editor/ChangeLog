@@ -1,3 +1,81 @@
+2005-09-11  Tor Lillqvist  <tml@novell.com>
+
+	* Makefile.am (AM_CFLAGS): Use DATADIRNAME in GNOMELOCALEDIR so it
+	works also on systems where message catalogs are in lib/locale,
+	not share/locale.
+
+	* cell.c
+	* e-html-utils.c
+	* table.c: Use g_ascii_strcasecmp() for portability and
+	well-definedness instead of strcasecmp(). Ditto for
+	g_ascii_strncasecmp() instead of strncasecmp().
+
+	* cell.c (set_bg_pixmap)
+	* image.c (get_location)
+	* menubar.c (insert_image_cb, smiley_cb): Use
+	gtk_html_filename_to_uri() instead of just prefixing the filename
+	with "file://". (Absolute) file URIs on Windows look like
+	file:///c:/foo/bar/image.png. This also takes care of properly
+	URI-encoding non-ASCII characters in the pathname.
+
+	* cell.c (set_ui)
+	* image.c (image_set_ui)
+	* table.c (set_ui)
+	* utils.c (url_requested): Correspondingly, use
+	gtk_html_filename_from_uri() instead of just stripping off the
+	"file://" or "file:" prefix.
+
+2005-09-11  Tor Lillqvist  <tml@novell.com>
+
+	Changes to support install-anywhere on Win32. Don't use
+	compile-time pathnames. Construct pathnames at run-time, using the
+	installation prefix deduced from the location of the DLL.
+
+	Makefile.am (%.xml:%.xml.in): On Win32, use a relative path
+	(relative to share/pixmaps, which is where gnome_program_locate_file() 
+	looks for pixmaps with relative pathnames) on Win32 when expanding
+	@ICONSDIR@ in the .xml.in files.
+
+	* body.c (body_templates[]): Don't use full compile-time paths to
+	the images here, just the basenames.
+	(changed_template): Build the pathname at run-time here, instead.
+
+	* cell.c (cell_widget, cell_widget)
+	* image.c (image_widget)
+	* link.c (link_widget)
+	* menubar.c (insert_link_cb, insert_rule_cb, insert_table,
+	insert_template_cb, smiley_cb)
+	* popup.c (insert_link, link_prop_dialog)
+	* replace.c (ask_dialog_new, gtk_html_replace_dialog_new)
+	* rule.c (rule_widget)
+	* table.c (table_widget)
+	* template.c (template_widget)
+	* text.c (text_properties)
+	* toolbar.c (create_style_toolbar)
+	* utils.c (editor_check_stock): Build file paths at run-time, as
+	GLADE_DATADIR, ICONDIR and GTKHTML_DATADIR expand to function
+	calls on Win32.
+
+	* editor-control-factory.c
+	* utils.c: Define O_BINARY as 0 on Unix.  Open file in binary
+	mode. Use gstdio wrapper g_open() as the file names we manipulate
+	are in the GLib file name encoding (which is UTF-8 on Windows, not
+	the system codepage (multi-byte) expected by the C library).
+
+	* editor-control-shlib.c
+	* test-html-editor-control.c: Include gtkhtml-private.h to get the
+	Win32 redefinition of GNOMELOCALEDIR.
+
+	* resolver.c: Corresponding changes, although this file isn't
+	used.
+
+	* template.c (template_templates[]): Don't include the
+	compile-time ICONDIR paths in the template string. Use an @icon@
+	marker there instead. Keep just the icon basename in a separate
+	field.
+	(get_sample_html): Build the path to the icon file at run-time,
+	and replace the @icon@ marker with it.
+
 2005-08-24  Kaushal Kumar  <kakumar@novell.com>
 
 	* link.c (description_changed): Request for delete only if start and

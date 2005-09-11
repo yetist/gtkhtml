@@ -43,6 +43,7 @@
 #include "htmltable.h"
 #include "htmltablecell.h"
 #include "htmlsettings.h"
+#include "gtkhtml-private.h"
 
 #include "properties.h"
 #include "cell.h"
@@ -170,8 +171,7 @@ set_bg_pixmap (HTMLTableCell *cell, GtkHTMLEditCellProperties *d)
 	char *url = NULL;
 
 	file = gtk_entry_get_text (GTK_ENTRY (gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY (d->entry_bg_pixmap))));
-	if (file && *file)
-		url = g_strconcat ("file://", file, NULL);
+	url = gtk_html_filename_to_uri (file);
 
 	html_engine_table_cell_set_bg_pixmap (d->cd->html->engine, cell, url);
 	g_free (url);
@@ -331,8 +331,11 @@ cell_widget (GtkHTMLEditCellProperties *d)
 {
 	GtkWidget *cell_page;
 	GladeXML *xml;
+	gchar *filename;
 
-	xml = glade_xml_new (GLADE_DATADIR "/gtkhtml-editor-properties.glade", "cell_page", GETTEXT_PACKAGE);
+	filename = g_build_filename (GLADE_DATADIR, "gtkhtml-editor-properties.glade", NULL);
+	xml = glade_xml_new (filename, "cell_page", GETTEXT_PACKAGE);
+	g_free (filename);
 	if (!xml)
 		g_error (_("Could not load glade file."));
 
@@ -341,15 +344,21 @@ cell_widget (GtkHTMLEditCellProperties *d)
 	gtk_table_attach (GTK_TABLE (glade_xml_get_widget (xml, "cell_scope_table1")),
 			  gtk_image_new_from_file (gnome_icon_theme_lookup_icon (d->cd->icon_theme, "stock_select-cell", 16, NULL, NULL)),
 			  0, 1, 0, 1, 0, 0, 0, 0);
+	filename = g_build_filename (ICONDIR, "table-table-16.png", NULL);
 	gtk_table_attach (GTK_TABLE (glade_xml_get_widget (xml, "cell_scope_table1")),
-			  gtk_image_new_from_file (ICONDIR "/table-table-16.png"),
+			  gtk_image_new_from_file (filename),
 			  0, 1, 1, 2, 0, 0, 0, 0);
+	g_free (filename);
+	filename = g_build_filename (ICONDIR, "table-row-16.png", NULL);
 	gtk_table_attach (GTK_TABLE (glade_xml_get_widget (xml, "cell_scope_table2")),
-			  gtk_image_new_from_file (ICONDIR "/table-row-16.png"),
+			  gtk_image_new_from_file (filename),
 			  0, 1, 0, 1, 0, 0, 0, 0);
+	g_free (filename);
+	filename = g_build_filename (ICONDIR, "table-column-16.png", NULL);
 	gtk_table_attach (GTK_TABLE (glade_xml_get_widget (xml, "cell_scope_table2")),
-			  gtk_image_new_from_file (ICONDIR "/table-column-16.png"),
+			  gtk_image_new_from_file (filename),
 			  0, 1, 1, 2, 0, 0, 0, 0);
+	g_free (filename);
 
 	d->combo_bg_color = gi_color_combo_new (NULL, _("Transparent"), NULL,
 					     color_group_fetch ("cell_bg_color", d->cd));
@@ -410,14 +419,11 @@ set_ui (GtkHTMLEditCellProperties *d)
 		gi_color_combo_set_color (GI_COLOR_COMBO (d->combo_bg_color), &d->cell->bg);
 
 	if (d->cell->have_bgPixmap) {
-		int off = 0;
+		char *filename = gtk_html_filename_from_uri (d->cell->bgPixmap->url);
 
-		if (!strncasecmp ("file://", d->cell->bgPixmap->url, 7))
-			off = 7;
-		else if (!strncasecmp ("file:", d->cell->bgPixmap->url, 5))
-			off = 5;
 		gtk_entry_set_text (GTK_ENTRY (gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY (d->entry_bg_pixmap))),
-				    d->cell->bgPixmap->url + off);
+				    filename);
+		g_free (filename);
 	}
 
 	if (HTML_CLUE (d->cell)->halign == HTML_HALIGN_NONE)

@@ -158,13 +158,13 @@ static HTMLShapeType
 parse_shape_type (char *token) {
 	HTMLShapeType type = HTML_SHAPE_RECT;
 
-	if (!token || strncasecmp (token, "rect", 4) == 0)
+	if (!token || g_ascii_strncasecmp (token, "rect", 4) == 0)
 		type = HTML_SHAPE_RECT;
-	else if (strncasecmp (token, "poly", 4) == 0)
+	else if (g_ascii_strncasecmp (token, "poly", 4) == 0)
 		type = HTML_SHAPE_POLY;
-	else if (strncasecmp (token, "circle", 6) == 0)
+	else if (g_ascii_strncasecmp (token, "circle", 6) == 0)
 		type = HTML_SHAPE_CIRCLE;
-	else if (strncasecmp (token, "default", 7) == 0)
+	else if (g_ascii_strncasecmp (token, "default", 7) == 0)
 		type = HTML_SHAPE_DEFAULT;
 
 	return type;

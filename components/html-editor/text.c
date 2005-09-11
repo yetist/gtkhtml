@@ -39,6 +39,7 @@
 #include "htmlselection.h"
 #include "htmlsettings.h"
 #include "htmltext.h"
+#include "gtkhtml-private.h"
 
 #include "text.h"
 #include "properties.h"
@@ -155,10 +156,13 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	GtkHTMLEditTextProperties *d = g_new (GtkHTMLEditTextProperties, 1);
 	GtkWidget *text_page;
 	GladeXML *xml;
+	gchar *filename;
 
 	d->cd = cd;
 	*set_data = d;
-	xml = glade_xml_new (GLADE_DATADIR "/gtkhtml-editor-properties.glade", "text_page", GETTEXT_PACKAGE);
+	filename = g_build_filename (GLADE_DATADIR, "gtkhtml-editor-properties.glade", NULL);
+	xml = glade_xml_new (filename, "text_page", GETTEXT_PACKAGE);
+	g_free (filename);
 	if (!xml)
 		g_error (_("Could not load glade file."));
 

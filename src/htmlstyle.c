@@ -367,9 +367,9 @@ parse_border_style (HTMLStyle *style, char *value)
 	while (isspace (*value))
 		value ++;
 
-	if (!strcasecmp (value, "solid"))
+	if (!g_ascii_strcasecmp (value, "solid"))
 		style = html_style_set_border_style (style, HTML_BORDER_SOLID);
-	else if (!strcasecmp (value, "inset"))
+	else if (!g_ascii_strcasecmp (value, "inset"))
 		style = html_style_set_border_style (style, HTML_BORDER_INSET);
 
 	return style;
@@ -395,11 +395,11 @@ parse_border_width (HTMLStyle *style, char *value)
 	while (isspace (*value))
 		value ++;
 
-	if (!strcasecmp (value, "thin"))
+	if (!g_ascii_strcasecmp (value, "thin"))
 		style = html_style_set_border_width (style, 1);
-	else if (!strcasecmp (value, "medium"))
+	else if (!g_ascii_strcasecmp (value, "medium"))
 		style = html_style_set_border_width (style, 2);
-	else if (!strcasecmp (value, "thick"))
+	else if (!g_ascii_strcasecmp (value, "thick"))
 		style = html_style_set_border_width (style, 5);
 	else if (isdigit (*value))
 		style = html_style_set_border_width (style, atoi (value));
@@ -455,7 +455,7 @@ html_style_add_attribute (HTMLStyle *style, const char *attr)
 			char *text;
 			
 			text = g_strstrip (prop[i]);
-			if (!strncasecmp ("color: ", text, 7)) {
+			if (!g_ascii_strncasecmp ("color: ", text, 7)) {
 				GdkColor color;
 
 				if (html_parse_color (g_strstrip (text + 7), &color)) {
@@ -464,7 +464,7 @@ html_style_add_attribute (HTMLStyle *style, const char *attr)
 				        html_color_unref (hc);
 				
 				}
-			} else if (!strncasecmp ("background: ", text, 12)) {
+			} else if (!g_ascii_strncasecmp ("background: ", text, 12)) {
 				GdkColor color;
 				
 				if (html_parse_color (text + 12, &color)) {
@@ -472,7 +472,7 @@ html_style_add_attribute (HTMLStyle *style, const char *attr)
 					style = html_style_add_background_color (style, hc);
 				        html_color_unref (hc);
 				}
-			} else if (!strncasecmp ("background-color: ", text, 18)) {
+			} else if (!g_ascii_strncasecmp ("background-color: ", text, 18)) {
 				GdkColor color;
 
 				if (html_parse_color (text + 18, &color)) {
@@ -480,69 +480,69 @@ html_style_add_attribute (HTMLStyle *style, const char *attr)
 					style = html_style_add_background_color (style, hc);
 				        html_color_unref (hc);
 				}
-			} else if (!strncasecmp ("background-image: ", text, 18)) {
+			} else if (!g_ascii_strncasecmp ("background-image: ", text, 18)) {
 				style = html_style_add_background_image (style, text + 18);
 				
-			} else if (!strncasecmp ("border: ", text, 8)) {
+			} else if (!g_ascii_strncasecmp ("border: ", text, 8)) {
 				style = parse_border (style, text + 8);
-			} else if (!strncasecmp ("border-style: ", text, 14)) {
+			} else if (!g_ascii_strncasecmp ("border-style: ", text, 14)) {
 				style = parse_border_style (style, text + 14);
-			} else if (!strncasecmp ("border-color: ", text, 14)) {
+			} else if (!g_ascii_strncasecmp ("border-color: ", text, 14)) {
 				style = parse_border_color (style, text + 14);
-			} else if (!strncasecmp ("border-width: ", text, 14)) {
+			} else if (!g_ascii_strncasecmp ("border-width: ", text, 14)) {
 				style = parse_border_width (style, text + 14);
-			} else if (!strncasecmp ("padding: ", text, 9)) {
+			} else if (!g_ascii_strncasecmp ("padding: ", text, 9)) {
 				char *value = text + 9;
 
 				style = html_style_set_padding (style, atoi (value));
-			} else if (!strncasecmp ("white-space: ", text, 13)) {
+			} else if (!g_ascii_strncasecmp ("white-space: ", text, 13)) {
 				/* normal, pre, nowrap, pre-wrap, pre-line, inherit  */
 				/*
-				if (!strcasecmp ("normal", text + 13)) {
+				if (!g_ascii_strcasecmp ("normal", text + 13)) {
 					style = html_style_set_white_space (style, HTML_WHITE_SPACE_NORMAL);
-				} else if (!strcasecmp ("pre", text + 13)) {
+				} else if (!g_ascii_strcasecmp ("pre", text + 13)) {
 					style = html_style_set_white_space (style, HTML_WHITE_SPACE_PRE);
-				} else if (!strcasecmp ("nowrap", text + 13)) {
+				} else if (!g_ascii_strcasecmp ("nowrap", text + 13)) {
 					style = html_style_set_white_space (style, HTML_WHITE_SPACE_NOWRAP);
-				} else if (!strcasecmp ("pre-wrap", text + 13)) {
+				} else if (!g_ascii_strcasecmp ("pre-wrap", text + 13)) {
 					style = html_style_set_white_space (style, HTML_WHITE_SPACE_PRE_WRAP);
-				} else if (!strcasecmp ("pre-line", text + 13)) {
+				} else if (!g_ascii_strcasecmp ("pre-line", text + 13)) {
 					style = html_style_set_white_space (style, HTML_WHITE_SPACE_PRE_LINE);
-				} else if (!strcasecmp ("inherit", text + 13)) {
+				} else if (!g_ascii_strcasecmp ("inherit", text + 13)) {
 					style = html_style_set_white_space (style, HTML_WHITE_SPACE_INHERIT);
 				}
 				*/
-			} else if (!strncasecmp ("text-decoration: none", text, 21)) {
+			} else if (!g_ascii_strncasecmp ("text-decoration: none", text, 21)) {
 				style = html_style_unset_decoration (style, ~GTK_HTML_FONT_STYLE_SIZE_MASK);
-			} else if (!strncasecmp ("display: ", text, 9)) {
+			} else if (!g_ascii_strncasecmp ("display: ", text, 9)) {
 				char *value = text + 9;
-				if (!strcasecmp ("block", value)) { 
+				if (!g_ascii_strcasecmp ("block", value)) { 
 					style = html_style_set_display (style, DISPLAY_BLOCK);
-				} else if (!strcasecmp ("inline", value)) {
+				} else if (!g_ascii_strcasecmp ("inline", value)) {
 					style = html_style_set_display (style, DISPLAY_INLINE);
-				} else if (!strcasecmp ("none", value)) {
+				} else if (!g_ascii_strcasecmp ("none", value)) {
 					style = html_style_set_display (style, DISPLAY_NONE);
-				} else if (!strcasecmp ("inline-table", value)) {
+				} else if (!g_ascii_strcasecmp ("inline-table", value)) {
 					style = html_style_set_display (style, DISPLAY_INLINE_TABLE);
 				}
-			} else if (!strncasecmp ("text-align: center", text, 18)) {
+			} else if (!g_ascii_strncasecmp ("text-align: center", text, 18)) {
 				style = html_style_add_text_align (style, HTML_HALIGN_CENTER);
-			} else if (!strncasecmp ("width: ", text, 7)) {
+			} else if (!g_ascii_strncasecmp ("width: ", text, 7)) {
 				style = html_style_add_width (style, text + 7);
-			} else if (!strncasecmp ("height: ", text, 8)) {
+			} else if (!g_ascii_strncasecmp ("height: ", text, 8)) {
 				style = html_style_add_height (style, text + 8);
-			} else if (!strncasecmp ("clear: ", text, 7)) {
+			} else if (!g_ascii_strncasecmp ("clear: ", text, 7)) {
 				char *value = text + 7;
 
-				if (!strcasecmp ("left", value)) { 
+				if (!g_ascii_strcasecmp ("left", value)) { 
 					style = html_style_set_clear (style, HTML_CLEAR_LEFT); 
-				} else if (!strcasecmp ("right", value)) {
+				} else if (!g_ascii_strcasecmp ("right", value)) {
 					style = html_style_set_clear (style, HTML_CLEAR_RIGHT); 
-				} else if (!strcasecmp ("both", value)) {
+				} else if (!g_ascii_strcasecmp ("both", value)) {
 					style = html_style_set_clear (style, HTML_CLEAR_ALL); 
-				} else if (!strcasecmp ("inherit", value)) {
+				} else if (!g_ascii_strcasecmp ("inherit", value)) {
 					style = html_style_set_clear (style, HTML_CLEAR_INHERIT);
-				} else if (!strcasecmp ("none", value)) {
+				} else if (!g_ascii_strcasecmp ("none", value)) {
 					style = html_style_set_clear (style, HTML_CLEAR_NONE);
 				}
 			}

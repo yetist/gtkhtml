@@ -1631,7 +1631,7 @@ save_open_attrs (HTMLEngineSaveState *state, GSList *attrs)
 		case PANGO_ATTR_FAMILY: {
 			PangoAttrString *family_attr = (PangoAttrString *) attr;
 
-			if (!strcasecmp (e->painter->font_manager.fixed.face
+			if (!g_ascii_strcasecmp (e->painter->font_manager.fixed.face
 					? e->painter->font_manager.fixed.face : "Monospace",
 					family_attr->value))
 				tag = "<TT>";
@@ -1695,7 +1695,7 @@ save_close_attrs (HTMLEngineSaveState *state, GSList *attrs)
 		case PANGO_ATTR_FAMILY: {
 			PangoAttrString *family_attr = (PangoAttrString *) attr;
 
-			if (!strcasecmp (e->painter->font_manager.fixed.face
+			if (!g_ascii_strcasecmp (e->painter->font_manager.fixed.face
 					? e->painter->font_manager.fixed.face : "Monospace",
 					family_attr->value))
 				tag = "</TT>";
@@ -3336,8 +3336,8 @@ html_link_free (Link *link)
 gboolean
 html_link_equal (Link *l1, Link *l2)
 {
-	return l1->url && l2->url && !strcasecmp (l1->url, l2->url)
-		&& (l1->target == l2->target || (l1->target && l2->target && !strcasecmp (l1->target, l2->target)));
+	return l1->url && l2->url && !g_ascii_strcasecmp (l1->url, l2->url)
+		&& (l1->target == l2->target || (l1->target && l2->target && !g_ascii_strcasecmp (l1->target, l2->target)));
 }
 
 Link *
