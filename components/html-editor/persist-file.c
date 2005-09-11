@@ -150,7 +150,7 @@ impl_load (PortableServer_Servant servant, const CORBA_char *path, CORBA_Environ
 	gboolean was_editable;
 	int fd;
 
-	fd = g_open (path, O_RDONLY | O_BINARY);
+	fd = g_open (path, O_RDONLY | O_BINARY, 0);
 	if (fd == -1)
 		return;
 
