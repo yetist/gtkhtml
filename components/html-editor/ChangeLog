@@ -10,6 +10,7 @@
 	well-definedness instead of strcasecmp(). Ditto for
 	g_ascii_strncasecmp() instead of strncasecmp().
 
+	* body.c (entry_changed)
 	* cell.c (set_bg_pixmap)
 	* image.c (get_location)
 	* menubar.c (insert_image_cb, smiley_cb)
@@ -22,12 +23,16 @@
 	* editor-control-factory.c (load_from_file): Use
 	gtk_html_filename_from_uri() instead of g_filename_from_uri().
 
+	* body.c (body_properties)
 	* cell.c (set_ui)
 	* image.c (image_set_ui)
 	* table.c (set_ui)
 	* utils.c (url_requested): Correspondingly, use
 	gtk_html_filename_from_uri() instead of just stripping off the
 	"file://" or "file:" prefix.
+
+	* persist-file.c (impl_load, impl_save): Use g_open() instead of
+	open() here, too.
 
 2005-09-11  Tor Lillqvist  <tml@novell.com>
 

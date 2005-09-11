@@ -166,7 +166,7 @@ entry_changed (GtkWidget *w, GtkHTMLEditBodyProperties *data)
 
 	fname = gtk_entry_get_text (GTK_ENTRY (w));
 	if (fname && *fname) {
-		gchar *file = g_strconcat ("file:", fname, NULL);
+		gchar *file = gtk_html_filename_to_uri (fname);
 
 		e->bgPixmapPtr = html_image_factory_register (e->image_factory, NULL, file, TRUE);
 		g_free (file);
@@ -297,12 +297,11 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	data->pixmap_entry = gnome_pixmap_entry_new ("background_image", _("Background Image"), FALSE);
 	if (cd->html->engine->bgPixmapPtr) {
 		HTMLImagePointer *ip = (HTMLImagePointer *) cd->html->engine->bgPixmapPtr;
-		guint off = 0;
-		 if (!strncmp (ip->url, "file:", 5))
-			 off = 5;
-
-		 gtk_entry_set_text (GTK_ENTRY (gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY (data->pixmap_entry))),
-				     ip->url + off);
+		gchar *filename = gtk_html_filename_from_uri (ip->url);
+		
+		gtk_entry_set_text (GTK_ENTRY (gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY (data->pixmap_entry))),
+				    filename);
+		g_free (filename);
 	}
 
 

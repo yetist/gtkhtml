@@ -40,6 +40,10 @@
 #include "persist-file.h"
 #include "editor-control-factory.h"
 
+#ifndef O_BINARY
+#define O_BINARY 0
+#endif
+
 static BonoboObjectClass *gtk_html_persist_file_parent_class;
 
 static void impl_save (PortableServer_Servant servant, const CORBA_char *path, CORBA_Environment * ev);
@@ -144,7 +148,7 @@ impl_load (PortableServer_Servant servant, const CORBA_char *path, CORBA_Environ
 	gboolean was_editable;
 	int fd;
 
-	fd = open (path, O_RDONLY);
+	fd = g_open (path, O_RDONLY | O_BINARY);
 	if (fd == -1)
 		return;
 
@@ -215,7 +219,7 @@ impl_save (PortableServer_Servant servant, const CORBA_char *path, CORBA_Environ
 	GtkHTMLPersistFile *file = GTK_HTML_PERSIST_FILE (bonobo_object_from_servant (servant));
 	int fd;
 
-	fd = open (path, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+	fd = g_open (path, O_WRONLY | O_CREAT | O_TRUNC | O_BINARY, 0666);
 
 	if (fd == -1)
 		return;
