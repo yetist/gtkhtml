@@ -102,10 +102,7 @@ changed_bg_pixmap (GtkWidget *w, GtkHTMLEditTableProperties *d)
 
 	html_cursor_forward (d->cd->html->engine->cursor, d->cd->html->engine);
 	file = gtk_entry_get_text (GTK_ENTRY (w));
-	if (file && *file)
-		url = g_filename_to_uri (file, NULL, NULL);
-	else
-		url = NULL;
+	url = gtk_html_filename_to_uri (file);
 	html_engine_table_set_bg_pixmap (d->cd->html->engine, d->table, url);
 	g_free (url);
 }

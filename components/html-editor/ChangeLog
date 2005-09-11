@@ -12,11 +12,15 @@
 
 	* cell.c (set_bg_pixmap)
 	* image.c (get_location)
-	* menubar.c (insert_image_cb, smiley_cb): Use
-	gtk_html_filename_to_uri() instead of just prefixing the filename
-	with "file://". (Absolute) file URIs on Windows look like
-	file:///c:/foo/bar/image.png. This also takes care of properly
-	URI-encoding non-ASCII characters in the pathname.
+	* menubar.c (insert_image_cb, smiley_cb)
+	* table.c (changed_bg_pixmap): Use gtk_html_filename_to_uri()
+	instead of just prefixing the filename with "file://". (Absolute)
+	file URIs on Windows look like file:///c:/foo/bar/image.png. This
+	also takes care of properly URI-encoding non-ASCII characters in
+	the pathname.
+
+	* editor-control-factory.c (load_from_file): Use
+	gtk_html_filename_from_uri() instead of g_filename_from_uri().
 
 	* cell.c (set_ui)
 	* image.c (image_set_ui)

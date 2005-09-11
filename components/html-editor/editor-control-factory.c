@@ -248,10 +248,7 @@ load_from_file (GtkHTML *html,
 	int fd;
         char *path;
 
-        if (strncmp (url, "file:", 5) == 0)
-		path = g_filename_from_uri(url, NULL, NULL);
-	else
-		path = g_strdup(url);
+	path = gtk_html_filename_from_uri (url);
 
 	fd = g_open (path, O_RDONLY|O_BINARY, 0);
 	g_free(path);
