@@ -329,7 +329,7 @@ insert_file_dialog (GtkHTMLControlData *cd, gboolean html)
 	}
 
 #ifdef USE_GTKFILECHOOSER
-	cd->file_dialog = gtk_file_chooser_dialog_new (html ? _("Insert: HTML File") : _("Insert: Text File"),
+	cd->file_dialog = gtk_file_chooser_dialog_new (html ? _("Insert HTML File") : _("Insert Text File"),
 						       NULL,
 						       GTK_FILE_CHOOSER_ACTION_OPEN,
 						       GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
@@ -338,7 +338,7 @@ insert_file_dialog (GtkHTMLControlData *cd, gboolean html)
 	gtk_dialog_set_default_response (GTK_DIALOG (cd->file_dialog), GTK_RESPONSE_OK);
 	gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (cd->file_dialog), g_get_home_dir ());
 #else
-	cd->file_dialog = gtk_file_selection_new (html ? _("Insert: HTML File") : _("Insert: Text File"));
+	cd->file_dialog = gtk_file_selection_new (html ? _("Insert HTML File") : _("Insert Text File"));
 	gtk_file_selection_set_filename (GTK_FILE_SELECTION (cd->file_dialog), "~/");
 #endif
 

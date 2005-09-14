@@ -1,5 +1,12 @@
 2005-09-14  Kaushal Kumar  <kakumar@novell.com>
 
+	* menubar.c (insert_file_dialog): Hig'fy insert file dialog title.
+
+	Patch by: Jai Vikram Singh Verma.
+	Fixes bug #246254.
+
+2005-09-14  Kaushal Kumar  <kakumar@novell.com>
+
 	* gtkhtml-editor-properties.glade: Hig'fy insert rule dialog.
 
 	Patch by: Jai Vikram Singh Verma.
