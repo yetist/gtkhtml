@@ -1,3 +1,10 @@
+2005-09-14  Kaushal Kumar  <kakumar@novell.com>
+
+	* gtkhtml-editor-properties.glade: Hig'fy insert rule dialog.
+
+	Patch by: Jai Vikram Singh Verma.
+	Fixes bug #246248.
+ 
 2005-09-11  Tor Lillqvist  <tml@novell.com>
 
 	* Makefile.am (AM_CFLAGS): Use DATADIRNAME in GNOMELOCALEDIR so it

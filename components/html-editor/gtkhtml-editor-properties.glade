@@ -1990,7 +1990,7 @@
 		      <child>
 			<widget class="GtkLabel" id="label23">
 			  <property name="visible">True</property>
-			  <property name="label" translatable="yes">Thickness:</property>
+			  <property name="label" translatable="yes">Size:</property>
 			  <property name="use_underline">False</property>
 			  <property name="use_markup">False</property>
 			  <property name="justify">GTK_JUSTIFY_CENTER</property>
@@ -2094,7 +2094,7 @@
 		      <child>
 			<widget class="GtkLabel" id="label22">
 			  <property name="visible">True</property>
-			  <property name="label" translatable="yes">Length:</property>
+			  <property name="label" translatable="yes">Width:</property>
 			  <property name="use_underline">False</property>
 			  <property name="use_markup">False</property>
 			  <property name="justify">GTK_JUSTIFY_CENTER</property>
@@ -2205,7 +2205,7 @@
 			  <child>
 			    <widget class="GtkLabel" id="label43">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">Alignment</property>
+			      <property name="label" translatable="yes">Alignment:</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">False</property>
 			      <property name="justify">GTK_JUSTIFY_CENTER</property>
@@ -2277,7 +2277,7 @@
 			<widget class="GtkCheckButton" id="check_rule_shaded">
 			  <property name="visible">True</property>
 			  <property name="can_focus">True</property>
-			  <property name="label" translatable="yes">Shaded</property>
+			  <property name="label" translatable="yes">Shade</property>
 			  <property name="use_underline">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
 			  <property name="focus_on_click">True</property>
