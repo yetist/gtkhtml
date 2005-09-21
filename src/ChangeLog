@@ -1,3 +1,13 @@
+2005-09-21  Kaushal Kumar  <kakumar@novell.com>
+
+	* htmlengine-edit.c (html_engine_selection_push),
+	(html_engine_selection_pop), (html_engine_selection_stack_top),
+	(html_engine_selection_stack_top_modify): Clean-up selection stack 
+	handling. 
+
+	Patch by: Owen Taylor (otaylor@redhat.com)
+	Fixes bug #266367.
+
 2005-09-11  Tor Lillqvist  <tml@novell.com>
 
 	* gtkhtml.c (gtk_html_filename_to_uri,

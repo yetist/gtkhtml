@@ -122,56 +122,64 @@ html_engine_clipboard_pop (HTMLEngine *e)
 	e->clipboard_stack = g_list_remove (e->clipboard_stack, e->clipboard_stack->data);
 }
 
+typedef struct 
+{
+	gboolean active;
+	gint cursor;
+	gint mark;
+} Selection;
+
 void
 html_engine_selection_push (HTMLEngine *e)
 {
+	Selection *selection = g_new (Selection, 1);
+
 	if (html_engine_is_selection_active (e)) {
-		e->selection_stack
-			= g_list_prepend (e->selection_stack, GINT_TO_POINTER (html_cursor_get_position (e->mark)));
-		e->selection_stack
-			= g_list_prepend (e->selection_stack, GINT_TO_POINTER (html_cursor_get_position (e->cursor)));
-		e->selection_stack = g_list_prepend (e->selection_stack, GINT_TO_POINTER (TRUE));
+		selection->active = TRUE;
+		selection->cursor = html_cursor_get_position (e->cursor);
+		selection->mark = html_cursor_get_position (e->mark);
 	} else {
-		e->selection_stack = g_list_prepend (e->selection_stack, GINT_TO_POINTER (FALSE));
+		selection->active = FALSE;
+		selection->cursor = -1;
+		selection->mark = -1;
 	}
+
+	e->selection_stack = g_list_prepend (e->selection_stack, selection);
 }
 
 void
 html_engine_selection_pop (HTMLEngine *e)
 {
-	gboolean selection;
+	Selection *selection;
 
 	g_assert (e->selection_stack);
 
-	selection = GPOINTER_TO_INT (e->selection_stack->data);
-	e->selection_stack = g_list_remove (e->selection_stack, e->selection_stack->data);
+	selection = e->selection_stack->data;
+	e->selection_stack = g_list_delete_link (e->selection_stack, e->selection_stack);
 
 	html_engine_disable_selection (e);
 
-	if (selection) {
-		gint cursor, mark;
-
-		cursor = GPOINTER_TO_INT (e->selection_stack->data);
-		e->selection_stack = g_list_remove (e->selection_stack, e->selection_stack->data);
-		mark = GPOINTER_TO_INT (e->selection_stack->data);
-		e->selection_stack = g_list_remove (e->selection_stack, e->selection_stack->data);
-
-		html_cursor_jump_to_position (e->cursor, e, mark);
+	if (selection->active) {
+		html_cursor_jump_to_position (e->cursor, e, selection->mark);
 		html_engine_set_mark (e);
-		html_cursor_jump_to_position (e->cursor, e, cursor);
+		html_cursor_jump_to_position (e->cursor, e, selection->cursor);
 	}
 	html_engine_edit_selection_updater_update_now (e->selection_updater);
+
+	g_free (selection);
 }
 
 gboolean
 html_engine_selection_stack_top (HTMLEngine *e, gint *cpos, gint *mpos)
 {
-	if (e->selection_stack && GPOINTER_TO_INT (e->selection_stack->data) && e->selection_stack->next && e->selection_stack->next->next) {
+	Selection *selection = e->selection_stack ? e->selection_stack->data : NULL;
+	
+	if (selection && selection->active) {
 		if (cpos)
-			*cpos = GPOINTER_TO_INT (e->selection_stack->next->data);
+			*cpos = selection->cursor;
 		if (mpos)
-			*mpos = GPOINTER_TO_INT (e->selection_stack->next->next->data);
-
+			*mpos = selection->mark;
+		
 		return TRUE;
 	}
 
@@ -181,15 +189,16 @@ html_engine_selection_stack_top (HTMLEngine *e, gint *cpos, gint *mpos)
 gboolean
 html_engine_selection_stack_top_modify (HTMLEngine *e, gint delta)
 {
-	if (e->selection_stack && GPOINTER_TO_INT (e->selection_stack->data) && e->selection_stack->next && e->selection_stack->next->next) {
-		e->selection_stack->next->data = GINT_TO_POINTER (GPOINTER_TO_INT (e->selection_stack->next->data) + delta);
-		e->selection_stack->next->next->data = GINT_TO_POINTER (GPOINTER_TO_INT (e->selection_stack->next->next->data) + delta);
-
+	Selection *selection = e->selection_stack ? e->selection_stack->data : NULL;
+	
+	if (selection && selection->active) {
+		selection->cursor += delta;
+		selection->mark += delta;
+			
 		return TRUE;
 	}
 
 	return FALSE;
-
 }
 
 static void
