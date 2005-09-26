@@ -1,3 +1,11 @@
+2005-09-26  Kaushal Kumar  <kakumar@novell.com>
+
+	* htmltext.c (html_text_sanitize): Fix C89 build break due to a
+	C99 style variable declaration.
+
+	Patch by: Jens Granseuer
+	Fixes bug #317207.
+
 2005-09-21  Kaushal Kumar  <kakumar@novell.com>
 
 	* htmlengine-edit.c (html_engine_selection_push),

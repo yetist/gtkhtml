@@ -2687,10 +2687,12 @@ offset_to_pointer_validated (const gchar *str, glong offset, gint *chars_out)
 gsize
 html_text_sanitize (const gchar **str, gint *len)
 {
+	gchar *end;
+
 	g_return_val_if_fail (str != NULL, 0);
 	g_return_val_if_fail (len != NULL, 0);
 	
-	gchar *end = offset_to_pointer_validated (*str, *len, len);
+	end = offset_to_pointer_validated (*str, *len, len);
 	if (end) {
 		return end - *str;
 	} else {
