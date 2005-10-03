@@ -23,5 +23,6 @@ zip $ZIP lib/locale/*/LC_MESSAGES/gtkhtml-3.8.mo
 rm $DEVZIP
 zip -r $DEVZIP -@ <<EOF
 lib/libgtkhtml-3.8.dll.a
+lib/pkgconfig/libgtkhtml-3.8.pc
 include/libgtkhtml-3.8
 EOF

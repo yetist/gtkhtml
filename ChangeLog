@@ -1,3 +1,7 @@
+2005-10-03  Tor Lillqvist  <tml@novell.com>
+
+	* gtkhtml-zip.in: Include the .pc file in the developer zipfile.
+
 2005-09-11  Tor Lillqvist  <tml@novell.com>
 
 	* configure.in: Bump version number of HEAD to 3.9.0 to avoid
