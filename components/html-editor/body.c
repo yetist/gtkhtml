@@ -246,27 +246,6 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	main_vbox = gtk_vbox_new (FALSE, 12);
 	gtk_container_set_border_width (GTK_CONTAINER (main_vbox), 12);
 
-	t1 = gtk_table_new (2, 2, FALSE);
-	gtk_table_set_col_spacings (GTK_TABLE (t1), 6);
-	gtk_table_set_row_spacings (GTK_TABLE (t1), 6);
-
-	data->option_template = gtk_option_menu_new ();
-	atk_object_set_name (gtk_widget_get_accessible (data->option_template), _("Template"));
-	fill_templates (data);
-	hbox = gtk_hbox_new (FALSE, 1);
-	gtk_box_pack_start (GTK_BOX (hbox), data->option_template, FALSE, FALSE, 0);
-	editor_hig_attach_row (t1, _("T_emplate:"), hbox, 0);
-	
-	/* data->entry_title = gtk_entry_new ();
-	if (gtk_html_get_title (data->cd->html)) {
-		gtk_entry_set_text (GTK_ENTRY (data->entry_title), 
-				    gtk_html_get_title (data->cd->html));
-	}
-	g_signal_connect (data->entry_title, "changed", G_CALLBACK (entry_changed), data);
-	editor_hig_attach_row (t1, _("T_itle:"), data->entry_title, 1);	*/
-
-	gtk_box_pack_start (GTK_BOX (main_vbox), editor_hig_vbox (_("General"), t1), FALSE, FALSE, 0);
-
 	t1 = gtk_table_new (3, 2, FALSE);
 	gtk_table_set_col_spacings (GTK_TABLE (t1), 6);
 	gtk_table_set_row_spacings (GTK_TABLE (t1), 6);
@@ -307,12 +286,22 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 
 	atk_object_set_name (gtk_widget_get_accessible (gnome_file_entry_gnome_entry (GNOME_FILE_ENTRY (data->pixmap_entry))), _("Background Image File Path"));
 
-	hbox = gtk_hbox_new (FALSE, 6);
-	gtk_box_pack_start (GTK_BOX (hbox), gtk_label_new_with_mnemonic (_("_Source:")), FALSE, FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (hbox), data->pixmap_entry, TRUE, TRUE, 0);
-	gtk_box_pack_start (GTK_BOX (main_vbox), editor_hig_vbox (_("Background Image"), hbox), FALSE, FALSE, 0);
+	t1 = gtk_table_new (2, 2, FALSE);
+	gtk_table_set_col_spacings (GTK_TABLE (t1), 6);
+	gtk_table_set_row_spacings (GTK_TABLE (t1), 6);
 
-	/* gtk_idle_add (hide_preview, data); */
+	hbox = gtk_hbox_new (FALSE, 6);
+	data->option_template = gtk_option_menu_new ();
+	atk_object_set_name (gtk_widget_get_accessible (data->option_template), _("Template"));
+	fill_templates (data);
+	gtk_box_pack_start (GTK_BOX (hbox), data->option_template, FALSE, FALSE, 0);
+	editor_hig_attach_row (t1, _("T_emplate:"), hbox, 0);
+
+	hbox = gtk_hbox_new (FALSE, 6);
+	gtk_box_pack_start (GTK_BOX (hbox), data->pixmap_entry, TRUE, TRUE, 0);
+	editor_hig_attach_row (t1, _("C_ustom:"), hbox, 1);
+
+	gtk_box_pack_start (GTK_BOX (main_vbox), editor_hig_vbox (_("Background Image"), t1), FALSE, FALSE, 0);
 
 	/* set ui */
 #define SET_COLOR(ct) \

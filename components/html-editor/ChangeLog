@@ -1,3 +1,11 @@
+2005-10-14  Kaushal Kumar  <kakumar@novell.com>
+
+	* body.c (body_properties): Remove General category from Page dialog.
+	Merge templates under background image section, where it belongs.
+	Rename 'Source' to 'Custom'.
+
+	Fixes bug #310964.
+
 2005-09-14  Kaushal Kumar  <kakumar@novell.com>
 
 	* menubar.c (insert_file_dialog): Hig'fy insert file dialog title.
