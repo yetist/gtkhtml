@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-09-30 16:44-0400\n"
+"POT-Creation-Date: 2005-10-19 14:54-0400\n"
 "PO-Revision-Date: 2005-07-23 15:11-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@gnome.org>\n"
@@ -880,62 +880,50 @@ msgstr "Draft"
 msgid "Graph paper"
 msgstr "Graph paper"
 
-#: components/html-editor/body.c:254
+#: components/html-editor/body.c:258 components/html-editor/text.c:170
+#: components/html-editor/toolbar.c:313
+msgid "Automatic"
+msgstr "Automatic"
+
+#: components/html-editor/body.c:270
+msgid "_Text:"
+msgstr "_Text:"
+
+#: components/html-editor/body.c:271
+msgid "_Link:"
+msgstr "_Link:"
+
+#: components/html-editor/body.c:272
+msgid "_Background:"
+msgstr "_Background:"
+
+#: components/html-editor/body.c:274
+#: components/html-editor/gtkhtml-editor-properties.glade.h:30
+msgid "Colors"
+msgstr "Colours"
+
+#: components/html-editor/body.c:276 components/html-editor/body.c:304
+#: components/html-editor/gtkhtml-editor-properties.glade.h:23
+msgid "Background Image"
+msgstr "Background Image"
+
+#: components/html-editor/body.c:287
+msgid "Background Image File Path"
+msgstr "Background Image File Path"
+
+#: components/html-editor/body.c:295
 #: components/html-editor/gtkhtml-editor-properties.glade.h:53
 #: components/html-editor/menubar.c:222
 msgid "Template"
 msgstr "Template"
 
-#: components/html-editor/body.c:258
+#: components/html-editor/body.c:298
 msgid "T_emplate:"
 msgstr "T_emplate:"
 
-#. data->entry_title = gtk_entry_new ();
-#. if (gtk_html_get_title (data->cd->html)) {
-#. gtk_entry_set_text (GTK_ENTRY (data->entry_title),
-#. gtk_html_get_title (data->cd->html));
-#. }
-#. g_signal_connect (data->entry_title, "changed", G_CALLBACK (entry_changed), data);
-#. editor_hig_attach_row (t1, _("T_itle:"), data->entry_title, 1);
-#: components/html-editor/body.c:268 components/html-editor/paragraph.c:116
-msgid "General"
-msgstr "General"
-
-#: components/html-editor/body.c:279 components/html-editor/text.c:170
-#: components/html-editor/toolbar.c:313
-msgid "Automatic"
-msgstr "Automatic"
-
-#: components/html-editor/body.c:291
-msgid "_Text:"
-msgstr "_Text:"
-
-#: components/html-editor/body.c:292
-msgid "_Link:"
-msgstr "_Link:"
-
-#: components/html-editor/body.c:293
-msgid "_Background:"
-msgstr "_Background:"
-
-#: components/html-editor/body.c:295
-#: components/html-editor/gtkhtml-editor-properties.glade.h:30
-msgid "Colors"
-msgstr "Colours"
-
-#: components/html-editor/body.c:297 components/html-editor/body.c:313
-#: components/html-editor/gtkhtml-editor-properties.glade.h:23
-msgid "Background Image"
-msgstr "Background Image"
-
-#: components/html-editor/body.c:308
-msgid "Background Image File Path"
-msgstr "Background Image File Path"
-
-#: components/html-editor/body.c:311
-#: components/html-editor/gtkhtml-editor-properties.glade.h:70
-msgid "_Source:"
-msgstr "_Source:"
+#: components/html-editor/body.c:302
+msgid "C_ustom:"
+msgstr "C_ustom:"
 
 #: components/html-editor/cell.c:340 components/html-editor/image.c:356
 #: components/html-editor/link.c:196 components/html-editor/rule.c:182
@@ -1395,6 +1383,10 @@ msgstr "_Row"
 msgid "_Rows:"
 msgstr "_Rows:"
 
+#: components/html-editor/gtkhtml-editor-properties.glade.h:70
+msgid "_Source:"
+msgstr "_Source:"
+
 #: components/html-editor/gtkhtml-editor-properties.glade.h:71
 msgid "_Spacing:"
 msgstr "_Spacing:"
@@ -1522,6 +1514,10 @@ msgstr "Address"
 #: components/html-editor/paragraph.c:113
 msgid "_Style:"
 msgstr "_Style:"
+
+#: components/html-editor/paragraph.c:116
+msgid "General"
+msgstr "General"
 
 #: components/html-editor/paragraph.c:135
 msgid "Alignment"
