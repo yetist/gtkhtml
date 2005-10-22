@@ -1,3 +1,10 @@
+2005-10-22  Kaushal Kumar  <kakumar@novell.com>
+
+	* htmlprinter.c (draw_border): Do not draw peripheral border since
+	it is not needed and causes alignment issue.
+
+	Fixes bug #270869.
+
 2005-09-26  Kaushal Kumar  <kakumar@novell.com>
 
 	* htmltext.c (html_text_sanitize): Fix C89 build break due to a

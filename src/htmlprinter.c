@@ -394,9 +394,11 @@ draw_border (HTMLPainter *painter,
 
 	switch (style) {
 	case HTML_BORDER_SOLID:
+		/* do not draw peripheral border *
 		col1 = bg;
 		col2 = bg;
-		break;
+		break; */
+		return;
 	case HTML_BORDER_OUTSET:
 		col1 = &light;
 		col2 = &dark;
