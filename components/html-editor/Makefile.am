@@ -229,5 +229,9 @@ BUILT_SOURCES = $(IDL_GENERATED) $(SPELL_IDL_GENERATED)
 CLEANFILES = \
 	$(ui_DATA)		\
 	$(server_DATA)		\
+	gtkhtml-editor-properties.glade.h \
+	GNOME_GtkHTML_Editor.server.in.in.h \
+	GNOME_GtkHTML_Editor-emacs.xml.in.h \
+	GNOME_GtkHTML_Editor.xml.in.h \
 	$(BUILT_SOURCES)
 

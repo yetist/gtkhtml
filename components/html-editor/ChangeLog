@@ -1,3 +1,7 @@
+2005-10-25  Kaushal Kumar  <kakumar@novell.com>
+
+	* Makefile.am (CLEANFILES): Clean headers generated for Win32 port.
+
 2005-10-14  Kaushal Kumar  <kakumar@novell.com>
 
 	* body.c (body_properties): Remove General category from Page dialog.
