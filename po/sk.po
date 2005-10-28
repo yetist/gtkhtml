@@ -8,14 +8,14 @@
 # Stanislav Visnovsky <visnovsky@kde.org>, 2003.
 # Marcel Telka <marcel@telka.sk>, 2005.
 #
-# $Id: sk.po,v 1.90 2005/10/17 04:41:10 marcel Exp $
+# $Id: sk.po,v 1.91 2005/10/28 19:10:05 marcel Exp $
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-10-17 06:39+0200\n"
-"PO-Revision-Date: 2005-10-17 06:40+0200\n"
+"POT-Creation-Date: 2005-10-28 21:07+0200\n"
+"PO-Revision-Date: 2005-10-28 21:09+0200\n"
 "Last-Translator: Marcel Telka <marcel@telka.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
@@ -1823,8 +1823,8 @@ msgid "Sample"
 msgstr "Príklad"
 
 #: ../components/html-editor/utils.c:205
-msgid "_Visit..."
-msgstr "_Navštíviť..."
+msgid "_Test URL..."
+msgstr "_Testovacie URL..."
 
 #: ../components/html-editor/utils.c:248
 msgid ""
