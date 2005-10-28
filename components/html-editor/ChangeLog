@@ -1,3 +1,13 @@
+2005-10-28  Kaushal Kumar  <kakumar@novell.com>
+
+	* dialog.c (get_parent_window) 
+	* dialog.h (get_parent_window): Removed.
+
+	* properties.c (gtk_html_edit_properties_dialog_new): Set the default 
+	for getting the parent window.
+
+	Fixes bug #310959.
+
 2005-10-25  Kaushal Kumar  <kakumar@novell.com>
 
 	* Makefile.am (CLEANFILES): Clean headers generated for Win32 port.

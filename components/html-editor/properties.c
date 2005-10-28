@@ -95,14 +95,12 @@ gtk_html_edit_properties_dialog_new (GtkHTMLControlData *cd, gchar *title, gchar
 {
 	GtkHTMLEditPropertiesDialog *d = g_new (GtkHTMLEditPropertiesDialog, 1);
 	GtkWidget *vbox;
-	GtkWindow *parent;
 
 	d->page_data      = NULL;
 	d->title          = g_strdup (title);
 	d->control_data   = cd;
-	parent = get_parent_window (GTK_WIDGET (cd->html));
 
-	d->dialog = gtk_dialog_new_with_buttons (title, parent, 0,
+	d->dialog = gtk_dialog_new_with_buttons (title, NULL, 0,
 						 GTK_STOCK_HELP, GTK_RESPONSE_HELP,
 						 GTK_STOCK_CLOSE, GTK_RESPONSE_CANCEL,
 						 NULL);

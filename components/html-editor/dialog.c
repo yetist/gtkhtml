@@ -36,15 +36,6 @@
   it is bassicaly the same trick as used in GtkObject's
 */
 
-GtkWindow *
-get_parent_window (GtkWidget *w)
-{
-	while (w && ! GTK_IS_WINDOW (w))
-		w = w->parent;
-
-	return w ? GTK_WINDOW (w) : NULL;
-}
-
 void
 run_dialog (GtkDialog ***dialog, GtkHTML *html, GtkHTMLControlData *cd, DialogCtor ctor, const gchar *title)
 {

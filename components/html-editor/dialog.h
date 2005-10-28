@@ -34,6 +34,4 @@ void       run_dialog         (GtkDialog          ***dialog,
 			       GtkHTMLControlData   *cd,
 			       DialogCtor            ctor,
 			       const gchar          *title);
-GtkWindow *get_parent_window  (GtkWidget            *w);
-
 #endif
