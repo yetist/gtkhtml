@@ -1,5 +1,11 @@
 2005-10-28  Kaushal Kumar  <kakumar@novell.com>
 
+	* utils.c: Use proper description for test_url_items button.
+
+	Fixes part of bug #264453.
+
+2005-10-28  Kaushal Kumar  <kakumar@novell.com>
+
 	* dialog.c (get_parent_window) 
 	* dialog.h (get_parent_window): Removed.
 

@@ -202,7 +202,7 @@ editor_hig_attach_row (GtkWidget *table, gchar *text, GtkWidget *control, int ro
 static gboolean stock_test_url_added = FALSE;
 static GtkStockItem test_url_items [] =
 {
-	{ GTKHTML_STOCK_TEST_URL, N_("_Visit..."), 0, 0, GETTEXT_PACKAGE }
+	{ GTKHTML_STOCK_TEST_URL, N_("_Test URL..."), 0, 0, GETTEXT_PACKAGE }
 };
 
 void
