@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-30 18:19+0900\n"
-"PO-Revision-Date: 2005-07-30 18:15+0900\n"
+"POT-Creation-Date: 2005-10-29 23:45+0900\n"
+"PO-Revision-Date: 2005-10-29 23:45+0900\n"
 "Last-Translator: Takeshi AIHANA <aihana@gnome.gr.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -27,7 +27,7 @@ msgstr "URL は %s で、代替文字は %s です"
 msgid "URL is %s"
 msgstr "URL は %s"
 
-#: ../a11y/object.c:52 ../a11y/object.c:61 ../a11y/text.c:122
+#: ../a11y/object.c:52 ../a11y/object.c:61 ../a11y/text.c:127
 msgid "grab focus"
 msgstr "フォーカスの取得"
 
@@ -77,19 +77,19 @@ msgstr "アドレス(_D)"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:8
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:8
-#: ../components/html-editor/toolbar.c:57
+#: ../components/html-editor/toolbar.c:58
 msgid "Alphabetical List"
 msgstr "英大文字付きリスト"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:9
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:9
-#: ../components/html-editor/toolbar.c:54
+#: ../components/html-editor/toolbar.c:55
 msgid "Bulleted List"
 msgstr "ドット付きリスト"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:10
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:10
-#: ../components/html-editor/toolbar.c:527
+#: ../components/html-editor/toolbar.c:528
 msgid "Center justifies the paragraphs"
 msgstr "段落を中央に寄せます"
 
@@ -203,9 +203,9 @@ msgstr "ヘッダ６(_6)"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:32
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:32
-#: ../components/html-editor/editor-control-factory.c:193
+#: ../components/html-editor/editor-control-factory.c:198
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:37
-#: ../components/html-editor/popup.c:211
+#: ../components/html-editor/popup.c:216
 msgid "Image"
 msgstr "画像"
 
@@ -296,7 +296,7 @@ msgstr "文書にテキスト・ファイルを挿入します..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:50
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
-#: ../components/html-editor/toolbar.c:525
+#: ../components/html-editor/toolbar.c:526
 msgid "Left justifies the paragraphs"
 msgstr "段落を左に寄せます"
 
@@ -307,9 +307,9 @@ msgstr "しまった顔(_C)"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:52
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:53
-#: ../components/html-editor/menubar.c:140
-#: ../components/html-editor/popup.c:110 ../components/html-editor/popup.c:205
-#: ../components/html-editor/popup.c:271
+#: ../components/html-editor/menubar.c:145
+#: ../components/html-editor/popup.c:115 ../components/html-editor/popup.c:210
+#: ../components/html-editor/popup.c:280
 msgid "Link"
 msgstr "リンク"
 
@@ -380,13 +380,13 @@ msgstr "現在の段落を英文字のリストにします"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:66
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:67
 #: ../components/html-editor/paragraph.c:87
-#: ../components/html-editor/toolbar.c:52
+#: ../components/html-editor/toolbar.c:53
 msgid "Normal"
 msgstr "標準"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:67
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:68
-#: ../components/html-editor/toolbar.c:55
+#: ../components/html-editor/toolbar.c:56
 msgid "Numbered List"
 msgstr "番号付きリスト"
 
@@ -426,7 +426,7 @@ msgid "Paste the clipboard as a quotation"
 msgstr "クリップボードの内容を引用して貼り付けます"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:75
-#: ../components/html-editor/toolbar.c:53
+#: ../components/html-editor/toolbar.c:54
 msgid "Preformat"
 msgstr "Preformat"
 
@@ -448,14 +448,14 @@ msgstr "前の操作をやり直します"
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:79
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
-#: ../components/html-editor/replace.c:167
-#: ../components/html-editor/replace.c:231
+#: ../components/html-editor/replace.c:174
+#: ../components/html-editor/replace.c:240
 msgid "Replace"
 msgstr "置換"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:80
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
-#: ../components/html-editor/toolbar.c:529
+#: ../components/html-editor/toolbar.c:530
 msgid "Right justifies the paragraphs"
 msgstr "段落を右に寄せます"
 
@@ -466,10 +466,10 @@ msgstr "ローマ数字付きリスト"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:82
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
-#: ../components/html-editor/editor-control-factory.c:211
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:48
-#: ../components/html-editor/menubar.c:159
-#: ../components/html-editor/popup.c:229
+#: ../components/html-editor/editor-control-factory.c:216
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:47
+#: ../components/html-editor/menubar.c:168
+#: ../components/html-editor/popup.c:234
 msgid "Rule"
 msgstr "罫線"
 
@@ -485,7 +485,7 @@ msgstr "文書の内容を全て選択します"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:85
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
-#: ../components/html-editor/toolbar.c:557
+#: ../components/html-editor/toolbar.c:558
 msgid "Strikeout"
 msgstr "取り消し線"
 
@@ -507,9 +507,9 @@ msgstr "Superscript"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:89
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:52
-#: ../components/html-editor/menubar.c:180
-#: ../components/html-editor/popup.c:235 ../components/html-editor/popup.c:505
-#: ../components/html-editor/popup.c:517
+#: ../components/html-editor/menubar.c:196
+#: ../components/html-editor/popup.c:240 ../components/html-editor/popup.c:514
+#: ../components/html-editor/popup.c:526
 msgid "Table"
 msgstr "表"
 
@@ -525,7 +525,7 @@ msgstr "テキスト・ファイル(_X)..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:92
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
-#: ../components/html-editor/toolbar.c:549
+#: ../components/html-editor/toolbar.c:550
 msgid "Typewriter"
 msgstr "タイプライタ"
 
@@ -556,7 +556,7 @@ msgstr "英文字リスト(_A)"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:60
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:59
 msgid "_Bold"
 msgstr "太文字(_B)"
 
@@ -632,7 +632,7 @@ msgstr "挿入(_I)"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:113
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:67
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:66
 msgid "_Italic"
 msgstr "斜体(_I)"
 
@@ -763,7 +763,7 @@ msgstr "迷い顔(_U)"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:151
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:153
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:76
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:75
 msgid "_Underline"
 msgstr "下線(_U)"
 
@@ -810,135 +810,122 @@ msgstr "元気がない(_I)"
 msgid "_Wrap Lines"
 msgstr "行ラップ(_W)"
 
-#: ../components/html-editor/body.c:63
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:42
+#: ../components/html-editor/body.c:65
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:41
 msgid "None"
 msgstr "無し"
 
-#: ../components/html-editor/body.c:71
+#: ../components/html-editor/body.c:73
 msgid "Perforated paper"
 msgstr "パンチ穴つき用紙"
 
-#: ../components/html-editor/body.c:79
+#: ../components/html-editor/body.c:81
 msgid "Blue ink"
 msgstr "青インク"
 
-#: ../components/html-editor/body.c:87
+#: ../components/html-editor/body.c:89
 msgid "Paper"
 msgstr "通常の用紙"
 
-#: ../components/html-editor/body.c:95
+#: ../components/html-editor/body.c:97
 msgid "Ribbon"
 msgstr "リボン付きの用紙"
 
-#: ../components/html-editor/body.c:103
+#: ../components/html-editor/body.c:105
 msgid "Midnight"
 msgstr "真っ黒の用紙"
 
-#: ../components/html-editor/body.c:111
+#: ../components/html-editor/body.c:113
 msgid "Confidential"
 msgstr "機密の用紙"
 
-#: ../components/html-editor/body.c:119
+#: ../components/html-editor/body.c:121
 msgid "Draft"
 msgstr "ドラフトの用紙"
 
-#: ../components/html-editor/body.c:127
+#: ../components/html-editor/body.c:129
 msgid "Graph paper"
 msgstr "グラフ用紙"
 
-#: ../components/html-editor/body.c:247
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:53
-#: ../components/html-editor/menubar.c:202
-msgid "Template"
-msgstr "テンプレート"
-
-#: ../components/html-editor/body.c:251
-msgid "T_emplate:"
-msgstr "テンプレート(_E):"
-
-#. data->entry_title = gtk_entry_new ();
-#. if (gtk_html_get_title (data->cd->html)) {
-#. gtk_entry_set_text (GTK_ENTRY (data->entry_title),
-#. gtk_html_get_title (data->cd->html));
-#. }
-#. g_signal_connect (data->entry_title, "changed", G_CALLBACK (entry_changed), data);
-#. editor_hig_attach_row (t1, _("T_itle:"), data->entry_title, 1);
-#: ../components/html-editor/body.c:261
-#: ../components/html-editor/paragraph.c:116
-msgid "General"
-msgstr "全般"
-
-#: ../components/html-editor/body.c:272 ../components/html-editor/text.c:166
-#: ../components/html-editor/toolbar.c:312
+#: ../components/html-editor/body.c:258 ../components/html-editor/text.c:170
+#: ../components/html-editor/toolbar.c:313
 msgid "Automatic"
 msgstr "自動"
 
-#: ../components/html-editor/body.c:284
+#: ../components/html-editor/body.c:270
 msgid "_Text:"
 msgstr "テキスト(_T):"
 
-#: ../components/html-editor/body.c:285
+#: ../components/html-editor/body.c:271
 msgid "_Link:"
 msgstr "リンク(_L):"
 
-#: ../components/html-editor/body.c:286
+#: ../components/html-editor/body.c:272
 msgid "_Background:"
 msgstr "背景(_B):"
 
-#: ../components/html-editor/body.c:288
+#: ../components/html-editor/body.c:274
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:30
 msgid "Colors"
 msgstr "色"
 
-#: ../components/html-editor/body.c:290 ../components/html-editor/body.c:307
+#: ../components/html-editor/body.c:276 ../components/html-editor/body.c:304
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:23
 msgid "Background Image"
 msgstr "背景の画像"
 
-#: ../components/html-editor/body.c:302
+#: ../components/html-editor/body.c:287
 msgid "Background Image File Path"
 msgstr "背景の画像ファイルのパス"
 
-#: ../components/html-editor/body.c:305
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:71
-msgid "_Source:"
-msgstr "ソース(_S):"
+#: ../components/html-editor/body.c:295
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:53
+#: ../components/html-editor/menubar.c:222
+msgid "Template"
+msgstr "テンプレート"
 
-#: ../components/html-editor/cell.c:337 ../components/html-editor/image.c:354
-#: ../components/html-editor/link.c:186 ../components/html-editor/rule.c:178
-#: ../components/html-editor/table.c:226
-#: ../components/html-editor/template.c:275
-#: ../components/html-editor/text.c:163
+#: ../components/html-editor/body.c:298
+msgid "T_emplate:"
+msgstr "テンプレート(_E):"
+
+#: ../components/html-editor/body.c:302
+msgid "C_ustom:"
+msgstr "カスタム(_U):"
+
+#: ../components/html-editor/cell.c:340 ../components/html-editor/image.c:356
+#: ../components/html-editor/link.c:196 ../components/html-editor/rule.c:182
+#: ../components/html-editor/table.c:227
+#: ../components/html-editor/template.c:287
+#: ../components/html-editor/text.c:167
 msgid "Could not load glade file."
 msgstr "Glade ファイル (.glade) を読み込めませんでした。"
 
-#: ../components/html-editor/cell.c:354 ../components/html-editor/table.c:237
+#: ../components/html-editor/cell.c:363 ../components/html-editor/table.c:242
 msgid "Transparent"
 msgstr "透明"
 
-#: ../components/html-editor/editor-control-factory.c:182
-#: ../components/html-editor/popup.c:190 ../components/html-editor/popup.c:268
+#: ../components/html-editor/editor-control-factory.c:187
+#: ../components/html-editor/popup.c:195 ../components/html-editor/popup.c:276
 msgid "Properties"
 msgstr "プロパティ"
 
-#: ../components/html-editor/editor-control-factory.c:201
+#: ../components/html-editor/editor-control-factory.c:206
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:54
-#: ../components/html-editor/menubar.c:380
-#: ../components/html-editor/popup.c:199
+#: ../components/html-editor/menubar.c:400
+#: ../components/html-editor/popup.c:204
 msgid "Text"
 msgstr "テキスト"
 
-#: ../components/html-editor/editor-control-factory.c:220
-#: ../components/html-editor/menubar.c:398
-#: ../components/html-editor/popup.c:217
+#: ../components/html-editor/editor-control-factory.c:225
+#: ../components/html-editor/menubar.c:418
+#: ../components/html-editor/popup.c:222
 msgid "Paragraph"
 msgstr "段落"
 
-#: ../components/html-editor/editor-control-factory.c:224
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:43
-#: ../components/html-editor/menubar.c:362
-#: ../components/html-editor/popup.c:223
+#: ../components/html-editor/editor-control-factory.c:229
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:42
+#: ../components/html-editor/menubar.c:382
+#: ../components/html-editor/popup.c:228
 msgid "Page"
 msgstr "ページ"
 
@@ -1150,7 +1137,7 @@ msgstr "スカイブルー"
 msgid "Popup"
 msgstr "ポップアップ"
 
-#: ../components/html-editor/gnome-gtkhtml-editor.c:73
+#: ../components/html-editor/gnome-gtkhtml-editor.c:74
 msgid "GtkHTML Editor Control"
 msgstr "GtkHTML エディタ・コントロール"
 
@@ -1216,9 +1203,8 @@ msgid "<span weight=\"bold\">Template</span>"
 msgstr "<span weight=\"bold\">テンプレート</span>"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:22
-#: ../components/html-editor/paragraph.c:135
-msgid "Alignment"
-msgstr "位置"
+msgid "Alignment:"
+msgstr "位置:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:24
 msgid "Bottom"
@@ -1233,13 +1219,13 @@ msgid "C_olor:"
 msgstr "色(_O):"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:27
-#: ../components/html-editor/popup.c:241
+#: ../components/html-editor/popup.c:246
 msgid "Cell"
 msgstr "セル"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:28
 #: ../components/html-editor/paragraph.c:132
-#: ../components/html-editor/toolbar.c:527
+#: ../components/html-editor/toolbar.c:528
 msgid "Center"
 msgstr "中央"
 
@@ -1277,215 +1263,215 @@ msgid "Left"
 msgstr "左"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:39
-msgid "Length:"
-msgstr "長さ:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:40
 msgid "Link properties"
 msgstr "リンクのプロパティ"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:41
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:40
 msgid "Middle"
 msgstr "中"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:44
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:43
 msgid "Percent"
 msgstr "パーセント"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:45
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:44
 msgid "Pixels"
 msgstr "ピクセル"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:46
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:45
 #: ../components/html-editor/paragraph.c:133
 msgid "Right"
 msgstr "右"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:47
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:46
 msgid "Row span:"
 msgstr "列の長さ:"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:49
-msgid "Shaded"
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:48
+msgid "Shade"
 msgstr "シェード付き"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:50
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:49
 msgid "Si_ze:"
 msgstr "サイズ(_Z):"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:50
+msgid "Size:"
+msgstr "サイズ:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:51
 msgid "Standard"
 msgstr "標準"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:55
-msgid "Thickness:"
-msgstr "太さ:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:56
 msgid "Top"
 msgstr "上"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:57
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:56
 msgid "Vertical:"
 msgstr "垂直:"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:58
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:57
 msgid "Width:"
 msgstr "幅:"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:59
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:58
 msgid "_Alignment:"
 msgstr "位置(_A):"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:61
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:60
 msgid "_Border:"
 msgstr "境界(_B):"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:62
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:61
 msgid "_Color:"
 msgstr "色(_C):"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:63
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:62
 msgid "_Columns:"
 msgstr "列(_C):"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:64
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:63
 msgid "_Description:"
 msgstr "説明(_D):"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:65
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:64
 msgid "_Height:"
 msgstr "高さ(_H):"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:66
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:65
 msgid "_Image:"
 msgstr "画像(_I):"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:68
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:67
 msgid "_Padding:"
 msgstr "パディング(_P):"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:69
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:68
 msgid "_Row"
 msgstr "行(_R)"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:70
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:69
 msgid "_Rows:"
 msgstr "行(_R):"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:72
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:70
+msgid "_Source:"
+msgstr "ソース(_S):"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:71
 msgid "_Spacing:"
 msgstr "間隔(_S):"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:73
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:72
 msgid "_Strikethrough"
 msgstr "取り消し線(_S)"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:74
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:73
 msgid "_Table"
 msgstr "表(_T)"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:75
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:74
 msgid "_URL:"
 msgstr "URL(_U):"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:77
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:76
 msgid "_Width:"
 msgstr "幅(_W):"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:78
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:77
 msgid "_Wrap Text"
 msgstr "行ラップ(_W)"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:79
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:78
 msgid "_X-Padding:"
 msgstr "X-パディング(_X):"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:80
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:79
 msgid "_Y-Padding:"
 msgstr "Y-パディング(_Y):"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:81
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:80
 msgid "follow"
 msgstr "follow"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:82
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:81
 msgid "px"
 msgstr "px"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:83
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:82
 msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
-#: ../components/html-editor/link.c:198
+#: ../components/html-editor/link.c:208
 msgid "URL:"
 msgstr "URL:"
 
-#: ../components/html-editor/link.c:202
+#: ../components/html-editor/link.c:212
 msgid "Description:"
 msgstr "説明:"
 
-#: ../components/html-editor/menubar.c:100
-#: ../components/html-editor/menubar.c:108
+#: ../components/html-editor/menubar.c:102
+#: ../components/html-editor/menubar.c:110
 msgid "Insert image"
 msgstr "画像の挿入"
 
-#: ../components/html-editor/menubar.c:137
-#: ../components/html-editor/menubar.c:156
-#: ../components/html-editor/menubar.c:177
-#: ../components/html-editor/menubar.c:199
-#: ../components/html-editor/popup.c:107
+#: ../components/html-editor/menubar.c:141
+#: ../components/html-editor/menubar.c:164
+#: ../components/html-editor/menubar.c:192
+#: ../components/html-editor/menubar.c:218
+#: ../components/html-editor/popup.c:111
 msgid "Insert"
 msgstr "挿入"
 
-#: ../components/html-editor/menubar.c:286
+#: ../components/html-editor/menubar.c:306
 #, c-format
 msgid "Error loading file '%s': %s"
 msgstr "ファイル '%s' を読み込む際にエラー: %s"
 
-#: ../components/html-editor/menubar.c:312
-#: ../components/html-editor/menubar.c:321
-msgid "Insert: HTML File"
-msgstr "挿入: HTML ファイル"
+#: ../components/html-editor/menubar.c:332
+#: ../components/html-editor/menubar.c:341
+msgid "Insert HTML File"
+msgstr "HTML ファイルの挿入"
 
-#: ../components/html-editor/menubar.c:312
-#: ../components/html-editor/menubar.c:321
-msgid "Insert: Text File"
-msgstr "挿入: テキスト・ファイル"
+#: ../components/html-editor/menubar.c:332
+#: ../components/html-editor/menubar.c:341
+msgid "Insert Text File"
+msgstr "テキスト・ファイルの挿入"
 
-#: ../components/html-editor/menubar.c:358
-#: ../components/html-editor/menubar.c:376
-#: ../components/html-editor/menubar.c:394
+#: ../components/html-editor/menubar.c:378
+#: ../components/html-editor/menubar.c:396
+#: ../components/html-editor/menubar.c:414
 msgid "Format"
 msgstr "書式"
 
 #: ../components/html-editor/paragraph.c:90
-#: ../components/html-editor/toolbar.c:58
+#: ../components/html-editor/toolbar.c:59
 msgid "Header 1"
 msgstr "ヘッダ1(H1)"
 
 #: ../components/html-editor/paragraph.c:91
-#: ../components/html-editor/toolbar.c:59
+#: ../components/html-editor/toolbar.c:60
 msgid "Header 2"
 msgstr "ヘッダ2(H2)"
 
 #: ../components/html-editor/paragraph.c:92
-#: ../components/html-editor/toolbar.c:60
+#: ../components/html-editor/toolbar.c:61
 msgid "Header 3"
 msgstr "ヘッダ3(H3)"
 
 #: ../components/html-editor/paragraph.c:93
-#: ../components/html-editor/toolbar.c:61
+#: ../components/html-editor/toolbar.c:62
 msgid "Header 4"
 msgstr "ヘッダ4(H4)"
 
 #: ../components/html-editor/paragraph.c:94
-#: ../components/html-editor/toolbar.c:62
+#: ../components/html-editor/toolbar.c:63
 msgid "Header 5"
 msgstr "ヘッダ5(H5)"
 
 #: ../components/html-editor/paragraph.c:95
-#: ../components/html-editor/toolbar.c:63
+#: ../components/html-editor/toolbar.c:64
 msgid "Header 6"
 msgstr "ヘッダ6(H6)"
 
@@ -1506,7 +1492,7 @@ msgid "Alphabeta item"
 msgstr "英大文字付きリスト"
 
 #: ../components/html-editor/paragraph.c:104
-#: ../components/html-editor/toolbar.c:64
+#: ../components/html-editor/toolbar.c:65
 msgid "Address"
 msgstr "アドレス"
 
@@ -1514,147 +1500,155 @@ msgstr "アドレス"
 msgid "_Style:"
 msgstr "スタイル(_S):"
 
-#: ../components/html-editor/popup.c:442
+#: ../components/html-editor/paragraph.c:116
+msgid "General"
+msgstr "全般"
+
+#: ../components/html-editor/paragraph.c:135
+msgid "Alignment"
+msgstr "位置"
+
+#: ../components/html-editor/popup.c:451
 msgid "Paste Quotation"
 msgstr "引用して貼り付け"
 
-#: ../components/html-editor/popup.c:446
+#: ../components/html-editor/popup.c:455
 msgid "Insert Link"
 msgstr "リンクの挿入"
 
-#: ../components/html-editor/popup.c:453
+#: ../components/html-editor/popup.c:462
 msgid "Remove Link"
 msgstr "リンクの削除"
 
-#: ../components/html-editor/popup.c:460
+#: ../components/html-editor/popup.c:469
 msgid "Style"
 msgstr "スタイル"
 
-#: ../components/html-editor/popup.c:463
+#: ../components/html-editor/popup.c:472
 msgid "Text Style..."
 msgstr "テキストのスタイル..."
 
-#: ../components/html-editor/popup.c:465 ../components/html-editor/popup.c:471
-#: ../components/html-editor/popup.c:481
+#: ../components/html-editor/popup.c:474 ../components/html-editor/popup.c:480
+#: ../components/html-editor/popup.c:490
 msgid "Paragraph Style..."
 msgstr "段落のスタイル..."
 
-#: ../components/html-editor/popup.c:469
+#: ../components/html-editor/popup.c:478
 msgid "Link Style..."
 msgstr "リンクのスタイル..."
 
-#: ../components/html-editor/popup.c:475
+#: ../components/html-editor/popup.c:484
 msgid "Rule Style..."
 msgstr "罫線のスタイル..."
 
-#: ../components/html-editor/popup.c:479
+#: ../components/html-editor/popup.c:488
 msgid "Image Style..."
 msgstr "画像のスタイル.."
 
-#: ../components/html-editor/popup.c:490
+#: ../components/html-editor/popup.c:499
 msgid "Cell Style..."
 msgstr "セルのスタイル..."
 
-#: ../components/html-editor/popup.c:493
+#: ../components/html-editor/popup.c:502
 msgid "Table Style..."
 msgstr "表のスタイル..."
 
-#: ../components/html-editor/popup.c:499
+#: ../components/html-editor/popup.c:508
 msgid "Page Style..."
 msgstr "ページのスタイル..."
 
-#: ../components/html-editor/popup.c:504
+#: ../components/html-editor/popup.c:513
 msgid "Table insert"
 msgstr "表の挿入"
 
-#: ../components/html-editor/popup.c:507
+#: ../components/html-editor/popup.c:516
 msgid "Row above"
 msgstr "行を上に"
 
-#: ../components/html-editor/popup.c:508
+#: ../components/html-editor/popup.c:517
 msgid "Row below"
 msgstr "行を下に"
 
-#: ../components/html-editor/popup.c:510
+#: ../components/html-editor/popup.c:519
 msgid "Column before"
 msgstr "桁を前に"
 
-#: ../components/html-editor/popup.c:511
+#: ../components/html-editor/popup.c:520
 msgid "Column after"
 msgstr "列を後ろに"
 
-#: ../components/html-editor/popup.c:516
+#: ../components/html-editor/popup.c:525
 msgid "Table delete"
 msgstr "表の削除"
 
-#: ../components/html-editor/popup.c:518
+#: ../components/html-editor/popup.c:527
 msgid "Row"
 msgstr "行"
 
-#: ../components/html-editor/popup.c:519
+#: ../components/html-editor/popup.c:528
 msgid "Column"
 msgstr "列"
 
-#: ../components/html-editor/popup.c:520
+#: ../components/html-editor/popup.c:529
 msgid "Cell contents"
 msgstr "セルの内容"
 
-#: ../components/html-editor/popup.c:528
+#: ../components/html-editor/popup.c:537
 msgid "Check Word Spelling..."
 msgstr "スペルのチェック中..."
 
-#: ../components/html-editor/popup.c:533
+#: ../components/html-editor/popup.c:542
 msgid "Add Word to"
 msgstr "単語の追加先"
 
-#: ../components/html-editor/popup.c:537
+#: ../components/html-editor/popup.c:546
 #, c-format
 msgid "%s Dictionary"
 msgstr "%s の辞書"
 
-#: ../components/html-editor/popup.c:546
+#: ../components/html-editor/popup.c:555
 msgid "Add Word to Dictionary"
 msgstr "単語を辞書に追加する"
 
-#: ../components/html-editor/popup.c:549
+#: ../components/html-editor/popup.c:558
 msgid "Ignore Misspelled Word"
 msgstr "スペル間違いの単語を無視する"
 
-#: ../components/html-editor/popup.c:553
+#: ../components/html-editor/popup.c:562
 msgid "Input Methods"
 msgstr "入力メソッド"
 
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
-#: ../components/html-editor/replace.c:81
+#: ../components/html-editor/replace.c:84
 msgid "Replace confirmation"
 msgstr "置換確認"
 
-#: ../components/html-editor/replace.c:82
+#: ../components/html-editor/replace.c:85
 msgid "Replace _All"
 msgstr "全て置換(_A)"
 
-#: ../components/html-editor/replace.c:83
+#: ../components/html-editor/replace.c:86
 msgid "_Next"
 msgstr "次へ(_N)"
 
-#: ../components/html-editor/replace.c:85
+#: ../components/html-editor/replace.c:88
 msgid "_Replace"
 msgstr "置換(_R)"
 
-#: ../components/html-editor/replace.c:175
+#: ../components/html-editor/replace.c:182
 msgid "Search _backward"
 msgstr "後方検索する(_B)"
 
-#: ../components/html-editor/replace.c:176
+#: ../components/html-editor/replace.c:183
 #: ../components/html-editor/search.c:117
 msgid "Case _sensitive"
 msgstr "大/小文字を区別する(_S)"
 
-#: ../components/html-editor/replace.c:186
+#: ../components/html-editor/replace.c:193
 msgid "R_eplace:"
 msgstr "置換前(_E):"
 
-#: ../components/html-editor/replace.c:190
+#: ../components/html-editor/replace.c:197
 msgid "_With:"
 msgstr "置換後(_W):"
 
@@ -1690,104 +1684,104 @@ msgstr "スペル・チェッカ"
 msgid "Current _Languages"
 msgstr "現在の辞書(_L)"
 
-#: ../components/html-editor/template.c:88
+#: ../components/html-editor/template.c:90
 msgid "Note"
 msgstr "注記"
 
-#: ../components/html-editor/template.c:98
-#: ../components/html-editor/template.c:117
+#: ../components/html-editor/template.c:101
+#: ../components/html-editor/template.c:121
 msgid "Place your text here"
 msgstr "<ここがテキストを配置する場所>"
 
-#: ../components/html-editor/template.c:101
+#: ../components/html-editor/template.c:104
 msgid "Image frame"
 msgstr "画像フレーム"
 
-#: ../components/html-editor/template.c:284
+#: ../components/html-editor/template.c:296
 msgid "Template Labels"
 msgstr "テンプレートのラベル"
 
-#: ../components/html-editor/test-html-editor-control.c:337
+#: ../components/html-editor/test-html-editor-control.c:338
 msgid "Open file..."
 msgstr "ファイルを開く..."
 
-#: ../components/html-editor/test-html-editor-control.c:339
+#: ../components/html-editor/test-html-editor-control.c:340
 msgid "Save file as..."
 msgstr "別名で保存..."
 
-#: ../components/html-editor/test-html-editor-control.c:571
+#: ../components/html-editor/test-html-editor-control.c:572
 msgid "GtkHTML Editor Test Container"
 msgstr "GtkHTML エディタのテスト・コンテナ"
 
-#: ../components/html-editor/toolbar.c:56
+#: ../components/html-editor/toolbar.c:57
 msgid "Roman List"
 msgstr "ローマ数字付きリスト"
 
-#: ../components/html-editor/toolbar.c:525
+#: ../components/html-editor/toolbar.c:526
 msgid "Left align"
 msgstr "左寄せ"
 
-#: ../components/html-editor/toolbar.c:529
+#: ../components/html-editor/toolbar.c:530
 msgid "Right align"
 msgstr "右寄せ"
 
-#: ../components/html-editor/toolbar.c:549
+#: ../components/html-editor/toolbar.c:550
 msgid "Toggle typewriter font style"
 msgstr "タイプライタ形式のフォントに切り替えます"
 
-#: ../components/html-editor/toolbar.c:551
+#: ../components/html-editor/toolbar.c:552
 msgid "Bold"
 msgstr "太文字"
 
-#: ../components/html-editor/toolbar.c:551
+#: ../components/html-editor/toolbar.c:552
 msgid "Makes the text bold"
 msgstr "テキストを太字にします"
 
-#: ../components/html-editor/toolbar.c:553
+#: ../components/html-editor/toolbar.c:554
 msgid "Italic"
 msgstr "斜体"
 
-#: ../components/html-editor/toolbar.c:553
+#: ../components/html-editor/toolbar.c:554
 msgid "Makes the text italic"
 msgstr "テキストを斜体にします"
 
-#: ../components/html-editor/toolbar.c:555
+#: ../components/html-editor/toolbar.c:556
 msgid "Underline"
 msgstr "下線"
 
-#: ../components/html-editor/toolbar.c:555
+#: ../components/html-editor/toolbar.c:556
 msgid "Underlines the text"
 msgstr "テキストに下線を付与します"
 
-#: ../components/html-editor/toolbar.c:557
+#: ../components/html-editor/toolbar.c:558
 msgid "Strikes out the text"
 msgstr "テキストに取り消し線を付与します"
 
-#: ../components/html-editor/toolbar.c:566
+#: ../components/html-editor/toolbar.c:567
 msgid "Unindent"
 msgstr "インデント解除"
 
-#: ../components/html-editor/toolbar.c:566
+#: ../components/html-editor/toolbar.c:567
 msgid "Indents the paragraphs less"
 msgstr "段落のインデントを減らします"
 
-#: ../components/html-editor/toolbar.c:568
+#: ../components/html-editor/toolbar.c:569
 msgid "Indent"
 msgstr "インデント"
 
-#: ../components/html-editor/toolbar.c:568
+#: ../components/html-editor/toolbar.c:569
 msgid "Indents the paragraphs more"
 msgstr "段落のインデントを増やします"
 
-#: ../components/html-editor/utils.c:123
+#: ../components/html-editor/utils.c:132
 msgid "Sample"
 msgstr "サンプル"
 
-#: ../components/html-editor/utils.c:196
-msgid "_Visit..."
-msgstr "訪問(_V)..."
+#: ../components/html-editor/utils.c:205
+msgid "_Test URL..."
+msgstr "URL の確認(_T)..."
 
-#: ../components/html-editor/utils.c:236
+#: ../components/html-editor/utils.c:248
 msgid ""
 "The edited object was removed from the document.\n"
 "Cannot apply your changes."
@@ -1795,83 +1789,83 @@ msgstr ""
 "編集したオブジェクトをドキュメントから削除しました。\n"
 "変更点を適用することはできません。"
 
-#: ../src/gtkhtml.c:3005
+#: ../src/gtkhtml.c:3000
 msgid "Editable"
 msgstr "編集可"
 
-#: ../src/gtkhtml.c:3006
+#: ../src/gtkhtml.c:3001
 msgid "Whether the html can be edited"
 msgstr "HTML が編集可能かどうか"
 
-#: ../src/gtkhtml.c:3012
+#: ../src/gtkhtml.c:3007
 msgid "Document Title"
 msgstr "文書のタイトル"
 
-#: ../src/gtkhtml.c:3013
+#: ../src/gtkhtml.c:3008
 msgid "The title of the current document"
 msgstr "このドキュメントのタイトルです"
 
-#: ../src/gtkhtml.c:3019
+#: ../src/gtkhtml.c:3014
 msgid "Document Base"
 msgstr "ドキュメント・ベース"
 
-#: ../src/gtkhtml.c:3020
+#: ../src/gtkhtml.c:3015
 msgid "The base URL for relative references"
 msgstr "関連するリファレンスのベース URL です"
 
-#: ../src/gtkhtml.c:3026
+#: ../src/gtkhtml.c:3021
 msgid "Target Base"
 msgstr "ターゲット・ベース"
 
-#: ../src/gtkhtml.c:3027
+#: ../src/gtkhtml.c:3022
 msgid "The base URL of the target frame"
 msgstr "ターゲット・フレームのベース URL です"
 
-#: ../src/gtkhtml.c:3036
+#: ../src/gtkhtml.c:3031
 msgid "Fixed Width Font"
 msgstr "等幅フォント"
 
-#: ../src/gtkhtml.c:3037
+#: ../src/gtkhtml.c:3032
 msgid "The Monospace font to use for typewriter text"
 msgstr "タイプライタのテキストに使用する等幅フォントです"
 
-#: ../src/gtkhtml.c:3043
+#: ../src/gtkhtml.c:3038
 msgid "New Link Color"
 msgstr "新しいリンクの色"
 
-#: ../src/gtkhtml.c:3044
+#: ../src/gtkhtml.c:3039
 msgid "The color of new link elements"
 msgstr "新しいリンク要素の色です"
 
-#: ../src/gtkhtml.c:3049
+#: ../src/gtkhtml.c:3044
 msgid "Visited Link Color"
 msgstr "訪問済みリンクの色"
 
-#: ../src/gtkhtml.c:3050
+#: ../src/gtkhtml.c:3045
 msgid "The color of visited link elements"
 msgstr "訪問したリンク要素の色です"
 
-#: ../src/gtkhtml.c:3055
+#: ../src/gtkhtml.c:3050
 msgid "Active Link Color"
 msgstr "アクティブなリンクの色"
 
-#: ../src/gtkhtml.c:3056
+#: ../src/gtkhtml.c:3051
 msgid "The color of active link elements"
 msgstr "有効なリンク要素の色です"
 
-#: ../src/gtkhtml.c:3061
+#: ../src/gtkhtml.c:3056
 msgid "Spelling Error Color"
 msgstr "スペルミスの色"
 
-#: ../src/gtkhtml.c:3062
+#: ../src/gtkhtml.c:3057
 msgid "The color of the spelling error markers"
 msgstr "スペル・チェックでエラーとなった色です"
 
-#: ../src/gtkhtml.c:3067
+#: ../src/gtkhtml.c:3062
 msgid "Cite Quotation Color"
 msgstr "引用の色"
 
-#: ../src/gtkhtml.c:3068
+#: ../src/gtkhtml.c:3063
 msgid "The color of the cited text"
 msgstr "引用したテキストの色です"
 
@@ -1892,47 +1886,14 @@ msgstr "デフォルトの印刷用フォントをロードできません。\n"
 msgid "GtkHTML Test"
 msgstr "GtkHTML のテスト"
 
-#: ../src/testgtkhtml.c:117
+#: ../src/testgtkhtml.c:123
 msgid "Print pre_view"
 msgstr "印刷プレビュー(_V)"
 
-#: ../src/testgtkhtml.c:117
+#: ../src/testgtkhtml.c:123
 msgid "Print preview"
 msgstr "印刷イメージのプレビューを表示します"
 
-#: ../src/testgtkhtml.c:1004
+#: ../src/testgtkhtml.c:1017
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML テスト・アプリケーション"
-
-#~ msgid "Background Color"
-#~ msgstr "背景色"
-
-#~ msgid "Blue"
-#~ msgstr "青"
-
-#~ msgid "Green"
-#~ msgstr "緑"
-
-#~ msgid "Orange"
-#~ msgstr "オレンジ"
-
-#~ msgid "Other..."
-#~ msgstr "その他..."
-
-#~ msgid "Purple"
-#~ msgstr "紫"
-
-#~ msgid "Red"
-#~ msgstr "赤"
-
-#~ msgid "Su_perscript"
-#~ msgstr "SuperScript(_P)"
-
-#~ msgid "Subs_cript"
-#~ msgstr "SubScript(_C)"
-
-#~ msgid "Yellow"
-#~ msgstr "黄色"
-
-#~ msgid "etc..."
-#~ msgstr "その他..."
