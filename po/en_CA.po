@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-10-19 14:54-0400\n"
+"POT-Creation-Date: 2005-11-01 12:53-0500\n"
 "PO-Revision-Date: 2005-07-23 15:11-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@gnome.org>\n"
@@ -1791,8 +1791,8 @@ msgid "Sample"
 msgstr "Sample"
 
 #: components/html-editor/utils.c:205
-msgid "_Visit..."
-msgstr "_Visit..."
+msgid "_Test URL..."
+msgstr "_Test URL..."
 
 #: components/html-editor/utils.c:248
 msgid ""
