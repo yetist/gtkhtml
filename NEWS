@@ -1,3 +1,19 @@
+GtkHTML-3.9.2 "Adieu" 2005-11-14
+------------------------------------------
+
+New in this release
+
+   * Fix dialog stacking (Kaushal Kumar)
+   * Improve Link Dialog (Kaushal Kumar)
+   * Updated translations 
+     - et (Priit Laes)
+     - ku (Erdal Ronahi)
+     - sk (Marcel Telka)
+     - es (Francisco Javier F. Serrador)
+     - ja (Takeshi AIHANA)
+     - en_CA (Adam Weinberger)
+     - cs (Miloslav Trmac)
+
 GtkHTML-3.9.1 "Nightingale" 2005-10-25
 ------------------------------------------
 
