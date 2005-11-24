@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-21 21:22+0100\n"
-"PO-Revision-Date: 2005-11-21 21:30+0100\n"
+"POT-Creation-Date: 2005-11-24 14:30+0100\n"
+"PO-Revision-Date: 2005-11-24 14:31+0100\n"
 "Last-Translator: Ignacio Casal Quinteiro <nacho.resa@gmail.com>\n"
 "Language-Team: Galego\n"
 "MIME-Version: 1.0\n"
@@ -222,9 +222,8 @@ msgstr "Iserir un emoticón chorando no documento..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:34
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:34
-#, fuzzy
 msgid "Insert Frown smiley into document..."
-msgstr "Inserir un emoticón "
+msgstr "Inserir un emoticón de cello fruncido no documento..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:35
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
@@ -604,7 +603,6 @@ msgstr "Tamaño da _fonte"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:106
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
-#, fuzzy
 msgid "_Frown"
 msgstr "_Cello fruncido"
 
