@@ -1,45 +1,18 @@
-GtkHTML-3.9.2 "Adieu" 2005-11-14
+GtkHTML-3.8.2 "Sunny" 2005-11-29
+------------------------------------------
+
+   * Updated translations 
+     - Inaki Larranaga (eu)
+     - Christian Rose (sv)
+
+GtkHTML-3.8.1 "Shiny" 2005-10-03
 ------------------------------------------
 
 New in this release
 
-   * Fix dialog stacking (Kaushal Kumar)
-   * Improve Link Dialog (Kaushal Kumar)
    * Updated translations 
-     - et (Priit Laes)
-     - ku (Erdal Ronahi)
-     - sk (Marcel Telka)
-     - es (Francisco Javier F. Serrador)
-     - ja (Takeshi AIHANA)
-     - en_CA (Adam Weinberger)
-     - cs (Miloslav Trmac)
-
-GtkHTML-3.9.1 "Nightingale" 2005-10-25
-------------------------------------------
-
-New in this release
-
-   * Win32 port (Tor Lillqvist)
-   	- Accept non-absolute filename and URIs
-	- Handle drive letters on Win32.
-	- Use g_ascii_strcasecmp instead of strcasecmp.
-	- Construct pathnames at run-time.
-	- Use g_open instead of open.
-	- Other Win32 related clean-ups.
-   * Clean generated headers of Win32 port (Kaushal Kumar).
-   * Clean-up of selection stack code (Owen Taylor).
-   * Improved print layout (Kaushal Kumar)
-   * C89 build fix (Jens Granseuer)
-   * Higify Insert file and insert rule dialogs (Jai Vikram)
-   * Re-designed Page properties dialog (Kaushal Kumar).
-   * Updated translations 
-     - eu (Inaki Larranaga)
-     - pt_BR (Evandro Fernandes Giovanini)
-     - en_CA (Adam Weinberger)
-     - sv (Christian Rose)
-     - nl (Vincent van Adrighem)
-     - sk (Marcel Telka)
-     - et (Priit Laes)
+     - Alessio Frusciante (it)
+     - Ignacio Casal Quinteiro (gl)
 
 GtkHTML-3.8.0 "Nilgiri Sunrise" 2005-09-05
 ------------------------------------------

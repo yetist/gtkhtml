@@ -1,35 +1,14 @@
-2005-11-29  Theppitak Karoonboonyanan  <thep@linux.thai.net>
+2005-11-29  Harish Krishnaswamy  <kharish@novell.com>
 
-	* configure.in: Added 'th' (Thai) to ALL_LINGUAS.
+	* NEWS: updates.
+	* configure.in: Bump version to 3.8.2 (GNOME 2.12.2 release)
 
-2005-11-14  Kaushal Kumar  <kakumar@novell.com>
+2005-10-03  Kaushal Kumar  <kakumar@novell.com>
 
-	* configure.in: Post release version bump to 3.9.2.
-
-	* NEWS: updated.
-
-2005-10-27  Erdal Ronahi  <erdal.ronahi@gmail.com>
-
-	* configure.in: Added ku (Kurdish) to ALL_LINGUAS
-
-2005-10-25  Kaushal Kumar  <kakumar@novell.com>
-
-	* configure.in: Post release version bump to 3.9.1.
+	* configure.in: Bumped version to 3.8.1 towards the Gnome 2.12.1
+	release.
 
 	* NEWS: updated.
-
-2005-10-03  Tor Lillqvist  <tml@novell.com>
-
-	* gtkhtml-zip.in: Include the .pc file in the developer zipfile.
-
-2005-09-11  Tor Lillqvist  <tml@novell.com>
-
-	* configure.in: Bump version number of HEAD to 3.9.0 to avoid
-	mixup with the gnome-2-12 branch. No change to
-	GTKHTML_API_VERSION, GTKHTML_CURRENT, _REVISION or _AGE as there
-	is no API or ABI change.
-
-	* TODO: Add two new issues.
 
 2005-09-05  Kaushal Kumar  <kakumar@novell.com>
 
