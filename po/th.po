@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: gtkhtml 3.9.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-11-29 09:23+0700\n"
-"PO-Revision-Date: 2005-11-29 12:39+0700\n"
+"PO-Revision-Date: 2005-12-12 21:04+0700\n"
 "Last-Translator: Theppitak Karoonboonyanan <thep@linux.thai.net>\n"
 "Language-Team: Thai <l10n@opentle.org>\n"
 "MIME-Version: 1.0\n"
@@ -951,24 +951,24 @@ msgstr "ดำ"
 
 #: components/html-editor/gi-color-palette.c:583
 msgid "light brown"
-msgstr "น้ำตาลอ่อน"
+msgstr "น้ำตาล"
 
 #: components/html-editor/gi-color-palette.c:584
 msgid "brown gold"
-msgstr ""
+msgstr "น้ำตาลเหลือบ"
 
 #: components/html-editor/gi-color-palette.c:585
 msgid "dark green #2"
-msgstr ""
+msgstr "เขียวเข้ม #2"
 
 #: components/html-editor/gi-color-palette.c:586
 msgid "navy"
-msgstr "นาวี"
+msgstr "กรมท่า"
 
 #: components/html-editor/gi-color-palette.c:587
 #: components/html-editor/gi-color-palette.c:643
 msgid "dark blue"
-msgstr ""
+msgstr "น้ำเงินเข้ม"
 
 #: components/html-editor/gi-color-palette.c:588
 msgid "purple #2"
@@ -976,16 +976,16 @@ msgstr "ม่วง #2"
 
 #: components/html-editor/gi-color-palette.c:589
 msgid "very dark gray"
-msgstr ""
+msgstr "เทาแก่"
 
 #: components/html-editor/gi-color-palette.c:592
 #: components/html-editor/gi-color-palette.c:648
 msgid "dark red"
-msgstr ""
+msgstr "แดงเข้ม"
 
 #: components/html-editor/gi-color-palette.c:593
 msgid "red-orange"
-msgstr ""
+msgstr "แสด"
 
 #: components/html-editor/gi-color-palette.c:594
 msgid "gold"
@@ -993,12 +993,12 @@ msgstr "ทอง"
 
 #: components/html-editor/gi-color-palette.c:595
 msgid "dark green"
-msgstr ""
+msgstr "เขียวเข้ม"
 
 #: components/html-editor/gi-color-palette.c:596
 #: components/html-editor/gi-color-palette.c:649
 msgid "dull blue"
-msgstr ""
+msgstr "เขียวหัวเป็ด"
 
 #: components/html-editor/gi-color-palette.c:597
 #: components/html-editor/gi-color-palette.c:650
@@ -1007,11 +1007,11 @@ msgstr "น้ำเงิน"
 
 #: components/html-editor/gi-color-palette.c:598
 msgid "dull purple"
-msgstr ""
+msgstr "ม่วงทึม"
 
 #: components/html-editor/gi-color-palette.c:599
 msgid "dark grey"
-msgstr ""
+msgstr "เทาเข้ม"
 
 #: components/html-editor/gi-color-palette.c:602
 msgid "red"
@@ -1023,19 +1023,19 @@ msgstr "ส้ม"
 
 #: components/html-editor/gi-color-palette.c:604
 msgid "lime"
-msgstr ""
+msgstr "เขียวขี้ม้า"
 
 #: components/html-editor/gi-color-palette.c:605
 msgid "dull green"
-msgstr ""
+msgstr "เขียวใบไม้"
 
 #: components/html-editor/gi-color-palette.c:606
 msgid "dull blue #2"
-msgstr ""
+msgstr "ฟ้าเขียวทึม"
 
 #: components/html-editor/gi-color-palette.c:607
 msgid "sky blue #2"
-msgstr ""
+msgstr "ฟ้า #2"
 
 #: components/html-editor/gi-color-palette.c:608
 #: components/html-editor/gi-color-palette.c:647
@@ -1053,7 +1053,7 @@ msgstr "ม่วงแดง"
 
 #: components/html-editor/gi-color-palette.c:613
 msgid "bright orange"
-msgstr ""
+msgstr "ส้มทอง"
 
 #: components/html-editor/gi-color-palette.c:614
 #: components/html-editor/gi-color-palette.c:645
@@ -1071,16 +1071,16 @@ msgstr "ฟ้าเขียว"
 
 #: components/html-editor/gi-color-palette.c:617
 msgid "bright blue"
-msgstr ""
+msgstr "ฟ้าเขียวอ่อน"
 
 #: components/html-editor/gi-color-palette.c:618
 #: components/html-editor/gi-color-palette.c:635
 msgid "red purple"
-msgstr ""
+msgstr "ม่วงแดงทึม"
 
 #: components/html-editor/gi-color-palette.c:619
 msgid "light grey"
-msgstr ""
+msgstr "เทาอ่อน"
 
 #: components/html-editor/gi-color-palette.c:622
 #: components/html-editor/gi-color-palette.c:639
@@ -1089,30 +1089,30 @@ msgstr "ชมพู"
 
 #: components/html-editor/gi-color-palette.c:623
 msgid "light orange"
-msgstr ""
+msgstr "ส้มอ่อน"
 
 #: components/html-editor/gi-color-palette.c:624
 #: components/html-editor/gi-color-palette.c:636
 msgid "light yellow"
-msgstr ""
+msgstr "เหลืองอ่อน"
 
 #: components/html-editor/gi-color-palette.c:625
 msgid "light green"
-msgstr ""
+msgstr "เขียวอ่อน"
 
 #: components/html-editor/gi-color-palette.c:626
 msgid "light cyan"
-msgstr ""
+msgstr "ฟ้าเขียวอ่อน"
 
 #: components/html-editor/gi-color-palette.c:627
 #: components/html-editor/gi-color-palette.c:637
 msgid "light blue"
-msgstr ""
+msgstr "ฟ้าอ่อน"
 
 #: components/html-editor/gi-color-palette.c:628
 #: components/html-editor/gi-color-palette.c:641
 msgid "light purple"
-msgstr ""
+msgstr "ม่วงอ่อน"
 
 #: components/html-editor/gi-color-palette.c:629
 msgid "white"
@@ -1120,11 +1120,11 @@ msgstr "ขาว"
 
 #: components/html-editor/gi-color-palette.c:634
 msgid "purplish blue"
-msgstr ""
+msgstr "น้ำเงินม่วง"
 
 #: components/html-editor/gi-color-palette.c:638
 msgid "dark purple"
-msgstr ""
+msgstr "ม่วงเข้ม"
 
 #: components/html-editor/gi-color-palette.c:640
 msgid "sky blue"
@@ -1391,7 +1391,7 @@ msgstr "ช่องไฟด้านในแนว _Y:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:80
 msgid "follow"
-msgstr ""
+msgstr "ตามค่าย่อหน้า"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:81
 msgid "px"
@@ -1656,7 +1656,7 @@ msgstr "_ย้อนกลับ"
 
 #: components/html-editor/search.c:118
 msgid "_Regular Expression"
-msgstr ""
+msgstr "นิ_พจน์เรกกิวลาร์"
 
 #: components/html-editor/search.c:122
 msgid "Input the words you want to search here"
