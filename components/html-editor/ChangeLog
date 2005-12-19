@@ -1,3 +1,10 @@
+2005-12-19  Srinivasa Ragavan <sragavan@novell.com>
+
+	** Fixes bug #246938
+
+	* popup.c: (prepare_properties_and_menu): Moved the 'Ignore Misspelled
+	Word' menuitem above the 'Add Word to Dictionary' in the popup menu.
+	
 2005-10-28  Kaushal Kumar  <kakumar@novell.com>
 
 	* utils.c: Use proper description for test_url_items button.

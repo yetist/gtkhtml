@@ -535,6 +535,7 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items, guint *props)
 	    && !html_engine_spell_word_is_valid (e)) {
 		ADD_SEP;
 		ADD_ITEM (_("Check Word Spelling..."), spell_check_cb, NONE);
+		ADD_ITEM (_("Ignore Misspelled Word"), spell_ignore, NONE);		
 		if (get_n_languages (cd) > 1) {
 			gchar *lang;
 			gint i;
@@ -555,7 +556,6 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items, guint *props)
 			ADD_ITEM (_("Add Word to Dictionary"), spell_add, NONE);
 			g_object_set_data (G_OBJECT (menuitem), "abbrev", (gpointer) get_language (cd));
 		}
-		ADD_ITEM (_("Ignore Misspelled Word"), spell_ignore, NONE);
 	}
 
 	ADD_SEP;
