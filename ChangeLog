@@ -1,3 +1,8 @@
+2006-01-02  Harish Krishnaswamy <kharish@novell.com>
+	
+	* configure.in: version bump. NEWS update.
+	Release 3.9.4.
+
 2005-12-12  Harish Krishnaswamy  <kharish@novell.com>
 
 	* configure.in: version bump. NEWS update.

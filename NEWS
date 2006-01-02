@@ -1,3 +1,14 @@
+GtkHTML-3.9.4 "Blossom" 2006-01-02
+------------------------------
+
+New in this release
+
+   * Fixed popup menu layout for the GtkHTML Editor (Srinivasa Ragavan)
+   * Updated Translations:
+
+	- lt (Žygimantas Beručka)
+	- vi (Clytie Siddall)
+
 GtkHTML-3.9.3 "Stroll" 2005-12-12
 ------------------------------
 
