@@ -1,3 +1,9 @@
+2006-01-04  Tor Lillqvist  <tml@novell.com>
+
+	* Makefile.am: On Win32, use a relative path to the DLL in the
+	server file. (relative to the location of the .server file)
+	libbonobo handles this correctly.
+
 2005-12-19  Srinivasa Ragavan <sragavan@novell.com>
 
 	** Fixes bug #246938

@@ -133,7 +133,7 @@ libgnome_gtkhtml_editor_la_SOURCES =		\
 if EDITOR_SHLIB
 MY_PRGS =
 MY_LIBS = libgnome-gtkhtml-editor-3.8.la
-location = "${privlibdir}/libgnome-gtkhtml-editor-$(EDITOR_API_VERSION)$(SOEXT)"
+location = "${privlibdir_in_server_file}/libgnome-gtkhtml-editor-$(EDITOR_API_VERSION)$(SOEXT)"
 else
 MY_PRGS = gnome-gtkhtml-editor-3.8
 MY_LIBS =
@@ -159,6 +159,11 @@ gnome_gtkhtml_editor_3_8_SOURCES = \
 
 noinst_LTLIBRARIES = libgnome-gtkhtml-editor.la
 
+if OS_WIN32
+privlibdir_in_server_file = "../../../lib/gtkhtml"
+else
+privlibdir_in_server_file = "$(libdir)/gtkhtml"
+endif
 privlibdir = "$(libdir)/gtkhtml"
 privlib_LTLIBRARIES = $(MY_LIBS)
 
