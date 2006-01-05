@@ -5809,6 +5809,13 @@ html_engine_get_spell_word (HTMLEngine *e)
 		cited2 = FALSE;
 	}
 
+	/* remove single quote at both ends of word*/
+	if (text->str[0] == '\'')
+		text = g_string_erase (text, 0, 1);
+
+	if (text->str[text->len - 1] == '\'')
+		text = g_string_erase (text, text->len - 1, 1);
+
 	word = text->str;
 	g_string_free (text, FALSE);
 	html_cursor_destroy (cursor);

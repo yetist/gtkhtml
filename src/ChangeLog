@@ -1,3 +1,12 @@
+2006-01-05  Veerapuram Varadhan <vvaradhan@novell.com>
+
+	Committing for Rohini  <srohini@novell.com>
+
+	* htmlengine.c (html_engine_spell_word): Function modified to
+	strip single quote. 
+
+	Fixes bug #306986
+
 2005-10-22  Kaushal Kumar  <kakumar@novell.com>
 
 	* htmlprinter.c (draw_border): Do not draw peripheral border since
