@@ -1355,7 +1355,7 @@ msgstr "水平："
 # Novell Translation
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:36
 msgid "I_mage:"
-msgstr "影像(_M)："
+msgstr "圖像(_M)："
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:38
 #: ../components/html-editor/paragraph.c:131
@@ -1451,7 +1451,7 @@ msgstr "高度(_H)："
 # Novell Translation
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:65
 msgid "_Image:"
-msgstr "影像(_I)："
+msgstr "圖像(_I)："
 
 # Novell Translation
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:67
@@ -1540,7 +1540,7 @@ msgstr "描述："
 #: ../components/html-editor/menubar.c:102
 #: ../components/html-editor/menubar.c:110
 msgid "Insert image"
-msgstr "插入影像"
+msgstr "插入圖像"
 
 #: ../components/html-editor/menubar.c:141
 #: ../components/html-editor/menubar.c:164
@@ -1805,7 +1805,7 @@ msgstr "一般運算式(_R)"
 
 #: ../components/html-editor/search.c:122
 msgid "Input the words you want to search here"
-msgstr "在這裡輸入您想尋找的字詞"
+msgstr "在這裏輸入你想尋找的字詞"
 
 #: ../components/html-editor/spellchecker.c:114
 msgid ""
@@ -1835,7 +1835,7 @@ msgstr "備註"
 #: ../components/html-editor/template.c:101
 #: ../components/html-editor/template.c:121
 msgid "Place your text here"
-msgstr "在這裡輸入文字"
+msgstr "在這裏輸入文字"
 
 #: ../components/html-editor/template.c:104
 msgid "Image frame"
@@ -1932,7 +1932,7 @@ msgid ""
 "Cannot apply your changes."
 msgstr ""
 "編輯的物件已從文件中移除。\n"
-"無法套用您的變更。"
+"無法套用你的更改。"
 
 #: ../src/gtkhtml.c:3000
 msgid "Editable"
