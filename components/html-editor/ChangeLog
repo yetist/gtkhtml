@@ -1,3 +1,11 @@
+2005-12-21  Rohini S  <srohini@novell.com>
+
+	* GNOME_GtkHTML_Editor.xml.in:
+	* GNOME_GtkHTML_Editor-emacs.xml.in:
+	Tooltips and menu item labels modified
+
+	Fixes bug #246237
+
 2006-01-04  Tor Lillqvist  <tml@novell.com>
 
 	* Makefile.am: On Win32, use a relative path to the DLL in the

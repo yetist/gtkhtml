@@ -16,7 +16,7 @@
 
 			<cmd name="EditSelectAll" _label="Select _All"
 			_tip="Select the entire contents of the document"/>
-			<cmd name="EditSpellCheck" _label="_Spell Check Document..."
+			<cmd name="EditSpellCheck" _label="Check _Spelling..."
 			_tip="Check spelling of the document" accel="*Ctrl**Shift*l"/>
 
 			<cmd name="InsertImage" _label="_Image..." _tip="Insert image into document..."/>
@@ -24,13 +24,13 @@
 			<cmd name="InsertRule"  _label="_Rule..." _tip="Insert rule into document..."/>
 			<cmd name="InsertTable" _label="_Table..." _tip="Insert table into document..."/>
 			<cmd name="InsertTemplate" _label="Te_mplate..." _tip="Insert HTML template into document..."/>
-			<cmd name="InsertTextFile" _label="Te_xt file..." _tip="Insert text file into document..."/>
-			<cmd name="InsertHTMLFile" _label="_HTML file..." _tip="Insert HTML file into document..."/>
+			<cmd name="InsertTextFile" _label="Te_xt File..." _tip="Insert text file into document..."/>
+			<cmd name="InsertHTMLFile" _label="_HTML File..." _tip="Insert HTML file into document..."/>
 			<cmd name="InsertSmiley3" _label="_Smile" _tip="Insert Smile smiley into document..."/>
 			<cmd name="InsertSmiley4" _label="_Wink" _tip="Insert Wink smiley into document..."/>
 			<cmd name="InsertSmiley5" _label="Su_rprised" _tip="Insert Surprised smiley into document..."/>
 			<cmd name="InsertSmiley1" _label="_Laughing" _tip="Insert Laughing smiley into document..."/>
-			<cmd name="InsertSmiley2" _label="Oh _no!" _tip="Insert Oh no! smiley into document..."/>
+			<cmd name="InsertSmiley2" _label="Oh _No!" _tip="Insert Oh no! smiley into document..."/>
 			<cmd name="InsertSmiley6" _label="_Frown" _tip="Insert Frown smiley into document..."/>
 			<cmd name="InsertSmiley8" _label="_Indifferent" _tip="Insert Indifferent smiley into document..."/>
 			<cmd name="InsertSmiley9" _label="_Undecided" _tip="Insert Undecided smiley into document..."/>
@@ -157,7 +157,7 @@
 				pixtype="filename" pixname="@ICONSDIR@/insert-table-16.png"/>
 				<menuitem name="InsertTextFile" verb=""/>
 				<menuitem name="InsertHTMLFile" verb=""/>
-				<submenu name="Smiley" _label="_Smiley"
+				<submenu name="Smiley" _label="Emoti_con"
                                 pixtype="filename" pixname="@ICONSDIR@/smiley-3.png">
 					<menuitem name="InsertSmiley3" verb=""
         	                        pixtype="filename" pixname="@ICONSDIR@/smiley-3.png"/>
@@ -188,14 +188,14 @@
 
 			<placeholder name="FormatParagaph">
 				<submenu name="FontStyle" _label="_Style">
-					<menuitem name="FormatFixed" verb="" _label="_Plain text"/>
+					<menuitem name="FormatFixed" verb="" _label="_Plain Text"/>
 
 					<separator/>
 				
 					<menuitem name="FormatBold" verb="" _label="_Bold"/>
 					<menuitem name="FormatItalic" verb="" _label="_Italic"/>
 					<menuitem name="FormatUnderline" verb="" _label="_Underline"/>
-					<menuitem name="FormatStrikeout" verb="" _label="_Strikeout"/>
+					<menuitem name="FormatStrikeout" verb="" _label="_Strikethrough"/>
 					
 <!--					
 					<separator/>
@@ -234,7 +234,7 @@
                 
 				<submenu name="Heading" _label="_Heading">
 					<menuitem name="HeadingNormal" verb="" _label="_Normal"/> 
-					<menuitem name="HeadingPreformat" verb="" _label="_Preformat"/>
+					<menuitem name="HeadingPreformat" verb="" _label="_Preformatted"/>
 					<menuitem name="HeadingBulletedList" verb="" _label="_Bulleted List"/>
 					<menuitem name="HeadingRomanList" verb="" _label="_Roman Numeral List"/> 
  					<menuitem name="HeadingNumberedList" verb="" _label="Numbered _List"/> 
@@ -282,15 +282,15 @@
 		<separator/>
 
 		<toolitem name="EditFind" verb=""  _label="Find" _tip="Find"/>
-		<toolitem name="EditReplace" verb=""  _label="Replace" _tip="Find And Replace"/>
+		<toolitem name="EditReplace" verb=""  _label="Replace" _tip="Find and replace"/>
 
 		<separator/>
 
-		<toolitem name="InsertImage" verb="" _label="Image"/>
-		<toolitem name="InsertLink" verb="" _label="Link"/>
-		<toolitem name="InsertRule" verb="" _label="Rule"
+		<toolitem name="InsertImage" verb="" _label="Image" _tip="Insert image"/>
+		<toolitem name="InsertLink" verb="" _label="Link" _tip="Insert link"/>
+		<toolitem name="InsertRule" verb="" _label="Rule" _tip="Insert rule"
 		pixtype="filename" pixname="@ICONSDIR@/insert-rule-24.png"/>
-		<toolitem name="InsertTable" verb="" _label="Table"
+		<toolitem name="InsertTable" verb="" _label="Table" _tip="Insert table"
 		pixtype="filename" pixname="@ICONSDIR@/insert-table-24.png"/>
 	</dockitem>
 
