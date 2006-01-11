@@ -1,21 +1,21 @@
 # Vietnamese translation for GTKHtml.
-# Copyright © 2005 Gnome i18n Project for Vietnamese.
+# Copyright © 2002-2006 Gnome i18n Project for Vietnamese.
 # Nguyễn Thái Ngọc Duy <pclouds@gmx.net>, 2002.
-# Clytie Siddall <clytie@riverland.net.au>, 2005.
+# Clytie Siddall <clytie@riverland.net.au>, 2005-2006.
 # 
 msgid ""
 ""
 msgstr "Project-Id-Version: gtkhtml GNOME HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-12-30 06:52+0100\n"
-"PO-Revision-Date: 2005-12-30 17:24+1030\n"
+"POT-Creation-Date: 2006-01-10 23:21+0100\n"
+"PO-Revision-Date: 2006-01-11 16:00+1030\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
-"X-Generator: LocFactoryEditor 1.5.1b\n"
+"X-Generator: LocFactoryEditor 1.6b23\n"
 
 #:../a11y/image.c:150
 #,c-format
@@ -95,377 +95,408 @@ msgstr "Canh giữa đoạn văn"
 
 #:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:11
 #:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:11
-msgid "Check spelling of the document"
-msgstr "Kiểm tra chính tả tài liệu"
+msgid "Check _Spelling..."
+msgstr "Kiểm tra _chính tả..."
 
 #:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:12
 #:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
-msgid "Copy"
-msgstr "Chép"
+msgid "Check spelling of the document"
+msgstr "Kiểm tra chính tả tài liệu"
 
 #:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:13
 #:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:13
-msgid "Copy selection to clipboard"
-msgstr "Sao chép vùng chọn vào khay"
+msgid "Copy"
+msgstr "Chép"
 
 #:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:14
 #:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:14
-msgid "Copy the selection"
-msgstr "Chép vùng chọn"
+msgid "Copy selection to clipboard"
+msgstr "Sao chép vùng chọn vào khay"
 
 #:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:15
 #:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:15
-msgid "Cr_ying"
-msgstr "_Khóc"
+msgid "Copy the selection"
+msgstr "Chép vùng chọn"
 
 #:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:16
 #:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:16
-msgid "Cu_t"
-msgstr "_Cắt"
+msgid "Cr_ying"
+msgstr "_Khóc"
 
 #:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:17
 #:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:17
-msgid "Cut"
-msgstr "Cắt"
+msgid "Cu_t"
+msgstr "_Cắt"
 
 #:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:18
 #:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:18
-msgid "Cut selection to clipboard"
-msgstr "Cắt vùng chọn vào khay"
+msgid "Cut"
+msgstr "Cắt"
 
 #:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:19
 #:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:19
+msgid "Cut selection to clipboard"
+msgstr "Cắt vùng chọn vào khay"
+
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:20
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:20
 msgid "Cut the selection"
 msgstr "Cắt vùng chọn"
 
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:21
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:21
+msgid "Emoti_con"
+msgstr "Biểu tượng xúc _cảm"
+
 #.we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:20
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:20
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
 #:../components/html-editor/search.c:111
 #:../components/html-editor/search.c:171
 msgid "Find"
 msgstr "Tìm"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:21
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:21
-msgid "Find And Replace"
-msgstr "Tìm và thay thế"
-
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:23
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:23
 msgid "Find _Again"
 msgstr "Tìm tiế_p"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:23
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:23
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:24
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:24
 msgid "Find again"
 msgstr "Tìm tiếp"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:24
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:24
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:25
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:25
 msgid "Find and Replace"
 msgstr "Tìm và thay thế"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:25
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:25
-msgid "For_mat"
-msgstr "Đị_nh dạng"
-
 #:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:26
 #:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:26
-msgid "Header _1"
-msgstr "Tiêu đề _1"
+msgid "Find and replace"
+msgstr "Tìm và thay thế"
 
 #:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:27
 #:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:27
-msgid "Header _2"
-msgstr "Tiêu đề _2"
+msgid "For_mat"
+msgstr "Đị_nh dạng"
 
 #:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:28
 #:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:28
-msgid "Header _3"
-msgstr "Tiêu đề _3"
+msgid "Header _1"
+msgstr "Tiêu đề _1"
 
 #:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:29
 #:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:29
-msgid "Header _4"
-msgstr "Tiêu đề _4"
+msgid "Header _2"
+msgstr "Tiêu đề _2"
 
 #:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:30
 #:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:30
-msgid "Header _5"
-msgstr "Tiêu đề _5"
+msgid "Header _3"
+msgstr "Tiêu đề _3"
 
 #:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:31
 #:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:31
-msgid "Header _6"
-msgstr "Tiêu đề _6"
+msgid "Header _4"
+msgstr "Tiêu đề _4"
 
 #:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:32
 #:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:32
+msgid "Header _5"
+msgstr "Tiêu đề _5"
+
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:33
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:33
+msgid "Header _6"
+msgstr "Tiêu đề _6"
+
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:34
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:34
 #:../components/html-editor/editor-control-factory.c:198
 #:../components/html-editor/gtkhtml-editor-properties.glade.h:37
 #:../components/html-editor/popup.c:216
 msgid "Image"
 msgstr "Ảnh"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:33
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:33
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:35
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
 msgid "Insert Crying smiley into document..."
 msgstr "Chèn Biểu tượng Khóc vào tài liệu..."
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:34
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:34
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:36
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
 msgid "Insert Frown smiley into document..."
 msgstr "Chèn Biểu tượng Cau mày vào tài liệu..."
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:35
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:37
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
 msgid "Insert HTML file into document..."
 msgstr "Chèn tập tin HTML vào tài liệu..."
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:36
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:38
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
 msgid "Insert HTML link into document..."
 msgstr "Chèn liên kết HTML vào tài liệu..."
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:37
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:39
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
 msgid "Insert HTML template into document..."
 msgstr "Chèn mẫu HTML vào tài liệu..."
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:38
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:40
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:40
 msgid "Insert Indifferent smiley into document..."
 msgstr "Chèn Biểu tượng Thơ ơ vào tài liệu..."
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:39
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:41
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
 msgid "Insert Laughing smiley into document..."
 msgstr "Chèn Biểu tượng Cười to vào tài liệu..."
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:40
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:40
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:42
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
 msgid "Insert Lick smiley into document..."
 msgstr "Chèn Biểu tượng Liếm vào tài liệu..."
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:41
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:43
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
 msgid "Insert Oh no! smiley into document..."
 msgstr "Chèn Biểu tượng «Chết chưa!» vào tài liệu..."
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:42
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:44
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
 msgid "Insert Smile smiley into document..."
 msgstr "Chèn Biểu tượng Mỉm cười vào tài liệu..."
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:43
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:45
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
 msgid "Insert Surprised smiley into document..."
 msgstr "Chèn Biểu tượng Ngạc nhiên vào tài liệu..."
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:44
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:46
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
 msgid "Insert Undecided smiley into document..."
 msgstr "Chèm Biểu tượng Phân vân vào tài liệu..."
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:45
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:47
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
 msgid "Insert Wink smiley into document..."
 msgstr "Chèn Biểu tượng Nháy mắt vào tài liệu..."
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:46
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
-msgid "Insert image into document..."
-msgstr "Chèn ảnh vào tài liệu..."
-
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:47
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
-msgid "Insert rule into document..."
-msgstr "Chèn đường vào tài liệu..."
-
 #:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:48
 #:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
-msgid "Insert table into document..."
-msgstr "Chèn bảng vào tài liệu..."
+#:../components/html-editor/menubar.c:102
+#:../components/html-editor/menubar.c:110
+msgid "Insert image"
+msgstr "Chèn ảnh"
 
 #:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:49
 #:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
-msgid "Insert text file into document..."
-msgstr "Chèn tập tin văn bản vào tài liệu..."
+msgid "Insert image into document..."
+msgstr "Chèn ảnh vào tài liệu..."
 
 #:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:50
 #:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
+msgid "Insert link"
+msgstr "Chèn liên kết"
+
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:51
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:52
+msgid "Insert rule"
+msgstr "Chèn quy tắc"
+
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:52
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:53
+msgid "Insert rule into document..."
+msgstr "Chèn đường vào tài liệu..."
+
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:53
+msgid "Insert table"
+msgstr "Chèn bảng"
+
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:54
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
+msgid "Insert table into document..."
+msgstr "Chèn bảng vào tài liệu..."
+
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
+msgid "Insert text file into document..."
+msgstr "Chèn tập tin văn bản vào tài liệu..."
+
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:56
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
 #:../components/html-editor/toolbar.c:526
 msgid "Left justifies the paragraphs"
 msgstr "Canh trái đoạn văn"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:51
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:52
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:57
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
 msgid "Li_ck"
 msgstr "_Liếm"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:52
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:53
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:58
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:58
 #:../components/html-editor/menubar.c:145
 #:../components/html-editor/popup.c:115 ../components/html-editor/popup.c:210
 #:../components/html-editor/popup.c:280
 msgid "Link"
 msgstr "Liên kết"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:53
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:59
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
 msgid "Make the current Paragraph style Normal"
 msgstr "Dùng kiểu mặc định cho đoạn hiện thời"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:54
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:60
 msgid "Make the current Paragraph style Preformat"
 msgstr "Dùng kiểu Tiền định dạng cho đoạn hiện thời"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:61
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
 msgid "Make the current paragraph a bulleted list"
 msgstr "Dùng đoạn làm danh sách nút"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:56
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:62
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
 msgid "Make the current paragraph a list with roman numerals"
 msgstr "Dùng đoạn này với danh sách đán số roman"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:57
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:58
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:63
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:63
 msgid "Make the current paragraph a numbered list"
 msgstr "Dùng đoạn làm danh sách đánh số"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:58
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:64
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:64
 msgid "Make the current paragraph an H1 header"
 msgstr "Dùng tiêu đề H1 cho đoạn hiện thời"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:59
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:65
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:65
 msgid "Make the current paragraph an H2 header"
 msgstr "Dùng tiêu đề H2 cho đoạn hiện thời"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:60
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:66
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:66
 msgid "Make the current paragraph an H3 header"
 msgstr "Dùng tiêu đề H3 cho đoạn hiện thời"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:61
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:67
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:67
 msgid "Make the current paragraph an H4 header"
 msgstr "Dùng tiêu đề H4 cho đoạn hiện thời"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:62
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:63
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:68
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:68
 msgid "Make the current paragraph an H5 header"
 msgstr "Dùng tiêu đề H5 cho đoạn hiện thời"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:63
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:64
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:69
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:69
 msgid "Make the current paragraph an H6 header"
 msgstr "Dùng tiêu đề H6 cho đoạn hiện thời"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:64
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:65
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:70
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:70
 msgid "Make the current paragraph an address"
 msgstr "Dùng đoạn hiện thời làm địa chỉ"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:65
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:66
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:71
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
 msgid "Make the current paragraph an alphabetical list"
 msgstr "Dùng đoạn hiện thời làm danh sách ABC"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:66
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:67
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:72
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
 #:../components/html-editor/paragraph.c:87
 #:../components/html-editor/toolbar.c:53
 msgid "Normal"
 msgstr "Bình thường"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:67
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:68
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:73
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
 #:../components/html-editor/toolbar.c:56
 msgid "Numbered List"
 msgstr "Danh sách đánh số"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:68
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:69
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:74
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
 msgid "Numbered _List"
 msgstr "Danh sách đánh _số"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:69
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:70
-msgid "Oh _no!"
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:75
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:75
+msgid "Oh _No!"
 msgstr "_Chết chưa!"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:70
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:76
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
 msgid "Paste"
 msgstr "Dán"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:71
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:77
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
 msgid "Paste _Quotation"
 msgstr "Dán _trích dẫn"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:72
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:78
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
 msgid "Paste from clipboard"
 msgstr "Dán từ khay"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:73
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:79
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
 msgid "Paste the clipboard"
 msgstr "Dán khay"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:74
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:75
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:80
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
 msgid "Paste the clipboard as a quotation"
 msgstr "Dán từ khay theo kiểu trích dẫn"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:75
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:81
 #:../components/html-editor/toolbar.c:54
 msgid "Preformat"
 msgstr "Tiền định dạng"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:76
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:82
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
 msgid "Redo"
 msgstr "Làm lại"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:77
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:83
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
 msgid "Redo previously undone change"
 msgstr "Thực hiện lại hành động mới hủy"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:78
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:84
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
 msgid "Redo the undone action"
 msgstr "Làm lại hành động mới hủy"
 
 #.we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:79
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:85
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
 #:../components/html-editor/replace.c:174
 #:../components/html-editor/replace.c:240
 msgid "Replace"
 msgstr "Thay thế"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:80
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
 #:../components/html-editor/toolbar.c:530
 msgid "Right justifies the paragraphs"
 msgstr "Canh phải đoạn văn"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:81
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:87
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
 msgid "Roman Numeral List"
 msgstr "Danh sách đánh số Roman"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:82
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:88
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
 #:../components/html-editor/editor-control-factory.c:216
 #:../components/html-editor/gtkhtml-editor-properties.glade.h:47
 #:../components/html-editor/menubar.c:168
@@ -473,39 +504,39 @@ msgstr "Danh sách đánh số Roman"
 msgid "Rule"
 msgstr "Đường"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:83
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:89
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
 msgid "Select _All"
 msgstr "C_họn tất cả"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:84
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:90
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
 msgid "Select the entire contents of the document"
 msgstr "Chọn toàn bộ nội dung tài liệu"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:85
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:91
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
 #:../components/html-editor/toolbar.c:558
 msgid "Strikeout"
 msgstr "Gạch đè"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:92
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
 msgid "Su_rprised"
 msgstr "N_gạc nhiên"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:87
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:93
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
 msgid "Subscript"
 msgstr "Chữ nhỏ dưới"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:88
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:94
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
 msgid "Superscript"
 msgstr "Chữ nhỏ trên"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:89
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:95
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
 #:../components/html-editor/gtkhtml-editor-properties.glade.h:52
 #:../components/html-editor/menubar.c:196
 #:../components/html-editor/popup.c:240 ../components/html-editor/popup.c:514
@@ -513,226 +544,217 @@ msgstr "Chữ nhỏ trên"
 msgid "Table"
 msgstr "Bảng"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:90
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:96
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
 msgid "Te_mplate..."
 msgstr "_Mẫu..."
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:91
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
-msgid "Te_xt file..."
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:97
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
+msgid "Te_xt File..."
 msgstr "Tập tin _văn bản..."
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:92
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
 #:../components/html-editor/toolbar.c:550
 msgid "Typewriter"
 msgstr "Máy đánh chữ"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:93
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:99
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 msgid "Undo"
 msgstr "Hoàn lại"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:94
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:100
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
 msgid "Undo previous changes"
 msgstr "Hoàn lại thay đổi vừa rồi"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:95
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:101
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
 msgid "Undo the last action"
 msgstr "Hoàn lại hành động cuối cùng"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:96
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:102
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
 msgid "_Alignment"
 msgstr "_Canh hàng"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:97
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:103
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
 msgid "_Alphabetical List"
 msgstr "Danh sách _ABC"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:104
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
 #:../components/html-editor/gtkhtml-editor-properties.glade.h:59
 msgid "_Bold"
 msgstr "Đậ_m"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:99
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:105
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
 msgid "_Bulleted List"
 msgstr "Danh sách _nút"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:100
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:106
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
 msgid "_Center"
 msgstr "_Giữa"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:101
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:107
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
 msgid "_Copy"
 msgstr "_Chép"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:102
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:108
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
 msgid "_Decrease Indent"
 msgstr "_Giảm canh lề"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:103
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:109
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
 msgid "_Edit"
 msgstr "_Hiệu chỉnh"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:104
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
 msgid "_Find..."
 msgstr "_Tìm..."
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:105
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:111
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
 msgid "_Font Size"
 msgstr "Cỡ _phông chữ"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:106
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:112
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
 msgid "_Frown"
 msgstr "_Cau mày"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:107
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
-msgid "_HTML file..."
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:113
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
+msgid "_HTML File..."
 msgstr "Tập tin _HTML..."
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:108
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:114
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
 msgid "_Heading"
 msgstr "_Tiêu đề"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:109
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:115
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
 msgid "_Image..."
 msgstr "Ả_nh..."
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:116
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
 msgid "_Increase Indent"
 msgstr "_Tăng canh lề"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:111
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:117
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
 msgid "_Indifferent"
 msgstr "_Không khác"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:112
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:118
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
 msgid "_Insert"
 msgstr "_Chèn"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:113
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:119
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
 #:../components/html-editor/gtkhtml-editor-properties.glade.h:66
 msgid "_Italic"
 msgstr "_Nghiêng"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:114
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:120
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
 msgid "_Laughing"
 msgstr "_Cười to"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:115
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:121
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
 msgid "_Left"
 msgstr "T_rái"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:116
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:122
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
 msgid "_Link..."
 msgstr "_Liên kết..."
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:117
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:123
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
 msgid "_Normal"
 msgstr "_Bình thường"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:118
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
 msgid "_Page..."
 msgstr "_Trang..."
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:119
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:125
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
 msgid "_Paragraph..."
 msgstr "Đoạ_n..."
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:120
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:126
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:127
 msgid "_Paste"
 msgstr "_Dán"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:121
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
-msgid "_Plain text"
-msgstr "Văn _bản thô"
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:127
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:128
+msgid "_Plain Text"
+msgstr "Văn bản th_ô"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:122
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
-msgid "_Preformat"
-msgstr "_Tiền định dạng"
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:128
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
+msgid "_Preformatted"
+msgstr "T_iền định dạng"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:123
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:129
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
 msgid "_Redo"
 msgstr "_Làm lại"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:130
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
 msgid "_Replace..."
 msgstr "T_hay thế..."
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:125
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:127
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:131
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
 msgid "_Right"
 msgstr "_Phải"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:126
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:128
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:132
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:133
 msgid "_Roman Numeral List"
 msgstr "Danh sách đánh số _Roman"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:127
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:133
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:134
 msgid "_Rule..."
 msgstr "Đườ_ng..."
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:128
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:134
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
 msgid "_Smile"
 msgstr "_Mỉm cười"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:129
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
-msgid "_Smiley"
-msgstr "_Biểu tượng xúc cảm"
-
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:130
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
-msgid "_Spell Check Document..."
-msgstr "_Kiểm tra chính tả tài liệu..."
-
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:131
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:133
-msgid "_Strikeout"
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:135
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
+#:../components/html-editor/gtkhtml-editor-properties.glade.h:72
+msgid "_Strikethrough"
 msgstr "_Gạch đè"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:132
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:134
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:136
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
 msgid "_Style"
 msgstr "_Kiểu dạng"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:133
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:137
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
 msgid "_Table..."
 msgstr "_Bảng..."
 
@@ -751,29 +773,29 @@ msgstr "_Bảng..."
 #.<menuitem name="Other" verb="" _label="Other..."/>
 #.</submenu>
 #.
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:149
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:151
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:153
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:154
 msgid "_Text..."
 msgstr "_Chữ..."
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:150
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:152
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:154
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:155
 msgid "_Undecided"
 msgstr "Phân _vân"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:151
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:153
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:155
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:156
 #:../components/html-editor/gtkhtml-editor-properties.glade.h:75
 msgid "_Underline"
 msgstr "Gạch _chân"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:152
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:154
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:156
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:157
 msgid "_Undo"
 msgstr "_Hoàn lại"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:153
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:155
+#:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:157
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:158
 msgid "_Wink"
 msgstr "_Nháy mắt"
 
@@ -789,24 +811,24 @@ msgstr "Điều khiển Biên soạn HTML GNOME"
 msgid "GNOME HTML Editor Factory"
 msgstr "Trình tạo Bộ soạn thảo HTML GNOME"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
 msgid "Insert Sick smiley into document..."
 msgstr "Chèn Biểu tượng Bị bịnh vào tài liệu..."
 
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
 msgid "Make the current Paragraph style Preformatted"
 msgstr "Dùng kiểu Tiền định dạng cho đoạn hiện thời"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
 #:../components/html-editor/paragraph.c:106
 msgid "Preformatted"
 msgstr "Tiền định dạng"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
 msgid "S_ick"
 msgstr "_Bị bịnh"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:156
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:159
 msgid "_Wrap Lines"
 msgstr "_Ngắt dòng"
 
@@ -1363,10 +1385,6 @@ msgstr "_Nguồn:"
 msgid "_Spacing:"
 msgstr "_Khoảng trống:"
 
-#:../components/html-editor/gtkhtml-editor-properties.glade.h:72
-msgid "_Strikethrough"
-msgstr "_Gạch đè"
-
 #:../components/html-editor/gtkhtml-editor-properties.glade.h:73
 msgid "_Table"
 msgstr "_Bảng"
@@ -1410,11 +1428,6 @@ msgstr "Địa chỉ Mạng:"
 #:../components/html-editor/link.c:212
 msgid "Description:"
 msgstr "Mô tả:"
-
-#:../components/html-editor/menubar.c:102
-#:../components/html-editor/menubar.c:110
-msgid "Insert image"
-msgstr "Chèn ảnh"
 
 #:../components/html-editor/menubar.c:141
 #:../components/html-editor/menubar.c:164
