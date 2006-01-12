@@ -1,3 +1,11 @@
+2006-01-12  Srinivasa Ragavan  <sragavan@novell.com>
+
+	* GNOME_GtkHTML_Editor-emacs.xml.in:
+	* GNOME_GtkHTML_Editor.xml.in:
+
+	Changes accelerator assignment specified in 
+	http://go-evolution.org/Shortcut_Keys_Review
+
 2005-12-21  Rohini S  <srohini@novell.com>
 
 	* GNOME_GtkHTML_Editor.xml.in:

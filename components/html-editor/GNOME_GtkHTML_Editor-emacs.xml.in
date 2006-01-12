@@ -66,20 +66,16 @@
 		        accel="*Ctrl*8"/>
 			<cmd name="HeadingBulletedList" 
 			_label="Bulleted List"
-		        _tip="Make the current paragraph a bulleted list"
-		        accel="*Ctrl**Alt*1"/>
+		        _tip="Make the current paragraph a bulleted list"/>
 			<cmd name="HeadingRomanList" 
 			_label="Roman Numeral List"
-		        _tip="Make the current paragraph a list with roman numerals"
-		        accel="*Ctrl**Alt*2"/>
+		        _tip="Make the current paragraph a list with roman numerals"/>
 			<cmd name="HeadingNumberedList" 
 			_label="Numbered List"
-		        _tip="Make the current paragraph a numbered list"
-		        accel="*Ctrl**Alt*3"/>
+		        _tip="Make the current paragraph a numbered list"/>
 			<cmd name="HeadingAlphabeticalList" 
 			_label="Alphabetical List"
-		        _tip="Make the current paragraph an alphabetical list"
-		        accel="*Ctrl**Alt*4"/>
+		        _tip="Make the current paragraph an alphabetical list"/>
 
 			<cmd name="AlignLeft" _label="_Left"
 			_tip="Left justifies the paragraphs"

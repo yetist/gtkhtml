@@ -16,7 +16,7 @@
 			<cmd name="EditSelectAll" _label="Select _All"
 			_tip="Select the entire contents of the document"/>
 			<cmd name="EditSpellCheck" _label="Check _Spelling..."
-			_tip="Check spelling of the document" accel="*Ctrl**Shift*l" pixtype="pixbuf"/>
+			_tip="Check spelling of the document" accel="F7" pixtype="pixbuf"/>
 
 			<cmd name="InsertImage" _label="_Image..." _tip="Insert image into document..." pixtype="pixbuf"/>
 			<cmd name="InsertLink"  _label="_Link..." _tip="Insert HTML link into document..." pixtype="pixbuf"/>
@@ -66,20 +66,16 @@
 		        accel="*Ctrl*8"/>
 			<cmd name="HeadingBulletedList" 
 			_label="Bulleted List"
-		        _tip="Make the current paragraph a bulleted list"
-		        accel="*Ctrl**Alt*1"/>
+		        _tip="Make the current paragraph a bulleted list"/>
 			<cmd name="HeadingRomanList" 
 			_label="Roman Numeral List"
-		        _tip="Make the current paragraph a list with roman numerals"
-		        accel="*Ctrl**Alt*2"/>
+		        _tip="Make the current paragraph a list with roman numerals"/>
 			<cmd name="HeadingNumberedList" 
 			_label="Numbered List"
-		        _tip="Make the current paragraph a numbered list"
-		        accel="*Ctrl**Alt*3"/>
+		        _tip="Make the current paragraph a numbered list"/>
 			<cmd name="HeadingAlphabeticalList" 
 			_label="Alphabetical List"
-		        _tip="Make the current paragraph an alphabetical list"
-		        accel="*Ctrl**Alt*4"/>
+		        _tip="Make the current paragraph an alphabetical list"/>
 
 			<cmd name="AlignLeft" _label="_Left"
 			_tip="Left justifies the paragraphs"
@@ -115,7 +111,7 @@
 		<submenu name="Edit" _label="_Edit">
 			<placeholder name="EditUndoRedo">
 				     <menuitem name="EditUndo" verb="" accel="*Ctrl*Z"/>
-				     <menuitem name="EditRedo" verb="" accel="*Ctrl*R"/>
+				     <menuitem name="EditRedo" verb="" accel="*Ctrl**Shift*Z"/>
 			</placeholder>
 
 			<placeholder name="EditCutCopyPaste">
