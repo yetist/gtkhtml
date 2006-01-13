@@ -1,3 +1,11 @@
+2006-01-13  Srinivasa Ragavan  <sragavan@novell.com>
+
+	** Fixes bug #326381
+
+	* GNOME_GtkHTML_Editor-emacs.xml.in:
+	* GNOME_GtkHTML_Editor.xml.in:
+	Changed _Insert to I_nsert.
+
 2006-01-12  Srinivasa Ragavan  <sragavan@novell.com>
 
 	* GNOME_GtkHTML_Editor-emacs.xml.in:

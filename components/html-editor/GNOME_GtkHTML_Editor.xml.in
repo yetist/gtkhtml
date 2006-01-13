@@ -138,7 +138,7 @@
 		</submenu>
 
                  
-		<submenu name="Insert" _label="_Insert">
+		<submenu name="Insert" _label="I_nsert">
 			<placeholder name="Component">
 				<menuitem name="InsertImage" verb=""/>
 				<menuitem name="InsertLink"  verb=""/>
