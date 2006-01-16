@@ -1,3 +1,9 @@
+2006-01-16  Srinivasa Ragavan  <sragavan@novell.com>
+
+	** Fixes bug #256142 (Committing Rohini's patch)
+
+	* htmltext.c: Changed the regular expression for url.
+
 2006-01-05  Veerapuram Varadhan <vvaradhan@novell.com>
 
 	Committing for Rohini  <srohini@novell.com>
