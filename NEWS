@@ -1,3 +1,30 @@
+GtkHTML-3.9.5 "Smile" 2006-01-17
+------------------------------
+
+New in this release
+
+   * Fixes URL parser doesn't properly parse trailing '.' in hostnames (Rohini)
+   * Fixes Adding new word (enclosed in single quotes) to dictionary does not work
+   * Fixes change "_Insert" mnemonic in Signature Editor Menu (Srinivasa Ragavan)
+   * Keyboard Accelerator changes (Srinivasa Ragavan)
+   * Fixes Compose a message dialog - label suggestions (Rohini)
+   * Win32 fixes (Tor Lillqvist)
+   * Updated Translations:
+
+	- ca (Josep Puigdemont i Casamajó)
+	- en_CA (Adam Weinberger) 
+	- es (Francisco Javier F. Serrador)
+	- et (Priit Laes)
+	- gl (Ignacio Casal Quinteiro)
+	- gu (Ankit Patel)
+	- nb (Kjartan Maraas)
+	- nl (Vincent van Adrighem)
+	- no (Kjartan Maraas)
+	- th (Theppitak Karoonboonyanan)	
+	- vi (Clytie Siddall)
+	- zh_HK (Chao-Hsiung Liao)
+	- zh_TW (Chao-Hsiung Liao)
+
 GtkHTML-3.9.4 "Blossom" 2006-01-02
 ------------------------------
 
