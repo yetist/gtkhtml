@@ -3054,6 +3054,8 @@ element_parse_table (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 
 	if (html_element_get_attr (element, "cellpadding", &value) && value)
 		padding = atoi (value);
+	if (padding < 0)
+		padding=0;
 	
 	if (html_element_get_attr (element, "cellspacing", &value) && value)
 		spacing = atoi (value);
