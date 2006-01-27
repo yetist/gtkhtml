@@ -131,7 +131,7 @@
 			<placeholder name="EditFindReplace">
 				     <menuitem name="EditFind" verb="" accel=""/>
 				     <menuitem name="EditFindAgain" verb="" accel="*Ctrl*G"/>
-				     <menuitem name="EditReplace" verb="" accel="*Ctrl**Shift*F"
+				     <menuitem name="EditReplace" verb="" accel="*Ctrl**Shift*R"
                                       pixtype="stock" pixname="gtk-find-and-replace"/>
 			</placeholder>
 

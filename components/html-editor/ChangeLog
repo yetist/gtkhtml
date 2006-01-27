@@ -1,3 +1,11 @@
+2006-01-20  Rohini S  <srohini@novell.com>
+
+	* GNOME_GtkHTML_Editor-emacs.xml.in:
+	* GNOME_GtkHTML_Editor.xml.in:
+	Accelerator for Replace changed to Ctrl+Shift+R
+
+	Fixes bug #256445
+
 2006-01-13  Srinivasa Ragavan  <sragavan@novell.com>
 
 	** Fixes bug #326381

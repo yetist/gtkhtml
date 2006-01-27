@@ -3203,6 +3203,9 @@ element_parse_tr (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		else
 			element->style = html_style_add_text_valign (element->style, HTML_VALIGN_MIDDLE);
 	}
+	else
+		element->style = html_style_add_text_valign (element->style, HTML_VALIGN_MIDDLE);
+
 	
 	if (html_element_get_attr (element, "align", &value))
 		element->style = html_style_add_text_align (element->style, parse_halign (value, HTML_HALIGN_NONE));
@@ -3221,7 +3224,6 @@ element_parse_tr (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		element->style = html_style_add_background_image (element->style, value);
 	
 	element->style = html_style_set_display (element->style, DISPLAY_TABLE_ROW);
-	element->style = html_style_add_text_valign (element->style, HTML_VALIGN_MIDDLE);
 
 	html_element_parse_coreattrs  (element);
 	html_element_push (element, e, clue);
