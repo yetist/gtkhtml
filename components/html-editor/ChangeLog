@@ -1,3 +1,10 @@
+2006-01-24  Rohini S  <srohini@novell.com>
+
+	* menubar.c (menubar_set_languages): Function modified to enable/disable
+	menu item Check Spelling depending on number of languages selected.
+
+	Fixes bug #326871
+
 2006-01-20  Rohini S  <srohini@novell.com>
 
 	* GNOME_GtkHTML_Editor-emacs.xml.in:

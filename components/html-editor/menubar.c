@@ -688,17 +688,26 @@ menubar_set_languages (GtkHTMLControlData *cd)
 	GString *str;
 	gboolean enabled;
 	gint i;
+	gint no_of_lang=0;
 
-	if (!cd->languages)
+	if (!cd->languages) {
+		bonobo_ui_component_set_prop (cd->uic, "/commands/EditSpellCheck", "sensitive", "0", NULL);
 		return;
+	}
 
 	str = g_string_new (NULL);
 	cd->block_language_changes = TRUE;
 	for (i = 0; i < cd->languages->_length; i ++) {
 		enabled = cd->language && strstr (cd->language, cd->languages->_buffer [i].abbreviation) != NULL;
+		if (enabled)
+			no_of_lang++;
 		g_string_printf (str, "/commands/SpellLanguage%d", i + 1);
 		bonobo_ui_component_set_prop (cd->uic, str->str, "state", enabled ? "1" : "0", NULL);
 	}
+	if (no_of_lang > 0)
+		bonobo_ui_component_set_prop (cd->uic, "/commands/EditSpellCheck", "sensitive", "1", NULL);
+	else
+		bonobo_ui_component_set_prop (cd->uic, "/commands/EditSpellCheck", "sensitive", "0", NULL);
 	g_string_free (str, TRUE);
 	cd->block_language_changes = FALSE;
 }
