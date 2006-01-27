@@ -1,3 +1,10 @@
+2006-01-17  Rohini S  <srohini@novell.com>
+
+	* gtkhtml.c (add_bindings): Key bindings Shift + Enter, 
+	Shift + Return also set to Insert Paragraph
+
+	Fixes bug #244918
+
 2006-01-16  Srinivasa Ragavan  <sragavan@novell.com>
 
 	** Fixes bug #256142 (Committing Rohini's patch)
