@@ -1,3 +1,10 @@
+2006-01-20  Rohini S  <srohini@novell.com>
+
+	* htmlengine-edit-cut-and-paste.c (html_engine_insert_empty_paragraph):
+	Sets paragraph style to normal if previous paragraph is a heading.
+	
+	Fixes bug #256607
+
 2006-01-16  Rohini S  <srohini@novell.com>
 
 	* htmlengine.c (element_parse_table): Modified to reset padding value to 

@@ -1214,10 +1214,14 @@ void
 html_engine_insert_empty_paragraph (HTMLEngine *e)
 {
 	HTMLClueFlow *cf;
+	HTMLClueFlowStyle cfs;
 
 	html_engine_freeze (e);
 	insert_empty_paragraph (e, HTML_UNDO_UNDO, TRUE);
 	cf = html_object_get_flow (e->cursor->object);
+	cfs = html_clueflow_get_style (cf);
+	if (cfs == HTML_CLUEFLOW_STYLE_H1 || cfs == HTML_CLUEFLOW_STYLE_H2 || cfs == HTML_CLUEFLOW_STYLE_H3 || cfs == HTML_CLUEFLOW_STYLE_H4 || cfs == HTML_CLUEFLOW_STYLE_H5 || cfs == HTML_CLUEFLOW_STYLE_H6)
+		html_clueflow_set_style (cf, e, HTML_CLUEFLOW_STYLE_NORMAL);
 	if (cf) {
 		cf->dir = html_text_direction_pango_to_html (gdk_keymap_get_direction (gdk_keymap_get_for_display (gtk_widget_get_display (GTK_WIDGET (e->widget)))));
 	}
