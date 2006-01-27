@@ -1,3 +1,12 @@
+2006-01-27  Irene Huang <Irene.Huang@sun.com>
+
+	Fixes bug #328522
+
+	* search.c: (search_dialog_response), (search):
+	No use hiding search dialog in search_dialog_response
+	when response_id equals GTK_RESPONSE_CANCEL. Destroy it
+	in search_dialog_response instead of in search.
+	
 2006-01-24  Rohini S  <srohini@novell.com>
 
 	* menubar.c (menubar_set_languages): Function modified to enable/disable

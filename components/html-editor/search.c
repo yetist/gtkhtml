@@ -95,8 +95,8 @@ search_dialog_response (GtkDialog *dialog, gint response_id, GtkHTMLSearchDialog
 	case GTK_RESPONSE_DELETE_EVENT:
 	case GTK_RESPONSE_CLOSE:
 	case GTK_RESPONSE_CANCEL:
-		gtk_dialog_set_response_sensitive (d->dialog, 0, TRUE);
-		gtk_widget_hide (GTK_WIDGET (d->dialog));
+		d->cd->search_dialog = NULL;
+		gtk_html_search_dialog_destroy (d);
 		gtk_widget_grab_focus (GTK_WIDGET (d->cd->html));
 		break;
 	}
@@ -169,13 +169,6 @@ void
 search (GtkHTMLControlData *cd)
 {
 	RUN_DIALOG (search, _("Find"));
-
-	g_assert (cd->search_dialog && cd->search_dialog->dialog);
-
-	if (!GTK_WIDGET_VISIBLE (cd->search_dialog->dialog)) {
-		gtk_html_search_dialog_destroy (cd->search_dialog);
-		cd->search_dialog = NULL;
-	}
 }
 
 void
