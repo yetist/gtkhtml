@@ -1,3 +1,10 @@
+2006-02-02  Harish Krishnaswamy  <kharish@novell.com>
+
+	* NEWS, configure.in: Release 3.9.90.1
+	* src/htmltextslave.c (get_glyph_items_in_range):
+	Fix for #329344. Patch submitted by
+	Matthias Clasen <mclasen@redhat.com>
+
 2006-01-30  Harish Krishnaswamy  <kharish@novell.com>
 
 	* NEWS, configure.in: version bump. NEWS update.

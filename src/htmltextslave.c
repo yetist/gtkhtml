@@ -605,9 +605,7 @@ get_glyph_items_in_range (HTMLTextSlave *slave, HTMLPainter *painter, int start_
 				tmp_gi = pango_glyph_item_split (&glyph_item->glyph_item, slave->owner->text, split_index);
 
 				/* free the beginning we don't need */
-				pango_item_free (tmp_gi->item);
-				pango_glyph_string_free (tmp_gi->glyphs);
-				g_free (tmp_gi);
+				pango_glyph_item_free (tmp_gi);
 				
 			}
 
@@ -627,11 +625,13 @@ get_glyph_items_in_range (HTMLTextSlave *slave, HTMLPainter *painter, int start_
 				tmp_gi2 = pango_glyph_item_split (&tmp_gi1, slave->owner->text, split_index);
 
 				glyph_item->glyph_item = *tmp_gi2;
+				tmp_gi2->item = NULL;
+				tmp_gi2->glyphs = NULL;
 
 				/* free the tmp1 content and tmp2 container, but not the content */
 				pango_item_free (tmp_gi1.item);
 				pango_glyph_string_free (tmp_gi1.glyphs);
-				g_free (tmp_gi2);
+				pango_glyph_item_free (tmp_gi2);
 
 				glyph_item->type = HTML_TEXT_SLAVE_GLYPH_ITEM_CREATED;
 				glyph_item->widths = NULL;
