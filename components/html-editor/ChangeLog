@@ -1,3 +1,10 @@
+2006-02-05  Karsten Bräckelmann  <guenther@rudersport.de>
+
+	* GNOME_GtkHTML_Editor.xml.in: 
+	* GNOME_GtkHTML_Editor-emacs.xml.in: 
+	Change the accelerator for EditReplace to be HIG compliant.
+	Fixes bug #329899.
+
 2006-01-27  Irene Huang <Irene.Huang@sun.com>
 
 	Fixes bug #328522
