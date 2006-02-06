@@ -142,7 +142,7 @@ op_helper (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left,
 	o    = (from) ? HTML_OBJECT (from->data) : clue->head;
 	last = (to)   ? HTML_OBJECT (to->data)   : clue->tail;
 
-	if ((o == NULL) && (last == NULL))
+	if ((o == NULL) || (last == NULL))
 		return cc;
 
 	if (HTML_IS_TEXT_SLAVE (last))

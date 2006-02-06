@@ -1,3 +1,10 @@
+2006-02-06  Irene Huang <Irene.Huang@sun.com>
+
+	Fixes bug #328270
+
+	* htmlclue.c: (op_helper): Change if ((o == NULL)
+	&& (last == NULL)) to if ((o == NULL) || (last == NULL))
+
 2006-01-20  Rohini S  <srohini@novell.com>
 
 	* htmlengine.c (element_parse_tr): Function modified to set
