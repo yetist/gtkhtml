@@ -3120,6 +3120,9 @@ init_properties_widget (GtkHTML *html)
 
 	prop = get_class_properties (html);
 
+	if (!gconf_client)
+		gconf_client = gconf_client_get_default ();
+
 	html->priv->notify_spell_id = gconf_client_notify_add (gconf_client, GNOME_SPELL_GCONF_DIR,
 							       client_notify_spell_widget, html, NULL, &gconf_error);
 	if (gconf_error) {

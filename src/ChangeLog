@@ -1,3 +1,9 @@
+2006-02-06  Veerapuram Varadhan <vvaradhan@novell.com>
+
+	** Fixes bug #326366
+
+	* gtkhtml.c: Make sure gconf_client is not NULL. G_CRITICAL warning fix.
+	
 2006-02-06  Irene Huang <Irene.Huang@sun.com>
 
 	Fixes bug #328270
