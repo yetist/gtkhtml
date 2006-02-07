@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 3.9.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-14 19:09+0700\n"
-"PO-Revision-Date: 2006-01-14 19:10+0700\n"
+"POT-Creation-Date: 2006-02-07 22:57+0700\n"
+"PO-Revision-Date: 2006-02-07 23:03+0700\n"
 "Last-Translator: Theppitak Karoonboonyanan <thep@linux.thai.net>\n"
 "Language-Team: Thai <l10n@opentle.org>\n"
 "MIME-Version: 1.0\n"
@@ -224,12 +224,12 @@ msgstr "รูปภาพ"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:36
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
-msgid "Insert Crying smiley into document..."
+msgid "Insert Crying emoticon into document..."
 msgstr "แทรกหน้า \"ร้องไห้\" ลงในเอกสาร..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:37
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
-msgid "Insert Frown smiley into document..."
+msgid "Insert Frown emoticon into document..."
 msgstr "แทรกหน้า \"เศร้า\" ลงในเอกสาร..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:38
@@ -249,42 +249,42 @@ msgstr "แทรกต้นแบบ HTML ลงในเอกสาร..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:41
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
-msgid "Insert Indifferent smiley into document..."
+msgid "Insert Indifferent emoticon into document..."
 msgstr "แทรกหน้า \"เฉยๆ\" ลงในเอกสาร..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:42
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
-msgid "Insert Laughing smiley into document..."
+msgid "Insert Laughing emoticon into document..."
 msgstr "แทรกหน้า \"หัวเราะ\" ลงในเอกสาร..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:43
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
-msgid "Insert Lick smiley into document..."
-msgstr "แทรกหน้า \"เลียปาก\" ลงในเอกสาร..."
+msgid "Insert Oh no! emoticon into document..."
+msgstr "แทรกหน้า \"ไม่จริง!\" ลงในเอกสาร"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:44
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
-msgid "Insert Oh no! smiley into document..."
-msgstr "แทรกหน้า \"ไม่จริง!\" ลงในเอกสาร"
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
+msgid "Insert Smile emoticon into document..."
+msgstr "แทรกหน้า \"ยิ้ม\" ลงในเอกสาร..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:45
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
-msgid "Insert Smile smiley into document..."
-msgstr "แทรกหน้า \"ยิ้ม\" ลงในเอกสาร..."
+msgid "Insert Surprised emoticon into document..."
+msgstr "แทรกหน้า \"ประหลาดใจ\" ลงในเอกสาร..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:46
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
-msgid "Insert Surprised smiley into document..."
-msgstr "แทรกหน้า \"ประหลาดใจ\" ลงในเอกสาร..."
+msgid "Insert Tongue emoticon into document..."
+msgstr "แทรกหน้า \"แลบลิ้น\" ลงในเอกสาร..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:47
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
-msgid "Insert Undecided smiley into document..."
+msgid "Insert Undecided emoticon into document..."
 msgstr "แทรกหน้า \"ลังเล\" ลงในเอกสาร..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:48
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
-msgid "Insert Wink smiley into document..."
+msgid "Insert Wink emoticon into document..."
 msgstr "แทรกหน้า \"ขยิบตา\" ลงในเอกสาร..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:49
@@ -809,8 +809,8 @@ msgstr "วิดเจ็ตแก้ไข HTML ของ GNOME"
 msgid "GNOME HTML Editor Factory"
 msgstr "โรงงานเครื่องมือแก้ไข HTML ของ GNOME"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
-msgid "Insert Sick smiley into document..."
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
+msgid "Insert Sick emoticon into document..."
 msgstr "แทรกหน้า \"ป่วย\" ลงในเอกสาร..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
@@ -1908,6 +1908,9 @@ msgstr "ตัวอย่างก่อนพิมพ์"
 #: src/testgtkhtml.c:1017
 msgid "GtkHTML Test Application"
 msgstr "โปรแกรมทดสอบ GtkHTML"
+
+#~ msgid "Insert Lick smiley into document..."
+#~ msgstr "แทรกหน้า \"เลียปาก\" ลงในเอกสาร..."
 
 #~ msgid "_Insert"
 #~ msgstr "แ_ทรก"
