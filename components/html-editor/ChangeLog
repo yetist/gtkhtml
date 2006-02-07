@@ -1,3 +1,11 @@
+2006-02-07  Andre Klapper  <a9016009@gmx.de>
+	* GNOME_GtkHTML_Editor.xml.in: 
+	* GNOME_GtkHTML_Editor-emacs.xml.in: 
+	Changing "Lick" to "Tongue" to be less offensive.
+	Fixes bug #329471.
+	Changing "Smiley" to "Emoticon" to be consistent within
+	Evolution and with Gnome. Fixes bug #329513.	
+
 2006-02-05  Karsten Bräckelmann  <guenther@rudersport.de>
 
 	* GNOME_GtkHTML_Editor.xml.in: 

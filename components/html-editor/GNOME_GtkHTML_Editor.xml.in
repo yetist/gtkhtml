@@ -25,17 +25,17 @@
 			<cmd name="InsertTemplate" _label="Te_mplate..." _tip="Insert HTML template into document..."/>
 			<cmd name="InsertTextFile" _label="Te_xt File..." _tip="Insert text file into document..."/>
 			<cmd name="InsertHTMLFile" _label="_HTML File..." _tip="Insert HTML file into document..."/>
-			<cmd name="InsertSmiley3" _label="_Smile" _tip="Insert Smile smiley into document..."/>
-			<cmd name="InsertSmiley4" _label="_Wink" _tip="Insert Wink smiley into document..."/>
-			<cmd name="InsertSmiley5" _label="Su_rprised" _tip="Insert Surprised smiley into document..."/>
-			<cmd name="InsertSmiley1" _label="_Laughing" _tip="Insert Laughing smiley into document..."/>
-			<cmd name="InsertSmiley2" _label="Oh _No!" _tip="Insert Oh no! smiley into document..."/>
-			<cmd name="InsertSmiley6" _label="_Frown" _tip="Insert Frown smiley into document..."/>
-			<cmd name="InsertSmiley8" _label="_Indifferent" _tip="Insert Indifferent smiley into document..."/>
-			<cmd name="InsertSmiley9" _label="_Undecided" _tip="Insert Undecided smiley into document..."/>
-			<cmd name="InsertSmiley10" _label="Li_ck" _tip="Insert Lick smiley into document..."/>
-			<cmd name="InsertSmiley11" _label="Cr_ying" _tip="Insert Crying smiley into document..."/>
-			<cmd name="InsertSmiley12" _label="S_ick" _tip="Insert Sick smiley into document..."/>
+			<cmd name="InsertSmiley3" _label="_Smile" _tip="Insert Smile emoticon into document..."/>
+			<cmd name="InsertSmiley4" _label="_Wink" _tip="Insert Wink emoticon into document..."/>
+			<cmd name="InsertSmiley5" _label="Su_rprised" _tip="Insert Surprised emoticon into document..."/>
+			<cmd name="InsertSmiley1" _label="_Laughing" _tip="Insert Laughing emoticon into document..."/>
+			<cmd name="InsertSmiley2" _label="Oh _No!" _tip="Insert Oh no! emoticon into document..."/>
+			<cmd name="InsertSmiley6" _label="_Frown" _tip="Insert Frown emoticon into document..."/>
+			<cmd name="InsertSmiley8" _label="_Indifferent" _tip="Insert Indifferent emoticon into document..."/>
+			<cmd name="InsertSmiley9" _label="_Undecided" _tip="Insert Undecided emoticon into document..."/>
+			<cmd name="InsertSmiley10" _label="Li_ck" _tip="Insert Tongue emoticon into document..."/>
+			<cmd name="InsertSmiley11" _label="Cr_ying" _tip="Insert Crying emoticon into document..."/>
+			<cmd name="InsertSmiley12" _label="S_ick" _tip="Insert Sick emoticon into document..."/>
 
 			<cmd name="HeadingNormal" _label="Normal"
 		        _tip="Make the current Paragraph style Normal"
