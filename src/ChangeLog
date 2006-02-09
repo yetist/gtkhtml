@@ -1,3 +1,10 @@
+2006-02-09  Irene Huang <Irene.Huang@sun.com>
+
+	Fixes bug #330382
+
+	* htmlcursor.c: (html_cursor_down): Check the direction 
+	of text (Change the value of dir) even if new_line is not found.
+
 2006-02-06  Veerapuram Varadhan <vvaradhan@novell.com>
 
 	** Fixes bug #326366

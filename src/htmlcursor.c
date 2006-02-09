@@ -481,11 +481,11 @@ html_cursor_down (HTMLCursor *cursor,
 			}
 
 			new_line = TRUE;
-			if (cursor->object->parent)
-				dir = html_object_get_direction (cursor->object->parent);
-			else
-				dir = HTML_DIRECTION_LTR;
 		}
+		if (cursor->object->parent)
+			dir = html_object_get_direction (cursor->object->parent);
+		else
+			dir = HTML_DIRECTION_LTR;
 
 		if (dir == HTML_DIRECTION_RTL) {
 			if (new_line && x <= target_x) {
