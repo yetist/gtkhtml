@@ -1,5 +1,12 @@
 2006-02-09  Irene Huang <Irene.Huang@sun.com>
 
+	Fixes bug #318973
+
+	* htmlcursor.c: (move_right): Add code to handle cursor movements when
+	cursor->object->parent is NULL.
+
+2006-02-09  Irene Huang <Irene.Huang@sun.com>
+
 	Fixes bug #330382
 
 	* htmlcursor.c: (html_cursor_down): Check the direction 
