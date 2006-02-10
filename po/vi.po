@@ -7,15 +7,15 @@ msgid ""
 ""
 msgstr "Project-Id-Version: gtkhtml GNOME HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-13 23:22+0100\n"
-"PO-Revision-Date: 2006-01-14 13:55+1030\n"
+"POT-Creation-Date: 2006-02-09 08:57+0100\n"
+"PO-Revision-Date: 2006-02-10 17:09+1030\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
-"X-Generator: LocFactoryEditor 1.6b23\n"
+"X-Generator: LocFactoryEditor 1.6b36\n"
 
 #:../a11y/image.c:150
 #,c-format
@@ -226,13 +226,13 @@ msgstr "Ảnh"
 
 #:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:36
 #:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
-msgid "Insert Crying smiley into document..."
-msgstr "Chèn Biểu tượng Khóc vào tài liệu..."
+msgid "Insert Crying emoticon into document..."
+msgstr "Chèn Biểu tượng xúc cảm Khóc vào tài liệu..."
 
 #:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:37
 #:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
-msgid "Insert Frown smiley into document..."
-msgstr "Chèn Biểu tượng Cau mày vào tài liệu..."
+msgid "Insert Frown emoticon into document..."
+msgstr "Chèn Biểu tượng xúc cảm Cau mày vào tài liệu..."
 
 #:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:38
 #:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
@@ -251,43 +251,43 @@ msgstr "Chèn mẫu HTML vào tài liệu..."
 
 #:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:41
 #:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
-msgid "Insert Indifferent smiley into document..."
-msgstr "Chèn Biểu tượng Thơ ơ vào tài liệu..."
+msgid "Insert Indifferent emoticon into document..."
+msgstr "Chèn Biểu tượng xúc cảm Thơ ơ vào tài liệu..."
 
 #:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:42
 #:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
-msgid "Insert Laughing smiley into document..."
-msgstr "Chèn Biểu tượng Cười to vào tài liệu..."
+msgid "Insert Laughing emoticon into document..."
+msgstr "Chèn Biểu tượng xúc cảm Cười to vào tài liệu..."
 
 #:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:43
 #:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
-msgid "Insert Lick smiley into document..."
-msgstr "Chèn Biểu tượng Liếm vào tài liệu..."
+msgid "Insert Oh no! emoticon into document..."
+msgstr "Chèn Biểu tượng xúc cảm « Chết chưa! » vào tài liệu..."
 
 #:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:44
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
-msgid "Insert Oh no! smiley into document..."
-msgstr "Chèn Biểu tượng «Chết chưa!» vào tài liệu..."
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
+msgid "Insert Smile emoticon into document..."
+msgstr "Chèn Biểu tượng xúc cảm Mỉm cười vào tài liệu..."
 
 #:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:45
 #:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
-msgid "Insert Smile smiley into document..."
-msgstr "Chèn Biểu tượng Mỉm cười vào tài liệu..."
+msgid "Insert Surprised emoticon into document..."
+msgstr "Chèn Biểu tượng xúc cảm Ngạc nhiên vào tài liệu..."
 
 #:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:46
 #:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
-msgid "Insert Surprised smiley into document..."
-msgstr "Chèn Biểu tượng Ngạc nhiên vào tài liệu..."
+msgid "Insert Tongue emoticon into document..."
+msgstr "Chèn Biểu tượng xúc cảm lè lưỡi vào tài liệu..."
 
 #:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:47
 #:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
-msgid "Insert Undecided smiley into document..."
-msgstr "Chèm Biểu tượng Phân vân vào tài liệu..."
+msgid "Insert Undecided emoticon into document..."
+msgstr "Chèm Biểu tượng xúc cảm Phân vân vào tài liệu..."
 
 #:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:48
 #:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
-msgid "Insert Wink smiley into document..."
-msgstr "Chèn Biểu tượng Nháy mắt vào tài liệu..."
+msgid "Insert Wink emoticon into document..."
+msgstr "Chèn Biểu tượng xúc cảm Nháy mắt vào tài liệu..."
 
 #:../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:49
 #:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
@@ -811,9 +811,10 @@ msgstr "Điều khiển Biên soạn HTML GNOME"
 msgid "GNOME HTML Editor Factory"
 msgstr "Trình tạo Bộ soạn thảo HTML GNOME"
 
-#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
-msgid "Insert Sick smiley into document..."
-msgstr "Chèn Biểu tượng Bị bịnh vào tài liệu..."
+#:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
+#,fuzzy
+msgid "Insert Sick emoticon into document..."
+msgstr "Chèn Biểu tượng xúc cảm Bị bịnh vào tài liệu..."
 
 #:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
 msgid "Make the current Paragraph style Preformatted"
