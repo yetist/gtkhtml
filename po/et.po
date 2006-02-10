@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-25 15:04+0100\n"
-"PO-Revision-Date: 2006-01-25 22:05+0200\n"
+"POT-Creation-Date: 2006-02-10 00:19+0100\n"
+"PO-Revision-Date: 2006-02-10 07:29+0200\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -230,12 +230,12 @@ msgstr "Pilt"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:36
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
-msgid "Insert Crying smiley into document..."
+msgid "Insert Crying emoticon into document..."
 msgstr "Nutva emotikoni lisamine dokumendile..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:37
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
-msgid "Insert Frown smiley into document..."
+msgid "Insert Frown emoticon into document..."
 msgstr "Kulmukortsutuse emotikoni lisamine dokumendile..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:38
@@ -255,42 +255,42 @@ msgstr "HTML-malli lisamine dokumendile..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:41
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
-msgid "Insert Indifferent smiley into document..."
+msgid "Insert Indifferent emoticon into document..."
 msgstr "Ükskõiksuse emotikoni lisamine dokumendile..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:42
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
-msgid "Insert Laughing smiley into document..."
+msgid "Insert Laughing emoticon into document..."
 msgstr "Naerva emotikoni lisamine dokumendile..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:43
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
-msgid "Insert Lick smiley into document..."
-msgstr "Limpsimise emotikoni lisamine dokumendile..."
+msgid "Insert Oh no! emoticon into document..."
+msgstr "Oh ei! emotikoni lisamine dokumendile..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:44
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
-msgid "Insert Oh no! smiley into document..."
-msgstr "Oh ei! emotikoni lisamine dokumendile..."
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
+msgid "Insert Smile emoticon into document..."
+msgstr "Naeratuse emotikoni lisamine dokumendile..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:45
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
-msgid "Insert Smile smiley into document..."
-msgstr "Sisesta naeratuse emotikoni lisamine dokumendile..."
+msgid "Insert Surprised emoticon into document..."
+msgstr "Üllatuse emotikoni lisamine dokumendile..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:46
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
-msgid "Insert Surprised smiley into document..."
-msgstr "Üllatuse emotikoni lisamine dokumendile..."
+msgid "Insert Tongue emoticon into document..."
+msgstr "Keelenäitamise emotikoni lisamine dokumendile..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:47
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
-msgid "Insert Undecided smiley into document..."
+msgid "Insert Undecided emoticon into document..."
 msgstr "Kõhkluse emotikoni lisamine dokumendile..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:48
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
-msgid "Insert Wink smiley into document..."
+msgid "Insert Wink emoticon into document..."
 msgstr "Silmapilgutuse emotikoni lisamine dokumendile..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:49
@@ -815,8 +815,8 @@ msgstr "GNOME HTML-redaktori juhtimine"
 msgid "GNOME HTML Editor Factory"
 msgstr "GNOME'i HTML-redaktori Factory"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
-msgid "Insert Sick smiley into document..."
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
+msgid "Insert Sick emoticon into document..."
 msgstr "Haige emotikon lisamine dokumendile..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
@@ -1914,6 +1914,9 @@ msgstr "Printimise eelvaade"
 #: ../src/testgtkhtml.c:1017
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML testrakendus"
+
+#~ msgid "Insert Lick smiley into document..."
+#~ msgstr "Limpsimise emotikoni lisamine dokumendile..."
 
 #~ msgid "_Insert"
 #~ msgstr "_Lisa"
