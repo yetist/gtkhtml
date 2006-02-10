@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-21 07:30+0100\n"
-"PO-Revision-Date: 2006-01-21 18:37+0800\n"
+"POT-Creation-Date: 2006-02-10 00:19+0100\n"
+"PO-Revision-Date: 2006-02-11 03:00+0800\n"
 "Last-Translator: Funda Wang <fundawang@linux.net.cn>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
 "MIME-Version: 1.0\n"
@@ -224,13 +224,13 @@ msgstr "图像"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:36
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
-msgid "Insert Crying smiley into document..."
-msgstr "在文档中插入哭泣的笑脸..."
+msgid "Insert Crying emoticon into document..."
+msgstr "在文档中插入哭泣的表情..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:37
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
-msgid "Insert Frown smiley into document..."
-msgstr "在文档中插入皱眉的笑脸..."
+msgid "Insert Frown emoticon into document..."
+msgstr "在文档中插入皱眉的表情..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:38
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
@@ -249,43 +249,43 @@ msgstr "在文档中插入 HTML 模板..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:41
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
-msgid "Insert Indifferent smiley into document..."
-msgstr "在文档中插入冷淡的笑脸..."
+msgid "Insert Indifferent emoticon into document..."
+msgstr "在文档中插入冷淡的表情..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:42
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
-msgid "Insert Laughing smiley into document..."
-msgstr "在文档中插入大笑的笑脸..."
+msgid "Insert Laughing emoticon into document..."
+msgstr "在文档中插入大笑的表情..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:43
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
-msgid "Insert Lick smiley into document..."
-msgstr "在文档中插入舔嘴的笑脸..."
+msgid "Insert Oh no! emoticon into document..."
+msgstr "在文档中插入天哪的表情..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:44
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
-msgid "Insert Oh no! smiley into document..."
-msgstr "在文档中插入天哪的笑脸..."
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
+msgid "Insert Smile emoticon into document..."
+msgstr "在文档中插入微笑的表情..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:45
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
-msgid "Insert Smile smiley into document..."
-msgstr "在文档中插入微笑的笑脸..."
+msgid "Insert Surprised emoticon into document..."
+msgstr "在文档中插入吃惊的表情..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:46
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
-msgid "Insert Surprised smiley into document..."
-msgstr "在文档中插入吃惊的笑脸..."
+msgid "Insert Tongue emoticon into document..."
+msgstr "在文档中插入吐舌头的表情..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:47
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
-msgid "Insert Undecided smiley into document..."
-msgstr "在文档中插入犹豫的笑脸..."
+msgid "Insert Undecided emoticon into document..."
+msgstr "在文档中插入犹豫的表情..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:48
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
-msgid "Insert Wink smiley into document..."
-msgstr "在文档中插入眨眼的笑脸..."
+msgid "Insert Wink emoticon into document..."
+msgstr "在文档中插入眨眼的表情..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:49
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
@@ -809,9 +809,9 @@ msgstr "GNOME HTML 编辑器控制"
 msgid "GNOME HTML Editor Factory"
 msgstr "GNOME HTML 编辑工厂"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
-msgid "Insert Sick smiley into document..."
-msgstr "在文档中插入生病的笑脸..."
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
+msgid "Insert Sick emoticon into document..."
+msgstr "在文档中插入生病的表情..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
 msgid "Make the current Paragraph style Preformatted"
