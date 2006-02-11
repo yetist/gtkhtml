@@ -7,8 +7,8 @@ msgid ""
 ""
 msgstr "Project-Id-Version: gtkhtml GNOME HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-09 08:57+0100\n"
-"PO-Revision-Date: 2006-02-10 17:09+1030\n"
+"POT-Creation-Date: 2006-02-10 08:56+0100\n"
+"PO-Revision-Date: 2006-02-11 17:59+1030\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -812,7 +812,6 @@ msgid "GNOME HTML Editor Factory"
 msgstr "Trình tạo Bộ soạn thảo HTML GNOME"
 
 #:../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
-#,fuzzy
 msgid "Insert Sick emoticon into document..."
 msgstr "Chèn Biểu tượng xúc cảm Bị bịnh vào tài liệu..."
 
