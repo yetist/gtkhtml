@@ -1,23 +1,21 @@
-# translation of gtkhtml.HEAD.pt_BR.po to Português/Brasil
-# gtkhtml: translation to Brazilian Portuguese (pt_BR)
-# Copyright (C) 2000-2004, 2005 Free Software Foundation, Inc.
+# Brazilian Portuguese translation of gtkhtml
+# Copyright (C) 2000-2006 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gtkhtml package.
-# Gustavo Maciel Dias Vieira <gustavo@sagui.org>, 2000,2004.
-# Alexandre Folle de Menezes <afmenez@terra.com.br>, 2002-2005.
+# Gustavo Maciel Dias Vieira <gustavo@sagui.org>, 2000, 2004.
+# Alexandre Folle de Menezes <afmenez@terra.com.br>, 2002-2003.
 # Afonso Celso Medina <medina@maua.br>, 2005.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml.HEAD.pt_BR\n"
+"Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-29 07:24+0100\n"
-"PO-Revision-Date: 2006-01-29 07:13-0300\n"
-"Last-Translator: Evandro Fernandes Giovanini <evandrofg@ig.com.br>\n"
-"Language-Team: Português/Brasil <gnome-l10n-br@listas.cipsga.org.br>\n"
+"POT-Creation-Date: 2006-02-09 08:57+0100\n"
+"PO-Revision-Date: 2006-02-10 22:41-0200\n"
+"Last-Translator: Afonso Celso Medina <medina@maua.br>\n"
+"Language-Team: Brazilian Portuguese <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.9.1\n"
 
 #: ../a11y/image.c:150
 #, c-format
@@ -31,7 +29,7 @@ msgstr "A URL é %s"
 
 #: ../a11y/object.c:52 ../a11y/object.c:61 ../a11y/text.c:127
 msgid "grab focus"
-msgstr "matém o foco"
+msgstr "mantém o foco"
 
 #: ../a11y/object.c:258
 msgid "Panel containing HTML"
@@ -228,12 +226,12 @@ msgstr "Imagem"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:36
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
-msgid "Insert Crying smiley into document..."
+msgid "Insert Crying emoticon into document..."
 msgstr "Inserir carinha chorando no documento..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:37
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
-msgid "Insert Frown smiley into document..."
+msgid "Insert Frown emoticon into document..."
 msgstr "Inserir carinha desconfiada no documento..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:38
@@ -253,42 +251,42 @@ msgstr "Inserir modelo HTML no documento..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:41
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
-msgid "Insert Indifferent smiley into document..."
+msgid "Insert Indifferent emoticon into document..."
 msgstr "Inserir carinha indiferente no documento..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:42
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
-msgid "Insert Laughing smiley into document..."
+msgid "Insert Laughing emoticon into document..."
 msgstr "Inserir carinha gargalhando no documento..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:43
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
-msgid "Insert Lick smiley into document..."
-msgstr "Inserir carinha lambendo no documento..."
+msgid "Insert Oh no! emoticon into document..."
+msgstr "Inserir carinha Ah não! no documento..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:44
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
-msgid "Insert Oh no! smiley into document..."
-msgstr "Inserir carinha Oh não! no documento..."
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
+msgid "Insert Smile emoticon into document..."
+msgstr "Inserir carinha sorrindo no documento..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:45
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
-msgid "Insert Smile smiley into document..."
-msgstr "Inserir carinha sorrindo no documento..."
+msgid "Insert Surprised emoticon into document..."
+msgstr "Inserir carinha surpresa no documento..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:46
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
-msgid "Insert Surprised smiley into document..."
-msgstr "Inserir carinha surpresa no documento..."
+msgid "Insert Tongue emoticon into document..."
+msgstr "Inserir carinha com língua no documento..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:47
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
-msgid "Insert Undecided smiley into document..."
+msgid "Insert Undecided emoticon into document..."
 msgstr "Inserir carinha indecisa no documento..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:48
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
-msgid "Insert Wink smiley into document..."
+msgid "Insert Wink emoticon into document..."
 msgstr "Inserir carinha piscando no documento..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:49
@@ -306,12 +304,12 @@ msgstr "Inserir imagem no documento..."
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:51
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:52
 msgid "Insert link"
-msgstr "Inserir link"
+msgstr "Inserir vínculo"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:52
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:53
 msgid "Insert rule"
-msgstr "Inserir regra"
+msgstr "Inserir régua"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:53
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
@@ -436,7 +434,7 @@ msgstr "_Lista numerada"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:76
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
 msgid "Oh _No!"
-msgstr "Oh _Não!"
+msgstr "Ah _não!"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:77
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
@@ -559,7 +557,7 @@ msgstr "_Modelo..."
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
 msgid "Te_xt File..."
-msgstr "Arquivo Te_xto..."
+msgstr "Arquivo te_xto..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:99
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
@@ -606,7 +604,7 @@ msgstr "Lista com _itens"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:107
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
 msgid "_Center"
-msgstr "_Centrar"
+msgstr "_Centralizar"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:108
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
@@ -707,12 +705,12 @@ msgstr "C_olar"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:127
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:128
 msgid "_Plain Text"
-msgstr "Texto Sim_ples"
+msgstr "Texto _simples"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:128
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
 msgid "_Preformatted"
-msgstr "_Pré-formatado"
+msgstr "_Preformatado"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:129
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
@@ -813,9 +811,9 @@ msgstr "Controle do editor HTML do GNOME"
 msgid "GNOME HTML Editor Factory"
 msgstr "Fábrica do editor HTML do GNOME"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
-msgid "Insert Sick smiley into document..."
-msgstr "Inserir carinha doente no documento..."
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
+msgid "Insert Sick emoticon into document..."
+msgstr "Inserir carinha enjoada no documento..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
 msgid "Make the current Paragraph style Preformatted"
@@ -828,7 +826,7 @@ msgstr "Preformatado"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
 msgid "S_ick"
-msgstr "_Doente"
+msgstr "_Enjoado"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:159
 msgid "_Wrap Lines"
@@ -914,7 +912,7 @@ msgstr "M_odelo:"
 
 #: ../components/html-editor/body.c:302
 msgid "C_ustom:"
-msgstr "Personali_zado:"
+msgstr "_Personalizado:"
 
 #: ../components/html-editor/cell.c:340 ../components/html-editor/image.c:356
 #: ../components/html-editor/link.c:196 ../components/html-editor/rule.c:182
@@ -1093,7 +1091,7 @@ msgstr "verde"
 #: ../components/html-editor/gi-color-palette.c:616
 #: ../components/html-editor/gi-color-palette.c:646
 msgid "cyan"
-msgstr "cyan"
+msgstr "turquesa"
 
 #: ../components/html-editor/gi-color-palette.c:617
 msgid "bright blue"
@@ -1128,7 +1126,7 @@ msgstr "verde claro"
 
 #: ../components/html-editor/gi-color-palette.c:626
 msgid "light cyan"
-msgstr "cyan claro"
+msgstr "turquesa claro"
 
 #: ../components/html-editor/gi-color-palette.c:627
 #: ../components/html-editor/gi-color-palette.c:637
@@ -1184,7 +1182,7 @@ msgstr "+4"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:11
 msgid "<b>Alignment &amp; Behaviour</b>"
-msgstr "<b>Alinhamento &amp; Comportamento</b>"
+msgstr "<b>Alinhamento e Comportamento</b>"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:12
 msgid "<b>Background</b>"
@@ -1196,7 +1194,7 @@ msgstr "<b>Geral</b>"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:14
 msgid "<b>Layout</b>"
-msgstr "<b>Layout</b>"
+msgstr "<b>Disposição</b>"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:15
 msgid "<b>Scope</b>"
@@ -1251,7 +1249,7 @@ msgstr "Célula"
 #: ../components/html-editor/paragraph.c:132
 #: ../components/html-editor/toolbar.c:528
 msgid "Center"
-msgstr "Centrado"
+msgstr "Centralizado"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:29
 msgid "Col_umn"
@@ -1405,11 +1403,11 @@ msgstr "_Quebrar Texto"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:78
 msgid "_X-Padding:"
-msgstr "Espaçamento_X:"
+msgstr "Espaçamento _X:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:79
 msgid "_Y-Padding:"
-msgstr "Espaçamento_Y:"
+msgstr "Espaçamento _Y:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:80
 msgid "follow"
@@ -1442,23 +1440,23 @@ msgstr "Inserir"
 #: ../components/html-editor/menubar.c:306
 #, c-format
 msgid "Error loading file '%s': %s"
-msgstr "Erro ao carregar arquivo '%s': %s"
+msgstr "Erro ao carregar o arquivo '%s': %s"
 
 #: ../components/html-editor/menubar.c:332
 #: ../components/html-editor/menubar.c:341
 msgid "Insert HTML File"
-msgstr "Inserir Arquivo HTML"
+msgstr "Inserir arquivo HTML"
 
 #: ../components/html-editor/menubar.c:332
 #: ../components/html-editor/menubar.c:341
 msgid "Insert Text File"
-msgstr "Inserir Arquivo Texto"
+msgstr "Inserir arquivo texto"
 
 #: ../components/html-editor/menubar.c:378
 #: ../components/html-editor/menubar.c:396
 #: ../components/html-editor/menubar.c:414
 msgid "Format"
-msgstr "Formato"
+msgstr "Formatar"
 
 #: ../components/html-editor/paragraph.c:90
 #: ../components/html-editor/toolbar.c:59
@@ -1677,7 +1675,7 @@ msgstr "Expressão _Regular"
 
 #: ../components/html-editor/search.c:122
 msgid "Input the words you want to search here"
-msgstr "Entre aqui com as palavras que você deseja procurar"
+msgstr "Digite aqui as palavras que você deseja procurar"
 
 #: ../components/html-editor/spellchecker.c:114
 msgid ""
@@ -1685,7 +1683,7 @@ msgid ""
 "language settings are broken.\n"
 msgstr ""
 "Impossível adicionar a palavra ao dicionário,\n"
-"as definições de linguagem estão com defeito.\n"
+"as definições de idioma estão com defeito.\n"
 
 #: ../components/html-editor/spellchecker.c:302
 msgid "No misspelled word found"
@@ -1842,7 +1840,7 @@ msgstr "Fonte de Largura Fixa"
 
 #: ../src/gtkhtml.c:3032
 msgid "The Monospace font to use for typewriter text"
-msgstr "A fonte monoespaçada usada para texto datilografado"
+msgstr "A fonte Monospace usada para texto datilografado"
 
 #: ../src/gtkhtml.c:3038
 msgid "New Link Color"
@@ -1915,6 +1913,9 @@ msgstr "Aplicação de teste do GtkHTML"
 
 #~ msgid "Find And Replace"
 #~ msgstr "Localizar e substituir"
+
+#~ msgid "Insert Lick smiley into document..."
+#~ msgstr "Inserir carinha lambendo no documento..."
 
 #~ msgid "_Insert"
 #~ msgstr "_Inserir"
