@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.HEAD.gu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-17 23:47+0100\n"
-"PO-Revision-Date: 2006-01-18 13:12+0530\n"
+"POT-Creation-Date: 2006-02-10 00:19+0100\n"
+"PO-Revision-Date: 2006-02-12 16:53+0530\n"
 "Last-Translator: Ankit Patel <ankit644@yahoo.com>\n"
 "Language-Team: Gujarati <indianoss-gujarati@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -13,6 +13,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
+"\n"
 "\n"
 "\n"
 "\n"
@@ -227,13 +228,13 @@ msgstr "ચિત્ર"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:36
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
-msgid "Insert Crying smiley into document..."
-msgstr "દસ્તાવેજમાં રડતું ચિહ્ન ઉમેરો..."
+msgid "Insert Crying emoticon into document..."
+msgstr "દસ્તાવેજમાં રડતા ચિહ્નમાં દાખલ કરો..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:37
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
-msgid "Insert Frown smiley into document..."
-msgstr "દસ્તાવેજમાં ચિંતાવાળું મોં દાખલ કરો..."
+msgid "Insert Frown emoticon into document..."
+msgstr "દસ્તાવેજમાં નિરાશ ચિહ્ન દાખલ કરો..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:38
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
@@ -252,43 +253,43 @@ msgstr "દસ્તાવેજમાં HTML ટેમ્પલેટ દા�
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:41
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
-msgid "Insert Indifferent smiley into document..."
-msgstr "દસ્તાવેજમાં અલગ ના હોય તેવા મોંના ચિહ્નો દાખલ કરો..."
+msgid "Insert Indifferent emoticon into document..."
+msgstr "દસ્તાવેજમાં અલગ નહિં એવું ચિહ્ન દાખલ કરો..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:42
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
-msgid "Insert Laughing smiley into document..."
-msgstr "દસ્તાવેજમાં હસતું મોં દાખલ કરો..."
+msgid "Insert Laughing emoticon into document..."
+msgstr "હસતું ચિહ્ન દસ્તાવેજમાં દાખલ કરો..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:43
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
-msgid "Insert Lick smiley into document..."
-msgstr "દસ્તાવેજમાં Lick smiley દાખલ કરો..."
+msgid "Insert Oh no! emoticon into document..."
+msgstr "અરે ના! ચિહ્ન દસ્તાવેજમાં દાખલ કરો..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:44
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
-msgid "Insert Oh no! smiley into document..."
-msgstr "દસ્તાવેજમા અરે નહિં! મોં દાખલ કરો..."
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
+msgid "Insert Smile emoticon into document..."
+msgstr "હસતું ચિહ્ન દસ્તાવેજમાં દાખલ કરો..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:45
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
-msgid "Insert Smile smiley into document..."
-msgstr "દસ્તાવેજમાં હસતું મોં દાખલ કરો..."
+msgid "Insert Surprised emoticon into document..."
+msgstr "આશ્ચર્ય ચિહ્ન દસ્તાવેજમાં દાખલ કરો..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:46
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
-msgid "Insert Surprised smiley into document..."
-msgstr "દસ્તાવેજમાં નવાઈ પામતું મોં દાખલ કરો..."
+msgid "Insert Tongue emoticon into document..."
+msgstr "જીભ કાઢતું ચિહ્ન દસ્તાવેજમાં દાખલ કરો..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:47
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
-msgid "Insert Undecided smiley into document..."
-msgstr "દસ્તાવેજમાં અચોક્કસ મોં દાખલ કરો..."
+msgid "Insert Undecided emoticon into document..."
+msgstr "અનિર્ણિત ચિહ્ન દસ્તાવેજમાં દાખલ કરો..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:48
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
-msgid "Insert Wink smiley into document..."
-msgstr "દસ્તાવેજમાં Wink smiley દાખલ કરો..."
+msgid "Insert Wink emoticon into document..."
+msgstr "આંખ મારતું ચિહ્ન દસ્તાવેજમાં દાખલ કરો..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:49
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
@@ -812,9 +813,9 @@ msgstr "GNOME HTML સંપાદક નિયંત્રણ"
 msgid "GNOME HTML Editor Factory"
 msgstr "GNOME HTML સંપાદક કારખાનું"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
-msgid "Insert Sick smiley into document..."
-msgstr "દસ્તાવેજમાં માંદુ મોં દાખલ કરો..."
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
+msgid "Insert Sick emoticon into document..."
+msgstr "માંદુ ચિહ્ન દસ્તાવેજમાં દાખલ કરો..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
 msgid "Make the current Paragraph style Preformatted"
