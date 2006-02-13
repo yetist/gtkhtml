@@ -1,3 +1,27 @@
+GtkHTML-3.9.91 2006-02-13
+----------------------------
+
+Bug fixes since last release :
+http://go-evolution.org/Evo2.5.91#gtkhtml
+
+Updated Translations:
+
+	- ca (Josep Puigdemont i CasamajÃ³)
+	- es (Francisco Javier F. Serrador)
+	- et (Ivar Smolin)
+	- fi (Ilkka Tuohela)
+	- gl (Ignacio Casal Quinteiro)
+	- gu (Ankit Patel)
+	- ja (Takeshi AIHANA)
+	- lt (Å½ygimantas BeruÄka)
+	- nb, no (Kjartan Maraas)
+	- nl (Tino Meinen)
+	- pt_BR (Raphael Higino)
+	- sr, sr@Latn (Slobodan D. Sredojevic)
+	- th (Theppitak Karoonboonyanan)
+	- vi (Clytie Siddall)
+	- zh_CN (Funda Wang)
+
 GtkHTML-3.9.90.1 2006-02-02
 ---------------------------
 Fix for bug #329344. Required fix for Evolution
