@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 3.9\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-22 20:28+0100\n"
-"PO-Revision-Date: 2006-01-22 20:29+0100\n"
+"POT-Creation-Date: 2006-02-13 01:13+0100\n"
+"PO-Revision-Date: 2006-02-13 02:21+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -74,19 +74,19 @@ msgstr "A_dresse"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:8
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:8
-#: ../components/html-editor/toolbar.c:58
+#: ../components/html-editor/toolbar.c:59
 msgid "Alphabetical List"
 msgstr "Alfabetisk liste"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:9
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:9
-#: ../components/html-editor/toolbar.c:55
+#: ../components/html-editor/toolbar.c:56
 msgid "Bulleted List"
 msgstr "Punktliste"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:10
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:10
-#: ../components/html-editor/toolbar.c:528
+#: ../components/html-editor/toolbar.c:529
 msgid "Center justifies the paragraphs"
 msgstr "Sentrerer avsnittene"
 
@@ -215,7 +215,7 @@ msgstr "Sett _inn"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:35
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
-#: ../components/html-editor/editor-control-factory.c:198
+#: ../components/html-editor/editor-control-factory.c:200
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:37
 #: ../components/html-editor/popup.c:216
 msgid "Image"
@@ -223,13 +223,13 @@ msgstr "Bilde"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:36
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
-msgid "Insert Crying smiley into document..."
+msgid "Insert Crying emoticon into document..."
 msgstr "Sett inn gråtende smilefjes i dokumentet..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:37
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
-msgid "Insert Frown smiley into document..."
-msgstr "Sett inn smilefjes i dokumentet..."
+msgid "Insert Frown emoticon into document..."
+msgstr "Sett inn smilefjes med rynkede øyenbryn i dokumentet..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:38
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
@@ -248,42 +248,42 @@ msgstr "Sett inn HTML-mal i dokumentet..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:41
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
-msgid "Insert Indifferent smiley into document..."
+msgid "Insert Indifferent emoticon into document..."
 msgstr "Sett inn likegyldig smilefjes i dokumentet..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:42
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
-msgid "Insert Laughing smiley into document..."
+msgid "Insert Laughing emoticon into document..."
 msgstr "Sett smilefjes som ler i dokumentet..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:43
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
-msgid "Insert Lick smiley into document..."
-msgstr "Sett inn slikkende smilefjes i dokumentet..."
+msgid "Insert Oh no! emoticon into document..."
+msgstr "Sett inn smilefjes som sier «Å nei» i dokumentet..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:44
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
-msgid "Insert Oh no! smiley into document..."
-msgstr "Sett inn smilefjes som sier «Å nei» i dokumentet..."
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
+msgid "Insert Smile emoticon into document..."
+msgstr "Sett inn smilende smilefjes i dokumentet..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:45
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
-msgid "Insert Smile smiley into document..."
-msgstr "Sett inn smilende smilefjes i dokumentet..."
+msgid "Insert Surprised emoticon into document..."
+msgstr "Sett inn overrasket smilefjes i dokumentet..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:46
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
-msgid "Insert Surprised smiley into document..."
-msgstr "Sett inn overrasket smilefjes i dokumentet..."
+msgid "Insert Tongue emoticon into document..."
+msgstr "Sett inn smilefjes med tunge i dokumentet..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:47
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
-msgid "Insert Undecided smiley into document..."
+msgid "Insert Undecided emoticon into document..."
 msgstr "Sett inn ubestemt smilefjes i dokumentet..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:48
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
-msgid "Insert Wink smiley into document..."
+msgid "Insert Wink emoticon into document..."
 msgstr "Sett inn blunkende smilefjes i dokumentet..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:49
@@ -329,7 +329,7 @@ msgstr "Sett inn tekstfil i dokumentet..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:57
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
-#: ../components/html-editor/toolbar.c:526
+#: ../components/html-editor/toolbar.c:527
 msgid "Left justifies the paragraphs"
 msgstr "Venstrejusterer avsnittene"
 
@@ -413,13 +413,13 @@ msgstr "Gjør dette avsnittet om til en alfabetisk liste"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:73
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
 #: ../components/html-editor/paragraph.c:87
-#: ../components/html-editor/toolbar.c:53
+#: ../components/html-editor/toolbar.c:54
 msgid "Normal"
 msgstr "Normal"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:74
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
-#: ../components/html-editor/toolbar.c:56
+#: ../components/html-editor/toolbar.c:57
 msgid "Numbered List"
 msgstr "Nummerert liste"
 
@@ -459,7 +459,7 @@ msgid "Paste the clipboard as a quotation"
 msgstr "Lim inn utklippstavlen som sitat"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:82
-#: ../components/html-editor/toolbar.c:54
+#: ../components/html-editor/toolbar.c:55
 msgid "Preformat"
 msgstr "Preformater"
 
@@ -481,14 +481,14 @@ msgstr "Gjenopprett angret handling"
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
-#: ../components/html-editor/replace.c:174
-#: ../components/html-editor/replace.c:240
+#: ../components/html-editor/replace.c:173
+#: ../components/html-editor/replace.c:239
 msgid "Replace"
 msgstr "Erstatt"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:87
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
-#: ../components/html-editor/toolbar.c:530
+#: ../components/html-editor/toolbar.c:531
 msgid "Right justifies the paragraphs"
 msgstr "Høyrejusterer avsnittene"
 
@@ -499,7 +499,7 @@ msgstr "Liste med romerske tall"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:89
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
-#: ../components/html-editor/editor-control-factory.c:216
+#: ../components/html-editor/editor-control-factory.c:218
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:47
 #: ../components/html-editor/menubar.c:168
 #: ../components/html-editor/popup.c:234
@@ -518,7 +518,7 @@ msgstr "Velg hele innholdet i dokumentet"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:92
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
-#: ../components/html-editor/toolbar.c:558
+#: ../components/html-editor/toolbar.c:559
 msgid "Strikeout"
 msgstr "Gjennomstreket"
 
@@ -558,7 +558,7 @@ msgstr "Te_kstfil..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:99
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
-#: ../components/html-editor/toolbar.c:550
+#: ../components/html-editor/toolbar.c:551
 msgid "Typewriter"
 msgstr "Skrivemaskin"
 
@@ -808,8 +808,8 @@ msgstr "Kontroll for GNOME HTML-redigering"
 msgid "GNOME HTML Editor Factory"
 msgstr "GNOME HTML-redigering factory"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
-msgid "Insert Sick smiley into document..."
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
+msgid "Insert Sick emoticon into document..."
 msgstr "Sett inn sykt smilefjes i dokumentet..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
@@ -867,7 +867,7 @@ msgid "Graph paper"
 msgstr "Grafisk papir"
 
 #: ../components/html-editor/body.c:256 ../components/html-editor/text.c:170
-#: ../components/html-editor/toolbar.c:313
+#: ../components/html-editor/toolbar.c:314
 msgid "Automatic"
 msgstr "Automatisk"
 
@@ -911,8 +911,8 @@ msgstr "M_al:"
 msgid "C_ustom:"
 msgstr "E_gendefinert:"
 
-#: ../components/html-editor/cell.c:340 ../components/html-editor/image.c:356
-#: ../components/html-editor/link.c:196 ../components/html-editor/rule.c:182
+#: ../components/html-editor/cell.c:340 ../components/html-editor/image.c:357
+#: ../components/html-editor/link.c:197 ../components/html-editor/rule.c:182
 #: ../components/html-editor/table.c:227
 #: ../components/html-editor/template.c:287
 #: ../components/html-editor/text.c:167
@@ -923,25 +923,25 @@ msgstr "Kunne ikke lese glade-fil."
 msgid "Transparent"
 msgstr "Gjennomsiktig"
 
-#: ../components/html-editor/editor-control-factory.c:187
+#: ../components/html-editor/editor-control-factory.c:189
 #: ../components/html-editor/popup.c:195 ../components/html-editor/popup.c:276
 msgid "Properties"
 msgstr "Egenskaper"
 
-#: ../components/html-editor/editor-control-factory.c:206
+#: ../components/html-editor/editor-control-factory.c:208
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:54
 #: ../components/html-editor/menubar.c:400
 #: ../components/html-editor/popup.c:204
 msgid "Text"
 msgstr "Tekst"
 
-#: ../components/html-editor/editor-control-factory.c:225
+#: ../components/html-editor/editor-control-factory.c:227
 #: ../components/html-editor/menubar.c:418
 #: ../components/html-editor/popup.c:222
 msgid "Paragraph"
 msgstr "Avsnitt"
 
-#: ../components/html-editor/editor-control-factory.c:229
+#: ../components/html-editor/editor-control-factory.c:231
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:42
 #: ../components/html-editor/menubar.c:382
 #: ../components/html-editor/popup.c:228
@@ -1244,7 +1244,7 @@ msgstr "Celle"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:28
 #: ../components/html-editor/paragraph.c:132
-#: ../components/html-editor/toolbar.c:528
+#: ../components/html-editor/toolbar.c:529
 msgid "Center"
 msgstr "Senter"
 
@@ -1418,11 +1418,11 @@ msgstr "piksler"
 msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
-#: ../components/html-editor/link.c:208
+#: ../components/html-editor/link.c:209
 msgid "URL:"
 msgstr "URL:"
 
-#: ../components/html-editor/link.c:212
+#: ../components/html-editor/link.c:213
 msgid "Description:"
 msgstr "Beskrivelse:"
 
@@ -1456,32 +1456,32 @@ msgid "Format"
 msgstr "Format"
 
 #: ../components/html-editor/paragraph.c:90
-#: ../components/html-editor/toolbar.c:59
+#: ../components/html-editor/toolbar.c:60
 msgid "Header 1"
 msgstr "Tittel 1"
 
 #: ../components/html-editor/paragraph.c:91
-#: ../components/html-editor/toolbar.c:60
+#: ../components/html-editor/toolbar.c:61
 msgid "Header 2"
 msgstr "Tittel 2"
 
 #: ../components/html-editor/paragraph.c:92
-#: ../components/html-editor/toolbar.c:61
+#: ../components/html-editor/toolbar.c:62
 msgid "Header 3"
 msgstr "Tittel 3"
 
 #: ../components/html-editor/paragraph.c:93
-#: ../components/html-editor/toolbar.c:62
+#: ../components/html-editor/toolbar.c:63
 msgid "Header 4"
 msgstr "Tittel 4"
 
 #: ../components/html-editor/paragraph.c:94
-#: ../components/html-editor/toolbar.c:63
+#: ../components/html-editor/toolbar.c:64
 msgid "Header 5"
 msgstr "Tittel 5"
 
 #: ../components/html-editor/paragraph.c:95
-#: ../components/html-editor/toolbar.c:64
+#: ../components/html-editor/toolbar.c:65
 msgid "Header 6"
 msgstr "Tittel 6"
 
@@ -1502,7 +1502,7 @@ msgid "Alphabeta item"
 msgstr "Alfabetisk oppføring"
 
 #: ../components/html-editor/paragraph.c:104
-#: ../components/html-editor/toolbar.c:65
+#: ../components/html-editor/toolbar.c:66
 msgid "Address"
 msgstr "Adresse"
 
@@ -1629,36 +1629,36 @@ msgid "Input Methods"
 msgstr "Inndatametoder"
 
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
-#: ../components/html-editor/replace.c:84
+#: ../components/html-editor/replace.c:83
 msgid "Replace confirmation"
 msgstr "Erstatt bekreftelse"
 
-#: ../components/html-editor/replace.c:85
+#: ../components/html-editor/replace.c:84
 msgid "Replace _All"
 msgstr "Erstatt _alle"
 
-#: ../components/html-editor/replace.c:86
+#: ../components/html-editor/replace.c:85
 msgid "_Next"
 msgstr "_Neste"
 
-#: ../components/html-editor/replace.c:88
+#: ../components/html-editor/replace.c:87
 msgid "_Replace"
 msgstr "E_rstatt"
 
-#: ../components/html-editor/replace.c:182
+#: ../components/html-editor/replace.c:181
 msgid "Search _backward"
 msgstr "Søk _bakover"
 
-#: ../components/html-editor/replace.c:183
+#: ../components/html-editor/replace.c:182
 #: ../components/html-editor/search.c:117
 msgid "Case _sensitive"
 msgstr "_Skill mellom store/små bokstaver"
 
-#: ../components/html-editor/replace.c:193
+#: ../components/html-editor/replace.c:192
 msgid "R_eplace:"
 msgstr "_Erstatt:"
 
-#: ../components/html-editor/replace.c:197
+#: ../components/html-editor/replace.c:196
 msgid "_With:"
 msgstr "_med:"
 
@@ -1711,75 +1711,75 @@ msgstr "Bilderamme"
 msgid "Template Labels"
 msgstr "Etiketter for maler"
 
-#: ../components/html-editor/test-html-editor-control.c:338
+#: ../components/html-editor/test-html-editor-control.c:340
 msgid "Open file..."
 msgstr "Åpne fil..."
 
-#: ../components/html-editor/test-html-editor-control.c:340
+#: ../components/html-editor/test-html-editor-control.c:342
 msgid "Save file as..."
 msgstr "Lagre fil som..."
 
-#: ../components/html-editor/test-html-editor-control.c:572
+#: ../components/html-editor/test-html-editor-control.c:574
 msgid "GtkHTML Editor Test Container"
 msgstr "Testkontainer for GtkHTML-redigering"
 
-#: ../components/html-editor/toolbar.c:57
+#: ../components/html-editor/toolbar.c:58
 msgid "Roman List"
 msgstr "Romersk liste"
 
-#: ../components/html-editor/toolbar.c:526
+#: ../components/html-editor/toolbar.c:527
 msgid "Left align"
 msgstr "Venstrejuster"
 
-#: ../components/html-editor/toolbar.c:530
+#: ../components/html-editor/toolbar.c:531
 msgid "Right align"
 msgstr "Høyrejuster"
 
-#: ../components/html-editor/toolbar.c:550
+#: ../components/html-editor/toolbar.c:551
 msgid "Toggle typewriter font style"
 msgstr "Slå av/på skrivemaskin stil for skrifttype"
 
-#: ../components/html-editor/toolbar.c:552
+#: ../components/html-editor/toolbar.c:553
 msgid "Bold"
 msgstr "Uthevet"
 
-#: ../components/html-editor/toolbar.c:552
+#: ../components/html-editor/toolbar.c:553
 msgid "Makes the text bold"
 msgstr "Gjør teksten fet"
 
-#: ../components/html-editor/toolbar.c:554
+#: ../components/html-editor/toolbar.c:555
 msgid "Italic"
 msgstr "Kursiv"
 
-#: ../components/html-editor/toolbar.c:554
+#: ../components/html-editor/toolbar.c:555
 msgid "Makes the text italic"
 msgstr "Gjør teksten kursiv"
 
-#: ../components/html-editor/toolbar.c:556
+#: ../components/html-editor/toolbar.c:557
 msgid "Underline"
 msgstr "Understreket"
 
-#: ../components/html-editor/toolbar.c:556
+#: ../components/html-editor/toolbar.c:557
 msgid "Underlines the text"
 msgstr "Understreker teksten"
 
-#: ../components/html-editor/toolbar.c:558
+#: ../components/html-editor/toolbar.c:559
 msgid "Strikes out the text"
 msgstr "Uthever teksten"
 
-#: ../components/html-editor/toolbar.c:567
+#: ../components/html-editor/toolbar.c:568
 msgid "Unindent"
 msgstr "Fjern innrykk"
 
-#: ../components/html-editor/toolbar.c:567
+#: ../components/html-editor/toolbar.c:568
 msgid "Indents the paragraphs less"
 msgstr "Mindre innrykk for avsnitt"
 
-#: ../components/html-editor/toolbar.c:569
+#: ../components/html-editor/toolbar.c:570
 msgid "Indent"
 msgstr "Innrykk"
 
-#: ../components/html-editor/toolbar.c:569
+#: ../components/html-editor/toolbar.c:570
 msgid "Indents the paragraphs more"
 msgstr "Større innrykk for avsnittene"
 
@@ -1799,83 +1799,83 @@ msgstr ""
 "Redigert objekt er fjernet fra dokumentet.\n"
 "Kan ikke bruke dine endringer."
 
-#: ../src/gtkhtml.c:2905
+#: ../src/gtkhtml.c:2895
 msgid "Editable"
 msgstr "Redigerbar"
 
-#: ../src/gtkhtml.c:2906
+#: ../src/gtkhtml.c:2896
 msgid "Whether the html can be edited"
 msgstr "Om HTML-koden kan redigeres"
 
-#: ../src/gtkhtml.c:2912
+#: ../src/gtkhtml.c:2902
 msgid "Document Title"
 msgstr "Dokumenttittel"
 
-#: ../src/gtkhtml.c:2913
+#: ../src/gtkhtml.c:2903
 msgid "The title of the current document"
 msgstr "Tittel for aktivt dokument"
 
-#: ../src/gtkhtml.c:2919
+#: ../src/gtkhtml.c:2909
 msgid "Document Base"
 msgstr "Dokumentbasis"
 
-#: ../src/gtkhtml.c:2920
+#: ../src/gtkhtml.c:2910
 msgid "The base URL for relative references"
 msgstr "Basis-URL for relative referanser"
 
-#: ../src/gtkhtml.c:2926
+#: ../src/gtkhtml.c:2916
 msgid "Target Base"
 msgstr "Målbasis"
 
-#: ../src/gtkhtml.c:2927
+#: ../src/gtkhtml.c:2917
 msgid "The base URL of the target frame"
 msgstr "Basis-URL for målrammen"
 
-#: ../src/gtkhtml.c:2936
+#: ../src/gtkhtml.c:2926
 msgid "Fixed Width Font"
 msgstr "Skrift med fast bredde"
 
-#: ../src/gtkhtml.c:2937
+#: ../src/gtkhtml.c:2927
 msgid "The Monospace font to use for typewriter text"
 msgstr "Skrift med fast bredde som skal brukes for skrivemaskintekst"
 
-#: ../src/gtkhtml.c:2943
+#: ../src/gtkhtml.c:2933
 msgid "New Link Color"
 msgstr "Farge for ny lenke"
 
-#: ../src/gtkhtml.c:2944
+#: ../src/gtkhtml.c:2934
 msgid "The color of new link elements"
 msgstr "Farge for nye lenkeelementer"
 
-#: ../src/gtkhtml.c:2949
+#: ../src/gtkhtml.c:2939
 msgid "Visited Link Color"
 msgstr "Farge for besøkt lenke"
 
-#: ../src/gtkhtml.c:2950
+#: ../src/gtkhtml.c:2940
 msgid "The color of visited link elements"
 msgstr "Farge for besøkte lenkeelementer"
 
-#: ../src/gtkhtml.c:2955
+#: ../src/gtkhtml.c:2945
 msgid "Active Link Color"
 msgstr "Farge for aktiv lenke"
 
-#: ../src/gtkhtml.c:2956
+#: ../src/gtkhtml.c:2946
 msgid "The color of active link elements"
 msgstr "Farge for aktive lenkeelementer"
 
-#: ../src/gtkhtml.c:2961
+#: ../src/gtkhtml.c:2951
 msgid "Spelling Error Color"
 msgstr "Farge for stavefeil"
 
-#: ../src/gtkhtml.c:2962
+#: ../src/gtkhtml.c:2952
 msgid "The color of the spelling error markers"
 msgstr "Farge for markering av stavefeil"
 
-#: ../src/gtkhtml.c:2967
+#: ../src/gtkhtml.c:2957
 msgid "Cite Quotation Color"
 msgstr "Farge på sitattekst"
 
-#: ../src/gtkhtml.c:2968
+#: ../src/gtkhtml.c:2958
 msgid "The color of the cited text"
 msgstr "Farge på sitert tekst"
 
