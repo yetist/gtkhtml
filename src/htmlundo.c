@@ -140,8 +140,10 @@ action_do_and_destroy_redo (HTMLEngine *engine, HTMLUndo *undo, GList **stack, H
 		html_undo_action_destroy (action);
 
 		first = undo->undo_used.stack;
-		html_undo_action_destroy (HTML_UNDO_ACTION (first->data));
-		undo->undo_used.stack = g_list_remove (first, first->data);
+		if (first) {
+			html_undo_action_destroy (HTML_UNDO_ACTION (first->data));
+			undo->undo_used.stack = g_list_remove (first, first->data);
+		}
 	}
 }
 
