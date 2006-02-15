@@ -1,3 +1,9 @@
+2006-02-15  Rohini S  <srohini@novell.com>
+
+	* htmlsearch.c (html_search_new): Function modified to include offset zero too.
+
+	Fixes bug #310990
+	
 2006-02-06  Simon Zheng  <simon.zheng@sun.com>
 
 	* htmlundo.c (action_do_and_destroy_redo): As undo_used stack is 

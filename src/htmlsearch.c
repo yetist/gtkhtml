@@ -60,7 +60,7 @@ html_search_new (HTMLEngine *e, const gchar *text, gboolean case_sensitive, gboo
 		HTMLObject *o;
  
 		ns->stack = NULL;
-		if (ns->start_pos > 0 )
+		if (ns->start_pos >= 0 )
 			ns->start_pos = e->cursor->offset - 1;
 		else
 			ns->start_pos = 0;
