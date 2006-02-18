@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 2.8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-22 19:18+0200\n"
-"PO-Revision-Date: 2006-01-22 19:18+0200\n"
+"POT-Creation-Date: 2006-02-18 19:37+0200\n"
+"PO-Revision-Date: 2006-02-18 19:41+0200\n"
 "Last-Translator: Alexander Shopov <ash@contact.bg>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "MIME-Version: 1.0\n"
@@ -227,13 +227,13 @@ msgstr "Изображение"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:36
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
-msgid "Insert Crying smiley into document..."
-msgstr "Вмъкване на плачещ емотикон в документа..."
+msgid "Insert Crying emoticon into document..."
+msgstr "Вмъкване на емотикон за плач в документа..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:37
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
-msgid "Insert Frown smiley into document..."
-msgstr "Вмъкване на намръщен емотикон в документа..."
+msgid "Insert Frown emoticon into document..."
+msgstr "Вмъкване на емотикон за намръщване в документа..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:38
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
@@ -252,43 +252,43 @@ msgstr "Вмъкване на шаблон за HTML в документа..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:41
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
-msgid "Insert Indifferent smiley into document..."
-msgstr "Вмъкване на безразличен емотикон в документа..."
+msgid "Insert Indifferent emoticon into document..."
+msgstr "Вмъкване на емотикон за безразличие в документа..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:42
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
-msgid "Insert Laughing smiley into document..."
-msgstr "Вмъкване на смеещ се емотикон в документа..."
+msgid "Insert Laughing emoticon into document..."
+msgstr "Вмъкване на емотикон за смях в документа..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:43
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
-msgid "Insert Lick smiley into document..."
-msgstr "Вмъкване на облизващ се емотикон в документа..."
+msgid "Insert Oh no! emoticon into document..."
+msgstr "Вмъкване на емотикон за съжаление в документа..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:44
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
-msgid "Insert Oh no! smiley into document..."
-msgstr "Вмъкване на прецакан емотикон в документа..."
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
+msgid "Insert Smile emoticon into document..."
+msgstr "Вмъкване на емотикон за усмивка в документа..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:45
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
-msgid "Insert Smile smiley into document..."
-msgstr "Вмъкване на усмихнат емотикон в документа..."
+msgid "Insert Surprised emoticon into document..."
+msgstr "Вмъкване на емотикон за изненада в документа..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:46
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
-msgid "Insert Surprised smiley into document..."
-msgstr "Вмъкване на изненадан емотикон в документа..."
+msgid "Insert Tongue emoticon into document..."
+msgstr "Вмъкване на емотикон за изплезване в документа..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:47
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
-msgid "Insert Undecided smiley into document..."
-msgstr "Вмъкване на колебаещ се емотикон в документа..."
+msgid "Insert Undecided emoticon into document..."
+msgstr "Вмъкване на емотикон за колебание в документа..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:48
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
-msgid "Insert Wink smiley into document..."
-msgstr "Вмъкване на намигащ емотикон в документа..."
+msgid "Insert Wink emoticon into document..."
+msgstr "Вмъкване на емотикон за намигване в документа..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:49
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
@@ -812,9 +812,9 @@ msgstr "Контрол за редактора на HTML за GNOME"
 msgid "GNOME HTML Editor Factory"
 msgstr "Фабрика на редактора на HTML за GNOME"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
-msgid "Insert Sick smiley into document..."
-msgstr "Вмъкване на болен емотикон в документа..."
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
+msgid "Insert Sick emoticon into document..."
+msgstr "Вмъкване на емотикон за болест в документа..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
 msgid "Make the current Paragraph style Preformatted"
