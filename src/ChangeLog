@@ -1,3 +1,10 @@
+2006-02-21  Rohini S  <srohini@novell.com>
+
+	* htmltext.c: Changed regular expression to match sftp url's too.
+
+	Fixes bug #328322
+
+
 2006-02-15  Rohini S  <srohini@novell.com>
 
 	* htmlsearch.c (html_search_new): Function modified to include offset zero too.
