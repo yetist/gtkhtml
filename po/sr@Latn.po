@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-31 01:36+0100\n"
-"PO-Revision-Date: 2006-01-31 01:59+0100\n"
+"POT-Creation-Date: 2006-02-21 02:34+0100\n"
+"PO-Revision-Date: 2006-02-21 02:49+0100\n"
 "Last-Translator: Slobodan D. Sredojević <slobo@akrep.be>\n"
 "Language-Team: Serbian (sr) <gnom@prevod.org>\n"
 "MIME-Version: 1.0\n"
@@ -227,12 +227,12 @@ msgstr "Slika"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:36
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
-msgid "Insert Crying smiley into document..."
+msgid "Insert Crying emoticon into document..."
 msgstr "Ubaci plačljivka u dokument..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:37
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
-msgid "Insert Frown smiley into document..."
+msgid "Insert Frown emoticon into document..."
 msgstr "Ubaci mrguda u dokument..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:38
@@ -252,42 +252,42 @@ msgstr "Ubaci HTML šablon u dokument..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:41
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
-msgid "Insert Indifferent smiley into document..."
+msgid "Insert Indifferent emoticon into document..."
 msgstr "Ubaci nezainteresovanog smeška u dokument..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:42
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
-msgid "Insert Laughing smiley into document..."
+msgid "Insert Laughing emoticon into document..."
 msgstr "Ubaci veoma nasmejanog smeška u dokument..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:43
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
-msgid "Insert Lick smiley into document..."
-msgstr "Ubaci isplaženog smeška u dokument..."
+msgid "Insert Oh no! emoticon into document..."
+msgstr "Ubaci „O ne!“ smeška u dokument..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:44
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
-msgid "Insert Oh no! smiley into document..."
-msgstr "Ubaci „O ne!“ smeška u dokument..."
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
+msgid "Insert Smile emoticon into document..."
+msgstr "Ubaci nasmejanog smeška u dokument..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:45
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
-msgid "Insert Smile smiley into document..."
-msgstr "Ubaci nasmejanog smeška u dokument..."
+msgid "Insert Surprised emoticon into document..."
+msgstr "Ubaci iznenađenog smeška u dokument..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:46
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
-msgid "Insert Surprised smiley into document..."
-msgstr "Ubaci iznenađenog smeška u dokument..."
+msgid "Insert Tongue emoticon into document..."
+msgstr "Ubaci isplaženog smeška u dokument..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:47
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
-msgid "Insert Undecided smiley into document..."
+msgid "Insert Undecided emoticon into document..."
 msgstr "Ubaci neodlučnog smeška u dokument..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:48
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
-msgid "Insert Wink smiley into document..."
+msgid "Insert Wink emoticon into document..."
 msgstr "Ubaci namigujućeg smeška u dokument..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:49
@@ -812,8 +812,8 @@ msgstr "Gnomov element za uređivanje HTML-a"
 msgid "GNOME HTML Editor Factory"
 msgstr "Fabrika Gnomovog uređivača HTML-a"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
-msgid "Insert Sick smiley into document..."
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
+msgid "Insert Sick emoticon into document..."
 msgstr "Ubaci bolesnog smeška u dokument..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
@@ -1919,6 +1919,9 @@ msgstr "Pregled pred štampu"
 #: ../src/testgtkhtml.c:1017
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML program za isprobavanje"
+
+#~ msgid "Insert Lick smiley into document..."
+#~ msgstr "Ubaci isplaženog smeška u dokument..."
 
 #~ msgid "Background Color"
 #~ msgstr "Boja pozadine"
