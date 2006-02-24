@@ -2582,6 +2582,31 @@ static gchar *known_protocols [] = {
 };
 
 static HTMLObject *
+new_img_obj_from_uri (HTMLEngine *e, char *uri, char *title, gint len)
+{
+	gint i;
+
+	if (!strncmp (uri, "file:", 5)) {
+		if (!HTML_IS_PLAIN_PAINTER(e->painter)) {
+			GdkPixbuf *pixbuf = NULL;
+			char *img_path = g_filename_from_uri (uri, NULL, NULL);
+			if (img_path) {
+				pixbuf = gdk_pixbuf_new_from_file(img_path, NULL);
+				g_free(img_path);
+			}
+			if (pixbuf) {
+				g_object_unref (pixbuf);
+				return html_image_new (html_engine_get_image_factory (e), uri,
+						       NULL, NULL, -1, -1, FALSE, FALSE, 0,
+						       html_colorset_get_color (e->settings->color_set, HTMLTextColor),
+						       HTML_VALIGN_BOTTOM, TRUE);
+			}
+		}
+	}
+	return NULL;
+}
+
+static HTMLObject *
 new_obj_from_uri (HTMLEngine *e, char *uri, char *title, gint len)
 {
 	gint i;
@@ -2660,8 +2685,25 @@ drag_data_received (GtkWidget *widget, GdkDragContext *context,
 		selection_received (widget, selection_data, time);
 		pasted = TRUE;
 		break;
-	case DND_TARGET_TYPE_MOZILLA_URL  : 
-	case DND_TARGET_TYPE_TEXT_URI_LIST: 
+        case DND_TARGET_TYPE_MOZILLA_URL  : 
+		break; 	 
+        case DND_TARGET_TYPE_TEXT_URI_LIST: 	 
+		if(!HTML_IS_PLAIN_PAINTER (engine->painter)) {
+                 HTMLObject *obj; 	 
+                 gint list_len, len; 	 
+                 gchar *uri; 	 
+                 html_undo_level_begin (engine->undo, "Dropped URI(s)", "Remove Dropped URI(s)"); 	 
+                 list_len = selection_data->length;
+                 do { 	 
+                         uri = next_uri (&selection_data->data, &len, &list_len); 	 
+                         obj = new_img_obj_from_uri (engine, uri, NULL, -1); 	
+                         if (obj) { 	 
+                                 html_engine_paste_object (engine, obj, html_object_get_length (obj)); 	 
+                                 pasted = TRUE; 	 
+                         } 	 
+                 } while (list_len); 	 
+                 html_undo_level_end (engine->undo); 	 
+	}
 	break;
 	}
 	gtk_drag_finish (context, pasted, FALSE, time);
