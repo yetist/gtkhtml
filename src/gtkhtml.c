@@ -4275,6 +4275,9 @@ gtk_html_toggle_font_style (GtkHTML *html,
 	g_return_if_fail (html != NULL);
 	g_return_if_fail (GTK_IS_HTML (html));
 
+	if (HTML_IS_PLAIN_PAINTER (html->engine->painter))
+		return;
+
 	if (html_engine_toggle_font_style (html->engine, style))
 		g_signal_emit (html, signals [INSERTION_FONT_STYLE_CHANGED], 0, html->engine->insertion_font_style);
 }
@@ -4726,8 +4729,10 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 	case GTK_HTML_COMMAND_MODIFY_SELECTION_PAGEDOWN:
 	case GTK_HTML_COMMAND_MODIFY_SELECTION_PREV_WORD:
 	case GTK_HTML_COMMAND_MODIFY_SELECTION_NEXT_WORD:
-		if (html->engine->caret_mode || html_engine_get_editable(e))
+		if (html->engine->caret_mode || html_engine_get_editable(e)) {
+			gtk_im_context_reset (html->priv->im_context);
 			rv = move_selection (html, com_type);
+		}
 		break;
 	case GTK_HTML_COMMAND_EDITABLE_ON:
 		gtk_html_set_editable (html, TRUE);

@@ -1,3 +1,15 @@
+2006-02-22  Rohini S  <srohini@novell.
+
+	* gtkhtml.c (gtk_html_toggle_font_style): Can toggle font style only in html
+	
+	Fixes bug #302299
+	
+2006-02-21  Rohini S  <srohini@novell.
+
+	* gtkhtml.c (command): Resets IMContext before selection.
+
+	Fixes bug #301015
+
 2006-02-16  Rohini S  <srohini@novell.com>
 
 	* gtkhtml.c (drag_data_received, new_img_obj_from_uri): Function modified to
