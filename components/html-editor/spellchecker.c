@@ -363,6 +363,7 @@ language_cb (BonoboUIComponent *uic, const char *path, Bonobo_UIComponent_EventT
 			g_string_append (str, cd->languages->_buffer [i].abbreviation);
 			g_string_append_c (str, ' ');
 		}
+		g_free (val);
 	}
 
 	html_engine_set_language (cd->html->engine, str->str);
