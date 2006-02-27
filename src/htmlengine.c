@@ -36,6 +36,8 @@
 #include <ctype.h>
 #include <time.h>
 
+#include <glib.h>
+
 #include <gtk/gtkmain.h>
 #include <gtk/gtksignal.h>
 #include <gtk/gtkscrolledwindow.h>
@@ -1346,8 +1348,16 @@ new_parse_body (HTMLEngine *e, const gchar *end[])
 					g_free (str_copy);
 					
 				}
-			} else
-				parse_one_token (e, clue, str);
+			} else {
+				/* Handle both <TEXTAREA> and </TEXTAREA> */
+				if (e->inTextArea) {
+					parse_one_token (e, clue, str);
+					if (e->inTextArea)
+						parse_text (e, clue, str);
+				} else
+					parse_one_token (e, clue, str);
+
+			}
 		}
 	}
 	
@@ -3720,7 +3730,7 @@ static void
 parse_one_token (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	static GHashTable *basic = NULL;
-	char *name;
+	char *name = NULL;
 	HTMLDispatchEntry *entry;
 
 	if (basic == NULL)
@@ -3737,6 +3747,9 @@ parse_one_token (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	name = parse_element_name (str);
 
 	if (!name)
+		return;
+
+	if (e->inTextArea && g_ascii_strncasecmp (name,"/textarea", 9))
 		return;
 
 	entry = g_hash_table_lookup (basic, name);

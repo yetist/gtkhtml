@@ -1,3 +1,10 @@
+2006-02-27  Rohini S  <srohini@novell.com>
+
+	* htmlengine.c (new_parse_body, parse_one_token):
+	Functions modified not to parse html tags in a <TEXTAREA> block.
+
+	Fixes bug #203003
+
 2006-02-22  Rohini S  <srohini@novell.
 
 	* gtkhtml.c (gtk_html_toggle_font_style): Can toggle font style only in html
