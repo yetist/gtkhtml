@@ -1,3 +1,24 @@
+GtkHTML-3.9.92 2006-02-27
+----------------------------
+
+Bug fixes since last release :
+http://go-evolution.org/Evo2.5.92#gtkhtml
+
+Updated Translations:
+
+	- bg (Vladimir Petkov)
+	- cy (Rhys Jones)
+	- el (Kostas Papadimas)
+	- eu (Inaki Larranaga)
+	- hu (Gabor Kelemen)
+	- it (Luca Ferretti)
+	- lt (Žygimantas Beručka)
+	- nb (Kjartan Maraas)
+	- no (Kjartan Maraas)
+	- sr (Slobodan D. Sredojevic)
+	- zh_HK (Chao-Hsiung Liao)
+	- zh_TW (Chao-Hsiung Liao)
+	
 GtkHTML-3.9.91 2006-02-13
 ----------------------------
 
