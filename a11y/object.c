@@ -309,7 +309,9 @@ gtk_html_a11y_grab_focus_cb(GtkWidget * widget)
 
 
 	focus_object = gtk_html_a11y_get_focus_object (widget);
-	g_return_if_fail (focus_object != NULL);
+	if (focus_object == NULL)
+		return;
+
 	obj = gtk_widget_get_accessible (widget);
 	g_object_set_data (G_OBJECT(obj), "gail-focus-object", focus_object);
 

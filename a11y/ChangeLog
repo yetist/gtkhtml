@@ -1,4 +1,10 @@
-2006-02-23  Harry Lu <harry.lu@sun.com>
+2006-02-28  Harry Lu <harry.lu@sun.com>
+
+	Fix for #331546
+
+	* object.c: (gtk_html_a11y_grab_focus_cb): Fix a critical warning.
+
+2006-02-28  Harry Lu <harry.lu@sun.com>
 
 	Fix for #331528.
 
