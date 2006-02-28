@@ -43,8 +43,6 @@ static AtkStateSet * html_a11y_ref_state_set (AtkObject *accessible);
 static gint html_a11y_get_n_children (AtkObject *accessible);
 static AtkObject * html_a11y_ref_child (AtkObject *accessible, gint index);
 
-void html_a11y_get_size (AtkComponent *component, gint *width, gint *height);
-
 static AtkObjectClass *parent_class = NULL;
 
 GType

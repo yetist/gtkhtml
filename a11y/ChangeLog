@@ -1,3 +1,7 @@
+2006-02-28  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* html.c: Remove redundant prototype. Part of bug #323450.
+
 2006-02-28  Harry Lu <harry.lu@sun.com>
 
 	Fix for #331546
