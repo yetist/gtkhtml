@@ -236,7 +236,6 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 {
 	GtkHTMLEditBodyProperties *data = g_new0 (GtkHTMLEditBodyProperties, 1);
 	GtkWidget *main_vbox, *hbox, *combo, *label, *t1;
-	GSList *group;
 	HTMLColor *color;
 	gint i;
 
@@ -250,7 +249,6 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	gtk_table_set_col_spacings (GTK_TABLE (t1), 6);
 	gtk_table_set_row_spacings (GTK_TABLE (t1), 6);
 
-	group = NULL;
 	i = 0;
 #define ADD_COLOR(x, ct, g) \
         color = html_colorset_get_color (cd->html->engine->settings->color_set, ct); \

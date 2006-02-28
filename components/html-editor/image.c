@@ -346,7 +346,7 @@ static GtkWidget *
 image_widget (GtkHTMLEditImageProperties *d, gboolean insert)
 {
 	GladeXML *xml;
-	GtkWidget *frame_template, *button;
+	GtkWidget *button;
 	gchar *filename;
 
 	filename = g_build_filename (GLADE_DATADIR, "gtkhtml-editor-properties.glade", NULL);
@@ -356,7 +356,6 @@ image_widget (GtkHTMLEditImageProperties *d, gboolean insert)
 		g_error (_("Could not load glade file."));
 
 	d->page = glade_xml_get_widget (xml, "image_page");
-	frame_template = glade_xml_get_widget (xml, "frame_image_template");
 
 	d->option_align = glade_xml_get_widget (xml, "option_image_align");
 	g_signal_connect (gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_align)),

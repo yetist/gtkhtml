@@ -74,7 +74,6 @@ html_source_view_load (HTMLSourceView *view)
 	CORBA_Object pstream;
 	const char *text;
 	char *html;
-	size_t len;
 
 	CORBA_exception_init (&ev);
 
@@ -85,7 +84,6 @@ html_source_view_load (HTMLSourceView *view)
 	bonobo_stream_client_write (BONOBO_OBJREF (smem), "", 1, &ev);
 
         text = bonobo_stream_mem_get_buffer (BONOBO_STREAM_MEM (smem));
-	len  = bonobo_stream_mem_get_size (BONOBO_STREAM_MEM (smem));
 
 	if (!view->priv->as_html) {
 		html = e_text_to_html_full (text, E_TEXT_TO_HTML_PRE | E_TEXT_TO_HTML_CONVERT_SPACES, 0);

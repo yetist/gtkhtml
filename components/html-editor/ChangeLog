@@ -1,3 +1,11 @@
+2006-02-28  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* body.c: (body_properties):
+	* htmlsourceview.c: (html_source_view_load):
+	* image.c: (image_widget):
+	More cleanups from bug #323450
+	- Remove some unused bits here and there.
+
 2006-02-27  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* spellchecker.c: (language_cb): Plug a leak.
