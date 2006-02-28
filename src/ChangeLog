@@ -38,6 +38,7 @@
 	* test-stress.c: (test_level_1):
 	* testgtkhtml.c: (goto_url):
 	Various cleanups of warnings from the Intel C/C++ compiler:
+	bug #323450
 	- Remove redundant break; statements and semi-colons
 	- Remove unused variables
 	- Remove unused static functions
