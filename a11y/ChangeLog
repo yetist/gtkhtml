@@ -1,3 +1,9 @@
+2006-02-23  Harry Lu <harry.lu@sun.com>
+
+	Fix for #331528.
+
+	* text.c: (html_a11y_text_ref_state_set): fix a CRITICAL assersion.
+
 2005-08-10  Mengjie Yu  <meng-jie.yu@sun.com>
 
 	* text.c: (html_a11y_text_get_run_attributes):

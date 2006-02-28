@@ -318,9 +318,14 @@ html_a11y_text_ref_state_set (AtkObject *accessible)
 {
 	AtkStateSet *state_set;
 	GtkHTML * html;
+	GtkHTMLA11Y *html_a11y;
 
 	state_set = ATK_OBJECT_CLASS (parent_class)->ref_state_set (accessible);
-	html = GTK_HTML_A11Y_GTKHTML(html_a11y_get_gtkhtml_parent(HTML_A11Y(accessible)));
+	html_a11y = html_a11y_get_gtkhtml_parent (HTML_A11Y (accessible));
+	if (!html_a11y)
+		return state_set;
+
+	html = GTK_HTML_A11Y_GTKHTML (html_a11y);
 	if (!html || !html->engine)
 		return state_set;
 
