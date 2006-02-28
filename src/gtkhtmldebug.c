@@ -291,8 +291,6 @@ gtk_html_debug_dump_object (HTMLObject *obj,
 		g_print ("Location: %s\n", HTML_IMAGE (obj)->image_ptr->url);
 		break;
 	case HTML_TYPE_FRAMESET: {
-		gint i;
-
 		for (i = 0; i < HTML_FRAMESET (obj)->frames->len; i++)
 			gtk_html_debug_dump_tree (g_ptr_array_index (HTML_FRAMESET (obj)->frames, i), level + 1);
 		}

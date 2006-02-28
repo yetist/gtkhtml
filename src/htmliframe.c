@@ -261,10 +261,8 @@ static HTMLObject *
 op_copy (HTMLObject *self, HTMLObject *parent, HTMLEngine *e, GList *from, GList *to, guint *len)
 {
 	HTMLObject *dup, *clue;
-	GtkHTML *html;
 
 	dup = html_object_dup (self);
-	html = GTK_HTML (HTML_IFRAME (dup)->html);
 	clue = GTK_HTML (HTML_IFRAME (self)->html)->engine->clue;
 	GTK_HTML (HTML_IFRAME (dup)->html)->engine->clue =
 		html_object_op_copy (clue, dup, GTK_HTML (HTML_IFRAME (self)->html)->engine,
@@ -472,8 +470,6 @@ save (HTMLObject *s,
 		}
 		html_engine_save_buffer_free (buffer, TRUE);
 	} else {
-		HTMLEngine *e = GTK_HTML (iframe->html)->engine;
-
 		if (!html_engine_save_output_string (state, "<IFRAME SRC=\"%s\"", iframe->url))
 			 return FALSE;
         

@@ -154,10 +154,7 @@ static int test_level_1 (GtkHTML *html)
 			/* delete text */
 			printf ("delete text\n");
 			html_cursor_jump_to_position (html->engine->cursor, html->engine, pos + len);
-			for (j = 0; j < len; j ++) {
-				char ch [2];
-				ch [0] = 'a' + (int) (26.0*rand()/(RAND_MAX+1.0));
-				ch [1] = 0;
+			for (j = 0; j < len; j++) {
 				gtk_html_command (html, "delete");
 			}
 			total_len -= len;

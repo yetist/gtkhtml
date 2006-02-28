@@ -164,10 +164,8 @@ html_engine_draw_image_cursor (HTMLEngine *e)
 	io    = e->cursor->object;
 
 	if (io && HTML_IS_IMAGE (e->cursor->object)) {
-		HTMLImage *image;
 		static gint offset = 3;
 
-		image = HTML_IMAGE (io);
 		if (io != cr->object) {
 			if (cr->object)
 				refresh_under_cursor (e, cr, &enabled);

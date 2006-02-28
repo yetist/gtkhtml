@@ -113,11 +113,9 @@ html_radio_init (HTMLRadio *radio,
 		 HTMLForm *form)
 {
 	HTMLEmbedded *element;
-	HTMLObject *object;
 	GtkWidget *widget;
 
 	element = HTML_EMBEDDED (radio);
-	object = HTML_OBJECT (radio);
 
 	if (value == NULL)
 		value = g_strdup ("on");

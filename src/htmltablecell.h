@@ -38,8 +38,8 @@ struct _HTMLTableCell {
 
 	gint fixed_width;
 	gint fixed_height;
-	gboolean percent_width  : 1;
-	gboolean percent_height : 1;
+	guint percent_width  : 1;
+	guint percent_height : 1;
 	gboolean no_wrap;
 	gboolean heading;
 

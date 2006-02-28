@@ -436,7 +436,6 @@ html_frame_init (HTMLFrame *frame,
 	GtkHTML   *new_html;
 	GtkHTML   *parent_html;
 	GtkWidget *scrolled_window;
-	gint depth;
 
 	g_assert (GTK_IS_HTML (parent));
 	parent_html = GTK_HTML (parent);
@@ -465,7 +464,7 @@ html_frame_init (HTMLFrame *frame,
 	frame->height = height;
 	frame->gdk_painter = NULL;
 	gtk_html_set_base (new_html, src);
-	depth = gtk_html_set_iframe_parent (new_html, parent, HTML_OBJECT (frame));
+	gtk_html_set_iframe_parent (new_html, parent, HTML_OBJECT (frame));
 	gtk_container_add (GTK_CONTAINER (scrolled_window), new_widget);
 	gtk_widget_show (new_widget);
 

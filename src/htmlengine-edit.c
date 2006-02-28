@@ -624,7 +624,6 @@ html_engine_fill_pre_line (HTMLEngine *e)
 	guint position;
 	guint line_offset;
 	guint last_space;
-	HTMLObject *flow;
 	gunichar uc;
 
 	g_assert (e->cursor->object);
@@ -640,7 +639,6 @@ html_engine_fill_pre_line (HTMLEngine *e)
 
 	html_cursor_beginning_of_paragraph (e->cursor, e);
 
-	flow = e->cursor->object->parent;
 	while (html_cursor_forward (e->cursor, e) && (e->cursor->position < position - 1)) {
 		uc = html_cursor_get_current_char (e->cursor);
 		line_offset = inc_line_offset (line_offset, uc);

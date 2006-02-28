@@ -176,11 +176,9 @@ html_text_input_init (HTMLTextInput *ti,
 		      gboolean password)
 {
 	HTMLEmbedded *element;
-	HTMLObject *object;
 	GtkWidget *entry;
 
 	element = HTML_EMBEDDED (ti);
-	object = HTML_OBJECT (ti);
 
 	html_embedded_init (element, HTML_EMBEDDED_CLASS (klass),
 			   parent, name, value);

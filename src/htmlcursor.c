@@ -298,7 +298,6 @@ html_cursor_up (HTMLCursor *cursor,
 	gint prev_x, prev_y;
 	gint x, y;
 	gint target_x;
-	gint orig_y;
 	gboolean new_line;
 
 	gtk_html_im_reset (engine->widget);
@@ -329,8 +328,6 @@ html_cursor_up (HTMLCursor *cursor,
 	}
 
 	target_x = cursor->target_x;
-
-	orig_y = y;
 
 	new_line = FALSE;
 
@@ -416,7 +413,6 @@ html_cursor_down (HTMLCursor *cursor,
 	gint prev_x, prev_y;
 	gint x, y;
 	gint target_x;
-	gint orig_y;
 	gboolean new_line;
 
 	gtk_html_im_reset (engine->widget);
@@ -447,8 +443,6 @@ html_cursor_down (HTMLCursor *cursor,
 	}
 
 	target_x = cursor->target_x;
-
-	orig_y = y;
 
 	new_line = FALSE;
 

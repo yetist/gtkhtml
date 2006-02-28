@@ -67,7 +67,7 @@ get_font_style_from_selection (HTMLEngine *engine)
 		if (html_object_is_text (p.object) && p.offset != html_object_get_length (p.object)) {
 			gint index = 0;
 			if (first) {
-				gint index = g_utf8_offset_to_pointer (HTML_TEXT (p.object)->text, offset) - HTML_TEXT (p.object)->text;
+				index = g_utf8_offset_to_pointer (HTML_TEXT (p.object)->text, offset) - HTML_TEXT (p.object)->text;
 				style = html_text_get_fontstyle_at_index (HTML_TEXT (p.object), index);
 				first = FALSE;
 			}

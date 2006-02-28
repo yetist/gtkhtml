@@ -112,8 +112,6 @@ static HTMLURL *baseURL = NULL;
 static GList *go_list;
 static int go_position;
 
-static gboolean use_redirect_filter;
-
 static gboolean slow_loading = FALSE;
 
 static gint redirect_timerId = 0;
@@ -843,8 +841,6 @@ goto_url(const char *url, int back_or_forward)
 	}
 
 	/* TODO2 gnome_animator_start (GNOME_ANIMATOR (animator)); */
-
-	use_redirect_filter = TRUE;
 
 	html_stream_handle = gtk_html_begin_content (html, "text/html; charset=utf-8");
 

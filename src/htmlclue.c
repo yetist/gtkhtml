@@ -221,9 +221,7 @@ static void
 split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint level, GList **left, GList **right)
 {
 	HTMLObject *dup;
-	HTMLClue *clue;
 
-	clue = HTML_CLUE (self);
 	dup  = html_object_dup (self);
 
 	HTML_CLUE (dup)->tail  = HTML_CLUE (self)->tail;

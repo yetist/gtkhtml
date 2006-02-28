@@ -123,10 +123,8 @@ static GList *
 point_get_parent_list (HTMLPoint *point, gint level, gboolean include_offset)
 {
 	GList *list;
-	HTMLObject *o;
 
 	list = include_offset ? g_list_prepend (NULL, GINT_TO_POINTER (point->offset)) : NULL;
-	o    = point->object;
 
 	object_get_parent_list (point->object, level, &list);
 
@@ -1498,9 +1496,6 @@ change_link (HTMLObject *o, HTMLEngine *e, gpointer data)
 	changed = d->url ? html_object_set_link (o, d->color, d->url, d->target) : html_object_remove_link (o, d->color);
 	if (changed) {
 		if (o->parent) {
-			HTMLObject *prev;
-
-			prev = o->prev;
 			g_assert (HTML_OBJECT_TYPE (o->parent) == HTML_TYPE_CLUEFLOW);
 
 			html_clue_append_after (HTML_CLUE (o->parent), changed, o);

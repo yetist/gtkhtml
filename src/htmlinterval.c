@@ -329,12 +329,6 @@ html_object_children_max (HTMLObject *a, HTMLObject *b)
 	return a;
 }
 
-static inline HTMLObject *
-html_object_children_min (HTMLObject *a, HTMLObject *b)
-{
-	return a == html_object_children_max (b, a) ? b : a;
-}
-
 HTMLPoint *
 html_point_max (HTMLPoint *a, HTMLPoint *b)
 {

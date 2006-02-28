@@ -63,7 +63,6 @@ split (HTMLTextSlave *slave, guint offset, int skip, char *start_pointer)
 	HTMLObject *obj;
 	HTMLObject *new;
 
-	g_return_if_fail (offset >= 0);
 	g_return_if_fail (offset < slave->posLen);
 
 	obj = HTML_OBJECT (slave);
@@ -913,7 +912,6 @@ draw (HTMLObject *o,
 	HTMLTextSlave *slave;
 	HTMLText *owner;
 	GtkHTMLFontStyle font_style;
-	guint end;
 	GdkRectangle paint;
 
 	/* printf ("slave draw %p\n", o); */
@@ -925,7 +923,6 @@ draw (HTMLObject *o,
 	owner = slave->owner;
 	font_style = html_text_get_font_style (owner);
 
-	end = slave->posStart + slave->posLen;
 	draw_text (slave, p, font_style, x, y, width, height, tx, ty);
 	
 	if (HTML_OBJECT (owner)->draw_focused)
@@ -1110,11 +1107,9 @@ html_text_slave_init (HTMLTextSlave *slave,
 		      guint posStart,
 		      guint posLen)
 {
-	HTMLText *owner_text;
 	HTMLObject *object;
 
 	object = HTML_OBJECT (slave);
-	owner_text = HTML_TEXT (owner);
 
 	html_object_init (object, HTML_OBJECT_CLASS (klass));
 

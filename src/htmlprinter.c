@@ -504,15 +504,11 @@ static void
 draw_pixmap (HTMLPainter *painter, GdkPixbuf *pixbuf, gint x, gint y, gint scale_width, gint scale_height, const GdkColor *color)
 {
 	HTMLPrinter *printer;
-	gint width, height;
 	double print_x, print_y;
 	double print_scale_width, print_scale_height;
 
 	printer = HTML_PRINTER (painter);
 	g_return_if_fail (printer->context != NULL);
-
-	width = gdk_pixbuf_get_width (pixbuf);
-	height = gdk_pixbuf_get_height (pixbuf);
 
 	html_printer_coordinates_to_gnome_print (printer, x, y, &print_x, &print_y);
 

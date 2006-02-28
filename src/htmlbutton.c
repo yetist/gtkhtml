@@ -122,11 +122,9 @@ html_button_init (HTMLButton *button,
 		  HTMLButtonType type)
 {
 	HTMLEmbedded *element;
-	HTMLObject *object;
 	GtkWidget  *widget;
 
 	element = HTML_EMBEDDED (button);
-	object = HTML_OBJECT (button);
 	widget = NULL;
 
 	html_embedded_init (element, HTML_EMBEDDED_CLASS (klass), parent, name, value);

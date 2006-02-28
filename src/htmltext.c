@@ -1227,7 +1227,6 @@ html_text_prepare_attrs (HTMLText *text, HTMLPainter *painter)
 		GSList *l;
 
 		for (l = text->links; l; l = l->next) {
-			PangoAttribute *attr;
 			Link *link;
 
 			link = (Link *) l->data;

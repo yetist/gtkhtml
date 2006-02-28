@@ -869,7 +869,6 @@ insert_text (HTMLEngine *e,
 	GtkHTMLFontStyle font_style;
 	HTMLObject *prev;
 	HTMLColor *color;
-	gchar *face;
 	gboolean create_link;
 	gint last_pos = 0;
 	gint last_bytes = 0;
@@ -890,7 +889,6 @@ insert_text (HTMLEngine *e,
 
 	font_style = current_font_style (e);
 	color = current_color (e);
-	face = current_font_face (e);
 
 	if ((create_link || e->flow == NULL || HTML_CLUE (e->flow)->head == NULL) && !e->inPre) {
 		while (*text == ' ')
@@ -1481,7 +1479,6 @@ element_parse_object (HTMLEngine *e, HTMLObject *clue, const gchar *attr)
 	char *classid = NULL;
 	char *name    = NULL;
 	char *type    = NULL;
-	char *str     = NULL;
 	char *data    = NULL;
 	char *value   = NULL;
 	int width=-1,height=-1;
@@ -1550,7 +1547,7 @@ element_parse_object (HTMLEngine *e, HTMLObject *clue, const gchar *attr)
 			html_form_add_element (e->form, HTML_EMBEDDED (el));
 
 		/* throw away the contents we can deal with the object */
-		str = discard_body (e, end);
+		discard_body (e, end);
 	} else {
 		html_object_destroy (HTML_OBJECT (el));
 	}
@@ -1698,9 +1695,10 @@ element_parse_iframe (HTMLEngine *e, HTMLObject *clue, const char *str)
 		if (scroll != GTK_POLICY_AUTOMATIC)
 			html_iframe_set_scrolling (HTML_IFRAME (iframe), scroll);
 		
-		if (halign != HTML_HALIGN_NONE) {
+		if (halign != HTML_HALIGN_NONE || valign != HTML_VALIGN_NONE) {
 			HTMLClueAligned *aligned = HTML_CLUEALIGNED (html_cluealigned_new (NULL, 0, 0, clue->max_width, 100));
 			HTML_CLUE (aligned)->halign = halign;
+			HTML_CLUE (aligned)->valign = valign;
 			html_clue_append (HTML_CLUE (aligned), HTML_OBJECT (iframe));
 			append_element (e, clue, HTML_OBJECT (aligned));
 		} else {
@@ -2643,14 +2641,14 @@ element_parse_meta (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	int refresh_delay = 0;
 	gchar *refresh_url = NULL;
 	
-	html_string_tokenizer_tokenize( e->st, str + 5, " >" );
-	while ( html_string_tokenizer_has_more_tokens (e->st) ) {
+	html_string_tokenizer_tokenize(e->st, str + 5, " >");
+	while (html_string_tokenizer_has_more_tokens (e->st)) {
 
 		const gchar* token = html_string_tokenizer_next_token(e->st);
-		if ( g_ascii_strncasecmp( token, "http-equiv=", 11 ) == 0 ) {
-			if ( g_ascii_strncasecmp( token + 11, "refresh", 7 ) == 0 )
+		if (g_ascii_strncasecmp(token, "http-equiv=", 11) == 0 ) {
+			if (g_ascii_strncasecmp(token + 11, "refresh", 7) == 0 )
 				refresh = 1;
-		} else if ( g_ascii_strncasecmp( token, "content=", 8 ) == 0 ) {
+		} else if (g_ascii_strncasecmp(token, "content=", 8) == 0) {
 			if (refresh) {
 				const gchar *content;
 				content = token + 8;
@@ -2659,9 +2657,9 @@ element_parse_meta (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 				refresh_delay = atoi(content);
 				
 				html_string_tokenizer_tokenize(e->st, content, ",;> ");
-				while ( html_string_tokenizer_has_more_tokens (e->st) ) {
-					const gchar* token = html_string_tokenizer_next_token(e->st);
-					if ( g_ascii_strncasecmp( token, "url=", 4 ) == 0 )
+				while (html_string_tokenizer_has_more_tokens (e->st)) {
+					token = html_string_tokenizer_next_token(e->st);
+					if (g_ascii_strncasecmp( token, "url=", 4 ) == 0)
 						refresh_url = g_strdup (token + 4);
 				}
 				
@@ -2721,11 +2719,9 @@ static void
 element_parse_li (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	HTMLListType listType;
-	gint listLevel;
 	gint itemNumber;
 	
 	listType = HTML_LIST_TYPE_UNORDERED;
-	listLevel = 1;
 	itemNumber = 1;
 	
 	pop_element (e, ID_LI);
@@ -3628,7 +3624,7 @@ typedef struct _HTMLDispatchEntry {
 	HTMLParseFunc func;
 } HTMLDispatchEntry;
 
-HTMLDispatchEntry basic_table[] = {
+static HTMLDispatchEntry basic_table[] = {
 	{ID_A,                element_parse_a},
 	{"area",              element_parse_area},
 	{ID_ADDRESS,          element_parse_address},
@@ -3996,8 +3992,6 @@ html_engine_set_property (GObject *object, guint id, const GValue *value, GParam
 	HTMLEngine *engine = HTML_ENGINE (object);
 
 	if (id == 1) {
-		GtkHTMLClassProperties *prop;
-
 		engine->widget          = GTK_HTML (g_value_get_object (value));
 		engine->painter         = html_gdk_painter_new (GTK_WIDGET (engine->widget), TRUE);
 		engine->settings        = html_settings_new (GTK_WIDGET (engine->widget));
@@ -4005,8 +3999,6 @@ html_engine_set_property (GObject *object, guint id, const GValue *value, GParam
 
 		engine->insertion_color = html_colorset_get_color (engine->settings->color_set, HTMLTextColor);
 		html_color_ref (engine->insertion_color);
-
-		prop = GTK_HTML_CLASS (GTK_WIDGET_GET_CLASS (engine->widget))->properties;
 	}
 }
 
@@ -4460,7 +4452,7 @@ html_engine_stop (HTMLEngine *e)
 	html_object_forall (e->clue, e, html_engine_stop_forall, NULL);
 }
 
-char *engine_content_types[]= {"text/html", NULL};
+static char *engine_content_types[]= {"text/html", NULL};
 
 static char **
 html_engine_stream_types (GtkHTMLStream *handle,
@@ -4656,7 +4648,6 @@ static gboolean
 html_engine_timer_event (HTMLEngine *e)
 {
 	static const gchar *end[] = { NULL };
-	gint lastHeight;
 	gboolean retval = TRUE;
 
 	DI (printf ("html_engine_timer_event idle %p\n", e);)
@@ -4667,12 +4658,9 @@ html_engine_timer_event (HTMLEngine *e)
 		goto out;
 	}
 
-	/* Getting height */
-	lastHeight = html_engine_get_doc_height (e);
-
 	e->parseCount = e->granularity;
 
-	/* Parsing body height */
+	/* Parsing body */
 	new_parse_body (e, end);
 
 	e->begin = FALSE;
@@ -5790,7 +5778,6 @@ html_engine_get_spell_word (HTMLEngine *e)
 	GString *text;
 	HTMLCursor *cursor;
 	gchar *word;
-	gint pos;
 	gunichar uc;
 	gboolean cited, cited_tmp, cited2;
 
@@ -5800,7 +5787,6 @@ html_engine_get_spell_word (HTMLEngine *e)
 		return NULL;
 
 	cursor = html_cursor_dup (e->cursor);
-	pos    = cursor->position;
 	text   = g_string_new (NULL);
 
 	/* move to the beginning of word */

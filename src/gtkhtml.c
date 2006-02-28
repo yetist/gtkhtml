@@ -1692,7 +1692,6 @@ button_press_event (GtkWidget *widget,
 				gtk_adjustment_set_value (vadj, value);
 			}
 			return TRUE;
-			break;
 		case 5:
 			/* Mouse wheel scroll down.  */
 			if (event->state & GDK_CONTROL_MASK) 
@@ -1706,7 +1705,6 @@ button_press_event (GtkWidget *widget,
 				gtk_adjustment_set_value (vadj, value);
 			}
 			return TRUE;
-			break;
 		case 2:
 			if (html_engine_get_editable (engine)) {
 				html_engine_disable_selection (html->engine);
@@ -1953,7 +1951,6 @@ static char *
 get_selection_string (GtkHTML *html, int *len, gboolean selection, gboolean primary, gboolean html_format, gboolean order_marker)
 {
 	HTMLObject *selection_object = NULL;
-	guint selection_object_len = 0;
 	char *selection_string = NULL;
 	gboolean free_object = FALSE;
 
@@ -1965,12 +1962,10 @@ get_selection_string (GtkHTML *html, int *len, gboolean selection, gboolean prim
 		if (primary) {
 			if (html->engine->primary) {
 				selection_object = html->engine->primary;
-				selection_object_len = html->engine->primary_len;
 			}			
 		} else	/* CLIPBOARD */ {
 			if (html->engine->clipboard) {
 				selection_object = html->engine->clipboard;
-				selection_object_len = html->engine->clipboard_len;
 			}
 		}
 	}
@@ -2320,43 +2315,6 @@ client_notify_spell_widget (GConfClient* client, guint cnxn_id, GConfEntry* entr
 	}
 }
 
-static GtkHTMLClassProperties *
-get_class_properties (GtkHTML *html)
-{
-	GtkHTMLClass *klass;
-  
-	klass = GTK_HTML_CLASS (GTK_WIDGET_GET_CLASS (html));
-	if (!klass->properties) {
-		klass->properties = gtk_html_class_properties_new (GTK_WIDGET (html));
-		
-		if (!gconf_is_initialized ()) {
-			char *argv[] = { "gtkhtml", NULL };
-			
-			g_warning ("gconf is not initialized, please call gconf_init before using GtkHTML library. "
-				   "Meanwhile it's initialized by gtkhtml itself.");
-			gconf_init (1, argv, &gconf_error);
-			if (gconf_error)
-				g_error ("gconf error: %s\n", gconf_error->message);
-		}
-		
-		gconf_client = gconf_client_get_default ();
-		if (!gconf_client)
-			g_error ("cannot create gconf_client\n");
-		gconf_client_add_dir (gconf_client, GTK_HTML_GCONF_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, &gconf_error);
-		if (gconf_error)
-			g_error ("gconf error: %s\n", gconf_error->message);
-		gconf_client_add_dir (gconf_client, GNOME_SPELL_GCONF_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, &gconf_error);
-		if (gconf_error)
-			g_error ("gconf error: %s\n", gconf_error->message);
-		gtk_html_class_properties_load (klass->properties, gconf_client);
-
-		if (gconf_error)
-			g_warning ("gconf error: %s\n", gconf_error->message);
-	}
-	
-	return klass->properties;
-}
-
 static void
 set_focus_child (GtkContainer *containter, GtkWidget *w)
 {
@@ -2548,29 +2506,6 @@ drag_data_delete (GtkWidget *widget, GdkDragContext *context)
 	GTK_HTML (widget)->priv->dnd_url = NULL;
 }
 
-static gchar *
-next_uri (guchar **uri_list, gint *len, gint *list_len)
-{
-	guchar *uri, *begin;
-
-	begin = *uri_list;
-	*len = 0;
-	while (**uri_list && **uri_list != '\n' && **uri_list != '\r' && *list_len) {
-		(*uri_list) ++;
-		(*len) ++;
-		(*list_len) --;
-	}
-
-	uri = g_strndup (begin, *len);
-
-	while ((!**uri_list || **uri_list == '\n' || **uri_list == '\r') && *list_len) {
-		(*uri_list) ++;
-		(*list_len) --;
-	}	
-
-	return uri;
-}
-
 static gchar *known_protocols [] = {
 	"http://",
 	"ftp://",
@@ -2603,40 +2538,6 @@ new_img_obj_from_uri (HTMLEngine *e, char *uri, char *title, gint len)
 			}
 		}
 	}
-	return NULL;
-}
-
-static HTMLObject *
-new_obj_from_uri (HTMLEngine *e, char *uri, char *title, gint len)
-{
-	gint i;
-
-	if (!strncmp (uri, "file:", 5)) {
-		if (!HTML_IS_PLAIN_PAINTER(e->painter)) {
-			GdkPixbuf *pixbuf = NULL;
-			char *img_path = g_filename_from_uri (uri, NULL, NULL);
-			if (img_path) {
-				pixbuf = gdk_pixbuf_new_from_file(img_path, NULL);
-				g_free(img_path);
-			}
-			if (pixbuf) {
-				g_object_unref (pixbuf);
-				return html_image_new (html_engine_get_image_factory (e), uri,
-						       NULL, NULL, -1, -1, FALSE, FALSE, 0,
-						       html_colorset_get_color (e->settings->color_set, HTMLTextColor),
-						       HTML_VALIGN_BOTTOM, TRUE);
-			}
-		}
-	}
-
-	for (i = 0; known_protocols [i]; i++) {
-		if (!strncmp (uri, known_protocols [i], strlen (known_protocols [i]))) {
-			if (!title)
-				title = uri;
-			return html_engine_new_link (e, title, len, uri);
-		}
-	}	
-
 	return NULL;
 }
 
@@ -2787,7 +2688,9 @@ gtk_html_direction_changed (GtkWidget *widget, GtkTextDirection previous_dir)
 static void
 gtk_html_class_init (GtkHTMLClass *klass)
 {
+#ifdef USE_PROPS
 	GObjectClass      *gobject_class;
+#endif
 	GtkHTMLClass      *html_class;
 	GtkWidgetClass    *widget_class;
 	GtkObjectClass    *object_class;
@@ -2796,7 +2699,9 @@ gtk_html_class_init (GtkHTMLClass *klass)
 	gchar *filename;
 	
 	html_class = (GtkHTMLClass *) klass;
+#ifdef USE_PROPS
 	gobject_class = (GObjectClass *) klass;
+#endif
 	widget_class = (GtkWidgetClass *) klass;
 	object_class = (GtkObjectClass *) klass;
 	layout_class = (GtkLayoutClass *) klass;
@@ -3158,10 +3063,6 @@ gtk_html_class_init (GtkHTMLClass *klass)
 static void
 init_properties_widget (GtkHTML *html)
 {
-	GtkHTMLClassProperties *prop;
-
-	prop = get_class_properties (html);
-
 	if (!gconf_client)
 		gconf_client = gconf_client_get_default ();
 

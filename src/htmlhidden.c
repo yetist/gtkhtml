@@ -61,10 +61,8 @@ void html_hidden_class_init (HTMLHiddenClass *klass,
 			     guint object_size)
 {
 	HTMLEmbeddedClass *element_class;
-	HTMLObjectClass *object_class;
 
 	element_class = HTML_EMBEDDED_CLASS (klass);
-	object_class = HTML_OBJECT_CLASS (klass);
 
 	html_embedded_class_init (element_class, type, object_size);
 

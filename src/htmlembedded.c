@@ -161,7 +161,7 @@ html_embedded_real_calc_size (HTMLObject *self, HTMLPainter *painter, GList **ch
 	GtkWidget *widget;
 	HTMLEmbedded *emb = HTML_EMBEDDED (self);
 	gint pixel_size;
-	gint old_width, old_ascent, old_descent;
+	gint old_width, old_ascent;
 	GtkRequisition requisition;
 
 	widget = emb->widget;
@@ -172,7 +172,6 @@ html_embedded_real_calc_size (HTMLObject *self, HTMLPainter *painter, GList **ch
 
 	old_width = self->width;
 	old_ascent = self->ascent;
-	old_descent = self->descent;
 
 	requisition.width = requisition.height = 0;
 	gtk_widget_size_request (widget, &requisition);

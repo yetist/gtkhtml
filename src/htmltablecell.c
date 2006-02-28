@@ -50,14 +50,12 @@ draw_background_helper (HTMLTableCell *cell,
 {
 	HTMLObject *o;
 	HTMLClueV *cluev;
-	HTMLTable  *t;
 	GdkPixbuf  *pixbuf = NULL;
 	GdkColor   *color = NULL;
 	int pixel_size = html_painter_get_pixel_size (p);
 
 	o = HTML_OBJECT (cell);
 	cluev = HTML_CLUEV (cell);
-	t = HTML_IS_TABLE (o->parent) ? HTML_TABLE (o->parent) : NULL;
 
 	if (cell->have_bg) {
 		if (! cell->bg_allocated) {

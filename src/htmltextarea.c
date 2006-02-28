@@ -137,12 +137,10 @@ html_textarea_init (HTMLTextArea *ta,
 {
 	GtkWidget *sw;
 	HTMLEmbedded *element;
-	HTMLObject *object;
 	PangoLayout *layout;
 	gint width, height;
 
 	element = HTML_EMBEDDED (ta);
-	object = HTML_OBJECT (ta);
 
 	html_embedded_init (element, HTML_EMBEDDED_CLASS (klass),
 			   parent, name, NULL);

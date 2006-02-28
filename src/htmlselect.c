@@ -285,11 +285,9 @@ html_select_init (HTMLSelect *select,
 {
 
 	HTMLEmbedded *element;
-	HTMLObject *object;
 	GtkWidget *widget;
 
 	element = HTML_EMBEDDED (select);
-	object = HTML_OBJECT (select);
 
 	html_embedded_init (element, HTML_EMBEDDED_CLASS (klass),
 			   parent, name, NULL);
@@ -422,10 +420,10 @@ html_select_set_text (HTMLSelect *select, gchar *text)
 		/* Add width of scrollbar */
 
 		if ((item + 1) > select->size && GTK_SCROLLED_WINDOW(w)->vscrollbar) {
-			GtkRequisition req;
+			GtkRequisition scrollbar_req;
 
-			gtk_widget_size_request (GTK_SCROLLED_WINDOW(w)->vscrollbar, &req);
-			HTML_OBJECT (select)->width += req.width + 8;
+			gtk_widget_size_request (GTK_SCROLLED_WINDOW(w)->vscrollbar, &scrollbar_req);
+			HTML_OBJECT (select)->width += scrollbar_req.width + 8;
 		}
 
 		gtk_widget_set_size_request (w, HTML_OBJECT(select)->width, -1);

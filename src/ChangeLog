@@ -1,3 +1,53 @@
+2006-02-28  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* gtkhtml.c: (button_press_event), (get_selection_string),
+	(gtk_html_class_init), (init_properties_widget):
+	* gtkhtmldebug.c: (gtk_html_debug_dump_object):
+	* htmlbutton.c: (html_button_init):
+	* htmlcheckbox.c: (html_checkbox_init):
+	* htmlclue.c: (split):
+	* htmlclueflow.c: (html_clueflow_get_halignment), (draw_item),
+	(get_start_indent_item), (write_flow_tag), (save_plain),
+	(html_clueflow_set_halignment):
+	* htmlcursor.c: (html_cursor_up), (html_cursor_down):
+	* htmlembedded.c: (html_embedded_real_calc_size):
+	* htmlengine-edit-cursor.c: (html_engine_draw_image_cursor):
+	* htmlengine-edit-cut-and-paste.c: (point_get_parent_list),
+	(change_link):
+	* htmlengine-edit-fontstyle.c: (get_font_style_from_selection):
+	* htmlengine-edit.c: (html_engine_fill_pre_line):
+	* htmlengine-save.c: (get_body):
+	* htmlengine.c: (insert_text), (element_parse_object),
+	(element_parse_iframe), (element_parse_meta), (element_parse_li),
+	(html_engine_set_property), (html_engine_timer_event),
+	(html_engine_get_spell_word):
+	* htmlframe.c: (html_frame_init):
+	* htmlhidden.c: (html_hidden_class_init):
+	* htmliframe.c: (op_copy), (save):
+	* htmlimage.h:
+	* htmlinterval.c:
+	* htmlprinter.c: (draw_pixmap):
+	* htmlradio.c: (html_radio_init):
+	* htmlselect.c: (html_select_init), (html_select_set_text):
+	* htmltablecell.c: (draw_background_helper):
+	* htmltablecell.h:
+	* htmltext.c: (html_text_prepare_attrs):
+	* htmltextarea.c: (html_textarea_init):
+	* htmltextinput.c: (html_text_input_init):
+	* htmltextslave.c: (split), (draw), (html_text_slave_init):
+	* test-stress.c: (test_level_1):
+	* testgtkhtml.c: (goto_url):
+	Various cleanups of warnings from the Intel C/C++ compiler:
+	- Remove redundant break; statements and semi-colons
+	- Remove unused variables
+	- Remove unused static functions
+	- Remove redundant prototypes
+	- Add some NULL checks
+	- Mark some functions and data as static
+	- Use guint for 1-bit bitfields
+	- Fix some cases of local variables shadowing stuff with wider scope
+	- Remove checks for <= 0 on unsigned int.
+
 2006-02-27  Rohini S  <srohini@novell.com>
 
 	* htmlengine.c (new_parse_body, parse_one_token):

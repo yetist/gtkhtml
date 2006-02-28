@@ -110,11 +110,9 @@ html_checkbox_init (HTMLCheckBox *checkbox,
 		    gboolean checked) 
 {
 	HTMLEmbedded *element;
-	HTMLObject *object;
 	GtkWidget  *check;
 
 	element = HTML_EMBEDDED (checkbox);
-	object = HTML_OBJECT (checkbox);
 
 	if (value == NULL)
 		value = g_strdup ("on");

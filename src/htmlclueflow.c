@@ -55,7 +55,6 @@ static HTMLClueClass *parent_class = NULL;
 
 #define HCF_CLASS(x) HTML_CLUEFLOW_CLASS (HTML_OBJECT (x)->klass)
 
-inline HTMLHAlignType html_clueflow_get_halignment          (HTMLClueFlow *flow);
 static gchar *        get_item_marker_str                   (HTMLClueFlow *flow, gboolean ascii_only);
 static guint          get_post_padding                      (HTMLClueFlow *flow, 
 							     guint pad);
@@ -818,6 +817,40 @@ update_top_height (HTMLObject *begin, HTMLObject *end, gint *a, gint *d, gint *h
 	}
 }
 
+inline HTMLHAlignType
+html_clueflow_get_halignment (HTMLClueFlow *flow)
+{
+        g_return_val_if_fail (flow != NULL, HTML_HALIGN_NONE);
+
+        if (HTML_CLUE (flow)->halign == HTML_HALIGN_NONE) {
+                HTMLHAlignType halign;
+
+                if (HTML_OBJECT (flow)->parent && HTML_IS_TABLE_CELL (HTML_OBJECT (flow)->parent))
+                        halign = HTML_CLUE (HTML_OBJECT (flow)->parent)->halign == HTML_HALIGN_NONE
+                                ? HTML_TABLE_CELL (HTML_OBJECT (flow)->parent)->heading ? HTML_HALIGN_CENTER : HTML_HALIGN_NONE
+                                : HTML_CLUE (HTML_OBJECT (flow)->parent)->halign;
+                else
+                        halign = HTML_CLUE (HTML_OBJECT (flow)->parent)->halign;
+
+                if (halign == HTML_HALIGN_NONE) {
+                        switch (html_object_get_direction (HTML_OBJECT (flow))) {
+                        case HTML_DIRECTION_LTR:
+                                halign = HTML_HALIGN_LEFT;
+                                break;
+                        case HTML_DIRECTION_RTL:
+                                halign = HTML_HALIGN_RIGHT;
+                                break;
+                        default:
+                                break;
+                        }
+                }
+
+                return halign;
+
+        } else
+                return HTML_CLUE (flow)->halign;
+}
+
 static inline void
 update_line_positions (HTMLObject *clue, HTMLObject *begin, HTMLObject *end, gint left, gint a, gint d, gint height)
 {
@@ -1299,7 +1332,7 @@ draw_item (HTMLObject *self, HTMLPainter *painter, gint x, gint y, gint width, g
 
 	marker = get_item_marker_str (flow, HTML_IS_PLAIN_PAINTER (painter));
 	if (marker) {
-		gint width, len, asc, dsc, x_pos, space_width;
+		gint len, asc, dsc, x_pos, space_width;
 		
 		len   = g_utf8_strlen (marker, -1);
 		html_painter_set_font_style (painter, html_clueflow_get_default_font_style (flow));
@@ -1457,12 +1490,6 @@ write_indent (HTMLEngineSaveState *state, gint level)
 	return TRUE;
 }
 
-inline static gint
-get_level (HTMLClueFlow *cf)
-{
-	return cf->levels->len;
-}
-
 static gchar *
 get_list_start_tag (HTMLClueFlow *self)
 {
@@ -1524,30 +1551,32 @@ get_start_tag (HTMLClueFlow *self)
 static const char *
 get_start_indent_item (HTMLListType type)
 {
-	switch (type) {
-	case HTML_LIST_TYPE_UNORDERED:
-	case HTML_LIST_TYPE_MENU:
-	case HTML_LIST_TYPE_DIR:
-		return "UL";
-	case HTML_LIST_TYPE_ORDERED_LOWER_ALPHA:
-		return "OL TYPE=a";
-	case HTML_LIST_TYPE_ORDERED_UPPER_ALPHA:
-		return "OL TYPE=A";
-	case HTML_LIST_TYPE_ORDERED_LOWER_ROMAN:
-		return "OL TYPE=i";
-	case HTML_LIST_TYPE_ORDERED_UPPER_ROMAN:
+	if (type) {
+		switch (type) {
+		case HTML_LIST_TYPE_UNORDERED:
+		case HTML_LIST_TYPE_MENU:
+		case HTML_LIST_TYPE_DIR:
+			return "UL";
+		case HTML_LIST_TYPE_ORDERED_LOWER_ALPHA:
+			return "OL TYPE=a";
+		case HTML_LIST_TYPE_ORDERED_UPPER_ALPHA:
+			return "OL TYPE=A";
+		case HTML_LIST_TYPE_ORDERED_LOWER_ROMAN:
+			return "OL TYPE=i";
+		case HTML_LIST_TYPE_ORDERED_UPPER_ROMAN:
 		return "OL TYPE=I";
-	case HTML_LIST_TYPE_ORDERED_ARABIC:
-		return "OL TYPE=1";
-	case HTML_LIST_TYPE_GLOSSARY_DD:
-	case HTML_LIST_TYPE_GLOSSARY_DL:
-		return "DL";
-	case HTML_LIST_TYPE_BLOCKQUOTE_CITE:
-		return "BLOCKQUOTE TYPE=CITE";
-	case HTML_LIST_TYPE_BLOCKQUOTE:
-		return "BLOCKQUOTE";
-	}
-	return "";		
+		case HTML_LIST_TYPE_ORDERED_ARABIC:
+			return "OL TYPE=1";
+		case HTML_LIST_TYPE_GLOSSARY_DD:
+		case HTML_LIST_TYPE_GLOSSARY_DL:
+			return "DL";
+		case HTML_LIST_TYPE_BLOCKQUOTE_CITE:
+			return "BLOCKQUOTE TYPE=CITE";
+		case HTML_LIST_TYPE_BLOCKQUOTE:
+			return "BLOCKQUOTE";
+		}
+	} else 
+		return "";
 }
 
 static const char *
@@ -1631,7 +1660,6 @@ get_p_str (HTMLClueFlow *self, HTMLEngineSaveState *state)
 static gboolean
 write_flow_tag (HTMLClueFlow *self, HTMLEngineSaveState *state) 
 {
-	int d;
 	HTMLClueFlow *next = NULL;
 	HTMLClueFlow *prev = NULL;
 	HTMLHAlignType halign;
@@ -1666,7 +1694,6 @@ write_flow_tag (HTMLClueFlow *self, HTMLEngineSaveState *state)
 		}
 	}
 
-	d = get_similar_depth (self, prev);
 	if (is_item (self)) {
 		char *li = get_list_start_tag (self);
 
@@ -1988,9 +2015,8 @@ save_plain (HTMLObject *self,
 			offset = 0;
 			for (i = 0; i < n_items; i ++) {
 				PangoItem tmp_item;
-				int start_i, start_offset;
+				int start_offset;
 
-				start_i = i;
 				start_offset = offset;
 				offset += items [i]->num_chars;
 				tmp_item = *items [i];
@@ -2751,40 +2777,6 @@ html_clueflow_set_halignment (HTMLClueFlow *flow,
 	HTML_CLUE (flow)->halign = alignment;
 
 	relayout_and_draw (HTML_OBJECT (flow), engine);
-}
-
-inline HTMLHAlignType
-html_clueflow_get_halignment (HTMLClueFlow *flow)
-{
-	g_return_val_if_fail (flow != NULL, HTML_HALIGN_NONE);
-
-	if (HTML_CLUE (flow)->halign == HTML_HALIGN_NONE) {
-		HTMLHAlignType halign;
-
-		if (HTML_OBJECT (flow)->parent && HTML_IS_TABLE_CELL (HTML_OBJECT (flow)->parent))
-			halign = HTML_CLUE (HTML_OBJECT (flow)->parent)->halign == HTML_HALIGN_NONE
-				? HTML_TABLE_CELL (HTML_OBJECT (flow)->parent)->heading ? HTML_HALIGN_CENTER : HTML_HALIGN_NONE
-				: HTML_CLUE (HTML_OBJECT (flow)->parent)->halign;
-		else
-			halign = HTML_CLUE (HTML_OBJECT (flow)->parent)->halign;
-
-		if (halign == HTML_HALIGN_NONE) {
-			switch (html_object_get_direction (HTML_OBJECT (flow))) {
-			case HTML_DIRECTION_LTR:
-				halign = HTML_HALIGN_LEFT;
-				break;
-			case HTML_DIRECTION_RTL:
-				halign = HTML_HALIGN_RIGHT;
-				break;
-			default:
-				break;
-			}
-		}
-
-		return halign;
-
-	} else
-		return HTML_CLUE (flow)->halign;
 }
 
 void
