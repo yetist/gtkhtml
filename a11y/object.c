@@ -421,7 +421,8 @@ gtk_html_a11y_new (GtkWidget *widget)
 			G_CALLBACK(gtk_html_a11y_delete_object_cb),
 			NULL);
 
-	html_utils_get_accessible(GTK_HTML(widget)->engine->clue, accessible);
+	if (GTK_HTML(widget)->engine->clue)
+		html_utils_get_accessible(GTK_HTML(widget)->engine->clue, accessible);
 
 	/* printf ("created new gtkhtml accessible object\n"); */
 

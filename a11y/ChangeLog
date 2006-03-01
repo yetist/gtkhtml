@@ -1,3 +1,13 @@
+2006-03-01  Simon Zheng  <simon.zheng@sun.com>
+
+	* factory.c: (gtk_html_accessibility_init):Initilize only when accessibility
+	is enabled.
+	* object.c: (gtk_html_a11y_new): When engine is just initilized, clue is 
+	possibly NULL. To avoid logging a critical message, check validity before 
+	invoking html_utils_get_accessible().
+
+	Fixes #332807
+
 2006-02-28  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* html.c: Remove redundant prototype. Part of bug #323450.
