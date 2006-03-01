@@ -2316,6 +2316,41 @@ client_notify_spell_widget (GConfClient* client, guint cnxn_id, GConfEntry* entr
 }
 
 static void
+setup_class_properties (GtkHTML *html)
+{
+	GtkHTMLClass *klass;
+  
+	klass = GTK_HTML_CLASS (GTK_WIDGET_GET_CLASS (html));
+	if (!klass->properties) {
+		klass->properties = gtk_html_class_properties_new (GTK_WIDGET (html));
+		
+		if (!gconf_is_initialized ()) {
+			char *argv[] = { "gtkhtml", NULL };
+			
+			g_warning ("gconf is not initialized, please call gconf_init before using GtkHTML library. "
+				   "Meanwhile it's initialized by gtkhtml itself.");
+			gconf_init (1, argv, &gconf_error);
+			if (gconf_error)
+				g_error ("gconf error: %s\n", gconf_error->message);
+		}
+		
+		gconf_client = gconf_client_get_default ();
+		if (!gconf_client)
+			g_error ("cannot create gconf_client\n");
+		gconf_client_add_dir (gconf_client, GTK_HTML_GCONF_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, &gconf_error);
+		if (gconf_error)
+			g_error ("gconf error: %s\n", gconf_error->message);
+		gconf_client_add_dir (gconf_client, GNOME_SPELL_GCONF_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, &gconf_error);
+		if (gconf_error)
+			g_error ("gconf error: %s\n", gconf_error->message);
+		gtk_html_class_properties_load (klass->properties, gconf_client);
+
+		if (gconf_error)
+			g_warning ("gconf error: %s\n", gconf_error->message);
+	}
+}
+
+static void
 set_focus_child (GtkContainer *containter, GtkWidget *w)
 {
 	HTMLObject *o = NULL;
@@ -2506,21 +2541,32 @@ drag_data_delete (GtkWidget *widget, GdkDragContext *context)
 	GTK_HTML (widget)->priv->dnd_url = NULL;
 }
 
-static gchar *known_protocols [] = {
-	"http://",
-	"ftp://",
-	"nntp://",
-	"news://",
-	"mailto:",
-	"file:",
-	NULL
-};
+static gchar *
+next_uri (guchar **uri_list, gint *len, gint *list_len)
+{
+	guchar *uri, *begin;
+
+	begin = *uri_list;
+	*len = 0;
+	while (**uri_list && **uri_list != '\n' && **uri_list != '\r' && *list_len) {
+		(*uri_list) ++;
+		(*len) ++;
+		(*list_len) --;
+	}
+
+	uri = g_strndup (begin, *len);
+
+	while ((!**uri_list || **uri_list == '\n' || **uri_list == '\r') && *list_len) {
+		(*uri_list) ++;
+		(*list_len) --;
+	}	
+
+	return uri;
+}
 
 static HTMLObject *
 new_img_obj_from_uri (HTMLEngine *e, char *uri, char *title, gint len)
 {
-	gint i;
-
 	if (!strncmp (uri, "file:", 5)) {
 		if (!HTML_IS_PLAIN_PAINTER(e->painter)) {
 			GdkPixbuf *pixbuf = NULL;
@@ -3063,6 +3109,8 @@ gtk_html_class_init (GtkHTMLClass *klass)
 static void
 init_properties_widget (GtkHTML *html)
 {
+	setup_class_properties (html);
+
 	if (!gconf_client)
 		gconf_client = gconf_client_get_default ();
 

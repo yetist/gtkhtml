@@ -1,3 +1,9 @@
+2006-03-01  Srinivasa Ragavan  <sragavan@novell.com>
+
+	* gtkhtml.c: (setup_class_properties), (next_uri),
+	(new_img_obj_from_uri), (init_properties_widget): Commited Tor's patch
+	for solving build break
+
 2006-02-28  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* gtkhtml.c: (button_press_event), (get_selection_string),
