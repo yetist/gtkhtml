@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-25 20:50+0100\n"
-"PO-Revision-Date: 2006-02-25 21:00+0100\n"
+"PO-Revision-Date: 2006-03-02 16:59+0100\n"
 "Last-Translator: Luca Ferretti <elle.uca@libero.it>\n"
 "Language-Team: Italiano <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
@@ -145,7 +145,7 @@ msgstr "Taglia la selezione"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:21
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:21
 msgid "Emoti_con"
-msgstr ""
+msgstr "_Faccine"
 
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
@@ -225,13 +225,11 @@ msgstr "Immagine"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:36
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
-#, fuzzy
 msgid "Insert Crying emoticon into document..."
 msgstr "Inserisce una faccina che piange nel documento..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:37
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
-#, fuzzy
 msgid "Insert Frown emoticon into document..."
 msgstr "Inserisce una faccina di disapprovazione nel documento..."
 
@@ -252,49 +250,41 @@ msgstr "Inserisce un modello HTML nel documento..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:41
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
-#, fuzzy
 msgid "Insert Indifferent emoticon into document..."
 msgstr "Inserisce una faccina indifferente nel documento..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:42
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
-#, fuzzy
 msgid "Insert Laughing emoticon into document..."
 msgstr "Inserisce una faccina allegra nel documento..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:43
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
-#, fuzzy
 msgid "Insert Oh no! emoticon into document..."
 msgstr "Inserisce una faccina Oh, no! nel documento..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:44
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
-#, fuzzy
 msgid "Insert Smile emoticon into document..."
 msgstr "Inserisce una faccina sorridente nel documento..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:45
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
-#, fuzzy
 msgid "Insert Surprised emoticon into document..."
 msgstr "Inserisce una faccina sorpresa nel documento..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:46
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
-#, fuzzy
 msgid "Insert Tongue emoticon into document..."
-msgstr "Inserisce un collegamento HTML nel documento..."
+msgstr "Inserisce una faccina linguacciuta nel documento..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:47
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
-#, fuzzy
 msgid "Insert Undecided emoticon into document..."
 msgstr "Inserisce una faccina indecisa nel documento..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:48
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
-#, fuzzy
 msgid "Insert Wink emoticon into document..."
 msgstr "Inserisce una faccina ammiccante nel documento..."
 
@@ -821,7 +811,6 @@ msgid "GNOME HTML Editor Factory"
 msgstr "Fabbrica dell'editor HTML per GNOME"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
-#, fuzzy
 msgid "Insert Sick emoticon into document..."
 msgstr "Inserisce una faccina ammalata nel documento..."
 
@@ -1927,207 +1916,3 @@ msgstr "Anteprima di stampa"
 #: ../src/testgtkhtml.c:1017
 msgid "GtkHTML Test Application"
 msgstr "Applicazione test GtkHTML"
-
-#~ msgid "Background Color"
-#~ msgstr "Colore di sfondo"
-
-#~ msgid "Blue"
-#~ msgstr "Blu"
-
-#~ msgid "Find And Replace"
-#~ msgstr "Trova e sostituisci"
-
-#~ msgid "Green"
-#~ msgstr "Verde"
-
-#~ msgid "Insert Lick smiley into document..."
-#~ msgstr "Inserisce una faccina linguacciuta nel documento..."
-
-#~ msgid "Orange"
-#~ msgstr "Arancione"
-
-#~ msgid "Other..."
-#~ msgstr "Altro..."
-
-#~ msgid "Purple"
-#~ msgstr "Viole"
-
-#~ msgid "Red"
-#~ msgstr "Rosso"
-
-#~ msgid "Su_perscript"
-#~ msgstr "A_pice"
-
-#~ msgid "Subs_cript"
-#~ msgstr "Pe_dice"
-
-#~ msgid "Yellow"
-#~ msgstr "Giallo"
-
-#~ msgid "_Insert"
-#~ msgstr "Inse_risci"
-
-#~ msgid "_Preformat"
-#~ msgstr "_Preformattato"
-
-#~ msgid "_Smiley"
-#~ msgstr "_Faccine"
-
-#~ msgid "_Spell Check Document..."
-#~ msgstr "_Controllo ortografico..."
-
-#~ msgid "etc..."
-#~ msgstr "etc..."
-
-#~ msgid "Length:"
-#~ msgstr "Lunghezza:"
-
-#~ msgid "Thickness:"
-#~ msgstr "Spessore:"
-
-#~ msgid "_Visit..."
-#~ msgstr "_Visita..."
-
-#~ msgid ""
-#~ "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
-#~ msgstr ""
-#~ "L'URL di mozilla rilascito sul compositore ha formato (%d) o lunghezza (%"
-#~ "d) errati\n"
-
-#~ msgid "Html"
-#~ msgstr "Html"
-
-#~ msgid "Html test"
-#~ msgstr "Test Html"
-
-#~ msgid "Test1"
-#~ msgstr "Test1"
-
-#~ msgid "Test2"
-#~ msgstr "Test2"
-
-#~ msgid "Test3"
-#~ msgstr "Test3"
-
-#~ msgid "Test4"
-#~ msgstr "Test4"
-
-#~ msgid "Test5"
-#~ msgstr "Test5"
-
-#~ msgid "Test6"
-#~ msgstr "Test6"
-
-#~ msgid "Test7"
-#~ msgstr "Test7"
-
-#~ msgid "_Refresh"
-#~ msgstr "_Aggiorna"
-
-#~ msgid "Reload the page"
-#~ msgstr "Ricarica la pagina"
-
-#~ msgid "Could not initialize Bonobo!"
-#~ msgstr "Impossibile inizializzare Bonobo!"
-
-#~ msgid "<None>"
-#~ msgstr "<Nessuno>"
-
-#~ msgid "\n"
-#~ msgstr "\n"
-
-#~ msgid "*********************"
-#~ msgstr "*********************"
-
-# titolo di un dialogo
-#~ msgid "Add Keyboard Shortcuts"
-#~ msgstr "Aggiunta di scorciatoie da tastiera"
-
-# opzione
-#~ msgid "Automatically detect links"
-#~ msgstr "Riconoscimento automatico dei collegamenti"
-
-#~ msgid "Behavior"
-#~ msgstr "Comportamento"
-
-#~ msgid "Composer Properties"
-#~ msgstr "Proprietà del compositore"
-
-# titolo di un dialogo
-#~ msgid "Composer Properties planned"
-#~ msgstr "Proprietà pianificate del compositore"
-
-# pulsante
-#~ msgid "Configure spell checking"
-#~ msgstr "Configura controllo ortografico"
-
-#~ msgid "Enable spell checking"
-#~ msgstr "Abilitare controllo ortografico"
-
-#~ msgid "Fixed width"
-#~ msgstr "Larghezza fissa"
-
-#~ msgid "Fonts"
-#~ msgstr "Tipi di carattere"
-
-#~ msgid "For printing"
-#~ msgstr "Per la stampa"
-
-#~ msgid "Grab keys"
-#~ msgstr "Cattura tasti"
-
-#~ msgid "Information"
-#~ msgstr "Informazioni"
-
-#~ msgid "Keyboard Shortcuts"
-#~ msgstr "Scorciatoie da tastiera"
-
-#~ msgid "Miscellaneous"
-#~ msgstr "Varie"
-
-#~ msgid "New shortcut:"
-#~ msgstr "Nuova scorciatoia:"
-
-#~ msgid "On screen"
-#~ msgstr "Su schermo"
-
-# titolo di dialogo, come i successivi
-#~ msgid "Select HTML fixed width font"
-#~ msgstr "Selezione di un carattere a spaziatura fissa in HTML"
-
-#~ msgid "Select HTML fixed width font for printing"
-#~ msgstr "Selezione di un carattere a spaziatura fisso in HTML per la stampa"
-
-#~ msgid "Select HTML variable width font"
-#~ msgstr "Selezione di un carattare HTML proporzionale"
-
-#~ msgid "Select HTML variable width font for printing"
-#~ msgstr "Selezione di un carattere HTML proporzionale per la stampa"
-
-#~ msgid "Shortcuts _type:"
-#~ msgstr "_Tipo di scociatoie:"
-
-#~ msgid "Show animated images"
-#~ msgstr "Mostrare immagini animate"
-
-#~ msgid "Variable width"
-#~ msgstr "Larghezza proporzionale"
-
-#~ msgid "_Add"
-#~ msgstr "A_ggiungi"
-
-#~ msgid "_Delete"
-#~ msgstr "Eli_mina"
-
-#~ msgid ""
-#~ "Cannot execute GNOME Spell control applet\n"
-#~ "Try to install GNOME Spell if you don't have it installed."
-#~ msgstr ""
-#~ "Impossibile eseguire l'applet di controllo di GNOME Spell.\n"
-#~ "Provare ad installare GNOME Spell se non lo si è installato."
-
-#~ msgid "With:"
-#~ msgstr "Con:"
-
-#~ msgid "Labels"
-#~ msgstr "Etichette"
