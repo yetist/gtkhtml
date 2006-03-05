@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 2.8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-18 19:37+0200\n"
-"PO-Revision-Date: 2006-02-18 19:41+0200\n"
+"POT-Creation-Date: 2006-03-05 14:13+0200\n"
+"PO-Revision-Date: 2006-03-05 14:14+0200\n"
 "Last-Translator: Alexander Shopov <ash@contact.bg>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "MIME-Version: 1.0\n"
@@ -615,7 +615,7 @@ msgstr "_Копиране"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:109
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
 msgid "_Decrease Indent"
-msgstr "_Намаляне на отстъпа"
+msgstr "_Намаляване на отстъпа"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
@@ -870,48 +870,48 @@ msgstr "Чернова"
 msgid "Graph paper"
 msgstr "График"
 
-#: ../components/html-editor/body.c:258 ../components/html-editor/text.c:170
+#: ../components/html-editor/body.c:256 ../components/html-editor/text.c:170
 #: ../components/html-editor/toolbar.c:313
 msgid "Automatic"
 msgstr "Автоматично"
 
-#: ../components/html-editor/body.c:270
+#: ../components/html-editor/body.c:268
 msgid "_Text:"
 msgstr "_Текст:"
 
-#: ../components/html-editor/body.c:271
+#: ../components/html-editor/body.c:269
 msgid "_Link:"
 msgstr "_Връзка:"
 
-#: ../components/html-editor/body.c:272
+#: ../components/html-editor/body.c:270
 msgid "_Background:"
 msgstr "_Фон:"
 
-#: ../components/html-editor/body.c:274
+#: ../components/html-editor/body.c:272
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:30
 msgid "Colors"
 msgstr "Цветове"
 
-#: ../components/html-editor/body.c:276 ../components/html-editor/body.c:304
+#: ../components/html-editor/body.c:274 ../components/html-editor/body.c:302
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:23
 msgid "Background Image"
 msgstr "Фоново изображение"
 
-#: ../components/html-editor/body.c:287
+#: ../components/html-editor/body.c:285
 msgid "Background Image File Path"
 msgstr "Път до фоново изображение"
 
-#: ../components/html-editor/body.c:295
+#: ../components/html-editor/body.c:293
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:53
 #: ../components/html-editor/menubar.c:222
 msgid "Template"
 msgstr "Шаблон"
 
-#: ../components/html-editor/body.c:298
+#: ../components/html-editor/body.c:296
 msgid "T_emplate:"
 msgstr "Ш_аблон:"
 
-#: ../components/html-editor/body.c:302
+#: ../components/html-editor/body.c:300
 msgid "C_ustom:"
 msgstr "_потребителски"
 
@@ -1694,7 +1694,7 @@ msgstr "Не са намерени грешно изписани думи"
 msgid "Spell checker"
 msgstr "Проверка на правописа"
 
-#: ../components/html-editor/spellchecker.c:402
+#: ../components/html-editor/spellchecker.c:403
 msgid "Current _Languages"
 msgstr "Текущи _езици"
 
@@ -1773,11 +1773,11 @@ msgstr "Задраскване на текста"
 
 #: ../components/html-editor/toolbar.c:567
 msgid "Unindent"
-msgstr "Намаляне на отстъпа"
+msgstr "Намаляване на отстъпа"
 
 #: ../components/html-editor/toolbar.c:567
 msgid "Indents the paragraphs less"
-msgstr "Намаляне на отстъпа на абзац"
+msgstr "Намаляване на отстъпа на абзац"
 
 #: ../components/html-editor/toolbar.c:569
 msgid "Indent"
@@ -1803,91 +1803,91 @@ msgstr ""
 "Редактираният обект е премахнат от документа.\n"
 "Промените не могат да бъдат приложени."
 
-#: ../src/gtkhtml.c:3000
+#: ../src/gtkhtml.c:2993
 msgid "Editable"
 msgstr "Редактируем"
 
-#: ../src/gtkhtml.c:3001
+#: ../src/gtkhtml.c:2994
 msgid "Whether the html can be edited"
 msgstr "Дали кодът на html може да бъде редактиран"
 
-#: ../src/gtkhtml.c:3007
+#: ../src/gtkhtml.c:3000
 msgid "Document Title"
 msgstr "Заглавие на документа"
 
-#: ../src/gtkhtml.c:3008
+#: ../src/gtkhtml.c:3001
 msgid "The title of the current document"
 msgstr "Заглавието на текущия документ"
 
-#: ../src/gtkhtml.c:3014
+#: ../src/gtkhtml.c:3007
 msgid "Document Base"
 msgstr "База на документа"
 
-#: ../src/gtkhtml.c:3015
+#: ../src/gtkhtml.c:3008
 msgid "The base URL for relative references"
 msgstr "Базовото URL за относителни връзки"
 
-#: ../src/gtkhtml.c:3021
+#: ../src/gtkhtml.c:3014
 msgid "Target Base"
 msgstr "База на целта"
 
-#: ../src/gtkhtml.c:3022
+#: ../src/gtkhtml.c:3015
 msgid "The base URL of the target frame"
 msgstr "Базовото URL на целевата рамка"
 
-#: ../src/gtkhtml.c:3031
+#: ../src/gtkhtml.c:3024
 msgid "Fixed Width Font"
 msgstr "Едноразреден шрифт"
 
-#: ../src/gtkhtml.c:3032
+#: ../src/gtkhtml.c:3025
 msgid "The Monospace font to use for typewriter text"
 msgstr "Едноразреден шрифт за текст подобен на машинописния"
 
-#: ../src/gtkhtml.c:3038
+#: ../src/gtkhtml.c:3031
 msgid "New Link Color"
 msgstr "Цвят на нова връзка"
 
-#: ../src/gtkhtml.c:3039
+#: ../src/gtkhtml.c:3032
 msgid "The color of new link elements"
 msgstr "Цветът на новите връзки"
 
-#: ../src/gtkhtml.c:3044
+#: ../src/gtkhtml.c:3037
 msgid "Visited Link Color"
 msgstr "Цвят за посетена връзка"
 
-#: ../src/gtkhtml.c:3045
+#: ../src/gtkhtml.c:3038
 msgid "The color of visited link elements"
 msgstr "Цветът на посетените връзки"
 
-#: ../src/gtkhtml.c:3050
+#: ../src/gtkhtml.c:3043
 msgid "Active Link Color"
 msgstr "Цвят на активна връзка"
 
-#: ../src/gtkhtml.c:3051
+#: ../src/gtkhtml.c:3044
 msgid "The color of active link elements"
 msgstr "Цветът на активните връзки"
 
-#: ../src/gtkhtml.c:3056
+#: ../src/gtkhtml.c:3049
 msgid "Spelling Error Color"
 msgstr "Цвят за правописна грешка"
 
-#: ../src/gtkhtml.c:3057
+#: ../src/gtkhtml.c:3050
 msgid "The color of the spelling error markers"
 msgstr "Цветът на подчертаването на правописни грешки"
 
-#: ../src/gtkhtml.c:3062
+#: ../src/gtkhtml.c:3055
 msgid "Cite Quotation Color"
 msgstr "Цвят за цитат"
 
-#: ../src/gtkhtml.c:3063
+#: ../src/gtkhtml.c:3056
 msgid "The color of the cited text"
 msgstr "Цветът на цитираните откъси"
 
-#: ../src/htmlbutton.c:142
+#: ../src/htmlbutton.c:140
 msgid "Submit Query"
 msgstr "Подаване на заявка"
 
-#: ../src/htmlbutton.c:145
+#: ../src/htmlbutton.c:143
 msgid "Reset"
 msgstr "Изчистване"
 
@@ -1900,14 +1900,14 @@ msgstr "Не може да се задели шрифт по подразбир�
 msgid "GtkHTML Test"
 msgstr "Проба на GtkHTML"
 
-#: ../src/testgtkhtml.c:123
+#: ../src/testgtkhtml.c:121
 msgid "Print pre_view"
 msgstr "Печатен _преглед"
 
-#: ../src/testgtkhtml.c:123
+#: ../src/testgtkhtml.c:121
 msgid "Print preview"
 msgstr "Печатен преглед"
 
-#: ../src/testgtkhtml.c:1017
+#: ../src/testgtkhtml.c:1013
 msgid "GtkHTML Test Application"
 msgstr "Тестова програма на GtkHTML"
