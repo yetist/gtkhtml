@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: gtkhtml HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-10 00:19+0100\n"
-"PO-Revision-Date: 2006-02-10 07:29+0200\n"
+"PO-Revision-Date: 2006-03-10 21:05+0200\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -1695,7 +1695,7 @@ msgstr "Ühtki kirjavigadega sõna ei leitud"
 
 #: ../components/html-editor/spellchecker.c:309
 msgid "Spell checker"
-msgstr "Õigekirja kontroll"
+msgstr "Õigekirja kontrollimine"
 
 #: ../components/html-editor/spellchecker.c:402
 msgid "Current _Languages"
