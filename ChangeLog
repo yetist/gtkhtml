@@ -1,3 +1,11 @@
+2006-03-13  Harish Krishnaswamy  <kharish@novell.com>
+
+	---------------
+	Release 3.10.0
+	---------------
+
+	* NEWS, configure.in: version bump, NEWS updates.
+
 2006-02-27  Srinivasa Ragavan <sragavan@novell.com>
 
 	* configure.in, NEWS : Release 3.9.92

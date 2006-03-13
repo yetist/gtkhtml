@@ -3,14 +3,15 @@
 # Copyright (C) 2004, 2005, 2006 Miloslav Trmac <mitr@volny.cz>
 # Radka Soukupova <Radka.Soukupova@centrum.cz>
 # Miloslav Trmac <mitr@volny.cz>, 2002 - 2006.
+# Petr Tomeš <ptomes@gmail.com>, 2006.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-10 00:19+0100\n"
+"POT-Creation-Date: 2006-03-11 06:55+0100\n"
 "PO-Revision-Date: 2006-02-13 05:11+0100\n"
-"Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
+"Last-Translator: Petr Tomeš <ptomes@gmail.com>\n"
 "Language-Team: czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -868,48 +869,48 @@ msgstr "Návrh"
 msgid "Graph paper"
 msgstr "Grafický papír"
 
-#: ../components/html-editor/body.c:258 ../components/html-editor/text.c:170
+#: ../components/html-editor/body.c:256 ../components/html-editor/text.c:170
 #: ../components/html-editor/toolbar.c:313
 msgid "Automatic"
 msgstr "Automatický"
 
-#: ../components/html-editor/body.c:270
+#: ../components/html-editor/body.c:268
 msgid "_Text:"
 msgstr "_Text:"
 
-#: ../components/html-editor/body.c:271
+#: ../components/html-editor/body.c:269
 msgid "_Link:"
 msgstr "_Odkaz:"
 
-#: ../components/html-editor/body.c:272
+#: ../components/html-editor/body.c:270
 msgid "_Background:"
 msgstr "_Pozadí:"
 
-#: ../components/html-editor/body.c:274
+#: ../components/html-editor/body.c:272
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:30
 msgid "Colors"
 msgstr "Barvy"
 
-#: ../components/html-editor/body.c:276 ../components/html-editor/body.c:304
+#: ../components/html-editor/body.c:274 ../components/html-editor/body.c:302
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:23
 msgid "Background Image"
 msgstr "Obrázek na pozadí"
 
-#: ../components/html-editor/body.c:287
+#: ../components/html-editor/body.c:285
 msgid "Background Image File Path"
 msgstr "Cesta k souboru obrázku na pozadí"
 
-#: ../components/html-editor/body.c:295
+#: ../components/html-editor/body.c:293
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:53
 #: ../components/html-editor/menubar.c:222
 msgid "Template"
 msgstr "Šablona"
 
-#: ../components/html-editor/body.c:298
+#: ../components/html-editor/body.c:296
 msgid "T_emplate:"
 msgstr "_Šablona:"
 
-#: ../components/html-editor/body.c:302
+#: ../components/html-editor/body.c:300
 msgid "C_ustom:"
 msgstr "_Vlastní:"
 
@@ -1156,7 +1157,7 @@ msgstr "nebesky modrá"
 #. set the a11y name
 #: ../components/html-editor/gi-combo-box.c:423
 msgid "Popup"
-msgstr "Kontextové menu"
+msgstr "Kontextová nabídka"
 
 #: ../components/html-editor/gnome-gtkhtml-editor.c:74
 msgid "GtkHTML Editor Control"
@@ -1692,7 +1693,7 @@ msgstr "Nenalezen žádný překlep"
 msgid "Spell checker"
 msgstr "Kontrola pravopisu"
 
-#: ../components/html-editor/spellchecker.c:402
+#: ../components/html-editor/spellchecker.c:403
 msgid "Current _Languages"
 msgstr "Aktuální _jazyky"
 
@@ -1801,91 +1802,91 @@ msgstr ""
 "Upravovaný objekt byl z dokumentu odstraněn.\n"
 "Nemohu použít vaše změny."
 
-#: ../src/gtkhtml.c:3000
+#: ../src/gtkhtml.c:2993
 msgid "Editable"
 msgstr "Upravitelný"
 
-#: ../src/gtkhtml.c:3001
+#: ../src/gtkhtml.c:2994
 msgid "Whether the html can be edited"
 msgstr "Jestli může být html upravováno"
 
-#: ../src/gtkhtml.c:3007
+#: ../src/gtkhtml.c:3000
 msgid "Document Title"
 msgstr "Nadpis dokumentu"
 
-#: ../src/gtkhtml.c:3008
+#: ../src/gtkhtml.c:3001
 msgid "The title of the current document"
 msgstr "Nadpis aktuálního dokumentu"
 
-#: ../src/gtkhtml.c:3014
+#: ../src/gtkhtml.c:3007
 msgid "Document Base"
 msgstr "Základ dokumentu"
 
-#: ../src/gtkhtml.c:3015
+#: ../src/gtkhtml.c:3008
 msgid "The base URL for relative references"
 msgstr "Základní URL pro relativní odkazy"
 
-#: ../src/gtkhtml.c:3021
+#: ../src/gtkhtml.c:3014
 msgid "Target Base"
 msgstr "Základ cíle"
 
-#: ../src/gtkhtml.c:3022
+#: ../src/gtkhtml.c:3015
 msgid "The base URL of the target frame"
 msgstr "Základní URL cílového rámce"
 
-#: ../src/gtkhtml.c:3031
+#: ../src/gtkhtml.c:3024
 msgid "Fixed Width Font"
 msgstr "Písmo s pevnou šířkou"
 
-#: ../src/gtkhtml.c:3032
+#: ../src/gtkhtml.c:3025
 msgid "The Monospace font to use for typewriter text"
 msgstr "Písmo monospace, které použít pro text psacího stroje"
 
-#: ../src/gtkhtml.c:3038
+#: ../src/gtkhtml.c:3031
 msgid "New Link Color"
 msgstr "Barva nového odkazu"
 
-#: ../src/gtkhtml.c:3039
+#: ../src/gtkhtml.c:3032
 msgid "The color of new link elements"
 msgstr "Barva nových elementů odkaz"
 
-#: ../src/gtkhtml.c:3044
+#: ../src/gtkhtml.c:3037
 msgid "Visited Link Color"
 msgstr "Barva navštíveného odkazu"
 
-#: ../src/gtkhtml.c:3045
+#: ../src/gtkhtml.c:3038
 msgid "The color of visited link elements"
 msgstr "Barva navštívených elementů odkaz"
 
-#: ../src/gtkhtml.c:3050
+#: ../src/gtkhtml.c:3043
 msgid "Active Link Color"
 msgstr "Barva aktivního odkazu"
 
-#: ../src/gtkhtml.c:3051
+#: ../src/gtkhtml.c:3044
 msgid "The color of active link elements"
 msgstr "Barva aktivních elementů odkaz"
 
-#: ../src/gtkhtml.c:3056
+#: ../src/gtkhtml.c:3049
 msgid "Spelling Error Color"
 msgstr "Barva pravopisné chyby"
 
-#: ../src/gtkhtml.c:3057
+#: ../src/gtkhtml.c:3050
 msgid "The color of the spelling error markers"
 msgstr "Barva označení pravopisných chyb"
 
-#: ../src/gtkhtml.c:3062
+#: ../src/gtkhtml.c:3055
 msgid "Cite Quotation Color"
 msgstr "Barva citátu"
 
-#: ../src/gtkhtml.c:3063
+#: ../src/gtkhtml.c:3056
 msgid "The color of the cited text"
 msgstr "Barva citovaného textu"
 
-#: ../src/htmlbutton.c:142
+#: ../src/htmlbutton.c:140
 msgid "Submit Query"
 msgstr "Poslat dotaz"
 
-#: ../src/htmlbutton.c:145
+#: ../src/htmlbutton.c:143
 msgid "Reset"
 msgstr "Vymazat"
 
@@ -1898,15 +1899,15 @@ msgstr "Nemohu alokovat základní písmo pro tisk\n"
 msgid "GtkHTML Test"
 msgstr "GtkHTML Test"
 
-#: ../src/testgtkhtml.c:123
+#: ../src/testgtkhtml.c:121
 msgid "Print pre_view"
 msgstr "_Náhled tisku"
 
-#: ../src/testgtkhtml.c:123
+#: ../src/testgtkhtml.c:121
 msgid "Print preview"
 msgstr "Náhled tisku"
 
-#: ../src/testgtkhtml.c:1017
+#: ../src/testgtkhtml.c:1013
 msgid "GtkHTML Test Application"
 msgstr "Testovací aplikace GtkHTML"
 
