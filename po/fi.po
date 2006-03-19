@@ -4,14 +4,14 @@
 #
 # Copyright (C) 2002 Free Software Foundation, Inc.
 # Pauli Virtanen <pauli.virtanen@hut.fi>, 2000-2005.
-# Ilkka Tuohela <hile@iki.fi>, 2002-2005.
+# Ilkka Tuohela <hile@iki.fi>, 2002-2006.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-10 07:53+0200\n"
-"PO-Revision-Date: 2006-02-10 07:55+0200\n"
+"PO-Revision-Date: 2006-03-19 13:50+0200\n"
 "Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -595,7 +595,7 @@ msgstr "_Aakkosellinen luettelo"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:59
 msgid "_Bold"
-msgstr "_Lihava"
+msgstr "_Lihavoitu"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:106
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
