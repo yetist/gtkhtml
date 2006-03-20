@@ -353,7 +353,6 @@ html_engine_is_selection_active (HTMLEngine *e)
 {
 	html_engine_edit_selection_updater_do_idle (e->selection_updater);
 	if (e->selection) {
-		g_return_val_if_fail (!html_engine_get_editable (e) || e->mark, FALSE);
 		return (!html_engine_get_editable (e) || e->mark) ? TRUE : FALSE;
 	}
 
