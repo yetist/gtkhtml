@@ -1,3 +1,8 @@
+2006-03-22  Andreas Köhler  <andi5.py@gmx.net>
+
+	* htmlengine.c: fix assigning height attributes of <object>s and
+	  <iframe>s. Fixes bug #330017. (Committed by Andre Klapper)
+
 2006-03-08  Jeff Cai  <jeff.cai@sun.com>
 
 	* htmlselection.c: (html_engine_is_selection_active):

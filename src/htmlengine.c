@@ -1519,7 +1519,7 @@ element_parse_object (HTMLEngine *e, HTMLObject *clue, const gchar *attr)
 		width = element->style->width->val;
 
 	if (element->style->height)
-		width = element->style->height->val;
+		height = element->style->height->val;
 
 	eb = (GtkHTMLEmbedded *) gtk_html_embedded_new (classid, name, type, data, 
 							width, height);
@@ -1685,7 +1685,7 @@ element_parse_iframe (HTMLEngine *e, HTMLObject *clue, const char *str)
 			width = element->style->width->val;
 
 		if (element->style->height)
-			width = element->style->height->val;
+			height = element->style->height->val;
 		
 		iframe = html_iframe_new (GTK_WIDGET (e->widget), src, width, height, border);
 		if (margin_height >= 0)
