@@ -1,3 +1,9 @@
+2006-03-22  Andre Klapper  <a9016009@gmx.de>
+	* GNOME_GtkHTML_Editor.xml.in: 
+	* GNOME_GtkHTML_Editor-emacs.xml.in: 
+	Changing "Lick" to "Tongue" to be less offensive.
+	Now really fixes bug #329471.
+
 2006-02-28  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* body.c: (body_properties):

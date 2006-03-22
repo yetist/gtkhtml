@@ -34,7 +34,7 @@
 			<cmd name="InsertSmiley6" _label="_Frown" _tip="Insert Frown emoticon into document..."/>
 			<cmd name="InsertSmiley8" _label="_Indifferent" _tip="Insert Indifferent emoticon into document..."/>
 			<cmd name="InsertSmiley9" _label="_Undecided" _tip="Insert Undecided emoticon into document..."/>
-			<cmd name="InsertSmiley10" _label="Li_ck" _tip="Insert Tongue emoticon into document..."/>
+			<cmd name="InsertSmiley10" _label="Ton_gue" _tip="Insert Tongue emoticon into document..."/>
 			<cmd name="InsertSmiley11" _label="Cr_ying" _tip="Insert Crying emoticon into document..."/>
 
 			<cmd name="HeadingNormal" _label="Normal"
