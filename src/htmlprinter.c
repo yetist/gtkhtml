@@ -664,7 +664,7 @@ draw_embedded (HTMLPainter *p, HTMLEmbedded *o, gint x, gint y)
  
 	embedded_widget = html_embedded_get_widget(o);
 	if (embedded_widget && GTK_IS_HTML_EMBEDDED (embedded_widget)) {
-		g_signal_emit_by_name(GTK_OBJECT (embedded_widget), 0,
+		g_signal_emit_by_name(G_OBJECT (embedded_widget),
 				      "draw_print", 
 				      printer->context);
 	}
