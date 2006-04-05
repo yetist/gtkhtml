@@ -222,9 +222,18 @@ prepare_delete_bounds (HTMLEngine *e, GList **from_list, GList **to_list,
 }
 
 static void
-remove_empty_and_merge (HTMLEngine *e, gboolean merge, GList *left, GList *right, HTMLCursor *c)
+remove_empty_and_merge (HTMLEngine *e, gboolean merge, GList *left_orig, GList *right_orig, HTMLCursor *c)
 {
 	HTMLObject *lo, *ro, *prev;
+
+	GList *left, *right;
+	GList *left_old, *right_old;
+
+	left_old = g_list_copy (left_orig);
+	right_old = g_list_copy (right_orig);
+
+	left = left_old;
+	right = right_old;
 
 #ifdef OP_DEBUG
 	/* HTMLObject *left_orig = left->data; */
@@ -308,7 +317,22 @@ remove_empty_and_merge (HTMLEngine *e, gboolean merge, GList *left, GList *right
 		}
 
 		if (merge && lo && ro) {
-			if (!html_object_merge (lo, ro, e, &left, &right, c))
+			GList *left_copy, *right_copy;
+			gboolean merge_flag;
+
+			left_copy = g_list_copy (left);
+			right_copy = g_list_copy (right);
+			merge_flag = html_object_merge (lo, ro, e, &left_copy, &right_copy, c);
+
+			g_list_free (left_old);
+			g_list_free (right_old);
+
+			left = left_copy;
+			right = right_copy;
+			left_old = left;
+			right_old = right;
+
+			if (!merge_flag)
 				break;
 			if (ro == e->cursor->object) {
 				e->cursor->object  = lo;
@@ -322,6 +346,9 @@ remove_empty_and_merge (HTMLEngine *e, gboolean merge, GList *left, GList *right
 		e->cursor->object = prev;
 		e->cursor->offset = html_object_get_length (e->cursor->object);
 	}
+
+	g_list_free (left_old);
+	g_list_free (right_old);
 #ifdef OP_DEBUG
 	/* printf ("-- finished\n");
 	   gtk_html_debug_dump_tree_simple (left_orig, 0); */
