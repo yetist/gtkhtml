@@ -1521,6 +1521,7 @@ element_parse_object (HTMLEngine *e, HTMLObject *clue, const gchar *attr)
 	if (element->style->height)
 		height = element->style->height->val;
 
+	html_element_free (element);
 	eb = (GtkHTMLEmbedded *) gtk_html_embedded_new (classid, name, type, data, 
 							width, height);
 
@@ -3364,8 +3365,10 @@ element_parse_cell (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 
 	html_element_parse_coreattrs (element);
 
-	if (!table)
+	if (!table) {
+		html_element_free (element);
 		return;
+	}
 	
 	cell = HTML_TABLE_CELL (html_table_cell_new (rowSpan, colSpan, table->padding));
 
@@ -6076,7 +6079,7 @@ static void
 set_object_data (gpointer key, gpointer value, gpointer data)
 {
 	/* printf ("set %s\n", (const gchar *) key); */
-	html_object_set_data (HTML_OBJECT (data), g_strdup ((const gchar *) key), g_strdup ((const gchar *) value));
+	html_object_set_data (HTML_OBJECT (data), (const gchar *) key, (const gchar *) value);
 }
 
 static void

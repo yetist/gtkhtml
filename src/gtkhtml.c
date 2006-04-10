@@ -1743,13 +1743,15 @@ button_press_event (GtkWidget *widget,
 				HTMLObject *obj;
 				HTMLEngine *orig_e;
 				gint offset;
+				gchar *url = NULL;
 
 				orig_e = GTK_HTML (orig_widget)->engine;
 				obj = html_engine_get_object_at (engine, x, y, &offset, FALSE);
 				if (obj && ((HTML_IS_IMAGE (obj) && HTML_IMAGE (obj)->url && *HTML_IMAGE (obj)->url)
-					    || (HTML_IS_TEXT (obj) && html_object_get_complete_url (obj, offset))))
+					    || (HTML_IS_TEXT (obj) && (url = html_object_get_complete_url (obj, offset))))) {
+					g_free (url);
 					html_engine_set_focus_object (orig_e, obj, offset);
-				else {
+				} else {
 					html_engine_set_focus_object (orig_e, NULL, 0);
 					if (orig_e->caret_mode || engine->caret_mode)
 						html_engine_jump_at (engine, x, y);
@@ -3143,6 +3145,8 @@ gtk_html_im_commit_cb (GtkIMContext *context, const gchar *str, GtkHTML *html)
 	gboolean state = html->priv->im_block_reset;
 	gint pos;
 
+	html->priv->im_block_reset = TRUE;
+
         if (html->priv->im_pre_len > 0) {
                 D_IM (printf ("IM delete last preedit %d + %d\n", html->priv->im_pre_pos, html->priv->im_pre_len);)
                                                                                 
@@ -3159,7 +3163,6 @@ gtk_html_im_commit_cb (GtkIMContext *context, const gchar *str, GtkHTML *html)
 	if (html->engine->mark && html->engine->mark->position > pos)
 		pos = html->engine->mark->position;
 
-	html->priv->im_block_reset = TRUE;
 	D_IM (printf ("IM commit %s\n", str);)
 	html_engine_paste_text (html->engine, str, -1);
 	html->priv->im_block_reset = state;

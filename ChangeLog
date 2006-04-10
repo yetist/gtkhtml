@@ -1,6 +1,26 @@
+2006-04-10  Harish Krishnaswamy  <kharish@novell.com>
+
+	---------------
+	Release 3.10.1
+	---------------
+
+	* NEWS, configure.in: version bump, NEWS updates.
+
 2006-03-26  Tommi Vainikainen  <thv@iki.fi>
 
 	* configure.in (ALL_LINGUAS): Added Dzongkha (dz).
+
+2006-03-18  Vladimer Sichinava  <vlsichinava@gmail.com>
+
+        * configure.in: Added "ka" (Georgian) to ALL_LINGUAS
+
+2006-03-13  Harish Krishnaswamy  <kharish@novell.com>
+
+	---------------
+	Release 3.10.0
+	---------------
+
+	* NEWS, configure.in: version bump, NEWS updates.
 
 2006-02-27  Srinivasa Ragavan <sragavan@novell.com>
 

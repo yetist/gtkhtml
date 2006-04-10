@@ -1,3 +1,26 @@
+2006-04-10  Chris Heath  <chris@heathens.co.nz>
+
+	* htmlengine.c (element_parse_object), (element_parse_cell),
+	(set_object_data): Fix memory leaks
+	* htmlcursor.c (html_cursor_beginning_of_paragraph),
+	(html_cursor_end_of_paragraph): ditto
+	* gtkhtml.c (button_press_event): ditto
+	* htmlstyle.c (html_style_free): ditto
+
+2006-04-10  Harish Krishnaswamy  <kharish@novell.com>
+
+	* gtkhtml.c: (gtk_html_im_commit_cb):
+	Fixes #321310. Patch submitted by Hiroyuki Ikezoe 
+	<poincare@ikezoe.net>
+
+2006-04-10  Harish Krishnaswamy  <kharish@novell.com>
+
+	* htmlengine-edit-fontstyle.c:
+	(html_engine_get_document_font_style),
+	(html_engine_set_font_style): Fix for #327326.
+	Patch submitted by srohini@novell.com and 
+	vvaradhan@novell.com.
+
 2006-04-05  Jeff Cai <jeff.cai@sun.com>
 
 	* htmlengine-edit-cut-and-paste.c: (remove_empty_and_merge):
