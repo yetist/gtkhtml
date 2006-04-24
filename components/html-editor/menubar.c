@@ -627,28 +627,6 @@ menubar_update_format (GtkHTMLControlData *cd)
 					      "sensitive", sensitive, &ev);
 		bonobo_ui_component_set_prop (uic, "/commands/InsertTemplate",
 					      "sensitive", sensitive, &ev);
-		bonobo_ui_component_set_prop (uic, "/commands/InsertSmiley1",
-					      "sensitive", sensitive, &ev);
-		bonobo_ui_component_set_prop (uic, "/commands/InsertSmiley2",
-					      "sensitive", sensitive, &ev);
-		bonobo_ui_component_set_prop (uic, "/commands/InsertSmiley3",
-					      "sensitive", sensitive, &ev);
-		bonobo_ui_component_set_prop (uic, "/commands/InsertSmiley4",
-					      "sensitive", sensitive, &ev);
-		bonobo_ui_component_set_prop (uic, "/commands/InsertSmiley5",
-					      "sensitive", sensitive, &ev);
-		bonobo_ui_component_set_prop (uic, "/commands/InsertSmiley6",
-					      "sensitive", sensitive, &ev);
-		bonobo_ui_component_set_prop (uic, "/commands/InsertSmiley8",
-					      "sensitive", sensitive, &ev);
-		bonobo_ui_component_set_prop (uic, "/commands/InsertSmiley9",
-					      "sensitive", sensitive, &ev);
-		bonobo_ui_component_set_prop (uic, "/commands/InsertSmiley10",
-					      "sensitive", sensitive, &ev);
-		bonobo_ui_component_set_prop (uic, "/commands/InsertSmiley11",
-					      "sensitive", sensitive, &ev);
-		bonobo_ui_component_set_prop (uic, "/commands/InsertSmiley12",
-					      "sensitive", sensitive, &ev);
 
 		bonobo_ui_component_set_prop (uic, "/commands/FormatBold",
 					      "sensitive", sensitive, &ev);

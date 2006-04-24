@@ -1,3 +1,10 @@
+2006-03-31  Rohini S  <srohini@novell.com>
+
+	* menubar.c (menubar_update_format): Enable Insert Smiley 
+	in plain text mode too.
+
+	Fixes bug #272256
+
 2006-03-22  Andre Klapper  <a9016009@gmx.de>
 	* GNOME_GtkHTML_Editor.xml.in: 
 	* GNOME_GtkHTML_Editor-emacs.xml.in: 
