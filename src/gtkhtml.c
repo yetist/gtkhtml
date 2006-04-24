@@ -3145,6 +3145,8 @@ gtk_html_im_commit_cb (GtkIMContext *context, const gchar *str, GtkHTML *html)
 	gboolean state = html->priv->im_block_reset;
 	gint pos;
 
+	html->priv->im_block_reset = TRUE;
+
         if (html->priv->im_pre_len > 0) {
                 D_IM (printf ("IM delete last preedit %d + %d\n", html->priv->im_pre_pos, html->priv->im_pre_len);)
                                                                                 
@@ -3161,7 +3163,6 @@ gtk_html_im_commit_cb (GtkIMContext *context, const gchar *str, GtkHTML *html)
 	if (html->engine->mark && html->engine->mark->position > pos)
 		pos = html->engine->mark->position;
 
-	html->priv->im_block_reset = TRUE;
 	D_IM (printf ("IM commit %s\n", str);)
 	html_engine_paste_text (html->engine, str, -1);
 	html->priv->im_block_reset = state;

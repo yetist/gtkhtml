@@ -1,3 +1,9 @@
+2006-04-24  Harish Krishnaswamy  <kharish@novell.com>
+
+	* gtkhtml.c: (gtk_html_im_commit_cb):
+	Fixes #321310. Patch submitted by Hiroyuki Ikezoe
+	<poincare at ikezoe dot net>
+
 2006-04-24  Chris Heath  <chris@heathens.co.nz>
 
 	* htmlengine.c (element_parse_object), (element_parse_cell),
