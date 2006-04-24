@@ -1743,13 +1743,15 @@ button_press_event (GtkWidget *widget,
 				HTMLObject *obj;
 				HTMLEngine *orig_e;
 				gint offset;
+				gchar *url = NULL;
 
 				orig_e = GTK_HTML (orig_widget)->engine;
 				obj = html_engine_get_object_at (engine, x, y, &offset, FALSE);
 				if (obj && ((HTML_IS_IMAGE (obj) && HTML_IMAGE (obj)->url && *HTML_IMAGE (obj)->url)
-					    || (HTML_IS_TEXT (obj) && html_object_get_complete_url (obj, offset))))
+					    || (HTML_IS_TEXT (obj) && (url = html_object_get_complete_url (obj, offset))))) {
+					g_free (url);
 					html_engine_set_focus_object (orig_e, obj, offset);
-				else {
+				} else {
 					html_engine_set_focus_object (orig_e, NULL, 0);
 					if (orig_e->caret_mode || engine->caret_mode)
 						html_engine_jump_at (engine, x, y);

@@ -129,6 +129,9 @@ html_style_free (HTMLStyle *style)
 	if (style->bg_color)
 		html_color_unref (style->bg_color);
 
+	if (style->border_color)
+		html_color_unref (style->border_color);
+
 	g_free (style);
 }
 
