@@ -685,8 +685,6 @@ create_style_toolbar (GtkHTMLControlData *cd)
 	gtk_widget_show_all (hbox);
 
 	toolbar_update_format (cd);
-	GTK_WIDGET_UNSET_FLAGS (cd->toolbar_style, GTK_CAN_FOCUS);
-	gtk_container_forall (GTK_CONTAINER (cd->toolbar_style), unset_focus, NULL);
 
 	return hbox;
 }

@@ -1,3 +1,10 @@
+2006-04-25  Li Yuan  <li.yuan@sun.com>
+
+	* toolbar.c: (create_style_toolbar):
+	make the toolbar focusable.
+
+	Fix for #338048.
+
 2006-03-31  Rohini S  <srohini@novell.com>
 
 	* menubar.c (menubar_update_format): Enable Insert Smiley 
