@@ -1672,9 +1672,14 @@ move_object_downtree_cursor (HTMLObject *obj, HTMLObject * (*down_fn ) (HTMLObje
 	if (!obj && last_obj) {
 		obj = last_obj;
 
-		while ((obj = (*next_fn) (obj)))
+		while ((obj = (*next_fn) (obj))) {
 			if (html_object_accepts_cursor (obj))
 				break;
+			last_obj = obj;
+			if (obj = move_object_downtree_cursor (obj, down_fn, next_fn))
+				break;
+			obj = last_obj;
+		}
 	}
 
 	return obj;
