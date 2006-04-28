@@ -408,7 +408,7 @@ gtk_html_a11y_new (GtkWidget *widget)
 	atk_object_initialize (accessible, widget);
 
 	accessible->role = ATK_ROLE_PANEL;
-	g_signal_connect_after (widget, "grab_focus", 
+	g_signal_connect (widget, "grab_focus", 
 			G_CALLBACK (gtk_html_a11y_grab_focus_cb),
 			NULL);
 	g_signal_connect (widget, "cursor_changed",

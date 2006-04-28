@@ -1,3 +1,11 @@
+2006-04-25  Li Yuan  <li.yuan@sun.com>
+
+	* object.c: (gtk_html_a11y_new):
+	we should call our callback function first to set the gail-focus-object
+	field of html.
+
+	Fixes #339691
+
 2006-03-01  Simon Zheng  <simon.zheng@sun.com>
 
 	* factory.c: (gtk_html_accessibility_init):Initilize only when accessibility
