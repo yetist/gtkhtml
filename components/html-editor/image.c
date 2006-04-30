@@ -108,13 +108,11 @@ get_location (GtkHTMLEditImageProperties *d)
 	gchar *file;
 	gchar *url;
 
-	file = gnome_pixmap_entry_get_filename (GNOME_PIXMAP_ENTRY (d->pentry));
+	file = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (d->pentry));
 	if (file) {
 		url = gtk_html_filename_to_uri (file);
 	} else {
-		GtkWidget *entry = gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY (d->pentry));
-
-		url = gtk_html_filename_to_uri (gtk_entry_get_text (GTK_ENTRY (entry)));
+		url = gtk_html_filename_to_uri (gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (d->pentry)));
 	}
 
 	if (!url)
@@ -283,7 +281,7 @@ image_set_ui (GtkHTMLEditImageProperties *d)
 			if (ip->url) {
 				gchar *filename = gtk_html_filename_from_uri (ip->url);
 				
-				gtk_entry_set_text (GTK_ENTRY (gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY (d->pentry))), filename);
+				gtk_file_chooser_set_filename (GTK_FILE_CHOOSER (d->pentry), filename);
 				g_free (filename);
 			}
 		}
@@ -390,12 +388,12 @@ image_widget (GtkHTMLEditImageProperties *d, gboolean insert)
 	g_signal_connect (d->entry_alt, "changed", G_CALLBACK (alt_changed), d);
 
 	d->pentry = glade_xml_get_widget (xml, "pentry_image_location");
-	gnome_pixmap_entry_set_pixmap_subdir (GNOME_PIXMAP_ENTRY (d->pentry), g_get_home_dir ());
-	g_signal_connect (GTK_OBJECT (gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY (d->pentry))),
-			    "changed", G_CALLBACK (pentry_changed), d);
+	gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (d->pentry), g_get_home_dir ());
+	g_signal_connect (GTK_OBJECT (GTK_FILE_CHOOSER_BUTTON (d->pentry)),
+			    "selection-changed", G_CALLBACK (pentry_changed), d);
 
 	gtk_widget_show_all (d->page);
-	gnome_pixmap_entry_set_preview (GNOME_PIXMAP_ENTRY (d->pentry), FALSE);
+	gtk_file_chooser_set_preview_active (GTK_FILE_CHOOSER (d->pentry), FALSE);
 
 	editor_check_stock ();
 	button = gtk_button_new_from_stock (GTKHTML_STOCK_TEST_URL);

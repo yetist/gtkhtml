@@ -170,7 +170,7 @@ set_bg_pixmap (HTMLTableCell *cell, GtkHTMLEditCellProperties *d)
 	const char *file;
 	char *url = NULL;
 
-	file = gtk_entry_get_text (GTK_ENTRY (gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY (d->entry_bg_pixmap))));
+	file = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (d->entry_bg_pixmap));
 	url = gtk_html_filename_to_uri (file);
 
 	html_engine_table_cell_set_bg_pixmap (d->cd->html->engine, cell, url);
@@ -367,8 +367,8 @@ cell_widget (GtkHTMLEditCellProperties *d)
 	gtk_box_pack_start (GTK_BOX (glade_xml_get_widget (xml, "bg_color_hbox")), d->combo_bg_color, FALSE, FALSE, 0);
 
 	d->entry_bg_pixmap = glade_xml_get_widget (xml, "entry_cell_bg_pixmap");
-	g_signal_connect (gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY (d->entry_bg_pixmap)),
-			    "changed", G_CALLBACK (changed_bg_pixmap), d);
+	g_signal_connect (GTK_FILE_CHOOSER_BUTTON (d->entry_bg_pixmap),
+			    "selection-changed", G_CALLBACK (changed_bg_pixmap), d);
 
 	d->option_halign = glade_xml_get_widget (xml, "option_cell_halign");
 	g_signal_connect (gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_halign)), "selection-done",
@@ -402,7 +402,7 @@ cell_widget (GtkHTMLEditCellProperties *d)
 	g_signal_connect (d->spin_rspan, "value_changed", G_CALLBACK (changed_rspan), d);
 
 	gtk_widget_show_all (cell_page);
-	gnome_pixmap_entry_set_preview (GNOME_PIXMAP_ENTRY (d->entry_bg_pixmap), FALSE);
+	gtk_file_chooser_set_preview_widget_active (GTK_FILE_CHOOSER (d->entry_bg_pixmap), FALSE);
 
 	return cell_page;
 }
@@ -421,7 +421,7 @@ set_ui (GtkHTMLEditCellProperties *d)
 	if (d->cell->have_bgPixmap) {
 		char *filename = gtk_html_filename_from_uri (d->cell->bgPixmap->url);
 
-		gtk_entry_set_text (GTK_ENTRY (gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY (d->entry_bg_pixmap))),
+		gtk_file_chooser_set_filename (GTK_FILE_CHOOSER (d->entry_bg_pixmap),
 				    filename);
 		g_free (filename);
 	}

@@ -164,7 +164,7 @@ entry_changed (GtkWidget *w, GtkHTMLEditBodyProperties *data)
 		e->bgPixmapPtr = NULL;
 	}
 
-	fname = gtk_entry_get_text (GTK_ENTRY (w));
+	fname = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (w));
 	if (fname && *fname) {
 		gchar *file = gtk_html_filename_to_uri (fname);
 
@@ -185,7 +185,7 @@ changed_template (GtkWidget *w, GtkHTMLEditBodyProperties *d)
 	filename = (body_templates [template].bg_pixmap ?
 		    g_build_filename (ICONDIR, body_templates [template].bg_pixmap, NULL) :
 		    g_strdup (""));
-	gtk_entry_set_text (GTK_ENTRY (gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY (d->pixmap_entry))),
+	gtk_file_chooser_set_filename (GTK_FILE_CHOOSER ((d->pixmap_entry)),
 			    filename);
 	g_free (filename);
 
@@ -271,18 +271,18 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 
 	gtk_box_pack_start (GTK_BOX (main_vbox), editor_hig_vbox (_("Colors"), t1), FALSE, FALSE, 0);
 
-	data->pixmap_entry = gnome_pixmap_entry_new ("background_image", _("Background Image"), FALSE);
+	data->pixmap_entry = gtk_file_chooser_button_new (_("Background Image"), GTK_FILE_CHOOSER_ACTION_OPEN);
 	if (cd->html->engine->bgPixmapPtr) {
 		HTMLImagePointer *ip = (HTMLImagePointer *) cd->html->engine->bgPixmapPtr;
 		gchar *filename = gtk_html_filename_from_uri (ip->url);
 		
-		gtk_entry_set_text (GTK_ENTRY (gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY (data->pixmap_entry))),
+		gtk_file_chooser_set_filename (GTK_FILE_CHOOSER ((data->pixmap_entry)),
 				    filename);
 		g_free (filename);
 	}
 
 
-	atk_object_set_name (gtk_widget_get_accessible (gnome_file_entry_gnome_entry (GNOME_FILE_ENTRY (data->pixmap_entry))), _("Background Image File Path"));
+	atk_object_set_name (gtk_widget_get_accessible (GTK_FILE_CHOOSER (data->pixmap_entry)), _("Background Image File Path"));
 
 	t1 = gtk_table_new (2, 2, FALSE);
 	gtk_table_set_col_spacings (GTK_TABLE (t1), 6);
@@ -317,8 +317,8 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
         g_signal_connect (data->combo [0], "color_changed", G_CALLBACK (color_changed), data);
         g_signal_connect (data->combo [1], "color_changed", G_CALLBACK (color_changed), data);
         g_signal_connect (data->combo [2], "color_changed", G_CALLBACK (color_changed), data);
-	g_signal_connect (gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY (data->pixmap_entry)),
-			  "changed", G_CALLBACK (entry_changed), data);
+	g_signal_connect (GTK_FILE_CHOOSER_BUTTON (data->pixmap_entry),
+			  "selection-changed", G_CALLBACK (entry_changed), data);
 
 	return main_vbox;
 }

@@ -1,3 +1,14 @@
+2006-04-30  Shi Pu <Shi.Pu@sun.com>
+
+        Fixes bug #323853
+
+        * body.c: (changed_template), (body_properties):
+        * cell.c: (set_bg_pixmap), (cell_widget), (set_ui):
+        * gtkhtml-editor-properties.glade:
+        * image.c: (get_location), (image_set_ui), (image_widget):
+        * table.c: (table_widget), (set_ui):
+        replace GnomeFileEntry and GnomePixmapEntry by GtkFileChooserButton
+
 2006-04-25  Li Yuan  <li.yuan@sun.com>
 
 	* toolbar.c: (create_style_toolbar):
