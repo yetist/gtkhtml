@@ -289,7 +289,7 @@
 		<toolitem name="InsertLink" verb="" _label="Link" _tip="Insert link"/>
 		<toolitem name="InsertRule" verb="" _label="Rule" _tip="Insert rule"
 		pixtype="filename" pixname="@ICONSDIR@/insert-rule-24.png"/>
-		<toolitem name="InsertTable" verb="" _label="Table" _tip="Insert rule"
+		<toolitem name="InsertTable" verb="" _label="Table" _tip="Insert table"
 		pixtype="filename" pixname="@ICONSDIR@/insert-table-24.png"/>
 	</dockitem>
 
