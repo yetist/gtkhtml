@@ -261,6 +261,7 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	hbox = gtk_hbox_new (FALSE, 3); \
         label = gtk_label_new_with_mnemonic (x); \
         gtk_misc_set_alignment (GTK_MISC (label), .0, .5); \
+        atk_object_add_relationship (gtk_widget_get_accessible (GI_COLOR_COMBO(combo)->preview_button), ATK_RELATION_LABELLED_BY, gtk_widget_get_accessible (label)); \
         gtk_table_attach (GTK_TABLE (t1), label, 0, 1, i, i + 1, GTK_FILL, GTK_FILL, 0, 0); \
         gtk_table_attach (GTK_TABLE (t1), combo, 1, 2, i, i + 1, GTK_FILL, GTK_FILL, 0, 0); \
         i ++

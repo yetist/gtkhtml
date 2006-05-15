@@ -1,3 +1,9 @@
+2006-05-15  Boby Wang  <boby.wang@sun.com>
+
+	Fix for #341811
+	* body.c: (body_properties):
+	add label relationship between button and label.
+
 2006-04-30  Shi Pu <Shi.Pu@sun.com>
 
         Fixes bug #323853
