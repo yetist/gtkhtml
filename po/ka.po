@@ -1,43 +1,43 @@
-# GtkHtml-i eesti keele tõlge.
-# Estonian translation of GtkHtml.
-#
-# Copyright (C) 2002, 2004-2006 Free Software Foundation, Inc.
+# translation of ka.po to Georgian
+# Copyright (C) 2006 Gnome Georgian Translators
 # This file is distributed under the same license as the gtkhtml package.
+# Malkhaz Barkalaya მალხაზ ბარკალაია <maxo127@mail.ru>
+# Tea Kharitonashvili თეა ხარიტონაშვილი <taya13@gmail.com>თეა ხარიტონაშვილი <taya@convert.ge>, 2006.
 #
-# Tõivo Leedjärv <leedjarv@interest.ee>, 2002.
-# Priit Laes <amd@store20.com>, 2004-2005.
-# Ivar Smolin <okul@linux.ee>, 2005, 2006.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml 3.10\n"
+"Project-Id-Version: ka\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-10 00:19+0100\n"
-"PO-Revision-Date: 2006-02-10 07:29+0200\n"
-"Last-Translator: Ivar Smolin <okul@linux.ee>\n"
-"Language-Team: Estonian <gnome-et@linux.ee>\n"
+"POT-Creation-Date: 2006-03-13 15:08+0100\n"
+"PO-Revision-Date: 2006-03-18 22:29+0100\n"
+"Last-Translator: Vladimer Sichinava <alinux@siena.linux.it>\n"
+"Language-Team: Georgian <gnome@inet.ge>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"X-Generator: KBabel 1.11.1\n"
 
 #: ../a11y/image.c:150
 #, c-format
 msgid "URL is %s, Alternative Text is %s"
-msgstr "URL on %s, alternatiivtekst on %s"
+msgstr "URL არის %s, ალტერნატიული ტექსტია %s"
 
 #: ../a11y/image.c:152
 #, c-format
 msgid "URL is %s"
-msgstr "URL on %s"
+msgstr "URL არის %s"
 
-#: ../a11y/object.c:52 ../a11y/object.c:61 ../a11y/text.c:127
+#: ../a11y/object.c:52
+#: ../a11y/object.c:61
+#: ../a11y/text.c:127
 msgid "grab focus"
-msgstr "haara fookus"
+msgstr "ფოკუსის აღება"
 
 #: ../a11y/object.c:258
 msgid "Panel containing HTML"
-msgstr "Paneel sisaldab HTML-i"
+msgstr "პანელი შეიცავს HTML-ს"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:1
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
@@ -77,80 +77,80 @@ msgstr "-2"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:7
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:7
 msgid "A_ddress"
-msgstr "_Aadress"
+msgstr "_მისამართი"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:8
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:8
 #: ../components/html-editor/toolbar.c:58
 msgid "Alphabetical List"
-msgstr "Tähestikuline loend"
+msgstr "სია ანბანის მიხედვით"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:9
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:9
 #: ../components/html-editor/toolbar.c:55
 msgid "Bulleted List"
-msgstr "Täpploend"
+msgstr "ნიშნულებიანი სია"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:10
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:10
 #: ../components/html-editor/toolbar.c:528
 msgid "Center justifies the paragraphs"
-msgstr "Lõikude joondamine keskele"
+msgstr "აბზაცის ცენტრში სწორება"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:11
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:11
 msgid "Check _Spelling..."
-msgstr "Kontrolli _sõna õigekirja..."
+msgstr "_მართლწერის შემოწმება..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:12
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
 msgid "Check spelling of the document"
-msgstr "Dokumendi õigekirjakontroll"
+msgstr "დოკუმენტის მართლწერის შემოწმება"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:13
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:13
 msgid "Copy"
-msgstr "Kopeeri"
+msgstr "კოპირება"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:14
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:14
 msgid "Copy selection to clipboard"
-msgstr "Valiku kopeerimine lõikelauale"
+msgstr "მონიშნულის ბუფერში კოპირება"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:15
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:15
 msgid "Copy the selection"
-msgstr "Valiku kopeerimine"
+msgstr "მონიშნულის კოპირება"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:16
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:16
 msgid "Cr_ying"
-msgstr "N_uttev"
+msgstr "_ტირილი"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:17
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:17
 msgid "Cu_t"
-msgstr "_Lõika"
+msgstr "ამო_ჭრა"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:18
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:18
 msgid "Cut"
-msgstr "Lõika"
+msgstr "ამოჭრა"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:19
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:19
 msgid "Cut selection to clipboard"
-msgstr "Valiku tõstmine lõikelauale"
+msgstr "მონიშნულის ამოჭრა ბუფერში"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:20
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:20
 msgid "Cut the selection"
-msgstr "Valiku väljalõikamine"
+msgstr "მონიშნულის ამოჭრა"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:21
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:21
 msgid "Emoti_con"
-msgstr "_Tujunägu"
+msgstr "_მიმიკა"
 
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
@@ -158,67 +158,67 @@ msgstr "_Tujunägu"
 #: ../components/html-editor/search.c:111
 #: ../components/html-editor/search.c:171
 msgid "Find"
-msgstr "Otsimine"
+msgstr "ძებნა"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:23
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:23
 msgid "Find _Again"
-msgstr "Otsi _uuesti"
+msgstr "მოძებნე _შემდეგი"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:24
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:24
 msgid "Find again"
-msgstr "Uuestiotsimine"
+msgstr "მოძებნა შემდეგი"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:25
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:25
 msgid "Find and Replace"
-msgstr "Otsib ja asendab"
+msgstr "ძებნა და ჩანაცვლება"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:26
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:26
 msgid "Find and replace"
-msgstr "Otsimine ja asendamine"
+msgstr "ძიება და ჩანაცვლება"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:27
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:27
 msgid "For_mat"
-msgstr "Vor_ming"
+msgstr "_ფორმატირება"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:28
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:28
 msgid "Header _1"
-msgstr "Päis _1"
+msgstr "თავსართი_1"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:29
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:29
 msgid "Header _2"
-msgstr "Päis _2"
+msgstr "თავსართი _2"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:30
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:30
 msgid "Header _3"
-msgstr "Päis _3"
+msgstr "თავსართი _3"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:31
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:31
 msgid "Header _4"
-msgstr "Päis _4"
+msgstr "თავსართი _4"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:32
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:32
 msgid "Header _5"
-msgstr "Päis _5"
+msgstr "თავსართი _5"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:33
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:33
 msgid "Header _6"
-msgstr "Päis _6"
+msgstr "თავსართი _6"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:34
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:34
 msgid "I_nsert"
-msgstr "_Lisa"
+msgstr "ჩა_სმა"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:35
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
@@ -226,264 +226,265 @@ msgstr "_Lisa"
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:37
 #: ../components/html-editor/popup.c:216
 msgid "Image"
-msgstr "Pilt"
+msgstr "სურათი"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:36
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
 msgid "Insert Crying emoticon into document..."
-msgstr "Nutva emotikoni lisamine dokumendile..."
+msgstr "დოკუმენტში ტირილის მიმიკის ჩასმა..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:37
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
 msgid "Insert Frown emoticon into document..."
-msgstr "Kulmukortsutuse emotikoni lisamine dokumendile..."
+msgstr "დოკუმენტში მოღუშვის მიმიკის ჩასმა..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:38
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
 msgid "Insert HTML file into document..."
-msgstr "HTML-faili lisamine dokumendile..."
+msgstr "დოკუმენტში HTML ფაილის ჩასმა..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:39
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
 msgid "Insert HTML link into document..."
-msgstr "HTML-viida lisamine dokumendile..."
+msgstr "დოკუმენტში HTML ბმულის ჩასმა..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:40
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:40
 msgid "Insert HTML template into document..."
-msgstr "HTML-malli lisamine dokumendile..."
+msgstr "დოკუმენტში HTML ნიმუშის ჩასმა..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:41
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
 msgid "Insert Indifferent emoticon into document..."
-msgstr "Ükskõiksuse emotikoni lisamine dokumendile..."
+msgstr "დოკუმენტში გულგრილობის მიმიკის ჩასმა..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:42
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
 msgid "Insert Laughing emoticon into document..."
-msgstr "Naerva emotikoni lisamine dokumendile..."
+msgstr "დოკუმენტში სიცილის მიმიკის ჩასმა..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:43
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
 msgid "Insert Oh no! emoticon into document..."
-msgstr "Oh ei! emotikoni lisamine dokumendile..."
+msgstr "დოკუმენტში \"ო არა!\" მიმიკის ჩასმა..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:44
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
 msgid "Insert Smile emoticon into document..."
-msgstr "Naeratuse emotikoni lisamine dokumendile..."
+msgstr "დოკუმენტში ღიმილის მიმიკის ჩასმა..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:45
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
 msgid "Insert Surprised emoticon into document..."
-msgstr "Üllatuse emotikoni lisamine dokumendile..."
+msgstr "დოკუმენტში გაოცების მიმიკის ჩასმა..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:46
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
 msgid "Insert Tongue emoticon into document..."
-msgstr "Keelenäitamise emotikoni lisamine dokumendile..."
+msgstr "დოკუმენტში გამოყოფილი ენის მიმიკის ჩასმა..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:47
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
 msgid "Insert Undecided emoticon into document..."
-msgstr "Kõhkluse emotikoni lisamine dokumendile..."
+msgstr "დოკუმენტში ვერ-გადაწყვეტის მიმიკის ჩასმა..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:48
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
 msgid "Insert Wink emoticon into document..."
-msgstr "Silmapilgutuse emotikoni lisamine dokumendile..."
+msgstr "დოკუმენტში თვალის პაჭუნის მიმიკის ჩასმა..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:49
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
 #: ../components/html-editor/menubar.c:102
 #: ../components/html-editor/menubar.c:110
 msgid "Insert image"
-msgstr "Pildi lisamine"
+msgstr "სურათის ჩასმა"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:50
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
 msgid "Insert image into document..."
-msgstr "Pildi lisamine dokumendile..."
+msgstr "დოკუმენტში სურათის ჩასმა..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:51
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:52
 msgid "Insert link"
-msgstr "Lisa viit"
+msgstr "ბმულის ჩასმა"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:52
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:53
 msgid "Insert rule"
-msgstr "Lisa reegel"
+msgstr "წესის ჩასმა"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:53
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
 msgid "Insert rule into document..."
-msgstr "Rõhtjoone lisamine dokumendile..."
+msgstr "დოკუმენტში წესის ჩასმა..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:54
 msgid "Insert table"
-msgstr "Pildi lisamine"
+msgstr "ცხრილის ჩასმა"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
 msgid "Insert table into document..."
-msgstr "Tabeli lisamine dokumendile..."
+msgstr "დოკუმენტში ცხრილის ჩასმა..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:56
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
 msgid "Insert text file into document..."
-msgstr "Tekstifaili lisamine dokumendile ..."
+msgstr "დოკუმენტში ტექსტური ფაილის ჩასმა..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:57
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
 #: ../components/html-editor/toolbar.c:526
 msgid "Left justifies the paragraphs"
-msgstr "Lõikude vasakjoondamine"
+msgstr "აბზაცის სწორება მარცხნივ"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:58
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:58
 msgid "Li_ck"
-msgstr "_Limpsti"
+msgstr "_ლოკვა"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:59
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
 #: ../components/html-editor/menubar.c:145
-#: ../components/html-editor/popup.c:115 ../components/html-editor/popup.c:210
+#: ../components/html-editor/popup.c:115
+#: ../components/html-editor/popup.c:210
 #: ../components/html-editor/popup.c:280
 msgid "Link"
-msgstr "Viit"
+msgstr "ბმული"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:60
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
 msgid "Make the current Paragraph style Normal"
-msgstr "Tavalaadi määramine käesoleva lõigu laadiks "
+msgstr "მიმდინარე აბზაცის ჩვეულებრივ სტილში გადაყვანა"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:61
 msgid "Make the current Paragraph style Preformat"
-msgstr "Eelvormindatud laadi määramine käesoleva lõigu laadiks"
+msgstr "მიმდინარე აბზაცის წინასწარი ფორმატის სტილში გადაყვანა"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:62
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
 msgid "Make the current paragraph a bulleted list"
-msgstr "Tavaloendi laadi määramine käesoleva lõigu laadiks"
+msgstr "მიმდინარე აბზაცის ბურთულებიან სიაში გადაყვანა"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:63
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:63
 msgid "Make the current paragraph a list with roman numerals"
-msgstr "Rooma numbritega loendi määramine käesoleva lõigu laadiks"
+msgstr "მიმდინარე აბზაცის რომაულ სიაში გადაყვანა"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:64
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:64
 msgid "Make the current paragraph a numbered list"
-msgstr "Nummerdatud loendi määramine käesoleva lõigu laadiks"
+msgstr "მიმდინარე აბზაცის გადანომრილ სიაში გადაყვანა"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:65
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:65
 msgid "Make the current paragraph an H1 header"
-msgstr "H1-päise määramine käesoleva lõigu laadiks"
+msgstr "მიმდინარე აბზაცის H1 სათაურში გადაყვანა"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:66
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:66
 msgid "Make the current paragraph an H2 header"
-msgstr "H2-päise määramine käesoleva lõigu laadiks"
+msgstr "მიმდინარე აბზაცის H2 სათაურში გადაყვანა"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:67
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:67
 msgid "Make the current paragraph an H3 header"
-msgstr "H3-päise määramine käesoleva lõigu laadiks"
+msgstr "მიმდინარე აბზაცის H3 სათაურში გადაყვანა"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:68
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:68
 msgid "Make the current paragraph an H4 header"
-msgstr "H4-päise määramine käesoleva lõigu laadiks"
+msgstr "მიმდინარე აბზაცის H4 სათაურში გადაყვანა"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:69
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:69
 msgid "Make the current paragraph an H5 header"
-msgstr "H5-päise määramine käesoleva lõigu laadiks"
+msgstr "მიმდინარე აბზაცის H5 სათაურში გადაყვანა"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:70
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:70
 msgid "Make the current paragraph an H6 header"
-msgstr "H6-päise määramine käesoleva lõigu laadiks"
+msgstr "მიმდინარე აბზაცის H6 სათაურში გადაყვანა"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:71
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
 msgid "Make the current paragraph an address"
-msgstr "Aadressi määramine käesoleva lõigu laadiks"
+msgstr "მიმდინარე აბზაცის მისამართად გადაყვანა"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:72
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
 msgid "Make the current paragraph an alphabetical list"
-msgstr "Tähestikloendi määramine käesoleva lõigu laadiks"
+msgstr "მიმდინარე აბზაცის ანბანურ სიაში გადაყვანა"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:73
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
 #: ../components/html-editor/paragraph.c:87
 #: ../components/html-editor/toolbar.c:53
 msgid "Normal"
-msgstr "Tavaline"
+msgstr "ჩვეულებრივი"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:74
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
 #: ../components/html-editor/toolbar.c:56
 msgid "Numbered List"
-msgstr "Nummerdatud loetelu"
+msgstr "დანომრილი სია"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:75
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:75
 msgid "Numbered _List"
-msgstr "Nummerdatud _loetelu"
+msgstr "დანომრილი _სია"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:76
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
 msgid "Oh _No!"
-msgstr "Oh _ei!"
+msgstr "ო არა!"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:77
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
 msgid "Paste"
-msgstr "Aseta"
+msgstr "ჩასმა"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:78
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
 msgid "Paste _Quotation"
-msgstr "Aseta _tsiteering"
+msgstr "_ციტატის ჩასმა"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:79
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
 msgid "Paste from clipboard"
-msgstr "Lõikepuhvrist asetamine"
+msgstr "ბუფერიდან ჩასმა"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:80
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
 msgid "Paste the clipboard"
-msgstr "Lõikepuhvri sisu asetamine"
+msgstr "ბუფერის ჩასმა"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:81
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
 msgid "Paste the clipboard as a quotation"
-msgstr "Lõikepuhvri sisu asetamine tsitaadina"
+msgstr "ბუფერის ციტატად ჩასმა"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:82
 #: ../components/html-editor/toolbar.c:54
 msgid "Preformat"
-msgstr "Eelvormindatud"
+msgstr "წინასწარი ფორმატირება"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:83
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
 msgid "Redo"
-msgstr "Taasta"
+msgstr "აღდგენა"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:84
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
 msgid "Redo previously undone change"
-msgstr "Unustatud muudatuste taastamine"
+msgstr "წინა გაუქმებული ცვლილების აღდგენა"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:85
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
 msgid "Redo the undone action"
-msgstr "Tühistatud tegevuse uuestisooritamine"
+msgstr "გაუქმებული მოქმედების აღდგენა"
 
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
@@ -491,18 +492,18 @@ msgstr "Tühistatud tegevuse uuestisooritamine"
 #: ../components/html-editor/replace.c:174
 #: ../components/html-editor/replace.c:240
 msgid "Replace"
-msgstr "Asendamine"
+msgstr "შეცვლა"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:87
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
 #: ../components/html-editor/toolbar.c:530
 msgid "Right justifies the paragraphs"
-msgstr "Lõikude paremjoondamine"
+msgstr "აბზაცის სწორება მარჯვნივ"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:88
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
 msgid "Roman Numeral List"
-msgstr "Rooma numbrite loetelu"
+msgstr "რომაული სია"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:89
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
@@ -511,256 +512,257 @@ msgstr "Rooma numbrite loetelu"
 #: ../components/html-editor/menubar.c:168
 #: ../components/html-editor/popup.c:234
 msgid "Rule"
-msgstr "Reegel"
+msgstr "წესი"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:90
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
 msgid "Select _All"
-msgstr "Vali _kõik"
+msgstr "მონიშნე _ყველა"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:91
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
 msgid "Select the entire contents of the document"
-msgstr "Kogu dokumendi sisu valimine"
+msgstr "მთელი დოკუმენტის მონიშვნა"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:92
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
 #: ../components/html-editor/toolbar.c:558
 msgid "Strikeout"
-msgstr "Läbikriipsutatud"
+msgstr "ხაზდასმული"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:93
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
 msgid "Su_rprised"
-msgstr "Üll_atunud"
+msgstr "_გაოცებული"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:94
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
 msgid "Subscript"
-msgstr "Alatekst"
+msgstr "ქვედა ინდექსი"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:95
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
 msgid "Superscript"
-msgstr "Ülatekst"
+msgstr "ზედა ინდექსი"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:96
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:52
 #: ../components/html-editor/menubar.c:196
-#: ../components/html-editor/popup.c:240 ../components/html-editor/popup.c:514
+#: ../components/html-editor/popup.c:240
+#: ../components/html-editor/popup.c:514
 #: ../components/html-editor/popup.c:526
 msgid "Table"
-msgstr "Tabel"
+msgstr "ცხრილი"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:97
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
 msgid "Te_mplate..."
-msgstr "_Mall..."
+msgstr "ნი_მუში..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
 msgid "Te_xt File..."
-msgstr "_Tekstifail..."
+msgstr "ტე_ქსტური ფაილი..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:99
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 #: ../components/html-editor/toolbar.c:550
 msgid "Typewriter"
-msgstr "Masinakiri"
+msgstr "საბეჭდი მანქანა"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:100
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
 msgid "Undo"
-msgstr "Tühista"
+msgstr "გაუქმება"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:101
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
 msgid "Undo previous changes"
-msgstr "Eelmiste muudatuste unustamine"
+msgstr "წინა ცვლილების გაუქმება"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:102
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
 msgid "Undo the last action"
-msgstr "Viimase tegevuse tühistamine"
+msgstr "ბოლო ქმედების გაუქმება"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:103
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
 msgid "_Alignment"
-msgstr "_Joondus"
+msgstr "_წყობა"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:104
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
 msgid "_Alphabetical List"
-msgstr "_Tähestikuline loend"
+msgstr "_ანბანური სია"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:105
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:59
 msgid "_Bold"
-msgstr "_Rasvane"
+msgstr "_მუქი"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:106
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
 msgid "_Bulleted List"
-msgstr "_Täpploetelu"
+msgstr "_ბურთულებიანი სია"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:107
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
 msgid "_Center"
-msgstr "_Keskel"
+msgstr "_ცენტრში"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:108
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
 msgid "_Copy"
-msgstr "_Kopeeri"
+msgstr "_კოპირება"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:109
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
 msgid "_Decrease Indent"
-msgstr "_Vähenda taandust"
+msgstr "_აბზაცის შემცირება"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
 msgid "_Edit"
-msgstr "_Redaktor"
+msgstr "_რედაქტირება"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:111
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
 msgid "_Find..."
-msgstr "_Otsi..."
+msgstr "_ძებნა..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:112
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
 msgid "_Font Size"
-msgstr "_Kirjasuurus"
+msgstr "_შრიფტის ზომა"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:113
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
 msgid "_Frown"
-msgstr "_Kulmukortsutus"
+msgstr "_მოღუშული"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:114
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
 msgid "_HTML File..."
-msgstr "_HTML-fail..."
+msgstr "_HTML ფაილი..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:115
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
 msgid "_Heading"
-msgstr "_Pealkiri"
+msgstr "_სათაური"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:116
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
 msgid "_Image..."
-msgstr "_Pilt..."
+msgstr "_გამოსახულება..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:117
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
 msgid "_Increase Indent"
-msgstr "_Suurenda taandust"
+msgstr "_აბზაცის გაზრდა"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:118
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
 msgid "_Indifferent"
-msgstr "Ü_kskõikne"
+msgstr "_გულგრილი"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:119
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:66
 msgid "_Italic"
-msgstr "_Kursiiv"
+msgstr "_დახრილი"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:120
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
 msgid "_Laughing"
-msgstr "_Naerev"
+msgstr "_სიცილი"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:121
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
 msgid "_Left"
-msgstr "_Vasak"
+msgstr "_მარცხნივ"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:122
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
 msgid "_Link..."
-msgstr "_Viide..."
+msgstr "_ბმული..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:123
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
 msgid "_Normal"
-msgstr "_Keskmine"
+msgstr "_ჩვეულებრივი"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
 msgid "_Page..."
-msgstr "_Lehekülg"
+msgstr "_გვერდი..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:125
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
 msgid "_Paragraph..."
-msgstr "_Lõik..."
+msgstr "_აბზაცი..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:126
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:127
 msgid "_Paste"
-msgstr "_Aseta"
+msgstr "_ჩასმა"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:127
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:128
 msgid "_Plain Text"
-msgstr "_Lihttekst"
+msgstr "_უბრალო ტექსტი"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:128
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
 msgid "_Preformatted"
-msgstr "_Eelvormindatud"
+msgstr "_ფორმატირებული"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:129
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
 msgid "_Redo"
-msgstr "_Taasta"
+msgstr "_აღდგენა"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:130
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
 msgid "_Replace..."
-msgstr "_Asenda..."
+msgstr "_შეცვლა..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:131
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
 msgid "_Right"
-msgstr "_Parem"
+msgstr "_მარჯვნივ"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:132
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:133
 msgid "_Roman Numeral List"
-msgstr "_Rooma numbrite loetelu"
+msgstr "_რომაული სია"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:133
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:134
 msgid "_Rule..."
-msgstr "_Reegel..."
+msgstr "_წესი..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:134
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
 msgid "_Smile"
-msgstr "_Naeratav"
+msgstr "_ღიმილი"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:135
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:72
 msgid "_Strikethrough"
-msgstr "_Läbikriipsutatud"
+msgstr "_ხაზდასმული"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:136
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
 msgid "_Style"
-msgstr "_Laad"
+msgstr "_სტილი"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:137
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
 msgid "_Table..."
-msgstr "_Tabel..."
+msgstr "_ცხრილი..."
 
 #.
 #. <submenu name="BackgroundColor" _label="Background Color">
@@ -780,392 +782,398 @@ msgstr "_Tabel..."
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:153
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:154
 msgid "_Text..."
-msgstr "_Tekst..."
+msgstr "_ტექსტი..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:154
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:155
 msgid "_Undecided"
-msgstr "_Kõhklev"
+msgstr "_გადაუწყვეტელი"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:155
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:156
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:75
 msgid "_Underline"
-msgstr "_Allajoonitud"
+msgstr "_ხაზგასმა"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:156
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:157
 msgid "_Undo"
-msgstr "_Tühista"
+msgstr "_გაუქმება"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:157
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:158
 msgid "_Wink"
-msgstr "_Silmapilgutus"
+msgstr "_ჩაპაჭუნება"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:1
 msgid "GNOME HTML Editor"
-msgstr "GNOME HTML Redaktor"
+msgstr "გნომის HTML რედაქტორი"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:2
 msgid "GNOME HTML Editor Control"
-msgstr "GNOME HTML-redaktori juhtimine"
+msgstr "გნომის HTML რედაქტორის მართვა"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:3
 msgid "GNOME HTML Editor Factory"
-msgstr "GNOME'i HTML-redaktori Factory"
+msgstr "გნომის HTML რედაქტორის სახელოსნო"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
 msgid "Insert Sick emoticon into document..."
-msgstr "Haige emotikon lisamine dokumendile..."
+msgstr "ავადმყოფობის მიმიკის ჩამატება..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
 msgid "Make the current Paragraph style Preformatted"
-msgstr "Eelvormindatud laadi määramine käesoleva lõigu laadiks"
+msgstr "მიმდინარე აბზაცის სტილის მოცემულ ფორმატში დაყენება"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
 #: ../components/html-editor/paragraph.c:106
 msgid "Preformatted"
-msgstr "Eelvormindatud"
+msgstr "მოცემულ ფორმატში"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
 msgid "S_ick"
-msgstr "Ha_ige"
+msgstr "_ავადმყოფოფი"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:159
 msgid "_Wrap Lines"
-msgstr "_Ridade murdmine"
+msgstr "_სტრიქონების გადატანა"
 
 #: ../components/html-editor/body.c:65
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:41
 msgid "None"
-msgstr "Puudub"
+msgstr "არცერთი"
 
 #: ../components/html-editor/body.c:73
 msgid "Perforated paper"
-msgstr "Perforeeritud paber"
+msgstr "პერფო-ქაღალდი"
 
 #: ../components/html-editor/body.c:81
 msgid "Blue ink"
-msgstr "Sinine tint"
+msgstr "მელნისფერი"
 
 #: ../components/html-editor/body.c:89
 msgid "Paper"
-msgstr "Paber"
+msgstr "ქაღალდი"
 
 #: ../components/html-editor/body.c:97
 msgid "Ribbon"
-msgstr "Lint"
+msgstr "ლენტა"
 
 #: ../components/html-editor/body.c:105
 msgid "Midnight"
-msgstr "Kesköö"
+msgstr "შუაღამე"
 
 #: ../components/html-editor/body.c:113
 msgid "Confidential"
-msgstr "Salajane"
+msgstr "კონფიდენციალური"
 
 #: ../components/html-editor/body.c:121
 msgid "Draft"
-msgstr "Mustand"
+msgstr "მონახაზი"
 
 #: ../components/html-editor/body.c:129
 msgid "Graph paper"
-msgstr "Millimeeterpaber"
+msgstr "მილიმეტრულა"
 
-#: ../components/html-editor/body.c:258 ../components/html-editor/text.c:170
+#: ../components/html-editor/body.c:256
+#: ../components/html-editor/text.c:170
 #: ../components/html-editor/toolbar.c:313
 msgid "Automatic"
-msgstr "Automaatne"
+msgstr "ავტომატური"
+
+#: ../components/html-editor/body.c:268
+msgid "_Text:"
+msgstr "_ტექსტი:"
+
+#: ../components/html-editor/body.c:269
+msgid "_Link:"
+msgstr "_ბმული:"
 
 #: ../components/html-editor/body.c:270
-msgid "_Text:"
-msgstr "_Tekst:"
-
-#: ../components/html-editor/body.c:271
-msgid "_Link:"
-msgstr "_Viit:"
+msgid "_Background:"
+msgstr "_ფონი:"
 
 #: ../components/html-editor/body.c:272
-msgid "_Background:"
-msgstr "_Taust:"
-
-#: ../components/html-editor/body.c:274
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:30
 msgid "Colors"
-msgstr "Värvid"
+msgstr "ფერები"
 
-#: ../components/html-editor/body.c:276 ../components/html-editor/body.c:304
+#: ../components/html-editor/body.c:274
+#: ../components/html-editor/body.c:302
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:23
 msgid "Background Image"
-msgstr "Taustapilt"
+msgstr "ფონური სურათი"
 
-#: ../components/html-editor/body.c:287
+#: ../components/html-editor/body.c:285
 msgid "Background Image File Path"
-msgstr "Taustapildi faili rada"
+msgstr "ფონური სურათის ფაილის მისამართი"
 
-#: ../components/html-editor/body.c:295
+#: ../components/html-editor/body.c:293
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:53
 #: ../components/html-editor/menubar.c:222
 msgid "Template"
-msgstr "Mall"
+msgstr "ნიმუში"
 
-#: ../components/html-editor/body.c:298
+#: ../components/html-editor/body.c:296
 msgid "T_emplate:"
-msgstr "_Mall:"
+msgstr "_ნიმუში:"
 
-#: ../components/html-editor/body.c:302
+#: ../components/html-editor/body.c:300
 msgid "C_ustom:"
-msgstr "K_ohandatud:"
+msgstr "_შერჩევითი:"
 
-#: ../components/html-editor/cell.c:340 ../components/html-editor/image.c:356
-#: ../components/html-editor/link.c:196 ../components/html-editor/rule.c:182
+#: ../components/html-editor/cell.c:340
+#: ../components/html-editor/image.c:356
+#: ../components/html-editor/link.c:196
+#: ../components/html-editor/rule.c:182
 #: ../components/html-editor/table.c:227
 #: ../components/html-editor/template.c:287
 #: ../components/html-editor/text.c:167
 msgid "Could not load glade file."
-msgstr "Glade faili pole võimalik laadida."
+msgstr "ვერ მოხერხდა ცარელა ფაილის ჩატვირთვა."
 
-#: ../components/html-editor/cell.c:363 ../components/html-editor/table.c:242
+#: ../components/html-editor/cell.c:363
+#: ../components/html-editor/table.c:242
 msgid "Transparent"
-msgstr "Läbipaistev"
+msgstr "გამჭვირვალე"
 
 #: ../components/html-editor/editor-control-factory.c:187
-#: ../components/html-editor/popup.c:195 ../components/html-editor/popup.c:276
+#: ../components/html-editor/popup.c:195
+#: ../components/html-editor/popup.c:276
 msgid "Properties"
-msgstr "Omadused"
+msgstr "პარამეტრები"
 
 #: ../components/html-editor/editor-control-factory.c:206
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:54
 #: ../components/html-editor/menubar.c:400
 #: ../components/html-editor/popup.c:204
 msgid "Text"
-msgstr "Tekst"
+msgstr "ტექსტი"
 
 #: ../components/html-editor/editor-control-factory.c:225
 #: ../components/html-editor/menubar.c:418
 #: ../components/html-editor/popup.c:222
 msgid "Paragraph"
-msgstr "Lõik"
+msgstr "აბზაცი"
 
 #: ../components/html-editor/editor-control-factory.c:229
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:42
 #: ../components/html-editor/menubar.c:382
 #: ../components/html-editor/popup.c:228
 msgid "Page"
-msgstr "Lehekülg"
+msgstr "გვერდი"
 
 #: ../components/html-editor/gi-color-combo.c:191
 msgid "color preview"
-msgstr "värvi eelvaade"
+msgstr "წინასწარი ფერადი ნახვა"
 
 #. This is the default custom color
 #: ../components/html-editor/gi-color-palette.c:399
 msgid "custom"
-msgstr "kohandatud"
+msgstr "სხვა"
 
 #. "Custom" color - we'll pop up a GnomeColorPicker
 #: ../components/html-editor/gi-color-palette.c:441
 msgid "Custom Color:"
-msgstr "Kohandatud värvus:"
+msgstr "პირადი ფერი:"
 
 #: ../components/html-editor/gi-color-palette.c:449
 msgid "Choose Custom Color"
-msgstr "Kohandatud värvuse valimine"
+msgstr "პირადი ფერის არჩევა"
 
 #: ../components/html-editor/gi-color-palette.c:582
 msgid "black"
-msgstr "must"
+msgstr "შავი"
 
 #: ../components/html-editor/gi-color-palette.c:583
 msgid "light brown"
-msgstr "helepruun"
+msgstr "კაკაოსფერი"
 
 #: ../components/html-editor/gi-color-palette.c:584
 msgid "brown gold"
-msgstr "kuldpruun"
+msgstr "თამბაქოსფერი"
 
 #: ../components/html-editor/gi-color-palette.c:585
 msgid "dark green #2"
-msgstr "tumeroheline #2"
+msgstr "მუქი მწვანე #2"
 
 #: ../components/html-editor/gi-color-palette.c:586
 msgid "navy"
-msgstr "tumesinine"
+msgstr "მუქი ლურჯი"
 
 #: ../components/html-editor/gi-color-palette.c:587
 #: ../components/html-editor/gi-color-palette.c:643
 msgid "dark blue"
-msgstr "tumesinine"
+msgstr "ლურჯი"
 
 #: ../components/html-editor/gi-color-palette.c:588
 msgid "purple #2"
-msgstr "purpurne #2"
+msgstr "მეწამული #2"
 
 #: ../components/html-editor/gi-color-palette.c:589
 msgid "very dark gray"
-msgstr "väga tume hall"
+msgstr "მოშავო-ნაცრისფერი"
 
 #: ../components/html-editor/gi-color-palette.c:592
 #: ../components/html-editor/gi-color-palette.c:648
 msgid "dark red"
-msgstr "tumepunane"
+msgstr "მუქი წითელი"
 
 #: ../components/html-editor/gi-color-palette.c:593
 msgid "red-orange"
-msgstr "punakasoranž"
+msgstr "ფორთოხლისფერი"
 
 #: ../components/html-editor/gi-color-palette.c:594
 msgid "gold"
-msgstr "kuldne"
+msgstr "ოქროსფერი"
 
 #: ../components/html-editor/gi-color-palette.c:595
 msgid "dark green"
-msgstr "tumeroheline"
+msgstr "მუქი მწვანე"
 
 #: ../components/html-editor/gi-color-palette.c:596
 #: ../components/html-editor/gi-color-palette.c:649
 msgid "dull blue"
-msgstr "tuhmsinine"
+msgstr "ბაცი ლურჯი"
 
 #: ../components/html-editor/gi-color-palette.c:597
 #: ../components/html-editor/gi-color-palette.c:650
 msgid "blue"
-msgstr "sinine"
+msgstr "ცისფერი"
 
 #: ../components/html-editor/gi-color-palette.c:598
 msgid "dull purple"
-msgstr "tuhmpurpurne"
+msgstr "ბაცი მეწამული"
 
 #: ../components/html-editor/gi-color-palette.c:599
 msgid "dark grey"
-msgstr "tumehall"
+msgstr "მუქი ნაცრისფერი"
 
 #: ../components/html-editor/gi-color-palette.c:602
 msgid "red"
-msgstr "punane"
+msgstr "წითელი"
 
 #: ../components/html-editor/gi-color-palette.c:603
 msgid "orange"
-msgstr "oranž"
+msgstr "ნარინჯისფერი"
 
 #: ../components/html-editor/gi-color-palette.c:604
 msgid "lime"
-msgstr "erkvalge"
+msgstr "ლიმნისფერი"
 
 #: ../components/html-editor/gi-color-palette.c:605
 msgid "dull green"
-msgstr "tuhmroheline"
+msgstr "ბაცი მწვანე"
 
 #: ../components/html-editor/gi-color-palette.c:606
 msgid "dull blue #2"
-msgstr "tuhmsinine #2"
+msgstr "ბაცი მწვანე #2"
 
 #: ../components/html-editor/gi-color-palette.c:607
 msgid "sky blue #2"
-msgstr "taevasinine #2"
+msgstr "ცისფერი #2"
 
 #: ../components/html-editor/gi-color-palette.c:608
 #: ../components/html-editor/gi-color-palette.c:647
 msgid "purple"
-msgstr "purpur"
+msgstr "მეწამული"
 
 #: ../components/html-editor/gi-color-palette.c:609
 msgid "gray"
-msgstr "hall"
+msgstr "ნაცრისფერი"
 
 #: ../components/html-editor/gi-color-palette.c:612
 #: ../components/html-editor/gi-color-palette.c:644
 msgid "magenta"
-msgstr "fuksiin"
+msgstr "ჟოლოსფერი"
 
 #: ../components/html-editor/gi-color-palette.c:613
 msgid "bright orange"
-msgstr "erkoranž"
+msgstr "ღია ნარინჯისფერი"
 
 #: ../components/html-editor/gi-color-palette.c:614
 #: ../components/html-editor/gi-color-palette.c:645
 msgid "yellow"
-msgstr "kollane"
+msgstr "ყვითელი"
 
 #: ../components/html-editor/gi-color-palette.c:615
 msgid "green"
-msgstr "roheline"
+msgstr "მწვანე"
 
 #: ../components/html-editor/gi-color-palette.c:616
 #: ../components/html-editor/gi-color-palette.c:646
 msgid "cyan"
-msgstr "tsüaan"
+msgstr "ღია ცისფერი"
 
 #: ../components/html-editor/gi-color-palette.c:617
 msgid "bright blue"
-msgstr "erksinine"
+msgstr "კაშკაშა ცისფერი"
 
 #: ../components/html-editor/gi-color-palette.c:618
 #: ../components/html-editor/gi-color-palette.c:635
 msgid "red purple"
-msgstr "purpurpunane"
+msgstr "მოწითალო-მეწამული"
 
 #: ../components/html-editor/gi-color-palette.c:619
 msgid "light grey"
-msgstr "helehall"
+msgstr "ღია ნაცრისფერი"
 
 #: ../components/html-editor/gi-color-palette.c:622
 #: ../components/html-editor/gi-color-palette.c:639
 msgid "pink"
-msgstr "roosa"
+msgstr "ვარდისფერი"
 
 #: ../components/html-editor/gi-color-palette.c:623
 msgid "light orange"
-msgstr "heleoranž"
+msgstr "ღია ნარინჯისფერი"
 
 #: ../components/html-editor/gi-color-palette.c:624
 #: ../components/html-editor/gi-color-palette.c:636
 msgid "light yellow"
-msgstr "helekollane"
+msgstr "ღია ყვითელი"
 
 #: ../components/html-editor/gi-color-palette.c:625
 msgid "light green"
-msgstr "heleroheline"
+msgstr "ღია მწვანე"
 
 #: ../components/html-editor/gi-color-palette.c:626
 msgid "light cyan"
-msgstr "heletsüaan"
+msgstr "მქრქალი ცისფერი"
 
 #: ../components/html-editor/gi-color-palette.c:627
 #: ../components/html-editor/gi-color-palette.c:637
 msgid "light blue"
-msgstr "helesinine"
+msgstr "ღია ცისფერი"
 
 #: ../components/html-editor/gi-color-palette.c:628
 #: ../components/html-editor/gi-color-palette.c:641
 msgid "light purple"
-msgstr "helepurpurne"
+msgstr "ღია მეწამული"
 
 #: ../components/html-editor/gi-color-palette.c:629
 msgid "white"
-msgstr "valge"
+msgstr "თეთრი"
 
 #: ../components/html-editor/gi-color-palette.c:634
 msgid "purplish blue"
-msgstr "purpurne sinine"
+msgstr "ლურჯ-მეწამული"
 
 #: ../components/html-editor/gi-color-palette.c:638
 msgid "dark purple"
-msgstr "tumelilla"
+msgstr "მუქი მეწამული"
 
 #: ../components/html-editor/gi-color-palette.c:640
 msgid "sky blue"
-msgstr "taevasinine"
+msgstr "ცისფერი"
 
 #. set the a11y name
 #: ../components/html-editor/gi-combo-box.c:423
 msgid "Popup"
-msgstr "Hüpik"
+msgstr "მხტუნავი ფანჯარა"
 
 #: ../components/html-editor/gnome-gtkhtml-editor.c:74
 msgid "GtkHTML Editor Control"
-msgstr "GtkHTML-redaktori juhtimine"
+msgstr "GNOME-ს HTML რედაქტორის მოწყობა"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:1
 msgid "    "
@@ -1186,212 +1194,212 @@ msgstr "+4"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:11
 msgid "<b>Alignment &amp; Behaviour</b>"
-msgstr "<b>Joondus ja käitumine</b>"
+msgstr "<b> წყობა &amp;მანერა</b>**************************???"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:12
 msgid "<b>Background</b>"
-msgstr "<b>Taust</b>"
+msgstr "b>ფონი</b>"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:13
 msgid "<b>General</b>"
-msgstr "<b>Üldine</b>"
+msgstr "<b>ზოგადი</b>"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:14
 msgid "<b>Layout</b>"
-msgstr "<b>Paigutus</b>"
+msgstr "<b>განთავსება</b>"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:15
 msgid "<b>Scope</b>"
-msgstr "<b>Ulatus</b>"
+msgstr "<b> მასშტაბი</b>"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:16
 msgid "<span weight=\"bold\">General</span>"
-msgstr "<span weight=\"bold\">Üldine</span>"
+msgstr "<span weight=\"bold\">საერთო</span>"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:17
 msgid "<span weight=\"bold\">Layout</span>"
-msgstr "<span weight=\"bold\">Paigutus</span>"
+msgstr "<span weight=\"bold\">განთავსება</span>"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:18
 msgid "<span weight=\"bold\">Link</span>"
-msgstr "<span weight=\"bold\">Viit</span>"
+msgstr "<span weight=\"bold\"> ბმული</span>"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:19
 msgid "<span weight=\"bold\">Size</span>"
-msgstr "<span weight=\"bold\">Suurus</span>"
+msgstr "<span weight=\"bold\">ზომა</span>"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:20
 msgid "<span weight=\"bold\">Style</span>"
-msgstr "<span weight=\"bold\">Laad</span>"
+msgstr "<span weight=\"bold\">სტილი</span>"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:21
 msgid "<span weight=\"bold\">Template</span>"
-msgstr "<span weight=\"bold\">Mall</span>"
+msgstr "<span weight=\"bold\">ნიმუში</span>"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:22
 msgid "Alignment:"
-msgstr "Joondus:"
+msgstr "წყობა:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:24
 msgid "Bottom"
-msgstr "All"
+msgstr "ქვემოთ"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:25
 msgid "C_ell"
-msgstr "_Lahter"
+msgstr "_უჯრა"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:26
 msgid "C_olor:"
-msgstr "_Värvus:"
+msgstr "_ფერი:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:27
 #: ../components/html-editor/popup.c:246
 msgid "Cell"
-msgstr "Lahter"
+msgstr "უჯრა"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:28
 #: ../components/html-editor/paragraph.c:132
 #: ../components/html-editor/toolbar.c:528
 msgid "Center"
-msgstr "Keskel"
+msgstr "ცენტრში"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:29
 msgid "Col_umn"
-msgstr "_Veerg"
+msgstr "_სვეტი"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:31
 msgid "Column span:"
-msgstr "Veergude ulatus:"
+msgstr "სვეტის სიგანე:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:32
 msgid "Enable"
-msgstr "Luba"
+msgstr "ჩართვა"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:33
 msgid "Hea_der style"
-msgstr "_Päise laad"
+msgstr "_სათაურის სტილი"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:34
 msgid "Horizontal alignment:"
-msgstr "Horisontaalne joondus:"
+msgstr "ჰორიზონტალური წყობა:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:35
 msgid "Horizontal:"
-msgstr "Horisontaalne:"
+msgstr "თარაზული:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:36
 msgid "I_mage:"
-msgstr "_Pilt:"
+msgstr "_სურათი:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:38
 #: ../components/html-editor/paragraph.c:131
 msgid "Left"
-msgstr "Vasak"
+msgstr "მარცხნივ"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:39
 msgid "Link properties"
-msgstr "Viida omadused"
+msgstr "ბმულის პარამეტრები"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:40
 msgid "Middle"
-msgstr "Keskel"
+msgstr "შუა"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:43
 msgid "Percent"
-msgstr "Protsent"
+msgstr "პროცენტი"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:44
 msgid "Pixels"
-msgstr "Pikslit"
+msgstr "წერტილები"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:45
 #: ../components/html-editor/paragraph.c:133
 msgid "Right"
-msgstr "Parem"
+msgstr "მარჯვნივ"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:46
 msgid "Row span:"
-msgstr "Ridade ulatus:"
+msgstr "მწკრივების სიმაღლე:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:48
 msgid "Shade"
-msgstr "Varjutatud"
+msgstr "ჩრდილი"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:49
 msgid "Si_ze:"
-msgstr "_Suurus:"
+msgstr "_ზომა:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:50
 msgid "Size:"
-msgstr "Suurus:"
+msgstr "ზომა:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:51
 msgid "Standard"
-msgstr "Standard"
+msgstr "სტანდარტული"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:55
 msgid "Top"
-msgstr "Üleval"
+msgstr "ზემოთ"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:56
 msgid "Vertical:"
-msgstr "Vertikaalne:"
+msgstr "ვერტიკალური:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:57
 msgid "Width:"
-msgstr "Laius:"
+msgstr "სიგანე:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:58
 msgid "_Alignment:"
-msgstr "_Joondus:"
+msgstr "_წყობა:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:60
 msgid "_Border:"
-msgstr "Ää_ris:"
+msgstr "_ჩარჩო:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:61
 msgid "_Color:"
-msgstr "_Värvus:"
+msgstr "_ფერი:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:62
 msgid "_Columns:"
-msgstr "_Veerud:"
+msgstr "_სვეტები:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:63
 msgid "_Description:"
-msgstr "_Kirjeldus:"
+msgstr "_აღწერა:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:64
 msgid "_Height:"
-msgstr "_Kõrgus:"
+msgstr "_სიმაღლე:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:65
 msgid "_Image:"
-msgstr "_Pilt:"
+msgstr "_სურათი:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:67
 msgid "_Padding:"
-msgstr "_Täidis:"
+msgstr "_დაშორება:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:68
 msgid "_Row"
-msgstr "_Rida"
+msgstr "_მწკრივი"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:69
 msgid "_Rows:"
-msgstr "_Ridu:"
+msgstr "_მწკრივები:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:70
 msgid "_Source:"
-msgstr "_Allikas:"
+msgstr "_წყარო:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:71
 msgid "_Spacing:"
-msgstr "_Jaotus:"
+msgstr "_ინტერვალი:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:73
 msgid "_Table"
-msgstr "_Tabel"
+msgstr "_ცხრილი"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:74
 msgid "_URL:"
@@ -1399,23 +1407,23 @@ msgstr "_URL:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:76
 msgid "_Width:"
-msgstr "_Laius:"
+msgstr "_სიგანე:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:77
 msgid "_Wrap Text"
-msgstr "_Ridade murdmine"
+msgstr "_ტექსტის გადატანა"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:78
 msgid "_X-Padding:"
-msgstr "_X-täidis:"
+msgstr "_X-დაშორება:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:79
 msgid "_Y-Padding:"
-msgstr "_Y-täidis:"
+msgstr "_Y დაშორება::"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:80
 msgid "follow"
-msgstr "Järgi"
+msgstr "მიყევი"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:81
 msgid "px"
@@ -1431,7 +1439,7 @@ msgstr "URL:"
 
 #: ../components/html-editor/link.c:212
 msgid "Description:"
-msgstr "Kirjeldus:"
+msgstr "აღწერა:"
 
 #: ../components/html-editor/menubar.c:141
 #: ../components/html-editor/menubar.c:164
@@ -1439,478 +1447,480 @@ msgstr "Kirjeldus:"
 #: ../components/html-editor/menubar.c:218
 #: ../components/html-editor/popup.c:111
 msgid "Insert"
-msgstr "Lisa"
+msgstr "ჩასმა"
 
 #: ../components/html-editor/menubar.c:306
 #, c-format
 msgid "Error loading file '%s': %s"
-msgstr "Viga faili '%s' laadimisel: %s"
+msgstr "ვერ ჩაიტვირთა ფაილი '%s': %s"
 
 #: ../components/html-editor/menubar.c:332
 #: ../components/html-editor/menubar.c:341
 msgid "Insert HTML File"
-msgstr "HTML-faili lisamine"
+msgstr "HTML ფაილის ჩასმა"
 
 #: ../components/html-editor/menubar.c:332
 #: ../components/html-editor/menubar.c:341
 msgid "Insert Text File"
-msgstr "Tekstifaili lisamine"
+msgstr "ტექსტური ფაილის ჩასმა"
 
 #: ../components/html-editor/menubar.c:378
 #: ../components/html-editor/menubar.c:396
 #: ../components/html-editor/menubar.c:414
 msgid "Format"
-msgstr "Vorming"
+msgstr "ფორმატი"
 
 #: ../components/html-editor/paragraph.c:90
 #: ../components/html-editor/toolbar.c:59
 msgid "Header 1"
-msgstr "Päis 1"
+msgstr "სათაური 1"
 
 #: ../components/html-editor/paragraph.c:91
 #: ../components/html-editor/toolbar.c:60
 msgid "Header 2"
-msgstr "Päis 2"
+msgstr "სათაური 2"
 
 #: ../components/html-editor/paragraph.c:92
 #: ../components/html-editor/toolbar.c:61
 msgid "Header 3"
-msgstr "Päis 3"
+msgstr "სათაური 3"
 
 #: ../components/html-editor/paragraph.c:93
 #: ../components/html-editor/toolbar.c:62
 msgid "Header 4"
-msgstr "Päis 4"
+msgstr "სათაური  4"
 
 #: ../components/html-editor/paragraph.c:94
 #: ../components/html-editor/toolbar.c:63
 msgid "Header 5"
-msgstr "Päis 5"
+msgstr "სათაური 5"
 
 #: ../components/html-editor/paragraph.c:95
 #: ../components/html-editor/toolbar.c:64
 msgid "Header 6"
-msgstr "Päis 6"
+msgstr "სათაური 6"
 
 #: ../components/html-editor/paragraph.c:98
 msgid "Dot item"
-msgstr "Punktiga kirje"
+msgstr "წერტილი"
 
 #: ../components/html-editor/paragraph.c:99
 msgid "Number item"
-msgstr "Numbriline kirje"
+msgstr "ციფრი"
 
 #: ../components/html-editor/paragraph.c:100
 msgid "Roman item"
-msgstr "Rooma numbriga kirje"
+msgstr "რომაული ციფრი"
 
 #: ../components/html-editor/paragraph.c:101
 msgid "Alphabeta item"
-msgstr "Tähestikuline kirje"
+msgstr "ასო"
 
 #: ../components/html-editor/paragraph.c:104
 #: ../components/html-editor/toolbar.c:65
 msgid "Address"
-msgstr "Aadress"
+msgstr "მისამართი"
 
 #: ../components/html-editor/paragraph.c:113
 msgid "_Style:"
-msgstr "_Laad:"
+msgstr "_სტილი:"
 
 #: ../components/html-editor/paragraph.c:116
 msgid "General"
-msgstr "Üldine"
+msgstr "ზოგადი"
 
 #: ../components/html-editor/paragraph.c:135
 msgid "Alignment"
-msgstr "Joondus"
+msgstr "წყობა"
 
 #: ../components/html-editor/popup.c:451
 msgid "Paste Quotation"
-msgstr "Aseta tsiteering"
+msgstr "ციტატის ჩასმა"
 
 #: ../components/html-editor/popup.c:455
 msgid "Insert Link"
-msgstr "Lisa viit"
+msgstr "ბმულის ჩამატება"
 
 #: ../components/html-editor/popup.c:462
 msgid "Remove Link"
-msgstr "Eemalda viit"
+msgstr "ბმულის წაშლა"
 
 #: ../components/html-editor/popup.c:469
 msgid "Style"
-msgstr "Laad"
+msgstr "სტილი"
 
 #: ../components/html-editor/popup.c:472
 msgid "Text Style..."
-msgstr "Teksti laad..."
+msgstr "ტექსტი სტილი..."
 
-#: ../components/html-editor/popup.c:474 ../components/html-editor/popup.c:480
+#: ../components/html-editor/popup.c:474
+#: ../components/html-editor/popup.c:480
 #: ../components/html-editor/popup.c:490
 msgid "Paragraph Style..."
-msgstr "Lõigu laad..."
+msgstr "აბზაცის სტილი..."
 
 #: ../components/html-editor/popup.c:478
 msgid "Link Style..."
-msgstr "Viida laad..."
+msgstr "ბმულის სტილი..."
 
 #: ../components/html-editor/popup.c:484
 msgid "Rule Style..."
-msgstr "Reegli laad..."
+msgstr "წესის სტილი..."
 
 #: ../components/html-editor/popup.c:488
 msgid "Image Style..."
-msgstr "Pildi laad..."
+msgstr "გამოსახულების სტილი..."
 
 #: ../components/html-editor/popup.c:499
 msgid "Cell Style..."
-msgstr "Lahtri laad..."
+msgstr "უჯრის სტილი..."
 
 #: ../components/html-editor/popup.c:502
 msgid "Table Style..."
-msgstr "Tabeli laad..."
+msgstr "ცხრილის სტილი..."
 
 #: ../components/html-editor/popup.c:508
 msgid "Page Style..."
-msgstr "Lehekülje laad..."
+msgstr "გვერდის სტილი..."
 
 #: ../components/html-editor/popup.c:513
 msgid "Table insert"
-msgstr "Tabeli lisamine"
+msgstr "ცხრილის ჩამატება"
 
 #: ../components/html-editor/popup.c:516
 msgid "Row above"
-msgstr "Rida ülalpool"
+msgstr "წინა მწკრივი"
 
 #: ../components/html-editor/popup.c:517
 msgid "Row below"
-msgstr "Rida allpool"
+msgstr "შემდეგი მწკრივი"
 
 #: ../components/html-editor/popup.c:519
 msgid "Column before"
-msgstr "Veerg enne"
+msgstr "წინა სვეტი"
 
 #: ../components/html-editor/popup.c:520
 msgid "Column after"
-msgstr "Veerg peale"
+msgstr "შემდეგი სვეტი"
 
 #: ../components/html-editor/popup.c:525
 msgid "Table delete"
-msgstr "Tabeli kustutamine"
+msgstr "ცხრილის წაშლა"
 
 #: ../components/html-editor/popup.c:527
 msgid "Row"
-msgstr "Rida"
+msgstr "სტრიქონი"
 
 #: ../components/html-editor/popup.c:528
 msgid "Column"
-msgstr "Veerg"
+msgstr "სვეტი"
 
 #: ../components/html-editor/popup.c:529
 msgid "Cell contents"
-msgstr "Lahtri sisu"
+msgstr "უჯრის შემცველობა"
 
 #: ../components/html-editor/popup.c:537
 msgid "Check Word Spelling..."
-msgstr "Kontrolli sõna õigekirja..."
+msgstr "მართლწერის შემოწმება..."
 
 #: ../components/html-editor/popup.c:538
 msgid "Ignore Misspelled Word"
-msgstr "Kirjaveaga sõna eiramine"
+msgstr "სინტაქსური შეცდომების იგნორირება"
 
 #: ../components/html-editor/popup.c:543
 msgid "Add Word to"
-msgstr "Lisa sõna"
+msgstr "სიტყვის დამატება"
 
 #: ../components/html-editor/popup.c:547
 #, c-format
 msgid "%s Dictionary"
-msgstr "%s sõnaraamat"
+msgstr "ლექსიკონი %s"
 
 #: ../components/html-editor/popup.c:556
 msgid "Add Word to Dictionary"
-msgstr "Lisa sõna sõnaraamatusse"
+msgstr "ლექსიკონში სიტყვის დამატება"
 
 #: ../components/html-editor/popup.c:562
 msgid "Input Methods"
-msgstr "Sisestusmeetodid"
+msgstr "შეყვანის მეთოდები"
 
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: ../components/html-editor/replace.c:84
 msgid "Replace confirmation"
-msgstr "Asendamise kinnitus"
+msgstr "შეცვლის დადასტურება"
 
 #: ../components/html-editor/replace.c:85
 msgid "Replace _All"
-msgstr "Asenda _kõik"
+msgstr "ჩაანაცვლე _ყველა"
 
 #: ../components/html-editor/replace.c:86
 msgid "_Next"
-msgstr "_Järgmine"
+msgstr "_შემდეგი"
 
 #: ../components/html-editor/replace.c:88
 msgid "_Replace"
-msgstr "_Asenda"
+msgstr "_ჩაანაცვლე"
 
 #: ../components/html-editor/replace.c:182
 msgid "Search _backward"
-msgstr "Otsi _tahapoole"
+msgstr "_უკუმიმართულებით ძებნა"
 
 #: ../components/html-editor/replace.c:183
 #: ../components/html-editor/search.c:117
 msgid "Case _sensitive"
-msgstr "_Tõstutundlik"
+msgstr "_რეგისტრის გათვალისწინებით"
 
 #: ../components/html-editor/replace.c:193
 msgid "R_eplace:"
-msgstr "_Asenda:"
+msgstr "_ჩანაცვლება"
 
 #: ../components/html-editor/replace.c:197
 msgid "_With:"
-msgstr "_Järgnevaga:"
+msgstr "_რითი:"
 
 #: ../components/html-editor/search.c:116
 msgid "_Backward"
-msgstr "_Tagasi"
+msgstr "_უკუმიმართულებით"
 
 #: ../components/html-editor/search.c:118
 msgid "_Regular Expression"
-msgstr "_Regulaaravaldis"
+msgstr "_რეგულარული გამოსახულება"
 
 #: ../components/html-editor/search.c:122
 msgid "Input the words you want to search here"
-msgstr "Sisesta otsitavad sõnad siia"
+msgstr "შეიყვანეთ საძებნი სიტყვები"
 
 #: ../components/html-editor/spellchecker.c:114
 msgid ""
 "Unable to add word to dictionary,\n"
 "language settings are broken.\n"
 msgstr ""
-"Sõna pole võimalik sõnastikku lisada,\n"
-"keelesätted on katki.\n"
+"ლექსიკონში სიტყვის დამატება ვერ მოხერხდა,\n"
+"ენის პარამეტრები დაზიანებულია.\n"
 
 #: ../components/html-editor/spellchecker.c:302
 msgid "No misspelled word found"
-msgstr "Ühtki kirjavigadega sõna ei leitud"
+msgstr "არასწორი სიტყვები ვერ მოიძებნა"
 
 #: ../components/html-editor/spellchecker.c:309
 msgid "Spell checker"
-msgstr "Õigekirja kontrollimine"
+msgstr "მართლწერა"
 
-#: ../components/html-editor/spellchecker.c:402
+#: ../components/html-editor/spellchecker.c:403
 msgid "Current _Languages"
-msgstr "Aktiivsed _keeled"
+msgstr "_მიმდინარე ენები"
 
 #: ../components/html-editor/template.c:90
 msgid "Note"
-msgstr "Märkus"
+msgstr "შენიშვნა"
 
 #: ../components/html-editor/template.c:101
 #: ../components/html-editor/template.c:121
 msgid "Place your text here"
-msgstr "Aseta oma tekst siia"
+msgstr "შეიყვანეთ თქვენი ტექსტი"
 
 #: ../components/html-editor/template.c:104
 msgid "Image frame"
-msgstr "Pildi raam"
+msgstr "გამოსახულების ჩარჩო"
 
 #: ../components/html-editor/template.c:296
 msgid "Template Labels"
-msgstr "Mallide etiketid"
+msgstr "შაბლონის ჭდეები"
 
 #: ../components/html-editor/test-html-editor-control.c:338
 msgid "Open file..."
-msgstr "Ava fail..."
+msgstr "ფაილის გახსნა..."
 
 #: ../components/html-editor/test-html-editor-control.c:340
 msgid "Save file as..."
-msgstr "Salvesta fail kui..."
+msgstr "ფაილის შენახვა როგორც..."
 
 #: ../components/html-editor/test-html-editor-control.c:572
 msgid "GtkHTML Editor Test Container"
-msgstr "GtkHTML-redaktori testkonteiner"
+msgstr "GtkHTML რედაქტორის ტესტ-კონტეინერი"
 
 #: ../components/html-editor/toolbar.c:57
 msgid "Roman List"
-msgstr "Rooma numbritega loetelu"
+msgstr "რომაული სია"
 
 #: ../components/html-editor/toolbar.c:526
 msgid "Left align"
-msgstr "Vasak joondus"
+msgstr "მარცხნივ სწორება"
 
 #: ../components/html-editor/toolbar.c:530
 msgid "Right align"
-msgstr "Parem joondus"
+msgstr "მარჯვნივ სწორება"
 
 #: ../components/html-editor/toolbar.c:550
 msgid "Toggle typewriter font style"
-msgstr "Trükimasina kirjastiili sisse-/väljalülitamine"
+msgstr "საბეჭდი მანქანის სტილის შრიფტის გადართვა"
 
 #: ../components/html-editor/toolbar.c:552
 msgid "Bold"
-msgstr "Rasvane"
+msgstr "მუქი"
 
 #: ../components/html-editor/toolbar.c:552
 msgid "Makes the text bold"
-msgstr "Teksti rasvaseks tegemine"
+msgstr "ტექსტის გამუქება"
 
 #: ../components/html-editor/toolbar.c:554
 msgid "Italic"
-msgstr "Kaldkiri"
+msgstr "დახრილი"
 
 #: ../components/html-editor/toolbar.c:554
 msgid "Makes the text italic"
-msgstr "Teksti kursiivi panemine"
+msgstr "ტექსტის დახრა"
 
 #: ../components/html-editor/toolbar.c:556
 msgid "Underline"
-msgstr "Allakriipsutus"
+msgstr "ხაზგასმული"
 
 #: ../components/html-editor/toolbar.c:556
 msgid "Underlines the text"
-msgstr "Teksti allajoonimine"
+msgstr "ტექსტის ხაზგასმა"
 
 #: ../components/html-editor/toolbar.c:558
 msgid "Strikes out the text"
-msgstr "Teksti läbikriipsutamine"
+msgstr "ტექსტის ხაზდასმა"
 
 #: ../components/html-editor/toolbar.c:567
 msgid "Unindent"
-msgstr "Eemalda taane"
+msgstr "აბზაცის გარეშე"
 
 #: ../components/html-editor/toolbar.c:567
 msgid "Indents the paragraphs less"
-msgstr "Lõigu taande vähendamine"
+msgstr "აბზაცის შემცირება"
 
 #: ../components/html-editor/toolbar.c:569
 msgid "Indent"
-msgstr "Taane"
+msgstr "აბზაცი"
 
 #: ../components/html-editor/toolbar.c:569
 msgid "Indents the paragraphs more"
-msgstr "Lõigu taande suurendamine"
+msgstr "აბზაცის გაზრდა"
 
 #: ../components/html-editor/utils.c:132
 msgid "Sample"
-msgstr "Näidis"
+msgstr "ნიმუში"
 
 #: ../components/html-editor/utils.c:205
 msgid "_Test URL..."
-msgstr "_Testi URL-i..."
+msgstr "_შეამოწმე URL..."
 
 #: ../components/html-editor/utils.c:248
 msgid ""
 "The edited object was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
-"Redigeeritav objekt eemaldati dokumendist.\n"
-"Sinu muudatusi pole võimalik rakendada."
+"რედაქტირებული ობიექტი დოკუმენტიდან ამოღებულია.\n"
+"შეტანილი ცვლილებები დაკარგულია."
+
+#: ../src/gtkhtml.c:2993
+msgid "Editable"
+msgstr "რედაქტირებადი"
+
+#: ../src/gtkhtml.c:2994
+msgid "Whether the html can be edited"
+msgstr "დაშვებულია თუ არა html-ის რედაქტირება"
 
 #: ../src/gtkhtml.c:3000
-msgid "Editable"
-msgstr "Redigeeritav"
+msgid "Document Title"
+msgstr "დოკუმენტის სათაური"
 
 #: ../src/gtkhtml.c:3001
-msgid "Whether the html can be edited"
-msgstr "Kas html'i saab redigeerida"
+msgid "The title of the current document"
+msgstr "მიმდინარე დოკუმენტის სათაური"
 
 #: ../src/gtkhtml.c:3007
-msgid "Document Title"
-msgstr "Dokumendi pealkiri"
+msgid "Document Base"
+msgstr "დოკუმენტის ფუძე"
 
 #: ../src/gtkhtml.c:3008
-msgid "The title of the current document"
-msgstr "Aktiivse dokumendi pealkiri"
+msgid "The base URL for relative references"
+msgstr "ბაზური URL ფარდობითი ბმულებისათვის"
 
 #: ../src/gtkhtml.c:3014
-msgid "Document Base"
-msgstr "Dokumendi baas"
+msgid "Target Base"
+msgstr "მიმღები ბაზა"
 
 #: ../src/gtkhtml.c:3015
-msgid "The base URL for relative references"
-msgstr "BaasURL suhteliste viitade jaoks"
-
-#: ../src/gtkhtml.c:3021
-msgid "Target Base"
-msgstr "Sihtkoha baas"
-
-#: ../src/gtkhtml.c:3022
 msgid "The base URL of the target frame"
-msgstr "BaasURL sihtraami jaoks"
+msgstr "ბაზური URL მიმღები ჩარჩოსათვის"
+
+#: ../src/gtkhtml.c:3024
+msgid "Fixed Width Font"
+msgstr "ფიქსირებული სიგანის შრიფტი"
+
+#: ../src/gtkhtml.c:3025
+msgid "The Monospace font to use for typewriter text"
+msgstr "ფიქსირებული სიგანის შრიფტი საბეჭდმანქანისებური ტექსტისათვის"
 
 #: ../src/gtkhtml.c:3031
-msgid "Fixed Width Font"
-msgstr "Fikseeritud laiusega kirjatüüp"
+msgid "New Link Color"
+msgstr "ახალი ბმულის ფერი"
 
 #: ../src/gtkhtml.c:3032
-msgid "The Monospace font to use for typewriter text"
-msgstr "Monospace kirjatüüp kirjutusmasinateksti jaoks"
+msgid "The color of new link elements"
+msgstr "ახალი ბმული ელემენტების ფერი"
+
+#: ../src/gtkhtml.c:3037
+msgid "Visited Link Color"
+msgstr "მონახულებული ბმულის ფერი"
 
 #: ../src/gtkhtml.c:3038
-msgid "New Link Color"
-msgstr "Uus viidavärvus"
+msgid "The color of visited link elements"
+msgstr "მონახულებული ბმული ელემენტების ფერი"
 
-#: ../src/gtkhtml.c:3039
-msgid "The color of new link elements"
-msgstr "Uute viidaelementide värvus"
+#: ../src/gtkhtml.c:3043
+msgid "Active Link Color"
+msgstr "აქტიური ბმულის ფერი"
 
 #: ../src/gtkhtml.c:3044
-msgid "Visited Link Color"
-msgstr "Külastatud viida värvus"
+msgid "The color of active link elements"
+msgstr "აქტიური ბმული ელემენტების ფერი"
 
-#: ../src/gtkhtml.c:3045
-msgid "The color of visited link elements"
-msgstr "Külastatud viidaelementide värvus"
+#: ../src/gtkhtml.c:3049
+msgid "Spelling Error Color"
+msgstr "მართლწერული შეცდომის ფერი"
 
 #: ../src/gtkhtml.c:3050
-msgid "Active Link Color"
-msgstr "Aktiivse viida värvus"
+msgid "The color of the spelling error markers"
+msgstr "მართლწერული შეცდომების მარკერის ფერი"
 
-#: ../src/gtkhtml.c:3051
-msgid "The color of active link elements"
-msgstr "Aktiivsete viitade värvus"
+#: ../src/gtkhtml.c:3055
+msgid "Cite Quotation Color"
+msgstr "ციტატის ფერი"
 
 #: ../src/gtkhtml.c:3056
-msgid "Spelling Error Color"
-msgstr "Kirjavea värvus"
-
-#: ../src/gtkhtml.c:3057
-msgid "The color of the spelling error markers"
-msgstr "Kirjavigade tähistamise värvus"
-
-#: ../src/gtkhtml.c:3062
-msgid "Cite Quotation Color"
-msgstr "Tsiteeringu värvus"
-
-#: ../src/gtkhtml.c:3063
 msgid "The color of the cited text"
-msgstr "Tsiteeritud teksti värvus"
+msgstr "ციტირებული ტექსტის ფერი"
 
-#: ../src/htmlbutton.c:142
+#: ../src/htmlbutton.c:140
 msgid "Submit Query"
-msgstr "Saada päring"
+msgstr "მოთხოვნის დადასტურება"
 
-#: ../src/htmlbutton.c:145
+#: ../src/htmlbutton.c:143
 msgid "Reset"
-msgstr "Algväärtusta"
+msgstr "საწყისი პარამეტრები"
 
 #. TODO2 dialog instead of warning
 #: ../src/htmlengine-print.c:192
 msgid "Cannot allocate default font for printing\n"
-msgstr "Printimise vaikefonti pole võimalik eraldada\n"
+msgstr "საბეჭდ შრიფტს ნაგულისხმები მნიშვნელობა ვერ მიენიჭა\n"
 
 #: ../src/test.c:375
 msgid "GtkHTML Test"
-msgstr "GtkHTML test"
+msgstr "GtkHTML-ტესტი"
 
-#: ../src/testgtkhtml.c:123
+#: ../src/testgtkhtml.c:121
 msgid "Print pre_view"
-msgstr "Printimise eel_vaade"
+msgstr "_ამონაბეჭდის წინასწარ ნახვა"
 
-#: ../src/testgtkhtml.c:123
+#: ../src/testgtkhtml.c:121
 msgid "Print preview"
-msgstr "Printimise eelvaade"
+msgstr "ამონაბეჭდის წინასწარ ნახვა"
 
-#: ../src/testgtkhtml.c:1017
+#: ../src/testgtkhtml.c:1013
 msgid "GtkHTML Test Application"
-msgstr "GtkHTML testrakendus"
+msgstr "სატესტო პროგრამა GtkHTML"
+

@@ -1,20 +1,30 @@
-2006-05-15  Harish Krishnaswamy  <kharish@novell.com>
+2006-05-29  Harish Krishnaswamy  <kharish@novell.com>
 
-	* configure.in: Release 3.11.2
+	* NEWS, configure.in: Release update - 3.10.2
 
+2006-04-10  Harish Krishnaswamy  <kharish@novell.com>
 
-2006-04-24  Harish Krishnaswamy  <kharish@novell.com>
+	---------------
+	Release 3.10.1
+	---------------
 
-	* NEWS, configure.in: Release 3.11.1
-
-2006-04-18  Kjartan Maraas  <kmaraas@gnome.org>
-
-	* configure.in: Remove obsolete entry for no_NO
-	* po/no.po: And the translation.
+	* NEWS, configure.in: version bump, NEWS updates.
 
 2006-03-26  Tommi Vainikainen  <thv@iki.fi>
 
 	* configure.in (ALL_LINGUAS): Added Dzongkha (dz).
+
+2006-03-18  Vladimer Sichinava  <vlsichinava@gmail.com>
+
+        * configure.in: Added "ka" (Georgian) to ALL_LINGUAS
+
+2006-03-13  Harish Krishnaswamy  <kharish@novell.com>
+
+	---------------
+	Release 3.10.0
+	---------------
+
+	* NEWS, configure.in: version bump, NEWS updates.
 
 2006-02-27  Srinivasa Ragavan <sragavan@novell.com>
 

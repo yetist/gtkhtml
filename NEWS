@@ -1,7 +1,31 @@
-GtkHTML-3.11.1 2006-04-24
---------------------------
-First release of the 3.11 development cycle.
-More bug fixes.
+GtkHTML-3.10.2 "Clear Sky" 2006-05-29
+--------------------------------------
+
+Bug fixes and updated translations.
+
+Bug fixes since last stable release :
+http://go-evolution.org/Evo2.6.2#gtkhtml
+
+
+GtkHTML-3.10.1 "Mist" 2006-04-10
+--------------------------------
+
+Bug fixes and updated translations.
+
+Bug fixes since last stable release :
+http://go-evolution.org/Evo2.6.1#gtkhtml
+
+GtkHTML-3.10.0 "Bloom" 2006-03-13
+---------------------------------
+
+What is new since 3.8 ?
+-----------------------
+
+Numerous fixes and updated translations.
+
+Bug fixes since last stable release :
+http://go-evolution.org/Evo2.6.0#gtkhtml
+
 
 GtkHTML-3.9.92 2006-02-27
 ----------------------------

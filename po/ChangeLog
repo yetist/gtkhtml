@@ -1,56 +1,48 @@
-2006-05-29  Kjartan Maraas  <kmaraas@gnome.org>
+2006-05-27  Benoît Dejean  <benoit@placenet.org>
 
-	* nb.po: Updated Norwegian bokmål translation.
-
-2006-05-28  Pema Geyleg  <pema.geyleg@gmail.com>
-
-	* dz.po: Updated Dzongkha translation.
-
-2006-05-25  Inaki Larranaga  <dooteo@euskalgnu.org>
-
-	* eu.po: Updated Basque translation.
-
-2006-05-23  Theppitak Karoonboonyanan  <thep@linux.thai.net>
-
-	* th.po: Updated Thai translation.
-
-2006-05-21  Miloslav Trmac  <mitr@volny.cz>
-
-	* cs.po: Updated Czech translation.
+	* fr.po: Updated French translation.
 
 2006-05-17  Francisco Javier F. Serrador  <serrador@cvs.gnome.org>
 
 	* es.po: Updated Spanish translation.
 
-2006-05-07  Francisco Javier F. Serrador  <serrador@cvs.gnome.org>
+2006-05-14  Benoît Dejean  <benoit@placenet.org>
 
-	* es.po: Updated Spanish translation.
+	* fr.po: Updated French translation.
 
-2006-04-24  Vincent van Adrighem  <adrighem@gnome.org>
+2006-05-03  Ahmad Riza H Nst  <rizahnst@eriagempita.co.id>
 
-	* nl.po: Translation updated by Tino Meinen.
+	* id.po: Updated.
 
-2006-04-18  Ankit Patel  <ankit644@yahoo.com>
+2006-04-19  Artur Flinta  <aflinta@cvs.gnome.org>
 
-        * gu.po: Updated Gujarati Translation.
+	* pl.po: Updated Polish translation by GNOME PL Team.
 
-2006-04-17  Clytie Siddall <clytie@riverland.net.au>
+2006-04-16  Pema Geyleg  <pema.geyleg@gmail.com>
 
-	* vi.po: Updated Vietnamese translation.
+	* dz.po: Updated Dzongkha translation.
+
+2006-03-27  Yair Hershkovitz  <yairhr@gmail.com>
+
+	* he.po: Updated Hebrew translation.
 
 2006-03-26  Tommi Vainikainen  <thv@iki.fi>
 
 	* dz.po: Added Dzongkha translation from Pema Geyleg.
 
-2006-03-19  Ilkka Tuohela  <hile@iki.fi>
+2006-03-18  Vladimer Sichinava  <vlsichinava@gmail.com>
 
-	* fi.po: Updated Finnish translation.
+	* ka.po: Added Georgian translation.
 
-2006-03-11  Priit Laes  <amd@store20.com>
+2006-03-13  Priit Laes  <amd@store20.com>
 
 	* et.po: Translation updated by Ivar Smolin.
 
-2006-03-09  Laurent Dhima  <laurenti@alblinux.net>
+2006-03-12  Miloslav Trmac  <mitr@volny.cz>
+
+	* cs.po: Updated Czech translation by Petr Tomeš.
+
+2006-03-10  Laurent Dhima  <laurenti@alblinux.net>
 
 	* sq.po: Updated Albanian translation.
 
