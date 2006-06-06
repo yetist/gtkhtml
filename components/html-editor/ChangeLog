@@ -1,3 +1,10 @@
+2006-06-06  Srinivasa Ragavan  <sragavan@novell.com>
+
+	** Commiting Partha's patch to show spell suggestions to r-click menu.
+
+	* popup.c: (replace_suggestion_cb), (prepare_properties_and_menu):
+	Show suggestions in right click menu.
+
 2006-05-15  Nancy Cai <nancy.cai@sun.com>
 
 	* GNOME_GtkHTML_Editor.xml.in:correct the table bar tip message

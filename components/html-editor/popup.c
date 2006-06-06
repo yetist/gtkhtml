@@ -292,6 +292,12 @@ spell_check_cb (GtkWidget *mi, GtkHTMLControlData *cd)
 }
 
 static void
+replace_suggestion_cb (GtkWidget *mi, GtkHTMLControlData *cd)
+{
+	html_engine_replace_spell_word_with (cd->html->engine, g_object_get_data (G_OBJECT (mi), "rep_word"));
+}
+
+static void
 spell_add (GtkWidget *mi, GtkHTMLControlData *cd)
 {
 	HTMLEngine *e = cd->html->engine;
@@ -372,7 +378,7 @@ insert_html (GtkWidget *mi, GtkHTMLControlData *cd)
         (*props) ++;
 
 #define SUBMENU(l) \
-		        menuitem = gtk_menu_item_new_with_label (l); \
+		        menuitem = gtk_menu_item_new_with_mnemonic (l); \
 			gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem); \
 			gtk_widget_show (menuitem); \
 			(*items)++; items_sep++; \
@@ -534,7 +540,33 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items, guint *props)
 	if (!active && obj && html_object_is_text (obj)
 	    && !html_engine_spell_word_is_valid (e)) {
 		ADD_SEP;
-		ADD_ITEM (_("Check Word Spelling..."), spell_check_cb, NONE);
+		if (get_n_languages (cd) >= 1) {
+			gchar *word;
+			gint i, j, k;
+			GNOME_Spell_StringSeq* seq;
+			CORBA_Environment ev;
+
+			for (i = 0; i < cd->languages->_length; i ++) {
+				if (strstr (html_engine_get_language (cd->html->engine), cd->languages->_buffer [i].abbreviation)) {
+					word = html_engine_get_spell_word (cd->html->engine);
+					CORBA_exception_init (&ev);
+					seq = GNOME_Spell_Dictionary_getSuggestions(cd->dict, word, &ev);
+					CORBA_exception_free (&ev);
+					g_free (word);
+					SUBMENU (cd->languages->_buffer [i].name);
+					k = seq->_length/10;
+					for (j = 0; j < seq->_length; j+=2) {
+						if (!strcmp (cd->languages->_buffer[i].abbreviation, (char *)seq->_buffer[j+1])) {
+							ADD_ITEM ((gchar *)seq->_buffer[j], replace_suggestion_cb, NONE);
+							g_object_set_data (G_OBJECT (menuitem), "rep_word", (gchar *)seq->_buffer[j]);
+						}
+					}
+					END_SUBMENU;
+				}
+			}
+			
+		} 
+		ADD_SEP;
 		ADD_ITEM (_("Ignore Misspelled Word"), spell_ignore, NONE);		
 		if (get_n_languages (cd) > 1) {
 			gchar *lang;
