@@ -1,3 +1,9 @@
+2006-06-08  Rohini S  <srohini@novell.com>
+
+	* htmlclueflow.c (get_start_indent_item): Check Unordered lists too.
+
+	Fixes bug #334814
+
 2006-06-08  Sebastien Bacher  <seb128@debian.org>
 
 	* htmltext.c: 	Fixing glyph representation of Tab.

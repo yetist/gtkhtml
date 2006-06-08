@@ -1551,32 +1551,30 @@ get_start_tag (HTMLClueFlow *self)
 static const char *
 get_start_indent_item (HTMLListType type)
 {
-	if (type) {
-		switch (type) {
-		case HTML_LIST_TYPE_UNORDERED:
-		case HTML_LIST_TYPE_MENU:
-		case HTML_LIST_TYPE_DIR:
-			return "UL";
-		case HTML_LIST_TYPE_ORDERED_LOWER_ALPHA:
-			return "OL TYPE=a";
-		case HTML_LIST_TYPE_ORDERED_UPPER_ALPHA:
-			return "OL TYPE=A";
-		case HTML_LIST_TYPE_ORDERED_LOWER_ROMAN:
-			return "OL TYPE=i";
-		case HTML_LIST_TYPE_ORDERED_UPPER_ROMAN:
-		return "OL TYPE=I";
-		case HTML_LIST_TYPE_ORDERED_ARABIC:
-			return "OL TYPE=1";
-		case HTML_LIST_TYPE_GLOSSARY_DD:
-		case HTML_LIST_TYPE_GLOSSARY_DL:
-			return "DL";
-		case HTML_LIST_TYPE_BLOCKQUOTE_CITE:
-			return "BLOCKQUOTE TYPE=CITE";
-		case HTML_LIST_TYPE_BLOCKQUOTE:
-			return "BLOCKQUOTE";
-		}
-	} else 
-		return "";
+	switch (type) {
+	case HTML_LIST_TYPE_UNORDERED:
+	case HTML_LIST_TYPE_MENU:
+	case HTML_LIST_TYPE_DIR:
+		return "UL";
+	case HTML_LIST_TYPE_ORDERED_LOWER_ALPHA:
+		return "OL TYPE=a";
+	case HTML_LIST_TYPE_ORDERED_UPPER_ALPHA:
+		return "OL TYPE=A";
+	case HTML_LIST_TYPE_ORDERED_LOWER_ROMAN:
+		return "OL TYPE=i";
+	case HTML_LIST_TYPE_ORDERED_UPPER_ROMAN:
+	return "OL TYPE=I";
+	case HTML_LIST_TYPE_ORDERED_ARABIC:
+		return "OL TYPE=1";
+	case HTML_LIST_TYPE_GLOSSARY_DD:
+	case HTML_LIST_TYPE_GLOSSARY_DL:
+		return "DL";
+	case HTML_LIST_TYPE_BLOCKQUOTE_CITE:
+		return "BLOCKQUOTE TYPE=CITE";
+	case HTML_LIST_TYPE_BLOCKQUOTE:
+		return "BLOCKQUOTE";
+	}
+	return "";
 }
 
 static const char *
