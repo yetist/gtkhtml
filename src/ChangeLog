@@ -1,3 +1,8 @@
+2006-06-08  Sebastien Bacher  <seb128@debian.org>
+
+	* htmltext.c: 	Fixing glyph representation of Tab.
+	Fixes bug #334873. (Committed by Andre Klapper)
+
 2006-04-26  Li Yuan <li.yuan@sun.com>
 
 	* htmlobject.c: (move_object_downtree_cursor):

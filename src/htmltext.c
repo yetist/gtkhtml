@@ -28,6 +28,8 @@
 #include <regex.h>
 #include <math.h>
 
+#define PANGO_ENABLE_BACKEND /* Required to get PANGO_GLYPH_EMPTY */
+
 #include <pango/pango.h>
 
 #include "htmltext.h"
@@ -52,6 +54,12 @@ static HTMLObjectClass *parent_class = NULL;
 static const PangoAttrClass html_pango_attr_font_size_klass;
 
 #define HT_CLASS(x) HTML_TEXT_CLASS (HTML_OBJECT (x)->klass)
+
+#ifdef PANGO_GLYPH_EMPTY
+#define EMPTY_GLYPH PANGO_GLYPH_EMPTY
+#else
+#define EMPTY_GLYPH 0
+#endif
 
 static SpellError * spell_error_new         (guint off, guint len);
 static void         spell_error_destroy     (SpellError *se);
@@ -1357,7 +1365,7 @@ html_text_shape_tab (HTMLText *text, PangoGlyphString *glyphs)
 	/* copied from pango sources */
 	pango_glyph_string_set_size (glyphs, 1);
 
-	glyphs->glyphs[0].glyph = 0;
+	glyphs->glyphs[0].glyph = EMPTY_GLYPH;
 	glyphs->glyphs[0].geometry.x_offset = 0;
 	glyphs->glyphs[0].geometry.y_offset = 0;
 	glyphs->glyphs[0].attr.is_cluster_start = 1;
