@@ -1,5 +1,9 @@
 2006-06-12  Harish Krishnaswamy  <kharish@novell.com>
 
+	* configure.in: Release 3.11.3
+
+2006-06-12  Harish Krishnaswamy  <kharish@novell.com>
+
 	Patch submitted by Przemysław Grzegorczyk
 
 	* configure.in: Bump intltool dependency.

@@ -1,3 +1,15 @@
+GtkHTML-3.11.3 2006-06-12
+-------------------------
+Updated translations :
+Priit Laes, Kjartan Maraas, Pema Geyleg, Inaki Larranaga,
+Theppitak Karoonboonyanan, Miloslav Trmac, Francisco Javier
+F. Serrador.
+
+Bug fixes : Rohini, Harish K, Sebastien Bacher.
+[327841, 303634, 334814, 334873]
+
+GNOME Goal for po/LINGUAS : Przemysław Grzegorczyk
+
 GtkHTML-3.11.1 2006-04-24
 --------------------------
 First release of the 3.11 development cycle.
