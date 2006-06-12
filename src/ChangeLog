@@ -1,3 +1,10 @@
+2006-02-13  Rohini S  <srohini@novell.com>
+
+	Fixes bug #303634
+
+	* htmlclueflow.c (html_clueflow_real_get_direction): Remove direction association
+	to blank clueflows
+
 2006-06-08  Rohini S  <srohini@novell.com>
 
 	* htmlclueflow.c (get_start_indent_item): Check Unordered lists too.

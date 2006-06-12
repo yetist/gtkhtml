@@ -2473,8 +2473,8 @@ html_clueflow_real_get_direction (HTMLObject *o)
 		HTMLObject *child;
 		for (child = HTML_CLUE (o)->head; child; child = child->next) {
 			if (HTML_IS_TEXT (child)) {
-				if (child == HTML_CLUE (o)->head && html_object_get_length (child) == 0 && o->prev)
-					return html_object_get_direction (o->prev);
+				/*if (child == HTML_CLUE (o)->head && html_object_get_length (child) == 0 && o->prev)
+					return html_object_get_direction (o->prev);*/
 
 				dir = html_text_direction_pango_to_html (html_text_get_pango_direction (HTML_TEXT (child)));
 
