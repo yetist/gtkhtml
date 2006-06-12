@@ -33,7 +33,7 @@ dnl
 dnl Due to the sed scripts being split on 90 line
 dnl blocks, this macro needs to be right at the beggining.
 dnl
-AC_PROG_INTLTOOL([0.30])
+IT_PROG_INTLTOOL([0.35.0])
 
 AC_ISC_POSIX
 AC_PROG_CC
@@ -63,7 +63,6 @@ AC_SUBST(CFLAGS)
 AC_SUBST(CPPFLAGS)
 AC_SUBST(LDFLAGS)
 
-ALL_LINGUAS="am ar az be bg bn ca cs cy da de dz el en_CA en_GB es et eu fa fi fr ga gl gu he hi hr hu id it ja ko ku lt lv mk ml ms nb ne nl nn pa pl pt pt_BR ro ru rw sk sl sq sr sr@Latn sv ta th tr uk vi xh zh_CN zh_HK zh_TW"
 AM_GLIB_GNU_GETTEXT
 
 GAIL_MODULES="gail >= 1.1.0"
