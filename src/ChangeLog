@@ -1,5 +1,11 @@
 2006-06-12  Rohini S  <srohini@novell.com>
 
+	* gtkhtml.c (add_bindings): Key bindings for Tables changed
+
+	Fixes bug #327841
+
+2006-06-12  Rohini S  <srohini@novell.com>
+
 	Fixes bug #303634
 
 	* htmlclueflow.c (html_clueflow_real_get_direction): Remove direction association
