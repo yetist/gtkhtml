@@ -1,3 +1,10 @@
+2006-06-13  Li Yuan <li.yuan@sun.com>
+
+	* text.c: (html_a11y_text_get_n_links):
+	Check whether the text still exists before use it.
+
+	Fixes #344190
+
 2006-04-25  Li Yuan  <li.yuan@sun.com>
 
 	* object.c: (gtk_html_a11y_new):
