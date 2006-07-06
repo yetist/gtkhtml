@@ -1198,7 +1198,7 @@ msgstr "<b>Bố trí</b>"
 
 #:../components/html-editor/gtkhtml-editor-properties.glade.h:15
 msgid "<b>Scope</b>"
-msgstr "<b>Phạm vị</b>"
+msgstr "<b>Phạm vi</b>"
 
 #:../components/html-editor/gtkhtml-editor-properties.glade.h:16
 msgid "<span weight=\"bold\">General</span>"
