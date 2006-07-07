@@ -324,9 +324,14 @@ html_engine_set_font_style (HTMLEngine *e,
 	gboolean rv;
 	GtkHTMLFontStyle old = e->insertion_font_style;
 
-	g_return_val_if_fail (e != NULL, FALSE);
-	g_return_val_if_fail (HTML_IS_ENGINE (e), FALSE);
-	g_return_val_if_fail (e->editable, FALSE);
+	if (!e)
+		return FALSE;
+
+	if (!HTML_IS_ENGINE (e))
+		return FALSE;
+
+	if (!e->editable)
+		return FALSE;
 
 	/* printf ("and %d or %d\n", and_mask, or_mask); */
 	e->insertion_font_style &= and_mask;

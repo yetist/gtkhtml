@@ -1,3 +1,11 @@
+2006-07-06  Andre Klapper  <a9016009@gmx.de>
+
+	* htmlengine-edit-fontstyle.c:
+	(html_engine_get_document_font_style),
+	(html_engine_set_font_style): Fix for #327326.
+	Patch submitted by srohini@novell.com and
+	vvaradhan@novell.com.
+
 2006-06-12  Rohini S  <srohini@novell.com>
 
 	* gtkhtml.c (add_bindings): Key bindings for Tables changed
