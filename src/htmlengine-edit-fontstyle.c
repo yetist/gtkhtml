@@ -125,9 +125,14 @@ get_color_from_selection (HTMLEngine *engine)
 GtkHTMLFontStyle
 html_engine_get_document_font_style (HTMLEngine *engine)
 {
-	g_return_val_if_fail (engine != NULL, GTK_HTML_FONT_STYLE_DEFAULT);
-	g_return_val_if_fail (HTML_IS_ENGINE (engine), GTK_HTML_FONT_STYLE_DEFAULT);
-	g_return_val_if_fail (engine->editable, GTK_HTML_FONT_STYLE_DEFAULT);
+	if (!engine)
+		return GTK_HTML_FONT_STYLE_DEFAULT;
+	
+	if (!HTML_IS_ENGINE (engine))
+		return GTK_HTML_FONT_STYLE_DEFAULT;
+	
+	if (!engine->editable)
+		return GTK_HTML_FONT_STYLE_DEFAULT;
 
 	if (html_engine_is_selection_active (engine))
 		return get_font_style_from_selection (engine);
