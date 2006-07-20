@@ -778,6 +778,55 @@ gtk_html_get_top_html (GtkHTML *html)
 	return html;
 }
 
+static cairo_font_options_t *
+get_font_options ()
+{
+	char *antialiasing, *hinting, *subpixel_order;
+	GConfClient *gconf = gconf_client_get_default ();
+	cairo_font_options_t *font_options = cairo_font_options_create ();
+
+	/* Antialiasing */
+	antialiasing = gconf_client_get_string (gconf,
+			"/desktop/gnome/font_rendering/antialiasing", NULL);
+	if (strcmp (antialiasing, "grayscale") == 0)
+		cairo_font_options_set_antialias (font_options, CAIRO_ANTIALIAS_GRAY);
+	else if (strcmp (antialiasing, "rgba") == 0)
+		cairo_font_options_set_antialias (font_options, CAIRO_ANTIALIAS_SUBPIXEL);
+	else if (strcmp (antialiasing, "none") == 0)
+		cairo_font_options_set_antialias (font_options, CAIRO_ANTIALIAS_NONE);
+	else
+		cairo_font_options_set_antialias (font_options, CAIRO_ANTIALIAS_DEFAULT);
+
+	hinting = gconf_client_get_string (gconf,
+			"/desktop/gnome/font_rendering/hinting", NULL);
+	if (strcmp (hinting, "full") == 0)
+		cairo_font_options_set_hint_style (font_options, CAIRO_HINT_STYLE_FULL);
+	else if (strcmp (hinting, "medium") == 0)
+		cairo_font_options_set_hint_style (font_options, CAIRO_HINT_STYLE_MEDIUM);
+	else if (strcmp (hinting, "slight") == 0)
+		cairo_font_options_set_hint_style (font_options, CAIRO_HINT_STYLE_SLIGHT);
+	else if (strcmp (hinting, "none") == 0)
+		cairo_font_options_set_hint_style (font_options, CAIRO_HINT_STYLE_NONE);
+	else
+		cairo_font_options_set_hint_style (font_options, CAIRO_HINT_STYLE_DEFAULT);
+
+	subpixel_order = gconf_client_get_string (gconf,
+			"/desktop/gnome/font_rendering/rgba_order", NULL);
+	if (strcmp (subpixel_order, "rgb") == 0)
+		cairo_font_options_set_subpixel_order (font_options, CAIRO_SUBPIXEL_ORDER_RGB);
+	else if (strcmp (subpixel_order, "bgr") == 0)
+		cairo_font_options_set_subpixel_order (font_options, CAIRO_SUBPIXEL_ORDER_BGR);
+	else if (strcmp (subpixel_order, "vrgb") == 0)
+		cairo_font_options_set_subpixel_order (font_options, CAIRO_SUBPIXEL_ORDER_VRGB);
+	else if (strcmp (subpixel_order, "vbgr") == 0)
+		cairo_font_options_set_subpixel_order (font_options, CAIRO_SUBPIXEL_ORDER_VBGR);
+	else
+		cairo_font_options_set_subpixel_order (font_options, CAIRO_SUBPIXEL_ORDER_DEFAULT);
+
+	g_object_unref (gconf);
+	return font_options;
+}
+
 void
 gtk_html_set_fonts (GtkHTML *html, HTMLPainter *painter)
 {
@@ -789,6 +838,7 @@ gtk_html_set_fonts (GtkHTML *html, HTMLPainter *painter)
 	gint  fixed_size = 0;
 	const char *font_var = NULL;
 	gint  font_var_size = 0;
+	cairo_font_options_t *font_options;
 
 	top_level = GTK_WIDGET (gtk_html_get_top_html (html));
 	style = gtk_widget_get_style (top_level);
@@ -837,6 +887,10 @@ gtk_html_set_fonts (GtkHTML *html, HTMLPainter *painter)
 				       fixed_size, FALSE);
 	if (fixed_desc)
 		pango_font_description_free (fixed_desc);
+
+	font_options = get_font_options ();
+	pango_cairo_context_set_font_options (painter->pango_context, font_options);
+	cairo_font_options_destroy (font_options);
 
 	g_free (fixed_name);
 }
