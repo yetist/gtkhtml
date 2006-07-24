@@ -1,3 +1,14 @@
+GtkHTML-3.11.90 2006-07-24
+--------------------------
+
+Updated Translations :
+
+Hendrik Richter, Daniel Nylander.
+
+Other changes:
+
+Font rendering now with Cairo (Rajeev Ramanathan)
+
 GtkHTML-3.11.4 2006-07-10
 -------------------------
 
