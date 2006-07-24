@@ -1,3 +1,9 @@
+2006-07-24  Harish Krishnaswamy  <kharish@novell.com>
+
+	* gtkhtml.c: (get_font_options): Handle cases when the
+	props are undefined. This bug is currently causing Evo
+	to crash as soon as it comes up.
+
 2006-07-06  Andre Klapper  <a9016009@gmx.de>
 
 	* htmlengine-edit-fontstyle.c:
