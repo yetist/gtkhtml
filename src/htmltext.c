@@ -1190,8 +1190,14 @@ html_text_prepare_attrs (HTMLText *text, HTMLPainter *painter)
 	HTMLClueFlow *flow = NULL;
 	HTMLEngine *e = NULL;
 	PangoAttribute *attr;
+	PangoDirection dir,org_dir;
 
 	attrs = pango_attr_list_new ();
+	org_dir = pango_context_get_base_dir (painter->pango_context);
+	dir = html_text_get_pango_direction (text);
+	if (org_dir != dir) 
+		pango_context_set_base_dir (painter->pango_context, dir);
+
 
 	if (HTML_OBJECT (text)->parent && HTML_IS_CLUEFLOW (HTML_OBJECT (text)->parent))
 		flow = HTML_CLUEFLOW (HTML_OBJECT (text)->parent);
@@ -1199,8 +1205,15 @@ html_text_prepare_attrs (HTMLText *text, HTMLPainter *painter)
 	if (painter->widget && GTK_IS_HTML (painter->widget))
 		e = html_object_engine (HTML_OBJECT (text), GTK_HTML (painter->widget)->engine);
 
-	if (flow && e)
+	if (flow && e) {
 		html_text_add_cite_color (attrs, text, flow, e);
+		if (org_dir != dir) {
+			html_engine_freeze (e);
+                	flow->dir = html_text_direction_pango_to_html (dir);
+                	html_engine_thaw(e);
+		}
+        }
+
 
 	if (HTML_IS_PLAIN_PAINTER (painter)) {
 		attr = pango_attr_family_new (painter->font_manager.fixed.face);

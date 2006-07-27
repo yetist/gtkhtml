@@ -1,3 +1,9 @@
+2006-06-15  Nancy Cai <nancy.cai@sun.com>
+
+	Fixes bug # 345618
+	* htmltext.c: (html_text_prepare_attrs): Correct display direction
+	for arabic.
+
 2006-07-24  Harish Krishnaswamy  <kharish@novell.com>
 
 	* gtkhtml.c: (get_font_options): Handle cases when the
