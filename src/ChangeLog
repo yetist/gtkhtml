@@ -1,3 +1,11 @@
+2006-07-31 Björn Lindqvist  <bjourne@gmail.com>
+
+	Reviewed by Harish Krishnaswamy <kharish@novell.com>
+
+	* htmltext.c: (save), (update_index_interval),
+	(append_selection_string), (html_text_set_text):
+	Mop compiler warnings. Fixes #335072.
+
 2006-06-15  Nancy Cai <nancy.cai@sun.com>
 
 	Fixes bug # 345618

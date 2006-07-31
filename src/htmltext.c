@@ -1811,10 +1811,12 @@ save (HTMLObject *self, HTMLEngineSaveState *state)
 
 		do {
 			GSList *attrs;
-			guint start_index, end_index;
+			gint start_index, end_index;
 
 			attrs = pango_attr_iterator_get_attrs (iter);
-			pango_attr_iterator_range (iter, &start_index, &end_index);
+			pango_attr_iterator_range (iter,
+						   &start_index,
+						   &end_index);
 			if (end_index > text->text_bytes)
 				end_index = text->text_bytes;
 
@@ -2013,7 +2015,9 @@ convert_nbsp (gchar *fill, const gchar *text)
 }
 
 static void
-update_index_interval (int *start_index, int *end_index, GSList *changes)
+update_index_interval (guint *start_index,
+		       guint *end_index,
+		       GSList *changes)
 {
 	GSList *c;
 	int index, delta;
@@ -2394,7 +2398,9 @@ append_selection_string (HTMLObject *self,
 	last = html_text_get_text (text,
 				   text->select_start + text->select_length);
 	*/
-	html_engine_save_string_append_nonbsp (buffer, p, last - p);
+	html_engine_save_string_append_nonbsp (buffer,
+					       (guchar *)p,
+					       last - p);
 
 }
 
@@ -2817,7 +2823,8 @@ html_text_set_text (HTMLText *text, const gchar *new_text)
 {
 	g_free (text->text);
 	text->text_len = -1;
-	text->text_bytes = html_text_sanitize (&new_text, &text->text_len);
+	text->text_bytes = html_text_sanitize (&new_text,
+					       (gint *)&text->text_len);
 	text->text = g_memdup (new_text, text->text_bytes + 1);
 	text->text [text->text_bytes] = '\0';
 	html_object_change_set (HTML_OBJECT (text), HTML_CHANGE_ALL);
