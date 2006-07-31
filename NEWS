@@ -1,41 +1,46 @@
-GtkHTML-3.11.90 2006-07-24
---------------------------
-
-Updated Translations :
-
-Hendrik Richter, Daniel Nylander.
-
-Other changes:
-
-Font rendering now with Cairo (Rajeev Ramanathan)
-
-GtkHTML-3.11.4 2006-07-10
+GtkHTML-3.10.3 2006-07-31
 -------------------------
 
-Updated Translations :
+Updated translations:
 
-Runa Bhattacharjee, Benoît Dejean, Ilkka Tuohela,
-Yair Hershkovitz, Rajesh Ranjan, Raivis Dejus,
-Changwoo Ryu, Hendrik Richter.
+Raivis Dejus (lv), Changwoo Ryu (ko).
 
-Bug fixes : Rohini, Varadhan, Li Yuan
+Bug fixes :
 
-GtkHTML-3.11.3 2006-06-12
--------------------------
-Updated translations :
-Priit Laes, Kjartan Maraas, Pema Geyleg, Inaki Larranaga,
-Theppitak Karoonboonyanan, Miloslav Trmac, Francisco Javier
-F. Serrador.
+#303634 - 100% CPU Usage on message open (Rohini S)
+#334814 - Wrong html generation of bullet list (Rohini S)
+#334873 - Ugly TAB in compose (Sebastien Bacher)
+#344190 - Evolution crashes when run with Orca (Li Yuan)
 
-Bug fixes : Rohini, Harish K, Sebastien Bacher.
-[327841, 303634, 334814, 334873]
 
-GNOME Goal for po/LINGUAS : Przemysław Grzegorczyk
+GtkHTML-3.10.2 "Clear Sky" 2006-05-29
+--------------------------------------
 
-GtkHTML-3.11.1 2006-04-24
---------------------------
-First release of the 3.11 development cycle.
-More bug fixes.
+Bug fixes and updated translations.
+
+Bug fixes since last stable release :
+http://go-evolution.org/Evo2.6.2#gtkhtml
+
+
+GtkHTML-3.10.1 "Mist" 2006-04-10
+--------------------------------
+
+Bug fixes and updated translations.
+
+Bug fixes since last stable release :
+http://go-evolution.org/Evo2.6.1#gtkhtml
+
+GtkHTML-3.10.0 "Bloom" 2006-03-13
+---------------------------------
+
+What is new since 3.8 ?
+-----------------------
+
+Numerous fixes and updated translations.
+
+Bug fixes since last stable release :
+http://go-evolution.org/Evo2.6.0#gtkhtml
+
 
 GtkHTML-3.9.92 2006-02-27
 ----------------------------

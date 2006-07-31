@@ -127,10 +127,10 @@ html_engine_get_document_font_style (HTMLEngine *engine)
 {
 	if (!engine)
 		return GTK_HTML_FONT_STYLE_DEFAULT;
-	
+
 	if (!HTML_IS_ENGINE (engine))
 		return GTK_HTML_FONT_STYLE_DEFAULT;
-	
+
 	if (!engine->editable)
 		return GTK_HTML_FONT_STYLE_DEFAULT;
 

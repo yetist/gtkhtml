@@ -1,45 +1,4 @@
-2006-07-29  Thierry Randrianiriana  <thierryR@cvs.gnome.org>
-
-	* mg.po: Added Malagasy translation.
-	* LINGUAS: Added Malagasy 'mg'.
-
-2006-07-26  Vincent van Adrighem  <adrighem@gnome.org>
-
-	* nl.po: Translation updated by Tino Meinen.
-
-2006-07-18  Hendrik Richter  <hendrikr@gnome.org>
-
-	* de.po: Updated German translation.
-
-2006-07-16  Daniel Nylander  <po@danielnylander.se>
-
-        * sv.po: Updated Swedish translation.
-
-2006-07-03  Runa Bhattacharjee <runabh@gmail.com>
-
-        * bn_IN.po: Added Bengali India Translation
-        * LINGUAS: Added Bengali India (bn_IN) to the list of languages.
-
-2006-07-02  Benoît Dejean  <benoit@placenet.org>
-
-	* fr.po: Updated French translation.
-
-2006-07-02  Ilkka Tuohela  <hile@iki.fi>
-
-	* fi.po: Updated Finnish translation.
-
-2006-06-29  Runa Bhattacharjee <runa@bengalinux.org>
-	* bn.po: Updated Bengali (bn) Translation.
-
-2006-06-28  Yair Hershkovitz  <yairhr@gmail.com>
-
-	* he.po: Updated Hebrew translation.
-
-2006-06-26  Rajesh Ranjan <rajeshkajha@yahoo.com>
-
-        * hi.po: Updated Hindi Translation.
-
-2006-06-17  Raivis Dejus  <orvils@gmail.com>
+2006-06-19  Raivis Dejus  <orvils@gmail.com>
 
 	* lv.po: Updated Latvian translation.
 
@@ -47,67 +6,51 @@
 
 	* ko.po: Updated Korean translation.
 
-2006-06-15  Hendrik Richter  <hendrikr@gnome.org>
+2006-05-27  Benoît Dejean  <benoit@placenet.org>
 
-	* de.po: Updated German translation.
-
-2006-06-11  Priit Laes  <amd@store20.com>
-
-	* et.po: Translation updated.
-
-2006-05-29  Kjartan Maraas  <kmaraas@gnome.org>
-
-	* nb.po: Updated Norwegian bokmål translation.
-
-2006-05-28  Pema Geyleg  <pema.geyleg@gmail.com>
-
-	* dz.po: Updated Dzongkha translation.
-
-2006-05-25  Inaki Larranaga  <dooteo@euskalgnu.org>
-
-	* eu.po: Updated Basque translation.
-
-2006-05-23  Theppitak Karoonboonyanan  <thep@linux.thai.net>
-
-	* th.po: Updated Thai translation.
-
-2006-05-21  Miloslav Trmac  <mitr@volny.cz>
-
-	* cs.po: Updated Czech translation.
+	* fr.po: Updated French translation.
 
 2006-05-17  Francisco Javier F. Serrador  <serrador@cvs.gnome.org>
 
 	* es.po: Updated Spanish translation.
 
-2006-05-07  Francisco Javier F. Serrador  <serrador@cvs.gnome.org>
+2006-05-14  Benoît Dejean  <benoit@placenet.org>
 
-	* es.po: Updated Spanish translation.
+	* fr.po: Updated French translation.
 
-2006-04-24  Vincent van Adrighem  <adrighem@gnome.org>
+2006-05-03  Ahmad Riza H Nst  <rizahnst@eriagempita.co.id>
 
-	* nl.po: Translation updated by Tino Meinen.
+	* id.po: Updated.
 
-2006-04-18  Ankit Patel  <ankit644@yahoo.com>
+2006-04-19  Artur Flinta  <aflinta@cvs.gnome.org>
 
-        * gu.po: Updated Gujarati Translation.
+	* pl.po: Updated Polish translation by GNOME PL Team.
 
-2006-04-17  Clytie Siddall <clytie@riverland.net.au>
+2006-04-16  Pema Geyleg  <pema.geyleg@gmail.com>
 
-	* vi.po: Updated Vietnamese translation.
+	* dz.po: Updated Dzongkha translation.
+
+2006-03-27  Yair Hershkovitz  <yairhr@gmail.com>
+
+	* he.po: Updated Hebrew translation.
 
 2006-03-26  Tommi Vainikainen  <thv@iki.fi>
 
 	* dz.po: Added Dzongkha translation from Pema Geyleg.
 
-2006-03-19  Ilkka Tuohela  <hile@iki.fi>
+2006-03-18  Vladimer Sichinava  <vlsichinava@gmail.com>
 
-	* fi.po: Updated Finnish translation.
+	* ka.po: Added Georgian translation.
 
-2006-03-11  Priit Laes  <amd@store20.com>
+2006-03-13  Priit Laes  <amd@store20.com>
 
 	* et.po: Translation updated by Ivar Smolin.
 
-2006-03-09  Laurent Dhima  <laurenti@alblinux.net>
+2006-03-12  Miloslav Trmac  <mitr@volny.cz>
+
+	* cs.po: Updated Czech translation by Petr Tomeš.
+
+2006-03-10  Laurent Dhima  <laurenti@alblinux.net>
 
 	* sq.po: Updated Albanian translation.
 
@@ -156,7 +99,7 @@
 
 	* zh_TW.po: Updated Traditional Chinese translation(Taiwan).
 	* zh_HK.po: Updated Traditional Chinese translation(Hong Kong).
-
+	
 2006-02-23  Inaki Larranaga  <dooteo@euskalgnu.org>
 
 	* eu.po: Updated Basque translation.
@@ -490,7 +433,7 @@
 2005-08-29  Telsa Gwynne  <hobbit@aloss.ukuu.org.uk>
 
 	* cy.po: Updated Welsh translation.
-
+	
 2005-08-28  Christophe Merlet  <redfox@redfoxcenter.org>
 
 	* fr.po: Updated French translation.
@@ -645,7 +588,7 @@
 2005-07-13  Francisco Javier F. Serrador  <serrador@cvs.gnome.org>
 
 	* es.po: Updated Spanish translation.
-
+	
 
 2005-07-12  Priit Laes  <plaes@cvs.gnome.org>
 
@@ -905,11 +848,11 @@
 
 2005-01-26  Francisco Javier F. Serrador  <serrador@cvs.gnome.org>
 
-	* es.po: Updated
+	* es.po: Updated 
 
 2005-01-26  Kjartan Maraas  <kmaraas@gnome.org>
 
-	* nb.po: Update
+	* nb.po: Update 
 	* nn.po: Update
 
 2005-01-26  Alexander Shopov  <ash@contact.bg>
@@ -1014,7 +957,7 @@
 
 2004-12-28  Kjartan Maraas  <kmaraas@gnome.org>
 
-	* nb.po: Update
+	* nb.po: Update 
 	* no.po: Update
 
 2004-12-27  Miloslav Trmac  <mitr@volny.cz>
@@ -1026,9 +969,9 @@
 	* es.po: Updated Spanish translation.
 
 2004-11-21  David Lodge <dave@cirt.net>
-
+                                                                                
         * en_GB.po: Updated British translation.
-
+                                                                                
 2004-11-19  Hendrik Richter  <hendrik@gnome-de.org>
 
 	* de.po: Updated German translation.
@@ -1632,7 +1575,7 @@
 	from Belarusian team <i18n@mova.org>.
 
 2003-05-26  Pablo Gonzalo del Campo  <pablodc@bigfoot.com>
-
+        
         * es.po: Updated Spanish translation by
                  Francisco Javier F. Serrador <serrador@arrakis.es>
 
@@ -1646,7 +1589,7 @@
 
 2003-05-22  Danilo Šegan  <dsegan@gmx.net>
 
-	* sr.po, sr@Latn.po: Added Serbian translation by Serbian team
+	* sr.po, sr@Latn.po: Added Serbian translation by Serbian team 
 	(Prevod.org).
 
 2003-05-20  Miloslav Trmac  <mitr@volny.cz>
@@ -1731,7 +1674,7 @@
 2003-03-17  Artis Trops  <hornet@navigator.lv>
 
         * lv.po: Updated Latvian translation.
-
+	
 2003-03-17  Abel Cheung  <maddog@linux.org.hk>
 
 	* ChangeLog: Fix bad encoding.
@@ -1783,7 +1726,7 @@
 2003-02-03  Daniel Yacob  <locales@geez.org>
 
 	* am.po: Updated Amharic translation.
-
+	
 2003-01-30  Gustavo Noronha Silva  <kov@debian.org>
 
 	* pt_BR.po: translation update, by
@@ -2008,7 +1951,7 @@
 2002-08-09  Vincent van Adrighem <V.vanAdrighem@dirck.mine.nu)
 
     * nl.po: Dutch translation updated by Tino Meinen.
-
+    
 2002-08-03  Manuel Borchers  <webmaster@matronix.de>
 
 	* de.po: Updated German translation by
@@ -2101,14 +2044,14 @@
 	* ca.po: Added Catalan file
 
 2002-06-02  GermÃÃn Poo CaamaÃ±o <gpoo@ubiobio.cl>
-
+ 
 	* es.po: Updated Spanish translation from
 	Juan Manuel GarcÃ­a Molina <juanma_gm@wanadoo.es>
-
-2002-06-02  Pauli Virtanen <pauli.virtanen@hut.fi>
-
+ 
+2002-06-02  Pauli Virtanen <pauli.virtanen@hut.fi> 
+ 
         * fi.po: Updated Finnish translation.
-
+ 
 2002-06-02  Carlos PerellÃ³ MarÃ­n <carlos@gnome-db.org>
 
 	* es.po: Recoded as UTF-8
@@ -2249,8 +2192,8 @@
 
 2002-01-26  Roy-Magne Mo <rmo@sunnmore.net>
 
-	* nn.po: Updated Norwegian nynorsk translation
-
+	* nn.po: Updated Norwegian nynorsk translation 
+ 
 2002-01-24  Hasbullah Bin Pit <sebol@ikhlas.com>
 
 	* po/ms.po: Added Malay Translation
@@ -2287,7 +2230,7 @@
 2001-12-28  Héctor García Álvarez <hector@scouts-es.org>
 
         * es.po: Updated Spanish translation
-
+	
 2001-12-26  Fatih Demir <kabalak@gtranslator.org>
 
 	* tr.po: Small correction in the charset field of the po file.
@@ -2298,7 +2241,7 @@
 
 2001-12-17  AndrÃÃs TÃ­mÃÃr  <timar@gnome.hu>
 
-	* hu.po: Updated Hungarian translation
+	* hu.po: Updated Hungarian translation 
 
 2001-12-16  Duarte Loreto <happyguy_pt@hotmail.com>
 
@@ -2316,7 +2259,7 @@
 
 	* no.po: Updated Norwegian (bokmål) translation.
 	* POTFILES.in: Updated slightly.
-
+	
 2001-12-13  Stanislav Visnovsky  <visnovsky@nenya.ms.mff.cuni.cz>
 
 	* sk.po: Updated Slovak translation.
@@ -2332,7 +2275,7 @@
 2001-11-21  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* no.po: Updated Norwegian (bokmål) translation.
-
+	
 2001-11-19  Pablo Saratxaga  <pablo@mandrakesoft.com>
 
 	* az.po: Updated Azeri file
@@ -2356,12 +2299,12 @@
 2001-11-10  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* no.po: Updated Norwegian (bokmål) translation.
-
+	
 2001-11-09  Wang Jian  <lark@linux.net.cn>
 
 	* zh_CN.po: Added Simplified Chinese by
 	Zipeco <Zipeco@btamail.net.cn>.
-
+	
 2001-11-09  Carlos PerellÃ³ MarÃ­n <carlos@gnome-db.org>
 
 	* es.po: QA changes.
@@ -2387,7 +2330,7 @@
 
 	* lv.po: Updated Latvian translation by Artis Trops
 	<hornet@navigators.lv>
-
+	
 2001-10-31  Gustavo Maciel Dias Vieira <gdvieira@zaz.com.br>
 
 	* pt_BR.po: Updated Brazilian Portuguese translation.
@@ -2448,8 +2391,8 @@
 
 2001-10-11  AndrÃÃs TÃ­mÃÃr  <timar@gnome.hu>
 
-	* hu.po: Updated Hungarian translation, and
-	         fixed translation for "Rule"
+	* hu.po: Updated Hungarian translation, and 
+	         fixed translation for "Rule" 
 
 2001-10-10  Sami Pesonen  <spesonen@dlc.fi>
 
@@ -2496,7 +2439,7 @@
 2001-09-19  Héctor García Álvarez <hector@scouts-es.org>
 
         * es.po: Updated Spanish translation.
-
+	
 2001-09-18  Christian Rose  <menthos@menthos.com>
 
 	* sv.po: Updated Swedish translation.
@@ -2504,7 +2447,7 @@
 2001-09-14  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* no.po: Updated Norwegian (bokmål) translation.
-
+	
 2001-09-12  Christian Rose  <menthos@menthos.com>
 
 	* sv.po: Updated Swedish translation. Thanks to
@@ -2516,7 +2459,7 @@
 	in template.c though. They look like they shouldn't be marked for
 	translation.
 	* no.po: Updated accordingly.
-
+	
 2001-09-11  Christian Rose  <menthos@menthos.com>
 
 	* sv.po: Updated Swedish translation.
@@ -2524,7 +2467,7 @@
 2001-09-05  Gediminas Paulauskas <menesis@delfi.lt>
 
 	* lt.po: Updated Lithuanian translation..
-
+	
 2001-09-02 Christophe Merlet  <christophe@merlet.net>
 
 	* fr.po: Updated French translation.
@@ -2548,16 +2491,16 @@
 
 2001-08-22  AndrÃÃs TÃ­mÃÃr  <timar@gnome.hu>
 
-	* hu.po: Updated Hungarian translation
+	* hu.po: Updated Hungarian translation 
 
 2001-08-22  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* no.po: Updated Norwegian (bokmål) translation.
-
+	
 2001-08-21  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* no.po: Updated Norwegian (bokmål) translation.
-
+	
 2001-08-19  Stanislav Visnovsky  <visnovsky@nenya.ms.mff.cuni.cz>
 
 	* sk.po: Updated Slovak translation.
@@ -2568,12 +2511,12 @@
 
 2001-08-14  AndrÃÃs TÃ­mÃÃr  <timar@gnome.hu>
 
-	* hu.po: Updated Hungarian translation
+	* hu.po: Updated Hungarian translation 
 
 2001-08-14  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* no.po: Updated Norwegian (bokmål) translation.
-
+	
 2001-08-14  Fatih Demir <kabalak@gtranslator.org>
 
 	* tr.po: Committed updated Turkish translation by NilgÃ¼n.
@@ -2586,7 +2529,7 @@
 2001-08-12  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* no.po: Updated Norwegian (bokmål) translation.
-
+	
 2001-08-10  Zbigniew Chyla  <cyba@gnome.pl>
 
 	* pl.po: Updated Polish translation.
@@ -2617,20 +2560,20 @@
 
 2001-08-05  AndrÃÃs TÃ­mÃÃr  <timar@gnome.hu>
 
-	* hu.po: Updated Hungarian translation
+	* hu.po: Updated Hungarian translation 
 
 2001-08-05  Héctor García Álvarez <hector@scouts-es.org>
 
         * es.po: Updated Spanish translation.
-
+	
 2001-07-31  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* POTFILES.in: Added src/htmlgdkpainter.c
 	* no.po: Updated Norwegian (bokmål) translation.
-
+	
 2001-07-31  AndrÃÃs TÃ­mÃÃr  <timar@gnome.hu>
 
-	* hu.po: Updated Hungarian translation
+	* hu.po: Updated Hungarian translation 
 
 2001-07-31  Larry Ewing  <lewing@ximian.com>
 
@@ -2640,14 +2583,14 @@
 2001-07-30  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* no.po: Updated Norwegian (bokmål) translation.
-
+	
 2001-07-28  Pablo Saratxaga  <pablo@mandrakesoft.com>
 
 	* az.po: Updated Azeri file
 
 2001-07-25  AndrÃÃs TÃ­mÃÃr  <timar@gnome.hu>
 
-	* hu.po: Updated Hungarian translation
+	* hu.po: Updated Hungarian translation 
 
 2001-07-24  Stanislav Visnovsky  <visnovsky@nenya.ms.mff.cuni.cz>
 
@@ -2665,7 +2608,7 @@
 2001-07-15  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* nn.po: Added Norwegian (nynorsk) translation.
-
+	
 2001-07-14  Fatih Demir <kabalak@gtranslator.org>
 
 	* tr.po: Updated Turkish translation by NilgÃ¼n.
@@ -2677,7 +2620,7 @@
 2001-07-10  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* no.po: Updated Norwegian translation.
-
+	
 2001-06-26  Héctor García Álvarez <hector@scouts-es.org>
 
         * es.po: Updated Spanish translation.
@@ -2696,12 +2639,12 @@
 
 2001-06-15  AndrÃÃs TÃ­mÃÃr  <timar@gnome.hu>
 
-	* hu.po: Updated Hungarian translation
+	* hu.po: Updated Hungarian translation 
 
 2001-06-14  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* no.po: Updated Norwegian translation.
-
+	
 2001-06-14  Christian Rose  <menthos@menthos.com>
 
 	* sv.po: Updated Swedish translation.
@@ -2717,7 +2660,7 @@
 2001-06-09  Wang Jian <lark@linux.net.cn>
 
 	* zh_TW.Big5.po: Added by Joe Man <trmetal@yahoo.com.hk>
-
+	
 2001-06-01  Stanislav Visnovsky  <visnovsky@nenya.ms.mff.cuni.cz>
 
 	* sk.po: Updated Slovak translation.
@@ -2729,7 +2672,7 @@
 
 2001-05-28  AndrÃÃs TÃ­mÃÃr  <timar@gnome.hu>
 
-	* hu.po: Updated Hungarian translation
+	* hu.po: Updated Hungarian translation 
 
 2001-05-28  Christian Rose  <menthos@menthos.com>
 
@@ -2739,11 +2682,11 @@
 
 	* no.po: Updated Norwegian translation.
 	* POTFILES.in: Added gtkhtml-editor-properties.glade.
-
+	
 2001-05-21  Héctor García Álvarez <hector@scouts-es.org>
 
         * es.po: Updated Spanish translation.
-
+	 
 2001-05-21  Szabolcs Ban  <shooby@gnome.hu>
 
 	* hu.po: Updated Hungarian translation from Andras Timar <timar@gnome.hu>
@@ -2752,11 +2695,11 @@
 
 	* no.po: Updated Norwegian translation.
 	* POTFILES.in: Added a few files.
-
+	
 2001-05-16  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* no.po: Updated Norwegian translation.
-
+	
 2001-05-15  Stanislav Visnovsky  <visnovsky@nenya.ms.mff.cuni.cz>
 
 	* sk.po: Updated Slovak translation.
@@ -2764,7 +2707,7 @@
 2001-05-14  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* no.po: Updated Norwegian translation.
-
+	
 2001-05-14  Szabolcs Ban  <shooby@gnome.hu>
 
 	* hu.po: Updated Hungarian translation from Andras Timar <timar@gnome.hu>
@@ -2800,15 +2743,15 @@
 2001-04-26  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* no.po: Updated Norwegian translation.
-
+	
 2001-04-25  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* no.po: Updated Norwegian translation.
-
+	
 2001-04-18  Héctor García Álvarez <hector@scouts-es.org>
 
         * es.po: Updated Spanish translation.
-
+	
 2001-04-17  Stanislav Visnovsky  <visnovsky@nenya.ms.mff.cuni.cz>
 
 	* sk.po: Updated Slovak translation.
@@ -2825,7 +2768,7 @@
 
 	* no.po: Updated Norwegian translation.
 	* POTFILES.in: Updated with .oaf file.
-
+	
 2001-03-11  Fatih Demir <kabalak@gtranslator.org>
 
 	* tr.po: Updated the Turkish translation.
@@ -2837,7 +2780,7 @@
 2001-02-22  Christopher R. Gabriel  <cgabriel@softwarelibero.org>
 
 	* it.po: Updated italian translation from Pier Luigi Fiorini
-	<plfiorini@libero.it>
+	<plfiorini@libero.it> 
 
 2001-02-19  Yukihiro Nakai  <nakai@gnome.gr.jp>
 
@@ -2851,7 +2794,7 @@
 
 	* it.po: Updated italian translation from Pier Luigi Fiorini
 	<plfiorini@libero.it>
-
+	
 2001-02-13  Pauli Virtanen  <pauli.virtanen@saunalahti.fi>
 
 	* fi.po: Updated Finnish translation.
@@ -2862,7 +2805,7 @@
 	* update.pl: Same here.
 	* POTFILES.in: Adapt to xml-i18n-tools.
 	* no.po: Updated Norwegian translation.
-
+	
 2001-02-05 Christophe Merlet  <christophe@merlet.net>
 
 	* fr.po: Updated French translation.
@@ -2870,7 +2813,7 @@
 2001-01-30  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* no.po: Updated Norwegian translation.
-
+	
 2001-01-30  Simos Xenitellis  <simos@hellug.gr>
 
 	* el.po: Added initial Greek translation.
@@ -2890,7 +2833,7 @@
 2001-01-24  Héctor García Álvarez <hector@scouts-es.org>
 
         * es.po: Updated Spanish translation.
-
+	
 2001-01-19 Stanislav Visnovsky  <visnovsky@nenya.ms.mff.cuni.cz>
 
 	* sk.po: Added initial Slovak translation.
@@ -2902,7 +2845,7 @@
 2001-01-15  Christopher R. Gabriel  <cgabriel@softwarelibero.org>
 
 	* it.po: Updated italian translation from Pier Luigi Fiorini
-	<plfiorini@libero.it>
+	<plfiorini@libero.it> 
 
 2001-01-11 Kjartan Maraas  <kmaraas@gnome.org>
 
@@ -2941,7 +2884,7 @@
 2000-12-15  Yuri Syrota <rasta@renomer.ovno.ua>
 
         * uk.po: Updated Ukrainian translation.
-
+	
 2000-12-14  Martin NorbÃ¤ck  <d95mback@dtek.chalmers.se>
 
 	* sv.po: Updated Swedish translation
@@ -2951,11 +2894,11 @@
 	* no.po: Updated Norwegian (bokmål) translation.
 	* POTFILES.in: Updated this too.
 	* ui-extract.pl: Latest version of this tool.
-
+	
 2000-12-14  Héctor García Álvarez <hector@scouts-es.org>
 
         * es.po: Updated Spanish translation.
-
+	
 2000-12-14 Kjartan Maraas  <kmaraas@gnome.org>
 
 	* no.po: Updated Norwegian (bokmål) translation.
@@ -3009,7 +2952,7 @@
 
 	* no.po: Updated Norwegian (bokmål) translation.
 	* update.pl, ui-extract.pl: Updated tools.
-
+	
 2000-11-16  Fatih Demir	<kabalak@gmx.net>
 
 	* tr.po: Updated Turkish translation.
@@ -3024,7 +2967,7 @@
 2000-11-06  Héctor García Álvarez <hector@scouts-es.org>
 
         * es.po: Updated Spanish translation.
-
+	
 2000-11-05  Valek Filippov  <frob@df.ru>
 
 	* ru.po: Updated russian translation.
@@ -3047,7 +2990,7 @@
 2000-11-02  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* no.po: Updated Norwegian (bokmål) translation.
-
+	
 2000-10-30  Valek Filippov  <frob@df.ru>
 
 	* ru.po: Updated russian translation.
@@ -3067,7 +3010,7 @@
 2000-10-25  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* no.po: Updated Norwegian (bokmål) translation.
-
+	
 2000-10-21  Zbigniew Chyla  <cyba@gnome.pl>
 
 	* pl.po: Added Polish translation.
@@ -3087,11 +3030,11 @@
 2000-10-15  Christian Meyer <cm@ggtt.de>
 
 	* de.po: Updated German translation.
-
+	
 2000-10-15  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* no.po: Updated Norwegian (bokmål) translation.
-
+	
 2000-10-13  Christian Rose  <menthos@menthos.com>
 
 	* sv.po: Updated Swedish translation.

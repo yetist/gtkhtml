@@ -1,52 +1,16 @@
-2006-06-06  Srinivasa Ragavan  <sragavan@novell.com>
-
-	** Commiting Partha's patch to show spell suggestions to r-click menu.
-
-	* popup.c: (replace_suggestion_cb), (prepare_properties_and_menu):
-	Show suggestions in right click menu.
-
 2006-05-15  Nancy Cai <nancy.cai@sun.com>
 
-	* GNOME_GtkHTML_Editor.xml.in:correct the table bar tip message
+	Reviewed by Harish Krishnaswamy <kharish@novell.com>
 
+	* GNOME_GtkHTML_Editor.xml.in:correct the table bar tip message
 	Fix for #339997 
 
-2006-05-15  Boby Wang  <boby.wang@sun.com>
-
-	Fix for #341811
-	* body.c: (body_properties):
-	add label relationship between button and label.
-
-2006-04-30  Shi Pu <Shi.Pu@sun.com>
-
-        Fixes bug #323853
-
-        * body.c: (changed_template), (body_properties):
-        * cell.c: (set_bg_pixmap), (cell_widget), (set_ui):
-        * gtkhtml-editor-properties.glade:
-        * image.c: (get_location), (image_set_ui), (image_widget):
-        * table.c: (table_widget), (set_ui):
-        replace GnomeFileEntry and GnomePixmapEntry by GtkFileChooserButton
-
-2006-04-25  Li Yuan  <li.yuan@sun.com>
+2006-04-26  Li Yuan  <li.yuan@sun.com>
 
 	* toolbar.c: (create_style_toolbar):
 	make the toolbar focusable.
 
 	Fix for #338048.
-
-2006-03-31  Rohini S  <srohini@novell.com>
-
-	* menubar.c (menubar_update_format): Enable Insert Smiley 
-	in plain text mode too.
-
-	Fixes bug #272256
-
-2006-03-22  Andre Klapper  <a9016009@gmx.de>
-	* GNOME_GtkHTML_Editor.xml.in: 
-	* GNOME_GtkHTML_Editor-emacs.xml.in: 
-	Changing "Lick" to "Tongue" to be less offensive.
-	Now really fixes bug #329471.
 
 2006-02-28  Kjartan Maraas  <kmaraas@gnome.org>
 

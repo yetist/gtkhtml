@@ -1,50 +1,34 @@
-2006-07-24  Harish Krishnaswamy  <kharish@novell.com>
+2006-07-31  Harish Krishnaswamy  <kharish@novell.com>
 
-	* configure.in: Release 3.11.90.1.
-	Fixed a build breaker.
-	
-2006-07-24  Harish Krishnaswamy  <kharish@novell.com>
+	* NEWS, configure.in: Release update - 3.10.3
 
-	* NEWS, configure.in: Release 3.11.90
+2006-05-29  Harish Krishnaswamy  <kharish@novell.com>
 
-2006-07-08  Rajeev ramanathan <rajeevramanathan_2004@yahoo.co.in>
-	
-	* src/gtkhtml.c: (gtk_html_set_fonts): Added
-	code to render text with antialiasing, hinting
-	and sub-pixel ordering with cairo.
+	* NEWS, configure.in: Release update - 3.10.2
 
-2006-07-10  Harish Krishnaswamy  <kharish@novell.com>
+2006-04-10  Harish Krishnaswamy  <kharish@novell.com>
 
-	* NEWS, configure.in: Release 3.11.4
+	---------------
+	Release 3.10.1
+	---------------
 
-2006-06-12  Harish Krishnaswamy  <kharish@novell.com>
-
-	* configure.in: Release 3.11.3
-
-2006-06-12  Harish Krishnaswamy  <kharish@novell.com>
-
-	Patch submitted by Przemysław Grzegorczyk
-
-	* configure.in: Bump intltool dependency.
-	* po/LINGUAS: Added file.
-
-2006-05-15  Harish Krishnaswamy  <kharish@novell.com>
-
-	* configure.in: Release 3.11.2
-
-
-2006-04-24  Harish Krishnaswamy  <kharish@novell.com>
-
-	* NEWS, configure.in: Release 3.11.1
-
-2006-04-18  Kjartan Maraas  <kmaraas@gnome.org>
-
-	* configure.in: Remove obsolete entry for no_NO
-	* po/no.po: And the translation.
+	* NEWS, configure.in: version bump, NEWS updates.
 
 2006-03-26  Tommi Vainikainen  <thv@iki.fi>
 
 	* configure.in (ALL_LINGUAS): Added Dzongkha (dz).
+
+2006-03-18  Vladimer Sichinava  <vlsichinava@gmail.com>
+
+        * configure.in: Added "ka" (Georgian) to ALL_LINGUAS
+
+2006-03-13  Harish Krishnaswamy  <kharish@novell.com>
+
+	---------------
+	Release 3.10.0
+	---------------
+
+	* NEWS, configure.in: version bump, NEWS updates.
 
 2006-02-27  Srinivasa Ragavan <sragavan@novell.com>
 

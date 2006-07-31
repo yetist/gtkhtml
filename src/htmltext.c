@@ -1190,14 +1190,8 @@ html_text_prepare_attrs (HTMLText *text, HTMLPainter *painter)
 	HTMLClueFlow *flow = NULL;
 	HTMLEngine *e = NULL;
 	PangoAttribute *attr;
-	PangoDirection dir,org_dir;
 
 	attrs = pango_attr_list_new ();
-	org_dir = pango_context_get_base_dir (painter->pango_context);
-	dir = html_text_get_pango_direction (text);
-	if (org_dir != dir) 
-		pango_context_set_base_dir (painter->pango_context, dir);
-
 
 	if (HTML_OBJECT (text)->parent && HTML_IS_CLUEFLOW (HTML_OBJECT (text)->parent))
 		flow = HTML_CLUEFLOW (HTML_OBJECT (text)->parent);
@@ -1205,15 +1199,8 @@ html_text_prepare_attrs (HTMLText *text, HTMLPainter *painter)
 	if (painter->widget && GTK_IS_HTML (painter->widget))
 		e = html_object_engine (HTML_OBJECT (text), GTK_HTML (painter->widget)->engine);
 
-	if (flow && e) {
+	if (flow && e)
 		html_text_add_cite_color (attrs, text, flow, e);
-		if (org_dir != dir) {
-			html_engine_freeze (e);
-                	flow->dir = html_text_direction_pango_to_html (dir);
-                	html_engine_thaw(e);
-		}
-        }
-
 
 	if (HTML_IS_PLAIN_PAINTER (painter)) {
 		attr = pango_attr_family_new (painter->font_manager.fixed.face);
@@ -1811,12 +1798,10 @@ save (HTMLObject *self, HTMLEngineSaveState *state)
 
 		do {
 			GSList *attrs;
-			gint start_index, end_index;
+			guint start_index, end_index;
 
 			attrs = pango_attr_iterator_get_attrs (iter);
-			pango_attr_iterator_range (iter,
-						   &start_index,
-						   &end_index);
+			pango_attr_iterator_range (iter, &start_index, &end_index);
 			if (end_index > text->text_bytes)
 				end_index = text->text_bytes;
 
@@ -2015,9 +2000,7 @@ convert_nbsp (gchar *fill, const gchar *text)
 }
 
 static void
-update_index_interval (guint *start_index,
-		       guint *end_index,
-		       GSList *changes)
+update_index_interval (int *start_index, int *end_index, GSList *changes)
 {
 	GSList *c;
 	int index, delta;
@@ -2398,9 +2381,7 @@ append_selection_string (HTMLObject *self,
 	last = html_text_get_text (text,
 				   text->select_start + text->select_length);
 	*/
-	html_engine_save_string_append_nonbsp (buffer,
-					       (guchar *)p,
-					       last - p);
+	html_engine_save_string_append_nonbsp (buffer, p, last - p);
 
 }
 
@@ -2823,8 +2804,7 @@ html_text_set_text (HTMLText *text, const gchar *new_text)
 {
 	g_free (text->text);
 	text->text_len = -1;
-	text->text_bytes = html_text_sanitize (&new_text,
-					       (gint *)&text->text_len);
+	text->text_bytes = html_text_sanitize (&new_text, &text->text_len);
 	text->text = g_memdup (new_text, text->text_bytes + 1);
 	text->text [text->text_bytes] = '\0';
 	html_object_change_set (HTML_OBJECT (text), HTML_CHANGE_ALL);
