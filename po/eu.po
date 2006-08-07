@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-05-25 09:37+0000\n"
+"POT-Creation-Date: 2006-08-07 17:31+0000\n"
 "PO-Revision-Date: 2006-05-25 09:38+0000\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>\n"
 "Language-Team: Basque <itzulpena@euskalgnu.org>\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.10.2\n"
-"Plural-Forms: Plural-Forms: Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "\n"
 
 #: ../a11y/image.c:150
@@ -540,8 +540,8 @@ msgstr "Goi-indizea"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:52
 #: ../components/html-editor/menubar.c:196
-#: ../components/html-editor/popup.c:240 ../components/html-editor/popup.c:514
-#: ../components/html-editor/popup.c:526
+#: ../components/html-editor/popup.c:240 ../components/html-editor/popup.c:520
+#: ../components/html-editor/popup.c:532
 msgid "Table"
 msgstr "Taula"
 
@@ -1522,113 +1522,109 @@ msgstr "Orokorra"
 msgid "Alignment"
 msgstr "Lerrokatu"
 
-#: ../components/html-editor/popup.c:451
+#: ../components/html-editor/popup.c:457
 msgid "Paste Quotation"
 msgstr "Itsatsi aipua"
 
-#: ../components/html-editor/popup.c:455
+#: ../components/html-editor/popup.c:461
 msgid "Insert Link"
 msgstr "Txertatu esteka"
 
-#: ../components/html-editor/popup.c:462
+#: ../components/html-editor/popup.c:468
 msgid "Remove Link"
 msgstr "Kendu esteka"
 
-#: ../components/html-editor/popup.c:469
+#: ../components/html-editor/popup.c:475
 msgid "Style"
 msgstr "Estiloa"
 
-#: ../components/html-editor/popup.c:472
+#: ../components/html-editor/popup.c:478
 msgid "Text Style..."
 msgstr "Testu-estiloa..."
 
-#: ../components/html-editor/popup.c:474 ../components/html-editor/popup.c:480
-#: ../components/html-editor/popup.c:490
+#: ../components/html-editor/popup.c:480 ../components/html-editor/popup.c:486
+#: ../components/html-editor/popup.c:496
 msgid "Paragraph Style..."
 msgstr "Paragrafo-estiloa..."
 
-#: ../components/html-editor/popup.c:478
+#: ../components/html-editor/popup.c:484
 msgid "Link Style..."
 msgstr "Esteka-estiloa..."
 
-#: ../components/html-editor/popup.c:484
+#: ../components/html-editor/popup.c:490
 msgid "Rule Style..."
 msgstr "Arau-estiloa..."
 
-#: ../components/html-editor/popup.c:488
+#: ../components/html-editor/popup.c:494
 msgid "Image Style..."
 msgstr "Irudi-estiloa..."
 
-#: ../components/html-editor/popup.c:499
+#: ../components/html-editor/popup.c:505
 msgid "Cell Style..."
 msgstr "Gelaxka-estiloa..."
 
-#: ../components/html-editor/popup.c:502
+#: ../components/html-editor/popup.c:508
 msgid "Table Style..."
 msgstr "Taula-estiloa..."
 
-#: ../components/html-editor/popup.c:508
+#: ../components/html-editor/popup.c:514
 msgid "Page Style..."
 msgstr "Orri-estiloa..."
 
-#: ../components/html-editor/popup.c:513
+#: ../components/html-editor/popup.c:519
 msgid "Table insert"
 msgstr "Txertatu taulan"
 
-#: ../components/html-editor/popup.c:516
+#: ../components/html-editor/popup.c:522
 msgid "Row above"
 msgstr "Errenkada goian"
 
-#: ../components/html-editor/popup.c:517
+#: ../components/html-editor/popup.c:523
 msgid "Row below"
 msgstr "Errenkada behean"
 
-#: ../components/html-editor/popup.c:519
+#: ../components/html-editor/popup.c:525
 msgid "Column before"
 msgstr "Zutabea aurrean"
 
-#: ../components/html-editor/popup.c:520
+#: ../components/html-editor/popup.c:526
 msgid "Column after"
 msgstr "Zutabea ondoren"
 
-#: ../components/html-editor/popup.c:525
+#: ../components/html-editor/popup.c:531
 msgid "Table delete"
 msgstr "Ezabatu taulan"
 
-#: ../components/html-editor/popup.c:527
+#: ../components/html-editor/popup.c:533
 msgid "Row"
 msgstr "Errenkada"
 
-#: ../components/html-editor/popup.c:528
+#: ../components/html-editor/popup.c:534
 msgid "Column"
 msgstr "Zutabea"
 
-#: ../components/html-editor/popup.c:529
+#: ../components/html-editor/popup.c:535
 msgid "Cell contents"
 msgstr "Gelaxkaren edukia"
 
-#: ../components/html-editor/popup.c:537
-msgid "Check Word Spelling..."
-msgstr "Egiaztatu ortografia..."
-
-#: ../components/html-editor/popup.c:538
+#: ../components/html-editor/popup.c:570
 msgid "Ignore Misspelled Word"
 msgstr "Ez ikusi egin oker idatzitako hitzei"
 
-#: ../components/html-editor/popup.c:543
+#: ../components/html-editor/popup.c:575
 msgid "Add Word to"
 msgstr "Gehitu hitza"
 
-#: ../components/html-editor/popup.c:547
+#: ../components/html-editor/popup.c:579
 #, c-format
 msgid "%s Dictionary"
 msgstr "'%s' hiztegia"
 
-#: ../components/html-editor/popup.c:556
+#: ../components/html-editor/popup.c:588
 msgid "Add Word to Dictionary"
 msgstr "Gehitu hitza hiztegian"
 
-#: ../components/html-editor/popup.c:562
+#: ../components/html-editor/popup.c:594
 msgid "Input Methods"
 msgstr "Sarrerako metodoak"
 
@@ -1803,83 +1799,83 @@ msgstr ""
 "Editatutako objektua kendu egin da dokumentutik.\n"
 "Egindako aldaketak ezin dira aplikatu."
 
-#: ../src/gtkhtml.c:2995
+#: ../src/gtkhtml.c:3058
 msgid "Editable"
 msgstr "Editagarria"
 
-#: ../src/gtkhtml.c:2996
+#: ../src/gtkhtml.c:3059
 msgid "Whether the html can be edited"
 msgstr "HTMLa edita daitekeen"
 
-#: ../src/gtkhtml.c:3002
+#: ../src/gtkhtml.c:3065
 msgid "Document Title"
 msgstr "Dokumentuaren titulua"
 
-#: ../src/gtkhtml.c:3003
+#: ../src/gtkhtml.c:3066
 msgid "The title of the current document"
 msgstr "Uneko dokumentuaren titulua"
 
-#: ../src/gtkhtml.c:3009
+#: ../src/gtkhtml.c:3072
 msgid "Document Base"
 msgstr "Dokumentuaren oinarria"
 
-#: ../src/gtkhtml.c:3010
+#: ../src/gtkhtml.c:3073
 msgid "The base URL for relative references"
 msgstr "Erreferentzia erlatiboetarako oinarrizko URLa"
 
-#: ../src/gtkhtml.c:3016
+#: ../src/gtkhtml.c:3079
 msgid "Target Base"
 msgstr "Helburuaren oinarria"
 
-#: ../src/gtkhtml.c:3017
+#: ../src/gtkhtml.c:3080
 msgid "The base URL of the target frame"
 msgstr "Helburuko markoaren oinarriko URLa"
 
-#: ../src/gtkhtml.c:3026
+#: ../src/gtkhtml.c:3089
 msgid "Fixed Width Font"
 msgstr "Zabalera finkodun letra-tipoa"
 
-#: ../src/gtkhtml.c:3027
+#: ../src/gtkhtml.c:3090
 msgid "The Monospace font to use for typewriter text"
 msgstr "Idazmakinako testuetan erabiltzeko tarte bakarreko letra-tipoa"
 
-#: ../src/gtkhtml.c:3033
+#: ../src/gtkhtml.c:3096
 msgid "New Link Color"
 msgstr "Esteka berrien kolorea"
 
-#: ../src/gtkhtml.c:3034
+#: ../src/gtkhtml.c:3097
 msgid "The color of new link elements"
 msgstr "Esteka berriek izango duten kolorea"
 
-#: ../src/gtkhtml.c:3039
+#: ../src/gtkhtml.c:3102
 msgid "Visited Link Color"
 msgstr "Bisitatutako esteken kolorea"
 
-#: ../src/gtkhtml.c:3040
+#: ../src/gtkhtml.c:3103
 msgid "The color of visited link elements"
 msgstr "Bisitatutako estekek izango duten kolorea"
 
-#: ../src/gtkhtml.c:3045
+#: ../src/gtkhtml.c:3108
 msgid "Active Link Color"
 msgstr "Esteka aktiboen kolorea"
 
-#: ../src/gtkhtml.c:3046
+#: ../src/gtkhtml.c:3109
 msgid "The color of active link elements"
 msgstr "Esteka aktiboek izango duten kolorea"
 
-#: ../src/gtkhtml.c:3051
+#: ../src/gtkhtml.c:3114
 msgid "Spelling Error Color"
 msgstr "Ortografia-akatsen kolorea"
 
-#: ../src/gtkhtml.c:3052
+#: ../src/gtkhtml.c:3115
 msgid "The color of the spelling error markers"
 msgstr "Ortografia-akatsen markek izango duten kolorea"
 
-#: ../src/gtkhtml.c:3057
+#: ../src/gtkhtml.c:3120
 msgid "Cite Quotation Color"
 msgstr "Zita literalaren kolorea"
 
-#: ../src/gtkhtml.c:3058
+#: ../src/gtkhtml.c:3121
 msgid "The color of the cited text"
 msgstr "Aipuko testuaren kolorea"
 
@@ -1912,3 +1908,5 @@ msgstr "Inprimatzeko aurrebista"
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML probako aplikazioa"
 
+#~ msgid "Check Word Spelling..."
+#~ msgstr "Egiaztatu ortografia..."
