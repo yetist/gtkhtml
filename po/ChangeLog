@@ -1,3 +1,8 @@
+2006-08-09  Rahul Bhalerao  <b.rahul.pm@gmail.com>
+
+	* mr.po: Added the file with Marathi Traslation
+	* LINGUAS: Added entry for mr
+	
 2006-08-09  Baris Cicek <baris@teamforce.name.tr>
 
 	* tr.po: Updated Turkish Translation from Onur Can Cakmak
