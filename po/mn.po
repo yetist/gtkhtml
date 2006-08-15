@@ -1,0 +1,1914 @@
+# translation of mn.po to Mongolian
+# translation of PACKAGE.
+# Copyright (C) 2006 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# <>, 2006.
+# Badral <badral@openmn.org>, 2006.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: mn\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-04-12 05:37+0200\n"
+"PO-Revision-Date: 2006-08-15 21:06+0200\n"
+"Last-Translator: Badral <badral@openmn.org>\n"
+"Language-Team: Mongolian <openmn-translation@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.10.2\n"
+
+#: ../a11y/image.c:150
+#, c-format
+msgid "URL is %s, Alternative Text is %s"
+msgstr "URL нь %s, сонгосон текст нь %s"
+
+#: ../a11y/image.c:152
+#, c-format
+msgid "URL is %s"
+msgstr "URI нь %s"
+
+#: ../a11y/object.c:52 ../a11y/object.c:61 ../a11y/text.c:127
+msgid "grab focus"
+msgstr "Граб фокус"
+
+#: ../a11y/object.c:258
+msgid "Panel containing HTML"
+msgstr "HTML агуулсан самбар"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:1
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
+msgid "+0"
+msgstr "+0"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:2
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:2
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:5
+msgid "+1"
+msgstr "+1"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:3
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:3
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:6
+msgid "+2"
+msgstr "+2"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:4
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:4
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:7
+msgid "+3"
+msgstr "+3"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:5
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:5
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:9
+msgid "-1"
+msgstr "-1"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:6
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:6
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:10
+msgid "-2"
+msgstr "-2"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:7
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:7
+msgid "A_ddress"
+msgstr "_Хаяг"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:8
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:8
+#: ../components/html-editor/toolbar.c:58
+msgid "Alphabetical List"
+msgstr "Цагаан толгойн үсгийн дарааллаар"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:9
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:9
+#: ../components/html-editor/toolbar.c:55
+msgid "Bulleted List"
+msgstr "Тоочисон жагсаалт"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:10
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:10
+#: ../components/html-editor/toolbar.c:528
+msgid "Center justifies the paragraphs"
+msgstr "Параграфыг голд зэрэгцүүлэх"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:11
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:11
+msgid "Check _Spelling..."
+msgstr "Үг _үсгийн алдаа шалгаж байна..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:12
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
+msgid "Check spelling of the document"
+msgstr "Баримтын үг үсгийн алдаа шалгах"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:13
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:13
+msgid "Copy"
+msgstr "Хуулах"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:14
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:14
+msgid "Copy selection to clipboard"
+msgstr "Клипборд руу сонголтыг хуулах"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:15
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:15
+msgid "Copy the selection"
+msgstr "Сонголтыг хуулах"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:16
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:16
+msgid "Cr_ying"
+msgstr "_Яаралтай"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:17
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:17
+msgid "Cu_t"
+msgstr "_Тасдан авах"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:18
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:18
+msgid "Cut"
+msgstr "Тасдан авах"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:19
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:19
+msgid "Cut selection to clipboard"
+msgstr "Сонголтыг клипборд руу тасдан авах"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:20
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:20
+msgid "Cut the selection"
+msgstr "Сонголтыг тасдан авах"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:21
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:21
+msgid "Emoti_con"
+msgstr "_Дүрс"
+
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
+#: ../components/html-editor/search.c:111
+#: ../components/html-editor/search.c:171
+msgid "Find"
+msgstr "Хайх"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:23
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:23
+msgid "Find _Again"
+msgstr "_Дахин хайх"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:24
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:24
+msgid "Find again"
+msgstr "Дахин хайх"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:25
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:25
+msgid "Find and Replace"
+msgstr "Хайх ба орлуулах"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:26
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:26
+msgid "Find and replace"
+msgstr "Хайх ба орлуулах"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:27
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:27
+msgid "For_mat"
+msgstr "_Формат"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:28
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:28
+msgid "Header _1"
+msgstr "Толгой _1"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:29
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:29
+msgid "Header _2"
+msgstr "Толгой _2"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:30
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:30
+msgid "Header _3"
+msgstr "Толгой _3"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:31
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:31
+msgid "Header _4"
+msgstr "Толгой _4"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:32
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:32
+msgid "Header _5"
+msgstr "Толгой _5"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:33
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:33
+msgid "Header _6"
+msgstr "Толгой _6"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:34
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:34
+msgid "I_nsert"
+msgstr "_Оруулах"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:35
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
+#: ../components/html-editor/editor-control-factory.c:198
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:37
+#: ../components/html-editor/popup.c:216
+msgid "Image"
+msgstr "Зураг"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:36
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
+msgid "Insert Crying emoticon into document..."
+msgstr "Баримт руу буй уйлж буй дүрс оруулах..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:37
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
+msgid "Insert Frown emoticon into document..."
+msgstr "Баримтад хөмсөг зангидсан дүрс оруулах..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:38
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
+msgid "Insert HTML file into document..."
+msgstr "Баримтад HTML файл оруулах..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:39
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
+msgid "Insert HTML link into document..."
+msgstr "Баримтад HTML холбоос оруулах..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:40
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:40
+msgid "Insert HTML template into document..."
+msgstr "Баримтад HTML хэв оруулах..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:41
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
+msgid "Insert Indifferent emoticon into document..."
+msgstr "Баримтад хайхрамжгүй байгаа дүрс оруулах..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:42
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
+msgid "Insert Laughing emoticon into document..."
+msgstr "Баримтад хөгжилтэй байгаа дүрс оруулах"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:43
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
+msgid "Insert Oh no! emoticon into document..."
+msgstr "Баримтад өө үгүй байлгүй дээ! гэсэн дүрс оруулах..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:44
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
+msgid "Insert Smile emoticon into document..."
+msgstr "Баримтад инээмсэглэсэн дүрс оруулах..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:45
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
+msgid "Insert Surprised emoticon into document..."
+msgstr "Баримтад Гайхсан дүрс оруулах..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:46
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
+msgid "Insert Tongue emoticon into document..."
+msgstr "Баримтад Хэлээ гаргасан дүрс оруулах..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:47
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
+msgid "Insert Undecided emoticon into document..."
+msgstr "Баримтад шийдээгүй гэсэн дүрс оруулах..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:48
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
+msgid "Insert Wink emoticon into document..."
+msgstr "Баримтад Нүдээ ирмэсэн дүрс оруулах..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:49
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
+#: ../components/html-editor/menubar.c:102
+#: ../components/html-editor/menubar.c:110
+msgid "Insert image"
+msgstr "Зураг оруулах"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:50
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
+msgid "Insert image into document..."
+msgstr "Баримтад зураг оруулах..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:51
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:52
+msgid "Insert link"
+msgstr "Холбоос оруулах"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:52
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:53
+msgid "Insert rule"
+msgstr "Шугам оруулах"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:53
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
+msgid "Insert rule into document..."
+msgstr "Баримтад шугам оруулах..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:54
+msgid "Insert table"
+msgstr "Хүснэгт оруулах"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
+msgid "Insert table into document..."
+msgstr "Баримтад хүснэгт оруулах"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:56
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
+msgid "Insert text file into document..."
+msgstr "Баримтад текст файл оруулах..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:57
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
+#: ../components/html-editor/toolbar.c:526
+msgid "Left justifies the paragraphs"
+msgstr "Параграфыг зүүн тал руу зэрэгцүүлэх"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:58
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:58
+msgid "Li_ck"
+msgstr "Тэ_вдсэн"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:59
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
+#: ../components/html-editor/menubar.c:145
+#: ../components/html-editor/popup.c:115 ../components/html-editor/popup.c:210
+#: ../components/html-editor/popup.c:280
+msgid "Link"
+msgstr "Холбоос"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:60
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
+msgid "Make the current Paragraph style Normal"
+msgstr "Одоогийн параграфыг Normal төрөлтэй болгох"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:61
+msgid "Make the current Paragraph style Preformat"
+msgstr "Одоогийн Параграфын төрлийг Preformat болгох"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:62
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
+msgid "Make the current paragraph a bulleted list"
+msgstr "Одоогийн "
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:63
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:63
+msgid "Make the current paragraph a list with roman numerals"
+msgstr "Одоо"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:64
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:64
+msgid "Make the current paragraph a numbered list"
+msgstr "Одоогийн параграфыг дугаарласан жагсаалт болгох"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:65
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:65
+msgid "Make the current paragraph an H1 header"
+msgstr "Одоогийн параграфыг H1 гарчиг хэлбэртэй болгох"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:66
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:66
+msgid "Make the current paragraph an H2 header"
+msgstr "Одоогийн параграфыг H2 гарчиг хэлбэртэй болгох"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:67
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:67
+msgid "Make the current paragraph an H3 header"
+msgstr "Одоогийн параграфыг H3 гарчиг хэлбэртэй болгох"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:68
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:68
+msgid "Make the current paragraph an H4 header"
+msgstr "Одоогийн параграфыг H4 гарчиг хэлбэртэй болгох"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:69
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:69
+msgid "Make the current paragraph an H5 header"
+msgstr "Одоогийн параграфыг H5 гарчиг хэлбэртэй болгох"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:70
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:70
+msgid "Make the current paragraph an H6 header"
+msgstr "Одоогийн параграфыг H6 гарчиг хэлбэртэй болгох"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:71
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
+msgid "Make the current paragraph an address"
+msgstr "Одоогийн параграфт хаяг үүсгэх"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:72
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
+msgid "Make the current paragraph an alphabetical list"
+msgstr "Одоогийн параграфт цагаан толгойн үсгийн дарааллаар жагсаалт үүсгэх"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:73
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
+#: ../components/html-editor/paragraph.c:87
+#: ../components/html-editor/toolbar.c:53
+msgid "Normal"
+msgstr "Дундаж"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:74
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
+#: ../components/html-editor/toolbar.c:56
+msgid "Numbered List"
+msgstr "Дагаарласан жагсаалт"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:75
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:75
+msgid "Numbered _List"
+msgstr "Дугаарласан _Жагсаалт"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:76
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
+msgid "Oh _No!"
+msgstr "Өө _Үгүй ээ!"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:77
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
+msgid "Paste"
+msgstr "Хувилах"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:78
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
+msgid "Paste _Quotation"
+msgstr "_Ишлэлийг хувилах"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:79
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
+msgid "Paste from clipboard"
+msgstr "Санах ойгоос хувилах"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:80
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
+msgid "Paste the clipboard"
+msgstr "Санах ойд хувилах"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:81
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
+msgid "Paste the clipboard as a quotation"
+msgstr "Ишлэлийг санах ойд хувилах"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:82
+#: ../components/html-editor/toolbar.c:54
+msgid "Preformat"
+msgstr "Preformat"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:83
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
+msgid "Redo"
+msgstr "Дахин хийх"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:84
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
+msgid "Redo previously undone change"
+msgstr "Өмнө хийсэн өөрчлөлтөө дахин хийнэ үү"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:85
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
+msgid "Redo the undone action"
+msgstr "Хийсэн үйлдлээ дахин хийнэ үү"
+
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
+#: ../components/html-editor/replace.c:174
+#: ../components/html-editor/replace.c:240
+msgid "Replace"
+msgstr "Сэргээх"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:87
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
+#: ../components/html-editor/toolbar.c:530
+msgid "Right justifies the paragraphs"
+msgstr "Баруун талд нь зэрэгцүүлэх параграф"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:88
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
+msgid "Roman Numeral List"
+msgstr "Ромбо тоогоор дугаарласан жагсаалт"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:89
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
+#: ../components/html-editor/editor-control-factory.c:216
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:47
+#: ../components/html-editor/menubar.c:168
+#: ../components/html-editor/popup.c:234
+msgid "Rule"
+msgstr "Шугам"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:90
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
+msgid "Select _All"
+msgstr "_Бүгдийг сонгох"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:91
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
+msgid "Select the entire contents of the document"
+msgstr "Баримтын агуулгыг бүтнээр нь сонгох"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:92
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
+#: ../components/html-editor/toolbar.c:558
+msgid "Strikeout"
+msgstr "Хийж эхлэх"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:93
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
+msgid "Su_rprised"
+msgstr "_Гайхсан"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:94
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
+msgid "Subscript"
+msgstr "Дэд скрипт"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:95
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
+msgid "Superscript"
+msgstr "Индекслэх"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:96
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:52
+#: ../components/html-editor/menubar.c:196
+#: ../components/html-editor/popup.c:240 ../components/html-editor/popup.c:514
+#: ../components/html-editor/popup.c:526
+msgid "Table"
+msgstr "Хүснэгт"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:97
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
+msgid "Te_mplate..."
+msgstr "_Загвар..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
+msgid "Te_xt File..."
+msgstr "_Текст Файл..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:99
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
+#: ../components/html-editor/toolbar.c:550
+msgid "Typewriter"
+msgstr "Бичгийн машин"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:100
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
+msgid "Undo"
+msgstr "Үйлдлийг буцаах"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:101
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
+msgid "Undo previous changes"
+msgstr "Өмнөх өөрчлөлтийг буцаах"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:102
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
+msgid "Undo the last action"
+msgstr "Сүүлчийн үйлдлийг буцаах"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:103
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
+msgid "_Alignment"
+msgstr "_Зэрэгцүүлэлт"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:104
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
+msgid "_Alphabetical List"
+msgstr "_Цагаан толгойн үсгийн дарааллаар жагсаах"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:105
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:59
+msgid "_Bold"
+msgstr "_Тод"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:106
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
+msgid "_Bulleted List"
+msgstr "_Жагсаах"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:107
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
+msgid "_Center"
+msgstr "_Гол руугаа зэрэгцэх"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:108
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
+msgid "_Copy"
+msgstr "_Хуулах"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:109
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
+msgid "_Decrease Indent"
+msgstr "_Догол мөрийн хэмжээг багасгах"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
+msgid "_Edit"
+msgstr "_Засварлах"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:111
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
+msgid "_Find..."
+msgstr "_Хайх..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:112
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
+msgid "_Font Size"
+msgstr "_Үсгийн хэмжээ"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:113
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
+msgid "_Frown"
+msgstr "_Хөмсөг зангидсан"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:114
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
+msgid "_HTML File..."
+msgstr "_HTML Файл..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:115
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
+msgid "_Heading"
+msgstr "_Гарчиг"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:116
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
+msgid "_Image..."
+msgstr "_Зураг..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:117
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
+msgid "_Increase Indent"
+msgstr "_Догол мөрийн зайг ихэсгэх"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:118
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
+msgid "_Indifferent"
+msgstr "_Хайхрамжгүй"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:119
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:66
+msgid "_Italic"
+msgstr "_Налуу"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:120
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
+msgid "_Laughing"
+msgstr "_Хөгжилтэй"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:121
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
+msgid "_Left"
+msgstr "_Зүүн"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:122
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
+msgid "_Link..."
+msgstr "_Холбоос..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:123
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
+msgid "_Normal"
+msgstr "_Дундаж"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
+msgid "_Page..."
+msgstr "_Хуудас..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:125
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
+msgid "_Paragraph..."
+msgstr "_Параграф..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:126
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:127
+msgid "_Paste"
+msgstr "_Хувилах"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:127
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:128
+msgid "_Plain Text"
+msgstr "_Энгийн Текст"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:128
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
+msgid "_Preformatted"
+msgstr "_Өмнө форматлагдсан"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:129
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
+msgid "_Redo"
+msgstr "_Дахин хийх"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:130
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
+msgid "_Replace..."
+msgstr "_Сэргээх..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:131
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
+msgid "_Right"
+msgstr "_Баруун"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:132
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:133
+msgid "_Roman Numeral List"
+msgstr "_Ромбо тоогоор дугаарласан жагсаалт"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:133
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:134
+msgid "_Rule..."
+msgstr "_Шугам..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:134
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
+msgid "_Smile"
+msgstr "_Инээмсэглэл"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:135
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:72
+msgid "_Strikethrough"
+msgstr "_Дээгүүр зурж тэмдэглэх"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:136
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
+msgid "_Style"
+msgstr "_Хэлбэр"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:137
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
+msgid "_Table..."
+msgstr "_Хүснэгт..."
+
+#.
+#. <submenu name="BackgroundColor" _label="Background Color">
+#. <menuitem name="ColorRed" verb="" _label="Red"/>
+#. <menuitem name="ColorOrange" verb="" _label="Orange"/>
+#. <menuitem name="ColorYellow" verb="" _label="Yellow"/>
+#. <menuitem name="ColorGreen" verb="" _label="Green"/>
+#. <menuitem name="ColorBlue" verb="" _label="Blue"/>
+#. <menuitem name="ColorPurple" verb="" _label="Purple"/>
+#. <menuitem name="etc" verb="" _label="etc..."/>
+#.
+#. <separator/>
+#.
+#. <menuitem name="Other" verb="" _label="Other..."/>
+#. </submenu>
+#.
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:153
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:154
+msgid "_Text..."
+msgstr "_Текст..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:154
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:155
+msgid "_Undecided"
+msgstr "_Шийдээгүй"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:155
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:156
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:75
+msgid "_Underline"
+msgstr "_Доогуур зураастай оруулах"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:156
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:157
+msgid "_Undo"
+msgstr "_Үйлдлээ буцаах"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:157
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:158
+msgid "_Wink"
+msgstr "_Нүдээ анивчсан"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:1
+msgid "GNOME HTML Editor"
+msgstr "GNOME HTML засварлагч\""
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:2
+msgid "GNOME HTML Editor Control"
+msgstr "GNOME HTML хянан засварлагч"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:3
+msgid "GNOME HTML Editor Factory"
+msgstr "GNOME HTML з"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
+msgid "Insert Sick emoticon into document..."
+msgstr "Баримтад өвчтэй гэсэн айкон оруулах"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
+msgid "Make the current Paragraph style Preformatted"
+msgstr "Одоогийн параграфыг Preformatted хэлбэрт оруулах"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
+#: ../components/html-editor/paragraph.c:106
+msgid "Preformatted"
+msgstr "Өмнө форматлагдсан"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
+msgid "S_ick"
+msgstr "_Өвчтэй байгаа"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:159
+msgid "_Wrap Lines"
+msgstr "Шугаман _Wrap"
+
+#: ../components/html-editor/body.c:65
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:41
+msgid "None"
+msgstr "Aль нь ч би"
+
+#: ../components/html-editor/body.c:73
+msgid "Perforated paper"
+msgstr "Цаас нэвтлэх"
+
+#: ../components/html-editor/body.c:81
+msgid "Blue ink"
+msgstr "Хөх өнгө"
+
+#: ../components/html-editor/body.c:89
+msgid "Paper"
+msgstr "Цаас"
+
+#: ../components/html-editor/body.c:97
+msgid "Ribbon"
+msgstr "Туузан"
+
+#: ../components/html-editor/body.c:105
+msgid "Midnight"
+msgstr "Тү"
+
+#: ../components/html-editor/body.c:113
+msgid "Confidential"
+msgstr "Найдвартай"
+
+#: ../components/html-editor/body.c:121
+msgid "Draft"
+msgstr "Таталбар"
+
+#: ../components/html-editor/body.c:129
+msgid "Graph paper"
+msgstr "Зургийн цаас"
+
+#: ../components/html-editor/body.c:256 ../components/html-editor/text.c:170
+#: ../components/html-editor/toolbar.c:313
+msgid "Automatic"
+msgstr "Автомат"
+
+#: ../components/html-editor/body.c:268
+msgid "_Text:"
+msgstr "_Текст:"
+
+#: ../components/html-editor/body.c:269
+msgid "_Link:"
+msgstr "_Холбоос:"
+
+#: ../components/html-editor/body.c:270
+msgid "_Background:"
+msgstr "_Aрын фон:"
+
+#: ../components/html-editor/body.c:272
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:30
+msgid "Colors"
+msgstr "Өнгүүд"
+
+#: ../components/html-editor/body.c:274 ../components/html-editor/body.c:302
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:23
+msgid "Background Image"
+msgstr "Арын фондны зураг"
+
+#: ../components/html-editor/body.c:285
+msgid "Background Image File Path"
+msgstr "Арын фондны зургийн Файлын Зам"
+
+#: ../components/html-editor/body.c:293
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:53
+#: ../components/html-editor/menubar.c:222
+msgid "Template"
+msgstr "Загвар"
+
+#: ../components/html-editor/body.c:296
+msgid "T_emplate:"
+msgstr "_Загвар:"
+
+#: ../components/html-editor/body.c:300
+msgid "C_ustom:"
+msgstr "_Зуршил:"
+
+#: ../components/html-editor/cell.c:340 ../components/html-editor/image.c:356
+#: ../components/html-editor/link.c:196 ../components/html-editor/rule.c:182
+#: ../components/html-editor/table.c:227
+#: ../components/html-editor/template.c:287
+#: ../components/html-editor/text.c:167
+msgid "Could not load glade file."
+msgstr "Зарим файл ачаалах боломжгүй байна."
+
+#: ../components/html-editor/cell.c:363 ../components/html-editor/table.c:242
+msgid "Transparent"
+msgstr "Нэвт гэрэлтсэн"
+
+#: ../components/html-editor/editor-control-factory.c:187
+#: ../components/html-editor/popup.c:195 ../components/html-editor/popup.c:276
+msgid "Properties"
+msgstr "Шинж чанар"
+
+#: ../components/html-editor/editor-control-factory.c:206
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:54
+#: ../components/html-editor/menubar.c:400
+#: ../components/html-editor/popup.c:204
+msgid "Text"
+msgstr "Текст"
+
+#: ../components/html-editor/editor-control-factory.c:225
+#: ../components/html-editor/menubar.c:418
+#: ../components/html-editor/popup.c:222
+msgid "Paragraph"
+msgstr "Параграф"
+
+#: ../components/html-editor/editor-control-factory.c:229
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:42
+#: ../components/html-editor/menubar.c:382
+#: ../components/html-editor/popup.c:228
+msgid "Page"
+msgstr "Хуудас"
+
+#: ../components/html-editor/gi-color-combo.c:191
+msgid "color preview"
+msgstr "Өнгийг урьдчилан харах"
+
+#. This is the default custom color
+#: ../components/html-editor/gi-color-palette.c:399
+msgid "custom"
+msgstr "Хэвшил "
+
+#. "Custom" color - we'll pop up a GnomeColorPicker
+#: ../components/html-editor/gi-color-palette.c:441
+msgid "Custom Color:"
+msgstr "Хэвшмэл Өнгө:"
+
+#: ../components/html-editor/gi-color-palette.c:449
+msgid "Choose Custom Color"
+msgstr "Хэвшмэл Өнгийг сонгох"
+
+#: ../components/html-editor/gi-color-palette.c:582
+msgid "black"
+msgstr "Хар"
+
+#: ../components/html-editor/gi-color-palette.c:583
+msgid "light brown"
+msgstr "бор шаргал"
+
+#: ../components/html-editor/gi-color-palette.c:584
+msgid "brown gold"
+msgstr "бор шаргал"
+
+#: ../components/html-editor/gi-color-palette.c:585
+msgid "dark green #2"
+msgstr "хар ногоон #2"
+
+#: ../components/html-editor/gi-color-palette.c:586
+msgid "navy"
+msgstr "тэнгисийн цэнхэр өнгөтэй"
+
+#: ../components/html-editor/gi-color-palette.c:587
+#: ../components/html-editor/gi-color-palette.c:643
+msgid "dark blue"
+msgstr "хар хөх"
+
+#: ../components/html-editor/gi-color-palette.c:588
+msgid "purple #2"
+msgstr "ягаан #2"
+
+#: ../components/html-editor/gi-color-palette.c:589
+msgid "very dark gray"
+msgstr "хар саарал"
+
+#: ../components/html-editor/gi-color-palette.c:592
+#: ../components/html-editor/gi-color-palette.c:648
+msgid "dark red"
+msgstr "улаан хүрэн"
+
+#: ../components/html-editor/gi-color-palette.c:593
+msgid "red-orange"
+msgstr "улаан шар"
+
+#: ../components/html-editor/gi-color-palette.c:594
+msgid "gold"
+msgstr "жаргал"
+
+#: ../components/html-editor/gi-color-palette.c:595
+msgid "dark green"
+msgstr "хар ногоон"
+
+#: ../components/html-editor/gi-color-palette.c:596
+#: ../components/html-editor/gi-color-palette.c:649
+msgid "dull blue"
+msgstr "бүдэг хөх"
+
+#: ../components/html-editor/gi-color-palette.c:597
+#: ../components/html-editor/gi-color-palette.c:650
+msgid "blue"
+msgstr "хөх"
+
+#: ../components/html-editor/gi-color-palette.c:598
+msgid "dull purple"
+msgstr "бүдэг ягаан"
+
+#: ../components/html-editor/gi-color-palette.c:599
+msgid "dark grey"
+msgstr "хар саарал"
+
+#: ../components/html-editor/gi-color-palette.c:602
+msgid "red"
+msgstr "улаан"
+
+#: ../components/html-editor/gi-color-palette.c:603
+msgid "orange"
+msgstr "улбар шар"
+
+#: ../components/html-editor/gi-color-palette.c:604
+msgid "lime"
+msgstr "Лайм"
+
+#: ../components/html-editor/gi-color-palette.c:605
+msgid "dull green"
+msgstr "бүдэг ногоон"
+
+#: ../components/html-editor/gi-color-palette.c:606
+msgid "dull blue #2"
+msgstr "бүдэг хөх #2"
+
+#: ../components/html-editor/gi-color-palette.c:607
+msgid "sky blue #2"
+msgstr "тэнгэрийн цэнхэр #2"
+
+#: ../components/html-editor/gi-color-palette.c:608
+#: ../components/html-editor/gi-color-palette.c:647
+msgid "purple"
+msgstr "час улаан"
+
+#: ../components/html-editor/gi-color-palette.c:609
+msgid "gray"
+msgstr "саарал"
+
+#: ../components/html-editor/gi-color-palette.c:612
+#: ../components/html-editor/gi-color-palette.c:644
+msgid "magenta"
+msgstr "ягаан"
+
+#: ../components/html-editor/gi-color-palette.c:613
+msgid "bright orange"
+msgstr "тод улбар шар"
+
+#: ../components/html-editor/gi-color-palette.c:614
+#: ../components/html-editor/gi-color-palette.c:645
+msgid "yellow"
+msgstr "шар"
+
+#: ../components/html-editor/gi-color-palette.c:615
+msgid "green"
+msgstr "ногоон"
+
+#: ../components/html-editor/gi-color-palette.c:616
+#: ../components/html-editor/gi-color-palette.c:646
+msgid "cyan"
+msgstr "хөх ногоон "
+
+#: ../components/html-editor/gi-color-palette.c:617
+msgid "bright blue"
+msgstr "тод хөх"
+
+#: ../components/html-editor/gi-color-palette.c:618
+#: ../components/html-editor/gi-color-palette.c:635
+msgid "red purple"
+msgstr "улаан ягаан"
+
+#: ../components/html-editor/gi-color-palette.c:619
+msgid "light grey"
+msgstr "цагаан саарал"
+
+#: ../components/html-editor/gi-color-palette.c:622
+#: ../components/html-editor/gi-color-palette.c:639
+msgid "pink"
+msgstr "ягаан"
+
+#: ../components/html-editor/gi-color-palette.c:623
+msgid "light orange"
+msgstr "цайвар улаан шар"
+
+#: ../components/html-editor/gi-color-palette.c:624
+#: ../components/html-editor/gi-color-palette.c:636
+msgid "light yellow"
+msgstr "цайвар шар"
+
+#: ../components/html-editor/gi-color-palette.c:625
+msgid "light green"
+msgstr "цайвар ногоон"
+
+#: ../components/html-editor/gi-color-palette.c:626
+msgid "light cyan"
+msgstr "цайвар ногоон хөх"
+
+#: ../components/html-editor/gi-color-palette.c:627
+#: ../components/html-editor/gi-color-palette.c:637
+msgid "light blue"
+msgstr "цайвар цэнхэр"
+
+#: ../components/html-editor/gi-color-palette.c:628
+#: ../components/html-editor/gi-color-palette.c:641
+msgid "light purple"
+msgstr "цайвар ягаан"
+
+#: ../components/html-editor/gi-color-palette.c:629
+msgid "white"
+msgstr "цагаан"
+
+#: ../components/html-editor/gi-color-palette.c:634
+msgid "purplish blue"
+msgstr "хөх улаан"
+
+#: ../components/html-editor/gi-color-palette.c:638
+msgid "dark purple"
+msgstr "гүн ягаан"
+
+#: ../components/html-editor/gi-color-palette.c:640
+msgid "sky blue"
+msgstr "тэнгэрийн цэнхэр"
+
+#. set the a11y name
+#: ../components/html-editor/gi-combo-box.c:423
+msgid "Popup"
+msgstr "Попап"
+
+#: ../components/html-editor/gnome-gtkhtml-editor.c:74
+msgid "GtkHTML Editor Control"
+msgstr "GtkHTML хянан Засварлагч"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:1
+msgid "    "
+msgstr "...."
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:3
+#, no-c-format
+msgid "%"
+msgstr "%"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:4
+msgid "*"
+msgstr "*"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:8
+msgid "+4"
+msgstr "+4"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:11
+msgid "<b>Alignment &amp; Behaviour</b>"
+msgstr "<b>Alignment &amp; Behaviour</b>"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:12
+msgid "<b>Background</b>"
+msgstr "<b>Background</b>"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:13
+msgid "<b>General</b>"
+msgstr "<b>General</b>"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:14
+msgid "<b>Layout</b>"
+msgstr "<b>Layout</b>"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:15
+msgid "<b>Scope</b>"
+msgstr "<b>Scope</b>"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:16
+msgid "<span weight=\"bold\">General</span>"
+msgstr "<span weight=\"bold\">General</span>"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:17
+msgid "<span weight=\"bold\">Layout</span>"
+msgstr "<span weight=\"bold\">Layout</span>"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:18
+msgid "<span weight=\"bold\">Link</span>"
+msgstr "<span weight=\"bold\">Link</span>"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:19
+msgid "<span weight=\"bold\">Size</span>"
+msgstr "<span weight=\"bold\">Size</span>"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:20
+msgid "<span weight=\"bold\">Style</span>"
+msgstr "<span weight=\"bold\">Style</span>"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:21
+msgid "<span weight=\"bold\">Template</span>"
+msgstr "<span weight=\"bold\">Template</span>"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:22
+msgid "Alignment:"
+msgstr "Зэрэгцүүлэлт:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:24
+msgid "Bottom"
+msgstr "Доод хэсэг"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:25
+msgid "C_ell"
+msgstr "_"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:26
+msgid "C_olor:"
+msgstr "_Өнгө:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:27
+#: ../components/html-editor/popup.c:246
+msgid "Cell"
+msgstr "Хүснэгтний нүд"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:28
+#: ../components/html-editor/paragraph.c:132
+#: ../components/html-editor/toolbar.c:528
+msgid "Center"
+msgstr "Гол хэсэг"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:29
+msgid "Col_umn"
+msgstr "_Багана"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:31
+msgid "Column span:"
+msgstr "Баганын нийт урт"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:32
+msgid "Enable"
+msgstr "Боломжтой"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:33
+msgid "Hea_der style"
+msgstr "Гарчгийн төрөл"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:34
+msgid "Horizontal alignment:"
+msgstr "Хэвтээ зэрэгцүүлэлт:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:35
+msgid "Horizontal:"
+msgstr "Хэвтээ чичлэл:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:36
+msgid "I_mage:"
+msgstr "_Зураг:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:38
+#: ../components/html-editor/paragraph.c:131
+msgid "Left"
+msgstr "Зүүн"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:39
+msgid "Link properties"
+msgstr "Холбоосын шимж чанар"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:40
+msgid "Middle"
+msgstr "Дунд хэсэг"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:43
+msgid "Percent"
+msgstr "Хувь"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:44
+msgid "Pixels"
+msgstr "Пиксел"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:45
+#: ../components/html-editor/paragraph.c:133
+msgid "Right"
+msgstr "Баруун"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:46
+msgid "Row span:"
+msgstr "Эгнээний нийт урт:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:48
+msgid "Shade"
+msgstr "Сүүдэр"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:49
+msgid "Si_ze:"
+msgstr "_Хэмжээ:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:50
+msgid "Size:"
+msgstr "Хэмжээ:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:51
+msgid "Standard"
+msgstr "Стандарт"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:55
+msgid "Top"
+msgstr "Дээд хэсэг"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:56
+msgid "Vertical:"
+msgstr "Босоо чиглэл:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:57
+msgid "Width:"
+msgstr "Өргөн:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:58
+msgid "_Alignment:"
+msgstr "_Зэрэгцүүлэх"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:60
+msgid "_Border:"
+msgstr "_Хүрээ"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:61
+msgid "_Color:"
+msgstr "_Өнгө:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:62
+msgid "_Columns:"
+msgstr "_Баганууд:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:63
+msgid "_Description:"
+msgstr "_Тодорхойлолт:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:64
+msgid "_Height:"
+msgstr "_Өндөр:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:65
+msgid "_Image:"
+msgstr "_Зураг:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:67
+msgid "_Padding:"
+msgstr "_Хүснэгтийн ирмэгээс өгөгдөл хүртлэх зай:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:68
+msgid "_Row"
+msgstr "_Эгнээ"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:69
+msgid "_Rows:"
+msgstr "_Эгнээнүүд;"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:70
+msgid "_Source:"
+msgstr "_Эх үүсвэр:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:71
+msgid "_Spacing:"
+msgstr "_Зай:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:73
+msgid "_Table"
+msgstr "_Хүснэгт"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:74
+msgid "_URL:"
+msgstr "_URL:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:76
+msgid "_Width:"
+msgstr "_Өргөн:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:77
+msgid "_Wrap Text"
+msgstr "Текст _Wrap"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:78
+msgid "_X-Padding:"
+msgstr "_"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:79
+msgid "_Y-Padding:"
+msgstr "_Y тэнхлэгийн дагуух хүснэгтийн ирмэг өгөгдөл хоорондын зай:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:80
+msgid "follow"
+msgstr "Дагах"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:81
+msgid "px"
+msgstr "px"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:82
+msgid "xxxxxxxxxxxxxx"
+msgstr "xxxxxxxxxxxxxx"
+
+#: ../components/html-editor/link.c:208
+msgid "URL:"
+msgstr "URL:"
+
+#: ../components/html-editor/link.c:212
+msgid "Description:"
+msgstr "Тодорхойлолт:"
+
+#: ../components/html-editor/menubar.c:141
+#: ../components/html-editor/menubar.c:164
+#: ../components/html-editor/menubar.c:192
+#: ../components/html-editor/menubar.c:218
+#: ../components/html-editor/popup.c:111
+msgid "Insert"
+msgstr "оруулах"
+
+#: ../components/html-editor/menubar.c:306
+#, c-format
+msgid "Error loading file '%s': %s"
+msgstr "Ачаалагдах байгаа %s файлын алдаа: %s"
+
+#: ../components/html-editor/menubar.c:332
+#: ../components/html-editor/menubar.c:341
+msgid "Insert HTML File"
+msgstr "HTML файлыг оруулах"
+
+#: ../components/html-editor/menubar.c:332
+#: ../components/html-editor/menubar.c:341
+msgid "Insert Text File"
+msgstr "Текст файлыг оруулах"
+
+#: ../components/html-editor/menubar.c:378
+#: ../components/html-editor/menubar.c:396
+#: ../components/html-editor/menubar.c:414
+msgid "Format"
+msgstr "Формат"
+
+#: ../components/html-editor/paragraph.c:90
+#: ../components/html-editor/toolbar.c:59
+msgid "Header 1"
+msgstr "Гарчиг 1"
+
+#: ../components/html-editor/paragraph.c:91
+#: ../components/html-editor/toolbar.c:60
+msgid "Header 2"
+msgstr "Гарчиг 2"
+
+#: ../components/html-editor/paragraph.c:92
+#: ../components/html-editor/toolbar.c:61
+msgid "Header 3"
+msgstr "Гарчиг 3"
+
+#: ../components/html-editor/paragraph.c:93
+#: ../components/html-editor/toolbar.c:62
+msgid "Header 4"
+msgstr "Гарчиг 4"
+
+#: ../components/html-editor/paragraph.c:94
+#: ../components/html-editor/toolbar.c:63
+msgid "Header 5"
+msgstr "Гарчиг 5"
+
+#: ../components/html-editor/paragraph.c:95
+#: ../components/html-editor/toolbar.c:64
+msgid "Header 6"
+msgstr "Гарчиг 6"
+
+#: ../components/html-editor/paragraph.c:98
+msgid "Dot item"
+msgstr "Цэгэн тэмдэглэгээ"
+
+#: ../components/html-editor/paragraph.c:99
+msgid "Number item"
+msgstr "Тэмдэглэлийг дугаарлах"
+
+#: ../components/html-editor/paragraph.c:100
+msgid "Roman item"
+msgstr "Ромбо тоон тэмдэглэгээ"
+
+#: ../components/html-editor/paragraph.c:101
+msgid "Alphabeta item"
+msgstr "Цагаан толгойн үсгийн дарааллаар хийх тэмдэглэгээ"
+
+#: ../components/html-editor/paragraph.c:104
+#: ../components/html-editor/toolbar.c:65
+msgid "Address"
+msgstr "Хаяг"
+
+#: ../components/html-editor/paragraph.c:113
+msgid "_Style:"
+msgstr "_Төрөл:"
+
+#: ../components/html-editor/paragraph.c:116
+msgid "General"
+msgstr "Ерөнхий"
+
+#: ../components/html-editor/paragraph.c:135
+msgid "Alignment"
+msgstr "Зэрэгцүүлэлт"
+
+#: ../components/html-editor/popup.c:451
+msgid "Paste Quotation"
+msgstr "Ишлэлийг хувилах"
+
+#: ../components/html-editor/popup.c:455
+msgid "Insert Link"
+msgstr "Холбоос оруулах"
+
+#: ../components/html-editor/popup.c:462
+msgid "Remove Link"
+msgstr "Холбоосыг шилжүүлэх"
+
+#: ../components/html-editor/popup.c:469
+msgid "Style"
+msgstr "Төрөл"
+
+#: ../components/html-editor/popup.c:472
+msgid "Text Style..."
+msgstr "Текстийн төрөл..."
+
+#: ../components/html-editor/popup.c:474 ../components/html-editor/popup.c:480
+#: ../components/html-editor/popup.c:490
+msgid "Paragraph Style..."
+msgstr "Параграфын төрөл..."
+
+#: ../components/html-editor/popup.c:478
+msgid "Link Style..."
+msgstr "Холбоосын Төрөл..."
+
+#: ../components/html-editor/popup.c:484
+msgid "Rule Style..."
+msgstr "Шугамын Төрөл..."
+
+#: ../components/html-editor/popup.c:488
+msgid "Image Style..."
+msgstr "Зургийн Төрөл..."
+
+#: ../components/html-editor/popup.c:499
+msgid "Cell Style..."
+msgstr "Хүснэгтний нүдний Төрөл..."
+
+#: ../components/html-editor/popup.c:502
+msgid "Table Style..."
+msgstr "Хүснэгтийн Төрөл..."
+
+#: ../components/html-editor/popup.c:508
+msgid "Page Style..."
+msgstr "Хуудсын Төрөл..."
+
+#: ../components/html-editor/popup.c:513
+msgid "Table insert"
+msgstr "Хүснэгт оруулах"
+
+#: ../components/html-editor/popup.c:516
+msgid "Row above"
+msgstr "Эгнээний дээр"
+
+#: ../components/html-editor/popup.c:517
+msgid "Row below"
+msgstr "Эгнээний доор"
+
+#: ../components/html-editor/popup.c:519
+msgid "Column before"
+msgstr "Баганын өмнө"
+
+#: ../components/html-editor/popup.c:520
+msgid "Column after"
+msgstr "Баганын дараа"
+
+#: ../components/html-editor/popup.c:525
+msgid "Table delete"
+msgstr "Хүснэгтийг устгах"
+
+#: ../components/html-editor/popup.c:527
+msgid "Row"
+msgstr "Эгнээ"
+
+#: ../components/html-editor/popup.c:528
+msgid "Column"
+msgstr "Багана"
+
+#: ../components/html-editor/popup.c:529
+msgid "Cell contents"
+msgstr "Ү"
+
+#: ../components/html-editor/popup.c:537
+msgid "Check Word Spelling..."
+msgstr "Үгийг үсэг үсгээр шалга..."
+
+#: ../components/html-editor/popup.c:538
+msgid "Ignore Misspelled Word"
+msgstr "Алдаатай бичигдсэн Үгийг зөвшөөрөхгүй байх"
+
+#: ../components/html-editor/popup.c:543
+msgid "Add Word to"
+msgstr "Үг нэмэх"
+
+#: ../components/html-editor/popup.c:547
+#, c-format
+msgid "%s Dictionary"
+msgstr "%s Tоль бичиг"
+
+#: ../components/html-editor/popup.c:556
+msgid "Add Word to Dictionary"
+msgstr "Толь бичигт Үг нэмэх"
+
+#: ../components/html-editor/popup.c:562
+msgid "Input Methods"
+msgstr "Аргуудыг оруулах"
+
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
+#: ../components/html-editor/replace.c:84
+msgid "Replace confirmation"
+msgstr "Баталгааг сэргээх"
+
+#: ../components/html-editor/replace.c:85
+msgid "Replace _All"
+msgstr "_Бүгдийг сэргээх"
+
+#: ../components/html-editor/replace.c:86
+msgid "_Next"
+msgstr "_Дараагийнх"
+
+#: ../components/html-editor/replace.c:88
+msgid "_Replace"
+msgstr "_Сэргээх"
+
+#: ../components/html-editor/replace.c:182
+msgid "Search _backward"
+msgstr "_Буцааж хайх"
+
+#: ../components/html-editor/replace.c:183
+#: ../components/html-editor/search.c:117
+msgid "Case _sensitive"
+msgstr "Том жижиг үсгийн _мэдрэмжтэй"
+
+#: ../components/html-editor/replace.c:193
+msgid "R_eplace:"
+msgstr "_Сэргээх:"
+
+#: ../components/html-editor/replace.c:197
+msgid "_With:"
+msgstr "_Хамт:"
+
+#: ../components/html-editor/search.c:116
+msgid "_Backward"
+msgstr "_Буцаалт"
+
+#: ../components/html-editor/search.c:118
+msgid "_Regular Expression"
+msgstr "_Ердийн Илэрхийлэл"
+
+#: ../components/html-editor/search.c:122
+msgid "Input the words you want to search here"
+msgstr "Энд хайхыг хүссэн үгээ оруулна уу"
+
+#: ../components/html-editor/spellchecker.c:114
+msgid ""
+"Unable to add word to dictionary,\n"
+"language settings are broken.\n"
+msgstr ""
+"Толь бичигт үг нэмэх боломжгүй,\n"
+"Хэл нь буруу байна.\n"
+
+#: ../components/html-editor/spellchecker.c:302
+msgid "No misspelled word found"
+msgstr "Алдаатай бичидсэн үг олдсонгүй"
+
+#: ../components/html-editor/spellchecker.c:309
+msgid "Spell checker"
+msgstr "Үгийн алдаа олох ба засварлахад зориулсан програм"
+
+#: ../components/html-editor/spellchecker.c:403
+msgid "Current _Languages"
+msgstr "Сонгосон _Хэлүүд"
+
+#: ../components/html-editor/template.c:90
+msgid "Note"
+msgstr "Тайлбар"
+
+#: ../components/html-editor/template.c:101
+#: ../components/html-editor/template.c:121
+msgid "Place your text here"
+msgstr "Энд текстээ оруулана уу"
+
+#: ../components/html-editor/template.c:104
+msgid "Image frame"
+msgstr "Зургийн тайлбар"
+
+#: ../components/html-editor/template.c:296
+msgid "Template Labels"
+msgstr "Загварын Хаяг"
+
+#: ../components/html-editor/test-html-editor-control.c:338
+msgid "Open file..."
+msgstr "Файлыг нээх..."
+
+#: ../components/html-editor/test-html-editor-control.c:340
+msgid "Save file as..."
+msgstr "Файлыг өөрчилж хадгалах..."
+
+#: ../components/html-editor/test-html-editor-control.c:572
+msgid "GtkHTML Editor Test Container"
+msgstr "GtkHTML Тестийг Агуулагчийг Засварлагч"
+
+#: ../components/html-editor/toolbar.c:57
+msgid "Roman List"
+msgstr "Ромбо тоон Жагсаалт"
+
+#: ../components/html-editor/toolbar.c:526
+msgid "Left align"
+msgstr "Зүүн тал руу зэрэгцүүлэх"
+
+#: ../components/html-editor/toolbar.c:530
+msgid "Right align"
+msgstr "Баруун тал руу  зэрэгцүүлэх"
+
+#: ../components/html-editor/toolbar.c:550
+msgid "Toggle typewriter font style"
+msgstr "Бичгийн машины үсгийн фонтын хэлбэр"
+
+#: ../components/html-editor/toolbar.c:552
+msgid "Bold"
+msgstr "Тод болгох"
+
+#: ../components/html-editor/toolbar.c:552
+msgid "Makes the text bold"
+msgstr "Текстийг тод болгох"
+
+#: ../components/html-editor/toolbar.c:554
+msgid "Italic"
+msgstr "Налуу болгох"
+
+#: ../components/html-editor/toolbar.c:554
+msgid "Makes the text italic"
+msgstr "Текстийг налуу болгох"
+
+#: ../components/html-editor/toolbar.c:556
+msgid "Underline"
+msgstr "Доогуур зураас"
+
+#: ../components/html-editor/toolbar.c:556
+msgid "Underlines the text"
+msgstr "Текстийг доогуур зураастай болгох"
+
+#: ../components/html-editor/toolbar.c:558
+msgid "Strikes out the text"
+msgstr "Текстийг "
+
+#: ../components/html-editor/toolbar.c:567
+msgid "Unindent"
+msgstr "Догол мөргүй"
+
+#: ../components/html-editor/toolbar.c:567
+msgid "Indents the paragraphs less"
+msgstr "Параграфыг илүү бага хийнэ"
+
+#: ../components/html-editor/toolbar.c:569
+msgid "Indent"
+msgstr "Догол мөр"
+
+#: ../components/html-editor/toolbar.c:569
+msgid "Indents the paragraphs more"
+msgstr "Параграфыг илүү их хийнэ"
+
+#: ../components/html-editor/utils.c:132
+msgid "Sample"
+msgstr "Энгийн"
+
+#: ../components/html-editor/utils.c:205
+msgid "_Test URL..."
+msgstr "_Текстийн URL..."
+
+#: ../components/html-editor/utils.c:248
+msgid ""
+"The edited object was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+"Зарварласан обекът баримтаас устгагдсан.\n"
+"Таны өөрчлөлтийг хэрэглэх боломжгүй."
+
+#: ../src/gtkhtml.c:2995
+msgid "Editable"
+msgstr "Засварлах боломжтой"
+
+#: ../src/gtkhtml.c:2996
+msgid "Whether the html can be edited"
+msgstr "html засварлагдаж болох эсэх"
+
+#: ../src/gtkhtml.c:3002
+msgid "Document Title"
+msgstr "Баримтын Гарчиг"
+
+#: ../src/gtkhtml.c:3003
+msgid "The title of the current document"
+msgstr "Одоогийн баримтын гарчиг"
+
+#: ../src/gtkhtml.c:3009
+msgid "Document Base"
+msgstr "Баримтын үндэс"
+
+#: ../src/gtkhtml.c:3010
+msgid "The base URL for relative references"
+msgstr "Харилцан хамааралтай зөвлөмжүүдэд зориулагдсан үндсэн URL"
+
+#: ../src/gtkhtml.c:3016
+msgid "Target Base"
+msgstr "Үндсэн зорилго"
+
+#: ../src/gtkhtml.c:3017
+msgid "The base URL of the target frame"
+msgstr "Target фреймийн үндсэн хаяг"
+
+#: ../src/gtkhtml.c:3026
+msgid "Fixed Width Font"
+msgstr "Фонтын хатуу өргөн"
+
+#: ../src/gtkhtml.c:3027
+msgid "The Monospace font to use for typewriter text"
+msgstr "Бичгийн машины текстэнд Monospace фонтыг ашиглана"
+
+#: ../src/gtkhtml.c:3033
+msgid "New Link Color"
+msgstr "Шинэ Холбоосын Өнгө"
+
+#: ../src/gtkhtml.c:3034
+msgid "The color of new link elements"
+msgstr "Шинэ холбоосын элементүүдийн өнгө"
+
+#: ../src/gtkhtml.c:3039
+msgid "Visited Link Color"
+msgstr "Орсон Холбоосын Өнгө"
+
+#: ../src/gtkhtml.c:3040
+msgid "The color of visited link elements"
+msgstr "Орсон холбоос элементийн өнгө"
+
+#: ../src/gtkhtml.c:3045
+msgid "Active Link Color"
+msgstr "Идэвхтэй Холбоосын Өнгө"
+
+#: ../src/gtkhtml.c:3046
+msgid "The color of active link elements"
+msgstr "Идэвхтэй холбоосын элементүүдийн өнгө"
+
+#: ../src/gtkhtml.c:3051
+msgid "Spelling Error Color"
+msgstr "Үсгийн дүрмийн Алдааны Өнгө"
+
+#: ../src/gtkhtml.c:3052
+msgid "The color of the spelling error markers"
+msgstr "Зөв бичих дүрмийн алдааны тэмдэглэгээний өнгө"
+
+#: ../src/gtkhtml.c:3057
+msgid "Cite Quotation Color"
+msgstr "Ишлэлийн өнгө"
+
+#: ../src/gtkhtml.c:3058
+msgid "The color of the cited text"
+msgstr "Иш татсан текстийн өнгө"
+
+#: ../src/htmlbutton.c:140
+msgid "Submit Query"
+msgstr "Хүсэлтийг илгээх"
+
+#: ../src/htmlbutton.c:143
+msgid "Reset"
+msgstr "Дахин тогтоох"
+
+#. TODO2 dialog instead of warning
+#: ../src/htmlengine-print.c:192
+msgid "Cannot allocate default font for printing\n"
+msgstr "Хэвлэхэд зориулагдсан стандарт үсгийн фонт байхгүй байна\n"
+
+#: ../src/test.c:375
+msgid "GtkHTML Test"
+msgstr "GtkHTML Тест"
+
+#: ../src/testgtkhtml.c:121
+msgid "Print pre_view"
+msgstr "Хэвлэхийн өмнө _тольдох"
+
+#: ../src/testgtkhtml.c:121
+msgid "Print preview"
+msgstr "Хэвлэхээр тольдох"
+
+#: ../src/testgtkhtml.c:1013
+msgid "GtkHTML Test Application"
+msgstr "GtkHTML Tест Програм"
+

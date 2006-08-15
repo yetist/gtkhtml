@@ -1,3 +1,8 @@
+2006-08-15  Sanlig Badrak  <badral@openmn.org>
+
+        * mn.po: Added Mongolian translation.
+	* LINGUAS: Added entry mn for Mongolian.
+
 2006-08-11  Vladimer Sichinava  <vlsichinava@gmail.com>
 
         * ka.po: Added Georgian translation.
