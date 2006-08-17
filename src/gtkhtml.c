@@ -832,6 +832,9 @@ get_font_options ()
 		else
 			cairo_font_options_set_subpixel_order (font_options, CAIRO_SUBPIXEL_ORDER_DEFAULT);
 	}
+	g_free (antialiasing);
+	g_free (hinting);
+	g_free (subpixel_order);
 	g_object_unref (gconf);
 	return font_options;
 }
@@ -2374,7 +2377,7 @@ client_notify_spell_widget (GConfClient* client, guint cnxn_id, GConfEntry* entr
 
 	if (!strcmp (tkey, "/language")) {
 		g_free (prop->language);
-		prop->language = g_strdup (gconf_client_get_string (client, entry->key, NULL));
+		prop->language = gconf_client_get_string (client, entry->key, NULL);
 		if (!html->engine->language)
 			gtk_html_api_set_language (html);
 	}

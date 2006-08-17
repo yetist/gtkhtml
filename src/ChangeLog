@@ -1,3 +1,8 @@
+2006-08-17  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* gtkhtml.c (get_font_options), (client_notify_spell_widget):
+	Plug some leaks.
+
 2006-07-31  Bastien Nocera  <hadess@hadess.net>
 
 	reviewed by: Veerapuram Varadhan <vvaradhan@novell.com>
@@ -10195,7 +10200,7 @@ Sat Jun  5 12:16:00 2004  Owen Taylor  <otaylor@redhat.com>
 	(parse_p): likewise
 
 	* htmlengine-edit.h: publicate in scope of gtkhtml sources some
-	usefull functions for translating between types
+	useful functions for translating between types
 
 	* htmlengine-save.c (html_engine_save_get_paragraph_style): new
 	helper function
