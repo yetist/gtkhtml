@@ -1,15 +1,19 @@
+2006-08-19  Satoru SATOH <ss@gnome.gr.jp>
+
+	* ja.po: Updated Japanese Translation.
+
 2006-08-16  Gabor Kelemen  <kelemeng@gnome.hu>
 
 	* hu.po: Translation updated by Mate ORY.
 
 2006-08-15  Sanlig Badrak  <badral@openmn.org>
 
-        * mn.po: Added Mongolian translation.
+	* mn.po: Added Mongolian translation.
 	* LINGUAS: Added entry mn for Mongolian.
 
 2006-08-11  Vladimer Sichinava  <vlsichinava@gmail.com>
 
-        * ka.po: Added Georgian translation.
+	* ka.po: Added Georgian translation.
 	* LINGUAS: Added entry for Georgian (ka)
 
 2006-08-09  Rahul Bhalerao  <b.rahul.pm@gmail.com>
