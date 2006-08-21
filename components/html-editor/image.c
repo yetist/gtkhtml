@@ -393,7 +393,7 @@ image_widget (GtkHTMLEditImageProperties *d, gboolean insert)
 			    "selection-changed", G_CALLBACK (pentry_changed), d);
 
 	gtk_widget_show_all (d->page);
-	gtk_file_chooser_set_preview_active (GTK_FILE_CHOOSER (d->pentry), FALSE);
+	gtk_file_chooser_set_preview_widget_active (GTK_FILE_CHOOSER (d->pentry), FALSE);
 
 	editor_check_stock ();
 	button = gtk_button_new_from_stock (GTKHTML_STOCK_TEST_URL);
