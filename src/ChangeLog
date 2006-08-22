@@ -1,3 +1,10 @@
+2006-08-22  Srinivasa Ragavan  <sragavan@novell.com>
+
+	** Fix for bug #334205
+
+	* Makefile.am: Patch from Mikhail Zabaluev to fix undefined symbol in
+	test suite.
+
 2006-02-28  Rohini S  <srohini@novell.com>
 	
 	* htmltext.c (html_text_calc_part_width): Fix a critical warning

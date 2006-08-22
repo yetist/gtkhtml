@@ -226,13 +226,15 @@ testgtkhtml_SOURCES = 		\
 #testgtkhtml_LDFLAGS = -static
 testgtkhtml_LDADD =					\
 	libgtkhtml-@GTKHTML_API_VERSION@.la			\
+	$(GTKHTML_LIBS)					\
 	$(SOUP_LIBS)
 
 gtest_SOURCES = \
 	test.c
 gtest_LDFLAGS =
 gtest_LDADD =	\
-	libgtkhtml-@GTKHTML_API_VERSION@.la
+	libgtkhtml-@GTKHTML_API_VERSION@.la			\
+	$(GTKHTML_LIBS)
 
 %-@GTKHTML_API_VERSION@.pc: %.pc
 	 cp $< $@
@@ -241,13 +243,15 @@ test_suite_SOURCES = \
 	test-suite.c
 test_suite_LDFLAGS =
 test_suite_LDADD =	\
-	libgtkhtml-@GTKHTML_API_VERSION@.la
+	libgtkhtml-@GTKHTML_API_VERSION@.la			\
+	$(GTKHTML_LIBS)
 
 test_stress_SOURCES = \
 	test-stress.c
 test_stress_LDFLAGS =
 test_stress_LDADD =	\
-	libgtkhtml-@GTKHTML_API_VERSION@.la
+	libgtkhtml-@GTKHTML_API_VERSION@.la			\
+	$(GTKHTML_LIBS)
 
 pkgconfig_in_files = libgtkhtml.pc.in
 pkgconfigdir = $(libdir)/pkgconfig
