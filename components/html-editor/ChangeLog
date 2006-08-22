@@ -1,3 +1,10 @@
+2006-08-22  Srinivasa Ragavan  <sragavan@novell.com>
+
+	** Fix for bug #350102
+
+	* editor-control-factory.c: Patch from Øystein Gisnås to fix a
+	implicit declaration.
+
 2006-08-21  Tor Lillqvist  <tml@novell.com>
 
 	* image.c (image_widget): Fix typo. (#351971, Matthew Barnes)

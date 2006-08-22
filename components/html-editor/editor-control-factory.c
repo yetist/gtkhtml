@@ -54,6 +54,7 @@
 #include "Editor.h"
 
 #include "gtkhtml.h"
+#include "gtkhtml-private.h"
 #include "gtkhtml-properties.h"
 #include "htmlcursor.h"
 #include "htmlengine.h"
