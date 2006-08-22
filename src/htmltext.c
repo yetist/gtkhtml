@@ -946,8 +946,11 @@ html_text_calc_part_width (HTMLText *text, HTMLPainter *painter, char *start, gi
 	PangoFont *font = NULL;
 	gchar *s = start;
 
-	g_return_val_if_fail (offset >= 0, 0);
-	g_return_val_if_fail (offset + len <= text->text_len, 0);
+	if (offset < 0)
+		return 0;
+
+	if (offset + len > text->text_len)
+		return 0;
 
 	if (need_ascent_descent) {
 		ascent = html_painter_engine_to_pango (painter,

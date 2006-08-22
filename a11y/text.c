@@ -430,10 +430,14 @@ html_a11y_text_get_text (AtkText *text, gint start_offset, gint end_offset)
 	if (end_offset == -1)
 		end_offset = to->text_len;
 
-	g_return_val_if_fail (start_offset <= end_offset, NULL);
-	g_return_val_if_fail (start_offset >= 0, NULL);
-	g_return_val_if_fail (start_offset <= to->text_len, NULL);
-	g_return_val_if_fail (end_offset <= to->text_len, NULL);
+	if (start_offset > end_offset)
+		return NULL;
+	if (start_offset < 0)
+		return NULL;
+	if (start_offset > to->text_len)
+		return NULL;
+	if (end_offset > to->text_len)
+		return NULL;
 
 	str = html_text_get_text (to, start_offset);
 

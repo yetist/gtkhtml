@@ -1,3 +1,10 @@
+2006-08-22  Srinivasa Ragavan  <sragavan@novell.com>
+
+	** Fix for bug #327169 Patch from Rohini
+
+	* text.c: (html_a11y_text_get_text): Convert unnecessary g_return to
+	if. Patch from Rohini.
+
 2006-06-13  Li Yuan <li.yuan@sun.com>
 
 	* text.c: (html_a11y_text_get_n_links):
