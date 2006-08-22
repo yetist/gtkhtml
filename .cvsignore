@@ -3,7 +3,7 @@ INSTALL
 Makefile
 Makefile.in
 aclocal.m4
-autom4te-*.cache
+autom4te.cache
 config.cache
 config.guess
 config.h
@@ -12,10 +12,13 @@ config.log
 config.status
 config.sub
 configure
+depcomp
 gtkhtml.spec
+gtkhtml-zip
 gtkhtmlConf.sh
 install-sh
 intl
+intltool-*
 libtool
 ltconfig
 ltmain.sh
@@ -24,5 +27,4 @@ mkinstalldirs
 po
 stamp-h
 stamp-h.in
-xml-i18n-*
-intltool-*
+stamp-h1

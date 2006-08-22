@@ -9,3 +9,7 @@ html-component
 *.lo
 *.la
 libgtkhtml.pc
+libgtkhtml-3.8.pc
+test-suite
+test-stress
+
