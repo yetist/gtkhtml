@@ -1,3 +1,9 @@
+2006-08-24  Li Yuan  <li.yuan@sun.com>
+
+	* table.c: (is_valid):
+	Fix #351358. 
+	Check whether table have parent first.
+
 2006-08-22  Srinivasa Ragavan  <sragavan@novell.com>
 
 	** Fix for bug #327169 Patch from Rohini

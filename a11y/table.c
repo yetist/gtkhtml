@@ -160,6 +160,9 @@ is_valid (AtkObject *table)
 	AtkStateSet *ss;
 
 	HTMLTable *to = HTML_TABLE (HTML_A11Y_HTML (table));
+	if (!htmla11y)
+		return FALSE;
+
 	if (!to)
 		return FALSE;
 
