@@ -1,3 +1,12 @@
+2006-08-28  Theppitak Karoonboonyanan  <thep@linux.thai.net>
+
+	* gtkhtml.c (gtk_html_im_retrieve_surrounding_cb), 
+	(get_surrounding_text): Fix crasher, string concatenation, and memory 
+	leak. Also convert char offset to byte offset as required by 
+	gtk_im_context_set_surrounding().
+
+	Fixes bug #270248, #353192.
+
 2006-08-22  Srinivasa Ragavan  <sragavan@novell.com>
 
 	** Fix for bug #334205
