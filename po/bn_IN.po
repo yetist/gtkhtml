@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.HEAD.bn\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-03 07:43+0200\n"
+"POT-Creation-Date: 2006-09-01 01:13+0200\n"
 "PO-Revision-Date: 2006-06-29 18:27+0530\n"
 "Last-Translator: Runa Bhattacharjee <runa@bengalinux.org>\n"
 "Language-Team: Bangla <gnome-translation@bengalinux.org>\n"
@@ -218,7 +218,7 @@ msgstr "সন্নিবেশ করুন (_n)"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:35
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
-#: ../components/html-editor/editor-control-factory.c:198
+#: ../components/html-editor/editor-control-factory.c:199
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:37
 #: ../components/html-editor/popup.c:216
 msgid "Image"
@@ -498,7 +498,7 @@ msgstr "রোমান সংখ্যার তালিকা"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:88
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
-#: ../components/html-editor/editor-control-factory.c:216
+#: ../components/html-editor/editor-control-factory.c:217
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:47
 #: ../components/html-editor/menubar.c:168
 #: ../components/html-editor/popup.c:234
@@ -927,25 +927,25 @@ msgstr "glade ফাইল লোড করা যায়নি।"
 msgid "Transparent"
 msgstr "স্বচ্ছ"
 
-#: ../components/html-editor/editor-control-factory.c:187
+#: ../components/html-editor/editor-control-factory.c:188
 #: ../components/html-editor/popup.c:195 ../components/html-editor/popup.c:276
 msgid "Properties"
 msgstr "বৈশিষ্ট্যাবলী"
 
-#: ../components/html-editor/editor-control-factory.c:206
+#: ../components/html-editor/editor-control-factory.c:207
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:54
 #: ../components/html-editor/menubar.c:400
 #: ../components/html-editor/popup.c:204
 msgid "Text"
 msgstr "টেক্সট"
 
-#: ../components/html-editor/editor-control-factory.c:225
+#: ../components/html-editor/editor-control-factory.c:226
 #: ../components/html-editor/menubar.c:418
 #: ../components/html-editor/popup.c:222
 msgid "Paragraph"
 msgstr "অনুচ্ছেদ"
 
-#: ../components/html-editor/editor-control-factory.c:229
+#: ../components/html-editor/editor-control-factory.c:230
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:42
 #: ../components/html-editor/menubar.c:382
 #: ../components/html-editor/popup.c:228
@@ -1380,7 +1380,7 @@ msgstr "সারি (_R):"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:70
 msgid "_Source:"
-msgstr "উত্‌স (_S):"
+msgstr "উৎস (_S):"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:71
 msgid "_Spacing:"
@@ -1799,83 +1799,83 @@ msgstr ""
 "সম্পাদিত বস্তুটি ডকুমেন্ট থেকে মুছে ফেলা হয়েছে।\n"
 "আপনার করা পরিবর্তনগুলি প্রয়োগ করা সম্ভব নয়।"
 
-#: ../src/gtkhtml.c:2995
+#: ../src/gtkhtml.c:3061
 msgid "Editable"
 msgstr "সম্পাদনযোগ্য"
 
-#: ../src/gtkhtml.c:2996
+#: ../src/gtkhtml.c:3062
 msgid "Whether the html can be edited"
 msgstr "html সম্পাদনযোগ্য কিনা"
 
-#: ../src/gtkhtml.c:3002
+#: ../src/gtkhtml.c:3068
 msgid "Document Title"
 msgstr "ডকুমেন্টের শিরোনাম"
 
-#: ../src/gtkhtml.c:3003
+#: ../src/gtkhtml.c:3069
 msgid "The title of the current document"
 msgstr "বর্তমান ডকুমেন্টের শিরোনাম"
 
-#: ../src/gtkhtml.c:3009
+#: ../src/gtkhtml.c:3075
 msgid "Document Base"
 msgstr "Document Base"
 
-#: ../src/gtkhtml.c:3010
+#: ../src/gtkhtml.c:3076
 msgid "The base URL for relative references"
 msgstr "আপেক্ষিক সম্পর্কস্থাপনের জন্য মূল URL"
 
-#: ../src/gtkhtml.c:3016
+#: ../src/gtkhtml.c:3082
 msgid "Target Base"
 msgstr "Target Base"
 
-#: ../src/gtkhtml.c:3017
+#: ../src/gtkhtml.c:3083
 msgid "The base URL of the target frame"
 msgstr "গন্তব্যের ফ্রেম'র মূল URL"
 
-#: ../src/gtkhtml.c:3026
+#: ../src/gtkhtml.c:3092
 msgid "Fixed Width Font"
 msgstr "অপরিবর্তনশীল প্রস্থের ফন্ট"
 
-#: ../src/gtkhtml.c:3027
+#: ../src/gtkhtml.c:3093
 msgid "The Monospace font to use for typewriter text"
 msgstr "টাইপরাইটার টেক্সটের ক্ষেত্রে ব্যবহৃত মোনোস্পেস ফন্ট"
 
-#: ../src/gtkhtml.c:3033
+#: ../src/gtkhtml.c:3099
 msgid "New Link Color"
 msgstr "নতুন লিঙ্কের রং"
 
-#: ../src/gtkhtml.c:3034
+#: ../src/gtkhtml.c:3100
 msgid "The color of new link elements"
 msgstr "নতুন লিঙ্কের রং"
 
-#: ../src/gtkhtml.c:3039
+#: ../src/gtkhtml.c:3105
 msgid "Visited Link Color"
 msgstr "পরিদর্শিত লিঙ্কের রং"
 
-#: ../src/gtkhtml.c:3040
+#: ../src/gtkhtml.c:3106
 msgid "The color of visited link elements"
 msgstr "পরিদর্শিত লিঙ্কের রং"
 
-#: ../src/gtkhtml.c:3045
+#: ../src/gtkhtml.c:3111
 msgid "Active Link Color"
 msgstr "সক্রিয় লিঙ্কের রং"
 
-#: ../src/gtkhtml.c:3046
+#: ../src/gtkhtml.c:3112
 msgid "The color of active link elements"
 msgstr "সক্রিয় লিঙ্কের রং"
 
-#: ../src/gtkhtml.c:3051
+#: ../src/gtkhtml.c:3117
 msgid "Spelling Error Color"
 msgstr "ভুল বানানের রং"
 
-#: ../src/gtkhtml.c:3052
+#: ../src/gtkhtml.c:3118
 msgid "The color of the spelling error markers"
 msgstr "ভুল বানান চিহ্নের রং"
 
-#: ../src/gtkhtml.c:3057
+#: ../src/gtkhtml.c:3123
 msgid "Cite Quotation Color"
 msgstr "উদ্ধৃতির রং"
 
-#: ../src/gtkhtml.c:3058
+#: ../src/gtkhtml.c:3124
 msgid "The color of the cited text"
 msgstr "উদ্ধৃতির টেক্সটের রং"
 
