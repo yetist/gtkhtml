@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: gtkhtml HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-06-11 07:15+0200\n"
-"PO-Revision-Date: 2006-10-15 17:40+0300\n"
+"PO-Revision-Date: 2006-10-23 23:20+0300\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -1382,7 +1382,7 @@ msgstr "_Pilt:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:67
 msgid "_Padding:"
-msgstr "_Täidis:"
+msgstr "Pols_terdus:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:68
 msgid "_Row"
@@ -1418,15 +1418,15 @@ msgstr "_Ridade murdmine"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:78
 msgid "_X-Padding:"
-msgstr "_X-täidis:"
+msgstr "_X-polsterdus:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:79
 msgid "_Y-Padding:"
-msgstr "_Y-täidis:"
+msgstr "_Y-polsterdus:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:80
 msgid "follow"
-msgstr "Järgi"
+msgstr "järgi"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:81
 msgid "px"
