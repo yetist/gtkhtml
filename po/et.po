@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: gtkhtml HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-06-11 07:15+0200\n"
-"PO-Revision-Date: 2006-10-24 07:48+0300\n"
+"PO-Revision-Date: 2006-11-01 23:48+0200\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -127,7 +127,7 @@ msgstr "Valiku kopeerimine"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:16
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:16
 msgid "Cr_ying"
-msgstr "N_uttev"
+msgstr "Nu_ttev"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:17
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:17
@@ -233,12 +233,12 @@ msgstr "Pilt"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:36
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
 msgid "Insert Crying emoticon into document..."
-msgstr "Nutva emotikoni lisamine dokumendile..."
+msgstr "Nutva tujunäo lisamine dokumendile..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:37
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
 msgid "Insert Frown emoticon into document..."
-msgstr "Kulmukortsutuse emotikoni lisamine dokumendile..."
+msgstr "Kulmu kortsutava tujunäo lisamine dokumendile..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:38
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
@@ -258,42 +258,42 @@ msgstr "HTML-malli lisamine dokumendile..."
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:41
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
 msgid "Insert Indifferent emoticon into document..."
-msgstr "Ükskõiksuse emotikoni lisamine dokumendile..."
+msgstr "Ükskõikse tujunäo lisamine dokumendile..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:42
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
 msgid "Insert Laughing emoticon into document..."
-msgstr "Naerva emotikoni lisamine dokumendile..."
+msgstr "Naerva tujunäo lisamine dokumendile..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:43
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
 msgid "Insert Oh no! emoticon into document..."
-msgstr "Oh ei! emotikoni lisamine dokumendile..."
+msgstr "Oh ei! tujunäo lisamine dokumendile..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:44
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
 msgid "Insert Smile emoticon into document..."
-msgstr "Naeratuse emotikoni lisamine dokumendile..."
+msgstr "Naeratava tujunäo lisamine dokumendile..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:45
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
 msgid "Insert Surprised emoticon into document..."
-msgstr "Üllatuse emotikoni lisamine dokumendile..."
+msgstr "Üllatunud tujunäo lisamine dokumendile..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:46
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
 msgid "Insert Tongue emoticon into document..."
-msgstr "Keelenäitamise emotikoni lisamine dokumendile..."
+msgstr "Keelt näitava tujunäo lisamine dokumendile..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:47
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
 msgid "Insert Undecided emoticon into document..."
-msgstr "Kõhkluse emotikoni lisamine dokumendile..."
+msgstr "Kõhkleva tujunäo lisamine dokumendile..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:48
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
 msgid "Insert Wink emoticon into document..."
-msgstr "Silmapilgutuse emotikoni lisamine dokumendile..."
+msgstr "Silma pilgutava tujunäo lisamine dokumendile..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:49
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
@@ -437,7 +437,7 @@ msgstr "Nummerdatud _loetelu"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:75
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
 msgid "Oh _No!"
-msgstr "Oh _ei!"
+msgstr "_Oh ei!"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:76
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
@@ -531,7 +531,7 @@ msgstr "Läbikriipsutatud"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:92
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
 msgid "Su_rprised"
-msgstr "Üll_atunud"
+msgstr "Ül_latunud"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:93
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
@@ -566,7 +566,7 @@ msgstr "_Tekstifail..."
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 msgid "Ton_gue"
-msgstr "_Keel"
+msgstr "K_eelt näitav"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:99
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
@@ -638,12 +638,12 @@ msgstr "_Otsi..."
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:112
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
 msgid "_Font Size"
-msgstr "_Kirjasuurus"
+msgstr "_Kirja suurus"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:113
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
 msgid "_Frown"
-msgstr "_Kulmukortsutus"
+msgstr "K_ulmu kortsutav"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:114
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
@@ -668,7 +668,7 @@ msgstr "_Suurenda taandust"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:118
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
 msgid "_Indifferent"
-msgstr "Ü_kskõikne"
+msgstr "Ükskõ_ikne"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:119
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
@@ -679,7 +679,7 @@ msgstr "_Kursiiv"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:120
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
 msgid "_Laughing"
-msgstr "_Naerev"
+msgstr "N_aerev"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:121
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
@@ -755,7 +755,7 @@ msgstr "_Naeratav"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:72
 msgid "_Strikethrough"
-msgstr "_Läbikriipsutatud"
+msgstr "Lä_bikriipsutatud"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:136
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
@@ -790,7 +790,7 @@ msgstr "_Tekst..."
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:154
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:156
 msgid "_Undecided"
-msgstr "_Kõhklev"
+msgstr "Kõhkle_v"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:155
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:157
@@ -806,7 +806,7 @@ msgstr "_Tühista"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:157
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:159
 msgid "_Wink"
-msgstr "_Silmapilgutus"
+msgstr "_Silma pilgutav"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:1
 msgid "GNOME HTML Editor"
@@ -822,7 +822,7 @@ msgstr "GNOME'i HTML-redaktori Factory"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
 msgid "Insert Sick emoticon into document..."
-msgstr "Haige emotikoni lisamine dokumendile..."
+msgstr "Haige tujunäo lisamine dokumendile..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
 msgid "Make the current Paragraph style Preformatted"
@@ -835,7 +835,7 @@ msgstr "Eelvormindatud"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
 msgid "S_ick"
-msgstr "Ha_ige"
+msgstr "_Haige"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:160
 msgid "_Wrap Lines"
