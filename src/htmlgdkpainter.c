@@ -108,7 +108,10 @@ begin (HTMLPainter *painter, int x1, int y1, int x2, int y2)
 		const int width = x2 - x1 + 1;
 		const int height = y2 - y1 + 1;
 
-		g_assert (gdk_painter->pixmap == NULL);
+
+		/* FIXME: Ideally it should be NULL before coming here. */
+		if (gdk_painter->pixmap && gdk_painter->pixmap != gdk_painter->window)
+			g_object_unref (gdk_painter->pixmap);
 
 		gdk_painter->pixmap = gdk_pixmap_new (gdk_painter->window, width, height, -1);
 		gdk_painter->x1 = x1;
