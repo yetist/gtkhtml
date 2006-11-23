@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-02 19:01+0300\n"
-"PO-Revision-Date: 2006-07-02 19:02+0300\n"
+"PO-Revision-Date: 2006-11-23 05:30+0300\n"
 "Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -180,7 +180,7 @@ msgstr "Etsi ja korvaa"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:27
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:27
 msgid "For_mat"
-msgstr "M_uotoiltu"
+msgstr "M_uotoilu"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:28
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:28
