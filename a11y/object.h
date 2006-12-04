@@ -43,8 +43,6 @@ typedef struct _GtkHTMLA11YClass GtkHTMLA11YClass;
 struct _GtkHTMLA11Y
 {
 	GtkAccessible parent;
-
-	AtkObject *tree;
 };
 
 GType gtk_html_a11y_get_type (void);

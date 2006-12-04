@@ -1,3 +1,19 @@
+2006-12-03  Matthew Barnes  <mbarnes@redhat.com>
+
+	* cell.c: (html_a11y_cell_finalize)
+	* html.c: (html_a11y_finalize)
+	* image.c: (html_a11y_image_finalize)
+	* object.c: (gtk_html_a11y_finalize)
+	* paragraph.c: (html_a11y_paragraph_finalize)
+	* table.c: (html_a11y_table_finalize)
+	Chain up to parent class.
+
+	* text.c: (html_a11y_text_finalize)
+	Unref 'util' field and chain up to parent class.
+
+	* object.c:
+	Remove unused 'tree' field from GtkHTMLA11Y struct.
+
 2006-08-24  Li Yuan  <li.yuan@sun.com>
 
 	* table.c: (is_valid):

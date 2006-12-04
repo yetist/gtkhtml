@@ -62,6 +62,7 @@ html_a11y_cell_get_type (void)
 static void
 html_a11y_cell_finalize (GObject *obj)
 {
+        G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 static void

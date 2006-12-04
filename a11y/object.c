@@ -155,6 +155,7 @@ gtk_html_a11y_get_type (void)
 static void
 gtk_html_a11y_finalize (GObject *obj)
 {
+        G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 static void

@@ -104,6 +104,7 @@ atk_table_interface_init (AtkTableIface *iface)
 static void
 html_a11y_table_finalize (GObject *obj)
 {
+        G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 static void

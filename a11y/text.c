@@ -249,6 +249,14 @@ atk_text_interface_init (AtkTextIface *iface)
 static void
 html_a11y_text_finalize (GObject *obj)
 {
+        HTMLA11YText *ato = HTML_A11Y_TEXT (obj);
+
+        if (ato->util != NULL) {
+                g_object_unref (ato->util);
+                ato->util = NULL;
+        }
+
+        G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 static void
