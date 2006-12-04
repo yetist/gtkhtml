@@ -259,6 +259,8 @@ html_tokenizer_finalize (GObject *obj)
 
 	g_free (t->priv);
 	t->priv = NULL;
+
+        G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 GtkType

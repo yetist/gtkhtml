@@ -1,3 +1,10 @@
+2006-12-03  Matthew Barnes  <mbarnes@redhat.com>
+
+	** Fixes bug #353424
+
+	* htmltokenizer.c: (html_tokenizer_finalize)
+	Chain up to parent class.
+
 2006-11-06  Srinivasa Ragavan  <sragavan@novell.com>
 
 	** Fix for bug #350981 
