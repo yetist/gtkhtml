@@ -3975,6 +3975,7 @@ html_engine_finalize (GObject *object)
 	html_engine_map_table_clear (engine);
 	html_engine_id_table_clear (engine);
 	html_engine_clear_all_class_data (engine);
+	g_free(engine->language);
 
 	if (engine->insertion_url) {
 		g_free (engine->insertion_url);

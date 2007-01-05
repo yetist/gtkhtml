@@ -1,3 +1,15 @@
+2006-10-07  Chris Heath <chris@heathens.co.nz>
+
+	** Fix for bug #360393
+
+	* htmlengine-edit-fontstyle.c (html_engine_get_document_color):
+	Be consistent about reffing the return value;
+	(html_engine_update_insertion_color): Fix memory leak
+	* htmlengine-edit-table.c (delete_cells_undo_destroy): Ditto
+	* htmlengine-edit.c (html_engine_set_mark): Ditto
+	* htmlengine.c (html_engine_finalize): Ditto
+	* htmlmap.c (html_map_destroy): Ditto
+
 2006-12-03  Matthew Barnes  <mbarnes@redhat.com>
 
 	** Fixes bug #353424

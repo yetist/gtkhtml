@@ -34,7 +34,7 @@ html_map_destroy (HTMLMap *map)
 	for (i = 0; i < map->shapes->len; i++)
 		html_shape_destroy (g_ptr_array_index (map->shapes, i));
 	
-	g_ptr_array_free (map->shapes, FALSE);
+	g_ptr_array_free (map->shapes, TRUE);
 	map->shapes = NULL;
 
 	g_free (map->name);

@@ -91,6 +91,7 @@ get_font_style_from_selection (HTMLEngine *engine)
 	return style & ~conflicts;
 }
 
+/* Return value is already html_color_ref'ed */
 static HTMLColor *
 get_color_from_selection (HTMLEngine *engine)
 {
@@ -155,6 +156,7 @@ html_engine_get_document_font_style (HTMLEngine *engine)
 	}
 }
 
+/* Return value is already html_color_ref'ed */
 HTMLColor *
 html_engine_get_document_color (HTMLEngine *engine)
 {
@@ -176,9 +178,13 @@ html_engine_get_document_color (HTMLEngine *engine)
 			gint offset;
 
 			obj = html_engine_text_style_object (engine, &offset);
-			return obj
-				? html_text_get_color_at_index (HTML_TEXT (obj), engine, g_utf8_offset_to_pointer (HTML_TEXT (obj)->text, offset) - HTML_TEXT (obj)->text)
-				: html_colorset_get_color (engine->settings->color_set, HTMLTextColor);
+			if (obj) {
+				return html_text_get_color_at_index (HTML_TEXT (obj), engine, g_utf8_offset_to_pointer (HTML_TEXT (obj)->text, offset) - HTML_TEXT (obj)->text);
+			} else {
+				HTMLColor *color = html_colorset_get_color (engine->settings->color_set, HTMLTextColor);
+				html_color_ref(color);
+				return color;
+			}
 		}
 	}
 }
@@ -240,10 +246,11 @@ html_engine_update_insertion_color (HTMLEngine *engine)
 	if (new_color && !html_color_equal (new_color, engine->insertion_color)) {
 		html_color_unref (engine->insertion_color);
 		engine->insertion_color = new_color;
-		html_color_ref (engine->insertion_color);
 		return TRUE;
 	}
 
+	if (new_color)
+		html_color_unref (new_color);
 	return FALSE;
 }
 
