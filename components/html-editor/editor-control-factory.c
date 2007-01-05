@@ -172,6 +172,7 @@ release (GtkWidget *widget, GdkEventButton *event, GtkHTMLControlData *cd)
 	HTMLEngine *e = cd->html->engine;
 	GtkHTMLEditPropertyType start = GTK_HTML_EDIT_PROPERTY_BODY;
 	gboolean run_dialog = FALSE;
+	char *filename;
 
 	if (cd->obj) {
 		switch (HTML_OBJECT_TYPE (cd->obj)) {
@@ -185,8 +186,10 @@ release (GtkWidget *widget, GdkEventButton *event, GtkHTMLControlData *cd)
 			;
 		}
 		if (run_dialog) {
+			filename = gnome_icon_theme_lookup_icon (cd->icon_theme, "stock_properties", 16, NULL, NULL);
 			cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, _("Properties"), 
-										     gnome_icon_theme_lookup_icon (cd->icon_theme, "stock_properties", 16, NULL, NULL));
+										     filename);
+			g_free(filename);
 			html_cursor_jump_to (e->cursor, e, cd->obj, 0);
 			html_engine_disable_selection (e);
 			html_engine_set_mark (e);

@@ -120,6 +120,7 @@ insert_image_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cna
 			filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION (filesel));
 #endif
 			url = gtk_html_filename_to_uri (filename);
+			g_free(filename);
 			img = html_image_new (html_engine_get_image_factory (cd->html->engine), url,
 					      NULL, NULL, 0, 0, 0, 0, 0, NULL, HTML_VALIGN_NONE, FALSE);
 			html_engine_paste_object (cd->html->engine, img, 1);
@@ -372,11 +373,15 @@ spell_check_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cnam
 static void
 format_page_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
+	char *filename;
+
 	if (cd->properties_dialog)
 		gtk_html_edit_properties_dialog_close (cd->properties_dialog);
 
+	filename = gnome_icon_theme_lookup_icon (cd->icon_theme, "stock_properties", 16, NULL, NULL);
 	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, _("Format"),
-								     gnome_icon_theme_lookup_icon (cd->icon_theme, "stock_properties", 16, NULL, NULL));
+								     filename);
+	g_free(filename);
 
 	gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
 						   GTK_HTML_EDIT_PROPERTY_BODY, _("Page"),
@@ -390,11 +395,15 @@ format_page_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cnam
 static void
 format_text_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
+	char *filename;
+
 	if (cd->properties_dialog)
 		gtk_html_edit_properties_dialog_close (cd->properties_dialog);
 
+	filename = gnome_icon_theme_lookup_icon (cd->icon_theme, "stock_properties", 16, NULL, NULL);
 	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, _("Format"),
-								     gnome_icon_theme_lookup_icon (cd->icon_theme, "stock_properties", 16, NULL, NULL));
+								     filename);
+	g_free(filename);
 
 	gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
 						   GTK_HTML_EDIT_PROPERTY_BODY, _("Text"),
@@ -408,11 +417,15 @@ format_text_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cnam
 static void
 format_paragraph_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
+	char *filename;
+
 	if (cd->properties_dialog)
 		gtk_html_edit_properties_dialog_close (cd->properties_dialog);
 
+	filename = gnome_icon_theme_lookup_icon (cd->icon_theme, "stock_properties", 16, NULL, NULL);
 	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, _("Format"),
-								     gnome_icon_theme_lookup_icon (cd->icon_theme, "stock_properties", 16, NULL, NULL));
+								     filename);
+	g_free(filename);
 
 	gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
 						   GTK_HTML_EDIT_PROPERTY_BODY, _("Paragraph"),

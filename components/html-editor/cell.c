@@ -341,9 +341,11 @@ cell_widget (GtkHTMLEditCellProperties *d)
 
 	cell_page          = glade_xml_get_widget (xml, "cell_page");
 
+	filename = gnome_icon_theme_lookup_icon (d->cd->icon_theme, "stock_select-cell", 16, NULL, NULL);
 	gtk_table_attach (GTK_TABLE (glade_xml_get_widget (xml, "cell_scope_table1")),
-			  gtk_image_new_from_file (gnome_icon_theme_lookup_icon (d->cd->icon_theme, "stock_select-cell", 16, NULL, NULL)),
+			  gtk_image_new_from_file (filename),
 			  0, 1, 0, 1, 0, 0, 0, 0);
+	g_free (filename);
 	filename = g_build_filename (ICONDIR, "table-table-16.png", NULL);
 	gtk_table_attach (GTK_TABLE (glade_xml_get_widget (xml, "cell_scope_table1")),
 			  gtk_image_new_from_file (filename),

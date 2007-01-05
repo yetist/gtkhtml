@@ -189,11 +189,14 @@ show_prop_dialog (GtkHTMLControlData *cd, GtkHTMLEditPropertyType start)
 {
 	GtkHTMLEditPropertyType t;
 	GList *cur;
+	char *filename;
 
 	if (cd->properties_dialog)
 		gtk_html_edit_properties_dialog_close (cd->properties_dialog);
+	filename = gnome_icon_theme_lookup_icon (cd->icon_theme, "stock_properties", 16, NULL, NULL);
 	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, _("Properties"),
-								     gnome_icon_theme_lookup_icon (cd->icon_theme, "stock_properties", 16, NULL, NULL));
+								     filename);
+	g_free(filename);
 
 	cur = cd->properties_types;
 	while (cur) {

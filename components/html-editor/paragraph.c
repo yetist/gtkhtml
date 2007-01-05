@@ -63,6 +63,7 @@ paragraph_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	GtkHTMLEditParagraphProperties *data = g_new0 (GtkHTMLEditParagraphProperties, 1);
 	GtkWidget *hbox, *menu, *menuitem, *vbox, *radio, *table, *icon;
 	GSList *group;
+	char *filename;
 	gint h=0, i=0;
 
 	*set_data = data;
@@ -120,7 +121,9 @@ paragraph_properties (GtkHTMLControlData *cd, gpointer *set_data)
 #define ADD_RADIO(x,a,icon_name) \
 	radio = gtk_radio_button_new_with_label (group, x); \
 	group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (radio)); \
-        icon = gtk_image_new_from_file (gnome_icon_theme_lookup_icon (cd->icon_theme, "stock_text_" icon_name, 16, NULL, NULL)); \
+	filename = gnome_icon_theme_lookup_icon (cd->icon_theme, "stock_text_" icon_name, 16, NULL, NULL); \
+	icon = gtk_image_new_from_file (filename); \
+	g_free(filename); \
 	gtk_box_pack_start (GTK_BOX (hbox), icon, FALSE, FALSE, 0); \
 	gtk_box_pack_start (GTK_BOX (hbox), radio, FALSE, FALSE, 0); \
         if (a == gtk_html_get_paragraph_alignment (data->cd->html)) gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE); \

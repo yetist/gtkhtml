@@ -107,6 +107,7 @@ gtk_html_search_dialog_new (GtkHTML *html, GtkHTMLControlData *cd)
 {
 	GtkHTMLSearchDialog *dialog = g_new (GtkHTMLSearchDialog, 1);
 	GtkWidget *hbox, *vbox;
+	char *filename;
 	/* we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c */
 	dialog->dialog         = GTK_DIALOG (gtk_dialog_new_with_buttons (_("Find"), NULL, 0,
 									  GTK_STOCK_CLOSE, GTK_RESPONSE_CANCEL,
@@ -142,7 +143,9 @@ gtk_html_search_dialog_new (GtkHTML *html, GtkHTMLControlData *cd)
 	gtk_widget_show (dialog->entry);
 	gtk_widget_show_all (hbox);
 
-	gnome_window_icon_set_from_file (GTK_WINDOW (dialog->dialog), gnome_icon_theme_lookup_icon (cd->icon_theme, "stock_search", 16, NULL, NULL));
+	filename = gnome_icon_theme_lookup_icon (cd->icon_theme, "stock_search", 16, NULL, NULL);
+	gnome_window_icon_set_from_file (GTK_WINDOW (dialog->dialog), filename);
+	g_free(filename);
 
 	gtk_widget_grab_focus (dialog->entry);
 

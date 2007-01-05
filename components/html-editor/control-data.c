@@ -70,9 +70,12 @@ gtk_html_control_data_destroy (GtkHTMLControlData *cd)
 
 	if (cd->search_dialog)
 		gtk_html_search_dialog_destroy (cd->search_dialog);
+	g_free (cd->search_text);
 
 	if (cd->replace_dialog)
 		gtk_html_replace_dialog_destroy (cd->replace_dialog);
+	g_free (cd->replace_text_search);
+	g_free (cd->replace_text_replace);
 
 	/* printf ("release dict\n"); */
 	bonobo_object_release_unref (cd->dict, NULL);
@@ -85,6 +88,7 @@ gtk_html_control_data_destroy (GtkHTMLControlData *cd)
 
 	if (cd->languages)
 		CORBA_free (cd->languages);
+	g_free (cd->language);
 
 	if (cd->icon_theme) {
 		g_object_unref (cd->icon_theme);

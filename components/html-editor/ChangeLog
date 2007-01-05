@@ -1,3 +1,16 @@
+2006-10-07  Chris Heath <chris@heathens.co.nz>
+
+	** Fix for bug #360393
+
+	* cell.c (cell_widget): Fix memory leak
+	* control-data.c (gtk_html_control_data_destroy): Ditto
+	* editor-control-factory.c (release): Ditto
+	* menubar.c (insert_image_cb), (format_page_cb), (format_text_cb),
+	(format_paragraph_cb): Ditto
+	* paragraph.c (paragraph_properties): Ditto
+	* popup.c (show_prop_dialog): Ditto
+	* search.c (gtk_html_search_dialog_new): Ditto
+
 2006-08-22  Srinivasa Ragavan  <sragavan@novell.com>
 
 	** Fix for bug #350102
