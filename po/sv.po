@@ -10,20 +10,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-16 16:12+0200\n"
-"PO-Revision-Date: 2006-07-16 18:18+0100\n"
+"POT-Creation-Date: 2007-01-02 04:45+0000\n"
+"PO-Revision-Date: 2007-01-17 16:11+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../a11y/image.c:150
+#: ../a11y/image.c:151
 #, c-format
 msgid "URL is %s, Alternative Text is %s"
 msgstr "URL är %s, alternativ text är %s"
 
-#: ../a11y/image.c:152
+#: ../a11y/image.c:153
 #, c-format
 msgid "URL is %s"
 msgstr "URL är %s"
@@ -34,7 +34,7 @@ msgstr "URL är %s"
 msgid "grab focus"
 msgstr "fånga fokus"
 
-#: ../a11y/object.c:258
+#: ../a11y/object.c:259
 msgid "Panel containing HTML"
 msgstr "Panel som innehåller HTML"
 
@@ -149,7 +149,7 @@ msgstr "Klipp ut markeringen"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:21
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:21
 msgid "Emoti_con"
-msgstr "Emoti_kon"
+msgstr "Känsloi_kon"
 
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
@@ -221,7 +221,7 @@ msgstr "I_nfoga"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:35
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
-#: ../components/html-editor/editor-control-factory.c:198
+#: ../components/html-editor/editor-control-factory.c:199
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:37
 #: ../components/html-editor/popup.c:216
 msgid "Image"
@@ -230,14 +230,14 @@ msgstr "Bild"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:36
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
 msgid "Insert Crying emoticon into document..."
-msgstr "Infoga gråtande emotikon i dokumentet..."
+msgstr "Infoga gråtande känsloikon i dokumentet..."
 
 # Svenska datatermgruppen föreslår "smilis" som översättning av "smiley"
 # http://www.nada.kth.se/dataterm/fos-lista.html#f10
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:37
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
 msgid "Insert Frown emoticon into document..."
-msgstr "Infoga sur emotikon i dokumentet..."
+msgstr "Infoga sur känsloikon i dokumentet..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:38
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
@@ -257,42 +257,42 @@ msgstr "Infoga HTML-mall i dokumentet..."
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:41
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
 msgid "Insert Indifferent emoticon into document..."
-msgstr "Infoga likgiltig emotikon i dokumentet..."
+msgstr "Infoga likgiltig känsloikon i dokumentet..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:42
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
 msgid "Insert Laughing emoticon into document..."
-msgstr "Infoga skrattande emotikon i dokumentet..."
+msgstr "Infoga skrattande känsloikon i dokumentet..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:43
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
 msgid "Insert Oh no! emoticon into document..."
-msgstr "Infoga Åh nej!-emotikon i dokumentet..."
+msgstr "Infoga Åh nej!-känsloikon i dokumentet..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:44
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
 msgid "Insert Smile emoticon into document..."
-msgstr "Infoga leende emotikon i dokumentet..."
+msgstr "Infoga leende känsloikon i dokumentet..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:45
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
 msgid "Insert Surprised emoticon into document..."
-msgstr "Infoga överraskad emotikon i dokumentet..."
+msgstr "Infoga överraskad känsloikon i dokumentet..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:46
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
 msgid "Insert Tongue emoticon into document..."
-msgstr "Infoga tunga-emotikon  i dokumentet..."
+msgstr "Infoga tunga-känsloikon i dokumentet..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:47
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
 msgid "Insert Undecided emoticon into document..."
-msgstr "Infoga obestämd emotikon i dokumentet..."
+msgstr "Infoga obestämd känsloikon i dokumentet..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:48
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
 msgid "Insert Wink emoticon into document..."
-msgstr "Infoga vinkande emotikon i dokumentet..."
+msgstr "Infoga vinkande känsloikon i dokumentet..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:49
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
@@ -504,7 +504,7 @@ msgstr "Romerskt numrerad lista"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:88
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
-#: ../components/html-editor/editor-control-factory.c:216
+#: ../components/html-editor/editor-control-factory.c:217
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:47
 #: ../components/html-editor/menubar.c:168
 #: ../components/html-editor/popup.c:234
@@ -821,7 +821,7 @@ msgstr "HTML-redigerarfabrik för GNOME"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
 msgid "Insert Sick emoticon into document..."
-msgstr "Infoga sjuk emotikon i dokumentet..."
+msgstr "Infoga sjuk känsloikon i dokumentet..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
 msgid "Make the current Paragraph style Preformatted"
@@ -939,26 +939,26 @@ msgstr "Kunde inte läsa in glade-filen."
 msgid "Transparent"
 msgstr "Genomskinlig"
 
-#: ../components/html-editor/editor-control-factory.c:187
+#: ../components/html-editor/editor-control-factory.c:188
 #: ../components/html-editor/popup.c:195
 #: ../components/html-editor/popup.c:276
 msgid "Properties"
 msgstr "Egenskaper"
 
-#: ../components/html-editor/editor-control-factory.c:206
+#: ../components/html-editor/editor-control-factory.c:207
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:54
 #: ../components/html-editor/menubar.c:400
 #: ../components/html-editor/popup.c:204
 msgid "Text"
 msgstr "Text"
 
-#: ../components/html-editor/editor-control-factory.c:225
+#: ../components/html-editor/editor-control-factory.c:226
 #: ../components/html-editor/menubar.c:418
 #: ../components/html-editor/popup.c:222
 msgid "Paragraph"
 msgstr "Stycke"
 
-#: ../components/html-editor/editor-control-factory.c:229
+#: ../components/html-editor/editor-control-factory.c:230
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:42
 #: ../components/html-editor/menubar.c:382
 #: ../components/html-editor/popup.c:228
@@ -1814,83 +1814,83 @@ msgstr ""
 "Det redigerade objektet har tagits bort från dokumentet.\n"
 "Kan inte verkställa dina ändringar."
 
-#: ../src/gtkhtml.c:2995
+#: ../src/gtkhtml.c:3061
 msgid "Editable"
 msgstr "Redigerbar"
 
-#: ../src/gtkhtml.c:2996
+#: ../src/gtkhtml.c:3062
 msgid "Whether the html can be edited"
 msgstr "Huruvida html-koden kan redigeras"
 
-#: ../src/gtkhtml.c:3002
+#: ../src/gtkhtml.c:3068
 msgid "Document Title"
 msgstr "Dokumenttitel"
 
-#: ../src/gtkhtml.c:3003
+#: ../src/gtkhtml.c:3069
 msgid "The title of the current document"
 msgstr "Titeln på det aktuella dokumentet"
 
-#: ../src/gtkhtml.c:3009
+#: ../src/gtkhtml.c:3075
 msgid "Document Base"
 msgstr "Dokumentbas"
 
-#: ../src/gtkhtml.c:3010
+#: ../src/gtkhtml.c:3076
 msgid "The base URL for relative references"
 msgstr "Bas-URL:en för relativa referenser"
 
-#: ../src/gtkhtml.c:3016
+#: ../src/gtkhtml.c:3082
 msgid "Target Base"
 msgstr "Målbas"
 
-#: ../src/gtkhtml.c:3017
+#: ../src/gtkhtml.c:3083
 msgid "The base URL of the target frame"
 msgstr "Bas-URL:en för målramen"
 
-#: ../src/gtkhtml.c:3026
+#: ../src/gtkhtml.c:3092
 msgid "Fixed Width Font"
 msgstr "Typsnitt med fast breddsteg"
 
-#: ../src/gtkhtml.c:3027
+#: ../src/gtkhtml.c:3093
 msgid "The Monospace font to use for typewriter text"
 msgstr "Typsnittet med fast breddsteg som ska användas för skrivmaskinstext"
 
-#: ../src/gtkhtml.c:3033
+#: ../src/gtkhtml.c:3099
 msgid "New Link Color"
 msgstr "Färg för ny länk"
 
-#: ../src/gtkhtml.c:3034
+#: ../src/gtkhtml.c:3100
 msgid "The color of new link elements"
 msgstr "Färgen på nya länkelement"
 
-#: ../src/gtkhtml.c:3039
+#: ../src/gtkhtml.c:3105
 msgid "Visited Link Color"
 msgstr "Färg för besökt länk"
 
-#: ../src/gtkhtml.c:3040
+#: ../src/gtkhtml.c:3106
 msgid "The color of visited link elements"
 msgstr "Färgen på besökta länkelement"
 
-#: ../src/gtkhtml.c:3045
+#: ../src/gtkhtml.c:3111
 msgid "Active Link Color"
 msgstr "Färg för aktiv länk"
 
-#: ../src/gtkhtml.c:3046
+#: ../src/gtkhtml.c:3112
 msgid "The color of active link elements"
 msgstr "Färgen på aktiva länkelement"
 
-#: ../src/gtkhtml.c:3051
+#: ../src/gtkhtml.c:3117
 msgid "Spelling Error Color"
 msgstr "Stavfelsfärg"
 
-#: ../src/gtkhtml.c:3052
+#: ../src/gtkhtml.c:3118
 msgid "The color of the spelling error markers"
 msgstr "Färgen på markörerna för stavfel"
 
-#: ../src/gtkhtml.c:3057
+#: ../src/gtkhtml.c:3123
 msgid "Cite Quotation Color"
 msgstr "Citatfärg"
 
-#: ../src/gtkhtml.c:3058
+#: ../src/gtkhtml.c:3124
 msgid "The color of the cited text"
 msgstr "Färgen på den citerade texten"
 
