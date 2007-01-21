@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-02 04:45+0000\n"
-"PO-Revision-Date: 2007-01-17 16:11+0100\n"
+"POT-Creation-Date: 2007-01-21 21:02+0100\n"
+"PO-Revision-Date: 2007-01-21 21:03+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -118,6 +118,7 @@ msgstr "Kopiera markeringen till urklipp"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:15
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:15
+#: ../components/html-editor/html-editor-control.xml.h:2
 msgid "Copy the selection"
 msgstr "Kopiera markeringen"
 
@@ -143,6 +144,7 @@ msgstr "Klipp ut markeringen till urklipp"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:20
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:20
+#: ../components/html-editor/html-editor-control.xml.h:3
 msgid "Cut the selection"
 msgstr "Klipp ut markeringen"
 
@@ -154,13 +156,14 @@ msgstr "Känsloi_kon"
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
-#: ../components/html-editor/search.c:111
-#: ../components/html-editor/search.c:171
+#: ../components/html-editor/search.c:112
+#: ../components/html-editor/search.c:174
 msgid "Find"
 msgstr "Sök"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:23
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:23
+#: ../components/html-editor/html-editor-control.xml.h:5
 msgid "Find _Again"
 msgstr "Sök ige_n"
 
@@ -221,9 +224,9 @@ msgstr "I_nfoga"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:35
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
-#: ../components/html-editor/editor-control-factory.c:199
+#: ../components/html-editor/editor-control-factory.c:202
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:37
-#: ../components/html-editor/popup.c:216
+#: ../components/html-editor/popup.c:219
 msgid "Image"
 msgstr "Bild"
 
@@ -246,6 +249,7 @@ msgstr "Infoga HTML-fil i dokumentet..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:39
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
+#: ../components/html-editor/html-editor-control.xml.h:6
 msgid "Insert HTML link into document..."
 msgstr "Infoga HTML-länk i dokumentet..."
 
@@ -303,6 +307,7 @@ msgstr "Infoga bild"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:50
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
+#: ../components/html-editor/html-editor-control.xml.h:7
 msgid "Insert image into document..."
 msgstr "Infoga bild i dokumentet..."
 
@@ -318,6 +323,7 @@ msgstr "Infoga regel"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:53
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
+#: ../components/html-editor/html-editor-control.xml.h:8
 msgid "Insert rule into document..."
 msgstr "Infoga linje i dokumentet..."
 
@@ -344,10 +350,10 @@ msgstr "Vänsterställer styckena"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:58
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
-#: ../components/html-editor/menubar.c:145
+#: ../components/html-editor/menubar.c:146
 #: ../components/html-editor/popup.c:115
-#: ../components/html-editor/popup.c:210
-#: ../components/html-editor/popup.c:280
+#: ../components/html-editor/popup.c:213
+#: ../components/html-editor/popup.c:283
 msgid "Link"
 msgstr "Länk"
 
@@ -417,7 +423,7 @@ msgstr "Gör det aktuella stycket till en alfabetisk lista"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:72
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
-#: ../components/html-editor/paragraph.c:87
+#: ../components/html-editor/paragraph.c:88
 #: ../components/html-editor/toolbar.c:53
 msgid "Normal"
 msgstr "Normal"
@@ -455,11 +461,13 @@ msgstr "Klistra in från urklipp"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:79
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
+#: ../components/html-editor/html-editor-control.xml.h:10
 msgid "Paste the clipboard"
 msgstr "Klistra in urklipp"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:80
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
+#: ../components/html-editor/html-editor-control.xml.h:11
 msgid "Paste the clipboard as a quotation"
 msgstr "Klistra in urklipp som citat"
 
@@ -480,6 +488,7 @@ msgstr "Gör om tidigare ångrad ändring"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:84
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
+#: ../components/html-editor/html-editor-control.xml.h:12
 msgid "Redo the undone action"
 msgstr "Gör om den ångrade åtgärden"
 
@@ -504,10 +513,10 @@ msgstr "Romerskt numrerad lista"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:88
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
-#: ../components/html-editor/editor-control-factory.c:217
+#: ../components/html-editor/editor-control-factory.c:220
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:47
-#: ../components/html-editor/menubar.c:168
-#: ../components/html-editor/popup.c:234
+#: ../components/html-editor/menubar.c:169
+#: ../components/html-editor/popup.c:237
 msgid "Rule"
 msgstr "Linje"
 
@@ -545,10 +554,10 @@ msgstr "Upphöjd"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:95
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:52
-#: ../components/html-editor/menubar.c:196
-#: ../components/html-editor/popup.c:240
-#: ../components/html-editor/popup.c:520
-#: ../components/html-editor/popup.c:532
+#: ../components/html-editor/menubar.c:197
+#: ../components/html-editor/popup.c:243
+#: ../components/html-editor/popup.c:523
+#: ../components/html-editor/popup.c:535
 msgid "Table"
 msgstr "Tabell"
 
@@ -585,6 +594,7 @@ msgstr "Ångra föregående ändringar"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:102
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
+#: ../components/html-editor/html-editor-control.xml.h:17
 msgid "Undo the last action"
 msgstr "Ångra den senaste åtgärden"
 
@@ -616,6 +626,7 @@ msgstr "_Centrera"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:108
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
+#: ../components/html-editor/html-editor-control.xml.h:18
 msgid "_Copy"
 msgstr "_Kopiera"
 
@@ -626,11 +637,13 @@ msgstr "_Minska indragning"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
+#: ../components/html-editor/html-editor-control.xml.h:19
 msgid "_Edit"
 msgstr "_Redigera"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:111
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
+#: ../components/html-editor/html-editor-control.xml.h:20
 msgid "_Find..."
 msgstr "_Sök..."
 
@@ -656,6 +669,7 @@ msgstr "_Rubrik"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:116
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
+#: ../components/html-editor/html-editor-control.xml.h:21
 msgid "_Image..."
 msgstr "B_ild..."
 
@@ -687,6 +701,7 @@ msgstr "_Vänster"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:122
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
+#: ../components/html-editor/html-editor-control.xml.h:24
 msgid "_Link..."
 msgstr "_Länk..."
 
@@ -707,6 +722,7 @@ msgstr "_Stycke..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:126
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:128
+#: ../components/html-editor/html-editor-control.xml.h:25
 msgid "_Paste"
 msgstr "Klistra _in"
 
@@ -722,11 +738,13 @@ msgstr "_Förformaterad"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:129
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
+#: ../components/html-editor/html-editor-control.xml.h:28
 msgid "_Redo"
 msgstr "_Gör om"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:130
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
+#: ../components/html-editor/html-editor-control.xml.h:29
 msgid "_Replace..."
 msgstr "_Ersätt..."
 
@@ -742,6 +760,7 @@ msgstr "_Romerskt numrerad lista"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:133
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
+#: ../components/html-editor/html-editor-control.xml.h:30
 msgid "_Rule..."
 msgstr "Lin_je..."
 
@@ -799,6 +818,7 @@ msgstr "_Understruken"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:156
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:158
+#: ../components/html-editor/html-editor-control.xml.h:31
 msgid "_Undo"
 msgstr "_Ångra"
 
@@ -828,7 +848,7 @@ msgid "Make the current Paragraph style Preformatted"
 msgstr "Gör stilen på det aktuella stycket förformaterad"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
-#: ../components/html-editor/paragraph.c:106
+#: ../components/html-editor/paragraph.c:107
 msgid "Preformatted"
 msgstr "Förformaterad"
 
@@ -912,7 +932,7 @@ msgstr "Filsökväg för bakgrundsbild"
 
 #: ../components/html-editor/body.c:294
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:53
-#: ../components/html-editor/menubar.c:222
+#: ../components/html-editor/menubar.c:223
 msgid "Template"
 msgstr "Mall"
 
@@ -934,34 +954,34 @@ msgstr "An_passad:"
 msgid "Could not load glade file."
 msgstr "Kunde inte läsa in glade-filen."
 
-#: ../components/html-editor/cell.c:363
+#: ../components/html-editor/cell.c:365
 #: ../components/html-editor/table.c:242
 msgid "Transparent"
 msgstr "Genomskinlig"
 
-#: ../components/html-editor/editor-control-factory.c:188
-#: ../components/html-editor/popup.c:195
-#: ../components/html-editor/popup.c:276
+#: ../components/html-editor/editor-control-factory.c:190
+#: ../components/html-editor/popup.c:197
+#: ../components/html-editor/popup.c:279
 msgid "Properties"
 msgstr "Egenskaper"
 
-#: ../components/html-editor/editor-control-factory.c:207
+#: ../components/html-editor/editor-control-factory.c:210
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:54
-#: ../components/html-editor/menubar.c:400
-#: ../components/html-editor/popup.c:204
+#: ../components/html-editor/menubar.c:409
+#: ../components/html-editor/popup.c:207
 msgid "Text"
 msgstr "Text"
 
-#: ../components/html-editor/editor-control-factory.c:226
-#: ../components/html-editor/menubar.c:418
-#: ../components/html-editor/popup.c:222
+#: ../components/html-editor/editor-control-factory.c:229
+#: ../components/html-editor/menubar.c:431
+#: ../components/html-editor/popup.c:225
 msgid "Paragraph"
 msgstr "Stycke"
 
-#: ../components/html-editor/editor-control-factory.c:230
+#: ../components/html-editor/editor-control-factory.c:233
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:42
-#: ../components/html-editor/menubar.c:382
-#: ../components/html-editor/popup.c:228
+#: ../components/html-editor/menubar.c:387
+#: ../components/html-editor/popup.c:231
 msgid "Page"
 msgstr "Sida"
 
@@ -1255,12 +1275,12 @@ msgid "C_olor:"
 msgstr "F_ärg:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:27
-#: ../components/html-editor/popup.c:246
+#: ../components/html-editor/popup.c:249
 msgid "Cell"
 msgstr "Cell"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:28
-#: ../components/html-editor/paragraph.c:132
+#: ../components/html-editor/paragraph.c:135
 #: ../components/html-editor/toolbar.c:528
 msgid "Center"
 msgstr "Centrera"
@@ -1294,7 +1314,7 @@ msgid "I_mage:"
 msgstr "_Bild:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:38
-#: ../components/html-editor/paragraph.c:131
+#: ../components/html-editor/paragraph.c:134
 msgid "Left"
 msgstr "Vänster"
 
@@ -1315,7 +1335,7 @@ msgid "Pixels"
 msgstr "Bildpunkter"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:45
-#: ../components/html-editor/paragraph.c:133
+#: ../components/html-editor/paragraph.c:136
 msgid "Right"
 msgstr "Höger"
 
@@ -1436,6 +1456,50 @@ msgstr "px"
 msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
+#: ../components/html-editor/html-editor-control.xml.h:1
+msgid "C_ut"
+msgstr "Klipp _ut"
+
+#: ../components/html-editor/html-editor-control.xml.h:4
+msgid "Find Rege_x..."
+msgstr "Sök _reguljärt uttryck..."
+
+#: ../components/html-editor/html-editor-control.xml.h:9
+msgid "Modify the file's properties"
+msgstr "Ändra filens egenskaper"
+
+#: ../components/html-editor/html-editor-control.xml.h:13
+msgid "Regular expression search"
+msgstr "Sökning med reguljärt uttryck"
+
+#: ../components/html-editor/html-editor-control.xml.h:14
+msgid "Replace a string"
+msgstr "Ersätt en sträng"
+
+#: ../components/html-editor/html-editor-control.xml.h:15
+msgid "Search again for the same string"
+msgstr "Sök igen efter samma sträng"
+
+#: ../components/html-editor/html-editor-control.xml.h:16
+msgid "Search for a string"
+msgstr "Sök efter en sträng"
+
+#: ../components/html-editor/html-editor-control.xml.h:22
+msgid "_Insert"
+msgstr "_Infoga"
+
+#: ../components/html-editor/html-editor-control.xml.h:23
+msgid "_Insert text file... (FIXME)"
+msgstr "_Infoga textfil..."
+
+#: ../components/html-editor/html-editor-control.xml.h:26
+msgid "_Paste Quotation"
+msgstr "_Klistra in citat"
+
+#: ../components/html-editor/html-editor-control.xml.h:27
+msgid "_Properties..."
+msgstr "_Egenskaper..."
+
 #: ../components/html-editor/link.c:208
 msgid "URL:"
 msgstr "URL:"
@@ -1444,202 +1508,202 @@ msgstr "URL:"
 msgid "Description:"
 msgstr "Beskrivning:"
 
-#: ../components/html-editor/menubar.c:141
-#: ../components/html-editor/menubar.c:164
-#: ../components/html-editor/menubar.c:192
-#: ../components/html-editor/menubar.c:218
+#: ../components/html-editor/menubar.c:142
+#: ../components/html-editor/menubar.c:165
+#: ../components/html-editor/menubar.c:193
+#: ../components/html-editor/menubar.c:219
 #: ../components/html-editor/popup.c:111
 msgid "Insert"
 msgstr "Infoga"
 
-#: ../components/html-editor/menubar.c:306
+#: ../components/html-editor/menubar.c:307
 #, c-format
 msgid "Error loading file '%s': %s"
 msgstr "Fel vid inläsning av filen \"%s\": %s"
 
-#: ../components/html-editor/menubar.c:332
-#: ../components/html-editor/menubar.c:341
+#: ../components/html-editor/menubar.c:333
+#: ../components/html-editor/menubar.c:342
 msgid "Insert HTML File"
 msgstr "Infoga HTML-fil"
 
-#: ../components/html-editor/menubar.c:332
-#: ../components/html-editor/menubar.c:341
+#: ../components/html-editor/menubar.c:333
+#: ../components/html-editor/menubar.c:342
 msgid "Insert Text File"
 msgstr "Infoga textfil"
 
-#: ../components/html-editor/menubar.c:378
-#: ../components/html-editor/menubar.c:396
-#: ../components/html-editor/menubar.c:414
+#: ../components/html-editor/menubar.c:382
+#: ../components/html-editor/menubar.c:404
+#: ../components/html-editor/menubar.c:426
 msgid "Format"
 msgstr "Format"
 
-#: ../components/html-editor/paragraph.c:90
+#: ../components/html-editor/paragraph.c:91
 #: ../components/html-editor/toolbar.c:59
 msgid "Header 1"
 msgstr "Rubrik 1"
 
-#: ../components/html-editor/paragraph.c:91
+#: ../components/html-editor/paragraph.c:92
 #: ../components/html-editor/toolbar.c:60
 msgid "Header 2"
 msgstr "Rubrik 2"
 
-#: ../components/html-editor/paragraph.c:92
+#: ../components/html-editor/paragraph.c:93
 #: ../components/html-editor/toolbar.c:61
 msgid "Header 3"
 msgstr "Rubrik 3"
 
-#: ../components/html-editor/paragraph.c:93
+#: ../components/html-editor/paragraph.c:94
 #: ../components/html-editor/toolbar.c:62
 msgid "Header 4"
 msgstr "Rubrik 4"
 
-#: ../components/html-editor/paragraph.c:94
+#: ../components/html-editor/paragraph.c:95
 #: ../components/html-editor/toolbar.c:63
 msgid "Header 5"
 msgstr "Rubrik 5"
 
-#: ../components/html-editor/paragraph.c:95
+#: ../components/html-editor/paragraph.c:96
 #: ../components/html-editor/toolbar.c:64
 msgid "Header 6"
 msgstr "Rubrik 6"
 
-#: ../components/html-editor/paragraph.c:98
+#: ../components/html-editor/paragraph.c:99
 msgid "Dot item"
 msgstr "Punktobjekt"
 
-#: ../components/html-editor/paragraph.c:99
+#: ../components/html-editor/paragraph.c:100
 msgid "Number item"
 msgstr "Sifferobjekt"
 
-#: ../components/html-editor/paragraph.c:100
+#: ../components/html-editor/paragraph.c:101
 msgid "Roman item"
 msgstr "Romerskt sifferobjekt"
 
-#: ../components/html-editor/paragraph.c:101
+#: ../components/html-editor/paragraph.c:102
 msgid "Alphabeta item"
 msgstr "Alfabetsobjekt"
 
-#: ../components/html-editor/paragraph.c:104
+#: ../components/html-editor/paragraph.c:105
 #: ../components/html-editor/toolbar.c:65
 msgid "Address"
 msgstr "Adress"
 
-#: ../components/html-editor/paragraph.c:113
+#: ../components/html-editor/paragraph.c:114
 msgid "_Style:"
 msgstr "_Stil:"
 
-#: ../components/html-editor/paragraph.c:116
+#: ../components/html-editor/paragraph.c:117
 msgid "General"
 msgstr "Allmänt"
 
-#: ../components/html-editor/paragraph.c:135
+#: ../components/html-editor/paragraph.c:138
 msgid "Alignment"
 msgstr "Justering"
 
-#: ../components/html-editor/popup.c:457
+#: ../components/html-editor/popup.c:460
 msgid "Paste Quotation"
 msgstr "Klistra in citat"
 
-#: ../components/html-editor/popup.c:461
+#: ../components/html-editor/popup.c:464
 msgid "Insert Link"
 msgstr "Infoga länk"
 
-#: ../components/html-editor/popup.c:468
+#: ../components/html-editor/popup.c:471
 msgid "Remove Link"
 msgstr "Ta bort länk"
 
-#: ../components/html-editor/popup.c:475
+#: ../components/html-editor/popup.c:478
 msgid "Style"
 msgstr "Stil"
 
-#: ../components/html-editor/popup.c:478
+#: ../components/html-editor/popup.c:481
 msgid "Text Style..."
 msgstr "Textstil..."
 
-#: ../components/html-editor/popup.c:480
-#: ../components/html-editor/popup.c:486
-#: ../components/html-editor/popup.c:496
+#: ../components/html-editor/popup.c:483
+#: ../components/html-editor/popup.c:489
+#: ../components/html-editor/popup.c:499
 msgid "Paragraph Style..."
 msgstr "Styckestil..."
 
-#: ../components/html-editor/popup.c:484
+#: ../components/html-editor/popup.c:487
 msgid "Link Style..."
 msgstr "Länkstil..."
 
-#: ../components/html-editor/popup.c:490
+#: ../components/html-editor/popup.c:493
 msgid "Rule Style..."
 msgstr "Linjestil..."
 
-#: ../components/html-editor/popup.c:494
+#: ../components/html-editor/popup.c:497
 msgid "Image Style..."
 msgstr "Bildstil..."
 
-#: ../components/html-editor/popup.c:505
+#: ../components/html-editor/popup.c:508
 msgid "Cell Style..."
 msgstr "Cellstil..."
 
-#: ../components/html-editor/popup.c:508
+#: ../components/html-editor/popup.c:511
 msgid "Table Style..."
 msgstr "Tabellstil..."
 
-#: ../components/html-editor/popup.c:514
+#: ../components/html-editor/popup.c:517
 msgid "Page Style..."
 msgstr "Sidstil..."
 
-#: ../components/html-editor/popup.c:519
+#: ../components/html-editor/popup.c:522
 msgid "Table insert"
 msgstr "Tabellinfogning"
 
-#: ../components/html-editor/popup.c:522
+#: ../components/html-editor/popup.c:525
 msgid "Row above"
 msgstr "Raden ovanför"
 
-#: ../components/html-editor/popup.c:523
+#: ../components/html-editor/popup.c:526
 msgid "Row below"
 msgstr "Raden nedanför"
 
-#: ../components/html-editor/popup.c:525
+#: ../components/html-editor/popup.c:528
 msgid "Column before"
 msgstr "Kolumnen före"
 
-#: ../components/html-editor/popup.c:526
+#: ../components/html-editor/popup.c:529
 msgid "Column after"
 msgstr "Kolumnen efter"
 
-#: ../components/html-editor/popup.c:531
+#: ../components/html-editor/popup.c:534
 msgid "Table delete"
 msgstr "Tabellborttagning"
 
-#: ../components/html-editor/popup.c:533
+#: ../components/html-editor/popup.c:536
 msgid "Row"
 msgstr "Rad"
 
-#: ../components/html-editor/popup.c:534
+#: ../components/html-editor/popup.c:537
 msgid "Column"
 msgstr "Kolumn"
 
-#: ../components/html-editor/popup.c:535
+#: ../components/html-editor/popup.c:538
 msgid "Cell contents"
 msgstr "Cellinnehåll"
 
-#: ../components/html-editor/popup.c:570
+#: ../components/html-editor/popup.c:573
 msgid "Ignore Misspelled Word"
 msgstr "Ignorera felstavat ord"
 
-#: ../components/html-editor/popup.c:575
+#: ../components/html-editor/popup.c:578
 msgid "Add Word to"
 msgstr "Lägg till ord i"
 
-#: ../components/html-editor/popup.c:579
+#: ../components/html-editor/popup.c:582
 #, c-format
 msgid "%s Dictionary"
 msgstr "Ordbok för %s"
 
-#: ../components/html-editor/popup.c:588
+#: ../components/html-editor/popup.c:591
 msgid "Add Word to Dictionary"
 msgstr "Lägg till ord i ordbok"
 
-#: ../components/html-editor/popup.c:594
+#: ../components/html-editor/popup.c:597
 msgid "Input Methods"
 msgstr "Inmatningsmetoder"
 
@@ -1665,7 +1729,7 @@ msgid "Search _backward"
 msgstr "Sök _bakåt"
 
 #: ../components/html-editor/replace.c:183
-#: ../components/html-editor/search.c:117
+#: ../components/html-editor/search.c:118
 msgid "Case _sensitive"
 msgstr "Gör _skillnad på gemener/VERSALER"
 
@@ -1677,15 +1741,15 @@ msgstr "_Ersätt:"
 msgid "_With:"
 msgstr "_Med:"
 
-#: ../components/html-editor/search.c:116
+#: ../components/html-editor/search.c:117
 msgid "_Backward"
 msgstr "_Bakåt"
 
-#: ../components/html-editor/search.c:118
+#: ../components/html-editor/search.c:119
 msgid "_Regular Expression"
 msgstr "_Reguljärt uttryck"
 
-#: ../components/html-editor/search.c:122
+#: ../components/html-editor/search.c:123
 msgid "Input the words you want to search here"
 msgstr "Ange de ord du vill söka efter här"
 
@@ -1931,8 +1995,6 @@ msgstr "GtkHTML-testprogram"
 #~ msgstr "Sök och ersätt"
 #~ msgid "Insert Lick smiley into document..."
 #~ msgstr "Infoga skickande smilis i dokumentet..."
-#~ msgid "_Insert"
-#~ msgstr "_Infoga"
 #~ msgid "_Preformat"
 #~ msgstr "_Förformatera"
 #~ msgid "_Smiley"
@@ -2373,8 +2435,6 @@ msgstr "GtkHTML-testprogram"
 #~ "/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font "
 #~ "size=\"-1\">Bild 1: <b>beskrivning</b></font></td></tr></table></td></"
 #~ "tr></table>"
-#~ msgid "Modify the file's properties"
-#~ msgstr "Ändra filens egenskaper"
 #~ msgid "Pr_operties..."
 #~ msgstr "Egenska_per..."
 #~ msgid "Cannot execute gtkhtml properties"
@@ -2419,20 +2479,6 @@ msgstr "GtkHTML-testprogram"
 #~ msgstr "Kan inte läsa in typsnitt med fast breddsteg."
 #~ msgid "US-Letter"
 #~ msgstr "US-Letter"
-#~ msgid "C_ut"
-#~ msgstr "Klipp _ut"
-#~ msgid "Find Rege_x..."
-#~ msgstr "Sök _reguljärt uttryck..."
-#~ msgid "Regular expression search"
-#~ msgstr "Sökning med reguljärt uttryck"
-#~ msgid "Replace a string"
-#~ msgstr "Ersätt en sträng"
-#~ msgid "Search again for the same string"
-#~ msgstr "Sök igen efter samma sträng"
-#~ msgid "Search for a string"
-#~ msgstr "Sök efter en sträng"
-#~ msgid "_Properties..."
-#~ msgstr "_Egenskaper..."
 #~ msgid "Clear"
 #~ msgstr "Töm"
 #~ msgid "Language"
