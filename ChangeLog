@@ -1,3 +1,7 @@
+2007-01-22  Srinivasa Ragavan <sragavan@novell.com>
+
+	* configure.in: GtkPrint API addition.
+
 2006-01-08  Harish Krishnaswamy  <kharish@novell.com>
 
 	* NEWS, configure.in: GtkHTML 3.13.5 release
