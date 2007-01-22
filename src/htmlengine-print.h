@@ -23,19 +23,20 @@
 #define _HTMLENGINE_PRINT_H
 
 #include <libgnomeprint/gnome-print.h>
+#include <gtk/gtk.h>
 #include "htmlengine.h"
 
 void  html_engine_print                     (HTMLEngine           *e,
-					     GnomePrintContext    *print_context);
+					     GtkPrintContext    *print_context);
 void  html_engine_print_with_header_footer  (HTMLEngine           *e,
-					     GnomePrintContext    *print_context,
+					     GtkPrintContext    *print_context,
 					     gdouble               header_height,
 					     gdouble               footer_height,
 					     GtkHTMLPrintCallback  header_print,
 					     GtkHTMLPrintCallback  footer_print,
 					     gpointer              user_data);
 gint  html_engine_print_get_pages_num       (HTMLEngine           *e,
-					     GnomePrintContext    *print_context,
+					     GtkPrintContext    *print_context,
 					     gdouble               header_height,
 					     gdouble               footer_height);
 void  html_engine_print_set_min_split_index (HTMLEngine           *e,

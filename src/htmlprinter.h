@@ -25,6 +25,7 @@
 #include <libgnomeprint/gnome-print.h>
 #include <libgnomeprint/gnome-print-job.h>
 #include <libgnomeprint/gnome-print-config.h>
+#include <gtk/gtk.h>
 #include "htmlpainter.h"
 
 #define HTML_TYPE_PRINTER                 (html_printer_get_type ())
@@ -43,9 +44,9 @@
 struct _HTMLPrinter {
 	HTMLPainter base;
 
-	GnomePrintContext *context;
-	GnomePrintJob     *master;
-	GnomePrintConfig  *config;
+	GtkPrintContext *context;
+	GtkPrintOperation     *master;
+	GtkPrintSettings  *config;
 	gdouble scale;
 };
 
@@ -55,7 +56,7 @@ struct _HTMLPrinterClass {
 
 GtkType      html_printer_get_type                    (void);
 HTMLPainter *html_printer_new                         (GtkWidget         *widget,
-						       GnomePrintContext *print_context,
+						       GtkPrintContext *print_context,
 						       GnomePrintJob     *print_master);
 guint        html_printer_get_page_width              (HTMLPrinter       *printer);
 guint        html_printer_get_page_height             (HTMLPrinter       *printer);

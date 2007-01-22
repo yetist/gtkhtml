@@ -46,6 +46,7 @@
 #include "gtkhtml-stream.h"
 
 #include "htmlengine.h"
+#include <gtk/gtk.h>
 
 typedef struct _Example Example;
 
@@ -162,8 +163,8 @@ static void
 print_cb (GtkWidget *widget, gpointer data)
 {
 	GnomePrintJob *job;
-	GnomePrintContext *gpc;
-	GnomePrintConfig *config;
+	GtkPrintContext *gpc;
+	GtkPrintSettings *config;
 	
 	job = gnome_print_job_new (NULL);
 	gpc = gnome_print_job_get_context (job);

@@ -23,6 +23,7 @@
 #include "gtkhtml-compat.h"
 
 #include <string.h>
+#include <gtk/gtk.h>
 #include <gnome.h>
 #include <ctype.h>
 #include <libgnomeprint/gnome-print.h>
@@ -48,17 +49,17 @@ static void
 insure_config (HTMLPrinter *p)
 {
 	if (!p->config)
-		p->config = p->master ? gnome_print_job_get_config (p->master) : gnome_print_config_default ();
+		p->config = p->master ? gnome_print_job_get_config (p->master) : gnome_print_config_default (); 
+	    
 }
 
 static gdouble
 printer_get_page_height (HTMLPrinter *printer)
 {
-	gdouble width, height = 0.0;
+	double width, height = 0.0;
 
-	insure_config (printer);
-	gnome_print_config_get_page_size (printer->config, &width, &height);
-
+	height =(double) gtk_print_context_get_height (printer->context);
+	width = (double)gtk_print_context_get_width (printer->context);
 	return height;
 }
 
@@ -66,10 +67,8 @@ static gdouble
 printer_get_page_width (HTMLPrinter *printer)
 {
 	gdouble width = 0.0, height;
-
-	insure_config (printer);
-	gnome_print_config_get_page_size (printer->config, &width, &height);
-
+	width = gtk_print_context_get_width (printer->context);
+	height = gtk_print_context_get_height (printer->context);
 	return width;
 }
 
@@ -79,54 +78,43 @@ printer_get_page_width (HTMLPrinter *printer)
 static gdouble
 get_lmargin (HTMLPrinter *printer)
 {
-	/*gdouble lmargin = 0.0;
+	GtkPageSetup *page_setup;
+	gdouble lmargin;
 
-	insure_config (printer);
-	gnome_print_config_get_double (printer->config, GNOME_PRINT_KEY_PAGE_MARGIN_LEFT, &lmargin);
-
-	printf ("lmargin %f\n", lmargin);
-	return lmargin;*/
-
-	return TEMP_MARGIN;
+	page_setup = gtk_print_context_get_page_setup (printer->context);
+	lmargin =(gdouble) gtk_page_setup_get_left_margin (page_setup, GTK_UNIT_POINTS);
+	return lmargin;
 }
 
 static gdouble
 get_rmargin (HTMLPrinter *printer)
 {
-	/*gdouble rmargin = 0.0;
+	GtkPageSetup *page_setup;
+	gdouble rmargin;
 
-	insure_config (printer);
-	gnome_print_config_get_double (printer->config, GNOME_PRINT_KEY_PAGE_MARGIN_RIGHT, &rmargin);
-
-	return rmargin;*/
-
-	return TEMP_MARGIN;
+	page_setup = gtk_print_context_get_page_setup (printer->context);
+	rmargin =(gdouble)gtk_page_setup_get_right_margin (page_setup, GTK_UNIT_POINTS);
+	return rmargin;
 }
 
 static gdouble
 get_tmargin (HTMLPrinter *printer)
 {
-	/* gdouble tmargin = 0.0;
-
-	insure_config (printer);
-	gnome_print_config_get_double (printer->config, GNOME_PRINT_KEY_PAGE_MARGIN_TOP, &tmargin);
-
-	return tmargin; */
-
-	return TEMP_MARGIN;
+	GtkPageSetup *page_setup;
+	gdouble tmargin;
+	page_setup = gtk_print_context_get_page_setup (printer->context);
+	tmargin =(gdouble)gtk_page_setup_get_top_margin (page_setup, GTK_UNIT_POINTS);
 }
 
 static gdouble
 get_bmargin (HTMLPrinter *printer)
 {
-	/* gdouble bmargin = 0.0;
+	GtkPageSetup *page_setup;
+	gdouble bmargin;
 
-	insure_config (printer);
-	gnome_print_config_get_double (printer->config, GNOME_PRINT_KEY_PAGE_MARGIN_BOTTOM, &bmargin);
-
-	return bmargin; */
-
-	return TEMP_MARGIN;
+	page_setup = gtk_print_context_get_page_setup (printer->context);
+	bmargin = (gdouble)gtk_page_setup_get_bottom_margin (page_setup, GTK_UNIT_POINTS);
+	return TEMP_MARGIN; 
 }
 
 gdouble
@@ -146,7 +134,6 @@ html_printer_coordinates_to_gnome_print (HTMLPrinter *printer,
 	print_y = SCALE_ENGINE_TO_GNOME_PRINT (engine_y);
 
 	print_x = print_x + get_lmargin (printer);
-	print_y = (printer_get_page_height (printer) - print_y) - get_tmargin (printer);
 
 	*print_x_return = print_x;
 	*print_y_return = print_y;
@@ -181,7 +168,6 @@ finalize (GObject *object)
 		printer->config = NULL;
 	}
 	if (printer->context != NULL) {
-		gnome_print_context_close (printer->context);
 		g_object_unref (printer->context);
 		printer->context = NULL;
 	}
@@ -196,9 +182,10 @@ begin (HTMLPainter *painter,
        int x2, int y2)
 {
 	HTMLPrinter *printer;
-	GnomePrintContext *pc;
+	GtkPrintContext *pc;
 	gdouble printer_x1, printer_y1;
 	gdouble printer_x2, printer_y2;
+	cairo_t *cr;
 #ifdef PRINTER_DEBUG
 	gdouble dash [2];
 #endif
@@ -207,45 +194,43 @@ begin (HTMLPainter *painter,
 	pc      = printer->context;
 	g_return_if_fail (pc);
 
-	gnome_print_beginpage (pc, "page");
-	gnome_print_gsave (pc);
+	cr = gtk_print_context_get_cairo_context (pc);
+	cairo_save (cr);
 
 	html_printer_coordinates_to_gnome_print (printer, x1, y1, &printer_x1, &printer_y1);
+	
 	printer_x2 = printer_x1 + SCALE_ENGINE_TO_GNOME_PRINT (x2);
-	printer_y2 = printer_y1 - SCALE_ENGINE_TO_GNOME_PRINT (y2);
+	printer_y2 = SCALE_ENGINE_TO_GNOME_PRINT (y2);
 
-	gnome_print_newpath (pc);
-
-	gnome_print_moveto (pc, printer_x1, printer_y1);
-	gnome_print_lineto (pc, printer_x1, printer_y2);
-	gnome_print_lineto (pc, printer_x2, printer_y2);
-	gnome_print_lineto (pc, printer_x2, printer_y1);
-	gnome_print_lineto (pc, printer_x1, printer_y1);
-	gnome_print_closepath (pc);
+	cairo_new_path (cr);
+	cairo_rectangle (cr, printer_x1, printer_y1, printer_x2, printer_y2); 
+	cairo_close_path (cr);
 
 #ifdef PRINTER_DEBUG
-	gnome_print_gsave (pc);
+	cairo_save (cr);
 	dash [0] = 10.0;
 	dash [1] = 10.0;
-	gnome_print_setrgbcolor (pc, .5, .5, .5);
-	gnome_print_setlinewidth (pc, .3);
-	gnome_print_setdash (pc, 2, dash, .0);
-	gnome_print_stroke (pc);
-	gnome_print_grestore (pc);
+	cairo_set_source_rgb (cr, .5, .5, .5);
+	cairo_set_line_width (cr, .3);
+	cairo_set_dash (cr, 2, dash, .0);
+	cairo_stroke (cr);
+	cairo_restore (cr);
 #endif
-	gnome_print_clip (pc);
+	cairo_clip (cr);
+	cairo_restore (cr);
 }
 
 static void
 end (HTMLPainter *painter)
 {
 	HTMLPrinter *printer;
+	cairo_t *cr;
 
 	printer = HTML_PRINTER (painter);
 	g_return_if_fail (printer->context != NULL);
 
-	gnome_print_grestore (printer->context);
-	gnome_print_showpage (printer->context);
+	cr = gtk_print_context_get_cairo_context (printer->context);
+	cairo_restore (cr);
 }
 
 static void
@@ -270,12 +255,13 @@ set_pen (HTMLPainter *painter,
 	 const GdkColor *color)
 {
 	HTMLPrinter *printer;
+	cairo_t *cr;
 
 	printer = HTML_PRINTER (painter);
 	g_return_if_fail (printer->context != NULL);
 
-	gnome_print_setrgbcolor (printer->context,
-				 color->red / 65535.0, color->green / 65535.0, color->blue / 65535.0);
+	cr = gtk_print_context_get_cairo_context (printer->context);
+	cairo_set_source_rgb (cr, color->red / 65535.0, color->green / 65535.0, color->blue / 65535.0);
 }
 
 static const GdkColor *
@@ -290,35 +276,37 @@ static void
 prepare_rectangle (HTMLPainter *painter, gint _x, gint _y, gint w, gint h)
 {
 	HTMLPrinter *printer = HTML_PRINTER (painter);
-	GnomePrintContext *context = printer->context;
+	GtkPrintContext *context = printer->context;
 	gdouble x;
 	gdouble y;
 	gdouble width;
 	gdouble height;
+	cairo_t *cr;
 
 	width = SCALE_ENGINE_TO_GNOME_PRINT (w);
 	height = SCALE_ENGINE_TO_GNOME_PRINT (h);
-
 	html_printer_coordinates_to_gnome_print (HTML_PRINTER (painter), _x, _y, &x, &y);
+	cr = gtk_print_context_get_cairo_context (context);
+	cairo_save (cr);
 
-	gnome_print_newpath (context);
-	gnome_print_moveto  (context, x, y);
-	gnome_print_lineto  (context, x + width, y);
-	gnome_print_lineto  (context, x + width, y - height);
-	gnome_print_lineto  (context, x, y - height);
-	gnome_print_lineto  (context, x, y);
-	gnome_print_closepath (context);
+	cairo_rectangle (cr, x, y, x + width, y + height );
+	cairo_set_line_width (cr, 2);
+	cairo_stroke (cr);
+
+	cairo_restore (cr);
 }
 
 static void
 do_rectangle (HTMLPainter *painter, gint x, gint y, gint w, gint h, gint lw)
 {
 	HTMLPrinter *printer = HTML_PRINTER (painter);
-	GnomePrintContext *context = printer->context;
+	GtkPrintContext *context = printer->context;
+	cairo_t *cr;
 
-	gnome_print_setlinewidth (context, SCALE_ENGINE_TO_GNOME_PRINT (lw) * PIXEL_SIZE);
-	prepare_rectangle (painter, x, y, w, h);
-	gnome_print_stroke (context);
+	cr = gtk_print_context_get_cairo_context (context);
+	cairo_set_line_width (cr, SCALE_ENGINE_TO_GNOME_PRINT (lw) * PIXEL_SIZE); 
+	prepare_rectangle (painter,x, y, w, h);
+	cairo_fill (cr);
 }
 
 static void
@@ -326,8 +314,10 @@ set_clip_rectangle (HTMLPainter *painter,
 		    gint x, gint y,
 		    gint width, gint height)
 {
+	cairo_t *cr;
 	prepare_rectangle (painter, x, y, width, height);
-	gnome_print_clip (HTML_PRINTER (painter)->context);
+	cr = gtk_print_context_get_cairo_context (HTML_PRINTER (painter)->context);
+	cairo_clip (cr);
 }
 
 /* HTMLPainter drawing functions.  */
@@ -340,6 +330,7 @@ draw_line (HTMLPainter *painter,
 	HTMLPrinter *printer;
 	double printer_x1, printer_y1;
 	double printer_x2, printer_y2;
+	cairo_t *cr;
 
 	printer = HTML_PRINTER (painter);
 	g_return_if_fail (printer->context != NULL);
@@ -347,13 +338,13 @@ draw_line (HTMLPainter *painter,
 	html_printer_coordinates_to_gnome_print (printer, x1, y1, &printer_x1, &printer_y1);
 	html_printer_coordinates_to_gnome_print (printer, x2, y2, &printer_x2, &printer_y2);
 
-	gnome_print_setlinewidth (printer->context, PIXEL_SIZE);
+	cr = gtk_print_context_get_cairo_context (printer->context);
+	cairo_set_line_width (cr, PIXEL_SIZE); 
 
-	gnome_print_newpath (printer->context);
-	gnome_print_moveto (printer->context, printer_x1, printer_y1);
-	gnome_print_lineto (printer->context, printer_x2, printer_y2);
-
-	gnome_print_stroke (printer->context);
+	cairo_new_path (cr);
+	cairo_move_to (cr, printer_x1, printer_y1);
+	cairo_line_to (cr, printer_x2, printer_y2);
+	cairo_stroke (cr);
 }
 
 static void
@@ -373,13 +364,14 @@ draw_border (HTMLPainter *painter,
 	     gint bordersize)
 {
 	HTMLPrinter *printer = HTML_PRINTER (painter);
-	GnomePrintContext *pc = printer->context;
+	GtkPrintContext *pc = printer->context;
 	GdkColor *col1 = NULL, *col2 = NULL;
 	GdkColor dark, light;
 	gdouble x;
 	gdouble y;
 	gdouble width, bs;
 	gdouble height;
+	cairo_t *cr;
 
 	#define INC 0x8000
 	#define DARK(c)  dark.c = MAX (((gint) bg->c) - INC, 0)
@@ -414,33 +406,36 @@ draw_border (HTMLPainter *painter,
 	height = SCALE_ENGINE_TO_GNOME_PRINT (h);
 	bs     = SCALE_ENGINE_TO_GNOME_PRINT (bordersize);
 
-	html_printer_coordinates_to_gnome_print (HTML_PRINTER (painter), _x, _y, &x, &y);
 
+html_printer_coordinates_to_gnome_print (HTML_PRINTER (painter), _x, _y, &x, &y);
+
+	cr = gtk_print_context_get_cairo_context (pc);
 	if (col2)
-		gnome_print_setrgbcolor (pc, col1->red / 65535.0, col1->green / 65535.0, col1->blue / 65535.0);
-
-	gnome_print_newpath (pc);
-	gnome_print_moveto  (pc, x, y);
-	gnome_print_lineto  (pc, x + width, y);
-	gnome_print_lineto  (pc, x + width - bs, y - bs);
-	gnome_print_lineto  (pc, x + bs, y - bs );
-	gnome_print_lineto  (pc, x + bs, y - height + bs);
-	gnome_print_lineto  (pc, x, y - height);
-	gnome_print_closepath (pc);
-	gnome_print_fill    (pc);
+		cairo_set_source_rgb (cr, col1->red / 65535.0, col1->green / 65535.0, col1->blue / 65535.0);
+	cairo_new_path (cr);
+	cairo_move_to  (cr, x, y);
+	cairo_line_to  (cr, x + width, y);
+	cairo_line_to  (cr, x + width - bs, y + bs);
+	cairo_line_to  (cr, x + bs, y + bs );
+	cairo_line_to  (cr, x + bs, y + height + bs);
+	cairo_line_to  (cr, x, y + height);
+	cairo_close_path (cr);
+	cairo_set_line_width (cr, 1); /* remove */
+	cairo_stroke (cr);
 
 	if (col1)
-		gnome_print_setrgbcolor (pc, col2->red / 65535.0, col2->green / 65535.0, col2->blue / 65535.0);
+		cairo_set_source_rgb (cr, col2->red / 65535.0, col2->green / 65535.0, col2->blue / 65535.0);
 
-	gnome_print_newpath (pc);
-	gnome_print_moveto  (pc, x, y - height);
-	gnome_print_lineto  (pc, x + width, y - height);
-	gnome_print_lineto  (pc, x + width, y);
-	gnome_print_lineto  (pc, x + width - bs, y - bs);
-	gnome_print_lineto  (pc, x + width - bs, y - height + bs);
-	gnome_print_lineto  (pc, x + bs, y - height + bs);
-	gnome_print_closepath (pc);
-	gnome_print_fill    (pc);
+	cairo_new_path (cr);
+	cairo_move_to  (cr, x, y + height);
+	cairo_line_to  (cr, x + width, y + height);
+	cairo_line_to  (cr, x + width, y);
+	cairo_line_to  (cr, x + width - bs, y + bs);
+	cairo_line_to  (cr, x + width - bs, y + height + bs);
+	cairo_line_to  (cr, x + bs, y + height + bs);
+	cairo_set_line_width (cr, 1); /* remove */
+	cairo_close_path (cr);
+	cairo_fill   (cr);
 }
 
 static void
@@ -451,9 +446,10 @@ draw_background (HTMLPainter *painter,
 		 gint pix_width, gint pix_height,
 		 gint tile_x, gint tile_y)
 {
-	GnomePrintContext *pc;
+	GtkPrintContext *pc;
 	HTMLPrinter *printer;
 	gdouble x, y, width, height;
+	cairo_t *cr;
 
 	printer = HTML_PRINTER (painter);
 	g_return_if_fail (printer);
@@ -465,39 +461,35 @@ draw_background (HTMLPainter *painter,
 	html_printer_coordinates_to_gnome_print (printer, ix, iy, &x, &y);
 
 	if (color) {
-		gnome_print_setrgbcolor (pc, color->red / 65535.0, color->green / 65535.0, color->blue / 65535.0);
+		cr = gtk_print_context_get_cairo_context (pc);
 
-		gnome_print_newpath (pc);
-		gnome_print_moveto (pc, x, y);
-		gnome_print_lineto (pc, x + width, y);
-		gnome_print_lineto (pc, x + width, y - height);
-		gnome_print_lineto (pc, x, y - height);
-		gnome_print_lineto (pc, x, y);
-		gnome_print_closepath (pc);
-
-		gnome_print_fill (pc);
+		cairo_save (cr);
+		cairo_set_source_rgb (cr, color->red / 65535.0, color->green / 65535.0, color->blue / 65535.0);
+		cairo_rectangle (cr, x, y, x + width, y + height);
+		cairo_fill (cr);
+		cairo_restore (cr);
 	}
 }
 
 static void
-print_pixbuf (GnomePrintContext *pc, GdkPixbuf *pixbuf)
+print_pixbuf (GtkPrintContext *pc, GdkPixbuf *pixbuf)
 {
+	cairo_t *cr;
 	if (!pixbuf || (gdk_pixbuf_get_colorspace (pixbuf) != GDK_COLORSPACE_RGB))
 		return;
 	
+	cr = gtk_print_context_get_cairo_context (pc);
+	cairo_save (cr);
 	if (gdk_pixbuf_get_has_alpha (pixbuf)) {
-		gnome_print_rgbaimage (pc, 
-				       gdk_pixbuf_get_pixels (pixbuf),
-				       gdk_pixbuf_get_width (pixbuf),
-				       gdk_pixbuf_get_height (pixbuf),
-				       gdk_pixbuf_get_rowstride (pixbuf));
+		
+		gdk_cairo_set_source_pixbuf (cr, pixbuf,0,0), 
+		cairo_paint_with_alpha (cr, 1);
+		
 	} else {
-		gnome_print_rgbimage (pc, 
-				      gdk_pixbuf_get_pixels (pixbuf),
-				      gdk_pixbuf_get_width (pixbuf),
-				      gdk_pixbuf_get_height (pixbuf),
-				      gdk_pixbuf_get_rowstride (pixbuf));
+		gdk_cairo_set_source_pixbuf (cr, pixbuf,0,0);
+		cairo_paint (cr);
 	}
+	cairo_restore (cr);
 }
 
 static void
@@ -506,20 +498,20 @@ draw_pixmap (HTMLPainter *painter, GdkPixbuf *pixbuf, gint x, gint y, gint scale
 	HTMLPrinter *printer;
 	double print_x, print_y;
 	double print_scale_width, print_scale_height;
+	cairo_t *cr;
 
 	printer = HTML_PRINTER (painter);
-	g_return_if_fail (printer->context != NULL);
+       	g_return_if_fail (printer->context != NULL);
 
+	cr = gtk_print_context_get_cairo_context (printer->context);
 	html_printer_coordinates_to_gnome_print (printer, x, y, &print_x, &print_y);
-
 	print_scale_width  = SCALE_ENGINE_TO_GNOME_PRINT (scale_width);
 	print_scale_height = SCALE_ENGINE_TO_GNOME_PRINT (scale_height);
 
-	gnome_print_gsave (printer->context);
-	gnome_print_translate (printer->context, print_x, print_y - print_scale_height);
-	gnome_print_scale (printer->context, print_scale_width, print_scale_height);
+	cairo_save (cr);
+	cairo_translate (cr, print_x, print_y + print_scale_height);
 	print_pixbuf (printer->context, pixbuf);
-	gnome_print_grestore (printer->context);
+	cairo_restore (cr);  
 }
 
 static void
@@ -528,6 +520,7 @@ fill_rect (HTMLPainter *painter, gint x, gint y, gint width, gint height)
 	HTMLPrinter *printer;
 	double printer_x, printer_y;
 	double printer_width, printer_height;
+	cairo_t *cr;
 
 	printer = HTML_PRINTER (painter);
 	g_return_if_fail (printer->context != NULL);
@@ -537,28 +530,23 @@ fill_rect (HTMLPainter *painter, gint x, gint y, gint width, gint height)
 
 	html_printer_coordinates_to_gnome_print (printer, x, y, &printer_x, &printer_y);
 
-	gnome_print_newpath (printer->context);
-	gnome_print_moveto (printer->context, printer_x, printer_y);
-	gnome_print_lineto (printer->context, printer_x + printer_width, printer_y);
-	gnome_print_lineto (printer->context, printer_x + printer_width, printer_y - printer_height);
-	gnome_print_lineto (printer->context, printer_x, printer_y - printer_height);
-	gnome_print_lineto (printer->context, printer_x, printer_y);
-	gnome_print_closepath (printer->context);
-
-	gnome_print_fill (printer->context);
+	cr = gtk_print_context_get_cairo_context (printer->context);
+	cairo_rectangle (cr, printer_x, printer_y, printer_x + printer_width, printer_y + printer_height );
+	cairo_fill (cr);
 }
 
 static void
 draw_lines (HTMLPrinter *printer, double x, double y, double width, PangoAnalysis *analysis, HTMLPangoProperties *properties)
 {
 	PangoFontMetrics *metrics;
+	cairo_t *cr;
 	
 	if (!properties->underline && !properties->strikethrough)
 		return;
 	
 	metrics = pango_font_get_metrics (analysis->font, analysis->language);
-
-	gnome_print_setlinecap (printer->context, GDK_CAP_BUTT);
+	cr = gtk_print_context_get_cairo_context (printer->context);
+	cairo_set_line_cap (cr,CAIRO_LINE_CAP_BUTT);
 
 	if (properties->underline) {
 #ifdef PANGO_1_5_OR_HIGHER
@@ -570,12 +558,12 @@ draw_lines (HTMLPrinter *printer, double x, double y, double width, PangoAnalysi
 		double position = -1.0;
 		double ly = y + position - thickness / 2;
 #endif
-
-		gnome_print_newpath (printer->context);
-		gnome_print_moveto (printer->context, x, ly);
-		gnome_print_lineto (printer->context, x + width, ly);
-		gnome_print_setlinewidth (printer->context, thickness);
-		gnome_print_stroke (printer->context);
+	    	cairo_new_path (cr);
+		cairo_move_to (cr, x, ly + 4);
+		cairo_line_to (cr, x + width, ly + 4);
+		cairo_set_line_width (cr, thickness); 
+		cairo_close_path (cr);
+		cairo_stroke (cr);
 	}
 		
 	if (properties->strikethrough) {
@@ -588,11 +576,11 @@ draw_lines (HTMLPrinter *printer, double x, double y, double width, PangoAnalysi
 		double position = SCALE_PANGO_TO_GNOME_PRINT (pango_font_metrics_get_ascent (metrics)/3);
 		double ly = y + position - thickness / 2;
 #endif
-		gnome_print_newpath (printer->context);
-		gnome_print_moveto (printer->context, x, ly);
-		gnome_print_lineto (printer->context, x + width, ly);
-		gnome_print_setlinewidth (printer->context, thickness);
-		gnome_print_stroke (printer->context);
+		cairo_new_path (cr);
+		cairo_move_to (cr, x, ly);
+		cairo_line_to (cr, x + width, ly);
+		cairo_set_line_width (cr, 1);
+		cairo_stroke (cr);
 	}
 }
 
@@ -603,49 +591,52 @@ draw_glyphs (HTMLPainter *painter, gint x, gint y, PangoItem *item, PangoGlyphSt
 	gdouble print_x, print_y;
 	PangoRectangle log_rect;
 	HTMLPangoProperties properties;
+	cairo_t *cr;
 
 	printer = HTML_PRINTER (painter);
 
+
 	html_printer_coordinates_to_gnome_print (printer, x, y, &print_x, &print_y);
 
-	gnome_print_gsave (printer->context);
+	cr = gtk_print_context_get_cairo_context (printer->context);
+
+	cairo_save (cr);
 
 	html_pango_get_item_properties (item, &properties);
-	
 	pango_glyph_string_extents (glyphs, item->analysis.font, NULL, &log_rect);
-	
-	if (properties.bg_color) {
-		gnome_print_setrgbcolor (printer->context,
+
+       	if (properties.bg_color) {
+		   cairo_set_source_rgb (cr,
 					 properties.bg_color->red / 65535.0,
 					 properties.bg_color->green / 65535.0,
 					 properties.bg_color->blue / 65535.0);
-		gnome_print_rect_filled (printer->context,
+		        cairo_rectangle (cr,
 					 print_x,
-					 print_y - SCALE_PANGO_TO_GNOME_PRINT (log_rect.y + log_rect.height),
+					 print_y + SCALE_PANGO_TO_GNOME_PRINT (log_rect.y + log_rect.height),
 					 SCALE_PANGO_TO_GNOME_PRINT (log_rect.width),
 					 SCALE_PANGO_TO_GNOME_PRINT (log_rect.height));
+			cairo_fill (cr);
 	}
 	
 	if (properties.fg_color) {
-		gnome_print_setrgbcolor (printer->context,
+		cairo_set_source_rgb     (cr,
 					 properties.fg_color->red / 65535.0,
 					 properties.fg_color->green / 65535.0,
 					 properties.fg_color->blue / 65535.0);
 	} else {
-		gnome_print_setrgbcolor (printer->context, 0., 0., 0.);
+		        cairo_set_source_rgb (cr, 0., 0., 0.);
 	}
 	
-	gnome_print_moveto (printer->context, print_x, print_y);
-	gnome_print_pango_glyph_string (printer->context, 
-					item->analysis.font,
-					glyphs);
+	cairo_move_to (cr, print_x, print_y);
+
+	pango_cairo_show_glyph_string (cr,
+				       item->analysis.font,
+				       glyphs); 
 	draw_lines (printer, print_x, print_y,
 		    SCALE_PANGO_TO_GNOME_PRINT (log_rect.width),
 		    &item->analysis, &properties);
 	
-	gnome_print_grestore (printer->context);
-	
-	
+	cairo_restore (cr);
 	return log_rect.width;
 }
 
@@ -655,21 +646,18 @@ draw_embedded (HTMLPainter *p, HTMLEmbedded *o, gint x, gint y)
 	gdouble print_x, print_y;	
 	HTMLPrinter *printer = HTML_PRINTER(p);
 	GtkWidget *embedded_widget;
+	cairo_t *cr;
 
 	html_printer_coordinates_to_gnome_print (printer, x, y, &print_x, &print_y);
-	gnome_print_gsave(printer->context); 
-
-	gnome_print_translate(printer->context, 
-			      print_x, print_y - o->height * PIXEL_SIZE);
- 
+	cr = gtk_print_context_get_cairo_context (printer->context);
+	cairo_translate (cr, 
+			print_x, print_y + o->height * PIXEL_SIZE);
 	embedded_widget = html_embedded_get_widget(o);
 	if (embedded_widget && GTK_IS_HTML_EMBEDDED (embedded_widget)) {
 		g_signal_emit_by_name(G_OBJECT (embedded_widget),
 				      "draw_print", 
-				      printer->context);
+				       cr);
 	}
-
-	gnome_print_grestore(printer->context); 
 }
 
 static void
@@ -774,9 +762,9 @@ html_printer_get_type (void)
 }
 
 HTMLPainter *
-html_printer_new (GtkWidget *widget, GnomePrintContext *context, GnomePrintJob *master)
+html_printer_new (GtkWidget *widget, GtkPrintContext *context, GnomePrintJob *master)
 {
-	PangoFontMap *font_map;
+	PangoCairoFontMap *font_map;
 	HTMLPrinter *new;
 	HTMLPainter *painter;
 
@@ -788,8 +776,8 @@ html_printer_new (GtkWidget *widget, GnomePrintContext *context, GnomePrintJob *
 	new->context = context;
 	new->master = master;
 
-	font_map = gnome_print_pango_get_default_font_map ();
-	painter->pango_context = gnome_print_pango_create_context (font_map);
+	font_map = pango_cairo_font_map_get_default ();
+	painter->pango_context = pango_cairo_font_map_create_context (font_map);
 	
 	return HTML_PAINTER (new);
 }
@@ -819,7 +807,7 @@ html_printer_get_page_height (HTMLPrinter *printer)
 	g_return_val_if_fail (printer != NULL, 0);
 	g_return_val_if_fail (HTML_IS_PRINTER (printer), 0);
 
-	printer_height = printer_get_page_height (printer) - get_tmargin (printer) - get_bmargin (printer);
+	printer_height = printer_get_page_height (printer) + get_tmargin (printer) + get_bmargin (printer);
 	engine_height = SCALE_GNOME_PRINT_TO_ENGINE (printer_height);
 
 	return engine_height;

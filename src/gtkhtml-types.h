@@ -25,6 +25,7 @@
 
 #include <libgnomeprint/gnome-print.h>
 #include "gtkhtml-enums.h"
+#include <gtk/gtk.h>
 
 typedef struct _GtkHTML GtkHTML;
 typedef struct _GtkHTMLClass GtkHTMLClass;
@@ -52,7 +53,7 @@ typedef gboolean (* GtkHTMLSaveReceiverFn)   (gpointer     engine,
 					      size_t       len,
 					      gpointer     user_data);
 
-typedef void (*GtkHTMLPrintCallback) (GtkHTML *html, GnomePrintContext *print_context,
+typedef void (*GtkHTMLPrintCallback) (GtkHTML *html, GtkPrintContext *print_context,
 				      gdouble x, gdouble y, gdouble width, gdouble height, gpointer user_data);
 
 #endif

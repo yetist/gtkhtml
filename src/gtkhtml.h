@@ -30,6 +30,7 @@
 
 #include "gtkhtml-types.h"
 #include "gtkhtml-enums.h"
+#include <gtk/gtk.h>
 
 /* FIXME we should remove html dep */
 #include "htmltypes.h"
@@ -230,6 +231,19 @@ gint                       gtk_html_print_get_pages_num           (GtkHTML      
 								   gdouble                    footer_height);
 void                       gtk_html_print_set_master              (GtkHTML                   *html,
 								   GnomePrintJob             *print_master);
+void 			   gtk_html_print_page_with_header_footer  (GtkHTML		     *html,
+								   GtkPrintContext 	     *print_context,
+			   					   gdouble		      header_height,
+								   gdouble		      footer_height,
+								   GtkHTMLPrintCallback       header_print,
+							           GtkHTMLPrintCallback       footer_print,
+								   gpointer 		      user_data);
+void			   gtk_html_print_page			   (GtkHTML		      *html,
+								    GtkPrintContext	      *print_context);
+gint 			   gtk_html_print_page_get_pages_num 	  (GtkHTML		      *html,
+								   GtkPrintContext            *print_context,
+					 			   gdouble		       header_height,
+								   gdouble                     footer_height);
 
 /* Title.  */
 const gchar               *gtk_html_get_title                     (GtkHTML                   *html);

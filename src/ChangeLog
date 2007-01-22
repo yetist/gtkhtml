@@ -1,3 +1,29 @@
+2007-01-22  Srinivasa Ragavan  <sragavan@novell.com>
+
+	** Commiting Ebby's patch for GtkPrintMigration.
+
+	* gtkhtml-types.h:
+	* gtkhtml.c: (gtk_html_print_page),
+	(gtk_html_print_page_with_header_footer),
+	(gtk_html_print_page_get_pages_num):
+	* gtkhtml.h:
+	* htmlengine-print.c: (print_header_footer), (print_page),
+	(print_all_pages), (print_with_header_footer), (html_engine_print),
+	(html_engine_print_with_header_footer),
+	(html_engine_print_get_pages_num):
+	* htmlengine-print.h:
+	* htmlprinter.c: (insure_config), (printer_get_page_height),
+	(printer_get_page_width), (get_lmargin), (get_rmargin),
+	(get_tmargin), (get_bmargin),
+	(html_printer_coordinates_to_gnome_print), (finalize), (begin),
+	(end), (set_pen), (prepare_rectangle), (do_rectangle),
+	(set_clip_rectangle), (draw_line), (draw_border),
+	(draw_background), (print_pixbuf), (draw_pixmap), (fill_rect),
+	(draw_lines), (draw_glyphs), (draw_embedded), (html_printer_new),
+	(html_printer_get_page_height):
+	* htmlprinter.h:
+	* test.c: (print_cb):
+
 2007-01-05  Chris Heath <chris@heathens.co.nz>
 
 	** Fix for bug #360393

@@ -902,7 +902,7 @@ gtk_html_set_fonts (GtkHTML *html, HTMLPainter *painter)
 
 	font_options = get_font_options ();
 	pango_cairo_context_set_font_options (painter->pango_context, font_options);
-	cairo_font_options_destroy (font_options);
+	cairo_font_options_destroy (font_options); 
 
 	g_free (fixed_name);
 }
@@ -4162,10 +4162,19 @@ gtk_html_get_base (GtkHTML *html)
 
 
 /* Printing.  */
-
 void
 gtk_html_print (GtkHTML *html,
-		GnomePrintContext *print_context)
+	        GnomePrintContext *print_context)
+{
+	g_return_if_fail (html != NULL);
+	g_return_if_fail (GTK_IS_HTML (html));
+
+	html_engine_print (html->engine, print_context);
+}
+
+void
+gtk_html_print_page (GtkHTML *html,
+		GtkPrintContext *print_context)
 {
 	g_return_if_fail (html != NULL);
 	g_return_if_fail (GTK_IS_HTML (html));
@@ -4177,6 +4186,18 @@ void
 gtk_html_print_with_header_footer (GtkHTML *html, GnomePrintContext *print_context,
 				   gdouble header_height, gdouble footer_height,
 				   GtkHTMLPrintCallback header_print, GtkHTMLPrintCallback footer_print, gpointer user_data)
+{
+	g_return_if_fail (html != NULL);
+	g_return_if_fail (GTK_IS_HTML (html));
+
+	html_engine_print_with_header_footer (html->engine, print_context,
+					      header_height, footer_height, header_print, footer_print, user_data);
+}
+	
+void
+gtk_html_print_page_with_header_footer (GtkHTML *html, GtkPrintContext *print_context,
+					gdouble header_height, gdouble footer_height,
+					GtkHTMLPrintCallback header_print, GtkHTMLPrintCallback footer_print, gpointer user_data)
 {
 	g_return_if_fail (html != NULL);
 	g_return_if_fail (GTK_IS_HTML (html));
@@ -5872,6 +5893,12 @@ gtk_html_set_images_blocking (GtkHTML *html, gboolean block)
 
 gint
 gtk_html_print_get_pages_num (GtkHTML *html, GnomePrintContext *print_context, gdouble header_height, gdouble footer_height)
+{
+	return html_engine_print_get_pages_num (html->engine, print_context, header_height, footer_height);
+}
+
+gint
+gtk_html_print_page_get_pages_num (GtkHTML *html, GtkPrintContext *print_context, gdouble header_height, gdouble footer_height)
 {
 	return html_engine_print_get_pages_num (html->engine, print_context, header_height, footer_height);
 }
