@@ -7,20 +7,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-09-10 11:01+0100\n"
-"PO-Revision-Date: 2006-09-10 11:01-0000\n"
+"POT-Creation-Date: 2007-01-23 20:04+0000\n"
+"PO-Revision-Date: 2007-01-23 20:04-0000\n"
 "Last-Translator: David Lodge <dave@cirt.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../a11y/image.c:150
+#: ../a11y/image.c:151
 #, c-format
 msgid "URL is %s, Alternative Text is %s"
 msgstr "URL is %s, Alternative Text is %s"
 
-#: ../a11y/image.c:152
+#: ../a11y/image.c:153
 #, c-format
 msgid "URL is %s"
 msgstr "URL is %s"
@@ -31,7 +31,7 @@ msgstr "URL is %s"
 msgid "grab focus"
 msgstr "grab focus"
 
-#: ../a11y/object.c:258
+#: ../a11y/object.c:259
 msgid "Panel containing HTML"
 msgstr "Panel containing HTML"
 
@@ -83,764 +83,744 @@ msgstr "Alphabetical List"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:9
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:9
-msgid "Background Color"
-msgstr "Background Colour"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:10
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:10
-msgid "Blue"
-msgstr "Blue"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:11
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:11
 #: ../components/html-editor/toolbar.c:55
 msgid "Bulleted List"
 msgstr "Bulleted List"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:12
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:10
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:10
 #: ../components/html-editor/toolbar.c:528
 msgid "Center justifies the paragraphs"
 msgstr "Centre justifies the paragraphs"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:13
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:13
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:11
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:11
 msgid "Check _Spelling..."
 msgstr "Check _Spelling..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:14
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:14
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:12
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
 msgid "Check spelling of the document"
 msgstr "Check spelling of the document"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:15
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:15
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:13
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:13
 msgid "Copy"
 msgstr "Copy"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:16
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:16
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:14
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:14
 msgid "Copy selection to clipboard"
 msgstr "Copy selection to clipboard"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:17
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:17
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:15
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:15
+#: ../components/html-editor/html-editor-control.xml.h:2
 msgid "Copy the selection"
 msgstr "Copy the selection"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:18
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:18
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:16
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:16
 msgid "Cr_ying"
 msgstr "Cr_ying"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:19
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:19
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:17
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:17
 msgid "Cu_t"
 msgstr "Cu_t"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:20
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:20
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:18
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:18
 msgid "Cut"
 msgstr "Cut"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:21
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:21
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:19
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:19
 msgid "Cut selection to clipboard"
 msgstr "Cut selection to clipboard"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:20
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:20
+#: ../components/html-editor/html-editor-control.xml.h:3
 msgid "Cut the selection"
 msgstr "Cut the selection"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:23
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:23
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:21
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:21
 msgid "Emoti_con"
 msgstr "Emoti_con"
 
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:24
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:24
-#: ../components/html-editor/search.c:111
-#: ../components/html-editor/search.c:171
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
+#: ../components/html-editor/search.c:112
+#: ../components/html-editor/search.c:174
 msgid "Find"
 msgstr "Find"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:25
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:25
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:23
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:23
+#: ../components/html-editor/html-editor-control.xml.h:5
 msgid "Find _Again"
 msgstr "Find _Again"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:26
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:26
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:24
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:24
 msgid "Find again"
 msgstr "Find again"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:27
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:27
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:25
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:25
 msgid "Find and Replace"
 msgstr "Find and Replace"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:28
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:28
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:26
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:26
 msgid "Find and replace"
 msgstr "Find and replace"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:29
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:29
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:27
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:27
 msgid "For_mat"
 msgstr "For_mat"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:30
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:30
-msgid "Green"
-msgstr "Green"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:31
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:31
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:28
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:28
 msgid "Header _1"
 msgstr "Header _1"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:32
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:32
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:29
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:29
 msgid "Header _2"
 msgstr "Header _2"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:33
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:33
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:30
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:30
 msgid "Header _3"
 msgstr "Header _3"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:34
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:34
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:31
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:31
 msgid "Header _4"
 msgstr "Header _4"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:35
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:32
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:32
 msgid "Header _5"
 msgstr "Header _5"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:36
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:33
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:33
 msgid "Header _6"
 msgstr "Header _6"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:37
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:34
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:34
 msgid "I_nsert"
 msgstr "I_nsert"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:38
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
-#: ../components/html-editor/editor-control-factory.c:199
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:35
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
+#: ../components/html-editor/editor-control-factory.c:202
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:37
-#: ../components/html-editor/popup.c:216
+#: ../components/html-editor/popup.c:219
 msgid "Image"
 msgstr "Image"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:39
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:36
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
 msgid "Insert Crying emoticon into document..."
 msgstr "Insert Crying emoticon into document..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:40
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:40
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:37
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
 msgid "Insert Frown emoticon into document..."
 msgstr "Insert Frown emoticon into document..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:41
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:38
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
 msgid "Insert HTML file into document..."
 msgstr "Insert HTML file into document..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:42
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:39
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
+#: ../components/html-editor/html-editor-control.xml.h:6
 msgid "Insert HTML link into document..."
 msgstr "Insert HTML link into document..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:43
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:40
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:40
 msgid "Insert HTML template into document..."
 msgstr "Insert HTML template into document..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:44
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:41
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
 msgid "Insert Indifferent emoticon into document..."
 msgstr "Insert Indifferent emoticon into document..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:45
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:42
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
 msgid "Insert Laughing emoticon into document..."
 msgstr "Insert Laughing emoticon into document..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:46
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:43
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
 msgid "Insert Oh no! emoticon into document..."
 msgstr "Insert Oh no! emoticon into document..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:47
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:44
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
 msgid "Insert Smile emoticon into document..."
 msgstr "Insert Smile emoticon into document..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:48
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:45
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
 msgid "Insert Surprised emoticon into document..."
 msgstr "Insert Surprised emoticon into document..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:49
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:46
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
 msgid "Insert Tongue emoticon into document..."
 msgstr "Insert Tongue emoticon into document..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:50
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:47
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
 msgid "Insert Undecided emoticon into document..."
 msgstr "Insert Undecided emoticon into document..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:51
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:52
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:48
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
 msgid "Insert Wink emoticon into document..."
 msgstr "Insert Wink emoticon into document..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:52
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:53
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:49
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
 #: ../components/html-editor/menubar.c:102
 #: ../components/html-editor/menubar.c:110
 msgid "Insert image"
 msgstr "Insert image"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:53
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:50
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
+#: ../components/html-editor/html-editor-control.xml.h:7
 msgid "Insert image into document..."
 msgstr "Insert image into document..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:54
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:51
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:52
 msgid "Insert link"
 msgstr "Insert link"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:52
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:53
 msgid "Insert rule"
 msgstr "Insert rule"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:56
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:53
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
+#: ../components/html-editor/html-editor-control.xml.h:8
 msgid "Insert rule into document..."
 msgstr "Insert rule into document..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:57
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:58
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:54
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
 msgid "Insert table"
 msgstr "Insert table"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:58
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
 msgid "Insert table into document..."
 msgstr "Insert table into document..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:59
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:56
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
 msgid "Insert text file into document..."
 msgstr "Insert text file into document..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:60
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:57
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:58
 #: ../components/html-editor/toolbar.c:526
 msgid "Left justifies the paragraphs"
 msgstr "Left justifies the paragraphs"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:61
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
-#: ../components/html-editor/menubar.c:145
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:58
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
+#: ../components/html-editor/menubar.c:146
 #: ../components/html-editor/popup.c:115
-#: ../components/html-editor/popup.c:210
-#: ../components/html-editor/popup.c:280
+#: ../components/html-editor/popup.c:213
+#: ../components/html-editor/popup.c:283
 msgid "Link"
 msgstr "Link"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:62
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:63
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:59
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
 msgid "Make the current Paragraph style Normal"
 msgstr "Make the current Paragraph style Normal"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:63
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:60
 msgid "Make the current Paragraph style Preformat"
 msgstr "Make the current Paragraph style Preformat"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:64
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:65
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:61
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
 msgid "Make the current paragraph a bulleted list"
 msgstr "Make the current paragraph a bulleted list"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:65
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:66
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:62
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:63
 msgid "Make the current paragraph a list with roman numerals"
 msgstr "Make the current paragraph a list with roman numerals"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:66
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:67
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:63
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:64
 msgid "Make the current paragraph a numbered list"
 msgstr "Make the current paragraph a numbered list"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:67
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:68
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:64
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:65
 msgid "Make the current paragraph an H1 header"
 msgstr "Make the current paragraph an H1 header"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:68
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:69
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:65
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:66
 msgid "Make the current paragraph an H2 header"
 msgstr "Make the current paragraph an H2 header"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:69
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:70
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:66
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:67
 msgid "Make the current paragraph an H3 header"
 msgstr "Make the current paragraph an H3 header"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:70
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:67
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:68
 msgid "Make the current paragraph an H4 header"
 msgstr "Make the current paragraph an H4 header"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:71
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:68
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:69
 msgid "Make the current paragraph an H5 header"
 msgstr "Make the current paragraph an H5 header"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:72
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:69
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:70
 msgid "Make the current paragraph an H6 header"
 msgstr "Make the current paragraph an H6 header"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:73
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:70
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
 msgid "Make the current paragraph an address"
 msgstr "Make the current paragraph an address"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:74
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:75
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:71
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
 msgid "Make the current paragraph an alphabetical list"
 msgstr "Make the current paragraph an alphabetical list"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:75
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
-#: ../components/html-editor/paragraph.c:87
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:72
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
+#: ../components/html-editor/paragraph.c:88
 #: ../components/html-editor/toolbar.c:53
 msgid "Normal"
 msgstr "Normal"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:76
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:73
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
 #: ../components/html-editor/toolbar.c:56
 msgid "Numbered List"
 msgstr "Numbered List"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:77
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:74
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:75
 msgid "Numbered _List"
 msgstr "Numbered _List"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:78
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:75
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
 msgid "Oh _No!"
 msgstr "Oh _No!"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:79
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
-msgid "Orange"
-msgstr "Orange"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:80
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
-msgid "Other..."
-msgstr "Other..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:81
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:76
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
 msgid "Paste"
 msgstr "Paste"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:82
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:77
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
 msgid "Paste _Quotation"
 msgstr "Paste _Quotation"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:83
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:78
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
 msgid "Paste from clipboard"
 msgstr "Paste from clipboard"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:84
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:79
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
+#: ../components/html-editor/html-editor-control.xml.h:10
 msgid "Paste the clipboard"
 msgstr "Paste the clipboard"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:85
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:80
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
+#: ../components/html-editor/html-editor-control.xml.h:11
 msgid "Paste the clipboard as a quotation"
 msgstr "Paste the clipboard as a quotation"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:81
 #: ../components/html-editor/toolbar.c:54
 msgid "Preformat"
 msgstr "Preformat"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:87
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
-msgid "Purple"
-msgstr "Purple"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:88
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
-msgid "Red"
-msgstr "Red"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:89
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:82
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
 msgid "Redo"
 msgstr "Redo"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:90
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:83
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
 msgid "Redo previously undone change"
 msgstr "Redo previously undone change"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:91
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:84
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
+#: ../components/html-editor/html-editor-control.xml.h:12
 msgid "Redo the undone action"
 msgstr "Redo the undone action"
 
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:92
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:85
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
 #: ../components/html-editor/replace.c:174
 #: ../components/html-editor/replace.c:240
 msgid "Replace"
 msgstr "Replace"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:93
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
 #: ../components/html-editor/toolbar.c:530
 msgid "Right justifies the paragraphs"
 msgstr "Right justifies the paragraphs"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:94
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:87
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
 msgid "Roman Numeral List"
 msgstr "Roman Numeral List"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:95
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
-#: ../components/html-editor/editor-control-factory.c:217
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:88
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
+#: ../components/html-editor/editor-control-factory.c:220
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:47
-#: ../components/html-editor/menubar.c:168
-#: ../components/html-editor/popup.c:234
+#: ../components/html-editor/menubar.c:169
+#: ../components/html-editor/popup.c:237
 msgid "Rule"
 msgstr "Rule"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:96
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:89
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
 msgid "Select _All"
 msgstr "Select _All"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:97
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:90
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
 msgid "Select the entire contents of the document"
 msgstr "Select the entire contents of the document"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:91
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
 #: ../components/html-editor/toolbar.c:558
 msgid "Strikeout"
 msgstr "Strikeout"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:99
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
-msgid "Su_perscript"
-msgstr "Su_perscript"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:100
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:92
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
 msgid "Su_rprised"
 msgstr "Su_rprised"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:101
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
-msgid "Subs_cript"
-msgstr "Subs_cript"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:102
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:93
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
 msgid "Subscript"
 msgstr "Subscript"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:103
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:94
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
 msgid "Superscript"
 msgstr "Superscript"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:104
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:95
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:52
-#: ../components/html-editor/menubar.c:196
-#: ../components/html-editor/popup.c:240
-#: ../components/html-editor/popup.c:520
-#: ../components/html-editor/popup.c:532
+#: ../components/html-editor/menubar.c:197
+#: ../components/html-editor/popup.c:243
+#: ../components/html-editor/popup.c:523
+#: ../components/html-editor/popup.c:535
 msgid "Table"
 msgstr "Table"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:105
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:96
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
 msgid "Te_mplate..."
 msgstr "Te_mplate..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:106
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:97
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
 msgid "Te_xt File..."
 msgstr "Te_xt File..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:107
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 msgid "Ton_gue"
 msgstr "Ton_gue"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:108
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:99
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
 #: ../components/html-editor/toolbar.c:550
 msgid "Typewriter"
 msgstr "Typewriter"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:109
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:100
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
 msgid "Undo"
 msgstr "Undo"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:101
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
 msgid "Undo previous changes"
 msgstr "Undo previous changes"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:111
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:102
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
+#: ../components/html-editor/html-editor-control.xml.h:17
 msgid "Undo the last action"
 msgstr "Undo the last action"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:112
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
-msgid "Yellow"
-msgstr "Yellow"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:113
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:103
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
 msgid "_Alignment"
 msgstr "_Alignment"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:114
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:104
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
 msgid "_Alphabetical List"
 msgstr "_Alphabetical List"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:115
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:105
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:59
 msgid "_Bold"
 msgstr "_Bold"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:116
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:106
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
 msgid "_Bulleted List"
 msgstr "_Bulleted List"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:117
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:107
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
 msgid "_Center"
 msgstr "_Centre"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:118
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:108
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
+#: ../components/html-editor/html-editor-control.xml.h:18
 msgid "_Copy"
 msgstr "_Copy"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:119
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:109
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
 msgid "_Decrease Indent"
 msgstr "_Decrease Indent"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:120
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
+#: ../components/html-editor/html-editor-control.xml.h:19
 msgid "_Edit"
 msgstr "_Edit"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:121
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:111
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
+#: ../components/html-editor/html-editor-control.xml.h:20
 msgid "_Find..."
 msgstr "_Find..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:122
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:112
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
 msgid "_Font Size"
 msgstr "_Font Size"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:123
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:113
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
 msgid "_Frown"
 msgstr "_Frown"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:114
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
 msgid "_HTML File..."
 msgstr "_HTML File..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:125
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:127
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:115
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
 msgid "_Heading"
 msgstr "_Heading"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:126
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:128
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:116
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
+#: ../components/html-editor/html-editor-control.xml.h:21
 msgid "_Image..."
 msgstr "_Image..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:127
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:117
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
 msgid "_Increase Indent"
 msgstr "_Increase Indent"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:128
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:118
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
 msgid "_Indifferent"
 msgstr "_Indifferent"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:129
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:119
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:66
 msgid "_Italic"
 msgstr "_Italic"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:130
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:120
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
 msgid "_Laughing"
 msgstr "_Laughing"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:131
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:133
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:121
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
 msgid "_Left"
 msgstr "_Left"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:132
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:134
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:122
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
+#: ../components/html-editor/html-editor-control.xml.h:24
 msgid "_Link..."
 msgstr "_Link..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:133
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:123
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
 msgid "_Normal"
 msgstr "_Normal"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:134
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
 msgid "_Page..."
 msgstr "_Page..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:135
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:125
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:127
 msgid "_Paragraph..."
 msgstr "_Paragraph..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:136
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:126
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:128
+#: ../components/html-editor/html-editor-control.xml.h:25
 msgid "_Paste"
 msgstr "_Paste"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:137
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:139
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:127
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
 msgid "_Plain Text"
 msgstr "_Plain Text"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:138
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:140
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:128
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
 msgid "_Preformatted"
 msgstr "_Preformatted"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:139
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:141
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:129
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
+#: ../components/html-editor/html-editor-control.xml.h:28
 msgid "_Redo"
 msgstr "_Redo"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:140
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:142
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:130
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
+#: ../components/html-editor/html-editor-control.xml.h:29
 msgid "_Replace..."
 msgstr "_Replace..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:141
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:143
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:131
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:133
 msgid "_Right"
 msgstr "_Right"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:142
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:144
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:132
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:134
 msgid "_Roman Numeral List"
 msgstr "_Roman Numeral List"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:143
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:145
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:133
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
+#: ../components/html-editor/html-editor-control.xml.h:30
 msgid "_Rule..."
 msgstr "_Rule..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:144
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:146
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:134
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
 msgid "_Smile"
 msgstr "_Smile"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:145
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:147
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:135
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:72
 msgid "_Strikethrough"
 msgstr "_Strikethrough"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:146
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:148
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:136
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
 msgid "_Style"
 msgstr "_Style"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:147
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:149
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:137
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:139
 msgid "_Table..."
 msgstr "_Table..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:148
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:150
+#.
+#. <submenu name="BackgroundColor" _label="Background Color">
+#. <menuitem name="ColorRed" verb="" _label="Red"/>
+#. <menuitem name="ColorOrange" verb="" _label="Orange"/>
+#. <menuitem name="ColorYellow" verb="" _label="Yellow"/>
+#. <menuitem name="ColorGreen" verb="" _label="Green"/>
+#. <menuitem name="ColorBlue" verb="" _label="Blue"/>
+#. <menuitem name="ColorPurple" verb="" _label="Purple"/>
+#. <menuitem name="etc" verb="" _label="etc..."/>
+#.
+#. <separator/>
+#.
+#. <menuitem name="Other" verb="" _label="Other..."/>
+#. </submenu>
+#.
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:153
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:155
 msgid "_Text..."
 msgstr "_Text..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:149
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:151
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:154
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:156
 msgid "_Undecided"
 msgstr "_Undecided"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:150
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:152
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:155
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:157
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:75
 msgid "_Underline"
 msgstr "_Underline"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:151
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:153
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:156
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:158
+#: ../components/html-editor/html-editor-control.xml.h:31
 msgid "_Undo"
 msgstr "_Undo"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:152
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:154
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:157
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:159
 msgid "_Wink"
 msgstr "_Wink"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:153
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:156
-msgid "etc..."
-msgstr "etc..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:1
 msgid "GNOME HTML Editor"
@@ -854,24 +834,24 @@ msgstr "GNOME HTML Editor Control"
 msgid "GNOME HTML Editor Factory"
 msgstr "GNOME HTML Editor Factory"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
 msgid "Insert Sick emoticon into document..."
 msgstr "Insert Sick emoticon into document..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:64
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
 msgid "Make the current Paragraph style Preformatted"
 msgstr "Make the current Paragraph style Preformatted"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
-#: ../components/html-editor/paragraph.c:106
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
+#: ../components/html-editor/paragraph.c:107
 msgid "Preformatted"
 msgstr "Preformatted"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
 msgid "S_ick"
 msgstr "S_ick"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:155
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:160
 msgid "_Wrap Lines"
 msgstr "_Wrap Lines"
 
@@ -947,7 +927,7 @@ msgstr "Background Image File Path"
 
 #: ../components/html-editor/body.c:294
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:53
-#: ../components/html-editor/menubar.c:222
+#: ../components/html-editor/menubar.c:223
 msgid "Template"
 msgstr "Template"
 
@@ -969,34 +949,34 @@ msgstr "C_ustom:"
 msgid "Could not load glade file."
 msgstr "Could not load glade file."
 
-#: ../components/html-editor/cell.c:363
+#: ../components/html-editor/cell.c:365
 #: ../components/html-editor/table.c:242
 msgid "Transparent"
 msgstr "Transparent"
 
-#: ../components/html-editor/editor-control-factory.c:188
-#: ../components/html-editor/popup.c:195
-#: ../components/html-editor/popup.c:276
+#: ../components/html-editor/editor-control-factory.c:190
+#: ../components/html-editor/popup.c:197
+#: ../components/html-editor/popup.c:279
 msgid "Properties"
 msgstr "Properties"
 
-#: ../components/html-editor/editor-control-factory.c:207
+#: ../components/html-editor/editor-control-factory.c:210
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:54
-#: ../components/html-editor/menubar.c:400
-#: ../components/html-editor/popup.c:204
+#: ../components/html-editor/menubar.c:409
+#: ../components/html-editor/popup.c:207
 msgid "Text"
 msgstr "Text"
 
-#: ../components/html-editor/editor-control-factory.c:226
-#: ../components/html-editor/menubar.c:418
-#: ../components/html-editor/popup.c:222
+#: ../components/html-editor/editor-control-factory.c:229
+#: ../components/html-editor/menubar.c:431
+#: ../components/html-editor/popup.c:225
 msgid "Paragraph"
 msgstr "Paragraph"
 
-#: ../components/html-editor/editor-control-factory.c:230
+#: ../components/html-editor/editor-control-factory.c:233
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:42
-#: ../components/html-editor/menubar.c:382
-#: ../components/html-editor/popup.c:228
+#: ../components/html-editor/menubar.c:387
+#: ../components/html-editor/popup.c:231
 msgid "Page"
 msgstr "Page"
 
@@ -1290,12 +1270,12 @@ msgid "C_olor:"
 msgstr "C_olour:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:27
-#: ../components/html-editor/popup.c:246
+#: ../components/html-editor/popup.c:249
 msgid "Cell"
 msgstr "Cell"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:28
-#: ../components/html-editor/paragraph.c:132
+#: ../components/html-editor/paragraph.c:135
 #: ../components/html-editor/toolbar.c:528
 msgid "Center"
 msgstr "Centre"
@@ -1329,7 +1309,7 @@ msgid "I_mage:"
 msgstr "I_mage:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:38
-#: ../components/html-editor/paragraph.c:131
+#: ../components/html-editor/paragraph.c:134
 msgid "Left"
 msgstr "Left"
 
@@ -1350,7 +1330,7 @@ msgid "Pixels"
 msgstr "Pixels"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:45
-#: ../components/html-editor/paragraph.c:133
+#: ../components/html-editor/paragraph.c:136
 msgid "Right"
 msgstr "Right"
 
@@ -1470,6 +1450,50 @@ msgstr "px"
 msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
+#: ../components/html-editor/html-editor-control.xml.h:1
+msgid "C_ut"
+msgstr "C_ut"
+
+#: ../components/html-editor/html-editor-control.xml.h:4
+msgid "Find Rege_x..."
+msgstr "Find Rege_x..."
+
+#: ../components/html-editor/html-editor-control.xml.h:9
+msgid "Modify the file's properties"
+msgstr "Modify the file's properties"
+
+#: ../components/html-editor/html-editor-control.xml.h:13
+msgid "Regular expression search"
+msgstr "Regular expression search"
+
+#: ../components/html-editor/html-editor-control.xml.h:14
+msgid "Replace a string"
+msgstr "Replace a string"
+
+#: ../components/html-editor/html-editor-control.xml.h:15
+msgid "Search again for the same string"
+msgstr "Search again for the same string"
+
+#: ../components/html-editor/html-editor-control.xml.h:16
+msgid "Search for a string"
+msgstr "Search for a string"
+
+#: ../components/html-editor/html-editor-control.xml.h:22
+msgid "_Insert"
+msgstr "_Insert"
+
+#: ../components/html-editor/html-editor-control.xml.h:23
+msgid "_Insert text file... (FIXME)"
+msgstr "_Insert text file... (FIXME)"
+
+#: ../components/html-editor/html-editor-control.xml.h:26
+msgid "_Paste Quotation"
+msgstr "_Paste Quotation"
+
+#: ../components/html-editor/html-editor-control.xml.h:27
+msgid "_Properties..."
+msgstr "_Properties..."
+
 #: ../components/html-editor/link.c:208
 msgid "URL:"
 msgstr "URL:"
@@ -1478,202 +1502,202 @@ msgstr "URL:"
 msgid "Description:"
 msgstr "Description:"
 
-#: ../components/html-editor/menubar.c:141
-#: ../components/html-editor/menubar.c:164
-#: ../components/html-editor/menubar.c:192
-#: ../components/html-editor/menubar.c:218
+#: ../components/html-editor/menubar.c:142
+#: ../components/html-editor/menubar.c:165
+#: ../components/html-editor/menubar.c:193
+#: ../components/html-editor/menubar.c:219
 #: ../components/html-editor/popup.c:111
 msgid "Insert"
 msgstr "Insert"
 
-#: ../components/html-editor/menubar.c:306
+#: ../components/html-editor/menubar.c:307
 #, c-format
 msgid "Error loading file '%s': %s"
 msgstr "Error loading file '%s': %s"
 
-#: ../components/html-editor/menubar.c:332
-#: ../components/html-editor/menubar.c:341
+#: ../components/html-editor/menubar.c:333
+#: ../components/html-editor/menubar.c:342
 msgid "Insert HTML File"
 msgstr "Insert HTML File"
 
-#: ../components/html-editor/menubar.c:332
-#: ../components/html-editor/menubar.c:341
+#: ../components/html-editor/menubar.c:333
+#: ../components/html-editor/menubar.c:342
 msgid "Insert Text File"
 msgstr "Insert Text File"
 
-#: ../components/html-editor/menubar.c:378
-#: ../components/html-editor/menubar.c:396
-#: ../components/html-editor/menubar.c:414
+#: ../components/html-editor/menubar.c:382
+#: ../components/html-editor/menubar.c:404
+#: ../components/html-editor/menubar.c:426
 msgid "Format"
 msgstr "Format"
 
-#: ../components/html-editor/paragraph.c:90
+#: ../components/html-editor/paragraph.c:91
 #: ../components/html-editor/toolbar.c:59
 msgid "Header 1"
 msgstr "Header 1"
 
-#: ../components/html-editor/paragraph.c:91
+#: ../components/html-editor/paragraph.c:92
 #: ../components/html-editor/toolbar.c:60
 msgid "Header 2"
 msgstr "Header 2"
 
-#: ../components/html-editor/paragraph.c:92
+#: ../components/html-editor/paragraph.c:93
 #: ../components/html-editor/toolbar.c:61
 msgid "Header 3"
 msgstr "Header 3"
 
-#: ../components/html-editor/paragraph.c:93
+#: ../components/html-editor/paragraph.c:94
 #: ../components/html-editor/toolbar.c:62
 msgid "Header 4"
 msgstr "Header 4"
 
-#: ../components/html-editor/paragraph.c:94
+#: ../components/html-editor/paragraph.c:95
 #: ../components/html-editor/toolbar.c:63
 msgid "Header 5"
 msgstr "Header 5"
 
-#: ../components/html-editor/paragraph.c:95
+#: ../components/html-editor/paragraph.c:96
 #: ../components/html-editor/toolbar.c:64
 msgid "Header 6"
 msgstr "Header 6"
 
-#: ../components/html-editor/paragraph.c:98
+#: ../components/html-editor/paragraph.c:99
 msgid "Dot item"
 msgstr "Dot item"
 
-#: ../components/html-editor/paragraph.c:99
+#: ../components/html-editor/paragraph.c:100
 msgid "Number item"
 msgstr "Number item"
 
-#: ../components/html-editor/paragraph.c:100
+#: ../components/html-editor/paragraph.c:101
 msgid "Roman item"
 msgstr "Roman item"
 
-#: ../components/html-editor/paragraph.c:101
+#: ../components/html-editor/paragraph.c:102
 msgid "Alphabeta item"
 msgstr "Alphabeta item"
 
-#: ../components/html-editor/paragraph.c:104
+#: ../components/html-editor/paragraph.c:105
 #: ../components/html-editor/toolbar.c:65
 msgid "Address"
 msgstr "Address"
 
-#: ../components/html-editor/paragraph.c:113
+#: ../components/html-editor/paragraph.c:114
 msgid "_Style:"
 msgstr "_Style:"
 
-#: ../components/html-editor/paragraph.c:116
+#: ../components/html-editor/paragraph.c:117
 msgid "General"
 msgstr "General"
 
-#: ../components/html-editor/paragraph.c:135
+#: ../components/html-editor/paragraph.c:138
 msgid "Alignment"
 msgstr "Alignment"
 
-#: ../components/html-editor/popup.c:457
+#: ../components/html-editor/popup.c:460
 msgid "Paste Quotation"
 msgstr "Paste Quotation"
 
-#: ../components/html-editor/popup.c:461
+#: ../components/html-editor/popup.c:464
 msgid "Insert Link"
 msgstr "Insert Link"
 
-#: ../components/html-editor/popup.c:468
+#: ../components/html-editor/popup.c:471
 msgid "Remove Link"
 msgstr "Remove Link"
 
-#: ../components/html-editor/popup.c:475
+#: ../components/html-editor/popup.c:478
 msgid "Style"
 msgstr "Style"
 
-#: ../components/html-editor/popup.c:478
+#: ../components/html-editor/popup.c:481
 msgid "Text Style..."
 msgstr "Text Style..."
 
-#: ../components/html-editor/popup.c:480
-#: ../components/html-editor/popup.c:486
-#: ../components/html-editor/popup.c:496
+#: ../components/html-editor/popup.c:483
+#: ../components/html-editor/popup.c:489
+#: ../components/html-editor/popup.c:499
 msgid "Paragraph Style..."
 msgstr "Paragraph Style..."
 
-#: ../components/html-editor/popup.c:484
+#: ../components/html-editor/popup.c:487
 msgid "Link Style..."
 msgstr "Link Style..."
 
-#: ../components/html-editor/popup.c:490
+#: ../components/html-editor/popup.c:493
 msgid "Rule Style..."
 msgstr "Rule Style..."
 
-#: ../components/html-editor/popup.c:494
+#: ../components/html-editor/popup.c:497
 msgid "Image Style..."
 msgstr "Image Style..."
 
-#: ../components/html-editor/popup.c:505
+#: ../components/html-editor/popup.c:508
 msgid "Cell Style..."
 msgstr "Cell Style..."
 
-#: ../components/html-editor/popup.c:508
+#: ../components/html-editor/popup.c:511
 msgid "Table Style..."
 msgstr "Table Style..."
 
-#: ../components/html-editor/popup.c:514
+#: ../components/html-editor/popup.c:517
 msgid "Page Style..."
 msgstr "Page Style..."
 
-#: ../components/html-editor/popup.c:519
+#: ../components/html-editor/popup.c:522
 msgid "Table insert"
 msgstr "Table insert"
 
-#: ../components/html-editor/popup.c:522
+#: ../components/html-editor/popup.c:525
 msgid "Row above"
 msgstr "Row above"
 
-#: ../components/html-editor/popup.c:523
+#: ../components/html-editor/popup.c:526
 msgid "Row below"
 msgstr "Row below"
 
-#: ../components/html-editor/popup.c:525
+#: ../components/html-editor/popup.c:528
 msgid "Column before"
 msgstr "Column before"
 
-#: ../components/html-editor/popup.c:526
+#: ../components/html-editor/popup.c:529
 msgid "Column after"
 msgstr "Column after"
 
-#: ../components/html-editor/popup.c:531
+#: ../components/html-editor/popup.c:534
 msgid "Table delete"
 msgstr "Table delete"
 
-#: ../components/html-editor/popup.c:533
+#: ../components/html-editor/popup.c:536
 msgid "Row"
 msgstr "Row"
 
-#: ../components/html-editor/popup.c:534
+#: ../components/html-editor/popup.c:537
 msgid "Column"
 msgstr "Column"
 
-#: ../components/html-editor/popup.c:535
+#: ../components/html-editor/popup.c:538
 msgid "Cell contents"
 msgstr "Cell contents"
 
-#: ../components/html-editor/popup.c:570
+#: ../components/html-editor/popup.c:573
 msgid "Ignore Misspelled Word"
 msgstr "Ignore Misspelled Word"
 
-#: ../components/html-editor/popup.c:575
+#: ../components/html-editor/popup.c:578
 msgid "Add Word to"
 msgstr "Add Word to"
 
-#: ../components/html-editor/popup.c:579
+#: ../components/html-editor/popup.c:582
 #, c-format
 msgid "%s Dictionary"
 msgstr "%s Dictionary"
 
-#: ../components/html-editor/popup.c:588
+#: ../components/html-editor/popup.c:591
 msgid "Add Word to Dictionary"
 msgstr "Add Word to Dictionary"
 
-#: ../components/html-editor/popup.c:594
+#: ../components/html-editor/popup.c:597
 msgid "Input Methods"
 msgstr "Input Methods"
 
@@ -1699,7 +1723,7 @@ msgid "Search _backward"
 msgstr "Search _backward"
 
 #: ../components/html-editor/replace.c:183
-#: ../components/html-editor/search.c:117
+#: ../components/html-editor/search.c:118
 msgid "Case _sensitive"
 msgstr "Case _sensitive"
 
@@ -1711,15 +1735,15 @@ msgstr "R_eplace:"
 msgid "_With:"
 msgstr "_With:"
 
-#: ../components/html-editor/search.c:116
+#: ../components/html-editor/search.c:117
 msgid "_Backward"
 msgstr "_Backward"
 
-#: ../components/html-editor/search.c:118
+#: ../components/html-editor/search.c:119
 msgid "_Regular Expression"
 msgstr "_Regular Expression"
 
-#: ../components/html-editor/search.c:122
+#: ../components/html-editor/search.c:123
 msgid "Input the words you want to search here"
 msgstr "Input the words you want to search here"
 
@@ -1937,11 +1961,11 @@ msgid "Reset"
 msgstr "Reset"
 
 #. TODO2 dialog instead of warning
-#: ../src/htmlengine-print.c:192
+#: ../src/htmlengine-print.c:198
 msgid "Cannot allocate default font for printing\n"
 msgstr "Cannot allocate default font for printing\n"
 
-#: ../src/test.c:375
+#: ../src/test.c:376
 msgid "GtkHTML Test"
 msgstr "GtkHTML Test"
 
@@ -1957,14 +1981,34 @@ msgstr "Print preview"
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML Test Application"
 
+#~ msgid "Background Color"
+#~ msgstr "Background Colour"
+#~ msgid "Blue"
+#~ msgstr "Blue"
+#~ msgid "Green"
+#~ msgstr "Green"
+#~ msgid "Orange"
+#~ msgstr "Orange"
+#~ msgid "Other..."
+#~ msgstr "Other..."
+#~ msgid "Purple"
+#~ msgstr "Purple"
+#~ msgid "Red"
+#~ msgstr "Red"
+#~ msgid "Su_perscript"
+#~ msgstr "Su_perscript"
+#~ msgid "Subs_cript"
+#~ msgstr "Subs_cript"
+#~ msgid "Yellow"
+#~ msgstr "Yellow"
+#~ msgid "etc..."
+#~ msgstr "etc..."
 #~ msgid "Find And Replace"
 #~ msgstr "Find And Replace"
 #~ msgid "Insert Lick smiley into document..."
 #~ msgstr "Insert Lick smiley into document..."
 #~ msgid "Li_ck"
 #~ msgstr "Li_ck"
-#~ msgid "_Insert"
-#~ msgstr "_Insert"
 #~ msgid "_Preformat"
 #~ msgstr "_Preformat"
 #~ msgid "_Smiley"
