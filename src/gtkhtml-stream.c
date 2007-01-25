@@ -96,7 +96,7 @@ gtk_html_stream_vprintf (GtkHTMLStream *stream,
 	result_string = g_strdup_vprintf (format, ap_copy);
 	g_return_val_if_fail (result_string != NULL, 0);
 
-	len = strlen (result_string);
+	len = strlen (result_string) + 1;
 	g_free (result_string);
 
 	if (len < 8192)

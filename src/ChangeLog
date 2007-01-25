@@ -1,3 +1,8 @@
+2007-01-25  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* gtkhtml-stream.c: (gtk_html_stream_vprintf): Fix off by one
+	in allocation. Patch from John N. Laliberte. Closes bug #373092.
+
 2007-01-22  Srinivasa Ragavan  <sragavan@novell.com>
 
 	** Commiting Ebby's patch for GtkPrintMigration.
