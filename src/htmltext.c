@@ -2963,10 +2963,12 @@ struct _HTMLMagicInsertMatch
 typedef struct _HTMLMagicInsertMatch HTMLMagicInsertMatch;
 
 static HTMLMagicInsertMatch mim [] = {
-	{ "(news|telnet|nttp|file|http|ftp|sftp|https)://([-a-z0-9]+(:[-a-z0-9]+)?@)?[-a-z0-9.]+[-a-z0-9](:[0-9]*)?(([.])?/[-a-z0-9_$.+!*(),;:@%&=?/~#']*[^]'.}>\\) ,?!;:\"]?)?", NULL, NULL },
+	{ "(news|telnet|nntp|file|http|ftp|sftp|https)://([-a-z0-9]+(:[-a-z0-9]+)?@)?[-a-z0-9.]+[-a-z0-9](:[0-9]*)?(([.])?/[-a-z0-9_$.+!*(),;:@%&=?/~#']*[^]'.}>\\) ,?!;:\"]?)?", NULL, NULL },
 	{ "www\\.[-a-z0-9.]+[-a-z0-9](:[0-9]*)?(([.])?/[-A-Za-z0-9_$.+!*(),;:@%&=?/~#]*[^]'.}>\\) ,?!;:\"]?)?", NULL, "http://" },
 	{ "ftp\\.[-a-z0-9.]+[-a-z0-9](:[0-9]*)?(([.])?/[-A-Za-z0-9_$.+!*(),;:@%&=?/~#]*[^]'.}>\\) ,?!;:\"]?)?", NULL, "ftp://" },
-	{ "[-_a-z0-9.'\\+]+@[-_a-z0-9.]+", NULL, "mailto:" }
+	{ "h323:([-_a-z0-9.'\\+]+)?(@([-_a-z0-9.%=?]+|([0-9]{1,3}\.){3}[0-9]{1,3})?)?(:[0-9]{1,5})?", NULL, NULL },
+	{ "sip:([-_a-z0-9.'\\+]+)?(@([-_a-z0-9.%=?]+|([0-9]{1,3}\.){3}[0-9]{1,3})?)?(:[0-9]{1,5})?", NULL, NULL },
+	{ "[-_a-z0-9.'\\+]+@[-_a-z0-9.%=?]+", NULL, "mailto:" }
 };
 
 #define MIM_N (sizeof (mim) / sizeof (mim [0]))
