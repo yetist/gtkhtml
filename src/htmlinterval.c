@@ -58,7 +58,7 @@ html_point_cursor_object_eq (HTMLPoint *p, HTMLPoint *c)
 inline void
 html_point_next_cursor (HTMLPoint *p)
 {
-	p->object = html_object_next_cursor (p->object, &p->offset);
+	p->object = html_object_next_cursor (p->object, (gint *) &p->offset);
 }
 
 HTMLInterval *

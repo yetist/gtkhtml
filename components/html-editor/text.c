@@ -85,14 +85,13 @@ set_style (GtkHTMLFontStyle mask, GtkHTMLFontStyle style, GtkHTMLEditTextPropert
 }
 
 static void
-size_changed (GtkWidget *w, GtkHTMLEditTextProperties *d)
+size_changed (GtkComboBox *combo_box, GtkHTMLEditTextProperties *d)
 {
-	GtkWidget *menu = gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_size));
+	GtkHTMLFontStyle style = GTK_HTML_FONT_STYLE_SIZE_1;
 
+	style += gtk_combo_box_get_active (combo_box);
 
-	set_style (~GTK_HTML_FONT_STYLE_SIZE_MASK,
-		   g_list_index (GTK_MENU_SHELL (menu)->children, gtk_menu_get_active (GTK_MENU (menu))) + GTK_HTML_FONT_STYLE_SIZE_1,
-		   d);
+	set_style (~GTK_HTML_FONT_STYLE_SIZE_MASK, style, d);
 }
 
 static void
@@ -140,7 +139,9 @@ set_ui (GtkHTMLEditTextProperties *d)
 	else
 		gi_color_combo_set_color (GI_COLOR_COMBO (d->combo_color), NULL);
 
-	gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_size), get_size (html_engine_get_font_style (e)));
+	gtk_combo_box_set_active (
+		GTK_COMBO_BOX (d->option_size),
+		get_size (html_engine_get_font_style (e)));
 
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (d->check_bold), (html_engine_get_font_style (e) & GTK_HTML_FONT_STYLE_BOLD) != 0);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (d->check_italic), (html_engine_get_font_style (e) & GTK_HTML_FONT_STYLE_ITALIC) != 0);
@@ -186,8 +187,7 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	g_signal_connect (d->check_strikeout, "toggled", G_CALLBACK (strikeout_changed), d);
 
 	d->option_size = glade_xml_get_widget (xml, "option_size");
-	g_signal_connect (gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_size)), "selection-done",
-			  G_CALLBACK (size_changed), d);
+	g_signal_connect (d->option_size, "changed", G_CALLBACK (size_changed), d);
 
 	gtk_widget_show_all (text_page);
 

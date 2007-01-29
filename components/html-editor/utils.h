@@ -24,7 +24,6 @@
 #define _UTILS_H_
 
 #include <gtk/gtk.h>
-#include <libgnomeui/gnome-pixmap-entry.h>
 #include "gtkhtml.h"
 #include "control-data.h"
 
@@ -36,8 +35,6 @@ GtkWidget *sample_frame                            (GtkHTML          **html);
 void       url_requested                           (GtkHTML           *html,
 						    const gchar       *url,
 						    GtkHTMLStream     *handle);
-void       our_gnome_pixmap_entry_set_last_pixmap  (GnomePixmapEntry  *entry);
-void       our_gnome_pixmap_entry_set_last_dir     (GnomePixmapEntry  *entry);
 
 GtkWidget *editor_hig_inner_hbox  (gchar     *text,
 				   GtkWidget *control);

@@ -146,7 +146,7 @@ impl_load (PortableServer_Servant servant, const Bonobo_Stream stream, const COR
 			break;
 		}
 
-		gtk_html_write (persist->html, handle, buffer->_buffer, buffer->_length);
+		gtk_html_write (persist->html, handle, (gchar *) buffer->_buffer, buffer->_length);
 		CORBA_free (buffer);
 	} while (1);
 
@@ -179,7 +179,7 @@ save_receiver (const HTMLEngine *engine, const gchar *data, guint length, gpoint
 
 	buffer._maximum = length;
 	buffer._length = length;
-	buffer._buffer = (CORBA_char *) data; /* Should be safe.  */
+	buffer._buffer = (CORBA_octet *) data;
 
 	Bonobo_Stream_write (state->stream, &buffer, state->ev);
 

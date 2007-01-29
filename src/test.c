@@ -170,10 +170,10 @@ print_cb (GtkWidget *widget, gpointer data)
 	gpc = gnome_print_job_get_context (job);
 	config = gnome_print_job_get_config (job);
 
-	gnome_print_config_set (config, "Printer", "GENERIC");
+	gnome_print_config_set (config, (guchar *) "Printer", (guchar *) "GENERIC");
 	gnome_print_job_print_to_file (job, "o.ps");
 	
-	gnome_print_config_set (config, GNOME_PRINT_KEY_PAPER_SIZE, "USLetter");
+	gnome_print_config_set (config, (guchar *) GNOME_PRINT_KEY_PAPER_SIZE, (guchar *) "USLetter");
 	
 	gtk_html_print (GTK_HTML (html), gpc);
 
@@ -225,8 +225,8 @@ compare_examples (const void *a,
 		}
 
 		if (p_digit) {
-			int num_a = atoi (p);
-			int num_b = atoi (q);
+			int num_a = atoi ((const gchar *) p);
+			int num_b = atoi ((const gchar *) q);
 
 			if (num_a < num_b) {
 				result = -1;
@@ -251,8 +251,8 @@ compare_examples (const void *a,
 			while (*(q + q_len) && !g_ascii_isdigit (*(q + q_len)))
 				q_len++;
 
-			p_str = g_strndup (p, p_len);
-			q_str = g_strndup (q, q_len);
+			p_str = g_strndup ((gchar *) p, p_len);
+			q_str = g_strndup ((gchar *) q, q_len);
 
 			result = g_utf8_collate (p_str, q_str);
 			g_free (p_str);

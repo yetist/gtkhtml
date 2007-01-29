@@ -740,7 +740,8 @@ draw_text (HTMLTextSlave *self,
 	HTMLText *text = self->owner;
 	GSList *cur;
 	int run_width;
-	int selection_start_index, selection_end_index;
+	int selection_start_index = 0;
+	int selection_end_index = 0;
 	int isect_start, isect_end;
 	gboolean selection;
 	GdkColor selection_fg, selection_bg;
@@ -854,7 +855,7 @@ draw_focus_rectangle  (HTMLTextSlave *slave, HTMLPainter *painter, GdkRectangle 
 {
 	HTMLGdkPainter *p;
 	GdkGCValues values;
-	gchar dash [2];
+	gint8 dash_list[] = { 1, 1 };
 	HTMLEngine *e;
 
 	if (painter->widget && GTK_IS_HTML (painter->widget))
@@ -872,10 +873,8 @@ draw_focus_rectangle  (HTMLTextSlave *slave, HTMLPainter *painter, GdkRectangle 
 									  painter, HTMLTextColor)->color);
 	gdk_gc_get_values (p->gc, &values);
 
-	dash [0] = 1;
-	dash [1] = 1;
 	gdk_gc_set_line_attributes (p->gc, 1, GDK_LINE_ON_OFF_DASH, values.cap_style, values.join_style);
-	gdk_gc_set_dashes (p->gc, 2, dash, 2);
+	gdk_gc_set_dashes (p->gc, 2, dash_list, 2);
 	gdk_draw_rectangle (p->pixmap, p->gc, 0, box->x - p->x1, box->y - p->y1, box->width - 1, box->height - 1);
 	gdk_gc_set_line_attributes (p->gc, 1, values.line_style, values.cap_style, values.join_style);
 }

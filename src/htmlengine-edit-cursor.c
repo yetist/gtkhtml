@@ -364,7 +364,7 @@ html_engine_setup_blinking_cursor (HTMLEngine *engine)
 	engine->blinking_status = FALSE;
 
 	blink_timeout_cb (engine);
-	engine->blinking_timer_id = gtk_timeout_add (BLINK_TIMEOUT, blink_timeout_cb, engine);
+	engine->blinking_timer_id = g_timeout_add (BLINK_TIMEOUT, blink_timeout_cb, engine);
 }
 
 void
@@ -379,7 +379,7 @@ html_engine_stop_blinking_cursor (HTMLEngine *engine)
 		engine->blinking_status = FALSE;
 	}
 
-	gtk_timeout_remove (engine->blinking_timer_id);
+	g_source_remove (engine->blinking_timer_id);
 	engine->blinking_timer_id = 0;
 }
 
@@ -395,6 +395,6 @@ html_engine_reset_blinking_cursor (HTMLEngine *engine)
 
 	html_engine_show_cursor (engine);
 	engine->blinking_status = TRUE;
-	gtk_timeout_remove (engine->blinking_timer_id);
-	engine->blinking_timer_id = gtk_timeout_add (BLINK_TIMEOUT, blink_timeout_cb, engine);
+	g_source_remove (engine->blinking_timer_id);
+	engine->blinking_timer_id = g_timeout_add (BLINK_TIMEOUT, blink_timeout_cb, engine);
 }

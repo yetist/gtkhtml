@@ -54,7 +54,7 @@ upper_lower (HTMLObject *obj, HTMLEngine *e, gpointer data)
 {
 	if (html_object_is_text (obj)) {
 		gboolean up = GPOINTER_TO_INT (data);
-		guchar *old_text;
+		gchar *old_text;
 
 		old_text = HTML_TEXT (obj)->text;
 		HTML_TEXT (obj)->text = up ? g_utf8_strup (old_text, -1) : g_utf8_strdown (old_text, -1);

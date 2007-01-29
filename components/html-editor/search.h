@@ -25,7 +25,6 @@
 
 typedef struct _GtkHTMLSearchDialog  GtkHTMLSearchDialog;
 
-#include <gnome.h>
 #include "gtkhtml.h"
 #include "control-data.h"
 

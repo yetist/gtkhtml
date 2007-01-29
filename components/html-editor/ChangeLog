@@ -1,3 +1,140 @@
+2007-01-28  Matthew Barnes  <mbarnes@redhat.com>
+
+	** Fixes bug #394182 ("Massive Code Cleanup")
+
+	* Makefile.am: Add paragraph-style.[ch].
+
+	* GNOME_GtkHTML_Editor.xml.in:
+	* GNOME_GtkHTML_Editor-emacs.xml.in:
+	Remove all the pixtype and pixname attributes.  We only use stock or
+	named icons now, and we specify them in the code.
+
+	* control-data.c:
+	Drop the 'icon_theme' field.
+	Add a 'paragraph_style_store' field.
+
+	* dialog.c (run_dialog): Do away with the RUN_DIALOG macro and
+	change the 'dialog' parameter from a triple to a double-pointer.
+
+	* e-html-utils.c: Fix some compiler warnings.
+
+	* editor-control-factory.c:
+	Invoke gtk_html_edit_properties_dialog_new() using named icons
+	instead of paths to icon files.
+	Fix some compiler warnings.
+
+	* editor-control-factory.c (editor_set_format): Call
+	paragraph_style_update_store() to update sensitivity of items in
+	all paragraph style combo boxes.
+
+	* gi-color-combo.c (gi_color_combo_construct): Use
+	gtk_widget_set_usize() instead of gtk_widget_set_size_request().
+
+	* gi-color-palette.c:
+	Use GtkColorButton instead of GnomeColorPicker (deprecated).
+	Use g_object_get_data() instead of gtk_object_get_user_data().
+	Use g_object_set_data() instead of gtk_object_set_user_data().
+	Use g_object_ref_sink() instead of gtk_object_sink().
+	Use gtk_widget_set_usize() instead of gtk_widget_set_size_request().
+
+	* gi-combo-box:
+	Use g_object_ref_sink() instead of gtk_object_sink().
+	Use g_object_is_floating() instead of GTK_OBJECT_FLOATING().
+	Use g_object_force_floating() instead of GTK_OBJECT_SET_FLAGS().
+	Use gtk_widget_set_usize() instead of gtk_widget_set_size_request().
+	Use gtk_window_set_resizable() instead of gtk_window_set_policy().
+
+	* gtkhtml-editor-properties.glade:
+	Add "select-xxx" icons to the cell and table properties dialogs.
+	Add font style icons to the text properties dialog (just for kicks).
+	Use GtkComboBox instead of GtkOptionMenu (deprecated).
+
+	* html-stream-mem.c (html_stream_mem_write): Fix a compiler warning.
+
+	* htmlsourceview.c:
+	Use g_source_remove() instead of gtk_timeout_remove() (deprecated).
+	Use g_timeout_add() instead of gtk_timeout_add() (depreacted).
+
+	* menubar.c:
+	Invoke gtk_html_edit_properties_dialog_new() using named icons
+	instead of paths to icon files.
+	Use GTK_STOCK_xxx symbols instead of strings wherever possible.
+	Fully populate the pixmaps_map with stock or named icons.  Icons
+	are no longer specified in XML files.
+
+	* menubar.c (smiley_cb): Rewrite the logic to load a named icon.
+
+	* menubar.c (menubar_setup): Rewrite the logic for setting pixtype
+	and pixname properties on Bonobo UI components.
+
+	* paragraph.c:
+	Use stock or named icons instead of our own redundant icon files.
+	Use paragraph_style_combo_box_new() for the paragraph style widget.
+
+	* paragraph-style.[ch]: New source files implement a paragraph style
+	combo box with a list store to control which items are sensitive.
+	All instances share the same list store so that sensitivity changes
+	immediately propagate to all instances.
+
+	* persist-stream.c: Fix some compiler warnings.
+
+	* popup.c:
+	Invoke gtk_html_edit_properties_dialog_new() using named icons
+	instead of paths to icon files.
+	Use g_object_ref_sink() instead of gtk_object_sink() (deprecated).
+
+	* properties.c (gtk_html_edit_properties_dialog_new): This function
+	now takes an icon name rather than a path to an icon file.  Rename
+	the last parameter to indicate so.
+
+	* search.c:
+	* replace.c:
+	Use gtk_window_set_icon_name() instead of
+	gnome_window_icon_set_from_file() (deprecated).
+
+	* spellchecker.c: Use g_object_ref_sink() instead of
+	gtk_object_sink() (deprecated).
+
+	* test-html-editor-control.c:
+	Fix some compiler warnings.
+	Use g_idle_add() instead of gtk_idle_add() (deprecated).
+
+	* toolbar.c:
+	Use stock or named icons instead of our own redundant icon files.
+	Use paragraph_style_combo_box_new() for the paragraph style widget.
+
+	* utils.h: Remove declarations for unimplemented functions
+	our_gnome_pixmap_entry_set_last_pixmap() and
+	our_gnome_pixmap_entry_set_last_dir().
+
+	* cell.h:
+	* editor-control-factory.c:
+	* image.h:
+	* link.h:
+	* menubar.c:
+	* properties.h:
+	* replace.h:
+	* replace.c:
+	* rule.h:
+	* search.c:
+	* search.h:
+	* table.h:
+	* template.h:
+	* test-html-editor-control.c:
+	* toolbar.c:
+	* utils.c:
+	Don't #include <gnome.h>.  It uses deprecated GTK+ symbols.
+
+	* body.c:
+	* cell.c:
+	* image.c:
+	* rule.c:
+	* table.c:
+	* template.c:
+	* text.c:
+	* toolbar.c:
+	Use GtkComboBox instead of GtkOptionMenu (deprecated).
+
 2007-01-08  Chris Heath <chris@heathens.co.nz>
 
 	** Fix for bug #360393

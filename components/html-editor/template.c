@@ -219,8 +219,8 @@ set_ui (GtkHTMLEditTemplateProperties *d)
 	gtk_tree_selection_select_iter (gtk_tree_view_get_selection (GTK_TREE_VIEW (d->tview_template)), &iter);
 
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_width), d->width);
-	gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_halign), d->halign - HTML_HALIGN_LEFT);
-	gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_width_percent), d->width_percent ? 1 : 0);
+	gtk_combo_box_set_active (GTK_COMBO_BOX (d->option_halign), d->halign - HTML_HALIGN_LEFT);
+	gtk_combo_box_set_active (GTK_COMBO_BOX (d->option_width_percent), d->width_percent ? 1 : 0);
 
 	d->disable_change = FALSE;
 

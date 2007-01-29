@@ -120,10 +120,10 @@ void
 html_source_view_set_timeout (HTMLSourceView *view, guint timeout)
 {
 	if (view->priv->timer_id)
-		gtk_timeout_remove (view->priv->timer_id);
+		g_source_remove (view->priv->timer_id);
 	
 	view->priv->current_interval = timeout;
-	view->priv->timer_id = gtk_timeout_add (timeout, (GtkFunction)html_source_view_timeout, view);
+	view->priv->timer_id = g_timeout_add (timeout, (GtkFunction)html_source_view_timeout, view);
 }
 
 void
@@ -199,7 +199,7 @@ html_source_view_destroy (GtkObject *object)
 
 	if (priv) {
 		if (priv->timer_id)
-			gtk_timeout_remove (priv->timer_id);
+			g_source_remove (priv->timer_id);
 		priv->timer_id = 0;
 		
 		if (priv->pstream != CORBA_OBJECT_NIL) {

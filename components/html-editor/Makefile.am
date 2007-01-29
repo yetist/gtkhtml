@@ -92,6 +92,8 @@ libgnome_gtkhtml_editor_la_SOURCES =		\
 	menubar.h				\
 	paragraph.c				\
 	paragraph.h				\
+	paragraph-style.c			\
+	paragraph-style.h			\
 	persist-file.c				\
 	persist-file.h				\
 	persist-stream.c			\

@@ -1676,7 +1676,7 @@ move_object_downtree_cursor (HTMLObject *obj, HTMLObject * (*down_fn ) (HTMLObje
 			if (html_object_accepts_cursor (obj))
 				break;
 			last_obj = obj;
-			if (obj = move_object_downtree_cursor (obj, down_fn, next_fn))
+			if ((obj = move_object_downtree_cursor (obj, down_fn, next_fn)))
 				break;
 			obj = last_obj;
 		}

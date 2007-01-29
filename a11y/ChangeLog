@@ -1,3 +1,14 @@
+2007-01-28  Matthew Barnes  <mbarnes@redhat.com>
+
+	** Fixes bug #394182 ("Massive Code Cleanup")
+
+	* hyperlink.h: Split the 'a11y' field into a HTMLA11Y/gpointer union
+	for valid type punning.
+
+	* hyperlink.c:
+	* text.c:
+	Adapt to the new 'a11y' union.
+
 2006-12-03  Matthew Barnes  <mbarnes@redhat.com>
 
 	* cell.c: (html_a11y_cell_finalize)

@@ -33,7 +33,7 @@
 #include <glib/gi18n.h>
 #endif
 #include <string.h>
-#include <gnome.h>
+#include <gtk/gtk.h>
 #include <bonobo.h>
 #include <stdio.h>
 #include <glib.h>
@@ -42,6 +42,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <unistd.h>
 
 #ifndef O_BINARY
 #define O_BINARY 0
@@ -79,6 +80,7 @@
 #include "properties.h"
 #include "text.h"
 #include "paragraph.h"
+#include "paragraph-style.h"
 #include "body.h"
 #include "spellchecker.h"
 #include "html-stream-mem.h"
@@ -172,7 +174,6 @@ release (GtkWidget *widget, GdkEventButton *event, GtkHTMLControlData *cd)
 	HTMLEngine *e = cd->html->engine;
 	GtkHTMLEditPropertyType start = GTK_HTML_EDIT_PROPERTY_BODY;
 	gboolean run_dialog = FALSE;
-	char *filename;
 
 	if (cd->obj) {
 		switch (HTML_OBJECT_TYPE (cd->obj)) {
@@ -186,10 +187,7 @@ release (GtkWidget *widget, GdkEventButton *event, GtkHTMLControlData *cd)
 			;
 		}
 		if (run_dialog) {
-			filename = gnome_icon_theme_lookup_icon (cd->icon_theme, "stock_properties", 16, NULL, NULL);
-			cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, _("Properties"), 
-										     filename);
-			g_free(filename);
+			cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, _("Properties"), "gtk-properties");
 			html_cursor_jump_to (e->cursor, e, cd->obj, 0);
 			html_engine_disable_selection (e);
 			html_engine_set_mark (e);
@@ -263,7 +261,7 @@ load_from_file (GtkHTML *html,
 	}
       
        	while ((len = read (fd, buffer, 4096)) > 0) {
-		gtk_html_write (html, handle, buffer, len);
+		gtk_html_write (html, handle, (gchar *) buffer, len);
 	}
 
 	if (len < 0) {
@@ -421,6 +419,7 @@ editor_set_format (GtkHTMLControlData *cd, gboolean format_html)
 
 	toolbar_update_format (cd);
 	menubar_update_format (cd);
+	paragraph_style_update_store (cd);
 
 	if (html->engine->painter != (HTMLPainter *)p) {
 		html_gdk_painter_unrealize (old_p);

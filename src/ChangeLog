@@ -1,3 +1,38 @@
+2007-01-28  Matthew Barnes  <mbarnes@redhat.com>
+
+	** Fixes bug #394182 ("Massive Code Cleanup")
+
+	* htmlembedded.c:
+	Use g_object_ref_sink() instead of gtk_object_sink().
+
+	* gtkhtml.c:
+	* htmlclueflow.c:
+	* htmlcursor.c:
+	* htmlengine.c:
+	* htmlengine-edit-text.c:
+	* htmlengine-save.c:
+	* htmliframe.c:
+	* htmlimage.c:
+	* htmlinterval.c:
+	* htmlobject.c:
+	* htmltextslave.c:
+	* test.c:
+	* testgtkhtml.c:
+	Fix some compiler warnings.
+
+	* gtkhtml.c:
+	* htmlengine.c:
+	* htmlengine-edit-cursor.c:
+	* htmlengine-edit-selection-updater.c:
+	* htmlimage.c:
+	* testgtkhtml.c:
+	Use g_idle_add() instead of gtk_idle_add().
+	Use g_timeout_add() instead of gtk_timeout_add().
+	Use g_source_remove() instead of gtk_idle_remove().
+	Use g_source_remove() instead of gtk_timeout_remove().
+
+	* testgtkhtml.c: Rewrite toolbar construction to use GtkToolItem.
+
 2007-01-25  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* gtkhtml-stream.c: (gtk_html_stream_vprintf): Fix off by one

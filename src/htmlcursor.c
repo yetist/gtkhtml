@@ -211,7 +211,7 @@ forward (HTMLCursor *cursor)
 	if (!html_object_cursor_forward (cursor->object, cursor)) {
 		HTMLObject *next;
 
-		next = html_object_next_cursor (cursor->object, &cursor->offset);
+		next = html_object_next_cursor (cursor->object, (gint *) &cursor->offset);
 		if (next) {
 			if (!html_object_is_container (next))
 				cursor->offset = (next->parent == cursor->object->parent) ? 1 : 0;
@@ -253,7 +253,7 @@ backward (HTMLCursor *cursor)
 	if (!html_object_cursor_backward (cursor->object, cursor)) {
 		HTMLObject *prev;
 
-		prev = html_object_prev_cursor (cursor->object, &cursor->offset);
+		prev = html_object_prev_cursor (cursor->object, (gint *) &cursor->offset);
 		if (prev) {
 			if (!html_object_is_container (prev))
 				cursor->offset = html_object_get_length (prev);
@@ -851,7 +851,7 @@ move_to_next_object (HTMLCursor *cursor, HTMLEngine *e)
 {
 	HTMLObject *next;
 
-	next = html_object_next_cursor (cursor->object, &cursor->offset);
+	next = html_object_next_cursor (cursor->object, (gint *) &cursor->offset);
 	if (next && next->parent) {
 		cursor->object = next;
 		cursor->position ++;
@@ -875,7 +875,7 @@ move_to_prev_object (HTMLCursor *cursor, HTMLEngine *e)
 {
 	HTMLObject *prev;
 
-	prev = html_object_prev_cursor (cursor->object, &cursor->offset);
+	prev = html_object_prev_cursor (cursor->object, (gint *) &cursor->offset);
 	if (prev && prev->parent) {
 		cursor->object = prev;
 		cursor->position --;

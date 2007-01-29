@@ -26,8 +26,6 @@
 #else
 #include <glib/gi18n.h>
 #endif
-#include <gnome.h>
-#include <libgnomeui/gnome-window-icon.h>
 #include "replace.h"
 #include "dialog.h"
 #include "htmlengine.h"
@@ -77,7 +75,6 @@ static GtkHTMLReplaceAskDialog *
 ask_dialog_new (HTMLEngine *e)
 {
 	GtkHTMLReplaceAskDialog *d;
-	char *filename;
 
 	d = g_new (GtkHTMLReplaceAskDialog, 1);
 	/* we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c */
@@ -90,9 +87,7 @@ ask_dialog_new (HTMLEngine *e)
 	d->engine = e;
 	d->finished = FALSE;
 
-	filename = g_build_filename (ICONDIR, "search-and-replace-24.png", NULL);
-	gnome_window_icon_set_from_file (GTK_WINDOW (d->dialog), filename);
-	g_free (filename);
+	gtk_window_set_icon_name (GTK_WINDOW (d->dialog), "gtk-find-and-replace");
 
 	g_signal_connect (d->dialog, "response", G_CALLBACK (ask_dialog_response), d);
 
@@ -147,8 +142,11 @@ replace_dialog_response (GtkDialog *dialog, gint response_id, GtkHTMLReplaceDial
 				     GTK_TOGGLE_BUTTON (d->backward)->active == 0, FALSE,
 				     ask, d);
 		break;
-	case GTK_RESPONSE_CANCEL:
+	case GTK_RESPONSE_DELETE_EVENT:
 	case GTK_RESPONSE_CLOSE:
+	case GTK_RESPONSE_CANCEL:
+		d->cd->replace_dialog = NULL;
+		gtk_html_replace_dialog_destroy (d);
 		gtk_widget_grab_focus (GTK_WIDGET (d->html));
 		break;
 	}
@@ -168,7 +166,6 @@ gtk_html_replace_dialog_new (GtkHTML *html, GtkHTMLControlData *cd)
 	GtkWidget *hbox, *vbox;
 	GtkWidget *table;
 	GtkWidget *label;
-	gchar *filename;
 
 	/* we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c */
 	dialog->dialog         = GTK_DIALOG (gtk_dialog_new_with_buttons (_("Replace"), NULL, 0,
@@ -219,9 +216,7 @@ gtk_html_replace_dialog_new (GtkHTML *html, GtkHTMLControlData *cd)
 	gtk_widget_show_all (table);
 	gtk_widget_show_all (hbox);
 
-	filename = g_build_filename (ICONDIR, "search-and-replace-24.png", NULL);
-	gnome_window_icon_set_from_file (GTK_WINDOW (dialog->dialog), filename);
-	g_free (filename);
+	gtk_window_set_icon_name (GTK_WINDOW (dialog->dialog), "gtk-find-and-replace");
 
 	gtk_widget_grab_focus (dialog->entry_search);
 
@@ -237,7 +232,6 @@ gtk_html_replace_dialog_new (GtkHTML *html, GtkHTMLControlData *cd)
 void
 replace (GtkHTMLControlData *cd)
 {
-	RUN_DIALOG (replace, _("Replace"));
-	gtk_html_replace_dialog_destroy (cd->replace_dialog);
-	cd->replace_dialog = NULL;
+	run_dialog (&cd->replace_dialog->dialog, cd->html, cd,
+		(DialogCtor) gtk_html_replace_dialog_new, _("Replace"));
 }

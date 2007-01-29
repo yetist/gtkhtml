@@ -62,17 +62,21 @@ typedef struct _GtkHTMLEditRuleProperties GtkHTMLEditRuleProperties;
 static void
 set_length (GtkHTMLEditRuleProperties *d)
 {
-	GtkWidget *menu;
+	gint index;
+	gint value;
 
 	if (d->disable_change || !editor_has_html_object (d->cd, HTML_OBJECT (d->rule)))
 		return;
 
-	menu = gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_length_percent));
+	index = gtk_combo_box_get_active (
+		GTK_COMBO_BOX (d->option_length_percent));
+	value = gtk_spin_button_get_value_as_int (
+		GTK_SPIN_BUTTON (d->spin_length));
 
-	if (g_list_index (GTK_MENU_SHELL (menu)->children, gtk_menu_get_active (GTK_MENU (menu))))
-		html_rule_set_length (d->rule, d->cd->html->engine, 0, gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (d->spin_length)));
-	else
-		html_rule_set_length (d->rule, d->cd->html->engine, gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (d->spin_length)), 0);
+	html_rule_set_length (
+		d->rule, d->cd->html->engine,
+		(index > 0) ? 0 : value,
+		(index > 0) ? value : 0);
 }
 
 static void
@@ -97,22 +101,15 @@ changed_length_percent (GtkWidget *w, GtkHTMLEditRuleProperties *d)
 }
 
 static void
-changed_align (GtkWidget *w, GtkHTMLEditRuleProperties *d)
+changed_align (GtkComboBox *combo_box, GtkHTMLEditRuleProperties *d)
 {
+	HTMLHAlignType align = HTML_HALIGN_LEFT;
+
 	if (d->disable_change || !editor_has_html_object (d->cd, HTML_OBJECT (d->rule)))
 		return;
 
-	switch (g_list_index (GTK_MENU_SHELL (w)->children, gtk_menu_get_active (GTK_MENU (w)))) {
-	case 0:
-		html_rule_set_align (d->rule, d->cd->html->engine, HTML_HALIGN_LEFT);
-		break;
-	case 1:
-		html_rule_set_align (d->rule, d->cd->html->engine, HTML_HALIGN_CENTER);
-		break;
-	case 2:
-		html_rule_set_align (d->rule, d->cd->html->engine, HTML_HALIGN_RIGHT);
-		break;
-	}
+	align += gtk_combo_box_get_active (combo_box);
+	html_rule_set_align (d->rule, d->cd->html->engine, align);
 }
 
 static void
@@ -148,19 +145,19 @@ set_ui (GtkHTMLEditRuleProperties *d)
 		gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_width),  d->rule->size);
 		if (HTML_OBJECT (d->rule)->percent > 0) {
 			gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_length), HTML_OBJECT (d->rule)->percent);
-			gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_length_percent), 1);
+			gtk_combo_box_set_active (GTK_COMBO_BOX (d->option_length_percent), 1);
 		} else {
 			gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_length), d->rule->length);
-			gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_length_percent), 0);
+			gtk_combo_box_set_active (GTK_COMBO_BOX (d->option_length_percent), 0);
 		}
 
 		if (d->rule->halign == HTML_HALIGN_RIGHT)
-			gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_align), 2);
+			gtk_combo_box_set_active (GTK_COMBO_BOX (d->option_align), 2);
 		else if (d->rule->halign == HTML_HALIGN_LEFT)
-			gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_align), 0);
+			gtk_combo_box_set_active (GTK_COMBO_BOX (d->option_align), 0);
 		else
 			/* center is default rule's halign */
-			gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_align), 1);
+			gtk_combo_box_set_active (GTK_COMBO_BOX (d->option_align), 1);
 
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (d->check_shaded), d->rule->shade);
 	}
@@ -190,12 +187,10 @@ rule_widget (GtkHTMLEditRuleProperties *d, gboolean insert)
 	g_signal_connect (d->spin_width, "value_changed", G_CALLBACK (changed_width), d);
 	UPPER_FIX (width);
 	d->option_length_percent = glade_xml_get_widget (xml, "option_rule_percent");
-	g_signal_connect (gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_length_percent)),
-			  "selection-done", G_CALLBACK (changed_length_percent), d);
+	g_signal_connect (d->option_length_percent, "changed", G_CALLBACK (changed_length_percent), d);
 
 	d->option_align = glade_xml_get_widget (xml, "option_rule_align");
-	g_signal_connect (gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_align)),
-			  "selection-done", G_CALLBACK (changed_align), d);
+	g_signal_connect (d->option_align, "changed", G_CALLBACK (changed_align), d);
 
 	d->check_shaded = glade_xml_get_widget (xml, "check_rule_shaded");
 	g_signal_connect (d->check_shaded, "toggled", G_CALLBACK (shaded_toggled), d);

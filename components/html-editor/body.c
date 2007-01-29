@@ -50,7 +50,6 @@ struct _GtkHTMLEditBodyProperties {
 };
 typedef struct _GtkHTMLEditBodyProperties GtkHTMLEditBodyProperties;
 
-#define TEMPLATES 9
 typedef struct {
 	gchar *name;
 	gchar *bg_pixmap;
@@ -60,7 +59,7 @@ typedef struct {
 	gint left_margin;
 } BodyTemplate;
 
-static BodyTemplate body_templates [TEMPLATES] = {
+static BodyTemplate body_templates[] = {
 	{
 		N_("None"),
 		NULL,
@@ -175,12 +174,12 @@ entry_changed (GtkWidget *w, GtkHTMLEditBodyProperties *data)
 }
 
 static void
-changed_template (GtkWidget *w, GtkHTMLEditBodyProperties *d)
+changed_template (GtkComboBox *combo_box, GtkHTMLEditBodyProperties *d)
 {
 	gint template, left_margin = 10;
 	gchar *filename;
 
-	template = g_list_index (GTK_MENU_SHELL (w)->children, gtk_menu_get_active (GTK_MENU (w)));
+	template = gtk_combo_box_get_active (combo_box);
 
 	filename = (body_templates [template].bg_pixmap ?
 		    g_build_filename (ICONDIR, body_templates [template].bg_pixmap, NULL) :
@@ -211,24 +210,6 @@ changed_template (GtkWidget *w, GtkHTMLEditBodyProperties *d)
 
 	/* FIXME: add API for margins query/setting to libgtkhtml */
 	d->cd->html->engine->leftBorder = left_margin;
-}
-
-static void
-fill_templates (GtkHTMLEditBodyProperties *d)
-{
-	GtkWidget *menu;
-	gint i;
-
-	menu = gtk_menu_new ();
-
-	for (i = 0; i < TEMPLATES; i ++) {
-		GtkWidget *item;
-
-		item = gtk_menu_item_new_with_label (_(body_templates [i].name));
-		gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
-		gtk_widget_show (item);
-	}
-	gtk_option_menu_set_menu (GTK_OPTION_MENU (d->option_template), menu);
 }
 
 GtkWidget *
@@ -283,16 +264,20 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	}
 
 
-	atk_object_set_name (gtk_widget_get_accessible (GTK_FILE_CHOOSER (data->pixmap_entry)), _("Background Image File Path"));
+	atk_object_set_name (gtk_widget_get_accessible (data->pixmap_entry), _("Background Image File Path"));
 
 	t1 = gtk_table_new (2, 2, FALSE);
 	gtk_table_set_col_spacings (GTK_TABLE (t1), 6);
 	gtk_table_set_row_spacings (GTK_TABLE (t1), 6);
 
 	hbox = gtk_hbox_new (FALSE, 6);
-	data->option_template = gtk_option_menu_new ();
+	data->option_template = gtk_combo_box_new_text ();
 	atk_object_set_name (gtk_widget_get_accessible (data->option_template), _("Template"));
-	fill_templates (data);
+	for (i = 0; i < G_N_ELEMENTS (body_templates); i++)
+		gtk_combo_box_append_text (
+			GTK_COMBO_BOX (data->option_template),
+			gettext (body_templates[i].name));
+	gtk_combo_box_set_active (GTK_COMBO_BOX (data->option_template), 0);
 	gtk_box_pack_start (GTK_BOX (hbox), data->option_template, FALSE, FALSE, 0);
 	editor_hig_attach_row (t1, _("T_emplate:"), hbox, 0);
 
@@ -313,8 +298,7 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	/* connect signal handlers */
 	gtk_widget_show_all (main_vbox);
 
-	g_signal_connect (gtk_option_menu_get_menu (GTK_OPTION_MENU (data->option_template)),
-			  "selection-done", G_CALLBACK (changed_template), data);
+	g_signal_connect (data->option_template, "changed", G_CALLBACK (changed_template), data);
         g_signal_connect (data->combo [0], "color_changed", G_CALLBACK (color_changed), data);
         g_signal_connect (data->combo [1], "color_changed", G_CALLBACK (color_changed), data);
         g_signal_connect (data->combo [2], "color_changed", G_CALLBACK (color_changed), data);

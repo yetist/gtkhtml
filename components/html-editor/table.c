@@ -138,33 +138,35 @@ changed_border (GtkWidget *w, GtkHTMLEditTableProperties *d)
 }
 
 static void
-changed_align (GtkWidget *w, GtkHTMLEditTableProperties *d)
+changed_align (GtkComboBox *combo_box, GtkHTMLEditTableProperties *d)
 {
+	HTMLHAlignType align = HTML_HALIGN_LEFT;
+
 	if (d->disable_change || !editor_has_html_object (d->cd, HTML_OBJECT (d->table)))
 		return;
 
+	align += gtk_combo_box_get_active (combo_box);
 	html_cursor_forward (d->cd->html->engine->cursor, d->cd->html->engine);
-	html_engine_table_set_align (d->cd->html->engine, d->table,
-					     g_list_index (GTK_MENU_SHELL (w)->children, gtk_menu_get_active (GTK_MENU (w))) + HTML_HALIGN_LEFT);
+	html_engine_table_set_align (d->cd->html->engine, d->table, align);
 }
 
 static void
 set_width (GtkHTMLEditTableProperties *d)
 {
-	GtkWidget *menu;
-
 	if (d->disable_change || !editor_has_html_object (d->cd, HTML_OBJECT (d->table)))
 		return;
 
 	html_cursor_forward (d->cd->html->engine->cursor, d->cd->html->engine);
-	menu = gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_width));
-	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (d->check_width))) {
-		if (g_list_index (GTK_MENU_SHELL (menu)->children, gtk_menu_get_active (GTK_MENU (menu))))
-			html_engine_table_set_width (d->cd->html->engine, d->table, gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (d->spin_width)), TRUE);
-		else
-			html_engine_table_set_width (d->cd->html->engine, d->table, gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (d->spin_width)), FALSE);
-	} else
-			html_engine_table_set_width (d->cd->html->engine, d->table, 0, FALSE);
+	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (d->check_width)))
+		html_engine_table_set_width (
+			d->cd->html->engine, d->table,
+			gtk_spin_button_get_value_as_int (
+				GTK_SPIN_BUTTON (d->spin_width)),
+			gtk_combo_box_get_active (
+				GTK_COMBO_BOX (d->option_width)) > 0);
+	else
+		html_engine_table_set_width (
+			d->cd->html->engine, d->table, 0, FALSE);
 }
 
 static void
@@ -228,17 +230,6 @@ table_widget (GtkHTMLEditTableProperties *d)
 
 	table_page = glade_xml_get_widget (xml, "table_page");
 
-	filename = g_build_filename (ICONDIR, "table-row-16.png", NULL);
-	gtk_box_pack_start (GTK_BOX (glade_xml_get_widget (xml, "table_rows_hbox")),
-			    gtk_image_new_from_file (filename),
-			    FALSE, FALSE, 0);
-	g_free (filename);
-	filename = g_build_filename (ICONDIR, "table-column-16.png", NULL);
-	gtk_box_pack_start (GTK_BOX (glade_xml_get_widget (xml, "table_cols_hbox")),
-			    gtk_image_new_from_file (filename),
-			    FALSE, FALSE, 0);
-	g_free (filename);
-
 	d->combo_bg_color = gi_color_combo_new (NULL, _("Transparent"), NULL,
 					     color_group_fetch ("table_bg_color", d->cd));
         gi_color_combo_box_set_preview_relief (GI_COLOR_COMBO (d->combo_bg_color), GTK_RELIEF_NORMAL); \
@@ -260,8 +251,7 @@ table_widget (GtkHTMLEditTableProperties *d)
 	UPPER_FIX (border);
 
 	d->option_align = glade_xml_get_widget (xml, "option_table_align");
-	g_signal_connect (gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_align)), "selection-done",
-			  G_CALLBACK (changed_align), d);
+	g_signal_connect (d->option_align, "changed", G_CALLBACK (changed_align), d);
 
 	d->spin_width   = glade_xml_get_widget (xml, "spin_table_width");
 	g_signal_connect (d->spin_width, "value_changed", G_CALLBACK (changed_width), d);
@@ -269,8 +259,7 @@ table_widget (GtkHTMLEditTableProperties *d)
 	d->check_width  = glade_xml_get_widget (xml, "check_table_width");
 	g_signal_connect (d->check_width, "toggled", G_CALLBACK (set_has_width), d);
 	d->option_width = glade_xml_get_widget (xml, "option_table_width");
-	g_signal_connect (gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_width)), "selection-done",
-			  G_CALLBACK (changed_width_percent), d);
+	g_signal_connect (d->option_width, "changed", G_CALLBACK (changed_width_percent), d);
 
 	d->spin_cols = glade_xml_get_widget (xml, "spin_table_columns");
 	g_signal_connect (d->spin_cols, "value_changed", G_CALLBACK (changed_cols), d);
@@ -314,7 +303,9 @@ set_ui (GtkHTMLEditTableProperties *d)
 		halign = HTML_CLUE (HTML_OBJECT (d->table)->parent)->halign;
 		if (halign == HTML_HALIGN_NONE)
 			halign = HTML_HALIGN_LEFT;
-		gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_align), halign - HTML_HALIGN_LEFT);
+		gtk_combo_box_set_active (
+			GTK_COMBO_BOX (d->option_align),
+			halign - HTML_HALIGN_LEFT);
 
 		if (HTML_OBJECT (d->table)->percent) {
 			width = HTML_OBJECT (d->table)->percent;
@@ -329,10 +320,9 @@ set_ui (GtkHTMLEditTableProperties *d)
 
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (d->check_width), has_width);
 		gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_width),  width);
-		if (percent)
-			gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_width), 1);
-		else
-			gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_width), 0);
+		gtk_combo_box_set_active (
+			GTK_COMBO_BOX (d->option_width),
+			percent ? 1 : 0);
 
 		gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_cols),  d->table->totalCols);
 		gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_rows),  d->table->totalRows);

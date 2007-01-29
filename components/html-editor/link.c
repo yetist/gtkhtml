@@ -28,6 +28,7 @@
 #include <glib/gi18n.h>
 #endif
 #include <glade/glade.h>
+#include <libgnome/libgnome.h>
 
 #include "htmlcolor.h"
 #include "htmlcolorset.h"

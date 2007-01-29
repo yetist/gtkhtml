@@ -34,7 +34,7 @@ html_stream_mem_write (PortableServer_Servant servant,
 
 	if (bhtml->html_stream) {
 		if (ev->_major == CORBA_NO_EXCEPTION) {
-			gtk_html_stream_write (bhtml->html_stream, buffer->_buffer, buffer->_length);
+			gtk_html_stream_write (bhtml->html_stream, (gchar *) buffer->_buffer, buffer->_length);
 		} else {
 			gtk_html_stream_close (bhtml->html_stream, GTK_HTML_STREAM_OK);
 			bhtml->html_stream = NULL;

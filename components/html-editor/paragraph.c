@@ -30,6 +30,7 @@
 #include "htmlengine-save.h"
 #include "htmlselection.h"
 #include "paragraph.h"
+#include "paragraph-style.h"
 #include "properties.h"
 #include "utils.h"
 
@@ -38,15 +39,6 @@ struct _GtkHTMLEditParagraphProperties {
 	GtkWidget *style_option;
 };
 typedef struct _GtkHTMLEditParagraphProperties GtkHTMLEditParagraphProperties;
-
-static void
-set_style (GtkWidget *w, GtkHTMLEditParagraphProperties *data)
-{
-	GtkHTMLParagraphStyle style = GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (w), "style"));
-
-	if (gtk_html_get_paragraph_style (data->cd->html) != style)
-		gtk_html_set_paragraph_style (data->cd->html, style);
-}
 
 static void
 set_align (GtkWidget *w, GtkHTMLEditParagraphProperties *data)
@@ -61,10 +53,8 @@ GtkWidget *
 paragraph_properties (GtkHTMLControlData *cd, gpointer *set_data)
 {
 	GtkHTMLEditParagraphProperties *data = g_new0 (GtkHTMLEditParagraphProperties, 1);
-	GtkWidget *hbox, *menu, *menuitem, *vbox, *radio, *table, *icon;
+	GtkWidget *hbox, *vbox, *radio, *table, *icon;
 	GSList *group;
-	char *filename;
-	gint h=0, i=0;
 
 	*set_data = data;
 	data->cd = cd;
@@ -73,42 +63,7 @@ paragraph_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	gtk_table_set_col_spacings (GTK_TABLE (table), 18);
 	gtk_table_set_row_spacings (GTK_TABLE (table), 18);
 
-	menu = gtk_menu_new ();
-
-#define ADD_SEP menuitem = gtk_separator_menu_item_new (); gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem); gtk_widget_show (menuitem)
-#undef ADD_ITEM
-#define ADD_ITEM(n,s) \
-	menuitem = gtk_menu_item_new_with_label (n); \
-        gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem); \
-        gtk_widget_show (menuitem); \
-        if (gtk_html_get_paragraph_style (data->cd->html) == s) h=i; i++; \
-        g_signal_connect (menuitem, "activate", G_CALLBACK (set_style), data); \
-        g_object_set_data (G_OBJECT (menuitem), "style", GINT_TO_POINTER (s));
-
-	ADD_ITEM (_("Normal"),       GTK_HTML_PARAGRAPH_STYLE_NORMAL);
-	ADD_SEP;
-	if (cd->format_html) {
-		ADD_ITEM (_("Header 1"),     GTK_HTML_PARAGRAPH_STYLE_H1);
-		ADD_ITEM (_("Header 2"),     GTK_HTML_PARAGRAPH_STYLE_H2);
-		ADD_ITEM (_("Header 3"),     GTK_HTML_PARAGRAPH_STYLE_H3);
-		ADD_ITEM (_("Header 4"),     GTK_HTML_PARAGRAPH_STYLE_H4);
-		ADD_ITEM (_("Header 5"),     GTK_HTML_PARAGRAPH_STYLE_H5);
-		ADD_ITEM (_("Header 6"),     GTK_HTML_PARAGRAPH_STYLE_H6);
-		ADD_SEP;
-	}
-	ADD_ITEM (_("Dot item"),     GTK_HTML_PARAGRAPH_STYLE_ITEMDOTTED);
-	ADD_ITEM (_("Number item"),   GTK_HTML_PARAGRAPH_STYLE_ITEMDIGIT);
-	ADD_ITEM (_("Roman item"),   GTK_HTML_PARAGRAPH_STYLE_ITEMROMAN);
-	ADD_ITEM (_("Alphabeta item"),   GTK_HTML_PARAGRAPH_STYLE_ITEMALPHA);
-	ADD_SEP;
-	if (cd->format_html) {
-		ADD_ITEM (_("Address"),      GTK_HTML_PARAGRAPH_STYLE_ADDRESS);
-	}
-	ADD_ITEM (_("Preformatted"),          GTK_HTML_PARAGRAPH_STYLE_PRE);
-
-	data->style_option = gtk_option_menu_new ();
-	gtk_option_menu_set_menu (GTK_OPTION_MENU (data->style_option), menu);
-	gtk_option_menu_set_history (GTK_OPTION_MENU (data->style_option), h);
+	data->style_option = paragraph_style_combo_box_new (cd);
 
 	hbox = gtk_hbox_new (FALSE, 6);
 	gtk_box_pack_start (GTK_BOX (hbox), gtk_label_new_with_mnemonic (_("_Style:")), FALSE, FALSE, 0);
@@ -118,12 +73,10 @@ paragraph_properties (GtkHTMLControlData *cd, gpointer *set_data)
 
 	hbox = gtk_hbox_new (FALSE, 12);
 
-#define ADD_RADIO(x,a,icon_name) \
+#define ADD_RADIO(x,a,stock_id) \
 	radio = gtk_radio_button_new_with_label (group, x); \
 	group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (radio)); \
-	filename = gnome_icon_theme_lookup_icon (cd->icon_theme, "stock_text_" icon_name, 16, NULL, NULL); \
-	icon = gtk_image_new_from_file (filename); \
-	g_free(filename); \
+	icon = gtk_image_new_from_stock (stock_id, GTK_ICON_SIZE_MENU); \
 	gtk_box_pack_start (GTK_BOX (hbox), icon, FALSE, FALSE, 0); \
 	gtk_box_pack_start (GTK_BOX (hbox), radio, FALSE, FALSE, 0); \
         if (a == gtk_html_get_paragraph_alignment (data->cd->html)) gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE); \
@@ -131,9 +84,9 @@ paragraph_properties (GtkHTMLControlData *cd, gpointer *set_data)
         g_object_set_data (G_OBJECT (radio), "align", GINT_TO_POINTER (a));
 
 	group = NULL;
-	ADD_RADIO (_("Left"), GTK_HTML_PARAGRAPH_ALIGNMENT_LEFT, "left");
-	ADD_RADIO (_("Center"), GTK_HTML_PARAGRAPH_ALIGNMENT_CENTER, "center");
-	ADD_RADIO (_("Right"), GTK_HTML_PARAGRAPH_ALIGNMENT_RIGHT, "right");
+	ADD_RADIO (_("Left"), GTK_HTML_PARAGRAPH_ALIGNMENT_LEFT, GTK_STOCK_JUSTIFY_LEFT);
+	ADD_RADIO (_("Center"), GTK_HTML_PARAGRAPH_ALIGNMENT_CENTER, GTK_STOCK_JUSTIFY_CENTER);
+	ADD_RADIO (_("Right"), GTK_HTML_PARAGRAPH_ALIGNMENT_RIGHT, GTK_STOCK_JUSTIFY_RIGHT);
 
 	gtk_table_attach (GTK_TABLE (table), editor_hig_vbox (_("Alignment"), hbox), 0, 1, 1, 2, GTK_FILL | GTK_EXPAND, GTK_FILL, 0, 0);
 

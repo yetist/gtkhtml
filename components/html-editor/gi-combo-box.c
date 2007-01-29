@@ -434,10 +434,8 @@ gi_combo_box_init (GiComboBox *combo_box)
 	 */
 
 	combo_box->priv->toplevel = gtk_window_new (GTK_WINDOW_POPUP);
-	gtk_widget_ref (combo_box->priv->toplevel);
-	gtk_object_sink (GTK_OBJECT (combo_box->priv->toplevel));
-	gtk_window_set_policy (GTK_WINDOW (combo_box->priv->toplevel),
-			       FALSE, TRUE, FALSE);
+	g_object_ref_sink (combo_box->priv->toplevel);
+	gtk_window_set_resizable (GTK_WINDOW (combo_box->priv->toplevel), TRUE);
 
 	combo_box->priv->popup = gtk_event_box_new ();
 	gtk_container_add (GTK_CONTAINER (combo_box->priv->toplevel),
@@ -527,8 +525,7 @@ gtk_combo_popup_tear_off (GiComboBox *combo, gboolean set_position)
 		
 		/* FIXME: made this a toplevel, not a dialog ! */
 		tearoff = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-		gtk_widget_ref (tearoff);
-		gtk_object_sink (GTK_OBJECT (tearoff));
+		g_object_ref_sink (tearoff);
 		combo->priv->tearoff_window = tearoff;
 		gtk_widget_set_app_paintable (tearoff, TRUE);
 		g_signal_connect (tearoff, "key_press_event",
@@ -539,8 +536,7 @@ gtk_combo_popup_tear_off (GiComboBox *combo, gboolean set_position)
 					   "gtk-combo-title");
 		if (title)
 			gdk_window_set_title (tearoff->window, title);
-		gtk_window_set_policy (GTK_WINDOW (tearoff),
-				       FALSE, TRUE, FALSE);
+		gtk_window_set_resizable (GTK_WINDOW (tearoff), TRUE);
 		gtk_window_set_transient_for 
 			(GTK_WINDOW (tearoff),
 			 GTK_WINDOW (gtk_widget_get_toplevel
@@ -630,9 +626,9 @@ gtk_combo_tearoff_bg_copy (GiComboBox *combo)
 				   0, 0, 0, 0, -1, -1);
 		g_object_unref (gc);
       
-		gtk_widget_set_usize (combo->priv->tearoff_window,
-				      widget->allocation.width,
-				      widget->allocation.height);
+		gtk_widget_set_size_request (combo->priv->tearoff_window,
+					     widget->allocation.width,
+					     widget->allocation.height);
       
 		gdk_window_set_back_pixmap
 			(combo->priv->tearoff_window->window, pixmap, FALSE);
@@ -655,26 +651,24 @@ gtk_combo_popup_reparent (GtkWidget *popup,
 			  GtkWidget *new_parent, 
 			  gboolean unrealize)
 {
-	GtkObject *object = GTK_OBJECT (popup);
-	gboolean was_floating = GTK_OBJECT_FLOATING (object);
+	gboolean was_floating = g_object_is_floating (popup);
 
-	g_object_ref (object);
-	gtk_object_sink (object);
+	g_object_ref_sink (popup);
 
 	if (unrealize) {
-		g_object_ref (object);
+		g_object_ref (popup);
 		gtk_container_remove (GTK_CONTAINER (popup->parent), popup);
 		gtk_container_add (GTK_CONTAINER (new_parent), popup);
-		g_object_unref (object);
+		g_object_unref (popup);
 	}
 	else
 		gtk_widget_reparent (GTK_WIDGET (popup), new_parent);
-	gtk_widget_set_usize (new_parent, -1, -1);
+	gtk_widget_set_size_request (new_parent, -1, -1);
   
 	if (was_floating)
-		GTK_OBJECT_SET_FLAGS (object, GTK_FLOATING);
+		g_object_force_floating (G_OBJECT (popup));
 	else
-		g_object_unref (object);
+		g_object_unref (popup);
 }
 
 /**

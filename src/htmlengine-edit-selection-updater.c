@@ -72,7 +72,7 @@ html_engine_edit_selection_updater_destroy (HTMLEngineEditSelectionUpdater *upda
 	g_return_if_fail (updater != NULL);
 
 	if (updater->idle_id != 0)
-		gtk_idle_remove (updater->idle_id);
+		g_source_remove (updater->idle_id);
 
 	g_free (updater);
 }
@@ -114,7 +114,7 @@ html_engine_edit_selection_updater_schedule (HTMLEngineEditSelectionUpdater *upd
 	if (updater->idle_id != 0)
 		return;
 
-	updater->idle_id = gtk_idle_add (updater_idle_callback, updater);
+	updater->idle_id = g_idle_add (updater_idle_callback, updater);
 }
 
 /**
@@ -129,7 +129,7 @@ html_engine_edit_selection_updater_reset (HTMLEngineEditSelectionUpdater *update
 	g_return_if_fail (updater != NULL);
 
 	if (updater->idle_id != 0) {
-		gtk_idle_remove (updater->idle_id);
+		g_source_remove (updater->idle_id);
 		updater->idle_id = 0;
 	}
 }
@@ -145,7 +145,7 @@ html_engine_edit_selection_updater_update_now (HTMLEngineEditSelectionUpdater *u
 {
 	/* remove scheduled idle cb */
 	if (updater->idle_id != 0) {
-		gtk_idle_remove (updater->idle_id);
+		g_source_remove (updater->idle_id);
 		updater->idle_id = 0;
 	}
 
@@ -158,7 +158,7 @@ html_engine_edit_selection_updater_do_idle (HTMLEngineEditSelectionUpdater *upda
 {
 	/* remove scheduled idle cb */
 	if (updater->idle_id != 0) {
-		gtk_idle_remove (updater->idle_id);
+		g_source_remove (updater->idle_id);
 		updater->idle_id = 0;
 
 		/* run it now */

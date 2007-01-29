@@ -123,7 +123,7 @@ html_encode_entities (const gchar *input, guint len, guint *encoded_len_return)
 	if (encoded_len_return)
 		*encoded_len_return = out - buffer;
 
-	return buffer;
+	return (gchar *) buffer;
 }
 
 gboolean
@@ -131,7 +131,7 @@ html_engine_save_encode (HTMLEngineSaveState *state,
 			 const gchar *buffer,
 			 guint length)
 {
-	guchar *encoded_buffer;
+	gchar *encoded_buffer;
 	guint encoded_length;
 	gboolean success;
 
@@ -141,7 +141,7 @@ html_engine_save_encode (HTMLEngineSaveState *state,
 	if (length == 0)
 		return TRUE;
 
-	encoded_buffer = html_encode_entities ((const guchar *) buffer, length, &encoded_length);
+	encoded_buffer = html_encode_entities (buffer, length, &encoded_length);
 	success = state->receiver (state->engine, encoded_buffer, encoded_length, state->user_data);
 
 	g_free (encoded_buffer);
@@ -412,7 +412,7 @@ html_engine_save_buffer_peek_text (HTMLEngineSaveState *state)
 	g_return_val_if_fail (state != NULL, NULL);
 	string = (GString *)state->user_data;
 	
-	return string->str;
+	return (guchar *) string->str;
 }
 
 int

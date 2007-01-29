@@ -23,7 +23,7 @@
 #ifndef _GTK_HTML_LINK_H_
 #define _GTK_HTML_LINK_H_
 
-#include <gnome.h>
+#include <gtk/gtk.h>
 #include "control-data.h"
 
 GtkWidget             * link_properties      (GtkHTMLControlData *cd, gpointer *set_data);

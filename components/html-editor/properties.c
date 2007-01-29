@@ -27,7 +27,6 @@
 #else
 #include <glib/gi18n.h>
 #endif
-#include <libgnomeui/gnome-window-icon.h>
 #include "dialog.h"
 #include "properties.h"
 
@@ -91,7 +90,7 @@ dialog_response (GtkDialog *dialog, gint response_id, GtkHTMLEditPropertiesDialo
 }
 
 GtkHTMLEditPropertiesDialog *
-gtk_html_edit_properties_dialog_new (GtkHTMLControlData *cd, gchar *title, gchar *icon_path)
+gtk_html_edit_properties_dialog_new (GtkHTMLControlData *cd, gchar *title, gchar *icon_name)
 {
 	GtkHTMLEditPropertiesDialog *d = g_new (GtkHTMLEditPropertiesDialog, 1);
 	GtkWidget *vbox;
@@ -120,7 +119,7 @@ gtk_html_edit_properties_dialog_new (GtkHTMLControlData *cd, gchar *title, gchar
 
 	g_signal_connect (d->dialog, "response", G_CALLBACK (dialog_response), d);
 
-	gnome_window_icon_set_from_file (GTK_WINDOW (d->dialog), icon_path);
+	gtk_window_set_icon_name (GTK_WINDOW (d->dialog), icon_name);
 	gtk_dialog_set_response_sensitive (GTK_DIALOG (d->dialog), 0, FALSE);
 	gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (d->dialog)->vbox), 6);
 

@@ -92,9 +92,9 @@ html_a11y_hyper_link_finalize (GObject *obj)
 {
 	HTMLA11YHyperLink *hl = HTML_A11Y_HYPER_LINK (obj);
 
-	if (hl->a11y)
-		g_object_remove_weak_pointer (G_OBJECT (hl->a11y),
-					      (gpointer *) &hl->a11y);
+	if (hl->a11y.object)
+		g_object_remove_weak_pointer (G_OBJECT (hl->a11y.object),
+					      &hl->a11y.weakref);
 
 	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
@@ -104,7 +104,7 @@ static gint
 html_a11y_hyper_link_get_start_index (AtkHyperlink *link)
 {
 	HTMLA11YHyperLink *hl = HTML_A11Y_HYPER_LINK (link);
-	HTMLText *text = HTML_TEXT (HTML_A11Y_HTML (hl->a11y));
+	HTMLText *text = HTML_TEXT (HTML_A11Y_HTML (hl->a11y.object));
 	Link *a = (Link *) g_slist_nth_data (text->links, hl->num);
 	return a ? a->start_offset : -1;
 }
@@ -114,7 +114,7 @@ static gint
 html_a11y_hyper_link_get_end_index (AtkHyperlink *link)
 {
 	HTMLA11YHyperLink *hl = HTML_A11Y_HYPER_LINK (link);
-	Link *a = (Link *) g_slist_nth_data (HTML_TEXT (HTML_A11Y_HTML (hl->a11y))->links, hl->num);
+	Link *a = (Link *) g_slist_nth_data (HTML_TEXT (HTML_A11Y_HTML (hl->a11y.object))->links, hl->num);
 	return a ? a->end_offset : -1;
 }
 
@@ -145,10 +145,10 @@ html_a11y_hyper_link_new (HTMLA11Y *a11y, gint link_index)
 
 	hl = HTML_A11Y_HYPER_LINK (g_object_new (G_TYPE_HTML_A11Y_HYPER_LINK, NULL));
 
-	hl->a11y = a11y;
+	hl->a11y.object = a11y;
 	hl->num = link_index;
 	hl->offset = ((Link *) g_slist_nth_data (HTML_TEXT (HTML_A11Y_HTML (a11y))->links, link_index))->start_offset;
-	g_object_add_weak_pointer (G_OBJECT (hl->a11y), (gpointer *) &hl->a11y);
+	g_object_add_weak_pointer (G_OBJECT (hl->a11y.object), &hl->a11y.weakref);
 
 	return ATK_HYPERLINK (hl);
 }
@@ -165,13 +165,13 @@ html_a11y_hyper_link_do_action (AtkAction *action, gint i)
 
 	hl = HTML_A11Y_HYPER_LINK (action);
 
-	if (i == 0 && hl->a11y) {
-		HTMLText *text = HTML_TEXT (HTML_A11Y_HTML (hl->a11y));
+	if (i == 0 && hl->a11y.object) {
+		HTMLText *text = HTML_TEXT (HTML_A11Y_HTML (hl->a11y.object));
 		gchar *url = html_object_get_complete_url (HTML_OBJECT (text), hl->offset);
 
 		if (url && *url) {
 			GObject *gtkhtml = GTK_HTML_A11Y_GTKHTML_POINTER
-				(html_a11y_get_gtkhtml_parent (HTML_A11Y (hl->a11y)));
+				(html_a11y_get_gtkhtml_parent (HTML_A11Y (hl->a11y.object)));
 
 			g_signal_emit_by_name (gtkhtml, "link_clicked", url);
 			result = TRUE;

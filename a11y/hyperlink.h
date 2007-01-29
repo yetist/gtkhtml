@@ -43,7 +43,11 @@ typedef struct _HTMLA11YHyperLinkClass HTMLA11YHyperLinkClass;
 struct _HTMLA11YHyperLink {
 	AtkHyperlink atk_hyper_link;
 
-	HTMLA11Y *a11y;
+	/* use the union for valid type-punning */
+	union {
+		HTMLA11Y *object;
+		gpointer weakref;
+	} a11y;
 	gint num;
 	gint offset;
 	gchar *description;

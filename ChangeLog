@@ -1,3 +1,10 @@
+2007-01-28  Matthew Barnes  <mbarnes@redhat.com>
+
+	** Fixes bug #394182 ("Massive Code Cleanup")
+
+	* configure.in: Drop BONOBO_EXPLICIT_TRANSLATION_DOMAIN from
+	I18N_LIB_CFLAGS.
+
 2007-01-22  Srinivasa Ragavan <sragavan@novell.com>
 
 	* configure.in: GtkPrint API addition.

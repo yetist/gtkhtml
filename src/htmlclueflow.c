@@ -1996,14 +1996,14 @@ save_plain (HTMLObject *self,
 			g_string_append (out, "\n");
 		} else {
 			PangoAttrList *attrs = pango_attr_list_new ();
-			gint bytes = html_engine_save_buffer_peek_text_bytes (buffer_state), slen = g_utf8_strlen (s, -1), i, clen, n_items;
+			gint bytes = html_engine_save_buffer_peek_text_bytes (buffer_state), slen = g_utf8_strlen ((gchar *) s, -1), i, clen, n_items;
 			GList *items_list, *cur;
 			PangoContext *pc = state->engine->painter->pango_context;
 			PangoLogAttr *lattrs;
 			PangoItem **items;
 			gint len, width, skip;
 
-			items_list = pango_itemize (pc, s, 0, bytes, attrs, NULL);
+			items_list = pango_itemize (pc, (gchar *) s, 0, bytes, attrs, NULL);
 			lattrs = g_new (PangoLogAttr, slen + 1);
 			n_items = g_list_length (items_list);
 			items = g_new (PangoItem *, n_items);
@@ -2028,10 +2028,10 @@ save_plain (HTMLObject *self,
 						break;
 				}
 
-				pango_break (s + tmp_item.offset, tmp_item.length, &tmp_item.analysis, lattrs + start_offset, tmp_item.num_chars + 1);
+				pango_break ((gchar *) s + tmp_item.offset, tmp_item.length, &tmp_item.analysis, lattrs + start_offset, tmp_item.num_chars + 1);
 			}
 
-			html_text_remove_unwanted_line_breaks (s, slen, lattrs);
+			html_text_remove_unwanted_line_breaks ((gchar *) s, slen, lattrs);
 
 			g_list_free (items_list);
 			for (i = 0; i < n_items; i ++)
@@ -2041,9 +2041,9 @@ save_plain (HTMLObject *self,
 
 			clen = 0;
 			while (*s) {
-				len = strcspn (s, "\n");
-				len = g_utf8_strlen (s, len);
-				width = utf8_width (s, len);
+				len = strcspn ((gchar *) s, "\n");
+				len = g_utf8_strlen ((gchar *) s, len);
+				width = utf8_width ((gchar *) s, len);
 				skip = 0;
 			
 				if ((flow->style != HTML_CLUEFLOW_STYLE_PRE) 
@@ -2053,7 +2053,7 @@ save_plain (HTMLObject *self,
 						gint wmax;
 						gint wi, wl;
 
-						wmax = clen + utf8_length_in_width (s, len, max_width);
+						wmax = clen + utf8_length_in_width ((gchar *) s, len, max_width);
 						wl = wmax;
 
 						if (lattrs [wl].is_white) {
@@ -2080,7 +2080,7 @@ save_plain (HTMLObject *self,
 							while (wi > clen && lattrs [wi - 1].is_white)
 								wi --;
 							len = wi - clen;
-							width = utf8_width (s, len);
+							width = utf8_width ((gchar *) s, len);
 							skip = wl - wi;
 						}
 					}
@@ -2114,10 +2114,10 @@ save_plain (HTMLObject *self,
 					align_pad--;
 				}
 
-				bytes = ((guchar *) g_utf8_offset_to_pointer (s, len)) - s;
+				bytes = ((guchar *) g_utf8_offset_to_pointer ((gchar *) s, len)) - s;
 				html_engine_save_string_append_nonbsp (out, s, bytes);
 				s += bytes;
-				s = g_utf8_offset_to_pointer (s, skip);
+				s = (guchar *) g_utf8_offset_to_pointer ((gchar *) s, skip);
 				clen += len + skip;
 
 				if (*s == '\n') {
@@ -2201,15 +2201,15 @@ search_set_info (HTMLObject *cur, HTMLSearch *info, guchar *text, guint index, g
 			cur_bytes = HTML_TEXT (cur)->text_bytes;
 			if (text_bytes + cur_bytes > index) {
 				if (!info->found) {
-					info->start_pos = g_utf8_pointer_to_offset (text + text_bytes,
-										    text + index);
+					info->start_pos = g_utf8_pointer_to_offset ((gchar *) text + text_bytes,
+										    (gchar *) text + index);
 				}
 				info->found = g_list_append (info->found, cur);
 			}
 			text_bytes += cur_bytes;
 			if (text_bytes >= index + info->found_bytes) {
-				info->stop_pos = info->start_pos + g_utf8_pointer_to_offset (text + index,
-											     text + index + info->found_bytes);
+				info->stop_pos = info->start_pos + g_utf8_pointer_to_offset ((gchar *) text + index,
+											     (gchar *) text + index + info->found_bytes);
 				info->last     = HTML_OBJECT (cur);
 				return;
 			}
@@ -2250,7 +2250,7 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 	}
 
 	if (text_bytes > 0) {
-		par = g_new (gchar, text_bytes + 1);
+		par = (guchar *) g_new (gchar, text_bytes + 1);
 		par [text_bytes] = 0;
 
 		pp = (info->forward) ? par : par + text_bytes;
@@ -2263,7 +2263,7 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 				if (!info->forward) {
 					pp -= HTML_TEXT (cur)->text_bytes;
 				}
-				strncpy (pp, HTML_TEXT (cur)->text, HTML_TEXT (cur)->text_bytes);
+				strncpy ((gchar *) pp, HTML_TEXT (cur)->text, HTML_TEXT (cur)->text_bytes);
 				if (info->forward) {
 					pp += HTML_TEXT (cur)->text_bytes;
 				}
@@ -2277,9 +2277,9 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 		eq_bytes = 0;
 		if (info->found) {
                 	if (info->start_pos > 0)
-	                        index = ((guchar *)g_utf8_offset_to_pointer (par, info->start_pos + ((info->forward) ? 1 : -1))) - par;
+	                        index = ((guchar *)g_utf8_offset_to_pointer ((gchar *) par, info->start_pos + ((info->forward) ? 1 : -1))) - par;
 			else
-				index = ((guchar *)g_utf8_offset_to_pointer (par, info->start_pos + ((info->forward) ? 1 : 0))) - par;
+				index = ((guchar *)g_utf8_offset_to_pointer ((gchar *) par, info->start_pos + ((info->forward) ? 1 : 0))) - par;
 		} else {
 			index = (info->forward) ? 0 : text_bytes - 1;
 		}
@@ -2309,7 +2309,7 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 				while ((info->forward && index < text_bytes)
 				       || (!info->forward && index >= 0)) {
 					rv = regexec (info->reb,
-						      par + index,
+						      (gchar *) par + index,
 						      1, &match, 0);
 					if (rv == 0) {
 						search_set_info (head, info, par,
@@ -2319,7 +2319,7 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 					}
 					index += (info->forward)
 						? (((guchar *) g_utf8_next_char (par + index)) - par - index)
-						: (((guchar *) g_utf8_prev_char (par + index)) - par - index);
+						: (((guchar *) g_utf8_prev_char ((gchar *) par + index)) - par - index);
 				}
 #else
 				rv = re_search (info->reb, par, text_bytes, index,
@@ -2361,7 +2361,7 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 					}
 					index += (info->forward)
 						? (((guchar *) g_utf8_next_char (par + index)) - par - index)
-						: (((guchar *) g_utf8_prev_char (par + index)) - par - index);
+						: (((guchar *) g_utf8_prev_char ((gchar *) par + index)) - par - index);
 				}
 			}
 		}

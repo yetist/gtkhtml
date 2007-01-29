@@ -1,8 +1,7 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*  This file is part of the GtkHTML library.
 
-    Copyright (C) 2000 Helix Code, Inc.
-    Authors:           Radek Doulik (rodo@helixcode.com)
+    Copyright (C) 2007 Novell, Inc.
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Library General Public
@@ -20,25 +19,13 @@
     Boston, MA 02111-1307, USA.
 */
 
-#include <config.h>
-#ifdef GNOME_GTKHTML_EDITOR_SHLIB
-#include <glib/gi18n-lib.h>
-#else
-#include <glib/gi18n.h>
-#endif
-#include "dialog.h"
+#ifndef _PARAGRAPH_STYLE_H
+#define _PARAGRAPH_STYLE_H
 
-void
-run_dialog (GtkDialog **dialog, GtkHTML *html, GtkHTMLControlData *cd, DialogCtor ctor, const gchar *title)
-{
-	if (dialog) {
-		gtk_window_set_title (GTK_WINDOW (*dialog), title);
-		gtk_widget_show (GTK_WIDGET (*dialog));
-		gdk_window_raise (GTK_WIDGET (*dialog)->window);
-	} else {
-		dialog = ctor (html, cd);
-		gtk_window_set_title (GTK_WINDOW (*dialog), title);
-		gtk_widget_show (GTK_WIDGET (*dialog));
-	}
-	gtk_dialog_run (*dialog);
-}
+#include <gtk/gtk.h>
+#include "control-data.h"
+
+GtkWidget *	paragraph_style_combo_box_new	(GtkHTMLControlData *cd);
+void		paragraph_style_update_store	(GtkHTMLControlData *cd);
+
+#endif /* _PARAGRAPH_STYLE_H */

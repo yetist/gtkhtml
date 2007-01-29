@@ -30,11 +30,11 @@
 #ifndef GI_COLOR_PALETTE_H
 #define GI_COLOR_PALETTE_H
 
+#include <gtk/gtkcolorbutton.h>
 #include <gtk/gtktooltips.h>
 #include <gtk/gtkvbox.h>
 #include <gtk/gtkwidget.h>
 #include <libgnomecanvas/gnome-canvas.h>
-#include <libgnomeui/gnome-color-picker.h>
 #include "gi-color-group.h"
 
 G_BEGIN_DECLS
@@ -44,7 +44,7 @@ typedef struct _ColorNamePair ColorNamePair;
 typedef struct _ColorPalette {
 	GtkVBox          vbox;
 	GtkTooltips      *tool_tip;
-	GnomeColorPicker *picker;
+	GtkColorButton   *button;
 	/*
 	 * Array of colors
 	 */

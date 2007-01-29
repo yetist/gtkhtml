@@ -27,9 +27,7 @@
 
 typedef GtkDialog ** (*DialogCtor)(GtkHTML *html, GtkHTMLControlData *cd);
 
-#define RUN_DIALOG(name,title) run_dialog ((GtkDialog ***)&cd-> name ## _dialog, cd->html, cd, (DialogCtor) gtk_html_ ## name ## _dialog_new, title)
-
-void       run_dialog         (GtkDialog          ***dialog,
+void       run_dialog         (GtkDialog           **dialog,
 			       GtkHTML              *html,
 			       GtkHTMLControlData   *cd,
 			       DialogCtor            ctor,

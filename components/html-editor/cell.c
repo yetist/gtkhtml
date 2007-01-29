@@ -186,9 +186,10 @@ changed_bg_pixmap (GtkWidget *w, GtkHTMLEditCellProperties *d)
 static void
 set_halign (HTMLTableCell *cell, GtkHTMLEditCellProperties *d)
 {
-	GtkWidget *menu = gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_halign));
-	html_engine_table_cell_set_halign (d->cd->html->engine, cell,
-					   g_list_index (GTK_MENU_SHELL (menu)->children, gtk_menu_get_active (GTK_MENU (menu))) + HTML_HALIGN_LEFT);
+	HTMLHAlignType halign = HTML_HALIGN_LEFT;
+
+	halign += gtk_combo_box_get_active (GTK_COMBO_BOX (d->option_halign));
+	html_engine_table_cell_set_halign (d->cd->html->engine, cell, halign);
 }
 
 static void
@@ -200,9 +201,10 @@ changed_halign (GtkWidget *w, GtkHTMLEditCellProperties *d)
 static void
 set_valign (HTMLTableCell *cell, GtkHTMLEditCellProperties *d)
 {
-	GtkWidget *menu = gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_valign));
-	html_engine_table_cell_set_valign (d->cd->html->engine, cell,
-					   g_list_index (GTK_MENU_SHELL (menu)->children, gtk_menu_get_active (GTK_MENU (menu))) + HTML_VALIGN_TOP);
+	HTMLVAlignType valign = HTML_VALIGN_TOP;
+
+	valign += gtk_combo_box_get_active (GTK_COMBO_BOX (d->option_valign));
+	html_engine_table_cell_set_valign (d->cd->html->engine, cell, valign);
 }
 
 static void
@@ -239,13 +241,13 @@ static void
 set_width (HTMLTableCell *cell, GtkHTMLEditCellProperties *d)
 {
 	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (d->check_width))) {
-		GtkWidget *menu = gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_width));
-		if (g_list_index (GTK_MENU_SHELL (menu)->children, gtk_menu_get_active (GTK_MENU (menu))))
-			html_engine_table_cell_set_width (d->cd->html->engine, cell,
-							  gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (d->spin_width)), TRUE);
-		else
-			html_engine_table_cell_set_width (d->cd->html->engine, cell,
-							  gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (d->spin_width)), FALSE);
+		gint index = gtk_combo_box_get_active (
+			GTK_COMBO_BOX (d->option_width));
+		html_engine_table_cell_set_width (
+			d->cd->html->engine, cell,
+			gtk_spin_button_get_value_as_int (
+				GTK_SPIN_BUTTON (d->spin_width)),
+			(index > 0));
 	} else
 		html_engine_table_cell_set_width (d->cd->html->engine, cell, 0, FALSE);
 }
@@ -341,27 +343,6 @@ cell_widget (GtkHTMLEditCellProperties *d)
 
 	cell_page          = glade_xml_get_widget (xml, "cell_page");
 
-	filename = gnome_icon_theme_lookup_icon (d->cd->icon_theme, "stock_select-cell", 16, NULL, NULL);
-	gtk_table_attach (GTK_TABLE (glade_xml_get_widget (xml, "cell_scope_table1")),
-			  gtk_image_new_from_file (filename),
-			  0, 1, 0, 1, 0, 0, 0, 0);
-	g_free (filename);
-	filename = g_build_filename (ICONDIR, "table-table-16.png", NULL);
-	gtk_table_attach (GTK_TABLE (glade_xml_get_widget (xml, "cell_scope_table1")),
-			  gtk_image_new_from_file (filename),
-			  0, 1, 1, 2, 0, 0, 0, 0);
-	g_free (filename);
-	filename = g_build_filename (ICONDIR, "table-row-16.png", NULL);
-	gtk_table_attach (GTK_TABLE (glade_xml_get_widget (xml, "cell_scope_table2")),
-			  gtk_image_new_from_file (filename),
-			  0, 1, 0, 1, 0, 0, 0, 0);
-	g_free (filename);
-	filename = g_build_filename (ICONDIR, "table-column-16.png", NULL);
-	gtk_table_attach (GTK_TABLE (glade_xml_get_widget (xml, "cell_scope_table2")),
-			  gtk_image_new_from_file (filename),
-			  0, 1, 1, 2, 0, 0, 0, 0);
-	g_free (filename);
-
 	d->combo_bg_color = gi_color_combo_new (NULL, _("Transparent"), NULL,
 					     color_group_fetch ("cell_bg_color", d->cd));
         gi_color_combo_box_set_preview_relief (GI_COLOR_COMBO (d->combo_bg_color), GTK_RELIEF_NORMAL); \
@@ -373,11 +354,9 @@ cell_widget (GtkHTMLEditCellProperties *d)
 			    "selection-changed", G_CALLBACK (changed_bg_pixmap), d);
 
 	d->option_halign = glade_xml_get_widget (xml, "option_cell_halign");
-	g_signal_connect (gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_halign)), "selection-done",
-			  G_CALLBACK (changed_halign), d);
+	g_signal_connect (d->option_halign, "changed", G_CALLBACK (changed_halign), d);
 	d->option_valign = glade_xml_get_widget (xml, "option_cell_valign");
-	g_signal_connect (gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_valign)), "selection-done",
-			  G_CALLBACK (changed_valign), d);
+	g_signal_connect (d->option_valign, "changed", G_CALLBACK (changed_valign), d);
 
 	d->spin_width   = glade_xml_get_widget (xml, "spin_cell_width");
 	UPPER_FIX (width);
@@ -385,8 +364,8 @@ cell_widget (GtkHTMLEditCellProperties *d)
 	d->check_width  = glade_xml_get_widget (xml, "check_cell_width");
 	g_signal_connect (d->check_width, "toggled", G_CALLBACK (set_has_width), d);
 	d->option_width = glade_xml_get_widget (xml, "option_cell_width");
-	g_signal_connect (gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_width)), "selection-done",
-			  G_CALLBACK (changed_width_percent), d);
+	gtk_combo_box_set_active (GTK_COMBO_BOX (d->option_width), 0);
+	g_signal_connect (d->option_width, "changed", G_CALLBACK (changed_width_percent), d);
 
 	d->check_wrap = glade_xml_get_widget (xml, "check_cell_wrap");
 	d->check_header = glade_xml_get_widget (xml, "check_cell_header");
@@ -429,19 +408,25 @@ set_ui (GtkHTMLEditCellProperties *d)
 	}
 
 	if (HTML_CLUE (d->cell)->halign == HTML_HALIGN_NONE)
-		gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_halign), HTML_HALIGN_LEFT);
+		gtk_combo_box_set_active (
+			GTK_COMBO_BOX (d->option_halign),
+			HTML_HALIGN_LEFT);
 	else
-		gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_halign), HTML_CLUE (d->cell)->halign - HTML_HALIGN_LEFT);
-	gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_valign), HTML_CLUE (d->cell)->valign - HTML_VALIGN_TOP);
+		gtk_combo_box_set_active (
+			GTK_COMBO_BOX (d->option_halign),
+			HTML_CLUE (d->cell)->halign - HTML_HALIGN_LEFT);
+	gtk_combo_box_set_active (
+		GTK_COMBO_BOX (d->option_valign),
+		HTML_CLUE (d->cell)->valign - HTML_VALIGN_TOP);
 
 	if (d->cell->percent_width) {
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (d->check_width), TRUE);
 		gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_width), d->cell->fixed_width);
-		gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_width), 1);
+		gtk_combo_box_set_active (GTK_COMBO_BOX (d->option_width), 1);
 	} else if (d->cell->fixed_width) {
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (d->check_width), TRUE);
 		gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_width), d->cell->fixed_width);
-		gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_width), 0);
+		gtk_combo_box_set_active (GTK_COMBO_BOX (d->option_width), 0);
 	} else
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (d->check_width), FALSE);
 

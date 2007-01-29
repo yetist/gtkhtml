@@ -29,6 +29,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <glade/glade.h>
+#include <libgnome/libgnome.h>
 
 #include "gtkhtml.h"
 #include "htmlcolorset.h"
@@ -180,7 +181,6 @@ changed_align (GtkWidget *w, GtkHTMLEditImageProperties *d)
 static void
 changed_size (GtkWidget *widget, GtkHTMLEditImageProperties *d)
 {
-	GtkWidget *menu_width_p, *menu_height_p;
 	gint width, height, width_percent, height_percent;
 
 	if (d->disable_change || !editor_has_html_object (d->cd, HTML_OBJECT (d->image)))
@@ -188,12 +188,8 @@ changed_size (GtkWidget *widget, GtkHTMLEditImageProperties *d)
 
 	width = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (d->spin_width));
 	height = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (d->spin_height));
-	menu_width_p = gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_width_percent));
-	menu_height_p = gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_height_percent));
-	width_percent = g_list_index (GTK_MENU_SHELL (menu_width_p)->children,
-				      gtk_menu_get_active (GTK_MENU (menu_width_p)));
-	height_percent = g_list_index (GTK_MENU_SHELL (menu_height_p)->children,
-				       gtk_menu_get_active (GTK_MENU (menu_height_p)));
+	width_percent = gtk_combo_box_get_active (GTK_COMBO_BOX (d->option_width_percent));
+	height_percent = gtk_combo_box_get_active (GTK_COMBO_BOX (d->option_height_percent));
 	gtk_widget_set_sensitive (d->spin_width, width_percent != 2);
 	gtk_widget_set_sensitive (d->spin_height, height_percent != 2);
 
@@ -239,30 +235,30 @@ image_set_ui (GtkHTMLEditImageProperties *d)
 		d->disable_change = TRUE;
 
 		if (image->percent_width) {
-			gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_width_percent), 1);
+			gtk_combo_box_set_active (GTK_COMBO_BOX (d->option_width_percent), 1);
 			gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_width), image->specified_width);
 		} else if (image->specified_width > 0) {
-			gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_width_percent), 0);
+			gtk_combo_box_set_active (GTK_COMBO_BOX (d->option_width_percent), 0);
 			gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_width), image->specified_width);
 		} else {
-			gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_width_percent), 2);
+			gtk_combo_box_set_active (GTK_COMBO_BOX (d->option_width_percent), 2);
 			gtk_widget_set_sensitive (d->spin_width, FALSE);
 			gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_width), html_image_get_actual_width (image, NULL));
 		}
 
 		if (image->percent_height) {
-			gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_height_percent), 1);
+			gtk_combo_box_set_active (GTK_COMBO_BOX (d->option_height_percent), 1);
 			gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_height), image->specified_height);
 		} else if (image->specified_height > 0) {
-			gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_height_percent), 0);
+			gtk_combo_box_set_active (GTK_COMBO_BOX (d->option_height_percent), 0);
 			gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_height), image->specified_height);
 		} else {
-			gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_height_percent), 2);
+			gtk_combo_box_set_active (GTK_COMBO_BOX (d->option_height_percent), 2);
 			gtk_widget_set_sensitive (d->spin_height, FALSE);
 			gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_height), html_image_get_actual_height (image, NULL));
 		}
 
-		gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_align), image->valign);
+		gtk_combo_box_set_active (GTK_COMBO_BOX (d->option_align), image->valign);
 		gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_padh), image->hspace);
 		gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_padv), image->vspace);
 		gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_border), image->border);
@@ -298,17 +294,12 @@ set_size_all (HTMLObject *o, HTMLEngine *e, GtkHTMLEditImageProperties *d)
 	if (location && HTML_IS_IMAGE (o) && HTML_IMAGE (o)->image_ptr && HTML_IMAGE (o)->image_ptr->url) {
 		if (!strcmp (HTML_IMAGE (o)->image_ptr->url, location)) {
 			HTMLImage *i = HTML_IMAGE (o);
-			GtkWidget *menu_width_p, *menu_height_p;
 			gint width, height, width_percent, height_percent;
 
 			width = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (d->spin_width));
 			height = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (d->spin_height));
-			menu_width_p = gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_width_percent));
-			menu_height_p = gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_height_percent));
-			width_percent = g_list_index (GTK_MENU_SHELL (menu_width_p)->children,
-						      gtk_menu_get_active (GTK_MENU (menu_width_p)));
-			height_percent = g_list_index (GTK_MENU_SHELL (menu_height_p)->children,
-						       gtk_menu_get_active (GTK_MENU (menu_height_p)));
+			width_percent = gtk_combo_box_get_active (GTK_COMBO_BOX (d->option_width_percent));
+			height_percent = gtk_combo_box_get_active (GTK_COMBO_BOX (d->option_height_percent));
 
 			d->disable_change = TRUE;
 			if ((width == 0 || width_percent == 2) && width_percent != 1) {
@@ -356,14 +347,11 @@ image_widget (GtkHTMLEditImageProperties *d, gboolean insert)
 	d->page = glade_xml_get_widget (xml, "image_page");
 
 	d->option_align = glade_xml_get_widget (xml, "option_image_align");
-	g_signal_connect (gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_align)),
-			  "selection-done", G_CALLBACK (changed_align), d);
+	g_signal_connect (d->option_align, "changed", G_CALLBACK (changed_align), d);
 	d->option_width_percent = glade_xml_get_widget (xml, "option_image_width_percent");
-	g_signal_connect (gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_width_percent)),
-			  "selection-done", G_CALLBACK (changed_size), d);
+	g_signal_connect (d->option_width_percent, "changed", G_CALLBACK (changed_size), d);
 	d->option_height_percent = glade_xml_get_widget (xml, "option_image_height_percent");
-	g_signal_connect (gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_height_percent)),
-			  "selection-done", G_CALLBACK (changed_size), d);
+	g_signal_connect (d->option_height_percent, "changed", G_CALLBACK (changed_size), d);
 
 	d->spin_border = glade_xml_get_widget (xml, "spin_image_border");
 	UPPER_FIX (border);

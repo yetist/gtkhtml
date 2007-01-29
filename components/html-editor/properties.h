@@ -23,7 +23,7 @@
 #ifndef _GTK_HTML_EDIT_PROPERTIES_H_
 #define _GTK_HTML_EDIT_PROPERTIES_H_
 
-#include <gnome.h>
+#include <gtk/gtk.h>
 #include "control-data.h"
 
 typedef GtkWidget * (*GtkHTMLEditPropertyCreateFunc) (GtkHTMLControlData *cd, gpointer *own_data);
@@ -53,7 +53,7 @@ enum _GtkHTMLEditPropertyType {
 
 GtkHTMLEditPropertiesDialog * gtk_html_edit_properties_dialog_new          (GtkHTMLControlData *cd,
 									    gchar *title,
-									    gchar *icon_path);
+									    gchar *icon_name);
 void                          gtk_html_edit_properties_dialog_destroy      (GtkHTMLEditPropertiesDialog *d);
 
 void                          gtk_html_edit_properties_dialog_add_entry    (GtkHTMLEditPropertiesDialog *d,

@@ -102,14 +102,10 @@ paste_cite (GtkWidget *mi, GtkHTMLControlData *cd)
 static void
 insert_link (GtkWidget *mi, GtkHTMLControlData *cd)
 {
-	char *filename;
-
 	if (cd->properties_dialog)
 		gtk_html_edit_properties_dialog_close (cd->properties_dialog);
 
-	filename = g_build_filename (ICONDIR, "insert-link-24.png", NULL);
-	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, _("Insert"), filename);
-	g_free (filename);
+	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, _("Insert"), "stock_insert-url");
 
 	gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
 						   GTK_HTML_EDIT_PROPERTY_LINK, _("Link"),
@@ -189,14 +185,10 @@ show_prop_dialog (GtkHTMLControlData *cd, GtkHTMLEditPropertyType start)
 {
 	GtkHTMLEditPropertyType t;
 	GList *cur;
-	char *filename;
 
 	if (cd->properties_dialog)
 		gtk_html_edit_properties_dialog_close (cd->properties_dialog);
-	filename = gnome_icon_theme_lookup_icon (cd->icon_theme, "stock_properties", 16, NULL, NULL);
-	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, _("Properties"),
-								     filename);
-	g_free(filename);
+	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, _("Properties"), "gtk-properties");
 
 	cur = cd->properties_types;
 	while (cur) {
@@ -270,14 +262,10 @@ prop_dialog (GtkWidget *mi, GtkHTMLControlData *cd)
 static void
 link_prop_dialog (GtkWidget *mi, GtkHTMLControlData *cd)
 {
-	char *filename;
-
 	if (cd->properties_dialog)
 		gtk_html_edit_properties_dialog_close (cd->properties_dialog);
 
-	filename = g_build_filename (ICONDIR, "insert-link-24.png", NULL);
-	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, _("Properties"), filename);
-	g_free (filename);
+	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, _("Properties"), "stock_insert-url");
 
 	gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
 						   GTK_HTML_EDIT_PROPERTY_LINK, _("Link"),
@@ -286,12 +274,6 @@ link_prop_dialog (GtkWidget *mi, GtkHTMLControlData *cd)
 
 	gtk_html_edit_properties_dialog_show (cd->properties_dialog);
 	gtk_html_edit_properties_dialog_set_page (cd->properties_dialog, GTK_HTML_EDIT_PROPERTY_LINK);
-}
-
-static void
-spell_check_cb (GtkWidget *mi, GtkHTMLControlData *cd)
-{
-	spell_check_dialog (cd, FALSE);
 }
 
 static void
@@ -600,7 +582,7 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items, guint *props)
 	END_SUBMENU;
 
 	if (*items == 0) {
-		gtk_object_sink (GTK_OBJECT (menu));
+		g_object_ref_sink (menu);
 		menu = NULL;
 	} else
 		gtk_widget_show (menu);
@@ -657,7 +639,7 @@ property_dialog_show (GtkHTMLControlData *cd)
 	guint items, props;
 
 	menu = prepare_properties_and_menu (cd, &items, &props);
-	gtk_object_sink (GTK_OBJECT (menu));
+	g_object_ref_sink (menu);
 	if (props)
 		show_prop_dialog (cd, GTK_HTML_EDIT_PROPERTY_NONE);
 }

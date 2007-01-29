@@ -675,7 +675,7 @@ draw_spell_error (HTMLPainter *painter, int x, int y, int width)
 {
 	HTMLGdkPainter *gdk_painter;
 	GdkGCValues values;
-	gchar dash [2];
+	gint8 dash_list[] = { 2, 2 };
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
 
@@ -684,12 +684,10 @@ draw_spell_error (HTMLPainter *painter, int x, int y, int width)
 
 	gdk_gc_get_values (gdk_painter->gc, &values);
 	gdk_gc_set_fill (gdk_painter->gc, GDK_OPAQUE_STIPPLED);
-	dash [0] = 2;
-	dash [1] = 2;
 	gdk_gc_set_line_attributes (gdk_painter->gc, 1, GDK_LINE_ON_OFF_DASH, values.cap_style, values.join_style);
-	gdk_gc_set_dashes (gdk_painter->gc, 2, dash, 2);
+	gdk_gc_set_dashes (gdk_painter->gc, 2, dash_list, 2);
 	gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc, x, y, x + width, y);
-	gdk_gc_set_dashes (gdk_painter->gc, 0, dash, 2);
+	gdk_gc_set_dashes (gdk_painter->gc, 0, dash_list, 2);
 	gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc, x, y + 1, x + width, y + 1);
 	gdk_gc_set_line_attributes (gdk_painter->gc, values.line_width,
 				    values.line_style, values.cap_style, values.join_style);

@@ -384,7 +384,7 @@ draw_focus  (HTMLImage *image, HTMLPainter *painter, GdkRectangle *box)
 {
 	HTMLGdkPainter *p;
 	GdkGCValues values;
-	gchar dash [2];
+	gint8 dash_list[] = { 1, 1 };
 	HTMLEngine *e;
 
 	if (painter->widget && GTK_IS_HTML (painter->widget))
@@ -402,10 +402,8 @@ draw_focus  (HTMLImage *image, HTMLPainter *painter, GdkRectangle *box)
 									  painter, HTMLTextColor)->color);
 	gdk_gc_get_values (p->gc, &values);
 
-	dash [0] = 1;
-	dash [1] = 1;
 	gdk_gc_set_line_attributes (p->gc, 1, GDK_LINE_ON_OFF_DASH, values.cap_style, values.join_style);
-	gdk_gc_set_dashes (p->gc, 2, dash, 2);
+	gdk_gc_set_dashes (p->gc, 2, dash_list, 2);
 	gdk_draw_rectangle (p->pixmap, p->gc, 0, box->x - p->x1, box->y - p->y1, box->width - 1, box->height - 1);
 	gdk_gc_set_line_attributes (p->gc, 1, values.line_style, values.cap_style, values.join_style);
 }
@@ -1146,7 +1144,7 @@ html_image_factory_write_pixbuf (GtkHTMLStream *stream,
 	HTMLImagePointer *p = user_data;
 
 	/* FIXME ! Check return value */
-	gdk_pixbuf_loader_write (p->loader, buffer, size, NULL);
+	gdk_pixbuf_loader_write (p->loader, (const guchar *) buffer, size, NULL);
 }
 
 static void
@@ -1313,9 +1311,9 @@ html_image_pointer_new (const char *filename, HTMLImageFactory *factory)
 	retval->interests = NULL;
 	retval->factory = factory;
 	retval->stall = FALSE;
-	retval->stall_timeout = gtk_timeout_add (STALL_INTERVAL, 
-						 (GtkFunction)html_image_pointer_timeout,
-						 retval);
+	retval->stall_timeout = g_timeout_add (STALL_INTERVAL, 
+					       (GtkFunction)html_image_pointer_timeout,
+					       retval);
 	retval->animation_timeout = 0;
 	return retval;
 }
@@ -1379,7 +1377,7 @@ static void
 html_image_pointer_remove_stall (HTMLImagePointer *ip)
 {
 	if (ip->stall_timeout) {
-		gtk_timeout_remove (ip->stall_timeout);
+		g_source_remove (ip->stall_timeout);
 		ip->stall_timeout = 0;
 	}
 }

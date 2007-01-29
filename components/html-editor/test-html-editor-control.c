@@ -28,11 +28,13 @@
 #include <glib/gi18n.h>
 #endif
 
-#include <gnome.h>
+#include <libgnomeui/gnome-ui-init.h>
+#include <libgnomeui/gnome-app-helper.h>
 #include <bonobo.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <unistd.h>
  
 #include <glib.h>
 #include <Editor.h>
@@ -132,7 +134,7 @@ save_through_plain_persist_stream (const gchar *filename,
 
 		stream_mem = BONOBO_STREAM_MEM (stream);
 		text = g_byte_array_new ();
-		g_byte_array_append (text, stream_mem->buffer, stream_mem->pos);
+		g_byte_array_append (text, (guint8 *) stream_mem->buffer, stream_mem->pos);
 		bonobo_object_unref (BONOBO_OBJECT (stream));
 
 		fd = creat (filename, 0622);
@@ -576,9 +578,9 @@ main (int argc, char **argv)
 
 	/* We can't make any CORBA calls unless we're in the main loop.  So we
 	   delay creating the container here. */
-	gtk_idle_add ((GtkFunction) container_create, NULL);
+	g_idle_add ((GtkFunction) container_create, NULL);
 	if (argc > 1 && *argv [argc - 1] != '-')
-		gtk_idle_add ((GtkFunction) load_file, argv [argc - 1]);
+		g_idle_add ((GtkFunction) load_file, argv [argc - 1]);
 
 	bonobo_activate ();
 	bonobo_main ();

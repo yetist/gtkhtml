@@ -196,6 +196,7 @@ create_toolbars (GtkWidget *app)
 	GtkWidget *hbox;
 	GtkWidget *frame;
 	GtkWidget *toolbar;
+	GtkToolItem *item;
 	/* char *imgloc; */
 
 	dock = bonobo_dock_item_new ("testgtkhtml-toolbar1",
@@ -208,41 +209,39 @@ create_toolbars (GtkWidget *app)
 	gtk_toolbar_set_style (GTK_TOOLBAR (toolbar), GTK_TOOLBAR_ICONS);
 	gtk_box_pack_start (GTK_BOX (hbox), toolbar, FALSE, FALSE, 0);
 
-	toolbar_back = gtk_toolbar_append_item (GTK_TOOLBAR (toolbar),
-						NULL,
-						"Move back",
-						"Back",
-						gtk_image_new_from_stock ("gtk-go-back", GTK_ICON_SIZE_LARGE_TOOLBAR),
-						GTK_SIGNAL_FUNC (back_cb), NULL);
-	gtk_widget_set_sensitive(toolbar_back, FALSE);
-	toolbar_forward = gtk_toolbar_append_item (GTK_TOOLBAR (toolbar),
-						   NULL,
-						   "Move forward",
-						   "Forward",
-						   gtk_image_new_from_stock ("gtk-go-forward", GTK_ICON_SIZE_LARGE_TOOLBAR),
-						   GTK_SIGNAL_FUNC (forward_cb), NULL);
-	gtk_widget_set_sensitive(toolbar_forward, FALSE);
-	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar));
-	gtk_toolbar_append_item (GTK_TOOLBAR (toolbar),
-				 NULL,
-				 "Stop loading",
-				 "Stop",
-				 gtk_image_new_from_stock ("gtk-stop", GTK_ICON_SIZE_LARGE_TOOLBAR),
-				 GTK_SIGNAL_FUNC (stop_cb),
-				 NULL);
-	gtk_toolbar_append_item (GTK_TOOLBAR (toolbar),
-				 NULL,
-				 "Reload page",
-				 "Reload",
-				 gtk_image_new_from_stock ("gtk-refresh", GTK_ICON_SIZE_LARGE_TOOLBAR),
-				 GTK_SIGNAL_FUNC (reload_cb), NULL);
-	gtk_toolbar_append_item (GTK_TOOLBAR (toolbar),
-				 NULL,
-				 "Home page",
-				 "Home",
-				 gtk_image_new_from_stock ("gtk-home", GTK_ICON_SIZE_LARGE_TOOLBAR),
-				 GTK_SIGNAL_FUNC (home_cb), NULL);
-	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar));
+	item = gtk_tool_button_new_from_stock (GTK_STOCK_GO_BACK);
+	gtk_tool_item_set_tooltip (item, NULL, "Move back", "Back");
+	g_signal_connect (item, "clicked", G_CALLBACK (back_cb), NULL);
+	gtk_toolbar_insert (GTK_TOOLBAR (toolbar), item, -1);
+	gtk_widget_set_sensitive (GTK_WIDGET (item), FALSE);
+	toolbar_back = GTK_WIDGET (item);
+
+	item = gtk_tool_button_new_from_stock (GTK_STOCK_GO_FORWARD);
+	gtk_tool_item_set_tooltip (item, NULL, "Move forward", "Forward");
+	g_signal_connect (item, "clicked", G_CALLBACK (forward_cb), NULL);
+	gtk_toolbar_insert (GTK_TOOLBAR (toolbar), item, -1);
+	gtk_widget_set_sensitive (GTK_WIDGET (item), FALSE);
+	toolbar_forward = GTK_WIDGET (item);
+
+	item = gtk_separator_tool_item_new ();
+	gtk_toolbar_insert (GTK_TOOLBAR (toolbar), item, -1);
+
+	item = gtk_tool_button_new_from_stock (GTK_STOCK_STOP);
+	gtk_tool_item_set_tooltip (item, NULL, "Stop loading", "Stop");
+	g_signal_connect (item, "clicked", G_CALLBACK (stop_cb), NULL);
+	gtk_toolbar_insert (GTK_TOOLBAR (toolbar), item, -1);
+
+	item = gtk_tool_button_new_from_stock (GTK_STOCK_REFRESH);
+	gtk_tool_item_set_tooltip (item, NULL, "Reload page", "Reload");
+	g_signal_connect (item, "clicked", G_CALLBACK (reload_cb), NULL);
+	gtk_toolbar_insert (GTK_TOOLBAR (toolbar), item, -1);
+
+	item = gtk_tool_button_new_from_stock (GTK_STOCK_HOME);
+	gtk_tool_item_set_tooltip (item, NULL, "Home page", "Home");
+	g_signal_connect (item, "clicked", G_CALLBACK (home_cb), NULL);
+
+	item = gtk_separator_tool_item_new ();
+	gtk_toolbar_insert (GTK_TOOLBAR (toolbar), item, -1);
 
 	/* animator = gnome_animator_new_with_size (32, 32);
 
@@ -301,7 +300,7 @@ print_footer (GtkHTML *html, GnomePrintContext *context,
 		gnome_print_setrgbcolor (context, .0, .0, .0);
 		gnome_print_moveto      (context, x + (width - tw)/2, y - gnome_font_get_ascender (font));
 		gnome_print_setfont     (context, font);
-		gnome_print_show        (context, text);
+		gnome_print_show        (context, (guchar *) text);
 	}
 
 	g_free (text);
@@ -321,7 +320,7 @@ print_preview_cb (GtkWidget *widget,
 	gtk_html_print_set_master (html, print_master);
 
 	print_context = gnome_print_job_get_context (print_master);
-	font = gnome_font_find_closest ("Helvetica", 12);
+	font = gnome_font_find_closest ((guchar *) "Helvetica", 12);
 
 	page_num = 1;
 	pages = gtk_html_print_get_pages_num (html, print_context,
@@ -333,7 +332,7 @@ print_preview_cb (GtkWidget *widget,
 		g_object_unref (font);
 	
 	gnome_print_job_close (print_master);
-	preview = gnome_print_job_preview_new (print_master, "Print Preview");
+	preview = gnome_print_job_preview_new (print_master, (guchar *) "Print Preview");
 	gtk_widget_show (preview);
 
 	g_object_unref (print_master);
@@ -567,7 +566,7 @@ on_redirect (GtkHTML *html, const gchar *url, int delay, gpointer data) {
 
 		redirect_url = g_strdup(url);
 		
-		redirect_timerId = gtk_timeout_add (delay * 1000,(GtkFunction) redirect_timer_event, NULL);
+		redirect_timerId = g_timeout_add (delay * 1000,(GtkFunction) redirect_timer_event, NULL);
 	}
 }
 
@@ -636,7 +635,7 @@ object_requested_cmd (GtkHTML *html, GtkHTMLEmbedded *eb, void *data)
 		return FALSE;
 
 	gtk_widget_ref (GTK_WIDGET (eb));
-	gtk_timeout_add(rand() % 5000 + 1000, (GtkFunction) object_timeout, eb);
+	g_timeout_add(rand() % 5000 + 1000, (GtkFunction) object_timeout, eb);
 	/* object_timeout (eb); */
 
 	return TRUE;
@@ -835,7 +834,7 @@ goto_url(const char *url, int back_or_forward)
 
 	/* Remove any pending redirection */
 	if(redirect_timerId) {
-		gtk_timeout_remove(redirect_timerId);
+		g_source_remove(redirect_timerId);
 
 		redirect_timerId = 0;
 	}

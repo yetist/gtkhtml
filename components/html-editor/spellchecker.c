@@ -268,7 +268,7 @@ spell_has_control ()
 	rv = control != NULL;
 
 	if (control) {
-		gtk_object_sink (GTK_OBJECT (control));
+		g_object_ref_sink (control);
 	}
 	return rv;
 }

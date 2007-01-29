@@ -33,7 +33,6 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-#include <gnome.h>
 #ifdef USE_GTKFILECHOOSER
 #include <gtk/gtkfilechooser.h>
 #include <gtk/gtkfilechooserdialog.h>
@@ -133,14 +132,10 @@ insert_image_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cna
 static void
 insert_link_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
-	char *filename;
-
 	if (cd->properties_dialog)
 		gtk_html_edit_properties_dialog_close (cd->properties_dialog);
 
-	filename = g_build_filename (ICONDIR, "insert-link-24.png", NULL);
-	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, _("Insert"), filename);
-	g_free (filename);
+	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, _("Insert"), "stock_insert-url");
 
 	gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
 						   GTK_HTML_EDIT_PROPERTY_LINK, _("Link"),
@@ -154,16 +149,12 @@ insert_link_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cnam
 static void
 insert_rule_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
-	char *filename;
-
 	if (cd->properties_dialog)
 		gtk_html_edit_properties_dialog_close (cd->properties_dialog);
 
 	html_engine_insert_rule (cd->html->engine, 0, 100, 2, FALSE, HTML_HALIGN_LEFT);
 
-	filename = g_build_filename (ICONDIR, "insert-rule-24.png", NULL);
-	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, _("Insert"), filename);
-	g_free (filename);
+	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, _("Insert"), "stock_insert-rule");
 
 	gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
 						   GTK_HTML_EDIT_PROPERTY_RULE, _("Rule"),
@@ -176,8 +167,6 @@ insert_rule_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cnam
 void
 insert_table (GtkHTMLControlData *cd)
 {
-	char *filename;
-
 	if (cd->properties_dialog)
 		gtk_html_edit_properties_dialog_close (cd->properties_dialog);
 
@@ -189,9 +178,7 @@ insert_table (GtkHTMLControlData *cd)
 		html_engine_table_set_cols (cd->html->engine, 3);
 		html_engine_table_set_rows (cd->html->engine, 3);
 	}
-	filename = g_build_filename (ICONDIR, "insert-table-24.png", NULL);
-	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, _("Insert"), filename);
-	g_free (filename);
+	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, _("Insert"), "stock_insert-table");
 
 	gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
 						   GTK_HTML_EDIT_PROPERTY_TABLE, _("Table"),
@@ -210,14 +197,10 @@ insert_table_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cna
 static void
 insert_template_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
-	char *filename;
-
 	if (cd->properties_dialog)
 		gtk_html_edit_properties_dialog_close (cd->properties_dialog);
 
-	filename = g_build_filename (ICONDIR, "insert-object-24.png", NULL);
-	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, _("Insert"), filename);
-	g_free (filename);
+	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, _("Insert"), "stock_insert_graphic");
 
 	gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
 						   GTK_HTML_EDIT_PROPERTY_TABLE, _("Template"),
@@ -373,15 +356,10 @@ spell_check_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cnam
 static void
 format_page_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
-	char *filename;
-
 	if (cd->properties_dialog)
 		gtk_html_edit_properties_dialog_close (cd->properties_dialog);
 
-	filename = gnome_icon_theme_lookup_icon (cd->icon_theme, "stock_properties", 16, NULL, NULL);
-	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, _("Format"),
-								     filename);
-	g_free(filename);
+	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, _("Format"), "gtk-properties");
 
 	gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
 						   GTK_HTML_EDIT_PROPERTY_BODY, _("Page"),
@@ -395,15 +373,10 @@ format_page_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cnam
 static void
 format_text_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
-	char *filename;
-
 	if (cd->properties_dialog)
 		gtk_html_edit_properties_dialog_close (cd->properties_dialog);
 
-	filename = gnome_icon_theme_lookup_icon (cd->icon_theme, "stock_properties", 16, NULL, NULL);
-	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, _("Format"),
-								     filename);
-	g_free(filename);
+	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, _("Format"), "gtk-properties");
 
 	gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
 						   GTK_HTML_EDIT_PROPERTY_BODY, _("Text"),
@@ -417,15 +390,10 @@ format_text_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cnam
 static void
 format_paragraph_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
-	char *filename;
-
 	if (cd->properties_dialog)
 		gtk_html_edit_properties_dialog_close (cd->properties_dialog);
 
-	filename = gnome_icon_theme_lookup_icon (cd->icon_theme, "stock_properties", 16, NULL, NULL);
-	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, _("Format"),
-								     filename);
-	g_free(filename);
+	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, _("Format"), "gtk-properties");
 
 	gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
 						   GTK_HTML_EDIT_PROPERTY_BODY, _("Paragraph"),
@@ -468,7 +436,7 @@ static BonoboUIVerb editor_verbs [] = {
 	BONOBO_UI_UNSAFE_VERB ("InsertSmiley9", smiley_cb),
 	BONOBO_UI_UNSAFE_VERB ("InsertSmiley10", smiley_cb),
 	BONOBO_UI_UNSAFE_VERB ("InsertSmiley11", smiley_cb),
-	BONOBO_UI_UNSAFE_VERB ("InsertSmiley12", smiley_cb),
+	BONOBO_UI_UNSAFE_VERB ("InsertSmiley26", smiley_cb),
 
 	BONOBO_UI_UNSAFE_VERB ("IndentMore", command_cb),
 	BONOBO_UI_UNSAFE_VERB ("IndentLess", command_cb),
@@ -703,45 +671,71 @@ menubar_set_languages (GtkHTMLControlData *cd)
 	cd->block_language_changes = FALSE;
 }
 
-#define SMILEYS 12
-static gchar *smiley [SMILEYS] = {
-	":D",
-	":O",
-	":)",
-	";)",
-	"=)",
-	":(",
-	":-)",
-	":-|",
-	":-/",
-	":-P",
-	":~(",
-	":-Q"
-};
-
 static void
 smiley_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
-	gint i;
-	char *filename;
-	char *filename_uri;
+	const gchar *emoticon;
+	const gchar *filename;
+	GtkIconInfo *icon_info;
+	gchar *icon_name;
+	gchar *html;
+	gint smiley;
 
-	g_return_if_fail (cname);
+	g_return_if_fail (cname != NULL);
 
-	i = atoi (cname + 12) - 1;
+	/* cname is "InsertSmileyNN" */
+	smiley = atoi (cname + 12);
+	icon_name = g_strdup_printf ("stock_smiley-%d", smiley);
+	icon_info = gtk_icon_theme_lookup_icon (
+		gtk_icon_theme_get_default (), icon_name, 16, 0);
+	g_assert (icon_info != NULL);
+	filename = gtk_icon_info_get_filename (icon_info);
+	g_assert (filename != NULL);
+	gtk_icon_info_free (icon_info);
+	g_free (icon_name);
 
-	if (i >=0 && i < SMILEYS) {
-		gchar *s;
-		s = g_strdup_printf ("smiley-%d.png", i + 1);
-		filename = g_build_filename (ICONDIR, s, NULL);
-		g_free (s);
-		filename_uri = gtk_html_filename_to_uri (filename);
-		g_free (filename);
-		s = g_strdup_printf ("<IMG ALT=\"%s\" SRC=\"%s\">", smiley [i], filename_uri);
-		g_free (filename_uri);
-		gtk_html_insert_html (cd->html, s);
-		g_free (s);
+	switch (smiley) {
+		case 1: /* smile */
+			emoticon = ":)";
+			break;
+		case 2: /* wink */
+			emoticon = ";)";
+			break;
+		case 3: /* surprised */
+			emoticon = "=)";
+			break;
+		case 4: /* laughing */
+			emoticon = ":D";
+			break;
+		case 5: /* oh no! */
+			emoticon = ":O";
+			break;
+		case 6: /* frown */
+			emoticon = ":(";
+			break;
+		case 8: /* indifferent */
+			emoticon = ":-|";
+			break;
+		case 9: /* undecided */
+			emoticon = ":-/";
+			break;
+		case 10: /* tongue */
+			emoticon = ":-P";
+			break;
+		case 11: /* crying */
+			emoticon = ":~(";
+			break;
+		case 26: /* sick */
+			emoticon = ":-Q";
+			break;
+		default:
+			g_assert_not_reached ();
 	}
+
+	html = g_strdup_printf ("<IMG ALT=\"%s\" SRC=\"%s\">",
+		emoticon, filename);
+	gtk_html_insert_html (cd->html, html);
+	g_free (html);
 }
 
 static void
@@ -753,6 +747,7 @@ menubar_paragraph_style_changed_cb (GtkHTML *html, GtkHTMLParagraphStyle style, 
 
 typedef enum
 {
+	EDITOR_ICON_STOCK = 0,
 	EDITOR_ICON_MENU = 16,
 	EDITOR_ICON_TOOLBAR = 24,
 } EditorIconSize;
@@ -766,33 +761,56 @@ typedef struct
 
 static EditorUIPixmap pixmaps_map [] =
 {
-	{ "/Toolbar/EditUndo", "stock_undo", EDITOR_ICON_TOOLBAR },
-	{ "/Toolbar/EditRedo", "stock_redo", EDITOR_ICON_TOOLBAR },
-	{ "/Toolbar/EditCut", "stock_cut", EDITOR_ICON_TOOLBAR },
-	{ "/Toolbar/EditCopy", "stock_copy", EDITOR_ICON_TOOLBAR },
-	{ "/Toolbar/EditPaste", "stock_paste", EDITOR_ICON_TOOLBAR },
-	{ "/Toolbar/EditFind", "stock_search", EDITOR_ICON_TOOLBAR },
+	{ "/Toolbar/EditUndo", GTK_STOCK_UNDO, EDITOR_ICON_STOCK },
+	{ "/Toolbar/EditRedo", GTK_STOCK_REDO, EDITOR_ICON_STOCK },
+	{ "/Toolbar/EditCut", GTK_STOCK_CUT, EDITOR_ICON_STOCK },
+	{ "/Toolbar/EditCopy", GTK_STOCK_COPY, EDITOR_ICON_STOCK },
+	{ "/Toolbar/EditPaste", GTK_STOCK_PASTE, EDITOR_ICON_STOCK },
+	{ "/Toolbar/EditFind", GTK_STOCK_FIND, EDITOR_ICON_STOCK },
+	{ "/Toolbar/EditReplace", GTK_STOCK_FIND_AND_REPLACE, EDITOR_ICON_STOCK },
 	{ "/Toolbar/InsertImage", "stock_insert_image", EDITOR_ICON_TOOLBAR },
 	{ "/Toolbar/InsertLink", "stock_insert-url", EDITOR_ICON_TOOLBAR },
-/* 	{ "/Toolbar/InsertRule", "stock_insert-rule", EDITOR_ICON_TOOLBAR }, */
-/* 	{ "/Toolbar/InsertTable", "stock_insert-table", EDITOR_ICON_TOOLBAR }, */
+ 	{ "/Toolbar/InsertRule", "stock_insert-rule", EDITOR_ICON_TOOLBAR },
+ 	{ "/Toolbar/InsertTable", "stock_insert-table", EDITOR_ICON_TOOLBAR },
 
-	{ "/menu/Edit/EditUndoRedo/EditUndo", "stock_undo", EDITOR_ICON_MENU },
-	{ "/menu/Edit/EditUndoRedo/EditRedo", "stock_redo", EDITOR_ICON_MENU },
+	{ "/menu/Edit/EditUndoRedo/EditUndo", GTK_STOCK_UNDO, EDITOR_ICON_STOCK },
+	{ "/menu/Edit/EditUndoRedo/EditRedo", GTK_STOCK_REDO, EDITOR_ICON_STOCK },
 
-	{ "/menu/Edit/EditCutCopyPaste/EditCut", "stock_cut", EDITOR_ICON_MENU },
-	{ "/menu/Edit/EditCutCopyPaste/EditCopy", "stock_copy", EDITOR_ICON_MENU },
-	{ "/menu/Edit/EditCutCopyPaste/EditPaste", "stock_paste", EDITOR_ICON_MENU },
+	{ "/menu/Edit/EditCutCopyPaste/EditCut", GTK_STOCK_CUT, EDITOR_ICON_STOCK },
+	{ "/menu/Edit/EditCutCopyPaste/EditCopy", GTK_STOCK_COPY, EDITOR_ICON_STOCK },
+	{ "/menu/Edit/EditCutCopyPaste/EditPaste", GTK_STOCK_PASTE, EDITOR_ICON_STOCK },
 
-	{ "/menu/Edit/EditFindReplace/EditFind", "stock_search", EDITOR_ICON_MENU },
-	/* { "/menu/Edit/EditFindReplace/EditReplace", "stock_replace", EDITOR_ICON_MENU }, */
+	{ "/menu/Edit/EditFindReplace/EditFind", GTK_STOCK_FIND, EDITOR_ICON_STOCK },
+	{ "/menu/Edit/EditFindReplace/EditReplace", GTK_STOCK_FIND_AND_REPLACE, EDITOR_ICON_STOCK },
 
-	{ "/menu/Edit/EditMisc/EditSpellCheck", "stock_spellcheck", EDITOR_ICON_MENU },
+	{ "/menu/Edit/EditMisc/EditSpellCheck", GTK_STOCK_SPELL_CHECK, EDITOR_ICON_STOCK },
 
 	{ "/menu/Insert/Component/InsertImage", "stock_insert_image", EDITOR_ICON_MENU },
 	{ "/menu/Insert/Component/InsertLink", "stock_insert-url", EDITOR_ICON_MENU },
-/* 	{ "/menu/Insert/Component/InsertRule", "stock_insert-rule", EDITOR_ICON_MENU }, */
-/* 	{ "/menu/Insert/Component/InsertTable", "stock_insert-table", EDITOR_ICON_MENU }, */
+ 	{ "/menu/Insert/Component/InsertRule", "stock_insert-rule", EDITOR_ICON_MENU },
+ 	{ "/menu/Insert/Component/InsertTable", "stock_insert-table", EDITOR_ICON_MENU },
+	{ "/menu/Insert/Smiley", "stock_smiley-1", EDITOR_ICON_MENU },
+	{ "/menu/Insert/Smiley/InsertSmiley1", "stock_smiley-1", EDITOR_ICON_MENU },
+	{ "/menu/Insert/Smiley/InsertSmiley2", "stock_smiley-2", EDITOR_ICON_MENU },
+	{ "/menu/Insert/Smiley/InsertSmiley3", "stock_smiley-3", EDITOR_ICON_MENU },
+	{ "/menu/Insert/Smiley/InsertSmiley4", "stock_smiley-4", EDITOR_ICON_MENU },
+	{ "/menu/Insert/Smiley/InsertSmiley5", "stock_smiley-5", EDITOR_ICON_MENU },
+	{ "/menu/Insert/Smiley/InsertSmiley6", "stock_smiley-6", EDITOR_ICON_MENU },
+	{ "/menu/Insert/Smiley/InsertSmiley8", "stock_smiley-8", EDITOR_ICON_MENU },
+	{ "/menu/Insert/Smiley/InsertSmiley9", "stock_smiley-9", EDITOR_ICON_MENU },
+	{ "/menu/Insert/Smiley/InsertSmiley10", "stock_smiley-10", EDITOR_ICON_MENU },
+	{ "/menu/Insert/Smiley/InsertSmiley11", "stock_smiley-11", EDITOR_ICON_MENU },
+	{ "/menu/Insert/Smiley/InsertSmiley26", "stock_smiley-26", EDITOR_ICON_MENU },
+	{ "/menu/Format/FormatParagraph/FontStyle/FormatFixed", "stock_text-monospaced", EDITOR_ICON_MENU },
+	{ "/menu/Format/FormatParagraph/FontStyle/FormatBold", GTK_STOCK_BOLD, EDITOR_ICON_STOCK },
+	{ "/menu/Format/FormatParagraph/FontStyle/FormatItalic", GTK_STOCK_ITALIC, EDITOR_ICON_STOCK },
+	{ "/menu/Format/FormatParagraph/FontStyle/FormatUnderline", GTK_STOCK_UNDERLINE, EDITOR_ICON_STOCK },
+	{ "/menu/Format/FormatParagraph/FontStyle/FormatStrikeout", GTK_STOCK_STRIKETHROUGH, EDITOR_ICON_STOCK },
+	{ "/menu/Format/FormatParagraph/Alignment/AlignLeft", GTK_STOCK_JUSTIFY_LEFT, EDITOR_ICON_STOCK },
+	{ "/menu/Format/FormatParagraph/Alignment/AlignCenter", GTK_STOCK_JUSTIFY_CENTER, EDITOR_ICON_STOCK },
+	{ "/menu/Format/FormatParagraph/Alignment/AlignRight", GTK_STOCK_JUSTIFY_RIGHT, EDITOR_ICON_STOCK },
+	{ "/menu/Format/FormatParagraph/IndentMore", GTK_STOCK_INDENT, EDITOR_ICON_STOCK },
+	{ "/menu/Format/FormatParagraph/IndentLess", GTK_STOCK_UNINDENT, EDITOR_ICON_STOCK }
 };
 
 void
@@ -823,18 +841,35 @@ menubar_setup (BonoboUIComponent  *uic,
 		bonobo_ui_util_set_ui (uic, GTKHTML_DATADIR, "GNOME_GtkHTML_Editor.xml", "GNOME_GtkHTML_Editor", NULL);
 	}
 
-	for (i = 0; i < sizeof (pixmaps_map) / sizeof (pixmaps_map [0]); i ++)
-	{
-		char *filename;
+	for (i = 0; i < G_N_ELEMENTS (pixmaps_map); i++) {
+		if (pixmaps_map[i].size == EDITOR_ICON_STOCK) {
+			bonobo_ui_component_set_prop (
+				uic, pixmaps_map[i].path,
+				"pixtype", "stock",
+				NULL);
+			bonobo_ui_component_set_prop (
+				uic, pixmaps_map[i].path,
+				"pixname", pixmaps_map[i].stock_name,
+				NULL);
+		} else {
+			GtkIconInfo *icon_info;
+			const gchar *filename;
 
-		filename = gnome_icon_theme_lookup_icon (cd->icon_theme, pixmaps_map [i].stock_name, pixmaps_map [i].size, NULL, NULL);
-
-		if (filename) {
-			bonobo_ui_component_set_prop (uic, pixmaps_map [i].path, "pixtype", "filename", NULL);
-			bonobo_ui_component_set_prop (uic, pixmaps_map [i].path, "pixname", filename, NULL);
-		} else
-			g_warning ("cannot find icon: '%s' in gnome icon theme", pixmaps_map [i].stock_name);
-		g_free (filename);
+			icon_info = gtk_icon_theme_lookup_icon (
+				gtk_icon_theme_get_default (),
+				pixmaps_map[i].stock_name,
+				pixmaps_map[i].size, 0);
+			filename = gtk_icon_info_get_filename (icon_info);
+			bonobo_ui_component_set_prop (
+				uic, pixmaps_map[i].path,
+				"pixtype", "filename",
+				NULL);
+			bonobo_ui_component_set_prop (
+				uic, pixmaps_map[i].path,
+				"pixname", filename,
+				NULL);
+			gtk_icon_info_free (icon_info);
+		}
 	}
 
 	spell_create_language_menu (cd);

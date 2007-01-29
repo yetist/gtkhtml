@@ -1403,7 +1403,7 @@ is_leading_space (guchar *str)
 		if (!(isspace (*str) || IS_UTF8_NBSP (str))) 
 			return FALSE;
 		
-		str = g_utf8_next_char (str);
+		str = (guchar *) g_utf8_next_char (str);
 	}
 	return TRUE;
 }
@@ -1444,7 +1444,7 @@ parse_object_params(HTMLEngine *p, HTMLObject *clue)
 		
 		if (*str == '\0' || 
 		    *str == '\n' ||
-		    is_leading_space (str)) {
+		    is_leading_space ((guchar *) str)) {
 				str = html_tokenizer_next_token (p->ht);
 				/* printf ("\"%s\": was the string\n", str); */
 				continue;
@@ -4481,7 +4481,7 @@ html_engine_stream_write (GtkHTMLStream *handle,
 	html_tokenizer_write (e->ht, buffer, size == -1 ? strlen (buffer) : size);
 
 	if (e->parsing && e->timerId == 0) {
-		e->timerId = gtk_timeout_add (10, (GtkFunction) html_engine_timer_event, e);
+		e->timerId = g_timeout_add (10, (GtkFunction) html_engine_timer_event, e);
 	}
 }
 
@@ -4587,7 +4587,7 @@ html_engine_schedule_update (HTMLEngine *e)
 		return;
 	DI (printf ("html_engine_schedule_update - timer %d\n", e->updateTimer));
 	if (e->updateTimer == 0)
-		e->updateTimer = gtk_idle_add ((GtkFunction) html_engine_update_event, e);
+		e->updateTimer = g_idle_add ((GtkFunction) html_engine_update_event, e);
 }
 
 
@@ -4857,7 +4857,7 @@ html_engine_schedule_redraw (HTMLEngine *e)
 	else if (e->redraw_idle_id == 0) {
 		clear_pending_expose (e);
 		html_draw_queue_clear (e->draw_queue);
-		e->redraw_idle_id = gtk_idle_add ((GtkFunction) redraw_idle, e);
+		e->redraw_idle_id = g_idle_add ((GtkFunction) redraw_idle, e);
 	}
 }
 
@@ -5044,7 +5044,7 @@ html_engine_parse (HTMLEngine *e)
 
 	e->avoid_para = FALSE;
 
-	e->timerId = gtk_idle_add ((GtkFunction) html_engine_timer_event, e);
+	e->timerId = g_idle_add ((GtkFunction) html_engine_timer_event, e);
 }
 
 
@@ -5111,7 +5111,7 @@ html_engine_get_link_at (HTMLEngine *e, gint x, gint y)
 	if (e->clue == NULL)
 		return NULL;
 
-	obj = html_engine_get_object_at (e, x, y, &offset, FALSE);
+	obj = html_engine_get_object_at (e, x, y, (guint *) &offset, FALSE);
 
 	if (obj != NULL)
 		return html_object_get_url (obj, offset);
@@ -5618,7 +5618,7 @@ html_engine_thaw (HTMLEngine *engine)
 	if (engine->freeze_count == 1) {
 		if (engine->thaw_idle_id == 0) {
 			DF (printf ("queueing thaw_idle %d\n", engine->freeze_count);)
-			engine->thaw_idle_id = gtk_idle_add (thaw_idle, engine);
+			engine->thaw_idle_id = g_idle_add (thaw_idle, engine);
 		}
 	} else {
 		engine->freeze_count--;

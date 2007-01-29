@@ -38,7 +38,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#include <gnome.h>
+#include <unistd.h>
 #include "utils.h"
 #include "properties.h"
 

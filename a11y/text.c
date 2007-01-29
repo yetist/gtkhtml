@@ -946,7 +946,7 @@ html_a11y_text_get_offset_at_point (AtkText *text, gint x, gint y,
 	x -= html_x;
 	y -= html_y;
 
-	return_obj = html_engine_get_object_at (top_e, x, y, &offset, FALSE);
+	return_obj = html_engine_get_object_at (top_e, x, y, (guint *) &offset, FALSE);
 		
 	if (obj == return_obj)
 		return offset;

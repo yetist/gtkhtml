@@ -169,7 +169,7 @@ static void     cursor_move            (GtkHTML *html, GtkDirectionType dir_type
 static gboolean command                (GtkHTML *html, GtkHTMLCommandType com_type);
 static gint     mouse_change_pos       (GtkWidget *widget, GdkWindow *window, gint x, gint y, gint state);
 static void     add_bindings           (GtkHTMLClass *klass);
-static gchar *  get_value_nick         (GtkHTMLCommandType com_type);					
+static const gchar * get_value_nick    (GtkHTMLCommandType com_type);					
 static void	gtk_html_adjust_cursor_position (GtkHTML *html);
 
 
@@ -409,7 +409,7 @@ static void
 queue_draw (GtkHTML *html)
 {
 	if (html->priv->idle_handler_id == 0)
-		html->priv->idle_handler_id = gtk_idle_add (idle_handler, html);
+		html->priv->idle_handler_id = g_idle_add (idle_handler, html);
 }
 
 
@@ -685,7 +685,7 @@ setup_scroll_timeout (GtkHTML *html)
 	if (html->priv->scroll_timeout_id != 0)
 		return;
 
-	html->priv->scroll_timeout_id = gtk_timeout_add (SCROLL_TIMEOUT_INTERVAL,
+	html->priv->scroll_timeout_id = g_timeout_add (SCROLL_TIMEOUT_INTERVAL,
 						   scroll_timeout_cb, html);
 
 	GDK_THREADS_LEAVE();
@@ -699,7 +699,7 @@ remove_scroll_timeout (GtkHTML *html)
 	if (html->priv->scroll_timeout_id == 0)
 		return;
 
-	gtk_timeout_remove (html->priv->scroll_timeout_id);
+	g_source_remove (html->priv->scroll_timeout_id);
 	html->priv->scroll_timeout_id = 0;
 }
 
@@ -730,12 +730,12 @@ destroy (GtkObject *object)
 
 	if (html->priv) {
 		if (html->priv->idle_handler_id != 0) {
-			gtk_idle_remove (html->priv->idle_handler_id);
+			g_source_remove (html->priv->idle_handler_id);
 			html->priv->idle_handler_id = 0;
 		}
 
 		if (html->priv->scroll_timeout_id != 0) {
-			gtk_timeout_remove (html->priv->scroll_timeout_id);
+			g_source_remove (html->priv->scroll_timeout_id);
 			html->priv->scroll_timeout_id = 0;
 		}
 
@@ -1091,15 +1091,13 @@ realize (GtkWidget *widget)
 	if (layout->hadjustment == NULL) {
 		layout->hadjustment = GTK_ADJUSTMENT (gtk_adjustment_new (0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
 
-		g_object_ref (layout->hadjustment);
-		gtk_object_sink (GTK_OBJECT (layout->hadjustment));
+		g_object_ref_sink (layout->hadjustment);
 	}
 
 	if (layout->vadjustment == NULL) {
 		layout->vadjustment = GTK_ADJUSTMENT (gtk_adjustment_new (0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
 		
-		g_object_ref (layout->vadjustment);
-		gtk_object_sink (GTK_OBJECT (layout->vadjustment));	
+		g_object_ref_sink (layout->vadjustment);
 	}
 
 	gtk_html_drag_dest_set (html);
@@ -1337,7 +1335,7 @@ mouse_change_pos (GtkWidget *widget, GdkWindow *window, gint x, gint y, gint sta
 
 	html   = GTK_HTML (widget);
 	engine = html->engine;
-	obj    = html_engine_get_object_at (engine, x, y, &offset, FALSE);
+	obj    = html_engine_get_object_at (engine, x, y, (guint *) &offset, FALSE);
 
 	if ((html->in_selection || html->in_selection_drag) && html->allow_selection) {
 		gboolean need_scroll;
@@ -1812,7 +1810,7 @@ button_press_event (GtkWidget *widget,
 				gchar *url = NULL;
 
 				orig_e = GTK_HTML (orig_widget)->engine;
-				obj = html_engine_get_object_at (engine, x, y, &offset, FALSE);
+				obj = html_engine_get_object_at (engine, x, y, (guint *) &offset, FALSE);
 				if (obj && ((HTML_IS_IMAGE (obj) && HTML_IMAGE (obj)->url && *HTML_IMAGE (obj)->url)
 					    || (HTML_IS_TEXT (obj) && (url = html_object_get_complete_url (obj, offset))))) {
 					g_free (url);
@@ -2107,7 +2105,7 @@ selection_get (GtkWidget        *widget,
 		if (selection_string)
 			gtk_selection_data_set (selection_data,
 						gdk_atom_intern ("text/html", FALSE), 8,
-						selection_string,
+						(guchar *) selection_string,
 						len);
 
 		g_free (html_string);
@@ -2152,7 +2150,7 @@ ucs2_to_utf8_with_bom_check (guchar  *data, guint len) {
 		break;
 	}
 
-	utf8_ret = g_convert (data, len, "UTF-8", fromcode, &read_len, &written_len, &error);
+	utf8_ret = g_convert ((gchar *) data, len, "UTF-8", fromcode, &read_len, &written_len, &error);
 
 	if (error) {
 		g_warning ("g_convert error: %s\n", error->message);
@@ -2243,7 +2241,7 @@ selection_received (GtkWidget *widget,
 			 */
 
 			if (len > 1 && 
-			    !g_utf8_validate (data, len - 1, NULL)) {
+			    !g_utf8_validate ((gchar *) data, len - 1, NULL)) {
 				utf8 = ucs2_to_utf8_with_bom_check (data, len);
 				d_s (g_warning ("UCS-2 selection = %s", utf8);)
 			} else if (len > 0) {
@@ -2271,7 +2269,7 @@ selection_received (GtkWidget *widget,
 				g_warning ("selection was empty");
 
 			g_free (utf8);			
-		} else if ((utf8 = gtk_selection_data_get_text (selection_data))) {
+		} else if ((utf8 = (gchar *) gtk_selection_data_get_text (selection_data))) {
 			if (as_cite) {
 				char *encoded;
 				
@@ -2333,7 +2331,8 @@ selection_clear_event (GtkWidget *widget,
 {
 	GtkHTML *html;
 
-	if (! gtk_selection_clear (widget, event))
+	if (!GTK_WIDGET_CLASS (parent_class)->
+			selection_clear_event (widget, event))
 		return FALSE;
 
 	html = GTK_HTML (widget);
@@ -2585,13 +2584,13 @@ drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkSelectionData *sel
 
 					ucs2 = g_convert (utf8, strlen (utf8), "UCS-2", "UTF-8", NULL, &written_len, NULL);
 					gtk_selection_data_set (selection_data, selection_data->target, 8,
-								ucs2, written_len);
+								(guchar *) ucs2, written_len);
 					g_free (utf8);
 					g_free (complete_url);
 					GTK_HTML (widget)->priv->dnd_url = ucs2;
 				} else {
 					gtk_selection_data_set (selection_data, selection_data->target, 8,
-								complete_url, strlen (complete_url));
+								(guchar *) complete_url, strlen (complete_url));
 				        /* printf ("complete URL %s\n", complete_url); */
 					GTK_HTML (widget)->priv->dnd_url = complete_url;
 				}
@@ -2622,14 +2621,14 @@ next_uri (guchar **uri_list, gint *len, gint *list_len)
 		(*list_len) --;
 	}
 
-	uri = g_strndup (begin, *len);
+	uri = (guchar *) g_strndup ((gchar *) begin, *len);
 
 	while ((!**uri_list || **uri_list == '\n' || **uri_list == '\r') && *list_len) {
 		(*uri_list) ++;
 		(*list_len) --;
 	}	
 
-	return uri;
+	return (gchar *) uri;
 }
 
 static HTMLObject *
@@ -5566,7 +5565,7 @@ gtk_html_set_editor_api (GtkHTML *html, GtkHTMLEditorAPI *api, gpointer data)
 	gtk_html_api_set_language (html);
 }
 
-static gchar *
+static const gchar *
 get_value_nick (GtkHTMLCommandType com_type)
 {
 	GEnumValue *val;
@@ -5667,7 +5666,7 @@ reparent_embedded (HTMLObject *o, HTMLEngine *e, gpointer data)
 		    GTK_HTML (eo->widget->parent)->iframe_parent == NULL) {
 			g_object_ref (eo->widget);
 			gtk_container_remove (GTK_CONTAINER (eo->widget->parent), eo->widget);
-			GTK_OBJECT_FLAGS (eo->widget) = GTK_FLOATING;
+			g_object_force_floating (G_OBJECT (eo->widget));
 		}
 		eo->parent = data;
 	}
@@ -5945,7 +5944,7 @@ gtk_html_get_url_at (GtkHTML *html, int x, int y)
 
 	g_return_val_if_fail (GTK_IS_HTML (html), NULL);
 
-	obj = html_engine_get_object_at (html->engine, x, y, &offset, FALSE);
+	obj = html_engine_get_object_at (html->engine, x, y, (guint *) &offset, FALSE);
 
 	if (obj)
 		return gtk_html_get_url_object_relative (html, obj, html_object_get_url (obj, offset));

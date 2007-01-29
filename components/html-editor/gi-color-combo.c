@@ -150,8 +150,8 @@ color_table_setup (GiColorCombo *cc,
 						  color_group));
 
 	{
-		GtkWidget *picker = color_palette_get_color_picker (cc->palette);
-		g_signal_connect (picker, "clicked",
+		GtkWidget *color_button = color_palette_get_color_picker (cc->palette);
+		g_signal_connect (color_button, "clicked",
 				  G_CALLBACK (cb_cust_color_clicked), cc);
 	}
 
@@ -228,7 +228,7 @@ gi_color_combo_construct (GiColorCombo *cc, GdkPixbuf *icon,
 			NULL);
 
 	gtk_container_add (GTK_CONTAINER (cc->preview_button), GTK_WIDGET (cc->preview_canvas));
-	gtk_widget_set_usize (GTK_WIDGET (cc->preview_canvas), 24, 22);
+	gtk_widget_set_size_request (GTK_WIDGET (cc->preview_canvas), 24, 22);
 	g_signal_connect (cc->preview_button, "clicked",
 			  G_CALLBACK (preview_clicked), cc);
 
