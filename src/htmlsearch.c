@@ -128,7 +128,7 @@ html_search_destroy (HTMLSearch *search)
 	if (search->stack)
 		g_slist_free (search->stack);
 	if (search->reb) {
-		/* FIXME why this segfault for me? regfree (search->reb); */
+		regfree (search->reb);
 		g_free (search->reb);
 	}
 	g_free (search->trans);

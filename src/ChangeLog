@@ -1,3 +1,8 @@
+2007-01-29  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* htmlsearch.c: (html_search_destroy):
+	Fix a leak. Patch from Chris Heath. Closes bug 338884.
+
 2007-01-28  Matthew Barnes  <mbarnes@redhat.com>
 
 	** Fixes bug #394182 ("Massive Code Cleanup")
