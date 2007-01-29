@@ -86,6 +86,17 @@ draw_background_helper (HTMLTableCell *cell,
 /* HTMLObject methods.  */
 
 static void
+destroy (HTMLObject *self)
+{
+	HTMLTableCell *cell = HTML_TABLE_CELL (self);
+
+	if (cell->have_bgPixmap)
+		html_image_factory_unregister (cell->bgPixmap->factory, cell->bgPixmap, NULL);
+
+	HTML_OBJECT_CLASS (parent_class)->destroy (self);
+}
+
+static void
 reset (HTMLObject *self)
 {
 	HTMLTableCell *cell;
@@ -100,9 +111,14 @@ reset (HTMLObject *self)
 static void
 copy (HTMLObject *self, HTMLObject *dest)
 {
+	HTMLTableCell *d = HTML_TABLE_CELL (dest);
+	HTMLTableCell *s = HTML_TABLE_CELL (self);
+
 	memcpy (dest, self, sizeof (HTMLTableCell));
 
 	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
+
+	d->bgPixmap    = s->have_bgPixmap ? html_image_factory_register(s->bgPixmap->factory, NULL, s->bgPixmap->url, FALSE) : NULL;
 }
 
 static gboolean
@@ -348,6 +364,7 @@ html_table_cell_class_init (HTMLTableCellClass *klass,
 	object_class->calc_preferred_width = calc_preferred_width;
 	object_class->calc_size = html_table_cell_real_calc_size;
 	object_class->draw = draw;
+	object_class->destroy = destroy;
 	object_class->set_bg_color = set_bg_color;
 	object_class->get_bg_color = get_bg_color;
 	object_class->save = save;

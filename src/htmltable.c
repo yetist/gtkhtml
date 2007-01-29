@@ -108,6 +108,8 @@ destroy (HTMLObject *o)
 
 	if (table->bgColor)
 		gdk_color_free (table->bgColor);
+	if (table->bgPixmap)
+		html_image_factory_unregister (table->bgPixmap->factory, table->bgPixmap, NULL);
 
 	HTML_OBJECT_CLASS (parent_class)->destroy (o);
 }
@@ -124,6 +126,7 @@ copy_sized (HTMLObject *self, HTMLObject *dest, gint rows, gint cols)
 
 	d->bgColor     = s->bgColor ? gdk_color_copy (s->bgColor) : NULL;
 	d->caption     = s->caption ? HTML_CLUEV (html_object_dup (HTML_OBJECT (s->caption))) : NULL;
+	d->bgPixmap    = s->bgPixmap ? html_image_factory_register(s->bgPixmap->factory, NULL, s->bgPixmap->url, FALSE) : NULL;
 
 	d->columnMin   = g_array_new (FALSE, FALSE, sizeof (gint));
 	d->columnFixed = g_array_new (FALSE, FALSE, sizeof (gint));

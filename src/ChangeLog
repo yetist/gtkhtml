@@ -1,5 +1,12 @@
 2007-01-29  Kjartan Maraas  <kmaraas@gnome.org>
 
+	* htmltable.c: (destroy), (copy_sized):
+	* htmltablecell.c: (destroy), (copy), (html_table_cell_class_init):
+	Fix crash with copying a table that has bgimage set. Patch from
+	Chris Heath. Closes bug 362194.
+
+2007-01-29  Kjartan Maraas  <kmaraas@gnome.org>
+
 	* htmlsearch.c: (html_search_destroy):
 	Fix a leak. Patch from Chris Heath. Closes bug 338884.
 
