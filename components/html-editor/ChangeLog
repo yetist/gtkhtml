@@ -1,5 +1,10 @@
 2007-01-28  Matthew Barnes  <mbarnes@redhat.com>
 
+	* toolbar.c (font_size_changed): Fix a small error in the patch for
+	bug #394182, pointed out by Kjartan Maraas.
+
+2007-01-28  Matthew Barnes  <mbarnes@redhat.com>
+
 	** Fixes bug #394182 ("Massive Code Cleanup")
 
 	* Makefile.am: Add paragraph-style.[ch].

@@ -61,7 +61,7 @@ active_font_size_changed (GtkComboBox *combo_box,
 
 static void
 font_size_changed (GtkHTML *html,
-                   GtkHTMLParagraphStyle style,
+                   GtkHTMLFontStyle style,
                    GtkHTMLControlData *cd)
 {
 	if (style == GTK_HTML_FONT_STYLE_DEFAULT)
