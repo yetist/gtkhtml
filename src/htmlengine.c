@@ -627,8 +627,8 @@ current_alignment (HTMLEngine *e)
 		span = item->data;
 
 		/* we track the max display level here because an alignment on
-		 * an inline block should not change change the block alignment 
-		 * unless the block is nested in the inline element
+		 * an inline block should not change the block alignment unless 
+		 * the block is nested in the inline element
 		 */
 		maxLevel = MAX (maxLevel, span->style->display);
 		
@@ -872,6 +872,7 @@ insert_text (HTMLEngine *e,
 	gboolean create_link;
 	gint last_pos = 0;
 	gint last_bytes = 0;
+	gboolean prev_text_ends_in_space = FALSE ;
 
 	if (text [0] == ' ' && text [1] == 0) {
 		if (e->eat_space)
@@ -890,17 +891,23 @@ insert_text (HTMLEngine *e,
 	font_style = current_font_style (e);
 	color = current_color (e);
 
-	if ((create_link || e->flow == NULL || HTML_CLUE (e->flow)->head == NULL) && !e->inPre) {
+	if (e->flow == NULL)
+		prev = NULL;
+	else
+		prev = HTML_CLUE (e->flow)->tail;
+
+	if (NULL != prev)
+	    if (HTML_IS_TEXT (prev))
+	        if (HTML_TEXT (prev)->text_bytes > 0)
+	            if (' ' == (HTML_TEXT (prev)->text)[HTML_TEXT (prev)->text_bytes - 1])
+	                prev_text_ends_in_space = TRUE ;
+
+	if (e->flow == NULL || ((prev == NULL || prev_text_ends_in_space) && !e->inPre)) {
 		while (*text == ' ')
 			text++;
 		if (*text == 0)
 			return;
 	}
-
-	if (e->flow == NULL)
-		prev = NULL;
-	else
-		prev = HTML_CLUE (e->flow)->tail;
 
 	if (!prev || !HTML_IS_TEXT (prev)) {
 		prev = text_new (e, text, font_style, color);

@@ -1,3 +1,9 @@
+2007-01-30  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* htmlengine.c: (current_alignment), (insert_text):
+	Fix spacing issues. Patch from nix@go-nix.ca. Closes
+	bug #394541.
+
 2007-01-29  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* htmltext.c: Support SIP/H.323 addresses. Patch from
