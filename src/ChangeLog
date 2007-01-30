@@ -1,5 +1,9 @@
 2007-01-30  Kjartan Maraas  <kmaraas@gnome.org>
 
+	* htmltext.c: Fix warnings introduced by the sip patch.
+
+2007-01-30  Kjartan Maraas  <kmaraas@gnome.org>
+
 	* htmlengine.c: (current_alignment), (insert_text):
 	Fix spacing issues. Patch from nix@go-nix.ca. Closes
 	bug #394541.
