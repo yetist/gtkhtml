@@ -19,6 +19,7 @@ components/html-editor/image.c
 components/html-editor/link.c
 components/html-editor/menubar.c
 components/html-editor/paragraph.c
+components/html-editor/paragraph-style.c
 components/html-editor/popup.c
 components/html-editor/properties.c
 components/html-editor/replace.c
