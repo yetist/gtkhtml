@@ -1,3 +1,7 @@
+2007-02-07  Chenthill Palanisamy  <pchenthill@novell.com>
+
+	* configure.in: Inlcude gtk+-unix-print-2.0 in GTKHTML_MODULES
+
 2007-01-28  Matthew Barnes  <mbarnes@redhat.com>
 
 	** Fixes bug #394182 ("Massive Code Cleanup")
