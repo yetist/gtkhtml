@@ -1,3 +1,33 @@
+2007-02-10  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* gtkhtml-embedded.c: (gtk_html_embedded_finalize):
+	* gtkhtml-properties.c: (get_locale_language),
+	(gtk_html_cursor_skip_get_type), (gtk_html_command_get_type):
+	* gtkhtml.c: (get_font_options),
+	(gtk_html_get_paragraph_alignment), (gtk_html_build_with_gconf):
+	* htmlclueh.c: (html_clueh_init):
+	* htmlcluev.c: (remove_aligned_by_parent), (relayout),
+	(html_cluev_init):
+	* htmlembedded.c: (html_embedded_object_changed):
+	* htmlengine-edit-tablecell.c:
+	* htmlengine-print.c: (print_with_header_footer):
+	* htmlengine.c: (html_element_push):
+	* htmlimage.c:
+	* htmlobject.c: (calc_min_width), (calc_preferred_width),
+	(relayout):
+	* htmlprinter.c: (get_rmargin), (get_tmargin):
+	* htmlstringtokenizer.c: (html_string_tokenizer_tokenize):
+	* htmltype.c: (build_type_names_table):
+	* htmlurl.c:
+	* test-suite.c: (get_plain):
+	* testgtkhtml.c: (resize_cb):
+	Fix a bunch of warnings from sparse:
+	- ANSIfication of function declarations
+	- Remove some unused code
+	- Return something from get_tmargin()
+	- NULL vs 0/FALSE fixes
+	- Make some things static
+
 2007-01-30  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* htmltext.c: Fix warnings introduced by the sip patch.

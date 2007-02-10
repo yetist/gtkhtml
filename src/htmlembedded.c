@@ -350,7 +350,7 @@ html_embedded_object_changed (GtkHTMLEmbedded *eb, HTMLEngine *e)
 
 	object = HTML_OBJECT (g_object_get_data (G_OBJECT (eb), "embeddedelement"));
 	if (object)
-		html_object_calc_size (object, e->painter, FALSE);
+		html_object_calc_size (object, e->painter, NULL);
 	
 	html_engine_schedule_update(e);
 }

@@ -24,6 +24,7 @@
 #include <glib/gi18n-lib.h>
 #include <libgnomeui/gnome-dialog-util.h>
 #include "gtkhtml.h"
+#include "gtkhtmldebug.h"
 #include "gtkhtml-private.h"
 #include "gtkhtml-properties.h"
 #include "htmlprinter.h"
@@ -160,7 +161,6 @@ print_with_header_footer (HTMLEngine *engine,
 	HTMLPainter *printer;
 	HTMLPainter *old_painter;
 	gint pages = 0;
-	cairo_t *cr;
 
 	g_return_val_if_fail (engine->clue != NULL, 0);
   

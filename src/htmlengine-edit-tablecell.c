@@ -71,7 +71,7 @@ union _HTMLTableCellUndoAttr {
 	} color;
 
 	HTMLHAlignType halign;
-	HTMLHAlignType valign;
+	HTMLVAlignType valign;
 };
 typedef union _HTMLTableCellUndoAttr HTMLTableCellUndoAttr;
 

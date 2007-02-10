@@ -85,7 +85,7 @@ gtk_html_embedded_finalize (GObject *object)
 {
 	GtkHTMLEmbedded *eb = GTK_HTML_EMBEDDED(object);
 
-	g_hash_table_foreach (eb->params, free_param, 0);
+	g_hash_table_foreach (eb->params, free_param, NULL);
 	g_hash_table_destroy (eb->params);
 	g_free(eb->classid);
 	g_free(eb->type);

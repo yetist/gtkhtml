@@ -45,7 +45,7 @@ remove_aligned_by_parent ( HTMLClueV *cluev,
     HTMLClueAligned *tmp;
 	HTMLObject *obj;
 
-    tmp = 0;
+    tmp = NULL;
     obj = cluev->align_left_list;
 
     while ( obj ) {
@@ -56,7 +56,7 @@ remove_aligned_by_parent ( HTMLClueV *cluev,
 			} else {
 				cluev->align_left_list
 					= HTML_OBJECT (HTML_CLUEALIGNED (obj)->next_aligned);
-				tmp = 0;
+				tmp = NULL;
 			}
 		} else {
 			tmp = HTML_CLUEALIGNED (obj);
@@ -65,7 +65,7 @@ remove_aligned_by_parent ( HTMLClueV *cluev,
 		obj = HTML_OBJECT (HTML_CLUEALIGNED (obj)->next_aligned);
     }
 
-    tmp = 0;
+    tmp = NULL;
     obj = cluev->align_right_list;
 
     while ( obj ) {
@@ -76,7 +76,7 @@ remove_aligned_by_parent ( HTMLClueV *cluev,
 			} else {
 				cluev->align_right_list
 					= HTML_OBJECT (HTML_CLUEALIGNED (obj)->next_aligned);
-				tmp = 0;
+				tmp = NULL;
 			}
 		} else {
 			tmp = HTML_CLUEALIGNED (obj);
@@ -570,7 +570,7 @@ relayout (HTMLObject *self,
 
 	if (child == NULL)
 		child = HTML_CLUE (self)->head;
-	html_object_calc_size (child, engine->painter, FALSE);
+	html_object_calc_size (child, engine->painter, NULL);
 
 	HTML_CLUE (self)->curr = NULL;
 
@@ -578,7 +578,7 @@ relayout (HTMLObject *self,
 	prev_ascent = self->ascent;
 	prev_descent = self->descent;
 
-	changed = html_cluev_do_layout (self, engine->painter, FALSE, FALSE);
+	changed = html_cluev_do_layout (self, engine->painter, FALSE, NULL);
 	if (changed)
 		html_engine_queue_draw (engine, self);
 
@@ -974,10 +974,10 @@ html_cluev_init (HTMLClueV *cluev,
 	clue->valign = HTML_VALIGN_BOTTOM;
 	clue->halign = HTML_HALIGN_NONE;
 	cluev->dir = HTML_DIRECTION_DERIVED;
-	clue->head = clue->tail = clue->curr = 0;
+	clue->head = clue->tail = clue->curr = NULL;
 
-	cluev->align_left_list = 0;
-	cluev->align_right_list = 0;
+	cluev->align_left_list = NULL;
+	cluev->align_right_list = NULL;
 	cluev->padding = 0;
 	cluev->border_style = HTML_BORDER_NONE;
 	cluev->border_width = 0;

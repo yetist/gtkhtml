@@ -57,7 +57,7 @@ static gboolean types_inited = FALSE;
 static GHashTable *type_names = NULL;
 
 static void
-build_type_names_table ()
+build_type_names_table (void)
 {
 	HTMLType t;
 

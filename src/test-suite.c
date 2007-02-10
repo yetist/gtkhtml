@@ -90,7 +90,7 @@ plain_save_receiver (gpointer engine, const char *data, size_t len, gpointer use
 static char *
 get_plain (GtkHTML *html)
 {
-	GString *str = g_string_new (0);
+	GString *str = g_string_new (NULL);
 	char *rv;
 
 	html_engine_save_plain (html->engine, plain_save_receiver, str);

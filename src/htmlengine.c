@@ -941,23 +941,7 @@ html_element_push (HTMLElement *node, HTMLEngine *e, HTMLObject *clue)
 		/* close anon p elements */
 		pop_element (e, ID_P);
 		update_flow_align (e, clue);
-#if TESTING
-		if (node->style->bg_color) {
-			HTMLTableCell *cell;
-			cell = html_table_cell_new (1, 1, 0);
-			html_table_cell_set_fixed_width (cell, 50, 0);
-			html_cluev_set_style (HTML_CLUEV (cell), node->style);
-
-			html_object_set_bg_color (HTML_OBJECT (cell), node->style->bg_color);
-			append_element (e, clue, HTML_OBJECT (cell));
-			push_clue (e, HTML_OBJECT (cell));
-			node->exitFunc = block_end_cell;
-		} else {
-			node->exitFunc = block_end_display_block;
-		}
-#else
 		node->exitFunc = block_end_display_block;
-#endif
 		block_clue = html_cluev_new (0, 0, 100);
 		html_cluev_set_style (HTML_CLUEV (block_clue), node->style);
 		html_clue_append (HTML_CLUE (e->parser_clue), block_clue);

@@ -127,44 +127,44 @@ static GnomeUIInfo file_menu [] = {
 
 static GnomeUIInfo test_menu[] = {
 	{ GNOME_APP_UI_ITEM, "Test 1", "Run test 1",
-	  test_cb, GINT_TO_POINTER (1), NULL, 0, 0, 0, 0},
+	  test_cb, GINT_TO_POINTER (1), NULL, 0, NULL, 0, 0},
 	{ GNOME_APP_UI_ITEM, "Test 2", "Run test 2",
-	  test_cb, GINT_TO_POINTER (2), NULL, 0, 0, 0, 0},
+	  test_cb, GINT_TO_POINTER (2), NULL, 0, NULL, 0, 0},
 	{ GNOME_APP_UI_ITEM, "Test 3", "Run test 3",
-	  test_cb, GINT_TO_POINTER (3), NULL, 0, 0, 0, 0},
+	  test_cb, GINT_TO_POINTER (3), NULL, 0, NULL, 0, 0},
 	{ GNOME_APP_UI_ITEM, "Test 4", "Run test 4",
-	  test_cb, GINT_TO_POINTER (4), NULL, 0, 0, 0, 0},
+	  test_cb, GINT_TO_POINTER (4), NULL, 0, NULL, 0, 0},
 	{ GNOME_APP_UI_ITEM, "Test 5", "Run test 5",
-	  test_cb, GINT_TO_POINTER (5), NULL, 0, 0, 0, 0},
+	  test_cb, GINT_TO_POINTER (5), NULL, 0, NULL, 0, 0},
 	{ GNOME_APP_UI_ITEM, "Test 6", "Run test 6",
-	  test_cb, GINT_TO_POINTER (6), NULL, 0, 0, 0, 0},
+	  test_cb, GINT_TO_POINTER (6), NULL, 0, NULL, 0, 0},
 	{ GNOME_APP_UI_ITEM, "Test 7", "Run test 7 (FreshMeat)",
-	  test_cb, GINT_TO_POINTER (7), NULL, 0, 0, 0, 0},
+	  test_cb, GINT_TO_POINTER (7), NULL, 0, NULL, 0, 0},
 	{ GNOME_APP_UI_ITEM, "Test 8", "Run test 8 (local test)",
-	  test_cb, GINT_TO_POINTER (8), NULL, 0, 0, 0, 0},
+	  test_cb, GINT_TO_POINTER (8), NULL, 0, NULL, 0, 0},
 	{ GNOME_APP_UI_ITEM, "Test 9", "Run test 9 (Form Test)",
-	  test_cb, GINT_TO_POINTER (9), NULL, 0, 0, 0, 0},
+	  test_cb, GINT_TO_POINTER (9), NULL, 0, NULL, 0, 0},
 	{ GNOME_APP_UI_ITEM, "Test 10", "Run test 10 (Object Test)",
-	  test_cb, GINT_TO_POINTER (10), NULL, 0, 0, 0, 0},
+	  test_cb, GINT_TO_POINTER (10), NULL, 0, NULL, 0, 0},
 	{ GNOME_APP_UI_ITEM, "Test 11", "Run test 11 (Nowrap)",
-	  test_cb, GINT_TO_POINTER (11), NULL, 0, 0, 0, 0},
+	  test_cb, GINT_TO_POINTER (11), NULL, 0, NULL, 0, 0},
 	GNOMEUIINFO_END
 };
 
 static GnomeUIInfo debug_menu[] = {
 	{ GNOME_APP_UI_ITEM, "Show bug list", "Show the layout bug list",
-	  bug_cb, NULL, NULL, 0, 0, 0, 0},
+	  bug_cb, NULL, NULL, 0, NULL, 0, 0},
 	{ GNOME_APP_UI_ITEM, "Dump Object tree", "Dump Object tree to stdout",
-	  dump_cb, NULL, NULL, 0, 0, 0, 0},
+	  dump_cb, NULL, NULL, 0, NULL, 0, 0},
 	{ GNOME_APP_UI_ITEM, "Dump Object tree (simple)", "Dump Simple Object tree to stdout",
-	  dump_simple_cb, NULL, NULL, 0, 0, 0, 0},
+	  dump_simple_cb, NULL, NULL, 0, NULL, 0, 0},
 	GNOMEUIINFO_TOGGLEITEM("Slow loading", "Load documents slowly", slow_cb, NULL),
 	{ GNOME_APP_UI_ITEM, "Force resize", "Force a resize event",
-	  resize_cb, NULL, NULL, 0, 0, 0 },
+	  resize_cb, NULL, NULL, 0, NULL, 0 },
 	{ GNOME_APP_UI_ITEM, "Force repaint", "Force a repaint event",
-	  redraw_cb, NULL, NULL, 0, 0, 0 },
+	  redraw_cb, NULL, NULL, 0, NULL, 0 },
 	{ GNOME_APP_UI_ITEM, "Select all", "Select all",
-	  select_all_cb, NULL, NULL, 0, 0, 0 },
+	  select_all_cb, NULL, NULL, 0, NULL, 0 },
 	GNOMEUIINFO_TOGGLEITEM ("Disable Animations", "Disable Animated Images",  animate_cb, NULL),
 	 
 	GNOMEUIINFO_END
@@ -172,11 +172,11 @@ static GnomeUIInfo debug_menu[] = {
 
 static GnomeUIInfo go_menu[] = {
 	{ GNOME_APP_UI_ITEM, "Back", "Return to the previous page in history list",
-	  back_cb, NULL, NULL, 0, 0, 0, 0},
+	  back_cb, NULL, NULL, 0, NULL, 0, 0},
 	{ GNOME_APP_UI_ITEM, "Forward", "Go to the next page in history list", 
-	  forward_cb, NULL, NULL, 0, 0, 0, 0},
+	  forward_cb, NULL, NULL, 0, NULL, 0, 0},
 	{ GNOME_APP_UI_ITEM, "Home", "Go to the homepage",
-	  home_cb, NULL, NULL, 0, 0, 0 },
+	  home_cb, NULL, NULL, 0, NULL, 0 },
 	GNOMEUIINFO_SEPARATOR,
 	GNOMEUIINFO_END
 };
@@ -360,7 +360,7 @@ static void
 resize_cb (GtkWidget *widget, gpointer data)
 {
 	g_print ("forcing resize\n");
-	html_engine_calc_size (html->engine, FALSE);
+	html_engine_calc_size (html->engine, NULL);
 }
 
 static void

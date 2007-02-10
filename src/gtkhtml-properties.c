@@ -35,7 +35,7 @@ Boston, MA 02111-1307, USA.
 
 /* this function is reworked gal:e-iconv.c:e_iconv_locale_language */
 static gchar *
-get_locale_language ()
+get_locale_language (void)
 {
 	gchar *locale;
 	gchar *locale_language = NULL;
@@ -145,7 +145,7 @@ static GEnumValue _gtk_html_cursor_skip_values[] = {
 };
 
 GType
-gtk_html_cursor_skip_get_type ()
+gtk_html_cursor_skip_get_type (void)
 {
 	static GType cursor_skip_type = 0;
 
@@ -313,7 +313,7 @@ static GEnumValue _gtk_html_command_values[] = {
 };
 
 GType
-gtk_html_command_get_type ()
+gtk_html_command_get_type (void)
 {
 	static GType command_type = 0;
 

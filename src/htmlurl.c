@@ -305,13 +305,13 @@ html_url_set_port (HTMLURL *url, gushort port)
 }
 
 
-#define GET_STR_FUNC(member)			\
-const gchar *					\
-html_url_get_##member (const HTMLURL *url)	\
-{						\
-	g_return_val_if_fail (url != NULL, 0);	\
-						\
-	return url->member;			\
+#define GET_STR_FUNC(member)				\
+const gchar *						\
+html_url_get_##member (const HTMLURL *url)		\
+{							\
+	g_return_val_if_fail (url != NULL, NULL);	\
+							\
+	return url->member;				\
 }
 
 GET_STR_FUNC (protocol)

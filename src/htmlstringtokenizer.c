@@ -74,7 +74,7 @@ html_string_tokenizer_tokenize (HTMLStringTokenizer *t,
 	gint str_length;
 
 	if (*str == '\0') {
-		t->pos = 0;
+		t->pos = NULL;
 		return;
 	}
 	

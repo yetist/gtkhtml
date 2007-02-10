@@ -109,8 +109,8 @@ static GtkTargetEntry dnd_link_sources [] = {
 
 static GtkLayoutClass *parent_class = NULL;
 
-GConfClient *gconf_client = NULL;
-GError      *gconf_error  = NULL;
+static GConfClient *gconf_client = NULL;
+static GError      *gconf_error  = NULL;
 
 enum {
 	TITLE_CHANGED,
@@ -779,7 +779,7 @@ gtk_html_get_top_html (GtkHTML *html)
 }
 
 static cairo_font_options_t *
-get_font_options ()
+get_font_options (void)
 {
 	char *antialiasing, *hinting, *subpixel_order;
 	GConfClient *gconf = gconf_client_get_default ();
@@ -4336,6 +4336,10 @@ gtk_html_toggle_font_style (GtkHTML *html,
 GtkHTMLParagraphAlignment
 gtk_html_get_paragraph_alignment (GtkHTML *html)
 {
+	/* This makes the function return a HTMLHalignType. Should the blow call really be
+         * html_alignment_to_paragraph()?
+         */
+
 	return paragraph_alignment_to_html (html_engine_get_current_clueflow_alignment (html->engine));
 }
 
@@ -5651,7 +5655,7 @@ gtk_html_edit_make_cursor_visible (GtkHTML *html)
 }
 
 gboolean
-gtk_html_build_with_gconf ()
+gtk_html_build_with_gconf (void)
 {
 	return TRUE;
 }

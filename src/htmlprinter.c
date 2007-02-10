@@ -45,14 +45,6 @@ static HTMLPainterClass *parent_class = NULL;
 /* The size of a pixel in the printed output, in points.  */
 #define PIXEL_SIZE .5
 
-static void
-insure_config (HTMLPrinter *p)
-{
-	if (!p->config)
-		p->config = p->master ? gnome_print_job_get_config (p->master) : gnome_print_config_default (); 
-	    
-}
-
 static gdouble
 printer_get_page_height (HTMLPrinter *printer)
 {
@@ -93,7 +85,7 @@ get_rmargin (HTMLPrinter *printer)
 	gdouble rmargin;
 
 	page_setup = gtk_print_context_get_page_setup (printer->context);
-	rmargin =(gdouble)gtk_page_setup_get_right_margin (page_setup, GTK_UNIT_POINTS);
+	rmargin = (gdouble)gtk_page_setup_get_right_margin (page_setup, GTK_UNIT_POINTS);
 	return rmargin;
 }
 
@@ -103,7 +95,8 @@ get_tmargin (HTMLPrinter *printer)
 	GtkPageSetup *page_setup;
 	gdouble tmargin;
 	page_setup = gtk_print_context_get_page_setup (printer->context);
-	tmargin =(gdouble)gtk_page_setup_get_top_margin (page_setup, GTK_UNIT_POINTS);
+	tmargin = (gdouble)gtk_page_setup_get_top_margin (page_setup, GTK_UNIT_POINTS);
+	return tmargin;
 }
 
 static gdouble

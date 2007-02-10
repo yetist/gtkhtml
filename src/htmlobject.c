@@ -236,14 +236,14 @@ html_object_real_calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed
 static gint
 calc_min_width (HTMLObject *o, HTMLPainter *painter)
 {
-	html_object_calc_size (o, painter, FALSE);
+	html_object_calc_size (o, painter, NULL);
 	return o->width;
 }
 
 static gint
 calc_preferred_width (HTMLObject *o, HTMLPainter *painter)
 {
-	html_object_calc_size (o, painter, FALSE);
+	html_object_calc_size (o, painter, NULL);
 	return o->width;
 }
 	
@@ -380,7 +380,7 @@ relayout (HTMLObject *self,
 		self->y -= prev_ascent + prev_descent;
 	}
 
-	changed = html_object_calc_size (self, engine->painter, FALSE);
+	changed = html_object_calc_size (self, engine->painter, NULL);
 
 	if (prev_width == self->width
 	    && prev_ascent == self->ascent

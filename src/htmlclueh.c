@@ -25,7 +25,7 @@
 
 static HTMLClueClass *parent_class = NULL;
 
-HTMLClueHClass html_clueh_class;
+static HTMLClueHClass html_clueh_class;
 
 
 static void
@@ -197,7 +197,7 @@ html_clueh_init (HTMLClueH *clueh, HTMLClueHClass *klass,
 
 	clue->valign = HTML_VALIGN_BOTTOM;
 	clue->halign = HTML_HALIGN_LEFT;
-	clue->head = clue->tail = clue->curr = 0;
+	clue->head = clue->tail = clue->curr = NULL;
 
 	object->x = x;
 	object->y = y;

@@ -66,7 +66,7 @@ struct _HTMLImageFactory {
 
 #define DA(x)
 
-HTMLImageClass html_image_class;
+static HTMLImageClass html_image_class;
 static HTMLObjectClass *parent_class = NULL;
 
 static HTMLImagePointer   *html_image_pointer_new               (const char *filename, HTMLImageFactory *factory);
