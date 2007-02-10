@@ -106,7 +106,7 @@ spell_add_to_session (GtkHTML *html, const gchar *word, gpointer data)
 }
 
 static void
-spell_add_to_personal_no_language ()
+spell_add_to_personal_no_language (void)
 {
 	GtkWidget *info;
 
@@ -259,7 +259,7 @@ ignore_cb (BonoboListener *listener, const char *event_name, const CORBA_any *ar
 }
 
 gboolean
-spell_has_control ()
+spell_has_control (void)
 {
 	GtkWidget *control;
 	gboolean rv;

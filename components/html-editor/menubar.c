@@ -110,7 +110,11 @@ insert_image_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cna
 #endif
 	if (filesel) {
 		if (gtk_dialog_run (GTK_DIALOG (filesel)) == GTK_RESPONSE_OK) {
+#ifdef USE_GTKFILECHOOSER
+			char *filename;
+#else
 			const char *filename;
+#endif
 			char *url = NULL;
 
 #ifdef USE_GTKFILECHOOSER
@@ -524,7 +528,7 @@ static struct {
 	{"style-itemroman", "HeadingRomanList"},
 	{"style-itemdigit", "HeadingNumberedList"},
 	{"style-itemalpha", "HeadingAlphabeticalList"},
-	{0, NULL}
+	{NULL, NULL}
 };
 
 static struct {

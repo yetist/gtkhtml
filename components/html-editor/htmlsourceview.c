@@ -240,7 +240,7 @@ html_source_view_class_init (HTMLSourceViewClass *klass)
 }
 
 GtkType
-html_source_view_get_type ()
+html_source_view_get_type (void)
 {
 	static GType view_type = 0;
 	

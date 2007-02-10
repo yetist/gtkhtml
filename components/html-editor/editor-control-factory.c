@@ -548,7 +548,9 @@ editor_control_construct (BonoboControl *control, GtkWidget *vbox)
 
 	/* PropertyBag */
 	pb = bonobo_property_bag_new (editor_get_prop, editor_set_prop, cd);
-
+	/* The above causes warnings since the third arg to editor_get_prop()
+         * should be guint() according to the signature of *BonoboPropertyGetFn
+         */
 	def = bonobo_arg_new (BONOBO_ARG_BOOLEAN);
 	BONOBO_ARG_SET_BOOLEAN (def, TRUE);
 
@@ -797,7 +799,7 @@ editor_api_create_input_line (GtkHTML *html, gpointer data)
 }
 
 static void
-new_editor_api ()
+new_editor_api (void)
 {
 	editor_api = g_new (GtkHTMLEditorAPI, 1);
 

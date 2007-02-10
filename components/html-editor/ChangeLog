@@ -1,3 +1,13 @@
+2007-02-10  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* editor-control-factory.c: (editor_control_construct),
+	(new_editor_api):
+	* htmlsourceview.c: (html_source_view_get_type):
+	* menubar.c: (insert_image_cb):
+	* spellchecker.c: (spell_add_to_personal_no_language),
+	(spell_has_control):
+	Sparse warning fixes. Closes bug #402601.
+
 2007-01-28  Matthew Barnes  <mbarnes@redhat.com>
 
 	* toolbar.c (font_size_changed): Fix a small error in the patch for
