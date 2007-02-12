@@ -1,6 +1,10 @@
+2007-02-12 Srinivasa Ragavan  <sragavan@novell.com>
+
+	** NEWS, configure.in: 3.13.91 release
+
 2007-02-12  Srinivasa Ragavan  <sragavan@novell.com>
 
-	** Patch from Mattgew Barnes
+	** Patch from Matthew Barnes
 
 	* configure.in: Remove libgnomeprint* dependency
 
