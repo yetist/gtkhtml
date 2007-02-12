@@ -162,23 +162,23 @@ dump_simple_cb (GtkWidget *widget, gpointer data)
 static void
 print_cb (GtkWidget *widget, gpointer data)
 {
-	GnomePrintJob *job;
+	GtkPrintOperation *job;
 	GtkPrintContext *gpc;
 	GtkPrintSettings *config;
 	
-	job = gnome_print_job_new (NULL);
-	gpc = gnome_print_job_get_context (job);
-	config = gnome_print_job_get_config (job);
+	//job = gnome_print_job_new (NULL);
+	//gpc = gnome_print_job_get_context (job);
+	//config = gnome_print_job_get_config (job);
 
-	gnome_print_config_set (config, (guchar *) "Printer", (guchar *) "GENERIC");
-	gnome_print_job_print_to_file (job, "o.ps");
+	//gnome_print_config_set (config, (guchar *) "Printer", (guchar *) "GENERIC");
+	//gnome_print_job_print_to_file (job, "o.ps");
 	
-	gnome_print_config_set (config, (guchar *) GNOME_PRINT_KEY_PAPER_SIZE, (guchar *) "USLetter");
+	//gnome_print_config_set (config, (guchar *) GNOME_PRINT_KEY_PAPER_SIZE, (guchar *) "USLetter");
 	
-	gtk_html_print (GTK_HTML (html), gpc);
+	gtk_html_print_page (GTK_HTML (html), gpc);
 
-	gnome_print_job_close (job);
-	gnome_print_job_print (job);
+	//gnome_print_job_close (job);
+	//gnome_print_job_print (job);
 
 	g_object_unref (G_OBJECT (config));
 	g_object_unref (G_OBJECT (gpc));

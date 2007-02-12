@@ -85,7 +85,7 @@ print_page (HTMLPainter *painter,
 	cairo_restore (cr);
 	if (footer_print)
 		print_header_footer (painter, engine, page_width, page_height - 
-				     SCALE_GNOME_PRINT_TO_ENGINE (footer_height), footer_height, footer_print, user_data); 
+				SCALE_GNOME_PRINT_TO_ENGINE (footer_height), footer_height, footer_print, user_data); 	
 	html_painter_end (painter);
 }
 
@@ -164,7 +164,7 @@ print_with_header_footer (HTMLEngine *engine,
 
 	g_return_val_if_fail (engine->clue != NULL, 0);
   
-	printer = html_printer_new (GTK_WIDGET (engine->widget), print_context, GTK_HTML (engine->widget)->priv->print_master);
+	printer = html_printer_new (GTK_WIDGET (engine->widget), print_context);
 	gtk_html_set_fonts (engine->widget, printer);
 
 	if (do_we_have_default_font (printer)) {
@@ -183,7 +183,7 @@ print_with_header_footer (HTMLEngine *engine,
 			html_object_change_set_down (engine->clue, HTML_CHANGE_ALL);
 			html_engine_calc_size (engine, NULL);
 			/* printf ("scale %lf\n", HTML_PRINTER (printer)->scale); */
-			  gtk_html_debug_dump_tree (engine->clue, 0); 
+			/*  gtk_html_debug_dump_tree (engine->clue, 0); */
 		}
 	
 		pages = print_all_pages (HTML_PAINTER (printer), engine,

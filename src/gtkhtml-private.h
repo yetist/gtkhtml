@@ -22,8 +22,6 @@
 #ifndef _GTKHTML_PRIVATE_H
 #define _GTKHTML_PRIVATE_H
 
-#include <libgnomeprint/gnome-print.h>
-#include <libgnomeprint/gnome-print-job.h>
 #include <gtk/gtkimcontext.h>
 #include <gtk/gtkwidget.h>
 #include "gtkhtml-types.h"
@@ -46,8 +44,6 @@ struct _GtkHTMLPrivate {
 	char  *base_url;
 
 	GtkWidget *search_input_line;
-
-	GnomePrintJob *print_master;
 
 	guint notify_spell_id;
 	guint notify_monospace_font_id;

@@ -23,7 +23,6 @@
 #ifndef _GTK_HTML_TYPES_H_
 #define _GTK_HTML_TYPES_H_
 
-#include <libgnomeprint/gnome-print.h>
 #include "gtkhtml-enums.h"
 #include <gtk/gtk.h>
 

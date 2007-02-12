@@ -26,9 +26,6 @@
 #include <gtk/gtk.h>
 #include <gnome.h>
 #include <ctype.h>
-#include <libgnomeprint/gnome-print.h>
-#include <libgnomeprint/gnome-print-pango.h>
-#include <libgnomeprint/gnome-print-paper.h>
 
 #include "htmlembedded.h"
 #include "gtkhtml-embedded.h"
@@ -48,66 +45,51 @@ static HTMLPainterClass *parent_class = NULL;
 static gdouble
 printer_get_page_height (HTMLPrinter *printer)
 {
-	double width, height = 0.0;
-
-	height =(double) gtk_print_context_get_height (printer->context);
-	width = (double)gtk_print_context_get_width (printer->context);
-	return height;
+	GtkPageSetup *page_setup;
+	page_setup = gtk_print_context_get_page_setup (printer->context);
+	return gtk_page_setup_get_page_height (page_setup, GTK_UNIT_POINTS);
 }
 
 static gdouble
 printer_get_page_width (HTMLPrinter *printer)
 {
-	gdouble width = 0.0, height;
-	width = gtk_print_context_get_width (printer->context);
-	height = gtk_print_context_get_height (printer->context);
-	return width;
+	GtkPageSetup *page_setup;
+	page_setup = gtk_print_context_get_page_setup (printer->context);
+	return gtk_page_setup_get_page_width (page_setup, GTK_UNIT_POINTS);
 }
-
-/* .5" in PS units */
-#define TEMP_MARGIN 72*.5
 
 static gdouble
 get_lmargin (HTMLPrinter *printer)
 {
 	GtkPageSetup *page_setup;
-	gdouble lmargin;
 
 	page_setup = gtk_print_context_get_page_setup (printer->context);
-	lmargin =(gdouble) gtk_page_setup_get_left_margin (page_setup, GTK_UNIT_POINTS);
-	return lmargin;
+	return gtk_page_setup_get_left_margin (page_setup, GTK_UNIT_POINTS);
 }
 
 static gdouble
 get_rmargin (HTMLPrinter *printer)
 {
 	GtkPageSetup *page_setup;
-	gdouble rmargin;
 
 	page_setup = gtk_print_context_get_page_setup (printer->context);
-	rmargin = (gdouble)gtk_page_setup_get_right_margin (page_setup, GTK_UNIT_POINTS);
-	return rmargin;
+	return gtk_page_setup_get_right_margin (page_setup, GTK_UNIT_POINTS);
 }
 
 static gdouble
 get_tmargin (HTMLPrinter *printer)
 {
 	GtkPageSetup *page_setup;
-	gdouble tmargin;
 	page_setup = gtk_print_context_get_page_setup (printer->context);
-	tmargin = (gdouble)gtk_page_setup_get_top_margin (page_setup, GTK_UNIT_POINTS);
-	return tmargin;
+	return gtk_page_setup_get_top_margin (page_setup, GTK_UNIT_POINTS);
 }
 
 static gdouble
 get_bmargin (HTMLPrinter *printer)
 {
 	GtkPageSetup *page_setup;
-	gdouble bmargin;
-
 	page_setup = gtk_print_context_get_page_setup (printer->context);
-	bmargin = (gdouble)gtk_page_setup_get_bottom_margin (page_setup, GTK_UNIT_POINTS);
-	return TEMP_MARGIN; 
+	return gtk_page_setup_get_bottom_margin (page_setup, GTK_UNIT_POINTS); 
 }
 
 gdouble
@@ -156,12 +138,8 @@ finalize (GObject *object)
 
 	printer = HTML_PRINTER (object);
 
-	if (printer->config != NULL) {
-		/* FIXME g_object_unref (printer->config); */
-		printer->config = NULL;
-	}
 	if (printer->context != NULL) {
-		g_object_unref (printer->context);
+		/* FIXME g_object_unref (printer->context);*/
 		printer->context = NULL;
 	}
 
@@ -189,16 +167,13 @@ begin (HTMLPainter *painter,
 
 	cr = gtk_print_context_get_cairo_context (pc);
 	cairo_save (cr);
-
+       
 	html_printer_coordinates_to_gnome_print (printer, x1, y1, &printer_x1, &printer_y1);
 	
 	printer_x2 = printer_x1 + SCALE_ENGINE_TO_GNOME_PRINT (x2);
 	printer_y2 = SCALE_ENGINE_TO_GNOME_PRINT (y2);
 
-	cairo_new_path (cr);
 	cairo_rectangle (cr, printer_x1, printer_y1, printer_x2, printer_y2); 
-	cairo_close_path (cr);
-
 #ifdef PRINTER_DEBUG
 	cairo_save (cr);
 	dash [0] = 10.0;
@@ -223,7 +198,7 @@ end (HTMLPainter *painter)
 	g_return_if_fail (printer->context != NULL);
 
 	cr = gtk_print_context_get_cairo_context (printer->context);
-	cairo_restore (cr);
+	cairo_show_page (cr);
 }
 
 static void
@@ -280,13 +255,9 @@ prepare_rectangle (HTMLPainter *painter, gint _x, gint _y, gint w, gint h)
 	height = SCALE_ENGINE_TO_GNOME_PRINT (h);
 	html_printer_coordinates_to_gnome_print (HTML_PRINTER (painter), _x, _y, &x, &y);
 	cr = gtk_print_context_get_cairo_context (context);
-	cairo_save (cr);
-
+	cairo_new_path (cr);
 	cairo_rectangle (cr, x, y, x + width, y + height );
-	cairo_set_line_width (cr, 2);
-	cairo_stroke (cr);
-
-	cairo_restore (cr);
+	cairo_close_path (cr);
 }
 
 static void
@@ -299,7 +270,7 @@ do_rectangle (HTMLPainter *painter, gint x, gint y, gint w, gint h, gint lw)
 	cr = gtk_print_context_get_cairo_context (context);
 	cairo_set_line_width (cr, SCALE_ENGINE_TO_GNOME_PRINT (lw) * PIXEL_SIZE); 
 	prepare_rectangle (painter,x, y, w, h);
-	cairo_fill (cr);
+	cairo_stroke (cr);
 }
 
 static void
@@ -400,7 +371,7 @@ draw_border (HTMLPainter *painter,
 	bs     = SCALE_ENGINE_TO_GNOME_PRINT (bordersize);
 
 
-html_printer_coordinates_to_gnome_print (HTML_PRINTER (painter), _x, _y, &x, &y);
+	html_printer_coordinates_to_gnome_print (HTML_PRINTER (painter), _x, _y, &x, &y);
 
 	cr = gtk_print_context_get_cairo_context (pc);
 	if (col2)
@@ -410,11 +381,10 @@ html_printer_coordinates_to_gnome_print (HTML_PRINTER (painter), _x, _y, &x, &y)
 	cairo_line_to  (cr, x + width, y);
 	cairo_line_to  (cr, x + width - bs, y + bs);
 	cairo_line_to  (cr, x + bs, y + bs );
-	cairo_line_to  (cr, x + bs, y + height + bs);
+	cairo_line_to  (cr, x + bs, y + height - bs);
 	cairo_line_to  (cr, x, y + height);
 	cairo_close_path (cr);
-	cairo_set_line_width (cr, 1); /* remove */
-	cairo_stroke (cr);
+	cairo_fill (cr);
 
 	if (col1)
 		cairo_set_source_rgb (cr, col2->red / 65535.0, col2->green / 65535.0, col2->blue / 65535.0);
@@ -424,11 +394,10 @@ html_printer_coordinates_to_gnome_print (HTML_PRINTER (painter), _x, _y, &x, &y)
 	cairo_line_to  (cr, x + width, y + height);
 	cairo_line_to  (cr, x + width, y);
 	cairo_line_to  (cr, x + width - bs, y + bs);
-	cairo_line_to  (cr, x + width - bs, y + height + bs);
-	cairo_line_to  (cr, x + bs, y + height + bs);
-	cairo_set_line_width (cr, 1); /* remove */
+	cairo_line_to  (cr, x + width - bs, y + height - bs);
+	cairo_line_to  (cr, x + bs, y + height - bs); 
 	cairo_close_path (cr);
-	cairo_fill   (cr);
+	cairo_fill (cr);
 }
 
 static void
@@ -443,7 +412,7 @@ draw_background (HTMLPainter *painter,
 	HTMLPrinter *printer;
 	gdouble x, y, width, height;
 	cairo_t *cr;
-
+  
 	printer = HTML_PRINTER (painter);
 	g_return_if_fail (printer);
 	pc = printer->context;
@@ -455,11 +424,12 @@ draw_background (HTMLPainter *painter,
 
 	if (color) {
 		cr = gtk_print_context_get_cairo_context (pc);
-
 		cairo_save (cr);
 		cairo_set_source_rgb (cr, color->red / 65535.0, color->green / 65535.0, color->blue / 65535.0);
-		cairo_rectangle (cr, x, y, x + width, y + height);
-		cairo_fill (cr);
+		cairo_new_path (cr);
+		cairo_rectangle (cr, x, y, width, height);
+		cairo_close_path (cr);
+		cairo_fill (cr); 
 		cairo_restore (cr);
 	}
 }
@@ -472,17 +442,17 @@ print_pixbuf (GtkPrintContext *pc, GdkPixbuf *pixbuf)
 		return;
 	
 	cr = gtk_print_context_get_cairo_context (pc);
-	cairo_save (cr);
 	if (gdk_pixbuf_get_has_alpha (pixbuf)) {
-		
-		gdk_cairo_set_source_pixbuf (cr, pixbuf,0,0), 
-		cairo_paint_with_alpha (cr, 1);
+		gdk_cairo_set_source_pixbuf (cr, pixbuf, 0, 0); 
+		cairo_rectangle (cr, 0, 0, (double)gdk_pixbuf_get_width (pixbuf), (double)gdk_pixbuf_get_height (pixbuf));                 cairo_clip (cr);
+		cairo_paint (cr);
 		
 	} else {
-		gdk_cairo_set_source_pixbuf (cr, pixbuf,0,0);
+		gdk_cairo_set_source_pixbuf (cr, pixbuf, 0, 0);
+		cairo_rectangle (cr, 0, 0, (double)gdk_pixbuf_get_width (pixbuf), (double)gdk_pixbuf_get_height (pixbuf));
+		cairo_clip (cr);
 		cairo_paint (cr);
 	}
-	cairo_restore (cr);
 }
 
 static void
@@ -491,18 +461,19 @@ draw_pixmap (HTMLPainter *painter, GdkPixbuf *pixbuf, gint x, gint y, gint scale
 	HTMLPrinter *printer;
 	double print_x, print_y;
 	double print_scale_width, print_scale_height;
+	double page_height;
 	cairo_t *cr;
 
 	printer = HTML_PRINTER (painter);
        	g_return_if_fail (printer->context != NULL);
-
 	cr = gtk_print_context_get_cairo_context (printer->context);
+	page_height =(double) gtk_print_context_get_height (printer->context);
 	html_printer_coordinates_to_gnome_print (printer, x, y, &print_x, &print_y);
 	print_scale_width  = SCALE_ENGINE_TO_GNOME_PRINT (scale_width);
 	print_scale_height = SCALE_ENGINE_TO_GNOME_PRINT (scale_height);
-
 	cairo_save (cr);
-	cairo_translate (cr, print_x, print_y + print_scale_height);
+	cairo_translate (cr, print_x, print_y);
+	cairo_scale (cr, print_scale_width / (double)gdk_pixbuf_get_width (pixbuf), print_scale_height / (double)gdk_pixbuf_get_height (pixbuf));
 	print_pixbuf (printer->context, pixbuf);
 	cairo_restore (cr);  
 }
@@ -524,7 +495,9 @@ fill_rect (HTMLPainter *painter, gint x, gint y, gint width, gint height)
 	html_printer_coordinates_to_gnome_print (printer, x, y, &printer_x, &printer_y);
 
 	cr = gtk_print_context_get_cairo_context (printer->context);
-	cairo_rectangle (cr, printer_x, printer_y, printer_x + printer_width, printer_y + printer_height );
+	cairo_new_path (cr);
+	cairo_rectangle (cr, printer_x, printer_y, printer_width, printer_height);
+	cairo_close_path (cr);
 	cairo_fill (cr);
 }
 
@@ -539,7 +512,7 @@ draw_lines (HTMLPrinter *printer, double x, double y, double width, PangoAnalysi
 	
 	metrics = pango_font_get_metrics (analysis->font, analysis->language);
 	cr = gtk_print_context_get_cairo_context (printer->context);
-	cairo_set_line_cap (cr,CAIRO_LINE_CAP_BUTT);
+	cairo_set_line_cap (cr, CAIRO_LINE_CAP_BUTT);
 
 	if (properties->underline) {
 #ifdef PANGO_1_5_OR_HIGHER
@@ -554,8 +527,7 @@ draw_lines (HTMLPrinter *printer, double x, double y, double width, PangoAnalysi
 	    	cairo_new_path (cr);
 		cairo_move_to (cr, x, ly + 4);
 		cairo_line_to (cr, x + width, ly + 4);
-		cairo_set_line_width (cr, thickness); 
-		cairo_close_path (cr);
+		cairo_set_line_width (cr, thickness);
 		cairo_stroke (cr);
 	}
 		
@@ -570,9 +542,9 @@ draw_lines (HTMLPrinter *printer, double x, double y, double width, PangoAnalysi
 		double ly = y + position - thickness / 2;
 #endif
 		cairo_new_path (cr);
-		cairo_move_to (cr, x, ly);
-		cairo_line_to (cr, x + width, ly);
-		cairo_set_line_width (cr, 1);
+		cairo_move_to (cr, x, ly - 8);
+		cairo_line_to (cr, x + width, ly - 8);
+		cairo_set_line_width (cr, thickness);
 		cairo_stroke (cr);
 	}
 }
@@ -619,12 +591,10 @@ draw_glyphs (HTMLPainter *painter, gint x, gint y, PangoItem *item, PangoGlyphSt
 	} else {
 		        cairo_set_source_rgb (cr, 0., 0., 0.);
 	}
-	
 	cairo_move_to (cr, print_x, print_y);
-
 	pango_cairo_show_glyph_string (cr,
 				       item->analysis.font,
-				       glyphs); 
+				       glyphs);  
 	draw_lines (printer, print_x, print_y,
 		    SCALE_PANGO_TO_GNOME_PRINT (log_rect.width),
 		    &item->analysis, &properties);
@@ -643,6 +613,7 @@ draw_embedded (HTMLPainter *p, HTMLEmbedded *o, gint x, gint y)
 
 	html_printer_coordinates_to_gnome_print (printer, x, y, &print_x, &print_y);
 	cr = gtk_print_context_get_cairo_context (printer->context);
+	cairo_save (cr);
 	cairo_translate (cr, 
 			print_x, print_y + o->height * PIXEL_SIZE);
 	embedded_widget = html_embedded_get_widget(o);
@@ -651,6 +622,7 @@ draw_embedded (HTMLPainter *p, HTMLEmbedded *o, gint x, gint y)
 				      "draw_print", 
 				       cr);
 	}
+	cairo_restore (cr);
 }
 
 static void
@@ -693,7 +665,6 @@ html_printer_init (GObject *object)
 
 	printer                = HTML_PRINTER (object);
 	printer->context       = NULL;
-	printer->config        = NULL;
 
 	html_printer_set_scale (printer, 1.0);
 }
@@ -755,24 +726,22 @@ html_printer_get_type (void)
 }
 
 HTMLPainter *
-html_printer_new (GtkWidget *widget, GtkPrintContext *context, GnomePrintJob *master)
+html_printer_new (GtkWidget *widget, GtkPrintContext *context)
 {
-	PangoCairoFontMap *font_map;
-	HTMLPrinter *new;
+	const PangoFontDescription *desc;
+	HTMLPrinter *printer;
 	HTMLPainter *painter;
 
-	new = g_object_new (HTML_TYPE_PRINTER, NULL);
-	painter = HTML_PAINTER (new);
+	printer = g_object_new (HTML_TYPE_PRINTER, NULL);
+	printer->context = g_object_ref (context);
 
-	g_object_ref (context);
-	html_painter_set_widget (HTML_PAINTER (new), widget);
-	new->context = context;
-	new->master = master;
+	painter = HTML_PAINTER (printer);
+	html_painter_set_widget (painter, widget);
+	desc = pango_font_description_from_string ("sans 8");/* FIXME font hardcoded*/
+	painter->pango_context = gtk_print_context_create_pango_context (context);
+	pango_context_set_font_description (painter->pango_context, desc);
+	return painter; 
 
-	font_map = pango_cairo_font_map_get_default ();
-	painter->pango_context = pango_cairo_font_map_create_context (font_map);
-	
-	return HTML_PAINTER (new);
 }
 
 

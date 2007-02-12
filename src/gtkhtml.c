@@ -4162,16 +4162,6 @@ gtk_html_get_base (GtkHTML *html)
 
 /* Printing.  */
 void
-gtk_html_print (GtkHTML *html,
-	        GnomePrintContext *print_context)
-{
-	g_return_if_fail (html != NULL);
-	g_return_if_fail (GTK_IS_HTML (html));
-
-	html_engine_print (html->engine, print_context);
-}
-
-void
 gtk_html_print_page (GtkHTML *html,
 		GtkPrintContext *print_context)
 {
@@ -4179,18 +4169,6 @@ gtk_html_print_page (GtkHTML *html,
 	g_return_if_fail (GTK_IS_HTML (html));
 
 	html_engine_print (html->engine, print_context);
-}
-
-void
-gtk_html_print_with_header_footer (GtkHTML *html, GnomePrintContext *print_context,
-				   gdouble header_height, gdouble footer_height,
-				   GtkHTMLPrintCallback header_print, GtkHTMLPrintCallback footer_print, gpointer user_data)
-{
-	g_return_if_fail (html != NULL);
-	g_return_if_fail (GTK_IS_HTML (html));
-
-	html_engine_print_with_header_footer (html->engine, print_context,
-					      header_height, footer_height, header_print, footer_print, user_data);
 }
 	
 void
@@ -5847,12 +5825,6 @@ gtk_html_get_allow_frameset (GtkHTML *html)
 }
 
 void
-gtk_html_print_set_master (GtkHTML *html, GnomePrintJob *print_master)
-{
-	html->priv->print_master = print_master;
-}
-
-void
 gtk_html_images_ref (GtkHTML *html)
 {
 	html_image_factory_ref_all_images (HTML_IMAGE_FACTORY (html->engine->image_factory));
@@ -5892,12 +5864,6 @@ void
 gtk_html_set_images_blocking (GtkHTML *html, gboolean block)
 {
 	html->engine->block_images = block;
-}
-
-gint
-gtk_html_print_get_pages_num (GtkHTML *html, GnomePrintContext *print_context, gdouble header_height, gdouble footer_height)
-{
-	return html_engine_print_get_pages_num (html->engine, print_context, header_height, footer_height);
 }
 
 gint

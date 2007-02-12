@@ -25,8 +25,6 @@
 #include <sys/types.h>
 #include <gtk/gtklayout.h>
 #include <gtk/gtkbindings.h>
-#include <libgnomeprint/gnome-print.h>
-#include <libgnomeprint/gnome-print-job.h>
 
 #include "gtkhtml-types.h"
 #include "gtkhtml-enums.h"
@@ -216,21 +214,6 @@ void                       gtk_html_set_animate                   (GtkHTML      
 gboolean                   gtk_html_get_animate                   (const GtkHTML             *html);
 
 /* Printing support.  */
-void                       gtk_html_print_with_header_footer      (GtkHTML                   *html,
-								   GnomePrintContext         *print_context,
-								   gdouble                    header_height,
-								   gdouble                    footer_height,
-								   GtkHTMLPrintCallback       header_print,
-								   GtkHTMLPrintCallback       footer_print,
-								   gpointer                   user_data);
-void                       gtk_html_print                         (GtkHTML                   *html,
-								   GnomePrintContext         *print_context);
-gint                       gtk_html_print_get_pages_num           (GtkHTML                   *html,
-								   GnomePrintContext         *print_context,
-								   gdouble                    header_height,
-								   gdouble                    footer_height);
-void                       gtk_html_print_set_master              (GtkHTML                   *html,
-								   GnomePrintJob             *print_master);
 void 			   gtk_html_print_page_with_header_footer  (GtkHTML		     *html,
 								   GtkPrintContext 	     *print_context,
 			   					   gdouble		      header_height,

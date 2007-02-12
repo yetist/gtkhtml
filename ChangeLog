@@ -1,3 +1,9 @@
+2007-02-12  Srinivasa Ragavan  <sragavan@novell.com>
+
+	** Patch from Mattgew Barnes
+
+	* configure.in: Remove libgnomeprint* dependency
+
 2007-02-07  Chenthill Palanisamy  <pchenthill@novell.com>
 
 	* configure.in: Inlcude gtk+-unix-print-2.0 in GTKHTML_MODULES

@@ -71,7 +71,7 @@ AC_SUBST(GAIL_CFLAGS)
 AC_SUBST(GAIL_LIBS)
 AC_SUBST(GAIL_MODULES)
 
-GTKHTML_MODULES="libgnomeui-2.0 >= 2.0.0 libgnomeprintui-2.2 >= 2.2.1  gtk+-unix-print-2.0 >= 2.10.0 libglade-2.0 >= 2.0.0"
+GTKHTML_MODULES="libgnomeui-2.0 >= 2.0.0 gtk+-unix-print-2.0 >= 2.10.0 libglade-2.0 >= 2.0.0"
 PKG_CHECK_MODULES(GTKHTML, $GTKHTML_MODULES)
 AC_SUBST(GTKHTML_CFLAGS)
 AC_SUBST(GTKHTML_LIBS)

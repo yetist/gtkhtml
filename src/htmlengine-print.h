@@ -22,7 +22,6 @@
 #ifndef _HTMLENGINE_PRINT_H
 #define _HTMLENGINE_PRINT_H
 
-#include <libgnomeprint/gnome-print.h>
 #include <gtk/gtk.h>
 #include "htmlengine.h"
 

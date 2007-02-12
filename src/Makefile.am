@@ -217,7 +217,9 @@ dist-hook:
 if HAVE_SOUP
 test_programs = testgtkhtml
 endif
-noinst_PROGRAMS = $(test_programs) gtest test-suite test-stress
+#noinst_PROGRAMS = $(test_programs) gtest test-suite test-stress
+noinst_PROGRAMS = gtest test-suite test-stress
+
 
 testgtkhtml_SOURCES = 		\
 	testgtkhtml.c		\

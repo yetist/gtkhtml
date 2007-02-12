@@ -1,3 +1,50 @@
+2007-02-12  Srinivasa Ragavan  <sragavan@novell.com>
+
+	** Printer fixes from Ebby Wiselyn and Removal of libgnomeprint*
+	dependency from Matthew Barnes.
+
+	* Makefile.am: Temprorary comment of testgtkhtml
+	* gtkhtml-embedded.h:
+	* gtkhtml-private.h:
+	* gtkhtml-types.h:
+	* gtkhtml.c:
+	* gtkhtml.h:
+	* htmlengine-print.c: (print_with_header_footer):
+	* htmlengine-print.h:
+	* htmlprinter.c: (printer_get_page_height),
+	(printer_get_page_width), (get_lmargin), (get_rmargin),
+	(get_tmargin), (get_bmargin), (finalize), (begin), (end),
+	(prepare_rectangle), (do_rectangle), (draw_border),
+	(draw_background), (print_pixbuf), (draw_pixmap), (fill_rect),
+	(draw_lines), (draw_glyphs), (draw_embedded), (html_printer_init),
+	(html_printer_new):
+	* htmlprinter.h:
+	* test-stress.c:
+	* test.c: (print_cb): Commented out print code temprorarily.
+
+2007-02-12  Srinivasa Ragavan  <sragavan@novell.com>
+
+	reviewed by: <delete if not using a buddy>
+
+	* Makefile.am:
+	* gtkhtml-embedded.h:
+	* gtkhtml-private.h:
+	* gtkhtml-types.h:
+	* gtkhtml.c:
+	* gtkhtml.h:
+	* htmlengine-print.c: (print_with_header_footer):
+	* htmlengine-print.h:
+	* htmlprinter.c: (printer_get_page_height),
+	(printer_get_page_width), (get_lmargin), (get_rmargin),
+	(get_tmargin), (get_bmargin), (finalize), (begin), (end),
+	(prepare_rectangle), (do_rectangle), (draw_border),
+	(draw_background), (print_pixbuf), (draw_pixmap), (fill_rect),
+	(draw_lines), (draw_glyphs), (draw_embedded), (html_printer_init),
+	(html_printer_new):
+	* htmlprinter.h:
+	* test-stress.c:
+	* test.c: (print_cb):
+
 2007-02-10  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* gtkhtml-embedded.c: (gtk_html_embedded_finalize):

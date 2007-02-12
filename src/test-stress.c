@@ -1,5 +1,6 @@
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <glib/gstring.h>
 #include <gtk/gtkmain.h>
 #include <gtk/gtkscrolledwindow.h>
