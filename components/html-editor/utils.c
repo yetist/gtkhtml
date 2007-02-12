@@ -206,7 +206,7 @@ static GtkStockItem test_url_items [] =
 };
 
 void
-editor_check_stock ()
+editor_check_stock (void)
 {
 	if (!stock_test_url_added) {
 		GdkPixbuf *pixbuf;

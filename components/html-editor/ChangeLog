@@ -1,3 +1,8 @@
+2007-02-12  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* utils.c: (editor_check_stock): One more sparse warning
+	after the printing merge.
+
 2007-02-10  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* editor-control-factory.c: (editor_control_construct),
