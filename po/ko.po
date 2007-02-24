@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-02-17 21:21+0900\n"
-"PO-Revision-Date: 2007-02-17 21:26+0900\n"
+"PO-Revision-Date: 2007-02-25 04:45+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: GNOME Korea <gnome-kr-hackers@lists.kldp.net>\n"
 "MIME-Version: 1.0\n"
@@ -470,7 +470,7 @@ msgstr "원래 모양대로"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:83
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
 msgid "Redo"
-msgstr "재실행"
+msgstr "다시 실행"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:84
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
