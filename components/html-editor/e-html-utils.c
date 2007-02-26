@@ -263,6 +263,9 @@ e_text_to_html_full (const char *input, unsigned int flags, guint32 color)
 			    !g_ascii_strncasecmp ((gchar *) cur, "https://", 8) ||
 			    !g_ascii_strncasecmp ((gchar *) cur, "ftp://", 6) ||
 			    !g_ascii_strncasecmp ((gchar *) cur, "nntp://", 7) ||
+			    !g_ascii_strncasecmp ((gchar *) cur, "callto:", 7) ||
+			    !g_ascii_strncasecmp ((gchar *) cur, "h323:", 5) ||
+			    !g_ascii_strncasecmp ((gchar *) cur, "sip:", 4) ||
 			    !g_ascii_strncasecmp ((gchar *) cur, "mailto:", 7) ||
 			    !g_ascii_strncasecmp ((gchar *) cur, "news:", 5)) {
 				tmpurl = url_extract (&cur, TRUE);

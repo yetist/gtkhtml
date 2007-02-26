@@ -1,3 +1,8 @@
+2007-02-26  Srinivasa Ragavan  <sragavan@novell.com>
+
+	** Fixes bug #331813
+	* htmltext.c: Patch from Gilles Dartiguelongue  
+
 2007-02-12  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* htmlcursor.c: Add missing include.

@@ -1,3 +1,10 @@
+2007-02-26  Srinivasa Ragavan  <sragavan@novell.com>
+
+	** Fixes bug #331813
+
+	* e-html-utils.c: (e_text_to_html_full): Patch from 
+	Gilles Dartiguelongue 
+
 2007-02-12  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* utils.c: (editor_check_stock): One more sparse warning
