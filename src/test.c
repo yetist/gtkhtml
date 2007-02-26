@@ -160,31 +160,29 @@ dump_simple_cb (GtkWidget *widget, gpointer data)
 }
 
 static void
+draw_page_cb (GtkPrintOperation *operation, GtkPrintContext *context,
+              gint page_nr, gpointer user_data)
+{
+	gtk_html_print_page (GTK_HTML (html), context);
+}
+
+static void
 print_cb (GtkWidget *widget, gpointer data)
 {
-	GtkPrintOperation *job;
-	GtkPrintContext *gpc;
-	GtkPrintSettings *config;
-	
-	//job = gnome_print_job_new (NULL);
-	//gpc = gnome_print_job_get_context (job);
-	//config = gnome_print_job_get_config (job);
+	GtkPrintOperation *operation;
 
-	//gnome_print_config_set (config, (guchar *) "Printer", (guchar *) "GENERIC");
-	//gnome_print_job_print_to_file (job, "o.ps");
-	
-	//gnome_print_config_set (config, (guchar *) GNOME_PRINT_KEY_PAPER_SIZE, (guchar *) "USLetter");
-	
-	gtk_html_print_page (GTK_HTML (html), gpc);
+	operation = gtk_print_operation_new ();
+	gtk_print_operation_set_n_pages (operation, 1);
 
-	//gnome_print_job_close (job);
-	//gnome_print_job_print (job);
+	g_signal_connect (
+		operation, "draw-page",
+		G_CALLBACK (draw_page_cb), NULL);
 
-	g_object_unref (G_OBJECT (config));
-	g_object_unref (G_OBJECT (gpc));
-	g_object_unref (G_OBJECT (job));
+	gtk_print_operation_run (
+		operation, GTK_PRINT_OPERATION_ACTION_PRINT_DIALOG,
+		NULL, NULL);
 
-	g_spawn_command_line_async ("ggv o.ps", NULL);
+	g_object_unref (operation);
 }
 
 /* We want to sort "a2" < "b1" < "B1" < "b2" < "b12". Vastly
@@ -368,7 +366,7 @@ main (int argc, char **argv)
 	g_signal_connect (action_button, "clicked", G_CALLBACK (dump_simple_cb), NULL);
 	action_button = gtk_button_new_with_label ("Print");
 	gtk_box_pack_end (GTK_BOX (hbox), action_button, FALSE, FALSE, 0);
-	g_signal_connect (action_button, "clicked", G_CALLBACK (print_cb), NULL);
+	g_signal_connect (action_button, "clicked", G_CALLBACK (print_cb), window);
 	action_button = gtk_button_new_with_label ("Quit");
 	gtk_box_pack_end (GTK_BOX (hbox), action_button, FALSE, FALSE, 0);
 	g_signal_connect (action_button, "clicked", G_CALLBACK (quit_cb), NULL);

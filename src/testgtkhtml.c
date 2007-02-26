@@ -31,10 +31,6 @@
 #include <gtk/gtk.h>
 #include <gtk/gtkbutton.h>
 
-#include <libgnomeprint/gnome-print.h>
-#include <libgnomeprint/gnome-print-job.h>
-#include <libgnomeprintui/gnome-print-job-preview.h>
-
 #include <libsoup/soup.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -108,6 +104,7 @@ static GtkWidget *entry;
 static GtkWidget *popup_menu, *popup_menu_back, *popup_menu_forward, *popup_menu_home;
 static GtkWidget *toolbar_back, *toolbar_forward;
 static HTMLURL *baseURL = NULL;
+static GtkTooltips *tooltips;
 
 static GList *go_list;
 static int go_position;
@@ -210,14 +207,14 @@ create_toolbars (GtkWidget *app)
 	gtk_box_pack_start (GTK_BOX (hbox), toolbar, FALSE, FALSE, 0);
 
 	item = gtk_tool_button_new_from_stock (GTK_STOCK_GO_BACK);
-	gtk_tool_item_set_tooltip (item, NULL, "Move back", "Back");
+	gtk_tool_item_set_tooltip (item, tooltips, "Move back", "Back");
 	g_signal_connect (item, "clicked", G_CALLBACK (back_cb), NULL);
 	gtk_toolbar_insert (GTK_TOOLBAR (toolbar), item, -1);
 	gtk_widget_set_sensitive (GTK_WIDGET (item), FALSE);
 	toolbar_back = GTK_WIDGET (item);
 
 	item = gtk_tool_button_new_from_stock (GTK_STOCK_GO_FORWARD);
-	gtk_tool_item_set_tooltip (item, NULL, "Move forward", "Forward");
+	gtk_tool_item_set_tooltip (item, tooltips, "Move forward", "Forward");
 	g_signal_connect (item, "clicked", G_CALLBACK (forward_cb), NULL);
 	gtk_toolbar_insert (GTK_TOOLBAR (toolbar), item, -1);
 	gtk_widget_set_sensitive (GTK_WIDGET (item), FALSE);
@@ -227,17 +224,17 @@ create_toolbars (GtkWidget *app)
 	gtk_toolbar_insert (GTK_TOOLBAR (toolbar), item, -1);
 
 	item = gtk_tool_button_new_from_stock (GTK_STOCK_STOP);
-	gtk_tool_item_set_tooltip (item, NULL, "Stop loading", "Stop");
+	gtk_tool_item_set_tooltip (item, tooltips, "Stop loading", "Stop");
 	g_signal_connect (item, "clicked", G_CALLBACK (stop_cb), NULL);
 	gtk_toolbar_insert (GTK_TOOLBAR (toolbar), item, -1);
 
 	item = gtk_tool_button_new_from_stock (GTK_STOCK_REFRESH);
-	gtk_tool_item_set_tooltip (item, NULL, "Reload page", "Reload");
+	gtk_tool_item_set_tooltip (item, tooltips, "Reload page", "Reload");
 	g_signal_connect (item, "clicked", G_CALLBACK (reload_cb), NULL);
 	gtk_toolbar_insert (GTK_TOOLBAR (toolbar), item, -1);
 
 	item = gtk_tool_button_new_from_stock (GTK_STOCK_HOME);
-	gtk_tool_item_set_tooltip (item, NULL, "Home page", "Home");
+	gtk_tool_item_set_tooltip (item, tooltips, "Home page", "Home");
 	g_signal_connect (item, "clicked", G_CALLBACK (home_cb), NULL);
 
 	item = gtk_separator_tool_item_new ();
@@ -286,56 +283,85 @@ create_toolbars (GtkWidget *app)
 }
 
 static gint page_num, pages;
-static GnomeFont *font;
+static PangoLayout *layout;
 
 static void
-print_footer (GtkHTML *html, GnomePrintContext *context,
-	      gdouble x, gdouble y, gdouble width, gdouble height, gpointer user_data)
+print_footer (GtkHTML *html, GtkPrintContext *context, gdouble x, gdouble y,
+              gdouble width, gdouble height, gpointer user_data)
 {
-	gchar *text = g_strdup_printf ("- %d of %d -", page_num, pages);
-	gdouble tw = gnome_font_get_width_utf8 (font, "text");
+	gchar *text;
+	cairo_t *cr;
 
-	if (font) {
-		gnome_print_newpath     (context);
-		gnome_print_setrgbcolor (context, .0, .0, .0);
-		gnome_print_moveto      (context, x + (width - tw)/2, y - gnome_font_get_ascender (font));
-		gnome_print_setfont     (context, font);
-		gnome_print_show        (context, (guchar *) text);
-	}
+	text = g_strdup_printf ("- %d of %d -", page_num++, pages);
+
+	pango_layout_set_width (layout, width * PANGO_SCALE);
+	pango_layout_set_text (layout, text, -1);
+
+	cr = gtk_print_context_get_cairo_context (context);
+
+	cairo_save (cr);
+	cairo_move_to (cr, x, y);
+	pango_cairo_show_layout (cr, layout);
+	cairo_restore (cr);
 
 	g_free (text);
-	page_num++;
+}
+
+static void
+draw_page_cb (GtkPrintOperation *operation, GtkPrintContext *context,
+              gint page_nr, gpointer user_data)
+{
+	/* XXX GtkHTML's printing API doesn't really fit well with GtkPrint.
+	 *     Instead of calling a function for each page, GtkHTML prints
+	 *     everything in one shot. */
+
+	PangoFontDescription *desc;
+	PangoFontMetrics *metrics;
+	gdouble footer_height;
+
+	desc = pango_font_description_from_string ("Helvetica 12");
+
+	layout = gtk_print_context_create_pango_layout (context);
+	pango_layout_set_alignment (layout, PANGO_ALIGN_CENTER);
+	pango_layout_set_font_description (layout, desc);
+
+	metrics = pango_context_get_metrics (
+		pango_layout_get_context (layout),
+		desc, pango_language_get_default ());
+	footer_height = (pango_font_metrics_get_ascent (metrics) +
+		pango_font_metrics_get_descent (metrics)) / PANGO_SCALE;
+	pango_font_metrics_unref (metrics);
+
+	pango_font_description_free (desc);
+
+	page_num = 1;
+	pages = gtk_html_print_page_get_pages_num (
+		html, context, .0, footer_height);
+
+	gtk_html_print_page_with_header_footer (
+		html, context, .0, footer_height,
+		NULL, print_footer, NULL);
+
+	g_object_unref (layout);
 }
 
 static void
 print_preview_cb (GtkWidget *widget,
 		  gpointer data)
 {
-	GnomePrintJob *print_master;
-	GnomePrintContext *print_context;
-	GtkWidget *preview;
+	GtkPrintOperation *operation;
 
-	print_master = gnome_print_job_new (NULL);
-	/* FIX2 gnome_print_master_set_paper (print_master, gnome_paper_with_name ("US-Letter")); */
-	gtk_html_print_set_master (html, print_master);
+	operation = gtk_print_operation_new ();
+	gtk_print_operation_set_n_pages (operation, 1);
 
-	print_context = gnome_print_job_get_context (print_master);
-	font = gnome_font_find_closest ((guchar *) "Helvetica", 12);
+	g_signal_connect (
+		operation, "draw-page",
+		G_CALLBACK (draw_page_cb), NULL);
 
-	page_num = 1;
-	pages = gtk_html_print_get_pages_num (html, print_context,
-					      .0, gnome_font_get_ascender (font) - gnome_font_get_descender (font));
-	gtk_html_print_with_header_footer (html, print_context,
-					   .0, gnome_font_get_ascender (font) - gnome_font_get_descender (font),
-					   NULL, print_footer, NULL);
-	if (font)
-		g_object_unref (font);
-	
-	gnome_print_job_close (print_master);
-	preview = gnome_print_job_preview_new (print_master, (guchar *) "Print Preview");
-	gtk_widget_show (preview);
+	gtk_print_operation_run (
+		operation, GTK_PRINT_OPERATION_ACTION_PREVIEW, NULL, NULL);
 
-	g_object_unref (print_master);
+	g_object_unref (operation);
 }
 
 static void
@@ -1015,6 +1041,8 @@ main (gint argc, gchar *argv[])
 	app = gnome_app_new ("testgtkhtml", "GtkHTML: testbed application");
 
 	g_signal_connect (app, "delete_event", G_CALLBACK (exit_cb), NULL);
+
+	tooltips = gtk_tooltips_new ();
 
 	create_toolbars (app);
 	bar = gnome_appbar_new (FALSE, TRUE, GNOME_PREFERENCES_USER);
