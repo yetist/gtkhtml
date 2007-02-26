@@ -1,3 +1,25 @@
+GtkHTML-3.13.92 2007-02-26
+--------------------------
+Bug Fixes:
+	Harish Krishnaswamy
+	Matthew Barnes
+	Gilles Dartiguelongue
+
+Updated Translations:
+	Luca Ferretti (it)
+	Gabor Kelemen (hu)
+	Changwoo Ryu (ko)
+	Nguyễn Thái Ngọc Duy (vi)
+	Alexander Shopov (bg)
+	Leonardo Ferreira Fontenelle (pt_BR)
+	Artur Flinta (pl)
+	Maxim Dziumanenko (uk)
+	Hendrik Brandt (de)
+	Duarte Loreto (pt)
+	Ilkka Tuohela (fi)
+	Kjartan Maraas (nb)
+	Priit Laes  (et)
+
 GtkHTML-3.13.91 2007-02-12
 --------------------------
 Major Changes

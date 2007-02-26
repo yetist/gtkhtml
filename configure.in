@@ -25,7 +25,7 @@ AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Package name for gettex
 I18N_LIB_CFLAGS="-DGNOME_EXPLICIT_TRANSLATION_DOMAIN=\\\"${GTKHTML_RELEASE_STRING}\\\""
 AC_SUBST(I18N_LIB_CFLAGS)
 
-AM_INIT_AUTOMAKE($PACKAGE, 3.13.91)
+AM_INIT_AUTOMAKE($PACKAGE, 3.13.92)
 
 AM_MAINTAINER_MODE
 
@@ -160,7 +160,7 @@ GTKHTML_REVISION=0
 dnl Increment if any interfaces have been added; set to 0
 dnl if any interfaces have been removed. removal has 
 dnl precedence over adding, so set to 0 if both happened.
-GTKHTML_AGE=4
+GTKHTML_AGE=0
 
 AC_SUBST(GTKHTML_CURRENT)
 AC_SUBST(GTKHTML_REVISION)
