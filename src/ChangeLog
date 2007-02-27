@@ -1,3 +1,10 @@
+2007-02-27  Matthew Barnes  <mbarnes@redhat.com>
+
+	** Fixes bug #412342
+
+	* testgtkhtml.c (draw_page_cb): pango_language_get_default() is too
+	new to be using just yet.  Use gtk_get_default_langage() instead.
+
 2007-02-26  Matthew Barnes  <mbarnes@redhat.com>
 
 	** Fixes bug #401970
