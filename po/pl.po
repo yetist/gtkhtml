@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-20 23:24+0100\n"
-"PO-Revision-Date: 2006-11-16 12:40+0100\n"
+"POT-Creation-Date: 2007-02-28 20:53+0100\n"
+"PO-Revision-Date: 2007-02-27 01:20+0100\n"
 "Last-Translator: wadim dziedzic <nikdo@aviary.pl>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -1199,6 +1199,13 @@ msgid ""
 "+3\n"
 "+4"
 msgstr ""
+"-2\n"
+"-1\n"
+"Standardowy\n"
+"+1\n"
+"+2\n"
+"+3\n"
+"+4"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:10
 msgid "<b>Alignment &amp; Behaviour</b>"
@@ -1295,6 +1302,9 @@ msgid ""
 "Center\n"
 "Right"
 msgstr ""
+"Lewo\n"
+"Środek\n"
+"Prawo"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:38
 msgid ""
@@ -1303,6 +1313,10 @@ msgid ""
 "Right\n"
 "None"
 msgstr ""
+"Lewo\n"
+"Środek\n"
+"Prawo\n"
+"Brak"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:42
 msgid "Link properties"
@@ -1330,6 +1344,9 @@ msgid ""
 "Middle\n"
 "Bottom"
 msgstr ""
+"Góra\n"
+"Środek\n"
+"Dół"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:55
 msgid "Vertical:"
@@ -1416,74 +1433,72 @@ msgid "px"
 msgstr "piks."
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:81
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "px\n"
 "%"
-msgstr "piks."
+msgstr ""
+"px\n"
+"%s"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:84
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "px\n"
 "%\n"
 "follow"
-msgstr "dopasowanie"
+msgstr ""
+"px\n"
+"%\n"
+"nast."
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:87
 msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
 #: ../components/html-editor/html-editor-control.xml.h:1
-#, fuzzy
 msgid "C_ut"
-msgstr "Wytnij"
+msgstr "_Wytnij"
 
 #: ../components/html-editor/html-editor-control.xml.h:4
-#, fuzzy
 msgid "Find Rege_x..."
-msgstr "_Znajdź..."
+msgstr "Znajdź wyrażenie _regularne"
 
 #: ../components/html-editor/html-editor-control.xml.h:9
 msgid "Modify the file's properties"
-msgstr ""
+msgstr "Zmienia właściwości pliku"
 
 #: ../components/html-editor/html-editor-control.xml.h:13
-#, fuzzy
 msgid "Regular expression search"
-msgstr "Wy_rażenie regularne"
+msgstr "Szukawnie z wyrażeniami regularnymi"
 
 #: ../components/html-editor/html-editor-control.xml.h:14
-#, fuzzy
 msgid "Replace a string"
-msgstr "Potwierdzenie zastąpienia"
+msgstr "Zamiana ciągu znaków"
 
 #: ../components/html-editor/html-editor-control.xml.h:15
 msgid "Search again for the same string"
-msgstr ""
+msgstr "Szuka ponownie tego samego ciągu znaków"
 
 #: ../components/html-editor/html-editor-control.xml.h:16
 msgid "Search for a string"
-msgstr ""
+msgstr "Wyszukuje ciąg znaków"
 
 #: ../components/html-editor/html-editor-control.xml.h:22
 msgid "_Insert"
 msgstr "_Wstaw"
 
 #: ../components/html-editor/html-editor-control.xml.h:23
-#, fuzzy
 msgid "_Insert text file... (FIXME)"
-msgstr "Wstaw plik tekstowy"
+msgstr "_Wstaw plik tekstowy"
 
 #: ../components/html-editor/html-editor-control.xml.h:26
-#, fuzzy
 msgid "_Paste Quotation"
-msgstr "Wklej cytat"
+msgstr "W_klej cytat"
 
 #: ../components/html-editor/html-editor-control.xml.h:27
-#, fuzzy
 msgid "_Properties..."
-msgstr "Właściwości"
+msgstr "Wł_aściwości"
 
 #: ../components/html-editor/link.c:209
 msgid "URL:"
@@ -1945,19 +1960,19 @@ msgstr "Wyczyść"
 msgid "Cannot allocate default font for printing\n"
 msgstr "Nie można uzyskać domyślnej czcionki do drukowania\n"
 
-#: ../src/test.c:376
+#: ../src/test.c:374
 msgid "GtkHTML Test"
 msgstr "Test GtkHTML-a"
 
-#: ../src/testgtkhtml.c:121
+#: ../src/testgtkhtml.c:118
 msgid "Print pre_view"
 msgstr "Podgląd _wydruku"
 
-#: ../src/testgtkhtml.c:121
+#: ../src/testgtkhtml.c:118
 msgid "Print preview"
 msgstr "Podgląd wydruku"
 
-#: ../src/testgtkhtml.c:1012
+#: ../src/testgtkhtml.c:1038
 msgid "GtkHTML Test Application"
 msgstr "Aplikacja testowa GtkHTML"
 
