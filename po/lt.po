@@ -1,26 +1,25 @@
 # translation of lt.po to Lithuanian
 # Lithuanian translation of gtkhtml.
-# Copyright (C) 2000-2006 Free Software Foundation, Inc.
+# Copyright (C) 2000-2006, 2007 Free Software Foundation, Inc.
 #
 #
 # Gediminas Paulauskas <menesis@delfi.lt>, 2001-2004.
 # Tomas Kuliavas <tokul@users.sourceforge.net>, 2004.
 # Žygimantas Beručka <zygis@gnome.org>, 2004-2006.
-# Gintautas Miliauskas <gintas@akl.lt>, 2006.
+# Gintautas Miliauskas <gintas@akl.lt>, 2006, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: lt\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-27 15:48+0200\n"
-"PO-Revision-Date: 2006-08-29 23:16+0300\n"
+"POT-Creation-Date: 2007-03-09 22:19+0200\n"
+"PO-Revision-Date: 2007-03-09 22:22+0200\n"
 "Last-Translator: Gintautas Miliauskas <gintas@akl.lt>\n"
-"Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
+"Language-Team: Lithuanian <gnome-lt@lists.akl.lt>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.2\n"
-"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
-"100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: ../a11y/image.c:151
 #, c-format
@@ -1201,6 +1200,13 @@ msgid ""
 "+3\n"
 "+4"
 msgstr ""
+"-2\n"
+"-1\n"
+"Įprastas\n"
+"+1\n"
+"+2\n"
+"+3\n"
+"+4"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:10
 msgid "<b>Alignment &amp; Behaviour</b>"
@@ -1297,6 +1303,9 @@ msgid ""
 "Center\n"
 "Right"
 msgstr ""
+"Kairė\n"
+"Vidurys\n"
+"Dešinė"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:38
 msgid ""
@@ -1305,6 +1314,10 @@ msgid ""
 "Right\n"
 "None"
 msgstr ""
+"Kairė\n"
+"Vidurys\n"
+"Dešinė\n"
+"Jokio"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:42
 msgid "Link properties"
@@ -1332,6 +1345,9 @@ msgid ""
 "Middle\n"
 "Bottom"
 msgstr ""
+"Viršus\n"
+"Vidurys\n"
+"Dešinė"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:55
 msgid "Vertical:"
@@ -1418,75 +1434,72 @@ msgid "px"
 msgstr "px"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:81
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "px\n"
 "%"
-msgstr "px"
+msgstr ""
+"px\n"
+"%"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:84
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "px\n"
 "%\n"
 "follow"
-msgstr "sekti"
+msgstr ""
+"px\n"
+"%\n"
+"sekti"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:87
 msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
 #: ../components/html-editor/html-editor-control.xml.h:1
-#, fuzzy
 msgid "C_ut"
-msgstr "Iškirpti"
+msgstr "Iš_kirpti"
 
 #: ../components/html-editor/html-editor-control.xml.h:4
-#, fuzzy
 msgid "Find Rege_x..."
-msgstr "R_asti..."
+msgstr "R_asti reg. išraišką..."
 
 #: ../components/html-editor/html-editor-control.xml.h:9
 msgid "Modify the file's properties"
-msgstr ""
+msgstr "Keisti failo savybes"
 
 #: ../components/html-editor/html-editor-control.xml.h:13
-#, fuzzy
 msgid "Regular expression search"
-msgstr "_Reguliari išraiška"
+msgstr "Paieška pagal reg. išraišką"
 
 #: ../components/html-editor/html-editor-control.xml.h:14
-#, fuzzy
 msgid "Replace a string"
-msgstr "Pakeitimo patvirtinimas"
+msgstr "Pakeisti simbolių seką"
 
 #: ../components/html-editor/html-editor-control.xml.h:15
 msgid "Search again for the same string"
-msgstr ""
+msgstr "Toliau ieškoti tos pačios simbolių sekos"
 
 #: ../components/html-editor/html-editor-control.xml.h:16
 msgid "Search for a string"
-msgstr ""
+msgstr "Ieškoti simbolių sekos"
 
 #: ../components/html-editor/html-editor-control.xml.h:22
-#, fuzzy
 msgid "_Insert"
-msgstr "Įterpti"
+msgstr "Į_terpti"
 
 #: ../components/html-editor/html-editor-control.xml.h:23
-#, fuzzy
 msgid "_Insert text file... (FIXME)"
-msgstr "Įterpti tekstinį failą"
+msgstr "Įt_erpti tekstinį failą..."
 
 #: ../components/html-editor/html-editor-control.xml.h:26
-#, fuzzy
 msgid "_Paste Quotation"
-msgstr "Įterpti citatą"
+msgstr "Įte_rpti citatą"
 
 #: ../components/html-editor/html-editor-control.xml.h:27
-#, fuzzy
 msgid "_Properties..."
-msgstr "Savybės"
+msgstr "_Savybės..."
 
 #: ../components/html-editor/link.c:209
 msgid "URL:"
@@ -1948,54 +1961,19 @@ msgstr "Atstatyti"
 msgid "Cannot allocate default font for printing\n"
 msgstr "Nepavyko priskirti numatytojo spausdinimo šrifto\n"
 
-#: ../src/test.c:376
+#: ../src/test.c:374
 msgid "GtkHTML Test"
 msgstr "GtkHTML testas"
 
-#: ../src/testgtkhtml.c:121
+#: ../src/testgtkhtml.c:118
 msgid "Print pre_view"
 msgstr "Spaudinio p_eržiūra"
 
-#: ../src/testgtkhtml.c:121
+#: ../src/testgtkhtml.c:118
 msgid "Print preview"
 msgstr "Spaudinio peržiūra"
 
-#: ../src/testgtkhtml.c:1012
+#: ../src/testgtkhtml.c:1038
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML bandomoji programa"
 
-#~ msgid "%"
-#~ msgstr "%"
-
-#~ msgid "+4"
-#~ msgstr "+4"
-
-#~ msgid "Bottom"
-#~ msgstr "Pagal apačią"
-
-#~ msgid "Middle"
-#~ msgstr "Viduryje"
-
-#~ msgid "Percent"
-#~ msgstr "Procentų"
-
-#~ msgid "Pixels"
-#~ msgstr "Taškelių"
-
-#~ msgid "Standard"
-#~ msgstr "Standartinis"
-
-#~ msgid "Top"
-#~ msgstr "Pagal viršų"
-
-#~ msgid "Dot item"
-#~ msgstr "Taškinis punktas"
-
-#~ msgid "Number item"
-#~ msgstr "Numeris"
-
-#~ msgid "Roman item"
-#~ msgstr "Romėniškas numeris"
-
-#~ msgid "Alphabeta item"
-#~ msgstr "Abėcėlės punktas"
