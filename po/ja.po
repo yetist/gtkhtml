@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml trunk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-11 22:53+0900\n"
-"PO-Revision-Date: 2007-03-11 22:53+0900\n"
+"POT-Creation-Date: 2007-03-11 23:08+0900\n"
+"PO-Revision-Date: 2007-03-11 23:05+0900\n"
 "Last-Translator: Takeshi AIHANA <takeshi.aihana@gmail.com>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -298,7 +298,7 @@ msgstr "文書にウィンクしたスマイリーを挿入します..."
 #: ../components/html-editor/menubar.c:101
 #: ../components/html-editor/menubar.c:109
 msgid "Insert image"
-msgstr "画像の挿入"
+msgstr "画像を挿入します"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:51
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
