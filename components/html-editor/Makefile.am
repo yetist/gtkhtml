@@ -134,29 +134,29 @@ libgnome_gtkhtml_editor_la_SOURCES =		\
 
 if EDITOR_SHLIB
 MY_PRGS =
-MY_LIBS = libgnome-gtkhtml-editor-3.8.la
+MY_LIBS = libgnome-gtkhtml-editor-3.14.la
 location = "${privlibdir_in_server_file}/libgnome-gtkhtml-editor-$(EDITOR_API_VERSION)$(SOEXT)"
 else
-MY_PRGS = gnome-gtkhtml-editor-3.8
+MY_PRGS = gnome-gtkhtml-editor-3.14
 MY_LIBS =
 location = "${libexecdir}/$(MY_PRGS)$(EXEEXT)"
 endif
 
-libgnome_gtkhtml_editor_3_8_la_SOURCES =	\
+libgnome_gtkhtml_editor_3_14_la_SOURCES =	\
 	editor-control-shlib.c
 
-libgnome_gtkhtml_editor_3_8_la_LDFLAGS =	\
+libgnome_gtkhtml_editor_3_14_la_LDFLAGS =	\
 	-avoid-version -module -no-undefined
 
-libgnome_gtkhtml_editor_3_8_la_LIBADD =	\
+libgnome_gtkhtml_editor_3_14_la_LIBADD =	\
 	$(LDADD)			\
 	libgnome-gtkhtml-editor.la
 
-gnome_gtkhtml_editor_3_8_LDADD = \
+gnome_gtkhtml_editor_3_14_LDADD = \
 	$(LDADD)			\
 	libgnome-gtkhtml-editor.la
 
-gnome_gtkhtml_editor_3_8_SOURCES = \
+gnome_gtkhtml_editor_3_14_SOURCES = \
 	gnome-gtkhtml-editor.c
 
 noinst_LTLIBRARIES = libgnome-gtkhtml-editor.la
