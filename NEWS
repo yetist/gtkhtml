@@ -1,3 +1,24 @@
+GtkHTML-3.14.00 2007-03-12
+--------------------------
+
+Fixes since GtkHTML-3.13.92:
+	Harish Krishnaswamy (401970)
+	
+Updated Translations:
+	
+	Takeshi AIHANA (ja)
+	Mugurel Tudor (ro)
+	Nickolay V. Shmyrev (ru)
+	Gintautas Miliauskas (lt)
+	Tino Meinen (nl)
+	Jovan Naumovski (mk)
+	Ankit Patel (gu)
+	Josep Puigdemont i Casamajó (ca)
+	Chao-Hsiung Liao (zh_HK, zh_TW)
+	Artur Flinta, GNOME PL Team (pl)
+	Ivar Smolin (et)
+	Gintautas Miliauskas (lt)
+	
 GtkHTML-3.13.92 2007-02-26
 --------------------------
 Bug Fixes:
