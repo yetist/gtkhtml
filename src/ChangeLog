@@ -1,3 +1,8 @@
+2007-03-12 Harish Krishnaswamy <kharish@novell.com>
+
+	* Makefile.am : Fix for #401970 committed after approval from
+	the release team.
+	
 2007-02-27  Matthew Barnes  <mbarnes@redhat.com>
 
 	** Fixes bug #412342

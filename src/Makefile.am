@@ -32,7 +32,7 @@ AM_CFLAGS = 						\
         -DGNOMELOCALEDIR=\""$(prefix)/$(DATADIRNAME)/locale"\"
 #	-DGTK_DISABLE_DEPRECATED=1
 
-lib_LTLIBRARIES = libgtkhtml-3.8.la
+lib_LTLIBRARIES = libgtkhtml-3.14.la
 
 libgtkhtmldir = $(includedir)/libgtkhtml-@GTKHTML_API_VERSION@/gtkhtml
 
@@ -51,7 +51,7 @@ libgtkhtml_HEADERS =				\
 	htmltokenizer.h				\
 	$(NULL)
 
-libgtkhtml_3_8_la_SOURCES =			\
+libgtkhtml_3_14_la_SOURCES =			\
 	gtkhtml-embedded.c			\
 	gtkhtml-properties.c			\
 	gtkhtml-search.c			\
@@ -206,8 +206,8 @@ libgtkhtml_3_8_la_SOURCES =			\
 	$(PLATFORM_DEP_SOURCES)			\
 	$(NULL)
 
-libgtkhtml_3_8_la_LDFLAGS = -version-info $(GTKHTML_CURRENT):$(GTKHTML_REVISION):$(GTKHTML_AGE) -no-undefined
-libgtkhtml_3_8_la_LIBADD = $(GTKHTML_LIBS) ../a11y/libgtkhtml-a11y.la $(GAIL_LIBS) $(REGEX_LIBS)
+libgtkhtml_3_14_la_LDFLAGS = -version-info $(GTKHTML_CURRENT):$(GTKHTML_REVISION):$(GTKHTML_AGE) -no-undefined
+libgtkhtml_3_14_la_LIBADD = $(GTKHTML_LIBS) ../a11y/libgtkhtml-a11y.la $(GAIL_LIBS) $(REGEX_LIBS)
 
 dist-hook:
 	mkdir $(distdir)/tests
