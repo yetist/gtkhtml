@@ -1,0 +1,77 @@
+Some notes on supporting Undo/Redo when implementing new commands
+-----------------------------------------------------------------
+
+  All the editor commands that modify something in the HTML document
+must support undo and redo.  Otherwise, it will break undo/redo for
+all the other commands too, as undo/redo operations assume that the
+document is in exactly the same state as it was before the action was
+done/undone.
+
+  First of all, make sure the function implementing the action calls
+the following function before doing any modifications to the document:
+
+        html_undo_discard_redo (engine->undo);
+
+This will destroy the redo list, and is necessary because a "redo"
+makes sense only if the previous modifying operation was an "undo"; as
+the editor has no way to know whether the command will modify the
+document or not, you have to do this yourself when needed.
+
+  Then, you have to make sure you provide an undo action after the
+operation is done.  Undo actions are defined by the `HTMLUndoAction'
+object, which is created through the function `html_undo_action_new()'
+defined in `htmlundo-action.h':
+
+        typedef void (* HTMLUndoActionFunction) (HTMLEngine *engine,
+                                                 gpointer closure);
+        typedef void (* HTMLUndoActionClosureDestroyFunction)
+                                                (gpointer closure);
+
+
+        HTMLUndoAction *
+        html_undo_action_new (const gchar *description,
+              		      HTMLUndoActionFunction undo_function,
+     		              HTMLUndoActionClosureDestroyFunction
+                                      closure_destroy_function,
+                              gpointer closure,
+                              gint position);
+
+The meaning of the parameters is as follows:
+
+    - The `undo_function' is the function that will physically perform
+      the action.
+
+    - The `closure' is an arbitrary pointer that will be passed to
+      this function as the second parameter.
+
+    - The `closure_destroy_function' is a function that will be called
+      when the action is destroyed: the purpose is to let you free the
+      information associated with the action when the action itself is
+      freed.
+
+    - `position' is the absolute cursor position to restore before
+      calling the `undo_function'.  Normally you will want to use the
+      value returned by `html_cursor_get_position (engine->cursor)'.
+
+  After creating a suitable `HTMLUndo' object, you can add it to the
+undo list by using the following function, defined in `htmlundo.h':
+
+        void html_undo_add_undo_action (HTMLUndo *undo,
+                                        HTMLUndoAction *action);
+
+  The `HTMLUndo' object associated with the editor can be retrieved
+from the `HTMLEngine' struct: it's simply called `undo'.  So, the
+normal way to add an undo action is:
+
+        html_undo_add_undo_action (engine->undo, action);
+
+  Before returning from the `undo_function', you must also add a
+corresponding redo action to the redo list.  The redo action should
+undo what the undo function has done, and is defined by the same
+`HTMLUndo' object that defines undo actions.  In order to add the
+action to the redo list instead of the undo list, use
+`html_undo_add_redo_action()' instead of
+`html_undo_add_undo_action()':
+
+        html_undo_add_redo_action (engine->undo, action);
+

@@ -1,0 +1,7 @@
+.deps
+.libs
+Makefile.in
+Makefile
+bonobo-storage-http.lo
+bonobo-stream-http.lo
+libstorage_http.la

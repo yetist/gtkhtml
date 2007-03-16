@@ -1,0 +1,9 @@
+Makefile.in
+Makefile
+.deps
+.libs
+*.oaf
+ebrowser
+test
+test-ebrowser
+test-history
