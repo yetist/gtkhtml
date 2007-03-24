@@ -1,3 +1,10 @@
+2007-03-24  Tor Lillqvist  <tml@novell.com>
+
+	* gtkhtml-zip.in: Use GTKHTML_API_VERSION instead of hardcoded
+	3.8. Did the API really change incompatibly so that
+	GTKHTML_API_VERSION had to be bumped, one wonders? But anyway, too
+	late to revert that now.
+
 2007-03-12 Harish Krishnaswamy <kharish@novell.com>
 
 	* NEWS, configure.in: 3.14.0 release.
