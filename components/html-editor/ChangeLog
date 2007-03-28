@@ -1,3 +1,8 @@
+2007-03-28  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* paragraph-style.c: Fix includes for i18n.
+	Thanks to Christian Persch for help.
+
 2007-03-12 Harish Krishnaswamy <kharish@novell.com>
 
 	* Makefile.am : Fix for #401970 committed after approval from

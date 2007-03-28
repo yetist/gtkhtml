@@ -19,6 +19,14 @@
     Boston, MA 02111-1307, USA.
 */
 
+#include <config.h>
+
+#ifdef GNOME_GTKHTML_EDITOR_SHLIB
+#include <glib/gi18n-lib.h>
+#else
+#include <glib/gi18n.h>
+#endif
+
 #include "gtkhtml.h"
 #include "paragraph-style.h"
 
