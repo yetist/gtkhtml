@@ -695,7 +695,6 @@ smiley_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 	g_assert (icon_info != NULL);
 	filename = gtk_icon_info_get_filename (icon_info);
 	g_assert (filename != NULL);
-	gtk_icon_info_free (icon_info);
 	g_free (icon_name);
 
 	switch (smiley) {
@@ -739,6 +738,7 @@ smiley_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 	html = g_strdup_printf ("<IMG ALT=\"%s\" SRC=\"%s\">",
 		emoticon, filename);
 	gtk_html_insert_html (cd->html, html);
+	gtk_icon_info_free (icon_info);
 	g_free (html);
 }
 
