@@ -6,9 +6,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.HEAD.dz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-05-03 23:09+0200\n"
-"PO-Revision-Date: 2006-05-19 15:18+0530\n"
-"Last-Translator: Mindu Dorji\n"
+"POT-Creation-Date: 2007-03-18 03:39+0000\n"
+"PO-Revision-Date: 2007-03-29 22:16+0530\n"
+"Last-Translator: yangka <yanang_ka@hotmail.com>\n"
 "Language-Team: DZONGKHA <pgeyleg@dit.gov.bt>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -18,12 +18,12 @@ msgstr ""
 "X-Poedit-Country: BHUTAN\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-#: ../a11y/image.c:150
+#: ../a11y/image.c:151
 #, c-format
 msgid "URL is %s, Alternative Text is %s"
 msgstr "ཡུ་ཨར་ཨེལ་%sཨིན། ཚིག་ཡིག་ཐབས་ལམ་གཞན་%sཨིན།"
 
-#: ../a11y/image.c:152
+#: ../a11y/image.c:153
 #, c-format
 msgid "URL is %s"
 msgstr "ཡུ་ཨར་ཨེལ་%sཨིན། "
@@ -34,7 +34,7 @@ msgstr "ཡུ་ཨར་ཨེལ་%sཨིན། "
 msgid "grab focus"
 msgstr "ཆེད་དམིགས་འཛིན།"
 
-#: ../a11y/object.c:258
+#: ../a11y/object.c:259
 msgid "Panel containing HTML"
 msgstr "ཨེཆ་ཊི་ཨེམ་ཨེལ་ཡོད་པའི་པེ་ནཱལ།"
 
@@ -45,31 +45,26 @@ msgstr "+༠"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:2
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:2
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:5
 msgid "+1"
 msgstr "+༡"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:3
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:3
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:6
 msgid "+2"
 msgstr "+༢"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:4
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:4
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:7
 msgid "+3"
 msgstr "+༣"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:5
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:5
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:9
 msgid "-1"
 msgstr "-༡"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:6
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:6
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:10
 msgid "-2"
 msgstr "-༢"
 
@@ -80,19 +75,19 @@ msgstr "ཁ་བྱང་།(_d)"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:8
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:8
-#: ../components/html-editor/toolbar.c:58
+#: ../components/html-editor/paragraph-style.c:48
 msgid "Alphabetical List"
 msgstr "ཀ་ཁའི་གོ་རིམ་ཅན་གྱི་ཐོ་ཡིག"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:9
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:9
-#: ../components/html-editor/toolbar.c:55
+#: ../components/html-editor/paragraph-style.c:39
 msgid "Bulleted List"
 msgstr "འགོ་ཚག་ཅན་གྱི་ཐོ་ཡིག"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:10
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:10
-#: ../components/html-editor/toolbar.c:528
+#: ../components/html-editor/toolbar.c:415
 msgid "Center justifies the paragraphs"
 msgstr "དབུས་ཀྱིས་དོན་མཚམས་ཚུ་ ལྟེམས་བཅོས་འབདཝ་ཨིན"
 
@@ -118,6 +113,7 @@ msgstr "སེལ་འཐུ་འབད་མི་ འཛིན་པང་�
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:15
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:15
+#: ../components/html-editor/html-editor-control.xml.h:2
 msgid "Copy the selection"
 msgstr "སེལ་འཐུ་འབད་མི་ འདྲ་བཤུས་རྐྱབས།"
 
@@ -143,6 +139,7 @@ msgstr "འཛིན་སྤང་གུ་བཀལ་ནིའི་དོན
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:20
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:20
+#: ../components/html-editor/html-editor-control.xml.h:3
 msgid "Cut the selection"
 msgstr "སེལ་འཐུ་འབད་མི་བཏོག"
 
@@ -154,13 +151,14 @@ msgstr "གདོང་ཚབ།(_c)"
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
-#: ../components/html-editor/search.c:111
+#: ../components/html-editor/search.c:110
 #: ../components/html-editor/search.c:171
 msgid "Find"
 msgstr "འཚོལ།"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:23
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:23
+#: ../components/html-editor/html-editor-control.xml.h:5
 msgid "Find _Again"
 msgstr "ལོག་སྟེ་འཚོལ།(_A)"
 
@@ -221,9 +219,9 @@ msgstr "བཙུགས།(_n)"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:35
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
-#: ../components/html-editor/editor-control-factory.c:198
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:37
-#: ../components/html-editor/popup.c:216
+#: ../components/html-editor/editor-control-factory.c:200
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:34
+#: ../components/html-editor/popup.c:211
 msgid "Image"
 msgstr "གཟུགས་བརྙན།"
 
@@ -244,6 +242,7 @@ msgstr "ཨེཆ་ཊི་ཨེམ་ཨེལ་ཡིག་སྣོད་
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:39
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
+#: ../components/html-editor/html-editor-control.xml.h:6
 msgid "Insert HTML link into document..."
 msgstr "ཨེཆ་ཊི་ཨེམ་ཨེལ་འབྲེལ་ལམ་ ཡིག་ཆ་ནང་བཙུགས་..."
 
@@ -268,498 +267,523 @@ msgid "Insert Oh no! emoticon into document..."
 msgstr "ཨཱོ་ མེན་ཟེར་མི་ གདོང་ཚབ་ཡིག་ཆ་ནང་བཙུགས་..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:44
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
+msgid "Insert Sick emoticon into document..."
+msgstr "གདོང་ཚབ་་ནདཔ་ ཡིག་ཆ་ནང་བཙུགས..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:45
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
 msgid "Insert Smile emoticon into document..."
 msgstr "བགའ་འཛུམ་བཏོན་མི་གདོང་ཚབ་ཡིག་ཆ་ནང་བཙུགས་..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:45
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:46
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
 msgid "Insert Surprised emoticon into document..."
 msgstr "ཧ་ལས་མི་གདོང་ཚབ་ཡིག་ཆ་ནང་བཙུགས་..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:46
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:47
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
 msgid "Insert Tongue emoticon into document..."
 msgstr "ལྕེའི་གདོང་ཚབ་ཡིག་ཆ་ནང་བཙུགས་..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:47
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:48
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
 msgid "Insert Undecided emoticon into document..."
 msgstr "ཐག་མ་བཅད་པའི་གདོང་ཚབ་ཡིག་ཆ་ནང་བཙུགས་..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:48
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:49
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
 msgid "Insert Wink emoticon into document..."
 msgstr "མིག་འཁྲིབ་རྐྱབ་མི་གདོང་ཚབ་ཡིག་ཆ་ནང་བཙུགས་..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:49
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:50
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
-#: ../components/html-editor/menubar.c:102
-#: ../components/html-editor/menubar.c:110
+#: ../components/html-editor/menubar.c:101
+#: ../components/html-editor/menubar.c:109
 msgid "Insert image"
 msgstr "གཟུགས་བརྙན་བར་བཙུགས།"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:50
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:51
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
+#: ../components/html-editor/html-editor-control.xml.h:7
 msgid "Insert image into document..."
 msgstr "གཟུགས་བརྙན་ ཡིག་ཆ་ནང་བཙུགས་..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:51
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:52
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:52
 msgid "Insert link"
 msgstr "འབྲེལ་ལམ་བཙུགས།"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:52
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:53
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:53
 msgid "Insert rule"
 msgstr "ཐིག་བཙུགས།"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:53
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:54
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
+#: ../components/html-editor/html-editor-control.xml.h:8
 msgid "Insert rule into document..."
 msgstr "བཅའ་ཡིག་ཡིག་ཆ་ནང་བཙུགས་..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:54
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
 msgid "Insert table"
 msgstr "ཐིག་ཁྲམ་བཙུགས།"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:56
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
 msgid "Insert table into document..."
 msgstr "ཐིག་ཁྲམཡིག་ཆ་ནང་བཙུགས་..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:56
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:57
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
 msgid "Insert text file into document..."
 msgstr "ཚིག་ཡིག་ཡིག་སྣོད་ ཡིག་ཆ་ནང་བཙུགས་..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:57
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
-#: ../components/html-editor/toolbar.c:526
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:58
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:58
+#: ../components/html-editor/toolbar.c:412
 msgid "Left justifies the paragraphs"
 msgstr "གཡོན་གྱིས་དོན་མཚམས་ལྟེམས་བཅོས་འབདཝ་ཨིན།"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:58
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:58
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:59
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
 #: ../components/html-editor/menubar.c:145
-#: ../components/html-editor/popup.c:115
-#: ../components/html-editor/popup.c:210
-#: ../components/html-editor/popup.c:280
+#: ../components/html-editor/popup.c:111
+#: ../components/html-editor/popup.c:205
+#: ../components/html-editor/popup.c:271
 msgid "Link"
 msgstr "འབྲེལ་ལམ།"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:59
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:60
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
 msgid "Make the current Paragraph style Normal"
 msgstr "ད་ལྟོའི་དོན་མཚམས་གྱི་བཟོ་རྣམ་ སྤྱིར་བཏང་བཟོ།"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:60
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:61
 msgid "Make the current Paragraph style Preformat"
 msgstr "ད་ལྟོའི་དོན་མཚམས་གྱི་བཟོ་རྣམ་ སྔ་གོང་རྩ་སྒྲིག་འབད།"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:61
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:62
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
 msgid "Make the current paragraph a bulleted list"
 msgstr "ད་ལྟོའི་དོན་མཚམས་དེ་ འགོ་ཚག་ཅན་གྱི་ཐོ་ཡིག་ཅིག་བཟོ།"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:62
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:63
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:63
 msgid "Make the current paragraph a list with roman numerals"
 msgstr "ད་ལྟོའི་དོན་མཚམས་དེ་ རོ་མཱན་ཨང་ཡིག་བཅས་པའི་ ཐོ་ཡིག་ཅིག་བཟོ།"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:63
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:63
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:64
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:64
 msgid "Make the current paragraph a numbered list"
 msgstr "ད་ལྟོའི་དོན་མཚམས་དེ་ ཨང་གྲངས་ཅན་གྱི་ཐོ་ཡིག་ཅིག་བཟོ།"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:64
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:64
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:65
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:65
 msgid "Make the current paragraph an H1 header"
 msgstr "ད་ལྟོའི་དོན་མཚམས་དེ་ ཨེཆ་ ༡ གི་ མགོ་ཡིག་ཅིག་བཟོ།"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:65
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:65
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:66
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:66
 msgid "Make the current paragraph an H2 header"
 msgstr "ད་ལྟོའི་དོན་མཚམས་དེ་ ཨེཆ་ ༢ ཀྱི་ མགོ་ཡིག་ཅིག་བཟོ།"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:66
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:66
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:67
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:67
 msgid "Make the current paragraph an H3 header"
 msgstr "ད་ལྟོའི་དོན་མཚམས་དེ་ ཨེཆ་༣ གྱི་ མགོ་ཡིག་་ཅིག་བཟོ།"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:67
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:67
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:68
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:68
 msgid "Make the current paragraph an H4 header"
 msgstr "ད་ལྟོའི་དོན་མཚམས་དེ་ ཨེཆ་༤ གི་ མགོ་ཡིག་ཅིག་བཟོ།"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:68
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:68
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:69
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:69
 msgid "Make the current paragraph an H5 header"
 msgstr "ད་ལྟོའི་དོན་མཚམས་དེ་ ཨེཆ་༥ གི་ མགོ་ཡིག་ཅིག་བཟོ།"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:69
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:69
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:70
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:70
 msgid "Make the current paragraph an H6 header"
 msgstr "ད་ལྟོའི་དོན་མཚམས་དེ་ ཨེཆ་༦ གི་ མགོ་ཡིག་ཅིག་བཟོ།"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:70
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:70
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:71
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
 msgid "Make the current paragraph an address"
 msgstr "ད་ལྟོའི་དོན་མཚམས་དེ་ ཁ་བྱང་ཅིག་བཟོ།"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:71
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:72
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
 msgid "Make the current paragraph an alphabetical list"
 msgstr "ད་ལྟོའི་དོན་མཚམས་དེ་ ཀ་ཁའི་གོ་རིམ་ཅན་གྱི་ཐོ་ཡིག་ཅིག་བཟོ།"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:72
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
-#: ../components/html-editor/paragraph.c:87
-#: ../components/html-editor/toolbar.c:53
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:73
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
+#: ../components/html-editor/paragraph-style.c:33
 msgid "Normal"
 msgstr "སྤྱིར་བཏང།"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:73
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
-#: ../components/html-editor/toolbar.c:56
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:74
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
+#: ../components/html-editor/paragraph-style.c:42
 msgid "Numbered List"
 msgstr "ཨང་གྲངས་ཅན་གྱི་ཐོ་ཡིག"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:74
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:75
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:75
 msgid "Numbered _List"
 msgstr "ཨང་གྲངས་ཅན་གྱི་ཐོ་ཡིག(_L)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:75
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:75
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:76
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
 msgid "Oh _No!"
 msgstr " དབྱའི་མེན།(_N)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:76
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:77
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
 msgid "Paste"
 msgstr "སྦྱར།"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:77
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:78
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
 msgid "Paste _Quotation"
 msgstr "འདྲེན་རྟགས་སྦྱར།(_Q)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:78
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:79
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
 msgid "Paste from clipboard"
 msgstr "འཛིན་པང་ལས་སྦྱར།"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:79
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:80
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
+#: ../components/html-editor/html-editor-control.xml.h:10
 msgid "Paste the clipboard"
 msgstr "འཛིན་པང་དེ་སྦྱར།"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:80
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:81
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
+#: ../components/html-editor/html-editor-control.xml.h:11
 msgid "Paste the clipboard as a quotation"
 msgstr "འཛིན་པང་དེ་ འདྲེན་རྟགས་ཅིག་སྦེ་སྦྱར།"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:81
-#: ../components/html-editor/toolbar.c:54
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:82
+#: ../components/html-editor/paragraph-style.c:36
 msgid "Preformat"
 msgstr "སྔ་གོང་རྩ་སྒྲིག"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:82
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:83
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
 msgid "Redo"
 msgstr "ལོག་འབད།"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:83
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:84
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
 msgid "Redo previously undone change"
 msgstr "ཧེ་མར་འབད་བཤོལ་འབད་མི་ བསྒྱུར་བཅོས་ཚུ་ལོག་འབད།"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:84
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:85
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
+#: ../components/html-editor/html-editor-control.xml.h:12
 msgid "Redo the undone action"
 msgstr "འབད་བཤོལ་འབད་མི་བྱ་བ་ཚུ་ ལོག་འབད།"
 
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:85
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
-#: ../components/html-editor/replace.c:174
-#: ../components/html-editor/replace.c:240
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
+#: ../components/html-editor/replace.c:171
+#: ../components/html-editor/replace.c:236
 msgid "Replace"
 msgstr "ཚབ་བཙུགས།"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
-#: ../components/html-editor/toolbar.c:530
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:87
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
+#: ../components/html-editor/toolbar.c:418
 msgid "Right justifies the paragraphs"
 msgstr "གཡས་ཀྱིས་དོན་མཚམས་ཚུ་ ལྟེམས་བཅོས་འབདཝ་ཨིན།"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:87
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:88
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
 msgid "Roman Numeral List"
 msgstr "རོ་མཱན་ཨང་ཡིག་ཐོ་ཡིག"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:88
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
-#: ../components/html-editor/editor-control-factory.c:216
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:47
-#: ../components/html-editor/menubar.c:168
-#: ../components/html-editor/popup.c:234
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:89
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
+#: ../components/html-editor/editor-control-factory.c:218
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:45
+#: ../components/html-editor/menubar.c:164
+#: ../components/html-editor/popup.c:229
 msgid "Rule"
 msgstr "བཅའ་ཡིག"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:89
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:90
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
+msgid "S_ick"
+msgstr "ནདཔ(_i)"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:91
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
 msgid "Select _All"
 msgstr "ཆ་མཉམ་སེལ་འཐུ་འབད།(_A)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:90
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:92
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
 msgid "Select the entire contents of the document"
 msgstr "ཡིག་ཆའི་ནང་དོན་ཧྲིལ་བུ་ སེལ་འཐུ་འབད།"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:91
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
-#: ../components/html-editor/toolbar.c:558
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:93
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
+#: ../components/html-editor/toolbar.c:450
 msgid "Strikeout"
 msgstr "སྦུག་འབྲེག"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:92
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:94
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
 msgid "Su_rprised"
 msgstr "ཧ་ལས་པ།(_r)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:93
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:95
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
 msgid "Subscript"
 msgstr "འོག་ཡིག"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:94
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:96
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
 msgid "Superscript"
 msgstr "སྟེང་ཡིག"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:95
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:52
-#: ../components/html-editor/menubar.c:196
-#: ../components/html-editor/popup.c:240
-#: ../components/html-editor/popup.c:514
-#: ../components/html-editor/popup.c:526
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:97
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:49
+#: ../components/html-editor/menubar.c:188
+#: ../components/html-editor/popup.c:235
+#: ../components/html-editor/popup.c:505
+#: ../components/html-editor/popup.c:517
 msgid "Table"
 msgstr "ཐིག་ཁྲམ།"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:96
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
 msgid "Te_mplate..."
 msgstr "ཊེམ་པེལེཊི་...(_m)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:97
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:99
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
 msgid "Te_xt File..."
 msgstr "ཚིག་ཡིག་ཡིག་སྣོད་...(_x)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:100
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 msgid "Ton_gue"
 msgstr "ལྕེ།(_g)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:99
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
-#: ../components/html-editor/toolbar.c:550
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:101
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
+#: ../components/html-editor/toolbar.c:439
 msgid "Typewriter"
 msgstr "མཛུབ་མནོན་ལྕགས་དཔར།"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:100
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:102
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
 msgid "Undo"
 msgstr "འབད་བཤོལ།"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:101
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:103
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
 msgid "Undo previous changes"
 msgstr "ཧོ་མའི་བསྒྱུར་བཅོས་ཚུ་འབད་བཤོལ་འབད།"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:102
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:104
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
+#: ../components/html-editor/html-editor-control.xml.h:17
 msgid "Undo the last action"
 msgstr "མཐའ་མཇུག་གི་བྱ་བ་དེ་འབད་བཤོལ་འབད།"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:103
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:105
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
 msgid "_Alignment"
 msgstr "ཕྲང་སྒྲིག(_A)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:104
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:106
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
 msgid "_Alphabetical List"
 msgstr "ཀ་ཁའི་གོ་རིམ་ཅན་གྱི་ཐོ་ཡིག(_A)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:105
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:59
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:107
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:58
 msgid "_Bold"
 msgstr "རྒྱགས་པ།(_B)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:106
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:108
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
 msgid "_Bulleted List"
 msgstr "འགོ་ཚག་ཅན་གྱི་ཐོ་ཡིག(_B)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:107
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:109
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
 msgid "_Center"
 msgstr "དབུས།(_C)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:108
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
+#: ../components/html-editor/html-editor-control.xml.h:18
 msgid "_Copy"
 msgstr "འདྲ་བཤུས།(_C)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:109
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:111
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
 msgid "_Decrease Indent"
 msgstr "འགོ་མཚམས་མར་ཕབ།(_D)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:112
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
+#: ../components/html-editor/html-editor-control.xml.h:19
 msgid "_Edit"
 msgstr "ཞུན་དག(_E)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:111
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:113
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
+#: ../components/html-editor/html-editor-control.xml.h:20
 msgid "_Find..."
 msgstr "འཚོལ་...(_F)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:112
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:114
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
 msgid "_Font Size"
 msgstr "ཡིག་གཟུགས་ཚད།(_F)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:113
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:115
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
 msgid "_Frown"
 msgstr "དཔྱལཝ་ཨོ་ཀྲོ་བསུམ་མི།(_F)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:114
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:116
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
 msgid "_HTML File..."
 msgstr "ཨེཆ་ཊི་ཨེམ་ཨེལ་ཡིག་སྣོད་...(_H)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:115
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:117
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
 msgid "_Heading"
 msgstr "མགུ་རྒྱན།(_H)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:116
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:118
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
+#: ../components/html-editor/html-editor-control.xml.h:21
 msgid "_Image..."
 msgstr "གཟུགས་བརྙན་...(_I)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:117
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:119
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
 msgid "_Increase Indent"
 msgstr "འགོ་མཚམས་ཡར་སེང་།(_I)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:118
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:120
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
 msgid "_Indifferent"
 msgstr "ཁྱད་རཔ་མེདཔ།(_I)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:119
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:66
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:121
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:65
 msgid "_Italic"
 msgstr "ཨའི་ཊ་ལིཀ(_I)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:120
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:122
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
 msgid "_Laughing"
 msgstr "བགའ་མི།(_L)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:121
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:123
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
 msgid "_Left"
 msgstr "གཡོན།(_L)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:122
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
+#: ../components/html-editor/html-editor-control.xml.h:24
 msgid "_Link..."
 msgstr "འབྲེལ་ལམ་...(_L)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:123
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:125
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
 msgid "_Normal"
 msgstr "སྤྱིར་བཏང།(_N)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:126
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
 msgid "_Page..."
 msgstr "ཤོག་ལེབ་...(_P)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:125
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:127
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:127
 msgid "_Paragraph..."
 msgstr "དོན་མཚམས་...(_P)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:126
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:127
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:128
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:128
+#: ../components/html-editor/html-editor-control.xml.h:25
 msgid "_Paste"
 msgstr "སྦྱར།(_P)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:127
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:128
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:129
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
 msgid "_Plain Text"
 msgstr "ཡིག་རྐྱང་།(_P)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:128
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:130
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
 msgid "_Preformatted"
 msgstr "སྔ་གོང་རྩ་སྒྲིག་འབད་ཡོདཔ།(_P)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:129
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:131
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
+#: ../components/html-editor/html-editor-control.xml.h:28
 msgid "_Redo"
 msgstr "ལོག་འབད།(_R)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:130
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:132
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
+#: ../components/html-editor/html-editor-control.xml.h:29
 msgid "_Replace..."
 msgstr "ཚབ་བཙུགས་...(_R)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:131
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:133
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:133
 msgid "_Right"
 msgstr "གཡས།(_R)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:132
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:133
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:134
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:134
 msgid "_Roman Numeral List"
 msgstr "རོ་མཱན་ཨང་ཡིག་ཅན་གྱི་ཐོ་ཡིག(_R)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:133
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:134
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:135
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
+#: ../components/html-editor/html-editor-control.xml.h:30
 msgid "_Rule..."
 msgstr "ཐིག་...(_R)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:134
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:136
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
 msgid "_Smile"
 msgstr "བགའ་འཛུམ།(_S)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:135
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:72
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:137
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:71
 msgid "_Strikethrough"
 msgstr "སྦུག་འབྲེག(_S)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:136
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:138
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
 msgid "_Style"
 msgstr "བཟོ་རྣམ།(_S)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:137
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:139
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:139
 msgid "_Table..."
 msgstr "ཐིག་ཁྲམ་...(_T)"
 
@@ -778,29 +802,30 @@ msgstr "ཐིག་ཁྲམ་...(_T)"
 #. <menuitem name="Other" verb="" _label="Other..."/>
 #. </submenu>
 #.
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:153
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:154
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:155
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:155
 msgid "_Text..."
 msgstr "ཚིག་ཡིག་...(_T)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:154
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:155
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:156
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:156
 msgid "_Undecided"
 msgstr "ཐག་མ་བཅདཔ།(_U)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:155
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:156
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:75
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:157
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:157
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:74
 msgid "_Underline"
 msgstr "འོག་ཐིག(_U)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:156
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:157
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:158
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:158
+#: ../components/html-editor/html-editor-control.xml.h:31
 msgid "_Undo"
 msgstr "འབད་བཤོལ།(_U)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:157
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:158
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:159
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:159
 msgid "_Wink"
 msgstr "མིག་འཁྲིབ།(_W)"
 
@@ -816,149 +841,139 @@ msgstr "ཇི་ནོམ་ ཨེཆ་ཊི་ཨེམ་ཨེལ་ ཞ�
 msgid "GNOME HTML Editor Factory"
 msgstr "ཇི་ནོམ་ ཨེཆ་ཊི་ཨེམ་ཨེལ་ ཞུན་དག་པའི་འཕྲུལ་ཁང་།"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
-msgid "Insert Sick emoticon into document..."
-msgstr "གདོང་ཚབ་་ནདཔ་ ཡིག་ཆ་ནང་བཙུགས..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
 msgid "Make the current Paragraph style Preformatted"
 msgstr "ད་ལྟོའི་དོན་མཚམས་བཟོ་རྣམ་ སྔ་གོང་རྩ་སྒྲིག་ཅན་བཟོ།"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
-#: ../components/html-editor/paragraph.c:106
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
 msgid "Preformatted"
 msgstr "སྔ་གོང་རྩ་སྒྲིག་འབད་ཡོདཔ།"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
-msgid "S_ick"
-msgstr "ནདཔ(_i)"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:159
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:160
 msgid "_Wrap Lines"
 msgstr "གྱལ་རིམ་ཚུ་ལོག་མཚམས་བཟོ།(_W)"
 
-#: ../components/html-editor/body.c:65
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:41
+#: ../components/html-editor/body.c:64
 msgid "None"
 msgstr "ཅི་མེད།"
 
-#: ../components/html-editor/body.c:73
+#: ../components/html-editor/body.c:72
 msgid "Perforated paper"
 msgstr "དོང་ཐིག་ཅན་གྱི་ཤོག་ཀུ།"
 
-#: ../components/html-editor/body.c:81
+#: ../components/html-editor/body.c:80
 msgid "Blue ink"
 msgstr "སྣག་རྩི་ཧོནམ།"
 
-#: ../components/html-editor/body.c:89
+#: ../components/html-editor/body.c:88
 msgid "Paper"
 msgstr "ཤོག་ཀུ།"
 
-#: ../components/html-editor/body.c:97
+#: ../components/html-editor/body.c:96
 msgid "Ribbon"
 msgstr "སྣག་ཐག"
 
-#: ../components/html-editor/body.c:105
+#: ../components/html-editor/body.c:104
 msgid "Midnight"
 msgstr "ནུབ་ཕྱེད།"
 
-#: ../components/html-editor/body.c:113
+#: ../components/html-editor/body.c:112
 msgid "Confidential"
 msgstr "གསང་བའི།"
 
-#: ../components/html-editor/body.c:121
+#: ../components/html-editor/body.c:120
 msgid "Draft"
 msgstr "ཟིན་བྲིས།"
 
-#: ../components/html-editor/body.c:129
+#: ../components/html-editor/body.c:128
 msgid "Graph paper"
 msgstr "ཚད་ཁྲའི་ཤོག་ཀུ།"
 
-#: ../components/html-editor/body.c:256
-#: ../components/html-editor/text.c:170
-#: ../components/html-editor/toolbar.c:313
+#: ../components/html-editor/body.c:237
+#: ../components/html-editor/text.c:171
+#: ../components/html-editor/toolbar.c:199
 msgid "Automatic"
 msgstr "རང་བཞིན་གྱི།"
 
-#: ../components/html-editor/body.c:268
+#: ../components/html-editor/body.c:250
 msgid "_Text:"
 msgstr "ཚིག་ཡིག་:(_T)"
 
-#: ../components/html-editor/body.c:269
+#: ../components/html-editor/body.c:251
 msgid "_Link:"
 msgstr "འབྲེལ་ལམ་:(_L)"
 
-#: ../components/html-editor/body.c:270
+#: ../components/html-editor/body.c:252
 msgid "_Background:"
 msgstr "རྒྱབ་གཞི་:(_B)"
 
-#: ../components/html-editor/body.c:272
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:30
+#: ../components/html-editor/body.c:254
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:27
 msgid "Colors"
 msgstr "ཚོས་གཞི་ཚུ།"
 
-#: ../components/html-editor/body.c:274
-#: ../components/html-editor/body.c:302
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:23
+#: ../components/html-editor/body.c:256
+#: ../components/html-editor/body.c:288
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:22
 msgid "Background Image"
 msgstr "རྒྱབ་གཞིའི་གཟུགས་བརྙན།"
 
-#: ../components/html-editor/body.c:285
+#: ../components/html-editor/body.c:267
 msgid "Background Image File Path"
 msgstr "རྒྱབ་གཞིའི་གཟུགས་བརྙན་ཡིག་སྣོད་འགྲུལ་ལམ།"
 
-#: ../components/html-editor/body.c:293
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:53
-#: ../components/html-editor/menubar.c:222
+#: ../components/html-editor/body.c:275
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:50
+#: ../components/html-editor/menubar.c:210
 msgid "Template"
 msgstr "ཊེམ་པེལེཊི།"
 
-#: ../components/html-editor/body.c:296
+#: ../components/html-editor/body.c:282
 msgid "T_emplate:"
 msgstr "ཊེམ་པེལེཊི་:(_e)"
 
-#: ../components/html-editor/body.c:300
+#: ../components/html-editor/body.c:286
 msgid "C_ustom:"
 msgstr "སྲོལ་སྒྲིག(_u)"
 
-#: ../components/html-editor/cell.c:340
-#: ../components/html-editor/image.c:354
-#: ../components/html-editor/link.c:196
-#: ../components/html-editor/rule.c:182
-#: ../components/html-editor/table.c:227
+#: ../components/html-editor/cell.c:342
+#: ../components/html-editor/image.c:345
+#: ../components/html-editor/link.c:197
+#: ../components/html-editor/rule.c:179
+#: ../components/html-editor/table.c:229
 #: ../components/html-editor/template.c:287
-#: ../components/html-editor/text.c:167
+#: ../components/html-editor/text.c:168
 msgid "Could not load glade file."
 msgstr "གེལེཌི་ཡིག་སྣོད་ མངོན་གསལ་འབད་མ་ཚུགས།"
 
-#: ../components/html-editor/cell.c:363
-#: ../components/html-editor/table.c:242
+#: ../components/html-editor/cell.c:346
+#: ../components/html-editor/table.c:233
 msgid "Transparent"
 msgstr "དྭངས་གསལ།"
 
-#: ../components/html-editor/editor-control-factory.c:187
-#: ../components/html-editor/popup.c:195
-#: ../components/html-editor/popup.c:276
+#: ../components/html-editor/editor-control-factory.c:190
+#: ../components/html-editor/popup.c:191
+#: ../components/html-editor/popup.c:268
 msgid "Properties"
 msgstr "རྒྱུ་དངོས་ཚུ།"
 
-#: ../components/html-editor/editor-control-factory.c:206
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:54
-#: ../components/html-editor/menubar.c:400
-#: ../components/html-editor/popup.c:204
+#: ../components/html-editor/editor-control-factory.c:208
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:51
+#: ../components/html-editor/menubar.c:386
+#: ../components/html-editor/popup.c:199
 msgid "Text"
 msgstr "ཚིག་ཡིག"
 
-#: ../components/html-editor/editor-control-factory.c:225
-#: ../components/html-editor/menubar.c:418
-#: ../components/html-editor/popup.c:222
+#: ../components/html-editor/editor-control-factory.c:227
+#: ../components/html-editor/menubar.c:403
+#: ../components/html-editor/popup.c:217
 msgid "Paragraph"
 msgstr "དོན་མཚམས།"
 
-#: ../components/html-editor/editor-control-factory.c:229
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:42
-#: ../components/html-editor/menubar.c:382
-#: ../components/html-editor/popup.c:228
+#: ../components/html-editor/editor-control-factory.c:231
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:43
+#: ../components/html-editor/menubar.c:369
+#: ../components/html-editor/popup.c:223
 msgid "Page"
 msgstr "ཤོག་ལེབ།"
 
@@ -967,201 +982,201 @@ msgid "color preview"
 msgstr "ཚོས་གཞི་སྔོན་ལྟ།"
 
 #. This is the default custom color
-#: ../components/html-editor/gi-color-palette.c:399
+#: ../components/html-editor/gi-color-palette.c:388
 msgid "custom"
 msgstr "སྲོལ་སྒྲིག"
 
-#. "Custom" color - we'll pop up a GnomeColorPicker
-#: ../components/html-editor/gi-color-palette.c:441
+#. "Custom" color - we'll pop up a GtkColorDialog
+#: ../components/html-editor/gi-color-palette.c:430
 msgid "Custom Color:"
 msgstr "སྲོལ་སྒྲིག་ཚོས་གཞི་:"
 
-#: ../components/html-editor/gi-color-palette.c:449
+#: ../components/html-editor/gi-color-palette.c:438
 msgid "Choose Custom Color"
 msgstr "སྲོལ་སྒྲིག་ཚོས་གཞི་གདམ་ཁ་རྐྱབས།"
 
-#: ../components/html-editor/gi-color-palette.c:582
+#: ../components/html-editor/gi-color-palette.c:571
 msgid "black"
 msgstr "གནགཔོ།"
 
-#: ../components/html-editor/gi-color-palette.c:583
+#: ../components/html-editor/gi-color-palette.c:572
 msgid "light brown"
 msgstr "སྐྱ་ཐལ།"
 
-#: ../components/html-editor/gi-color-palette.c:584
+#: ../components/html-editor/gi-color-palette.c:573
 msgid "brown gold"
 msgstr "སྐྱ་སེར།"
 
-#: ../components/html-editor/gi-color-palette.c:585
+#: ../components/html-editor/gi-color-palette.c:574
 msgid "dark green #2"
 msgstr "སྔོ་ལྗང་། #༢། "
 
-#: ../components/html-editor/gi-color-palette.c:586
+#: ../components/html-editor/gi-color-palette.c:575
 msgid "navy"
 msgstr "མཚོ་དོག"
 
-#: ../components/html-editor/gi-color-palette.c:587
-#: ../components/html-editor/gi-color-palette.c:643
+#: ../components/html-editor/gi-color-palette.c:576
+#: ../components/html-editor/gi-color-palette.c:632
 msgid "dark blue"
 msgstr "སྔོ་ནག"
 
-#: ../components/html-editor/gi-color-palette.c:588
+#: ../components/html-editor/gi-color-palette.c:577
 msgid "purple #2"
 msgstr "རྒྱ་སྨུག་ #༢།"
 
-#: ../components/html-editor/gi-color-palette.c:589
+#: ../components/html-editor/gi-color-palette.c:578
 msgid "very dark gray"
 msgstr "ཧ་ཅང་གནག་སྐྱ།"
 
-#: ../components/html-editor/gi-color-palette.c:592
-#: ../components/html-editor/gi-color-palette.c:648
+#: ../components/html-editor/gi-color-palette.c:581
+#: ../components/html-editor/gi-color-palette.c:637
 msgid "dark red"
 msgstr "དམར་ནག "
 
-#: ../components/html-editor/gi-color-palette.c:593
+#: ../components/html-editor/gi-color-palette.c:582
 msgid "red-orange"
 msgstr "ལི་དམར།"
 
-#: ../components/html-editor/gi-color-palette.c:594
+#: ../components/html-editor/gi-color-palette.c:583
 msgid "gold"
 msgstr "གསེར་དོག"
 
-#: ../components/html-editor/gi-color-palette.c:595
+#: ../components/html-editor/gi-color-palette.c:584
 msgid "dark green"
 msgstr "ལྗང་ནག"
 
-#: ../components/html-editor/gi-color-palette.c:596
-#: ../components/html-editor/gi-color-palette.c:649
+#: ../components/html-editor/gi-color-palette.c:585
+#: ../components/html-editor/gi-color-palette.c:638
 msgid "dull blue"
 msgstr "གྲིབ་སྔོན།"
 
-#: ../components/html-editor/gi-color-palette.c:597
-#: ../components/html-editor/gi-color-palette.c:650
+#: ../components/html-editor/gi-color-palette.c:586
+#: ../components/html-editor/gi-color-palette.c:639
 msgid "blue"
 msgstr "ཧོནམ། "
 
-#: ../components/html-editor/gi-color-palette.c:598
+#: ../components/html-editor/gi-color-palette.c:587
 msgid "dull purple"
 msgstr "སྨུག་གྲིབ།"
 
-#: ../components/html-editor/gi-color-palette.c:599
+#: ../components/html-editor/gi-color-palette.c:588
 msgid "dark grey"
 msgstr "གནག་སྐྱ།"
 
-#: ../components/html-editor/gi-color-palette.c:602
+#: ../components/html-editor/gi-color-palette.c:591
 msgid "red"
 msgstr "དམརཔོ།"
 
-#: ../components/html-editor/gi-color-palette.c:603
+#: ../components/html-editor/gi-color-palette.c:592
 msgid "orange"
 msgstr "ལི་ཝང་།"
 
-#: ../components/html-editor/gi-color-palette.c:604
+#: ../components/html-editor/gi-color-palette.c:593
 msgid "lime"
 msgstr "ཀ་ར།"
 
-#: ../components/html-editor/gi-color-palette.c:605
+#: ../components/html-editor/gi-color-palette.c:594
 msgid "dull green"
 msgstr "ལྗང་གྲིབ།"
 
-#: ../components/html-editor/gi-color-palette.c:606
+#: ../components/html-editor/gi-color-palette.c:595
 msgid "dull blue #2"
 msgstr "སྔོན་གྲིབ། #༢།"
 
-#: ../components/html-editor/gi-color-palette.c:607
+#: ../components/html-editor/gi-color-palette.c:596
 msgid "sky blue #2"
 msgstr "གནམ་དོག #༢།"
 
-#: ../components/html-editor/gi-color-palette.c:608
-#: ../components/html-editor/gi-color-palette.c:647
+#: ../components/html-editor/gi-color-palette.c:597
+#: ../components/html-editor/gi-color-palette.c:636
 msgid "purple"
 msgstr "རྒྱ་སྨུག"
 
-#: ../components/html-editor/gi-color-palette.c:609
+#: ../components/html-editor/gi-color-palette.c:598
 msgid "gray"
 msgstr "སྐྱ་ཐལ། "
 
-#: ../components/html-editor/gi-color-palette.c:612
-#: ../components/html-editor/gi-color-palette.c:644
+#: ../components/html-editor/gi-color-palette.c:601
+#: ../components/html-editor/gi-color-palette.c:633
 msgid "magenta"
 msgstr "དམར་སྨུག"
 
-#: ../components/html-editor/gi-color-palette.c:613
+#: ../components/html-editor/gi-color-palette.c:602
 msgid "bright orange"
 msgstr "ལི་སྐྱ།"
 
-#: ../components/html-editor/gi-color-palette.c:614
-#: ../components/html-editor/gi-color-palette.c:645
+#: ../components/html-editor/gi-color-palette.c:603
+#: ../components/html-editor/gi-color-palette.c:634
 msgid "yellow"
 msgstr "སེརཔོ།"
 
-#: ../components/html-editor/gi-color-palette.c:615
+#: ../components/html-editor/gi-color-palette.c:604
 msgid "green"
 msgstr "ལྗང་ཁུ།"
 
-#: ../components/html-editor/gi-color-palette.c:616
-#: ../components/html-editor/gi-color-palette.c:646
+#: ../components/html-editor/gi-color-palette.c:605
+#: ../components/html-editor/gi-color-palette.c:635
 msgid "cyan"
 msgstr "སྔོ་ལྗང་།"
 
-#: ../components/html-editor/gi-color-palette.c:617
+#: ../components/html-editor/gi-color-palette.c:606
 msgid "bright blue"
 msgstr "སྔོ་སྐྱ།"
 
-#: ../components/html-editor/gi-color-palette.c:618
-#: ../components/html-editor/gi-color-palette.c:635
+#: ../components/html-editor/gi-color-palette.c:607
+#: ../components/html-editor/gi-color-palette.c:624
 msgid "red purple"
 msgstr "དམར་སྨུག"
 
-#: ../components/html-editor/gi-color-palette.c:619
+#: ../components/html-editor/gi-color-palette.c:608
 msgid "light grey"
 msgstr "དཀར་སྐྱ་།"
 
-#: ../components/html-editor/gi-color-palette.c:622
-#: ../components/html-editor/gi-color-palette.c:639
+#: ../components/html-editor/gi-color-palette.c:611
+#: ../components/html-editor/gi-color-palette.c:628
 msgid "pink"
 msgstr "ཤ་ཁ།"
 
-#: ../components/html-editor/gi-color-palette.c:623
+#: ../components/html-editor/gi-color-palette.c:612
 msgid "light orange"
 msgstr "ལི་སྐྱ།"
 
-#: ../components/html-editor/gi-color-palette.c:624
-#: ../components/html-editor/gi-color-palette.c:636
+#: ../components/html-editor/gi-color-palette.c:613
+#: ../components/html-editor/gi-color-palette.c:625
 msgid "light yellow"
 msgstr "སེར་སྐྱ།"
 
-#: ../components/html-editor/gi-color-palette.c:625
+#: ../components/html-editor/gi-color-palette.c:614
 msgid "light green"
 msgstr "ལྗང་སྐྱ།"
 
-#: ../components/html-editor/gi-color-palette.c:626
+#: ../components/html-editor/gi-color-palette.c:615
 msgid "light cyan"
 msgstr "སྔོ་ལྗང་སྐྱ་བོ།"
 
-#: ../components/html-editor/gi-color-palette.c:627
-#: ../components/html-editor/gi-color-palette.c:637
+#: ../components/html-editor/gi-color-palette.c:616
+#: ../components/html-editor/gi-color-palette.c:626
 msgid "light blue"
 msgstr "སྔོ་སྐྱ།"
 
-#: ../components/html-editor/gi-color-palette.c:628
-#: ../components/html-editor/gi-color-palette.c:641
+#: ../components/html-editor/gi-color-palette.c:617
+#: ../components/html-editor/gi-color-palette.c:630
 msgid "light purple"
 msgstr "སྨུག་སྐྱ།"
 
-#: ../components/html-editor/gi-color-palette.c:629
+#: ../components/html-editor/gi-color-palette.c:618
 msgid "white"
 msgstr "དཀརཔོ།"
 
-#: ../components/html-editor/gi-color-palette.c:634
+#: ../components/html-editor/gi-color-palette.c:623
 msgid "purplish blue"
 msgstr "སྨུག་སྔོན།"
 
-#: ../components/html-editor/gi-color-palette.c:638
+#: ../components/html-editor/gi-color-palette.c:627
 msgid "dark purple"
 msgstr "སྨུག་ནག"
 
-#: ../components/html-editor/gi-color-palette.c:640
+#: ../components/html-editor/gi-color-palette.c:629
 msgid "sky blue"
 msgstr "གནམ་སྔོན།"
 
@@ -1178,514 +1193,565 @@ msgstr "ཇི་ཊི་ཀེ་ཨེཆ་ཊི་ཨེམ་ཨེལ་
 msgid "    "
 msgstr "   "
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:3
-#, no-c-format
-msgid "%"
-msgstr "%"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:4
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:2
 msgid "*"
 msgstr "*"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:8
-msgid "+4"
-msgstr "+༤"
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:3
+msgid ""
+"-2\n"
+"-1\n"
+"Standard\n"
+"+1\n"
+"+2\n"
+"+3\n"
+"+4"
+msgstr ""
+"-༢\n"
+"-༡\n"
+"ཚད་ལྡན\n"
+"+༡\n"
+"+༢\n"
+"+༣\n"
+"+༤"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:11
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:10
 msgid "<b>Alignment &amp; Behaviour</b>"
 msgstr "<b>ཕྲང་སྒྲིག་&amp; བྱ་སྤྱོད། </b>"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:12
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:11
 msgid "<b>Background</b>"
 msgstr "<b>རྒྱབ་གཞི་</b>"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:13
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:12
 msgid "<b>General</b>"
 msgstr "<b>ཡོངས་ཁྱབ་</b>"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:14
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:13
 msgid "<b>Layout</b>"
 msgstr "<b>སྒྲིག་བཀོད་</b>"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:15
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:14
 msgid "<b>Scope</b>"
 msgstr "<b>འོས་སྐབས་</b>"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:16
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:15
 msgid "<span weight=\"bold\">General</span>"
 msgstr "<span weight=\"bold\">ཡོངས་ཁྱབ་</span>"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:17
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:16
 msgid "<span weight=\"bold\">Layout</span>"
 msgstr "<span weight=\"bold\">སྒྲིག་བཀོད་</span>"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:18
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:17
 msgid "<span weight=\"bold\">Link</span>"
 msgstr "<span weight=\"bold\">འབྲེལ་ལམ་</span>"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:19
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:18
 msgid "<span weight=\"bold\">Size</span>"
 msgstr "<span weight=\"bold\">ཚད་</span>"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:20
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:19
 msgid "<span weight=\"bold\">Style</span>"
 msgstr "<span weight=\"bold\">བཟོ་རྣམ་</span>"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:21
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:20
 msgid "<span weight=\"bold\">Template</span>"
 msgstr "<span weight=\"bold\">ཊེམ་པེལེཊི་</span>"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:22
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:21
 msgid "Alignment:"
 msgstr "ཕྲང་སྒྲིག་:"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:24
-msgid "Bottom"
-msgstr "མཇུག"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:25
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:23
 msgid "C_ell"
 msgstr "ནང་ཐིག(_e)"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:26
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:24
 msgid "C_olor:"
 msgstr "ཚོས་གཞི་:(_o)"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:27
-#: ../components/html-editor/popup.c:246
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:25
+#: ../components/html-editor/popup.c:241
 msgid "Cell"
 msgstr "ནང་ཐིག"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:28
-#: ../components/html-editor/paragraph.c:132
-#: ../components/html-editor/toolbar.c:528
-msgid "Center"
-msgstr "དབུས།"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:29
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:26
 msgid "Col_umn"
 msgstr "ཀེར་ཐིག(_u)"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:31
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:28
 msgid "Column span:"
 msgstr "ཀེར་ཐིག་འཕར་:"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:32
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:29
 msgid "Enable"
 msgstr "ལྕོགས་ཅན་བཟོ།"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:33
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:30
 msgid "Hea_der style"
 msgstr "མགོ་ཡིག་བཟོ་རྣམ།(_d)"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:34
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:31
 msgid "Horizontal alignment:"
 msgstr "ཐད་སྙོམས་ཕྲང་སྒྲིག:"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:35
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:32
 msgid "Horizontal:"
 msgstr "ཐད་སྙོམས་པའི།:"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:36
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:33
 msgid "I_mage:"
 msgstr "གཟུགས་བརྙན་:(_m)"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:38
-#: ../components/html-editor/paragraph.c:131
-msgid "Left"
-msgstr "གཡོན།"
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:35
+msgid ""
+"Left\n"
+"Center\n"
+"Right"
+msgstr ""
+"གཡོན\n"
+"དབུས\n"
+"གཡས།"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:39
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:38
+msgid ""
+"Left\n"
+"Center\n"
+"Right\n"
+"None"
+msgstr ""
+"གཡོན\n"
+"དབུས\n"
+"གཡས\n"
+"ཅི་མེད།"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:42
 msgid "Link properties"
 msgstr "འབྲེལ་ལམ་རྒྱུ་དངོས་ཚུ།"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:40
-msgid "Middle"
-msgstr "སྦུག་ལུ།"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:43
-msgid "Percent"
-msgstr "བརྒྱ་ཆ།"
-
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:44
-msgid "Pixels"
-msgstr "པིག་སེལསི།"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:45
-#: ../components/html-editor/paragraph.c:133
-msgid "Right"
-msgstr "གཡས།"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:46
 msgid "Row span:"
 msgstr "གྲལ་ཐིག་འཕར་:"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:48
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:46
 msgid "Shade"
 msgstr "ནག་གྲིབ།"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:49
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:47
 msgid "Si_ze:"
 msgstr "ཚད་:(_z)"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:50
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:48
 msgid "Size:"
 msgstr "ཚད་:"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:51
-msgid "Standard"
-msgstr "ཚད་ལྡན།"
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:52
+msgid ""
+"Top\n"
+"Middle\n"
+"Bottom"
+msgstr ""
+"སྤྱི་ཏོག\n"
+"འབྲིང་མ\n"
+"གཤམ།"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:55
-msgid "Top"
-msgstr "མགོ།"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:56
 msgid "Vertical:"
 msgstr "ཀེར་ཕྲང་:"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:57
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:56
 msgid "Width:"
 msgstr "རྒྱ་ཚད་:"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:58
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:57
 msgid "_Alignment:"
 msgstr "ཕྲང་སྒྲིག་:(_A)"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:60
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:59
 msgid "_Border:"
 msgstr "མཐའ་མཚམས་:(_B)"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:61
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:60
 msgid "_Color:"
 msgstr "ཚོས་གཞི་:(_C)"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:62
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:61
 msgid "_Columns:"
 msgstr "ཀེར་ཐིག་ཚུ་:(_C)"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:63
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:62
 msgid "_Description:"
 msgstr "འགྲེལ་བཤད་:(_D)"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:64
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:63
 msgid "_Height:"
 msgstr "མཐོ་ཚད་:(_H)"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:65
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:64
 msgid "_Image:"
 msgstr "གཟུགས་བརྙན་:(_I)"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:67
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:66
 msgid "_Padding:"
 msgstr "བར་ཤབས་:(_P)"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:68
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:67
 msgid "_Row"
 msgstr "གྲལ་ཐིག(_R)"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:69
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:68
 msgid "_Rows:"
 msgstr "གྲལ་ཐིག་ཚུ་:(_R)"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:70
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:69
 msgid "_Source:"
 msgstr "འབྱུང་ཁུངས་:(_S)"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:71
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:70
 msgid "_Spacing:"
 msgstr "བར་སྟོང་བཞག་ཐངས་:(_S)"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:73
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:72
 msgid "_Table"
 msgstr "ཐིག་ཁྲམ།(_T)"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:74
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:73
 msgid "_URL:"
 msgstr "ཡུ་ཨར་ཨེལ་:(_U)"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:76
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:75
 msgid "_Width:"
 msgstr "རྒྱ་ཚད་:(_W)"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:77
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:76
 msgid "_Wrap Text"
 msgstr "ཚིག་ཡིག་ལོག་མཚམས་བཟོ།(_W)"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:78
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:77
 msgid "_X-Padding:"
 msgstr "ཨེགསི་-བར་ཤབས་:(_X)"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:79
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:78
 msgid "_Y-Padding:"
 msgstr "ཝའི་-བར་ཤབས།(_Y)"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:80
-msgid "follow"
-msgstr "རྗེས་འབྲང་།"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:81
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:79
 msgid "px"
 msgstr "པི་ཨེགསི།"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:82
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:81
+#, no-c-format
+msgid ""
+"px\n"
+"%"
+msgstr ""
+"པི་ཨེགསི\n"
+"%"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:84
+#, no-c-format
+msgid ""
+"px\n"
+"%\n"
+"follow"
+msgstr ""
+"པི་ཨེགསི\n"
+"%\n"
+"རྗེས་སུ་འབྲང་།"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:87
 msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
-#: ../components/html-editor/link.c:208
+#: ../components/html-editor/html-editor-control.xml.h:1
+msgid "C_ut"
+msgstr "བཏོག(_u)"
+
+#: ../components/html-editor/html-editor-control.xml.h:4
+msgid "Find Rege_x..."
+msgstr "རི་ཇེགསི་འཚོལ་་་(_x)"
+
+#: ../components/html-editor/html-editor-control.xml.h:9
+msgid "Modify the file's properties"
+msgstr "ཡིག་སནོད་ཀྱི་རྒྱུ་དངོས་ཚུ་ལེགས་བཅོས་འབད།"
+
+#: ../components/html-editor/html-editor-control.xml.h:13
+msgid "Regular expression search"
+msgstr "དུས་རྒྱུན་གསལ་བརྗོད་འཚོལ་ཞིབ།"
+
+#: ../components/html-editor/html-editor-control.xml.h:14
+msgid "Replace a string"
+msgstr "ཡིག་རྒྱུན་ཅིག་ཚབ་བཙུགས།"
+
+#: ../components/html-editor/html-editor-control.xml.h:15
+msgid "Search again for the same string"
+msgstr "ཡིག་རྒྱུན་ཅོག་འཐདཔ་གི་དོན་ལུ་ལོག་འཚོལ་ཞིབ་འབད།"
+
+#: ../components/html-editor/html-editor-control.xml.h:16
+msgid "Search for a string"
+msgstr "ཡིག་རྒྱུན་ཅིག་གི་དོན་ལུ་འཚོལ་ཞིབ་འབད།"
+
+#: ../components/html-editor/html-editor-control.xml.h:22
+msgid "_Insert"
+msgstr "བཙུགས།(_I)"
+
+#: ../components/html-editor/html-editor-control.xml.h:23
+msgid "_Insert text file... (FIXME)"
+msgstr "ཚིག་ཡིག་ཡིག་སྣོད་བཙུགས།(ཨེཕ་ཨའི་ཨེགསི་ཨེམ་ཨི)་་་(_I)"
+
+#: ../components/html-editor/html-editor-control.xml.h:26
+msgid "_Paste Quotation"
+msgstr "འདྲེན་ཚིག་སྦྱར།(_P)"
+
+#: ../components/html-editor/html-editor-control.xml.h:27
+msgid "_Properties..."
+msgstr "རྒྱུ་དངོས་ཚུ།་་་(_P)"
+
+#: ../components/html-editor/link.c:209
 msgid "URL:"
 msgstr "ཡུ་ཨར་ཨེལ་:"
 
-#: ../components/html-editor/link.c:212
+#: ../components/html-editor/link.c:213
 msgid "Description:"
 msgstr "འགྲེལ་བཤད་:"
 
-#: ../components/html-editor/menubar.c:141
-#: ../components/html-editor/menubar.c:164
-#: ../components/html-editor/menubar.c:192
-#: ../components/html-editor/menubar.c:218
-#: ../components/html-editor/popup.c:111
+#: ../components/html-editor/menubar.c:142
+#: ../components/html-editor/menubar.c:161
+#: ../components/html-editor/menubar.c:185
+#: ../components/html-editor/menubar.c:207
+#: ../components/html-editor/popup.c:108
 msgid "Insert"
 msgstr "བར་བཙུགས།"
 
-#: ../components/html-editor/menubar.c:306
+#: ../components/html-editor/menubar.c:294
 #, c-format
 msgid "Error loading file '%s': %s"
 msgstr "ཡིག་སྣོད་%s': %s མངོན་གསལ་འབད་ནི་ལུ་འཛོལ་བ།"
 
-#: ../components/html-editor/menubar.c:332
-#: ../components/html-editor/menubar.c:341
+#: ../components/html-editor/menubar.c:320
+#: ../components/html-editor/menubar.c:329
 msgid "Insert HTML File"
 msgstr "ཨེཆ་ཊི་ཨེམ་ཨེལ་ཡིག་སྣོད་བཙུགས།"
 
-#: ../components/html-editor/menubar.c:332
-#: ../components/html-editor/menubar.c:341
+#: ../components/html-editor/menubar.c:320
+#: ../components/html-editor/menubar.c:329
 msgid "Insert Text File"
 msgstr "ཚིག་ཡིག་ཡིག་སྣོད་བཙུགས།"
 
-#: ../components/html-editor/menubar.c:378
-#: ../components/html-editor/menubar.c:396
-#: ../components/html-editor/menubar.c:414
+#: ../components/html-editor/menubar.c:366
+#: ../components/html-editor/menubar.c:383
+#: ../components/html-editor/menubar.c:400
 msgid "Format"
 msgstr "རྩ་སྒྲིག"
 
-#: ../components/html-editor/paragraph.c:90
-#: ../components/html-editor/toolbar.c:59
-msgid "Header 1"
-msgstr "མགོ་ཡིག་ ༡"
-
-#: ../components/html-editor/paragraph.c:91
-#: ../components/html-editor/toolbar.c:60
-msgid "Header 2"
-msgstr "མགོ་ཡིག་ ༢"
-
-#: ../components/html-editor/paragraph.c:92
-#: ../components/html-editor/toolbar.c:61
-msgid "Header 3"
-msgstr "མགོ་ཡིག་ ༣"
-
-#: ../components/html-editor/paragraph.c:93
-#: ../components/html-editor/toolbar.c:62
-msgid "Header 4"
-msgstr "མགོ་ཡིག་ ༤"
-
-#: ../components/html-editor/paragraph.c:94
-#: ../components/html-editor/toolbar.c:63
-msgid "Header 5"
-msgstr "མགོ་ཡིག་ ༥"
-
-#: ../components/html-editor/paragraph.c:95
-#: ../components/html-editor/toolbar.c:64
-msgid "Header 6"
-msgstr "མགོ་ཡིག་ ༦"
-
-#: ../components/html-editor/paragraph.c:98
-msgid "Dot item"
-msgstr "ཚག་གི་དོན་ཚན།"
-
-#: ../components/html-editor/paragraph.c:99
-msgid "Number item"
-msgstr "ཨང་གྲངས་དོན་ཚན།"
-
-#: ../components/html-editor/paragraph.c:100
-msgid "Roman item"
-msgstr "རོ་མཱན་དོན་ཚན།"
-
-#: ../components/html-editor/paragraph.c:101
-msgid "Alphabeta item"
-msgstr "ཀ་ཁའི་གོ་རིམ་དོན་ཚན།"
-
-#: ../components/html-editor/paragraph.c:104
-#: ../components/html-editor/toolbar.c:65
-msgid "Address"
-msgstr "ཁ་བྱང་ཚུ།"
-
-#: ../components/html-editor/paragraph.c:113
+#: ../components/html-editor/paragraph.c:69
 msgid "_Style:"
 msgstr "བཟོ་རྣམ་:(_S)"
 
-#: ../components/html-editor/paragraph.c:116
+#: ../components/html-editor/paragraph.c:72
 msgid "General"
 msgstr "ཡོངས་ཁྱབ་།"
 
-#: ../components/html-editor/paragraph.c:135
+#: ../components/html-editor/paragraph.c:87
+msgid "Left"
+msgstr "གཡོན།"
+
+#: ../components/html-editor/paragraph.c:88
+#: ../components/html-editor/toolbar.c:415
+msgid "Center"
+msgstr "དབུས།"
+
+#: ../components/html-editor/paragraph.c:89
+msgid "Right"
+msgstr "གཡས།"
+
+#: ../components/html-editor/paragraph.c:91
 msgid "Alignment"
 msgstr "ཕྲང་སྒྲིག"
 
-#: ../components/html-editor/popup.c:451
+#: ../components/html-editor/paragraph-style.c:45
+msgid "Roman List"
+msgstr "རོ་མཱན་ཐོ་ཡིག"
+
+#: ../components/html-editor/paragraph-style.c:51
+msgid "Header 1"
+msgstr "མགོ་ཡིག་ ༡"
+
+#: ../components/html-editor/paragraph-style.c:54
+msgid "Header 2"
+msgstr "མགོ་ཡིག་ ༢"
+
+#: ../components/html-editor/paragraph-style.c:57
+msgid "Header 3"
+msgstr "མགོ་ཡིག་ ༣"
+
+#: ../components/html-editor/paragraph-style.c:60
+msgid "Header 4"
+msgstr "མགོ་ཡིག་ ༤"
+
+#: ../components/html-editor/paragraph-style.c:63
+msgid "Header 5"
+msgstr "མགོ་ཡིག་ ༥"
+
+#: ../components/html-editor/paragraph-style.c:66
+msgid "Header 6"
+msgstr "མགོ་ཡིག་ ༦"
+
+#: ../components/html-editor/paragraph-style.c:69
+msgid "Address"
+msgstr "ཁ་བྱང་ཚུ།"
+
+#: ../components/html-editor/popup.c:442
 msgid "Paste Quotation"
 msgstr "འདྲེན་རྟགས་སྦྱར།"
 
-#: ../components/html-editor/popup.c:455
+#: ../components/html-editor/popup.c:446
 msgid "Insert Link"
 msgstr "འབྲེལ་ལམ་བཙུགས།"
 
-#: ../components/html-editor/popup.c:462
+#: ../components/html-editor/popup.c:453
 msgid "Remove Link"
 msgstr "འབྲེལ་ལམ་རྩ་བསྐྲད་གཏང་།"
 
-#: ../components/html-editor/popup.c:469
+#: ../components/html-editor/popup.c:460
 msgid "Style"
 msgstr "བཟོ་རྣམ།"
 
-#: ../components/html-editor/popup.c:472
+#: ../components/html-editor/popup.c:463
 msgid "Text Style..."
 msgstr "ཚིག་ཡིག་བཟོ་རྣམ་..."
 
-#: ../components/html-editor/popup.c:474
-#: ../components/html-editor/popup.c:480
-#: ../components/html-editor/popup.c:490
+#: ../components/html-editor/popup.c:465
+#: ../components/html-editor/popup.c:471
+#: ../components/html-editor/popup.c:481
 msgid "Paragraph Style..."
 msgstr "དོན་མཚམས་བཟོ་རྣམ་..."
 
-#: ../components/html-editor/popup.c:478
+#: ../components/html-editor/popup.c:469
 msgid "Link Style..."
 msgstr "འབྲེལ་ལམ་བཟོ་རྣམ་..."
 
-#: ../components/html-editor/popup.c:484
+#: ../components/html-editor/popup.c:475
 msgid "Rule Style..."
 msgstr "བཅའ་ཡིག་བཟོ་རྣམ་..."
 
-#: ../components/html-editor/popup.c:488
+#: ../components/html-editor/popup.c:479
 msgid "Image Style..."
 msgstr "གཟུགས་བརྙན་བཟོ་རྣམ་..."
 
-#: ../components/html-editor/popup.c:499
+#: ../components/html-editor/popup.c:490
 msgid "Cell Style..."
 msgstr "ནང་ཐིག་བཟོ་རྣམ་..."
 
-#: ../components/html-editor/popup.c:502
+#: ../components/html-editor/popup.c:493
 msgid "Table Style..."
 msgstr "ཐིག་ཁྲམ་བཟོ་རྣམ་..."
 
-#: ../components/html-editor/popup.c:508
+#: ../components/html-editor/popup.c:499
 msgid "Page Style..."
 msgstr "ཤོག་ལེབ་བཟོ་རྣམ་..."
 
-#: ../components/html-editor/popup.c:513
+#: ../components/html-editor/popup.c:504
 msgid "Table insert"
 msgstr "ཐིག་ཁྲམ་བཙུགས་ནི།"
 
-#: ../components/html-editor/popup.c:516
+#: ../components/html-editor/popup.c:507
 msgid "Row above"
 msgstr "གྲལ་ཐིག་ལྟག་ལུ།"
 
-#: ../components/html-editor/popup.c:517
+#: ../components/html-editor/popup.c:508
 msgid "Row below"
 msgstr "གྲལ་ཐིག་འོག་ལུ།"
 
-#: ../components/html-editor/popup.c:519
+#: ../components/html-editor/popup.c:510
 msgid "Column before"
 msgstr "ཀེར་ཐིག་ཧེ་མ།"
 
-#: ../components/html-editor/popup.c:520
+#: ../components/html-editor/popup.c:511
 msgid "Column after"
 msgstr "ཀེར་ཐིག་ཤུལ་མ།"
 
-#: ../components/html-editor/popup.c:525
+#: ../components/html-editor/popup.c:516
 msgid "Table delete"
 msgstr "ཐིག་ཁྲམ་བཏོན་གཏང་ནི།"
 
-#: ../components/html-editor/popup.c:527
+#: ../components/html-editor/popup.c:518
 msgid "Row"
 msgstr "གྲལ་ཐིག"
 
-#: ../components/html-editor/popup.c:528
+#: ../components/html-editor/popup.c:519
 msgid "Column"
 msgstr "ཀེར་ཐིག"
 
-#: ../components/html-editor/popup.c:529
+#: ../components/html-editor/popup.c:520
 msgid "Cell contents"
 msgstr "ནང་ཐིག་ནང་དོན་ཚུ།"
 
-#: ../components/html-editor/popup.c:537
-msgid "Check Word Spelling..."
-msgstr "མིང་ཚིག་སྡེབ་དཔྱད་..."
-
-#: ../components/html-editor/popup.c:538
+#: ../components/html-editor/popup.c:555
 msgid "Ignore Misspelled Word"
 msgstr "ཡིག་སྡེབ་འཛོལ་མི་ སྣང་མེད་བཞག"
 
-#: ../components/html-editor/popup.c:543
+#: ../components/html-editor/popup.c:560
 msgid "Add Word to"
 msgstr "མིང་ཚིག་ཁ་སྐོང་རྐྱབས་ས།"
 
-#: ../components/html-editor/popup.c:547
+#: ../components/html-editor/popup.c:564
 #, c-format
 msgid "%s Dictionary"
 msgstr "ཚིག་མཛོད་%s "
 
-#: ../components/html-editor/popup.c:556
+#: ../components/html-editor/popup.c:573
 msgid "Add Word to Dictionary"
 msgstr "ཚིག་མཚོད་ལུ་ མིང་ཚིག་ཁ་སྐོང་རྐྱབས།"
 
-#: ../components/html-editor/popup.c:562
+#: ../components/html-editor/popup.c:579
 msgid "Input Methods"
 msgstr "ཨིན་པུཊི་ཐབས་ཤེས་ཚུ།"
 
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
-#: ../components/html-editor/replace.c:84
+#: ../components/html-editor/replace.c:81
 msgid "Replace confirmation"
 msgstr "ངེས་དཔྱད་ཚབ་བཙུགས།"
 
-#: ../components/html-editor/replace.c:85
+#: ../components/html-editor/replace.c:82
 msgid "Replace _All"
 msgstr "ཆ་མཉམ་ཚབ་བཙུགས།(_A)"
 
-#: ../components/html-editor/replace.c:86
+#: ../components/html-editor/replace.c:83
 msgid "_Next"
 msgstr "ཤུལ་མམ།(_N)"
 
-#: ../components/html-editor/replace.c:88
+#: ../components/html-editor/replace.c:85
 msgid "_Replace"
 msgstr "ཚབ་བཙུགས།(_R)"
 
-#: ../components/html-editor/replace.c:182
+#: ../components/html-editor/replace.c:179
 msgid "Search _backward"
 msgstr "རྒྱབ་བསྐྱོད་འཚོལ་ཞིབ་འབད།(_b)"
 
-#: ../components/html-editor/replace.c:183
-#: ../components/html-editor/search.c:117
+#: ../components/html-editor/replace.c:180
+#: ../components/html-editor/search.c:116
 msgid "Case _sensitive"
 msgstr "ཡི་གུ་ཆེ་ཆུང་གི་ཉེན་ཁ།(_s)"
 
-#: ../components/html-editor/replace.c:193
+#: ../components/html-editor/replace.c:190
 msgid "R_eplace:"
 msgstr "ཚབ་བཙུགས་:(_e)"
 
-#: ../components/html-editor/replace.c:197
+#: ../components/html-editor/replace.c:194
 msgid "_With:"
 msgstr "རྒྱ་ཚད་:(_W)"
 
-#: ../components/html-editor/search.c:116
+#: ../components/html-editor/search.c:115
 msgid "_Backward"
 msgstr "རྒྱབ་བསྐྱོད།(_B)"
 
-#: ../components/html-editor/search.c:118
+#: ../components/html-editor/search.c:117
 msgid "_Regular Expression"
 msgstr "དུས་རྒྱུན་གསལ་བརྗོད།(_R)"
 
-#: ../components/html-editor/search.c:122
+#: ../components/html-editor/search.c:121
 msgid "Input the words you want to search here"
 msgstr "ཁྱོད་ཀྱིས་འཚོལ་ཞིབ་འབད་དགོ་མནོ་མི་ མིང་ཚིག་ཚུ་ ནཱ་ལུ་ནང་བཙུགས་འབད།"
 
@@ -1726,75 +1792,71 @@ msgstr "གཟུགས་བརྙན་གཞི་ཁྲམ།"
 msgid "Template Labels"
 msgstr "ཊེམ་པེལེཊི་ ཁ་ཡིག་ཚུ།"
 
-#: ../components/html-editor/test-html-editor-control.c:338
+#: ../components/html-editor/test-html-editor-control.c:340
 msgid "Open file..."
 msgstr "ཡིག་སྣོད་ཁ་ཕྱེ་..."
 
-#: ../components/html-editor/test-html-editor-control.c:340
+#: ../components/html-editor/test-html-editor-control.c:342
 msgid "Save file as..."
 msgstr "ཡིག་སྣོད་དེ་སྦེ་སྲུངས་...."
 
-#: ../components/html-editor/test-html-editor-control.c:572
+#: ../components/html-editor/test-html-editor-control.c:574
 msgid "GtkHTML Editor Test Container"
 msgstr "ཇི་ཊི་ཀེ་ཨེཆ་ཊི་ཨེམ་ཨེལ་ ཞུན་དག་པའི་ བརྟག་ཞིབ་འཛིན་སྣོད།"
 
-#: ../components/html-editor/toolbar.c:57
-msgid "Roman List"
-msgstr "རོ་མཱན་ཐོ་ཡིག"
-
-#: ../components/html-editor/toolbar.c:526
+#: ../components/html-editor/toolbar.c:412
 msgid "Left align"
 msgstr "གཡོན་ལུ་ཕྲང་།"
 
-#: ../components/html-editor/toolbar.c:530
+#: ../components/html-editor/toolbar.c:418
 msgid "Right align"
 msgstr "གཡས་ལུ་ཕྲང་།"
 
-#: ../components/html-editor/toolbar.c:550
+#: ../components/html-editor/toolbar.c:439
 msgid "Toggle typewriter font style"
 msgstr "མཛུབ་མནོན་ལྕགས་དཔར་གྱི་ ཡིག་གཟུགས་དབྱེ་བ་ སོར་སྟོན་འབད།"
 
-#: ../components/html-editor/toolbar.c:552
+#: ../components/html-editor/toolbar.c:441
 msgid "Bold"
 msgstr "རྒྱགས་པ།"
 
-#: ../components/html-editor/toolbar.c:552
+#: ../components/html-editor/toolbar.c:441
 msgid "Makes the text bold"
 msgstr "ཚིག་ཡིག་རྒྱགས་པ་བཟོཝ་ཨིན།"
 
-#: ../components/html-editor/toolbar.c:554
+#: ../components/html-editor/toolbar.c:444
 msgid "Italic"
 msgstr "ཨའི་ཊ་ལིཀ"
 
-#: ../components/html-editor/toolbar.c:554
+#: ../components/html-editor/toolbar.c:444
 msgid "Makes the text italic"
 msgstr "ཚིག་ཡིག་ཨའི་ཊ་ལིཀ་བཟོཝ་ཨིན།"
 
-#: ../components/html-editor/toolbar.c:556
+#: ../components/html-editor/toolbar.c:447
 msgid "Underline"
 msgstr "འོག་ཐིག"
 
-#: ../components/html-editor/toolbar.c:556
+#: ../components/html-editor/toolbar.c:447
 msgid "Underlines the text"
 msgstr "ཚིག་ཡིག་ལུ་འོག་ཐིག་རྐྱབ་ཨིན།"
 
-#: ../components/html-editor/toolbar.c:558
+#: ../components/html-editor/toolbar.c:450
 msgid "Strikes out the text"
 msgstr "ཚིག་ཡིག་ སི་ཊའིཀ་ཨའུཊི་ འབདཝ་ཨིན།"
 
-#: ../components/html-editor/toolbar.c:567
+#: ../components/html-editor/toolbar.c:460
 msgid "Unindent"
 msgstr "འགོ་མཚམས་མེདཔ་བཟོ།"
 
-#: ../components/html-editor/toolbar.c:567
+#: ../components/html-editor/toolbar.c:460
 msgid "Indents the paragraphs less"
 msgstr "དོན་མཚམས་ཚུ་ལུ་ འགོ་མཚམས་ཉུང་སུ་བཞགཔ་ཨིན།"
 
-#: ../components/html-editor/toolbar.c:569
+#: ../components/html-editor/toolbar.c:463
 msgid "Indent"
 msgstr "འགོ་མཚམས་བཞག"
 
-#: ../components/html-editor/toolbar.c:569
+#: ../components/html-editor/toolbar.c:463
 msgid "Indents the paragraphs more"
 msgstr "དོན་མཚམས་ཚུ་ལུ་ འགོ་མཚམས་མང་སུ་བཞགཔ་ཨིན།"
 
@@ -1814,83 +1876,83 @@ msgstr ""
 "ཞུན་དག་འབད་ཡོད་པའི་དངོས་པོ་དེ་ ཡིག་ཆའི་ནང་ལས་ རྩ་བསྐྲད་བཏང་ནུག\n"
 "ཁྱོད་ཀྱི་བསྒྱུར་བཅོས་ཚུ་ འཇུག་སྤྱོད་འབད་མི་ཚུགས།"
 
-#: ../src/gtkhtml.c:2995
+#: ../src/gtkhtml.c:3060
 msgid "Editable"
 msgstr "ཞུན་དག་འབད་བཏུབཔ།"
 
-#: ../src/gtkhtml.c:2996
+#: ../src/gtkhtml.c:3061
 msgid "Whether the html can be edited"
 msgstr "ཨེཆ་ཊི་ཨེམ་ཨེལ་དེ་ ཞུན་དག་འབད་བཏུབ་ག"
 
-#: ../src/gtkhtml.c:3002
+#: ../src/gtkhtml.c:3067
 msgid "Document Title"
 msgstr "ཡིག་ཆའི་མགོ་མིང་།"
 
-#: ../src/gtkhtml.c:3003
+#: ../src/gtkhtml.c:3068
 msgid "The title of the current document"
 msgstr "ད་ལྟོའི་ཡིག་ཆའི་མགོ་མིང་།"
 
-#: ../src/gtkhtml.c:3009
+#: ../src/gtkhtml.c:3074
 msgid "Document Base"
 msgstr "ཡིག་ཆའི་གཞི་རྟེན།"
 
-#: ../src/gtkhtml.c:3010
+#: ../src/gtkhtml.c:3075
 msgid "The base URL for relative references"
 msgstr "འབྲེལ་བའི་གཞི་བསྟུན་གྱི་དོན་ལུ་ ཡུ་ཨར་ཨེལ་གྱི་གཞི་རྟེན།"
 
-#: ../src/gtkhtml.c:3016
+#: ../src/gtkhtml.c:3081
 msgid "Target Base"
 msgstr "དམིགས་གཏད་གཞི་རྟེན།"
 
-#: ../src/gtkhtml.c:3017
+#: ../src/gtkhtml.c:3082
 msgid "The base URL of the target frame"
 msgstr "དམིགས་གཏད་གཞི་ཁྲམ་གྱི་ ཡུ་ཨར་ཨེལ་གཞི་རྟེན།"
 
-#: ../src/gtkhtml.c:3026
+#: ../src/gtkhtml.c:3091
 msgid "Fixed Width Font"
 msgstr "རྒྱ་ཚད་གཏན་པོའི་ཡིག་གཟུགས།"
 
-#: ../src/gtkhtml.c:3027
+#: ../src/gtkhtml.c:3092
 msgid "The Monospace font to use for typewriter text"
 msgstr "མཛུབ་མནོན་ཚིག་ཡིག་གི་དོན་ལུ་ ལག་ལེན་འཐབ་ནིའི་ མོ་ནོ་སི་པེསི་ ཡིག་གཟུགས།"
 
-#: ../src/gtkhtml.c:3033
+#: ../src/gtkhtml.c:3098
 msgid "New Link Color"
 msgstr "འབྲེལ་ལམ་གསར་པའི་ཚོས་གཞི།"
 
-#: ../src/gtkhtml.c:3034
+#: ../src/gtkhtml.c:3099
 msgid "The color of new link elements"
 msgstr "འབྲེལ་ལམ་གསར་པའི་ རྒྱུ་རྫས་ཚུ་གི་ཚོས་གཞི།"
 
-#: ../src/gtkhtml.c:3039
+#: ../src/gtkhtml.c:3104
 msgid "Visited Link Color"
 msgstr "ལྟ་སྤྱོད་འབད་མི་ འབྲེལ་ལམ་ཚོས་གཞི་།"
 
-#: ../src/gtkhtml.c:3040
+#: ../src/gtkhtml.c:3105
 msgid "The color of visited link elements"
 msgstr "ལྟ་སྤྱོད་འབད་མི་ འབྲེལ་ལམ་རྒྱུ་རྫས་ཀྱི་ཚོས་གཞི།"
 
-#: ../src/gtkhtml.c:3045
+#: ../src/gtkhtml.c:3110
 msgid "Active Link Color"
 msgstr "ཤུགས་ལྡན་འབྲེལ་ལམ་ཚོས་གཞི་།"
 
-#: ../src/gtkhtml.c:3046
+#: ../src/gtkhtml.c:3111
 msgid "The color of active link elements"
 msgstr "ཤུགས་ལྡན་འབྲེལ་ལམ་ རྒྱུ་རྫས་ཀྱི་ཚོས་གཞི་།"
 
-#: ../src/gtkhtml.c:3051
+#: ../src/gtkhtml.c:3116
 msgid "Spelling Error Color"
 msgstr "ཡིག་སྡེབ་འཛོལ་བའི་ཚོས་གཞི།"
 
-#: ../src/gtkhtml.c:3052
+#: ../src/gtkhtml.c:3117
 msgid "The color of the spelling error markers"
 msgstr "ཡིག་སྡེབ་འཛོལ་བ་བཟོ་མིའི་ཚོས་གཞི།"
 
-#: ../src/gtkhtml.c:3057
+#: ../src/gtkhtml.c:3122
 msgid "Cite Quotation Color"
 msgstr "འདྲེན་ཚིག་ཚོས་གཞི་བཀོད།"
 
-#: ../src/gtkhtml.c:3058
+#: ../src/gtkhtml.c:3123
 msgid "The color of the cited text"
 msgstr "ལུང་འདྲེན་ཚིག་ཡིག་གི་ཚོས་གཞི།"
 
@@ -1903,34 +1965,58 @@ msgid "Reset"
 msgstr "སླར་སྒྲིག"
 
 #. TODO2 dialog instead of warning
-#: ../src/htmlengine-print.c:192
+#: ../src/htmlengine-print.c:198
 msgid "Cannot allocate default font for printing\n"
 msgstr "དཔར་བསྐྲུན་གྱི་དོན་ལུ་ སྔོན་སྒྲིག་ཡིག་གཟུགས་ སྐལ་སྤྲོད་འབད་མ་ཚུགས།\n"
 
-#: ../src/test.c:375
+#: ../src/test.c:374
 msgid "GtkHTML Test"
 msgstr "ཇི་ཊི་ཀེ་ཨེཆ་ཊི་ཨེམ་ཨེལ་ བརྟག་ཞིབ།"
 
-#: ../src/testgtkhtml.c:121
+#: ../src/testgtkhtml.c:118
 msgid "Print pre_view"
 msgstr "དཔར་བསྐྲུན་སྔོན་ལྟ།(_v)"
 
-#: ../src/testgtkhtml.c:121
+#: ../src/testgtkhtml.c:118
 msgid "Print preview"
 msgstr "དཔར་བསྐྲུན་སྔོན་ལྟ།"
 
-#: ../src/testgtkhtml.c:1013
+#: ../src/testgtkhtml.c:1038
 msgid "GtkHTML Test Application"
 msgstr "ཇི་ཊི་ཀེ་ཨེཆ་ཊི་ཨེམ་ཨེལ་བརྟག་ཞིབ་གློག་རིམ།"
 
+#~ msgid "%"
+#~ msgstr "%"
+#~ msgid "+4"
+#~ msgstr "+༤"
+#~ msgid "Bottom"
+#~ msgstr "མཇུག"
+#~ msgid "Middle"
+#~ msgstr "སྦུག་ལུ།"
+#~ msgid "Percent"
+#~ msgstr "བརྒྱ་ཆ།"
+#~ msgid "Pixels"
+#~ msgstr "པིག་སེལསི།"
+#~ msgid "Standard"
+#~ msgstr "ཚད་ལྡན།"
+#~ msgid "Top"
+#~ msgstr "མགོ།"
+#~ msgid "Dot item"
+#~ msgstr "ཚག་གི་དོན་ཚན།"
+#~ msgid "Number item"
+#~ msgstr "ཨང་གྲངས་དོན་ཚན།"
+#~ msgid "Roman item"
+#~ msgstr "རོ་མཱན་དོན་ཚན།"
+#~ msgid "Alphabeta item"
+#~ msgstr "ཀ་ཁའི་གོ་རིམ་དོན་ཚན།"
+#~ msgid "Check Word Spelling..."
+#~ msgstr "མིང་ཚིག་སྡེབ་དཔྱད་..."
 #~ msgid "Find And Replace"
 #~ msgstr "འཚོལ་ཏེ་ཚབ་བཙུགས།"
 #~ msgid "Insert Lick smiley into document..."
 #~ msgstr "ལིཀ་ སི་མའི་ལི་ ཡིག་ཆ་ནང་བཙུགས་..."
 #~ msgid "Li_ck"
 #~ msgstr "ལིཀ(_c)"
-#~ msgid "_Insert"
-#~ msgstr "བཙུགས།(_I)"
 #~ msgid "_Preformat"
 #~ msgstr "སྔ་གོང་རྩ་སྒྲིག(_P)"
 #~ msgid "_Smiley"
