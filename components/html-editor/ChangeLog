@@ -1,3 +1,7 @@
+2007-04-02  Sebastien Bacher  <seb128@ubuntu.com>
+
+	* menubar.c: (smiley_cb): fix emoticons use (Closes: #419350)
+
 2007-03-12 Harish Krishnaswamy <kharish@novell.com>
 
 	* Makefile.am : Fix for #401970 committed after approval from
