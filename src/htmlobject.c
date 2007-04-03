@@ -1239,6 +1239,10 @@ html_object_get_cursor (HTMLObject *self,
 			gint *x2, gint *y2)
 {
 	(* HO_CLASS (self)->get_cursor) (self, painter, offset, x1, y1, x2, y2);
+
+	if (*y2 - *y1 > *y2 - self->ascent)
+		*y2 = *y1 + 20;
+
 	if (!html_object_is_text (self) && *y2 - *y1 < 10) {
 		gint missing = 10 - (*y2 - *y1);
 
