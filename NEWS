@@ -1,3 +1,17 @@
+GtkHTML-3.14.1 2007-04-09
+--------------------------
+
+Bug fixes:
+	#374869 - Sankar
+	#419350 - Sebastien Bacher
+
+Updated Translations:
+	Ignacio Casal Quinteiro (gl)
+	Pema Geyleg (dz)
+	Inaki Larranaga Murgoitio (eu)
+	Claudio Saavedra (es)
+	
+
 GtkHTML-3.14.00 2007-03-12
 --------------------------
 
