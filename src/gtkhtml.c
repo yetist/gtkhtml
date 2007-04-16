@@ -754,6 +754,11 @@ destroy (GtkObject *object)
 			html->priv->resize_cursor = NULL;
 		}
 
+		if (html->priv->im_context) {
+			g_object_unref (html->priv->im_context);
+			html->priv->im_context = NULL;
+		}
+
 		g_free (html->priv->content_type);
 		g_free (html->priv->base_url);
 		g_free (html->priv);

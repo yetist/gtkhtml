@@ -1,3 +1,8 @@
+2007-04-16  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* gtkhtml.c: (destroy): Unref the IM context in ::destroy
+	Patch from nix at go-nix ca. Bug #410317.
+
 2007-04-03  Sankar P  <psankar@novell.com>
 
 	* htmlobject.c: (html_object_get_cursor):
