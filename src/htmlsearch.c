@@ -67,11 +67,13 @@ html_search_new (HTMLEngine *e, const gchar *text, gboolean case_sensitive, gboo
 		for (o = e->cursor->object; o; o = o->parent)
 			html_search_push (ns, o);
 		ns->stack = g_slist_reverse (ns->stack);
-		ns->found = g_list_append (ns->found, e->cursor->object);
+		if (e->cursor->object)
+  		ns->found = g_list_append (ns->found, e->cursor->object);
 	} else {
 		ns->stack     = NULL;
 		ns->start_pos = 0;
-		html_search_push (ns, e->clue);
+		if (e->clue)
+			html_search_push (ns, e->clue);
 	}
 
 	/* translate table

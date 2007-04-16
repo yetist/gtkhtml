@@ -141,6 +141,7 @@ html_engine_search (HTMLEngine *e, const gchar *text,
 {
 	HTMLSearch *info;
 	HTMLObject *p;
+	HTMLObject *o;
 
 	if (e->search_info) {
 		html_search_destroy (e->search_info);
@@ -148,8 +149,9 @@ html_engine_search (HTMLEngine *e, const gchar *text,
 
 	info = e->search_info = html_search_new (e, text, case_sensitive, forward, regular);
 
-	p = HTML_OBJECT (e->search_info->stack->data)->parent;
-	if (html_object_search (p ? p : e->clue, info)) {
+	p = e->search_info->stack ? HTML_OBJECT (e->search_info->stack->data)->parent : NULL;
+	o = p ? p : e->clue;
+	if (o && html_object_search (o, info)) {
 		display_search_results (info);
 		return TRUE;
 	} else
@@ -181,7 +183,7 @@ html_engine_search_next (HTMLEngine *e)
 			retval = html_object_search (HTML_OBJECT (info->stack->data), info);
 		else {
 			html_search_push (info, e->clue);
-			retval = html_object_search (e->clue, info);
+			retval = e->clue ? html_object_search (e->clue, info) : FALSE ;
 		}
 		if (retval)
 			display_search_results (info);

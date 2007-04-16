@@ -1,5 +1,13 @@
 2007-04-16  Kjartan Maraas  <kmaraas@gnome.org>
 
+	* htmlengine-search.c: (html_engine_search),
+	(html_engine_search_next):
+	* htmlsearch.c: (html_search_new): Avoid dereferencing
+	NULL pointers in searches. Patch from nix at go-nix ca.
+	Bug #410317.
+
+2007-04-16  Kjartan Maraas  <kmaraas@gnome.org>
+
 	* gtkhtml.c: (key_press_event): Emit LINK_CLICKED
 	*after* setting the link as visited. Fixes a crash.
 	Patch from nix at go-nix ca. Bug #410317.
