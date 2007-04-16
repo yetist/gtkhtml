@@ -1,5 +1,11 @@
 2007-04-16  Kjartan Maraas  <kmaraas@gnome.org>
 
+	* gtkhtml.c: (key_press_event): Emit LINK_CLICKED
+	*after* setting the link as visited. Fixes a crash.
+	Patch from nix at go-nix ca. Bug #410317.
+
+2007-04-16  Kjartan Maraas  <kmaraas@gnome.org>
+
 	* htmlengine.c: (html_engine_parse): Clear the selection
 	after destroying the current document. Patch from
 	nix at go-nix ca. Bug #410317.
