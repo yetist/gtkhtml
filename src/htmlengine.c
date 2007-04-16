@@ -4997,6 +4997,8 @@ html_engine_parse (HTMLEngine *e)
 	if (e->clue != NULL)
 		html_object_destroy (e->clue);
 
+	clear_selection (e);
+
 	g_list_foreach (e->formList, destroy_form, NULL);
 
 	g_list_free (e->formList);
