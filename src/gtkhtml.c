@@ -1119,7 +1119,7 @@ unrealize (GtkWidget *widget)
 
 	html_engine_unrealize (html->engine);
 
-	gtk_im_context_set_client_window (html->priv->im_context, widget->window);
+	gtk_im_context_set_client_window (html->priv->im_context, NULL);
 
 	html_image_factory_stop_animations (html->engine->image_factory);
 
