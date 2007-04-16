@@ -5001,6 +5001,7 @@ html_engine_parse (HTMLEngine *e)
 
 	g_list_free (e->formList);
 
+	e->focus_object = NULL;
 	e->map = NULL;
 	e->formList = NULL;
 	e->form = NULL;
