@@ -47,23 +47,23 @@ set_text (HTMLSearch *s, const gchar *text)
 HTMLSearch *
 html_search_new (HTMLEngine *e, const gchar *text, gboolean case_sensitive, gboolean forward, gboolean regular)
 {
-	HTMLSearch *ns = g_new (HTMLSearch, 1);
+	HTMLSearch *ns = g_new0 (HTMLSearch, 1);
 	gint i;
 
 	set_text (ns, text);
 	ns->case_sensitive = case_sensitive;
 	ns->forward        = forward;
-	ns->found          = NULL;
 	ns->engine         = e;
 
 	if (html_engine_get_editable (e)) {
 		HTMLObject *o;
  
-		ns->stack = NULL;
-		if (ns->start_pos >= 0 )
-			ns->start_pos = e->cursor->offset - 1;
+		if (e->mark)
+			ns->start_pos = forward 
+					? e->mark->offset + 1
+					: e->cursor->offset - 1;
 		else
-			ns->start_pos = 0;
+			ns->start_pos = e->cursor->offset;
 		for (o = e->cursor->object; o; o = o->parent)
 			html_search_push (ns, o);
 		ns->stack = g_slist_reverse (ns->stack);
@@ -75,19 +75,6 @@ html_search_new (HTMLEngine *e, const gchar *text, gboolean case_sensitive, gboo
 		if (e->clue)
 			html_search_push (ns, e->clue);
 	}
-
-	/* translate table
-	   could translate uppercase to lowercase if non case_sensitive */
-	ns->trans = g_new (gchar, 256);
-	for (i=0; i<256; i++) {
-		ns->trans [i] = (case_sensitive) ? i : ((i>='A' && i<='Z') ? i+('a'-'A') : i);
-	}
-	/* 
-	 * FIXME translating &nbsp; breaks horribly
-	 * with utf8 and nonutf8 regex (see bug #24446)
-	 * so we won't do it
-	 */
-	/* ns->trans [ENTITY_NBSP] = ' '; */
 
 	ns->regular = regular;
 	if (regular) {

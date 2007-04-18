@@ -1,3 +1,11 @@
+2007-04-18  simon.zheng  <simon.zheng@sun.com>
+
+	** Fix bug #349773
+
+	* htmlclueflow.c: (search_text):
+	* htmlsearch.c: (html_search_new):
+	Support searching UTF-8 strings.
+
 2007-04-16  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* htmlengine.c: (html_engine_focus): Initialize some
