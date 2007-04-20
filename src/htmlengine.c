@@ -2389,7 +2389,7 @@ element_parse_hr (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	if (html_element_get_attr (element, "size", &value))
 		element->style = html_style_add_height (element->style, value);
 	
-	if (html_element_get_attr (element,"width", &value))
+	if (html_element_get_attr (element,"length", &value))
 		element->style = html_style_add_width (element->style, value);
 
 	if (html_element_has_attr (element, "noshade"))
