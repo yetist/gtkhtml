@@ -4503,6 +4503,11 @@ cursor_move (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType ski
 	if (!html->engine->caret_mode && !html_engine_get_editable (html->engine))
 		return;
 
+	if (skip == GTK_HTML_CURSOR_SKIP_NONE) {
+		g_signal_emit (GTK_HTML (html), signals [CURSOR_CHANGED], 0);
+		return;
+	}
+	
 	if (html->engine->selection_mode) {
 		if (!html->engine->mark)
 			html_engine_set_mark (html->engine);
@@ -5265,10 +5270,12 @@ add_bindings (GtkHTMLClass *klass)
 	BMOVE (GDK_CONTROL_MASK, KP_Left,  LEFT,  WORD);
 	BMOVE (GDK_CONTROL_MASK, Left,     LEFT,  WORD);
 	BMOVE (GDK_MOD1_MASK,    Left,     LEFT,  WORD);
+	BMOVE (GDK_SHIFT_MASK, Left,     LEFT,  NONE);
 
 	BMOVE (GDK_CONTROL_MASK, KP_Right, RIGHT, WORD);
 	BMOVE (GDK_CONTROL_MASK, Right,    RIGHT, WORD);
 	BMOVE (GDK_MOD1_MASK,    Right,    RIGHT, WORD);
+	BMOVE (GDK_SHIFT_MASK, Right,    RIGHT ,  NONE);
 
 	BMOVE (0, Page_Up,       UP,   PAGE);
 	BMOVE (0, KP_Page_Up,    UP,   PAGE);
