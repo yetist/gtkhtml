@@ -1,3 +1,7 @@
+2007-04-23 Srinivasa Ragavan <sragavan@novell.com>
+
+	** NEWS, configure.in: 3.15.1 release.
+
 2007-03-24  Tor Lillqvist  <tml@novell.com>
 
 	* gtkhtml-zip.in: Use GTKHTML_API_VERSION instead of hardcoded

@@ -1,3 +1,25 @@
+GtkHTML-3.15.1 2007-04-23
+-------------------------
+
+New in 3.15.1:
+
+	#347347 - Make message "object:text-caret-moved" generated when 
+	 user hits left/right key with shift key held down (Yi Jin)
+	#331813 - Fix URL highlighting of sip/h323 addresses (Gilles
+	 Dartiguelongue)
+	#420493 - Setting the width of a rule doesn't take effect (Ebby
+	 Wiselyn)
+	#349773 - Support searching UTF-8 strings. (Xiurong Simon Zheng)
+	#410317 - Memory leak fixes (nix)
+	#374869 - On Caret mode, message scrolls to the bottom of the
+	 list. (Sankar P)
+	#419350 - fix emoticons use (Sebastien Bacher)
+
+	Other contributors: Christian Persch, Tor Lillqvist
+
+Updated Translations:
+	Jorge Gonzalez (es)
+
 GtkHTML-3.14.00 2007-03-12
 --------------------------
 
