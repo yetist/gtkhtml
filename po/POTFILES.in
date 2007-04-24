@@ -14,7 +14,6 @@ components/html-editor/gi-color-palette.c
 components/html-editor/gi-combo-box.c
 components/html-editor/gnome-gtkhtml-editor.c
 components/html-editor/gtkhtml-editor-properties.glade
-components/html-editor/html-editor-control.xml
 components/html-editor/image.c
 components/html-editor/link.c
 components/html-editor/menubar.c

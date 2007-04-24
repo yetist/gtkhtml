@@ -11,7 +11,13 @@ else
 EDITOR_I18N_CFLAGS =
 endif
 
-INCLUDES = -I$(top_srcdir)/src -I$(srcdir) -I$(includedir) $(GTKHTML_CFLAGS) $(SOUP_CFLAGS) $(EDITOR_I18N_CFLAGS) \
+INCLUDES = \
+	-I$(top_srcdir)/src \
+	-I$(srcdir) \
+	-I$(includedir) \
+	$(GTKHTML_CFLAGS) \
+	$(SOUP_CFLAGS) \
+	$(EDITOR_I18N_CFLAGS) \
 	-DG_LOG_DOMAIN=\"gtkhtml\" \
 	-DSRCDIR=\"$(srcdir)\" \
 	-DPREFIX=\"$(prefix)\"
@@ -19,8 +25,8 @@ INCLUDES = -I$(top_srcdir)/src -I$(srcdir) -I$(includedir) $(GTKHTML_CFLAGS) $(S
 AM_CFLAGS = \
 	$(EDITOR_CFLAGS)				\
 	-DICONDIR=\"$(gtkhtml_data)/icons\"		\
-        -DGTKHTML_DATADIR=\""$(gtkhtml_data)"\"		\
-        -DGNOMELOCALEDIR=\""$(prefix)/$(DATADIRNAME)/locale"\"\
+	-DGTKHTML_DATADIR=\""$(gtkhtml_data)"\"		\
+	-DGNOMELOCALEDIR=\""$(prefix)/$(DATADIRNAME)/locale"\"\
 	-DGLADE_DATADIR=\"$(gladedir)\"			\
 	-DGDK_DISABLE_DEPRECATED=1			\
 	-DG_DISABLE_DEPRECATED=1			\
@@ -32,18 +38,18 @@ AM_CFLAGS = \
 
 # CORBA stuff
 IDLS = Editor.idl
-IDL_GENERATED_H = 		\
+IDL_GENERATED_H = \
 	Editor.h
-IDL_GENERATED_C = 		\
+IDL_GENERATED_C = \
 	Editor-common.c		\
 	Editor-skels.c		\
 	Editor-stubs.c
 IDL_GENERATED = $(IDL_GENERATED_C) $(IDL_GENERATED_H)
 
 SPELL_IDLS = Spell.idl
-SPELL_IDL_GENERATED_H =		\
+SPELL_IDL_GENERATED_H = \
 	Spell.h
-SPELL_IDL_GENERATED_C = 	\
+SPELL_IDL_GENERATED_C = \
 	Spell-common.c		\
 	Spell-skels.c		\
 	Spell-stubs.c
@@ -58,7 +64,7 @@ $(SPELL_IDL_GENERATED_H): $(SPELL_IDLS)
 $(SPELL_IDL_GENERATED_C): $(SPELL_IDL_GENERATED_H)
 
 
-LDADD =	\
+LDADD = \
 	$(top_builddir)/src/libgtkhtml-@GTKHTML_API_VERSION@.la	\
 	$(EDITOR_LIBS)
 
@@ -67,7 +73,7 @@ LDADD =	\
 
 # The Editor Control
 
-libgnome_gtkhtml_editor_la_SOURCES =		\
+libgnome_gtkhtml_editor_la_SOURCES = \ 
 	$(SPELL_IDL_GENERATED)			\
 	$(IDL_GENERATED)			\
 	body.h					\
@@ -142,13 +148,13 @@ MY_LIBS =
 location = "${libexecdir}/$(MY_PRGS)$(EXEEXT)"
 endif
 
-libgnome_gtkhtml_editor_3_14_la_SOURCES =	\
+libgnome_gtkhtml_editor_3_14_la_SOURCES = \
 	editor-control-shlib.c
 
-libgnome_gtkhtml_editor_3_14_la_LDFLAGS =	\
+libgnome_gtkhtml_editor_3_14_la_LDFLAGS = \
 	-avoid-version -module -no-undefined
 
-libgnome_gtkhtml_editor_3_14_la_LIBADD =	\
+libgnome_gtkhtml_editor_3_14_la_LIBADD = \
 	$(LDADD)			\
 	libgnome-gtkhtml-editor.la
 
@@ -234,11 +240,8 @@ dist-hook:
 BUILT_SOURCES = $(IDL_GENERATED) $(SPELL_IDL_GENERATED)
 
 CLEANFILES = \
-	$(ui_DATA)		\
-	$(server_DATA)		\
-	gtkhtml-editor-properties.glade.h \
-	GNOME_GtkHTML_Editor.server.in.in.h \
-	GNOME_GtkHTML_Editor-emacs.xml.in.h \
-	GNOME_GtkHTML_Editor.xml.in.h \
+	$(glade_DATA)					\
+	$(server_DATA)					\
+	$(ui_DATA)					\
 	$(BUILT_SOURCES)
 

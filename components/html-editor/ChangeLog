@@ -1,3 +1,11 @@
+2007-04-24  Matthew Barnes  <mbarnes@redhat.com>
+
+	* Makefile.am:
+	Fix filenames in CLEANFILES.
+	Other cosmetic cleanups.
+
+	* html-editor-control.xml: Remove (no longer used).
+
 2007-04-02  Sebastien Bacher  <seb128@ubuntu.com>
 
 	* menubar.c: (smiley_cb): fix emoticons use (Closes: #419350)

@@ -1,3 +1,12 @@
+2007-04-24  Matthew Barnes  <mbarnes@redhat.com>
+
+	* POTFILES.in:
+	Remove components/html-editor/html-editor-control.xml.
+
+	* POTFILES.skip:
+	Add components/html-editor/GNOME_GtkHTML_Editor.xml.
+	Add components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.
+
 2007-04-24  Funda Wang  <fundawang@gmail.com>
 
 	* zh_CN.po: Updated Simplified Chinese translation.

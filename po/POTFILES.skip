@@ -2,4 +2,6 @@ capplet/gnome-bindings-prop.c
 capplet/gtkhtml-capplet.glade
 capplet/gtkhtml-properties.desktop.in
 capplet/main.c
+components/html-editor/GNOME_GtkHTML_Editor-emacs.xml
+components/html-editor/GNOME_GtkHTML_Editor.xml
 src/html-component.c
