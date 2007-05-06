@@ -5,14 +5,15 @@
 # Alexandre Folle de Menezes <afmenez@terra.com.br>, 2002-2003.
 # Afonso Celso Medina <medina@maua.br>, 2005.
 # Leonardo Ferreira Fontenelle <leo.fontenelle@gmail.com>, 2007.
+# Washington Lins <washington-lins@uol.com.br>, 2007.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-21 01:12-0300\n"
-"PO-Revision-Date: 2007-02-21 01:12-0300\n"
-"Last-Translator: Leonardo Ferreira Fontenelle <leo.fontenelle@gmail.com>\n"
+"POT-Creation-Date: 2007-05-05 22:01-0300\n"
+"PO-Revision-Date: 2007-04-08 09:52-0400\n"
+"Last-Translator: Washington Lins <washington-lins@uol.com.br>\n"
 "Language-Team: Brazilian Portuguese <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1717,7 +1718,7 @@ msgstr "_Substituir"
 
 #: ../components/html-editor/replace.c:179
 msgid "Search _backward"
-msgstr "_Busca regressiva"
+msgstr "_Pesquisa regressiva"
 
 #: ../components/html-editor/replace.c:180
 #: ../components/html-editor/search.c:116
@@ -1742,7 +1743,7 @@ msgstr "Expressão _Regular"
 
 #: ../components/html-editor/search.c:121
 msgid "Input the words you want to search here"
-msgstr "Digite aqui as palavras que você deseja procurar"
+msgstr "Digite aqui as palavras que você deseja pesquisar"
 
 #: ../components/html-editor/spellchecker.c:114
 msgid ""
@@ -1958,19 +1959,19 @@ msgstr "Redefinir"
 msgid "Cannot allocate default font for printing\n"
 msgstr "Não é possível alocar fonte padrão para impressão\n"
 
-#: ../src/test.c:376
+#: ../src/test.c:374
 msgid "GtkHTML Test"
 msgstr "Teste do GtkHTML"
 
-#: ../src/testgtkhtml.c:121
+#: ../src/testgtkhtml.c:118
 msgid "Print pre_view"
 msgstr "_Visualizar impressão"
 
-#: ../src/testgtkhtml.c:121
+#: ../src/testgtkhtml.c:118
 msgid "Print preview"
 msgstr "Visualizar impressão"
 
-#: ../src/testgtkhtml.c:1012
+#: ../src/testgtkhtml.c:1038
 msgid "GtkHTML Test Application"
 msgstr "Aplicação de teste do GtkHTML"
 
