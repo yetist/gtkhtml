@@ -341,6 +341,10 @@ insert_html (GtkWidget *mi, GtkHTMLControlData *cd)
 		menuitem = gtk_menu_item_new_with_label (l); \
                 ADD_ITEM_BASE (f,t)
 
+#define ADD_ITEM_MNEMONIC(l,f,t) \
+		menuitem = gtk_menu_item_new_with_mnemonic (l); \
+		ADD_ITEM_BASE (f,t)
+
 #define ADD_STOCK(i,f) \
 		menuitem = gtk_image_menu_item_new_from_stock (i, NULL); \
                 ADD_ITEM_BASE (f,NONE);
@@ -439,7 +443,7 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items, guint *props)
 	ADD_STOCK_SENSITIVE (GTK_STOCK_CUT,  cut, active);
 	ADD_STOCK_SENSITIVE (GTK_STOCK_COPY, copy, active);
 	ADD_STOCK (GTK_STOCK_PASTE, paste);
-	ADD_ITEM (_("Paste Quotation"),  paste_cite, NONE);
+	ADD_ITEM_MNEMONIC (_("Paste _Quotation"),  paste_cite, NONE);
 
 	if (cd->format_html) {
 		ADD_SEP;
