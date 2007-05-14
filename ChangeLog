@@ -1,3 +1,10 @@
+2007-05-14  set REAL_NAME environment variable  <sragavan@novell.com>
+
+	** GtkHTML 3.15.2 release
+
+	* NEWS:
+	* configure.in:
+
 2007-04-23 Srinivasa Ragavan <sragavan@novell.com>
 
 	** NEWS, configure.in: 3.15.1 release.

@@ -1,3 +1,19 @@
+GtkHTML-3.15.2 2007-05-14
+-------------------------
+
+Bug fixes:
+	#407363: Added mnemonic for paste quotation menuitem (Bharathi
+	 Gauthaman)
+
+Other contributors:
+	Fix filenames in CLEANFILES and other cleanups. 
+	 (Matthew Barnes)
+
+Updated Translations:
+	Washington Lins (pt_BR)
+	Funda Wang (zh_CN)
+	Jakub Friedl (cs)
+
 GtkHTML-3.15.1 2007-04-23
 -------------------------
 
