@@ -1,3 +1,19 @@
+GtkHTML-3.14.2 2007-05-28
+--------------------------
+
+Bug fixes:
+	#347347: Selected text is now spoken by Orca correctly (Yi Jin)
+	#420493: Setting the width of a rule doesn't take effect (Ebby
+	 Wiselyn)
+	#349773: Support searching UTF-8 strings. (Xiurong Simon Zheng)
+	#331813: Fix URL highlighting of sip/h323 addresses (Gilles
+	 Dartiguelongue)
+
+Updated Translations:
+	Washington Lins (pt_BR)
+	Funda Wang (zh_CN)
+	Peter Bach (da)
+
 GtkHTML-3.14.1 2007-04-09
 --------------------------
 

@@ -1,3 +1,10 @@
+2007-05-28  Srinivasa Ragavan  <sragavan@novell.com>
+
+	** GtkHTML 3.14.2 rlease 
+
+	* NEWS:
+	* configure.in:
+
 2007-04-09 Srinivasa Ragavan  <sragavan@novell.com>
 
 	** NEWS, configure.in: 3.14.1 release
