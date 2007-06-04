@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-04-23 12:54+0200\n"
-"PO-Revision-Date: 2007-04-23 12:54+0200\n"
+"POT-Creation-Date: 2007-06-04 17:52+0200\n"
+"PO-Revision-Date: 2007-06-04 17:54+0200\n"
 "Last-Translator: Jakub Friedl <jfriedl@suse.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -113,7 +113,6 @@ msgstr "Kopírovat výběr do schránky"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:15
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:15
-#: ../components/html-editor/html-editor-control.xml.h:2
 msgid "Copy the selection"
 msgstr "Kopírovat výběr"
 
@@ -139,7 +138,6 @@ msgstr "Vyjmout výběr do schránky"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:20
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:20
-#: ../components/html-editor/html-editor-control.xml.h:3
 msgid "Cut the selection"
 msgstr "Vyjmout výběr"
 
@@ -158,7 +156,6 @@ msgstr "Hledat"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:23
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:23
-#: ../components/html-editor/html-editor-control.xml.h:5
 msgid "Find _Again"
 msgstr "Hledat _další"
 
@@ -242,7 +239,6 @@ msgstr "Vložit do dokumentu HTML soubor..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:39
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
-#: ../components/html-editor/html-editor-control.xml.h:6
 msgid "Insert HTML link into document..."
 msgstr "Vložit do dokumentu HTML odkaz..."
 
@@ -305,7 +301,6 @@ msgstr "Vložit obrázek"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:51
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
-#: ../components/html-editor/html-editor-control.xml.h:7
 msgid "Insert image into document..."
 msgstr "Vložit do dokumentu obrázek..."
 
@@ -321,7 +316,6 @@ msgstr "Vložit čáru"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:54
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
-#: ../components/html-editor/html-editor-control.xml.h:8
 msgid "Insert rule into document..."
 msgstr "Vložit do dokumentu čáru..."
 
@@ -447,6 +441,7 @@ msgstr "Vložit"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:78
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
+#: ../components/html-editor/popup.c:446
 msgid "Paste _Quotation"
 msgstr "Vložit _citát"
 
@@ -457,13 +452,11 @@ msgstr "Vložit ze schránky"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:80
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
-#: ../components/html-editor/html-editor-control.xml.h:10
 msgid "Paste the clipboard"
 msgstr "Vložit schránku"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:81
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
-#: ../components/html-editor/html-editor-control.xml.h:11
 msgid "Paste the clipboard as a quotation"
 msgstr "Vložit schránku jako citát"
 
@@ -484,7 +477,6 @@ msgstr "Zrušit předchozí vrácení"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:85
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
-#: ../components/html-editor/html-editor-control.xml.h:12
 msgid "Redo the undone action"
 msgstr "Zrušit předchozí vrácení"
 
@@ -556,8 +548,8 @@ msgstr "Horní index"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:49
 #: ../components/html-editor/menubar.c:188
-#: ../components/html-editor/popup.c:235 ../components/html-editor/popup.c:505
-#: ../components/html-editor/popup.c:517
+#: ../components/html-editor/popup.c:235 ../components/html-editor/popup.c:509
+#: ../components/html-editor/popup.c:521
 msgid "Table"
 msgstr "Tabulka"
 
@@ -594,7 +586,6 @@ msgstr "Vrátit o krok"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:104
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
-#: ../components/html-editor/html-editor-control.xml.h:17
 msgid "Undo the last action"
 msgstr "Vrátit o krok"
 
@@ -626,7 +617,6 @@ msgstr "_Střed"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
-#: ../components/html-editor/html-editor-control.xml.h:18
 msgid "_Copy"
 msgstr "_Kopírovat"
 
@@ -637,13 +627,11 @@ msgstr "Odsadit _méně"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:112
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
-#: ../components/html-editor/html-editor-control.xml.h:19
 msgid "_Edit"
 msgstr "_Upravit"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:113
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
-#: ../components/html-editor/html-editor-control.xml.h:20
 msgid "_Find..."
 msgstr "_Hledat..."
 
@@ -669,7 +657,6 @@ msgstr "_Hlavička"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:118
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
-#: ../components/html-editor/html-editor-control.xml.h:21
 msgid "_Image..."
 msgstr "_Obrázek..."
 
@@ -701,7 +688,6 @@ msgstr "V_levo"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
-#: ../components/html-editor/html-editor-control.xml.h:24
 msgid "_Link..."
 msgstr "O_dkaz..."
 
@@ -722,7 +708,6 @@ msgstr "_Odstavec..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:128
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:128
-#: ../components/html-editor/html-editor-control.xml.h:25
 msgid "_Paste"
 msgstr "V_ložit"
 
@@ -738,13 +723,11 @@ msgstr "_Předformátované"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:131
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
-#: ../components/html-editor/html-editor-control.xml.h:28
 msgid "_Redo"
 msgstr "Zn_ovu"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:132
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
-#: ../components/html-editor/html-editor-control.xml.h:29
 msgid "_Replace..."
 msgstr "_Nahradit..."
 
@@ -760,7 +743,6 @@ msgstr "_Římsky číslovaný seznam"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:135
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
-#: ../components/html-editor/html-editor-control.xml.h:30
 msgid "_Rule..."
 msgstr "Čá_ru..."
 
@@ -818,7 +800,6 @@ msgstr "_Podtržené"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:158
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:158
-#: ../components/html-editor/html-editor-control.xml.h:31
 msgid "_Undo"
 msgstr "_Zpět"
 
@@ -1199,6 +1180,13 @@ msgid ""
 "+3\n"
 "+4"
 msgstr ""
+"-2\n"
+"-1\n"
+"Standardní\n"
+"+1\n"
+"+2\n"
+"+3\n"
+"+4"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:10
 msgid "<b>Alignment &amp; Behaviour</b>"
@@ -1295,6 +1283,9 @@ msgid ""
 "Center\n"
 "Right"
 msgstr ""
+"Vlevo\n"
+"Uprostřed\n"
+"Vpravo"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:38
 msgid ""
@@ -1303,6 +1294,10 @@ msgid ""
 "Right\n"
 "None"
 msgstr ""
+"Vlevo\n"
+"Uprostřed\n"
+"Vpravo\n"
+"Žádný"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:42
 msgid "Link properties"
@@ -1330,6 +1325,9 @@ msgid ""
 "Middle\n"
 "Bottom"
 msgstr ""
+"Nahoře\n"
+"Dole\n"
+"Uprostřed"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:55
 msgid "Vertical:"
@@ -1425,63 +1423,19 @@ msgstr ""
 "%"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:84
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "px\n"
 "%\n"
 "follow"
-msgstr "následovat"
+msgstr ""
+"px\n"
+"%\n"
+"následovat"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:87
 msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
-
-#: ../components/html-editor/html-editor-control.xml.h:1
-#, fuzzy
-msgid "C_ut"
-msgstr "Vyjmout"
-
-#: ../components/html-editor/html-editor-control.xml.h:4
-#, fuzzy
-msgid "Find Rege_x..."
-msgstr "_Hledat..."
-
-#: ../components/html-editor/html-editor-control.xml.h:9
-msgid "Modify the file's properties"
-msgstr ""
-
-#: ../components/html-editor/html-editor-control.xml.h:13
-#, fuzzy
-msgid "Regular expression search"
-msgstr "_Regulární výraz"
-
-#: ../components/html-editor/html-editor-control.xml.h:14
-msgid "Replace a string"
-msgstr "Nahradit řetězec"
-
-#: ../components/html-editor/html-editor-control.xml.h:15
-msgid "Search again for the same string"
-msgstr "Hledat znovu stejný řetězec"
-
-#: ../components/html-editor/html-editor-control.xml.h:16
-msgid "Search for a string"
-msgstr "Hledat řetězec"
-
-#: ../components/html-editor/html-editor-control.xml.h:22
-msgid "_Insert"
-msgstr "_Vložit"
-
-#: ../components/html-editor/html-editor-control.xml.h:23
-msgid "_Insert text file... (FIXME)"
-msgstr "_Vložit textový soubor... (FIXME)"
-
-#: ../components/html-editor/html-editor-control.xml.h:26
-msgid "_Paste Quotation"
-msgstr "_Vložit citaci"
-
-#: ../components/html-editor/html-editor-control.xml.h:27
-msgid "_Properties..."
-msgstr "_Vlastnosti..."
 
 #: ../components/html-editor/link.c:209
 msgid "URL:"
@@ -1577,109 +1531,105 @@ msgstr "Hlavička 6"
 msgid "Address"
 msgstr "Adresa"
 
-#: ../components/html-editor/popup.c:442
-msgid "Paste Quotation"
-msgstr "Vložit citát"
-
-#: ../components/html-editor/popup.c:446
+#: ../components/html-editor/popup.c:450
 msgid "Insert Link"
 msgstr "Vložit odkaz"
 
-#: ../components/html-editor/popup.c:453
+#: ../components/html-editor/popup.c:457
 msgid "Remove Link"
 msgstr "Odstranit odkaz"
 
-#: ../components/html-editor/popup.c:460
+#: ../components/html-editor/popup.c:464
 msgid "Style"
 msgstr "Vzhled"
 
-#: ../components/html-editor/popup.c:463
+#: ../components/html-editor/popup.c:467
 msgid "Text Style..."
 msgstr "Styl textu..."
 
-#: ../components/html-editor/popup.c:465 ../components/html-editor/popup.c:471
-#: ../components/html-editor/popup.c:481
+#: ../components/html-editor/popup.c:469 ../components/html-editor/popup.c:475
+#: ../components/html-editor/popup.c:485
 msgid "Paragraph Style..."
 msgstr "Styl odstavce..."
 
-#: ../components/html-editor/popup.c:469
+#: ../components/html-editor/popup.c:473
 msgid "Link Style..."
 msgstr "Styl odkazu..."
 
-#: ../components/html-editor/popup.c:475
+#: ../components/html-editor/popup.c:479
 msgid "Rule Style..."
 msgstr "Styl čáry..."
 
-#: ../components/html-editor/popup.c:479
+#: ../components/html-editor/popup.c:483
 msgid "Image Style..."
 msgstr "Styl obrázku..."
 
-#: ../components/html-editor/popup.c:490
+#: ../components/html-editor/popup.c:494
 msgid "Cell Style..."
 msgstr "Styl políčka tabulky..."
 
-#: ../components/html-editor/popup.c:493
+#: ../components/html-editor/popup.c:497
 msgid "Table Style..."
 msgstr "Styl tabulky..."
 
-#: ../components/html-editor/popup.c:499
+#: ../components/html-editor/popup.c:503
 msgid "Page Style..."
 msgstr "Styl stránky..."
 
-#: ../components/html-editor/popup.c:504
+#: ../components/html-editor/popup.c:508
 msgid "Table insert"
 msgstr "Vložit tabulku"
 
-#: ../components/html-editor/popup.c:507
+#: ../components/html-editor/popup.c:511
 msgid "Row above"
 msgstr "Řádek nad"
 
-#: ../components/html-editor/popup.c:508
+#: ../components/html-editor/popup.c:512
 msgid "Row below"
 msgstr "Řádek pod"
 
-#: ../components/html-editor/popup.c:510
+#: ../components/html-editor/popup.c:514
 msgid "Column before"
 msgstr "Sloupec před"
 
-#: ../components/html-editor/popup.c:511
+#: ../components/html-editor/popup.c:515
 msgid "Column after"
 msgstr "Sloupec po"
 
-#: ../components/html-editor/popup.c:516
+#: ../components/html-editor/popup.c:520
 msgid "Table delete"
 msgstr "Odstranit tabulku"
 
-#: ../components/html-editor/popup.c:518
+#: ../components/html-editor/popup.c:522
 msgid "Row"
 msgstr "Řádek"
 
-#: ../components/html-editor/popup.c:519
+#: ../components/html-editor/popup.c:523
 msgid "Column"
 msgstr "Sloupec"
 
-#: ../components/html-editor/popup.c:520
+#: ../components/html-editor/popup.c:524
 msgid "Cell contents"
 msgstr "Obsah políčka"
 
-#: ../components/html-editor/popup.c:555
+#: ../components/html-editor/popup.c:559
 msgid "Ignore Misspelled Word"
 msgstr "Ignorovat překlep"
 
-#: ../components/html-editor/popup.c:560
+#: ../components/html-editor/popup.c:564
 msgid "Add Word to"
 msgstr "Přidat slovo do"
 
-#: ../components/html-editor/popup.c:564
+#: ../components/html-editor/popup.c:568
 #, c-format
 msgid "%s Dictionary"
 msgstr "Slovník %s"
 
-#: ../components/html-editor/popup.c:573
+#: ../components/html-editor/popup.c:577
 msgid "Add Word to Dictionary"
 msgstr "Přidat slovo do slovníku"
 
-#: ../components/html-editor/popup.c:579
+#: ../components/html-editor/popup.c:583
 msgid "Input Methods"
 msgstr "Vstupní metody"
 
@@ -1958,3 +1908,4 @@ msgstr "Náhled tisku"
 #: ../src/testgtkhtml.c:1038
 msgid "GtkHTML Test Application"
 msgstr "Testovací aplikace GtkHTML"
+
