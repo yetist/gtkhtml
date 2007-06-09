@@ -1,8 +1,13 @@
+2007-06-10  Nickolay V. Shmyrev  <nshmyrev@yandex.ru>
+
+	* Makefile.am: 
+	Removed space after trailing slash, fixes build problem
+	with automake 1.6. Bug #444104.
+
 2007-04-27 Bharathi Gauthaman <gauthaman.bharathi@wipro.com>
 
 	* popup.c : Fix for #407363. Added mnemonic for paste 
 	quotation menuitem.
-
 
 2007-04-24  Matthew Barnes  <mbarnes@redhat.com>
 
