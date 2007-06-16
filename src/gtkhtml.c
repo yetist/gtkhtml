@@ -4485,10 +4485,73 @@ scroll (GtkHTML *html,
 		return;
 	}
 
+	if (position == 1.0) {
+		if (adj->lower > (adj->value + delta)) {
+			if (adj->lower >= adj->value) {
+				html->binding_handled = FALSE;
+				return;
+		}
+		} else if (MAX (0.0, adj->upper - adj->page_size) < (adj->value + delta)) {
+	
+			if (MAX (0.0, adj->upper - adj->page_size) <= adj->value) {
+				html->binding_handled = FALSE;
+				return;
+			}
+		} 
+	}
+	
 	gtk_adjustment_set_value (adj, CLAMP (adj->value + delta, adj->lower, MAX (0.0, adj->upper - adj->page_size)));
 
 	html->binding_handled = TRUE;
 }
+
+static gboolean
+scroll_command (GtkHTML *html,
+	GtkScrollType  scroll_type)
+{
+	GtkAdjustment *adj;
+	gint line_height;
+	gfloat delta;
+
+	/* we dont want scroll in editable (move cursor instead) */
+	if (html_engine_get_editable (html->engine) || html->engine->caret_mode)
+		return FALSE;
+
+	adj = gtk_layout_get_vadjustment (GTK_LAYOUT (html));
+
+
+	line_height = (html->engine && adj->page_increment > (3 * get_line_height (html)))
+		? get_line_height (html)
+		: 0;
+
+	switch (scroll_type) {
+	case GTK_SCROLL_PAGE_FORWARD:
+		delta = adj->page_increment - line_height;
+		break;
+	case GTK_SCROLL_PAGE_BACKWARD:
+		delta = -adj->page_increment + line_height;
+		break;
+	default:
+		break;
+		return FALSE;
+	}
+
+	d_s(printf("%f %f %f\n", adj->value + delta, adj->lower, MAX (0.0, adj->upper - adj->page_size));)
+
+	if (adj->lower > (adj->value + delta)) {
+		if (adj->lower >= adj->value)
+			return FALSE;
+	} else if (MAX (0.0, adj->upper - adj->page_size) < (adj->value + delta)) {
+
+		if (MAX (0.0, adj->upper - adj->page_size) <= adj->value) {
+			return FALSE;
+		}
+	}
+
+	gtk_adjustment_set_value (adj, CLAMP (adj->value + delta, adj->lower, MAX (0.0, adj->upper - adj->page_size)));
+
+	return TRUE;
+}	
 
 static void
 scroll_by_amount (GtkHTML *html, gint amount)
@@ -4745,6 +4808,12 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 	case GTK_HTML_COMMAND_FOCUS_BACKWARD:
 		if (!html_engine_get_editable (e))
 			html->binding_handled = gtk_widget_child_focus (GTK_WIDGET (html), GTK_DIR_TAB_BACKWARD);
+		break;
+	case GTK_HTML_COMMAND_SCROLL_FORWARD:
+		rv = scroll_command (html, GTK_SCROLL_PAGE_FORWARD);
+		break;
+	case GTK_HTML_COMMAND_SCROLL_BACKWARD:
+		rv = scroll_command (html, GTK_SCROLL_PAGE_BACKWARD);		
 		break;
 	case GTK_HTML_COMMAND_SCROLL_BOD:
 		if (!html_engine_get_editable (e) && !e->caret_mode)
@@ -5233,6 +5302,13 @@ add_bindings (GtkHTMLClass *klass)
 				      GTK_TYPE_SCROLL_TYPE, GTK_SCROLL_ ## sc, \
 				      G_TYPE_FLOAT, 0.0); \
 
+#define BSPACESCROLL(m,key,orient,sc) \
+	gtk_binding_entry_add_signal (binding_set, GDK_ ## key, m, \
+				      "scroll", 3, \
+				      GTK_TYPE_ORIENTATION, GTK_ORIENTATION_ ## orient, \
+				      GTK_TYPE_SCROLL_TYPE, GTK_SCROLL_ ## sc, \
+				      G_TYPE_FLOAT, 1.0); \
+
 	BSCROLL (0, Up, VERTICAL, STEP_BACKWARD);
 	BSCROLL (0, KP_Up, VERTICAL, STEP_BACKWARD);
 	BSCROLL (0, Down, VERTICAL, STEP_FORWARD);
@@ -5247,8 +5323,8 @@ add_bindings (GtkHTMLClass *klass)
 	BSCROLL (0, KP_Page_Up, VERTICAL, PAGE_BACKWARD);
 	BSCROLL (0, Page_Down, VERTICAL, PAGE_FORWARD);
 	BSCROLL (0, KP_Page_Down, VERTICAL, PAGE_FORWARD);
-	BSCROLL (0, BackSpace, VERTICAL, PAGE_BACKWARD);
-	BSCROLL (0, space, VERTICAL, PAGE_FORWARD);
+	BSPACESCROLL (0, BackSpace, VERTICAL, PAGE_BACKWARD);
+	BSPACESCROLL (0, space, VERTICAL, PAGE_FORWARD);
 
 	BSCROLL (GDK_SHIFT_MASK, Left, HORIZONTAL, PAGE_BACKWARD);
 	BSCROLL (GDK_SHIFT_MASK, KP_Left, HORIZONTAL, PAGE_BACKWARD);
