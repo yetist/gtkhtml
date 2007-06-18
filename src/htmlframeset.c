@@ -95,6 +95,8 @@ calc_dimension (GPtrArray *dim, gint *span, gint total)
 	int remain;
 	int num_frac = 0;
 
+	g_return_if_fail (dim != NULL && span != NULL);
+
 	remain = total;
 	for (i = 0; i < dim->len; i++) {
 		len = g_ptr_array_index (dim, i);
