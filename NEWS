@@ -1,3 +1,19 @@
+GtkHTML-3.15.4 2007-06-18
+-------------------------
+
+New in 3.15.4:
+	Added support for magic spacebar to browse till end of the document
+	 and return status if end is reached. (Srinivasa Ragavan)
+
+Bug fixes:
+	#443219: Crash when definding frames with out inner frames (Milan Crha)
+	#444104: Removed space after trailing slash, fixes build problem
+	 with automake 1.6. (Nickolay V. Shmyrev)
+
+Updated Translations:
+	Pema Geyleg (dz)
+	Jakub Friedl (cs)
+
 GtkHTML-3.15.3 2007-05-14
 -------------------------
 
