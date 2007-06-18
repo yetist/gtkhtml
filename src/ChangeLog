@@ -1,3 +1,10 @@
+2007-06-18  Milan Crha  <mcrha@redhat.com>
+
+	* Fix for bug #443219
+
+	* htmlframeset.c: (calc_dimension): Added test on non-NULL dim and
+	span, span is NULL when no inner frame is defined.
+
 2007-06-16  Srinivasa Ragavan  <sragavan@novell.com>
 
 	** Added support for magic spacebar to browse till end of the document
