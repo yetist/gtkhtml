@@ -1,3 +1,9 @@
+2007-07-03  Yi Jin  <yi.jin@sun.com>
+
+	* Makefile.am:
+	glade_DATA should not be deleted by make distclean.
+	Bug #449995.
+
 2007-06-10  Nickolay V. Shmyrev  <nshmyrev@yandex.ru>
 
 	* Makefile.am: 

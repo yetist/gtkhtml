@@ -240,7 +240,6 @@ dist-hook:
 BUILT_SOURCES = $(IDL_GENERATED) $(SPELL_IDL_GENERATED)
 
 CLEANFILES = \
-	$(glade_DATA)					\
 	$(server_DATA)					\
 	$(ui_DATA)					\
 	$(BUILT_SOURCES)
