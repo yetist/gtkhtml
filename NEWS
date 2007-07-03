@@ -1,3 +1,10 @@
+GtkHTML-3.14.3 2007-07-02
+--------------------------
+
+Bug fixes:
+	#443219: Crash when definding frames with out inner frames (Milan
+	 Crha)
+
 GtkHTML-3.14.2 2007-05-28
 --------------------------
 
