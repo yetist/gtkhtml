@@ -811,6 +811,19 @@ html_engine_cut (HTMLEngine *e)
 
 	html_engine_clipboard_clear (e);
 	html_undo_level_begin (e->undo, "Cut", "Uncut");
+	if (html_engine_is_selection_active (e)) {
+		HTMLCursor *start = html_cursor_dup (e->mark->position < e->cursor->position ? e->mark : e->cursor);
+		HTMLCursor *end = html_cursor_dup (e->mark->position < e->cursor->position ? e->cursor : e->mark);
+		gint start_position = start->position;
+		gint end_position = end->position;
+		if (end_position - start_position > 0) {
+			int len = end_position - start_position;
+			g_signal_emit_by_name (e->widget, "object_delete", start_position, len);
+		}
+		html_cursor_destroy (start);
+		html_cursor_destroy (end);
+	}
+
 	rv = delete_object (e, &e->clipboard, &e->clipboard_len, HTML_UNDO_UNDO, TRUE);
 	html_undo_level_end (e->undo);
 

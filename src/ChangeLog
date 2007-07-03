@@ -1,5 +1,11 @@
 2007-07-03  Yi Jin  <yi.jin@sun.com>
 
+	* htmlengine-edit-cut-and-paste.c: (html_engine_cut):
+	Emit delete signal when cut text.
+	Bug #438945.
+
+2007-07-03  Yi Jin  <yi.jin@sun.com>
+
 	* gtkhtml.c: (add_bindings):
 	When press control+shift+left/right, emit caret_moved signal.
 	Bug #347347.
