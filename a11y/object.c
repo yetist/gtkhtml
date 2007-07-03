@@ -391,7 +391,8 @@ gtk_html_a11y_delete_object_cb (GtkWidget * widget, int pos, int len)
 	}
 
 	if (G_IS_HTML_A11Y_TEXT(a11y)) {
-		g_signal_emit_by_name (a11y, "text_changed::delete", cursor->offset, len);
+		g_signal_emit_by_name (a11y, "text_changed::delete", pos, len);
+		printf ("the cur is %d\n", cursor->offset);
 	}
 }
 

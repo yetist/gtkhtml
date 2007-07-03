@@ -1,3 +1,9 @@
+2007-07-03  Li Yuan  <li.yuan@sun.com>
+
+	* object.c: (gtk_html_a11y_delete_object_cb):
+	Emit text_changed::delete based on the begining of the deleted text.
+	Bug #453320.
+
 2007-01-28  Matthew Barnes  <mbarnes@redhat.com>
 
 	** Fixes bug #394182 ("Massive Code Cleanup")
