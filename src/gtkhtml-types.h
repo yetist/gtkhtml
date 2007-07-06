@@ -52,6 +52,17 @@ typedef gboolean (* GtkHTMLSaveReceiverFn)   (gpointer     engine,
 					      size_t       len,
 					      gpointer     user_data);
 
+typedef gint    (*GtkHTMLPrintCalcHeight) (GtkHTML *html,
+					   GtkPrintOperation *operation,
+                                           GtkPrintContext *context,
+                                           gpointer user_data);
+typedef void    (*GtkHTMLPrintDrawFunc)   (GtkHTML *html,
+					   GtkPrintOperation *operation,
+					   GtkPrintContext *context,
+					   gint page_nr,
+					   PangoRectangle *rec,
+					   gpointer user_data);
+
 typedef void (*GtkHTMLPrintCallback) (GtkHTML *html, GtkPrintContext *print_context,
 				      gdouble x, gdouble y, gdouble width, gdouble height, gpointer user_data);
 

@@ -25,19 +25,30 @@
 #include <gtk/gtk.h>
 #include "htmlengine.h"
 
-void  html_engine_print                     (HTMLEngine           *e,
-					     GtkPrintContext    *print_context);
-void  html_engine_print_with_header_footer  (HTMLEngine           *e,
-					     GtkPrintContext    *print_context,
-					     gdouble               header_height,
-					     gdouble               footer_height,
-					     GtkHTMLPrintCallback  header_print,
-					     GtkHTMLPrintCallback  footer_print,
-					     gpointer              user_data);
-gint  html_engine_print_get_pages_num       (HTMLEngine           *e,
-					     GtkPrintContext    *print_context,
-					     gdouble               header_height,
-					     gdouble               footer_height);
-void  html_engine_print_set_min_split_index (HTMLEngine           *e,
-					     gdouble               idx);
+void	html_engine_print		(HTMLEngine *engine,
+					 GtkPrintContext *context,
+					 gdouble header_height,
+					 gdouble footer_height,
+					 GtkHTMLPrintCallback header_print,
+					 GtkHTMLPrintCallback footer_print,
+					 gpointer user_data);
+gint	html_engine_print_get_pages_num	(HTMLEngine *engine,
+					 GtkPrintContext *context,
+					 gdouble header_height,
+					 gdouble footer_height);
+void	html_engine_print_set_min_split_index	(HTMLEngine *engine,
+						 gdouble index);
+
+GtkPrintOperationResult
+html_engine_print_operation_run	   (HTMLEngine *engine,
+				    GtkPrintOperation *operation,
+				    GtkPrintOperationAction action,
+				    GtkWindow *parent,
+				    GtkHTMLPrintCalcHeight calc_header_height,
+				    GtkHTMLPrintCalcHeight calc_footer_height,
+				    GtkHTMLPrintDrawFunc draw_header,
+				    GtkHTMLPrintDrawFunc draw_footer,
+				    gpointer user_data,
+				    GError **error);
+
 #endif

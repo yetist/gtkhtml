@@ -4167,25 +4167,29 @@ gtk_html_get_base (GtkHTML *html)
 
 /* Printing.  */
 void
-gtk_html_print_page (GtkHTML *html,
-		GtkPrintContext *print_context)
+gtk_html_print_page (GtkHTML *html, GtkPrintContext *context)
 {
 	g_return_if_fail (html != NULL);
 	g_return_if_fail (GTK_IS_HTML (html));
 
-	html_engine_print (html->engine, print_context);
+	html_engine_print (html->engine, context, .0, .0, NULL, NULL, NULL);
 }
 	
 void
-gtk_html_print_page_with_header_footer (GtkHTML *html, GtkPrintContext *print_context,
-					gdouble header_height, gdouble footer_height,
-					GtkHTMLPrintCallback header_print, GtkHTMLPrintCallback footer_print, gpointer user_data)
+gtk_html_print_page_with_header_footer (GtkHTML *html,
+					GtkPrintContext *context,
+					gdouble header_height,
+					gdouble footer_height,
+					GtkHTMLPrintCallback header_print,
+					GtkHTMLPrintCallback footer_print,
+					gpointer user_data)
 {
 	g_return_if_fail (html != NULL);
 	g_return_if_fail (GTK_IS_HTML (html));
 
-	html_engine_print_with_header_footer (html->engine, print_context,
-					      header_height, footer_height, header_print, footer_print, user_data);
+	html_engine_print (
+		html->engine, context, header_height, footer_height,
+		header_print, footer_print, user_data);
 }
 
 
@@ -5957,9 +5961,31 @@ gtk_html_set_images_blocking (GtkHTML *html, gboolean block)
 }
 
 gint
-gtk_html_print_page_get_pages_num (GtkHTML *html, GtkPrintContext *print_context, gdouble header_height, gdouble footer_height)
+gtk_html_print_page_get_pages_num (GtkHTML *html,
+				   GtkPrintContext *context,
+				   gdouble header_height,
+				   gdouble footer_height)
 {
-	return html_engine_print_get_pages_num (html->engine, print_context, header_height, footer_height);
+	return html_engine_print_get_pages_num (
+		html->engine, context, header_height, footer_height);
+}
+
+GtkPrintOperationResult
+gtk_html_print_operation_run (GtkHTML *html,
+                              GtkPrintOperation *operation,
+                              GtkPrintOperationAction action,
+                              GtkWindow *parent,
+			      GtkHTMLPrintCalcHeight calc_header_height,
+			      GtkHTMLPrintCalcHeight calc_footer_height,
+                              GtkHTMLPrintDrawFunc draw_header,
+                              GtkHTMLPrintDrawFunc draw_footer,
+                              gpointer user_data,
+                              GError **error)
+{
+	return html_engine_print_operation_run (
+		html->engine, operation, action, parent,
+		calc_header_height, calc_footer_height,
+		draw_header, draw_footer, user_data, error);
 }
 
 gboolean

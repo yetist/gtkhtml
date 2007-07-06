@@ -36,7 +36,7 @@
 /* #define PRINTER_DEBUG */
 
 
-static HTMLPainterClass *parent_class = NULL;
+static gpointer parent_class = NULL;
 
 
 /* The size of a pixel in the printed output, in points.  */
@@ -46,6 +46,7 @@ static gdouble
 printer_get_page_height (HTMLPrinter *printer)
 {
 	GtkPageSetup *page_setup;
+
 	page_setup = gtk_print_context_get_page_setup (printer->context);
 	return gtk_page_setup_get_page_height (page_setup, GTK_UNIT_POINTS);
 }
@@ -54,42 +55,9 @@ static gdouble
 printer_get_page_width (HTMLPrinter *printer)
 {
 	GtkPageSetup *page_setup;
+
 	page_setup = gtk_print_context_get_page_setup (printer->context);
 	return gtk_page_setup_get_page_width (page_setup, GTK_UNIT_POINTS);
-}
-
-static gdouble
-get_lmargin (HTMLPrinter *printer)
-{
-	GtkPageSetup *page_setup;
-
-	page_setup = gtk_print_context_get_page_setup (printer->context);
-	return gtk_page_setup_get_left_margin (page_setup, GTK_UNIT_POINTS);
-}
-
-static gdouble
-get_rmargin (HTMLPrinter *printer)
-{
-	GtkPageSetup *page_setup;
-
-	page_setup = gtk_print_context_get_page_setup (printer->context);
-	return gtk_page_setup_get_right_margin (page_setup, GTK_UNIT_POINTS);
-}
-
-static gdouble
-get_tmargin (HTMLPrinter *printer)
-{
-	GtkPageSetup *page_setup;
-	page_setup = gtk_print_context_get_page_setup (printer->context);
-	return gtk_page_setup_get_top_margin (page_setup, GTK_UNIT_POINTS);
-}
-
-static gdouble
-get_bmargin (HTMLPrinter *printer)
-{
-	GtkPageSetup *page_setup;
-	page_setup = gtk_print_context_get_page_setup (printer->context);
-	return gtk_page_setup_get_bottom_margin (page_setup, GTK_UNIT_POINTS); 
 }
 
 gdouble
@@ -97,36 +65,6 @@ html_printer_scale_to_gnome_print (HTMLPrinter *printer, gint x)
 {
 	return SCALE_ENGINE_TO_GNOME_PRINT (x);
 }
-
-void
-html_printer_coordinates_to_gnome_print (HTMLPrinter *printer,
-					 gint engine_x, gint engine_y,
-					 gdouble *print_x_return, gdouble *print_y_return)
-{
-	gdouble print_x, print_y;
-
-	print_x = SCALE_ENGINE_TO_GNOME_PRINT (engine_x);
-	print_y = SCALE_ENGINE_TO_GNOME_PRINT (engine_y);
-
-	print_x = print_x + get_lmargin (printer);
-
-	*print_x_return = print_x;
-	*print_y_return = print_y;
-}
-
-#if 0
-static void
-gnome_print_coordinates_to_engine (HTMLPrinter *printer,
-				   gdouble print_x, gdouble print_y,
-				   gint *engine_x_return, gint *engine_y_return)
-{
-	print_x -= get_lmargin (printer);
-	print_y -= get_bmargin (printer);
-
-	*engine_x_return = SCALE_ENGINE_TO_GNOME_PRINT (print_x);
-	*engine_y_return = SCALE_GNOME_PRINT_TO_ENGINE (get_page_height (printer) - print_y);
-}
-#endif
 
 
 /* GtkObject methods.  */
@@ -143,7 +81,7 @@ finalize (GObject *object)
 		printer->context = NULL;
 	}
 
-	(* G_OBJECT_CLASS (parent_class)->finalize) (object);
+	G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
 
@@ -167,9 +105,10 @@ begin (HTMLPainter *painter,
 
 	cr = gtk_print_context_get_cairo_context (pc);
 	cairo_save (cr);
-       
-	html_printer_coordinates_to_gnome_print (printer, x1, y1, &printer_x1, &printer_y1);
-	
+ 
+	printer_x1 = SCALE_ENGINE_TO_GNOME_PRINT (x1);
+	printer_y1 = SCALE_ENGINE_TO_GNOME_PRINT (y1);
+
 	printer_x2 = printer_x1 + SCALE_ENGINE_TO_GNOME_PRINT (x2);
 	printer_y2 = SCALE_ENGINE_TO_GNOME_PRINT (y2);
 
@@ -191,14 +130,6 @@ begin (HTMLPainter *painter,
 static void
 end (HTMLPainter *painter)
 {
-	HTMLPrinter *printer;
-	cairo_t *cr;
-
-	printer = HTML_PRINTER (painter);
-	g_return_if_fail (printer->context != NULL);
-
-	cr = gtk_print_context_get_cairo_context (printer->context);
-	cairo_show_page (cr);
 }
 
 static void
@@ -253,7 +184,8 @@ prepare_rectangle (HTMLPainter *painter, gint _x, gint _y, gint w, gint h)
 
 	width = SCALE_ENGINE_TO_GNOME_PRINT (w);
 	height = SCALE_ENGINE_TO_GNOME_PRINT (h);
-	html_printer_coordinates_to_gnome_print (HTML_PRINTER (painter), _x, _y, &x, &y);
+	x = SCALE_ENGINE_TO_GNOME_PRINT (_x);
+	y = SCALE_ENGINE_TO_GNOME_PRINT (_y);
 	cr = gtk_print_context_get_cairo_context (context);
 	cairo_new_path (cr);
 	cairo_rectangle (cr, x, y, x + width, y + height );
@@ -299,8 +231,10 @@ draw_line (HTMLPainter *painter,
 	printer = HTML_PRINTER (painter);
 	g_return_if_fail (printer->context != NULL);
 
-	html_printer_coordinates_to_gnome_print (printer, x1, y1, &printer_x1, &printer_y1);
-	html_printer_coordinates_to_gnome_print (printer, x2, y2, &printer_x2, &printer_y2);
+	printer_x1 = SCALE_ENGINE_TO_GNOME_PRINT (x1);
+	printer_y1 = SCALE_ENGINE_TO_GNOME_PRINT (y1);
+	printer_x2 = SCALE_ENGINE_TO_GNOME_PRINT (x2);
+	printer_y2 = SCALE_ENGINE_TO_GNOME_PRINT (y2);
 
 	cr = gtk_print_context_get_cairo_context (printer->context);
 	cairo_set_line_width (cr, PIXEL_SIZE); 
@@ -370,8 +304,8 @@ draw_border (HTMLPainter *painter,
 	height = SCALE_ENGINE_TO_GNOME_PRINT (h);
 	bs     = SCALE_ENGINE_TO_GNOME_PRINT (bordersize);
 
-
-	html_printer_coordinates_to_gnome_print (HTML_PRINTER (painter), _x, _y, &x, &y);
+	x = SCALE_ENGINE_TO_GNOME_PRINT (_x);
+	y = SCALE_ENGINE_TO_GNOME_PRINT (_y);
 
 	cr = gtk_print_context_get_cairo_context (pc);
 	if (col2)
@@ -420,7 +354,8 @@ draw_background (HTMLPainter *painter,
 
 	width = SCALE_ENGINE_TO_GNOME_PRINT  (pix_width);
 	height = SCALE_ENGINE_TO_GNOME_PRINT (pix_height);
-	html_printer_coordinates_to_gnome_print (printer, ix, iy, &x, &y);
+	x = SCALE_ENGINE_TO_GNOME_PRINT (ix);
+	y = SCALE_ENGINE_TO_GNOME_PRINT (iy);
 
 	if (color) {
 		cr = gtk_print_context_get_cairo_context (pc);
@@ -468,7 +403,8 @@ draw_pixmap (HTMLPainter *painter, GdkPixbuf *pixbuf, gint x, gint y, gint scale
        	g_return_if_fail (printer->context != NULL);
 	cr = gtk_print_context_get_cairo_context (printer->context);
 	page_height =(double) gtk_print_context_get_height (printer->context);
-	html_printer_coordinates_to_gnome_print (printer, x, y, &print_x, &print_y);
+	print_x = SCALE_ENGINE_TO_GNOME_PRINT (x);
+	print_y = SCALE_ENGINE_TO_GNOME_PRINT (y);
 	print_scale_width  = SCALE_ENGINE_TO_GNOME_PRINT (scale_width);
 	print_scale_height = SCALE_ENGINE_TO_GNOME_PRINT (scale_height);
 	cairo_save (cr);
@@ -492,7 +428,8 @@ fill_rect (HTMLPainter *painter, gint x, gint y, gint width, gint height)
 	printer_width = SCALE_ENGINE_TO_GNOME_PRINT (width);
 	printer_height = SCALE_ENGINE_TO_GNOME_PRINT (height);
 
-	html_printer_coordinates_to_gnome_print (printer, x, y, &printer_x, &printer_y);
+	printer_x = SCALE_ENGINE_TO_GNOME_PRINT (x);
+	printer_y = SCALE_ENGINE_TO_GNOME_PRINT (y);
 
 	cr = gtk_print_context_get_cairo_context (printer->context);
 	cairo_new_path (cr);
@@ -516,8 +453,8 @@ draw_lines (HTMLPrinter *printer, double x, double y, double width, PangoAnalysi
 
 	if (properties->underline) {
 #ifdef PANGO_1_5_OR_HIGHER
-		double thickness = SCALE_PANGO_TO_GNOME_PRINT (pango_font_metrics_get_underline_thickness (metrics));
-		double position = SCALE_PANGO_TO_GNOME_PRINT (pango_font_metrics_get_underline_position (metrics));
+		double thickness = pango_units_to_double (pango_font_metrics_get_underline_thickness (metrics));
+		double position = pango_units_to_double (pango_font_metrics_get_underline_position (metrics));
 		double ly = y + position - thickness / 2;
 #else
 		double thickness = 1.0;
@@ -533,12 +470,12 @@ draw_lines (HTMLPrinter *printer, double x, double y, double width, PangoAnalysi
 		
 	if (properties->strikethrough) {
 #ifdef PANGO_1_5_OR_HIGHER
-		double thickness = SCALE_PANGO_TO_GNOME_PRINT (pango_font_metrics_get_strikethrough_thickness (metrics));
-		double position = SCALE_PANGO_TO_GNOME_PRINT (pango_font_metrics_get_strikethrough_position (metrics));
+		double thickness = pango_units_to_double (pango_font_metrics_get_strikethrough_thickness (metrics));
+		double position = pango_units_to_double (pango_font_metrics_get_strikethrough_position (metrics));
 		double ly = y + position - thickness / 2;
 #else
 		double thickness = 1.0;
-		double position = SCALE_PANGO_TO_GNOME_PRINT (pango_font_metrics_get_ascent (metrics)/3);
+		double position = pango_units_to_double (pango_font_metrics_get_ascent (metrics)/3);
 		double ly = y + position - thickness / 2;
 #endif
 		cairo_new_path (cr);
@@ -560,8 +497,8 @@ draw_glyphs (HTMLPainter *painter, gint x, gint y, PangoItem *item, PangoGlyphSt
 
 	printer = HTML_PRINTER (painter);
 
-
-	html_printer_coordinates_to_gnome_print (printer, x, y, &print_x, &print_y);
+	print_x = SCALE_ENGINE_TO_GNOME_PRINT (x);
+	print_y = SCALE_ENGINE_TO_GNOME_PRINT (y);
 
 	cr = gtk_print_context_get_cairo_context (printer->context);
 
@@ -577,9 +514,9 @@ draw_glyphs (HTMLPainter *painter, gint x, gint y, PangoItem *item, PangoGlyphSt
 					 properties.bg_color->blue / 65535.0);
 		        cairo_rectangle (cr,
 					 print_x,
-					 print_y + SCALE_PANGO_TO_GNOME_PRINT (log_rect.y + log_rect.height),
-					 SCALE_PANGO_TO_GNOME_PRINT (log_rect.width),
-					 SCALE_PANGO_TO_GNOME_PRINT (log_rect.height));
+					 print_y + pango_units_to_double (log_rect.y + log_rect.height),
+					 pango_units_to_double (log_rect.width),
+					 pango_units_to_double (log_rect.height));
 			cairo_fill (cr);
 	}
 	
@@ -596,7 +533,7 @@ draw_glyphs (HTMLPainter *painter, gint x, gint y, PangoItem *item, PangoGlyphSt
 				       item->analysis.font,
 				       glyphs);  
 	draw_lines (printer, print_x, print_y,
-		    SCALE_PANGO_TO_GNOME_PRINT (log_rect.width),
+		    pango_units_to_double (log_rect.width),
 		    &item->analysis, &properties);
 	
 	cairo_restore (cr);
@@ -611,7 +548,9 @@ draw_embedded (HTMLPainter *p, HTMLEmbedded *o, gint x, gint y)
 	GtkWidget *embedded_widget;
 	cairo_t *cr;
 
-	html_printer_coordinates_to_gnome_print (printer, x, y, &print_x, &print_y);
+	print_x = SCALE_ENGINE_TO_GNOME_PRINT (x);
+	print_y = SCALE_ENGINE_TO_GNOME_PRINT (y);
+
 	cr = gtk_print_context_get_cairo_context (printer->context);
 	cairo_save (cr);
 	cairo_translate (cr, 
@@ -659,27 +598,23 @@ get_page_height (HTMLPainter *painter, HTMLEngine *e)
 }
 
 static void
-html_printer_init (GObject *object)
+html_printer_init (HTMLPrinter *printer)
 {
-	HTMLPrinter *printer;
-
-	printer                = HTML_PRINTER (object);
-	printer->context       = NULL;
-
 	html_printer_set_scale (printer, 1.0);
 }
 
 static void
-html_printer_class_init (GObjectClass *object_class)
+html_printer_class_init (HTMLPrinterClass *class)
 {
+	GObjectClass *object_class;
 	HTMLPainterClass *painter_class;
 
-	painter_class = HTML_PAINTER_CLASS (object_class);
+	parent_class = g_type_class_peek_parent (class);
 
-	parent_class = g_type_class_ref (HTML_TYPE_PAINTER);
-
+	object_class = G_OBJECT_CLASS (class);
 	object_class->finalize = finalize;
 
+	painter_class = HTML_PAINTER_CLASS (class);
 	painter_class->begin = begin;
 	painter_class->end = end;
 	painter_class->alloc_color = alloc_color;
@@ -705,24 +640,27 @@ html_printer_class_init (GObjectClass *object_class)
 GType
 html_printer_get_type (void)
 {
-	static GType html_printer_type = 0;
+	static GType type = 0;
 
-	if (html_printer_type == 0) {
-		static const GTypeInfo html_printer_info = {
+	if (G_UNLIKELY (type == 0)) {
+		static const GTypeInfo type_info = {
 			sizeof (HTMLPrinterClass),
-			NULL,
-			NULL,
+			(GBaseInitFunc) NULL,
+			(GBaseFinalizeFunc) NULL,
 			(GClassInitFunc) html_printer_class_init,
-			NULL,
-			NULL,
+			(GClassFinalizeFunc) NULL,
+			NULL,  /* class_data */
 			sizeof (HTMLPrinter),
-			1,
+			0,     /* n_preallocs */
 			(GInstanceInitFunc) html_printer_init,
+			NULL   /* value_table */
 		};
-		html_printer_type = g_type_register_static (HTML_TYPE_PAINTER, "HTMLPrinter", &html_printer_info, 0);
+
+		type = g_type_register_static (
+			HTML_TYPE_PAINTER, "HTMLPrinter", &type_info, 0);
 	}
 
-	return html_printer_type;
+	return type;
 }
 
 HTMLPainter *
@@ -754,7 +692,7 @@ html_printer_get_page_width (HTMLPrinter *printer)
 	g_return_val_if_fail (printer != NULL, 0);
 	g_return_val_if_fail (HTML_IS_PRINTER (printer), 0);
 
-	printer_width = printer_get_page_width (printer) - get_lmargin (printer) - get_rmargin (printer);
+	printer_width = printer_get_page_width (printer);
 	engine_width = SCALE_GNOME_PRINT_TO_ENGINE (printer_width);
 
 	return engine_width;
@@ -769,7 +707,7 @@ html_printer_get_page_height (HTMLPrinter *printer)
 	g_return_val_if_fail (printer != NULL, 0);
 	g_return_val_if_fail (HTML_IS_PRINTER (printer), 0);
 
-	printer_height = printer_get_page_height (printer) + get_tmargin (printer) + get_bmargin (printer);
+	printer_height = printer_get_page_height (printer);
 	engine_height = SCALE_GNOME_PRINT_TO_ENGINE (printer_height);
 
 	return engine_height;
@@ -794,5 +732,5 @@ html_printer_set_scale (HTMLPrinter *printer, gdouble scale)
 	painter = HTML_PAINTER (printer);
 	
 	printer->scale = scale;
-	painter->engine_to_pango = scale * PANGO_SCALE / 1024.;
+	painter->engine_to_pango = scale;
 }

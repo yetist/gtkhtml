@@ -4233,7 +4233,9 @@ html_engine_realize (HTMLEngine *e,
 
 	e->window = window;
 
-	html_gdk_painter_realize (HTML_GDK_PAINTER (e->painter), window);
+	if (HTML_IS_GDK_PAINTER (e->painter))
+		html_gdk_painter_realize (
+			HTML_GDK_PAINTER (e->painter), window);
 
 	gc_values.function = GDK_INVERT;
 	e->invert_gc = gdk_gc_new_with_values (e->window, &gc_values, GDK_GC_FUNCTION);
@@ -4250,7 +4252,9 @@ html_engine_unrealize (HTMLEngine *e)
 		e->thaw_idle_id = 0;
 	}
 
-	html_gdk_painter_unrealize (HTML_GDK_PAINTER (e->painter));
+	if (HTML_IS_GDK_PAINTER (e->painter))
+		html_gdk_painter_unrealize (
+			HTML_GDK_PAINTER (e->painter));
 
 	e->window = NULL;
 }
@@ -5590,7 +5594,10 @@ thaw_idle (gpointer data)
 			gdk_region_union_with_rect (region, &paint);
 		}
 		g_list_free (changed_objs);
-		gdk_window_invalidate_region (HTML_GDK_PAINTER (e->painter)->window, region, FALSE);
+		if (HTML_IS_GDK_PAINTER (e->painter))
+			gdk_window_invalidate_region (
+				HTML_GDK_PAINTER (e->painter)->window,
+				region, FALSE);
 		gdk_region_destroy (region);
 		html_engine_flush_draw_queue (e);
 	}

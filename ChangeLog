@@ -1,3 +1,11 @@
+2007-07-06  Matthew Barnes  <mbarnes@redhat.com>
+
+	** Fixes part of bug #446894
+
+	* configure.in:
+	Increment GTKHTML_CURRENT and GTKHTML_AGE for new
+	gtk_html_print_operation_run() function.
+
 2007-06-18  Srinivasa Ragavan  <sragavan@novell.com>
 
 	** GtkHTML 3.15.4 release

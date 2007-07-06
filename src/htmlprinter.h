@@ -36,7 +36,6 @@
 
 #define SCALE_ENGINE_TO_GNOME_PRINT(x) ((printer->scale * (x)) / 1024.0)
 #define SCALE_GNOME_PRINT_TO_ENGINE(x) ((gint) (((x) * 1024.0 / printer->scale) + 0.5))
-#define SCALE_PANGO_TO_GNOME_PRINT(x) (((x)) / 1024.0)
 
 struct _HTMLPrinter {
 	HTMLPainter base;
@@ -56,11 +55,6 @@ guint        html_printer_get_page_width              (HTMLPrinter       *printe
 guint        html_printer_get_page_height             (HTMLPrinter       *printer);
 gdouble      html_printer_scale_to_gnome_print        (HTMLPrinter       *printer,
 						       gint               x);
-void         html_printer_coordinates_to_gnome_print  (HTMLPrinter       *printer,
-						       gint               engine_x,
-						       gint               engine_y,
-						       gdouble           *print_x_return,
-						       gdouble           *print_y_return);
 void         html_printer_set_scale                   (HTMLPrinter       *printer,
 						       gdouble            scale);
 

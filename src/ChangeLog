@@ -1,3 +1,33 @@
+2007-07-03  Matthew Barnes  <mbarnes@redhat.com>
+
+	** Fixes part of bug #446894
+
+	* gtkhtml.[ch] (gtk_html_print_operation_run):
+	New API uses the given GtkPrintOperation to print a document.
+	Just calls html_engine_print_operation_run().
+
+	* gtkhtml-types.h:
+	Define new callback function typedefs for use with
+	gtk_html_print_operation_run().
+
+	* htmlengine.c (html_engine_realize), (html_engine_unrealize),
+	(thaw_idle): Don't assume painter is an HtmlGdkPainter.
+
+	* htmlengine-print.[ch]:
+	Add html_engine_print_operation_run().
+	Merge html_engine_print() and html_engine_print_with_header_footer().
+	Other cosmetic cleanups.
+
+	* htmlprinter.[ch]:
+	Remove the SCALE_PANGO_TO_GNOME_PRINT() macro.
+	Remove html_printer_coordinates_to_gnome_print(); use the
+	SCALE_ENGINE_TO_GNOME_PRINT() macro instead.
+	Remove margin calculation functions; the margins have already been
+	accounted for in the Cairo context returned by GtkPrintContext.
+	Call pango_units_to_double() instead of using the
+	SCALE_PANGO_TO_GNOME_PRINT() macro.
+	Other cosmetic cleanups.
+
 2007-07-03  Yi Jin  <yi.jin@sun.com>
 
 	* htmlengine-edit-cut-and-paste.c: (html_engine_cut):
