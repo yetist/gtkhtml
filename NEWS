@@ -1,3 +1,20 @@
+GtkHTML-3.15.5 2007-07-09
+-------------------------
+
+Bug fixes:
+	#347347: Emit correct signal when moving caret in composer window
+	 (Yi Jin)
+	#438945: Emit correct signal when using Ctrl+Backspace in composer
+	 window (Yi Jin)
+	#446894: Clean up printing in Evolution's Mailer (Matthew Barnes)
+	#449995: Glade data should not get deleted when running "make
+	 distclean" (Yi Jin)
+	#453320: Emit correct signal when deleting text (Li Yuan)
+
+Updated Translations:
+	Jorge Gonzalez (es)
+	I. Felix (si)
+
 GtkHTML-3.15.4 2007-06-18
 -------------------------
 
