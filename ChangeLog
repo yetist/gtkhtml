@@ -1,3 +1,8 @@
+2007-07-11  Jeff Cai <jeff.cai@sun.com>
+	* configure.in:
+	Add macro defination BONOBO_DISABLE_DEPRECATED
+	Fix #455444
+
 2007-07-09  Srinivasa Ragavan  <sragavan@novell.com>
 
 	** GtkHTML 3.15.5 release
