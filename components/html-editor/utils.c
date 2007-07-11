@@ -227,8 +227,8 @@ editor_check_stock (void)
 				gtk_icon_factory_add (factory, GTKHTML_STOCK_TEST_URL, test_url_iconset);
 				gtk_icon_factory_add_default (factory);
 			}
-			gtk_stock_add_static (test_url_items, G_N_ELEMENTS (test_url_items));
 		}
+		gtk_stock_add_static (test_url_items, G_N_ELEMENTS (test_url_items));
 		stock_test_url_added = TRUE;
 	}
 }
