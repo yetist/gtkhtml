@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-12 20:41+0300\n"
+"POT-Creation-Date: 2007-07-12 12:15+0300\n"
 "PO-Revision-Date: 2007-02-12 20:47+0300\n"
 "Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
@@ -73,13 +73,13 @@ msgstr "_Osoite"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:8
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:8
-#: ../components/html-editor/paragraph-style.c:48
+#: ../components/html-editor/paragraph-style.c:56
 msgid "Alphabetical List"
 msgstr "Aakkosellinen luettelo"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:9
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:9
-#: ../components/html-editor/paragraph-style.c:39
+#: ../components/html-editor/paragraph-style.c:47
 msgid "Bulleted List"
 msgstr "Merkkiluettelo"
 
@@ -111,7 +111,6 @@ msgstr "Kopioi valinta leikepöydälle"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:15
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:15
-#: ../components/html-editor/html-editor-control.xml.h:2
 msgid "Copy the selection"
 msgstr "Kopioi valinta"
 
@@ -137,7 +136,6 @@ msgstr "Leikkaa valinta leikepöydälle"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:20
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:20
-#: ../components/html-editor/html-editor-control.xml.h:3
 msgid "Cut the selection"
 msgstr "Leikkaa valinta"
 
@@ -156,7 +154,6 @@ msgstr "Etsi"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:23
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:23
-#: ../components/html-editor/html-editor-control.xml.h:5
 msgid "Find _Again"
 msgstr "Etsi uu_delleen"
 
@@ -240,7 +237,6 @@ msgstr "Lisää HTML-tiedosto asiakirjaan..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:39
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
-#: ../components/html-editor/html-editor-control.xml.h:6
 msgid "Insert HTML link into document..."
 msgstr "Lisää HTML-linkki asiakirjaan..."
 
@@ -303,7 +299,6 @@ msgstr "Lisää kuva"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:51
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
-#: ../components/html-editor/html-editor-control.xml.h:7
 msgid "Insert image into document..."
 msgstr "Lisää kuva asiakirjaan..."
 
@@ -319,7 +314,6 @@ msgstr "Lisää viiva"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:54
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
-#: ../components/html-editor/html-editor-control.xml.h:8
 msgid "Insert rule into document..."
 msgstr "Lisää asiakirjaan viiva..."
 
@@ -418,13 +412,13 @@ msgstr "Tee nykyisestä kappaleesta aakkosellinen luettelo"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:73
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
-#: ../components/html-editor/paragraph-style.c:33
+#: ../components/html-editor/paragraph-style.c:41
 msgid "Normal"
 msgstr "Tavallinen"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:74
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
-#: ../components/html-editor/paragraph-style.c:42
+#: ../components/html-editor/paragraph-style.c:50
 msgid "Numbered List"
 msgstr "Numeroluettelo"
 
@@ -445,6 +439,7 @@ msgstr "Liitä"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:78
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
+#: ../components/html-editor/popup.c:446
 msgid "Paste _Quotation"
 msgstr "Liitä lai_naus"
 
@@ -455,18 +450,16 @@ msgstr "Liitä leikepöydältä"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:80
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
-#: ../components/html-editor/html-editor-control.xml.h:10
 msgid "Paste the clipboard"
 msgstr "Liitä leikepöydän sisältö"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:81
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
-#: ../components/html-editor/html-editor-control.xml.h:11
 msgid "Paste the clipboard as a quotation"
 msgstr "Liitä leikepöydän sisältö lainauksena"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:82
-#: ../components/html-editor/paragraph-style.c:36
+#: ../components/html-editor/paragraph-style.c:44
 msgid "Preformat"
 msgstr "Esimuotoiltu"
 
@@ -482,7 +475,6 @@ msgstr "Tee kumotut muutokset uudelleen"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:85
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
-#: ../components/html-editor/html-editor-control.xml.h:12
 msgid "Redo the undone action"
 msgstr "Tekee kumotun toiminnon uudelleen"
 
@@ -554,8 +546,8 @@ msgstr "Yläindeksi"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:49
 #: ../components/html-editor/menubar.c:188
-#: ../components/html-editor/popup.c:235 ../components/html-editor/popup.c:505
-#: ../components/html-editor/popup.c:517
+#: ../components/html-editor/popup.c:235 ../components/html-editor/popup.c:509
+#: ../components/html-editor/popup.c:521
 msgid "Table"
 msgstr "Taulukko"
 
@@ -592,7 +584,6 @@ msgstr "Kumoa edelliset muutokset"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:104
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
-#: ../components/html-editor/html-editor-control.xml.h:17
 msgid "Undo the last action"
 msgstr "Kumoa viimeisin toiminto"
 
@@ -624,7 +615,6 @@ msgstr "_Keskitä"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
-#: ../components/html-editor/html-editor-control.xml.h:18
 msgid "_Copy"
 msgstr "_Kopioi"
 
@@ -635,13 +625,11 @@ msgstr "Sisennä _vähemmän"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:112
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
-#: ../components/html-editor/html-editor-control.xml.h:19
 msgid "_Edit"
 msgstr "_Muokkaa"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:113
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
-#: ../components/html-editor/html-editor-control.xml.h:20
 msgid "_Find..."
 msgstr "_Etsi..."
 
@@ -667,7 +655,6 @@ msgstr "_Otsikko"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:118
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
-#: ../components/html-editor/html-editor-control.xml.h:21
 msgid "_Image..."
 msgstr "_Kuva..."
 
@@ -699,7 +686,6 @@ msgstr "_Vasen"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
-#: ../components/html-editor/html-editor-control.xml.h:24
 msgid "_Link..."
 msgstr "_Linkki..."
 
@@ -720,7 +706,6 @@ msgstr "_Kappale..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:128
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:128
-#: ../components/html-editor/html-editor-control.xml.h:25
 msgid "_Paste"
 msgstr "L_iitä"
 
@@ -736,13 +721,11 @@ msgstr "_Esimuotoiltu"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:131
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
-#: ../components/html-editor/html-editor-control.xml.h:28
 msgid "_Redo"
 msgstr "_Tee uudelleen"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:132
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
-#: ../components/html-editor/html-editor-control.xml.h:29
 msgid "_Replace..."
 msgstr "Ko_rvaa..."
 
@@ -758,7 +741,6 @@ msgstr "Luettelo _roomalaisin numeroin"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:135
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
-#: ../components/html-editor/html-editor-control.xml.h:30
 msgid "_Rule..."
 msgstr "_Viiva..."
 
@@ -816,7 +798,6 @@ msgstr "_Alleviivaus"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:158
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:158
-#: ../components/html-editor/html-editor-control.xml.h:31
 msgid "_Undo"
 msgstr "K_umoa"
 
@@ -1454,50 +1435,6 @@ msgstr ""
 msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
-#: ../components/html-editor/html-editor-control.xml.h:1
-msgid "C_ut"
-msgstr "L_eikkaa"
-
-#: ../components/html-editor/html-editor-control.xml.h:4
-msgid "Find Rege_x..."
-msgstr "Etsi rege_xp..."
-
-#: ../components/html-editor/html-editor-control.xml.h:9
-msgid "Modify the file's properties"
-msgstr "Muokkaa tiedoston ominaisuuksia"
-
-#: ../components/html-editor/html-editor-control.xml.h:13
-msgid "Regular expression search"
-msgstr "Haku säännöllisellä lausekkeella"
-
-#: ../components/html-editor/html-editor-control.xml.h:14
-msgid "Replace a string"
-msgstr "Korvaa merkkijono"
-
-#: ../components/html-editor/html-editor-control.xml.h:15
-msgid "Search again for the same string"
-msgstr "Etsi uudestaan samaa merkkijonoa"
-
-#: ../components/html-editor/html-editor-control.xml.h:16
-msgid "Search for a string"
-msgstr "Etsi merkkijonoa"
-
-#: ../components/html-editor/html-editor-control.xml.h:22
-msgid "_Insert"
-msgstr "_Lisää"
-
-#: ../components/html-editor/html-editor-control.xml.h:23
-msgid "_Insert text file... (FIXME)"
-msgstr "_Lisää tekstitiedosto (KORJAA)"
-
-#: ../components/html-editor/html-editor-control.xml.h:26
-msgid "_Paste Quotation"
-msgstr "_Liitä lainaus"
-
-#: ../components/html-editor/html-editor-control.xml.h:27
-msgid "_Properties..."
-msgstr "_Ominaisuudet..."
-
 #: ../components/html-editor/link.c:209
 msgid "URL:"
 msgstr "URL:"
@@ -1560,141 +1497,137 @@ msgstr "Oikea"
 msgid "Alignment"
 msgstr "Tasaus"
 
-#: ../components/html-editor/paragraph-style.c:45
+#: ../components/html-editor/paragraph-style.c:53
 msgid "Roman List"
 msgstr "Room. luettelo"
 
-#: ../components/html-editor/paragraph-style.c:51
+#: ../components/html-editor/paragraph-style.c:59
 msgid "Header 1"
 msgstr "Otsikko 1"
 
-#: ../components/html-editor/paragraph-style.c:54
+#: ../components/html-editor/paragraph-style.c:62
 msgid "Header 2"
 msgstr "Otsikko 2"
 
-#: ../components/html-editor/paragraph-style.c:57
+#: ../components/html-editor/paragraph-style.c:65
 msgid "Header 3"
 msgstr "Otsikko 3"
 
-#: ../components/html-editor/paragraph-style.c:60
+#: ../components/html-editor/paragraph-style.c:68
 msgid "Header 4"
 msgstr "Otsikko 4"
 
-#: ../components/html-editor/paragraph-style.c:63
+#: ../components/html-editor/paragraph-style.c:71
 msgid "Header 5"
 msgstr "Otsikko 5"
 
-#: ../components/html-editor/paragraph-style.c:66
+#: ../components/html-editor/paragraph-style.c:74
 msgid "Header 6"
 msgstr "Otsikko 6"
 
-#: ../components/html-editor/paragraph-style.c:69
+#: ../components/html-editor/paragraph-style.c:77
 msgid "Address"
 msgstr "Osoite"
 
-#: ../components/html-editor/popup.c:442
-msgid "Paste Quotation"
-msgstr "Liitä lainaus"
-
-#: ../components/html-editor/popup.c:446
+#: ../components/html-editor/popup.c:450
 msgid "Insert Link"
 msgstr "Lisää linkki"
 
-#: ../components/html-editor/popup.c:453
+#: ../components/html-editor/popup.c:457
 msgid "Remove Link"
 msgstr "Poista linkki"
 
-#: ../components/html-editor/popup.c:460
+#: ../components/html-editor/popup.c:464
 msgid "Style"
 msgstr "Tyyli"
 
-#: ../components/html-editor/popup.c:463
+#: ../components/html-editor/popup.c:467
 msgid "Text Style..."
 msgstr "Tekstin tyyli..."
 
-#: ../components/html-editor/popup.c:465 ../components/html-editor/popup.c:471
-#: ../components/html-editor/popup.c:481
+#: ../components/html-editor/popup.c:469 ../components/html-editor/popup.c:475
+#: ../components/html-editor/popup.c:485
 msgid "Paragraph Style..."
 msgstr "Kappaleen tyyli..."
 
-#: ../components/html-editor/popup.c:469
+#: ../components/html-editor/popup.c:473
 msgid "Link Style..."
 msgstr "Linkin tyyli..."
 
-#: ../components/html-editor/popup.c:475
+#: ../components/html-editor/popup.c:479
 msgid "Rule Style..."
 msgstr "Viivan tyyli..."
 
-#: ../components/html-editor/popup.c:479
+#: ../components/html-editor/popup.c:483
 msgid "Image Style..."
 msgstr "Kuvan tyyli..."
 
-#: ../components/html-editor/popup.c:490
+#: ../components/html-editor/popup.c:494
 msgid "Cell Style..."
 msgstr "Solun tyyli..."
 
-#: ../components/html-editor/popup.c:493
+#: ../components/html-editor/popup.c:497
 msgid "Table Style..."
 msgstr "Taulukon tyyli..."
 
-#: ../components/html-editor/popup.c:499
+#: ../components/html-editor/popup.c:503
 msgid "Page Style..."
 msgstr "Sivun tyyli..."
 
-#: ../components/html-editor/popup.c:504
+#: ../components/html-editor/popup.c:508
 msgid "Table insert"
 msgstr "Lisää taulukko"
 
-#: ../components/html-editor/popup.c:507
+#: ../components/html-editor/popup.c:511
 msgid "Row above"
 msgstr "Rivi yllä"
 
-#: ../components/html-editor/popup.c:508
+#: ../components/html-editor/popup.c:512
 msgid "Row below"
 msgstr "Rivi alla"
 
-#: ../components/html-editor/popup.c:510
+#: ../components/html-editor/popup.c:514
 msgid "Column before"
 msgstr "Edeltävä sarake"
 
-#: ../components/html-editor/popup.c:511
+#: ../components/html-editor/popup.c:515
 msgid "Column after"
 msgstr "Seuraava sarake"
 
-#: ../components/html-editor/popup.c:516
+#: ../components/html-editor/popup.c:520
 msgid "Table delete"
 msgstr "Poista taulukko"
 
-#: ../components/html-editor/popup.c:518
+#: ../components/html-editor/popup.c:522
 msgid "Row"
 msgstr "Rivi"
 
-#: ../components/html-editor/popup.c:519
+#: ../components/html-editor/popup.c:523
 msgid "Column"
 msgstr "Sarake"
 
-#: ../components/html-editor/popup.c:520
+#: ../components/html-editor/popup.c:524
 msgid "Cell contents"
 msgstr "Solun sisältö"
 
-#: ../components/html-editor/popup.c:555
+#: ../components/html-editor/popup.c:559
 msgid "Ignore Misspelled Word"
 msgstr "Sivuuta väärin kirjoitetut sanat"
 
-#: ../components/html-editor/popup.c:560
+#: ../components/html-editor/popup.c:564
 msgid "Add Word to"
 msgstr "Lisää sana"
 
-#: ../components/html-editor/popup.c:564
+#: ../components/html-editor/popup.c:568
 #, c-format
 msgid "%s Dictionary"
 msgstr "Sanastoon %s"
 
-#: ../components/html-editor/popup.c:573
+#: ../components/html-editor/popup.c:577
 msgid "Add Word to Dictionary"
 msgstr "Lisää sana sanastoon"
 
-#: ../components/html-editor/popup.c:579
+#: ../components/html-editor/popup.c:583
 msgid "Input Methods"
 msgstr "Syöttötavat"
 
@@ -1865,83 +1798,83 @@ msgstr ""
 "Muokattu kohde on poistettu asiakirjasta.\n"
 "Muutoksia ei voida ottaa käyttöön."
 
-#: ../src/gtkhtml.c:3060
+#: ../src/gtkhtml.c:3065
 msgid "Editable"
 msgstr "Muokattava"
 
-#: ../src/gtkhtml.c:3061
+#: ../src/gtkhtml.c:3066
 msgid "Whether the html can be edited"
 msgstr "Voiko HTML-tiedostoa muokata"
 
-#: ../src/gtkhtml.c:3067
+#: ../src/gtkhtml.c:3072
 msgid "Document Title"
 msgstr "Asiakirjan otsikko"
 
-#: ../src/gtkhtml.c:3068
+#: ../src/gtkhtml.c:3073
 msgid "The title of the current document"
 msgstr "Nykyisen asiakirjan otsikko"
 
-#: ../src/gtkhtml.c:3074
+#: ../src/gtkhtml.c:3079
 msgid "Document Base"
 msgstr "Asiakirjan kanta"
 
-#: ../src/gtkhtml.c:3075
+#: ../src/gtkhtml.c:3080
 msgid "The base URL for relative references"
 msgstr "Suhteellisten viittausten kanta-URL"
 
-#: ../src/gtkhtml.c:3081
+#: ../src/gtkhtml.c:3086
 msgid "Target Base"
 msgstr "Kohteen kanta"
 
-#: ../src/gtkhtml.c:3082
+#: ../src/gtkhtml.c:3087
 msgid "The base URL of the target frame"
 msgstr "Kohdekehyksen kanta-URL"
 
-#: ../src/gtkhtml.c:3091
+#: ../src/gtkhtml.c:3096
 msgid "Fixed Width Font"
 msgstr "Tasavälinen kirjasin"
 
-#: ../src/gtkhtml.c:3092
+#: ../src/gtkhtml.c:3097
 msgid "The Monospace font to use for typewriter text"
 msgstr "Kirjoituskonetekstissä käytettävä tasavälinen kirjasin"
 
-#: ../src/gtkhtml.c:3098
+#: ../src/gtkhtml.c:3103
 msgid "New Link Color"
 msgstr "Uuden linkin väri"
 
-#: ../src/gtkhtml.c:3099
+#: ../src/gtkhtml.c:3104
 msgid "The color of new link elements"
 msgstr "Uusien linkkielementtien väri"
 
-#: ../src/gtkhtml.c:3104
+#: ../src/gtkhtml.c:3109
 msgid "Visited Link Color"
 msgstr "Käydyn linkin väri"
 
-#: ../src/gtkhtml.c:3105
+#: ../src/gtkhtml.c:3110
 msgid "The color of visited link elements"
 msgstr "Käytyjen linkkielementtien väri"
 
-#: ../src/gtkhtml.c:3110
+#: ../src/gtkhtml.c:3115
 msgid "Active Link Color"
 msgstr "Aktiivisen linkkielementin väri"
 
-#: ../src/gtkhtml.c:3111
+#: ../src/gtkhtml.c:3116
 msgid "The color of active link elements"
 msgstr "Aktiivisten linkkielementtien väri"
 
-#: ../src/gtkhtml.c:3116
+#: ../src/gtkhtml.c:3121
 msgid "Spelling Error Color"
 msgstr "Kirjoitusvirheen väri"
 
-#: ../src/gtkhtml.c:3117
+#: ../src/gtkhtml.c:3122
 msgid "The color of the spelling error markers"
 msgstr "Kirjoitusvirheilmaisimen väri"
 
-#: ../src/gtkhtml.c:3122
+#: ../src/gtkhtml.c:3127
 msgid "Cite Quotation Color"
 msgstr "Lainauksen väri"
 
-#: ../src/gtkhtml.c:3123
+#: ../src/gtkhtml.c:3128
 msgid "The color of the cited text"
 msgstr "Lainatun tekstin väri"
 
@@ -1954,25 +1887,65 @@ msgid "Reset"
 msgstr "Alusta"
 
 #. TODO2 dialog instead of warning
-#: ../src/htmlengine-print.c:198
+#: ../src/htmlengine-print.c:226
 msgid "Cannot allocate default font for printing\n"
 msgstr "Ei voinut varata oletuskirjasinta tulostamista varten\n"
 
-#: ../src/test.c:376
+#: ../src/htmlengine-print.c:305
+msgid "Cannot allocate default font for printing"
+msgstr "Oletuskirjasinta ei voitu varata tulostusta varten"
+
+#: ../src/test.c:374
 msgid "GtkHTML Test"
 msgstr "GtkHTML-testi"
 
-#: ../src/testgtkhtml.c:121
+#: ../src/testgtkhtml.c:118
 msgid "Print pre_view"
 msgstr "_Esikatselu"
 
-#: ../src/testgtkhtml.c:121
+#: ../src/testgtkhtml.c:118
 msgid "Print preview"
 msgstr "Esikatselu"
 
-#: ../src/testgtkhtml.c:1012
+#: ../src/testgtkhtml.c:1038
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML-testisovellus"
+
+#~ msgid "C_ut"
+#~ msgstr "L_eikkaa"
+
+#~ msgid "Find Rege_x..."
+#~ msgstr "Etsi rege_xp..."
+
+#~ msgid "Modify the file's properties"
+#~ msgstr "Muokkaa tiedoston ominaisuuksia"
+
+#~ msgid "Regular expression search"
+#~ msgstr "Haku säännöllisellä lausekkeella"
+
+#~ msgid "Replace a string"
+#~ msgstr "Korvaa merkkijono"
+
+#~ msgid "Search again for the same string"
+#~ msgstr "Etsi uudestaan samaa merkkijonoa"
+
+#~ msgid "Search for a string"
+#~ msgstr "Etsi merkkijonoa"
+
+#~ msgid "_Insert"
+#~ msgstr "_Lisää"
+
+#~ msgid "_Insert text file... (FIXME)"
+#~ msgstr "_Lisää tekstitiedosto (KORJAA)"
+
+#~ msgid "_Paste Quotation"
+#~ msgstr "_Liitä lainaus"
+
+#~ msgid "_Properties..."
+#~ msgstr "_Ominaisuudet..."
+
+#~ msgid "Paste Quotation"
+#~ msgstr "Liitä lainaus"
 
 #~ msgid "%"
 #~ msgstr "%"
