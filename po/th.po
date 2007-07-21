@@ -7,13 +7,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-30 14:02+0700\n"
-"PO-Revision-Date: 2007-01-30 14:13+0700\n"
+"POT-Creation-Date: 2007-07-21 19:57+0700\n"
+"PO-Revision-Date: 2007-07-21 19:59+0700\n"
 "Last-Translator: Theppitak Karoonboonyanan <thep@linux.thai.net>\n"
-"Language-Team: Thai <l10n@opentle.org>\n"
+"Language-Team: Thai <thai-l10n@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit"
+"Content-Transfer-Encoding: 8bit\n"
 
 #: a11y/image.c:151
 #, c-format
@@ -70,11 +70,13 @@ msgstr "_ที่อยู่"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:8
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:8
+#: components/html-editor/paragraph-style.c:56
 msgid "Alphabetical List"
 msgstr "รายการลำดับอักษร"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:9
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:9
+#: components/html-editor/paragraph-style.c:47
 msgid "Bulleted List"
 msgstr "รายการยัติภังค์"
 
@@ -106,7 +108,6 @@ msgstr "คัดลอกสิ่งที่เลือกเข้าคล
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:15
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:15
-#: components/html-editor/html-editor-control.xml.h:2
 msgid "Copy the selection"
 msgstr "คัดลอกสิ่งที่เลือก"
 
@@ -132,7 +133,6 @@ msgstr "ตัดสิ่งที่เลือกเข้าคลิปบ
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:20
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:20
-#: components/html-editor/html-editor-control.xml.h:3
 msgid "Cut the selection"
 msgstr "ตัดสิ่งที่เลือก"
 
@@ -151,7 +151,6 @@ msgstr "หา"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:23
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:23
-#: components/html-editor/html-editor-control.xml.h:5
 msgid "Find _Again"
 msgstr "หา_ต่อ"
 
@@ -235,7 +234,6 @@ msgstr "แทรกแฟ้ม HTML ลงในเอกสาร..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:39
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
-#: components/html-editor/html-editor-control.xml.h:6
 msgid "Insert HTML link into document..."
 msgstr "แทรกลิงก์ HTML ลงในเอกสาร..."
 
@@ -298,7 +296,6 @@ msgstr "แทรกรูปภาพ"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:51
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
-#: components/html-editor/html-editor-control.xml.h:7
 msgid "Insert image into document..."
 msgstr "แทรกรูปภาพลงในเอกสาร..."
 
@@ -314,7 +311,6 @@ msgstr "แทรกเส้นกั้น"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:54
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
-#: components/html-editor/html-editor-control.xml.h:8
 msgid "Insert rule into document..."
 msgstr "แทรกเส้นกั้นลงในเอกสาร..."
 
@@ -341,7 +337,7 @@ msgstr "จัดย่อหน้าเรียงชิดซ้าย"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:59
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
-#: components/html-editor/menubar.c:141
+#: components/html-editor/menubar.c:145
 #: components/html-editor/popup.c:111 components/html-editor/popup.c:205
 #: components/html-editor/popup.c:271
 msgid "Link"
@@ -413,11 +409,13 @@ msgstr "จัดรูปลักษณ์ย่อหน้าปัจจุ
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:73
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
+#: components/html-editor/paragraph-style.c:41
 msgid "Normal"
 msgstr "ปกติ"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:74
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
+#: components/html-editor/paragraph-style.c:50
 msgid "Numbered List"
 msgstr "รายการลำดับเลข"
 
@@ -438,6 +436,7 @@ msgstr "แปะ"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:78
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
+#: components/html-editor/popup.c:446
 msgid "Paste _Quotation"
 msgstr "แปะคำ_พูด"
 
@@ -448,17 +447,16 @@ msgstr "แปะจากคลิปบอร์ด"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:80
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
-#: components/html-editor/html-editor-control.xml.h:10
 msgid "Paste the clipboard"
 msgstr "แปะจากคลิปบอร์ด"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:81
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
-#: components/html-editor/html-editor-control.xml.h:11
 msgid "Paste the clipboard as a quotation"
 msgstr "แปะจากคลิปบอร์ดแบบอ้างคำพูด"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:82
+#: components/html-editor/paragraph-style.c:44
 msgid "Preformat"
 msgstr "พิมพ์ดีด"
 
@@ -474,7 +472,6 @@ msgstr "ทำซ้ำการแก้ไขที่เรียกคืน
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:85
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
-#: components/html-editor/html-editor-control.xml.h:12
 msgid "Redo the undone action"
 msgstr "ทำซ้ำปฏิบัติการที่เรียกคืน"
 
@@ -501,7 +498,7 @@ msgstr "รายการลำดับเลขโรมัน"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
 #: components/html-editor/editor-control-factory.c:218
 #: components/html-editor/gtkhtml-editor-properties.glade.h:45
-#: components/html-editor/menubar.c:160
+#: components/html-editor/menubar.c:164
 #: components/html-editor/popup.c:229
 msgid "Rule"
 msgstr "เส้นกั้น"
@@ -545,9 +542,9 @@ msgstr "ตัวยก"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:97
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
 #: components/html-editor/gtkhtml-editor-properties.glade.h:49
-#: components/html-editor/menubar.c:184
-#: components/html-editor/popup.c:235 components/html-editor/popup.c:505
-#: components/html-editor/popup.c:517
+#: components/html-editor/menubar.c:188
+#: components/html-editor/popup.c:235 components/html-editor/popup.c:509
+#: components/html-editor/popup.c:521
 msgid "Table"
 msgstr "ตาราง"
 
@@ -584,7 +581,6 @@ msgstr "เรียกคืนการแก้ไขล่าสุด"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:104
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
-#: components/html-editor/html-editor-control.xml.h:17
 msgid "Undo the last action"
 msgstr "เรียกคืนปฏิบัติการล่าสุด"
 
@@ -616,7 +612,6 @@ msgstr "เรียกตรง_กลาง"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
-#: components/html-editor/html-editor-control.xml.h:18
 msgid "_Copy"
 msgstr "_คัดลอก"
 
@@ -627,13 +622,11 @@ msgstr "_ลดระยะเยื้อง"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:112
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
-#: components/html-editor/html-editor-control.xml.h:19
 msgid "_Edit"
 msgstr "แ_ก้ไข"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:113
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
-#: components/html-editor/html-editor-control.xml.h:20
 msgid "_Find..."
 msgstr "_หา..."
 
@@ -659,7 +652,6 @@ msgstr "_หัวเรื่อง"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:118
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
-#: components/html-editor/html-editor-control.xml.h:21
 msgid "_Image..."
 msgstr "รูป_ภาพ..."
 
@@ -691,7 +683,6 @@ msgstr "ชิด_ซ้าย"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
-#: components/html-editor/html-editor-control.xml.h:24
 msgid "_Link..."
 msgstr "_ลิงก์..."
 
@@ -712,7 +703,6 @@ msgstr "_ย่อหน้า..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:128
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:128
-#: components/html-editor/html-editor-control.xml.h:25
 msgid "_Paste"
 msgstr "_แปะ"
 
@@ -728,13 +718,11 @@ msgstr "_พิมพ์ดีด"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:131
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
-#: components/html-editor/html-editor-control.xml.h:28
 msgid "_Redo"
 msgstr "_ทำซ้ำ"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:132
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
-#: components/html-editor/html-editor-control.xml.h:29
 msgid "_Replace..."
 msgstr "แ_ทนที่..."
 
@@ -750,7 +738,6 @@ msgstr "รายการลำดับเลขโ_รมัน"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:135
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
-#: components/html-editor/html-editor-control.xml.h:30
 msgid "_Rule..."
 msgstr "เ_ส้นกั้น..."
 
@@ -808,7 +795,6 @@ msgstr "ขีดเส้นใ_ต้"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:158
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:158
-#: components/html-editor/html-editor-control.xml.h:31
 msgid "_Undo"
 msgstr "เรี_ยกคืน"
 
@@ -910,7 +896,7 @@ msgstr "พาธของแฟ้มภาพพื้นหลัง"
 
 #: components/html-editor/body.c:275
 #: components/html-editor/gtkhtml-editor-properties.glade.h:50
-#: components/html-editor/menubar.c:206
+#: components/html-editor/menubar.c:210
 msgid "Template"
 msgstr "ต้นแบบ"
 
@@ -941,20 +927,20 @@ msgstr "คุณสมบัติ"
 
 #: components/html-editor/editor-control-factory.c:208
 #: components/html-editor/gtkhtml-editor-properties.glade.h:51
-#: components/html-editor/menubar.c:382
+#: components/html-editor/menubar.c:386
 #: components/html-editor/popup.c:199
 msgid "Text"
 msgstr "ข้อความ"
 
 #: components/html-editor/editor-control-factory.c:227
-#: components/html-editor/menubar.c:399
+#: components/html-editor/menubar.c:403
 #: components/html-editor/popup.c:217
 msgid "Paragraph"
 msgstr "ย่อหน้า"
 
 #: components/html-editor/editor-control-factory.c:231
 #: components/html-editor/gtkhtml-editor-properties.glade.h:43
-#: components/html-editor/menubar.c:365
+#: components/html-editor/menubar.c:369
 #: components/html-editor/popup.c:223
 msgid "Page"
 msgstr "หน้า"
@@ -1446,50 +1432,6 @@ msgstr ""
 msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
-#: components/html-editor/html-editor-control.xml.h:1
-msgid "C_ut"
-msgstr "_ตัด"
-
-#: components/html-editor/html-editor-control.xml.h:4
-msgid "Find Rege_x..."
-msgstr "หาด้วย_นิพจน์เรกกิวลาร์..."
-
-#: components/html-editor/html-editor-control.xml.h:9
-msgid "Modify the file's properties"
-msgstr "เปลี่ยนคุณสมบัติของแฟ้ม"
-
-#: components/html-editor/html-editor-control.xml.h:13
-msgid "Regular expression search"
-msgstr "การค้นหาด้วยนิพจน์เรกกิวลาร์"
-
-#: components/html-editor/html-editor-control.xml.h:14
-msgid "Replace a string"
-msgstr "แทนที่ข้อความ"
-
-#: components/html-editor/html-editor-control.xml.h:15
-msgid "Search again for the same string"
-msgstr "ค้นหาข้อความเดิมอีกครั้ง"
-
-#: components/html-editor/html-editor-control.xml.h:16
-msgid "Search for a string"
-msgstr "ค้นหาข้อความ"
-
-#: components/html-editor/html-editor-control.xml.h:22
-msgid "_Insert"
-msgstr "แ_ทรก"
-
-#: components/html-editor/html-editor-control.xml.h:23
-msgid "_Insert text file... (FIXME)"
-msgstr "แ_ทรกแฟ้มข้อความ..."
-
-#: components/html-editor/html-editor-control.xml.h:26
-msgid "_Paste Quotation"
-msgstr "แ_ปะคำพูด"
-
-#: components/html-editor/html-editor-control.xml.h:27
-msgid "_Properties..."
-msgstr "คุณ_สมบัติ..."
-
 #: components/html-editor/link.c:209
 msgid "URL:"
 msgstr "URL:"
@@ -1498,32 +1440,32 @@ msgstr "URL:"
 msgid "Description:"
 msgstr "คำบรรยาย:"
 
-#: components/html-editor/menubar.c:138
-#: components/html-editor/menubar.c:157
-#: components/html-editor/menubar.c:181
-#: components/html-editor/menubar.c:203
+#: components/html-editor/menubar.c:142
+#: components/html-editor/menubar.c:161
+#: components/html-editor/menubar.c:185
+#: components/html-editor/menubar.c:207
 #: components/html-editor/popup.c:108
 msgid "Insert"
 msgstr "แทรก"
 
-#: components/html-editor/menubar.c:290
+#: components/html-editor/menubar.c:294
 #, c-format
 msgid "Error loading file '%s': %s"
 msgstr "เกิดข้อผิดพลาดขณะโหลดแฟ้ม '%s': %s"
 
-#: components/html-editor/menubar.c:316
-#: components/html-editor/menubar.c:325
+#: components/html-editor/menubar.c:320
+#: components/html-editor/menubar.c:329
 msgid "Insert HTML File"
 msgstr "แทรกแฟ้ม HTML"
 
-#: components/html-editor/menubar.c:316
-#: components/html-editor/menubar.c:325
+#: components/html-editor/menubar.c:320
+#: components/html-editor/menubar.c:329
 msgid "Insert Text File"
 msgstr "แทรกแฟ้มข้อความ"
 
-#: components/html-editor/menubar.c:362
-#: components/html-editor/menubar.c:379
-#: components/html-editor/menubar.c:396
+#: components/html-editor/menubar.c:366
+#: components/html-editor/menubar.c:383
+#: components/html-editor/menubar.c:400
 msgid "Format"
 msgstr "ฟอร์แมต"
 
@@ -1552,109 +1494,137 @@ msgstr "ชิดขวา"
 msgid "Alignment"
 msgstr "การจัดเรียง"
 
-#: components/html-editor/popup.c:442
-msgid "Paste Quotation"
-msgstr "แปะคำพูด"
+#: components/html-editor/paragraph-style.c:53
+msgid "Roman List"
+msgstr "รายการลำดับเลขโรมัน"
 
-#: components/html-editor/popup.c:446
+#: components/html-editor/paragraph-style.c:59
+msgid "Header 1"
+msgstr "หัวเรื่อง 1"
+
+#: components/html-editor/paragraph-style.c:62
+msgid "Header 2"
+msgstr "หัวเรื่อง 2"
+
+#: components/html-editor/paragraph-style.c:65
+msgid "Header 3"
+msgstr "หัวเรื่อง 3"
+
+#: components/html-editor/paragraph-style.c:68
+msgid "Header 4"
+msgstr "หัวเรื่อง 4"
+
+#: components/html-editor/paragraph-style.c:71
+msgid "Header 5"
+msgstr "หัวเรื่อง 5"
+
+#: components/html-editor/paragraph-style.c:74
+msgid "Header 6"
+msgstr "หัวเรื่อง 6"
+
+#: components/html-editor/paragraph-style.c:77
+msgid "Address"
+msgstr "ที่อยู่"
+
+#: components/html-editor/popup.c:450
 msgid "Insert Link"
 msgstr "แทรกลิงก์"
 
-#: components/html-editor/popup.c:453
+#: components/html-editor/popup.c:457
 msgid "Remove Link"
 msgstr "ลบลิงก์"
 
-#: components/html-editor/popup.c:460
+#: components/html-editor/popup.c:464
 msgid "Style"
 msgstr "รูปลักษณ์"
 
-#: components/html-editor/popup.c:463
+#: components/html-editor/popup.c:467
 msgid "Text Style..."
 msgstr "รูปลักษณ์ข้อความ..."
 
-#: components/html-editor/popup.c:465 components/html-editor/popup.c:471
-#: components/html-editor/popup.c:481
+#: components/html-editor/popup.c:469 components/html-editor/popup.c:475
+#: components/html-editor/popup.c:485
 msgid "Paragraph Style..."
 msgstr "รูปลักษณ์ย่อหน้า..."
 
-#: components/html-editor/popup.c:469
+#: components/html-editor/popup.c:473
 msgid "Link Style..."
 msgstr "รูปลักษณ์ลิงก์..."
 
-#: components/html-editor/popup.c:475
+#: components/html-editor/popup.c:479
 msgid "Rule Style..."
 msgstr "รูปลักษณ์เส้นกั้น..."
 
-#: components/html-editor/popup.c:479
+#: components/html-editor/popup.c:483
 msgid "Image Style..."
 msgstr "รูปลักษณ์รูปภาพ..."
 
-#: components/html-editor/popup.c:490
+#: components/html-editor/popup.c:494
 msgid "Cell Style..."
 msgstr "รูปลักษณ์ช่องตาราง..."
 
-#: components/html-editor/popup.c:493
+#: components/html-editor/popup.c:497
 msgid "Table Style..."
 msgstr "รูปลักษณ์ตาราง..."
 
-#: components/html-editor/popup.c:499
+#: components/html-editor/popup.c:503
 msgid "Page Style..."
 msgstr "รูปลักษณ์หน้า..."
 
-#: components/html-editor/popup.c:504
+#: components/html-editor/popup.c:508
 msgid "Table insert"
 msgstr "แทรกในตาราง"
 
-#: components/html-editor/popup.c:507
+#: components/html-editor/popup.c:511
 msgid "Row above"
 msgstr "แถวด้านบน"
 
-#: components/html-editor/popup.c:508
+#: components/html-editor/popup.c:512
 msgid "Row below"
 msgstr "แถวด้านล่าง"
 
-#: components/html-editor/popup.c:510
+#: components/html-editor/popup.c:514
 msgid "Column before"
 msgstr "คอลัมน์ก่อนหน้า"
 
-#: components/html-editor/popup.c:511
+#: components/html-editor/popup.c:515
 msgid "Column after"
 msgstr "คอลัมน์ต่อท้าย"
 
-#: components/html-editor/popup.c:516
+#: components/html-editor/popup.c:520
 msgid "Table delete"
 msgstr "ลบในตาราง"
 
-#: components/html-editor/popup.c:518
+#: components/html-editor/popup.c:522
 msgid "Row"
 msgstr "แถว"
 
-#: components/html-editor/popup.c:519
+#: components/html-editor/popup.c:523
 msgid "Column"
 msgstr "คอลัมน์"
 
-#: components/html-editor/popup.c:520
+#: components/html-editor/popup.c:524
 msgid "Cell contents"
 msgstr "เนื้อหาในช่องตาราง"
 
-#: components/html-editor/popup.c:555
+#: components/html-editor/popup.c:559
 msgid "Ignore Misspelled Word"
 msgstr "ละเลยคำสะกดผิด"
 
-#: components/html-editor/popup.c:560
+#: components/html-editor/popup.c:564
 msgid "Add Word to"
 msgstr "เพิ่มคำลงใน"
 
-#: components/html-editor/popup.c:564
+#: components/html-editor/popup.c:568
 #, c-format
 msgid "%s Dictionary"
 msgstr "พจนานุกรม %s"
 
-#: components/html-editor/popup.c:573
+#: components/html-editor/popup.c:577
 msgid "Add Word to Dictionary"
 msgstr "เพิ่มคำในพจนานุกรม"
 
-#: components/html-editor/popup.c:579
+#: components/html-editor/popup.c:583
 msgid "Input Methods"
 msgstr "วิธีป้อนข้อความ"
 
@@ -1825,83 +1795,83 @@ msgstr ""
 "ออบเจกต์ที่แก้ไขถูกลบออกจากเอกสารไปแล้ว\n"
 "ไม่สามารถกระทำสิ่งที่คุณเปลี่ยนแปลงได้"
 
-#: src/gtkhtml.c:3060
+#: src/gtkhtml.c:3065
 msgid "Editable"
 msgstr "แก้ไขได้"
 
-#: src/gtkhtml.c:3061
+#: src/gtkhtml.c:3066
 msgid "Whether the html can be edited"
 msgstr "กำหนดว่า HTML แก้ไขได้หรือไม่"
 
-#: src/gtkhtml.c:3067
+#: src/gtkhtml.c:3072
 msgid "Document Title"
 msgstr "หัวเรื่องเอกสาร"
 
-#: src/gtkhtml.c:3068
+#: src/gtkhtml.c:3073
 msgid "The title of the current document"
 msgstr "หัวเรื่องของเอกสารปัจจุบัน"
 
-#: src/gtkhtml.c:3074
+#: src/gtkhtml.c:3079
 msgid "Document Base"
 msgstr "ฐานของเอกสาร"
 
-#: src/gtkhtml.c:3075
+#: src/gtkhtml.c:3080
 msgid "The base URL for relative references"
 msgstr "URL ฐานสำหรับการอ้างแบบสัมพัทธ์"
 
-#: src/gtkhtml.c:3081
+#: src/gtkhtml.c:3086
 msgid "Target Base"
 msgstr "ฐานของเป้าหมาย"
 
-#: src/gtkhtml.c:3082
+#: src/gtkhtml.c:3087
 msgid "The base URL of the target frame"
 msgstr "URL ฐานสำหรับเฟรมเป้าหมาย"
 
-#: src/gtkhtml.c:3091
+#: src/gtkhtml.c:3096
 msgid "Fixed Width Font"
 msgstr "แบบอักษรความกว้างคงที่"
 
-#: src/gtkhtml.c:3092
+#: src/gtkhtml.c:3097
 msgid "The Monospace font to use for typewriter text"
 msgstr "แบบอักษรความกว้างคงที่สำหรับข้อความพิมพ์ดีด"
 
-#: src/gtkhtml.c:3098
+#: src/gtkhtml.c:3103
 msgid "New Link Color"
 msgstr "สีลิงก์ใหม่"
 
-#: src/gtkhtml.c:3099
+#: src/gtkhtml.c:3104
 msgid "The color of new link elements"
 msgstr "สีของลิงก์ใหม่"
 
-#: src/gtkhtml.c:3104
+#: src/gtkhtml.c:3109
 msgid "Visited Link Color"
 msgstr "ลิงก์ที่เปิดแล้ว"
 
-#: src/gtkhtml.c:3105
+#: src/gtkhtml.c:3110
 msgid "The color of visited link elements"
 msgstr "สีของลิงก์ที่เปิดแล้ว"
 
-#: src/gtkhtml.c:3110
+#: src/gtkhtml.c:3115
 msgid "Active Link Color"
 msgstr "ลิงก์ที่เลือก"
 
-#: src/gtkhtml.c:3111
+#: src/gtkhtml.c:3116
 msgid "The color of active link elements"
 msgstr "สีของลิงก์ที่เลือก"
 
-#: src/gtkhtml.c:3116
+#: src/gtkhtml.c:3121
 msgid "Spelling Error Color"
 msgstr "สีคำสะกดผิด"
 
-#: src/gtkhtml.c:3117
+#: src/gtkhtml.c:3122
 msgid "The color of the spelling error markers"
 msgstr "สีของตัวทำเครื่องหมายคำสะกดผิด"
 
-#: src/gtkhtml.c:3122
+#: src/gtkhtml.c:3127
 msgid "Cite Quotation Color"
 msgstr "สีคำพูดอ้าง"
 
-#: src/gtkhtml.c:3123
+#: src/gtkhtml.c:3128
 msgid "The color of the cited text"
 msgstr "สีของข้อความที่อ้างคำพูด"
 
@@ -1914,25 +1884,65 @@ msgid "Reset"
 msgstr "เริ่มใหม่"
 
 #. TODO2 dialog instead of warning
-#: src/htmlengine-print.c:198
+#: src/htmlengine-print.c:226
 msgid "Cannot allocate default font for printing\n"
 msgstr "ไม่สามารถสร้างฟอนต์ปริยายสำหรับพิมพ์ได้\n"
 
-#: src/test.c:376
+#: src/htmlengine-print.c:305
+msgid "Cannot allocate default font for printing"
+msgstr "ไม่สามารถสร้างฟอนต์ปริยายสำหรับพิมพ์ได้"
+
+#: src/test.c:374
 msgid "GtkHTML Test"
 msgstr "การทดสอบ GtkHTML"
 
-#: src/testgtkhtml.c:121
+#: src/testgtkhtml.c:118
 msgid "Print pre_view"
 msgstr "_ตัวอย่างก่อนพิมพ์"
 
-#: src/testgtkhtml.c:121
+#: src/testgtkhtml.c:118
 msgid "Print preview"
 msgstr "ตัวอย่างก่อนพิมพ์"
 
-#: src/testgtkhtml.c:1012
+#: src/testgtkhtml.c:1038
 msgid "GtkHTML Test Application"
 msgstr "โปรแกรมทดสอบ GtkHTML"
+
+#~ msgid "C_ut"
+#~ msgstr "_ตัด"
+
+#~ msgid "Find Rege_x..."
+#~ msgstr "หาด้วย_นิพจน์เรกกิวลาร์..."
+
+#~ msgid "Modify the file's properties"
+#~ msgstr "เปลี่ยนคุณสมบัติของแฟ้ม"
+
+#~ msgid "Regular expression search"
+#~ msgstr "การค้นหาด้วยนิพจน์เรกกิวลาร์"
+
+#~ msgid "Replace a string"
+#~ msgstr "แทนที่ข้อความ"
+
+#~ msgid "Search again for the same string"
+#~ msgstr "ค้นหาข้อความเดิมอีกครั้ง"
+
+#~ msgid "Search for a string"
+#~ msgstr "ค้นหาข้อความ"
+
+#~ msgid "_Insert"
+#~ msgstr "แ_ทรก"
+
+#~ msgid "_Insert text file... (FIXME)"
+#~ msgstr "แ_ทรกแฟ้มข้อความ..."
+
+#~ msgid "_Paste Quotation"
+#~ msgstr "แ_ปะคำพูด"
+
+#~ msgid "_Properties..."
+#~ msgstr "คุณ_สมบัติ..."
+
+#~ msgid "Paste Quotation"
+#~ msgstr "แปะคำพูด"
 
 #~ msgid "%"
 #~ msgstr "%"
@@ -1958,24 +1968,6 @@ msgstr "โปรแกรมทดสอบ GtkHTML"
 #~ msgid "Top"
 #~ msgstr "ชิดด้านบน"
 
-#~ msgid "Header 1"
-#~ msgstr "หัวเรื่อง 1"
-
-#~ msgid "Header 2"
-#~ msgstr "หัวเรื่อง 2"
-
-#~ msgid "Header 3"
-#~ msgstr "หัวเรื่อง 3"
-
-#~ msgid "Header 4"
-#~ msgstr "หัวเรื่อง 4"
-
-#~ msgid "Header 5"
-#~ msgstr "หัวเรื่อง 5"
-
-#~ msgid "Header 6"
-#~ msgstr "หัวเรื่อง 6"
-
 #~ msgid "Dot item"
 #~ msgstr "ข้อยัติภังค์"
 
@@ -1987,12 +1979,6 @@ msgstr "โปรแกรมทดสอบ GtkHTML"
 
 #~ msgid "Alphabeta item"
 #~ msgstr "ข้อลำดับอักษร"
-
-#~ msgid "Address"
-#~ msgstr "ที่อยู่"
-
-#~ msgid "Roman List"
-#~ msgstr "รายการลำดับเลขโรมัน"
 
 #~ msgid "Check Word Spelling..."
 #~ msgstr "ตรวจตัวสะกด..."
