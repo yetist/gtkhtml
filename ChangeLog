@@ -1,3 +1,10 @@
+2007-07-27  Matthew Barnes  <mbarnes@redhat.com>
+
+	* configure.in:
+	Collect all the required package versions in one place, 
+	remove the --enable-file-chooser option, and explicitly
+	require GTK+ 2.10 or higher.  (#380534)
+
 2007-07-11  Jeff Cai <jeff.cai@sun.com>
 	* configure.in:
 	Add macro defination BONOBO_DISABLE_DEPRECATED

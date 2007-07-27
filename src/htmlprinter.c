@@ -452,15 +452,10 @@ draw_lines (HTMLPrinter *printer, double x, double y, double width, PangoAnalysi
 	cairo_set_line_cap (cr, CAIRO_LINE_CAP_BUTT);
 
 	if (properties->underline) {
-#ifdef PANGO_1_5_OR_HIGHER
 		double thickness = pango_units_to_double (pango_font_metrics_get_underline_thickness (metrics));
 		double position = pango_units_to_double (pango_font_metrics_get_underline_position (metrics));
 		double ly = y + position - thickness / 2;
-#else
-		double thickness = 1.0;
-		double position = -1.0;
-		double ly = y + position - thickness / 2;
-#endif
+
 	    	cairo_new_path (cr);
 		cairo_move_to (cr, x, ly + 4);
 		cairo_line_to (cr, x + width, ly + 4);
@@ -469,15 +464,10 @@ draw_lines (HTMLPrinter *printer, double x, double y, double width, PangoAnalysi
 	}
 		
 	if (properties->strikethrough) {
-#ifdef PANGO_1_5_OR_HIGHER
 		double thickness = pango_units_to_double (pango_font_metrics_get_strikethrough_thickness (metrics));
 		double position = pango_units_to_double (pango_font_metrics_get_strikethrough_position (metrics));
 		double ly = y + position - thickness / 2;
-#else
-		double thickness = 1.0;
-		double position = pango_units_to_double (pango_font_metrics_get_ascent (metrics)/3);
-		double ly = y + position - thickness / 2;
-#endif
+
 		cairo_new_path (cr);
 		cairo_move_to (cr, x, ly - 8);
 		cairo_line_to (cr, x + width, ly - 8);

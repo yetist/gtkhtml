@@ -5,6 +5,14 @@ AM_CONFIG_HEADER(config.h)
 
 PACKAGE=gtkhtml
 
+# Required Package Versions
+m4_define([gtk_minimum_version], [2.10.0])
+m4_define([gail_minimum_version], [1.1.0])
+m4_define([gnome_icon_theme_minimum_version], [1.2.0])
+m4_define([libbonoboui_minimum_version], [2.2.4])
+m4_define([libglade_minimum_version], [2.0.0])
+m4_define([libgnomeui_minimum_version], [2.0.0])
+
 GTKHTML_API_VERSION=3.14
 AC_DEFINE_UNQUOTED(GTKHTML_API_VERSION, "${GTKHTML_API_VERSION}", [GtkHTML API Version])
 AC_SUBST(GTKHTML_API_VERSION)
@@ -67,24 +75,19 @@ AC_SUBST(LDFLAGS)
 
 AM_GLIB_GNU_GETTEXT
 
-GAIL_MODULES="gail >= 1.1.0"
+GAIL_MODULES="gail >= gail_minimum_version"
 PKG_CHECK_MODULES(GAIL, $GAIL_MODULES)
 AC_SUBST(GAIL_CFLAGS)
 AC_SUBST(GAIL_LIBS)
 AC_SUBST(GAIL_MODULES)
 
-GTKHTML_MODULES="libgnomeui-2.0 >= 2.0.0 gtk+-unix-print-2.0 >= 2.10.0 libglade-2.0 >= 2.0.0"
+GTKHTML_MODULES="gtk+-2.0 >= gtk_minimum_version libgnomeui-2.0 >= libgnomeui_minimum_version libglade-2.0 >= libglade_minimum_version"
 PKG_CHECK_MODULES(GTKHTML, $GTKHTML_MODULES)
 AC_SUBST(GTKHTML_CFLAGS)
 AC_SUBST(GTKHTML_LIBS)
 AC_SUBST(GTKHTML_MODULES)
 
-if ${PKG_CONFIG} --atleast-version=1.5 pango
-then
-	AC_DEFINE([PANGO_1_5_OR_HIGHER], [], [Means that Pango 1.5 or higher is available])
-fi
-
-EDITOR_MODULES="${GTKHTML_MODULES} libbonoboui-2.0 >= 2.2.4"
+EDITOR_MODULES="${GTKHTML_MODULES} libbonoboui-2.0 >= libbonoboui_minimum_version"
 PKG_CHECK_MODULES(EDITOR, $EDITOR_MODULES)
 AC_SUBST(EDITOR_CFLAGS)
 AC_SUBST(EDITOR_LIBS)
@@ -110,19 +113,9 @@ AC_SUBST(SOUP_CFLAGS)
 AC_SUBST(SOUP_LIBS)
 
 dnl **************************************************
-dnl * File Chooser
-dnl **************************************************
-AC_ARG_ENABLE(file-chooser, [  --enable-file-chooser    Enable the usage of the GtkFileChooser in place of the GtkFileSelection dialog], enable_file_chooser="$enableval", enable_file_chooser="yes")
-if test "x$enable_file_chooser" = "xyes"; then
-  if $PKG_CONFIG --atleast-version=2.4.0 gtk+-2.0; then
-    AC_DEFINE(USE_GTKFILECHOOSER,1,[Use new GtkFileChooser])
-  fi
-fi
-
-dnl **************************************************
 dnl * Gnome Icon Theme
 dnl **************************************************
-PKG_CHECK_MODULES(GIT, gnome-icon-theme >= 1.2.0)
+PKG_CHECK_MODULES(GIT, gnome-icon-theme >= gnome_icon_theme_minimum_version)
 
 dnl **************************************************
 dnl * regex library
