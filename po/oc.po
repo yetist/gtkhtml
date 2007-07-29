@@ -1758,7 +1758,7 @@ msgstr ""
 
 #: ../components/html-editor/test-html-editor-control.c:340
 msgid "Open file..."
-msgstr "Dubrir un fichièr..."
+msgstr "Dobrir un fichièr..."
 
 #: ../components/html-editor/test-html-editor-control.c:342
 msgid "Save file as..."
