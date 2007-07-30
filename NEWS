@@ -1,3 +1,19 @@
+GtkHTML-3.15.6 2007-07-30
+-------------------------
+
+Bug fixes:
+	#380534: Collect all the required package versions in one place
+	 (Matthew Barnes)
+	#455444: Fixed unlocalized strings in 'Find'&'Replace' window in
+	 composer (Jeff Cai)
+
+Updated Translations:
+	Theppitak Karoonboonyanan (th)
+	Hendrik Richter (de)
+	Daniel Nylander (sv)
+	Ilkka Tuohela (fi)
+	Priit Laes (et)
+
 GtkHTML-3.15.5 2007-07-09
 -------------------------
 

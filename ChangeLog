@@ -1,3 +1,9 @@
+2007-07-30  Veerapuram Varadhan  <vvaradhan@novell.com>
+
+	** GtkHTML 3.15.6 release
+
+	* NEWS, configure.in:
+
 2007-07-27  Matthew Barnes  <mbarnes@redhat.com>
 
 	* configure.in:
