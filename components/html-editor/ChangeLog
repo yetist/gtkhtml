@@ -1,3 +1,14 @@
+2007-08-03  Jeff Cai <jeff.cai@sun.com>
+
+	* menubar.c:
+	Get charset from the html file that will be inserted into.
+	Fix #373648
+
+	I don't think this is the best way to get charset from html 
+        files. I don't know how to use the functionality of gtkhtml 
+        engine to get that. Maybe someone can tell me how to do it. 
+        But anyway, this is a possible solution for this issue.
+	
 2007-07-27  Matthew Barnes  <mbarnes@redhat.com>
 
 	* menubar.c:

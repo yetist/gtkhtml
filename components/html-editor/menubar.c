@@ -63,6 +63,8 @@ static void smiley_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const cha
 static void font_style_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname);
 static void command_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname);
 
+static gboolean get_file_charset (const gchar * filename, gchar *charset, gint len);
+
 static void
 paste_quotation_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
@@ -206,7 +208,7 @@ file_dialog_ok (GtkWidget *w, GtkHTMLControlData *cd)
 	GError *error = NULL;
 	gchar *data = NULL;
 	gsize len = 0;
-	const char *charset;
+	gchar charset[32];
 
 	filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (cd->file_dialog));
 	io = g_io_channel_new_file (filename, "r", &error);
@@ -218,24 +220,28 @@ file_dialog_ok (GtkWidget *w, GtkHTMLControlData *cd)
 	g_io_channel_read_to_end (io, &data, &len, &error);
 
 	/* If we get a charset error try reading as the locale charset */
-	if (error && g_error_matches (error, G_CONVERT_ERROR, G_CONVERT_ERROR_ILLEGAL_SEQUENCE)
-	    && !g_get_charset (&charset)) {
-
-		g_error_free (error);
-		error = NULL;
+	if (error && g_error_matches (error, G_CONVERT_ERROR, G_CONVERT_ERROR_ILLEGAL_SEQUENCE)) {
 
 		/* 
-		 * reopen the io channel since we can't set the 
+		 * Close the io channel since we can't set the 
 		 * charset once we've begun reading.
 		 */
 		g_io_channel_unref (io);
-		io = g_io_channel_new_file (filename, "r", &error);
+		io = NULL;
+
+		if (get_file_charset (filename, charset, 32)) {
+
+			g_error_free (error);
+			error = NULL;
+
+			io = g_io_channel_new_file (filename, "r", &error);
 		
-		if (error || !io)
-			goto end;
-		
-		g_io_channel_set_encoding (io, charset, NULL);
-		g_io_channel_read_to_end (io, &data, &len, &error);
+			if (error || !io)
+				goto end;
+
+			g_io_channel_set_encoding (io, charset, NULL);
+			g_io_channel_read_to_end (io, &data, &len, &error);
+		}
 	}
 	
 	if (error)
@@ -875,3 +881,44 @@ menubar_setup (BonoboUIComponent  *uic,
 	}
 }
 
+gboolean 
+get_file_charset (const gchar * filename, gchar *charset, gint len)
+{
+	char data[1024];
+	gboolean result = FALSE;
+	FILE *fp = fopen (filename, "r");
+	
+	if (!fp)
+		return FALSE;
+
+
+	while (fgets (data, sizeof(data)-1, fp)) {
+
+		char * pos = strstr (g_ascii_strdown (data, -1), "charset");
+		if (pos) {
+			gchar * pos2 = strstr (pos, "=");
+			if (pos2) {
+				pos2++;
+				gchar * word = pos2;
+				while (*pos2) {
+					if (*pos2 != '"')
+						pos2++;
+					else
+					{
+						if (pos2 - word < len) {
+							g_strlcpy (charset, word, pos2 - word + 1);
+							result = TRUE;
+						}
+						break;
+					}
+				}
+				break;
+			}
+		}
+	}
+
+	fclose (fp);
+
+
+	return result;
+}
