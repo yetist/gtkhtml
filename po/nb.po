@@ -1886,7 +1886,7 @@ msgstr "Kan ikke tildele forvalgt skrift for utskrift\n"
 
 #: ../src/htmlengine-print.c:305
 msgid "Cannot allocate default font for printing"
-msgstr "Kan ikke allokere forvalgt skrift for utskrift\n"
+msgstr "Kan ikke allokere forvalgt skrift for utskrift"
 
 #: ../src/test.c:374
 msgid "GtkHTML Test"
