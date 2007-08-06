@@ -1,3 +1,10 @@
+2007-08-06  Srinivasa Ragavan  <sragavan@novell.com>
+
+	** Fix for bug #432914
+
+	* link.c: (url_changed), (description_changed): Description of a url
+	can't be multiple paragraphs. Skip \ns.
+
 2007-08-03  Jeff Cai <jeff.cai@sun.com>
 
 	* menubar.c:

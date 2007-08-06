@@ -69,20 +69,28 @@ static void
 url_changed (GtkWidget *w, GtkHTMLEditLinkProperties *d)
 {
 	const char *url, *desc;
+	char *tmp=NULL, *p=NULL;
 
 	if (d->disable_change)
 		return;
 
 	url = gtk_entry_get_text (GTK_ENTRY (d->entry_url));
+	tmp = g_strdup (url);
+	if (tmp && *tmp)
+		p = strchr (tmp, '\n');
+	if (p) 
+		*p = 0;
+	
 	desc = gtk_entry_get_text (GTK_ENTRY (d->entry_description));
 	if (d->selection)
 		html_engine_set_link (d->cd->html->engine, url);
 	else {
 		if (!desc || !*desc || d->description_empty) {
-			gtk_entry_set_text (GTK_ENTRY (d->entry_description), url);
+			gtk_entry_set_text (GTK_ENTRY (d->entry_description), tmp);
 			d->description_empty = TRUE;
 		}
 	}
+	g_free (tmp);
 }
 
 static void
@@ -90,6 +98,7 @@ description_changed (GtkWidget *w, GtkHTMLEditLinkProperties *d)
 {
 	HTMLEngine *e = d->cd->html->engine;
 	const char *text;
+	char *tmp=NULL, *p=NULL;
 	int len;
 
 	d->description_empty = FALSE;
@@ -99,7 +108,12 @@ description_changed (GtkWidget *w, GtkHTMLEditLinkProperties *d)
 
 	text = gtk_entry_get_text (GTK_ENTRY (w));
 	if (text && *text) {
-		len = g_utf8_strlen (text, -1);
+		tmp = g_strdup (text);
+		p = strchr (tmp, '\n');
+		if (p)
+			*p = 0;
+
+		len = g_utf8_strlen (tmp, -1);
 
 		if (d->insert_start_offset != d->insert_end_offset) {
 			html_cursor_jump_to (e->cursor, e, d->insert_object, d->insert_start_offset);
@@ -108,9 +122,11 @@ description_changed (GtkWidget *w, GtkHTMLEditLinkProperties *d)
 			html_engine_delete (e);
 		}
 
-		html_engine_paste_link (e, text, len, gtk_entry_get_text (GTK_ENTRY (d->entry_url)));
+		html_engine_paste_link (e, tmp, len, gtk_entry_get_text (GTK_ENTRY (d->entry_url)));
 		d->insert_object = e->cursor->object; 
 		d->insert_end_offset = d->insert_start_offset + len;
+
+		g_free (tmp);
 	}
 }
 
