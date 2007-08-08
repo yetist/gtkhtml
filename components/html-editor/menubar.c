@@ -104,12 +104,9 @@ insert_image_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cna
 	gtk_dialog_set_default_response (GTK_DIALOG (filesel), GTK_RESPONSE_OK);
 	if (filesel) {
 		if (gtk_dialog_run (GTK_DIALOG (filesel)) == GTK_RESPONSE_OK) {
-			char *filename;
 			char *url = NULL;
 
-			filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filesel));
-			url = gtk_html_filename_to_uri (filename);
-			g_free(filename);
+			url = gtk_file_chooser_get_uri (GTK_FILE_CHOOSER (filesel));
 			img = html_image_new (html_engine_get_image_factory (cd->html->engine), url,
 					      NULL, NULL, 0, 0, 0, 0, 0, NULL, HTML_VALIGN_NONE, FALSE);
 			html_engine_paste_object (cd->html->engine, img, 1);

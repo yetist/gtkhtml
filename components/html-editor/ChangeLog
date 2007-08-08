@@ -1,3 +1,10 @@
+2007-08-08  Hiroyuki Ikezoe  <poincare@ikezoe.net>
+
+	** Fix for bug 352646.
+
+	* menubar.c: (insert_image_cb): Use gtk_file_chooser_get_uri()
+	instead of gtk_file_chooser_get_filename().
+
 2007-08-06  Srinivasa Ragavan  <sragavan@novell.com>
 
 	** Fix for bug #432914
