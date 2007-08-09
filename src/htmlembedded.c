@@ -120,6 +120,7 @@ destroy (HTMLObject *o)
 			gtk_container_remove (GTK_CONTAINER (element->parent), element->widget);
 		} else {
 			g_object_ref_sink (element->widget);
+			g_object_unref (element->widget);
 		}
 	}
 

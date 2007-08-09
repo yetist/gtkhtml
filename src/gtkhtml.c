@@ -4515,7 +4515,7 @@ scroll_command (GtkHTML *html,
 {
 	GtkAdjustment *adj;
 	gint line_height;
-	gfloat delta;
+	gfloat delta = 0;
 
 	/* we dont want scroll in editable (move cursor instead) */
 	if (html_engine_get_editable (html->engine) || html->engine->caret_mode)

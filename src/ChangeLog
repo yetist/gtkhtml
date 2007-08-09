@@ -1,3 +1,12 @@
+2007-08-09  Milan Crha  <mcrha@redhat.com>
+
+	** Fix for bug #426496
+
+	* htmlembedded.c: (destroy):
+	Unref widget after ref_sink it to get rid of it.
+
+	* gtkhtml.c: (scroll_command): Removed compiler warning.
+
 2007-07-27  Matthew Barnes  <mbarnes@redhat.com>
 
 	* htmlprinter.c:
