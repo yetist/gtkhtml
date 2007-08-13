@@ -1,3 +1,12 @@
+2007-08-08  Johnny Jacob <jjohnny@novell.com>
+ 
+       ** Fix for bug #394182 from Milan Crha  <mcrha@redhat.com>
+ 
+       * spellchecker.c: (spell_has_control): Free/unref control too.
+       * popup.c: (prepare_properties_and_menu), (popup_show),
+       (popup_show_at_cursor), (property_dialog_show):
+       Free/unref menu when necessary.
+	
 2007-08-08  Hiroyuki Ikezoe  <poincare@ikezoe.net>
 
 	** Fix for bug 352646.

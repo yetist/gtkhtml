@@ -585,8 +585,9 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items, guint *props)
 					      GTK_MENU_SHELL (menu));
 	END_SUBMENU;
 
+	g_object_ref_sink (menu);
 	if (*items == 0) {
-		g_object_ref_sink (menu);
+		g_object_unref (menu);
 		menu = NULL;
 	} else
 		gtk_widget_show (menu);
@@ -605,6 +606,9 @@ popup_show (GtkHTMLControlData *cd, GdkEventButton *event)
 	if (items)
 		gtk_menu_popup (GTK_MENU (menu), NULL, NULL, NULL, NULL,
 				event ? event->button : 0, event ? event->time : 0);
+
+	if (menu)
+		g_object_unref (menu);
 
 	return (items > 0);
 }
@@ -629,9 +633,12 @@ popup_show_at_cursor (GtkHTMLControlData *cd)
 	guint items, props;
 
 	menu = prepare_properties_and_menu (cd, &items, &props);
-	gtk_widget_show (menu);
+
 	if (items)
 		gtk_menu_popup (GTK_MENU (menu), NULL, NULL, set_position, cd, 0, 0);
+
+	if (menu)
+		g_object_unref (menu);
 
 	return (items > 0);
 }
@@ -643,7 +650,10 @@ property_dialog_show (GtkHTMLControlData *cd)
 	guint items, props;
 
 	menu = prepare_properties_and_menu (cd, &items, &props);
-	g_object_ref_sink (menu);
+
+	if (menu)
+		g_object_unref (menu);
+
 	if (props)
 		show_prop_dialog (cd, GTK_HTML_EDIT_PROPERTY_NONE);
 }

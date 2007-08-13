@@ -269,6 +269,7 @@ spell_has_control (void)
 
 	if (control) {
 		g_object_ref_sink (control);
+		g_object_unref (control);
 	}
 	return rv;
 }
