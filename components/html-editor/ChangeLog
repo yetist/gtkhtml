@@ -1,3 +1,9 @@
+2007-08-13  Johnny Jacob <jjohnny@novell.com>
+
+	** Fix for bug #407365 from Naresh N <nishkalins@gmail.com>
+
+	* popup.c : Added mnemonic for 'Insert Link'
+	
 2007-08-08  Johnny Jacob <jjohnny@novell.com>
  
        ** Fix for bug #394182 from Milan Crha  <mcrha@redhat.com>

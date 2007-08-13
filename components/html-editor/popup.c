@@ -338,7 +338,7 @@ insert_html (GtkWidget *mi, GtkHTMLControlData *cd)
                 (*items)++; items_sep++
 
 #define ADD_ITEM(l,f,t) \
-		menuitem = gtk_menu_item_new_with_label (l); \
+		menuitem = gtk_menu_item_new_with_mnemonic (l); \
                 ADD_ITEM_BASE (f,t)
 
 #define ADD_ITEM_MNEMONIC(l,f,t) \
@@ -447,7 +447,7 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items, guint *props)
 
 	if (cd->format_html) {
 		ADD_SEP;
-		ADD_ITEM (_("Insert Link"), insert_link, NONE);
+		ADD_ITEM (_("Insert _Link"), insert_link, NONE);
 		if (((active && html_engine_selection_contains_link (e))
 		     || (obj
 			 && (HTML_OBJECT_TYPE (obj) == HTML_TYPE_LINKTEXT
