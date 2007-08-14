@@ -1,3 +1,25 @@
+GtkHTML-3.15.90 2007-08-13
+--------------------------
+
+Bug Fixes:
+	#352646 - Crash while inserting image (Hiroyuki Ikezoe)
+	#373648 - Fix for Error loading file (in composer): invalid byte-sequence in conversions-input
+	#394182 - Crashes while composing mails due to popups and spellchecks (Milan Crha)
+	#407365 - Added mnemonic for 'Insert Link' (Naresh)
+	#426496 - Crash in Evolution while viewing mails (Milan Crha)
+	#432914 - evolution crashed with SIGSEGV in html_text_get_text (Srini)
+	#455799 - Remove all .cvsignore and update svn:ignore porperty in whole directories. (Hiroyuki Ikezoe)
+
+Updated Translations:
+	Runa Bhattacharjee (bn_IN)
+	Ankit Patel (gu)
+	Tirumurthi Vasudevan (ta)
+	Lucas Rocha (nb)
+	Takeshi AIHANA (ja)
+	Inaki Larranaga Murgoitio (eu)
+	Kjartan Maraas (nb)
+	
+
 GtkHTML-3.15.6 2007-07-30
 -------------------------
 
