@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-19 19:30+0200\n"
-"PO-Revision-Date: 2007-07-19 19:52+0200\n"
+"POT-Creation-Date: 2007-08-15 12:31+0200\n"
+"PO-Revision-Date: 2007-08-15 12:32+0200\n"
 "Last-Translator: Hendrik Richter <hendrikr@gnome.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -293,8 +293,7 @@ msgstr "Ein zwinkerndes Smiley in das Dokument einfügen …"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:50
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
-#: ../components/html-editor/menubar.c:101
-#: ../components/html-editor/menubar.c:109
+#: ../components/html-editor/menubar.c:98
 msgid "Insert image"
 msgstr "Bild einfügen"
 
@@ -341,7 +340,7 @@ msgstr "Absätze linksbündig ausrichten"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:59
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
-#: ../components/html-editor/menubar.c:145
+#: ../components/html-editor/menubar.c:128
 #: ../components/html-editor/popup.c:111 ../components/html-editor/popup.c:205
 #: ../components/html-editor/popup.c:271
 msgid "Link"
@@ -503,7 +502,7 @@ msgstr "Römisch nummerierte Liste"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
 #: ../components/html-editor/editor-control-factory.c:218
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:45
-#: ../components/html-editor/menubar.c:164
+#: ../components/html-editor/menubar.c:147
 #: ../components/html-editor/popup.c:229
 msgid "Rule"
 msgstr "Trennlinie"
@@ -547,7 +546,7 @@ msgstr "Hochgestellt"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:97
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:49
-#: ../components/html-editor/menubar.c:188
+#: ../components/html-editor/menubar.c:171
 #: ../components/html-editor/popup.c:235 ../components/html-editor/popup.c:509
 #: ../components/html-editor/popup.c:521
 msgid "Table"
@@ -901,7 +900,7 @@ msgstr "Dateipfad des Hintergrundbilds"
 
 #: ../components/html-editor/body.c:275
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:50
-#: ../components/html-editor/menubar.c:210
+#: ../components/html-editor/menubar.c:193
 msgid "Template"
 msgstr "Vorlage"
 
@@ -914,7 +913,7 @@ msgid "C_ustom:"
 msgstr "_Benutzerdefiniert:"
 
 #: ../components/html-editor/cell.c:342 ../components/html-editor/image.c:345
-#: ../components/html-editor/link.c:197 ../components/html-editor/rule.c:179
+#: ../components/html-editor/link.c:213 ../components/html-editor/rule.c:179
 #: ../components/html-editor/table.c:229
 #: ../components/html-editor/template.c:287
 #: ../components/html-editor/text.c:168
@@ -932,20 +931,20 @@ msgstr "Eigenschaften"
 
 #: ../components/html-editor/editor-control-factory.c:208
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:51
-#: ../components/html-editor/menubar.c:386
+#: ../components/html-editor/menubar.c:364
 #: ../components/html-editor/popup.c:199
 msgid "Text"
 msgstr "Text"
 
 #: ../components/html-editor/editor-control-factory.c:227
-#: ../components/html-editor/menubar.c:403
+#: ../components/html-editor/menubar.c:381
 #: ../components/html-editor/popup.c:217
 msgid "Paragraph"
 msgstr "Absatz"
 
 #: ../components/html-editor/editor-control-factory.c:231
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:43
-#: ../components/html-editor/menubar.c:369
+#: ../components/html-editor/menubar.c:347
 #: ../components/html-editor/popup.c:223
 msgid "Page"
 msgstr "Seite"
@@ -1438,40 +1437,38 @@ msgstr ""
 msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
-#: ../components/html-editor/link.c:209
+#: ../components/html-editor/link.c:225
 msgid "URL:"
 msgstr "URL:"
 
-#: ../components/html-editor/link.c:213
+#: ../components/html-editor/link.c:229
 msgid "Description:"
 msgstr "Beschreibung:"
 
-#: ../components/html-editor/menubar.c:142
-#: ../components/html-editor/menubar.c:161
-#: ../components/html-editor/menubar.c:185
-#: ../components/html-editor/menubar.c:207
+#: ../components/html-editor/menubar.c:125
+#: ../components/html-editor/menubar.c:144
+#: ../components/html-editor/menubar.c:168
+#: ../components/html-editor/menubar.c:190
 #: ../components/html-editor/popup.c:108
 msgid "Insert"
 msgstr "Einfügen"
 
-#: ../components/html-editor/menubar.c:294
+#: ../components/html-editor/menubar.c:277
 #, c-format
 msgid "Error loading file '%s': %s"
 msgstr "Fehler beim Laden der Datei »%s«: %s"
 
-#: ../components/html-editor/menubar.c:320
-#: ../components/html-editor/menubar.c:329
+#: ../components/html-editor/menubar.c:302
 msgid "Insert HTML File"
 msgstr "Einfügen: HTML-Datei"
 
-#: ../components/html-editor/menubar.c:320
-#: ../components/html-editor/menubar.c:329
+#: ../components/html-editor/menubar.c:302
 msgid "Insert Text File"
 msgstr "Einfügen: Textdatei"
 
-#: ../components/html-editor/menubar.c:366
-#: ../components/html-editor/menubar.c:383
-#: ../components/html-editor/menubar.c:400
+#: ../components/html-editor/menubar.c:344
+#: ../components/html-editor/menubar.c:361
+#: ../components/html-editor/menubar.c:378
 msgid "Format"
 msgstr "Format"
 
@@ -1533,8 +1530,8 @@ msgid "Address"
 msgstr "Adresse"
 
 #: ../components/html-editor/popup.c:450
-msgid "Insert Link"
-msgstr "Link einfügen"
+msgid "Insert _Link"
+msgstr "_Link einfügen"
 
 #: ../components/html-editor/popup.c:457
 msgid "Remove Link"
@@ -1688,15 +1685,15 @@ msgstr ""
 "Das Wort konnte dem Wörterbuch nicht hinzugefügt werden,\n"
 "die Spracheinstellungen sind defekt.\n"
 
-#: ../components/html-editor/spellchecker.c:302
+#: ../components/html-editor/spellchecker.c:303
 msgid "No misspelled word found"
 msgstr "Kein falsch geschriebenes Wort gefunden"
 
-#: ../components/html-editor/spellchecker.c:309
+#: ../components/html-editor/spellchecker.c:310
 msgid "Spell checker"
 msgstr "Rechtschreibprüfung"
 
-#: ../components/html-editor/spellchecker.c:403
+#: ../components/html-editor/spellchecker.c:404
 msgid "Current _Languages"
 msgstr "Momentan verwendete _Sprachen"
 
