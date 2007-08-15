@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 3.9\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-02 16:15+0200\n"
-"PO-Revision-Date: 2007-08-02 16:15+0200\n"
+"POT-Creation-Date: 2007-08-15 11:29+0200\n"
+"PO-Revision-Date: 2007-08-15 11:29+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -288,7 +288,7 @@ msgstr "Sett inn blunkende smilefjes i dokumentet..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:50
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
-#: ../components/html-editor/menubar.c:96
+#: ../components/html-editor/menubar.c:98
 msgid "Insert image"
 msgstr "Sett inn bilde"
 
@@ -335,7 +335,7 @@ msgstr "Venstrejusterer avsnittene"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:59
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
-#: ../components/html-editor/menubar.c:129
+#: ../components/html-editor/menubar.c:128
 #: ../components/html-editor/popup.c:111 ../components/html-editor/popup.c:205
 #: ../components/html-editor/popup.c:271
 msgid "Link"
@@ -496,7 +496,7 @@ msgstr "Liste med romerske tall"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
 #: ../components/html-editor/editor-control-factory.c:218
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:45
-#: ../components/html-editor/menubar.c:148
+#: ../components/html-editor/menubar.c:147
 #: ../components/html-editor/popup.c:229
 msgid "Rule"
 msgstr "Regel"
@@ -540,7 +540,7 @@ msgstr "Superskript"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:97
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:49
-#: ../components/html-editor/menubar.c:172
+#: ../components/html-editor/menubar.c:171
 #: ../components/html-editor/popup.c:235 ../components/html-editor/popup.c:509
 #: ../components/html-editor/popup.c:521
 msgid "Table"
@@ -894,7 +894,7 @@ msgstr "Sti til bakgrunnsbilde"
 
 #: ../components/html-editor/body.c:275
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:50
-#: ../components/html-editor/menubar.c:194
+#: ../components/html-editor/menubar.c:193
 msgid "Template"
 msgstr "Mal"
 
@@ -907,7 +907,7 @@ msgid "C_ustom:"
 msgstr "E_gendefinert:"
 
 #: ../components/html-editor/cell.c:342 ../components/html-editor/image.c:345
-#: ../components/html-editor/link.c:197 ../components/html-editor/rule.c:179
+#: ../components/html-editor/link.c:213 ../components/html-editor/rule.c:179
 #: ../components/html-editor/table.c:229
 #: ../components/html-editor/template.c:287
 #: ../components/html-editor/text.c:168
@@ -925,20 +925,20 @@ msgstr "Egenskaper"
 
 #: ../components/html-editor/editor-control-factory.c:208
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:51
-#: ../components/html-editor/menubar.c:361
+#: ../components/html-editor/menubar.c:364
 #: ../components/html-editor/popup.c:199
 msgid "Text"
 msgstr "Tekst"
 
 #: ../components/html-editor/editor-control-factory.c:227
-#: ../components/html-editor/menubar.c:378
+#: ../components/html-editor/menubar.c:381
 #: ../components/html-editor/popup.c:217
 msgid "Paragraph"
 msgstr "Avsnitt"
 
 #: ../components/html-editor/editor-control-factory.c:231
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:43
-#: ../components/html-editor/menubar.c:344
+#: ../components/html-editor/menubar.c:347
 #: ../components/html-editor/popup.c:223
 msgid "Page"
 msgstr "Side"
@@ -1430,38 +1430,38 @@ msgstr ""
 msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
-#: ../components/html-editor/link.c:209
+#: ../components/html-editor/link.c:225
 msgid "URL:"
 msgstr "URL:"
 
-#: ../components/html-editor/link.c:213
+#: ../components/html-editor/link.c:229
 msgid "Description:"
 msgstr "Beskrivelse:"
 
-#: ../components/html-editor/menubar.c:126
-#: ../components/html-editor/menubar.c:145
-#: ../components/html-editor/menubar.c:169
-#: ../components/html-editor/menubar.c:191
+#: ../components/html-editor/menubar.c:125
+#: ../components/html-editor/menubar.c:144
+#: ../components/html-editor/menubar.c:168
+#: ../components/html-editor/menubar.c:190
 #: ../components/html-editor/popup.c:108
 msgid "Insert"
 msgstr "Sett inn"
 
-#: ../components/html-editor/menubar.c:274
+#: ../components/html-editor/menubar.c:277
 #, c-format
 msgid "Error loading file '%s': %s"
 msgstr "Feil under lasting av fil «%s»: %s"
 
-#: ../components/html-editor/menubar.c:299
+#: ../components/html-editor/menubar.c:302
 msgid "Insert HTML File"
 msgstr "Sett inn HTML-fil"
 
-#: ../components/html-editor/menubar.c:299
+#: ../components/html-editor/menubar.c:302
 msgid "Insert Text File"
 msgstr "Sett inn tekstfil"
 
-#: ../components/html-editor/menubar.c:341
-#: ../components/html-editor/menubar.c:358
-#: ../components/html-editor/menubar.c:375
+#: ../components/html-editor/menubar.c:344
+#: ../components/html-editor/menubar.c:361
+#: ../components/html-editor/menubar.c:378
 msgid "Format"
 msgstr "Format"
 
@@ -1523,8 +1523,8 @@ msgid "Address"
 msgstr "Adresse"
 
 #: ../components/html-editor/popup.c:450
-msgid "Insert Link"
-msgstr "Sett inn lenke"
+msgid "Insert _Link"
+msgstr "Sett inn _lenke"
 
 #: ../components/html-editor/popup.c:457
 msgid "Remove Link"
@@ -1678,15 +1678,15 @@ msgstr ""
 "Kan ikke legge til ord i ordboken.\n"
 "Innstillingene for språk er feil.\n"
 
-#: ../components/html-editor/spellchecker.c:302
+#: ../components/html-editor/spellchecker.c:303
 msgid "No misspelled word found"
 msgstr "Fant ingen feilstavede ord"
 
-#: ../components/html-editor/spellchecker.c:309
+#: ../components/html-editor/spellchecker.c:310
 msgid "Spell checker"
 msgstr "Stavekontroll"
 
-#: ../components/html-editor/spellchecker.c:403
+#: ../components/html-editor/spellchecker.c:404
 msgid "Current _Languages"
 msgstr "Tilgjengelige _språk"
 
