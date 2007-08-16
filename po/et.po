@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-07 03:55+0100\n"
-"PO-Revision-Date: 2007-07-09 08:26+0300\n"
+"POT-Creation-Date: 2007-08-13 17:34+0100\n"
+"PO-Revision-Date: 2007-08-13 22:17+0300\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -296,8 +296,7 @@ msgstr "Silma pilgutava tujunäo lisamine dokumendile..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:50
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
-#: ../components/html-editor/menubar.c:101
-#: ../components/html-editor/menubar.c:109
+#: ../components/html-editor/menubar.c:98
 msgid "Insert image"
 msgstr "Pildi lisamine"
 
@@ -344,7 +343,7 @@ msgstr "Lõikude vasakjoondamine"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:59
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
-#: ../components/html-editor/menubar.c:145
+#: ../components/html-editor/menubar.c:128
 #: ../components/html-editor/popup.c:111 ../components/html-editor/popup.c:205
 #: ../components/html-editor/popup.c:271
 msgid "Link"
@@ -505,7 +504,7 @@ msgstr "Rooma numbrite loetelu"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
 #: ../components/html-editor/editor-control-factory.c:218
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:45
-#: ../components/html-editor/menubar.c:164
+#: ../components/html-editor/menubar.c:147
 #: ../components/html-editor/popup.c:229
 msgid "Rule"
 msgstr "Reegel"
@@ -549,7 +548,7 @@ msgstr "Ülakiri"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:97
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:49
-#: ../components/html-editor/menubar.c:188
+#: ../components/html-editor/menubar.c:171
 #: ../components/html-editor/popup.c:235 ../components/html-editor/popup.c:509
 #: ../components/html-editor/popup.c:521
 msgid "Table"
@@ -903,7 +902,7 @@ msgstr "Taustapildi faili rada"
 
 #: ../components/html-editor/body.c:275
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:50
-#: ../components/html-editor/menubar.c:210
+#: ../components/html-editor/menubar.c:193
 msgid "Template"
 msgstr "Mall"
 
@@ -916,7 +915,7 @@ msgid "C_ustom:"
 msgstr "K_ohandatud:"
 
 #: ../components/html-editor/cell.c:342 ../components/html-editor/image.c:345
-#: ../components/html-editor/link.c:197 ../components/html-editor/rule.c:179
+#: ../components/html-editor/link.c:213 ../components/html-editor/rule.c:179
 #: ../components/html-editor/table.c:229
 #: ../components/html-editor/template.c:287
 #: ../components/html-editor/text.c:168
@@ -934,20 +933,20 @@ msgstr "Omadused"
 
 #: ../components/html-editor/editor-control-factory.c:208
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:51
-#: ../components/html-editor/menubar.c:386
+#: ../components/html-editor/menubar.c:364
 #: ../components/html-editor/popup.c:199
 msgid "Text"
 msgstr "Tekst"
 
 #: ../components/html-editor/editor-control-factory.c:227
-#: ../components/html-editor/menubar.c:403
+#: ../components/html-editor/menubar.c:381
 #: ../components/html-editor/popup.c:217
 msgid "Paragraph"
 msgstr "Lõik"
 
 #: ../components/html-editor/editor-control-factory.c:231
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:43
-#: ../components/html-editor/menubar.c:369
+#: ../components/html-editor/menubar.c:347
 #: ../components/html-editor/popup.c:223
 msgid "Page"
 msgstr "Lehekülg"
@@ -1439,40 +1438,38 @@ msgstr ""
 msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
-#: ../components/html-editor/link.c:209
+#: ../components/html-editor/link.c:225
 msgid "URL:"
 msgstr "URL:"
 
-#: ../components/html-editor/link.c:213
+#: ../components/html-editor/link.c:229
 msgid "Description:"
 msgstr "Kirjeldus:"
 
-#: ../components/html-editor/menubar.c:142
-#: ../components/html-editor/menubar.c:161
-#: ../components/html-editor/menubar.c:185
-#: ../components/html-editor/menubar.c:207
+#: ../components/html-editor/menubar.c:125
+#: ../components/html-editor/menubar.c:144
+#: ../components/html-editor/menubar.c:168
+#: ../components/html-editor/menubar.c:190
 #: ../components/html-editor/popup.c:108
 msgid "Insert"
 msgstr "Lisa"
 
-#: ../components/html-editor/menubar.c:294
+#: ../components/html-editor/menubar.c:277
 #, c-format
 msgid "Error loading file '%s': %s"
 msgstr "Viga faili '%s' laadimisel: %s"
 
-#: ../components/html-editor/menubar.c:320
-#: ../components/html-editor/menubar.c:329
+#: ../components/html-editor/menubar.c:302
 msgid "Insert HTML File"
 msgstr "HTML-faili lisamine"
 
-#: ../components/html-editor/menubar.c:320
-#: ../components/html-editor/menubar.c:329
+#: ../components/html-editor/menubar.c:302
 msgid "Insert Text File"
 msgstr "Tekstifaili lisamine"
 
-#: ../components/html-editor/menubar.c:366
-#: ../components/html-editor/menubar.c:383
-#: ../components/html-editor/menubar.c:400
+#: ../components/html-editor/menubar.c:344
+#: ../components/html-editor/menubar.c:361
+#: ../components/html-editor/menubar.c:378
 msgid "Format"
 msgstr "Vorming"
 
@@ -1534,8 +1531,8 @@ msgid "Address"
 msgstr "Aadress"
 
 #: ../components/html-editor/popup.c:450
-msgid "Insert Link"
-msgstr "Lisa viit"
+msgid "Insert _Link"
+msgstr "Lisa _viit"
 
 #: ../components/html-editor/popup.c:457
 msgid "Remove Link"
@@ -1689,15 +1686,15 @@ msgstr ""
 "Sõna pole võimalik sõnastikku lisada,\n"
 "keelesätted on katki.\n"
 
-#: ../components/html-editor/spellchecker.c:302
+#: ../components/html-editor/spellchecker.c:303
 msgid "No misspelled word found"
 msgstr "Ühtki kirjaveaga sõna ei leitud"
 
-#: ../components/html-editor/spellchecker.c:309
+#: ../components/html-editor/spellchecker.c:310
 msgid "Spell checker"
 msgstr "Õigekirja kontrollimine"
 
-#: ../components/html-editor/spellchecker.c:403
+#: ../components/html-editor/spellchecker.c:404
 msgid "Current _Languages"
 msgstr "Aktiivsed _keeled"
 
@@ -1936,23 +1933,11 @@ msgstr "GtkHTML-i testrakendus"
 #~ msgid "Search for a string"
 #~ msgstr "Stringi otsimine"
 
-#~ msgid "_Insert"
-#~ msgstr "_Lisa"
-
-#~ msgid "_Insert text file... (FIXME)"
-#~ msgstr "_Lisa tekstifail... (PARANDA)"
-
 #~ msgid "_Paste Quotation"
 #~ msgstr "Ase_ta tsitaat"
 
-#~ msgid "_Properties..."
-#~ msgstr "_Omadused..."
-
 #~ msgid "Paste Quotation"
 #~ msgstr "Aseta tsitaat"
-
-#~ msgid "Top"
-#~ msgstr "Üleval"
 
 #~ msgid "Dot item"
 #~ msgstr "Punktiga kirje"
