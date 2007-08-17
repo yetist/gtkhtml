@@ -10,7 +10,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-02-09 19:08+0100\n"
 "PO-Revision-Date: 2007-05-16 18:06+0200\n"
-"Last-Translator: Yannig MARCHEGAY <yannig@marchegay.org>\n"
+"Last-Translator: Yannig MARCHEGAY (Kokoyaya) <yannig@marchegay.org>\n"
 "Language-Team: Occitan (post 1500) <ubuntu-l10n-oci@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -151,7 +151,7 @@ msgstr ""
 #: ../components/html-editor/search.c:110
 #: ../components/html-editor/search.c:171
 msgid "Find"
-msgstr "Recèrcar"
+msgstr "Recercar"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:23
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:23
@@ -642,7 +642,7 @@ msgstr "_Edicion"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
 #: ../components/html-editor/html-editor-control.xml.h:20
 msgid "_Find..."
-msgstr "_Recèrcar"
+msgstr "_Recercar"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:114
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
@@ -973,7 +973,7 @@ msgstr ""
 #. This is the default custom color
 #: ../components/html-editor/gi-color-palette.c:388
 msgid "custom"
-msgstr "personalizat"
+msgstr "personalisat"
 
 #. "Custom" color - we'll pop up a GtkColorDialog
 #: ../components/html-editor/gi-color-palette.c:430
@@ -1453,11 +1453,11 @@ msgstr "Remplaçar una cadena"
 
 #: ../components/html-editor/html-editor-control.xml.h:15
 msgid "Search again for the same string"
-msgstr "Tornar recèrcar la meteissa cadena"
+msgstr "Tornar recercar la meteissa cadena"
 
 #: ../components/html-editor/html-editor-control.xml.h:16
 msgid "Search for a string"
-msgstr "Recèrcar una cadena"
+msgstr "Recercar una cadena"
 
 #: ../components/html-editor/html-editor-control.xml.h:22
 msgid "_Insert"
