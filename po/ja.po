@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml trunk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-05 21:58+0900\n"
-"PO-Revision-Date: 2007-08-05 21:56+0900\n"
+"POT-Creation-Date: 2007-08-18 19:48+0900\n"
+"PO-Revision-Date: 2007-08-18 19:45+0900\n"
 "Last-Translator: Takeshi AIHANA <takeshi.aihana@gmail.com>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -338,7 +338,7 @@ msgstr "段落を左に寄せます"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:59
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
-#: ../components/html-editor/menubar.c:131
+#: ../components/html-editor/menubar.c:128
 #: ../components/html-editor/popup.c:111 ../components/html-editor/popup.c:205
 #: ../components/html-editor/popup.c:271
 msgid "Link"
@@ -499,7 +499,7 @@ msgstr "ローマ数字付きリスト"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
 #: ../components/html-editor/editor-control-factory.c:218
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:45
-#: ../components/html-editor/menubar.c:150
+#: ../components/html-editor/menubar.c:147
 #: ../components/html-editor/popup.c:229
 msgid "Rule"
 msgstr "罫線"
@@ -543,7 +543,7 @@ msgstr "Superscript"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:97
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:49
-#: ../components/html-editor/menubar.c:174
+#: ../components/html-editor/menubar.c:171
 #: ../components/html-editor/popup.c:235 ../components/html-editor/popup.c:509
 #: ../components/html-editor/popup.c:521
 msgid "Table"
@@ -897,7 +897,7 @@ msgstr "背景の画像ファイルのパス"
 
 #: ../components/html-editor/body.c:275
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:50
-#: ../components/html-editor/menubar.c:196
+#: ../components/html-editor/menubar.c:193
 msgid "Template"
 msgstr "テンプレート"
 
@@ -910,7 +910,7 @@ msgid "C_ustom:"
 msgstr "カスタム(_U):"
 
 #: ../components/html-editor/cell.c:342 ../components/html-editor/image.c:345
-#: ../components/html-editor/link.c:197 ../components/html-editor/rule.c:179
+#: ../components/html-editor/link.c:213 ../components/html-editor/rule.c:179
 #: ../components/html-editor/table.c:229
 #: ../components/html-editor/template.c:287
 #: ../components/html-editor/text.c:168
@@ -928,20 +928,20 @@ msgstr "プロパティ"
 
 #: ../components/html-editor/editor-control-factory.c:208
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:51
-#: ../components/html-editor/menubar.c:367
+#: ../components/html-editor/menubar.c:364
 #: ../components/html-editor/popup.c:199
 msgid "Text"
 msgstr "文字列"
 
 #: ../components/html-editor/editor-control-factory.c:227
-#: ../components/html-editor/menubar.c:384
+#: ../components/html-editor/menubar.c:381
 #: ../components/html-editor/popup.c:217
 msgid "Paragraph"
 msgstr "段落"
 
 #: ../components/html-editor/editor-control-factory.c:231
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:43
-#: ../components/html-editor/menubar.c:350
+#: ../components/html-editor/menubar.c:347
 #: ../components/html-editor/popup.c:223
 msgid "Page"
 msgstr "ページ"
@@ -1433,38 +1433,38 @@ msgstr ""
 msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
-#: ../components/html-editor/link.c:209
+#: ../components/html-editor/link.c:225
 msgid "URL:"
 msgstr "URL:"
 
-#: ../components/html-editor/link.c:213
+#: ../components/html-editor/link.c:229
 msgid "Description:"
 msgstr "説明:"
 
-#: ../components/html-editor/menubar.c:128
-#: ../components/html-editor/menubar.c:147
-#: ../components/html-editor/menubar.c:171
-#: ../components/html-editor/menubar.c:193
+#: ../components/html-editor/menubar.c:125
+#: ../components/html-editor/menubar.c:144
+#: ../components/html-editor/menubar.c:168
+#: ../components/html-editor/menubar.c:190
 #: ../components/html-editor/popup.c:108
 msgid "Insert"
 msgstr "挿入"
 
-#: ../components/html-editor/menubar.c:280
+#: ../components/html-editor/menubar.c:277
 #, c-format
 msgid "Error loading file '%s': %s"
 msgstr "ファイル '%s' を読み込む際にエラー: %s"
 
-#: ../components/html-editor/menubar.c:305
+#: ../components/html-editor/menubar.c:302
 msgid "Insert HTML File"
 msgstr "HTML ファイルの挿入"
 
-#: ../components/html-editor/menubar.c:305
+#: ../components/html-editor/menubar.c:302
 msgid "Insert Text File"
 msgstr "テキスト・ファイルの挿入"
 
-#: ../components/html-editor/menubar.c:347
-#: ../components/html-editor/menubar.c:364
-#: ../components/html-editor/menubar.c:381
+#: ../components/html-editor/menubar.c:344
+#: ../components/html-editor/menubar.c:361
+#: ../components/html-editor/menubar.c:378
 msgid "Format"
 msgstr "書式"
 
@@ -1526,8 +1526,8 @@ msgid "Address"
 msgstr "アドレス"
 
 #: ../components/html-editor/popup.c:450
-msgid "Insert Link"
-msgstr "リンクの挿入"
+msgid "Insert _Link"
+msgstr "リンクの挿入(_L)"
 
 #: ../components/html-editor/popup.c:457
 msgid "Remove Link"
@@ -1681,15 +1681,15 @@ msgstr ""
 "単語を辞書に追加できません\n"
 "(言語設定がおかしいです)。\n"
 
-#: ../components/html-editor/spellchecker.c:302
+#: ../components/html-editor/spellchecker.c:303
 msgid "No misspelled word found"
 msgstr "スペル間違いの単語はありません"
 
-#: ../components/html-editor/spellchecker.c:309
+#: ../components/html-editor/spellchecker.c:310
 msgid "Spell checker"
 msgstr "スペル・チェッカ"
 
-#: ../components/html-editor/spellchecker.c:403
+#: ../components/html-editor/spellchecker.c:404
 msgid "Current _Languages"
 msgstr "現在の辞書(_L)"
 
