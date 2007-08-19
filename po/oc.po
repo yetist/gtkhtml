@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: gtkhtml 3.11.92\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-02-09 19:08+0100\n"
-"PO-Revision-Date: 2007-05-16 18:06+0200\n"
+"PO-Revision-Date: 2007-08-19 21:52+0200\n"
 "Last-Translator: Yannig MARCHEGAY (Kokoyaya) <yannig@marchegay.org>\n"
 "Language-Team: Occitan (post 1500) <ubuntu-l10n-oci@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
@@ -182,32 +182,32 @@ msgstr "For_mat"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:28
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:28
 msgid "Header _1"
-msgstr ""
+msgstr "Encap _1"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:29
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:29
 msgid "Header _2"
-msgstr ""
+msgstr "Encap _2"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:30
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:30
 msgid "Header _3"
-msgstr ""
+msgstr "Encap _3"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:31
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:31
 msgid "Header _4"
-msgstr ""
+msgstr "Encap _4"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:32
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:32
 msgid "Header _5"
-msgstr ""
+msgstr "Encap _5"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:33
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:33
 msgid "Header _6"
-msgstr ""
+msgstr "Encap _6"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:34
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:34
@@ -662,7 +662,7 @@ msgstr "Fichièr _HTML..."
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:117
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
 msgid "_Heading"
-msgstr ""
+msgstr "_Encap"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:118
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
@@ -780,7 +780,7 @@ msgstr ""
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:139
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:139
 msgid "_Table..."
-msgstr ""
+msgstr "Taula"
 
 #.
 #. <submenu name="BackgroundColor" _label="Background Color">
@@ -1155,7 +1155,7 @@ msgstr ""
 
 #: ../components/html-editor/gi-color-palette.c:618
 msgid "white"
-msgstr ""
+msgstr "blanc"
 
 #: ../components/html-editor/gi-color-palette.c:623
 msgid "purplish blue"
@@ -1280,7 +1280,7 @@ msgstr ""
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:32
 msgid "Horizontal:"
-msgstr ""
+msgstr "Orizontal :"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:33
 msgid "I_mage:"
@@ -1386,7 +1386,7 @@ msgstr ""
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:72
 msgid "_Table"
-msgstr ""
+msgstr "_Taula"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:73
 msgid "_URL:"
@@ -1410,7 +1410,7 @@ msgstr ""
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:79
 msgid "px"
-msgstr ""
+msgstr "px"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:81
 #, no-c-format
@@ -1543,27 +1543,27 @@ msgstr ""
 
 #: ../components/html-editor/paragraph-style.c:51
 msgid "Header 1"
-msgstr ""
+msgstr "Encap 1"
 
 #: ../components/html-editor/paragraph-style.c:54
 msgid "Header 2"
-msgstr ""
+msgstr "Encap 2"
 
 #: ../components/html-editor/paragraph-style.c:57
 msgid "Header 3"
-msgstr ""
+msgstr "Encap 3"
 
 #: ../components/html-editor/paragraph-style.c:60
 msgid "Header 4"
-msgstr ""
+msgstr "Encap 4"
 
 #: ../components/html-editor/paragraph-style.c:63
 msgid "Header 5"
-msgstr ""
+msgstr "Encap 5"
 
 #: ../components/html-editor/paragraph-style.c:66
 msgid "Header 6"
-msgstr ""
+msgstr "Encap 6"
 
 #: ../components/html-editor/paragraph-style.c:69
 msgid "Address"
@@ -1660,7 +1660,7 @@ msgstr ""
 
 #: ../components/html-editor/popup.c:560
 msgid "Add Word to"
-msgstr ""
+msgstr "Apondre un mot a"
 
 #: ../components/html-editor/popup.c:564
 #, c-format
@@ -1762,7 +1762,7 @@ msgstr "Dobrir un fichièr..."
 
 #: ../components/html-editor/test-html-editor-control.c:342
 msgid "Save file as..."
-msgstr ""
+msgstr "Enregistrar lo fichièr"
 
 #: ../components/html-editor/test-html-editor-control.c:574
 msgid "GtkHTML Editor Test Container"
