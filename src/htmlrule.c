@@ -86,9 +86,10 @@ fit_line (HTMLObject *o,
 
 	if (o->percent == 0) {
 		gint pixel_size = html_painter_get_pixel_size (painter);
-		if (HTML_RULE (o)->length * pixel_size > width_left) {
+		if (HTML_RULE (o)->length * pixel_size < width_left) {
 			o->width = HTML_RULE (o)->length * pixel_size;
-		}
+		} else
+			o->width = width_left;
 	}
 
 	return (next_to_floating && width_left <= 0) ? HTML_FIT_NONE : HTML_FIT_COMPLETE;

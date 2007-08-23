@@ -1,3 +1,10 @@
+2007-08-09  Irene Huang <Irene.Huang@sun.com>
+
+	** Fixes bug #346004
+
+	* htmlrule.c: (fit_line): If o->percent (percent value of the rule object)
+	is 0, change the width according to the number of pixels:(HTMLRule *)o->length.
+
 2007-08-09  Milan Crha  <mcrha@redhat.com>
 
 	** Fix for bug #426496
