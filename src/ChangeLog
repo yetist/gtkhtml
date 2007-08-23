@@ -1,3 +1,13 @@
+2007-08-23  Rohini S  <srohini@novell.com>
+
+	** Fixes bug #270487
+
+	* htmltokenizer.c (html_tokenizer_init), (end_tag), (in_space_or_tab),
+	(html_tokenizer_tokenize_one_char): Modified _HTMLTokenizerPrivate struct
+	to include a new boolean member variable aTag which checks if the tokenizer 
+	is currently parsing a Link. The functions are modified to escape HTML 
+	entities in a URL.
+
 2007-08-09  Irene Huang <Irene.Huang@sun.com>
 
 	** Fixes bug #346004

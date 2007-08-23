@@ -89,6 +89,7 @@ struct _HTMLTokenizerPrivate {
 	gboolean select; /* Are we in a <select> block? */
 	gboolean charEntity; /* Are we in an &... sequence? */
 	gboolean extension; /* Are we in an <!-- +GtkHTML: sequence? */
+	gboolean aTag; /* Are we in a <a/> tag*/
  
 	enum {
 		NoneDiscard = 0,
@@ -233,6 +234,7 @@ html_tokenizer_init (HTMLTokenizer *t)
 	p->select = FALSE;
 	p->charEntity = FALSE;
 	p->extension = FALSE;
+	p->aTag = FALSE;
 
 	p->discard = NoneDiscard;
 	p->pending = NonePending;
@@ -1093,6 +1095,9 @@ end_tag (HTMLTokenizer *t, const gchar **src)
 	}
 	else if (strncmp (p->buffer + 2, "tablesdkl", 9) == 0) {
 		html_tokenizer_blocking_push (t, Table);
+	}	
+	else if (strncmp (p->buffer + 2, "/a", 2) == 0) {
+		p->aTag = FALSE;
 	}
 	else {
 		if (p->blocking) {
@@ -1150,6 +1155,8 @@ in_crlf (HTMLTokenizer *t, const gchar **src)
 static void
 in_space_or_tab (HTMLTokenizer *t, const gchar **src)
 {
+	gchar *ptr;
+	
 	if (t->priv->tquote) {
 		if (t->priv->discard == NoneDiscard)
 			t->priv->pending = SpacePending;
@@ -1158,6 +1165,9 @@ in_space_or_tab (HTMLTokenizer *t, const gchar **src)
 		t->priv->searchCount = 0; /* Stop looking for <!-- sequence */
 		if (t->priv->discard == NoneDiscard)
 			t->priv->pending = SpacePending;
+		ptr = t->priv->buffer;
+		if (ptr[1] == '<' && ptr[2] == 'a' && strlen (ptr) == 3)
+			t->priv->aTag = TRUE;
 	}
 	else if (t->priv->pre || t->priv->textarea) {
 		if (t->priv->pending)
@@ -1287,7 +1297,7 @@ html_tokenizer_tokenize_one_char (HTMLTokenizer *t, const gchar **src)
 		in_entity (t, src);
 	else if (p->startTag)
 		in_tag (t, src);
-	else if (**src == '&')
+	else if (**src == '&' && !p->aTag)
 		start_entity (t, src);
 	else if (**src == '<' && !p->tag)
 		start_tag (t, src);
