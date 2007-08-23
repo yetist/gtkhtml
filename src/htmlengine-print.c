@@ -84,6 +84,11 @@ print_page (HTMLPainter *painter,
 
 	cr = gtk_print_context_get_cairo_context (context);
 
+	/* Show the previous page before we start drawing a new one.
+	 * GtkPrint will show the last page automatically for us. */
+	if (start_y > 0)
+		cairo_show_page (cr);
+
 	html_painter_begin (painter, 0, 0, page_width, page_height);
 
 	if (header_print != NULL)

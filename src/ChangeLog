@@ -1,3 +1,8 @@
+2007-08-23  Matthew Barnes  <mbarnes@redhat.com>
+
+	* htmlengine-print.c (print_page):
+	Fix a regression in the deprecated printing API (#446894).
+
 2007-08-23  Rohini S  <srohini@novell.com>
 
 	** Fixes bug #270487
