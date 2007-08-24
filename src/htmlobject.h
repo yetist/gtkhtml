@@ -262,13 +262,15 @@ struct _HTMLObjectClass {
 
 	HTMLDirection (*get_direction)   (HTMLObject *self);
 
-	gboolean (*cursor_forward)       (HTMLObject *self, HTMLCursor *cursor);
-	gboolean (*cursor_backward)       (HTMLObject *self, HTMLCursor *cursor);
+	gboolean (*cursor_forward)       (HTMLObject *self, HTMLCursor *cursor, HTMLEngine *engine);
+	gboolean (*cursor_backward)       (HTMLObject *self, HTMLCursor *cursor, HTMLEngine *engine);
 	gboolean (*cursor_right)         (HTMLObject *self, HTMLPainter *painter, HTMLCursor *cursor);
 	gboolean (*cursor_left)          (HTMLObject *self, HTMLPainter *painter, HTMLCursor *cursor);
 
 	int (*get_right_edge_offset) (HTMLObject *o, HTMLPainter *painter, int offset);
 	int (*get_left_edge_offset) (HTMLObject *o, HTMLPainter *painter, int offset);
+
+	gboolean (*backspace)       (HTMLObject *self, HTMLCursor *cursor, HTMLEngine *engine);
 };
 
 extern HTMLObjectClass html_object_class;
@@ -461,15 +463,20 @@ HTMLObject     *html_object_check_point           (HTMLObject            *clue,
 /* Movement functions */
 /* move cursor in scope of object */
 gboolean        html_object_cursor_forward        (HTMLObject            *self,
-						   HTMLCursor            *cursor);
+						   HTMLCursor            *cursor,
+						   HTMLEngine            *engine);
 gboolean        html_object_cursor_backward       (HTMLObject            *self,
-						   HTMLCursor            *cursor);
+						   HTMLCursor            *cursor,
+						   HTMLEngine            *engine);
 gboolean        html_object_cursor_left           (HTMLObject            *self,
 						   HTMLPainter           *painter,
 						   HTMLCursor            *cursor);
 gboolean        html_object_cursor_right          (HTMLObject            *self,
 						   HTMLPainter           *painter,
 						   HTMLCursor            *cursor);
+gboolean        html_object_backspace             (HTMLObject            *self,
+						   HTMLCursor            *cursor,
+						   HTMLEngine            *engine);
 
 /* get prev/next object in scope of parent */
 HTMLObject     *html_object_next                  (HTMLObject            *self,

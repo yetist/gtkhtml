@@ -204,12 +204,12 @@ html_cursor_home (HTMLCursor *cursor,
 
 
 static gboolean
-forward (HTMLCursor *cursor)
+forward (HTMLCursor *cursor, HTMLEngine *engine)
 {
 	gboolean retval;
 
 	retval = TRUE;
-	if (!html_object_cursor_forward (cursor->object, cursor)) {
+	if (!html_object_cursor_forward (cursor->object, cursor, engine)) {
 		HTMLObject *next;
 
 		next = html_object_next_cursor (cursor->object, (gint *) &cursor->offset);
@@ -238,7 +238,7 @@ html_cursor_forward (HTMLCursor *cursor, HTMLEngine *engine)
 		html_engine_spell_check_range (engine, engine->cursor, engine->cursor);
 
 	cursor->have_target_x = FALSE;
-	retval = forward (cursor);
+	retval = forward (cursor, engine);
 
 	debug_location (cursor);
 
@@ -246,12 +246,12 @@ html_cursor_forward (HTMLCursor *cursor, HTMLEngine *engine)
 }
 
 static gboolean
-backward (HTMLCursor *cursor)
+backward (HTMLCursor *cursor, HTMLEngine *engine)
 {
 	gboolean retval;
 
 	retval = TRUE;
-	if (!html_object_cursor_backward (cursor->object, cursor)) {
+	if (!html_object_cursor_backward (cursor->object, cursor, engine)) {
 		HTMLObject *prev;
 
 		prev = html_object_prev_cursor (cursor->object, (gint *) &cursor->offset);
@@ -281,7 +281,7 @@ html_cursor_backward (HTMLCursor *cursor,
 		html_engine_spell_check_range (engine, engine->cursor, engine->cursor);
 
 	cursor->have_target_x = FALSE;
-	retval = backward (cursor);
+	retval = backward (cursor, engine);
 
 	debug_location (cursor);
 
@@ -338,7 +338,7 @@ html_cursor_up (HTMLCursor *cursor,
 		prev_x = x;
 		prev_y = y;
 
-		if (! backward (cursor))
+		if (! backward (cursor, engine))
 			return FALSE;
 
 		html_object_get_cursor_base (cursor->object,
@@ -557,14 +557,14 @@ html_cursor_jump_to (HTMLCursor *cursor,
 
 	html_cursor_copy (&original, cursor);
 
-	while (forward (cursor)) {
+	while (forward (cursor, engine)) {
 		if (cursor->object == object && cursor->offset == offset)
 			return TRUE;
 	}
 
 	html_cursor_copy (cursor, &original);
 
-	while (backward (cursor)) {
+	while (backward (cursor, engine)) {
 		if (cursor->object == object && cursor->offset == offset)
 			return TRUE;
 	}
@@ -588,7 +588,7 @@ html_cursor_beginning_of_document (HTMLCursor *cursor,
 	if (engine->need_spell_check)
 		html_engine_spell_check_range (engine, engine->cursor, engine->cursor);
 
-	while (backward (cursor))
+	while (backward (cursor, engine))
 		;
 }
 
@@ -605,7 +605,7 @@ html_cursor_end_of_document (HTMLCursor *cursor,
 	if (engine->need_spell_check)
 		html_engine_spell_check_range (engine, engine->cursor, engine->cursor);
 
-	while (forward (cursor))
+	while (forward (cursor, engine))
 		;
 }
 
@@ -641,12 +641,12 @@ html_cursor_jump_to_position (HTMLCursor *cursor, HTMLEngine *engine, gint posit
 
 	if (cursor->position < position) {
 		while (cursor->position < position) {
-			if (! forward (cursor))
+			if (! forward (cursor, engine))
 				break;
 		}
 	} else if (cursor->position > position) {
 		while (cursor->position > position) {
-			if (! backward (cursor))
+			if (! backward (cursor, engine))
 				break;
 		}
 	}
@@ -750,7 +750,7 @@ html_cursor_beginning_of_paragraph (HTMLCursor *cursor, HTMLEngine *engine)
 	while (1) {
 		if (!cursor->offset) {
 			html_cursor_copy (&copy, cursor);
-			if (backward (cursor)) {
+			if (backward (cursor, engine)) {
 				new_level = html_object_get_parent_level (cursor->object);
 				if (new_level < level
 				    || (new_level == level && flow != cursor->object->parent)) {
@@ -761,7 +761,7 @@ html_cursor_beginning_of_paragraph (HTMLCursor *cursor, HTMLEngine *engine)
 				break;
 		}
 			else
-				if (!backward (cursor))
+				if (!backward (cursor, engine))
 					break;
 		rv = TRUE;
 	}
@@ -788,7 +788,7 @@ html_cursor_end_of_paragraph (HTMLCursor *cursor, HTMLEngine *engine)
 	while (1) {
 		if (cursor->offset == html_object_get_length (cursor->object)) {
 			html_cursor_copy (&copy, cursor);
-			if (forward (cursor)) {
+			if (forward (cursor, engine)) {
 				new_level = html_object_get_parent_level (cursor->object);
 				if (new_level < level
 				    || (new_level == level && flow != cursor->object->parent)) {
@@ -799,7 +799,7 @@ html_cursor_end_of_paragraph (HTMLCursor *cursor, HTMLEngine *engine)
 				break;
 		}
 			else
-				if (!forward (cursor))
+				if (!forward (cursor, engine))
 					break;
 		rv = TRUE;
 	}

@@ -35,6 +35,7 @@
 #include "htmltext.h"
 #include "htmlcolor.h"
 #include "htmlcolorset.h"
+#include "htmlcluealigned.h"
 #include "htmlclueflow.h"
 #include "htmlcursor.h"
 #include "htmlgdkpainter.h"
@@ -2535,6 +2536,96 @@ html_text_cursor_next_slave (HTMLObject *slave, HTMLPainter *painter, HTMLCursor
 }
 
 static gboolean
+html_text_cursor_forward (HTMLObject *self, HTMLCursor *cursor, HTMLEngine *engine)
+{
+	HTMLText *text;
+	HTMLTextPangoInfo *pi = NULL;
+	gint len, attrpos = 0;
+	gboolean retval = FALSE;
+
+	g_assert (self);
+	g_assert (cursor->object == self);
+
+	if (html_object_is_container (self))
+		return FALSE;
+
+	text = HTML_TEXT (self);
+	pi = html_text_get_pango_info (text, engine->painter);
+	len = html_object_get_length (self);
+	do {
+		attrpos = cursor->offset;
+		if (attrpos < len) {
+			cursor->offset++;
+			cursor->position++;
+			retval = TRUE;
+		} else {
+			retval = FALSE;
+			break;
+		}
+	} while (attrpos < len &&
+		 !pi->attrs[attrpos].is_sentence_end &&
+		 !pi->attrs[attrpos + 1].is_cursor_position);
+
+	return retval;
+}
+
+static gboolean
+html_cursor_allow_zero_offset (HTMLCursor *cursor, HTMLObject *o)
+{
+	if (cursor->offset == 1) {
+		HTMLObject *prev;
+
+		prev = html_object_prev_not_slave (o);
+		if (!prev || HTML_IS_CLUEALIGNED (prev))
+			return TRUE;
+		else {
+			while (prev && !html_object_accepts_cursor (prev))
+				prev = html_object_prev_not_slave (prev);
+
+			if (!prev)
+				return TRUE;
+		}
+	}
+
+	return FALSE;
+}
+
+static gboolean
+html_text_cursor_backward (HTMLObject *self, HTMLCursor *cursor, HTMLEngine *engine)
+{
+	HTMLText *text;
+	HTMLTextPangoInfo *pi = NULL;
+	gint len, attrpos = 0;
+	gboolean retval = FALSE;
+
+	g_assert (self);
+	g_assert (cursor->object == self);
+
+	if (html_object_is_container (self))
+		return FALSE;
+
+	text = HTML_TEXT (self);
+	pi = html_text_get_pango_info (text, engine->painter);
+	len = html_object_get_length (self);
+	do {
+		attrpos = cursor->offset;
+		if (cursor->offset > 1 ||
+		    html_cursor_allow_zero_offset (cursor, self)) {
+			cursor->offset--;
+			cursor->position--;
+			retval = TRUE;
+		} else {
+			retval = FALSE;
+			break;
+		}
+	} while (attrpos > 0 &&
+		 !pi->attrs[attrpos].is_sentence_start &&
+		 !pi->attrs[attrpos - 1].is_cursor_position);
+
+	return retval;
+}
+
+static gboolean
 html_text_cursor_right (HTMLObject *self, HTMLPainter *painter, HTMLCursor *cursor)
 {
 	HTMLTextSlave *slave;
@@ -2584,6 +2675,79 @@ html_text_cursor_left (HTMLObject *self, HTMLPainter *painter, HTMLCursor *curso
 	}
 
 	return FALSE;
+}
+
+static gboolean
+html_text_backspace (HTMLObject *self, HTMLCursor *cursor, HTMLEngine *engine)
+{
+	HTMLText *text;
+	HTMLTextPangoInfo *pi = NULL;
+	guint attrpos = 0, prevpos;
+	gboolean retval = FALSE;
+
+	g_assert (self);
+	g_assert (cursor->object == self);
+
+	text = HTML_TEXT (self);
+	pi = html_text_get_pango_info (text, engine->painter);
+	prevpos = cursor->offset;
+	do {
+		attrpos = cursor->offset;
+		if (cursor->offset > 1 ||
+		    html_cursor_allow_zero_offset (cursor, self)) {
+			cursor->offset--;
+			cursor->position--;
+			retval = TRUE;
+		} else {
+			if (cursor->offset == prevpos)
+				retval = FALSE;
+			break;
+		}
+	} while (attrpos > 0 && !pi->attrs[attrpos].is_cursor_position);
+
+	if (!retval) {
+		HTMLObject *prev;
+		gint offset = cursor->offset;
+
+		/* maybe no characters in this line. */
+		prev = html_object_prev_cursor (cursor->object, &offset);
+		cursor->offset = offset;
+		if (prev) {
+			if (!html_object_is_container (prev))
+				cursor->offset = html_object_get_length (prev);
+			cursor->object = prev;
+			cursor->position--;
+			retval = TRUE;
+		}
+	}
+	if (retval) {
+		if (pi->attrs[attrpos].backspace_deletes_character) {
+			gchar *cluster_text = &text->text[prevpos];
+			gchar *normalized_text = NULL;
+			glong len;
+			gint offset = cursor->offset, pos = cursor->position;
+
+			normalized_text = g_utf8_normalize (cluster_text,
+							    prevpos - attrpos,
+							    G_NORMALIZE_NFD);
+			len = g_utf8_strlen (normalized_text, -1);
+			html_engine_delete (engine);
+			if (len > 1) {
+				html_engine_insert_text (engine, normalized_text,
+							 g_utf8_offset_to_pointer (normalized_text, len - 1) - normalized_text);
+				html_cursor_jump_to (cursor, engine, self, offset);
+			}
+			if (normalized_text)
+				g_free (normalized_text);
+			/* restore a cursor position and offset for a split cursor */
+			engine->cursor->offset = offset;
+			engine->cursor->position = pos;
+		} else {
+			html_engine_delete (engine);
+		}
+	}
+
+	return retval;
 }
 
 static int
@@ -2655,8 +2819,11 @@ html_text_class_init (HTMLTextClass *klass,
 	object_class->append_selection_string = append_selection_string;
 	object_class->get_url = get_url;
 	object_class->get_target = get_target;
+	object_class->cursor_forward = html_text_cursor_forward;
+	object_class->cursor_backward = html_text_cursor_backward;
 	object_class->cursor_right = html_text_cursor_right;
 	object_class->cursor_left = html_text_cursor_left;
+	object_class->backspace = html_text_backspace;
  	object_class->get_right_edge_offset = html_text_get_right_edge_offset;
 	object_class->get_left_edge_offset = html_text_get_left_edge_offset;
 

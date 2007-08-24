@@ -1491,14 +1491,15 @@ html_engine_delete_n (HTMLEngine *e, guint len, gboolean forward)
 				return;
 			}
 		}
-		while (len != 0) {
-			if (forward)
+		if (forward) {
+			int i;
+
+			for (i = len; i > 0; i--)
 				html_cursor_forward (e->cursor, e);
-			else
-				html_cursor_backward (e->cursor, e);
-			len --;
+			html_engine_delete (e);
+		} else {
+			html_object_backspace (e->cursor->object, e->cursor, e);
 		}
-		html_engine_delete (e);
 		html_engine_unblock_selection (e);
 		html_engine_thaw (e);	
 	}

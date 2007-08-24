@@ -1,3 +1,16 @@
+2007-08-24  Matthew Barnes  <mbarnes@redhat.com>
+
+	** Fixes bug #262907
+
+	* htmltext.c: Implement cursor_forward, cursor_backward, and
+	backspace methods.
+	* htmlcursor.c: Pass an engine to forward/backward functions.
+	* htmlobject.[ch]: Add an HTMLEngine parameter to cursor_forward and
+	cursor_backward methods.  Add a backspace method.
+	* htmlengine-edit-cut-and-paste.c (html_engine_delete_n):
+	Delete key deletes entire glyph, backspace deletes a vowel.
+	Patch from Akira TAGOH.
+
 2007-08-24  Irene Huang <Irene.Huang@sun.com>
 
 	** Fixes bug #343994

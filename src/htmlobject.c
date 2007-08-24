@@ -35,6 +35,7 @@
 #include "htmlcursor.h"
 #include "htmlengine.h"
 #include "htmlengine-edit.h"
+#include "htmlengine-edit-cut-and-paste.h"
 #include "htmlengine-save.h"
 #include "htmlframe.h"
 #include "htmlinterval.h"
@@ -604,7 +605,7 @@ html_object_real_get_direction (HTMLObject *o)
 }
 
 static gboolean
-html_object_real_cursor_forward (HTMLObject *self, HTMLCursor *cursor)
+html_object_real_cursor_forward (HTMLObject *self, HTMLCursor *cursor, HTMLEngine *engine)
 {
 	gint len;
 
@@ -645,7 +646,7 @@ html_cursor_allow_zero_offset (HTMLCursor *cursor, HTMLObject *o)
 }
 
 static gboolean
-html_object_real_cursor_backward (HTMLObject *self, HTMLCursor *cursor)
+html_object_real_cursor_backward (HTMLObject *self, HTMLCursor *cursor, HTMLEngine *engine)
 {
 	g_assert (self);
 	g_assert (cursor->object == self);
@@ -724,6 +725,15 @@ html_object_real_cursor_left (HTMLObject *self, HTMLPainter *painter, HTMLCursor
 	}
 
 	return FALSE;
+}
+
+static gboolean
+html_object_real_backspace (HTMLObject *self, HTMLCursor *cursor, HTMLEngine *engine)
+{
+	html_cursor_backward (cursor, engine);
+	html_engine_delete (engine);
+
+	return TRUE;
 }
 
 static int
@@ -813,6 +823,7 @@ html_object_class_init (HTMLObjectClass *klass,
 	klass->cursor_backward = html_object_real_cursor_backward;
 	klass->cursor_left = html_object_real_cursor_left;
 	klass->cursor_right = html_object_real_cursor_right;
+	klass->backspace = html_object_real_backspace;
 	klass->get_right_edge_offset = html_object_real_get_right_edge_offset;
 	klass->get_left_edge_offset = html_object_real_get_left_edge_offset;
 }
@@ -1550,15 +1561,15 @@ html_object_tail_not_slave (HTMLObject *self)
 }
 
 gboolean
-html_object_cursor_forward (HTMLObject *self, HTMLCursor *cursor)
+html_object_cursor_forward (HTMLObject *self, HTMLCursor *cursor, HTMLEngine *engine)
 {
-	return (* HO_CLASS (self)->cursor_forward) (self, cursor);
+	return (* HO_CLASS (self)->cursor_forward) (self, cursor, engine);
 }
 
 gboolean
-html_object_cursor_backward (HTMLObject *self, HTMLCursor *cursor)
+html_object_cursor_backward (HTMLObject *self, HTMLCursor *cursor, HTMLEngine *engine)
 {
-	return (* HO_CLASS (self)->cursor_backward) (self, cursor);
+	return (* HO_CLASS (self)->cursor_backward) (self, cursor, engine);
 }
 
 gboolean
@@ -1571,6 +1582,12 @@ gboolean
 html_object_cursor_left (HTMLObject *self, HTMLPainter *painter, HTMLCursor *cursor)
 {
 	return (* HO_CLASS (self)->cursor_left) (self, painter, cursor);
+}
+
+gboolean
+html_object_backspace (HTMLObject *self, HTMLCursor *cursor, HTMLEngine *engine)
+{
+	return (* HO_CLASS (self)->backspace) (self, cursor, engine);
 }
 
 /*********************
