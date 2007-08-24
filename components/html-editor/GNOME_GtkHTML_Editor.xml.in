@@ -26,11 +26,11 @@
 			<cmd name="InsertTextFile" _label="Te_xt File..." _tip="Insert text file into document..."/>
 			<cmd name="InsertHTMLFile" _label="_HTML File..." _tip="Insert HTML file into document..."/>
 			<cmd name="InsertSmiley1" _label="_Smile" _tip="Insert Smile emoticon into document..."/>
-			<cmd name="InsertSmiley2" _label="_Wink" _tip="Insert Wink emoticon into document..."/>
-			<cmd name="InsertSmiley3" _label="Su_rprised" _tip="Insert Surprised emoticon into document..."/>
-			<cmd name="InsertSmiley4" _label="_Laughing" _tip="Insert Laughing emoticon into document..."/>
+			<cmd name="InsertSmiley2" _label="Su_rprised" _tip="Insert Surprised emoticon into document..."/>
+			<cmd name="InsertSmiley3" _label="_Wink" _tip="Insert Wink emoticon into document..."/>
+			<cmd name="InsertSmiley4" _label="_Frown" _tip="Insert Frown emoticon into document..."/>
 			<cmd name="InsertSmiley5" _label="Oh _No!" _tip="Insert Oh no! emoticon into document..."/>
-			<cmd name="InsertSmiley6" _label="_Frown" _tip="Insert Frown emoticon into document..."/>
+			<cmd name="InsertSmiley6" _label="_Laughing" _tip="Insert Laughing emoticon into document..."/>
 			<cmd name="InsertSmiley8" _label="_Indifferent" _tip="Insert Indifferent emoticon into document..."/>
 			<cmd name="InsertSmiley9" _label="_Undecided" _tip="Insert Undecided emoticon into document..."/>
 			<cmd name="InsertSmiley10" _label="Ton_gue" _tip="Insert Tongue emoticon into document..."/>

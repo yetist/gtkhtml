@@ -679,20 +679,20 @@ smiley_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 		case 1: /* smile */
 			emoticon = ":)";
 			break;
-		case 2: /* wink */
-			emoticon = ";)";
-			break;
-		case 3: /* surprised */
+		case 2: /* surprised */
 			emoticon = "=)";
 			break;
-		case 4: /* laughing */
-			emoticon = ":D";
+		case 3: /* wink */
+			emoticon = ";)";
+			break;
+		case 4: /* frown */
+			emoticon = ":(";
 			break;
 		case 5: /* oh no! */
 			emoticon = ":O";
 			break;
-		case 6: /* frown */
-			emoticon = ":(";
+		case 6: /* laughing */
+			emoticon = ":D";
 			break;
 		case 8: /* indifferent */
 			emoticon = ":-|";
