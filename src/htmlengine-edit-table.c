@@ -427,6 +427,33 @@ html_table_delete_column (HTMLTable *t, HTMLEngine *e, gint col, HTMLUndoDirecti
 	html_engine_thaw (e);
 }
 
+static gboolean
+html_engine_get_table_start_end_cells (HTMLEngine *e, HTMLTableCell **start_cell, HTMLTableCell **end_cell)
+{
+	if (!e->cursor->object->parent ||
+	    !e->cursor->object->parent->parent ||
+	    !HTML_IS_TABLE_CELL (e->cursor->object->parent->parent))
+		return FALSE;
+	if (html_engine_is_selection_active (e))        {
+		if (!e->mark->object->parent ||
+		    !e->mark->object->parent->parent ||
+		    !HTML_IS_TABLE_CELL (e->mark->object->parent->parent) ||
+		    HTML_TABLE (e->mark->object->parent->parent->parent) != html_engine_get_table (e))
+			return FALSE;
+		if (html_cursor_precedes (e->cursor, e->mark)) {
+			*start_cell = HTML_TABLE_CELL (e->cursor->object->parent->parent);
+			*end_cell = HTML_TABLE_CELL (e->mark->object->parent->parent);
+		} else {
+			*start_cell = HTML_TABLE_CELL (e->mark->object->parent->parent);
+			*end_cell = HTML_TABLE_CELL (e->cursor->object->parent->parent);
+		}
+	} else {
+		*start_cell = *end_cell = html_engine_get_table_cell (e);
+	}
+
+	return TRUE;
+}
+
 /**
  * html_engine_delete_table_column:
  * @e: An HTML engine.
@@ -437,13 +464,33 @@ html_table_delete_column (HTMLTable *t, HTMLEngine *e, gint col, HTMLUndoDirecti
 void
 html_engine_delete_table_column (HTMLEngine *e)
 {
-	HTMLTableCell *cell;
+	HTMLTableCell *start_cell, *end_cell;
+	gint start_col, end_col;
+	HTMLTable *table;
 
+        table = html_engine_get_table (e);
+        if (!table || !HTML_IS_TABLE (table) ||
+                !html_engine_get_table_start_end_cells (e, &start_cell, &end_cell))       {
+                g_warning ("Invalid table object! Row deletion failed!");
+                return;
+        }
+
+	start_col = start_cell->col;
+	end_col = end_cell->col;
 	html_engine_disable_selection (e);
-
-	cell = html_engine_get_table_cell (e);
-	if (cell)
-		html_table_delete_column (html_engine_get_table (e), e, cell->col, HTML_UNDO_UNDO);
+	if (start_cell->row == end_cell->row)
+		while (start_col <= end_col--)
+			html_table_delete_column (table, e, start_col, HTML_UNDO_UNDO);
+	else 
+		if ((start_cell->row == end_cell->row - 1) && 
+		   (start_col > end_col + 1)) {
+			while (start_col < table->totalCols)
+				html_table_delete_column (table, e, start_col, HTML_UNDO_UNDO);
+			while (0 <= end_col--)
+				html_table_delete_column (table, e, 0, HTML_UNDO_UNDO);
+		}
+		else
+			html_engine_delete_table (e);
 }
 
 /*
@@ -644,13 +691,25 @@ html_table_delete_row (HTMLTable *t, HTMLEngine *e, gint row, HTMLUndoDirection 
 void
 html_engine_delete_table_row (HTMLEngine *e)
 {
-	HTMLTableCell *cell;
+	HTMLTableCell *start_cell, *end_cell;
+	gint start_row, end_row;
+	HTMLTable *table;
 
+	table = html_engine_get_table (e);
+	if (!table || !HTML_IS_TABLE (table) ||
+		!html_engine_get_table_start_end_cells (e, &start_cell, &end_cell))	{
+		g_warning ("Invalid table object! Row deletion failed!");
+		return;
+	}
+
+	start_row = start_cell->row;
+	end_row = end_cell->row;
 	html_engine_disable_selection (e);
-
-	cell = html_engine_get_table_cell (e);
-	if (cell)
-		html_table_delete_row (html_engine_get_table (e), e, cell->row, HTML_UNDO_UNDO);
+	if (end_row - start_row == table->totalRows - 1)
+		html_engine_delete_table (e);
+	else 
+		while (start_row <= end_row--)
+			html_table_delete_row (table, e, start_row, HTML_UNDO_UNDO);
 }
 
 typedef enum {
