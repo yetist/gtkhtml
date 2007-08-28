@@ -1,3 +1,28 @@
+GtkHTML-3.15.91 2007-08-27
+--------------------------
+
+Bug Fixes:
+	#262907: Incorrect cursor navigation & deletion for composite
+	 glyphs in indic languages (Akira TAGOH)
+	#270487: autourlified URLs not html-escaped (Rohini S)
+	#343994: User can not delete more than 1 line/column in message
+	 composer (Irene Huang)
+	#346004: It is impossible to insert plain rule with length
+	 specified in pixels (Irene Huang)
+	#419350:> Solves the problem of incorrect/inappropriate
+	 emoticons display (Rashmi)
+
+Updated Translations:
+	Stéphane Raimbault (fr)
+	Daniel Nylander (sv)
+	Takeshi AIHANA (ja)
+	Ivar Smolin (et)
+	Theppitak Karoonboonyanan (th)
+	Ankit Patel (gu)
+	Hendrik Richter (de)
+	Kjartan Maraas (nb)
+	Vladimir Melo (pt_BR)
+
 GtkHTML-3.15.90 2007-08-13
 --------------------------
 
