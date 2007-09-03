@@ -1,33 +1,35 @@
 # Vietnamese translation for GTKHtml.
-# Copyright © 2002-2006 Gnome i18n Project for Vietnamese.
+# Copyright © 2007 Gnome i18n Project for Vietnamese.
 # Nguyễn Thái Ngọc Duy <pclouds@gmx.net>, 2002.
-# Clytie Siddall <clytie@riverland.net.au>, 2005-2006.
+# Clytie Siddall <clytie@riverland.net.au>, 2005-2007.
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml GNOME HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-30 07:22+0000\n"
-"PO-Revision-Date: 2007-02-23 20:24+0700\n"
+"POT-Creation-Date: 2007-08-13 17:34+0100\n"
+"PO-Revision-Date: 2007-09-03 18:03+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0\n"
-"X-Generator: LocFactoryEditor 1.6b36\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: LocFactoryEditor 1.7b1\n"
 
 #: ../a11y/image.c:151
 #, c-format
 msgid "URL is %s, Alternative Text is %s"
-msgstr "URL là %s, chữ thay thế là %s"
+msgstr "URL là %s, chuỗi thay thế là %s"
 
 #: ../a11y/image.c:153
 #, c-format
 msgid "URL is %s"
 msgstr "URL là %s"
 
-#: ../a11y/object.c:52 ../a11y/object.c:61 ../a11y/text.c:127
+#: ../a11y/object.c:52
+#: ../a11y/object.c:61
+#: ../a11y/text.c:127
 msgid "grab focus"
 msgstr "lấy tiêu điểm"
 
@@ -72,21 +74,21 @@ msgstr "Đị_a chỉ"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:8
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:8
-#: ../components/html-editor/paragraph-style.c:48
+#: ../components/html-editor/paragraph-style.c:56
 msgid "Alphabetical List"
 msgstr "Danh sách ABC"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:9
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:9
-#: ../components/html-editor/paragraph-style.c:39
+#: ../components/html-editor/paragraph-style.c:47
 msgid "Bulleted List"
-msgstr "Danh sách nút"
+msgstr "Danh sách chấm điểm"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:10
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:10
 #: ../components/html-editor/toolbar.c:415
 msgid "Center justifies the paragraphs"
-msgstr "Canh giữa đoạn văn"
+msgstr "Canh giữa các đoạn văn"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:11
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:11
@@ -96,7 +98,7 @@ msgstr "Kiểm tra _chính tả..."
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:12
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
 msgid "Check spelling of the document"
-msgstr "Kiểm tra chính tả tài liệu"
+msgstr "Kiểm tra chính tả của tài liệu"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:13
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:13
@@ -106,11 +108,10 @@ msgstr "Chép"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:14
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:14
 msgid "Copy selection to clipboard"
-msgstr "Sao chép vùng chọn vào khay"
+msgstr "Sao chép vùng chọn vào bảng nháp"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:15
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:15
-#: ../components/html-editor/html-editor-control.xml.h:2
 msgid "Copy the selection"
 msgstr "Chép vùng chọn"
 
@@ -132,11 +133,10 @@ msgstr "Cắt"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:19
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:19
 msgid "Cut selection to clipboard"
-msgstr "Cắt vùng chọn vào khay"
+msgstr "Cắt vùng chọn vào bảng nháp"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:20
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:20
-#: ../components/html-editor/html-editor-control.xml.h:3
 msgid "Cut the selection"
 msgstr "Cắt vùng chọn"
 
@@ -145,17 +145,16 @@ msgstr "Cắt vùng chọn"
 msgid "Emoti_con"
 msgstr "Biểu tượng xúc _cảm"
 
-#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
 #: ../components/html-editor/search.c:110
 #: ../components/html-editor/search.c:171
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 msgid "Find"
 msgstr "Tìm"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:23
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:23
-#: ../components/html-editor/html-editor-control.xml.h:5
 msgid "Find _Again"
 msgstr "Tìm tiế_p"
 
@@ -167,7 +166,7 @@ msgstr "Tìm tiếp"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:25
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:25
 msgid "Find and Replace"
-msgstr "Tìm và thay thế"
+msgstr "Tìm và Thay thế"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:26
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:26
@@ -212,7 +211,7 @@ msgstr "Tiêu đề _6"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:34
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:34
 msgid "I_nsert"
-msgstr "_Chèn"
+msgstr "C_hèn"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:35
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
@@ -239,7 +238,6 @@ msgstr "Chèn tập tin HTML vào tài liệu..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:39
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
-#: ../components/html-editor/html-editor-control.xml.h:6
 msgid "Insert HTML link into document..."
 msgstr "Chèn liên kết HTML vào tài liệu..."
 
@@ -295,14 +293,12 @@ msgstr "Chèn Biểu tượng xúc cảm Nháy mắt vào tài liệu..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:50
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
-#: ../components/html-editor/menubar.c:101
-#: ../components/html-editor/menubar.c:109
+#: ../components/html-editor/menubar.c:98
 msgid "Insert image"
 msgstr "Chèn ảnh"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:51
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
-#: ../components/html-editor/html-editor-control.xml.h:7
 msgid "Insert image into document..."
 msgstr "Chèn ảnh vào tài liệu..."
 
@@ -314,13 +310,12 @@ msgstr "Chèn liên kết"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:53
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:53
 msgid "Insert rule"
-msgstr "Chèn quy tắc"
+msgstr "Chèn đường"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:54
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
-#: ../components/html-editor/html-editor-control.xml.h:8
 msgid "Insert rule into document..."
-msgstr "Chèn đường vào tài liệu..."
+msgstr "Chèn đường thẳng nằm ngang vào tài liệu..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
@@ -341,12 +336,13 @@ msgstr "Chèn tập tin văn bản vào tài liệu..."
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:58
 #: ../components/html-editor/toolbar.c:412
 msgid "Left justifies the paragraphs"
-msgstr "Canh trái đoạn văn"
+msgstr "Canh bên trái các đoạn văn"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:59
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
-#: ../components/html-editor/menubar.c:141
-#: ../components/html-editor/popup.c:111 ../components/html-editor/popup.c:205
+#: ../components/html-editor/menubar.c:128
+#: ../components/html-editor/popup.c:111
+#: ../components/html-editor/popup.c:205
 #: ../components/html-editor/popup.c:271
 msgid "Link"
 msgstr "Liên kết"
@@ -354,76 +350,76 @@ msgstr "Liên kết"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:60
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
 msgid "Make the current Paragraph style Normal"
-msgstr "Dùng kiểu mặc định cho đoạn hiện thời"
+msgstr "Chuyển đổi kiểu dáng đoạn văn hiện thời thành Chuẩn"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:61
 msgid "Make the current Paragraph style Preformat"
-msgstr "Dùng kiểu Tiền định dạng cho đoạn hiện thời"
+msgstr "Chuyển đổi kiểu dáng đoạn văn hiện thời thành Định dạng sẵn"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:62
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
 msgid "Make the current paragraph a bulleted list"
-msgstr "Dùng đoạn làm danh sách nút"
+msgstr "Chuyển đổi đoạn văn hiện thời thành danh sách chấm điểm"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:63
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:63
 msgid "Make the current paragraph a list with roman numerals"
-msgstr "Dùng đoạn này với danh sách đán số roman"
+msgstr "Chuyển đổi đoạn văn hiện thời thành danh sách chữ số La mã"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:64
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:64
 msgid "Make the current paragraph a numbered list"
-msgstr "Dùng đoạn làm danh sách đánh số"
+msgstr "Chuyển đổi đoạn văn hiện thời thành danh sách đánh số"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:65
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:65
 msgid "Make the current paragraph an H1 header"
-msgstr "Dùng tiêu đề H1 cho đoạn hiện thời"
+msgstr "Chuyển đổi đoạn văn hiện thời thành tiêu đề H1"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:66
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:66
 msgid "Make the current paragraph an H2 header"
-msgstr "Dùng tiêu đề H2 cho đoạn hiện thời"
+msgstr "Chuyển đổi đoạn văn hiện thời thành tiêu đề H2"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:67
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:67
 msgid "Make the current paragraph an H3 header"
-msgstr "Dùng tiêu đề H3 cho đoạn hiện thời"
+msgstr "Chuyển đổi đoạn văn hiện thời thành tiêu đề H3"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:68
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:68
 msgid "Make the current paragraph an H4 header"
-msgstr "Dùng tiêu đề H4 cho đoạn hiện thời"
+msgstr "Chuyển đổi đoạn văn hiện thời thành tiêu đề H4"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:69
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:69
 msgid "Make the current paragraph an H5 header"
-msgstr "Dùng tiêu đề H5 cho đoạn hiện thời"
+msgstr "Chuyển đổi đoạn văn hiện thời thành tiêu đề H5"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:70
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:70
 msgid "Make the current paragraph an H6 header"
-msgstr "Dùng tiêu đề H6 cho đoạn hiện thời"
+msgstr "Chuyển đổi đoạn văn hiện thời thành tiêu đề H6"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:71
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
 msgid "Make the current paragraph an address"
-msgstr "Dùng đoạn hiện thời làm địa chỉ"
+msgstr "Chuyển đổi đoạn văn hiện thời thành địa chỉ"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:72
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
 msgid "Make the current paragraph an alphabetical list"
-msgstr "Dùng đoạn hiện thời làm danh sách ABC"
+msgstr "Chuyển đổi đoạn văn hiện thời thành danh sách ABC"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:73
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
-#: ../components/html-editor/paragraph-style.c:33
+#: ../components/html-editor/paragraph-style.c:41
 msgid "Normal"
-msgstr "Bình thường"
+msgstr "Chuẩn"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:74
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
-#: ../components/html-editor/paragraph-style.c:42
+#: ../components/html-editor/paragraph-style.c:50
 msgid "Numbered List"
 msgstr "Danh sách đánh số"
 
@@ -444,30 +440,29 @@ msgstr "Dán"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:78
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
+#: ../components/html-editor/popup.c:446
 msgid "Paste _Quotation"
 msgstr "Dán _trích dẫn"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:79
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
 msgid "Paste from clipboard"
-msgstr "Dán từ khay"
+msgstr "Dán từ bảng nháp"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:80
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
-#: ../components/html-editor/html-editor-control.xml.h:10
 msgid "Paste the clipboard"
-msgstr "Dán khay"
+msgstr "Dán bảng nháp"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:81
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
-#: ../components/html-editor/html-editor-control.xml.h:11
 msgid "Paste the clipboard as a quotation"
-msgstr "Dán từ khay theo kiểu trích dẫn"
+msgstr "Dán từ bảng nháp theo dạng đoạn trích dẫn"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:82
-#: ../components/html-editor/paragraph-style.c:36
+#: ../components/html-editor/paragraph-style.c:44
 msgid "Preformat"
-msgstr "Tiền định dạng"
+msgstr "Định dạng sẵn"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:83
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
@@ -477,19 +472,18 @@ msgstr "Làm lại"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:84
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
 msgid "Redo previously undone change"
-msgstr "Thực hiện lại hành động mới hủy"
+msgstr "Làm lại bước thay đổi mới hủy"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:85
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
-#: ../components/html-editor/html-editor-control.xml.h:12
 msgid "Redo the undone action"
-msgstr "Làm lại hành động mới hủy"
+msgstr "Làm lại bước hành động mới hủy"
 
-#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
 #: ../components/html-editor/replace.c:171
 #: ../components/html-editor/replace.c:236
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 msgid "Replace"
 msgstr "Thay thế"
 
@@ -497,18 +491,18 @@ msgstr "Thay thế"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
 #: ../components/html-editor/toolbar.c:418
 msgid "Right justifies the paragraphs"
-msgstr "Canh phải đoạn văn"
+msgstr "Canh bên phải các đoạn văn"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:88
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
 msgid "Roman Numeral List"
-msgstr "Danh sách đánh số Roman"
+msgstr "Danh sách chữ số La mã"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:89
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
 #: ../components/html-editor/editor-control-factory.c:218
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:45
-#: ../components/html-editor/menubar.c:160
+#: ../components/html-editor/menubar.c:147
 #: ../components/html-editor/popup.c:229
 msgid "Rule"
 msgstr "Đường"
@@ -526,7 +520,7 @@ msgstr "C_họn tất cả"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:92
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
 msgid "Select the entire contents of the document"
-msgstr "Chọn toàn bộ nội dung tài liệu"
+msgstr "Chọn toàn nội dung của tài liệu"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:93
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
@@ -542,19 +536,20 @@ msgstr "N_gạc nhiên"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:95
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
 msgid "Subscript"
-msgstr "Chữ nhỏ dưới"
+msgstr "Chữ thấp"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:96
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
 msgid "Superscript"
-msgstr "Chữ nhỏ trên"
+msgstr "Chữ cao"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:97
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:49
-#: ../components/html-editor/menubar.c:184
-#: ../components/html-editor/popup.c:235 ../components/html-editor/popup.c:505
-#: ../components/html-editor/popup.c:517
+#: ../components/html-editor/menubar.c:171
+#: ../components/html-editor/popup.c:235
+#: ../components/html-editor/popup.c:509
+#: ../components/html-editor/popup.c:521
 msgid "Table"
 msgstr "Bảng"
 
@@ -582,23 +577,22 @@ msgstr "Máy đánh chữ"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:102
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
 msgid "Undo"
-msgstr "Hoàn lại"
+msgstr "Hủy bước"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:103
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
 msgid "Undo previous changes"
-msgstr "Hoàn lại thay đổi vừa rồi"
+msgstr "Hủy các bước thay đổi mới làm"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:104
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
-#: ../components/html-editor/html-editor-control.xml.h:17
 msgid "Undo the last action"
-msgstr "Hoàn lại hành động cuối cùng"
+msgstr "Hủy bước hành động mới làm"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:105
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
 msgid "_Alignment"
-msgstr "_Canh hàng"
+msgstr "Chỉnh c_anh"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:106
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
@@ -614,40 +608,37 @@ msgstr "Đậ_m"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:108
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
 msgid "_Bulleted List"
-msgstr "Danh sách _nút"
+msgstr "Danh sách chấ_m điểm"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:109
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
 msgid "_Center"
-msgstr "_Giữa"
+msgstr "_Giữa lại"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
-#: ../components/html-editor/html-editor-control.xml.h:18
 msgid "_Copy"
 msgstr "_Chép"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:111
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
 msgid "_Decrease Indent"
-msgstr "_Giảm canh lề"
+msgstr "_Giảm thụt lề"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:112
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
-#: ../components/html-editor/html-editor-control.xml.h:19
 msgid "_Edit"
-msgstr "_Hiệu chỉnh"
+msgstr "_Sửa"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:113
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
-#: ../components/html-editor/html-editor-control.xml.h:20
 msgid "_Find..."
 msgstr "_Tìm..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:114
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
 msgid "_Font Size"
-msgstr "Cỡ _phông chữ"
+msgstr "Cỡ _phông"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:115
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
@@ -666,14 +657,13 @@ msgstr "_Tiêu đề"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:118
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
-#: ../components/html-editor/html-editor-control.xml.h:21
 msgid "_Image..."
 msgstr "Ả_nh..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:119
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
 msgid "_Increase Indent"
-msgstr "_Tăng canh lề"
+msgstr "_Tăng thụt lề"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:120
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
@@ -684,7 +674,7 @@ msgstr "_Không khác"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:65
 msgid "_Italic"
-msgstr "_Nghiêng"
+msgstr "Ngh_iêng"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:122
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
@@ -694,70 +684,65 @@ msgstr "_Cười to"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:123
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
 msgid "_Left"
-msgstr "T_rái"
+msgstr "bên T_rái"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
-#: ../components/html-editor/html-editor-control.xml.h:24
 msgid "_Link..."
 msgstr "_Liên kết..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:125
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
 msgid "_Normal"
-msgstr "_Bình thường"
+msgstr "Chuẩ_n"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:126
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
 msgid "_Page..."
-msgstr "_Trang..."
+msgstr "T_rang..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:127
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:127
 msgid "_Paragraph..."
-msgstr "Đoạ_n..."
+msgstr "Đoạn _văn..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:128
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:128
-#: ../components/html-editor/html-editor-control.xml.h:25
 msgid "_Paste"
 msgstr "_Dán"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:129
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
 msgid "_Plain Text"
-msgstr "Văn bản th_ô"
+msgstr "Nhậ_p thô"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:130
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
 msgid "_Preformatted"
-msgstr "T_iền định dạng"
+msgstr "Định dạng _sẵn"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:131
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
-#: ../components/html-editor/html-editor-control.xml.h:28
 msgid "_Redo"
 msgstr "_Làm lại"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:132
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
-#: ../components/html-editor/html-editor-control.xml.h:29
 msgid "_Replace..."
-msgstr "T_hay thế..."
+msgstr "Tha_y thế..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:133
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:133
 msgid "_Right"
-msgstr "_Phải"
+msgstr "bên _Phải"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:134
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:134
 msgid "_Roman Numeral List"
-msgstr "Danh sách đánh số _Roman"
+msgstr "Danh sách chữ số _La mã"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:135
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
-#: ../components/html-editor/html-editor-control.xml.h:30
 msgid "_Rule..."
 msgstr "Đườ_ng..."
 
@@ -775,13 +760,15 @@ msgstr "_Gạch đè"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:138
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
 msgid "_Style"
-msgstr "_Kiểu dạng"
+msgstr "_Kiểu dáng"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:139
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:139
 msgid "_Table..."
 msgstr "_Bảng..."
 
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:155
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:155
 #.
 #. <submenu name="BackgroundColor" _label="Background Color">
 #. <menuitem name="ColorRed" verb="" _label="Red"/>
@@ -797,10 +784,8 @@ msgstr "_Bảng..."
 #. <menuitem name="Other" verb="" _label="Other..."/>
 #. </submenu>
 #.
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:155
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:155
 msgid "_Text..."
-msgstr "_Chữ..."
+msgstr "_Văn bản..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:156
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:156
@@ -811,13 +796,12 @@ msgstr "Phân _vân"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:157
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:74
 msgid "_Underline"
-msgstr "Gạch _chân"
+msgstr "Gạch _dưới"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:158
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:158
-#: ../components/html-editor/html-editor-control.xml.h:31
 msgid "_Undo"
-msgstr "_Hoàn lại"
+msgstr "_Hủy bước"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:159
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:159
@@ -834,15 +818,15 @@ msgstr "Điều khiển Biên soạn HTML GNOME"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:3
 msgid "GNOME HTML Editor Factory"
-msgstr "Trình tạo Bộ soạn thảo HTML GNOME"
+msgstr "Bộ tạo trình soạn thảo HTML GNOME"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
 msgid "Make the current Paragraph style Preformatted"
-msgstr "Dùng kiểu Tiền định dạng cho đoạn hiện thời"
+msgstr "Chuyển đổi kiểu dáng đoạn văn hiện thời thành Định dạng sẵn"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
 msgid "Preformatted"
-msgstr "Tiền định dạng"
+msgstr "Định dạng sẵn"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:160
 msgid "_Wrap Lines"
@@ -858,7 +842,7 @@ msgstr "Giấy bị khoan"
 
 #: ../components/html-editor/body.c:80
 msgid "Blue ink"
-msgstr "Mực xanh dương"
+msgstr "Mực xanh"
 
 #: ../components/html-editor/body.c:88
 msgid "Paper"
@@ -884,14 +868,15 @@ msgstr "Nháp"
 msgid "Graph paper"
 msgstr "Giấy kẻ ô"
 
-#: ../components/html-editor/body.c:237 ../components/html-editor/text.c:171
+#: ../components/html-editor/body.c:237
+#: ../components/html-editor/text.c:171
 #: ../components/html-editor/toolbar.c:199
 msgid "Automatic"
 msgstr "Tự động"
 
 #: ../components/html-editor/body.c:250
 msgid "_Text:"
-msgstr "_Chữ:"
+msgstr "_Văn bản:"
 
 #: ../components/html-editor/body.c:251
 msgid "_Link:"
@@ -906,7 +891,8 @@ msgstr "_Nền:"
 msgid "Colors"
 msgstr "Màu sắc"
 
-#: ../components/html-editor/body.c:256 ../components/html-editor/body.c:288
+#: ../components/html-editor/body.c:256
+#: ../components/html-editor/body.c:288
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:22
 msgid "Background Image"
 msgstr "Ảnh nền"
@@ -917,72 +903,76 @@ msgstr "Đường dẫn tập tin ảnh nền"
 
 #: ../components/html-editor/body.c:275
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:50
-#: ../components/html-editor/menubar.c:206
+#: ../components/html-editor/menubar.c:193
 msgid "Template"
 msgstr "Mẫu"
 
 #: ../components/html-editor/body.c:282
 msgid "T_emplate:"
-msgstr "_Mẫu:"
+msgstr "_Mẫu :"
 
 #: ../components/html-editor/body.c:286
 msgid "C_ustom:"
 msgstr "Tự _chọn:"
 
-#: ../components/html-editor/cell.c:342 ../components/html-editor/image.c:345
-#: ../components/html-editor/link.c:197 ../components/html-editor/rule.c:179
+#: ../components/html-editor/cell.c:342
+#: ../components/html-editor/image.c:345
+#: ../components/html-editor/link.c:213
+#: ../components/html-editor/rule.c:179
 #: ../components/html-editor/table.c:229
 #: ../components/html-editor/template.c:287
 #: ../components/html-editor/text.c:168
 msgid "Could not load glade file."
-msgstr "Không tải được tập tin glade."
+msgstr "Không nạp được tập tin glade."
 
-#: ../components/html-editor/cell.c:346 ../components/html-editor/table.c:233
+#: ../components/html-editor/cell.c:346
+#: ../components/html-editor/table.c:233
 msgid "Transparent"
 msgstr "Trong suốt"
 
 #: ../components/html-editor/editor-control-factory.c:190
-#: ../components/html-editor/popup.c:191 ../components/html-editor/popup.c:268
+#: ../components/html-editor/popup.c:191
+#: ../components/html-editor/popup.c:268
 msgid "Properties"
 msgstr "Thuộc tính"
 
 #: ../components/html-editor/editor-control-factory.c:208
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:51
-#: ../components/html-editor/menubar.c:382
+#: ../components/html-editor/menubar.c:364
 #: ../components/html-editor/popup.c:199
 msgid "Text"
-msgstr "Chữ"
+msgstr "Văn bản"
 
 #: ../components/html-editor/editor-control-factory.c:227
-#: ../components/html-editor/menubar.c:399
+#: ../components/html-editor/menubar.c:381
 #: ../components/html-editor/popup.c:217
 msgid "Paragraph"
-msgstr "Đoạn"
+msgstr "Đoạn văn"
 
 #: ../components/html-editor/editor-control-factory.c:231
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:43
-#: ../components/html-editor/menubar.c:365
+#: ../components/html-editor/menubar.c:347
 #: ../components/html-editor/popup.c:223
 msgid "Page"
 msgstr "Trang"
 
 #: ../components/html-editor/gi-color-combo.c:191
 msgid "color preview"
-msgstr "xem thử có màu"
+msgstr "xem thử màu sắc"
 
-#. This is the default custom color
 #: ../components/html-editor/gi-color-palette.c:388
+#. This is the default custom color
 msgid "custom"
 msgstr "tự chọn"
 
-#. "Custom" color - we'll pop up a GtkColorDialog
 #: ../components/html-editor/gi-color-palette.c:430
+#. "Custom" color - we'll pop up a GtkColorDialog
 msgid "Custom Color:"
 msgstr "Màu tự chọn:"
 
 #: ../components/html-editor/gi-color-palette.c:438
 msgid "Choose Custom Color"
-msgstr "Chọn màu tự chọn"
+msgstr "Chọn màu riêng"
 
 #: ../components/html-editor/gi-color-palette.c:571
 msgid "black"
@@ -998,7 +988,7 @@ msgstr "nâu vàng"
 
 #: ../components/html-editor/gi-color-palette.c:574
 msgid "dark green #2"
-msgstr "xanh lá cây thẫm #2"
+msgstr "lục thẫm #2"
 
 #: ../components/html-editor/gi-color-palette.c:575
 msgid "navy"
@@ -1007,7 +997,7 @@ msgstr "xanh hải quân"
 #: ../components/html-editor/gi-color-palette.c:576
 #: ../components/html-editor/gi-color-palette.c:632
 msgid "dark blue"
-msgstr "xanh dương sẫm"
+msgstr "xanh sẫm"
 
 #: ../components/html-editor/gi-color-palette.c:577
 msgid "purple #2"
@@ -1032,17 +1022,17 @@ msgstr "vàng kim"
 
 #: ../components/html-editor/gi-color-palette.c:584
 msgid "dark green"
-msgstr "xanh lá cây thẫm"
+msgstr "lục thẫm"
 
 #: ../components/html-editor/gi-color-palette.c:585
 #: ../components/html-editor/gi-color-palette.c:638
 msgid "dull blue"
-msgstr "xanh dương xỉn"
+msgstr "xanh xỉn"
 
 #: ../components/html-editor/gi-color-palette.c:586
 #: ../components/html-editor/gi-color-palette.c:639
 msgid "blue"
-msgstr "Xanh dương"
+msgstr "xanh"
 
 #: ../components/html-editor/gi-color-palette.c:587
 msgid "dull purple"
@@ -1066,11 +1056,11 @@ msgstr "xanh lá mạ"
 
 #: ../components/html-editor/gi-color-palette.c:594
 msgid "dull green"
-msgstr "xanh lá xỉn"
+msgstr "lục xỉn"
 
 #: ../components/html-editor/gi-color-palette.c:595
 msgid "dull blue #2"
-msgstr "xanh dương xỉn #2"
+msgstr "xanh xỉn #2"
 
 #: ../components/html-editor/gi-color-palette.c:596
 msgid "sky blue #2"
@@ -1101,7 +1091,7 @@ msgstr "vàng"
 
 #: ../components/html-editor/gi-color-palette.c:604
 msgid "green"
-msgstr "xanh lá"
+msgstr "lục"
 
 #: ../components/html-editor/gi-color-palette.c:605
 #: ../components/html-editor/gi-color-palette.c:635
@@ -1110,7 +1100,7 @@ msgstr "xanh lông mòng"
 
 #: ../components/html-editor/gi-color-palette.c:606
 msgid "bright blue"
-msgstr "xanh dương sáng"
+msgstr "xanh sáng"
 
 #: ../components/html-editor/gi-color-palette.c:607
 #: ../components/html-editor/gi-color-palette.c:624
@@ -1137,7 +1127,7 @@ msgstr "vàng sáng"
 
 #: ../components/html-editor/gi-color-palette.c:614
 msgid "light green"
-msgstr "xanh lá nhạt"
+msgstr "lục nhạt"
 
 #: ../components/html-editor/gi-color-palette.c:615
 msgid "light cyan"
@@ -1146,7 +1136,7 @@ msgstr "xanh lông mòng sáng"
 #: ../components/html-editor/gi-color-palette.c:616
 #: ../components/html-editor/gi-color-palette.c:626
 msgid "light blue"
-msgstr "xanh dương nhạt"
+msgstr "xanh nhạt"
 
 #: ../components/html-editor/gi-color-palette.c:617
 #: ../components/html-editor/gi-color-palette.c:630
@@ -1159,7 +1149,7 @@ msgstr "trắng"
 
 #: ../components/html-editor/gi-color-palette.c:623
 msgid "purplish blue"
-msgstr "xanh dương tím"
+msgstr "xanh tím"
 
 #: ../components/html-editor/gi-color-palette.c:627
 msgid "dark purple"
@@ -1169,10 +1159,10 @@ msgstr "tím đen"
 msgid "sky blue"
 msgstr "xanh da trời"
 
-#. set the a11y name
 #: ../components/html-editor/gi-combo-box.c:423
+#. set the a11y name
 msgid "Popup"
-msgstr "Bật lên"
+msgstr "Tự mở"
 
 #: ../components/html-editor/gnome-gtkhtml-editor.c:74
 msgid "GtkHTML Editor Control"
@@ -1206,7 +1196,7 @@ msgstr ""
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:10
 msgid "<b>Alignment &amp; Behaviour</b>"
-msgstr "<b>Canh hàng và Hành vi</b>"
+msgstr "<b>Chỉnh canh và Ứng xử</b>"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:11
 msgid "<b>Background</b>"
@@ -1238,11 +1228,11 @@ msgstr "<span weight=\"bold\">Liên kết</span>"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:18
 msgid "<span weight=\"bold\">Size</span>"
-msgstr "<span weight=\"bold\">Kích thước</span>"
+msgstr "<span weight=\"bold\">Kích cỡ</span>"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:19
 msgid "<span weight=\"bold\">Style</span>"
-msgstr "<span weight=\"bold\">Kiểu dạng</span>"
+msgstr "<span weight=\"bold\">Kiểu dáng</span>"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:20
 msgid "<span weight=\"bold\">Template</span>"
@@ -1250,15 +1240,15 @@ msgstr "<span weight=\"bold\">Mẫu</span>"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:21
 msgid "Alignment:"
-msgstr "Canh hàng:"
+msgstr "Chỉnh canh:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:23
 msgid "C_ell"
-msgstr "Ô"
+msgstr "Ô (_E)"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:24
 msgid "C_olor:"
-msgstr "Màu _sắc:"
+msgstr "Mà_u :"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:25
 #: ../components/html-editor/popup.c:241
@@ -1267,7 +1257,7 @@ msgstr "Ô"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:26
 msgid "Col_umn"
-msgstr "_Cột"
+msgstr "Cộ_t"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:28
 msgid "Column span:"
@@ -1283,7 +1273,7 @@ msgstr "Kiểu t_iêu đề"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:31
 msgid "Horizontal alignment:"
-msgstr "Canh hàng ngang:"
+msgstr "Canh nằm ngang:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:32
 msgid "Horizontal:"
@@ -1299,9 +1289,9 @@ msgid ""
 "Center\n"
 "Right"
 msgstr ""
-"Trái\n"
-"Giữa\n"
-"Phải"
+"bên Trái\n"
+"ở Giữa\n"
+"bên Phải"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:38
 msgid ""
@@ -1310,10 +1300,10 @@ msgid ""
 "Right\n"
 "None"
 msgstr ""
-"Trái\n"
-"Giữa\n"
-"Phải\n"
-"Không"
+"bên Trái\n"
+"ở Giữa\n"
+"bên Phải\n"
+"Không có"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:42
 msgid "Link properties"
@@ -1329,7 +1319,7 @@ msgstr "Bóng"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:47
 msgid "Si_ze:"
-msgstr "_Kích thước:"
+msgstr "_Cỡ :"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:48
 msgid "Size:"
@@ -1341,9 +1331,9 @@ msgid ""
 "Middle\n"
 "Bottom"
 msgstr ""
-"Trên\n"
-"Giữa\n"
-"Dưới"
+"bên Trên\n"
+"ở Giữa\n"
+"bên Dưới"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:55
 msgid "Vertical:"
@@ -1355,7 +1345,7 @@ msgstr "Rộng:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:57
 msgid "_Alignment:"
-msgstr "_Canh hàng:"
+msgstr "_Chỉnh canh:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:59
 msgid "_Border:"
@@ -1363,7 +1353,7 @@ msgstr "_Viền:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:60
 msgid "_Color:"
-msgstr "Màu _sắc:"
+msgstr "_Màu :"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:61
 msgid "_Columns:"
@@ -1399,7 +1389,7 @@ msgstr "_Nguồn:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:70
 msgid "_Spacing:"
-msgstr "_Khoảng trống:"
+msgstr "_Dãn cách:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:72
 msgid "_Table"
@@ -1453,90 +1443,44 @@ msgstr ""
 msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
-#: ../components/html-editor/html-editor-control.xml.h:1
-msgid "C_ut"
-msgstr "_Cắt"
-
-#: ../components/html-editor/html-editor-control.xml.h:4
-msgid "Find Rege_x..."
-msgstr "Tìm biểu thức chính _quy..."
-
-#: ../components/html-editor/html-editor-control.xml.h:9
-msgid "Modify the file's properties"
-msgstr "Điều chỉnh thuộc tính tập tin"
-
-#: ../components/html-editor/html-editor-control.xml.h:13
-msgid "Regular expression search"
-msgstr "Tìm theo biểu thức chính quy"
-
-#: ../components/html-editor/html-editor-control.xml.h:14
-msgid "Replace a string"
-msgstr "Thay thế chuỗi"
-
-#: ../components/html-editor/html-editor-control.xml.h:15
-msgid "Search again for the same string"
-msgstr "Tìm lại cùng chuỗi"
-
-#: ../components/html-editor/html-editor-control.xml.h:16
-msgid "Search for a string"
-msgstr "Tìm chuỗi"
-
-#: ../components/html-editor/html-editor-control.xml.h:22
-msgid "_Insert"
-msgstr "C_hèn"
-
-#: ../components/html-editor/html-editor-control.xml.h:23
-msgid "_Insert text file... (FIXME)"
-msgstr "_Chèn tập tin văn bản... (FIXME)"
-
-#: ../components/html-editor/html-editor-control.xml.h:26
-msgid "_Paste Quotation"
-msgstr "_Dán trích dẫn"
-
-#: ../components/html-editor/html-editor-control.xml.h:27
-msgid "_Properties..."
-msgstr "T_huộc tính..."
-
-#: ../components/html-editor/link.c:209
+#: ../components/html-editor/link.c:225
 msgid "URL:"
 msgstr "URL:"
 
-#: ../components/html-editor/link.c:213
+#: ../components/html-editor/link.c:229
 msgid "Description:"
 msgstr "Mô tả:"
 
-#: ../components/html-editor/menubar.c:138
-#: ../components/html-editor/menubar.c:157
-#: ../components/html-editor/menubar.c:181
-#: ../components/html-editor/menubar.c:203
+#: ../components/html-editor/menubar.c:125
+#: ../components/html-editor/menubar.c:144
+#: ../components/html-editor/menubar.c:168
+#: ../components/html-editor/menubar.c:190
 #: ../components/html-editor/popup.c:108
 msgid "Insert"
 msgstr "Chèn"
 
-#: ../components/html-editor/menubar.c:290
+#: ../components/html-editor/menubar.c:277
 #, c-format
 msgid "Error loading file '%s': %s"
-msgstr "Gặp lỗi khi tải tập tin « %s »: %s"
+msgstr "Gặp lỗi khi nạp tập tin « %s »: %s"
 
-#: ../components/html-editor/menubar.c:316
-#: ../components/html-editor/menubar.c:325
+#: ../components/html-editor/menubar.c:302
 msgid "Insert HTML File"
 msgstr "Chèn tập tin HTML"
 
-#: ../components/html-editor/menubar.c:316
-#: ../components/html-editor/menubar.c:325
+#: ../components/html-editor/menubar.c:302
 msgid "Insert Text File"
-msgstr "Chèn tập tin văn bản"
+msgstr "Chèn tập tin nhập thô"
 
-#: ../components/html-editor/menubar.c:362
-#: ../components/html-editor/menubar.c:379
-#: ../components/html-editor/menubar.c:396
+#: ../components/html-editor/menubar.c:344
+#: ../components/html-editor/menubar.c:361
+#: ../components/html-editor/menubar.c:378
 msgid "Format"
 msgstr "Định dạng"
 
 #: ../components/html-editor/paragraph.c:69
 msgid "_Style:"
-msgstr "_Kiểu"
+msgstr "_Kiểu dáng:"
 
 #: ../components/html-editor/paragraph.c:72
 msgid "General"
@@ -1544,161 +1488,158 @@ msgstr "Chung"
 
 #: ../components/html-editor/paragraph.c:87
 msgid "Left"
-msgstr "Trái"
+msgstr "bên Trái"
 
 #: ../components/html-editor/paragraph.c:88
 #: ../components/html-editor/toolbar.c:415
 msgid "Center"
-msgstr "Giữa"
+msgstr "ở Giữa"
 
 #: ../components/html-editor/paragraph.c:89
 msgid "Right"
-msgstr "Phải"
+msgstr "bên Phải"
 
 #: ../components/html-editor/paragraph.c:91
 msgid "Alignment"
-msgstr "Canh hàng"
+msgstr "Chỉnh canh"
 
-#: ../components/html-editor/paragraph-style.c:45
+#: ../components/html-editor/paragraph-style.c:53
 msgid "Roman List"
-msgstr "Danh sách Roman"
+msgstr "Danh sách chữ số La mã"
 
-#: ../components/html-editor/paragraph-style.c:51
+#: ../components/html-editor/paragraph-style.c:59
 msgid "Header 1"
 msgstr "Tiêu đề 1"
 
-#: ../components/html-editor/paragraph-style.c:54
+#: ../components/html-editor/paragraph-style.c:62
 msgid "Header 2"
 msgstr "Tiêu đề 2"
 
-#: ../components/html-editor/paragraph-style.c:57
+#: ../components/html-editor/paragraph-style.c:65
 msgid "Header 3"
 msgstr "Tiêu đề 3"
 
-#: ../components/html-editor/paragraph-style.c:60
+#: ../components/html-editor/paragraph-style.c:68
 msgid "Header 4"
 msgstr "Tiêu đề 4"
 
-#: ../components/html-editor/paragraph-style.c:63
+#: ../components/html-editor/paragraph-style.c:71
 msgid "Header 5"
 msgstr "Tiêu đề 5"
 
-#: ../components/html-editor/paragraph-style.c:66
+#: ../components/html-editor/paragraph-style.c:74
 msgid "Header 6"
 msgstr "Tiêu đề 6"
 
-#: ../components/html-editor/paragraph-style.c:69
+#: ../components/html-editor/paragraph-style.c:77
 msgid "Address"
 msgstr "Địa chỉ"
 
-#: ../components/html-editor/popup.c:442
-msgid "Paste Quotation"
-msgstr "Dán trích dẫn"
+#: ../components/html-editor/popup.c:450
+msgid "Insert _Link"
+msgstr "Chèn _liên kết"
 
-#: ../components/html-editor/popup.c:446
-msgid "Insert Link"
-msgstr "Chèn liên kết"
-
-#: ../components/html-editor/popup.c:453
+#: ../components/html-editor/popup.c:457
 msgid "Remove Link"
-msgstr "Loại bỏ liên kết"
+msgstr "Gỡ bỏ liên kết"
 
-#: ../components/html-editor/popup.c:460
+#: ../components/html-editor/popup.c:464
 msgid "Style"
-msgstr "Kiểu"
+msgstr "Kiểu dáng"
 
-#: ../components/html-editor/popup.c:463
+#: ../components/html-editor/popup.c:467
 msgid "Text Style..."
-msgstr "Kiểu chữ..."
-
-#: ../components/html-editor/popup.c:465 ../components/html-editor/popup.c:471
-#: ../components/html-editor/popup.c:481
-msgid "Paragraph Style..."
-msgstr "Kiểu đoạn..."
+msgstr "Kiểu văn bản..."
 
 #: ../components/html-editor/popup.c:469
+#: ../components/html-editor/popup.c:475
+#: ../components/html-editor/popup.c:485
+msgid "Paragraph Style..."
+msgstr "Kiểu đoạn văn..."
+
+#: ../components/html-editor/popup.c:473
 msgid "Link Style..."
 msgstr "Kiểu liên kết..."
 
-#: ../components/html-editor/popup.c:475
+#: ../components/html-editor/popup.c:479
 msgid "Rule Style..."
 msgstr "Kiểu đường..."
 
-#: ../components/html-editor/popup.c:479
+#: ../components/html-editor/popup.c:483
 msgid "Image Style..."
 msgstr "Kiểu ảnh..."
 
-#: ../components/html-editor/popup.c:490
+#: ../components/html-editor/popup.c:494
 msgid "Cell Style..."
 msgstr "Kiểu ô..."
 
-#: ../components/html-editor/popup.c:493
+#: ../components/html-editor/popup.c:497
 msgid "Table Style..."
 msgstr "Kiểu bảng..."
 
-#: ../components/html-editor/popup.c:499
+#: ../components/html-editor/popup.c:503
 msgid "Page Style..."
 msgstr "Kiểu trang..."
 
-#: ../components/html-editor/popup.c:504
+#: ../components/html-editor/popup.c:508
 msgid "Table insert"
 msgstr "Bảng chèn"
 
-#: ../components/html-editor/popup.c:507
-msgid "Row above"
-msgstr "Hàng trên"
-
-#: ../components/html-editor/popup.c:508
-msgid "Row below"
-msgstr "Hàng dưới"
-
-#: ../components/html-editor/popup.c:510
-msgid "Column before"
-msgstr "Cột trước"
-
 #: ../components/html-editor/popup.c:511
+msgid "Row above"
+msgstr "Hàng bên trên"
+
+#: ../components/html-editor/popup.c:512
+msgid "Row below"
+msgstr "Hàng bên dưới"
+
+#: ../components/html-editor/popup.c:514
+msgid "Column before"
+msgstr "Cột đằng trước"
+
+#: ../components/html-editor/popup.c:515
 msgid "Column after"
-msgstr "Cột sau"
+msgstr "Cột đằng sau"
 
-#: ../components/html-editor/popup.c:516
+#: ../components/html-editor/popup.c:520
 msgid "Table delete"
-msgstr "Bảng xóa bỏ"
+msgstr "Bảng xóa"
 
-#: ../components/html-editor/popup.c:518
+#: ../components/html-editor/popup.c:522
 msgid "Row"
 msgstr "Hàng"
 
-#: ../components/html-editor/popup.c:519
+#: ../components/html-editor/popup.c:523
 msgid "Column"
 msgstr "Cột"
 
-#: ../components/html-editor/popup.c:520
+#: ../components/html-editor/popup.c:524
 msgid "Cell contents"
 msgstr "Nội dung ô"
 
-#: ../components/html-editor/popup.c:555
+#: ../components/html-editor/popup.c:559
 msgid "Ignore Misspelled Word"
 msgstr "Bỏ qua từ sai chính tả"
 
-#: ../components/html-editor/popup.c:560
+#: ../components/html-editor/popup.c:564
 msgid "Add Word to"
 msgstr "Thêm từ vào"
 
-#: ../components/html-editor/popup.c:564
+#: ../components/html-editor/popup.c:568
 #, c-format
 msgid "%s Dictionary"
 msgstr "Từ điển %s"
 
-#: ../components/html-editor/popup.c:573
+#: ../components/html-editor/popup.c:577
 msgid "Add Word to Dictionary"
 msgstr "Thêm từ vào từ điển"
 
-#: ../components/html-editor/popup.c:579
+#: ../components/html-editor/popup.c:583
 msgid "Input Methods"
 msgstr "Cách gõ"
 
-#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: ../components/html-editor/replace.c:81
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 msgid "Replace confirmation"
 msgstr "Xác nhận thay thế"
 
@@ -1708,11 +1649,11 @@ msgstr "Thấy thế tất _cả"
 
 #: ../components/html-editor/replace.c:83
 msgid "_Next"
-msgstr "_Kế tiếp"
+msgstr "_Kế"
 
 #: ../components/html-editor/replace.c:85
 msgid "_Replace"
-msgstr "_Thay thế"
+msgstr "Tha_y thế"
 
 #: ../components/html-editor/replace.c:179
 msgid "Search _backward"
@@ -1721,11 +1662,11 @@ msgstr "Tìm _ngược"
 #: ../components/html-editor/replace.c:180
 #: ../components/html-editor/search.c:116
 msgid "Case _sensitive"
-msgstr "Phân biệt _hoa/thường"
+msgstr "_Phân biệt chữ hoa/thường"
 
 #: ../components/html-editor/replace.c:190
 msgid "R_eplace:"
-msgstr "T_hay thế"
+msgstr "Th_ay thế"
 
 #: ../components/html-editor/replace.c:194
 msgid "_With:"
@@ -1741,7 +1682,7 @@ msgstr "_Biểu thức chính quy"
 
 #: ../components/html-editor/search.c:121
 msgid "Input the words you want to search here"
-msgstr "Nhập vào đây những từ bạn muốn tìm kiếm"
+msgstr "Gõ vào đây chuỗi bạn muốn tìm"
 
 #: ../components/html-editor/spellchecker.c:114
 msgid ""
@@ -1751,15 +1692,15 @@ msgstr ""
 "Không thêm được từ vào từ điển\n"
 "vì thiết lập ngôn ngữ bị hỏng.\n"
 
-#: ../components/html-editor/spellchecker.c:302
+#: ../components/html-editor/spellchecker.c:303
 msgid "No misspelled word found"
-msgstr "Không có từ nào sai chính tả"
+msgstr "Không tìm thấy từ sai chính tả"
 
-#: ../components/html-editor/spellchecker.c:309
+#: ../components/html-editor/spellchecker.c:310
 msgid "Spell checker"
 msgstr "Bộ kiểm tra chính tả"
 
-#: ../components/html-editor/spellchecker.c:403
+#: ../components/html-editor/spellchecker.c:404
 msgid "Current _Languages"
 msgstr "_Ngôn ngữ hiện có"
 
@@ -1786,23 +1727,23 @@ msgstr "Mở tập tin..."
 
 #: ../components/html-editor/test-html-editor-control.c:342
 msgid "Save file as..."
-msgstr "Lưu tập tin là..."
+msgstr "Lưu tập tin dạng..."
 
 #: ../components/html-editor/test-html-editor-control.c:574
 msgid "GtkHTML Editor Test Container"
-msgstr "Bộ chứa Thử ra Biên soạn GtkHTML"
+msgstr "Bộ chứa Thử Biên soạn GtkHTML"
 
 #: ../components/html-editor/toolbar.c:412
 msgid "Left align"
-msgstr "Canh trái"
+msgstr "Canh bên trái"
 
 #: ../components/html-editor/toolbar.c:418
 msgid "Right align"
-msgstr "Canh phải"
+msgstr "Canh bên phải"
 
 #: ../components/html-editor/toolbar.c:439
 msgid "Toggle typewriter font style"
-msgstr "Bật tắt kiểu dạng phông chữ máy đánh chữ"
+msgstr "Bật tắt kiểu dáng phông máy đánh chữ"
 
 #: ../components/html-editor/toolbar.c:441
 msgid "Bold"
@@ -1810,7 +1751,7 @@ msgstr "Đậm"
 
 #: ../components/html-editor/toolbar.c:441
 msgid "Makes the text bold"
-msgstr "Dùng chữ đậm"
+msgstr "Khiến văn bản in đậm"
 
 #: ../components/html-editor/toolbar.c:444
 msgid "Italic"
@@ -1818,160 +1759,200 @@ msgstr "Nghiêng"
 
 #: ../components/html-editor/toolbar.c:444
 msgid "Makes the text italic"
-msgstr "Dùng chữ nghiêng"
+msgstr "Khiến văn bản in nghiêng"
 
 #: ../components/html-editor/toolbar.c:447
 msgid "Underline"
-msgstr "Gạch chân"
+msgstr "Gạch dưới"
 
 #: ../components/html-editor/toolbar.c:447
 msgid "Underlines the text"
-msgstr "Dạch chân chữ"
+msgstr "Gạch dưới văn bản"
 
 #: ../components/html-editor/toolbar.c:450
 msgid "Strikes out the text"
-msgstr "Gạch đè chữ"
+msgstr "Gạch đè văn bản"
 
 #: ../components/html-editor/toolbar.c:460
 msgid "Unindent"
-msgstr "Bỏ canh lề"
+msgstr "Bỏ thụt lề"
 
 #: ../components/html-editor/toolbar.c:460
 msgid "Indents the paragraphs less"
-msgstr "Canh lề đoạn ít hơn"
+msgstr "Giảm khoảng thụt lề của đoạn văn"
 
 #: ../components/html-editor/toolbar.c:463
 msgid "Indent"
-msgstr "Canh lề"
+msgstr "Thụt lề"
 
 #: ../components/html-editor/toolbar.c:463
 msgid "Indents the paragraphs more"
-msgstr "Canh lề đoạn nhiều hơn"
+msgstr "Tăng khoảng thụt lề của đoạn văn"
 
 #: ../components/html-editor/utils.c:132
 msgid "Sample"
-msgstr "Mẫu"
+msgstr "Mẫu lấy"
 
 #: ../components/html-editor/utils.c:205
 msgid "_Test URL..."
-msgstr "_Kiểm tra URL..."
+msgstr "_Thử URL..."
 
 #: ../components/html-editor/utils.c:248
 msgid ""
 "The edited object was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
-"Đối tượng bị sửa đổi đã bị loại khỏi tài liệu.\n"
-"Không thể áp dụng các thay đổi của bạn."
+"Đối tượng được sửa đã bị gỡ bỏ khỏi tài liệu.\n"
+"Vậy không thể áp dụng các thay đổi của bạn."
 
-#: ../src/gtkhtml.c:3060
+#: ../src/gtkhtml.c:3065
 msgid "Editable"
-msgstr "Có thể sửa đổi"
+msgstr "Có thể sửa"
 
-#: ../src/gtkhtml.c:3061
+#: ../src/gtkhtml.c:3066
 msgid "Whether the html can be edited"
-msgstr "Có thể sửa đổi mã html chưa"
+msgstr "Có thể chỉnh sửa mã html không"
 
-#: ../src/gtkhtml.c:3067
+#: ../src/gtkhtml.c:3072
 msgid "Document Title"
-msgstr "Tựa tài liệu"
+msgstr "Tựa đề tài liệu"
 
-#: ../src/gtkhtml.c:3068
+#: ../src/gtkhtml.c:3073
 msgid "The title of the current document"
 msgstr "Tựa đề của tài liệu hiện có"
 
-#: ../src/gtkhtml.c:3074
+#: ../src/gtkhtml.c:3079
 msgid "Document Base"
 msgstr "Cơ bản tài liệu"
 
-#: ../src/gtkhtml.c:3075
+#: ../src/gtkhtml.c:3080
 msgid "The base URL for relative references"
-msgstr "Địa chỉ URL cho tham chiếu tương đối"
+msgstr "Địa chỉ URL cơ bản cho tham chiếu tương đối"
 
-#: ../src/gtkhtml.c:3081
+#: ../src/gtkhtml.c:3086
 msgid "Target Base"
 msgstr "Cơ bản đích"
 
-#: ../src/gtkhtml.c:3082
+#: ../src/gtkhtml.c:3087
 msgid "The base URL of the target frame"
-msgstr "Địa chỉ URL của khung đích"
+msgstr "Địa chỉ URL co bản của khung đích"
 
-#: ../src/gtkhtml.c:3091
+#: ../src/gtkhtml.c:3096
 msgid "Fixed Width Font"
-msgstr "Phông chữ độ rộng cứng"
+msgstr "Phông độ rộng cứng"
 
-#: ../src/gtkhtml.c:3092
+#: ../src/gtkhtml.c:3097
 msgid "The Monospace font to use for typewriter text"
-msgstr "Phông chữ đơn cách cần dùng cho chữ kiểu máy đánh chữ"
+msgstr "Phông chữ đơn cách cần dùng cho văn bản kiểu máy đánh chữ"
 
-#: ../src/gtkhtml.c:3098
+#: ../src/gtkhtml.c:3103
 msgid "New Link Color"
 msgstr "Màu liên kết mới"
 
-#: ../src/gtkhtml.c:3099
+#: ../src/gtkhtml.c:3104
 msgid "The color of new link elements"
 msgstr "Màu của phần tử liên kết mới"
 
-#: ../src/gtkhtml.c:3104
+#: ../src/gtkhtml.c:3109
 msgid "Visited Link Color"
-msgstr "Màu liên kết đã dùng"
+msgstr "Màu liên kết đã thăm"
 
-#: ../src/gtkhtml.c:3105
+#: ../src/gtkhtml.c:3110
 msgid "The color of visited link elements"
 msgstr "Màu của phần tử liên kết đã dùng"
 
-#: ../src/gtkhtml.c:3110
+#: ../src/gtkhtml.c:3115
 msgid "Active Link Color"
 msgstr "Màu liên kết hoạt động"
 
-#: ../src/gtkhtml.c:3111
-msgid "The color of active link elements"
-msgstr "Màu của phần tử liên kết hoạt động"
-
 #: ../src/gtkhtml.c:3116
+msgid "The color of active link elements"
+msgstr "Màu của phần tử liên kết đang nhấn vào"
+
+#: ../src/gtkhtml.c:3121
 msgid "Spelling Error Color"
 msgstr "Màu lỗi chính tả"
 
-#: ../src/gtkhtml.c:3117
-msgid "The color of the spelling error markers"
-msgstr "Màu của dấu nhãn lỗi chính tả"
-
 #: ../src/gtkhtml.c:3122
-msgid "Cite Quotation Color"
-msgstr "Màu trích dẫn đoạn"
+msgid "The color of the spelling error markers"
+msgstr "Màu của dấu hiệu lỗi chính tả"
 
-#: ../src/gtkhtml.c:3123
+#: ../src/gtkhtml.c:3127
+msgid "Cite Quotation Color"
+msgstr "Màu đoạn trích dẫn"
+
+#: ../src/gtkhtml.c:3128
 msgid "The color of the cited text"
 msgstr "Màu của đoạn đã trích dẫn"
 
 #: ../src/htmlbutton.c:140
 msgid "Submit Query"
-msgstr "Đệ trình Truy vấn"
+msgstr "Gửi truy vấn"
 
 #: ../src/htmlbutton.c:143
 msgid "Reset"
 msgstr "Đặt lại"
 
+#: ../src/htmlengine-print.c:226
 #. TODO2 dialog instead of warning
-#: ../src/htmlengine-print.c:198
 msgid "Cannot allocate default font for printing\n"
 msgstr "Không thể cấp phát phông chữ in mặc định\n"
 
-#: ../src/test.c:376
-msgid "GtkHTML Test"
-msgstr "Kiểm tra GtkHTML"
+#: ../src/htmlengine-print.c:305
+msgid "Cannot allocate default font for printing"
+msgstr "Không thể cấp phát phông chữ in mặc định"
 
-#: ../src/testgtkhtml.c:121
+#: ../src/test.c:374
+msgid "GtkHTML Test"
+msgstr "Thử GtkHTML"
+
+#: ../src/testgtkhtml.c:118
 msgid "Print pre_view"
 msgstr "_Xem thử bản in"
 
-#: ../src/testgtkhtml.c:121
+#: ../src/testgtkhtml.c:118
 msgid "Print preview"
 msgstr "Xem thử bản in"
 
-#: ../src/testgtkhtml.c:1012
+#: ../src/testgtkhtml.c:1038
 msgid "GtkHTML Test Application"
-msgstr "Ứng dụng kiểm tra GtkHTML"
+msgstr "Ứng dụng thử GtkHTML"
+
+#~ msgid "C_ut"
+#~ msgstr "_Cắt"
+
+#~ msgid "Find Rege_x..."
+#~ msgstr "Tìm biểu thức chính _quy..."
+
+#~ msgid "Modify the file's properties"
+#~ msgstr "Điều chỉnh thuộc tính tập tin"
+
+#~ msgid "Regular expression search"
+#~ msgstr "Tìm theo biểu thức chính quy"
+
+#~ msgid "Replace a string"
+#~ msgstr "Thay thế chuỗi"
+
+#~ msgid "Search again for the same string"
+#~ msgstr "Tìm lại cùng chuỗi"
+
+#~ msgid "Search for a string"
+#~ msgstr "Tìm chuỗi"
+
+#~ msgid "_Insert"
+#~ msgstr "C_hèn"
+
+#~ msgid "_Insert text file... (FIXME)"
+#~ msgstr "_Chèn tập tin văn bản... (FIXME)"
+
+#~ msgid "_Paste Quotation"
+#~ msgstr "_Dán trích dẫn"
+
+#~ msgid "_Properties..."
+#~ msgstr "T_huộc tính..."
+
+#~ msgid "Paste Quotation"
+#~ msgstr "Dán trích dẫn"
 
 #~ msgid "%"
 #~ msgstr "%"
