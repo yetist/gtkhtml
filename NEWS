@@ -1,3 +1,15 @@
+GtkHTML-3.15.92 2007-09-03
+--------------------------
+
+Bug Fixes:
+	#470451: Update FSF address in header comments (Tobias Mueller)
+
+Updated Translations:
+	Tirumurthi Vasudevan (ta)
+	Funda Wang (zh_CN)
+	Duarte Loreto (pt)
+	Jovan Naumovski (mk)
+
 GtkHTML-3.15.91 2007-08-27
 --------------------------
 
