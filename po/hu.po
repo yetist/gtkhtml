@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-30 07:22+0000\n"
-"PO-Revision-Date: 2007-02-24 12:19+0100\n"
+"POT-Creation-Date: 2007-09-12 04:02+0100\n"
+"PO-Revision-Date: 2007-09-13 21:56+0200\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: Hungarian <gnome@gnome.hu>\n"
 "MIME-Version: 1.0\n"
@@ -75,13 +75,13 @@ msgstr "_Cím"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:8
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:8
-#: ../components/html-editor/paragraph-style.c:48
+#: ../components/html-editor/paragraph-style.c:56
 msgid "Alphabetical List"
 msgstr "Betűkkel jelölt lista"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:9
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:9
-#: ../components/html-editor/paragraph-style.c:39
+#: ../components/html-editor/paragraph-style.c:47
 msgid "Bulleted List"
 msgstr "Felsorolás"
 
@@ -113,7 +113,6 @@ msgstr "Kijelölés másolása a vágólapra"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:15
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:15
-#: ../components/html-editor/html-editor-control.xml.h:2
 msgid "Copy the selection"
 msgstr "Kijelölés másolása"
 
@@ -139,7 +138,6 @@ msgstr "Kijelölés kivágása a vágólapra"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:20
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:20
-#: ../components/html-editor/html-editor-control.xml.h:3
 msgid "Cut the selection"
 msgstr "Kijelölés kivágása"
 
@@ -158,7 +156,6 @@ msgstr "Keresés"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:23
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:23
-#: ../components/html-editor/html-editor-control.xml.h:5
 msgid "Find _Again"
 msgstr "Következő _találat"
 
@@ -242,7 +239,6 @@ msgstr "HTML-fájl beszúrása a dokumentumba..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:39
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
-#: ../components/html-editor/html-editor-control.xml.h:6
 msgid "Insert HTML link into document..."
 msgstr "HTML hivatkozás beszúrása a dokumentumba..."
 
@@ -298,14 +294,12 @@ msgstr "Kacsintó hangulatjel beszúrása a dokumentumba..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:50
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
-#: ../components/html-editor/menubar.c:101
-#: ../components/html-editor/menubar.c:109
+#: ../components/html-editor/menubar.c:98
 msgid "Insert image"
 msgstr "Kép beszúrása"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:51
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
-#: ../components/html-editor/html-editor-control.xml.h:7
 msgid "Insert image into document..."
 msgstr "Kép beszúrása a dokumentumba..."
 
@@ -321,7 +315,6 @@ msgstr "Szabály beszúrása"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:54
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
-#: ../components/html-editor/html-editor-control.xml.h:8
 msgid "Insert rule into document..."
 msgstr "Vonal beszúrása a dokumentumba..."
 
@@ -348,7 +341,7 @@ msgstr "Balra igazítja a bekezdést"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:59
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
-#: ../components/html-editor/menubar.c:141
+#: ../components/html-editor/menubar.c:128
 #: ../components/html-editor/popup.c:111 ../components/html-editor/popup.c:205
 #: ../components/html-editor/popup.c:271
 msgid "Link"
@@ -420,13 +413,13 @@ msgstr "A jelenlegi bekezdés legyen betűkkel jelölt lista"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:73
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
-#: ../components/html-editor/paragraph-style.c:33
+#: ../components/html-editor/paragraph-style.c:41
 msgid "Normal"
 msgstr "Normál"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:74
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
-#: ../components/html-editor/paragraph-style.c:42
+#: ../components/html-editor/paragraph-style.c:50
 msgid "Numbered List"
 msgstr "Számozott lista"
 
@@ -447,6 +440,7 @@ msgstr "Beillesztés"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:78
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
+#: ../components/html-editor/popup.c:446
 msgid "Paste _Quotation"
 msgstr "_Idézet beillesztése"
 
@@ -457,18 +451,16 @@ msgstr "Beillesztés a vágólapról"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:80
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
-#: ../components/html-editor/html-editor-control.xml.h:10
 msgid "Paste the clipboard"
 msgstr "Vágólap beillesztése"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:81
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
-#: ../components/html-editor/html-editor-control.xml.h:11
 msgid "Paste the clipboard as a quotation"
 msgstr "Vágólap beillesztése idézetként"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:82
-#: ../components/html-editor/paragraph-style.c:36
+#: ../components/html-editor/paragraph-style.c:44
 msgid "Preformat"
 msgstr "Előre formázott"
 
@@ -484,7 +476,6 @@ msgstr "Az előzőleg visszavont művelet ismételt végrehajtása"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:85
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
-#: ../components/html-editor/html-editor-control.xml.h:12
 msgid "Redo the undone action"
 msgstr "A visszavont művelet ismételt végrehajtása"
 
@@ -511,7 +502,7 @@ msgstr "Római számos lista"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
 #: ../components/html-editor/editor-control-factory.c:218
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:45
-#: ../components/html-editor/menubar.c:160
+#: ../components/html-editor/menubar.c:147
 #: ../components/html-editor/popup.c:229
 msgid "Rule"
 msgstr "Vonal"
@@ -555,9 +546,9 @@ msgstr "Alsó index"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:97
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:49
-#: ../components/html-editor/menubar.c:184
-#: ../components/html-editor/popup.c:235 ../components/html-editor/popup.c:505
-#: ../components/html-editor/popup.c:517
+#: ../components/html-editor/menubar.c:171
+#: ../components/html-editor/popup.c:235 ../components/html-editor/popup.c:509
+#: ../components/html-editor/popup.c:521
 msgid "Table"
 msgstr "Táblázat"
 
@@ -594,7 +585,6 @@ msgstr "Előző változtatások visszavonása"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:104
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
-#: ../components/html-editor/html-editor-control.xml.h:17
 msgid "Undo the last action"
 msgstr "Az utolsó művelet visszavonása"
 
@@ -626,7 +616,6 @@ msgstr "_Középen"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
-#: ../components/html-editor/html-editor-control.xml.h:18
 msgid "_Copy"
 msgstr "_Másolás"
 
@@ -637,13 +626,11 @@ msgstr "Behúzás _csökkentése"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:112
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
-#: ../components/html-editor/html-editor-control.xml.h:19
 msgid "_Edit"
 msgstr "S_zerkesztés"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:113
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
-#: ../components/html-editor/html-editor-control.xml.h:20
 msgid "_Find..."
 msgstr "_Keresés..."
 
@@ -669,7 +656,6 @@ msgstr "Cí_msor"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:118
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
-#: ../components/html-editor/html-editor-control.xml.h:21
 msgid "_Image..."
 msgstr "_Kép..."
 
@@ -701,7 +687,6 @@ msgstr "_Balra"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
-#: ../components/html-editor/html-editor-control.xml.h:24
 msgid "_Link..."
 msgstr "Hiv_atkozás..."
 
@@ -722,7 +707,6 @@ msgstr "Beke_zdés..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:128
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:128
-#: ../components/html-editor/html-editor-control.xml.h:25
 msgid "_Paste"
 msgstr "_Beillesztés"
 
@@ -738,13 +722,11 @@ msgstr "E_lőre formázott"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:131
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
-#: ../components/html-editor/html-editor-control.xml.h:28
 msgid "_Redo"
 msgstr "Új_ra"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:132
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
-#: ../components/html-editor/html-editor-control.xml.h:29
 msgid "_Replace..."
 msgstr "_Csere..."
 
@@ -760,7 +742,6 @@ msgstr "_Római számokkal számozott lista"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:135
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
-#: ../components/html-editor/html-editor-control.xml.h:30
 msgid "_Rule..."
 msgstr "_Vonal..."
 
@@ -818,7 +799,6 @@ msgstr "A_láhúzott"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:158
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:158
-#: ../components/html-editor/html-editor-control.xml.h:31
 msgid "_Undo"
 msgstr "_Visszavonás"
 
@@ -920,7 +900,7 @@ msgstr "Háttérkép fájl útvonala"
 
 #: ../components/html-editor/body.c:275
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:50
-#: ../components/html-editor/menubar.c:206
+#: ../components/html-editor/menubar.c:193
 msgid "Template"
 msgstr "Sablon"
 
@@ -933,7 +913,7 @@ msgid "C_ustom:"
 msgstr "_Egyéni:"
 
 #: ../components/html-editor/cell.c:342 ../components/html-editor/image.c:345
-#: ../components/html-editor/link.c:197 ../components/html-editor/rule.c:179
+#: ../components/html-editor/link.c:213 ../components/html-editor/rule.c:179
 #: ../components/html-editor/table.c:229
 #: ../components/html-editor/template.c:287
 #: ../components/html-editor/text.c:168
@@ -951,20 +931,20 @@ msgstr "Tulajdonságok"
 
 #: ../components/html-editor/editor-control-factory.c:208
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:51
-#: ../components/html-editor/menubar.c:382
+#: ../components/html-editor/menubar.c:364
 #: ../components/html-editor/popup.c:199
 msgid "Text"
 msgstr "Szöveg"
 
 #: ../components/html-editor/editor-control-factory.c:227
-#: ../components/html-editor/menubar.c:399
+#: ../components/html-editor/menubar.c:381
 #: ../components/html-editor/popup.c:217
 msgid "Paragraph"
 msgstr "Bekezdés"
 
 #: ../components/html-editor/editor-control-factory.c:231
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:43
-#: ../components/html-editor/menubar.c:365
+#: ../components/html-editor/menubar.c:347
 #: ../components/html-editor/popup.c:223
 msgid "Page"
 msgstr "Oldal"
@@ -1456,84 +1436,38 @@ msgstr ""
 msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
-#: ../components/html-editor/html-editor-control.xml.h:1
-msgid "C_ut"
-msgstr "_Kivágás"
-
-#: ../components/html-editor/html-editor-control.xml.h:4
-msgid "Find Rege_x..."
-msgstr "_Reguláris kifejezés keresése..."
-
-#: ../components/html-editor/html-editor-control.xml.h:9
-msgid "Modify the file's properties"
-msgstr "A fájl tulajdonságainak módosítása"
-
-#: ../components/html-editor/html-editor-control.xml.h:13
-msgid "Regular expression search"
-msgstr "Reguláris kifejezés keresése"
-
-#: ../components/html-editor/html-editor-control.xml.h:14
-msgid "Replace a string"
-msgstr "Karakterlánc cseréje"
-
-#: ../components/html-editor/html-editor-control.xml.h:15
-msgid "Search again for the same string"
-msgstr "Ugyanazon karakterlánc következő előfordulása"
-
-#: ../components/html-editor/html-editor-control.xml.h:16
-msgid "Search for a string"
-msgstr "Karakterlánc keresése"
-
-#: ../components/html-editor/html-editor-control.xml.h:22
-msgid "_Insert"
-msgstr "_Beszúrás"
-
-#: ../components/html-editor/html-editor-control.xml.h:23
-msgid "_Insert text file... (FIXME)"
-msgstr "Szö_vegfájl beszúrása..."
-
-#: ../components/html-editor/html-editor-control.xml.h:26
-msgid "_Paste Quotation"
-msgstr "I_dézet beillesztése"
-
-#: ../components/html-editor/html-editor-control.xml.h:27
-msgid "_Properties..."
-msgstr "_Tulajdonságok..."
-
-#: ../components/html-editor/link.c:209
+#: ../components/html-editor/link.c:225
 msgid "URL:"
 msgstr "URL:"
 
-#: ../components/html-editor/link.c:213
+#: ../components/html-editor/link.c:229
 msgid "Description:"
 msgstr "Leírás:"
 
-#: ../components/html-editor/menubar.c:138
-#: ../components/html-editor/menubar.c:157
-#: ../components/html-editor/menubar.c:181
-#: ../components/html-editor/menubar.c:203
+#: ../components/html-editor/menubar.c:125
+#: ../components/html-editor/menubar.c:144
+#: ../components/html-editor/menubar.c:168
+#: ../components/html-editor/menubar.c:190
 #: ../components/html-editor/popup.c:108
 msgid "Insert"
 msgstr "Beszúrás"
 
-#: ../components/html-editor/menubar.c:290
+#: ../components/html-editor/menubar.c:277
 #, c-format
 msgid "Error loading file '%s': %s"
 msgstr "Hiba a(z) \"%s\" fájl betöltése közben: %s"
 
-#: ../components/html-editor/menubar.c:316
-#: ../components/html-editor/menubar.c:325
+#: ../components/html-editor/menubar.c:302
 msgid "Insert HTML File"
 msgstr "HTML fájl beszúrása"
 
-#: ../components/html-editor/menubar.c:316
-#: ../components/html-editor/menubar.c:325
+#: ../components/html-editor/menubar.c:302
 msgid "Insert Text File"
 msgstr "szövegfájl beszúrása"
 
-#: ../components/html-editor/menubar.c:362
-#: ../components/html-editor/menubar.c:379
-#: ../components/html-editor/menubar.c:396
+#: ../components/html-editor/menubar.c:344
+#: ../components/html-editor/menubar.c:361
+#: ../components/html-editor/menubar.c:378
 msgid "Format"
 msgstr "Formátum"
 
@@ -1562,141 +1496,137 @@ msgstr "Jobbra"
 msgid "Alignment"
 msgstr "Igazítás"
 
-#: ../components/html-editor/paragraph-style.c:45
+#: ../components/html-editor/paragraph-style.c:53
 msgid "Roman List"
 msgstr "Római számos lista"
 
-#: ../components/html-editor/paragraph-style.c:51
+#: ../components/html-editor/paragraph-style.c:59
 msgid "Header 1"
 msgstr "Címsor 1"
 
-#: ../components/html-editor/paragraph-style.c:54
+#: ../components/html-editor/paragraph-style.c:62
 msgid "Header 2"
 msgstr "Címsor 2"
 
-#: ../components/html-editor/paragraph-style.c:57
+#: ../components/html-editor/paragraph-style.c:65
 msgid "Header 3"
 msgstr "Címsor 3"
 
-#: ../components/html-editor/paragraph-style.c:60
+#: ../components/html-editor/paragraph-style.c:68
 msgid "Header 4"
 msgstr "Címsor 4"
 
-#: ../components/html-editor/paragraph-style.c:63
+#: ../components/html-editor/paragraph-style.c:71
 msgid "Header 5"
 msgstr "Címsor 5"
 
-#: ../components/html-editor/paragraph-style.c:66
+#: ../components/html-editor/paragraph-style.c:74
 msgid "Header 6"
 msgstr "Címsor 6"
 
-#: ../components/html-editor/paragraph-style.c:69
+#: ../components/html-editor/paragraph-style.c:77
 msgid "Address"
 msgstr "Cím"
 
-#: ../components/html-editor/popup.c:442
-msgid "Paste Quotation"
-msgstr "Idézet beillesztése"
+#: ../components/html-editor/popup.c:450
+msgid "Insert _Link"
+msgstr "Hi_vatkozás beszúrása"
 
-#: ../components/html-editor/popup.c:446
-msgid "Insert Link"
-msgstr "Hivatkozás beszúrása"
-
-#: ../components/html-editor/popup.c:453
+#: ../components/html-editor/popup.c:457
 msgid "Remove Link"
 msgstr "Hivatkozás eltávolítása"
 
-#: ../components/html-editor/popup.c:460
+#: ../components/html-editor/popup.c:464
 msgid "Style"
 msgstr "Stílus"
 
-#: ../components/html-editor/popup.c:463
+#: ../components/html-editor/popup.c:467
 msgid "Text Style..."
 msgstr "Szöveg stílusa..."
 
-#: ../components/html-editor/popup.c:465 ../components/html-editor/popup.c:471
-#: ../components/html-editor/popup.c:481
+#: ../components/html-editor/popup.c:469 ../components/html-editor/popup.c:475
+#: ../components/html-editor/popup.c:485
 msgid "Paragraph Style..."
 msgstr "Bekezdés stílusa..."
 
-#: ../components/html-editor/popup.c:469
+#: ../components/html-editor/popup.c:473
 msgid "Link Style..."
 msgstr "Hivatkozás stílusa..."
 
-#: ../components/html-editor/popup.c:475
+#: ../components/html-editor/popup.c:479
 msgid "Rule Style..."
 msgstr "Vonal stílusa..."
 
-#: ../components/html-editor/popup.c:479
+#: ../components/html-editor/popup.c:483
 msgid "Image Style..."
 msgstr "Kép stílusa..."
 
-#: ../components/html-editor/popup.c:490
+#: ../components/html-editor/popup.c:494
 msgid "Cell Style..."
 msgstr "Cella stílusa..."
 
-#: ../components/html-editor/popup.c:493
+#: ../components/html-editor/popup.c:497
 msgid "Table Style..."
 msgstr "Táblázat stílusa..."
 
-#: ../components/html-editor/popup.c:499
+#: ../components/html-editor/popup.c:503
 msgid "Page Style..."
 msgstr "Oldal stílusa..."
 
-#: ../components/html-editor/popup.c:504
+#: ../components/html-editor/popup.c:508
 msgid "Table insert"
 msgstr "Táblázat beszúrása"
 
-#: ../components/html-editor/popup.c:507
+#: ../components/html-editor/popup.c:511
 msgid "Row above"
 msgstr "Egy sorral feljebb"
 
-#: ../components/html-editor/popup.c:508
+#: ../components/html-editor/popup.c:512
 msgid "Row below"
 msgstr "Egy sorral lejjebb"
 
-#: ../components/html-editor/popup.c:510
+#: ../components/html-editor/popup.c:514
 msgid "Column before"
 msgstr "Egy oszloppal előtte"
 
-#: ../components/html-editor/popup.c:511
+#: ../components/html-editor/popup.c:515
 msgid "Column after"
 msgstr "Egy oszloppal utána"
 
-#: ../components/html-editor/popup.c:516
+#: ../components/html-editor/popup.c:520
 msgid "Table delete"
 msgstr "Táblázat törlése"
 
-#: ../components/html-editor/popup.c:518
+#: ../components/html-editor/popup.c:522
 msgid "Row"
 msgstr "Sor"
 
-#: ../components/html-editor/popup.c:519
+#: ../components/html-editor/popup.c:523
 msgid "Column"
 msgstr "Oszlop"
 
-#: ../components/html-editor/popup.c:520
+#: ../components/html-editor/popup.c:524
 msgid "Cell contents"
 msgstr "Cellatartalom"
 
-#: ../components/html-editor/popup.c:555
+#: ../components/html-editor/popup.c:559
 msgid "Ignore Misspelled Word"
 msgstr "Rosszul írt szó mellőzése"
 
-#: ../components/html-editor/popup.c:560
+#: ../components/html-editor/popup.c:564
 msgid "Add Word to"
 msgstr "Szó hozzáadása ehhez"
 
-#: ../components/html-editor/popup.c:564
+#: ../components/html-editor/popup.c:568
 #, c-format
 msgid "%s Dictionary"
 msgstr "%s szótár"
 
-#: ../components/html-editor/popup.c:573
+#: ../components/html-editor/popup.c:577
 msgid "Add Word to Dictionary"
 msgstr "Szó hozzáadása a szótárhoz"
 
-#: ../components/html-editor/popup.c:579
+#: ../components/html-editor/popup.c:583
 msgid "Input Methods"
 msgstr "Beviteli módok"
 
@@ -1754,15 +1684,15 @@ msgstr ""
 "A szó nem adható hozzá a szótárhoz,\n"
 "a nyelvi beállítások hibásak.\n"
 
-#: ../components/html-editor/spellchecker.c:302
+#: ../components/html-editor/spellchecker.c:303
 msgid "No misspelled word found"
 msgstr "Nem volt rosszul írt szó"
 
-#: ../components/html-editor/spellchecker.c:309
+#: ../components/html-editor/spellchecker.c:310
 msgid "Spell checker"
 msgstr "Helyesírás-ellenőrző"
 
-#: ../components/html-editor/spellchecker.c:403
+#: ../components/html-editor/spellchecker.c:404
 msgid "Current _Languages"
 msgstr "Jelenlegi _nyelvek"
 
@@ -1867,83 +1797,83 @@ msgstr ""
 "A szerkesztett objektum el lett távolítva a dokumentumból.\n"
 "A változtatások nem alkalmazhatók."
 
-#: ../src/gtkhtml.c:3060
+#: ../src/gtkhtml.c:3065
 msgid "Editable"
 msgstr "Szerkeszthető"
 
-#: ../src/gtkhtml.c:3061
+#: ../src/gtkhtml.c:3066
 msgid "Whether the html can be edited"
 msgstr "Szerkeszthető-e a HTML"
 
-#: ../src/gtkhtml.c:3067
+#: ../src/gtkhtml.c:3072
 msgid "Document Title"
 msgstr "Dokumentum címe"
 
-#: ../src/gtkhtml.c:3068
+#: ../src/gtkhtml.c:3073
 msgid "The title of the current document"
 msgstr "A jelenlegi dokumentum címe"
 
-#: ../src/gtkhtml.c:3074
+#: ../src/gtkhtml.c:3079
 msgid "Document Base"
 msgstr "Dokumentum báziscíme"
 
-#: ../src/gtkhtml.c:3075
+#: ../src/gtkhtml.c:3080
 msgid "The base URL for relative references"
 msgstr "A relatív hivatkozások bázis URL címe"
 
-#: ../src/gtkhtml.c:3081
+#: ../src/gtkhtml.c:3086
 msgid "Target Base"
 msgstr "Cél báziscíme"
 
-#: ../src/gtkhtml.c:3082
+#: ../src/gtkhtml.c:3087
 msgid "The base URL of the target frame"
 msgstr "A célkeret alap URL címe"
 
-#: ../src/gtkhtml.c:3091
+#: ../src/gtkhtml.c:3096
 msgid "Fixed Width Font"
 msgstr "Rögzített szélességű betű"
 
-#: ../src/gtkhtml.c:3092
+#: ../src/gtkhtml.c:3097
 msgid "The Monospace font to use for typewriter text"
 msgstr "Az írógépszöveghez alkalmazott Monospace betűkészlet"
 
-#: ../src/gtkhtml.c:3098
+#: ../src/gtkhtml.c:3103
 msgid "New Link Color"
 msgstr "Új hivatkozás színe"
 
-#: ../src/gtkhtml.c:3099
+#: ../src/gtkhtml.c:3104
 msgid "The color of new link elements"
 msgstr "Az új hivatkozáselemek színe"
 
-#: ../src/gtkhtml.c:3104
+#: ../src/gtkhtml.c:3109
 msgid "Visited Link Color"
 msgstr "Látogatott hivatkozás színe"
 
-#: ../src/gtkhtml.c:3105
+#: ../src/gtkhtml.c:3110
 msgid "The color of visited link elements"
 msgstr "A látogatott hivatkozáselemek színe"
 
-#: ../src/gtkhtml.c:3110
+#: ../src/gtkhtml.c:3115
 msgid "Active Link Color"
 msgstr "Aktív hivatkozás színe"
 
-#: ../src/gtkhtml.c:3111
+#: ../src/gtkhtml.c:3116
 msgid "The color of active link elements"
 msgstr "Az aktív hivatkozáselemek színe"
 
-#: ../src/gtkhtml.c:3116
+#: ../src/gtkhtml.c:3121
 msgid "Spelling Error Color"
 msgstr "Helyesírási hiba színe"
 
-#: ../src/gtkhtml.c:3117
+#: ../src/gtkhtml.c:3122
 msgid "The color of the spelling error markers"
 msgstr "A helyesírási hibákat jelölő szín"
 
-#: ../src/gtkhtml.c:3122
+#: ../src/gtkhtml.c:3127
 msgid "Cite Quotation Color"
 msgstr "Idézet színe"
 
-#: ../src/gtkhtml.c:3123
+#: ../src/gtkhtml.c:3128
 msgid "The color of the cited text"
 msgstr "Az idézett szöveg színe"
 
@@ -1956,23 +1886,27 @@ msgid "Reset"
 msgstr "Visszaállítás"
 
 #. TODO2 dialog instead of warning
-#: ../src/htmlengine-print.c:198
+#: ../src/htmlengine-print.c:231
 msgid "Cannot allocate default font for printing\n"
 msgstr "Az alapértelmezett betűkészlet nem tölthető be  a nyomtatáshoz.\n"
 
-#: ../src/test.c:376
+#: ../src/htmlengine-print.c:310
+msgid "Cannot allocate default font for printing"
+msgstr "Az alapértelmezett betűkészlet nem tölthető be  a nyomtatáshoz"
+
+#: ../src/test.c:374
 msgid "GtkHTML Test"
 msgstr "GtkHTML-teszt"
 
-#: ../src/testgtkhtml.c:121
+#: ../src/testgtkhtml.c:118
 msgid "Print pre_view"
 msgstr "Nyomtatási _kép"
 
-#: ../src/testgtkhtml.c:121
+#: ../src/testgtkhtml.c:118
 msgid "Print preview"
 msgstr "Nyomtatási kép"
 
-#: ../src/testgtkhtml.c:1012
+#: ../src/testgtkhtml.c:1038
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML-tesztalkalmazás"
 
