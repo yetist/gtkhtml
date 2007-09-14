@@ -820,7 +820,9 @@ html_object_class_init (HTMLObjectClass *klass,
 	klass->get_clear = get_clear;
 	klass->get_direction = html_object_real_get_direction;
 	klass->cursor_forward = html_object_real_cursor_forward;
+	klass->cursor_forward_one = html_object_real_cursor_forward;
 	klass->cursor_backward = html_object_real_cursor_backward;
+	klass->cursor_backward_one = html_object_real_cursor_backward;
 	klass->cursor_left = html_object_real_cursor_left;
 	klass->cursor_right = html_object_real_cursor_right;
 	klass->backspace = html_object_real_backspace;
@@ -1567,9 +1569,21 @@ html_object_cursor_forward (HTMLObject *self, HTMLCursor *cursor, HTMLEngine *en
 }
 
 gboolean
+html_object_cursor_forward_one (HTMLObject *self, HTMLCursor *cursor, HTMLEngine *engine)
+{
+	return (* HO_CLASS (self)->cursor_forward_one) (self, cursor, engine);
+}
+
+gboolean
 html_object_cursor_backward (HTMLObject *self, HTMLCursor *cursor, HTMLEngine *engine)
 {
 	return (* HO_CLASS (self)->cursor_backward) (self, cursor, engine);
+}
+
+gboolean
+html_object_cursor_backward_one (HTMLObject *self, HTMLCursor *cursor, HTMLEngine *engine)
+{
+	return (* HO_CLASS (self)->cursor_backward_one) (self, cursor, engine);
 }
 
 gboolean

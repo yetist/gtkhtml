@@ -204,12 +204,20 @@ html_cursor_home (HTMLCursor *cursor,
 
 
 static gboolean
-forward (HTMLCursor *cursor, HTMLEngine *engine)
+forward (HTMLCursor *cursor,
+	 HTMLEngine *engine,
+	 gboolean    exact_position)
 {
 	gboolean retval;
+	gboolean (*forward_func) (HTMLObject *self, HTMLCursor *cursor, HTMLEngine *engine);
 
 	retval = TRUE;
-	if (!html_object_cursor_forward (cursor->object, cursor, engine)) {
+	if (exact_position)
+		forward_func = html_object_cursor_forward_one;
+	else
+		forward_func = html_object_cursor_forward;
+
+	if (!forward_func (cursor->object, cursor, engine)) {
 		HTMLObject *next;
 
 		next = html_object_next_cursor (cursor->object, (gint *) &cursor->offset);
@@ -224,8 +232,10 @@ forward (HTMLCursor *cursor, HTMLEngine *engine)
 	return retval;
 }
 
-gboolean
-html_cursor_forward (HTMLCursor *cursor, HTMLEngine *engine)
+static gboolean
+html_cursor_real_forward (HTMLCursor *cursor,
+			  HTMLEngine *engine,
+			  gboolean    exact_position)
 {
 	gboolean retval;
 
@@ -238,20 +248,41 @@ html_cursor_forward (HTMLCursor *cursor, HTMLEngine *engine)
 		html_engine_spell_check_range (engine, engine->cursor, engine->cursor);
 
 	cursor->have_target_x = FALSE;
-	retval = forward (cursor, engine);
+	retval = forward (cursor, engine, exact_position);
 
 	debug_location (cursor);
 
 	return retval;
 }
 
+gboolean
+html_cursor_forward (HTMLCursor *cursor,
+		     HTMLEngine *engine)
+{
+	return html_cursor_real_forward (cursor, engine, FALSE);
+}
+
+gboolean
+html_cursor_forward_one (HTMLCursor *cursor,
+			 HTMLEngine *engine)
+{
+	return html_cursor_real_forward (cursor, engine, TRUE);
+}
+
 static gboolean
-backward (HTMLCursor *cursor, HTMLEngine *engine)
+backward (HTMLCursor *cursor,
+	  HTMLEngine *engine,
+	  gboolean    exact_position)
 {
 	gboolean retval;
+	gboolean (*backward_func) (HTMLObject *self, HTMLCursor *cursor, HTMLEngine *engine);
 
 	retval = TRUE;
-	if (!html_object_cursor_backward (cursor->object, cursor, engine)) {
+	if (exact_position)
+		backward_func = html_object_cursor_backward_one;
+	else
+		backward_func = html_object_cursor_backward;
+	if (!backward_func (cursor->object, cursor, engine)) {
 		HTMLObject *prev;
 
 		prev = html_object_prev_cursor (cursor->object, (gint *) &cursor->offset);
@@ -266,9 +297,10 @@ backward (HTMLCursor *cursor, HTMLEngine *engine)
 	return retval;
 }
 
-gboolean
-html_cursor_backward (HTMLCursor *cursor,
-		      HTMLEngine *engine)
+static gboolean
+html_cursor_real_backward (HTMLCursor *cursor,
+			   HTMLEngine *engine,
+			   gboolean    exact_position)
 {
 	gboolean retval;
 
@@ -281,11 +313,25 @@ html_cursor_backward (HTMLCursor *cursor,
 		html_engine_spell_check_range (engine, engine->cursor, engine->cursor);
 
 	cursor->have_target_x = FALSE;
-	retval = backward (cursor, engine);
+	retval = backward (cursor, engine, exact_position);
 
 	debug_location (cursor);
 
 	return retval;
+}
+
+gboolean
+html_cursor_backward (HTMLCursor *cursor,
+		      HTMLEngine *engine)
+{
+	return html_cursor_real_backward (cursor, engine, FALSE);
+}
+
+gboolean
+html_cursor_backward_one (HTMLCursor *cursor,
+			  HTMLEngine *engine)
+{
+	return html_cursor_real_backward (cursor, engine, TRUE);
 }
 
 
@@ -338,7 +384,7 @@ html_cursor_up (HTMLCursor *cursor,
 		prev_x = x;
 		prev_y = y;
 
-		if (! backward (cursor, engine))
+		if (! backward (cursor, engine, FALSE))
 			return FALSE;
 
 		html_object_get_cursor_base (cursor->object,
@@ -523,21 +569,12 @@ html_cursor_down (HTMLCursor *cursor,
 }
 
 
-/**
- * html_cursor_jump_to:
- * @cursor: 
- * @object: 
- * @offset: 
- * 
- * Move the cursor to the specified @offset in the specified @object.
- * 
- * Return value: %TRUE if successfull, %FALSE if failed.
- **/
-gboolean
-html_cursor_jump_to (HTMLCursor *cursor,
-		     HTMLEngine *engine,
-		     HTMLObject *object,
-		     guint offset)
+static gboolean
+html_cursor_real_jump_to (HTMLCursor *cursor,
+			  HTMLEngine *engine,
+			  HTMLObject *object,
+			  guint       offset,
+			  gboolean    exact_position)
 {
 	HTMLCursor original;
 
@@ -557,19 +594,59 @@ html_cursor_jump_to (HTMLCursor *cursor,
 
 	html_cursor_copy (&original, cursor);
 
-	while (forward (cursor, engine)) {
+	while (forward (cursor, engine, exact_position)) {
 		if (cursor->object == object && cursor->offset == offset)
 			return TRUE;
 	}
 
 	html_cursor_copy (cursor, &original);
 
-	while (backward (cursor, engine)) {
+	while (backward (cursor, engine, exact_position)) {
 		if (cursor->object == object && cursor->offset == offset)
 			return TRUE;
 	}
 
 	return FALSE;
+}
+
+/**
+ * html_cursor_jump_to:
+ * @cursor: 
+ * @object: 
+ * @offset: 
+ * 
+ * Move the cursor to the specified @offset in the specified @object.
+ * Where exactly move to, depends on the is_cursor_position in PangoLogAttr say.
+ * This is useful for such as Indic languages that relies on that feature.
+ * 
+ * Return value: %TRUE if successfull, %FALSE if failed.
+ **/
+gboolean
+html_cursor_jump_to (HTMLCursor *cursor,
+		     HTMLEngine *engine,
+		     HTMLObject *object,
+		     guint       offset)
+{
+	return html_cursor_real_jump_to (cursor, engine, object, offset, FALSE);
+}
+
+/**
+ * html_cursor_exactly_jump_to:
+ * @cursor:
+ * @object:
+ * @offset:
+ *
+ * Move the cursor to near the specified @offset in the specified @object.
+ *
+ * Return value: %TRUE if successful, %FALSE if failed.
+ **/
+gboolean
+html_cursor_exactly_jump_to (HTMLCursor *cursor,
+			     HTMLEngine *engine,
+			     HTMLObject *object,
+			     guint       offset)
+{
+	return html_cursor_real_jump_to (cursor, engine, object, offset, TRUE);
 }
 
 
@@ -588,7 +665,7 @@ html_cursor_beginning_of_document (HTMLCursor *cursor,
 	if (engine->need_spell_check)
 		html_engine_spell_check_range (engine, engine->cursor, engine->cursor);
 
-	while (backward (cursor, engine))
+	while (backward (cursor, engine, FALSE))
 		;
 }
 
@@ -605,7 +682,7 @@ html_cursor_end_of_document (HTMLCursor *cursor,
 	if (engine->need_spell_check)
 		html_engine_spell_check_range (engine, engine->cursor, engine->cursor);
 
-	while (forward (cursor, engine))
+	while (forward (cursor, engine, FALSE))
 		;
 }
 
@@ -617,19 +694,11 @@ html_cursor_get_position (HTMLCursor *cursor)
 	return cursor->position;
 }
 
-void
-html_cursor_jump_to_position_no_spell (HTMLCursor *cursor, HTMLEngine *engine, gint position)
-{
-	gboolean need_spell_check;
-
-	need_spell_check = engine->need_spell_check;
-	engine->need_spell_check = FALSE;
-	html_cursor_jump_to_position (cursor, engine, position);
-	engine->need_spell_check = need_spell_check;
-}
-
-void
-html_cursor_jump_to_position (HTMLCursor *cursor, HTMLEngine *engine, gint position)
+static void
+html_cursor_real_jump_to_position (HTMLCursor *cursor,
+				   HTMLEngine *engine,
+				   gint        position,
+				   gboolean    exact_position)
 {
 	g_return_if_fail (cursor != NULL);
 	g_return_if_fail (position >= 0);
@@ -641,15 +710,61 @@ html_cursor_jump_to_position (HTMLCursor *cursor, HTMLEngine *engine, gint posit
 
 	if (cursor->position < position) {
 		while (cursor->position < position) {
-			if (! forward (cursor, engine))
+			if (! forward (cursor, engine, exact_position))
 				break;
 		}
 	} else if (cursor->position > position) {
 		while (cursor->position > position) {
-			if (! backward (cursor, engine))
+			if (! backward (cursor, engine, exact_position))
 				break;
 		}
 	}
+}
+
+void
+html_cursor_jump_to_position (HTMLCursor *cursor,
+			      HTMLEngine *engine,
+			      gint        position)
+{
+	html_cursor_real_jump_to_position (cursor, engine, position, FALSE);
+}
+
+void
+html_cursor_exactly_jump_to_position (HTMLCursor *cursor,
+				      HTMLEngine *engine,
+				      gint        position)
+{
+	html_cursor_real_jump_to_position (cursor, engine, position, TRUE);
+}
+
+static void
+html_cursor_real_jump_to_position_no_spell (HTMLCursor *cursor,
+					    HTMLEngine *engine,
+					    gint        position,
+					    gboolean    exact_position)
+{
+	gboolean need_spell_check;
+
+	need_spell_check = engine->need_spell_check;
+	engine->need_spell_check = FALSE;
+	html_cursor_real_jump_to_position (cursor, engine, position, exact_position);
+	engine->need_spell_check = need_spell_check;
+}
+
+void
+html_cursor_jump_to_position_no_spell (HTMLCursor *cursor,
+				       HTMLEngine *engine,
+				       gint        position)
+{
+	html_cursor_real_jump_to_position_no_spell (cursor, engine, position, FALSE);
+}
+
+void
+html_cursor_exactly_jump_to_position_no_spell (HTMLCursor *cursor,
+					       HTMLEngine *engine,
+					       gint        position)
+{
+	html_cursor_real_jump_to_position_no_spell (cursor, engine, position, TRUE);
 }
 
 
@@ -750,7 +865,7 @@ html_cursor_beginning_of_paragraph (HTMLCursor *cursor, HTMLEngine *engine)
 	while (1) {
 		if (!cursor->offset) {
 			html_cursor_copy (&copy, cursor);
-			if (backward (cursor, engine)) {
+			if (backward (cursor, engine, FALSE)) {
 				new_level = html_object_get_parent_level (cursor->object);
 				if (new_level < level
 				    || (new_level == level && flow != cursor->object->parent)) {
@@ -761,7 +876,7 @@ html_cursor_beginning_of_paragraph (HTMLCursor *cursor, HTMLEngine *engine)
 				break;
 		}
 			else
-				if (!backward (cursor, engine))
+				if (!backward (cursor, engine, FALSE))
 					break;
 		rv = TRUE;
 	}
@@ -788,7 +903,7 @@ html_cursor_end_of_paragraph (HTMLCursor *cursor, HTMLEngine *engine)
 	while (1) {
 		if (cursor->offset == html_object_get_length (cursor->object)) {
 			html_cursor_copy (&copy, cursor);
-			if (forward (cursor, engine)) {
+			if (forward (cursor, engine, FALSE)) {
 				new_level = html_object_get_parent_level (cursor->object);
 				if (new_level < level
 				    || (new_level == level && flow != cursor->object->parent)) {
@@ -799,7 +914,7 @@ html_cursor_end_of_paragraph (HTMLCursor *cursor, HTMLEngine *engine)
 				break;
 		}
 			else
-				if (!forward (cursor, engine))
+				if (!forward (cursor, engine, FALSE))
 					break;
 		rv = TRUE;
 	}

@@ -1,3 +1,36 @@
+2007-09-14  Akira TAGOH  <akira@tagoh.org>
+
+	** Fixes bug #443850
+
+	* gtkhtml.c (gtk_html_im_commit_cb): Move the cursor within only
+	the preedit string regardless of what PangoLogAttr decides.
+	(gtk_html_im_preedit_changed_cb): likewise.
+	(gtk_html_im_delete_surrounding_cb): likewise.
+
+	* htmlobject.c (html_object_class_init): Add new methods,
+	cursor_forward_one and cursor_backward_one that is supposed to exactly
+	move the cursor by one character.
+	(html_object_cursor_forward_one): New function.
+	(html_object_cursor_backward_one): New function.
+
+	* htmlcursor.c (forward): Add an argument to change the behavior of
+	forward a cursor according to it.
+	(html_cursor_forward_one): New function to move forward exactly by one
+	character.
+	(backward): Add an argument to change the behavior of backward
+	a cursor according to it.
+	(html_cursor_backward_one): New function to move backward exactly by
+	one character.
+	(html_cursor_exactly_jump_to): New function that doesn't adjust
+	the cursor position against PangoLogAttr. this function will be useful
+	when the cursor position exactly has to be moved with the given offset.
+	(html_cursor_exactly_jump_to_position): New function that doesn't
+	adjust the cursor position against PangoLogAttr. this function will be
+	useful when the cursor position exactly has to be moved to the given
+	position.
+	(html_cursor_exactly_jump_to_position_no_spell): likewise the above but
+	without spellcheck.
+
 2007-08-24  Matthew Barnes  <mbarnes@redhat.com>
 
 	** Fixes bug #262907

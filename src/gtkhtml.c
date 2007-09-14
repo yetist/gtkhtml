@@ -3221,9 +3221,9 @@ gtk_html_im_commit_cb (GtkIMContext *context, const gchar *str, GtkHTML *html)
                 D_IM (printf ("IM delete last preedit %d + %d\n", html->priv->im_pre_pos, html->priv->im_pre_len);)
                                                                                 
                 html_undo_freeze (html->engine->undo);
-                html_cursor_jump_to_position_no_spell (html->engine->cursor, html->engine, html->priv->im_pre_pos);
+                html_cursor_exactly_jump_to_position_no_spell (html->engine->cursor, html->engine, html->priv->im_pre_pos);
                 html_engine_set_mark (html->engine);
-                html_cursor_jump_to_position_no_spell (html->engine->cursor, html->engine, html->priv->im_pre_pos + html->priv->im_pre_len);
+                html_cursor_exactly_jump_to_position_no_spell (html->engine->cursor, html->engine, html->priv->im_pre_pos + html->priv->im_pre_len);
                 html_engine_delete (html->engine);
                 html->priv->im_pre_len = 0;
                 html_undo_thaw (html->engine->undo);
@@ -3279,9 +3279,9 @@ gtk_html_im_preedit_changed_cb (GtkIMContext *context, GtkHTML *html)
 	if (html->priv->im_pre_len > 0) {
 		D_IM (printf ("IM delete last preedit %d + %d\n", html->priv->im_pre_pos, html->priv->im_pre_len);)
 		
-		html_cursor_jump_to_position_no_spell (html->engine->cursor, html->engine, html->priv->im_pre_pos);
+		html_cursor_exactly_jump_to_position_no_spell (html->engine->cursor, html->engine, html->priv->im_pre_pos);
 		html_engine_set_mark (html->engine);
-		html_cursor_jump_to_position_no_spell (html->engine->cursor, html->engine, html->priv->im_pre_pos + html->priv->im_pre_len);
+		html_cursor_exactly_jump_to_position_no_spell (html->engine->cursor, html->engine, html->priv->im_pre_pos + html->priv->im_pre_len);
 		html_engine_delete (html->engine);
 		deleted = html->priv->im_pre_len;
 	} else
@@ -3296,7 +3296,7 @@ gtk_html_im_preedit_changed_cb (GtkIMContext *context, GtkHTML *html)
 		cursor_pos = CLAMP (cursor_pos, 0, html->priv->im_pre_len);
 		html->priv->im_pre_pos = html->engine->cursor->position;
 		html_engine_paste_text_with_extra_attributes (html->engine, preedit_string, html->priv->im_pre_len, attrs);
-		html_cursor_jump_to_position_no_spell (html->engine->cursor, html->engine, html->priv->im_pre_pos + cursor_pos);
+		html_cursor_exactly_jump_to_position_no_spell (html->engine->cursor, html->engine, html->priv->im_pre_pos + cursor_pos);
 	} else
 		html_engine_set_font_style (html->engine, 0, html->priv->im_orig_style);
 	g_free (preedit_string);
@@ -3403,12 +3403,12 @@ gtk_html_im_delete_surrounding_cb (GtkIMContext *slave, gint offset, gint n_char
 	if (html_engine_get_editable (html->engine) && !html_engine_is_selection_active (html->engine)) {
 		gint orig_position = html->engine->cursor->position;
 
-		html_cursor_jump_to_position_no_spell (html->engine->cursor, html->engine, orig_position + offset);
+		html_cursor_exactly_jump_to_position_no_spell (html->engine->cursor, html->engine, orig_position + offset);
 		html_engine_set_mark (html->engine);
-		html_cursor_jump_to_position_no_spell (html->engine->cursor, html->engine, orig_position + offset + n_chars);
+		html_cursor_exactly_jump_to_position_no_spell (html->engine->cursor, html->engine, orig_position + offset + n_chars);
 		html_engine_delete (html->engine);
 		if (offset >= 0)
-			html_cursor_jump_to_position_no_spell (html->engine->cursor, html->engine, orig_position);
+			html_cursor_exactly_jump_to_position_no_spell (html->engine->cursor, html->engine, orig_position);
 	}
 	return TRUE;
 }

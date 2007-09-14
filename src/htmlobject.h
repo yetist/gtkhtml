@@ -263,7 +263,9 @@ struct _HTMLObjectClass {
 	HTMLDirection (*get_direction)   (HTMLObject *self);
 
 	gboolean (*cursor_forward)       (HTMLObject *self, HTMLCursor *cursor, HTMLEngine *engine);
-	gboolean (*cursor_backward)       (HTMLObject *self, HTMLCursor *cursor, HTMLEngine *engine);
+	gboolean (*cursor_forward_one)   (HTMLObject *self, HTMLCursor *cursor, HTMLEngine *engine);
+	gboolean (*cursor_backward)      (HTMLObject *self, HTMLCursor *cursor, HTMLEngine *engine);
+	gboolean (*cursor_backward_one)  (HTMLObject *self, HTMLCursor *cursor, HTMLEngine *engine);
 	gboolean (*cursor_right)         (HTMLObject *self, HTMLPainter *painter, HTMLCursor *cursor);
 	gboolean (*cursor_left)          (HTMLObject *self, HTMLPainter *painter, HTMLCursor *cursor);
 
@@ -465,7 +467,13 @@ HTMLObject     *html_object_check_point           (HTMLObject            *clue,
 gboolean        html_object_cursor_forward        (HTMLObject            *self,
 						   HTMLCursor            *cursor,
 						   HTMLEngine            *engine);
+gboolean        html_object_cursor_forward_one    (HTMLObject            *self,
+						   HTMLCursor            *cursor,
+						   HTMLEngine            *engine);
 gboolean        html_object_cursor_backward       (HTMLObject            *self,
+						   HTMLCursor            *cursor,
+						   HTMLEngine            *engine);
+gboolean        html_object_cursor_backward_one   (HTMLObject            *self,
 						   HTMLCursor            *cursor,
 						   HTMLEngine            *engine);
 gboolean        html_object_cursor_left           (HTMLObject            *self,

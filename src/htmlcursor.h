@@ -90,6 +90,10 @@ gboolean    html_cursor_jump_to                 (HTMLCursor *cursor,
 						 HTMLEngine *engine,
 						 HTMLObject *obj,
 						 guint       offset);
+gboolean    html_cursor_exactly_jump_to         (HTMLCursor *cursor,
+						 HTMLEngine *engine,
+						 HTMLObject *obj,
+						 guint       offset);
 HTMLObject *html_cursor_child_of                (HTMLCursor *cursor,
 						 HTMLObject *parent);
 
@@ -97,13 +101,19 @@ HTMLObject *html_cursor_child_of                (HTMLCursor *cursor,
 void  html_cursor_normalize     (HTMLCursor *cursor);
 
 /* Position handling.  */
-gint  html_cursor_get_position               (HTMLCursor *cursor);
-void  html_cursor_jump_to_position           (HTMLCursor *cursor,
-					      HTMLEngine *engine,
-					      gint        position);
-void  html_cursor_jump_to_position_no_spell  (HTMLCursor *cursor,
-					      HTMLEngine *engine,
-					      gint        position);
+gint html_cursor_get_position                       (HTMLCursor *cursor);
+void html_cursor_jump_to_position                   (HTMLCursor *cursor,
+						     HTMLEngine *engine,
+						     gint        position);
+void html_cursor_exactly_jump_to_position           (HTMLCursor *cursor,
+						     HTMLEngine *engine,
+						     gint        position);
+void html_cursor_jump_to_position_no_spell          (HTMLCursor *cursor,
+						     HTMLEngine *engine,
+						     gint        position);
+void html_cursor_exactly_jump_to_position_no_spell  (HTMLCursor *cursor,
+						     HTMLEngine *engine,
+						     gint        position);
 
 /* Retrieving the character under/before the cursor.  */
 gunichar  html_cursor_get_current_char  (const HTMLCursor *cursor);
