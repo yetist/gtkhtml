@@ -7,10 +7,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-04 17:21+0200\n"
-"PO-Revision-Date: 2007-08-04 17:22+0200\n"
+"POT-Creation-Date: 2007-09-16 16:00+0200\n"
+"PO-Revision-Date: 2007-09-16 16:00+0200\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@zundan.com>\n"
-"Language-Team: Basque <eu@li.org>\n"
+"Language-Team: Basque <itzulpena@euskalgnu.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -339,7 +339,7 @@ msgstr "Paragrafoa ezkerrean justifikatzen du"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:59
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
-#: ../components/html-editor/menubar.c:131
+#: ../components/html-editor/menubar.c:128
 #: ../components/html-editor/popup.c:111 ../components/html-editor/popup.c:205
 #: ../components/html-editor/popup.c:271
 msgid "Link"
@@ -500,7 +500,7 @@ msgstr "Zenbaki erromatardun zerrenda"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
 #: ../components/html-editor/editor-control-factory.c:218
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:45
-#: ../components/html-editor/menubar.c:150
+#: ../components/html-editor/menubar.c:147
 #: ../components/html-editor/popup.c:229
 msgid "Rule"
 msgstr "Araua"
@@ -544,7 +544,7 @@ msgstr "Goi-indizea"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:97
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:49
-#: ../components/html-editor/menubar.c:174
+#: ../components/html-editor/menubar.c:171
 #: ../components/html-editor/popup.c:235 ../components/html-editor/popup.c:509
 #: ../components/html-editor/popup.c:521
 msgid "Table"
@@ -898,7 +898,7 @@ msgstr "Atzeko planoko irudiaren bide-izena"
 
 #: ../components/html-editor/body.c:275
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:50
-#: ../components/html-editor/menubar.c:196
+#: ../components/html-editor/menubar.c:193
 msgid "Template"
 msgstr "Txantiloia"
 
@@ -911,7 +911,7 @@ msgid "C_ustom:"
 msgstr "_Pertsonalizatua:"
 
 #: ../components/html-editor/cell.c:342 ../components/html-editor/image.c:345
-#: ../components/html-editor/link.c:197 ../components/html-editor/rule.c:179
+#: ../components/html-editor/link.c:213 ../components/html-editor/rule.c:179
 #: ../components/html-editor/table.c:229
 #: ../components/html-editor/template.c:287
 #: ../components/html-editor/text.c:168
@@ -929,20 +929,20 @@ msgstr "Propietateak"
 
 #: ../components/html-editor/editor-control-factory.c:208
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:51
-#: ../components/html-editor/menubar.c:367
+#: ../components/html-editor/menubar.c:364
 #: ../components/html-editor/popup.c:199
 msgid "Text"
 msgstr "Testua"
 
 #: ../components/html-editor/editor-control-factory.c:227
-#: ../components/html-editor/menubar.c:384
+#: ../components/html-editor/menubar.c:381
 #: ../components/html-editor/popup.c:217
 msgid "Paragraph"
 msgstr "Paragrafoa"
 
 #: ../components/html-editor/editor-control-factory.c:231
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:43
-#: ../components/html-editor/menubar.c:350
+#: ../components/html-editor/menubar.c:347
 #: ../components/html-editor/popup.c:223
 msgid "Page"
 msgstr "Orrialdea"
@@ -1434,38 +1434,38 @@ msgstr ""
 msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
-#: ../components/html-editor/link.c:209
+#: ../components/html-editor/link.c:225
 msgid "URL:"
 msgstr "URLa:"
 
-#: ../components/html-editor/link.c:213
+#: ../components/html-editor/link.c:229
 msgid "Description:"
 msgstr "Azalpena:"
 
-#: ../components/html-editor/menubar.c:128
-#: ../components/html-editor/menubar.c:147
-#: ../components/html-editor/menubar.c:171
-#: ../components/html-editor/menubar.c:193
+#: ../components/html-editor/menubar.c:125
+#: ../components/html-editor/menubar.c:144
+#: ../components/html-editor/menubar.c:168
+#: ../components/html-editor/menubar.c:190
 #: ../components/html-editor/popup.c:108
 msgid "Insert"
 msgstr "Txertatu"
 
-#: ../components/html-editor/menubar.c:280
+#: ../components/html-editor/menubar.c:277
 #, c-format
 msgid "Error loading file '%s': %s"
 msgstr "Errorea '%s' fitxategia kargatzean: %s"
 
-#: ../components/html-editor/menubar.c:305
+#: ../components/html-editor/menubar.c:302
 msgid "Insert HTML File"
 msgstr "Txertatu: HTML fitxategia"
 
-#: ../components/html-editor/menubar.c:305
+#: ../components/html-editor/menubar.c:302
 msgid "Insert Text File"
 msgstr "Txertatu: testu-fitxategia"
 
-#: ../components/html-editor/menubar.c:347
-#: ../components/html-editor/menubar.c:364
-#: ../components/html-editor/menubar.c:381
+#: ../components/html-editor/menubar.c:344
+#: ../components/html-editor/menubar.c:361
+#: ../components/html-editor/menubar.c:378
 msgid "Format"
 msgstr "Formatua"
 
@@ -1527,8 +1527,8 @@ msgid "Address"
 msgstr "Helbidea"
 
 #: ../components/html-editor/popup.c:450
-msgid "Insert Link"
-msgstr "Txertatu esteka"
+msgid "Insert _Link"
+msgstr "Txertatu _esteka"
 
 #: ../components/html-editor/popup.c:457
 msgid "Remove Link"
@@ -1682,15 +1682,15 @@ msgstr ""
 "Ezin da hitza hiztegian gehitu,\n"
 "hizkuntaren ezarpenak hondatuta daude.\n"
 
-#: ../components/html-editor/spellchecker.c:302
+#: ../components/html-editor/spellchecker.c:303
 msgid "No misspelled word found"
 msgstr "Ez da oker idatzitako hitzik aurkitu"
 
-#: ../components/html-editor/spellchecker.c:309
+#: ../components/html-editor/spellchecker.c:310
 msgid "Spell checker"
 msgstr "Ortografia-egiaztatzailea"
 
-#: ../components/html-editor/spellchecker.c:403
+#: ../components/html-editor/spellchecker.c:404
 msgid "Current _Languages"
 msgstr "Uneko _hizkunzak"
 
@@ -1884,11 +1884,11 @@ msgid "Reset"
 msgstr "Berrezarri"
 
 #. TODO2 dialog instead of warning
-#: ../src/htmlengine-print.c:226
+#: ../src/htmlengine-print.c:231
 msgid "Cannot allocate default font for printing\n"
 msgstr "Ezin da letra-tipo lehenetsia esleitu inprimatzeko\n"
 
-#: ../src/htmlengine-print.c:305
+#: ../src/htmlengine-print.c:310
 msgid "Cannot allocate default font for printing"
 msgstr "Ezin da letra-tipo lehenetsia esleitu inprimatzeko"
 
