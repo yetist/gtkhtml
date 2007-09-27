@@ -190,6 +190,7 @@ gi_color_combo_construct (GiColorCombo *cc, GdkPixbuf *icon,
 	cc->preview_button = gtk_button_new ();
 	atk_object_set_name (gtk_widget_get_accessible (cc->preview_button), _("color preview"));
 	gtk_button_set_relief (GTK_BUTTON (cc->preview_button), GTK_RELIEF_NONE);
+	g_object_set (G_OBJECT (cc->preview_button), "focus-on-click", FALSE, NULL);
 
 	cc->preview_canvas = GNOME_CANVAS (gnome_canvas_new ());
 
