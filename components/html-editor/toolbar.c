@@ -502,12 +502,14 @@ create_style_toolbar (GtkHTMLControlData *cd)
 	gtk_box_pack_start (GTK_BOX (hbox), cd->toolbar_style, TRUE, TRUE, 0);
 
 	cd->paragraph_option = paragraph_style_combo_box_new (cd);
+	g_object_set (G_OBJECT (cd->paragraph_option), "focus-on-click", FALSE, NULL);
 	gtk_toolbar_prepend_space (GTK_TOOLBAR (cd->toolbar_style));
 	gtk_toolbar_prepend_widget (GTK_TOOLBAR (cd->toolbar_style),
 				    cd->paragraph_option,
 				    NULL, NULL);
 
 	cd->font_size_menu = setup_font_size_combo_box (cd);
+	g_object_set (G_OBJECT (cd->font_size_menu), "focus-on-click", FALSE, NULL);
 	gtk_toolbar_prepend_space (GTK_TOOLBAR (cd->toolbar_style));
 	gtk_toolbar_prepend_widget (GTK_TOOLBAR (cd->toolbar_style),
 				    cd->font_size_menu,

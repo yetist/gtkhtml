@@ -1,3 +1,12 @@
+2007-09-27  Milan Crha  <mcrha@redhat.com>
+
+	** Fix for bug #434631
+
+	* toolbar.c: (create_style_toolbar):
+	* gi-color-combo.c: (gi_color_combo_construct):
+	* gi-combo-box.c: (gi_combo_box_init):
+	Unset 'focus-on-click' on toolbar's widgets.
+
 2007-08-24  Milan Crha  <mcrha@redhat.com>
 
 	** Fix for bug #419350 by Rashmi

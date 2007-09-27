@@ -411,6 +411,7 @@ gi_combo_box_init (GiComboBox *combo_box)
 	combo_box->priv->arrow_button = gtk_toggle_button_new ();
 	gtk_button_set_relief (GTK_BUTTON (combo_box->priv->arrow_button), GTK_RELIEF_NONE);
 	GTK_WIDGET_SET_FLAGS (combo_box->priv->arrow_button, GTK_CAN_FOCUS);
+	g_object_set (G_OBJECT (combo_box->priv->arrow_button), "focus-on-click", FALSE, NULL);
 
 	arrow = gtk_arrow_new (GTK_ARROW_DOWN, GTK_SHADOW_IN);
 	gtk_container_add (GTK_CONTAINER (combo_box->priv->arrow_button), arrow);
