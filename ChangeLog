@@ -1,3 +1,10 @@
+2007-10-07  Hiroyuki Ikezoe  <poincare@ikezoe.net>
+
+	** Fixe for bug #349046
+	* src/htmlengine-editor-cursor.c: 
+	(html_engine_draw_cursor_in_area): Figure in scroll offset for
+	candidate window of IM.
+
 2007-09-26  Srinivasa Ragavan  <sragavan@novell.com>
 
 	

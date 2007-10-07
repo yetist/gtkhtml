@@ -283,8 +283,9 @@ html_engine_draw_cursor_in_area (HTMLEngine *engine,
 {
 	HTMLObject *obj;
 	guint offset;
-	gint x1, y1, x2, y2;
+	gint x1, y1, x2, y2, sc_x, sc_y;
 	GdkRectangle pos;
+	GtkAdjustment *hadj, *vadj;
 
 	if ((engine->editable || engine->caret_mode) && (engine->cursor_hide_count <= 0 && !engine->thaw_idle_id)) {
 		html_engine_draw_table_cursor (engine);
@@ -320,11 +321,18 @@ html_engine_draw_cursor_in_area (HTMLEngine *engine,
 		}
                 obj = obj->parent;
         }
+
+	/* get scroll offset */
+	hadj = gtk_layout_get_hadjustment (GTK_LAYOUT (engine->widget));
+	vadj = gtk_layout_get_vadjustment (GTK_LAYOUT (engine->widget));
+	sc_x = (gint) gtk_adjustment_get_value (hadj);
+	sc_y = (gint) gtk_adjustment_get_value (vadj);
 	
-	pos.x = x1; 
-	pos.y = y1;
+	pos.x = x1 - sc_x; 
+	pos.y = y1 - sc_y;
 	pos.width = x2 - x1;
 	pos.height = y2 - y1;
+
 	gtk_im_context_set_cursor_location (GTK_HTML (engine->widget)->priv->im_context, &pos);
 
 	if (clip_cursor (engine, x, y, width, height, &x1, &y1, &x2, &y2)) {
