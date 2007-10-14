@@ -1,3 +1,10 @@
+2007-10-14  Hiroyuki Ikezoe  <poincare@ikezoe.net>
+
+	** Fixes part of bug #258374
+
+	* gtkhtml.c: Rewrite copy-and-paste handling with GtkClipboard instead
+	of selection_XX event.
+
 2007-09-14  Akira TAGOH  <akira@tagoh.org>
 
 	** Fixes bug #443850

@@ -102,6 +102,33 @@ static GtkTargetEntry dnd_link_sources [] = {
 };
 #define DND_LINK_SOURCES sizeof (dnd_link_sources) / sizeof (GtkTargetEntry)
 
+enum _TargetInfo {
+	TARGET_HTML,
+	TARGET_UTF8_STRING,
+	TARGET_COMPOUND_TEXT,
+	TARGET_STRING,
+	TARGET_TEXT
+};
+
+typedef enum _TargetInfo TargetInfo;
+
+static const GtkTargetEntry selection_targets[] = {
+	{ "text/html", GTK_TARGET_SAME_APP, TARGET_HTML },
+	{ "UTF8_STRING", 0, TARGET_UTF8_STRING },
+	{ "COMPOUND_TEXT", 0, TARGET_COMPOUND_TEXT },
+	{ "STRING", 0, TARGET_STRING },
+	{ "TEXT",   0, TARGET_TEXT }
+};
+
+static const guint n_selection_targets = G_N_ELEMENTS (selection_targets);
+
+typedef struct _ClipboardContents ClipboardContents;
+
+struct _ClipboardContents {
+	gchar *html_text;
+	gchar *plain_text;
+};
+
 #define GNOME_SPELL_GCONF_DIR "/GNOME/Spell"
 
 #define d_s(x)
@@ -163,6 +190,10 @@ gtk_html_update_scrollbars_on_resize (GtkHTML *html,
 				      gdouble old_width, gdouble old_height,
 				      gboolean *changed_x, gboolean *changed_y);
 
+static void update_primary_selection    (GtkHTML *html);
+static void clipboard_paste_received_cb (GtkClipboard     *clipboard,
+					 GtkSelectionData *selection_data,
+					 gpointer          data);
 /* keybindings signal hadlers */
 static void     scroll                 (GtkHTML *html, GtkOrientation orientation, GtkScrollType scroll_type, gfloat position);
 static void     cursor_move            (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType skip);
@@ -171,20 +202,6 @@ static gint     mouse_change_pos       (GtkWidget *widget, GdkWindow *window, gi
 static void     add_bindings           (GtkHTMLClass *klass);
 static const gchar * get_value_nick    (GtkHTMLCommandType com_type);					
 static void	gtk_html_adjust_cursor_position (GtkHTML *html);
-
-
-/* Values for selection information.  FIXME: what about COMPOUND_STRING and
-   TEXT?  */
-enum _TargetInfo {
-	TARGET_HTML,
-	TARGET_UTF8_STRING,
-	TARGET_UTF8,
-	TARGET_COMPOUND_TEXT,
-	TARGET_STRING,
-	TARGET_TEXT
-};
-
-typedef enum _TargetInfo TargetInfo;
 
 /* Interval for scrolling during selection.  */
 #define SCROLL_TIMEOUT_INTERVAL 10
@@ -1776,12 +1793,16 @@ button_press_event (GtkWidget *widget,
 			return TRUE;
 		case 2:
 			if (html_engine_get_editable (engine)) {
+				gint type;
 				html_engine_disable_selection (html->engine);
 				html_engine_jump_at (engine, x, y);
 				gtk_html_update_styles (html);
-				gtk_html_request_paste (html, GDK_SELECTION_PRIMARY, 
-							event->state & GDK_CONTROL_MASK ? 1 : 0,
-							event->time, event->state & GDK_SHIFT_MASK);
+				html->priv->selection_as_cite = event->state & GDK_SHIFT_MASK;
+				type = event->state & GDK_CONTROL_MASK ? 1 : 0;
+				gtk_clipboard_request_contents (
+					gtk_widget_get_clipboard (GTK_WIDGET (html), GDK_SELECTION_PRIMARY),
+					gdk_atom_intern (selection_targets[type].target, FALSE),
+					clipboard_paste_received_cb, html);
 				return TRUE;
 			}
 			break;
@@ -1896,6 +1917,7 @@ button_release_event (GtkWidget *initial_widget,
 			html_engine_select_region (engine, html->selection_x1, html->selection_y1,
 						   x, y);
 		gtk_html_update_styles (html);
+		update_primary_selection (html);
 		queue_draw (html);
 	}
 
@@ -2080,52 +2102,6 @@ gtk_html_get_selection_html (GtkHTML *html, int *len)
 	return get_selection_string (html, len, TRUE, FALSE, TRUE, FALSE);
 }
 
-static void
-selection_get (GtkWidget        *widget, 
-	       GtkSelectionData *selection_data,
-	       guint             info,
-	       guint             time)
-{
-	GtkHTML *html;
-	gchar *selection_string = NULL;
-
-	g_return_if_fail (widget != NULL);
-	g_return_if_fail (GTK_IS_HTML (widget));
-	
-	html = GTK_HTML (widget);
-  
- 	if (info == TARGET_HTML) {
-		gsize len;
-		int html_len;
-		char *html_string;
-
-		html_string = get_selection_string (html, &html_len,FALSE,
-						    selection_data->selection == GDK_SELECTION_PRIMARY, TRUE, TRUE);
-
-		if (html_string) {
-			d_s(g_warning ("BUFFER = %s", buffer->str);)
-			selection_string = g_convert (html_string, html_len, "UCS-2", "UTF-8", NULL, &len, NULL);
-		}
-
-		if (selection_string)
-			gtk_selection_data_set (selection_data,
-						gdk_atom_intern ("text/html", FALSE), 8,
-						(guchar *) selection_string,
-						len);
-
-		g_free (html_string);
-	} else {
-		int len;
-		selection_string = get_selection_string (html, &len, FALSE,
-							 selection_data->selection == GDK_SELECTION_PRIMARY, FALSE, FALSE);
-
-		if (selection_string)
-			gtk_selection_data_set_text (selection_data, selection_string, len);
-	}
-
-	g_free (selection_string);
-}
-
 static gchar *
 ucs2_to_utf8_with_bom_check (guchar  *data, guint len) {
 	char    *fromcode = NULL;
@@ -2164,193 +2140,6 @@ ucs2_to_utf8_with_bom_check (guchar  *data, guint len) {
 	return (utf8_ret);	
 }
 
-/* receive a selection */
-/* Signal handler called when the selections owner returns the data */
-static void
-selection_received (GtkWidget *widget,
-		    GtkSelectionData *selection_data, 
-		    guint time)
-{
-	HTMLEngine *e;
-	gboolean as_cite;
-	
-	g_return_if_fail (widget != NULL);
-	g_return_if_fail (GTK_IS_HTML (widget));
-	g_return_if_fail (selection_data != NULL);
-	
-	/* printf ("got selection from system\n"); */
-	
-	e = GTK_HTML (widget)->engine;
-	as_cite = GTK_HTML (widget)->priv->selection_as_cite;
-	
-	/* If the Widget is editable,
-	** and we are the owner of the atom requested
-	** and we are not pasting as a citation 
-	** then we are pasting between ourself and we
-	** need not do all the conversion.
-	*/
-	if (html_engine_get_editable (e)
-	    && widget->window == gdk_selection_owner_get (selection_data->selection)
-	    && !as_cite) {
-		
-		/* Check which atom was requested (PRIMARY or CLIPBOARD) */
-		if (selection_data->selection == gdk_atom_intern ("CLIPBOARD", FALSE)
-		    && e->clipboard) {
-			
-			html_engine_paste (e);
-			return;
-			
-		} else if (selection_data->selection == GDK_SELECTION_PRIMARY
-			   && e->primary) {
-			HTMLObject *copy;
-			guint len = 0;
-			
-			copy = html_object_op_copy (e->primary, NULL, e, NULL, NULL, &len);
-			html_engine_paste_object (e, copy, len);
-			
-			return;
-		}
-	}
-	
-	/* **** IMPORTANT **** Check to see if retrieval succeeded  */
-	/* If we have more selection types we can ask for, try the next one,
-	   until there are none left */
-	if (selection_data->length < 0) {
-		gint type = GTK_HTML (widget)->priv->selection_type;
-		
-		/* now, try again with next selection type */
-		if (!gtk_html_request_paste (GTK_HTML (widget), selection_data->selection, type + 1, time, as_cite))
-			g_warning ("Selection retrieval failed\n");
-		return;
-	}
-	
-	/* Make sure we got the data in the expected form */
-	if ((selection_data->type != gdk_atom_intern ("UTF8_STRING", FALSE))
-	    && (selection_data->type != GDK_SELECTION_TYPE_STRING)
-	    && (selection_data->type != gdk_atom_intern ("COMPOUND_TEXT", FALSE))
-	    && (selection_data->type != gdk_atom_intern ("TEXT", FALSE))
-	    && (selection_data->type != gdk_atom_intern ("text/plain", FALSE))
-	    && (selection_data->type != gdk_atom_intern ("text/html", FALSE))) {
-		g_warning ("Selection \"STRING\" was not returned as strings!\n");
-	} else if (selection_data->length > 0) {
-		gchar   *utf8 = NULL;
-		if (selection_data->type == gdk_atom_intern ("text/html", FALSE)) {
-			guint    len  = (guint)selection_data->length;
-			guchar  *data = selection_data->data;
-
-      			/* 
-			 * FIXME This hack decides the charset of the selection.  It seems that
-			 * mozilla/netscape alway use ucs2 for text/html
-			 * and openoffice.org seems to always use utf8 so we try to validate
-			 * the string as utf8 and if that fails we assume it is ucs2 
-			 */
-
-			if (len > 1 && 
-			    !g_utf8_validate ((gchar *) data, len - 1, NULL)) {
-				utf8 = ucs2_to_utf8_with_bom_check (data, len);
-				d_s (g_warning ("UCS-2 selection = %s", utf8);)
-			} else if (len > 0) {
-				d_s (g_warning ("UTF-8 selection (%d) = %s", len, data);)
-
-				utf8 = g_malloc0 (len + 1);
-				memcpy (utf8, data, len);
-			} else {
-				g_warning ("unable to determine selection charset");
-				return;
-			}
-
-			if (as_cite) {
-				char *cite;
-
-				cite = g_strdup_printf ("<br><blockquote type=\"cite\">%s</blockquote>", utf8);
-
-				g_free (utf8);
-				utf8 = cite;
-			}
-
-			if (utf8)
-				gtk_html_insert_html (GTK_HTML (widget), utf8);
-			else 
-				g_warning ("selection was empty");
-
-			g_free (utf8);			
-		} else if ((utf8 = (gchar *) gtk_selection_data_get_text (selection_data))) {
-			if (as_cite) {
-				char *encoded;
-				
-				/* FIXME there has to be a cleaner way to do this */
-				encoded = html_encode_entities (utf8, g_utf8_strlen (utf8, -1), NULL);
-				g_free (utf8);
-				utf8 = g_strdup_printf ("<br><pre><blockquote type=\"cite\">%s</blockquote></pre>", 
-							encoded);
-				g_free (encoded);
-				gtk_html_insert_html (GTK_HTML (widget), utf8);
-			} else {
-				html_engine_paste_text (e, utf8, g_utf8_strlen (utf8, -1));
-			}
-			if (HTML_IS_TEXT (e->cursor->object))
-				html_text_magic_link (HTML_TEXT (e->cursor->object), e,
-						      html_object_get_length (e->cursor->object));
-			
-			g_free (utf8);
-		}
-		return;
-	}			   
-	
-	if (html_engine_get_editable (e))
-		html_engine_paste (e);
-}
-
-gint
-gtk_html_request_paste (GtkHTML *html, GdkAtom selection, gint type, gint32 time, gboolean as_cite)
-{
-	GdkAtom format_atom;
-	static char *formats[] = {"text/html", "UTF8_STRING", "COMPOUND_TEXT", "TEXT", "STRING"};
-
-	if (type >= sizeof (formats) / sizeof (formats[0])) {
-		/* we have now tried all the slection types we support */
-		html->priv->selection_type = -1;
-		if (html_engine_get_editable (html->engine))
-			html_engine_paste (html->engine);
-		return FALSE;
-	}
-	
-	html->priv->selection_type = type;
-	html->priv->selection_as_cite = as_cite;
-
-	format_atom = gdk_atom_intern (formats [type], FALSE);
-	
-	if (format_atom == GDK_NONE) {
-		g_warning("Could not get requested atom\n");
-	}
-	/* And request the format target for the required selection */
-	gtk_selection_convert (GTK_WIDGET (html), selection, format_atom,
-			       time);
-	return TRUE;
-}
-
-
-static gint
-selection_clear_event (GtkWidget *widget,
-		       GdkEventSelection *event)
-{
-	GtkHTML *html;
-
-	if (!GTK_WIDGET_CLASS (parent_class)->
-			selection_clear_event (widget, event))
-		return FALSE;
-
-	html = GTK_HTML (widget);
-
-	if (!html_engine_get_editable (html->engine)) {
-		html_engine_disable_selection (html->engine);
-		html->in_selection = FALSE;
-	}
-
-	return TRUE;
-}
-
-
 static void
 set_adjustments (GtkLayout     *layout,
 		 GtkAdjustment *hadj,
@@ -2701,7 +2490,9 @@ drag_data_received (GtkWidget *widget, GdkDragContext *context,
 	case DND_TARGET_TYPE_UTF8_STRING:
 	case DND_TARGET_TYPE_STRING:
 	case DND_TARGET_TYPE_TEXT_HTML:
-		selection_received (widget, selection_data, time);
+		clipboard_paste_received_cb(
+			gtk_widget_get_clipboard (GTK_WIDGET (widget), GDK_SELECTION_PRIMARY),
+			selection_data, widget);
 		pasted = TRUE;
 		break;
         case DND_TARGET_TYPE_MOZILLA_URL  : 
@@ -3146,9 +2937,6 @@ gtk_html_class_init (GtkHTMLClass *klass)
 	widget_class->focus_in_event = focus_in_event;
 	widget_class->focus_out_event = focus_out_event;
 	widget_class->enter_notify_event = enter_notify_event;
-	widget_class->selection_get = selection_get;
-	widget_class->selection_received = selection_received;
-	widget_class->selection_clear_event = selection_clear_event;
 	widget_class->drag_data_get = drag_data_get;
 	widget_class->drag_data_delete = drag_data_delete;
 	widget_class->drag_begin = drag_begin;
@@ -3416,15 +3204,6 @@ gtk_html_im_delete_surrounding_cb (GtkIMContext *slave, gint offset, gint n_char
 static void
 gtk_html_init (GtkHTML* html)
 {
-	static const GtkTargetEntry targets[] = {
-		{ "text/html", 0, TARGET_HTML },
-		{ "UTF8_STRING", 0, TARGET_UTF8_STRING },
-		{ "COMPOUND_TEXT", 0, TARGET_COMPOUND_TEXT },
-		{ "STRING", 0, TARGET_STRING },
-		{ "TEXT",   0, TARGET_TEXT }
-	};
-	static const gint n_targets = sizeof(targets) / sizeof(targets[0]);
-
 	GTK_WIDGET_SET_FLAGS (GTK_WIDGET (html), GTK_CAN_FOCUS);
 	GTK_WIDGET_SET_FLAGS (GTK_WIDGET (html), GTK_APP_PAINTABLE);
 
@@ -3457,13 +3236,6 @@ gtk_html_init (GtkHTML* html)
 	html->priv->search_input_line = NULL;
 	html->priv->in_object_resize = FALSE;
 	html->priv->resize_cursor = gdk_cursor_new (GDK_BOTTOM_RIGHT_CORNER);
-
-	gtk_selection_add_targets (GTK_WIDGET (html),
-				   GDK_SELECTION_PRIMARY,
-				   targets, n_targets);
-	gtk_selection_add_targets (GTK_WIDGET (html),
-				   gdk_atom_intern ("CLIPBOARD", FALSE),
-				   targets, n_targets);
 
 	/* IM Context */
 	html->priv->im_context = gtk_im_multicontext_new ();
@@ -4351,24 +4123,197 @@ gtk_html_set_paragraph_alignment (GtkHTML *html,
 
 /* Clipboard operations.  */
 
+static void
+free_contents (ClipboardContents *contents)
+{
+	if (contents->html_text)
+		g_free (contents->html_text);
+	if (contents->plain_text)
+		g_free (contents->plain_text);
+	
+	contents->html_text = NULL;
+	contents->plain_text = NULL;
+
+	g_free (contents);
+}
+
+static void
+clipboard_get_contents_cb (GtkClipboard     *clipboard,
+                           GtkSelectionData *selection_data,
+                           guint             info,
+                           gpointer          data)
+{
+	ClipboardContents *contents = (ClipboardContents *) data;
+
+ 	if (info == TARGET_HTML && contents->html_text) {
+		gtk_selection_data_set (selection_data,
+					gdk_atom_intern ("text/html", FALSE), 8,
+					(const guchar *) contents->html_text,
+					(gint )strlen (contents->html_text));
+	} else if (contents->plain_text) {
+		gtk_selection_data_set_text (selection_data, 
+					     contents->plain_text,
+					     (gint )strlen (contents->plain_text));
+	}
+}
+
+static void
+clipboard_clear_contents_cb (GtkClipboard *clipboard,
+                             gpointer      data)
+{
+	ClipboardContents *contents = (ClipboardContents *) data;
+
+	free_contents (contents);
+}
+
+static void
+clipboard_paste_received_cb (GtkClipboard     *clipboard,
+			     GtkSelectionData *selection_data,
+			     gpointer          data)
+{
+	gint i = 0;
+	GtkWidget *widget = GTK_WIDGET (data);
+	GdkAtom type = selection_data->type;
+	gboolean as_cite;
+	HTMLEngine *e;
+
+	e = GTK_HTML (widget)->engine;
+	as_cite = GTK_HTML (widget)->priv->selection_as_cite;
+
+	if (selection_data->length > 0) {
+		gchar *utf8 = NULL;
+
+		if (type == gdk_atom_intern (selection_targets[TARGET_HTML].target, FALSE)) {
+			if (selection_data->length > 1 && 
+			    !g_utf8_validate ((const gchar *) selection_data->data, selection_data->length - 1, NULL)) {
+				utf8 = ucs2_to_utf8_with_bom_check (selection_data->data, selection_data->length);
+
+			} else {
+				utf8 = g_strndup ((const gchar *) selection_data->data, selection_data->length);
+			}
+
+			if (as_cite && utf8) {
+				gchar *cite;
+
+				cite = g_strdup_printf ("<br><blockquote type=\"cite\">%s</blockquote>", utf8);
+
+				g_free (utf8);
+				utf8 = cite;
+			}
+			if (utf8)
+				gtk_html_insert_html (GTK_HTML (widget), utf8);
+			else 
+				g_warning ("selection was empty");
+		} else if ((utf8 = (gchar *) gtk_selection_data_get_text (selection_data))) {
+			if (as_cite) {
+				char *encoded;
+
+				encoded = html_encode_entities (utf8, g_utf8_strlen (utf8, -1), NULL);
+				g_free (utf8);
+				utf8 = g_strdup_printf ("<br><pre><blockquote type=\"cite\">%s</blockquote></pre>", 
+						encoded);
+				g_free (encoded);
+				gtk_html_insert_html (GTK_HTML (widget), utf8);
+			} else {
+				html_engine_paste_text (e, utf8, g_utf8_strlen (utf8, -1));
+			}
+
+			if (HTML_IS_TEXT (e->cursor->object))
+				html_text_magic_link (HTML_TEXT (e->cursor->object), e,
+						html_object_get_length (e->cursor->object));
+		}
+
+		if (utf8)	
+			g_free (utf8);
+		g_object_unref (data);
+
+		return;
+	}
+
+	while (i < n_selection_targets - 1) {
+		if (selection_data->target == gdk_atom_intern (selection_targets[i].target, FALSE))
+			break;
+		i++;
+	}
+
+	if (i < n_selection_targets - 1) {
+		GTK_HTML (widget)->priv->selection_type = i + 1;
+		gtk_clipboard_request_contents (clipboard,
+						gdk_atom_intern (selection_targets[i + 1].target, FALSE),
+						clipboard_paste_received_cb,
+						widget);
+	}
+}
+
+static ClipboardContents *
+create_clipboard_contents (GtkHTML *html)
+{
+	ClipboardContents *contents;
+	int html_len, text_len;
+
+	contents = g_new0 (ClipboardContents, 1);
+
+	/* set html text */
+	contents->html_text = get_selection_string (html, &html_len, FALSE, FALSE, TRUE, TRUE);
+
+	/* set plain text */
+	contents->plain_text = get_selection_string (html, &text_len, FALSE, FALSE, FALSE, FALSE);
+
+	return contents;
+}
+
 void
 gtk_html_cut (GtkHTML *html)
 {
+	GtkClipboard *clipboard;
+	ClipboardContents *contents;
+
 	g_return_if_fail (html != NULL);
 	g_return_if_fail (GTK_IS_HTML (html));
 
 	html_engine_cut (html->engine);
-	gtk_selection_owner_set (GTK_WIDGET (html), gdk_atom_intern ("CLIPBOARD", FALSE), gtk_get_current_event_time ());
+
+	contents = create_clipboard_contents (html);
+
+	clipboard = gtk_widget_get_clipboard (GTK_WIDGET (html), GDK_SELECTION_CLIPBOARD);
+
+	if (!gtk_clipboard_set_with_data (clipboard, selection_targets, n_selection_targets,
+					  clipboard_get_contents_cb,
+					  clipboard_clear_contents_cb,
+					  contents)) {
+		free_contents (contents);
+	} else { 
+		gtk_clipboard_set_can_store (clipboard,
+					     selection_targets + 1,
+					     n_selection_targets - 1);
+	}
 }
 
 void
 gtk_html_copy (GtkHTML *html)
 {
+	GtkClipboard *clipboard;
+	ClipboardContents *contents;
+
 	g_return_if_fail (html != NULL);
 	g_return_if_fail (GTK_IS_HTML (html));
 
 	html_engine_copy (html->engine);
-	gtk_selection_owner_set (GTK_WIDGET (html), gdk_atom_intern ("CLIPBOARD", FALSE), gtk_get_current_event_time ());
+	
+	contents = create_clipboard_contents (html);
+
+	clipboard = gtk_widget_get_clipboard (GTK_WIDGET (html), GDK_SELECTION_CLIPBOARD);
+
+	if (!gtk_clipboard_set_with_data (clipboard, selection_targets, n_selection_targets,
+					  clipboard_get_contents_cb,
+					  clipboard_clear_contents_cb,
+					  contents)) {
+		free_contents (contents);
+	}
+	g_warning("oo");
+	gtk_clipboard_set_can_store (clipboard,
+			NULL,
+			0);
 }
 
 void
@@ -4377,8 +4322,31 @@ gtk_html_paste (GtkHTML *html, gboolean as_cite)
 	g_return_if_fail (html != NULL);
 	g_return_if_fail (GTK_IS_HTML (html));
 
-	gtk_html_request_paste (html, gdk_atom_intern ("CLIPBOARD", FALSE), 0, 
-				gtk_get_current_event_time (), as_cite);
+	g_object_ref (html);
+	html->priv->selection_as_cite = as_cite;
+	html->priv->selection_type = 0;
+
+	gtk_clipboard_request_contents (gtk_widget_get_clipboard (GTK_WIDGET (html), GDK_SELECTION_CLIPBOARD),
+					gdk_atom_intern (selection_targets[0].target, FALSE),
+					clipboard_paste_received_cb, html);
+}
+
+static void
+update_primary_selection (GtkHTML *html)
+{
+	GtkClipboard *clipboard;
+	int text_len;
+	gchar *text;
+
+	g_return_if_fail (html != NULL);
+	g_return_if_fail (GTK_IS_HTML (html));
+
+	clipboard = gtk_widget_get_clipboard (GTK_WIDGET (html), GDK_SELECTION_PRIMARY);
+
+	text = get_selection_string (html, &text_len, FALSE, TRUE, FALSE, FALSE);
+	gtk_clipboard_set_text (clipboard, text, text_len);
+
+	g_free (text);
 }
 
 
@@ -4743,6 +4711,8 @@ move_selection (GtkHTML *html, GtkHTMLCommandType com_type)
 	html->priv->update_styles = TRUE;
 
 	html_engine_update_selection_active_state (html->engine, html->priv->event_time);
+
+	update_primary_selection (html);
 
 	return rv;
 }
