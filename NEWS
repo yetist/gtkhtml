@@ -1,3 +1,12 @@
+GtkHTML-3.16.1 2007-10-15
+-------------------------
+
+Updated Translations:
+	Changwoo Ryu (ko)
+
+Bug Fixes:
+	#434631: Fixed focus issue after selecting paragraph format (Milan Crha)
+
 GtkHTML-3.16.0 2007-09-17
 -------------------------
 

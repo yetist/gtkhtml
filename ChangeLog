@@ -1,3 +1,7 @@
+2007-10-15  Srinivasa Ragavan <sragavan@novell.com>
+
+	* NEWS, configure.in: GtkHTML 3.16.1 release
+
 2007-09-17  Srinivasa Ragavan  <sragavan@novell.com>
 
 	** GtkHTML 3.16.0 release 
