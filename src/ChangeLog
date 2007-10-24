@@ -1,3 +1,11 @@
+2007-10-24  Milan Crha  <mcrha@redhat.com>
+
+	** Fix for bug #487841
+
+	* htmlengine.c: (html_engine_focus),
+	(html_engine_update_focus_if_necessary):
+	Free memory allocated by html_object_get_complete_url.
+
 2007-08-24  Matthew Barnes  <mbarnes@redhat.com>
 
 	** Fixes bug #262907

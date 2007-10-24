@@ -177,6 +177,8 @@ link_set_ui (GtkHTMLEditLinkProperties *d)
 		
 			gtk_entry_set_text (GTK_ENTRY (d->entry_url), "http://");
 		}
+
+		g_free (url);
 	}
 
 	d->disable_change = FALSE;

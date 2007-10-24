@@ -6256,8 +6256,16 @@ html_engine_focus (HTMLEngine *e, GtkDirectionType dir)
 		}
 
 		while (cur) {
+			gboolean text_url = HTML_IS_TEXT (cur);
+
+			if (text_url) {
+				gchar *url = html_object_get_complete_url (cur, offset);
+				text_url = url != NULL;
+				g_free (url);
+			}
+
 			/* printf ("try child %p\n", cur); */
-			if ((HTML_IS_TEXT (cur) && html_object_get_complete_url (cur, offset))
+			if (text_url
 			    || (HTML_IS_IMAGE (cur) && HTML_IMAGE (cur)->url && *HTML_IMAGE (cur)->url)) {
 				html_engine_set_focus_object (e, cur, offset);
 
@@ -6342,12 +6350,16 @@ set_frame_parents_focus_object (HTMLEngine *e)
 void 
 html_engine_update_focus_if_necessary (HTMLEngine *e, HTMLObject *obj, gint offset)
 {
+	gchar *url = NULL;
+
 	if (html_engine_get_editable(e))
 		return;
 
 	if (obj && (((HTML_IS_IMAGE (obj) && HTML_IMAGE (obj)->url && *HTML_IMAGE (obj)->url)) 
-		     || (HTML_IS_TEXT (obj) && html_object_get_complete_url (obj, offset))))
+		     || (HTML_IS_TEXT (obj) && (url = html_object_get_complete_url (obj, offset)))))
 		html_engine_set_focus_object (e, obj, offset);
+
+	g_free (url);
 }
 
 void
