@@ -1,5 +1,12 @@
 2007-10-24  Milan Crha  <mcrha@redhat.com>
 
+	** Fix for bug #488167
+
+	* gtkhtml.c: (focus):
+	Change focused object only when not focused before.
+
+2007-10-24  Milan Crha  <mcrha@redhat.com>
+
 	** Fix for bug #487841
 
 	* htmlengine.c: (html_engine_focus),
