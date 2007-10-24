@@ -2456,7 +2456,7 @@ focus (GtkWidget *w, GtkDirectionType direction)
 		e->shift_selection = FALSE;
 	}
 
-	if (html_engine_focus (e, direction) && e->focus_object) {
+	if (((e->focus_object && !(GTK_WIDGET_HAS_FOCUS (w))) || html_engine_focus (e, direction)) && e->focus_object) {
 		gint offset;
 		HTMLObject *obj = html_engine_get_focus_object (e, &offset);
 		gint x1, y1, x2, y2, xo, yo;
