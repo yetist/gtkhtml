@@ -1,3 +1,21 @@
+2007-10-26  Milan Crha  <mcrha@redhat.com>
+
+	** Fix for bug #485700
+
+	* htmltext.c: (html_link_set_url_and_target), (html_link_new):
+	Always escape amps when creating new/changing links.
+	* htmlobject.c: (html_object_get_complete_url):
+	Always unescape amps when returning complete urls.
+	* gtkhtml.c: (set_pointer_url):
+	Always unescape amps when storing pointer_url.
+	* htmlutils.h:
+	* htmlutils.c: (html_utils_maybe_escape_amp),
+	(html_utils_maybe_unescape_amp):
+	New source files to store utility functions.
+	* Makefile.am: Add new source files.
+	* htmltokenizer.c: (end_tag): Always unset priv->aTag when at the end
+	of tag to parse escaped sequences correctly.
+
 2007-10-24  Milan Crha  <mcrha@redhat.com>
 
 	** Fix for bug #488167

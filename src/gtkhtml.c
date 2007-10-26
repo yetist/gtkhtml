@@ -64,6 +64,7 @@
 #include "htmltextslave.h"
 #include "htmlselection.h"
 #include "htmlundo.h"
+#include "htmlutils.h"
 
 #include "gtkhtml.h"
 #include "gtkhtml-embedded.h"
@@ -1244,7 +1245,7 @@ set_pointer_url (GtkHTML *html, const char *url)
 		return;
 		
 	g_free (html->pointer_url);
-	html->pointer_url = url ? g_strdup (url) : NULL;
+	html->pointer_url = html_utils_maybe_unescape_amp (url);
 	g_signal_emit (html,  signals[ON_URL], 0, html->pointer_url);
 }
 
