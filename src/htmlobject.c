@@ -47,6 +47,7 @@
 #include "htmlrule.h"
 #include "htmltype.h"
 #include "htmlsettings.h"
+#include "htmlutils.h"
 
 #include "gtkhtmldebug.h"
 
@@ -1173,11 +1174,16 @@ gchar *
 html_object_get_complete_url (HTMLObject *o, gint offset)
 {
 	const gchar *url, *target;
+	gchar *url2, *url3;
 
 	url = html_object_get_url (o, offset);
 	target = html_object_get_target (o, offset);
-	return url || target ? g_strconcat (url ? url : "#", url ? (target && *target ? "#" : NULL) : target,
-					      url ? target : NULL, NULL) : NULL;
+	url2 = url || target ? g_strconcat (url ? url : "#", url ? (target && *target ? "#" : NULL) : target,
+					    url ? target : NULL, NULL) : NULL;
+	url3 = html_utils_maybe_unescape_amp (url2);
+	g_free (url2);
+
+	return url3;
 }
 
 const gchar *

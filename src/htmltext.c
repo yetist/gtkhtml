@@ -49,6 +49,7 @@
 #include "htmlsettings.h"
 #include "htmltextslave.h"
 #include "htmlundo.h"
+#include "htmlutils.h"
 
 HTMLTextClass html_text_class;
 static HTMLObjectClass *parent_class = NULL;
@@ -3506,8 +3507,8 @@ html_link_set_url_and_target (Link *link, gchar *url, gchar *target)
 	g_free (link->url);
 	g_free (link->target);
 
-	link->url = g_strdup (url);
-	link->target = g_strdup (target);
+	link->url = html_utils_maybe_escape_amp (url);
+	link->target = html_utils_maybe_escape_amp (target);
 }
 
 Link *
@@ -3548,8 +3549,8 @@ html_link_new (gchar *url, gchar *target, guint start_index, guint end_index, gi
 {
 	Link *link = g_new0 (Link, 1);
 
-	link->url = g_strdup (url);
-	link->target = g_strdup (target);
+	link->url = html_utils_maybe_escape_amp (url);
+	link->target = html_utils_maybe_escape_amp (target);
 	link->start_offset = start_offset;
 	link->end_offset = end_offset;
 	link->start_index = start_index;

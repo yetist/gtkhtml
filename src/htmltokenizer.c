@@ -1050,6 +1050,7 @@ end_tag (HTMLTokenizer *t, const gchar **src)
 	p->dest = p->buffer;
 			
 	p->tag = FALSE;
+	p->aTag = FALSE;
 	p->pending = NonePending;
 	(*src)++;
 			
@@ -1095,9 +1096,6 @@ end_tag (HTMLTokenizer *t, const gchar **src)
 	}
 	else if (strncmp (p->buffer + 2, "tablesdkl", 9) == 0) {
 		html_tokenizer_blocking_push (t, Table);
-	}	
-	else if (strncmp (p->buffer + 2, "/a", 2) == 0) {
-		p->aTag = FALSE;
 	}
 	else {
 		if (p->blocking) {
@@ -1166,7 +1164,7 @@ in_space_or_tab (HTMLTokenizer *t, const gchar **src)
 		if (t->priv->discard == NoneDiscard)
 			t->priv->pending = SpacePending;
 		ptr = t->priv->buffer;
-		if (ptr[1] == '<' && ptr[2] == 'a' && strlen (ptr) == 3)
+		if (strlen (ptr) == 3 && ptr[1] == '<' && ptr[2] == 'a')
 			t->priv->aTag = TRUE;
 	}
 	else if (t->priv->pre || t->priv->textarea) {
