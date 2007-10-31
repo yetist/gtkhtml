@@ -1,3 +1,7 @@
+2007-10-29  Srinivasa Ragavan  <sragavan@novell.com>
+
+	* NEWS, configure.in: GtkHTML 3.17.1 release
+
 2007-10-07  Hiroyuki Ikezoe  <poincare@ikezoe.net>
 
 	** Fixe for bug #349046

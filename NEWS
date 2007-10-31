@@ -1,3 +1,18 @@
+GtkHTML-3.17.1 2007-10-27
+-------------------------
+
+Bug Fixes:
+	#258374: Clipboard contents are not lost anymore on mail close (Hiroyuki Ikezoe)
+	#349046: Candidate window shows far down when editor scrolls (Hiroyuki Ikezoe)
+	#434631: Focus automatically switches to message widget after selecting paragraph format (Milan Crha)
+	#485700: Always unescape amps when returning complete urls (Milan Crha)
+	#487841: Plug memory leaks (Milan Crha)
+	#488167: Change focused object only when not focused before (Milan Crha)
+
+Updated Translations:
+	Djihed Afifi (ar)
+	Matej Urbanči (sl)
+
 GtkHTML-3.16.0 2007-09-17
 -------------------------
 
