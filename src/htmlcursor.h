@@ -58,7 +58,11 @@ void        html_cursor_home                    (HTMLCursor *cursor,
 						 HTMLEngine *engine);
 gboolean    html_cursor_forward                 (HTMLCursor *cursor,
 						 HTMLEngine *engine);
+gboolean    html_cursor_forward_one             (HTMLCursor *cursor,
+						 HTMLEngine *engine);
 gboolean    html_cursor_backward                (HTMLCursor *cursor,
+						 HTMLEngine *engine);
+gboolean    html_cursor_backward_one            (HTMLCursor *cursor,
 						 HTMLEngine *engine);
 gboolean    html_cursor_forward_n               (HTMLCursor *cursor,
 						 HTMLEngine *e,

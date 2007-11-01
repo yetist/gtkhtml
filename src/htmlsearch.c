@@ -48,7 +48,6 @@ HTMLSearch *
 html_search_new (HTMLEngine *e, const gchar *text, gboolean case_sensitive, gboolean forward, gboolean regular)
 {
 	HTMLSearch *ns = g_new0 (HTMLSearch, 1);
-	gint i;
 
 	set_text (ns, text);
 	ns->case_sensitive = case_sensitive;
