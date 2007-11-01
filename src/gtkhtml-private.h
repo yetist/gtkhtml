@@ -74,6 +74,8 @@ struct _GtkHTMLPrivate {
 	gboolean in_object_resize;
 	GdkCursor *resize_cursor;
 	HTMLObject *resize_object;
+
+	gboolean in_url_test_mode;
 };
 
 void  gtk_html_private_calc_scrollbars  (GtkHTML                *html,

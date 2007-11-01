@@ -195,6 +195,8 @@ static void update_primary_selection    (GtkHTML *html);
 static void clipboard_paste_received_cb (GtkClipboard     *clipboard,
 					 GtkSelectionData *selection_data,
 					 gpointer          data);
+static gint motion_notify_event (GtkWidget *widget, GdkEventMotion *event);
+
 /* keybindings signal hadlers */
 static void     scroll                 (GtkHTML *html, GtkOrientation orientation, GtkScrollType scroll_type, gfloat position);
 static void     cursor_move            (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType skip);
@@ -980,6 +982,21 @@ style_set (GtkWidget *widget, GtkStyle  *previous_style)
 	html_engine_schedule_update (engine);
 }
 
+static void
+update_mouse_cursor (GtkWidget *widget, guint state)
+{
+	GdkEventMotion event;
+
+	/* a bit hacky here */
+	memset (&event, 0, sizeof (GdkEventMotion));
+	event.type = GDK_MOTION_NOTIFY;
+	event.window = widget->window;
+	event.send_event = FALSE;
+	event.state = state;
+
+	motion_notify_event (widget, &event);
+}
+
 static gint
 key_press_event (GtkWidget *widget, GdkEventKey *event)
 {
@@ -988,10 +1005,22 @@ key_press_event (GtkWidget *widget, GdkEventKey *event)
 	gboolean retval = FALSE, update = TRUE;
 	HTMLObject *focus_object;
 	gint focus_object_offset;
+	gboolean url_test_mode;
 
 	html->binding_handled = FALSE;
 	html->priv->update_styles = FALSE;
 	html->priv->event_time = event->time;
+
+	if ((event->keyval == GDK_Control_L || event->keyval == GDK_Control_R)
+	    && html_engine_get_editable (html->engine))
+		url_test_mode = TRUE;
+	else
+		url_test_mode = FALSE;
+
+	if (html->priv->in_url_test_mode != url_test_mode) {
+		html->priv->in_url_test_mode = url_test_mode;
+		update_mouse_cursor (widget, event->state);
+	}
 
 	if (html_engine_get_editable (html->engine)) {
 		if (gtk_im_context_filter_keypress (html->priv->im_context, event)) {
@@ -1053,6 +1082,11 @@ static gint
 key_release_event (GtkWidget *widget, GdkEventKey *event)
 {
 	GtkHTML *html = GTK_HTML (widget);
+
+	if (html->priv->in_url_test_mode) {
+		html->priv->in_url_test_mode = FALSE;
+		update_mouse_cursor (widget, event->state);
+	}
 
 	if (!html->binding_handled && html_engine_get_editable (html->engine)) {
 		if (gtk_im_context_filter_keypress (html->priv->im_context, event)) {
@@ -1318,7 +1352,7 @@ on_object (GtkWidget *widget, GdkWindow *window, HTMLObject *obj, gint offset, g
 			set_pointer_url (html, url);
 			dnd_link_set (widget, obj, offset);
 			
-			if (html->engine->editable)
+			if (html->engine->editable && !html->priv->in_url_test_mode)
 				gdk_window_set_cursor (window, html->ibeam_cursor);
 			else {
 				gdk_window_set_cursor (window, html->hand_cursor);
@@ -1930,12 +1964,30 @@ button_release_event (GtkWidget *initial_widget,
 		html->in_selection_drag = FALSE;
 
 		if (!html->priv->dnd_in_progress
-		    && html->pointer_url != NULL && ! html->in_selection) {
+		    && html->pointer_url != NULL && ! html->in_selection
+		    && (!gtk_html_get_editable (html) || html->priv->in_url_test_mode)) {
 			g_signal_emit (widget,  signals[LINK_CLICKED], 0, html->pointer_url);
 			focus_object = html_engine_get_focus_object (html->engine, &focus_object_offset);
 			if (HTML_IS_TEXT(focus_object)) {
 				html_text_set_link_visited (HTML_TEXT(focus_object), focus_object_offset, html->engine, TRUE);
-			}   
+			}
+
+			if (html->priv->in_url_test_mode) {
+				GValue arg;
+				guint offset;
+
+				memset (&arg, 0, sizeof (GValue));
+				g_value_init (&arg, G_TYPE_STRING);
+				g_value_set_string (&arg, html->pointer_url);
+
+				gtk_html_editor_event (html, GTK_HTML_EDITOR_EVENT_LINK_CLICKED, &arg);
+
+				g_value_unset (&arg);
+
+				focus_object = html_engine_get_object_at (html->engine, x, y, &offset, TRUE);
+				if (HTML_IS_TEXT (focus_object))
+					html_text_set_link_visited (HTML_TEXT (focus_object), (gint) offset, html->engine, TRUE);
+			}
 		}
 	}
 
@@ -3237,6 +3289,7 @@ gtk_html_init (GtkHTML* html)
 	html->priv->search_input_line = NULL;
 	html->priv->in_object_resize = FALSE;
 	html->priv->resize_cursor = gdk_cursor_new (GDK_BOTTOM_RIGHT_CORNER);
+	html->priv->in_url_test_mode = FALSE;
 
 	/* IM Context */
 	html->priv->im_context = gtk_im_multicontext_new ();

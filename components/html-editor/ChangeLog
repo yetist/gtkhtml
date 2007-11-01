@@ -1,3 +1,10 @@
+2007-11-01  Milan Crha  <mcrha@redhat.com>
+
+	** Fix for bug #318592
+
+	* editor-control-factory.c: (editor_api_event):
+	Added invocation of "link_clicked" from editor.
+
 2007-10-24  Milan Crha  <mcrha@redhat.com>
 
 	** Fix for bug #487841

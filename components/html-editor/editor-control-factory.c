@@ -776,6 +776,9 @@ editor_api_event (GtkHTML *html, GtkHTMLEditorEventType event_type, GValue *args
 			case GTK_HTML_EDITOR_EVENT_DELETE:
 				send_event_void (engine, listener, "delete");
 				break;
+			case GTK_HTML_EDITOR_EVENT_LINK_CLICKED:
+				retval = send_event_str (engine, listener, "link_clicked", args);
+				break;
 			default:
 				g_warning ("Unsupported event.\n");
 			}

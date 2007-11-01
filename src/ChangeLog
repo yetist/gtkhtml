@@ -1,3 +1,20 @@
+2007-11-01  Milan Crha  <mcrha@redhat.com>
+
+	** Fix for bug #318592
+
+	* gtkhtml-private.h: (struct _GtkHTMLPrivate):
+	New member 'in_url_test_mode'.
+	* gtkhtml-enums.h: (enum GtkHTMLEditorEventType):
+	New value 'GTK_HTML_EDITOR_EVENT_LINK_CLICKED'.
+	* gtkhtml.c: (update_mouse_cursor), (key_press_event),
+	(key_release_event), (on_object), (gtk_html_init):
+	When editable, then tracking Control key to enable clicking on links
+	to test them. Signal "link_clicked" is now emitted only when not in
+	editable mode or when in test_url_mode (before it was emitted always).
+	Also marked links as visited when clicked on them in editable mode.
+	Event "link_clicked" is emitted as editor event too in case of
+	active editable mode.
+
 2007-10-31  Matthew Barnes  <mbarnes@redhat.com>
 
 	* htmlsearch.c (html_search_new):
