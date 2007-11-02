@@ -1,3 +1,10 @@
+2007-11-02  Matthew Barnes  <mbarnes@redhat.com>
+
+	** Fixes bug #431606
+
+	* htmlengine-edit-cut-and-paste.c (use_pictograms):
+	Use stock icons when converting an emoticon to an image.
+
 2007-11-01  Milan Crha  <mcrha@redhat.com>
 
 	** Fix for bug #318592
