@@ -1268,19 +1268,19 @@ html_engine_insert_empty_paragraph (HTMLEngine *e)
 
 static char *picto_chars = "DO)(|/PQ\0:-\0:\0:-\0:\0:;=-\0:;\0:-~\0:\0:\0:-\0:\0:-\0:\0:-\0:\0:-\0:\0";
 static gint picto_states [] = { 9, 14, 19, 27, 35, 40, 45, 50, 0, -1, 12, 0, -1, 0, -2, 17, 0, -2, 0, -3, -4, -5, 24, 0, -3, -4, 0, -6, 31, 33, 0, -6, 0, -11, 0, -8, 38, 0, -8, 0, -9, 43, 0, -9, 0, -10, 48, 0, -10, 0, -12, 53, 0, -12, 0};
-static gchar *picto_images [] = {
-	"smiley-1.png",
-	"smiley-2.png",
-	"smiley-3.png",
-	"smiley-4.png",
-	"smiley-5.png",
-	"smiley-6.png",
-	"smiley-7.png",
-	"smiley-8.png",
-	"smiley-9.png",
-	"smiley-10.png",
-	"smiley-11.png",
-	"smiley-12.png",
+static gchar *picto_icon_names [] = {
+	"stock_smiley-6",
+	"stock_smiley-5",
+	"stock_smiley-1",
+	"stock_smiley-3",
+	"stock_smiley-2",
+	"stock_smiley-4",
+	"stock_smiley-7",  /* XXX No idea if this one is correct */
+	"stock_smiley-8",
+	"stock_smiley-9",
+	"stock_smiley-10",
+	"stock_smiley-11",
+	"stock_smiley-26",
 };
 
 static void
@@ -1312,8 +1312,9 @@ use_pictograms (HTMLEngine *e)
 	}
 
 	if (state < 0) {
-		HTMLObject *picto;
-		gchar *filename;
+		HTMLObject *image;
+		GtkIconInfo *icon_info;
+		const gchar *filename;
 		gchar *filename_uri;
 		gchar *alt;
 		gint len;
@@ -1330,16 +1331,28 @@ use_pictograms (HTMLEngine *e)
 		html_engine_set_mark (e);
 		html_cursor_forward_n (e->cursor, e, len);
 
-		filename = g_build_filename (ICONDIR, picto_images [-state - 1], NULL);
+		/* Convert a named icon to a file URI. */
+		icon_info = gtk_icon_theme_lookup_icon (
+			gtk_icon_theme_get_default (),
+			picto_icon_names[-state - 1], 16, 0);
+		g_return_if_fail (icon_info != NULL);
+		filename = gtk_icon_info_get_filename (icon_info);
+		g_return_if_fail (filename != NULL);
 		filename_uri = g_filename_to_uri (filename, NULL, NULL);
-		g_free (filename);
-		picto = html_image_new (html_engine_get_image_factory (e), filename_uri, NULL, NULL, -1, -1, FALSE, FALSE, 0, NULL,
-					HTML_VALIGN_MIDDLE, FALSE);
-		g_free (filename_uri);
-		html_image_set_alt (HTML_IMAGE (picto), alt);
-		html_object_set_data (HTML_OBJECT (picto), "picto", alt);
+		image = html_image_new (
+			html_engine_get_image_factory (e),
+			filename_uri, NULL, NULL, -1, -1, FALSE, FALSE,
+			0, NULL, HTML_VALIGN_MIDDLE, FALSE);
+
+		html_image_set_alt (HTML_IMAGE (image), alt);
+		html_object_set_data (HTML_OBJECT (image), "picto", alt);
+
+		html_engine_paste_object (
+			e, image, html_object_get_length (image));
+
 		g_free (alt);
-		html_engine_paste_object (e, picto, html_object_get_length (picto));
+		g_free (filename_uri);
+		gtk_icon_info_free (icon_info);
 	}
 }
 
