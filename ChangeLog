@@ -1,3 +1,13 @@
+2007-11-03  Matthew Barnes  <mbarnes@redhat.com>
+
+	** Remove dead files from source control.  The dates below
+	   indicate when the file was removed from Makefile.am.
+	   Fixes part of bug #478670.
+
+	* capplet/*				(Nov 2002)
+	* components/ebrowser/*			(Nov 2002)
+	* components/http-storage-module/*	(Nov 2002)
+
 2007-10-29  Srinivasa Ragavan  <sragavan@novell.com>
 
 	* NEWS, configure.in: GtkHTML 3.17.1 release

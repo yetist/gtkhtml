@@ -1,3 +1,23 @@
+2007-11-03  Matthew Barnes  <mbarnes@redhat.com>
+
+	** Remove dead files from source control.  The dates below
+	   indicate when the file was removed from Makefile.am.
+	   Fixes part of bug #478670.
+
+	* tests/bg.png			(no history)
+	* 32.png			(no history)
+	* gtkhtml-im.c			(Mar 2003)
+	* gtkhtml-im.h			(Mar 2003)
+	* gtkhtml-input.c		(Dec 2000)
+	* gtkhtml-keybinding.c		(Jun 2000)
+	* gtkhtml-propmanager.c		(Nov 2002)
+	* gtkhtml-propmanager.c		(Nov 2002)
+	* html-component.c		(Nov 2002)
+	* htmlelement.c			(Nov 2002)
+	* htmlfont.c			(Dec 2000)
+	* htmlfontface.c		(Sep 2000)
+	* keybindingssrc.xemacs		(Feb 2003)
+
 2007-11-02  Matthew Barnes  <mbarnes@redhat.com>
 
 	** Fixes bug #431606

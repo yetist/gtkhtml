@@ -1,3 +1,17 @@
+2007-11-03  Matthew Barnes  <mbarnes@redhat.com>
+
+	** Remove dead files from source control.  The dates below
+	   indicate when the file was removed from Makefile.am.
+	   Fixes part of bug #478670.
+
+	* persist-file-impl.c			(Nov 2002)
+	* persist-file-impl.h			(Nov 2002)
+	* persist-stream-impl.c			(Nov 2002)
+	* resolver-progressive-impl.c		(Feb 2002)
+	* resolver-progressive-impl.h		(Feb 2002)
+	* resolver.c				(Feb 2002)
+	* resolver.h				(Feb 2002)
+
 2007-11-01  Milan Crha  <mcrha@redhat.com>
 
 	** Fix for bug #318592

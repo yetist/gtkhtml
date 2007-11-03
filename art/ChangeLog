@@ -1,3 +1,11 @@
+2007-11-03  Matthew Barnes  <mbarnes@redhat.com>
+
+	** Remove dead files from source control.  The dates below
+	   indicate when the file was removed from Makefile.am.
+	   Fixes part of bug #478670.
+
+	* bg1.png	(Oct 2002)
+
 2007-01-28  Matthew Barnes  <mbarnes@redhat.com>
 
 	** Fixes bug #394182 ("Massive Code Cleanup")
