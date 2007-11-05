@@ -2149,10 +2149,18 @@ get_selection_string (GtkHTML *html, int *len, gboolean selection, gboolean prim
 	return selection_string;
 }
 
+/* returned pointer should be freed with g_free */
 char *
 gtk_html_get_selection_html (GtkHTML *html, int *len)
 {
 	return get_selection_string (html, len, TRUE, FALSE, TRUE, FALSE);
+}
+
+/* returned pointer should be freed with g_free */
+char *
+gtk_html_get_selection_plain_text (GtkHTML *html, int *len)
+{
+	return get_selection_string (html, len, TRUE, FALSE, FALSE, FALSE);
 }
 
 static gchar *

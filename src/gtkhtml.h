@@ -188,6 +188,8 @@ gboolean                   gtk_html_export                        (GtkHTML      
 								   gpointer                   data);
 char *                     gtk_html_get_selection_html            (GtkHTML                   *html,
 								   int                       *len);
+char *                     gtk_html_get_selection_plain_text      (GtkHTML                   *html,
+								   int                       *len);
 
 /* Editable support.  */
 void                       gtk_html_set_editable                  (GtkHTML                   *html,
