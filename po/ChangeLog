@@ -1,3 +1,8 @@
+2007-11-11  Matthew Barnes  <mbarnes@redhat.com>
+
+	* POTFILES.in:
+	Renamed 'src' directory to 'gtkhtml'.  Adapt.
+
 2007-10-23  Djihed Afifi <djihed@gmail.com> 
 
 	* ar.po: Updated Arabic Translation by Djihed Afifi.

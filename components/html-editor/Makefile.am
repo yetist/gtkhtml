@@ -12,7 +12,7 @@ EDITOR_I18N_CFLAGS =
 endif
 
 INCLUDES = \
-	-I$(top_srcdir)/src \
+	-I$(top_srcdir)/gtkhtml \
 	-I$(srcdir) \
 	-I$(includedir) \
 	$(GTKHTML_CFLAGS) \
@@ -65,7 +65,7 @@ $(SPELL_IDL_GENERATED_C): $(SPELL_IDL_GENERATED_H)
 
 
 LDADD = \
-	$(top_builddir)/src/libgtkhtml-@GTKHTML_API_VERSION@.la	\
+	$(top_builddir)/gtkhtml/libgtkhtml-@GTKHTML_API_VERSION@.la	\
 	$(EDITOR_LIBS)
 
 # -lpspell-modules -lpspell_aspell -laspell -lpspell -lstdc++

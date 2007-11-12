@@ -1,3 +1,8 @@
+2007-11-11  Matthew Barnes  <mbarnes@redhat.com>
+
+	* Makefile.am:
+	Renamed 'src' directory to 'gtkhtml'.  Adapt.
+
 2007-11-03  Matthew Barnes  <mbarnes@redhat.com>
 
 	** Remove dead files from source control.  The dates below

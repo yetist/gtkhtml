@@ -1,6 +1,6 @@
 dnl Initialization
 
-AC_INIT(src/gtkhtml.c)
+AC_INIT(gtkhtml/gtkhtml.c)
 AM_CONFIG_HEADER(config.h)
 
 PACKAGE=gtkhtml
@@ -170,8 +170,8 @@ Makefile
 gtkhtml.spec
 gtkhtml-zip
 po/Makefile.in
-src/Makefile
-src/libgtkhtml.pc
+gtkhtml/Makefile
+gtkhtml/libgtkhtml.pc
 a11y/Makefile
 components/Makefile
 components/html-editor/Makefile

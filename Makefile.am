@@ -1,6 +1,6 @@
 SUBDIRS =					\
 	a11y					\
-	src					\
+	gtkhtml					\
 	components				\
 	art					\
 	po
@@ -12,7 +12,7 @@ DISTCLEANFILES =				\
 	intltool-extract			\
 	intltool-update				\
 	intltool-merge				\
-	src/libgtkhtml-@GTKHTML_API_VERSION@.pc
+	gtkhtml/libgtkhtml-@GTKHTML_API_VERSION@.pc
 
 MAINTAINERCLEANFILES =				\
 	Makefile.in				\

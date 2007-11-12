@@ -1,3 +1,11 @@
+2007-11-11  Matthew Barnes  <mbarnes@redhat.com>
+
+	* autogen.sh:
+	* configure.in:
+	* Makefile.am:
+	* a11y/Makefile.am:
+	Renamed 'src' directory to 'gtkhtml'.  Adapt.
+
 2007-11-03  Matthew Barnes  <mbarnes@redhat.com>
 
 	** Remove dead files from source control.  The dates below
