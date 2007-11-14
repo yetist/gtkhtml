@@ -212,15 +212,15 @@ file_dialog_ok (GtkWidget *w, GtkHTMLControlData *cd)
 
 	if (error || !io)
 		goto end;
-		
+
 	/* try reading as utf-8 */
 	g_io_channel_read_to_end (io, &data, &len, &error);
 
 	/* If we get a charset error try reading as the locale charset */
 	if (error && g_error_matches (error, G_CONVERT_ERROR, G_CONVERT_ERROR_ILLEGAL_SEQUENCE)) {
 
-		/* 
-		 * Close the io channel since we can't set the 
+		/*
+		 * Close the io channel since we can't set the
 		 * charset once we've begun reading.
 		 */
 		g_io_channel_unref (io);
@@ -232,7 +232,7 @@ file_dialog_ok (GtkWidget *w, GtkHTMLControlData *cd)
 			error = NULL;
 
 			io = g_io_channel_new_file (filename, "r", &error);
-		
+
 			if (error || !io)
 				goto end;
 
@@ -240,14 +240,14 @@ file_dialog_ok (GtkWidget *w, GtkHTMLControlData *cd)
 			g_io_channel_read_to_end (io, &data, &len, &error);
 		}
 	}
-	
+
 	if (error)
 		goto end;
-	
+
 	if (cd->file_html) {
 		GtkHTML *tmp;
 		GtkHTMLStream *stream;
-		
+
 		tmp = GTK_HTML (gtk_html_new ());
 		stream = gtk_html_begin_content (tmp, "text/html; charset=utf-8");
 		gtk_html_write (tmp, stream, data, len);
@@ -264,9 +264,9 @@ file_dialog_ok (GtkWidget *w, GtkHTMLControlData *cd)
 
 	if (error) {
 		GtkWidget *toplevel;
-		
+
 		toplevel = gtk_widget_get_toplevel (GTK_WIDGET (cd->html));
-		
+
 		if (GTK_WIDGET_TOPLEVEL (toplevel)) {
 			GtkWidget *dialog;
 
@@ -276,7 +276,7 @@ file_dialog_ok (GtkWidget *w, GtkHTMLControlData *cd)
 							 GTK_BUTTONS_CLOSE,
 							 _("Error loading file '%s': %s"),
 							 filename, error->message);
-		
+
 			/* Destroy the dialog when the user responds to it (e.g. clicks a button) */
 			g_signal_connect_swapped (GTK_OBJECT (dialog), "response",
 						  G_CALLBACK (gtk_widget_destroy),
@@ -329,7 +329,7 @@ insert_html_file_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char 
 	insert_file_dialog (cd, TRUE);
 }
 
-static void 
+static void
 spell_check_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
 	spell_check_dialog (cd, TRUE);
@@ -512,7 +512,7 @@ static struct {
 static struct {
 	GtkHTMLFontStyle style;
 	const gchar *verb;
-} font_style_assoc[] = {	
+} font_style_assoc[] = {
 	{GTK_HTML_FONT_STYLE_FIXED, "FormatFixed"},
 	{GTK_HTML_FONT_STYLE_SUBSCRIPT, "FormatSubscript"},
 	{GTK_HTML_FONT_STYLE_SUBSCRIPT, "FormatSuperscript"},
@@ -523,7 +523,7 @@ static void
 font_style_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
         int i;
-                                                                              
+
         /* g_warning ("wowee %s :: %s", path, state); */
         for (i = 0; font_style_assoc[i].verb != NULL; i++) {
                 if (!strcmp (cname, font_style_assoc[i].verb))
@@ -531,14 +531,14 @@ font_style_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname
         }
 }
 
-static void 
+static void
 command_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
 	int i;
-	
+
 	for (i = 0; command_assoc[i].verb != NULL; i++) {
 		if (!strcmp (cname, command_assoc[i].verb)) {
-			gtk_html_command (cd->html, command_assoc[i].command); 
+			gtk_html_command (cd->html, command_assoc[i].command);
 			return;
 		}
 	}
@@ -603,9 +603,9 @@ menubar_update_format (GtkHTMLControlData *cd)
 					      "sensitive", sensitive, &ev);
 
 		bonobo_ui_component_set_prop (uic, "/commands/HeadingH1",
-					      "sensitive", sensitive, &ev);	
+					      "sensitive", sensitive, &ev);
 		bonobo_ui_component_set_prop (uic, "/commands/HeadingH2",
-					      "sensitive", sensitive, &ev);	
+					      "sensitive", sensitive, &ev);
 		bonobo_ui_component_set_prop (uic, "/commands/HeadingH3",
 					      "sensitive", sensitive, &ev);
 		bonobo_ui_component_set_prop (uic, "/commands/HeadingH4",
@@ -617,7 +617,7 @@ menubar_update_format (GtkHTMLControlData *cd)
 		bonobo_ui_component_set_prop (uic, "/commands/HeadingAddress",
 					      "sensitive", sensitive, &ev);
 
-		bonobo_ui_component_thaw (uic, &ev);	
+		bonobo_ui_component_thaw (uic, &ev);
 
 		CORBA_exception_free (&ev);
 	}
@@ -878,13 +878,13 @@ menubar_setup (BonoboUIComponent  *uic,
 	}
 }
 
-gboolean 
+gboolean
 get_file_charset (const gchar * filename, gchar *charset, gint len)
 {
 	char data[1024];
 	gboolean result = FALSE;
 	FILE *fp = fopen (filename, "r");
-	
+
 	if (!fp)
 		return FALSE;
 

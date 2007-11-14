@@ -41,7 +41,7 @@ struct _HTMLTable {
 	gint max_height;
 	HTMLClueV *caption;
 	HTMLVAlignType capAlign;
-	
+
 	GArray *columnMin;
 	GArray *columnPref;
 	GArray *columnFixed;
@@ -77,9 +77,9 @@ void        html_table_end_row      (HTMLTable      *table);
 void        html_table_start_row    (HTMLTable      *table);
 void        html_table_add_cell     (HTMLTable      *table,
 				     HTMLTableCell  *cell);
-void        html_table_set_cell     (HTMLTable *table, 
-				     gint r, 
-				     gint c, 
+void        html_table_set_cell     (HTMLTable *table,
+				     gint r,
+				     gint c,
 				     HTMLTableCell *cell);
 void        html_table_remove_cell  (HTMLTable      *table,
 				     HTMLTableCell  *cell);

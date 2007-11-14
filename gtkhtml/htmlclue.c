@@ -52,7 +52,7 @@ destroy (HTMLObject *o)
 	}
 	HTML_CLUE (o)->head = NULL;
 	HTML_CLUE (o)->tail = NULL;
-			
+
 	HTML_OBJECT_CLASS (parent_class)->destroy (o);
 }
 
@@ -256,13 +256,13 @@ draw (HTMLObject *o,
       gint tx, gint ty)
 {
 	HTMLObject *obj;
-	
+
 	if (y + height < o->y - o->ascent || y > o->y + o->descent)
 		return;
 
 	tx += o->x;
 	ty += o->y - o->ascent;
-	
+
 	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next) {
 		if (!(obj->flags & HTML_OBJECT_FLAG_ALIGNED)) {
 			html_object_draw (obj,
@@ -338,7 +338,7 @@ calc_preferred_width (HTMLObject *o,
 {
 	gint prefWidth = 0;
 	HTMLObject *obj;
-	
+
 	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next) {
 		gint w;
 
@@ -357,7 +357,7 @@ calc_min_width (HTMLObject *o,
 {
 	HTMLObject *obj;
 	gint minWidth = 0;
-	
+
 	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next) {
 		gint w;
 
@@ -365,7 +365,7 @@ calc_min_width (HTMLObject *o,
 		if (w > minWidth)
 			minWidth = w;
 	}
-	
+
 	return minWidth;
 }
 
@@ -618,7 +618,7 @@ html_clue_class_init (HTMLClueClass *klass,
 
 	object_class = HTML_OBJECT_CLASS (klass);
 	html_object_class_init (object_class, type, size);
-	
+
 	/* HTMLObject functions */
 	object_class->destroy = destroy;
 	object_class->copy = copy;
@@ -762,7 +762,7 @@ set_parent (HTMLObject *o,
  * @clue: An HTMLClue.
  * @o: An HTMLObject.
  * @where: A child of @clue.
- * 
+ *
  * Insert @o and its successors in @clue after @clue's element @where.
  **/
 void
@@ -802,7 +802,7 @@ html_clue_append_after (HTMLClue *clue,
  * html_clue_append:
  * @clue: An HTMLClue.
  * @o: An HTMLObject.
- * 
+ *
  * Append @o and its successors to @clue.
  **/
 void
@@ -839,7 +839,7 @@ html_clue_append (HTMLClue *clue,
  * html_clue_prepend:
  * @clue: An HTMLClue.
  * @o: An HTMLObject.
- * 
+ *
  * Prepend @o and its successors to @clue.
  **/
 void
@@ -874,7 +874,7 @@ html_clue_prepend (HTMLClue *clue,
  * html_clue_remove:
  * @clue: An HTMLClue.
  * @o: An HTMLObject.
- * 
+ *
  * Remove object @o from the clue.
  **/
 void

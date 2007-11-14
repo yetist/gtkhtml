@@ -107,9 +107,9 @@ static void	html_a11y_text_paste_text	(AtkEditableText      *text,
 
 static AtkStateSet* html_a11y_text_ref_state_set	(AtkObject	*accessible);
 
-static AtkAttributeSet* html_a11y_text_get_run_attributes	(AtkText *text, 
-								 gint offset, 
-								 gint *start_offset, 
+static AtkAttributeSet* html_a11y_text_get_run_attributes	(AtkText *text,
+								 gint offset,
+								 gint *start_offset,
 								 gint *end_offset);
 
 static AtkObjectClass *parent_class = NULL;
@@ -213,7 +213,7 @@ html_a11y_text_get_type (void)
 }
 
 
-static void 
+static void
 atk_component_interface_init (AtkComponentIface *iface)
 {
 	g_return_if_fail (iface != NULL);
@@ -299,7 +299,7 @@ html_a11y_text_init (HTMLA11YText *a11y_text)
 {
 }
 
-AtkObject* 
+AtkObject*
 html_a11y_text_new (HTMLObject *html_obj)
 {
 	GObject *object;
@@ -511,9 +511,9 @@ html_a11y_text_get_text_after_offset (AtkText *text, gint offset, AtkTextBoundar
 		if (start_slave && HTML_IS_TEXT_SLAVE (start_slave)) {
 			*start_offset = start_slave->posStart;
 			end_slave = (HTMLTextSlave *) HTML_OBJECT (start_slave)->next;
-			if (end_slave && HTML_IS_TEXT_SLAVE (end_slave)) 
+			if (end_slave && HTML_IS_TEXT_SLAVE (end_slave))
 				*end_offset = end_slave->posStart;
-			else 
+			else
 				*end_offset = start_slave->posStart + start_slave->posLen;
 
 		} else { /* we are on the last line. */
@@ -532,12 +532,12 @@ html_a11y_text_get_text_after_offset (AtkText *text, gint offset, AtkTextBoundar
 			*end_offset = end_slave->posStart + end_slave->posLen;
 		else
 			*end_offset = *start_offset;
-		
+
 		return html_a11y_text_get_text (text, *start_offset, *end_offset);
 
 	default:
 		gail_text_util_text_setup (HTML_A11Y_TEXT (text)->util, to->text);
-		return gail_text_util_get_text (HTML_A11Y_TEXT (text)->util, NULL, GAIL_AFTER_OFFSET, boundary_type, offset, 
+		return gail_text_util_get_text (HTML_A11Y_TEXT (text)->util, NULL, GAIL_AFTER_OFFSET, boundary_type, offset,
 					start_offset, end_offset);
 	}
 }
@@ -593,10 +593,10 @@ html_a11y_text_get_text_at_offset (AtkText *text, gint offset, AtkTextBoundary b
 
 	default:
 		gail_text_util_text_setup (HTML_A11Y_TEXT (text)->util, to->text);
-		return gail_text_util_get_text (HTML_A11Y_TEXT (text)->util, NULL, GAIL_AT_OFFSET, boundary_type, offset, 
+		return gail_text_util_get_text (HTML_A11Y_TEXT (text)->util, NULL, GAIL_AT_OFFSET, boundary_type, offset,
 					start_offset, end_offset);
 	}
-	
+
 }
 
 static gunichar
@@ -628,7 +628,7 @@ html_a11y_text_get_text_before_offset (AtkText *text, gint offset, AtkTextBounda
 		*end_offset = end_slave->posStart;
 		if (start_slave && HTML_IS_TEXT_SLAVE (start_slave)) {
 			*start_offset = start_slave->posStart;
-		} else 
+		} else
 			*start_offset = *end_offset;
 
 		return html_a11y_text_get_text (text, *start_offset, *end_offset);
@@ -643,7 +643,7 @@ html_a11y_text_get_text_before_offset (AtkText *text, gint offset, AtkTextBounda
 			start_slave = (HTMLTextSlave *) HTML_OBJECT (end_slave)->prev;
 			if (start_slave && HTML_IS_TEXT_SLAVE (start_slave))
 				*start_offset = start_slave->posStart + start_slave->posLen;
-			else 
+			else
 				*start_offset = end_slave->posStart;
 
 		} else {
@@ -654,7 +654,7 @@ html_a11y_text_get_text_before_offset (AtkText *text, gint offset, AtkTextBounda
 
 	default:
 		gail_text_util_text_setup (HTML_A11Y_TEXT (text)->util, to->text);
-		return gail_text_util_get_text (HTML_A11Y_TEXT (text)->util, NULL, GAIL_BEFORE_OFFSET, boundary_type, offset, 
+		return gail_text_util_get_text (HTML_A11Y_TEXT (text)->util, NULL, GAIL_BEFORE_OFFSET, boundary_type, offset,
 					start_offset, end_offset);
 	}
 }
@@ -737,13 +737,13 @@ html_a11y_text_set_selection (AtkText *text, gint selection_num, gint start_offs
 /* libgail-util/gailmisc.c gail_misc_layout_get_run_attributes */
 
 static AtkAttributeSet *
-html_a11y_text_get_run_attributes (AtkText *text, 
-				   gint offset, 
-				   gint *start_offset, 
+html_a11y_text_get_run_attributes (AtkText *text,
+				   gint offset,
+				   gint *start_offset,
 				   gint *end_offset)
 {
 	PangoAttrIterator *iter;
-	PangoAttrList *attr;  
+	PangoAttrList *attr;
 	PangoAttrString *pango_string;
 	PangoAttrInt *pango_int;
 	PangoAttrColor *pango_color;
@@ -758,8 +758,8 @@ html_a11y_text_get_run_attributes (AtkText *text,
 	GtkHTMLA11Y *a11y;
 	GtkHTML *html;
 	HTMLEngine *e;
-	HTMLText *t = HTML_TEXT (HTML_A11Y_HTML (text));	
-	
+	HTMLText *t = HTML_TEXT (HTML_A11Y_HTML (text));
+
 	g_return_val_if_fail (t, NULL);
 	textstring = t->text;
 	g_return_val_if_fail (textstring, NULL);
@@ -790,117 +790,117 @@ html_a11y_text_get_run_attributes (AtkText *text,
 
 	while (is_next) {
 		if (index >= start_index && index < end_index) {
-			*start_offset = g_utf8_pointer_to_offset (textstring, textstring + start_index);  
+			*start_offset = g_utf8_pointer_to_offset (textstring, textstring + start_index);
 			if (end_index == G_MAXINT)
 			/* Last iterator */
 			end_index = len;
 
-			*end_offset = g_utf8_pointer_to_offset (textstring, textstring + end_index);  
+			*end_offset = g_utf8_pointer_to_offset (textstring, textstring + end_index);
 			break;
-		}  
+		}
 		is_next = pango_attr_iterator_next (iter);
 		pango_attr_iterator_range (iter, &start_index, &end_index);
 	}
 
 	/* Get attributes */
-	if ((pango_string = (PangoAttrString*) pango_attr_iterator_get (iter, 
+	if ((pango_string = (PangoAttrString*) pango_attr_iterator_get (iter,
 						PANGO_ATTR_FAMILY)) != NULL) {
 		value = g_strdup_printf("%s", pango_string->value);
-		attrib_set = gail_misc_add_attribute (attrib_set, 
-				ATK_TEXT_ATTR_FAMILY_NAME, 
+		attrib_set = gail_misc_add_attribute (attrib_set,
+				ATK_TEXT_ATTR_FAMILY_NAME,
 				value);
-	} 
-	if ((pango_int = (PangoAttrInt*) pango_attr_iterator_get (iter, 
+	}
+	if ((pango_int = (PangoAttrInt*) pango_attr_iterator_get (iter,
 						PANGO_ATTR_STYLE)) != NULL) {
-		attrib_set = gail_misc_add_attribute (attrib_set, 
-				ATK_TEXT_ATTR_STYLE, 
-				g_strdup (atk_text_attribute_get_value (ATK_TEXT_ATTR_STYLE, 
+		attrib_set = gail_misc_add_attribute (attrib_set,
+				ATK_TEXT_ATTR_STYLE,
+				g_strdup (atk_text_attribute_get_value (ATK_TEXT_ATTR_STYLE,
 									pango_int->value)));
-	} 
+	}
 
-	if ((pango_int = (PangoAttrInt*) pango_attr_iterator_get (iter, 
+	if ((pango_int = (PangoAttrInt*) pango_attr_iterator_get (iter,
 						PANGO_ATTR_WEIGHT)) != NULL) {
 		value = g_strdup_printf("%i", pango_int->value);
-		attrib_set = gail_misc_add_attribute (attrib_set, 
-				ATK_TEXT_ATTR_WEIGHT, 
+		attrib_set = gail_misc_add_attribute (attrib_set,
+				ATK_TEXT_ATTR_WEIGHT,
 				value);
-	} 
-	if ((pango_int = (PangoAttrInt*) pango_attr_iterator_get (iter, 
+	}
+	if ((pango_int = (PangoAttrInt*) pango_attr_iterator_get (iter,
 						PANGO_ATTR_VARIANT)) != NULL) {
-		attrib_set = gail_misc_add_attribute (attrib_set, 
-				ATK_TEXT_ATTR_VARIANT, 
-				g_strdup (atk_text_attribute_get_value (ATK_TEXT_ATTR_VARIANT, 
+		attrib_set = gail_misc_add_attribute (attrib_set,
+				ATK_TEXT_ATTR_VARIANT,
+				g_strdup (atk_text_attribute_get_value (ATK_TEXT_ATTR_VARIANT,
 									pango_int->value)));
-	} 
-	if ((pango_int = (PangoAttrInt*) pango_attr_iterator_get (iter, 
+	}
+	if ((pango_int = (PangoAttrInt*) pango_attr_iterator_get (iter,
 						PANGO_ATTR_STRETCH)) != NULL) {
-		attrib_set = gail_misc_add_attribute (attrib_set, 
-				ATK_TEXT_ATTR_STRETCH, 
-				g_strdup (atk_text_attribute_get_value (ATK_TEXT_ATTR_STRETCH, 
+		attrib_set = gail_misc_add_attribute (attrib_set,
+				ATK_TEXT_ATTR_STRETCH,
+				g_strdup (atk_text_attribute_get_value (ATK_TEXT_ATTR_STRETCH,
 									pango_int->value)));
-	} 
-	if ((pango_int = (PangoAttrInt*) pango_attr_iterator_get (iter, 
+	}
+	if ((pango_int = (PangoAttrInt*) pango_attr_iterator_get (iter,
 						PANGO_ATTR_SIZE)) != NULL) {
 		value = g_strdup_printf("%i", pango_int->value / PANGO_SCALE);
-		attrib_set = gail_misc_add_attribute (attrib_set, 
+		attrib_set = gail_misc_add_attribute (attrib_set,
 				ATK_TEXT_ATTR_SIZE,
 				value);
-	} 
-	if ((pango_int = (PangoAttrInt*) pango_attr_iterator_get (iter, 
+	}
+	if ((pango_int = (PangoAttrInt*) pango_attr_iterator_get (iter,
 						PANGO_ATTR_UNDERLINE)) != NULL) {
-		attrib_set = gail_misc_add_attribute (attrib_set, 
-				ATK_TEXT_ATTR_UNDERLINE, 
-				g_strdup (atk_text_attribute_get_value (ATK_TEXT_ATTR_UNDERLINE, 
+		attrib_set = gail_misc_add_attribute (attrib_set,
+				ATK_TEXT_ATTR_UNDERLINE,
+				g_strdup (atk_text_attribute_get_value (ATK_TEXT_ATTR_UNDERLINE,
 									pango_int->value)));
-	} 
-	if ((pango_int = (PangoAttrInt*) pango_attr_iterator_get (iter, 
+	}
+	if ((pango_int = (PangoAttrInt*) pango_attr_iterator_get (iter,
 						PANGO_ATTR_STRIKETHROUGH)) != NULL) {
-		attrib_set = gail_misc_add_attribute (attrib_set, 
-				ATK_TEXT_ATTR_STRIKETHROUGH, 
-				g_strdup (atk_text_attribute_get_value (ATK_TEXT_ATTR_STRIKETHROUGH, 
+		attrib_set = gail_misc_add_attribute (attrib_set,
+				ATK_TEXT_ATTR_STRIKETHROUGH,
+				g_strdup (atk_text_attribute_get_value (ATK_TEXT_ATTR_STRIKETHROUGH,
 									pango_int->value)));
-	} 
-	if ((pango_int = (PangoAttrInt*) pango_attr_iterator_get (iter, 
+	}
+	if ((pango_int = (PangoAttrInt*) pango_attr_iterator_get (iter,
 						PANGO_ATTR_RISE)) != NULL) {
 		value = g_strdup_printf("%i", pango_int->value);
-		attrib_set = gail_misc_add_attribute (attrib_set, 
+		attrib_set = gail_misc_add_attribute (attrib_set,
 				ATK_TEXT_ATTR_RISE,
 				value);
-	} 
-	if ((pango_lang = (PangoAttrLanguage*) pango_attr_iterator_get (iter, 
+	}
+	if ((pango_lang = (PangoAttrLanguage*) pango_attr_iterator_get (iter,
 						PANGO_ATTR_LANGUAGE)) != NULL) {
 		value = g_strdup( pango_language_to_string( pango_lang->value));
-		attrib_set = gail_misc_add_attribute (attrib_set, 
-				ATK_TEXT_ATTR_LANGUAGE, 
+		attrib_set = gail_misc_add_attribute (attrib_set,
+				ATK_TEXT_ATTR_LANGUAGE,
 				value);
-	} 
-	if ((pango_float = (PangoAttrFloat*) pango_attr_iterator_get (iter, 
+	}
+	if ((pango_float = (PangoAttrFloat*) pango_attr_iterator_get (iter,
 						PANGO_ATTR_SCALE)) != NULL) {
 		value = g_strdup_printf("%g", pango_float->value);
-		attrib_set = gail_misc_add_attribute (attrib_set, 
-				ATK_TEXT_ATTR_SCALE, 
+		attrib_set = gail_misc_add_attribute (attrib_set,
+				ATK_TEXT_ATTR_SCALE,
 				value);
-	} 
-	if ((pango_color = (PangoAttrColor*) pango_attr_iterator_get (iter, 
+	}
+	if ((pango_color = (PangoAttrColor*) pango_attr_iterator_get (iter,
 						PANGO_ATTR_FOREGROUND)) != NULL) {
-		value = g_strdup_printf ("%u,%u,%u", 
-				pango_color->color.red, 
-				pango_color->color.green, 
+		value = g_strdup_printf ("%u,%u,%u",
+				pango_color->color.red,
+				pango_color->color.green,
 				pango_color->color.blue);
-		attrib_set = gail_misc_add_attribute (attrib_set, 
-				ATK_TEXT_ATTR_FG_COLOR, 
+		attrib_set = gail_misc_add_attribute (attrib_set,
+				ATK_TEXT_ATTR_FG_COLOR,
 				value);
-	} 
-	if ((pango_color = (PangoAttrColor*) pango_attr_iterator_get (iter, 
+	}
+	if ((pango_color = (PangoAttrColor*) pango_attr_iterator_get (iter,
 						PANGO_ATTR_BACKGROUND)) != NULL) {
-		value = g_strdup_printf ("%u,%u,%u", 
-				pango_color->color.red, 
-				pango_color->color.green, 
+		value = g_strdup_printf ("%u,%u,%u",
+				pango_color->color.red,
+				pango_color->color.green,
 				pango_color->color.blue);
-		attrib_set = gail_misc_add_attribute (attrib_set, 
-				ATK_TEXT_ATTR_BG_COLOR, 
+		attrib_set = gail_misc_add_attribute (attrib_set,
+				ATK_TEXT_ATTR_BG_COLOR,
 				value);
-	} 
+	}
 
 	pango_attr_iterator_destroy (iter);
 	pango_attr_list_unref (attr);
@@ -947,11 +947,11 @@ html_a11y_text_get_offset_at_point (AtkText *text, gint x, gint y,
 	y -= html_y;
 
 	return_obj = html_engine_get_object_at (top_e, x, y, (guint *) &offset, FALSE);
-		
+
 	if (obj == return_obj)
 		return offset;
 	else
-		/*since the point is in range, need to return a valid value */ 
+		/*since the point is in range, need to return a valid value */
 		return 0;
 }
 
@@ -989,7 +989,7 @@ html_a11y_text_get_character_extents (AtkText *text, gint offset,
 	*x -=  e->x_offset;
 	*y -=  e->y_offset;
 }
- 
+
 static void
 atk_editable_text_interface_init (AtkEditableTextIface *iface)
 {
@@ -1095,7 +1095,7 @@ html_a11y_text_cut_text (AtkEditableText *text,
 	html_cursor_jump_to(html->engine->cursor, html->engine, HTML_OBJECT(t), end_pos);
 	html_engine_update_selection_if_necessary (html->engine);
 	html_engine_cut(html->engine);
-	html_engine_show_cursor (html->engine); 
+	html_engine_show_cursor (html->engine);
 
         g_signal_emit_by_name(html, "grab_focus");
 }

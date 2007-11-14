@@ -34,7 +34,7 @@ HTMLSettings *
 html_settings_new (GtkWidget *w)
 {
 	HTMLSettings *s = g_new0 (HTMLSettings, 1);
-	
+
 	s->fontBaseSize = 3;
 	s->fontBaseFace = g_strdup ("times");
 	s->fixedFontFace = g_strdup ("courier");

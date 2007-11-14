@@ -90,7 +90,7 @@ struct _HTMLTokenizerPrivate {
 	gboolean charEntity; /* Are we in an &... sequence? */
 	gboolean extension; /* Are we in an <!-- +GtkHTML: sequence? */
 	gboolean aTag; /* Are we in a <a/> tag*/
- 
+
 	enum {
 		NoneDiscard = 0,
 		SpaceDiscard,
@@ -337,7 +337,7 @@ void
 html_tokenizer_destroy (HTMLTokenizer *t)
 {
 	g_return_if_fail (t && HTML_IS_TOKENIZER (t));
-	
+
 	g_object_unref (G_OBJECT (t));
 }
 
@@ -369,10 +369,10 @@ html_tokenizer_real_peek_token (HTMLTokenizer *t)
 		/* finally get first token */
 		token = buffer->data;
 	}
-	
+
 	return token;
 }
-	
+
 static gchar *
 html_tokenizer_real_next_token (HTMLTokenizer *t)
 {
@@ -470,7 +470,7 @@ static void
 html_tokenizer_real_begin (HTMLTokenizer *t, gchar *content_type)
 {
 	struct _HTMLTokenizerPrivate *p = t->priv;
-	
+
 	html_tokenizer_reset (t);
 
 	p->dest = p->buffer;
@@ -491,13 +491,13 @@ html_tokenizer_real_begin (HTMLTokenizer *t, gchar *content_type)
 	p->searchGtkHTMLCount = 0;
 	p->title = FALSE;
 	p->charEntity = FALSE;
-	
+
 	p->utf8 = charset_is_utf8 (content_type);
 	p->utf8_length = 0;
 #if 0
-	if (p->utf8) 
+	if (p->utf8)
 		g_warning ("Trying UTF-8");
-	else 
+	else
 		g_warning ("Trying ISO-8859-1");
 #endif
 
@@ -521,7 +521,7 @@ html_tokenizer_real_end (HTMLTokenizer *t)
 		html_tokenizer_append_token (t, p->buffer, p->dest - p->buffer);
 	}
 
-	g_free (p->buffer);	
+	g_free (p->buffer);
 
 	p->buffer = NULL;
 	p->dest = NULL;
@@ -539,7 +539,7 @@ static void
 html_tokenizer_append_token (HTMLTokenizer *t, const gchar *string, gint len)
 {
 	struct _HTMLTokenizerPrivate *p = t->priv;
-	
+
 	if (len < 1)
 		return;
 
@@ -590,12 +590,12 @@ static void
 html_tokenizer_add_pending (HTMLTokenizer *t)
 {
 	struct _HTMLTokenizerPrivate *p = t->priv;
-	
+
 	if (p->tag || p->select) {
 		add_unichar (t, ' ');
 	}
 	else if (p->textarea) {
-		if (p->pending == LFPending) 
+		if (p->pending == LFPending)
 			add_unichar (t, '\n');
 		else
 			add_unichar (t, ' ');
@@ -626,7 +626,7 @@ html_tokenizer_add_pending (HTMLTokenizer *t)
 	else {
 		add_unichar (t, ' ');
 	}
-	
+
 	p->pending = NonePending;
 }
 
@@ -634,7 +634,7 @@ static void
 prepare_enough_space (HTMLTokenizer *t)
 {
 	struct _HTMLTokenizerPrivate *p = t->priv;
-	
+
 	if ((p->dest - p->buffer + 32) > p->size) {
 		guint off = p->dest - p->buffer;
 
@@ -676,7 +676,7 @@ static inline void
 extension_one_char (HTMLTokenizer *t, const gchar **src)
 {
 	struct _HTMLTokenizerPrivate *p = t->priv;
-	
+
 	p->extension = FALSE;
 	html_tokenizer_tokenize_one_char (t, src);
 	p->extension = TRUE;
@@ -714,11 +714,11 @@ static void
 in_script_or_style (HTMLTokenizer *t, const gchar **src)
 {
 	struct _HTMLTokenizerPrivate *p = t->priv;
-	
+
 	/* Allocate memory to store the script or style */
 	if (p->scriptCodeSize + 11 > p->scriptCodeMaxSize)
 		p->scriptCode = g_realloc (p->scriptCode, p->scriptCodeMaxSize += 1024);
-			
+
 	if ((**src == '>' ) && ( p->searchFor [p->searchCount] == '>')) {
 		(*src)++;
 		p->scriptCode [p->scriptCodeSize] = 0;
@@ -851,7 +851,7 @@ flush_entity (HTMLTokenizer *t)
 {
 	struct _HTMLTokenizerPrivate *p = t->priv;
 	/* ignore the TAG_ESCAPE when flushing */
-	const char *str = p->searchBuffer + 1; 
+	const char *str = p->searchBuffer + 1;
 
 	 while (p->searchCount--) {
 		add_byte (t, &str);
@@ -865,7 +865,7 @@ add_unichar_validated (HTMLTokenizer *t, gunichar uc)
 		add_unichar (t, uc);
 		return TRUE;
 	}
-		
+
 	g_warning ("invalid character value: x%xd", uc);
 	return FALSE;
 }
@@ -882,7 +882,7 @@ in_entity (HTMLTokenizer *t, const gchar **src)
 
 	p->searchBuffer [p->searchCount + 1] = **src;
 	p->searchBuffer [p->searchCount + 2] = '\0';
-			
+
 	/* Check for &#0000 sequence */
 	if (p->searchBuffer[2] == '#') {
 		if ((p->searchCount > 1) &&
@@ -895,11 +895,11 @@ in_entity (HTMLTokenizer *t, const gchar **src)
 			p->charEntity = FALSE;
 		}
 		if ((p->searchCount > 1) &&
-		    (!isalnum (**src)) && 
+		    (!isalnum (**src)) &&
 		    (p->searchBuffer[3] == 'x')) {
 			/* &x12AB */
 			p->searchBuffer [p->searchCount + 1] = '\0';
-			
+
 			entityValue = strtoul (&(p->searchBuffer [4]),
 					       NULL, 16);
 			p->charEntity = FALSE;
@@ -912,12 +912,12 @@ in_entity (HTMLTokenizer *t, const gchar **src)
 			if ((p->searchBuffer [p->searchCount + 1] == ';') ||
 			    (!p->tag)) {
 				char *ename = p->searchBuffer + 2;
-						
+
 				p->searchBuffer [p->searchCount + 1] = '\0'; /* FIXME sucks */
 				entityValue = html_entity_parse (ename, 0);
 			}
 		}
-				
+
 	}
 
 	if (p->searchCount > 13) {
@@ -934,10 +934,10 @@ in_entity (HTMLTokenizer *t, const gchar **src)
 		/*
 		 * my reading of http://www.w3.org/TR/html4/intro/sgmltut.html#h-3.2.2 makes
 		 * seem correct to always collapse entity references, even in element names
-		 * and attributes. 
+		 * and attributes.
 		 */
 		if (entityValue) {
-			if (entityValue != TAG_ESCAPE) 
+			if (entityValue != TAG_ESCAPE)
 				/* make sure the entity value is a valid character value */
 				if (!add_unichar_validated (t, entityValue))
 					add_unichar (t, INVALID_CHARACTER_MARKER);
@@ -980,7 +980,7 @@ in_tag (HTMLTokenizer *t, const gchar **src)
 		add_byte (t, src);
 		return;
 	}
-			
+
 	if (p->pending)
 		html_tokenizer_add_pending (t);
 
@@ -1000,9 +1000,9 @@ start_entity (HTMLTokenizer *t, const gchar **src)
 	struct _HTMLTokenizerPrivate *p = t->priv;
 
 	(*src)++;
-			
+
 	p->discard = NoneDiscard;
-			
+
 	if (p->pending)
 		html_tokenizer_add_pending (t);
 
@@ -1029,7 +1029,7 @@ end_tag (HTMLTokenizer *t, const gchar **src)
 	p->searchCount = 0; /* Stop looking for <!-- sequence */
 
 	add_unichar (t, '>');
-	
+
 	/* Make the tag lower case */
 	ptr = p->buffer + 2;
 	if (p->pre || *ptr == '/') {
@@ -1048,12 +1048,12 @@ end_tag (HTMLTokenizer *t, const gchar **src)
 	}
 	html_tokenizer_append_token (t, p->buffer, p->dest - p->buffer);
 	p->dest = p->buffer;
-			
+
 	p->tag = FALSE;
 	p->aTag = FALSE;
 	p->pending = NonePending;
 	(*src)++;
-			
+
 	if (strncmp (p->buffer + 2, "pre", 3) == 0) {
 		p->pre++;
 	}
@@ -1154,7 +1154,7 @@ static void
 in_space_or_tab (HTMLTokenizer *t, const gchar **src)
 {
 	gchar *ptr;
-	
+
 	if (t->priv->tquote) {
 		if (t->priv->discard == NoneDiscard)
 			t->priv->pending = SpacePending;
@@ -1195,7 +1195,7 @@ in_quoted (HTMLTokenizer *t, const gchar **src)
 		} else if (*(t->priv->dest-1) == '=' && !t->priv->tquote) {
 			t->priv->discard = SpaceDiscard;
 			t->priv->pending = NonePending;
-					
+
 			if (**src == '\"') /* match " */
 				t->priv->tquote = DOUBLE_QUOTE;
 			else
@@ -1246,11 +1246,11 @@ inline static void
 in_plain (HTMLTokenizer *t, const gchar **src)
 {
 	struct _HTMLTokenizerPrivate *p = t->priv;
-	
+
 	p->discard = NoneDiscard;
 	if (p->pending)
 		html_tokenizer_add_pending (t);
-			
+
 	if (p->tag) {
 		if (p->searchCount > 0) {
 			if (**src == commentStart[p->searchCount]) {
@@ -1277,7 +1277,7 @@ static void
 html_tokenizer_tokenize_one_char (HTMLTokenizer *t, const gchar **src)
 {
 	struct _HTMLTokenizerPrivate *p = t->priv;
-	
+
 	prepare_enough_space (t);
 
 	if (p->skipLF && **src != '\n')
@@ -1329,7 +1329,7 @@ html_tokenizer_blocking_get_name (HTMLTokenizer *t)
 	case Table:
 		return "</tabledkdk";
 	}
-	
+
 	return "";
 }
 
@@ -1337,7 +1337,7 @@ static void
 html_tokenizer_blocking_push (HTMLTokenizer *t, HTMLTokenType tt)
 {
 	struct _HTMLTokenizerPrivate *p = t->priv;
-	
+
 	/* block tokenizer - we must block last token in buffers as it was already added */
 	if (!p->blocking) {
 		p->tokens_num--;
@@ -1403,7 +1403,7 @@ html_tokenizer_peek_token (HTMLTokenizer *t)
 
 	if (klass->peek_token)
 		return klass->peek_token (t);
-	
+
 	g_warning ("No peek_token method defined.");
 	return NULL;
 
@@ -1440,14 +1440,14 @@ html_tokenizer_has_more_tokens (HTMLTokenizer *t)
 
 	g_warning ("No has_more method defined.");
 	return FALSE;
-	
+
 }
 
 HTMLTokenizer *
 html_tokenizer_clone (HTMLTokenizer *t)
 {
 	HTMLTokenizerClass *klass;
-	
+
 	if (t == NULL)
 		return NULL;
 	g_return_val_if_fail (HTML_IS_TOKENIZER (t), NULL);
@@ -1456,7 +1456,7 @@ html_tokenizer_clone (HTMLTokenizer *t)
 
 	if (klass->clone)
 		return klass->clone (t);
-	
+
 	g_warning ("No clone method defined.");
 	return NULL;
 }

@@ -81,7 +81,7 @@ color_palette_destroy (GtkObject *object)
 		gdk_color_free (P->current_color);
 		P->current_color = NULL;
 	}
-	
+
 	color_palette_set_group (P, NULL);
 
 	memset (P->items, 0, P->total * sizeof (GnomeCanvasItem *));
@@ -142,7 +142,7 @@ emit_color_changed (ColorPalette *P, GdkColor *color,
 	/* Only add custom colors to the group */
 	if (custom && color)
 		color_group_add_color (P->color_group, color);
-	
+
 	g_signal_emit (P, color_palette_signals [COLOR_CHANGED], 0,
 		       color, custom, by_user, is_default);
 }
@@ -242,7 +242,7 @@ static void
 cb_group_custom_color_add (GtkObject *cg, GdkColor *color, ColorPalette *P)
 {
 	GdkColor *new;
-	
+
 	new = make_color (P, color);
 	color_palette_change_custom_color (P, new);
 }
@@ -258,18 +258,18 @@ color_in_palette (ColorNamePair *set, GdkColor *color)
 	int i;
 
 	g_return_val_if_fail (set != NULL, FALSE);
-       
+
 	if (color == NULL)
 		return TRUE;
-		
+
 	/* Iterator over all the colors and try to find
 	 * if we can find @color
 	 */
 	for (i = 0; set[i].color != NULL; i++) {
 		GdkColor current;
-		
+
 		gdk_color_parse (set[i].color, &current);
-		
+
 		if (gdk_color_equal (color, &current))
 			return TRUE;
 	}
@@ -325,7 +325,7 @@ static void
 cb_custom_colors (GdkColor const * const color, gpointer data)
 {
 	ColorPalette *P = data;
-	
+
 	if (color)
 		color_palette_change_custom_color (P, color);
 }

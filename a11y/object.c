@@ -131,7 +131,7 @@ gtk_html_a11y_get_type (void)
 		};
 
 		/*
-		 * Figure out the size of the class and instance 
+		 * Figure out the size of the class and instance
 		 * we are deriving from
 		 */
 		AtkObjectFactory *factory;
@@ -198,10 +198,10 @@ gtk_html_a11y_get_n_children (AtkObject *accessible)
 			}
 			g_object_unref (ss_clue);
 		}
-		
+
 		n_children = html_object_get_n_children (GTK_HTML_A11Y_GTKHTML (accessible)->engine->clue);
 	}
-		
+
 
 	/* printf ("gtk_html_a11y_get_n_children resolves to %d\n", n_children); */
 
@@ -331,10 +331,10 @@ gtk_html_a11y_cursor_changed_cb (GtkWidget *widget)
 {
         AtkObject *focus_object, *obj;
 
-	focus_object = gtk_html_a11y_get_focus_object (widget);  
+	focus_object = gtk_html_a11y_get_focus_object (widget);
 	g_return_if_fail (focus_object != NULL);
 	obj = gtk_widget_get_accessible (widget);
-	
+
 	if (gtk_html_a11y_focus_object != focus_object) {
 		gtk_html_a11y_focus_object = focus_object;
         	g_object_set_data (G_OBJECT(obj), "gail-focus-object", focus_object);
@@ -350,7 +350,7 @@ gtk_html_a11y_cursor_changed_cb (GtkWidget *widget)
 }
 
 static void
-gtk_html_a11y_insert_object_cb (GtkWidget * widget, int pos, int len) 
+gtk_html_a11y_insert_object_cb (GtkWidget * widget, int pos, int len)
 {
 	AtkObject * a11y, *obj;
 
@@ -371,11 +371,11 @@ gtk_html_a11y_insert_object_cb (GtkWidget * widget, int pos, int len)
 	if (G_IS_HTML_A11Y_TEXT(a11y)) {
 		g_signal_emit_by_name (a11y, "text_changed::insert", cursor->offset - len, len);
 
-	} 
+	}
 }
 
 static void
-gtk_html_a11y_delete_object_cb (GtkWidget * widget, int pos, int len) 
+gtk_html_a11y_delete_object_cb (GtkWidget * widget, int pos, int len)
 {
 	AtkObject * a11y, *obj;
 	HTMLCursor *cursor = GTK_HTML (widget)->engine->cursor;
@@ -396,7 +396,7 @@ gtk_html_a11y_delete_object_cb (GtkWidget * widget, int pos, int len)
 	}
 }
 
-AtkObject* 
+AtkObject*
 gtk_html_a11y_new (GtkWidget *widget)
 {
 	GObject *object;
@@ -410,7 +410,7 @@ gtk_html_a11y_new (GtkWidget *widget)
 	atk_object_initialize (accessible, widget);
 
 	accessible->role = ATK_ROLE_PANEL;
-	g_signal_connect (widget, "grab_focus", 
+	g_signal_connect (widget, "grab_focus",
 			G_CALLBACK (gtk_html_a11y_grab_focus_cb),
 			NULL);
 	g_signal_connect (widget, "cursor_changed",
@@ -428,7 +428,7 @@ gtk_html_a11y_new (GtkWidget *widget)
 
 	/* printf ("created new gtkhtml accessible object\n"); */
 
-	focus_object = gtk_html_a11y_get_focus_object (widget);  
+	focus_object = gtk_html_a11y_get_focus_object (widget);
 
 	if (focus_object && gtk_html_a11y_focus_object != focus_object) {
 		gtk_html_a11y_focus_object = focus_object;

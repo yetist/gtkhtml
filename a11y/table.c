@@ -84,7 +84,7 @@ html_a11y_table_get_type (void)
 	return type;
 }
 
-static void 
+static void
 atk_table_interface_init (AtkTableIface *iface)
 {
 	g_return_if_fail (iface != NULL);
@@ -133,7 +133,7 @@ html_a11y_table_init (HTMLA11YTable *a11y_table)
 {
 }
 
-AtkObject* 
+AtkObject*
 html_a11y_table_new (HTMLObject *html_obj)
 {
 	GObject *object;

@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /* This file is part of the GtkHTML library.
-    
+
    Copyright (C) 2001, Ximian, Inc.
 
    This library is free software; you can redistribute it and/or
@@ -33,7 +33,7 @@ html_map_destroy (HTMLMap *map)
 
 	for (i = 0; i < map->shapes->len; i++)
 		html_shape_destroy (g_ptr_array_index (map->shapes, i));
-	
+
 	g_ptr_array_free (map->shapes, TRUE);
 	map->shapes = NULL;
 
@@ -60,7 +60,7 @@ html_map_calc_point (HTMLMap *map, gint x, gint y)
 
 		if (html_shape_point (shape, x, y)) {
 			return html_shape_get_url (shape);
-		}		 
+		}
 	}
 	return NULL;
 }

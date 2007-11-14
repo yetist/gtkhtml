@@ -36,7 +36,7 @@ typedef struct _GtkHTMLEmbeddedPrivate GtkHTMLEmbeddedPrivate;
 typedef struct _GtkHTMLPrivate GtkHTMLPrivate;
 typedef struct _GtkHTMLStream GtkHTMLStream;
 
-typedef char **(* GtkHTMLStreamTypesFunc) (GtkHTMLStream *stream, 
+typedef char **(* GtkHTMLStreamTypesFunc) (GtkHTMLStream *stream,
 					   gpointer user_data);
 typedef void   (* GtkHTMLStreamCloseFunc) (GtkHTMLStream *stream,
 					   GtkHTMLStreamStatus status,

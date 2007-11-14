@@ -56,9 +56,9 @@ html_search_new (HTMLEngine *e, const gchar *text, gboolean case_sensitive, gboo
 
 	if (html_engine_get_editable (e)) {
 		HTMLObject *o;
- 
+
 		if (e->mark)
-			ns->start_pos = forward 
+			ns->start_pos = forward
 					? e->mark->offset + 1
 					: e->cursor->offset - 1;
 		else

@@ -75,7 +75,7 @@ html_a11y_image_get_type (void)
 	return type;
 }
 
-static void 
+static void
 atk_image_interface_init (AtkImageIface *iface)
 {
 	g_return_if_fail (iface != NULL);
@@ -118,7 +118,7 @@ html_a11y_image_init (HTMLA11YImage *a11y_image)
 {
 }
 
-AtkObject* 
+AtkObject*
 html_a11y_image_new (HTMLObject *html_obj)
 {
 	GObject *object;

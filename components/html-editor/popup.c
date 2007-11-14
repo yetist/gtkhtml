@@ -436,8 +436,8 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items, guint *props)
 	ADD_SEP;
 #endif
 	active = html_engine_is_selection_active (e);
-	ADD_STOCK (GTK_STOCK_UNDO, undo); 
-	ADD_STOCK (GTK_STOCK_REDO, redo); 
+	ADD_STOCK (GTK_STOCK_UNDO, undo);
+	ADD_STOCK (GTK_STOCK_REDO, redo);
 
 	ADD_SEP;
 	ADD_STOCK_SENSITIVE (GTK_STOCK_CUT,  cut, active);
@@ -553,10 +553,10 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items, guint *props)
 					END_SUBMENU;
 				}
 			}
-			
-		} 
+
+		}
 		ADD_SEP;
-		ADD_ITEM (_("Ignore Misspelled Word"), spell_ignore, NONE);		
+		ADD_ITEM (_("Ignore Misspelled Word"), spell_ignore, NONE);
 		if (get_n_languages (cd) > 1) {
 			gchar *lang;
 			gint i;
@@ -571,7 +571,7 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items, guint *props)
 					g_free (lang);
 				}
 			}
-			
+
 			END_SUBMENU;
 		} else {
 			ADD_ITEM (_("Add Word to Dictionary"), spell_add, NONE);
@@ -581,7 +581,7 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items, guint *props)
 
 	ADD_SEP;
 	SUBMENU (_("Input Methods"));
-	gtk_im_multicontext_append_menuitems (GTK_IM_MULTICONTEXT (cd->html->priv->im_context), 
+	gtk_im_multicontext_append_menuitems (GTK_IM_MULTICONTEXT (cd->html->priv->im_context),
 					      GTK_MENU_SHELL (menu));
 	END_SUBMENU;
 

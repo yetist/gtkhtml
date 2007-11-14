@@ -1,18 +1,18 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /* This file is part of the GtkHTML library.
-   
+
    Copyright (C) 2000 Helix Code, Inc.
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
    License as published by the Free Software Foundation; either
    version 2 of the License, or (at your option) any later version.
-   
+
    This library is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
    Library General Public License for more details.
-   
+
    You should have received a copy of the GNU Library General Public License
    along with this library; see the file COPYING.LIB.  If not, write to
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -80,13 +80,13 @@ html_frameset_append (HTMLFrameset *set, HTMLObject *frame)
 	if (set->frames->len >= set->cols->len * set->rows->len)
 		return FALSE;
 
-		
+
 	g_ptr_array_add (set->frames, frame);
 	html_object_set_parent (frame, HTML_OBJECT (set));
 	return TRUE;
 }
 
-static void	       
+static void
 calc_dimension (GPtrArray *dim, gint *span, gint total)
 {
 	HTMLLength *len;
@@ -107,12 +107,12 @@ calc_dimension (GPtrArray *dim, gint *span, gint total)
                 else if (len->type == HTML_LENGTH_TYPE_FRACTION)
 			num_frac += len->val;
 		else if (len->type == HTML_LENGTH_TYPE_PERCENT)
-			span[i] = (total * len->val) / 100;  
+			span[i] = (total * len->val) / 100;
 
 		remain -= span[i];
 	}
 
-	
+
 	if (remain > 0 && num_frac) {
 		adj = remain / num_frac;
 		for (i = 0; i < dim->len; i++) {
@@ -120,7 +120,7 @@ calc_dimension (GPtrArray *dim, gint *span, gint total)
 			if (len->type == HTML_LENGTH_TYPE_FRACTION) {
 				span[i] = adj * len->val;
 				remain -= span[i];
-			} 
+			}
 		}
 	}
 
@@ -128,13 +128,13 @@ calc_dimension (GPtrArray *dim, gint *span, gint total)
 	if (remain < 0)
 		adj = -1;
 
-	i = 0;	
-	while (remain != 0) {	       
+	i = 0;
+	while (remain != 0) {
 		if (span[i] > 0) {
 			span[i] += adj;
 			remain -= adj;
-		} 
-		
+		}
+
 		i++;
 		if (i >= dim->len)
 			i = 0;
@@ -159,7 +159,7 @@ html_frameset_real_calc_size (HTMLObject *o, HTMLPainter *painter, GList **chang
 
 	view_width = html_frameset_get_view_width (set);
 	view_height = html_frameset_get_view_height (set);
-	
+
 	o->ascent = view_height;
 	o->width = view_width;
 	o->descent = 0;
@@ -179,7 +179,7 @@ html_frameset_real_calc_size (HTMLObject *o, HTMLPainter *painter, GList **chang
 
 			if (i < set->frames->len) {
 				frame = g_ptr_array_index (set->frames, i);
-				
+
 				if (HTML_OBJECT_TYPE (frame) == HTML_TYPE_FRAME)
 					html_frame_set_size (HTML_FRAME (frame), widths[c], heights[r]);
 				else {
@@ -188,17 +188,17 @@ html_frameset_real_calc_size (HTMLObject *o, HTMLPainter *painter, GList **chang
 					HTML_OBJECT (frame)->descent = 0;
 				}
 				html_object_calc_size (HTML_OBJECT (frame), painter, changed_objs);
-				
+
 				HTML_OBJECT (frame)->x = view_width - remain_x;
 				HTML_OBJECT (frame)->y = view_height + heights[r] - remain_y;
 
-			}	
-			
+			}
+
 			remain_x -= widths[c];
 		}
-		
+
 		remain_y -= heights[r];
-	}		
+	}
 
 	g_free (widths);
 	g_free (heights);
@@ -210,7 +210,7 @@ html_frameset_init (HTMLFrameset *set, GtkHTML *parent, char *rows, char *cols)
 {
 	html_object_init (HTML_OBJECT (set), HTML_OBJECT_CLASS (&html_frameset_class));
 	set->parent = parent;
-	
+
 	set->cols = NULL;
 	set->rows = NULL;
 
@@ -222,9 +222,9 @@ html_frameset_init (HTMLFrameset *set, GtkHTML *parent, char *rows, char *cols)
 
 	html_length_array_parse (set->cols, cols);
 
-	if (rows == NULL) 
+	if (rows == NULL)
 		rows = "100%";
-	
+
 	html_length_array_parse (set->rows, rows);
 
 	set->frames = g_ptr_array_new ();
@@ -245,7 +245,7 @@ draw (HTMLObject *o,
 	tx += o->x;
 	ty += o->y - o->ascent;
 
-	
+
 	/* Do nothing by default.  We don't know how to paint ourselves.  */
 	for (i = 0; i < set->frames->len; i++) {
 		html_object_draw (HTML_OBJECT (g_ptr_array_index (set->frames, i)),
@@ -259,7 +259,7 @@ static void
 destroy (HTMLObject *self)
 {
 	HTMLFrameset *set;
-	gint i;	
+	gint i;
 
 	set = HTML_FRAMESET (self);
 	for (i = 0; i < set->frames->len; i++)
@@ -310,14 +310,14 @@ check_point (HTMLObject *self,
 	y -= self->y - self->ascent;
 
 	for (i = 0; i < set->frames->len; i++) {
-		obj = html_object_check_point (g_ptr_array_index (set->frames, i), painter, 
+		obj = html_object_check_point (g_ptr_array_index (set->frames, i), painter,
 					       x, y, offset_return, for_cursor);
 
 		if (obj != NULL)
 			return obj;
 
 	}
-    
+
 	return NULL;
 }
 
@@ -331,7 +331,7 @@ is_container (HTMLObject *self)
 reset (HTMLObject *self)
 {
 	HTMLFrameset *set;
-	gint i;	
+	gint i;
 
 	(* HTML_OBJECT_CLASS (parent_class)->reset) (self);
 	set = HTML_FRAMESET (self);
@@ -354,7 +354,7 @@ forall (HTMLObject *self,
 		     html_object_forall (g_ptr_array_index (set->frames, i), e, func, data);
 	(* func) (self, e, data);
 }
- 
+
 
 HTMLObject *
 html_frameset_new (GtkHTML *parent, gchar *rows, gchar *cols)
@@ -383,7 +383,7 @@ html_frameset_type_init (void)
 void
 html_frameset_class_init (HTMLFramesetClass *klass,
 			  HTMLType type,
-			  guint object_size) 
+			  guint object_size)
 {
 	HTMLObjectClass *object_class = HTML_OBJECT_CLASS (klass);
 
@@ -402,7 +402,7 @@ html_frameset_class_init (HTMLFramesetClass *klass,
 
 	object_class->calc_min_width = calc_min_width;
 	/*
-	object_class->copy = copy;	
+	object_class->copy = copy;
 	object_class->op_copy = op_copy;
 	object_class->op_cut = op_cut;
 	object_class->split = split;

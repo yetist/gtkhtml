@@ -74,7 +74,7 @@ destroy (HTMLObject *self)
 
 	g_free (self->id);
 	self->id = NULL;
-	
+
 	if (self->redraw_pending) {
 		self->free_pending = TRUE;
 	} else {
@@ -248,7 +248,7 @@ calc_preferred_width (HTMLObject *o, HTMLPainter *painter)
 	html_object_calc_size (o, painter, NULL);
 	return o->width;
 }
-	
+
 static void
 set_max_width (HTMLObject *o, HTMLPainter *painter, gint max_width)
 {
@@ -322,7 +322,7 @@ get_bg_color (HTMLObject *o,
 	      HTMLPainter *p)
 {
 	if (o->parent)
-		return html_object_get_bg_color (o->parent, p);	
+		return html_object_get_bg_color (o->parent, p);
 
 	if (p->widget && GTK_IS_HTML (p->widget)) {
 		HTMLEngine *e = html_object_engine (o, GTK_HTML (p->widget)->engine);
@@ -347,7 +347,7 @@ check_point (HTMLObject *self,
 			*offset_return = 0;
 		return self;
 	}
-    
+
 	return NULL;
 }
 
@@ -396,7 +396,7 @@ relayout (HTMLObject *self,
 
 		return FALSE;
 	}
-	
+
 	gtk_html_debug_log (engine->widget, "relayout: %s %p changed.\n",
 			    html_type_name (HTML_OBJECT_TYPE (self)), self);
 
@@ -873,7 +873,7 @@ HTMLObject *
 html_object_new (HTMLObject *parent)
 {
 	HTMLObject *o;
-	
+
 	o = g_new0 (HTMLObject, 1);
 	html_object_init (o, &html_object_class);
 
@@ -951,14 +951,14 @@ html_object_set_parent (HTMLObject *o, HTMLObject *parent)
 
 
 static void
-frame_offset (HTMLObject *o, 
+frame_offset (HTMLObject *o,
 	      gint *x_return, gint *y_return)
 {
 	if (html_object_is_frame (o)) {
 		HTMLEngine *e = html_object_get_engine (o, NULL);
 		*x_return -= e->x_offset;
 		*y_return -= e->y_offset;
-	} 
+	}
 }
 
 void
@@ -971,13 +971,13 @@ html_object_calc_abs_position (HTMLObject *o,
 
 	*x_return = o->x;
 	*y_return = o->y;
-	
+
 	frame_offset (o, x_return, y_return);
 
 	for (p = o->parent; p != NULL; p = p->parent) {
 		*x_return += p->x;
 		*y_return += p->y - p->ascent;
-		
+
 		frame_offset (p, x_return, y_return);
 	}
 }
@@ -991,13 +991,13 @@ html_object_calc_abs_position_in_frame (HTMLObject *o, int *x_return, int *y_ret
 
 	*x_return = o->x;
 	*y_return = o->y;
-	
+
 	frame_offset (o, x_return, y_return);
 
 	for (p = o->parent; p != NULL && !html_object_is_frame (p); p = p->parent) {
 		*x_return += p->x;
 		*y_return += p->y - p->ascent;
-		
+
 		frame_offset (p, x_return, y_return);
 	}
 }
@@ -1067,7 +1067,7 @@ html_object_is_transparent (HTMLObject *self)
 HTMLFitType
 html_object_fit_line (HTMLObject *o,
 		      HTMLPainter *painter,
-		      gboolean start_of_line, 
+		      gboolean start_of_line,
 		      gboolean first_run,
 		      gboolean next_to_floating,
 		      gint width_left)
@@ -1152,11 +1152,11 @@ html_object_calc_preferred_width (HTMLObject *o,
 
 #if 0
 gint
-html_object_get_uris (HTMLObject *o, char **link, char **target, char **src) 
+html_object_get_uris (HTMLObject *o, char **link, char **target, char **src)
 {
 	return TRUE;
 }
-#endif 
+#endif
 
 const gchar *
 html_object_get_url (HTMLObject *o, gint offset)

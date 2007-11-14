@@ -184,7 +184,7 @@ html_textarea_new (GtkWidget *parent,
 	return HTML_OBJECT (ta);
 }
 
-void html_textarea_set_text (HTMLTextArea *ta, gchar *text) 
+void html_textarea_set_text (HTMLTextArea *ta, gchar *text)
 {
 	GtkTextIter begin, end;
 

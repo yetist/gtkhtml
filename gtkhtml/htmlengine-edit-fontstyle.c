@@ -2,17 +2,17 @@
 /* This file is part of the GtkHTML library
 
    Copyright (C) 2000 Helix Code, Inc.
-   
+
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
    License as published by the Free Software Foundation; either
    version 2 of the License, or (at your option) any later version.
-   
+
    This library is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
    Library General Public License for more details.
-   
+
    You should have received a copy of the GNU Library General Public License
    along with this library; see the file COPYING.LIB.  If not, write to
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -128,10 +128,10 @@ html_engine_get_document_font_style (HTMLEngine *engine)
 {
 	if (!engine)
 		return GTK_HTML_FONT_STYLE_DEFAULT;
-	
+
 	if (!HTML_IS_ENGINE (engine))
 		return GTK_HTML_FONT_STYLE_DEFAULT;
-	
+
 	if (!engine->editable)
 		return GTK_HTML_FONT_STYLE_DEFAULT;
 
@@ -206,11 +206,11 @@ html_engine_get_color (HTMLEngine *engine)
 /**
  * html_engine_update_insertion_font_style:
  * @engine: An HTMLEngine
- * 
+ *
  * Update @engine's current insertion font style according to the
  * current selection and cursor position.
- * 
- * Return value: 
+ *
+ * Return value:
  **/
 gboolean
 html_engine_update_insertion_font_style (HTMLEngine *engine)
@@ -230,11 +230,11 @@ html_engine_update_insertion_font_style (HTMLEngine *engine)
 /**
  * html_engine_update_insertion_style:
  * @engine: An HTMLEngine
- * 
+ *
  * Update @engine's current insertion font style/color according to the
  * current selection and cursor position.
- * 
- * Return value: 
+ *
+ * Return value:
  **/
 gboolean
 html_engine_update_insertion_color (HTMLEngine *engine)
@@ -258,7 +258,7 @@ html_engine_update_insertion_color (HTMLEngine *engine)
  * html_engine_set_font_style:
  * @engine: An HTMLEngine
  * @style: An HTMLFontStyle
- * 
+ *
  * Set the current font style for `engine'.  This has the same semantics as the
  * bold, italics etc. buttons in a word processor, i.e.:
  *
@@ -509,7 +509,7 @@ get_url_or_target_from_selection (HTMLEngine *e, gboolean get_url)
 		if (str || html_point_cursor_object_eq (&p, &e->selection->to))
 			break;
 		html_point_next_cursor (&p);
-		
+
 		if (p.object == NULL) {
 			g_warning ("Unable to find url by end of selection");
 			return str;

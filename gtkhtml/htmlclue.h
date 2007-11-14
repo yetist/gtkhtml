@@ -28,11 +28,11 @@
 
 struct _HTMLClue {
 	HTMLObject object;
-	
+
 	HTMLObject *head;
 	HTMLObject *tail;
 	HTMLObject *curr;
-	
+
 	HTMLVAlignType valign;
 	HTMLHAlignType halign;
 };

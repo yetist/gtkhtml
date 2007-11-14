@@ -309,7 +309,7 @@ html_engine_draw_cursor_in_area (HTMLEngine *engine,
 		y = 0;
 	}
 
-	
+
 	html_object_get_cursor (obj, engine->painter, offset, &x1, &y1, &x2, &y2);
 	while (obj) {
 		if (html_object_is_frame(obj)) {
@@ -327,8 +327,8 @@ html_engine_draw_cursor_in_area (HTMLEngine *engine,
 	vadj = gtk_layout_get_vadjustment (GTK_LAYOUT (engine->widget));
 	sc_x = (gint) gtk_adjustment_get_value (hadj);
 	sc_y = (gint) gtk_adjustment_get_value (vadj);
-	
-	pos.x = x1 - sc_x; 
+
+	pos.x = x1 - sc_x;
 	pos.y = y1 - sc_y;
 	pos.width = x2 - x1;
 	pos.height = y2 - y1;

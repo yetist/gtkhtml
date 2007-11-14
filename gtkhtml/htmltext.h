@@ -4,17 +4,17 @@
    Copyright (C) 1997 Martin Jones (mjones@kde.org)
    Copyright (C) 1997 Torben Weis (weis@kde.org)
    Copyright (C) 1999, 2000, 2001 Helix Code, Inc.
-   
+
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
    License as published by the Free Software Foundation; either
    version 2 of the License, or (at your option) any later version.
-   
+
    This library is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
    Library General Public License for more details.
-   
+
    You should have received a copy of the GNU Library General Public License
    along with this library; see the file COPYING.LIB.  If not, write to
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -41,7 +41,7 @@ struct _Link {
 	gint end_offset;
 	gchar *url;
 	gchar *target;
-	gboolean is_visited;  
+	gboolean is_visited;
 };
 
 struct _HTMLTextPangoInfoEntry {
@@ -53,7 +53,7 @@ struct _HTMLTextPangoInfo {
 	HTMLTextPangoInfoEntry *entries;
 	PangoLogAttr *attrs;
 	gint n;
-	
+
 	gboolean have_font;
 	GtkHTMLFontStyle font_style;
 	HTMLFontFace *face;
@@ -66,7 +66,7 @@ struct _HTMLPangoAttrFontSize {
 
 struct _HTMLText {
 	HTMLObject object;
-	
+
 	/* utf-8 encoded text */
 	gchar   *text;
 
@@ -224,9 +224,9 @@ void              html_text_add_link_full                (HTMLText           *te
 							  gint                end_index,
 							  gint                start_offset,
 							  gint                end_offset);
-void              html_text_set_link_visited 		 (HTMLText *text, 
-							  gint offset, 
-							  HTMLEngine *engine, 
+void              html_text_set_link_visited 		 (HTMLText *text,
+							  gint offset,
+							  HTMLEngine *engine,
 							  gboolean is_visited);
 void              html_text_remove_links                 (HTMLText           *text);
 gboolean          html_text_get_link_rectangle           (HTMLText           *text,
@@ -363,7 +363,7 @@ html_tmp_fix_pango_glyph_string_get_logical_widths (PangoGlyphString *glyphs,
 						    int               embedding_level,
 						    int              *logical_widths);
 
-PangoAttrList *html_text_prepare_attrs (HTMLText *text, 
+PangoAttrList *html_text_prepare_attrs (HTMLText *text,
 					HTMLPainter *painter);
 
 #endif /* _HTMLTEXT_H_ */

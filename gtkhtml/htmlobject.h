@@ -66,9 +66,9 @@ struct _HTMLObject {
            is set to TRUE instead of g_free()ing the object.  When the draw
            queue is flushed, the g_free() is performed.  */
 	guint free_pending : 1;
-	
+
 	/* FIXME add the other dynamic pusedo-classes... */
-	guint draw_focused : 1; 
+	guint draw_focused : 1;
 
 	GData *object_data;
 	GData *object_data_nocp;

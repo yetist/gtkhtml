@@ -56,7 +56,7 @@ html_engine_new_cell (HTMLEngine *e, HTMLTable *table)
 	HTMLObject    *cell;
 	HTMLObject    *text;
 	HTMLObject    *flow;
-	
+
 	cell  = html_table_cell_new (1, 1, table->padding);
 	flow  = html_clueflow_new (HTML_CLUEFLOW_STYLE_NORMAL, g_byte_array_new (),
 				   HTML_LIST_TYPE_UNORDERED, 0, HTML_CLEAR_NONE);
@@ -234,7 +234,7 @@ html_table_insert_column (HTMLTable *t, HTMLEngine *e, gint col, HTMLTableCell *
 	position_before = e->cursor->position;
 	pos.object = e->cursor->object;
 	pos.offset = e->cursor->offset;
-	
+
 	html_engine_goto_table_0 (e, t);
 
 	html_table_alloc_cell (t, 0, t->totalCols);
@@ -481,8 +481,8 @@ html_engine_delete_table_column (HTMLEngine *e)
 	if (start_cell->row == end_cell->row)
 		while (start_col <= end_col--)
 			html_table_delete_column (table, e, start_col, HTML_UNDO_UNDO);
-	else 
-		if ((start_cell->row == end_cell->row - 1) && 
+	else
+		if ((start_cell->row == end_cell->row - 1) &&
 		   (start_col > end_col + 1)) {
 			while (start_col < table->totalCols)
 				html_table_delete_column (table, e, start_col, HTML_UNDO_UNDO);
@@ -707,7 +707,7 @@ html_engine_delete_table_row (HTMLEngine *e)
 	html_engine_disable_selection (e);
 	if (end_row - start_row == table->totalRows - 1)
 		html_engine_delete_table (e);
-	else 
+	else
 		while (start_row <= end_row--)
 			html_table_delete_row (table, e, start_row, HTML_UNDO_UNDO);
 }

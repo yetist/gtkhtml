@@ -2,17 +2,17 @@
 /* This file is part of the GtkHTML library.
 
    Copyright (C) 2000 Helix Code, Inc.
-   
+
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
    License as published by the Free Software Foundation; either
    version 2 of the License, or (at your option) any later version.
-   
+
    This library is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
    Library General Public License for more details.
-   
+
    You should have received a copy of the GNU Library General Public License
    along with this library; see the file COPYING.LIB.  If not, write to
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -122,7 +122,7 @@ destroy_font_set_foreach (gpointer key, gpointer font_set, gpointer data)
 static void
 clear_additional_font_sets (HTMLFontManager *manager)
 {
-	g_hash_table_foreach_remove (manager->font_sets, destroy_font_set_foreach, manager->painter);	
+	g_hash_table_foreach_remove (manager->font_sets, destroy_font_set_foreach, manager->painter);
 }
 
 void
@@ -187,7 +187,7 @@ static gint
 get_font_num (GtkHTMLFontStyle style)
 {
 	style |= (style & GTK_HTML_FONT_STYLE_SIZE_MASK) ? 0 : GTK_HTML_FONT_STYLE_SIZE_3;
-	
+
 	return (style & GTK_HTML_FONT_STYLE_MAX_FONT_MASK);
 }
 
@@ -353,7 +353,7 @@ html_font_manager_get_font (HTMLFontManager *manager, gchar *face_list, GtkHTMLF
 					g_warning ("Cannot allocate fixed font\n");
 			} else {
 				/* some unavailable non-default font => use default one */
-			
+
 			       font = html_font_manager_get_font (manager, NULL, style);
 			       html_font_ref (font, manager->painter);
 			}
@@ -366,11 +366,11 @@ html_font_manager_get_font (HTMLFontManager *manager, gchar *face_list, GtkHTMLF
 }
 
 HTMLFont *
-html_font_new (gpointer data, 
+html_font_new (gpointer data,
 	       guint space_width,
 	       guint space_asc,
 	       guint space_dsc,
-	       guint nbsp_width, 
+	       guint nbsp_width,
 	       guint tab_width,
 	       guint e_width,
 	       guint indent_width,

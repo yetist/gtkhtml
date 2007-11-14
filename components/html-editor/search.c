@@ -20,7 +20,7 @@
     Boston, MA 02110-1301, USA.
 */
 
-#include <config.h> 
+#include <config.h>
 #ifdef GNOME_GTKHTML_EDITOR_SHLIB
 #include <glib/gi18n-lib.h>
 #else
@@ -128,7 +128,7 @@ gtk_html_search_dialog_new (GtkHTML *html, GtkHTMLControlData *cd)
 	gtk_box_pack_start (GTK_BOX (hbox), dialog->backward, FALSE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (hbox), dialog->case_sensitive, FALSE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (hbox), dialog->regular_exp, FALSE, FALSE, 0);
-	
+
 	vbox = gtk_vbox_new (FALSE, 6);
 	gtk_widget_show (vbox);
 	gtk_box_pack_start (GTK_BOX (vbox), dialog->entry, FALSE, FALSE, 0);

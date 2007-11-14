@@ -25,7 +25,7 @@ struct _HTMLStreamMem {
 
 	GtkHTMLStream   *html_stream;
 };
-  
+
 struct _HTMLStreamMemClass {
 	BonoboObjectClass parent_class;
 	POA_Bonobo_Stream__epv epv;

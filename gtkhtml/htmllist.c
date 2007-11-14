@@ -27,7 +27,7 @@ HTMLList *
 html_list_new (HTMLListType t)
 {
 	HTMLList *list;
-	
+
 	list = g_new0 (HTMLList, 1);
 	list->type = t;
 	list->itemNumber = 1;

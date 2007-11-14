@@ -58,7 +58,7 @@ replace_prefix (const char *runtime_prefix,
 static void
 setup (void)
 {
-	char *cp_prefix; 
+	char *cp_prefix;
 
         G_LOCK (mutex);
         if (localedir != NULL) {

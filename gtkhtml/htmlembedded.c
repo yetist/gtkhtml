@@ -75,7 +75,7 @@ draw (HTMLObject *o,
 	if (element->parent) {
 		new_x = o->x + tx;
 		new_y = o->y + ty - o->ascent;
-		
+
 		if (element->widget->parent) {
 			if (new_x != element->abs_x || new_y != element->abs_y) {
 				d (printf ("element: %p moveto: %d,%d shown: %d\n", element, new_x, new_y, GTK_WIDGET_VISIBLE (element->widget)));
@@ -83,10 +83,10 @@ draw (HTMLObject *o,
 			} else if (!GTK_HTML (element->parent)->engine->expose)
 				gtk_widget_queue_draw (element->widget);
 		}
-	
+
 		element->abs_x = new_x;
 		element->abs_y = new_y;
-		
+
 		if (!element->widget->parent) {
 			d (printf ("element: %p put: %d,%d shown: %d\n", element, new_x, new_y, GTK_WIDGET_VISIBLE (element->widget)));
 			gtk_layout_put (GTK_LAYOUT(element->parent), element->widget, new_x, new_y);
@@ -146,7 +146,7 @@ calc_min_width (HTMLObject *self,
 
 	if (widget == NULL || !GTK_WIDGET_VISIBLE (widget))
 		return 0;
-     
+
 	requisition.width = requisition.height = 0;
 	gtk_widget_size_request (widget, &requisition);
 	pixel_size = html_painter_get_pixel_size (painter);
@@ -176,7 +176,7 @@ html_embedded_real_calc_size (HTMLObject *self, HTMLPainter *painter, GList **ch
 
 	requisition.width = requisition.height = 0;
 	gtk_widget_size_request (widget, &requisition);
-	
+
 	if (GTK_IS_HTML_EMBEDDED(widget))
 		self->descent = GTK_HTML_EMBEDDED (widget)->descent * pixel_size;
 	else
@@ -235,11 +235,11 @@ html_embedded_encode_string (const gchar *str)
         GString *encoded = g_string_new ("");
         gchar buffer[5], *ptr;
 	guchar c;
-	
+
         while ( pos < strlen(str) ) {
 
 		c = (unsigned char) str[pos];
-			
+
 		if ( (( c >= 'A') && ( c <= 'Z')) ||
 		     (( c >= 'a') && ( c <= 'z')) ||
 		     (( c >= '0') && ( c <= '9')) ||
@@ -263,7 +263,7 @@ html_embedded_encode_string (const gchar *str)
 				}
 		pos++;
 	}
-	
+
 	ptr = encoded->str;
 
 	g_string_free (encoded, FALSE);
@@ -278,7 +278,7 @@ html_embedded_type_init (void)
 }
 
 void
-html_embedded_class_init (HTMLEmbeddedClass *klass, 
+html_embedded_class_init (HTMLEmbeddedClass *klass,
 			  HTMLType type,
 			  guint size)
 {
@@ -305,10 +305,10 @@ html_embedded_class_init (HTMLEmbeddedClass *klass,
 }
 
 void
-html_embedded_init (HTMLEmbedded *element, 
-		   HTMLEmbeddedClass *klass, 
-		   GtkWidget *parent, 
-		   gchar *name, 
+html_embedded_init (HTMLEmbedded *element,
+		   HTMLEmbeddedClass *klass,
+		   GtkWidget *parent,
+		   gchar *name,
 		   gchar *value)
 {
 	HTMLObject *object;
@@ -352,7 +352,7 @@ html_embedded_object_changed (GtkHTMLEmbedded *eb, HTMLEngine *e)
 	object = HTML_OBJECT (g_object_get_data (G_OBJECT (eb), "embeddedelement"));
 	if (object)
 		html_object_calc_size (object, e->painter, NULL);
-	
+
 	html_engine_schedule_update(e);
 }
 
@@ -367,7 +367,7 @@ html_embedded_new_widget (GtkWidget *parent, GtkHTMLEmbedded *eb, HTMLEngine *en
 	html_embedded_init (em, HTML_EMBEDDED_CLASS (&html_embedded_class), parent, eb->name, "");
 	html_embedded_set_widget (em, GTK_WIDGET (eb));
 
-	/* pass em as the user_data so that the handler will disconnect 
+	/* pass em as the user_data so that the handler will disconnect
 	 * when the object is destoyed
 	 */
 	g_signal_connect(eb, "button_press_event", G_CALLBACK (html_embedded_grab_cursor), em);
@@ -386,7 +386,7 @@ html_embedded_allocate (GtkWidget *w, GtkAllocation  *allocation, HTMLEmbedded *
 			e->width = allocation->width;
 		}
 		e->height = allocation->height;
-		
+
 		if (GTK_IS_HTML (w->parent))
 			html_engine_schedule_update (GTK_HTML (w->parent)->engine);
 	}
@@ -396,7 +396,7 @@ void
 html_embedded_set_widget (HTMLEmbedded *emb, GtkWidget *w)
 {
 	emb->widget = w;
-	
+
 	d (printf ("set embedded widget: %p widget: %p\n", emb, w));
 	gtk_widget_show (w);
 

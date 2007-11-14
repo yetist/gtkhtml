@@ -71,9 +71,9 @@ void html_hidden_class_init (HTMLHiddenClass *klass,
 	parent_class = &html_embedded_class;
 }
 
-void html_hidden_init (HTMLHidden *hidden, 
-		       HTMLHiddenClass *klass, 
-		       gchar *name, 
+void html_hidden_init (HTMLHidden *hidden,
+		       HTMLHiddenClass *klass,
+		       gchar *name,
 		       gchar *value)
 {
 	HTMLEmbedded *element;

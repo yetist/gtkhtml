@@ -127,7 +127,7 @@ example_changed_cb (GtkComboBox *combo_box, gpointer data)
 
 	if (example->filename) {
 		GtkHTMLStream *stream;
-		
+
 		stream = gtk_html_begin (GTK_HTML (html));
 		url_requested (GTK_HTML (html), example->filename, stream, NULL);
 	} else {
@@ -239,11 +239,11 @@ compare_examples (const void *a,
 				p++;
 			while (g_ascii_isdigit (*q))
 				q++;
-			
+
 		} else {
 			int p_len = 1, q_len = 1;
 			char *p_str, *q_str;
-			
+
 			while (*(p + p_len) && !g_ascii_isdigit (*(p + p_len)))
 				p_len++;
 			while (*(q + q_len) && !g_ascii_isdigit (*(q + q_len)))
@@ -289,7 +289,7 @@ find_examples (void)
 	Example *example;
 
 	examples = g_ptr_array_new ();
-	
+
 	example = g_new (Example, 1);
 	example->filename = NULL;
 	example->title = "Welcome";
@@ -303,7 +303,7 @@ find_examples (void)
 
 	while (TRUE) {
 		const gchar *name = g_dir_read_name (dir);
-		
+
 		if (!name)
 			break;
 		if (!g_str_has_suffix (name, ".html"))
@@ -312,7 +312,7 @@ find_examples (void)
 		example = g_new (Example, 1);
 		example->filename = g_strdup (name);
 		example->title = g_strndup (name, strlen (name) - 5);
-		
+
 		g_ptr_array_add (examples, example);
 		qsort (examples->pdata, examples->len, sizeof (void *), compare_examples);
 	}
@@ -330,11 +330,11 @@ main (int argc, char **argv)
 	GtkWidget *swindow;
 	GtkWidget *action_button;
 	int i = 0;
-	 
+
 	gnome_program_init ("libgtkhtml test", "0.0", LIBGNOMEUI_MODULE, argc, argv, NULL);
 
 	find_examples ();
-	
+
 	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	vbox = gtk_vbox_new (FALSE, 0);
 	hbox = gtk_hbox_new (FALSE, 0);
@@ -357,7 +357,7 @@ main (int argc, char **argv)
 	g_signal_connect (combo_box, "changed", G_CALLBACK (example_changed_cb), NULL);
 
 	gtk_box_pack_start (GTK_BOX (hbox), combo_box, FALSE, FALSE, 0);
-	
+
 	action_button = gtk_button_new_with_label ("Dump");
 	gtk_box_pack_end (GTK_BOX (hbox), action_button, FALSE, FALSE, 0);
 	g_signal_connect (action_button, "clicked", G_CALLBACK (dump_cb), NULL);
@@ -375,7 +375,7 @@ main (int argc, char **argv)
 	gtk_window_set_default_size (GTK_WINDOW (window), 500, 500);
 
 	gtk_widget_show_all (window);
-		
+
 	gtk_main ();
 
 	return 0;

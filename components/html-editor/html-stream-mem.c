@@ -42,7 +42,7 @@ html_stream_mem_write (PortableServer_Servant servant,
 	}
 }
 
-static void 
+static void
 html_stream_mem_finalize (GObject *object)
 {
 	HTMLStreamMem *bhtml = HTML_STREAM_MEM (object);
@@ -52,7 +52,7 @@ html_stream_mem_finalize (GObject *object)
 		bhtml->html_stream = NULL;
 	}
 
-	G_OBJECT_CLASS (parent_class)->finalize (object);		
+	G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
 static HTMLStreamMem *
@@ -60,14 +60,14 @@ html_stream_mem_construct (HTMLStreamMem *bhtml,
 			   GtkHTMLStream *html_stream)
 {
 	g_return_val_if_fail (HTML_IS_STREAM_MEM (bhtml), NULL);
-	
+
 	bhtml->html_stream = html_stream;
 
 	return bhtml;
 }
 
 BonoboObject *
-html_stream_mem_create (GtkHTMLStream *html_stream) 
+html_stream_mem_create (GtkHTMLStream *html_stream)
 {
 	HTMLStreamMem *bhtml;
 
@@ -83,7 +83,7 @@ html_stream_mem_init (HTMLStreamMem *mem)
 {
 }
 
-static void 
+static void
 html_stream_mem_class_init (HTMLStreamMemClass *klass)
 {
 	GObjectClass *o_class = G_OBJECT_CLASS (klass);
@@ -91,7 +91,7 @@ html_stream_mem_class_init (HTMLStreamMemClass *klass)
 
 	parent_class = g_type_class_peek_parent (klass);
 	epv->write = html_stream_mem_write;
-	
+
 	o_class->finalize = html_stream_mem_finalize;
 
 }

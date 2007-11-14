@@ -26,7 +26,7 @@
 #include "htmlclueflow.h"
 
 gboolean           html_engine_set_clueflow_style                (HTMLEngine                     *engine,
-								  HTMLClueFlowStyle               style,	
+								  HTMLClueFlowStyle               style,
 								  HTMLListType                    item_type,
 								  HTMLHAlignType                  alignment,
 								  gint                            indentation_delta,

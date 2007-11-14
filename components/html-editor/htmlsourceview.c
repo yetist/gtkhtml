@@ -107,7 +107,7 @@ static gint
 html_source_view_timeout (gpointer *data)
 {
 	HTMLSourceView *view;
-	
+
 	g_return_val_if_fail (HTML_IS_SOURCE_VIEW (data), FALSE);
 
 	view = HTML_SOURCE_VIEW (data);
@@ -121,7 +121,7 @@ html_source_view_set_timeout (HTMLSourceView *view, guint timeout)
 {
 	if (view->priv->timer_id)
 		g_source_remove (view->priv->timer_id);
-	
+
 	view->priv->current_interval = timeout;
 	view->priv->timer_id = g_timeout_add (timeout, (GtkFunction)html_source_view_timeout, view);
 }
@@ -146,7 +146,7 @@ html_source_view_set_source (HTMLSourceView *view, BonoboWidget *control, char *
 		g_warning ("Couldn't find persist stream interface");
 		return;
 	}
- 
+
 	g_free (view->priv->content_type);
 	view->priv->content_type = g_strdup (content_type);
 
@@ -161,7 +161,7 @@ html_source_view_new (void)
 	GtkWidget *view;
 
 	view = GTK_WIDGET (g_object_new (html_source_view_get_type (), NULL));
-	
+
 	return view;
 }
 
@@ -177,7 +177,7 @@ html_source_view_init (HTMLSourceView *view)
 	view->priv->html = GTK_HTML (html = gtk_html_new ());
 	view->priv->current_interval = 500;
 	view->priv->as_html = FALSE;
-	
+
 	scroll = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scroll),
 					GTK_POLICY_AUTOMATIC,
@@ -201,20 +201,20 @@ html_source_view_destroy (GtkObject *object)
 		if (priv->timer_id)
 			g_source_remove (priv->timer_id);
 		priv->timer_id = 0;
-		
+
 		if (priv->pstream != CORBA_OBJECT_NIL) {
 			CORBA_Environment ev;
-			
+
 			CORBA_exception_init (&ev);
 			Bonobo_Unknown_unref (priv->pstream, &ev);
 			CORBA_Object_release (priv->pstream, &ev);
 			CORBA_exception_free (&ev);
 		}
-		
+
 		g_free (view->priv);
 		view->priv = NULL;
 	}
-		
+
 	if (GTK_OBJECT_CLASS (parent_class)->destroy != NULL)
 		(* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
 }
@@ -234,7 +234,7 @@ html_source_view_class_init (HTMLSourceViewClass *klass)
 					 NULL, NULL,
 					 g_cclosure_marshal_VOID__VOID,
 					 G_TYPE_NONE, 0);
-	
+
 	object_class->destroy = html_source_view_destroy;
 	klass->update = html_source_view_real_update;
 }
@@ -243,7 +243,7 @@ GtkType
 html_source_view_get_type (void)
 {
 	static GType view_type = 0;
-	
+
 	if (!view_type) {
 		GTypeInfo view_info = {
 			sizeof (HTMLSourceViewClass),
@@ -259,6 +259,6 @@ html_source_view_get_type (void)
 
 		view_type = g_type_register_static (GTK_TYPE_VBOX, "HTMLView", &view_info, 0);
 	}
-	
+
 	return view_type;
 }

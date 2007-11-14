@@ -203,7 +203,7 @@ check_next_word (GtkHTMLControlData *cd, gboolean update, gboolean forward)
 	}
 }
 
-static void 
+static void
 replace_cb (BonoboListener *listener, const char *event_name, const CORBA_any *arg, CORBA_Environment *ev, gpointer user_data)
 {
 	GtkHTMLControlData *cd = (GtkHTMLControlData *) user_data;
@@ -224,7 +224,7 @@ back_cb (BonoboListener *listener, const char *event_name, const CORBA_any *arg,
 	check_next_word ((GtkHTMLControlData *) user_data, FALSE, FALSE);
 }
 
-static void 
+static void
 add_cb (BonoboListener *listener, const char *event_name, const CORBA_any *arg, CORBA_Environment *ev, gpointer user_data)
 {
 	GtkHTMLControlData *cd = (GtkHTMLControlData *) user_data;
@@ -244,7 +244,7 @@ add_cb (BonoboListener *listener, const char *event_name, const CORBA_any *arg, 
 	g_free (word);
 }
 
-static void 
+static void
 ignore_cb (BonoboListener *listener, const char *event_name, const CORBA_any *arg, CORBA_Environment *ev, gpointer user_data)
 {
 	GtkHTMLControlData *cd = (GtkHTMLControlData *) user_data;

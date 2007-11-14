@@ -26,7 +26,7 @@
 #include <glib/gstdio.h>
 #include <sys/stat.h>
 #include <fcntl.h>
- 
+
 #include <gnome.h>
 #include <gtk/gtk.h>
 #include <gtk/gtkbutton.h>
@@ -61,7 +61,7 @@ typedef struct {
 	gchar *url;
 	gchar *title;
 	GtkWidget *widget;
-} go_item; 
+} go_item;
 
 #define MAX_GO_ENTRIES 20
 
@@ -163,14 +163,14 @@ static GnomeUIInfo debug_menu[] = {
 	{ GNOME_APP_UI_ITEM, "Select all", "Select all",
 	  select_all_cb, NULL, NULL, 0, NULL, 0 },
 	GNOMEUIINFO_TOGGLEITEM ("Disable Animations", "Disable Animated Images",  animate_cb, NULL),
-	 
+
 	GNOMEUIINFO_END
 };
 
 static GnomeUIInfo go_menu[] = {
 	{ GNOME_APP_UI_ITEM, "Back", "Return to the previous page in history list",
 	  back_cb, NULL, NULL, 0, NULL, 0, 0},
-	{ GNOME_APP_UI_ITEM, "Forward", "Go to the next page in history list", 
+	{ GNOME_APP_UI_ITEM, "Forward", "Go to the next page in history list",
 	  forward_cb, NULL, NULL, 0, NULL, 0, 0},
 	{ GNOME_APP_UI_ITEM, "Home", "Go to the homepage",
 	  home_cb, NULL, NULL, 0, NULL, 0 },
@@ -201,7 +201,7 @@ create_toolbars (GtkWidget *app)
 	hbox = gtk_hbox_new (FALSE, 0);
 	gtk_container_add (GTK_CONTAINER (dock), hbox);
 	gtk_container_set_border_width (GTK_CONTAINER (dock), 2);
-	
+
 	toolbar = gtk_toolbar_new ();
 	gtk_toolbar_set_style (GTK_TOOLBAR (toolbar), GTK_TOOLBAR_ICONS);
 	gtk_box_pack_start (GTK_BOX (hbox), toolbar, FALSE, FALSE, 0);
@@ -252,14 +252,14 @@ create_toolbars (GtkWidget *app)
 							imgloc,
 							0, 0,
 							25,
-							32, 
+							32,
 							32, 32); */
 
 	frame = gtk_frame_new (NULL);
 	/* TODO2 gtk_container_add (GTK_CONTAINER (frame), animator); */
 	gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_IN);
 	gtk_box_pack_end (GTK_BOX (hbox), frame, FALSE, FALSE, 0);
-	/* gnome_animator_set_loop_type (GNOME_ANIMATOR (animator), 
+	/* gnome_animator_set_loop_type (GNOME_ANIMATOR (animator),
 	   GNOME_ANIMATOR_LOOP_RESTART); */
 	gtk_widget_show_all (dock);
 	bonobo_dock_add_item (BONOBO_DOCK (GNOME_APP (app)->dock),
@@ -539,24 +539,24 @@ static int
 on_button_press_event (GtkWidget *widget, GdkEventButton *event)
 {
 	GtkMenu *menu;
-	
+
 	g_return_val_if_fail (widget != NULL, FALSE);
 	g_return_val_if_fail (event != NULL, FALSE);
-	
-	/* The "widget" is the menu that was supplied when 
+
+	/* The "widget" is the menu that was supplied when
 	 * gtk_signal_connect_object was called.
 	 */
 	menu = GTK_MENU (popup_menu);
-	
+
 	if (event->type == GDK_BUTTON_PRESS) {
 
 		if (event->button == 3) {
-			gtk_menu_popup (menu, NULL, NULL, NULL, NULL, 
+			gtk_menu_popup (menu, NULL, NULL, NULL, NULL,
 					event->button, event->time);
 			return TRUE;
 		}
 	}
-		
+
 	return FALSE;
 }
 
@@ -569,8 +569,8 @@ on_set_base (GtkHTML *html, const gchar *url, gpointer data)
 
 	if (html) {
 		gtk_html_set_base (html, url);
-	} 
-		
+	}
+
 	baseURL = html_url_new (url);
 }
 
@@ -591,7 +591,7 @@ on_redirect (GtkHTML *html, const gchar *url, int delay, gpointer data) {
 	if(redirect_timerId == 0) {
 
 		redirect_url = g_strdup(url);
-		
+
 		redirect_timerId = g_timeout_add (delay * 1000,(GtkFunction) redirect_timer_event, NULL);
 	}
 }
@@ -606,9 +606,9 @@ on_submit (GtkHTML *html, const gchar *method, const gchar *action, const gchar 
 
 		tmpstr = g_string_append_c (tmpstr, '?');
 		tmpstr = g_string_append (tmpstr, encoding);
-		
+
 		goto_url(tmpstr->str, 0);
-		
+
 		g_string_free (tmpstr, TRUE);
 	} else {
 		g_warning ("Unsupported submit method '%s'\n", method);
@@ -804,11 +804,11 @@ go_list_cb (GtkWidget *widget, gpointer data)
 	int num;
 	/* Only if the item was selected, not deselected */
 	if(GTK_CHECK_MENU_ITEM(widget)->active) {
-		
+
 		go_position = GPOINTER_TO_INT(data);
-		
+
 		if((item = g_list_nth_data(go_list, go_position))) {
-			
+
 			goto_url(item->url, 1);
 			num = g_list_length(go_list);
 
@@ -836,10 +836,10 @@ go_list_cb (GtkWidget *widget, gpointer data)
 
 static void remove_go_list(gpointer data, gpointer user_data) {
 	go_item *item = (go_item *)data;
-	
+
 	if(item->widget)
 		gtk_widget_destroy(item->widget);
-	
+
 	item->widget = NULL;
 }
 
@@ -913,7 +913,7 @@ goto_url(const char *url, int back_or_forward)
 		gtk_widget_set_sensitive(popup_menu_forward, FALSE);
 		gtk_widget_set_sensitive(toolbar_forward, FALSE);
 		gtk_widget_set_sensitive(go_menu[1].widget, FALSE);
-		
+
 		item = g_malloc0(sizeof(go_item));
 		item->url = g_strdup(full_url);
 
@@ -941,7 +941,7 @@ goto_url(const char *url, int back_or_forward)
 
 			gtk_menu_shell_append (GTK_MENU_SHELL (GTK_MENU_ITEM(main_menu[3].widget)->submenu), item->widget);
 			gtk_widget_show(item->widget);
-			
+
 		}
 		/* Enable the "Back" button if there are more then one url in the list */
 		if(g_list_length(go_list) > 1) {
@@ -986,7 +986,7 @@ test_cb (GtkWidget *widget, gpointer data)
 	filename = g_strdup_printf ("%s/tests/test%d.html", cwd,
 				    GPOINTER_TO_INT (data));
 	url = g_filename_to_uri (filename, NULL, NULL);
-	
+
 	goto_url(url, 0);
 	g_free(url);
 	g_free(filename);
@@ -1073,7 +1073,7 @@ main (gint argc, gchar *argv[])
 	gtk_html_load_empty (html);
 	/* gtk_html_set_default_background_color (GTK_HTML (html_widget), &bgColor); */
 	/* gtk_html_set_editable (GTK_HTML (html_widget), TRUE); */
-	
+
 	gtk_container_add (GTK_CONTAINER (scrolled_window), html_widget);
 
 	/* Create a popup menu with disabled back and forward items */
@@ -1116,7 +1116,7 @@ main (gint argc, gchar *argv[])
 	gtk_box_pack_start_defaults (GTK_BOX (hbox), GTK_WIDGET (html));
 	vscrollbar = gtk_vscrollbar_new (GTK_LAYOUT (html)->vadjustment);
 	gtk_box_pack_start (GTK_BOX (hbox), vscrollbar, FALSE, TRUE, 0);
-	
+
 #endif
 	gtk_widget_realize (GTK_WIDGET (html));
 

@@ -288,11 +288,11 @@ editor_engine_new (GtkHTMLControlData *cd)
 	ee->cd = cd;
 
 	/* This engine will be returned to the composer window.
-	 * The html-widget will be used by the composer to 
+	 * The html-widget will be used by the composer to
 	 * provide DnD to the composer window's GtkHTML component
 	 */
 
 	g_object_set_data ((GObject *)ee, "html-widget", cd->html);
-	
+
 	return ee;
 }

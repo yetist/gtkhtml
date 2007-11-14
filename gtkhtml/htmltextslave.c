@@ -4,17 +4,17 @@
    Copyright (C) 1997 Martin Jones (mjones@kde.org)
    Copyright (C) 1997 Torben Weis (weis@kde.org)
    Copyright (C) 1999 Helix Code, Inc.
-   
+
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
    License as published by the Free Software Foundation; either
    version 2 of the License, or (at your option) any later version.
-   
+
    This library is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
    Library General Public License for more details.
-   
+
    You should have received a copy of the GNU Library General Public License
    along with this library; see the file COPYING.LIB.  If not, write to
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -339,7 +339,7 @@ html_text_slave_get_nb_width (HTMLTextSlave *slave, HTMLPainter *painter, gboole
  * s: current position - string pointer
  * ii: current position - index of item
  * io: current position - offset within item
- * line_offset: 
+ * line_offset:
  * w: width for current position
  * lwl: last-whitespacing-length (in characters)
  * lbw: last-break-width
@@ -358,7 +358,7 @@ update_lb (HTMLTextSlave *slave, HTMLPainter *painter, gint widthLeft, gint offs
 
 	new_ltw = html_text_tail_white_space (slave->owner, painter, offset, ii, io, &new_lwl, line_offset, s);
 	aw = w - new_ltw;
-	
+
 	if (aw <= widthLeft || *force_fit) {
 		*lwl = new_lwl;
 		*lbw = aw;
@@ -470,8 +470,8 @@ get_ys (HTMLText *text, HTMLPainter *p)
 		/* FIX2? (html_painter_calc_ascent (p, text->font_style, text->face)
 		   + html_painter_calc_descent (p, text->font_style, text->face)) >> 1; */
 		return (text->font_style & GTK_HTML_FONT_STYLE_SUBSCRIPT) ? height2 : -height2;
-			
-	} else 
+
+	} else
 		return 0;
 }
 
@@ -555,7 +555,7 @@ reorder_glyph_items (GSList *glyph_items, int n_items)
 
 		tmp_list = tmp_list->next;
 	}
-  
+
 	if (min_level % 2) {
 		if (i > level_start_i)
 			result = g_slist_concat (reorder_glyph_items (level_start_node, i - level_start_i), result);
@@ -605,7 +605,7 @@ get_glyph_items_in_range (HTMLTextSlave *slave, HTMLPainter *painter, int start_
 
 				/* free the beginning we don't need */
 				pango_glyph_item_free (tmp_gi);
-				
+
 			}
 
 			if (offset + item->num_chars > end_offset) {
@@ -685,7 +685,7 @@ calc_glyph_range_size (HTMLText *text, PangoGlyphItem *glyph_item, int start_ind
 	if (isect_start <= isect_end) {
 		PangoRectangle log_rect;
 		int start_x, end_x;
-		
+
 		pango_glyph_string_index_to_x (glyph_item->glyphs,
 					       text->text + glyph_item->item->offset,
 					       glyph_item->item->length,
@@ -837,7 +837,7 @@ draw_text (HTMLTextSlave *self,
 					html_painter_set_pen (p, &html_colorset_get_color_allocated (e->settings->color_set,
 												     p, HTMLSpellErrorColor)->color);
 				        /* printf ("spell error: %s\n", html_text_get_text (slave->owner, off)); */
-			
+
 					html_painter_draw_spell_error (p, obj->x + tx + html_painter_pango_to_engine (p, run_width + start_x),
 								       obj->y + ty + get_ys (self->owner, p), html_painter_pango_to_engine (p, width));
 				}
@@ -865,7 +865,7 @@ draw_focus_rectangle  (HTMLTextSlave *slave, HTMLPainter *painter, GdkRectangle 
 
 	if (HTML_IS_PRINTER (painter))
 		return;
-	
+
 	p = HTML_GDK_PAINTER (painter);
 	/* printf ("draw_text_focus\n"); */
 
@@ -918,12 +918,12 @@ draw (HTMLObject *o,
 	slave = HTML_TEXT_SLAVE (o);
 	if (!html_object_intersect (o, &paint, x, y, width, height) || slave->posLen == 0)
 		return;
-	
+
 	owner = slave->owner;
 	font_style = html_text_get_font_style (owner);
 
 	draw_text (slave, p, font_style, x, y, width, height, tx, ty);
-	
+
 	if (HTML_OBJECT (owner)->draw_focused)
 		draw_focus (slave, p, tx, ty);
 }

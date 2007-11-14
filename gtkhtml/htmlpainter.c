@@ -10,12 +10,12 @@
    modify it under the terms of the GNU Library General Public
    License as published by the Free Software Foundation; either
    version 2 of the License, or (at your option) any later version.
-   
+
    This library is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
    Library General Public License for more details.
-   
+
    You should have received a copy of the GNU Library General Public License
    along with this library; see the file COPYING.LIB.  If not, write to
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -163,7 +163,7 @@ text_size (HTMLPainter *painter, PangoFontDescription *desc, const gchar *text, 
 	gint ascent = 0;
 	gint descent = 0;
 	gint width = 0;
-	
+
 	if (!pi) {
 		pi = html_painter_text_itemize_and_prepare_glyphs (painter, desc, text, bytes, &glyphs, NULL);
 		temp_pi = TRUE;
@@ -194,7 +194,7 @@ text_size (HTMLPainter *painter, PangoFontDescription *desc, const gchar *text, 
 				descent = MAX (descent, pango_font_metrics_get_descent (pfm));
 				pango_font_metrics_unref (pfm);
 			}
-	
+
 			c_text = g_utf8_offset_to_pointer (c_text, str->num_glyphs);
 			if (*text == '\t')
 				c_text ++;
@@ -387,7 +387,7 @@ get_font_info (HTMLPainter       *painter,
 		*font_style = painter->font_style;
 	}
 }
-	   
+
 
 static int
 get_space_width (HTMLPainter       *painter,
@@ -397,7 +397,7 @@ get_space_width (HTMLPainter       *painter,
 	GtkHTMLFontStyle font_style;
 
 	get_font_info (painter, pi, &font_face, &font_style);
-	
+
 	return html_painter_get_space_width (painter, font_style, font_face);
 }
 
@@ -422,7 +422,7 @@ get_space_width (HTMLPainter       *painter,
  * @width: location to store width of text (in engine coordinates)
  * @asc: location to store ascent of text (in engine coordinates)
  * @dsc: location to store descent of text (in engine coordinates)
- * 
+ *
  * Computes size information for a piece of text, using provided Pango
  * layout information.
  **/
@@ -435,7 +435,7 @@ html_painter_calc_entries_size (HTMLPainter *painter,
 	HTMLFontFace    *font_face;
 	GtkHTMLFontStyle font_style;
 	HTMLFont *font;
-	
+
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
 	g_return_if_fail (text != NULL);
@@ -453,7 +453,7 @@ html_painter_calc_entries_size (HTMLPainter *painter,
 	if (line_offset) {
 		gint space_width = html_painter_get_space_width (painter, font_style, font_face);
 		gint tabs;
-		
+
 		*width += (html_text_text_line_length (text, line_offset, len, &tabs) - len + tabs)*space_width;
 	}
 }
@@ -466,7 +466,7 @@ html_painter_calc_entries_size (HTMLPainter *painter,
  * @width: location to store width of text (in engine coordinates)
  * @asc: location to store ascent of text (in engine coordinates)
  * @dsc: location to store descent of text (in engine coordinates)
- * 
+ *
  * Computes size information for a piece of text.
  **/
 void
@@ -475,7 +475,7 @@ html_painter_calc_text_size (HTMLPainter *painter,
 			     gint *width, gint *asc, gint *dsc)
 {
 	gint line_offset = 0;
-	
+
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
 	g_return_if_fail (text != NULL);
@@ -559,7 +559,7 @@ html_replace_tabs (const gchar *text, gchar *translated, guint bytes)
  * @line_offset: column offset of the first character in @text, used for
  *  tab display. If set to -1, then tabs are disabled and substituted
  * with spaces.
- * 
+ *
  * Draws a piece of text, using provided Pango layout information.
  **/
 void
@@ -573,7 +573,7 @@ html_painter_draw_entries (HTMLPainter *painter, gint x, gint y,
 	GList *gl;
 	int first_item_offset = -1;
 	int space_width = -1;
-	
+
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
 
@@ -597,7 +597,7 @@ html_painter_draw_entries (HTMLPainter *painter, gint x, gint y,
 			first_item_offset = item->offset;
 
 		item_end = text + item->offset - first_item_offset + item->length;
-		
+
 		if (*c_text == '\t')
 			next = c_text + 1;
 		else if (tab && tab < item_end)
@@ -615,17 +615,17 @@ html_painter_draw_entries (HTMLPainter *painter, gint x, gint y,
 				x += space_width * (8 - (line_offset % 8));
 				line_offset += 8 - (line_offset % 8);
 			}
-			
+
 			tab = memchr (c_text + 1, (unsigned char) '\t', bytes - 1);
 		} else {
 			x += html_painter_pango_to_engine (painter, (* HP_CLASS (painter)->draw_glyphs) (painter, x, y, item, gl->data, NULL, NULL));
 
 			if (line_offset != -1)
 				line_offset += g_utf8_pointer_to_offset (c_text, next);
-			
+
 			gl = gl->next->next;
 		}
-		
+
 		bytes -= next - c_text;
 		c_text = next;
 	}
@@ -644,7 +644,7 @@ html_painter_draw_glyphs (HTMLPainter *painter, int x, int y, PangoItem *item, P
  * @y: x coordinate at which to draw text, in engine coordinates
  * @text: text to draw
  * @len: length of text, in characters
- * 
+ *
  * Draws a piece of text.
  **/
 void
@@ -667,7 +667,7 @@ html_painter_draw_text (HTMLPainter *painter, gint x, gint y,
 							   text, blen, &glyphs, NULL);
 
 	html_painter_draw_entries (painter, x, y, text, len, pi, glyphs, 0);
-	
+
 	if (glyphs)
 		html_painter_glyphs_destroy (glyphs);
 	if (pi)
@@ -755,13 +755,13 @@ html_painter_draw_border (HTMLPainter *painter,
 	(* HP_CLASS (painter)->draw_border) (painter, bg, x, y, width, height, style, bordersize);
 }
 
-void  
-html_painter_draw_embedded (HTMLPainter *painter, HTMLEmbedded *element, gint x, gint y) 
+void
+html_painter_draw_embedded (HTMLPainter *painter, HTMLEmbedded *element, gint x, gint y)
 {
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
 	g_return_if_fail (element != NULL);
-	
+
 	(* HP_CLASS (painter)->draw_embedded) (painter, element, x, y);
 }
 
@@ -815,7 +815,7 @@ html_painter_get_pixel_size (HTMLPainter *painter)
 {
 	g_return_val_if_fail (painter != NULL, 0);
 	g_return_val_if_fail (HTML_IS_PAINTER (painter), 0);
-	
+
 	return (* HP_CLASS (painter)->get_pixel_size) (painter);
 }
 
@@ -927,11 +927,11 @@ html_painter_get_page_height (HTMLPainter *painter, HTMLEngine *e)
  * html_painter_pango_to_engine:
  * @painter: a #HTMLPainter
  * @pango_units: distance in Pango units
- * 
+ *
  * Convert a distance in Pango units (used for character layout) to
  * a distance in engine coordinates. Note that the computation is
  * only correct for positive values of @pango_units
- * 
+ *
  * Return value: distance converted to engine coordinates.
  **/
 gint
@@ -946,11 +946,11 @@ html_painter_pango_to_engine (HTMLPainter       *painter,
  * html_painter_engine_to_pango:
  * @painter: a #HTMLPainter
  * @engine_coordiantes: distance in Pango units
- * 
+ *
  * Convert a distance in engine coordinates to a distance in Pango
  * units (used for character layout). Note that the computation is
  * only correct for positive values of @pango_units
- * 
+ *
  * Return value: distance converted to Pango units
  **/
 gint
@@ -1035,7 +1035,7 @@ html_painter_glyphs_destroy (GList *glyphs)
  * html_pango_get_item_properties:
  * @item: a #PangoItem
  * @properties: a #HTMLPangoProperties structure
- * 
+ *
  * Converts the list of extra attributes from @item into a more convenient
  * structure form.
  **/
@@ -1051,24 +1051,24 @@ html_pango_get_item_properties (PangoItem *item, HTMLPangoProperties *properties
 
 	while (tmp_list) {
 		PangoAttribute *attr = tmp_list->data;
-	  
+
 		switch (attr->klass->type) {
 		case PANGO_ATTR_UNDERLINE:
 			properties->underline = ((PangoAttrInt *)attr)->value != PANGO_UNDERLINE_NONE;
 			break;
-		  
+
 		case PANGO_ATTR_STRIKETHROUGH:
 			properties->strikethrough = ((PangoAttrInt *)attr)->value;
 			break;
-		  
+
 		case PANGO_ATTR_FOREGROUND:
 			properties->fg_color = &((PangoAttrColor *)attr)->color;
 			break;
-		  
+
 		case PANGO_ATTR_BACKGROUND:
 			properties->bg_color = &((PangoAttrColor *)attr)->color;
 			break;
-		
+
 		default:
 			break;
 		}

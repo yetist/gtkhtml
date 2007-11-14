@@ -69,9 +69,9 @@ main (int argc, char **argv)
 	bindtextdomain (GETTEXT_PACKAGE, GNOMELOCALEDIR);
 	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 
-	gnome_program_init(PACKAGE, VERSION, LIBGNOMEUI_MODULE, argc, argv, 
+	gnome_program_init(PACKAGE, VERSION, LIBGNOMEUI_MODULE, argc, argv,
 			   GNOME_PROGRAM_STANDARD_PROPERTIES,
-			   GNOME_PARAM_HUMAN_READABLE_NAME, _("GtkHTML Editor Control"),			   
+			   GNOME_PARAM_HUMAN_READABLE_NAME, _("GtkHTML Editor Control"),
 			   NULL);
 
 	/* #ifdef GTKHTML_HAVE_GCONF
@@ -86,7 +86,7 @@ main (int argc, char **argv)
 
 	if (factory) {
 		bonobo_running_context_auto_exit_unref (BONOBO_OBJECT (factory));
-	
+
 		bonobo_activate ();
 		bonobo_main ();
 

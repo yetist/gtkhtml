@@ -4,17 +4,17 @@
    Copyright (C) 1997 Martin Jones (mjones@kde.org)
    Copyright (C) 1997 Torben Weis (weis@kde.org)
    Copyright (C) 1999, 2000 Helix Code, Inc.
-   
+
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
    License as published by the Free Software Foundation; either
    version 2 of the License, or (at your option) any later version.
-   
+
    This library is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
    Library General Public License for more details.
-   
+
    You should have received a copy of the GNU Library General Public License
    along with this library; see the file COPYING.LIB.  If not, write to
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -378,7 +378,7 @@ HTMLObject *
 html_text_op_cut_helper (HTMLText *text, HTMLEngine *e, GList *from, GList *to, GList *left, GList *right, guint *len)
 {
 	HTMLObject *rv;
-	HTMLText *rvt; 
+	HTMLText *rvt;
 	gint begin, end;
 
 	begin = (from) ? GPOINTER_TO_INT (from->data) : 0;
@@ -576,7 +576,7 @@ static gboolean
 split_attrs_filter_tail (PangoAttribute *attr, gpointer data)
 {
 	gint index = GPOINTER_TO_INT (data);
-	
+
 	if (attr->end_index <= index)
 		return TRUE;
 
@@ -825,7 +825,7 @@ html_text_get_line_offset (HTMLText *text, HTMLPainter *painter, gint offset)
 	gint line_offset = -1;
 
 	if (html_clueflow_tabs (HTML_CLUEFLOW (HTML_OBJECT (text)->parent), painter)) {
-		line_offset = html_clueflow_get_line_offset (HTML_CLUEFLOW (HTML_OBJECT (text)->parent), 
+		line_offset = html_clueflow_get_line_offset (HTML_CLUEFLOW (HTML_OBJECT (text)->parent),
 							     painter, HTML_OBJECT (text));
 		if (offset) {
 			gchar *s = text->text;
@@ -970,7 +970,7 @@ html_text_calc_part_width (HTMLText *text, HTMLPainter *painter, char *start, gi
 		start = html_text_get_text (text, offset);
 
 	pi = html_text_get_pango_info (text, painter);
-	
+
 	idx = html_text_get_item_index (text, painter, offset, &offset);
 	if (need_ascent_descent) {
 		update_asc_dsc (painter, pi->entries [idx].glyph_item.item, &ascent, &descent);
@@ -999,7 +999,7 @@ html_text_calc_part_width (HTMLText *text, HTMLPainter *painter, char *start, gi
 
 		s = g_utf8_next_char (s);
   	}
-  
+
 out:
 	if (asc)
 		*asc = html_painter_pango_to_engine (painter, ascent);
@@ -1054,9 +1054,9 @@ ht_fit_line (HTMLObject *o,
 	     gboolean startOfLine,
 	     gboolean firstRun,
 	     gboolean next_to_floating,
-	     gint widthLeft) 
+	     gint widthLeft)
 {
-	HTMLText *text; 
+	HTMLText *text;
 	HTMLObject *text_slave;
 
 	text = HTML_TEXT (o);
@@ -1077,7 +1077,7 @@ min_word_width_calc_tabs (HTMLText *text, HTMLPainter *p, gint idx, gint *len)
 	gint rv = 0, line_offset, wt, wl, i;
 	gint epos;
 	gboolean tab = FALSE;
-	
+
 	if (!html_clueflow_tabs (HTML_CLUEFLOW (HTML_OBJECT (text)->parent), p))
 		return 0;
 
@@ -1103,14 +1103,14 @@ min_word_width_calc_tabs (HTMLText *text, HTMLPainter *p, gint idx, gint *len)
 		end = g_utf8_next_char (end);
 		epos++;
 	}
-	
+
 
 	if (tab) {
 		line_offset = 0;
-		
+
 		if (idx == 0) {
 			HTMLObject *prev;
-			
+
 			prev = html_object_prev_not_slave (HTML_OBJECT (text));
 			if (prev && html_object_is_text (prev) /* FIXME-words && HTML_TEXT (prev)->words > 0 */) {
 				min_word_width_calc_tabs (HTML_TEXT (prev), p, /* FIXME-words HTML_TEXT (prev)->words - 1 */ HTML_TEXT (prev)->text_len - 1, &line_offset);
@@ -1122,9 +1122,9 @@ min_word_width_calc_tabs (HTMLText *text, HTMLPainter *p, gint idx, gint *len)
 	} else {
 		wl = epos;
 	}
-	
+
 	rv = wl - epos;
-		
+
 	if (len)
 		*len = wl;
 
@@ -1200,13 +1200,13 @@ html_text_prepare_attrs (HTMLText *text, HTMLPainter *painter)
 	attrs = pango_attr_list_new ();
 	org_dir = pango_context_get_base_dir (painter->pango_context);
 	dir = html_text_get_pango_direction (text);
-	if (org_dir != dir) 
+	if (org_dir != dir)
 		pango_context_set_base_dir (painter->pango_context, dir);
 
 
 	if (HTML_OBJECT (text)->parent && HTML_IS_CLUEFLOW (HTML_OBJECT (text)->parent))
 		flow = HTML_CLUEFLOW (HTML_OBJECT (text)->parent);
-		
+
 	if (painter->widget && GTK_IS_HTML (painter->widget))
 		e = html_object_engine (HTML_OBJECT (text), GTK_HTML (painter->widget)->engine);
 
@@ -1257,9 +1257,9 @@ html_text_prepare_attrs (HTMLText *text, HTMLPainter *painter)
 
 			link = (Link *) l->data;
 
-			if(link->is_visited == FALSE) 
+			if(link->is_visited == FALSE)
 				link_color = html_colorset_get_color (e->settings->color_set, HTMLLinkColor);
-			else 
+			else
 				link_color = html_colorset_get_color (e->settings->color_set, HTMLVLinkColor);
 			attr = pango_attr_underline_new (PANGO_UNDERLINE_SINGLE);
 			attr->start_index = link->start_index;
@@ -1331,7 +1331,7 @@ html_tmp_fix_pango_glyph_string_get_logical_widths (PangoGlyphString *glyphs,
   const char *p = text;		/* Points to start of current cluster */
 
   /* printf ("html_tmp_fix_pango_glyph_string_get_logical_widths"); */
-  
+
   for (i=0; i<=glyphs->num_glyphs; i++)
     {
       int glyph_index = (embedding_level % 2 == 0) ? i : glyphs->num_glyphs - i - 1;
@@ -1342,7 +1342,7 @@ html_tmp_fix_pango_glyph_string_get_logical_widths (PangoGlyphString *glyphs,
       if (i == glyphs->num_glyphs || p != text + glyphs->log_clusters[glyph_index])
 	{
 	  int next_cluster = last_cluster;
-	  
+
 	  if (i < glyphs->num_glyphs)
 	    {
 	      while (p < text + glyphs->log_clusters[glyph_index])
@@ -1359,18 +1359,18 @@ html_tmp_fix_pango_glyph_string_get_logical_widths (PangoGlyphString *glyphs,
 		  p = g_utf8_next_char (p);
 		}
 	    }
-	  
+
 	  for (j = last_cluster; j < next_cluster; j++) {
 	    logical_widths[j] = (width - last_cluster_width) / (next_cluster - last_cluster);
 	    /* printf (" %d", logical_widths [j]); */
 	  }
-	  
+
 	  if (last_cluster != next_cluster) {
 		  last_cluster = next_cluster;
 		  last_cluster_width = width;
 	  }
 	}
-      
+
       if (i < glyphs->num_glyphs)
 	width += glyphs->glyphs[glyph_index].geometry.width;
     }
@@ -1507,11 +1507,11 @@ html_text_pi_forward (HTMLTextPangoInfo *pi, int *ii, int *io)
  * @ii: index of current item
  * @io: offset within current item, in characters
  * @white_len: length of found trailing white space, in characters
- * @line_offset: 
+ * @line_offset:
  * @s: pointer into the text of @text corresponding to @offset
- * 
+ *
  * Used to chop off one character worth of whitespace at a particular position.
- * 
+ *
  * Return value: width of found trailing white space, in Pango units
  **/
 int
@@ -1527,14 +1527,14 @@ html_text_tail_white_space (HTMLText *text, HTMLPainter *painter, int offset, in
 		if (pi->attrs [offset].is_white) {
 			if (*s == '\t' && offset > 1) {
 				gint skip = 8, co = offset - 1;
-				
+
 				do {
 					s = g_utf8_prev_char (s);
 					co --;
 					if (*s != '\t')
 						skip --;
 				} while (s && co > 0 && *s != '\t');
-				
+
 				ww += skip*pi->entries [ii].widths [io];
 			} else {
 				ww += pi->entries [ii].widths [io];
@@ -1928,7 +1928,7 @@ is_convert_nbsp_needed (const gchar *s, gint *delta_out, GSList **changes_out)
 	white_space = 0;
 	for (p = s; *p; p = g_utf8_next_char (p)) {
 		uc = g_utf8_get_char (p);
-		
+
 		if (uc == ENTITY_NBSP || uc == ' ') {
 			change = check_prev_white (white_space, last_white, delta_out);
 			white_space ++;
@@ -2126,21 +2126,21 @@ html_text_convert_nbsp (HTMLText *text, gboolean free_text)
 	return FALSE;
 }
 
-static void 
-move_spell_errors (GList *spell_errors, guint offset, gint delta) 
-{ 
-	SpellError *se; 
+static void
+move_spell_errors (GList *spell_errors, guint offset, gint delta)
+{
+	SpellError *se;
 
 	if (!delta)
 		return;
 
-	while (spell_errors) { 
-		se = (SpellError *) spell_errors->data; 
-		if (se->off >= offset) 
-			se->off += delta; 
- 		spell_errors = spell_errors->next; 
-  	} 
-} 
+	while (spell_errors) {
+		se = (SpellError *) spell_errors->data;
+		if (se->off >= offset)
+			se->off += delta;
+ 		spell_errors = spell_errors->next;
+  	}
+}
 
 static GList *
 remove_one (GList *list, GList *link)
@@ -2155,11 +2155,11 @@ remove_one (GList *list, GList *link)
 static GList *
 remove_spell_errors (GList *spell_errors, guint offset, guint len)
 {
-	SpellError *se; 
+	SpellError *se;
 	GList *cur, *cnext;
 
 	cur = spell_errors;
-	while (cur) { 
+	while (cur) {
 		cnext = cur->next;
 		se = (SpellError *) cur->data;
 		if (se->off < offset) {
@@ -2182,7 +2182,7 @@ remove_spell_errors (GList *spell_errors, guint offset, guint len)
 			}
 		}
  		cur = cnext;
-  	} 
+  	}
 	return spell_errors;
 }
 
@@ -2398,7 +2398,7 @@ append_selection_string (HTMLObject *self,
 
 	p    = html_text_get_text (text, text->select_start);
 	last = g_utf8_offset_to_pointer (p, text->select_length);
-	
+
 	/* OPTIMIZED
 	last = html_text_get_text (text,
 				   text->select_start + text->select_length);
@@ -2851,7 +2851,7 @@ offset_to_pointer_validated (const gchar *str, glong offset, gint *chars_out)
 			s = g_utf8_next_char (s);
 			chars++;
 		}
-		
+
 	} else {
 		while (offset-- && *s) {
 			gunichar wc = g_utf8_get_char_validated (s, -1);
@@ -2863,7 +2863,7 @@ offset_to_pointer_validated (const gchar *str, glong offset, gint *chars_out)
 	}
 
 	*chars_out = chars;
-	
+
 	return (gchar *)s;
 }
 
@@ -2872,13 +2872,13 @@ offset_to_pointer_validated (const gchar *str, glong offset, gint *chars_out)
  * @str: text string (in/out)
  * @len: length of text, in characters (in/out). (A value of
  *       -1 on input means to use all characters in @str)
- * 
+ *
  * Validates a UTF-8 string up to the given number of characters;
  * if the string is invalid, on output, "[?]" will be stored in
  * @str and 3 in @len, otherwise @str will be left unchanged,
  * and @len will be left unchanged if non-negative, otherwise
  * replaced with the number of characters in @str.
- * 
+ *
  * Return value: number of bytes in the output value of @str
  **/
 gsize
@@ -2888,7 +2888,7 @@ html_text_sanitize (const gchar **str, gint *len)
 
 	g_return_val_if_fail (str != NULL, 0);
 	g_return_val_if_fail (len != NULL, 0);
-	
+
 	end = offset_to_pointer_validated (*str, *len, len);
 	if (end) {
 		return end - *str;
@@ -3262,12 +3262,12 @@ html_text_append (HTMLText *text, const gchar *str, gint len)
 	bytes = html_text_sanitize (&str, &len);
 	text->text_len += len;
 	text->text      = g_malloc (text->text_bytes + bytes + 1);
-	
+
 	memcpy (text->text, to_delete, text->text_bytes);
 	memcpy (text->text + text->text_bytes, str, bytes);
 	text->text_bytes += bytes;
 	text->text[text->text_bytes] = '\0';
-	
+
 	g_free (to_delete);
 
 	html_object_change_set (HTML_OBJECT (text), HTML_CHANGE_ALL);
@@ -3584,7 +3584,7 @@ html_pango_attr_font_size_equal (const PangoAttribute *attr1, const PangoAttribu
 {
 	const HTMLPangoAttrFontSize *font_size_attr1 = (const HTMLPangoAttrFontSize *) attr1;
 	const HTMLPangoAttrFontSize *font_size_attr2 = (const HTMLPangoAttrFontSize *) attr2;
-  
+
 	return (font_size_attr1->style == font_size_attr2->style);
 }
 
@@ -3947,7 +3947,7 @@ html_text_change_set (HTMLText *text, HTMLChangeFlags flags)
 void
 html_text_set_link_visited (HTMLText *text, gint offset, HTMLEngine *engine, gboolean is_visited)
 {
-        HTMLEngine *object_engine=html_object_engine(HTML_OBJECT(text),engine); 
+        HTMLEngine *object_engine=html_object_engine(HTML_OBJECT(text),engine);
         Link *link = html_text_get_link_at_offset (text,offset);
 
 	if (link) {

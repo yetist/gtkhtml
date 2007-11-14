@@ -1,5 +1,5 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
-/* 
+/*
  * widget-color-combo.h - A color selector combo box
  * Copyright 2000, 2001, Ximian, Inc.
  *

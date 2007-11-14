@@ -1,18 +1,18 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /* This file is part of the GtkHTML library.
-   
+
    Copyright (C) 2000 Helix Code, Inc.
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
    License as published by the Free Software Foundation; either
    version 2 of the License, or (at your option) any later version.
-   
+
    This library is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
    Library General Public License for more details.
-   
+
    You should have received a copy of the GNU Library General Public License
    along with this library; see the file COPYING.LIB.  If not, write to
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -41,7 +41,7 @@
 
 HTMLIFrameClass html_iframe_class;
 static HTMLEmbeddedClass *parent_class = NULL;
-	
+
 static void
 iframe_set_base (GtkHTML *html, const char *url, gpointer data)
 {
@@ -66,7 +66,7 @@ iframe_size_changed (GtkHTML *html, gpointer data)
 {
 	HTMLIFrame *iframe = HTML_IFRAME (data);
 	GtkHTML *parent = GTK_HTML (HTML_EMBEDDED(iframe)->parent);
-	
+
 	html_engine_schedule_update (parent->engine);
 }
 
@@ -87,7 +87,7 @@ iframe_set_gdk_painter (HTMLIFrame *iframe, HTMLPainter *painter)
 {
 	if (painter)
 		g_object_ref (G_OBJECT (painter));
-	
+
 	if (iframe->gdk_painter)
 		g_object_unref (G_OBJECT (iframe->gdk_painter));
 
@@ -95,24 +95,24 @@ iframe_set_gdk_painter (HTMLIFrame *iframe, HTMLPainter *painter)
 }
 
 HTMLObject *
-html_iframe_new (GtkWidget *parent, 
-		 char *src, 
-		 gint width, 
+html_iframe_new (GtkWidget *parent,
+		 char *src,
+		 gint width,
 		 gint height,
-		 gboolean border) 
+		 gboolean border)
 {
 	HTMLIFrame *iframe;
-	
+
 	iframe = g_new (HTMLIFrame, 1);
-	
-	html_iframe_init (iframe, 
-			  &html_iframe_class, 
+
+	html_iframe_init (iframe,
+			  &html_iframe_class,
 			  parent,
 			  src,
 			  width,
 			  height,
 			  border);
-	
+
 	return HTML_OBJECT (iframe);
 }
 
@@ -132,7 +132,7 @@ calc_min_width (HTMLObject *o,
 	iframe = HTML_IFRAME (o);
 	if (iframe->width < 0)
 		return html_engine_calc_min_width (GTK_HTML (HTML_IFRAME (o)->html)->engine);
-	else 
+	else
 		return iframe->width;
 }
 
@@ -194,7 +194,7 @@ set_painter (HTMLObject *o, HTMLPainter *painter)
 	if (G_OBJECT_TYPE (GTK_HTML (iframe->html)->engine->painter) != HTML_TYPE_PRINTER) {
 		iframe_set_gdk_painter (iframe, GTK_HTML (iframe->html)->engine->painter);
 	}
-	
+
 	html_engine_set_painter (GTK_HTML (iframe->html)->engine,
 				 G_OBJECT_TYPE (painter) != HTML_TYPE_PRINTER ? iframe->gdk_painter : painter);
 }
@@ -220,13 +220,13 @@ check_page_split (HTMLObject *self, HTMLPainter *p, gint y)
 
 	y1 = self->y - self->ascent + pixel_size*html_engine_get_top_border (e);
 	y2 = self->y + self->descent + pixel_size*html_engine_get_bottom_border (e);
-	
-	if (y1 > y) 
+
+	if (y1 > y)
 		return 0;
 
 	if (y >= y1 && y < y2)
 		return html_object_check_page_split (e->clue, p, y - y1) + y1;
-	
+
 	return y;
 }
 
@@ -269,7 +269,7 @@ op_copy (HTMLObject *self, HTMLObject *parent, HTMLEngine *e, GList *from, GList
 				     html_object_get_bound_list (clue, from),
 				     html_object_get_bound_list (clue, to), len);
 	GTK_HTML (HTML_IFRAME (dup)->html)->engine->clue->parent = parent;
-	
+
 	return dup;
 }
 
@@ -308,14 +308,14 @@ html_iframe_real_calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed
 	HTMLIFrame *iframe;
 	HTMLEngine *e;
 	gint old_width, old_ascent, old_descent;
-	
+
 	old_width = o->width;
 	old_ascent = o->ascent;
 	old_descent = o->descent;
 
 	iframe = HTML_IFRAME (o);
 	e      = GTK_HTML (iframe->html)->engine;
-	
+
 	if (HTML_EMBEDDED (o)->widget == NULL)
 		return TRUE;
 
@@ -424,7 +424,7 @@ reparent (HTMLEmbedded *emb, GtkWidget *html)
 {
 	HTMLIFrame *iframe = HTML_IFRAME (emb);
 
-	gtk_html_set_iframe_parent (GTK_HTML (iframe->html), 
+	gtk_html_set_iframe_parent (GTK_HTML (iframe->html),
 				    html,
 				    GTK_HTML (iframe->html)->frame);
 	(* HTML_EMBEDDED_CLASS (parent_class)->reparent) (emb, html);
@@ -451,7 +451,7 @@ save (HTMLObject *s,
 	HTMLEngine *e;
 
 	e = GTK_HTML (iframe->html)->engine;
-	
+
 	/*
 	 * FIXME: we should actually save the iframe definition if inline_frames is not
 	 * set, but that is a feature and not critical for release.  We should also probably
@@ -461,7 +461,7 @@ save (HTMLObject *s,
 		buffer = html_engine_save_buffer_new (e, state->inline_frames);
 		html_object_save (e->clue, buffer);
 
-		if (state->error || 
+		if (state->error ||
 		    !html_engine_save_output_buffer (state,
 						     (gchar *) html_engine_save_buffer_peek_text (buffer),
 						     html_engine_save_buffer_peek_text_bytes (buffer))) {
@@ -472,7 +472,7 @@ save (HTMLObject *s,
 	} else {
 		if (!html_engine_save_output_string (state, "<IFRAME SRC=\"%s\"", iframe->url))
 			 return FALSE;
-        
+
 		 if (iframe->width >= 0)
 			 if (!html_engine_save_output_string (state, " WIDTH=\"%d\"", iframe->width))
 				 return FALSE;
@@ -491,7 +491,7 @@ save (HTMLObject *s,
 
 		 if (!html_engine_save_output_string (state, " FRAMEBORDER=\"%d\"", iframe->frameborder))
 			 return FALSE;
-		 
+
 		 if (!html_engine_save_output_string (state, "></IFRAME>"))
 		     return FALSE;
 	}
@@ -512,7 +512,7 @@ save_plain (HTMLObject *s,
 	if (state->inline_frames && e->clue) {
 		buffer = html_engine_save_buffer_new (e, state->inline_frames);
 		html_object_save_plain (e->clue, buffer, requested_width);
-		if (state->error || 
+		if (state->error ||
 		    !html_engine_save_output_buffer (state,
 						     (gchar *) html_engine_save_buffer_peek_text (buffer),
 						     html_engine_save_buffer_peek_text_bytes (buffer))) {
@@ -542,7 +542,7 @@ destroy (HTMLObject *o)
 	HTML_OBJECT_CLASS (parent_class)->destroy (o);
 }
 
-void 
+void
 html_iframe_init (HTMLIFrame *iframe,
 		  HTMLIFrameClass *klass,
 		  GtkWidget *parent,
@@ -564,7 +564,7 @@ html_iframe_init (HTMLIFrame *iframe,
 
 	html_embedded_init (em, HTML_EMBEDDED_CLASS (klass),
 			    parent, NULL, NULL);
-	
+
 	scrolled_window = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled_window),
 					     border ? GTK_SHADOW_IN : GTK_SHADOW_NONE);
@@ -616,31 +616,31 @@ html_iframe_init (HTMLIFrame *iframe,
 		gtk_html_load_empty (new_html);
 
 	new_html->engine->clue->parent = HTML_OBJECT (iframe);
-	
+
 #if 0
 	/* NOTE: because of peculiarities of the frame/gtkhtml relationship
 	 * on_url and link_clicked are emitted from the toplevel widget not
 	 * proxied like url_requested is.
 	 */
 	gtk_signal_connect (GTK_OBJECT (new_html), "on_url",
-			    GTK_SIGNAL_FUNC (iframe_on_url), 
+			    GTK_SIGNAL_FUNC (iframe_on_url),
 			    (gpointer)iframe);
 	gtk_signal_connect (GTK_OBJECT (new_html), "link_clicked",
 			    GTK_SIGNAL_FUNC (iframe_link_clicked),
-			    (gpointer)iframe);	
-#endif 
-	g_signal_connect (new_html, "size_changed", G_CALLBACK (iframe_size_changed), iframe);	
-	g_signal_connect (new_html, "set_base", G_CALLBACK (iframe_set_base), iframe);	
-	g_signal_connect (new_html, "object_requested", G_CALLBACK (iframe_object_requested), iframe);	
+			    (gpointer)iframe);
+#endif
+	g_signal_connect (new_html, "size_changed", G_CALLBACK (iframe_size_changed), iframe);
+	g_signal_connect (new_html, "set_base", G_CALLBACK (iframe_set_base), iframe);
+	g_signal_connect (new_html, "object_requested", G_CALLBACK (iframe_object_requested), iframe);
 
 	/*
 	  gtk_signal_connect (GTK_OBJECT (html), "button_press_event",
 	  GTK_SIGNAL_FUNC (iframe_button_press_event), iframe);
 	*/
-	
+
 	gtk_widget_set_size_request (scrolled_window, width, height);
 
-	gtk_widget_show (scrolled_window);	
+	gtk_widget_show (scrolled_window);
 
 	html_embedded_set_widget (em, scrolled_window);
 
@@ -673,13 +673,13 @@ html_iframe_type_init (void)
 void
 html_iframe_class_init (HTMLIFrameClass *klass,
 			HTMLType type,
-		        guint size) 
+		        guint size)
 {
 	HTMLEmbeddedClass *embedded_class;
 	HTMLObjectClass  *object_class;
 
 	g_return_if_fail (klass != NULL);
-	
+
 	embedded_class = HTML_EMBEDDED_CLASS (klass);
 	object_class = HTML_OBJECT_CLASS (klass);
 
@@ -706,6 +706,6 @@ html_iframe_class_init (HTMLIFrameClass *klass,
 	object_class->check_point             = check_point;
 	object_class->is_container            = is_container;
 	object_class->append_selection_string = append_selection_string;
-	
+
 	embedded_class->reparent = reparent;
 }

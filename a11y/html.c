@@ -77,7 +77,7 @@ html_a11y_get_type (void)
 	return type;
 }
 
-static void 
+static void
 atk_component_interface_init (AtkComponentIface *iface)
 {
 	g_return_if_fail (iface != NULL);
@@ -147,7 +147,7 @@ get_parent_html (AtkObject *accessible)
 	return obj ? obj->parent : NULL;
 }
 
-static AtkObject* 
+static AtkObject*
 html_a11y_get_parent (AtkObject *accessible)
 {
 	AtkObject *parent, *p;
@@ -186,7 +186,7 @@ html_a11y_get_index_in_parent (AtkObject *accessible)
 
 	/* printf ("html_a11y_get_index_in_parent resolve to %d\n", index); */
 
-	return index;  
+	return index;
 }
 
 static AtkStateSet *
@@ -241,9 +241,9 @@ html_a11y_ref_child (AtkObject *accessible, gint index)
 
 	ss = html_a11y_ref_state_set(accessible);
 	if (atk_state_set_contains_state (ss, ATK_STATE_DEFUNCT)) {
-		g_object_unref (ss);	
+		g_object_unref (ss);
 		return NULL;
-	}	
+	}
 	g_object_unref (ss);
 
 	parent = HTML_A11Y_HTML (accessible);
@@ -254,7 +254,7 @@ html_a11y_ref_child (AtkObject *accessible, gint index)
 			if (accessible_child)
 				g_object_ref (accessible_child);
 		}
-	}		
+	}
 
 	/* printf ("html_a11y_ref_child %d resolves to %p\n", index, accessible_child); */
 

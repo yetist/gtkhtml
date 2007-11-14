@@ -26,10 +26,10 @@
 
 
 HTMLForm *
-html_form_new (HTMLEngine *engine, gchar *_action, gchar *_method) 
+html_form_new (HTMLEngine *engine, gchar *_action, gchar *_method)
 {
 	HTMLForm *new;
-	
+
 	new = g_new (HTMLForm, 1);
 	new->action = g_strdup(_action);
 	new->method = g_strdup(_method);
@@ -134,11 +134,11 @@ html_form_submit (HTMLForm *form)
 				encoding = g_string_append_c (encoding, '&');
 			else
 				first = FALSE;
-			
+
 			encoding = g_string_append (encoding, ptr);
 			g_free (ptr);
 		}
-		i = g_list_next (i);		
+		i = g_list_next (i);
 	}
 
 	html_engine_form_submitted (form->engine, form->method, form->action, encoding->str);

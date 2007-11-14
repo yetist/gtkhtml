@@ -1,19 +1,19 @@
 
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /* This file is part of the GtkHTML library.
-   
+
    Copyright (C) 2000 Helix Code, Inc.
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
    License as published by the Free Software Foundation; either
    version 2 of the License, or (at your option) any later version.
-   
+
    This library is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
    Library General Public License for more details.
-   
+
    You should have received a copy of the GNU Library General Public License
    along with this library; see the file COPYING.LIB.  If not, write to
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -60,11 +60,11 @@ frame_set_base (GtkHTML *html, const gchar *url, gpointer data)
 }
 
 static void
-frame_submit (GtkHTML *html, 
-	      const gchar *method, 
-	      const gchar *action, 
-	      const gchar *encoding, 
-	      gpointer data) 
+frame_submit (GtkHTML *html,
+	      const gchar *method,
+	      const gchar *action,
+	      const gchar *encoding,
+	      gpointer data)
 {
 	HTMLFrame *frame = HTML_FRAME (data);
 	GtkHTML *parent = GTK_HTML (HTML_EMBEDDED(frame)->parent);
@@ -77,7 +77,7 @@ frame_size_changed (GtkHTML *html, gpointer data)
 {
 	HTMLFrame *frame = HTML_FRAME (data);
 	GtkHTML *parent = GTK_HTML (HTML_EMBEDDED(frame)->parent);
-	
+
 	html_engine_schedule_update (parent->engine);
 }
 
@@ -98,7 +98,7 @@ frame_set_gdk_painter (HTMLFrame *frame, HTMLPainter *painter)
 {
 	if (painter)
 		g_object_ref (G_OBJECT (painter));
-	
+
 	if (frame->gdk_painter)
 		g_object_unref (G_OBJECT (frame->gdk_painter));
 
@@ -106,24 +106,24 @@ frame_set_gdk_painter (HTMLFrame *frame, HTMLPainter *painter)
 }
 
 HTMLObject *
-html_frame_new (GtkWidget *parent, 
-		 char *src, 
-		 gint width, 
+html_frame_new (GtkWidget *parent,
+		 char *src,
+		 gint width,
 		 gint height,
-		 gboolean border) 
+		 gboolean border)
 {
 	HTMLFrame *frame;
-	
+
 	frame = g_new (HTMLFrame, 1);
-	
-	html_frame_init (frame, 
-			  &html_frame_class, 
+
+	html_frame_init (frame,
+			  &html_frame_class,
 			  parent,
 			  src,
 			  width,
 			  height,
 			  border);
-	
+
 	return HTML_OBJECT (frame);
 }
 
@@ -139,10 +139,10 @@ calc_min_width (HTMLObject *o,
 		HTMLPainter *painter)
 {
   int min_width;
-  
+
   if (HTML_FRAME (o)->width < 0)
 	  min_width =  html_engine_calc_min_width (GTK_HTML (HTML_FRAME (o)->html)->engine);
-  else 
+  else
 	  min_width = HTML_FRAME (o)->width;
 
   return min_width;
@@ -192,7 +192,7 @@ set_painter (HTMLObject *o, HTMLPainter *painter)
 	if (G_OBJECT_TYPE (GTK_HTML (frame->html)->engine->painter) != HTML_TYPE_PRINTER) {
 		frame_set_gdk_painter (frame, GTK_HTML (frame->html)->engine->painter);
 	}
-	
+
 	html_engine_set_painter (GTK_HTML (frame->html)->engine,
 				 GTK_OBJECT_TYPE (painter) != HTML_TYPE_PRINTER ? frame->gdk_painter : painter);
 }
@@ -222,7 +222,7 @@ html_frame_real_calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_
 	HTMLFrame *frame;
 	HTMLEngine *e;
 	gint old_width, old_ascent, old_descent;
-	
+
 	old_width = o->width;
 	old_ascent = o->ascent;
 	old_descent = o->descent;
@@ -343,7 +343,7 @@ reparent (HTMLEmbedded *emb, GtkWidget *html)
 {
 	HTMLFrame *frame = HTML_FRAME (emb);
 
-	gtk_html_set_iframe_parent (GTK_HTML (frame->html), 
+	gtk_html_set_iframe_parent (GTK_HTML (frame->html),
 				    html,
 				    GTK_HTML (frame->html)->frame);
 	(* HTML_EMBEDDED_CLASS (parent_class)->reparent) (emb, html);
@@ -417,11 +417,11 @@ html_frame_set_size (HTMLFrame *frame, gint width, gint height)
 
 	if (height > 0)
 		frame->height = height;
-	
+
 	gtk_widget_set_size_request (frame->scroll, width, height);
 }
 
-void 
+void
 html_frame_init (HTMLFrame *frame,
 		  HTMLFrameClass *klass,
 		  GtkWidget *parent,
@@ -442,7 +442,7 @@ html_frame_init (HTMLFrame *frame,
 
 	html_embedded_init (em, HTML_EMBEDDED_CLASS (klass),
 			    parent, NULL, NULL);
-	
+
 	scrolled_window = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled_window),
 					     border ? GTK_SHADOW_IN : GTK_SHADOW_NONE);
@@ -488,14 +488,14 @@ html_frame_init (HTMLFrame *frame,
 	 * proxied like url_requested is.
 	 */
 	gtk_signal_connect (GTK_OBJECT (new_html), "on_url",
-			    GTK_SIGNAL_FUNC (frame_on_url), 
+			    GTK_SIGNAL_FUNC (frame_on_url),
 			    (gpointer)frame);
 	gtk_signal_connect (GTK_OBJECT (new_html), "link_clicked",
 			    GTK_SIGNAL_FUNC (frame_link_clicked),
-			    (gpointer)frame);	
+			    (gpointer)frame);
 #endif
-	g_signal_connect (new_html, "size_changed", G_CALLBACK (frame_size_changed), frame);	
-	g_signal_connect (new_html, "object_requested", G_CALLBACK (frame_object_requested), frame);	
+	g_signal_connect (new_html, "size_changed", G_CALLBACK (frame_size_changed), frame);
+	g_signal_connect (new_html, "object_requested", G_CALLBACK (frame_object_requested), frame);
 	g_signal_connect (new_html, "submit", G_CALLBACK (frame_submit), frame);
 	g_signal_connect (new_html, "set_base", G_CALLBACK (frame_set_base), frame);
 
@@ -509,7 +509,7 @@ html_frame_init (HTMLFrame *frame,
 
 	gtk_widget_set_size_request (scrolled_window, width, height);
 
-	gtk_widget_show (scrolled_window);	
+	gtk_widget_show (scrolled_window);
 	frame->scroll = scrolled_window;
 	html_frame_set_scrolling (frame, GTK_POLICY_AUTOMATIC);
 
@@ -540,13 +540,13 @@ html_frame_type_init (void)
 void
 html_frame_class_init (HTMLFrameClass *klass,
 			HTMLType type,
-		        guint size) 
+		        guint size)
 {
 	HTMLEmbeddedClass *embedded_class;
 	HTMLObjectClass  *object_class;
 
 	g_return_if_fail (klass != NULL);
-	
+
 	embedded_class = HTML_EMBEDDED_CLASS (klass);
 	object_class = HTML_OBJECT_CLASS (klass);
 

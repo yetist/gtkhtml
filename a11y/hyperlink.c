@@ -126,7 +126,7 @@ html_a11y_hyper_link_class_init (HTMLA11YHyperLinkClass *klass)
 	parent_class = g_type_class_peek_parent (klass);
 
 	atk_hyperlink_class->get_start_index = html_a11y_hyper_link_get_start_index;
-	atk_hyperlink_class->get_end_index = html_a11y_hyper_link_get_end_index; 
+	atk_hyperlink_class->get_end_index = html_a11y_hyper_link_get_end_index;
 	gobject_class->finalize = html_a11y_hyper_link_finalize;
 }
 
@@ -136,7 +136,7 @@ html_a11y_hyper_link_init (HTMLA11YHyperLink *a11y_hyper_link)
 	a11y_hyper_link->description = NULL;
 }
 
-AtkHyperlink * 
+AtkHyperlink *
 html_a11y_hyper_link_new (HTMLA11Y *a11y, gint link_index)
 {
 	HTMLA11YHyperLink *hl;
@@ -176,7 +176,7 @@ html_a11y_hyper_link_do_action (AtkAction *action, gint i)
 			g_signal_emit_by_name (gtkhtml, "link_clicked", url);
 			result = TRUE;
 		}
-		
+
 		g_free (url);
 	}
 
@@ -220,7 +220,7 @@ html_a11y_hyper_link_set_description (AtkAction *action, gint i, const gchar *de
 		g_free (hl->description);
 		hl->description = g_strdup (description);
 
-		return TRUE;	
+		return TRUE;
 	}
 
 	return FALSE;

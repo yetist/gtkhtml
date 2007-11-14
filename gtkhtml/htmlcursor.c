@@ -121,9 +121,9 @@ html_cursor_destroy (HTMLCursor *cursor)
 
 /**
  * html_cursor_copy:
- * @dest: A cursor object to copy into 
+ * @dest: A cursor object to copy into
  * @src: A cursor object to copy from
- * 
+ *
  * Copy @src into @dest.  @dest does not need to be an initialized cursor, so
  * for example declaring a cursor as a local variable and then calling
  * html_cursor_copy() to initialize it from another cursor's position works.
@@ -611,14 +611,14 @@ html_cursor_real_jump_to (HTMLCursor *cursor,
 
 /**
  * html_cursor_jump_to:
- * @cursor: 
- * @object: 
- * @offset: 
- * 
+ * @cursor:
+ * @object:
+ * @offset:
+ *
  * Move the cursor to the specified @offset in the specified @object.
  * Where exactly move to, depends on the is_cursor_position in PangoLogAttr say.
  * This is useful for such as Indic languages that relies on that feature.
- * 
+ *
  * Return value: %TRUE if successfull, %FALSE if failed.
  **/
 gboolean
@@ -1120,7 +1120,7 @@ move_right (HTMLCursor *cursor, HTMLEngine *e)
 		gboolean rv;
 		HTMLObject *orig = cursor->object;
 
-		if (cursor->object->parent && 
+		if (cursor->object->parent &&
 			html_object_get_direction (cursor->object->parent) == HTML_DIRECTION_RTL)
 			rv = move_to_prev_object (cursor, e);
 		else

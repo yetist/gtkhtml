@@ -69,7 +69,7 @@ html_rule_set_length (HTMLRule *rule, HTMLEngine *e, gint length, gint percent)
 
 	SET  (length);
 	SETO (percent);
-	
+
 	if (changed)
 		html_engine_schedule_update (e);
 }

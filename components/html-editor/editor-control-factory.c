@@ -88,11 +88,11 @@
 #include "gtkhtmldebug.h"
 #include "editor-control-factory.h"
 
-static void send_event_stream (GNOME_GtkHTML_Editor_Engine engine, 
+static void send_event_stream (GNOME_GtkHTML_Editor_Engine engine,
 			       GNOME_GtkHTML_Editor_Listener listener,
 			       const char *name,
 			       const char *url,
-			       GtkHTMLStream *stream); 
+			       GtkHTMLStream *stream);
 
 
 /* This is the initialization that can only be performed after the
@@ -211,7 +211,7 @@ release (GtkWidget *widget, GdkEventButton *event, GtkHTMLControlData *cd)
 				start = (HTML_OBJECT_TYPE (cd->obj) == HTML_TYPE_TEXT)
 					? GTK_HTML_EDIT_PROPERTY_TEXT
 					: GTK_HTML_EDIT_PROPERTY_LINK;
-						
+
 				break;
 			case HTML_TYPE_RULE:
 				gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
@@ -259,7 +259,7 @@ load_from_file (GtkHTML *html,
 		g_warning ("%s", g_strerror (errno));
 		return FALSE;
 	}
-      
+
        	while ((len = read (fd, buffer, 4096)) > 0) {
 		gtk_html_write (html, handle, (gchar *) buffer, len);
 	}
@@ -269,7 +269,7 @@ load_from_file (GtkHTML *html,
 		gtk_html_end (html, handle, GTK_HTML_STREAM_ERROR);
 		g_warning ("%s", g_strerror (errno));
 		return TRUE;
-	}	
+	}
 	/* done with no errors */
 	gtk_html_end (html, handle, GTK_HTML_STREAM_OK);
 	close (fd);
@@ -287,19 +287,19 @@ url_requested_cb (GtkHTML *html, const char *url, GtkHTMLStream *handle, gpointe
 
 	if (load_from_file (html, url, handle)) {
 		/* g_warning ("valid local reponse"); */
-		
+
 	} else if (cd->editor_bonobo_engine) {
 		GNOME_GtkHTML_Editor_Engine engine;
 		GNOME_GtkHTML_Editor_Listener listener;
 		CORBA_Environment ev;
-		
+
 		CORBA_exception_init (&ev);
 		engine = bonobo_object_corba_objref (BONOBO_OBJECT (cd->editor_bonobo_engine));
 
 		if (engine != CORBA_OBJECT_NIL
 		    && (listener = GNOME_GtkHTML_Editor_Engine__get_listener (engine, &ev)) != CORBA_OBJECT_NIL) {
 			send_event_stream (engine, listener, "url_requested", url, handle);
-		}	
+		}
 		CORBA_exception_free (&ev);
 	} else {
 		g_warning ("unable to resolve url: %s", url);
@@ -375,23 +375,23 @@ html_button_pressed_after (GtkWidget *html, GdkEventButton *event, GtkHTMLContro
 
 static void
 editor_init_painters (GtkHTMLControlData *cd)
-{	
+{
 	GtkHTML *html;
 
 	g_return_if_fail (cd != NULL);
 
 
 	html = cd->html;
-	
+
 	gtk_widget_ensure_style (GTK_WIDGET (html));
-	
+
 	if (!cd->plain_painter) {
 		cd->gdk_painter = HTML_GDK_PAINTER (html->engine->painter);
 		cd->plain_painter = HTML_GDK_PAINTER (html_plain_painter_new (GTK_WIDGET (html), TRUE));
 
 		/* the plain painter starts with a ref */
 		g_object_ref (G_OBJECT (cd->gdk_painter));
-	}	
+	}
 }
 
 static void
@@ -401,9 +401,9 @@ editor_set_format (GtkHTMLControlData *cd, gboolean format_html)
 	GtkHTML *html;
 
 	g_return_if_fail (cd != NULL);
-	
+
 	editor_init_painters (cd);
-	
+
 	html = cd->html;
 	cd->format_html = format_html;
 
@@ -413,7 +413,7 @@ editor_set_format (GtkHTMLControlData *cd, gboolean format_html)
 	} else {
 		p = cd->plain_painter;
 		old_p = cd->gdk_painter;
-	}		
+	}
 
 	/* printf ("set format %d\n", format_html); */
 
@@ -437,7 +437,7 @@ editor_set_format (GtkHTMLControlData *cd, gboolean format_html)
 		html_engine_set_painter (html->engine, HTML_PAINTER (p));
 		html_engine_schedule_redraw (html->engine);
 	}
-		
+
 }
 
 typedef enum {
@@ -456,7 +456,7 @@ editor_get_prop (BonoboPropertyBag *bag,
 		 gpointer           user_data)
 {
 	GtkHTMLControlData *cd = user_data;
-	
+
 	switch (arg_id) {
 	case PROP_EDIT_HTML:
 		BONOBO_ARG_SET_BOOLEAN (arg, cd->format_html);
@@ -487,7 +487,7 @@ editor_set_prop (BonoboPropertyBag *bag,
 		 gpointer           user_data)
 {
 	GtkHTMLControlData *cd = user_data;
-	
+
 	/* g_warning ("set_prop"); */
 	switch (arg_id) {
 	case PROP_EDIT_HTML:
@@ -535,7 +535,7 @@ editor_control_construct (BonoboControl *control, GtkWidget *vbox)
 
 	/* HTMLEditor::Engine */
 	cd->editor_bonobo_engine = editor_engine_new (cd);
-	bonobo_object_add_interface (BONOBO_OBJECT (control), 
+	bonobo_object_add_interface (BONOBO_OBJECT (control),
 				     BONOBO_OBJECT (cd->editor_bonobo_engine));
 
 	/* Bonobo::PersistStream */
@@ -556,7 +556,7 @@ editor_control_construct (BonoboControl *control, GtkWidget *vbox)
 
 	bonobo_property_bag_add (pb, "FormatHTML", PROP_EDIT_HTML,
 				 BONOBO_ARG_BOOLEAN, def,
-				 "Whether or not to edit in HTML mode", 
+				 "Whether or not to edit in HTML mode",
 				 0);
 
 	CORBA_free (def);
@@ -566,7 +566,7 @@ editor_control_construct (BonoboControl *control, GtkWidget *vbox)
 
 	bonobo_property_bag_add (pb, "InlineSpelling", PROP_INLINE_SPELLING,
 				 BONOBO_ARG_BOOLEAN, def,
-				 "Include spelling errors inline", 
+				 "Include spelling errors inline",
 				 0);
 
 	CORBA_free (def);
@@ -576,7 +576,7 @@ editor_control_construct (BonoboControl *control, GtkWidget *vbox)
 
 	bonobo_property_bag_add (pb, "MagicLinks", PROP_MAGIC_LINKS,
 				 BONOBO_ARG_BOOLEAN, def,
-				 "Recognize links in text and replace them", 
+				 "Recognize links in text and replace them",
 				 0);
 
 	CORBA_free (def);
@@ -586,7 +586,7 @@ editor_control_construct (BonoboControl *control, GtkWidget *vbox)
 
 	bonobo_property_bag_add (pb, "MagicSmileys", PROP_MAGIC_SMILEYS,
 				 BONOBO_ARG_BOOLEAN, def,
-				 "Recognize smileys in text and replace them", 
+				 "Recognize smileys in text and replace them",
 				 0);
 
 	CORBA_free (def);
@@ -596,7 +596,7 @@ editor_control_construct (BonoboControl *control, GtkWidget *vbox)
 
 	bonobo_property_bag_add (pb, "HTMLTitle", PROP_HTML_TITLE,
 				 BONOBO_ARG_STRING, def,
-				 "The title of the html document", 
+				 "The title of the html document",
 				 0);
 	CORBA_free (def);
 
@@ -606,16 +606,16 @@ editor_control_construct (BonoboControl *control, GtkWidget *vbox)
 
 	bonobo_property_bag_add (pb, "SpellLanguage", PROP_CURRENT_LANGUAGE,
 				 BONOBO_ARG_STRING, def,
-				 "The title of the html document", 
+				 "The title of the html document",
 				 0);
 	CORBA_free (def);
-	
+
 	def = bonobo_arg_new (BONOBO_ARG_STRING);
 	BONOBO_ARG_SET_STRING (def, "");
 
 	bonobo_property_bag_add (pb, "OnURL", PROP_EDIT_HTML,
 				 BONOBO_ARG_STRING, def,
-				 "The URL of the link the mouse is currently over", 
+				 "The URL of the link the mouse is currently over",
 				 0);
 	*/
 
@@ -714,11 +714,11 @@ send_event_void (GNOME_GtkHTML_Editor_Engine engine, GNOME_GtkHTML_Editor_Listen
 }
 
 static void
-send_event_stream (GNOME_GtkHTML_Editor_Engine engine, 
+send_event_stream (GNOME_GtkHTML_Editor_Engine engine,
 		   GNOME_GtkHTML_Editor_Listener listener,
 		   const char *name,
 		   const char *url,
-		   GtkHTMLStream *stream) 
+		   GtkHTMLStream *stream)
 {
 	CORBA_any *any;
 	CORBA_any *retval;
@@ -733,7 +733,7 @@ send_event_stream (GNOME_GtkHTML_Editor_Engine engine,
 	e.url = (char *)url;
 	bstream = html_stream_mem_create (stream);
 	e.stream = BONOBO_OBJREF (bstream);
-	
+
 	CORBA_exception_init (&ev);
 	retval = GNOME_GtkHTML_Editor_Listener_event (listener, name, any, &ev);
 	if (!BONOBO_EX (&ev))
@@ -743,7 +743,7 @@ send_event_stream (GNOME_GtkHTML_Editor_Engine engine,
 	CORBA_exception_free (&ev);
 	CORBA_free (any);
 }
-		  
+
 static GValue *
 editor_api_event (GtkHTML *html, GtkHTMLEditorEventType event_type, GValue *args, gpointer data)
 {

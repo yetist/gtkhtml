@@ -1,5 +1,5 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
-/* 
+/*
    Copyright (C) 1997 Martin Jones (mjones@kde.org)
    (C) 1997 Torben Weis (weis@kde.org)
 
@@ -75,7 +75,7 @@ html_clue_aligned_real_calc_size (HTMLObject *o, HTMLPainter *painter, GList **c
 			changed = TRUE;
 		}
 	}
-	
+
 	o->ascent += ALIGN_BORDER;
 	o->width += ALIGN_BORDER * 2;
 

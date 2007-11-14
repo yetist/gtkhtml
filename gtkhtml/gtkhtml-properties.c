@@ -39,7 +39,7 @@ get_locale_language (void)
 {
 	gchar *locale;
 	gchar *locale_language = NULL;
-	
+
 #ifndef G_OS_WIN32
 	locale = setlocale (LC_ALL, NULL);
 #else
@@ -47,19 +47,19 @@ get_locale_language (void)
 #endif
 	if (locale && strcmp (locale, "C") && strcmp (locale, "POSIX")) {
 		char *codeset, *lang;
-	
+
 		if ((codeset = strchr (locale, '.')))
 			lang = g_strndup (locale, codeset - locale);
 		else
 			lang = g_strdup (locale);
-	
+
 		/* validate the language */
 		if (strlen (lang) >= 2) {
 			if (lang[2] == '-' || lang[2] == '_') {
 				/* canonicalise the lang */
 				lang [0] = g_ascii_tolower (lang [0]);
 				lang [1] = g_ascii_tolower (lang [1]);
-			
+
 				/* validate the country code */
 				if (strlen (lang + 3) > 2) {
 				        /* invalid country code */
@@ -74,7 +74,7 @@ get_locale_language (void)
 				g_free (lang);
 				lang = NULL;
 			}
-		
+
 			locale_language = lang;
 		} else {
 			/* invalid language */
@@ -310,7 +310,7 @@ static GEnumValue _gtk_html_command_values[] = {
 	{ GTK_HTML_COMMAND_UNBLOCK_SELECTION, "GTK_HTML_COMMAND_UNBLOCK_SELECTION", "unblock-selection" },
 	{ GTK_HTML_COMMAND_IS_SELECTION_ACTIVE, "GTK_HTML_COMMAND_IS_SELECTION_ACTIVE", "is-selection-active" },
 	{ GTK_HTML_COMMAND_SCROLL_FORWARD, "GTK_HTML_COMMAND_SCROLL_FORWARD", "scroll-forward" },
-	{ GTK_HTML_COMMAND_SCROLL_BACKWARD, "GTK_HTML_COMMAND_SCROLL_BACKWARD", "scroll-backward" },	
+	{ GTK_HTML_COMMAND_SCROLL_BACKWARD, "GTK_HTML_COMMAND_SCROLL_BACKWARD", "scroll-backward" },
 	{ 0, NULL, NULL }
 };
 

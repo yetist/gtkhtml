@@ -276,7 +276,7 @@ image_set_ui (GtkHTMLEditImageProperties *d)
 
 			if (ip->url) {
 				gchar *filename = gtk_html_filename_from_uri (ip->url);
-				
+
 				gtk_file_chooser_set_filename (GTK_FILE_CHOOSER (d->pentry), filename);
 				g_free (filename);
 			}

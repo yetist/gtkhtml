@@ -363,7 +363,7 @@ html_url_to_string (const HTMLURL *url)
 			length += protocol_length;
 			length += 1;	      /* ':' */
 		}
-	} 
+	}
 
 	if (url->hostname != NULL && url->hostname[0] != '\0') {
 		hostname_length = strlen (url->hostname);
@@ -491,7 +491,7 @@ html_url_append_path (const HTMLURL *url,
 	new = html_url_dup (url, HTML_URL_DUP_NOPATH);
 
 	g_assert(url->path != NULL);
-	
+
 	tmppath = g_strdup(url->path);
 
 	/* Cut the path at the first '?' */

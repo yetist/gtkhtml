@@ -5,17 +5,17 @@
    Copyright (C) 1997 Torben Weis (weis@kde.org)
    Copyright (C) 1999 Red Hat Software
    Copyright (C) 1999, 2000 Helix Code, Inc.
-   
+
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
    License as published by the Free Software Foundation; either
    version 2 of the License, or (at your option) any later version.
-   
+
    This library is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
    Library General Public License for more details.
-   
+
    You should have received a copy of the GNU Library General Public License
    along with this library; see the file COPYING.LIB.  If not, write to
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -100,9 +100,9 @@ html_image_get_actual_width (HTMLImage *image, HTMLPainter *painter)
 		if (image->specified_height > 0 || image->percent_height) {
 			double scale;
 
-			scale =  ((double) html_image_get_actual_height (image, painter)) 
+			scale =  ((double) html_image_get_actual_height (image, painter))
 				/ (gdk_pixbuf_animation_get_height (anim) * pixel_size);
-			
+
 			width *= scale;
 		}
 
@@ -117,7 +117,7 @@ html_image_get_actual_height (HTMLImage *image, HTMLPainter *painter)
 	GdkPixbufAnimation *anim = image->image_ptr->animation;
 	gint pixel_size = painter ? html_painter_get_pixel_size (painter) : 1;
 	gint height;
-		
+
 	if (image->percent_height) {
 		/* The cast to `gdouble' is to avoid overflow (eg. when
                    printing).  */
@@ -132,12 +132,12 @@ html_image_get_actual_height (HTMLImage *image, HTMLPainter *painter)
 
 		if (image->specified_width > 0 || image->percent_width) {
 			double scale;
-			
+
 			scale = ((double) html_image_get_actual_width (image, painter))
 				/ (gdk_pixbuf_animation_get_width (anim) * pixel_size);
-			
+
 			height *= scale;
-		} 
+		}
 	}
 
 	return height;
@@ -213,25 +213,25 @@ copy (HTMLObject *self,
 	html_image_pointer_ref (dimg->image_ptr);
 }
 
-static void 
+static void
 image_update_url (HTMLImage *image, gint x, gint y)
 {
 	HTMLMap *map;
 	HTMLObject *o = HTML_OBJECT (image);
 	char *url = NULL;
 
-	/* 
+	/*
 	 * FIXME this is a huge hack waiting until we implement events for now we write
 	 * over the image->url for every point since we always call point before get_url
 	 * it is sick, I know.
 	 */
 	if (image->usemap != NULL) {
-		map = html_engine_get_map (image->image_ptr->factory->engine, 
+		map = html_engine_get_map (image->image_ptr->factory->engine,
 					   image->usemap + 1);
-		
+
 		if (map) {
 			url = html_map_calc_point (map, x - o->x , y - (o->y - o->ascent));
-			
+
 			if (url)
 				url = g_strdup (url);
 		}
@@ -241,7 +241,7 @@ image_update_url (HTMLImage *image, gint x, gint y)
 	} else {
 		return;
 	}
-	
+
 	g_free (image->final_url);
 	image->final_url = url;
 }
@@ -259,11 +259,11 @@ check_point (HTMLObject *self,
 	    && (y < (self->y + self->descent))) {
 		if (offset_return != NULL)
 			*offset_return = x - self->x < self->width / 2 ? 0 : 1;
-		
+
 		image_update_url (HTML_IMAGE (self), x, y);
 		return self;
 	}
-	
+
 	return NULL;
 }
 
@@ -366,11 +366,11 @@ draw_plain (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gint heig
 			html_painter_set_pen (p, &html_colorset_get_color_allocated
 					      (e->settings->color_set, p,
 					       p->focus ? HTMLHighlightTextColor : HTMLHighlightTextNFColor)->color);
-		} else { 
+		} else {
 			html_painter_set_pen (p, &html_colorset_get_color_allocated (e->settings->color_set, p,
 										     HTMLTextColor)->color);
 		}
-		
+
 		if (cf)
 			html_painter_set_font_style (p, html_clueflow_get_default_font_style (cf));
 
@@ -394,7 +394,7 @@ draw_focus  (HTMLImage *image, HTMLPainter *painter, GdkRectangle *box)
 
 	if (HTML_IS_PRINTER (painter))
 		return;
-	
+
 	p = HTML_GDK_PAINTER (painter);
 	/* printf ("draw_image_focus\n"); */
 
@@ -473,12 +473,12 @@ draw (HTMLObject *o,
 		hspace = image->hspace * pixel_size;
 		vspace = image->vspace * pixel_size;
 
-		if (image->image_ptr->loader && !image->image_ptr->stall) 
+		if (image->image_ptr->loader && !image->image_ptr->stall)
 			return;
 
 		if (o->selected) {
 			html_painter_set_pen (painter, highlight_color);
-			html_painter_fill_rect (painter, 
+			html_painter_fill_rect (painter,
 						o->x + tx + hspace,
 						o->y + ty - o->ascent + vspace,
 						o->width - 2 * hspace,
@@ -495,7 +495,7 @@ draw (HTMLObject *o,
 		if (ip->factory)
 			pixbuf = html_image_factory_get_missing (ip->factory);
 
-		if (pixbuf && 
+		if (pixbuf &&
 		    (o->width > gdk_pixbuf_get_width (pixbuf)) &&
 		    (o->ascent  + o->descent > gdk_pixbuf_get_height (pixbuf)))
 			html_painter_draw_pixmap (painter, pixbuf,
@@ -503,7 +503,7 @@ draw (HTMLObject *o,
 						  gdk_pixbuf_get_width (pixbuf) * pixel_size,
 						  gdk_pixbuf_get_height (pixbuf) * pixel_size,
 						  highlight_color);
-				
+
 		if (o->draw_focused) {
 			GdkRectangle rect;
 
@@ -516,7 +516,7 @@ draw (HTMLObject *o,
 			rect.height = scale_height + (2 * image->border) * pixel_size;
 
 			draw_focus (image, painter, &rect);
-		}				     
+		}
 
 		return;
 	}
@@ -529,7 +529,7 @@ draw (HTMLObject *o,
 			html_color_alloc (image->color, painter);
 			html_painter_set_pen (painter, &image->color->color);
 		}
-		
+
 		html_painter_draw_border (painter,
 					  &((html_colorset_get_color (e->settings->color_set, HTMLBgColor))->color),
 					  base_x - image->border * pixel_size,
@@ -537,9 +537,9 @@ draw (HTMLObject *o,
 					  scale_width + (2 * image->border) * pixel_size,
 					  scale_height + (2 * image->border) * pixel_size,
 					  HTML_BORDER_SOLID, image->border);
-		
+
 	}
-	
+
 	html_painter_draw_pixmap (painter, pixbuf,
 				  base_x, base_y,
 				  scale_width, scale_height,
@@ -607,14 +607,14 @@ save (HTMLObject *self,
 		result = html_engine_save_output_string (state, "<A HREF=\"%s\">", url);
 		g_free (url);
 		if (!result)
-			return FALSE;	
+			return FALSE;
 	}
 
 	url    = html_image_resolve_image_url (state->engine->widget, image->image_ptr->url);
 	result = html_engine_save_output_string (state, "<IMG SRC=\"%s\"", url);
 	g_free (url);
 	if (!result)
-		return FALSE;	
+		return FALSE;
 
 	if (image->percent_width) {
 		if (!html_engine_save_output_string (state, " WIDTH=\"%d%%\"", image->specified_width))
@@ -669,7 +669,7 @@ save (HTMLObject *self,
 		return FALSE;
 	if (link && !html_engine_save_output_string (state, "</A>"))
 		return FALSE;
-	
+
 	return TRUE;
 }
 
@@ -682,7 +682,7 @@ save_plain (HTMLObject *self,
 	gboolean rv = TRUE;
 
 	image = HTML_IMAGE (self);
-	
+
 	if (image->alt)
 		rv = html_engine_save_output_string (state, "%s", image->alt);
 
@@ -711,7 +711,7 @@ static const gchar *
 get_src (HTMLObject *o)
 {
 	HTMLImage *image;
-	
+
 	image = HTML_IMAGE (o);
 	return image->image_ptr->url;
 }
@@ -789,7 +789,7 @@ html_image_class_init (HTMLImageClass *image_class,
 	html_object_class_init (object_class, type, size);
 
 	object_class->copy = copy;
-	object_class->draw = draw;	
+	object_class->draw = draw;
 	object_class->destroy = destroy;
 	object_class->calc_min_width = calc_min_width;
 	object_class->calc_preferred_width = calc_preferred_width;
@@ -871,7 +871,7 @@ html_image_new (HTMLImageFactory *imf,
 		const gchar *target,
 		gint16 width, gint16 height,
 		gboolean percent_width, gboolean percent_height,
-		gint8 border,	
+		gint8 border,
 		HTMLColor *color,
 		HTMLVAlignType valign,
 		gboolean reload)
@@ -1021,7 +1021,7 @@ html_image_factory_types (GtkHTMLStream *stream,
 			  gpointer user_data)
 {
 	static char**image_content_types = NULL;
-	
+
 #if 0
 	/* this code should work in gtk+-2.2 but it is untested */
 	if (image_content_types == NULL) {
@@ -1031,7 +1031,7 @@ html_image_factory_types (GtkHTMLStream *stream,
 		gint i;
 
 		formats = gdk_pixbuf_get_formats ();
-		
+
 		for (cur = formats; cur; cur = cur->next) {
 			GdkPixbufFormat *format = cur->data;
 			char **mime;
@@ -1045,7 +1045,7 @@ html_image_factory_types (GtkHTMLStream *stream,
 
 		if (types) {
 			image_content_types = g_new0 (char *, g_slist_length (types) + 1);
-			
+
 			for (cur = types, i = 0; cur; cur = cur->next, i++) {
 				image_content_types[i] = cur->data;
 			}
@@ -1054,7 +1054,7 @@ html_image_factory_types (GtkHTMLStream *stream,
 			image_content_types = fallback_image_content_types;
 		}
 	}
-#else 
+#else
 	image_content_types = fallback_image_content_types;
 #endif
 
@@ -1151,16 +1151,16 @@ static void
 html_image_pointer_queue_animation (HTMLImagePointer *ip)
 {
 	if (!ip->animation_timeout && ip->factory && ip->factory->animate) {
-		gint delay; 
-		
+		gint delay;
+
 		gdk_pixbuf_animation_iter_advance (ip->iter, NULL);
 		delay = gdk_pixbuf_animation_iter_get_delay_time (ip->iter);
-		
-		ip->animation_timeout = g_timeout_add (delay, 
-						       (GtkFunction) html_image_pointer_update, 
+
+		ip->animation_timeout = g_timeout_add (delay,
+						       (GtkFunction) html_image_pointer_update,
 						       (gpointer) ip);
 	}
-	
+
 }
 
 static gint
@@ -1171,11 +1171,11 @@ html_image_pointer_update (HTMLImagePointer *ip)
 
 	g_return_val_if_fail (ip->factory != NULL, FALSE);
 	ip->animation_timeout = 0;
-		
+
 	DA (printf ("animation_timeout (%p)\n", ip);)
 	for (cur = ip->interests; cur; cur = cur->next) {
 		HTMLImage           *image = cur->data;
-		
+
 		if (image && image->animation_active && html_object_is_parent (engine->clue, HTML_OBJECT (image))) {
 			DA (printf ("queue draw (%p)\n", image);)
 
@@ -1183,7 +1183,7 @@ html_image_pointer_update (HTMLImagePointer *ip)
 			html_engine_queue_draw (engine, HTML_OBJECT (image));
 		}
 	}
-	
+
 	html_image_pointer_start_animation (ip);
 	return FALSE;
 }
@@ -1222,7 +1222,7 @@ html_image_factory_area_prepared (GdkPixbufLoader *loader, HTMLImagePointer *ip)
 	if (!ip->animation) {
 		ip->animation = gdk_pixbuf_loader_get_animation (loader);
 		g_object_ref (ip->animation);
-		
+
 		html_image_pointer_start_animation (ip);
 	}
 	update_or_redraw (ip);
@@ -1311,7 +1311,7 @@ html_image_pointer_new (const char *filename, HTMLImageFactory *factory)
 	retval->interests = NULL;
 	retval->factory = factory;
 	retval->stall = FALSE;
-	retval->stall_timeout = g_timeout_add (STALL_INTERVAL, 
+	retval->stall_timeout = g_timeout_add (STALL_INTERVAL,
 					       (GtkFunction)html_image_pointer_timeout,
 					       retval);
 	retval->animation_timeout = 0;
@@ -1331,7 +1331,7 @@ html_image_pointer_timeout (HTMLImagePointer *ip)
 	ip->stall = TRUE;
 
 	list = ip->interests;
-	/* 
+	/*
 	 * draw the frame now that we decided they've had enough time to
 	 * load the image
 	 */
@@ -1342,7 +1342,7 @@ html_image_pointer_timeout (HTMLImagePointer *ip)
 			if (image)
 				html_engine_queue_draw (ip->factory->engine,
 							HTML_OBJECT (image));
-			
+
 			list = list->next;
 		}
 	}
@@ -1481,14 +1481,14 @@ html_image_factory_unregister (HTMLImageFactory *factory, HTMLImagePointer *poin
 	if (pointer->refcount == 1) {
 		g_assert (pointer->interests == NULL);
 		/*
-		 * FIXME The factory can be NULL if the image was from an iframe 
+		 * FIXME The factory can be NULL if the image was from an iframe
 		 * that has been destroyed and the image is living in the cut buffer
 		 * this isn't particularly clean and should be refactored.
 		 *
 		 * We really need a way to let cut objects know they are living outside
 		 * the normal flow.
 		 */
-		if (factory) 
+		if (factory)
 			g_hash_table_remove (factory->loaded_images, pointer->url);
 		pointer->factory = NULL;
 		html_image_pointer_unref (pointer);
@@ -1538,7 +1538,7 @@ html_image_factory_set_animate (HTMLImageFactory *factory, gboolean animate)
 
 		if (animate)
 			html_image_factory_start_animations (factory);
-		else 
+		else
 			html_image_factory_stop_animations (factory);
 	}
 }
@@ -1550,7 +1550,7 @@ move_image_pointers (gpointer key, gpointer value, gpointer data)
 	HTMLImagePointer *ip  = HTML_IMAGE_POINTER (value);
 
 	ip->factory = dst;
-	
+
 	g_hash_table_insert (dst->loaded_images, ip->url, ip);
 	if (!ip->factory->engine->stopped)
 		g_signal_emit_by_name (ip->factory->engine, "url_requested", ip->url, html_image_pointer_load (ip));
@@ -1570,7 +1570,7 @@ deactivate_anim (gpointer key, gpointer value, gpointer user_data)
 	HTMLImagePointer *ip = value;
 	GSList *cur = ip->interests;
 	HTMLImage *image;
-	
+
 
 	while (cur) {
 		if (cur->data) {

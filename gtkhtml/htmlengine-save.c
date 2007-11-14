@@ -184,14 +184,14 @@ html_engine_save_output_string (HTMLEngineSaveState *state,
 {
   va_list args;
   gboolean retval;
-  
+
   g_return_val_if_fail (format != NULL, FALSE);
   g_return_val_if_fail (state != NULL, FALSE);
-  
+
   va_start (args, format);
   retval = html_engine_save_output_stringv (state, format, args);
   va_end (args);
-  
+
   return retval;
 }
 
@@ -351,14 +351,14 @@ html_engine_save_plain (HTMLEngine *engine,
 			gpointer user_data)
 {
 	HTMLEngineSaveState state;
-	
+
 	if (engine->clue == NULL) {
 		/* Empty document.  */
 		return FALSE;
 	}
-	
+
 	/* gtk_html_debug_dump_tree_simple (engine->clue, 1); */
-	
+
 	state.engine = engine;
 	state.receiver = receiver;
 	state.br_count = 0;
@@ -385,7 +385,7 @@ html_engine_save_buffer_receiver (const HTMLEngine *engine,
 
 	return TRUE;
 }
-	
+
 char *
 html_engine_save_buffer_free (HTMLEngineSaveState *state, gboolean free_string)
 {
@@ -408,10 +408,10 @@ guchar *
 html_engine_save_buffer_peek_text (HTMLEngineSaveState *state)
 {
 	GString *string;
-	
+
 	g_return_val_if_fail (state != NULL, NULL);
 	string = (GString *)state->user_data;
-	
+
 	return (guchar *) string->str;
 }
 
@@ -419,10 +419,10 @@ int
 html_engine_save_buffer_peek_text_bytes (HTMLEngineSaveState *state)
 {
 	GString *string;
-	
+
 	g_return_val_if_fail (state != NULL, 0);
 	string = (GString *)state->user_data;
-	
+
 	return string->len;
 }
 
@@ -504,9 +504,9 @@ html_engine_save_get_paragraph_align (GtkHTMLParagraphAlignment align)
 
 gint
 html_engine_save_string_append_nonbsp (GString *out, const guchar *s, guint length)
-{	
+{
 	guint len = length;
-	
+
 	while (len--) {
 		if (IS_UTF8_NBSP (s)) {
 			g_string_append_c (out, ' ');

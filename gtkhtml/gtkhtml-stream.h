@@ -2,7 +2,7 @@
 /*  This file is part of the GtkHTML library.
 
     Copyright 1999, 2000 Helix Code, Inc.
-    
+
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Library General Public
     License as published by the Free Software Foundation; either
@@ -48,11 +48,11 @@ char **        gtk_html_stream_get_types (GtkHTMLStream *stream);
 
 GtkHTMLStream *gtk_html_stream_log_new   (GtkHTML *html, GtkHTMLStream *stream);
 
-int            gtk_html_stream_vprintf   (GtkHTMLStream *stream, 
-					  const char *format, 
+int            gtk_html_stream_vprintf   (GtkHTMLStream *stream,
+					  const char *format,
 					  va_list ap);
-int            gtk_html_stream_printf    (GtkHTMLStream *stream, 
-					  const char *format, 
+int            gtk_html_stream_printf    (GtkHTMLStream *stream,
+					  const char *format,
 					  ...);
 
 #endif /* _GTKHTML_STREAM_H */

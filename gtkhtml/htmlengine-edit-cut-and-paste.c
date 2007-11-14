@@ -1172,7 +1172,7 @@ static void
 check_magic_link (HTMLEngine *e, const gchar *text, guint len)
 {
 	if (HTML_IS_TEXT (e->cursor->object)
-	    && gtk_html_get_magic_links (e->widget) 
+	    && gtk_html_get_magic_links (e->widget)
 	    && len == 1
 	    && (*text == ' ' || text [0] == '\n' || text [0] == '>' || text [0] == ')'))
 		html_text_magic_link (HTML_TEXT (e->cursor->object), e, html_object_get_length (e->cursor->object));
@@ -1239,7 +1239,7 @@ insert_empty_paragraph (HTMLEngine *e, HTMLUndoDirection dir, gboolean add_undo)
 	html_cursor_backward (e->cursor, e);
 	check_magic_link (e, "\n", 1);
 	html_cursor_forward (e->cursor, e);
-	
+
 	gtk_html_editor_event_command (e->widget, GTK_HTML_COMMAND_INSERT_PARAGRAPH, FALSE);
 	if (add_undo)
 		html_undo_level_end (e->undo);
@@ -1514,7 +1514,7 @@ html_engine_delete_n (HTMLEngine *e, guint len, gboolean forward)
 			html_object_backspace (e->cursor->object, e->cursor, e);
 		}
 		html_engine_unblock_selection (e);
-		html_engine_thaw (e);	
+		html_engine_thaw (e);
 	}
 }
 

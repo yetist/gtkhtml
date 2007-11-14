@@ -39,7 +39,7 @@ typedef struct _ClueFlowProps ClueFlowProps;
 /* Data for the redo/undo operation.  */
 struct _ClueFlowStyleOperation {
 	HTMLUndoData data;
-	
+
 	/* Whether we should go backward or forward when re-setting
            the style.  */
 	gboolean forward;
@@ -121,10 +121,10 @@ set_props (HTMLEngine *engine,
 {
 	if (mask & HTML_ENGINE_SET_CLUEFLOW_INDENTATION)
 		html_clueflow_set_indentation (clueflow, engine, indentation_delta, indentation_levels);
-	
+
 	if (mask & HTML_ENGINE_SET_CLUEFLOW_INDENTATION_DELTA)
 		html_clueflow_modify_indentation_by_delta (clueflow, engine, indentation_delta, indentation_levels);
-	
+
 	/* FIXME levels mostly work now */
 	if (mask & HTML_ENGINE_SET_CLUEFLOW_STYLE) {
 		if (style == HTML_CLUEFLOW_STYLE_LIST_ITEM && clueflow->style != HTML_CLUEFLOW_STYLE_LIST_ITEM
@@ -133,7 +133,7 @@ set_props (HTMLEngine *engine,
 			guint8 tmp = item_type;
 			html_clueflow_set_indentation (clueflow, engine, 1, &tmp);
 		} else if (clueflow->style == HTML_CLUEFLOW_STYLE_LIST_ITEM && style != HTML_CLUEFLOW_STYLE_LIST_ITEM
-			   && clueflow->levels->len == 1 
+			   && clueflow->levels->len == 1
 			   && !(mask & (HTML_ENGINE_SET_CLUEFLOW_INDENTATION | HTML_ENGINE_SET_CLUEFLOW_INDENTATION_DELTA))) {
 			html_clueflow_set_indentation (clueflow, engine, 0, NULL);
 		}
@@ -143,7 +143,7 @@ set_props (HTMLEngine *engine,
 	}
 	if (mask & HTML_ENGINE_SET_CLUEFLOW_ALIGNMENT)
 		html_clueflow_set_halignment (clueflow, engine, alignment);
-	
+
 }
 
 
@@ -293,7 +293,7 @@ set_clueflow_style_in_region (HTMLEngine *engine,
 		set_props (engine, clueflow,
 			   style, item_type, alignment, indentation_delta, indentation_levels,
 			   mask);
-		
+
 		if (p == end)
 			break;
 
@@ -336,7 +336,7 @@ set_clueflow_style_at_cursor (HTMLEngine *engine,
 		add_undo (engine, style_operation_new (g_list_append (NULL, get_props (clueflow)), TRUE), dir);
 
 	set_props (engine, clueflow,
-		   style, item_type, alignment, 
+		   style, item_type, alignment,
 		   indentation_delta,
 		   indentation_levels,
 		   mask);
@@ -360,13 +360,13 @@ html_engine_set_clueflow_style (HTMLEngine *engine,
 	html_engine_freeze (engine);
 	if (html_engine_is_selection_active (engine))
 		set_clueflow_style_in_region (engine,
-					      style, item_type, alignment, 
+					      style, item_type, alignment,
 					      indentation_delta, indentation_levels,
 					      mask,
 					      dir, do_undo);
 	else
 		set_clueflow_style_at_cursor (engine,
-					      style, item_type, alignment, 
+					      style, item_type, alignment,
 					      indentation_delta, indentation_levels,
 					      mask,
 					      dir, do_undo);
@@ -419,7 +419,7 @@ html_engine_get_current_clueflow_style (HTMLEngine *engine, HTMLClueFlowStyle *s
 		*item_type = para->item_type;
 	}
 }
- 
+
 guint
 html_engine_get_current_clueflow_indentation (HTMLEngine *engine)
 {
@@ -433,7 +433,7 @@ html_engine_get_current_clueflow_indentation (HTMLEngine *engine)
 	para = get_current_para (engine);
 	if (para == NULL)
 		return 0;
-	
+
 	/* FIXME levels TODO levels */
 	return para->levels->len;
 }

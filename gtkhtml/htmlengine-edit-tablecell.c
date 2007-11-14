@@ -444,7 +444,7 @@ move_cell_rd_undo_new (gint rspan, gint cspan)
 	return undo;
 }
 
-static void 
+static void
 move_cell_rd_undo_free (struct MoveCellRDUndo *undo)
 {
 	gint i;

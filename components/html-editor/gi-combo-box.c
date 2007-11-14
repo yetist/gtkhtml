@@ -57,7 +57,7 @@ static void gtk_combo_popup_tear_off (GiComboBox *combo,
 				      gboolean set_position);
 static void gtk_combo_set_tearoff_state (GiComboBox *combo,
 					 gboolean torn_off);
-static void gtk_combo_popup_reparent (GtkWidget *popup, GtkWidget *new_parent, 
+static void gtk_combo_popup_reparent (GtkWidget *popup, GtkWidget *new_parent,
 				      gboolean unrealize);
 static gboolean cb_popup_delete (GtkWidget *w, GdkEventAny *event,
 			     GiComboBox *combo);
@@ -86,7 +86,7 @@ struct _GiComboBoxPrivate {
 	GtkWidget *toplevel;	/* Popup's toplevel when not torn off */
 	GtkWidget *tearoff_window; /* Popup's toplevel when torn off */
 	guint torn_off;
-	
+
 	GtkWidget *tearable;	/* The tearoff "button" */
 	GtkWidget *popup;	/* Popup */
 
@@ -194,7 +194,7 @@ deactivate_arrow (GiComboBox *combo_box)
 					 gtk_combo_toggle_pressed, combo_box);
 
 	gtk_toggle_button_set_active (arrow, FALSE);
-	
+
        	g_signal_handlers_unblock_matched (arrow,
 					   G_SIGNAL_MATCH_FUNC | G_SIGNAL_MATCH_DATA,
 					   0, 0, NULL,
@@ -222,10 +222,10 @@ gi_combo_box_popup_hide_unconditional (GiComboBox *combo_box)
 			= FALSE;
 		gtk_combo_set_tearoff_state (combo_box, FALSE);
 	}
-	
+
 	gtk_grab_remove (combo_box->priv->toplevel);
 	gdk_pointer_ungrab (GDK_CURRENT_TIME);
-		
+
 	g_object_ref (combo_box->priv->pop_down_widget);
 	g_signal_emit (combo_box,
 		       gi_combo_box_signals [POP_DOWN_DONE], 0,
@@ -261,7 +261,7 @@ gi_combo_box_popup_hide (GiComboBox *combo_box)
                    the popup shell. */
 		gtk_combo_popup_tear_off (combo_box, FALSE);
 		deactivate_arrow (combo_box);
-	}		 
+	}
 }
 
 /*
@@ -294,7 +294,7 @@ gi_combo_box_popup_display (GiComboBox *combo_box)
 
 	g_return_if_fail (combo_box != NULL);
 	g_return_if_fail (GI_IS_COMBO_BOX (combo_box));
-	
+
 	/*
 	 * If we have no widget to display on the popdown,
 	 * create it
@@ -310,7 +310,7 @@ gi_combo_box_popup_display (GiComboBox *combo_box)
 	}
 
 	g_signal_emit (combo_box, gi_combo_box_signals [PRE_POP_DOWN], 0);
-	
+
 	if (combo_box->priv->torn_off) {
 		/* To give the illusion that tearoff still displays the
 		 * popup, we copy the image in the popup window to the
@@ -326,13 +326,13 @@ gi_combo_box_popup_display (GiComboBox *combo_box)
 	}
 
 	gi_combo_box_get_pos (combo_box, &x, &y);
-	
+
 	gtk_widget_set_uposition (combo_box->priv->toplevel, x, y);
 	gtk_widget_realize (combo_box->priv->popup);
 	gtk_widget_show (combo_box->priv->popup);
 	gtk_widget_realize (combo_box->priv->toplevel);
 	gtk_widget_show (combo_box->priv->toplevel);
-	
+
 	gtk_grab_add (combo_box->priv->toplevel);
 	gdk_pointer_grab (combo_box->priv->toplevel->window, TRUE,
 			  GDK_BUTTON_PRESS_MASK |
@@ -419,7 +419,7 @@ gi_combo_box_init (GiComboBox *combo_box)
 	g_signal_connect (combo_box->priv->arrow_button, "toggled",
 			  G_CALLBACK (gtk_combo_toggle_pressed), combo_box);
 	gtk_widget_show_all (combo_box->priv->arrow_button);
-	
+
 	/* set the a11y name */
 	atk_object_set_name (gtk_widget_get_accessible (combo_box->priv->arrow_button), _("Popup"));
 
@@ -450,7 +450,7 @@ gi_combo_box_init (GiComboBox *combo_box)
 
 	combo_box->priv->torn_off = FALSE;
 	combo_box->priv->tearoff_window = NULL;
-	
+
 	combo_box->priv->frame = gtk_frame_new (NULL);
 	gtk_container_add (GTK_CONTAINER (combo_box->priv->popup),
 			   combo_box->priv->frame);
@@ -519,11 +519,11 @@ static void
 gtk_combo_popup_tear_off (GiComboBox *combo, gboolean set_position)
 {
 	int x, y;
-	
+
 	if (!combo->priv->tearoff_window) {
 		GtkWidget *tearoff;
 		gchar *title;
-		
+
 		/* FIXME: made this a toplevel, not a dialog ! */
 		tearoff = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 		g_object_ref_sink (tearoff);
@@ -538,7 +538,7 @@ gtk_combo_popup_tear_off (GiComboBox *combo, gboolean set_position)
 		if (title)
 			gdk_window_set_title (tearoff->window, title);
 		gtk_window_set_resizable (GTK_WINDOW (tearoff), TRUE);
-		gtk_window_set_transient_for 
+		gtk_window_set_transient_for
 			(GTK_WINDOW (tearoff),
 			 GTK_WINDOW (gtk_widget_get_toplevel
 				     GTK_WIDGET (combo)));
@@ -546,7 +546,7 @@ gtk_combo_popup_tear_off (GiComboBox *combo, gboolean set_position)
 
 	if (GTK_WIDGET_VISIBLE (combo->priv->popup)) {
 		gtk_widget_hide (combo->priv->toplevel);
-		
+
 		gtk_grab_remove (combo->priv->toplevel);
 		gdk_pointer_ungrab (GDK_CURRENT_TIME);
 	}
@@ -563,7 +563,7 @@ gtk_combo_popup_tear_off (GiComboBox *combo, gboolean set_position)
 	}
 	gtk_widget_show (GTK_WIDGET (combo->priv->popup));
 	gtk_widget_show (combo->priv->tearoff_window);
-		
+
 }
 
 /**
@@ -575,16 +575,16 @@ gtk_combo_popup_tear_off (GiComboBox *combo, gboolean set_position)
  *
  * Compare with gtk_menu_set_tearoff_state in gtk/gtkmenu.c
  */
-static void       
+static void
 gtk_combo_set_tearoff_state (GiComboBox *combo,
 			     gboolean  torn_off)
 {
 	g_return_if_fail (combo != NULL);
 	g_return_if_fail (GI_IS_COMBO_BOX (combo));
-	
+
 	if (combo->priv->torn_off != torn_off) {
 		combo->priv->torn_off = torn_off;
-		
+
 		if (combo->priv->torn_off) {
 			gtk_combo_popup_tear_off (combo, TRUE);
 			deactivate_arrow (combo);
@@ -616,7 +616,7 @@ gtk_combo_tearoff_bg_copy (GiComboBox *combo)
 		gc_values.subwindow_mode = GDK_INCLUDE_INFERIORS;
 		gc = gdk_gc_new_with_values (widget->window,
 					     &gc_values, GDK_GC_SUBWINDOW);
-      
+
 		pixmap = gdk_pixmap_new (widget->window,
 					 widget->allocation.width,
 					 widget->allocation.height,
@@ -626,11 +626,11 @@ gtk_combo_tearoff_bg_copy (GiComboBox *combo)
 				   widget->window,
 				   0, 0, 0, 0, -1, -1);
 		g_object_unref (gc);
-      
+
 		gtk_widget_set_size_request (combo->priv->tearoff_window,
 					     widget->allocation.width,
 					     widget->allocation.height);
-      
+
 		gdk_window_set_back_pixmap
 			(combo->priv->tearoff_window->window, pixmap, FALSE);
 		g_object_unref (pixmap);
@@ -647,9 +647,9 @@ gtk_combo_tearoff_bg_copy (GiComboBox *combo)
  *
  * Compare with gtk_menu_reparent in gtk/gtkmenu.c
  */
-static void 
-gtk_combo_popup_reparent (GtkWidget *popup, 
-			  GtkWidget *new_parent, 
+static void
+gtk_combo_popup_reparent (GtkWidget *popup,
+			  GtkWidget *new_parent,
 			  gboolean unrealize)
 {
 	gboolean was_floating = g_object_is_floating (popup);
@@ -665,7 +665,7 @@ gtk_combo_popup_reparent (GtkWidget *popup,
 	else
 		gtk_widget_reparent (GTK_WIDGET (popup), new_parent);
 	gtk_widget_set_size_request (new_parent, -1, -1);
-  
+
 	if (was_floating)
 		g_object_force_floating (G_OBJECT (popup));
 	else
@@ -685,7 +685,7 @@ cb_tearable_button_release (GtkWidget *w, GdkEventButton *event,
 			    GiComboBox *combo)
 {
 	GtkTearoffMenuItem *tearable;
-	
+
 	g_return_val_if_fail (w != NULL, FALSE);
 	g_return_val_if_fail (GTK_IS_TEAROFF_MENU_ITEM (w), FALSE);
 
@@ -694,17 +694,17 @@ cb_tearable_button_release (GtkWidget *w, GdkEventButton *event,
 
 	if (!combo->priv->torn_off) {
 		gboolean need_connect;
-			
+
 		need_connect = (!combo->priv->tearoff_window);
 		gtk_combo_set_tearoff_state (combo, TRUE);
 		if (need_connect)
-			g_signal_connect (combo->priv->tearoff_window,  
+			g_signal_connect (combo->priv->tearoff_window,
 					  "delete_event",
 					  G_CALLBACK (cb_popup_delete),
 					  combo);
 	} else
 		gi_combo_box_popup_hide_unconditional (combo);
-	
+
 	return TRUE;
 }
 
@@ -792,13 +792,13 @@ gi_combo_box_set_arrow_relief (GiComboBox *cc, GtkReliefStyle relief)
  * something. But I don't think we need the functionality, so I didn't bother
  * to investigate.
  */
-void       
+void
 gi_combo_box_set_title (GiComboBox *combo,
 			 const gchar *title)
 {
 	g_return_if_fail (combo != NULL);
 	g_return_if_fail (GI_IS_COMBO_BOX (combo));
-	
+
 	g_object_set_data_full (G_OBJECT (combo), "gtk-combo-title",
 				g_strdup (title), (GDestroyNotify) g_free);
 }

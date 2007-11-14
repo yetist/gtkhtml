@@ -28,7 +28,7 @@
 
 #define HTML_UNDO_ACTION(x) ((HTMLUndoAction *) x)
 struct _HTMLUndoAction {
-	
+
 	gchar *description;             /* A text description of the action, to be displayed in the menus.  */
 	HTMLUndoFunc function;	        /* Function to call when the action is performed.  */
 	HTMLUndoData *data;             /* Data to pass to the action function when it's called.  */

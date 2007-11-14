@@ -2,7 +2,7 @@
 /*  This file is part of the GtkHTML library.
 
     Copyright 1999, 2000 Helix Code, Inc.
-    
+
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Library General Public
     License as published by the Free Software Foundation; either
@@ -73,7 +73,7 @@ struct _GtkHTML {
 
 struct _GtkHTMLClass {
 	GtkLayoutClass parent_class;
-	
+
         void (* title_changed)   (GtkHTML *html, const gchar *new_title);
         void (* url_requested)   (GtkHTML *html, const gchar *url, GtkHTMLStream *handle);
         void (* load_done)       (GtkHTML *html);
@@ -271,7 +271,7 @@ void                       gtk_html_set_paragraph_alignment       (GtkHTML      
 								   GtkHTMLParagraphAlignment  alignment);
 void                       gtk_html_cut                           (GtkHTML                   *html);
 void                       gtk_html_copy                          (GtkHTML                   *html);
-void                       gtk_html_paste                         (GtkHTML                   *html, 
+void                       gtk_html_paste                         (GtkHTML                   *html,
 								   gboolean                   as_cite);
 void                       gtk_html_undo                          (GtkHTML                   *html);
 void                       gtk_html_redo                          (GtkHTML                   *html);

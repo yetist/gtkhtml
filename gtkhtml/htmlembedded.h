@@ -29,11 +29,11 @@
 
 struct _HTMLEmbedded {
 	HTMLObject object;
-	
+
 	gchar *name;
 	gchar *value;
 	HTMLForm *form;
-	GtkWidget *widget, *parent;	
+	GtkWidget *widget, *parent;
 	gint width, height;
 
 	gint abs_x, abs_y;
@@ -42,8 +42,8 @@ struct _HTMLEmbedded {
 
 struct _HTMLEmbeddedClass {
 	HTMLObjectClass object_class;
-	
-		    
+
+
 	void   (*reset)    (HTMLEmbedded *element);
 	gchar *(*encode)   (HTMLEmbedded *element);
 	void   (*reparent) (HTMLEmbedded *element, GtkWidget *new_parent);

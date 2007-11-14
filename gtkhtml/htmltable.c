@@ -5,17 +5,17 @@
    Copyright (C) 1997 Torben Weis (weis@kde.org)
    Copyright (C) 1999 Anders Carlsson (andersca@gnu.org)
    Copyright (C) 2000 Helix Code, Inc.
-   
+
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
    License as published by the Free Software Foundation; either
    version 2 of the License, or (at your option) any later version.
-   
+
    This library is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
    Library General Public License for more details.
-   
+
    You should have received a copy of the GNU Library General Public License
    along with this library; see the file COPYING.LIB.  If not, write to
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -1097,7 +1097,7 @@ html_table_real_calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_
 
 	o->ascent = ROW_HEIGHT (table, table->totalRows) + pixel_size * table->border;
 	o->width  = COLUMN_OPT (table, table->totalCols) + pixel_size * table->border;
-	
+
 	if (o->width != old_width || o->ascent != old_ascent) {
 		html_object_add_to_changed (changed_objs, o);
 		if (o->width < old_width) {
@@ -1190,7 +1190,7 @@ draw_background_helper (HTMLTable *table,
 
 	if (table->bgPixmap && table->bgPixmap->animation)
 		pixbuf = gdk_pixbuf_animation_get_static_image (table->bgPixmap->animation);
-	
+
 	if (color)
 		html_painter_alloc_color (p, color);
 
@@ -1208,7 +1208,7 @@ draw_background_helper (HTMLTable *table,
 
 static void
 draw (HTMLObject *o,
-      HTMLPainter *p, 
+      HTMLPainter *p,
       gint x, gint y,
       gint width, gint height,
       gint tx, gint ty)
@@ -1223,7 +1223,7 @@ draw (HTMLObject *o,
 		return;
 
 	pixel_size = html_painter_get_pixel_size (p);
-	
+
 	/* Draw the background */
 	draw_background_helper (table, p, &paint, tx, ty);
 
@@ -1243,7 +1243,7 @@ draw (HTMLObject *o,
 			if (r < end_row && table->cells [r + 1][c] == cell)
 				continue;
 
-			html_object_draw (HTML_OBJECT (cell), p, 
+			html_object_draw (HTML_OBJECT (cell), p,
 					  x - o->x, y - o->y + o->ascent,
 					  width,
 					  height,
@@ -1261,7 +1261,7 @@ draw (HTMLObject *o,
 			g_print ("FIXME: Support captions\n");
 
 		html_painter_draw_border (p, html_object_get_bg_color (o->parent, p),
-					  tx, ty + capOffset, 
+					  tx, ty + capOffset,
 					  HTML_OBJECT (table)->width,
 					  ROW_HEIGHT (table, table->totalRows) +
 					  pixel_size * table->border, HTML_BORDER_OUTSET,
@@ -1289,7 +1289,7 @@ draw (HTMLObject *o,
 							   - ROW_HEIGHT (table, cell->row)
 							   - pixel_size * table->spacing),
 							  HTML_BORDER_INSET, pixel_size);
-						      
+
 			}
 		}
 	}
@@ -1593,7 +1593,7 @@ divide_left_by_preferred_width (HTMLTable *table, HTMLPainter *painter,
 				/* printf ("col %d (add %d) --> %d (pw=%d)\n", c, part, max_size [c], pw); */
 			}
 		}
-		
+
 	/* printf ("------------------------------------\n*left*: %d\n-------------------------------\n", left); */
 }
 
@@ -1647,7 +1647,7 @@ divide_into_percented_all (HTMLTable *table, gint *col_percent, gint *max_size, 
 	for (c = 0; c < table->totalCols; c++)
 		if (active [c] && max_size [c] < ((gdouble) width * PERC (c)) / percent)
 			max_size [c] = ((gdouble) width) * (PERC (c)) / percent;
-	
+
 	g_free (active);
 }
 
@@ -1660,7 +1660,7 @@ html_table_set_cells_max_width (HTMLTable *table, HTMLPainter *painter, gint *ma
 	gint r, c, size, pixel_size = html_painter_get_pixel_size (painter);
 	gint border_extra = table->border ? 2 : 0;
 	size = 0;
-	
+
 	for (r = 0; r < table->totalRows; r++)
 		for (c = 0; c < table->totalCols; c++) {
 			cell = table->cells[r][c];
@@ -1806,7 +1806,7 @@ find_anchor (HTMLObject *self, const char *name, gint *x, gint *y)
 			    && table->cells[r+1][c] == cell)
 				continue;
 
-			anchor = html_object_find_anchor (HTML_OBJECT (cell), 
+			anchor = html_object_find_anchor (HTML_OBJECT (cell),
 							  name, x, y);
 
 			if (anchor != NULL)
@@ -2245,7 +2245,7 @@ static GdkColor *
 get_bg_color (HTMLObject *o,
 	      HTMLPainter *p)
 {
-	
+
 	return HTML_TABLE (o)->bgColor
 		? HTML_TABLE (o)->bgColor
 		: html_object_get_bg_color (o->parent, p);
@@ -2346,7 +2346,7 @@ html_table_init (HTMLTable *table,
 	table->cells = g_new0 (HTMLTableCell **, table->allocRows);
 	for (r = 0; r < table->allocRows; r++)
 		table->cells[r] = g_new0 (HTMLTableCell *, table->totalCols);;
-	
+
 	table->columnMin   = g_array_new (FALSE, FALSE, sizeof (gint));
 	table->columnFixed = g_array_new (FALSE, FALSE, sizeof (gint));
 	table->columnPref  = g_array_new (FALSE, FALSE, sizeof (gint));

@@ -2,17 +2,17 @@
 /* This file is part of the GtkHTML library.
 
    Copyright (C) 1999, 2000 Helix Code, Inc.
-   
+
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
    License as published by the Free Software Foundation; either
    version 2 of the License, or (at your option) any later version.
-   
+
    This library is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
    Library General Public License for more details.
-   
+
    You should have received a copy of the GNU Library General Public License
    along with this library; see the file COPYING.LIB.  If not, write to
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -194,7 +194,7 @@ draw_obj (HTMLDrawQueue *queue,
 		paint.width = x2 - x1;
 		paint.height = y2 - y1;
 		gdk_window_invalidate_rect (HTML_GDK_PAINTER (e->painter)->window, &paint, FALSE);
-	} 
+	}
 }
 
 static void
@@ -222,7 +222,7 @@ clear (HTMLDrawQueue *queue,
 		paint.width = x2 - x1;
 		paint.height = y2 - y1;
 		gdk_window_invalidate_rect (HTML_GDK_PAINTER (e->painter)->window, &paint, FALSE);
-	} 
+	}
 }
 
 void
@@ -232,7 +232,7 @@ html_draw_queue_clear (HTMLDrawQueue *queue)
 
 	for (p = queue->elems; p != NULL; p = p->next) {
 		HTMLObject *obj = HTML_OBJECT (p->data);
-			
+
 		obj->redraw_pending = FALSE;
 		if (obj->free_pending) {
 			g_free (obj);
@@ -276,7 +276,7 @@ html_draw_queue_flush (HTMLDrawQueue *queue)
 	if (vis) {
 		for (p = queue->elems; p != NULL; p = p->next) {
 			HTMLObject *obj = HTML_OBJECT (p->data);
-			
+
 			if (obj->redraw_pending && !obj->free_pending) {
 				draw_obj (queue, obj);
 				obj->redraw_pending = FALSE;

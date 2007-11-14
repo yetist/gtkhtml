@@ -53,7 +53,7 @@ set_max_width (HTMLObject *o, HTMLPainter *painter, gint w)
 	/* Now call set_max_width for variable objects */
 	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next) {
 		if (obj->percent > 0)
-			html_object_set_max_width (obj, painter, 
+			html_object_set_max_width (obj, painter,
 						   w - HTML_CLUEH (o)->indent);
 	}
 }
@@ -148,7 +148,7 @@ calc_preferred_width (HTMLObject *o,
 	HTMLObject *obj;
 	gint prefWidth = 0;
 
-	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next) 
+	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next)
 		prefWidth += html_object_calc_preferred_width (obj, painter);
 
 	return prefWidth + HTML_CLUEH (o)->indent;

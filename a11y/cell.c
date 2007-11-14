@@ -91,7 +91,7 @@ html_a11y_cell_init (HTMLA11YCell *a11y_cell)
 {
 }
 
-AtkObject* 
+AtkObject*
 html_a11y_cell_new (HTMLObject *html_obj)
 {
 	GObject *object;

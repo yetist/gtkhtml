@@ -64,7 +64,7 @@ copy (HTMLObject *self,
 }
 
 
-static gchar * 
+static gchar *
 encode (HTMLEmbedded *e)
 {
 	GString *encoding = g_string_new ("");
@@ -79,12 +79,12 @@ encode (HTMLEmbedded *e)
 
 		ptr = html_embedded_encode_string (e->value);
 		encoding = g_string_append (encoding, ptr);
-		g_free (ptr);		
+		g_free (ptr);
 	}
 
 	ptr = encoding->str;
 	g_string_free(encoding, FALSE);
-	
+
 	return ptr;
 }
 
@@ -115,9 +115,9 @@ html_button_class_init (HTMLButtonClass *klass,
 }
 
 void
-html_button_init (HTMLButton *button, 
-		  HTMLButtonClass *klass, 
-		  GtkWidget *parent, 
+html_button_init (HTMLButton *button,
+		  HTMLButtonClass *klass,
+		  GtkWidget *parent,
 		  gchar *name, gchar *value,
 		  HTMLButtonType type)
 {
@@ -128,7 +128,7 @@ html_button_init (HTMLButton *button,
 	widget = NULL;
 
 	html_embedded_init (element, HTML_EMBEDDED_CLASS (klass), parent, name, value);
-	
+
 	if( strlen (element->value)) {
 		widget = gtk_button_new_with_label (element->value);
 	} else {
@@ -158,9 +158,9 @@ html_button_init (HTMLButton *button,
 }
 
 HTMLObject *
-html_button_new (GtkWidget *parent, 
-		 gchar *name, 
-		 gchar *value, 
+html_button_new (GtkWidget *parent,
+		 gchar *name,
+		 gchar *value,
 		 HTMLButtonType type)
 {
 	HTMLButton *button;

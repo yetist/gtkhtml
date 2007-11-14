@@ -90,11 +90,11 @@ copy (HTMLObject *self,
 
 	(* HTML_OBJECT_CLASS (parent_class)->copy) (self,dest);
 
-	
+
 	/* FIXME g_warning ("HTMLSelect::copy() is not complete."); */
 	d->size =    s->size;
 	d->multi =   s->multi;
-	
+
 	d->values = NULL;
 	d->strings = NULL;
 	d->default_selection = NULL;
@@ -118,7 +118,7 @@ draw (HTMLObject *o,
 		}
 	}
 
-	select->needs_update = FALSE;	
+	select->needs_update = FALSE;
 
 	(* HTML_OBJECT_CLASS (parent_class)->draw) (o, p, x, y, width, height, tx, ty);
 }
@@ -147,14 +147,14 @@ reset (HTMLEmbedded *e)
 		GtkTreeSelection *selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (s->view));
 
 		gtk_tree_selection_unselect_all (selection);
-		
+
 		while (i) {
 			if (i->data)
 				select_row (selection, GTK_TREE_MODEL (s->store), row);
 
 			i = i->next;
 			row++;
-		}		
+		}
 	} else if (s->size > 1) {
 		GtkTreeSelection *selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (s->view));
 
@@ -184,9 +184,9 @@ add_selected (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, gpointe
 	ptr = html_embedded_encode_string (info->e->name);
 	info->str = g_string_append (info->str, ptr);
 	g_free (ptr);
-					
+
 	info->str = g_string_append_c (info->str, '=');
-					
+
 	ptr = html_embedded_encode_string (value);
 	info->str = g_string_append (info->str, ptr);
 	g_free (ptr);
@@ -229,7 +229,7 @@ encode (HTMLEmbedded *e)
 					ptr = html_embedded_encode_string ((gchar *)g_list_nth (s->values, item)->data);
 					encoding = g_string_append (encoding, ptr);
 					g_free (ptr);
-					
+
 					break;
 				}
 				i = i->next;
@@ -240,7 +240,7 @@ encode (HTMLEmbedded *e)
 	}
 	ptr = encoding->str;
 	g_string_free(encoding, FALSE);
-	
+
 	return ptr;
 }
 
@@ -397,8 +397,8 @@ longest_string (HTMLSelect *s)
 	return str;
 }
 
-void 
-html_select_set_text (HTMLSelect *select, gchar *text) 
+void
+html_select_set_text (HTMLSelect *select, gchar *text)
 {
 	GtkWidget *w = GTK_WIDGET (HTML_EMBEDDED (select)->widget);
 	gint item;
@@ -434,17 +434,17 @@ html_select_set_text (HTMLSelect *select, gchar *text)
 		if (select->strings) {
 			char *longest;
 			GList *last = g_list_last (select->strings);
-			
+
 			g_free (last->data);
 			last->data = g_strdup (text);
 
 			select->needs_update = TRUE;
-			gtk_entry_set_text (GTK_ENTRY(GTK_COMBO(w)->entry), 
+			gtk_entry_set_text (GTK_ENTRY(GTK_COMBO(w)->entry),
 					    g_list_nth(select->strings, select->default_selected)->data);
 
 			longest = longest_string (select);
 			if (longest)
-				gtk_entry_set_width_chars (GTK_ENTRY(GTK_COMBO(w)->entry), 
+				gtk_entry_set_width_chars (GTK_ENTRY(GTK_COMBO(w)->entry),
 							   strlen (longest));
 		}
 

@@ -134,7 +134,7 @@ html_colorset_set_unchanged (HTMLColorSet *s, HTMLColorSet *o)
 			s->changed [i] = FALSE;
 		}
 	}
-}	
+}
 
 static GdkColor *
 get_prop_color  (GtkWidget *w, char *name, char *dv, GdkColor *gdk_color)
@@ -143,10 +143,10 @@ get_prop_color  (GtkWidget *w, char *name, char *dv, GdkColor *gdk_color)
 	GdkColor *color = NULL;
 
 	gtk_widget_style_get (w, name, &color, NULL);
-	
+
 	if (color)
 		return color;
-	
+
 	if (dv && gdk_color_parse (dv, &c))
 		return gdk_color_copy (&c);
 
@@ -181,8 +181,8 @@ html_colorset_set_style (HTMLColorSet *s, GtkWidget *w)
 	color = get_prop_color (w, "alink_color", "#0000ff", NULL);
 	SET_GCOLOR (ALink, *color);
 	gdk_color_free (color);
-	color = get_prop_color (w, "vlink_color", "#ff0000", NULL); 
-	SET_GCOLOR (VLink, *color);  
+	color = get_prop_color (w, "vlink_color", "#ff0000", NULL);
+	SET_GCOLOR (VLink, *color);
 	gdk_color_free (color);
 	color = get_prop_color (w, "spell_error_color", "#ff0000", NULL);
 	SET_GCOLOR (SpellError, *color);
@@ -190,4 +190,4 @@ html_colorset_set_style (HTMLColorSet *s, GtkWidget *w)
 	color = get_prop_color (w, "cite_color", NULL, &style->text [GTK_STATE_NORMAL]);
 	SET_GCOLOR (Cite, *color);
 	gdk_color_free (color);
-}	
+}

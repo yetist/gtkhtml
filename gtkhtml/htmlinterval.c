@@ -104,7 +104,7 @@ guint
 html_interval_get_length (HTMLInterval *i, HTMLObject *obj)
 {
 	if (obj != i->from.object && obj != i->to.object)
-		return html_object_get_length (obj);	
+		return html_object_get_length (obj);
 	if (obj == i->from.object) {
 		if (obj == i->to.object)
 			return i->to.offset - i->from.offset;

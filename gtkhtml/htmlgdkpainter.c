@@ -2,17 +2,17 @@
 /* This file is part of the GtkHTML library.
 
    Copyright (C) 2000 Helix Code, Inc.
-   
+
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
    License as published by the Free Software Foundation; either
    version 2 of the License, or (at your option) any later version.
-   
+
    This library is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
    Library General Public License for more details.
-   
+
    You should have received a copy of the GNU Library General Public License
    along with this library; see the file COPYING.LIB.  If not, write to
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -146,7 +146,7 @@ end (HTMLPainter *painter)
 	/* printf ("painter end\n"); */
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
-	
+
 	if (! gdk_painter->double_buffer)
 		return;
 
@@ -324,10 +324,10 @@ draw_border (HTMLPainter *painter,
 		col2 = &light;
 		break;
 	}
-	
+
 	x -= gdk_painter->x1;
 	y -= gdk_painter->y1;
-	
+
 	while (bordersize > 0) {
 		if (col2) {
 			gdk_gc_set_foreground (gdk_painter->gc, col2);
@@ -360,7 +360,7 @@ static void
 draw_background (HTMLPainter *painter,
 		 GdkColor *color,
 		 GdkPixbuf *pixbuf,
-		 gint x, gint y, 
+		 gint x, gint y,
 		 gint width, gint height,
 		 gint tile_x, gint tile_y)
 {
@@ -388,7 +388,7 @@ draw_background (HTMLPainter *painter,
 
 	tile_x += paint.x - expose.x;
 	tile_y += paint.y - expose.y;
-	
+
 	if (!color && !pixbuf)
 		return;
 
@@ -396,8 +396,8 @@ draw_background (HTMLPainter *painter,
 		gdk_gc_set_foreground (gdk_painter->gc, color);
 		gdk_draw_rectangle (gdk_painter->pixmap, gdk_painter->gc,
 				    TRUE, paint.x - clip.x, paint.y - clip.y,
-				    paint.width, paint.height);	
-		
+				    paint.width, paint.height);
+
 	}
 
 	if (!pixbuf)
@@ -412,12 +412,12 @@ draw_background (HTMLPainter *painter,
 		guchar *p;
 
 		p = gdk_pixbuf_get_pixels (pixbuf);
-		
+
 		if (!(gdk_pixbuf_get_has_alpha (pixbuf) && (p[3] < 0x80))) {
 			pixcol.red = p[0] * 0xff;
-			pixcol.green = p[1] * 0xff; 
+			pixcol.green = p[1] * 0xff;
 			pixcol.blue = p[2] * 0xff;
-			
+
 			html_painter_alloc_color (painter, &pixcol);
 			color = &pixcol;
 		}
@@ -427,8 +427,8 @@ draw_background (HTMLPainter *painter,
 			gdk_draw_rectangle (gdk_painter->pixmap, gdk_painter->gc,
 					    TRUE, paint.x - clip.x, paint.y - clip.y,
 					    paint.width, paint.height);
-		}	
-		
+		}
+
 		return;
 	}
 
@@ -441,41 +441,41 @@ draw_background (HTMLPainter *painter,
 		gint cw, ch, cx, cy;
 		gint dw, dh;
 		GdkGC *gc;
-		
+
 		dw = MIN (pw, tile_width);
 		dh = MIN (ph, tile_height);
 
 		gc = gdk_gc_new (gdk_painter->window);
 
   		if (color || !gdk_pixbuf_get_has_alpha (pixbuf)) {
-			pixmap = gdk_pixmap_new (gdk_painter->window, dw, dh, -1);		
-			
+			pixmap = gdk_pixmap_new (gdk_painter->window, dw, dh, -1);
+
 			if (color) {
 				gdk_gc_set_foreground (gc, color);
 				gdk_draw_rectangle (pixmap, gc,
 						    TRUE, 0, 0,
 						    dw, dh);
-			}	
+			}
 
 			gdk_draw_pixbuf (pixmap, NULL, pixbuf,
 					 0, 0,
-					 0, 0, 
+					 0, 0,
 					 dw, dh,
 					 GDK_RGB_DITHER_NORMAL,
 					 paint.x, paint.y);
-	
+
 			gdk_gc_set_tile (gc, pixmap);
 			gdk_gc_set_fill (gc, GDK_TILED);
-			gdk_gc_set_ts_origin (gc, 
-					      paint.x - (tile_x % pw) - clip.x,  
+			gdk_gc_set_ts_origin (gc,
+					      paint.x - (tile_x % pw) - clip.x,
 					      paint.y - (tile_y % ph) - clip.y);
 
 			gdk_draw_rectangle (gdk_painter->pixmap, gc, TRUE,
-					    paint.x - clip.x, paint.y - clip.y, 
+					    paint.x - clip.x, paint.y - clip.y,
 					    paint.width, paint.height);
-			
-			g_object_unref (pixmap);			
-			g_object_unref (gc);			
+
+			g_object_unref (pixmap);
+			g_object_unref (gc);
 		} else {
 			int incr_x = 0;
 			int incr_y = 0;
@@ -493,7 +493,7 @@ draw_background (HTMLPainter *painter,
 					incr_x = dw - w;
 
 					gdk_draw_pixbuf (gdk_painter->pixmap, NULL, pixbuf,
-							 w, h, 
+							 w, h,
 							 cx - clip.x, cy - clip.y,
 							 (cw >= incr_x) ? incr_x : cw,
 							 (ch >= incr_y) ? incr_y : ch,
@@ -509,19 +509,19 @@ draw_background (HTMLPainter *painter,
 				h = 0;
 			}
 
-			g_object_unref (gc);			
+			g_object_unref (gc);
 		}
 	} else {
 		if (color && gdk_pixbuf_get_has_alpha (pixbuf)) {
 			gdk_gc_set_foreground (gdk_painter->gc, color);
 			gdk_draw_rectangle (gdk_painter->pixmap, gdk_painter->gc, TRUE,
 					    paint.x - clip.x, paint.y - clip.y,
-					    paint.width, paint.height);	
+					    paint.width, paint.height);
 		}
-		
+
 		gdk_draw_pixbuf (gdk_painter->pixmap, NULL, pixbuf,
 				 tile_x % pw, tile_y % ph,
-				 paint.x - clip.x, paint.y - clip.y, 
+				 paint.x - clip.x, paint.y - clip.y,
 				 paint.width, paint.height,
 				 GDK_RGB_DITHER_NORMAL,
 				 paint.x, paint.y);
@@ -580,7 +580,7 @@ draw_pixmap (HTMLPainter *painter,
 	}
 
 
-	tmp_pixbuf = gdk_pixbuf_new (GDK_COLORSPACE_RGB, 
+	tmp_pixbuf = gdk_pixbuf_new (GDK_COLORSPACE_RGB,
 				     gdk_pixbuf_get_has_alpha (pixbuf),
 				     gdk_pixbuf_get_bits_per_sample (pixbuf),
 				     paint.width, paint.height);
@@ -590,9 +590,9 @@ draw_pixmap (HTMLPainter *painter,
 	if (tmp_pixbuf == NULL)
 		return;
 
-	/* 
-	 * FIXME this is a hack to work around a gdk-pixbuf bug 
-	 * it could be removed when 
+	/*
+	 * FIXME this is a hack to work around a gdk-pixbuf bug
+	 * it could be removed when
 	 * http://bugzilla.ximian.com/show_bug.cgi?id=12968
 	 * is fixed.
 	 */
@@ -602,7 +602,7 @@ draw_pixmap (HTMLPainter *painter,
 			      0,
 			      0,
 			      paint.width, paint.height,
-			      (double)-(paint.x - image.x), 
+			      (double)-(paint.x - image.x),
 			      (double)-(paint.y - image.y),
 			      (gdouble) scale_width/ (gdouble) orig_width,
 			      (gdouble) scale_height/ (gdouble) orig_height,
@@ -696,7 +696,7 @@ draw_spell_error (HTMLPainter *painter, int x, int y, int width)
 }
 
 static void
-draw_embedded (HTMLPainter * p, HTMLEmbedded *o, gint x, gint y) 
+draw_embedded (HTMLPainter * p, HTMLEmbedded *o, gint x, gint y)
 {
 	HTMLGdkPainter *gdk_painter = HTML_GDK_PAINTER(p);
 	GtkWidget *embedded_widget;
@@ -705,8 +705,8 @@ draw_embedded (HTMLPainter * p, HTMLEmbedded *o, gint x, gint y)
 	if (embedded_widget && GTK_IS_HTML_EMBEDDED (embedded_widget)) {
 		g_signal_emit_by_name (embedded_widget,
 				       "draw_gdk", 0,
-				       gdk_painter->pixmap, 
-				       gdk_painter->gc, 
+				       gdk_painter->pixmap,
+				       gdk_painter->gc,
 				       x, y);
 	}
 }
@@ -719,7 +719,7 @@ set_gdk_color_from_pango_color (GdkColor   *gdkc,
 	gdkc->green = pc->green;
 	gdkc->blue = pc->blue;
 }
-     
+
 static void
 set_item_gc (HTMLPainter *p, HTMLPangoProperties *properties, GdkColor **fg_color, GdkColor **bg_color)
 {
@@ -828,10 +828,10 @@ draw_shade_line (HTMLPainter *painter,
 	HTMLGdkPainter *gdk_painter;
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
-	
+
 	x -= gdk_painter->x1;
 	y -= gdk_painter->y1;
-	
+
 	gdk_gc_set_foreground (gdk_painter->gc, &gdk_painter->dark);
 	gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc, x, y, x+width, y);
 	gdk_gc_set_foreground (gdk_painter->gc, &gdk_painter->light);
@@ -875,7 +875,7 @@ html_gdk_painter_init (GObject *object)
 	gdk_painter = HTML_GDK_PAINTER (object);
 
 	painter->engine_to_pango = PANGO_SCALE;
-	
+
 	gdk_painter->window = NULL;
 
 	gdk_painter->gc = NULL;

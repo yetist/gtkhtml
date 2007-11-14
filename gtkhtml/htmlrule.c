@@ -4,17 +4,17 @@
    Copyright (C) 1997 Martin Jones (mjones@kde.org)
    Copyright (C) 1997 Torben Weis (weis@kde.org)
    Copyright (C) 2000 Helix Code, Inc.
-   
+
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
    License as published by the Free Software Foundation; either
    version 2 of the License, or (at your option) any later version.
-   
+
    This library is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
    Library General Public License for more details.
-   
+
    You should have received a copy of the GNU Library General Public License
    along with this library; see the file COPYING.LIB.  If not, write to
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -138,7 +138,7 @@ html_rule_real_calc_size (HTMLObject *self, HTMLPainter *painter, GList **change
 
 static void
 html_rule_draw (HTMLObject *o,
-      HTMLPainter *p, 
+      HTMLPainter *p,
       gint x, gint y,
       gint width, gint height,
       gint tx, gint ty)
@@ -155,7 +155,7 @@ html_rule_draw (HTMLObject *o,
 		return;
 
 	rule = HTML_RULE (o);
-	
+
 	if (y + height < o->y - o->ascent || y > o->y + o->descent)
 		return;
 
@@ -231,7 +231,7 @@ save_plain (HTMLObject *self,
 	    gint requested_width)
 {
 	int i;
-	
+
 	if (!html_engine_save_output_string (state, "\n"))
 		return FALSE;
 
@@ -239,7 +239,7 @@ save_plain (HTMLObject *self,
 	for (i = 0; i < requested_width; i++)
 		if (!html_engine_save_output_string (state, "_"))
 			return FALSE;
-	
+
 	if (!html_engine_save_output_string (state, "\n"))
 		return FALSE;
 

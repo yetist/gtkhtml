@@ -222,11 +222,11 @@ html_engine_clear_selection (HTMLEngine *e)
 		html_interval_destroy (e->selection);
 		html_engine_edit_selection_updater_reset (e->selection_updater);
 		e->selection = NULL;
-		
+
 		/*
 		if (gdk_selection_owner_get (GDK_SELECTION_PRIMARY) == GTK_WIDGET (e->widget)->window)
-			gtk_selection_owner_set (NULL, GDK_SELECTION_PRIMARY, 
-						 html_selection_current_time ());    
+			gtk_selection_owner_set (NULL, GDK_SELECTION_PRIMARY,
+						 html_selection_current_time ());
 		*/
 	}
 }
@@ -333,7 +333,7 @@ selection_helper (HTMLEngine *e, gboolean (*get_interval)(HTMLEngine *e, HTMLCur
 		html_cursor_destroy (begin);
 		html_cursor_destroy (end);
 	}
-	html_cursor_destroy (cursor);	
+	html_cursor_destroy (cursor);
 }
 
 void
@@ -399,7 +399,7 @@ html_engine_activate_selection (HTMLEngine *e, guint32 time)
 	/* printf ("activate selection\n"); */
 
 	if (e->selection && e->block_selection == 0 && GTK_WIDGET_REALIZED (e->widget)) {
-		gtk_selection_owner_set (GTK_WIDGET (e->widget), GDK_SELECTION_PRIMARY, time);	
+		gtk_selection_owner_set (GTK_WIDGET (e->widget), GDK_SELECTION_PRIMARY, time);
 		/* printf ("activated (%u).\n", time); */
 		clear_primary (e);
 		html_engine_copy_object (e, &e->primary, &e->primary_len);

@@ -139,7 +139,7 @@ color_changed (GtkWidget *w, GdkColor *color, gboolean custom, gboolean by_user,
 	       GtkHTMLEditBodyProperties *data)
 {
 	gint idx;
-		
+
 	idx = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (w), "type"));
 	if (color)
 		html_colorset_set_color (data->cd->html->engine->settings->color_set, color, idx);
@@ -257,7 +257,7 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	if (cd->html->engine->bgPixmapPtr) {
 		HTMLImagePointer *ip = (HTMLImagePointer *) cd->html->engine->bgPixmapPtr;
 		gchar *filename = gtk_html_filename_from_uri (ip->url);
-		
+
 		gtk_file_chooser_set_filename (GTK_FILE_CHOOSER ((data->pixmap_entry)),
 				    filename);
 		g_free (filename);

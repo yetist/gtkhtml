@@ -39,9 +39,9 @@ struct _HTMLEngineEditSelectionUpdater {
 /**
  * html_engine_edit_selection_updater_new:
  * @engine: A GtkHTML engine object.
- * 
+ *
  * Create a new updater associated with @engine.
- * 
+ *
  * Return value: A pointer to the new updater object.
  **/
 HTMLEngineEditSelectionUpdater *
@@ -63,7 +63,7 @@ html_engine_edit_selection_updater_new (HTMLEngine *engine)
 /**
  * html_engine_edit_selection_updater_destroy:
  * @updater: An HTMLEngineEditSelectionUpdater object.
- * 
+ *
  * Destroy @updater.
  **/
 void
@@ -103,7 +103,7 @@ updater_idle_callback (gpointer data)
 /**
  * html_engine_edit_selection_updater_schedule:
  * @updater: An HTMLEngineEditSelectionUpdater object.
- * 
+ *
  * Schedule an update for the keyboard-selected region on @updater.
  **/
 void
@@ -120,7 +120,7 @@ html_engine_edit_selection_updater_schedule (HTMLEngineEditSelectionUpdater *upd
 /**
  * html_engine_edit_selection_updater_reset:
  * @updater: An HTMLEngineEditSelectionUpdater object.
- * 
+ *
  * Reset @updater so after no selection is active anymore.
  **/
 void
@@ -137,7 +137,7 @@ html_engine_edit_selection_updater_reset (HTMLEngineEditSelectionUpdater *update
 /**
  * html_engine_edit_selection_updater_update_now:
  * @updater: An HTMLEngineEditSelectionUpdater object.
- * 
+ *
  * Remove @updater idle callback and run's update callback immediately.
  **/
 void

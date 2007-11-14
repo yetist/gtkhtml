@@ -9,12 +9,12 @@
    modify it under the terms of the GNU Library General Public
    License as published by the Free Software Foundation; either
    version 2 of the License, or (at your option) any later version.
-   
+
    This library is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
    Library General Public License for more details.
-   
+
    You should have received a copy of the GNU Library General Public License
    along with this library; see the file COPYING.LIB.  If not, write to
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -164,7 +164,7 @@ calc_preferred_width (HTMLObject *o,
 		      HTMLPainter *painter)
 {
 	return o->flags & HTML_OBJECT_FLAG_FIXEDWIDTH
-		? MAX (html_object_calc_min_width (o, painter), 
+		? MAX (html_object_calc_min_width (o, painter),
 		       HTML_TABLE_CELL (o)->fixed_width * html_painter_get_pixel_size (painter))
 		: (* HTML_OBJECT_CLASS (parent_class)->calc_preferred_width) (o, painter);
 }
@@ -172,17 +172,17 @@ calc_preferred_width (HTMLObject *o,
 static void
 draw (HTMLObject *o,
       HTMLPainter *p,
-      gint x, gint y, 
+      gint x, gint y,
       gint width, gint height,
       gint tx, gint ty)
 {
 	HTMLTableCell *cell = HTML_TABLE_CELL (o);
 	GdkRectangle paint;
 
-	
+
 	if (!html_object_intersect (o, &paint, x, y, width, height))
 		return;
-	
+
 	draw_background_helper (cell, p, &paint, tx, ty);
 
 	(* HTML_OBJECT_CLASS (&html_cluev_class)->draw) (o, p, x, y, width, height, tx, ty);
@@ -262,7 +262,7 @@ static GdkColor *
 get_bg_color (HTMLObject *o,
 	      HTMLPainter *p)
 {
-	
+
 	return HTML_TABLE_CELL (o)->have_bg
 		? &HTML_TABLE_CELL (o)->bg
 		: html_object_get_bg_color (o->parent, p);
@@ -286,7 +286,7 @@ save (HTMLObject *self,
 			cell->bg.red >> 8,
 			cell->bg.green >> 8,
 			cell->bg.blue >> 8 SE;
-	
+
 	if (cell->have_bgPixmap) {
 		gchar * url = html_image_resolve_image_url (state->engine->widget, cell->bgPixmap->url);
 		SB " BACKGROUND=\"%s\"", url SE;

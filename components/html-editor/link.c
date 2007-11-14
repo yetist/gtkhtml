@@ -78,9 +78,9 @@ url_changed (GtkWidget *w, GtkHTMLEditLinkProperties *d)
 	tmp = g_strdup (url);
 	if (tmp && *tmp)
 		p = strchr (tmp, '\n');
-	if (p) 
+	if (p)
 		*p = 0;
-	
+
 	desc = gtk_entry_get_text (GTK_ENTRY (d->entry_description));
 	if (d->selection)
 		html_engine_set_link (d->cd->html->engine, url);
@@ -123,7 +123,7 @@ description_changed (GtkWidget *w, GtkHTMLEditLinkProperties *d)
 		}
 
 		html_engine_paste_link (e, tmp, len, gtk_entry_get_text (GTK_ENTRY (d->entry_url)));
-		d->insert_object = e->cursor->object; 
+		d->insert_object = e->cursor->object;
 		d->insert_end_offset = d->insert_start_offset + len;
 
 		g_free (tmp);
@@ -156,7 +156,7 @@ link_set_ui (GtkHTMLEditLinkProperties *d)
 			gtk_entry_set_text (GTK_ENTRY (d->entry_url), url);
 			gtk_widget_hide (d->label_description);
 			gtk_widget_hide (d->entry_description);
-		
+
 			if (HTML_IS_IMAGE (d->insert_object)) {
 				d->insert_start_offset = 0;
 				d->insert_end_offset = 1;
@@ -174,7 +174,7 @@ link_set_ui (GtkHTMLEditLinkProperties *d)
 				d->insert_start_offset = d->insert_end_offset = 0;
 			else
 				d->insert_start_offset = d->insert_end_offset = e->cursor->offset;
-		
+
 			gtk_entry_set_text (GTK_ENTRY (d->entry_url), "http://");
 		}
 

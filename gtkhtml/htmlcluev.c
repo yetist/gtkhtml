@@ -1,5 +1,5 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
-/* 
+/*
     Copyright (C) 1997 Martin Jones (mjones@kde.org)
               (C) 1997 Torben Weis (weis@kde.org)
 
@@ -156,7 +156,7 @@ html_cluev_do_layout (HTMLObject *o, HTMLPainter *painter, gboolean calc_size, G
 
 	/* If we have already called calc_size for the children, then just
 	   continue from the last object done in previous call. */
-	
+
 	if (clue->curr != NULL) {
 		if (clue->curr->prev)
 			o->ascent = clue->curr->prev->y + clue->curr->prev->descent;
@@ -241,7 +241,7 @@ html_cluev_do_layout (HTMLObject *o, HTMLPainter *painter, gboolean calc_size, G
 
 	if (o->max_width != 0 && o->width < o->max_width)
 		o->width = o->max_width;
-	
+
 	if (clue->halign == HTML_HALIGN_CENTER) {
 		for (obj = clue->head; obj != 0; obj = obj->next) {
 			new_x = lmargin + (o->width - obj->width - padding2) / 2;
@@ -259,7 +259,7 @@ html_cluev_do_layout (HTMLObject *o, HTMLPainter *painter, gboolean calc_size, G
 			}
 		}
 	}
-	
+
 	for (aclue = cluev->align_left_list; aclue != NULL; aclue = cluev_next_aligned (aclue)) {
 		if (aclue->y + aclue->parent->y - aclue->parent->ascent > o->ascent)
 			o->ascent = aclue->y + aclue->parent->y - aclue->parent->ascent;
@@ -381,13 +381,13 @@ draw (HTMLObject *o,
 	GdkRectangle paint;
 
 	cluev = HTML_CLUEV (o);
-	
+
 	if (!html_object_intersect (o, &paint, x, y, width, height))
 		return;
 
 	if (cluev->background_color) {
 		html_painter_alloc_color (p, &cluev->background_color->color);
-		html_painter_draw_background (p, 
+		html_painter_draw_background (p,
 					      &cluev->background_color->color,
 					      NULL, tx + paint.x, ty + paint.y, paint.width, paint.height, 0, 0);
 	}
@@ -405,7 +405,7 @@ draw (HTMLObject *o,
 	      aclue != NULL;
 	      aclue = cluev_next_aligned (aclue) ) {
 		html_object_draw (aclue,
-				  p, 
+				  p,
 				  x - o->x - aclue->parent->x,
 				  y - (o->y - o->ascent) - (aclue->parent->y - aclue->parent->ascent),
 				  width - aclue->parent->x, height,
@@ -438,7 +438,7 @@ draw (HTMLObject *o,
 		}
 
 		html_painter_draw_border (p, color,
-					  tx, ty, 
+					  tx, ty,
 					  o->width,
 					  o->ascent + o->descent,
 					  cluev->border_style,
@@ -632,7 +632,7 @@ get_left_margin (HTMLObject *self, HTMLPainter *painter, gint y, gboolean with_a
 
 	cluev = HTML_CLUEV (self);
 	margin = 0;
-	
+
 	if (with_aligned)
 		for (aclue = cluev->align_left_list;
 		     aclue != NULL;
@@ -654,7 +654,7 @@ get_right_margin (HTMLObject *self, HTMLPainter *painter, gint y, gboolean with_
 	/* FIXME: Should be HTMLAligned */
 	HTMLObject *aclue;
 	gint margin;
-	
+
 	cluev = HTML_CLUEV (self);
 	margin = self->max_width - 2 * (cluev->padding + cluev->border_width)* html_painter_get_pixel_size (painter);
 
@@ -666,7 +666,7 @@ get_right_margin (HTMLObject *self, HTMLPainter *painter, gint y, gboolean with_
 			    && aclue->y + aclue->parent->y - aclue->parent->ascent > y)
 				margin = aclue->x;
 		}
-	
+
 	return margin;
 }
 
@@ -689,7 +689,7 @@ find_free_area (HTMLClue *clue, HTMLPainter *painter, gint y, gint width, gint h
 	while (1) {
 		lmargin = indent;
 		rmargin = HTML_OBJECT (clue)->max_width - 2 * (cluev->padding + cluev->border_width) * html_painter_get_pixel_size (painter);
-		
+
 		for (aclue = cluev->align_left_list; aclue != 0; aclue = cluev_next_aligned (aclue)) {
 			base_y = (aclue->y + aclue->parent->y
 				  - aclue->parent->ascent);
@@ -699,7 +699,7 @@ find_free_area (HTMLClue *clue, HTMLPainter *painter, gint y, gint width, gint h
 				lm = aclue->x + aclue->width;
 				if (lm > lmargin)
 					lmargin = lm;
-				
+
 				if ((next_y == 0) || (base_y < next_y)) {
 					next_y = base_y;
 
@@ -716,17 +716,17 @@ find_free_area (HTMLClue *clue, HTMLPainter *painter, gint y, gint width, gint h
 				rm = aclue->x;
 				if (rm < rmargin)
 					rmargin = rm;
-				
+
 				if ((next_y == 0) || (base_y < next_y)) {
 					next_y = base_y;
 				}
 			}
 		}
-		
+
 		if (lmargin == indent
 		    && rmargin == MAX (HTML_OBJECT (clue)->max_width, HTML_OBJECT (clue)->width))
 			break;
-		
+
 		if ((rmargin - lmargin) >= width)
 			break;
 
@@ -735,7 +735,7 @@ find_free_area (HTMLClue *clue, HTMLPainter *painter, gint y, gint width, gint h
 
 		try_y = next_y;
 	}
-	
+
 	*y_pos = MAX (y, try_y);
 
 	*_rmargin = rmargin;
@@ -747,7 +747,7 @@ appended (HTMLClue *clue, HTMLClue *aclue)
 {
 	/* Returns whether aclue is already in the alignList */
 	HTMLClueAligned *aligned;
-	
+
 	if (aclue->halign == HTML_HALIGN_LEFT) {
 		aligned = HTML_CLUEALIGNED (HTML_CLUEV (clue)->align_left_list);
 	}
@@ -770,7 +770,7 @@ append_left_aligned (HTMLClue *clue, HTMLPainter *painter, HTMLClue *aclue, gint
 
 	html_clue_find_free_area (clue, painter,
 				  HTML_OBJECT (aclue)->parent->y,
-				  HTML_OBJECT (aclue)->width, 
+				  HTML_OBJECT (aclue)->width,
 				  HTML_OBJECT (aclue)->ascent + HTML_OBJECT (aclue)->descent,
 				  indent, &y_pos, lmargin, rmargin);
 
@@ -807,7 +807,7 @@ append_right_aligned (HTMLClue *clue, HTMLPainter *painter, HTMLClue *aclue, gin
 	gint y_pos, y_inc;
 
 	html_clue_find_free_area (clue, painter, HTML_OBJECT (aclue)->parent->y,
-				  HTML_OBJECT (aclue)->width, 
+				  HTML_OBJECT (aclue)->width,
 				  HTML_OBJECT (aclue)->ascent + HTML_OBJECT (aclue)->descent, indent,
 				  &y_pos, lmargin, rmargin);
 
@@ -846,7 +846,7 @@ get_left_clear (HTMLClue *self,
 	gint top_y, base_y;
 
 	/* XXX we assume the parent's size has already been calculated here.  */
-    	
+
 	for (p = HTML_CLUEV (self)->align_left_list;
 	     p != NULL;
 	     p = HTML_OBJECT (HTML_CLUEALIGNED (p)->next_aligned)) {
@@ -868,7 +868,7 @@ get_right_clear (HTMLClue *self,
 	gint top_y, base_y;
 
 	/* XXX we assume the parent's size has already been calculated here.  */
-    	
+
 	for (p = HTML_CLUEV (self)->align_right_list;
 	     p != NULL;
 	     p = HTML_OBJECT (HTML_CLUEALIGNED (p)->next_aligned)) {
@@ -992,7 +992,7 @@ html_cluev_new (gint x, gint y, gint percent)
 
 	cluev = g_new (HTMLClueV, 1);
 	html_cluev_init (cluev, &html_cluev_class, x, y, percent);
-	
+
 	return HTML_OBJECT (cluev);
 }
 

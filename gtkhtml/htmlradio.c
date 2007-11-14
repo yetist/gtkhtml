@@ -104,11 +104,11 @@ html_radio_class_init (HTMLRadioClass *klass,
 }
 
 void
-html_radio_init (HTMLRadio *radio, 
-		 HTMLRadioClass *klass, 
-		 GtkWidget *parent, 
-		 gchar *name, 
-		 gchar *value, 
+html_radio_init (HTMLRadio *radio,
+		 HTMLRadioClass *klass,
+		 GtkWidget *parent,
+		 gchar *name,
+		 gchar *value,
 		 gboolean checked,
 		 HTMLForm *form)
 {
@@ -131,9 +131,9 @@ html_radio_init (HTMLRadio *radio,
 }
 
 HTMLObject *
-html_radio_new (GtkWidget *parent, 
-		gchar *name, 
-		gchar *value, 
+html_radio_new (GtkWidget *parent,
+		gchar *name,
+		gchar *value,
 		gboolean checked,
 		HTMLForm *form)
 {

@@ -2,17 +2,17 @@
 /* This file is part of the GtkHTML library.
 
    Copyright (C) 2000 Helix Code, Inc.
-   
+
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
    License as published by the Free Software Foundation; either
    version 2 of the License, or (at your option) any later version.
-   
+
    This library is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
    Library General Public License for more details.
-   
+
    You should have received a copy of the GNU Library General Public License
    along with this library; see the file COPYING.LIB.  If not, write to
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -46,7 +46,7 @@ print_header_footer (HTMLPainter *painter,
 	HTMLPrinter *printer = HTML_PRINTER (painter);
 	GtkPrintContext *context = printer->context;
 	cairo_t *cr;
-	
+
 	cr = gtk_print_context_get_cairo_context (context);
 
 	cairo_save (cr);
@@ -105,12 +105,12 @@ print_page (HTMLPainter *painter,
 #endif
 	html_object_draw (
 		engine->clue, painter, 0, start_y, page_width,
-		body_height, 0, -start_y + header_height);  
+		body_height, 0, -start_y + header_height);
 	cairo_restore (cr);
 
 	if (footer_print != NULL)
 		print_header_footer (
-			painter, engine, page_width, page_height - 
+			painter, engine, page_width, page_height -
 			SCALE_GNOME_PRINT_TO_ENGINE (footer_height),
 			footer_height, footer_print, user_data);
 
@@ -147,7 +147,7 @@ print_all_pages (HTMLPainter *painter,
 	body_height = page_height -
 		SCALE_GNOME_PRINT_TO_ENGINE (header_height + footer_height);
 	split_offset = 0;
-	
+
 	document_height = html_engine_get_doc_height (engine);
 
 	do {
@@ -166,21 +166,21 @@ print_all_pages (HTMLPainter *painter,
 				page_height, new_split_offset - split_offset,
 				header_height, footer_height, header_print,
 				footer_print, user_data);
-			
+
 		split_offset = new_split_offset;
 
-	} while (split_offset < document_height); 
+	} while (split_offset < document_height);
 
 	return pages;
 }
 
 static gint
-print_with_header_footer (HTMLEngine *engine, 
+print_with_header_footer (HTMLEngine *engine,
 			  GtkPrintContext *context,
-			  gdouble header_height, 
+			  gdouble header_height,
 			  gdouble footer_height,
-			  GtkHTMLPrintCallback header_print, 
-			  GtkHTMLPrintCallback footer_print, 
+			  GtkHTMLPrintCallback header_print,
+			  GtkHTMLPrintCallback footer_print,
 			  gpointer user_data,
 			  gboolean do_print)
 {
@@ -189,7 +189,7 @@ print_with_header_footer (HTMLEngine *engine,
 	gint pages = 0;
 
 	g_return_val_if_fail (engine->clue != NULL, 0);
-  
+
 	printer = html_printer_new (
 		GTK_WIDGET (engine->widget), context);
 	gtk_html_set_fonts (engine->widget, printer);
@@ -211,14 +211,14 @@ print_with_header_footer (HTMLEngine *engine,
 		if (min_width > page_width) {
 			html_printer_set_scale (
 				HTML_PRINTER (printer),
-				MAX (0.5, ((gdouble) page_width) / min_width)); 
+				MAX (0.5, ((gdouble) page_width) / min_width));
 			html_font_manager_clear_font_cache (
 				&printer->font_manager);
 			html_object_change_set_down (
 				engine->clue, HTML_CHANGE_ALL);
 			html_engine_calc_size (engine, NULL);
 		}
-	
+
 		pages = print_all_pages (
 			HTML_PAINTER (printer), engine, header_height,
 			footer_height, header_print, footer_print,
@@ -237,12 +237,12 @@ print_with_header_footer (HTMLEngine *engine,
 }
 
 void
-html_engine_print (HTMLEngine *engine, 
+html_engine_print (HTMLEngine *engine,
 		   GtkPrintContext *context,
-		   gdouble header_height, 
+		   gdouble header_height,
 		   gdouble footer_height,
-		   GtkHTMLPrintCallback header_print, 
-		   GtkHTMLPrintCallback footer_print, 
+		   GtkHTMLPrintCallback header_print,
+		   GtkHTMLPrintCallback footer_print,
 		   gpointer user_data)
 {
 	print_with_header_footer (
@@ -488,7 +488,7 @@ html_engine_print_operation_run (HTMLEngine *engine,
 				 GError **error)
 {
 	EnginePrintData data;
- 
+
 	g_return_val_if_fail (
 		engine != NULL, GTK_PRINT_OPERATION_RESULT_ERROR);
 	g_return_val_if_fail (

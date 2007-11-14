@@ -35,15 +35,15 @@ struct _HTMLStyle {
 	HTMLColor          *color;
 	HTMLFontFace       *face;
 	GtkHTMLFontStyle    settings;
-	GtkHTMLFontStyle    mask;		
+	GtkHTMLFontStyle    mask;
 
 	/* Block Level */
 	HTMLHAlignType      text_align;
 	HTMLClearType       clear;
-	
+
 	/* Cell Level */
 	HTMLVAlignType      text_valign;
-	
+
 	/* box settings */
 	HTMLLength     *width;
 	HTMLLength     *height;
@@ -57,7 +57,7 @@ struct _HTMLStyle {
 	HTMLBorderStyle border_style;
 	HTMLColor *border_color;
 	int padding;
-};	
+};
 
 HTMLStyle *html_style_new                  (void);
 HTMLStyle *html_style_unset_decoration     (HTMLStyle *style, GtkHTMLFontStyle decoration);

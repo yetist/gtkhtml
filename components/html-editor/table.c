@@ -49,7 +49,7 @@
 #include "utils.h"
 
 typedef struct
-{	
+{
 	GtkHTMLControlData *cd;
 
 	HTMLTable *table;
@@ -88,7 +88,7 @@ changed_bg_color (GtkWidget *w, GdkColor *color, gboolean custom, gboolean by_us
 	if (!by_user)
 		return;
 
-	html_engine_table_set_bg_color (d->cd->html->engine, d->table, color);		
+	html_engine_table_set_bg_color (d->cd->html->engine, d->table, color);
 }
 
 static void

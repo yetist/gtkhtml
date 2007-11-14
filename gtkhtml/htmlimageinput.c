@@ -170,7 +170,7 @@ html_imageinput_class_init (HTMLImageInputClass *klass,
 }
 
 void
-html_imageinput_init (HTMLImageInput *img, 
+html_imageinput_init (HTMLImageInput *img,
 		      HTMLImageInputClass *klass,
 		      HTMLImageFactory *imf,
 		      gchar *name, gchar *url)
@@ -185,7 +185,7 @@ html_imageinput_init (HTMLImageInput *img,
 
 	object->width = object->ascent = 32;
 
-	img->image = HTML_IMAGE (html_image_new (imf, 
+	img->image = HTML_IMAGE (html_image_new (imf,
 						 url, NULL, NULL,
 						 -1, -1, FALSE, FALSE, 0,
 						 NULL,
@@ -198,7 +198,7 @@ html_imageinput_init (HTMLImageInput *img,
 
 HTMLObject *
 html_imageinput_new (HTMLImageFactory *imf,
-		     gchar *name, 
+		     gchar *name,
 		     gchar *url)
 {
 	HTMLImageInput *img;

@@ -65,7 +65,7 @@ gtk_html_persist_stream_class_init (GtkHTMLPersistStreamClass *klass)
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
 	BonoboPersistClass *persist_class = BONOBO_PERSIST_CLASS (klass);
 	POA_Bonobo_PersistStream__epv *epv = &klass->epv;
-	
+
 	gtk_html_persist_stream_parent_class = g_type_class_peek_parent (klass);
 
 	epv->load = impl_load;
@@ -134,7 +134,7 @@ impl_load (PortableServer_Servant servant, const Bonobo_Stream stream, const COR
 	was_editable = gtk_html_get_editable (persist->html);
 	if (was_editable)
 		gtk_html_set_editable (persist->html, FALSE);
-	
+
 	/* bonobo streams are _always_ utf-8 */
 	handle = gtk_html_begin_content (persist->html, "text/html; charset=utf-8");
 
@@ -195,7 +195,7 @@ impl_save (PortableServer_Servant servant, const Bonobo_Stream stream, const COR
 {
 	GtkHTMLPersistStream *persist = GTK_HTML_PERSIST_STREAM (bonobo_object_from_servant (servant));
 	SaveState save_state;
-	
+
 	if (strcmp (type, "text/html") == 0 || strcmp (type, "text/plain") == 0) {
 		save_state.ev = ev;
 		save_state.stream = CORBA_Object_duplicate (stream, ev);
@@ -204,7 +204,7 @@ impl_save (PortableServer_Servant servant, const Bonobo_Stream stream, const COR
 			gtk_html_export (persist->html, (char *) type, (GtkHTMLSaveReceiverFn) save_receiver, &save_state);
 		/* )
 		   FIX2 bonobo_persist_stream_set_dirty (ps, TRUE); */
-				
+
 		CORBA_Object_release (save_state.stream, ev);
 	} else {
 		CORBA_exception_set (ev, CORBA_USER_EXCEPTION,

@@ -100,7 +100,7 @@ html_types_init (void)
 
 	html_frameset_type_init ();
 	html_frame_type_init ();
-	html_iframe_type_init ();	
+	html_iframe_type_init ();
 
 	build_type_names_table ();
 

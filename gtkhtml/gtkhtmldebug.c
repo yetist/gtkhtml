@@ -2,17 +2,17 @@
 /* This file is part of the GtkHTML library
 
    Copyright (C) 2000 Helix Code, Inc.
-   
+
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
    License as published by the Free Software Foundation; either
    version 2 of the License, or (at your option) any later version.
-   
+
    This library is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
    Library General Public License for more details.
-   
+
    You should have received a copy of the GNU Library General Public License
    along with this library; see the file COPYING.LIB.  If not, write to
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -52,7 +52,7 @@
  * gtk_html_debug_log:
  * @html: A GtkHTML widget
  * @format: A format string, in printf() style
- * 
+ *
  * If @html has debugging turned on, print out the message, just like libc
  * printf().  Otherwise, just do nothing.
  **/
@@ -232,7 +232,7 @@ gtk_html_debug_dump_object (HTMLObject *obj,
 		if (text->pi) {
 			for (i =0; i < text->pi->n; i ++)
 				g_print ("item %d offset: %d length: %d\n", i, text->pi->entries [i].glyph_item.item->offset, text->pi->entries [i].glyph_item.item->length);
-				
+
 			for (i = 0; i < text->text_len; i ++) {
 				union {
 					PangoLogAttr attr;
@@ -428,7 +428,7 @@ gtk_html_debug_list_attrs (PangoAttrList *attrs)
 {
 	PangoAttrIterator *iter = pango_attr_list_get_iterator (attrs);
 	PangoAttribute *attr;
-	
+
 	do {
 		D_ATTR_TYPE (INVALID, "Invalid");
 		D_ATTR_TYPE (LANGUAGE, "Language");

@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /* This file is part of the GtkHTML library.
-    
+
    Copyright (C) 2001, Ximian, Inc.
 
    This library is free software; you can redistribute it and/or
@@ -38,7 +38,7 @@ static HTMLLength *
 parse_length (char **str) {
 	char *cur = *str;
 	HTMLLength *len = g_new0 (HTMLLength, 1);
-	
+
 	/* g_warning ("begin \"%s\"", *str); */
 
 	while (isspace (*cur)) cur++;
@@ -60,15 +60,15 @@ parse_length (char **str) {
                 cur++;
 		break;
 	}
-	
+
 	if (cur <= *str) {
 		g_free (len);
 		return NULL;
-	} 
+	}
 
 	/* g_warning ("length len->val=%d, len->type=%d", len->val, len->type); */
 	*str = cur;
-	cur = strstr (cur, ",");	
+	cur = strstr (cur, ",");
 	if (cur) {
 		cur++;
 		*str = cur;
@@ -94,7 +94,7 @@ void
 html_length_array_destroy (GPtrArray *array)
 {
 	int i;
-	
+
 	for (i = 0; i < array->len; i++)
 		g_free (g_ptr_array_index (array, i));
 }
@@ -118,28 +118,28 @@ html_shape_point (HTMLShape *shape, gint x, gint y)
 
 	switch (shape->type) {
 	case HTML_SHAPE_RECT:
-		if ((x >= poly[0]->val) 
-		    && (x <= poly[2]->val) 
-		    && (y >= poly[1]->val) 
+		if ((x >= poly[0]->val)
+		    && (x <= poly[2]->val)
+		    && (y >= poly[1]->val)
 		    && (y <= poly[3]->val))
 			return TRUE;
 		break;
 	case HTML_SHAPE_CIRCLE:
 		if (HTML_DIST (x - poly[0]->val, y - poly[1]->val) <= poly[2]->val)
 			return TRUE;
-		
+
 		break;
 	case HTML_SHAPE_POLY:
 		for (i=0; i < shape->coords->len; i+=2) {
-			j+=2; 
-			if (j == shape->coords->len) 
+			j+=2;
+			if (j == shape->coords->len)
 				j=0;
-			
+
 			if ((poly[i+1]->val < y && poly[j+1]->val >= y)
 			    || (poly[j+1]->val < y && poly[i+1]->val >= y)) {
-				
-				if (poly[i]->val + (y - poly[i+1]->val) 
-				    / (poly[j+1]->val - poly[i+1]->val) 
+
+				if (poly[i]->val + (y - poly[i+1]->val)
+				    / (poly[j+1]->val - poly[i+1]->val)
 				    * (poly[j]->val - poly[i]->val) < x) {
 					odd = !odd;
 				}
@@ -193,19 +193,19 @@ html_shape_new (char *type_str, char *coords, char *url, char *target)
 	shape->coords = g_ptr_array_new ();
 
 	html_length_array_parse (shape->coords, coords);
-	
+
 	switch (shape->type) {
 	case HTML_SHAPE_RECT:
 		while (shape->coords->len < 4)
-			g_ptr_array_add (shape->coords, 
+			g_ptr_array_add (shape->coords,
 					 g_new0 (HTMLLength, 1));
 	case HTML_SHAPE_CIRCLE:
 		while (shape->coords->len < 3)
-			g_ptr_array_add (shape->coords, 
+			g_ptr_array_add (shape->coords,
 					 g_new0 (HTMLLength, 1));
 	case HTML_SHAPE_POLY:
 		if (shape->coords->len % 2)
-			g_ptr_array_add (shape->coords, 
+			g_ptr_array_add (shape->coords,
 					 g_new0 (HTMLLength, 1));
 
 		break;
@@ -221,9 +221,9 @@ html_shape_destroy (HTMLShape *shape)
 	g_free (shape->url);
 	g_free (shape->target);
 	html_length_array_destroy (shape->coords);
-	
+
 	g_free (shape);
 }
-		
+
 
 

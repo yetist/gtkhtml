@@ -2,7 +2,7 @@
 /*  This file is part of the GtkHTML library.
 
     Copyright 1999, 2000 Helix Code, Inc.
-    
+
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Library General Public
     License as published by the Free Software Foundation; either
@@ -38,14 +38,14 @@ gtk_html_stream_new (GtkHTML *html,
 		     gpointer user_data)
 {
 	GtkHTMLStream *new_stream;
-	
+
 	new_stream = g_new (GtkHTMLStream, 1);
-	
+
 	new_stream->types_func = types_func;
 	new_stream->write_func = write_func;
 	new_stream->close_func = close_func;
 	new_stream->user_data = user_data;
-	
+
 	return new_stream;
 }
 
@@ -74,7 +74,7 @@ gtk_html_stream_write (GtkHTMLStream *stream,
 	g_return_if_fail (stream != NULL);
 	g_return_if_fail (buffer != NULL);
 	g_return_if_fail (size > 0);
-	
+
 	if (stream->write_func != NULL)
 		stream->write_func (stream, buffer, size, stream->user_data);
 }
@@ -104,7 +104,7 @@ gtk_html_stream_vprintf (GtkHTMLStream *stream,
 
 	if (buf == NULL)
 		buf = mbuf = g_malloc (len);
-		
+
 	rv = vsprintf (buf, format, ap);
 	gtk_html_stream_write (stream, buf, rv);
 
@@ -132,10 +132,10 @@ gtk_html_stream_close (GtkHTMLStream *stream,
 		       GtkHTMLStreamStatus status)
 {
 	g_return_if_fail (stream != NULL);
-	
+
 	if (stream->close_func != NULL)
 		stream->close_func (stream, status, stream->user_data);
-	
+
 	gtk_html_stream_destroy (stream);
 }
 
@@ -147,7 +147,7 @@ gtk_html_stream_get_types (GtkHTMLStream *stream)
 
 	return NULL;
 }
-				 
+
 typedef struct _GtkHTMLLog GtkHTMLLog;
 struct _GtkHTMLLog {
 	GtkHTMLStream *stream;
@@ -185,7 +185,7 @@ stream_log_close (GtkHTMLStream *stream,
 	       gpointer user_data)
 {
 	GtkHTMLLog *log = user_data;
-	
+
 	fclose (log->file);
 	gtk_html_stream_close (log->stream, status);
 
@@ -202,11 +202,11 @@ gtk_html_stream_log_new (GtkHTML *html, GtkHTMLStream *stream)
 
 	log = g_new (GtkHTMLLog, 1);
 	log->stream = stream;
-	
-	
+
+
 	fname = g_strdup_printf ("gtkhtml.log.%d.html", log_num);
 	log->file = fopen (fname, "w+");
-	g_free (fname);	
+	g_free (fname);
 
 	log_num ++;
 
@@ -215,7 +215,7 @@ gtk_html_stream_log_new (GtkHTML *html, GtkHTMLStream *stream)
 					  stream_log_write,
 					  stream_log_close,
 					  log);
-					  
+
 	return new_stream;
 }
 

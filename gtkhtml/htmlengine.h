@@ -4,17 +4,17 @@
    Copyright (C) 1997 Martin Jones (mjones@kde.org)
    Copyright (C) 1997 Torben Weis (weis@kde.org)
    Copyright (C) 1999, 2000 Helix Code, Inc.
-   
+
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
    License as published by the Free Software Foundation; either
    version 2 of the License, or (at your option) any later version.
-   
+
    This library is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
    Library General Public License for more details.
-   
+
    You should have received a copy of the GNU Library General Public License
    along with this library; see the file COPYING.LIB.  If not, write to
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -87,7 +87,7 @@ struct _HTMLEngine {
 	HTMLTokenizer *ht;
 	HTMLStringTokenizer *st;
 	HTMLObject *clue;         /* the document root */
-	
+
 	HTMLObject *flow;
 
 	gint leftBorder;
@@ -117,7 +117,7 @@ struct _HTMLEngine {
 	gboolean allow_frameset;
 	gboolean newPage;
 	gboolean begin;
- 
+
 	HTMLStack *span_stack;
 	HTMLStack *clueflow_style_stack; /* Clueflow style stack, elements are HTMLClueFlowStyles.  */
 	HTMLStack *frame_stack;
@@ -142,7 +142,7 @@ struct _HTMLEngine {
 
 	/* The background pixmap, an HTMLImagePointer */
         gpointer bgPixmapPtr;
-  
+
 	/* Stack of lists currently active */
 	HTMLStack *listStack;
 
@@ -274,7 +274,7 @@ struct _HTMLEmbedded;
 
 struct _HTMLEngineClass {
 	GObjectClass parent_class;
-	
+
 	void (* title_changed) (HTMLEngine *engine);
 	void (* set_base) (HTMLEngine *engine, const gchar *base);
 	void (* set_base_target) (HTMLEngine *engine, const gchar *base_target);
@@ -311,7 +311,7 @@ void html_engine_set_tokenizer (HTMLEngine *engine,
 				HTMLTokenizer *tok);
 
 /* Parsing control.  */
-GtkHTMLStream *html_engine_begin            (HTMLEngine  *p, 
+GtkHTMLStream *html_engine_begin            (HTMLEngine  *p,
 					     char        *content_type);
 void           html_engine_parse            (HTMLEngine  *p);
 void           html_engine_stop_parser      (HTMLEngine  *e);
@@ -471,7 +471,7 @@ HTMLObject *html_engine_get_focus_object   (HTMLEngine       *e,
 void        html_engine_set_focus_object   (HTMLEngine       *e,
 					    HTMLObject       *o,
 					    gint              offset);
-void        html_engine_update_focus_if_necessary (HTMLEngine	*e, 
+void        html_engine_update_focus_if_necessary (HTMLEngine	*e,
 						   HTMLObject	*o,
 						   gint		offset);
 

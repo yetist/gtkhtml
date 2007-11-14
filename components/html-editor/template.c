@@ -169,7 +169,7 @@ get_sample_html (GtkHTMLEditTemplateProperties *d)
 	g_free (template);
 	g_free (width);
 	g_free (align);
-	g_free (body);	
+	g_free (body);
 
 	/* printf ("TEMPLATE: %s\n", html); */
 

@@ -83,7 +83,7 @@ gtk_html_persist_file_class_init (GtkHTMLPersistFileClass *klass)
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
 	BonoboPersistClass *persist_class = BONOBO_PERSIST_CLASS (klass);
 	POA_Bonobo_PersistFile__epv *epv = &klass->epv;
-	
+
 	gtk_html_persist_file_parent_class = g_type_class_peek_parent (klass);
 
 	epv->load = impl_load;

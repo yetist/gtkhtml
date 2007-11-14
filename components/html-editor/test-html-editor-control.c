@@ -35,7 +35,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
- 
+
 #include <glib.h>
 #include <Editor.h>
 #include "editor-control-factory.h"
@@ -241,7 +241,7 @@ view_source_dialog (BonoboWindow *app, char *type, gboolean as_html)
 	gtk_widget_show_all (window);
 
 	g_signal_connect_swapped (control, "destroy", G_CALLBACK (gtk_widget_destroy), window);
-}    
+}
 
 static void
 view_html_source_cb (GtkWidget *widget,
@@ -316,7 +316,7 @@ file_selection_ok_cb (GtkWidget *widget,
 		default:
 			g_assert_not_reached ();
 		}
-	} 
+	}
 
 	gtk_widget_destroy (file_selection_info.widget);
 }
@@ -437,7 +437,7 @@ menu_format_html_cb (BonoboUIComponent           *component,
 }
 
 /* A dirty, non-translatable hack */
-static char ui [] = 
+static char ui [] =
 "<Root>"
 "	<commands>"
 "	        <cmd name=\"FileExit\" _label=\"Exit\" _tip=\"Exit the program\""
@@ -569,9 +569,9 @@ main (int argc, char **argv)
 	bindtextdomain(GTKHTML_RELEASE_STRING, GNOMELOCALEDIR);
 	textdomain(GTKHTML_RELEASE_STRING);
 
-	gnome_program_init("test-editor", VERSION, LIBGNOMEUI_MODULE, argc, argv, 
+	gnome_program_init("test-editor", VERSION, LIBGNOMEUI_MODULE, argc, argv,
 			   GNOME_PROGRAM_STANDARD_PROPERTIES,
-			   GNOME_PARAM_HUMAN_READABLE_NAME, _("GtkHTML Editor Test Container"),			   
+			   GNOME_PARAM_HUMAN_READABLE_NAME, _("GtkHTML Editor Test Container"),
 			   NULL);
 
 	bonobo_activate ();

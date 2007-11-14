@@ -112,7 +112,7 @@ static void
 apply_color (GdkColor *gdk_color, GtkHTMLControlData *cd)
 {
 	HTMLColor *color;
-	
+
 	color = gdk_color
 		&& gdk_color != &html_colorset_get_color (cd->html->engine->settings->color_set, HTMLTextColor)->color
 		? html_color_new_from_gdk_color (gdk_color) : NULL;
@@ -495,7 +495,7 @@ create_style_toolbar (GtkHTMLControlData *cd)
 	GtkIconInfo *icon_info;
 	GtkWidget *hbox;
 	gchar *domain;
-	
+
 	hbox = gtk_hbox_new (FALSE, 0);
 
 	cd->toolbar_style = gtk_toolbar_new ();
@@ -515,13 +515,13 @@ create_style_toolbar (GtkHTMLControlData *cd)
 				    cd->font_size_menu,
 				    NULL, NULL);
 
-	/* 
-	 * FIXME: steal textdomain temporarily from main-process,  and set it to 
+	/*
+	 * FIXME: steal textdomain temporarily from main-process,  and set it to
 	 * GETTEXT_PACKAGE, after create the widgets, restore it.
 	 */
 	domain = g_strdup (textdomain (NULL));
 	textdomain (GETTEXT_PACKAGE);
-	
+
 	icon_info = gtk_icon_theme_lookup_icon (
 		gtk_icon_theme_get_default (),
 		"stock_text-monospaced", 24, 0);
@@ -619,7 +619,7 @@ void
 toolbar_update_format (GtkHTMLControlData *cd)
 {
 	if (cd->toolbar_style)
-		gtk_container_foreach (GTK_CONTAINER (cd->toolbar_style), 
+		gtk_container_foreach (GTK_CONTAINER (cd->toolbar_style),
 		toolbar_item_update_sensitivity, cd);
 }
 

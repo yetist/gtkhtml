@@ -69,18 +69,18 @@ reset (HTMLEmbedded *e)
 }
 
 static gboolean
-html_text_input_key_pressed (GtkWidget *w, GdkEventKey *ev, gpointer p) 
+html_text_input_key_pressed (GtkWidget *w, GdkEventKey *ev, gpointer p)
 {
 	HTMLEmbedded *e = HTML_EMBEDDED(p);
 	HTMLEmbedded *next = NULL;
 	HTMLEmbedded *current = NULL;
 	gboolean found = FALSE;
 	GList *node = NULL;
-	
+
 	if (ev->keyval == GDK_Return) {
 		for (node = e->form->elements; node; node = node->next) {
 			current = HTML_EMBEDDED(node->data);
-			
+
 			/* focus on the next visible element */
 			if (current->widget && found
 			    && HTML_OBJECT_TYPE(current) != HTML_TYPE_BUTTON
@@ -88,18 +88,18 @@ html_text_input_key_pressed (GtkWidget *w, GdkEventKey *ev, gpointer p)
 				next = current;
 				break;
 			}
-			
+
 			if (node->data == e)
 				found = TRUE;
 		}
-		
+
 		if (next)
 			gtk_widget_grab_focus (next->widget);
 		else if (found)
 			html_form_submit (e->form);
 		else
 			g_warning ("Not in form's element list.  Couldn't focus successor.");
-		
+
 		g_signal_stop_emission_by_name (w, "key_press_event");
 		return TRUE;
 	}
@@ -187,7 +187,7 @@ html_text_input_init (HTMLTextInput *ti,
 	html_embedded_set_widget (element, entry);
 	g_signal_connect_after (entry, "key_press_event", G_CALLBACK (html_text_input_key_pressed), element);
 
-	if (strlen (element->value))	
+	if (strlen (element->value))
 		gtk_entry_set_text (GTK_ENTRY (element->widget), element->value);
 
 	ti->default_text = g_strdup (element->value);
@@ -196,9 +196,9 @@ html_text_input_init (HTMLTextInput *ti,
 		gtk_entry_set_max_length(GTK_ENTRY(element->widget), maxlen);
 
 	gtk_entry_set_visibility (GTK_ENTRY(element->widget), !password);
-	
+
 	gtk_entry_set_width_chars (GTK_ENTRY(element->widget), size);
-	
+
 	ti->size = size;
 	ti->maxlen = maxlen;
 }

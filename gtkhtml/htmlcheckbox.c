@@ -102,12 +102,12 @@ html_checkbox_class_init (HTMLCheckBoxClass *klass,
 }
 
 void
-html_checkbox_init (HTMLCheckBox *checkbox, 
-		    HTMLCheckBoxClass *klass, 
-		    GtkWidget *parent, 
-		    gchar *name, 
-		    gchar *value, 
-		    gboolean checked) 
+html_checkbox_init (HTMLCheckBox *checkbox,
+		    HTMLCheckBoxClass *klass,
+		    GtkWidget *parent,
+		    gchar *name,
+		    gchar *value,
+		    gboolean checked)
 {
 	HTMLEmbedded *element;
 	GtkWidget  *check;
@@ -130,9 +130,9 @@ html_checkbox_init (HTMLCheckBox *checkbox,
 }
 
 HTMLObject *
-html_checkbox_new (GtkWidget *parent, 
-		   gchar *name, 
-		   gchar *value, 
+html_checkbox_new (GtkWidget *parent,
+		   gchar *name,
+		   gchar *value,
 		   gboolean checked)
 {
 	HTMLCheckBox *checkbox;

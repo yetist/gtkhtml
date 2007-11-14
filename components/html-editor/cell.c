@@ -58,7 +58,7 @@ typedef enum
 } CellScope;
 
 typedef struct
-{	
+{
 	GtkHTMLControlData *cd;
 	HTMLTableCell *cell;
 	HTMLTable *table;

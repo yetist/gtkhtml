@@ -37,13 +37,13 @@ html_parse_color (const gchar *text,
 
 	c [7] = 0;
 	if (*text != '#') {
-		c[0] = '#'; 
+		c[0] = '#';
 		strncpy (c + 1, text, 6);
 		len++;
 	} else {
 		strncpy (c, text, MIN (7, len));
 	}
-	
+
 	if (len < 7)
 		memset (c + len, '\0', 7-len);
 
@@ -54,9 +54,9 @@ static HTMLLength *
 parse_length (char *str) {
 	char *cur = str;
 	HTMLLength *len;
-	
+
 	len = g_new0 (HTMLLength, 1);
-	
+
 	if (!str)
 		return len;
 
@@ -81,11 +81,11 @@ parse_length (char *str) {
                 cur++;
 		break;
 	}
-	
+
 	if (cur <= str) {
 		g_free (len);
 		return NULL;
-	} 
+	}
 
 	/* g_warning ("length len->val=%d, len->type=%d", len->val, len->type); */
 
@@ -94,7 +94,7 @@ parse_length (char *str) {
 
 
 HTMLStyle *
-html_style_new (void) 
+html_style_new (void)
 {
 	HTMLStyle *style = g_new0 (HTMLStyle, 1);
 
@@ -140,7 +140,7 @@ HTMLStyle *
 html_style_add_color (HTMLStyle *style, HTMLColor *color)
 {
 	HTMLColor *old;
-	
+
 	if (!style)
 		style = html_style_new ();
 
@@ -150,12 +150,12 @@ html_style_add_color (HTMLStyle *style, HTMLColor *color)
 
 	if (color)
 		html_color_ref (color);
-	
+
 	if (old)
 		html_color_unref (old);
 
 	return style;
-}      
+}
 
 HTMLStyle *
 html_style_unset_decoration (HTMLStyle *style, GtkHTMLFontStyle font_style)
@@ -457,7 +457,7 @@ html_style_add_attribute (HTMLStyle *style, const char *attr)
 		gint i;
 		for (i = 0; prop[i]; i++) {
 			char *text;
-			
+
 			text = g_strstrip (prop[i]);
 			if (!g_ascii_strncasecmp ("color: ", text, 7)) {
 				GdkColor color;
@@ -466,11 +466,11 @@ html_style_add_attribute (HTMLStyle *style, const char *attr)
 					HTMLColor *hc = html_color_new_from_gdk_color (&color);
 					style = html_style_add_color (style, hc);
 				        html_color_unref (hc);
-				
+
 				}
 			} else if (!g_ascii_strncasecmp ("background: ", text, 12)) {
 				GdkColor color;
-				
+
 				if (html_parse_color (text + 12, &color)) {
 					HTMLColor *hc = html_color_new_from_gdk_color (&color);
 					style = html_style_add_background_color (style, hc);
@@ -486,7 +486,7 @@ html_style_add_attribute (HTMLStyle *style, const char *attr)
 				}
 			} else if (!g_ascii_strncasecmp ("background-image: ", text, 18)) {
 				style = html_style_add_background_image (style, text + 18);
-				
+
 			} else if (!g_ascii_strncasecmp ("border: ", text, 8)) {
 				style = parse_border (style, text + 8);
 			} else if (!g_ascii_strncasecmp ("border-style: ", text, 14)) {
@@ -520,7 +520,7 @@ html_style_add_attribute (HTMLStyle *style, const char *attr)
 				style = html_style_unset_decoration (style, ~GTK_HTML_FONT_STYLE_SIZE_MASK);
 			} else if (!g_ascii_strncasecmp ("display: ", text, 9)) {
 				char *value = text + 9;
-				if (!g_ascii_strcasecmp ("block", value)) { 
+				if (!g_ascii_strcasecmp ("block", value)) {
 					style = html_style_set_display (style, DISPLAY_BLOCK);
 				} else if (!g_ascii_strcasecmp ("inline", value)) {
 					style = html_style_set_display (style, DISPLAY_INLINE);
@@ -538,12 +538,12 @@ html_style_add_attribute (HTMLStyle *style, const char *attr)
 			} else if (!g_ascii_strncasecmp ("clear: ", text, 7)) {
 				char *value = text + 7;
 
-				if (!g_ascii_strcasecmp ("left", value)) { 
-					style = html_style_set_clear (style, HTML_CLEAR_LEFT); 
+				if (!g_ascii_strcasecmp ("left", value)) {
+					style = html_style_set_clear (style, HTML_CLEAR_LEFT);
 				} else if (!g_ascii_strcasecmp ("right", value)) {
-					style = html_style_set_clear (style, HTML_CLEAR_RIGHT); 
+					style = html_style_set_clear (style, HTML_CLEAR_RIGHT);
 				} else if (!g_ascii_strcasecmp ("both", value)) {
-					style = html_style_set_clear (style, HTML_CLEAR_ALL); 
+					style = html_style_set_clear (style, HTML_CLEAR_ALL);
 				} else if (!g_ascii_strcasecmp ("inherit", value)) {
 					style = html_style_set_clear (style, HTML_CLEAR_INHERIT);
 				} else if (!g_ascii_strcasecmp ("none", value)) {

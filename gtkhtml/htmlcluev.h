@@ -30,7 +30,7 @@
 
 struct _HTMLClueV {
 	HTMLClue clue;
-	
+
 	/* FIXME: htmlcluealigned */
 	HTMLObject *align_left_list;
 	HTMLObject *align_right_list;

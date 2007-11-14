@@ -45,14 +45,14 @@ set_format (GtkHTML *html, gboolean format_html)
 	HTMLGdkPainter *p, *old_p;
 
 	gtk_widget_ensure_style (GTK_WIDGET (html));
-	
+
 	if (!plain_painter) {
 		gdk_painter = HTML_GDK_PAINTER (html->engine->painter);
 		plain_painter = HTML_GDK_PAINTER (html_plain_painter_new (GTK_WIDGET (html), TRUE));
 
 		g_object_ref (G_OBJECT (gdk_painter));
-	}	
-	
+	}
+
 
 	if (format_html) {
 		p = gdk_painter;
@@ -60,7 +60,7 @@ set_format (GtkHTML *html, gboolean format_html)
 	} else {
 		p = plain_painter;
 		old_p = gdk_painter;
-	}		
+	}
 
 	if (html->engine->painter != (HTMLPainter *) p) {
 		html_gdk_painter_unrealize (old_p);
@@ -78,7 +78,7 @@ set_format (GtkHTML *html, gboolean format_html)
 		html_engine_set_painter (html->engine, HTML_PAINTER (p));
 		html_engine_schedule_redraw (html->engine);
 	}
-		
+
 }
 
 static int test_level_1 (GtkHTML *html)

@@ -199,7 +199,7 @@ html_engine_search_next (HTMLEngine *e)
 gboolean
 html_engine_search_incremental (HTMLEngine *e, const gchar *text, gboolean forward)
 {
-	HTMLSearch *info = e->search_info;	
+	HTMLSearch *info = e->search_info;
 
 	if (info) {
 		html_search_set_forward (info, forward);

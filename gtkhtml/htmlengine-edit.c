@@ -124,7 +124,7 @@ html_engine_clipboard_pop (HTMLEngine *e)
 	e->clipboard_stack = g_list_remove (e->clipboard_stack, e->clipboard_stack->data);
 }
 
-typedef struct 
+typedef struct
 {
 	gboolean active;
 	gint cursor;
@@ -175,13 +175,13 @@ gboolean
 html_engine_selection_stack_top (HTMLEngine *e, gint *cpos, gint *mpos)
 {
 	Selection *selection = e->selection_stack ? e->selection_stack->data : NULL;
-	
+
 	if (selection && selection->active) {
 		if (cpos)
 			*cpos = selection->cursor;
 		if (mpos)
 			*mpos = selection->mark;
-		
+
 		return TRUE;
 	}
 
@@ -192,11 +192,11 @@ gboolean
 html_engine_selection_stack_top_modify (HTMLEngine *e, gint delta)
 {
 	Selection *selection = e->selection_stack ? e->selection_stack->data : NULL;
-	
+
 	if (selection && selection->active) {
 		selection->cursor += delta;
 		selection->mark += delta;
-			
+
 		return TRUE;
 	}
 
@@ -402,7 +402,7 @@ html_engine_new_link (HTMLEngine *e, const gchar *text, gint len, gchar *url)
 		real_target ++;
 	} else
 		real_url = url;
-		
+
 	link = html_text_new_with_len (text, len, e->insertion_font_style,
 				       html_colorset_get_color (e->settings->color_set, HTMLLinkColor));
 	html_text_append_link (HTML_TEXT (link), real_url, real_target, 0, HTML_TEXT (link)->text_len);
@@ -598,7 +598,7 @@ html_engine_indent_pre_line (HTMLEngine *e)
 		if (uc == ' ' || uc == '\t') {
 			last_space = line_offset;
 		}
-		
+
 		if (line_offset >= LINE_LEN) {
 			if (last_space) {
 				html_cursor_backward_n (e->cursor, e, line_offset - last_space);
@@ -609,7 +609,7 @@ html_engine_indent_pre_line (HTMLEngine *e)
 					if (position >= e->cursor->position)
 						position++;
 				}
-			}	
+			}
 		}
 		if (!uc)
 			break;
@@ -644,15 +644,15 @@ html_engine_fill_pre_line (HTMLEngine *e)
 	while (html_cursor_forward (e->cursor, e) && (e->cursor->position < position - 1)) {
 		uc = html_cursor_get_current_char (e->cursor);
 		line_offset = inc_line_offset (line_offset, uc);
-		
+
 		if (uc == ' ' || uc == '\t') {
 			last_space = line_offset;
 		}
-		
+
 		if (line_offset >= LINE_LEN) {
 			if (last_space) {
 				html_cursor_backward_n (e->cursor, e, line_offset - last_space);
-				
+
 				html_cursor_forward (e->cursor, e);
 				if ((uc = html_cursor_get_current_char (e->cursor))) {
 					html_engine_insert_empty_paragraph (e);
@@ -662,7 +662,7 @@ html_engine_fill_pre_line (HTMLEngine *e)
 					line_offset = 0;
 					last_space = 0;
 				}
-			}	
+			}
 		}
 		if (!uc)
 			break;
@@ -716,7 +716,7 @@ html_engine_next_cell (HTMLEngine *e, gboolean create)
 			html_cursor_forward (e->cursor, e);
 			current_cell = html_engine_get_table_cell (e);
 		} while (current_cell == cell);
-			
+
 		if (create && HTML_IS_TABLE (e->cursor->object)) {
 			html_cursor_backward (e->cursor, e);
 			html_engine_insert_table_row (e, TRUE);

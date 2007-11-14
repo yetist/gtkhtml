@@ -80,10 +80,10 @@ gtk_html_control_data_destroy (GtkHTMLControlData *cd)
 	/* printf ("release dict\n"); */
 	bonobo_object_release_unref (cd->dict, NULL);
 
-	if (cd->plain_painter) 
+	if (cd->plain_painter)
 		g_object_unref (cd->plain_painter);
 
-	if (cd->gdk_painter) 
+	if (cd->gdk_painter)
 		g_object_unref (cd->gdk_painter);
 
 	if (cd->languages)
