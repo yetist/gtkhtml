@@ -1,3 +1,12 @@
+GtkHTML-3.17.2 2007-11-12
+-------------------------
+
+Bug Fixes:
+	#318592: Allow UI notification of links inserted in composer (Milan Crha)
+	#334675: Extending API to get selection as plain-text (Milan Crha)
+	#431606: Use stock icons when converting an emoticon to an image (Matthew Barnes)
+	#478670: Remove dead files from source control (Matthew Barnes)
+
 GtkHTML-3.17.1 2007-10-27
 -------------------------
 
