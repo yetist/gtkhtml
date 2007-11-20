@@ -1,21 +1,24 @@
+# translation of oc.po to Occitan
 # Occitan translation of gtkhtml.
 # Copyright (C) 2000-2007 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gtkhtml package.
 #
 # Yannig MARCHEGAY (yannig@marchegay.org) - 2006-2007
 #
+# Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml 3.11.92\n"
+"Project-Id-Version: oc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-21 12:11+0100\n"
-"PO-Revision-Date: 2007-08-21 00:41+0200\n"
-"Last-Translator: Yannig MARCHEGAY (Kokoyaya) <yannig@marchegay.org>\n"
-"Language-Team: Occitan (post 1500) <ubuntu-l10n-oci@lists.ubuntu.com>\n"
+"PO-Revision-Date: 2007-11-20 14:31+0100\n"
+"Last-Translator: Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>\n"
+"Language-Team: Occitan <ubuntu-l10n-oci@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #: ../a11y/image.c:151
 #, c-format
@@ -512,7 +515,7 @@ msgstr ""
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:91
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
 msgid "Select _All"
-msgstr "_Tot seleccionar"
+msgstr "Seleccionar un fichièr"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:92
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
@@ -761,7 +764,7 @@ msgstr ""
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:139
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:139
 msgid "_Table..."
-msgstr "Taula"
+msgstr "Tablèu"
 
 #.
 #. <submenu name="BackgroundColor" _label="Background Color">
@@ -1366,7 +1369,7 @@ msgstr ""
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:72
 msgid "_Table"
-msgstr "_Taula"
+msgstr "_Tablèu"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:73
 msgid "_URL:"
@@ -1758,7 +1761,7 @@ msgstr ""
 
 #: ../components/html-editor/utils.c:132
 msgid "Sample"
-msgstr ""
+msgstr "Mòstra"
 
 #: ../components/html-editor/utils.c:205
 msgid "_Test URL..."
@@ -1877,62 +1880,9 @@ msgstr ""
 
 #: ../src/testgtkhtml.c:118
 msgid "Print preview"
-msgstr ""
+msgstr "Previsualizacion de l'estampatge"
 
 #: ../src/testgtkhtml.c:1038
 msgid "GtkHTML Test Application"
 msgstr ""
 
-#~ msgid "Modify the file's properties"
-#~ msgstr "Modifica las propietats del fichièr"
-
-#~ msgid "Replace a string"
-#~ msgstr "Remplaçar una cadena"
-
-#~ msgid "Search again for the same string"
-#~ msgstr "Tornar recercar la meteissa cadena"
-
-#~ msgid "Search for a string"
-#~ msgstr "Recercar una cadena"
-
-#~ msgid "_Insert"
-#~ msgstr "_Inserir"
-
-#~ msgid "_Properties..."
-#~ msgstr "_Propietats..."
-
-#~ msgid "%"
-#~ msgstr "%"
-
-#~ msgid "+4"
-#~ msgstr "+4"
-
-#~ msgid "Bottom"
-#~ msgstr "Bas"
-
-#~ msgid "Middle"
-#~ msgstr "Milieu"
-
-#~ msgid "Percent"
-#~ msgstr "Pourcentage"
-
-#~ msgid "Pixels"
-#~ msgstr "Pixels"
-
-#~ msgid "Standard"
-#~ msgstr "Standard"
-
-#~ msgid "Top"
-#~ msgstr "Haut"
-
-#~ msgid "Dot item"
-#~ msgstr "Élément puce"
-
-#~ msgid "Number item"
-#~ msgstr "Élément numéroté"
-
-#~ msgid "Roman item"
-#~ msgstr "Élément à chiffre romain"
-
-#~ msgid "Alphabeta item"
-#~ msgstr "Élément alphabétique"
