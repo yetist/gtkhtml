@@ -1,5 +1,13 @@
 2007-11-22  Milan Crha  <mcrha@redhat.com>
 
+	** Fix for bug #494170
+
+	* htmltokenizer.c: (in_script_or_style):
+	Accept also spaces between element name and end of tag
+	when looking for end of style/script tag.
+
+2007-11-22  Milan Crha  <mcrha@redhat.com>
+
 	** Fix for bug #435620
 
 	* htmlcluev.c: (set_max_height):

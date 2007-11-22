@@ -734,12 +734,30 @@ in_script_or_style (HTMLTokenizer *t, const gchar **src)
 	}
 	/* Check if a </script> tag is on its way */
 	else if (p->searchCount > 0) {
+		gboolean put_to_script = FALSE;
 		if (tolower (**src) == p->searchFor [p->searchCount]) {
 			p->searchBuffer [p->searchCount] = **src;
 			p->searchCount++;
 			(*src)++;
 		}
-		else {
+		else if (p->searchFor [p->searchCount] == '>') {
+			/* There can be any number of white-space characters between
+			   tag name and closing '>' so try to move through them, if possible */
+
+			const gchar **p = src;
+			while (isspace (**p))
+				(*p)++;
+
+			
+			if (**p == '>')
+				*src = *p;
+			else
+				put_to_script = TRUE;
+		}
+		else 
+			put_to_script = TRUE;
+
+		if (put_to_script) {
 			gchar *c;
 
 			p->searchBuffer [p->searchCount] = 0;
