@@ -67,6 +67,7 @@ static SpellError * spell_error_new         (guint off, guint len);
 static void         spell_error_destroy     (SpellError *se);
 static void         move_spell_errors       (GList *spell_errors, guint offset, gint delta);
 static GList *      remove_spell_errors     (GList *spell_errors, guint offset, guint len);
+static GList *      merge_spell_errors      (GList *se1, GList *se2);
 static void         remove_text_slaves      (HTMLObject *self);
 
 /* void
@@ -529,7 +530,7 @@ object_merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList **left, G
 	   printf ("---\n");
 	*/
 	move_spell_errors (t2->spell_errors, 0, t1->text_len);
-	t1->spell_errors = g_list_concat (t1->spell_errors, t2->spell_errors);
+	t1->spell_errors = merge_spell_errors (t1->spell_errors, t2->spell_errors);
 	t2->spell_errors = NULL;
 
 	pango_attr_list_splice (t1->attr_list, t2->attr_list, t1->text_bytes, t2->text_bytes);
@@ -2186,6 +2187,53 @@ remove_spell_errors (GList *spell_errors, guint offset, guint len)
 	return spell_errors;
 }
 
+static gint
+se_cmp (SpellError *a, SpellError *b)
+{
+	guint o1 = a->off;
+	guint o2 = b->off;
+
+	return (o1 < o2) ? -1 : (o1 == o2) ? 0 : 1;
+}
+
+static GList *
+merge_spell_errors (GList *se1, GList *se2)
+{
+	GList *merged = NULL;
+	GList *link;
+
+	/* Build the merge list in reverse order. */
+	while (se1 != NULL && se2 != NULL) {
+
+		/* Pop the lesser of the two list heads. */
+		if (se_cmp (se1->data, se2->data) < 0) {
+			link = se1;
+			se1 = g_list_remove_link (se1, link);
+		} else {
+			link = se2;
+			se2 = g_list_remove_link (se2, link);
+		}
+
+		/* Merge unique items, discard duplicates. */
+		if (merged == NULL || se_cmp (link->data, merged->data) != 0)
+			merged = g_list_concat (link, merged);
+		else {
+			spell_error_destroy (link->data);
+			g_list_free (link);
+		}
+	}
+
+	merged = g_list_reverse (merged);
+
+	/* At this point at least one of the two input lists are empty,
+	 * so just append them both to the end of the merge list. */
+
+	merged = g_list_concat (merged, se1);
+	merged = g_list_concat (merged, se2);
+
+	return merged;
+}
+
 static HTMLObject *
 check_point (HTMLObject *self,
 	     HTMLPainter *painter,
@@ -3056,35 +3104,12 @@ html_text_spell_errors_clear_interval (HTMLText *text, HTMLInterval *i)
 	}
 }
 
-static gint
-se_cmp (gconstpointer a, gconstpointer b)
-{
-	guint o1, o2;
-
-	o1 = ((SpellError *) a)->off;
-	o2 = ((SpellError *) b)->off;
-
-	if (o1 < o2)  return -1;
-	if (o1 == o2) return 0;
-	return 1;
-}
-
 void
 html_text_spell_errors_add (HTMLText *text, guint off, guint len)
 {
-	/* GList *cur;
-	SpellError *se;
-	cur = */
-
-	text->spell_errors = g_list_insert_sorted (text->spell_errors, spell_error_new (off, len), se_cmp);
-
-	/* printf ("---------------------------------------\n");
-	while (cur) {
-		se = (SpellError *) cur->data;
-		printf ("off: %d len: %d\n", se->off, se->len);
-		cur = cur->next;
-	}
-	printf ("---------------------------------------\n"); */
+	text->spell_errors = merge_spell_errors (
+		text->spell_errors, g_list_prepend (
+		NULL, spell_error_new (off, len)));
 }
 
 guint
