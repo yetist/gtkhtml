@@ -349,7 +349,8 @@ set_max_height (HTMLObject *o, HTMLPainter *painter, gint height)
 {
 	HTMLClue *clue = HTML_CLUE (o);
 
-	html_object_calc_size (o, painter, NULL);
+	/* Is it necessary to calc size here? It doesn't seem to. */
+	/* html_object_calc_size (o, painter, NULL); */
 	if (o->ascent < height) {
 		(* HTML_OBJECT_CLASS (parent_class)->set_max_height) (o, painter, height);
 		clue->curr = NULL;
