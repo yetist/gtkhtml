@@ -1,3 +1,15 @@
+2007-11-22  Matthew Barnes  <mbarnes@redhat.com>
+
+	** Fixes bug #495073
+
+	* htmltext.c (merge_spell_errors):
+	New function consumes two sorted lists of SpellErrors and returns a
+	single sorted list of SpellErrors with no duplicates.
+
+	* htmltext.c (object_merge), (html_text_spell_errors_add):
+	Call merge_spell_errors() instead of g_list_insert_sorted() or
+	g_list_concat().
+
 2007-11-22  Milan Crha  <mcrha@redhat.com>
 
 	** Fix for bug #494170
