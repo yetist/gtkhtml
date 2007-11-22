@@ -1,3 +1,10 @@
+2007-11-22  Milan Crha  <mcrha@redhat.com>
+
+	** Fix for bug #435620
+
+	* htmlcluev.c: (set_max_height):
+	Do not recalculate size of the object every call of set_max_height.
+
 2007-11-05  Milan Crha  <mcrha@redhat.com>
 
 	* gtkhtml.h: (gtk_html_get_selection_plain_text):
