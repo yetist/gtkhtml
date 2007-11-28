@@ -1,3 +1,18 @@
+GtkHTML-3.16.2 2007-11-26
+-------------------------
+
+Bug Fixes:
+	#431606: Use stock icons when converting an emoticon to an image (Matthew Barnes)
+	#435620: Do not recalculate size of the object every call of set_max_height (Milan Crha)
+	#485700: URLs with ampersand ("&") don't work (Milan Crha)
+	#487841: Free memory (Milan Crha)
+	#488167: Change focused object only when not focused before. (Milan Crha)
+	#494170: Accept also spaces between element name and end of tag when looking for end of style/script tag (Milan Crha)
+	#495073: Ignore duplicate SpellError objects (Matthew Barnes)
+
+Updated Translations:
+	Djihed Afifi (ar)
+
 GtkHTML-3.16.1 2007-10-15
 -------------------------
 
