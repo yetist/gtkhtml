@@ -55,6 +55,8 @@ gtk_html_control_data_new (GtkHTML *html, GtkWidget *vbox)
 	ncd->language                = NULL;
 	ncd->paragraph_style_store   = NULL;
 
+	ncd->file_path = g_strdup (g_get_home_dir ());
+
 	spell_init (html, ncd);
 
 	return ncd;
@@ -92,6 +94,8 @@ gtk_html_control_data_destroy (GtkHTMLControlData *cd)
 
 	if (cd->paragraph_style_store)
 		g_object_unref (cd->paragraph_style_store);
+
+	g_free (cd->file_path);
 
 	g_free (cd);
 }

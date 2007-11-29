@@ -111,6 +111,9 @@ struct _GtkHTMLControlData {
 	gboolean file_html;
 
 	GtkListStore *paragraph_style_store;
+
+	/* file path used in dialog when choosing files */
+	gchar *file_path;
 };
 
 GtkHTMLControlData * gtk_html_control_data_new       (GtkHTML *html, GtkWidget *vbox);

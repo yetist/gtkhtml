@@ -66,6 +66,38 @@ static void command_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const ch
 static gboolean get_file_charset (const gchar * filename, gchar *charset, gint len);
 
 static void
+send_path_changed_event (GtkHTMLControlData *cd)
+{
+	if (cd && cd->editor_bonobo_engine) {
+		GNOME_GtkHTML_Editor_Engine engine;
+		GNOME_GtkHTML_Editor_Listener listener;
+		CORBA_Environment gev;
+
+		CORBA_exception_init (&gev);
+		engine = bonobo_object_corba_objref (BONOBO_OBJECT (cd->editor_bonobo_engine));
+
+		if (engine != CORBA_OBJECT_NIL
+		    && (listener = GNOME_GtkHTML_Editor_Engine__get_listener (engine, &gev)) != CORBA_OBJECT_NIL) {
+			CORBA_Environment ev;
+			CORBA_any *any;
+			CORBA_any *retval;
+
+			any = CORBA_any_alloc ();
+			any->_type = TC_null;
+			CORBA_exception_init (&ev);
+			retval = GNOME_GtkHTML_Editor_Listener_event (listener, "file_path_changed", any, &ev);
+			if (!BONOBO_EX (&ev))
+				CORBA_free (retval);
+
+			CORBA_exception_free (&ev);
+			CORBA_free (any);
+		}
+
+		CORBA_exception_free (&gev);
+	}
+}
+
+static void
 paste_quotation_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
 	gtk_html_paste (cd->html, TRUE);
@@ -102,6 +134,9 @@ insert_image_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cna
 					       GTK_STOCK_OPEN, GTK_RESPONSE_OK,
 					       NULL);
 	gtk_dialog_set_default_response (GTK_DIALOG (filesel), GTK_RESPONSE_OK);
+
+	gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (filesel), cd->file_path);
+
 	if (filesel) {
 		if (gtk_dialog_run (GTK_DIALOG (filesel)) == GTK_RESPONSE_OK) {
 			char *url = NULL;
@@ -111,6 +146,18 @@ insert_image_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cna
 					      NULL, NULL, 0, 0, 0, 0, 0, NULL, HTML_VALIGN_NONE, FALSE);
 			html_engine_paste_object (cd->html->engine, img, 1);
 			g_free (url);
+
+			url = gtk_file_chooser_get_current_folder (GTK_FILE_CHOOSER (filesel));
+
+			if (url) {
+				gboolean changed = strcmp (cd->file_path, url) != 0;
+
+				g_free (cd->file_path);
+				cd->file_path = url;
+
+				if (changed)
+					send_path_changed_event (cd);
+			}
 		}
 		gtk_widget_destroy (filesel);
 	}
@@ -306,11 +353,26 @@ insert_file_dialog (GtkHTMLControlData *cd, gboolean html)
 						       GTK_STOCK_OPEN, GTK_RESPONSE_OK,
 						       NULL);
 	gtk_dialog_set_default_response (GTK_DIALOG (cd->file_dialog), GTK_RESPONSE_OK);
-	gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (cd->file_dialog), g_get_home_dir ());
+
+	gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (cd->file_dialog), cd->file_path);
 
 	if (cd->file_dialog) {
 		if (gtk_dialog_run (GTK_DIALOG (cd->file_dialog)) == GTK_RESPONSE_OK) {
+			gchar *path;
+
 			file_dialog_ok (cd->file_dialog, cd);
+
+			path = gtk_file_chooser_get_current_folder (GTK_FILE_CHOOSER (cd->file_dialog));
+
+			if (path) {
+				gboolean changed = strcmp (cd->file_path, path) != 0;
+
+				g_free (cd->file_path);
+				cd->file_path = path;
+
+				if (changed)
+					send_path_changed_event (cd);
+			}
 		}
 		gtk_widget_destroy (cd->file_dialog);
 		cd->file_dialog = NULL;

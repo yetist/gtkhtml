@@ -227,6 +227,27 @@ impl_drop_undo (PortableServer_Servant servant, CORBA_Environment * ev)
 }
 
 static void
+impl_set_file_path (PortableServer_Servant servant, const CORBA_char * file_path, CORBA_Environment * ev)
+{
+	EditorEngine *e = html_editor_engine_from_servant (servant);
+
+	g_free (e->cd->file_path);
+
+	if (file_path && *file_path)
+		e->cd->file_path = g_strdup (file_path);
+	else
+		e->cd->file_path = g_strdup (g_get_home_dir ());
+}
+
+static CORBA_char *
+impl_get_file_path (PortableServer_Servant servant, CORBA_Environment * ev)
+{
+	EditorEngine *e = html_editor_engine_from_servant (servant);
+
+	return CORBA_string_dup (e->cd->file_path);
+}
+
+static void
 engine_object_finalize (GObject *object)
 {
 	EditorEngine *e = EDITOR_ENGINE (object);
@@ -270,6 +291,8 @@ editor_engine_class_init (EditorEngineClass *klass)
 	epv->ignoreWord               = impl_ignore_word;
 	epv->hasUndo                  = impl_has_undo;
 	epv->dropUndo                 = impl_drop_undo;
+	epv->setFilePath              = impl_set_file_path;
+	epv->getFilePath              = impl_get_file_path;
 }
 
 BONOBO_TYPE_FUNC_FULL (

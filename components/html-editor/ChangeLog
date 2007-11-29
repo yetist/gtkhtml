@@ -1,3 +1,21 @@
+2007-11-29  Milan Crha  <mcrha@redhat.com>
+
+	** Fix for bug #271551
+
+	* Editor.idl: (setFilePath), (getFilePath): New interface functions
+	to set/get path to be opened when inserting images/files.
+	* engine.c: (impl_set_file_path), (impl_get_file_path),
+	(editor_engine_class_init): Use proper implementation functions.
+	* control-data.h: (struct _GtkHTMLControlData): New property to 
+	store last selected folder and reuse it next time.
+	* control-data.c: (gtk_html_control_data_new),
+	(gtk_html_control_data_destroy):
+	Initialize new property to home dir and free when destroying.
+	* menubar.c: (send_path_changed_event): New helper function to send an
+	event "file_path_changed" when file path has been changed.
+	* menubar.c: (insert_image_cb), (insert_file_dialog): Use new control
+	data property when opening file chooser and store back last folder.
+
 2007-11-11  Matthew Barnes  <mbarnes@redhat.com>
 
 	* Makefile.am:
