@@ -1,3 +1,11 @@
+2007-11-30  Milan Crha  <mcrha@redhat.com>
+
+	** Fix for bug #500398
+
+	* body.c: (body_properties):
+	* paragraph-style.c: (paragraph_style_get_store):
+	Do not use gettext function, use _() instead.
+
 2007-11-29  Milan Crha  <mcrha@redhat.com>
 
 	** Fix for bug #271551
