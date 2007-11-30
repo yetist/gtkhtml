@@ -276,7 +276,7 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	for (i = 0; i < G_N_ELEMENTS (body_templates); i++)
 		gtk_combo_box_append_text (
 			GTK_COMBO_BOX (data->option_template),
-			gettext (body_templates[i].name));
+			_(body_templates[i].name));
 	gtk_combo_box_set_active (GTK_COMBO_BOX (data->option_template), 0);
 	gtk_box_pack_start (GTK_BOX (hbox), data->option_template, FALSE, FALSE, 0);
 	editor_hig_attach_row (t1, _("T_emplate:"), hbox, 0);

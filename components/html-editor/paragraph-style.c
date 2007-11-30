@@ -99,7 +99,7 @@ paragraph_style_get_store (GtkHTMLControlData *cd)
 		gtk_list_store_set (
 			cd->paragraph_style_store, &iter,
 			PARAGRAPH_STYLE_COLUMN_TEXT,
-			gettext (paragraph_style_data[ii].description),
+			_(paragraph_style_data[ii].description),
 			PARAGRAPH_STYLE_COLUMN_SENSITIVE,
 			cd->format_html ?
 				paragraph_style_data[ii].sensitive_html :
