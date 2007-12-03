@@ -105,7 +105,7 @@ insert_link (GtkWidget *mi, GtkHTMLControlData *cd)
 	if (cd->properties_dialog)
 		gtk_html_edit_properties_dialog_close (cd->properties_dialog);
 
-	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, _("Insert"), "stock_insert-url");
+	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, _("Insert"), "insert-link");
 
 	gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
 						   GTK_HTML_EDIT_PROPERTY_LINK, _("Link"),
@@ -265,7 +265,7 @@ link_prop_dialog (GtkWidget *mi, GtkHTMLControlData *cd)
 	if (cd->properties_dialog)
 		gtk_html_edit_properties_dialog_close (cd->properties_dialog);
 
-	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, _("Properties"), "stock_insert-url");
+	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, _("Properties"), "insert-link");
 
 	gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
 						   GTK_HTML_EDIT_PROPERTY_LINK, _("Link"),

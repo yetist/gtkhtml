@@ -1,3 +1,11 @@
+2007-12-03  Michael Monreal  <mmonreal@svn.gnome.org>
+
+	** Fix for bug #482617
+
+	* menubar.c: (insert_link_cb):
+	* popup.c: (insert_link), (link_prop_dialog):
+	Use insert-* icons (toolbar and menu) from the icon theme.
+
 2007-11-30  Milan Crha  <mcrha@redhat.com>
 
 	** Fix for bug #500398

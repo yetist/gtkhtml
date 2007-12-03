@@ -169,7 +169,7 @@ insert_link_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cnam
 	if (cd->properties_dialog)
 		gtk_html_edit_properties_dialog_close (cd->properties_dialog);
 
-	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, _("Insert"), "stock_insert-url");
+	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, _("Insert"), "insert-link");
 
 	gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
 						   GTK_HTML_EDIT_PROPERTY_LINK, _("Link"),
@@ -812,8 +812,8 @@ static EditorUIPixmap pixmaps_map [] =
 	{ "/Toolbar/EditPaste", GTK_STOCK_PASTE, EDITOR_ICON_STOCK },
 	{ "/Toolbar/EditFind", GTK_STOCK_FIND, EDITOR_ICON_STOCK },
 	{ "/Toolbar/EditReplace", GTK_STOCK_FIND_AND_REPLACE, EDITOR_ICON_STOCK },
-	{ "/Toolbar/InsertImage", "stock_insert_image", EDITOR_ICON_TOOLBAR },
-	{ "/Toolbar/InsertLink", "stock_insert-url", EDITOR_ICON_TOOLBAR },
+	{ "/Toolbar/InsertImage", "insert-image", EDITOR_ICON_TOOLBAR },
+	{ "/Toolbar/InsertLink", "insert-link", EDITOR_ICON_TOOLBAR },
  	{ "/Toolbar/InsertRule", "stock_insert-rule", EDITOR_ICON_TOOLBAR },
  	{ "/Toolbar/InsertTable", "stock_insert-table", EDITOR_ICON_TOOLBAR },
 
@@ -829,8 +829,8 @@ static EditorUIPixmap pixmaps_map [] =
 
 	{ "/menu/Edit/EditMisc/EditSpellCheck", GTK_STOCK_SPELL_CHECK, EDITOR_ICON_STOCK },
 
-	{ "/menu/Insert/Component/InsertImage", "stock_insert_image", EDITOR_ICON_MENU },
-	{ "/menu/Insert/Component/InsertLink", "stock_insert-url", EDITOR_ICON_MENU },
+	{ "/menu/Insert/Component/InsertImage", "insert-image", EDITOR_ICON_MENU },
+	{ "/menu/Insert/Component/InsertLink", "insert-link", EDITOR_ICON_MENU },
  	{ "/menu/Insert/Component/InsertRule", "stock_insert-rule", EDITOR_ICON_MENU },
  	{ "/menu/Insert/Component/InsertTable", "stock_insert-table", EDITOR_ICON_MENU },
 	{ "/menu/Insert/Smiley", "stock_smiley-1", EDITOR_ICON_MENU },
