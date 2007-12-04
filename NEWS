@@ -1,3 +1,13 @@
+GtkHTML-3.17.3 2007-12-03
+-------------------------
+
+Bug Fixes:
+	#271551: File manager used during composer should remember last directory. (Milan Crha)
+	#435620: Do not recalculate size of the object (Milan Crha)
+	#494170: Accept spaces between element name and end of tag when looking for end of style/script tag (Milan Crha)
+	#495073: Ignore duplicate SpellError objects (Matthew Barnes)
+	#500398: Composer dropdown menu items not displayed translated (Milan Crha)
+
 GtkHTML-3.17.2 2007-11-12
 -------------------------
 
