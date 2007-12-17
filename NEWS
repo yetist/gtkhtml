@@ -1,3 +1,14 @@
+GtkHTML-3.17.4 2007-12-17
+-------------------------
+
+Bug Fixes:
+	#501724: Add FontSizeFour to Format->Font Size menu. (Juan Pizarro)
+
+Updated Translations:
+	Kjartan Maraas (nb)
+	Matej Urbanči (sl)
+	Jorge Gonzalez (es)
+
 GtkHTML-3.17.3 2007-12-03
 -------------------------
 
