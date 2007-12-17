@@ -1,3 +1,11 @@
+2007-12-17  Matthew Barnes  <mbarnes@redhat.com>
+
+	** Fixes bug #502205
+
+	* menubar.c (smiley_cb):
+	Embed the smiley image in the message, rather just than adding
+	a link to it on the local filesystem.
+
 2007-12-11  Juan Pizarro  <jpizarrom@gmail.com>
 
 	** Fix for bug #501724

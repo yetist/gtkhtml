@@ -961,7 +961,7 @@ html_image_set_border (HTMLImage *image, gint border)
 }
 
 void
-html_image_set_alt (HTMLImage *image, gchar *alt)
+html_image_set_alt (HTMLImage *image, const gchar *alt)
 {
 	g_free (image->alt);
 	image->alt = g_strdup (alt);

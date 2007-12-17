@@ -721,8 +721,9 @@ smiley_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 	const gchar *emoticon;
 	const gchar *filename;
 	GtkIconInfo *icon_info;
+	HTMLObject *image;
+	gchar *filename_uri;
 	gchar *icon_name;
-	gchar *html;
 	gint smiley;
 
 	g_return_if_fail (cname != NULL);
@@ -734,6 +735,7 @@ smiley_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 		gtk_icon_theme_get_default (), icon_name, 16, 0);
 	g_assert (icon_info != NULL);
 	filename = gtk_icon_info_get_filename (icon_info);
+	filename_uri = g_filename_to_uri (filename, NULL, NULL);
 	g_assert (filename != NULL);
 	g_free (icon_name);
 
@@ -775,11 +777,17 @@ smiley_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 			g_assert_not_reached ();
 	}
 
-	html = g_strdup_printf ("<IMG ALT=\"%s\" SRC=\"%s\">",
-		emoticon, filename);
-	gtk_html_insert_html (cd->html, html);
+	image = html_image_new (
+		html_engine_get_image_factory (cd->html->engine),
+		filename_uri, NULL, NULL, -1, -1, FALSE, FALSE,
+		0, NULL, HTML_VALIGN_MIDDLE, FALSE);
+	html_image_set_alt (HTML_IMAGE (image), emoticon);
+
+	html_engine_paste_object (
+		cd->html->engine, image, html_object_get_length (image));
+
 	gtk_icon_info_free (icon_info);
-	g_free (html);
+	g_free (filename_uri);
 }
 
 static void

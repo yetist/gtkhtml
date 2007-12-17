@@ -129,7 +129,7 @@ void        html_image_set_valign         (HTMLImage        *image,
 void        html_image_set_border         (HTMLImage        *image,
 					   gint              border);
 void        html_image_set_alt            (HTMLImage        *image,
-					   gchar            *alt);
+					   const gchar      *alt);
 void        html_image_set_map            (HTMLImage        *image,
 					   gchar            *mapuri,
 					   gboolean         ismap);
