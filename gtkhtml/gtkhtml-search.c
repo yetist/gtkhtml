@@ -133,7 +133,7 @@ gtk_html_isearch (GtkHTML *html, gboolean forward)
 		html->priv->search_input_line  = (*html->editor_api->create_input_line) (html, html->editor_data);
 		if (!html->priv->search_input_line)
 			return;
-		gtk_widget_ref (GTK_WIDGET (html->priv->search_input_line));
+		g_object_ref (html->priv->search_input_line);
 
 		data = g_new (GtkHTMLISearch, 1);
 		g_object_set_data (G_OBJECT (html->priv->search_input_line), "search_data", data);

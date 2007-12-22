@@ -104,7 +104,6 @@ static GtkWidget *entry;
 static GtkWidget *popup_menu, *popup_menu_back, *popup_menu_forward, *popup_menu_home;
 static GtkWidget *toolbar_back, *toolbar_forward;
 static HTMLURL *baseURL = NULL;
-static GtkTooltips *tooltips;
 
 static GList *go_list;
 static int go_position;
@@ -207,14 +206,14 @@ create_toolbars (GtkWidget *app)
 	gtk_box_pack_start (GTK_BOX (hbox), toolbar, FALSE, FALSE, 0);
 
 	item = gtk_tool_button_new_from_stock (GTK_STOCK_GO_BACK);
-	gtk_tool_item_set_tooltip (item, tooltips, "Move back", "Back");
+	gtk_tool_item_set_tooltip_text (item, "Move back");
 	g_signal_connect (item, "clicked", G_CALLBACK (back_cb), NULL);
 	gtk_toolbar_insert (GTK_TOOLBAR (toolbar), item, -1);
 	gtk_widget_set_sensitive (GTK_WIDGET (item), FALSE);
 	toolbar_back = GTK_WIDGET (item);
 
 	item = gtk_tool_button_new_from_stock (GTK_STOCK_GO_FORWARD);
-	gtk_tool_item_set_tooltip (item, tooltips, "Move forward", "Forward");
+	gtk_tool_item_set_tooltip_text (item, "Move forward");
 	g_signal_connect (item, "clicked", G_CALLBACK (forward_cb), NULL);
 	gtk_toolbar_insert (GTK_TOOLBAR (toolbar), item, -1);
 	gtk_widget_set_sensitive (GTK_WIDGET (item), FALSE);
@@ -224,17 +223,17 @@ create_toolbars (GtkWidget *app)
 	gtk_toolbar_insert (GTK_TOOLBAR (toolbar), item, -1);
 
 	item = gtk_tool_button_new_from_stock (GTK_STOCK_STOP);
-	gtk_tool_item_set_tooltip (item, tooltips, "Stop loading", "Stop");
+	gtk_tool_item_set_tooltip_text (item, "Stop loading");
 	g_signal_connect (item, "clicked", G_CALLBACK (stop_cb), NULL);
 	gtk_toolbar_insert (GTK_TOOLBAR (toolbar), item, -1);
 
 	item = gtk_tool_button_new_from_stock (GTK_STOCK_REFRESH);
-	gtk_tool_item_set_tooltip (item, tooltips, "Reload page", "Reload");
+	gtk_tool_item_set_tooltip_text (item, "Reload page");
 	g_signal_connect (item, "clicked", G_CALLBACK (reload_cb), NULL);
 	gtk_toolbar_insert (GTK_TOOLBAR (toolbar), item, -1);
 
 	item = gtk_tool_button_new_from_stock (GTK_STOCK_HOME);
-	gtk_tool_item_set_tooltip (item, tooltips, "Home page", "Home");
+	gtk_tool_item_set_tooltip_text (item, "Home page");
 	g_signal_connect (item, "clicked", G_CALLBACK (home_cb), NULL);
 
 	item = gtk_separator_tool_item_new ();
@@ -647,7 +646,7 @@ object_timeout(GtkHTMLEmbedded *eb)
 	printf("inserting custom widget after a delay ...\n");
 	gtk_html_embedded_set_descent(eb, rand()%8);
 	gtk_container_add (GTK_CONTAINER(eb), w);
-	gtk_widget_unref (GTK_WIDGET (eb));
+	g_object_unref (eb);
 
 	return FALSE;
 }
@@ -660,7 +659,7 @@ object_requested_cmd (GtkHTML *html, GtkHTMLEmbedded *eb, void *data)
 	if (eb->classid && strcmp (eb->classid, "mine:NULL") == 0)
 		return FALSE;
 
-	gtk_widget_ref (GTK_WIDGET (eb));
+	g_object_ref (eb);
 	g_timeout_add(rand() % 5000 + 1000, (GtkFunction) object_timeout, eb);
 	/* object_timeout (eb); */
 
@@ -1042,8 +1041,6 @@ main (gint argc, gchar *argv[])
 
 	g_signal_connect (app, "delete_event", G_CALLBACK (exit_cb), NULL);
 
-	tooltips = gtk_tooltips_new ();
-
 	create_toolbars (app);
 	bar = gnome_appbar_new (FALSE, TRUE, GNOME_PREFERENCES_USER);
 	gnome_app_set_statusbar (GNOME_APP (app), bar);
@@ -1132,7 +1129,7 @@ main (gint argc, gchar *argv[])
 
 #ifdef MEMDEBUG
 
-	/* gtk_widget_unref (html_widget); */
+	/* g_object_unref (html_widget); */
 	free (p);
 #endif
 

@@ -1,3 +1,18 @@
+2007-12-22  Matthew Barnes  <mbarnes@redhat.com>
+
+	** Fixes part of bug #493709
+
+	* editor-control-factory.c (editor_control_factory):
+	* spellchecker.c (spell_check_dialog):
+	Use g_object_unref() instead of gtk_widget_unref() (deprecated).
+
+	* test-html-editor-control.c:
+	Use GtkFileChooser instead of GtkFileSelection (deprecated).
+
+	* gi-color-palette.c:
+	* gi-color-palette.h:
+	Use the new GtkTooltip API instead of GtkTooltips.
+
 2007-12-17  Matthew Barnes  <mbarnes@redhat.com>
 
 	** Fixes bug #502205

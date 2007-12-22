@@ -43,7 +43,6 @@ typedef struct _ColorNamePair ColorNamePair;
 
 typedef struct _ColorPalette {
 	GtkVBox          vbox;
-	GtkTooltips      *tool_tip;
 	GtkColorButton   *button;
 	/*
 	 * Array of colors

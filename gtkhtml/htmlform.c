@@ -75,9 +75,9 @@ html_form_add_radio (HTMLForm *form, char *name, GtkRadioButton *button)
 	master = g_hash_table_lookup (form->radio_group, key);
 	if (master == NULL) {
 		/* if there is no entry we dup the key because the table will own it */
-		key = g_strdup (key);
-		gtk_widget_ref (GTK_WIDGET (button));
-		g_hash_table_insert (form->radio_group, key, button);
+		g_hash_table_insert (
+			form->radio_group, g_strdup (key),
+			g_object_ref (button));
 	} else {
 		group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (master));
 		gtk_radio_button_set_group (button, group);
@@ -94,7 +94,7 @@ static void
 destroy_radio (char *key, gpointer *master)
 {
 	g_free (key);
-	gtk_widget_unref (GTK_WIDGET (master));
+	g_object_unref (master);
 }
 
 static void

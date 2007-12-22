@@ -72,11 +72,6 @@ color_palette_destroy (GtkObject *object)
 	ColorPalette *P = COLOR_PALETTE (object);
 	GtkObjectClass *klass = (GtkObjectClass *)color_palette_parent_class;
 
-	if (P->tool_tip) {
-		g_object_unref (P->tool_tip);
-		P->tool_tip = NULL;
-	}
-
 	if (P->current_color) {
 		gdk_color_free (P->current_color);
 		P->current_color = NULL;
@@ -284,7 +279,7 @@ color_in_palette (ColorNamePair *set, GdkColor *color)
  */
 static GnomeCanvasItem *
 color_palette_button_new(ColorPalette *P, GtkTable* table,
-			 GtkTooltips *tool_tip, ColorNamePair* color_name,
+			 ColorNamePair* color_name,
 			 gint col, gint row, int data)
 {
         GtkWidget *button;
@@ -309,8 +304,7 @@ color_palette_button_new(ColorPalette *P, GtkTable* table,
 				       "fill_color", color_name->color,
 				       NULL);
 
-	gtk_tooltips_set_tip (tool_tip, button, _(color_name->name),
-			      "Private+Unused");
+	gtk_widget_set_tooltip_text (button, _(color_name->name));
 
 	gtk_table_attach (table, button,
 			  col, col+1, row, row+1, GTK_FILL, GTK_FILL, 1, 1);
@@ -355,7 +349,6 @@ color_palette_setup (ColorPalette *P,
 	GtkWidget *default_button;
 	GtkWidget *cust_label;
 	GtkWidget *table;
-	GtkTooltips *tool_tip;
 	int total, row, col;
 
 	table = gtk_table_new (ncols, nrows, FALSE);
@@ -368,9 +361,6 @@ color_palette_setup (ColorPalette *P,
 		g_signal_connect (default_button, "clicked",
 				  G_CALLBACK (cb_default_clicked), P);
 	}
-
-	P->tool_tip = tool_tip = gtk_tooltips_new ();
-	g_object_ref_sink (P->tool_tip);
 
 	P->custom_color_pos = -1;
 	total = 0;
@@ -398,7 +388,6 @@ color_palette_setup (ColorPalette *P,
 							color_palette_button_new(
 								P,
 								GTK_TABLE (table),
-								GTK_TOOLTIPS (tool_tip),
 								&(color_name),
 								col,
 								row + 1,
@@ -415,7 +404,6 @@ color_palette_setup (ColorPalette *P,
 				color_palette_button_new (
 					P,
 					GTK_TABLE (table),
-					GTK_TOOLTIPS (tool_tip),
 					&(color_names [pos]),
 					col,
 					row + 1,

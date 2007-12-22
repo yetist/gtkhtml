@@ -850,7 +850,7 @@ editor_control_factory (BonoboGenericFactory *factory, const gchar *component_id
 		editor_control_construct (control, vbox);
 		return BONOBO_OBJECT (control);
 	} else {
-		gtk_widget_unref (vbox);
+		g_object_unref (vbox);
 		return NULL;
 	}
 }

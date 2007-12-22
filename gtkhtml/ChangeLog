@@ -1,3 +1,21 @@
+2007-12-22  Matthew Barnes  <mbarnes@redhat.com>
+
+	** Fixes part of bug #493709
+
+	* gtkhtml-search.c (gtk_html_isearch):
+	* htmlform.c (html_form_add_radio), (destroy_radio):
+	* testgtkhtml.c (object_timeout), (object_requested_cmd):
+	Use g_object_ref() instead of gtk_widget_ref() (deprecated).
+	Use g_object_unref() instead of gtk_widget_unref() (deprecated).
+
+	* htmlselect.c:
+	* htmlselect.h:
+	Use GtkComboBoxEntry instead of GtkCombo (deprecated).
+	Use a common model for both the GtkComboBoxEntry and GtkTreeView.
+
+	* testgtkhtml.c:
+	Use the new GtkTooltip API instead of GtkTooltips.
+
 2007-12-17  Matthew Barnes  <mbarnes@redhat.com>
 
 	* htmlimage.c (html_image_set_alt):

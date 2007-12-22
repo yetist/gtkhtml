@@ -198,27 +198,6 @@ enum _FileSelectionOperation {
 };
 typedef enum _FileSelectionOperation FileSelectionOperation;
 
-struct _FileSelectionInfo {
-	BonoboWidget *control;
-	GtkWidget *widget;
-
-	FileSelectionOperation operation;
-};
-typedef struct _FileSelectionInfo FileSelectionInfo;
-
-static FileSelectionInfo file_selection_info = {
-	NULL,
-	NULL,
-	OP_NONE
-};
-
-static void
-file_selection_destroy_cb (GtkWidget *widget,
-			   gpointer data)
-{
-	file_selection_info.widget = NULL;
-}
-
 static void
 view_source_dialog (BonoboWindow *app, char *type, gboolean as_html)
 {
@@ -264,95 +243,83 @@ view_html_source_html_cb (GtkWidget *widget,
 	view_source_dialog (data, "text/html", TRUE);
 }
 
+
 static void
-file_selection_cancel_cb (GtkWidget *widget, gpointer data)
-{
-	gtk_widget_destroy (GTK_WIDGET (data));
-}
-
-static void
-file_selection_ok_cb (GtkWidget *widget,
-		      gpointer data)
+open_or_save_as_dialog (BonoboWindow *app,
+			FileSelectionOperation operation)
 {
 	CORBA_Object interface;
 	const gchar *interface_name;
 	CORBA_Environment ev;
+	GtkWidget *widget;
+	BonoboWidget *control;
+	gchar *filename;
 
-	if (file_selection_info.operation == OP_SAVE_THROUGH_PERSIST_FILE
-	    || file_selection_info.operation == OP_LOAD_THROUGH_PERSIST_FILE)
+	control = BONOBO_WIDGET (bonobo_window_get_contents (app));
+
+	if (operation == OP_LOAD_THROUGH_PERSIST_FILE ||
+			operation == OP_LOAD_THROUGH_PERSIST_STREAM)
+		widget = gtk_file_chooser_dialog_new (
+			_("Open file..."), GTK_WINDOW (app),
+			GTK_FILE_CHOOSER_ACTION_OPEN,
+			GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+			GTK_STOCK_OPEN, GTK_RESPONSE_APPLY,
+			NULL);
+	else
+		widget = gtk_file_chooser_dialog_new (
+			_("Save file as..."), GTK_WINDOW (app),
+			GTK_FILE_CHOOSER_ACTION_SAVE,
+			GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+			GTK_STOCK_SAVE, GTK_RESPONSE_APPLY,
+			NULL);
+
+	if (gtk_dialog_run (GTK_DIALOG (widget)) == GTK_RESPONSE_CANCEL)
+		goto exit;
+
+	if (operation == OP_SAVE_THROUGH_PERSIST_FILE ||
+			operation == OP_LOAD_THROUGH_PERSIST_FILE)
 		interface_name = "IDL:Bonobo/PersistFile:1.0";
 	else
 		interface_name = "IDL:Bonobo/PersistStream:1.0";
 
 	CORBA_exception_init (&ev);
-	interface = Bonobo_Unknown_queryInterface (bonobo_widget_get_objref (file_selection_info.control),
-						   interface_name, &ev);
+	interface = Bonobo_Unknown_queryInterface (
+		bonobo_widget_get_objref (control), interface_name, &ev);
 	CORBA_exception_free (&ev);
 
 	if (interface == CORBA_OBJECT_NIL) {
-		g_warning ("The Control does not seem to support `%s'.", interface_name);
-	} else 	 {
-		const gchar *fname;
-
-		fname = gtk_file_selection_get_filename
-			(GTK_FILE_SELECTION (file_selection_info.widget));
-
-		switch (file_selection_info.operation) {
-		case OP_LOAD_THROUGH_PERSIST_STREAM:
-			load_through_persist_stream (fname, interface);
-			break;
-		case OP_SAVE_THROUGH_PERSIST_STREAM:
-			save_through_persist_stream (fname, interface);
-			break;
-		case OP_SAVE_THROUGH_PLAIN_PERSIST_STREAM:
-			save_through_plain_persist_stream (fname, interface);
-			break;
-		case OP_LOAD_THROUGH_PERSIST_FILE:
-			load_through_persist_file (fname, interface);
-			break;
-		case OP_SAVE_THROUGH_PERSIST_FILE:
-			save_through_persist_file (fname, interface);
-			break;
-		default:
-			g_assert_not_reached ();
-		}
+		g_warning (
+			"The Control does not seem to support `%s'.",
+			interface_name);
+		goto exit;
 	}
 
-	gtk_widget_destroy (file_selection_info.widget);
-}
+	filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (widget));
 
-
-static void
-open_or_save_as_dialog (BonoboWindow *app,
-			FileSelectionOperation op)
-{
-	GtkWidget    *widget;
-	BonoboWidget *control;
-
-	control = BONOBO_WIDGET (bonobo_window_get_contents (app));
-
-	if (file_selection_info.widget != NULL) {
-		gdk_window_show (GTK_WIDGET (file_selection_info.widget)->window);
-		return;
+	switch (operation) {
+	case OP_LOAD_THROUGH_PERSIST_STREAM:
+		load_through_persist_stream (filename, interface);
+		break;
+	case OP_SAVE_THROUGH_PERSIST_STREAM:
+		save_through_persist_stream (filename, interface);
+		break;
+	case OP_SAVE_THROUGH_PLAIN_PERSIST_STREAM:
+		save_through_plain_persist_stream (filename, interface);
+		break;
+	case OP_LOAD_THROUGH_PERSIST_FILE:
+		load_through_persist_file (filename, interface);
+		break;
+	case OP_SAVE_THROUGH_PERSIST_FILE:
+		save_through_persist_file (filename, interface);
+		break;
+	default:
+		g_assert_not_reached ();
 	}
 
-	if (op == OP_LOAD_THROUGH_PERSIST_FILE || op == OP_LOAD_THROUGH_PERSIST_STREAM)
-		widget = gtk_file_selection_new (_("Open file..."));
-	else
-		widget = gtk_file_selection_new (_("Save file as..."));
+	g_free (filename);
 
-	gtk_window_set_transient_for (GTK_WINDOW (widget),
-				      GTK_WINDOW (app));
-
-	file_selection_info.widget = widget;
-	file_selection_info.control = control;
-	file_selection_info.operation = op;
-
-	g_signal_connect (GTK_FILE_SELECTION (widget)->cancel_button, "clicked", G_CALLBACK (file_selection_cancel_cb), widget);
-	g_signal_connect (GTK_FILE_SELECTION (widget)->ok_button, "clicked", G_CALLBACK (file_selection_ok_cb), NULL);
-	g_signal_connect (file_selection_info.widget, "destroy", G_CALLBACK (file_selection_destroy_cb), NULL);
-
-	gtk_widget_show (file_selection_info.widget);
+exit:
+	gtk_widget_destroy (widget);
 }
 
 /* "Open through persist stream" dialog.  */

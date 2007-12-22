@@ -22,21 +22,7 @@
 
 #include <config.h>
 
-/*
-  FIXME
-  we need to call deprecated GtkList, which is ised in non deprecated GtkCombo
-  remove following preprocessor hackery once gtk+ is fixed
- */
-
-#ifdef GTK_DISABLE_DEPRECATED
-#undef GTK_DISABLE_DEPRECATED
-#include <gtk/gtklist.h>
-#define GTK_DISABLE_DEPRECATED 1
-#else
-#include <gtk/gtklist.h>
-#endif
-
-#include <gtk/gtkcombo.h>
+#include <gtk/gtkcomboboxentry.h>
 #include <gtk/gtkentry.h>
 #include <gtk/gtkscrolledwindow.h>
 #include <gtk/gtktreeview.h>
@@ -50,32 +36,17 @@ HTMLSelectClass html_select_class;
 static HTMLEmbeddedClass *parent_class = NULL;
 
 static void
-free_strings (gpointer o, gpointer data)
+clear_paths (HTMLSelect *select)
 {
-	g_free (o);
+	g_list_foreach (select->paths, (GFunc) gtk_tree_path_free, NULL);
+	g_list_free (select->paths);
+	select->paths = NULL;
 }
 
 static void
 destroy (HTMLObject *o)
 {
-	HTMLSelect *select;
-
-	select = HTML_SELECT (o);
-
-	if (select->default_selection)
-		g_list_free (select->default_selection);
-
-	if (select->values) {
-
-		g_list_foreach (select->values, free_strings, NULL);
-		g_list_free (select->values);
-	}
-
-	if (select->strings) {
-
-		g_list_foreach (select->strings, free_strings, NULL);
-		g_list_free (select->strings);
-	}
+	clear_paths (HTML_SELECT (o));
 
 	HTML_OBJECT_CLASS (parent_class)->destroy (o);
 }
@@ -95,165 +66,111 @@ copy (HTMLObject *self,
 	d->size =    s->size;
 	d->multi =   s->multi;
 
-	d->values = NULL;
-	d->strings = NULL;
-	d->default_selection = NULL;
+	d->paths = NULL;
 
 	d->view = NULL;
-}
-
-static void
-draw (HTMLObject *o,
-      HTMLPainter *p,
-      gint x, gint y,
-      gint width, gint height,
-      gint tx, gint ty)
-{
-	HTMLSelect *select = HTML_SELECT (o);
-
-	if (select->needs_update) {
-		if (GTK_IS_COMBO (HTML_EMBEDDED (select)->widget)) {
-			gtk_combo_set_popdown_strings (GTK_COMBO (HTML_EMBEDDED (o)->widget), select->strings);
-			gtk_list_select_item (GTK_LIST (GTK_COMBO (HTML_EMBEDDED (o)->widget)->list), select->default_selected);
-		}
-	}
-
-	select->needs_update = FALSE;
-
-	(* HTML_OBJECT_CLASS (parent_class)->draw) (o, p, x, y, width, height, tx, ty);
-}
-
-static void
-select_row (GtkTreeSelection *selection, GtkTreeModel *model, gint r)
-{
-	GtkTreeIter iter;
-	gchar *row;
-
-	row = g_strdup_printf ("%d", r);
-
-	if (gtk_tree_model_get_iter_from_string (model, &iter, row))
-		gtk_tree_selection_select_iter (selection, &iter);
-	g_free (row);
 }
 
 static void
 reset (HTMLEmbedded *e)
 {
 	HTMLSelect *s = HTML_SELECT(e);
-	GList *i = s->default_selection;
-	gint row = 0;
 
-	if (s->multi) {
-		GtkTreeSelection *selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (s->view));
+	if (s->multi || s->size > 1) {
+		GtkTreeView *tree_view;
+		GtkTreeSelection *selection;
+		GList *iter;
 
+		tree_view = GTK_TREE_VIEW (s->view);
+		selection = gtk_tree_view_get_selection (tree_view);
 		gtk_tree_selection_unselect_all (selection);
-
-		while (i) {
-			if (i->data)
-				select_row (selection, GTK_TREE_MODEL (s->store), row);
-
-			i = i->next;
-			row++;
+		for (iter = s->paths; iter != NULL; iter = iter->next) {
+			GtkTreePath *path = iter->data;
+			gtk_tree_selection_select_path (selection, path);
 		}
-	} else if (s->size > 1) {
-		GtkTreeSelection *selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (s->view));
 
-		select_row (selection, GTK_TREE_MODEL (s->store), s->default_selected);
-	} else {
-		gtk_entry_set_text (GTK_ENTRY (GTK_COMBO (e->widget)->entry),
-				    (gchar *) g_list_nth(s->strings, s->default_selected)->data);
+	} else if (s->paths != NULL) {
+		GtkTreePath *path = s->paths->data;
+		GtkComboBox *combo_box;
+		GtkTreeIter iter;
+
+		combo_box = GTK_COMBO_BOX (e->widget);
+		if (gtk_tree_model_get_iter (s->model, &iter, path))
+			gtk_combo_box_set_active_iter (combo_box, &iter);
 	}
 }
 
 struct EmbeddedSelectionInfo {
-	HTMLEmbedded *e;
-	GString *str;
+	HTMLEmbedded *embedded;
+	GString *string;
 };
 
 static void
-add_selected (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, gpointer data)
+add_selected (GtkTreeModel *model,
+              GtkTreePath *path,
+              GtkTreeIter *iter,
+              struct EmbeddedSelectionInfo *info)
 {
-	struct EmbeddedSelectionInfo *info = data;
-	gchar *value, *ptr;
+	gchar *value, *encoded;
 
 	gtk_tree_model_get (model, iter, 0, &value, -1);
 
-	if (info->str->len)
-		info->str = g_string_append_c (info->str, '&');
+	if (info->string->len)
+		g_string_append_c (info->string, '&');
 
-	ptr = html_embedded_encode_string (info->e->name);
-	info->str = g_string_append (info->str, ptr);
-	g_free (ptr);
+	encoded = html_embedded_encode_string (info->embedded->name);
+	g_string_append (info->string, encoded);
+	g_free (encoded);
 
-	info->str = g_string_append_c (info->str, '=');
+	g_string_append_c (info->string, '=');
 
-	ptr = html_embedded_encode_string (value);
-	info->str = g_string_append (info->str, ptr);
-	g_free (ptr);
+	encoded = html_embedded_encode_string (value);
+	g_string_append (info->string, encoded);
+	g_free (encoded);
+
+	g_free (value);
 }
 
 static gchar *
 encode (HTMLEmbedded *e)
 {
+	struct EmbeddedSelectionInfo info;
 	HTMLSelect *s = HTML_SELECT(e);
-	GList *i;
-	GString *encoding = g_string_new ("");
-	const gchar *txt;
-	gchar *ptr;
+	GtkTreeIter iter;
 
-	if(strlen (e->name)) {
+	info.embedded = e;
+	info.string = g_string_sized_new (128);
+
+	if (e->name != NULL && *e->name != '\0') {
 		if (s->size > 1) {
-			struct EmbeddedSelectionInfo info;
-
-			info.e = e;
-			info.str = encoding;
-			gtk_tree_selection_selected_foreach (gtk_tree_view_get_selection (GTK_TREE_VIEW (s->view)),
-							     add_selected, &info);
-			encoding = info.str;
+			gtk_tree_selection_selected_foreach (
+				gtk_tree_view_get_selection (
+				GTK_TREE_VIEW (s->view)),
+				(GtkTreeSelectionForeachFunc)
+				add_selected, &info);
 		} else {
-			gint item;
+			GtkComboBox *combo_box;
 
-			ptr = html_embedded_encode_string (e->name);
-			encoding = g_string_assign (encoding, ptr);
-			g_free (ptr);
-			encoding = g_string_append_c (encoding, '=');
-
-			txt = gtk_entry_get_text (GTK_ENTRY(GTK_COMBO(e->widget)->entry));
-			i = s->strings;
-			item = 0;
-
-			while (i) {
-
-				if (strcmp(txt, (gchar *)i->data) == 0) {
-
-					ptr = html_embedded_encode_string ((gchar *)g_list_nth (s->values, item)->data);
-					encoding = g_string_append (encoding, ptr);
-					g_free (ptr);
-
-					break;
-				}
-				i = i->next;
-				item++;
-			}
-
+			combo_box = GTK_COMBO_BOX (e->widget);
+			if (gtk_combo_box_get_active_iter (combo_box, &iter))
+				add_selected (s->model, NULL, &iter, &info);
 		}
 	}
-	ptr = encoding->str;
-	g_string_free(encoding, FALSE);
 
-	return ptr;
+	return g_string_free (info.string, FALSE);
 }
 
 void
 html_select_type_init (void)
 {
-	html_select_class_init (&html_select_class, HTML_TYPE_SELECT, sizeof (HTMLSelect));
+	html_select_class_init (
+		&html_select_class, HTML_TYPE_SELECT, sizeof (HTMLSelect));
 }
 
 void
 html_select_class_init (HTMLSelectClass *klass,
-			HTMLType type,
-			guint object_size)
+                        HTMLType type,
+                        guint object_size)
 {
 	HTMLEmbeddedClass *element_class;
 	HTMLObjectClass *object_class;
@@ -270,84 +187,91 @@ html_select_class_init (HTMLSelectClass *klass,
 	/* HTMLObject methods.   */
 	object_class->destroy = destroy;
 	object_class->copy = copy;
-	object_class->draw = draw;
 
 	parent_class = &html_embedded_class;
 }
 
 void
 html_select_init (HTMLSelect *select,
-		      HTMLSelectClass *klass,
-		      GtkWidget *parent,
-		      gchar *name,
-		      gint size,
-		      gboolean multi)
+                  HTMLSelectClass *klass,
+                  GtkWidget *parent,
+                  gchar *name,
+                  gint size,
+                  gboolean multi)
 {
-
-	HTMLEmbedded *element;
+	HTMLEmbedded *element = HTML_EMBEDDED (select);
+	GtkCellRenderer *renderer;
+	GtkListStore *store;
 	GtkWidget *widget;
 
-	element = HTML_EMBEDDED (select);
+	html_embedded_init (
+		element, HTML_EMBEDDED_CLASS (klass), parent, name, NULL);
 
-	html_embedded_init (element, HTML_EMBEDDED_CLASS (klass),
-			   parent, name, NULL);
+	store = gtk_list_store_new (1, G_TYPE_STRING);
+	renderer = gtk_cell_renderer_text_new ();
+	select->model = GTK_TREE_MODEL (store);
 
 	if (size > 1 || multi) {
+		GtkTreeViewColumn *column;
 		GtkRequisition req;
 		GtkTreeIter iter;
 
-		select->store = gtk_list_store_new (1, G_TYPE_STRING);
-		select->view = gtk_tree_view_new_with_model (GTK_TREE_MODEL (select->store));
+		select->view = gtk_tree_view_new_with_model (select->model);
+		gtk_tree_view_set_headers_visible (
+			GTK_TREE_VIEW (select->view), FALSE);
+		gtk_tree_selection_set_mode (
+			gtk_tree_view_get_selection (
+			GTK_TREE_VIEW (select->view)),
+			multi ? GTK_SELECTION_MULTIPLE :
+			GTK_SELECTION_SINGLE);
 
-		gtk_tree_view_append_column (GTK_TREE_VIEW (select->view),
-					     gtk_tree_view_column_new_with_attributes ("Labels",
-										       gtk_cell_renderer_text_new (),
-										       "text", 0, NULL));
-
-		if (multi)
-			gtk_tree_selection_set_mode (gtk_tree_view_get_selection (GTK_TREE_VIEW (select->view)),
-						     GTK_SELECTION_MULTIPLE);
+		column = gtk_tree_view_column_new ();
+		gtk_tree_view_column_pack_start (
+			column, renderer, FALSE);
+		gtk_tree_view_column_add_attribute (
+			column, renderer, "text", 0);
+		gtk_tree_view_append_column (
+			GTK_TREE_VIEW (select->view), column);
 
 		widget = gtk_scrolled_window_new (NULL, NULL);
-		gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (widget), GTK_SHADOW_IN);
-		gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (widget), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
-
+		gtk_scrolled_window_set_shadow_type (
+			GTK_SCROLLED_WINDOW (widget), GTK_SHADOW_IN);
+		gtk_scrolled_window_set_policy (
+			GTK_SCROLLED_WINDOW (widget),
+			GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
 		gtk_container_add (GTK_CONTAINER (widget), select->view);
-		gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (select->view), FALSE);
 		gtk_widget_show_all (widget);
 
-		gtk_list_store_append (select->store, &iter);
-		gtk_list_store_set (select->store, &iter, 0, "height", -1);
+		gtk_list_store_append (store, &iter);
+		gtk_list_store_set (store, &iter, 0, "height", -1);
 		gtk_widget_size_request (select->view, &req);
-		gtk_widget_set_size_request (select->view, 120, req.height * size);
-		gtk_list_store_remove (select->store, &iter);
+		gtk_widget_set_size_request (
+			select->view, 120, req.height * size);
+		gtk_list_store_remove (store, &iter);
 	} else {
-		widget = gtk_combo_new ();
-		gtk_editable_set_editable (GTK_EDITABLE (GTK_COMBO(widget)->entry), FALSE);
-		gtk_widget_set_size_request ( GTK_WIDGET (widget), 120, -1);
+		widget = gtk_combo_box_entry_new_with_model (select->model, 0);
+		gtk_widget_set_size_request (widget, 120, -1);
 	}
+
 	html_embedded_set_widget (element, widget);
 
 	select->size = size;
 	select->multi = multi;
-	select->default_selected = 0;
-	select->values = NULL;
-	select->strings = NULL;
-	select->default_selection = NULL;
-	select->needs_update = TRUE;
+	select->longest = 0;
+	select->paths = NULL;
 }
 
 HTMLObject *
 html_select_new (GtkWidget *parent,
-		     gchar *name,
-		     gint size,
-		     gboolean multi)
+                 gchar *name,
+                 gint size,
+                 gboolean multi)
 {
 	HTMLSelect *ti;
 
 	ti = g_new0 (HTMLSelect, 1);
-	html_select_init (ti, &html_select_class,
-			      parent, name, size, multi);
+	html_select_init (
+		ti, &html_select_class, parent, name, size, multi);
 
 	return HTML_OBJECT (ti);
 }
@@ -355,104 +279,93 @@ html_select_new (GtkWidget *parent,
 void
 html_select_add_option (HTMLSelect *select, gchar *value, gboolean selected)
 {
-	if(select->size > 1 || select->multi) {
-		GtkTreeIter iter;
+	GtkListStore *store;
+	GtkTreeIter iter;
 
-		gtk_list_store_append (select->store, &iter);
-		gtk_list_store_set (select->store, &iter, 0, value, -1);
+	if (value == NULL)
+		value = "";
 
-		if(selected) {
+	store = GTK_LIST_STORE (select->model);
+	gtk_list_store_append (store, &iter);
+	gtk_list_store_set (store, &iter, 0, value, -1);
+	select->longest = MAX (select->longest, strlen (value));
 
-			select->default_selected = g_list_length (select->values) - 1;
-			gtk_tree_selection_select_iter (gtk_tree_view_get_selection (GTK_TREE_VIEW (select->view)), &iter);
+	if (select->size > 1 || select->multi) {
+		if (selected) {
+			GtkTreeSelection *selection;
+			GtkTreeView *tree_view;
+
+			clear_paths (select);
+			tree_view = GTK_TREE_VIEW (select->view);
+			selection = gtk_tree_view_get_selection (tree_view);
+			gtk_tree_selection_select_iter (selection, &iter);
+			select->paths =
+				gtk_tree_selection_get_selected_rows (
+				selection, NULL);
 		}
 	} else {
-		select->strings = g_list_append (select->strings, g_strdup (""));
+		GtkComboBox *combo_box;
 
-		select->needs_update = TRUE;
-		if (selected || g_list_length (select->strings) == 1)
-			select->default_selected = g_list_length (select->strings) - 1;
-	}
+		combo_box = GTK_COMBO_BOX (HTML_EMBEDDED (select)->widget);
+		selected |= (gtk_combo_box_get_active (combo_box) < 0);
 
-	select->values = g_list_append (select->values, g_strdup (value));
+		if (selected) {
+			GtkTreePath *path;
 
-	if(select->multi)
-		select->default_selection = g_list_append (select->default_selection, GINT_TO_POINTER(selected));
-}
-
-static char *
-longest_string (HTMLSelect *s)
-{
-	GList *i = s->strings;
-	gint max = 0;
-	gchar *str = NULL;
-
-	while (i) {
-		if (strlen(i->data) > max) {
-			max = strlen (i->data);
-			str = i->data;
+			clear_paths (select);
+			gtk_combo_box_set_active_iter (combo_box, &iter);
+			path = gtk_tree_model_get_path (select->model, &iter);
+			select->paths = g_list_prepend (NULL, path);
 		}
-		i = i->next;
 	}
-	return str;
 }
 
 void
 html_select_set_text (HTMLSelect *select, gchar *text)
 {
 	GtkWidget *w = GTK_WIDGET (HTML_EMBEDDED (select)->widget);
-	gint item;
+	GtkListStore *store;
+	GtkTreePath *path;
+	GtkTreeIter iter;
+	gint n_children;
+
+	if (text == NULL)
+		text = "";
+
+	store = GTK_LIST_STORE (select->model);
+	n_children = gtk_tree_model_iter_n_children (select->model, NULL);
+	if (n_children > 0) {
+		path = gtk_tree_path_new_from_indices (n_children - 1, -1);
+		gtk_tree_model_get_iter (select->model, &iter, path);
+		gtk_tree_path_free (path);
+	} else
+		gtk_list_store_append (store, &iter);
+	gtk_list_store_set (store, &iter, 0, text, -1);
+	select->longest = MAX (select->longest, strlen (text));
 
 	if (select->size > 1 || select->multi) {
 		GtkRequisition req;
-		GtkTreeIter iter;
-		gchar *row;
-		item = g_list_length (select->values) - 1;
+		GtkWidget *scrollbar;
+		gint width;
 
-		row = g_strdup_printf ("%d", item);
-		gtk_tree_model_get_iter_from_string (GTK_TREE_MODEL (select->store), &iter, row);
-		gtk_list_store_set (select->store, &iter, 0, text, -1);
-		g_free (row);
+		scrollbar = GTK_SCROLLED_WINDOW (w)->vscrollbar;
+		gtk_widget_size_request (select->view, &req);
+		width = req.width;
 
-		gtk_widget_size_request (GTK_WIDGET (select->view), &req);
-		HTML_OBJECT (select)->width = req.width;
-
-		/* Add width of scrollbar */
-
-		if ((item + 1) > select->size && GTK_SCROLLED_WINDOW(w)->vscrollbar) {
-			GtkRequisition scrollbar_req;
-
-			gtk_widget_size_request (GTK_SCROLLED_WINDOW(w)->vscrollbar, &scrollbar_req);
-			HTML_OBJECT (select)->width += scrollbar_req.width + 8;
+		if (n_children > select->size && scrollbar != NULL) {
+			gtk_widget_size_request (scrollbar, &req);
+			width += req.width + 8;
 		}
 
-		gtk_widget_set_size_request (w, HTML_OBJECT(select)->width, -1);
+		gtk_widget_set_size_request (w, width, -1);
+		HTML_OBJECT (select)->width = width;
 	} else {
 		w = HTML_EMBEDDED (select)->widget;
-		item = g_list_length (select->strings) - 1;
+		gtk_combo_box_set_active_iter (GTK_COMBO_BOX (w), &iter);
 
-		if (select->strings) {
-			char *longest;
-			GList *last = g_list_last (select->strings);
-
-			g_free (last->data);
-			last->data = g_strdup (text);
-
-			select->needs_update = TRUE;
-			gtk_entry_set_text (GTK_ENTRY(GTK_COMBO(w)->entry),
-					    g_list_nth(select->strings, select->default_selected)->data);
-
-			longest = longest_string (select);
-			if (longest)
-				gtk_entry_set_width_chars (GTK_ENTRY(GTK_COMBO(w)->entry),
-							   strlen (longest));
-		}
-
+		gtk_entry_set_width_chars (
+			GTK_ENTRY (gtk_bin_get_child (GTK_BIN (w))),
+			select->longest);
 		gtk_widget_set_size_request (w, -1, -1);
 	}
-
-	if (item >= 0 && g_list_nth (select->values, item)->data == NULL)
-		g_list_nth (select->values, item)->data = g_strdup(text);
 }
-
-

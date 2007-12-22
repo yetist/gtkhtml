@@ -32,15 +32,10 @@ struct _HTMLSelect {
 	gint size;
 	gboolean multi;
 
-	gint default_selected;
-
-	GList *values;
-	GList *strings;
-	GList *default_selection;
-
 	GtkWidget *view;
-	GtkListStore *store;
-	gboolean needs_update;
+	GtkTreeModel *model;
+	gsize longest;
+	GList *paths;
 };
 
 struct _HTMLSelectClass {

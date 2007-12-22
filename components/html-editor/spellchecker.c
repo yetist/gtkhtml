@@ -312,7 +312,7 @@ spell_check_dialog (GtkHTMLControlData *cd, gboolean whole_document)
 
 	if (!control) {
 		g_warning ("Cannot create spell control");
-		gtk_widget_unref (dialog);
+		g_object_unref (dialog);
 		goto end;
 	}
 
