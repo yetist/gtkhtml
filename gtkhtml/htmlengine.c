@@ -1793,7 +1793,7 @@ element_parse_a (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		HTMLShape *shape;
 
 		shape = html_shape_new (type, coords, url, target);
-		if (shape)
+		if (shape && e->map)
 			html_map_add_shape (e->map, shape);
 	}
 
