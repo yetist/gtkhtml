@@ -1,5 +1,12 @@
 2008-01-02  Milan Crha  <mcrha@redhat.com>
 
+	** Fix for bug #447122
+
+	* htmlclueflow.c: (search_text):
+	Move to next character when searching forward.
+
+2008-01-02  Milan Crha  <mcrha@redhat.com>
+
 	** Part of fix for bug #317823
 
 	* gtkhtml.h:

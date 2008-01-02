@@ -2277,7 +2277,7 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 		eq_bytes = 0;
 		if (info->found) {
 			if (info->start_pos > 0)
-				index = ((guchar *)g_utf8_offset_to_pointer ((gchar *) par, info->start_pos + ((info->forward) ? 0 : -1))) - par;
+				index = ((guchar *)g_utf8_offset_to_pointer ((gchar *) par, info->start_pos + ((info->forward) ? 1 : -1))) - par;
 			else
 				index = ((guchar *)g_utf8_offset_to_pointer ((gchar *) par, info->start_pos)) - par;
 		} else {
