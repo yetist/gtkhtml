@@ -268,6 +268,7 @@ load_from_file (GtkHTML *html,
 		/* check to see if we stopped because of an error */
 		gtk_html_end (html, handle, GTK_HTML_STREAM_ERROR);
 		g_warning ("%s", g_strerror (errno));
+		close (fd);
 		return TRUE;
 	}
 	/* done with no errors */
@@ -285,7 +286,7 @@ url_requested_cb (GtkHTML *html, const char *url, GtkHTMLStream *handle, gpointe
 	g_return_if_fail (url != NULL);
 	g_return_if_fail (handle != NULL);
 
-	if (load_from_file (html, url, handle)) {
+	if (g_ascii_strncasecmp (url, "cid:", 4) != 0 && load_from_file (html, url, handle)) {
 		/* g_warning ("valid local reponse"); */
 
 	} else if (cd->editor_bonobo_engine) {

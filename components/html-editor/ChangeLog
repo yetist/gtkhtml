@@ -1,3 +1,13 @@
+2008-01-02  Milan Crha  <mcrha@redhat.com>
+
+	** Fix for bug #504051
+
+	* editor-control-factory.c: (url_requested_cb):
+	Do not load from file if url starts with "cid:".
+
+	* editor-control-factory.c: (load_from_file):
+	Close file descriptor even when no data has been read.
+
 2007-12-22  Matthew Barnes  <mbarnes@redhat.com>
 
 	** Fixes part of bug #493709
