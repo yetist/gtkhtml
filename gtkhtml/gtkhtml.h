@@ -327,6 +327,12 @@ char *                     gtk_html_get_url_at                    (GtkHTML      
 								   int                        x,
 								   int                        y);
 char *                     gtk_html_get_cursor_url                (GtkHTML                   *html);
+
+char *                     gtk_html_get_image_src_at              (GtkHTML                   *html,
+								   int                        x,
+								   int                        y);
+char *                     gtk_html_get_cursor_image_src          (GtkHTML                   *html);
+
 void                       gtk_html_set_tokenizer                 (GtkHTML                   *html,
 								   HTMLTokenizer             *tokenizer);
 

@@ -1,4 +1,13 @@
-2008-02-01  Andre Klapper  <a9016009@gmx.de>
+2008-01-02  Milan Crha  <mcrha@redhat.com>
+
+	** Part of fix for bug #317823
+
+	* gtkhtml.h:
+	* gtkhtml.c: (gtk_html_get_image_src_at),
+	(gtk_html_get_cursor_image_src): New API functions to obtain
+	source URL for the image at the specified place in the widget.
+
+2008-01-02  Andre Klapper  <a9016009@gmx.de>
 
 	* htmlengine.c: do not crash on html messages that use "shape" 
 	without "map". workaround for bug #467791.

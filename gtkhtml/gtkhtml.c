@@ -6090,6 +6090,54 @@ gtk_html_get_cursor_url (GtkHTML *html)
 	return NULL;
 }
 
+char *
+gtk_html_get_image_src_at (GtkHTML *html, int x, int y)
+{
+	HTMLObject *obj;
+	gint offset;
+
+	g_return_val_if_fail (GTK_IS_HTML (html), NULL);
+
+	obj = html_engine_get_object_at (html->engine, x, y, (guint *) &offset, FALSE);
+
+	if (obj && HTML_IS_IMAGE (obj)) {
+		HTMLImage *image = (HTMLImage*)obj;
+
+		if (!image->image_ptr)
+			return NULL;
+
+		return g_strdup (image->image_ptr->url);
+	}
+
+	return NULL;
+}
+
+char *
+gtk_html_get_cursor_image_src (GtkHTML *html)
+{
+	HTMLObject *obj;
+	gint offset;
+
+	g_return_val_if_fail (GTK_IS_HTML (html), NULL);
+
+	if (html->engine->caret_mode) {
+		obj = html->engine->cursor->object;
+		offset = html->engine->cursor->offset;
+	} else
+		obj = html_engine_get_focus_object (html->engine, &offset);
+
+	if (obj && HTML_IS_IMAGE (obj)) {
+		HTMLImage *image = (HTMLImage*)obj;
+
+		if (!image->image_ptr)
+			return NULL;
+
+		return g_strdup (image->image_ptr->url);
+	}
+
+	return NULL;
+}
+
 void
 gtk_html_set_tokenizer (GtkHTML *html, HTMLTokenizer *tokenizer)
 {
