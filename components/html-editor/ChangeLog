@@ -1,3 +1,11 @@
+2008-01-14  Alex Kloss  <alexkloss@att.net>
+
+	** Fix for bug #498089
+
+	* gtkhtml-editor-properties.glade: Add/reassign mnemonics for Rows, 
+	Columns, and Image labels to proper widgets.
+	* table.c: (table_widget): Connect Color label mnemonic to GiComboBox.
+
 2008-01-02  Milan Crha  <mcrha@redhat.com>
 
 	** Fix for bug #504051
