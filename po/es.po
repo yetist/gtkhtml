@@ -1,21 +1,22 @@
+# translation of gtkhtml.HEAD.po to Español
 # Translations of gtkhtml into spanish.
 # This file is distributed under the same license as the gtkhtml package.
-# Copyright © 2000-2003, 2006, 2007 Free Software Foundation, Inc.
+# Copyright © 2000-2003, 2006, 2007, 2008 Free Software Foundation, Inc.
 #
 # Héctor García Álvarez <hector@scouts-es.org>, 2000-2001.
 # Juan Manuel García Molina <juanma_gm@wanadoo.es>, 2002.
 # Germán Poo Caamaño <gpoo@ubiobio.cl>, 2003.
 # Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2002, 2003, 2004, 2005, 2006.
-# Jorge González <jorgegonz@svn.gnome.org>, 2007.
+# Jorge González <jorgegonz@svn.gnome.org>, 2007, 2008.
 # QA: Carlos Perelló Marín <carlos@gnome-db.org>
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml.HEAD.es\n"
+"Project-Id-Version: gtkhtml.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-11 04:37+0000\n"
-"PO-Revision-Date: 2007-12-11 06:31+0100\n"
+"POT-Creation-Date: 2008-01-14 09:01+0000\n"
+"PO-Revision-Date: 2008-01-14 15:55+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
-"Language-Team: Spanish <traductores@es.gnome.org>\n"
+"Language-Team: Español <<gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -224,7 +225,7 @@ msgstr "_Insertar"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:36
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
 #: ../components/html-editor/editor-control-factory.c:200
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:34
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:35
 #: ../components/html-editor/popup.c:211
 msgid "Image"
 msgstr "Imagen"
@@ -508,7 +509,7 @@ msgstr "Lista de números romanos"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:90
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
 #: ../components/html-editor/editor-control-factory.c:218
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:45
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:46
 #: ../components/html-editor/menubar.c:194
 #: ../components/html-editor/popup.c:229
 msgid "Rule"
@@ -552,7 +553,7 @@ msgstr "Superíndice"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:49
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:50
 #: ../components/html-editor/menubar.c:218
 #: ../components/html-editor/popup.c:235 ../components/html-editor/popup.c:509
 #: ../components/html-editor/popup.c:521
@@ -607,7 +608,7 @@ msgstr "Lista _alfabética"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:108
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:58
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:59
 msgid "_Bold"
 msgstr "_Negrita"
 
@@ -906,7 +907,7 @@ msgid "Background Image File Path"
 msgstr "Ruta al archivo de imagen de fondo"
 
 #: ../components/html-editor/body.c:275
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:50
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:51
 #: ../components/html-editor/menubar.c:240
 msgid "Template"
 msgstr "Plantilla"
@@ -937,7 +938,7 @@ msgid "Properties"
 msgstr "Propiedades"
 
 #: ../components/html-editor/editor-control-factory.c:208
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:51
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:52
 #: ../components/html-editor/menubar.c:426
 #: ../components/html-editor/popup.c:199
 msgid "Text"
@@ -950,7 +951,7 @@ msgid "Paragraph"
 msgstr "Párrafo"
 
 #: ../components/html-editor/editor-control-factory.c:231
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:43
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:44
 #: ../components/html-editor/menubar.c:409
 #: ../components/html-editor/popup.c:223
 msgid "Page"
@@ -961,201 +962,201 @@ msgid "color preview"
 msgstr "vista preliminar del color"
 
 #. This is the default custom color
-#: ../components/html-editor/gi-color-palette.c:388
+#: ../components/html-editor/gi-color-palette.c:378
 msgid "custom"
 msgstr "personallizado"
 
 #. "Custom" color - we'll pop up a GtkColorDialog
-#: ../components/html-editor/gi-color-palette.c:430
+#: ../components/html-editor/gi-color-palette.c:418
 msgid "Custom Color:"
 msgstr "Color personalizado:"
 
-#: ../components/html-editor/gi-color-palette.c:438
+#: ../components/html-editor/gi-color-palette.c:426
 msgid "Choose Custom Color"
 msgstr "Elija el color personalizado"
 
-#: ../components/html-editor/gi-color-palette.c:571
+#: ../components/html-editor/gi-color-palette.c:559
 msgid "black"
 msgstr "negro"
 
-#: ../components/html-editor/gi-color-palette.c:572
+#: ../components/html-editor/gi-color-palette.c:560
 msgid "light brown"
 msgstr "marrón claro"
 
-#: ../components/html-editor/gi-color-palette.c:573
+#: ../components/html-editor/gi-color-palette.c:561
 msgid "brown gold"
 msgstr "marrón dorado"
 
-#: ../components/html-editor/gi-color-palette.c:574
+#: ../components/html-editor/gi-color-palette.c:562
 msgid "dark green #2"
 msgstr "verde oscuro nº2"
 
-#: ../components/html-editor/gi-color-palette.c:575
+#: ../components/html-editor/gi-color-palette.c:563
 msgid "navy"
 msgstr "azul marino"
 
-#: ../components/html-editor/gi-color-palette.c:576
-#: ../components/html-editor/gi-color-palette.c:632
+#: ../components/html-editor/gi-color-palette.c:564
+#: ../components/html-editor/gi-color-palette.c:620
 msgid "dark blue"
 msgstr "azul oscuro"
 
-#: ../components/html-editor/gi-color-palette.c:577
+#: ../components/html-editor/gi-color-palette.c:565
 msgid "purple #2"
 msgstr "púrpura nº2"
 
-#: ../components/html-editor/gi-color-palette.c:578
+#: ../components/html-editor/gi-color-palette.c:566
 msgid "very dark gray"
 msgstr "gris muy oscuro"
 
-#: ../components/html-editor/gi-color-palette.c:581
-#: ../components/html-editor/gi-color-palette.c:637
+#: ../components/html-editor/gi-color-palette.c:569
+#: ../components/html-editor/gi-color-palette.c:625
 msgid "dark red"
 msgstr "rojo oscuro"
 
-#: ../components/html-editor/gi-color-palette.c:582
+#: ../components/html-editor/gi-color-palette.c:570
 msgid "red-orange"
 msgstr "rojo-anaranjado"
 
-#: ../components/html-editor/gi-color-palette.c:583
+#: ../components/html-editor/gi-color-palette.c:571
 msgid "gold"
 msgstr "dorado"
 
-#: ../components/html-editor/gi-color-palette.c:584
+#: ../components/html-editor/gi-color-palette.c:572
 msgid "dark green"
 msgstr "verde oscuro"
 
-#: ../components/html-editor/gi-color-palette.c:585
-#: ../components/html-editor/gi-color-palette.c:638
+#: ../components/html-editor/gi-color-palette.c:573
+#: ../components/html-editor/gi-color-palette.c:626
 msgid "dull blue"
 msgstr "azul apagado"
 
-#: ../components/html-editor/gi-color-palette.c:586
-#: ../components/html-editor/gi-color-palette.c:639
+#: ../components/html-editor/gi-color-palette.c:574
+#: ../components/html-editor/gi-color-palette.c:627
 msgid "blue"
 msgstr "azul"
 
-#: ../components/html-editor/gi-color-palette.c:587
+#: ../components/html-editor/gi-color-palette.c:575
 msgid "dull purple"
 msgstr "púrpura apagado"
 
-#: ../components/html-editor/gi-color-palette.c:588
+#: ../components/html-editor/gi-color-palette.c:576
 msgid "dark grey"
 msgstr "gris oscuro"
 
-#: ../components/html-editor/gi-color-palette.c:591
+#: ../components/html-editor/gi-color-palette.c:579
 msgid "red"
 msgstr "rojo"
 
-#: ../components/html-editor/gi-color-palette.c:592
+#: ../components/html-editor/gi-color-palette.c:580
 msgid "orange"
 msgstr "naranja"
 
-#: ../components/html-editor/gi-color-palette.c:593
+#: ../components/html-editor/gi-color-palette.c:581
 msgid "lime"
 msgstr "lima"
 
-#: ../components/html-editor/gi-color-palette.c:594
+#: ../components/html-editor/gi-color-palette.c:582
 msgid "dull green"
 msgstr "verde apagado"
 
-#: ../components/html-editor/gi-color-palette.c:595
+#: ../components/html-editor/gi-color-palette.c:583
 msgid "dull blue #2"
 msgstr "azul apagado nº2"
 
-#: ../components/html-editor/gi-color-palette.c:596
+#: ../components/html-editor/gi-color-palette.c:584
 msgid "sky blue #2"
 msgstr "azul cielo nº2"
 
-#: ../components/html-editor/gi-color-palette.c:597
-#: ../components/html-editor/gi-color-palette.c:636
+#: ../components/html-editor/gi-color-palette.c:585
+#: ../components/html-editor/gi-color-palette.c:624
 msgid "purple"
 msgstr "púrpura"
 
-#: ../components/html-editor/gi-color-palette.c:598
+#: ../components/html-editor/gi-color-palette.c:586
 msgid "gray"
 msgstr "gris"
 
-#: ../components/html-editor/gi-color-palette.c:601
-#: ../components/html-editor/gi-color-palette.c:633
+#: ../components/html-editor/gi-color-palette.c:589
+#: ../components/html-editor/gi-color-palette.c:621
 msgid "magenta"
 msgstr "magenta"
 
-#: ../components/html-editor/gi-color-palette.c:602
+#: ../components/html-editor/gi-color-palette.c:590
 msgid "bright orange"
 msgstr "naranja brillante"
 
-#: ../components/html-editor/gi-color-palette.c:603
-#: ../components/html-editor/gi-color-palette.c:634
+#: ../components/html-editor/gi-color-palette.c:591
+#: ../components/html-editor/gi-color-palette.c:622
 msgid "yellow"
 msgstr "amarillo"
 
-#: ../components/html-editor/gi-color-palette.c:604
+#: ../components/html-editor/gi-color-palette.c:592
 msgid "green"
 msgstr "verde"
 
-#: ../components/html-editor/gi-color-palette.c:605
-#: ../components/html-editor/gi-color-palette.c:635
+#: ../components/html-editor/gi-color-palette.c:593
+#: ../components/html-editor/gi-color-palette.c:623
 msgid "cyan"
 msgstr "cian"
 
-#: ../components/html-editor/gi-color-palette.c:606
+#: ../components/html-editor/gi-color-palette.c:594
 msgid "bright blue"
 msgstr "azul brillante"
 
-#: ../components/html-editor/gi-color-palette.c:607
-#: ../components/html-editor/gi-color-palette.c:624
+#: ../components/html-editor/gi-color-palette.c:595
+#: ../components/html-editor/gi-color-palette.c:612
 msgid "red purple"
 msgstr "rojo púrpura"
 
-#: ../components/html-editor/gi-color-palette.c:608
+#: ../components/html-editor/gi-color-palette.c:596
 msgid "light grey"
 msgstr "gris claro"
 
-#: ../components/html-editor/gi-color-palette.c:611
-#: ../components/html-editor/gi-color-palette.c:628
+#: ../components/html-editor/gi-color-palette.c:599
+#: ../components/html-editor/gi-color-palette.c:616
 msgid "pink"
 msgstr "rosa"
 
-#: ../components/html-editor/gi-color-palette.c:612
+#: ../components/html-editor/gi-color-palette.c:600
 msgid "light orange"
 msgstr "naranja claro"
 
+#: ../components/html-editor/gi-color-palette.c:601
 #: ../components/html-editor/gi-color-palette.c:613
-#: ../components/html-editor/gi-color-palette.c:625
 msgid "light yellow"
 msgstr "amarillo claro"
 
-#: ../components/html-editor/gi-color-palette.c:614
+#: ../components/html-editor/gi-color-palette.c:602
 msgid "light green"
 msgstr "verde claro"
 
-#: ../components/html-editor/gi-color-palette.c:615
+#: ../components/html-editor/gi-color-palette.c:603
 msgid "light cyan"
 msgstr "cian claro"
 
-#: ../components/html-editor/gi-color-palette.c:616
-#: ../components/html-editor/gi-color-palette.c:626
+#: ../components/html-editor/gi-color-palette.c:604
+#: ../components/html-editor/gi-color-palette.c:614
 msgid "light blue"
 msgstr "azul claro"
 
-#: ../components/html-editor/gi-color-palette.c:617
-#: ../components/html-editor/gi-color-palette.c:630
+#: ../components/html-editor/gi-color-palette.c:605
+#: ../components/html-editor/gi-color-palette.c:618
 msgid "light purple"
 msgstr "púrpura claro"
 
-#: ../components/html-editor/gi-color-palette.c:618
+#: ../components/html-editor/gi-color-palette.c:606
 msgid "white"
 msgstr "blanco"
 
-#: ../components/html-editor/gi-color-palette.c:623
+#: ../components/html-editor/gi-color-palette.c:611
 msgid "purplish blue"
 msgstr "azul purpúreo"
 
-#: ../components/html-editor/gi-color-palette.c:627
+#: ../components/html-editor/gi-color-palette.c:615
 msgid "dark purple"
 msgstr "púrpura oscuro"
 
-#: ../components/html-editor/gi-color-palette.c:629
+#: ../components/html-editor/gi-color-palette.c:617
 msgid "sky blue"
 msgstr "azul cielo"
 
@@ -1260,30 +1261,34 @@ msgid "Col_umn"
 msgstr "Col_umna"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:28
+msgid "Colu_mns:"
+msgstr "Colu_mnas:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:29
 msgid "Column span:"
 msgstr "Ancho de columna:"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:29
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:30
 msgid "Enable"
 msgstr "Habilitar"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:30
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:31
 msgid "Hea_der style"
 msgstr "Estilo de ca_becera"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:31
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:32
 msgid "Horizontal alignment:"
 msgstr "Alineación horizontal:"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:32
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:33
 msgid "Horizontal:"
 msgstr "Horizontal:"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:33
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:34
 msgid "I_mage:"
 msgstr "I_magen:"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:35
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:36
 msgid ""
 "Left\n"
 "Center\n"
@@ -1293,7 +1298,7 @@ msgstr ""
 "Centro\n"
 "Derecha"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:38
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:39
 msgid ""
 "Left\n"
 "Center\n"
@@ -1305,27 +1310,27 @@ msgstr ""
 "Derecha\n"
 "Ninguna"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:42
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:43
 msgid "Link properties"
 msgstr "Propiedades del enlace"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:44
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:45
 msgid "Row span:"
 msgstr "Tamaño de fila:"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:46
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:47
 msgid "Shade"
 msgstr "Sombreado"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:47
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:48
 msgid "Si_ze:"
 msgstr "_Tamaño:"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:48
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:49
 msgid "Size:"
 msgstr "Tamaño:"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:52
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:53
 msgid ""
 "Top\n"
 "Middle\n"
@@ -1335,29 +1340,25 @@ msgstr ""
 "En medio\n"
 "Abajo"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:55
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:56
 msgid "Vertical:"
 msgstr "Vertical:"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:56
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:57
 msgid "Width:"
 msgstr "Ancho:"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:57
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:58
 msgid "_Alignment:"
 msgstr "_Alineación:"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:59
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:60
 msgid "_Border:"
 msgstr "_Borde:"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:60
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:61
 msgid "_Color:"
 msgstr "_Color:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:61
-msgid "_Columns:"
-msgstr "_Columnas:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:62
 msgid "_Description:"
@@ -1720,15 +1721,15 @@ msgstr "Marco de la imagen"
 msgid "Template Labels"
 msgstr "Etiquetas de la plantilla"
 
-#: ../components/html-editor/test-html-editor-control.c:340
+#: ../components/html-editor/test-html-editor-control.c:263
 msgid "Open file..."
 msgstr "Abrir archivo…"
 
-#: ../components/html-editor/test-html-editor-control.c:342
+#: ../components/html-editor/test-html-editor-control.c:270
 msgid "Save file as..."
 msgstr "Guardar archivo como…"
 
-#: ../components/html-editor/test-html-editor-control.c:574
+#: ../components/html-editor/test-html-editor-control.c:541
 msgid "GtkHTML Editor Test Container"
 msgstr "Contenedor de prueba del editor GtkHTML"
 
@@ -1905,15 +1906,15 @@ msgstr "No se pudo encontrar la tipografía predeterminada para la impresión"
 msgid "GtkHTML Test"
 msgstr "Prueba GtkHTML"
 
-#: ../gtkhtml/testgtkhtml.c:118
+#: ../gtkhtml/testgtkhtml.c:117
 msgid "Print pre_view"
 msgstr "_Vista preliminar de impresión"
 
-#: ../gtkhtml/testgtkhtml.c:118
+#: ../gtkhtml/testgtkhtml.c:117
 msgid "Print preview"
 msgstr "Vista preliminar de impresión"
 
-#: ../gtkhtml/testgtkhtml.c:1038
+#: ../gtkhtml/testgtkhtml.c:1037
 msgid "GtkHTML Test Application"
 msgstr "Aplicación de prueba GtkHTML"
 
