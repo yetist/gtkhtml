@@ -1,3 +1,10 @@
+2008-01-15  Irene Huang  <Irene.Huang@sun.com>
+
+	** Fix for bug #343972
+
+	* spellchecker.c: (replace_all_cb), (spell_check_dialog): Add
+	callback, replace_all_cb for Replace All button.
+
 2008-01-14  Alex Kloss  <alexkloss@att.net>
 
 	** Fix for bug #498089

@@ -212,6 +212,23 @@ replace_cb (BonoboListener *listener, const char *event_name, const CORBA_any *a
 	check_next_word (cd, FALSE, TRUE);
 }
 
+static void 
+replace_all_cb (BonoboListener *listener, const char *event_name, const CORBA_any *arg, CORBA_Environment *ev, gpointer user_data)
+{
+	GtkHTMLControlData *cd = (GtkHTMLControlData *) user_data;
+	const gchar * err_word = NULL;
+
+	err_word = html_engine_get_spell_word (cd->html->engine);
+	g_return_if_fail (err_word);
+
+	html_engine_replace_spell_word_with (cd->html->engine, BONOBO_ARG_GET_STRING (arg)); 
+	while (!next_word (cd, TRUE))	
+		if (!strcmp (err_word, html_engine_get_spell_word (cd->html->engine)))
+			html_engine_replace_spell_word_with (cd->html->engine, BONOBO_ARG_GET_STRING (arg));
+	html_engine_beginning_of_document (cd->html->engine);
+	check_next_word (cd, FALSE, TRUE);
+}
+
 static void
 skip_cb (BonoboListener *listener, const char *event_name, const CORBA_any *arg, CORBA_Environment *ev, gpointer user_data)
 {
@@ -323,6 +340,7 @@ spell_check_dialog (GtkHTMLControlData *cd, gboolean whole_document)
 	bonobo_property_bag_client_set_value_gboolean (cd->spell_control_pb, "single", !whole_document, NULL);
 
 	bonobo_event_source_client_add_listener (cd->spell_control_pb, replace_cb, "Bonobo/Property:change:replace", NULL, cd);
+	bonobo_event_source_client_add_listener (cd->spell_control_pb, replace_all_cb, "Bonobo/Property:change:repall", NULL, cd);
 	bonobo_event_source_client_add_listener (cd->spell_control_pb, add_cb, "Bonobo/Property:change:add", NULL, cd);
 	bonobo_event_source_client_add_listener (cd->spell_control_pb, ignore_cb, "Bonobo/Property:change:ignore", NULL, cd);
 	bonobo_event_source_client_add_listener (cd->spell_control_pb, skip_cb, "Bonobo/Property:change:skip", NULL, cd);
