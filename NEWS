@@ -1,3 +1,20 @@
+GtkHTML-3.17.5 2008-01-14
+-------------------------
+
+Bug Fixes:
+	#317823: Save inline pictures embedded into HTML Mails (Milan Crha)
+	#447122: Move to next character when searching forward (Milan Crha)
+	#467791: Do not crash on html messages that use "shape" without "map" (Andre Klapper)
+	#493709: Remove deprecated GTK+ symbols (Matthew Barnes)
+	#498089: Fix mnemonics issues (Alex Kloss)
+	#504051: Do not load from file if url starts with "cid:" (Milan Crha)
+
+Updated Translations:
+	Changwoo Ryu (ko)
+	Yannig Marchegay (oc)
+	Ivar Smolin (et)
+	Djihed Afifi (ar)
+
 GtkHTML-3.17.4 2007-12-17
 -------------------------
 
