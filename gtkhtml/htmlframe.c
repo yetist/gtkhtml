@@ -377,6 +377,29 @@ destroy (HTMLObject *o)
 	HTML_OBJECT_CLASS (parent_class)->destroy (o);
 }
 
+static HTMLAnchor *
+find_anchor (HTMLObject *self, const char *name, gint *x, gint *y)
+{
+	HTMLFrame *frame;
+	HTMLAnchor *anchor;
+
+	g_return_val_if_fail (HTML_IS_FRAME (self), NULL);
+
+	frame = HTML_FRAME (self);
+
+	if (!frame || !frame->html || !GTK_IS_HTML (frame->html) || !GTK_HTML (frame->html)->engine || !GTK_HTML (frame->html)->engine->clue)
+		return NULL;
+
+	anchor = html_object_find_anchor (GTK_HTML (frame->html)->engine->clue, name, x, y);
+
+	if (anchor) {
+		*x += self->x;
+		*y += self->y - self->ascent;
+	}
+
+	return anchor;
+}
+
 void
 html_frame_set_margin_width (HTMLFrame *frame, gint margin_width)
 {
@@ -570,6 +593,7 @@ html_frame_class_init (HTMLFrameClass *klass,
 	object_class->is_container            = is_container;
 	object_class->append_selection_string = append_selection_string;
 	object_class->select_range            = select_range;
+	object_class->find_anchor             = find_anchor;
 
 	embedded_class->reparent = reparent;
 }

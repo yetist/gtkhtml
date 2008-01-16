@@ -1,3 +1,11 @@
+2008-01-16  Milan Crha  <mcrha@redhat.com>
+
+	** Fix for bug #431190
+
+	* htmliframe.c: (find_anchor), (html_iframe_class_init):
+	* htmlframe.c: (find_anchor), (html_frame_class_init):
+	Look for anchors in FRAME and IFRAME too.
+
 2008-01-02  Milan Crha  <mcrha@redhat.com>
 
 	** Fix for bug #447122

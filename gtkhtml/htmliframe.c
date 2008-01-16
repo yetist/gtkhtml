@@ -273,6 +273,29 @@ op_copy (HTMLObject *self, HTMLObject *parent, HTMLEngine *e, GList *from, GList
 	return dup;
 }
 
+static HTMLAnchor *
+find_anchor (HTMLObject *self, const char *name, gint *x, gint *y)
+{
+	HTMLIFrame *iframe;
+	HTMLAnchor *anchor;
+
+	g_return_val_if_fail (HTML_IS_IFRAME (self), NULL);
+
+	iframe = HTML_IFRAME (self);
+
+	if (!iframe || !iframe->html || !GTK_IS_HTML (iframe->html) || !GTK_HTML (iframe->html)->engine || !GTK_HTML (iframe->html)->engine->clue)
+		return NULL;
+
+	anchor = html_object_find_anchor (GTK_HTML (iframe->html)->engine->clue, name, x, y);
+
+	if (anchor) {
+		*x += self->x;
+		*y += self->y - self->ascent;
+	}
+
+	return anchor;
+}
+
 void
 html_iframe_set_margin_width (HTMLIFrame *iframe, gint margin_width)
 {
@@ -706,6 +729,7 @@ html_iframe_class_init (HTMLIFrameClass *klass,
 	object_class->check_point             = check_point;
 	object_class->is_container            = is_container;
 	object_class->append_selection_string = append_selection_string;
+	object_class->find_anchor             = find_anchor;
 
 	embedded_class->reparent = reparent;
 }
