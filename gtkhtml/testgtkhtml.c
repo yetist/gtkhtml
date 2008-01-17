@@ -89,13 +89,7 @@ static void on_set_base (GtkHTML *html, const gchar *url, gpointer data);
 
 static gchar *parse_href (const gchar *s);
 
-#ifdef HAVE_OLD_SOUP
-#define SOUP_STATUS_IS_SUCCESSFUL SOUP_ERROR_IS_SUCCESSFUL
-#define status_code errorcode
-#define reason_phrase errorphrase
-#else
 static SoupSession *session;
-#endif
 
 static GtkHTML *html;
 static GtkHTMLStream *html_stream_handle = NULL;
@@ -516,11 +510,7 @@ static void
 stop_cb (GtkWidget *widget, gpointer data)
 {
 	/* Kill all requests */
-#ifdef HAVE_OLD_SOUP
-	soup_shutdown ();
-#else
 	soup_session_abort (session);
-#endif
 	html_stream_handle = NULL;
 }
 
@@ -667,7 +657,7 @@ object_requested_cmd (GtkHTML *html, GtkHTMLEmbedded *eb, void *data)
 }
 
 static void
-got_data (SoupMessage *msg, gpointer user_data)
+got_data (SoupSession *session, SoupMessage *msg, gpointer user_data)
 {
 	GtkHTMLStream *handle = user_data;
 
@@ -677,7 +667,8 @@ got_data (SoupMessage *msg, gpointer user_data)
 		return;
 	}
 
-	gtk_html_write (html, handle, msg->response.body, msg->response.length);
+	gtk_html_write (html, handle, msg->response_body->data,
+			msg->response_body->length);
 	gtk_html_end (html, handle, GTK_HTML_STREAM_OK);
 }
 
@@ -690,17 +681,8 @@ url_requested (GtkHTML *html, const char *url, GtkHTMLStream *handle, gpointer d
 
 	if (full_url && !strncmp (full_url, "http", 4)) {
 		SoupMessage *msg;
-#ifdef HAVE_OLD_SOUP
-		SoupContext *ctx;
-
-		ctx = soup_context_get (full_url);
-		msg = soup_message_new (ctx, SOUP_METHOD_GET);
-
-		soup_message_queue (msg, got_data, handle);
-#else
 		msg = soup_message_new (SOUP_METHOD_GET, full_url);
 		soup_session_queue_message (session, msg, got_data, handle);
-#endif
 	} else if (full_url && !strncmp (full_url, "file:", 5)) {
 		char *filename = gtk_html_filename_from_uri (full_url);
 		struct stat st;
@@ -851,11 +833,7 @@ goto_url(const char *url, int back_or_forward)
 	gchar *full_url;
 
 	/* Kill all requests */
-#ifdef HAVE_OLD_SOUP
-	soup_shutdown ();
-#else
 	soup_session_abort (session);
-#endif
 
 	/* Remove any pending redirection */
 	if(redirect_timerId) {
@@ -1060,9 +1038,7 @@ main (gint argc, gchar *argv[])
 
 	gnome_app_set_contents (GNOME_APP (app), scrolled_window);
 
-#ifndef HAVE_OLD_SOUP
 	session = soup_session_async_new ();
-#endif
 
 	html_widget = gtk_html_new ();
 	html = GTK_HTML (html_widget);

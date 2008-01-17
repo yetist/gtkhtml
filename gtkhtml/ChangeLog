@@ -1,3 +1,8 @@
+2008-01-17  Dan Winship  <danw@gnome.org>
+
+	* testgtkhtml.c: Port from libsoup 2.2 to 2.4. Remove old libsoup
+	2.0 support.
+
 2008-01-16  Milan Crha  <mcrha@redhat.com>
 
 	** Fix for bug #431190

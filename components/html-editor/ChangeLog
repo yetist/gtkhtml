@@ -1,3 +1,7 @@
+2008-01-15  Dan Winship  <danw@gnome.org>
+
+	* Makefile.am (INCLUDES): remove unused $(SOUP_CFLAGS)
+
 2008-01-15  Irene Huang  <Irene.Huang@sun.com>
 
 	** Fix for bug #343972

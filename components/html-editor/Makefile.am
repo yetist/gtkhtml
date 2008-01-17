@@ -16,7 +16,6 @@ INCLUDES = \
 	-I$(srcdir) \
 	-I$(includedir) \
 	$(GTKHTML_CFLAGS) \
-	$(SOUP_CFLAGS) \
 	$(EDITOR_I18N_CFLAGS) \
 	-DG_LOG_DOMAIN=\"gtkhtml\" \
 	-DSRCDIR=\"$(srcdir)\" \
