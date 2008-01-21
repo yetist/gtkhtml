@@ -24,8 +24,6 @@ else
   zip $ZIP lib/locale/*/LC_MESSAGES/gtkhtml-@GTKHTML_API_VERSION@.mo
 fi
 
-zip $ZIP lib/locale/*/LC_MESSAGES/gtkhtml-@GTKHTML_API_VERSION@.mo
-
 rm $DEVZIP
 zip -r $DEVZIP -@ <<EOF
 lib/libgtkhtml-@GTKHTML_API_VERSION@.dll.a
