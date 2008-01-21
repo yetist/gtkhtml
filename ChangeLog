@@ -1,3 +1,8 @@
+2008-01-21  Tor Lillqvist  <tml@novell.com>
+
+	* gtkhtml-zip.in: Look for catalogs in share/locale first, as that
+	is where they will be with a properly built GNU gettext.
+
 2008-01-17  Dan Winship  <danw@gnome.org>
 
 	* configure.in: Update to check for libsoup 2.4 rather than 2.2.
