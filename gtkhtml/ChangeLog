@@ -1,3 +1,10 @@
+2008-01-22  Milan Crha  <mcrha@redhat.com>
+
+	** Fix for bug #505819
+
+	* gtkhtml.c: (clipboard_paste_received_cb): Removed (probably)
+	forgotten g_object_unref. We should not unref ourself.
+
 2008-01-17  Dan Winship  <danw@gnome.org>
 
 	* testgtkhtml.c: Port from libsoup 2.2 to 2.4. Remove old libsoup

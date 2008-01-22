@@ -4287,7 +4287,6 @@ clipboard_paste_received_cb (GtkClipboard     *clipboard,
 
 		if (utf8)
 			g_free (utf8);
-		g_object_unref (data);
 
 		return;
 	}
