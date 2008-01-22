@@ -1,3 +1,10 @@
+2008-01-22  Bharath Acharya  <abharath@novell.com>
+
+	** Fix for bug #491210
+
+	* search.c: (search_dialog_response): The GtkHTMLSearchDialog was
+	being accessed after destroying it.
+
 2008-01-15  Dan Winship  <danw@gnome.org>
 
 	* Makefile.am (INCLUDES): remove unused $(SOUP_CFLAGS)

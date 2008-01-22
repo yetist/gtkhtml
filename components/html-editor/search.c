@@ -93,9 +93,9 @@ search_dialog_response (GtkDialog *dialog, gint response_id, GtkHTMLSearchDialog
 	case GTK_RESPONSE_DELETE_EVENT:
 	case GTK_RESPONSE_CLOSE:
 	case GTK_RESPONSE_CANCEL:
+		gtk_widget_grab_focus (GTK_WIDGET (d->cd->html));
 		d->cd->search_dialog = NULL;
 		gtk_html_search_dialog_destroy (d);
-		gtk_widget_grab_focus (GTK_WIDGET (d->cd->html));
 		break;
 	}
 }
