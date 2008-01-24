@@ -1,3 +1,10 @@
+2008-01-24  Milan Crha  <mcrha@redhat.com>
+
+	** Fix for bug #447122
+
+	* htmlclueflow.c: (search_text): Move to next character when
+	searching forward also when found as first character of paragraph.
+
 2008-01-23  Tor Lillqvist  <tml@novell.com>
 
 	* testgtkhtml.c: #undef DATADIR on Windows do avoid clash.
