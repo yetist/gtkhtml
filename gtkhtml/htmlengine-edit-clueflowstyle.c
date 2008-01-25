@@ -172,7 +172,7 @@ undo_or_redo (HTMLEngine *engine, HTMLUndoData *data, HTMLUndoDirection dir, gui
 
 	p = op->prop_list;
 
-	while (p != NULL) {
+	while (p != NULL && obj != NULL) {
 		if (HTML_OBJECT_TYPE (obj->parent) != HTML_TYPE_CLUEFLOW) {
 			g_warning ("(%s:%s)  Eeeek!  Unknown parent type `%s'.",
 				   __FILE__, G_GNUC_FUNCTION,

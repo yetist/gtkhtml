@@ -1,3 +1,10 @@
+2008-01-25  Johnny Jacob  <jjohnny@novell.com>
+	
+	** Fix for bug #371011
+	** Patch by Matthew Barnes  <mbarnes@redhat.com>.
+
+	* htmlengine-edit-clueflowstyle.c (undo_or_redo): Null check.
+	
 2008-01-24  Milan Crha  <mcrha@redhat.com>
 
 	** Fix for bug #447122
