@@ -175,7 +175,7 @@ static void
 changed_align (GtkWidget *w, GtkHTMLEditImageProperties *d)
 {
 	if (!d->disable_change && editor_has_html_object (d->cd, HTML_OBJECT (d->image)))
-		html_image_set_valign (d->image, g_list_index (GTK_MENU_SHELL (w)->children, gtk_menu_get_active (GTK_MENU (w))));
+		html_image_set_valign (d->image, gtk_combo_box_get_active (GTK_COMBO_BOX (d->option_align)));
 }
 
 static void

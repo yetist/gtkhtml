@@ -1,5 +1,12 @@
 2008-01-22  Bharath Acharya  <abharath@novell.com>
 
+	** Fix for bug #489456
+
+	* image.c: (changed_align): Fetch the HTMLVAlignType value from
+	the Combo box d->option_align
+
+2008-01-22  Bharath Acharya  <abharath@novell.com>
+
 	** Fix for bug #491210
 
 	* search.c: (search_dialog_response): The GtkHTMLSearchDialog was
