@@ -28,6 +28,8 @@
 #include <glib/gi18n.h>
 #endif
 
+#include <string.h>
+
 #include "gtkhtml.h"
 #include "gtkhtml-properties.h"
 

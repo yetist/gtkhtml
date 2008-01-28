@@ -1,3 +1,7 @@
+2008-01-28  Matthew Barnes  <mbarnes@redhat.com>
+
+	* spellchecker.c: Fix an implicit function declaration.
+
 2008-01-22  Bharath Acharya  <abharath@novell.com>
 
 	** Fix for bug #489456
