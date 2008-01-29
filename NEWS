@@ -1,3 +1,24 @@
+GtkHTML-3.17.90 2008-01-28
+--------------------------
+
+New in 2.21.90:
+	Support for Anchors (Frame/IFRAME) (Milan Crha)
+
+Bug Fixes:
+	#371011: crash in undo_or_redo (Matthew Barnes/Johnny)
+	#431190: Look for anchors in FRAME and IFRAME too (Milan Crha)
+	#447122: Move to next character when searching forward also when found as first character of paragraph (Milan Crha)
+	#489456: evolution crashed when changing image alignment  (Bharath Acharya)
+	#491210: The GtkHTMLSearchDialog was being accessed after destroying it (Bharath Acharya)
+	#505819: We should not unref ourself (Milan Crha)
+
+Other Contributors:
+	libsoup updates (Dan Winship)
+	Build changes (Tor Lillqvist)
+
+Updated Translations:
+	Ivar Smolin (et)
+
 GtkHTML-3.17.5 2008-01-14
 -------------------------
 
