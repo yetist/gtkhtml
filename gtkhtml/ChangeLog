@@ -1,3 +1,8 @@
+2008-01-29  Srinivasa Ragavan  <sragavan@novell.com>
+
+	* htmlengine-edit-clueflowstyle.c: (undo_or_redo),
+	(set_clueflow_style_in_region): Move to G_STRFUNC
+
 2008-01-25  Johnny Jacob  <jjohnny@novell.com>
 	
 	** Fix for bug #371011

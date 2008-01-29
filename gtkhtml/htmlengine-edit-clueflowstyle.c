@@ -175,7 +175,7 @@ undo_or_redo (HTMLEngine *engine, HTMLUndoData *data, HTMLUndoDirection dir, gui
 	while (p != NULL && obj != NULL) {
 		if (HTML_OBJECT_TYPE (obj->parent) != HTML_TYPE_CLUEFLOW) {
 			g_warning ("(%s:%s)  Eeeek!  Unknown parent type `%s'.",
-				   __FILE__, G_GNUC_FUNCTION,
+				   __FILE__, G_STRFUNC,
 				   html_type_name (HTML_OBJECT_TYPE (obj->parent)));
 			break;
 		}
@@ -209,7 +209,7 @@ undo_or_redo (HTMLEngine *engine, HTMLUndoData *data, HTMLUndoDirection dir, gui
 				/* This should not happen.  */
 				g_warning ("(%s:%s)  There were not enough paragraphs for "
 					   "setting the paragraph style.",
-					   __FILE__, G_GNUC_FUNCTION);
+					   __FILE__, G_STRFUNC);
 				break;
 			}
 		} while (obj != NULL && HTML_CLUEFLOW (obj->parent) == clueflow);
@@ -217,7 +217,7 @@ undo_or_redo (HTMLEngine *engine, HTMLUndoData *data, HTMLUndoDirection dir, gui
 
 	if (prop_list == NULL) {
 		/* This should not happen.  */
-		g_warning ("%s:%s Eeek!  Nothing done?", __FILE__, G_GNUC_FUNCTION);
+		g_warning ("%s:%s Eeek!  Nothing done?", __FILE__, G_STRFUNC);
 		return;
 	}
 
@@ -280,7 +280,7 @@ set_clueflow_style_in_region (HTMLEngine *engine,
 	while (p != NULL) {
 		if (HTML_OBJECT_TYPE (p->parent) != HTML_TYPE_CLUEFLOW) {
 			g_warning ("(%s:%s)  Eeeek!  Unknown parent type `%s'.",
-				   __FILE__, G_GNUC_FUNCTION,
+				   __FILE__, G_STRFUNC,
 				   html_type_name (HTML_OBJECT_TYPE (p->parent)));
 			break;
 		}
