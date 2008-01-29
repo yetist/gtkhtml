@@ -1,5 +1,9 @@
 2008-01-29  Srinivasa Ragavan  <sragavan@novell.com>
 
+	* configure.in: Version bump for 3.17.91
+
+2008-01-29  Srinivasa Ragavan  <sragavan@novell.com>
+
 	* NEWS: GtkHTML 3.17.90 release.
 
 2008-01-21  Tor Lillqvist  <tml@novell.com>
