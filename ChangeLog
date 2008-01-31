@@ -1,3 +1,7 @@
+2008-01-31  Matthew Barnes  <mbarnes@redhat.com>
+
+	* configure.in: Explicitly require libbonobo >= 2.20.3.
+
 2008-01-29  Srinivasa Ragavan  <sragavan@novell.com>
 
 	* configure.in: Version bump for 3.17.91
