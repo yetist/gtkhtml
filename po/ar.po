@@ -1,33 +1,32 @@
 # translation of gtkhtml.HEAD.ar.po to Arabic
-# Copyright (C) 2002, 2007 Free Software Foundation, Inc.
+# Copyright (C) 2002, 2007, 2008 Free Software Foundation, Inc.
 #
 # Arafat Medini <lumina@silverpen.de>, 2002.
 # Djihed Afifi <djihed@gmail.com>, 2006.
-# Khaled Hosny <khaledhosny@eglug.org>, 2007.
+# Khaled Hosny <khaledhosny@eglug.org>, 2007, 2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml\n"
+"Project-Id-Version: gtkhtml.HEAD.ar\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-01-31 08:08+0000\n"
-"PO-Revision-Date: 2007-12-23 13:54+0100\n"
-"Last-Translator: Djihed Afifi <djihed@gmail.com>\n"
+"PO-Revision-Date: 2008-02-01 00:24+0200\n"
+"Last-Translator: Khaled Hosny <khaledhosny@eglug.org>\n"
 "Language-Team: Arabic <doc@arabeyes.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: Plural-Forms: nplurals=4; plural=n==1 ? 0 : n==2 ? 1 : n>=3 && "
-"n<=10 ? 2 : 3\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
 #: ../a11y/image.c:151
 #, c-format
 msgid "URL is %s, Alternative Text is %s"
-msgstr "العنوان: %s, النص البديل: %s"
+msgstr "المسار: %s، النص البديل: %s"
 
 #: ../a11y/image.c:153
 #, c-format
 msgid "URL is %s"
-msgstr "العنوان: %s"
+msgstr "المسار: %s"
 
 #: ../a11y/object.c:52 ../a11y/object.c:61 ../a11y/text.c:127
 msgid "grab focus"
@@ -1257,7 +1256,6 @@ msgid "Col_umn"
 msgstr "_عمود"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:28
-#, fuzzy
 msgid "Colu_mns:"
 msgstr "أ_عمدة:"
 
@@ -1443,7 +1441,7 @@ msgstr "xxxxxxxxxxxxxx"
 
 #: ../components/html-editor/link.c:227
 msgid "URL:"
-msgstr "العنوان:"
+msgstr "المسار:"
 
 #: ../components/html-editor/link.c:231
 msgid "Description:"
@@ -1686,7 +1684,7 @@ msgid ""
 "Unable to add word to dictionary,\n"
 "language settings are broken.\n"
 msgstr ""
-"لا يمكن إضافة الكلمة للمعجم,\n"
+"لا يمكن إضافة الكلمة للمعجم،\n"
 "اعدادت اللغة غير صحيحة.\n"
 
 #: ../components/html-editor/spellchecker.c:322
@@ -1792,7 +1790,7 @@ msgstr "عينة"
 
 #: ../components/html-editor/utils.c:205
 msgid "_Test URL..."
-msgstr "عنوان ال_تجريب..."
+msgstr "مسار ال_تجريب..."
 
 #: ../components/html-editor/utils.c:248
 msgid ""
@@ -1832,7 +1830,7 @@ msgstr "أساس الهدف"
 
 #: ../gtkhtml/gtkhtml.c:2939
 msgid "The base URL of the target frame"
-msgstr "المسار القاعدي لعنوان الإطار الهدف"
+msgstr "المسار القاعدي لمسار الإطار الهدف"
 
 #: ../gtkhtml/gtkhtml.c:2948
 msgid "Fixed Width Font"
@@ -1915,38 +1913,3 @@ msgstr "معاينة الطباعة"
 msgid "GtkHTML Test Application"
 msgstr "تطبيق تجريبي ل GtkHTML"
 
-#~ msgid "C_ut"
-#~ msgstr "_قص"
-
-#~ msgid "Find Rege_x..."
-#~ msgstr "اعثر علىRege_x ..."
-
-#~ msgid "Modify the file's properties"
-#~ msgstr "عدل خصائص الملف"
-
-#~ msgid "Regular expression search"
-#~ msgstr "بحث عن تعابير نمطيّة"
-
-#~ msgid "Replace a string"
-#~ msgstr "استبدل سلسلة محارف"
-
-#~ msgid "Search again for the same string"
-#~ msgstr "ابحث ثنية عن نفس السلسلة النصيّة"
-
-#~ msgid "Search for a string"
-#~ msgstr "ابحث عن سلسل نصية"
-
-#~ msgid "_Insert"
-#~ msgstr "إ_دراج"
-
-#~ msgid "_Insert text file... (FIXME)"
-#~ msgstr "ا_درج ملف نصي... (FIXME)"
-
-#~ msgid "_Paste Quotation"
-#~ msgstr "ال_صق اقتباس"
-
-#~ msgid "_Properties..."
-#~ msgstr "_خصائص.."
-
-#~ msgid "Paste Quotation"
-#~ msgstr "لصق اقتباس"
