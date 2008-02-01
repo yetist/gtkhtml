@@ -14,9 +14,9 @@ msgstr ""
 "Project-Id-Version: gtkhtml.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-01-14 09:01+0000\n"
-"PO-Revision-Date: 2008-01-14 15:55+0100\n"
+"PO-Revision-Date: 2008-02-01 14:15+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
-"Language-Team: Español <<gnome-es-list@gnome.org>\n"
+"Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1908,11 +1908,11 @@ msgstr "Prueba GtkHTML"
 
 #: ../gtkhtml/testgtkhtml.c:117
 msgid "Print pre_view"
-msgstr "_Vista preliminar de impresión"
+msgstr "_Vista previa de impresión"
 
 #: ../gtkhtml/testgtkhtml.c:117
 msgid "Print preview"
-msgstr "Vista preliminar de impresión"
+msgstr "Vista previa de impresión"
 
 #: ../gtkhtml/testgtkhtml.c:1037
 msgid "GtkHTML Test Application"
