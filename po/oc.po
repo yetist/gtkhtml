@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: oc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-01-20 16:47+0100\n"
+"POT-Creation-Date: 2008-02-02 21:54+0100\n"
 "PO-Revision-Date: 2007-12-27 13:34+0100\n"
 "Last-Translator: Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>\n"
 "Language-Team: Occitan <ubuntu-l10n-oci@lists.ubuntu.com>\n"
@@ -1247,8 +1247,8 @@ msgstr "Cellula"
 msgid "Col_umn"
 msgstr "Col_omna"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:28
 #
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:28
 msgid "Colu_mns:"
 msgstr "Colomnas :"
 
@@ -1659,21 +1659,21 @@ msgstr ""
 msgid "Input the words you want to search here"
 msgstr ""
 
-#: ../components/html-editor/spellchecker.c:114
+#: ../components/html-editor/spellchecker.c:116
 msgid ""
 "Unable to add word to dictionary,\n"
 "language settings are broken.\n"
 msgstr ""
 
-#: ../components/html-editor/spellchecker.c:320
+#: ../components/html-editor/spellchecker.c:322
 msgid "No misspelled word found"
 msgstr ""
 
-#: ../components/html-editor/spellchecker.c:327
+#: ../components/html-editor/spellchecker.c:329
 msgid "Spell checker"
 msgstr ""
 
-#: ../components/html-editor/spellchecker.c:422
+#: ../components/html-editor/spellchecker.c:424
 msgid "Current _Languages"
 msgstr ""
 
@@ -1877,14 +1877,14 @@ msgstr ""
 msgid "GtkHTML Test"
 msgstr ""
 
-#: ../gtkhtml/testgtkhtml.c:111
+#: ../gtkhtml/testgtkhtml.c:116
 msgid "Print pre_view"
 msgstr ""
 
-#: ../gtkhtml/testgtkhtml.c:111
+#: ../gtkhtml/testgtkhtml.c:116
 msgid "Print preview"
 msgstr "Previsualizacion de l'estampatge"
 
-#: ../gtkhtml/testgtkhtml.c:1015
+#: ../gtkhtml/testgtkhtml.c:1020
 msgid "GtkHTML Test Application"
 msgstr ""
