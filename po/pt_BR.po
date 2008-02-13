@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-02 15:17-0200\n"
+"POT-Creation-Date: 2008-02-13 12:27-0300\n"
 "PO-Revision-Date: 2008-01-25 19:05-0300\n"
 "Last-Translator: Vladimir Melo <vladimirmelo@foresightlinux.org>\n"
 "Language-Team: Brazilian Portuguese <gnome-l10n-br@listas.cipsga.org.br>\n"
@@ -23,12 +23,12 @@ msgstr ""
 #: ../a11y/image.c:151
 #, c-format
 msgid "URL is %s, Alternative Text is %s"
-msgstr "A URL é %s, o Texto Alternativo é %s"
+msgstr "O URL é %s, o Texto Alternativo é %s"
 
 #: ../a11y/image.c:153
 #, c-format
 msgid "URL is %s"
-msgstr "A URL é %s"
+msgstr "O URL é %s"
 
 #: ../a11y/object.c:52 ../a11y/object.c:61 ../a11y/text.c:127
 msgid "grab focus"
@@ -149,7 +149,7 @@ msgstr "Recorta a seleção"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
 msgid "Emoti_con"
-msgstr "_Carinha"
+msgstr "Emoti_con"
 
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:23
@@ -230,12 +230,12 @@ msgstr "Imagem"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:37
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
 msgid "Insert Crying emoticon into document..."
-msgstr "Insere carinha Chorando no documento..."
+msgstr "Insere emoticon \"Chorando\" no documento..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:38
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
 msgid "Insert Frown emoticon into document..."
-msgstr "Insere carinha Desconfiada no documento..."
+msgstr "Insere emoticon \"Desconfiado\" no documento..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:39
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
@@ -255,47 +255,47 @@ msgstr "Insere modelo HTML no documento..."
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:42
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
 msgid "Insert Indifferent emoticon into document..."
-msgstr "Insere carinha Indiferente no documento..."
+msgstr "Insere emoticon \"Indiferente\" no documento..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:43
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
 msgid "Insert Laughing emoticon into document..."
-msgstr "Insere carinha Gargalhando no documento..."
+msgstr "Insere emoticon \"Gargalhada\" no documento..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:44
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
 msgid "Insert Oh no! emoticon into document..."
-msgstr "Insere carinha Ah não! no documento..."
+msgstr "Insere emoticon \"Ah, não!\" no documento..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:45
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
 msgid "Insert Sick emoticon into document..."
-msgstr "Insere carinha enjoada no documento..."
+msgstr "Insere emoticon \"Enjoado\" no documento..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:46
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
 msgid "Insert Smile emoticon into document..."
-msgstr "Insere carinha Sorrindo no documento..."
+msgstr "Insere emoticon \"Sorrindo\" no documento..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:47
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
 msgid "Insert Surprised emoticon into document..."
-msgstr "Insere carinha Surpresa no documento..."
+msgstr "Insere emoticon \"Surpreso\" no documento..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:48
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
 msgid "Insert Tongue emoticon into document..."
-msgstr "Insere carinha Com Língua no documento..."
+msgstr "Insere emoticon \"Língua\" no documento..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:49
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
 msgid "Insert Undecided emoticon into document..."
-msgstr "Insere carinha Indecisa no documento..."
+msgstr "Insere emoticon \"Indeciso\" no documento..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:50
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
 msgid "Insert Wink emoticon into document..."
-msgstr "Insere carinha Piscando no documento..."
+msgstr "Insere emoticon \"Piscando\" no documento..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:51
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
@@ -436,7 +436,7 @@ msgstr "_Lista Numerada"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:77
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
 msgid "Oh _No!"
-msgstr "Ah _não!"
+msgstr "Ah, _não!"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:78
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
@@ -536,7 +536,7 @@ msgstr "Riscado"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:95
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
 msgid "Su_rprised"
-msgstr "Su_rpresa"
+msgstr "Su_rpreso"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:96
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
@@ -683,7 +683,7 @@ msgstr "_Itálico"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:123
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
 msgid "_Laughing"
-msgstr "_Gargalhando"
+msgstr "_Gargalhada"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
@@ -814,15 +814,15 @@ msgstr "_Piscando"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:1
 msgid "GNOME HTML Editor"
-msgstr "Editor de HTML do GNOME"
+msgstr "O Editor de HTML do GNOME"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:2
 msgid "GNOME HTML Editor Control"
-msgstr "Controle do editor HTML do GNOME"
+msgstr "O Controle do editor HTML do GNOME"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:3
 msgid "GNOME HTML Editor Factory"
-msgstr "Fábrica do Editor HTML do GNOME"
+msgstr "A Fábrica do Editor HTML do GNOME"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
 msgid "Make the current Paragraph style Preformatted"
@@ -1435,7 +1435,7 @@ msgid ""
 msgstr ""
 "px\n"
 "%\n"
-"seguir"
+"segue"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:87
 msgid "xxxxxxxxxxxxxx"
@@ -1824,7 +1824,7 @@ msgstr "Base do Documento"
 
 #: ../gtkhtml/gtkhtml.c:2932
 msgid "The base URL for relative references"
-msgstr "A URL base para referências relativas"
+msgstr "O URL base para referências relativas"
 
 #: ../gtkhtml/gtkhtml.c:2938
 msgid "Target Base"
@@ -1832,7 +1832,7 @@ msgstr "Base do Alvo"
 
 #: ../gtkhtml/gtkhtml.c:2939
 msgid "The base URL of the target frame"
-msgstr "A URL base do frame alvo"
+msgstr "O URL base do frame alvo"
 
 #: ../gtkhtml/gtkhtml.c:2948
 msgid "Fixed Width Font"
@@ -1876,7 +1876,7 @@ msgstr "A cor das marcas de erros de ortografia"
 
 #: ../gtkhtml/gtkhtml.c:2979
 msgid "Cite Quotation Color"
-msgstr "Cor da Citação"
+msgstr "Cor de Citação"
 
 #: ../gtkhtml/gtkhtml.c:2980
 msgid "The color of the cited text"
@@ -1914,180 +1914,3 @@ msgstr "Visualizar impressão"
 #: ../gtkhtml/testgtkhtml.c:1020
 msgid "GtkHTML Test Application"
 msgstr "Aplicação de teste do GtkHTML"
-
-#~ msgid "C_ut"
-#~ msgstr "Recor_tar"
-
-#~ msgid "Find Rege_x..."
-#~ msgstr "Localizar _Expressão Regular..."
-
-#~ msgid "Modify the file's properties"
-#~ msgstr "Modifica as propriedades do arquivo"
-
-#~ msgid "Regular expression search"
-#~ msgstr "Pesquisa usando expressões regulares"
-
-#~ msgid "Replace a string"
-#~ msgstr "Substitui o texto"
-
-#~ msgid "Search again for the same string"
-#~ msgstr "Pesquisa novamente pelo mesmo trecho de texto"
-
-#~ msgid "Search for a string"
-#~ msgstr "Pesquisa por um trecho de texto"
-
-#~ msgid "_Insert"
-#~ msgstr "_Inserir"
-
-#~ msgid "_Insert text file... (FIXME)"
-#~ msgstr "_Inserir arquivo de texto... (FIXME)"
-
-#~ msgid "_Paste Quotation"
-#~ msgstr "Colar Ci_tação"
-
-#~ msgid "_Properties..."
-#~ msgstr "_Propriedades..."
-
-#~ msgid "Paste Quotation"
-#~ msgstr "Colar Citação"
-
-#~ msgid "%"
-#~ msgstr "%"
-
-#~ msgid "Bottom"
-#~ msgstr "Base"
-
-#~ msgid "Middle"
-#~ msgstr "Meio"
-
-#~ msgid "Percent"
-#~ msgstr "Percentual"
-
-#~ msgid "Pixels"
-#~ msgstr "Pixels"
-
-#~ msgid "Standard"
-#~ msgstr "Padrão"
-
-#~ msgid "Top"
-#~ msgstr "Topo"
-
-#~ msgid "Dot item"
-#~ msgstr "Item marcado"
-
-#~ msgid "Number item"
-#~ msgstr "Item numerado"
-
-#~ msgid "Roman item"
-#~ msgstr "Item em romanos"
-
-#~ msgid "Alphabeta item"
-#~ msgstr "Item alfabético"
-
-#~ msgid "Li_ck"
-#~ msgstr "_Lamber"
-
-#~ msgid "Check Word Spelling..."
-#~ msgstr "Verificar Ortografia da Palavra..."
-
-#~ msgid "Find And Replace"
-#~ msgstr "Localizar e substituir"
-
-#~ msgid "Insert Lick smiley into document..."
-#~ msgstr "Inserir carinha lambendo no documento..."
-
-#~ msgid "_Preformat"
-#~ msgstr "_Preformato"
-
-#~ msgid "_Smiley"
-#~ msgstr "_Carinha"
-
-#~ msgid "_Spell Check Document..."
-#~ msgstr "Fazer _verificação ortográfica do documento..."
-
-#~ msgid "_Strikeout"
-#~ msgstr "_Riscado"
-
-#~ msgid "Length:"
-#~ msgstr "Comprimento:"
-
-#~ msgid "Thickness:"
-#~ msgstr "Espessura:"
-
-#~ msgid "_Visit..."
-#~ msgstr "_Visitar..."
-
-#~ msgid "Background Color"
-#~ msgstr "Cor de fundo"
-
-#~ msgid "Blue"
-#~ msgstr "Azul"
-
-#~ msgid "Green"
-#~ msgstr "Verde"
-
-#~ msgid "Orange"
-#~ msgstr "Laranja"
-
-#~ msgid "Other..."
-#~ msgstr "Outro..."
-
-#~ msgid "Purple"
-#~ msgstr "Roxo"
-
-#~ msgid "Red"
-#~ msgstr "Vermelho"
-
-#~ msgid "Su_perscript"
-#~ msgstr "So_brescrito"
-
-#~ msgid "Subs_cript"
-#~ msgstr "Subs_crito"
-
-#~ msgid "Yellow"
-#~ msgstr "Amarelo"
-
-#~ msgid "etc..."
-#~ msgstr "etc..."
-
-#~ msgid ""
-#~ "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
-#~ msgstr ""
-#~ "A URL do Mozilla colocada no redator estava no formato (%d) ou "
-#~ "comprimento (%d) errado\n"
-
-#~ msgid "Html"
-#~ msgstr "Html"
-
-#~ msgid "Html test"
-#~ msgstr "Teste html"
-
-#~ msgid "Test1"
-#~ msgstr "Test1"
-
-#~ msgid "Test2"
-#~ msgstr "Test2"
-
-#~ msgid "Test3"
-#~ msgstr "Test3"
-
-#~ msgid "Test4"
-#~ msgstr "Test4"
-
-#~ msgid "Test5"
-#~ msgstr "Test5"
-
-#~ msgid "Test6"
-#~ msgstr "Test6"
-
-#~ msgid "Test7"
-#~ msgstr "Test7"
-
-#~ msgid "_Refresh"
-#~ msgstr "Atualiza_r"
-
-#~ msgid "Reload the page"
-#~ msgstr "Regarregar a página"
-
-#~ msgid "Could not initialize Bonobo!"
-#~ msgstr "Não foi possível iniciar Bonobo!"
