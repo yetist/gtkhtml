@@ -1,3 +1,23 @@
+GtkHTML-3.17.91 2008-02-11
+--------------------------
+
+Other Contributors:
+	Build fix for G_STRFUNC (Srinivasa Ragavan)
+	Warning fix (Matthew Barnes)
+
+Updated Translations:
+	Duarte Loreto (pt)
+	Theppitak Karoonboonyanan (th)
+	Artur Flinta (pl)
+	Arangel Angov (mk)
+	Andre Klapper (de)
+	Ignacio Casal Quinteiro (gl)
+	Leonardo Ferreira Fontenelle (pt_BR)
+	Jorge Gonzalez (es)
+	Khaled Hosny (ar)
+	Djihed Afifi (ar)
+	Yannig Marchegay (oc)
+
 GtkHTML-3.17.90 2008-01-28
 --------------------------
 
