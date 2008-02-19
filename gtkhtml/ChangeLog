@@ -1,3 +1,14 @@
+2008-02-19  Milan Crha  <mcrha@redhat.com>
+
+	** Fix for bug #391730
+
+	* gtkhtml.c: (update_primary_selection):
+	Process only if selection is allowed and take care of NULL as text.
+	* gtkhtml.c: (focus), (cursor_move), (gtk_html_select_word),
+	(gtk_html_select_line), (gtk_html_select_paragraph),
+	(gtk_html_select_paragraph_extended), (gtk_html_select_all):
+	Ensure update primary selection.
+
 2008-01-29  Srinivasa Ragavan  <sragavan@novell.com>
 
 	* htmlengine-edit-clueflowstyle.c: (undo_or_redo),

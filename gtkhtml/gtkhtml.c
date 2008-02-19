@@ -2359,6 +2359,7 @@ focus (GtkWidget *w, GtkDirectionType direction)
 			html_engine_jump_to_object (e, obj, offset);
 		}
 
+		update_primary_selection (GTK_HTML (w));
 		g_signal_emit (GTK_HTML (w), signals [CURSOR_CHANGED], 0);
 
 		return TRUE;
@@ -4402,9 +4403,15 @@ update_primary_selection (GtkHTML *html)
 	g_return_if_fail (html != NULL);
 	g_return_if_fail (GTK_IS_HTML (html));
 
+	if (!html->allow_selection)
+		return;
+
 	clipboard = gtk_widget_get_clipboard (GTK_WIDGET (html), GDK_SELECTION_PRIMARY);
 
 	text = get_selection_string (html, &text_len, FALSE, TRUE, FALSE, FALSE);
+	if (!text)
+		return;
+
 	gtk_clipboard_set_text (clipboard, text, text_len);
 
 	g_free (text);
@@ -4605,6 +4612,7 @@ cursor_move (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType ski
 		return;
 
 	if (skip == GTK_HTML_CURSOR_SKIP_NONE) {
+		update_primary_selection (html);
 		g_signal_emit (GTK_HTML (html), signals [CURSOR_CHANGED], 0);
 		return;
 	}
@@ -4701,6 +4709,7 @@ cursor_move (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType ski
 	html->priv->update_styles = TRUE;
 	gtk_html_edit_make_cursor_visible (html);
 	html_engine_update_selection_active_state (html->engine, html->priv->event_time);
+	update_primary_selection (html);
 	g_signal_emit (GTK_HTML (html), signals [CURSOR_CHANGED], 0);
 }
 
@@ -5578,6 +5587,7 @@ gtk_html_select_word (GtkHTML *html)
 		html_engine_select_word (e);
 
 	html_engine_update_selection_active_state (html->engine, html->priv->event_time);
+	update_primary_selection (html);
 }
 
 void
@@ -5595,6 +5605,7 @@ gtk_html_select_line (GtkHTML *html)
 		html_engine_select_line (e);
 
 	html_engine_update_selection_active_state (html->engine, html->priv->event_time);
+	update_primary_selection (html);
 }
 
 void
@@ -5613,6 +5624,7 @@ gtk_html_select_paragraph (GtkHTML *html)
 	   html_engine_select_paragraph (e); */
 
 	html_engine_update_selection_active_state (html->engine, html->priv->event_time);
+	update_primary_selection (html);
 }
 
 void
@@ -5631,6 +5643,7 @@ gtk_html_select_paragraph_extended (GtkHTML *html)
 	   html_engine_select_paragraph (e); */
 
 	html_engine_update_selection_active_state (html->engine, html->priv->event_time);
+	update_primary_selection (html);
 }
 
 void
@@ -5650,6 +5663,7 @@ gtk_html_select_all (GtkHTML *html)
 	}
 
 	html_engine_update_selection_active_state (html->engine, html->priv->event_time);
+	update_primary_selection (html);
 }
 
 void
