@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-14 07:26+0300\n"
+"POT-Creation-Date: 2008-02-24 06:06+0300\n"
 "PO-Revision-Date: 2007-02-12 20:47+0300\n"
 "Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
@@ -283,7 +283,7 @@ msgstr "Lisää asiakirjaan yllättynyt hymiö..."
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:48
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
 msgid "Insert Tongue emoticon into document..."
-msgstr "Lisää siakirjaan kieltä näyttävä hymiö..."
+msgstr "Lisää asiakirjaan kieltä näyttävä hymiö..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:49
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
@@ -1800,83 +1800,83 @@ msgstr ""
 "Muokattu kohde on poistettu asiakirjasta.\n"
 "Muutoksia ei voida ottaa käyttöön."
 
-#: ../gtkhtml/gtkhtml.c:2917
+#: ../gtkhtml/gtkhtml.c:2918
 msgid "Editable"
 msgstr "Muokattava"
 
-#: ../gtkhtml/gtkhtml.c:2918
+#: ../gtkhtml/gtkhtml.c:2919
 msgid "Whether the html can be edited"
 msgstr "Voiko HTML-tiedostoa muokata"
 
-#: ../gtkhtml/gtkhtml.c:2924
+#: ../gtkhtml/gtkhtml.c:2925
 msgid "Document Title"
 msgstr "Asiakirjan otsikko"
 
-#: ../gtkhtml/gtkhtml.c:2925
+#: ../gtkhtml/gtkhtml.c:2926
 msgid "The title of the current document"
 msgstr "Nykyisen asiakirjan otsikko"
 
-#: ../gtkhtml/gtkhtml.c:2931
+#: ../gtkhtml/gtkhtml.c:2932
 msgid "Document Base"
 msgstr "Asiakirjan kanta"
 
-#: ../gtkhtml/gtkhtml.c:2932
+#: ../gtkhtml/gtkhtml.c:2933
 msgid "The base URL for relative references"
 msgstr "Suhteellisten viittausten kanta-URL"
 
-#: ../gtkhtml/gtkhtml.c:2938
+#: ../gtkhtml/gtkhtml.c:2939
 msgid "Target Base"
 msgstr "Kohteen kanta"
 
-#: ../gtkhtml/gtkhtml.c:2939
+#: ../gtkhtml/gtkhtml.c:2940
 msgid "The base URL of the target frame"
 msgstr "Kohdekehyksen kanta-URL"
 
-#: ../gtkhtml/gtkhtml.c:2948
+#: ../gtkhtml/gtkhtml.c:2949
 msgid "Fixed Width Font"
 msgstr "Tasavälinen kirjasin"
 
-#: ../gtkhtml/gtkhtml.c:2949
+#: ../gtkhtml/gtkhtml.c:2950
 msgid "The Monospace font to use for typewriter text"
 msgstr "Kirjoituskonetekstissä käytettävä tasavälinen kirjasin"
 
-#: ../gtkhtml/gtkhtml.c:2955
+#: ../gtkhtml/gtkhtml.c:2956
 msgid "New Link Color"
 msgstr "Uuden linkin väri"
 
-#: ../gtkhtml/gtkhtml.c:2956
+#: ../gtkhtml/gtkhtml.c:2957
 msgid "The color of new link elements"
 msgstr "Uusien linkkielementtien väri"
 
-#: ../gtkhtml/gtkhtml.c:2961
+#: ../gtkhtml/gtkhtml.c:2962
 msgid "Visited Link Color"
 msgstr "Käydyn linkin väri"
 
-#: ../gtkhtml/gtkhtml.c:2962
+#: ../gtkhtml/gtkhtml.c:2963
 msgid "The color of visited link elements"
 msgstr "Käytyjen linkkielementtien väri"
 
-#: ../gtkhtml/gtkhtml.c:2967
+#: ../gtkhtml/gtkhtml.c:2968
 msgid "Active Link Color"
 msgstr "Aktiivisen linkkielementin väri"
 
-#: ../gtkhtml/gtkhtml.c:2968
+#: ../gtkhtml/gtkhtml.c:2969
 msgid "The color of active link elements"
 msgstr "Aktiivisten linkkielementtien väri"
 
-#: ../gtkhtml/gtkhtml.c:2973
+#: ../gtkhtml/gtkhtml.c:2974
 msgid "Spelling Error Color"
 msgstr "Kirjoitusvirheen väri"
 
-#: ../gtkhtml/gtkhtml.c:2974
+#: ../gtkhtml/gtkhtml.c:2975
 msgid "The color of the spelling error markers"
 msgstr "Kirjoitusvirheilmaisimen väri"
 
-#: ../gtkhtml/gtkhtml.c:2979
+#: ../gtkhtml/gtkhtml.c:2980
 msgid "Cite Quotation Color"
 msgstr "Lainauksen väri"
 
-#: ../gtkhtml/gtkhtml.c:2980
+#: ../gtkhtml/gtkhtml.c:2981
 msgid "The color of the cited text"
 msgstr "Lainatun tekstin väri"
 
