@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-01-14 19:04+0100\n"
-"PO-Revision-Date: 2008-01-14 19:05+0100\n"
+"POT-Creation-Date: 2008-02-26 09:02+0100\n"
+"PO-Revision-Date: 2008-02-26 09:03+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -470,7 +470,7 @@ msgstr "Klistra in urklipp som citat"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:83
 #: ../components/html-editor/paragraph-style.c:44
 msgid "Preformat"
-msgstr "Förformatera"
+msgstr "Förformaterad"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:84
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
@@ -1694,7 +1694,7 @@ msgstr "_Reguljärt uttryck"
 msgid "Input the words you want to search here"
 msgstr "Ange de ord du vill söka efter här"
 
-#: ../components/html-editor/spellchecker.c:114
+#: ../components/html-editor/spellchecker.c:116
 msgid ""
 "Unable to add word to dictionary,\n"
 "language settings are broken.\n"
@@ -1702,15 +1702,15 @@ msgstr ""
 "Kan inte lägga till ord i ordboken,\n"
 "språkinställningarna är trasiga.\n"
 
-#: ../components/html-editor/spellchecker.c:303
+#: ../components/html-editor/spellchecker.c:322
 msgid "No misspelled word found"
 msgstr "Inget felstavat ord hittades"
 
-#: ../components/html-editor/spellchecker.c:310
+#: ../components/html-editor/spellchecker.c:329
 msgid "Spell checker"
 msgstr "Stavningskontroll"
 
-#: ../components/html-editor/spellchecker.c:404
+#: ../components/html-editor/spellchecker.c:424
 msgid "Current _Languages"
 msgstr "Aktuella _språk"
 
@@ -1815,83 +1815,83 @@ msgstr ""
 "Det redigerade objektet har tagits bort från dokumentet.\n"
 "Kan inte verkställa dina ändringar."
 
-#: ../gtkhtml/gtkhtml.c:2917
+#: ../gtkhtml/gtkhtml.c:2918
 msgid "Editable"
 msgstr "Redigerbar"
 
-#: ../gtkhtml/gtkhtml.c:2918
+#: ../gtkhtml/gtkhtml.c:2919
 msgid "Whether the html can be edited"
 msgstr "Huruvida html-koden kan redigeras"
 
-#: ../gtkhtml/gtkhtml.c:2924
+#: ../gtkhtml/gtkhtml.c:2925
 msgid "Document Title"
 msgstr "Dokumenttitel"
 
-#: ../gtkhtml/gtkhtml.c:2925
+#: ../gtkhtml/gtkhtml.c:2926
 msgid "The title of the current document"
 msgstr "Titeln på det aktuella dokumentet"
 
-#: ../gtkhtml/gtkhtml.c:2931
+#: ../gtkhtml/gtkhtml.c:2932
 msgid "Document Base"
 msgstr "Dokumentbas"
 
-#: ../gtkhtml/gtkhtml.c:2932
+#: ../gtkhtml/gtkhtml.c:2933
 msgid "The base URL for relative references"
 msgstr "Bas-URL:en för relativa referenser"
 
-#: ../gtkhtml/gtkhtml.c:2938
+#: ../gtkhtml/gtkhtml.c:2939
 msgid "Target Base"
 msgstr "Målbas"
 
-#: ../gtkhtml/gtkhtml.c:2939
+#: ../gtkhtml/gtkhtml.c:2940
 msgid "The base URL of the target frame"
 msgstr "Bas-URL:en för målramen"
 
-#: ../gtkhtml/gtkhtml.c:2948
+#: ../gtkhtml/gtkhtml.c:2949
 msgid "Fixed Width Font"
 msgstr "Typsnitt med fast breddsteg"
 
-#: ../gtkhtml/gtkhtml.c:2949
+#: ../gtkhtml/gtkhtml.c:2950
 msgid "The Monospace font to use for typewriter text"
 msgstr "Typsnittet med fast breddsteg som ska användas för skrivmaskinstext"
 
-#: ../gtkhtml/gtkhtml.c:2955
+#: ../gtkhtml/gtkhtml.c:2956
 msgid "New Link Color"
 msgstr "Färg för ny länk"
 
-#: ../gtkhtml/gtkhtml.c:2956
+#: ../gtkhtml/gtkhtml.c:2957
 msgid "The color of new link elements"
 msgstr "Färgen på nya länkelement"
 
-#: ../gtkhtml/gtkhtml.c:2961
+#: ../gtkhtml/gtkhtml.c:2962
 msgid "Visited Link Color"
 msgstr "Färg för besökt länk"
 
-#: ../gtkhtml/gtkhtml.c:2962
+#: ../gtkhtml/gtkhtml.c:2963
 msgid "The color of visited link elements"
 msgstr "Färgen på besökta länkelement"
 
-#: ../gtkhtml/gtkhtml.c:2967
+#: ../gtkhtml/gtkhtml.c:2968
 msgid "Active Link Color"
 msgstr "Färg för aktiv länk"
 
-#: ../gtkhtml/gtkhtml.c:2968
+#: ../gtkhtml/gtkhtml.c:2969
 msgid "The color of active link elements"
 msgstr "Färgen på aktiva länkelement"
 
-#: ../gtkhtml/gtkhtml.c:2973
+#: ../gtkhtml/gtkhtml.c:2974
 msgid "Spelling Error Color"
 msgstr "Stavfelsfärg"
 
-#: ../gtkhtml/gtkhtml.c:2974
+#: ../gtkhtml/gtkhtml.c:2975
 msgid "The color of the spelling error markers"
 msgstr "Färgen på markörerna för stavfel"
 
-#: ../gtkhtml/gtkhtml.c:2979
+#: ../gtkhtml/gtkhtml.c:2980
 msgid "Cite Quotation Color"
 msgstr "Citatfärg"
 
-#: ../gtkhtml/gtkhtml.c:2980
+#: ../gtkhtml/gtkhtml.c:2981
 msgid "The color of the cited text"
 msgstr "Färgen på den citerade texten"
 
@@ -1916,15 +1916,15 @@ msgstr "Kan inte allokera standardtypsnitt för utskrift"
 msgid "GtkHTML Test"
 msgstr "GtkHTML-test"
 
-#: ../gtkhtml/testgtkhtml.c:117
+#: ../gtkhtml/testgtkhtml.c:116
 msgid "Print pre_view"
 msgstr "Förhands_granska"
 
-#: ../gtkhtml/testgtkhtml.c:117
+#: ../gtkhtml/testgtkhtml.c:116
 msgid "Print preview"
 msgstr "Förhandsgranska"
 
-#: ../gtkhtml/testgtkhtml.c:1037
+#: ../gtkhtml/testgtkhtml.c:1020
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML-testprogram"
 
