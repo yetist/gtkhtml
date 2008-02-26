@@ -1788,12 +1788,11 @@ element_parse_a (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	if (id == NULL && html_element_get_attr (element, "name", &value))
 		id = g_strdup (value);
 
-	if (html_element_get_attr (element, "shape", &type)
-	    || html_element_get_attr (element, "coords", &coords)) {
+	if (e->map && (html_element_get_attr (element, "shape", &type) || html_element_get_attr (element, "coords", &coords))) {
 		HTMLShape *shape;
 
 		shape = html_shape_new (type, coords, url, target);
-		if (shape && e->map)
+		if (shape)
 			html_map_add_shape (e->map, shape);
 	}
 
