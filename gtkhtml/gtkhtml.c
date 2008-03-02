@@ -2072,7 +2072,7 @@ enter_notify_event (GtkWidget *widget, GdkEventCrossing *event)
 /* X11 selection support.  */
 
 static char *
-ucs2_order (gboolean swap)
+utf16_order (gboolean swap)
 {
 	gboolean be;
 
@@ -2087,9 +2087,9 @@ ucs2_order (gboolean swap)
 	be = swap ? be : !be;
 
 	if (be)
-		return "UCS-2BE";
+		return "UTF-16BE";
 	else
-		return "UCS-2LE";
+		return "UTF-16LE";
 
 }
 
@@ -2164,7 +2164,7 @@ gtk_html_get_selection_plain_text (GtkHTML *html, int *len)
 }
 
 static gchar *
-ucs2_to_utf8_with_bom_check (guchar  *data, guint len) {
+utf16_to_utf8_with_bom_check (guchar  *data, guint len) {
 	char    *fromcode = NULL;
 	GError  *error = NULL;
 	guint16 c;
@@ -2183,12 +2183,12 @@ ucs2_to_utf8_with_bom_check (guchar  *data, guint len) {
 	switch (c) {
 	case 0xfeff:
 	case 0xfffe:
-		fromcode = ucs2_order (c == 0xfeff);
+		fromcode = utf16_order (c == 0xfeff);
 		data += 2;
 		len  -= 2;
 		break;
 	default:
-		fromcode = "UCS-2";
+		fromcode = "UTF-16";
 		break;
 	}
 
@@ -2419,12 +2419,12 @@ drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkSelectionData *sel
 				complete_url = g_strconcat (url, target && *target ? "#" : NULL, target, NULL);
 
 				if (info == DND_TARGET_TYPE_MOZILLA_URL) {
-					/* MOZ_URL is in UCS-2 but in format 8. BROKEN!
+					/* MOZ_URL is in UTF-16 but in format 8. BROKEN!
 					 *
 					 * The data contains the URL, a \n, then the
 					 * title of the web page.
 					 */
-					char *ucs2;
+					char *utf16;
 					char *utf8;
 					gsize written_len;
 
@@ -2438,12 +2438,12 @@ drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkSelectionData *sel
 					} else
 						utf8 = g_strconcat (complete_url, "\n", complete_url, NULL);
 
-					ucs2 = g_convert (utf8, strlen (utf8), "UCS-2", "UTF-8", NULL, &written_len, NULL);
+					utf16 = g_convert (utf8, strlen (utf8), "UTF-16", "UTF-8", NULL, &written_len, NULL);
 					gtk_selection_data_set (selection_data, selection_data->target, 8,
-								(guchar *) ucs2, written_len);
+								(guchar *) utf16, written_len);
 					g_free (utf8);
 					g_free (complete_url);
-					GTK_HTML (widget)->priv->dnd_url = ucs2;
+					GTK_HTML (widget)->priv->dnd_url = utf16;
 				} else {
 					gtk_selection_data_set (selection_data, selection_data->target, 8,
 								(guchar *) complete_url, strlen (complete_url));
@@ -4249,7 +4249,7 @@ clipboard_paste_received_cb (GtkClipboard     *clipboard,
 		if (type == gdk_atom_intern (selection_targets[TARGET_HTML].target, FALSE)) {
 			if (selection_data->length > 1 &&
 			    !g_utf8_validate ((const gchar *) selection_data->data, selection_data->length - 1, NULL)) {
-				utf8 = ucs2_to_utf8_with_bom_check (selection_data->data, selection_data->length);
+				utf8 = utf16_to_utf8_with_bom_check (selection_data->data, selection_data->length);
 
 			} else {
 				utf8 = g_strndup ((const gchar *) selection_data->data, selection_data->length);
