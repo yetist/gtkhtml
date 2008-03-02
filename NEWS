@@ -1,3 +1,25 @@
+GtkHTML-3.17.92 2008-02-25
+--------------------------
+
+Other Contributors:
+
+Updated Translations:
+	Yair Hershkovitz (he)
+	Claude Paroz (fr)
+	Wouter Bolsterlee (nl)
+	Gil Forcada (ca)
+	Pawan Chitrakar (ne)
+	Ilkka Tuohela (fi)
+	Lucas Lommer (cs)
+	Pedro de Medeiros (pt_BR)
+	Chao-Hsiung Liao (zh_HK)
+	Chao-Hsiung Liao (zh_TW)
+	Luca Ferretti (it)
+	Takeshi AIHANA (ja)
+
+Bug Fixes:
+	#391730: Fix cut/paste oddities in the composer window (Milan Crha)
+
 GtkHTML-3.17.91 2008-02-11
 --------------------------
 
