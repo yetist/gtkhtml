@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-01-14 09:01+0000\n"
-"PO-Revision-Date: 2008-02-01 14:15+0100\n"
+"POT-Creation-Date: 2008-02-01 15:11+0000\n"
+"PO-Revision-Date: 2008-03-02 16:52+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -918,7 +918,7 @@ msgstr "_Plantilla:"
 
 #: ../components/html-editor/body.c:286
 msgid "C_ustom:"
-msgstr "_Personallizado:"
+msgstr "_Personalizado:"
 
 #: ../components/html-editor/cell.c:342 ../components/html-editor/image.c:345
 #: ../components/html-editor/link.c:215 ../components/html-editor/rule.c:179
@@ -964,7 +964,7 @@ msgstr "vista preliminar del color"
 #. This is the default custom color
 #: ../components/html-editor/gi-color-palette.c:378
 msgid "custom"
-msgstr "personallizado"
+msgstr "personalizado"
 
 #. "Custom" color - we'll pop up a GtkColorDialog
 #: ../components/html-editor/gi-color-palette.c:418
@@ -1410,11 +1410,11 @@ msgstr "_Ajuste de texto"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:77
 msgid "_X-Padding:"
-msgstr "Relleno-X:"
+msgstr "Relleno-_X:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:78
 msgid "_Y-Padding:"
-msgstr "Relleno-Y:"
+msgstr "Relleno-_Y:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:79
 msgid "px"
@@ -1684,7 +1684,7 @@ msgstr "_Expresión regular"
 msgid "Input the words you want to search here"
 msgstr "Introduzca las palabras que quiera buscar aquí"
 
-#: ../components/html-editor/spellchecker.c:114
+#: ../components/html-editor/spellchecker.c:116
 msgid ""
 "Unable to add word to dictionary,\n"
 "language settings are broken.\n"
@@ -1692,15 +1692,15 @@ msgstr ""
 "Imposible añadir la palabra al diccionario,\n"
 "la configuración del idioma es errónea.\n"
 
-#: ../components/html-editor/spellchecker.c:303
+#: ../components/html-editor/spellchecker.c:322
 msgid "No misspelled word found"
 msgstr "Ninguna palabra mal escrita"
 
-#: ../components/html-editor/spellchecker.c:310
+#: ../components/html-editor/spellchecker.c:329
 msgid "Spell checker"
 msgstr "Corrector ortográfico"
 
-#: ../components/html-editor/spellchecker.c:404
+#: ../components/html-editor/spellchecker.c:424
 msgid "Current _Languages"
 msgstr "_Idiomas actuales"
 
@@ -1906,15 +1906,15 @@ msgstr "No se pudo encontrar la tipografía predeterminada para la impresión"
 msgid "GtkHTML Test"
 msgstr "Prueba GtkHTML"
 
-#: ../gtkhtml/testgtkhtml.c:117
+#: ../gtkhtml/testgtkhtml.c:116
 msgid "Print pre_view"
 msgstr "_Vista previa de impresión"
 
-#: ../gtkhtml/testgtkhtml.c:117
+#: ../gtkhtml/testgtkhtml.c:116
 msgid "Print preview"
 msgstr "Vista previa de impresión"
 
-#: ../gtkhtml/testgtkhtml.c:1037
+#: ../gtkhtml/testgtkhtml.c:1020
 msgid "GtkHTML Test Application"
 msgstr "Aplicación de prueba GtkHTML"
 
