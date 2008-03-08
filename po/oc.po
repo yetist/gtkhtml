@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: oc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-19 20:24+0100\n"
+"POT-Creation-Date: 2008-03-07 10:22+0100\n"
 "PO-Revision-Date: 2007-12-27 13:34+0100\n"
 "Last-Translator: Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>\n"
 "Language-Team: Occitan <ubuntu-l10n-oci@lists.ubuntu.com>\n"
@@ -1776,83 +1776,83 @@ msgid ""
 "Cannot apply your changes."
 msgstr ""
 
-#: ../gtkhtml/gtkhtml.c:2917
+#: ../gtkhtml/gtkhtml.c:2918
 msgid "Editable"
 msgstr "Editable"
 
-#: ../gtkhtml/gtkhtml.c:2918
+#: ../gtkhtml/gtkhtml.c:2919
 msgid "Whether the html can be edited"
 msgstr ""
 
-#: ../gtkhtml/gtkhtml.c:2924
+#: ../gtkhtml/gtkhtml.c:2925
 msgid "Document Title"
 msgstr ""
 
-#: ../gtkhtml/gtkhtml.c:2925
+#: ../gtkhtml/gtkhtml.c:2926
 msgid "The title of the current document"
 msgstr ""
 
-#: ../gtkhtml/gtkhtml.c:2931
+#: ../gtkhtml/gtkhtml.c:2932
 msgid "Document Base"
 msgstr ""
 
-#: ../gtkhtml/gtkhtml.c:2932
+#: ../gtkhtml/gtkhtml.c:2933
 msgid "The base URL for relative references"
 msgstr ""
 
-#: ../gtkhtml/gtkhtml.c:2938
+#: ../gtkhtml/gtkhtml.c:2939
 msgid "Target Base"
 msgstr ""
 
-#: ../gtkhtml/gtkhtml.c:2939
+#: ../gtkhtml/gtkhtml.c:2940
 msgid "The base URL of the target frame"
 msgstr ""
 
-#: ../gtkhtml/gtkhtml.c:2948
+#: ../gtkhtml/gtkhtml.c:2949
 msgid "Fixed Width Font"
 msgstr ""
 
-#: ../gtkhtml/gtkhtml.c:2949
+#: ../gtkhtml/gtkhtml.c:2950
 msgid "The Monospace font to use for typewriter text"
 msgstr ""
 
-#: ../gtkhtml/gtkhtml.c:2955
+#: ../gtkhtml/gtkhtml.c:2956
 msgid "New Link Color"
 msgstr ""
 
-#: ../gtkhtml/gtkhtml.c:2956
+#: ../gtkhtml/gtkhtml.c:2957
 msgid "The color of new link elements"
 msgstr ""
 
-#: ../gtkhtml/gtkhtml.c:2961
+#: ../gtkhtml/gtkhtml.c:2962
 msgid "Visited Link Color"
 msgstr ""
 
-#: ../gtkhtml/gtkhtml.c:2962
+#: ../gtkhtml/gtkhtml.c:2963
 msgid "The color of visited link elements"
 msgstr ""
 
-#: ../gtkhtml/gtkhtml.c:2967
+#: ../gtkhtml/gtkhtml.c:2968
 msgid "Active Link Color"
 msgstr ""
 
-#: ../gtkhtml/gtkhtml.c:2968
+#: ../gtkhtml/gtkhtml.c:2969
 msgid "The color of active link elements"
 msgstr ""
 
-#: ../gtkhtml/gtkhtml.c:2973
+#: ../gtkhtml/gtkhtml.c:2974
 msgid "Spelling Error Color"
 msgstr ""
 
-#: ../gtkhtml/gtkhtml.c:2974
+#: ../gtkhtml/gtkhtml.c:2975
 msgid "The color of the spelling error markers"
 msgstr ""
 
-#: ../gtkhtml/gtkhtml.c:2979
+#: ../gtkhtml/gtkhtml.c:2980
 msgid "Cite Quotation Color"
 msgstr ""
 
-#: ../gtkhtml/gtkhtml.c:2980
+#: ../gtkhtml/gtkhtml.c:2981
 msgid "The color of the cited text"
 msgstr ""
 
