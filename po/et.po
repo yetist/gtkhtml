@@ -11,7 +11,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml HEAD\n"
+"Project-Id-Version: gtkhtml 3.0.10\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-01-14 09:01+0000\n"
 "PO-Revision-Date: 2008-01-23 17:17+0200\n"
@@ -1916,42 +1916,3 @@ msgstr "Printimise eelvaade"
 #: ../gtkhtml/testgtkhtml.c:1037
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML-i testrakendus"
-
-#~ msgid "C_ut"
-#~ msgstr "_Lõika"
-
-#~ msgid "Find Rege_x..."
-#~ msgstr "Otsi _regulaaravaldist..."
-
-#~ msgid "Modify the file's properties"
-#~ msgstr "Faili omaduste muutmine"
-
-#~ msgid "Regular expression search"
-#~ msgstr "Regulaaravaldise otsimine"
-
-#~ msgid "Replace a string"
-#~ msgstr "Stringi asendamine"
-
-#~ msgid "Search again for the same string"
-#~ msgstr "Sama stringi uuesti otsimine"
-
-#~ msgid "Search for a string"
-#~ msgstr "Stringi otsimine"
-
-#~ msgid "_Paste Quotation"
-#~ msgstr "Ase_ta tsitaat"
-
-#~ msgid "Paste Quotation"
-#~ msgstr "Aseta tsitaat"
-
-#~ msgid "Dot item"
-#~ msgstr "Punktiga kirje"
-
-#~ msgid "Number item"
-#~ msgstr "Numbriline kirje"
-
-#~ msgid "Roman item"
-#~ msgstr "Rooma numbriga kirje"
-
-#~ msgid "Alphabeta item"
-#~ msgstr "Tähestikuline kirje"
