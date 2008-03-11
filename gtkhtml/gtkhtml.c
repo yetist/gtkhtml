@@ -3186,6 +3186,7 @@ get_surrounding_text (HTMLEngine *e, gint *offset)
 	gchar *text = NULL;
 
 	if (!html_object_is_text (o)) {
+		*offset = 0;
 		if (e->cursor->offset == 0) {
 			prev = html_object_prev_not_slave (o);
 			if (html_object_is_text (prev)) {
@@ -3201,7 +3202,6 @@ get_surrounding_text (HTMLEngine *e, gint *offset)
 			} else
 				return NULL;
 		}
-		*offset = 0;
 	} else
 		*offset = e->cursor->offset;
 
@@ -3257,8 +3257,9 @@ gtk_html_im_delete_surrounding_cb (GtkIMContext *slave, gint offset, gint n_char
 		html_engine_set_mark (html->engine);
 		html_cursor_exactly_jump_to_position_no_spell (html->engine->cursor, html->engine, orig_position + offset + n_chars);
 		html_engine_delete (html->engine);
-		if (offset >= 0)
-			html_cursor_exactly_jump_to_position_no_spell (html->engine->cursor, html->engine, orig_position);
+		if (offset < 0)
+			orig_position -= MIN (n_chars, - offset);
+		html_cursor_jump_to_position_no_spell (html->engine->cursor, html->engine, orig_position);
 	}
 	return TRUE;
 }
