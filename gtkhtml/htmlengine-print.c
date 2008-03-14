@@ -228,7 +228,7 @@ print_with_header_footer (HTMLEngine *engine,
 		g_object_unref (old_painter);
 	} else {
 		/* TODO2 dialog instead of warning */
-		g_warning (_("Cannot allocate default font for printing\n"));
+		g_warning (_("Cannot allocate default font for printing"));
 	}
 
 	g_object_unref (printer);

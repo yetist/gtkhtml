@@ -1,3 +1,10 @@
+2008-03-14  Matthew Barnes  <mbarnes@redhat.com>
+
+	** Fixes bug #458369
+
+	* htmlengine-print.c (print_with_header_footer):
+	Merge two similar translated strings.
+
 2008-03-11  Matthew Barnes  <mbarnes@redhat.com>
 
 	** Fixes bug #266206 (original patch by Owen Taylor)
