@@ -537,7 +537,7 @@ create_style_toolbar (GtkHTMLControlData *cd)
 
 	gtk_toolbar_append_widget (GTK_TOOLBAR (cd->toolbar_style),
 				   setup_gi_color_combo (cd),
-				   NULL, NULL);
+				   _("Text Color"), NULL);
 
 	cd->font_style_changed_connection_id
 		= g_signal_connect (GTK_OBJECT (cd->html), "insertion_font_style_changed",

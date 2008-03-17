@@ -1,3 +1,9 @@
+2008-03-17  Milan Crha  <mcrha@redhat.com>
+
+	** Fix for bug #483745
+
+	* toolbar.c: (create_style_toolbar): Add tooltip for text color combo.
+
 2008-01-28  Matthew Barnes  <mbarnes@redhat.com>
 
 	* spellchecker.c: Fix an implicit function declaration.
