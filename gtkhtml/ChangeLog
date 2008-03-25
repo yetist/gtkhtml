@@ -1,3 +1,16 @@
+2008-03-25  Takao Fujiwara  <takao.fujiwara@sun.com>
+
+	reviewed by: Milan Crha <mcrha@redhat.com>
+
+	** Fixes bug #512046
+
+	* htmlclueflow.c: (search_text):
+	* htmlengine-search.c: (html_engine_search_next_int),
+	(html_engine_search_next), (html_engine_search_incremental):
+	* htmlsearch.c: (html_search_new):
+	Revised the algorithm in search_text() so that the email
+	composed widow does not go to the infinite loop with multibyte chars.
+
 2008-03-14  Matthew Barnes  <mbarnes@redhat.com>
 
 	** Fixes bug #458369

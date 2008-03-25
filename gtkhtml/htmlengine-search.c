@@ -164,8 +164,8 @@ html_engine_search_set_forward (HTMLEngine *e, gboolean forward)
 	html_search_set_forward (e->search_info, forward);
 }
 
-gboolean
-html_engine_search_next (HTMLEngine *e)
+static gboolean
+html_engine_search_next_int (HTMLEngine *e)
 {
 	HTMLSearch *info = e->search_info;
 	gboolean retval = FALSE;
@@ -197,6 +197,20 @@ html_engine_search_next (HTMLEngine *e)
 }
 
 gboolean
+html_engine_search_next (HTMLEngine *e)
+{
+	HTMLSearch *info = e->search_info;
+
+	if (!info)
+		return FALSE;
+	if (!info->text)
+		return FALSE;
+
+	info->start_pos += ((info->forward) ? 1 : 0);
+	return html_engine_search_next_int (e);
+}
+
+gboolean
 html_engine_search_incremental (HTMLEngine *e, const gchar *text, gboolean forward)
 {
 	HTMLSearch *info = e->search_info;
@@ -206,7 +220,7 @@ html_engine_search_incremental (HTMLEngine *e, const gchar *text, gboolean forwa
 		html_search_set_text (info, text);
 		if (info->found)
 			info->start_pos += ((info->forward) ? -1 : g_utf8_strlen (text, -1));
-		return html_engine_search_next (e);
+		return html_engine_search_next_int (e);
 	} else
 		return html_engine_search (e, text, FALSE, forward, FALSE);
 }

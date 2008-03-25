@@ -60,7 +60,7 @@ html_search_new (HTMLEngine *e, const gchar *text, gboolean case_sensitive, gboo
 		if (e->mark)
 			ns->start_pos = forward
 					? e->mark->offset + 1
-					: e->cursor->offset - 1;
+					: e->mark->offset;
 		else
 			ns->start_pos = e->cursor->offset;
 		for (o = e->cursor->object; o; o = o->parent)

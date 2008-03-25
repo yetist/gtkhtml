@@ -2277,21 +2277,21 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 		eq_bytes = 0;
 		if (info->found) {
 			if (info->start_pos > 0)
-				index = ((guchar *)g_utf8_offset_to_pointer ((gchar *) par, info->start_pos + ((info->forward) ? 1 : -1))) - par;
+				index = ((guchar *)g_utf8_offset_to_pointer ((gchar *) par, info->start_pos + ((info->forward) ? 0 : -1))) - par;
 			else
-				index = ((guchar *)g_utf8_offset_to_pointer ((gchar *) par, info->start_pos + ((info->forward) ? 1 : 0))) - par;
+				index = info->forward ? ((guchar *)g_utf8_offset_to_pointer ((gchar *) par, info->start_pos) - par) : -1;
 		} else {
-			index = (info->forward) ? 0 : text_bytes - 1;
+			index = (info->forward) ? 0 : text_bytes;
 		}
 
-		/* FIXME make shorter text instead */
-		if (!info->forward) {
-			guchar* tmp = (guchar *)g_utf8_next_char (par + index);
+		/* make shorter text instead */
+		if (!info->forward && index + info->text_bytes < text_bytes) {
+			guchar* tmp = (guchar *)(par + index + info->text_bytes);
 			*tmp = '\0';
 		}
 
 		if ((info->forward && index < text_bytes)
-		    || (!info->forward && index > 0)) {
+		    || (!info->forward && index >= 0)) {
 			if (info->reb) {
 				/* regex search */
 				gint rv;
@@ -2343,12 +2343,11 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 			} else {
 				/* substring search - simple one - could be improved
 				   go thru par and look for info->text */
-				while (par [index]) {
+				while ((info->forward && par[index])
+				       || (!info->forward && index >= 0)) {
 					gunichar unicode_info, unicode_par;
 
-					unicode_info = g_utf8_get_char (((info->forward)
-									? (info->text + eq_bytes)
-									: g_utf8_prev_char (info->text + info->text_bytes - eq_bytes)));
+					unicode_info = g_utf8_get_char (info->text + eq_bytes);
 					unicode_par = g_utf8_get_char ((gchar *) par + index);
 					if (!info->case_sensitive) {
                                              unicode_info = g_unichar_toupper (unicode_info);
@@ -2360,19 +2359,20 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 
 						if (eq_bytes == info->text_bytes) {
 							/* The above par + index is always at the beginning of the last character matched */
-							if (info->forward)
-								index = (guchar *) g_utf8_next_char ((gchar *) par + index) - par - eq_bytes;
+							index = (guchar *) g_utf8_next_char ((gchar *) par + index) - par - eq_bytes;
 							search_set_info (head, info, par, index, info->text_bytes);
 							retval=TRUE;
 							break;
 						}
 					} else {
-						index += (info->forward) ? -eq_bytes : eq_bytes;
+						index -= eq_bytes;
 						eq_bytes = 0;
 					}
-					index += (info->forward)
+					index += (info->forward || unicode_info == unicode_par)
 						? (((guchar *) g_utf8_next_char (par + index)) - par - index)
-						: (((guchar *) g_utf8_prev_char ((gchar *) par + index)) - par - index);
+						: (index
+							? (((guchar *) g_utf8_prev_char ((gchar *) par + index)) - par - index)
+							: -1);
 				}
 			}
 		}
