@@ -101,5 +101,8 @@ paragraph_properties (GtkHTMLControlData *cd, gpointer *set_data)
 void
 paragraph_close_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
+	g_return_if_fail (get_data != NULL);
+
+	paragraph_style_combobox_disconnect_html (cd, ((GtkHTMLEditParagraphProperties *)get_data)->style_option);
 	g_free (get_data);
 }
