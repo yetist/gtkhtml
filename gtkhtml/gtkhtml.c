@@ -1033,8 +1033,11 @@ key_press_event (GtkWidget *widget, GdkEventKey *event)
 	if (html_class->use_emacs_bindings && html_class->emacs_bindings && !html->binding_handled)
 		gtk_binding_set_activate (html_class->emacs_bindings, event->keyval, event->state, GTK_OBJECT (widget));
 
-	if (!html->binding_handled)
+	if (!html->binding_handled) {
+		html->priv->in_key_binding = TRUE;
 		retval = GTK_WIDGET_CLASS (parent_class)->key_press_event (widget, event);
+		html->priv->in_key_binding = FALSE;
+	}
 
 	retval = retval || html->binding_handled;
 	update = html->priv->update_styles;
@@ -3300,6 +3303,7 @@ gtk_html_init (GtkHTML* html)
 	html->priv->in_object_resize = FALSE;
 	html->priv->resize_cursor = gdk_cursor_new (GDK_BOTTOM_RIGHT_CORNER);
 	html->priv->in_url_test_mode = FALSE;
+	html->priv->in_key_binding = FALSE;
 
 	/* IM Context */
 	html->priv->im_context = gtk_im_multicontext_new ();
@@ -4829,15 +4833,25 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 	/* printf ("command %d %s\n", com_type, get_value_nick (com_type)); */
 	html->binding_handled = TRUE;
 
+	#define ensure_key_binding_not_editable() \
+		if (html->priv->in_key_binding && html_engine_get_editable (e)) { \
+			html->binding_handled = FALSE; \
+			rv = FALSE; \
+			break; \
+		}
+
 	/* non-editable + editable commands */
 	switch (com_type) {
 	case GTK_HTML_COMMAND_ZOOM_IN:
+		ensure_key_binding_not_editable ();
 		gtk_html_zoom_in (html);
 		break;
 	case GTK_HTML_COMMAND_ZOOM_OUT:
+		ensure_key_binding_not_editable ();
 		gtk_html_zoom_out (html);
 		break;
 	case GTK_HTML_COMMAND_ZOOM_RESET:
+		ensure_key_binding_not_editable ();
 		gtk_html_zoom_reset (html);
 		break;
 	case GTK_HTML_COMMAND_SEARCH_INCREMENTAL_FORWARD:
@@ -4912,6 +4926,8 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		rv = FALSE;
 		html->binding_handled = FALSE;
 	}
+
+	#undef ensure_key_binding_not_editable
 
 	if (!html_engine_get_editable (e) || html->binding_handled)
 		return rv;

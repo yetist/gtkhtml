@@ -1,3 +1,12 @@
+2008-03-27  Milan Crha  <mcrha@redhat.com>
+
+	** Fix for bug #339093
+
+	* gtkhtml-private.h: (struct _GtkHTMLPrivate):
+	* gtkhtml.c: (key_press_event), (gtk_html_init), (command):
+	Skip ZOOM commands only when in non-editing mode and when not
+	invoked by key bindings.
+
 2008-03-25  Takao Fujiwara  <takao.fujiwara@sun.com>
 
 	reviewed by: Milan Crha <mcrha@redhat.com>
