@@ -1,3 +1,12 @@
+2008-03-27  Milan Crha  <mcrha@redhat.com>
+
+	** Fix for bug #520711
+
+	* paragraph-style.h: (paragraph_style_combobox_disconnect_html):
+	* paragraph-style.c: (paragraph_style_combobox_disconnect_html):
+	New function to disconnect style combo box from the html component.
+	* paragraph.c: (paragraph_close_cb): Calling previous function.
+
 2008-01-28  Matthew Barnes  <mbarnes@redhat.com>
 
 	* spellchecker.c: Fix an implicit function declaration.

@@ -27,5 +27,6 @@
 
 GtkWidget *	paragraph_style_combo_box_new	(GtkHTMLControlData *cd);
 void		paragraph_style_update_store	(GtkHTMLControlData *cd);
+void		paragraph_style_combobox_disconnect_html (GtkHTMLControlData *cd, GtkWidget *combo_box);
 
 #endif /* _PARAGRAPH_STYLE_H */

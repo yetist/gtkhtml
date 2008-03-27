@@ -215,3 +215,12 @@ paragraph_style_update_store (GtkHTMLControlData *cd)
 			GTK_TREE_MODEL (store), &iter);
 	}
 }
+
+void
+paragraph_style_combobox_disconnect_html (GtkHTMLControlData *cd, GtkWidget *combo_box)
+{
+	g_return_if_fail (cd != NULL);
+	g_return_if_fail (cd->html != NULL);
+
+	g_signal_handlers_disconnect_by_func (cd->html, G_CALLBACK (current_paragraph_style_changed_cb), combo_box);
+}
