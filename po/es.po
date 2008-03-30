@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-01 15:11+0000\n"
-"PO-Revision-Date: 2008-03-02 16:52+0100\n"
+"POT-Creation-Date: 2008-03-17 20:18+0000\n"
+"PO-Revision-Date: 2008-03-30 13:33+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1789,6 +1789,10 @@ msgstr "Sangrado"
 msgid "Indents the paragraphs more"
 msgstr "Sangra un párrafo más"
 
+#: ../components/html-editor/toolbar.c:540
+msgid "Text Color"
+msgstr "Color del texto"
+
 #: ../components/html-editor/utils.c:132
 msgid "Sample"
 msgstr "Ejemplo"
@@ -1805,83 +1809,83 @@ msgstr ""
 "El objeto editado se ha quitado del documento.\n"
 "No se pueden aplicar los cambios."
 
-#: ../gtkhtml/gtkhtml.c:2917
+#: ../gtkhtml/gtkhtml.c:2918
 msgid "Editable"
 msgstr "Editable"
 
-#: ../gtkhtml/gtkhtml.c:2918
+#: ../gtkhtml/gtkhtml.c:2919
 msgid "Whether the html can be edited"
 msgstr "Indica si el html se puede editar"
 
-#: ../gtkhtml/gtkhtml.c:2924
+#: ../gtkhtml/gtkhtml.c:2925
 msgid "Document Title"
 msgstr "Título del documento"
 
-#: ../gtkhtml/gtkhtml.c:2925
+#: ../gtkhtml/gtkhtml.c:2926
 msgid "The title of the current document"
 msgstr "El título del documento actual"
 
-#: ../gtkhtml/gtkhtml.c:2931
+#: ../gtkhtml/gtkhtml.c:2932
 msgid "Document Base"
 msgstr "Base del documento"
 
-#: ../gtkhtml/gtkhtml.c:2932
+#: ../gtkhtml/gtkhtml.c:2933
 msgid "The base URL for relative references"
 msgstr "La URL de base para referencias relativas"
 
-#: ../gtkhtml/gtkhtml.c:2938
+#: ../gtkhtml/gtkhtml.c:2939
 msgid "Target Base"
 msgstr "Base del destino"
 
-#: ../gtkhtml/gtkhtml.c:2939
+#: ../gtkhtml/gtkhtml.c:2940
 msgid "The base URL of the target frame"
 msgstr "La URL base del marco destino"
 
-#: ../gtkhtml/gtkhtml.c:2948
+#: ../gtkhtml/gtkhtml.c:2949
 msgid "Fixed Width Font"
 msgstr "Tipografía de anchura fija"
 
-#: ../gtkhtml/gtkhtml.c:2949
+#: ../gtkhtml/gtkhtml.c:2950
 msgid "The Monospace font to use for typewriter text"
 msgstr "La tipografía monoespaciada que usar para el texto de máquina de escribir"
 
-#: ../gtkhtml/gtkhtml.c:2955
+#: ../gtkhtml/gtkhtml.c:2956
 msgid "New Link Color"
 msgstr "Color de enlaces nuevos"
 
-#: ../gtkhtml/gtkhtml.c:2956
+#: ../gtkhtml/gtkhtml.c:2957
 msgid "The color of new link elements"
 msgstr "El color de los elementos de enlace nuevos"
 
-#: ../gtkhtml/gtkhtml.c:2961
+#: ../gtkhtml/gtkhtml.c:2962
 msgid "Visited Link Color"
 msgstr "Color de enlaces visitados"
 
-#: ../gtkhtml/gtkhtml.c:2962
+#: ../gtkhtml/gtkhtml.c:2963
 msgid "The color of visited link elements"
 msgstr "El color de los elementos de enlace visitados"
 
-#: ../gtkhtml/gtkhtml.c:2967
+#: ../gtkhtml/gtkhtml.c:2968
 msgid "Active Link Color"
 msgstr "Color del enlace activo"
 
-#: ../gtkhtml/gtkhtml.c:2968
+#: ../gtkhtml/gtkhtml.c:2969
 msgid "The color of active link elements"
 msgstr "El color de los elementos de enlace activos"
 
-#: ../gtkhtml/gtkhtml.c:2973
+#: ../gtkhtml/gtkhtml.c:2974
 msgid "Spelling Error Color"
 msgstr "Color del error ortográfico"
 
-#: ../gtkhtml/gtkhtml.c:2974
+#: ../gtkhtml/gtkhtml.c:2975
 msgid "The color of the spelling error markers"
 msgstr "El color de los marcadores de error ortográfico"
 
-#: ../gtkhtml/gtkhtml.c:2979
+#: ../gtkhtml/gtkhtml.c:2980
 msgid "Cite Quotation Color"
 msgstr "Color de cita literal"
 
-#: ../gtkhtml/gtkhtml.c:2980
+#: ../gtkhtml/gtkhtml.c:2981
 msgid "The color of the cited text"
 msgstr "El color del elemento citado literalmente"
 
@@ -1894,11 +1898,7 @@ msgid "Reset"
 msgstr "Reiniciar"
 
 #. TODO2 dialog instead of warning
-#: ../gtkhtml/htmlengine-print.c:231
-msgid "Cannot allocate default font for printing\n"
-msgstr "No se pudo encontrar la tipografía predeterminada de impresión\n"
-
-#: ../gtkhtml/htmlengine-print.c:310
+#: ../gtkhtml/htmlengine-print.c:231 ../gtkhtml/htmlengine-print.c:310
 msgid "Cannot allocate default font for printing"
 msgstr "No se pudo encontrar la tipografía predeterminada para la impresión"
 
