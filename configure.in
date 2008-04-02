@@ -100,14 +100,14 @@ if test "x$bonobo_editor" = "xyes"; then
         PKG_CHECK_MODULES(EDITOR, $EDITOR_MODULES)
         AC_SUBST(EDITOR_CFLAGS)
         AC_SUBST(EDITOR_LIBS)
-
-        ORBIT_IDL="`$PKG_CONFIG --variable=orbit_idl ORBit-2.0`"
-        AC_SUBST(ORBIT_IDL)
-
-        BONOBO_IDL_INCLUDES="-I`$PKG_CONFIG --variable=idldir libbonobo-2.0` -I`$PKG_CONFIG --variable=idldir bonobo-activation-2.0`"
-        AC_SUBST(BONOBO_IDL_INCLUDES)
 fi
 AM_CONDITIONAL(BONOBO_EDITOR, test x$bonobo_editor = xyes)
+
+# These are still needed for 'dist' targets.
+BONOBO_IDL_INCLUDES="-I`$PKG_CONFIG --variable=idldir libbonobo-2.0` -I`$PKG_CONFIG --variable=idldir bonobo-activation-2.0`"
+AC_SUBST(BONOBO_IDL_INCLUDES)
+ORBIT_IDL="`$PKG_CONFIG --variable=orbit_idl ORBit-2.0`"
+AC_SUBST(ORBIT_IDL)
 
 dnl **********************************
 dnl soup for testgtkhtml

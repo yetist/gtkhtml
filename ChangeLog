@@ -1,3 +1,7 @@
+2008-04-02  Matthew Barnes  <mbarnes@redhat.com>
+
+	* configure.in: Fix a distcheck error.
+
 2008-04-01  Matthew Barnes  <mbarnes@redhat.com>
 
 	** Merge the mbarnes-composer branch
