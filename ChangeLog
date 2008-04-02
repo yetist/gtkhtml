@@ -1,5 +1,18 @@
 2008-04-01  Matthew Barnes  <mbarnes@redhat.com>
 
+	** Merge the mbarnes-composer branch
+
+	* configure.in:
+	* components/Makefile.am:
+	The Bonobo editor component (html-editor) is now omitted by
+	default.  Pass --with-bonobo-editor to configure to compile it.
+
+	* configure.in:
+	Add package checks on enchant and iso-codes.
+	Make libbonobo[ui] package checks conditional.
+
+2008-04-01  Matthew Barnes  <mbarnes@redhat.com>
+
 	* configure.in: Version bump for 3.19.1.
 
 2008-03-10  Srinivasa Ragavan  <sragavan@novell.com>

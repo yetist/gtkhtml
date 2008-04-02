@@ -26,9 +26,7 @@
 
 #include <gtk/gtkhbox.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
+G_BEGIN_DECLS
 
 #define GI_COMBO_BOX_TYPE          (gi_combo_box_get_type())
 #define GI_COMBO_BOX(obj)	    G_TYPE_CHECK_INSTANCE_CAST (obj, gi_combo_box_get_type (), GiComboBox)
@@ -84,8 +82,7 @@ void       gi_combo_box_set_arrow_sensitive (GiComboBox *combo,
 					      gboolean sensitive);
 void       gi_combo_box_set_arrow_relief    (GiComboBox *cc,
 					      GtkReliefStyle relief);
-#ifdef __cplusplus
-};
-#endif /* __cplusplus */
+
+G_END_DECLS
 
 #endif

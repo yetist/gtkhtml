@@ -1,3 +1,7 @@
+2008-04-01  Matthew Barnes  <mbarnes@redhat.com>
+
+	* htmlrule.h: Define HTML_IS_RULE().
+
 2008-03-27  Milan Crha  <mcrha@redhat.com>
 
 	** Fix for bug #339093

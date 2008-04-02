@@ -1,0 +1,13 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+gtkhtml_api_version=@GTKHTML_API_VERSION@
+
+Name: gtkhtml-editor
+Description: HTML editor widget
+Requires: libgtkhtml-@GTKHTML_API_VERSION@
+Version: @VERSION@
+Libs: -L${libdir} -lgtkhtml-editor
+Cflags: -I${includedir}/libgtkhtml-@GTKHTML_API_VERSION@/editor

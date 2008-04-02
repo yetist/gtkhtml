@@ -44,3 +44,5 @@ EXTRA_DIST =					\
 	intltool-update.in			\
 	intltool-merge.in
 
+DISTCHECK_CONFIGURE_FLAGS =			\
+	--with-bonobo-editor

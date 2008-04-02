@@ -1,0 +1,7 @@
+2008-04-01  Matthew Barnes  <mbarnes@redhat.com>
+
+	** Initial revision of the new HTML editor component developed
+	   on the mbarnes-composer branch.  This new editor looks and acts
+	   like the old HTML editor, but does not use Bonobo or GnomeSpell.
+	   It is a subclass of GtkWindow, and the menus and toolbars are
+	   extensible via GtkUIManager.

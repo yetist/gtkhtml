@@ -26,6 +26,7 @@
 
 #define HTML_RULE(x) ((HTMLRule *) (x))
 #define HTML_RULE_CLASS(x) ((HTMLRuleClass *) (x))
+#define HTML_IS_RULE(x) (HTML_CHECK_TYPE ((x), HTML_TYPE_RULE))
 
 struct _HTMLRule {
 	HTMLObject object;
