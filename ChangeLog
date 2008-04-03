@@ -1,3 +1,7 @@
+2008-04-03  Matthew Barnes  <mbarnes@redhat.com>
+
+	* configure.in: Check for gconf-2.0 module.
+
 2008-04-02  Matthew Barnes  <mbarnes@redhat.com>
 
 	* configure.in: Fix a distcheck error.
