@@ -22,7 +22,7 @@
 
 #include <string.h>
 #include <glib/gi18n-lib.h>
-#include <enchant/enchant.h>
+#include <enchant.h>
 
 #define ISO_639_DOMAIN	"iso_639"
 #define ISO_3166_DOMAIN	"iso_3166"

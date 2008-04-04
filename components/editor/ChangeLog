@@ -1,3 +1,9 @@
+2008-04-04  Matthew Barnes  <mbarnes@redhat.com>
+
+	* gtkhtml-spell-checker.c:
+	* gtkhtml-spell-language.c:
+	#include <enchant.h>, not <enchant/enchant.h>
+
 2008-04-01  Matthew Barnes  <mbarnes@redhat.com>
 
 	** Initial revision of the new HTML editor component developed
