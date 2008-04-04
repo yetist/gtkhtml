@@ -1,3 +1,10 @@
+2008-04-04  Matthew Barnes  <mbarnes@redhat.com>
+
+	* configure.in:
+	Add a --with-glade-catalog option for installing Glade 3 catalog
+	files (for maintainers only).  Defaults to 'no'.  Fixes several
+	reported build breaks.  (#525977)
+
 2008-04-03  Matthew Barnes  <mbarnes@redhat.com>
 
 	* configure.in: Check for gconf-2.0 module.

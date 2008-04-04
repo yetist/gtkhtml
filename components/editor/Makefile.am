@@ -100,7 +100,7 @@ MAINTAINERCLEANFILES = \
 	gtkhtml-editor.glade.bak		\
 	gtkhtml-editor.gladep.bak
 
-if MAINTAINER_MODE
+if GLADE_CATALOG
 
 gladecatalog_DATA = gtkhtml-editor.xml
 gladecatalogdir = `$(PKG_CONFIG) --variable=catalogdir gladeui-1.0`

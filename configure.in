@@ -93,7 +93,7 @@ AC_SUBST(GTKHTML_MODULES)
 # Bonobo editor module
 AC_ARG_WITH(bonobo-editor,
         AC_HELP_STRING([--with-bonobo-editor],
-                [build the older Bonobo-based editor [default=no]]),
+                [build the older Bonobo-based editor [[default=no]]]),
         bonobo_editor="$withval", bonobo_editor="no")
 if test "x$bonobo_editor" = "xyes"; then
         EDITOR_MODULES="${GTKHTML_MODULES} libbonobo-2.0 >= libbonobo_minimum_version libbonoboui-2.0 >= libbonoboui_minimum_version"
@@ -102,6 +102,17 @@ if test "x$bonobo_editor" = "xyes"; then
         AC_SUBST(EDITOR_LIBS)
 fi
 AM_CONDITIONAL(BONOBO_EDITOR, test x$bonobo_editor = xyes)
+
+# Glade catalog files
+AC_ARG_WITH(glade-catalog,
+	AC_HELP_STRING([--with-glade-catalog],
+		[install the catalog files for Glade 3 ]
+		[(for maintainers only) [[default=no]]]),
+	glade_catalog="$withval", glade_catalog="no")
+if test "x$glade_catalog" = "xyes"; then
+	PKG_CHECK_MODULES(GLADEUI, gladeui-1.0)
+fi
+AM_CONDITIONAL(GLADE_CATALOG, test x$glade_catalog = xyes)
 
 # These are still needed for 'dist' targets.
 BONOBO_IDL_INCLUDES="-I`$PKG_CONFIG --variable=idldir libbonobo-2.0` -I`$PKG_CONFIG --variable=idldir bonobo-activation-2.0`"
