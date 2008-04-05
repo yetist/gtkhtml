@@ -1,3 +1,15 @@
+2008-04-05  Matthew Barnes  <mbarnes@redhat.com>
+
+	** Fixes part of bug #526152
+
+	* gtkhtml-spell-language.c (spell_language_compare):
+	Remove this function; use gtkhtml_spell_language_compare().
+
+	* gtkhtml-editor.c (gtkhtml_editor_get_spell_language),
+	(gtkhtml_editor_set_spell_language):
+	New functions provide a way to programmatically get and set the
+	active spell checking languages.
+
 2008-04-04  Matthew Barnes  <mbarnes@redhat.com>
 
 	* gtkhtml-spell-checker.c:

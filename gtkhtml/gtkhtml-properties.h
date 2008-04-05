@@ -47,7 +47,7 @@ struct _GtkHTMLClassProperties {
 	gboolean  font_fix_print_points;
 
 	/* editor */
-	gchar    *language;
+	gchar    *language;  /* unused */
 };
 
 GtkHTMLClassProperties * gtk_html_class_properties_new       (GtkWidget *widget);

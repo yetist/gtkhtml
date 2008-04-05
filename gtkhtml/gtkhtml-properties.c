@@ -102,25 +102,9 @@ gtk_html_class_properties_destroy (GtkHTMLClassProperties *p)
 	g_free (p);
 }
 
-#define GNOME_SPELL_GCONF_DIR "/GNOME/Spell"
-#define GETSP(t,x,prop,f,c) \
-        key = g_strconcat (GNOME_SPELL_GCONF_DIR, x, NULL); \
-        val = gconf_client_get_without_default (client, key, NULL); \
-        if (val) { f; p->prop = c (gconf_value_get_ ## t (val)); \
-        gconf_value_free (val); } \
-        g_free (key);
-
 void
 gtk_html_class_properties_load (GtkHTMLClassProperties *p, GConfClient *client)
 {
-	GConfValue *val;
-	gchar *key;
-
-	g_assert (client);
-
-	GETSP (string, "/language", language,
-	       g_free (p->language), g_strdup);
-
 }
 
 #define SET(t,x,prop) \

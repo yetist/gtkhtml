@@ -45,7 +45,6 @@ struct _GtkHTMLPrivate {
 
 	GtkWidget *search_input_line;
 
-	guint notify_spell_id;
 	guint notify_monospace_font_id;
 
 	GtkIMContext *im_context;

@@ -130,8 +130,6 @@ struct _ClipboardContents {
 	gchar *plain_text;
 };
 
-#define GNOME_SPELL_GCONF_DIR "/GNOME/Spell"
-
 #define d_s(x)
 #define D_IM(x)
 
@@ -757,11 +755,6 @@ destroy (GtkObject *object)
 		if (html->priv->scroll_timeout_id != 0) {
 			g_source_remove (html->priv->scroll_timeout_id);
 			html->priv->scroll_timeout_id = 0;
-		}
-
-		if (html->priv->notify_spell_id) {
-			gconf_client_notify_remove (gconf_client, html->priv->notify_spell_id);
-			html->priv->notify_spell_id = 0;
 		}
 
 		if (html->priv->notify_monospace_font_id) {
@@ -2220,27 +2213,6 @@ set_adjustments (GtkLayout     *layout,
 
 /* Initialization.  */
 static void
-client_notify_spell_widget (GConfClient* client, guint cnxn_id, GConfEntry* entry, gpointer user_data)
-{
-	GtkHTML *html = (GtkHTML *) user_data;
-	GtkHTMLClass *klass = GTK_HTML_CLASS (GTK_WIDGET_GET_CLASS (html));
-	GtkHTMLClassProperties *prop = klass->properties;
-	gchar *tkey;
-
-	g_assert (client == gconf_client);
-	g_assert (entry->key);
-	tkey = strrchr (entry->key, '/');
-	g_assert (tkey);
-
-	if (!strcmp (tkey, "/language")) {
-		g_free (prop->language);
-		prop->language = gconf_client_get_string (client, entry->key, NULL);
-		if (!html->engine->language)
-			gtk_html_api_set_language (html);
-	}
-}
-
-static void
 setup_class_properties (GtkHTML *html)
 {
 	GtkHTMLClass *klass;
@@ -2265,13 +2237,6 @@ setup_class_properties (GtkHTML *html)
 		gconf_client_add_dir (gconf_client, GTK_HTML_GCONF_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, &gconf_error);
 		if (gconf_error)
 			g_error ("gconf error: %s\n", gconf_error->message);
-		gconf_client_add_dir (gconf_client, GNOME_SPELL_GCONF_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, &gconf_error);
-		if (gconf_error)
-			g_error ("gconf error: %s\n", gconf_error->message);
-		gtk_html_class_properties_load (klass->properties, gconf_client);
-
-		if (gconf_error)
-			g_warning ("gconf error: %s\n", gconf_error->message);
 	}
 }
 
@@ -3039,12 +3004,6 @@ init_properties_widget (GtkHTML *html)
 	if (!gconf_client)
 		gconf_client = gconf_client_get_default ();
 
-	html->priv->notify_spell_id = gconf_client_notify_add (gconf_client, GNOME_SPELL_GCONF_DIR,
-							       client_notify_spell_widget, html, NULL, &gconf_error);
-	if (gconf_error) {
-		g_warning ("gconf error: %s\n", gconf_error->message);
-		html->priv->notify_spell_id = 0;
-	}
 }
 
 void

@@ -1,3 +1,14 @@
+2008-04-05  Matthew Barnes  <mbarnes@redhat.com>
+
+	** Fixes part of bug #526152
+
+	* gtkhtml-properties.c (gtk_html_class_properties_load):
+	* gtkhtml-private.h:
+	* gtkhtml.c (destroy), (client_notify_spell_widget),
+	(setup_class_properties), (init_properties_widget):
+	Defer management of spell check languages and color to the editor
+	component.  The last remnants of GnomeSpell have been swept away.
+
 2008-04-01  Matthew Barnes  <mbarnes@redhat.com>
 
 	* htmlrule.h: Define HTML_IS_RULE().

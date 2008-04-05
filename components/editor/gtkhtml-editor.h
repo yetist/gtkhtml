@@ -122,6 +122,11 @@ void		gtkhtml_editor_set_magic_links	(GtkhtmlEditor *editor,
 gboolean	gtkhtml_editor_get_magic_smileys(GtkhtmlEditor *editor);
 void		gtkhtml_editor_set_magic_smileys(GtkhtmlEditor *editor,
 						 gboolean magic_smileys);
+GList *		gtkhtml_editor_get_spell_languages
+						(GtkhtmlEditor *editor);
+void		gtkhtml_editor_set_spell_languages
+						(GtkhtmlEditor *editor,
+						 GList *spell_languages);
 gint		gtkhtml_editor_file_chooser_dialog_run
 						(GtkhtmlEditor *editor,
 						 GtkWidget *dialog);

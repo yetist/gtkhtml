@@ -213,13 +213,6 @@ exit:
 	g_tree_replace (tree, g_strdup (language_code), language_name);
 }
 
-static gint
-spell_language_compare (const GtkhtmlSpellLanguage *a,
-                        const GtkhtmlSpellLanguage *b)
-{
-	return g_utf8_collate (a->name, b->name);
-}
-
 static const GtkhtmlSpellLanguage *
 spell_language_copy (const GtkhtmlSpellLanguage *language)
 {
@@ -246,7 +239,7 @@ spell_language_traverse_cb (const gchar *code,
 
 	*available_languages = g_list_insert_sorted (
 		*available_languages, language,
-		(GCompareFunc) spell_language_compare);
+		(GCompareFunc) gtkhtml_spell_language_compare);
 
 	return FALSE;
 }

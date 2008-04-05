@@ -1154,6 +1154,64 @@ gtkhtml_editor_set_magic_smileys (GtkhtmlEditor *editor,
 	g_object_notify (G_OBJECT (editor), "magic-smileys");
 }
 
+GList *
+gtkhtml_editor_get_spell_languages (GtkhtmlEditor *editor)
+{
+	GList *spell_languages = NULL;
+	GtkActionGroup *action_group;
+	GList *list;
+
+	g_return_val_if_fail (GTKHTML_IS_EDITOR (editor), NULL);
+
+	action_group = editor->priv->language_actions;
+	list = gtk_action_group_list_actions (action_group);
+
+	while (list != NULL) {
+		GtkToggleAction *action = list->data;
+		const GtkhtmlSpellLanguage *language;
+		const gchar *language_code;
+
+		list = g_list_delete_link (list, list);
+		if (!gtk_toggle_action_get_active (action))
+			continue;
+
+		language_code = gtk_action_get_name (GTK_ACTION (action));
+		language = gtkhtml_spell_language_lookup (language_code);
+
+		spell_languages = g_list_prepend (
+			spell_languages, (gpointer) language);
+	}
+
+	return g_list_reverse (spell_languages);
+}
+
+void
+gtkhtml_editor_set_spell_languages (GtkhtmlEditor *editor,
+                                    GList *spell_languages)
+{
+	GtkActionGroup *action_group;
+	GList *list;
+
+	g_return_if_fail (GTKHTML_IS_EDITOR (editor));
+
+	action_group = editor->priv->language_actions;
+	list = gtk_action_group_list_actions (action_group);
+
+	while (list != NULL) {
+		GtkToggleAction *action = list->data;
+		const GtkhtmlSpellLanguage *language;
+		const gchar *language_code;
+		gboolean active;
+
+		list = g_list_delete_link (list, list);
+		language_code = gtk_action_get_name (GTK_ACTION (action));
+		language = gtkhtml_spell_language_lookup (language_code);
+		active = (g_list_find (spell_languages, language) != NULL);
+
+		gtk_toggle_action_set_active (action, active);
+	}
+}
+
 gint
 gtkhtml_editor_file_chooser_dialog_run (GtkhtmlEditor *editor,
                                         GtkWidget *dialog)
