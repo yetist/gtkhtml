@@ -498,6 +498,9 @@ spell_dialog_init (GtkhtmlSpellDialog *dialog)
 	gtk_label_set_mnemonic_widget (
 		GTK_LABEL (dialog->priv->suggestion_label), widget);
 	g_signal_connect_swapped (
+		widget, "row-activated",
+		G_CALLBACK (spell_dialog_replace_cb), dialog);
+	g_signal_connect_swapped (
 		selection, "changed",
 		G_CALLBACK (spell_dialog_selection_changed_cb), dialog);
 	gtk_container_add (GTK_CONTAINER (container), widget);

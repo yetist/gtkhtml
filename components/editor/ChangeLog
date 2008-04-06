@@ -1,3 +1,10 @@
+2008-04-06  Matthew Barnes  <mbarnes@redhat.com>
+
+	** Fixes bug #321519
+
+	* gtkhtml-spell-dialog.c (spell_dialog_init):
+	Activating a spelling suggestion now triggers the replace action.
+
 2008-04-05  Matthew Barnes  <mbarnes@redhat.com>
 
 	** Fixes part of bug #526152
