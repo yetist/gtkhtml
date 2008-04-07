@@ -20,6 +20,8 @@
 
 #include "gtkhtml-editor-private.h"
 
+#include <stdlib.h>
+
 #include <glade/glade.h>
 #include <glade/glade-build.h>
 
@@ -27,6 +29,17 @@
 #define CTL	"\\x00-\\x1f\\x7f"
 #define SEP	"\\x09\\x20\\(\\)<>@,;:\\\\\"/\\[\\]\\?=\\{\\}"
 #define TOKEN	"[^" CTL SEP "]+"
+
+/* Fatal error message given when a data file is not found. */
+#define DATA_FILE_NOT_FOUND_MESSAGE \
+"\n*** FATAL ERROR ***\n\n" \
+PACKAGE " could not find the required file \"%s\" in any of\n" \
+"the system-wide data directories given by the XDG_DATA_DIRS environment\n" \
+"variable.  " PACKAGE " looked for:\n\n"
+
+#define MORE_INFORMATION_MESSAGE \
+"\nSee http://www.freedesktop.org/Standards/basedir-spec for more\n" \
+"information about standard base directories.\n\n"
 
 /************************ Begin Spell Dialog Callbacks ***********************/
 
@@ -399,9 +412,19 @@ gtkhtml_editor_find_data_file (const gchar *basename)
 		g_free (filename);
 	}
 
-	g_critical ("Could not locate '%s'", basename);
+	/* Print a helpful message and die. */
+	g_printerr (DATA_FILE_NOT_FOUND_MESSAGE, basename);
+	datadirs = g_get_system_data_dirs ();
+	while (*datadirs != NULL) {
+		filename = g_build_filename (
+			*datadirs++, GTKHTML_RELEASE_STRING, basename, NULL);
+		g_printerr ("\t%s\n", filename);
+		g_free (filename);
+	}
+	g_printerr (MORE_INFORMATION_MESSAGE);
+	abort ();
 
-	return NULL;
+	return NULL;  /* never gets here */
 }
 
 gchar *

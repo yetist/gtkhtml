@@ -1,3 +1,11 @@
+2008-04-07  Matthew Barnes  <mbarnes@redhat.com>
+
+	** Fixes bug #525996
+
+	* gtkhtml-editor-private.c (gtkhtml_editor_find_data_file):
+	If we can't find a required data file, emit a helpful message about
+	XDG_DATA_DIRS, show where we looked, and then abort immediately.
+
 2008-04-06  Matthew Barnes  <mbarnes@redhat.com>
 
 	** Fixes bug #321519
