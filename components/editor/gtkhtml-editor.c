@@ -1177,6 +1177,8 @@ gtkhtml_editor_get_spell_languages (GtkhtmlEditor *editor)
 
 		language_code = gtk_action_get_name (GTK_ACTION (action));
 		language = gtkhtml_spell_language_lookup (language_code);
+		if (language == NULL)
+			continue;
 
 		spell_languages = g_list_prepend (
 			spell_languages, (gpointer) language);

@@ -1,3 +1,15 @@
+2008-04-08  Matthew Barnes  <mbarnes@redhat.com>
+
+	** Fixes bug #526877, patch by Sankar P
+
+	* gtkhtml-spell-language.c (gtkhtml_spell_language_lookup):
+	Return NULL if there are no dictionaries available to avoid
+	an infinite loop.
+
+	* gtkhtml-editor.c (gtkhtml_editor_get_spell_languages):
+	Make sure we don't insert NULL into the returned list of
+	GtkhtmlSpellLanguages.
+
 2008-04-07  Matthew Barnes  <mbarnes@redhat.com>
 
 	** Fixes bug #328146

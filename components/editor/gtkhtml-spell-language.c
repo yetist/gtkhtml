@@ -346,6 +346,10 @@ gtkhtml_spell_language_lookup (const gchar *language_code)
 
 	available_languages = gtkhtml_spell_language_get_available ();
 
+	/* No dictionaries available? */
+	if (available_languages == NULL)
+		return NULL;
+
 	while (available_languages != NULL && language_code != NULL) {
 		GtkhtmlSpellLanguage *language = available_languages->data;
 		const gchar *code = language->code;
