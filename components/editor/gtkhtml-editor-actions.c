@@ -1595,7 +1595,7 @@ static GtkActionEntry core_entries[] = {
 
 	{ "language-menu",
 	  NULL,
-	  N_("_Current Languages"),
+	  N_("Current _Languages"),
 	  NULL,
 	  NULL,
 	  NULL },
@@ -1612,7 +1612,7 @@ static GtkToggleActionEntry core_toggle_entries[] = {
 
 	{ "html-mode",
 	  NULL,
-	  N_("HTML Mode"),
+	  N_("HTML _Mode"),
 	  NULL,
 	  NULL,
 	  G_CALLBACK (action_html_mode_cb),
@@ -1682,14 +1682,14 @@ static GtkRadioActionEntry core_style_entries[] = {
 
 	{ "style-h5",
 	  NULL,
-	  N_("Header 5"),
+	  N_("Header _5"),
 	  "<Control>5",
 	  NULL,
 	  GTK_HTML_PARAGRAPH_STYLE_H5 },
 
 	{ "style-h6",
 	  NULL,
-	  N_("Header 6"),
+	  N_("Header _6"),
 	  "<Control>6",
 	  NULL,
 	  GTK_HTML_PARAGRAPH_STYLE_H6 },
@@ -1796,7 +1796,7 @@ static GtkActionEntry html_entries[] = {
 
 	{ "properties-page",
 	  NULL,
-	  N_("_Page..."),
+	  N_("Pa_ge..."),
 	  NULL,
 	  NULL,
 	  G_CALLBACK (action_properties_page_cb) },

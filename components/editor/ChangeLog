@@ -1,5 +1,12 @@
 2008-04-07  Matthew Barnes  <mbarnes@redhat.com>
 
+	** Fixes bug #328146
+
+	* gtkhtml-editor-actions.c:
+	Fix missing and conflicting mnemonics.
+
+2008-04-07  Matthew Barnes  <mbarnes@redhat.com>
+
 	** Fixes bug #525996
 
 	* gtkhtml-editor-private.c (gtkhtml_editor_find_data_file):
