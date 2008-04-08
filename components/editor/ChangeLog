@@ -1,5 +1,12 @@
 2008-04-08  Matthew Barnes  <mbarnes@redhat.com>
 
+	** Fixes bug #525966
+
+	* gtkhtml-editor.c (gtkhtml_editor_get_changed):
+	Fix a boolean error in detecting unsaved changes.
+
+2008-04-08  Matthew Barnes  <mbarnes@redhat.com>
+
 	** Fixes bug #526877, patch by Sankar P
 
 	* gtkhtml-spell-language.c (gtkhtml_spell_language_lookup):

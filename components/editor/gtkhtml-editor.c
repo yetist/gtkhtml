@@ -984,7 +984,7 @@ gtkhtml_editor_get_changed (GtkhtmlEditor *editor)
 
 	html = gtkhtml_editor_get_html (editor);
 
-	return editor->priv->changed || html_engine_is_saved (html->engine);
+	return editor->priv->changed || !html_engine_is_saved (html->engine);
 }
 
 void
