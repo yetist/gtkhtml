@@ -1,4 +1,14 @@
-GtkHTML-3.17.93 2008-03-10
+GtkHTML-3.18.1 2008-04-07
+-------------------------
+
+Bug Fixes:
+	#520711: Runtime critical warning after Format->Paragraph->Close while changing style (Milan Crha)
+
+Updated Translations:
+	Eskild Hustvedt (nn)
+	Ivar Smolin (et)
+
+GtkHTML-3.18.0 2008-03-10
 --------------------------
 
 Updated Translations:
