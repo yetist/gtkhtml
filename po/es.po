@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-04-02 17:04+0100\n"
-"PO-Revision-Date: 2008-04-07 20:14+0200\n"
+"POT-Creation-Date: 2008-04-08 02:25+0100\n"
+"PO-Revision-Date: 2008-04-11 00:16+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -311,11 +311,11 @@ msgstr "Indica si se muestra el desplegable del combo"
 
 #: ../components/editor/gtkhtml-color-combo.c:745
 msgid "Color state"
-msgstr ""
+msgstr "Estado del color"
 
 #: ../components/editor/gtkhtml-color-combo.c:746
 msgid "State of the color combo"
-msgstr ""
+msgstr "Estado del combo del color"
 
 #. This is the default custom color
 #: ../components/editor/gtkhtml-color-combo.c:928
@@ -325,7 +325,7 @@ msgstr "personalizado"
 
 #: ../components/editor/gtkhtml-color-combo.c:936
 msgid "Custom Color..."
-msgstr "Color personalizado..."
+msgstr "Color personalizado…"
 
 #: ../components/editor/gtkhtml-color-state.c:191
 #: ../components/editor/gtkhtml-color-swatch.c:178
@@ -358,7 +358,7 @@ msgstr "Acción"
 
 #: ../components/editor/gtkhtml-combo-box.c:330
 msgid "A GtkRadioAction"
-msgstr ""
+msgstr "Un GtkRadioAction"
 
 #: ../components/editor/gtkhtml-editor-actions.c:695
 #: ../components/html-editor/menubar.c:349
@@ -376,7 +376,7 @@ msgstr "Insertar archivo de texto"
 
 #. Replace Button
 #: ../components/editor/gtkhtml-editor-actions.c:1260
-#: ../components/editor/gtkhtml-spell-dialog.c:519
+#: ../components/editor/gtkhtml-spell-dialog.c:522
 #: ../components/html-editor/replace.c:85
 msgid "_Replace"
 msgstr "_Reemplazar"
@@ -425,7 +425,7 @@ msgstr "_Ángel"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1344
 msgid "_Cool"
-msgstr ""
+msgstr "_Chachi"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1351
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:17
@@ -615,7 +615,8 @@ msgid "_Alignment"
 msgstr "_Alineación"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1598
-msgid "_Current Languages"
+#: ../components/html-editor/spellchecker.c:424
+msgid "Current _Languages"
 msgstr "_Idiomas actuales"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1605
@@ -624,9 +625,8 @@ msgid "_View"
 msgstr "_Ver"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1615
-#: ../components/editor/gtkhtml-editor.c:724
-msgid "HTML Mode"
-msgstr "Modo HTML"
+msgid "HTML _Mode"
+msgstr "_Modo HTML"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1626
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
@@ -677,14 +677,16 @@ msgid "Header _4"
 msgstr "Cabecera _4"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1685
-#: ../components/html-editor/paragraph-style.c:71
-msgid "Header 5"
-msgstr "Cabecera 5"
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:33
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:33
+msgid "Header _5"
+msgstr "Cabecera _5"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1692
-#: ../components/html-editor/paragraph-style.c:74
-msgid "Header 6"
-msgstr "Cabecera 6"
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:34
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:34
+msgid "Header _6"
+msgstr "Cabecera _6"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1699
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:8
@@ -752,12 +754,10 @@ msgstr "_Tabla…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1778
 msgid "_Cell..."
-msgstr "_Celda..."
+msgstr "_Celda…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1799
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:127
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:127
-msgid "_Page..."
+msgid "Pa_ge..."
 msgstr "_Página…"
 
 #.
@@ -940,7 +940,7 @@ msgstr "Fila inferior"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2061
 msgid "Cell..."
-msgstr "Celda..."
+msgstr "Celda…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2068
 msgid "Image..."
@@ -1015,12 +1015,12 @@ msgstr "_Regla"
 msgid "_Table"
 msgstr "_Tabla"
 
-#: ../components/editor/gtkhtml-editor-private.c:259
+#: ../components/editor/gtkhtml-editor-private.c:272
 #: ../components/html-editor/toolbar.c:540
 msgid "Text Color"
 msgstr "Color del texto"
 
-#: ../components/editor/gtkhtml-editor-private.c:286
+#: ../components/editor/gtkhtml-editor-private.c:299
 #: ../components/html-editor/body.c:237 ../components/html-editor/text.c:171
 #: ../components/html-editor/toolbar.c:199
 msgid "Automatic"
@@ -1041,6 +1041,10 @@ msgstr "Nombre de archivo"
 #: ../components/editor/gtkhtml-editor.c:714
 msgid "The filename to use when saving"
 msgstr "El nombre de archivo que usar al guardar"
+
+#: ../components/editor/gtkhtml-editor.c:724
+msgid "HTML Mode"
+msgstr "Modo HTML"
 
 #: ../components/editor/gtkhtml-editor.c:725
 msgid "Edit HTML or plain text"
@@ -1501,32 +1505,32 @@ msgid "Spell Checker"
 msgstr "Corrector ortográfico"
 
 #. Replace All Button
-#: ../components/editor/gtkhtml-spell-dialog.c:533
+#: ../components/editor/gtkhtml-spell-dialog.c:536
 msgid "R_eplace All"
 msgstr "R_eemplazar todos"
 
 #. Ignore Button
-#: ../components/editor/gtkhtml-spell-dialog.c:547
+#: ../components/editor/gtkhtml-spell-dialog.c:550
 msgid "_Ignore"
 msgstr "_Ignorar"
 
 #. Skip Button
-#: ../components/editor/gtkhtml-spell-dialog.c:561
+#: ../components/editor/gtkhtml-spell-dialog.c:564
 msgid "_Skip"
 msgstr "_Saltar"
 
 #. Back Button
-#: ../components/editor/gtkhtml-spell-dialog.c:574
+#: ../components/editor/gtkhtml-spell-dialog.c:577
 msgid "_Back"
 msgstr "A_trás"
 
 #. Dictionary Label
-#: ../components/editor/gtkhtml-spell-dialog.c:587
+#: ../components/editor/gtkhtml-spell-dialog.c:590
 msgid "Dictionary"
 msgstr "Diccionario"
 
 #. Add Word Button
-#: ../components/editor/gtkhtml-spell-dialog.c:616
+#: ../components/editor/gtkhtml-spell-dialog.c:619
 msgid "_Add Word"
 msgstr "_Añadir palabra"
 
@@ -1546,7 +1550,7 @@ msgstr "%s (%s)"
 #. * in the translated string.
 #. * Translators: This refers to the default language used
 #. * by the spell checker.
-#: ../components/editor/gtkhtml-spell-language.c:393
+#: ../components/editor/gtkhtml-spell-language.c:386
 msgid "language|Default"
 msgstr "Predeterminado"
 
@@ -1572,7 +1576,7 @@ msgstr "Fuente plana"
 
 #: ../components/editor/main.c:289
 msgid "_Print..."
-msgstr "_Imprimir..."
+msgstr "_Imprimir…"
 
 #: ../components/editor/main.c:296
 msgid "Print Pre_view"
@@ -1588,7 +1592,7 @@ msgstr "_Guardar"
 
 #: ../components/editor/main.c:317
 msgid "Save _As..."
-msgstr "Guardar _como..."
+msgstr "Guardar _como…"
 
 #: ../components/editor/main.c:334
 msgid "HTML _Output"
@@ -1684,16 +1688,6 @@ msgstr "Buscar y reemplazar"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:28
 msgid "For_mat"
 msgstr "_Formato"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:33
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:33
-msgid "Header _5"
-msgstr "Cabecera _5"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:34
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:34
-msgid "Header _6"
-msgstr "Cabecera _6"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:35
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
@@ -2031,6 +2025,11 @@ msgstr "Deshacer cambios anteriores"
 msgid "Undo the last action"
 msgstr "Deshacer la última acción"
 
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:127
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:127
+msgid "_Page..."
+msgstr "_Página…"
+
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:133
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:133
 msgid "_Replace..."
@@ -2365,6 +2364,14 @@ msgstr "Cabecera 3"
 msgid "Header 4"
 msgstr "Cabecera 4"
 
+#: ../components/html-editor/paragraph-style.c:71
+msgid "Header 5"
+msgstr "Cabecera 5"
+
+#: ../components/html-editor/paragraph-style.c:74
+msgid "Header 6"
+msgstr "Cabecera 6"
+
 #: ../components/html-editor/paragraph-style.c:77
 msgid "Address"
 msgstr "Dirección"
@@ -2480,10 +2487,6 @@ msgstr "Ninguna palabra mal escrita"
 msgid "Spell checker"
 msgstr "Corrector ortográfico"
 
-#: ../components/html-editor/spellchecker.c:424
-msgid "Current _Languages"
-msgstr "_Idiomas actuales"
-
 #: ../components/html-editor/template.c:90
 msgid "Note"
 msgstr "Nota"
@@ -2581,83 +2584,83 @@ msgstr ""
 "El objeto editado se ha quitado del documento.\n"
 "No se pueden aplicar los cambios."
 
-#: ../gtkhtml/gtkhtml.c:2921
+#: ../gtkhtml/gtkhtml.c:2886
 msgid "Editable"
 msgstr "Editable"
 
-#: ../gtkhtml/gtkhtml.c:2922
+#: ../gtkhtml/gtkhtml.c:2887
 msgid "Whether the html can be edited"
 msgstr "Indica si el html se puede editar"
 
-#: ../gtkhtml/gtkhtml.c:2928
+#: ../gtkhtml/gtkhtml.c:2893
 msgid "Document Title"
 msgstr "Título del documento"
 
-#: ../gtkhtml/gtkhtml.c:2929
+#: ../gtkhtml/gtkhtml.c:2894
 msgid "The title of the current document"
 msgstr "El título del documento actual"
 
-#: ../gtkhtml/gtkhtml.c:2935
+#: ../gtkhtml/gtkhtml.c:2900
 msgid "Document Base"
 msgstr "Base del documento"
 
-#: ../gtkhtml/gtkhtml.c:2936
+#: ../gtkhtml/gtkhtml.c:2901
 msgid "The base URL for relative references"
 msgstr "La URL de base para referencias relativas"
 
-#: ../gtkhtml/gtkhtml.c:2942
+#: ../gtkhtml/gtkhtml.c:2907
 msgid "Target Base"
 msgstr "Base del destino"
 
-#: ../gtkhtml/gtkhtml.c:2943
+#: ../gtkhtml/gtkhtml.c:2908
 msgid "The base URL of the target frame"
 msgstr "La URL base del marco destino"
 
-#: ../gtkhtml/gtkhtml.c:2952
+#: ../gtkhtml/gtkhtml.c:2917
 msgid "Fixed Width Font"
 msgstr "Tipografía de anchura fija"
 
-#: ../gtkhtml/gtkhtml.c:2953
+#: ../gtkhtml/gtkhtml.c:2918
 msgid "The Monospace font to use for typewriter text"
 msgstr "La tipografía monoespaciada que usar para el texto de máquina de escribir"
 
-#: ../gtkhtml/gtkhtml.c:2959
+#: ../gtkhtml/gtkhtml.c:2924
 msgid "New Link Color"
 msgstr "Color de enlaces nuevos"
 
-#: ../gtkhtml/gtkhtml.c:2960
+#: ../gtkhtml/gtkhtml.c:2925
 msgid "The color of new link elements"
 msgstr "El color de los elementos de enlace nuevos"
 
-#: ../gtkhtml/gtkhtml.c:2965
+#: ../gtkhtml/gtkhtml.c:2930
 msgid "Visited Link Color"
 msgstr "Color de enlaces visitados"
 
-#: ../gtkhtml/gtkhtml.c:2966
+#: ../gtkhtml/gtkhtml.c:2931
 msgid "The color of visited link elements"
 msgstr "El color de los elementos de enlace visitados"
 
-#: ../gtkhtml/gtkhtml.c:2971
+#: ../gtkhtml/gtkhtml.c:2936
 msgid "Active Link Color"
 msgstr "Color del enlace activo"
 
-#: ../gtkhtml/gtkhtml.c:2972
+#: ../gtkhtml/gtkhtml.c:2937
 msgid "The color of active link elements"
 msgstr "El color de los elementos de enlace activos"
 
-#: ../gtkhtml/gtkhtml.c:2977
+#: ../gtkhtml/gtkhtml.c:2942
 msgid "Spelling Error Color"
 msgstr "Color del error ortográfico"
 
-#: ../gtkhtml/gtkhtml.c:2978
+#: ../gtkhtml/gtkhtml.c:2943
 msgid "The color of the spelling error markers"
 msgstr "El color de los marcadores de error ortográfico"
 
-#: ../gtkhtml/gtkhtml.c:2983
+#: ../gtkhtml/gtkhtml.c:2948
 msgid "Cite Quotation Color"
 msgstr "Color de cita literal"
 
-#: ../gtkhtml/gtkhtml.c:2984
+#: ../gtkhtml/gtkhtml.c:2949
 msgid "The color of the cited text"
 msgstr "El color del elemento citado literalmente"
 
