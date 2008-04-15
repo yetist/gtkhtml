@@ -1,3 +1,8 @@
+2008-04-14  Matthew Barnes  <mbarnes@redhat.com>
+
+	* gtkhtml-editor-actions.c (action_html_mode_cb):
+	Disable the color combo on the style toolbar in text mode.
+
 2008-04-08  Matthew Barnes  <mbarnes@redhat.com>
 
 	** Fixes bug #525966

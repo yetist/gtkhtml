@@ -638,6 +638,8 @@ action_html_mode_cb (GtkToggleAction *action,
 	action_group = editor->priv->html_context_actions;
 	gtk_action_group_set_visible (action_group, active);
 
+        gtk_widget_set_sensitive (editor->priv->color_combo_box, active);
+
 	/* Certain paragraph styles are HTML-only. */
 	gtk_action_set_sensitive (ACTION (STYLE_H1), active);
 	gtk_action_set_sensitive (ACTION (STYLE_H2), active);
