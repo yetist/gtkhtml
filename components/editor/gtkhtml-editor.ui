@@ -71,7 +71,7 @@
       </menu>
       <menuitem action='properties-text'/>
       <separator/>
-      <menu action='heading-menu'>
+      <menu action='paragraph-style-menu'>
         <menuitem action='style-normal'/>
         <separator/>
         <menuitem action='style-h1'/>

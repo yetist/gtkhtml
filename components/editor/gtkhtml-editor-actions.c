@@ -1476,7 +1476,7 @@ static GtkActionEntry core_entries[] = {
 
 	{ "properties-paragraph",
 	  NULL,
-	  N_("_Paragraph..."),
+	  N_("Pa_ragraph..."),
 	  NULL,
 	  NULL,
 	  G_CALLBACK (action_properties_paragraph_cb) },
@@ -1567,9 +1567,9 @@ static GtkActionEntry core_entries[] = {
 	  NULL,
 	  NULL },
 
-	{ "heading-menu",
+	{ "paragraph-style-menu",
 	  NULL,
-	  N_("_Heading"),
+	  N_("_Paragraph Style"),
 	  NULL,
 	  NULL,
 	  NULL },
@@ -1614,7 +1614,7 @@ static GtkToggleActionEntry core_toggle_entries[] = {
 
 	{ "html-mode",
 	  NULL,
-	  N_("HTML _Mode"),
+	  N_("_HTML Mode"),
 	  NULL,
 	  NULL,
 	  G_CALLBACK (action_html_mode_cb),
@@ -1828,14 +1828,14 @@ static GtkActionEntry html_entries[] = {
 
 	{ "font-size-menu",
 	  NULL,
-	  N_("_Font Size"),
+	  N_("Font _Size"),
 	  NULL,
 	  NULL,
 	  NULL },
 
 	{ "font-style-menu",
 	  NULL,
-	  N_("_Style"),
+	  N_("_Font Style"),
 	  NULL,
 	  NULL,
 	  NULL },
