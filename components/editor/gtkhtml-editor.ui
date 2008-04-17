@@ -69,7 +69,6 @@
         <menuitem action='size-plus-three'/>
         <menuitem action='size-plus-four'/>
       </menu>
-      <menuitem action='properties-text'/>
       <separator/>
       <menu action='paragraph-style-menu'>
         <menuitem action='style-normal'/>
@@ -94,7 +93,6 @@
         <menuitem action='justify-center'/>
         <menuitem action='justify-right'/>
       </menu>
-      <menuitem action='properties-paragraph'/>
       <separator/>
       <menuitem action='indent'/>
       <menuitem action='unindent'/>

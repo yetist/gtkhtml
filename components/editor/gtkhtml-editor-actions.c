@@ -60,7 +60,6 @@
  * "justify-right"	(radio)
  * "paste"
  * "paste-quote"
- * "properties-paragraph"
  * "redo"
  * "select-all"
  * "show-find"
@@ -88,7 +87,6 @@
  * ------------------------
  * "bold"		(toggle)
  * "properties-page"
- * "properties-text"
  * "insert-image"
  * "insert-link"
  * "insert-rule"
@@ -1474,13 +1472,6 @@ static GtkActionEntry core_entries[] = {
 	  NULL,
 	  G_CALLBACK (action_paste_quote_cb) },
 
-	{ "properties-paragraph",
-	  NULL,
-	  N_("Pa_ragraph..."),
-	  NULL,
-	  NULL,
-	  G_CALLBACK (action_properties_paragraph_cb) },
-
 	{ "redo",
 	  GTK_STOCK_REDO,
 	  N_("_Redo"),
@@ -1816,13 +1807,6 @@ static GtkActionEntry html_entries[] = {
 	  NULL,
 	  NULL,
 	  G_CALLBACK (action_properties_table_cb) },
-
-	{ "properties-text",
-	  NULL,
-	  N_("_Text..."),
-	  NULL,
-	  NULL,
-	  G_CALLBACK (action_properties_text_cb) },
 
 	/* Menus */
 
