@@ -1,5 +1,16 @@
 2008-04-17  Matthew Barnes  <mbarnes@redhat.com>
 
+	** Fixes bug #528401
+
+	* gtkhtml-spell-language.c (spell_language_lookup):
+	Split gtkhtml_spell_language_lookup() into a public and private
+	function to eliminate the chance of any more infinite loops.  Now
+	spell_language_pick_default() calls the private function, but the
+	private function does not call spell_language_pick_default() as a
+	fallback.
+
+2008-04-17  Matthew Barnes  <mbarnes@redhat.com>
+
 	** Fixes bug #245246
 
 	* gtkhtml-editor.ui:

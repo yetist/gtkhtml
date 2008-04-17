@@ -225,6 +225,31 @@ spell_language_free (const GtkhtmlSpellLanguage *language)
 	/* do nothing */
 }
 
+static const GtkhtmlSpellLanguage *
+spell_language_lookup (const gchar *language_code)
+{
+	const GtkhtmlSpellLanguage *closest_match = NULL;
+	const GList *available_languages;
+
+	available_languages = gtkhtml_spell_language_get_available ();
+
+	while (available_languages != NULL && language_code != NULL) {
+		GtkhtmlSpellLanguage *language = available_languages->data;
+		const gchar *code = language->code;
+		gsize length = strlen (code);
+
+		if (g_ascii_strcasecmp (language_code, code) == 0)
+			return language;
+
+		if (g_ascii_strncasecmp (language_code, code, length) == 0)
+			closest_match = language;
+
+		available_languages = g_list_next (available_languages);
+	}
+
+	return closest_match;
+}
+
 static gboolean
 spell_language_traverse_cb (const gchar *code,
                             const gchar *name,
@@ -327,10 +352,10 @@ spell_language_pick_default (void)
 	available_languages = gtkhtml_spell_language_get_available ();
 
 	for (ii = 0; language == NULL && language_names[ii] != NULL; ii++)
-		language = gtkhtml_spell_language_lookup (language_names[ii]);
+		language = spell_language_lookup (language_names[ii]);
 
 	if (language == NULL)
-		language = gtkhtml_spell_language_lookup ("en_US");
+		language = spell_language_lookup ("en_US");
 
 	if (language == NULL && available_languages != NULL)
 		language = available_languages->data;
@@ -341,33 +366,14 @@ spell_language_pick_default (void)
 const GtkhtmlSpellLanguage *
 gtkhtml_spell_language_lookup (const gchar *language_code)
 {
-	const GtkhtmlSpellLanguage *closest_match = NULL;
-	const GList *available_languages;
+	const GtkhtmlSpellLanguage *language = NULL;
 
-	available_languages = gtkhtml_spell_language_get_available ();
+	language = spell_language_lookup (language_code);
 
-	/* No dictionaries available? */
-	if (available_languages == NULL)
-		return NULL;
+	if (language == NULL)
+		language = spell_language_pick_default ();
 
-	while (available_languages != NULL && language_code != NULL) {
-		GtkhtmlSpellLanguage *language = available_languages->data;
-		const gchar *code = language->code;
-		gsize length = strlen (code);
-
-		if (g_ascii_strcasecmp (language_code, code) == 0)
-			return language;
-
-		if (g_ascii_strncasecmp (language_code, code, length) == 0)
-			closest_match = language;
-
-		available_languages = g_list_next (available_languages);
-	}
-
-	if (closest_match == NULL)
-		closest_match = spell_language_pick_default ();
-
-	return closest_match;
+	return language;
 }
 
 const gchar *
