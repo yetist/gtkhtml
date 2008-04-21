@@ -1,3 +1,8 @@
+2008-04-21  Matthew Barnes  <mbarnes@redhat.com>
+
+	* gtkhtml-editor.c (gtkhtml_editor_get_action_group):
+	New function provides access to GtkActionGroups by name.
+
 2008-04-17  Matthew Barnes  <mbarnes@redhat.com>
 
 	** Fixes bug #528401

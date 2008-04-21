@@ -92,6 +92,8 @@ GtkHTML *	gtkhtml_editor_get_html		(GtkhtmlEditor *editor);
 GtkUIManager *	gtkhtml_editor_get_ui_manager	(GtkhtmlEditor *editor);
 GtkAction *	gtkhtml_editor_get_action	(GtkhtmlEditor *editor,
 						 const gchar *action_name);
+GtkActionGroup *gtkhtml_editor_get_action_group	(GtkhtmlEditor *editor,
+						 const gchar *group_name);
 GtkWidget *	gtkhtml_editor_get_widget	(GtkhtmlEditor *editor,
 						 const gchar *widget_name);
 GtkWidget *	gtkhtml_editor_get_managed_widget

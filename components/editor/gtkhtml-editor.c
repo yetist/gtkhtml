@@ -939,6 +939,30 @@ gtkhtml_editor_get_action (GtkhtmlEditor *editor,
 	return action;
 }
 
+GtkActionGroup *
+gtkhtml_editor_get_action_group (GtkhtmlEditor *editor,
+                                 const gchar *group_name)
+{
+	GList *iter;
+
+	g_return_val_if_fail (GTKHTML_IS_EDITOR (editor), NULL);
+	g_return_val_if_fail (group_name != NULL, NULL);
+
+	iter = gtk_ui_manager_get_action_groups (editor->priv->manager);
+	while (iter != NULL) {
+		GtkActionGroup *action_group = iter->data;
+		const gchar *name;
+
+		name = gtk_action_group_get_name (action_group);
+		if (strcmp (name, group_name) == 0)
+			return action_group;
+
+		iter = g_list_next (iter);
+	}
+
+	return NULL;
+}
+
 GtkWidget *
 gtkhtml_editor_get_widget (GtkhtmlEditor *editor,
                            const gchar *widget_name)
