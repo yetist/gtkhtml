@@ -403,6 +403,14 @@ gtkhtml_editor_find_data_file (const gchar *basename)
 		return filename;
 	g_free (filename);
 
+	/* Check our own installation prefix. */
+	filename = g_build_filename (
+		DATADIR, GTKHTML_RELEASE_STRING, basename, NULL);
+	if (g_file_test (filename, G_FILE_TEST_EXISTS))
+		return filename;
+	g_free (filename);
+
+	/* Check the standard system data directories. */
 	datadirs = g_get_system_data_dirs ();
 	while (*datadirs != NULL) {
 		filename = g_build_filename (
@@ -414,6 +422,10 @@ gtkhtml_editor_find_data_file (const gchar *basename)
 
 	/* Print a helpful message and die. */
 	g_printerr (DATA_FILE_NOT_FOUND_MESSAGE, basename);
+	filename = g_build_filename (
+		DATADIR, GTKHTML_RELEASE_STRING, basename, NULL);
+	g_printerr ("\t%s\n", filename);
+	g_free (filename);
 	datadirs = g_get_system_data_dirs ();
 	while (*datadirs != NULL) {
 		filename = g_build_filename (

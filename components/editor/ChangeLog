@@ -1,3 +1,11 @@
+2008-04-24  Matthew Barnes  <mbarnes@redhat.com>
+
+	** Related to bug #525996
+
+	* gtkhtml-editor-private.c (gtkhtml_editor_find_data_file):
+	Look for data files in our own installation prefix, to make
+	running local builds easier.
+
 2008-04-21  Matthew Barnes  <mbarnes@redhat.com>
 
 	* gtkhtml-editor.c (gtkhtml_editor_get_action_group):

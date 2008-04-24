@@ -11,6 +11,7 @@ AM_CFLAGS = \
 	-I$(top_srcdir)/gtkhtml			\
 	-I$(top_srcdir)/components/editor	\
 	-DG_LOG_DOMAIN=\"gtkhtml-editor\"	\
+	-DDATADIR=\""$(datadir)"\"		\
 	-DLOCALEDIR=\""$(datadir)/locale/"\"	\
 	-DICONDIR=\""$(gtkhtml_data)/icons"\"	\
 	-DHAVE_CONFIG_H
