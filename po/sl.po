@@ -1,14 +1,14 @@
 #
 # Andraz Tori <andraz.tori1@guest.arnes.si>, 2000.
 # Matjaž Horvat <m@owca.info>, 2006.
-# Matej Urbančič <mateju@svn.gnome.org>, 2007
+# Matej Urbančič <mateju@svn.gnome.org>, 2007 - 2008.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-01-30 07:22+0000\n"
-"PO-Revision-Date: 2008-04-26 16:46+0100\n"
+"PO-Revision-Date: 2008-04-27 07:54+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -306,9 +306,8 @@ msgid "Whether the combo's dropdown is shown"
 msgstr "Ali naj bo prikazan spustni meni"
 
 #: ../components/editor/gtkhtml-color-combo.c:745
-#, fuzzy
 msgid "Color state"
-msgstr "Barve"
+msgstr "Stanje barve"
 
 #: ../components/editor/gtkhtml-color-combo.c:746
 msgid "State of the color combo"
@@ -321,13 +320,11 @@ msgid "custom"
 msgstr "po meri"
 
 #: ../components/editor/gtkhtml-color-combo.c:936
-#, fuzzy
 msgid "Custom Color..."
-msgstr "Barva po meri:"
+msgstr "Barva po meri ..."
 
 #: ../components/editor/gtkhtml-color-state.c:191
 #: ../components/editor/gtkhtml-color-swatch.c:178
-#, fuzzy
 msgid "The current color"
 msgstr "Trenutna barva"
 
@@ -340,17 +337,14 @@ msgid "Description of the default color"
 msgstr "Opis privzete barve"
 
 #: ../components/editor/gtkhtml-color-swatch.c:177
-#, fuzzy
 msgid "Color"
 msgstr "Barva"
 
 #: ../components/editor/gtkhtml-color-swatch.c:187
-#, fuzzy
 msgid "Frame Shadow"
 msgstr "Senca okvirja"
 
 #: ../components/editor/gtkhtml-color-swatch.c:188
-#, fuzzy
 msgid "Appearance of the frame border"
 msgstr "Videz roba okvirja"
 
@@ -368,7 +362,6 @@ msgid "Insert HTML File"
 msgstr "Vstavi datoteko HTML"
 
 #: ../components/editor/gtkhtml-editor-actions.c:704
-#, fuzzy
 msgid "Insert Image"
 msgstr "Vstavi sliko"
 
@@ -407,7 +400,6 @@ msgid "Cu_t"
 msgstr "_Izreži"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1309
-#, fuzzy
 msgid "Find A_gain"
 msgstr "Poišči znov_a"
 
@@ -1017,23 +1009,20 @@ msgid "The filename to use when saving"
 msgstr "Ime datoteke uporabljeno pri shanjevanju"
 
 #: ../components/editor/gtkhtml-editor.c:724
-#, fuzzy
 msgid "HTML Mode"
-msgstr "Način _HTML"
+msgstr "Način HTML"
 
 #: ../components/editor/gtkhtml-editor.c:725
 msgid "Edit HTML or plain text"
 msgstr "Urejanje HTML ali običajnega besedila"
 
 #: ../components/editor/gtkhtml-editor.c:735
-#, fuzzy
 msgid "Inline Spelling"
-msgstr "Preveri č_rkovanje ..."
+msgstr "Sprotno č_rkovanje"
 
 #: ../components/editor/gtkhtml-editor.c:736
-#, fuzzy
 msgid "Check your spelling as you type"
-msgstr "Preveri črkovanje dokumenta"
+msgstr "Preveri črkovanje dokumenta med tipkanjem"
 
 #: ../components/editor/gtkhtml-editor.c:746
 msgid "Magic Links"
@@ -1041,7 +1030,7 @@ msgstr "Čarobne povezave"
 
 #: ../components/editor/gtkhtml-editor.c:747
 msgid "Make URIs clickable as you type"
-msgstr "Pretvori zapisano povezavoe v neposredno povezavo"
+msgstr "Pretvori zapisano povezavo v neposredno povezavo"
 
 #: ../components/editor/gtkhtml-editor.c:757
 msgid "Magic Smileys"
@@ -1052,19 +1041,16 @@ msgid "Convert emoticons to images as you type"
 msgstr "Pretvori smeške v slike med tipkanjem"
 
 #: ../components/editor/gtkhtml-editor.glade.h:1
-#, fuzzy
 msgid "<b>Alignment &amp; Behavior</b>"
 msgstr "<b>Poravnava in obnašanje</b>"
 
 #: ../components/editor/gtkhtml-editor.glade.h:2
-#, fuzzy
 msgid "<b>Alignment</b>"
-msgstr "Poravnava"
+msgstr "<b>Poravnava</b>"
 
 #: ../components/editor/gtkhtml-editor.glade.h:3
-#, fuzzy
 msgid "<b>Background Image</b>"
-msgstr "_Slika ozadja:"
+msgstr "<b>Slika ozadja</b>"
 
 #: ../components/editor/gtkhtml-editor.glade.h:4
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:11
@@ -1072,7 +1058,6 @@ msgid "<b>Background</b>"
 msgstr "<b>Ozadje</b>"
 
 #: ../components/editor/gtkhtml-editor.glade.h:5
-#, fuzzy
 msgid "<b>Colors</b>"
 msgstr "<b>Barve</b>"
 
@@ -1087,9 +1072,8 @@ msgid "<b>Layout</b>"
 msgstr "<b>Razporeditev</b>"
 
 #: ../components/editor/gtkhtml-editor.glade.h:8
-#, fuzzy
 msgid "<b>Link</b>"
-msgstr "Povezava"
+msgstr "<b>Povezava</b>"
 
 #: ../components/editor/gtkhtml-editor.glade.h:9
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:14
@@ -1097,14 +1081,12 @@ msgid "<b>Scope</b>"
 msgstr "<b>Obseg</b>"
 
 #: ../components/editor/gtkhtml-editor.glade.h:10
-#, fuzzy
 msgid "<b>Size</b>"
 msgstr "<b>Velikost</b>"
 
 #: ../components/editor/gtkhtml-editor.glade.h:11
-#, fuzzy
 msgid "<b>Style</b>"
-msgstr "_Slog:"
+msgstr "<b>Slog</b>"
 
 #: ../components/editor/gtkhtml-editor.glade.h:12
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:23
@@ -1117,7 +1099,6 @@ msgid "C_olor:"
 msgstr "B_arva:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:14
-#, fuzzy
 msgid "C_olumns:"
 msgstr "Stolp_ci:"
 
@@ -1133,9 +1114,8 @@ msgid "Case _sensitive"
 msgstr "_Razlikuj velike in male črke"
 
 #: ../components/editor/gtkhtml-editor.glade.h:17
-#, fuzzy
 msgid "Cell Properties"
-msgstr "Lastnosti"
+msgstr "Lastnosti celic"
 
 #: ../components/editor/gtkhtml-editor.glade.h:18
 msgid "Co_lor:"
@@ -1147,7 +1127,6 @@ msgid "Col_umn"
 msgstr "Stol_pec"
 
 #: ../components/editor/gtkhtml-editor.glade.h:20
-#, fuzzy
 msgid "Column Span:"
 msgstr "Seganje stolpca:"
 
@@ -1161,7 +1140,6 @@ msgid "Find"
 msgstr "Najdi"
 
 #: ../components/editor/gtkhtml-editor.glade.h:22
-#, fuzzy
 msgid "Hea_der Style"
 msgstr "_Slog glave"
 
@@ -1171,7 +1149,6 @@ msgid "I_mage:"
 msgstr "S_lika:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:24
-#, fuzzy
 msgid "Image Properties"
 msgstr "Lastnosti slike"
 
@@ -1187,7 +1164,6 @@ msgstr ""
 "Desno"
 
 #: ../components/editor/gtkhtml-editor.glade.h:28
-#, fuzzy
 msgid "Link Properties"
 msgstr "Lastnosti povezave"
 
@@ -1214,14 +1190,12 @@ msgstr ""
 "Karo papir"
 
 #: ../components/editor/gtkhtml-editor.glade.h:38
-#, fuzzy
 msgid "Page Properties"
-msgstr "Lastnosti"
+msgstr "Lastnosti strani"
 
 #: ../components/editor/gtkhtml-editor.glade.h:39
-#, fuzzy
 msgid "Paragraph Properties"
-msgstr "Lastnosti"
+msgstr "Lastnosti odstavka"
 
 #: ../components/editor/gtkhtml-editor.glade.h:40
 #: ../components/html-editor/replace.c:190
@@ -1238,24 +1212,20 @@ msgid "Replace"
 msgstr "Zamenjaj"
 
 #: ../components/editor/gtkhtml-editor.glade.h:42
-#, fuzzy
 msgid "Replace Confirmation"
 msgstr "Potrditev zamenjave"
 
 #: ../components/editor/gtkhtml-editor.glade.h:43
-#, fuzzy
 msgid "Row Span:"
 msgstr "Seganje vrstice:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:44
-#, fuzzy
 msgid "Rule Properties"
-msgstr "Lastnosti"
+msgstr "Lastnosti pravil"
 
 #: ../components/editor/gtkhtml-editor.glade.h:45
-#, fuzzy
 msgid "S_haded"
-msgstr "Senčeno"
+msgstr "_Senčeno"
 
 #: ../components/editor/gtkhtml-editor.glade.h:46
 msgid "Search _backwards"
@@ -2090,7 +2060,7 @@ msgstr "Slog trenutnega odstavka naj se predoblikuje"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
 msgid "Preformatted"
-msgstr "Predoblikovanje"
+msgstr "Predoblikovano"
 
 #: ../components/html-editor/body.c:64
 msgid "None"
