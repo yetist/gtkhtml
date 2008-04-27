@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.txt\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-01-14 09:01+0000\n"
+"POT-Creation-Date: 2008-04-17 12:47+0100\n"
 "PO-Revision-Date: 2003-03-17 15:05+0200\n"
 "Last-Translator: Gil 'Dolfin' Osher <dolfin@rpg.org.il>\n"
 "Language-Team: Hebrew <he@li.org>\n"
@@ -34,45 +34,1580 @@ msgstr "תפוס פוקוס"
 msgid "Panel containing HTML"
 msgstr "לוח שמכיל HTML"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:1
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
-msgid "+0"
-msgstr "+0"
+#: ../components/editor/gtkhtml-color-combo.c:78
+#: ../components/html-editor/gi-color-palette.c:559
+msgid "black"
+msgstr "שחור"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:2
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:2
-msgid "+1"
-msgstr "+1"
+#: ../components/editor/gtkhtml-color-combo.c:79
+#: ../components/html-editor/gi-color-palette.c:560
+msgid "light brown"
+msgstr "חום בהיר"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:3
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:3
-msgid "+2"
-msgstr "+2"
+#: ../components/editor/gtkhtml-color-combo.c:80
+#: ../components/html-editor/gi-color-palette.c:561
+msgid "brown gold"
+msgstr "זהב חום"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:4
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:4
-msgid "+3"
-msgstr "+3"
+#: ../components/editor/gtkhtml-color-combo.c:81
+#: ../components/html-editor/gi-color-palette.c:562
+msgid "dark green #2"
+msgstr "ירוק כהה #2"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:5
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:5
-msgid "+4"
-msgstr "+4"
+#: ../components/editor/gtkhtml-color-combo.c:82
+#: ../components/html-editor/gi-color-palette.c:563
+msgid "navy"
+msgstr ""
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:6
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:6
-msgid "-1"
-msgstr "-1"
+#: ../components/editor/gtkhtml-color-combo.c:83
+#: ../components/html-editor/gi-color-palette.c:564
+#: ../components/html-editor/gi-color-palette.c:620
+msgid "dark blue"
+msgstr "ככול כהה"
 
+#: ../components/editor/gtkhtml-color-combo.c:84
+#: ../components/html-editor/gi-color-palette.c:565
+msgid "purple #2"
+msgstr "סגול #2"
+
+#: ../components/editor/gtkhtml-color-combo.c:85
+#: ../components/html-editor/gi-color-palette.c:566
+msgid "very dark gray"
+msgstr "אפור כהה מאוד"
+
+#: ../components/editor/gtkhtml-color-combo.c:87
+#: ../components/html-editor/gi-color-palette.c:569
+#: ../components/html-editor/gi-color-palette.c:625
+msgid "dark red"
+msgstr "אדום כהה"
+
+#: ../components/editor/gtkhtml-color-combo.c:88
+#: ../components/html-editor/gi-color-palette.c:570
+msgid "red-orange"
+msgstr "אדום-כתום"
+
+#: ../components/editor/gtkhtml-color-combo.c:89
+#: ../components/html-editor/gi-color-palette.c:571
+msgid "gold"
+msgstr "זהב"
+
+#: ../components/editor/gtkhtml-color-combo.c:90
+#: ../components/html-editor/gi-color-palette.c:572
+msgid "dark green"
+msgstr "ירוק כהה"
+
+#: ../components/editor/gtkhtml-color-combo.c:91
+#: ../components/html-editor/gi-color-palette.c:573
+#: ../components/html-editor/gi-color-palette.c:626
+msgid "dull blue"
+msgstr "כחול עמום"
+
+#: ../components/editor/gtkhtml-color-combo.c:92
+#: ../components/html-editor/gi-color-palette.c:574
+#: ../components/html-editor/gi-color-palette.c:627
+msgid "blue"
+msgstr "כחול"
+
+#: ../components/editor/gtkhtml-color-combo.c:93
+#: ../components/html-editor/gi-color-palette.c:575
+msgid "dull purple"
+msgstr "סגול עמום"
+
+#: ../components/editor/gtkhtml-color-combo.c:94
+#: ../components/html-editor/gi-color-palette.c:576
+msgid "dark grey"
+msgstr "אפור כהה"
+
+#: ../components/editor/gtkhtml-color-combo.c:96
+#: ../components/html-editor/gi-color-palette.c:579
+msgid "red"
+msgstr "אדום"
+
+#: ../components/editor/gtkhtml-color-combo.c:97
+#: ../components/html-editor/gi-color-palette.c:580
+msgid "orange"
+msgstr "כתום"
+
+#: ../components/editor/gtkhtml-color-combo.c:98
+#: ../components/html-editor/gi-color-palette.c:581
+#, fuzzy
+msgid "lime"
+msgstr "יישור"
+
+#: ../components/editor/gtkhtml-color-combo.c:99
+#: ../components/html-editor/gi-color-palette.c:582
+msgid "dull green"
+msgstr "ירוק עמום"
+
+#: ../components/editor/gtkhtml-color-combo.c:100
+#: ../components/html-editor/gi-color-palette.c:583
+msgid "dull blue #2"
+msgstr "כחול עמום #2"
+
+#: ../components/editor/gtkhtml-color-combo.c:101
+#: ../components/html-editor/gi-color-palette.c:584
+msgid "sky blue #2"
+msgstr "תכלת #2"
+
+#: ../components/editor/gtkhtml-color-combo.c:102
+#: ../components/html-editor/gi-color-palette.c:585
+#: ../components/html-editor/gi-color-palette.c:624
+msgid "purple"
+msgstr "סגול"
+
+#: ../components/editor/gtkhtml-color-combo.c:103
+#: ../components/html-editor/gi-color-palette.c:586
+msgid "gray"
+msgstr "אפור"
+
+#: ../components/editor/gtkhtml-color-combo.c:105
+#: ../components/html-editor/gi-color-palette.c:589
+#: ../components/html-editor/gi-color-palette.c:621
+msgid "magenta"
+msgstr "אדום לילכי"
+
+#: ../components/editor/gtkhtml-color-combo.c:106
+#: ../components/html-editor/gi-color-palette.c:590
+msgid "bright orange"
+msgstr "כתום בהיר"
+
+#: ../components/editor/gtkhtml-color-combo.c:107
+#: ../components/html-editor/gi-color-palette.c:591
+#: ../components/html-editor/gi-color-palette.c:622
+msgid "yellow"
+msgstr "צהוב"
+
+#: ../components/editor/gtkhtml-color-combo.c:108
+#: ../components/html-editor/gi-color-palette.c:592
+msgid "green"
+msgstr "ירוק"
+
+#: ../components/editor/gtkhtml-color-combo.c:109
+#: ../components/html-editor/gi-color-palette.c:593
+#: ../components/html-editor/gi-color-palette.c:623
+msgid "cyan"
+msgstr "כחול-ירקרק"
+
+#: ../components/editor/gtkhtml-color-combo.c:110
+#: ../components/html-editor/gi-color-palette.c:594
+msgid "bright blue"
+msgstr "כחול בהיר"
+
+#: ../components/editor/gtkhtml-color-combo.c:111
+#: ../components/html-editor/gi-color-palette.c:595
+#: ../components/html-editor/gi-color-palette.c:612
+msgid "red purple"
+msgstr "סגול אדום"
+
+#: ../components/editor/gtkhtml-color-combo.c:112
+#: ../components/html-editor/gi-color-palette.c:596
+msgid "light grey"
+msgstr "אפור בהיר"
+
+#: ../components/editor/gtkhtml-color-combo.c:114
+#: ../components/html-editor/gi-color-palette.c:599
+#: ../components/html-editor/gi-color-palette.c:616
+msgid "pink"
+msgstr "ורוד"
+
+#: ../components/editor/gtkhtml-color-combo.c:115
+#: ../components/html-editor/gi-color-palette.c:600
+msgid "light orange"
+msgstr "כתום בהיר"
+
+#: ../components/editor/gtkhtml-color-combo.c:116
+#: ../components/html-editor/gi-color-palette.c:601
+#: ../components/html-editor/gi-color-palette.c:613
+msgid "light yellow"
+msgstr "צהוב בהיר"
+
+#: ../components/editor/gtkhtml-color-combo.c:117
+#: ../components/html-editor/gi-color-palette.c:602
+msgid "light green"
+msgstr "ירוק בהיר"
+
+#: ../components/editor/gtkhtml-color-combo.c:118
+#: ../components/html-editor/gi-color-palette.c:603
+msgid "light cyan"
+msgstr "כחול-ירקרק בהיר"
+
+#: ../components/editor/gtkhtml-color-combo.c:119
+#: ../components/html-editor/gi-color-palette.c:604
+#: ../components/html-editor/gi-color-palette.c:614
+msgid "light blue"
+msgstr "כחול בהיר"
+
+#: ../components/editor/gtkhtml-color-combo.c:120
+#: ../components/html-editor/gi-color-palette.c:605
+#: ../components/html-editor/gi-color-palette.c:618
+msgid "light purple"
+msgstr "סגול בהיר"
+
+#: ../components/editor/gtkhtml-color-combo.c:121
+#: ../components/html-editor/gi-color-palette.c:606
+msgid "white"
+msgstr "לבן"
+
+#: ../components/editor/gtkhtml-color-combo.c:269
+#: ../components/html-editor/gi-color-palette.c:426
+msgid "Choose Custom Color"
+msgstr "בחר צבע מותאם אישית"
+
+#: ../components/editor/gtkhtml-color-combo.c:693
+#: ../components/editor/gtkhtml-color-state.c:190
+msgid "Current color"
+msgstr "צבע נוכחי"
+
+#: ../components/editor/gtkhtml-color-combo.c:694
+msgid "The currently selected color"
+msgstr "הצבע הנוכחי"
+
+#: ../components/editor/gtkhtml-color-combo.c:703
+#: ../components/editor/gtkhtml-color-state.c:200
+msgid "Default color"
+msgstr "צבע ברירת המחדל"
+
+#: ../components/editor/gtkhtml-color-combo.c:704
+msgid "The color associated with the default button"
+msgstr "הצבע שמשוייך לכפתור ברירת המחדל"
+
+#: ../components/editor/gtkhtml-color-combo.c:714
+#: ../components/editor/gtkhtml-color-state.c:211
+msgid "Default label"
+msgstr "תווית ברירת המחדל"
+
+#: ../components/editor/gtkhtml-color-combo.c:715
+msgid "The label for the default button"
+msgstr "התווית עבור כפתור ברירת המחדל"
+
+#: ../components/editor/gtkhtml-color-combo.c:716
+#: ../components/editor/gtkhtml-color-state.c:213
+msgid "Default"
+msgstr "ברירת מחדל"
+
+#: ../components/editor/gtkhtml-color-combo.c:725
+#: ../components/editor/gtkhtml-color-state.c:222
+#, fuzzy
+msgid "Color palette"
+msgstr "תצוגה מקדימה של הצבע"
+
+#: ../components/editor/gtkhtml-color-combo.c:726
+#: ../components/editor/gtkhtml-color-state.c:223
+#, fuzzy
+msgid "Custom color palette"
+msgstr "צבע מותאם אישית:"
+
+#: ../components/editor/gtkhtml-color-combo.c:735
+msgid "Popup shown"
+msgstr ""
+
+#: ../components/editor/gtkhtml-color-combo.c:736
+msgid "Whether the combo's dropdown is shown"
+msgstr ""
+
+#: ../components/editor/gtkhtml-color-combo.c:745
+msgid "Color state"
+msgstr "מצב צבע"
+
+#: ../components/editor/gtkhtml-color-combo.c:746
+msgid "State of the color combo"
+msgstr ""
+
+#. This is the default custom color
+#: ../components/editor/gtkhtml-color-combo.c:928
+#: ../components/html-editor/gi-color-palette.c:378
+msgid "custom"
+msgstr "מותאם אישית"
+
+#: ../components/editor/gtkhtml-color-combo.c:936
+msgid "Custom Color..."
+msgstr "צבע מותאם אישית..."
+
+#: ../components/editor/gtkhtml-color-state.c:191
+#: ../components/editor/gtkhtml-color-swatch.c:178
+msgid "The current color"
+msgstr "הצבע הנוכחי"
+
+#: ../components/editor/gtkhtml-color-state.c:201
+msgid "The default color"
+msgstr "צבע ברירת המחדל"
+
+#: ../components/editor/gtkhtml-color-state.c:212
+msgid "Description of the default color"
+msgstr "תיאור צבע ברירת המחדל"
+
+#: ../components/editor/gtkhtml-color-swatch.c:177
+msgid "Color"
+msgstr "צבע"
+
+#: ../components/editor/gtkhtml-color-swatch.c:187
+msgid "Frame Shadow"
+msgstr ""
+
+#: ../components/editor/gtkhtml-color-swatch.c:188
+msgid "Appearance of the frame border"
+msgstr ""
+
+#: ../components/editor/gtkhtml-combo-box.c:329
+msgid "Action"
+msgstr "פעולה"
+
+#: ../components/editor/gtkhtml-combo-box.c:330
+msgid "A GtkRadioAction"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:695
+#: ../components/html-editor/menubar.c:349
+msgid "Insert HTML File"
+msgstr "הכנס קובץ HTML"
+
+#: ../components/editor/gtkhtml-editor-actions.c:704
+msgid "Insert Image"
+msgstr "הכנס תמונה"
+
+#: ../components/editor/gtkhtml-editor-actions.c:870
+#: ../components/html-editor/menubar.c:349
+msgid "Insert Text File"
+msgstr "הכנס קובץ טקסט"
+
+#. Replace Button
+#: ../components/editor/gtkhtml-editor-actions.c:1260
+#: ../components/editor/gtkhtml-spell-dialog.c:522
+#: ../components/html-editor/replace.c:85
+msgid "_Replace"
+msgstr "ה_חלף"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1267
+#: ../components/html-editor/replace.c:82
+msgid "Replace _All"
+msgstr "החלף ה_כול"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1281
+#: ../components/html-editor/replace.c:83
+msgid "_Next"
+msgstr "ה_בא"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1288
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:111
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
+msgid "_Copy"
+msgstr "ה_עתק"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1295
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:18
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:18
+msgid "Cu_t"
+msgstr "_גזור"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1309
+msgid "Find A_gain"
+msgstr "חפש _שוב"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1323
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:120
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
+msgid "_Increase Indent"
+msgstr "ה_גדל הזחה"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1330
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:117
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
+msgid "_HTML File..."
+msgstr "_קובץ HTML..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1337
+msgid "_Angel"
+msgstr "_מלאך"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1344
+#, fuzzy
+msgid "_Cool"
+msgstr "_צבע:"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1351
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:17
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:17
+msgid "Cr_ying"
+msgstr "_בוכה"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1358
+msgid "_Devilish"
+msgstr "_שטני"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1365
+msgid "_Embarrassed"
+msgstr "_נבוך"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1372
+msgid "_Kiss"
+msgstr "_נשיקה"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1379
+msgid "_Monkey"
+msgstr "_קוף"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1386
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:121
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
+msgid "_Indifferent"
+msgstr "_אדיש"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1393
+msgid "_Tongue"
+msgstr "_לשון"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1400
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:116
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
+msgid "_Frown"
+msgstr "_זועף"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1407
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:137
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
+msgid "_Smile"
+msgstr "מ_חייך"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1414
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:123
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
+msgid "_Laughing"
+msgstr "_צוחק"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1421
+msgid "Smi_rk"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:1428
+msgid "Sur_prised"
+msgstr "_מופתע"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1435
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:160
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:160
+msgid "_Wink"
+msgstr "_קורץ"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1442
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:157
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:157
+msgid "_Undecided"
+msgstr "_לא החלטי"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1449
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:91
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
+msgid "S_ick"
+msgstr "_חולה"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1456
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:100
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
+msgid "Te_xt File..."
+msgstr "קובץ _טקסט..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1463
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:129
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
+msgid "_Paste"
+msgstr "ה_דבק"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1470
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:79
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
+#: ../components/html-editor/popup.c:446
+msgid "Paste _Quotation"
+msgstr "הדבק _ציטוט"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1477
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:132
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
+msgid "_Redo"
+msgstr "_בצע שוב"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1484
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:92
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
+msgid "Select _All"
+msgstr "בחר_הכול"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1491
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:114
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
+msgid "_Find..."
+msgstr "_חפש..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1498
+msgid "Re_place..."
+msgstr "_החלף..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1505
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:12
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
+msgid "Check _Spelling..."
+msgstr "בדוק _איות..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1512
+#: ../components/editor/gtkhtml-editor.glade.h:77
+#: ../components/html-editor/utils.c:205
+msgid "_Test URL..."
+msgstr "ב_דוק כתובת..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1519
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:159
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:159
+msgid "_Undo"
+msgstr "_בטל"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1526
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:112
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
+msgid "_Decrease Indent"
+msgstr "ה_קטן הזחה"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1533
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:161
+msgid "_Wrap Lines"
+msgstr "_גלוש מסביב"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1542
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:113
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
+msgid "_Edit"
+msgstr "_עריכה"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1549
+#: ../components/editor/main.c:324
+msgid "_File"
+msgstr "_קובץ"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1556
+msgid "_Format"
+msgstr "_תצורה"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1563
+msgid "_Paragraph Style"
+msgstr "סגנון _פסקה..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1570
+#, fuzzy
+msgid "_Emoticon"
+msgstr "_סמיילי"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1577
+msgid "_Insert"
+msgstr "ה_כנס"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1584
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:106
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
+msgid "_Alignment"
+msgstr "_יישור"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1591
+#: ../components/html-editor/spellchecker.c:424
+msgid "Current _Languages"
+msgstr "שפות _נוכחיות"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1598
+#: ../components/editor/main.c:355
+msgid "_View"
+msgstr "_תצוגה"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1608
+msgid "_HTML Mode"
+msgstr "_מצב HTML"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1619
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
+msgid "_Center"
+msgstr "_מרכז"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1626
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
+msgid "_Left"
+msgstr "_שמאל"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1633
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:134
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:134
+msgid "_Right"
+msgstr "_ימין"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1643
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:126
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
+msgid "_Normal"
+msgstr "_רגיל"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1650
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:29
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:29
+msgid "Header _1"
+msgstr "כותרת _1"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1657
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:30
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:30
+msgid "Header _2"
+msgstr "כותרת _2"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1664
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:31
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:31
+msgid "Header _3"
+msgstr "כותרת _3"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1671
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:32
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:32
+msgid "Header _4"
+msgstr "כותרת _4"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1678
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:33
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:33
+msgid "Header _5"
+msgstr "כותרת _5"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1685
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:34
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:34
+msgid "Header _6"
+msgstr "כותרת _6"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1692
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:8
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:8
+msgid "A_ddress"
+msgstr "_כתובות"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1699
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:131
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
+msgid "_Preformatted"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:1706
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:109
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
+msgid "_Bulleted List"
+msgstr "רשימה _מובלטת"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1713
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:135
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
+msgid "_Roman Numeral List"
+msgstr "רשימה מספרית _רומית"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1720
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:76
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
+msgid "Numbered _List"
+msgstr "_רשימה מספרית"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1727
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:107
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
+msgid "_Alphabetical List"
+msgstr "רשימה _אלפבתית"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1743
+#: ../components/editor/gtkhtml-editor-actions.c:1778
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:119
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
+msgid "_Image..."
+msgstr "_תמונה..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1750
+#: ../components/editor/gtkhtml-editor-actions.c:1785
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:125
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
+msgid "_Link..."
+msgstr "_קישור..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1757
+#: ../components/editor/gtkhtml-editor-actions.c:1799
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:136
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
+msgid "_Rule..."
+msgstr "_קו..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1764
+#: ../components/editor/gtkhtml-editor-actions.c:1806
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:140
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:140
+msgid "_Table..."
+msgstr "_טבלה..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1771
+msgid "_Cell..."
+msgstr "_תא..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1792
+msgid "Pa_ge..."
+msgstr "_עמוד..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1815
+msgid "Font _Size"
+msgstr "_גודל גופן"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1822
+msgid "_Font Style"
+msgstr "_סגנון גופן"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1832
+#: ../components/editor/gtkhtml-editor.glade.h:58
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:108
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:59
+msgid "_Bold"
+msgstr "_מודגש"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1840
+#: ../components/editor/gtkhtml-editor.glade.h:65
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:122
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:65
+msgid "_Italic"
+msgstr "_נטוי"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1848
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:130
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
+msgid "_Plain Text"
+msgstr "טקסט _פשוט"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1856
+#: ../components/editor/gtkhtml-editor.glade.h:74
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:138
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:71
+msgid "_Strikethrough"
+msgstr "_קו חוצה"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1864
+#: ../components/editor/gtkhtml-editor.glade.h:80
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:158
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:158
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:74
+msgid "_Underline"
+msgstr "_קו תחתי"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1875
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:7
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:7
 msgid "-2"
 msgstr "-2"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:8
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:8
-msgid "A_ddress"
-msgstr "_כתובות"
+#: ../components/editor/gtkhtml-editor-actions.c:1882
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:6
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:6
+msgid "-1"
+msgstr "-1"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1889
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:1
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
+msgid "+0"
+msgstr "+0"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1896
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:2
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:2
+msgid "+1"
+msgstr "+1"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1903
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:3
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:3
+msgid "+2"
+msgstr "+2"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1910
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:4
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:4
+msgid "+3"
+msgstr "+3"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1917
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:5
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:5
+msgid "+4"
+msgstr "+4"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1936
+msgid "Cell Contents"
+msgstr "תכני תא"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1943
+#: ../components/html-editor/popup.c:523
+msgid "Column"
+msgstr "עמודה"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1950
+#: ../components/html-editor/popup.c:522
+msgid "Row"
+msgstr "שורה"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1957
+#: ../components/editor/gtkhtml-editor-actions.c:2040
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:50
+#: ../components/html-editor/menubar.c:218
+#: ../components/html-editor/popup.c:235 ../components/html-editor/popup.c:509
+#: ../components/html-editor/popup.c:521
+msgid "Table"
+msgstr "טבלה"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1966
+#, fuzzy
+msgid "Table Delete"
+msgstr "מחק טבלה"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1973
+#: ../components/html-editor/popup.c:583
+msgid "Input Methods"
+msgstr "שיטות קלט"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1980
+msgid "Table Insert"
+msgstr "הכנס טבלה"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1987
+#: ../components/html-editor/editor-control-factory.c:190
+#: ../components/html-editor/popup.c:191 ../components/html-editor/popup.c:268
+msgid "Properties"
+msgstr "מאפיינים"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2005
+msgid "Column After"
+msgstr "עמודה אחרי"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2012
+msgid "Column Before"
+msgstr "עמודה לפני"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2019
+#: ../components/html-editor/popup.c:450
+msgid "Insert _Link"
+msgstr "הכנס _קישור"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2026
+msgid "Row Above"
+msgstr "שורה מעלה"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2033
+msgid "Row Below"
+msgstr "שורה מטה"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2047
+msgid "Cell..."
+msgstr "תא..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:2054
+msgid "Image..."
+msgstr "תמונה..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:2061
+msgid "Link..."
+msgstr "קישור..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:2068
+msgid "Page..."
+msgstr "עמוד..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:2075
+msgid "Paragraph..."
+msgstr "פסקה..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:2082
+msgid "Rule..."
+msgstr "קו..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:2089
+msgid "Table..."
+msgstr "טבלה..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:2096
+msgid "Text..."
+msgstr "טקסט..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:2103
+#: ../components/html-editor/popup.c:457
+msgid "Remove Link"
+msgstr "הסר קישור"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2120
+#: ../components/html-editor/popup.c:577
+msgid "Add Word to Dictionary"
+msgstr "הוסף מילה למילון"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2127
+#: ../components/html-editor/popup.c:559
+msgid "Ignore Misspelled Word"
+msgstr "התעלם משגיאות כתיב"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2134
+msgid "Add Word To"
+msgstr "הוסף מילה אל"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2353
+msgid "_Find"
+msgstr "_חפש"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2356
+msgid "Re_place"
+msgstr "הח_לף"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2359
+msgid "_Image"
+msgstr "תמו_נה"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2362
+msgid "_Link"
+msgstr "_קישור"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2365
+msgid "_Rule"
+msgstr "_קו"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2368
+#: ../components/editor/gtkhtml-editor.glade.h:76
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:72
+msgid "_Table"
+msgstr "טב_לה"
+
+#: ../components/editor/gtkhtml-editor-private.c:272
+#: ../components/html-editor/toolbar.c:540
+msgid "Text Color"
+msgstr "צבע טקסט"
+
+#: ../components/editor/gtkhtml-editor-private.c:299
+#: ../components/html-editor/body.c:237 ../components/html-editor/text.c:171
+#: ../components/html-editor/toolbar.c:199
+msgid "Automatic"
+msgstr "אוטומטי"
+
+#: ../components/editor/gtkhtml-editor.c:702
+msgid "Current Folder"
+msgstr "תיקייה נוכחית"
+
+#: ../components/editor/gtkhtml-editor.c:703
+msgid "The initial folder for file chooser dialogs"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor.c:713
+msgid "Filename"
+msgstr "שם קובץ"
+
+#: ../components/editor/gtkhtml-editor.c:714
+msgid "The filename to use when saving"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor.c:724
+msgid "HTML Mode"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor.c:725
+msgid "Edit HTML or plain text"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor.c:735
+#, fuzzy
+msgid "Inline Spelling"
+msgstr "אפשר בדיקת איות"
+
+#: ../components/editor/gtkhtml-editor.c:736
+#, fuzzy
+msgid "Check your spelling as you type"
+msgstr "בדוק את איות המסמך"
+
+#: ../components/editor/gtkhtml-editor.c:746
+msgid "Magic Links"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor.c:747
+msgid "Make URIs clickable as you type"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor.c:757
+#, fuzzy
+msgid "Magic Smileys"
+msgstr "_סמיילי"
+
+#: ../components/editor/gtkhtml-editor.c:758
+msgid "Convert emoticons to images as you type"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor.glade.h:1
+#, fuzzy
+msgid "<b>Alignment &amp; Behavior</b>"
+msgstr "<b>יישור והתנהגות</b>"
+
+#: ../components/editor/gtkhtml-editor.glade.h:2
+#, fuzzy
+msgid "<b>Alignment</b>"
+msgstr "יישור"
+
+#: ../components/editor/gtkhtml-editor.glade.h:3
+#, fuzzy
+msgid "<b>Background Image</b>"
+msgstr "<b>רקע</b>"
+
+#: ../components/editor/gtkhtml-editor.glade.h:4
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:11
+msgid "<b>Background</b>"
+msgstr "<b>רקע</b>"
+
+#: ../components/editor/gtkhtml-editor.glade.h:5
+#, fuzzy
+msgid "<b>Colors</b>"
+msgstr "<b>מתחם</b>"
+
+#: ../components/editor/gtkhtml-editor.glade.h:6
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:12
+msgid "<b>General</b>"
+msgstr "<b>כללי</b>"
+
+#: ../components/editor/gtkhtml-editor.glade.h:7
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:13
+msgid "<b>Layout</b>"
+msgstr "<b>פריסה</b>"
+
+#: ../components/editor/gtkhtml-editor.glade.h:8
+#, fuzzy
+msgid "<b>Link</b>"
+msgstr "<b>פריסה</b>"
+
+#: ../components/editor/gtkhtml-editor.glade.h:9
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:14
+msgid "<b>Scope</b>"
+msgstr "<b>מתחם</b>"
+
+#: ../components/editor/gtkhtml-editor.glade.h:10
+#, fuzzy
+msgid "<b>Size</b>"
+msgstr "<b>מתחם</b>"
+
+#: ../components/editor/gtkhtml-editor.glade.h:11
+#, fuzzy
+msgid "<b>Style</b>"
+msgstr "<b>מתחם</b>"
+
+#: ../components/editor/gtkhtml-editor.glade.h:12
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:23
+msgid "C_ell"
+msgstr "_תא"
+
+#: ../components/editor/gtkhtml-editor.glade.h:13
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:24
+msgid "C_olor:"
+msgstr "_צבע:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:14
+#, fuzzy
+msgid "C_olumns:"
+msgstr "ע_מודות:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:15
+#: ../components/html-editor/body.c:286
+msgid "C_ustom:"
+msgstr "_מותאם:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:16
+#: ../components/html-editor/replace.c:180
+#: ../components/html-editor/search.c:116
+msgid "Case _sensitive"
+msgstr "תלוי _רישיות"
+
+#: ../components/editor/gtkhtml-editor.glade.h:17
+#, fuzzy
+msgid "Cell Properties"
+msgstr "מאפיינים"
+
+#: ../components/editor/gtkhtml-editor.glade.h:18
+#, fuzzy
+msgid "Co_lor:"
+msgstr "_צבע:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:19
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:26
+msgid "Col_umn"
+msgstr "_עמודה"
+
+#: ../components/editor/gtkhtml-editor.glade.h:20
+#, fuzzy
+msgid "Column Span:"
+msgstr "פריסת עמודה:"
+
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
+#: ../components/editor/gtkhtml-editor.glade.h:21
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:23
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:23
+#: ../components/html-editor/search.c:110
+#: ../components/html-editor/search.c:171
+msgid "Find"
+msgstr "חפש"
+
+#: ../components/editor/gtkhtml-editor.glade.h:22
+#, fuzzy
+msgid "Hea_der Style"
+msgstr "סגנון _כותרת"
+
+#: ../components/editor/gtkhtml-editor.glade.h:23
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:34
+msgid "I_mage:"
+msgstr "ת_מונה"
+
+#: ../components/editor/gtkhtml-editor.glade.h:24
+#, fuzzy
+msgid "Image Properties"
+msgstr "מאפיינים"
+
+#: ../components/editor/gtkhtml-editor.glade.h:25
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:36
+msgid ""
+"Left\n"
+"Center\n"
+"Right"
+msgstr ""
+"שמאל\n"
+"מרכז\n"
+"ימין"
+
+#: ../components/editor/gtkhtml-editor.glade.h:28
+#, fuzzy
+msgid "Link Properties"
+msgstr "מאפייני קישור"
+
+#: ../components/editor/gtkhtml-editor.glade.h:29
+msgid ""
+"None\n"
+"Perforated Paper\n"
+"Blue Ink\n"
+"Paper\n"
+"Ribbon\n"
+"Midnight\n"
+"Confidential\n"
+"Draft\n"
+"Graph Paper"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor.glade.h:38
+#, fuzzy
+msgid "Page Properties"
+msgstr "מאפיינים"
+
+#: ../components/editor/gtkhtml-editor.glade.h:39
+#, fuzzy
+msgid "Paragraph Properties"
+msgstr "מאפיינים"
+
+#: ../components/editor/gtkhtml-editor.glade.h:40
+#: ../components/html-editor/replace.c:190
+msgid "R_eplace:"
+msgstr "ה_חלף:"
+
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
+#: ../components/editor/gtkhtml-editor.glade.h:41
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:87
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
+#: ../components/html-editor/replace.c:171
+#: ../components/html-editor/replace.c:236
+msgid "Replace"
+msgstr "החלף"
+
+#: ../components/editor/gtkhtml-editor.glade.h:42
+#, fuzzy
+msgid "Replace Confirmation"
+msgstr "החלף אישור"
+
+#: ../components/editor/gtkhtml-editor.glade.h:43
+#, fuzzy
+msgid "Row Span:"
+msgstr "פריסת שורה:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:44
+#, fuzzy
+msgid "Rule Properties"
+msgstr "מאפיינים"
+
+#: ../components/editor/gtkhtml-editor.glade.h:45
+#, fuzzy
+msgid "S_haded"
+msgstr "צל"
+
+#: ../components/editor/gtkhtml-editor.glade.h:46
+#, fuzzy
+msgid "Search _backwards"
+msgstr "חפש _אחורה"
+
+#: ../components/editor/gtkhtml-editor.glade.h:47
+#, fuzzy
+msgid "Select An Image"
+msgstr "בחר_הכול"
+
+#: ../components/editor/gtkhtml-editor.glade.h:48
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:48
+msgid "Si_ze:"
+msgstr "_גודל:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:49
+#: ../components/html-editor/body.c:282
+msgid "T_emplate:"
+msgstr "_תבנית"
+
+#: ../components/editor/gtkhtml-editor.glade.h:50
+#, fuzzy
+msgid "Table Properties"
+msgstr "מאפיינים"
+
+#: ../components/editor/gtkhtml-editor.glade.h:51
+#, fuzzy
+msgid "Text Properties"
+msgstr "מאפיינים"
+
+#: ../components/editor/gtkhtml-editor.glade.h:52
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:53
+msgid ""
+"Top\n"
+"Middle\n"
+"Bottom"
+msgstr ""
+"עליון\n"
+"אמצעי\n"
+"תחתון"
+
+#: ../components/editor/gtkhtml-editor.glade.h:55
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:57
+msgid "Width:"
+msgstr "רוחב:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:56
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:58
+msgid "_Alignment:"
+msgstr "_יישור:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:57
+#: ../components/html-editor/body.c:252
+msgid "_Background:"
+msgstr "_רקע:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:59
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:60
+msgid "_Border:"
+msgstr "_גבול:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:60
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:61
+msgid "_Color:"
+msgstr "_צבע:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:61
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:62
+msgid "_Description:"
+msgstr "תי_אור:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:62
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:63
+msgid "_Height:"
+msgstr "גו_בה:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:63
+#, fuzzy
+msgid "_Horizontal:"
+msgstr "אופקי:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:64
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:64
+msgid "_Image:"
+msgstr "תמו_נה:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:66
+#: ../components/html-editor/body.c:251
+msgid "_Link:"
+msgstr "_קישור:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:67
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:66
+msgid "_Padding:"
+msgstr "רי_פוד:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:68
+#, fuzzy
+msgid "_Regular expression"
+msgstr "_ביטוי רגיל"
+
+#: ../components/editor/gtkhtml-editor.glade.h:69
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:67
+msgid "_Row"
+msgstr "_שורה"
+
+#: ../components/editor/gtkhtml-editor.glade.h:70
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:68
+msgid "_Rows:"
+msgstr "שו_רות:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:71
+#, fuzzy
+msgid "_Size:"
+msgstr "גודל:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:72
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:69
+msgid "_Source:"
+msgstr "_מקור:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:73
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:70
+msgid "_Spacing:"
+msgstr "מ_רווח:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:75
+#: ../components/html-editor/paragraph.c:69
+msgid "_Style:"
+msgstr "_סגנון:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:78
+#: ../components/html-editor/body.c:250
+msgid "_Text:"
+msgstr "_טקסט:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:79
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:73
+msgid "_URL:"
+msgstr "כ_תובת:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:81
+#, fuzzy
+msgid "_Vertical:"
+msgstr "אנכי:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:82
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:75
+msgid "_Width:"
+msgstr "_רוחב:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:83
+#: ../components/html-editor/replace.c:194
+msgid "_With:"
+msgstr "_עם:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:84
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:76
+msgid "_Wrap Text"
+msgstr "_גלוש מסביב:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:85
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:77
+msgid "_X-Padding:"
+msgstr "ריפוד _X:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:86
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:78
+msgid "_Y-Padding:"
+msgstr "ריפוד _Y:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:87
+msgid "gtk-close"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor.glade.h:88
+msgid "gtk-find"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor.glade.h:89
+#, fuzzy
+msgid "gtk-find-and-replace"
+msgstr "חפש והחלף"
+
+#: ../components/editor/gtkhtml-editor.glade.h:90
+msgid "gtk-justify-center"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor.glade.h:91
+msgid "gtk-justify-left"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor.glade.h:92
+msgid "gtk-justify-right"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor.glade.h:93
+msgid "gtk-ok"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor.glade.h:94
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:79
+msgid "px"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor.glade.h:96
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:81
+#, no-c-format
+msgid ""
+"px\n"
+"%"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor.glade.h:99
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:84
+#, fuzzy, no-c-format
+msgid ""
+"px\n"
+"%\n"
+"follow"
+msgstr "עקוב"
+
+#: ../components/editor/gtkhtml-spell-checker.c:169
+#, fuzzy
+msgid "Language"
+msgstr "שפות _נוכחיות"
+
+#: ../components/editor/gtkhtml-spell-checker.c:170
+msgid "The language used by the spell checker"
+msgstr ""
+
+#: ../components/editor/gtkhtml-spell-dialog.c:117
+#, fuzzy, c-format
+msgid "Suggestions for \"%s\""
+msgstr "מילה מוצעת"
+
+#: ../components/editor/gtkhtml-spell-dialog.c:358
+#, fuzzy
+msgid "Misspelled Word"
+msgstr "התעלם משגיאות כתיב"
+
+#: ../components/editor/gtkhtml-spell-dialog.c:359
+#, fuzzy
+msgid "The current misspelled word"
+msgstr "התעלם משגיאות כתיב"
+
+#: ../components/editor/gtkhtml-spell-dialog.c:449
+#, fuzzy
+msgid "Spell Checker"
+msgstr "בודק איות"
+
+#. Replace All Button
+#: ../components/editor/gtkhtml-spell-dialog.c:536
+#, fuzzy
+msgid "R_eplace All"
+msgstr "החלף ה_כול"
+
+#. Ignore Button
+#: ../components/editor/gtkhtml-spell-dialog.c:550
+#, fuzzy
+msgid "_Ignore"
+msgstr "התעלם מ '%s'"
+
+#. Skip Button
+#: ../components/editor/gtkhtml-spell-dialog.c:564
+msgid "_Skip"
+msgstr ""
+
+#. Back Button
+#: ../components/editor/gtkhtml-spell-dialog.c:577
+#, fuzzy
+msgid "_Back"
+msgstr "_אחורה"
+
+#. Dictionary Label
+#: ../components/editor/gtkhtml-spell-dialog.c:590
+#, fuzzy
+msgid "Dictionary"
+msgstr "מילון %s"
+
+#. Add Word Button
+#: ../components/editor/gtkhtml-spell-dialog.c:619
+#, fuzzy
+msgid "_Add Word"
+msgstr "הוסף מילה ל"
+
+#: ../components/editor/gtkhtml-spell-language.c:182
+#, c-format
+msgid "language|Unknown (%s)"
+msgstr ""
+
+#: ../components/editor/gtkhtml-spell-language.c:200
+#: ../components/editor/gtkhtml-spell-language.c:208
+#, c-format
+msgid "language|%s (%s)"
+msgstr ""
+
+#. Translators: The text before the "|" is context to help
+#. * you decide on the correct translation. You MUST OMIT IT
+#. * in the translated string.
+#. * Translators: This refers to the default language used
+#. * by the spell checker.
+#: ../components/editor/gtkhtml-spell-language.c:390
+msgid "language|Default"
+msgstr ""
+
+#: ../components/editor/main.c:93
+msgid "Save As"
+msgstr ""
+
+#: ../components/editor/main.c:111
+#, fuzzy
+msgid "Untitled document"
+msgstr "הכנס טבלה למסמך..."
+
+#: ../components/editor/main.c:268
+msgid "HTML Output"
+msgstr ""
+
+#: ../components/editor/main.c:275
+#, fuzzy
+msgid "HTML Source"
+msgstr "_מקור:"
+
+#: ../components/editor/main.c:282
+#, fuzzy
+msgid "Plain Source"
+msgstr "טקסט _פשוט"
+
+#: ../components/editor/main.c:289
+#, fuzzy
+msgid "_Print..."
+msgstr "_חפש..."
+
+#: ../components/editor/main.c:296
+#, fuzzy
+msgid "Print Pre_view"
+msgstr "_תצוגה מקדימה"
+
+#: ../components/editor/main.c:303
+#, fuzzy
+msgid "_Quit"
+msgstr "_עריכה"
+
+#: ../components/editor/main.c:310
+#, fuzzy
+msgid "_Save"
+msgstr "צל"
+
+#: ../components/editor/main.c:317
+#, fuzzy
+msgid "Save _As..."
+msgstr "שמור קובץ בשם..."
+
+#: ../components/editor/main.c:334
+msgid "HTML _Output"
+msgstr ""
+
+#: ../components/editor/main.c:341
+#, fuzzy
+msgid "_HTML Source"
+msgstr "_מקור:"
+
+#: ../components/editor/main.c:348
+#, fuzzy
+msgid "_Plain Source"
+msgstr "טקסט _פשוט"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:9
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:9
@@ -91,11 +1626,6 @@ msgstr "רשימת תבליטים"
 #: ../components/html-editor/toolbar.c:415
 msgid "Center justifies the paragraphs"
 msgstr "מיישר לאמצע את הפסקאות"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:12
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
-msgid "Check _Spelling..."
-msgstr "בדוק _איות..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:13
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:13
@@ -117,16 +1647,6 @@ msgstr "העתק את הבחירה ללוח"
 msgid "Copy the selection"
 msgstr "העתק את הבחירה"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:17
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:17
-msgid "Cr_ying"
-msgstr "_בוכה"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:18
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:18
-msgid "Cu_t"
-msgstr "_גזור"
-
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:19
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:19
 msgid "Cut"
@@ -146,14 +1666,6 @@ msgstr "גזור את הבחירה"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
 msgid "Emoti_con"
 msgstr "_סמיילי"
-
-#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:23
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:23
-#: ../components/html-editor/search.c:110
-#: ../components/html-editor/search.c:171
-msgid "Find"
-msgstr "חפש"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:24
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:24
@@ -179,36 +1691,6 @@ msgstr "חפש והחלף"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:28
 msgid "For_mat"
 msgstr "_תבנית"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:29
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:29
-msgid "Header _1"
-msgstr "כותרת _1"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:30
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:30
-msgid "Header _2"
-msgstr "כותרת _2"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:31
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:31
-msgid "Header _3"
-msgstr "כותרת _3"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:32
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:32
-msgid "Header _4"
-msgstr "כותרת _4"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:33
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:33
-msgid "Header _5"
-msgstr "כותרת _5"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:34
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:34
-msgid "Header _6"
-msgstr "כותרת _6"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:35
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
@@ -425,11 +1907,6 @@ msgstr "רגיל"
 msgid "Numbered List"
 msgstr "רשימה מספרית"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:76
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
-msgid "Numbered _List"
-msgstr "_רשימה מספרית"
-
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:77
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
 msgid "Oh _No!"
@@ -439,12 +1916,6 @@ msgstr "הו _לא!"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
 msgid "Paste"
 msgstr "הדבק"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:79
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
-#: ../components/html-editor/popup.c:446
-msgid "Paste _Quotation"
-msgstr "הדבק _ציטוט"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:80
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
@@ -481,14 +1952,6 @@ msgstr "בצע שוב את השינוי המבוטל הקודם"
 msgid "Redo the undone action"
 msgstr "בצע שוב את הפעולה המובטלת"
 
-#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:87
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
-#: ../components/html-editor/replace.c:171
-#: ../components/html-editor/replace.c:236
-msgid "Replace"
-msgstr "החלף"
-
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:88
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
 #: ../components/html-editor/toolbar.c:418
@@ -508,16 +1971,6 @@ msgstr "רשימה מספרית רומית"
 #: ../components/html-editor/popup.c:229
 msgid "Rule"
 msgstr "קו"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:91
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
-msgid "S_ick"
-msgstr "_חולה"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:92
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
-msgid "Select _All"
-msgstr "בחר_הכול"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:93
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
@@ -545,24 +1998,10 @@ msgstr ""
 msgid "Superscript"
 msgstr ""
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:50
-#: ../components/html-editor/menubar.c:218
-#: ../components/html-editor/popup.c:235 ../components/html-editor/popup.c:509
-#: ../components/html-editor/popup.c:521
-msgid "Table"
-msgstr "טבלה"
-
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:99
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
 msgid "Te_mplate..."
 msgstr "_תבנית..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:100
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
-msgid "Te_xt File..."
-msgstr "קובץ _טקסט..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:101
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
@@ -590,112 +2029,15 @@ msgstr "בטל את השינויים האחרונים"
 msgid "Undo the last action"
 msgstr "בטל את השינוי האחרון"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:106
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
-msgid "_Alignment"
-msgstr "_יישור"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:107
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
-msgid "_Alphabetical List"
-msgstr "רשימה _אלפבתית"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:108
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:59
-msgid "_Bold"
-msgstr "_מודגש"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:109
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
-msgid "_Bulleted List"
-msgstr "רשימה _מובלטת"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
-msgid "_Center"
-msgstr "_מרכז"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:111
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
-msgid "_Copy"
-msgstr "ה_עתק"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:112
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
-msgid "_Decrease Indent"
-msgstr "ה_קטן הזחה"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:113
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
-msgid "_Edit"
-msgstr "_עריכה"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:114
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
-msgid "_Find..."
-msgstr "_חפש..."
-
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:115
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
 msgid "_Font Size"
 msgstr "_גודל הגופן"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:116
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
-msgid "_Frown"
-msgstr "_זועף"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:117
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
-msgid "_HTML File..."
-msgstr "_קובץ HTML..."
-
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:118
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
 msgid "_Heading"
 msgstr "_כותרת"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:119
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
-msgid "_Image..."
-msgstr "_תמונה..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:120
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
-msgid "_Increase Indent"
-msgstr "ה_גדל הזחה"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:121
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
-msgid "_Indifferent"
-msgstr "_אדיש"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:122
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:65
-msgid "_Italic"
-msgstr "_נטוי"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:123
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
-msgid "_Laughing"
-msgstr "_צוחק"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
-msgid "_Left"
-msgstr "_שמאל"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:125
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
-msgid "_Link..."
-msgstr "_קישור..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:126
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
-msgid "_Normal"
-msgstr "_רגיל"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:127
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:127
@@ -707,66 +2049,15 @@ msgstr "_עמוד..."
 msgid "_Paragraph..."
 msgstr "_פסקה..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:129
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
-msgid "_Paste"
-msgstr "ה_דבק"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:130
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
-msgid "_Plain Text"
-msgstr "טקסט _פשוט"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:131
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
-msgid "_Preformatted"
-msgstr ""
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:132
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
-msgid "_Redo"
-msgstr "_בצע שוב"
-
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:133
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:133
 msgid "_Replace..."
 msgstr "_החלף..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:134
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:134
-msgid "_Right"
-msgstr "_ימין"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:135
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
-msgid "_Roman Numeral List"
-msgstr "רשימה מספרית _רומית"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:136
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
-msgid "_Rule..."
-msgstr "_קו..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:137
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
-msgid "_Smile"
-msgstr "מ_חייך"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:138
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:71
-msgid "_Strikethrough"
-msgstr "_קו חוצה"
-
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:139
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:139
 msgid "_Style"
 msgstr "_סגנון"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:140
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:140
-msgid "_Table..."
-msgstr "_טבלה..."
 
 #.
 #. <submenu name="BackgroundColor" _label="Background Color">
@@ -788,27 +2079,6 @@ msgstr "_טבלה..."
 msgid "_Text..."
 msgstr "_מלל..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:157
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:157
-msgid "_Undecided"
-msgstr "_לא החלטי"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:158
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:158
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:74
-msgid "_Underline"
-msgstr "_קו תחתי"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:159
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:159
-msgid "_Undo"
-msgstr "_בטל"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:160
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:160
-msgid "_Wink"
-msgstr "_קורץ"
-
 #: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:1
 msgid "GNOME HTML Editor"
 msgstr "עורך HTML בעבור GNOME"
@@ -829,10 +2099,6 @@ msgstr "עשה את סגנון הפסקה הנוכחי רגיל"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
 msgid "Preformatted"
 msgstr ""
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:161
-msgid "_Wrap Lines"
-msgstr "_גלוש מסביב"
 
 #: ../components/html-editor/body.c:64
 msgid "None"
@@ -870,23 +2136,6 @@ msgstr "טיוטה"
 msgid "Graph paper"
 msgstr ""
 
-#: ../components/html-editor/body.c:237 ../components/html-editor/text.c:171
-#: ../components/html-editor/toolbar.c:199
-msgid "Automatic"
-msgstr "אוטומטי"
-
-#: ../components/html-editor/body.c:250
-msgid "_Text:"
-msgstr "_טקסט:"
-
-#: ../components/html-editor/body.c:251
-msgid "_Link:"
-msgstr "_קישור:"
-
-#: ../components/html-editor/body.c:252
-msgid "_Background:"
-msgstr "_רקע:"
-
 #: ../components/html-editor/body.c:254
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:27
 msgid "Colors"
@@ -907,14 +2156,6 @@ msgstr "נתיב תמונת הרקע"
 msgid "Template"
 msgstr "תבנית"
 
-#: ../components/html-editor/body.c:282
-msgid "T_emplate:"
-msgstr "_תבנית"
-
-#: ../components/html-editor/body.c:286
-msgid "C_ustom:"
-msgstr "_מותאם:"
-
 #: ../components/html-editor/cell.c:342 ../components/html-editor/image.c:345
 #: ../components/html-editor/link.c:215 ../components/html-editor/rule.c:179
 #: ../components/html-editor/table.c:229
@@ -926,11 +2167,6 @@ msgstr "לא ניתן לטעון את קובץ glade."
 #: ../components/html-editor/cell.c:346 ../components/html-editor/table.c:233
 msgid "Transparent"
 msgstr "שקוף"
-
-#: ../components/html-editor/editor-control-factory.c:190
-#: ../components/html-editor/popup.c:191 ../components/html-editor/popup.c:268
-msgid "Properties"
-msgstr "מאפיינים"
 
 #: ../components/html-editor/editor-control-factory.c:208
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:52
@@ -956,193 +2192,10 @@ msgstr "עמוד"
 msgid "color preview"
 msgstr "תצוגה מקדימה של הצבע"
 
-#. This is the default custom color
-#: ../components/html-editor/gi-color-palette.c:378
-msgid "custom"
-msgstr "מותאם אישית"
-
 #. "Custom" color - we'll pop up a GtkColorDialog
 #: ../components/html-editor/gi-color-palette.c:418
 msgid "Custom Color:"
 msgstr "צבע מותאם אישית:"
-
-#: ../components/html-editor/gi-color-palette.c:426
-msgid "Choose Custom Color"
-msgstr "בחר צבע מותאם אישית"
-
-#: ../components/html-editor/gi-color-palette.c:559
-msgid "black"
-msgstr "שחור"
-
-#: ../components/html-editor/gi-color-palette.c:560
-msgid "light brown"
-msgstr "חום בהיר"
-
-#: ../components/html-editor/gi-color-palette.c:561
-msgid "brown gold"
-msgstr "זהב חום"
-
-#: ../components/html-editor/gi-color-palette.c:562
-msgid "dark green #2"
-msgstr "ירוק כהה #2"
-
-#: ../components/html-editor/gi-color-palette.c:563
-msgid "navy"
-msgstr ""
-
-#: ../components/html-editor/gi-color-palette.c:564
-#: ../components/html-editor/gi-color-palette.c:620
-msgid "dark blue"
-msgstr "ככול כהה"
-
-#: ../components/html-editor/gi-color-palette.c:565
-msgid "purple #2"
-msgstr "סגול #2"
-
-#: ../components/html-editor/gi-color-palette.c:566
-msgid "very dark gray"
-msgstr "אפור כהה מאוד"
-
-#: ../components/html-editor/gi-color-palette.c:569
-#: ../components/html-editor/gi-color-palette.c:625
-msgid "dark red"
-msgstr "אדום כהה"
-
-#: ../components/html-editor/gi-color-palette.c:570
-msgid "red-orange"
-msgstr "אדום-כתום"
-
-#: ../components/html-editor/gi-color-palette.c:571
-msgid "gold"
-msgstr "זהב"
-
-#: ../components/html-editor/gi-color-palette.c:572
-msgid "dark green"
-msgstr "ירוק כהה"
-
-#: ../components/html-editor/gi-color-palette.c:573
-#: ../components/html-editor/gi-color-palette.c:626
-msgid "dull blue"
-msgstr "כחול עמום"
-
-#: ../components/html-editor/gi-color-palette.c:574
-#: ../components/html-editor/gi-color-palette.c:627
-msgid "blue"
-msgstr "כחול"
-
-#: ../components/html-editor/gi-color-palette.c:575
-msgid "dull purple"
-msgstr "סגול עמום"
-
-#: ../components/html-editor/gi-color-palette.c:576
-msgid "dark grey"
-msgstr "אפור כהה"
-
-#: ../components/html-editor/gi-color-palette.c:579
-msgid "red"
-msgstr "אדום"
-
-#: ../components/html-editor/gi-color-palette.c:580
-msgid "orange"
-msgstr "כתום"
-
-#: ../components/html-editor/gi-color-palette.c:581
-#, fuzzy
-msgid "lime"
-msgstr "יישור"
-
-#: ../components/html-editor/gi-color-palette.c:582
-msgid "dull green"
-msgstr "ירוק עמום"
-
-#: ../components/html-editor/gi-color-palette.c:583
-msgid "dull blue #2"
-msgstr "כחול עמום #2"
-
-#: ../components/html-editor/gi-color-palette.c:584
-msgid "sky blue #2"
-msgstr "תכלת #2"
-
-#: ../components/html-editor/gi-color-palette.c:585
-#: ../components/html-editor/gi-color-palette.c:624
-msgid "purple"
-msgstr "סגול"
-
-#: ../components/html-editor/gi-color-palette.c:586
-msgid "gray"
-msgstr "אפור"
-
-#: ../components/html-editor/gi-color-palette.c:589
-#: ../components/html-editor/gi-color-palette.c:621
-msgid "magenta"
-msgstr "אדום לילכי"
-
-#: ../components/html-editor/gi-color-palette.c:590
-msgid "bright orange"
-msgstr "כתום בהיר"
-
-#: ../components/html-editor/gi-color-palette.c:591
-#: ../components/html-editor/gi-color-palette.c:622
-msgid "yellow"
-msgstr "צהוב"
-
-#: ../components/html-editor/gi-color-palette.c:592
-msgid "green"
-msgstr "ירוק"
-
-#: ../components/html-editor/gi-color-palette.c:593
-#: ../components/html-editor/gi-color-palette.c:623
-msgid "cyan"
-msgstr "כחול-ירקרק"
-
-#: ../components/html-editor/gi-color-palette.c:594
-msgid "bright blue"
-msgstr "כחול בהיר"
-
-#: ../components/html-editor/gi-color-palette.c:595
-#: ../components/html-editor/gi-color-palette.c:612
-msgid "red purple"
-msgstr "סגול אדום"
-
-#: ../components/html-editor/gi-color-palette.c:596
-msgid "light grey"
-msgstr "אפור בהיר"
-
-#: ../components/html-editor/gi-color-palette.c:599
-#: ../components/html-editor/gi-color-palette.c:616
-msgid "pink"
-msgstr "ורוד"
-
-#: ../components/html-editor/gi-color-palette.c:600
-msgid "light orange"
-msgstr "כתום בהיר"
-
-#: ../components/html-editor/gi-color-palette.c:601
-#: ../components/html-editor/gi-color-palette.c:613
-msgid "light yellow"
-msgstr "צהוב בהיר"
-
-#: ../components/html-editor/gi-color-palette.c:602
-msgid "light green"
-msgstr "ירוק בהיר"
-
-#: ../components/html-editor/gi-color-palette.c:603
-msgid "light cyan"
-msgstr "כחול-ירקרק בהיר"
-
-#: ../components/html-editor/gi-color-palette.c:604
-#: ../components/html-editor/gi-color-palette.c:614
-msgid "light blue"
-msgstr "כחול בהיר"
-
-#: ../components/html-editor/gi-color-palette.c:605
-#: ../components/html-editor/gi-color-palette.c:618
-msgid "light purple"
-msgstr "סגול בהיר"
-
-#: ../components/html-editor/gi-color-palette.c:606
-msgid "white"
-msgstr "לבן"
 
 #: ../components/html-editor/gi-color-palette.c:611
 msgid "purplish blue"
@@ -1195,22 +2248,6 @@ msgstr ""
 msgid "<b>Alignment &amp; Behaviour</b>"
 msgstr "<b>יישור והתנהגות</b>"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:11
-msgid "<b>Background</b>"
-msgstr "<b>רקע</b>"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:12
-msgid "<b>General</b>"
-msgstr "<b>כללי</b>"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:13
-msgid "<b>Layout</b>"
-msgstr "<b>פריסה</b>"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:14
-msgid "<b>Scope</b>"
-msgstr "<b>מתחם</b>"
-
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:15
 msgid "<span weight=\"bold\">General</span>"
 msgstr "<span weight=\"bold\">כללי</span>"
@@ -1239,22 +2276,10 @@ msgstr "<span weight=\"bold\">תבנית</span>"
 msgid "Alignment:"
 msgstr "יישור:"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:23
-msgid "C_ell"
-msgstr "_תא"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:24
-msgid "C_olor:"
-msgstr "_צבע:"
-
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:25
 #: ../components/html-editor/popup.c:241
 msgid "Cell"
 msgstr "תא"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:26
-msgid "Col_umn"
-msgstr "_עמודה"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:28
 msgid "Colu_mns:"
@@ -1280,20 +2305,6 @@ msgstr "יישור אופקי:"
 msgid "Horizontal:"
 msgstr "אופקי:"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:34
-msgid "I_mage:"
-msgstr "ת_מונה"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:36
-msgid ""
-"Left\n"
-"Center\n"
-"Right"
-msgstr ""
-"שמאל\n"
-"מרכז\n"
-"ימין"
-
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:39
 msgid ""
 "Left\n"
@@ -1318,118 +2329,13 @@ msgstr "פריסת שורה:"
 msgid "Shade"
 msgstr "צל"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:48
-msgid "Si_ze:"
-msgstr "_גודל:"
-
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:49
 msgid "Size:"
 msgstr "גודל:"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:53
-msgid ""
-"Top\n"
-"Middle\n"
-"Bottom"
-msgstr ""
-"עליון\n"
-"אמצעי\n"
-"תחתון"
-
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:56
 msgid "Vertical:"
 msgstr "אנכי:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:57
-msgid "Width:"
-msgstr "רוחב:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:58
-msgid "_Alignment:"
-msgstr "_יישור:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:60
-msgid "_Border:"
-msgstr "_גבול:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:61
-msgid "_Color:"
-msgstr "_צבע:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:62
-msgid "_Description:"
-msgstr "תי_אור:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:63
-msgid "_Height:"
-msgstr "גו_בה:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:64
-msgid "_Image:"
-msgstr "תמו_נה:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:66
-msgid "_Padding:"
-msgstr "רי_פוד:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:67
-msgid "_Row"
-msgstr "_שורה"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:68
-msgid "_Rows:"
-msgstr "שו_רות:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:69
-msgid "_Source:"
-msgstr "_מקור:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:70
-msgid "_Spacing:"
-msgstr "מ_רווח:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:72
-msgid "_Table"
-msgstr "טב_לה"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:73
-msgid "_URL:"
-msgstr "כ_תובת:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:75
-msgid "_Width:"
-msgstr "_רוחב:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:76
-msgid "_Wrap Text"
-msgstr "_גלוש מסביב:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:77
-msgid "_X-Padding:"
-msgstr "ריפוד _X:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:78
-msgid "_Y-Padding:"
-msgstr "ריפוד _Y:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:79
-msgid "px"
-msgstr ""
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:81
-#, no-c-format
-msgid ""
-"px\n"
-"%"
-msgstr ""
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:84
-#, fuzzy, no-c-format
-msgid ""
-"px\n"
-"%\n"
-"follow"
-msgstr "עקוב"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:87
 msgid "xxxxxxxxxxxxxx"
@@ -1454,26 +2360,13 @@ msgstr "הכנס"
 #: ../components/html-editor/menubar.c:324
 #, c-format
 msgid "Error loading file '%s': %s"
-msgstr ""
-"שגיאה בטעינת הקובץ '%s': %s"
-
-#: ../components/html-editor/menubar.c:349
-msgid "Insert HTML File"
-msgstr "הכנס קובץ HTML"
-
-#: ../components/html-editor/menubar.c:349
-msgid "Insert Text File"
-msgstr "הכנס קובץ טקסט"
+msgstr "שגיאה בטעינת הקובץ '%s': %s"
 
 #: ../components/html-editor/menubar.c:406
 #: ../components/html-editor/menubar.c:423
 #: ../components/html-editor/menubar.c:440
 msgid "Format"
 msgstr "תבנית"
-
-#: ../components/html-editor/paragraph.c:69
-msgid "_Style:"
-msgstr "_סגנון:"
 
 #: ../components/html-editor/paragraph.c:72
 msgid "General"
@@ -1527,14 +2420,6 @@ msgstr "כותרת 6"
 #: ../components/html-editor/paragraph-style.c:77
 msgid "Address"
 msgstr "כתובת"
-
-#: ../components/html-editor/popup.c:450
-msgid "Insert _Link"
-msgstr "הכנס _קישור"
-
-#: ../components/html-editor/popup.c:457
-msgid "Remove Link"
-msgstr "הסר קישור"
 
 #: ../components/html-editor/popup.c:464
 msgid "Style"
@@ -1597,21 +2482,9 @@ msgstr "עמודה אחרי"
 msgid "Table delete"
 msgstr "מחק טבלה"
 
-#: ../components/html-editor/popup.c:522
-msgid "Row"
-msgstr "שורה"
-
-#: ../components/html-editor/popup.c:523
-msgid "Column"
-msgstr "עמודה"
-
 #: ../components/html-editor/popup.c:524
 msgid "Cell contents"
 msgstr "תכני התא"
-
-#: ../components/html-editor/popup.c:559
-msgid "Ignore Misspelled Word"
-msgstr "התעלם משגיאות כתיב"
 
 #: ../components/html-editor/popup.c:564
 msgid "Add Word to"
@@ -1622,47 +2495,14 @@ msgstr "הוסף מילה ל"
 msgid "%s Dictionary"
 msgstr "מילון %s"
 
-#: ../components/html-editor/popup.c:577
-msgid "Add Word to Dictionary"
-msgstr "הוסף מילה למילון"
-
-#: ../components/html-editor/popup.c:583
-msgid "Input Methods"
-msgstr "שיטות קלט"
-
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: ../components/html-editor/replace.c:81
 msgid "Replace confirmation"
 msgstr "החלף אישור"
 
-#: ../components/html-editor/replace.c:82
-msgid "Replace _All"
-msgstr "החלף ה_כול"
-
-#: ../components/html-editor/replace.c:83
-msgid "_Next"
-msgstr "ה_בא"
-
-#: ../components/html-editor/replace.c:85
-msgid "_Replace"
-msgstr "ה_חלף"
-
 #: ../components/html-editor/replace.c:179
 msgid "Search _backward"
 msgstr "חפש _אחורה"
-
-#: ../components/html-editor/replace.c:180
-#: ../components/html-editor/search.c:116
-msgid "Case _sensitive"
-msgstr "תלוי _רישיות"
-
-#: ../components/html-editor/replace.c:190
-msgid "R_eplace:"
-msgstr "ה_חלף:"
-
-#: ../components/html-editor/replace.c:194
-msgid "_With:"
-msgstr "_עם:"
 
 #: ../components/html-editor/search.c:115
 msgid "_Backward"
@@ -1676,7 +2516,7 @@ msgstr "_ביטוי רגיל"
 msgid "Input the words you want to search here"
 msgstr "הכנס את המילים לחיםוש כאן"
 
-#: ../components/html-editor/spellchecker.c:114
+#: ../components/html-editor/spellchecker.c:116
 msgid ""
 "Unable to add word to dictionary,\n"
 "language settings are broken.\n"
@@ -1684,17 +2524,13 @@ msgstr ""
 "לא ניתן להוסיף מילה למילון,\n"
 "הגדרות השפה לא תקינות.\n"
 
-#: ../components/html-editor/spellchecker.c:303
+#: ../components/html-editor/spellchecker.c:322
 msgid "No misspelled word found"
 msgstr "לא נמצאו שגיאות כתיב"
 
-#: ../components/html-editor/spellchecker.c:310
+#: ../components/html-editor/spellchecker.c:329
 msgid "Spell checker"
 msgstr "בודק איות"
-
-#: ../components/html-editor/spellchecker.c:404
-msgid "Current _Languages"
-msgstr "שפות _נוכחיות"
 
 #: ../components/html-editor/template.c:90
 msgid "Note"
@@ -1785,10 +2621,6 @@ msgstr "מזיח את הפסקה יותר"
 msgid "Sample"
 msgstr "דוגמה"
 
-#: ../components/html-editor/utils.c:205
-msgid "_Test URL..."
-msgstr "ב_דוק כתובת..."
-
 #: ../components/html-editor/utils.c:248
 msgid ""
 "The edited object was removed from the document.\n"
@@ -1797,83 +2629,83 @@ msgstr ""
 "האובייקט הערוך הוסר מהמסמך.\n"
 "לא ניתן להחל את שינוייך."
 
-#: ../gtkhtml/gtkhtml.c:2917
+#: ../gtkhtml/gtkhtml.c:2886
 msgid "Editable"
 msgstr "ניתן לעריכה"
 
-#: ../gtkhtml/gtkhtml.c:2918
+#: ../gtkhtml/gtkhtml.c:2887
 msgid "Whether the html can be edited"
 msgstr "האם ניתן לערוך את ה-html"
 
-#: ../gtkhtml/gtkhtml.c:2924
+#: ../gtkhtml/gtkhtml.c:2893
 msgid "Document Title"
 msgstr "כותרת המסמך"
 
-#: ../gtkhtml/gtkhtml.c:2925
+#: ../gtkhtml/gtkhtml.c:2894
 msgid "The title of the current document"
 msgstr "הכותרת של המסמך הנוכחי"
 
-#: ../gtkhtml/gtkhtml.c:2931
+#: ../gtkhtml/gtkhtml.c:2900
 msgid "Document Base"
 msgstr "בסיס המסמך"
 
-#: ../gtkhtml/gtkhtml.c:2932
+#: ../gtkhtml/gtkhtml.c:2901
 msgid "The base URL for relative references"
 msgstr "כתובת הבסיס עבור הפניות יחסיות"
 
-#: ../gtkhtml/gtkhtml.c:2938
+#: ../gtkhtml/gtkhtml.c:2907
 msgid "Target Base"
 msgstr "בסיס מטרה"
 
-#: ../gtkhtml/gtkhtml.c:2939
+#: ../gtkhtml/gtkhtml.c:2908
 msgid "The base URL of the target frame"
 msgstr "כתובת הבסיס של מסגרת היעד"
 
-#: ../gtkhtml/gtkhtml.c:2948
+#: ../gtkhtml/gtkhtml.c:2917
 msgid "Fixed Width Font"
 msgstr "גופן רוחב קבוע"
 
-#: ../gtkhtml/gtkhtml.c:2949
+#: ../gtkhtml/gtkhtml.c:2918
 msgid "The Monospace font to use for typewriter text"
 msgstr "גופן ה-Monospace עבור הטקסט בכתבן"
 
-#: ../gtkhtml/gtkhtml.c:2955
+#: ../gtkhtml/gtkhtml.c:2924
 msgid "New Link Color"
 msgstr "צבע קישור חדש"
 
-#: ../gtkhtml/gtkhtml.c:2956
+#: ../gtkhtml/gtkhtml.c:2925
 msgid "The color of new link elements"
 msgstr "הצבע של קישורים חדשים"
 
-#: ../gtkhtml/gtkhtml.c:2961
+#: ../gtkhtml/gtkhtml.c:2930
 msgid "Visited Link Color"
 msgstr "צבע קישור שבוקר"
 
-#: ../gtkhtml/gtkhtml.c:2962
+#: ../gtkhtml/gtkhtml.c:2931
 msgid "The color of visited link elements"
 msgstr "הצבע של קישורים שבוקרו"
 
-#: ../gtkhtml/gtkhtml.c:2967
+#: ../gtkhtml/gtkhtml.c:2936
 msgid "Active Link Color"
 msgstr "צבע קישור פעיל"
 
-#: ../gtkhtml/gtkhtml.c:2968
+#: ../gtkhtml/gtkhtml.c:2937
 msgid "The color of active link elements"
 msgstr "הצבע של קישורים פעילים"
 
-#: ../gtkhtml/gtkhtml.c:2973
+#: ../gtkhtml/gtkhtml.c:2942
 msgid "Spelling Error Color"
 msgstr "צבע שגיאת כתיב"
 
-#: ../gtkhtml/gtkhtml.c:2974
+#: ../gtkhtml/gtkhtml.c:2943
 msgid "The color of the spelling error markers"
 msgstr "הצבע של מזהי שגיאות כתיב"
 
-#: ../gtkhtml/gtkhtml.c:2979
+#: ../gtkhtml/gtkhtml.c:2948
 msgid "Cite Quotation Color"
 msgstr "צבע ציטוט"
 
-#: ../gtkhtml/gtkhtml.c:2980
+#: ../gtkhtml/gtkhtml.c:2949
 msgid "The color of the cited text"
 msgstr "הצבע של הטקסט המצוטט"
 
@@ -1886,11 +2718,7 @@ msgid "Reset"
 msgstr "איפוס"
 
 #. TODO2 dialog instead of warning
-#: ../gtkhtml/htmlengine-print.c:231
-msgid "Cannot allocate default font for printing\n"
-msgstr "לא ניתן להקצות גופן ברירת מחדל להדפסה\n"
-
-#: ../gtkhtml/htmlengine-print.c:310
+#: ../gtkhtml/htmlengine-print.c:231 ../gtkhtml/htmlengine-print.c:310
 msgid "Cannot allocate default font for printing"
 msgstr "לא ניתן להקצות גופן ברירת מחדל להדפסה"
 
@@ -1898,17 +2726,20 @@ msgstr "לא ניתן להקצות גופן ברירת מחדל להדפסה"
 msgid "GtkHTML Test"
 msgstr "בדיקת GtkHTML"
 
-#: ../gtkhtml/testgtkhtml.c:117
+#: ../gtkhtml/testgtkhtml.c:116
 msgid "Print pre_view"
 msgstr "_תצוגה מקדימה"
 
-#: ../gtkhtml/testgtkhtml.c:117
+#: ../gtkhtml/testgtkhtml.c:116
 msgid "Print preview"
 msgstr "תצוגה מקדימה"
 
-#: ../gtkhtml/testgtkhtml.c:1037
+#: ../gtkhtml/testgtkhtml.c:1020
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML Test Application"
+
+#~ msgid "Cannot allocate default font for printing\n"
+#~ msgstr "לא ניתן להקצות גופן ברירת מחדל להדפסה\n"
 
 #~ msgid "%"
 #~ msgstr "%"
@@ -1979,12 +2810,6 @@ msgstr "GtkHTML Test Application"
 
 #~ msgid "Yellow"
 #~ msgstr "צהוב"
-
-#~ msgid "_Insert"
-#~ msgstr "ה_כנס"
-
-#~ msgid "_Smiley"
-#~ msgstr "_סמיילי"
 
 #~ msgid "_Spell Check Document..."
 #~ msgstr "_בדוק איות במסמך..."
@@ -2057,9 +2882,6 @@ msgstr "GtkHTML Test Application"
 
 #~ msgid "Configure spell checking"
 #~ msgstr "הגדר את בודק האיות"
-
-#~ msgid "Enable spell checking"
-#~ msgstr "אפשר בדיקת איות"
 
 #~ msgid "Fixed width"
 #~ msgstr "רוחב קבוע"
@@ -2135,9 +2957,6 @@ msgstr "GtkHTML Test Application"
 #~ msgstr ""
 #~ "@link_begin@<img@alt@@width@@height@@align@ "
 #~ "border=@border@@padh@@padv@@src@>@link_end@"
-
-#~ msgid "Frame"
-#~ msgstr "מסגרת"
 
 #~ msgid ""
 #~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
@@ -2217,17 +3036,11 @@ msgstr "GtkHTML Test Application"
 #~ msgid "Font size"
 #~ msgstr "גודל הגופן"
 
-#~ msgid "Foreground color"
-#~ msgstr "צבע הקדמה"
-
 #~ msgid "Header"
 #~ msgstr "כתורת"
 
 #~ msgid "Link insert"
 #~ msgstr "הכנס קישור"
-
-#~ msgid "Location"
-#~ msgstr "מיקום"
 
 #~ msgid "Padding"
 #~ msgstr "ריפוד"
@@ -2246,9 +3059,6 @@ msgstr "GtkHTML Test Application"
 
 #~ msgid "Style:"
 #~ msgstr "סגנון:"
-
-#~ msgid "Table Insert"
-#~ msgstr "הכנס טבלה"
 
 #~ msgid "Wrap"
 #~ msgstr "גלישה"
@@ -2312,9 +3122,6 @@ msgstr "GtkHTML Test Application"
 #~ "הטבלה הערוכה הוסרה מהמסמך.\n"
 #~ "לא ניתן להחיל את שינוייך."
 
-#~ msgid "Color"
-#~ msgstr "צבע"
-
 #, fuzzy
 #~ msgid "The quick brown fox jumps over the lazy dog.</div>"
 #~ msgstr "לך אל הנמלה עצל ראה דרכיה וחכם."
@@ -2327,12 +3134,3 @@ msgstr "GtkHTML Test Application"
 
 #~ msgid "I could not initialize Bonobo"
 #~ msgstr "לא הצלחתי לאתחל את Bonobo"
-
-#~ msgid "Ignore '%s'"
-#~ msgstr "התעלם מ '%s'"
-
-#~ msgid "Suggest word"
-#~ msgstr "מילה מוצעת"
-
-#~ msgid "Text..."
-#~ msgstr "מלל..."
