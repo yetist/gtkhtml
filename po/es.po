@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-04-17 12:47+0100\n"
-"PO-Revision-Date: 2008-04-17 20:33+0200\n"
+"POT-Creation-Date: 2008-04-17 19:34+0100\n"
+"PO-Revision-Date: 2008-04-30 21:13+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -479,7 +479,7 @@ msgstr "_Riendo"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1421
 msgid "Smi_rk"
-msgstr ""
+msgstr "Son_risa insolente"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1428
 msgid "Sur_prised"
@@ -1517,7 +1517,7 @@ msgstr "%s (%s)"
 #. * in the translated string.
 #. * Translators: This refers to the default language used
 #. * by the spell checker.
-#: ../components/editor/gtkhtml-spell-language.c:390
+#: ../components/editor/gtkhtml-spell-language.c:396
 msgid "language|Default"
 msgstr "Predeterminado"
 
