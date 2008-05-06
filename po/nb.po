@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 3.13\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-04-19 10:29+0200\n"
-"PO-Revision-Date: 2008-04-19 10:45+0200\n"
+"POT-Creation-Date: 2008-05-06 18:55+0200\n"
+"PO-Revision-Date: 2008-05-06 18:51+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -470,7 +470,7 @@ msgstr "_Leende"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1421
 msgid "Smi_rk"
-msgstr ""
+msgstr "Fli_r"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1428
 msgid "Sur_prised"
@@ -1383,39 +1383,11 @@ msgid "_Y-Padding:"
 msgstr "_Vertikalt fyll:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:87
-msgid "gtk-close"
-msgstr "gtk-close"
-
-#: ../components/editor/gtkhtml-editor.glade.h:88
-msgid "gtk-find"
-msgstr "gtk-find"
-
-#: ../components/editor/gtkhtml-editor.glade.h:89
-msgid "gtk-find-and-replace"
-msgstr "gtk-find-and-replace"
-
-#: ../components/editor/gtkhtml-editor.glade.h:90
-msgid "gtk-justify-center"
-msgstr "gtk-justify-center"
-
-#: ../components/editor/gtkhtml-editor.glade.h:91
-msgid "gtk-justify-left"
-msgstr ""
-
-#: ../components/editor/gtkhtml-editor.glade.h:92
-msgid "gtk-justify-right"
-msgstr ""
-
-#: ../components/editor/gtkhtml-editor.glade.h:93
-msgid "gtk-ok"
-msgstr "gtk-ok"
-
-#: ../components/editor/gtkhtml-editor.glade.h:94
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:79
 msgid "px"
 msgstr "piksler"
 
-#: ../components/editor/gtkhtml-editor.glade.h:96
+#: ../components/editor/gtkhtml-editor.glade.h:89
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:81
 #, no-c-format
 msgid ""
@@ -1425,7 +1397,7 @@ msgstr ""
 "px\n"
 "%"
 
-#: ../components/editor/gtkhtml-editor.glade.h:99
+#: ../components/editor/gtkhtml-editor.glade.h:92
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:84
 #, no-c-format
 msgid ""
@@ -2690,3 +2662,24 @@ msgstr "Forhåndsvisning"
 #: ../gtkhtml/testgtkhtml.c:1020
 msgid "GtkHTML Test Application"
 msgstr "Test-applikasjon for GtkHTML"
+
+#~ msgid "gtk-close"
+#~ msgstr "gtk-close"
+
+#~ msgid "gtk-find"
+#~ msgstr "gtk-find"
+
+#~ msgid "gtk-find-and-replace"
+#~ msgstr "gtk-find-and-replace"
+
+#~ msgid "gtk-justify-center"
+#~ msgstr "gtk-justify-center"
+
+#~ msgid "gtk-justify-left"
+#~ msgstr "gtk-justify-left"
+
+#~ msgid "gtk-justify-right"
+#~ msgstr "gtk-justify-right"
+
+#~ msgid "gtk-ok"
+#~ msgstr "gtk-ok"
