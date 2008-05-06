@@ -1,3 +1,8 @@
+2008-05-06  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* gtkhtml-editor.glade: Don't translate a bunch of useless widget
+	labels.
+
 2008-04-24  Matthew Barnes  <mbarnes@redhat.com>
 
 	** Related to bug #525996
