@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.txt\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-04-17 12:47+0100\n"
+"POT-Creation-Date: 2008-05-06 16:56+0000\n"
 "PO-Revision-Date: 2003-03-17 15:05+0200\n"
 "Last-Translator: Gil 'Dolfin' Osher <dolfin@rpg.org.il>\n"
 "Language-Team: Hebrew <he@li.org>\n"
@@ -342,11 +342,11 @@ msgstr "צבע"
 
 #: ../components/editor/gtkhtml-color-swatch.c:187
 msgid "Frame Shadow"
-msgstr ""
+msgstr "צל מסגרת"
 
 #: ../components/editor/gtkhtml-color-swatch.c:188
 msgid "Appearance of the frame border"
-msgstr ""
+msgstr "מראה גבול המסגרת"
 
 #: ../components/editor/gtkhtml-combo-box.c:329
 msgid "Action"
@@ -354,7 +354,7 @@ msgstr "פעולה"
 
 #: ../components/editor/gtkhtml-combo-box.c:330
 msgid "A GtkRadioAction"
-msgstr ""
+msgstr "‏GtkRadioAction"
 
 #: ../components/editor/gtkhtml-editor-actions.c:695
 #: ../components/html-editor/menubar.c:349
@@ -590,7 +590,6 @@ msgid "_Paragraph Style"
 msgstr "סגנון _פסקה..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1570
-#, fuzzy
 msgid "_Emoticon"
 msgstr "_סמיילי"
 
@@ -998,7 +997,7 @@ msgstr "תיקייה נוכחית"
 
 #: ../components/editor/gtkhtml-editor.c:703
 msgid "The initial folder for file chooser dialogs"
-msgstr ""
+msgstr "תיקיית ההתחלה בחלונות בחירת קובץ"
 
 #: ../components/editor/gtkhtml-editor.c:713
 msgid "Filename"
@@ -1006,25 +1005,23 @@ msgstr "שם קובץ"
 
 #: ../components/editor/gtkhtml-editor.c:714
 msgid "The filename to use when saving"
-msgstr ""
+msgstr "שם הקובץ לשמירה"
 
 #: ../components/editor/gtkhtml-editor.c:724
 msgid "HTML Mode"
-msgstr ""
+msgstr "מצב HTML"
 
 #: ../components/editor/gtkhtml-editor.c:725
 msgid "Edit HTML or plain text"
-msgstr ""
+msgstr "ערוך HTML או טקסט פשוט"
 
 #: ../components/editor/gtkhtml-editor.c:735
-#, fuzzy
 msgid "Inline Spelling"
-msgstr "אפשר בדיקת איות"
+msgstr "בדיקת איות פנימית"
 
 #: ../components/editor/gtkhtml-editor.c:736
-#, fuzzy
 msgid "Check your spelling as you type"
-msgstr "בדוק את איות המסמך"
+msgstr "בדוק את האיות שלך תוך כדי כתיבה"
 
 #: ../components/editor/gtkhtml-editor.c:746
 msgid "Magic Links"
@@ -1032,7 +1029,7 @@ msgstr ""
 
 #: ../components/editor/gtkhtml-editor.c:747
 msgid "Make URIs clickable as you type"
-msgstr ""
+msgstr "הפוך כתובות ללחיצות תוך כדי כתיבה"
 
 #: ../components/editor/gtkhtml-editor.c:757
 #, fuzzy
@@ -1044,19 +1041,16 @@ msgid "Convert emoticons to images as you type"
 msgstr ""
 
 #: ../components/editor/gtkhtml-editor.glade.h:1
-#, fuzzy
 msgid "<b>Alignment &amp; Behavior</b>"
 msgstr "<b>יישור והתנהגות</b>"
 
 #: ../components/editor/gtkhtml-editor.glade.h:2
-#, fuzzy
 msgid "<b>Alignment</b>"
-msgstr "יישור"
+msgstr "<b>יישור</b>"
 
 #: ../components/editor/gtkhtml-editor.glade.h:3
-#, fuzzy
 msgid "<b>Background Image</b>"
-msgstr "<b>רקע</b>"
+msgstr "<b>תמונת רקע</b>"
 
 #: ../components/editor/gtkhtml-editor.glade.h:4
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:11
@@ -1064,9 +1058,8 @@ msgid "<b>Background</b>"
 msgstr "<b>רקע</b>"
 
 #: ../components/editor/gtkhtml-editor.glade.h:5
-#, fuzzy
 msgid "<b>Colors</b>"
-msgstr "<b>מתחם</b>"
+msgstr "<b>צבעים</b>"
 
 #: ../components/editor/gtkhtml-editor.glade.h:6
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:12
@@ -1079,9 +1072,8 @@ msgid "<b>Layout</b>"
 msgstr "<b>פריסה</b>"
 
 #: ../components/editor/gtkhtml-editor.glade.h:8
-#, fuzzy
 msgid "<b>Link</b>"
-msgstr "<b>פריסה</b>"
+msgstr "<b>קישור</b>"
 
 #: ../components/editor/gtkhtml-editor.glade.h:9
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:14
@@ -1089,14 +1081,12 @@ msgid "<b>Scope</b>"
 msgstr "<b>מתחם</b>"
 
 #: ../components/editor/gtkhtml-editor.glade.h:10
-#, fuzzy
 msgid "<b>Size</b>"
-msgstr "<b>מתחם</b>"
+msgstr "<b>גודל</b>"
 
 #: ../components/editor/gtkhtml-editor.glade.h:11
-#, fuzzy
 msgid "<b>Style</b>"
-msgstr "<b>מתחם</b>"
+msgstr "<b>סגנון</b>"
 
 #: ../components/editor/gtkhtml-editor.glade.h:12
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:23
@@ -1109,7 +1099,6 @@ msgid "C_olor:"
 msgstr "_צבע:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:14
-#, fuzzy
 msgid "C_olumns:"
 msgstr "ע_מודות:"
 
@@ -1125,12 +1114,10 @@ msgid "Case _sensitive"
 msgstr "תלוי _רישיות"
 
 #: ../components/editor/gtkhtml-editor.glade.h:17
-#, fuzzy
 msgid "Cell Properties"
-msgstr "מאפיינים"
+msgstr "מאפייני תא"
 
 #: ../components/editor/gtkhtml-editor.glade.h:18
-#, fuzzy
 msgid "Co_lor:"
 msgstr "_צבע:"
 
@@ -1140,7 +1127,6 @@ msgid "Col_umn"
 msgstr "_עמודה"
 
 #: ../components/editor/gtkhtml-editor.glade.h:20
-#, fuzzy
 msgid "Column Span:"
 msgstr "פריסת עמודה:"
 
@@ -1154,7 +1140,6 @@ msgid "Find"
 msgstr "חפש"
 
 #: ../components/editor/gtkhtml-editor.glade.h:22
-#, fuzzy
 msgid "Hea_der Style"
 msgstr "סגנון _כותרת"
 
@@ -1164,9 +1149,8 @@ msgid "I_mage:"
 msgstr "ת_מונה"
 
 #: ../components/editor/gtkhtml-editor.glade.h:24
-#, fuzzy
 msgid "Image Properties"
-msgstr "מאפיינים"
+msgstr "מאפייני תמונה"
 
 #: ../components/editor/gtkhtml-editor.glade.h:25
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:36
@@ -1180,7 +1164,6 @@ msgstr ""
 "ימין"
 
 #: ../components/editor/gtkhtml-editor.glade.h:28
-#, fuzzy
 msgid "Link Properties"
 msgstr "מאפייני קישור"
 
@@ -1198,14 +1181,12 @@ msgid ""
 msgstr ""
 
 #: ../components/editor/gtkhtml-editor.glade.h:38
-#, fuzzy
 msgid "Page Properties"
-msgstr "מאפיינים"
+msgstr "מאפייני דף"
 
 #: ../components/editor/gtkhtml-editor.glade.h:39
-#, fuzzy
 msgid "Paragraph Properties"
-msgstr "מאפיינים"
+msgstr "מאפייני פסקה"
 
 #: ../components/editor/gtkhtml-editor.glade.h:40
 #: ../components/html-editor/replace.c:190
@@ -1227,29 +1208,24 @@ msgid "Replace Confirmation"
 msgstr "החלף אישור"
 
 #: ../components/editor/gtkhtml-editor.glade.h:43
-#, fuzzy
 msgid "Row Span:"
 msgstr "פריסת שורה:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:44
-#, fuzzy
 msgid "Rule Properties"
-msgstr "מאפיינים"
+msgstr "מאפייני קו"
 
 #: ../components/editor/gtkhtml-editor.glade.h:45
-#, fuzzy
 msgid "S_haded"
-msgstr "צל"
+msgstr "_מוצל"
 
 #: ../components/editor/gtkhtml-editor.glade.h:46
-#, fuzzy
 msgid "Search _backwards"
 msgstr "חפש _אחורה"
 
 #: ../components/editor/gtkhtml-editor.glade.h:47
-#, fuzzy
 msgid "Select An Image"
-msgstr "בחר_הכול"
+msgstr "בחר_תמונה"
 
 #: ../components/editor/gtkhtml-editor.glade.h:48
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:48
@@ -1262,14 +1238,12 @@ msgid "T_emplate:"
 msgstr "_תבנית"
 
 #: ../components/editor/gtkhtml-editor.glade.h:50
-#, fuzzy
 msgid "Table Properties"
-msgstr "מאפיינים"
+msgstr "מאפייני טבלה"
 
 #: ../components/editor/gtkhtml-editor.glade.h:51
-#, fuzzy
 msgid "Text Properties"
-msgstr "מאפיינים"
+msgstr "מאפייני טקסט"
 
 #: ../components/editor/gtkhtml-editor.glade.h:52
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:53
@@ -1318,9 +1292,8 @@ msgid "_Height:"
 msgstr "גו_בה:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:63
-#, fuzzy
 msgid "_Horizontal:"
-msgstr "אופקי:"
+msgstr "אופ_קי:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:64
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:64
@@ -1338,9 +1311,8 @@ msgid "_Padding:"
 msgstr "רי_פוד:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:68
-#, fuzzy
 msgid "_Regular expression"
-msgstr "_ביטוי רגיל"
+msgstr "_ביטוי רגולרי"
 
 #: ../components/editor/gtkhtml-editor.glade.h:69
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:67
@@ -1353,9 +1325,8 @@ msgid "_Rows:"
 msgstr "שו_רות:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:71
-#, fuzzy
 msgid "_Size:"
-msgstr "גודל:"
+msgstr "גו_דל:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:72
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:69
@@ -1383,9 +1354,8 @@ msgid "_URL:"
 msgstr "כ_תובת:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:81
-#, fuzzy
 msgid "_Vertical:"
-msgstr "אנכי:"
+msgstr "א_נכי:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:82
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:75
@@ -1413,40 +1383,11 @@ msgid "_Y-Padding:"
 msgstr "ריפוד _Y:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:87
-msgid "gtk-close"
-msgstr ""
-
-#: ../components/editor/gtkhtml-editor.glade.h:88
-msgid "gtk-find"
-msgstr ""
-
-#: ../components/editor/gtkhtml-editor.glade.h:89
-#, fuzzy
-msgid "gtk-find-and-replace"
-msgstr "חפש והחלף"
-
-#: ../components/editor/gtkhtml-editor.glade.h:90
-msgid "gtk-justify-center"
-msgstr ""
-
-#: ../components/editor/gtkhtml-editor.glade.h:91
-msgid "gtk-justify-left"
-msgstr ""
-
-#: ../components/editor/gtkhtml-editor.glade.h:92
-msgid "gtk-justify-right"
-msgstr ""
-
-#: ../components/editor/gtkhtml-editor.glade.h:93
-msgid "gtk-ok"
-msgstr ""
-
-#: ../components/editor/gtkhtml-editor.glade.h:94
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:79
 msgid "px"
 msgstr ""
 
-#: ../components/editor/gtkhtml-editor.glade.h:96
+#: ../components/editor/gtkhtml-editor.glade.h:89
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:81
 #, no-c-format
 msgid ""
@@ -1454,7 +1395,7 @@ msgid ""
 "%"
 msgstr ""
 
-#: ../components/editor/gtkhtml-editor.glade.h:99
+#: ../components/editor/gtkhtml-editor.glade.h:92
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:84
 #, fuzzy, no-c-format
 msgid ""
@@ -1464,148 +1405,129 @@ msgid ""
 msgstr "עקוב"
 
 #: ../components/editor/gtkhtml-spell-checker.c:169
-#, fuzzy
 msgid "Language"
-msgstr "שפות _נוכחיות"
+msgstr "שפה"
 
 #: ../components/editor/gtkhtml-spell-checker.c:170
 msgid "The language used by the spell checker"
-msgstr ""
+msgstr "השפה לשימוש על ידי בודק האיות"
 
 #: ../components/editor/gtkhtml-spell-dialog.c:117
-#, fuzzy, c-format
+#, c-format
 msgid "Suggestions for \"%s\""
-msgstr "מילה מוצעת"
+msgstr "הצעות עבור \"%s\""
 
 #: ../components/editor/gtkhtml-spell-dialog.c:358
-#, fuzzy
 msgid "Misspelled Word"
-msgstr "התעלם משגיאות כתיב"
+msgstr "שגיאת כתיב"
 
 #: ../components/editor/gtkhtml-spell-dialog.c:359
-#, fuzzy
 msgid "The current misspelled word"
-msgstr "התעלם משגיאות כתיב"
+msgstr "שגיאת הכתיב הנוכחית"
 
 #: ../components/editor/gtkhtml-spell-dialog.c:449
-#, fuzzy
 msgid "Spell Checker"
 msgstr "בודק איות"
 
 #. Replace All Button
 #: ../components/editor/gtkhtml-spell-dialog.c:536
-#, fuzzy
 msgid "R_eplace All"
 msgstr "החלף ה_כול"
 
 #. Ignore Button
 #: ../components/editor/gtkhtml-spell-dialog.c:550
-#, fuzzy
 msgid "_Ignore"
-msgstr "התעלם מ '%s'"
+msgstr "_התעלם"
 
 #. Skip Button
 #: ../components/editor/gtkhtml-spell-dialog.c:564
 msgid "_Skip"
-msgstr ""
+msgstr "_דלג"
 
 #. Back Button
 #: ../components/editor/gtkhtml-spell-dialog.c:577
-#, fuzzy
 msgid "_Back"
 msgstr "_אחורה"
 
 #. Dictionary Label
 #: ../components/editor/gtkhtml-spell-dialog.c:590
-#, fuzzy
 msgid "Dictionary"
-msgstr "מילון %s"
+msgstr "מילון"
 
 #. Add Word Button
 #: ../components/editor/gtkhtml-spell-dialog.c:619
-#, fuzzy
 msgid "_Add Word"
-msgstr "הוסף מילה ל"
+msgstr "הוסף _מילה"
 
 #: ../components/editor/gtkhtml-spell-language.c:182
 #, c-format
 msgid "language|Unknown (%s)"
-msgstr ""
+msgstr "לא ידוע (%s)"
 
 #: ../components/editor/gtkhtml-spell-language.c:200
 #: ../components/editor/gtkhtml-spell-language.c:208
 #, c-format
 msgid "language|%s (%s)"
-msgstr ""
+msgstr "‏%s (%s)"
 
 #. Translators: The text before the "|" is context to help
 #. * you decide on the correct translation. You MUST OMIT IT
 #. * in the translated string.
 #. * Translators: This refers to the default language used
 #. * by the spell checker.
-#: ../components/editor/gtkhtml-spell-language.c:390
+#: ../components/editor/gtkhtml-spell-language.c:396
 msgid "language|Default"
-msgstr ""
+msgstr "ברירת מחדל"
 
 #: ../components/editor/main.c:93
 msgid "Save As"
-msgstr ""
+msgstr "שמור בשם"
 
 #: ../components/editor/main.c:111
-#, fuzzy
 msgid "Untitled document"
-msgstr "הכנס טבלה למסמך..."
+msgstr "מסמך ללא שם"
 
 #: ../components/editor/main.c:268
 msgid "HTML Output"
-msgstr ""
+msgstr "פלט HTML"
 
 #: ../components/editor/main.c:275
-#, fuzzy
 msgid "HTML Source"
-msgstr "_מקור:"
+msgstr "מקור HTML"
 
 #: ../components/editor/main.c:282
-#, fuzzy
 msgid "Plain Source"
-msgstr "טקסט _פשוט"
+msgstr "טקסט פשוט"
 
 #: ../components/editor/main.c:289
-#, fuzzy
 msgid "_Print..."
-msgstr "_חפש..."
+msgstr "_הדפס..."
 
 #: ../components/editor/main.c:296
-#, fuzzy
 msgid "Print Pre_view"
 msgstr "_תצוגה מקדימה"
 
 #: ../components/editor/main.c:303
-#, fuzzy
 msgid "_Quit"
-msgstr "_עריכה"
+msgstr "_יציאה"
 
 #: ../components/editor/main.c:310
-#, fuzzy
 msgid "_Save"
-msgstr "צל"
+msgstr "_שמור"
 
 #: ../components/editor/main.c:317
-#, fuzzy
 msgid "Save _As..."
-msgstr "שמור קובץ בשם..."
+msgstr "שמור _בשם..."
 
 #: ../components/editor/main.c:334
 msgid "HTML _Output"
-msgstr ""
+msgstr "_פלט HTML"
 
 #: ../components/editor/main.c:341
-#, fuzzy
 msgid "_HTML Source"
-msgstr "_מקור:"
+msgstr "_מקור HTML"
 
 #: ../components/editor/main.c:348
-#, fuzzy
 msgid "_Plain Source"
 msgstr "טקסט _פשוט"
 
@@ -2077,19 +1999,19 @@ msgstr "_סגנון"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:156
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:156
 msgid "_Text..."
-msgstr "_מלל..."
+msgstr "_טקסט..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:1
 msgid "GNOME HTML Editor"
-msgstr "עורך HTML בעבור GNOME"
+msgstr "GNOME HTML Editor"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:2
 msgid "GNOME HTML Editor Control"
-msgstr "בקרת עורך HTML בעבור GNOME"
+msgstr "GNOME HTML Editor Control"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:3
 msgid "GNOME HTML Editor Factory"
-msgstr "יצרן עורך HTML בעבור GNOME"
+msgstr "GNOME HTML Editor Factory"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
 #, fuzzy
@@ -2639,11 +2561,11 @@ msgstr "האם ניתן לערוך את ה-html"
 
 #: ../gtkhtml/gtkhtml.c:2893
 msgid "Document Title"
-msgstr "כותרת המסמך"
+msgstr "שם מסמך"
 
 #: ../gtkhtml/gtkhtml.c:2894
 msgid "The title of the current document"
-msgstr "הכותרת של המסמך הנוכחי"
+msgstr "שם המסמך הנוכחי"
 
 #: ../gtkhtml/gtkhtml.c:2900
 msgid "Document Base"
@@ -2737,6 +2659,10 @@ msgstr "תצוגה מקדימה"
 #: ../gtkhtml/testgtkhtml.c:1020
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML Test Application"
+
+#, fuzzy
+#~ msgid "gtk-find-and-replace"
+#~ msgstr "חפש והחלף"
 
 #~ msgid "Cannot allocate default font for printing\n"
 #~ msgstr "לא ניתן להקצות גופן ברירת מחדל להדפסה\n"
