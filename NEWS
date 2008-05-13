@@ -1,3 +1,17 @@
+GtkHTML-3.23.2 2008-05-12
+--------------------------
+
+Bug Fixes:
+	#525996: Look for data files in our own installation prefix, to make running local builds easier (Matthew Barnes)
+
+Other Contributors:
+	Don't translate a bunch of useless widget labels. (Kjartan Maraas)
+
+Updated Translations:
+	Yair Hershkovitz (he)
+	Kjartan Maraas (nb)
+	Jorge Gonzalez (es)
+
 GtkHTML-3.23.1 2008-04-21
 --------------------------
 
