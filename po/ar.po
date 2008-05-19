@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.HEAD.ar\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-01-31 08:08+0000\n"
+"POT-Creation-Date: 2008-05-06 16:56+0000\n"
 "PO-Revision-Date: 2008-02-01 00:24+0200\n"
 "Last-Translator: Khaled Hosny <khaledhosny@eglug.org>\n"
 "Language-Team: Arabic <doc@arabeyes.org>\n"
@@ -16,7 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
 #: ../a11y/image.c:151
 #, c-format
@@ -36,45 +37,1594 @@ msgstr "أخذ تركيز"
 msgid "Panel containing HTML"
 msgstr "شريط محتوي على HTML"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:1
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
-msgid "+0"
-msgstr "+0"
+#: ../components/editor/gtkhtml-color-combo.c:78
+#: ../components/html-editor/gi-color-palette.c:559
+msgid "black"
+msgstr "أسود"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:2
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:2
-msgid "+1"
-msgstr "+1"
+#: ../components/editor/gtkhtml-color-combo.c:79
+#: ../components/html-editor/gi-color-palette.c:560
+msgid "light brown"
+msgstr "بني خفيف"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:3
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:3
-msgid "+2"
-msgstr "+2"
+#: ../components/editor/gtkhtml-color-combo.c:80
+#: ../components/html-editor/gi-color-palette.c:561
+msgid "brown gold"
+msgstr "بني ذهبي"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:4
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:4
-msgid "+3"
-msgstr "+3"
+#: ../components/editor/gtkhtml-color-combo.c:81
+#: ../components/html-editor/gi-color-palette.c:562
+msgid "dark green #2"
+msgstr "أخضر غامق #2"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:5
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:5
-msgid "+4"
-msgstr "+4"
+#: ../components/editor/gtkhtml-color-combo.c:82
+#: ../components/html-editor/gi-color-palette.c:563
+msgid "navy"
+msgstr "أزرق ليلي"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:6
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:6
-msgid "-1"
-msgstr "-1"
+#: ../components/editor/gtkhtml-color-combo.c:83
+#: ../components/html-editor/gi-color-palette.c:564
+#: ../components/html-editor/gi-color-palette.c:620
+msgid "dark blue"
+msgstr "أزرق غامق"
 
+#: ../components/editor/gtkhtml-color-combo.c:84
+#: ../components/html-editor/gi-color-palette.c:565
+msgid "purple #2"
+msgstr "بنفسجي #2"
+
+#: ../components/editor/gtkhtml-color-combo.c:85
+#: ../components/html-editor/gi-color-palette.c:566
+msgid "very dark gray"
+msgstr "رمادي غامق جدا"
+
+#: ../components/editor/gtkhtml-color-combo.c:87
+#: ../components/html-editor/gi-color-palette.c:569
+#: ../components/html-editor/gi-color-palette.c:625
+msgid "dark red"
+msgstr "أحمر غامق"
+
+#: ../components/editor/gtkhtml-color-combo.c:88
+#: ../components/html-editor/gi-color-palette.c:570
+msgid "red-orange"
+msgstr "أحمر برتقالي"
+
+#: ../components/editor/gtkhtml-color-combo.c:89
+#: ../components/html-editor/gi-color-palette.c:571
+msgid "gold"
+msgstr "ذهبي"
+
+#: ../components/editor/gtkhtml-color-combo.c:90
+#: ../components/html-editor/gi-color-palette.c:572
+msgid "dark green"
+msgstr "أخضر غامق"
+
+#: ../components/editor/gtkhtml-color-combo.c:91
+#: ../components/html-editor/gi-color-palette.c:573
+#: ../components/html-editor/gi-color-palette.c:626
+msgid "dull blue"
+msgstr "أزرق هافت"
+
+#: ../components/editor/gtkhtml-color-combo.c:92
+#: ../components/html-editor/gi-color-palette.c:574
+#: ../components/html-editor/gi-color-palette.c:627
+msgid "blue"
+msgstr "أزرق"
+
+#: ../components/editor/gtkhtml-color-combo.c:93
+#: ../components/html-editor/gi-color-palette.c:575
+msgid "dull purple"
+msgstr "بنفسجي هافت"
+
+#: ../components/editor/gtkhtml-color-combo.c:94
+#: ../components/html-editor/gi-color-palette.c:576
+msgid "dark grey"
+msgstr "رمادي غامق"
+
+#: ../components/editor/gtkhtml-color-combo.c:96
+#: ../components/html-editor/gi-color-palette.c:579
+msgid "red"
+msgstr "أحمر"
+
+#: ../components/editor/gtkhtml-color-combo.c:97
+#: ../components/html-editor/gi-color-palette.c:580
+msgid "orange"
+msgstr "برتقالي"
+
+#: ../components/editor/gtkhtml-color-combo.c:98
+#: ../components/html-editor/gi-color-palette.c:581
+msgid "lime"
+msgstr "ليم"
+
+#: ../components/editor/gtkhtml-color-combo.c:99
+#: ../components/html-editor/gi-color-palette.c:582
+msgid "dull green"
+msgstr "أخضر هافت"
+
+#: ../components/editor/gtkhtml-color-combo.c:100
+#: ../components/html-editor/gi-color-palette.c:583
+msgid "dull blue #2"
+msgstr "أزرق هافت #2"
+
+#: ../components/editor/gtkhtml-color-combo.c:101
+#: ../components/html-editor/gi-color-palette.c:584
+msgid "sky blue #2"
+msgstr "أزرق سماوي #2"
+
+#: ../components/editor/gtkhtml-color-combo.c:102
+#: ../components/html-editor/gi-color-palette.c:585
+#: ../components/html-editor/gi-color-palette.c:624
+msgid "purple"
+msgstr "بنفسجي"
+
+#: ../components/editor/gtkhtml-color-combo.c:103
+#: ../components/html-editor/gi-color-palette.c:586
+msgid "gray"
+msgstr "رمادي"
+
+#: ../components/editor/gtkhtml-color-combo.c:105
+#: ../components/html-editor/gi-color-palette.c:589
+#: ../components/html-editor/gi-color-palette.c:621
+msgid "magenta"
+msgstr "أرجوانى"
+
+#: ../components/editor/gtkhtml-color-combo.c:106
+#: ../components/html-editor/gi-color-palette.c:590
+msgid "bright orange"
+msgstr "برتقالي لامع"
+
+#: ../components/editor/gtkhtml-color-combo.c:107
+#: ../components/html-editor/gi-color-palette.c:591
+#: ../components/html-editor/gi-color-palette.c:622
+msgid "yellow"
+msgstr "أصفر"
+
+#: ../components/editor/gtkhtml-color-combo.c:108
+#: ../components/html-editor/gi-color-palette.c:592
+msgid "green"
+msgstr "أخضر"
+
+#: ../components/editor/gtkhtml-color-combo.c:109
+#: ../components/html-editor/gi-color-palette.c:593
+#: ../components/html-editor/gi-color-palette.c:623
+msgid "cyan"
+msgstr "سيان"
+
+#: ../components/editor/gtkhtml-color-combo.c:110
+#: ../components/html-editor/gi-color-palette.c:594
+msgid "bright blue"
+msgstr "أزرق لامع"
+
+#: ../components/editor/gtkhtml-color-combo.c:111
+#: ../components/html-editor/gi-color-palette.c:595
+#: ../components/html-editor/gi-color-palette.c:612
+msgid "red purple"
+msgstr "أحمر بنفسجي"
+
+#: ../components/editor/gtkhtml-color-combo.c:112
+#: ../components/html-editor/gi-color-palette.c:596
+msgid "light grey"
+msgstr "رمادي خفيف"
+
+#: ../components/editor/gtkhtml-color-combo.c:114
+#: ../components/html-editor/gi-color-palette.c:599
+#: ../components/html-editor/gi-color-palette.c:616
+msgid "pink"
+msgstr "وردي"
+
+#: ../components/editor/gtkhtml-color-combo.c:115
+#: ../components/html-editor/gi-color-palette.c:600
+msgid "light orange"
+msgstr "برتقالي خفيف"
+
+#: ../components/editor/gtkhtml-color-combo.c:116
+#: ../components/html-editor/gi-color-palette.c:601
+#: ../components/html-editor/gi-color-palette.c:613
+msgid "light yellow"
+msgstr "أصفر خفيف"
+
+#: ../components/editor/gtkhtml-color-combo.c:117
+#: ../components/html-editor/gi-color-palette.c:602
+msgid "light green"
+msgstr "أخضر خفيف"
+
+#: ../components/editor/gtkhtml-color-combo.c:118
+#: ../components/html-editor/gi-color-palette.c:603
+msgid "light cyan"
+msgstr "سياني خفيف"
+
+#: ../components/editor/gtkhtml-color-combo.c:119
+#: ../components/html-editor/gi-color-palette.c:604
+#: ../components/html-editor/gi-color-palette.c:614
+msgid "light blue"
+msgstr "أزرق خفيف"
+
+#: ../components/editor/gtkhtml-color-combo.c:120
+#: ../components/html-editor/gi-color-palette.c:605
+#: ../components/html-editor/gi-color-palette.c:618
+msgid "light purple"
+msgstr "بنفسجي خفيف"
+
+#: ../components/editor/gtkhtml-color-combo.c:121
+#: ../components/html-editor/gi-color-palette.c:606
+msgid "white"
+msgstr "أبيض"
+
+#: ../components/editor/gtkhtml-color-combo.c:269
+#: ../components/html-editor/gi-color-palette.c:426
+msgid "Choose Custom Color"
+msgstr "اختيار لون مخصص"
+
+#: ../components/editor/gtkhtml-color-combo.c:693
+#: ../components/editor/gtkhtml-color-state.c:190
+#, fuzzy
+msgid "Current color"
+msgstr "لون مخصص:"
+
+#: ../components/editor/gtkhtml-color-combo.c:694
+msgid "The currently selected color"
+msgstr ""
+
+#: ../components/editor/gtkhtml-color-combo.c:703
+#: ../components/editor/gtkhtml-color-state.c:200
+msgid "Default color"
+msgstr ""
+
+#: ../components/editor/gtkhtml-color-combo.c:704
+msgid "The color associated with the default button"
+msgstr ""
+
+#: ../components/editor/gtkhtml-color-combo.c:714
+#: ../components/editor/gtkhtml-color-state.c:211
+msgid "Default label"
+msgstr ""
+
+#: ../components/editor/gtkhtml-color-combo.c:715
+msgid "The label for the default button"
+msgstr ""
+
+#: ../components/editor/gtkhtml-color-combo.c:716
+#: ../components/editor/gtkhtml-color-state.c:213
+msgid "Default"
+msgstr ""
+
+#: ../components/editor/gtkhtml-color-combo.c:725
+#: ../components/editor/gtkhtml-color-state.c:222
+#, fuzzy
+msgid "Color palette"
+msgstr "استعراض اللون"
+
+#: ../components/editor/gtkhtml-color-combo.c:726
+#: ../components/editor/gtkhtml-color-state.c:223
+#, fuzzy
+msgid "Custom color palette"
+msgstr "لون مخصص:"
+
+#: ../components/editor/gtkhtml-color-combo.c:735
+#, fuzzy
+msgid "Popup shown"
+msgstr "نوافذ قافزة"
+
+#: ../components/editor/gtkhtml-color-combo.c:736
+msgid "Whether the combo's dropdown is shown"
+msgstr ""
+
+#: ../components/editor/gtkhtml-color-combo.c:745
+#, fuzzy
+msgid "Color state"
+msgstr "الألوان"
+
+#: ../components/editor/gtkhtml-color-combo.c:746
+msgid "State of the color combo"
+msgstr ""
+
+#. This is the default custom color
+#: ../components/editor/gtkhtml-color-combo.c:928
+#: ../components/html-editor/gi-color-palette.c:378
+msgid "custom"
+msgstr "مخصص"
+
+#: ../components/editor/gtkhtml-color-combo.c:936
+#, fuzzy
+msgid "Custom Color..."
+msgstr "لون مخصص:"
+
+#: ../components/editor/gtkhtml-color-state.c:191
+#: ../components/editor/gtkhtml-color-swatch.c:178
+msgid "The current color"
+msgstr ""
+
+#: ../components/editor/gtkhtml-color-state.c:201
+msgid "The default color"
+msgstr ""
+
+#: ../components/editor/gtkhtml-color-state.c:212
+msgid "Description of the default color"
+msgstr ""
+
+#: ../components/editor/gtkhtml-color-swatch.c:177
+#, fuzzy
+msgid "Color"
+msgstr "الألوان"
+
+#: ../components/editor/gtkhtml-color-swatch.c:187
+msgid "Frame Shadow"
+msgstr ""
+
+#: ../components/editor/gtkhtml-color-swatch.c:188
+msgid "Appearance of the frame border"
+msgstr ""
+
+#: ../components/editor/gtkhtml-combo-box.c:329
+msgid "Action"
+msgstr ""
+
+#: ../components/editor/gtkhtml-combo-box.c:330
+msgid "A GtkRadioAction"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:695
+#: ../components/html-editor/menubar.c:349
+msgid "Insert HTML File"
+msgstr "ادخال ملف HTML"
+
+#: ../components/editor/gtkhtml-editor-actions.c:704
+#, fuzzy
+msgid "Insert Image"
+msgstr "أدخل صورة"
+
+#: ../components/editor/gtkhtml-editor-actions.c:870
+#: ../components/html-editor/menubar.c:349
+msgid "Insert Text File"
+msgstr "ادخال ملف نصي"
+
+#. Replace Button
+#: ../components/editor/gtkhtml-editor-actions.c:1260
+#: ../components/editor/gtkhtml-spell-dialog.c:522
+#: ../components/html-editor/replace.c:85
+msgid "_Replace"
+msgstr "است_بدال"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1267
+#: ../components/html-editor/replace.c:82
+msgid "Replace _All"
+msgstr "استبدال الك_ل"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1281
+#: ../components/html-editor/replace.c:83
+msgid "_Next"
+msgstr "_التالي"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1288
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:111
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
+msgid "_Copy"
+msgstr "_نسخ"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1295
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:18
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:18
+msgid "Cu_t"
+msgstr "_قص"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1309
+#, fuzzy
+msgid "Find A_gain"
+msgstr "ا_بحث مرة أخرى"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1323
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:120
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
+msgid "_Increase Indent"
+msgstr "ز_د الإزاحة"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1330
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:117
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
+msgid "_HTML File..."
+msgstr "مل_ف HTML..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1337
+msgid "_Angel"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:1344
+#, fuzzy
+msgid "_Cool"
+msgstr "_لّون:"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1351
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:17
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:17
+msgid "Cr_ying"
+msgstr "ب_كاء"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1358
+msgid "_Devilish"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:1365
+msgid "_Embarrassed"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:1372
+msgid "_Kiss"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:1379
+msgid "_Monkey"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:1386
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:121
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
+msgid "_Indifferent"
+msgstr "م_حتار"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1393
+#, fuzzy
+msgid "_Tongue"
+msgstr "م_زاح"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1400
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:116
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
+msgid "_Frown"
+msgstr "ا_عبس"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1407
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:137
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
+msgid "_Smile"
+msgstr "اب_تسامة"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1414
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:123
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
+msgid "_Laughing"
+msgstr "ضا_حك"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1421
+msgid "Smi_rk"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:1428
+#, fuzzy
+msgid "Sur_prised"
+msgstr "متفاجئ"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1435
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:160
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:160
+msgid "_Wink"
+msgstr "ا_غمز"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1442
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:157
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:157
+msgid "_Undecided"
+msgstr "_محتار"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1449
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:91
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
+msgid "S_ick"
+msgstr "مري_ض"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1456
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:100
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
+msgid "Te_xt File..."
+msgstr "ملف _نص..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1463
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:129
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
+msgid "_Paste"
+msgstr "_لصق"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1470
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:79
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
+#: ../components/html-editor/popup.c:446
+msgid "Paste _Quotation"
+msgstr "لصق الا_قتباس"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1477
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:132
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
+msgid "_Redo"
+msgstr "_إعادة"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1484
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:92
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
+msgid "Select _All"
+msgstr "اخت_ر الجميع"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1491
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:114
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
+msgid "_Find..."
+msgstr "_ابحث..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1498
+#, fuzzy
+msgid "Re_place..."
+msgstr "ا_ستبدال..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1505
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:12
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
+msgid "Check _Spelling..."
+msgstr "_تثبت من الإملاء..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1512
+#: ../components/editor/gtkhtml-editor.glade.h:77
+#: ../components/html-editor/utils.c:205
+msgid "_Test URL..."
+msgstr "مسار ال_تجريب..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1519
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:159
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:159
+msgid "_Undo"
+msgstr "_تراجع"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1526
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:112
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
+msgid "_Decrease Indent"
+msgstr "ق_لل الإزاحة"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1533
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:161
+msgid "_Wrap Lines"
+msgstr "إ_زاحة السّطور"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1542
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:113
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
+msgid "_Edit"
+msgstr "_تحرير"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1549
+#: ../components/editor/main.c:324
+#, fuzzy
+msgid "_File"
+msgstr "اب_تسامة"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1556
+#, fuzzy
+msgid "_Format"
+msgstr "تهيئة"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1563
+#, fuzzy
+msgid "_Paragraph Style"
+msgstr "نمط الفقرة..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1570
+#, fuzzy
+msgid "_Emoticon"
+msgstr "_وجه"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1577
+#, fuzzy
+msgid "_Insert"
+msgstr "أدرج"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1584
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:106
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
+msgid "_Alignment"
+msgstr "ال_محاذاة"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1591
+#: ../components/html-editor/spellchecker.c:424
+msgid "Current _Languages"
+msgstr "الل_غات الحالية"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1598
+#: ../components/editor/main.c:355
+msgid "_View"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:1608
+#, fuzzy
+msgid "_HTML Mode"
+msgstr "مل_ف HTML..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1619
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
+msgid "_Center"
+msgstr "_وسط"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1626
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
+msgid "_Left"
+msgstr "_يسار"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1633
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:134
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:134
+msgid "_Right"
+msgstr "_يمين"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1643
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:126
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
+msgid "_Normal"
+msgstr "_عادي"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1650
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:29
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:29
+msgid "Header _1"
+msgstr "ترويسة _1"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1657
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:30
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:30
+msgid "Header _2"
+msgstr "ترويسة _2"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1664
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:31
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:31
+msgid "Header _3"
+msgstr "ترويسة _3 "
+
+#: ../components/editor/gtkhtml-editor-actions.c:1671
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:32
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:32
+msgid "Header _4"
+msgstr "ترويسة _4"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1678
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:33
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:33
+msgid "Header _5"
+msgstr "ترويسة _5"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1685
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:34
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:34
+msgid "Header _6"
+msgstr "ترويسة _6"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1692
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:8
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:8
+msgid "A_ddress"
+msgstr "ع_نوان"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1699
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:131
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
+msgid "_Preformatted"
+msgstr "مسب_ق التشكيل"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1706
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:109
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
+msgid "_Bulleted List"
+msgstr "قا_ئمة بعلامات"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1713
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:135
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
+msgid "_Roman Numeral List"
+msgstr "قائمة أرقام _رومانية"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1720
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:76
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
+msgid "Numbered _List"
+msgstr "قوائم _مرقّمة"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1727
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:107
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
+msgid "_Alphabetical List"
+msgstr "_قائمة أبجدية"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1743
+#: ../components/editor/gtkhtml-editor-actions.c:1778
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:119
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
+msgid "_Image..."
+msgstr "ص_ورة..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1750
+#: ../components/editor/gtkhtml-editor-actions.c:1785
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:125
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
+msgid "_Link..."
+msgstr "_رابط..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1757
+#: ../components/editor/gtkhtml-editor-actions.c:1799
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:136
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
+msgid "_Rule..."
+msgstr "الد_ور"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1764
+#: ../components/editor/gtkhtml-editor-actions.c:1806
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:140
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:140
+msgid "_Table..."
+msgstr "ج_دول..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1771
+#, fuzzy
+msgid "_Cell..."
+msgstr "خلية"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1792
+#, fuzzy
+msgid "Pa_ge..."
+msgstr "ص_فحة..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1815
+#, fuzzy
+msgid "Font _Size"
+msgstr "حجم ال_خط"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1822
+#, fuzzy
+msgid "_Font Style"
+msgstr "حجم ال_خط"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1832
+#: ../components/editor/gtkhtml-editor.glade.h:58
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:108
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:59
+msgid "_Bold"
+msgstr "_عريض"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1840
+#: ../components/editor/gtkhtml-editor.glade.h:65
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:122
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:65
+msgid "_Italic"
+msgstr "_مائل"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1848
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:130
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
+msgid "_Plain Text"
+msgstr "ن_ص"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1856
+#: ../components/editor/gtkhtml-editor.glade.h:74
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:138
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:71
+msgid "_Strikethrough"
+msgstr "ش_طب"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1864
+#: ../components/editor/gtkhtml-editor.glade.h:80
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:158
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:158
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:74
+msgid "_Underline"
+msgstr "_تسطير"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1875
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:7
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:7
 msgid "-2"
 msgstr "-2"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:8
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:8
-msgid "A_ddress"
-msgstr "ع_نوان"
+#: ../components/editor/gtkhtml-editor-actions.c:1882
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:6
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:6
+msgid "-1"
+msgstr "-1"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1889
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:1
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
+msgid "+0"
+msgstr "+0"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1896
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:2
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:2
+msgid "+1"
+msgstr "+1"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1903
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:3
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:3
+msgid "+2"
+msgstr "+2"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1910
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:4
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:4
+msgid "+3"
+msgstr "+3"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1917
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:5
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:5
+msgid "+4"
+msgstr "+4"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1936
+#, fuzzy
+msgid "Cell Contents"
+msgstr "محتويات الخلية"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1943
+#: ../components/html-editor/popup.c:523
+msgid "Column"
+msgstr "العمود"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1950
+#: ../components/html-editor/popup.c:522
+msgid "Row"
+msgstr "صف"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1957
+#: ../components/editor/gtkhtml-editor-actions.c:2040
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:50
+#: ../components/html-editor/menubar.c:218
+#: ../components/html-editor/popup.c:235 ../components/html-editor/popup.c:509
+#: ../components/html-editor/popup.c:521
+msgid "Table"
+msgstr "جدول"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1966
+#, fuzzy
+msgid "Table Delete"
+msgstr "احذف الجدول"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1973
+#: ../components/html-editor/popup.c:583
+msgid "Input Methods"
+msgstr "طرق الإدخال"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1980
+#, fuzzy
+msgid "Table Insert"
+msgstr "أدخل جدول"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1987
+#: ../components/html-editor/editor-control-factory.c:190
+#: ../components/html-editor/popup.c:191 ../components/html-editor/popup.c:268
+msgid "Properties"
+msgstr "خصائص"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2005
+#, fuzzy
+msgid "Column After"
+msgstr "عمود لاحق"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2012
+#, fuzzy
+msgid "Column Before"
+msgstr "عمود سابق"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2019
+#: ../components/html-editor/popup.c:450
+msgid "Insert _Link"
+msgstr "ادخل _وصلة"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2026
+#, fuzzy
+msgid "Row Above"
+msgstr "صف بالأعلى"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2033
+#, fuzzy
+msgid "Row Below"
+msgstr "صف بالأسفل"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2047
+#, fuzzy
+msgid "Cell..."
+msgstr "خلية"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2054
+#, fuzzy
+msgid "Image..."
+msgstr "ص_ورة..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:2061
+#, fuzzy
+msgid "Link..."
+msgstr "_رابط..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:2068
+#, fuzzy
+msgid "Page..."
+msgstr "ص_فحة..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:2075
+#, fuzzy
+msgid "Paragraph..."
+msgstr "فق_رة..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:2082
+#, fuzzy
+msgid "Rule..."
+msgstr "الد_ور"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2089
+#, fuzzy
+msgid "Table..."
+msgstr "ج_دول..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:2096
+#, fuzzy
+msgid "Text..."
+msgstr "ن_ص..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:2103
+#: ../components/html-editor/popup.c:457
+msgid "Remove Link"
+msgstr "حذف وصلة"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2120
+#: ../components/html-editor/popup.c:577
+msgid "Add Word to Dictionary"
+msgstr "إضافة كلمة إلى المعجم"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2127
+#: ../components/html-editor/popup.c:559
+msgid "Ignore Misspelled Word"
+msgstr "تجاهل الخطأ الإملائي"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2134
+#, fuzzy
+msgid "Add Word To"
+msgstr "اضف الكلمة ل"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2353
+#, fuzzy
+msgid "_Find"
+msgstr "ابحث"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2356
+#, fuzzy
+msgid "Re_place"
+msgstr "بدّل"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2359
+#, fuzzy
+msgid "_Image"
+msgstr "_صورة:"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2362
+#, fuzzy
+msgid "_Link"
+msgstr "الو_صلة:"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2365
+#, fuzzy
+msgid "_Rule"
+msgstr "الدور"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2368
+#: ../components/editor/gtkhtml-editor.glade.h:76
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:72
+msgid "_Table"
+msgstr "_جدول"
+
+#: ../components/editor/gtkhtml-editor-private.c:272
+#: ../components/html-editor/toolbar.c:540
+#, fuzzy
+msgid "Text Color"
+msgstr "الألوان"
+
+#: ../components/editor/gtkhtml-editor-private.c:299
+#: ../components/html-editor/body.c:237 ../components/html-editor/text.c:171
+#: ../components/html-editor/toolbar.c:199
+msgid "Automatic"
+msgstr "آلي"
+
+#: ../components/editor/gtkhtml-editor.c:702
+#, fuzzy
+msgid "Current Folder"
+msgstr "وسط"
+
+#: ../components/editor/gtkhtml-editor.c:703
+msgid "The initial folder for file chooser dialogs"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor.c:713
+msgid "Filename"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor.c:714
+msgid "The filename to use when saving"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor.c:724
+msgid "HTML Mode"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor.c:725
+msgid "Edit HTML or plain text"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor.c:735
+#, fuzzy
+msgid "Inline Spelling"
+msgstr "_تثبت من الإملاء..."
+
+#: ../components/editor/gtkhtml-editor.c:736
+#, fuzzy
+msgid "Check your spelling as you type"
+msgstr "دقق الإملاء للوثيقة"
+
+#: ../components/editor/gtkhtml-editor.c:746
+msgid "Magic Links"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor.c:747
+msgid "Make URIs clickable as you type"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor.c:757
+msgid "Magic Smileys"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor.c:758
+msgid "Convert emoticons to images as you type"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor.glade.h:1
+#, fuzzy
+msgid "<b>Alignment &amp; Behavior</b>"
+msgstr "<b>توجيه &amp; تصرف</b>"
+
+#: ../components/editor/gtkhtml-editor.glade.h:2
+#, fuzzy
+msgid "<b>Alignment</b>"
+msgstr "المحاذاة"
+
+#: ../components/editor/gtkhtml-editor.glade.h:3
+#, fuzzy
+msgid "<b>Background Image</b>"
+msgstr "<b>الخلفية</b>"
+
+#: ../components/editor/gtkhtml-editor.glade.h:4
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:11
+msgid "<b>Background</b>"
+msgstr "<b>الخلفية</b>"
+
+#: ../components/editor/gtkhtml-editor.glade.h:5
+#, fuzzy
+msgid "<b>Colors</b>"
+msgstr "<b>المجال</b>"
+
+#: ../components/editor/gtkhtml-editor.glade.h:6
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:12
+msgid "<b>General</b>"
+msgstr "<b>عام</b>"
+
+#: ../components/editor/gtkhtml-editor.glade.h:7
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:13
+msgid "<b>Layout</b>"
+msgstr "<b>إخراج</b>"
+
+#: ../components/editor/gtkhtml-editor.glade.h:8
+#, fuzzy
+msgid "<b>Link</b>"
+msgstr "<b>إخراج</b>"
+
+#: ../components/editor/gtkhtml-editor.glade.h:9
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:14
+msgid "<b>Scope</b>"
+msgstr "<b>المجال</b>"
+
+#: ../components/editor/gtkhtml-editor.glade.h:10
+#, fuzzy
+msgid "<b>Size</b>"
+msgstr "<b>المجال</b>"
+
+#: ../components/editor/gtkhtml-editor.glade.h:11
+#, fuzzy
+msgid "<b>Style</b>"
+msgstr "<b>المجال</b>"
+
+#: ../components/editor/gtkhtml-editor.glade.h:12
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:23
+msgid "C_ell"
+msgstr "_خلية"
+
+#: ../components/editor/gtkhtml-editor.glade.h:13
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:24
+msgid "C_olor:"
+msgstr "ل_ون:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:14
+#, fuzzy
+msgid "C_olumns:"
+msgstr "أ_عمدة:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:15
+#: ../components/html-editor/body.c:286
+msgid "C_ustom:"
+msgstr "م_خصص:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:16
+#: ../components/html-editor/replace.c:180
+#: ../components/html-editor/search.c:116
+msgid "Case _sensitive"
+msgstr "حساس لل_حالة"
+
+#: ../components/editor/gtkhtml-editor.glade.h:17
+#, fuzzy
+msgid "Cell Properties"
+msgstr "خصائص"
+
+#: ../components/editor/gtkhtml-editor.glade.h:18
+#, fuzzy
+msgid "Co_lor:"
+msgstr "ل_ون:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:19
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:26
+msgid "Col_umn"
+msgstr "_عمود"
+
+#: ../components/editor/gtkhtml-editor.glade.h:20
+#, fuzzy
+msgid "Column Span:"
+msgstr "إتساع عمود:"
+
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
+#: ../components/editor/gtkhtml-editor.glade.h:21
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:23
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:23
+#: ../components/html-editor/search.c:110
+#: ../components/html-editor/search.c:171
+msgid "Find"
+msgstr "ابحث"
+
+#: ../components/editor/gtkhtml-editor.glade.h:22
+#, fuzzy
+msgid "Hea_der Style"
+msgstr "أسلوب المقدمة"
+
+#: ../components/editor/gtkhtml-editor.glade.h:23
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:34
+msgid "I_mage:"
+msgstr "_صورة:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:24
+#, fuzzy
+msgid "Image Properties"
+msgstr "خصائص"
+
+#: ../components/editor/gtkhtml-editor.glade.h:25
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:36
+msgid ""
+"Left\n"
+"Center\n"
+"Right"
+msgstr ""
+"يسار\n"
+"مركز\n"
+"يمين"
+
+#: ../components/editor/gtkhtml-editor.glade.h:28
+#, fuzzy
+msgid "Link Properties"
+msgstr "خصائص الرابط"
+
+#: ../components/editor/gtkhtml-editor.glade.h:29
+msgid ""
+"None\n"
+"Perforated Paper\n"
+"Blue Ink\n"
+"Paper\n"
+"Ribbon\n"
+"Midnight\n"
+"Confidential\n"
+"Draft\n"
+"Graph Paper"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor.glade.h:38
+#, fuzzy
+msgid "Page Properties"
+msgstr "خصائص"
+
+#: ../components/editor/gtkhtml-editor.glade.h:39
+#, fuzzy
+msgid "Paragraph Properties"
+msgstr "خصائص"
+
+#: ../components/editor/gtkhtml-editor.glade.h:40
+#: ../components/html-editor/replace.c:190
+msgid "R_eplace:"
+msgstr "ا_ستبدال"
+
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
+#: ../components/editor/gtkhtml-editor.glade.h:41
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:87
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
+#: ../components/html-editor/replace.c:171
+#: ../components/html-editor/replace.c:236
+msgid "Replace"
+msgstr "بدّل"
+
+#: ../components/editor/gtkhtml-editor.glade.h:42
+#, fuzzy
+msgid "Replace Confirmation"
+msgstr "تأكيد التبديل"
+
+#: ../components/editor/gtkhtml-editor.glade.h:43
+#, fuzzy
+msgid "Row Span:"
+msgstr "اتساع الصف:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:44
+#, fuzzy
+msgid "Rule Properties"
+msgstr "خصائص"
+
+#: ../components/editor/gtkhtml-editor.glade.h:45
+#, fuzzy
+msgid "S_haded"
+msgstr "ظل"
+
+#: ../components/editor/gtkhtml-editor.glade.h:46
+#, fuzzy
+msgid "Search _backwards"
+msgstr "بحث إلى ال_خلف"
+
+#: ../components/editor/gtkhtml-editor.glade.h:47
+#, fuzzy
+msgid "Select An Image"
+msgstr "اخت_ر الجميع"
+
+#: ../components/editor/gtkhtml-editor.glade.h:48
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:48
+msgid "Si_ze:"
+msgstr "ح_جم:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:49
+#: ../components/html-editor/body.c:282
+msgid "T_emplate:"
+msgstr "_القالب:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:50
+#, fuzzy
+msgid "Table Properties"
+msgstr "خصائص"
+
+#: ../components/editor/gtkhtml-editor.glade.h:51
+#, fuzzy
+msgid "Text Properties"
+msgstr "خصائص"
+
+#: ../components/editor/gtkhtml-editor.glade.h:52
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:53
+msgid ""
+"Top\n"
+"Middle\n"
+"Bottom"
+msgstr ""
+"قمة\n"
+"وسط\n"
+"قاع"
+
+#: ../components/editor/gtkhtml-editor.glade.h:55
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:57
+msgid "Width:"
+msgstr "العرض:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:56
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:58
+msgid "_Alignment:"
+msgstr "_محاذاة:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:57
+#: ../components/html-editor/body.c:252
+msgid "_Background:"
+msgstr "_الخلفية:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:59
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:60
+msgid "_Border:"
+msgstr "_حد:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:60
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:61
+msgid "_Color:"
+msgstr "_لّون:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:61
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:62
+msgid "_Description:"
+msgstr "_وصف:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:62
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:63
+msgid "_Height:"
+msgstr "ا_رتفاع:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:63
+#, fuzzy
+msgid "_Horizontal:"
+msgstr "أفقي:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:64
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:64
+msgid "_Image:"
+msgstr "_صورة:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:66
+#: ../components/html-editor/body.c:251
+msgid "_Link:"
+msgstr "الو_صلة:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:67
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:66
+msgid "_Padding:"
+msgstr "إحا_طة"
+
+#: ../components/editor/gtkhtml-editor.glade.h:68
+#, fuzzy
+msgid "_Regular expression"
+msgstr "_عبارة منتظمة"
+
+#: ../components/editor/gtkhtml-editor.glade.h:69
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:67
+msgid "_Row"
+msgstr "_صف"
+
+#: ../components/editor/gtkhtml-editor.glade.h:70
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:68
+msgid "_Rows:"
+msgstr "ص_فوف:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:71
+#, fuzzy
+msgid "_Size:"
+msgstr "الحجم:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:72
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:69
+msgid "_Source:"
+msgstr "_مصدر:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:73
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:70
+msgid "_Spacing:"
+msgstr "_فراغات:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:75
+#: ../components/html-editor/paragraph.c:69
+msgid "_Style:"
+msgstr "الأ_سلوب:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:78
+#: ../components/html-editor/body.c:250
+msgid "_Text:"
+msgstr "النّ_ص:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:79
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:73
+msgid "_URL:"
+msgstr "الع_نوان:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:81
+#, fuzzy
+msgid "_Vertical:"
+msgstr "رأسي:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:82
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:75
+msgid "_Width:"
+msgstr "ال_عرض:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:83
+#: ../components/html-editor/replace.c:194
+msgid "_With:"
+msgstr "_ب:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:84
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:76
+msgid "_Wrap Text"
+msgstr "_كسر النص"
+
+#: ../components/editor/gtkhtml-editor.glade.h:85
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:77
+msgid "_X-Padding:"
+msgstr "الإحاطة-_س:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:86
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:78
+msgid "_Y-Padding:"
+msgstr "الإحاطة-_ع:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:87
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:79
+msgid "px"
+msgstr "بكسل"
+
+#: ../components/editor/gtkhtml-editor.glade.h:89
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:81
+#, no-c-format
+msgid ""
+"px\n"
+"%"
+msgstr ""
+"بكسل\n"
+"%"
+
+#: ../components/editor/gtkhtml-editor.glade.h:92
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:84
+#, no-c-format
+msgid ""
+"px\n"
+"%\n"
+"follow"
+msgstr ""
+"بكسل\n"
+"%\n"
+"يتبع"
+
+#: ../components/editor/gtkhtml-spell-checker.c:169
+#, fuzzy
+msgid "Language"
+msgstr "الل_غات الحالية"
+
+#: ../components/editor/gtkhtml-spell-checker.c:170
+msgid "The language used by the spell checker"
+msgstr ""
+
+#: ../components/editor/gtkhtml-spell-dialog.c:117
+#, c-format
+msgid "Suggestions for \"%s\""
+msgstr ""
+
+#: ../components/editor/gtkhtml-spell-dialog.c:358
+#, fuzzy
+msgid "Misspelled Word"
+msgstr "تجاهل الخطأ الإملائي"
+
+#: ../components/editor/gtkhtml-spell-dialog.c:359
+#, fuzzy
+msgid "The current misspelled word"
+msgstr "تجاهل الخطأ الإملائي"
+
+#: ../components/editor/gtkhtml-spell-dialog.c:449
+#, fuzzy
+msgid "Spell Checker"
+msgstr "المدقق الإملائي"
+
+#. Replace All Button
+#: ../components/editor/gtkhtml-spell-dialog.c:536
+#, fuzzy
+msgid "R_eplace All"
+msgstr "استبدال الك_ل"
+
+#. Ignore Button
+#: ../components/editor/gtkhtml-spell-dialog.c:550
+msgid "_Ignore"
+msgstr ""
+
+#. Skip Button
+#: ../components/editor/gtkhtml-spell-dialog.c:564
+msgid "_Skip"
+msgstr ""
+
+#. Back Button
+#: ../components/editor/gtkhtml-spell-dialog.c:577
+#, fuzzy
+msgid "_Back"
+msgstr "لل_خلف"
+
+#. Dictionary Label
+#: ../components/editor/gtkhtml-spell-dialog.c:590
+#, fuzzy
+msgid "Dictionary"
+msgstr "%s معجم"
+
+#. Add Word Button
+#: ../components/editor/gtkhtml-spell-dialog.c:619
+#, fuzzy
+msgid "_Add Word"
+msgstr "اضف الكلمة ل"
+
+#: ../components/editor/gtkhtml-spell-language.c:182
+#, c-format
+msgid "language|Unknown (%s)"
+msgstr ""
+
+#: ../components/editor/gtkhtml-spell-language.c:200
+#: ../components/editor/gtkhtml-spell-language.c:208
+#, c-format
+msgid "language|%s (%s)"
+msgstr ""
+
+#. Translators: The text before the "|" is context to help
+#. * you decide on the correct translation. You MUST OMIT IT
+#. * in the translated string.
+#. * Translators: This refers to the default language used
+#. * by the spell checker.
+#: ../components/editor/gtkhtml-spell-language.c:396
+msgid "language|Default"
+msgstr ""
+
+#: ../components/editor/main.c:93
+msgid "Save As"
+msgstr ""
+
+#: ../components/editor/main.c:111
+#, fuzzy
+msgid "Untitled document"
+msgstr "أدخل جدول الى الوثيقة"
+
+#: ../components/editor/main.c:268
+msgid "HTML Output"
+msgstr ""
+
+#: ../components/editor/main.c:275
+#, fuzzy
+msgid "HTML Source"
+msgstr "_مصدر:"
+
+#: ../components/editor/main.c:282
+#, fuzzy
+msgid "Plain Source"
+msgstr "ن_ص"
+
+#: ../components/editor/main.c:289
+#, fuzzy
+msgid "_Print..."
+msgstr "_ابحث..."
+
+#: ../components/editor/main.c:296
+#, fuzzy
+msgid "Print Pre_view"
+msgstr "معاينة الط_باعة"
+
+#: ../components/editor/main.c:303
+#, fuzzy
+msgid "_Quit"
+msgstr "_تحرير"
+
+#: ../components/editor/main.c:310
+#, fuzzy
+msgid "_Save"
+msgstr "ظل"
+
+#: ../components/editor/main.c:317
+#, fuzzy
+msgid "Save _As..."
+msgstr "احفظ الملف بإسم..."
+
+#: ../components/editor/main.c:334
+msgid "HTML _Output"
+msgstr ""
+
+#: ../components/editor/main.c:341
+#, fuzzy
+msgid "_HTML Source"
+msgstr "_مصدر:"
+
+#: ../components/editor/main.c:348
+#, fuzzy
+msgid "_Plain Source"
+msgstr "ن_ص"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:9
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:9
@@ -93,11 +1643,6 @@ msgstr "قوائم رمزية"
 #: ../components/html-editor/toolbar.c:415
 msgid "Center justifies the paragraphs"
 msgstr "وسط يعدل الفقرات"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:12
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
-msgid "Check _Spelling..."
-msgstr "_تثبت من الإملاء..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:13
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:13
@@ -119,16 +1664,6 @@ msgstr "انسخ المختار إلى الحافظة"
 msgid "Copy the selection"
 msgstr "انسخ الاختيار"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:17
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:17
-msgid "Cr_ying"
-msgstr "ب_كاء"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:18
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:18
-msgid "Cu_t"
-msgstr "_قص"
-
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:19
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:19
 msgid "Cut"
@@ -148,14 +1683,6 @@ msgstr "قص الاختيار"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
 msgid "Emoti_con"
 msgstr "_وجه"
-
-#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:23
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:23
-#: ../components/html-editor/search.c:110
-#: ../components/html-editor/search.c:171
-msgid "Find"
-msgstr "ابحث"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:24
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:24
@@ -181,36 +1708,6 @@ msgstr "ابحث و استبدل"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:28
 msgid "For_mat"
 msgstr "ه_يئة"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:29
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:29
-msgid "Header _1"
-msgstr "ترويسة _1"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:30
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:30
-msgid "Header _2"
-msgstr "ترويسة _2"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:31
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:31
-msgid "Header _3"
-msgstr "ترويسة _3 "
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:32
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:32
-msgid "Header _4"
-msgstr "ترويسة _4"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:33
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:33
-msgid "Header _5"
-msgstr "ترويسة _5"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:34
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:34
-msgid "Header _6"
-msgstr "ترويسة _6"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:35
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
@@ -426,11 +1923,6 @@ msgstr "عادي"
 msgid "Numbered List"
 msgstr "قوائم مرقّمة"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:76
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
-msgid "Numbered _List"
-msgstr "قوائم _مرقّمة"
-
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:77
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
 msgid "Oh _No!"
@@ -440,12 +1932,6 @@ msgstr "آه _ﻻ!"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
 msgid "Paste"
 msgstr "لصق"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:79
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
-#: ../components/html-editor/popup.c:446
-msgid "Paste _Quotation"
-msgstr "لصق الا_قتباس"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:80
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
@@ -482,14 +1968,6 @@ msgstr "تكرار تغيير لم يتم عمله سابقاً"
 msgid "Redo the undone action"
 msgstr "كرّر الفعل المتراجع عنه"
 
-#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:87
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
-#: ../components/html-editor/replace.c:171
-#: ../components/html-editor/replace.c:236
-msgid "Replace"
-msgstr "بدّل"
-
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:88
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
 #: ../components/html-editor/toolbar.c:418
@@ -509,16 +1987,6 @@ msgstr "قائمة أرقام رومانية"
 #: ../components/html-editor/popup.c:229
 msgid "Rule"
 msgstr "الدور"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:91
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
-msgid "S_ick"
-msgstr "مري_ض"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:92
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
-msgid "Select _All"
-msgstr "اخت_ر الجميع"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:93
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
@@ -546,24 +2014,10 @@ msgstr "حرف سفلي"
 msgid "Superscript"
 msgstr "حرف علوي"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:50
-#: ../components/html-editor/menubar.c:218
-#: ../components/html-editor/popup.c:235 ../components/html-editor/popup.c:509
-#: ../components/html-editor/popup.c:521
-msgid "Table"
-msgstr "جدول"
-
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:99
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
 msgid "Te_mplate..."
 msgstr "قا_لب..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:100
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
-msgid "Te_xt File..."
-msgstr "ملف _نص..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:101
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
@@ -591,112 +2045,15 @@ msgstr "تراجع عن التغييرات السابقة"
 msgid "Undo the last action"
 msgstr "تراجع عن الفعل ألأخير"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:106
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
-msgid "_Alignment"
-msgstr "ال_محاذاة"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:107
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
-msgid "_Alphabetical List"
-msgstr "_قائمة أبجدية"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:108
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:59
-msgid "_Bold"
-msgstr "_عريض"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:109
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
-msgid "_Bulleted List"
-msgstr "قا_ئمة بعلامات"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
-msgid "_Center"
-msgstr "_وسط"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:111
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
-msgid "_Copy"
-msgstr "_نسخ"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:112
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
-msgid "_Decrease Indent"
-msgstr "ق_لل الإزاحة"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:113
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
-msgid "_Edit"
-msgstr "_تحرير"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:114
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
-msgid "_Find..."
-msgstr "_ابحث..."
-
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:115
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
 msgid "_Font Size"
 msgstr "حجم ال_خط"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:116
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
-msgid "_Frown"
-msgstr "ا_عبس"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:117
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
-msgid "_HTML File..."
-msgstr "مل_ف HTML..."
-
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:118
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
 msgid "_Heading"
 msgstr "ال_عنوان"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:119
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
-msgid "_Image..."
-msgstr "ص_ورة..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:120
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
-msgid "_Increase Indent"
-msgstr "ز_د الإزاحة"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:121
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
-msgid "_Indifferent"
-msgstr "م_حتار"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:122
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:65
-msgid "_Italic"
-msgstr "_مائل"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:123
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
-msgid "_Laughing"
-msgstr "ضا_حك"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
-msgid "_Left"
-msgstr "_يسار"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:125
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
-msgid "_Link..."
-msgstr "_رابط..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:126
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
-msgid "_Normal"
-msgstr "_عادي"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:127
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:127
@@ -708,66 +2065,15 @@ msgstr "ص_فحة..."
 msgid "_Paragraph..."
 msgstr "فق_رة..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:129
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
-msgid "_Paste"
-msgstr "_لصق"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:130
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
-msgid "_Plain Text"
-msgstr "ن_ص"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:131
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
-msgid "_Preformatted"
-msgstr "مسب_ق التشكيل"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:132
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
-msgid "_Redo"
-msgstr "_إعادة"
-
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:133
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:133
 msgid "_Replace..."
 msgstr "ا_ستبدال..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:134
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:134
-msgid "_Right"
-msgstr "_يمين"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:135
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
-msgid "_Roman Numeral List"
-msgstr "قائمة أرقام _رومانية"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:136
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
-msgid "_Rule..."
-msgstr "الد_ور"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:137
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
-msgid "_Smile"
-msgstr "اب_تسامة"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:138
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:71
-msgid "_Strikethrough"
-msgstr "ش_طب"
-
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:139
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:139
 msgid "_Style"
 msgstr "ال_نمط"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:140
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:140
-msgid "_Table..."
-msgstr "ج_دول..."
 
 #.
 #. <submenu name="BackgroundColor" _label="Background Color">
@@ -789,27 +2095,6 @@ msgstr "ج_دول..."
 msgid "_Text..."
 msgstr "ن_ص..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:157
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:157
-msgid "_Undecided"
-msgstr "_محتار"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:158
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:158
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:74
-msgid "_Underline"
-msgstr "_تسطير"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:159
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:159
-msgid "_Undo"
-msgstr "_تراجع"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:160
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:160
-msgid "_Wink"
-msgstr "ا_غمز"
-
 #: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:1
 msgid "GNOME HTML Editor"
 msgstr "محرر HTML لجينوم"
@@ -829,10 +2114,6 @@ msgstr "اجعل نمط الفقرة الحالية مسبق التشكيل"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
 msgid "Preformatted"
 msgstr "مسبق التشكيل"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:161
-msgid "_Wrap Lines"
-msgstr "إ_زاحة السّطور"
 
 #: ../components/html-editor/body.c:64
 msgid "None"
@@ -870,23 +2151,6 @@ msgstr "مسوّدة"
 msgid "Graph paper"
 msgstr "ورق الرسم البياني:"
 
-#: ../components/html-editor/body.c:237 ../components/html-editor/text.c:171
-#: ../components/html-editor/toolbar.c:199
-msgid "Automatic"
-msgstr "آلي"
-
-#: ../components/html-editor/body.c:250
-msgid "_Text:"
-msgstr "النّ_ص:"
-
-#: ../components/html-editor/body.c:251
-msgid "_Link:"
-msgstr "الو_صلة:"
-
-#: ../components/html-editor/body.c:252
-msgid "_Background:"
-msgstr "_الخلفية:"
-
 #: ../components/html-editor/body.c:254
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:27
 msgid "Colors"
@@ -907,14 +2171,6 @@ msgstr "مسار ملف صورة الخلفية."
 msgid "Template"
 msgstr "قالب"
 
-#: ../components/html-editor/body.c:282
-msgid "T_emplate:"
-msgstr "_القالب:"
-
-#: ../components/html-editor/body.c:286
-msgid "C_ustom:"
-msgstr "م_خصص:"
-
 #: ../components/html-editor/cell.c:342 ../components/html-editor/image.c:345
 #: ../components/html-editor/link.c:215 ../components/html-editor/rule.c:179
 #: ../components/html-editor/table.c:229
@@ -926,11 +2182,6 @@ msgstr "لم أتمكن من تحميل ملف glade"
 #: ../components/html-editor/cell.c:346 ../components/html-editor/table.c:233
 msgid "Transparent"
 msgstr "شفّاف"
-
-#: ../components/html-editor/editor-control-factory.c:190
-#: ../components/html-editor/popup.c:191 ../components/html-editor/popup.c:268
-msgid "Properties"
-msgstr "خصائص"
 
 #: ../components/html-editor/editor-control-factory.c:208
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:52
@@ -956,192 +2207,10 @@ msgstr "الصفحة"
 msgid "color preview"
 msgstr "استعراض اللون"
 
-#. This is the default custom color
-#: ../components/html-editor/gi-color-palette.c:378
-msgid "custom"
-msgstr "مخصص"
-
 #. "Custom" color - we'll pop up a GtkColorDialog
 #: ../components/html-editor/gi-color-palette.c:418
 msgid "Custom Color:"
 msgstr "لون مخصص:"
-
-#: ../components/html-editor/gi-color-palette.c:426
-msgid "Choose Custom Color"
-msgstr "اختيار لون مخصص"
-
-#: ../components/html-editor/gi-color-palette.c:559
-msgid "black"
-msgstr "أسود"
-
-#: ../components/html-editor/gi-color-palette.c:560
-msgid "light brown"
-msgstr "بني خفيف"
-
-#: ../components/html-editor/gi-color-palette.c:561
-msgid "brown gold"
-msgstr "بني ذهبي"
-
-#: ../components/html-editor/gi-color-palette.c:562
-msgid "dark green #2"
-msgstr "أخضر غامق #2"
-
-#: ../components/html-editor/gi-color-palette.c:563
-msgid "navy"
-msgstr "أزرق ليلي"
-
-#: ../components/html-editor/gi-color-palette.c:564
-#: ../components/html-editor/gi-color-palette.c:620
-msgid "dark blue"
-msgstr "أزرق غامق"
-
-#: ../components/html-editor/gi-color-palette.c:565
-msgid "purple #2"
-msgstr "بنفسجي #2"
-
-#: ../components/html-editor/gi-color-palette.c:566
-msgid "very dark gray"
-msgstr "رمادي غامق جدا"
-
-#: ../components/html-editor/gi-color-palette.c:569
-#: ../components/html-editor/gi-color-palette.c:625
-msgid "dark red"
-msgstr "أحمر غامق"
-
-#: ../components/html-editor/gi-color-palette.c:570
-msgid "red-orange"
-msgstr "أحمر برتقالي"
-
-#: ../components/html-editor/gi-color-palette.c:571
-msgid "gold"
-msgstr "ذهبي"
-
-#: ../components/html-editor/gi-color-palette.c:572
-msgid "dark green"
-msgstr "أخضر غامق"
-
-#: ../components/html-editor/gi-color-palette.c:573
-#: ../components/html-editor/gi-color-palette.c:626
-msgid "dull blue"
-msgstr "أزرق هافت"
-
-#: ../components/html-editor/gi-color-palette.c:574
-#: ../components/html-editor/gi-color-palette.c:627
-msgid "blue"
-msgstr "أزرق"
-
-#: ../components/html-editor/gi-color-palette.c:575
-msgid "dull purple"
-msgstr "بنفسجي هافت"
-
-#: ../components/html-editor/gi-color-palette.c:576
-msgid "dark grey"
-msgstr "رمادي غامق"
-
-#: ../components/html-editor/gi-color-palette.c:579
-msgid "red"
-msgstr "أحمر"
-
-#: ../components/html-editor/gi-color-palette.c:580
-msgid "orange"
-msgstr "برتقالي"
-
-#: ../components/html-editor/gi-color-palette.c:581
-msgid "lime"
-msgstr "ليم"
-
-#: ../components/html-editor/gi-color-palette.c:582
-msgid "dull green"
-msgstr "أخضر هافت"
-
-#: ../components/html-editor/gi-color-palette.c:583
-msgid "dull blue #2"
-msgstr "أزرق هافت #2"
-
-#: ../components/html-editor/gi-color-palette.c:584
-msgid "sky blue #2"
-msgstr "أزرق سماوي #2"
-
-#: ../components/html-editor/gi-color-palette.c:585
-#: ../components/html-editor/gi-color-palette.c:624
-msgid "purple"
-msgstr "بنفسجي"
-
-#: ../components/html-editor/gi-color-palette.c:586
-msgid "gray"
-msgstr "رمادي"
-
-#: ../components/html-editor/gi-color-palette.c:589
-#: ../components/html-editor/gi-color-palette.c:621
-msgid "magenta"
-msgstr "أرجوانى"
-
-#: ../components/html-editor/gi-color-palette.c:590
-msgid "bright orange"
-msgstr "برتقالي لامع"
-
-#: ../components/html-editor/gi-color-palette.c:591
-#: ../components/html-editor/gi-color-palette.c:622
-msgid "yellow"
-msgstr "أصفر"
-
-#: ../components/html-editor/gi-color-palette.c:592
-msgid "green"
-msgstr "أخضر"
-
-#: ../components/html-editor/gi-color-palette.c:593
-#: ../components/html-editor/gi-color-palette.c:623
-msgid "cyan"
-msgstr "سيان"
-
-#: ../components/html-editor/gi-color-palette.c:594
-msgid "bright blue"
-msgstr "أزرق لامع"
-
-#: ../components/html-editor/gi-color-palette.c:595
-#: ../components/html-editor/gi-color-palette.c:612
-msgid "red purple"
-msgstr "أحمر بنفسجي"
-
-#: ../components/html-editor/gi-color-palette.c:596
-msgid "light grey"
-msgstr "رمادي خفيف"
-
-#: ../components/html-editor/gi-color-palette.c:599
-#: ../components/html-editor/gi-color-palette.c:616
-msgid "pink"
-msgstr "وردي"
-
-#: ../components/html-editor/gi-color-palette.c:600
-msgid "light orange"
-msgstr "برتقالي خفيف"
-
-#: ../components/html-editor/gi-color-palette.c:601
-#: ../components/html-editor/gi-color-palette.c:613
-msgid "light yellow"
-msgstr "أصفر خفيف"
-
-#: ../components/html-editor/gi-color-palette.c:602
-msgid "light green"
-msgstr "أخضر خفيف"
-
-#: ../components/html-editor/gi-color-palette.c:603
-msgid "light cyan"
-msgstr "سياني خفيف"
-
-#: ../components/html-editor/gi-color-palette.c:604
-#: ../components/html-editor/gi-color-palette.c:614
-msgid "light blue"
-msgstr "أزرق خفيف"
-
-#: ../components/html-editor/gi-color-palette.c:605
-#: ../components/html-editor/gi-color-palette.c:618
-msgid "light purple"
-msgstr "بنفسجي خفيف"
-
-#: ../components/html-editor/gi-color-palette.c:606
-msgid "white"
-msgstr "أبيض"
 
 #: ../components/html-editor/gi-color-palette.c:611
 msgid "purplish blue"
@@ -1194,22 +2263,6 @@ msgstr ""
 msgid "<b>Alignment &amp; Behaviour</b>"
 msgstr "<b>توجيه &amp; تصرف</b>"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:11
-msgid "<b>Background</b>"
-msgstr "<b>الخلفية</b>"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:12
-msgid "<b>General</b>"
-msgstr "<b>عام</b>"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:13
-msgid "<b>Layout</b>"
-msgstr "<b>إخراج</b>"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:14
-msgid "<b>Scope</b>"
-msgstr "<b>المجال</b>"
-
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:15
 msgid "<span weight=\"bold\">General</span>"
 msgstr "<span weight=\"bold\">عام</span>"
@@ -1238,22 +2291,10 @@ msgstr "<span weight=\"bold\">قالب</span>"
 msgid "Alignment:"
 msgstr "محاذاة:"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:23
-msgid "C_ell"
-msgstr "_خلية"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:24
-msgid "C_olor:"
-msgstr "ل_ون:"
-
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:25
 #: ../components/html-editor/popup.c:241
 msgid "Cell"
 msgstr "خلية"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:26
-msgid "Col_umn"
-msgstr "_عمود"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:28
 msgid "Colu_mns:"
@@ -1279,20 +2320,6 @@ msgstr "المحاذاة الأفقية:"
 msgid "Horizontal:"
 msgstr "أفقي:"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:34
-msgid "I_mage:"
-msgstr "_صورة:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:36
-msgid ""
-"Left\n"
-"Center\n"
-"Right"
-msgstr ""
-"يسار\n"
-"مركز\n"
-"يمين"
-
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:39
 msgid ""
 "Left\n"
@@ -1317,123 +2344,13 @@ msgstr "اتساع الصف:"
 msgid "Shade"
 msgstr "ظل"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:48
-msgid "Si_ze:"
-msgstr "ح_جم:"
-
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:49
 msgid "Size:"
 msgstr "الحجم:"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:53
-msgid ""
-"Top\n"
-"Middle\n"
-"Bottom"
-msgstr ""
-"قمة\n"
-"وسط\n"
-"قاع"
-
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:56
 msgid "Vertical:"
 msgstr "رأسي:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:57
-msgid "Width:"
-msgstr "العرض:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:58
-msgid "_Alignment:"
-msgstr "_محاذاة:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:60
-msgid "_Border:"
-msgstr "_حد:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:61
-msgid "_Color:"
-msgstr "_لّون:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:62
-msgid "_Description:"
-msgstr "_وصف:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:63
-msgid "_Height:"
-msgstr "ا_رتفاع:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:64
-msgid "_Image:"
-msgstr "_صورة:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:66
-msgid "_Padding:"
-msgstr "إحا_طة"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:67
-msgid "_Row"
-msgstr "_صف"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:68
-msgid "_Rows:"
-msgstr "ص_فوف:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:69
-msgid "_Source:"
-msgstr "_مصدر:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:70
-msgid "_Spacing:"
-msgstr "_فراغات:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:72
-msgid "_Table"
-msgstr "_جدول"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:73
-msgid "_URL:"
-msgstr "الع_نوان:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:75
-msgid "_Width:"
-msgstr "ال_عرض:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:76
-msgid "_Wrap Text"
-msgstr "_كسر النص"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:77
-msgid "_X-Padding:"
-msgstr "الإحاطة-_س:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:78
-msgid "_Y-Padding:"
-msgstr "الإحاطة-_ع:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:79
-msgid "px"
-msgstr "بكسل"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:81
-#, no-c-format
-msgid ""
-"px\n"
-"%"
-msgstr ""
-"بكسل\n"
-"%"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:84
-#, no-c-format
-msgid ""
-"px\n"
-"%\n"
-"follow"
-msgstr ""
-"بكسل\n"
-"%\n"
-"يتبع"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:87
 msgid "xxxxxxxxxxxxxx"
@@ -1460,23 +2377,11 @@ msgstr "أدرج"
 msgid "Error loading file '%s': %s"
 msgstr "خطأ أثناء فتح الملف '%s': %s"
 
-#: ../components/html-editor/menubar.c:349
-msgid "Insert HTML File"
-msgstr "ادخال ملف HTML"
-
-#: ../components/html-editor/menubar.c:349
-msgid "Insert Text File"
-msgstr "ادخال ملف نصي"
-
 #: ../components/html-editor/menubar.c:406
 #: ../components/html-editor/menubar.c:423
 #: ../components/html-editor/menubar.c:440
 msgid "Format"
 msgstr "تهيئة"
-
-#: ../components/html-editor/paragraph.c:69
-msgid "_Style:"
-msgstr "الأ_سلوب:"
 
 #: ../components/html-editor/paragraph.c:72
 msgid "General"
@@ -1530,14 +2435,6 @@ msgstr "ترويسة 6"
 #: ../components/html-editor/paragraph-style.c:77
 msgid "Address"
 msgstr "العنوان"
-
-#: ../components/html-editor/popup.c:450
-msgid "Insert _Link"
-msgstr "ادخل _وصلة"
-
-#: ../components/html-editor/popup.c:457
-msgid "Remove Link"
-msgstr "حذف وصلة"
 
 #: ../components/html-editor/popup.c:464
 msgid "Style"
@@ -1600,21 +2497,9 @@ msgstr "عمود لاحق"
 msgid "Table delete"
 msgstr "احذف الجدول"
 
-#: ../components/html-editor/popup.c:522
-msgid "Row"
-msgstr "صف"
-
-#: ../components/html-editor/popup.c:523
-msgid "Column"
-msgstr "العمود"
-
 #: ../components/html-editor/popup.c:524
 msgid "Cell contents"
 msgstr "محتويات الخلية"
-
-#: ../components/html-editor/popup.c:559
-msgid "Ignore Misspelled Word"
-msgstr "تجاهل الخطأ الإملائي"
 
 #: ../components/html-editor/popup.c:564
 msgid "Add Word to"
@@ -1625,47 +2510,14 @@ msgstr "اضف الكلمة ل"
 msgid "%s Dictionary"
 msgstr "%s معجم"
 
-#: ../components/html-editor/popup.c:577
-msgid "Add Word to Dictionary"
-msgstr "إضافة كلمة إلى المعجم"
-
-#: ../components/html-editor/popup.c:583
-msgid "Input Methods"
-msgstr "طرق الإدخال"
-
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: ../components/html-editor/replace.c:81
 msgid "Replace confirmation"
 msgstr "تأكيد التبديل"
 
-#: ../components/html-editor/replace.c:82
-msgid "Replace _All"
-msgstr "استبدال الك_ل"
-
-#: ../components/html-editor/replace.c:83
-msgid "_Next"
-msgstr "_التالي"
-
-#: ../components/html-editor/replace.c:85
-msgid "_Replace"
-msgstr "است_بدال"
-
 #: ../components/html-editor/replace.c:179
 msgid "Search _backward"
 msgstr "بحث إلى ال_خلف"
-
-#: ../components/html-editor/replace.c:180
-#: ../components/html-editor/search.c:116
-msgid "Case _sensitive"
-msgstr "حساس لل_حالة"
-
-#: ../components/html-editor/replace.c:190
-msgid "R_eplace:"
-msgstr "ا_ستبدال"
-
-#: ../components/html-editor/replace.c:194
-msgid "_With:"
-msgstr "_ب:"
 
 #: ../components/html-editor/search.c:115
 msgid "_Backward"
@@ -1694,10 +2546,6 @@ msgstr "لا يوجد كلمة خاطئة"
 #: ../components/html-editor/spellchecker.c:329
 msgid "Spell checker"
 msgstr "المدقق الإملائي"
-
-#: ../components/html-editor/spellchecker.c:424
-msgid "Current _Languages"
-msgstr "الل_غات الحالية"
 
 #: ../components/html-editor/template.c:90
 msgid "Note"
@@ -1788,10 +2636,6 @@ msgstr "تزيد ازاحة الفقرة"
 msgid "Sample"
 msgstr "عينة"
 
-#: ../components/html-editor/utils.c:205
-msgid "_Test URL..."
-msgstr "مسار ال_تجريب..."
-
 #: ../components/html-editor/utils.c:248
 msgid ""
 "The edited object was removed from the document.\n"
@@ -1800,83 +2644,83 @@ msgstr ""
 "تم حذف الجسم المحرر من المستند.\n"
 "لا يمكن تطبيق الإعدادات."
 
-#: ../gtkhtml/gtkhtml.c:2917
+#: ../gtkhtml/gtkhtml.c:2886
 msgid "Editable"
 msgstr "قابل للتّحرير"
 
-#: ../gtkhtml/gtkhtml.c:2918
+#: ../gtkhtml/gtkhtml.c:2887
 msgid "Whether the html can be edited"
 msgstr "إذا يمكن تحرير ال html "
 
-#: ../gtkhtml/gtkhtml.c:2924
+#: ../gtkhtml/gtkhtml.c:2893
 msgid "Document Title"
 msgstr "عنوان المستند"
 
-#: ../gtkhtml/gtkhtml.c:2925
+#: ../gtkhtml/gtkhtml.c:2894
 msgid "The title of the current document"
 msgstr "عنوان المستند الحالي"
 
-#: ../gtkhtml/gtkhtml.c:2931
+#: ../gtkhtml/gtkhtml.c:2900
 msgid "Document Base"
 msgstr "أساس المستند"
 
-#: ../gtkhtml/gtkhtml.c:2932
+#: ../gtkhtml/gtkhtml.c:2901
 msgid "The base URL for relative references"
 msgstr "المسار القاعدي للعلاقات النسبية"
 
-#: ../gtkhtml/gtkhtml.c:2938
+#: ../gtkhtml/gtkhtml.c:2907
 msgid "Target Base"
 msgstr "أساس الهدف"
 
-#: ../gtkhtml/gtkhtml.c:2939
+#: ../gtkhtml/gtkhtml.c:2908
 msgid "The base URL of the target frame"
 msgstr "المسار القاعدي لمسار الإطار الهدف"
 
-#: ../gtkhtml/gtkhtml.c:2948
+#: ../gtkhtml/gtkhtml.c:2917
 msgid "Fixed Width Font"
 msgstr "خط ثابت العرض"
 
-#: ../gtkhtml/gtkhtml.c:2949
+#: ../gtkhtml/gtkhtml.c:2918
 msgid "The Monospace font to use for typewriter text"
 msgstr "اسم الخط للنص الآلي"
 
-#: ../gtkhtml/gtkhtml.c:2955
+#: ../gtkhtml/gtkhtml.c:2924
 msgid "New Link Color"
 msgstr "لون الوصلة الجديدة"
 
-#: ../gtkhtml/gtkhtml.c:2956
+#: ../gtkhtml/gtkhtml.c:2925
 msgid "The color of new link elements"
 msgstr "لون عناصر الوصلة الجديدة"
 
-#: ../gtkhtml/gtkhtml.c:2961
+#: ../gtkhtml/gtkhtml.c:2930
 msgid "Visited Link Color"
 msgstr "لون الوصلة المزارة"
 
-#: ../gtkhtml/gtkhtml.c:2962
+#: ../gtkhtml/gtkhtml.c:2931
 msgid "The color of visited link elements"
 msgstr "لون عناصر الوصلة المزارة"
 
-#: ../gtkhtml/gtkhtml.c:2967
+#: ../gtkhtml/gtkhtml.c:2936
 msgid "Active Link Color"
 msgstr "لون الوصلة النشطة"
 
-#: ../gtkhtml/gtkhtml.c:2968
+#: ../gtkhtml/gtkhtml.c:2937
 msgid "The color of active link elements"
 msgstr "لون عناصر الوصلة النشطة"
 
-#: ../gtkhtml/gtkhtml.c:2973
+#: ../gtkhtml/gtkhtml.c:2942
 msgid "Spelling Error Color"
 msgstr "لون الخطأ الإملائي"
 
-#: ../gtkhtml/gtkhtml.c:2974
+#: ../gtkhtml/gtkhtml.c:2943
 msgid "The color of the spelling error markers"
 msgstr "لون محددات الأخطاء الإملائية"
 
-#: ../gtkhtml/gtkhtml.c:2979
+#: ../gtkhtml/gtkhtml.c:2948
 msgid "Cite Quotation Color"
 msgstr "لون الإقتباس"
 
-#: ../gtkhtml/gtkhtml.c:2980
+#: ../gtkhtml/gtkhtml.c:2949
 msgid "The color of the cited text"
 msgstr "لون النص المقتبس"
 
@@ -1889,11 +2733,7 @@ msgid "Reset"
 msgstr "اعادة"
 
 #. TODO2 dialog instead of warning
-#: ../gtkhtml/htmlengine-print.c:231
-msgid "Cannot allocate default font for printing\n"
-msgstr "تعذر تحديد خط الطباعة الإفتراضي\n"
-
-#: ../gtkhtml/htmlengine-print.c:310
+#: ../gtkhtml/htmlengine-print.c:231 ../gtkhtml/htmlengine-print.c:310
 msgid "Cannot allocate default font for printing"
 msgstr "تعذر تحديد خط الطباعة الإفتراضي"
 
@@ -1913,3 +2753,5 @@ msgstr "معاينة الطباعة"
 msgid "GtkHTML Test Application"
 msgstr "تطبيق تجريبي ل GtkHTML"
 
+#~ msgid "Cannot allocate default font for printing\n"
+#~ msgstr "تعذر تحديد خط الطباعة الإفتراضي\n"
