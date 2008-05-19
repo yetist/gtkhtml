@@ -490,7 +490,8 @@ html_url_append_path (const HTMLURL *url,
 
 	new = html_url_dup (url, HTML_URL_DUP_NOPATH);
 
-	g_assert(url->path != NULL);
+	if (url->path == NULL)
+		return NULL;
 
 	tmppath = g_strdup(url->path);
 

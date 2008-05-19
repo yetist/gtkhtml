@@ -313,7 +313,8 @@ open_or_save_as_dialog (BonoboWindow *app,
 		save_through_persist_file (filename, interface);
 		break;
 	default:
-		g_assert_not_reached ();
+		;
+		//g_assert_not_reached ();
 	}
 
 	g_free (filename);
