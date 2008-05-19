@@ -1,3 +1,10 @@
+2008-05-19  Srinivasa Ragavan  <sragavan@novell.com>
+
+	** Fix for bug #524338
+
+	* gtkhtml/htmltext.c: Reverting the fix for bug #342659 which caused
+	the fickering.
+
 2008-03-02  Srinivasa Ragavan  <sragavan@novell.com>
 
 	** Fix for bug #519463 from Tor Lillqvist
