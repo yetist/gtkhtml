@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.HEAD.ar\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-06 16:56+0000\n"
+"POT-Creation-Date: 2008-05-22 23:39+0100\n"
 "PO-Revision-Date: 2008-02-01 00:24+0200\n"
 "Last-Translator: Khaled Hosny <khaledhosny@eglug.org>\n"
 "Language-Team: Arabic <doc@arabeyes.org>\n"
@@ -1610,7 +1610,7 @@ msgstr "ظل"
 #: ../components/editor/main.c:317
 #, fuzzy
 msgid "Save _As..."
-msgstr "احفظ الملف بإسم..."
+msgstr "احفظ الملف باسم..."
 
 #: ../components/editor/main.c:334
 msgid "HTML _Output"
@@ -2570,9 +2570,9 @@ msgstr "إفتح ملف..."
 
 #: ../components/html-editor/test-html-editor-control.c:270
 msgid "Save file as..."
-msgstr "احفظ الملف بإسم..."
+msgstr "احفظ الملف باسم..."
 
-#: ../components/html-editor/test-html-editor-control.c:541
+#: ../components/html-editor/test-html-editor-control.c:542
 msgid "GtkHTML Editor Test Container"
 msgstr "محتوي تجريبي لمحرّر GtkHTML"
 
