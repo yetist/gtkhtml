@@ -1,3 +1,14 @@
+GtkHTML-3.23.3 2008-06-02
+--------------------------
+
+Bug Fixes:
+	#524338: Reverting the fix for bug #342659 which caused the fickering (Srinivasa Ragavan)
+
+Updated Translations:
+	Máté Őry (hu)
+	Clytie Siddall (vi)
+	Khaled Hosny (ar)
+
 GtkHTML-3.23.2 2008-05-12
 --------------------------
 
