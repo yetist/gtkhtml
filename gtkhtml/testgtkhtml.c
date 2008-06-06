@@ -27,9 +27,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-#include <gnome.h>
 #include <gtk/gtk.h>
-#include <gtk/gtkbutton.h>
 
 #ifdef G_OS_WIN32
 /* Clashes with objidl.h, which gets included through a chain of includes from libsoup/soup.h */

@@ -31,7 +31,7 @@
 #ifndef GI_COLOR_COMBO_H
 #define GI_COLOR_COMBO_H
 
-#include <gtk/gtkwidget.h>
+#include <gtk/gtk.h>
 #include "gi-combo-box.h"
 #include "gi-color-palette.h"
 

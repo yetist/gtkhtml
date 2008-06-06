@@ -20,7 +20,7 @@
 */
 
 #include <config.h>
-#include <gtk/gtkmain.h>
+#include <gtk/gtk.h>
 #include "gtkhtml.h"
 #include "gtkhtml-private.h"
 #include "htmlcursor.h"

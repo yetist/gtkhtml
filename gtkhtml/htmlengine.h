@@ -24,9 +24,7 @@
 #ifndef _HTMLENGINE_H_
 #define _HTMLENGINE_H_
 
-#include <glib-object.h>
-#include <gdk/gdktypes.h>
-#include <gtk/gtkwidget.h>
+#include <gtk/gtk.h>
 #include "gtkhtml-types.h"
 
 #include "htmltypes.h"

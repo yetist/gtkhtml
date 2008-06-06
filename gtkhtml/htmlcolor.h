@@ -23,8 +23,7 @@
 #ifndef _HTML_COLOR_H_
 #define _HTML_COLOR_H_
 
-#include <gdk/gdktypes.h>
-#include <gdk/gdkcolor.h>
+#include <gtk/gtk.h>
 #include "htmltypes.h"
 
 struct _HTMLColor {

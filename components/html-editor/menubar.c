@@ -33,8 +33,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-#include <gtk/gtkfilechooser.h>
-#include <gtk/gtkfilechooserdialog.h>
+#include <gtk/gtk.h>
 #include <bonobo.h>
 
 #include "htmlengine.h"

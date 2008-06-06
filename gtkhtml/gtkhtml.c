@@ -23,14 +23,8 @@
 #include <ctype.h>
 
 #include <gdk/gdkkeysyms.h>
-#include <gdk/gdkprivate.h>
-#include <gdk-pixbuf/gdk-pixbuf.h>
-#include <gtk/gtkwidget.h>
-#include <gtk/gtk.h>
 #include <glib/gi18n-lib.h>
 #include <string.h>
-
-#include <gnome.h>
 
 #include "../a11y/factory.h"
 

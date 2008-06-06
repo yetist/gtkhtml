@@ -1,10 +1,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <glib/gstring.h>
-#include <gtk/gtkmain.h>
-#include <gtk/gtkscrolledwindow.h>
-#include <gtk/gtkwindow.h>
+#include <gtk/gtk.h>
 #include "gtkhtml.h"
 #include "htmlclue.h"
 #include "htmlclueflow.h"

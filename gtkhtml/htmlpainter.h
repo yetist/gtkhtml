@@ -24,10 +24,7 @@
 #ifndef _HTMLPAINTER_H_
 #define _HTMLPAINTER_H_
 
-#include <gdk-pixbuf/gdk-pixbuf.h>
-#include <gdk/gdktypes.h>
-#include <glib-object.h>
-#include <gtk/gtkwidget.h>
+#include <gtk/gtk.h>
 
 #include "gtkhtml-enums.h"
 #include "htmltypes.h"

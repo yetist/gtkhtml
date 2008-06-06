@@ -1,3 +1,8 @@
+2008-06-06  Matthew Barnes  <mbarnes@redhat.com>
+
+	** Allow gtkhtml to build with G_DISABLE_SINGLE_INCLUDES and
+	   GTK_DISABLE_SINGLE_INCLUDES defined.  (#536635)
+
 2008-06-02  Srinivasa Ragavan  <sragavan@novell.com>
 
 	* NEWS: GtkHTML 3.23.3 release and version bump.

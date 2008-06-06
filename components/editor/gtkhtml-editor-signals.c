@@ -294,7 +294,7 @@ cell_properties_set_width_cb (GtkhtmlEditor *editor,
                               GtkWidget *widget)
 {
 	GtkHTML *html;
-	gboolean sensitive;;
+	gboolean sensitive;
 	gint active;
 	gint value;
 

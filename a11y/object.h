@@ -24,7 +24,7 @@
 #ifndef __GTK_HTML_A11Y_OBJECT_H__
 #define __GTK_HTML_A11Y_OBJECT_H__
 
-#include <gtk/gtkaccessible.h>
+#include <gtk/gtk.h>
 
 #define G_TYPE_GTK_HTML_A11Y                     (gtk_html_a11y_get_type ())
 #define GTK_HTML_A11Y(obj)                       (G_TYPE_CHECK_INSTANCE_CAST ((obj), G_TYPE_GTK_HTML_A11Y, GtkHTMLA11Y))

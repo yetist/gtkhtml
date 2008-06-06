@@ -24,7 +24,7 @@
 #ifndef _HTMLTABLECELL_H_
 #define _HTMLTABLECELL_H_
 
-#include <gdk/gdkcolor.h>
+#include <gtk/gtk.h>
 
 #include "htmlcluev.h"
 #include "htmlimage.h"

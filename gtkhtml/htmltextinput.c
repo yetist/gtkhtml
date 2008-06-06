@@ -21,9 +21,8 @@
 
 #include <config.h>
 #include <string.h>
+#include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
-#include <gtk/gtksignal.h>
-#include <gtk/gtkentry.h>
 
 #include "htmltextinput.h"
 #include "htmlform.h"

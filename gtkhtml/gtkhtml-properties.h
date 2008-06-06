@@ -26,12 +26,9 @@
 #define GTK_HTML_GCONF_DIR "/GNOME/Documents/HTML_Editor"
 #define GTK_HTML_GNOME_CONFIG_PREFIX "/gtkhtml/Settings/"
 
-#include <glib.h>
-#include <gdk/gdktypes.h>
-
+#include <gtk/gtk.h>
 #include <gconf/gconf-client.h>
 
-#include <gtk/gtkobject.h>
 #include "gtkhtml-types.h"
 #include "gtkhtml.h"
 

@@ -26,8 +26,6 @@
  */
 
 #include <string.h>
-#include <glib-object.h>
-#include <gdk/gdkcolor.h>
 #include "gi-color-group.h"
 #include "gi-utils.h"
 

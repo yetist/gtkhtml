@@ -22,7 +22,7 @@
 #ifndef _HTMLCOLORSET_H_
 #define _HTMLCOLORSET_H_
 
-#include <gtk/gtkwidget.h>
+#include <gtk/gtk.h>
 #include "htmltypes.h"
 #include "htmlenums.h"
 

@@ -22,7 +22,6 @@
  */
 
 #include <config.h>
-#include <gnome.h>
 
 #include "gtkhtml-embedded.h"
 #include "htmlengine.h"

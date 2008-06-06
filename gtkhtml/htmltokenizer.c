@@ -25,8 +25,8 @@
 /* The HTML Tokenizer */
 #include <config.h>
 #include <ctype.h>
+#include <stdlib.h>
 #include <string.h>
-#include <gnome.h>
 #include "htmltokenizer.h"
 #include "htmlentity.h"
 

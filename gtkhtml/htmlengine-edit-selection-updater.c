@@ -25,7 +25,7 @@
 
 
 #include <config.h>
-#include <gtk/gtkmain.h>
+#include <gtk/gtk.h>
 #include "htmlengine-edit-selection-updater.h"
 #include "htmlinterval.h"
 #include "htmlselection.h"

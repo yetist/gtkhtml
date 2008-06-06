@@ -29,9 +29,6 @@
 
 #include <config.h>
 #include <string.h>
-#include <gtk/gtklabel.h>
-#include <gtk/gtksignal.h>
-#include <gtk/gtktable.h>
 #ifdef GNOME_GTKHTML_EDITOR_SHLIB
 #include <glib/gi18n-lib.h>
 #else
@@ -39,7 +36,6 @@
 #endif
 #include <libgnomecanvas/gnome-canvas.h>
 #include <libgnomecanvas/gnome-canvas-rect-ellipse.h>
-#include <gdk/gdkcolor.h>
 #include "gi-color-group.h"
 #include "gi-color-palette.h"
 #include "gi-colors.h"

@@ -29,15 +29,7 @@
 #include <unistd.h>
 #include <string.h>
 
-#include <gtk/gtkcombobox.h>
-#include <gtk/gtkwindow.h>
-#include <gtk/gtkhbox.h>
-#include <gtk/gtkscrolledwindow.h>
-#include <gtk/gtkvbox.h>
-#include <gtk/gtkmain.h>
-#include <gtk/gtkbutton.h>
-#include <gtk/gtksignal.h>
-
+#include <gtk/gtk.h>
 #include <glib/gi18n.h>
 #include <libgnomeui/gnome-ui-init.h>
 
@@ -46,7 +38,6 @@
 #include "gtkhtml-stream.h"
 
 #include "htmlengine.h"
-#include <gtk/gtk.h>
 
 typedef struct _Example Example;
 

@@ -22,7 +22,6 @@
 */
 
 #include <config.h>
-#include <gdk/gdk.h>
 
 #include "htmlcolor.h"
 #include "htmlpainter.h"

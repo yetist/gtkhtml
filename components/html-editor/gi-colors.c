@@ -32,8 +32,6 @@
 #undef GDK_DISABLE_DEPRECATED
 #endif
 
-#include <gdk/gdkrgb.h>
-#include <gtk/gtkwidget.h>
 #include "gi-colors.h"
 
 GdkColor e_white, e_dark_gray, e_black;

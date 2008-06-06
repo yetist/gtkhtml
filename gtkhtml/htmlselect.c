@@ -22,13 +22,6 @@
 
 #include <config.h>
 
-#include <gtk/gtkcomboboxentry.h>
-#include <gtk/gtkentry.h>
-#include <gtk/gtkscrolledwindow.h>
-#include <gtk/gtktreeview.h>
-#include <gtk/gtktreeselection.h>
-#include <gtk/gtktreemodel.h>
-#include <gtk/gtkcellrenderertext.h>
 #include "htmlselect.h"
 #include <string.h>
 

@@ -27,7 +27,7 @@ G_BEGIN_DECLS
 
 typedef struct _EditorEngine EditorEngine;
 
-#include <gtk/gtktypeutils.h>
+#include <gtk/gtk.h>
 #include <bonobo/bonobo-object.h>
 #include "Editor.h"
 #include "control-data.h"

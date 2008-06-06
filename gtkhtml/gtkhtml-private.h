@@ -22,8 +22,7 @@
 #ifndef _GTKHTML_PRIVATE_H
 #define _GTKHTML_PRIVATE_H
 
-#include <gtk/gtkimcontext.h>
-#include <gtk/gtkwidget.h>
+#include <gtk/gtk.h>
 #include "gtkhtml-types.h"
 #include "htmltypes.h"
 

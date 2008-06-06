@@ -21,7 +21,7 @@
 #ifndef _HTMLTEXTAREA_H_
 #define _HTMLTEXTAREA_H_
 
-#include <gtk/gtktextbuffer.h>
+#include <gtk/gtk.h>
 #include "htmlembedded.h"
 
 #define HTML_TEXTAREA(x) ((HTMLTextArea *) (x))

@@ -23,8 +23,6 @@
 #define _GTKHTML_H_
 
 #include <sys/types.h>
-#include <gtk/gtklayout.h>
-#include <gtk/gtkbindings.h>
 
 #include "gtkhtml-types.h"
 #include "gtkhtml-enums.h"

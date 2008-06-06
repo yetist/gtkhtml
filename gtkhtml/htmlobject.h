@@ -25,7 +25,7 @@
 #define _HTMLOBJECT_H_
 
 #include <libart_lgpl/art_rect.h>
-#include <gdk/gdktypes.h>
+#include <gtk/gtk.h>
 #include "htmltypes.h"
 #include "htmlenums.h"
 

@@ -21,7 +21,7 @@
 #ifndef _HTMLSELECT_H_
 #define _HTMLSELECT_H_
 
-#include <gtk/gtkliststore.h>
+#include <gtk/gtk.h>
 #include "htmlembedded.h"
 
 #define HTML_SELECT(x) ((HTMLSelect *) (x))

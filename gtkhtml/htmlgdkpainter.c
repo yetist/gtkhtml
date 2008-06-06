@@ -25,11 +25,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include <glib.h>
-#include <gdk/gdkgc.h>
-#include <gdk-pixbuf/gdk-pixbuf.h>
-#include <gtk/gtksignal.h>
-
 #include <glib/gi18n-lib.h>
 
 #include "htmlentity.h"

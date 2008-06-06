@@ -27,7 +27,6 @@
 #include <atk/atkhypertext.h>
 #include <atk/atkhyperlink.h>
 #include <glib/gi18n-lib.h>
-#include <glib/gmacros.h>
 #include <pango/pango.h>
 #include "gtkhtml.h"
 #include "htmlengine.h"

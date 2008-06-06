@@ -22,11 +22,7 @@
 #ifndef _HTMLGDKPAINTER_H
 #define _HTMLGDKPAINTER_H
 
-#include <pango/pango-context.h>
-#include <pango/pango-layout.h>
-
-#include <gtk/gtkwidget.h>
-
+#include <gtk/gtk.h>
 #include "htmlpainter.h"
 #include "htmlfontmanager.h"
 

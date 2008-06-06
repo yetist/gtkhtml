@@ -30,10 +30,7 @@
 #ifndef GI_COLOR_PALETTE_H
 #define GI_COLOR_PALETTE_H
 
-#include <gtk/gtkcolorbutton.h>
-#include <gtk/gtktooltips.h>
-#include <gtk/gtkvbox.h>
-#include <gtk/gtkwidget.h>
+#include <gtk/gtk.h>
 #include <libgnomecanvas/gnome-canvas.h>
 #include "gi-color-group.h"
 

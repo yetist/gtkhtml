@@ -36,7 +36,6 @@
 #include <gtk/gtk.h>
 #include <bonobo.h>
 #include <stdio.h>
-#include <glib.h>
 #include <glib/gstdio.h>
 #include <errno.h>
 #include <sys/types.h>
@@ -47,8 +46,6 @@
 #ifndef O_BINARY
 #define O_BINARY 0
 #endif
-
-#include <gtk/gtkscrolledwindow.h>
 
 #include <glade/glade.h>
 

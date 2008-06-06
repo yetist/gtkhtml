@@ -23,7 +23,7 @@
 #ifndef _GTK_HTML_EMBEDDED_H
 #define _GTK_HTML_EMBEDDED_H
 
-#include <gtk/gtkbin.h>
+#include <gtk/gtk.h>
 
 #include "gtkhtml-types.h"
 

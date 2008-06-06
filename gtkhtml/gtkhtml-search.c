@@ -21,11 +21,8 @@
 */
 
 #include <config.h>
+#include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
-#include <gtk/gtkentry.h>
-#include <gtk/gtkmain.h>
-#include <gtk/gtksignal.h>
-#include <gtk/gtkobject.h>
 #include "gtkhtml.h"
 #include "gtkhtml-private.h"
 #include "gtkhtml-search.h"

@@ -21,9 +21,8 @@
 #ifndef _HTMLDRAWQUEUE_H
 #define _HTMLDRAWQUEUE_H
 
+#include <gtk/gtk.h>
 #include "htmltypes.h"
-#include <gdk/gdktypes.h>
-#include <gdk-pixbuf/gdk-pixbuf.h>
 
 struct _HTMLDrawQueueClearElement {
 	gint x, y;

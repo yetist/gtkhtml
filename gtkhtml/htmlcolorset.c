@@ -20,7 +20,6 @@
 */
 
 #include <config.h>
-#include <gtk/gtkwidget.h>
 #include "htmlcolor.h"
 #include "htmlcolorset.h"
 #include "htmlpainter.h"

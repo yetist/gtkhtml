@@ -31,7 +31,6 @@
 #include <string.h>
 #include <fcntl.h>
 #include <sys/stat.h>
-#include <gtk/gtk.h>
 #include <libgnome/gnome-util.h>
 #include <bonobo/bonobo-stream.h>
 #include <bonobo/bonobo-stream-memory.h>

@@ -30,8 +30,6 @@
 
 #include <config.h>
 
-#include <gtk/gtkentry.h>
-#include <gtk/gtksignal.h>
 #include <libgnomecanvas/gnome-canvas.h>
 #include <libgnomecanvas/gnome-canvas-pixbuf.h>
 #include <libgnomecanvas/gnome-canvas-rect-ellipse.h>

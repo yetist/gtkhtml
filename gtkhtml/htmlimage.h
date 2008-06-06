@@ -23,8 +23,7 @@
 #ifndef _HTMLIMAGE_H_
 #define _HTMLIMAGE_H_
 
-#include <gdk-pixbuf/gdk-pixbuf.h>
-#include <gdk-pixbuf/gdk-pixbuf-loader.h>
+#include <gtk/gtk.h>
 #include "htmlobject.h"
 
 #define HTML_IMAGE_FACTORY(x) ((HTMLImageFactory *)(x))

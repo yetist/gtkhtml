@@ -22,7 +22,7 @@
 #ifndef __HTML_SOURCE_VIEW__
 #define __HTML_SOURCE_VIEW__
 
-#include <gtk/gtkobject.h>
+#include <gtk/gtk.h>
 #include <bonobo.h>
 #include "gtkhtml.h"
 

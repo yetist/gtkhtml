@@ -23,8 +23,6 @@
 #include "gtkhtml-compat.h"
 
 #include <string.h>
-#include <gtk/gtk.h>
-#include <gnome.h>
 #include <ctype.h>
 
 #include "htmlembedded.h"

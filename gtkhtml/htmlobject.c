@@ -23,8 +23,6 @@
 
 #include <config.h>
 #include <string.h>
-#include <glib/gdataset.h>
-#include <glib/gquark.h>
 
 #include "htmlclue.h"
 #include "htmlclueflow.h"

@@ -36,12 +36,6 @@
 #include <ctype.h>
 #include <time.h>
 
-#include <glib.h>
-
-#include <gtk/gtkmain.h>
-#include <gtk/gtksignal.h>
-#include <gtk/gtkscrolledwindow.h>
-
 #include "gtkhtml-embedded.h"
 #include "gtkhtml-private.h"
 #include "gtkhtml-properties.h"

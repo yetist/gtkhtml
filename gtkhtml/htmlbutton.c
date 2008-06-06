@@ -20,8 +20,7 @@
 */
 
 #include <config.h>
-#include <gtk/gtkbutton.h>
-#include <gtk/gtksignal.h>
+#include <gtk/gtk.h>
 #include "htmlbutton.h"
 #include "htmlform.h"
 #include <string.h>
