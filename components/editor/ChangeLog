@@ -1,3 +1,8 @@
+2008-06-09  Matthew Barnes  <mbarnes@redhat.com>
+
+	* gtkhtml-editor-actions.c:
+	Fix a duplicate mnemonic. (#537397)
+
 2008-05-06  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* gtkhtml-editor.glade: Don't translate a bunch of useless widget

@@ -1553,7 +1553,7 @@ static GtkActionEntry core_entries[] = {
 
 	{ "format-menu",
 	  NULL,
-	  N_("_Format"),
+	  N_("For_mat"),
 	  NULL,
 	  NULL,
 	  NULL },
