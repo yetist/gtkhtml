@@ -2084,7 +2084,7 @@ utf16_order (gboolean swap)
 }
 
 static char *
-get_selection_string (GtkHTML *html, int *len, gboolean selection, gboolean primary, gboolean html_format, gboolean order_marker)
+get_selection_string (GtkHTML *html, int *len, gboolean selection, gboolean primary, gboolean html_format)
 {
 	HTMLObject *selection_object = NULL;
 	char *selection_string = NULL;
@@ -2114,11 +2114,6 @@ get_selection_string (GtkHTML *html, int *len, gboolean selection, gboolean prim
 			state = html_engine_save_buffer_new (html->engine, TRUE);
   			buffer = (GString *)state->user_data;
 
-			if (order_marker) {
-				/* prepend a byte order marker (ZWNBSP) to the selection */
-				g_string_append_unichar (buffer, 0xfeff);
-			}
-
        			html_object_save (selection_object, state);
 			g_string_append_unichar (buffer, 0x0000);
 
@@ -2143,14 +2138,14 @@ get_selection_string (GtkHTML *html, int *len, gboolean selection, gboolean prim
 char *
 gtk_html_get_selection_html (GtkHTML *html, int *len)
 {
-	return get_selection_string (html, len, TRUE, FALSE, TRUE, FALSE);
+	return get_selection_string (html, len, TRUE, FALSE, TRUE);
 }
 
 /* returned pointer should be freed with g_free */
 char *
 gtk_html_get_selection_plain_text (GtkHTML *html, int *len)
 {
-	return get_selection_string (html, len, TRUE, FALSE, FALSE, FALSE);
+	return get_selection_string (html, len, TRUE, FALSE, FALSE);
 }
 
 static gchar *
@@ -2189,6 +2184,23 @@ utf16_to_utf8_with_bom_check (guchar  *data, guint len) {
 		g_error_free (error);
 	}
 	return (utf8_ret);
+}
+
+/* removes useless leading BOM from UTF-8 string if present */
+static gchar *
+utf8_filter_out_bom (gchar *str) {
+	if (!str)
+		return NULL;
+
+	/* input is always valid, NUL-terminated UTF-8 sequence, we don't need
+	 * to validated it again */
+	if (g_utf8_get_char (str) == 0xfeff) {
+		gchar *out = g_strdup (g_utf8_next_char (str));
+		g_free (str);
+		return out;
+	}
+
+	return str;
 }
 
 static void
@@ -4210,7 +4222,7 @@ clipboard_paste_received_cb (GtkClipboard     *clipboard,
 				utf8 = utf16_to_utf8_with_bom_check (selection_data->data, selection_data->length);
 
 			} else {
-				utf8 = g_strndup ((const gchar *) selection_data->data, selection_data->length);
+				utf8 = utf8_filter_out_bom (g_strndup ((const gchar *)selection_data->data, selection_data->length));
 			}
 
 			if (as_cite && utf8) {
@@ -4226,6 +4238,7 @@ clipboard_paste_received_cb (GtkClipboard     *clipboard,
 			else
 				g_warning ("selection was empty");
 		} else if ((utf8 = (gchar *) gtk_selection_data_get_text (selection_data))) {
+			utf8 = utf8_filter_out_bom (utf8);
 			if (as_cite) {
 				char *encoded;
 
@@ -4274,10 +4287,10 @@ create_clipboard_contents (GtkHTML *html)
 	contents = g_new0 (ClipboardContents, 1);
 
 	/* set html text */
-	contents->html_text = get_selection_string (html, &html_len, FALSE, FALSE, TRUE, TRUE);
+	contents->html_text = get_selection_string (html, &html_len, FALSE, FALSE, TRUE);
 
 	/* set plain text */
-	contents->plain_text = get_selection_string (html, &text_len, FALSE, FALSE, FALSE, FALSE);
+	contents->plain_text = get_selection_string (html, &text_len, FALSE, FALSE, FALSE);
 
 	return contents;
 }
@@ -4366,7 +4379,7 @@ update_primary_selection (GtkHTML *html)
 
 	clipboard = gtk_widget_get_clipboard (GTK_WIDGET (html), GDK_SELECTION_PRIMARY);
 
-	text = get_selection_string (html, &text_len, FALSE, TRUE, FALSE, FALSE);
+	text = get_selection_string (html, &text_len, FALSE, TRUE, FALSE);
 	if (!text)
 		return;
 

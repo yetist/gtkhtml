@@ -1,3 +1,13 @@
+2008-06-09  Milan Crha  <mcrha@redhat.com>
+
+	** Fix for bug #533741 (Patch by Vaclav Slavik.)
+
+	* gtkhtml.c: (get_selection_string), (gtk_html_get_selection_html),
+	(gtk_html_get_selection_plain_text), (utf8_filter_out_bom),
+	(clipboard_paste_received_cb), (create_clipboard_contents),
+	(update_primary_selection): Don't insert BOM into UTF-8 text when
+	copying to clipboard; filter it out when pasting from clipboard.
+
 2008-05-19  Srinivasa Ragavan  <sragavan@novell.com>
 
 	** Fix for bug #524338
