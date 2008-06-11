@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.HEAD.ar\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-22 23:39+0100\n"
+"POT-Creation-Date: 2008-06-11 22:30+0100\n"
 "PO-Revision-Date: 2008-02-01 00:24+0200\n"
 "Last-Translator: Khaled Hosny <khaledhosny@eglug.org>\n"
 "Language-Team: Arabic <doc@arabeyes.org>\n"
@@ -29,7 +29,7 @@ msgstr "المسار: %s، النص البديل: %s"
 msgid "URL is %s"
 msgstr "المسار: %s"
 
-#: ../a11y/object.c:52 ../a11y/object.c:61 ../a11y/text.c:127
+#: ../a11y/object.c:52 ../a11y/object.c:61 ../a11y/text.c:126
 msgid "grab focus"
 msgstr "أخذ تركيز"
 
@@ -38,220 +38,220 @@ msgid "Panel containing HTML"
 msgstr "شريط محتوي على HTML"
 
 #: ../components/editor/gtkhtml-color-combo.c:78
-#: ../components/html-editor/gi-color-palette.c:559
+#: ../components/html-editor/gi-color-palette.c:555
 msgid "black"
 msgstr "أسود"
 
 #: ../components/editor/gtkhtml-color-combo.c:79
-#: ../components/html-editor/gi-color-palette.c:560
+#: ../components/html-editor/gi-color-palette.c:556
 msgid "light brown"
 msgstr "بني خفيف"
 
 #: ../components/editor/gtkhtml-color-combo.c:80
-#: ../components/html-editor/gi-color-palette.c:561
+#: ../components/html-editor/gi-color-palette.c:557
 msgid "brown gold"
 msgstr "بني ذهبي"
 
 #: ../components/editor/gtkhtml-color-combo.c:81
-#: ../components/html-editor/gi-color-palette.c:562
+#: ../components/html-editor/gi-color-palette.c:558
 msgid "dark green #2"
 msgstr "أخضر غامق #2"
 
 #: ../components/editor/gtkhtml-color-combo.c:82
-#: ../components/html-editor/gi-color-palette.c:563
+#: ../components/html-editor/gi-color-palette.c:559
 msgid "navy"
 msgstr "أزرق ليلي"
 
 #: ../components/editor/gtkhtml-color-combo.c:83
-#: ../components/html-editor/gi-color-palette.c:564
-#: ../components/html-editor/gi-color-palette.c:620
+#: ../components/html-editor/gi-color-palette.c:560
+#: ../components/html-editor/gi-color-palette.c:616
 msgid "dark blue"
 msgstr "أزرق غامق"
 
 #: ../components/editor/gtkhtml-color-combo.c:84
-#: ../components/html-editor/gi-color-palette.c:565
+#: ../components/html-editor/gi-color-palette.c:561
 msgid "purple #2"
 msgstr "بنفسجي #2"
 
 #: ../components/editor/gtkhtml-color-combo.c:85
-#: ../components/html-editor/gi-color-palette.c:566
+#: ../components/html-editor/gi-color-palette.c:562
 msgid "very dark gray"
 msgstr "رمادي غامق جدا"
 
 #: ../components/editor/gtkhtml-color-combo.c:87
-#: ../components/html-editor/gi-color-palette.c:569
-#: ../components/html-editor/gi-color-palette.c:625
+#: ../components/html-editor/gi-color-palette.c:565
+#: ../components/html-editor/gi-color-palette.c:621
 msgid "dark red"
 msgstr "أحمر غامق"
 
 #: ../components/editor/gtkhtml-color-combo.c:88
-#: ../components/html-editor/gi-color-palette.c:570
+#: ../components/html-editor/gi-color-palette.c:566
 msgid "red-orange"
 msgstr "أحمر برتقالي"
 
 #: ../components/editor/gtkhtml-color-combo.c:89
-#: ../components/html-editor/gi-color-palette.c:571
+#: ../components/html-editor/gi-color-palette.c:567
 msgid "gold"
 msgstr "ذهبي"
 
 #: ../components/editor/gtkhtml-color-combo.c:90
-#: ../components/html-editor/gi-color-palette.c:572
+#: ../components/html-editor/gi-color-palette.c:568
 msgid "dark green"
 msgstr "أخضر غامق"
 
 #: ../components/editor/gtkhtml-color-combo.c:91
-#: ../components/html-editor/gi-color-palette.c:573
-#: ../components/html-editor/gi-color-palette.c:626
+#: ../components/html-editor/gi-color-palette.c:569
+#: ../components/html-editor/gi-color-palette.c:622
 msgid "dull blue"
 msgstr "أزرق هافت"
 
 #: ../components/editor/gtkhtml-color-combo.c:92
-#: ../components/html-editor/gi-color-palette.c:574
-#: ../components/html-editor/gi-color-palette.c:627
+#: ../components/html-editor/gi-color-palette.c:570
+#: ../components/html-editor/gi-color-palette.c:623
 msgid "blue"
 msgstr "أزرق"
 
 #: ../components/editor/gtkhtml-color-combo.c:93
-#: ../components/html-editor/gi-color-palette.c:575
+#: ../components/html-editor/gi-color-palette.c:571
 msgid "dull purple"
 msgstr "بنفسجي هافت"
 
 #: ../components/editor/gtkhtml-color-combo.c:94
-#: ../components/html-editor/gi-color-palette.c:576
+#: ../components/html-editor/gi-color-palette.c:572
 msgid "dark grey"
 msgstr "رمادي غامق"
 
 #: ../components/editor/gtkhtml-color-combo.c:96
-#: ../components/html-editor/gi-color-palette.c:579
+#: ../components/html-editor/gi-color-palette.c:575
 msgid "red"
 msgstr "أحمر"
 
 #: ../components/editor/gtkhtml-color-combo.c:97
-#: ../components/html-editor/gi-color-palette.c:580
+#: ../components/html-editor/gi-color-palette.c:576
 msgid "orange"
 msgstr "برتقالي"
 
 #: ../components/editor/gtkhtml-color-combo.c:98
-#: ../components/html-editor/gi-color-palette.c:581
+#: ../components/html-editor/gi-color-palette.c:577
 msgid "lime"
 msgstr "ليم"
 
 #: ../components/editor/gtkhtml-color-combo.c:99
-#: ../components/html-editor/gi-color-palette.c:582
+#: ../components/html-editor/gi-color-palette.c:578
 msgid "dull green"
 msgstr "أخضر هافت"
 
 #: ../components/editor/gtkhtml-color-combo.c:100
-#: ../components/html-editor/gi-color-palette.c:583
+#: ../components/html-editor/gi-color-palette.c:579
 msgid "dull blue #2"
 msgstr "أزرق هافت #2"
 
 #: ../components/editor/gtkhtml-color-combo.c:101
-#: ../components/html-editor/gi-color-palette.c:584
+#: ../components/html-editor/gi-color-palette.c:580
 msgid "sky blue #2"
 msgstr "أزرق سماوي #2"
 
 #: ../components/editor/gtkhtml-color-combo.c:102
-#: ../components/html-editor/gi-color-palette.c:585
-#: ../components/html-editor/gi-color-palette.c:624
+#: ../components/html-editor/gi-color-palette.c:581
+#: ../components/html-editor/gi-color-palette.c:620
 msgid "purple"
 msgstr "بنفسجي"
 
 #: ../components/editor/gtkhtml-color-combo.c:103
-#: ../components/html-editor/gi-color-palette.c:586
+#: ../components/html-editor/gi-color-palette.c:582
 msgid "gray"
 msgstr "رمادي"
 
 #: ../components/editor/gtkhtml-color-combo.c:105
-#: ../components/html-editor/gi-color-palette.c:589
-#: ../components/html-editor/gi-color-palette.c:621
+#: ../components/html-editor/gi-color-palette.c:585
+#: ../components/html-editor/gi-color-palette.c:617
 msgid "magenta"
 msgstr "أرجوانى"
 
 #: ../components/editor/gtkhtml-color-combo.c:106
-#: ../components/html-editor/gi-color-palette.c:590
+#: ../components/html-editor/gi-color-palette.c:586
 msgid "bright orange"
 msgstr "برتقالي لامع"
 
 #: ../components/editor/gtkhtml-color-combo.c:107
-#: ../components/html-editor/gi-color-palette.c:591
-#: ../components/html-editor/gi-color-palette.c:622
+#: ../components/html-editor/gi-color-palette.c:587
+#: ../components/html-editor/gi-color-palette.c:618
 msgid "yellow"
 msgstr "أصفر"
 
 #: ../components/editor/gtkhtml-color-combo.c:108
-#: ../components/html-editor/gi-color-palette.c:592
+#: ../components/html-editor/gi-color-palette.c:588
 msgid "green"
 msgstr "أخضر"
 
 #: ../components/editor/gtkhtml-color-combo.c:109
-#: ../components/html-editor/gi-color-palette.c:593
-#: ../components/html-editor/gi-color-palette.c:623
+#: ../components/html-editor/gi-color-palette.c:589
+#: ../components/html-editor/gi-color-palette.c:619
 msgid "cyan"
 msgstr "سيان"
 
 #: ../components/editor/gtkhtml-color-combo.c:110
-#: ../components/html-editor/gi-color-palette.c:594
+#: ../components/html-editor/gi-color-palette.c:590
 msgid "bright blue"
 msgstr "أزرق لامع"
 
 #: ../components/editor/gtkhtml-color-combo.c:111
-#: ../components/html-editor/gi-color-palette.c:595
-#: ../components/html-editor/gi-color-palette.c:612
+#: ../components/html-editor/gi-color-palette.c:591
+#: ../components/html-editor/gi-color-palette.c:608
 msgid "red purple"
 msgstr "أحمر بنفسجي"
 
 #: ../components/editor/gtkhtml-color-combo.c:112
-#: ../components/html-editor/gi-color-palette.c:596
+#: ../components/html-editor/gi-color-palette.c:592
 msgid "light grey"
 msgstr "رمادي خفيف"
 
 #: ../components/editor/gtkhtml-color-combo.c:114
-#: ../components/html-editor/gi-color-palette.c:599
-#: ../components/html-editor/gi-color-palette.c:616
+#: ../components/html-editor/gi-color-palette.c:595
+#: ../components/html-editor/gi-color-palette.c:612
 msgid "pink"
 msgstr "وردي"
 
 #: ../components/editor/gtkhtml-color-combo.c:115
-#: ../components/html-editor/gi-color-palette.c:600
+#: ../components/html-editor/gi-color-palette.c:596
 msgid "light orange"
 msgstr "برتقالي خفيف"
 
 #: ../components/editor/gtkhtml-color-combo.c:116
-#: ../components/html-editor/gi-color-palette.c:601
-#: ../components/html-editor/gi-color-palette.c:613
+#: ../components/html-editor/gi-color-palette.c:597
+#: ../components/html-editor/gi-color-palette.c:609
 msgid "light yellow"
 msgstr "أصفر خفيف"
 
 #: ../components/editor/gtkhtml-color-combo.c:117
-#: ../components/html-editor/gi-color-palette.c:602
+#: ../components/html-editor/gi-color-palette.c:598
 msgid "light green"
 msgstr "أخضر خفيف"
 
 #: ../components/editor/gtkhtml-color-combo.c:118
-#: ../components/html-editor/gi-color-palette.c:603
+#: ../components/html-editor/gi-color-palette.c:599
 msgid "light cyan"
 msgstr "سياني خفيف"
 
 #: ../components/editor/gtkhtml-color-combo.c:119
-#: ../components/html-editor/gi-color-palette.c:604
-#: ../components/html-editor/gi-color-palette.c:614
+#: ../components/html-editor/gi-color-palette.c:600
+#: ../components/html-editor/gi-color-palette.c:610
 msgid "light blue"
 msgstr "أزرق خفيف"
 
 #: ../components/editor/gtkhtml-color-combo.c:120
-#: ../components/html-editor/gi-color-palette.c:605
-#: ../components/html-editor/gi-color-palette.c:618
+#: ../components/html-editor/gi-color-palette.c:601
+#: ../components/html-editor/gi-color-palette.c:614
 msgid "light purple"
 msgstr "بنفسجي خفيف"
 
 #: ../components/editor/gtkhtml-color-combo.c:121
-#: ../components/html-editor/gi-color-palette.c:606
+#: ../components/html-editor/gi-color-palette.c:602
 msgid "white"
 msgstr "أبيض"
 
 #: ../components/editor/gtkhtml-color-combo.c:269
-#: ../components/html-editor/gi-color-palette.c:426
+#: ../components/html-editor/gi-color-palette.c:422
 msgid "Choose Custom Color"
 msgstr "اختيار لون مخصص"
 
@@ -320,7 +320,7 @@ msgstr ""
 
 #. This is the default custom color
 #: ../components/editor/gtkhtml-color-combo.c:928
-#: ../components/html-editor/gi-color-palette.c:378
+#: ../components/html-editor/gi-color-palette.c:374
 msgid "custom"
 msgstr "مخصص"
 
@@ -364,7 +364,7 @@ msgid "A GtkRadioAction"
 msgstr ""
 
 #: ../components/editor/gtkhtml-editor-actions.c:695
-#: ../components/html-editor/menubar.c:349
+#: ../components/html-editor/menubar.c:348
 msgid "Insert HTML File"
 msgstr "ادخال ملف HTML"
 
@@ -374,7 +374,7 @@ msgid "Insert Image"
 msgstr "أدخل صورة"
 
 #: ../components/editor/gtkhtml-editor-actions.c:870
-#: ../components/html-editor/menubar.c:349
+#: ../components/html-editor/menubar.c:348
 msgid "Insert Text File"
 msgstr "ادخال ملف نصي"
 
@@ -595,9 +595,10 @@ msgid "_File"
 msgstr "اب_تسامة"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1556
-#, fuzzy
-msgid "_Format"
-msgstr "تهيئة"
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:28
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:28
+msgid "For_mat"
+msgstr "ه_يئة"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1563
 #, fuzzy
@@ -879,7 +880,7 @@ msgstr "صف"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:50
-#: ../components/html-editor/menubar.c:218
+#: ../components/html-editor/menubar.c:217
 #: ../components/html-editor/popup.c:235 ../components/html-editor/popup.c:509
 #: ../components/html-editor/popup.c:521
 msgid "Table"
@@ -901,7 +902,7 @@ msgid "Table Insert"
 msgstr "أدخل جدول"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1987
-#: ../components/html-editor/editor-control-factory.c:190
+#: ../components/html-editor/editor-control-factory.c:187
 #: ../components/html-editor/popup.c:191 ../components/html-editor/popup.c:268
 msgid "Properties"
 msgstr "خصائص"
@@ -1704,11 +1705,6 @@ msgstr "ابحث و استبدل"
 msgid "Find and replace"
 msgstr "ابحث و استبدل"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:28
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:28
-msgid "For_mat"
-msgstr "ه_يئة"
-
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:35
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
 msgid "I_nsert"
@@ -1716,7 +1712,7 @@ msgstr "أ_درج"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:36
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
-#: ../components/html-editor/editor-control-factory.c:200
+#: ../components/html-editor/editor-control-factory.c:197
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:35
 #: ../components/html-editor/popup.c:211
 msgid "Image"
@@ -1794,7 +1790,7 @@ msgstr "أدخل وجه الغمز الى الوثيقة..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:51
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
-#: ../components/html-editor/menubar.c:130
+#: ../components/html-editor/menubar.c:129
 msgid "Insert image"
 msgstr "أدخل صورة"
 
@@ -1841,7 +1837,7 @@ msgstr "يسار  بعدل الفقرات"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:60
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
-#: ../components/html-editor/menubar.c:175
+#: ../components/html-editor/menubar.c:174
 #: ../components/html-editor/popup.c:111 ../components/html-editor/popup.c:205
 #: ../components/html-editor/popup.c:271
 msgid "Link"
@@ -1981,9 +1977,9 @@ msgstr "قائمة أرقام رومانية"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:90
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
-#: ../components/html-editor/editor-control-factory.c:218
+#: ../components/html-editor/editor-control-factory.c:215
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:46
-#: ../components/html-editor/menubar.c:194
+#: ../components/html-editor/menubar.c:193
 #: ../components/html-editor/popup.c:229
 msgid "Rule"
 msgstr "الدور"
@@ -2167,7 +2163,7 @@ msgstr "مسار ملف صورة الخلفية."
 
 #: ../components/html-editor/body.c:275
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:51
-#: ../components/html-editor/menubar.c:240
+#: ../components/html-editor/menubar.c:239
 msgid "Template"
 msgstr "قالب"
 
@@ -2183,49 +2179,49 @@ msgstr "لم أتمكن من تحميل ملف glade"
 msgid "Transparent"
 msgstr "شفّاف"
 
-#: ../components/html-editor/editor-control-factory.c:208
+#: ../components/html-editor/editor-control-factory.c:205
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:52
-#: ../components/html-editor/menubar.c:426
+#: ../components/html-editor/menubar.c:425
 #: ../components/html-editor/popup.c:199
 msgid "Text"
 msgstr "نص"
 
-#: ../components/html-editor/editor-control-factory.c:227
-#: ../components/html-editor/menubar.c:443
+#: ../components/html-editor/editor-control-factory.c:224
+#: ../components/html-editor/menubar.c:442
 #: ../components/html-editor/popup.c:217
 msgid "Paragraph"
 msgstr "الفقرة"
 
-#: ../components/html-editor/editor-control-factory.c:231
+#: ../components/html-editor/editor-control-factory.c:228
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:44
-#: ../components/html-editor/menubar.c:409
+#: ../components/html-editor/menubar.c:408
 #: ../components/html-editor/popup.c:223
 msgid "Page"
 msgstr "الصفحة"
 
-#: ../components/html-editor/gi-color-combo.c:191
+#: ../components/html-editor/gi-color-combo.c:189
 msgid "color preview"
 msgstr "استعراض اللون"
 
 #. "Custom" color - we'll pop up a GtkColorDialog
-#: ../components/html-editor/gi-color-palette.c:418
+#: ../components/html-editor/gi-color-palette.c:414
 msgid "Custom Color:"
 msgstr "لون مخصص:"
 
-#: ../components/html-editor/gi-color-palette.c:611
+#: ../components/html-editor/gi-color-palette.c:607
 msgid "purplish blue"
 msgstr "أزرق بنفسجي"
 
-#: ../components/html-editor/gi-color-palette.c:615
+#: ../components/html-editor/gi-color-palette.c:611
 msgid "dark purple"
 msgstr "بنفسجي غامق"
 
-#: ../components/html-editor/gi-color-palette.c:617
+#: ../components/html-editor/gi-color-palette.c:613
 msgid "sky blue"
 msgstr "أزرق سماوي"
 
 #. set the a11y name
-#: ../components/html-editor/gi-combo-box.c:424
+#: ../components/html-editor/gi-combo-box.c:411
 msgid "Popup"
 msgstr "نوافذ قافزة"
 
@@ -2364,22 +2360,22 @@ msgstr "المسار:"
 msgid "Description:"
 msgstr "الوصف:"
 
-#: ../components/html-editor/menubar.c:172
-#: ../components/html-editor/menubar.c:191
-#: ../components/html-editor/menubar.c:215
-#: ../components/html-editor/menubar.c:237
+#: ../components/html-editor/menubar.c:171
+#: ../components/html-editor/menubar.c:190
+#: ../components/html-editor/menubar.c:214
+#: ../components/html-editor/menubar.c:236
 #: ../components/html-editor/popup.c:108
 msgid "Insert"
 msgstr "أدرج"
 
-#: ../components/html-editor/menubar.c:324
+#: ../components/html-editor/menubar.c:323
 #, c-format
 msgid "Error loading file '%s': %s"
 msgstr "خطأ أثناء فتح الملف '%s': %s"
 
-#: ../components/html-editor/menubar.c:406
-#: ../components/html-editor/menubar.c:423
-#: ../components/html-editor/menubar.c:440
+#: ../components/html-editor/menubar.c:405
+#: ../components/html-editor/menubar.c:422
+#: ../components/html-editor/menubar.c:439
 msgid "Format"
 msgstr "تهيئة"
 
@@ -2644,91 +2640,91 @@ msgstr ""
 "تم حذف الجسم المحرر من المستند.\n"
 "لا يمكن تطبيق الإعدادات."
 
-#: ../gtkhtml/gtkhtml.c:2886
+#: ../gtkhtml/gtkhtml.c:2892
 msgid "Editable"
 msgstr "قابل للتّحرير"
 
-#: ../gtkhtml/gtkhtml.c:2887
+#: ../gtkhtml/gtkhtml.c:2893
 msgid "Whether the html can be edited"
 msgstr "إذا يمكن تحرير ال html "
 
-#: ../gtkhtml/gtkhtml.c:2893
+#: ../gtkhtml/gtkhtml.c:2899
 msgid "Document Title"
 msgstr "عنوان المستند"
 
-#: ../gtkhtml/gtkhtml.c:2894
+#: ../gtkhtml/gtkhtml.c:2900
 msgid "The title of the current document"
 msgstr "عنوان المستند الحالي"
 
-#: ../gtkhtml/gtkhtml.c:2900
+#: ../gtkhtml/gtkhtml.c:2906
 msgid "Document Base"
 msgstr "أساس المستند"
 
-#: ../gtkhtml/gtkhtml.c:2901
+#: ../gtkhtml/gtkhtml.c:2907
 msgid "The base URL for relative references"
 msgstr "المسار القاعدي للعلاقات النسبية"
 
-#: ../gtkhtml/gtkhtml.c:2907
+#: ../gtkhtml/gtkhtml.c:2913
 msgid "Target Base"
 msgstr "أساس الهدف"
 
-#: ../gtkhtml/gtkhtml.c:2908
+#: ../gtkhtml/gtkhtml.c:2914
 msgid "The base URL of the target frame"
 msgstr "المسار القاعدي لمسار الإطار الهدف"
 
-#: ../gtkhtml/gtkhtml.c:2917
+#: ../gtkhtml/gtkhtml.c:2923
 msgid "Fixed Width Font"
 msgstr "خط ثابت العرض"
 
-#: ../gtkhtml/gtkhtml.c:2918
+#: ../gtkhtml/gtkhtml.c:2924
 msgid "The Monospace font to use for typewriter text"
 msgstr "اسم الخط للنص الآلي"
 
-#: ../gtkhtml/gtkhtml.c:2924
+#: ../gtkhtml/gtkhtml.c:2930
 msgid "New Link Color"
 msgstr "لون الوصلة الجديدة"
 
-#: ../gtkhtml/gtkhtml.c:2925
+#: ../gtkhtml/gtkhtml.c:2931
 msgid "The color of new link elements"
 msgstr "لون عناصر الوصلة الجديدة"
 
-#: ../gtkhtml/gtkhtml.c:2930
+#: ../gtkhtml/gtkhtml.c:2936
 msgid "Visited Link Color"
 msgstr "لون الوصلة المزارة"
 
-#: ../gtkhtml/gtkhtml.c:2931
+#: ../gtkhtml/gtkhtml.c:2937
 msgid "The color of visited link elements"
 msgstr "لون عناصر الوصلة المزارة"
 
-#: ../gtkhtml/gtkhtml.c:2936
+#: ../gtkhtml/gtkhtml.c:2942
 msgid "Active Link Color"
 msgstr "لون الوصلة النشطة"
 
-#: ../gtkhtml/gtkhtml.c:2937
+#: ../gtkhtml/gtkhtml.c:2943
 msgid "The color of active link elements"
 msgstr "لون عناصر الوصلة النشطة"
 
-#: ../gtkhtml/gtkhtml.c:2942
+#: ../gtkhtml/gtkhtml.c:2948
 msgid "Spelling Error Color"
 msgstr "لون الخطأ الإملائي"
 
-#: ../gtkhtml/gtkhtml.c:2943
+#: ../gtkhtml/gtkhtml.c:2949
 msgid "The color of the spelling error markers"
 msgstr "لون محددات الأخطاء الإملائية"
 
-#: ../gtkhtml/gtkhtml.c:2948
+#: ../gtkhtml/gtkhtml.c:2954
 msgid "Cite Quotation Color"
 msgstr "لون الإقتباس"
 
-#: ../gtkhtml/gtkhtml.c:2949
+#: ../gtkhtml/gtkhtml.c:2955
 msgid "The color of the cited text"
 msgstr "لون النص المقتبس"
 
-#: ../gtkhtml/htmlbutton.c:140
+#: ../gtkhtml/htmlbutton.c:139
 msgid "Submit Query"
 msgstr "أرسل الإستفسار"
 
-#: ../gtkhtml/htmlbutton.c:143
+#: ../gtkhtml/htmlbutton.c:142
 msgid "Reset"
 msgstr "اعادة"
 
@@ -2737,21 +2733,25 @@ msgstr "اعادة"
 msgid "Cannot allocate default font for printing"
 msgstr "تعذر تحديد خط الطباعة الإفتراضي"
 
-#: ../gtkhtml/test.c:374
+#: ../gtkhtml/test.c:365
 msgid "GtkHTML Test"
 msgstr "اختبار GtkHTML"
 
-#: ../gtkhtml/testgtkhtml.c:116
+#: ../gtkhtml/testgtkhtml.c:114
 msgid "Print pre_view"
 msgstr "معاينة الط_باعة"
 
-#: ../gtkhtml/testgtkhtml.c:116
+#: ../gtkhtml/testgtkhtml.c:114
 msgid "Print preview"
 msgstr "معاينة الطباعة"
 
-#: ../gtkhtml/testgtkhtml.c:1020
+#: ../gtkhtml/testgtkhtml.c:1018
 msgid "GtkHTML Test Application"
 msgstr "تطبيق تجريبي ل GtkHTML"
+
+#, fuzzy
+#~ msgid "_Format"
+#~ msgstr "تهيئة"
 
 #~ msgid "Cannot allocate default font for printing\n"
 #~ msgstr "تعذر تحديد خط الطباعة الإفتراضي\n"
