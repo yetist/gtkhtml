@@ -59,6 +59,8 @@ libgtkhtml_editor_la_LIBADD = \
 	@GTKHTML_LIBS@				\
 	$(top_builddir)/gtkhtml/libgtkhtml-@GTKHTML_API_VERSION@.la
 
+libgtkhtml_editor_la_LDFLAGS = -no-undefined
+
 gtkhtml_editor_test_SOURCES = main.c
 
 gtkhtml_editor_test_LDADD = \
@@ -118,7 +120,7 @@ libglade_gtkhtml_editor_la_SOURCES = \
 	gtkhtml-color-swatch.c			\
 	gtkhtml-combo-box.c
 
-libglade_gtkhtml_editor_la_LDFLAGS = -module -avoid-version
+libglade_gtkhtml_editor_la_LDFLAGS = -module -avoid-version -no-undefined
 
 libglade_gtkhtml_editor_la_LIBADD = @GTKHTML_CFLAGS@
 

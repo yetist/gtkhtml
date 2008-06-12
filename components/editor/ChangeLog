@@ -1,3 +1,7 @@
+2008-06-12  Tor Lillqvist  <tml@novell.com>
+
+	* Makefile.am: Use -no-undefined here, too.
+
 2008-06-09  Matthew Barnes  <mbarnes@redhat.com>
 
 	* gtkhtml-editor-actions.c:
