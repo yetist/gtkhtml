@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: gtkhtml HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-05-06 16:56+0000\n"
-"PO-Revision-Date: 2008-06-07 11:43+0300\n"
+"PO-Revision-Date: 2008-06-11 09:01+0300\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -403,7 +403,6 @@ msgid "Cu_t"
 msgstr "_Lõika"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1309
-#, fuzzy
 msgid "Find A_gain"
 msgstr "Otsi _uuesti"
 
@@ -421,12 +420,11 @@ msgstr "_HTML-fail..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1337
 msgid "_Angel"
-msgstr ""
+msgstr "In_gel"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1344
-#, fuzzy
 msgid "_Cool"
-msgstr "_Värvus:"
+msgstr "_Vinge"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1351
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:17
@@ -444,11 +442,11 @@ msgstr ""
 
 #: ../components/editor/gtkhtml-editor-actions.c:1372
 msgid "_Kiss"
-msgstr ""
+msgstr "Suu_dlus"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1379
 msgid "_Monkey"
-msgstr ""
+msgstr "_Ahv"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1386
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:121
@@ -457,7 +455,6 @@ msgid "_Indifferent"
 msgstr "Ükskõ_ikne"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1393
-#, fuzzy
 msgid "_Tongue"
 msgstr "K_eelt näitav"
 
@@ -481,10 +478,9 @@ msgstr "N_aerev"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1421
 msgid "Smi_rk"
-msgstr ""
+msgstr "_Irvitav"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1428
-#, fuzzy
 msgid "Sur_prised"
 msgstr "Ül_latunud"
 
@@ -592,9 +588,8 @@ msgid "_Format"
 msgstr "_Vorming"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1563
-#, fuzzy
 msgid "_Paragraph Style"
-msgstr "Lõigu laad"
+msgstr "_Lõigu laad"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1570
 msgid "_Emoticon"
@@ -889,12 +884,10 @@ msgid "Properties"
 msgstr "Omadused"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2005
-#, fuzzy
 msgid "Column After"
-msgstr "Veerg peale"
+msgstr "Veerg pärast"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2012
-#, fuzzy
 msgid "Column Before"
 msgstr "Veerg enne"
 
@@ -904,12 +897,10 @@ msgid "Insert _Link"
 msgstr "Lisa _viit"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2026
-#, fuzzy
 msgid "Row Above"
 msgstr "Rida ülalpool"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2033
-#, fuzzy
 msgid "Row Below"
 msgstr "Rida allpool"
 
@@ -961,19 +952,16 @@ msgid "Ignore Misspelled Word"
 msgstr "Kirjaveaga sõna eiramine"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2134
-#, fuzzy
 msgid "Add Word To"
-msgstr "Lisa sõna"
+msgstr ""
 
 #: ../components/editor/gtkhtml-editor-actions.c:2353
-#, fuzzy
 msgid "_Find"
-msgstr "Otsimine"
+msgstr "_Otsi"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2356
-#, fuzzy
 msgid "Re_place"
-msgstr "Asendamine"
+msgstr "_Asenda"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2359
 msgid "_Image"
@@ -1029,14 +1017,12 @@ msgid "Edit HTML or plain text"
 msgstr ""
 
 #: ../components/editor/gtkhtml-editor.c:735
-#, fuzzy
 msgid "Inline Spelling"
-msgstr "Kontrolli _sõna õigekirja..."
+msgstr ""
 
 #: ../components/editor/gtkhtml-editor.c:736
-#, fuzzy
 msgid "Check your spelling as you type"
-msgstr "Dokumendi õigekirjakontroll"
+msgstr ""
 
 #: ../components/editor/gtkhtml-editor.c:746
 msgid "Magic Links"
@@ -1113,7 +1099,6 @@ msgid "C_olor:"
 msgstr "_Värvus:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:14
-#, fuzzy
 msgid "C_olumns:"
 msgstr "_Veerud:"
 
@@ -1133,7 +1118,6 @@ msgid "Cell Properties"
 msgstr "Lahtri omadused"
 
 #: ../components/editor/gtkhtml-editor.glade.h:18
-#, fuzzy
 msgid "Co_lor:"
 msgstr "_Värvus:"
 
@@ -1156,7 +1140,6 @@ msgid "Find"
 msgstr "Otsimine"
 
 #: ../components/editor/gtkhtml-editor.glade.h:22
-#, fuzzy
 msgid "Hea_der Style"
 msgstr "_Päise laad"
 
@@ -1232,19 +1215,16 @@ msgid "Rule Properties"
 msgstr "Reegli omadused"
 
 #: ../components/editor/gtkhtml-editor.glade.h:45
-#, fuzzy
 msgid "S_haded"
-msgstr "Varjutatud"
+msgstr "_Varjutatud"
 
 #: ../components/editor/gtkhtml-editor.glade.h:46
-#, fuzzy
 msgid "Search _backwards"
 msgstr "Otsi _tahapoole"
 
 #: ../components/editor/gtkhtml-editor.glade.h:47
-#, fuzzy
 msgid "Select An Image"
-msgstr "Vali _kõik"
+msgstr "Vali pilt"
 
 #: ../components/editor/gtkhtml-editor.glade.h:48
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:48
@@ -1439,26 +1419,22 @@ msgstr "Õigekirjakontrolli poolt kasutatav keel"
 #: ../components/editor/gtkhtml-spell-dialog.c:117
 #, c-format
 msgid "Suggestions for \"%s\""
-msgstr ""
+msgstr "Soovitused \"%s\" jaoks"
 
 #: ../components/editor/gtkhtml-spell-dialog.c:358
-#, fuzzy
 msgid "Misspelled Word"
-msgstr "Kirjaveaga sõna eiramine"
+msgstr "Kirjaveaga sõna"
 
 #: ../components/editor/gtkhtml-spell-dialog.c:359
-#, fuzzy
 msgid "The current misspelled word"
-msgstr "Kirjaveaga sõna eiramine"
+msgstr "Käesolev kirjaveaga sõna"
 
 #: ../components/editor/gtkhtml-spell-dialog.c:449
-#, fuzzy
 msgid "Spell Checker"
-msgstr "Õigekirja kontrollimine"
+msgstr "Õigekirjakontroll"
 
 #. Replace All Button
 #: ../components/editor/gtkhtml-spell-dialog.c:536
-#, fuzzy
 msgid "R_eplace All"
 msgstr "Asenda _kõik"
 
@@ -1474,7 +1450,6 @@ msgstr ""
 
 #. Back Button
 #: ../components/editor/gtkhtml-spell-dialog.c:577
-#, fuzzy
 msgid "_Back"
 msgstr "_Tagasi"
 
@@ -1485,20 +1460,19 @@ msgstr "Sõnastik"
 
 #. Add Word Button
 #: ../components/editor/gtkhtml-spell-dialog.c:619
-#, fuzzy
 msgid "_Add Word"
-msgstr "Lisa sõna"
+msgstr "_Lisa sõna"
 
 #: ../components/editor/gtkhtml-spell-language.c:182
 #, c-format
 msgid "language|Unknown (%s)"
-msgstr ""
+msgstr "Tundmatu (%s)"
 
 #: ../components/editor/gtkhtml-spell-language.c:200
 #: ../components/editor/gtkhtml-spell-language.c:208
 #, c-format
 msgid "language|%s (%s)"
-msgstr ""
+msgstr "%s (%s)"
 
 #. Translators: The text before the "|" is context to help
 #. * you decide on the correct translation. You MUST OMIT IT
@@ -1507,7 +1481,7 @@ msgstr ""
 #. * by the spell checker.
 #: ../components/editor/gtkhtml-spell-language.c:396
 msgid "language|Default"
-msgstr ""
+msgstr "Vaikimisi"
 
 #: ../components/editor/main.c:93
 msgid "Save As"
@@ -1534,24 +1508,20 @@ msgid "_Print..."
 msgstr "_Prindi..."
 
 #: ../components/editor/main.c:296
-#, fuzzy
 msgid "Print Pre_view"
 msgstr "Printimise eel_vaade"
 
 #: ../components/editor/main.c:303
-#, fuzzy
 msgid "_Quit"
-msgstr "_Lõika"
+msgstr "_Lõpeta"
 
 #: ../components/editor/main.c:310
-#, fuzzy
 msgid "_Save"
-msgstr "Varjutatud"
+msgstr "_Salvesta"
 
 #: ../components/editor/main.c:317
-#, fuzzy
 msgid "Save _As..."
-msgstr "Salvesta fail kui..."
+msgstr "Salvesta _kui..."
 
 #: ../components/editor/main.c:334
 msgid "HTML _Output"
@@ -2430,7 +2400,7 @@ msgstr "Veerg enne"
 
 #: ../components/html-editor/popup.c:515
 msgid "Column after"
-msgstr "Veerg peale"
+msgstr "Veerg pärast"
 
 #: ../components/html-editor/popup.c:520
 msgid "Table delete"
