@@ -1,3 +1,17 @@
+GtkHTML-3.23.4 2008-06-16
+--------------------------
+
+Bug Fixes:
+	#533741: Don't insert BOM into UTF-8 text when copying to clipboard; filter it out when pasting from clipboard (Vaclav Slavik)
+	#536635: Allow gtkhtml to build with G_DISABLE_SINGLE_INCLUDES and GTK_DISABLE_SINGLE_INCLUDES defined (Matthew Barnes)
+	#537397: Fix a duplicate mnemonic (Matthew Barnes)
+
+Updated Translations:
+	Ivar Smolin (et)
+	Theppitak Karoonboonyanan (th)
+	Khaled Hosny (ar)
+	Ignacio Casal Quinteiro  (gl)
+
 GtkHTML-3.23.3 2008-06-02
 --------------------------
 

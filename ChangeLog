@@ -1,3 +1,9 @@
+2008-06-17  Johnny Jacob  <jjohnny@novell.com>
+
+	* configure.in : Version bump to 3.23.5.
+
+	* NEWS: GtkHTML 3.23.4 release updates.
+
 2008-06-06  Matthew Barnes  <mbarnes@redhat.com>
 
 	** Allow gtkhtml to build with G_DISABLE_SINGLE_INCLUDES and
