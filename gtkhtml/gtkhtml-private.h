@@ -76,6 +76,8 @@ struct _GtkHTMLPrivate {
 	gboolean in_url_test_mode;
 
 	gboolean in_key_binding;
+
+	char *caret_first_focus_anchor;
 };
 
 void  gtk_html_private_calc_scrollbars  (GtkHTML                *html,

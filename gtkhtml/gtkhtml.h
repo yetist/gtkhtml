@@ -208,6 +208,9 @@ void                       gtk_html_set_caret_mode                (GtkHTML      
 								   gboolean                   caret_mode);
 gboolean                   gtk_html_get_caret_mode                (const GtkHTML             *html);
 
+void			   gtk_html_set_caret_first_focus_anchor  (GtkHTML		     *html,
+								   const char                *name);
+
 /* Animated Images */
 void                       gtk_html_set_animate                   (GtkHTML                   *html,
 								   gboolean                   animate);

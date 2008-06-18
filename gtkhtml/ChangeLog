@@ -1,3 +1,13 @@
+2008-06-18  Milan Crha  <mcrha@redhat.com>
+
+	** Fix for bug #423395
+
+	* gtkhtml-private.h: (struct _GtkHTMLPrivate): New property.
+	* gtkhtml.h: (gtk_html_set_caret_first_focus_anchor):
+	* gtkhtml.c: (gtk_html_set_caret_first_focus_anchor), (destroy),
+	(focus), (gtk_html_init): New API to let GtkHTML know where
+	to place cursor on the first focus event, based on the anchor name.
+
 2008-06-09  Milan Crha  <mcrha@redhat.com>
 
 	** Fix for bug #533741 (Patch by Vaclav Slavik.)

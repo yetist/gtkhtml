@@ -768,6 +768,7 @@ destroy (GtkObject *object)
 
 		g_free (html->priv->content_type);
 		g_free (html->priv->base_url);
+		g_free (html->priv->caret_first_focus_anchor);
 		g_free (html->priv);
 		html->priv = NULL;
 	}
@@ -2264,6 +2265,7 @@ static gboolean
 focus (GtkWidget *w, GtkDirectionType direction)
 {
 	HTMLEngine *e = GTK_HTML (w)->engine;
+	GtkHTMLPrivate *priv = GTK_HTML (w)->priv;
 
 	if (html_engine_get_editable (e)) {
 		gboolean rv;
@@ -2278,6 +2280,28 @@ focus (GtkWidget *w, GtkDirectionType direction)
 		html_engine_disable_selection (e);
 		html_engine_edit_selection_updater_schedule (e->selection_updater);
 		e->shift_selection = FALSE;
+	}
+
+	if (!GTK_WIDGET_HAS_FOCUS (w) && e->caret_mode && priv->caret_first_focus_anchor) {
+		int x = 0, y = 0;
+
+		if (html_object_find_anchor (e->clue, priv->caret_first_focus_anchor, &x, &y)) {
+			GtkAdjustment *vadj;
+
+			gtk_widget_grab_focus (w);
+			html_engine_jump_at (e, x, y);
+
+			vadj = GTK_LAYOUT (e->widget)->vadjustment;
+
+			/* scroll to the position on screen if not visible */
+			if (y < vadj->value || y > vadj->value + vadj->page_size)
+				gtk_adjustment_set_value (vadj, y);
+
+			update_primary_selection (GTK_HTML (w));
+			g_signal_emit (GTK_HTML (w), signals [CURSOR_CHANGED], 0);
+
+			return TRUE;
+		}
 	}
 
 	if (((e->focus_object && !(GTK_WIDGET_HAS_FOCUS (w))) || html_engine_focus (e, direction)) && e->focus_object) {
@@ -3270,6 +3294,8 @@ gtk_html_init (GtkHTML* html)
 	html->priv->in_url_test_mode = FALSE;
 	html->priv->in_key_binding = FALSE;
 
+	html->priv->caret_first_focus_anchor = NULL;
+
 	/* IM Context */
 	html->priv->im_context = gtk_im_multicontext_new ();
 	html->priv->need_im_reset = FALSE;
@@ -3911,6 +3937,26 @@ gtk_html_get_caret_mode(const GtkHTML *html)
 	g_return_val_if_fail (HTML_IS_ENGINE (html->engine), FALSE);
 
 	return html->engine->caret_mode;
+}
+
+/**
+ * gtk_html_set_caret_first_focus_anchor:
+ * When setting focus to the GtkHTML first time and is in caret mode,
+ * then looks for an anchor of name @param name and tries to set focus
+ * just after it. If NULL, then behaves as before.
+ *
+ * @param html GtkHTML instance.
+ * @param name Name of the anchor to be set the first focus just after it,
+ *             or NULL to not look for the anchor.
+ **/
+void
+gtk_html_set_caret_first_focus_anchor (GtkHTML *html, const char *name)
+{
+	g_return_if_fail (GTK_IS_HTML (html));
+	g_return_if_fail (html->priv != NULL);
+
+	g_free (html->priv->caret_first_focus_anchor);
+	html->priv->caret_first_focus_anchor = g_strdup (name);
 }
 
 void
