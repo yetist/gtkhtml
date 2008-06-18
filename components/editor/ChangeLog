@@ -1,3 +1,12 @@
+2008-06-18  Matthew Barnes  <mbarnes@redhat.com>
+
+	** Fixes bug #538703
+
+	* gtkhtml-spell-checker.c:
+	Delay calling enchant_broker_request_dict() for as long as possible
+	to avoid loading all dictionaries when creating a new composer window,
+	which is very time consuming.  Derived from a patch by Wang Xin.
+
 2008-06-12  Tor Lillqvist  <tml@novell.com>
 
 	* Makefile.am: Use -no-undefined here, too.

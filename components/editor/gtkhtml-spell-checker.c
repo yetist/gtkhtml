@@ -80,6 +80,37 @@ spell_checker_is_digit (const gchar *text,
 	return TRUE;
 }
 
+static EnchantDict *
+spell_checker_request_dict (GtkhtmlSpellChecker *checker)
+{
+	GtkhtmlSpellCheckerPrivate *priv;
+	const gchar *code;
+
+	/* Loading a dictionary is time-consuming, so delay it until we
+	 * really need it.  The assumption being that the dictionary
+	 * for a particular GtkhtmlSpellChecker instance will only
+	 * occasionally be needed.  That way we can create as many
+	 * instances as we want without a huge performance penalty. */
+
+	priv = checker->priv;
+
+	if (priv->dict != NULL)
+		return priv->dict;
+
+	if (priv->language == NULL)
+		return NULL;
+
+	code = gtkhtml_spell_language_get_code (priv->language);
+	priv->dict = enchant_broker_request_dict (priv->broker, code);
+
+	if (priv->dict == NULL) {
+		priv->language = NULL;
+		g_warning ("Cannot load the dictionary for %s", code);
+	}
+
+	return priv->dict;
+}
+
 static GObject *
 spell_checker_constructor (GType type,
                            guint n_construct_properties,
@@ -266,7 +297,7 @@ gtkhtml_spell_checker_check_word (GtkhtmlSpellChecker *checker,
 	g_return_val_if_fail (GTKHTML_IS_SPELL_CHECKER (checker), FALSE);
 	g_return_val_if_fail (word != NULL, FALSE);
 
-	if ((dict = checker->priv->dict) == NULL)
+	if ((dict = spell_checker_request_dict (checker)) == NULL)
 		return FALSE;
 
 	if (length < 0)
@@ -297,7 +328,7 @@ gtkhtml_spell_checker_get_suggestions (GtkhtmlSpellChecker *checker,
 
 	g_return_val_if_fail (GTKHTML_IS_SPELL_CHECKER (checker), NULL);
 
-	if ((dict = checker->priv->dict) == NULL)
+	if ((dict = spell_checker_request_dict (checker)) == NULL)
 		return NULL;
 
 	suggestions = enchant_dict_suggest (
@@ -322,7 +353,7 @@ gtkhtml_spell_checker_store_replacement (GtkhtmlSpellChecker *checker,
 
 	g_return_if_fail (GTKHTML_IS_SPELL_CHECKER (checker));
 
-	if ((dict = checker->priv->dict) != NULL)
+	if ((dict = spell_checker_request_dict (checker)) == NULL)
 		return;
 
 	enchant_dict_store_replacement (
@@ -338,7 +369,7 @@ gtkhtml_spell_checker_add_word (GtkhtmlSpellChecker *checker,
 
 	g_return_if_fail (GTKHTML_IS_SPELL_CHECKER (checker));
 
-	if ((dict = checker->priv->dict) == NULL)
+	if ((dict = spell_checker_request_dict (checker)) == NULL)
 		return;
 
 	enchant_dict_add_to_pwl (dict, word, length);
@@ -354,7 +385,7 @@ gtkhtml_spell_checker_add_word_to_session (GtkhtmlSpellChecker *checker,
 
 	g_return_if_fail (GTKHTML_IS_SPELL_CHECKER (checker));
 
-	if ((dict = checker->priv->dict) == NULL)
+	if ((dict = spell_checker_request_dict (checker)) == NULL)
 		return;
 
 	enchant_dict_add_to_session (dict, word, length);
@@ -377,18 +408,6 @@ gtkhtml_spell_checker_clear_session (GtkhtmlSpellChecker *checker)
 
 	if (priv->language == NULL)
 		priv->language = gtkhtml_spell_language_lookup (NULL);
-
-	if (priv->language != NULL) {
-		const gchar *code;
-
-		code = gtkhtml_spell_language_get_code (priv->language);
-		priv->dict = enchant_broker_request_dict (priv->broker, code);
-	}
-
-	if (priv->dict == NULL) {
-		priv->language = NULL;
-		g_warning ("Cannot load the dictionary");
-	}
 
 	g_signal_emit (G_OBJECT (checker), signals[SESSION_CLEARED], 0);
 }
