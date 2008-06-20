@@ -1,3 +1,22 @@
+2008-06-20  Christian Persch  <chpe@gnome.org>
+
+	* components/html-editor/engine.h:
+	* components/html-editor/gi-color-combo.h:
+	* components/html-editor/gi-color-palette.h:
+	* components/html-editor/gi-combo-box.h:
+	* components/html-editor/html-stream-mem.h:
+	* components/html-editor/htmlsourceview.c:
+	* components/html-editor/htmlsourceview.h:
+	* gtkhtml/gtkhtml-embedded.h:
+	* gtkhtml/gtkhtml-properties.h:
+	* gtkhtml/gtkhtml-propmanager.h:
+	* gtkhtml/htmlframe.c: (html_frame_init):
+	* gtkhtml/htmliframe.c: (html_iframe_init):
+	* gtkhtml/htmlplainpainter.h:
+	* gtkhtml/htmlprinter.h:
+	* gtkhtml/htmltokenizer.c: (html_tokenizer_get_type): Don't use
+	deprecated gtk type macros. Bug #539289.
+
 2008-06-17  Johnny Jacob  <jjohnny@novell.com>
 
 	* configure.in : Version bump to 3.23.5.

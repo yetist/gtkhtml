@@ -511,10 +511,10 @@ html_frame_init (HTMLFrame *frame,
 	 * proxied like url_requested is.
 	 */
 	gtk_signal_connect (GTK_OBJECT (new_html), "on_url",
-			    GTK_SIGNAL_FUNC (frame_on_url),
+			    G_CALLBACK (frame_on_url),
 			    (gpointer)frame);
 	gtk_signal_connect (GTK_OBJECT (new_html), "link_clicked",
-			    GTK_SIGNAL_FUNC (frame_link_clicked),
+			    G_CALLBACK (frame_link_clicked),
 			    (gpointer)frame);
 #endif
 	g_signal_connect (new_html, "size_changed", G_CALLBACK (frame_size_changed), frame);
@@ -527,7 +527,7 @@ html_frame_init (HTMLFrame *frame,
 
 	/*
 	  gtk_signal_connect (GTK_OBJECT (html), "button_press_event",
-	  GTK_SIGNAL_FUNC (frame_button_press_event), frame);
+	  G_CALLBACK (frame_button_press_event), frame);
 	*/
 
 	gtk_widget_set_size_request (scrolled_window, width, height);

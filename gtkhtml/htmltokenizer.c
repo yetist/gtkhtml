@@ -265,10 +265,10 @@ html_tokenizer_finalize (GObject *obj)
         G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
-GtkType
+GType
 html_tokenizer_get_type (void)
 {
-	static GtkType html_tokenizer_type = 0;
+	static GType html_tokenizer_type = 0;
 
 	if (!html_tokenizer_type) {
 		static const GTypeInfo html_tokenizer_info = {

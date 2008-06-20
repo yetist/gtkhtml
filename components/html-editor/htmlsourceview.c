@@ -238,7 +238,7 @@ html_source_view_class_init (HTMLSourceViewClass *klass)
 	klass->update = html_source_view_real_update;
 }
 
-GtkType
+GType
 html_source_view_get_type (void)
 {
 	static GType view_type = 0;

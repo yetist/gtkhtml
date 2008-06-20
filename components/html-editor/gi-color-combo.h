@@ -65,7 +65,7 @@ typedef struct {
 #define GI_COLOR_COMBO_CLASS(k) (G_TYPE_CHECK_CLASS_CAST(k), GI_COLOR_COMBO_TYPE)
 #define IS_GI_COLOR_COMBO(obj)  (G_TYPE_CHECK_INSTANCE_TYPE((obj), GI_COLOR_COMBO_TYPE))
 
-GtkType    gi_color_combo_get_type   (void);
+GType    gi_color_combo_get_type   (void);
 GtkWidget *gi_color_combo_new        (GdkPixbuf   *icon,
 				      char  const *no_color_label,
 				      GdkColor    *default_color,

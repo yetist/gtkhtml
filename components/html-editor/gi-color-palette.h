@@ -86,7 +86,7 @@ typedef struct {
 #define COLOR_PALETTE_CLASS(k) (G_TYPE_CHECK_CLASS_CAST(k), COLOR_PALETTE_TYPE)
 #define IS_COLOR_PALETTE(obj)  (G_TYPE_CHECK_INSTANCE_TYPE((obj), COLOR_PALETTE_TYPE))
 
-GtkType         color_palette_get_type (void);
+GType         color_palette_get_type (void);
 
 GtkWidget       *color_palette_new (const char *no_color_label,
 				    GdkColor *default_color,

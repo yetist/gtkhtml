@@ -27,9 +27,9 @@
 #include "gtkhtml.h"
 
 #define HTML_TYPE_SOURCE_VIEW                    (html_source_view_get_type ())
-#define HTML_SOURCE_VIEW(w)                      (GTK_CHECK_CAST ((w), HTML_TYPE_SOURCE_VIEW, HTMLSourceView))
-#define HTML_SOURCE_VIEW_CLASS(klass)            (GTK_CHECK_CLASS_CAST ((klass), HTML_TYPE_SOURCE_VIEW, HTMLSourceViewClass))
-#define HTML_IS_SOURCE_VIEW(w)                   (GTK_CHECK_TYPE ((w), HTML_TYPE_SOURCE_VIEW))
+#define HTML_SOURCE_VIEW(w)                      (G_TYPE_CHECK_INSTANCE_CAST ((w), HTML_TYPE_SOURCE_VIEW, HTMLSourceView))
+#define HTML_SOURCE_VIEW_CLASS(klass)            (G_TYPE_CHECK_CLASS_CAST ((klass), HTML_TYPE_SOURCE_VIEW, HTMLSourceViewClass))
+#define HTML_IS_SOURCE_VIEW(w)                   (G_TYPE_CHECK_INSTANCE_TYPE ((w), HTML_TYPE_SOURCE_VIEW))
 
 typedef struct _HTMLSourceViewPrivate HTMLSourceViewPrivate;
 typedef struct _HTMLSourceViewClass HTMLSourceViewClass;
@@ -47,7 +47,7 @@ struct _HTMLSourceViewClass {
 	void (*update)(HTMLSourceView *);
 };
 
-GtkType        html_source_view_get_type        (void);
+GType        html_source_view_get_type        (void);
 GtkWidget *    html_source_view_new             (void);
 
 void           html_source_view_set_timeout     (HTMLSourceView *view, guint timeout);

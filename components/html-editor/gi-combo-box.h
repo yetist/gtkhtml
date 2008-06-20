@@ -60,7 +60,7 @@ struct _GiComboBoxClass {
 	void      (*post_pop_hide)    (GiComboBox *cbox);
 };
 
-GtkType    gi_combo_box_get_type    (void);
+GType    gi_combo_box_get_type    (void);
 void       gi_combo_box_construct   (GiComboBox *combo_box,
 				      GtkWidget   *display_widget,
 				      GtkWidget   *optional_pop_down_widget);

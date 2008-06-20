@@ -48,7 +48,7 @@ struct _HTMLPrinterClass {
 	HTMLPainterClass base;
 };
 
-GtkType      html_printer_get_type                    (void);
+GType      html_printer_get_type                    (void);
 HTMLPainter *html_printer_new                         (GtkWidget         *widget,
 						       GtkPrintContext *context);
 guint        html_printer_get_page_width              (HTMLPrinter       *printer);

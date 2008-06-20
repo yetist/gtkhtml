@@ -44,7 +44,7 @@ struct _HTMLPlainPainterClass {
 	HTMLGdkPainterClass base;
 };
 
-GtkType      html_plain_painter_get_type (void);
+GType      html_plain_painter_get_type (void);
 HTMLPainter *html_plain_painter_new      (GtkWidget *widget, gboolean double_buffer);
 
 #endif /* _HTMLPLAINPAINTER_H */

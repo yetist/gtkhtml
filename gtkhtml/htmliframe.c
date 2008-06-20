@@ -646,10 +646,10 @@ html_iframe_init (HTMLIFrame *iframe,
 	 * proxied like url_requested is.
 	 */
 	gtk_signal_connect (GTK_OBJECT (new_html), "on_url",
-			    GTK_SIGNAL_FUNC (iframe_on_url),
+			    G_CALLBACK (iframe_on_url),
 			    (gpointer)iframe);
 	gtk_signal_connect (GTK_OBJECT (new_html), "link_clicked",
-			    GTK_SIGNAL_FUNC (iframe_link_clicked),
+			    G_CALLBACK (iframe_link_clicked),
 			    (gpointer)iframe);
 #endif
 	g_signal_connect (new_html, "size_changed", G_CALLBACK (iframe_size_changed), iframe);
@@ -658,7 +658,7 @@ html_iframe_init (HTMLIFrame *iframe,
 
 	/*
 	  gtk_signal_connect (GTK_OBJECT (html), "button_press_event",
-	  GTK_SIGNAL_FUNC (iframe_button_press_event), iframe);
+	  G_CALLBACK (iframe_button_press_event), iframe);
 	*/
 
 	gtk_widget_set_size_request (scrolled_window, width, height);
@@ -677,13 +677,13 @@ html_iframe_init (HTMLIFrame *iframe,
 	html_painter_set_focus (new_html->engine->painter, parent_html->engine->have_focus);
 	/*
 	gtk_signal_connect (GTK_OBJECT (html), "title_changed",
-			    GTK_SIGNAL_FUNC (title_changed_cb), (gpointer)app);
+			    G_CALLBACK (title_changed_cb), (gpointer)app);
 	gtk_signal_connect (GTK_OBJECT (html), "button_press_event",
-			    GTK_SIGNAL_FUNC (on_button_press_event), popup_menu);
+			    G_CALLBACK (on_button_press_event), popup_menu);
 	gtk_signal_connect (GTK_OBJECT (html), "redirect",
-			    GTK_SIGNAL_FUNC (on_redirect), NULL);
+			    G_CALLBACK (on_redirect), NULL);
 	gtk_signal_connect (GTK_OBJECT (html), "object_requested",
-			    GTK_SIGNAL_FUNC (object_requested_cmd), NULL);
+			    G_CALLBACK (object_requested_cmd), NULL);
 	*/
 }
 

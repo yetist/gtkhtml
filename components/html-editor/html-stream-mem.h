@@ -15,10 +15,10 @@ typedef struct _HTMLStreamMem      HTMLStreamMem;
 typedef struct _HTMLStreamMemClass HTMLStreamMemClass;
 
 #define HTML_STREAM_MEM_TYPE          (html_stream_mem_get_type ())
-#define HTML_STREAM_MEM(o)            (GTK_CHECK_CAST ((o), HTML_STREAM_MEM_TYPE, HTMLStreamMem))
-#define HTML_STREAM_MEM_CLASS(k)      (GTK_CHECK_CLASS_CAST((k), HTML_STREAM_MEM_TYPE, HTMLStreamMemClass))
-#define HTML_IS_STREAM_MEM(o)         (GTK_CHECK_TYPE ((o), HTML_STREAM_MEM_TYPE))
-#define HTML_IS_STREAM_MEM_CLASS(k)   (GTK_CHECK_CLASS_TYPE ((k), HTML_STREAM_MEM_TYPE))
+#define HTML_STREAM_MEM(o)            (G_TYPE_CHECK_INSTANCE_CAST ((o), HTML_STREAM_MEM_TYPE, HTMLStreamMem))
+#define HTML_STREAM_MEM_CLASS(k)      (G_TYPE_CHECK_CLASS_CAST((k), HTML_STREAM_MEM_TYPE, HTMLStreamMemClass))
+#define HTML_IS_STREAM_MEM(o)         (G_TYPE_CHECK_INSTANCE_TYPE ((o), HTML_STREAM_MEM_TYPE))
+#define HTML_IS_STREAM_MEM_CLASS(k)   (G_TYPE_CHECK_CLASS_TYPE ((k), HTML_STREAM_MEM_TYPE))
 
 struct _HTMLStreamMem {
 	BonoboObject  bonobo_object;
@@ -31,7 +31,7 @@ struct _HTMLStreamMemClass {
 	POA_Bonobo_Stream__epv epv;
 };
 
-GtkType         html_stream_mem_get_type     (void);
+GType         html_stream_mem_get_type     (void);
 BonoboObject   *html_stream_mem_create       (GtkHTMLStream *html_stream);
 HTMLStreamMem  *html_stream_mem_constuct     (HTMLStreamMem *bhtml, GtkHTMLStream *html_stream);
 

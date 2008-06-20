@@ -34,10 +34,10 @@ typedef struct _EditorEngine EditorEngine;
 #include "gtkhtml.h"
 
 #define EDITOR_ENGINE_TYPE        (editor_engine_get_type ())
-#define EDITOR_ENGINE(o)          (GTK_CHECK_CAST ((o), EDITOR_ENGINE_TYPE, EditorEngine))
-#define EDITOR_ENGINE_CLASS(k)    (GTK_CHECK_CLASS_CAST((k), EDITOR_ENGINE_TYPE, EditorEngineClass))
-#define IS_EDITOR_ENGINE(o)       (GTK_CHECK_TYPE ((o), EDITOR_ENGINE_TYPE))
-#define IS_EDITOR_ENGINE_CLASS(k) (GTK_CHECK_CLASS_TYPE ((k), EDITOR_ENGINE_TYPE))
+#define EDITOR_ENGINE(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), EDITOR_ENGINE_TYPE, EditorEngine))
+#define EDITOR_ENGINE_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), EDITOR_ENGINE_TYPE, EditorEngineClass))
+#define IS_EDITOR_ENGINE(o)       (G_TYPE_CHECK_INSTANCE_TYPE ((o), EDITOR_ENGINE_TYPE))
+#define IS_EDITOR_ENGINE_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), EDITOR_ENGINE_TYPE))
 
 struct _EditorEngine {
 	BonoboObject parent;
@@ -52,7 +52,7 @@ typedef struct {
 	POA_GNOME_GtkHTML_Editor_Engine__epv epv;
 } EditorEngineClass;
 
-GtkType                               editor_engine_get_type   (void);
+GType                               editor_engine_get_type   (void);
 EditorEngine                         *editor_engine_new        (GtkHTMLControlData          *cd);
 POA_GNOME_GtkHTML_Editor_Engine__epv *editor_engine_get_epv    (void);
 
