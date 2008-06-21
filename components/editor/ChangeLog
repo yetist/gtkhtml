@@ -5,7 +5,7 @@
 	* gtkhtml-editor-actions.c:
 	Add accelerators for "justify-left" (Ctrl+L), "justify-center"
 	(Ctrl+E) and "justify-right" (Ctrl+R).  Change the "word-wrap"
-	accelerator from Ctrl+L to Ctrl+Backspace.  Note: Ctrl+E is
+	accelerator from Ctrl+L to Ctrl+Backslash.  Note: Ctrl+E is
 	consistent with AbiWord.
 
 2008-06-18  Matthew Barnes  <mbarnes@redhat.com>
