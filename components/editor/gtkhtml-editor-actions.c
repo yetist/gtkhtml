@@ -1531,7 +1531,7 @@ static GtkActionEntry core_entries[] = {
 	{ "wrap-lines",
 	  NULL,
 	  N_("_Wrap Lines"),
-	  "<Control>l",
+	  "<Control>backslash",
 	  NULL,
 	  G_CALLBACK (action_wrap_lines_cb) },
 
@@ -1617,21 +1617,21 @@ static GtkRadioActionEntry core_justify_entries[] = {
 	{ "justify-center",
 	  GTK_STOCK_JUSTIFY_CENTER,
 	  N_("_Center"),
-	  NULL,
+	  "<Control>e",
 	  NULL,
 	  GTK_HTML_PARAGRAPH_ALIGNMENT_CENTER },
 
 	{ "justify-left",
 	  GTK_STOCK_JUSTIFY_LEFT,
 	  N_("_Left"),
-	  NULL,
+	  "<Control>l",
 	  NULL,
 	  GTK_HTML_PARAGRAPH_ALIGNMENT_LEFT },
 
 	{ "justify-right",
 	  GTK_STOCK_JUSTIFY_RIGHT,
 	  N_("_Right"),
-	  NULL,
+	  "<Control>r",
 	  NULL,
 	  GTK_HTML_PARAGRAPH_ALIGNMENT_RIGHT }
 };
