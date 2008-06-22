@@ -1322,7 +1322,7 @@ static GtkActionEntry core_entries[] = {
 	  GTK_STOCK_INDENT,
 	  N_("_Increase Indent"),
 	  "<Control>bracketleft",
-	  NULL,
+	  N_("Increase Indent"),
 	  G_CALLBACK (action_indent_cb) },
 
 	{ "insert-html-file",
@@ -1525,7 +1525,7 @@ static GtkActionEntry core_entries[] = {
 	  GTK_STOCK_UNINDENT,
 	  N_("_Decrease Indent"),
 	  "<Control>bracketright",
-	  NULL,
+	  N_("Decrease Indent"),
 	  G_CALLBACK (action_unindent_cb) },
 
 	{ "wrap-lines",
@@ -1607,7 +1607,7 @@ static GtkToggleActionEntry core_toggle_entries[] = {
 	  NULL,
 	  N_("_HTML Mode"),
 	  NULL,
-	  NULL,
+	  N_("Toggle between HTML and plain text mode"),
 	  G_CALLBACK (action_html_mode_cb),
 	  TRUE },
 };
@@ -1618,21 +1618,21 @@ static GtkRadioActionEntry core_justify_entries[] = {
 	  GTK_STOCK_JUSTIFY_CENTER,
 	  N_("_Center"),
 	  "<Control>e",
-	  NULL,
+	  N_("Center Alignment"),
 	  GTK_HTML_PARAGRAPH_ALIGNMENT_CENTER },
 
 	{ "justify-left",
 	  GTK_STOCK_JUSTIFY_LEFT,
 	  N_("_Left"),
 	  "<Control>l",
-	  NULL,
+	  N_("Left Alignment"),
 	  GTK_HTML_PARAGRAPH_ALIGNMENT_LEFT },
 
 	{ "justify-right",
 	  GTK_STOCK_JUSTIFY_RIGHT,
 	  N_("_Right"),
 	  "<Control>r",
-	  NULL,
+	  N_("Right Alignment"),
 	  GTK_HTML_PARAGRAPH_ALIGNMENT_RIGHT }
 };
 
@@ -1742,28 +1742,28 @@ static GtkActionEntry html_entries[] = {
 	  "insert-image",
 	  N_("_Image..."),
 	  NULL,
-	  NULL,
+	  N_("Insert Image"),
 	  G_CALLBACK (action_insert_image_cb) },
 
 	{ "insert-link",
 	  "insert-link",
 	  N_("_Link..."),
 	  NULL,
-	  NULL,
+	  N_("Insert Link"),
 	  G_CALLBACK (action_insert_link_cb) },
 
 	{ "insert-rule",
 	  "stock_insert-rule",
 	  N_("_Rule..."),
 	  NULL,
-	  NULL,
+	  N_("Insert Rule"),
 	  G_CALLBACK (action_insert_rule_cb) },
 
 	{ "insert-table",
 	  "stock_insert-table",
 	  N_("_Table..."),
 	  NULL,
-	  NULL,
+	  N_("Insert Table"),
 	  G_CALLBACK (action_insert_table_cb) },
 
 	{ "properties-cell",
@@ -1831,7 +1831,7 @@ static GtkToggleActionEntry html_toggle_entries[] = {
 	  GTK_STOCK_BOLD,
 	  N_("_Bold"),
 	  "<Control>b",
-	  NULL,
+	  N_("Bold"),
 	  G_CALLBACK (action_bold_cb),
 	  FALSE },
 
@@ -1839,7 +1839,7 @@ static GtkToggleActionEntry html_toggle_entries[] = {
 	  GTK_STOCK_ITALIC,
 	  N_("_Italic"),
 	  "<Control>i",
-	  NULL,
+	  N_("Italic"),
 	  G_CALLBACK (action_italic_cb),
 	  FALSE },
 
@@ -1847,7 +1847,7 @@ static GtkToggleActionEntry html_toggle_entries[] = {
 	  "stock_text-monospaced",
 	  N_("_Plain Text"),
 	  "<Control>t",
-	  NULL,
+	  N_("Plain Text"),
 	  G_CALLBACK (action_monospaced_cb),
 	  FALSE },
 
@@ -1855,7 +1855,7 @@ static GtkToggleActionEntry html_toggle_entries[] = {
 	  GTK_STOCK_STRIKETHROUGH,
 	  N_("_Strikethrough"),
 	  NULL,
-	  NULL,
+	  N_("Strikethrough"),
 	  G_CALLBACK (action_strikethrough_cb),
 	  FALSE },
 
@@ -1863,7 +1863,7 @@ static GtkToggleActionEntry html_toggle_entries[] = {
 	  GTK_STOCK_UNDERLINE,
 	  N_("_Underline"),
 	  "<Control>u",
-	  NULL,
+	  N_("Underline"),
 	  G_CALLBACK (action_underline_cb),
 	  FALSE }
 };

@@ -245,6 +245,7 @@ gtkhtml_editor_private_init (GtkhtmlEditor *editor)
 		GTK_RADIO_ACTION (ACTION (STYLE_NORMAL)));
 	gtk_combo_box_set_focus_on_click (GTK_COMBO_BOX (widget), FALSE);
 	gtk_container_add (GTK_CONTAINER (tool_item), widget);
+	gtk_widget_set_tooltip_text (widget, _("Paragraph Style"));
 	gtk_toolbar_insert (GTK_TOOLBAR (priv->edit_toolbar), tool_item, 0);
 	priv->style_combo_box = g_object_ref (widget);
 	gtk_widget_show_all (GTK_WIDGET (tool_item));
@@ -258,6 +259,7 @@ gtkhtml_editor_private_init (GtkhtmlEditor *editor)
 		GTK_RADIO_ACTION (ACTION (SIZE_PLUS_ZERO)));
 	gtk_combo_box_set_focus_on_click (GTK_COMBO_BOX (widget), FALSE);
 	gtk_container_add (GTK_CONTAINER (tool_item), widget);
+	gtk_widget_set_tooltip_text (widget, _("Font Size"));
 	gtk_toolbar_insert (GTK_TOOLBAR (priv->edit_toolbar), tool_item, 0);
 	priv->size_combo_box = g_object_ref (widget);
 	gtk_widget_show_all (GTK_WIDGET (tool_item));
@@ -269,7 +271,7 @@ gtkhtml_editor_private_init (GtkhtmlEditor *editor)
 	tool_item = gtk_tool_item_new ();
 	widget = gtkhtml_color_combo_new ();
 	gtk_container_add (GTK_CONTAINER (tool_item), widget);
-	gtk_widget_set_tooltip_text (widget, _("Text Color"));
+	gtk_widget_set_tooltip_text (widget, _("Font Color"));
 	gtk_toolbar_insert (GTK_TOOLBAR (priv->edit_toolbar), tool_item, -1);
 	priv->color_combo_box = g_object_ref (widget);
 	gtk_widget_show_all (GTK_WIDGET (tool_item));
