@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 3.13\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-06 18:55+0200\n"
-"PO-Revision-Date: 2008-05-06 18:51+0200\n"
+"POT-Creation-Date: 2008-06-25 01:52+0200\n"
+"PO-Revision-Date: 2008-06-25 01:53+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgstr "URL er %s, alternativ tekst er %s"
 msgid "URL is %s"
 msgstr "URL er %s"
 
-#: ../a11y/object.c:52 ../a11y/object.c:61 ../a11y/text.c:127
+#: ../a11y/object.c:52 ../a11y/object.c:61 ../a11y/text.c:126
 msgid "grab focus"
 msgstr "ta fokus"
 
@@ -33,220 +33,220 @@ msgid "Panel containing HTML"
 msgstr "Panel som inneholder HTML"
 
 #: ../components/editor/gtkhtml-color-combo.c:78
-#: ../components/html-editor/gi-color-palette.c:559
+#: ../components/html-editor/gi-color-palette.c:555
 msgid "black"
 msgstr "sort"
 
 #: ../components/editor/gtkhtml-color-combo.c:79
-#: ../components/html-editor/gi-color-palette.c:560
+#: ../components/html-editor/gi-color-palette.c:556
 msgid "light brown"
 msgstr "lys brun"
 
 #: ../components/editor/gtkhtml-color-combo.c:80
-#: ../components/html-editor/gi-color-palette.c:561
+#: ../components/html-editor/gi-color-palette.c:557
 msgid "brown gold"
 msgstr "brun gull"
 
 #: ../components/editor/gtkhtml-color-combo.c:81
-#: ../components/html-editor/gi-color-palette.c:562
+#: ../components/html-editor/gi-color-palette.c:558
 msgid "dark green #2"
 msgstr "mørk grønn #2"
 
 #: ../components/editor/gtkhtml-color-combo.c:82
-#: ../components/html-editor/gi-color-palette.c:563
+#: ../components/html-editor/gi-color-palette.c:559
 msgid "navy"
 msgstr "marine"
 
 #: ../components/editor/gtkhtml-color-combo.c:83
-#: ../components/html-editor/gi-color-palette.c:564
-#: ../components/html-editor/gi-color-palette.c:620
+#: ../components/html-editor/gi-color-palette.c:560
+#: ../components/html-editor/gi-color-palette.c:616
 msgid "dark blue"
 msgstr "mørk blå"
 
 #: ../components/editor/gtkhtml-color-combo.c:84
-#: ../components/html-editor/gi-color-palette.c:565
+#: ../components/html-editor/gi-color-palette.c:561
 msgid "purple #2"
 msgstr "lilla #2"
 
 #: ../components/editor/gtkhtml-color-combo.c:85
-#: ../components/html-editor/gi-color-palette.c:566
+#: ../components/html-editor/gi-color-palette.c:562
 msgid "very dark gray"
 msgstr "meget mørk grå"
 
 #: ../components/editor/gtkhtml-color-combo.c:87
-#: ../components/html-editor/gi-color-palette.c:569
-#: ../components/html-editor/gi-color-palette.c:625
+#: ../components/html-editor/gi-color-palette.c:565
+#: ../components/html-editor/gi-color-palette.c:621
 msgid "dark red"
 msgstr "mørk rød"
 
 #: ../components/editor/gtkhtml-color-combo.c:88
-#: ../components/html-editor/gi-color-palette.c:570
+#: ../components/html-editor/gi-color-palette.c:566
 msgid "red-orange"
 msgstr "rød-oransje"
 
 #: ../components/editor/gtkhtml-color-combo.c:89
-#: ../components/html-editor/gi-color-palette.c:571
+#: ../components/html-editor/gi-color-palette.c:567
 msgid "gold"
 msgstr "gull"
 
 #: ../components/editor/gtkhtml-color-combo.c:90
-#: ../components/html-editor/gi-color-palette.c:572
+#: ../components/html-editor/gi-color-palette.c:568
 msgid "dark green"
 msgstr "mørk grønn"
 
 #: ../components/editor/gtkhtml-color-combo.c:91
-#: ../components/html-editor/gi-color-palette.c:573
-#: ../components/html-editor/gi-color-palette.c:626
+#: ../components/html-editor/gi-color-palette.c:569
+#: ../components/html-editor/gi-color-palette.c:622
 msgid "dull blue"
 msgstr "sløv blå"
 
 #: ../components/editor/gtkhtml-color-combo.c:92
-#: ../components/html-editor/gi-color-palette.c:574
-#: ../components/html-editor/gi-color-palette.c:627
+#: ../components/html-editor/gi-color-palette.c:570
+#: ../components/html-editor/gi-color-palette.c:623
 msgid "blue"
 msgstr "blå"
 
 #: ../components/editor/gtkhtml-color-combo.c:93
-#: ../components/html-editor/gi-color-palette.c:575
+#: ../components/html-editor/gi-color-palette.c:571
 msgid "dull purple"
 msgstr "sløv lilla"
 
 #: ../components/editor/gtkhtml-color-combo.c:94
-#: ../components/html-editor/gi-color-palette.c:576
+#: ../components/html-editor/gi-color-palette.c:572
 msgid "dark grey"
 msgstr "mørk grå"
 
 #: ../components/editor/gtkhtml-color-combo.c:96
-#: ../components/html-editor/gi-color-palette.c:579
+#: ../components/html-editor/gi-color-palette.c:575
 msgid "red"
 msgstr "rød"
 
 #: ../components/editor/gtkhtml-color-combo.c:97
-#: ../components/html-editor/gi-color-palette.c:580
+#: ../components/html-editor/gi-color-palette.c:576
 msgid "orange"
 msgstr "oransje"
 
 #: ../components/editor/gtkhtml-color-combo.c:98
-#: ../components/html-editor/gi-color-palette.c:581
+#: ../components/html-editor/gi-color-palette.c:577
 msgid "lime"
 msgstr "lime"
 
 #: ../components/editor/gtkhtml-color-combo.c:99
-#: ../components/html-editor/gi-color-palette.c:582
+#: ../components/html-editor/gi-color-palette.c:578
 msgid "dull green"
 msgstr "rund grønn"
 
 #: ../components/editor/gtkhtml-color-combo.c:100
-#: ../components/html-editor/gi-color-palette.c:583
+#: ../components/html-editor/gi-color-palette.c:579
 msgid "dull blue #2"
 msgstr "rund blå #2"
 
 #: ../components/editor/gtkhtml-color-combo.c:101
-#: ../components/html-editor/gi-color-palette.c:584
+#: ../components/html-editor/gi-color-palette.c:580
 msgid "sky blue #2"
 msgstr "himmelblå #2"
 
 #: ../components/editor/gtkhtml-color-combo.c:102
-#: ../components/html-editor/gi-color-palette.c:585
-#: ../components/html-editor/gi-color-palette.c:624
+#: ../components/html-editor/gi-color-palette.c:581
+#: ../components/html-editor/gi-color-palette.c:620
 msgid "purple"
 msgstr "lilla"
 
 #: ../components/editor/gtkhtml-color-combo.c:103
-#: ../components/html-editor/gi-color-palette.c:586
+#: ../components/html-editor/gi-color-palette.c:582
 msgid "gray"
 msgstr "grå"
 
 #: ../components/editor/gtkhtml-color-combo.c:105
-#: ../components/html-editor/gi-color-palette.c:589
-#: ../components/html-editor/gi-color-palette.c:621
+#: ../components/html-editor/gi-color-palette.c:585
+#: ../components/html-editor/gi-color-palette.c:617
 msgid "magenta"
 msgstr "magentarød"
 
 #: ../components/editor/gtkhtml-color-combo.c:106
-#: ../components/html-editor/gi-color-palette.c:590
+#: ../components/html-editor/gi-color-palette.c:586
 msgid "bright orange"
 msgstr "lys oransje"
 
 #: ../components/editor/gtkhtml-color-combo.c:107
-#: ../components/html-editor/gi-color-palette.c:591
-#: ../components/html-editor/gi-color-palette.c:622
+#: ../components/html-editor/gi-color-palette.c:587
+#: ../components/html-editor/gi-color-palette.c:618
 msgid "yellow"
 msgstr "gul"
 
 #: ../components/editor/gtkhtml-color-combo.c:108
-#: ../components/html-editor/gi-color-palette.c:592
+#: ../components/html-editor/gi-color-palette.c:588
 msgid "green"
 msgstr "grønn"
 
 #: ../components/editor/gtkhtml-color-combo.c:109
-#: ../components/html-editor/gi-color-palette.c:593
-#: ../components/html-editor/gi-color-palette.c:623
+#: ../components/html-editor/gi-color-palette.c:589
+#: ../components/html-editor/gi-color-palette.c:619
 msgid "cyan"
 msgstr "cyanblå"
 
 #: ../components/editor/gtkhtml-color-combo.c:110
-#: ../components/html-editor/gi-color-palette.c:594
+#: ../components/html-editor/gi-color-palette.c:590
 msgid "bright blue"
 msgstr "lys blå"
 
 #: ../components/editor/gtkhtml-color-combo.c:111
-#: ../components/html-editor/gi-color-palette.c:595
-#: ../components/html-editor/gi-color-palette.c:612
+#: ../components/html-editor/gi-color-palette.c:591
+#: ../components/html-editor/gi-color-palette.c:608
 msgid "red purple"
 msgstr "rød-lilla"
 
 #: ../components/editor/gtkhtml-color-combo.c:112
-#: ../components/html-editor/gi-color-palette.c:596
+#: ../components/html-editor/gi-color-palette.c:592
 msgid "light grey"
 msgstr "lys grå"
 
 #: ../components/editor/gtkhtml-color-combo.c:114
-#: ../components/html-editor/gi-color-palette.c:599
-#: ../components/html-editor/gi-color-palette.c:616
+#: ../components/html-editor/gi-color-palette.c:595
+#: ../components/html-editor/gi-color-palette.c:612
 msgid "pink"
 msgstr "rosa"
 
 #: ../components/editor/gtkhtml-color-combo.c:115
-#: ../components/html-editor/gi-color-palette.c:600
+#: ../components/html-editor/gi-color-palette.c:596
 msgid "light orange"
 msgstr "lys oransje"
 
 #: ../components/editor/gtkhtml-color-combo.c:116
-#: ../components/html-editor/gi-color-palette.c:601
-#: ../components/html-editor/gi-color-palette.c:613
+#: ../components/html-editor/gi-color-palette.c:597
+#: ../components/html-editor/gi-color-palette.c:609
 msgid "light yellow"
 msgstr "lys gul"
 
 #: ../components/editor/gtkhtml-color-combo.c:117
-#: ../components/html-editor/gi-color-palette.c:602
+#: ../components/html-editor/gi-color-palette.c:598
 msgid "light green"
 msgstr "lys grønn"
 
 #: ../components/editor/gtkhtml-color-combo.c:118
-#: ../components/html-editor/gi-color-palette.c:603
+#: ../components/html-editor/gi-color-palette.c:599
 msgid "light cyan"
 msgstr "lys cyanblå"
 
 #: ../components/editor/gtkhtml-color-combo.c:119
-#: ../components/html-editor/gi-color-palette.c:604
-#: ../components/html-editor/gi-color-palette.c:614
+#: ../components/html-editor/gi-color-palette.c:600
+#: ../components/html-editor/gi-color-palette.c:610
 msgid "light blue"
 msgstr "lys blå"
 
 #: ../components/editor/gtkhtml-color-combo.c:120
-#: ../components/html-editor/gi-color-palette.c:605
-#: ../components/html-editor/gi-color-palette.c:618
+#: ../components/html-editor/gi-color-palette.c:601
+#: ../components/html-editor/gi-color-palette.c:614
 msgid "light purple"
 msgstr "lys lilla"
 
 #: ../components/editor/gtkhtml-color-combo.c:121
-#: ../components/html-editor/gi-color-palette.c:606
+#: ../components/html-editor/gi-color-palette.c:602
 msgid "white"
 msgstr "hvit"
 
 #: ../components/editor/gtkhtml-color-combo.c:269
-#: ../components/html-editor/gi-color-palette.c:426
+#: ../components/html-editor/gi-color-palette.c:422
 msgid "Choose Custom Color"
 msgstr "Velg en egendefinert farge"
 
@@ -310,7 +310,7 @@ msgstr "Tilstand for fargekomboboksen"
 
 #. This is the default custom color
 #: ../components/editor/gtkhtml-color-combo.c:928
-#: ../components/html-editor/gi-color-palette.c:378
+#: ../components/html-editor/gi-color-palette.c:374
 msgid "custom"
 msgstr "egendefinert"
 
@@ -352,16 +352,17 @@ msgid "A GtkRadioAction"
 msgstr "En GtkRadioAction"
 
 #: ../components/editor/gtkhtml-editor-actions.c:695
-#: ../components/html-editor/menubar.c:349
+#: ../components/html-editor/menubar.c:348
 msgid "Insert HTML File"
 msgstr "Sett inn HTML-fil"
 
 #: ../components/editor/gtkhtml-editor-actions.c:704
+#: ../components/editor/gtkhtml-editor-actions.c:1745
 msgid "Insert Image"
 msgstr "Sett inn bilde"
 
 #: ../components/editor/gtkhtml-editor-actions.c:870
-#: ../components/html-editor/menubar.c:349
+#: ../components/html-editor/menubar.c:348
 msgid "Insert Text File"
 msgstr "Sett inn tekstfil"
 
@@ -403,6 +404,10 @@ msgstr "Finn i_gjen"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
 msgid "_Increase Indent"
 msgstr "Øk _innrykk"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1325
+msgid "Increase Indent"
+msgstr "Øk innrykk"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1330
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:117
@@ -559,6 +564,10 @@ msgstr "An_gre"
 msgid "_Decrease Indent"
 msgstr "_Mindre innrykk"
 
+#: ../components/editor/gtkhtml-editor-actions.c:1528
+msgid "Decrease Indent"
+msgstr "Mindre innrykk"
+
 #: ../components/editor/gtkhtml-editor-actions.c:1533
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:161
 msgid "_Wrap Lines"
@@ -576,8 +585,10 @@ msgid "_File"
 msgstr "_Fil"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1556
-msgid "_Format"
-msgstr "_Format"
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:28
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:28
+msgid "For_mat"
+msgstr "For_mater"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1563
 msgid "_Paragraph Style"
@@ -611,11 +622,19 @@ msgstr "_Vis"
 msgid "_HTML Mode"
 msgstr "_HTML-modus..."
 
+#: ../components/editor/gtkhtml-editor-actions.c:1610
+msgid "Toggle between HTML and plain text mode"
+msgstr "Bytt mellom HTML og vanlig tekst"
+
 #: ../components/editor/gtkhtml-editor-actions.c:1619
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
 msgid "_Center"
 msgstr "_Senter"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1621
+msgid "Center Alignment"
+msgstr "Sentrert justering"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1626
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
@@ -623,11 +642,19 @@ msgstr "_Senter"
 msgid "_Left"
 msgstr "_Venstre"
 
+#: ../components/editor/gtkhtml-editor-actions.c:1628
+msgid "Left Alignment"
+msgstr "Juster til venstre"
+
 #: ../components/editor/gtkhtml-editor-actions.c:1633
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:134
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:134
 msgid "_Right"
 msgstr "Høy_re"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1635
+msgid "Right Alignment"
+msgstr "Juster til høyre"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1643
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:126
@@ -721,6 +748,10 @@ msgstr "B_ilde..."
 msgid "_Link..."
 msgstr "_Lenke..."
 
+#: ../components/editor/gtkhtml-editor-actions.c:1752
+msgid "Insert Link"
+msgstr "Sett inn lenke"
+
 #: ../components/editor/gtkhtml-editor-actions.c:1757
 #: ../components/editor/gtkhtml-editor-actions.c:1799
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:136
@@ -728,12 +759,20 @@ msgstr "_Lenke..."
 msgid "_Rule..."
 msgstr "_Regel..."
 
+#: ../components/editor/gtkhtml-editor-actions.c:1759
+msgid "Insert Rule"
+msgstr "Sett inn regel"
+
 #: ../components/editor/gtkhtml-editor-actions.c:1764
 #: ../components/editor/gtkhtml-editor-actions.c:1806
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:140
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:140
 msgid "_Table..."
 msgstr "_Tabell..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1766
+msgid "Insert Table"
+msgstr "Sett inn tabell"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1771
 msgid "_Cell..."
@@ -759,6 +798,11 @@ msgstr "Stil for skri_ft"
 msgid "_Bold"
 msgstr "_Uthevet"
 
+#: ../components/editor/gtkhtml-editor-actions.c:1834
+#: ../components/html-editor/toolbar.c:441
+msgid "Bold"
+msgstr "Uthevet"
+
 #: ../components/editor/gtkhtml-editor-actions.c:1840
 #: ../components/editor/gtkhtml-editor.glade.h:65
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:122
@@ -767,11 +811,20 @@ msgstr "_Uthevet"
 msgid "_Italic"
 msgstr "Kurs_iv"
 
+#: ../components/editor/gtkhtml-editor-actions.c:1842
+#: ../components/html-editor/toolbar.c:444
+msgid "Italic"
+msgstr "Kursiv"
+
 #: ../components/editor/gtkhtml-editor-actions.c:1848
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:130
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
 msgid "_Plain Text"
 msgstr "_Vanlig tekst"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1850
+msgid "Plain Text"
+msgstr "Vanlig tekst"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1856
 #: ../components/editor/gtkhtml-editor.glade.h:74
@@ -781,6 +834,10 @@ msgstr "_Vanlig tekst"
 msgid "_Strikethrough"
 msgstr "_Gjennomstreket"
 
+#: ../components/editor/gtkhtml-editor-actions.c:1858
+msgid "Strikethrough"
+msgstr "Gjennomstreket"
+
 #: ../components/editor/gtkhtml-editor-actions.c:1864
 #: ../components/editor/gtkhtml-editor.glade.h:80
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:158
@@ -788,6 +845,11 @@ msgstr "_Gjennomstreket"
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:74
 msgid "_Underline"
 msgstr "_Understreket"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1866
+#: ../components/html-editor/toolbar.c:447
+msgid "Underline"
+msgstr "Understreket"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1875
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:7
@@ -850,7 +912,7 @@ msgstr "Rad"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:50
-#: ../components/html-editor/menubar.c:218
+#: ../components/html-editor/menubar.c:217
 #: ../components/html-editor/popup.c:235 ../components/html-editor/popup.c:509
 #: ../components/html-editor/popup.c:521
 msgid "Table"
@@ -870,7 +932,7 @@ msgid "Table Insert"
 msgstr "Sett inn tabell"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1987
-#: ../components/html-editor/editor-control-factory.c:190
+#: ../components/html-editor/editor-control-factory.c:187
 #: ../components/html-editor/popup.c:191 ../components/html-editor/popup.c:268
 msgid "Properties"
 msgstr "Egenskaper"
@@ -973,12 +1035,19 @@ msgstr "_Regel"
 msgid "_Table"
 msgstr "_Tabell"
 
-#: ../components/editor/gtkhtml-editor-private.c:272
-#: ../components/html-editor/toolbar.c:540
-msgid "Text Color"
+#: ../components/editor/gtkhtml-editor-private.c:248
+msgid "Paragraph Style"
+msgstr "Stil for avsnitt"
+
+#: ../components/editor/gtkhtml-editor-private.c:262
+msgid "Font Size"
+msgstr "Skriftstørrelse"
+
+#: ../components/editor/gtkhtml-editor-private.c:274
+msgid "Font Color"
 msgstr "Tekstfarge"
 
-#: ../components/editor/gtkhtml-editor-private.c:299
+#: ../components/editor/gtkhtml-editor-private.c:301
 #: ../components/html-editor/body.c:237 ../components/html-editor/text.c:171
 #: ../components/html-editor/toolbar.c:199
 msgid "Automatic"
@@ -1409,11 +1478,11 @@ msgstr ""
 "%\n"
 "følg"
 
-#: ../components/editor/gtkhtml-spell-checker.c:169
+#: ../components/editor/gtkhtml-spell-checker.c:200
 msgid "Language"
 msgstr "Språk"
 
-#: ../components/editor/gtkhtml-spell-checker.c:170
+#: ../components/editor/gtkhtml-spell-checker.c:201
 msgid "The language used by the spell checker"
 msgstr "Språk som brukes av stavekontroll"
 
@@ -1614,11 +1683,6 @@ msgstr "Søk og erstatt"
 msgid "Find and replace"
 msgstr "Søk og erstatt"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:28
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:28
-msgid "For_mat"
-msgstr "For_mater"
-
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:35
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
 msgid "I_nsert"
@@ -1626,7 +1690,7 @@ msgstr "Sett _inn"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:36
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
-#: ../components/html-editor/editor-control-factory.c:200
+#: ../components/html-editor/editor-control-factory.c:197
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:35
 #: ../components/html-editor/popup.c:211
 msgid "Image"
@@ -1704,7 +1768,7 @@ msgstr "Sett inn blunkende smilefjes i dokumentet..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:51
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
-#: ../components/html-editor/menubar.c:130
+#: ../components/html-editor/menubar.c:129
 msgid "Insert image"
 msgstr "Sett inn bilde"
 
@@ -1751,7 +1815,7 @@ msgstr "Venstrejusterer avsnittene"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:60
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
-#: ../components/html-editor/menubar.c:175
+#: ../components/html-editor/menubar.c:174
 #: ../components/html-editor/popup.c:111 ../components/html-editor/popup.c:205
 #: ../components/html-editor/popup.c:271
 msgid "Link"
@@ -1891,9 +1955,9 @@ msgstr "Liste med romerske tall"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:90
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
-#: ../components/html-editor/editor-control-factory.c:218
+#: ../components/html-editor/editor-control-factory.c:215
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:46
-#: ../components/html-editor/menubar.c:194
+#: ../components/html-editor/menubar.c:193
 #: ../components/html-editor/popup.c:229
 msgid "Rule"
 msgstr "Regel"
@@ -2077,7 +2141,7 @@ msgstr "Sti til bakgrunnsbilde"
 
 #: ../components/html-editor/body.c:275
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:51
-#: ../components/html-editor/menubar.c:240
+#: ../components/html-editor/menubar.c:239
 msgid "Template"
 msgstr "Mal"
 
@@ -2093,49 +2157,49 @@ msgstr "Kunne ikke lese glade-fil."
 msgid "Transparent"
 msgstr "Gjennomsiktig"
 
-#: ../components/html-editor/editor-control-factory.c:208
+#: ../components/html-editor/editor-control-factory.c:205
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:52
-#: ../components/html-editor/menubar.c:426
+#: ../components/html-editor/menubar.c:425
 #: ../components/html-editor/popup.c:199
 msgid "Text"
 msgstr "Tekst"
 
-#: ../components/html-editor/editor-control-factory.c:227
-#: ../components/html-editor/menubar.c:443
+#: ../components/html-editor/editor-control-factory.c:224
+#: ../components/html-editor/menubar.c:442
 #: ../components/html-editor/popup.c:217
 msgid "Paragraph"
 msgstr "Avsnitt"
 
-#: ../components/html-editor/editor-control-factory.c:231
+#: ../components/html-editor/editor-control-factory.c:228
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:44
-#: ../components/html-editor/menubar.c:409
+#: ../components/html-editor/menubar.c:408
 #: ../components/html-editor/popup.c:223
 msgid "Page"
 msgstr "Side"
 
-#: ../components/html-editor/gi-color-combo.c:191
+#: ../components/html-editor/gi-color-combo.c:189
 msgid "color preview"
 msgstr "forhåndsvisning av farge"
 
 #. "Custom" color - we'll pop up a GtkColorDialog
-#: ../components/html-editor/gi-color-palette.c:418
+#: ../components/html-editor/gi-color-palette.c:414
 msgid "Custom Color:"
 msgstr "Egendefinert farge:"
 
-#: ../components/html-editor/gi-color-palette.c:611
+#: ../components/html-editor/gi-color-palette.c:607
 msgid "purplish blue"
 msgstr "blå-lilla"
 
-#: ../components/html-editor/gi-color-palette.c:615
+#: ../components/html-editor/gi-color-palette.c:611
 msgid "dark purple"
 msgstr "mørk lilla"
 
-#: ../components/html-editor/gi-color-palette.c:617
+#: ../components/html-editor/gi-color-palette.c:613
 msgid "sky blue"
 msgstr "himmelblå"
 
 #. set the a11y name
-#: ../components/html-editor/gi-combo-box.c:424
+#: ../components/html-editor/gi-combo-box.c:411
 msgid "Popup"
 msgstr "Oppsprett"
 
@@ -2274,22 +2338,22 @@ msgstr "URL:"
 msgid "Description:"
 msgstr "Beskrivelse:"
 
-#: ../components/html-editor/menubar.c:172
-#: ../components/html-editor/menubar.c:191
-#: ../components/html-editor/menubar.c:215
-#: ../components/html-editor/menubar.c:237
+#: ../components/html-editor/menubar.c:171
+#: ../components/html-editor/menubar.c:190
+#: ../components/html-editor/menubar.c:214
+#: ../components/html-editor/menubar.c:236
 #: ../components/html-editor/popup.c:108
 msgid "Insert"
 msgstr "Sett inn"
 
-#: ../components/html-editor/menubar.c:324
+#: ../components/html-editor/menubar.c:323
 #, c-format
 msgid "Error loading file '%s': %s"
 msgstr "Feil under lasting av fil «%s»: %s"
 
-#: ../components/html-editor/menubar.c:406
-#: ../components/html-editor/menubar.c:423
-#: ../components/html-editor/menubar.c:440
+#: ../components/html-editor/menubar.c:405
+#: ../components/html-editor/menubar.c:422
+#: ../components/html-editor/menubar.c:439
 msgid "Format"
 msgstr "Format"
 
@@ -2482,7 +2546,7 @@ msgstr "Åpne fil..."
 msgid "Save file as..."
 msgstr "Lagre fil som..."
 
-#: ../components/html-editor/test-html-editor-control.c:541
+#: ../components/html-editor/test-html-editor-control.c:542
 msgid "GtkHTML Editor Test Container"
 msgstr "Testkontainer for GtkHTML-redigering"
 
@@ -2499,24 +2563,12 @@ msgid "Toggle typewriter font style"
 msgstr "Slå av/på skrivemaskin stil for skrifttype"
 
 #: ../components/html-editor/toolbar.c:441
-msgid "Bold"
-msgstr "Uthevet"
-
-#: ../components/html-editor/toolbar.c:441
 msgid "Makes the text bold"
 msgstr "Gjør teksten fet"
 
 #: ../components/html-editor/toolbar.c:444
-msgid "Italic"
-msgstr "Kursiv"
-
-#: ../components/html-editor/toolbar.c:444
 msgid "Makes the text italic"
 msgstr "Gjør teksten kursiv"
-
-#: ../components/html-editor/toolbar.c:447
-msgid "Underline"
-msgstr "Understreket"
 
 #: ../components/html-editor/toolbar.c:447
 msgid "Underlines the text"
@@ -2542,6 +2594,10 @@ msgstr "Innrykk"
 msgid "Indents the paragraphs more"
 msgstr "Større innrykk for avsnittene"
 
+#: ../components/html-editor/toolbar.c:540
+msgid "Text Color"
+msgstr "Tekstfarge"
+
 #: ../components/html-editor/utils.c:132
 msgid "Sample"
 msgstr "Eksempel"
@@ -2554,91 +2610,91 @@ msgstr ""
 "Redigert objekt er fjernet fra dokumentet.\n"
 "Kan ikke bruke dine endringer."
 
-#: ../gtkhtml/gtkhtml.c:2886
+#: ../gtkhtml/gtkhtml.c:2916
 msgid "Editable"
 msgstr "Redigerbar"
 
-#: ../gtkhtml/gtkhtml.c:2887
+#: ../gtkhtml/gtkhtml.c:2917
 msgid "Whether the html can be edited"
 msgstr "Om HTML-koden kan redigeres"
 
-#: ../gtkhtml/gtkhtml.c:2893
+#: ../gtkhtml/gtkhtml.c:2923
 msgid "Document Title"
 msgstr "Dokumenttittel"
 
-#: ../gtkhtml/gtkhtml.c:2894
+#: ../gtkhtml/gtkhtml.c:2924
 msgid "The title of the current document"
 msgstr "Tittel for aktivt dokument"
 
-#: ../gtkhtml/gtkhtml.c:2900
+#: ../gtkhtml/gtkhtml.c:2930
 msgid "Document Base"
 msgstr "Dokumentbasis"
 
-#: ../gtkhtml/gtkhtml.c:2901
+#: ../gtkhtml/gtkhtml.c:2931
 msgid "The base URL for relative references"
 msgstr "Basis-URL for relative referanser"
 
-#: ../gtkhtml/gtkhtml.c:2907
+#: ../gtkhtml/gtkhtml.c:2937
 msgid "Target Base"
 msgstr "Målbasis"
 
-#: ../gtkhtml/gtkhtml.c:2908
+#: ../gtkhtml/gtkhtml.c:2938
 msgid "The base URL of the target frame"
 msgstr "Basis-URL for målrammen"
 
-#: ../gtkhtml/gtkhtml.c:2917
+#: ../gtkhtml/gtkhtml.c:2947
 msgid "Fixed Width Font"
 msgstr "Skrift med fast bredde"
 
-#: ../gtkhtml/gtkhtml.c:2918
+#: ../gtkhtml/gtkhtml.c:2948
 msgid "The Monospace font to use for typewriter text"
 msgstr "Skrift med fast bredde som skal brukes for skrivemaskintekst"
 
-#: ../gtkhtml/gtkhtml.c:2924
+#: ../gtkhtml/gtkhtml.c:2954
 msgid "New Link Color"
 msgstr "Farge for ny lenke"
 
-#: ../gtkhtml/gtkhtml.c:2925
+#: ../gtkhtml/gtkhtml.c:2955
 msgid "The color of new link elements"
 msgstr "Farge for nye lenkeelementer"
 
-#: ../gtkhtml/gtkhtml.c:2930
+#: ../gtkhtml/gtkhtml.c:2960
 msgid "Visited Link Color"
 msgstr "Farge for besøkt lenke"
 
-#: ../gtkhtml/gtkhtml.c:2931
+#: ../gtkhtml/gtkhtml.c:2961
 msgid "The color of visited link elements"
 msgstr "Farge for besøkte lenkeelementer"
 
-#: ../gtkhtml/gtkhtml.c:2936
+#: ../gtkhtml/gtkhtml.c:2966
 msgid "Active Link Color"
 msgstr "Farge for aktiv lenke"
 
-#: ../gtkhtml/gtkhtml.c:2937
+#: ../gtkhtml/gtkhtml.c:2967
 msgid "The color of active link elements"
 msgstr "Farge for aktive lenkeelementer"
 
-#: ../gtkhtml/gtkhtml.c:2942
+#: ../gtkhtml/gtkhtml.c:2972
 msgid "Spelling Error Color"
 msgstr "Farge for stavefeil"
 
-#: ../gtkhtml/gtkhtml.c:2943
+#: ../gtkhtml/gtkhtml.c:2973
 msgid "The color of the spelling error markers"
 msgstr "Farge for markering av stavefeil"
 
-#: ../gtkhtml/gtkhtml.c:2948
+#: ../gtkhtml/gtkhtml.c:2978
 msgid "Cite Quotation Color"
 msgstr "Farge på sitattekst"
 
-#: ../gtkhtml/gtkhtml.c:2949
+#: ../gtkhtml/gtkhtml.c:2979
 msgid "The color of the cited text"
 msgstr "Farge på sitert tekst"
 
-#: ../gtkhtml/htmlbutton.c:140
+#: ../gtkhtml/htmlbutton.c:139
 msgid "Submit Query"
 msgstr "Send spørring"
 
-#: ../gtkhtml/htmlbutton.c:143
+#: ../gtkhtml/htmlbutton.c:142
 msgid "Reset"
 msgstr "Nullstill"
 
@@ -2647,39 +2703,18 @@ msgstr "Nullstill"
 msgid "Cannot allocate default font for printing"
 msgstr "Kan ikke allokere forvalgt skrift for utskrift"
 
-#: ../gtkhtml/test.c:374
+#: ../gtkhtml/test.c:365
 msgid "GtkHTML Test"
 msgstr "GtkHTML-test"
 
-#: ../gtkhtml/testgtkhtml.c:116
+#: ../gtkhtml/testgtkhtml.c:114
 msgid "Print pre_view"
 msgstr "Forhånds_visning"
 
-#: ../gtkhtml/testgtkhtml.c:116
+#: ../gtkhtml/testgtkhtml.c:114
 msgid "Print preview"
 msgstr "Forhåndsvisning"
 
-#: ../gtkhtml/testgtkhtml.c:1020
+#: ../gtkhtml/testgtkhtml.c:1018
 msgid "GtkHTML Test Application"
 msgstr "Test-applikasjon for GtkHTML"
-
-#~ msgid "gtk-close"
-#~ msgstr "gtk-close"
-
-#~ msgid "gtk-find"
-#~ msgstr "gtk-find"
-
-#~ msgid "gtk-find-and-replace"
-#~ msgstr "gtk-find-and-replace"
-
-#~ msgid "gtk-justify-center"
-#~ msgstr "gtk-justify-center"
-
-#~ msgid "gtk-justify-left"
-#~ msgstr "gtk-justify-left"
-
-#~ msgid "gtk-justify-right"
-#~ msgstr "gtk-justify-right"
-
-#~ msgid "gtk-ok"
-#~ msgstr "gtk-ok"
