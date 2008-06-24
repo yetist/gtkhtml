@@ -1,3 +1,7 @@
+2008-06-24  Jeffrey Stedfast  <fejj@novell.com>
+
+	* configure.in: Doltified.
+
 2008-06-20  Christian Persch  <chpe@gnome.org>
 
 	* components/html-editor/engine.h:
