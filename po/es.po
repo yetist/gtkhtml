@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-04-17 19:34+0100\n"
-"PO-Revision-Date: 2008-04-30 21:13+0200\n"
+"POT-Creation-Date: 2008-06-22 21:35+0000\n"
+"PO-Revision-Date: 2008-06-27 14:47+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -33,7 +33,7 @@ msgstr "La URL es %s, el texto alternativo es %s"
 msgid "URL is %s"
 msgstr "La URL es %s"
 
-#: ../a11y/object.c:52 ../a11y/object.c:61 ../a11y/text.c:127
+#: ../a11y/object.c:52 ../a11y/object.c:61 ../a11y/text.c:126
 msgid "grab focus"
 msgstr "obtener el foco"
 
@@ -42,220 +42,220 @@ msgid "Panel containing HTML"
 msgstr "Panel con contenido HTML"
 
 #: ../components/editor/gtkhtml-color-combo.c:78
-#: ../components/html-editor/gi-color-palette.c:559
+#: ../components/html-editor/gi-color-palette.c:555
 msgid "black"
 msgstr "negro"
 
 #: ../components/editor/gtkhtml-color-combo.c:79
-#: ../components/html-editor/gi-color-palette.c:560
+#: ../components/html-editor/gi-color-palette.c:556
 msgid "light brown"
 msgstr "marrón claro"
 
 #: ../components/editor/gtkhtml-color-combo.c:80
-#: ../components/html-editor/gi-color-palette.c:561
+#: ../components/html-editor/gi-color-palette.c:557
 msgid "brown gold"
 msgstr "marrón dorado"
 
 #: ../components/editor/gtkhtml-color-combo.c:81
-#: ../components/html-editor/gi-color-palette.c:562
+#: ../components/html-editor/gi-color-palette.c:558
 msgid "dark green #2"
 msgstr "verde oscuro nº2"
 
 #: ../components/editor/gtkhtml-color-combo.c:82
-#: ../components/html-editor/gi-color-palette.c:563
+#: ../components/html-editor/gi-color-palette.c:559
 msgid "navy"
 msgstr "azul marino"
 
 #: ../components/editor/gtkhtml-color-combo.c:83
-#: ../components/html-editor/gi-color-palette.c:564
-#: ../components/html-editor/gi-color-palette.c:620
+#: ../components/html-editor/gi-color-palette.c:560
+#: ../components/html-editor/gi-color-palette.c:616
 msgid "dark blue"
 msgstr "azul oscuro"
 
 #: ../components/editor/gtkhtml-color-combo.c:84
-#: ../components/html-editor/gi-color-palette.c:565
+#: ../components/html-editor/gi-color-palette.c:561
 msgid "purple #2"
 msgstr "púrpura nº2"
 
 #: ../components/editor/gtkhtml-color-combo.c:85
-#: ../components/html-editor/gi-color-palette.c:566
+#: ../components/html-editor/gi-color-palette.c:562
 msgid "very dark gray"
 msgstr "gris muy oscuro"
 
 #: ../components/editor/gtkhtml-color-combo.c:87
-#: ../components/html-editor/gi-color-palette.c:569
-#: ../components/html-editor/gi-color-palette.c:625
+#: ../components/html-editor/gi-color-palette.c:565
+#: ../components/html-editor/gi-color-palette.c:621
 msgid "dark red"
 msgstr "rojo oscuro"
 
 #: ../components/editor/gtkhtml-color-combo.c:88
-#: ../components/html-editor/gi-color-palette.c:570
+#: ../components/html-editor/gi-color-palette.c:566
 msgid "red-orange"
 msgstr "rojo-anaranjado"
 
 #: ../components/editor/gtkhtml-color-combo.c:89
-#: ../components/html-editor/gi-color-palette.c:571
+#: ../components/html-editor/gi-color-palette.c:567
 msgid "gold"
 msgstr "dorado"
 
 #: ../components/editor/gtkhtml-color-combo.c:90
-#: ../components/html-editor/gi-color-palette.c:572
+#: ../components/html-editor/gi-color-palette.c:568
 msgid "dark green"
 msgstr "verde oscuro"
 
 #: ../components/editor/gtkhtml-color-combo.c:91
-#: ../components/html-editor/gi-color-palette.c:573
-#: ../components/html-editor/gi-color-palette.c:626
+#: ../components/html-editor/gi-color-palette.c:569
+#: ../components/html-editor/gi-color-palette.c:622
 msgid "dull blue"
 msgstr "azul apagado"
 
 #: ../components/editor/gtkhtml-color-combo.c:92
-#: ../components/html-editor/gi-color-palette.c:574
-#: ../components/html-editor/gi-color-palette.c:627
+#: ../components/html-editor/gi-color-palette.c:570
+#: ../components/html-editor/gi-color-palette.c:623
 msgid "blue"
 msgstr "azul"
 
 #: ../components/editor/gtkhtml-color-combo.c:93
-#: ../components/html-editor/gi-color-palette.c:575
+#: ../components/html-editor/gi-color-palette.c:571
 msgid "dull purple"
 msgstr "púrpura apagado"
 
 #: ../components/editor/gtkhtml-color-combo.c:94
-#: ../components/html-editor/gi-color-palette.c:576
+#: ../components/html-editor/gi-color-palette.c:572
 msgid "dark grey"
 msgstr "gris oscuro"
 
 #: ../components/editor/gtkhtml-color-combo.c:96
-#: ../components/html-editor/gi-color-palette.c:579
+#: ../components/html-editor/gi-color-palette.c:575
 msgid "red"
 msgstr "rojo"
 
 #: ../components/editor/gtkhtml-color-combo.c:97
-#: ../components/html-editor/gi-color-palette.c:580
+#: ../components/html-editor/gi-color-palette.c:576
 msgid "orange"
 msgstr "naranja"
 
 #: ../components/editor/gtkhtml-color-combo.c:98
-#: ../components/html-editor/gi-color-palette.c:581
+#: ../components/html-editor/gi-color-palette.c:577
 msgid "lime"
 msgstr "lima"
 
 #: ../components/editor/gtkhtml-color-combo.c:99
-#: ../components/html-editor/gi-color-palette.c:582
+#: ../components/html-editor/gi-color-palette.c:578
 msgid "dull green"
 msgstr "verde apagado"
 
 #: ../components/editor/gtkhtml-color-combo.c:100
-#: ../components/html-editor/gi-color-palette.c:583
+#: ../components/html-editor/gi-color-palette.c:579
 msgid "dull blue #2"
 msgstr "azul apagado nº2"
 
 #: ../components/editor/gtkhtml-color-combo.c:101
-#: ../components/html-editor/gi-color-palette.c:584
+#: ../components/html-editor/gi-color-palette.c:580
 msgid "sky blue #2"
 msgstr "azul cielo nº2"
 
 #: ../components/editor/gtkhtml-color-combo.c:102
-#: ../components/html-editor/gi-color-palette.c:585
-#: ../components/html-editor/gi-color-palette.c:624
+#: ../components/html-editor/gi-color-palette.c:581
+#: ../components/html-editor/gi-color-palette.c:620
 msgid "purple"
 msgstr "púrpura"
 
 #: ../components/editor/gtkhtml-color-combo.c:103
-#: ../components/html-editor/gi-color-palette.c:586
+#: ../components/html-editor/gi-color-palette.c:582
 msgid "gray"
 msgstr "gris"
 
 #: ../components/editor/gtkhtml-color-combo.c:105
-#: ../components/html-editor/gi-color-palette.c:589
-#: ../components/html-editor/gi-color-palette.c:621
+#: ../components/html-editor/gi-color-palette.c:585
+#: ../components/html-editor/gi-color-palette.c:617
 msgid "magenta"
 msgstr "magenta"
 
 #: ../components/editor/gtkhtml-color-combo.c:106
-#: ../components/html-editor/gi-color-palette.c:590
+#: ../components/html-editor/gi-color-palette.c:586
 msgid "bright orange"
 msgstr "naranja brillante"
 
 #: ../components/editor/gtkhtml-color-combo.c:107
-#: ../components/html-editor/gi-color-palette.c:591
-#: ../components/html-editor/gi-color-palette.c:622
+#: ../components/html-editor/gi-color-palette.c:587
+#: ../components/html-editor/gi-color-palette.c:618
 msgid "yellow"
 msgstr "amarillo"
 
 #: ../components/editor/gtkhtml-color-combo.c:108
-#: ../components/html-editor/gi-color-palette.c:592
+#: ../components/html-editor/gi-color-palette.c:588
 msgid "green"
 msgstr "verde"
 
 #: ../components/editor/gtkhtml-color-combo.c:109
-#: ../components/html-editor/gi-color-palette.c:593
-#: ../components/html-editor/gi-color-palette.c:623
+#: ../components/html-editor/gi-color-palette.c:589
+#: ../components/html-editor/gi-color-palette.c:619
 msgid "cyan"
 msgstr "cian"
 
 #: ../components/editor/gtkhtml-color-combo.c:110
-#: ../components/html-editor/gi-color-palette.c:594
+#: ../components/html-editor/gi-color-palette.c:590
 msgid "bright blue"
 msgstr "azul brillante"
 
 #: ../components/editor/gtkhtml-color-combo.c:111
-#: ../components/html-editor/gi-color-palette.c:595
-#: ../components/html-editor/gi-color-palette.c:612
+#: ../components/html-editor/gi-color-palette.c:591
+#: ../components/html-editor/gi-color-palette.c:608
 msgid "red purple"
 msgstr "rojo púrpura"
 
 #: ../components/editor/gtkhtml-color-combo.c:112
-#: ../components/html-editor/gi-color-palette.c:596
+#: ../components/html-editor/gi-color-palette.c:592
 msgid "light grey"
 msgstr "gris claro"
 
 #: ../components/editor/gtkhtml-color-combo.c:114
-#: ../components/html-editor/gi-color-palette.c:599
-#: ../components/html-editor/gi-color-palette.c:616
+#: ../components/html-editor/gi-color-palette.c:595
+#: ../components/html-editor/gi-color-palette.c:612
 msgid "pink"
 msgstr "rosa"
 
 #: ../components/editor/gtkhtml-color-combo.c:115
-#: ../components/html-editor/gi-color-palette.c:600
+#: ../components/html-editor/gi-color-palette.c:596
 msgid "light orange"
 msgstr "naranja claro"
 
 #: ../components/editor/gtkhtml-color-combo.c:116
-#: ../components/html-editor/gi-color-palette.c:601
-#: ../components/html-editor/gi-color-palette.c:613
+#: ../components/html-editor/gi-color-palette.c:597
+#: ../components/html-editor/gi-color-palette.c:609
 msgid "light yellow"
 msgstr "amarillo claro"
 
 #: ../components/editor/gtkhtml-color-combo.c:117
-#: ../components/html-editor/gi-color-palette.c:602
+#: ../components/html-editor/gi-color-palette.c:598
 msgid "light green"
 msgstr "verde claro"
 
 #: ../components/editor/gtkhtml-color-combo.c:118
-#: ../components/html-editor/gi-color-palette.c:603
+#: ../components/html-editor/gi-color-palette.c:599
 msgid "light cyan"
 msgstr "cian claro"
 
 #: ../components/editor/gtkhtml-color-combo.c:119
-#: ../components/html-editor/gi-color-palette.c:604
-#: ../components/html-editor/gi-color-palette.c:614
+#: ../components/html-editor/gi-color-palette.c:600
+#: ../components/html-editor/gi-color-palette.c:610
 msgid "light blue"
 msgstr "azul claro"
 
 #: ../components/editor/gtkhtml-color-combo.c:120
-#: ../components/html-editor/gi-color-palette.c:605
-#: ../components/html-editor/gi-color-palette.c:618
+#: ../components/html-editor/gi-color-palette.c:601
+#: ../components/html-editor/gi-color-palette.c:614
 msgid "light purple"
 msgstr "púrpura claro"
 
 #: ../components/editor/gtkhtml-color-combo.c:121
-#: ../components/html-editor/gi-color-palette.c:606
+#: ../components/html-editor/gi-color-palette.c:602
 msgid "white"
 msgstr "blanco"
 
 #: ../components/editor/gtkhtml-color-combo.c:269
-#: ../components/html-editor/gi-color-palette.c:426
+#: ../components/html-editor/gi-color-palette.c:422
 msgid "Choose Custom Color"
 msgstr "Elija el color personalizado"
 
@@ -319,7 +319,7 @@ msgstr "Estado del combo del color"
 
 #. This is the default custom color
 #: ../components/editor/gtkhtml-color-combo.c:928
-#: ../components/html-editor/gi-color-palette.c:378
+#: ../components/html-editor/gi-color-palette.c:374
 msgid "custom"
 msgstr "personalizado"
 
@@ -361,16 +361,17 @@ msgid "A GtkRadioAction"
 msgstr "Un GtkRadioAction"
 
 #: ../components/editor/gtkhtml-editor-actions.c:695
-#: ../components/html-editor/menubar.c:349
+#: ../components/html-editor/menubar.c:348
 msgid "Insert HTML File"
 msgstr "Insertar archivo HTML"
 
 #: ../components/editor/gtkhtml-editor-actions.c:704
+#: ../components/editor/gtkhtml-editor-actions.c:1745
 msgid "Insert Image"
 msgstr "Insertar imagen"
 
 #: ../components/editor/gtkhtml-editor-actions.c:870
-#: ../components/html-editor/menubar.c:349
+#: ../components/html-editor/menubar.c:348
 msgid "Insert Text File"
 msgstr "Insertar archivo de texto"
 
@@ -412,6 +413,10 @@ msgstr "Buscar otr_a vez"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
 msgid "_Increase Indent"
 msgstr "Aumen_tar sangrado"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1325
+msgid "Increase Indent"
+msgstr "Aumentar sangrado"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1330
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:117
@@ -568,6 +573,10 @@ msgstr "_Deshacer"
 msgid "_Decrease Indent"
 msgstr "_Disminuir sangrado"
 
+#: ../components/editor/gtkhtml-editor-actions.c:1528
+msgid "Decrease Indent"
+msgstr "Disminuir sangrado"
+
 #: ../components/editor/gtkhtml-editor-actions.c:1533
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:161
 msgid "_Wrap Lines"
@@ -585,7 +594,9 @@ msgid "_File"
 msgstr "_Archivo"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1556
-msgid "_Format"
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:28
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:28
+msgid "For_mat"
 msgstr "_Formato"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1563
@@ -620,11 +631,19 @@ msgstr "_Ver"
 msgid "_HTML Mode"
 msgstr "Modo _HTML"
 
+#: ../components/editor/gtkhtml-editor-actions.c:1610
+msgid "Toggle between HTML and plain text mode"
+msgstr "Conmutar entre el modo HTML y el modo texto plano"
+
 #: ../components/editor/gtkhtml-editor-actions.c:1619
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
 msgid "_Center"
 msgstr "_Centro"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1621
+msgid "Center Alignment"
+msgstr "Alineación central"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1626
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
@@ -632,11 +651,19 @@ msgstr "_Centro"
 msgid "_Left"
 msgstr "_Izquierda"
 
+#: ../components/editor/gtkhtml-editor-actions.c:1628
+msgid "Left Alignment"
+msgstr "Alineación izquierda"
+
 #: ../components/editor/gtkhtml-editor-actions.c:1633
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:134
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:134
 msgid "_Right"
 msgstr "_Derecha"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1635
+msgid "Right Alignment"
+msgstr "Alineación derecha"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1643
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:126
@@ -730,6 +757,10 @@ msgstr "_Imagen…"
 msgid "_Link..."
 msgstr "_Enlazar…"
 
+#: ../components/editor/gtkhtml-editor-actions.c:1752
+msgid "Insert Link"
+msgstr "Inserta un enlace"
+
 #: ../components/editor/gtkhtml-editor-actions.c:1757
 #: ../components/editor/gtkhtml-editor-actions.c:1799
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:136
@@ -737,12 +768,20 @@ msgstr "_Enlazar…"
 msgid "_Rule..."
 msgstr "_Regla…"
 
+#: ../components/editor/gtkhtml-editor-actions.c:1759
+msgid "Insert Rule"
+msgstr "Insertar regla"
+
 #: ../components/editor/gtkhtml-editor-actions.c:1764
 #: ../components/editor/gtkhtml-editor-actions.c:1806
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:140
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:140
 msgid "_Table..."
 msgstr "_Tabla…"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1766
+msgid "Insert Table"
+msgstr "Insertar tabla"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1771
 msgid "_Cell..."
@@ -768,6 +807,11 @@ msgstr "Tamaño de la tipogra_fía"
 msgid "_Bold"
 msgstr "_Negrita"
 
+#: ../components/editor/gtkhtml-editor-actions.c:1834
+#: ../components/html-editor/toolbar.c:441
+msgid "Bold"
+msgstr "Negrita"
+
 #: ../components/editor/gtkhtml-editor-actions.c:1840
 #: ../components/editor/gtkhtml-editor.glade.h:65
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:122
@@ -776,11 +820,20 @@ msgstr "_Negrita"
 msgid "_Italic"
 msgstr "_Itálica"
 
+#: ../components/editor/gtkhtml-editor-actions.c:1842
+#: ../components/html-editor/toolbar.c:444
+msgid "Italic"
+msgstr "Itálica"
+
 #: ../components/editor/gtkhtml-editor-actions.c:1848
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:130
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
 msgid "_Plain Text"
 msgstr "Texto _sin formato"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1850
+msgid "Plain Text"
+msgstr "Texto plano"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1856
 #: ../components/editor/gtkhtml-editor.glade.h:74
@@ -790,6 +843,10 @@ msgstr "Texto _sin formato"
 msgid "_Strikethrough"
 msgstr "_Tachado"
 
+#: ../components/editor/gtkhtml-editor-actions.c:1858
+msgid "Strikethrough"
+msgstr "Tachado"
+
 #: ../components/editor/gtkhtml-editor-actions.c:1864
 #: ../components/editor/gtkhtml-editor.glade.h:80
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:158
@@ -797,6 +854,11 @@ msgstr "_Tachado"
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:74
 msgid "_Underline"
 msgstr "S_ubrayado"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1866
+#: ../components/html-editor/toolbar.c:447
+msgid "Underline"
+msgstr "Subrayado"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1875
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:7
@@ -859,7 +921,7 @@ msgstr "Fila"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:50
-#: ../components/html-editor/menubar.c:218
+#: ../components/html-editor/menubar.c:217
 #: ../components/html-editor/popup.c:235 ../components/html-editor/popup.c:509
 #: ../components/html-editor/popup.c:521
 msgid "Table"
@@ -879,7 +941,7 @@ msgid "Table Insert"
 msgstr "Insertar tabla"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1987
-#: ../components/html-editor/editor-control-factory.c:190
+#: ../components/html-editor/editor-control-factory.c:187
 #: ../components/html-editor/popup.c:191 ../components/html-editor/popup.c:268
 msgid "Properties"
 msgstr "Propiedades"
@@ -982,12 +1044,19 @@ msgstr "_Regla"
 msgid "_Table"
 msgstr "_Tabla"
 
-#: ../components/editor/gtkhtml-editor-private.c:272
-#: ../components/html-editor/toolbar.c:540
-msgid "Text Color"
-msgstr "Color del texto"
+#: ../components/editor/gtkhtml-editor-private.c:248
+msgid "Paragraph Style"
+msgstr "Estilo de párrafo"
 
-#: ../components/editor/gtkhtml-editor-private.c:299
+#: ../components/editor/gtkhtml-editor-private.c:262
+msgid "Font Size"
+msgstr "Tamaño de la tipografía"
+
+#: ../components/editor/gtkhtml-editor-private.c:274
+msgid "Font Color"
+msgstr "Color de la tipografía"
+
+#: ../components/editor/gtkhtml-editor-private.c:301
 #: ../components/html-editor/body.c:237 ../components/html-editor/text.c:171
 #: ../components/html-editor/toolbar.c:199
 msgid "Automatic"
@@ -1392,39 +1461,11 @@ msgid "_Y-Padding:"
 msgstr "Relleno-_Y:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:87
-msgid "gtk-close"
-msgstr "gtk-close"
-
-#: ../components/editor/gtkhtml-editor.glade.h:88
-msgid "gtk-find"
-msgstr "gtk-find"
-
-#: ../components/editor/gtkhtml-editor.glade.h:89
-msgid "gtk-find-and-replace"
-msgstr "gtk-find-and-replace"
-
-#: ../components/editor/gtkhtml-editor.glade.h:90
-msgid "gtk-justify-center"
-msgstr "gtk-justify-center"
-
-#: ../components/editor/gtkhtml-editor.glade.h:91
-msgid "gtk-justify-left"
-msgstr "gtk-justify-left"
-
-#: ../components/editor/gtkhtml-editor.glade.h:92
-msgid "gtk-justify-right"
-msgstr "gtk-justify-right"
-
-#: ../components/editor/gtkhtml-editor.glade.h:93
-msgid "gtk-ok"
-msgstr "gtk-ok"
-
-#: ../components/editor/gtkhtml-editor.glade.h:94
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:79
 msgid "px"
 msgstr "px"
 
-#: ../components/editor/gtkhtml-editor.glade.h:96
+#: ../components/editor/gtkhtml-editor.glade.h:89
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:81
 #, no-c-format
 msgid ""
@@ -1434,7 +1475,7 @@ msgstr ""
 "px\n"
 "%"
 
-#: ../components/editor/gtkhtml-editor.glade.h:99
+#: ../components/editor/gtkhtml-editor.glade.h:92
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:84
 #, no-c-format
 msgid ""
@@ -1446,11 +1487,11 @@ msgstr ""
 "%\n"
 "seguir"
 
-#: ../components/editor/gtkhtml-spell-checker.c:169
+#: ../components/editor/gtkhtml-spell-checker.c:200
 msgid "Language"
 msgstr "Idioma"
 
-#: ../components/editor/gtkhtml-spell-checker.c:170
+#: ../components/editor/gtkhtml-spell-checker.c:201
 msgid "The language used by the spell checker"
 msgstr "El idioma usado por el corrector ortográfico"
 
@@ -1651,11 +1692,6 @@ msgstr "Buscar y reemplazar"
 msgid "Find and replace"
 msgstr "Buscar y reemplazar"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:28
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:28
-msgid "For_mat"
-msgstr "_Formato"
-
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:35
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
 msgid "I_nsert"
@@ -1663,7 +1699,7 @@ msgstr "_Insertar"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:36
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
-#: ../components/html-editor/editor-control-factory.c:200
+#: ../components/html-editor/editor-control-factory.c:197
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:35
 #: ../components/html-editor/popup.c:211
 msgid "Image"
@@ -1741,7 +1777,7 @@ msgstr "Insertar un emoticono de guiño en el documento…"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:51
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
-#: ../components/html-editor/menubar.c:130
+#: ../components/html-editor/menubar.c:129
 msgid "Insert image"
 msgstr "Insertar imagen"
 
@@ -1788,7 +1824,7 @@ msgstr "Justifica los párrafos a la izquierda"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:60
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
-#: ../components/html-editor/menubar.c:175
+#: ../components/html-editor/menubar.c:174
 #: ../components/html-editor/popup.c:111 ../components/html-editor/popup.c:205
 #: ../components/html-editor/popup.c:271
 msgid "Link"
@@ -1928,9 +1964,9 @@ msgstr "Lista de números romanos"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:90
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
-#: ../components/html-editor/editor-control-factory.c:218
+#: ../components/html-editor/editor-control-factory.c:215
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:46
-#: ../components/html-editor/menubar.c:194
+#: ../components/html-editor/menubar.c:193
 #: ../components/html-editor/popup.c:229
 msgid "Rule"
 msgstr "Regla"
@@ -2114,7 +2150,7 @@ msgstr "Ruta al archivo de imagen de fondo"
 
 #: ../components/html-editor/body.c:275
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:51
-#: ../components/html-editor/menubar.c:240
+#: ../components/html-editor/menubar.c:239
 msgid "Template"
 msgstr "Plantilla"
 
@@ -2130,49 +2166,49 @@ msgstr "No se pudo cargar el archivo glade."
 msgid "Transparent"
 msgstr "Transparente"
 
-#: ../components/html-editor/editor-control-factory.c:208
+#: ../components/html-editor/editor-control-factory.c:205
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:52
-#: ../components/html-editor/menubar.c:426
+#: ../components/html-editor/menubar.c:425
 #: ../components/html-editor/popup.c:199
 msgid "Text"
 msgstr "Texto"
 
-#: ../components/html-editor/editor-control-factory.c:227
-#: ../components/html-editor/menubar.c:443
+#: ../components/html-editor/editor-control-factory.c:224
+#: ../components/html-editor/menubar.c:442
 #: ../components/html-editor/popup.c:217
 msgid "Paragraph"
 msgstr "Párrafo"
 
-#: ../components/html-editor/editor-control-factory.c:231
+#: ../components/html-editor/editor-control-factory.c:228
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:44
-#: ../components/html-editor/menubar.c:409
+#: ../components/html-editor/menubar.c:408
 #: ../components/html-editor/popup.c:223
 msgid "Page"
 msgstr "Página"
 
-#: ../components/html-editor/gi-color-combo.c:191
+#: ../components/html-editor/gi-color-combo.c:189
 msgid "color preview"
 msgstr "vista preliminar del color"
 
 #. "Custom" color - we'll pop up a GtkColorDialog
-#: ../components/html-editor/gi-color-palette.c:418
+#: ../components/html-editor/gi-color-palette.c:414
 msgid "Custom Color:"
 msgstr "Color personalizado:"
 
-#: ../components/html-editor/gi-color-palette.c:611
+#: ../components/html-editor/gi-color-palette.c:607
 msgid "purplish blue"
 msgstr "azul purpúreo"
 
-#: ../components/html-editor/gi-color-palette.c:615
+#: ../components/html-editor/gi-color-palette.c:611
 msgid "dark purple"
 msgstr "púrpura oscuro"
 
-#: ../components/html-editor/gi-color-palette.c:617
+#: ../components/html-editor/gi-color-palette.c:613
 msgid "sky blue"
 msgstr "azul cielo"
 
 #. set the a11y name
-#: ../components/html-editor/gi-combo-box.c:424
+#: ../components/html-editor/gi-combo-box.c:411
 msgid "Popup"
 msgstr "Emergente"
 
@@ -2311,22 +2347,22 @@ msgstr "URL:"
 msgid "Description:"
 msgstr "Descripción:"
 
-#: ../components/html-editor/menubar.c:172
-#: ../components/html-editor/menubar.c:191
-#: ../components/html-editor/menubar.c:215
-#: ../components/html-editor/menubar.c:237
+#: ../components/html-editor/menubar.c:171
+#: ../components/html-editor/menubar.c:190
+#: ../components/html-editor/menubar.c:214
+#: ../components/html-editor/menubar.c:236
 #: ../components/html-editor/popup.c:108
 msgid "Insert"
 msgstr "Insertar"
 
-#: ../components/html-editor/menubar.c:324
+#: ../components/html-editor/menubar.c:323
 #, c-format
 msgid "Error loading file '%s': %s"
 msgstr "Error cargando archivo «%s»: %s"
 
-#: ../components/html-editor/menubar.c:406
-#: ../components/html-editor/menubar.c:423
-#: ../components/html-editor/menubar.c:440
+#: ../components/html-editor/menubar.c:405
+#: ../components/html-editor/menubar.c:422
+#: ../components/html-editor/menubar.c:439
 msgid "Format"
 msgstr "Formato"
 
@@ -2519,7 +2555,7 @@ msgstr "Abrir archivo…"
 msgid "Save file as..."
 msgstr "Guardar archivo como…"
 
-#: ../components/html-editor/test-html-editor-control.c:541
+#: ../components/html-editor/test-html-editor-control.c:542
 msgid "GtkHTML Editor Test Container"
 msgstr "Contenedor de prueba del editor GtkHTML"
 
@@ -2536,24 +2572,12 @@ msgid "Toggle typewriter font style"
 msgstr "Activar el estilo de tipografías de máquina de escribir"
 
 #: ../components/html-editor/toolbar.c:441
-msgid "Bold"
-msgstr "Negrita"
-
-#: ../components/html-editor/toolbar.c:441
 msgid "Makes the text bold"
 msgstr "Pone el texto en negrita"
 
 #: ../components/html-editor/toolbar.c:444
-msgid "Italic"
-msgstr "Itálica"
-
-#: ../components/html-editor/toolbar.c:444
 msgid "Makes the text italic"
 msgstr "Pone el texto en itálica"
-
-#: ../components/html-editor/toolbar.c:447
-msgid "Underline"
-msgstr "Subrayado"
 
 #: ../components/html-editor/toolbar.c:447
 msgid "Underlines the text"
@@ -2579,6 +2603,10 @@ msgstr "Sangrado"
 msgid "Indents the paragraphs more"
 msgstr "Sangra un párrafo más"
 
+#: ../components/html-editor/toolbar.c:540
+msgid "Text Color"
+msgstr "Color del texto"
+
 #: ../components/html-editor/utils.c:132
 msgid "Sample"
 msgstr "Ejemplo"
@@ -2591,91 +2619,91 @@ msgstr ""
 "El objeto editado se ha quitado del documento.\n"
 "No se pueden aplicar los cambios."
 
-#: ../gtkhtml/gtkhtml.c:2886
+#: ../gtkhtml/gtkhtml.c:2916
 msgid "Editable"
 msgstr "Editable"
 
-#: ../gtkhtml/gtkhtml.c:2887
+#: ../gtkhtml/gtkhtml.c:2917
 msgid "Whether the html can be edited"
 msgstr "Indica si el html se puede editar"
 
-#: ../gtkhtml/gtkhtml.c:2893
+#: ../gtkhtml/gtkhtml.c:2923
 msgid "Document Title"
 msgstr "Título del documento"
 
-#: ../gtkhtml/gtkhtml.c:2894
+#: ../gtkhtml/gtkhtml.c:2924
 msgid "The title of the current document"
 msgstr "El título del documento actual"
 
-#: ../gtkhtml/gtkhtml.c:2900
+#: ../gtkhtml/gtkhtml.c:2930
 msgid "Document Base"
 msgstr "Base del documento"
 
-#: ../gtkhtml/gtkhtml.c:2901
+#: ../gtkhtml/gtkhtml.c:2931
 msgid "The base URL for relative references"
 msgstr "La URL de base para referencias relativas"
 
-#: ../gtkhtml/gtkhtml.c:2907
+#: ../gtkhtml/gtkhtml.c:2937
 msgid "Target Base"
 msgstr "Base del destino"
 
-#: ../gtkhtml/gtkhtml.c:2908
+#: ../gtkhtml/gtkhtml.c:2938
 msgid "The base URL of the target frame"
 msgstr "La URL base del marco destino"
 
-#: ../gtkhtml/gtkhtml.c:2917
+#: ../gtkhtml/gtkhtml.c:2947
 msgid "Fixed Width Font"
 msgstr "Tipografía de anchura fija"
 
-#: ../gtkhtml/gtkhtml.c:2918
+#: ../gtkhtml/gtkhtml.c:2948
 msgid "The Monospace font to use for typewriter text"
 msgstr "La tipografía monoespaciada que usar para el texto de máquina de escribir"
 
-#: ../gtkhtml/gtkhtml.c:2924
+#: ../gtkhtml/gtkhtml.c:2954
 msgid "New Link Color"
 msgstr "Color de enlaces nuevos"
 
-#: ../gtkhtml/gtkhtml.c:2925
+#: ../gtkhtml/gtkhtml.c:2955
 msgid "The color of new link elements"
 msgstr "El color de los elementos de enlace nuevos"
 
-#: ../gtkhtml/gtkhtml.c:2930
+#: ../gtkhtml/gtkhtml.c:2960
 msgid "Visited Link Color"
 msgstr "Color de enlaces visitados"
 
-#: ../gtkhtml/gtkhtml.c:2931
+#: ../gtkhtml/gtkhtml.c:2961
 msgid "The color of visited link elements"
 msgstr "El color de los elementos de enlace visitados"
 
-#: ../gtkhtml/gtkhtml.c:2936
+#: ../gtkhtml/gtkhtml.c:2966
 msgid "Active Link Color"
 msgstr "Color del enlace activo"
 
-#: ../gtkhtml/gtkhtml.c:2937
+#: ../gtkhtml/gtkhtml.c:2967
 msgid "The color of active link elements"
 msgstr "El color de los elementos de enlace activos"
 
-#: ../gtkhtml/gtkhtml.c:2942
+#: ../gtkhtml/gtkhtml.c:2972
 msgid "Spelling Error Color"
 msgstr "Color del error ortográfico"
 
-#: ../gtkhtml/gtkhtml.c:2943
+#: ../gtkhtml/gtkhtml.c:2973
 msgid "The color of the spelling error markers"
 msgstr "El color de los marcadores de error ortográfico"
 
-#: ../gtkhtml/gtkhtml.c:2948
+#: ../gtkhtml/gtkhtml.c:2978
 msgid "Cite Quotation Color"
 msgstr "Color de cita literal"
 
-#: ../gtkhtml/gtkhtml.c:2949
+#: ../gtkhtml/gtkhtml.c:2979
 msgid "The color of the cited text"
 msgstr "El color del elemento citado literalmente"
 
-#: ../gtkhtml/htmlbutton.c:140
+#: ../gtkhtml/htmlbutton.c:139
 msgid "Submit Query"
 msgstr "Enviar consulta"
 
-#: ../gtkhtml/htmlbutton.c:143
+#: ../gtkhtml/htmlbutton.c:142
 msgid "Reset"
 msgstr "Reiniciar"
 
@@ -2684,19 +2712,19 @@ msgstr "Reiniciar"
 msgid "Cannot allocate default font for printing"
 msgstr "No se pudo encontrar la tipografía predeterminada para la impresión"
 
-#: ../gtkhtml/test.c:374
+#: ../gtkhtml/test.c:365
 msgid "GtkHTML Test"
 msgstr "Prueba GtkHTML"
 
-#: ../gtkhtml/testgtkhtml.c:116
+#: ../gtkhtml/testgtkhtml.c:114
 msgid "Print pre_view"
 msgstr "_Vista previa de impresión"
 
-#: ../gtkhtml/testgtkhtml.c:116
+#: ../gtkhtml/testgtkhtml.c:114
 msgid "Print preview"
 msgstr "Vista previa de impresión"
 
-#: ../gtkhtml/testgtkhtml.c:1020
+#: ../gtkhtml/testgtkhtml.c:1018
 msgid "GtkHTML Test Application"
 msgstr "Aplicación de prueba GtkHTML"
 
