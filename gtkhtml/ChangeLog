@@ -1,3 +1,10 @@
+2008-06-27  Milan Crha  <mcrha@redhat.com>
+
+	** Fix for bug #540342
+
+	* htmlframeset.h: (HTML_IS_FRAMESET): Defined type check macro.
+	* gtkhtml.c: (reparent_embedded): Reparent HTML_FRAMESET too.
+
 2008-06-09  Milan Crha  <mcrha@redhat.com>
 
 	** Fix for bug #533741 (Patch by Vaclav Slavik.)

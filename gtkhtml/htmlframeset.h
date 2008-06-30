@@ -25,6 +25,7 @@
 #include "htmlobject.h"
 #define HTML_FRAMESET(x) ((HTMLFrameset *)(x))
 #define HTML_FRAMESET_CLASS(x) ((HTMLFramesetClass *)(x))
+#define HTML_IS_FRAMESET(x) (HTML_CHECK_TYPE ((x), HTML_TYPE_FRAMESET))
 
 struct _HTMLFrameset {
 	HTMLObject object;
@@ -48,9 +49,3 @@ void          html_frameset_class_init (HTMLFramesetClass *klass, HTMLType type,
 gboolean      html_frameset_append     (HTMLFrameset *set, HTMLObject *o);
 void          html_frameset_type_init  (void);
 #endif /* _HTMLTABLE_H_ */
-
-
-
-
-
-
