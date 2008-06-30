@@ -654,7 +654,6 @@ html_printer_get_type (void)
 HTMLPainter *
 html_printer_new (GtkWidget *widget, GtkPrintContext *context)
 {
-	const PangoFontDescription *desc;
 	HTMLPrinter *printer;
 	HTMLPainter *painter;
 
@@ -663,9 +662,11 @@ html_printer_new (GtkWidget *widget, GtkPrintContext *context)
 
 	painter = HTML_PAINTER (printer);
 	html_painter_set_widget (painter, widget);
-	desc = pango_font_description_from_string ("sans 8");/* FIXME font hardcoded*/
-	painter->pango_context = gtk_print_context_create_pango_context (context);
-	pango_context_set_font_description (painter->pango_context, desc);
+	painter->pango_context =
+		gtk_print_context_create_pango_context (context);
+	pango_context_set_font_description (
+		painter->pango_context, widget->style->font_desc);
+
 	return painter;
 
 }

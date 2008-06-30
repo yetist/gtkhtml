@@ -1,3 +1,12 @@
+2008-06-30  Matthew Barnes  <mbarnes@redhat.com>
+
+	** Fixes the final issue in bug #446894
+
+	* htmlprinter.c (html_printer_new):
+	Use the widget style's font rather than a hardcoded font.  Fixes
+	both the font kerning issue and the issue where the printed font
+	does not match the on-screen font.
+
 2008-06-27  Milan Crha  <mcrha@redhat.com>
 
 	** Fix for bug #540342
