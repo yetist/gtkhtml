@@ -47,6 +47,7 @@
 #include "htmlengine-save.h"
 #include "htmlform.h"
 #include "htmlframe.h"
+#include "htmlframeset.h"
 #include "htmliframe.h"
 #include "htmlimage.h"
 #include "htmlinterval.h"
@@ -5829,6 +5830,10 @@ reparent_embedded (HTMLObject *o, HTMLEngine *e, gpointer data)
 	    GTK_HTML (GTK_HTML (HTML_FRAME (o)->html)->iframe_parent)->iframe_parent == NULL)
 		gtk_html_set_iframe_parent (GTK_HTML (HTML_FRAME (o)->html), data, o);
 
+	if (HTML_IS_FRAMESET (o) && HTML_FRAMESET (o)->parent && 
+	    HTML_FRAMESET (o)->parent->iframe_parent == NULL) {
+		HTML_FRAMESET (o)->parent = data;
+	}
 }
 
 static void
