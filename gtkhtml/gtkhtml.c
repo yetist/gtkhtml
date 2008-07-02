@@ -558,7 +558,7 @@ vertical_scroll_cb (GtkAdjustment *adjustment, gpointer data)
 	   Layout::size_allocate and we can't do anything about it,
 	   because it uses private fields we cannot access, so we have
 	   to use it*/
-	if (html->engine->height != adjustment->page_increment)
+	if (html->engine->keep_scroll || html->engine->height != adjustment->page_increment)
 		return;
 
 	html->engine->y_offset = (gint) adjustment->value;
@@ -574,7 +574,7 @@ horizontal_scroll_cb (GtkAdjustment *adjustment, gpointer data)
 	   Layout::size_allocate and we can't do anything about it,
 	   because it uses private fields we cannot access, so we have
 	   to use it*/
-	if (html->engine->width != adjustment->page_increment)
+	if (html->engine->keep_scroll || html->engine->width != adjustment->page_increment)
 		return;
 
 	html->engine->x_offset = (gint) adjustment->value;
