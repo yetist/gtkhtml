@@ -6547,9 +6547,18 @@ html_engine_opened_streams_set (HTMLEngine *e, int value)
 	e->opened_streams = value;
 
 	if (value == 0 && e->keep_scroll) {
+		GtkAdjustment *vadj, *hadj;
+
 		e->keep_scroll = FALSE;
 		/*html_engine_calc_size (e, FALSE);
 		  gtk_html_private_calc_scrollbars (e->widget, NULL, NULL);*/
+
+		hadj = GTK_LAYOUT (e->widget)->hadjustment;
+		vadj = GTK_LAYOUT (e->widget)->vadjustment;
+
+		gtk_adjustment_set_value (hadj, e->x_offset);
+		gtk_adjustment_set_value (vadj, e->y_offset);
+
 		html_engine_schedule_update (e);
 	}
 }
