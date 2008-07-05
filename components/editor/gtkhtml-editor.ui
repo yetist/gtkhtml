@@ -50,7 +50,8 @@
     <placeholder name='pre-format-menu'/>
     <menu action='format-menu'>
       <placeholder name='format-menu-top'/>
-      <menuitem action='html-mode'/>
+      <menuitem action='mode-html'/>
+      <menuitem action='mode-plain'/>
       <separator/>
       <menu action='font-style-menu'>
         <menuitem action='monospaced'/>
@@ -112,18 +113,8 @@
     <separator/>
     <toolitem action='show-find'/>
     <toolitem action='show-replace'/>
-    <separator/>
-    <toolitem action='insert-image'/>
-    <toolitem action='insert-link'/>
-    <toolitem action='insert-rule'/>
-    <toolitem action='insert-table'/>
   </toolbar>
   <toolbar name='edit-toolbar'>
-    <toolitem action='monospaced'/>
-    <toolitem action='bold'/>
-    <toolitem action='italic'/>
-    <toolitem action='underline'/>
-    <toolitem action='strikethrough'/>
     <separator/>
     <toolitem action='justify-left'/>
     <toolitem action='justify-center'/>
@@ -131,6 +122,19 @@
     <separator/>
     <toolitem action='unindent'/>
     <toolitem action='indent'/>
+  </toolbar>
+  <toolbar name='html-toolbar'>
+    <separator/>
+    <toolitem action='monospaced'/>
+    <toolitem action='bold'/>
+    <toolitem action='italic'/>
+    <toolitem action='underline'/>
+    <toolitem action='strikethrough'/>
+    <separator/>
+    <toolitem action='insert-image'/>
+    <toolitem action='insert-link'/>
+    <toolitem action='insert-rule'/>
+    <toolitem action='insert-table'/>
   </toolbar>
   <popup name='context-menu'>
     <menuitem action='undo'/>

@@ -84,6 +84,11 @@
 G_BEGIN_DECLS
 
 typedef enum {
+	EDITOR_MODE_HTML,
+	EDITOR_MODE_TEXT
+} EditorMode;
+
+typedef enum {
 	TABLE_CELL_SCOPE_CELL,
 	TABLE_CELL_SCOPE_ROW,
 	TABLE_CELL_SCOPE_COLUMN,
@@ -121,9 +126,11 @@ struct _GtkhtmlEditorPrivate {
 	GtkWidget *main_menu;
 	GtkWidget *main_toolbar;
 	GtkWidget *edit_toolbar;
+	GtkWidget *html_toolbar;
 	GtkWidget *edit_area;
 
 	GtkWidget *color_combo_box;
+	GtkWidget *mode_combo_box;
 	GtkWidget *size_combo_box;
 	GtkWidget *style_combo_box;
 	GtkWidget *scrolled_window;

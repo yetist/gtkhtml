@@ -88,8 +88,6 @@
 	GTKHTML_EDITOR_ACTION ((editor), "format-menu")
 #define GTKHTML_EDITOR_ACTION_FORMAT_TEXT(editor) \
 	GTKHTML_EDITOR_ACTION ((editor), "format-text")
-#define GTKHTML_EDITOR_ACTION_HTML_MODE(editor) \
-	GTKHTML_EDITOR_ACTION ((editor), "html-mode")
 #define GTKHTML_EDITOR_ACTION_INSERT_IMAGE(editor) \
 	GTKHTML_EDITOR_ACTION ((editor), "insert-image")
 #define GTKHTML_EDITOR_ACTION_INSERT_LINK(editor) \
@@ -108,6 +106,10 @@
 	GTKHTML_EDITOR_ACTION ((editor), "justify-left")
 #define GTKHTML_EDITOR_ACTION_JUSTIFY_RIGHT(editor) \
 	GTKHTML_EDITOR_ACTION ((editor), "justify-right")
+#define GTKHTML_EDITOR_ACTION_MODE_HTML(editor) \
+	GTKHTML_EDITOR_ACTION ((editor), "mode-html")
+#define GTKHTML_EDITOR_ACTION_MODE_PLAIN(editor) \
+	GTKHTML_EDITOR_ACTION ((editor), "mode-plain")
 #define GTKHTML_EDITOR_ACTION_MONOSPACED(editor) \
 	GTKHTML_EDITOR_ACTION ((editor), "monospaced")
 #define GTKHTML_EDITOR_ACTION_PROPERTIES_RULE(editor) \

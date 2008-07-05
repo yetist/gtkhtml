@@ -143,6 +143,7 @@ gtkhtml_editor_private_init (GtkhtmlEditor *editor)
 
 	GtkHTML *html;
 	GtkWidget *widget;
+	GtkToolbar *toolbar;
 	GtkToolItem *tool_item;
 	gchar *filename;
 	GError *error = NULL;
@@ -219,6 +220,12 @@ gtkhtml_editor_private_init (GtkhtmlEditor *editor)
 	priv->edit_toolbar = g_object_ref (widget);
 	gtk_widget_show (widget);
 
+	widget = gtkhtml_editor_get_managed_widget (editor, "/html-toolbar");
+	gtk_toolbar_set_style (GTK_TOOLBAR (widget), GTK_TOOLBAR_ICONS);
+	gtk_box_pack_start (GTK_BOX (editor->vbox), widget, FALSE, FALSE, 0);
+	priv->html_toolbar = g_object_ref (widget);
+	gtk_widget_show (widget);
+
 	widget = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_policy (
 		GTK_SCROLLED_WINDOW (widget),
@@ -236,9 +243,7 @@ gtkhtml_editor_private_init (GtkhtmlEditor *editor)
 
 	/* Add some combo boxes to the "edit" toolbar. */
 
-	tool_item = gtk_separator_tool_item_new ();
-	gtk_toolbar_insert (GTK_TOOLBAR (priv->edit_toolbar), tool_item, 0);
-	gtk_widget_show_all (GTK_WIDGET (tool_item));
+	toolbar = GTK_TOOLBAR (priv->edit_toolbar);
 
 	tool_item = gtk_tool_item_new ();
 	widget = gtkhtml_combo_box_new_with_action (
@@ -246,12 +251,34 @@ gtkhtml_editor_private_init (GtkhtmlEditor *editor)
 	gtk_combo_box_set_focus_on_click (GTK_COMBO_BOX (widget), FALSE);
 	gtk_container_add (GTK_CONTAINER (tool_item), widget);
 	gtk_widget_set_tooltip_text (widget, _("Paragraph Style"));
-	gtk_toolbar_insert (GTK_TOOLBAR (priv->edit_toolbar), tool_item, 0);
+	gtk_toolbar_insert (toolbar, tool_item, 0);
 	priv->style_combo_box = g_object_ref (widget);
 	gtk_widget_show_all (GTK_WIDGET (tool_item));
 
 	tool_item = gtk_separator_tool_item_new ();
-	gtk_toolbar_insert (GTK_TOOLBAR (priv->edit_toolbar), tool_item, 0);
+	gtk_toolbar_insert (toolbar, tool_item, 0);
+	gtk_widget_show_all (GTK_WIDGET (tool_item));
+
+	tool_item = gtk_tool_item_new ();
+	widget = gtkhtml_combo_box_new_with_action (
+		GTK_RADIO_ACTION (ACTION (MODE_HTML)));
+	gtk_combo_box_set_focus_on_click (GTK_COMBO_BOX (widget), FALSE);
+	gtk_container_add (GTK_CONTAINER (tool_item), widget);
+	gtk_widget_set_tooltip_text (widget, _("Editing Mode"));
+	gtk_toolbar_insert (toolbar, tool_item, 0);
+	priv->mode_combo_box = g_object_ref (widget);
+	gtk_widget_show_all (GTK_WIDGET (tool_item));
+
+	/* Add some combo boxes to the "html" toolbar. */
+
+	toolbar = GTK_TOOLBAR (priv->html_toolbar);
+
+	tool_item = gtk_tool_item_new ();
+	widget = gtkhtml_color_combo_new ();
+	gtk_container_add (GTK_CONTAINER (tool_item), widget);
+	gtk_widget_set_tooltip_text (widget, _("Font Color"));
+	gtk_toolbar_insert (toolbar, tool_item, 0);
+	priv->color_combo_box = g_object_ref (widget);
 	gtk_widget_show_all (GTK_WIDGET (tool_item));
 
 	tool_item = gtk_tool_item_new ();
@@ -260,20 +287,8 @@ gtkhtml_editor_private_init (GtkhtmlEditor *editor)
 	gtk_combo_box_set_focus_on_click (GTK_COMBO_BOX (widget), FALSE);
 	gtk_container_add (GTK_CONTAINER (tool_item), widget);
 	gtk_widget_set_tooltip_text (widget, _("Font Size"));
-	gtk_toolbar_insert (GTK_TOOLBAR (priv->edit_toolbar), tool_item, 0);
+	gtk_toolbar_insert (toolbar, tool_item, 0);
 	priv->size_combo_box = g_object_ref (widget);
-	gtk_widget_show_all (GTK_WIDGET (tool_item));
-
-	tool_item = gtk_separator_tool_item_new ();
-	gtk_toolbar_insert (GTK_TOOLBAR (priv->edit_toolbar), tool_item, -1);
-	gtk_widget_show_all (GTK_WIDGET (tool_item));
-
-	tool_item = gtk_tool_item_new ();
-	widget = gtkhtml_color_combo_new ();
-	gtk_container_add (GTK_CONTAINER (tool_item), widget);
-	gtk_widget_set_tooltip_text (widget, _("Font Color"));
-	gtk_toolbar_insert (GTK_TOOLBAR (priv->edit_toolbar), tool_item, -1);
-	priv->color_combo_box = g_object_ref (widget);
 	gtk_widget_show_all (GTK_WIDGET (tool_item));
 
 	/* Initialize painters (requires "edit_area"). */
@@ -371,6 +386,7 @@ gtkhtml_editor_private_dispose (GtkhtmlEditor *editor)
 	DISPOSE (priv->edit_area);
 
 	DISPOSE (priv->color_combo_box);
+	DISPOSE (priv->mode_combo_box);
 	DISPOSE (priv->size_combo_box);
 	DISPOSE (priv->style_combo_box);
 	DISPOSE (priv->scrolled_window);

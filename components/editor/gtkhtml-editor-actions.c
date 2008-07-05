@@ -39,7 +39,6 @@
  * "find"
  * "find-again"
  * "find-and-replace"
- * "html-mode"		(toggle)
  * "indent"
  * "insert-html-file"
  * "insert-smiley-1"
@@ -58,6 +57,8 @@
  * "justify-center"	(radio)
  * "justify-left"	(radio)
  * "justify-right"	(radio)
+ * "mode-html"		(radio)
+ * "mode-plain"		(radio)
  * "paste"
  * "paste-quote"
  * "redo"
@@ -86,13 +87,13 @@
  * Core Actions (HTML Only)
  * ------------------------
  * "bold"		(toggle)
- * "properties-page"
  * "insert-image"
  * "insert-link"
  * "insert-rule"
  * "insert-table"
  * "italic"		(toggle)
  * "monospaced"		(toggle)
+ * "properties-page"
  * "size-minus-one"	(radio)
  * "size-minus-two"	(radio)
  * "size-plus-four"	(radio)
@@ -618,69 +619,6 @@ action_find_and_replace_cb (GtkAction *action,
 }
 
 static void
-action_html_mode_cb (GtkToggleAction *action,
-                     GtkhtmlEditor *editor)
-{
-	GtkActionGroup *action_group;
-	HTMLPainter *new_painter;
-	HTMLPainter *old_painter;
-	GtkHTML *html;
-	gboolean active;
-
-	html = gtkhtml_editor_get_html (editor);
-	active = gtk_toggle_action_get_active (action);
-
-	action_group = editor->priv->html_actions;
-	gtk_action_group_set_sensitive (action_group, active);
-
-	action_group = editor->priv->html_context_actions;
-	gtk_action_group_set_visible (action_group, active);
-
-        gtk_widget_set_sensitive (editor->priv->color_combo_box, active);
-
-	/* Certain paragraph styles are HTML-only. */
-	gtk_action_set_sensitive (ACTION (STYLE_H1), active);
-	gtk_action_set_sensitive (ACTION (STYLE_H2), active);
-	gtk_action_set_sensitive (ACTION (STYLE_H3), active);
-	gtk_action_set_sensitive (ACTION (STYLE_H4), active);
-	gtk_action_set_sensitive (ACTION (STYLE_H5), active);
-	gtk_action_set_sensitive (ACTION (STYLE_H6), active);
-	gtk_action_set_sensitive (ACTION (STYLE_ADDRESS), active);
-
-	/* Swap painters. */
-
-	if (active) {
-		new_painter = editor->priv->html_painter;
-		old_painter = editor->priv->plain_painter;
-	} else {
-		new_painter = editor->priv->plain_painter;
-		old_painter = editor->priv->html_painter;
-	}
-
-	/* Might be true during initialization. */
-	if (html->engine->painter == new_painter)
-		return;
-
-	html_gdk_painter_unrealize (HTML_GDK_PAINTER (old_painter));
-	if (html->engine->window != NULL)
-		html_gdk_painter_realize (
-			HTML_GDK_PAINTER (new_painter),
-			html->engine->window);
-
-	html_font_manager_set_default (
-		&new_painter->font_manager,
-		old_painter->font_manager.variable.face,
-		old_painter->font_manager.fixed.face,
-		old_painter->font_manager.var_size,
-		old_painter->font_manager.var_points,
-		old_painter->font_manager.fix_size,
-		old_painter->font_manager.fix_points);
-
-	html_engine_set_painter (html->engine, new_painter);
-	html_engine_schedule_redraw (html->engine);
-}
-
-static void
 action_indent_cb (GtkAction *action,
                   GtkhtmlEditor *editor)
 {
@@ -959,6 +897,77 @@ action_language_cb (GtkToggleAction *action,
 	gtk_action_set_visible (ACTION (CONTEXT_SPELL_IGNORE), length > 0);
 
 	gtk_action_set_sensitive (ACTION (SPELL_CHECK), length > 0);
+}
+
+static void
+action_mode_cb (GtkRadioAction *action,
+                GtkRadioAction *current,
+                GtkhtmlEditor *editor)
+{
+	GtkActionGroup *action_group;
+	HTMLPainter *new_painter;
+	HTMLPainter *old_painter;
+	GtkHTML *html;
+	EditorMode mode;
+	gboolean html_mode;
+
+	html = gtkhtml_editor_get_html (editor);
+	mode = gtk_radio_action_get_current_value (current);
+	html_mode = (mode == EDITOR_MODE_HTML);
+
+	action_group = editor->priv->html_actions;
+	gtk_action_group_set_sensitive (action_group, html_mode);
+
+	action_group = editor->priv->html_context_actions;
+	gtk_action_group_set_visible (action_group, html_mode);
+
+        gtk_widget_set_sensitive (editor->priv->color_combo_box, html_mode);
+
+	if (html_mode)
+		gtk_widget_show (editor->priv->html_toolbar);
+	else
+		gtk_widget_hide (editor->priv->html_toolbar);
+
+	/* Certain paragraph styles are HTML-only. */
+	gtk_action_set_sensitive (ACTION (STYLE_H1), html_mode);
+	gtk_action_set_sensitive (ACTION (STYLE_H2), html_mode);
+	gtk_action_set_sensitive (ACTION (STYLE_H3), html_mode);
+	gtk_action_set_sensitive (ACTION (STYLE_H4), html_mode);
+	gtk_action_set_sensitive (ACTION (STYLE_H5), html_mode);
+	gtk_action_set_sensitive (ACTION (STYLE_H6), html_mode);
+	gtk_action_set_sensitive (ACTION (STYLE_ADDRESS), html_mode);
+
+	/* Swap painters. */
+
+	if (html_mode) {
+		new_painter = editor->priv->html_painter;
+		old_painter = editor->priv->plain_painter;
+	} else {
+		new_painter = editor->priv->plain_painter;
+		old_painter = editor->priv->html_painter;
+	}
+
+	/* Might be true during initialization. */
+	if (html->engine->painter == new_painter)
+		return;
+
+	html_gdk_painter_unrealize (HTML_GDK_PAINTER (old_painter));
+	if (html->engine->window != NULL)
+		html_gdk_painter_realize (
+			HTML_GDK_PAINTER (new_painter),
+			html->engine->window);
+
+	html_font_manager_set_default (
+		&new_painter->font_manager,
+		old_painter->font_manager.variable.face,
+		old_painter->font_manager.fixed.face,
+		old_painter->font_manager.var_size,
+		old_painter->font_manager.var_points,
+		old_painter->font_manager.fix_size,
+		old_painter->font_manager.fix_points);
+
+	html_engine_set_painter (html->engine, new_painter);
+	html_engine_schedule_redraw (html->engine);
 }
 
 static void
@@ -1601,17 +1610,6 @@ static GtkActionEntry core_entries[] = {
 	  NULL }
 };
 
-static GtkToggleActionEntry core_toggle_entries[] = {
-
-	{ "html-mode",
-	  NULL,
-	  N_("_HTML Mode"),
-	  NULL,
-	  N_("Toggle between HTML and plain text mode"),
-	  G_CALLBACK (action_html_mode_cb),
-	  TRUE },
-};
-
 static GtkRadioActionEntry core_justify_entries[] = {
 
 	{ "justify-center",
@@ -1634,6 +1632,23 @@ static GtkRadioActionEntry core_justify_entries[] = {
 	  "<Control>r",
 	  N_("Right Alignment"),
 	  GTK_HTML_PARAGRAPH_ALIGNMENT_RIGHT }
+};
+
+static GtkRadioActionEntry core_mode_entries[] = {
+
+	{ "mode-html",
+	  NULL,
+	  N_("_HTML"),
+	  NULL,
+	  N_("HTML editing mode"),
+	  EDITOR_MODE_HTML },
+
+	{ "mode-plain",
+	  NULL,
+	  N_("Plain _Text"),
+	  NULL,
+	  N_("Plain text editing mode"),
+	  EDITOR_MODE_TEXT }
 };
 
 static GtkRadioActionEntry core_style_entries[] = {
@@ -2277,14 +2292,16 @@ gtkhtml_editor_actions_init (GtkhtmlEditor *editor)
 	gtk_action_group_add_actions (
 		action_group, core_entries,
 		G_N_ELEMENTS (core_entries), editor);
-	gtk_action_group_add_toggle_actions (
-		action_group, core_toggle_entries,
-		G_N_ELEMENTS (core_toggle_entries), editor);
 	gtk_action_group_add_radio_actions (
 		action_group, core_justify_entries,
 		G_N_ELEMENTS (core_justify_entries),
 		GTK_HTML_PARAGRAPH_ALIGNMENT_LEFT,
 		G_CALLBACK (action_justify_cb), editor);
+	gtk_action_group_add_radio_actions (
+		action_group, core_mode_entries,
+		G_N_ELEMENTS (core_mode_entries),
+		EDITOR_MODE_HTML,
+		G_CALLBACK (action_mode_cb), editor);
 	gtk_action_group_add_radio_actions (
 		action_group, core_style_entries,
 		G_N_ELEMENTS (core_style_entries),

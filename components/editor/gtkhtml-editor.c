@@ -1077,25 +1077,29 @@ gtkhtml_editor_set_filename (GtkhtmlEditor *editor,
 gboolean
 gtkhtml_editor_get_html_mode (GtkhtmlEditor *editor)
 {
-	GtkToggleAction *action;
+	GtkRadioAction *action;
+	EditorMode mode;
 
 	g_return_val_if_fail (GTKHTML_IS_EDITOR (editor), FALSE);
 
-	action = GTK_TOGGLE_ACTION (ACTION (HTML_MODE));
+	action = GTK_RADIO_ACTION (ACTION (MODE_HTML));
+	mode = gtk_radio_action_get_current_value (action);
 
-	return gtk_toggle_action_get_active (action);
+	return (mode == EDITOR_MODE_HTML);
 }
 
 void
 gtkhtml_editor_set_html_mode (GtkhtmlEditor *editor,
                               gboolean html_mode)
 {
-	GtkToggleAction *action;
+	GtkRadioAction *action;
+	EditorMode mode;
 
 	g_return_if_fail (GTKHTML_IS_EDITOR (editor));
 
-	action = GTK_TOGGLE_ACTION (ACTION (HTML_MODE));
-	gtk_toggle_action_set_active (action, html_mode);
+	action = GTK_RADIO_ACTION (ACTION (MODE_HTML));
+	mode = html_mode ? EDITOR_MODE_HTML : EDITOR_MODE_TEXT;
+	gtk_radio_action_set_current_value (action, mode);
 
 	g_object_notify (G_OBJECT (editor), "html-mode");
 }

@@ -1,3 +1,26 @@
+2008-07-05  Matthew Barnes  <mbarnes@redhat.com>
+
+	* Implements the first of several suggested UI improvements in
+	  bug #408707.
+
+	* gtkhtml-editor.ui:
+	* gtkhtml-editor-actions.c:
+	* gtkhtml-editor-private.c:
+	* gtkhtml-editor-private.h:
+	Split HTML-only actions into a second editing toolbar.
+	This new toolbar is only visible in HTML editing mode.
+
+	* gtkhtml-combo-box.c:
+	Use enums when referencing tree model columns.
+	Other miscellaneous code cleanups.
+
+	* gtkhtml-editor.c (gtkhtml_editor_get_html_mode),
+	(gtkhtml_editor_set_html_mode):
+	* gtkhtml-editor-actions.c (action_mode_cb):
+	* gtkhtml-editor-actions.h:
+	Editing mode is now stored as radio actions instead of a toggle
+	actions.  Adapt.
+
 2008-06-22  Matthew Barnes  <mbarnes@redhat.com>
 
 	* gtkhtml-editor-actions.c:
