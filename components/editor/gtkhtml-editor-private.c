@@ -383,6 +383,7 @@ gtkhtml_editor_private_dispose (GtkhtmlEditor *editor)
 	DISPOSE (priv->main_menu);
 	DISPOSE (priv->main_toolbar);
 	DISPOSE (priv->edit_toolbar);
+	DISPOSE (priv->html_toolbar);
 	DISPOSE (priv->edit_area);
 
 	DISPOSE (priv->color_combo_box);
