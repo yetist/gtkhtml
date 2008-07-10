@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-06-12 16:31+0700\n"
-"PO-Revision-Date: 2008-06-12 17:22+0700\n"
+"POT-Creation-Date: 2008-07-10 11:05+0700\n"
+"PO-Revision-Date: 2008-07-10 11:26+0700\n"
 "Last-Translator: Theppitak Karoonboonyanan <thep@linux.thai.net>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -344,417 +344,462 @@ msgstr "เงาของกรอบ"
 msgid "Appearance of the frame border"
 msgstr "รูปแบบของขอบกรอบ"
 
-#: components/editor/gtkhtml-combo-box.c:329
+#: components/editor/gtkhtml-combo-box.c:323
 msgid "Action"
 msgstr "การกระทำ"
 
-#: components/editor/gtkhtml-combo-box.c:330
+#: components/editor/gtkhtml-combo-box.c:324
 msgid "A GtkRadioAction"
 msgstr "ข้อมูลชนิด GtkRadioAction"
 
-#: components/editor/gtkhtml-editor-actions.c:695
+#: components/editor/gtkhtml-editor-actions.c:633
 #: components/html-editor/menubar.c:348
 msgid "Insert HTML File"
 msgstr "แทรกแฟ้ม HTML"
 
-#: components/editor/gtkhtml-editor-actions.c:704
+#: components/editor/gtkhtml-editor-actions.c:642
+#: components/editor/gtkhtml-editor-actions.c:1760
 msgid "Insert Image"
 msgstr "แทรกรูปภาพ"
 
-#: components/editor/gtkhtml-editor-actions.c:870
+#: components/editor/gtkhtml-editor-actions.c:808
 #: components/html-editor/menubar.c:348
 msgid "Insert Text File"
 msgstr "แทรกแฟ้มข้อความ"
 
 #. Replace Button
-#: components/editor/gtkhtml-editor-actions.c:1260
+#: components/editor/gtkhtml-editor-actions.c:1269
 #: components/editor/gtkhtml-spell-dialog.c:522
 #: components/html-editor/replace.c:85
 msgid "_Replace"
 msgstr "แ_ทนที่"
 
-#: components/editor/gtkhtml-editor-actions.c:1267
+#: components/editor/gtkhtml-editor-actions.c:1276
 #: components/html-editor/replace.c:82
 msgid "Replace _All"
 msgstr "แทนที่ทั้ง_หมด"
 
-#: components/editor/gtkhtml-editor-actions.c:1281
+#: components/editor/gtkhtml-editor-actions.c:1290
 #: components/html-editor/replace.c:83
 msgid "_Next"
 msgstr "_ถัดไป"
 
-#: components/editor/gtkhtml-editor-actions.c:1288
+#: components/editor/gtkhtml-editor-actions.c:1297
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:111
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
 msgid "_Copy"
 msgstr "_คัดลอก"
 
-#: components/editor/gtkhtml-editor-actions.c:1295
+#: components/editor/gtkhtml-editor-actions.c:1304
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:18
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:18
 msgid "Cu_t"
 msgstr "_ตัด"
 
-#: components/editor/gtkhtml-editor-actions.c:1309
+#: components/editor/gtkhtml-editor-actions.c:1318
 msgid "Find A_gain"
 msgstr "หา_ต่อ"
 
-#: components/editor/gtkhtml-editor-actions.c:1323
+#: components/editor/gtkhtml-editor-actions.c:1332
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:120
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
 msgid "_Increase Indent"
 msgstr "เ_พิ่มระยะร่น"
 
-#: components/editor/gtkhtml-editor-actions.c:1330
+#: components/editor/gtkhtml-editor-actions.c:1334
+msgid "Increase Indent"
+msgstr "เพิ่มระยะร่น"
+
+#: components/editor/gtkhtml-editor-actions.c:1339
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:117
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
 msgid "_HTML File..."
 msgstr "แฟ้ม _HTML..."
 
-#: components/editor/gtkhtml-editor-actions.c:1337
+#: components/editor/gtkhtml-editor-actions.c:1346
 msgid "_Angel"
 msgstr "เ_ทวดา"
 
-#: components/editor/gtkhtml-editor-actions.c:1344
+#: components/editor/gtkhtml-editor-actions.c:1353
 msgid "_Cool"
 msgstr "เ_จ๋ง"
 
-#: components/editor/gtkhtml-editor-actions.c:1351
+#: components/editor/gtkhtml-editor-actions.c:1360
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:17
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:17
 msgid "Cr_ying"
 msgstr "_ร้องไห้"
 
-#: components/editor/gtkhtml-editor-actions.c:1358
+#: components/editor/gtkhtml-editor-actions.c:1367
 msgid "_Devilish"
 msgstr "_ชั่วร้าย"
 
-#: components/editor/gtkhtml-editor-actions.c:1365
+#: components/editor/gtkhtml-editor-actions.c:1374
 msgid "_Embarrassed"
 msgstr "เจื่อ_น"
 
-#: components/editor/gtkhtml-editor-actions.c:1372
+#: components/editor/gtkhtml-editor-actions.c:1381
 msgid "_Kiss"
 msgstr "จุ๊_บๆ"
 
-#: components/editor/gtkhtml-editor-actions.c:1379
+#: components/editor/gtkhtml-editor-actions.c:1388
 msgid "_Monkey"
 msgstr "_ลิง"
 
-#: components/editor/gtkhtml-editor-actions.c:1386
+#: components/editor/gtkhtml-editor-actions.c:1395
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:121
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
 msgid "_Indifferent"
 msgstr "เฉ_ยๆ"
 
-#: components/editor/gtkhtml-editor-actions.c:1393
+#: components/editor/gtkhtml-editor-actions.c:1402
 msgid "_Tongue"
 msgstr "แลบลิ้_น"
 
-#: components/editor/gtkhtml-editor-actions.c:1400
+#: components/editor/gtkhtml-editor-actions.c:1409
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:116
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
 msgid "_Frown"
 msgstr "_เศร้า"
 
-#: components/editor/gtkhtml-editor-actions.c:1407
+#: components/editor/gtkhtml-editor-actions.c:1416
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:137
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
 msgid "_Smile"
 msgstr "_ยิ้ม"
 
-#: components/editor/gtkhtml-editor-actions.c:1414
+#: components/editor/gtkhtml-editor-actions.c:1423
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:123
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
 msgid "_Laughing"
 msgstr "_หัวเราะ"
 
-#: components/editor/gtkhtml-editor-actions.c:1421
+#: components/editor/gtkhtml-editor-actions.c:1430
 msgid "Smi_rk"
 msgstr "ยิ้มมุมปา_ก"
 
-#: components/editor/gtkhtml-editor-actions.c:1428
+#: components/editor/gtkhtml-editor-actions.c:1437
 msgid "Sur_prised"
 msgstr "ประหลา_ดใจ"
 
-#: components/editor/gtkhtml-editor-actions.c:1435
+#: components/editor/gtkhtml-editor-actions.c:1444
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:160
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:160
 msgid "_Wink"
 msgstr "_ขยิบตา"
 
-#: components/editor/gtkhtml-editor-actions.c:1442
+#: components/editor/gtkhtml-editor-actions.c:1451
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:157
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:157
 msgid "_Undecided"
 msgstr "ลั_งเล"
 
-#: components/editor/gtkhtml-editor-actions.c:1449
+#: components/editor/gtkhtml-editor-actions.c:1458
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:91
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
 msgid "S_ick"
 msgstr "ป่_วย"
 
-#: components/editor/gtkhtml-editor-actions.c:1456
+#: components/editor/gtkhtml-editor-actions.c:1465
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:100
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 msgid "Te_xt File..."
 msgstr "แฟ้ม_ข้อความ..."
 
-#: components/editor/gtkhtml-editor-actions.c:1463
+#: components/editor/gtkhtml-editor-actions.c:1472
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:129
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
 msgid "_Paste"
 msgstr "_แปะ"
 
-#: components/editor/gtkhtml-editor-actions.c:1470
+#: components/editor/gtkhtml-editor-actions.c:1479
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:79
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
 #: components/html-editor/popup.c:446
 msgid "Paste _Quotation"
 msgstr "แปะคำ_พูด"
 
-#: components/editor/gtkhtml-editor-actions.c:1477
+#: components/editor/gtkhtml-editor-actions.c:1486
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:132
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
 msgid "_Redo"
 msgstr "_ทำซ้ำ"
 
-#: components/editor/gtkhtml-editor-actions.c:1484
+#: components/editor/gtkhtml-editor-actions.c:1493
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:92
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
 msgid "Select _All"
 msgstr "เลือกทั้ง_หมด"
 
-#: components/editor/gtkhtml-editor-actions.c:1491
+#: components/editor/gtkhtml-editor-actions.c:1500
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:114
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
 msgid "_Find..."
 msgstr "_หา..."
 
-#: components/editor/gtkhtml-editor-actions.c:1498
+#: components/editor/gtkhtml-editor-actions.c:1507
 msgid "Re_place..."
 msgstr "แ_ทนที่..."
 
-#: components/editor/gtkhtml-editor-actions.c:1505
+#: components/editor/gtkhtml-editor-actions.c:1514
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:12
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
 msgid "Check _Spelling..."
 msgstr "ตรวจตัว_สะกด..."
 
-#: components/editor/gtkhtml-editor-actions.c:1512
+#: components/editor/gtkhtml-editor-actions.c:1521
 #: components/editor/gtkhtml-editor.glade.h:77
 #: components/html-editor/utils.c:205
 msgid "_Test URL..."
 msgstr "_ทดสอบ URL..."
 
-#: components/editor/gtkhtml-editor-actions.c:1519
+#: components/editor/gtkhtml-editor-actions.c:1528
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:159
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:159
 msgid "_Undo"
 msgstr "เรี_ยกคืน"
 
-#: components/editor/gtkhtml-editor-actions.c:1526
+#: components/editor/gtkhtml-editor-actions.c:1535
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:112
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
 msgid "_Decrease Indent"
 msgstr "_ลดระยะร่น"
 
-#: components/editor/gtkhtml-editor-actions.c:1533
+#: components/editor/gtkhtml-editor-actions.c:1537
+msgid "Decrease Indent"
+msgstr "ลดระยะร่น"
+
+#: components/editor/gtkhtml-editor-actions.c:1542
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:161
 msgid "_Wrap Lines"
 msgstr "_ตัดบรรทัด"
 
-#: components/editor/gtkhtml-editor-actions.c:1542
+#: components/editor/gtkhtml-editor-actions.c:1551
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:113
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
 msgid "_Edit"
 msgstr "แ_ก้ไข"
 
-#: components/editor/gtkhtml-editor-actions.c:1549
+#: components/editor/gtkhtml-editor-actions.c:1558
 #: components/editor/main.c:324
 msgid "_File"
 msgstr "แ_ฟ้ม"
 
-#: components/editor/gtkhtml-editor-actions.c:1556
+#: components/editor/gtkhtml-editor-actions.c:1565
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:28
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:28
 msgid "For_mat"
 msgstr "ฟอร์แ_มต"
 
-#: components/editor/gtkhtml-editor-actions.c:1563
+#: components/editor/gtkhtml-editor-actions.c:1572
 msgid "_Paragraph Style"
 msgstr "รูปลักษณ์_ย่อหน้า"
 
-#: components/editor/gtkhtml-editor-actions.c:1570
+#: components/editor/gtkhtml-editor-actions.c:1579
 msgid "_Emoticon"
 msgstr "รูปสีห_น้า"
 
-#: components/editor/gtkhtml-editor-actions.c:1577
+#: components/editor/gtkhtml-editor-actions.c:1586
 msgid "_Insert"
 msgstr "แ_ทรก"
 
-#: components/editor/gtkhtml-editor-actions.c:1584
+#: components/editor/gtkhtml-editor-actions.c:1593
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:106
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
 msgid "_Alignment"
 msgstr "การจัดเ_รียง"
 
-#: components/editor/gtkhtml-editor-actions.c:1591
+#: components/editor/gtkhtml-editor-actions.c:1600
 #: components/html-editor/spellchecker.c:424
 msgid "Current _Languages"
 msgstr "_ภาษาปัจจุบัน"
 
-#: components/editor/gtkhtml-editor-actions.c:1598
+#: components/editor/gtkhtml-editor-actions.c:1607
 #: components/editor/main.c:355
 msgid "_View"
 msgstr "มุ_มมอง"
 
-#: components/editor/gtkhtml-editor-actions.c:1608
-msgid "_HTML Mode"
-msgstr "โหมด _HTML"
-
-#: components/editor/gtkhtml-editor-actions.c:1619
+#: components/editor/gtkhtml-editor-actions.c:1617
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
 msgid "_Center"
-msgstr "เรียกตรง_กลาง"
+msgstr "เรียงตรง_กลาง"
 
-#: components/editor/gtkhtml-editor-actions.c:1626
+#: components/editor/gtkhtml-editor-actions.c:1619
+msgid "Center Alignment"
+msgstr "เรียงตรงกลาง"
+
+#: components/editor/gtkhtml-editor-actions.c:1624
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
 msgid "_Left"
 msgstr "ชิด_ซ้าย"
 
-#: components/editor/gtkhtml-editor-actions.c:1633
+#: components/editor/gtkhtml-editor-actions.c:1626
+msgid "Left Alignment"
+msgstr "เรียงชิดซ้าย"
+
+#: components/editor/gtkhtml-editor-actions.c:1631
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:134
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:134
 msgid "_Right"
 msgstr "ชิด_ขวา"
 
+#: components/editor/gtkhtml-editor-actions.c:1633
+msgid "Right Alignment"
+msgstr "เรียงชิดขวา"
+
+#: components/editor/gtkhtml-editor-actions.c:1641
+msgid "_HTML"
+msgstr "_HTML"
+
 #: components/editor/gtkhtml-editor-actions.c:1643
+msgid "HTML editing mode"
+msgstr "โหมดแก้ไข HTML"
+
+#: components/editor/gtkhtml-editor-actions.c:1648
+msgid "Plain _Text"
+msgstr "ข้อความเ_ปล่า"
+
+#: components/editor/gtkhtml-editor-actions.c:1650
+msgid "Plain text editing mode"
+msgstr "โหมดแก้ไขข้อความเปล่า"
+
+#: components/editor/gtkhtml-editor-actions.c:1658
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:126
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
 msgid "_Normal"
 msgstr "_ปกติ"
 
-#: components/editor/gtkhtml-editor-actions.c:1650
+#: components/editor/gtkhtml-editor-actions.c:1665
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:29
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:29
 msgid "Header _1"
 msgstr "หัวเรื่อง _1"
 
-#: components/editor/gtkhtml-editor-actions.c:1657
+#: components/editor/gtkhtml-editor-actions.c:1672
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:30
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:30
 msgid "Header _2"
 msgstr "หัวเรื่อง _2"
 
-#: components/editor/gtkhtml-editor-actions.c:1664
+#: components/editor/gtkhtml-editor-actions.c:1679
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:31
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:31
 msgid "Header _3"
 msgstr "หัวเรื่อง _3"
 
-#: components/editor/gtkhtml-editor-actions.c:1671
+#: components/editor/gtkhtml-editor-actions.c:1686
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:32
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:32
 msgid "Header _4"
 msgstr "หัวเรื่อง _4"
 
-#: components/editor/gtkhtml-editor-actions.c:1678
+#: components/editor/gtkhtml-editor-actions.c:1693
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:33
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:33
 msgid "Header _5"
 msgstr "หัวเรื่อง _5"
 
-#: components/editor/gtkhtml-editor-actions.c:1685
+#: components/editor/gtkhtml-editor-actions.c:1700
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:34
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:34
 msgid "Header _6"
 msgstr "หัวเรื่อง _6"
 
-#: components/editor/gtkhtml-editor-actions.c:1692
+#: components/editor/gtkhtml-editor-actions.c:1707
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:8
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:8
 msgid "A_ddress"
 msgstr "_ที่อยู่"
 
-#: components/editor/gtkhtml-editor-actions.c:1699
+#: components/editor/gtkhtml-editor-actions.c:1714
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:131
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
 msgid "_Preformatted"
 msgstr "_พิมพ์ดีด"
 
-#: components/editor/gtkhtml-editor-actions.c:1706
+#: components/editor/gtkhtml-editor-actions.c:1721
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:109
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
 msgid "_Bulleted List"
 msgstr "รายการ_ยัติภังค์"
 
-#: components/editor/gtkhtml-editor-actions.c:1713
+#: components/editor/gtkhtml-editor-actions.c:1728
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:135
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
 msgid "_Roman Numeral List"
 msgstr "รายการลำดับเลขโ_รมัน"
 
-#: components/editor/gtkhtml-editor-actions.c:1720
+#: components/editor/gtkhtml-editor-actions.c:1735
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:76
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
 msgid "Numbered _List"
 msgstr "รายการลำดับเ_ลข"
 
-#: components/editor/gtkhtml-editor-actions.c:1727
+#: components/editor/gtkhtml-editor-actions.c:1742
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:107
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
 msgid "_Alphabetical List"
 msgstr "รายการลำดับ_อักษร"
 
-#: components/editor/gtkhtml-editor-actions.c:1743
-#: components/editor/gtkhtml-editor-actions.c:1778
+#: components/editor/gtkhtml-editor-actions.c:1758
+#: components/editor/gtkhtml-editor-actions.c:1793
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:119
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
 msgid "_Image..."
 msgstr "รูป_ภาพ..."
 
-#: components/editor/gtkhtml-editor-actions.c:1750
-#: components/editor/gtkhtml-editor-actions.c:1785
+#: components/editor/gtkhtml-editor-actions.c:1765
+#: components/editor/gtkhtml-editor-actions.c:1800
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:125
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
 msgid "_Link..."
 msgstr "_ลิงก์..."
 
-#: components/editor/gtkhtml-editor-actions.c:1757
-#: components/editor/gtkhtml-editor-actions.c:1799
+#: components/editor/gtkhtml-editor-actions.c:1767
+msgid "Insert Link"
+msgstr "แทรกลิงก์"
+
+#: components/editor/gtkhtml-editor-actions.c:1772
+#: components/editor/gtkhtml-editor-actions.c:1814
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:136
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
 msgid "_Rule..."
 msgstr "เ_ส้นกั้น..."
 
-#: components/editor/gtkhtml-editor-actions.c:1764
-#: components/editor/gtkhtml-editor-actions.c:1806
+#: components/editor/gtkhtml-editor-actions.c:1774
+msgid "Insert Rule"
+msgstr "แทรกเส้นกั้น"
+
+#: components/editor/gtkhtml-editor-actions.c:1779
+#: components/editor/gtkhtml-editor-actions.c:1821
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:140
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:140
 msgid "_Table..."
 msgstr "_ตาราง..."
 
-#: components/editor/gtkhtml-editor-actions.c:1771
+#: components/editor/gtkhtml-editor-actions.c:1781
+msgid "Insert Table"
+msgstr "แทรกตาราง"
+
+#: components/editor/gtkhtml-editor-actions.c:1786
 msgid "_Cell..."
 msgstr "_ช่องตาราง..."
 
-#: components/editor/gtkhtml-editor-actions.c:1792
+#: components/editor/gtkhtml-editor-actions.c:1807
 msgid "Pa_ge..."
 msgstr "_หน้า..."
 
-#: components/editor/gtkhtml-editor-actions.c:1815
+#: components/editor/gtkhtml-editor-actions.c:1830
 msgid "Font _Size"
 msgstr "_ขนาดแบบอักษร"
 
-#: components/editor/gtkhtml-editor-actions.c:1822
+#: components/editor/gtkhtml-editor-actions.c:1837
 msgid "_Font Style"
 msgstr "รูปแ_บบแบบอักษร"
 
-#: components/editor/gtkhtml-editor-actions.c:1832
+#: components/editor/gtkhtml-editor-actions.c:1847
 #: components/editor/gtkhtml-editor.glade.h:58
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:108
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
@@ -762,7 +807,12 @@ msgstr "รูปแ_บบแบบอักษร"
 msgid "_Bold"
 msgstr "_หนา"
 
-#: components/editor/gtkhtml-editor-actions.c:1840
+#: components/editor/gtkhtml-editor-actions.c:1849
+#: components/html-editor/toolbar.c:441
+msgid "Bold"
+msgstr "หนา"
+
+#: components/editor/gtkhtml-editor-actions.c:1855
 #: components/editor/gtkhtml-editor.glade.h:65
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:122
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
@@ -770,13 +820,22 @@ msgstr "_หนา"
 msgid "_Italic"
 msgstr "เ_อียง"
 
-#: components/editor/gtkhtml-editor-actions.c:1848
+#: components/editor/gtkhtml-editor-actions.c:1857
+#: components/html-editor/toolbar.c:444
+msgid "Italic"
+msgstr "เอียง"
+
+#: components/editor/gtkhtml-editor-actions.c:1863
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:130
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
 msgid "_Plain Text"
 msgstr "ข้อความเ_ปล่า"
 
-#: components/editor/gtkhtml-editor-actions.c:1856
+#: components/editor/gtkhtml-editor-actions.c:1865
+msgid "Plain Text"
+msgstr "ข้อความเปล่า"
+
+#: components/editor/gtkhtml-editor-actions.c:1871
 #: components/editor/gtkhtml-editor.glade.h:74
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:138
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
@@ -784,7 +843,11 @@ msgstr "ข้อความเ_ปล่า"
 msgid "_Strikethrough"
 msgstr "_ขีดฆ่า"
 
-#: components/editor/gtkhtml-editor-actions.c:1864
+#: components/editor/gtkhtml-editor-actions.c:1873
+msgid "Strikethrough"
+msgstr "ขีดฆ่า"
+
+#: components/editor/gtkhtml-editor-actions.c:1879
 #: components/editor/gtkhtml-editor.glade.h:80
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:158
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:158
@@ -792,64 +855,69 @@ msgstr "_ขีดฆ่า"
 msgid "_Underline"
 msgstr "ขีดเส้นใ_ต้"
 
-#: components/editor/gtkhtml-editor-actions.c:1875
+#: components/editor/gtkhtml-editor-actions.c:1881
+#: components/html-editor/toolbar.c:447
+msgid "Underline"
+msgstr "ขีดเส้นใต้"
+
+#: components/editor/gtkhtml-editor-actions.c:1890
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:7
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:7
 msgid "-2"
 msgstr "-2"
 
-#: components/editor/gtkhtml-editor-actions.c:1882
+#: components/editor/gtkhtml-editor-actions.c:1897
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:6
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:6
 msgid "-1"
 msgstr "-1"
 
-#: components/editor/gtkhtml-editor-actions.c:1889
+#: components/editor/gtkhtml-editor-actions.c:1904
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:1
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
 msgid "+0"
 msgstr "+0"
 
-#: components/editor/gtkhtml-editor-actions.c:1896
+#: components/editor/gtkhtml-editor-actions.c:1911
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:2
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:2
 msgid "+1"
 msgstr "+1"
 
-#: components/editor/gtkhtml-editor-actions.c:1903
+#: components/editor/gtkhtml-editor-actions.c:1918
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:3
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:3
 msgid "+2"
 msgstr "+2"
 
-#: components/editor/gtkhtml-editor-actions.c:1910
+#: components/editor/gtkhtml-editor-actions.c:1925
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:4
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:4
 msgid "+3"
 msgstr "+3"
 
-#: components/editor/gtkhtml-editor-actions.c:1917
+#: components/editor/gtkhtml-editor-actions.c:1932
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:5
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:5
 msgid "+4"
 msgstr "+4"
 
-#: components/editor/gtkhtml-editor-actions.c:1936
+#: components/editor/gtkhtml-editor-actions.c:1951
 msgid "Cell Contents"
 msgstr "เนื้อหาในช่องตาราง"
 
-#: components/editor/gtkhtml-editor-actions.c:1943
+#: components/editor/gtkhtml-editor-actions.c:1958
 #: components/html-editor/popup.c:523
 msgid "Column"
 msgstr "คอลัมน์"
 
-#: components/editor/gtkhtml-editor-actions.c:1950
+#: components/editor/gtkhtml-editor-actions.c:1965
 #: components/html-editor/popup.c:522
 msgid "Row"
 msgstr "แถว"
 
-#: components/editor/gtkhtml-editor-actions.c:1957
-#: components/editor/gtkhtml-editor-actions.c:2040
+#: components/editor/gtkhtml-editor-actions.c:1972
+#: components/editor/gtkhtml-editor-actions.c:2055
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
 #: components/html-editor/gtkhtml-editor-properties.glade.h:50
@@ -859,129 +927,140 @@ msgstr "แถว"
 msgid "Table"
 msgstr "ตาราง"
 
-#: components/editor/gtkhtml-editor-actions.c:1966
+#: components/editor/gtkhtml-editor-actions.c:1981
 msgid "Table Delete"
 msgstr "ลบในตาราง"
 
-#: components/editor/gtkhtml-editor-actions.c:1973
+#: components/editor/gtkhtml-editor-actions.c:1988
 #: components/html-editor/popup.c:583
 msgid "Input Methods"
 msgstr "วิธีป้อนข้อความ"
 
-#: components/editor/gtkhtml-editor-actions.c:1980
+#: components/editor/gtkhtml-editor-actions.c:1995
 msgid "Table Insert"
 msgstr "แทรกในตาราง"
 
-#: components/editor/gtkhtml-editor-actions.c:1987
+#: components/editor/gtkhtml-editor-actions.c:2002
 #: components/html-editor/editor-control-factory.c:187
 #: components/html-editor/popup.c:191 components/html-editor/popup.c:268
 msgid "Properties"
 msgstr "คุณสมบัติ"
 
-#: components/editor/gtkhtml-editor-actions.c:2005
+#: components/editor/gtkhtml-editor-actions.c:2020
 msgid "Column After"
 msgstr "คอลัมน์ต่อท้าย"
 
-#: components/editor/gtkhtml-editor-actions.c:2012
+#: components/editor/gtkhtml-editor-actions.c:2027
 msgid "Column Before"
 msgstr "คอลัมน์ก่อนหน้า"
 
-#: components/editor/gtkhtml-editor-actions.c:2019
+#: components/editor/gtkhtml-editor-actions.c:2034
 #: components/html-editor/popup.c:450
 msgid "Insert _Link"
 msgstr "แทรก_ลิงก์"
 
-#: components/editor/gtkhtml-editor-actions.c:2026
+#: components/editor/gtkhtml-editor-actions.c:2041
 msgid "Row Above"
 msgstr "แถวด้านบน"
 
-#: components/editor/gtkhtml-editor-actions.c:2033
+#: components/editor/gtkhtml-editor-actions.c:2048
 msgid "Row Below"
 msgstr "แถวด้านล่าง"
 
-#: components/editor/gtkhtml-editor-actions.c:2047
+#: components/editor/gtkhtml-editor-actions.c:2062
 msgid "Cell..."
 msgstr "ช่องตาราง..."
 
-#: components/editor/gtkhtml-editor-actions.c:2054
+#: components/editor/gtkhtml-editor-actions.c:2069
 msgid "Image..."
 msgstr "รูปภาพ..."
 
-#: components/editor/gtkhtml-editor-actions.c:2061
+#: components/editor/gtkhtml-editor-actions.c:2076
 msgid "Link..."
 msgstr "ลิงก์..."
 
-#: components/editor/gtkhtml-editor-actions.c:2068
+#: components/editor/gtkhtml-editor-actions.c:2083
 msgid "Page..."
 msgstr "หน้า..."
 
-#: components/editor/gtkhtml-editor-actions.c:2075
+#: components/editor/gtkhtml-editor-actions.c:2090
 msgid "Paragraph..."
 msgstr "ย่อหน้า..."
 
-#: components/editor/gtkhtml-editor-actions.c:2082
+#: components/editor/gtkhtml-editor-actions.c:2097
 msgid "Rule..."
 msgstr "เส้นกั้น..."
 
-#: components/editor/gtkhtml-editor-actions.c:2089
+#: components/editor/gtkhtml-editor-actions.c:2104
 msgid "Table..."
 msgstr "ตาราง..."
 
-#: components/editor/gtkhtml-editor-actions.c:2096
+#: components/editor/gtkhtml-editor-actions.c:2111
 msgid "Text..."
 msgstr "ข้อความ..."
 
-#: components/editor/gtkhtml-editor-actions.c:2103
+#: components/editor/gtkhtml-editor-actions.c:2118
 #: components/html-editor/popup.c:457
 msgid "Remove Link"
 msgstr "ลบลิงก์"
 
-#: components/editor/gtkhtml-editor-actions.c:2120
+#: components/editor/gtkhtml-editor-actions.c:2135
 #: components/html-editor/popup.c:577
 msgid "Add Word to Dictionary"
 msgstr "เพิ่มคำในพจนานุกรม"
 
-#: components/editor/gtkhtml-editor-actions.c:2127
+#: components/editor/gtkhtml-editor-actions.c:2142
 #: components/html-editor/popup.c:559
 msgid "Ignore Misspelled Word"
 msgstr "ละเลยคำสะกดผิด"
 
-#: components/editor/gtkhtml-editor-actions.c:2134
+#: components/editor/gtkhtml-editor-actions.c:2149
 msgid "Add Word To"
 msgstr "เพิ่มคำลงใน"
 
-#: components/editor/gtkhtml-editor-actions.c:2353
+#: components/editor/gtkhtml-editor-actions.c:2370
 msgid "_Find"
 msgstr "_หา"
 
-#: components/editor/gtkhtml-editor-actions.c:2356
+#: components/editor/gtkhtml-editor-actions.c:2373
 msgid "Re_place"
 msgstr "แ_ทนที่"
 
-#: components/editor/gtkhtml-editor-actions.c:2359
+#: components/editor/gtkhtml-editor-actions.c:2376
 msgid "_Image"
 msgstr "รูป_ภาพ"
 
-#: components/editor/gtkhtml-editor-actions.c:2362
+#: components/editor/gtkhtml-editor-actions.c:2379
 msgid "_Link"
 msgstr "_ลิงก์"
 
-#: components/editor/gtkhtml-editor-actions.c:2365
+#: components/editor/gtkhtml-editor-actions.c:2382
 msgid "_Rule"
 msgstr "เ_ส้นกั้น"
 
-#: components/editor/gtkhtml-editor-actions.c:2368
+#: components/editor/gtkhtml-editor-actions.c:2385
 #: components/editor/gtkhtml-editor.glade.h:76
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
 msgid "_Table"
 msgstr "_ตาราง"
 
-#: components/editor/gtkhtml-editor-private.c:272
-#: components/html-editor/toolbar.c:540
-msgid "Text Color"
+#: components/editor/gtkhtml-editor-private.c:253
+msgid "Paragraph Style"
+msgstr "รูปลักษณ์ย่อหน้า"
+
+#: components/editor/gtkhtml-editor-private.c:267
+msgid "Editing Mode"
+msgstr "โหมดการแก้ไข"
+
+#: components/editor/gtkhtml-editor-private.c:279
+msgid "Font Color"
 msgstr "สีข้อความ"
 
-#: components/editor/gtkhtml-editor-private.c:299
+#: components/editor/gtkhtml-editor-private.c:289
+msgid "Font Size"
+msgstr "ขนาดแบบอักษร"
+
+#: components/editor/gtkhtml-editor-private.c:316
 #: components/html-editor/body.c:237 components/html-editor/text.c:171
 #: components/html-editor/toolbar.c:199
 msgid "Automatic"
@@ -1412,11 +1491,11 @@ msgstr ""
 "%\n"
 "ตามค่าย่อหน้า"
 
-#: components/editor/gtkhtml-spell-checker.c:169
+#: components/editor/gtkhtml-spell-checker.c:200
 msgid "Language"
 msgstr "ภาษา"
 
-#: components/editor/gtkhtml-spell-checker.c:170
+#: components/editor/gtkhtml-spell-checker.c:201
 msgid "The language used by the spell checker"
 msgstr "ภาษาที่ใช้โดยเครื่องมือตรวจตัวสะกด"
 
@@ -2497,24 +2576,12 @@ msgid "Toggle typewriter font style"
 msgstr "ใช้-เลิกใช้ตัวพิมพ์ดีด"
 
 #: components/html-editor/toolbar.c:441
-msgid "Bold"
-msgstr "หนา"
-
-#: components/html-editor/toolbar.c:441
 msgid "Makes the text bold"
 msgstr "เปลี่ยนข้อความเป็นตัวหนา"
 
 #: components/html-editor/toolbar.c:444
-msgid "Italic"
-msgstr "เอียง"
-
-#: components/html-editor/toolbar.c:444
 msgid "Makes the text italic"
 msgstr "เปลี่ยนข้อความเป็นตัวเอียง"
-
-#: components/html-editor/toolbar.c:447
-msgid "Underline"
-msgstr "ขีดเส้นใต้"
 
 #: components/html-editor/toolbar.c:447
 msgid "Underlines the text"
@@ -2540,6 +2607,10 @@ msgstr "ร่นเข้า"
 msgid "Indents the paragraphs more"
 msgstr "ร่นย่อหน้าเข้าไปอีก"
 
+#: components/html-editor/toolbar.c:540
+msgid "Text Color"
+msgstr "สีข้อความ"
+
 #: components/html-editor/utils.c:132
 msgid "Sample"
 msgstr "ตัวอย่าง"
@@ -2552,83 +2623,83 @@ msgstr ""
 "ออบเจกต์ที่แก้ไขถูกลบออกจากเอกสารไปแล้ว\n"
 "ไม่สามารถกระทำสิ่งที่คุณเปลี่ยนแปลงได้"
 
-#: gtkhtml/gtkhtml.c:2892
+#: gtkhtml/gtkhtml.c:2917
 msgid "Editable"
 msgstr "แก้ไขได้"
 
-#: gtkhtml/gtkhtml.c:2893
+#: gtkhtml/gtkhtml.c:2918
 msgid "Whether the html can be edited"
 msgstr "กำหนดว่า HTML แก้ไขได้หรือไม่"
 
-#: gtkhtml/gtkhtml.c:2899
+#: gtkhtml/gtkhtml.c:2924
 msgid "Document Title"
 msgstr "หัวเรื่องเอกสาร"
 
-#: gtkhtml/gtkhtml.c:2900
+#: gtkhtml/gtkhtml.c:2925
 msgid "The title of the current document"
 msgstr "หัวเรื่องของเอกสารปัจจุบัน"
 
-#: gtkhtml/gtkhtml.c:2906
+#: gtkhtml/gtkhtml.c:2931
 msgid "Document Base"
 msgstr "ฐานของเอกสาร"
 
-#: gtkhtml/gtkhtml.c:2907
+#: gtkhtml/gtkhtml.c:2932
 msgid "The base URL for relative references"
 msgstr "URL ฐานสำหรับการอ้างแบบสัมพัทธ์"
 
-#: gtkhtml/gtkhtml.c:2913
+#: gtkhtml/gtkhtml.c:2938
 msgid "Target Base"
 msgstr "ฐานของเป้าหมาย"
 
-#: gtkhtml/gtkhtml.c:2914
+#: gtkhtml/gtkhtml.c:2939
 msgid "The base URL of the target frame"
 msgstr "URL ฐานสำหรับเฟรมเป้าหมาย"
 
-#: gtkhtml/gtkhtml.c:2923
+#: gtkhtml/gtkhtml.c:2948
 msgid "Fixed Width Font"
 msgstr "แบบอักษรความกว้างคงที่"
 
-#: gtkhtml/gtkhtml.c:2924
+#: gtkhtml/gtkhtml.c:2949
 msgid "The Monospace font to use for typewriter text"
 msgstr "แบบอักษรความกว้างคงที่สำหรับข้อความพิมพ์ดีด"
 
-#: gtkhtml/gtkhtml.c:2930
+#: gtkhtml/gtkhtml.c:2955
 msgid "New Link Color"
 msgstr "สีลิงก์ใหม่"
 
-#: gtkhtml/gtkhtml.c:2931
+#: gtkhtml/gtkhtml.c:2956
 msgid "The color of new link elements"
 msgstr "สีของลิงก์ใหม่"
 
-#: gtkhtml/gtkhtml.c:2936
+#: gtkhtml/gtkhtml.c:2961
 msgid "Visited Link Color"
 msgstr "ลิงก์ที่เปิดแล้ว"
 
-#: gtkhtml/gtkhtml.c:2937
+#: gtkhtml/gtkhtml.c:2962
 msgid "The color of visited link elements"
 msgstr "สีของลิงก์ที่เปิดแล้ว"
 
-#: gtkhtml/gtkhtml.c:2942
+#: gtkhtml/gtkhtml.c:2967
 msgid "Active Link Color"
 msgstr "ลิงก์ที่เลือก"
 
-#: gtkhtml/gtkhtml.c:2943
+#: gtkhtml/gtkhtml.c:2968
 msgid "The color of active link elements"
 msgstr "สีของลิงก์ที่เลือก"
 
-#: gtkhtml/gtkhtml.c:2948
+#: gtkhtml/gtkhtml.c:2973
 msgid "Spelling Error Color"
 msgstr "สีคำสะกดผิด"
 
-#: gtkhtml/gtkhtml.c:2949
+#: gtkhtml/gtkhtml.c:2974
 msgid "The color of the spelling error markers"
 msgstr "สีของตัวทำเครื่องหมายคำสะกดผิด"
 
-#: gtkhtml/gtkhtml.c:2954
+#: gtkhtml/gtkhtml.c:2979
 msgid "Cite Quotation Color"
 msgstr "สีคำพูดอ้าง"
 
-#: gtkhtml/gtkhtml.c:2955
+#: gtkhtml/gtkhtml.c:2980
 msgid "The color of the cited text"
 msgstr "สีของข้อความที่อ้างคำพูด"
 
