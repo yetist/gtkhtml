@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-30 07:22+0000\n"
-"PO-Revision-Date: 2008-04-27 07:54+0100\n"
+"POT-Creation-Date: 2008-07-10 04:27+0000\n"
+"PO-Revision-Date: 2008-07-10 15:12+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n%100==4 ? 3 : 0);\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n%100==4 ? 3 : 0);\n"
 "X-Poedit-Language: Slovenian\n"
 
 #: ../a11y/image.c:151
@@ -29,7 +29,7 @@ msgstr "Naslov URL je %s"
 
 #: ../a11y/object.c:52
 #: ../a11y/object.c:61
-#: ../a11y/text.c:127
+#: ../a11y/text.c:126
 msgid "grab focus"
 msgstr "dobi fokus"
 
@@ -38,220 +38,220 @@ msgid "Panel containing HTML"
 msgstr "Plošča, ki vsebuje HTML"
 
 #: ../components/editor/gtkhtml-color-combo.c:78
-#: ../components/html-editor/gi-color-palette.c:559
+#: ../components/html-editor/gi-color-palette.c:555
 msgid "black"
 msgstr "črna"
 
 #: ../components/editor/gtkhtml-color-combo.c:79
-#: ../components/html-editor/gi-color-palette.c:560
+#: ../components/html-editor/gi-color-palette.c:556
 msgid "light brown"
 msgstr "svetlo rjava"
 
 #: ../components/editor/gtkhtml-color-combo.c:80
-#: ../components/html-editor/gi-color-palette.c:561
+#: ../components/html-editor/gi-color-palette.c:557
 msgid "brown gold"
 msgstr "rjavo-zlata"
 
 #: ../components/editor/gtkhtml-color-combo.c:81
-#: ../components/html-editor/gi-color-palette.c:562
+#: ../components/html-editor/gi-color-palette.c:558
 msgid "dark green #2"
 msgstr "temno zelena 2"
 
 #: ../components/editor/gtkhtml-color-combo.c:82
-#: ../components/html-editor/gi-color-palette.c:563
+#: ../components/html-editor/gi-color-palette.c:559
 msgid "navy"
 msgstr "mornariška"
 
 #: ../components/editor/gtkhtml-color-combo.c:83
-#: ../components/html-editor/gi-color-palette.c:564
-#: ../components/html-editor/gi-color-palette.c:620
+#: ../components/html-editor/gi-color-palette.c:560
+#: ../components/html-editor/gi-color-palette.c:616
 msgid "dark blue"
 msgstr "temno modra"
 
 #: ../components/editor/gtkhtml-color-combo.c:84
-#: ../components/html-editor/gi-color-palette.c:565
+#: ../components/html-editor/gi-color-palette.c:561
 msgid "purple #2"
 msgstr "vijolična 2"
 
 #: ../components/editor/gtkhtml-color-combo.c:85
-#: ../components/html-editor/gi-color-palette.c:566
+#: ../components/html-editor/gi-color-palette.c:562
 msgid "very dark gray"
 msgstr "zelo temno modra"
 
 #: ../components/editor/gtkhtml-color-combo.c:87
-#: ../components/html-editor/gi-color-palette.c:569
-#: ../components/html-editor/gi-color-palette.c:625
+#: ../components/html-editor/gi-color-palette.c:565
+#: ../components/html-editor/gi-color-palette.c:621
 msgid "dark red"
 msgstr "temno rdeča"
 
 #: ../components/editor/gtkhtml-color-combo.c:88
-#: ../components/html-editor/gi-color-palette.c:570
+#: ../components/html-editor/gi-color-palette.c:566
 msgid "red-orange"
 msgstr "rdeče-oranžna"
 
 #: ../components/editor/gtkhtml-color-combo.c:89
-#: ../components/html-editor/gi-color-palette.c:571
+#: ../components/html-editor/gi-color-palette.c:567
 msgid "gold"
 msgstr "zlata"
 
 #: ../components/editor/gtkhtml-color-combo.c:90
-#: ../components/html-editor/gi-color-palette.c:572
+#: ../components/html-editor/gi-color-palette.c:568
 msgid "dark green"
 msgstr "temno zelena"
 
 #: ../components/editor/gtkhtml-color-combo.c:91
-#: ../components/html-editor/gi-color-palette.c:573
-#: ../components/html-editor/gi-color-palette.c:626
+#: ../components/html-editor/gi-color-palette.c:569
+#: ../components/html-editor/gi-color-palette.c:622
 msgid "dull blue"
 msgstr "mračno modra"
 
 #: ../components/editor/gtkhtml-color-combo.c:92
-#: ../components/html-editor/gi-color-palette.c:574
-#: ../components/html-editor/gi-color-palette.c:627
+#: ../components/html-editor/gi-color-palette.c:570
+#: ../components/html-editor/gi-color-palette.c:623
 msgid "blue"
 msgstr "modra"
 
 #: ../components/editor/gtkhtml-color-combo.c:93
-#: ../components/html-editor/gi-color-palette.c:575
+#: ../components/html-editor/gi-color-palette.c:571
 msgid "dull purple"
 msgstr "mračno vijolična"
 
 #: ../components/editor/gtkhtml-color-combo.c:94
-#: ../components/html-editor/gi-color-palette.c:576
+#: ../components/html-editor/gi-color-palette.c:572
 msgid "dark grey"
 msgstr "mračno siva"
 
 #: ../components/editor/gtkhtml-color-combo.c:96
-#: ../components/html-editor/gi-color-palette.c:579
+#: ../components/html-editor/gi-color-palette.c:575
 msgid "red"
 msgstr "rdeča"
 
 #: ../components/editor/gtkhtml-color-combo.c:97
-#: ../components/html-editor/gi-color-palette.c:580
+#: ../components/html-editor/gi-color-palette.c:576
 msgid "orange"
 msgstr "oranžna"
 
 #: ../components/editor/gtkhtml-color-combo.c:98
-#: ../components/html-editor/gi-color-palette.c:581
+#: ../components/html-editor/gi-color-palette.c:577
 msgid "lime"
 msgstr "rumeno-zelena"
 
 #: ../components/editor/gtkhtml-color-combo.c:99
-#: ../components/html-editor/gi-color-palette.c:582
+#: ../components/html-editor/gi-color-palette.c:578
 msgid "dull green"
 msgstr "mračno zelena"
 
 #: ../components/editor/gtkhtml-color-combo.c:100
-#: ../components/html-editor/gi-color-palette.c:583
+#: ../components/html-editor/gi-color-palette.c:579
 msgid "dull blue #2"
 msgstr "mračno modra 2"
 
 #: ../components/editor/gtkhtml-color-combo.c:101
-#: ../components/html-editor/gi-color-palette.c:584
+#: ../components/html-editor/gi-color-palette.c:580
 msgid "sky blue #2"
 msgstr "nebeško modra 2"
 
 #: ../components/editor/gtkhtml-color-combo.c:102
-#: ../components/html-editor/gi-color-palette.c:585
-#: ../components/html-editor/gi-color-palette.c:624
+#: ../components/html-editor/gi-color-palette.c:581
+#: ../components/html-editor/gi-color-palette.c:620
 msgid "purple"
 msgstr "vijolična"
 
 #: ../components/editor/gtkhtml-color-combo.c:103
-#: ../components/html-editor/gi-color-palette.c:586
+#: ../components/html-editor/gi-color-palette.c:582
 msgid "gray"
 msgstr "siva"
 
 #: ../components/editor/gtkhtml-color-combo.c:105
-#: ../components/html-editor/gi-color-palette.c:589
-#: ../components/html-editor/gi-color-palette.c:621
+#: ../components/html-editor/gi-color-palette.c:585
+#: ../components/html-editor/gi-color-palette.c:617
 msgid "magenta"
 msgstr "škrlatna"
 
 #: ../components/editor/gtkhtml-color-combo.c:106
-#: ../components/html-editor/gi-color-palette.c:590
+#: ../components/html-editor/gi-color-palette.c:586
 msgid "bright orange"
 msgstr "bistro oranžna"
 
 #: ../components/editor/gtkhtml-color-combo.c:107
-#: ../components/html-editor/gi-color-palette.c:591
-#: ../components/html-editor/gi-color-palette.c:622
+#: ../components/html-editor/gi-color-palette.c:587
+#: ../components/html-editor/gi-color-palette.c:618
 msgid "yellow"
 msgstr "rumena"
 
 #: ../components/editor/gtkhtml-color-combo.c:108
-#: ../components/html-editor/gi-color-palette.c:592
+#: ../components/html-editor/gi-color-palette.c:588
 msgid "green"
 msgstr "zelena"
 
 #: ../components/editor/gtkhtml-color-combo.c:109
-#: ../components/html-editor/gi-color-palette.c:593
-#: ../components/html-editor/gi-color-palette.c:623
+#: ../components/html-editor/gi-color-palette.c:589
+#: ../components/html-editor/gi-color-palette.c:619
 msgid "cyan"
 msgstr "sinja"
 
 #: ../components/editor/gtkhtml-color-combo.c:110
-#: ../components/html-editor/gi-color-palette.c:594
+#: ../components/html-editor/gi-color-palette.c:590
 msgid "bright blue"
 msgstr "bistro modra"
 
 #: ../components/editor/gtkhtml-color-combo.c:111
-#: ../components/html-editor/gi-color-palette.c:595
-#: ../components/html-editor/gi-color-palette.c:612
+#: ../components/html-editor/gi-color-palette.c:591
+#: ../components/html-editor/gi-color-palette.c:608
 msgid "red purple"
 msgstr "Ra_zmik:"
 
 #: ../components/editor/gtkhtml-color-combo.c:112
-#: ../components/html-editor/gi-color-palette.c:596
+#: ../components/html-editor/gi-color-palette.c:592
 msgid "light grey"
 msgstr "svetlo siva"
 
 #: ../components/editor/gtkhtml-color-combo.c:114
-#: ../components/html-editor/gi-color-palette.c:599
-#: ../components/html-editor/gi-color-palette.c:616
+#: ../components/html-editor/gi-color-palette.c:595
+#: ../components/html-editor/gi-color-palette.c:612
 msgid "pink"
 msgstr "roza"
 
 #: ../components/editor/gtkhtml-color-combo.c:115
-#: ../components/html-editor/gi-color-palette.c:600
+#: ../components/html-editor/gi-color-palette.c:596
 msgid "light orange"
 msgstr "bistro oranžna"
 
 #: ../components/editor/gtkhtml-color-combo.c:116
-#: ../components/html-editor/gi-color-palette.c:601
-#: ../components/html-editor/gi-color-palette.c:613
+#: ../components/html-editor/gi-color-palette.c:597
+#: ../components/html-editor/gi-color-palette.c:609
 msgid "light yellow"
 msgstr "svetlo rumena"
 
 #: ../components/editor/gtkhtml-color-combo.c:117
-#: ../components/html-editor/gi-color-palette.c:602
+#: ../components/html-editor/gi-color-palette.c:598
 msgid "light green"
 msgstr "svetlo zelena"
 
 #: ../components/editor/gtkhtml-color-combo.c:118
-#: ../components/html-editor/gi-color-palette.c:603
+#: ../components/html-editor/gi-color-palette.c:599
 msgid "light cyan"
 msgstr "svetlo sinja"
 
 #: ../components/editor/gtkhtml-color-combo.c:119
-#: ../components/html-editor/gi-color-palette.c:604
-#: ../components/html-editor/gi-color-palette.c:614
+#: ../components/html-editor/gi-color-palette.c:600
+#: ../components/html-editor/gi-color-palette.c:610
 msgid "light blue"
 msgstr "svetlo modra"
 
 #: ../components/editor/gtkhtml-color-combo.c:120
-#: ../components/html-editor/gi-color-palette.c:605
-#: ../components/html-editor/gi-color-palette.c:618
+#: ../components/html-editor/gi-color-palette.c:601
+#: ../components/html-editor/gi-color-palette.c:614
 msgid "light purple"
 msgstr "svetlo vijolična"
 
 #: ../components/editor/gtkhtml-color-combo.c:121
-#: ../components/html-editor/gi-color-palette.c:606
+#: ../components/html-editor/gi-color-palette.c:602
 msgid "white"
 msgstr "bela"
 
 #: ../components/editor/gtkhtml-color-combo.c:269
-#: ../components/html-editor/gi-color-palette.c:426
+#: ../components/html-editor/gi-color-palette.c:422
 msgid "Choose Custom Color"
 msgstr "Izberite barvo po meri"
 
@@ -315,7 +315,7 @@ msgstr "Stanje barve spustnega menija"
 
 #. This is the default custom color
 #: ../components/editor/gtkhtml-color-combo.c:928
-#: ../components/html-editor/gi-color-palette.c:378
+#: ../components/html-editor/gi-color-palette.c:374
 msgid "custom"
 msgstr "po meri"
 
@@ -348,415 +348,462 @@ msgstr "Senca okvirja"
 msgid "Appearance of the frame border"
 msgstr "Videz roba okvirja"
 
-#: ../components/editor/gtkhtml-combo-box.c:329
+#: ../components/editor/gtkhtml-combo-box.c:323
 msgid "Action"
 msgstr "Dejanje"
 
-#: ../components/editor/gtkhtml-combo-box.c:330
+#: ../components/editor/gtkhtml-combo-box.c:324
 msgid "A GtkRadioAction"
 msgstr "GtkRadioAction"
 
-#: ../components/editor/gtkhtml-editor-actions.c:695
-#: ../components/html-editor/menubar.c:349
+#: ../components/editor/gtkhtml-editor-actions.c:633
+#: ../components/html-editor/menubar.c:348
 msgid "Insert HTML File"
 msgstr "Vstavi datoteko HTML"
 
-#: ../components/editor/gtkhtml-editor-actions.c:704
+#: ../components/editor/gtkhtml-editor-actions.c:642
+#: ../components/editor/gtkhtml-editor-actions.c:1760
 msgid "Insert Image"
 msgstr "Vstavi sliko"
 
-#: ../components/editor/gtkhtml-editor-actions.c:870
-#: ../components/html-editor/menubar.c:349
+#: ../components/editor/gtkhtml-editor-actions.c:808
+#: ../components/html-editor/menubar.c:348
 msgid "Insert Text File"
 msgstr "Vstavi datoteko z besedilom"
 
 #. Replace Button
-#: ../components/editor/gtkhtml-editor-actions.c:1260
+#: ../components/editor/gtkhtml-editor-actions.c:1269
 #: ../components/editor/gtkhtml-spell-dialog.c:522
 #: ../components/html-editor/replace.c:85
 msgid "_Replace"
 msgstr "_Zamenjaj"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1267
+#: ../components/editor/gtkhtml-editor-actions.c:1276
 #: ../components/html-editor/replace.c:82
 msgid "Replace _All"
 msgstr "Zamenjaj _vse"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1281
+#: ../components/editor/gtkhtml-editor-actions.c:1290
 #: ../components/html-editor/replace.c:83
 msgid "_Next"
 msgstr "_Naslednji"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1288
+#: ../components/editor/gtkhtml-editor-actions.c:1297
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:111
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
 msgid "_Copy"
 msgstr "_Kopiraj"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1295
+#: ../components/editor/gtkhtml-editor-actions.c:1304
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:18
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:18
 msgid "Cu_t"
 msgstr "_Izreži"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1309
+#: ../components/editor/gtkhtml-editor-actions.c:1318
 msgid "Find A_gain"
 msgstr "Poišči znov_a"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1323
+#: ../components/editor/gtkhtml-editor-actions.c:1332
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:120
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
 msgid "_Increase Indent"
 msgstr "_Povečaj zamik"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1330
+#: ../components/editor/gtkhtml-editor-actions.c:1334
+msgid "Increase Indent"
+msgstr "Povečaj zamik"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1339
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:117
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
 msgid "_HTML File..."
 msgstr "Datoteka _HTML ..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1337
+#: ../components/editor/gtkhtml-editor-actions.c:1346
 msgid "_Angel"
 msgstr "_Angel"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1344
+#: ../components/editor/gtkhtml-editor-actions.c:1353
 msgid "_Cool"
 msgstr "Super"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1351
+#: ../components/editor/gtkhtml-editor-actions.c:1360
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:17
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:17
 msgid "Cr_ying"
 msgstr "Joka_joč"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1358
+#: ../components/editor/gtkhtml-editor-actions.c:1367
 msgid "_Devilish"
 msgstr "_Hudičev"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1365
+#: ../components/editor/gtkhtml-editor-actions.c:1374
 msgid "_Embarrassed"
 msgstr "_Rdečica"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1372
+#: ../components/editor/gtkhtml-editor-actions.c:1381
 msgid "_Kiss"
 msgstr "_Poljub"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1379
+#: ../components/editor/gtkhtml-editor-actions.c:1388
 msgid "_Monkey"
 msgstr "_Opica"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1386
+#: ../components/editor/gtkhtml-editor-actions.c:1395
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:121
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
 msgid "_Indifferent"
 msgstr "_Brezbrižen"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1393
+#: ../components/editor/gtkhtml-editor-actions.c:1402
 msgid "_Tongue"
 msgstr "_Jezik"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1400
+#: ../components/editor/gtkhtml-editor-actions.c:1409
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:116
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
 msgid "_Frown"
 msgstr "_Nejevoljni"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1407
+#: ../components/editor/gtkhtml-editor-actions.c:1416
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:137
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
 msgid "_Smile"
 msgstr "_Nasmeh"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1414
+#: ../components/editor/gtkhtml-editor-actions.c:1423
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:123
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
 msgid "_Laughing"
 msgstr "_Smejoč"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1421
+#: ../components/editor/gtkhtml-editor-actions.c:1430
 msgid "Smi_rk"
 msgstr "_Pomig"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1428
+#: ../components/editor/gtkhtml-editor-actions.c:1437
 msgid "Sur_prised"
 msgstr "_Presenečen"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1435
+#: ../components/editor/gtkhtml-editor-actions.c:1444
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:160
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:160
 msgid "_Wink"
 msgstr "_Pomižik"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1442
+#: ../components/editor/gtkhtml-editor-actions.c:1451
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:157
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:157
 msgid "_Undecided"
 msgstr "_Oklevajoč"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1449
+#: ../components/editor/gtkhtml-editor-actions.c:1458
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:91
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
 msgid "S_ick"
 msgstr "_Bolan"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1456
+#: ../components/editor/gtkhtml-editor-actions.c:1465
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:100
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 msgid "Te_xt File..."
 msgstr "Datoteka z _besedilom ..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1463
+#: ../components/editor/gtkhtml-editor-actions.c:1472
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:129
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
 msgid "_Paste"
 msgstr "_Prilepi"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1470
+#: ../components/editor/gtkhtml-editor-actions.c:1479
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:79
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
 #: ../components/html-editor/popup.c:446
 msgid "Paste _Quotation"
 msgstr "Prilepi _citat"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1477
+#: ../components/editor/gtkhtml-editor-actions.c:1486
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:132
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
 msgid "_Redo"
 msgstr "_Obnovi"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1484
+#: ../components/editor/gtkhtml-editor-actions.c:1493
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:92
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
 msgid "Select _All"
 msgstr "Izberi _vse"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1491
+#: ../components/editor/gtkhtml-editor-actions.c:1500
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:114
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
 msgid "_Find..."
 msgstr "_Najdi ..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1498
+#: ../components/editor/gtkhtml-editor-actions.c:1507
 msgid "Re_place..."
 msgstr "_Zamenjaj ..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1505
+#: ../components/editor/gtkhtml-editor-actions.c:1514
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:12
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
 msgid "Check _Spelling..."
 msgstr "Preveri č_rkovanje ..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1512
+#: ../components/editor/gtkhtml-editor-actions.c:1521
 #: ../components/editor/gtkhtml-editor.glade.h:77
 #: ../components/html-editor/utils.c:205
 msgid "_Test URL..."
 msgstr "_Preizkusni URL ..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1519
+#: ../components/editor/gtkhtml-editor-actions.c:1528
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:159
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:159
 msgid "_Undo"
 msgstr "Ra_zveljavi"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1526
+#: ../components/editor/gtkhtml-editor-actions.c:1535
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:112
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
 msgid "_Decrease Indent"
 msgstr "_Zmanjšaj zamik"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1533
+#: ../components/editor/gtkhtml-editor-actions.c:1537
+msgid "Decrease Indent"
+msgstr "Pomanjšaj zamik"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1542
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:161
 msgid "_Wrap Lines"
 msgstr "_Ovij vrstice"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1542
+#: ../components/editor/gtkhtml-editor-actions.c:1551
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:113
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
 msgid "_Edit"
 msgstr "_Uredi"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1549
+#: ../components/editor/gtkhtml-editor-actions.c:1558
 #: ../components/editor/main.c:324
 msgid "_File"
 msgstr "_Datoteka"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1556
-msgid "_Format"
-msgstr "_Oblika"
+#: ../components/editor/gtkhtml-editor-actions.c:1565
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:28
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:28
+msgid "For_mat"
+msgstr "_Oblikuj"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1563
+#: ../components/editor/gtkhtml-editor-actions.c:1572
 msgid "_Paragraph Style"
 msgstr "_Slog odstavka ..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1570
+#: ../components/editor/gtkhtml-editor-actions.c:1579
 msgid "_Emoticon"
 msgstr "Sm_eško"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1577
+#: ../components/editor/gtkhtml-editor-actions.c:1586
 msgid "_Insert"
 msgstr "_Vstavi"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1584
+#: ../components/editor/gtkhtml-editor-actions.c:1593
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:106
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
 msgid "_Alignment"
 msgstr "_Poravnava"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1591
+#: ../components/editor/gtkhtml-editor-actions.c:1600
 #: ../components/html-editor/spellchecker.c:424
 msgid "Current _Languages"
 msgstr "Trenutni _jeziki"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1598
+#: ../components/editor/gtkhtml-editor-actions.c:1607
 #: ../components/editor/main.c:355
 msgid "_View"
 msgstr "_Pogled"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1608
-msgid "_HTML Mode"
-msgstr "Način _HTML"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1619
+#: ../components/editor/gtkhtml-editor-actions.c:1617
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
 msgid "_Center"
 msgstr "_Sredina"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1626
+#: ../components/editor/gtkhtml-editor-actions.c:1619
+msgid "Center Alignment"
+msgstr "Poravnaj na sredino"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1624
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
 msgid "_Left"
 msgstr "_Levo"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1633
+#: ../components/editor/gtkhtml-editor-actions.c:1626
+msgid "Left Alignment"
+msgstr "Poravnaj na levo"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1631
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:134
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:134
 msgid "_Right"
 msgstr "_Desno"
 
+#: ../components/editor/gtkhtml-editor-actions.c:1633
+msgid "Right Alignment"
+msgstr "Poravnaj na desno"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1641
+msgid "_HTML"
+msgstr "_HTML"
+
 #: ../components/editor/gtkhtml-editor-actions.c:1643
+msgid "HTML editing mode"
+msgstr "Urejevalni način HTML kode"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1648
+msgid "Plain _Text"
+msgstr "_Običajno besedilo"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1650
+msgid "Plain text editing mode"
+msgstr "Urejevalni način običajnega besedila"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1658
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:126
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
 msgid "_Normal"
 msgstr "_Običajna"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1650
+#: ../components/editor/gtkhtml-editor-actions.c:1665
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:29
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:29
 msgid "Header _1"
 msgstr "Glava _1"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1657
+#: ../components/editor/gtkhtml-editor-actions.c:1672
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:30
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:30
 msgid "Header _2"
 msgstr "Glava _2"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1664
+#: ../components/editor/gtkhtml-editor-actions.c:1679
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:31
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:31
 msgid "Header _3"
 msgstr "Glava _3"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1671
+#: ../components/editor/gtkhtml-editor-actions.c:1686
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:32
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:32
 msgid "Header _4"
 msgstr "Glava _4"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1678
+#: ../components/editor/gtkhtml-editor-actions.c:1693
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:33
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:33
 msgid "Header _5"
 msgstr "Glava _5"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1685
+#: ../components/editor/gtkhtml-editor-actions.c:1700
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:34
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:34
 msgid "Header _6"
 msgstr "Glava _6"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1692
+#: ../components/editor/gtkhtml-editor-actions.c:1707
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:8
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:8
 msgid "A_ddress"
 msgstr "_Naslov"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1699
+#: ../components/editor/gtkhtml-editor-actions.c:1714
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:131
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
 msgid "_Preformatted"
 msgstr "_Predoblikovano"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1706
+#: ../components/editor/gtkhtml-editor-actions.c:1721
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:109
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
 msgid "_Bulleted List"
 msgstr "_Neoštevilčen seznam"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1713
+#: ../components/editor/gtkhtml-editor-actions.c:1728
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:135
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
 msgid "_Roman Numeral List"
 msgstr "_Rimsko oštevilčen seznam"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1720
+#: ../components/editor/gtkhtml-editor-actions.c:1735
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:76
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
 msgid "Numbered _List"
 msgstr "Oštevilčen _seznam"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1727
+#: ../components/editor/gtkhtml-editor-actions.c:1742
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:107
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
 msgid "_Alphabetical List"
 msgstr "_Abecedno oštevilčen seznam"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1743
-#: ../components/editor/gtkhtml-editor-actions.c:1778
+#: ../components/editor/gtkhtml-editor-actions.c:1758
+#: ../components/editor/gtkhtml-editor-actions.c:1793
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:119
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
 msgid "_Image..."
 msgstr "_Slika ..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1750
-#: ../components/editor/gtkhtml-editor-actions.c:1785
+#: ../components/editor/gtkhtml-editor-actions.c:1765
+#: ../components/editor/gtkhtml-editor-actions.c:1800
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:125
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
 msgid "_Link..."
 msgstr "Po_vezava ..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1757
-#: ../components/editor/gtkhtml-editor-actions.c:1799
+#: ../components/editor/gtkhtml-editor-actions.c:1767
+msgid "Insert Link"
+msgstr "Vstavi povezavo"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1772
+#: ../components/editor/gtkhtml-editor-actions.c:1814
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:136
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
 msgid "_Rule..."
 msgstr "P_ravilo ..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1764
-#: ../components/editor/gtkhtml-editor-actions.c:1806
+#: ../components/editor/gtkhtml-editor-actions.c:1774
+msgid "Insert Rule"
+msgstr "Vstavi pravilo"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1779
+#: ../components/editor/gtkhtml-editor-actions.c:1821
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:140
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:140
 msgid "_Table..."
 msgstr "_Razpredelnica ..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1771
+#: ../components/editor/gtkhtml-editor-actions.c:1781
+msgid "Insert Table"
+msgstr "Vstavi tabelo"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1786
 msgid "_Cell..."
 msgstr "_Celica ..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1792
+#: ../components/editor/gtkhtml-editor-actions.c:1807
 msgid "Pa_ge..."
 msgstr "_Stran ..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1815
+#: ../components/editor/gtkhtml-editor-actions.c:1830
 msgid "Font _Size"
 msgstr "Velikost _pisave"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1822
+#: ../components/editor/gtkhtml-editor-actions.c:1837
 msgid "_Font Style"
 msgstr "_Slog pisave"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1832
+#: ../components/editor/gtkhtml-editor-actions.c:1847
 #: ../components/editor/gtkhtml-editor.glade.h:58
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:108
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
@@ -764,7 +811,12 @@ msgstr "_Slog pisave"
 msgid "_Bold"
 msgstr "_Polkrepko"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1840
+#: ../components/editor/gtkhtml-editor-actions.c:1849
+#: ../components/html-editor/toolbar.c:441
+msgid "Bold"
+msgstr "Polkrepko"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1855
 #: ../components/editor/gtkhtml-editor.glade.h:65
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:122
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
@@ -772,13 +824,22 @@ msgstr "_Polkrepko"
 msgid "_Italic"
 msgstr "_Poševno"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1848
+#: ../components/editor/gtkhtml-editor-actions.c:1857
+#: ../components/html-editor/toolbar.c:444
+msgid "Italic"
+msgstr "Poševno"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1863
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:130
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
 msgid "_Plain Text"
 msgstr "_Običajno besedilo"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1856
+#: ../components/editor/gtkhtml-editor-actions.c:1865
+msgid "Plain Text"
+msgstr "Običajno besedilo"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1871
 #: ../components/editor/gtkhtml-editor.glade.h:74
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:138
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
@@ -786,7 +847,11 @@ msgstr "_Običajno besedilo"
 msgid "_Strikethrough"
 msgstr "P_rečrtano"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1864
+#: ../components/editor/gtkhtml-editor-actions.c:1873
+msgid "Strikethrough"
+msgstr "Prečrtano"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1879
 #: ../components/editor/gtkhtml-editor.glade.h:80
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:158
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:158
@@ -794,198 +859,214 @@ msgstr "P_rečrtano"
 msgid "_Underline"
 msgstr "Po_dčrtano"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1875
+#: ../components/editor/gtkhtml-editor-actions.c:1881
+#: ../components/html-editor/toolbar.c:447
+msgid "Underline"
+msgstr "Podčrtano"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1890
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:7
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:7
 msgid "-2"
 msgstr "-2"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1882
+#: ../components/editor/gtkhtml-editor-actions.c:1897
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:6
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:6
 msgid "-1"
 msgstr "-1"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1889
+#: ../components/editor/gtkhtml-editor-actions.c:1904
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:1
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
 msgid "+0"
 msgstr "+0"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1896
+#: ../components/editor/gtkhtml-editor-actions.c:1911
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:2
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:2
 msgid "+1"
 msgstr "+1"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1903
+#: ../components/editor/gtkhtml-editor-actions.c:1918
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:3
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:3
 msgid "+2"
 msgstr "+2"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1910
+#: ../components/editor/gtkhtml-editor-actions.c:1925
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:4
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:4
 msgid "+3"
 msgstr "+3"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1917
+#: ../components/editor/gtkhtml-editor-actions.c:1932
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:5
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:5
 msgid "+4"
 msgstr "+4"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1936
+#: ../components/editor/gtkhtml-editor-actions.c:1951
 msgid "Cell Contents"
 msgstr "Vsebina celice"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1943
+#: ../components/editor/gtkhtml-editor-actions.c:1958
 #: ../components/html-editor/popup.c:523
 msgid "Column"
 msgstr "Stolpec"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1950
+#: ../components/editor/gtkhtml-editor-actions.c:1965
 #: ../components/html-editor/popup.c:522
 msgid "Row"
 msgstr "Vrstica"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1957
-#: ../components/editor/gtkhtml-editor-actions.c:2040
+#: ../components/editor/gtkhtml-editor-actions.c:1972
+#: ../components/editor/gtkhtml-editor-actions.c:2055
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:50
-#: ../components/html-editor/menubar.c:218
+#: ../components/html-editor/menubar.c:217
 #: ../components/html-editor/popup.c:235
 #: ../components/html-editor/popup.c:509
 #: ../components/html-editor/popup.c:521
 msgid "Table"
 msgstr "Razpredelnica"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1966
+#: ../components/editor/gtkhtml-editor-actions.c:1981
 msgid "Table Delete"
 msgstr "Zbris tabele"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1973
+#: ../components/editor/gtkhtml-editor-actions.c:1988
 #: ../components/html-editor/popup.c:583
 msgid "Input Methods"
 msgstr "Vhodne metode"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1980
+#: ../components/editor/gtkhtml-editor-actions.c:1995
 msgid "Table Insert"
 msgstr "Vstavi tabelo"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1987
-#: ../components/html-editor/editor-control-factory.c:190
+#: ../components/editor/gtkhtml-editor-actions.c:2002
+#: ../components/html-editor/editor-control-factory.c:187
 #: ../components/html-editor/popup.c:191
 #: ../components/html-editor/popup.c:268
 msgid "Properties"
 msgstr "Lastnosti"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2005
+#: ../components/editor/gtkhtml-editor-actions.c:2020
 msgid "Column After"
 msgstr "Stolpec po"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2012
+#: ../components/editor/gtkhtml-editor-actions.c:2027
 msgid "Column Before"
 msgstr "Stolpec pred"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2019
+#: ../components/editor/gtkhtml-editor-actions.c:2034
 #: ../components/html-editor/popup.c:450
 msgid "Insert _Link"
 msgstr "Vstavi _povezavo"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2026
+#: ../components/editor/gtkhtml-editor-actions.c:2041
 msgid "Row Above"
 msgstr "Vrstica nad"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2033
+#: ../components/editor/gtkhtml-editor-actions.c:2048
 msgid "Row Below"
 msgstr "Vrstica pod"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2047
+#: ../components/editor/gtkhtml-editor-actions.c:2062
 msgid "Cell..."
 msgstr "Celica ..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:2054
+#: ../components/editor/gtkhtml-editor-actions.c:2069
 msgid "Image..."
 msgstr "Slika ..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:2061
+#: ../components/editor/gtkhtml-editor-actions.c:2076
 msgid "Link..."
 msgstr "Povezava ..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:2068
+#: ../components/editor/gtkhtml-editor-actions.c:2083
 msgid "Page..."
 msgstr "Stran ..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:2075
+#: ../components/editor/gtkhtml-editor-actions.c:2090
 msgid "Paragraph..."
 msgstr "Odstavek ..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:2082
+#: ../components/editor/gtkhtml-editor-actions.c:2097
 msgid "Rule..."
 msgstr "Pravilo ..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:2089
+#: ../components/editor/gtkhtml-editor-actions.c:2104
 msgid "Table..."
 msgstr "Razpredelnica ..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:2096
+#: ../components/editor/gtkhtml-editor-actions.c:2111
 msgid "Text..."
 msgstr "Besedilo ..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:2103
+#: ../components/editor/gtkhtml-editor-actions.c:2118
 #: ../components/html-editor/popup.c:457
 msgid "Remove Link"
 msgstr "Odstrani povezavo"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2120
+#: ../components/editor/gtkhtml-editor-actions.c:2135
 #: ../components/html-editor/popup.c:577
 msgid "Add Word to Dictionary"
 msgstr "Dodaj besedo v slovar"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2127
+#: ../components/editor/gtkhtml-editor-actions.c:2142
 #: ../components/html-editor/popup.c:559
 msgid "Ignore Misspelled Word"
 msgstr "Prezri narobe črkovano besedo"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2134
+#: ../components/editor/gtkhtml-editor-actions.c:2149
 msgid "Add Word To"
 msgstr "Dodaj besedo v"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2353
+#: ../components/editor/gtkhtml-editor-actions.c:2370
 msgid "_Find"
 msgstr "_Poišči"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2356
+#: ../components/editor/gtkhtml-editor-actions.c:2373
 msgid "Re_place"
 msgstr "_Zamenjaj"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2359
+#: ../components/editor/gtkhtml-editor-actions.c:2376
 msgid "_Image"
 msgstr "_Slika"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2362
+#: ../components/editor/gtkhtml-editor-actions.c:2379
 msgid "_Link"
 msgstr "_Povezava"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2365
+#: ../components/editor/gtkhtml-editor-actions.c:2382
 msgid "_Rule"
 msgstr "_Pravilo"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2368
+#: ../components/editor/gtkhtml-editor-actions.c:2385
 #: ../components/editor/gtkhtml-editor.glade.h:76
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:72
 msgid "_Table"
 msgstr "_Razpredelnica"
 
-#: ../components/editor/gtkhtml-editor-private.c:272
-#: ../components/html-editor/toolbar.c:540
-msgid "Text Color"
-msgstr "Barva besedila"
+#: ../components/editor/gtkhtml-editor-private.c:253
+msgid "Paragraph Style"
+msgstr "Slog odstavka"
 
-#: ../components/editor/gtkhtml-editor-private.c:299
+#: ../components/editor/gtkhtml-editor-private.c:267
+msgid "Editing Mode"
+msgstr "Urejevalni način"
+
+#: ../components/editor/gtkhtml-editor-private.c:279
+msgid "Font Color"
+msgstr "Barva pisave"
+
+#: ../components/editor/gtkhtml-editor-private.c:289
+msgid "Font Size"
+msgstr "Velikost pisave"
+
+#: ../components/editor/gtkhtml-editor-private.c:316
 #: ../components/html-editor/body.c:237
 #: ../components/html-editor/text.c:171
 #: ../components/html-editor/toolbar.c:199
@@ -1391,39 +1472,11 @@ msgid "_Y-Padding:"
 msgstr "Polnjenje _Y:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:87
-msgid "gtk-close"
-msgstr "gtk-close"
-
-#: ../components/editor/gtkhtml-editor.glade.h:88
-msgid "gtk-find"
-msgstr "gtk-find"
-
-#: ../components/editor/gtkhtml-editor.glade.h:89
-msgid "gtk-find-and-replace"
-msgstr "Najdi in zamenjaj"
-
-#: ../components/editor/gtkhtml-editor.glade.h:90
-msgid "gtk-justify-center"
-msgstr "gtk-justify-center"
-
-#: ../components/editor/gtkhtml-editor.glade.h:91
-msgid "gtk-justify-left"
-msgstr "gtk-justify-left"
-
-#: ../components/editor/gtkhtml-editor.glade.h:92
-msgid "gtk-justify-right"
-msgstr "gtk-justify-right"
-
-#: ../components/editor/gtkhtml-editor.glade.h:93
-msgid "gtk-ok"
-msgstr "gtk-ok"
-
-#: ../components/editor/gtkhtml-editor.glade.h:94
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:79
 msgid "px"
 msgstr "točk"
 
-#: ../components/editor/gtkhtml-editor.glade.h:96
+#: ../components/editor/gtkhtml-editor.glade.h:89
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:81
 #, no-c-format
 msgid ""
@@ -1433,7 +1486,7 @@ msgstr ""
 "točk\n"
 "%"
 
-#: ../components/editor/gtkhtml-editor.glade.h:99
+#: ../components/editor/gtkhtml-editor.glade.h:92
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:84
 #, no-c-format
 msgid ""
@@ -1445,11 +1498,11 @@ msgstr ""
 "%\n"
 "sledi"
 
-#: ../components/editor/gtkhtml-spell-checker.c:169
+#: ../components/editor/gtkhtml-spell-checker.c:200
 msgid "Language"
 msgstr "Jezik"
 
-#: ../components/editor/gtkhtml-spell-checker.c:170
+#: ../components/editor/gtkhtml-spell-checker.c:201
 msgid "The language used by the spell checker"
 msgstr "Jezik, ki ga uporablja črkovalnik"
 
@@ -1650,11 +1703,6 @@ msgstr "Najdi in zamenjaj"
 msgid "Find and replace"
 msgstr "Najdi in zamenjaj"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:28
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:28
-msgid "For_mat"
-msgstr "_Oblikuj"
-
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:35
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
 msgid "I_nsert"
@@ -1662,7 +1710,7 @@ msgstr "_Vstavi"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:36
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
-#: ../components/html-editor/editor-control-factory.c:200
+#: ../components/html-editor/editor-control-factory.c:197
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:35
 #: ../components/html-editor/popup.c:211
 msgid "Image"
@@ -1740,7 +1788,7 @@ msgstr "V dokument vstavi smeška, ki pomežikne ..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:51
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
-#: ../components/html-editor/menubar.c:130
+#: ../components/html-editor/menubar.c:129
 msgid "Insert image"
 msgstr "Vstavi sliko"
 
@@ -1787,7 +1835,7 @@ msgstr "Poravnaj odstavke levo"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:60
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
-#: ../components/html-editor/menubar.c:175
+#: ../components/html-editor/menubar.c:174
 #: ../components/html-editor/popup.c:111
 #: ../components/html-editor/popup.c:205
 #: ../components/html-editor/popup.c:271
@@ -1928,9 +1976,9 @@ msgstr "Rimsko oštevilčen seznam"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:90
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
-#: ../components/html-editor/editor-control-factory.c:218
+#: ../components/html-editor/editor-control-factory.c:215
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:46
-#: ../components/html-editor/menubar.c:194
+#: ../components/html-editor/menubar.c:193
 #: ../components/html-editor/popup.c:229
 msgid "Rule"
 msgstr "Pravilo"
@@ -2115,7 +2163,7 @@ msgstr "Pot slike v ozadju"
 
 #: ../components/html-editor/body.c:275
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:51
-#: ../components/html-editor/menubar.c:240
+#: ../components/html-editor/menubar.c:239
 msgid "Template"
 msgstr "Predloga"
 
@@ -2134,49 +2182,49 @@ msgstr "Ni mogoče naložiti datoteke glade."
 msgid "Transparent"
 msgstr "Prozorno"
 
-#: ../components/html-editor/editor-control-factory.c:208
+#: ../components/html-editor/editor-control-factory.c:205
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:52
-#: ../components/html-editor/menubar.c:426
+#: ../components/html-editor/menubar.c:425
 #: ../components/html-editor/popup.c:199
 msgid "Text"
 msgstr "Besedilo"
 
-#: ../components/html-editor/editor-control-factory.c:227
-#: ../components/html-editor/menubar.c:443
+#: ../components/html-editor/editor-control-factory.c:224
+#: ../components/html-editor/menubar.c:442
 #: ../components/html-editor/popup.c:217
 msgid "Paragraph"
 msgstr "Odstavek"
 
-#: ../components/html-editor/editor-control-factory.c:231
+#: ../components/html-editor/editor-control-factory.c:228
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:44
-#: ../components/html-editor/menubar.c:409
+#: ../components/html-editor/menubar.c:408
 #: ../components/html-editor/popup.c:223
 msgid "Page"
 msgstr "Stran"
 
-#: ../components/html-editor/gi-color-combo.c:191
+#: ../components/html-editor/gi-color-combo.c:189
 msgid "color preview"
 msgstr "predogled barve"
 
 #. "Custom" color - we'll pop up a GtkColorDialog
-#: ../components/html-editor/gi-color-palette.c:418
+#: ../components/html-editor/gi-color-palette.c:414
 msgid "Custom Color:"
 msgstr "Barva po meri:"
 
-#: ../components/html-editor/gi-color-palette.c:611
+#: ../components/html-editor/gi-color-palette.c:607
 msgid "purplish blue"
 msgstr "vijolično-modra"
 
-#: ../components/html-editor/gi-color-palette.c:615
+#: ../components/html-editor/gi-color-palette.c:611
 msgid "dark purple"
 msgstr "temo vijolična"
 
-#: ../components/html-editor/gi-color-palette.c:617
+#: ../components/html-editor/gi-color-palette.c:613
 msgid "sky blue"
 msgstr "nebeško modra"
 
 #. set the a11y name
-#: ../components/html-editor/gi-combo-box.c:424
+#: ../components/html-editor/gi-combo-box.c:411
 msgid "Popup"
 msgstr "Okno"
 
@@ -2315,22 +2363,22 @@ msgstr "URL:"
 msgid "Description:"
 msgstr "Opis:"
 
-#: ../components/html-editor/menubar.c:172
-#: ../components/html-editor/menubar.c:191
-#: ../components/html-editor/menubar.c:215
-#: ../components/html-editor/menubar.c:237
+#: ../components/html-editor/menubar.c:171
+#: ../components/html-editor/menubar.c:190
+#: ../components/html-editor/menubar.c:214
+#: ../components/html-editor/menubar.c:236
 #: ../components/html-editor/popup.c:108
 msgid "Insert"
 msgstr "Vstavi"
 
-#: ../components/html-editor/menubar.c:324
+#: ../components/html-editor/menubar.c:323
 #, c-format
 msgid "Error loading file '%s': %s"
 msgstr "Napaka pri nalaganju datoteke '%s': %s"
 
-#: ../components/html-editor/menubar.c:406
-#: ../components/html-editor/menubar.c:423
-#: ../components/html-editor/menubar.c:440
+#: ../components/html-editor/menubar.c:405
+#: ../components/html-editor/menubar.c:422
+#: ../components/html-editor/menubar.c:439
 msgid "Format"
 msgstr "Oblikuj"
 
@@ -2524,7 +2572,7 @@ msgstr "Odpri datoteko ..."
 msgid "Save file as..."
 msgstr "Shrani datoteke kot ..."
 
-#: ../components/html-editor/test-html-editor-control.c:541
+#: ../components/html-editor/test-html-editor-control.c:542
 msgid "GtkHTML Editor Test Container"
 msgstr "Preizkusni vsebovalnik urejevalnika GtkHTML"
 
@@ -2541,24 +2589,12 @@ msgid "Toggle typewriter font style"
 msgstr "Preklopi slog pisave na pisalni stroj"
 
 #: ../components/html-editor/toolbar.c:441
-msgid "Bold"
-msgstr "Polkrepko"
-
-#: ../components/html-editor/toolbar.c:441
 msgid "Makes the text bold"
 msgstr "Nastavi besedilo krepko"
 
 #: ../components/html-editor/toolbar.c:444
-msgid "Italic"
-msgstr "Poševno"
-
-#: ../components/html-editor/toolbar.c:444
 msgid "Makes the text italic"
 msgstr "Nastavi besedilo poševno"
-
-#: ../components/html-editor/toolbar.c:447
-msgid "Underline"
-msgstr "Podčrtano"
 
 #: ../components/html-editor/toolbar.c:447
 msgid "Underlines the text"
@@ -2584,6 +2620,10 @@ msgstr "Zamik"
 msgid "Indents the paragraphs more"
 msgstr "Večji zamik odstavkov"
 
+#: ../components/html-editor/toolbar.c:540
+msgid "Text Color"
+msgstr "Barva besedila"
+
 #: ../components/html-editor/utils.c:132
 msgid "Sample"
 msgstr "Vzorec"
@@ -2596,91 +2636,91 @@ msgstr ""
 "Predmet, ki ga urejate, je bil odstranjen iz dokumenta.\n"
 "Ni mogoče uveljaviti vaših sprememb."
 
-#: ../gtkhtml/gtkhtml.c:2886
+#: ../gtkhtml/gtkhtml.c:2917
 msgid "Editable"
 msgstr "Dovoljeno urejanje"
 
-#: ../gtkhtml/gtkhtml.c:2887
+#: ../gtkhtml/gtkhtml.c:2918
 msgid "Whether the html can be edited"
 msgstr "Ali je HTML mogoče urejati"
 
-#: ../gtkhtml/gtkhtml.c:2893
+#: ../gtkhtml/gtkhtml.c:2924
 msgid "Document Title"
 msgstr "Naziv dokumenta"
 
-#: ../gtkhtml/gtkhtml.c:2894
+#: ../gtkhtml/gtkhtml.c:2925
 msgid "The title of the current document"
 msgstr "Naslov trenutnega dokumenta"
 
-#: ../gtkhtml/gtkhtml.c:2900
+#: ../gtkhtml/gtkhtml.c:2931
 msgid "Document Base"
 msgstr "Osnova dokumenta"
 
-#: ../gtkhtml/gtkhtml.c:2901
+#: ../gtkhtml/gtkhtml.c:2932
 msgid "The base URL for relative references"
 msgstr "Osnovni URL relativnih sklicev"
 
-#: ../gtkhtml/gtkhtml.c:2907
+#: ../gtkhtml/gtkhtml.c:2938
 msgid "Target Base"
 msgstr "Osnova cilja"
 
-#: ../gtkhtml/gtkhtml.c:2908
+#: ../gtkhtml/gtkhtml.c:2939
 msgid "The base URL of the target frame"
 msgstr "Osnovni URL ciljnega okvirja"
 
-#: ../gtkhtml/gtkhtml.c:2917
+#: ../gtkhtml/gtkhtml.c:2948
 msgid "Fixed Width Font"
 msgstr "Pisava stalne širine"
 
-#: ../gtkhtml/gtkhtml.c:2918
+#: ../gtkhtml/gtkhtml.c:2949
 msgid "The Monospace font to use for typewriter text"
 msgstr "Pisava stalne širine za besedilo pisalnega stroja"
 
-#: ../gtkhtml/gtkhtml.c:2924
+#: ../gtkhtml/gtkhtml.c:2955
 msgid "New Link Color"
 msgstr "Barva nove povezave"
 
-#: ../gtkhtml/gtkhtml.c:2925
+#: ../gtkhtml/gtkhtml.c:2956
 msgid "The color of new link elements"
 msgstr "Barva elementov nove povezave"
 
-#: ../gtkhtml/gtkhtml.c:2930
+#: ../gtkhtml/gtkhtml.c:2961
 msgid "Visited Link Color"
 msgstr "Barva obiskane povezave"
 
-#: ../gtkhtml/gtkhtml.c:2931
+#: ../gtkhtml/gtkhtml.c:2962
 msgid "The color of visited link elements"
 msgstr "Barva elementov obiskane povezave"
 
-#: ../gtkhtml/gtkhtml.c:2936
+#: ../gtkhtml/gtkhtml.c:2967
 msgid "Active Link Color"
 msgstr "Barva dejavne povezave"
 
-#: ../gtkhtml/gtkhtml.c:2937
+#: ../gtkhtml/gtkhtml.c:2968
 msgid "The color of active link elements"
 msgstr "Barva elementov dejavne povezave"
 
-#: ../gtkhtml/gtkhtml.c:2942
+#: ../gtkhtml/gtkhtml.c:2973
 msgid "Spelling Error Color"
 msgstr "Barva napačnega črkovanja"
 
-#: ../gtkhtml/gtkhtml.c:2943
+#: ../gtkhtml/gtkhtml.c:2974
 msgid "The color of the spelling error markers"
 msgstr "Barva oznak pri napačnem črkovanju"
 
-#: ../gtkhtml/gtkhtml.c:2948
+#: ../gtkhtml/gtkhtml.c:2979
 msgid "Cite Quotation Color"
 msgstr "Barva navedka"
 
-#: ../gtkhtml/gtkhtml.c:2949
+#: ../gtkhtml/gtkhtml.c:2980
 msgid "The color of the cited text"
 msgstr "Barva navedenega besedila"
 
-#: ../gtkhtml/htmlbutton.c:140
+#: ../gtkhtml/htmlbutton.c:139
 msgid "Submit Query"
 msgstr "Pošlji poizvedbo"
 
-#: ../gtkhtml/htmlbutton.c:143
+#: ../gtkhtml/htmlbutton.c:142
 msgid "Reset"
 msgstr "Ponastavi"
 
@@ -2690,19 +2730,36 @@ msgstr "Ponastavi"
 msgid "Cannot allocate default font for printing"
 msgstr "Ni mogoče določiti privzete pisave za tiskanje"
 
-#: ../gtkhtml/test.c:374
+#: ../gtkhtml/test.c:365
 msgid "GtkHTML Test"
 msgstr "GtkHTML test"
 
-#: ../gtkhtml/testgtkhtml.c:116
+#: ../gtkhtml/testgtkhtml.c:114
 msgid "Print pre_view"
 msgstr "_Predogled tiskanja"
 
-#: ../gtkhtml/testgtkhtml.c:116
+#: ../gtkhtml/testgtkhtml.c:114
 msgid "Print preview"
 msgstr "Predogled tiskanja"
 
-#: ../gtkhtml/testgtkhtml.c:1020
+#: ../gtkhtml/testgtkhtml.c:1018
 msgid "GtkHTML Test Application"
 msgstr "Preizkusni program GtkHTML"
+
+#~ msgid "_Format"
+#~ msgstr "_Oblika"
+#~ msgid "gtk-close"
+#~ msgstr "gtk-close"
+#~ msgid "gtk-find"
+#~ msgstr "gtk-find"
+#~ msgid "gtk-find-and-replace"
+#~ msgstr "Najdi in zamenjaj"
+#~ msgid "gtk-justify-center"
+#~ msgstr "gtk-justify-center"
+#~ msgid "gtk-justify-left"
+#~ msgstr "gtk-justify-left"
+#~ msgid "gtk-justify-right"
+#~ msgstr "gtk-justify-right"
+#~ msgid "gtk-ok"
+#~ msgstr "gtk-ok"
 
