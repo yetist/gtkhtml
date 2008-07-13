@@ -1330,7 +1330,7 @@ static GtkActionEntry core_entries[] = {
 	{ "indent",
 	  GTK_STOCK_INDENT,
 	  N_("_Increase Indent"),
-	  "<Control>bracketleft",
+	  "<Control>bracketright",
 	  N_("Increase Indent"),
 	  G_CALLBACK (action_indent_cb) },
 
@@ -1533,7 +1533,7 @@ static GtkActionEntry core_entries[] = {
 	{ "unindent",
 	  GTK_STOCK_UNINDENT,
 	  N_("_Decrease Indent"),
-	  "<Control>bracketright",
+	  "<Control>bracketleft",
 	  N_("Decrease Indent"),
 	  G_CALLBACK (action_unindent_cb) },
 

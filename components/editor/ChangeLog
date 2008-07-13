@@ -1,3 +1,10 @@
+2008-07-13  B S Srinidhi  <srinidhi.bs@gmail.com>
+
+	** Fixes bug #542567
+
+	* gtkhtml-editor-actions.c: 
+	Correct the shortcuts for increasing and decreasing indents.
+
 2008-07-05  Matthew Barnes  <mbarnes@redhat.com>
 
 	* Implements the first of several suggested UI improvements in
