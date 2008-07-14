@@ -94,6 +94,7 @@ calc_dimension (GPtrArray *dim, gint *span, gint total)
 	int adj;
 	int remain;
 	int num_frac = 0;
+	gboolean changed;
 
 	g_return_if_fail (dim != NULL && span != NULL);
 
@@ -128,16 +129,22 @@ calc_dimension (GPtrArray *dim, gint *span, gint total)
 	if (remain < 0)
 		adj = -1;
 
+	changed = FALSE;
 	i = 0;
 	while (remain != 0) {
 		if (span[i] > 0) {
 			span[i] += adj;
 			remain -= adj;
+			changed = TRUE;
 		}
 
 		i++;
-		if (i >= dim->len)
+		if (i >= dim->len) {
 			i = 0;
+			if (!changed)
+				break;
+			changed = FALSE;
+		}
 	}
 }
 

@@ -1,3 +1,10 @@
+2008-07-14  Milan Crha  <mcrha@redhat.com>
+
+	** Fix for bug #540929
+
+	* htmlframeset.c: (calc_dimension): Stop expanding columns as soon
+	as there were no columns expanded during the cycle.
+
 2008-07-02  Milan Crha  <mcrha@redhat.com>
 
 	** Fix for bug #493783
