@@ -2280,15 +2280,16 @@ gtkhtml_editor_actions_init (GtkhtmlEditor *editor)
 {
 	GtkActionGroup *action_group;
 	GtkUIManager *manager;
+	const gchar *domain;
 
 	g_return_if_fail (GTKHTML_IS_EDITOR (editor));
 
 	manager = gtkhtml_editor_get_ui_manager (editor);
+	domain = GETTEXT_PACKAGE;
 
 	/* Core Actions */
 	action_group = editor->priv->core_actions;
-	gtk_action_group_set_translation_domain (
-		action_group, GETTEXT_PACKAGE);
+	gtk_action_group_set_translation_domain (action_group, domain);
 	gtk_action_group_add_actions (
 		action_group, core_entries,
 		G_N_ELEMENTS (core_entries), editor);
@@ -2311,8 +2312,7 @@ gtkhtml_editor_actions_init (GtkhtmlEditor *editor)
 
 	/* Core Actions (HTML only) */
 	action_group = editor->priv->html_actions;
-	gtk_action_group_set_translation_domain (
-		action_group, GETTEXT_PACKAGE);
+	gtk_action_group_set_translation_domain (action_group, domain);
 	gtk_action_group_add_actions (
 		action_group, html_entries,
 		G_N_ELEMENTS (html_entries), editor);
@@ -2328,8 +2328,7 @@ gtkhtml_editor_actions_init (GtkhtmlEditor *editor)
 
 	/* Context Menu Actions */
 	action_group = editor->priv->context_actions;
-	gtk_action_group_set_translation_domain (
-		action_group, GETTEXT_PACKAGE);
+	gtk_action_group_set_translation_domain (action_group, domain);
 	gtk_action_group_add_actions (
 		action_group, context_entries,
 		G_N_ELEMENTS (context_entries), editor);
@@ -2337,8 +2336,7 @@ gtkhtml_editor_actions_init (GtkhtmlEditor *editor)
 
 	/* Context Menu Actions (HTML only) */
 	action_group = editor->priv->html_context_actions;
-	gtk_action_group_set_translation_domain (
-		action_group, GETTEXT_PACKAGE);
+	gtk_action_group_set_translation_domain (action_group, domain);
 	gtk_action_group_add_actions (
 		action_group, html_context_entries,
 		G_N_ELEMENTS (html_context_entries), editor);
@@ -2346,8 +2344,7 @@ gtkhtml_editor_actions_init (GtkhtmlEditor *editor)
 
 	/* Context Menu Actions (spell check only) */
 	action_group = editor->priv->spell_check_actions;
-	gtk_action_group_set_translation_domain (
-		action_group, GETTEXT_PACKAGE);
+	gtk_action_group_set_translation_domain (action_group, domain);
 	gtk_action_group_add_actions (
 		action_group, spell_context_entries,
 		G_N_ELEMENTS (spell_context_entries), editor);
