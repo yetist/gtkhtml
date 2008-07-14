@@ -1,3 +1,11 @@
+2008-07-14  Matthew Barnes  <mbarnes@redhat.com>
+
+	* gtkhtml-editor.c (gtkhtml_editor_get_action),
+	(gtkhtml_editor_get_action_group), (gtkhtml_editor_get_widget),
+	(gtkhtml_editor_get_managed_widget):
+	Use gtkhtml_editor_get_ui_manager() to get the UI manager.
+	Replace assertions with g_return_val_if_fail().
+
 2008-07-13  B S Srinidhi  <srinidhi.bs@gmail.com>
 
 	** Fixes bug #542567

@@ -920,13 +920,16 @@ GtkAction *
 gtkhtml_editor_get_action (GtkhtmlEditor *editor,
                            const gchar *action_name)
 {
+	GtkUIManager *manager;
 	GtkAction *action = NULL;
 	GList *iter;
 
 	g_return_val_if_fail (GTKHTML_IS_EDITOR (editor), NULL);
 	g_return_val_if_fail (action_name != NULL, NULL);
 
-	iter = gtk_ui_manager_get_action_groups (editor->priv->manager);
+	manager = gtkhtml_editor_get_ui_manager (editor);
+	iter = gtk_ui_manager_get_action_groups (manager);
+
 	while (iter != NULL && action == NULL) {
 		GtkActionGroup *action_group = iter->data;
 
@@ -934,7 +937,8 @@ gtkhtml_editor_get_action (GtkhtmlEditor *editor,
 			action_group, action_name);
 		iter = g_list_next (iter);
 	}
-	g_assert (action != NULL);
+
+	g_return_val_if_fail (action != NULL, NULL);
 
 	return action;
 }
@@ -943,12 +947,15 @@ GtkActionGroup *
 gtkhtml_editor_get_action_group (GtkhtmlEditor *editor,
                                  const gchar *group_name)
 {
+	GtkUIManager *manager;
 	GList *iter;
 
 	g_return_val_if_fail (GTKHTML_IS_EDITOR (editor), NULL);
 	g_return_val_if_fail (group_name != NULL, NULL);
 
-	iter = gtk_ui_manager_get_action_groups (editor->priv->manager);
+	manager = gtkhtml_editor_get_ui_manager (editor);
+	iter = gtk_ui_manager_get_action_groups (manager);
+
 	while (iter != NULL) {
 		GtkActionGroup *action_group = iter->data;
 		const gchar *name;
@@ -973,7 +980,7 @@ gtkhtml_editor_get_widget (GtkhtmlEditor *editor,
 	g_return_val_if_fail (widget_name != NULL, NULL);
 
 	widget = glade_xml_get_widget (editor->priv->glade_xml, widget_name);
-	g_assert (widget != NULL);
+	g_return_val_if_fail (widget != NULL, NULL);
 
 	return widget;
 }
@@ -990,7 +997,8 @@ gtkhtml_editor_get_managed_widget (GtkhtmlEditor *editor,
 
 	manager = gtkhtml_editor_get_ui_manager (editor);
 	widget = gtk_ui_manager_get_widget (manager, widget_path);
-	g_assert (widget != NULL);
+
+	g_return_val_if_fail (widget != NULL, NULL);
 
 	return widget;
 }
