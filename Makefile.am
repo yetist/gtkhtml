@@ -9,6 +9,8 @@ CLEANFILES =					\
 	po/.intltool-merge-cache
 
 DISTCLEANFILES =				\
+	doltcompile				\
+	doltlibtool				\
 	intltool-extract			\
 	intltool-update				\
 	intltool-merge				\
