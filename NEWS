@@ -1,3 +1,29 @@
+GtkHTML-3.23.5 2008-07-21
+--------------------------
+
+Bug Fixes:
+	#244888: Add accelerators for "justify-left" (Ctrl+L), "justify-center" (Ctrl+E) and "justify-right" (Ctrl+R).  Change the "word-wrap" accelerator from Ctrl+L to Ctrl+Backslash (Matthew Barnes)
+	#408707: Implements the first of several suggested UI improvements in the bug (Matthew Barnes)
+	#423395: New API to let GtkHTML know where to place cursor on the first focus event, based on the anchor name (Milan Crha)
+	#446894: Use the widget style's font rather than a hardcoded font (Matthew Barnes)
+	#493783: Restore last scrollbar position when done with substreams (Milan Crha)
+	#538703: Delay loading of all dictionaries to improve performance (Wang Xin)
+	#539289: Don't use deprecated gtk type macros (Christian Persch)
+	#540342: Fix a security vulnerability (Milan Crha)
+	#540929: Stop expanding columns as soon as there were no columns expanded during the cycle (Milan Crha)
+	#542567: Correct the shortcuts for increasing and decreasing indents (B S Srinidhi)
+
+Updated Translations:
+	Luca Ferretti (it)
+	Andre Klapper (de)
+	Ignacio Casal Quinteiro (gl)
+	Daniel Nylander (sv)
+	Matej Urbanči (sl)
+	Theppitak Karoonboonyanan (th)
+	Kjartan Maraas (nb)
+	Jorge Gonzalez (es)
+	Yannig Marchegay (oc)
+
 GtkHTML-3.23.4 2008-06-16
 --------------------------
 

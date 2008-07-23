@@ -1,9 +1,15 @@
+2008-07-23  Johnny Jacob  <jjohnny@novell.com>
+
+	* configure.in : Version bumped to 3.23.6
+
+	* NEWS: Updates for 3.23.5.
+
 2008-07-21  Matthew Barnes  <mbarnes@redhat.com>
 
 	* Makefile.am:
 	Add doltcompile and doltlibtool to DISTCLEANFILES to fix
 	distcheck breakage.
-
+	
 2008-06-24  Jeffrey Stedfast  <fejj@novell.com>
 
 	* configure.in: Doltified.
