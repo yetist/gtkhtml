@@ -2629,6 +2629,15 @@ client_notify_monospace_font (GConfClient* client, guint cnxn_id, GConfEntry* en
 }
 
 static void
+client_notify_cursor_blink (GConfClient* client, guint cnxn_id, GConfEntry* entry, gpointer data)
+{
+	if (gconf_client_get_bool (client, "/desktop/gnome/interface/cursor_blink", NULL))
+		html_engine_set_cursor_blink_timeout (gconf_client_get_int (client, "/desktop/gnome/interface/cursor_blink_time", NULL) / 2);
+	else
+		html_engine_set_cursor_blink_timeout (0);
+}
+
+static void
 gtk_html_direction_changed (GtkWidget *widget, GtkTextDirection previous_dir)
 {
 	GtkHTML *html = GTK_HTML (widget);
@@ -2667,6 +2676,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 	GtkLayoutClass    *layout_class;
 	GtkContainerClass *container_class;
 	gchar *filename;
+	GConfClient *client;
 
 	html_class = (GtkHTMLClass *) klass;
 #ifdef USE_PROPS
@@ -3023,8 +3033,17 @@ gtk_html_class_init (GtkHTMLClass *klass)
 	g_free (filename);
 	html_class->emacs_bindings = gtk_binding_set_find ("gtkhtml-bindings-emacs");
 	read_key_theme (html_class);
-	gconf_client_notify_add (gconf_client_get_default (), "/desktop/gnome/interface/gtk_key_theme",
+
+	client = gconf_client_get_default ();
+
+	gconf_client_notify_add (client, "/desktop/gnome/interface/gtk_key_theme",
 				 client_notify_key_theme, html_class, NULL, &gconf_error);
+
+	gconf_client_notify_add (client, "/desktop/gnome/interface/cursor_blink", client_notify_cursor_blink, NULL, NULL, NULL);
+	gconf_client_notify_add (client, "/desktop/gnome/interface/cursor_blink_time", client_notify_cursor_blink, NULL, NULL, NULL);
+	client_notify_cursor_blink (client, 0, NULL, NULL);
+
+	g_object_unref (client);
 }
 
 static void

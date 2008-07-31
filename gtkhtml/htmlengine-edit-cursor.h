@@ -24,6 +24,8 @@
 
 #include "htmltypes.h"
 
+void html_engine_set_cursor_blink_timeout (gint timeout);
+
 void  html_engine_hide_cursor            (HTMLEngine *engine);
 void  html_engine_show_cursor            (HTMLEngine *engine);
 void  html_engine_draw_cell_cursor       (HTMLEngine *engine);

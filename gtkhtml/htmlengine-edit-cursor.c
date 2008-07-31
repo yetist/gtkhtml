@@ -33,8 +33,6 @@
 #include "htmltable.h"
 #include "htmlembedded.h"
 
-#define BLINK_TIMEOUT 500
-
 static GdkColor table_stipple_active_on      = { 0, 0,      0,      0xffff };
 static GdkColor table_stipple_active_off     = { 0, 0xffff, 0xffff, 0xffff };
 static GdkColor table_stipple_non_active_on  = { 0, 0xaaaa, 0xaaaa, 0xaaaa };
@@ -47,6 +45,14 @@ static GdkColor cell_stipple_non_active_off = { 0, 0xffff, 0xffff, 0xffff };
 
 static GdkColor image_stipple_active_on      = { 0, 0xffff, 0,      0 };
 static GdkColor image_stipple_active_off     = { 0, 0xffff, 0xffff, 0xffff };
+
+static gint blink_timeout = 500;
+
+void
+html_engine_set_cursor_blink_timeout (gint timeout)
+{
+	blink_timeout = timeout;
+}
 
 void
 html_engine_hide_cursor  (HTMLEngine *engine)
@@ -372,7 +378,10 @@ html_engine_setup_blinking_cursor (HTMLEngine *engine)
 	engine->blinking_status = FALSE;
 
 	blink_timeout_cb (engine);
-	engine->blinking_timer_id = g_timeout_add (BLINK_TIMEOUT, blink_timeout_cb, engine);
+	if (blink_timeout > 0)
+		engine->blinking_timer_id = g_timeout_add (blink_timeout, blink_timeout_cb, engine);
+	else
+		engine->blinking_timer_id = -1;
 }
 
 void
@@ -387,7 +396,8 @@ html_engine_stop_blinking_cursor (HTMLEngine *engine)
 		engine->blinking_status = FALSE;
 	}
 
-	g_source_remove (engine->blinking_timer_id);
+	if (engine->blinking_timer_id != -1)
+		g_source_remove (engine->blinking_timer_id);
 	engine->blinking_timer_id = 0;
 }
 
@@ -403,6 +413,16 @@ html_engine_reset_blinking_cursor (HTMLEngine *engine)
 
 	html_engine_show_cursor (engine);
 	engine->blinking_status = TRUE;
-	g_source_remove (engine->blinking_timer_id);
-	engine->blinking_timer_id = g_timeout_add (BLINK_TIMEOUT, blink_timeout_cb, engine);
+
+	if (engine->blinking_timer_id != -1)
+		g_source_remove (engine->blinking_timer_id);
+
+	if (blink_timeout > 0)
+		engine->blinking_timer_id = g_timeout_add (blink_timeout, blink_timeout_cb, engine);
+	else {
+		engine->blinking_timer_id = -1;
+		/* show the cursor */
+		engine->blinking_status = FALSE;
+		blink_timeout_cb (engine);
+	}
 }

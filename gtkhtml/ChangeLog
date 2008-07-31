@@ -1,3 +1,16 @@
+2008-07-31  Milan Crha  <mcrha@redhat.com>
+
+	** Fix for bug #545559
+
+	* htmlengine.c: (html_engine_finalize):
+	* htmlengine-edit-cursor.h: (html_engine_set_cursor_blink_timeout):
+	* htmlengine-edit-cursor.c: (html_engine_set_cursor_blink_timeout),
+	(html_engine_setup_blinking_cursor),
+	(html_engine_stop_blinking_cursor),
+	(html_engine_reset_blinking_cursor):
+	* gtkhtml.c: (client_notify_cursor_blink), (gtk_html_class_init):
+	Respect Gnome settings regarding cursor blinking.
+
 2008-07-14  Milan Crha  <mcrha@redhat.com>
 
 	** Fix for bug #540929

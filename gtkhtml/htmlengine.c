@@ -3811,7 +3811,8 @@ html_engine_finalize (GObject *object)
 		engine->thaw_idle_id = 0;
 	}
 	if (engine->blinking_timer_id != 0) {
-		g_source_remove (engine->blinking_timer_id);
+		if (engine->blinking_timer_id != -1)
+			g_source_remove (engine->blinking_timer_id);
 		engine->blinking_timer_id = 0;
 	}
 	if (engine->redraw_idle_id != 0) {
