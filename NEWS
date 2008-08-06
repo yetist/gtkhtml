@@ -1,3 +1,15 @@
+GtkHTML-3.23.6 2008-08-04
+--------------------------
+
+Bug Fixes:
+	#545559: Respect Gnome settings regarding cursor blinking (Milan Crha)
+
+Updated Translations:
+	Ivar Smolin (et)
+	Youssef Chahibi (ar)
+	Vladimir Melo (pt_BR)
+	Bruno Brouard (fr)
+
 GtkHTML-3.23.5 2008-07-21
 --------------------------
 
