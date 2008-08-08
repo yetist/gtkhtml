@@ -1,3 +1,13 @@
+GtkHTML-3.18.3 2008-06-30
+-------------------------
+
+Bug Fixes:
+	#533741: Don't insert BOM into UTF-8 text when copying to clipboard; filter it out when pasting from clipboard (Vaclav Slavik)
+	#540342: Fix a vulnerability when inserting specially armed HTML code into the composer (Milan Crha)
+
+Updated Translations:
+	Clytie Siddall (vi)
+
 GtkHTML-3.18.2 2008-05-26
 -------------------------
 
