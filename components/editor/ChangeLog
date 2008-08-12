@@ -1,3 +1,11 @@
+2008-08-12  Matthew Barnes  <mbarnes@redhat.com>
+
+	** Fixes bug #543318  (patch by Pascal Terjan)
+
+	* gtkhtml-editor.c (editor_init):
+	Force the codeset to UTF-8.  Not entirely sure if this is the
+	best place for a bind_textdomain_codeset() call, but it works.
+
 2008-07-14  Matthew Barnes  <mbarnes@redhat.com>
 
 	* gtkhtml-editor.c (gtkhtml_editor_get_action),
