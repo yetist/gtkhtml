@@ -5093,7 +5093,7 @@ html_engine_unblock_redraw (HTMLEngine *e)
 {
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
-	g_assert (e->block_redraw > 0);
+	g_return_if_fail (e->block_redraw > 0);
 
 	e->block_redraw --;
 	if (!e->block_redraw && e->need_redraw) {
@@ -5708,7 +5708,7 @@ get_pending_expose (HTMLEngine *e, GdkRegion *region)
 	GSList *l, *next;
 
 	g_return_if_fail (HTML_IS_ENGINE (e));
-	g_assert (!html_engine_frozen (e));
+	g_return_if_fail (!html_engine_frozen (e));
 	/* printf ("do_pending_expose\n"); */
 
 	for (l = e->pending_expose; l; l = next) {
@@ -5953,7 +5953,7 @@ html_engine_replace_do (HTMLEngine *e, HTMLReplaceQueryAnswer answer)
 	gboolean finished = FALSE;
 
 	g_return_val_if_fail (HTML_IS_ENGINE (e), FALSE);
-	g_assert (e->replace_info);
+	g_return_val_if_fail (e->replace_info, FALSE);
 
 	switch (answer) {
 	case RQA_ReplaceAll:
@@ -5995,8 +5995,8 @@ check_paragraph (HTMLObject *o, HTMLEngine *unused, HTMLEngine *e)
 void
 html_engine_spell_check (HTMLEngine *e)
 {
-	g_assert (HTML_IS_ENGINE (e));
-	g_assert (e->clue);
+	g_return_if_fail (HTML_IS_ENGINE (e));
+	g_return_if_fail (e->clue);
 
 	e->need_spell_check = FALSE;
 
@@ -6014,8 +6014,8 @@ clear_spell_check (HTMLObject *o, HTMLEngine *unused, HTMLEngine *e)
 void
 html_engine_clear_spell_check (HTMLEngine *e)
 {
-	g_assert (HTML_IS_ENGINE (e));
-	g_assert (e->clue);
+	g_return_if_fail (HTML_IS_ENGINE (e));
+	g_return_if_fail (e->clue);
 
 	e->need_spell_check = FALSE;
 
@@ -6373,7 +6373,7 @@ html_engine_add_expose  (HTMLEngine *e, gint x, gint y, gint width, gint height,
 
 	/* printf ("html_engine_add_expose\n"); */
 
-	g_assert (HTML_IS_ENGINE (e));
+	g_return_if_fail (HTML_IS_ENGINE (e));
 
 	r = g_new (struct HTMLEngineExpose, 1);
 

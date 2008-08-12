@@ -1,3 +1,10 @@
+2008-08-12  Tobias Mueller  <tobiasmue@svn.gnome.org>
+
+	* htmlengine.c: Sanitize HTMLENGINE by checking whether we have
+	a HTMLEngine.
+	Also move from g_assert to g_return_[val_]_if_fail.
+	Fixes bug #540794
+
 2008-07-31  Milan Crha  <mcrha@redhat.com>
 
 	** Fix for bug #545559
