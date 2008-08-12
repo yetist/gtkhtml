@@ -415,8 +415,11 @@ html_element_free (HTMLElement *element)
 static void
 push_element (HTMLEngine *e, char *name, char *class, HTMLStyle *style)
 {
-	HTMLElement *element = html_element_new (e, name);
+	HTMLElement *element;
 
+	g_return_if_fail (HTML_IS_ENGINE (e));
+	
+	element = html_element_new (e, name);
 	element->style = html_style_set_display (style, DISPLAY_INLINE);
 	html_stack_push (e->span_stack, element);
 }
@@ -427,6 +430,8 @@ static HTMLColor *
 current_color (HTMLEngine *e) {
 	HTMLElement *span;
 	GList *item;
+	
+	g_return_val_if_fail( HTML_IS_ENGINE(e), NULL );
 
 	for (item = e->span_stack->list; item; item = item->next) {
 		span = item->data;
@@ -445,6 +450,8 @@ static GdkColor *
 current_bg_color (HTMLEngine *e) {
 	HTMLElement *span;
 	GList *item;
+
+	g_return_val_if_fail (HTML_IS_ENGINE (e), NULL);
 
 	for (item = e->span_stack->list; item; item = item->next) {
 		span = item->data;
@@ -469,6 +476,8 @@ current_row_bg_color (HTMLEngine *e)
 	HTMLElement *span;
 	GList *item;
 
+	g_return_val_if_fail (HTML_IS_ENGINE (e), NULL);
+
 	for (item = e->span_stack->list; item; item = item->next) {
 		span = item->data;
 		if (span->style->display == DISPLAY_TABLE_ROW)
@@ -486,6 +495,8 @@ current_row_bg_image (HTMLEngine *e)
 {
 	HTMLElement *span;
 	GList *item;
+
+	g_return_val_if_fail (HTML_IS_ENGINE (e), NULL);
 
 	for (item = e->span_stack->list; item; item = item->next) {
 		span = item->data;
@@ -505,6 +516,8 @@ current_row_valign (HTMLEngine *e)
 	HTMLElement *span;
 	GList *item;
 	HTMLVAlignType rv = HTML_VALIGN_MIDDLE;
+
+	g_return_val_if_fail (HTML_IS_ENGINE (e), HTML_VALIGN_TOP );
 
 	if (!html_stack_top (e->table_stack)) {
 		DT (g_warning ("missing table");)
@@ -541,6 +554,8 @@ current_row_align (HTMLEngine *e)
 	HTMLElement *span;
 	GList *item;
 	HTMLHAlignType rv = HTML_HALIGN_NONE;
+
+	g_return_val_if_fail (HTML_IS_ENGINE (e), HTML_VALIGN_TOP);
 
 	if (!html_stack_top (e->table_stack)) {
 		DT (g_warning ("missing table");)
@@ -580,6 +595,8 @@ current_font_face (HTMLEngine *e)
 	HTMLElement *span;
 	GList *item;
 
+	g_return_val_if_fail (HTML_IS_ENGINE (e), NULL);
+
 	for (item = e->span_stack->list; item; item = item->next) {
 		span = item->data;
 		if (span->style && span->style->face)
@@ -596,6 +613,8 @@ current_font_style (HTMLEngine *e)
 	HTMLElement *span;
 	GList *item;
 	GtkHTMLFontStyle style = GTK_HTML_FONT_STYLE_DEFAULT;
+
+	g_return_val_if_fail (HTML_IS_ENGINE (e), GTK_HTML_FONT_STYLE_DEFAULT);
 
 	for (item = e->span_stack->list; item && item->next; item = item->next) {
 		span = item->data;
@@ -616,6 +635,8 @@ current_alignment (HTMLEngine *e)
 	HTMLElement *span;
 	GList *item;
 	gint maxLevel = 0;
+
+	g_return_val_if_fail (HTML_IS_ENGINE (e), HTML_HALIGN_NONE );
 
 	for (item = e->span_stack->list; item; item = item->next) {
 		span = item->data;
@@ -672,6 +693,8 @@ current_clueflow_style (HTMLEngine *e)
 {
 	HTMLClueFlowStyle style;
 
+	g_return_val_if_fail (HTML_IS_ENGINE (e), HTML_CLUEFLOW_STYLE_NORMAL);
+
 	if (html_stack_is_empty (e->clueflow_style_stack))
 		return HTML_CLUEFLOW_STYLE_NORMAL;
 
@@ -683,12 +706,16 @@ static void
 push_clueflow_style (HTMLEngine *e,
 		     HTMLClueFlowStyle style)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	html_stack_push (e->clueflow_style_stack, GINT_TO_POINTER (style));
 }
 
 static void
 pop_clueflow_style (HTMLEngine *e)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	html_stack_pop (e->clueflow_style_stack);
 }
 
@@ -718,6 +745,8 @@ flow_new (HTMLEngine *e, HTMLClueFlowStyle style, HTMLListType item_type, gint i
 	HTMLObject *o;
 	GByteArray *levels;
 	GList *l;
+
+	g_return_val_if_fail (HTML_IS_ENGINE (e), NULL);
 
 	levels = g_byte_array_new ();
 
@@ -754,6 +783,8 @@ add_line_break (HTMLEngine *e,
 		HTMLClearType clear,
 		HTMLDirection dir)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	if (!e->flow)
 		new_flow (e, clue, create_empty_text (e), HTML_CLEAR_NONE, HTML_DIRECTION_DERIVED);
 	new_flow (e, clue, NULL, clear, dir);
@@ -761,6 +792,8 @@ add_line_break (HTMLEngine *e,
 
 static void
 finish_flow (HTMLEngine *e, HTMLObject *clue) {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	if (e->flow && HTML_CLUE (e->flow)->tail == NULL) {
 		html_clue_remove (HTML_CLUE (clue), e->flow);
 		html_object_destroy (e->flow);
@@ -774,6 +807,8 @@ static void
 close_flow (HTMLEngine *e, HTMLObject *clue)
 {
 	HTMLObject *last;
+
+	g_return_if_fail (HTML_IS_ENGINE (e));
 
 	if (e->flow == NULL)
 		return;
@@ -795,6 +830,8 @@ close_flow (HTMLEngine *e, HTMLObject *clue)
 static void
 update_flow_align (HTMLEngine *e, HTMLObject *clue)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	if (e->flow != NULL) {
 		if (HTML_CLUE (e->flow)->head != NULL)
 			close_flow (e, clue);
@@ -806,6 +843,8 @@ update_flow_align (HTMLEngine *e, HTMLObject *clue)
 static void
 new_flow (HTMLEngine *e, HTMLObject *clue, HTMLObject *first_object, HTMLClearType clear, HTMLDirection dir)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	close_flow (e, clue);
 
 	e->flow = flow_new (e, current_clueflow_style (e), HTML_LIST_TYPE_BLOCKQUOTE, 0, clear);
@@ -826,6 +865,8 @@ append_element (HTMLEngine *e,
 		HTMLObject *clue,
 		HTMLObject *obj)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	e->avoid_para = FALSE;
 
 	if (e->flow == NULL)
@@ -838,6 +879,8 @@ static void
 apply_attributes (HTMLText *text, HTMLEngine *e, GtkHTMLFontStyle style, HTMLColor *color, GdkColor *bg_color, gint last_pos, gboolean link)
 {
 	PangoAttribute *attr;
+
+	g_return_if_fail (HTML_IS_ENGINE (e));
 
 	html_text_set_style_in_range (text, style, e, last_pos, text->text_bytes);
 
@@ -867,6 +910,8 @@ insert_text (HTMLEngine *e,
 	gint last_pos = 0;
 	gint last_bytes = 0;
 	gboolean prev_text_ends_in_space = FALSE ;
+
+	g_return_if_fail (HTML_IS_ENGINE (e));
 
 	if (text [0] == ' ' && text [1] == 0) {
 		if (e->eat_space)
@@ -930,6 +975,9 @@ static void
 html_element_push (HTMLElement *node, HTMLEngine *e, HTMLObject *clue)
 {
 	HTMLObject *block_clue;
+	
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	switch (node->style->display) {
 	case DISPLAY_BLOCK:
 		/* close anon p elements */
@@ -978,6 +1026,8 @@ push_block_element (HTMLEngine *e,
 {
 	HTMLElement *element = html_element_new (e, name);
 
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	element->style = html_style_set_display (style, level);
 	element->exitFunc = exitFunc;
 	element->miscData1 = miscData1;
@@ -1006,6 +1056,8 @@ remove_element (HTMLEngine *e, GList *item)
 	HTMLElement *elem = item->data;
 	GList *next = item->next;
 
+	g_return_val_if_fail (HTML_IS_ENGINE (e), NULL);
+
 	/* CLUECHECK */
 	if (elem->exitFunc)
 		(*(elem->exitFunc))(e, e->parser_clue, elem);
@@ -1021,8 +1073,11 @@ remove_element (HTMLEngine *e, GList *item)
 static void
 pop_block (HTMLEngine *e, HTMLElement *elem)
 {
-	GList *l = e->span_stack->list;
+	GList *l;
+	
+	g_return_if_fail (HTML_IS_ENGINE (e));
 
+	l = e->span_stack->list;
 	while (l) {
 		HTMLElement *cur = l->data;
 
@@ -1040,8 +1095,11 @@ pop_block (HTMLEngine *e, HTMLElement *elem)
 static void
 pop_inline (HTMLEngine *e, HTMLElement *elem)
 {
-	GList *l = e->span_stack->list;
+	GList *l;
 
+	g_return_if_fail (HTML_IS_ENGINE (e));
+	
+	l = e->span_stack->list;
 	while (l) {
 		HTMLElement *cur = l->data;
 
@@ -1063,6 +1121,8 @@ pop_element_by_type (HTMLEngine *e, HTMLDisplayType display)
 	HTMLElement *elem = NULL;
 	GList *l;
 	gint maxLevel = display;
+
+	g_return_if_fail (HTML_IS_ENGINE (e));
 
 	l = e->span_stack->list;
 
@@ -1105,6 +1165,8 @@ pop_element (HTMLEngine *e, char *name)
 	gint maxLevel;
 	GQuark id = g_quark_from_string (name);
 
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	l = e->span_stack->list;
 	maxLevel = 0;
 
@@ -1144,6 +1206,8 @@ block_end_display_block (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 static void
 block_end_p (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	if (e->avoid_para) {
 		finish_flow (e, clue);
 	} else {
@@ -1156,12 +1220,16 @@ block_end_p (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 static void
 block_end_map (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	e->map = NULL;
 }
 
 static void
 block_end_option (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	if ( e->inOption )
 		html_select_set_text (e->formSelect, e->formText->str);
 
@@ -1171,6 +1239,8 @@ block_end_option (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 static void
 block_end_select (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	if ( e->inOption )
 		html_select_set_text (e->formSelect, e->formText->str);
 
@@ -1182,6 +1252,8 @@ block_end_select (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 static void
 block_end_textarea (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	if ( e->inTextArea )
 		html_textarea_set_text (e->formTextArea, e->formText->str);
 
@@ -1193,6 +1265,8 @@ block_end_textarea (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 static void
 push_clue_style (HTMLEngine *e)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	html_stack_push (e->body_stack, e->clueflow_style_stack);
 	/* CLUECHECK */
 
@@ -1208,6 +1282,8 @@ push_clue_style (HTMLEngine *e)
 static void
 push_clue (HTMLEngine *e, HTMLObject *clue)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	push_clue_style (e);
 
 	html_stack_push (e->body_stack, e->parser_clue);
@@ -1219,6 +1295,8 @@ push_clue (HTMLEngine *e, HTMLObject *clue)
 static void
 pop_clue_style (HTMLEngine *e)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	/* CLUECHECK */
 	finish_flow (e, HTML_OBJECT (e->parser_clue));
 
@@ -1234,6 +1312,8 @@ pop_clue_style (HTMLEngine *e)
 static void
 pop_clue (HTMLEngine *e)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	e->flow = html_stack_pop (e->body_stack);
 	e->parser_clue = html_stack_pop (e->body_stack);
 
@@ -1254,6 +1334,8 @@ block_end_cell (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 static void
 block_end_title (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	/*
 	 * only emit the title changed signal if we have a
 	 * valid title
@@ -1266,6 +1348,8 @@ block_end_title (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 static void
 element_parse_title (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	e->inTitle = TRUE;
 	e->title = g_string_new ("");
 
@@ -1275,6 +1359,8 @@ element_parse_title (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 static void
 parse_text (HTMLEngine *e, HTMLObject *clue, char *str)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	if (e->inOption || e->inTextArea) {
 		g_string_append (e->formText, str);
 	} else if (e->inTitle) {
@@ -1290,6 +1376,8 @@ new_parse_body (HTMLEngine *e, const gchar *end[])
 	HTMLObject *clue = NULL;
 	gchar *str;
 	gchar *rv = NULL;
+
+	g_return_val_if_fail (HTML_IS_ENGINE (e), NULL);
 
 	e->eat_space = FALSE;
 
@@ -1355,6 +1443,8 @@ discard_body (HTMLEngine *p, const gchar *end[])
 {
 	gchar *str = NULL;
 
+	g_return_val_if_fail (p != NULL && HTML_IS_ENGINE (p), NULL);
+
 	while (html_tokenizer_has_more_tokens (p->ht) && p->parsing) {
 		str = html_tokenizer_next_token (p->ht);
 
@@ -1400,6 +1490,8 @@ element_parse_param (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	HTMLElement *element;
 	char *name = NULL, *value = NULL;
 
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	if (html_stack_is_empty (e->embeddedStack))
 		return;
 
@@ -1419,6 +1511,8 @@ static gchar *
 parse_object_params(HTMLEngine *p, HTMLObject *clue)
 {
 	gchar *str;
+
+	g_return_val_if_fail (p != NULL && HTML_IS_ENGINE (p), NULL);
 
 	/* we peek at tokens looking for <param> elements and
 	 * as soon as we find something that is not whitespace or a param
@@ -1452,6 +1546,8 @@ parse_object_params(HTMLEngine *p, HTMLObject *clue)
 static void
 block_end_object (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	if (!html_stack_is_empty (e->embeddedStack)) {
 		GObject *o = G_OBJECT (html_stack_pop (e->embeddedStack));
 		g_object_unref (o);
@@ -1472,6 +1568,8 @@ element_parse_object (HTMLEngine *e, HTMLObject *clue, const gchar *attr)
 	HTMLEmbedded *el;
 	gboolean object_found;
 	HTMLElement *element;
+
+	g_return_if_fail (HTML_IS_ENGINE (e));
 
 
 	/* this might have to do something different for form object
@@ -1553,6 +1651,8 @@ element_parse_noframe (HTMLEngine *e, HTMLObject *clue, const gchar *str )
 {
 	static const char *end[] = {"</noframe", NULL};
 
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	if (e->allow_frameset)
 		discard_body (e, end);
 }
@@ -1560,6 +1660,8 @@ element_parse_noframe (HTMLEngine *e, HTMLObject *clue, const gchar *str )
 static void
 block_end_frameset (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	if (!html_stack_is_empty (e->frame_stack))
 		html_stack_pop (e->frame_stack);
 }
@@ -1572,6 +1674,8 @@ element_parse_frameset (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	char *value = NULL;
 	char *rows  = NULL;
 	char *cols  = NULL;
+
+	g_return_if_fail (HTML_IS_ENGINE (e));
 
 	if (e->allow_frameset)
 		return;
@@ -1706,6 +1810,8 @@ element_parse_area (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	char *coords = NULL;
 	char *target = NULL;
 
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	if (e->map == NULL)
 		return;
 
@@ -1741,6 +1847,8 @@ element_parse_area (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 static void
 block_end_anchor (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	g_free (e->url);
 	e->url = NULL;
 
@@ -1760,6 +1868,8 @@ element_parse_a (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	char *coords = NULL;
 	char *target = NULL;
 	char *value;
+
+	g_return_if_fail (HTML_IS_ENGINE (e));
 
 	pop_element (e, ID_A);
 
@@ -1824,6 +1934,8 @@ element_parse_address (HTMLEngine *e, HTMLObject *clue, const char *str)
 {
 	HTMLStyle *style = NULL;
 
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	style = html_style_set_decoration (style, GTK_HTML_FONT_STYLE_ITALIC);
 	push_block_element (e, ID_ADDRESS, style, DISPLAY_BLOCK, block_end_clueflow_style, 0, 0);
 
@@ -1836,6 +1948,8 @@ element_parse_address (HTMLEngine *e, HTMLObject *clue, const char *str)
 static void
 block_end_pre (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	block_end_clueflow_style (e, clue, elem);
 
 	finish_flow (e, clue);
@@ -1846,6 +1960,8 @@ block_end_pre (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 static void
 element_parse_pre (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	push_block (e, ID_PRE, DISPLAY_BLOCK, block_end_pre, 0, 0);
 
 	push_clueflow_style (e, HTML_CLUEFLOW_STYLE_PRE);
@@ -1859,6 +1975,8 @@ static void
 element_parse_center (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	HTMLElement *element;
+
+	g_return_if_fail (HTML_IS_ENGINE (e));
 
 	element = html_element_new_parse (e, str);
 
@@ -1874,6 +1992,8 @@ element_parse_html (HTMLEngine *e, HTMLObject *clue, const char *str)
 {
 	HTMLElement *element;
 	char *value;
+
+	g_return_if_fail (HTML_IS_ENGINE (e));
 
 	element = html_element_new_parse (e, str);
 
@@ -1895,6 +2015,8 @@ element_parse_div (HTMLEngine *e, HTMLObject *clue, const char *str)
 	HTMLElement *element;
 	char *value;
 
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	element = html_element_new_parse (e, str);
 
 	element->style = html_style_set_display (element->style, DISPLAY_BLOCK);
@@ -1909,6 +2031,8 @@ element_parse_div (HTMLEngine *e, HTMLObject *clue, const char *str)
 static void
 element_parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	if (*str != '/') {
 		HTMLStyle *style = NULL;
 		HTMLDirection dir = HTML_DIRECTION_DERIVED;
@@ -1968,6 +2092,8 @@ element_parse_br (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	HTMLClearType clear;
 	HTMLDirection dir = HTML_DIRECTION_DERIVED;
 
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	clear = HTML_CLEAR_NONE;
 
 	/*
@@ -2004,6 +2130,8 @@ static void
 element_parse_body (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	GdkColor color;
+
+	g_return_if_fail (HTML_IS_ENGINE (e));
 
 	html_string_tokenizer_tokenize (e->st, str + 5, " >");
 	while (html_string_tokenizer_has_more_tokens (e->st)) {
@@ -2075,6 +2203,8 @@ element_parse_body (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 static void
 element_parse_base (HTMLEngine *e, HTMLObject *clue, const char *str)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	html_string_tokenizer_tokenize( e->st, str + 5, " >" );
 	while ( html_string_tokenizer_has_more_tokens (e->st) ) {
 		const char* token = html_string_tokenizer_next_token(e->st);
@@ -2092,6 +2222,8 @@ element_parse_data (HTMLEngine *e, HTMLObject *clue, const char *str)
 {
 	gchar *key = NULL;
 	gchar *class_name = NULL;
+
+	g_return_if_fail (HTML_IS_ENGINE (e));
 
 	html_string_tokenizer_tokenize (e->st, str + 5, " >" );
 	while (html_string_tokenizer_has_more_tokens (e->st)) {
@@ -2121,6 +2253,8 @@ element_parse_data (HTMLEngine *e, HTMLObject *clue, const char *str)
 static void
 form_begin (HTMLEngine *e, HTMLObject *clue, gchar *action, gchar *method, gboolean close_paragraph)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	e->form = html_form_new (e, action, method);
 	e->formList = g_list_append (e->formList, e->form);
 
@@ -2134,6 +2268,8 @@ form_begin (HTMLEngine *e, HTMLObject *clue, gchar *action, gchar *method, gbool
 static void
 block_end_form (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	e->form = NULL;
 
 	if (!e->avoid_para && elem && elem->miscData1) {
@@ -2158,6 +2294,8 @@ element_parse_input (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	int imgHSpace = 0;
 	int imgVSpace = 0;
 	gboolean fix_form = FALSE;
+
+	g_return_if_fail (HTML_IS_ENGINE (e));
 
 	if (e->form == NULL) {
 		fix_form = TRUE;
@@ -2279,6 +2417,8 @@ element_parse_form (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	gchar *method = "GET";
 	gchar *target = NULL;
 
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	html_string_tokenizer_tokenize (e->st, str + 5, " >");
 	while (html_string_tokenizer_has_more_tokens (e->st)) {
 		const gchar *token = html_string_tokenizer_next_token (e->st);
@@ -2310,6 +2450,8 @@ element_parse_frame (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	gint margin_height = -1;
 	gint margin_width = -1;
 	GtkPolicyType scroll = GTK_POLICY_AUTOMATIC;
+
+	g_return_if_fail (HTML_IS_ENGINE (e));
 
 	if (!e->allow_frameset)
 			return;
@@ -2421,6 +2563,8 @@ block_end_heading (HTMLEngine *e,
 		   HTMLObject *clue,
 		   HTMLElement *elem)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	block_end_clueflow_style (e, clue, elem);
 
 	e->avoid_para = TRUE;
@@ -2442,6 +2586,8 @@ element_parse_heading (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	HTMLClueFlowStyle fstyle;
 	HTMLStyle *style = NULL;
+
+	g_return_if_fail (HTML_IS_ENGINE (e));
 
 	element_end_heading (e, clue, str);
 
@@ -2515,6 +2661,8 @@ element_parse_img (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	gboolean percent_width  = FALSE;
 	gboolean percent_height = FALSE;
 	gboolean ismap = FALSE;
+
+	g_return_if_fail (HTML_IS_ENGINE (e));
 
 	color        = current_color (e);
 	if (e->url != NULL || e->target != NULL)
@@ -2626,6 +2774,8 @@ element_parse_meta (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	int refresh_delay = 0;
 	gchar *refresh_url = NULL;
 
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	html_string_tokenizer_tokenize(e->st, str + 5, " >");
 	while (html_string_tokenizer_has_more_tokens (e->st)) {
 
@@ -2659,6 +2809,8 @@ element_parse_meta (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 static void
 element_parse_map (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	pop_element (e, ID_MAP);
 
 	html_string_tokenizer_tokenize (e->st, str + 3, " >");
@@ -2706,6 +2858,8 @@ element_parse_li (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	HTMLListType listType;
 	gint itemNumber;
 
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	listType = HTML_LIST_TYPE_UNORDERED;
 	itemNumber = 1;
 
@@ -2751,6 +2905,8 @@ element_parse_li (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 static void
 block_end_list (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	html_list_destroy (html_stack_pop (e->listStack));
 
 	finish_flow (e, clue);
@@ -2762,6 +2918,8 @@ static void
 element_parse_ol (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	HTMLListType listType = HTML_LIST_TYPE_ORDERED_ARABIC;
+
+	g_return_if_fail (HTML_IS_ENGINE (e));
 
 	pop_element (e, ID_LI);
 
@@ -2783,6 +2941,8 @@ element_parse_ol (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 static void
 element_parse_ul (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	pop_element (e, ID_LI);
 
 	html_string_tokenizer_tokenize (e->st, str + 3, " >");
@@ -2799,6 +2959,8 @@ static void
 element_parse_blockquote (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	gboolean type = HTML_LIST_TYPE_BLOCKQUOTE;
+
+	g_return_if_fail (HTML_IS_ENGINE (e));
 
 	pop_element (e, ID_LI);
 
@@ -2821,6 +2983,8 @@ element_parse_blockquote (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 static void
 block_end_glossary (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	html_list_destroy (html_stack_pop (e->listStack));
 	block_end_item (e, clue, elem);
 }
@@ -2828,6 +2992,8 @@ block_end_glossary (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 static void
 element_parse_dd (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	pop_element (e, ID_DT);
 	pop_element (e, ID_DD);
 
@@ -2852,6 +3018,8 @@ element_parse_dt (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 static void
 element_parse_dl (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	close_flow (e, clue);
 
 	push_block (e, ID_DL, DISPLAY_BLOCK, block_end_list, FALSE, FALSE);
@@ -2861,6 +3029,8 @@ element_parse_dl (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 static void
 element_parse_dir (HTMLEngine *e, HTMLObject *clue, const char *str)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	pop_element (e, ID_LI);
 	finish_flow (e, clue);
 
@@ -2876,6 +3046,8 @@ element_parse_option (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	HTMLElement *element;
 	gchar *value = NULL;
 	gboolean selected = FALSE;
+
+	g_return_if_fail (HTML_IS_ENGINE (e));
 
 	if (!e->formSelect)
 		return;
@@ -2908,6 +3080,8 @@ element_parse_select (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	int size = 0;
 	gboolean multi = FALSE;
 
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	if (!e->form)
 		return;
 
@@ -2936,6 +3110,8 @@ element_parse_select (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 static void
 pop_clue_style_for_table (HTMLEngine *e)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	html_stack_destroy (e->listStack);
 	e->listStack = html_stack_pop (e->body_stack);
 	pop_clue_style (e);
@@ -2948,6 +3124,8 @@ block_end_table (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 	HTMLTable *table;
 	HTMLHAlignType table_align = elem->miscData1;
 	HTMLHAlignType clue_align = elem->miscData2;
+
+	g_return_if_fail (HTML_IS_ENGINE (e));
 
 	pop_clue_style_for_table (e);
 	table = html_stack_top (e->table_stack);
@@ -2991,6 +3169,8 @@ block_end_table (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 static void
 block_end_inline_table (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	pop_clue_style_for_table (e);
 	html_stack_pop (e->table_stack);
 }
@@ -3000,6 +3180,8 @@ close_current_table (HTMLEngine *e)
 {
 	HTMLElement *span;
 	GList *item;
+
+	g_return_if_fail (HTML_IS_ENGINE (e));
 
 	for (item = e->span_stack->list; item; item = item->next) {
 		span = item->data;
@@ -3021,6 +3203,8 @@ close_current_table (HTMLEngine *e)
 static void
 push_clue_style_for_table (HTMLEngine *e)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	push_clue_style (e);
 	html_stack_push (e->body_stack, e->listStack);
 	e->listStack = html_stack_new ((HTMLStackFreeFunc)html_list_destroy);
@@ -3142,8 +3326,11 @@ element_parse_table (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 static void
 block_end_row (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 {
-	HTMLTable *table = html_stack_top (e->table_stack);
+	HTMLTable *table;
 
+	g_return_if_fail (HTML_IS_ENGINE (e));
+	
+	table = html_stack_top (e->table_stack);
 	if (table) {
 		html_table_end_row (table);
 	}
@@ -3155,6 +3342,8 @@ block_ensure_row (HTMLEngine *e)
 	HTMLElement *span;
 	HTMLTable *table;
 	GList *item;
+
+	g_return_if_fail (HTML_IS_ENGINE (e));
 
 	table = html_stack_top (e->table_stack);
 	if (!table)
@@ -3223,11 +3412,14 @@ element_parse_tr (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 static void
 element_parse_caption (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
-	HTMLTable *table = html_stack_top (e->table_stack);
+	HTMLTable *table;
 	HTMLStyle *style = NULL;
 	HTMLClueV *caption;
 	HTMLVAlignType capAlign = HTML_VALIGN_MIDDLE;
 
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
+	table = html_stack_top (e->table_stack);
 	/* CAPTIONS are all wrong they don't even get render */
 	/* Make sure this is a valid position for a caption */
 	if (!table)
@@ -3401,6 +3593,8 @@ element_parse_textarea (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	gchar *name = NULL;
 	gint rows = 5, cols = 40;
+
+	g_return_if_fail (HTML_IS_ENGINE (e));
 
 	if (!e->form)
 		return;
@@ -3780,6 +3974,8 @@ html_engine_get_type (void)
 static void
 clear_selection (HTMLEngine *e)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	if (e->selection) {
 		html_interval_destroy (e->selection);
 		e->selection = NULL;
@@ -4241,6 +4437,8 @@ html_engine_realize (HTMLEngine *e,
 void
 html_engine_unrealize (HTMLEngine *e)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	if (e->thaw_idle_id != 0) {
 		g_source_remove (e->thaw_idle_id);
 		e->thaw_idle_id = 0;
@@ -4267,8 +4465,8 @@ html_engine_ensure_editable (HTMLEngine *engine)
 	HTMLObject *cluev;
 	HTMLObject *head;
 	HTMLObject *child;
-	g_return_if_fail (engine != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (engine));
+
 
 	cluev = engine->clue;
 	if (cluev == NULL)
@@ -4302,6 +4500,8 @@ html_engine_draw_background (HTMLEngine *e,
 	HTMLImagePointer *bgpixmap;
 	GdkPixbuf *pixbuf = NULL;
 
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	/* return if no background pixmap is set */
 	bgpixmap = e->bgPixmapPtr;
 	if (bgpixmap && bgpixmap->animation) {
@@ -4317,6 +4517,8 @@ html_engine_draw_background (HTMLEngine *e,
 void
 html_engine_stop_parser (HTMLEngine *e)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	if (!e->parsing)
 		return;
 	html_engine_flush (e);
@@ -4344,6 +4546,8 @@ id_table_free_func (gpointer key, gpointer val, gpointer data)
 static void
 html_engine_id_table_clear (HTMLEngine *e)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	if (e->id_table) {
 		g_hash_table_foreach_remove (e->id_table, id_table_free_func, NULL);
 		g_hash_table_destroy (e->id_table);
@@ -4377,6 +4581,8 @@ class_data_table_free_func (gpointer key, gpointer val, gpointer data)
 static void
 html_engine_class_data_clear (HTMLEngine *e)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	if (e->class_data) {
 		g_hash_table_foreach_remove (e->class_data, class_data_table_free_func, NULL);
 		g_hash_table_destroy (e->class_data);
@@ -4390,6 +4596,8 @@ GtkHTMLStream *
 html_engine_begin (HTMLEngine *e, char *content_type)
 {
 	GtkHTMLStream *new_stream;
+
+	g_return_val_if_fail (HTML_IS_ENGINE (e), NULL);
 
 	html_engine_clear_all_class_data (e);
 	html_tokenizer_begin (e->ht, content_type);
@@ -4441,6 +4649,8 @@ html_engine_stop_forall (HTMLObject *o, HTMLEngine *e, gpointer data)
 void
 html_engine_stop (HTMLEngine *e)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	e->stopped = TRUE;
 	html_object_forall (e->clue, e, html_engine_stop_forall, NULL);
 }
@@ -4512,6 +4722,8 @@ html_engine_update_event (HTMLEngine *e)
 {
 	DI (printf ("html_engine_update_event idle %p\n", e);)
 
+	g_return_val_if_fail (HTML_IS_ENGINE (e), FALSE);
+
 	e->updateTimer = 0;
 
 	if (html_engine_get_editable (e))
@@ -4571,6 +4783,8 @@ html_engine_update_event (HTMLEngine *e)
 void
 html_engine_schedule_update (HTMLEngine *e)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	DI (printf ("html_engine_schedule_update (may block %d)\n", e->opened_streams));
 	if (e->block && e->opened_streams)
 		return;
@@ -4645,6 +4859,8 @@ html_engine_timer_event (HTMLEngine *e)
 
 	DI (printf ("html_engine_timer_event idle %p\n", e);)
 
+	g_return_val_if_fail (HTML_IS_ENGINE (e), FALSE);
+
 	/* Has more tokens? */
 	if (!html_tokenizer_has_more_tokens (e->ht) && e->writing) {
 		retval = FALSE;
@@ -4681,6 +4897,8 @@ fix_last_clueflow (HTMLEngine *engine)
 {
 	HTMLClue *clue;
 	HTMLClue *last_clueflow;
+
+	g_return_if_fail (HTML_IS_ENGINE (engine));
 
 	clue = HTML_CLUE (engine->clue);
 	if (clue == NULL)
@@ -4742,6 +4960,8 @@ static void
 html_engine_draw_real (HTMLEngine *e, gint x, gint y, gint width, gint height, gboolean expose)
 {
 	gint x1, x2, y1, y2;
+
+	g_return_if_fail (HTML_IS_ENGINE (e));
 
 	if (e->block && e->opened_streams)
 		return;
@@ -4829,6 +5049,8 @@ html_engine_draw (HTMLEngine *e, gint x, gint y, gint width, gint height)
 static gint
 redraw_idle (HTMLEngine *e)
 {
+	g_return_val_if_fail (HTML_IS_ENGINE (e), 0);
+
        e->redraw_idle_id = 0;
        e->need_redraw = FALSE;
        html_engine_queue_redraw_all (e);
@@ -4840,6 +5062,8 @@ void
 html_engine_schedule_redraw (HTMLEngine *e)
 {
 	/* printf ("html_engine_schedule_redraw\n"); */
+
+	g_return_if_fail (HTML_IS_ENGINE (e));
 
 	if (e->block_redraw)
 		e->need_redraw = TRUE;
@@ -4853,6 +5077,8 @@ html_engine_schedule_redraw (HTMLEngine *e)
 void
 html_engine_block_redraw (HTMLEngine *e)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	e->block_redraw ++;
 	if (e->redraw_idle_id) {
 		g_source_remove (e->redraw_idle_id);
@@ -4865,6 +5091,8 @@ html_engine_block_redraw (HTMLEngine *e)
 void
 html_engine_unblock_redraw (HTMLEngine *e)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	g_assert (e->block_redraw > 0);
 
 	e->block_redraw --;
@@ -4881,6 +5109,8 @@ html_engine_unblock_redraw (HTMLEngine *e)
 gint
 html_engine_get_doc_width (HTMLEngine *e)
 {
+	g_return_val_if_fail (HTML_IS_ENGINE (e), 0);
+
 	return (e->clue ? e->clue->width : 0) + html_engine_get_left_border (e) + html_engine_get_right_border (e);
 }
 
@@ -4888,6 +5118,8 @@ gint
 html_engine_get_doc_height (HTMLEngine *e)
 {
 	gint height;
+
+	g_return_val_if_fail (HTML_IS_ENGINE (e), 0);
 
 	if (e->clue) {
 		height = e->clue->ascent;
@@ -4904,6 +5136,8 @@ html_engine_get_doc_height (HTMLEngine *e)
 gint
 html_engine_calc_min_width (HTMLEngine *e)
 {
+	g_return_val_if_fail (HTML_IS_ENGINE (e), 0);
+
 	return html_object_calc_min_width (e->clue, e->painter)
 		+ html_painter_get_pixel_size (e->painter) * (html_engine_get_left_border (e) + html_engine_get_right_border (e));
 }
@@ -4912,6 +5146,8 @@ gint
 html_engine_get_max_width (HTMLEngine *e)
 {
 	gint max_width;
+
+	g_return_val_if_fail (HTML_IS_ENGINE (e), 0);
 
 	if (e->widget->iframe_parent)
 		max_width = e->widget->frame->max_width
@@ -4928,6 +5164,8 @@ html_engine_get_max_height (HTMLEngine *e)
 {
 	gint max_height;
 
+	g_return_val_if_fail (HTML_IS_ENGINE (e), 0);
+
 	if (e->widget->iframe_parent)
 		max_height = HTML_FRAME (e->widget->frame)->height
 			- (html_engine_get_top_border (e) + html_engine_get_bottom_border (e)) * html_painter_get_pixel_size (e->painter);
@@ -4943,6 +5181,8 @@ html_engine_calc_size (HTMLEngine *e, GList **changed_objs)
 {
 	gint max_width; /* , max_height; */
 	gboolean redraw_whole;
+
+	g_return_val_if_fail (HTML_IS_ENGINE (e), 0);
 
 	if (e->clue == 0)
 		return FALSE;
@@ -4979,6 +5219,8 @@ destroy_form (gpointer data, gpointer user_data)
 void
 html_engine_parse (HTMLEngine *e)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	html_engine_stop_parser (e);
 
 	e->parsing = TRUE;
@@ -5049,6 +5291,8 @@ html_engine_get_object_at (HTMLEngine *e,
 	HTMLObject *clue;
 	HTMLObject *obj;
 
+	g_return_val_if_fail (HTML_IS_ENGINE (e), NULL);
+
 	clue = HTML_OBJECT (e->clue);
 	if (clue == NULL)
 		return NULL;
@@ -5100,6 +5344,8 @@ html_engine_get_link_at (HTMLEngine *e, gint x, gint y)
 	HTMLObject *obj;
 	gint offset;
 
+	g_return_val_if_fail (HTML_IS_ENGINE (e), NULL);
+
 	if (e->clue == NULL)
 		return NULL;
 
@@ -5124,7 +5370,6 @@ void
 html_engine_set_editable (HTMLEngine *e,
 			  gboolean editable)
 {
-	g_return_if_fail (e != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
 	if ((e->editable && editable) || (! e->editable && ! editable))
@@ -5159,7 +5404,6 @@ html_engine_set_editable (HTMLEngine *e,
 gboolean
 html_engine_get_editable (HTMLEngine *e)
 {
-	g_return_val_if_fail (e != NULL, FALSE);
 	g_return_val_if_fail (HTML_IS_ENGINE (e), FALSE);
 
 	if (e->editable && ! e->parsing && e->timerId == 0)
@@ -5181,7 +5425,6 @@ void
 html_engine_set_focus (HTMLEngine *engine,
 		       gboolean have_focus)
 {
-	g_return_if_fail (engine != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (engine));
 
 	if (engine->editable || engine->caret_mode) {
@@ -5222,7 +5465,7 @@ html_engine_make_cursor_visible (HTMLEngine *e)
 {
 	gint x1, y1, x2, y2, xo, yo;
 
-	g_return_val_if_fail (e != NULL, FALSE);
+	g_return_val_if_fail (HTML_IS_ENGINE (e), FALSE);
 
 	if (! e->editable && !e->caret_mode)
 		return FALSE;
@@ -5254,7 +5497,6 @@ html_engine_make_cursor_visible (HTMLEngine *e)
 void
 html_engine_flush_draw_queue (HTMLEngine *e)
 {
-	g_return_if_fail (e != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
 	if (!html_engine_frozen (e)) {
@@ -5265,7 +5507,6 @@ html_engine_flush_draw_queue (HTMLEngine *e)
 void
 html_engine_queue_draw (HTMLEngine *e, HTMLObject *o)
 {
-	g_return_if_fail (e != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (e));
 	g_return_if_fail (o != NULL);
 
@@ -5278,7 +5519,7 @@ html_engine_queue_clear (HTMLEngine *e,
 			 gint x, gint y,
 			 guint width, guint height)
 {
-	g_return_if_fail (e != NULL);
+	g_return_if_fail (HTML_IS_ENGINE (e));
 
 	/* if (e->freeze_count == 0) */
 	html_draw_queue_add_clear (e->draw_queue, x, y, width, height,
@@ -5305,7 +5546,6 @@ html_engine_get_selection_string (HTMLEngine *engine)
 	GString *buffer;
 	gchar *string;
 
-	g_return_val_if_fail (engine != NULL, NULL);
 	g_return_val_if_fail (HTML_IS_ENGINE (engine), NULL);
 
 	if (engine->clue == NULL)
@@ -5324,31 +5564,28 @@ html_engine_get_selection_string (HTMLEngine *engine)
 /* Cursor normalization.  */
 
 void
-html_engine_normalize_cursor (HTMLEngine *engine)
+html_engine_normalize_cursor (HTMLEngine *e)
 {
-	g_return_if_fail (engine != NULL);
-	g_return_if_fail (HTML_IS_ENGINE (engine));
+	g_return_if_fail (HTML_IS_ENGINE (e));
 
-	html_cursor_normalize (engine->cursor);
-	html_engine_edit_selection_updater_update_now (engine->selection_updater);
+	html_cursor_normalize (e->cursor);
+	html_engine_edit_selection_updater_update_now (e->selection_updater);
 }
 
 
 /* Freeze/thaw.  */
 
 gboolean
-html_engine_frozen (HTMLEngine *engine)
+html_engine_frozen (HTMLEngine *e)
 {
-	g_return_val_if_fail (engine != NULL, FALSE);
-	g_return_val_if_fail (HTML_IS_ENGINE (engine), FALSE);
+	g_return_val_if_fail (HTML_IS_ENGINE (e), FALSE);
 
-	return engine->freeze_count > 0;
+	return e->freeze_count > 0;
 }
 
 void
 html_engine_freeze (HTMLEngine *engine)
 {
-	g_return_if_fail (engine != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (engine));
 
 	if (engine->freeze_count == 0) {
@@ -5369,6 +5606,8 @@ html_engine_freeze (HTMLEngine *engine)
 static void
 html_engine_get_viewport (HTMLEngine *e, GdkRectangle *viewport)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	viewport->x = e->x_offset;
 	viewport->y = e->y_offset;
 	viewport->width = e->width;
@@ -5422,6 +5661,8 @@ get_changed_objects (HTMLEngine *e, GdkRegion *region, GList *changed_objs)
 {
 	GList *cur;
 
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	/* printf ("draw_changed_objects BEGIN\n"); */
 
 	for (cur = changed_objs; cur; cur = cur->next) {
@@ -5466,6 +5707,7 @@ get_pending_expose (HTMLEngine *e, GdkRegion *region)
 {
 	GSList *l, *next;
 
+	g_return_if_fail (HTML_IS_ENGINE (e));
 	g_assert (!html_engine_frozen (e));
 	/* printf ("do_pending_expose\n"); */
 
@@ -5489,6 +5731,8 @@ free_expose_data (gpointer data, gpointer user_data)
 static void
 clear_pending_expose (HTMLEngine *e)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	g_slist_foreach (e->pending_expose, free_expose_data, NULL);
 	g_slist_free (e->pending_expose);
 	e->pending_expose = NULL;
@@ -5500,6 +5744,8 @@ check_cursor (HTMLEngine *e)
 {
 	HTMLCursor *cursor;
 	gboolean need_spell_check;
+
+	g_return_if_fail (HTML_IS_ENGINE (e));
 
 	cursor = html_cursor_dup (e->cursor);
 
@@ -5533,6 +5779,8 @@ thaw_idle (gpointer data)
 	GList *changed_objs;
 	gboolean redraw_whole;
 	gint w, h;
+
+	g_return_val_if_fail (HTML_IS_ENGINE (e), 0);
 
 	DF (printf ("thaw_idle %d\n", e->freeze_count); fflush (stdout));
 
@@ -5606,7 +5854,6 @@ thaw_idle (gpointer data)
 void
 html_engine_thaw (HTMLEngine *engine)
 {
-	g_return_if_fail (engine != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (engine));
 	g_return_if_fail (engine->freeze_count > 0);
 
@@ -5642,17 +5889,16 @@ html_engine_thaw_idle_flush (HTMLEngine *e)
  * Load an empty document into the engine.
  **/
 void
-html_engine_load_empty (HTMLEngine *engine)
+html_engine_load_empty (HTMLEngine *e)
 {
-	g_return_if_fail (engine != NULL);
-	g_return_if_fail (HTML_IS_ENGINE (engine));
+	g_return_if_fail (HTML_IS_ENGINE (e));
 
 	/* FIXME: "slightly" hackish.  */
-	html_engine_stop_parser (engine);
-	html_engine_parse (engine);
-	html_engine_stop_parser (engine);
+	html_engine_stop_parser (e);
+	html_engine_parse (e);
+	html_engine_stop_parser (e);
 
-	html_engine_ensure_editable (engine);
+	html_engine_ensure_editable (e);
 }
 
 void
@@ -5660,6 +5906,8 @@ html_engine_replace (HTMLEngine *e, const gchar *text, const gchar *rep_text,
 		     gboolean case_sensitive, gboolean forward, gboolean regular,
 		     void (*ask)(HTMLEngine *, gpointer), gpointer ask_data)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	if (e->replace_info)
 		html_replace_destroy (e->replace_info);
 	e->replace_info = html_replace_new (rep_text, ask, ask_data);
@@ -5671,8 +5919,11 @@ html_engine_replace (HTMLEngine *e, const gchar *text, const gchar *rep_text,
 static void
 replace (HTMLEngine *e)
 {
-	HTMLObject *first = HTML_OBJECT (e->search_info->found->data);
+	HTMLObject *first;
 
+	g_return_if_fail (HTML_IS_ENGINE (e));
+	
+	first = HTML_OBJECT (e->search_info->found->data);
 	html_engine_edit_selection_updater_update_now (e->selection_updater);
 
 	if (e->replace_info->text && *e->replace_info->text) {
@@ -5701,6 +5952,7 @@ html_engine_replace_do (HTMLEngine *e, HTMLReplaceQueryAnswer answer)
 {
 	gboolean finished = FALSE;
 
+	g_return_val_if_fail (HTML_IS_ENGINE (e), FALSE);
 	g_assert (e->replace_info);
 
 	switch (answer) {
@@ -5779,6 +6031,7 @@ html_engine_get_spell_word (HTMLEngine *e)
 	gchar *word;
 	gunichar uc;
 	gboolean cited, cited_tmp, cited2;
+	g_return_val_if_fail ( e != NULL, NULL);
 
 	cited = FALSE;
 	if (!html_selection_spell_word (html_cursor_get_current_char (e->cursor), &cited) && !cited
@@ -5835,6 +6088,7 @@ html_engine_spell_word_is_valid (HTMLEngine *e)
 	gint offset;
 	gchar prev, curr;
 	gboolean cited;
+	g_return_val_if_fail (HTML_IS_ENGINE (e), FALSE);
 
 	cited = FALSE;
 	prev = html_cursor_get_prev_char (e->cursor);
@@ -5881,6 +6135,7 @@ html_engine_replace_spell_word_with (HTMLEngine *e, const gchar *word)
 {
 	HTMLObject *replace = NULL;
 	HTMLText   *orig;
+	g_return_if_fail (HTML_IS_ENGINE (e));
 
 	html_engine_select_spell_word_editable (e);
 
@@ -5906,6 +6161,7 @@ HTMLCursor *
 html_engine_get_cursor (HTMLEngine *e)
 {
 	HTMLCursor *cursor;
+	g_return_val_if_fail (HTML_IS_ENGINE (e), NULL);
 
 	cursor = html_cursor_new ();
 	cursor->object = html_engine_get_object_at (e, e->widget->selection_x1, e->widget->selection_y1,
@@ -5932,6 +6188,7 @@ html_engine_set_painter (HTMLEngine *e, HTMLPainter *painter)
 gint
 html_engine_get_view_width (HTMLEngine *e)
 {
+	g_return_val_if_fail (HTML_IS_ENGINE (e), 0);
 	return MAX (0, (e->widget->iframe_parent
 		? html_engine_get_view_width (GTK_HTML (e->widget->iframe_parent)->engine)
 		: GTK_WIDGET (e->widget)->allocation.width) - (html_engine_get_left_border (e) + html_engine_get_right_border (e)));
@@ -5940,6 +6197,7 @@ html_engine_get_view_width (HTMLEngine *e)
 gint
 html_engine_get_view_height (HTMLEngine *e)
 {
+	g_return_val_if_fail (HTML_IS_ENGINE (e), 0);
 	return MAX (0, (e->widget->iframe_parent
 		? html_engine_get_view_height (GTK_HTML (e->widget->iframe_parent)->engine)
 		: GTK_WIDGET (e->widget)->allocation.height) - (html_engine_get_top_border (e) + html_engine_get_bottom_border (e)));
@@ -5952,6 +6210,8 @@ html_engine_add_object_with_id (HTMLEngine *e, const gchar *id, HTMLObject *obj)
 	gpointer old_key;
 	gpointer old_val;
 
+	g_return_if_fail (HTML_IS_ENGINE (e));
+	
 	if (e->id_table == NULL)
 		e->id_table = g_hash_table_new (g_str_hash, g_str_equal);
 
@@ -5964,6 +6224,7 @@ html_engine_add_object_with_id (HTMLEngine *e, const gchar *id, HTMLObject *obj)
 HTMLObject *
 html_engine_get_object_by_id (HTMLEngine *e, const gchar *id)
 {
+	g_return_val_if_fail ( e != NULL, NULL);
 	if (e->id_table == NULL)
 		return NULL;
 
@@ -5973,13 +6234,15 @@ html_engine_get_object_by_id (HTMLEngine *e, const gchar *id)
 GHashTable *
 html_engine_get_class_table (HTMLEngine *e, const gchar *class_name)
 {
+	g_return_val_if_fail ( e != NULL, NULL);
 	return (class_name && e->class_data) ? g_hash_table_lookup (e->class_data, class_name) : NULL;
 }
 
 static inline GHashTable *
 get_class_table_sure (HTMLEngine *e, const gchar *class_name)
 {
-	GHashTable *t;
+	GHashTable *t = NULL;
+	g_return_val_if_fail ( e != NULL, t);
 
 	if (e->class_data == NULL)
 		e->class_data = g_hash_table_new (g_str_hash, g_str_equal);
@@ -6002,6 +6265,7 @@ html_engine_set_class_data (HTMLEngine *e, const gchar *class_name, const gchar 
 
 	/* printf ("set (%s) %s to %s (%p)\n", class_name, key, value, e->class_data); */
 	g_return_if_fail (class_name);
+	g_return_if_fail ( e != NULL );
 
 	t = get_class_table_sure (e, class_name);
 
@@ -6057,6 +6321,8 @@ remove_all_class_data (gpointer key, gpointer val, gpointer data)
 void
 html_engine_clear_all_class_data (HTMLEngine *e)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	if (e->class_data) {
 		g_hash_table_foreach_remove (e->class_data, remove_all_class_data, NULL);
 		g_hash_table_destroy (e->class_data);
@@ -6092,6 +6358,8 @@ html_engine_set_object_data (HTMLEngine *e, HTMLObject *o)
 HTMLEngine *
 html_engine_get_top_html_engine (HTMLEngine *e)
 {
+	g_return_val_if_fail (HTML_IS_ENGINE (e), NULL);
+
 	while (e->widget->iframe_parent)
 		e = GTK_HTML (e->widget->iframe_parent)->engine;
 
@@ -6121,6 +6389,8 @@ html_engine_add_expose  (HTMLEngine *e, gint x, gint y, gint width, gint height,
 static void
 html_engine_queue_redraw_all (HTMLEngine *e)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	clear_pending_expose (e);
 	html_draw_queue_clear (e->draw_queue);
 
@@ -6132,6 +6402,8 @@ html_engine_queue_redraw_all (HTMLEngine *e)
 void
 html_engine_redraw_selection (HTMLEngine *e)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	if (e->selection) {
 		html_interval_unselect (e->selection, e);
 		html_interval_select (e->selection, e);
@@ -6142,6 +6414,8 @@ html_engine_redraw_selection (HTMLEngine *e)
 void
 html_engine_set_language (HTMLEngine *e, const gchar *language)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	g_free (e->language);
 	e->language = g_strdup (language);
 
@@ -6152,6 +6426,8 @@ const gchar *
 html_engine_get_language (HTMLEngine *e)
 {
 	gchar *language;
+
+	g_return_val_if_fail (HTML_IS_ENGINE (e), NULL);
 
 	language = e->language;
 	if (!language)
@@ -6180,9 +6456,14 @@ draw_link_text (HTMLText *text, HTMLEngine *e, gint offset)
 HTMLObject *
 html_engine_get_focus_object (HTMLEngine *e, gint *offset)
 {
-	HTMLObject *o = e->focus_object;
-	HTMLEngine *object_engine = e;
-
+	HTMLObject *o;
+	HTMLEngine *object_engine;
+	
+	g_return_val_if_fail (HTML_IS_ENGINE (e), NULL);
+	
+	o = e->focus_object;
+	object_engine = e;
+	
 	while (html_object_is_frame (o)) {
 		object_engine = html_object_get_engine (o, e);
 		o = object_engine->focus_object;
@@ -6218,6 +6499,8 @@ move_focus_object (HTMLObject *o, gint *offset, HTMLEngine *e, GtkDirectionType 
 gboolean
 html_engine_focus (HTMLEngine *e, GtkDirectionType dir)
 {
+	g_return_val_if_fail (HTML_IS_ENGINE (e), FALSE);
+
 	if (e->clue && (dir == GTK_DIR_TAB_FORWARD || dir == GTK_DIR_TAB_BACKWARD)) {
 		HTMLObject *cur = NULL;
 		HTMLObject *focus_object = NULL;
@@ -6301,6 +6584,8 @@ draw_focus_object (HTMLEngine *e, HTMLObject *o, gint offset)
 static void
 reset_focus_object_forall (HTMLObject *o, HTMLEngine *e)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	if (e->focus_object) {
 		/* printf ("reset focus object\n"); */
 		if (!html_object_is_frame (e->focus_object)) {
@@ -6331,6 +6616,8 @@ reset_focus_object (HTMLEngine *e)
 static void
 set_frame_parents_focus_object (HTMLEngine *e)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	while (e->widget->iframe_parent) {
 		HTMLEngine *e_parent;
 
@@ -6382,12 +6669,16 @@ html_engine_set_focus_object (HTMLEngine *e, HTMLObject *o, gint offset)
 gboolean
 html_engine_is_saved (HTMLEngine *e)
 {
+	g_return_val_if_fail (HTML_IS_ENGINE (e), FALSE);
+
 	return e->saved_step_count != -1 && e->saved_step_count == html_undo_get_step_count (e->undo);
 }
 
 void
 html_engine_saved (HTMLEngine *e)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	e->saved_step_count = html_undo_get_step_count (e->undo);
 }
 
@@ -6395,6 +6686,8 @@ static void
 html_engine_add_map (HTMLEngine *e, const char *name)
 {
 	gpointer old_key = NULL, old_val;
+
+	g_return_if_fail (HTML_IS_ENGINE (e));
 
 	if (!e->map_table) {
 		e->map_table = g_hash_table_new (g_str_hash, g_str_equal);
@@ -6420,6 +6713,8 @@ map_table_free_func (gpointer key, gpointer val, gpointer data)
 static void
 html_engine_map_table_clear (HTMLEngine *e)
 {
+	g_return_val_if_fail (HTML_IS_ENGINE (e), NULL);
+
 	if (e->map_table) {
 		g_hash_table_foreach_remove (e->map_table, map_table_free_func, NULL);
 		g_hash_table_destroy (e->map_table);
@@ -6430,6 +6725,8 @@ html_engine_map_table_clear (HTMLEngine *e)
 HTMLMap *
 html_engine_get_map (HTMLEngine *e, const gchar *name)
 {
+	g_return_val_if_fail (HTML_IS_ENGINE (e), NULL);
+
 	return e->map_table ? HTML_MAP (g_hash_table_lookup (e->map_table, name)) : NULL;
 }
 
@@ -6442,6 +6739,8 @@ struct HTMLEngineCheckSelectionType
 static void
 check_type_in_selection (HTMLObject *o, HTMLEngine *e, struct HTMLEngineCheckSelectionType *tmp)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	if (HTML_OBJECT_TYPE (o) == tmp->req_type)
 		tmp->has_type = TRUE;
 }
@@ -6450,6 +6749,8 @@ gboolean
 html_engine_selection_contains_object_type (HTMLEngine *e, HTMLType obj_type)
 {
 	struct HTMLEngineCheckSelectionType tmp;
+
+	g_return_val_if_fail (HTML_IS_ENGINE (e), FALSE);
 
 	tmp.has_type = FALSE;
 	html_engine_edit_selection_updater_update_now (e->selection_updater);
@@ -6462,6 +6763,8 @@ html_engine_selection_contains_object_type (HTMLEngine *e, HTMLType obj_type)
 static void
 check_link_in_selection (HTMLObject *o, HTMLEngine *e, gboolean *has_link)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	if ((HTML_IS_TEXT (o) && HTML_TEXT (o)->links) ||
 	    (HTML_IS_IMAGE (o) && (HTML_IMAGE (o)->url || HTML_IMAGE (o)->target)))
 		*has_link = TRUE;
@@ -6471,6 +6774,8 @@ gboolean
 html_engine_selection_contains_link (HTMLEngine *e)
 {
 	gboolean has_link;
+
+	g_return_val_if_fail (HTML_IS_ENGINE (e), FALSE);
 
 	has_link = FALSE;
 	html_engine_edit_selection_updater_update_now (e->selection_updater);
@@ -6483,30 +6788,40 @@ html_engine_selection_contains_link (HTMLEngine *e)
 gint
 html_engine_get_left_border (HTMLEngine *e)
 {
+	g_return_val_if_fail (HTML_IS_ENGINE (e), 0);
+
 	return HTML_IS_PLAIN_PAINTER (e->painter) ? LEFT_BORDER : e->leftBorder;
 }
 
 gint
 html_engine_get_right_border (HTMLEngine *e)
 {
+	g_return_val_if_fail (HTML_IS_ENGINE (e), 0);
+
 	return HTML_IS_PLAIN_PAINTER (e->painter) ? RIGHT_BORDER : e->rightBorder;
 }
 
 gint
 html_engine_get_top_border (HTMLEngine *e)
 {
+	g_return_val_if_fail (HTML_IS_ENGINE (e), 0);
+
 	return HTML_IS_PLAIN_PAINTER (e->painter) ? TOP_BORDER : e->topBorder;
 }
 
 gint
 html_engine_get_bottom_border (HTMLEngine *e)
 {
+	g_return_val_if_fail (HTML_IS_ENGINE (e), 0);
+
 	return HTML_IS_PLAIN_PAINTER (e->painter) ? BOTTOM_BORDER : e->bottomBorder;
 }
 
 void
 html_engine_flush (HTMLEngine *e)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	if (!e->parsing)
 		return;
 
@@ -6527,18 +6842,24 @@ html_engine_get_image_factory (HTMLEngine *e)
 void
 html_engine_opened_streams_increment (HTMLEngine *e)
 {
+	g_return_val_if_fail (HTML_IS_ENGINE (e), FALSE);
+	
 	html_engine_opened_streams_set (e, e->opened_streams + 1);
 }
 
 void
 html_engine_opened_streams_decrement (HTMLEngine *e)
 {
+	g_return_val_if_fail (HTML_IS_ENGINE (e), FALSE);
+	
 	html_engine_opened_streams_set (e, e->opened_streams - 1);
 }
 
 void
 html_engine_opened_streams_set (HTMLEngine *e, int value)
 {
+	g_return_val_if_fail (HTML_IS_ENGINE (e), FALSE);
+	
 	e->opened_streams = value;
 
 	if (value == 0 && e->keep_scroll) {
@@ -6568,6 +6889,8 @@ calc_font_size (HTMLObject *o, HTMLEngine *e, gpointer data)
 void
 html_engine_refresh_fonts (HTMLEngine *e)
 {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+	
 	if (e->clue) {
 		html_object_forall (e->clue, e, calc_font_size, NULL);
 		html_object_change_set_down (e->clue, HTML_CHANGE_ALL);
