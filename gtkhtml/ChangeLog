@@ -1,3 +1,7 @@
+2008-08-15  Matthew Barnes  <mbarnes@redhat.com>
+
+	* htmlengine.c: Fix compiler warnings.
+
 2008-08-12  Tobias Mueller  <tobiasmue@svn.gnome.org>
 
 	* htmlengine.c: Sanitize HTMLENGINE by checking whether we have

@@ -6713,7 +6713,7 @@ map_table_free_func (gpointer key, gpointer val, gpointer data)
 static void
 html_engine_map_table_clear (HTMLEngine *e)
 {
-	g_return_val_if_fail (HTML_IS_ENGINE (e), NULL);
+	g_return_if_fail (HTML_IS_ENGINE (e));
 
 	if (e->map_table) {
 		g_hash_table_foreach_remove (e->map_table, map_table_free_func, NULL);
@@ -6842,7 +6842,7 @@ html_engine_get_image_factory (HTMLEngine *e)
 void
 html_engine_opened_streams_increment (HTMLEngine *e)
 {
-	g_return_val_if_fail (HTML_IS_ENGINE (e), FALSE);
+	g_return_if_fail (HTML_IS_ENGINE (e));
 	
 	html_engine_opened_streams_set (e, e->opened_streams + 1);
 }
@@ -6850,7 +6850,7 @@ html_engine_opened_streams_increment (HTMLEngine *e)
 void
 html_engine_opened_streams_decrement (HTMLEngine *e)
 {
-	g_return_val_if_fail (HTML_IS_ENGINE (e), FALSE);
+	g_return_if_fail (HTML_IS_ENGINE (e));
 	
 	html_engine_opened_streams_set (e, e->opened_streams - 1);
 }
@@ -6858,7 +6858,7 @@ html_engine_opened_streams_decrement (HTMLEngine *e)
 void
 html_engine_opened_streams_set (HTMLEngine *e, int value)
 {
-	g_return_val_if_fail (HTML_IS_ENGINE (e), FALSE);
+	g_return_if_fail (HTML_IS_ENGINE (e));
 	
 	e->opened_streams = value;
 
