@@ -1,3 +1,10 @@
+2008-08-17  Matthew Barnes  <mbarnes@redhat.com>
+
+	* gtkhtml.h:
+	Remove declaration for gtk_html_request_paste().  The actual
+	function was removed in revision 8594 (Oct 2007), but I guess
+	the API break was never noticed.
+
 2008-08-15  Matthew Barnes  <mbarnes@redhat.com>
 
 	* htmlengine.c: Fix compiler warnings.
