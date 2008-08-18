@@ -1558,13 +1558,13 @@ msgstr "_Ajouter le mot"
 #: ../components/editor/gtkhtml-spell-language.c:182
 #, c-format
 msgid "language|Unknown (%s)"
-msgstr "language|Inconnue (%s)"
+msgstr "Inconnue (%s)"
 
 #: ../components/editor/gtkhtml-spell-language.c:200
 #: ../components/editor/gtkhtml-spell-language.c:208
 #, c-format
 msgid "language|%s (%s)"
-msgstr "language|%s (%s)"
+msgstr "%s (%s)"
 
 #. Translators: The text before the "|" is context to help
 #. * you decide on the correct translation. You MUST OMIT IT
@@ -1573,7 +1573,7 @@ msgstr "language|%s (%s)"
 #. * by the spell checker.
 #: ../components/editor/gtkhtml-spell-language.c:396
 msgid "language|Default"
-msgstr "language|Par défaut"
+msgstr "Par défaut"
 
 #: ../components/editor/main.c:93
 msgid "Save As"

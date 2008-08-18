@@ -1,3 +1,7 @@
+2008-08-18  Sebastien Bacher  <seb128@ubuntu.com>
+
+	* fr.po: don't list translator comments in translations (#547940)
+
 2008-08-15  Praveen Arimbrathodiyil <pravi.a@gmail.com>
 
 	* ml.po: Malayalam translation update by Harivishnu.
