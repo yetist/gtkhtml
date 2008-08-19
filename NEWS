@@ -1,3 +1,23 @@
+GtkHTML-3.23.90 2008-08-16
+--------------------------
+
+Bug Fixes:
+	#540794: Sanitize HTMLENGINE by checking whether we have a HTMLEngine (Tobias Mueller)
+	#543318: Force the codeset to UTF-8 (Pascal Terjan)
+
+Other Contributors:
+	Fix compiler warnings (Matthew Barnes)
+
+Updated Translations:
+	Harivishnu (ml)
+	Takeshi AIHANA (ja)
+	Duarte Loreto (pt)
+	Ilkka Tuohela (fi)
+	Yair Hershkovitz (he)
+	Chao-Hsiung Liao (zh_HK)
+	Chao-Hsiung Liao (zh_TW)
+	Youssef Chahibi (ar)
+
 GtkHTML-3.23.6 2008-08-04
 --------------------------
 
