@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: gtkhtml HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-07-05 18:35+0000\n"
-"PO-Revision-Date: 2008-07-24 08:55+0300\n"
+"PO-Revision-Date: 2008-08-18 22:29+0300\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -265,7 +265,7 @@ msgstr "Praegune värvus"
 
 #: ../components/editor/gtkhtml-color-combo.c:694
 msgid "The currently selected color"
-msgstr ""
+msgstr "Hetkel valitud värvus"
 
 #: ../components/editor/gtkhtml-color-combo.c:703
 #: ../components/editor/gtkhtml-color-state.c:200
@@ -274,16 +274,16 @@ msgstr "Vaikimisi värvus"
 
 #: ../components/editor/gtkhtml-color-combo.c:704
 msgid "The color associated with the default button"
-msgstr ""
+msgstr "Vaikimisi nupuga seotud värvus"
 
 #: ../components/editor/gtkhtml-color-combo.c:714
 #: ../components/editor/gtkhtml-color-state.c:211
 msgid "Default label"
-msgstr ""
+msgstr "Vaikimisi silt"
 
 #: ../components/editor/gtkhtml-color-combo.c:715
 msgid "The label for the default button"
-msgstr ""
+msgstr "Vaikimisi nupu silt"
 
 #: ../components/editor/gtkhtml-color-combo.c:716
 #: ../components/editor/gtkhtml-color-state.c:213
@@ -310,11 +310,11 @@ msgstr ""
 
 #: ../components/editor/gtkhtml-color-combo.c:745
 msgid "Color state"
-msgstr ""
+msgstr "Värvuse olek"
 
 #: ../components/editor/gtkhtml-color-combo.c:746
 msgid "State of the color combo"
-msgstr ""
+msgstr "Värvusevalija olek"
 
 #. This is the default custom color
 #: ../components/editor/gtkhtml-color-combo.c:928
@@ -353,11 +353,11 @@ msgstr "Raami äärise välimus"
 
 #: ../components/editor/gtkhtml-combo-box.c:323
 msgid "Action"
-msgstr ""
+msgstr "Tegevus"
 
 #: ../components/editor/gtkhtml-combo-box.c:324
 msgid "A GtkRadioAction"
-msgstr ""
+msgstr "GtkRadioAction"
 
 #: ../components/editor/gtkhtml-editor-actions.c:633
 #: ../components/html-editor/menubar.c:348
@@ -1099,27 +1099,27 @@ msgstr "HTML-i või lihtteksti redigeerimine"
 
 #: ../components/editor/gtkhtml-editor.c:735
 msgid "Inline Spelling"
-msgstr ""
+msgstr "Vahetu õigekirjakontroll"
 
 #: ../components/editor/gtkhtml-editor.c:736
 msgid "Check your spelling as you type"
-msgstr ""
+msgstr "Õigekirjakontroll sisestamise ajal"
 
 #: ../components/editor/gtkhtml-editor.c:746
 msgid "Magic Links"
-msgstr ""
+msgstr "Maagilised viidad"
 
 #: ../components/editor/gtkhtml-editor.c:747
 msgid "Make URIs clickable as you type"
-msgstr ""
+msgstr "Sisestamise ajal automaatselt URI-de muutmine klõpsatavaks"
 
 #: ../components/editor/gtkhtml-editor.c:757
 msgid "Magic Smileys"
-msgstr ""
+msgstr "Maagilised tujunäod"
 
 #: ../components/editor/gtkhtml-editor.c:758
 msgid "Convert emoticons to images as you type"
-msgstr ""
+msgstr "Sisestamise ajal tujunägude automaatne teisendamine piltideks"
 
 #: ../components/editor/gtkhtml-editor.glade.h:1
 msgid "<b>Alignment &amp; Behavior</b>"
@@ -1260,6 +1260,15 @@ msgid ""
 "Draft\n"
 "Graph Paper"
 msgstr ""
+"Puudub\n"
+"Perforeeritud paber\n"
+"Sinise tindiga\n"
+"Paber\n"
+"Kummiriba\n"
+"Kesköö\n"
+"Salajane\n"
+"Mustand\n"
+"Ruuduline paber"
 
 #: ../components/editor/gtkhtml-editor.glade.h:38
 msgid "Page Properties"
@@ -1566,7 +1575,7 @@ msgstr "Vaikimisi"
 
 #: ../components/editor/main.c:93
 msgid "Save As"
-msgstr ""
+msgstr "Salvesta kui"
 
 #: ../components/editor/main.c:111
 msgid "Untitled document"
@@ -1606,7 +1615,7 @@ msgstr "Salvesta _kui..."
 
 #: ../components/editor/main.c:334
 msgid "HTML _Output"
-msgstr ""
+msgstr "_HTML-väljund"
 
 #: ../components/editor/main.c:341
 msgid "_HTML Source"
