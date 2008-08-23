@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-08-23 12:49+0200\n"
-"PO-Revision-Date: 2008-08-23 13:23+0200\n"
+"PO-Revision-Date: 2008-08-23 13:29+0200\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>\n"
 "Language-Team: Basque <itzulpena@euskalgnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -769,7 +769,7 @@ msgstr "Txertatu esteka"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:136
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
 msgid "_Rule..."
-msgstr "A_raua..."
+msgstr "_Erregela..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1774
 msgid "Insert Rule"
@@ -1801,12 +1801,12 @@ msgstr "Txertatu esteka"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:54
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
 msgid "Insert rule"
-msgstr "Txertatu araua"
+msgstr "Txertatu erregela"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
 msgid "Insert rule into document..."
-msgstr "Txertatu araua dokumentuan..."
+msgstr "Txertatu erregela dokumentuan..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:56
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
@@ -1976,7 +1976,7 @@ msgstr "Zenbaki erromatardun zerrenda"
 #: ../components/html-editor/menubar.c:193
 #: ../components/html-editor/popup.c:229
 msgid "Rule"
-msgstr "Araua"
+msgstr "Erregela"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:93
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
@@ -2445,7 +2445,7 @@ msgstr "Esteka-estiloa..."
 
 #: ../components/html-editor/popup.c:479
 msgid "Rule Style..."
-msgstr "Arau-estiloa..."
+msgstr "Erregela-estiloa..."
 
 #: ../components/html-editor/popup.c:483
 msgid "Image Style..."
