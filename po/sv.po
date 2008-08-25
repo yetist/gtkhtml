@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-07-14 23:49+0200\n"
-"PO-Revision-Date: 2008-07-15 00:11+0100\n"
+"POT-Creation-Date: 2008-08-25 21:33+0200\n"
+"PO-Revision-Date: 2008-08-25 21:36+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -263,7 +263,7 @@ msgstr "Aktuell färg"
 
 #: ../components/editor/gtkhtml-color-combo.c:694
 msgid "The currently selected color"
-msgstr ""
+msgstr "Den för närvarande valda färgen"
 
 #: ../components/editor/gtkhtml-color-combo.c:703
 #: ../components/editor/gtkhtml-color-state.c:200
@@ -272,7 +272,7 @@ msgstr "Standardfärg"
 
 #: ../components/editor/gtkhtml-color-combo.c:704
 msgid "The color associated with the default button"
-msgstr ""
+msgstr "Färgen som associerats med standardknappen"
 
 #: ../components/editor/gtkhtml-color-combo.c:714
 #: ../components/editor/gtkhtml-color-state.c:211
@@ -304,7 +304,7 @@ msgstr "Popup visad"
 
 #: ../components/editor/gtkhtml-color-combo.c:736
 msgid "Whether the combo's dropdown is shown"
-msgstr ""
+msgstr "Huruvida kombinationsrutans rullgardinsmeny visas"
 
 #: ../components/editor/gtkhtml-color-combo.c:745
 msgid "Color state"
@@ -312,7 +312,7 @@ msgstr "Färgtillstånd"
 
 #: ../components/editor/gtkhtml-color-combo.c:746
 msgid "State of the color combo"
-msgstr ""
+msgstr "Tillstånd för färgkombinationen"
 
 #. This is the default custom color
 #: ../components/editor/gtkhtml-color-combo.c:928
@@ -343,11 +343,11 @@ msgstr "Färg"
 
 #: ../components/editor/gtkhtml-color-swatch.c:187
 msgid "Frame Shadow"
-msgstr ""
+msgstr "Ramskugga"
 
 #: ../components/editor/gtkhtml-color-swatch.c:188
 msgid "Appearance of the frame border"
-msgstr ""
+msgstr "Utseende för ramkanten"
 
 #: ../components/editor/gtkhtml-combo-box.c:323
 msgid "Action"
@@ -426,9 +426,8 @@ msgid "_Angel"
 msgstr "_Ängel"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1353
-#, fuzzy
 msgid "_Cool"
-msgstr "_Färg"
+msgstr "_Cool"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1360
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:17
@@ -438,11 +437,11 @@ msgstr "_Gråtande"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1367
 msgid "_Devilish"
-msgstr ""
+msgstr "_Djävulsk"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1374
 msgid "_Embarrassed"
-msgstr ""
+msgstr "_Generad"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1381
 msgid "_Kiss"
@@ -482,7 +481,7 @@ msgstr "_Skrattande"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1430
 msgid "Smi_rk"
-msgstr ""
+msgstr "Smi_la"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1437
 msgid "Sur_prised"
@@ -2642,83 +2641,83 @@ msgstr ""
 "Det redigerade objektet har tagits bort från dokumentet.\n"
 "Kan inte verkställa dina ändringar."
 
-#: ../gtkhtml/gtkhtml.c:2917
+#: ../gtkhtml/gtkhtml.c:2927
 msgid "Editable"
 msgstr "Redigerbar"
 
-#: ../gtkhtml/gtkhtml.c:2918
+#: ../gtkhtml/gtkhtml.c:2928
 msgid "Whether the html can be edited"
 msgstr "Huruvida html-koden kan redigeras"
 
-#: ../gtkhtml/gtkhtml.c:2924
+#: ../gtkhtml/gtkhtml.c:2934
 msgid "Document Title"
 msgstr "Dokumenttitel"
 
-#: ../gtkhtml/gtkhtml.c:2925
+#: ../gtkhtml/gtkhtml.c:2935
 msgid "The title of the current document"
 msgstr "Titeln på det aktuella dokumentet"
 
-#: ../gtkhtml/gtkhtml.c:2931
+#: ../gtkhtml/gtkhtml.c:2941
 msgid "Document Base"
 msgstr "Dokumentbas"
 
-#: ../gtkhtml/gtkhtml.c:2932
+#: ../gtkhtml/gtkhtml.c:2942
 msgid "The base URL for relative references"
 msgstr "Bas-URL:en för relativa referenser"
 
-#: ../gtkhtml/gtkhtml.c:2938
+#: ../gtkhtml/gtkhtml.c:2948
 msgid "Target Base"
 msgstr "Målbas"
 
-#: ../gtkhtml/gtkhtml.c:2939
+#: ../gtkhtml/gtkhtml.c:2949
 msgid "The base URL of the target frame"
 msgstr "Bas-URL:en för målramen"
 
-#: ../gtkhtml/gtkhtml.c:2948
+#: ../gtkhtml/gtkhtml.c:2958
 msgid "Fixed Width Font"
 msgstr "Typsnitt med fast breddsteg"
 
-#: ../gtkhtml/gtkhtml.c:2949
+#: ../gtkhtml/gtkhtml.c:2959
 msgid "The Monospace font to use for typewriter text"
 msgstr "Typsnittet med fast breddsteg som ska användas för skrivmaskinstext"
 
-#: ../gtkhtml/gtkhtml.c:2955
+#: ../gtkhtml/gtkhtml.c:2965
 msgid "New Link Color"
 msgstr "Färg för ny länk"
 
-#: ../gtkhtml/gtkhtml.c:2956
+#: ../gtkhtml/gtkhtml.c:2966
 msgid "The color of new link elements"
 msgstr "Färgen på nya länkelement"
 
-#: ../gtkhtml/gtkhtml.c:2961
+#: ../gtkhtml/gtkhtml.c:2971
 msgid "Visited Link Color"
 msgstr "Färg för besökt länk"
 
-#: ../gtkhtml/gtkhtml.c:2962
+#: ../gtkhtml/gtkhtml.c:2972
 msgid "The color of visited link elements"
 msgstr "Färgen på besökta länkelement"
 
-#: ../gtkhtml/gtkhtml.c:2967
+#: ../gtkhtml/gtkhtml.c:2977
 msgid "Active Link Color"
 msgstr "Färg för aktiv länk"
 
-#: ../gtkhtml/gtkhtml.c:2968
+#: ../gtkhtml/gtkhtml.c:2978
 msgid "The color of active link elements"
 msgstr "Färgen på aktiva länkelement"
 
-#: ../gtkhtml/gtkhtml.c:2973
+#: ../gtkhtml/gtkhtml.c:2983
 msgid "Spelling Error Color"
 msgstr "Stavfelsfärg"
 
-#: ../gtkhtml/gtkhtml.c:2974
+#: ../gtkhtml/gtkhtml.c:2984
 msgid "The color of the spelling error markers"
 msgstr "Färgen på markörerna för stavfel"
 
-#: ../gtkhtml/gtkhtml.c:2979
+#: ../gtkhtml/gtkhtml.c:2989
 msgid "Cite Quotation Color"
 msgstr "Citatfärg"
 
-#: ../gtkhtml/gtkhtml.c:2980
+#: ../gtkhtml/gtkhtml.c:2990
 msgid "The color of the cited text"
 msgstr "Färgen på den citerade texten"
 
