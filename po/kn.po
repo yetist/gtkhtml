@@ -1,14 +1,14 @@
-# translation of gtkhtml.HEAD.po to Kannada
+# translation of kn.po to Kannada
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Shankar Prasad <svenkate@redhat.com>, 2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml.HEAD\n"
+"Project-Id-Version: kn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-08-22 04:00+0000\n"
-"PO-Revision-Date: 2008-08-24 10:52+0530\n"
+"PO-Revision-Date: 2008-08-26 00:27+0530\n"
 "Last-Translator: Shankar Prasad <svenkate@redhat.com>\n"
 "Language-Team: Kannada <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -48,7 +48,7 @@ msgstr "ತಿಳಿ ಕಂದು"
 #: ../components/editor/gtkhtml-color-combo.c:80
 #: ../components/html-editor/gi-color-palette.c:557
 msgid "brown gold"
-msgstr ""
+msgstr "ಕಂದು ಚಿನ್ನ"
 
 #: ../components/editor/gtkhtml-color-combo.c:81
 #: ../components/html-editor/gi-color-palette.c:558
@@ -69,7 +69,7 @@ msgstr "ಗಾಢ ನೀಲಿ"
 #: ../components/editor/gtkhtml-color-combo.c:84
 #: ../components/html-editor/gi-color-palette.c:561
 msgid "purple #2"
-msgstr ""
+msgstr "ನೇರಳೆ #2"
 
 #: ../components/editor/gtkhtml-color-combo.c:85
 #: ../components/html-editor/gi-color-palette.c:562
@@ -111,9 +111,8 @@ msgstr "ನೀಲಿ"
 
 #: ../components/editor/gtkhtml-color-combo.c:93
 #: ../components/html-editor/gi-color-palette.c:571
-#, fuzzy
 msgid "dull purple"
-msgstr "ಪೇಲವ "
+msgstr "ಪೇಲವ ನೇರಳೆ"
 
 #: ../components/editor/gtkhtml-color-combo.c:94
 #: ../components/html-editor/gi-color-palette.c:572
@@ -154,7 +153,7 @@ msgstr "ಆಕಾಶ ನೀಲಿ #2"
 #: ../components/html-editor/gi-color-palette.c:581
 #: ../components/html-editor/gi-color-palette.c:620
 msgid "purple"
-msgstr ""
+msgstr "ನೇರಳೆ"
 
 #: ../components/editor/gtkhtml-color-combo.c:103
 #: ../components/html-editor/gi-color-palette.c:582
@@ -170,7 +169,7 @@ msgstr ""
 #: ../components/editor/gtkhtml-color-combo.c:106
 #: ../components/html-editor/gi-color-palette.c:586
 msgid "bright orange"
-msgstr ""
+msgstr "ತೀಕ್ಷ್ಣ ಕಿತ್ತಳೆ"
 
 #: ../components/editor/gtkhtml-color-combo.c:107
 #: ../components/html-editor/gi-color-palette.c:587
@@ -192,13 +191,13 @@ msgstr ""
 #: ../components/editor/gtkhtml-color-combo.c:110
 #: ../components/html-editor/gi-color-palette.c:590
 msgid "bright blue"
-msgstr ""
+msgstr "ತೀಕ್ಷ್ಣ ನೀಲಿ"
 
 #: ../components/editor/gtkhtml-color-combo.c:111
 #: ../components/html-editor/gi-color-palette.c:591
 #: ../components/html-editor/gi-color-palette.c:608
 msgid "red purple"
-msgstr ""
+msgstr "ಕೆಂಪು ನೇರಳೆ"
 
 #: ../components/editor/gtkhtml-color-combo.c:112
 #: ../components/html-editor/gi-color-palette.c:592
@@ -242,7 +241,7 @@ msgstr "ತಿಳಿ ನೀಲಿ"
 #: ../components/html-editor/gi-color-palette.c:601
 #: ../components/html-editor/gi-color-palette.c:614
 msgid "light purple"
-msgstr ""
+msgstr "ತಿಳಿ ನೇರಳೆ"
 
 #: ../components/editor/gtkhtml-color-combo.c:121
 #: ../components/html-editor/gi-color-palette.c:602
@@ -658,7 +657,7 @@ msgstr "_HTML"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1643
 msgid "HTML editing mode"
-msgstr ""
+msgstr "HTML ಸಂಪಾದನೆಯ ವಿಧಾನ"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1648
 msgid "Plain _Text"
@@ -666,7 +665,7 @@ msgstr "ಸರಳ ಪಠ್ಯ(_T)"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1650
 msgid "Plain text editing mode"
-msgstr ""
+msgstr "ಸರಳ ಪಠ್ಯ ಸಂಪಾದನೆಯ ವಿಧಾನ"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1658
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:126
@@ -743,9 +742,8 @@ msgstr "ಸಂಖ್ಯೆಗಳ ಪಟ್ಟಿ(_L)"
 #: ../components/editor/gtkhtml-editor-actions.c:1742
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:107
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
-#, fuzzy
 msgid "_Alphabetical List"
-msgstr "(_A)"
+msgstr "ಅಕ್ಷರಮಾಲೆಯ ಪಟ್ಟಿ (_A)"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1758
 #: ../components/editor/gtkhtml-editor-actions.c:1793
@@ -781,11 +779,11 @@ msgstr "ನಿಯಮವನ್ನು ತೂರಿಸು"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:140
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:140
 msgid "_Table..."
-msgstr ""
+msgstr "ಟೇಬಲ್(_T)..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1781
 msgid "Insert Table"
-msgstr ""
+msgstr "ಟೇಬಲ್ಲನ್ನು ಸೇರಿಸು"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1786
 msgid "_Cell..."
@@ -809,11 +807,10 @@ msgstr "ಅಕ್ಷರ ಶೈಲಿ(_F)"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:59
 msgid "_Bold"
-msgstr ""
+msgstr "ಬೋಲ್ಡ್‍(_B)"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1849
 #: ../components/html-editor/toolbar.c:441
-#, fuzzy
 msgid "Bold"
 msgstr "ಬೋಲ್ಡ್‍"
 
@@ -823,12 +820,12 @@ msgstr "ಬೋಲ್ಡ್‍"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:65
 msgid "_Italic"
-msgstr ""
+msgstr "ಇಟಾಲಿಕ್(_I)"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1857
 #: ../components/html-editor/toolbar.c:444
 msgid "Italic"
-msgstr ""
+msgstr "ಇಟಾಲಿಕ್"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1863
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:130
@@ -846,11 +843,11 @@ msgstr "ಸರಳ ಪಠ್ಯ"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:71
 msgid "_Strikethrough"
-msgstr ""
+msgstr "ಅಡ್ಡಗೆರೆ(_S)"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1873
 msgid "Strikethrough"
-msgstr ""
+msgstr "ಅಡ್ಡಗೆರೆ"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1879
 #: ../components/editor/gtkhtml-editor.glade.h:80
@@ -909,7 +906,7 @@ msgstr "+4"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1951
 msgid "Cell Contents"
-msgstr ""
+msgstr "ಸೆಲ್ ಹೊಂದಿರುವ ವಿಷಯಗಳು"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1958
 #: ../components/html-editor/popup.c:523
@@ -934,17 +931,16 @@ msgstr "ಕೋಷ್ಟಕ"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1981
 msgid "Table Delete"
-msgstr ""
+msgstr "ಟೇಬಲ್ ಅಳಿಸಿ"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1988
 #: ../components/html-editor/popup.c:583
-#, fuzzy
 msgid "Input Methods"
-msgstr "ಆದಾನ ಕ್ರಮಗಳು"
+msgstr "ಇನ್‌ಪುಟ್ ವಿಧಾನಗಳು"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1995
 msgid "Table Insert"
-msgstr ""
+msgstr "ಟೇಬಲ್ ಸೇರಿಸಿ"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2002
 #: ../components/html-editor/editor-control-factory.c:187
@@ -954,16 +950,16 @@ msgstr "ಗುಣಲಕ್ಷಣಗಳು"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2020
 msgid "Column After"
-msgstr ""
+msgstr "ಕಾಲಂ ನಂತರ"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2027
 msgid "Column Before"
-msgstr ""
+msgstr "ಕಾಲಂ ಮೊದಲು"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2034
 #: ../components/html-editor/popup.c:450
 msgid "Insert _Link"
-msgstr ""
+msgstr "ಕೊಂಡಿಯನ್ನು ಸೇರಿಸಿ(_L)"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2041
 #, fuzzy
@@ -1000,7 +996,7 @@ msgstr "ನಿಯಮ..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:2104
 msgid "Table..."
-msgstr ""
+msgstr "ಟೇಬಲ್..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:2111
 msgid "Text..."
@@ -1009,7 +1005,7 @@ msgstr "ಪಠ್ಯ..."
 #: ../components/editor/gtkhtml-editor-actions.c:2118
 #: ../components/html-editor/popup.c:457
 msgid "Remove Link"
-msgstr ""
+msgstr "ಕೊಂಡಿಯನ್ನು ತೆಗೆಯಿರಿ"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2135
 #: ../components/html-editor/popup.c:577
@@ -1019,11 +1015,11 @@ msgstr "ಶಬ್ಧಕೋಶಕ್ಕೆ ಪದವನ್ನು ಸೇರಿಸ�
 #: ../components/editor/gtkhtml-editor-actions.c:2142
 #: ../components/html-editor/popup.c:559
 msgid "Ignore Misspelled Word"
-msgstr ""
+msgstr "ಕಾಗುಣಿತ ತಪ್ಪಾದ ಪದವನ್ನು ಆಲಕ್ಷಿಸಿ"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2149
 msgid "Add Word To"
-msgstr ""
+msgstr "ಪದವನ್ನು ಇದಕ್ಕೆ ಸೇರಿಸಿ"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2367
 msgid "_Find"
@@ -1049,7 +1045,7 @@ msgstr "ನಿಯಮ(_R)"
 #: ../components/editor/gtkhtml-editor.glade.h:76
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:72
 msgid "_Table"
-msgstr ""
+msgstr "ಟೇಬಲ್(_T)"
 
 #: ../components/editor/gtkhtml-editor-private.c:253
 msgid "Paragraph Style"
@@ -1057,7 +1053,7 @@ msgstr "ಪ್ಯಾರಾಗ್ರಾಫ್ ಶೈಲಿ"
 
 #: ../components/editor/gtkhtml-editor-private.c:267
 msgid "Editing Mode"
-msgstr ""
+msgstr "ಸಂಪಾದನೆಯ ಕ್ರಮ"
 
 #: ../components/editor/gtkhtml-editor-private.c:279
 msgid "Font Color"
@@ -1087,35 +1083,35 @@ msgstr "ಕಡತದ ಹೆಸರು"
 
 #: ../components/editor/gtkhtml-editor.c:714
 msgid "The filename to use when saving"
-msgstr ""
+msgstr "ಉಳಿಸುವಾಗ ಬಳಸಬೇಕಿರುವ ಕಡತದ ಹೆಸರು"
 
 #: ../components/editor/gtkhtml-editor.c:724
 msgid "HTML Mode"
-msgstr ""
+msgstr "HTML ವಿಧಾನ"
 
 #: ../components/editor/gtkhtml-editor.c:725
 msgid "Edit HTML or plain text"
-msgstr ""
+msgstr "HTML ಅನ್ನು ಅಥವ ಸರಳ ಪಠ್ಯವನ್ನು ಸಂಪಾದಿಸಿ"
 
 #: ../components/editor/gtkhtml-editor.c:735
 msgid "Inline Spelling"
-msgstr ""
+msgstr "ಸಾಲಿನ ಕಾಗುಣಿತ"
 
 #: ../components/editor/gtkhtml-editor.c:736
 msgid "Check your spelling as you type"
-msgstr ""
+msgstr "ನೀವು ಟೈಪ್‌ ಮಾಡಿದಂತೆಲ್ಲಾ ನಿಮ್ಮ ಕಾಗುಣಿತವನ್ನು ಪರೀಕ್ಷಿಸುತ್ತಾ ಹೋಗಿ"
 
 #: ../components/editor/gtkhtml-editor.c:746
 msgid "Magic Links"
-msgstr ""
+msgstr "ಮಾಯಾ ಕೊಂಡಿಗಳು"
 
 #: ../components/editor/gtkhtml-editor.c:747
 msgid "Make URIs clickable as you type"
-msgstr ""
+msgstr "ನೀವು ಟೈಪ್ ಮಾಡಿದಂತೆಲ್ಲಾ ಯುಆರ್ಐಗಳು ಕ್ಲಿಕ್ ಮಾಡಲಾಗುವಂತೆ ಮಾಡಿ"
 
 #: ../components/editor/gtkhtml-editor.c:757
 msgid "Magic Smileys"
-msgstr ""
+msgstr "ಮಾಯಾ ಸ್ಮೈಲಿಗಳು"
 
 #: ../components/editor/gtkhtml-editor.c:758
 msgid "Convert emoticons to images as you type"
@@ -1150,7 +1146,7 @@ msgstr "<b>ಸಾಮಾನ್ಯ</b>"
 #: ../components/editor/gtkhtml-editor.glade.h:7
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:13
 msgid "<b>Layout</b>"
-msgstr ""
+msgstr "<b>ಲೇಔಟ್</b>"
 
 #: ../components/editor/gtkhtml-editor.glade.h:8
 msgid "<b>Link</b>"
@@ -1172,7 +1168,7 @@ msgstr "<b>ಶೈಲಿ</b>"
 #: ../components/editor/gtkhtml-editor.glade.h:12
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:23
 msgid "C_ell"
-msgstr ""
+msgstr "ಸೆಲ್(_e)"
 
 #: ../components/editor/gtkhtml-editor.glade.h:13
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:24
@@ -1186,17 +1182,17 @@ msgstr "ಕಾಲಂಗಳು(_o):"
 #: ../components/editor/gtkhtml-editor.glade.h:15
 #: ../components/html-editor/body.c:286
 msgid "C_ustom:"
-msgstr ""
+msgstr "ನನ್ನಿಚ್ಛೆಯ(_u):"
 
 #: ../components/editor/gtkhtml-editor.glade.h:16
 #: ../components/html-editor/replace.c:180
 #: ../components/html-editor/search.c:116
 msgid "Case _sensitive"
-msgstr ""
+msgstr "ಕೇಸ್ ಸಂವೇದಿ(_s)"
 
 #: ../components/editor/gtkhtml-editor.glade.h:17
 msgid "Cell Properties"
-msgstr ""
+msgstr "ಸೆಲ್ ಗುಣಲಕ್ಷಣಗಳು"
 
 #: ../components/editor/gtkhtml-editor.glade.h:18
 msgid "Co_lor:"
@@ -1222,7 +1218,7 @@ msgstr "ಹುಡುಕು"
 
 #: ../components/editor/gtkhtml-editor.glade.h:22
 msgid "Hea_der Style"
-msgstr ""
+msgstr "ಹೆಡರ್ ಶೈಲಿ(_d)"
 
 #: ../components/editor/gtkhtml-editor.glade.h:23
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:34
@@ -1231,7 +1227,7 @@ msgstr "ಚಿತ್ರ(_m):"
 
 #: ../components/editor/gtkhtml-editor.glade.h:24
 msgid "Image Properties"
-msgstr ""
+msgstr "ಚಿತ್ರದ ಗುಣಲಕ್ಷಣಗಳು"
 
 #: ../components/editor/gtkhtml-editor.glade.h:25
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:36
@@ -1240,10 +1236,13 @@ msgid ""
 "Center\n"
 "Right"
 msgstr ""
+"ಎಡ\n"
+"ಮಧ್ಯ\n"
+"ಬಲ"
 
 #: ../components/editor/gtkhtml-editor.glade.h:28
 msgid "Link Properties"
-msgstr ""
+msgstr "ಕೊಂಡಿಯ ಗುಣಲಕ್ಷಣಗಳು"
 
 #: ../components/editor/gtkhtml-editor.glade.h:29
 msgid ""
@@ -1257,14 +1256,23 @@ msgid ""
 "Draft\n"
 "Graph Paper"
 msgstr ""
+"ಯಾವುದೂ ಇಲ್ಲ\n"
+"ತೂತಾದ ಕಾಗದ\n"
+"ನೀಲಿ ಶಾಯಿ\n"
+"ಕಾಗದ\n"
+"ರಿಬ್ಬನ್\n"
+"ಮಧ್ಯರಾತ್ರಿ\n"
+"ಗೌಪ್ಯ\n"
+"ಡ್ರಾಫ್ಟ್\n"
+"ಗ್ರಾಫ್ ಕಾಗದ"
 
 #: ../components/editor/gtkhtml-editor.glade.h:38
 msgid "Page Properties"
-msgstr ""
+msgstr "ಪುಟದ ಗುಣಲಕ್ಷಣಗಳು"
 
 #: ../components/editor/gtkhtml-editor.glade.h:39
 msgid "Paragraph Properties"
-msgstr ""
+msgstr "ಪ್ಯಾರಾಗ್ರಾಫ್ ಗುಣಲಕ್ಷಣಗಳು"
 
 #: ../components/editor/gtkhtml-editor.glade.h:40
 #: ../components/html-editor/replace.c:190
@@ -1282,7 +1290,7 @@ msgstr "ಬದಲಾಯಿಸು"
 
 #: ../components/editor/gtkhtml-editor.glade.h:42
 msgid "Replace Confirmation"
-msgstr ""
+msgstr "ಬದಲಾಯಿಸಲು ಖಚಿತಪಡಿಕೆ"
 
 #: ../components/editor/gtkhtml-editor.glade.h:43
 msgid "Row Span:"
@@ -1290,15 +1298,15 @@ msgstr ""
 
 #: ../components/editor/gtkhtml-editor.glade.h:44
 msgid "Rule Properties"
-msgstr ""
+msgstr "ನಿಯಮ ಗುಣಲಕ್ಷಣಗಳು"
 
 #: ../components/editor/gtkhtml-editor.glade.h:45
 msgid "S_haded"
-msgstr ""
+msgstr "ಮಬ್ಬಾದ(_h)"
 
 #: ../components/editor/gtkhtml-editor.glade.h:46
 msgid "Search _backwards"
-msgstr ""
+msgstr "ಹಿಂದಕ್ಕೆ ಹುಡುಕು(_b)"
 
 #: ../components/editor/gtkhtml-editor.glade.h:47
 msgid "Select An Image"
@@ -1312,15 +1320,15 @@ msgstr "ಗಾತ್ರ(_z):"
 #: ../components/editor/gtkhtml-editor.glade.h:49
 #: ../components/html-editor/body.c:282
 msgid "T_emplate:"
-msgstr ""
+msgstr "ನಮೂನೆ(_e):"
 
 #: ../components/editor/gtkhtml-editor.glade.h:50
 msgid "Table Properties"
-msgstr ""
+msgstr "ಟೇಬಲ್ ಗುಣಲಕ್ಷಣಗಳು"
 
 #: ../components/editor/gtkhtml-editor.glade.h:51
 msgid "Text Properties"
-msgstr ""
+msgstr "ಪಠ್ಯ ಗುಣಲಕ್ಷಣಗಳು"
 
 #: ../components/editor/gtkhtml-editor.glade.h:52
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:53
@@ -1329,6 +1337,9 @@ msgid ""
 "Middle\n"
 "Bottom"
 msgstr ""
+"ಮೇಲೆ\n"
+"ಮಧ್ಯ\n"
+"ಗುಂಡಿ"
 
 #: ../components/editor/gtkhtml-editor.glade.h:55
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:57
@@ -1343,17 +1354,17 @@ msgstr ""
 #: ../components/editor/gtkhtml-editor.glade.h:57
 #: ../components/html-editor/body.c:252
 msgid "_Background:"
-msgstr ""
+msgstr "ಹಿನ್ನಲೆ(_B):"
 
 #: ../components/editor/gtkhtml-editor.glade.h:59
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:60
 msgid "_Border:"
-msgstr ""
+msgstr "ಅಂಚು(_B):"
 
 #: ../components/editor/gtkhtml-editor.glade.h:60
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:61
 msgid "_Color:"
-msgstr ""
+msgstr "ಬಣ್ಣ(_C):"
 
 #: ../components/editor/gtkhtml-editor.glade.h:61
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:62
@@ -1363,26 +1374,26 @@ msgstr "ವಿವರಣೆ(_D):"
 #: ../components/editor/gtkhtml-editor.glade.h:62
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:63
 msgid "_Height:"
-msgstr ""
+msgstr "ಉದ್ದ(_H):"
 
 #: ../components/editor/gtkhtml-editor.glade.h:63
 msgid "_Horizontal:"
-msgstr ""
+msgstr "ಅಡ್ಡ(_H):"
 
 #: ../components/editor/gtkhtml-editor.glade.h:64
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:64
 msgid "_Image:"
-msgstr ""
+msgstr "ಚಿತ್ರ(_I):"
 
 #: ../components/editor/gtkhtml-editor.glade.h:66
 #: ../components/html-editor/body.c:251
 msgid "_Link:"
-msgstr ""
+msgstr "ಕೊಂಡಿ(_L):"
 
 #: ../components/editor/gtkhtml-editor.glade.h:67
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:66
 msgid "_Padding:"
-msgstr ""
+msgstr "ಪ್ಯಾಡಿಂಗ್(_P):"
 
 #: ../components/editor/gtkhtml-editor.glade.h:68
 msgid "_Regular expression"
@@ -1391,36 +1402,36 @@ msgstr ""
 #: ../components/editor/gtkhtml-editor.glade.h:69
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:67
 msgid "_Row"
-msgstr ""
+msgstr "ಸಾಲು(_R)"
 
 #: ../components/editor/gtkhtml-editor.glade.h:70
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:68
 msgid "_Rows:"
-msgstr ""
+msgstr "ಸಾಲುಗಳು(_R):"
 
 #: ../components/editor/gtkhtml-editor.glade.h:71
 msgid "_Size:"
-msgstr ""
+msgstr "ಗಾತ್ರ(_S):"
 
 #: ../components/editor/gtkhtml-editor.glade.h:72
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:69
 msgid "_Source:"
-msgstr ""
+msgstr "ಆಕರ(_S):"
 
 #: ../components/editor/gtkhtml-editor.glade.h:73
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:70
 msgid "_Spacing:"
-msgstr ""
+msgstr "ಜಾಗ(_S):"
 
 #: ../components/editor/gtkhtml-editor.glade.h:75
 #: ../components/html-editor/paragraph.c:69
 msgid "_Style:"
-msgstr ""
+msgstr "ಶೈಲಿ(_S):"
 
 #: ../components/editor/gtkhtml-editor.glade.h:78
 #: ../components/html-editor/body.c:250
 msgid "_Text:"
-msgstr ""
+msgstr "ಪಠ್ಯ(_T):"
 
 #: ../components/editor/gtkhtml-editor.glade.h:79
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:73
@@ -1429,17 +1440,17 @@ msgstr "_URL:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:81
 msgid "_Vertical:"
-msgstr ""
+msgstr "ಲಂಬ(_V):"
 
 #: ../components/editor/gtkhtml-editor.glade.h:82
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:75
 msgid "_Width:"
-msgstr ""
+msgstr "ಅಗಲ(_W):"
 
 #: ../components/editor/gtkhtml-editor.glade.h:83
 #: ../components/html-editor/replace.c:194
 msgid "_With:"
-msgstr ""
+msgstr "ಇದರೊಂದಿಗೆ(_W):"
 
 #: ../components/editor/gtkhtml-editor.glade.h:84
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:76
@@ -1449,12 +1460,12 @@ msgstr ""
 #: ../components/editor/gtkhtml-editor.glade.h:85
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:77
 msgid "_X-Padding:"
-msgstr ""
+msgstr "_X-ಪ್ಯಾಡಿಂಗ್:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:86
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:78
 msgid "_Y-Padding:"
-msgstr ""
+msgstr "_Y-ಪ್ಯಾಡಿಂಗ್:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:87
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:79
@@ -1479,6 +1490,9 @@ msgid ""
 "%\n"
 "follow"
 msgstr ""
+"px\n"
+"%\n"
+"ಅನುಸರಿಸು"
 
 #: ../components/editor/gtkhtml-spell-checker.c:200
 msgid "Language"
@@ -1486,7 +1500,7 @@ msgstr "ಭಾಷೆ"
 
 #: ../components/editor/gtkhtml-spell-checker.c:201
 msgid "The language used by the spell checker"
-msgstr ""
+msgstr "ಕಾಗುಣಿತ ಪರೀಕ್ಷಕದಿಂದ ಬಳಸಲಾಗುವ ಭಾಷೆ"
 
 #: ../components/editor/gtkhtml-spell-dialog.c:117
 #, c-format
@@ -1499,7 +1513,7 @@ msgstr "ಕಾಗುಣಿತ ತಪ್ಪಾದ ಪದ"
 
 #: ../components/editor/gtkhtml-spell-dialog.c:359
 msgid "The current misspelled word"
-msgstr ""
+msgstr "ಕಾಗುಣಿತ ತಪ್ಪಾದ ಸದ್ಯದ ಪದ"
 
 #: ../components/editor/gtkhtml-spell-dialog.c:449
 msgid "Spell Checker"
@@ -1508,12 +1522,12 @@ msgstr "ಕಾಗುಣಿತ ಪರೀಕ್ಷಕ"
 #. Replace All Button
 #: ../components/editor/gtkhtml-spell-dialog.c:536
 msgid "R_eplace All"
-msgstr ""
+msgstr "ಎಲ್ಲವನ್ನೂ ಬದಲಾಯಿಸು(_e)"
 
 #. Ignore Button
 #: ../components/editor/gtkhtml-spell-dialog.c:550
 msgid "_Ignore"
-msgstr ""
+msgstr "ಆಲಕ್ಷಿಸು(_I)"
 
 #. Skip Button
 #: ../components/editor/gtkhtml-spell-dialog.c:564
@@ -1528,17 +1542,17 @@ msgstr "ಹಿಂದಕ್ಕೆ (_B)"
 #. Dictionary Label
 #: ../components/editor/gtkhtml-spell-dialog.c:590
 msgid "Dictionary"
-msgstr ""
+msgstr "ಶಬ್ಧಕೋಶ"
 
 #. Add Word Button
 #: ../components/editor/gtkhtml-spell-dialog.c:619
 msgid "_Add Word"
-msgstr ""
+msgstr "ಪದವನ್ನು ಸೇರಿಸು(_A)"
 
 #: ../components/editor/gtkhtml-spell-language.c:182
 #, c-format
 msgid "language|Unknown (%s)"
-msgstr ""
+msgstr "ಗೊತ್ತಿರದ (%s)"
 
 #: ../components/editor/gtkhtml-spell-language.c:200
 #: ../components/editor/gtkhtml-spell-language.c:208
@@ -1561,19 +1575,19 @@ msgstr "ಹೀಗೆ ಉಳಿಸು"
 
 #: ../components/editor/main.c:111
 msgid "Untitled document"
-msgstr ""
+msgstr "ಹೆಸರಿಲ್ಲದ ದಸ್ತಾವೇಜು"
 
 #: ../components/editor/main.c:268
 msgid "HTML Output"
-msgstr ""
+msgstr "HTML ಔಟ್‌ಪುಟ್"
 
 #: ../components/editor/main.c:275
 msgid "HTML Source"
-msgstr ""
+msgstr "HTML ಆಕರ"
 
 #: ../components/editor/main.c:282
 msgid "Plain Source"
-msgstr ""
+msgstr "ಸರಳ ಆಕರ"
 
 #: ../components/editor/main.c:289
 msgid "_Print..."
@@ -1597,21 +1611,21 @@ msgstr "ಹೀಗೆ ಉಳಿಸು(_A)..."
 
 #: ../components/editor/main.c:334
 msgid "HTML _Output"
-msgstr ""
+msgstr "HTML ಔಟ್‌ಪುಟ್(_O)"
 
 #: ../components/editor/main.c:341
 msgid "_HTML Source"
-msgstr ""
+msgstr "_HTML ಆಕರ"
 
 #: ../components/editor/main.c:348
 msgid "_Plain Source"
-msgstr ""
+msgstr "ಸರಳ ಆಕರ(_P)"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:9
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:9
 #: ../components/html-editor/paragraph-style.c:56
 msgid "Alphabetical List"
-msgstr ""
+msgstr "ಅಕ್ಷರಮಾಲೆಯ ಪಟ್ಟಿ"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:10
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:10
@@ -1628,7 +1642,7 @@ msgstr ""
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:13
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:13
 msgid "Check spelling of the document"
-msgstr ""
+msgstr "ದಸ್ತಾವೇಜಿದಲ್ಲಿನ ಕಾಗುಣಿತವನ್ನು ಪರೀಕ್ಷಿಸಿ"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:14
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:14
@@ -1638,7 +1652,7 @@ msgstr "ಕಾಪಿ ಮಾಡು"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:15
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:15
 msgid "Copy selection to clipboard"
-msgstr ""
+msgstr "ಆಯ್ಕೆ ಮಾಡಿದ್ದನ್ನು ಕ್ಲಿಪ್‌ಬೋರ್ಡಿಗೆ ಅಂಟಿಸಿ"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:16
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:16
@@ -1653,7 +1667,7 @@ msgstr "ಕತ್ತರಿಸು"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:20
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:20
 msgid "Cut selection to clipboard"
-msgstr ""
+msgstr "ಆಯ್ಕೆ ಮಾಡಿದ್ದನ್ನು ಕ್ಲಿಪ್‌ಬೋರ್ಡಿಗಾಗಿ ಕತ್ತರಿಸಿ"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:21
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:21
@@ -1668,27 +1682,27 @@ msgstr ""
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:24
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:24
 msgid "Find _Again"
-msgstr ""
+msgstr "ಮತ್ತೊಮ್ಮೆ ಹುಡುಕಿ(_A)"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:25
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:25
 msgid "Find again"
-msgstr ""
+msgstr "ಮತ್ತೊಮ್ಮೆ ಹುಡುಕಿ"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:26
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:26
 msgid "Find and Replace"
-msgstr ""
+msgstr "ಹುಡುಕಿ ಬದಲಾಯಿಸಿ"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:27
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:27
 msgid "Find and replace"
-msgstr ""
+msgstr "ಹುಡುಕಿ ಬದಲಾಯಿಸಿ"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:35
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
 msgid "I_nsert"
-msgstr ""
+msgstr "ಸೇರಿಸಿ(_n)"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:36
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
@@ -1711,17 +1725,17 @@ msgstr ""
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:39
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
 msgid "Insert HTML file into document..."
-msgstr ""
+msgstr "HTML ಕಡತವನ್ನು ದಸ್ತಾವೇಜಿಗೆ ಸೇರಿಸಿ..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:40
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:40
 msgid "Insert HTML link into document..."
-msgstr ""
+msgstr "HTML ಕೊಂಡಿಯನ್ನು ದಸ್ತಾವೇಜಿಗೆ ಸೇರಿಸಿ..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:41
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
 msgid "Insert HTML template into document..."
-msgstr ""
+msgstr "HTML ನಮೂನೆಯನ್ನು ದಸ್ತಾವೇಜಿಗೆ ಸೇರಿಸಿ..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:42
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
@@ -1772,42 +1786,42 @@ msgstr ""
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
 #: ../components/html-editor/menubar.c:129
 msgid "Insert image"
-msgstr ""
+msgstr "ಚಿತ್ರವನ್ನು ಸೇರಿಸಿ"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:52
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:52
 msgid "Insert image into document..."
-msgstr ""
+msgstr "ದಸ್ತಾವೇಜಿಗೆ ಚಿತ್ರವನ್ನು ಸೇರಿಸಿ..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:53
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:53
 msgid "Insert link"
-msgstr ""
+msgstr "ಕೊಂಡಿಯನ್ನು ಸೇರಿಸಿ"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:54
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
 msgid "Insert rule"
-msgstr ""
+msgstr "ನಿಯಮವನ್ನು ಸೇರಿಸಿ"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
 msgid "Insert rule into document..."
-msgstr ""
+msgstr "ದಸ್ತಾವೇಜಿಗೆ ನಿಯಮವನ್ನು ಸೇರಿಸಿ..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:56
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
 msgid "Insert table"
-msgstr ""
+msgstr "ಟೇಬಲ್ಲನ್ನು ಸೇರಿಸಿ"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:57
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
 msgid "Insert table into document..."
-msgstr ""
+msgstr "ದಸ್ತಾವೇಜಿಗೆ ಪಠ್ಯವನ್ನು ಟೇಬಲ್ಲನ್ನು ಸೇರಿಸಿ..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:58
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:58
 msgid "Insert text file into document..."
-msgstr ""
+msgstr "ದಸ್ತಾವೇಜಿಗೆ ಪಠ್ಯವನ್ನು ಸೇರಿಸಿ..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:59
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
@@ -1821,12 +1835,12 @@ msgstr ""
 #: ../components/html-editor/popup.c:111 ../components/html-editor/popup.c:205
 #: ../components/html-editor/popup.c:271
 msgid "Link"
-msgstr ""
+msgstr "ಕೊಂಡಿ"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:61
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
 msgid "Make the current Paragraph style Normal"
-msgstr ""
+msgstr "ಈಗಿನ ಪ್ಯಾರಾಗ್ರಾಫನ್ನು ಸಾಮಾನ್ಯ ಶೈಲಿಯನ್ನಾಗಿ ಮಾಡಿ"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:62
 msgid "Make the current Paragraph style Preformat"
@@ -1835,57 +1849,57 @@ msgstr ""
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:63
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:63
 msgid "Make the current paragraph a bulleted list"
-msgstr ""
+msgstr "ಈಗಿನ ಪ್ಯಾರಾಗ್ರಾಫನ್ನು ಬುಲೆಟ್‌ಗಳನ್ನು ಒಳಗೊಂಡ ಒಂದು ಪಟ್ಟಿಯನ್ನಾಗಿ ಮಾಡಿ"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:64
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:64
 msgid "Make the current paragraph a list with roman numerals"
-msgstr ""
+msgstr "ಈಗಿನ ಪ್ಯಾರಾಗ್ರಾಫನ್ನು ರೋಮನ್ ಅಂಕೆಗಳ ಒಂದು ಪಟ್ಟಿಯನ್ನಾಗಿ ಮಾಡಿ"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:65
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:65
 msgid "Make the current paragraph a numbered list"
-msgstr ""
+msgstr "ಈಗಿನ ಪ್ಯಾರಾಗ್ರಾಫನ್ನು ಅಂಕೆಗಳ ಒಂದು ಪಟ್ಟಿಯನ್ನಾಗಿ ಮಾಡಿ"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:66
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:66
 msgid "Make the current paragraph an H1 header"
-msgstr ""
+msgstr "ಈಗಿನ ಪ್ಯಾರಾಗ್ರಾಫನ್ನು ಒಂದು H1 ಹೆಡರನ್ನಾಗಿ ಮಾಡಿ"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:67
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:67
 msgid "Make the current paragraph an H2 header"
-msgstr ""
+msgstr "ಈಗಿನ ಪ್ಯಾರಾಗ್ರಾಫನ್ನು ಒಂದು H2 ಹೆಡರನ್ನಾಗಿ ಮಾಡಿ"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:68
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:68
 msgid "Make the current paragraph an H3 header"
-msgstr ""
+msgstr "ಈಗಿನ ಪ್ಯಾರಾಗ್ರಾಫನ್ನು ಒಂದು H3 ಹೆಡರನ್ನಾಗಿ ಮಾಡಿ"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:69
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:69
 msgid "Make the current paragraph an H4 header"
-msgstr ""
+msgstr "ಈಗಿನ ಪ್ಯಾರಾಗ್ರಾಫನ್ನು ಒಂದು H4 ಹೆಡರನ್ನಾಗಿ ಮಾಡಿ"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:70
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:70
 msgid "Make the current paragraph an H5 header"
-msgstr ""
+msgstr "ಈಗಿನ ಪ್ಯಾರಾಗ್ರಾಫನ್ನು ಒಂದು H5 ಹೆಡರನ್ನಾಗಿ ಮಾಡಿ"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:71
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
 msgid "Make the current paragraph an H6 header"
-msgstr ""
+msgstr "ಈಗಿನ ಪ್ಯಾರಾಗ್ರಾಫನ್ನು ಒಂದು H6 ಹೆಡರನ್ನಾಗಿ ಮಾಡಿ"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:72
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
 msgid "Make the current paragraph an address"
-msgstr ""
+msgstr "ಈಗಿನ ಪ್ಯಾರಾಗ್ರಾಫನ್ನು ಒಂದು ವಿಳಾಸವನ್ನಾಗಿ ಮಾಡಿ"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:73
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
 msgid "Make the current paragraph an alphabetical list"
-msgstr ""
+msgstr "ಈಗಿನ ಪ್ಯಾರಾಗ್ರಾಫನ್ನು ಒಂದು ಅಕ್ಷರಮಾಲೆಯ ಪಟ್ಟಿಯನ್ನಾಗಿ ಮಾಡಿ"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:74
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
@@ -1912,7 +1926,7 @@ msgstr "ಅಂಟಿಸು"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:80
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
 msgid "Paste from clipboard"
-msgstr ""
+msgstr "ಕ್ಲಿಪ್‌ ಬೋರ್ಡಿನಿಂದ ಅಂಟಿಸು"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:81
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
@@ -1932,12 +1946,12 @@ msgstr ""
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:84
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
 msgid "Redo"
-msgstr ""
+msgstr "ಇನ್ನೊಮ್ಮೆ ಮಾಡು"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:85
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
 msgid "Redo previously undone change"
-msgstr ""
+msgstr "ಈ ಹಿಂದೆ ರದ್ದು ಮಾಡಲಾದ ಬದಲಾವಣೆಯನ್ನು ಮತ್ತೊಮ್ಮೆ ಮಾಡು"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
@@ -1953,7 +1967,7 @@ msgstr ""
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:89
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
 msgid "Roman Numeral List"
-msgstr ""
+msgstr "ರೋಮನ್ ಅಂಕಿಗಳ ಪಟ್ಟಿ"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:90
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
@@ -1967,7 +1981,7 @@ msgstr "ನಿಯಮ"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:93
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
 msgid "Select the entire contents of the document"
-msgstr ""
+msgstr "ಸಂಪೂರ್ಣ ದಸ್ತಾವೇಜಿನ ವಿಷಯಗಳನ್ನು ಆಯ್ಕೆ ಮಾಡಿ"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:94
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
@@ -1978,7 +1992,7 @@ msgstr "ಹೊಡೆದುಹಾಕು"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:95
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
 msgid "Su_rprised"
-msgstr ""
+msgstr "ಚಕಿತ(_r)"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:96
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
@@ -1993,28 +2007,28 @@ msgstr ""
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:99
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
 msgid "Te_mplate..."
-msgstr ""
+msgstr "ನಮೂನೆ(_m)..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:101
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
 msgid "Ton_gue"
-msgstr ""
+msgstr "ನಾಲಿಗೆ(_g)"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:102
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
 #: ../components/html-editor/toolbar.c:439
 msgid "Typewriter"
-msgstr ""
+msgstr "ಟೈಪ್‌ರೈಟರ್"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:103
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
 msgid "Undo"
-msgstr ""
+msgstr "ರದ್ದುಗೊಳಿಸು"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:104
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
 msgid "Undo previous changes"
-msgstr ""
+msgstr "ಹಿಂದಿನ ಬದಲಾವಣೆಗಳನ್ನು ರದ್ದುಗೊಳಿಸು"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:105
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
@@ -2024,32 +2038,32 @@ msgstr "ಹಿಂದಿನ ಕ್ರಿಯೆಯನ್ನು ಮತ್ತೊಮ�
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:115
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
 msgid "_Font Size"
-msgstr ""
+msgstr "ಅಕ್ಷರ ಶೈಲಿ(_F)"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:118
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
 msgid "_Heading"
-msgstr ""
+msgstr "ಶೀರ್ಷಿಕೆ(_H)"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:127
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:127
 msgid "_Page..."
-msgstr ""
+msgstr "ಪುಟ(_P)..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:128
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:128
 msgid "_Paragraph..."
-msgstr ""
+msgstr "ಪ್ಯಾರಾಗ್ರಾಫ್(_P)..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:133
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:133
 msgid "_Replace..."
-msgstr ""
+msgstr "ಬದಲಾಯಿಸು(_R)..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:139
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:139
 msgid "_Style"
-msgstr ""
+msgstr "ಶೈಲಿ(_S)"
 
 #.
 #. <submenu name="BackgroundColor" _label="Background Color">
@@ -2069,27 +2083,27 @@ msgstr ""
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:156
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:156
 msgid "_Text..."
-msgstr ""
+msgstr "ಪಠ್ಯ(_T)..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:1
 msgid "GNOME HTML Editor"
-msgstr ""
+msgstr "GNOME HTML ಸಂಪಾದಕ"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:2
 msgid "GNOME HTML Editor Control"
-msgstr ""
+msgstr "GNOME HTML ಸಂಪಾದಕ ನಿಯಂತ್ರಣ"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:3
 msgid "GNOME HTML Editor Factory"
-msgstr ""
+msgstr "GNOME HTML ಸಂಪಾದಕ ಫ್ಯಾಕ್ಟರಿ"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
 msgid "Make the current Paragraph style Preformatted"
-msgstr ""
+msgstr "ಈಗಿನ ಪ್ಯಾರಾಗ್ರಾಫಿನ ಶೈಲಿಯನ್ನು ತೂತಾಗಿರುವಂತೆ ಮಾಡಿ"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
 msgid "Preformatted"
-msgstr ""
+msgstr "ತೂತಾದ"
 
 #: ../components/html-editor/body.c:64
 msgid "None"
@@ -2097,11 +2111,11 @@ msgstr "ಯಾವುದೂ ಇಲ್ಲ"
 
 #: ../components/html-editor/body.c:72
 msgid "Perforated paper"
-msgstr ""
+msgstr "ತೂತಾದ ಕಾಗದ"
 
 #: ../components/html-editor/body.c:80
 msgid "Blue ink"
-msgstr ""
+msgstr "ನೀಲಿ ಶಾಯಿ"
 
 #: ../components/html-editor/body.c:88
 msgid "Paper"
@@ -2109,11 +2123,11 @@ msgstr "ಕಾಗದ"
 
 #: ../components/html-editor/body.c:96
 msgid "Ribbon"
-msgstr ""
+msgstr "ರಿಬ್ಬನ್"
 
 #: ../components/html-editor/body.c:104
 msgid "Midnight"
-msgstr ""
+msgstr "ಮಧ್ಯರಾತ್ರಿ"
 
 #: ../components/html-editor/body.c:112
 msgid "Confidential"
@@ -2125,7 +2139,7 @@ msgstr "ಡ್ರಾಪ್ಟ್"
 
 #: ../components/html-editor/body.c:128
 msgid "Graph paper"
-msgstr ""
+msgstr "ಗ್ರಾಫ್ ಕಾಗದ"
 
 #: ../components/html-editor/body.c:254
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:27
@@ -2135,17 +2149,17 @@ msgstr "ಬಣ್ಣಗಳು"
 #: ../components/html-editor/body.c:256 ../components/html-editor/body.c:288
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:22
 msgid "Background Image"
-msgstr ""
+msgstr "ಹಿನ್ನಲೆಯ ಚಿತ್ರ"
 
 #: ../components/html-editor/body.c:267
 msgid "Background Image File Path"
-msgstr ""
+msgstr "ಹಿನ್ನಲೆ ಚಿತ್ರದ ಕಡತದ ಮಾರ್ಗ"
 
 #: ../components/html-editor/body.c:275
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:51
 #: ../components/html-editor/menubar.c:239
 msgid "Template"
-msgstr ""
+msgstr "ನಮೂನೆ"
 
 #: ../components/html-editor/cell.c:342 ../components/html-editor/image.c:345
 #: ../components/html-editor/link.c:215 ../components/html-editor/rule.c:179
@@ -2153,11 +2167,11 @@ msgstr ""
 #: ../components/html-editor/template.c:287
 #: ../components/html-editor/text.c:168
 msgid "Could not load glade file."
-msgstr ""
+msgstr "ಗ್ಲೇಡ್ ಕಡತವನ್ನು ಲೋಡ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ."
 
 #: ../components/html-editor/cell.c:346 ../components/html-editor/table.c:233
 msgid "Transparent"
-msgstr ""
+msgstr "ಪಾರದರ್ಶಕ"
 
 #: ../components/html-editor/editor-control-factory.c:205
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:52
@@ -2170,7 +2184,7 @@ msgstr "ಪಠ್ಯ"
 #: ../components/html-editor/menubar.c:442
 #: ../components/html-editor/popup.c:217
 msgid "Paragraph"
-msgstr ""
+msgstr "ಪ್ಯಾರಾಗ್ರಾಫ್"
 
 #: ../components/html-editor/editor-control-factory.c:228
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:44
@@ -2181,33 +2195,33 @@ msgstr "ಪುಟ"
 
 #: ../components/html-editor/gi-color-combo.c:189
 msgid "color preview"
-msgstr ""
+msgstr "ಬಣ್ಣದ ಮುನ್ನೋಟ"
 
 #. "Custom" color - we'll pop up a GtkColorDialog
 #: ../components/html-editor/gi-color-palette.c:414
 msgid "Custom Color:"
-msgstr ""
+msgstr "ನನ್ನಿಚ್ಛೆಯ ಬಣ್ಣ:"
 
 #: ../components/html-editor/gi-color-palette.c:607
 msgid "purplish blue"
-msgstr ""
+msgstr "ನೇರಳೆಯುಕ್ತ ನೀಲಿ"
 
 #: ../components/html-editor/gi-color-palette.c:611
 msgid "dark purple"
-msgstr ""
+msgstr "ಗಾಢ ನೇರಳೆ"
 
 #: ../components/html-editor/gi-color-palette.c:613
 msgid "sky blue"
-msgstr ""
+msgstr "ಆಕಾಶ ನೀಲಿ"
 
 #. set the a11y name
 #: ../components/html-editor/gi-combo-box.c:411
 msgid "Popup"
-msgstr ""
+msgstr "ಪುಟಿಕೆ"
 
 #: ../components/html-editor/gnome-gtkhtml-editor.c:74
 msgid "GtkHTML Editor Control"
-msgstr ""
+msgstr "GtkHTML ಸಂಪಾದಕ ನಿಯಂತ್ರಣ"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:1
 msgid "    "
@@ -2215,7 +2229,7 @@ msgstr "    "
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:2
 msgid "*"
-msgstr ""
+msgstr "*"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:3
 msgid ""
@@ -2245,23 +2259,23 @@ msgstr "<span weight=\"bold\">ಸಾಮಾನ್ಯ</span>"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:16
 msgid "<span weight=\"bold\">Layout</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">ಲೇಔಟ್</span>"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:17
 msgid "<span weight=\"bold\">Link</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">ಕೊಂಡಿ</span>"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:18
 msgid "<span weight=\"bold\">Size</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">ಗಾತ್ರ</span>"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:19
 msgid "<span weight=\"bold\">Style</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">ಶೈಲಿ</span>"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:20
 msgid "<span weight=\"bold\">Template</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">ನಮೂನೆ</span>"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:21
 msgid "Alignment:"
@@ -2270,11 +2284,11 @@ msgstr ""
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:25
 #: ../components/html-editor/popup.c:241
 msgid "Cell"
-msgstr ""
+msgstr "ಸೆಲ್"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:28
 msgid "Colu_mns:"
-msgstr ""
+msgstr "ಕಾಲಂಗಳು(_m):"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:29
 msgid "Column span:"
@@ -2282,11 +2296,11 @@ msgstr ""
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:30
 msgid "Enable"
-msgstr ""
+msgstr "ಶಕ್ತಗೊಳಿಸು"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:31
 msgid "Hea_der style"
-msgstr ""
+msgstr "ಹೆಡರ್ ಶೈಲಿ(_d)"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:32
 msgid "Horizontal alignment:"
@@ -2294,7 +2308,7 @@ msgstr ""
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:33
 msgid "Horizontal:"
-msgstr ""
+msgstr "ಅಡ್ಡ:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:39
 msgid ""
@@ -2303,10 +2317,14 @@ msgid ""
 "Right\n"
 "None"
 msgstr ""
+"ಎಡ\n"
+"ಮಧ್ಯ\n"
+"ಬಲ\n"
+"ಯಾವುದೂ ಇಲ್ಲ"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:43
 msgid "Link properties"
-msgstr ""
+msgstr "ಕೊಂಡಿ ಗುಣಲಕ್ಷಣಗಳು"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:45
 msgid "Row span:"
@@ -2314,7 +2332,7 @@ msgstr ""
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:47
 msgid "Shade"
-msgstr ""
+msgstr "ಮಬ್ಬು"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:49
 msgid "Size:"
@@ -2322,7 +2340,7 @@ msgstr "ಗಾತ್ರ:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:56
 msgid "Vertical:"
-msgstr ""
+msgstr "ಲಂಬ:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:87
 msgid "xxxxxxxxxxxxxx"
@@ -2342,12 +2360,12 @@ msgstr "ವಿವರಣೆ:"
 #: ../components/html-editor/menubar.c:236
 #: ../components/html-editor/popup.c:108
 msgid "Insert"
-msgstr ""
+msgstr "ತೂರಿಸು"
 
 #: ../components/html-editor/menubar.c:323
 #, c-format
 msgid "Error loading file '%s': %s"
-msgstr ""
+msgstr "'%s' ಕಡತವನ್ನು ಲೋಡ್ ಮಾಡುವಲ್ಲಿ ದೋಷ: %s"
 
 #: ../components/html-editor/menubar.c:405
 #: ../components/html-editor/menubar.c:422
@@ -2361,16 +2379,16 @@ msgstr "ಸಾಮಾನ್ಯ"
 
 #: ../components/html-editor/paragraph.c:87
 msgid "Left"
-msgstr ""
+msgstr "ಎಡ"
 
 #: ../components/html-editor/paragraph.c:88
 #: ../components/html-editor/toolbar.c:415
 msgid "Center"
-msgstr ""
+msgstr "ಮಧ್ಯ"
 
 #: ../components/html-editor/paragraph.c:89
 msgid "Right"
-msgstr ""
+msgstr "ಬಲ"
 
 #: ../components/html-editor/paragraph.c:91
 msgid "Alignment"
@@ -2378,31 +2396,31 @@ msgstr ""
 
 #: ../components/html-editor/paragraph-style.c:53
 msgid "Roman List"
-msgstr ""
+msgstr "ರೋಮನ್ ಪಟ್ಟಿ"
 
 #: ../components/html-editor/paragraph-style.c:59
 msgid "Header 1"
-msgstr ""
+msgstr "ಹೆಡರ್ ೧"
 
 #: ../components/html-editor/paragraph-style.c:62
 msgid "Header 2"
-msgstr ""
+msgstr "ಹೆಡರ್ ೨"
 
 #: ../components/html-editor/paragraph-style.c:65
 msgid "Header 3"
-msgstr ""
+msgstr "ಹೆಡರ್ ೩"
 
 #: ../components/html-editor/paragraph-style.c:68
 msgid "Header 4"
-msgstr ""
+msgstr "ಹೆಡರ್ ೪"
 
 #: ../components/html-editor/paragraph-style.c:71
 msgid "Header 5"
-msgstr ""
+msgstr "ಹೆಡರ್ ೫"
 
 #: ../components/html-editor/paragraph-style.c:74
 msgid "Header 6"
-msgstr ""
+msgstr "ಹೆಡರ್ ೬"
 
 #: ../components/html-editor/paragraph-style.c:77
 msgid "Address"
@@ -2410,64 +2428,67 @@ msgstr "ವಿಳಾಸ"
 
 #: ../components/html-editor/popup.c:464
 msgid "Style"
-msgstr ""
+msgstr "ಶೈಲಿ"
 
 #: ../components/html-editor/popup.c:467
 msgid "Text Style..."
-msgstr ""
+msgstr "ಪಠ್ಯದ ಶೈಲಿ..."
 
 #: ../components/html-editor/popup.c:469 ../components/html-editor/popup.c:475
 #: ../components/html-editor/popup.c:485
 msgid "Paragraph Style..."
-msgstr ""
+msgstr "ಪ್ಯಾರಾಗ್ರಾಫ್ ಶೈಲಿ..."
 
 #: ../components/html-editor/popup.c:473
 msgid "Link Style..."
-msgstr ""
+msgstr "ಕೊಂಡಿಯ ಶೈಲಿ..."
 
 #: ../components/html-editor/popup.c:479
 msgid "Rule Style..."
-msgstr ""
+msgstr "ನಿಯಮದ ಶೈಲಿ..."
 
 #: ../components/html-editor/popup.c:483
 msgid "Image Style..."
-msgstr ""
+msgstr "ಚಿತ್ರದ ಶೈಲಿ..."
 
 #: ../components/html-editor/popup.c:494
 msgid "Cell Style..."
-msgstr ""
+msgstr "ಸೆಲ್ ಶೈಲಿ..."
 
 #: ../components/html-editor/popup.c:497
 msgid "Table Style..."
-msgstr ""
+msgstr "ಟೇಬಲ್ ಶೈಲಿ..."
 
 #: ../components/html-editor/popup.c:503
 msgid "Page Style..."
-msgstr ""
+msgstr "ಪುಟದ ಶೈಲಿ..."
 
 #: ../components/html-editor/popup.c:508
 msgid "Table insert"
-msgstr ""
+msgstr "ಟೇಬಲ್ ತೂರಿಸು"
 
 #: ../components/html-editor/popup.c:511
 msgid "Row above"
 msgstr ""
 
 #: ../components/html-editor/popup.c:512
+#, fuzzy
 msgid "Row below"
-msgstr ""
+msgstr "ಸಾಲು ಕೆಳಗೆ"
 
 #: ../components/html-editor/popup.c:514
+#, fuzzy
 msgid "Column before"
-msgstr ""
+msgstr "ಕಾಲಂನ ಮೊದಲು"
 
 #: ../components/html-editor/popup.c:515
+#, fuzzy
 msgid "Column after"
-msgstr ""
+msgstr "ಕಾಲಂ ನಂತರ"
 
 #: ../components/html-editor/popup.c:520
 msgid "Table delete"
-msgstr ""
+msgstr "ಟೇಬಲ್ ಅಳಿಸು"
 
 #: ../components/html-editor/popup.c:524
 msgid "Cell contents"
@@ -2475,25 +2496,25 @@ msgstr ""
 
 #: ../components/html-editor/popup.c:564
 msgid "Add Word to"
-msgstr ""
+msgstr "ಇಲ್ಲಿಗೆ ಪದವನ್ನು ಸೇರಿಸಿ"
 
 #: ../components/html-editor/popup.c:568
 #, c-format
 msgid "%s Dictionary"
-msgstr ""
+msgstr "%s ಶಬ್ಧಕೋಶ"
 
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: ../components/html-editor/replace.c:81
 msgid "Replace confirmation"
-msgstr ""
+msgstr "ಬದಲಾಯಿಸಲು ಖಚಿತಪಡಿಕೆ"
 
 #: ../components/html-editor/replace.c:179
 msgid "Search _backward"
-msgstr ""
+msgstr "ಹಿಂದಕ್ಕೆ ಹುಡುಕು(_b)"
 
 #: ../components/html-editor/search.c:115
 msgid "_Backward"
-msgstr ""
+msgstr "ಹಿಂದಕ್ಕೆ(_B)"
 
 #: ../components/html-editor/search.c:117
 msgid "_Regular Expression"
@@ -2501,13 +2522,15 @@ msgstr ""
 
 #: ../components/html-editor/search.c:121
 msgid "Input the words you want to search here"
-msgstr ""
+msgstr "ಇಲ್ಲಿ ನೀವು ಹುಡುಕಬೇಕಿರುವ ಪದಗಳನ್ನು ನಮೂದಿಸಿ"
 
 #: ../components/html-editor/spellchecker.c:116
 msgid ""
 "Unable to add word to dictionary,\n"
 "language settings are broken.\n"
 msgstr ""
+"ಕೋಶಕ್ಕೆ ಪದವನ್ನು ಸೇರಿಸಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ,\n"
+"ಭಾಷೆಯ ಸಂಯೋಜನೆಗಳು ಸರಿಯಾಗಿಲ್ಲ.\n"
 
 #: ../components/html-editor/spellchecker.c:322
 msgid "No misspelled word found"
@@ -2532,7 +2555,7 @@ msgstr "ಚಿತ್ರದ ಫ್ರೇಮ್"
 
 #: ../components/html-editor/template.c:296
 msgid "Template Labels"
-msgstr "ಲೇಬಲ್‌ಗಳ ಮಾದರಿ"
+msgstr "ಲೇಬಲ್‌ಗಳ ನಮೂನೆ"
 
 #: ../components/html-editor/test-html-editor-control.c:263
 msgid "Open file..."
@@ -2645,7 +2668,7 @@ msgstr "ನಿಗದಿತ ಅಗಲದ ಅಕ್ಷರ ಶೈಲಿ"
 
 #: ../gtkhtml/gtkhtml.c:2959
 msgid "The Monospace font to use for typewriter text"
-msgstr ""
+msgstr "ಟೈಪ್‌ರೈಟರ್ ಪಠ್ಯಕ್ಕಾಗಿ ಬಳಸಬೇಕಿರುವ ಮೋನೋಸ್ಪೇಸ್ ಅಕ್ಷರ ಶೈಲಿ"
 
 #: ../gtkhtml/gtkhtml.c:2965
 msgid "New Link Color"
