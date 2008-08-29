@@ -1071,6 +1071,7 @@ ht_fit_line (HTMLObject *o,
 	return HTML_FIT_COMPLETE;
 }
 
+#if 0  /* No longer used? */
 static gint
 min_word_width_calc_tabs (HTMLText *text, HTMLPainter *p, gint idx, gint *len)
 {
@@ -1132,6 +1133,7 @@ min_word_width_calc_tabs (HTMLText *text, HTMLPainter *p, gint idx, gint *len)
 	/* printf ("tabs delta %d\n", rv); */
 	return rv;
 }
+#endif
 
 gint
 html_text_pango_info_get_index (HTMLTextPangoInfo *pi, gint byte_offset, gint idx)

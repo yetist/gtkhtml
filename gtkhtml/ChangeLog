@@ -1,3 +1,8 @@
+2008-08-28  Matthew Barnes  <mbarnes@redhat.com>
+
+	* htmltext.c (min_word_width_calc_tabs):
+	Disable this unused function.  Maybe remove it in the future.
+
 2008-08-17  Matthew Barnes  <mbarnes@redhat.com>
 
 	* gtkhtml.h:
