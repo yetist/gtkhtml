@@ -40,8 +40,8 @@
 			<cmd name="HeadingNormal" _label="Normal"
 		        _tip="Make the current Paragraph style Normal"
 		        accel="*Ctrl*0"/>
-			<cmd name="HeadingPreformat" _label="Preformatted"
-		        _tip="Make the current Paragraph style Preformatted"
+			<cmd name="HeadingPreformat" _label="Preformat"
+		        _tip="Make the current Paragraph style Preformat"
 		        accel="*Ctrl*7"/>
 			<cmd name="HeadingH1" _label="Header _1"
 		        _tip="Make the current paragraph an H1 header"
