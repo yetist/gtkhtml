@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: gtkhtml HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-07-05 18:35+0000\n"
-"PO-Revision-Date: 2008-08-18 22:29+0300\n"
+"PO-Revision-Date: 2008-08-31 13:35+0300\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -624,7 +624,7 @@ msgstr "Aktiivsed _keeled"
 #: ../components/editor/gtkhtml-editor-actions.c:1607
 #: ../components/editor/main.c:355
 msgid "_View"
-msgstr ""
+msgstr "_Vaade"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1617
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
@@ -773,11 +773,11 @@ msgstr "Viida lisamine"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:136
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
 msgid "_Rule..."
-msgstr "_Reegel..."
+msgstr "_Vahejoon..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1774
 msgid "Insert Rule"
-msgstr "Reegli lisamine"
+msgstr "Vahejoone lisamine"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1779
 #: ../components/editor/gtkhtml-editor-actions.c:1821
@@ -996,7 +996,7 @@ msgstr "Lõik..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:2097
 msgid "Rule..."
-msgstr "Reegel..."
+msgstr "Vahejoon..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:2104
 msgid "Table..."
@@ -1043,7 +1043,7 @@ msgstr "_Viit"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2382
 msgid "_Rule"
-msgstr "_Reegel"
+msgstr "_Vahejoon"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2385
 #: ../components/editor/gtkhtml-editor.glade.h:76
@@ -1302,7 +1302,7 @@ msgstr "Rea ulatus:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:44
 msgid "Rule Properties"
-msgstr "Reegli omadused"
+msgstr "Vahejoone omadused"
 
 #: ../components/editor/gtkhtml-editor.glade.h:45
 msgid "S_haded"
@@ -1805,7 +1805,7 @@ msgstr "Lisa viit"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:54
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
 msgid "Insert rule"
-msgstr "Lisa reegel"
+msgstr "Lisa vahejoon"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
@@ -1980,7 +1980,7 @@ msgstr "Rooma numbrite loetelu"
 #: ../components/html-editor/menubar.c:193
 #: ../components/html-editor/popup.c:229
 msgid "Rule"
-msgstr "Reegel"
+msgstr "Vahejoon"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:93
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
@@ -2449,7 +2449,7 @@ msgstr "Viida laad..."
 
 #: ../components/html-editor/popup.c:479
 msgid "Rule Style..."
-msgstr "Reegli laad..."
+msgstr "Vahejoone laad..."
 
 #: ../components/html-editor/popup.c:483
 msgid "Image Style..."
