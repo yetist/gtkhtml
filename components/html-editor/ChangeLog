@@ -1,5 +1,10 @@
 2008-08-31  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
+	* popup.c: (prepare_properties_and_menu): Added comment for
+	translators. Closes bug #549239.
+
+2008-08-31  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
 	* GNOME_GtkHTML_Editor.xml.in: Changed label and tooltip to match
 	those in GNOME_GtkHTML_Editor-emacs.xml.in. Closes bug #549238.
 

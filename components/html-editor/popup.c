@@ -565,6 +565,7 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items, guint *props)
 
 			for (i = 0; i < cd->languages->_length; i ++) {
 				if (strstr (html_engine_get_language (cd->html->engine), cd->languages->_buffer [i].abbreviation)) {
+					/* Translators: %s is the language name. */
 					lang = g_strdup_printf (_("%s Dictionary"), cd->languages->_buffer [i].name);
 					ADD_ITEM (lang, spell_add, NONE);
 					g_object_set_data (G_OBJECT (menuitem), "abbrev", cd->languages->_buffer [i].abbreviation);
