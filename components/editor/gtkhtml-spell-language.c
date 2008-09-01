@@ -175,11 +175,9 @@ spell_language_dict_describe_cb (const gchar * const language_code,
 	iso_639_name = g_hash_table_lookup (iso_639_table, tokens[0]);
 
 	if (iso_639_name == NULL) {
-		/* Translators: The text before the "|" is context to help
-		 * you decide on the correct translation. You MUST OMIT IT
-		 * in the translated string. */
 		language_name = g_strdup_printf (
-			Q_("language|Unknown (%s)"), language_code);
+		/* Translators: %s is the language ISO code. */
+			C_("language", "Unknown (%s)"), language_code);
 		goto exit;
 	}
 
@@ -191,21 +189,15 @@ spell_language_dict_describe_cb (const gchar * const language_code,
 	iso_3166_name = g_hash_table_lookup (iso_3166_table, tokens[1]);
 
 	if (iso_3166_name != NULL)
-		/* Translators: The text before the "|" is context to help
-		 * you decide on the correct translation. You MUST OMIT IT
-		 * in the translated string. 
-		 * Translators: The first %s is the language name, and the
-		 * second is the locale name. Example: "French (France)" */
 		language_name = g_strdup_printf (
-			Q_("language|%s (%s)"), iso_639_name, iso_3166_name);
+		 /* Translators: The first %s is the language name, and the
+		 * second is the country name. Example: "French (France)" */
+			C_("language", "%s (%s)"), iso_639_name, iso_3166_name);
 	else
-		/* Translators: The text before the "|" is context to help
-		 * you decide on the correct translation. You MUST OMIT IT
-		 * in the translated string. 
-		 * Translators: The first %s is the language name, and the
-		 * second is the locale name. Example: "French (France)" */
 		language_name = g_strdup_printf (
-			Q_("language|%s (%s)"), iso_639_name, tokens[1]);
+		 /* Translators: The first %s is the language name, and the
+		 * second is the country name. Example: "French (France)" */
+			C_("language", "%s (%s)"), iso_639_name, tokens[1]);
 
 exit:
 	g_strfreev (tokens);
@@ -388,12 +380,9 @@ const gchar *
 gtkhtml_spell_language_get_name (const GtkhtmlSpellLanguage *language)
 {
 	if (language == NULL)
-		/* Translators: The text before the "|" is context to help
-		 * you decide on the correct translation. You MUST OMIT IT
-		 * in the translated string.
-		 * Translators: This refers to the default language used
+		 /* Translators: This refers to the default language used
 		 * by the spell checker. */
-		return Q_("language|Default");
+		return C_("language", "Default");
 
 	return language->name;
 }

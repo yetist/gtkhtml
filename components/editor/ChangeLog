@@ -1,3 +1,10 @@
+2008-09-01  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	** Fix for bug #549235
+
+	* gtkhtml-spell-language.c (spell_language_dict_describe_cb),
+	(gtkhtml_spell_language_get_name): Fix translator comments. 
+
 2008-08-12  Matthew Barnes  <mbarnes@redhat.com>
 
 	** Fixes bug #543318  (patch by Pascal Terjan)
