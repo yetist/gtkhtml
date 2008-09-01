@@ -432,8 +432,8 @@ html_painter_calc_entries_size (HTMLPainter *painter,
 				HTMLTextPangoInfo *pi, GList *glyphs, gint *line_offset,
 				gint *width, gint *asc, gint *dsc)
 {
-	HTMLFontFace    *font_face;
-	GtkHTMLFontStyle font_style;
+	HTMLFontFace *font_face = NULL;
+	GtkHTMLFontStyle font_style = GTK_HTML_FONT_STYLE_DEFAULT;
 	HTMLFont *font;
 
 	g_return_if_fail (painter != NULL);

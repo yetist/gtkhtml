@@ -1,3 +1,11 @@
+2008-09-01  Matthew Barnes  <mbarnes@redhat.com>
+
+	* testgtkhtml.c (goto_url), (test_cb):
+	Use g_get_current_dir() instead of getcwd().
+
+	* htmlpainter.c (html_painter_calc_entries_size):
+	Initialize font_size and font_style, to make compiler happy.
+
 2008-08-28  Matthew Barnes  <mbarnes@redhat.com>
 
 	* htmltext.c (min_word_width_calc_tabs):

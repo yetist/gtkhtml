@@ -947,29 +947,30 @@ goto_url(const char *url, int back_or_forward)
 static void
 bug_cb (GtkWidget *widget, gpointer data)
 {
-	gchar cwd[PATH_MAX], *filename, *url;
+	gchar *cwd, *filename, *url;
 
-	getcwd(cwd, sizeof (cwd));
+	cwd = g_get_current_dir ();
 	filename = g_strdup_printf("%s/bugs.html", cwd);
 	url = g_filename_to_uri(filename, NULL, NULL);
 	goto_url(url, 0);
 	g_free(url);
 	g_free(filename);
+	g_free(cwd);
 }
 
 static void
 test_cb (GtkWidget *widget, gpointer data)
 {
-	gchar cwd[PATH_MAX], *filename, *url;
+	gchar *cwd, *filename, *url;
 
-	getcwd(cwd, sizeof (cwd));
+	cwd = g_get_current_dir ();
 	filename = g_strdup_printf ("%s/tests/test%d.html", cwd,
 				    GPOINTER_TO_INT (data));
 	url = g_filename_to_uri (filename, NULL, NULL);
-
 	goto_url(url, 0);
 	g_free(url);
 	g_free(filename);
+	g_free(cwd);
 }
 
 static void
