@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-07-10 11:05+0700\n"
-"PO-Revision-Date: 2008-07-10 11:26+0700\n"
+"POT-Creation-Date: 2008-09-01 11:52+0700\n"
+"PO-Revision-Date: 2008-09-01 11:53+0700\n"
 "Last-Translator: Theppitak Karoonboonyanan <thep@linux.thai.net>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -932,7 +932,7 @@ msgid "Table Delete"
 msgstr "ลบในตาราง"
 
 #: components/editor/gtkhtml-editor-actions.c:1988
-#: components/html-editor/popup.c:583
+#: components/html-editor/popup.c:584
 msgid "Input Methods"
 msgstr "วิธีป้อนข้อความ"
 
@@ -1005,7 +1005,7 @@ msgid "Remove Link"
 msgstr "ลบลิงก์"
 
 #: components/editor/gtkhtml-editor-actions.c:2135
-#: components/html-editor/popup.c:577
+#: components/html-editor/popup.c:578
 msgid "Add Word to Dictionary"
 msgstr "เพิ่มคำในพจนานุกรม"
 
@@ -1018,27 +1018,27 @@ msgstr "ละเลยคำสะกดผิด"
 msgid "Add Word To"
 msgstr "เพิ่มคำลงใน"
 
-#: components/editor/gtkhtml-editor-actions.c:2370
+#: components/editor/gtkhtml-editor-actions.c:2367
 msgid "_Find"
 msgstr "_หา"
 
-#: components/editor/gtkhtml-editor-actions.c:2373
+#: components/editor/gtkhtml-editor-actions.c:2370
 msgid "Re_place"
 msgstr "แ_ทนที่"
 
-#: components/editor/gtkhtml-editor-actions.c:2376
+#: components/editor/gtkhtml-editor-actions.c:2373
 msgid "_Image"
 msgstr "รูป_ภาพ"
 
-#: components/editor/gtkhtml-editor-actions.c:2379
+#: components/editor/gtkhtml-editor-actions.c:2376
 msgid "_Link"
 msgstr "_ลิงก์"
 
-#: components/editor/gtkhtml-editor-actions.c:2382
+#: components/editor/gtkhtml-editor-actions.c:2379
 msgid "_Rule"
 msgstr "เ_ส้นกั้น"
 
-#: components/editor/gtkhtml-editor-actions.c:2385
+#: components/editor/gtkhtml-editor-actions.c:2382
 #: components/editor/gtkhtml-editor.glade.h:76
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
 msgid "_Table"
@@ -1546,24 +1546,27 @@ msgstr "พจนานุกรม"
 msgid "_Add Word"
 msgstr "เ_พิ่มคำ"
 
-#: components/editor/gtkhtml-spell-language.c:182
+#. Translators: %s is the language ISO code.
+#: components/editor/gtkhtml-spell-language.c:180
 #, c-format
-msgid "language|Unknown (%s)"
+msgctxt "language"
+msgid "Unknown (%s)"
 msgstr "ไม่ทราบ (%s)"
 
+#. Translators: The first %s is the language name, and the
+#. * second is the country name. Example: "French (France)"
+#: components/editor/gtkhtml-spell-language.c:195
 #: components/editor/gtkhtml-spell-language.c:200
-#: components/editor/gtkhtml-spell-language.c:208
 #, c-format
-msgid "language|%s (%s)"
+msgctxt "language"
+msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#. Translators: The text before the "|" is context to help
-#. * you decide on the correct translation. You MUST OMIT IT
-#. * in the translated string.
-#. * Translators: This refers to the default language used
+#. Translators: This refers to the default language used
 #. * by the spell checker.
-#: components/editor/gtkhtml-spell-language.c:396
-msgid "language|Default"
+#: components/editor/gtkhtml-spell-language.c:385
+msgctxt "language"
+msgid "Default"
 msgstr "ปริยาย"
 
 #: components/editor/main.c:93
@@ -1840,6 +1843,7 @@ msgid "Make the current Paragraph style Normal"
 msgstr "จัดรูปลักษณ์ย่อหน้าปัจจุบันเป็นย่อหน้าปกติ"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:62
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
 msgid "Make the current Paragraph style Preformat"
 msgstr "จัดรูปลักษณ์ย่อหน้าปัจจุบันเป็นแบบพิมพ์ดีด"
 
@@ -1936,6 +1940,7 @@ msgid "Paste the clipboard as a quotation"
 msgstr "แปะจากคลิปบอร์ดแบบอ้างคำพูด"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:83
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
 #: components/html-editor/paragraph-style.c:44
 msgid "Preformat"
 msgstr "พิมพ์ดีด"
@@ -2093,14 +2098,6 @@ msgstr "วิดเจ็ตแก้ไข HTML ของ GNOME"
 #: components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:3
 msgid "GNOME HTML Editor Factory"
 msgstr "โรงงานเครื่องมือแก้ไข HTML ของ GNOME"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
-msgid "Make the current Paragraph style Preformatted"
-msgstr "จัดรูปลักษณ์ย่อหน้าปัจจุบันเป็นแบบพิมพ์ดีด"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
-msgid "Preformatted"
-msgstr "พิมพ์ดีด"
 
 #: components/html-editor/body.c:64
 msgid "None"
@@ -2492,7 +2489,8 @@ msgstr "เนื้อหาในช่องตาราง"
 msgid "Add Word to"
 msgstr "เพิ่มคำลงใน"
 
-#: components/html-editor/popup.c:568
+#. Translators: %s is the language name.
+#: components/html-editor/popup.c:569
 #, c-format
 msgid "%s Dictionary"
 msgstr "พจนานุกรม %s"
@@ -2623,83 +2621,83 @@ msgstr ""
 "ออบเจกต์ที่แก้ไขถูกลบออกจากเอกสารไปแล้ว\n"
 "ไม่สามารถกระทำสิ่งที่คุณเปลี่ยนแปลงได้"
 
-#: gtkhtml/gtkhtml.c:2917
+#: gtkhtml/gtkhtml.c:2927
 msgid "Editable"
 msgstr "แก้ไขได้"
 
-#: gtkhtml/gtkhtml.c:2918
+#: gtkhtml/gtkhtml.c:2928
 msgid "Whether the html can be edited"
 msgstr "กำหนดว่า HTML แก้ไขได้หรือไม่"
 
-#: gtkhtml/gtkhtml.c:2924
+#: gtkhtml/gtkhtml.c:2934
 msgid "Document Title"
 msgstr "หัวเรื่องเอกสาร"
 
-#: gtkhtml/gtkhtml.c:2925
+#: gtkhtml/gtkhtml.c:2935
 msgid "The title of the current document"
 msgstr "หัวเรื่องของเอกสารปัจจุบัน"
 
-#: gtkhtml/gtkhtml.c:2931
+#: gtkhtml/gtkhtml.c:2941
 msgid "Document Base"
 msgstr "ฐานของเอกสาร"
 
-#: gtkhtml/gtkhtml.c:2932
+#: gtkhtml/gtkhtml.c:2942
 msgid "The base URL for relative references"
 msgstr "URL ฐานสำหรับการอ้างแบบสัมพัทธ์"
 
-#: gtkhtml/gtkhtml.c:2938
+#: gtkhtml/gtkhtml.c:2948
 msgid "Target Base"
 msgstr "ฐานของเป้าหมาย"
 
-#: gtkhtml/gtkhtml.c:2939
+#: gtkhtml/gtkhtml.c:2949
 msgid "The base URL of the target frame"
 msgstr "URL ฐานสำหรับเฟรมเป้าหมาย"
 
-#: gtkhtml/gtkhtml.c:2948
+#: gtkhtml/gtkhtml.c:2958
 msgid "Fixed Width Font"
 msgstr "แบบอักษรความกว้างคงที่"
 
-#: gtkhtml/gtkhtml.c:2949
+#: gtkhtml/gtkhtml.c:2959
 msgid "The Monospace font to use for typewriter text"
 msgstr "แบบอักษรความกว้างคงที่สำหรับข้อความพิมพ์ดีด"
 
-#: gtkhtml/gtkhtml.c:2955
+#: gtkhtml/gtkhtml.c:2965
 msgid "New Link Color"
 msgstr "สีลิงก์ใหม่"
 
-#: gtkhtml/gtkhtml.c:2956
+#: gtkhtml/gtkhtml.c:2966
 msgid "The color of new link elements"
 msgstr "สีของลิงก์ใหม่"
 
-#: gtkhtml/gtkhtml.c:2961
+#: gtkhtml/gtkhtml.c:2971
 msgid "Visited Link Color"
 msgstr "ลิงก์ที่เปิดแล้ว"
 
-#: gtkhtml/gtkhtml.c:2962
+#: gtkhtml/gtkhtml.c:2972
 msgid "The color of visited link elements"
 msgstr "สีของลิงก์ที่เปิดแล้ว"
 
-#: gtkhtml/gtkhtml.c:2967
+#: gtkhtml/gtkhtml.c:2977
 msgid "Active Link Color"
 msgstr "ลิงก์ที่เลือก"
 
-#: gtkhtml/gtkhtml.c:2968
+#: gtkhtml/gtkhtml.c:2978
 msgid "The color of active link elements"
 msgstr "สีของลิงก์ที่เลือก"
 
-#: gtkhtml/gtkhtml.c:2973
+#: gtkhtml/gtkhtml.c:2983
 msgid "Spelling Error Color"
 msgstr "สีคำสะกดผิด"
 
-#: gtkhtml/gtkhtml.c:2974
+#: gtkhtml/gtkhtml.c:2984
 msgid "The color of the spelling error markers"
 msgstr "สีของตัวทำเครื่องหมายคำสะกดผิด"
 
-#: gtkhtml/gtkhtml.c:2979
+#: gtkhtml/gtkhtml.c:2989
 msgid "Cite Quotation Color"
 msgstr "สีคำพูดอ้าง"
 
-#: gtkhtml/gtkhtml.c:2980
+#: gtkhtml/gtkhtml.c:2990
 msgid "The color of the cited text"
 msgstr "สีของข้อความที่อ้างคำพูด"
 
@@ -2731,6 +2729,15 @@ msgstr "ตัวอย่างก่อนพิมพ์"
 #: gtkhtml/testgtkhtml.c:1018
 msgid "GtkHTML Test Application"
 msgstr "โปรแกรมทดสอบ GtkHTML"
+
+#~ msgid "language|Default"
+#~ msgstr "ปริยาย"
+
+#~ msgid "Make the current Paragraph style Preformatted"
+#~ msgstr "จัดรูปลักษณ์ย่อหน้าปัจจุบันเป็นแบบพิมพ์ดีด"
+
+#~ msgid "Preformatted"
+#~ msgstr "พิมพ์ดีด"
 
 #~ msgid "Cannot allocate default font for printing\n"
 #~ msgstr "ไม่สามารถสร้างฟอนต์ปริยายสำหรับพิมพ์ได้\n"
