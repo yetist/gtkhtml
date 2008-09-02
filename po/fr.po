@@ -7,7 +7,7 @@
 # Gildas Guillemot <g.guillemot@laposte.net>, 2003.
 # Audrey Simons <asimons@redhat.com>, 2004.
 # Jonathan Ernst <jonathan@ernstfamily.ch>, 2006-2007.
-# Robert-André Mauchin <zebob.m@gmail.com>, 2006.
+# Robert-André Mauchin <zebob.m@pengzone.org>, 2006-2008.
 # Stéphane Raimbault <stephane.raimbault@gmail.com>, 2007.
 # Bruno Brouard <annoa.b@gmail.com>, 2008
 #
@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-07-25 17:12+0200\n"
-"PO-Revision-Date: 2008-07-23 22:33+0200\n"
-"Last-Translator: Bruno Brouard <annoa.b@gmail.com>\n"
+"POT-Creation-Date: 2008-09-02 14:34+0200\n"
+"PO-Revision-Date: 2008-09-02 14:33+0200\n"
+"Last-Translator: Robert-André Mauchin <zebob.m@pengzone.org>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -307,7 +307,7 @@ msgstr "Popup affiché"
 
 #: ../components/editor/gtkhtml-color-combo.c:736
 msgid "Whether the combo's dropdown is shown"
-msgstr "Indique si la liste déroulante est ouverte"
+msgstr "Indique si la liste déroulante de la boite combinée est ouverte"
 
 #: ../components/editor/gtkhtml-color-combo.c:745
 msgid "Color state"
@@ -940,7 +940,7 @@ msgid "Table Delete"
 msgstr "Supprimer le tableau"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1988
-#: ../components/html-editor/popup.c:583
+#: ../components/html-editor/popup.c:584
 msgid "Input Methods"
 msgstr "Méthodes de saisie"
 
@@ -1013,7 +1013,7 @@ msgid "Remove Link"
 msgstr "Enlever le lien"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2135
-#: ../components/html-editor/popup.c:577
+#: ../components/html-editor/popup.c:578
 msgid "Add Word to Dictionary"
 msgstr "Ajouter le mot au dictionnaire"
 
@@ -1080,8 +1080,7 @@ msgstr "Dossier actuel"
 
 #: ../components/editor/gtkhtml-editor.c:703
 msgid "The initial folder for file chooser dialogs"
-msgstr ""
-"Dossier initial pour la boîte de dialogue de sélection des fichiers"
+msgstr "Dossier initial pour la boîte de dialogue de sélection des fichiers"
 
 #: ../components/editor/gtkhtml-editor.c:713
 msgid "Filename"
@@ -1399,7 +1398,7 @@ msgstr "_Lien :"
 #: ../components/editor/gtkhtml-editor.glade.h:67
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:66
 msgid "_Padding:"
-msgstr "_Bourrage :"
+msgstr "_Remplissage :"
 
 #: ../components/editor/gtkhtml-editor.glade.h:68
 msgid "_Regular expression"
@@ -1466,12 +1465,12 @@ msgstr "_Couper le texte"
 #: ../components/editor/gtkhtml-editor.glade.h:85
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:77
 msgid "_X-Padding:"
-msgstr "Bourrage _X :"
+msgstr "Remplissage _X :"
 
 #: ../components/editor/gtkhtml-editor.glade.h:86
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:78
 msgid "_Y-Padding:"
-msgstr "Bourrage _Y :"
+msgstr "Remplissage _Y :"
 
 #: ../components/editor/gtkhtml-editor.glade.h:87
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:79
@@ -1555,24 +1554,27 @@ msgstr "Dictionnaire"
 msgid "_Add Word"
 msgstr "_Ajouter le mot"
 
-#: ../components/editor/gtkhtml-spell-language.c:182
+#. Translators: %s is the language ISO code.
+#: ../components/editor/gtkhtml-spell-language.c:180
 #, c-format
-msgid "language|Unknown (%s)"
+msgctxt "language"
+msgid "Unknown (%s)"
 msgstr "Inconnue (%s)"
 
+#. Translators: The first %s is the language name, and the
+#. * second is the country name. Example: "French (France)"
+#: ../components/editor/gtkhtml-spell-language.c:195
 #: ../components/editor/gtkhtml-spell-language.c:200
-#: ../components/editor/gtkhtml-spell-language.c:208
 #, c-format
-msgid "language|%s (%s)"
+msgctxt "language"
+msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#. Translators: The text before the "|" is context to help
-#. * you decide on the correct translation. You MUST OMIT IT
-#. * in the translated string.
-#. * Translators: This refers to the default language used
+#. Translators: This refers to the default language used
 #. * by the spell checker.
-#: ../components/editor/gtkhtml-spell-language.c:396
-msgid "language|Default"
+#: ../components/editor/gtkhtml-spell-language.c:385
+msgctxt "language"
+msgid "Default"
 msgstr "Par défaut"
 
 #: ../components/editor/main.c:93
@@ -1589,7 +1591,7 @@ msgstr "Sortie HTML"
 
 #: ../components/editor/main.c:275
 msgid "HTML Source"
-msgstr "Source HTML"
+msgstr "Source HTML"
 
 #: ../components/editor/main.c:282
 msgid "Plain Source"
@@ -1643,7 +1645,7 @@ msgstr "Liste à puces"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:11
 #: ../components/html-editor/toolbar.c:415
 msgid "Center justifies the paragraphs"
-msgstr "Justifie au centre les paragraphes"
+msgstr "Aligne au centre les paragraphes"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:13
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:13
@@ -1849,6 +1851,7 @@ msgid "Make the current Paragraph style Normal"
 msgstr "Mettre le paragraphe actuel en style Normal"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:62
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
 msgid "Make the current Paragraph style Preformat"
 msgstr "Mettre le paragraphe actuel en style préformaté"
 
@@ -1945,6 +1948,7 @@ msgid "Paste the clipboard as a quotation"
 msgstr "Coller le presse-papiers en citation"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:83
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
 #: ../components/html-editor/paragraph-style.c:44
 msgid "Preformat"
 msgstr "Préformaté"
@@ -1957,7 +1961,7 @@ msgstr "Rétablir"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:85
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
 msgid "Redo previously undone change"
-msgstr "Rétablit le changement précédemment annuler"
+msgstr "Rétablit le changement précédemment annulé"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
@@ -1968,7 +1972,7 @@ msgstr "Rétablit l'action annulée"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
 #: ../components/html-editor/toolbar.c:418
 msgid "Right justifies the paragraphs"
-msgstr "Justifie à droite les paragraphes"
+msgstr "Aligne à droite les paragraphes"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:89
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
@@ -2102,14 +2106,6 @@ msgstr "Contrôle pour l'éditeur HTML GNOME"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:3
 msgid "GNOME HTML Editor Factory"
 msgstr "Fabrique pour l'éditeur HTML GNOME"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
-msgid "Make the current Paragraph style Preformatted"
-msgstr "Mettre le paragraphe actuel en style préformaté"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
-msgid "Preformatted"
-msgstr "Préformaté"
 
 #: ../components/html-editor/body.c:64
 msgid "None"
@@ -2501,7 +2497,8 @@ msgstr "Contenu de la cellule"
 msgid "Add Word to"
 msgstr "Ajouter le mot à"
 
-#: ../components/html-editor/popup.c:568
+#. Translators: %s is the language name.
+#: ../components/html-editor/popup.c:569
 #, c-format
 msgid "%s Dictionary"
 msgstr "Dictionnaire %s"
@@ -2629,86 +2626,86 @@ msgid ""
 "The edited object was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
-"L'objet édité a été supprimé du document.\n"
+"L'objet modifié a été supprimé du document.\n"
 "Impossible d'appliquer vos modifications."
 
-#: ../gtkhtml/gtkhtml.c:2917
+#: ../gtkhtml/gtkhtml.c:2927
 msgid "Editable"
 msgstr "Éditable"
 
-#: ../gtkhtml/gtkhtml.c:2918
+#: ../gtkhtml/gtkhtml.c:2928
 msgid "Whether the html can be edited"
 msgstr "Indique si l'HTML peut être modifié"
 
-#: ../gtkhtml/gtkhtml.c:2924
+#: ../gtkhtml/gtkhtml.c:2934
 msgid "Document Title"
 msgstr "Titre du document"
 
-#: ../gtkhtml/gtkhtml.c:2925
+#: ../gtkhtml/gtkhtml.c:2935
 msgid "The title of the current document"
 msgstr "Le titre du document actuel"
 
-#: ../gtkhtml/gtkhtml.c:2931
+#: ../gtkhtml/gtkhtml.c:2941
 msgid "Document Base"
 msgstr "Base du document"
 
-#: ../gtkhtml/gtkhtml.c:2932
+#: ../gtkhtml/gtkhtml.c:2942
 msgid "The base URL for relative references"
 msgstr "L'URL de base pour les références relatives"
 
-#: ../gtkhtml/gtkhtml.c:2938
+#: ../gtkhtml/gtkhtml.c:2948
 msgid "Target Base"
 msgstr "Base de la cible"
 
-#: ../gtkhtml/gtkhtml.c:2939
+#: ../gtkhtml/gtkhtml.c:2949
 msgid "The base URL of the target frame"
 msgstr "L'URL de base pour le cadre cible"
 
-#: ../gtkhtml/gtkhtml.c:2948
+#: ../gtkhtml/gtkhtml.c:2958
 msgid "Fixed Width Font"
-msgstr "Police à largeur constante"
+msgstr "Police à chasse fixe"
 
-#: ../gtkhtml/gtkhtml.c:2949
+#: ../gtkhtml/gtkhtml.c:2959
 msgid "The Monospace font to use for typewriter text"
-msgstr "La police à largeur constante à utiliser pour le texte à pas fixe"
+msgstr "La police à chasse fixe à utiliser pour le texte à pas fixe"
 
-#: ../gtkhtml/gtkhtml.c:2955
+#: ../gtkhtml/gtkhtml.c:2965
 msgid "New Link Color"
 msgstr "Couleur des nouveaux liens"
 
-#: ../gtkhtml/gtkhtml.c:2956
+#: ../gtkhtml/gtkhtml.c:2966
 msgid "The color of new link elements"
 msgstr "La couleur des éléments nouveau lien"
 
-#: ../gtkhtml/gtkhtml.c:2961
+#: ../gtkhtml/gtkhtml.c:2971
 msgid "Visited Link Color"
 msgstr "Couleur des liens visités"
 
-#: ../gtkhtml/gtkhtml.c:2962
+#: ../gtkhtml/gtkhtml.c:2972
 msgid "The color of visited link elements"
 msgstr "La couleur des éléments lien visité"
 
-#: ../gtkhtml/gtkhtml.c:2967
+#: ../gtkhtml/gtkhtml.c:2977
 msgid "Active Link Color"
 msgstr "Couleur des liens actifs"
 
-#: ../gtkhtml/gtkhtml.c:2968
+#: ../gtkhtml/gtkhtml.c:2978
 msgid "The color of active link elements"
 msgstr "La couleur des éléments lien actif"
 
-#: ../gtkhtml/gtkhtml.c:2973
+#: ../gtkhtml/gtkhtml.c:2983
 msgid "Spelling Error Color"
 msgstr "Couleur des fautes d'orthographe"
 
-#: ../gtkhtml/gtkhtml.c:2974
+#: ../gtkhtml/gtkhtml.c:2984
 msgid "The color of the spelling error markers"
 msgstr "La couleur du marqueur des fautes d'orthographe"
 
-#: ../gtkhtml/gtkhtml.c:2979
+#: ../gtkhtml/gtkhtml.c:2989
 msgid "Cite Quotation Color"
 msgstr "Couleur de la citation"
 
-#: ../gtkhtml/gtkhtml.c:2980
+#: ../gtkhtml/gtkhtml.c:2990
 msgid "The color of the cited text"
 msgstr "La couleur du texte cité"
 
@@ -2737,6 +2734,15 @@ msgstr "_Aperçu avant impression"
 msgid "Print preview"
 msgstr "Aperçu avant impression"
 
-#: ../gtkhtml/testgtkhtml.c:1018
+#: ../gtkhtml/testgtkhtml.c:1019
 msgid "GtkHTML Test Application"
 msgstr "Application de test GtkHTML"
+
+#~ msgid "language|Default"
+#~ msgstr "Par défaut"
+
+#~ msgid "Make the current Paragraph style Preformatted"
+#~ msgstr "Mettre le paragraphe actuel en style préformaté"
+
+#~ msgid "Preformatted"
+#~ msgstr "Préformaté"
