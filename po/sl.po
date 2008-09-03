@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-07-10 04:27+0000\n"
-"PO-Revision-Date: 2008-07-10 15:12+0100\n"
+"POT-Creation-Date: 2008-09-03 04:38+0000\n"
+"PO-Revision-Date: 2008-09-03 16:41+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -937,7 +937,7 @@ msgid "Table Delete"
 msgstr "Zbris tabele"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1988
-#: ../components/html-editor/popup.c:583
+#: ../components/html-editor/popup.c:584
 msgid "Input Methods"
 msgstr "Vhodne metode"
 
@@ -1011,7 +1011,7 @@ msgid "Remove Link"
 msgstr "Odstrani povezavo"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2135
-#: ../components/html-editor/popup.c:577
+#: ../components/html-editor/popup.c:578
 msgid "Add Word to Dictionary"
 msgstr "Dodaj besedo v slovar"
 
@@ -1024,27 +1024,27 @@ msgstr "Prezri narobe črkovano besedo"
 msgid "Add Word To"
 msgstr "Dodaj besedo v"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2370
+#: ../components/editor/gtkhtml-editor-actions.c:2367
 msgid "_Find"
 msgstr "_Poišči"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2373
+#: ../components/editor/gtkhtml-editor-actions.c:2370
 msgid "Re_place"
 msgstr "_Zamenjaj"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2376
+#: ../components/editor/gtkhtml-editor-actions.c:2373
 msgid "_Image"
 msgstr "_Slika"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2379
+#: ../components/editor/gtkhtml-editor-actions.c:2376
 msgid "_Link"
 msgstr "_Povezava"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2382
+#: ../components/editor/gtkhtml-editor-actions.c:2379
 msgid "_Rule"
 msgstr "_Pravilo"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2385
+#: ../components/editor/gtkhtml-editor-actions.c:2382
 #: ../components/editor/gtkhtml-editor.glade.h:76
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:72
 msgid "_Table"
@@ -1553,24 +1553,27 @@ msgstr "Slovar"
 msgid "_Add Word"
 msgstr "_Dodaj besedo"
 
-#: ../components/editor/gtkhtml-spell-language.c:182
+#. Translators: %s is the language ISO code.
+#: ../components/editor/gtkhtml-spell-language.c:180
 #, c-format
-msgid "language|Unknown (%s)"
-msgstr "Neznan (%s)"
+msgctxt "language"
+msgid "Unknown (%s)"
+msgstr "Neznan nabor (%s)"
 
+#. Translators: The first %s is the language name, and the
+#. * second is the country name. Example: "French (France)"
+#: ../components/editor/gtkhtml-spell-language.c:195
 #: ../components/editor/gtkhtml-spell-language.c:200
-#: ../components/editor/gtkhtml-spell-language.c:208
 #, c-format
-msgid "language|%s (%s)"
+msgctxt "language"
+msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#. Translators: The text before the "|" is context to help
-#. * you decide on the correct translation. You MUST OMIT IT
-#. * in the translated string.
-#. * Translators: This refers to the default language used
+#. Translators: This refers to the default language used
 #. * by the spell checker.
-#: ../components/editor/gtkhtml-spell-language.c:396
-msgid "language|Default"
+#: ../components/editor/gtkhtml-spell-language.c:385
+msgctxt "language"
+msgid "Default"
 msgstr "Privzeto"
 
 #: ../components/editor/main.c:93
@@ -1848,6 +1851,7 @@ msgid "Make the current Paragraph style Normal"
 msgstr "Trenutni odstavek naj postane običajen"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:62
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
 msgid "Make the current Paragraph style Preformat"
 msgstr "Slog trenutnega odstavka naj se preoblikuje"
 
@@ -1944,6 +1948,7 @@ msgid "Paste the clipboard as a quotation"
 msgstr "Prilepi odložišče kot citat"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:83
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
 #: ../components/html-editor/paragraph-style.c:44
 msgid "Preformat"
 msgstr "Predoblikovanje"
@@ -2101,14 +2106,6 @@ msgstr "Nadzor urejevalnika HTML GNOME"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:3
 msgid "GNOME HTML Editor Factory"
 msgstr "Tovarna urejevalnika HTML GNOME"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
-msgid "Make the current Paragraph style Preformatted"
-msgstr "Slog trenutnega odstavka naj se predoblikuje"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
-msgid "Preformatted"
-msgstr "Predoblikovano"
 
 #: ../components/html-editor/body.c:64
 msgid "None"
@@ -2505,7 +2502,8 @@ msgstr "Vsebina celice"
 msgid "Add Word to"
 msgstr "Dodaj besedo v"
 
-#: ../components/html-editor/popup.c:568
+#. Translators: %s is the language name.
+#: ../components/html-editor/popup.c:569
 #, c-format
 msgid "%s Dictionary"
 msgstr "%s slovar"
@@ -2636,83 +2634,83 @@ msgstr ""
 "Predmet, ki ga urejate, je bil odstranjen iz dokumenta.\n"
 "Ni mogoče uveljaviti vaših sprememb."
 
-#: ../gtkhtml/gtkhtml.c:2917
+#: ../gtkhtml/gtkhtml.c:2927
 msgid "Editable"
 msgstr "Dovoljeno urejanje"
 
-#: ../gtkhtml/gtkhtml.c:2918
+#: ../gtkhtml/gtkhtml.c:2928
 msgid "Whether the html can be edited"
 msgstr "Ali je HTML mogoče urejati"
 
-#: ../gtkhtml/gtkhtml.c:2924
+#: ../gtkhtml/gtkhtml.c:2934
 msgid "Document Title"
 msgstr "Naziv dokumenta"
 
-#: ../gtkhtml/gtkhtml.c:2925
+#: ../gtkhtml/gtkhtml.c:2935
 msgid "The title of the current document"
 msgstr "Naslov trenutnega dokumenta"
 
-#: ../gtkhtml/gtkhtml.c:2931
+#: ../gtkhtml/gtkhtml.c:2941
 msgid "Document Base"
 msgstr "Osnova dokumenta"
 
-#: ../gtkhtml/gtkhtml.c:2932
+#: ../gtkhtml/gtkhtml.c:2942
 msgid "The base URL for relative references"
 msgstr "Osnovni URL relativnih sklicev"
 
-#: ../gtkhtml/gtkhtml.c:2938
+#: ../gtkhtml/gtkhtml.c:2948
 msgid "Target Base"
 msgstr "Osnova cilja"
 
-#: ../gtkhtml/gtkhtml.c:2939
+#: ../gtkhtml/gtkhtml.c:2949
 msgid "The base URL of the target frame"
 msgstr "Osnovni URL ciljnega okvirja"
 
-#: ../gtkhtml/gtkhtml.c:2948
+#: ../gtkhtml/gtkhtml.c:2958
 msgid "Fixed Width Font"
 msgstr "Pisava stalne širine"
 
-#: ../gtkhtml/gtkhtml.c:2949
+#: ../gtkhtml/gtkhtml.c:2959
 msgid "The Monospace font to use for typewriter text"
 msgstr "Pisava stalne širine za besedilo pisalnega stroja"
 
-#: ../gtkhtml/gtkhtml.c:2955
+#: ../gtkhtml/gtkhtml.c:2965
 msgid "New Link Color"
 msgstr "Barva nove povezave"
 
-#: ../gtkhtml/gtkhtml.c:2956
+#: ../gtkhtml/gtkhtml.c:2966
 msgid "The color of new link elements"
 msgstr "Barva elementov nove povezave"
 
-#: ../gtkhtml/gtkhtml.c:2961
+#: ../gtkhtml/gtkhtml.c:2971
 msgid "Visited Link Color"
 msgstr "Barva obiskane povezave"
 
-#: ../gtkhtml/gtkhtml.c:2962
+#: ../gtkhtml/gtkhtml.c:2972
 msgid "The color of visited link elements"
 msgstr "Barva elementov obiskane povezave"
 
-#: ../gtkhtml/gtkhtml.c:2967
+#: ../gtkhtml/gtkhtml.c:2977
 msgid "Active Link Color"
 msgstr "Barva dejavne povezave"
 
-#: ../gtkhtml/gtkhtml.c:2968
+#: ../gtkhtml/gtkhtml.c:2978
 msgid "The color of active link elements"
 msgstr "Barva elementov dejavne povezave"
 
-#: ../gtkhtml/gtkhtml.c:2973
+#: ../gtkhtml/gtkhtml.c:2983
 msgid "Spelling Error Color"
 msgstr "Barva napačnega črkovanja"
 
-#: ../gtkhtml/gtkhtml.c:2974
+#: ../gtkhtml/gtkhtml.c:2984
 msgid "The color of the spelling error markers"
 msgstr "Barva oznak pri napačnem črkovanju"
 
-#: ../gtkhtml/gtkhtml.c:2979
+#: ../gtkhtml/gtkhtml.c:2989
 msgid "Cite Quotation Color"
 msgstr "Barva navedka"
 
-#: ../gtkhtml/gtkhtml.c:2980
+#: ../gtkhtml/gtkhtml.c:2990
 msgid "The color of the cited text"
 msgstr "Barva navedenega besedila"
 
@@ -2742,10 +2740,16 @@ msgstr "_Predogled tiskanja"
 msgid "Print preview"
 msgstr "Predogled tiskanja"
 
-#: ../gtkhtml/testgtkhtml.c:1018
+#: ../gtkhtml/testgtkhtml.c:1019
 msgid "GtkHTML Test Application"
 msgstr "Preizkusni program GtkHTML"
 
+#~ msgid "language|Default"
+#~ msgstr "Privzeto"
+#~ msgid "Make the current Paragraph style Preformatted"
+#~ msgstr "Slog trenutnega odstavka naj se predoblikuje"
+#~ msgid "Preformatted"
+#~ msgstr "Predoblikovano"
 #~ msgid "_Format"
 #~ msgstr "_Oblika"
 #~ msgid "gtk-close"
