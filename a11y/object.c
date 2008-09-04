@@ -303,6 +303,8 @@ gtk_html_a11y_get_focus_object (GtkWidget * widget)
 	return obj;
 }
 
+static AtkObject * gtk_html_a11y_focus_object = NULL;
+
 static void
 gtk_html_a11y_grab_focus_cb(GtkWidget * widget)
 {
@@ -314,17 +316,13 @@ gtk_html_a11y_grab_focus_cb(GtkWidget * widget)
 		return;
 
 	obj = gtk_widget_get_accessible (widget);
-	g_object_set_data (G_OBJECT(obj), "gail-focus-object", focus_object);
 
 	clue = html_utils_get_accessible(GTK_HTML(widget)->engine->clue, obj);
 	atk_object_set_parent(clue, obj);
 
+	gtk_html_a11y_focus_object = focus_object;
 	atk_focus_tracker_notify (focus_object);
-
 }
-
-
-static AtkObject * gtk_html_a11y_focus_object = NULL;
 
 static void
 gtk_html_a11y_cursor_changed_cb (GtkWidget *widget)
@@ -337,7 +335,6 @@ gtk_html_a11y_cursor_changed_cb (GtkWidget *widget)
 
 	if (gtk_html_a11y_focus_object != focus_object) {
 		gtk_html_a11y_focus_object = focus_object;
-        	g_object_set_data (G_OBJECT(obj), "gail-focus-object", focus_object);
         	atk_focus_tracker_notify (focus_object);
 	} else {
 		if (G_IS_HTML_A11Y_TEXT(focus_object)) {
@@ -364,7 +361,6 @@ gtk_html_a11y_insert_object_cb (GtkWidget * widget, int pos, int len)
 
 	if (gtk_html_a11y_focus_object != a11y) {
 		gtk_html_a11y_focus_object = a11y;
-        	g_object_set_data (G_OBJECT(obj), "gail-focus-object", a11y);
         	atk_focus_tracker_notify (a11y);
 	}
 
@@ -378,7 +374,6 @@ static void
 gtk_html_a11y_delete_object_cb (GtkWidget * widget, int pos, int len)
 {
 	AtkObject * a11y, *obj;
-	HTMLCursor *cursor = GTK_HTML (widget)->engine->cursor;
 
         obj = gtk_widget_get_accessible (widget);
 	a11y = gtk_html_a11y_get_focus_object (widget);
@@ -386,13 +381,11 @@ gtk_html_a11y_delete_object_cb (GtkWidget * widget, int pos, int len)
 
 	if (gtk_html_a11y_focus_object != a11y) {
 		gtk_html_a11y_focus_object = a11y;
-        	g_object_set_data (G_OBJECT(obj), "gail-focus-object", a11y);
         	atk_focus_tracker_notify (a11y);
 	}
 
 	if (G_IS_HTML_A11Y_TEXT(a11y)) {
 		g_signal_emit_by_name (a11y, "text_changed::delete", pos, len);
-		printf ("the cur is %d\n", cursor->offset);
 	}
 }
 
@@ -432,7 +425,7 @@ gtk_html_a11y_new (GtkWidget *widget)
 
 	if (focus_object && gtk_html_a11y_focus_object != focus_object) {
 		gtk_html_a11y_focus_object = focus_object;
-		g_object_set_data (G_OBJECT (accessible), "gail-focus-object", focus_object);
+		atk_focus_tracker_notify (focus_object);
 	}
 
 	return accessible;

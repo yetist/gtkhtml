@@ -1,3 +1,15 @@
+2008-09-04  Milan Crha  <mcrha@redhat.com>
+
+	** Fix for bug #516680
+
+	* object.c: (gtk_html_a11y_grab_focus_cb):
+	Remember focus object same as in other functions.
+	* object.c: (gtk_html_a11y_cursor_changed_cb), (gtk_html_a11y_new),
+	(gtk_html_a11y_insert_object_cb), (gtk_html_a11y_delete_object_cb):
+	Do not touch gail's focus object data, rather keep all work
+	on atk_focus_tracker_notify. Also removed one forgotten printf
+	and added one atk_focus_tracker_notify.
+
 2007-07-03  Li Yuan  <li.yuan@sun.com>
 
 	* object.c: (gtk_html_a11y_delete_object_cb):
