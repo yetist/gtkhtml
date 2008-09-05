@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.HEAD.gu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-07-05 18:35+0000\n"
-"PO-Revision-Date: 2008-08-28 15:02+0530\n"
+"POT-Creation-Date: 2008-09-01 04:13+0000\n"
+"PO-Revision-Date: 2008-09-05 12:33+0530\n"
 "Last-Translator: Sweta Kothari <swkothar@redhat.com>\n"
 "Language-Team: Gujarati\n"
 "MIME-Version: 1.0\n"
@@ -310,7 +310,7 @@ msgstr "પોપઅપ બતાવેલ છે"
 
 #: ../components/editor/gtkhtml-color-combo.c:736
 msgid "Whether the combo's dropdown is shown"
-msgstr ""
+msgstr "ક્યાંતો કોમ્બોનાં ડ્રોપડાઉન બતાવેલ છે"
 
 #: ../components/editor/gtkhtml-color-combo.c:745
 msgid "Color state"
@@ -353,7 +353,7 @@ msgstr "ફ્રેમ છાંયડો"
 
 #: ../components/editor/gtkhtml-color-swatch.c:188
 msgid "Appearance of the frame border"
-msgstr ""
+msgstr "ફ્રેમ સીમા ની હાજરી"
 
 #: ../components/editor/gtkhtml-combo-box.c:323
 msgid "Action"
@@ -608,7 +608,7 @@ msgstr "ફકરાની શૈલી (_P)"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1579
 msgid "_Emoticon"
-msgstr "લાગણીશીલ (_E)"
+msgstr "લાગણીશીલ ચિહ્ન (_E)"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1586
 msgid "_Insert"
@@ -674,7 +674,7 @@ msgstr "સરળ લખાણ (_T)"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1650
 msgid "Plain text editing mode"
-msgstr ""
+msgstr "સરળ લખાણ સ્થિતીમાં ફેરફાર કરી રહ્યા છે"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1658
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:126
@@ -943,7 +943,7 @@ msgid "Table Delete"
 msgstr "કોષ્ટક કાઢી નાંખો"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1988
-#: ../components/html-editor/popup.c:583
+#: ../components/html-editor/popup.c:584
 msgid "Input Methods"
 msgstr "ઈનપુટ પદ્ધતિઓ"
 
@@ -1016,7 +1016,7 @@ msgid "Remove Link"
 msgstr "કડી દૂર કરો"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2135
-#: ../components/html-editor/popup.c:577
+#: ../components/html-editor/popup.c:578
 msgid "Add Word to Dictionary"
 msgstr "શબ્દકોષમાં શબ્દ ઉમેરો"
 
@@ -1029,27 +1029,27 @@ msgstr "ખોટી જોડણીવાળા શબ્દને અવગણ
 msgid "Add Word To"
 msgstr "માં શબ્દ ઉમેરો"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2370
+#: ../components/editor/gtkhtml-editor-actions.c:2367
 msgid "_Find"
 msgstr "શોધો (_F)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2373
+#: ../components/editor/gtkhtml-editor-actions.c:2370
 msgid "Re_place"
 msgstr "બદલો (_p)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2376
+#: ../components/editor/gtkhtml-editor-actions.c:2373
 msgid "_Image"
 msgstr "ચિત્ર (_I)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2379
+#: ../components/editor/gtkhtml-editor-actions.c:2376
 msgid "_Link"
 msgstr "કડી (_L)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2382
+#: ../components/editor/gtkhtml-editor-actions.c:2379
 msgid "_Rule"
 msgstr "નિયમ (_R)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2385
+#: ../components/editor/gtkhtml-editor-actions.c:2382
 #: ../components/editor/gtkhtml-editor.glade.h:76
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:72
 msgid "_Table"
@@ -1115,7 +1115,7 @@ msgstr "જાદુ કડીઓ"
 
 #: ../components/editor/gtkhtml-editor.c:747
 msgid "Make URIs clickable as you type"
-msgstr ""
+msgstr "તમે ટાઇપ કરી છે તેવી URIs ક્લિકેબલ બનાવો"
 
 #: ../components/editor/gtkhtml-editor.c:757
 msgid "Magic Smileys"
@@ -1123,7 +1123,7 @@ msgstr "જાદુ સ્માઇલો"
 
 #: ../components/editor/gtkhtml-editor.c:758
 msgid "Convert emoticons to images as you type"
-msgstr ""
+msgstr "તમે ટાઇપ કર્યા છે તેવા લાગણીશીલ ચિહ્નને ચિત્રોમાં બદલો"
 
 #: ../components/editor/gtkhtml-editor.glade.h:1
 msgid "<b>Alignment &amp; Behavior</b>"
@@ -1264,6 +1264,15 @@ msgid ""
 "Draft\n"
 "Graph Paper"
 msgstr ""
+"કંઇ નહિં\n"
+"કાણાં પાડેલ પેપર\n"
+"વાદળી સહી\n"
+"પેપર\n"
+"રિબોન\n"
+"અડધી રાત\n"
+"ખાનગી\n"
+"ડ્રાફ્ટ\n"
+"ગ્રાફ પેપર"
 
 #: ../components/editor/gtkhtml-editor.glade.h:38
 msgid "Page Properties"
@@ -1548,24 +1557,27 @@ msgstr "શબ્દકોષ"
 msgid "_Add Word"
 msgstr "શબ્દ ને ઉમેરો (_A)"
 
-#: ../components/editor/gtkhtml-spell-language.c:182
+#. Translators: %s is the language ISO code.
+#: ../components/editor/gtkhtml-spell-language.c:180
 #, c-format
-msgid "language|Unknown (%s)"
+msgctxt "language"
+msgid "Unknown (%s)"
 msgstr "અજ્ઞાત (%s)"
 
+#. Translators: The first %s is the language name, and the
+#. * second is the country name. Example: "French (France)"
+#: ../components/editor/gtkhtml-spell-language.c:195
 #: ../components/editor/gtkhtml-spell-language.c:200
-#: ../components/editor/gtkhtml-spell-language.c:208
 #, c-format
-msgid "language|%s (%s)"
+msgctxt "language"
+msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#. Translators: The text before the "|" is context to help
-#. * you decide on the correct translation. You MUST OMIT IT
-#. * in the translated string.
-#. * Translators: This refers to the default language used
+#. Translators: This refers to the default language used
 #. * by the spell checker.
-#: ../components/editor/gtkhtml-spell-language.c:396
-msgid "language|Default"
+#: ../components/editor/gtkhtml-spell-language.c:385
+msgctxt "language"
+msgid "Default"
 msgstr "મૂળભૂત"
 
 #: ../components/editor/main.c:93
@@ -1842,6 +1854,7 @@ msgid "Make the current Paragraph style Normal"
 msgstr "વર્તમાન ફકરાની શૈલી સામાન્ય બનાવો"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:62
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
 msgid "Make the current Paragraph style Preformat"
 msgstr "વર્તમાન ફકરાની શૈલી પહેલાના જેવી બનાવો"
 
@@ -1938,6 +1951,7 @@ msgid "Paste the clipboard as a quotation"
 msgstr "ક્લિપબોર્ડને અવતરણ તરીકે ચોંટાડો"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:83
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
 #: ../components/html-editor/paragraph-style.c:44
 msgid "Preformat"
 msgstr "પૂર્વબંધારણ"
@@ -2095,14 +2109,6 @@ msgstr "GNOME HTML સંપાદક નિયંત્રણ"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:3
 msgid "GNOME HTML Editor Factory"
 msgstr "GNOME HTML સંપાદક કારખાનું"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
-msgid "Make the current Paragraph style Preformatted"
-msgstr "વર્તમાન ફકરાની શૈલી પૂર્વબંધારણવાળી બનાવો"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
-msgid "Preformatted"
-msgstr "પૂર્વબંધારણવાળુ"
 
 #: ../components/html-editor/body.c:64
 msgid "None"
@@ -2494,7 +2500,8 @@ msgstr "ખાનાંના સમાવિષ્ટો"
 msgid "Add Word to"
 msgstr "માં શબ્દ ઉમેરો"
 
-#: ../components/html-editor/popup.c:568
+#. Translators: %s is the language name.
+#: ../components/html-editor/popup.c:569
 #, c-format
 msgid "%s Dictionary"
 msgstr "%s શબ્દકોષ"
@@ -2625,83 +2632,83 @@ msgstr ""
 "ફેરફાર થયેલ ઓબ્જેક્ટ દસ્તાવેજમાંથી દૂર થઈ ગયો છે.\n"
 "તમારા ફેરફારો લાગુ પાડી શકતા નથી."
 
-#: ../gtkhtml/gtkhtml.c:2917
+#: ../gtkhtml/gtkhtml.c:2927
 msgid "Editable"
 msgstr "ફેરફાર કરી શકાય તેવું"
 
-#: ../gtkhtml/gtkhtml.c:2918
+#: ../gtkhtml/gtkhtml.c:2928
 msgid "Whether the html can be edited"
 msgstr "શું html માં ફેરફાર કરી શકાશે"
 
-#: ../gtkhtml/gtkhtml.c:2924
+#: ../gtkhtml/gtkhtml.c:2934
 msgid "Document Title"
 msgstr "દસ્તાવેજનું શીર્ષક"
 
-#: ../gtkhtml/gtkhtml.c:2925
+#: ../gtkhtml/gtkhtml.c:2935
 msgid "The title of the current document"
 msgstr "વર્તમાન દસ્તાવેજનું શીર્ષક"
 
-#: ../gtkhtml/gtkhtml.c:2931
+#: ../gtkhtml/gtkhtml.c:2941
 msgid "Document Base"
 msgstr "દસ્તાવેજનો આધાર"
 
-#: ../gtkhtml/gtkhtml.c:2932
+#: ../gtkhtml/gtkhtml.c:2942
 msgid "The base URL for relative references"
 msgstr "સંબંધિત સંદર્ભો માટે આધારભૂત URL"
 
-#: ../gtkhtml/gtkhtml.c:2938
+#: ../gtkhtml/gtkhtml.c:2948
 msgid "Target Base"
 msgstr "લક્ષ્ય આધાર"
 
-#: ../gtkhtml/gtkhtml.c:2939
+#: ../gtkhtml/gtkhtml.c:2949
 msgid "The base URL of the target frame"
 msgstr "લક્ષ્ય ચોકઠા માટે આધાર URL"
 
-#: ../gtkhtml/gtkhtml.c:2948
+#: ../gtkhtml/gtkhtml.c:2958
 msgid "Fixed Width Font"
 msgstr "ચોક્કસ પહોળાઈના ફોન્ટ"
 
-#: ../gtkhtml/gtkhtml.c:2949
+#: ../gtkhtml/gtkhtml.c:2959
 msgid "The Monospace font to use for typewriter text"
 msgstr "ટાઈપરાઈટર લખાણ માટે વપરાતા મોનોસ્પેસ ફોન્ટ"
 
-#: ../gtkhtml/gtkhtml.c:2955
+#: ../gtkhtml/gtkhtml.c:2965
 msgid "New Link Color"
 msgstr "નવી કડીનો રંગ"
 
-#: ../gtkhtml/gtkhtml.c:2956
+#: ../gtkhtml/gtkhtml.c:2966
 msgid "The color of new link elements"
 msgstr "નવી કડીના ભાગોનો રંગ"
 
-#: ../gtkhtml/gtkhtml.c:2961
+#: ../gtkhtml/gtkhtml.c:2971
 msgid "Visited Link Color"
 msgstr "મુલાકાત લીધેલ કડીનો રંગ"
 
-#: ../gtkhtml/gtkhtml.c:2962
+#: ../gtkhtml/gtkhtml.c:2972
 msgid "The color of visited link elements"
 msgstr "મુલાકાત લીધેલ કડીના ભાગોનો રંગ"
 
-#: ../gtkhtml/gtkhtml.c:2967
+#: ../gtkhtml/gtkhtml.c:2977
 msgid "Active Link Color"
 msgstr "સક્રિય કડીનો રંગ"
 
-#: ../gtkhtml/gtkhtml.c:2968
+#: ../gtkhtml/gtkhtml.c:2978
 msgid "The color of active link elements"
 msgstr "સક્રિય કડીના ભાગોનો રંગ"
 
-#: ../gtkhtml/gtkhtml.c:2973
+#: ../gtkhtml/gtkhtml.c:2983
 msgid "Spelling Error Color"
 msgstr "જોડણી ભૂલનો રંગ"
 
-#: ../gtkhtml/gtkhtml.c:2974
+#: ../gtkhtml/gtkhtml.c:2984
 msgid "The color of the spelling error markers"
 msgstr "જોડણી ભૂલ દર્શાવનારનો રંગ"
 
-#: ../gtkhtml/gtkhtml.c:2979
+#: ../gtkhtml/gtkhtml.c:2989
 msgid "Cite Quotation Color"
 msgstr "સાઈટ અવતરણ રંગ"
 
-#: ../gtkhtml/gtkhtml.c:2980
+#: ../gtkhtml/gtkhtml.c:2990
 msgid "The color of the cited text"
 msgstr "સાઈટ થયેલ લખાણનો રંગ"
 
