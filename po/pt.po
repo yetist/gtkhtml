@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 2.24\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-14 12:14+0100\n"
-"PO-Revision-Date: 2008-08-14 12:30+0000\n"
+"POT-Creation-Date: 2008-09-01 04:13+0000\n"
+"PO-Revision-Date: 2008-09-07 23:10+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -933,7 +933,7 @@ msgid "Table Delete"
 msgstr "Apagar Tabela"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1988
-#: ../components/html-editor/popup.c:583
+#: ../components/html-editor/popup.c:584
 msgid "Input Methods"
 msgstr "Métodos de Introdução"
 
@@ -1006,7 +1006,7 @@ msgid "Remove Link"
 msgstr "Remover Link"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2135
-#: ../components/html-editor/popup.c:577
+#: ../components/html-editor/popup.c:578
 msgid "Add Word to Dictionary"
 msgstr "Adicionar Palavra ao Dicionário"
 
@@ -1547,24 +1547,27 @@ msgstr "Dicionário"
 msgid "_Add Word"
 msgstr "_Adicionar Palavra"
 
-#: ../components/editor/gtkhtml-spell-language.c:182
+#. Translators: %s is the language ISO code.
+#: ../components/editor/gtkhtml-spell-language.c:180
 #, c-format
-msgid "language|Unknown (%s)"
-msgstr "Desconhecida (%s)"
+msgctxt "language"
+msgid "Unknown (%s)"
+msgstr "Desconhecido (%s)"
 
+#. Translators: The first %s is the language name, and the
+#. * second is the country name. Example: "French (France)"
+#: ../components/editor/gtkhtml-spell-language.c:195
 #: ../components/editor/gtkhtml-spell-language.c:200
-#: ../components/editor/gtkhtml-spell-language.c:208
 #, c-format
-msgid "language|%s (%s)"
+msgctxt "language"
+msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#. Translators: The text before the "|" is context to help
-#. * you decide on the correct translation. You MUST OMIT IT
-#. * in the translated string.
-#. * Translators: This refers to the default language used
+#. Translators: This refers to the default language used
 #. * by the spell checker.
-#: ../components/editor/gtkhtml-spell-language.c:396
-msgid "language|Default"
+#: ../components/editor/gtkhtml-spell-language.c:385
+msgctxt "language"
+msgid "Default"
 msgstr "Omissão"
 
 #: ../components/editor/main.c:93
@@ -1841,6 +1844,7 @@ msgid "Make the current Paragraph style Normal"
 msgstr "Tornar o estilo do Parágrafo actual em Normal"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:62
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
 msgid "Make the current Paragraph style Preformat"
 msgstr "Tornar o estilo do Parágrafo actual em Pré-formatação"
 
@@ -1937,6 +1941,7 @@ msgid "Paste the clipboard as a quotation"
 msgstr "Colar da área de transferência como uma citação"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:83
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
 #: ../components/html-editor/paragraph-style.c:44
 msgid "Preformat"
 msgstr "Pré-formatação"
@@ -2094,14 +2099,6 @@ msgstr "Controlo de Editor HTML do GNOME"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:3
 msgid "GNOME HTML Editor Factory"
 msgstr "Fábrica do Editor HTML do GNOME"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
-msgid "Make the current Paragraph style Preformatted"
-msgstr "Tornar o estilo do Parágrafo actual Pré-formatação"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
-msgid "Preformatted"
-msgstr "Pré-formatado"
 
 #: ../components/html-editor/body.c:64
 msgid "None"
@@ -2493,7 +2490,8 @@ msgstr "Conteúdo da célula"
 msgid "Add Word to"
 msgstr "Adicionar Palavra a"
 
-#: ../components/html-editor/popup.c:568
+#. Translators: %s is the language name.
+#: ../components/html-editor/popup.c:569
 #, c-format
 msgid "%s Dictionary"
 msgstr "Dicionário %s"
@@ -2732,6 +2730,15 @@ msgstr "Antever a impressão"
 #: ../gtkhtml/testgtkhtml.c:1018
 msgid "GtkHTML Test Application"
 msgstr "Aplicação de Teste GtkHTML"
+
+#~ msgid "language|Default"
+#~ msgstr "Omissão"
+
+#~ msgid "Make the current Paragraph style Preformatted"
+#~ msgstr "Tornar o estilo do Parágrafo actual Pré-formatação"
+
+#~ msgid "Preformatted"
+#~ msgstr "Pré-formatado"
 
 #~ msgid "Cannot allocate default font for printing\n"
 #~ msgstr "Incapaz de alocar a fonte por omissão para impressão\n"
@@ -3127,8 +3134,8 @@ msgstr "Aplicação de Teste GtkHTML"
 #~ "This is sample text, designed to show you how text would flow around this "
 #~ "image if you insert the image into your message."
 #~ msgstr ""
-#~ "Este é texto exemplificativo para lhe apresentar como iria fluir o texto em "
-#~ "torno da imagem, caso decida inseri-la na sua mensagem."
+#~ "Este é texto exemplificativo para lhe apresentar como iria fluir o texto "
+#~ "em torno da imagem, caso decida inseri-la na sua mensagem."
 
 #~ msgid "No image selected"
 #~ msgstr "Nenhuma imagem seleccionada"
