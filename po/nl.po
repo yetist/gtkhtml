@@ -1,16 +1,19 @@
 # Dutch translation for gtkhtml
 #
+# This file is distributed under the same license as the gtkhtml package.
+#
 # Dennis Smit <synap@area101.penguin.nl>, 2000.
 # Tino Meinen <a.t.meinen@chello.nl>, 2002, 2003, 2004, 2005, 2006, 2007.
 # Wouter Bolsterlee <wbolster@gnome.org>, 2008
+# Reinout van Schouwen <reinouts@gnome.org>, 2008
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-01 04:13+0000\n"
-"PO-Revision-Date: 2008-09-08 01:06+0100\n"
-"Last-Translator: Reinout van Schouwen <reinouts@gnome.org>\n"
+"POT-Creation-Date: 2008-09-08 12:29+0200\n"
+"PO-Revision-Date: 2008-09-08 12:29+0200\n"
+"Last-Translator: Wouter Bolsterlee <wbolster@gnome.org>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,9 +30,7 @@ msgid "URL is %s"
 msgstr "URL is %s"
 
 # focus grijpen
-#: ../a11y/object.c:52
-#: ../a11y/object.c:61
-#: ../a11y/text.c:126
+#: ../a11y/object.c:52 ../a11y/object.c:61 ../a11y/text.c:126
 msgid "grab focus"
 msgstr "aandacht grijpen"
 
@@ -271,7 +272,7 @@ msgstr "Standaardkleur"
 
 #: ../components/editor/gtkhtml-color-combo.c:704
 msgid "The color associated with the default button"
-msgstr ""
+msgstr "De kleur gekoppeld aan de standaardknop"
 
 #: ../components/editor/gtkhtml-color-combo.c:714
 #: ../components/editor/gtkhtml-color-state.c:211
@@ -355,7 +356,7 @@ msgstr "Actie"
 
 #: ../components/editor/gtkhtml-combo-box.c:324
 msgid "A GtkRadioAction"
-msgstr ""
+msgstr "Een GtkRadioAction"
 
 #: ../components/editor/gtkhtml-editor-actions.c:633
 #: ../components/html-editor/menubar.c:348
@@ -934,8 +935,7 @@ msgstr "Rij"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:50
 #: ../components/html-editor/menubar.c:217
-#: ../components/html-editor/popup.c:235
-#: ../components/html-editor/popup.c:509
+#: ../components/html-editor/popup.c:235 ../components/html-editor/popup.c:509
 #: ../components/html-editor/popup.c:521
 msgid "Table"
 msgstr "Tabel"
@@ -955,8 +955,7 @@ msgstr "Tabel-invoeging"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2002
 #: ../components/html-editor/editor-control-factory.c:187
-#: ../components/html-editor/popup.c:191
-#: ../components/html-editor/popup.c:268
+#: ../components/html-editor/popup.c:191 ../components/html-editor/popup.c:268
 msgid "Properties"
 msgstr "Eigenschappen"
 
@@ -1077,8 +1076,7 @@ msgid "Font Size"
 msgstr "Lettergrootte"
 
 #: ../components/editor/gtkhtml-editor-private.c:316
-#: ../components/html-editor/body.c:237
-#: ../components/html-editor/text.c:171
+#: ../components/html-editor/body.c:237 ../components/html-editor/text.c:171
 #: ../components/html-editor/toolbar.c:199
 msgid "Automatic"
 msgstr "Automatisch"
@@ -1107,10 +1105,10 @@ msgstr "HTML-modus"
 msgid "Edit HTML or plain text"
 msgstr "HTML of gewone tekst bewerken"
 
+# Vrij vertaald (Wouter Bolsterlee)
 #: ../components/editor/gtkhtml-editor.c:735
-#, fuzzy
 msgid "Inline Spelling"
-msgstr "Spelling controleren"
+msgstr "Spellingcontrole tijdens typen"
 
 #: ../components/editor/gtkhtml-editor.c:736
 msgid "Check your spelling as you type"
@@ -1220,9 +1218,8 @@ msgid "Col_umn"
 msgstr "K_olom"
 
 #: ../components/editor/gtkhtml-editor.glade.h:20
-#, fuzzy
 msgid "Column Span:"
-msgstr "'Column span' kolom"
+msgstr "Kolom-overlap:"
 
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: ../components/editor/gtkhtml-editor.glade.h:21
@@ -1273,6 +1270,15 @@ msgid ""
 "Draft\n"
 "Graph Paper"
 msgstr ""
+"Geen\n"
+"Geperforeerd papier\n"
+"Blauwe inkt\n"
+"Papier\n"
+"Lint\n"
+"Middernacht\n"
+"Vertrouwelijk\n"
+"Concept\n"
+"Grafiekpapier"
 
 #: ../components/editor/gtkhtml-editor.glade.h:38
 msgid "Page Properties"
@@ -1301,9 +1307,8 @@ msgid "Replace Confirmation"
 msgstr "Vervanging bevestigen"
 
 #: ../components/editor/gtkhtml-editor.glade.h:43
-#, fuzzy
 msgid "Row Span:"
-msgstr "Rij bereik:"
+msgstr "Rij-overlap:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:44
 msgid "Rule Properties"
@@ -1855,8 +1860,7 @@ msgstr "Links uitgelijnde paragrafen"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:60
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
 #: ../components/html-editor/menubar.c:174
-#: ../components/html-editor/popup.c:111
-#: ../components/html-editor/popup.c:205
+#: ../components/html-editor/popup.c:111 ../components/html-editor/popup.c:205
 #: ../components/html-editor/popup.c:271
 msgid "Link"
 msgstr "Verwijzing"
@@ -2167,8 +2171,7 @@ msgstr "Grafiekpapier"
 msgid "Colors"
 msgstr "Kleuren"
 
-#: ../components/html-editor/body.c:256
-#: ../components/html-editor/body.c:288
+#: ../components/html-editor/body.c:256 ../components/html-editor/body.c:288
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:22
 msgid "Background Image"
 msgstr "Achtergrondafbeelding"
@@ -2183,10 +2186,8 @@ msgstr "Achtergrondafbeelding bestandspad"
 msgid "Template"
 msgstr "Sjabloon"
 
-#: ../components/html-editor/cell.c:342
-#: ../components/html-editor/image.c:345
-#: ../components/html-editor/link.c:215
-#: ../components/html-editor/rule.c:179
+#: ../components/html-editor/cell.c:342 ../components/html-editor/image.c:345
+#: ../components/html-editor/link.c:215 ../components/html-editor/rule.c:179
 #: ../components/html-editor/table.c:229
 #: ../components/html-editor/template.c:287
 #: ../components/html-editor/text.c:168
@@ -2194,8 +2195,7 @@ msgid "Could not load glade file."
 msgstr "Kon glade-bestand niet laden"
 
 # Doorzichtig
-#: ../components/html-editor/cell.c:346
-#: ../components/html-editor/table.c:233
+#: ../components/html-editor/cell.c:346 ../components/html-editor/table.c:233
 msgid "Transparent"
 msgstr "Transparant"
 
@@ -2466,8 +2466,7 @@ msgid "Text Style..."
 msgstr "Tekststijl..."
 
 # alineastijl?
-#: ../components/html-editor/popup.c:469
-#: ../components/html-editor/popup.c:475
+#: ../components/html-editor/popup.c:469 ../components/html-editor/popup.c:475
 #: ../components/html-editor/popup.c:485
 msgid "Paragraph Style..."
 msgstr "Paragraafstijl..."
@@ -2752,8 +2751,7 @@ msgid "Reset"
 msgstr "Resetten"
 
 #. TODO2 dialog instead of warning
-#: ../gtkhtml/htmlengine-print.c:231
-#: ../gtkhtml/htmlengine-print.c:310
+#: ../gtkhtml/htmlengine-print.c:231 ../gtkhtml/htmlengine-print.c:310
 msgid "Cannot allocate default font for printing"
 msgstr "Kon standaard lettertype voor printen niet toewijzen"
 
@@ -2769,26 +2767,33 @@ msgstr "Afdruk_voorbeeld"
 msgid "Print preview"
 msgstr "Afdrukvoorbeeld"
 
-#: ../gtkhtml/testgtkhtml.c:1018
+#: ../gtkhtml/testgtkhtml.c:1019
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML test-toepassing"
 
 #~ msgid "Make the current Paragraph style Preformatted"
 #~ msgstr "De huidige paragraafstijl op voorgeformatteerd zetten"
+
 #~ msgid "Preformatted"
 #~ msgstr "Voorgeformatteerd"
+
 #~ msgid "Cannot allocate default font for printing\n"
 #~ msgstr "Kon standaard lettertype voor printen niet toewijzen\n"
+
 #~ msgid "Find Rege_x..."
 #~ msgstr "Rege_x zoeken..."
+
 #~ msgid "Modify the file's properties"
 #~ msgstr "De eigenschappen van het bestand aanpassen"
+
 #~ msgid "Regular expression search"
 #~ msgstr "Reguliere expressie zoekopdracht"
+
 #~ msgid "Replace a string"
 #~ msgstr "Een tekenreeks vervangen"
+
 #~ msgid "Search again for the same string"
 #~ msgstr "Opnieuw zoeken naar dezelfde tekenreeks"
+
 #~ msgid "Search for a string"
 #~ msgstr "Zoeken naar een tekenreeks"
-
