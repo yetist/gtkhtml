@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-07-19 19:30+0200\n"
-"PO-Revision-Date: 2008-07-19 19:30+0200\n"
+"POT-Creation-Date: 2008-09-09 20:29+0200\n"
+"PO-Revision-Date: 2008-09-09 21:12+0200\n"
 "Last-Translator: Andre Klapper <ak-47@gmx.net>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -259,66 +259,61 @@ msgstr "Benutzerdefinierte Farbe auswählen"
 
 #: ../components/editor/gtkhtml-color-combo.c:693
 #: ../components/editor/gtkhtml-color-state.c:190
-#, fuzzy
 msgid "Current color"
-msgstr "Benutzerdefinierte Farbe:"
+msgstr "Momentane Farbe"
 
 #: ../components/editor/gtkhtml-color-combo.c:694
 msgid "The currently selected color"
-msgstr ""
+msgstr "Die momentan ausgewählte Farbe"
 
 #: ../components/editor/gtkhtml-color-combo.c:703
 #: ../components/editor/gtkhtml-color-state.c:200
 msgid "Default color"
-msgstr ""
+msgstr "Vorgabefarbe"
 
 #: ../components/editor/gtkhtml-color-combo.c:704
 msgid "The color associated with the default button"
-msgstr ""
+msgstr "Die dem Vorgabeknopf zugeordnete Farbe"
 
 #: ../components/editor/gtkhtml-color-combo.c:714
 #: ../components/editor/gtkhtml-color-state.c:211
 msgid "Default label"
-msgstr ""
+msgstr "Vorgabebeschriftung"
 
 #: ../components/editor/gtkhtml-color-combo.c:715
 msgid "The label for the default button"
-msgstr ""
+msgstr "Die Beschriftung für den Vorgabeknopf"
 
 #: ../components/editor/gtkhtml-color-combo.c:716
 #: ../components/editor/gtkhtml-color-state.c:213
 msgid "Default"
-msgstr ""
+msgstr "Vorgabe"
 
 #: ../components/editor/gtkhtml-color-combo.c:725
 #: ../components/editor/gtkhtml-color-state.c:222
-#, fuzzy
 msgid "Color palette"
-msgstr "Farbvorschau"
+msgstr "Farbpalette"
 
 #: ../components/editor/gtkhtml-color-combo.c:726
 #: ../components/editor/gtkhtml-color-state.c:223
-#, fuzzy
 msgid "Custom color palette"
-msgstr "Benutzerdefinierte Farbe:"
+msgstr "Benutzerdefinierte Farbpalette"
 
 #: ../components/editor/gtkhtml-color-combo.c:735
-#, fuzzy
 msgid "Popup shown"
-msgstr "Auswahlliste"
+msgstr "Popup wird angezeigt"
 
 #: ../components/editor/gtkhtml-color-combo.c:736
 msgid "Whether the combo's dropdown is shown"
-msgstr ""
+msgstr "Beschreibt, ob die Auswahlliste angezeigt wird"
 
 #: ../components/editor/gtkhtml-color-combo.c:745
-#, fuzzy
 msgid "Color state"
-msgstr "Farben"
+msgstr "Farbzustand"
 
 #: ../components/editor/gtkhtml-color-combo.c:746
 msgid "State of the color combo"
-msgstr ""
+msgstr "Zustand des Farb-Popups"
 
 #. This is the default custom color
 #: ../components/editor/gtkhtml-color-combo.c:928
@@ -327,22 +322,21 @@ msgid "custom"
 msgstr "benutzerdefiniert"
 
 #: ../components/editor/gtkhtml-color-combo.c:936
-#, fuzzy
 msgid "Custom Color..."
-msgstr "Benutzerdefinierte Farbe:"
+msgstr "Benutzerdefinierte Farbe …"
 
 #: ../components/editor/gtkhtml-color-state.c:191
 #: ../components/editor/gtkhtml-color-swatch.c:178
 msgid "The current color"
-msgstr ""
+msgstr "Die aktuelle Farbe"
 
 #: ../components/editor/gtkhtml-color-state.c:201
 msgid "The default color"
-msgstr ""
+msgstr "Die Vorgabefarbe"
 
 #: ../components/editor/gtkhtml-color-state.c:212
 msgid "Description of the default color"
-msgstr ""
+msgstr "Beschreibung der Vorgabefarbe"
 
 #: ../components/editor/gtkhtml-color-swatch.c:177
 msgid "Color"
@@ -350,19 +344,19 @@ msgstr "Farbe"
 
 #: ../components/editor/gtkhtml-color-swatch.c:187
 msgid "Frame Shadow"
-msgstr ""
+msgstr "Rahmenschattierung"
 
 #: ../components/editor/gtkhtml-color-swatch.c:188
 msgid "Appearance of the frame border"
-msgstr ""
+msgstr "Darstellung des Rahmens"
 
 #: ../components/editor/gtkhtml-combo-box.c:323
 msgid "Action"
-msgstr ""
+msgstr "Aktion"
 
 #: ../components/editor/gtkhtml-combo-box.c:324
 msgid "A GtkRadioAction"
-msgstr ""
+msgstr "Eine GtkRadioAction"
 
 #: ../components/editor/gtkhtml-editor-actions.c:633
 #: ../components/html-editor/menubar.c:348
@@ -430,12 +424,11 @@ msgstr "_HTML-Datei …"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1346
 msgid "_Angel"
-msgstr ""
+msgstr "_Engel"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1353
-#, fuzzy
 msgid "_Cool"
-msgstr "_Farbe:"
+msgstr "_Cool"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1360
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:17
@@ -445,19 +438,19 @@ msgstr "_Weinend"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1367
 msgid "_Devilish"
-msgstr ""
+msgstr "_Teuflisch"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1374
 msgid "_Embarrassed"
-msgstr ""
+msgstr "_Verlegen"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1381
 msgid "_Kiss"
-msgstr ""
+msgstr "_Kuss"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1388
 msgid "_Monkey"
-msgstr ""
+msgstr "_Affe"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1395
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:121
@@ -473,7 +466,7 @@ msgstr "_Zunge"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:116
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
 msgid "_Frown"
-msgstr "_Traurig"
+msgstr "T_raurig"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1416
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:137
@@ -489,17 +482,17 @@ msgstr "_Lachend"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1430
 msgid "Smi_rk"
-msgstr ""
+msgstr "Grin_sen"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1437
 msgid "Sur_prised"
-msgstr "Ü_berrascht"
+msgstr "Überrasc_ht"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1444
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:160
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:160
 msgid "_Wink"
-msgstr "_Zwinkernd"
+msgstr "Zwin_kernd"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1451
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:157
@@ -659,7 +652,6 @@ msgid "_Right"
 msgstr "_Rechts"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1633
-#, fuzzy
 msgid "Right Alignment"
 msgstr "Rechtsbündig"
 
@@ -669,7 +661,7 @@ msgstr "_HTML"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1643
 msgid "HTML editing mode"
-msgstr ""
+msgstr "HTML-Bearbeitungsmodus"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1648
 msgid "Plain _Text"
@@ -677,7 +669,7 @@ msgstr "_Einfacher Text"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1650
 msgid "Plain text editing mode"
-msgstr ""
+msgstr "Text-Bearbeitungsmodus"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1658
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:126
@@ -810,9 +802,8 @@ msgid "Font _Size"
 msgstr "Schrift_größe"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1837
-#, fuzzy
 msgid "_Font Style"
-msgstr "Schrift_größe"
+msgstr "Schrift_stil"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1847
 #: ../components/editor/gtkhtml-editor.glade.h:58
@@ -943,17 +934,15 @@ msgid "Table"
 msgstr "Tabelle"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1981
-#, fuzzy
 msgid "Table Delete"
 msgstr "Tabelle löschen"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1988
-#: ../components/html-editor/popup.c:583
+#: ../components/html-editor/popup.c:584
 msgid "Input Methods"
 msgstr "Eingabemethoden"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1995
-#, fuzzy
 msgid "Table Insert"
 msgstr "Tabelle einfügen"
 
@@ -1022,7 +1011,7 @@ msgid "Remove Link"
 msgstr "Link entfernen"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2135
-#: ../components/html-editor/popup.c:577
+#: ../components/html-editor/popup.c:578
 msgid "Add Word to Dictionary"
 msgstr "Wort zu Wörterbuch hinzufügen"
 
@@ -1032,19 +1021,16 @@ msgid "Ignore Misspelled Word"
 msgstr "Falsch geschriebenes Wort ignorieren"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2149
-#, fuzzy
 msgid "Add Word To"
 msgstr "Wort hinzufügen zu"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2367
-#, fuzzy
 msgid "_Find"
-msgstr "Suchen"
+msgstr "S_uchen"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2370
-#, fuzzy
 msgid "Re_place"
-msgstr "Ersetzen"
+msgstr "Erset_zen"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2373
 msgid "_Image"
@@ -1070,7 +1056,7 @@ msgstr "Absatzstil"
 
 #: ../components/editor/gtkhtml-editor-private.c:267
 msgid "Editing Mode"
-msgstr ""
+msgstr "Bearbeitungsmodus"
 
 #: ../components/editor/gtkhtml-editor-private.c:279
 msgid "Font Color"
@@ -1087,13 +1073,12 @@ msgid "Automatic"
 msgstr "Automatisch"
 
 #: ../components/editor/gtkhtml-editor.c:702
-#, fuzzy
 msgid "Current Folder"
-msgstr "Zentriert"
+msgstr "Aktueller Ordner"
 
 #: ../components/editor/gtkhtml-editor.c:703
 msgid "The initial folder for file chooser dialogs"
-msgstr ""
+msgstr "Vorgabeordner für den Dateiauswahl-Dialog"
 
 #: ../components/editor/gtkhtml-editor.c:713
 msgid "Filename"
@@ -1101,42 +1086,39 @@ msgstr "Dateiname"
 
 #: ../components/editor/gtkhtml-editor.c:714
 msgid "The filename to use when saving"
-msgstr ""
+msgstr "Beim Speichern zu benutzender Dateiname"
 
 #: ../components/editor/gtkhtml-editor.c:724
 msgid "HTML Mode"
-msgstr ""
+msgstr "HTML-Modus"
 
 #: ../components/editor/gtkhtml-editor.c:725
 msgid "Edit HTML or plain text"
-msgstr ""
+msgstr "HTML oder Text bearbeiten"
 
 #: ../components/editor/gtkhtml-editor.c:735
-#, fuzzy
 msgid "Inline Spelling"
-msgstr "Rechtschreibprüfung verwenden"
+msgstr "Sofortige Rechtschreibprüfung"
 
 #: ../components/editor/gtkhtml-editor.c:736
-#, fuzzy
 msgid "Check your spelling as you type"
-msgstr "Eine Rechtschreibprüfung am Dokument durchführen"
+msgstr "Rechtschreibprüfung während der Eingabe durchführen"
 
 #: ../components/editor/gtkhtml-editor.c:746
 msgid "Magic Links"
-msgstr ""
+msgstr "Magische Links"
 
 #: ../components/editor/gtkhtml-editor.c:747
 msgid "Make URIs clickable as you type"
-msgstr ""
+msgstr "Link-Adressen während des Schreibens klickbar machen"
 
 #: ../components/editor/gtkhtml-editor.c:757
-#, fuzzy
 msgid "Magic Smileys"
-msgstr "_Smiley"
+msgstr "Magische Emoticons"
 
 #: ../components/editor/gtkhtml-editor.c:758
 msgid "Convert emoticons to images as you type"
-msgstr ""
+msgstr "Während des Schreibens Emoticons zu Bildern umwandeln"
 
 #: ../components/editor/gtkhtml-editor.glade.h:1
 msgid "<b>Alignment &amp; Behavior</b>"
@@ -1183,9 +1165,8 @@ msgid "<b>Size</b>"
 msgstr "<b>Größe</b>"
 
 #: ../components/editor/gtkhtml-editor.glade.h:11
-#, fuzzy
 msgid "<b>Style</b>"
-msgstr "<b>Bereich</b>"
+msgstr "<b>Stil</b>"
 
 #: ../components/editor/gtkhtml-editor.glade.h:12
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:23
@@ -1227,7 +1208,6 @@ msgstr "_Spalte"
 
 # CHECK
 #: ../components/editor/gtkhtml-editor.glade.h:20
-#, fuzzy
 msgid "Column Span:"
 msgstr "Spalten überbrücken:"
 
@@ -1241,7 +1221,6 @@ msgid "Find"
 msgstr "Suchen"
 
 #: ../components/editor/gtkhtml-editor.glade.h:22
-#, fuzzy
 msgid "Hea_der Style"
 msgstr "Ü_berschriftsstil"
 
@@ -1281,6 +1260,15 @@ msgid ""
 "Draft\n"
 "Graph Paper"
 msgstr ""
+"Keine\n"
+"Perforiertes Papier\n"
+"Blaue Tinte\n"
+"Papier\n"
+"Band\n"
+"Mitternacht\n"
+"Vertraulich\n"
+"Entwurf\n"
+"Millimeterpapier"
 
 #: ../components/editor/gtkhtml-editor.glade.h:38
 msgid "Page Properties"
@@ -1305,34 +1293,28 @@ msgid "Replace"
 msgstr "Ersetzen"
 
 #: ../components/editor/gtkhtml-editor.glade.h:42
-#, fuzzy
 msgid "Replace Confirmation"
 msgstr "Ersetzen bestätigen"
 
 #: ../components/editor/gtkhtml-editor.glade.h:43
-#, fuzzy
 msgid "Row Span:"
 msgstr "Zeilen überbrücken:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:44
-#, fuzzy
 msgid "Rule Properties"
-msgstr "Eigenschaften"
+msgstr "Trennlinien-Eigenschaften"
 
 #: ../components/editor/gtkhtml-editor.glade.h:45
-#, fuzzy
 msgid "S_haded"
-msgstr "Schattiert"
+msgstr "S_chattiert"
 
 #: ../components/editor/gtkhtml-editor.glade.h:46
-#, fuzzy
 msgid "Search _backwards"
 msgstr "_Rückwärts suchen"
 
 #: ../components/editor/gtkhtml-editor.glade.h:47
-#, fuzzy
 msgid "Select An Image"
-msgstr "A_lles markieren"
+msgstr "Bild auswählen"
 
 #: ../components/editor/gtkhtml-editor.glade.h:48
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:48
@@ -1522,7 +1504,7 @@ msgstr "Sprache"
 
 #: ../components/editor/gtkhtml-spell-checker.c:201
 msgid "The language used by the spell checker"
-msgstr ""
+msgstr "Die von der Rechtschreibprüfung genutzte Sprache"
 
 #: ../components/editor/gtkhtml-spell-dialog.c:117
 #, c-format
@@ -1534,12 +1516,10 @@ msgid "Misspelled Word"
 msgstr "Falsch geschriebenes Wort"
 
 #: ../components/editor/gtkhtml-spell-dialog.c:359
-#, fuzzy
 msgid "The current misspelled word"
-msgstr "Falsch geschriebenes Wort ignorieren"
+msgstr "Das momentane falsch geschriebene Wort"
 
 #: ../components/editor/gtkhtml-spell-dialog.c:449
-#, fuzzy
 msgid "Spell Checker"
 msgstr "Rechtschreibprüfung"
 
@@ -1551,18 +1531,17 @@ msgstr "_Alle ersetzen"
 #. Ignore Button
 #: ../components/editor/gtkhtml-spell-dialog.c:550
 msgid "_Ignore"
-msgstr ""
+msgstr "_Ignorieren"
 
 #. Skip Button
 #: ../components/editor/gtkhtml-spell-dialog.c:564
 msgid "_Skip"
-msgstr ""
+msgstr "Ü_berspringen"
 
 #. Back Button
 #: ../components/editor/gtkhtml-spell-dialog.c:577
-#, fuzzy
 msgid "_Back"
-msgstr "_Rückwärts"
+msgstr "_Zurück"
 
 #. Dictionary Label
 #: ../components/editor/gtkhtml-spell-dialog.c:590
@@ -1574,26 +1553,6 @@ msgstr "Wörterbuch"
 msgid "_Add Word"
 msgstr "Wort hin_zufügen"
 
-#: ../components/editor/gtkhtml-spell-language.c:182
-#, c-format
-msgid "language|Unknown (%s)"
-msgstr ""
-
-#: ../components/editor/gtkhtml-spell-language.c:200
-#: ../components/editor/gtkhtml-spell-language.c:208
-#, c-format
-msgid "language|%s (%s)"
-msgstr ""
-
-#. Translators: The text before the "|" is context to help
-#. * you decide on the correct translation. You MUST OMIT IT
-#. * in the translated string.
-#. * Translators: This refers to the default language used
-#. * by the spell checker.
-#: ../components/editor/gtkhtml-spell-language.c:396
-msgid "language|Default"
-msgstr ""
-
 #: ../components/editor/main.c:93
 msgid "Save As"
 msgstr "Speichern als"
@@ -1604,55 +1563,47 @@ msgstr "Unbenanntes Dokument"
 
 #: ../components/editor/main.c:268
 msgid "HTML Output"
-msgstr ""
+msgstr "HTML-Ausgabe"
 
 #: ../components/editor/main.c:275
-#, fuzzy
 msgid "HTML Source"
-msgstr "_Quelle:"
+msgstr "HTML-Quelltext"
 
 #: ../components/editor/main.c:282
-#, fuzzy
 msgid "Plain Source"
-msgstr "_Einfacher Text"
+msgstr "Quelltext"
 
 #: ../components/editor/main.c:289
-#, fuzzy
 msgid "_Print..."
-msgstr "_Suchen …"
+msgstr "_Drucken …"
 
 #: ../components/editor/main.c:296
 msgid "Print Pre_view"
 msgstr "Druck_vorschau"
 
 #: ../components/editor/main.c:303
-#, fuzzy
 msgid "_Quit"
-msgstr "_Ausschneiden"
+msgstr "_Beenden"
 
 #: ../components/editor/main.c:310
-#, fuzzy
 msgid "_Save"
-msgstr "Schattiert"
+msgstr "_Speichern"
 
 #: ../components/editor/main.c:317
-#, fuzzy
 msgid "Save _As..."
-msgstr "Datei speichern unter …"
+msgstr "Speichern _unter …"
 
 #: ../components/editor/main.c:334
 msgid "HTML _Output"
-msgstr ""
+msgstr "HTML-_Ausgabe"
 
 #: ../components/editor/main.c:341
-#, fuzzy
 msgid "_HTML Source"
-msgstr "_Quelle:"
+msgstr "_HTML-Quelltext"
 
 #: ../components/editor/main.c:348
-#, fuzzy
 msgid "_Plain Source"
-msgstr "_Einfacher Text"
+msgstr "_Quelltext"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:9
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:9
@@ -1876,6 +1827,7 @@ msgid "Make the current Paragraph style Normal"
 msgstr "Den Stil des momentan markierten Absatzes auf Normal setzen"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:62
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
 msgid "Make the current Paragraph style Preformat"
 msgstr "Den Stil des momentan markierten Absatzes auf Vorformatiert setzen"
 
@@ -1887,8 +1839,7 @@ msgstr "Den momentan markierten Absatz zu einer ungeordneten Liste machen"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:64
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:64
 msgid "Make the current paragraph a list with roman numerals"
-msgstr ""
-"Den momentan markierten Absatz zu einer Liste mit römischen Zahlen machen"
+msgstr "Den momentan markierten Absatz zu einer Liste mit römischen Zahlen machen"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:65
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:65
@@ -1973,6 +1924,7 @@ msgid "Paste the clipboard as a quotation"
 msgstr "Den Inhalt der Zwischenablage als Zitat einfügen"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:83
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
 #: ../components/html-editor/paragraph-style.c:44
 msgid "Preformat"
 msgstr "Vorformatiert"
@@ -2130,14 +2082,6 @@ msgstr "Bedienelement des GNOME-HTML-Editors"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:3
 msgid "GNOME HTML Editor Factory"
 msgstr "GNOME-HTML-Editorfabrik"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
-msgid "Make the current Paragraph style Preformatted"
-msgstr "Den Stil des momentan markierten Absatzes auf Vorformatiert setzen"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
-msgid "Preformatted"
-msgstr "Vorformatiert"
 
 #: ../components/html-editor/body.c:64
 msgid "None"
@@ -2530,7 +2474,8 @@ msgstr "Zelleninhalt"
 msgid "Add Word to"
 msgstr "Wort hinzufügen zu"
 
-#: ../components/html-editor/popup.c:568
+#. Translators: %s is the language name.
+#: ../components/html-editor/popup.c:569
 #, c-format
 msgid "%s Dictionary"
 msgstr "Wörterbuch %s"
@@ -2661,83 +2606,83 @@ msgstr ""
 "Das bearbeitete Objekt wurde aus dem Dokument entfernt.\n"
 "Ihre Änderungen konnten daher nicht übernommen werden."
 
-#: ../gtkhtml/gtkhtml.c:2917
+#: ../gtkhtml/gtkhtml.c:2927
 msgid "Editable"
 msgstr "Bearbeitbar"
 
-#: ../gtkhtml/gtkhtml.c:2918
+#: ../gtkhtml/gtkhtml.c:2928
 msgid "Whether the html can be edited"
 msgstr "Soll das HTML bearbeitet werden können?"
 
-#: ../gtkhtml/gtkhtml.c:2924
+#: ../gtkhtml/gtkhtml.c:2934
 msgid "Document Title"
 msgstr "Titel des Dokuments"
 
-#: ../gtkhtml/gtkhtml.c:2925
+#: ../gtkhtml/gtkhtml.c:2935
 msgid "The title of the current document"
 msgstr "Der Titel des momentan geöffneten Dokuments"
 
-#: ../gtkhtml/gtkhtml.c:2931
+#: ../gtkhtml/gtkhtml.c:2941
 msgid "Document Base"
 msgstr "Dokumentenbasis"
 
-#: ../gtkhtml/gtkhtml.c:2932
+#: ../gtkhtml/gtkhtml.c:2942
 msgid "The base URL for relative references"
 msgstr "Die Basisadresse für relative Verweise"
 
-#: ../gtkhtml/gtkhtml.c:2938
+#: ../gtkhtml/gtkhtml.c:2948
 msgid "Target Base"
 msgstr "Zielbasis"
 
-#: ../gtkhtml/gtkhtml.c:2939
+#: ../gtkhtml/gtkhtml.c:2949
 msgid "The base URL of the target frame"
 msgstr "Die Basisadresse des Zielrahmens"
 
-#: ../gtkhtml/gtkhtml.c:2948
+#: ../gtkhtml/gtkhtml.c:2958
 msgid "Fixed Width Font"
 msgstr "Dicktengleiche Schrift"
 
-#: ../gtkhtml/gtkhtml.c:2949
+#: ../gtkhtml/gtkhtml.c:2959
 msgid "The Monospace font to use for typewriter text"
 msgstr "Die für typewriter-Text zu verwendende dicktengleiche Schrift"
 
-#: ../gtkhtml/gtkhtml.c:2955
+#: ../gtkhtml/gtkhtml.c:2965
 msgid "New Link Color"
 msgstr "Farbe für neue Links"
 
-#: ../gtkhtml/gtkhtml.c:2956
+#: ../gtkhtml/gtkhtml.c:2966
 msgid "The color of new link elements"
 msgstr "Die Farbe für neue Link-Elemente"
 
-#: ../gtkhtml/gtkhtml.c:2961
+#: ../gtkhtml/gtkhtml.c:2971
 msgid "Visited Link Color"
 msgstr "Farbe für besuchte Links"
 
-#: ../gtkhtml/gtkhtml.c:2962
+#: ../gtkhtml/gtkhtml.c:2972
 msgid "The color of visited link elements"
 msgstr "Die Farbe für besuchte Link-Elemente"
 
-#: ../gtkhtml/gtkhtml.c:2967
+#: ../gtkhtml/gtkhtml.c:2977
 msgid "Active Link Color"
 msgstr "Farbe für aktive Links"
 
-#: ../gtkhtml/gtkhtml.c:2968
+#: ../gtkhtml/gtkhtml.c:2978
 msgid "The color of active link elements"
 msgstr "Die Farbe für aktive Link-Elemente"
 
-#: ../gtkhtml/gtkhtml.c:2973
+#: ../gtkhtml/gtkhtml.c:2983
 msgid "Spelling Error Color"
 msgstr "Farbe für Rechtschreibfehler"
 
-#: ../gtkhtml/gtkhtml.c:2974
+#: ../gtkhtml/gtkhtml.c:2984
 msgid "The color of the spelling error markers"
 msgstr "Die für die Hervorhebung von Rechtschreibfehlern verwendete Farbe"
 
-#: ../gtkhtml/gtkhtml.c:2979
+#: ../gtkhtml/gtkhtml.c:2989
 msgid "Cite Quotation Color"
 msgstr "Zitatfarbe"
 
-#: ../gtkhtml/gtkhtml.c:2980
+#: ../gtkhtml/gtkhtml.c:2990
 msgid "The color of the cited text"
 msgstr "Die Farbe des zitierten Texts"
 
@@ -2766,9 +2711,15 @@ msgstr "Druck_vorschau"
 msgid "Print preview"
 msgstr "Druckvorschau"
 
-#: ../gtkhtml/testgtkhtml.c:1018
+#: ../gtkhtml/testgtkhtml.c:1019
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML-Testanwendung"
+
+#~ msgid "Make the current Paragraph style Preformatted"
+#~ msgstr "Den Stil des momentan markierten Absatzes auf Vorformatiert setzen"
+
+#~ msgid "Preformatted"
+#~ msgstr "Vorformatiert"
 
 #~ msgid "Cannot allocate default font for printing\n"
 #~ msgstr "Voreingestellte Druckschrift konnte nicht bereitgestellt werden\n"
@@ -3035,3 +2986,4 @@ msgstr "GtkHTML-Testanwendung"
 
 #~ msgid "Labels"
 #~ msgstr "Beschriftungen"
+
