@@ -1,24 +1,25 @@
 # translation of gtkhtml.HEAD.ml.po to Malayalam
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) 2003-2008 gtkhtml'S COPYRIGHT HOLDER.
+#
 # FSF-India <locale@gnu.org.in>, 2003.
 # Ani Peter <apeter@redhat.com>, 2006.
 # Santhosh Thottingal <santhosh00@gmail.com>, 2007.
-# Hari Vishnu <harivishnu@gmail.com>, 2008
-# Reviewed by Praveen Arimbrathodiyil <pravi.a@gmail.com>, 2008
-#
+# Hari Vishnu <harivishnu@gmail.com>, 2008.
+# Reviewed by Praveen Arimbrathodiyil <pravi.a@gmail.com>, 2008.
+# പ്രവീണ്‍ അരിമ്പ്രത്തൊടിയില്‍ <pravi.a@gmail.com>, 2008.
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.HEAD.ml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-07-05 18:35+0000\n"
-"PO-Revision-Date: 2008-08-07 00:31+0530\n"
-"Last-Translator: Hari Vishnu <harivishnu@gmail.com>\n"
-"Language-Team: Swathanthra|സ്വതന്ത്ര Malayalam|മലയാളം Computing|കമ്പ്യൂട്ടിങ്ങ് <smc-discuss@googlegroups.com>\n"
+"POT-Creation-Date: 2008-09-09 04:09+0000\n"
+"PO-Revision-Date: 2008-09-08 23:40-0500\n"
+"Last-Translator: പ്രവീണ്‍ അരിമ്പ്രത്തൊടിയില്‍ <pravi.a@gmail.com>\n"
+"Language-Team: Malayalam <smc-discuss@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: \n"
+"X-Generator: Lokalize 0.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Language: Malayalam\n"
 "X-Poedit-Country: INDIA\n"
@@ -33,9 +34,7 @@ msgstr "URL %s ആണ്, %s ആണ് പകരമുള്ള പദാവല�
 msgid "URL is %s"
 msgstr "URL %s ആണ്"
 
-#: ../a11y/object.c:52
-#: ../a11y/object.c:61
-#: ../a11y/text.c:126
+#: ../a11y/object.c:52 ../a11y/object.c:61 ../a11y/text.c:126
 msgid "grab focus"
 msgstr "ഫോക്കസ് കരസ്ഥമാക്കുക"
 
@@ -932,8 +931,7 @@ msgstr "വരി"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:50
 #: ../components/html-editor/menubar.c:217
-#: ../components/html-editor/popup.c:235
-#: ../components/html-editor/popup.c:509
+#: ../components/html-editor/popup.c:235 ../components/html-editor/popup.c:509
 #: ../components/html-editor/popup.c:521
 msgid "Table"
 msgstr "പട്ടിക"
@@ -943,7 +941,7 @@ msgid "Table Delete"
 msgstr "പട്ടിക നീക്കം ചെയ്യുക"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1988
-#: ../components/html-editor/popup.c:583
+#: ../components/html-editor/popup.c:584
 msgid "Input Methods"
 msgstr "നിവേശക രീതികള്‍"
 
@@ -953,8 +951,7 @@ msgstr "പട്ടിക ഇടയ്ക്ക് ചേര്‍ക്കു�
 
 #: ../components/editor/gtkhtml-editor-actions.c:2002
 #: ../components/html-editor/editor-control-factory.c:187
-#: ../components/html-editor/popup.c:191
-#: ../components/html-editor/popup.c:268
+#: ../components/html-editor/popup.c:191 ../components/html-editor/popup.c:268
 msgid "Properties"
 msgstr "ഗുണഗണങ്ങള്‍"
 
@@ -1017,7 +1014,7 @@ msgid "Remove Link"
 msgstr "കണ്ണി നീക്കം ചെയ്യുക"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2135
-#: ../components/html-editor/popup.c:577
+#: ../components/html-editor/popup.c:578
 msgid "Add Word to Dictionary"
 msgstr "നിഘണ്ടുവിലേക്ക് വാക്ക് ചേര്‍ക്കുക"
 
@@ -1030,27 +1027,27 @@ msgstr "അക്ഷരത്തെറ്റുളള വാക്കുകള�
 msgid "Add Word To"
 msgstr "വാക്ക് ചേര്‍ക്കുക "
 
-#: ../components/editor/gtkhtml-editor-actions.c:2370
+#: ../components/editor/gtkhtml-editor-actions.c:2367
 msgid "_Find"
 msgstr "_കണ്ടെത്തുക"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2373
+#: ../components/editor/gtkhtml-editor-actions.c:2370
 msgid "Re_place"
 msgstr "_മാറ്റിയെഴുതുക"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2376
+#: ../components/editor/gtkhtml-editor-actions.c:2373
 msgid "_Image"
 msgstr "_ചിത്രം"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2379
+#: ../components/editor/gtkhtml-editor-actions.c:2376
 msgid "_Link"
 msgstr "_കണ്ണി"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2382
+#: ../components/editor/gtkhtml-editor-actions.c:2379
 msgid "_Rule"
 msgstr "_നിയമം"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2385
+#: ../components/editor/gtkhtml-editor-actions.c:2382
 #: ../components/editor/gtkhtml-editor.glade.h:76
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:72
 msgid "_Table"
@@ -1073,8 +1070,7 @@ msgid "Font Size"
 msgstr "അക്ഷരത്തിന്റെ വലിപ്പം "
 
 #: ../components/editor/gtkhtml-editor-private.c:316
-#: ../components/html-editor/body.c:237
-#: ../components/html-editor/text.c:171
+#: ../components/html-editor/body.c:237 ../components/html-editor/text.c:171
 #: ../components/html-editor/toolbar.c:199
 msgid "Automatic"
 msgstr "തനിയെയുള്ള"
@@ -1559,25 +1555,28 @@ msgstr "നിഘണ്ടു"
 msgid "_Add Word"
 msgstr "_വാക്ക് ചേര്‍ക്കുക"
 
-#: ../components/editor/gtkhtml-spell-language.c:182
+#. Translators: %s is the language ISO code.
+#: ../components/editor/gtkhtml-spell-language.c:180
 #, c-format
-msgid "language|Unknown (%s)"
-msgstr "ഭാഷ|അറിയാത്തത് (%s)"
+msgctxt "language"
+msgid "Unknown (%s)"
+msgstr "അറിയാത്തതു് (%s)"
 
+#. Translators: The first %s is the language name, and the
+#. * second is the country name. Example: "French (France)"
+#: ../components/editor/gtkhtml-spell-language.c:195
 #: ../components/editor/gtkhtml-spell-language.c:200
-#: ../components/editor/gtkhtml-spell-language.c:208
 #, c-format
-msgid "language|%s (%s)"
-msgstr "ഭാഷ|%s (%s)"
+msgctxt "language"
+msgid "%s (%s)"
+msgstr "%s (%s)"
 
-#. Translators: The text before the "|" is context to help
-#. * you decide on the correct translation. You MUST OMIT IT
-#. * in the translated string.
-#. * Translators: This refers to the default language used
+#. Translators: This refers to the default language used
 #. * by the spell checker.
-#: ../components/editor/gtkhtml-spell-language.c:396
-msgid "language|Default"
-msgstr "ഭാഷ|സഹജമായ"
+#: ../components/editor/gtkhtml-spell-language.c:385
+msgctxt "language"
+msgid "Default"
+msgstr "സഹജമായ"
 
 #: ../components/editor/main.c:93
 msgid "Save As"
@@ -1842,8 +1841,7 @@ msgstr "വാചകങ്ങള്‍ താളിന്റെ ഇടത്ത�
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:60
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
 #: ../components/html-editor/menubar.c:174
-#: ../components/html-editor/popup.c:111
-#: ../components/html-editor/popup.c:205
+#: ../components/html-editor/popup.c:111 ../components/html-editor/popup.c:205
 #: ../components/html-editor/popup.c:271
 msgid "Link"
 msgstr "കണ്ണി"
@@ -1854,6 +1852,7 @@ msgid "Make the current Paragraph style Normal"
 msgstr "നിലവിലുളള ഖണ്ഡികയുടെ ശൈലി സാധാരണരീതിയിലാക്കുക"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:62
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
 msgid "Make the current Paragraph style Preformat"
 msgstr "Make the current Paragraph style Preformat"
 
@@ -1950,6 +1949,7 @@ msgid "Paste the clipboard as a quotation"
 msgstr "ഒരു ഉദ്ധരണിയായി ക്ലിപ്പ് ബോര്‍ഡില്‍ നിന്നും ഒട്ടിക്കുക"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:83
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
 #: ../components/html-editor/paragraph-style.c:44
 msgid "Preformat"
 msgstr "പ്രീഫോര്‍മാറ്റ്"
@@ -2108,14 +2108,6 @@ msgstr "ഗ്നോം എച്ച്ടിഎംഎല്‍ എഡിറ്�
 msgid "GNOME HTML Editor Factory"
 msgstr "ഗ്നോം എച്ച്ടിഎംഎല്‍  എഡിറ്റര്‍ ശാല"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
-msgid "Make the current Paragraph style Preformatted"
-msgstr "Make the current Paragraph style Preformatted"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
-msgid "Preformatted"
-msgstr "പ്രിഫോര്‍മാറ്റഡ്"
-
 #: ../components/html-editor/body.c:64
 msgid "None"
 msgstr "ഒന്നുമില്ല"
@@ -2157,8 +2149,7 @@ msgstr "ഗ്രാഫ് പേപ്പര്‍"
 msgid "Colors"
 msgstr "നിറങ്ങള്‍"
 
-#: ../components/html-editor/body.c:256
-#: ../components/html-editor/body.c:288
+#: ../components/html-editor/body.c:256 ../components/html-editor/body.c:288
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:22
 msgid "Background Image"
 msgstr "പശ്ചാത്തല ചിത്രം"
@@ -2173,18 +2164,15 @@ msgstr "പശ്ചാത്തല ചിത്രത്തിന്റെ ഫ�
 msgid "Template"
 msgstr "ടെംപ്ളേറ്റ്"
 
-#: ../components/html-editor/cell.c:342
-#: ../components/html-editor/image.c:345
-#: ../components/html-editor/link.c:215
-#: ../components/html-editor/rule.c:179
+#: ../components/html-editor/cell.c:342 ../components/html-editor/image.c:345
+#: ../components/html-editor/link.c:215 ../components/html-editor/rule.c:179
 #: ../components/html-editor/table.c:229
 #: ../components/html-editor/template.c:287
 #: ../components/html-editor/text.c:168
 msgid "Could not load glade file."
 msgstr "ഗ്ളേഡ് ഫയല്‍ ലോഡ് ചെയ്യുവാന്‍ കഴിഞ്ഞില്ല."
 
-#: ../components/html-editor/cell.c:346
-#: ../components/html-editor/table.c:233
+#: ../components/html-editor/cell.c:346 ../components/html-editor/table.c:233
 msgid "Transparent"
 msgstr "സുതാര്യം"
 
@@ -2449,8 +2437,7 @@ msgstr "ശൈലി"
 msgid "Text Style..."
 msgstr "പദാവലികളുടെ ശൈലി..."
 
-#: ../components/html-editor/popup.c:469
-#: ../components/html-editor/popup.c:475
+#: ../components/html-editor/popup.c:469 ../components/html-editor/popup.c:475
 #: ../components/html-editor/popup.c:485
 msgid "Paragraph Style..."
 msgstr "ഖണ്ഡികയുടെ ശൈലി..."
@@ -2511,7 +2498,8 @@ msgstr "കളത്തിലുള്ള ഡേറ്റാ"
 msgid "Add Word to"
 msgstr "വാക്ക് ചേര്‍ക്കുക"
 
-#: ../components/html-editor/popup.c:568
+#. Translators: %s is the language name.
+#: ../components/html-editor/popup.c:569
 #, c-format
 msgid "%s Dictionary"
 msgstr "%s നിഘണ്ടു"
@@ -2642,83 +2630,83 @@ msgstr ""
 "മാറ്റം വരുത്തിയ ഒബ്ജക്ട് രേഖയില്‍ നിന്നും നീക്കം ചെയ്യുക.\n"
 "നിങ്ങള്‍ വരുത്തിയ മാറ്റങ്ങള്‍ പ്രാവര്‍ത്തികമാക്കാന്‍ സാധ്യമല്ല."
 
-#: ../gtkhtml/gtkhtml.c:2917
+#: ../gtkhtml/gtkhtml.c:2927
 msgid "Editable"
 msgstr "മാറ്റം വരുത്തുവാന്‍ സാധ്യമാകുന്ന"
 
-#: ../gtkhtml/gtkhtml.c:2918
+#: ../gtkhtml/gtkhtml.c:2928
 msgid "Whether the html can be edited"
 msgstr "html മാറ്റം വരുത്തുവാന്‍ സാധ്യമാകുന്നതാണോ എന്ന്"
 
-#: ../gtkhtml/gtkhtml.c:2924
+#: ../gtkhtml/gtkhtml.c:2934
 msgid "Document Title"
 msgstr "രേഖയുടെ തലക്കെട്ട്"
 
-#: ../gtkhtml/gtkhtml.c:2925
+#: ../gtkhtml/gtkhtml.c:2935
 msgid "The title of the current document"
 msgstr "നിലവിലുളള രേഖയുടെ തലക്കെട്ട്"
 
-#: ../gtkhtml/gtkhtml.c:2931
+#: ../gtkhtml/gtkhtml.c:2941
 msgid "Document Base"
 msgstr "Document Base"
 
-#: ../gtkhtml/gtkhtml.c:2932
+#: ../gtkhtml/gtkhtml.c:2942
 msgid "The base URL for relative references"
 msgstr "The base URL for relative references"
 
-#: ../gtkhtml/gtkhtml.c:2938
+#: ../gtkhtml/gtkhtml.c:2948
 msgid "Target Base"
 msgstr "Target Base"
 
-#: ../gtkhtml/gtkhtml.c:2939
+#: ../gtkhtml/gtkhtml.c:2949
 msgid "The base URL of the target frame"
 msgstr "The base URL of the target frame"
 
-#: ../gtkhtml/gtkhtml.c:2948
+#: ../gtkhtml/gtkhtml.c:2958
 msgid "Fixed Width Font"
 msgstr "ലിപിയുടെ സ്ഥിരമായ വീതി"
 
-#: ../gtkhtml/gtkhtml.c:2949
+#: ../gtkhtml/gtkhtml.c:2959
 msgid "The Monospace font to use for typewriter text"
 msgstr "ടൈപ്പ് റൈറ്ററിന്റെ വാചകങ്ങള്‍ക്കുളള മോണോസ്പെയിസ് ലിപി"
 
-#: ../gtkhtml/gtkhtml.c:2955
+#: ../gtkhtml/gtkhtml.c:2965
 msgid "New Link Color"
 msgstr "ലിങ്കിനുളള പുതിയ നിറം"
 
-#: ../gtkhtml/gtkhtml.c:2956
+#: ../gtkhtml/gtkhtml.c:2966
 msgid "The color of new link elements"
 msgstr "പുതിയ കണ്ണി എലമെന്‍റുകളുടെ നിറം"
 
-#: ../gtkhtml/gtkhtml.c:2961
+#: ../gtkhtml/gtkhtml.c:2971
 msgid "Visited Link Color"
 msgstr "പരിശോധിച്ച കണ്ണിയുടെ നിറം"
 
-#: ../gtkhtml/gtkhtml.c:2962
+#: ../gtkhtml/gtkhtml.c:2972
 msgid "The color of visited link elements"
 msgstr "പരിശോധിച്ച കണ്ണി എലമെന്‍റുകളുടെ നിറം"
 
-#: ../gtkhtml/gtkhtml.c:2967
+#: ../gtkhtml/gtkhtml.c:2977
 msgid "Active Link Color"
 msgstr "പ്രവര്‍ത്തനത്തിലുളള കണ്ണിയുടെ നിറം"
 
-#: ../gtkhtml/gtkhtml.c:2968
+#: ../gtkhtml/gtkhtml.c:2978
 msgid "The color of active link elements"
 msgstr "പ്രവര്‍ത്തനത്തിലുളള കണ്ണി എലമെന്‍റുകളുടെ നിറം"
 
-#: ../gtkhtml/gtkhtml.c:2973
+#: ../gtkhtml/gtkhtml.c:2983
 msgid "Spelling Error Color"
 msgstr "അക്ഷരപിശകുളള വാക്കുകളുടെ നിറം"
 
-#: ../gtkhtml/gtkhtml.c:2974
+#: ../gtkhtml/gtkhtml.c:2984
 msgid "The color of the spelling error markers"
 msgstr "അക്ഷരപിശകുളള വാക്കുകളുടെ നിറം"
 
-#: ../gtkhtml/gtkhtml.c:2979
+#: ../gtkhtml/gtkhtml.c:2989
 msgid "Cite Quotation Color"
 msgstr "Cite Quotation Color"
 
-#: ../gtkhtml/gtkhtml.c:2980
+#: ../gtkhtml/gtkhtml.c:2990
 msgid "The color of the cited text"
 msgstr "The color of the cited text"
 
@@ -2731,8 +2719,7 @@ msgid "Reset"
 msgstr "പുനഃസ്ഥാപിക്കുക"
 
 #. TODO2 dialog instead of warning
-#: ../gtkhtml/htmlengine-print.c:231
-#: ../gtkhtml/htmlengine-print.c:310
+#: ../gtkhtml/htmlengine-print.c:231 ../gtkhtml/htmlengine-print.c:310
 msgid "Cannot allocate default font for printing"
 msgstr "പ്രിന്റ്‌ ചെയ്യുന്നതിനായി സ്വതേയുള്ള ലിപി ഉപയോഗിക്കുവാന്‍ സാധ്യമല്ല"
 
@@ -2748,34 +2735,55 @@ msgstr "പ്രിന്റ്‌ ചെയ്യുന്നതിന് മ�
 msgid "Print preview"
 msgstr "പ്രിന്റ് ചെയ്യുന്നതിന് മുമ്പ് സ്ക്രീനില്‍ കാണുക"
 
-#: ../gtkhtml/testgtkhtml.c:1018
+#: ../gtkhtml/testgtkhtml.c:1019
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML ടെസ്റ്റ് ആപ്ളിക്കഷന്‍"
 
+#~ msgid "language|Default"
+#~ msgstr "ഭാഷ|സഹജമായ"
+
+#~ msgid "Make the current Paragraph style Preformatted"
+#~ msgstr "Make the current Paragraph style Preformatted"
+
+#~ msgid "Preformatted"
+#~ msgstr "പ്രിഫോര്‍മാറ്റഡ്"
+
 #~ msgid "Cannot allocate default font for printing\n"
 #~ msgstr "പ്രിന്‍റ് ചെയ്യുന്നതിനായി ഡീഫോള്‍ട്ടായ ലിപി ഉപയോഗിക്കുവാന്‍ സാധ്യമല്ല\n"
+
 #~ msgid "%"
 #~ msgstr "%"
+
 #~ msgid "Bottom"
 #~ msgstr "താഴെ"
+
 #~ msgid "Middle"
 #~ msgstr "നടുവില്‍"
+
 #~ msgid "Percent"
 #~ msgstr "ശതമാനം"
+
 #~ msgid "Pixels"
 #~ msgstr "പിക്സല്‍സ്"
+
 #~ msgid "Standard"
 #~ msgstr "നിലവാരമുളള"
+
 #~ msgid "Top"
 #~ msgstr "മുകളില്‍"
+
 #~ msgid "Dot item"
 #~ msgstr "ഡോട്ട് ഐറ്റം"
+
 #~ msgid "Number item"
 #~ msgstr "നംബര്‍ ഐറ്റം"
+
 #~ msgid "Roman item"
 #~ msgstr "റോമന്‍ ഐറ്റം"
+
 #~ msgid "Alphabeta item"
 #~ msgstr "ആല്‍ഫാബീറ്റാ ഐറ്റം"
+
 #~ msgid "Paste Quotation"
 #~ msgstr "കോട്ടേഷന്‍ ഒട്ടിക്കുക"
 
