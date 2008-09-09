@@ -1,4 +1,8 @@
-2008-09-09 Krishnababu K <kkrothap@redhat.com>
+2008-09-09  Krishnababu K  <kkrothap@redhat.com>
+
+	* LINGUAS: Added Telugu(te) to the list.
+
+2008-09-09  Krishnababu K  <kkrothap@redhat.com>
 
 	* te.po: Updated Telugu translation
 	
