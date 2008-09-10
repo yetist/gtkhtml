@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-09-08 12:29+0200\n"
-"PO-Revision-Date: 2008-09-08 12:29+0200\n"
+"PO-Revision-Date: 2008-09-10 11:17+0200\n"
 "Last-Translator: Wouter Bolsterlee <wbolster@gnome.org>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
 "MIME-Version: 1.0\n"
@@ -779,11 +779,11 @@ msgstr "Verwijzing invoegen"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:136
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
 msgid "_Rule..."
-msgstr "_Regel.."
+msgstr "_Lijn…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1774
 msgid "Insert Rule"
-msgstr "Regel invoegen"
+msgstr "Lijn invoegen"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1779
 #: ../components/editor/gtkhtml-editor-actions.c:1821
@@ -1002,7 +1002,7 @@ msgstr "Alinea…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2097
 msgid "Rule..."
-msgstr "Regel…"
+msgstr "Lijn…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2104
 msgid "Table..."
@@ -1050,7 +1050,7 @@ msgstr "Verwij_zing"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2379
 msgid "_Rule"
-msgstr "_Regel"
+msgstr "_Lijn"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2382
 #: ../components/editor/gtkhtml-editor.glade.h:76
@@ -1312,7 +1312,7 @@ msgstr "Rij-overlap:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:44
 msgid "Rule Properties"
-msgstr "Regeleigenschappen"
+msgstr "Lijneigenschappen"
 
 #: ../components/editor/gtkhtml-editor.glade.h:45
 msgid "S_haded"
@@ -1829,12 +1829,12 @@ msgstr "Link invoegen"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:54
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
 msgid "Insert rule"
-msgstr "Regel invoegen"
+msgstr "Lijn invoegen"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
 msgid "Insert rule into document..."
-msgstr "Een regel invoegen..."
+msgstr "Een lijn invoegen…"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:56
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
@@ -2007,7 +2007,7 @@ msgstr "Romeins genummerde lijst"
 #: ../components/html-editor/menubar.c:193
 #: ../components/html-editor/popup.c:229
 msgid "Rule"
-msgstr "Regel"
+msgstr "Lijn"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:93
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
@@ -2478,7 +2478,7 @@ msgstr "Linkstijl..."
 
 #: ../components/html-editor/popup.c:479
 msgid "Rule Style..."
-msgstr "Regelstijl..."
+msgstr "Lijnstijl..."
 
 #: ../components/html-editor/popup.c:483
 msgid "Image Style..."
