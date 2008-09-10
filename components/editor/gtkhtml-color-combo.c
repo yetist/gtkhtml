@@ -732,11 +732,13 @@ color_combo_class_init (GtkhtmlColorComboClass *class)
 		PROP_POPUP_SHOWN,
 		g_param_spec_boolean (
 			"popup-shown",
-			/* Translators: This is a nickname for a widget
-			 * property named "popup-shown", which indicates
-			 * whether the combo box's drop-down is visible.
-			 * The property name was poorly chosen. */
+			/* Translators: This is the nickname for a
+			 * GtkhtmlColorCombo property named "popup-shown",
+			 * based on a similar property in GtkComboBox. */
 			_("Popup shown"),
+			/* Translators: This is the blurb for a
+			 * GtkhtmlColorCombo property named "popup-shown",
+			 * based on a similar property in GtkComboBox. */
 			_("Whether the combo's dropdown is shown"),
 			FALSE,
 			G_PARAM_READWRITE));

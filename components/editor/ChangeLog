@@ -1,5 +1,14 @@
 2008-09-10  Matthew Barnes  <mbarnes@redhat.com>
 
+	** Re-fixes bug #549232
+
+	* gtkhtml-color-combo.c (color_combo_class_init):
+	Revise the translator comments to reference GtkComboBox, from
+	which the "popup-shown" property and associated descriptions
+	are taken.
+
+2008-09-10  Matthew Barnes  <mbarnes@redhat.com>
+
 	** Fixes bug #549232
 
 	* gtkhtml-color-combo.c (color_combo_class_init):
