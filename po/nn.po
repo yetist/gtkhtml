@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nn\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-10 10:46+0200\n"
-"PO-Revision-Date: 2008-09-10 10:46+0200\n"
+"POT-Creation-Date: 2008-09-10 10:58+0200\n"
+"PO-Revision-Date: 2008-09-10 10:58+0200\n"
 "Last-Translator: Åsmund Skjæveland <aasmunds@ulrik.uio.no>\n"
 "Language-Team: Norwegian Nynorsk <i18n-nn@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -273,19 +273,17 @@ msgstr "Vel ein sjølvvald farge"
 
 #: ../components/editor/gtkhtml-color-combo.c:693
 #: ../components/editor/gtkhtml-color-state.c:190
-#, fuzzy
 msgid "Current color"
-msgstr "Sjølvvald farge:"
+msgstr "Noverande farge"
 
 #: ../components/editor/gtkhtml-color-combo.c:694
 msgid "The currently selected color"
-msgstr ""
+msgstr "Den valde fargen"
 
 #: ../components/editor/gtkhtml-color-combo.c:703
 #: ../components/editor/gtkhtml-color-state.c:200
-#, fuzzy
 msgid "Default color"
-msgstr "Tekstfarge"
+msgstr "Standardfarge"
 
 #: ../components/editor/gtkhtml-color-combo.c:704
 msgid "The color associated with the default button"
@@ -308,15 +306,13 @@ msgstr ""
 #
 #: ../components/editor/gtkhtml-color-combo.c:725
 #: ../components/editor/gtkhtml-color-state.c:222
-#, fuzzy
 msgid "Color palette"
-msgstr "førehandsvising av farge"
+msgstr "Fargepalett"
 
 #: ../components/editor/gtkhtml-color-combo.c:726
 #: ../components/editor/gtkhtml-color-state.c:223
-#, fuzzy
 msgid "Custom color palette"
-msgstr "Sjølvvald farge:"
+msgstr "Sjølvvald fargepalett"
 
 #
 #. Translators: This is a nickname for a widget
@@ -324,18 +320,16 @@ msgstr "Sjølvvald farge:"
 #. * whether the combo box's drop-down is visible.
 #. * The property name was poorly chosen.
 #: ../components/editor/gtkhtml-color-combo.c:739
-#, fuzzy
 msgid "Popup shown"
-msgstr "Oppsprett"
+msgstr "Oppsprett vist"
 
 #: ../components/editor/gtkhtml-color-combo.c:740
 msgid "Whether the combo's dropdown is shown"
 msgstr ""
 
 #: ../components/editor/gtkhtml-color-combo.c:749
-#, fuzzy
 msgid "Color state"
-msgstr "Fargar"
+msgstr "Fargetilstand"
 
 #: ../components/editor/gtkhtml-color-combo.c:750
 msgid "State of the color combo"
@@ -349,27 +343,25 @@ msgid "custom"
 msgstr "Sjølvvald"
 
 #: ../components/editor/gtkhtml-color-combo.c:940
-#, fuzzy
 msgid "Custom Color..."
-msgstr "Sjølvvald farge:"
+msgstr "Sjølvvald farge …"
 
 #: ../components/editor/gtkhtml-color-state.c:191
 #: ../components/editor/gtkhtml-color-swatch.c:178
 msgid "The current color"
-msgstr ""
+msgstr "Den noverande fargen"
 
 #: ../components/editor/gtkhtml-color-state.c:201
 msgid "The default color"
-msgstr ""
+msgstr "Standardfargen"
 
 #: ../components/editor/gtkhtml-color-state.c:212
 msgid "Description of the default color"
-msgstr ""
+msgstr "Skildring av standardfargen"
 
 #: ../components/editor/gtkhtml-color-swatch.c:177
-#, fuzzy
 msgid "Color"
-msgstr "Fargar"
+msgstr "Farge"
 
 #: ../components/editor/gtkhtml-color-swatch.c:187
 msgid "Frame Shadow"
@@ -395,7 +387,6 @@ msgstr "Set inn HTML-fil"
 
 #: ../components/editor/gtkhtml-editor-actions.c:642
 #: ../components/editor/gtkhtml-editor-actions.c:1760
-#, fuzzy
 msgid "Insert Image"
 msgstr "Set inn bilete"
 
@@ -435,7 +426,6 @@ msgid "Cu_t"
 msgstr "Klipp u_t"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1318
-#, fuzzy
 msgid "Find A_gain"
 msgstr "Finn _igjen"
 
@@ -446,9 +436,8 @@ msgid "_Increase Indent"
 msgstr "_Auk innrykk"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1334
-#, fuzzy
 msgid "Increase Indent"
-msgstr "_Auk innrykk"
+msgstr "Auk innrykk"
 
 #
 #: ../components/editor/gtkhtml-editor-actions.c:1339
@@ -462,9 +451,8 @@ msgid "_Angel"
 msgstr ""
 
 #: ../components/editor/gtkhtml-editor-actions.c:1353
-#, fuzzy
 msgid "_Cool"
-msgstr "_Farge:"
+msgstr "_Kul"
 
 #
 #: ../components/editor/gtkhtml-editor-actions.c:1360
@@ -498,9 +486,8 @@ msgstr "L_ikesælt"
 
 #
 #: ../components/editor/gtkhtml-editor-actions.c:1402
-#, fuzzy
 msgid "_Tongue"
-msgstr "Tun_ge"
+msgstr "_Tunge"
 
 #
 #: ../components/editor/gtkhtml-editor-actions.c:1409
@@ -529,7 +516,6 @@ msgstr ""
 
 #
 #: ../components/editor/gtkhtml-editor-actions.c:1437
-#, fuzzy
 msgid "Sur_prised"
 msgstr "Ove_rraska"
 
@@ -591,7 +577,6 @@ msgid "_Find..."
 msgstr "_Finn …"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1507
-#, fuzzy
 msgid "Re_place..."
 msgstr "_Byt ut …"
 
@@ -622,9 +607,8 @@ msgid "_Decrease Indent"
 msgstr "_Minsk innrykk"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1537
-#, fuzzy
 msgid "Decrease Indent"
-msgstr "_Minsk innrykk"
+msgstr "Minsk innrykk"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1542
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:161
@@ -639,9 +623,8 @@ msgstr "R_ediger"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1558
 #: ../components/editor/main.c:324
-#, fuzzy
 msgid "_File"
-msgstr "_Smil"
+msgstr "_Fil"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1565
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:28
@@ -650,20 +633,17 @@ msgid "For_mat"
 msgstr "Form_at"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1572
-#, fuzzy
 msgid "_Paragraph Style"
-msgstr "Avsnittstil …"
+msgstr "_Avsnittstil"
 
 #
 #: ../components/editor/gtkhtml-editor-actions.c:1579
-#, fuzzy
 msgid "_Emoticon"
-msgstr "Smile_fjes"
+msgstr "Smil_efjes"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1586
-#, fuzzy
 msgid "_Insert"
-msgstr "Set inn"
+msgstr "Set _inn"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1593
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:106
@@ -689,9 +669,8 @@ msgid "_Center"
 msgstr "_Sentrert"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1619
-#, fuzzy
 msgid "Center Alignment"
-msgstr "Justering"
+msgstr "Sentrert justering"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1624
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
@@ -700,9 +679,8 @@ msgid "_Left"
 msgstr "_Venstre"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1626
-#, fuzzy
 msgid "Left Alignment"
-msgstr "Justering"
+msgstr "Venstrejustering"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1631
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:134
@@ -711,7 +689,6 @@ msgid "_Right"
 msgstr "Høg_re"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1633
-#, fuzzy
 msgid "Right Alignment"
 msgstr "Høgrejustering"
 
@@ -725,9 +702,8 @@ msgstr ""
 
 #
 #: ../components/editor/gtkhtml-editor-actions.c:1648
-#, fuzzy
 msgid "Plain _Text"
-msgstr "_Vanleg tekst"
+msgstr "Vanleg _tekst"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1650
 msgid "Plain text editing mode"
@@ -824,13 +800,12 @@ msgstr "_Bilete …"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:125
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
 msgid "_Link..."
-msgstr "_Lenke …"
+msgstr "_Lenkje …"
 
 #
 #: ../components/editor/gtkhtml-editor-actions.c:1767
-#, fuzzy
 msgid "Insert Link"
-msgstr "Set inn _lenkje"
+msgstr "Set inn lenkje"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1772
 #: ../components/editor/gtkhtml-editor-actions.c:1814
@@ -841,7 +816,6 @@ msgstr "_Linje …"
 
 #
 #: ../components/editor/gtkhtml-editor-actions.c:1774
-#, fuzzy
 msgid "Insert Rule"
 msgstr "Set inn linje"
 
@@ -854,29 +828,24 @@ msgstr "_Tabell …"
 
 #
 #: ../components/editor/gtkhtml-editor-actions.c:1781
-#, fuzzy
 msgid "Insert Table"
 msgstr "Set inn tabell"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1786
-#, fuzzy
 msgid "_Cell..."
-msgstr "Celle"
+msgstr "_Celle …"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1807
-#, fuzzy
 msgid "Pa_ge..."
 msgstr "_Side …"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1830
-#, fuzzy
 msgid "Font _Size"
 msgstr "_Skriftstorleik"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1837
-#, fuzzy
 msgid "_Font Style"
-msgstr "_Skriftstorleik"
+msgstr "_Skriftstil"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1847
 #: ../components/editor/gtkhtml-editor.glade.h:58
@@ -913,9 +882,8 @@ msgstr "_Vanleg tekst"
 
 #
 #: ../components/editor/gtkhtml-editor-actions.c:1865
-#, fuzzy
 msgid "Plain Text"
-msgstr "_Vanleg tekst"
+msgstr "Vanleg tekst"
 
 #
 #: ../components/editor/gtkhtml-editor-actions.c:1871
@@ -928,9 +896,8 @@ msgstr "_Gjennomstreka"
 
 #
 #: ../components/editor/gtkhtml-editor-actions.c:1873
-#, fuzzy
 msgid "Strikethrough"
-msgstr "_Gjennomstreka"
+msgstr "Gjennomstreka"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1879
 #: ../components/editor/gtkhtml-editor.glade.h:80
@@ -988,7 +955,6 @@ msgid "+4"
 msgstr "+4"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1951
-#, fuzzy
 msgid "Cell Contents"
 msgstr "Celleinnhald"
 
@@ -1014,7 +980,6 @@ msgid "Table"
 msgstr "Tabell"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1981
-#, fuzzy
 msgid "Table Delete"
 msgstr "Slett tabell"
 
@@ -1025,7 +990,6 @@ msgid "Input Methods"
 msgstr "Inndatametodar"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1995
-#, fuzzy
 msgid "Table Insert"
 msgstr "Set inn tabell"
 
@@ -1036,14 +1000,12 @@ msgid "Properties"
 msgstr "Eigenskapar"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2020
-#, fuzzy
 msgid "Column After"
-msgstr "Kolonner etter"
+msgstr "Kolonna etter"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2027
-#, fuzzy
 msgid "Column Before"
-msgstr "Kolonner før"
+msgstr "Kolonna før"
 
 #
 #: ../components/editor/gtkhtml-editor-actions.c:2034
@@ -1052,54 +1014,44 @@ msgid "Insert _Link"
 msgstr "Set inn _lenkje"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2041
-#, fuzzy
 msgid "Row Above"
-msgstr "Rader over"
+msgstr "Rada over"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2048
-#, fuzzy
 msgid "Row Below"
-msgstr "Rader under"
+msgstr "Rada under"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2062
-#, fuzzy
 msgid "Cell..."
-msgstr "Celle"
+msgstr "Celle …"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2069
-#, fuzzy
 msgid "Image..."
-msgstr "_Bilete …"
+msgstr "Bilete …"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2076
-#, fuzzy
 msgid "Link..."
-msgstr "_Lenke …"
+msgstr "Lenkje …"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2083
-#, fuzzy
 msgid "Page..."
-msgstr "_Side …"
+msgstr "Side …"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2090
-#, fuzzy
 msgid "Paragraph..."
-msgstr "_Avsnitt …"
+msgstr "Avsnitt …"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2097
-#, fuzzy
 msgid "Rule..."
-msgstr "_Linje …"
+msgstr "Linje …"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2104
-#, fuzzy
 msgid "Table..."
-msgstr "_Tabell …"
+msgstr "Tabell …"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2111
-#, fuzzy
 msgid "Text..."
-msgstr "_Tekst …"
+msgstr "Tekst …"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2118
 #: ../components/html-editor/popup.c:457
@@ -1117,34 +1069,28 @@ msgid "Ignore Misspelled Word"
 msgstr "Oversjå feilstava ord"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2149
-#, fuzzy
 msgid "Add Word To"
 msgstr "Legg til ord i"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2367
-#, fuzzy
 msgid "_Find"
-msgstr "Søk etter"
+msgstr "_Finn"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2370
-#, fuzzy
 msgid "Re_place"
-msgstr "Byt ut"
+msgstr "_Byt ut"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2373
-#, fuzzy
 msgid "_Image"
-msgstr "B_ilete:"
+msgstr "B_ilete"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2376
-#, fuzzy
 msgid "_Link"
-msgstr "_Lenkje:"
+msgstr "_Lenkje"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2379
-#, fuzzy
 msgid "_Rule"
-msgstr "Linje"
+msgstr "_Linje"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2382
 #: ../components/editor/gtkhtml-editor.glade.h:76
@@ -1153,23 +1099,20 @@ msgid "_Table"
 msgstr "_Tabell"
 
 #: ../components/editor/gtkhtml-editor-private.c:253
-#, fuzzy
 msgid "Paragraph Style"
-msgstr "Avsnittstil …"
+msgstr "Avsnittstil"
 
 #: ../components/editor/gtkhtml-editor-private.c:267
 msgid "Editing Mode"
 msgstr ""
 
 #: ../components/editor/gtkhtml-editor-private.c:279
-#, fuzzy
 msgid "Font Color"
 msgstr "Tekstfarge"
 
 #: ../components/editor/gtkhtml-editor-private.c:289
-#, fuzzy
 msgid "Font Size"
-msgstr "_Skriftstorleik"
+msgstr "Skriftstorleik"
 
 #: ../components/editor/gtkhtml-editor-private.c:316
 #: ../components/html-editor/body.c:237 ../components/html-editor/text.c:171
@@ -1178,9 +1121,8 @@ msgid "Automatic"
 msgstr "Automatisk"
 
 #: ../components/editor/gtkhtml-editor.c:702
-#, fuzzy
 msgid "Current Folder"
-msgstr "Midtstill"
+msgstr "Noverande mappe"
 
 #: ../components/editor/gtkhtml-editor.c:703
 msgid "The initial folder for file chooser dialogs"
@@ -1204,14 +1146,12 @@ msgstr ""
 
 #
 #: ../components/editor/gtkhtml-editor.c:735
-#, fuzzy
 msgid "Inline Spelling"
-msgstr "Sjekk _staving …"
+msgstr "Stavekontroll undervegs"
 
 #: ../components/editor/gtkhtml-editor.c:736
-#, fuzzy
 msgid "Check your spelling as you type"
-msgstr "Køyr stavekontroll på sokumentet"
+msgstr "Kontroller stavinga medan du skriv"
 
 #: ../components/editor/gtkhtml-editor.c:746
 msgid "Magic Links"
@@ -1231,19 +1171,16 @@ msgstr ""
 
 #
 #: ../components/editor/gtkhtml-editor.glade.h:1
-#, fuzzy
 msgid "<b>Alignment &amp; Behavior</b>"
 msgstr "<b>Justering og åtferd</b>"
 
 #: ../components/editor/gtkhtml-editor.glade.h:2
-#, fuzzy
 msgid "<b>Alignment</b>"
-msgstr "Justering"
+msgstr "<b>Justering</b>"
 
 #: ../components/editor/gtkhtml-editor.glade.h:3
-#, fuzzy
 msgid "<b>Background Image</b>"
-msgstr "<b>Bakgrunn</b>"
+msgstr "<b>Bakgrunnsbilete</b>"
 
 #: ../components/editor/gtkhtml-editor.glade.h:4
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:11
@@ -1252,9 +1189,8 @@ msgstr "<b>Bakgrunn</b>"
 
 #
 #: ../components/editor/gtkhtml-editor.glade.h:5
-#, fuzzy
 msgid "<b>Colors</b>"
-msgstr "<b>Område</b>"
+msgstr "<b>Fargar</b>"
 
 #: ../components/editor/gtkhtml-editor.glade.h:6
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:12
@@ -1267,9 +1203,8 @@ msgid "<b>Layout</b>"
 msgstr "<b>Utforming</b>"
 
 #: ../components/editor/gtkhtml-editor.glade.h:8
-#, fuzzy
 msgid "<b>Link</b>"
-msgstr "<b>Utforming</b>"
+msgstr "<b>Lenkje</b>"
 
 #
 #: ../components/editor/gtkhtml-editor.glade.h:9
@@ -1279,15 +1214,13 @@ msgstr "<b>Område</b>"
 
 #
 #: ../components/editor/gtkhtml-editor.glade.h:10
-#, fuzzy
 msgid "<b>Size</b>"
-msgstr "<b>Område</b>"
+msgstr "<b>Storleik</b>"
 
 #
 #: ../components/editor/gtkhtml-editor.glade.h:11
-#, fuzzy
 msgid "<b>Style</b>"
-msgstr "<b>Område</b>"
+msgstr "<b>Stil</b>"
 
 #: ../components/editor/gtkhtml-editor.glade.h:12
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:23
@@ -1301,7 +1234,6 @@ msgstr "F_arge:"
 
 #
 #: ../components/editor/gtkhtml-editor.glade.h:14
-#, fuzzy
 msgid "C_olumns:"
 msgstr "Kolo_nner:"
 
@@ -1318,12 +1250,10 @@ msgid "Case _sensitive"
 msgstr "_Skil mellom små og store bokstavar"
 
 #: ../components/editor/gtkhtml-editor.glade.h:17
-#, fuzzy
 msgid "Cell Properties"
-msgstr "Eigenskapar"
+msgstr "Celleeigenskapar"
 
 #: ../components/editor/gtkhtml-editor.glade.h:18
-#, fuzzy
 msgid "Co_lor:"
 msgstr "F_arge:"
 
@@ -1333,9 +1263,8 @@ msgid "Col_umn"
 msgstr "Kol_onne"
 
 #: ../components/editor/gtkhtml-editor.glade.h:20
-#, fuzzy
 msgid "Column Span:"
-msgstr "Kolonnebreidde:"
+msgstr "Kolonnespenn:"
 
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: ../components/editor/gtkhtml-editor.glade.h:21
@@ -1347,9 +1276,8 @@ msgid "Find"
 msgstr "Søk etter"
 
 #: ../components/editor/gtkhtml-editor.glade.h:22
-#, fuzzy
 msgid "Hea_der Style"
-msgstr "_Stil på tittel"
+msgstr "Stil på toppte_kst"
 
 #: ../components/editor/gtkhtml-editor.glade.h:23
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:34
@@ -1357,9 +1285,8 @@ msgid "I_mage:"
 msgstr "Bi_lete:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:24
-#, fuzzy
 msgid "Image Properties"
-msgstr "Eigenskapar"
+msgstr "Bileteeigenskapar"
 
 #
 #: ../components/editor/gtkhtml-editor.glade.h:25
@@ -1374,7 +1301,6 @@ msgstr ""
 "Høgre"
 
 #: ../components/editor/gtkhtml-editor.glade.h:28
-#, fuzzy
 msgid "Link Properties"
 msgstr "Lenkjeeigenskapar"
 
@@ -1392,14 +1318,12 @@ msgid ""
 msgstr ""
 
 #: ../components/editor/gtkhtml-editor.glade.h:38
-#, fuzzy
 msgid "Page Properties"
-msgstr "Eigenskapar"
+msgstr "Sideeigenskapar"
 
 #: ../components/editor/gtkhtml-editor.glade.h:39
-#, fuzzy
 msgid "Paragraph Properties"
-msgstr "Eigenskapar"
+msgstr "Avsnitteigenskapar"
 
 #
 #: ../components/editor/gtkhtml-editor.glade.h:40
@@ -1417,35 +1341,29 @@ msgid "Replace"
 msgstr "Byt ut"
 
 #: ../components/editor/gtkhtml-editor.glade.h:42
-#, fuzzy
 msgid "Replace Confirmation"
 msgstr "Stadfest byte"
 
 #: ../components/editor/gtkhtml-editor.glade.h:43
-#, fuzzy
 msgid "Row Span:"
-msgstr "Radbreidde:"
+msgstr "Radspenn:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:44
-#, fuzzy
 msgid "Rule Properties"
-msgstr "Eigenskapar"
+msgstr "Linjeeigenskapar"
 
 #
 #: ../components/editor/gtkhtml-editor.glade.h:45
-#, fuzzy
 msgid "S_haded"
-msgstr "Skuggelegg"
+msgstr "S_kuggelagt"
 
 #: ../components/editor/gtkhtml-editor.glade.h:46
-#, fuzzy
 msgid "Search _backwards"
 msgstr "Søk _bakover"
 
 #: ../components/editor/gtkhtml-editor.glade.h:47
-#, fuzzy
 msgid "Select An Image"
-msgstr "Vel _alt"
+msgstr "Vel eit bilete"
 
 #: ../components/editor/gtkhtml-editor.glade.h:48
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:48
@@ -1458,14 +1376,12 @@ msgid "T_emplate:"
 msgstr "M_al:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:50
-#, fuzzy
 msgid "Table Properties"
-msgstr "Eigenskapar"
+msgstr "Tabelleigenskapar"
 
 #: ../components/editor/gtkhtml-editor.glade.h:51
-#, fuzzy
 msgid "Text Properties"
-msgstr "Eigenskapar"
+msgstr "Teksteigenskapar"
 
 #
 #: ../components/editor/gtkhtml-editor.glade.h:52
@@ -1516,9 +1432,8 @@ msgid "_Height:"
 msgstr "_Høgd:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:63
-#, fuzzy
 msgid "_Horizontal:"
-msgstr "Vassrett:"
+msgstr "_Vassrett:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:64
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:64
@@ -1536,7 +1451,6 @@ msgid "_Padding:"
 msgstr "_Fyll:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:68
-#, fuzzy
 msgid "_Regular expression"
 msgstr "_Regulært uttrykk"
 
@@ -1552,9 +1466,8 @@ msgstr "_Rader:"
 
 #
 #: ../components/editor/gtkhtml-editor.glade.h:71
-#, fuzzy
 msgid "_Size:"
-msgstr "Storleik:"
+msgstr "_Storleik:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:72
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:69
@@ -1582,9 +1495,8 @@ msgid "_URL:"
 msgstr "_URL:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:81
-#, fuzzy
 msgid "_Vertical:"
-msgstr "Loddrett:"
+msgstr "_Loddrett:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:82
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:75
@@ -1641,9 +1553,8 @@ msgstr ""
 
 #
 #: ../components/editor/gtkhtml-spell-checker.c:200
-#, fuzzy
 msgid "Language"
-msgstr "Tilgjengelege _språk"
+msgstr "Språk"
 
 #: ../components/editor/gtkhtml-spell-checker.c:201
 msgid "The language used by the spell checker"
@@ -1655,23 +1566,19 @@ msgid "Suggestions for \"%s\""
 msgstr ""
 
 #: ../components/editor/gtkhtml-spell-dialog.c:358
-#, fuzzy
 msgid "Misspelled Word"
-msgstr "Oversjå feilstava ord"
+msgstr "Feilstava ord"
 
 #: ../components/editor/gtkhtml-spell-dialog.c:359
-#, fuzzy
 msgid "The current misspelled word"
-msgstr "Oversjå feilstava ord"
+msgstr "Det noverande feilstava ordet"
 
 #: ../components/editor/gtkhtml-spell-dialog.c:449
-#, fuzzy
 msgid "Spell Checker"
 msgstr "Stavekontroll"
 
 #. Replace All Button
 #: ../components/editor/gtkhtml-spell-dialog.c:536
-#, fuzzy
 msgid "R_eplace All"
 msgstr "Byt ut _alle"
 
@@ -1687,86 +1594,73 @@ msgstr ""
 
 #. Back Button
 #: ../components/editor/gtkhtml-spell-dialog.c:577
-#, fuzzy
 msgid "_Back"
 msgstr "_Bakover"
 
 #. Dictionary Label
 #: ../components/editor/gtkhtml-spell-dialog.c:590
-#, fuzzy
 msgid "Dictionary"
-msgstr "ordlista %s"
+msgstr "ordlista"
 
 #. Add Word Button
 #: ../components/editor/gtkhtml-spell-dialog.c:619
-#, fuzzy
 msgid "_Add Word"
-msgstr "Legg til ord i"
+msgstr "_Legg til ord"
 
 #: ../components/editor/main.c:93
 msgid "Save As"
 msgstr ""
 
 #: ../components/editor/main.c:111
-#, fuzzy
 msgid "Untitled document"
-msgstr "Set inn tabell i dokumentet …"
+msgstr "Namnlaust dokument"
 
 #: ../components/editor/main.c:268
 msgid "HTML Output"
 msgstr ""
 
 #: ../components/editor/main.c:275
-#, fuzzy
 msgid "HTML Source"
-msgstr "_Kjelde:"
+msgstr "HTML-kjeldekode"
 
 #
 #: ../components/editor/main.c:282
-#, fuzzy
 msgid "Plain Source"
-msgstr "_Vanleg tekst"
+msgstr "Rein kjeldetekst"
 
 #: ../components/editor/main.c:289
-#, fuzzy
 msgid "_Print..."
-msgstr "_Finn …"
+msgstr "_Skriv ut …"
 
 #: ../components/editor/main.c:296
-#, fuzzy
 msgid "Print Pre_view"
-msgstr "Førehands_vising av utskrift"
+msgstr "Førehands_vis utskrift"
 
 #: ../components/editor/main.c:303
-#, fuzzy
 msgid "_Quit"
-msgstr "R_ediger"
+msgstr "A_vslutt"
 
 #
 #: ../components/editor/main.c:310
-#, fuzzy
 msgid "_Save"
-msgstr "Skuggelegg"
+msgstr "_Lagra"
 
 #: ../components/editor/main.c:317
-#, fuzzy
 msgid "Save _As..."
-msgstr "Lagra fil som …"
+msgstr "L_agra som …"
 
 #: ../components/editor/main.c:334
 msgid "HTML _Output"
 msgstr ""
 
 #: ../components/editor/main.c:341
-#, fuzzy
 msgid "_HTML Source"
-msgstr "_Kjelde:"
+msgstr "_HTML-kjeldekode"
 
 #
 #: ../components/editor/main.c:348
-#, fuzzy
 msgid "_Plain Source"
-msgstr "_Vanleg tekst"
+msgstr "_Rein kjeldetekst"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:9
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:9
@@ -1789,7 +1683,7 @@ msgstr "Sentrerar avsnittet"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:13
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:13
 msgid "Check spelling of the document"
-msgstr "Køyr stavekontroll på sokumentet"
+msgstr "Køyr stavekontroll på dokumentet"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:14
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:14
@@ -2954,10 +2848,3 @@ msgstr "Førehandsvising av utskrift"
 #: ../gtkhtml/testgtkhtml.c:1019
 msgid "GtkHTML Test Application"
 msgstr "Test-program for GtkHTML"
-
-#
-#~ msgid "Make the current Paragraph style Preformatted"
-#~ msgstr "Bruk førehandsformattert stil for dette avsnittet"
-
-#~ msgid "Preformatted"
-#~ msgstr "Preformatert"
