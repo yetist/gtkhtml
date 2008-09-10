@@ -1,3 +1,15 @@
+GtkHTML-3.23.92 2008-09-08
+--------------------------
+
+Bug Fixes:
+	#516680: Remember focus object same as in other functions (Milan Crha)
+
+Updated Translations:
+	Philip Withnall (en_GB)
+	Rodrigo Marques Flores (pt_BR)
+	Sweta Kothari (gu)
+	Daniel Nylander (sv)
+
 GtkHTML-3.23.91 2008-09-01
 --------------------------
 
