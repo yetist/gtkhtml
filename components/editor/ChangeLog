@@ -1,3 +1,10 @@
+2008-09-10  Matthew Barnes  <mbarnes@redhat.com>
+
+	** Fixes bug #549232
+
+	* gtkhtml-color-combo.c (color_combo_class_init):
+	Add a translator comment for the "popup-shown" property nickname.
+
 2008-09-01  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
 	** Fix for bug #549235
