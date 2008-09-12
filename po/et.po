@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: gtkhtml HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-09-01 04:13+0000\n"
-"PO-Revision-Date: 2008-09-01 19:10+0300\n"
+"PO-Revision-Date: 2008-09-12 16:12+0300\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -302,11 +302,11 @@ msgstr "Kohandatud värvipalett"
 
 #: ../components/editor/gtkhtml-color-combo.c:735
 msgid "Popup shown"
-msgstr ""
+msgstr "Valiku lahtihüppamine"
 
 #: ../components/editor/gtkhtml-color-combo.c:736
 msgid "Whether the combo's dropdown is shown"
-msgstr ""
+msgstr "Kas lahtihüppavat valikut näidatakse või mitte"
 
 #: ../components/editor/gtkhtml-color-combo.c:745
 msgid "Color state"
@@ -439,11 +439,11 @@ msgstr "Nu_ttev"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1367
 msgid "_Devilish"
-msgstr ""
+msgstr "_Saatanlik"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1374
 msgid "_Embarrassed"
-msgstr ""
+msgstr "_Kimbatuses"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1381
 msgid "_Kiss"
@@ -676,7 +676,7 @@ msgstr "Lihtteksti redigeerimisrežiim"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:126
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
 msgid "_Normal"
-msgstr "_Keskmine"
+msgstr "T_avaline"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1665
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:29
@@ -1023,7 +1023,7 @@ msgstr "Kirjaveaga sõna eiramine"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2149
 msgid "Add Word To"
-msgstr ""
+msgstr "Lisa sõna"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2367
 msgid "_Find"
@@ -2736,12 +2736,3 @@ msgstr "Printimise eelvaade"
 #: ../gtkhtml/testgtkhtml.c:1018
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML-i testrakendus"
-
-#~ msgid "language|Default"
-#~ msgstr "Vaikimisi"
-
-#~ msgid "Make the current Paragraph style Preformatted"
-#~ msgstr "Eelvormindatud laadi määramine käesoleva lõigu laadiks"
-
-#~ msgid "Preformatted"
-#~ msgstr "Eelvormindatud"
