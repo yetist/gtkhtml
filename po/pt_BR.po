@@ -776,11 +776,11 @@ msgstr "Inserir link"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:136
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
 msgid "_Rule..."
-msgstr "_Régua..."
+msgstr "_Linha..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1774
 msgid "Insert Rule"
-msgstr "Insere régua"
+msgstr "Inserir Linha"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1779
 #: ../components/editor/gtkhtml-editor-actions.c:1821
@@ -999,7 +999,7 @@ msgstr "Parágrafo..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:2097
 msgid "Rule..."
-msgstr "Régua..."
+msgstr "Linha..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:2104
 msgid "Table..."
@@ -1046,7 +1046,7 @@ msgstr "_Link"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2379
 msgid "_Rule"
-msgstr "_Régua"
+msgstr "Li_nha"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2382
 #: ../components/editor/gtkhtml-editor.glade.h:76
@@ -1306,7 +1306,7 @@ msgstr "Intervalo de linhas:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:44
 msgid "Rule Properties"
-msgstr "Propriedades da régua"
+msgstr "Propriedades da linha"
 
 #: ../components/editor/gtkhtml-editor.glade.h:45
 msgid "S_haded"
@@ -1808,22 +1808,22 @@ msgstr "Insere imagem no documento..."
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:53
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:53
 msgid "Insert link"
-msgstr "Insere link"
+msgstr "Inserir link"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:54
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
 msgid "Insert rule"
-msgstr "Insere régua"
+msgstr "Inserir linha"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
 msgid "Insert rule into document..."
-msgstr "Insere régua no documento..."
+msgstr "Insere linha no documento..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:56
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
 msgid "Insert table"
-msgstr "Insere tabela"
+msgstr "Inserir tabela"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:57
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
@@ -1990,7 +1990,7 @@ msgstr "Lista com números romanos"
 #: ../components/html-editor/menubar.c:193
 #: ../components/html-editor/popup.c:229
 msgid "Rule"
-msgstr "Régua"
+msgstr "Linha"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:93
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
@@ -2451,7 +2451,7 @@ msgstr "Estilo do link..."
 
 #: ../components/html-editor/popup.c:479
 msgid "Rule Style..."
-msgstr "Estilo da régua..."
+msgstr "Estilo da linha..."
 
 #: ../components/html-editor/popup.c:483
 msgid "Image Style..."
