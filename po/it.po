@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-09-09 21:14+0000\n"
-"PO-Revision-Date: 2008-09-12 20:54+0200\n"
+"PO-Revision-Date: 2008-09-14 16:00+0200\n"
 "Last-Translator: Milo Casagrande <milo@ubuntu.com>\n"
 "Language-Team: Italiano <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
@@ -32,7 +32,7 @@ msgstr "prendi il focus"
 
 #: ../a11y/object.c:259
 msgid "Panel containing HTML"
-msgstr "Pannello che contiene HTML"
+msgstr "Riquadro che contiene HTML"
 
 #: ../components/editor/gtkhtml-color-combo.c:78
 #: ../components/html-editor/gi-color-palette.c:555
@@ -1164,7 +1164,7 @@ msgstr "Modifica HTML o testo semplice"
 # GNOME 2.24
 #: ../components/editor/gtkhtml-editor.c:735
 msgid "Inline Spelling"
-msgstr "Controllo ortografico"
+msgstr "Controllo ortografico incorporato"
 
 # GNOME 2.24
 #: ../components/editor/gtkhtml-editor.c:736
@@ -1189,7 +1189,7 @@ msgstr "Faccine magiche"
 # GNOME 2.24
 #: ../components/editor/gtkhtml-editor.c:758
 msgid "Convert emoticons to images as you type"
-msgstr "Converte gli emoticon in immagini mentre si digita"
+msgstr "Converte le faccine in immagini mentre si digita"
 
 # GNOME 2.24
 #: ../components/editor/gtkhtml-editor.glade.h:1
@@ -1224,7 +1224,7 @@ msgstr "<b>Generale</b>"
 #: ../components/editor/gtkhtml-editor.glade.h:7
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:13
 msgid "<b>Layout</b>"
-msgstr "<b>Disposizione</b>"
+msgstr "<b>Impaginazione</b>"
 
 # GNOME 2.24
 #: ../components/editor/gtkhtml-editor.glade.h:8
@@ -2831,7 +2831,7 @@ msgstr "Invia richiesta"
 
 #: ../gtkhtml/htmlbutton.c:142
 msgid "Reset"
-msgstr "Reimposta"
+msgstr "Azzera"
 
 #. TODO2 dialog instead of warning
 #: ../gtkhtml/htmlengine-print.c:231 ../gtkhtml/htmlengine-print.c:310
@@ -2853,48 +2853,3 @@ msgstr "Anteprima di stampa"
 #: ../gtkhtml/testgtkhtml.c:1019
 msgid "GtkHTML Test Application"
 msgstr "Applicazione test GtkHTML"
-
-# GNOME 2.24
-#, fuzzy
-#~ msgid "language|Default"
-#~ msgstr "Predefinita"
-
-#~ msgid "Make the current Paragraph style Preformatted"
-#~ msgstr "Rende «Preformattato» lo stile del paragrafo corrente"
-
-#~ msgid "Preformatted"
-#~ msgstr "Preformattato"
-
-#~ msgid "Cannot allocate default font for printing\n"
-#~ msgstr "Impossibile allocare il carattere predefinito per la stampa\n"
-
-#~ msgid "Find Rege_x..."
-#~ msgstr "Trova rege_x..."
-
-#~ msgid "Modify the file's properties"
-#~ msgstr "Modifica le proprietà del file"
-
-#~ msgid "Regular expression search"
-#~ msgstr "Ricerca espressione regolare"
-
-#~ msgid "Replace a string"
-#~ msgstr "Sostituisce una stringa"
-
-#~ msgid "Search again for the same string"
-#~ msgstr "Cerca nuovamente la stessa stringa"
-
-#~ msgid "Search for a string"
-#~ msgstr "Cerca una stringa"
-
-# come sopra
-#~ msgid "_Insert text file... (FIXME)"
-#~ msgstr "_Inserisci file di testo... (FIXME)"
-
-#~ msgid "_Paste Quotation"
-#~ msgstr "Incolla cita_zione"
-
-#~ msgid "_Properties..."
-#~ msgstr "_Proprietà..."
-
-#~ msgid "Paste Quotation"
-#~ msgstr "Incolla citazione"
