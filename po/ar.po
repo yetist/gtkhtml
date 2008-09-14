@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.HEAD.ar\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-06 09:20+0100\n"
+"POT-Creation-Date: 2008-09-14 11:09+0100\n"
 "PO-Revision-Date: 2008-07-20 23:37-0000\n"
 "Last-Translator: Youssef Chahibi <chahibi@gmail.com>\n"
 "Language-Team: Arabic <doc@arabeyes.org>\n"
@@ -295,29 +295,35 @@ msgstr "لوحة الألوان"
 msgid "Custom color palette"
 msgstr "لوحة ألوان مخصصة"
 
-#: ../components/editor/gtkhtml-color-combo.c:735
+#. Translators: This is the nickname for a
+#. * GtkhtmlColorCombo property named "popup-shown",
+#. * based on a similar property in GtkComboBox.
+#: ../components/editor/gtkhtml-color-combo.c:738
 msgid "Popup shown"
 msgstr "عُرضت النافذة المنبثقة"
 
-#: ../components/editor/gtkhtml-color-combo.c:736
+#. Translators: This is the blurb for a
+#. * GtkhtmlColorCombo property named "popup-shown",
+#. * based on a similar property in GtkComboBox.
+#: ../components/editor/gtkhtml-color-combo.c:742
 msgid "Whether the combo's dropdown is shown"
 msgstr "عرض اللائحة المنسدلة"
 
-#: ../components/editor/gtkhtml-color-combo.c:745
+#: ../components/editor/gtkhtml-color-combo.c:751
 msgid "Color state"
 msgstr "حالة اللون"
 
-#: ../components/editor/gtkhtml-color-combo.c:746
+#: ../components/editor/gtkhtml-color-combo.c:752
 msgid "State of the color combo"
 msgstr "حالة لائحة الألوان المنسدلة"
 
 #. This is the default custom color
-#: ../components/editor/gtkhtml-color-combo.c:928
+#: ../components/editor/gtkhtml-color-combo.c:934
 #: ../components/html-editor/gi-color-palette.c:374
 msgid "custom"
 msgstr "مخصص"
 
-#: ../components/editor/gtkhtml-color-combo.c:936
+#: ../components/editor/gtkhtml-color-combo.c:942
 msgid "Custom Color..."
 msgstr "لون مخصص..."
 
@@ -947,7 +953,7 @@ msgid "Table Delete"
 msgstr "احذف الجدول"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1988
-#: ../components/html-editor/popup.c:583
+#: ../components/html-editor/popup.c:584
 msgid "Input Methods"
 msgstr "طرق الإدخال"
 
@@ -1020,7 +1026,7 @@ msgid "Remove Link"
 msgstr "احذف وصلة"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2135
-#: ../components/html-editor/popup.c:577
+#: ../components/html-editor/popup.c:578
 msgid "Add Word to Dictionary"
 msgstr "إضافة كلمة إلى المعجم"
 
@@ -1564,26 +1570,6 @@ msgstr "القاموس"
 msgid "_Add Word"
 msgstr "_أضف كلمة"
 
-#: ../components/editor/gtkhtml-spell-language.c:182
-#, c-format
-msgid "language|Unknown (%s)"
-msgstr "اللغة|غير معروفة (%s)"
-
-#: ../components/editor/gtkhtml-spell-language.c:200
-#: ../components/editor/gtkhtml-spell-language.c:208
-#, c-format
-msgid "language|%s (%s)"
-msgstr "اللغة|%s (%s)"
-
-#. Translators: The text before the "|" is context to help
-#. * you decide on the correct translation. You MUST OMIT IT
-#. * in the translated string.
-#. * Translators: This refers to the default language used
-#. * by the spell checker.
-#: ../components/editor/gtkhtml-spell-language.c:396
-msgid "language|Default"
-msgstr "اللغة|الافتراضية"
-
 #: ../components/editor/main.c:93
 msgid "Save As"
 msgstr "احفظ ك‍"
@@ -1858,6 +1844,7 @@ msgid "Make the current Paragraph style Normal"
 msgstr "اجعل نمط الفقرة الحالية عادياَ"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:62
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
 msgid "Make the current Paragraph style Preformat"
 msgstr "اجعل نمط الفقرة الحالية مسبق التشكيل"
 
@@ -1954,6 +1941,7 @@ msgid "Paste the clipboard as a quotation"
 msgstr "لصق نص من الحافظة كاقتباس"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:83
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
 #: ../components/html-editor/paragraph-style.c:44
 msgid "Preformat"
 msgstr "نسق مسبق"
@@ -2111,14 +2099,6 @@ msgstr "تحكم محرر HTML لجينوم"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:3
 msgid "GNOME HTML Editor Factory"
 msgstr "مصنع محرر HTML لجينوم"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
-msgid "Make the current Paragraph style Preformatted"
-msgstr "اجعل نمط الفقرة الحالية مسبق التشكيل"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
-msgid "Preformatted"
-msgstr "مسبق التشكيل"
 
 #: ../components/html-editor/body.c:64
 msgid "None"
@@ -2510,7 +2490,8 @@ msgstr "محتويات الخلية"
 msgid "Add Word to"
 msgstr "اضف الكلمة ل"
 
-#: ../components/html-editor/popup.c:568
+#. Translators: %s is the language name.
+#: ../components/html-editor/popup.c:569
 #, c-format
 msgid "%s Dictionary"
 msgstr "%s معجم"
@@ -2746,9 +2727,24 @@ msgstr "معاينة الط_باعة"
 msgid "Print preview"
 msgstr "معاينة الطباعة"
 
-#: ../gtkhtml/testgtkhtml.c:1018
+#: ../gtkhtml/testgtkhtml.c:1019
 msgid "GtkHTML Test Application"
 msgstr "تطبيق تجريبي ل GtkHTML"
+
+#~ msgid "language|Unknown (%s)"
+#~ msgstr "اللغة|غير معروفة (%s)"
+
+#~ msgid "language|%s (%s)"
+#~ msgstr "اللغة|%s (%s)"
+
+#~ msgid "language|Default"
+#~ msgstr "اللغة|الافتراضية"
+
+#~ msgid "Make the current Paragraph style Preformatted"
+#~ msgstr "اجعل نمط الفقرة الحالية مسبق التشكيل"
+
+#~ msgid "Preformatted"
+#~ msgstr "مسبق التشكيل"
 
 #, fuzzy
 #~ msgid "_Format"
