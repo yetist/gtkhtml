@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-09 22:39+0200\n"
-"PO-Revision-Date: 2008-09-09 22:39+0200\n"
+"POT-Creation-Date: 2008-09-09 21:14+0000\n"
+"PO-Revision-Date: 2008-09-12 20:54+0200\n"
 "Last-Translator: Milo Casagrande <milo@ubuntu.com>\n"
 "Language-Team: Italiano <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
@@ -1654,6 +1654,32 @@ msgid "_Add Word"
 msgstr "A_ggiungi parola"
 
 # GNOME 2.24
+#. Translators: %s is the language ISO code.
+#: ../components/editor/gtkhtml-spell-language.c:180
+#, c-format
+msgctxt "language"
+msgid "Unknown (%s)"
+msgstr "Sconosciuta (%s)"
+
+# GNOME 2.24
+#. Translators: The first %s is the language name, and the
+#. * second is the country name. Example: "French (France)"
+#: ../components/editor/gtkhtml-spell-language.c:195
+#: ../components/editor/gtkhtml-spell-language.c:200
+#, c-format
+msgctxt "language"
+msgid "%s (%s)"
+msgstr "%s (%s)"
+
+# GNOME 2.24
+#. Translators: This refers to the default language used
+#. * by the spell checker.
+#: ../components/editor/gtkhtml-spell-language.c:385
+msgctxt "language"
+msgid "Default"
+msgstr "Predefinita"
+
+# GNOME 2.24
 #: ../components/editor/main.c:93
 msgid "Save As"
 msgstr "Salva come"
@@ -2827,16 +2853,6 @@ msgstr "Anteprima di stampa"
 #: ../gtkhtml/testgtkhtml.c:1019
 msgid "GtkHTML Test Application"
 msgstr "Applicazione test GtkHTML"
-
-# GNOME 2.24
-#, fuzzy
-#~ msgid "language|Unknown (%s)"
-#~ msgstr "Sconosciuta (%s)"
-
-# GNOME 2.24
-#, fuzzy
-#~ msgid "language|%s (%s)"
-#~ msgstr "%s (%s)"
 
 # GNOME 2.24
 #, fuzzy
