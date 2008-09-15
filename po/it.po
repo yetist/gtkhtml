@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-09 21:14+0000\n"
-"PO-Revision-Date: 2008-09-14 16:00+0200\n"
+"POT-Creation-Date: 2008-09-15 09:46+0000\n"
+"PO-Revision-Date: 2008-09-15 22:20+0200\n"
 "Last-Translator: Milo Casagrande <milo@ubuntu.com>\n"
-"Language-Team: Italiano <tp@lists.linux.it>\n"
+"Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -89,7 +89,7 @@ msgstr "rosso arancio"
 #: ../components/editor/gtkhtml-color-combo.c:89
 #: ../components/html-editor/gi-color-palette.c:567
 msgid "gold"
-msgstr "dorato"
+msgstr "oro"
 
 #: ../components/editor/gtkhtml-color-combo.c:90
 #: ../components/html-editor/gi-color-palette.c:568
@@ -131,7 +131,7 @@ msgstr "arancione"
 #: ../components/editor/gtkhtml-color-combo.c:98
 #: ../components/html-editor/gi-color-palette.c:577
 msgid "lime"
-msgstr "limone"
+msgstr "lime"
 
 #: ../components/editor/gtkhtml-color-combo.c:99
 #: ../components/html-editor/gi-color-palette.c:578
@@ -303,37 +303,43 @@ msgstr "Tavolozza colore"
 msgid "Custom color palette"
 msgstr "Tavolozza colore personalizzata"
 
-#: ../components/editor/gtkhtml-color-combo.c:735
+#. Translators: This is the nickname for a
+#. * GtkhtmlColorCombo property named "popup-shown",
+#. * based on a similar property in GtkComboBox.
+#: ../components/editor/gtkhtml-color-combo.c:738
 msgid "Popup shown"
 msgstr "Mostra pop-up"
 
 # GNOME 2.24
 #
 # FIXME
-#: ../components/editor/gtkhtml-color-combo.c:736
+#. Translators: This is the blurb for a
+#. * GtkhtmlColorCombo property named "popup-shown",
+#. * based on a similar property in GtkComboBox.
+#: ../components/editor/gtkhtml-color-combo.c:742
 msgid "Whether the combo's dropdown is shown"
 msgstr "Indica se il pulsante combinato viene mostrato"
 
 # GNOME 2.24
-#: ../components/editor/gtkhtml-color-combo.c:745
+#: ../components/editor/gtkhtml-color-combo.c:751
 msgid "Color state"
 msgstr "Stato colore"
 
 # GNOME 2.24
 #
 # FIXME
-#: ../components/editor/gtkhtml-color-combo.c:746
+#: ../components/editor/gtkhtml-color-combo.c:752
 msgid "State of the color combo"
 msgstr "Stato del colore combinato"
 
 #. This is the default custom color
-#: ../components/editor/gtkhtml-color-combo.c:928
+#: ../components/editor/gtkhtml-color-combo.c:934
 #: ../components/html-editor/gi-color-palette.c:374
 msgid "custom"
 msgstr "personalizzato"
 
 # GNOME 2.24
-#: ../components/editor/gtkhtml-color-combo.c:936
+#: ../components/editor/gtkhtml-color-combo.c:942
 msgid "Custom Color..."
 msgstr "Colore personalizzato..."
 
@@ -450,6 +456,8 @@ msgstr "Aumenta rientro"
 msgid "_HTML File..."
 msgstr "File _HTML..."
 
+# (ndt) e metterle tutte al femminile? alla fine sono le 'faccine'...
+#
 # GNOME 2.24
 #: ../components/editor/gtkhtml-editor-actions.c:1346
 msgid "_Angel"
@@ -541,7 +549,7 @@ msgstr "_Indeciso"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:91
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
 msgid "S_ick"
-msgstr "Ammala_ta"
+msgstr "Ammala_to"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1465
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:100
@@ -814,7 +822,7 @@ msgstr "Co_llegamento..."
 # GNOME 2.24
 #: ../components/editor/gtkhtml-editor-actions.c:1767
 msgid "Insert Link"
-msgstr "Inserisci collegamento"
+msgstr "Inserisce un collegamento"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1772
 #: ../components/editor/gtkhtml-editor-actions.c:1814
@@ -1486,7 +1494,7 @@ msgstr "C_ollegamento:"
 #: ../components/editor/gtkhtml-editor.glade.h:67
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:66
 msgid "_Padding:"
-msgstr "_Margine:"
+msgstr "_Riempimento:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:68
 msgid "_Regular expression"
@@ -2408,7 +2416,7 @@ msgstr "Colo_nne:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:29
 msgid "Column span:"
-msgstr "Spaziatura colonna:"
+msgstr "Estensione colonna:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:30
 msgid "Enable"
@@ -2743,85 +2751,85 @@ msgstr ""
 "L'oggetto modificato è stato rimosso dal documento.\n"
 "Impossibile applicare le modifiche."
 
-#: ../gtkhtml/gtkhtml.c:2927
+#: ../gtkhtml/gtkhtml.c:2942
 msgid "Editable"
 msgstr "Modificabile"
 
-#: ../gtkhtml/gtkhtml.c:2928
+#: ../gtkhtml/gtkhtml.c:2943
 msgid "Whether the html can be edited"
 msgstr "Indica se l'html può essere modificato"
 
-#: ../gtkhtml/gtkhtml.c:2934
+#: ../gtkhtml/gtkhtml.c:2949
 msgid "Document Title"
 msgstr "Titolo del documento"
 
-#: ../gtkhtml/gtkhtml.c:2935
+#: ../gtkhtml/gtkhtml.c:2950
 msgid "The title of the current document"
 msgstr "Il titolo del documento corrente"
 
-#: ../gtkhtml/gtkhtml.c:2941
+#: ../gtkhtml/gtkhtml.c:2956
 msgid "Document Base"
 msgstr "Documento base"
 
-#: ../gtkhtml/gtkhtml.c:2942
+#: ../gtkhtml/gtkhtml.c:2957
 msgid "The base URL for relative references"
 msgstr "L'URL di base per riferimenti relativi"
 
-#: ../gtkhtml/gtkhtml.c:2948
+#: ../gtkhtml/gtkhtml.c:2963
 msgid "Target Base"
 msgstr "Destinazione base"
 
-#: ../gtkhtml/gtkhtml.c:2949
+#: ../gtkhtml/gtkhtml.c:2964
 msgid "The base URL of the target frame"
 msgstr "L'URL di base della cornice destinazione"
 
-#: ../gtkhtml/gtkhtml.c:2958
+#: ../gtkhtml/gtkhtml.c:2973
 msgid "Fixed Width Font"
 msgstr "Carattere a larghezza fissa"
 
-#: ../gtkhtml/gtkhtml.c:2959
+#: ../gtkhtml/gtkhtml.c:2974
 msgid "The Monospace font to use for typewriter text"
 msgstr ""
 "Il tipo di carattere a spaziatura fissa da usare nel testo tipo macchina da "
 "scrivere"
 
-#: ../gtkhtml/gtkhtml.c:2965
+#: ../gtkhtml/gtkhtml.c:2980
 msgid "New Link Color"
 msgstr "Colore collegamento nuovo"
 
-#: ../gtkhtml/gtkhtml.c:2966
+#: ../gtkhtml/gtkhtml.c:2981
 msgid "The color of new link elements"
 msgstr "Il colore di un elemento collegamento nuovo"
 
-#: ../gtkhtml/gtkhtml.c:2971
+#: ../gtkhtml/gtkhtml.c:2986
 msgid "Visited Link Color"
 msgstr "Colore collegamento visitato"
 
-#: ../gtkhtml/gtkhtml.c:2972
+#: ../gtkhtml/gtkhtml.c:2987
 msgid "The color of visited link elements"
 msgstr "Il colore di un elemento collegamento visitato"
 
-#: ../gtkhtml/gtkhtml.c:2977
+#: ../gtkhtml/gtkhtml.c:2992
 msgid "Active Link Color"
 msgstr "Colore collegamento attivo"
 
-#: ../gtkhtml/gtkhtml.c:2978
+#: ../gtkhtml/gtkhtml.c:2993
 msgid "The color of active link elements"
 msgstr "Il colore di un elemento collegamento attivo"
 
-#: ../gtkhtml/gtkhtml.c:2983
+#: ../gtkhtml/gtkhtml.c:2998
 msgid "Spelling Error Color"
 msgstr "Colore errore ortografico"
 
-#: ../gtkhtml/gtkhtml.c:2984
+#: ../gtkhtml/gtkhtml.c:2999
 msgid "The color of the spelling error markers"
 msgstr "Il colore per contraddistinguere un errore ortografico"
 
-#: ../gtkhtml/gtkhtml.c:2989
+#: ../gtkhtml/gtkhtml.c:3004
 msgid "Cite Quotation Color"
 msgstr "Colore citazione"
 
-#: ../gtkhtml/gtkhtml.c:2990
+#: ../gtkhtml/gtkhtml.c:3005
 msgid "The color of the cited text"
 msgstr "Il colore del testo citato"
 
