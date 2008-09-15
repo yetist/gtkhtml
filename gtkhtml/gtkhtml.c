@@ -1997,6 +1997,31 @@ gtk_html_keymap_direction_changed (GdkKeymap *keymap, GtkHTML *html)
 	}
 }
 
+static gboolean
+goto_caret_anchor (GtkHTML *html)
+{
+	int x = 0, y = 0;
+
+	g_return_val_if_fail (html != NULL, FALSE);
+	g_return_val_if_fail (GTK_IS_HTML (html), FALSE);
+
+	if (html->priv->caret_first_focus_anchor && html_object_find_anchor (html->engine->clue, html->priv->caret_first_focus_anchor, &x, &y)) {
+		GtkAdjustment *vadj;
+
+		html_engine_jump_at (html->engine, x, y);
+
+		vadj = GTK_LAYOUT (html->engine->widget)->vadjustment;
+
+		/* scroll to the position on screen if not visible */
+		if (y < vadj->value || y > vadj->value + vadj->page_size)
+			gtk_adjustment_set_value (vadj, y);
+
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
 static gint
 focus_in_event (GtkWidget *widget,
 		GdkEventFocus *event)
@@ -2006,6 +2031,8 @@ focus_in_event (GtkWidget *widget,
 	/* printf ("focus in\n"); */
 	if (!html->iframe_parent) {
 		GTK_WIDGET_SET_FLAGS (widget, GTK_HAS_FOCUS);
+		if (html->engine->cursor && html->engine->cursor->position == 0 && html->engine->caret_mode)
+			goto_caret_anchor (html);
 		html_engine_set_focus (html->engine, TRUE);
 	} else {
 		GtkWidget *window = gtk_widget_get_ancestor (widget, gtk_window_get_type ());
@@ -2266,7 +2293,6 @@ static gboolean
 focus (GtkWidget *w, GtkDirectionType direction)
 {
 	HTMLEngine *e = GTK_HTML (w)->engine;
-	GtkHTMLPrivate *priv = GTK_HTML (w)->priv;
 
 	if (html_engine_get_editable (e)) {
 		gboolean rv;
@@ -2283,20 +2309,9 @@ focus (GtkWidget *w, GtkDirectionType direction)
 		e->shift_selection = FALSE;
 	}
 
-	if (!GTK_WIDGET_HAS_FOCUS (w) && e->caret_mode && priv->caret_first_focus_anchor) {
-		int x = 0, y = 0;
-
-		if (html_object_find_anchor (e->clue, priv->caret_first_focus_anchor, &x, &y)) {
-			GtkAdjustment *vadj;
-
+	if (!GTK_WIDGET_HAS_FOCUS (w) && e->caret_mode) {
+		if (goto_caret_anchor (GTK_HTML (w))) {
 			gtk_widget_grab_focus (w);
-			html_engine_jump_at (e, x, y);
-
-			vadj = GTK_LAYOUT (e->widget)->vadjustment;
-
-			/* scroll to the position on screen if not visible */
-			if (y < vadj->value || y > vadj->value + vadj->page_size)
-				gtk_adjustment_set_value (vadj, y);
 
 			update_primary_selection (GTK_HTML (w));
 			g_signal_emit (GTK_HTML (w), signals [CURSOR_CHANGED], 0);

@@ -1,3 +1,11 @@
+2008-09-15  Milan Crha  <mcrha@redhat.com>
+
+	** Fix for bug #423395
+
+	* gtkhtml.c: (goto_caret_anchor), (focus_in_event), (focus):
+	Ensure cursor at the right position even when first time
+	focusing to the widget.
+
 2008-09-01  Matthew Barnes  <mbarnes@redhat.com>
 
 	* testgtkhtml.c (goto_url), (test_cb):
