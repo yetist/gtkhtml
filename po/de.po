@@ -5,16 +5,17 @@
 # Christian Meyer <chrisime@gnome.org>, 2000, 2001.
 # Matthias Warkus <mawarkus@gnome.org>, 2000, 2001.
 # Christian Neumair <chris@gnome-de.org>, 2002-2004.
-# Hendrik Richter <hendrikr@gnome.org>, 2004, 2005, 2006, 2007.
+# Hendrik Richter <hendrikr@gnome.org>, 2004, 2005, 2006, 2007, 2008.
 # Hendrik Brandt <heb@gnome-de.org>, 2007.
 # Andre Klapper <ak-47@gmx.net>, 2008.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-09 20:29+0200\n"
-"PO-Revision-Date: 2008-09-09 21:12+0200\n"
-"Last-Translator: Andre Klapper <ak-47@gmx.net>\n"
+"POT-Creation-Date: 2008-09-18 20:46+0200\n"
+"PO-Revision-Date: 2008-09-18 20:48+0200\n"
+"Last-Translator: Hendrik Richter <hendrikr@gnome.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -299,29 +300,35 @@ msgstr "Farbpalette"
 msgid "Custom color palette"
 msgstr "Benutzerdefinierte Farbpalette"
 
-#: ../components/editor/gtkhtml-color-combo.c:735
+#. Translators: This is the nickname for a
+#. * GtkhtmlColorCombo property named "popup-shown",
+#. * based on a similar property in GtkComboBox.
+#: ../components/editor/gtkhtml-color-combo.c:738
 msgid "Popup shown"
 msgstr "Popup wird angezeigt"
 
-#: ../components/editor/gtkhtml-color-combo.c:736
+#. Translators: This is the blurb for a
+#. * GtkhtmlColorCombo property named "popup-shown",
+#. * based on a similar property in GtkComboBox.
+#: ../components/editor/gtkhtml-color-combo.c:742
 msgid "Whether the combo's dropdown is shown"
 msgstr "Beschreibt, ob die Auswahlliste angezeigt wird"
 
-#: ../components/editor/gtkhtml-color-combo.c:745
+#: ../components/editor/gtkhtml-color-combo.c:751
 msgid "Color state"
 msgstr "Farbzustand"
 
-#: ../components/editor/gtkhtml-color-combo.c:746
+#: ../components/editor/gtkhtml-color-combo.c:752
 msgid "State of the color combo"
 msgstr "Zustand des Farb-Popups"
 
 #. This is the default custom color
-#: ../components/editor/gtkhtml-color-combo.c:928
+#: ../components/editor/gtkhtml-color-combo.c:934
 #: ../components/html-editor/gi-color-palette.c:374
 msgid "custom"
 msgstr "benutzerdefiniert"
 
-#: ../components/editor/gtkhtml-color-combo.c:936
+#: ../components/editor/gtkhtml-color-combo.c:942
 msgid "Custom Color..."
 msgstr "Benutzerdefinierte Farbe …"
 
@@ -1553,6 +1560,29 @@ msgstr "Wörterbuch"
 msgid "_Add Word"
 msgstr "Wort hin_zufügen"
 
+#. Translators: %s is the language ISO code.
+#: ../components/editor/gtkhtml-spell-language.c:180
+#, c-format
+msgctxt "language"
+msgid "Unknown (%s)"
+msgstr "Unbekannt (%s)"
+
+#. Translators: The first %s is the language name, and the
+#. * second is the country name. Example: "French (France)"
+#: ../components/editor/gtkhtml-spell-language.c:195
+#: ../components/editor/gtkhtml-spell-language.c:200
+#, c-format
+msgctxt "language"
+msgid "%s (%s)"
+msgstr "%s (%s)"
+
+#. Translators: This refers to the default language used
+#. * by the spell checker.
+#: ../components/editor/gtkhtml-spell-language.c:385
+msgctxt "language"
+msgid "Default"
+msgstr "Vorgabe"
+
 #: ../components/editor/main.c:93
 msgid "Save As"
 msgstr "Speichern als"
@@ -1839,7 +1869,8 @@ msgstr "Den momentan markierten Absatz zu einer ungeordneten Liste machen"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:64
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:64
 msgid "Make the current paragraph a list with roman numerals"
-msgstr "Den momentan markierten Absatz zu einer Liste mit römischen Zahlen machen"
+msgstr ""
+"Den momentan markierten Absatz zu einer Liste mit römischen Zahlen machen"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:65
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:65
@@ -2606,83 +2637,83 @@ msgstr ""
 "Das bearbeitete Objekt wurde aus dem Dokument entfernt.\n"
 "Ihre Änderungen konnten daher nicht übernommen werden."
 
-#: ../gtkhtml/gtkhtml.c:2927
+#: ../gtkhtml/gtkhtml.c:2942
 msgid "Editable"
 msgstr "Bearbeitbar"
 
-#: ../gtkhtml/gtkhtml.c:2928
+#: ../gtkhtml/gtkhtml.c:2943
 msgid "Whether the html can be edited"
 msgstr "Soll das HTML bearbeitet werden können?"
 
-#: ../gtkhtml/gtkhtml.c:2934
+#: ../gtkhtml/gtkhtml.c:2949
 msgid "Document Title"
 msgstr "Titel des Dokuments"
 
-#: ../gtkhtml/gtkhtml.c:2935
+#: ../gtkhtml/gtkhtml.c:2950
 msgid "The title of the current document"
 msgstr "Der Titel des momentan geöffneten Dokuments"
 
-#: ../gtkhtml/gtkhtml.c:2941
+#: ../gtkhtml/gtkhtml.c:2956
 msgid "Document Base"
 msgstr "Dokumentenbasis"
 
-#: ../gtkhtml/gtkhtml.c:2942
+#: ../gtkhtml/gtkhtml.c:2957
 msgid "The base URL for relative references"
 msgstr "Die Basisadresse für relative Verweise"
 
-#: ../gtkhtml/gtkhtml.c:2948
+#: ../gtkhtml/gtkhtml.c:2963
 msgid "Target Base"
 msgstr "Zielbasis"
 
-#: ../gtkhtml/gtkhtml.c:2949
+#: ../gtkhtml/gtkhtml.c:2964
 msgid "The base URL of the target frame"
 msgstr "Die Basisadresse des Zielrahmens"
 
-#: ../gtkhtml/gtkhtml.c:2958
+#: ../gtkhtml/gtkhtml.c:2973
 msgid "Fixed Width Font"
 msgstr "Dicktengleiche Schrift"
 
-#: ../gtkhtml/gtkhtml.c:2959
+#: ../gtkhtml/gtkhtml.c:2974
 msgid "The Monospace font to use for typewriter text"
 msgstr "Die für typewriter-Text zu verwendende dicktengleiche Schrift"
 
-#: ../gtkhtml/gtkhtml.c:2965
+#: ../gtkhtml/gtkhtml.c:2980
 msgid "New Link Color"
 msgstr "Farbe für neue Links"
 
-#: ../gtkhtml/gtkhtml.c:2966
+#: ../gtkhtml/gtkhtml.c:2981
 msgid "The color of new link elements"
 msgstr "Die Farbe für neue Link-Elemente"
 
-#: ../gtkhtml/gtkhtml.c:2971
+#: ../gtkhtml/gtkhtml.c:2986
 msgid "Visited Link Color"
 msgstr "Farbe für besuchte Links"
 
-#: ../gtkhtml/gtkhtml.c:2972
+#: ../gtkhtml/gtkhtml.c:2987
 msgid "The color of visited link elements"
 msgstr "Die Farbe für besuchte Link-Elemente"
 
-#: ../gtkhtml/gtkhtml.c:2977
+#: ../gtkhtml/gtkhtml.c:2992
 msgid "Active Link Color"
 msgstr "Farbe für aktive Links"
 
-#: ../gtkhtml/gtkhtml.c:2978
+#: ../gtkhtml/gtkhtml.c:2993
 msgid "The color of active link elements"
 msgstr "Die Farbe für aktive Link-Elemente"
 
-#: ../gtkhtml/gtkhtml.c:2983
+#: ../gtkhtml/gtkhtml.c:2998
 msgid "Spelling Error Color"
 msgstr "Farbe für Rechtschreibfehler"
 
-#: ../gtkhtml/gtkhtml.c:2984
+#: ../gtkhtml/gtkhtml.c:2999
 msgid "The color of the spelling error markers"
 msgstr "Die für die Hervorhebung von Rechtschreibfehlern verwendete Farbe"
 
-#: ../gtkhtml/gtkhtml.c:2989
+#: ../gtkhtml/gtkhtml.c:3004
 msgid "Cite Quotation Color"
 msgstr "Zitatfarbe"
 
-#: ../gtkhtml/gtkhtml.c:2990
+#: ../gtkhtml/gtkhtml.c:3005
 msgid "The color of the cited text"
 msgstr "Die Farbe des zitierten Texts"
 
@@ -2986,4 +3017,3 @@ msgstr "GtkHTML-Testanwendung"
 
 #~ msgid "Labels"
 #~ msgstr "Beschriftungen"
-
