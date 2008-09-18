@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-13 14:46+0300\n"
-"PO-Revision-Date: 2008-08-13 14:40+0300\n"
+"POT-Creation-Date: 2008-09-18 13:47+0300\n"
+"PO-Revision-Date: 2008-09-18 13:30+0300\n"
 "Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -296,29 +296,35 @@ msgstr "väripaletti"
 msgid "Custom color palette"
 msgstr "Oma väripaletti"
 
-#: ../components/editor/gtkhtml-color-combo.c:735
+#. Translators: This is the nickname for a
+#. * GtkhtmlColorCombo property named "popup-shown",
+#. * based on a similar property in GtkComboBox.
+#: ../components/editor/gtkhtml-color-combo.c:738
 msgid "Popup shown"
 msgstr "Ponnahdusikkuna näytetään"
 
-#: ../components/editor/gtkhtml-color-combo.c:736
+#. Translators: This is the blurb for a
+#. * GtkhtmlColorCombo property named "popup-shown",
+#. * based on a similar property in GtkComboBox.
+#: ../components/editor/gtkhtml-color-combo.c:742
 msgid "Whether the combo's dropdown is shown"
 msgstr "Näytetäänkö yhdistelmävalitsimen pudotusvalikko"
 
-#: ../components/editor/gtkhtml-color-combo.c:745
+#: ../components/editor/gtkhtml-color-combo.c:751
 msgid "Color state"
 msgstr "Värin tila"
 
-#: ../components/editor/gtkhtml-color-combo.c:746
+#: ../components/editor/gtkhtml-color-combo.c:752
 msgid "State of the color combo"
 msgstr "Väriyhdistelmän tila"
 
 #. This is the default custom color
-#: ../components/editor/gtkhtml-color-combo.c:928
+#: ../components/editor/gtkhtml-color-combo.c:934
 #: ../components/html-editor/gi-color-palette.c:374
 msgid "custom"
 msgstr "muu"
 
-#: ../components/editor/gtkhtml-color-combo.c:936
+#: ../components/editor/gtkhtml-color-combo.c:942
 msgid "Custom Color..."
 msgstr "Oma väri..."
 
@@ -935,7 +941,7 @@ msgid "Table Delete"
 msgstr "Poista taulukko"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1988
-#: ../components/html-editor/popup.c:583
+#: ../components/html-editor/popup.c:584
 msgid "Input Methods"
 msgstr "Syöttötavat"
 
@@ -1008,7 +1014,7 @@ msgid "Remove Link"
 msgstr "Poista linkki"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2135
-#: ../components/html-editor/popup.c:577
+#: ../components/html-editor/popup.c:578
 msgid "Add Word to Dictionary"
 msgstr "Lisää sana sanastoon"
 
@@ -1549,24 +1555,27 @@ msgstr "Sanasto"
 msgid "_Add Word"
 msgstr "_Lisää sana"
 
-#: ../components/editor/gtkhtml-spell-language.c:182
+#. Translators: %s is the language ISO code.
+#: ../components/editor/gtkhtml-spell-language.c:180
 #, c-format
-msgid "language|Unknown (%s)"
+msgctxt "language"
+msgid "Unknown (%s)"
 msgstr "Tuntematon (%s)"
 
+#. Translators: The first %s is the language name, and the
+#. * second is the country name. Example: "French (France)"
+#: ../components/editor/gtkhtml-spell-language.c:195
 #: ../components/editor/gtkhtml-spell-language.c:200
-#: ../components/editor/gtkhtml-spell-language.c:208
 #, c-format
-msgid "language|%s (%s)"
+msgctxt "language"
+msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#. Translators: The text before the "|" is context to help
-#. * you decide on the correct translation. You MUST OMIT IT
-#. * in the translated string.
-#. * Translators: This refers to the default language used
+#. Translators: This refers to the default language used
 #. * by the spell checker.
-#: ../components/editor/gtkhtml-spell-language.c:396
-msgid "language|Default"
+#: ../components/editor/gtkhtml-spell-language.c:385
+msgctxt "language"
+msgid "Default"
 msgstr "Oletus"
 
 #: ../components/editor/main.c:93
@@ -1843,6 +1852,7 @@ msgid "Make the current Paragraph style Normal"
 msgstr "Vaihda nykyisen kappaleen tyyli tavalliseksi"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:62
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
 msgid "Make the current Paragraph style Preformat"
 msgstr "Vaihda nykyisen kappaleen tyyli esimuotoilluksi"
 
@@ -1939,6 +1949,7 @@ msgid "Paste the clipboard as a quotation"
 msgstr "Liitä leikepöydän sisältö lainauksena"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:83
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
 #: ../components/html-editor/paragraph-style.c:44
 msgid "Preformat"
 msgstr "Esimuotoiltu"
@@ -2096,14 +2107,6 @@ msgstr "GNOME HTML-muokkainsäädin"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:3
 msgid "GNOME HTML Editor Factory"
 msgstr "GNOME HTML-muokkaintehdas"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
-msgid "Make the current Paragraph style Preformatted"
-msgstr "Vaihda nykyisen kappaleen tyyli esimuotoilluksi"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
-msgid "Preformatted"
-msgstr "Esimuotoiltu"
 
 #: ../components/html-editor/body.c:64
 msgid "None"
@@ -2495,7 +2498,8 @@ msgstr "Solun sisältö"
 msgid "Add Word to"
 msgstr "Lisää sana"
 
-#: ../components/html-editor/popup.c:568
+#. Translators: %s is the language name.
+#: ../components/html-editor/popup.c:569
 #, c-format
 msgid "%s Dictionary"
 msgstr "Sanastoon %s"
@@ -2626,83 +2630,83 @@ msgstr ""
 "Muokattu kohde on poistettu asiakirjasta.\n"
 "Muutoksia ei voida ottaa käyttöön."
 
-#: ../gtkhtml/gtkhtml.c:2927
+#: ../gtkhtml/gtkhtml.c:2942
 msgid "Editable"
 msgstr "Muokattava"
 
-#: ../gtkhtml/gtkhtml.c:2928
+#: ../gtkhtml/gtkhtml.c:2943
 msgid "Whether the html can be edited"
 msgstr "Voiko HTML-tiedostoa muokata"
 
-#: ../gtkhtml/gtkhtml.c:2934
+#: ../gtkhtml/gtkhtml.c:2949
 msgid "Document Title"
 msgstr "Asiakirjan otsikko"
 
-#: ../gtkhtml/gtkhtml.c:2935
+#: ../gtkhtml/gtkhtml.c:2950
 msgid "The title of the current document"
 msgstr "Nykyisen asiakirjan otsikko"
 
-#: ../gtkhtml/gtkhtml.c:2941
+#: ../gtkhtml/gtkhtml.c:2956
 msgid "Document Base"
 msgstr "Asiakirjan kanta"
 
-#: ../gtkhtml/gtkhtml.c:2942
+#: ../gtkhtml/gtkhtml.c:2957
 msgid "The base URL for relative references"
 msgstr "Suhteellisten viittausten kanta-URL"
 
-#: ../gtkhtml/gtkhtml.c:2948
+#: ../gtkhtml/gtkhtml.c:2963
 msgid "Target Base"
 msgstr "Kohteen kanta"
 
-#: ../gtkhtml/gtkhtml.c:2949
+#: ../gtkhtml/gtkhtml.c:2964
 msgid "The base URL of the target frame"
 msgstr "Kohdekehyksen kanta-URL"
 
-#: ../gtkhtml/gtkhtml.c:2958
+#: ../gtkhtml/gtkhtml.c:2973
 msgid "Fixed Width Font"
 msgstr "Tasavälinen kirjasin"
 
-#: ../gtkhtml/gtkhtml.c:2959
+#: ../gtkhtml/gtkhtml.c:2974
 msgid "The Monospace font to use for typewriter text"
 msgstr "Kirjoituskonetekstissä käytettävä tasavälinen kirjasin"
 
-#: ../gtkhtml/gtkhtml.c:2965
+#: ../gtkhtml/gtkhtml.c:2980
 msgid "New Link Color"
 msgstr "Uuden linkin väri"
 
-#: ../gtkhtml/gtkhtml.c:2966
+#: ../gtkhtml/gtkhtml.c:2981
 msgid "The color of new link elements"
 msgstr "Uusien linkkielementtien väri"
 
-#: ../gtkhtml/gtkhtml.c:2971
+#: ../gtkhtml/gtkhtml.c:2986
 msgid "Visited Link Color"
 msgstr "Käydyn linkin väri"
 
-#: ../gtkhtml/gtkhtml.c:2972
+#: ../gtkhtml/gtkhtml.c:2987
 msgid "The color of visited link elements"
 msgstr "Käytyjen linkkielementtien väri"
 
-#: ../gtkhtml/gtkhtml.c:2977
+#: ../gtkhtml/gtkhtml.c:2992
 msgid "Active Link Color"
 msgstr "Aktiivisen linkkielementin väri"
 
-#: ../gtkhtml/gtkhtml.c:2978
+#: ../gtkhtml/gtkhtml.c:2993
 msgid "The color of active link elements"
 msgstr "Aktiivisten linkkielementtien väri"
 
-#: ../gtkhtml/gtkhtml.c:2983
+#: ../gtkhtml/gtkhtml.c:2998
 msgid "Spelling Error Color"
 msgstr "Kirjoitusvirheen väri"
 
-#: ../gtkhtml/gtkhtml.c:2984
+#: ../gtkhtml/gtkhtml.c:2999
 msgid "The color of the spelling error markers"
 msgstr "Kirjoitusvirheilmaisimen väri"
 
-#: ../gtkhtml/gtkhtml.c:2989
+#: ../gtkhtml/gtkhtml.c:3004
 msgid "Cite Quotation Color"
 msgstr "Lainauksen väri"
 
-#: ../gtkhtml/gtkhtml.c:2990
+#: ../gtkhtml/gtkhtml.c:3005
 msgid "The color of the cited text"
 msgstr "Lainatun tekstin väri"
 
@@ -2731,9 +2735,18 @@ msgstr "_Esikatselu"
 msgid "Print preview"
 msgstr "Esikatselu"
 
-#: ../gtkhtml/testgtkhtml.c:1018
+#: ../gtkhtml/testgtkhtml.c:1019
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML-testisovellus"
+
+#~ msgid "language|Default"
+#~ msgstr "Oletus"
+
+#~ msgid "Make the current Paragraph style Preformatted"
+#~ msgstr "Vaihda nykyisen kappaleen tyyli esimuotoilluksi"
+
+#~ msgid "Preformatted"
+#~ msgstr "Esimuotoiltu"
 
 #~ msgid "Cannot allocate default font for printing\n"
 #~ msgstr "Ei voinut varata oletuskirjasinta tulostamista varten\n"
