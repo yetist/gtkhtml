@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 3.14\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-06 20:23+0800\n"
-"PO-Revision-Date: 2008-08-06 20:27+0800\n"
+"POT-Creation-Date: 2008-09-17 08:38+0800\n"
+"PO-Revision-Date: 2008-09-17 12:53+0800\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: Chinese (Taiwan) <community@linuxhall.org>\n"
 "MIME-Version: 1.0\n"
@@ -20,16 +20,18 @@ msgstr ""
 #: ../a11y/image.c:151
 #, c-format
 msgid "URL is %s, Alternative Text is %s"
-msgstr "URL 是 %s，形容文字是 %s"
+msgstr "URL 是 %s，替代文字是 %s"
 
 #: ../a11y/image.c:153
 #, c-format
 msgid "URL is %s"
 msgstr "URL 是 %s"
 
-#: ../a11y/object.c:52 ../a11y/object.c:61 ../a11y/text.c:126
+#: ../a11y/object.c:52
+#: ../a11y/object.c:61
+#: ../a11y/text.c:126
 msgid "grab focus"
-msgstr "取得焦點"
+msgstr "抓取焦點"
 
 #: ../a11y/object.c:259
 msgid "Panel containing HTML"
@@ -337,31 +339,37 @@ msgstr "色盤"
 msgid "Custom color palette"
 msgstr "自訂自盤"
 
-#: ../components/editor/gtkhtml-color-combo.c:735
+#. Translators: This is the nickname for a
+#. * GtkhtmlColorCombo property named "popup-shown",
+#. * based on a similar property in GtkComboBox.
+#: ../components/editor/gtkhtml-color-combo.c:738
 msgid "Popup shown"
 msgstr "彈出式顯示"
 
-#: ../components/editor/gtkhtml-color-combo.c:736
+#. Translators: This is the blurb for a
+#. * GtkhtmlColorCombo property named "popup-shown",
+#. * based on a similar property in GtkComboBox.
+#: ../components/editor/gtkhtml-color-combo.c:742
 msgid "Whether the combo's dropdown is shown"
 msgstr "是否顯示組合式選單的下拉選單部分"
 
-#: ../components/editor/gtkhtml-color-combo.c:745
+#: ../components/editor/gtkhtml-color-combo.c:751
 msgid "Color state"
 msgstr "顏色狀態"
 
-#: ../components/editor/gtkhtml-color-combo.c:746
+#: ../components/editor/gtkhtml-color-combo.c:752
 msgid "State of the color combo"
 msgstr "顏色組合的狀態"
 
 # Novell Translation
 #. This is the default custom color
-#: ../components/editor/gtkhtml-color-combo.c:928
+#: ../components/editor/gtkhtml-color-combo.c:934
 #: ../components/html-editor/gi-color-palette.c:374
 msgid "custom"
 msgstr "自訂"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-color-combo.c:936
+#: ../components/editor/gtkhtml-color-combo.c:942
 msgid "Custom Color..."
 msgstr "自訂顏色..."
 
@@ -981,7 +989,8 @@ msgstr "行"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:50
 #: ../components/html-editor/menubar.c:217
-#: ../components/html-editor/popup.c:235 ../components/html-editor/popup.c:509
+#: ../components/html-editor/popup.c:235
+#: ../components/html-editor/popup.c:509
 #: ../components/html-editor/popup.c:521
 msgid "Table"
 msgstr "表格"
@@ -992,7 +1001,7 @@ msgstr "表格刪除"
 
 # Novell Translation
 #: ../components/editor/gtkhtml-editor-actions.c:1988
-#: ../components/html-editor/popup.c:583
+#: ../components/html-editor/popup.c:584
 msgid "Input Methods"
 msgstr "輸入方法"
 
@@ -1002,19 +1011,18 @@ msgstr "表格插入"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2002
 #: ../components/html-editor/editor-control-factory.c:187
-#: ../components/html-editor/popup.c:191 ../components/html-editor/popup.c:268
+#: ../components/html-editor/popup.c:191
+#: ../components/html-editor/popup.c:268
 msgid "Properties"
 msgstr "屬性"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2020
-#, fuzzy
 msgid "Column After"
-msgstr "該列之後"
+msgstr "該欄之後"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2027
-#, fuzzy
 msgid "Column Before"
-msgstr "該列之前"
+msgstr "該欄之前"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2034
 #: ../components/html-editor/popup.c:450
@@ -1026,7 +1034,6 @@ msgid "Row Above"
 msgstr "向上移動"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2048
-#, fuzzy
 msgid "Row Below"
 msgstr "該行之下"
 
@@ -1071,7 +1078,7 @@ msgstr "移除連結"
 
 # Novell Translation
 #: ../components/editor/gtkhtml-editor-actions.c:2135
-#: ../components/html-editor/popup.c:577
+#: ../components/html-editor/popup.c:578
 msgid "Add Word to Dictionary"
 msgstr "新增文字至字典"
 
@@ -1131,7 +1138,8 @@ msgid "Font Size"
 msgstr "字型大小"
 
 #: ../components/editor/gtkhtml-editor-private.c:316
-#: ../components/html-editor/body.c:237 ../components/html-editor/text.c:171
+#: ../components/html-editor/body.c:237
+#: ../components/html-editor/text.c:171
 #: ../components/html-editor/toolbar.c:199
 msgid "Automatic"
 msgstr "自動"
@@ -1285,9 +1293,8 @@ msgid "Col_umn"
 msgstr "欄位(_U)"
 
 #: ../components/editor/gtkhtml-editor.glade.h:20
-#, fuzzy
 msgid "Column Span:"
-msgstr "合併列數："
+msgstr "合併欄數："
 
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: ../components/editor/gtkhtml-editor.glade.h:21
@@ -1340,6 +1347,15 @@ msgid ""
 "Draft\n"
 "Graph Paper"
 msgstr ""
+"無\n"
+"打洞紙\n"
+"藍墨水\n"
+"紙張\n"
+"緞帶\n"
+"午夜\n"
+"機密\n"
+"草稿\n"
+"圖紙"
 
 #: ../components/editor/gtkhtml-editor.glade.h:38
 msgid "Page Properties"
@@ -1368,7 +1384,6 @@ msgid "Replace Confirmation"
 msgstr "確認取代"
 
 #: ../components/editor/gtkhtml-editor.glade.h:43
-#, fuzzy
 msgid "Row Span:"
 msgstr "合併行數："
 
@@ -1656,26 +1671,6 @@ msgstr "字典"
 msgid "_Add Word"
 msgstr "加入字(_A)"
 
-#: ../components/editor/gtkhtml-spell-language.c:182
-#, c-format
-msgid "language|Unknown (%s)"
-msgstr "未知 (%s)"
-
-#: ../components/editor/gtkhtml-spell-language.c:200
-#: ../components/editor/gtkhtml-spell-language.c:208
-#, c-format
-msgid "language|%s (%s)"
-msgstr "%s (%s)"
-
-#. Translators: The text before the "|" is context to help
-#. * you decide on the correct translation. You MUST OMIT IT
-#. * in the translated string.
-#. * Translators: This refers to the default language used
-#. * by the spell checker.
-#: ../components/editor/gtkhtml-spell-language.c:396
-msgid "language|Default"
-msgstr "預設"
-
 #: ../components/editor/main.c:93
 msgid "Save As"
 msgstr "另存新檔"
@@ -1945,7 +1940,8 @@ msgstr "將段落靠左對齊"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:60
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
 #: ../components/html-editor/menubar.c:174
-#: ../components/html-editor/popup.c:111 ../components/html-editor/popup.c:205
+#: ../components/html-editor/popup.c:111
+#: ../components/html-editor/popup.c:205
 #: ../components/html-editor/popup.c:271
 msgid "Link"
 msgstr "連結"
@@ -1957,6 +1953,7 @@ msgstr "將目前段落設為正常樣式"
 
 # Novell Translation
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:62
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
 msgid "Make the current Paragraph style Preformat"
 msgstr "將目前段落樣式設為預設"
 
@@ -2055,6 +2052,7 @@ msgid "Paste the clipboard as a quotation"
 msgstr "貼上剪貼簿做為引文"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:83
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
 #: ../components/html-editor/paragraph-style.c:44
 msgid "Preformat"
 msgstr "固定寬度"
@@ -2215,16 +2213,6 @@ msgstr "GNOME HTML 編輯元件"
 msgid "GNOME HTML Editor Factory"
 msgstr "GNOME HTML 編輯元件的工廠"
 
-# Novell Translation
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
-msgid "Make the current Paragraph style Preformatted"
-msgstr "將目前的段落樣式設為預設"
-
-# Novell Translation
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
-msgid "Preformatted"
-msgstr "已預設格式"
-
 #: ../components/html-editor/body.c:64
 msgid "None"
 msgstr "無"
@@ -2274,7 +2262,8 @@ msgstr "圖形紙張"
 msgid "Colors"
 msgstr "色彩"
 
-#: ../components/html-editor/body.c:256 ../components/html-editor/body.c:288
+#: ../components/html-editor/body.c:256
+#: ../components/html-editor/body.c:288
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:22
 msgid "Background Image"
 msgstr "背景圖像"
@@ -2289,8 +2278,10 @@ msgstr "背景圖像的檔案路徑"
 msgid "Template"
 msgstr "範本"
 
-#: ../components/html-editor/cell.c:342 ../components/html-editor/image.c:345
-#: ../components/html-editor/link.c:215 ../components/html-editor/rule.c:179
+#: ../components/html-editor/cell.c:342
+#: ../components/html-editor/image.c:345
+#: ../components/html-editor/link.c:215
+#: ../components/html-editor/rule.c:179
 #: ../components/html-editor/table.c:229
 #: ../components/html-editor/template.c:287
 #: ../components/html-editor/text.c:168
@@ -2298,7 +2289,8 @@ msgid "Could not load glade file."
 msgstr "無法載入 glade 檔案。"
 
 # Novell Translation
-#: ../components/html-editor/cell.c:346 ../components/html-editor/table.c:233
+#: ../components/html-editor/cell.c:346
+#: ../components/html-editor/table.c:233
 msgid "Transparent"
 msgstr "透明"
 
@@ -2582,7 +2574,8 @@ msgstr "樣式"
 msgid "Text Style..."
 msgstr "文字樣式..."
 
-#: ../components/html-editor/popup.c:469 ../components/html-editor/popup.c:475
+#: ../components/html-editor/popup.c:469
+#: ../components/html-editor/popup.c:475
 #: ../components/html-editor/popup.c:485
 msgid "Paragraph Style..."
 msgstr "段落樣式..."
@@ -2644,7 +2637,8 @@ msgstr "儲存格內容"
 msgid "Add Word to"
 msgstr "新增文字至"
 
-#: ../components/html-editor/popup.c:568
+#. Translators: %s is the language name.
+#: ../components/html-editor/popup.c:569
 #, c-format
 msgid "%s Dictionary"
 msgstr "%s 字典"
@@ -2778,91 +2772,91 @@ msgstr ""
 "編輯的物件已從文件中移除。\n"
 "無法套用您的變更。"
 
-#: ../gtkhtml/gtkhtml.c:2927
+#: ../gtkhtml/gtkhtml.c:2942
 msgid "Editable"
 msgstr "可編輯"
 
-#: ../gtkhtml/gtkhtml.c:2928
+#: ../gtkhtml/gtkhtml.c:2943
 msgid "Whether the html can be edited"
 msgstr "可否編輯 html"
 
-#: ../gtkhtml/gtkhtml.c:2934
+#: ../gtkhtml/gtkhtml.c:2949
 msgid "Document Title"
 msgstr "文件標題"
 
-#: ../gtkhtml/gtkhtml.c:2935
+#: ../gtkhtml/gtkhtml.c:2950
 msgid "The title of the current document"
 msgstr "目前的文件的標題"
 
 # Novell Translation
-#: ../gtkhtml/gtkhtml.c:2941
+#: ../gtkhtml/gtkhtml.c:2956
 msgid "Document Base"
 msgstr "文件基礎"
 
 # Novell Translation
-#: ../gtkhtml/gtkhtml.c:2942
+#: ../gtkhtml/gtkhtml.c:2957
 msgid "The base URL for relative references"
 msgstr "相關參考的基礎 URL"
 
 # Novell Translation
-#: ../gtkhtml/gtkhtml.c:2948
+#: ../gtkhtml/gtkhtml.c:2963
 msgid "Target Base"
 msgstr "目標基礎"
 
 # Novell Translation
-#: ../gtkhtml/gtkhtml.c:2949
+#: ../gtkhtml/gtkhtml.c:2964
 msgid "The base URL of the target frame"
 msgstr "目標框架的基礎 URL"
 
-#: ../gtkhtml/gtkhtml.c:2958
+#: ../gtkhtml/gtkhtml.c:2973
 msgid "Fixed Width Font"
 msgstr "固定寬度字型"
 
-#: ../gtkhtml/gtkhtml.c:2959
+#: ../gtkhtml/gtkhtml.c:2974
 msgid "The Monospace font to use for typewriter text"
 msgstr "作為打字機字型使用的固定寬度字型"
 
-#: ../gtkhtml/gtkhtml.c:2965
+#: ../gtkhtml/gtkhtml.c:2980
 msgid "New Link Color"
 msgstr "未瀏覽連結顏色"
 
-#: ../gtkhtml/gtkhtml.c:2966
+#: ../gtkhtml/gtkhtml.c:2981
 msgid "The color of new link elements"
 msgstr "未瀏覽的連結的顏色"
 
-#: ../gtkhtml/gtkhtml.c:2971
+#: ../gtkhtml/gtkhtml.c:2986
 msgid "Visited Link Color"
 msgstr "已瀏覽連結顏色"
 
-#: ../gtkhtml/gtkhtml.c:2972
+#: ../gtkhtml/gtkhtml.c:2987
 msgid "The color of visited link elements"
 msgstr "已瀏覽的連結的顏色"
 
 # Novell Translation
-#: ../gtkhtml/gtkhtml.c:2977
+#: ../gtkhtml/gtkhtml.c:2992
 msgid "Active Link Color"
 msgstr "使用中連結的色彩"
 
 # Novell Translation
-#: ../gtkhtml/gtkhtml.c:2978
+#: ../gtkhtml/gtkhtml.c:2993
 msgid "The color of active link elements"
 msgstr "使用中連結元件的色彩"
 
-#: ../gtkhtml/gtkhtml.c:2983
+#: ../gtkhtml/gtkhtml.c:2998
 msgid "Spelling Error Color"
 msgstr "拼字錯誤顏色"
 
-#: ../gtkhtml/gtkhtml.c:2984
+#: ../gtkhtml/gtkhtml.c:2999
 msgid "The color of the spelling error markers"
 msgstr "表示拼字錯誤的標記的顏色"
 
 # Novell Translation
-#: ../gtkhtml/gtkhtml.c:2989
+#: ../gtkhtml/gtkhtml.c:3004
 msgid "Cite Quotation Color"
 msgstr "引用引文色彩"
 
 # Novell Translation
-#: ../gtkhtml/gtkhtml.c:2990
+#: ../gtkhtml/gtkhtml.c:3005
 msgid "The color of the cited text"
 msgstr "引用文字的色彩"
 
@@ -2877,7 +2871,8 @@ msgid "Reset"
 msgstr "重設"
 
 #. TODO2 dialog instead of warning
-#: ../gtkhtml/htmlengine-print.c:231 ../gtkhtml/htmlengine-print.c:310
+#: ../gtkhtml/htmlengine-print.c:231
+#: ../gtkhtml/htmlengine-print.c:310
 msgid "Cannot allocate default font for printing"
 msgstr "無法配置列印用的預設字型"
 
@@ -2894,140 +2889,14 @@ msgid "Print preview"
 msgstr "預覽列印"
 
 # Novell Translation
-#: ../gtkhtml/testgtkhtml.c:1018
+#: ../gtkhtml/testgtkhtml.c:1019
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML 測試應用程式"
 
-#~ msgid "Cannot allocate default font for printing\n"
-#~ msgstr "無法配置預設字型作為列印使用\n"
+#~ msgid "language|Unknown (%s)"
+#~ msgstr "未知 (%s)"
+#~ msgid "language|%s (%s)"
+#~ msgstr "%s (%s)"
+#~ msgid "language|Default"
+#~ msgstr "預設"
 
-#~ msgid "Find Rege_x..."
-#~ msgstr "搜尋正規表示式(_X)..."
-
-#~ msgid "Modify the file's properties"
-#~ msgstr "修改檔案的屬性"
-
-# Novell Translation
-#~ msgid "Regular expression search"
-#~ msgstr "正規表示式搜尋"
-
-#~ msgid "Replace a string"
-#~ msgstr "取代字串"
-
-#~ msgid "Search again for the same string"
-#~ msgstr "再搜尋相同的字串"
-
-#~ msgid "Search for a string"
-#~ msgstr "搜尋字串"
-
-#~ msgid "_Insert text file... (FIXME)"
-#~ msgstr "插入文字 檔(_I)... (FIXME)"
-
-# Novell Translation
-#~ msgid "_Paste Quotation"
-#~ msgstr "貼上引文(_P)"
-
-#~ msgid "_Properties..."
-#~ msgstr "屬性(_P)..."
-
-# Novell Translation
-#~ msgid "Paste Quotation"
-#~ msgstr "貼上引文"
-
-# Novell Translation
-#~ msgid "%"
-#~ msgstr "%"
-
-#~ msgid "Bottom"
-#~ msgstr "底"
-
-#~ msgid "Middle"
-#~ msgstr "中"
-
-#~ msgid "Percent"
-#~ msgstr "百分比"
-
-#~ msgid "Pixels"
-#~ msgstr "像素"
-
-# Novell Translation
-#~ msgid "Standard"
-#~ msgstr "標準"
-
-#~ msgid "Top"
-#~ msgstr "頂"
-
-#~ msgid "Dot item"
-#~ msgstr "無序號項目"
-
-#~ msgid "Number item"
-#~ msgstr "阿拉伯數字項目"
-
-#~ msgid "Roman item"
-#~ msgstr "羅馬數字項目"
-
-#~ msgid "Alphabeta item"
-#~ msgstr "英文字母項目"
-
-# Novell Translation
-#~ msgid "Li_ck"
-#~ msgstr "吐舌頭(_C)"
-
-# Novell Translation
-#~ msgid "Check Word Spelling..."
-#~ msgstr "檢查文字拼字..."
-
-#~ msgid "Find And Replace"
-#~ msgstr "尋找及取代"
-
-# Novell Translation
-#~ msgid "Insert Lick smiley into document..."
-#~ msgstr "插入「吐舌頭」的表情圖示至文件..."
-
-#~ msgid "_Preformat"
-#~ msgstr "固定寬度(_P)"
-
-#~ msgid "_Spell Check Document..."
-#~ msgstr "為文件進行拼字檢查(_S)..."
-
-#~ msgid "_Strikeout"
-#~ msgstr "刪除線(_S)"
-
-#~ msgid "Background Color"
-#~ msgstr "背景顏色"
-
-#~ msgid "Blue"
-#~ msgstr "藍色"
-
-#~ msgid "Green"
-#~ msgstr "綠色"
-
-#~ msgid "Orange"
-#~ msgstr "橙色"
-
-#~ msgid "Other..."
-#~ msgstr "其它..."
-
-#~ msgid "Purple"
-#~ msgstr "紫色"
-
-#~ msgid "Red"
-#~ msgstr "紅色"
-
-#~ msgid "Su_perscript"
-#~ msgstr "上標(_P)"
-
-#~ msgid "Subs_cript"
-#~ msgstr "下標(_C)"
-
-#~ msgid "Yellow"
-#~ msgstr "黃色"
-
-#~ msgid "etc..."
-#~ msgstr "等等..."
-
-#~ msgid "Length:"
-#~ msgstr "長度："
-
-#~ msgid "Thickness:"
-#~ msgstr "厚度："
