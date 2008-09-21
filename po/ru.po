@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml trunk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-21 19:02+0400\n"
+"POT-Creation-Date: 2008-09-21 15:37+0000\n"
 "PO-Revision-Date: 2008-03-08 02:12+0300\n"
 "Last-Translator: \n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
@@ -1556,6 +1556,29 @@ msgstr "Словарь"
 msgid "_Add Word"
 msgstr "Д_обавить слово"
 
+#. Translators: %s is the language ISO code.
+#: ../components/editor/gtkhtml-spell-language.c:180
+#, c-format
+msgctxt "language"
+msgid "Unknown (%s)"
+msgstr "Неизвестный (%s)"
+
+#. Translators: The first %s is the language name, and the
+#. * second is the country name. Example: "French (France)"
+#: ../components/editor/gtkhtml-spell-language.c:195
+#: ../components/editor/gtkhtml-spell-language.c:200
+#, c-format
+msgctxt "language"
+msgid "%s (%s)"
+msgstr "%s (%s)"
+
+#. Translators: This refers to the default language used
+#. * by the spell checker.
+#: ../components/editor/gtkhtml-spell-language.c:385
+msgctxt "language"
+msgid "Default"
+msgstr "По умолчанию"
+
 #: ../components/editor/main.c:93
 msgid "Save As"
 msgstr "Сохранить как"
@@ -2716,5 +2739,3 @@ msgstr "Образец печати"
 #: ../gtkhtml/testgtkhtml.c:1019
 msgid "GtkHTML Test Application"
 msgstr "Тестовое приложение GtkHTML"
-
-
