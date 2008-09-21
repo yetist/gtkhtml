@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-20 16:30+0300\n"
-"PO-Revision-Date: 2008-09-20 16:29+0300\n"
+"POT-Creation-Date: 2008-09-20 13:30+0000\n"
+"PO-Revision-Date: 2008-09-21 05:01+0300\n"
 "Last-Translator: Gintautas Miliauskas <gintas@akl.lt>\n"
 "Language-Team: Lithuanian <gnome-lt@lists.akl.lt>\n"
 "MIME-Version: 1.0\n"
@@ -1558,6 +1558,30 @@ msgstr "Žodynas"
 #: ../components/editor/gtkhtml-spell-dialog.c:619
 msgid "_Add Word"
 msgstr "_Įtraukti žodį į"
+
+#. Translators: %s is the language ISO code.
+#: ../components/editor/gtkhtml-spell-language.c:180
+#, c-format
+msgctxt "language"
+msgid "Unknown (%s)"
+msgstr "Nežinoma (%s)"
+
+#. Translators: The first %s is the language name, and the
+#. * second is the country name. Example: "French (France)"
+#: ../components/editor/gtkhtml-spell-language.c:195
+#: ../components/editor/gtkhtml-spell-language.c:200
+#, c-format
+msgctxt "language"
+msgid "%s (%s)"
+msgstr "%s (%s)"
+
+#. Translators: This refers to the default language used
+#. * by the spell checker.
+#: ../components/editor/gtkhtml-spell-language.c:385
+#, fuzzy
+msgctxt "language"
+msgid "Default"
+msgstr "Numatytoji"
 
 #: ../components/editor/main.c:93
 msgid "Save As"
