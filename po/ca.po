@@ -3,16 +3,16 @@
 #
 # Jordi Negrevernis i Font, 2002
 # Xavier Conde Rueda <xavi.conde@gmail.com>, 2004.
-# Gil Forcada <gilforcada@guifi.net>, 2005.
+# Gil Forcada <gilforcada@guifi.net>, 2005, 2008.
 # Josep Puigdemont <josep.puigdemont@gmail.com>, 2006, 2007.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-15 16:36+0100\n"
-"PO-Revision-Date: 2008-02-15 16:37+0100\n"
-"Last-Translator: Xavier Conde Rueda <xavi.conde@gmail.com>\n"
+"POT-Creation-Date: 2008-09-22 00:23+0200\n"
+"PO-Revision-Date: 2008-09-22 00:28+0200\n"
+"Last-Translator: Gil Forcada <gilforcada@guifi.net>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,7 +28,7 @@ msgstr "La URL és %s, el text alternatiu és %s"
 msgid "URL is %s"
 msgstr "L'URL és %s"
 
-#: ../a11y/object.c:52 ../a11y/object.c:61 ../a11y/text.c:127
+#: ../a11y/object.c:52 ../a11y/object.c:61 ../a11y/text.c:126
 msgid "grab focus"
 msgstr "obtén el focus"
 
@@ -36,45 +36,1576 @@ msgstr "obtén el focus"
 msgid "Panel containing HTML"
 msgstr "Quadre que conté HTML"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:1
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
-msgid "+0"
-msgstr "+0"
+#: ../components/editor/gtkhtml-color-combo.c:78
+#: ../components/html-editor/gi-color-palette.c:555
+msgid "black"
+msgstr "negre"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:2
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:2
-msgid "+1"
-msgstr "+1"
+#: ../components/editor/gtkhtml-color-combo.c:79
+#: ../components/html-editor/gi-color-palette.c:556
+msgid "light brown"
+msgstr "marró clar"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:3
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:3
-msgid "+2"
-msgstr "+2"
+#: ../components/editor/gtkhtml-color-combo.c:80
+#: ../components/html-editor/gi-color-palette.c:557
+msgid "brown gold"
+msgstr "marró daurat"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:4
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:4
-msgid "+3"
-msgstr "+3"
+#: ../components/editor/gtkhtml-color-combo.c:81
+#: ../components/html-editor/gi-color-palette.c:558
+msgid "dark green #2"
+msgstr "verd fosc nº 2"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:5
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:5
-msgid "+4"
-msgstr "+4"
+#: ../components/editor/gtkhtml-color-combo.c:82
+#: ../components/html-editor/gi-color-palette.c:559
+msgid "navy"
+msgstr "blau marí"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:6
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:6
-msgid "-1"
-msgstr "-1"
+#: ../components/editor/gtkhtml-color-combo.c:83
+#: ../components/html-editor/gi-color-palette.c:560
+#: ../components/html-editor/gi-color-palette.c:616
+msgid "dark blue"
+msgstr "blau fosc"
 
+#: ../components/editor/gtkhtml-color-combo.c:84
+#: ../components/html-editor/gi-color-palette.c:561
+msgid "purple #2"
+msgstr "violeta nº 2"
+
+#: ../components/editor/gtkhtml-color-combo.c:85
+#: ../components/html-editor/gi-color-palette.c:562
+msgid "very dark gray"
+msgstr "gris molt fosc"
+
+#: ../components/editor/gtkhtml-color-combo.c:87
+#: ../components/html-editor/gi-color-palette.c:565
+#: ../components/html-editor/gi-color-palette.c:621
+msgid "dark red"
+msgstr "vermell fosc"
+
+#: ../components/editor/gtkhtml-color-combo.c:88
+#: ../components/html-editor/gi-color-palette.c:566
+msgid "red-orange"
+msgstr "vermell-taronja"
+
+#: ../components/editor/gtkhtml-color-combo.c:89
+#: ../components/html-editor/gi-color-palette.c:567
+msgid "gold"
+msgstr "daurat"
+
+#: ../components/editor/gtkhtml-color-combo.c:90
+#: ../components/html-editor/gi-color-palette.c:568
+msgid "dark green"
+msgstr "verd fosc"
+
+#: ../components/editor/gtkhtml-color-combo.c:91
+#: ../components/html-editor/gi-color-palette.c:569
+#: ../components/html-editor/gi-color-palette.c:622
+msgid "dull blue"
+msgstr "blau feble"
+
+#: ../components/editor/gtkhtml-color-combo.c:92
+#: ../components/html-editor/gi-color-palette.c:570
+#: ../components/html-editor/gi-color-palette.c:623
+msgid "blue"
+msgstr "blau"
+
+#: ../components/editor/gtkhtml-color-combo.c:93
+#: ../components/html-editor/gi-color-palette.c:571
+msgid "dull purple"
+msgstr "violeta feble"
+
+#: ../components/editor/gtkhtml-color-combo.c:94
+#: ../components/html-editor/gi-color-palette.c:572
+msgid "dark grey"
+msgstr "gris fosc"
+
+#: ../components/editor/gtkhtml-color-combo.c:96
+#: ../components/html-editor/gi-color-palette.c:575
+msgid "red"
+msgstr "vermell"
+
+#: ../components/editor/gtkhtml-color-combo.c:97
+#: ../components/html-editor/gi-color-palette.c:576
+msgid "orange"
+msgstr "taronja"
+
+#: ../components/editor/gtkhtml-color-combo.c:98
+#: ../components/html-editor/gi-color-palette.c:577
+msgid "lime"
+msgstr "llima"
+
+#: ../components/editor/gtkhtml-color-combo.c:99
+#: ../components/html-editor/gi-color-palette.c:578
+msgid "dull green"
+msgstr "verd feble"
+
+#: ../components/editor/gtkhtml-color-combo.c:100
+#: ../components/html-editor/gi-color-palette.c:579
+msgid "dull blue #2"
+msgstr "blau feble nº 2"
+
+#: ../components/editor/gtkhtml-color-combo.c:101
+#: ../components/html-editor/gi-color-palette.c:580
+msgid "sky blue #2"
+msgstr "blau cel nº 2"
+
+#: ../components/editor/gtkhtml-color-combo.c:102
+#: ../components/html-editor/gi-color-palette.c:581
+#: ../components/html-editor/gi-color-palette.c:620
+msgid "purple"
+msgstr "porpra"
+
+#: ../components/editor/gtkhtml-color-combo.c:103
+#: ../components/html-editor/gi-color-palette.c:582
+msgid "gray"
+msgstr "gris"
+
+#: ../components/editor/gtkhtml-color-combo.c:105
+#: ../components/html-editor/gi-color-palette.c:585
+#: ../components/html-editor/gi-color-palette.c:617
+msgid "magenta"
+msgstr "magenta"
+
+#: ../components/editor/gtkhtml-color-combo.c:106
+#: ../components/html-editor/gi-color-palette.c:586
+msgid "bright orange"
+msgstr "taronja clar"
+
+#: ../components/editor/gtkhtml-color-combo.c:107
+#: ../components/html-editor/gi-color-palette.c:587
+#: ../components/html-editor/gi-color-palette.c:618
+msgid "yellow"
+msgstr "groc"
+
+#: ../components/editor/gtkhtml-color-combo.c:108
+#: ../components/html-editor/gi-color-palette.c:588
+msgid "green"
+msgstr "verd"
+
+#: ../components/editor/gtkhtml-color-combo.c:109
+#: ../components/html-editor/gi-color-palette.c:589
+#: ../components/html-editor/gi-color-palette.c:619
+msgid "cyan"
+msgstr "cian"
+
+#: ../components/editor/gtkhtml-color-combo.c:110
+#: ../components/html-editor/gi-color-palette.c:590
+msgid "bright blue"
+msgstr "blau clar"
+
+#: ../components/editor/gtkhtml-color-combo.c:111
+#: ../components/html-editor/gi-color-palette.c:591
+#: ../components/html-editor/gi-color-palette.c:608
+msgid "red purple"
+msgstr "violeta vermell"
+
+#: ../components/editor/gtkhtml-color-combo.c:112
+#: ../components/html-editor/gi-color-palette.c:592
+msgid "light grey"
+msgstr "gris clar"
+
+#: ../components/editor/gtkhtml-color-combo.c:114
+#: ../components/html-editor/gi-color-palette.c:595
+#: ../components/html-editor/gi-color-palette.c:612
+msgid "pink"
+msgstr "rosa"
+
+#: ../components/editor/gtkhtml-color-combo.c:115
+#: ../components/html-editor/gi-color-palette.c:596
+msgid "light orange"
+msgstr "taronja clar"
+
+#: ../components/editor/gtkhtml-color-combo.c:116
+#: ../components/html-editor/gi-color-palette.c:597
+#: ../components/html-editor/gi-color-palette.c:609
+msgid "light yellow"
+msgstr "groc clar"
+
+#: ../components/editor/gtkhtml-color-combo.c:117
+#: ../components/html-editor/gi-color-palette.c:598
+msgid "light green"
+msgstr "verd clar"
+
+#: ../components/editor/gtkhtml-color-combo.c:118
+#: ../components/html-editor/gi-color-palette.c:599
+msgid "light cyan"
+msgstr "cian clar"
+
+#: ../components/editor/gtkhtml-color-combo.c:119
+#: ../components/html-editor/gi-color-palette.c:600
+#: ../components/html-editor/gi-color-palette.c:610
+msgid "light blue"
+msgstr "blau clar"
+
+#: ../components/editor/gtkhtml-color-combo.c:120
+#: ../components/html-editor/gi-color-palette.c:601
+#: ../components/html-editor/gi-color-palette.c:614
+msgid "light purple"
+msgstr "violeta clar"
+
+#: ../components/editor/gtkhtml-color-combo.c:121
+#: ../components/html-editor/gi-color-palette.c:602
+msgid "white"
+msgstr "blanc"
+
+#: ../components/editor/gtkhtml-color-combo.c:269
+#: ../components/html-editor/gi-color-palette.c:422
+msgid "Choose Custom Color"
+msgstr "Escolliu el color personalitzat"
+
+#: ../components/editor/gtkhtml-color-combo.c:693
+#: ../components/editor/gtkhtml-color-state.c:190
+msgid "Current color"
+msgstr "Color actual"
+
+#: ../components/editor/gtkhtml-color-combo.c:694
+msgid "The currently selected color"
+msgstr "El color seleccionat actualment"
+
+#: ../components/editor/gtkhtml-color-combo.c:703
+#: ../components/editor/gtkhtml-color-state.c:200
+msgid "Default color"
+msgstr "Color predeterminat"
+
+#: ../components/editor/gtkhtml-color-combo.c:704
+msgid "The color associated with the default button"
+msgstr "El color associat amb el botó predeterminat"
+
+#: ../components/editor/gtkhtml-color-combo.c:714
+#: ../components/editor/gtkhtml-color-state.c:211
+msgid "Default label"
+msgstr "Etiqueta predeterminada"
+
+#: ../components/editor/gtkhtml-color-combo.c:715
+msgid "The label for the default button"
+msgstr "L'etiqueta per al botó predeterminat"
+
+#: ../components/editor/gtkhtml-color-combo.c:716
+#: ../components/editor/gtkhtml-color-state.c:213
+msgid "Default"
+msgstr "Predeterminat"
+
+#: ../components/editor/gtkhtml-color-combo.c:725
+#: ../components/editor/gtkhtml-color-state.c:222
+msgid "Color palette"
+msgstr "Paleta de color"
+
+#: ../components/editor/gtkhtml-color-combo.c:726
+#: ../components/editor/gtkhtml-color-state.c:223
+msgid "Custom color palette"
+msgstr "Paleta de color personalitzada"
+
+#. Translators: This is the nickname for a
+#. * GtkhtmlColorCombo property named "popup-shown",
+#. * based on a similar property in GtkComboBox.
+#: ../components/editor/gtkhtml-color-combo.c:738
+msgid "Popup shown"
+msgstr "Mostra una finestra emergent"
+
+#. Translators: This is the blurb for a
+#. * GtkhtmlColorCombo property named "popup-shown",
+#. * based on a similar property in GtkComboBox.
+#: ../components/editor/gtkhtml-color-combo.c:742
+msgid "Whether the combo's dropdown is shown"
+msgstr "Si s'ha de mostrar el quadre combinat desplegable"
+
+#: ../components/editor/gtkhtml-color-combo.c:751
+msgid "Color state"
+msgstr "Estat del color"
+
+#: ../components/editor/gtkhtml-color-combo.c:752
+msgid "State of the color combo"
+msgstr "Estat del quadre combinat de color"
+
+#. This is the default custom color
+#: ../components/editor/gtkhtml-color-combo.c:934
+#: ../components/html-editor/gi-color-palette.c:374
+msgid "custom"
+msgstr "personalitzat"
+
+#: ../components/editor/gtkhtml-color-combo.c:942
+msgid "Custom Color..."
+msgstr "Color personalitzat..."
+
+#: ../components/editor/gtkhtml-color-state.c:191
+#: ../components/editor/gtkhtml-color-swatch.c:178
+msgid "The current color"
+msgstr "El color actual"
+
+#: ../components/editor/gtkhtml-color-state.c:201
+msgid "The default color"
+msgstr "El color predeterminat"
+
+#: ../components/editor/gtkhtml-color-state.c:212
+msgid "Description of the default color"
+msgstr "Descripció del color predeterminat"
+
+#: ../components/editor/gtkhtml-color-swatch.c:177
+msgid "Color"
+msgstr "Color"
+
+#: ../components/editor/gtkhtml-color-swatch.c:187
+msgid "Frame Shadow"
+msgstr "Ombra del marc"
+
+#: ../components/editor/gtkhtml-color-swatch.c:188
+msgid "Appearance of the frame border"
+msgstr "Aparença de la vora del marc"
+
+#: ../components/editor/gtkhtml-combo-box.c:323
+msgid "Action"
+msgstr "Acció"
+
+#: ../components/editor/gtkhtml-combo-box.c:324
+msgid "A GtkRadioAction"
+msgstr "Una GtkRadioAction"
+
+#: ../components/editor/gtkhtml-editor-actions.c:633
+#: ../components/html-editor/menubar.c:348
+msgid "Insert HTML File"
+msgstr "Insereix un fitxer HTML"
+
+#: ../components/editor/gtkhtml-editor-actions.c:642
+#: ../components/editor/gtkhtml-editor-actions.c:1760
+msgid "Insert Image"
+msgstr "Insereix una imatge"
+
+#: ../components/editor/gtkhtml-editor-actions.c:808
+#: ../components/html-editor/menubar.c:348
+msgid "Insert Text File"
+msgstr "Insereix un fitxer de text"
+
+#. Replace Button
+#: ../components/editor/gtkhtml-editor-actions.c:1269
+#: ../components/editor/gtkhtml-spell-dialog.c:522
+#: ../components/html-editor/replace.c:85
+msgid "_Replace"
+msgstr "_Reemplaça"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1276
+#: ../components/html-editor/replace.c:82
+msgid "Replace _All"
+msgstr "Reempl_aça-ho tot"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1290
+#: ../components/html-editor/replace.c:83
+msgid "_Next"
+msgstr "Següe_nt"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1297
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:111
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
+msgid "_Copy"
+msgstr "_Copia"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1304
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:18
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:18
+msgid "Cu_t"
+msgstr "Re_talla"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1318
+msgid "Find A_gain"
+msgstr "Torna a cerc_ar"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1332
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:120
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
+msgid "_Increase Indent"
+msgstr "_Incrementa el sagnat"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1334
+msgid "Increase Indent"
+msgstr "Incrementa el sagnat"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1339
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:117
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
+msgid "_HTML File..."
+msgstr "Fitxer _HTML..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1346
+msgid "_Angel"
+msgstr "_Àngel"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1353
+msgid "_Cool"
+msgstr "_Guai"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1360
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:17
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:17
+msgid "Cr_ying"
+msgstr "_Plorant"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1367
+msgid "_Devilish"
+msgstr "_Diabòlic"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1374
+msgid "_Embarrassed"
+msgstr "Aver_gonyit"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1381
+msgid "_Kiss"
+msgstr "_Petó"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1388
+msgid "_Monkey"
+msgstr "_Mono"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1395
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:121
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
+msgid "_Indifferent"
+msgstr "_Indiferent"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1402
+msgid "_Tongue"
+msgstr "Llen_gua"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1409
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:116
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
+msgid "_Frown"
+msgstr "E_mpipat"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1416
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:137
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
+msgid "_Smile"
+msgstr "_Somriure"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1423
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:123
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
+msgid "_Laughing"
+msgstr "Ria_ller"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1430
+msgid "Smi_rk"
+msgstr "Som_riure"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1437
+msgid "Sur_prised"
+msgstr "So_rprès"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1444
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:160
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:160
+msgid "_Wink"
+msgstr "Pica l'_ullet"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1451
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:157
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:157
+msgid "_Undecided"
+msgstr "_Indecís"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1458
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:91
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
+msgid "S_ick"
+msgstr "Mare_jat"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1465
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:100
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
+msgid "Te_xt File..."
+msgstr "Fit_xer de text..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1472
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:129
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
+msgid "_Paste"
+msgstr "_Enganxa"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1479
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:79
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
+#: ../components/html-editor/popup.c:446
+msgid "Paste _Quotation"
+msgstr "En_ganxa una cita"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1486
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:132
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
+msgid "_Redo"
+msgstr "_Refés"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1493
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:92
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
+msgid "Select _All"
+msgstr "Seleccion_a-ho tot"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1500
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:114
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
+msgid "_Find..."
+msgstr "_Cerca..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1507
+msgid "Re_place..."
+msgstr "_Reemplaça..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1514
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:12
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
+msgid "Check _Spelling..."
+msgstr "Comprova l'_ortografia..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1521
+#: ../components/editor/gtkhtml-editor.glade.h:77
+#: ../components/html-editor/utils.c:205
+msgid "_Test URL..."
+msgstr "_Prova l'URL..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1528
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:159
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:159
+msgid "_Undo"
+msgstr "_Desfés"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1535
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:112
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
+msgid "_Decrease Indent"
+msgstr "_Redueix el sagnat"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1537
+msgid "Decrease Indent"
+msgstr "Redueix el sagnat"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1542
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:161
+msgid "_Wrap Lines"
+msgstr "_Talla la línia"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1551
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:113
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
+msgid "_Edit"
+msgstr "_Edita"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1558
+#: ../components/editor/main.c:324
+msgid "_File"
+msgstr "_Fitxer"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1565
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:28
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:28
+msgid "For_mat"
+msgstr "For_mat"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1572
+msgid "_Paragraph Style"
+msgstr "Estil de _paràgraf"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1579
+msgid "_Emoticon"
+msgstr "_Emoticona"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1586
+msgid "_Insert"
+msgstr "_Insereix"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1593
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:106
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
+msgid "_Alignment"
+msgstr "_Alineació"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1600
+#: ../components/html-editor/spellchecker.c:424
+msgid "Current _Languages"
+msgstr "Idiomes actua_ls"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1607
+#: ../components/editor/main.c:355
+msgid "_View"
+msgstr "_Visualitza"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1617
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
+msgid "_Center"
+msgstr "_Centra"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1619
+msgid "Center Alignment"
+msgstr "Alineació al centre"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1624
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
+msgid "_Left"
+msgstr "Es_querra"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1626
+msgid "Left Alignment"
+msgstr "Alineació a l'esquerra"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1631
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:134
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:134
+msgid "_Right"
+msgstr "D_reta"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1633
+msgid "Right Alignment"
+msgstr "Alineació a la dreta"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1641
+msgid "_HTML"
+msgstr "_HTML"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1643
+msgid "HTML editing mode"
+msgstr "Mode d'edició en HTML"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1648
+msgid "Plain _Text"
+msgstr "_Text pla"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1650
+msgid "Plain text editing mode"
+msgstr "Mode d'edició en text pla"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1658
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:126
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
+msgid "_Normal"
+msgstr "_Normal"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1665
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:29
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:29
+msgid "Header _1"
+msgstr "Capçalera _1"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1672
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:30
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:30
+msgid "Header _2"
+msgstr "Capçalera _2"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1679
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:31
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:31
+msgid "Header _3"
+msgstr "Capçalera _3"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1686
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:32
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:32
+msgid "Header _4"
+msgstr "Capçalera _4"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1693
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:33
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:33
+msgid "Header _5"
+msgstr "Capçalera _5"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1700
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:34
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:34
+msgid "Header _6"
+msgstr "Capçalera _6"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1707
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:8
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:8
+msgid "A_ddress"
+msgstr "A_dreça"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1714
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:131
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
+msgid "_Preformatted"
+msgstr "_Preformatat"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1721
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:109
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
+msgid "_Bulleted List"
+msgstr "Llista de _pics"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1728
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:135
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
+msgid "_Roman Numeral List"
+msgstr "Llista de nomb_res romans"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1735
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:76
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
+msgid "Numbered _List"
+msgstr "_Llista numerada"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1742
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:107
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
+msgid "_Alphabetical List"
+msgstr "Llista _alfabètica"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1758
+#: ../components/editor/gtkhtml-editor-actions.c:1793
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:119
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
+msgid "_Image..."
+msgstr "_Imatge..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1765
+#: ../components/editor/gtkhtml-editor-actions.c:1800
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:125
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
+msgid "_Link..."
+msgstr "En_llaç..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1767
+msgid "Insert Link"
+msgstr "Insereix un enllaç"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1772
+#: ../components/editor/gtkhtml-editor-actions.c:1814
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:136
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
+msgid "_Rule..."
+msgstr "_Filet..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1774
+msgid "Insert Rule"
+msgstr "Insereix un regle"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1779
+#: ../components/editor/gtkhtml-editor-actions.c:1821
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:140
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:140
+msgid "_Table..."
+msgstr "_Taula..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1781
+msgid "Insert Table"
+msgstr "Insereix una taula"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1786
+msgid "_Cell..."
+msgstr "_Cel·la..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1807
+msgid "Pa_ge..."
+msgstr "_Pàgina..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1830
+msgid "Font _Size"
+msgstr "_Mida de la lletra"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1837
+msgid "_Font Style"
+msgstr "_Estil de la lletra"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1847
+#: ../components/editor/gtkhtml-editor.glade.h:58
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:108
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:59
+msgid "_Bold"
+msgstr "_Negreta"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1849
+#: ../components/html-editor/toolbar.c:441
+msgid "Bold"
+msgstr "Negreta"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1855
+#: ../components/editor/gtkhtml-editor.glade.h:65
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:122
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:65
+msgid "_Italic"
+msgstr "Curs_iva"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1857
+#: ../components/html-editor/toolbar.c:444
+msgid "Italic"
+msgstr "Cursiva"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1863
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:130
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
+msgid "_Plain Text"
+msgstr "_Text"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1865
+msgid "Plain Text"
+msgstr "Text pla"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1871
+#: ../components/editor/gtkhtml-editor.glade.h:74
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:138
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:71
+msgid "_Strikethrough"
+msgstr "_Barrat"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1873
+msgid "Strikethrough"
+msgstr "Barrat"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1879
+#: ../components/editor/gtkhtml-editor.glade.h:80
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:158
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:158
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:74
+msgid "_Underline"
+msgstr "S_ubratlla"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1881
+#: ../components/html-editor/toolbar.c:447
+msgid "Underline"
+msgstr "Subratlla"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1890
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:7
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:7
 msgid "-2"
 msgstr "-2"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:8
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:8
-msgid "A_ddress"
-msgstr "A_dreça"
+#: ../components/editor/gtkhtml-editor-actions.c:1897
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:6
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:6
+msgid "-1"
+msgstr "-1"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1904
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:1
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
+msgid "+0"
+msgstr "+0"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1911
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:2
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:2
+msgid "+1"
+msgstr "+1"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1918
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:3
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:3
+msgid "+2"
+msgstr "+2"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1925
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:4
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:4
+msgid "+3"
+msgstr "+3"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1932
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:5
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:5
+msgid "+4"
+msgstr "+4"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1951
+msgid "Cell Contents"
+msgstr "Contingut de la cel·la"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1958
+#: ../components/html-editor/popup.c:523
+msgid "Column"
+msgstr "Columna"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1965
+#: ../components/html-editor/popup.c:522
+msgid "Row"
+msgstr "Fila"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1972
+#: ../components/editor/gtkhtml-editor-actions.c:2055
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:50
+#: ../components/html-editor/menubar.c:217
+#: ../components/html-editor/popup.c:235 ../components/html-editor/popup.c:509
+#: ../components/html-editor/popup.c:521
+msgid "Table"
+msgstr "Taula"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1981
+msgid "Table Delete"
+msgstr "Suprimeix la taula"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1988
+#: ../components/html-editor/popup.c:584
+msgid "Input Methods"
+msgstr "Mètodes d'entrada"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1995
+msgid "Table Insert"
+msgstr "Insereix una taula"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2002
+#: ../components/html-editor/editor-control-factory.c:187
+#: ../components/html-editor/popup.c:191 ../components/html-editor/popup.c:268
+msgid "Properties"
+msgstr "Propietats"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2020
+msgid "Column After"
+msgstr "Columna següent"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2027
+msgid "Column Before"
+msgstr "Columna anterior"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2034
+#: ../components/html-editor/popup.c:450
+msgid "Insert _Link"
+msgstr "Insereix un _enllaç"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2041
+msgid "Row Above"
+msgstr "Fila superior"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2048
+msgid "Row Below"
+msgstr "Fila inferior"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2062
+msgid "Cell..."
+msgstr "Cel·la..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:2069
+msgid "Image..."
+msgstr "Imatge..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:2076
+msgid "Link..."
+msgstr "Enllaç..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:2083
+msgid "Page..."
+msgstr "Pàgina..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:2090
+msgid "Paragraph..."
+msgstr "Paràgraf..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:2097
+msgid "Rule..."
+msgstr "Regle..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:2104
+msgid "Table..."
+msgstr "Taula..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:2111
+msgid "Text..."
+msgstr "Text..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:2118
+#: ../components/html-editor/popup.c:457
+msgid "Remove Link"
+msgstr "Suprimeix l'enllaç"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2135
+#: ../components/html-editor/popup.c:578
+msgid "Add Word to Dictionary"
+msgstr "Afegeix la paraula al diccionari"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2142
+#: ../components/html-editor/popup.c:559
+msgid "Ignore Misspelled Word"
+msgstr "Ignora la paraula incorrecta"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2149
+msgid "Add Word To"
+msgstr "Afegeix una paraula a"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2367
+msgid "_Find"
+msgstr "_Cerca"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2370
+msgid "Re_place"
+msgstr "Reem_plaça"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2373
+msgid "_Image"
+msgstr "_Imatge"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2376
+msgid "_Link"
+msgstr "En_llaç"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2379
+msgid "_Rule"
+msgstr "_Regle"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2382
+#: ../components/editor/gtkhtml-editor.glade.h:76
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:72
+msgid "_Table"
+msgstr "_Taula"
+
+#: ../components/editor/gtkhtml-editor-private.c:253
+msgid "Paragraph Style"
+msgstr "Estil de paràgraf"
+
+#: ../components/editor/gtkhtml-editor-private.c:267
+msgid "Editing Mode"
+msgstr "Mode d'edició"
+
+#: ../components/editor/gtkhtml-editor-private.c:279
+msgid "Font Color"
+msgstr "Color de la lletra"
+
+#: ../components/editor/gtkhtml-editor-private.c:289
+msgid "Font Size"
+msgstr "Mida de la lletra"
+
+#: ../components/editor/gtkhtml-editor-private.c:316
+#: ../components/html-editor/body.c:237 ../components/html-editor/text.c:171
+#: ../components/html-editor/toolbar.c:199
+msgid "Automatic"
+msgstr "Automàtic"
+
+#: ../components/editor/gtkhtml-editor.c:702
+msgid "Current Folder"
+msgstr "Carpeta actual"
+
+#: ../components/editor/gtkhtml-editor.c:703
+msgid "The initial folder for file chooser dialogs"
+msgstr "La carpeta inicial per els diàlegs del seleccionador de fitxers"
+
+#: ../components/editor/gtkhtml-editor.c:713
+msgid "Filename"
+msgstr "Nom de fitxer"
+
+#: ../components/editor/gtkhtml-editor.c:714
+msgid "The filename to use when saving"
+msgstr "El nom de fitxer a utilitzar en desar"
+
+#: ../components/editor/gtkhtml-editor.c:724
+msgid "HTML Mode"
+msgstr "Mode HTML"
+
+#: ../components/editor/gtkhtml-editor.c:725
+msgid "Edit HTML or plain text"
+msgstr "Edita HTML o text pla"
+
+#: ../components/editor/gtkhtml-editor.c:735
+msgid "Inline Spelling"
+msgstr "Comprova l'ortografia"
+
+#: ../components/editor/gtkhtml-editor.c:736
+msgid "Check your spelling as you type"
+msgstr "Comprova l'ortografia mentre escriviu"
+
+#: ../components/editor/gtkhtml-editor.c:746
+msgid "Magic Links"
+msgstr "Enllaços màgics"
+
+#: ../components/editor/gtkhtml-editor.c:747
+msgid "Make URIs clickable as you type"
+msgstr "Fes que els URI s'hi pugui fer clic mentre escriviu"
+
+#: ../components/editor/gtkhtml-editor.c:757
+msgid "Magic Smileys"
+msgstr "Emoticones màgiques"
+
+#: ../components/editor/gtkhtml-editor.c:758
+msgid "Convert emoticons to images as you type"
+msgstr "Converteix les emoticones en imatges mentre escriviu"
+
+#: ../components/editor/gtkhtml-editor.glade.h:1
+msgid "<b>Alignment &amp; Behavior</b>"
+msgstr "<b>Alineació i comportament</b>"
+
+#: ../components/editor/gtkhtml-editor.glade.h:2
+msgid "<b>Alignment</b>"
+msgstr "<b>Alineació</b>"
+
+#: ../components/editor/gtkhtml-editor.glade.h:3
+msgid "<b>Background Image</b>"
+msgstr "<b>Imatge de fons</b>"
+
+#: ../components/editor/gtkhtml-editor.glade.h:4
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:11
+msgid "<b>Background</b>"
+msgstr "<b>Fons</b>"
+
+#: ../components/editor/gtkhtml-editor.glade.h:5
+msgid "<b>Colors</b>"
+msgstr "<b>Colors</b>"
+
+#: ../components/editor/gtkhtml-editor.glade.h:6
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:12
+msgid "<b>General</b>"
+msgstr "<b>General</b>"
+
+#: ../components/editor/gtkhtml-editor.glade.h:7
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:13
+msgid "<b>Layout</b>"
+msgstr "<b>Disposició</b>"
+
+#: ../components/editor/gtkhtml-editor.glade.h:8
+msgid "<b>Link</b>"
+msgstr "<b>Enllaç</b>"
+
+#: ../components/editor/gtkhtml-editor.glade.h:9
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:14
+msgid "<b>Scope</b>"
+msgstr "<b>Abast</b>"
+
+#: ../components/editor/gtkhtml-editor.glade.h:10
+msgid "<b>Size</b>"
+msgstr "<b>Mida</b>"
+
+#: ../components/editor/gtkhtml-editor.glade.h:11
+msgid "<b>Style</b>"
+msgstr "<b>Estil</b>"
+
+#: ../components/editor/gtkhtml-editor.glade.h:12
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:23
+msgid "C_ell"
+msgstr "C_el·la"
+
+#: ../components/editor/gtkhtml-editor.glade.h:13
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:24
+msgid "C_olor:"
+msgstr "C_olor:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:14
+msgid "C_olumns:"
+msgstr "Colu_mnes:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:15
+#: ../components/html-editor/body.c:286
+msgid "C_ustom:"
+msgstr "_Personalitzat:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:16
+#: ../components/html-editor/replace.c:180
+#: ../components/html-editor/search.c:116
+msgid "Case _sensitive"
+msgstr "Con_sidera diferents majúscules i minúscules"
+
+#: ../components/editor/gtkhtml-editor.glade.h:17
+msgid "Cell Properties"
+msgstr "Propietats de la cel·la"
+
+#: ../components/editor/gtkhtml-editor.glade.h:18
+msgid "Co_lor:"
+msgstr "C_olor:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:19
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:26
+msgid "Col_umn"
+msgstr "Col_umna"
+
+#: ../components/editor/gtkhtml-editor.glade.h:20
+msgid "Column Span:"
+msgstr "Amplada de la columna:"
+
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
+#: ../components/editor/gtkhtml-editor.glade.h:21
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:23
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:23
+#: ../components/html-editor/search.c:110
+#: ../components/html-editor/search.c:171
+msgid "Find"
+msgstr "Cerca"
+
+#: ../components/editor/gtkhtml-editor.glade.h:22
+msgid "Hea_der Style"
+msgstr "Estil _de la capçalera"
+
+#: ../components/editor/gtkhtml-editor.glade.h:23
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:34
+msgid "I_mage:"
+msgstr "I_matge:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:24
+msgid "Image Properties"
+msgstr "Propietats de la imatge"
+
+#: ../components/editor/gtkhtml-editor.glade.h:25
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:36
+msgid ""
+"Left\n"
+"Center\n"
+"Right"
+msgstr ""
+"Esquerra\n"
+"Centre\n"
+"Dreta"
+
+#: ../components/editor/gtkhtml-editor.glade.h:28
+msgid "Link Properties"
+msgstr "Propietats de l'enllaç"
+
+#: ../components/editor/gtkhtml-editor.glade.h:29
+msgid ""
+"None\n"
+"Perforated Paper\n"
+"Blue Ink\n"
+"Paper\n"
+"Ribbon\n"
+"Midnight\n"
+"Confidential\n"
+"Draft\n"
+"Graph Paper"
+msgstr ""
+"Cap\n"
+"Paper perforat\n"
+"Tinta blava\n"
+"Paper\n"
+"Cinta\n"
+"Mitja nit\n"
+"Confidencial\n"
+"Esborrany\n"
+"Paper gràfic"
+
+#: ../components/editor/gtkhtml-editor.glade.h:38
+msgid "Page Properties"
+msgstr "Propietats de la pàgina"
+
+#: ../components/editor/gtkhtml-editor.glade.h:39
+msgid "Paragraph Properties"
+msgstr "Propietats del paràgraf"
+
+#: ../components/editor/gtkhtml-editor.glade.h:40
+#: ../components/html-editor/replace.c:190
+msgid "R_eplace:"
+msgstr "R_eemplaça:"
+
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
+#: ../components/editor/gtkhtml-editor.glade.h:41
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:87
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
+#: ../components/html-editor/replace.c:171
+#: ../components/html-editor/replace.c:236
+msgid "Replace"
+msgstr "Reemplaça"
+
+#: ../components/editor/gtkhtml-editor.glade.h:42
+msgid "Replace Confirmation"
+msgstr "Confirmeu el reemplaçament"
+
+#: ../components/editor/gtkhtml-editor.glade.h:43
+msgid "Row Span:"
+msgstr "Amplada de la fila:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:44
+msgid "Rule Properties"
+msgstr "Propietats del regle"
+
+#: ../components/editor/gtkhtml-editor.glade.h:45
+msgid "S_haded"
+msgstr "_Ombrejat"
+
+#: ../components/editor/gtkhtml-editor.glade.h:46
+msgid "Search _backwards"
+msgstr "Ce_rca endarerre"
+
+#: ../components/editor/gtkhtml-editor.glade.h:47
+msgid "Select An Image"
+msgstr "Selecciona una imatge"
+
+#: ../components/editor/gtkhtml-editor.glade.h:48
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:48
+msgid "Si_ze:"
+msgstr "_Mida:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:49
+#: ../components/html-editor/body.c:282
+msgid "T_emplate:"
+msgstr "_Plantilla:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:50
+msgid "Table Properties"
+msgstr "Propietats de la taula"
+
+#: ../components/editor/gtkhtml-editor.glade.h:51
+msgid "Text Properties"
+msgstr "Propietats del text"
+
+#: ../components/editor/gtkhtml-editor.glade.h:52
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:53
+msgid ""
+"Top\n"
+"Middle\n"
+"Bottom"
+msgstr ""
+"A dalt\n"
+"Al mig\n"
+"A baix"
+
+#: ../components/editor/gtkhtml-editor.glade.h:55
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:57
+msgid "Width:"
+msgstr "Amplada:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:56
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:58
+msgid "_Alignment:"
+msgstr "_Alineació:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:57
+#: ../components/html-editor/body.c:252
+msgid "_Background:"
+msgstr "_Fons:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:59
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:60
+msgid "_Border:"
+msgstr "Mar_ge:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:60
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:61
+msgid "_Color:"
+msgstr "_Color:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:61
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:62
+msgid "_Description:"
+msgstr "_Descripció:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:62
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:63
+msgid "_Height:"
+msgstr "A_lçada:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:63
+msgid "_Horizontal:"
+msgstr "_Horitzontal:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:64
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:64
+msgid "_Image:"
+msgstr "_Imatge:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:66
+#: ../components/html-editor/body.c:251
+msgid "_Link:"
+msgstr "En_llaç:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:67
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:66
+msgid "_Padding:"
+msgstr "_Farciment:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:68
+msgid "_Regular expression"
+msgstr "Exp_ressió regular"
+
+#: ../components/editor/gtkhtml-editor.glade.h:69
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:67
+msgid "_Row"
+msgstr "_Fila"
+
+#: ../components/editor/gtkhtml-editor.glade.h:70
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:68
+msgid "_Rows:"
+msgstr "_Files:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:71
+msgid "_Size:"
+msgstr "_Mida:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:72
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:69
+msgid "_Source:"
+msgstr "Ori_gen:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:73
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:70
+msgid "_Spacing:"
+msgstr "E_spaiat:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:75
+#: ../components/html-editor/paragraph.c:69
+msgid "_Style:"
+msgstr "E_stil:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:78
+#: ../components/html-editor/body.c:250
+msgid "_Text:"
+msgstr "_Text:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:79
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:73
+msgid "_URL:"
+msgstr "_URL:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:81
+msgid "_Vertical:"
+msgstr "_Vertical:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:82
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:75
+msgid "_Width:"
+msgstr "A_mplada:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:83
+#: ../components/html-editor/replace.c:194
+msgid "_With:"
+msgstr "A_mplada:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:84
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:76
+msgid "_Wrap Text"
+msgstr "_Tall de text"
+
+#: ../components/editor/gtkhtml-editor.glade.h:85
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:77
+msgid "_X-Padding:"
+msgstr "Farciment _X:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:86
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:78
+msgid "_Y-Padding:"
+msgstr "Farciment _Y:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:87
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:79
+msgid "px"
+msgstr "px"
+
+#: ../components/editor/gtkhtml-editor.glade.h:89
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:81
+#, no-c-format
+msgid ""
+"px\n"
+"%"
+msgstr ""
+"px\n"
+"%"
+
+#: ../components/editor/gtkhtml-editor.glade.h:92
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:84
+#, no-c-format
+msgid ""
+"px\n"
+"%\n"
+"follow"
+msgstr ""
+"px\n"
+"%\n"
+"segueix"
+
+#: ../components/editor/gtkhtml-spell-checker.c:200
+msgid "Language"
+msgstr "Idioma"
+
+#: ../components/editor/gtkhtml-spell-checker.c:201
+msgid "The language used by the spell checker"
+msgstr "L'idioma que utilitza el verificador ortogràfic"
+
+#: ../components/editor/gtkhtml-spell-dialog.c:117
+#, c-format
+msgid "Suggestions for \"%s\""
+msgstr "Suggerències per a «%s»"
+
+#: ../components/editor/gtkhtml-spell-dialog.c:358
+msgid "Misspelled Word"
+msgstr "Paraula incorrecta"
+
+#: ../components/editor/gtkhtml-spell-dialog.c:359
+msgid "The current misspelled word"
+msgstr "La paraula incorrecta actual"
+
+#: ../components/editor/gtkhtml-spell-dialog.c:449
+msgid "Spell Checker"
+msgstr "Verificador ortogràfic"
+
+#. Replace All Button
+#: ../components/editor/gtkhtml-spell-dialog.c:536
+msgid "R_eplace All"
+msgstr "Reempl_aça-ho tot"
+
+#. Ignore Button
+#: ../components/editor/gtkhtml-spell-dialog.c:550
+msgid "_Ignore"
+msgstr "_Ignora"
+
+#. Skip Button
+#: ../components/editor/gtkhtml-spell-dialog.c:564
+msgid "_Skip"
+msgstr "_Salta"
+
+#. Back Button
+#: ../components/editor/gtkhtml-spell-dialog.c:577
+msgid "_Back"
+msgstr "_Endarrere"
+
+#. Dictionary Label
+#: ../components/editor/gtkhtml-spell-dialog.c:590
+msgid "Dictionary"
+msgstr "Diccionari"
+
+#. Add Word Button
+#: ../components/editor/gtkhtml-spell-dialog.c:619
+msgid "_Add Word"
+msgstr "_Afegeix una paraula"
+
+#: ../components/editor/main.c:93
+msgid "Save As"
+msgstr "Anomena i desa"
+
+#: ../components/editor/main.c:111
+msgid "Untitled document"
+msgstr "Document sense títol"
+
+#: ../components/editor/main.c:268
+msgid "HTML Output"
+msgstr "Sortida HTML"
+
+#: ../components/editor/main.c:275
+msgid "HTML Source"
+msgstr "Origen HTML"
+
+#: ../components/editor/main.c:282
+msgid "Plain Source"
+msgstr "Text pla"
+
+#: ../components/editor/main.c:289
+msgid "_Print..."
+msgstr "_Imprimeix..."
+
+#: ../components/editor/main.c:296
+msgid "Print Pre_view"
+msgstr "Pre_visualització d'impressió"
+
+#: ../components/editor/main.c:303
+msgid "_Quit"
+msgstr "_Surt"
+
+#: ../components/editor/main.c:310
+msgid "_Save"
+msgstr "_Desa"
+
+#: ../components/editor/main.c:317
+msgid "Save _As..."
+msgstr "_Anomena i desa..."
+
+#: ../components/editor/main.c:334
+msgid "HTML _Output"
+msgstr "_Sortida HTML"
+
+#: ../components/editor/main.c:341
+msgid "_HTML Source"
+msgstr "Ori_gen HTML"
+
+#: ../components/editor/main.c:348
+msgid "_Plain Source"
+msgstr "_Text pla"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:9
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:9
@@ -93,11 +1624,6 @@ msgstr "Llista de pics"
 #: ../components/html-editor/toolbar.c:415
 msgid "Center justifies the paragraphs"
 msgstr "Centra els paràgrafs"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:12
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
-msgid "Check _Spelling..."
-msgstr "Comprova l'_ortografia..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:13
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:13
@@ -119,16 +1645,6 @@ msgstr "Copia la selecció al porta-retalls"
 msgid "Copy the selection"
 msgstr "Copia la selecció"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:17
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:17
-msgid "Cr_ying"
-msgstr "_Plorant"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:18
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:18
-msgid "Cu_t"
-msgstr "Re_talla"
-
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:19
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:19
 msgid "Cut"
@@ -148,14 +1664,6 @@ msgstr "Retalla la selecció"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
 msgid "Emoti_con"
 msgstr "Emoti_cona"
-
-#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:23
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:23
-#: ../components/html-editor/search.c:110
-#: ../components/html-editor/search.c:171
-msgid "Find"
-msgstr "Cerca"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:24
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:24
@@ -177,41 +1685,6 @@ msgstr "Cerca i reemplaça"
 msgid "Find and replace"
 msgstr "Cerca i reemplaça"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:28
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:28
-msgid "For_mat"
-msgstr "For_mat"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:29
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:29
-msgid "Header _1"
-msgstr "Capçalera _1"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:30
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:30
-msgid "Header _2"
-msgstr "Capçalera _2"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:31
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:31
-msgid "Header _3"
-msgstr "Capçalera _3"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:32
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:32
-msgid "Header _4"
-msgstr "Capçalera _4"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:33
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:33
-msgid "Header _5"
-msgstr "Capçalera _5"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:34
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:34
-msgid "Header _6"
-msgstr "Capçalera _6"
-
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:35
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
 msgid "I_nsert"
@@ -219,7 +1692,7 @@ msgstr "I_nsereix"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:36
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
-#: ../components/html-editor/editor-control-factory.c:200
+#: ../components/html-editor/editor-control-factory.c:197
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:35
 #: ../components/html-editor/popup.c:211
 msgid "Image"
@@ -297,7 +1770,7 @@ msgstr "Insereix una careta picant l'ullet al document..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:51
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
-#: ../components/html-editor/menubar.c:130
+#: ../components/html-editor/menubar.c:129
 msgid "Insert image"
 msgstr "Insereix una imatge"
 
@@ -344,7 +1817,7 @@ msgstr "Justifica a l'esquerra els paràgrafs"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:60
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
-#: ../components/html-editor/menubar.c:175
+#: ../components/html-editor/menubar.c:174
 #: ../components/html-editor/popup.c:111 ../components/html-editor/popup.c:205
 #: ../components/html-editor/popup.c:271
 msgid "Link"
@@ -356,6 +1829,7 @@ msgid "Make the current Paragraph style Normal"
 msgstr "Fes que l'estil del paràgraf sigui Normal"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:62
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
 msgid "Make the current Paragraph style Preformat"
 msgstr "Fes que l'estil del paràgraf sigui Preformat"
 
@@ -426,11 +1900,6 @@ msgstr "Normal"
 msgid "Numbered List"
 msgstr "Llista numerada"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:76
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
-msgid "Numbered _List"
-msgstr "_Llista numerada"
-
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:77
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
 msgid "Oh _No!"
@@ -440,12 +1909,6 @@ msgstr "Oh, _no!"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
 msgid "Paste"
 msgstr "Enganxa"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:79
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
-#: ../components/html-editor/popup.c:446
-msgid "Paste _Quotation"
-msgstr "En_ganxa una cita"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:80
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
@@ -463,6 +1926,7 @@ msgid "Paste the clipboard as a quotation"
 msgstr "Enganxa el porta-retalls com a cita"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:83
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
 #: ../components/html-editor/paragraph-style.c:44
 msgid "Preformat"
 msgstr "Preformat"
@@ -482,14 +1946,6 @@ msgstr "Refés els últims canvis desfets"
 msgid "Redo the undone action"
 msgstr "Refés l'acció desfeta"
 
-#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:87
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
-#: ../components/html-editor/replace.c:171
-#: ../components/html-editor/replace.c:236
-msgid "Replace"
-msgstr "Reemplaça"
-
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:88
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
 #: ../components/html-editor/toolbar.c:418
@@ -503,22 +1959,12 @@ msgstr "Llista numerada romana"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:90
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
-#: ../components/html-editor/editor-control-factory.c:218
+#: ../components/html-editor/editor-control-factory.c:215
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:46
-#: ../components/html-editor/menubar.c:194
+#: ../components/html-editor/menubar.c:193
 #: ../components/html-editor/popup.c:229
 msgid "Rule"
 msgstr "Filet"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:91
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
-msgid "S_ick"
-msgstr "Mare_jat"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:92
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
-msgid "Select _All"
-msgstr "Seleccion_a-ho tot"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:93
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
@@ -546,24 +1992,10 @@ msgstr "Subíndex"
 msgid "Superscript"
 msgstr "Superíndex"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:50
-#: ../components/html-editor/menubar.c:218
-#: ../components/html-editor/popup.c:235 ../components/html-editor/popup.c:509
-#: ../components/html-editor/popup.c:521
-msgid "Table"
-msgstr "Taula"
-
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:99
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
 msgid "Te_mplate..."
 msgstr "Pla_ntilla..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:100
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
-msgid "Te_xt File..."
-msgstr "Fit_xer de text..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:101
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
@@ -591,112 +2023,15 @@ msgstr "Desfés els últims canvis"
 msgid "Undo the last action"
 msgstr "Desfés l'última acció"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:106
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
-msgid "_Alignment"
-msgstr "_Alineació"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:107
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
-msgid "_Alphabetical List"
-msgstr "Llista _alfabètica"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:108
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:59
-msgid "_Bold"
-msgstr "_Negreta"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:109
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
-msgid "_Bulleted List"
-msgstr "Llista de _pics"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
-msgid "_Center"
-msgstr "_Centra"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:111
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
-msgid "_Copy"
-msgstr "_Copia"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:112
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
-msgid "_Decrease Indent"
-msgstr "_Redueix el sagnat"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:113
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
-msgid "_Edit"
-msgstr "_Edita"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:114
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
-msgid "_Find..."
-msgstr "_Cerca..."
-
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:115
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
 msgid "_Font Size"
 msgstr "_Mida de la lletra"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:116
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
-msgid "_Frown"
-msgstr "E_mpipat"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:117
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
-msgid "_HTML File..."
-msgstr "Fitxer _HTML..."
-
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:118
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
 msgid "_Heading"
 msgstr "Capça_lera"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:119
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
-msgid "_Image..."
-msgstr "_Imatge..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:120
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
-msgid "_Increase Indent"
-msgstr "_Incrementa el sagnat"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:121
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
-msgid "_Indifferent"
-msgstr "_Indiferent"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:122
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:65
-msgid "_Italic"
-msgstr "Curs_iva"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:123
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
-msgid "_Laughing"
-msgstr "Ria_ller"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
-msgid "_Left"
-msgstr "Es_querra"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:125
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
-msgid "_Link..."
-msgstr "En_llaç..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:126
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
-msgid "_Normal"
-msgstr "_Normal"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:127
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:127
@@ -708,66 +2043,15 @@ msgstr "_Pàgina..."
 msgid "_Paragraph..."
 msgstr "_Paràgraf..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:129
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
-msgid "_Paste"
-msgstr "_Enganxa"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:130
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
-msgid "_Plain Text"
-msgstr "_Text"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:131
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
-msgid "_Preformatted"
-msgstr "_Preformatat"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:132
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
-msgid "_Redo"
-msgstr "_Refés"
-
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:133
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:133
 msgid "_Replace..."
 msgstr "_Reemplaça..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:134
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:134
-msgid "_Right"
-msgstr "D_reta"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:135
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
-msgid "_Roman Numeral List"
-msgstr "Llista de nomb_res romans"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:136
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
-msgid "_Rule..."
-msgstr "_Filet..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:137
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
-msgid "_Smile"
-msgstr "_Somriure"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:138
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:71
-msgid "_Strikethrough"
-msgstr "_Ratllat"
-
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:139
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:139
 msgid "_Style"
 msgstr "E_stil"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:140
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:140
-msgid "_Table..."
-msgstr "_Taula..."
 
 #.
 #. <submenu name="BackgroundColor" _label="Background Color">
@@ -789,27 +2073,6 @@ msgstr "_Taula..."
 msgid "_Text..."
 msgstr "_Text..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:157
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:157
-msgid "_Undecided"
-msgstr "_Indecís"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:158
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:158
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:74
-msgid "_Underline"
-msgstr "S_ubratlla"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:159
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:159
-msgid "_Undo"
-msgstr "_Desfés"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:160
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:160
-msgid "_Wink"
-msgstr "Pica l'_ullet"
-
 #: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:1
 msgid "GNOME HTML Editor"
 msgstr "Editor HTML del GNOME"
@@ -821,18 +2084,6 @@ msgstr "Control d'edició HTML del GNOME"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:3
 msgid "GNOME HTML Editor Factory"
 msgstr "Factoria de l'editor HTML del GNOME"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
-msgid "Make the current Paragraph style Preformatted"
-msgstr "Fes que l'estil del paràgraf sigui preformatat"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
-msgid "Preformatted"
-msgstr "Preformatat"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:161
-msgid "_Wrap Lines"
-msgstr "_Talla la línia"
 
 #: ../components/html-editor/body.c:64
 msgid "None"
@@ -870,23 +2121,6 @@ msgstr "Esborrany"
 msgid "Graph paper"
 msgstr "Paper de gràfics"
 
-#: ../components/html-editor/body.c:237 ../components/html-editor/text.c:171
-#: ../components/html-editor/toolbar.c:199
-msgid "Automatic"
-msgstr "Automàtic"
-
-#: ../components/html-editor/body.c:250
-msgid "_Text:"
-msgstr "_Text:"
-
-#: ../components/html-editor/body.c:251
-msgid "_Link:"
-msgstr "En_llaç:"
-
-#: ../components/html-editor/body.c:252
-msgid "_Background:"
-msgstr "_Fons:"
-
 #: ../components/html-editor/body.c:254
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:27
 msgid "Colors"
@@ -903,17 +2137,9 @@ msgstr "Ruta per la imatge de fons"
 
 #: ../components/html-editor/body.c:275
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:51
-#: ../components/html-editor/menubar.c:240
+#: ../components/html-editor/menubar.c:239
 msgid "Template"
 msgstr "Plantilla"
-
-#: ../components/html-editor/body.c:282
-msgid "T_emplate:"
-msgstr "_Plantilla:"
-
-#: ../components/html-editor/body.c:286
-msgid "C_ustom:"
-msgstr "_Personalitzat:"
 
 #: ../components/html-editor/cell.c:342 ../components/html-editor/image.c:345
 #: ../components/html-editor/link.c:215 ../components/html-editor/rule.c:179
@@ -927,236 +2153,49 @@ msgstr "No s'ha pogut carregar el fitxer glade."
 msgid "Transparent"
 msgstr "Transparent"
 
-#: ../components/html-editor/editor-control-factory.c:190
-#: ../components/html-editor/popup.c:191 ../components/html-editor/popup.c:268
-msgid "Properties"
-msgstr "Propietats"
-
-#: ../components/html-editor/editor-control-factory.c:208
+#: ../components/html-editor/editor-control-factory.c:205
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:52
-#: ../components/html-editor/menubar.c:426
+#: ../components/html-editor/menubar.c:425
 #: ../components/html-editor/popup.c:199
 msgid "Text"
 msgstr "Text"
 
-#: ../components/html-editor/editor-control-factory.c:227
-#: ../components/html-editor/menubar.c:443
+#: ../components/html-editor/editor-control-factory.c:224
+#: ../components/html-editor/menubar.c:442
 #: ../components/html-editor/popup.c:217
 msgid "Paragraph"
 msgstr "Paràgraf"
 
-#: ../components/html-editor/editor-control-factory.c:231
+#: ../components/html-editor/editor-control-factory.c:228
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:44
-#: ../components/html-editor/menubar.c:409
+#: ../components/html-editor/menubar.c:408
 #: ../components/html-editor/popup.c:223
 msgid "Page"
 msgstr "Pàgina"
 
-#: ../components/html-editor/gi-color-combo.c:191
+#: ../components/html-editor/gi-color-combo.c:189
 msgid "color preview"
 msgstr "previsualització del color"
 
-#. This is the default custom color
-#: ../components/html-editor/gi-color-palette.c:378
-msgid "custom"
-msgstr "personalitzat"
-
 #. "Custom" color - we'll pop up a GtkColorDialog
-#: ../components/html-editor/gi-color-palette.c:418
+#: ../components/html-editor/gi-color-palette.c:414
 msgid "Custom Color:"
 msgstr "Color personalitzat:"
 
-#: ../components/html-editor/gi-color-palette.c:426
-msgid "Choose Custom Color"
-msgstr "Escolliu el color personalitzat"
-
-#: ../components/html-editor/gi-color-palette.c:559
-msgid "black"
-msgstr "negre"
-
-#: ../components/html-editor/gi-color-palette.c:560
-msgid "light brown"
-msgstr "marró clar"
-
-#: ../components/html-editor/gi-color-palette.c:561
-msgid "brown gold"
-msgstr "marró daurat"
-
-#: ../components/html-editor/gi-color-palette.c:562
-msgid "dark green #2"
-msgstr "verd fosc nº 2"
-
-#: ../components/html-editor/gi-color-palette.c:563
-msgid "navy"
-msgstr "blau marí"
-
-#: ../components/html-editor/gi-color-palette.c:564
-#: ../components/html-editor/gi-color-palette.c:620
-msgid "dark blue"
-msgstr "blau fosc"
-
-#: ../components/html-editor/gi-color-palette.c:565
-msgid "purple #2"
-msgstr "violeta nº 2"
-
-#: ../components/html-editor/gi-color-palette.c:566
-msgid "very dark gray"
-msgstr "gris molt fosc"
-
-#: ../components/html-editor/gi-color-palette.c:569
-#: ../components/html-editor/gi-color-palette.c:625
-msgid "dark red"
-msgstr "vermell fosc"
-
-#: ../components/html-editor/gi-color-palette.c:570
-msgid "red-orange"
-msgstr "vermell-taronja"
-
-#: ../components/html-editor/gi-color-palette.c:571
-msgid "gold"
-msgstr "daurat"
-
-#: ../components/html-editor/gi-color-palette.c:572
-msgid "dark green"
-msgstr "verd fosc"
-
-#: ../components/html-editor/gi-color-palette.c:573
-#: ../components/html-editor/gi-color-palette.c:626
-msgid "dull blue"
-msgstr "blau feble"
-
-#: ../components/html-editor/gi-color-palette.c:574
-#: ../components/html-editor/gi-color-palette.c:627
-msgid "blue"
-msgstr "blau"
-
-#: ../components/html-editor/gi-color-palette.c:575
-msgid "dull purple"
-msgstr "violeta feble"
-
-#: ../components/html-editor/gi-color-palette.c:576
-msgid "dark grey"
-msgstr "gris fosc"
-
-#: ../components/html-editor/gi-color-palette.c:579
-msgid "red"
-msgstr "vermell"
-
-#: ../components/html-editor/gi-color-palette.c:580
-msgid "orange"
-msgstr "taronja"
-
-#: ../components/html-editor/gi-color-palette.c:581
-msgid "lime"
-msgstr "llima"
-
-#: ../components/html-editor/gi-color-palette.c:582
-msgid "dull green"
-msgstr "verd feble"
-
-#: ../components/html-editor/gi-color-palette.c:583
-msgid "dull blue #2"
-msgstr "blau feble nº 2"
-
-#: ../components/html-editor/gi-color-palette.c:584
-msgid "sky blue #2"
-msgstr "blau cel nº 2"
-
-#: ../components/html-editor/gi-color-palette.c:585
-#: ../components/html-editor/gi-color-palette.c:624
-msgid "purple"
-msgstr "porpra"
-
-#: ../components/html-editor/gi-color-palette.c:586
-msgid "gray"
-msgstr "gris"
-
-#: ../components/html-editor/gi-color-palette.c:589
-#: ../components/html-editor/gi-color-palette.c:621
-msgid "magenta"
-msgstr "magenta"
-
-#: ../components/html-editor/gi-color-palette.c:590
-msgid "bright orange"
-msgstr "taronja clar"
-
-#: ../components/html-editor/gi-color-palette.c:591
-#: ../components/html-editor/gi-color-palette.c:622
-msgid "yellow"
-msgstr "groc"
-
-#: ../components/html-editor/gi-color-palette.c:592
-msgid "green"
-msgstr "verd"
-
-#: ../components/html-editor/gi-color-palette.c:593
-#: ../components/html-editor/gi-color-palette.c:623
-msgid "cyan"
-msgstr "cian"
-
-#: ../components/html-editor/gi-color-palette.c:594
-msgid "bright blue"
-msgstr "blau clar"
-
-#: ../components/html-editor/gi-color-palette.c:595
-#: ../components/html-editor/gi-color-palette.c:612
-msgid "red purple"
-msgstr "violeta vermell"
-
-#: ../components/html-editor/gi-color-palette.c:596
-msgid "light grey"
-msgstr "gris clar"
-
-#: ../components/html-editor/gi-color-palette.c:599
-#: ../components/html-editor/gi-color-palette.c:616
-msgid "pink"
-msgstr "rosa"
-
-#: ../components/html-editor/gi-color-palette.c:600
-msgid "light orange"
-msgstr "taronja clar"
-
-#: ../components/html-editor/gi-color-palette.c:601
-#: ../components/html-editor/gi-color-palette.c:613
-msgid "light yellow"
-msgstr "groc clar"
-
-#: ../components/html-editor/gi-color-palette.c:602
-msgid "light green"
-msgstr "verd clar"
-
-#: ../components/html-editor/gi-color-palette.c:603
-msgid "light cyan"
-msgstr "cian clar"
-
-#: ../components/html-editor/gi-color-palette.c:604
-#: ../components/html-editor/gi-color-palette.c:614
-msgid "light blue"
-msgstr "blau clar"
-
-#: ../components/html-editor/gi-color-palette.c:605
-#: ../components/html-editor/gi-color-palette.c:618
-msgid "light purple"
-msgstr "violeta clar"
-
-#: ../components/html-editor/gi-color-palette.c:606
-msgid "white"
-msgstr "blanc"
-
-#: ../components/html-editor/gi-color-palette.c:611
+#: ../components/html-editor/gi-color-palette.c:607
 msgid "purplish blue"
 msgstr "blau violeta"
 
-#: ../components/html-editor/gi-color-palette.c:615
+#: ../components/html-editor/gi-color-palette.c:611
 msgid "dark purple"
 msgstr "violeta fosc"
 
-#: ../components/html-editor/gi-color-palette.c:617
+#: ../components/html-editor/gi-color-palette.c:613
 msgid "sky blue"
 msgstr "blau cel"
 
 #. set the a11y name
-#: ../components/html-editor/gi-combo-box.c:424
+#: ../components/html-editor/gi-combo-box.c:411
 msgid "Popup"
 msgstr "Finestra emergent"
 
@@ -1194,22 +2233,6 @@ msgstr ""
 msgid "<b>Alignment &amp; Behaviour</b>"
 msgstr "<b>Alineació i comportament</b>"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:11
-msgid "<b>Background</b>"
-msgstr "<b>Fons</b>"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:12
-msgid "<b>General</b>"
-msgstr "<b>General</b>"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:13
-msgid "<b>Layout</b>"
-msgstr "<b>Disposició</b>"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:14
-msgid "<b>Scope</b>"
-msgstr "<b>Abast</b>"
-
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:15
 msgid "<span weight=\"bold\">General</span>"
 msgstr "<span weight=\"bold\">General</span>"
@@ -1238,22 +2261,10 @@ msgstr "<span weight=\"bold\">Plantilla</span>"
 msgid "Alignment:"
 msgstr "Alineació:"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:23
-msgid "C_ell"
-msgstr "C_el·la"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:24
-msgid "C_olor:"
-msgstr "C_olor:"
-
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:25
 #: ../components/html-editor/popup.c:241
 msgid "Cell"
 msgstr "Cel·la"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:26
-msgid "Col_umn"
-msgstr "Col_umna"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:28
 msgid "Colu_mns:"
@@ -1279,20 +2290,6 @@ msgstr "Alineació horitzontal:"
 msgid "Horizontal:"
 msgstr "Horitzontal:"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:34
-msgid "I_mage:"
-msgstr "I_matge:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:36
-msgid ""
-"Left\n"
-"Center\n"
-"Right"
-msgstr ""
-"Esquerra\n"
-"Centre\n"
-"Dreta"
-
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:39
 msgid ""
 "Left\n"
@@ -1317,123 +2314,13 @@ msgstr "Ampla de fila:"
 msgid "Shade"
 msgstr "Ombra"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:48
-msgid "Si_ze:"
-msgstr "_Mida:"
-
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:49
 msgid "Size:"
 msgstr "Mida:"
 
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:53
-msgid ""
-"Top\n"
-"Middle\n"
-"Bottom"
-msgstr ""
-"A dalt\n"
-"Al mig\n"
-"A baix"
-
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:56
 msgid "Vertical:"
 msgstr "Vertical:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:57
-msgid "Width:"
-msgstr "Amplada:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:58
-msgid "_Alignment:"
-msgstr "_Alineació:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:60
-msgid "_Border:"
-msgstr "Mar_ge:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:61
-msgid "_Color:"
-msgstr "_Color:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:62
-msgid "_Description:"
-msgstr "_Descripció:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:63
-msgid "_Height:"
-msgstr "A_lçada:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:64
-msgid "_Image:"
-msgstr "_Imatge:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:66
-msgid "_Padding:"
-msgstr "_Farciment:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:67
-msgid "_Row"
-msgstr "_Fila"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:68
-msgid "_Rows:"
-msgstr "_Files:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:69
-msgid "_Source:"
-msgstr "Ori_gen:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:70
-msgid "_Spacing:"
-msgstr "E_spaiat:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:72
-msgid "_Table"
-msgstr "_Taula"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:73
-msgid "_URL:"
-msgstr "_URL:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:75
-msgid "_Width:"
-msgstr "A_mplada:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:76
-msgid "_Wrap Text"
-msgstr "_Tall de text"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:77
-msgid "_X-Padding:"
-msgstr "Farciment _X:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:78
-msgid "_Y-Padding:"
-msgstr "Farciment _Y:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:79
-msgid "px"
-msgstr "px"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:81
-#, no-c-format
-msgid ""
-"px\n"
-"%"
-msgstr ""
-"px\n"
-"%"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:84
-#, no-c-format
-msgid ""
-"px\n"
-"%\n"
-"follow"
-msgstr ""
-"px\n"
-"%\n"
-"segueix"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:87
 msgid "xxxxxxxxxxxxxx"
@@ -1447,36 +2334,24 @@ msgstr "URL:"
 msgid "Description:"
 msgstr "Descripció:"
 
-#: ../components/html-editor/menubar.c:172
-#: ../components/html-editor/menubar.c:191
-#: ../components/html-editor/menubar.c:215
-#: ../components/html-editor/menubar.c:237
+#: ../components/html-editor/menubar.c:171
+#: ../components/html-editor/menubar.c:190
+#: ../components/html-editor/menubar.c:214
+#: ../components/html-editor/menubar.c:236
 #: ../components/html-editor/popup.c:108
 msgid "Insert"
 msgstr "Insereix"
 
-#: ../components/html-editor/menubar.c:324
+#: ../components/html-editor/menubar.c:323
 #, c-format
 msgid "Error loading file '%s': %s"
 msgstr "S'ha produït un error en carregar el fitxer '%s': %s"
 
-#: ../components/html-editor/menubar.c:349
-msgid "Insert HTML File"
-msgstr "Insereix un fitxer HTML"
-
-#: ../components/html-editor/menubar.c:349
-msgid "Insert Text File"
-msgstr "Insereix un fitxer de text"
-
-#: ../components/html-editor/menubar.c:406
-#: ../components/html-editor/menubar.c:423
-#: ../components/html-editor/menubar.c:440
+#: ../components/html-editor/menubar.c:405
+#: ../components/html-editor/menubar.c:422
+#: ../components/html-editor/menubar.c:439
 msgid "Format"
 msgstr "Format"
-
-#: ../components/html-editor/paragraph.c:69
-msgid "_Style:"
-msgstr "E_stil:"
 
 #: ../components/html-editor/paragraph.c:72
 msgid "General"
@@ -1530,14 +2405,6 @@ msgstr "Capçalera 6"
 #: ../components/html-editor/paragraph-style.c:77
 msgid "Address"
 msgstr "Adreça"
-
-#: ../components/html-editor/popup.c:450
-msgid "Insert _Link"
-msgstr "Insereix un _enllaç"
-
-#: ../components/html-editor/popup.c:457
-msgid "Remove Link"
-msgstr "Suprimeix l'enllaç"
 
 #: ../components/html-editor/popup.c:464
 msgid "Style"
@@ -1600,72 +2467,28 @@ msgstr "Columna següent"
 msgid "Table delete"
 msgstr "Suprimeix taula"
 
-#: ../components/html-editor/popup.c:522
-msgid "Row"
-msgstr "Fila"
-
-#: ../components/html-editor/popup.c:523
-msgid "Column"
-msgstr "Columna"
-
 #: ../components/html-editor/popup.c:524
 msgid "Cell contents"
 msgstr "Contingut de la cel·la"
-
-#: ../components/html-editor/popup.c:559
-msgid "Ignore Misspelled Word"
-msgstr "Ignora la paraula incorrecta"
 
 #: ../components/html-editor/popup.c:564
 msgid "Add Word to"
 msgstr "Afegeix una paraula a"
 
-#: ../components/html-editor/popup.c:568
+#. Translators: %s is the language name.
+#: ../components/html-editor/popup.c:569
 #, c-format
 msgid "%s Dictionary"
 msgstr "Diccionari %s"
-
-#: ../components/html-editor/popup.c:577
-msgid "Add Word to Dictionary"
-msgstr "Afegeix la paraula al diccionari"
-
-#: ../components/html-editor/popup.c:583
-msgid "Input Methods"
-msgstr "Mètodes d'entrada"
 
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: ../components/html-editor/replace.c:81
 msgid "Replace confirmation"
 msgstr "Confirmeu el reemplaçament"
 
-#: ../components/html-editor/replace.c:82
-msgid "Replace _All"
-msgstr "Reempl_aça-ho tot"
-
-#: ../components/html-editor/replace.c:83
-msgid "_Next"
-msgstr "Següe_nt"
-
-#: ../components/html-editor/replace.c:85
-msgid "_Replace"
-msgstr "_Reemplaça"
-
 #: ../components/html-editor/replace.c:179
 msgid "Search _backward"
 msgstr "Ce_rca endarerre"
-
-#: ../components/html-editor/replace.c:180
-#: ../components/html-editor/search.c:116
-msgid "Case _sensitive"
-msgstr "Con_sidera diferents majúscules i minúscules"
-
-#: ../components/html-editor/replace.c:190
-msgid "R_eplace:"
-msgstr "R_eemplaça:"
-
-#: ../components/html-editor/replace.c:194
-msgid "_With:"
-msgstr "A_mplada:"
 
 #: ../components/html-editor/search.c:115
 msgid "_Backward"
@@ -1695,10 +2518,6 @@ msgstr "No s'ha trobat cap paraula escrita incorrectament"
 msgid "Spell checker"
 msgstr "Corrector ortogràfic"
 
-#: ../components/html-editor/spellchecker.c:424
-msgid "Current _Languages"
-msgstr "Idiomes actua_ls"
-
 #: ../components/html-editor/template.c:90
 msgid "Note"
 msgstr "Nota"
@@ -1724,7 +2543,7 @@ msgstr "Obre un fitxer..."
 msgid "Save file as..."
 msgstr "Anomena i desa..."
 
-#: ../components/html-editor/test-html-editor-control.c:541
+#: ../components/html-editor/test-html-editor-control.c:542
 msgid "GtkHTML Editor Test Container"
 msgstr "Contenidor de prova de l'editor GtkHTML"
 
@@ -1741,24 +2560,12 @@ msgid "Toggle typewriter font style"
 msgstr "Canvia l'estil de lletra de màquina d'escriure"
 
 #: ../components/html-editor/toolbar.c:441
-msgid "Bold"
-msgstr "Negreta"
-
-#: ../components/html-editor/toolbar.c:441
 msgid "Makes the text bold"
 msgstr "Converteix el text en negreta"
 
 #: ../components/html-editor/toolbar.c:444
-msgid "Italic"
-msgstr "Cursiva"
-
-#: ../components/html-editor/toolbar.c:444
 msgid "Makes the text italic"
 msgstr "Converteix el text en cursiva"
-
-#: ../components/html-editor/toolbar.c:447
-msgid "Underline"
-msgstr "Subratlla"
 
 #: ../components/html-editor/toolbar.c:447
 msgid "Underlines the text"
@@ -1784,13 +2591,13 @@ msgstr "Sagna"
 msgid "Indents the paragraphs more"
 msgstr "Sagna més els paràgrafs"
 
+#: ../components/html-editor/toolbar.c:540
+msgid "Text Color"
+msgstr "Color del text"
+
 #: ../components/html-editor/utils.c:132
 msgid "Sample"
 msgstr "Mostra"
-
-#: ../components/html-editor/utils.c:205
-msgid "_Test URL..."
-msgstr "_Prova l'URL..."
 
 #: ../components/html-editor/utils.c:248
 msgid ""
@@ -1800,121 +2607,123 @@ msgstr ""
 "L'objecte editat s'ha suprimit del document.\n"
 "No es poden aplicar els vostres canvis."
 
-#: ../gtkhtml/gtkhtml.c:2917
+#: ../gtkhtml/gtkhtml.c:2942
 msgid "Editable"
 msgstr "Editable"
 
-#: ../gtkhtml/gtkhtml.c:2918
+#: ../gtkhtml/gtkhtml.c:2943
 msgid "Whether the html can be edited"
 msgstr "Si es pot editar l'html"
 
-#: ../gtkhtml/gtkhtml.c:2924
+#: ../gtkhtml/gtkhtml.c:2949
 msgid "Document Title"
 msgstr "Nom del document"
 
-#: ../gtkhtml/gtkhtml.c:2925
+#: ../gtkhtml/gtkhtml.c:2950
 msgid "The title of the current document"
 msgstr "El nom del document actual"
 
-#: ../gtkhtml/gtkhtml.c:2931
+#: ../gtkhtml/gtkhtml.c:2956
 msgid "Document Base"
 msgstr "Base del document"
 
-#: ../gtkhtml/gtkhtml.c:2932
+#: ../gtkhtml/gtkhtml.c:2957
 msgid "The base URL for relative references"
 msgstr "L'URL base per a referències relatives"
 
-#: ../gtkhtml/gtkhtml.c:2938
+#: ../gtkhtml/gtkhtml.c:2963
 msgid "Target Base"
 msgstr "Base destí"
 
-#: ../gtkhtml/gtkhtml.c:2939
+#: ../gtkhtml/gtkhtml.c:2964
 msgid "The base URL of the target frame"
 msgstr "L'URL base del marc destí"
 
-#: ../gtkhtml/gtkhtml.c:2948
+#: ../gtkhtml/gtkhtml.c:2973
 msgid "Fixed Width Font"
 msgstr "Amplada de lletra fixa"
 
-#: ../gtkhtml/gtkhtml.c:2949
+#: ../gtkhtml/gtkhtml.c:2974
 msgid "The Monospace font to use for typewriter text"
 msgstr "El tipus de lletra monoespai per a text de màquina d'escriure"
 
-#: ../gtkhtml/gtkhtml.c:2955
+#: ../gtkhtml/gtkhtml.c:2980
 msgid "New Link Color"
 msgstr "Color del nou enllaç"
 
-#: ../gtkhtml/gtkhtml.c:2956
+#: ../gtkhtml/gtkhtml.c:2981
 msgid "The color of new link elements"
 msgstr "El color dels nous elements d'enllaç"
 
-#: ../gtkhtml/gtkhtml.c:2961
+#: ../gtkhtml/gtkhtml.c:2986
 msgid "Visited Link Color"
 msgstr "Color de l'enllaç visitat"
 
-#: ../gtkhtml/gtkhtml.c:2962
+#: ../gtkhtml/gtkhtml.c:2987
 msgid "The color of visited link elements"
 msgstr "El color dels elements d'enllaç visitats"
 
-#: ../gtkhtml/gtkhtml.c:2967
+#: ../gtkhtml/gtkhtml.c:2992
 msgid "Active Link Color"
 msgstr "Color de l'enllaç actiu"
 
-#: ../gtkhtml/gtkhtml.c:2968
+#: ../gtkhtml/gtkhtml.c:2993
 msgid "The color of active link elements"
 msgstr "El color dels elements d'enllaç actius"
 
-#: ../gtkhtml/gtkhtml.c:2973
+#: ../gtkhtml/gtkhtml.c:2998
 msgid "Spelling Error Color"
 msgstr "Color de l'error ortogràfic"
 
-#: ../gtkhtml/gtkhtml.c:2974
+#: ../gtkhtml/gtkhtml.c:2999
 msgid "The color of the spelling error markers"
 msgstr "El color dels marcadors d'error ortogràfic"
 
-#: ../gtkhtml/gtkhtml.c:2979
+#: ../gtkhtml/gtkhtml.c:3004
 msgid "Cite Quotation Color"
 msgstr "Color de la cita"
 
-#: ../gtkhtml/gtkhtml.c:2980
+#: ../gtkhtml/gtkhtml.c:3005
 msgid "The color of the cited text"
 msgstr "El color del text citat"
 
-#: ../gtkhtml/htmlbutton.c:140
+#: ../gtkhtml/htmlbutton.c:139
 msgid "Submit Query"
 msgstr "Envia la consulta"
 
-#: ../gtkhtml/htmlbutton.c:143
+#: ../gtkhtml/htmlbutton.c:142
 msgid "Reset"
 msgstr "Reinicia"
 
 #. TODO2 dialog instead of warning
-#: ../gtkhtml/htmlengine-print.c:231
-msgid "Cannot allocate default font for printing\n"
-msgstr "No es pot carregar el tipus de lletra predeterminada per imprimir\n"
-
-#: ../gtkhtml/htmlengine-print.c:310
+#: ../gtkhtml/htmlengine-print.c:231 ../gtkhtml/htmlengine-print.c:310
 msgid "Cannot allocate default font for printing"
 msgstr "No es pot ubicar el tipus de lletra predeterminada per a imprimir"
 
-#: ../gtkhtml/test.c:374
+#: ../gtkhtml/test.c:365
 msgid "GtkHTML Test"
 msgstr "Prova del GtkHTML"
 
-#: ../gtkhtml/testgtkhtml.c:116
+#: ../gtkhtml/testgtkhtml.c:114
 msgid "Print pre_view"
 msgstr "Pre_visualització d'impressió"
 
-#: ../gtkhtml/testgtkhtml.c:116
+#: ../gtkhtml/testgtkhtml.c:114
 msgid "Print preview"
 msgstr "Previsualització d'impressió"
 
-#: ../gtkhtml/testgtkhtml.c:1020
+#: ../gtkhtml/testgtkhtml.c:1019
 msgid "GtkHTML Test Application"
 msgstr "Aplicació de prova de GtkHTML"
 
-#~ msgid "C_ut"
-#~ msgstr "Re_talla"
+#~ msgid "Make the current Paragraph style Preformatted"
+#~ msgstr "Fes que l'estil del paràgraf sigui preformatat"
+
+#~ msgid "Preformatted"
+#~ msgstr "Preformatat"
+
+#~ msgid "Cannot allocate default font for printing\n"
+#~ msgstr "No es pot carregar el tipus de lletra predeterminada per imprimir\n"
 
 #~ msgid "Find Rege_x..."
 #~ msgstr "Cerca una e_xpressió regular..."
@@ -1933,9 +2742,6 @@ msgstr "Aplicació de prova de GtkHTML"
 
 #~ msgid "Search for a string"
 #~ msgstr "Cerca una cadena"
-
-#~ msgid "_Insert"
-#~ msgstr "_Insereix"
 
 # FIXME
 #~ msgid "_Insert text file... (FIXME)"
@@ -1997,9 +2803,6 @@ msgstr "Aplicació de prova de GtkHTML"
 
 #~ msgid "_Preformat"
 #~ msgstr "_Preformat"
-
-#~ msgid "_Smiley"
-#~ msgstr "Care_ta"
 
 #~ msgid "_Spell Check Document..."
 #~ msgstr "Comprova l'ortogra_fia del document..."
