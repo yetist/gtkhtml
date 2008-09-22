@@ -1,3 +1,32 @@
+GtkHTML-3.24.0 2008-09-22
+-------------------------
+
+Bug Fixes:
+	#423395: Ensure cursor at the right position even when first time focusing to the widget (Milan Crha)
+	#549232: Revise the translator comments to reference GtkComboBox, from which the "popup-shown" property and associated descriptions are taken (Matthew Barnes)
+
+Updated Translations:
+	Gintautas Miliauskas (lt)
+	Lucas Lommer (cs)
+	Ask H. Larsen (da)
+	Hendrik Richter (de)
+	Inaki Larrañaga Murgoitio (eu)
+	Ilkka Tuohela (fi)
+	Chao-Hsiung Liao (zh_HK, zh_TW)
+	Djihed Afifi (ar)
+	Gabor Kelemen (hu)
+	Sandeep Shedmake (mr)
+	Tirumurthi Vasudevan (ta)
+	Milo Casagrande (it)
+	Leonardo Ferreira Fontenelle (pt_BR)
+	Changwoo Ryu (ko)
+	Yavor Doganov (bg)
+	Ivar Smolin (et)
+	Shankar Prasad (kn)
+	Philip Withnall (en_GB)
+	Åsmund Skjæveland (nn)
+	Funda Wang (zh_CN)
+
 GtkHTML-3.23.92 2008-09-08
 --------------------------
 
