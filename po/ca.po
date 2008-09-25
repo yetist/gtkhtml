@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-22 00:23+0200\n"
-"PO-Revision-Date: 2008-09-22 00:28+0200\n"
+"POT-Creation-Date: 2008-09-23 05:07+0000\n"
+"PO-Revision-Date: 2008-09-25 18:44+0200\n"
 "Last-Translator: Gil Forcada <gilforcada@guifi.net>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
@@ -1555,6 +1555,29 @@ msgstr "Diccionari"
 msgid "_Add Word"
 msgstr "_Afegeix una paraula"
 
+#. Translators: %s is the language ISO code.
+#: ../components/editor/gtkhtml-spell-language.c:180
+#, c-format
+msgctxt "language"
+msgid "Unknown (%s)"
+msgstr "Desconeguda (%s)"
+
+#. Translators: The first %s is the language name, and the
+#. * second is the country name. Example: "French (France)"
+#: ../components/editor/gtkhtml-spell-language.c:195
+#: ../components/editor/gtkhtml-spell-language.c:200
+#, c-format
+msgctxt "language"
+msgid "%s (%s)"
+msgstr "%s (%s)"
+
+#. Translators: This refers to the default language used
+#. * by the spell checker.
+#: ../components/editor/gtkhtml-spell-language.c:385
+msgctxt "language"
+msgid "Default"
+msgstr "Predeterminada"
+
 #: ../components/editor/main.c:93
 msgid "Save As"
 msgstr "Anomena i desa"
@@ -2851,3 +2874,4 @@ msgstr "Aplicació de prova de GtkHTML"
 
 #~ msgid "etc..."
 #~ msgstr "etc..."
+
