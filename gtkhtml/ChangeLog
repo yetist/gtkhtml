@@ -1,3 +1,10 @@
+2008-09-29  Milan Crha  <mcrha@redhat.com>
+
+	** Fix for bug #554326
+
+	* gtkhtml.c: (update_primary_selection):
+	Ask for clipboard only when have something to store there.
+
 2008-09-15  Milan Crha  <mcrha@redhat.com>
 
 	** Fix for bug #423395

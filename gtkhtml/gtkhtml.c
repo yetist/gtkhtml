@@ -4458,11 +4458,11 @@ update_primary_selection (GtkHTML *html)
 	if (!html->allow_selection)
 		return;
 
-	clipboard = gtk_widget_get_clipboard (GTK_WIDGET (html), GDK_SELECTION_PRIMARY);
-
 	text = get_selection_string (html, &text_len, FALSE, TRUE, FALSE);
 	if (!text)
 		return;
+
+	clipboard = gtk_widget_get_clipboard (GTK_WIDGET (html), GDK_SELECTION_PRIMARY);
 
 	gtk_clipboard_set_text (clipboard, text, text_len);
 
