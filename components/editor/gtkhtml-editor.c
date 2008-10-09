@@ -239,12 +239,12 @@ editor_method_check_word (GtkHTML *html,
                           gpointer user_data)
 {
 	GtkhtmlEditor *editor = user_data;
-	gboolean correct = TRUE;
+	gboolean correct = FALSE;
 	GList *list;
 
 	list = editor->priv->active_spell_checkers;
 
-	while (list != NULL && correct) {
+	while (list != NULL && !correct) {
 		GtkhtmlSpellChecker *checker = list->data;
 
 		correct = gtkhtml_spell_checker_check_word (checker, word, -1);
