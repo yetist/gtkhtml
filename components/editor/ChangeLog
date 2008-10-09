@@ -1,3 +1,14 @@
+2008-10-09  Matthew Barnes  <mbarnes@redhat.com>
+
+	** Fixes bug #548540 and #554424
+
+	* gtkhtml-editor.c (editor_method_check_word):
+	A word is correct if it's found in ANY dictionary, not ALL.
+
+	* gtkhtml-spell-checker.c (gtkhtml_spell_checker_check_word):
+	Exclude apostrophies from the end of words before passing them
+	to the dictionary.
+
 2008-09-10  Matthew Barnes  <mbarnes@redhat.com>
 
 	** Re-fixes bug #549232

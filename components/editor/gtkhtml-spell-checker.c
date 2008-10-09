@@ -306,6 +306,10 @@ gtkhtml_spell_checker_check_word (GtkhtmlSpellChecker *checker,
 	if (spell_checker_is_digit (word, length))
 		return TRUE;
 
+	/* Exclude apostrophies from the end of words. */
+	while (word[length - 1] == '\'')
+		length--;
+
 	result = enchant_dict_check (dict, word, length);
 
 	if (result < 0)
