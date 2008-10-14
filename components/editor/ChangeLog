@@ -1,3 +1,10 @@
+2008-10-14  Matthew Barnes  <mbarnes@redhat.com>
+
+	** Fixes bug #556239
+
+	* gtkhtml-editor-actions.c (action_language_cb):
+	Recheck spelling when the language selection changes.
+
 2008-10-09  Matthew Barnes  <mbarnes@redhat.com>
 
 	** Fixes bug #548540 and #554424
