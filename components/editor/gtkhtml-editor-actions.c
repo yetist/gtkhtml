@@ -856,6 +856,7 @@ action_language_cb (GtkToggleAction *action,
 	GtkhtmlSpellChecker *checker;
 	const gchar *language_code;
 	GtkAction *add_action;
+	GtkHTML *html;
 	GList *list;
 	guint length;
 	gchar *action_name;
@@ -897,6 +898,9 @@ action_language_cb (GtkToggleAction *action,
 	gtk_action_set_visible (ACTION (CONTEXT_SPELL_IGNORE), length > 0);
 
 	gtk_action_set_sensitive (ACTION (SPELL_CHECK), length > 0);
+
+	html = gtkhtml_editor_get_html (editor);
+	html_engine_spell_check (html->engine);
 }
 
 static void
