@@ -1,3 +1,12 @@
+2008-10-17  Takao Fujiwara  <takao.fujiwara@sun.com>
+
+	reviewed by: Srinivasa Ragavan
+
+	** Fixes bug #554849
+
+	* gtkhtml-editor.c (editor_init):
+	Add bindtextdomain to set LOCALEDIR.
+
 2008-10-14  Matthew Barnes  <mbarnes@redhat.com>
 
 	** Fixes bug #556239

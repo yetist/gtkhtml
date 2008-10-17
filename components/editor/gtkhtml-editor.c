@@ -830,6 +830,7 @@ editor_init (GtkhtmlEditor *editor)
 	editor->vbox = g_object_ref_sink (gtk_vbox_new (FALSE, 0));
 	gtk_widget_show (editor->vbox);
 
+	bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
 	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 
 	gtkhtml_editor_private_init (editor);
