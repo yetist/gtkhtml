@@ -1,3 +1,10 @@
+2008-10-03  Milan Crha  <mcrha@redhat.com>
+
+	** Fix for bug #546155
+
+	* htmltext.c: (convert_nbsp), (update_index_interval):
+	Update correct index, otherwise it crashes.
+
 2008-09-29  Milan Crha  <mcrha@redhat.com>
 
 	** Fix for bug #554326

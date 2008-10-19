@@ -1979,11 +1979,12 @@ convert_nbsp (gchar *fill, const gchar *text)
 	gunichar uc;
 	const gchar *this_p, *p;
 
+	p = text;
+	white_space = 0;
+
 #ifdef DEBUG_NBSP
 	printf ("convert_nbsp: %s --> \"", p);
 #endif
-	p = text;
-	white_space = 0;
 
 	while (*p) {
 		this_p = p;
@@ -2043,7 +2044,7 @@ update_index_interval (guint *start_index,
 		struct TmpDeltaRecord *rec = c->data;
 
 		if (*end_index > index && *end_index <= rec->index) {
-			(*start_index) += delta;
+			(*end_index) += delta;
 			break;
 		}
 		index = rec->index;
