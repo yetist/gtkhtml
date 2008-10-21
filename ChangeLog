@@ -1,3 +1,7 @@
+2008-10-20  Srinivasa Ragavan  <sragavan@novell.com>
+
+	* NEWS, configure.in: GtkHTML 3.24.1 release and version bump.
+
 2008-09-22  Srinivasa Ragavan  <sragavan@novell.com>
 
 	* NEWS, configure.in: GtkHTML 3.24.0 release.

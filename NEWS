@@ -1,3 +1,20 @@
+GtkHTML-3.24.1 2008-10-20
+-------------------------
+
+Bug Fixes:
+	#546155: Composer crash after pasting text and deleting parts of it (Milan Crha)
+	#548540: Spellchecker reports possessive plurals (e.g. "horses'") as misspelled (Matthew Barnes)
+	#554326: Critical warning when opening new composer and have preset a signature (Milan Crha)
+	#554424: Spellchecker breaks after enabling more languages (Matthew Barnes)
+	#554849: Unlocalized strings in Compose mail dialog (Takao Fujiwara)
+	#556239: Inline spell-check not redone after changing the language (Matthew Barnes)
+
+Updated Translations:
+	Djihed Afifi (ar)
+	Pema Geyleg (dz)
+	Gil Forcada (ca)
+	Takeshi AIHANA (ja)
+
 GtkHTML-3.24.0 2008-09-22
 -------------------------
 
