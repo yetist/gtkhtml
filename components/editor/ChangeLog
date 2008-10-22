@@ -1,3 +1,10 @@
+2008-10-22  Matthew Barnes  <mbarnes@redhat.com>
+
+	* gtkhtml-editor.glade:
+	Zero the page size on GtkSpinButton adjustments to avoid runtime
+	warnings ("setting an adjustment with non-zero page size is
+	deprecated").
+
 2008-10-17  Takao Fujiwara  <takao.fujiwara@sun.com>
 
 	reviewed by: Srinivasa Ragavan

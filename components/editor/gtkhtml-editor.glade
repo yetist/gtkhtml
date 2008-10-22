@@ -1027,7 +1027,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                        <property name="adjustment">0 0 100 1 10 10</property>
+                        <property name="adjustment">0 0 100 1 10 0</property>
                         <signal name="value_changed" handler="gtkhtml_editor_rule_properties_width_changed_cb" object="rule-properties-window"/>
                       </widget>
                       <packing>
@@ -1056,7 +1056,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                        <property name="adjustment">0 0 100 1 10 10</property>
+                        <property name="adjustment">0 0 100 1 10 0</property>
                         <signal name="value_changed" handler="gtkhtml_editor_rule_properties_size_changed_cb" object="rule-properties-window"/>
                       </widget>
                       <packing>
@@ -1288,7 +1288,7 @@ Right</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                            <property name="adjustment">1 1 32767 1 10 10</property>
+                            <property name="adjustment">1 1 32767 1 10 0</property>
                             <signal name="value_changed" handler="gtkhtml_editor_table_properties_rows_changed_cb" object="table-properties-window"/>
                           </widget>
                           <packing>
@@ -1332,7 +1332,7 @@ Right</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                            <property name="adjustment">1 1 32767 1 10 10</property>
+                            <property name="adjustment">1 1 32767 1 10 0</property>
                             <signal name="value_changed" handler="gtkhtml_editor_table_properties_cols_changed_cb" object="table-properties-window"/>
                           </widget>
                           <packing>
@@ -1469,7 +1469,7 @@ Right</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                        <property name="adjustment">1 1 100 1 10 10</property>
+                        <property name="adjustment">1 1 100 1 10 0</property>
                         <signal name="value_changed" handler="gtkhtml_editor_table_properties_width_changed_cb" object="table-properties-window"/>
                       </widget>
                       <packing>
@@ -1586,7 +1586,7 @@ Right</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                        <property name="adjustment">0 0 32767 1 10 10</property>
+                        <property name="adjustment">0 0 32767 1 10 0</property>
                         <signal name="value_changed" handler="gtkhtml_editor_table_properties_spacing_changed_cb" object="table-properties-window"/>
                       </widget>
                       <packing>
@@ -1600,7 +1600,7 @@ Right</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                        <property name="adjustment">0 0 32767 1 10 10</property>
+                        <property name="adjustment">0 0 32767 1 10 0</property>
                         <signal name="value_changed" handler="gtkhtml_editor_table_properties_padding_changed_cb" object="table-properties-window"/>
                       </widget>
                       <packing>
@@ -1616,7 +1616,7 @@ Right</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                        <property name="adjustment">0 0 32767 1 10 10</property>
+                        <property name="adjustment">0 0 32767 1 10 0</property>
                         <signal name="value_changed" handler="gtkhtml_editor_table_properties_border_changed_cb" object="table-properties-window"/>
                       </widget>
                       <packing>
@@ -2445,7 +2445,7 @@ Right</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                        <property name="adjustment">0 0 100 1 10 10</property>
+                        <property name="adjustment">0 0 100 1 10 0</property>
                         <signal name="change_value" handler="gtkhtml_editor_cell_properties_column_span_changed_cb" object="cell-properties-window"/>
                       </widget>
                       <packing>
@@ -2461,7 +2461,7 @@ Right</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                        <property name="adjustment">0 0 100 1 10 10</property>
+                        <property name="adjustment">0 0 100 1 10 0</property>
                         <signal name="change_value" handler="gtkhtml_editor_cell_properties_row_span_changed_cb" object="cell-properties-window"/>
                       </widget>
                       <packing>
@@ -2527,7 +2527,7 @@ Right</property>
                         <property name="sensitive">False</property>
                         <property name="can_focus">True</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                        <property name="adjustment">0 0 100 1 10 10</property>
+                        <property name="adjustment">0 0 100 1 10 0</property>
                         <signal name="value_changed" handler="gtkhtml_editor_cell_properties_width_changed_cb" object="cell-properties-window"/>
                       </widget>
                       <packing>
@@ -2898,7 +2898,7 @@ Right</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                        <property name="adjustment">0 0 100 1 10 10</property>
+                        <property name="adjustment">0 0 100 1 10 0</property>
                         <signal name="value_changed" handler="gtkhtml_editor_image_properties_size_changed_cb" object="image-properties-window"/>
                       </widget>
                       <packing>
@@ -2913,7 +2913,7 @@ Right</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                        <property name="adjustment">0 0 100 1 10 10</property>
+                        <property name="adjustment">0 0 100 1 10 0</property>
                         <signal name="value_changed" handler="gtkhtml_editor_image_properties_size_changed_cb" object="image-properties-window"/>
                       </widget>
                       <packing>
@@ -3032,7 +3032,7 @@ Bottom</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                        <property name="adjustment">0 0 100 1 10 10</property>
+                        <property name="adjustment">0 0 100 1 10 0</property>
                         <signal name="value_changed" handler="gtkhtml_editor_image_properties_padding_changed_cb" object="image-properties-window"/>
                       </widget>
                       <packing>
@@ -3076,7 +3076,7 @@ Bottom</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                        <property name="adjustment">0 0 100 1 10 10</property>
+                        <property name="adjustment">0 0 100 1 10 0</property>
                         <signal name="value_changed" handler="gtkhtml_editor_image_properties_padding_changed_cb" object="image-properties-window"/>
                       </widget>
                       <packing>
@@ -3108,7 +3108,7 @@ Bottom</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                        <property name="adjustment">0 0 100 1 10 10</property>
+                        <property name="adjustment">0 0 100 1 10 0</property>
                         <signal name="value_changed" handler="gtkhtml_editor_image_properties_border_changed_cb" object="image-properties-window"/>
                       </widget>
                       <packing>
