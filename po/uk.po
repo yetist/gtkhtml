@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-21 19:35+0000\n"
+"POT-Creation-Date: 2008-10-30 13:07+0000\n"
 "PO-Revision-Date: 2008-09-21 00:29+0300\n"
 "Last-Translator: Maxim Dziumanenko <dziumanenko@gmail.com>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
@@ -364,7 +364,7 @@ msgid "Insert HTML File"
 msgstr "Вставити файл HTML"
 
 #: ../components/editor/gtkhtml-editor-actions.c:642
-#: ../components/editor/gtkhtml-editor-actions.c:1760
+#: ../components/editor/gtkhtml-editor-actions.c:1764
 msgid "Insert Image"
 msgstr "Вставити зображення"
 
@@ -374,438 +374,438 @@ msgid "Insert Text File"
 msgstr "Вставити текстовий файл"
 
 #. Replace Button
-#: ../components/editor/gtkhtml-editor-actions.c:1269
+#: ../components/editor/gtkhtml-editor-actions.c:1273
 #: ../components/editor/gtkhtml-spell-dialog.c:522
 #: ../components/html-editor/replace.c:85
 msgid "_Replace"
 msgstr "_Замінити"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1276
+#: ../components/editor/gtkhtml-editor-actions.c:1280
 #: ../components/html-editor/replace.c:82
 msgid "Replace _All"
 msgstr "Замінити _все"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1290
+#: ../components/editor/gtkhtml-editor-actions.c:1294
 #: ../components/html-editor/replace.c:83
 msgid "_Next"
 msgstr "Да_лі"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1297
+#: ../components/editor/gtkhtml-editor-actions.c:1301
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:111
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
 msgid "_Copy"
 msgstr "_Копіювати"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1304
+#: ../components/editor/gtkhtml-editor-actions.c:1308
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:18
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:18
 msgid "Cu_t"
 msgstr "_Вирізати"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1318
+#: ../components/editor/gtkhtml-editor-actions.c:1322
 msgid "Find A_gain"
 msgstr "Зна_йти знову"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1332
+#: ../components/editor/gtkhtml-editor-actions.c:1336
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:120
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
 msgid "_Increase Indent"
 msgstr "З_більшити відступ"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1334
+#: ../components/editor/gtkhtml-editor-actions.c:1338
 msgid "Increase Indent"
 msgstr "Збільшити відступ"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1339
+#: ../components/editor/gtkhtml-editor-actions.c:1343
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:117
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
 msgid "_HTML File..."
 msgstr "Файл _HTML..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1346
+#: ../components/editor/gtkhtml-editor-actions.c:1350
 msgid "_Angel"
 msgstr "_Янгол"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1353
+#: ../components/editor/gtkhtml-editor-actions.c:1357
 msgid "_Cool"
 msgstr "_Круто:"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1360
+#: ../components/editor/gtkhtml-editor-actions.c:1364
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:17
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:17
 msgid "Cr_ying"
 msgstr "_Плач"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1367
+#: ../components/editor/gtkhtml-editor-actions.c:1371
 msgid "_Devilish"
 msgstr "_Диявольський"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1374
+#: ../components/editor/gtkhtml-editor-actions.c:1378
 msgid "_Embarrassed"
 msgstr "_Засмучений"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1381
+#: ../components/editor/gtkhtml-editor-actions.c:1385
 msgid "_Kiss"
 msgstr "_Поцілунок"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1388
+#: ../components/editor/gtkhtml-editor-actions.c:1392
 msgid "_Monkey"
 msgstr "_Мавпа"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1395
+#: ../components/editor/gtkhtml-editor-actions.c:1399
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:121
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
 msgid "_Indifferent"
 msgstr "_Байдужий"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1402
+#: ../components/editor/gtkhtml-editor-actions.c:1406
 msgid "_Tongue"
 msgstr "_Язик"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1409
+#: ../components/editor/gtkhtml-editor-actions.c:1413
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:116
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
 msgid "_Frown"
 msgstr "_Насуплений"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1416
+#: ../components/editor/gtkhtml-editor-actions.c:1420
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:137
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
 msgid "_Smile"
 msgstr "_Посмішка"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1423
+#: ../components/editor/gtkhtml-editor-actions.c:1427
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:123
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
 msgid "_Laughing"
 msgstr "_Смішно"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1430
+#: ../components/editor/gtkhtml-editor-actions.c:1434
 msgid "Smi_rk"
 msgstr "Са_мозадоволена усмішка "
 
-#: ../components/editor/gtkhtml-editor-actions.c:1437
+#: ../components/editor/gtkhtml-editor-actions.c:1441
 msgid "Sur_prised"
 msgstr "З_дивований"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1444
+#: ../components/editor/gtkhtml-editor-actions.c:1448
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:160
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:160
 msgid "_Wink"
 msgstr "Під_моргування"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1451
+#: ../components/editor/gtkhtml-editor-actions.c:1455
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:157
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:157
 msgid "_Undecided"
 msgstr "Н_евпевнений"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1458
+#: ../components/editor/gtkhtml-editor-actions.c:1462
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:91
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
 msgid "S_ick"
 msgstr "_Хворий"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1465
+#: ../components/editor/gtkhtml-editor-actions.c:1469
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:100
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 msgid "Te_xt File..."
 msgstr "Т_екстовий файл..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1472
+#: ../components/editor/gtkhtml-editor-actions.c:1476
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:129
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
 msgid "_Paste"
 msgstr "Вст_авити"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1479
+#: ../components/editor/gtkhtml-editor-actions.c:1483
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:79
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
 #: ../components/html-editor/popup.c:446
 msgid "Paste _Quotation"
 msgstr "Вставити _цитату"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1486
+#: ../components/editor/gtkhtml-editor-actions.c:1490
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:132
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
 msgid "_Redo"
 msgstr "Повт_орити"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1493
+#: ../components/editor/gtkhtml-editor-actions.c:1497
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:92
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
 msgid "Select _All"
 msgstr "Виді_лити все"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1500
+#: ../components/editor/gtkhtml-editor-actions.c:1504
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:114
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
 msgid "_Find..."
 msgstr "З_найти..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1507
+#: ../components/editor/gtkhtml-editor-actions.c:1511
 msgid "Re_place..."
 msgstr "_Замінити..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1514
+#: ../components/editor/gtkhtml-editor-actions.c:1518
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:12
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
 msgid "Check _Spelling..."
 msgstr "Перевірити ор_фографію..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1521
+#: ../components/editor/gtkhtml-editor-actions.c:1525
 #: ../components/editor/gtkhtml-editor.glade.h:77
 #: ../components/html-editor/utils.c:205
 msgid "_Test URL..."
 msgstr "_Тестовий URL..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1528
+#: ../components/editor/gtkhtml-editor-actions.c:1532
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:159
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:159
 msgid "_Undo"
 msgstr "В_ернути"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1535
+#: ../components/editor/gtkhtml-editor-actions.c:1539
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:112
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
 msgid "_Decrease Indent"
 msgstr "З_меншити відступ"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1537
+#: ../components/editor/gtkhtml-editor-actions.c:1541
 msgid "Decrease Indent"
 msgstr "З_меншити відступ"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1542
+#: ../components/editor/gtkhtml-editor-actions.c:1546
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:161
 msgid "_Wrap Lines"
 msgstr "_Перенос"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1551
+#: ../components/editor/gtkhtml-editor-actions.c:1555
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:113
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
 msgid "_Edit"
 msgstr "_Правка"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1558
+#: ../components/editor/gtkhtml-editor-actions.c:1562
 #: ../components/editor/main.c:324
 msgid "_File"
 msgstr "_Файл"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1565
+#: ../components/editor/gtkhtml-editor-actions.c:1569
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:28
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:28
 msgid "For_mat"
 msgstr "Ф_ормат"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1572
+#: ../components/editor/gtkhtml-editor-actions.c:1576
 msgid "_Paragraph Style"
 msgstr "Стиль _абзацу..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1579
+#: ../components/editor/gtkhtml-editor-actions.c:1583
 msgid "_Emoticon"
 msgstr "_Емоції"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1586
+#: ../components/editor/gtkhtml-editor-actions.c:1590
 msgid "_Insert"
 msgstr "Вст_авка"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1593
+#: ../components/editor/gtkhtml-editor-actions.c:1597
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:106
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
 msgid "_Alignment"
 msgstr "_Вирівнювання"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1600
+#: ../components/editor/gtkhtml-editor-actions.c:1604
 #: ../components/html-editor/spellchecker.c:424
 msgid "Current _Languages"
 msgstr "Поточні _мови"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1607
+#: ../components/editor/gtkhtml-editor-actions.c:1611
 #: ../components/editor/main.c:355
 msgid "_View"
 msgstr "_Вигляд"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1617
+#: ../components/editor/gtkhtml-editor-actions.c:1621
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
 msgid "_Center"
 msgstr "У _центрі"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1619
+#: ../components/editor/gtkhtml-editor-actions.c:1623
 msgid "Center Alignment"
 msgstr "Вирівнювання у центрі"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1624
+#: ../components/editor/gtkhtml-editor-actions.c:1628
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
 msgid "_Left"
 msgstr "_Ліворуч"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1626
+#: ../components/editor/gtkhtml-editor-actions.c:1630
 msgid "Left Alignment"
 msgstr "Вирівнювання ліворуч"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1631
+#: ../components/editor/gtkhtml-editor-actions.c:1635
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:134
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:134
 msgid "_Right"
 msgstr "_Праворуч"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1633
+#: ../components/editor/gtkhtml-editor-actions.c:1637
 msgid "Right Alignment"
 msgstr "Вирівнювання праворуч"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1641
+#: ../components/editor/gtkhtml-editor-actions.c:1645
 msgid "_HTML"
 msgstr "_HTML"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1643
+#: ../components/editor/gtkhtml-editor-actions.c:1647
 msgid "HTML editing mode"
 msgstr "Режим редагування HTML"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1648
+#: ../components/editor/gtkhtml-editor-actions.c:1652
 msgid "Plain _Text"
 msgstr "_Звичайний текст"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1650
+#: ../components/editor/gtkhtml-editor-actions.c:1654
 msgid "Plain text editing mode"
 msgstr "Режим редагування звичайного тексту"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1658
+#: ../components/editor/gtkhtml-editor-actions.c:1662
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:126
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
 msgid "_Normal"
 msgstr "_Звичайний"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1665
+#: ../components/editor/gtkhtml-editor-actions.c:1669
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:29
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:29
 msgid "Header _1"
 msgstr "Заголовок _1"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1672
+#: ../components/editor/gtkhtml-editor-actions.c:1676
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:30
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:30
 msgid "Header _2"
 msgstr "Заголовок _2"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1679
+#: ../components/editor/gtkhtml-editor-actions.c:1683
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:31
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:31
 msgid "Header _3"
 msgstr "Заголовок _3"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1686
+#: ../components/editor/gtkhtml-editor-actions.c:1690
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:32
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:32
 msgid "Header _4"
 msgstr "Заголовок _4"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1693
+#: ../components/editor/gtkhtml-editor-actions.c:1697
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:33
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:33
 msgid "Header _5"
 msgstr "Заголовок _5"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1700
+#: ../components/editor/gtkhtml-editor-actions.c:1704
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:34
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:34
 msgid "Header _6"
 msgstr "Заголовок _6"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1707
+#: ../components/editor/gtkhtml-editor-actions.c:1711
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:8
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:8
 msgid "A_ddress"
 msgstr "_Адреса"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1714
+#: ../components/editor/gtkhtml-editor-actions.c:1718
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:131
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
 msgid "_Preformatted"
 msgstr "_Форматований"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1721
+#: ../components/editor/gtkhtml-editor-actions.c:1725
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:109
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
 msgid "_Bulleted List"
 msgstr "_Маркований список"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1728
+#: ../components/editor/gtkhtml-editor-actions.c:1732
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:135
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
 msgid "_Roman Numeral List"
 msgstr "Нумерований список (_римськ.)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1735
+#: ../components/editor/gtkhtml-editor-actions.c:1739
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:76
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
 msgid "Numbered _List"
 msgstr "_Нумерований список"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1742
+#: ../components/editor/gtkhtml-editor-actions.c:1746
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:107
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
 msgid "_Alphabetical List"
 msgstr "Ал_фавітний список"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1758
-#: ../components/editor/gtkhtml-editor-actions.c:1793
+#: ../components/editor/gtkhtml-editor-actions.c:1762
+#: ../components/editor/gtkhtml-editor-actions.c:1797
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:119
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
 msgid "_Image..."
 msgstr "_Зображення..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1765
-#: ../components/editor/gtkhtml-editor-actions.c:1800
+#: ../components/editor/gtkhtml-editor-actions.c:1769
+#: ../components/editor/gtkhtml-editor-actions.c:1804
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:125
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
 msgid "_Link..."
 msgstr "_Гіперпосилання..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1767
+#: ../components/editor/gtkhtml-editor-actions.c:1771
 msgid "Insert Link"
 msgstr "Вставити посилання"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1772
-#: ../components/editor/gtkhtml-editor-actions.c:1814
+#: ../components/editor/gtkhtml-editor-actions.c:1776
+#: ../components/editor/gtkhtml-editor-actions.c:1818
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:136
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
 msgid "_Rule..."
 msgstr "_Лінійка..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1774
+#: ../components/editor/gtkhtml-editor-actions.c:1778
 msgid "Insert Rule"
 msgstr "Вставити правило"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1779
-#: ../components/editor/gtkhtml-editor-actions.c:1821
+#: ../components/editor/gtkhtml-editor-actions.c:1783
+#: ../components/editor/gtkhtml-editor-actions.c:1825
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:140
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:140
 msgid "_Table..."
 msgstr "_Таблиця..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1781
+#: ../components/editor/gtkhtml-editor-actions.c:1785
 msgid "Insert Table"
 msgstr "Вставити таблицю"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1786
+#: ../components/editor/gtkhtml-editor-actions.c:1790
 msgid "_Cell..."
 msgstr "_Комірка..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1807
+#: ../components/editor/gtkhtml-editor-actions.c:1811
 msgid "Pa_ge..."
 msgstr "_Сторінка..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1830
+#: ../components/editor/gtkhtml-editor-actions.c:1834
 msgid "Font _Size"
 msgstr "_Розмір шрифту"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1837
+#: ../components/editor/gtkhtml-editor-actions.c:1841
 msgid "_Font Style"
 msgstr "_Стиль шрифту"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1847
+#: ../components/editor/gtkhtml-editor-actions.c:1851
 #: ../components/editor/gtkhtml-editor.glade.h:58
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:108
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
@@ -813,12 +813,12 @@ msgstr "_Стиль шрифту"
 msgid "_Bold"
 msgstr "_Жирний"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1849
+#: ../components/editor/gtkhtml-editor-actions.c:1853
 #: ../components/html-editor/toolbar.c:441
 msgid "Bold"
 msgstr "Напівжирний"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1855
+#: ../components/editor/gtkhtml-editor-actions.c:1859
 #: ../components/editor/gtkhtml-editor.glade.h:65
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:122
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
@@ -826,22 +826,22 @@ msgstr "Напівжирний"
 msgid "_Italic"
 msgstr "_Курсив"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1857
+#: ../components/editor/gtkhtml-editor-actions.c:1861
 #: ../components/html-editor/toolbar.c:444
 msgid "Italic"
 msgstr "Курсив"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1863
+#: ../components/editor/gtkhtml-editor-actions.c:1867
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:130
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
 msgid "_Plain Text"
 msgstr "_Звичайний текст"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1865
+#: ../components/editor/gtkhtml-editor-actions.c:1869
 msgid "Plain Text"
 msgstr "Звичайний текст"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1871
+#: ../components/editor/gtkhtml-editor-actions.c:1875
 #: ../components/editor/gtkhtml-editor.glade.h:74
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:138
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
@@ -849,11 +849,11 @@ msgstr "Звичайний текст"
 msgid "_Strikethrough"
 msgstr "З_акреслений"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1873
+#: ../components/editor/gtkhtml-editor-actions.c:1877
 msgid "Strikethrough"
 msgstr "Закреслений"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1879
+#: ../components/editor/gtkhtml-editor-actions.c:1883
 #: ../components/editor/gtkhtml-editor.glade.h:80
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:158
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:158
@@ -861,69 +861,69 @@ msgstr "Закреслений"
 msgid "_Underline"
 msgstr "_Підкреслений"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1881
+#: ../components/editor/gtkhtml-editor-actions.c:1885
 #: ../components/html-editor/toolbar.c:447
 msgid "Underline"
 msgstr "Підкреслений"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1890
+#: ../components/editor/gtkhtml-editor-actions.c:1894
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:7
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:7
 msgid "-2"
 msgstr "-2"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1897
+#: ../components/editor/gtkhtml-editor-actions.c:1901
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:6
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:6
 msgid "-1"
 msgstr "-1"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1904
+#: ../components/editor/gtkhtml-editor-actions.c:1908
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:1
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
 msgid "+0"
 msgstr "+0"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1911
+#: ../components/editor/gtkhtml-editor-actions.c:1915
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:2
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:2
 msgid "+1"
 msgstr "+1"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1918
+#: ../components/editor/gtkhtml-editor-actions.c:1922
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:3
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:3
 msgid "+2"
 msgstr "+2"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1925
+#: ../components/editor/gtkhtml-editor-actions.c:1929
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:4
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:4
 msgid "+3"
 msgstr "+3"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1932
+#: ../components/editor/gtkhtml-editor-actions.c:1936
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:5
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:5
 msgid "+4"
 msgstr "+4"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1951
+#: ../components/editor/gtkhtml-editor-actions.c:1955
 msgid "Cell Contents"
 msgstr "Вміст комірок"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1958
+#: ../components/editor/gtkhtml-editor-actions.c:1962
 #: ../components/html-editor/popup.c:523
 msgid "Column"
 msgstr "Стовпчик"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1965
+#: ../components/editor/gtkhtml-editor-actions.c:1969
 #: ../components/html-editor/popup.c:522
 msgid "Row"
 msgstr "Рядок"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1972
-#: ../components/editor/gtkhtml-editor-actions.c:2055
+#: ../components/editor/gtkhtml-editor-actions.c:1976
+#: ../components/editor/gtkhtml-editor-actions.c:2059
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:50
@@ -933,118 +933,118 @@ msgstr "Рядок"
 msgid "Table"
 msgstr "Таблиця"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1981
+#: ../components/editor/gtkhtml-editor-actions.c:1985
 msgid "Table Delete"
 msgstr "Видалити таблицю"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1988
+#: ../components/editor/gtkhtml-editor-actions.c:1992
 #: ../components/html-editor/popup.c:584
 msgid "Input Methods"
 msgstr "Методи вводу"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1995
+#: ../components/editor/gtkhtml-editor-actions.c:1999
 msgid "Table Insert"
 msgstr "Вставити таблицю"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2002
+#: ../components/editor/gtkhtml-editor-actions.c:2006
 #: ../components/html-editor/editor-control-factory.c:187
 #: ../components/html-editor/popup.c:191 ../components/html-editor/popup.c:268
 msgid "Properties"
 msgstr "Властивості"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2020
+#: ../components/editor/gtkhtml-editor-actions.c:2024
 msgid "Column After"
 msgstr "Стовпчик після"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2027
+#: ../components/editor/gtkhtml-editor-actions.c:2031
 msgid "Column Before"
 msgstr "Стовпчик до"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2034
+#: ../components/editor/gtkhtml-editor-actions.c:2038
 #: ../components/html-editor/popup.c:450
 msgid "Insert _Link"
 msgstr "Вставити _посилання"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2041
+#: ../components/editor/gtkhtml-editor-actions.c:2045
 msgid "Row Above"
 msgstr "Рядок над"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2048
+#: ../components/editor/gtkhtml-editor-actions.c:2052
 msgid "Row Below"
 msgstr "Рядок під"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2062
+#: ../components/editor/gtkhtml-editor-actions.c:2066
 msgid "Cell..."
 msgstr "Комірка..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:2069
+#: ../components/editor/gtkhtml-editor-actions.c:2073
 msgid "Image..."
 msgstr "Зображення..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:2076
+#: ../components/editor/gtkhtml-editor-actions.c:2080
 msgid "Link..."
 msgstr "Гіперпосилання..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:2083
+#: ../components/editor/gtkhtml-editor-actions.c:2087
 msgid "Page..."
 msgstr "Сторінка..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:2090
+#: ../components/editor/gtkhtml-editor-actions.c:2094
 msgid "Paragraph..."
 msgstr "Абзац..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:2097
+#: ../components/editor/gtkhtml-editor-actions.c:2101
 msgid "Rule..."
 msgstr "Лінійка..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:2104
+#: ../components/editor/gtkhtml-editor-actions.c:2108
 msgid "Table..."
 msgstr "Таблиця..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:2111
+#: ../components/editor/gtkhtml-editor-actions.c:2115
 msgid "Text..."
 msgstr "Текст..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:2118
+#: ../components/editor/gtkhtml-editor-actions.c:2122
 #: ../components/html-editor/popup.c:457
 msgid "Remove Link"
 msgstr "Видалити посилання"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2135
+#: ../components/editor/gtkhtml-editor-actions.c:2139
 #: ../components/html-editor/popup.c:578
 msgid "Add Word to Dictionary"
 msgstr "Додати слово до словника"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2142
+#: ../components/editor/gtkhtml-editor-actions.c:2146
 #: ../components/html-editor/popup.c:559
 msgid "Ignore Misspelled Word"
 msgstr "Ігнорувати некоректне слово"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2149
+#: ../components/editor/gtkhtml-editor-actions.c:2153
 msgid "Add Word To"
 msgstr "Додати слово до"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2367
+#: ../components/editor/gtkhtml-editor-actions.c:2371
 msgid "_Find"
 msgstr "З_найти"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2370
+#: ../components/editor/gtkhtml-editor-actions.c:2374
 msgid "Re_place"
 msgstr "За_мінити"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2373
+#: ../components/editor/gtkhtml-editor-actions.c:2377
 msgid "_Image"
 msgstr "_Зображення:"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2376
+#: ../components/editor/gtkhtml-editor-actions.c:2380
 msgid "_Link"
 msgstr "_Посилання:"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2379
+#: ../components/editor/gtkhtml-editor-actions.c:2383
 msgid "_Rule"
 msgstr "_Лінійка"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2382
+#: ../components/editor/gtkhtml-editor-actions.c:2386
 #: ../components/editor/gtkhtml-editor.glade.h:76
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:72
 msgid "_Table"
@@ -1551,6 +1551,29 @@ msgstr "Словник"
 #: ../components/editor/gtkhtml-spell-dialog.c:619
 msgid "_Add Word"
 msgstr "_Додати слово"
+
+#. Translators: %s is the language ISO code.
+#: ../components/editor/gtkhtml-spell-language.c:180
+#, c-format
+msgctxt "language"
+msgid "Unknown (%s)"
+msgstr "Невідома (%s)"
+
+#. Translators: The first %s is the language name, and the
+#. * second is the country name. Example: "French (France)"
+#: ../components/editor/gtkhtml-spell-language.c:195
+#: ../components/editor/gtkhtml-spell-language.c:200
+#, c-format
+msgctxt "language"
+msgid "%s (%s)"
+msgstr "%s (%s)"
+
+#. Translators: This refers to the default language used
+#. * by the spell checker.
+#: ../components/editor/gtkhtml-spell-language.c:385
+msgctxt "language"
+msgid "Default"
+msgstr "Типова"
 
 #: ../components/editor/main.c:93
 msgid "Save As"
@@ -2712,42 +2735,3 @@ msgstr "Попередній перегляд"
 #: ../gtkhtml/testgtkhtml.c:1019
 msgid "GtkHTML Test Application"
 msgstr "Програма перевірки GtkHTML"
-
-#~ msgid "Make the current Paragraph style Preformatted"
-#~ msgstr "Змінити стиль поточного параграфа на \"Форматований\""
-
-#~ msgid "Preformatted"
-#~ msgstr "Форматований"
-
-#~ msgid "Cannot allocate default font for printing\n"
-#~ msgstr "Не вдається розподілити типовий шрифт для друку\n"
-
-#~ msgid "Find Rege_x..."
-#~ msgstr "Знайти _регулярний вираз..."
-
-#~ msgid "Modify the file's properties"
-#~ msgstr "Змінити властивості файлу"
-
-#~ msgid "Regular expression search"
-#~ msgstr "Пошук регулярного виразу"
-
-#~ msgid "Replace a string"
-#~ msgstr "Заміна рядка заміни"
-
-#~ msgid "Search again for the same string"
-#~ msgstr "Повторний пошук рядка"
-
-#~ msgid "Search for a string"
-#~ msgstr "Пошук рядка"
-
-#~ msgid "_Insert text file... (FIXME)"
-#~ msgstr "Вст_авити текстовий файл...(FIXME)"
-
-#~ msgid "_Paste Quotation"
-#~ msgstr "Вст_авити цитату"
-
-#~ msgid "_Properties..."
-#~ msgstr "В_ластивості..."
-
-#~ msgid "Paste Quotation"
-#~ msgstr "Вставити цитату"
