@@ -1,3 +1,8 @@
+2008-10-30  Matthew Barnes  <mbarnes@redhat.com>
+
+	* gnome-gtkhtml-editor.c:
+	Only include toplevel headers for GLib and GTK+.
+
 2008-08-31  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
 	* popup.c: (prepare_properties_and_menu): Added comment for

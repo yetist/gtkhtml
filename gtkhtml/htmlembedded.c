@@ -24,7 +24,7 @@
 #include <config.h>
 #include <string.h>
 #include <stdio.h>
-#include <gtk/gtksignal.h>
+#include <gtk/gtk.h>
 #include <glib/gi18n-lib.h>
 #include "gtkhtml.h"
 #include "gtkhtml-embedded.h"

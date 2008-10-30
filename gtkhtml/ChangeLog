@@ -1,3 +1,9 @@
+2008-10-30  Matthew Barnes  <mbarnes@redhat.com>
+
+	* htmlembedded.c:
+	* gtkhtml-propmanager.c:
+	Only include toplevel headers for GLib and GTK+.
+
 2008-10-03  Milan Crha  <mcrha@redhat.com>
 
 	** Fix for bug #546155

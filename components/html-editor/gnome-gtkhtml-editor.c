@@ -17,7 +17,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-#include <gtk/gtkscrolledwindow.h>
+#include <gtk/gtk.h>
 
 #include <glade/glade.h>
 
