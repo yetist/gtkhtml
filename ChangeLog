@@ -1,6 +1,10 @@
+2008-11-03  Srinivasa Ragavan  <sragavan@novell.com>
+
+	* NEWS: Evolution 3.25.1 release and version bump
+
 2008-09-22  Srinivasa Ragavan  <sragavan@novell.com>
 
-	* configure.in: Version bump for 3.35.1
+	* configure.in: Version bump for 3.25.1
 
 2008-09-22  Srinivasa Ragavan  <sragavan@novell.com>
 

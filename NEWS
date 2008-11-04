@@ -1,3 +1,18 @@
+GtkHTML-3.25.1 2008-11-03
+-------------------------
+
+Bug Fixes:
+	#546155: Update correct index, otherwise it crashes (Milan Crha)
+	#548540: Exclude apostrophies from the end of words before passing them to the dictionary. (Matthew Barnes)
+	#554326: Ask for clipboard only when have something to store there. (Milan Crha)
+	#554424: A word is correct if it's found in ANY dictionary, not ALL. (Matthew Barnes)
+	#554849: Add bindtextdomain to set LOCALEDIR (Takao Fujiwara)
+	#556239: Recheck spelling when the language selection changes (Matthew Barnes)
+
+Updated Translations:
+	Maxim Dziumanenko (uk)
+	Gil Forcada (ca)
+
 GtkHTML-3.24.0 2008-09-22
 -------------------------
 
