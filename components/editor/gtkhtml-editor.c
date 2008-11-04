@@ -244,6 +244,11 @@ editor_method_check_word (GtkHTML *html,
 
 	list = editor->priv->active_spell_checkers;
 
+	/* If no spell checkers are active, assume the word is correct. */
+	if (list == NULL)
+		return TRUE;
+
+	/* The word is correct if ANY active spell checker can verify it. */
 	while (list != NULL && !correct) {
 		GtkhtmlSpellChecker *checker = list->data;
 
