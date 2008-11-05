@@ -1,3 +1,10 @@
+2008-11-05  Milan Crha  <mcrha@redhat.com>
+
+	** Fix for bug #338921
+
+	* htmlimage.c: (html_image_factory_end_pixbuf):
+	Do not crash when the interest in the image left before it was loaded.
+
 2008-10-03  Milan Crha  <mcrha@redhat.com>
 
 	** Fix for bug #546155
