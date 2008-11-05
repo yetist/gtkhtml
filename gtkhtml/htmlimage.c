@@ -1120,12 +1120,16 @@ html_image_factory_end_pixbuf (GtkHTMLStream *stream,
 	g_object_unref (ip->loader);
 	ip->loader = NULL;
 
-	update_or_redraw (ip);
-	if (ip->factory->engine->opened_streams && ip->factory->engine->block_images)
-		html_engine_opened_streams_decrement (ip->factory->engine);
-	/* printf ("IMAGE(%p) opened streams: %d\n", ip->factory->engine, ip->factory->engine->opened_streams); */
-	if (ip->factory->engine->opened_streams == 0 && ip->factory->engine->block && ip->factory->engine->block_images)
-		html_engine_schedule_update (ip->factory->engine);
+	/* if no ip->factory is set, then the image loading has been cancelled meanwhile, probably. */
+	if (ip->factory) {
+		update_or_redraw (ip);
+		if (ip->factory->engine->opened_streams && ip->factory->engine->block_images)
+			html_engine_opened_streams_decrement (ip->factory->engine);
+		/* printf ("IMAGE(%p) opened streams: %d\n", ip->factory->engine, ip->factory->engine->opened_streams); */
+		if (ip->factory->engine->opened_streams == 0 && ip->factory->engine->block && ip->factory->engine->block_images)
+			html_engine_schedule_update (ip->factory->engine);
+	}
+
 	html_image_pointer_unref (ip);
 }
 
