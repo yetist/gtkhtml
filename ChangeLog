@@ -1,3 +1,10 @@
+2008-11-07  Stanislav Brabec  <sbrabec@hammer.suse.cz>
+
+	* gtkhtml/htmlcursor.c Move gtk_html_im_reset() to the end of
+	html_cursor_real_jump_to_position() to prevent crash with IM
+	modules which emits "commit" signal to the IMContext when focus
+	out from the widget. Patch from Hiroyuki Ikezoe (#555420).
+
 2008-11-03  Srinivasa Ragavan  <sragavan@novell.com>
 
 	* NEWS: Evolution 3.25.1 release and version bump

@@ -703,8 +703,6 @@ html_cursor_real_jump_to_position (HTMLCursor *cursor,
 	g_return_if_fail (cursor != NULL);
 	g_return_if_fail (position >= 0);
 
-	gtk_html_im_reset (engine->widget);
-
 	if (engine->need_spell_check)
 		html_engine_spell_check_range (engine, engine->cursor, engine->cursor);
 
@@ -719,6 +717,7 @@ html_cursor_real_jump_to_position (HTMLCursor *cursor,
 				break;
 		}
 	}
+	gtk_html_im_reset (engine->widget);
 }
 
 void
