@@ -1,3 +1,8 @@
+2008-11-08  Matthew Barnes  <mbarnes@redhat.com>
+
+	* gtkhtml-spell-dialog (spell_dialog_init):
+	Fix a packing issue with the "Add Word" button.
+
 2008-11-04  Matthew Barnes  <mbarnes@redhat.com>
 
 	* gtkhtml-editor.c (editor_method_check_word):
