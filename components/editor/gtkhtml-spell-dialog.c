@@ -626,7 +626,7 @@ spell_dialog_init (GtkhtmlSpellDialog *dialog)
 		GTK_STOCK_ADD, GTK_ICON_SIZE_BUTTON));
 	gtk_table_attach (
 		GTK_TABLE (table), widget, 1, 2, 3, 4,
-		GTK_EXPAND | GTK_FILL, 0, 0, 0);
+		GTK_FILL, 0, 0, 0);
 	dialog->priv->add_word_button = g_object_ref (widget);
 	gtk_widget_show (widget);
 }
