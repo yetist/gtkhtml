@@ -1,3 +1,12 @@
+GtkHTML-3.24.1.1 2008-11-07
+-------------------------
+
+Bug Fixes:
+	#338921: crash dislaying a mail (Milan Crha)
+
+Updated Translations:
+	Maxim Dziumanenko (uk)
+
 GtkHTML-3.24.1 2008-10-20
 -------------------------
 
