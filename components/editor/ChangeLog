@@ -1,3 +1,11 @@
+2008-11-21  Matthew Barnes  <mbarnes@redhat.com>
+
+	** Fixes Red Hat bug #472517
+
+	* gtkhtml-editor.c (editor_button_press_event_cb):
+	Always update the pop-up menu before showing it, whether we're
+	clicking in a selection or not.
+
 2008-11-08  Matthew Barnes  <mbarnes@redhat.com>
 
 	* gtkhtml-spell-dialog (spell_dialog_init):

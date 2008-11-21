@@ -85,8 +85,9 @@ editor_button_press_event_cb (GtkhtmlEditor *editor,
 	if (!in_selection) {
 		html_engine_disable_selection (html->engine);
 		html_engine_jump_at (html->engine, event->x, event->y);
-		gtkhtml_editor_update_context (editor);
 	}
+
+	gtkhtml_editor_update_context (editor);
 
 	gtk_menu_popup (
 		GTK_MENU (menu), NULL, NULL, NULL, NULL,
