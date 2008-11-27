@@ -1153,13 +1153,13 @@ gtkhtml_editor_link_properties_show_window_cb (GtkWidget *window))
 
 		sensitive = (url == NULL);
 
-		gtk_entry_set_text (
-			GTK_ENTRY (url_entry),
-			(url != NULL) ? url : "http://");
-
 		editor->priv->link_object = cursor->object;
 		editor->priv->link_start_offset = start_offset;
 		editor->priv->link_end_offset = end_offset;
+
+		gtk_entry_set_text (
+			GTK_ENTRY (url_entry),
+			(url != NULL) ? url : "http://");
 	}
 
 	gtk_entry_set_text (GTK_ENTRY (dsc_entry), "");
