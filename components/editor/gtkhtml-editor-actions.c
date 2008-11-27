@@ -2153,6 +2153,15 @@ static GtkActionEntry spell_context_entries[] = {
 	  N_("Add Word To"),
 	  NULL,
 	  NULL,
+	  NULL },
+
+	/* Menus */
+
+	{ "context-more-suggestions-menu",
+	  NULL,
+	  N_("More Suggestions"),
+	  NULL,
+	  NULL,
 	  NULL }
 };
 

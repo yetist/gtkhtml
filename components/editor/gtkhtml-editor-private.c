@@ -41,6 +41,26 @@ PACKAGE " could not find the required file \"%s\" in any of\n" \
 "\nSee http://www.freedesktop.org/Standards/basedir-spec for more\n" \
 "information about standard base directories.\n\n"
 
+/* This controls how spelling suggestions are divided between the primary
+ * context menu and a secondary menu.  The idea is to prevent the primary
+ * menu from growing too long.
+ *
+ * The constants below are used as follows:
+ *
+ * if TOTAL_SUGGESTIONS <= MAX_LEVEL1_SUGGETIONS:
+ *     LEVEL1_SUGGESTIONS = TOTAL_SUGGESTIONS
+ * elif TOTAL_SUGGESTIONS - MAX_LEVEL1_SUGGESTIONS < MIN_LEVEL2_SUGGESTIONS:
+ *     LEVEL1_SUGGESTIONS = TOTAL_SUGGESTIONS
+ * else
+ *     LEVEL1_SUGGESTIONS = MAX_LEVEL1_SUGGETIONS
+ *
+ * LEVEL2_SUGGESTIONS = TOTAL_SUGGESTIONS - LEVEL1_SUGGESTIONS
+ *
+ * Note that MAX_LEVEL1_SUGGETIONS is not a hard maximum.
+ */
+#define MAX_LEVEL1_SUGGESTIONS	4
+#define MIN_LEVEL2_SUGGESTIONS	3
+
 /************************ Begin Spell Dialog Callbacks ***********************/
 
 static void
@@ -674,17 +694,103 @@ action_context_spell_suggest_cb (GtkAction *action,
                                  GtkhtmlEditor *editor)
 {
 	GtkHTML *html;
-	gchar *label;
+	const gchar *word;
 
 	html = gtkhtml_editor_get_html (editor);
 
-	/* The action's label is the replacement word. */
-	g_object_get (action, "label", &label, NULL);
-	g_return_if_fail (label != NULL);
+	word = g_object_get_data (G_OBJECT (action), "word");
+	g_return_if_fail (word != NULL);
 
-	html_engine_replace_spell_word_with (html->engine, label);
+	html_engine_replace_spell_word_with (html->engine, word);
+}
 
-	g_free (label);
+static void
+editor_inline_spelling_suggestions (GtkhtmlEditor *editor,
+                                    GtkhtmlSpellChecker *checker)
+{
+	GtkActionGroup *action_group;
+	GtkUIManager *manager;
+	GtkHTML *html;
+	GList *list;
+	const gchar *path;
+	gchar *word;
+	guint count = 0;
+	guint length;
+	guint merge_id;
+	guint threshold;
+
+	html = gtkhtml_editor_get_html (editor);
+	word = html_engine_get_spell_word (html->engine);
+	list = gtkhtml_spell_checker_get_suggestions (checker, word, -1);
+
+	path = "/context-menu/context-spell-suggest/";
+	manager = gtkhtml_editor_get_ui_manager (editor);
+	action_group = editor->priv->suggestion_actions;
+	merge_id = editor->priv->spell_suggestions_merge_id;
+
+	/* Calculate how many suggestions to put directly in the
+	 * context menu.  The rest will go in a secondary menu. */
+	length = g_list_length (list);
+	if (length <= MAX_LEVEL1_SUGGESTIONS)
+		threshold = length;
+	else if (length - MAX_LEVEL1_SUGGESTIONS < MIN_LEVEL2_SUGGESTIONS)
+		threshold = length;
+	else
+		threshold = MAX_LEVEL1_SUGGESTIONS;
+
+	while (list != NULL) {
+		gchar *suggestion = list->data;
+		gchar *action_name;
+		gchar *action_label;
+		GtkAction *action;
+		GtkWidget *child;
+		GSList *proxies;
+
+		/* Once we reach the threshold, put all subsequent
+		 * spelling suggestions in a secondary menu. */
+		if (count == threshold)
+			path = "/context-menu/context-more-suggestions-menu/";
+
+		/* Action name just needs to be unique. */
+		action_name = g_strdup_printf ("suggest-%d", count++);
+
+		action_label = g_markup_printf_escaped (
+			"<b>%s</b>", suggestion);
+
+		action = gtk_action_new (
+			action_name, action_label, NULL, NULL);
+
+		g_object_set_data_full (
+			G_OBJECT (action), "word",
+			g_strdup (suggestion), g_free);
+
+		g_signal_connect (
+			action, "activate", G_CALLBACK (
+			action_context_spell_suggest_cb), editor);
+
+		gtk_action_group_add_action (action_group, action);
+
+		gtk_ui_manager_add_ui (
+			manager, merge_id, path,
+			action_name, action_name,
+			GTK_UI_MANAGER_AUTO, FALSE);
+
+		/* XXX GtkAction offers no support for Pango markup,
+		 *     so we have to manually set "use-markup" on the
+		 *     child of the proxy widget. */
+		gtk_ui_manager_ensure_update (manager);
+		proxies = gtk_action_get_proxies (action);
+		child = gtk_bin_get_child (proxies->data);
+		g_object_set (child, "use-markup", TRUE, NULL);
+
+		g_free (suggestion);
+		g_free (action_name);
+		g_free (action_label);
+
+		list = g_list_delete_link (list, list);
+	}
+
+	g_free (word);
 }
 
 /* Helper for gtkhtml_editor_update_context() */
@@ -719,16 +825,26 @@ editor_spell_checkers_foreach (GtkhtmlSpellChecker *checker,
 		"context-spell-suggest-%s-menu", language_code);
 
 	while (list != NULL) {
-		gchar *action_label = list->data;
+		gchar *suggestion = list->data;
 		gchar *action_name;
+		gchar *action_label;
 		GtkAction *action;
+		GtkWidget *child;
+		GSList *proxies;
 
 		/* Action name just needs to be unique. */
 		action_name = g_strdup_printf (
 			"suggest-%s-%d", language_code, count++);
 
+		action_label = g_markup_printf_escaped (
+			"<b>%s</b>", suggestion);
+
 		action = gtk_action_new (
 			action_name, action_label, NULL, NULL);
+
+		g_object_set_data_full (
+			G_OBJECT (action), "word",
+			g_strdup (suggestion), g_free);
 
 		g_signal_connect (
 			action, "activate", G_CALLBACK (
@@ -741,8 +857,17 @@ editor_spell_checkers_foreach (GtkhtmlSpellChecker *checker,
 			action_name, action_name,
 			GTK_UI_MANAGER_AUTO, FALSE);
 
-		g_free (action_label);
+		/* XXX GtkAction offers no supports for Pango markup,
+		 *     so we have to manually set "use-markup" on the
+		 *     child of the proxy widget. */
+		gtk_ui_manager_ensure_update (manager);
+		proxies = gtk_action_get_proxies (action);
+		child = gtk_bin_get_child (proxies->data);
+		g_object_set (child, "use-markup", TRUE, NULL);
+
+		g_free (suggestion);
 		g_free (action_name);
+		g_free (action_label);
 
 		list = g_list_delete_link (list, list);
 	}
@@ -879,6 +1004,12 @@ gtkhtml_editor_update_context (GtkhtmlEditor *editor)
 	list = editor->priv->active_spell_checkers;
 	merge_id = gtk_ui_manager_new_merge_id (manager);
 	editor->priv->spell_suggestions_merge_id = merge_id;
+
+	/* Handle a single active language as a special case. */
+	if (g_list_length (list) == 1) {
+		editor_inline_spelling_suggestions (editor, list->data);
+		return;
+	}
 
 	/* Add actions and context menu content for active languages. */
 	g_list_foreach (list, (GFunc) editor_spell_checkers_foreach, editor);

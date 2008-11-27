@@ -137,6 +137,13 @@
     <toolitem action='insert-table'/>
   </toolbar>
   <popup name='context-menu'>
+    <placeholder name='context-spell-suggest'/>
+    <menu action='context-more-suggestions-menu'/>
+    <separator/>
+    <menuitem action='context-spell-ignore'/>
+    <menu action='context-spell-add-menu'/>
+    <menuitem action='context-spell-add'/>
+    <separator/>
     <menuitem action='undo'/>
     <menuitem action='redo'/>
     <separator/>
@@ -174,12 +181,6 @@
       <menuitem action='context-delete-column'/>
       <menuitem action='context-delete-cell'/>
     </menu>
-    <separator/>
-    <placeholder name='context-spell-suggest'/>
-    <separator/>
-    <menuitem action='context-spell-ignore'/>
-    <menu action='context-spell-add-menu'/>
-    <menuitem action='context-spell-add'/>
     <separator/>
     <menu action='context-input-methods-menu'/>
   </popup>
