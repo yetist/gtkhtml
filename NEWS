@@ -1,3 +1,17 @@
+GtkHTML-3.25.2 2008-12-01
+-------------------------
+
+Bug Fixes:
+       #330452: Automatic spell check suggestions should be first level menu option (Matthew Barnes)
+       #338921: crash when the interest in the image left before it was loaded (Milan Crha)
+       #555420: IM modules "commit" crash (Stanislav Brabec)
+       #562323: Evolution inserts a link incorrectly (Matthew Barnes)
+       #472517 (bugzilla.redhat.com): Fast double-click to select word followed by a right click to get 
+               context menu seems to use previous context (Matthew Barnes)
+
+Updated Translations:
+       Jorge Gonzalez (es)
+
 GtkHTML-3.25.1 2008-11-03
 -------------------------
 
