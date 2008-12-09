@@ -1,3 +1,43 @@
+2008-12-09  Matthew Barnes  <mbarnes@redhat.com>
+
+	** Fixes part of bug #563841
+
+	* gtkhtml-editor.ui:
+	Replace "insert-face-menu" with "insert-face" and also add
+	it to the HTML toolbar.  "insert-face" is a GtkhtmlFaceAction,
+	which appears as a GtkhtmlFaceChooserMenu or GtkhtmlFaceToolButton.
+
+	* gtkhtml-editor-actions.c:
+	Rewrite the insert face action callbacks.  Only a single
+	callback is needed now.  Selected face is obtained through
+	gtkhtml_face_chooser_get_current_face().
+
+	* gtkhtml-face.c:
+	* gtkhtml-face.h:
+	New boxed type for dealing with face icons.
+
+	* gtkhtml-face-chooser.c:
+	* gtkhtml-face-chooser.h:
+	New interface for choosing a smiley face from a list or table.
+	Patterned after GtkRecentChooser.
+
+	* gtkhtml-face-action.c:
+	* gtkhtml-face-action.h:
+	New GtkAction subclass for choosing from a predefined set of
+	smiley faces.  Patterned after GtkRecentAction.  Implements
+	the GtkhtmlFaceChooser interface.
+
+	* gtkhtml-face-chooser-menu.c:
+	* gtkhtml-face-chooser-menu.h:
+	New GtkMenu subclass implements of a menu of smiley faces.
+	Implements the GtkhtmlFaceChooser interface.
+
+	* gtkhtml-face-tool-button.c:
+	* gtkhtml-face-tool-button.h:
+	New GtkToggleToolButton subclass implements a popup smiley face
+	palette for use in toolbars.  Implements the GtkhtmlFaceChooser
+	interface.
+
 2008-11-27  Matthew Barnes  <mbarnes@redhat.com>
 
 	** Fixes bug #330452

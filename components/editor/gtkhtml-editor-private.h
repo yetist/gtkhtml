@@ -31,6 +31,8 @@
 #include "gtkhtml-color-palette.h"
 #include "gtkhtml-color-swatch.h"
 #include "gtkhtml-combo-box.h"
+#include "gtkhtml-face-action.h"
+#include "gtkhtml-face-chooser.h"
 #include "gtkhtml-spell-dialog.h"
 
 /* GtkHTML internals */

@@ -213,43 +213,6 @@ insert_html_file_response_cb (GtkFileChooser *file_chooser,
 }
 
 static void
-insert_emoticon (GtkhtmlEditor *editor,
-                 GtkAction *action,
-                 const gchar *alt)
-{
-	GtkHTML *html;
-	HTMLObject *image;
-	GtkIconInfo *icon_info;
-	const gchar *filename;
-	gchar *icon_name;
-	gchar *uri = NULL;
-
-	html = gtkhtml_editor_get_html (editor);
-
-	g_object_get (action, "icon-name", &icon_name, NULL);
-	icon_info = gtk_icon_theme_lookup_icon (
-		gtk_icon_theme_get_default (), icon_name, 16, 0);
-	g_free (icon_name);
-	g_return_if_fail (icon_info != NULL);
-
-	filename = gtk_icon_info_get_filename (icon_info);
-	if (filename != NULL)
-		uri = g_filename_to_uri (filename, NULL, NULL);
-	gtk_icon_info_free (icon_info);
-	g_return_if_fail (uri != NULL);
-
-	image = html_image_new (
-		html_engine_get_image_factory (html->engine),
-		uri, NULL, NULL, -1, -1, FALSE, FALSE, 0, NULL,
-		HTML_VALIGN_MIDDLE, FALSE);
-	html_image_set_alt (HTML_IMAGE (image), alt);
-	html_engine_paste_object (
-		html->engine, image, html_object_get_length (image));
-
-	g_free (uri);
-}
-
-static void
 insert_text_file_response_cb (GtkFileChooser *file_chooser,
                               gint response,
                               GtkhtmlEditor *editor)
@@ -626,6 +589,47 @@ action_indent_cb (GtkAction *action,
 }
 
 static void
+action_insert_face_cb (GtkhtmlFaceAction *action,
+                       GtkhtmlEditor *editor)
+{
+	GtkHTML *html;
+	HTMLObject *image;
+	GtkIconInfo *icon_info;
+	GtkIconTheme *icon_theme;
+	GtkhtmlFaceChooser *chooser;
+	GtkhtmlFace *face;
+	const gchar *filename;
+	gchar *uri = NULL;
+
+	html = gtkhtml_editor_get_html (editor);
+
+	chooser = GTKHTML_FACE_CHOOSER (action);
+	face = gtkhtml_face_chooser_get_current_face (chooser);
+	g_return_if_fail (face != NULL);
+
+	icon_theme = gtk_icon_theme_get_default ();
+	icon_info = gtk_icon_theme_lookup_icon (
+		icon_theme, face->icon_name, 16, 0);
+	g_return_if_fail (icon_info != NULL);
+
+	filename = gtk_icon_info_get_filename (icon_info);
+	if (filename != NULL)
+		uri = g_filename_to_uri (filename, NULL, NULL);
+	gtk_icon_info_free (icon_info);
+	g_return_if_fail (uri != NULL);
+
+	image = html_image_new (
+		html_engine_get_image_factory (html->engine),
+		uri, NULL, NULL, -1, -1, FALSE, FALSE, 0, NULL,
+		HTML_VALIGN_MIDDLE, FALSE);
+	html_image_set_alt (HTML_IMAGE (image), face->text_face);
+	html_engine_paste_object (
+		html->engine, image, html_object_get_length (image));
+
+	g_free (uri);
+}
+
+static void
 action_insert_html_file_cb (GtkToggleAction *action,
                             GtkhtmlEditor *editor)
 {
@@ -663,125 +667,6 @@ action_insert_rule_cb (GtkAction *action,
 		html->engine, 0, 100, 2, FALSE, HTML_HALIGN_LEFT);
 
 	gtk_action_activate (ACTION (PROPERTIES_RULE));
-}
-
-static void
-action_insert_face_angel_cb (GtkAction *action,
-                             GtkhtmlEditor *editor)
-{
-	insert_emoticon (editor, action, "O:-)");
-}
-
-static void
-action_insert_face_cool_cb (GtkAction *action,
-                            GtkhtmlEditor *editor)
-{
-	insert_emoticon (editor, action, "B-)");
-}
-
-static void
-action_insert_face_crying_cb (GtkAction *action,
-                              GtkhtmlEditor *editor)
-{
-	insert_emoticon (editor, action, ":'(");
-}
-
-static void
-action_insert_face_devilish_cb (GtkAction *action,
-                                GtkhtmlEditor *editor)
-{
-	insert_emoticon (editor, action, ">:-)");
-}
-
-static void
-action_insert_face_embarrassed_cb (GtkAction *action,
-                                   GtkhtmlEditor *editor)
-{
-	insert_emoticon (editor, action, ":\"-)");
-}
-
-static void
-action_insert_face_kiss_cb (GtkAction *action,
-                            GtkhtmlEditor *editor)
-{
-	insert_emoticon (editor, action, ":-*");
-}
-
-static void
-action_insert_face_monkey_cb (GtkAction *action,
-                              GtkhtmlEditor *editor)
-{
-	insert_emoticon (editor, action, ":-(|)");
-}
-
-static void
-action_insert_face_plain_cb (GtkAction *action,
-                             GtkhtmlEditor *editor)
-{
-	insert_emoticon (editor, action, ":-|");
-}
-
-static void
-action_insert_face_raspberry_cb (GtkAction *action,
-                                 GtkhtmlEditor *editor)
-{
-	insert_emoticon (editor, action, ":-P");
-}
-
-static void
-action_insert_face_sad_cb (GtkAction *action,
-                           GtkhtmlEditor *editor)
-{
-	insert_emoticon (editor, action, ":-(");
-}
-
-static void
-action_insert_face_smile_cb (GtkAction *action,
-                             GtkhtmlEditor *editor)
-{
-	insert_emoticon (editor, action, ":-)");
-}
-
-static void
-action_insert_face_smile_big_cb (GtkAction *action,
-                                 GtkhtmlEditor *editor)
-{
-	insert_emoticon (editor, action, ":-D");
-}
-
-static void
-action_insert_face_smirk_cb (GtkAction *action,
-                             GtkhtmlEditor *editor)
-{
-	insert_emoticon (editor, action, ":-!");
-}
-
-static void
-action_insert_face_surprise_cb (GtkAction *action,
-                                GtkhtmlEditor *editor)
-{
-	insert_emoticon (editor, action, ":-O");
-}
-
-static void
-action_insert_face_wink_cb (GtkAction *action,
-                            GtkhtmlEditor *editor)
-{
-	insert_emoticon (editor, action, ";-)");
-}
-
-static void
-action_insert_smiley_9_cb (GtkAction *action,
-                           GtkhtmlEditor *editor)
-{
-	insert_emoticon (editor, action, ":-/");
-}
-
-static void
-action_insert_smiley_26_cb (GtkAction *action,
-                            GtkhtmlEditor *editor)
-{
-	insert_emoticon (editor, action, ":-Q");
 }
 
 static void
@@ -1345,125 +1230,6 @@ static GtkActionEntry core_entries[] = {
 	  NULL,
 	  G_CALLBACK (action_insert_html_file_cb) },
 
-	{ "insert-face-angel",
-	  "face-angel",
-	  N_("_Angel"),
-	  NULL,
-	  NULL,
-	  G_CALLBACK (action_insert_face_angel_cb) },
-
-	{ "insert-face-cool",
-	  "face-cool",
-	  N_("_Cool"),
-	  NULL,
-	  NULL,
-	  G_CALLBACK (action_insert_face_cool_cb) },
-
-	{ "insert-face-crying",
-	  "face-crying",
-	  N_("Cr_ying"),
-	  NULL,
-	  NULL,
-	  G_CALLBACK (action_insert_face_crying_cb) },
-
-	{ "insert-face-devilish",
-	  "face-devilish",
-	  N_("_Devilish"),
-	  NULL,
-	  NULL,
-	  G_CALLBACK (action_insert_face_devilish_cb) },
-
-	{ "insert-face-embarrassed",
-	  "face-embarrassed",
-	  N_("_Embarrassed"),
-	  NULL,
-	  NULL,
-	  G_CALLBACK (action_insert_face_embarrassed_cb) },
-
-	{ "insert-face-kiss",
-	  "face-kiss",
-	  N_("_Kiss"),
-	  NULL,
-	  NULL,
-	  G_CALLBACK (action_insert_face_kiss_cb) },
-
-	{ "insert-face-monkey",
-	  "face-monkey",
-	  N_("_Monkey"),
-	  NULL,
-	  NULL,
-	  G_CALLBACK (action_insert_face_monkey_cb) },
-
-	{ "insert-face-plain",
-	  "face-plain",
-	  N_("_Indifferent"),
-	  NULL,
-	  NULL,
-	  G_CALLBACK (action_insert_face_plain_cb) },
-
-	{ "insert-face-raspberry",
-	  "face-raspberry",
-	  N_("_Tongue"),
-	  NULL,
-	  NULL,
-	  G_CALLBACK (action_insert_face_raspberry_cb) },
-
-	{ "insert-face-sad",
-	  "face-sad",
-	  N_("_Frown"),
-	  NULL,
-	  NULL,
-	  G_CALLBACK (action_insert_face_sad_cb) },
-
-	{ "insert-face-smile",
-	  "face-smile",
-	  N_("_Smile"),
-	  NULL,
-	  NULL,
-	  G_CALLBACK (action_insert_face_smile_cb) },
-
-	{ "insert-face-smile-big",
-	  "face-smile-big",
-	  N_("_Laughing"),
-	  NULL,
-	  NULL,
-	  G_CALLBACK (action_insert_face_smile_big_cb) },
-
-	{ "insert-face-smirk",
-	  "face-smirk",
-	  N_("Smi_rk"),
-	  NULL,
-	  NULL,
-	  G_CALLBACK (action_insert_face_smirk_cb) },
-
-	{ "insert-face-surprise",
-	  "face-surprise",
-	  N_("Sur_prised"),
-	  NULL,
-	  NULL,
-	  G_CALLBACK (action_insert_face_surprise_cb) },
-
-	{ "insert-face-wink",
-	  "face-wink",
-	  N_("_Wink"),
-	  NULL,
-	  NULL,
-	  G_CALLBACK (action_insert_face_wink_cb) },
-
-	{ "insert-smiley-9",
-	  "stock_smiley-9",
-	  N_("_Undecided"),
-	  NULL,
-	  NULL,
-	  G_CALLBACK (action_insert_smiley_9_cb) },
-
-	{ "insert-smiley-26",
-	  "stock_smiley-26",
-	  N_("S_ick"),
-	  NULL,
-	  NULL,
-	  G_CALLBACK (action_insert_smiley_26_cb) },
-
 	{ "insert-text-file",
 	  NULL,
 	  N_("Te_xt File..."),
@@ -1574,13 +1340,6 @@ static GtkActionEntry core_entries[] = {
 	{ "paragraph-style-menu",
 	  NULL,
 	  N_("_Paragraph Style"),
-	  NULL,
-	  NULL,
-	  NULL },
-
-	{ "insert-face-menu",
-	  NULL,
-	  N_("_Emoticon"),
 	  NULL,
 	  NULL,
 	  NULL },
@@ -2291,6 +2050,7 @@ editor_actions_setup_spell_check_menu (GtkhtmlEditor *editor)
 void
 gtkhtml_editor_actions_init (GtkhtmlEditor *editor)
 {
+	GtkAction *action;
 	GtkActionGroup *action_group;
 	GtkUIManager *manager;
 	const gchar *domain;
@@ -2322,6 +2082,16 @@ gtkhtml_editor_actions_init (GtkhtmlEditor *editor)
 		GTK_HTML_PARAGRAPH_STYLE_NORMAL,
 		G_CALLBACK (action_style_cb), editor);
 	gtk_ui_manager_insert_action_group (manager, action_group, 0);
+
+	/* Face Action */
+	action = gtkhtml_face_action_new (
+		"insert-face", _("_Emoticon"),
+		_("Insert Emoticon"), NULL);
+	g_object_set (action, "icon-name", "face-smile", NULL);
+	g_signal_connect (
+		action, "item-activated",
+		G_CALLBACK (action_insert_face_cb), editor);
+	gtk_action_group_add_action (action_group, action);
 
 	/* Core Actions (HTML only) */
 	action_group = editor->priv->html_actions;

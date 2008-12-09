@@ -34,18 +34,7 @@
       <menuitem action='insert-table'/>
       <menuitem action='insert-text-file'/>
       <menuitem action='insert-html-file'/>
-      <menu action='insert-face-menu'>
-        <menuitem action='insert-face-smile'/>
-        <menuitem action='insert-face-surprise'/>
-        <menuitem action='insert-face-wink'/>
-        <menuitem action='insert-face-sad'/>
-        <menuitem action='insert-face-smile-big'/>
-        <menuitem action='insert-face-plain'/>
-        <menuitem action='insert-smiley-9'/>
-        <menuitem action='insert-face-raspberry'/>
-        <menuitem action='insert-face-crying'/>
-        <menuitem action='insert-smiley-26'/>
-      </menu>
+      <menuitem action='insert-face'/>
     </menu>
     <placeholder name='pre-format-menu'/>
     <menu action='format-menu'>
@@ -135,6 +124,7 @@
     <toolitem action='insert-link'/>
     <toolitem action='insert-rule'/>
     <toolitem action='insert-table'/>
+    <toolitem action='insert-face'/>
   </toolbar>
   <popup name='context-menu'>
     <placeholder name='context-spell-suggest'/>

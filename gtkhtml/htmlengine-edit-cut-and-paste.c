@@ -1266,21 +1266,46 @@ html_engine_insert_empty_paragraph (HTMLEngine *e)
 	html_engine_thaw (e);
 }
 
-static char *picto_chars = "DO)(|/PQ\0:-\0:\0:-\0:\0:;=-\0:;\0:-~\0:\0:\0:-\0:\0:-\0:\0:-\0:\0:-\0:\0";
-static gint picto_states [] = { 9, 14, 19, 27, 35, 40, 45, 50, 0, -1, 12, 0, -1, 0, -2, 17, 0, -2, 0, -3, -4, -5, 24, 0, -3, -4, 0, -6, 31, 33, 0, -6, 0, -11, 0, -8, 38, 0, -8, 0, -9, 43, 0, -9, 0, -10, 48, 0, -10, 0, -12, 53, 0, -12, 0};
+static char *picto_chars =
+	/*  0 */ "DO)(|/PQ*!"
+	/* 10 */ "S\0:-\0:\0:-\0"
+	/* 20 */ ":\0:;=-\"\0:;"
+	/* 30 */ "B\"|\0:-'\0:X"
+	/* 40 */ "\0:\0:-\0:\0:-"
+	/* 50 */ "\0:\0:-\0:\0:-"
+	/* 60 */ "\0:\0:\0:-\0:\0"
+	/* 70 */ ":-\0:\0:-\0:\0";
+static gint picto_states [] = {
+	/*  0 */  12,  17,  22,  34,  43,  48,  53,  58,  65,  70,
+	/* 10 */  75,   0, -15,  15,   0, -15,   0, -17,  20,   0,
+	/* 20 */ -17,   0, -14, -20, -14,  28,  63,   0, -14, -20,
+	/* 30 */  -3,  63, -18,   0, -12,  38,  41,   0, -12,  -2,
+	/* 40 */   0,  -4,   0, -10,  46,   0, -10,   0, -19,  51,
+	/* 50 */   0, -19,   0, -11,  56,   0, -11,   0, -13,  61,
+	/* 60 */   0, -13,   0,  -6,   0,  68,  -7,   0,  -7,   0,
+	/* 70 */ -16,  73,   0, -16,   0, -21,  78,   0, -21,   0 };
 static gchar *picto_icon_names [] = {
-	"stock_smiley-6",
-	"stock_smiley-5",
-	"stock_smiley-1",
-	"stock_smiley-3",
-	"stock_smiley-2",
-	"stock_smiley-4",
-	"stock_smiley-7",  /* XXX No idea if this one is correct */
-	"stock_smiley-8",
-	"stock_smiley-9",
-	"stock_smiley-10",
-	"stock_smiley-11",
-	"stock_smiley-26",
+	"face-angel",
+	"face-angry",
+	"face-cool",
+	"face-crying",
+	"face-devilish",
+	"face-embarrassed",
+	"face-kiss",
+	"face-laugh",		/* not used */
+	"face-monkey",		/* not used */
+	"face-plain",
+	"face-raspberry",
+	"face-sad",
+	"face-sick",
+	"face-smile",
+	"face-smile-big",
+	"face-smirk",
+	"face-surprise",
+	"face-tired",
+	"face-uncertain",
+	"face-wink",
+	"face-worried"
 };
 
 static void
@@ -1309,6 +1334,18 @@ use_pictograms (HTMLEngine *e)
 		if (state <= 0)
 			break;
 		pos --;
+	}
+
+	/* Special case needed to recognize angel and devilish. */
+	if (pos > 0 && state == -14) {
+		uc = html_text_get_char (HTML_TEXT (e->cursor->object), pos - 1);
+		if (uc == 'O') {
+			state = -1;
+			pos--;
+		} else if (uc == '>') {
+			state = -5;
+			pos--;
+		}
 	}
 
 	if (state < 0) {

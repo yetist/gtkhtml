@@ -42,6 +42,16 @@ libgtkhtml_editor_la_SOURCES = \
 	gtkhtml-editor-private.h		\
 	gtkhtml-editor-signals.c		\
 	gtkhtml-editor-signals.h		\
+	gtkhtml-face.c				\
+	gtkhtml-face.h				\
+	gtkhtml-face-action.c			\
+	gtkhtml-face-action.h			\
+	gtkhtml-face-chooser.c			\
+	gtkhtml-face-chooser.h			\
+	gtkhtml-face-chooser-menu.c		\
+	gtkhtml-face-chooser-menu.h		\
+	gtkhtml-face-tool-button.c		\
+	gtkhtml-face-tool-button.h		\
 	gtkhtml-spell-dialog.c			\
 	gtkhtml-spell-dialog.h			\
 	gtkhtml-spell-checker.c			\

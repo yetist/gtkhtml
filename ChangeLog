@@ -1,3 +1,11 @@
+2008-12-09  Matthew Barnes  <mbarnes@redhat.com>
+
+	** Fixes part of bug #563841
+
+	* configure.in:
+	Bump gnome_icon_theme_minimum_version to 2.22.0 to pick up
+	new "face" icons.
+
 2008-12-01  Srinivasa Ragavan <sragavan@novell.com
 	
 	* NEWS: Evolution 2.25.2 release changes.
