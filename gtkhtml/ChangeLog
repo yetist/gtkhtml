@@ -1,3 +1,10 @@
+2008-12-09  Milan Crha  <mcrha@redhat.com>
+
+	** Fix for bug #555388
+
+	* htmlengine-edit-table.c: (table_set_align):
+	Do not crash on undo of a table creation.
+
 2008-11-05  Milan Crha  <mcrha@redhat.com>
 
 	** Fix for bug #338921

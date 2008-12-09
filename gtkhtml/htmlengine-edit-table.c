@@ -1051,6 +1051,10 @@ table_set_align (HTMLEngine *e, HTMLTable *t, HTMLHAlignType align, HTMLUndoDire
 {
 	HTMLTableSetAttrUndo *undo;
 
+	/* table gone */
+	if (!t)
+		return;
+
 	g_return_if_fail (HTML_OBJECT (t)->parent);
 
 	undo = attr_undo_new (HTML_TABLE_ALIGN);
