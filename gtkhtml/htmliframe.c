@@ -611,7 +611,11 @@ html_iframe_init (HTMLIFrame *iframe,
 	new_tokenizer = NULL;
 
 	gtk_html_set_default_content_type (new_html,
-					   parent_html->priv->content_type);
+					   gtk_html_get_default_content_type(parent_html));
+
+	gtk_html_set_default_engine (new_html,
+					   gtk_html_get_default_engine(parent_html));
+					   
 	iframe->html = new_widget;
 	iframe->url = g_strdup (src);
 	iframe->width = width;

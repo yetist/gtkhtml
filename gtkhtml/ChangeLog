@@ -1,3 +1,33 @@
+2008-12-10  Denis Pauk  <pauk.denis@gmail.com>
+
+	** Fix for bug #552357
+
+	* gtkhtml/htmltokenizer.c
+	* gtkhtml/htmltokenizer.h
+	* gtkhtml/htmlradio.c
+	* gtkhtml/htmlform.c
+	* gtkhtml/htmlengine.c
+	* gtkhtml/htmlengine.h
+	* gtkhtml/htmlbutton.c
+	* gtkhtml/htmltextarea.c
+	* gtkhtml/htmlembedded.c
+	* gtkhtml/htmlembedded.h
+	* gtkhtml/htmlselect.c
+	* gtkhtml/htmlcheckbox.c
+	* gtkhtml/htmlhidden.c
+	* gtkhtml/testgtkhtml.c
+	* gtkhtml/htmlimageinput.c
+	* gtkhtml/gtkhtml.c
+	* gtkhtml/htmltextinput.c 
+	 support http-equiv and set encoding (gtk_html_set_default_content_type)
+	 if it exist in http - headers and re-coding resulted query from form
+	 (support not utf8 encoding). 
+	For use new behavior need 
+		gtk_html_set_default_engine(html, TRUE); 
+	or set in 
+		gtk_html_begin_full in 
+	GtkHTMLBeginFlags with GTK_HTML_BEGIN_CHANGECONTENTTYPE.
+
 2008-12-09  Matthew Barnes  <mbarnes@redhat.com>
 
 	** Fixes part of bug #563841

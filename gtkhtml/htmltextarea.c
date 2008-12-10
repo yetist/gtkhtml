@@ -63,7 +63,7 @@ reset (HTMLEmbedded *e)
 }
 
 static gchar *
-encode (HTMLEmbedded *e)
+encode (HTMLEmbedded *e, const gchar *codepage)
 {
 	GString *encoding = g_string_new ("");
 	gchar *encoded_str, *utf8_str, *gtk_text;
@@ -71,7 +71,7 @@ encode (HTMLEmbedded *e)
 	if(strlen (e->name)) {
 		GtkTextIter first, last;
 
-		utf8_str = html_embedded_encode_string (e->name);
+		utf8_str = html_embedded_encode_string (e->name, codepage);
 		encoding = g_string_append (encoding, utf8_str);
 		g_free (utf8_str);
 
@@ -80,7 +80,7 @@ encode (HTMLEmbedded *e)
 		gtk_text_buffer_get_bounds (HTML_TEXTAREA (e)->buffer, &first, &last);
 		gtk_text = gtk_text_buffer_get_text (HTML_TEXTAREA (e)->buffer, &first, &last, FALSE);
 
-		encoded_str = html_embedded_encode_string (gtk_text);
+		encoded_str = html_embedded_encode_string (gtk_text, codepage);
 		encoding = g_string_append (encoding, encoded_str);
 
 		g_free (encoded_str);

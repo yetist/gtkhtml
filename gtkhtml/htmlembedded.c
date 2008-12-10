@@ -33,6 +33,8 @@
 #include "htmliframe.h"
 #include "htmlpainter.h"
 #include "htmlengine.h"
+/*For use converter based on g_iconv*/
+#include "htmltokenizer.h"
 
 HTMLEmbeddedClass html_embedded_class;
 static HTMLObjectClass *parent_class = NULL;
@@ -198,7 +200,7 @@ accepts_cursor (HTMLObject *o)
 }
 
 static gchar *
-encode (HTMLEmbedded *e)
+encode (HTMLEmbedded *e, const gchar* codepage)
 {
 	return g_strdup ("");
 }
@@ -210,9 +212,9 @@ html_embedded_reset (HTMLEmbedded *e)
 }
 
 gchar *
-html_embedded_encode (HTMLEmbedded *e)
+html_embedded_encode (HTMLEmbedded *e, const gchar* codepage)
 {
-	return HTML_EMBEDDED_CLASS (HTML_OBJECT (e)->klass)->encode (e);
+	return HTML_EMBEDDED_CLASS (HTML_OBJECT (e)->klass)->encode (e, codepage);
 }
 
 void
@@ -228,13 +230,21 @@ html_embedded_set_form (HTMLEmbedded *e, HTMLForm *form)
 }
 
 gchar *
-html_embedded_encode_string (const gchar *str)
+html_embedded_encode_string (const gchar *before, const gchar *codepage)
 {
-        static gchar *safe = "$-._!*(),"; /* RFC 1738 */
+	    const gchar* str = before;
+	    static gchar *safe = "$-._!*(),"; /* RFC 1738 */
         unsigned pos = 0;
         GString *encoded = g_string_new ("");
         gchar buffer[5], *ptr;
-	guchar c;
+		guchar c;
+		
+	    GIConv iconv_cd = generate_iconv_to (codepage);
+	    if( is_valid_g_iconv (iconv_cd))
+	    {
+	    	str= convert_text_encoding(iconv_cd, before);
+	    	g_iconv_close(iconv_cd);
+	    }
 
         while ( pos < strlen(str) ) {
 
@@ -268,7 +278,7 @@ html_embedded_encode_string (const gchar *str)
 
 	g_string_free (encoded, FALSE);
 
-        return ptr;
+    return ptr;
 }
 
 void

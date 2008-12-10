@@ -315,6 +315,12 @@ void           html_engine_parse            (HTMLEngine  *p);
 void           html_engine_stop_parser      (HTMLEngine  *e);
 void           html_engine_stop             (HTMLEngine  *e);
 void           html_engine_flush            (HTMLEngine  *e);
+void           html_engine_set_engine_type   (HTMLEngine *e,
+					 gboolean engine_type);
+gboolean       html_engine_get_engine_type   (HTMLEngine *e);
+void 		   html_engine_set_content_type(HTMLEngine *e,
+					const gchar* content_type);
+const gchar *  html_engine_get_content_type(HTMLEngine *e);
 
 /* Rendering control.  */
 gint  html_engine_calc_min_width       (HTMLEngine *e);

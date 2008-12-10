@@ -33,6 +33,8 @@
 enum {
 	HTML_TOKENIZER_BEGIN_SIGNAL,
 	HTML_TOKENIZER_END_SIGNAL,
+	HTML_TOKENIZER_CHANGECONTENT_SIGNAL,
+	HTML_TOKENIZER_CHANGEENGINE_SIGNAL,
 	HTML_TOKENIZER_LAST_SIGNAL
 };
 
@@ -52,6 +54,7 @@ struct _HTMLTokenBuffer {
 	gint used;
 	gchar * data;
 };
+
 struct _HTMLTokenizerPrivate {
 
 	/* token buffers list */
@@ -87,7 +90,6 @@ struct _HTMLTokenizerPrivate {
 	gboolean textarea; /* Are we in a <textarea> block? */
 	gint     pre; /* Are we in a <pre> block? */
 	gboolean select; /* Are we in a <select> block? */
-	gboolean charEntity; /* Are we in an &... sequence? */
 	gboolean extension; /* Are we in an <!-- +GtkHTML: sequence? */
 	gboolean aTag; /* Are we in a <a/> tag*/
 
@@ -117,10 +119,16 @@ struct _HTMLTokenizerPrivate {
 	GList *blocking; /* Blocking tokens */
 
 	const gchar *searchFor;
-	gboolean utf8;
-	gchar utf8_buffer[7];
-	gint utf8_length;
+	
+	gboolean enableconvert;
+	
+	gchar * content_type;
+	/*convert*/
+	GIConv iconv_cd;
+
 };
+
+
 
 static const gchar *commentStart = "<!--";
 static const gchar *scriptEnd = "</script>";
@@ -144,12 +152,20 @@ static void           html_tokenizer_append_token_buffer (HTMLTokenizer *t,
 
 /* default implementations of tokenization functions */
 static void     html_tokenizer_finalize             (GObject *);
-static void     html_tokenizer_real_begin           (HTMLTokenizer *, gchar *content_type);
+static void     html_tokenizer_real_change          (HTMLTokenizer *, const gchar *content_type);
+static void     html_tokenizer_real_begin           (HTMLTokenizer *, const gchar *content_type);
+static void     html_tokenizer_real_engine_type (HTMLTokenizer *t, gboolean engine_type);
 static void     html_tokenizer_real_write           (HTMLTokenizer *, const gchar *str, size_t size);
 static void     html_tokenizer_real_end             (HTMLTokenizer *);
+static const gchar *
+				html_tokenizer_real_get_content_type(HTMLTokenizer *);
+static gboolean
+				html_tokenizer_real_get_engine_type(HTMLTokenizer *);
 static gchar   *html_tokenizer_real_peek_token      (HTMLTokenizer *);
 static gchar   *html_tokenizer_real_next_token      (HTMLTokenizer *);
 static gboolean html_tokenizer_real_has_more_tokens (HTMLTokenizer *);
+static gchar   *html_tokenizer_converted_token (HTMLTokenizer *t,const gchar* token);
+
 
 static HTMLTokenizer *html_tokenizer_real_clone     (HTMLTokenizer *);
 
@@ -160,8 +176,11 @@ static void               html_tokenizer_blocking_push       (HTMLTokenizer  *t,
 							      HTMLTokenType   tt);
 static void               html_tokenizer_tokenize_one_char   (HTMLTokenizer  *t,
 							      const gchar  **src);
+static void				  add_char(HTMLTokenizer *t, gchar c);
 
-static void               add_unichar(HTMLTokenizer *t, gunichar wc);
+gboolean 				  is_need_convert(const gchar* token);
+
+gchar*					  html_tokenizer_convert_entity(gchar * token);
 
 static GObjectClass *parent_class = NULL;
 
@@ -171,6 +190,26 @@ html_tokenizer_class_init (HTMLTokenizerClass *klass)
 	GObjectClass *object_class = (GObjectClass *) klass;
 
 	parent_class = g_type_class_ref (G_TYPE_OBJECT);
+
+	html_tokenizer_signals[HTML_TOKENIZER_CHANGECONTENT_SIGNAL] =
+		g_signal_new ("change",
+			      G_TYPE_FROM_CLASS (klass),
+			      G_SIGNAL_RUN_LAST,
+			      G_STRUCT_OFFSET (HTMLTokenizerClass, change),
+			      NULL, NULL,
+			      g_cclosure_marshal_VOID__POINTER,
+			      G_TYPE_NONE,
+			      1, G_TYPE_POINTER);
+
+	html_tokenizer_signals[HTML_TOKENIZER_CHANGEENGINE_SIGNAL] =
+		g_signal_new ("engine",
+			      G_TYPE_FROM_CLASS (klass),
+			      G_SIGNAL_RUN_LAST,
+			      G_STRUCT_OFFSET (HTMLTokenizerClass, engine),
+			      NULL, NULL,
+			      g_cclosure_marshal_VOID__POINTER,
+			      G_TYPE_NONE,
+			      1, G_TYPE_POINTER);
 
 	html_tokenizer_signals[HTML_TOKENIZER_BEGIN_SIGNAL] =
 		g_signal_new ("begin",
@@ -194,12 +233,16 @@ html_tokenizer_class_init (HTMLTokenizerClass *klass)
 
 	object_class->finalize = html_tokenizer_finalize;
 
+	klass->change     = html_tokenizer_real_change;
+	klass->engine     = html_tokenizer_real_engine_type;
 	klass->begin      = html_tokenizer_real_begin;
 	klass->end        = html_tokenizer_real_end;
 
 	klass->write      = html_tokenizer_real_write;
 	klass->peek_token = html_tokenizer_real_peek_token;
 	klass->next_token = html_tokenizer_real_next_token;
+	klass->get_content_type = html_tokenizer_real_get_content_type;
+	klass->get_engine_type = html_tokenizer_real_get_engine_type;
 	klass->has_more   = html_tokenizer_real_has_more_tokens;
 	klass->clone      = html_tokenizer_real_clone;
 }
@@ -232,7 +275,6 @@ html_tokenizer_init (HTMLTokenizer *t)
 	p->textarea = FALSE;
 	p->pre = 0;
 	p->select = FALSE;
-	p->charEntity = FALSE;
 	p->extension = FALSE;
 	p->aTag = FALSE;
 
@@ -250,19 +292,30 @@ html_tokenizer_init (HTMLTokenizer *t)
 	p->blocking = NULL;
 
 	p->searchFor = NULL;
+	
+	/* Use old logic and not convert charset */
+	p->enableconvert = FALSE;
+	
+	p->content_type = g_strdup ("html/text; charset=utf-8");
 }
 
 static void
 html_tokenizer_finalize (GObject *obj)
 {
 	HTMLTokenizer *t = HTML_TOKENIZER (obj);
-
+	
 	html_tokenizer_reset (t);
-
+	
+	if(is_valid_g_iconv (t->priv->iconv_cd))
+		g_iconv_close (t->priv->iconv_cd);
+		
+	if(t->priv->content_type)
+		g_free(t->priv->content_type);
+		
 	g_free (t->priv);
 	t->priv = NULL;
 
-        G_OBJECT_CLASS (parent_class)->finalize (obj);
+    G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 GType
@@ -369,8 +422,151 @@ html_tokenizer_real_peek_token (HTMLTokenizer *t)
 		/* finally get first token */
 		token = buffer->data;
 	}
+	
+	return html_tokenizer_converted_token (t,token);
+}
 
+/* test iconv for valid*/
+gboolean
+is_valid_g_iconv(const GIConv iconv_cd)
+{
+	return iconv_cd != NULL && iconv_cd != (GIConv)-1;
+}
+
+/*Convert only chars when code >127*/
+gboolean
+is_need_convert (const gchar* token)
+{
+	int i=strlen (token);
+	for(;i>=0;i--)
+		if(token[i]&128)
+			return TRUE;
+	return FALSE;
+}
+
+/*Convert entity values in already converted to right charset token*/
+gchar*
+html_tokenizer_convert_entity(gchar * token)
+{	
+	char* full_pos = token + strlen (token);	
+	char* write_pos = token + strcspn (token, "&");
+	gunichar value;
+	size_t count_chars;
+	char *read_pos;
+	while(write_pos < full_pos)
+	{
+		write_pos++;
+		count_chars = strcspn(write_pos+1, ";");
+		value = INVALID_CHARACTER_MARKER;
+		if(count_chars < 14)
+		{
+			char save = *(write_pos + count_chars + 1);
+			*(write_pos + count_chars + 1)=0;
+			/* &#1234567 */
+			if (*write_pos == '#')
+			{
+				if(isdigit (*(write_pos + 1)))
+				{
+					value=strtoull (write_pos + 1, NULL, 10);
+				}
+				/* &#xdd */
+				else if(*(write_pos + 1) == 'x')
+				{
+					value=strtoull (write_pos + 2, NULL, 16);
+				}
+			}
+			else 
+			{
+				value=html_entity_parse (write_pos, 0);
+			}
+			*(write_pos+count_chars+1)=save;
+			if(count_chars>0)
+			{
+				memset (write_pos-1, ' ', count_chars + 3);
+				/* first char is & I think this not need */
+				write_pos --;
+				read_pos = write_pos + count_chars + 3;
+				write_pos += g_unichar_to_utf8 (value,write_pos);
+				memcpy (write_pos, read_pos, full_pos - read_pos + 1);
+				full_pos = write_pos + (full_pos - read_pos);
+			}
+		}	
+		write_pos = write_pos + strcspn (write_pos, "&");
+	}		
 	return token;
+}
+
+gchar* 
+convert_text_encoding(const GIConv iconv_cd,const gchar * token)
+{
+	size_t currlength;
+	gchar * newbuffer;
+	gchar * returnbuffer;
+	const gchar * current;
+	size_t newlength;
+	size_t oldlength;
+	if(token == NULL)
+		return NULL;
+	currlength = strlen (token);
+	if(is_valid_g_iconv (iconv_cd) && is_need_convert (token))
+	{
+		current = token;
+		newlength = currlength*7+1;
+		oldlength = newlength;
+		newbuffer = g_new (gchar, newlength);
+		returnbuffer = newbuffer;
+		g_assert (returnbuffer);
+		while(currlength > 0)
+		{			
+			/*function not change current, but g_iconv use not const source*/
+			g_iconv (iconv_cd, (gchar **)&current, &currlength, &newbuffer, &newlength);
+			if(currlength > 0)
+			{
+				g_warning ("IconvError=%s", current);
+				*newbuffer = INVALID_CHARACTER_MARKER;
+				newbuffer ++;
+				current ++;
+				currlength --;
+				newlength --;
+			}
+		}
+		returnbuffer[oldlength - newlength] = '\0';
+		returnbuffer = g_realloc (returnbuffer, oldlength - newlength + 1);
+		g_assert (returnbuffer);
+		return returnbuffer;
+	}
+	newbuffer = g_new (gchar, currlength + 1);
+	memcpy (newbuffer,token, currlength);
+	newbuffer[currlength] = 0;
+	return newbuffer;
+}
+
+static gchar *
+html_tokenizer_converted_token(HTMLTokenizer *t, const gchar* token)
+{
+	if(token != NULL)
+	{
+		struct _HTMLTokenizerPrivate *p = t->priv;
+		return html_tokenizer_convert_entity (convert_text_encoding (p->iconv_cd, token));
+	}
+	return NULL;
+}
+
+static const gchar *
+html_tokenizer_real_get_content_type(HTMLTokenizer *t)
+{
+	struct _HTMLTokenizerPrivate *p = t->priv;
+	if(p->content_type)
+		return p->content_type;
+	return NULL;
+}
+
+static gboolean
+html_tokenizer_real_get_engine_type(HTMLTokenizer *t)
+{
+	struct _HTMLTokenizerPrivate *p = t->priv;
+	return p->enableconvert;
+	return FALSE;
 }
 
 static gchar *
@@ -411,8 +607,8 @@ html_tokenizer_real_next_token (HTMLTokenizer *t)
 
 	p->tokens_num--;
 	g_assert (p->tokens_num >= 0);
-
-	return token;
+	
+	return html_tokenizer_converted_token (t, token);
 }
 
 static gboolean
@@ -460,14 +656,103 @@ html_tokenizer_reset (HTMLTokenizer *t)
 	p->scriptCode = NULL;
 }
 
-static gint
-charset_is_utf8 (gchar *content_type)
+static gboolean
+charset_is_utf8 (const gchar *content_type)
 {
-	return content_type && strstr (content_type, "charset=utf-8") != NULL;
+	return content_type && strstr (content_type, "=utf-8") != NULL;
+}
+
+static gboolean
+is_text (const gchar *content_type)
+{
+	return content_type && strstr (content_type, "text/") != NULL;
+}
+
+static const gchar*
+get_encoding_from_content_type(const gchar * content_type)
+{
+	gchar * charset;
+	if(content_type)
+	{
+		charset =  g_strrstr (content_type, "charset=");
+		if(charset != NULL)
+			return charset + strlen ("charset=");
+		charset =  g_strrstr (content_type, "encoding=");
+		if(charset != NULL)
+			return charset + strlen ("encoding=");
+		
+	}
+	return NULL;
+}
+
+GIConv
+generate_iconv_from(const gchar * content_type)
+{
+	if(content_type)
+		if(!charset_is_utf8(content_type))
+		{
+			const gchar * encoding = get_encoding_from_content_type (content_type);
+			if(encoding)
+				return g_iconv_open ("utf-8", encoding);
+		}
+	return NULL;
+}
+
+GIConv
+generate_iconv_to(const gchar * content_type)
+{
+	if(content_type)
+		if(!charset_is_utf8 (content_type))
+		{
+			const gchar * encoding = get_encoding_from_content_type (content_type);
+			if(encoding)
+				return g_iconv_open (encoding, "utf-8");
+		}
+	return NULL;
 }
 
 static void
-html_tokenizer_real_begin (HTMLTokenizer *t, gchar *content_type)
+html_tokenizer_real_engine_type (HTMLTokenizer *t, gboolean engine_type)
+{
+	struct _HTMLTokenizerPrivate *p;
+	p = t->priv;
+	
+	p->enableconvert = engine_type;
+}
+
+static void
+html_tokenizer_real_change (HTMLTokenizer *t, const gchar *content_type)
+{	
+	struct _HTMLTokenizerPrivate *p;
+	if(!is_text (content_type))
+		return;
+			
+	p = t->priv;
+	
+	if (!p->enableconvert)
+		return;
+	
+	if(p->content_type)
+		g_free(p->content_type);
+	
+	p->content_type = g_ascii_strdown ( content_type, -1);
+	
+	if(is_valid_g_iconv (p->iconv_cd))
+		g_iconv_close (p->iconv_cd);
+		
+	p->iconv_cd = generate_iconv_from (p->content_type);
+	
+#if 0
+	if (charset_is_utf8 (p->content_type))
+		g_warning ("Trying UTF-8");
+	else
+		g_warning ("Trying %s",p->content_type);
+#endif
+}
+
+
+static void
+html_tokenizer_real_begin (HTMLTokenizer *t, const gchar *content_type)
 {
 	struct _HTMLTokenizerPrivate *p = t->priv;
 
@@ -490,17 +775,8 @@ html_tokenizer_real_begin (HTMLTokenizer *t, gchar *content_type)
 	p->searchCount = 0;
 	p->searchGtkHTMLCount = 0;
 	p->title = FALSE;
-	p->charEntity = FALSE;
 
-	p->utf8 = charset_is_utf8 (content_type);
-	p->utf8_length = 0;
-#if 0
-	if (p->utf8)
-		g_warning ("Trying UTF-8");
-	else
-		g_warning ("Trying ISO-8859-1");
-#endif
-
+	html_tokenizer_real_change (t, content_type);
 }
 
 static void
@@ -561,6 +837,23 @@ html_tokenizer_append_token (HTMLTokenizer *t, const gchar *string, gint len)
 	}
 }
 
+static void add_byte (HTMLTokenizer *t, const gchar **c)
+{
+	add_char (t,**c);
+	(*c) ++;
+}
+
+static void
+add_char(HTMLTokenizer *t, gchar c){
+	struct _HTMLTokenizerPrivate *p = t->priv;
+	if(c!='\0')
+	{
+		*(p->dest) = c;
+		p->dest ++;
+		*(p->dest) = 0;
+	}
+}
+
 static void
 html_tokenizer_append_token_buffer (HTMLTokenizer *t, gint min_size)
 {
@@ -592,31 +885,31 @@ html_tokenizer_add_pending (HTMLTokenizer *t)
 	struct _HTMLTokenizerPrivate *p = t->priv;
 
 	if (p->tag || p->select) {
-		add_unichar (t, ' ');
+		add_char (t, ' ');
 	}
 	else if (p->textarea) {
 		if (p->pending == LFPending)
-			add_unichar (t, '\n');
+			add_char (t, '\n');
 		else
-			add_unichar (t, ' ');
+			add_char (t, ' ');
 	}
 	else if (p->pre) {
 		switch (p->pending) {
 		case SpacePending:
-			add_unichar (t, ' ');
+			add_char (t, ' ');
 			break;
 		case LFPending:
 			if (p->dest > p->buffer) {
 				html_tokenizer_append_token (t, p->buffer, p->dest - p->buffer);
 			}
 			p->dest = p->buffer;
-			add_unichar (t, TAG_ESCAPE);
-			add_unichar (t, '\n');
+			add_char (t, TAG_ESCAPE);
+			add_char (t, '\n');
 			html_tokenizer_append_token (t, p->buffer, 2);
 			p->dest = p->buffer;
 			break;
 		case TabPending:
-			add_unichar (t, '\t');
+			add_char (t, '\t');
 			break;
 		default:
 			g_warning ("Unknown pending type: %d\n", (gint) p->pending);
@@ -624,7 +917,7 @@ html_tokenizer_add_pending (HTMLTokenizer *t)
 		}
 	}
 	else {
-		add_unichar (t, ' ');
+		add_char (t, ' ');
 	}
 
 	p->pending = NonePending;
@@ -779,196 +1072,6 @@ in_script_or_style (HTMLTokenizer *t, const gchar **src)
 	}
 }
 
-static gunichar win1252_to_unicode [32] = {
-	0x20ac,
-	0x81,
-	0x201a,
-	0x0192,
-	0x201e,
-	0x2026,
-	0x2020,
-	0x2021,
-	0x02c6,
-	0x2030,
-	0x0160,
-	0x2039,
-	0x0152,
-	0x8d,
-	0x017d,
-	0x8f,
-	0x90,
-	0x2018,
-	0x2019,
-	0x201c,
-	0x201d,
-	0x2022,
-	0x2013,
-	0x2014,
-	0x02dc,
-	0x2122,
-	0x0161,
-	0x203a,
-	0x0153,
-	0x9d,
-	0x017e,
-	0x0178
-};
-
-static void
-add_unichar (HTMLTokenizer *t, gunichar wc)
-{
-	struct _HTMLTokenizerPrivate *p = t->priv;
-
-	p->utf8_length = 0;
-
-	/*
-	  chars in range 128 - 159 are control characters in unicode,
-	  but most browsers treat them as windows 1252
-	  encoded characters and translate them to unicode
-	  it's broken, but we do the same here
-	*/
-	if (wc > 127 && wc < 160)
-		wc = win1252_to_unicode [wc - 128];
-
-	if (wc != '\0') {
-		p->dest += g_unichar_to_utf8 (wc, p->dest);
-		*(p->dest) = 0;
-	}
-}
-
-static void
-add_byte (HTMLTokenizer *t, const gchar **src)
-{
-	gunichar wc;
-	struct _HTMLTokenizerPrivate *p = t->priv;
-
-	if (p->utf8) {
-		p->utf8_buffer[p->utf8_length] = **src;
-		p->utf8_length++;
-
-		wc = g_utf8_get_char_validated ((const gchar *)p->utf8_buffer, p->utf8_length);
-		if (wc == -1 || p->utf8_length >= (sizeof(p->utf8_buffer)/sizeof(p->utf8_buffer[0]))) {
-			add_unichar (t, INVALID_CHARACTER_MARKER);
-			(*src)++;
-			return;
-		} else if (wc == -2) {
-			/* incomplete character check again */
-			(*src)++;
-			return;
-		}
-	} else {
-		wc = (guchar)**src;
-	}
-
-	add_unichar (t, wc);
-	(*src)++;
-}
-
-static void
-flush_entity (HTMLTokenizer *t)
-{
-	struct _HTMLTokenizerPrivate *p = t->priv;
-	/* ignore the TAG_ESCAPE when flushing */
-	const char *str = p->searchBuffer + 1;
-
-	 while (p->searchCount--) {
-		add_byte (t, &str);
-	}
-}
-
-static gboolean
-add_unichar_validated (HTMLTokenizer *t, gunichar uc)
-{
-	if (g_unichar_validate (uc)) {
-		add_unichar (t, uc);
-		return TRUE;
-	}
-
-	g_warning ("invalid character value: x%xd", uc);
-	return FALSE;
-}
-
-static void
-in_entity (HTMLTokenizer *t, const gchar **src)
-{
-	struct _HTMLTokenizerPrivate *p = t->priv;
-	gunichar entityValue = 0;
-
-	/* See http://www.mozilla.org/newlayout/testcases/layout/entities.html for a complete entity list,
-	   ftp://ftp.unicode.org/Public/MAPPINGS/ISO8859/8859-1.TXT
-	   (or 'man iso_8859_1') for the character encodings. */
-
-	p->searchBuffer [p->searchCount + 1] = **src;
-	p->searchBuffer [p->searchCount + 2] = '\0';
-
-	/* Check for &#0000 sequence */
-	if (p->searchBuffer[2] == '#') {
-		if ((p->searchCount > 1) &&
-		    (!isdigit (**src)) &&
-		    (p->searchBuffer[3] != 'x')) {
-			/* &#123 */
-			p->searchBuffer [p->searchCount + 1] = '\0';
-			entityValue = strtoul (&(p->searchBuffer [3]),
-					       NULL, 10);
-			p->charEntity = FALSE;
-		}
-		if ((p->searchCount > 1) &&
-		    (!isalnum (**src)) &&
-		    (p->searchBuffer[3] == 'x')) {
-			/* &x12AB */
-			p->searchBuffer [p->searchCount + 1] = '\0';
-
-			entityValue = strtoul (&(p->searchBuffer [4]),
-					       NULL, 16);
-			p->charEntity = FALSE;
-		}
-	}
-	else {
-		/* Check for &abc12 sequence */
-		if (!isalnum (**src)) {
-			p->charEntity = FALSE;
-			if ((p->searchBuffer [p->searchCount + 1] == ';') ||
-			    (!p->tag)) {
-				char *ename = p->searchBuffer + 2;
-
-				p->searchBuffer [p->searchCount + 1] = '\0'; /* FIXME sucks */
-				entityValue = html_entity_parse (ename, 0);
-			}
-		}
-
-	}
-
-	if (p->searchCount > 13) {
-		/* Ignore this sequence since it's too long */
-		p->charEntity = FALSE;
-		flush_entity (t);
-	}
-	else if (p->charEntity) {
-				/* Keep searching for end of character entity */
-		p->searchCount++;
-		(*src)++;
-	}
-	else {
-		/*
-		 * my reading of http://www.w3.org/TR/html4/intro/sgmltut.html#h-3.2.2 makes
-		 * seem correct to always collapse entity references, even in element names
-		 * and attributes.
-		 */
-		if (entityValue) {
-			if (entityValue != TAG_ESCAPE)
-				/* make sure the entity value is a valid character value */
-				if (!add_unichar_validated (t, entityValue))
-					add_unichar (t, INVALID_CHARACTER_MARKER);
-
-			if (**src == ';')
-				(*src)++;
-		} else {
-			/* Ignore the sequence, just add it as plaintext */
-			flush_entity (t);
-		}
-	}
-}
-
 static void
 in_tag (HTMLTokenizer *t, const gchar **src)
 {
@@ -994,7 +1097,7 @@ in_tag (HTMLTokenizer *t, const gchar **src)
 				/* Invalid tag, just add it */
 		if (p->pending)
 			html_tokenizer_add_pending (t);
-		add_unichar (t, '<');
+		add_char (t, '<');
 		add_byte (t, src);
 		return;
 	}
@@ -1006,28 +1109,10 @@ in_tag (HTMLTokenizer *t, const gchar **src)
 		html_tokenizer_append_token (t, p->buffer, p->dest - p->buffer);
 		p->dest = p->buffer;
 	}
-	add_unichar (t, TAG_ESCAPE);
-	add_unichar (t, '<');
+	add_char (t, TAG_ESCAPE);
+	add_char (t, '<');
 	p->tag = TRUE;
 	p->searchCount = 1; /* Look for <!-- to start comment */
-}
-
-static void
-start_entity (HTMLTokenizer *t, const gchar **src)
-{
-	struct _HTMLTokenizerPrivate *p = t->priv;
-
-	(*src)++;
-
-	p->discard = NoneDiscard;
-
-	if (p->pending)
-		html_tokenizer_add_pending (t);
-
-	p->charEntity      = TRUE;
-	p->searchBuffer[0] = TAG_ESCAPE;
-	p->searchBuffer[1] = '&';
-	p->searchCount     = 1;
 }
 
 static void
@@ -1046,7 +1131,7 @@ end_tag (HTMLTokenizer *t, const gchar **src)
 
 	p->searchCount = 0; /* Stop looking for <!-- sequence */
 
-	add_unichar (t, '>');
+	add_char (t, '>');
 
 	/* Make the tag lower case */
 	ptr = p->buffer + 2;
@@ -1208,7 +1293,7 @@ in_quoted (HTMLTokenizer *t, const gchar **src)
 		t->priv->searchCount = 0; /* Stop looking for <!-- sequence */
 		if ((t->priv->tquote == SINGLE_QUOTE && **src == '\"') /* match " */
 		    || (t->priv->tquote == DOUBLE_QUOTE && **src == '\'')) {
-			add_unichar (t, **src);
+			add_char (t, **src);
 			(*src)++;
 		} else if (*(t->priv->dest-1) == '=' && !t->priv->tquote) {
 			t->priv->discard = SpaceDiscard;
@@ -1218,7 +1303,7 @@ in_quoted (HTMLTokenizer *t, const gchar **src)
 				t->priv->tquote = DOUBLE_QUOTE;
 			else
 				t->priv->tquote = SINGLE_QUOTE;
-			add_unichar (t, **src);
+			add_char (t, **src);
 			(*src)++;
 		}
 		else if (t->priv->tquote) {
@@ -1245,7 +1330,7 @@ in_assignment (HTMLTokenizer *t, const gchar **src)
 	t->priv->discard = NoneDiscard;
 	if (t->priv->tag) {
 		t->priv->searchCount = 0; /* Stop looking for <!-- sequence */
-		add_unichar (t, '=');
+		add_char (t, '=');
 		if (!t->priv->tquote) {
 			t->priv->pending = NonePending;
 			t->priv->discard = SpaceDiscard;
@@ -1255,7 +1340,7 @@ in_assignment (HTMLTokenizer *t, const gchar **src)
 		if (t->priv->pending)
 			html_tokenizer_add_pending (t);
 
-		add_unichar (t, '=');
+		add_char (t, '=');
 	}
 	(*src)++;
 }
@@ -1309,12 +1394,8 @@ html_tokenizer_tokenize_one_char (HTMLTokenizer *t, const gchar **src)
 		in_extension (t, src);
 	else if (p->script || p->style)
 		in_script_or_style (t, src);
-	else if (p->charEntity)
-		in_entity (t, src);
 	else if (p->startTag)
 		in_tag (t, src);
-	else if (**src == '&' && !p->aTag)
-		start_entity (t, src);
 	else if (**src == '<' && !p->tag)
 		start_tag (t, src);
 	else if (**src == '>' && p->tag && !p->tquote)
@@ -1335,7 +1416,7 @@ static void
 html_tokenizer_real_write (HTMLTokenizer *t, const gchar *string, size_t size)
 {
 	const gchar *src = string;
-
+	
 	while ((src - string) < size)
 		html_tokenizer_tokenize_one_char (t, &src);
 }
@@ -1381,12 +1462,30 @@ html_tokenizer_blocking_pop (HTMLTokenizer *t)
 /** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **/
 
 void
-html_tokenizer_begin (HTMLTokenizer *t, gchar *content_type)
+html_tokenizer_begin (HTMLTokenizer *t, const gchar *content_type)
 {
+	
 	g_return_if_fail (t && HTML_IS_TOKENIZER (t));
 
 	g_signal_emit (t, html_tokenizer_signals [HTML_TOKENIZER_BEGIN_SIGNAL], 0, content_type);
 }
+
+void
+html_tokenizer_set_engine_type (HTMLTokenizer *t, gboolean engine_type)
+{
+	g_return_if_fail (t && HTML_IS_TOKENIZER (t));
+
+	g_signal_emit (t, html_tokenizer_signals [HTML_TOKENIZER_CHANGEENGINE_SIGNAL], 0, engine_type);
+}
+
+void
+html_tokenizer_change_content_type (HTMLTokenizer *t,const gchar *content_type)
+{	
+	g_return_if_fail (t && HTML_IS_TOKENIZER (t));
+
+	g_signal_emit (t, html_tokenizer_signals [HTML_TOKENIZER_CHANGECONTENT_SIGNAL], 0, content_type);
+}
+
 
 void
 html_tokenizer_end (HTMLTokenizer *t)
@@ -1425,6 +1524,39 @@ html_tokenizer_peek_token (HTMLTokenizer *t)
 	g_warning ("No peek_token method defined.");
 	return NULL;
 
+}
+
+const gchar *
+html_tokenizer_get_content_type(HTMLTokenizer *t)
+{
+	HTMLTokenizerClass *klass;
+
+	g_return_val_if_fail (t && HTML_IS_TOKENIZER (t), NULL);
+
+	klass = HTML_TOKENIZER_CLASS (G_OBJECT_GET_CLASS (t));
+		
+	if(klass->get_content_type)
+		return  klass->get_content_type(t);
+
+	g_warning ("No get_content_type method defined.");
+	return NULL;
+
+}
+
+gboolean       
+html_tokenizer_get_engine_type (HTMLTokenizer *t)
+{
+	HTMLTokenizerClass *klass;
+
+	g_return_val_if_fail (t && HTML_IS_TOKENIZER (t),FALSE);
+
+	klass = HTML_TOKENIZER_CLASS (G_OBJECT_GET_CLASS (t));
+		
+	if(klass->get_engine_type)
+		return  klass->get_engine_type(t);
+
+	g_warning ("No get_engine_type method defined.");
+	return FALSE;
 }
 
 gchar *

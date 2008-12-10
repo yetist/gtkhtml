@@ -48,13 +48,17 @@ struct _HTMLTokenizerClass {
 	GObjectClass parent_class;
 
 	/* signals */
-	void     (*begin)           (HTMLTokenizer *, gchar *content_type);
+	void     (*begin)           (HTMLTokenizer *, const gchar *content_type);
+	void     (*change)          (HTMLTokenizer *, const gchar *content_type);
+	void     (*engine)          (HTMLTokenizer *, gboolean enginetype);
 	void     (*end)             (HTMLTokenizer *);
 
 	/* virtual functions */
 	void           (*write)      (HTMLTokenizer *, const gchar *string, size_t size);
 	gchar         *(*peek_token) (HTMLTokenizer *);
 	gchar         *(*next_token) (HTMLTokenizer *);
+	const gchar   *(*get_content_type) (HTMLTokenizer *);
+	gboolean       (*get_engine_type) (HTMLTokenizer *);
 	gboolean       (*has_more)   (HTMLTokenizer *);
 
 	HTMLTokenizer *(*clone)      (HTMLTokenizer *);
@@ -66,7 +70,17 @@ HTMLTokenizer *html_tokenizer_new             (void);
 void           html_tokenizer_destroy         (HTMLTokenizer *tokenizer);
 
 void           html_tokenizer_begin           (HTMLTokenizer *t,
-					       gchar *content_type);
+					       const gchar *content_type);
+
+const gchar *  html_tokenizer_get_content_type(HTMLTokenizer *t);					     
+void           html_tokenizer_change_content_type
+				              (HTMLTokenizer *t,
+					       const gchar *content_type);
+					       
+void	       html_tokenizer_set_engine_type (HTMLTokenizer *t,
+						   gboolean enginetype);
+gboolean       html_tokenizer_get_engine_type (HTMLTokenizer *t);
+				
 void           html_tokenizer_write           (HTMLTokenizer *t,
 					       const gchar *string,
 					       size_t size);
@@ -77,4 +91,12 @@ gboolean       html_tokenizer_has_more_tokens (HTMLTokenizer *t);
 
 HTMLTokenizer *html_tokenizer_clone           (HTMLTokenizer *t);
 
+/*for convert input code page to -->utf */
+GIConv     generate_iconv_from (const gchar * content_type);
+/*for convert resulted query to needed encoding <--utf*/
+GIConv     generate_iconv_to (const gchar * content_type);
+/*convert test to needed encoding*/
+gchar*     convert_text_encoding (const GIConv iconv_cd, const gchar * token);
+/*validate result g_iconv_open*/
+gboolean   is_valid_g_iconv (const GIConv iconv_cd);
 #endif /* _HTMLTOKENIZER_H_ */

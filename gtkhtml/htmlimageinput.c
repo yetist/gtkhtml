@@ -107,13 +107,13 @@ html_image_input_real_calc_size (HTMLObject *self, HTMLPainter *painter, GList *
 
 
 static gchar *
-encode (HTMLEmbedded *e)
+encode (HTMLEmbedded *e, const gchar *codepage)
 {
 	GString *encoding = g_string_new ("");
 	gchar *ptr;
 
 	if(strlen (e->name)) {
-		ptr = html_embedded_encode_string (e->name);
+		ptr = html_embedded_encode_string (e->name, codepage);
 		encoding = g_string_assign (encoding, ptr);
 		g_free (ptr);
 
@@ -121,7 +121,7 @@ encode (HTMLEmbedded *e)
 		encoding = g_string_append (encoding, ptr);
 		g_free (ptr);
 
-		ptr = html_embedded_encode_string (e->name);
+		ptr = html_embedded_encode_string (e->name, codepage);
 		encoding = g_string_append (encoding, ptr);
 		g_free (ptr);
 

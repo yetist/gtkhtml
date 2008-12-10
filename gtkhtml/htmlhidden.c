@@ -28,19 +28,19 @@ static HTMLEmbeddedClass *parent_class = NULL;
 
 
 static gchar *
-encode (HTMLEmbedded *e)
+encode (HTMLEmbedded *e, const gchar *codepage)
 {
 	GString *encoding = g_string_new ("");
 	gchar *ptr;
 
 	if(strlen (e->name)) {
-		ptr = html_embedded_encode_string (e->name);
+		ptr = html_embedded_encode_string (e->name, codepage);
 		encoding = g_string_append (encoding, ptr);
 		g_free (ptr);
 
 		encoding = g_string_append_c (encoding, '=');
 
-		ptr = html_embedded_encode_string (e->value);
+		ptr = html_embedded_encode_string (e->value, codepage);
 		encoding = g_string_append (encoding, ptr);
 		g_free (ptr);
 	}

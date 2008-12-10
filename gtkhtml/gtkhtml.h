@@ -335,8 +335,12 @@ void                       gtk_html_set_tokenizer                 (GtkHTML      
 /* DEPRECATED */
 #if 1
 gboolean                   gtk_html_build_with_gconf              (void);
-void                       gtk_html_set_default_content_type      (GtkHTML                   *html,
-								   gchar                     *content_type);
+const gchar*               gtk_html_get_default_content_type              (GtkHTML                   *html);
+void                       gtk_html_set_default_content_type              (GtkHTML                   *html,
+								   const gchar                     *content_type);
+void			   gtk_html_set_default_engine		  (GtkHTML *html,
+								   gboolean enginetype);
+gboolean		   gtk_html_get_default_engine		  (GtkHTML *html);
 GtkWidget                 *gtk_html_new_from_string               (const gchar               *Astr,
 								   gint                       len);
 void                       gtk_html_load_empty                    (GtkHTML                   *html);

@@ -45,7 +45,7 @@ struct _HTMLEmbeddedClass {
 
 
 	void   (*reset)    (HTMLEmbedded *element);
-	gchar *(*encode)   (HTMLEmbedded *element);
+	gchar *(*encode)   (HTMLEmbedded *element, const gchar* codepage);
 	void   (*reparent) (HTMLEmbedded *element, GtkWidget *new_parent);
 };
 
@@ -71,8 +71,10 @@ void          html_embedded_set_form       (HTMLEmbedded      *element,
 void          html_embedded_reset          (HTMLEmbedded      *element);
 void          html_embedded_reparent       (HTMLEmbedded      *element,
 					    GtkWidget         *new_parent);
-gchar        *html_embedded_encode         (HTMLEmbedded      *element);
-gchar        *html_embedded_encode_string  (const gchar       *str);
+gchar        *html_embedded_encode         (HTMLEmbedded      *element,
+						const gchar * codepage);
+gchar        *html_embedded_encode_string  (const gchar       *str,
+						const gchar * codepage);
 HTMLEmbedded *html_embedded_new_widget     (GtkWidget         *parent,
 					    GtkHTMLEmbedded   *eb,
 					    HTMLEngine        *engine);

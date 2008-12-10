@@ -108,19 +108,19 @@ html_text_input_key_pressed (GtkWidget *w, GdkEventKey *ev, gpointer p)
 /* HTMLEmbedded methods.  */
 
 static gchar *
-encode (HTMLEmbedded *e)
+encode (HTMLEmbedded *e, const gchar* codepage)
 {
 	GString *encoding = g_string_new ("");
 	gchar *ptr;
 
 	if(strlen (e->name)) {
-		ptr = html_embedded_encode_string (e->name);
+		ptr = html_embedded_encode_string (e->name, codepage);
 		encoding = g_string_append (encoding, ptr);
 		g_free (ptr);
 
 		encoding = g_string_append_c (encoding, '=');
 
-		ptr = html_embedded_encode_string (gtk_entry_get_text (GTK_ENTRY (e->widget)));
+		ptr = html_embedded_encode_string (gtk_entry_get_text (GTK_ENTRY (e->widget)), codepage);
 		encoding = g_string_append (encoding, ptr);
 		g_free (ptr);
 	}

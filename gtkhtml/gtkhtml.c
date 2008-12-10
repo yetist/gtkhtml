@@ -767,7 +767,6 @@ destroy (GtkObject *object)
 			html->priv->im_context = NULL;
 		}
 
-		g_free (html->priv->content_type);
 		g_free (html->priv->base_url);
 		g_free (html->priv->caret_first_focus_anchor);
 		g_free (html->priv);
@@ -3322,7 +3321,6 @@ gtk_html_init (GtkHTML* html)
 	html->priv->insertion_font_style = GTK_HTML_FONT_STYLE_DEFAULT;
 	html->priv->selection_type = -1;
 	html->priv->selection_as_cite = FALSE;
-	html->priv->content_type = g_strdup ("html/text; charset=utf-8");
 	html->priv->search_input_line = NULL;
 	html->priv->in_object_resize = FALSE;
 	html->priv->resize_cursor = gdk_cursor_new (GDK_BOTTOM_RIGHT_CORNER);
@@ -3474,7 +3472,7 @@ gtk_html_allow_selection (GtkHTML *html,
 	html->allow_selection = allow;
 }
 
-
+
 /**
  * gtk_html_begin_full:
  * @html: the GtkHTML widget to operate on.
@@ -3515,9 +3513,6 @@ gtk_html_begin_full (GtkHTML           *html,
 	else
 		html->engine->keep_scroll = FALSE;
 
-	if (!content_type)
-		content_type = html->priv->content_type;
-
 	handle = html_engine_begin (html->engine, content_type);
 	if (handle == NULL)
 		return NULL;
@@ -3529,6 +3524,10 @@ gtk_html_begin_full (GtkHTML           *html,
 
 	if (flags & GTK_HTML_BEGIN_KEEP_SCROLL)
 		html->engine->newPage = FALSE;
+
+	/* Enable change content type in engine */
+	if (flags & GTK_HTML_BEGIN_CHANGECONTENTTYPE)
+		gtk_html_set_default_engine(html, TRUE);		
 
 	return handle;
 }
@@ -3546,7 +3545,7 @@ gtk_html_begin (GtkHTML *html)
 {
 	g_return_val_if_fail (GTK_IS_HTML (html), NULL);
 
-	return gtk_html_begin_full (html, NULL, html->priv->content_type, 0);
+	return gtk_html_begin_full (html, NULL, NULL, 0);
 }
 
 /**
@@ -3564,7 +3563,7 @@ gtk_html_begin_content (GtkHTML *html, gchar *content_type)
 {
 	g_return_val_if_fail (! gtk_html_get_editable (html), NULL);
 
-	return gtk_html_begin_full (html, NULL, NULL, 0);
+	return gtk_html_begin_full (html, NULL, content_type , 0);
 }
 
 /**
@@ -4493,15 +4492,30 @@ gtk_html_redo (GtkHTML *html)
 }
 
 /* misc utils */
+/* if engine_type == false - default behaviour*/
 void
-gtk_html_set_default_content_type (GtkHTML *html, gchar *content_type)
+gtk_html_set_default_engine(GtkHTML *html, gboolean engine_type)
 {
-	g_free (html->priv->content_type);
+	html_engine_set_engine_type( html->engine, engine_type);
+}
 
-	if (content_type) {
-		html->priv->content_type = g_ascii_strdown (content_type, -1);
-	} else
-		html->priv->content_type = NULL;
+gboolean
+gtk_html_get_default_engine(GtkHTML *html)
+{
+	return html_engine_get_engine_type( html->engine);
+}
+
+
+void
+gtk_html_set_default_content_type (GtkHTML *html, const gchar *content_type)
+{   
+    html_engine_set_content_type( html->engine, content_type);
+}
+
+const gchar*
+gtk_html_get_default_content_type (GtkHTML *html)
+{   
+    return html_engine_get_content_type( html->engine);
 }
 
 gpointer

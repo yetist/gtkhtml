@@ -102,7 +102,8 @@ static void
 add_selected (GtkTreeModel *model,
               GtkTreePath *path,
               GtkTreeIter *iter,
-              struct EmbeddedSelectionInfo *info)
+              struct EmbeddedSelectionInfo *info,
+              const gchar* codepage)
 {
 	gchar *value, *encoded;
 
@@ -111,13 +112,13 @@ add_selected (GtkTreeModel *model,
 	if (info->string->len)
 		g_string_append_c (info->string, '&');
 
-	encoded = html_embedded_encode_string (info->embedded->name);
+	encoded = html_embedded_encode_string (info->embedded->name, codepage);
 	g_string_append (info->string, encoded);
 	g_free (encoded);
 
 	g_string_append_c (info->string, '=');
 
-	encoded = html_embedded_encode_string (value);
+	encoded = html_embedded_encode_string (value, codepage);
 	g_string_append (info->string, encoded);
 	g_free (encoded);
 
@@ -125,7 +126,7 @@ add_selected (GtkTreeModel *model,
 }
 
 static gchar *
-encode (HTMLEmbedded *e)
+encode (HTMLEmbedded *e, const gchar *codepage)
 {
 	struct EmbeddedSelectionInfo info;
 	HTMLSelect *s = HTML_SELECT(e);
@@ -146,7 +147,7 @@ encode (HTMLEmbedded *e)
 
 			combo_box = GTK_COMBO_BOX (e->widget);
 			if (gtk_combo_box_get_active_iter (combo_box, &iter))
-				add_selected (s->model, NULL, &iter, &info);
+				add_selected (s->model, NULL, &iter, &info, codepage);
 		}
 	}
 

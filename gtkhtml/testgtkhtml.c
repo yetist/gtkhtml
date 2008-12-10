@@ -662,6 +662,7 @@ object_requested_cmd (GtkHTML *html, GtkHTMLEmbedded *eb, void *data)
 static void
 got_data (SoupSession *session, SoupMessage *msg, gpointer user_data)
 {
+	const gchar *ContentType;
 	GtkHTMLStream *handle = user_data;
 
 	if (!SOUP_STATUS_IS_SUCCESSFUL (msg->status_code)) {
@@ -669,6 +670,13 @@ got_data (SoupSession *session, SoupMessage *msg, gpointer user_data)
 		gtk_html_end (html, handle, GTK_HTML_STREAM_ERROR);
 		return;
 	}
+	/* Enable change content type in engine */
+	gtk_html_set_default_engine(html, TRUE);
+	
+	ContentType = soup_message_headers_get (msg->response_headers, "Content-type");
+
+	if (ContentType != NULL)
+		gtk_html_set_default_content_type (html, ContentType);
 
 	gtk_html_write (html, handle, msg->response_body->data,
 			msg->response_body->length);
@@ -701,7 +709,6 @@ url_requested (GtkHTML *html, const char *url, GtkHTMLStream *handle, gpointer d
 				if (nread == -1) {
 					if (errno == EINTR)
 						continue;
-
 					g_warning ("read error: %s", g_strerror (errno));
 					gtk_html_end (html, handle, GTK_HTML_STREAM_ERROR);
 					break;
@@ -846,8 +853,7 @@ goto_url(const char *url, int back_or_forward)
 	}
 
 	/* TODO2 gnome_animator_start (GNOME_ANIMATOR (animator)); */
-
-	html_stream_handle = gtk_html_begin_content (html, "text/html; charset=utf-8");
+	html_stream_handle = gtk_html_begin_content (html, (gchar *)gtk_html_get_default_content_type (html));
 
 	/* Yuck yuck yuck.  Well this code is butt-ugly already
 	anyway.  */

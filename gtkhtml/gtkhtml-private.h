@@ -39,7 +39,6 @@ struct _GtkHTMLPrivate {
 
 	gint selection_type;
 
-	gchar *content_type;
 	char  *base_url;
 
 	GtkWidget *search_input_line;

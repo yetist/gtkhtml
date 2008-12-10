@@ -2623,7 +2623,7 @@ element_parse_heading (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		token = html_string_tokenizer_next_token (e->st);
 		if (g_ascii_strncasecmp (token, "align=", 6) == 0) {
 			style = html_style_add_text_align (style, parse_halign (token + 6, HTML_HALIGN_NONE));
-			//align = parse_halign (token + 6, align);
+			/*align = parse_halign (token + 6, align);*/
 		} else if (g_ascii_strncasecmp (token, "style=", 6) == 0) {
 			style = html_style_add_attribute (style, token + 6);
 		}
@@ -2766,11 +2766,39 @@ element_parse_img (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	html_element_free (element);
 }
 
-
+void
+html_engine_set_engine_type( HTMLEngine *e, gboolean engine_type)
+{
+	g_return_if_fail (HTML_IS_ENGINE (e));
+	html_tokenizer_set_engine_type(e->ht, engine_type);
+}
+
+gboolean
+html_engine_get_engine_type( HTMLEngine *e)
+{
+	g_return_val_if_fail (HTML_IS_ENGINE (e), FALSE);
+	return html_tokenizer_get_engine_type(e->ht);
+}
+
+void 
+html_engine_set_content_type(HTMLEngine *e, const gchar* content_type)
+{
+	g_return_if_fail (HTML_IS_ENGINE (e));
+	html_tokenizer_change_content_type(e->ht, content_type);
+}
+
+const gchar *  
+html_engine_get_content_type(HTMLEngine *e)
+{
+	g_return_val_if_fail (HTML_IS_ENGINE (e), NULL);
+	return html_tokenizer_get_content_type(e->ht);
+}
+
 static void
 element_parse_meta (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	int refresh = 0;
+	int contenttype = 0;
 	int refresh_delay = 0;
 	gchar *refresh_url = NULL;
 
@@ -2778,16 +2806,23 @@ element_parse_meta (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 
 	html_string_tokenizer_tokenize(e->st, str + 5, " >");
 	while (html_string_tokenizer_has_more_tokens (e->st)) {
-
 		const gchar* token = html_string_tokenizer_next_token(e->st);
 		if (g_ascii_strncasecmp(token, "http-equiv=", 11) == 0 ) {
 			if (g_ascii_strncasecmp(token + 11, "refresh", 7) == 0 )
 				refresh = 1;
+			if (g_ascii_strncasecmp(token + 11, "content-type", 12) == 0 )
+				contenttype = 1;
 		} else if (g_ascii_strncasecmp(token, "content=", 8) == 0) {
+			const gchar *content;
+			content = token + 8;	
+			if(contenttype)
+			{
+				contenttype = 0;
+				html_engine_set_content_type(e, content);
+			}
 			if (refresh) {
-				const gchar *content;
-				content = token + 8;
-
+				refresh = 0;
+				
 				/* The time in seconds until the refresh */
 				refresh_delay = atoi(content);
 
@@ -3452,7 +3487,7 @@ element_parse_caption (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	push_block_element (e, ID_CAPTION, style, DISPLAY_TABLE_CAPTION, block_end_cell, 0, 0);
 
 	table->caption = caption;
-	//FIXME caption alignment should be based on the flow.... or something....
+	/*FIXME caption alignment should be based on the flow.... or something....*/
 	table->capAlign = capAlign;
 }
 
