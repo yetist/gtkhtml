@@ -1042,6 +1042,13 @@ gtkhtml_editor_set_changed (GtkhtmlEditor *editor,
 
 	if (!changed) {
 		html = gtkhtml_editor_get_html (editor);
+
+		/* XXX The NULL check was added to deal with a race in
+		 *     Evolution when saving a message to a remote Drafts
+		 *     folder (which is asynchronous) and then closing the
+		 *     editor (which is immediate).  The GtkHTML object
+		 *     may already be disposed by the time the Save Draft
+		 *     callback gets here.  See bug #553995 for details. */
 		if (html)
 			html_engine_saved (html->engine);
 	}
