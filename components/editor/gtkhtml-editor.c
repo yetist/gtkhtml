@@ -1040,10 +1040,11 @@ gtkhtml_editor_set_changed (GtkhtmlEditor *editor,
 
 	g_return_if_fail (GTKHTML_IS_EDITOR (editor));
 
-	html = gtkhtml_editor_get_html (editor);
-
-	if (!changed)
-		html_engine_saved (html->engine);
+	if (!changed) {
+		html = gtkhtml_editor_get_html (editor);
+		if (html)
+			html_engine_saved (html->engine);
+	}
 
 	editor->priv->changed = changed;
 }

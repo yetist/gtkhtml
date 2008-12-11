@@ -1,3 +1,10 @@
+2008-12-11  Paul Bolle  <pebolle@tiscali.nl>
+
+	** Fixes bug #553995
+
+	* gtkhtml-editor.c (gtkhtml_editor_set_changed):
+	Check for NULL return from gtkhtml_editor_get_html().
+
 2008-11-27  Matthew Barnes  <mbarnes@redhat.com>
 
 	** Fixes bug #562323
