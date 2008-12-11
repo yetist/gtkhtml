@@ -1,3 +1,10 @@
+2008-12-11  Matthew Barnes  <mbarnes@redhat.com>
+
+	** Supplements bug #553995
+
+	* gtkhtml-editor.c (gtkhtml_editor_set_changed):
+	Add a comment explaining why.
+
 2008-12-11  Paul Bolle  <pebolle@tiscali.nl>
 
 	** Fixes bug #553995
