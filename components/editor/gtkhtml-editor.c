@@ -1554,6 +1554,28 @@ gtkhtml_editor_insert_html (GtkhtmlEditor *editor,
 	gtk_html_insert_html (html, html_text);
 }
 
+/* inserts local files only, as inlined */
+void
+gtkhtml_editor_insert_image	(GtkhtmlEditor *editor,
+				 const gchar *filename_uri)
+{
+	GtkHTML *html;
+
+	g_return_if_fail (GTKHTML_IS_EDITOR (editor));
+	g_return_if_fail (filename_uri != NULL);
+
+	html = gtkhtml_editor_get_html (editor);
+
+	if (html) {
+		HTMLObject *image;
+		
+		image = html_image_new (
+			html_engine_get_image_factory (html->engine), filename_uri,
+			NULL, NULL, 0, 0, 0, 0, 0, NULL, HTML_VALIGN_NONE, FALSE);
+		html_engine_paste_object (html->engine, image, 1);
+	}
+}
+
 gboolean
 gtkhtml_editor_search_by_data (GtkhtmlEditor *editor,
                                glong level,

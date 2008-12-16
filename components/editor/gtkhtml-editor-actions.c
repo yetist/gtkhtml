@@ -141,19 +141,13 @@ insert_image_response_cb (GtkFileChooser *file_chooser,
                           gint response,
                           GtkhtmlEditor *editor)
 {
-	HTMLObject *image;
-	GtkHTML *html;
 	gchar *uri;
 
 	if (response != GTK_RESPONSE_OK)
 		return;
 
-	html = gtkhtml_editor_get_html (editor);
 	uri = gtk_file_chooser_get_uri (file_chooser);
-	image = html_image_new (
-		html_engine_get_image_factory (html->engine), uri,
-		NULL, NULL, 0, 0, 0, 0, 0, NULL, HTML_VALIGN_NONE, FALSE);
-	html_engine_paste_object (html->engine, image, 1);
+	gtkhtml_editor_insert_image (editor, uri);
 	g_free (uri);
 }
 

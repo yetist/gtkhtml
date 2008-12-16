@@ -1,3 +1,13 @@
+2008-12-16  Milan Crha  <mcrha@redhat.com>
+
+	** Part of fix for bug #564248
+
+	* gtkhtml-editor.h: (gtkhtml_editor_insert_image):
+	* gtkhtml-editor.c: (gtkhtml_editor_insert_image):
+	New API to insert images inline to the message body.
+	* gtkhtml-editor-actions.c: (insert_image_response_cb):
+	Use the above function.
+
 2008-12-11  Matthew Barnes  <mbarnes@redhat.com>
 
 	** Supplements bug #553995

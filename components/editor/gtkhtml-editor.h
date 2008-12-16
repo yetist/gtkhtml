@@ -163,6 +163,8 @@ gboolean	gtkhtml_editor_is_previous_paragraph_empty
 						(GtkhtmlEditor *editor);
 void		gtkhtml_editor_insert_html	(GtkhtmlEditor *editor,
 						 const gchar *html_text);
+void		gtkhtml_editor_insert_image	(GtkhtmlEditor *editor,
+						 const gchar *filename_uri);
 gboolean	gtkhtml_editor_search_by_data	(GtkhtmlEditor *editor,
 						 glong level,
 						 const gchar *klass,
