@@ -1,3 +1,13 @@
+GtkHTML-3.25.3 2008-12-15
+-------------------------
+
+Bug Fixes:
+	#552357: Support http-equiv and set encoding if it exist in http - headers and re-coding resulted query from form (Denis Pauk)
+	#553995: Check for NULL return (Matthew Barnes)
+	#555388: Do not crash on undo of a table creation (Milan Crha)
+	#563841: Refresh the pictogram parser. Use standard icon names for smiley faces and recognize more of them (Matthew Barnes)
+	#563841: Replace "insert-face-menu" with "insert-face" and also add it to the HTML toolbar. (Matthew Barnes)
+
 GtkHTML-3.25.2 2008-12-01
 -------------------------
 

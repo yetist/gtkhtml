@@ -1,3 +1,7 @@
+2008-12-15  Srinivasa Ragavan  <sragavan@novell.com>
+
+	* NEWS: GtkHTML 3.25.3 release
+
 2008-12-09  Matthew Barnes  <mbarnes@redhat.com>
 
 	** Fixes part of bug #563841
