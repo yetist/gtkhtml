@@ -1,3 +1,10 @@
+2008-12-22  Matthew Barnes  <mbarnes@redhat.com>
+
+	** Fixes part of bug #536625
+
+	* htmlengine.c (new_parse_body):
+	Free the string returned by html_tokenizer_next_token().
+
 2008-12-10  Denis Pauk  <pauk.denis@gmail.com>
 
 	** Fix for bug #552357

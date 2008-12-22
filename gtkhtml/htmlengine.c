@@ -1374,7 +1374,6 @@ static gchar *
 new_parse_body (HTMLEngine *e, const gchar *end[])
 {
 	HTMLObject *clue = NULL;
-	gchar *str;
 	gchar *rv = NULL;
 
 	g_return_val_if_fail (HTML_IS_ENGINE (e), NULL);
@@ -1382,24 +1381,28 @@ new_parse_body (HTMLEngine *e, const gchar *end[])
 	e->eat_space = FALSE;
 
 	while (html_tokenizer_has_more_tokens (e->ht) && e->parsing) {
-		str = html_tokenizer_next_token (e->ht);
+		gchar *token;
+
+		token = html_tokenizer_next_token (e->ht);
 
 		/* The token parser has pushed a body we want to use it. */
 		/* CLUECHECK */
 		clue = e->parser_clue;
 		/* printf ("%p <-- clue\n", clue); */
 
-		if (str == NULL)
+		if (token == NULL)
 			break;
 
-		if (*str == '\0')
+		if (*token == '\0') {
+			g_free (token);
 			continue;
+		}
 
-		if (*str != TAG_ESCAPE) {
-			parse_text (e, clue, str);
+		if (*token != TAG_ESCAPE) {
+			parse_text (e, clue, token);
 		} else {
+			gchar *str = token + 1;
 			gint i  = 0;
-			str++;
 
 			while (end [i] != 0) {
 				if (g_ascii_strncasecmp (str, end[i], strlen(end[i])) == 0) {
@@ -1430,6 +1433,8 @@ new_parse_body (HTMLEngine *e, const gchar *end[])
 
 			}
 		}
+
+		g_free (token);
 	}
 
 	if (!html_tokenizer_has_more_tokens (e->ht) && !e->writing)
