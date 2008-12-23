@@ -445,57 +445,62 @@ is_need_convert (const gchar* token)
 }
 
 /*Convert entity values in already converted to right charset token*/
-gchar*
-html_tokenizer_convert_entity(gchar * token)
+char* html_tokenizer_convert_entity(char * token)
 {	
-	char* full_pos = token + strlen (token);	
-	char* write_pos = token + strcspn (token, "&");
-	gunichar value;
-	size_t count_chars;
-	char *read_pos;
-	while(write_pos < full_pos)
+	if (token == NULL)
+		return NULL;
+	/*stop pointer*/
+	gchar* full_pos = token + strlen(token);
+	gchar* resulted = g_new(gchar, strlen (token) +1);
+	gchar* write_pos = resulted;
+	gchar* read_pos = token;
+	while ( read_pos < full_pos )
 	{
-		write_pos++;
-		count_chars = strcspn(write_pos+1, ";");
-		value = INVALID_CHARACTER_MARKER;
-		if(count_chars < 14)
-		{
-			char save = *(write_pos + count_chars + 1);
-			*(write_pos + count_chars + 1)=0;
-			/* &#1234567 */
-			if (*write_pos == '#')
+		size_t count_chars = strcspn (read_pos, "&");
+		memcpy( write_pos, read_pos, count_chars);
+		write_pos += count_chars;
+		read_pos += count_chars;
+		/*may be end string?*/
+		if (read_pos < full_pos)
+			if(*read_pos == '&' )
 			{
-				if(isdigit (*(write_pos + 1)))
-				{
-					value=strtoull (write_pos + 1, NULL, 10);
+				/*value to add*/
+				gunichar value = INVALID_CHARACTER_MARKER;
+				/*skip not needed &*/
+				read_pos ++;
+				count_chars = strcspn(read_pos, ";");
+				if(count_chars < 14 && count_chars > 1)
+				{					
+					*(read_pos + count_chars)=0;
+					/* &#******; */
+					if (*read_pos == '#')
+					{
+						/* &#1234567 */
+						if(isdigit (*(read_pos + 1)))
+						{
+							value=strtoull (read_pos + 1, NULL, 10);
+						}
+						/* &#xdd; */
+						else if(*(read_pos + 1) == 'x')
+						{
+							value=strtoull (read_pos + 2, NULL, 16);
+						}
+					}
+					else 
+					{
+						value = html_entity_parse (read_pos, strlen(read_pos));
+					}
+					read_pos += (count_chars + 1);
+					write_pos += g_unichar_to_utf8 ( value, write_pos);
 				}
-				/* &#xdd */
-				else if(*(write_pos + 1) == 'x')
-				{
-					value=strtoull (write_pos + 2, NULL, 16);
-				}
 			}
-			else 
-			{
-				value=html_entity_parse (write_pos, 0);
-			}
-			*(write_pos+count_chars+1)=save;
-			if(count_chars>0)
-			{
-				memset (write_pos-1, ' ', count_chars + 3);
-				/* first char is & I think this not need */
-				write_pos --;
-				read_pos = write_pos + count_chars + 3;
-				write_pos += g_unichar_to_utf8 (value,write_pos);
-				memcpy (write_pos, read_pos, full_pos - read_pos + 1);
-				full_pos = write_pos + (full_pos - read_pos);
-			}
-		}	
-		write_pos = write_pos + strcspn (write_pos, "&");
-	}		
-	return token;
+	}
+	* write_pos = 0;
+	free(token);
+	return resulted;
 }
 
+/*convert text to utf8 - allways alloc memmory*/
 gchar* 
 convert_text_encoding(const GIConv iconv_cd,const gchar * token)
 {
@@ -507,9 +512,9 @@ convert_text_encoding(const GIConv iconv_cd,const gchar * token)
 	size_t oldlength;
 	if(token == NULL)
 		return NULL;
-	currlength = strlen (token);
 	if(is_valid_g_iconv (iconv_cd) && is_need_convert (token))
 	{
+		currlength = strlen (token);
 		current = token;
 		newlength = currlength*7+1;
 		oldlength = newlength;
@@ -535,10 +540,7 @@ convert_text_encoding(const GIConv iconv_cd,const gchar * token)
 		g_assert (returnbuffer);
 		return returnbuffer;
 	}
-	newbuffer = g_new (gchar, currlength + 1);
-	memcpy (newbuffer,token, currlength);
-	newbuffer[currlength] = 0;
-	return newbuffer;
+	return g_strdup(token);
 }
 
 static gchar *
