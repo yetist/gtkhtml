@@ -1,3 +1,9 @@
+2009-01-03  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* gtkhtml-color-combo.c: (color_combo_class_init):
+	Added translator comments for the "state" property and rewrote the blurb
+	to be more descriptive. See bug #549231.
+
 2008-12-16  Milan Crha  <mcrha@redhat.com>
 
 	** Part of fix for bug #564248

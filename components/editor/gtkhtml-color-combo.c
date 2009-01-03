@@ -748,8 +748,16 @@ color_combo_class_init (GtkhtmlColorComboClass *class)
 		PROP_STATE,
 		g_param_spec_object (
 			"state",
+			/* Translators: This is the nickname for a
+			GtkHtmlColorCombo property named "state". It holds all
+			the internal values for a GtkHtml color combination box.
+			*/
 			_("Color state"),
-			_("State of the color combo"),
+			/* Translators: This is the blurb for a
+			GtkHtmlColorCombo property named "state". It holds all
+			the internal values for a GtkHtml color combination box.
+			*/
+			_("The state of a color combo box"),
 			GTKHTML_TYPE_COLOR_STATE,
 			G_PARAM_READWRITE));
 
