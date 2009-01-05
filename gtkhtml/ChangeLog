@@ -1,3 +1,8 @@
+2008-01-05  Matthew Barnes  <mbarnes@redhat.com>
+
+	* htmltokenizer.c:
+	Fix coding style and compiler warnings.
+
 2008-12-23  Denis Pauk  <pauk.denis@gmail.com>
 
 	** Fix for bug #552357

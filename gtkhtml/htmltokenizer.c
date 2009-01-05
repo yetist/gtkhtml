@@ -428,7 +428,7 @@ html_tokenizer_real_peek_token (HTMLTokenizer *t)
 
 /* test iconv for valid*/
 gboolean
-is_valid_g_iconv(const GIConv iconv_cd)
+is_valid_g_iconv (const GIConv iconv_cd)
 {
 	return iconv_cd != NULL && iconv_cd != (GIConv)-1;
 }
@@ -438,95 +438,94 @@ gboolean
 is_need_convert (const gchar* token)
 {
 	int i=strlen (token);
-	for(;i>=0;i--)
-		if(token[i]&128)
+	for (;i>=0;i--)
+		if (token[i]&128)
 			return TRUE;
 	return FALSE;
 }
 
 /*Convert entity values in already converted to right charset token*/
-char* html_tokenizer_convert_entity(char * token)
-{	
+gchar *
+html_tokenizer_convert_entity (gchar *token)
+{
+	gchar *full_pos;
+	gchar *resulted;
+	gchar *write_pos;
+	gchar *read_pos;
+
 	if (token == NULL)
 		return NULL;
+
 	/*stop pointer*/
-	gchar* full_pos = token + strlen(token);
-	gchar* resulted = g_new(gchar, strlen (token) +1);
-	gchar* write_pos = resulted;
-	gchar* read_pos = token;
-	while ( read_pos < full_pos )
-	{
+	full_pos = token + strlen (token);
+	resulted = g_new (gchar, strlen (token) + 1);
+	write_pos = resulted;
+	read_pos = token;
+	while (read_pos < full_pos) {
 		size_t count_chars = strcspn (read_pos, "&");
-		memcpy( write_pos, read_pos, count_chars);
+		memcpy (write_pos, read_pos, count_chars);
 		write_pos += count_chars;
 		read_pos += count_chars;
 		/*may be end string?*/
 		if (read_pos < full_pos)
-			if(*read_pos == '&' )
-			{
+			if (*read_pos == '&') {
 				/*value to add*/
 				gunichar value = INVALID_CHARACTER_MARKER;
 				/*skip not needed &*/
 				read_pos ++;
-				count_chars = strcspn(read_pos, ";");
-				if(count_chars < 14 && count_chars > 1)
-				{					
+				count_chars = strcspn (read_pos, ";");
+				if (count_chars < 14 && count_chars > 1) {
 					*(read_pos + count_chars)=0;
 					/* &#******; */
-					if (*read_pos == '#')
-					{
+					if (*read_pos == '#') {
 						/* &#1234567 */
-						if(isdigit (*(read_pos + 1)))
-						{
+						if (isdigit (*(read_pos + 1))) {
 							value=strtoull (read_pos + 1, NULL, 10);
-						}
 						/* &#xdd; */
-						else if(*(read_pos + 1) == 'x')
-						{
+						} else if (*(read_pos + 1) == 'x') {
 							value=strtoull (read_pos + 2, NULL, 16);
 						}
-					}
-					else 
-					{
-						value = html_entity_parse (read_pos, strlen(read_pos));
+					} else {
+						value = html_entity_parse (read_pos, strlen (read_pos));
 					}
 					read_pos += (count_chars + 1);
-					write_pos += g_unichar_to_utf8 ( value, write_pos);
+					write_pos += g_unichar_to_utf8 (value, write_pos);
 				}
 			}
 	}
-	* write_pos = 0;
-	free(token);
+	*write_pos = 0;
+	free (token);
+
 	return resulted;
 }
 
 /*convert text to utf8 - allways alloc memmory*/
-gchar* 
-convert_text_encoding(const GIConv iconv_cd,const gchar * token)
+gchar *
+convert_text_encoding (const GIConv iconv_cd,
+                       const gchar *token)
 {
 	size_t currlength;
-	gchar * newbuffer;
-	gchar * returnbuffer;
-	const gchar * current;
+	gchar *newbuffer;
+	gchar *returnbuffer;
+	const gchar *current;
 	size_t newlength;
 	size_t oldlength;
-	if(token == NULL)
+
+	if (token == NULL)
 		return NULL;
-	if(is_valid_g_iconv (iconv_cd) && is_need_convert (token))
-	{
+
+	if (is_valid_g_iconv (iconv_cd) && is_need_convert (token)) {
 		currlength = strlen (token);
 		current = token;
 		newlength = currlength*7+1;
 		oldlength = newlength;
 		newbuffer = g_new (gchar, newlength);
 		returnbuffer = newbuffer;
-		g_assert (returnbuffer);
-		while(currlength > 0)
-		{			
+
+		while (currlength > 0) {
 			/*function not change current, but g_iconv use not const source*/
 			g_iconv (iconv_cd, (gchar **)&current, &currlength, &newbuffer, &newlength);
-			if(currlength > 0)
-			{
+			if (currlength > 0) {
 				g_warning ("IconvError=%s", current);
 				*newbuffer = INVALID_CHARACTER_MARKER;
 				newbuffer ++;
@@ -537,38 +536,40 @@ convert_text_encoding(const GIConv iconv_cd,const gchar * token)
 		}
 		returnbuffer[oldlength - newlength] = '\0';
 		returnbuffer = g_realloc (returnbuffer, oldlength - newlength + 1);
-		g_assert (returnbuffer);
 		return returnbuffer;
 	}
-	return g_strdup(token);
+	return g_strdup (token);
 }
 
 static gchar *
-html_tokenizer_converted_token(HTMLTokenizer *t, const gchar* token)
+html_tokenizer_converted_token (HTMLTokenizer *t,
+                                const gchar* token)
 {
-	if(token != NULL)
-	{
+	if (token != NULL) {
 		struct _HTMLTokenizerPrivate *p = t->priv;
 		return html_tokenizer_convert_entity (convert_text_encoding (p->iconv_cd, token));
 	}
+
 	return NULL;
 }
 
 static const gchar *
-html_tokenizer_real_get_content_type(HTMLTokenizer *t)
+html_tokenizer_real_get_content_type (HTMLTokenizer *t)
 {
 	struct _HTMLTokenizerPrivate *p = t->priv;
-	if(p->content_type)
+
+	if (p->content_type)
 		return p->content_type;
+
 	return NULL;
 }
 
 static gboolean
-html_tokenizer_real_get_engine_type(HTMLTokenizer *t)
+html_tokenizer_real_get_engine_type (HTMLTokenizer *t)
 {
 	struct _HTMLTokenizerPrivate *p = t->priv;
+
 	return p->enableconvert;
-	return FALSE;
 }
 
 static gchar *
