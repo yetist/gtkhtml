@@ -2,7 +2,8 @@
 
 	* gtkhtml-zip.in: Message catalogs are always in share/locale
 	nowadays. Include all .pc files installed in lib/pkgconfig.
-	Include the import library for libgtkhtml-editor.
+	Include libgtkhtml-editor in the runtime package and its import
+	library in the developer one. No bonobo component stuff.
 
 2008-12-15  Srinivasa Ragavan  <sragavan@novell.com>
 
