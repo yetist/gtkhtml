@@ -13,8 +13,7 @@ current_minus_age=`expr @GTKHTML_CURRENT@ - @GTKHTML_AGE@`
 
 zip -r $ZIP -@ <<EOF
 bin/libgtkhtml-@GTKHTML_API_VERSION@-$current_minus_age.dll
-lib/bonobo/servers/GNOME_GtkHTML_Editor-@GTKHTML_API_VERSION@.server
-lib/gtkhtml/libgnome-gtkhtml-editor-@GTKHTML_API_VERSION@.dll
+bin/libgtkhtml-editor-0.dll
 share/gtkhtml-@GTKHTML_API_VERSION@
 EOF
 
