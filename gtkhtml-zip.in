@@ -23,6 +23,7 @@ zip $ZIP share/locale/*/LC_MESSAGES/gtkhtml-@GTKHTML_API_VERSION@.mo
 rm $DEVZIP
 zip -r $DEVZIP -@ <<EOF
 lib/libgtkhtml-@GTKHTML_API_VERSION@.dll.a
+lib/libgtkhtml-editor.dll.a
 lib/pkgconfig
 include/libgtkhtml-@GTKHTML_API_VERSION@
 EOF
