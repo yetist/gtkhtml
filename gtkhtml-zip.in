@@ -18,15 +18,11 @@ lib/gtkhtml/libgnome-gtkhtml-editor-@GTKHTML_API_VERSION@.dll
 share/gtkhtml-@GTKHTML_API_VERSION@
 EOF
 
-if [ -f share/locale/de/LC_MESSAGES/gtkhtml-@GTKHTML_API_VERSION@.mo ]; then
-  zip $ZIP share/locale/*/LC_MESSAGES/gtkhtml-@GTKHTML_API_VERSION@.mo
-else
-  zip $ZIP lib/locale/*/LC_MESSAGES/gtkhtml-@GTKHTML_API_VERSION@.mo
-fi
+zip $ZIP share/locale/*/LC_MESSAGES/gtkhtml-@GTKHTML_API_VERSION@.mo
 
 rm $DEVZIP
 zip -r $DEVZIP -@ <<EOF
 lib/libgtkhtml-@GTKHTML_API_VERSION@.dll.a
-lib/pkgconfig/libgtkhtml-@GTKHTML_API_VERSION@.pc
+lib/pkgconfig
 include/libgtkhtml-@GTKHTML_API_VERSION@
 EOF

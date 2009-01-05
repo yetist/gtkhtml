@@ -1,3 +1,8 @@
+2009-01-05  Tor Lillqvist  <tml@novell.com>
+
+	* gtkhtml-zip: Message catalogs are always in share/locale
+	nowadays. Include all .pc files installed in lib/pkgconfig.
+
 2008-11-24  Srinivasa Ragavan  <sragavan@novell.com>
 
 	* NEWS: GtkHTML 3.24.2 release changes and version bump
