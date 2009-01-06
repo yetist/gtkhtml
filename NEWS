@@ -1,3 +1,14 @@
+GtkHTML-3.25.4 2009-01-05
+-------------------------
+
+Bug Fixes:
+	#536625: Free the string returned by html_tokenizer_next_token() (Matthew Barnes)
+	#552357: Fixes invalid reads and memory usage (Denis Pauk)
+
+Updated Translations:
+	Wadim Dziedzic (pl)
+	Jorge Gonzalez (es)
+
 GtkHTML-3.25.3 2008-12-15
 -------------------------
 
