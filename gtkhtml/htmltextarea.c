@@ -132,6 +132,7 @@ html_textarea_init (HTMLTextArea *ta,
 		      gint col)
 {
 	GtkWidget *sw;
+	GtkStyle *style;
 	HTMLEmbedded *element;
 	PangoLayout *layout;
 	gint width, height;
@@ -154,8 +155,9 @@ html_textarea_init (HTMLTextArea *ta,
 	gtk_widget_show_all (sw);
 	html_embedded_set_widget (element, sw);
 
+	style = gtk_widget_get_style (ta->text);
 	layout = pango_layout_new (gtk_widget_get_pango_context (ta->text));
-	pango_layout_set_font_description (layout, ta->text->style->font_desc);
+	pango_layout_set_font_description (layout, style->font_desc);
 	pango_layout_set_text (layout, "0", 1);
 	pango_layout_get_size (layout, &width, &height);
 	g_object_unref (layout);

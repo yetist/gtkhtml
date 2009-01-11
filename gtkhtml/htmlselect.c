@@ -342,7 +342,7 @@ html_select_set_text (HTMLSelect *select, gchar *text)
 		GtkWidget *scrollbar;
 		gint width;
 
-		scrollbar = GTK_SCROLLED_WINDOW (w)->vscrollbar;
+		scrollbar = gtk_scrolled_window_get_vscrollbar (GTK_SCROLLED_WINDOW (w));
 		gtk_widget_size_request (select->view, &req);
 		width = req.width;
 

@@ -1,5 +1,17 @@
 2009-01-11  Matthew Barnes  <mbarnes@redhat.com>
 
+	** Fixes part of bug #564529
+
+	* main.c:
+	* gtkhtml-color-combo.c:
+	* gtkhtml-color-swatch.c:
+	* gtkhtml-spell-dialog.c:
+	* gtkhtml-editor-signals.c:
+	* gtkhtml-face-tool-button.c:
+	Fix what we can with GSEAL_ENABLE defined.
+
+2009-01-11  Matthew Barnes  <mbarnes@redhat.com>
+
 	* gtkhtml-editor-private.c (gtkhtml_editor_show_uri):
 	New convenience function calls gtk_show_uri() and displays an
 	error dialog if the URI cannot be shown.

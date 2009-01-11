@@ -419,8 +419,8 @@ spell_dialog_init (GtkhtmlSpellDialog *dialog)
 	GtkCellRenderer *renderer;
 	GtkWidget *action_area;
 	GtkWidget *container;
+	GtkWidget *content_area;
 	GtkWidget *table;
-	GtkWidget *vbox;
 	GtkWidget *widget;
 	gchar *markup;
 
@@ -440,8 +440,8 @@ spell_dialog_init (GtkhtmlSpellDialog *dialog)
 
 	/* Build the widgets. */
 
-	vbox = GTK_DIALOG (dialog)->vbox;
-	action_area = GTK_DIALOG (dialog)->action_area;
+	action_area = gtk_dialog_get_action_area (GTK_DIALOG (dialog));
+	content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
 
 	gtk_dialog_add_button (
 		GTK_DIALOG (dialog), GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE);
@@ -449,7 +449,7 @@ spell_dialog_init (GtkhtmlSpellDialog *dialog)
 	gtk_window_set_title (GTK_WINDOW (dialog), _("Spell Checker"));
 	gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
 
-	gtk_box_set_spacing (GTK_BOX (vbox), 2);
+	gtk_box_set_spacing (GTK_BOX (content_area), 2);
 
 	/* Table */
 	widget = gtk_table_new (4, 2, FALSE);
@@ -457,7 +457,7 @@ spell_dialog_init (GtkhtmlSpellDialog *dialog)
 	gtk_table_set_row_spacings (GTK_TABLE (widget), 6);
 	gtk_table_set_col_spacings (GTK_TABLE (widget), 6);
 	gtk_table_set_row_spacing (GTK_TABLE (widget), 1, 12);
-	gtk_box_pack_start (GTK_BOX (vbox), widget, TRUE, TRUE, 0);
+	gtk_box_pack_start (GTK_BOX (content_area), widget, TRUE, TRUE, 0);
 	gtk_widget_show (widget);
 	table = widget;
 

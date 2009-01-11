@@ -78,7 +78,7 @@ draw (HTMLObject *o,
 		new_x = o->x + tx;
 		new_y = o->y + ty - o->ascent;
 
-		if (element->widget->parent) {
+		if (gtk_widget_get_parent (element->widget)) {
 			if (new_x != element->abs_x || new_y != element->abs_y) {
 				d (printf ("element: %p moveto: %d,%d shown: %d\n", element, new_x, new_y, GTK_WIDGET_VISIBLE (element->widget)));
 				gtk_layout_move (GTK_LAYOUT(element->parent), element->widget, new_x, new_y);
@@ -89,7 +89,7 @@ draw (HTMLObject *o,
 		element->abs_x = new_x;
 		element->abs_y = new_y;
 
-		if (!element->widget->parent) {
+		if (!gtk_widget_get_parent (element->widget)) {
 			d (printf ("element: %p put: %d,%d shown: %d\n", element, new_x, new_y, GTK_WIDGET_VISIBLE (element->widget)));
 			gtk_layout_put (GTK_LAYOUT(element->parent), element->widget, new_x, new_y);
 		}
@@ -112,13 +112,16 @@ destroy (HTMLObject *o)
 	if(element->value)
 		g_free(element->value);
 	if(element->widget) {
+		GtkWidget *parent;
+
 		gtk_widget_hide (element->widget);
+		parent = gtk_widget_get_parent (element->widget);
 		g_signal_handlers_disconnect_matched (element->widget, G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, element);
 		if (element->changed_id > 0)
 			g_signal_handler_disconnect (element->widget, element->changed_id);
 		g_object_set_data (G_OBJECT (element->widget), "embeddedelement", NULL);
-		if (element->widget->parent && element->parent) {
-			g_assert (element->widget->parent == element->parent);
+		if (parent && element->parent) {
+			g_assert (parent == element->parent);
 			gtk_container_remove (GTK_CONTAINER (element->parent), element->widget);
 		} else {
 			g_object_ref_sink (element->widget);
@@ -390,6 +393,10 @@ html_embedded_new_widget (GtkWidget *parent, GtkHTMLEmbedded *eb, HTMLEngine *en
 static void
 html_embedded_allocate (GtkWidget *w, GtkAllocation  *allocation, HTMLEmbedded *e)
 {
+	GtkWidget *parent;
+
+	parent = gtk_widget_get_parent (w);
+
 	if (e->width != allocation->width || e->height != allocation->height) {
 		if (e->width != allocation->width) {
 			html_object_change_set (HTML_OBJECT (e), HTML_CHANGE_ALL_CALC);
@@ -397,8 +404,8 @@ html_embedded_allocate (GtkWidget *w, GtkAllocation  *allocation, HTMLEmbedded *
 		}
 		e->height = allocation->height;
 
-		if (GTK_IS_HTML (w->parent))
-			html_engine_schedule_update (GTK_HTML (w->parent)->engine);
+		if (GTK_IS_HTML (parent))
+			html_engine_schedule_update (GTK_HTML (parent)->engine);
 	}
 }
 

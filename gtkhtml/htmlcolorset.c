@@ -140,7 +140,9 @@ get_prop_color  (GtkWidget *w, char *name, char *dv, GdkColor *gdk_color)
 {
 	GdkColor c;
 	GdkColor *color = NULL;
+	GtkStyle *style;
 
+	style = gtk_widget_get_style (w);
 	gtk_widget_style_get (w, name, &color, NULL);
 
 	if (color)
@@ -153,7 +155,7 @@ get_prop_color  (GtkWidget *w, char *name, char *dv, GdkColor *gdk_color)
 		return gdk_color_copy (gdk_color);
 
 	g_warning ("falling back to text color");
-	return (gdk_color_copy (&w->style->text [GTK_STATE_NORMAL]));
+	return (gdk_color_copy (&style->text [GTK_STATE_NORMAL]));
 }
 
 #define SET_GCOLOR(t,c) \

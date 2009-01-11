@@ -654,6 +654,7 @@ html_printer_get_type (void)
 HTMLPainter *
 html_printer_new (GtkWidget *widget, GtkPrintContext *context)
 {
+	GtkStyle *style;
 	HTMLPrinter *printer;
 	HTMLPainter *painter;
 
@@ -662,10 +663,11 @@ html_printer_new (GtkWidget *widget, GtkPrintContext *context)
 
 	painter = HTML_PAINTER (printer);
 	html_painter_set_widget (painter, widget);
+	style = gtk_widget_get_style (widget);
 	painter->pango_context =
 		gtk_print_context_create_pango_context (context);
 	pango_context_set_font_description (
-		painter->pango_context, widget->style->font_desc);
+		painter->pango_context, style->font_desc);
 
 	return painter;
 

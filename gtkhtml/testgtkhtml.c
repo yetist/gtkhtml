@@ -794,7 +794,7 @@ go_list_cb (GtkWidget *widget, gpointer data)
 	go_item *item;
 	int num;
 	/* Only if the item was selected, not deselected */
-	if(GTK_CHECK_MENU_ITEM(widget)->active) {
+	if (gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM (widget))) {
 
 		go_position = GPOINTER_TO_INT(data);
 
@@ -914,6 +914,8 @@ goto_url(const char *url, int back_or_forward)
 		group = NULL;
 
 		for(i=0;i<tmp;i++) {
+			GtkWidget *submenu;
+
 			item = g_list_nth_data(go_list, i);
 			item->widget = gtk_radio_menu_item_new_with_label(group, item->url);
 
@@ -925,7 +927,8 @@ goto_url(const char *url, int back_or_forward)
 			if(i == 0)
 				gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item->widget), TRUE);
 
-			gtk_menu_shell_append (GTK_MENU_SHELL (GTK_MENU_ITEM(main_menu[3].widget)->submenu), item->widget);
+			submenu = gtk_menu_item_get_submenu (GTK_MENU_ITEM (main_menu[3].widget));
+			gtk_menu_shell_append (GTK_MENU_SHELL (submenu), item->widget);
 			gtk_widget_show(item->widget);
 
 		}

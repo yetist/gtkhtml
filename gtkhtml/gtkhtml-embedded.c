@@ -103,7 +103,7 @@ static void gtk_html_embedded_add (GtkContainer *container, GtkWidget *child)
 	g_return_if_fail (container != NULL);
 
 	/* can't add something twice */
-	g_return_if_fail( GTK_BIN(container)->child == NULL );
+	g_return_if_fail (gtk_bin_get_child (GTK_BIN (container)) == NULL);
 
 	old_add(container, child);
 	gtk_html_embedded_changed(GTK_HTML_EMBEDDED(container));
@@ -112,7 +112,7 @@ static void gtk_html_embedded_add (GtkContainer *container, GtkWidget *child)
 static void gtk_html_embedded_remove (GtkContainer *container, GtkWidget *child)
 {
 	g_return_if_fail (container != NULL);
-	g_return_if_fail( GTK_BIN(container)->child != NULL );
+	g_return_if_fail (gtk_bin_get_child (GTK_BIN (container)) != NULL);
 
 	old_remove(container, child);
 
@@ -169,7 +169,7 @@ gtk_html_embedded_class_init (GtkHTMLEmbeddedClass *class)
 	widget_class = GTK_WIDGET_CLASS (class);
 	container_class = GTK_CONTAINER_CLASS (class);
 
-	parent_class = gtk_type_class (gtk_bin_get_type ());
+	parent_class = g_type_class_peek_parent (class);
 
 	signals [CHANGED] =
 		g_signal_new ("changed",
@@ -213,15 +213,15 @@ gtk_html_embedded_class_init (GtkHTMLEmbeddedClass *class)
 static void
 gtk_html_embedded_size_request (GtkWidget *widget, GtkRequisition *requisition)
 {
-	GtkBin *bin;
+	GtkWidget *child;
 
 	g_return_if_fail (widget != NULL);
 	g_return_if_fail (requisition != NULL);
 
-	bin = GTK_BIN (widget);
+	child = gtk_bin_get_child (GTK_BIN (widget));
 
-	if (bin->child) {
-		gtk_widget_size_request (bin->child, requisition);
+	if (child) {
+		gtk_widget_size_request (child, requisition);
 	} else {
 		requisition->width = widget->requisition.width;
 		requisition->height = widget->requisition.height;
@@ -231,15 +231,15 @@ gtk_html_embedded_size_request (GtkWidget *widget, GtkRequisition *requisition)
 static void
 gtk_html_embedded_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 {
-	GtkBin *bin;
+	GtkWidget *child;
 
 	g_return_if_fail (widget != NULL);
 	g_return_if_fail (allocation != NULL);
 
-	bin = GTK_BIN (widget);
+	child = gtk_bin_get_child (GTK_BIN (widget));
 
-	if (bin->child && GTK_WIDGET_VISIBLE (bin->child)) {
-		gtk_widget_size_allocate(bin->child, allocation);
+	if (child && GTK_WIDGET_VISIBLE (child)) {
+		gtk_widget_size_allocate (child, allocation);
 	}
 	widget->allocation = *allocation;
 }

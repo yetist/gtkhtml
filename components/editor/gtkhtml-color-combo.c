@@ -150,8 +150,8 @@ color_combo_reposition_window (GtkhtmlColorCombo *combo)
 	gint monitor_num;
 	gint x, y, width, height;
 
-	window = GTK_WIDGET (combo)->window;
 	screen = gtk_widget_get_screen (GTK_WIDGET (combo));
+	window = gtk_widget_get_window (GTK_WIDGET (combo));
 	monitor_num = gdk_screen_get_monitor_at_window (screen, window);
 	gdk_screen_get_monitor_geometry (screen, monitor_num, &monitor);
 
@@ -267,7 +267,8 @@ color_combo_custom_clicked_cb (GtkhtmlColorCombo *combo)
 	gtkhtml_color_combo_popdown (combo);
 
 	dialog = gtk_color_selection_dialog_new (_("Choose Custom Color"));
-	colorsel = GTK_COLOR_SELECTION_DIALOG (dialog)->colorsel;
+	colorsel = gtk_color_selection_dialog_get_color_selection (
+		GTK_COLOR_SELECTION_DIALOG (dialog));
 	toplevel = gtk_widget_get_toplevel (GTK_WIDGET (combo));
 
 	if (GTK_WIDGET_TOPLEVEL (toplevel))
@@ -625,7 +626,7 @@ color_combo_popup (GtkhtmlColorCombo *combo)
 	gtk_toggle_button_set_active (toggle_button, TRUE);
 
 	/* Try to grab the pointer and keyboard. */
-	window = combo->priv->window->window;
+	window = gtk_widget_get_window (combo->priv->window);
 	status = gdk_pointer_grab (
 		window, TRUE,
 		GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK |

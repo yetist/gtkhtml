@@ -57,6 +57,8 @@ move_to_found (HTMLSearch *info)
 	HTMLObject *first = HTML_OBJECT (info->found->data);
 	HTMLObject *last = HTML_OBJECT (g_list_last (info->found)->data);
 	HTMLTextSlave *slave;
+	GtkAdjustment *adjustment;
+	GtkLayout *layout;
 	gint x, y, ex, ey, w, h;
 	gint nx = e->x_offset;
 	gint ny = e->y_offset;
@@ -107,11 +109,15 @@ move_to_found (HTMLSearch *info)
 		ny = y + h - ep->height;
 
 	/* finally adjust them if they changed */
-	if (ep->x_offset != nx)
-		gtk_adjustment_set_value (GTK_LAYOUT (ep->widget)->hadjustment, nx);
-
-	if (ep->y_offset != ny)
-		gtk_adjustment_set_value (GTK_LAYOUT (ep->widget)->vadjustment, ny);
+	layout = GTK_LAYOUT (ep->widget);
+	if (ep->x_offset != nx) {
+		adjustment = gtk_layout_get_hadjustment (layout);
+		gtk_adjustment_set_value (adjustment, nx);
+	}
+	if (ep->y_offset != ny) {
+		adjustment = gtk_layout_get_vadjustment (layout);
+		gtk_adjustment_set_value (adjustment, ny);
+	}
 }
 
 static void

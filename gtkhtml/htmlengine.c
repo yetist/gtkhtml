@@ -4748,7 +4748,7 @@ update_embedded (GtkWidget *widget, gpointer data)
 			x += obj->x;
 			y += obj->y - obj->ascent;
 
-			if (!emb->widget->parent) {
+			if (!gtk_widget_get_parent (emb->widget)) {
 				gtk_layout_put (GTK_LAYOUT (emb->parent), emb->widget, x, y);
 			} else {
 				gtk_layout_move (GTK_LAYOUT(emb->parent), emb->widget, x, y);
@@ -4760,9 +4760,17 @@ update_embedded (GtkWidget *widget, gpointer data)
 static gboolean
 html_engine_update_event (HTMLEngine *e)
 {
+	GtkLayout *layout;
+	GtkAdjustment *hadjustment;
+	GtkAdjustment *vadjustment;
+
 	DI (printf ("html_engine_update_event idle %p\n", e);)
 
 	g_return_val_if_fail (HTML_IS_ENGINE (e), FALSE);
+
+	layout = GTK_LAYOUT (e->widget);
+	hadjustment = gtk_layout_get_hadjustment (layout);
+	vadjustment = gtk_layout_get_vadjustment (layout);
 
 	e->updateTimer = 0;
 
@@ -4770,7 +4778,7 @@ html_engine_update_event (HTMLEngine *e)
 		html_engine_hide_cursor (e);
 	html_engine_calc_size (e, FALSE);
 
-	if (GTK_LAYOUT (e->widget)->vadjustment == NULL
+	if (vadjustment == NULL
 	    || ! html_gdk_painter_realized (HTML_GDK_PAINTER (e->painter))) {
 		e->need_update = TRUE;
 		return FALSE;
@@ -4785,7 +4793,7 @@ html_engine_update_event (HTMLEngine *e)
 
 	/* Scroll page to the top on first display */
 	if (e->newPage) {
-		gtk_adjustment_set_value (GTK_LAYOUT (e->widget)->vadjustment, 0);
+		gtk_adjustment_set_value (vadjustment, 0);
 		e->newPage = FALSE;
 		if (! e->parsing && e->editable)
 			html_cursor_home (e->cursor, e);
@@ -4806,8 +4814,8 @@ html_engine_update_event (HTMLEngine *e)
 				e->x_offset = 0;
 		}
 
-		gtk_adjustment_set_value (GTK_LAYOUT (e->widget)->vadjustment, e->y_offset);
-		gtk_adjustment_set_value (GTK_LAYOUT (e->widget)->hadjustment, e->x_offset);
+		gtk_adjustment_set_value (vadjustment, e->y_offset);
+		gtk_adjustment_set_value (hadjustment, e->x_offset);
 	}
 	html_image_factory_deactivate_animations (e->image_factory);
 	gtk_container_forall (GTK_CONTAINER (e->widget), update_embedded, e->widget);
@@ -4838,9 +4846,12 @@ gboolean
 html_engine_goto_anchor (HTMLEngine *e,
 			 const gchar *anchor)
 {
-	GtkAdjustment *vadj;
+	GtkAdjustment *vadjustment;
+	GtkLayout *layout;
 	HTMLAnchor *a;
 	gint x, y;
+	gdouble upper;
+	gdouble page_size;
 
 	g_return_val_if_fail (anchor != NULL, FALSE);
 
@@ -4855,12 +4866,15 @@ html_engine_goto_anchor (HTMLEngine *e,
 		return FALSE;
 	}
 
-	vadj = GTK_LAYOUT (e->widget)->vadjustment;
+	layout = GTK_LAYOUT (e->widget);
+	vadjustment = gtk_layout_get_vadjustment (layout);
+	page_size = gtk_adjustment_get_page_size (vadjustment);
+	upper = gtk_adjustment_get_upper (vadjustment);
 
-	if (y < vadj->upper - vadj->page_size)
-		gtk_adjustment_set_value (vadj, y);
+	if (y < upper - page_size)
+		gtk_adjustment_set_value (vadjustment, y);
 	else
-		gtk_adjustment_set_value (vadj, vadj->upper - vadj->page_size);
+		gtk_adjustment_set_value (vadjustment, upper - page_size);
 
 	return TRUE;
 }
@@ -4999,6 +5013,7 @@ html_engine_stream_end (GtkHTMLStream *stream,
 static void
 html_engine_draw_real (HTMLEngine *e, gint x, gint y, gint width, gint height, gboolean expose)
 {
+	GtkWidget *parent;
 	gint x1, x2, y1, y2;
 
 	g_return_if_fail (HTML_IS_ENGINE (e));
@@ -5012,13 +5027,22 @@ html_engine_draw_real (HTMLEngine *e, gint x, gint y, gint width, gint height, g
 	if (width == 0 || height == 0)
 		return;
 
+	parent = gtk_widget_get_parent (GTK_WIDGET (e->widget));
+
 	/* don't draw in case we are longer than available space and scrollbar is going to be shown */
 	if (e->clue && e->clue->ascent + e->clue->descent > e->height - (html_engine_get_top_border (e) + html_engine_get_bottom_border (e))) {
-		if (GTK_WIDGET (e->widget)->parent) {
-			if (GTK_IS_SCROLLED_WINDOW (GTK_WIDGET (e->widget)->parent)) {
-				if (GTK_SCROLLED_WINDOW (GTK_WIDGET (e->widget)->parent)->vscrollbar
-				    && !GTK_WIDGET_VISIBLE (GTK_SCROLLED_WINDOW (GTK_WIDGET (e->widget)->parent)->vscrollbar)
-				    && GTK_SCROLLED_WINDOW (GTK_WIDGET (e->widget)->parent)->vscrollbar_policy == GTK_POLICY_AUTOMATIC)
+		if (GTK_IS_SCROLLED_WINDOW (parent)) {
+			GtkWidget *vscrollbar;
+
+			vscrollbar = gtk_scrolled_window_get_vscrollbar (
+				GTK_SCROLLED_WINDOW (parent));
+			if (vscrollbar != NULL && !GTK_WIDGET_VISIBLE (vscrollbar)) {
+				GtkPolicyType vscrollbar_policy;
+
+				gtk_scrolled_window_get_policy (
+					GTK_SCROLLED_WINDOW (parent),
+					NULL, &vscrollbar_policy);
+				if (vscrollbar_policy == GTK_POLICY_AUTOMATIC)
 					return;
 			}
 		}
@@ -5026,11 +5050,18 @@ html_engine_draw_real (HTMLEngine *e, gint x, gint y, gint width, gint height, g
 
 	/* don't draw in case we are shorter than available space and scrollbar is going to be hidden */
 	if (e->clue && e->clue->ascent + e->clue->descent <= e->height - (html_engine_get_top_border (e) + html_engine_get_bottom_border (e))) {
-		if (GTK_WIDGET (e->widget)->parent) {
-			if (GTK_IS_SCROLLED_WINDOW (GTK_WIDGET (e->widget)->parent)) {
-				if (GTK_SCROLLED_WINDOW (GTK_WIDGET (e->widget)->parent)->vscrollbar
-				    && GTK_WIDGET_VISIBLE (GTK_SCROLLED_WINDOW (GTK_WIDGET (e->widget)->parent)->vscrollbar)
-				    && GTK_SCROLLED_WINDOW (GTK_WIDGET (e->widget)->parent)->vscrollbar_policy == GTK_POLICY_AUTOMATIC)
+		if (GTK_IS_SCROLLED_WINDOW (parent)) {
+			GtkWidget *vscrollbar;
+
+			vscrollbar = gtk_scrolled_window_get_vscrollbar (
+				GTK_SCROLLED_WINDOW (parent));
+			if (vscrollbar != NULL && GTK_WIDGET_VISIBLE (vscrollbar)) {
+				GtkPolicyType vscrollbar_policy;
+
+				gtk_scrolled_window_get_policy (
+					GTK_SCROLLED_WINDOW (parent),
+					NULL, &vscrollbar_policy);
+				if (vscrollbar_policy == GTK_POLICY_AUTOMATIC)
 					return;
 			}
 		}
@@ -6903,17 +6934,20 @@ html_engine_opened_streams_set (HTMLEngine *e, int value)
 	e->opened_streams = value;
 
 	if (value == 0 && e->keep_scroll) {
-		GtkAdjustment *vadj, *hadj;
+		GtkAdjustment *hadjustment;
+		GtkAdjustment *vadjustment;
+		GtkLayout *layout;
 
 		e->keep_scroll = FALSE;
 		/*html_engine_calc_size (e, FALSE);
 		  gtk_html_private_calc_scrollbars (e->widget, NULL, NULL);*/
 
-		hadj = GTK_LAYOUT (e->widget)->hadjustment;
-		vadj = GTK_LAYOUT (e->widget)->vadjustment;
+		layout = GTK_LAYOUT (e->widget);
+		hadjustment = gtk_layout_get_hadjustment (layout);
+		vadjustment = gtk_layout_get_vadjustment (layout);
 
-		gtk_adjustment_set_value (hadj, e->x_offset);
-		gtk_adjustment_set_value (vadj, e->y_offset);
+		gtk_adjustment_set_value (hadjustment, e->x_offset);
+		gtk_adjustment_set_value (vadjustment, e->y_offset);
 
 		html_engine_schedule_update (e);
 	}

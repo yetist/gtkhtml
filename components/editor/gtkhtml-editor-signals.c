@@ -566,6 +566,7 @@ gtkhtml_editor_cell_properties_width_changed_cb (GtkWidget *window))
 	GtkAdjustment *adjustment;
 	GtkWidget *widget;
 	gboolean sensitive;
+	gdouble value;
 	gint active;
 
 	editor = extract_gtkhtml_editor (window);
@@ -582,15 +583,16 @@ gtkhtml_editor_cell_properties_width_changed_cb (GtkWidget *window))
 	gtk_widget_set_sensitive (widget, sensitive);
 
 	if (active == SIZE_UNIT_PERCENT) {
-		adjustment->upper = 100;
+		gtk_adjustment_set_upper (adjustment, 100.0);
 		gtk_adjustment_changed (adjustment);
 	} else {
-		adjustment->upper = (gdouble) G_MAXINT;
+		gtk_adjustment_set_upper (adjustment, (gdouble) G_MAXINT);
 		gtk_adjustment_changed (adjustment);
 	}
 
 	/* Clamp the value between the new bounds. */
-	gtk_adjustment_set_value (adjustment, adjustment->value);
+	value = gtk_adjustment_get_value (adjustment);
+	gtk_adjustment_set_value (adjustment, value);
 
 	cell_properties_set (
 		editor, cell_properties_set_width_cb,
@@ -1593,6 +1595,7 @@ gtkhtml_editor_rule_properties_width_changed_cb (GtkWidget *window))
 	GtkWidget *widget;
 	GtkHTML *html;
 	HTMLRule *rule;
+	gdouble value;
 	gint active;
 
 	editor = extract_gtkhtml_editor (window);
@@ -1606,20 +1609,22 @@ gtkhtml_editor_rule_properties_width_changed_cb (GtkWidget *window))
 	adjustment = gtk_spin_button_get_adjustment (GTK_SPIN_BUTTON (widget));
 
 	if (active == SIZE_UNIT_PERCENT) {
-		adjustment->upper = 100;
+		gtk_adjustment_set_upper (adjustment, 100.0);
 		gtk_adjustment_changed (adjustment);
 	} else {
-		adjustment->upper = (gdouble) G_MAXINT;
+		gtk_adjustment_set_upper (adjustment, (gdouble) G_MAXINT);
 		gtk_adjustment_changed (adjustment);
 	}
 
 	/* Clamp the value between the new bounds. */
-	gtk_adjustment_set_value (adjustment, adjustment->value);
+	value = gtk_adjustment_get_value (adjustment);
+	gtk_adjustment_set_value (adjustment, value);
+	value = gtk_adjustment_get_value (adjustment);
 
 	html_rule_set_length (
 		rule, html->engine,
-		(active == SIZE_UNIT_PX) ? (gint) adjustment->value : 0,
-		(active == SIZE_UNIT_PX) ? 0 : (gint) adjustment->value);
+		(active == SIZE_UNIT_PX) ? (gint) value : 0,
+		(active == SIZE_UNIT_PX) ? 0 : (gint) value);
 
 	g_object_unref (editor);
 }
@@ -1893,6 +1898,7 @@ gtkhtml_editor_table_properties_width_changed_cb (GtkWidget *window))
 	GtkHTML *html;
 	HTMLTable *table;
 	gboolean sensitive;
+	gdouble value;
 	gint active;
 
 	editor = extract_gtkhtml_editor (window);
@@ -1911,19 +1917,21 @@ gtkhtml_editor_table_properties_width_changed_cb (GtkWidget *window))
 	gtk_widget_set_sensitive (widget, sensitive);
 
 	if (active == SIZE_UNIT_PERCENT) {
-		adjustment->upper = 100;
+		gtk_adjustment_set_upper (adjustment, 100.0);
 		gtk_adjustment_changed (adjustment);
 	} else {
-		adjustment->upper = (gdouble) G_MAXINT;
+		gtk_adjustment_set_upper (adjustment, (gdouble) G_MAXINT);
 		gtk_adjustment_changed (adjustment);
 	}
 
 	/* Clamp the value between the new bounds. */
-	gtk_adjustment_set_value (adjustment, adjustment->value);
+	value = gtk_adjustment_get_value (adjustment);
+	gtk_adjustment_set_value (adjustment, value);
+	value = gtk_adjustment_get_value (adjustment);
 
 	html_engine_table_set_width (
 		html->engine, table,
-		sensitive ? (gint) adjustment->value : 0,
+		sensitive ? (gint) value : 0,
 		(active == SIZE_UNIT_PERCENT));
 
 	g_object_unref (editor);

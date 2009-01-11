@@ -147,6 +147,7 @@ view_source_dialog (GtkhtmlEditor *editor,
 {
 	GtkWidget *dialog;
 	GtkWidget *content;
+	GtkWidget *content_area;
 	GtkWidget *scrolled_window;
 	GString *string;
 
@@ -157,6 +158,8 @@ view_source_dialog (GtkhtmlEditor *editor,
 		GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
 		NULL);
 
+	content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
+
 	scrolled_window = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_policy (
 		GTK_SCROLLED_WINDOW (scrolled_window),
@@ -164,7 +167,7 @@ view_source_dialog (GtkhtmlEditor *editor,
 	gtk_scrolled_window_set_shadow_type (
 		GTK_SCROLLED_WINDOW (scrolled_window), GTK_SHADOW_IN);
 	gtk_box_pack_start (
-		GTK_BOX (GTK_DIALOG (dialog)->vbox),
+		GTK_BOX (content_area),
 		scrolled_window, TRUE, TRUE, 0);
 
 	gtk_container_set_border_width (GTK_CONTAINER (dialog), 6);

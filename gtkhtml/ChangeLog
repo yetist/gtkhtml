@@ -1,3 +1,17 @@
+2008-01-11  Matthew Barnes  <mbarnes@redhat.com>
+
+	* gtkhtml.c:
+	* gtkhtml-embedded.c:
+	* htmlcolorset.c:
+	* htmlembedded.c:
+	* htmlengine-search.c:
+	* htmlengine.c:
+	* htmlprinter.c:
+	* htmlselect.c:
+	* htmltextarea.c:
+	* testgtkhtml.c:
+	Fix what we can with GSEAL_ENABLE defined.
+
 2008-01-05  Matthew Barnes  <mbarnes@redhat.com>
 
 	* htmltokenizer.c:

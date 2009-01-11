@@ -112,8 +112,8 @@ face_tool_button_reposition_window (GtkhtmlFaceToolButton *button)
 	gint monitor_num;
 	gint x, y, width, height;
 
-	window = GTK_WIDGET (button)->window;
 	screen = gtk_widget_get_screen (GTK_WIDGET (button));
+	window = gtk_widget_get_window (GTK_WIDGET (button));
 	monitor_num = gdk_screen_get_monitor_at_window (screen, window);
 	gdk_screen_get_monitor_geometry (screen, monitor_num, &monitor);
 
@@ -342,7 +342,7 @@ face_tool_button_popup (GtkhtmlFaceToolButton *button)
 	gtk_toggle_tool_button_set_active (tool_button, TRUE);
 
 	/* Try to grab the pointer and keyboard. */
-	window = button->priv->window->window;
+	window = gtk_widget_get_window (button->priv->window);
 	status = gdk_pointer_grab (
 		window, TRUE,
 		GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK |
