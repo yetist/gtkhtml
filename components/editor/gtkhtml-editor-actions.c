@@ -20,8 +20,6 @@
 
 #include "gtkhtml-editor-private.h"
 
-#include <libgnome/gnome-url.h>
-
 /******************************************************************************
  * Action Group Quick Reference
  *
@@ -1095,13 +1093,17 @@ static void
 action_test_url_cb (GtkAction *action,
                     GtkhtmlEditor *editor)
 {
+	GtkEntry *entry;
+	GtkWindow *window;
 	const gchar *text;
 
-	text = gtk_entry_get_text (
-		GTK_ENTRY (WIDGET (LINK_PROPERTIES_URL_ENTRY)));
+	entry = GTK_ENTRY (WIDGET (LINK_PROPERTIES_URL_ENTRY));
+	window = GTK_WINDOW (WIDGET (LINK_PROPERTIES_WINDOW));
+
+	text = gtk_entry_get_text (entry);
 
 	if (text != NULL && *text != '\0')
-		gnome_url_show (text, NULL);
+		gtkhtml_editor_show_uri (window, text);
 }
 
 static void

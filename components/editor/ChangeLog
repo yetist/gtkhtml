@@ -1,3 +1,14 @@
+2009-01-11  Matthew Barnes  <mbarnes@redhat.com>
+
+	* gtkhtml-editor-private.c (gtkhtml_editor_show_uri):
+	New convenience function calls gtk_show_uri() and displays an
+	error dialog if the URI cannot be shown.
+
+	* gtkhtml-editor-actions.c (action_test_url_cb):
+	* gtkhtml-editor-signals.c
+	(gtkhtml_editor_image_properties_url_button_clicked_cb):
+	Call gtkhtml_editor_show_uri() instead of gnome_url_show().
+
 2009-01-03  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
 	* gtkhtml-color-combo.c: (color_combo_class_init):

@@ -1,3 +1,8 @@
+2009-01-10  Matthew Barnes  <mbarnes@redhat.com>
+
+	* configure.in:
+	Bump gtk_minimum_version to 2.14.0 for gtk_show_uri().
+
 2009-01-05  Srinivasa Ragavan  <sragavan@novell.com>
 
 	* NEWS: GtkHTML 3.25.4 release

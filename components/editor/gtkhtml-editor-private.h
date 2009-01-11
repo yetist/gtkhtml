@@ -192,6 +192,8 @@ gboolean	gtkhtml_editor_get_file_contents (const gchar *filename,
 gint		gtkhtml_editor_insert_file	 (GtkhtmlEditor *editor,
 						  const gchar *title,
 						  GCallback response_cb);
+void		gtkhtml_editor_show_uri		 (GtkWindow *parent,
+						  const gchar *uri);
 void		gtkhtml_editor_spell_check	 (GtkhtmlEditor *editor,
 						  gboolean whole_document);
 gboolean	gtkhtml_editor_next_spell_error	 (GtkhtmlEditor *editor);

@@ -965,7 +965,7 @@ gtkhtml_editor_image_properties_url_button_clicked_cb (GtkWidget *window))
 	text = gtk_entry_get_text (GTK_ENTRY (widget));
 
 	g_return_if_fail (text != NULL);
-	gnome_url_show (text, NULL);
+	gtkhtml_editor_show_uri (GTK_WINDOW (window), text);
 
 	g_object_unref (editor);
 }
