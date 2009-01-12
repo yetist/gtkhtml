@@ -1,3 +1,15 @@
+GtkHTML-3.24.3 2009-01-12
+-------------------------
+
+Bug Fixes:
+	#553995: evolution crashed with SIGSEGV in gtkhtml_editor_set_changed() (Paul Bolle)
+	#555388: Undo table create locked up client (Milan Crha)
+	#562323: Evolution inserts a link incorrectly (Matthew Barnes)
+	#565491: Don't strip leading whitespace when inserting text (Matthew Barnes)
+	#565493: Formatting destroyed when marking text with keyboard (Matthew Barnes)
+	#566014: Evolution does not use selected background color inside table in mail message (Matthew Barnes)
+	#567130: glade GUI is not localized with evolution (Takao Fujiwara)
+	
 GtkHTML-3.24.2 2008-11-24
 -------------------------
 
