@@ -284,6 +284,9 @@ action_bold_cb (GtkToggleAction *action,
 {
 	const gchar *command;
 
+	if (editor->priv->ignore_style_change)
+		return;
+
 	if (gtk_toggle_action_get_active (action))
 		command = "bold-on";
 	else
@@ -692,6 +695,9 @@ action_italic_cb (GtkToggleAction *action,
 {
 	const gchar *command;
 
+	if (editor->priv->ignore_style_change)
+		return;
+
 	if (gtk_toggle_action_get_active (action))
 		command = "italic-on";
 	else
@@ -859,6 +865,9 @@ action_monospaced_cb (GtkToggleAction *action,
 	GtkHTMLFontStyle and_mask;
 	GtkHTMLFontStyle or_mask;
 
+	if (editor->priv->ignore_style_change)
+		return;
+
 	if (gtk_toggle_action_get_active (action)) {
 		and_mask = GTK_HTML_FONT_STYLE_MAX;
 		or_mask = GTK_HTML_FONT_STYLE_FIXED;
@@ -955,6 +964,9 @@ action_style_cb (GtkRadioAction *action,
 {
 	const gchar *command = NULL;
 
+	if (editor->priv->ignore_style_change)
+		return;
+
 	switch (gtk_radio_action_get_current_value (current)) {
 		case GTK_HTML_PARAGRAPH_STYLE_NORMAL:
 			command = "style-normal";
@@ -1041,6 +1053,9 @@ action_size_cb (GtkRadioAction *action,
 {
 	const gchar *command = NULL;
 
+	if (editor->priv->ignore_style_change)
+		return;
+
 	switch (gtk_radio_action_get_current_value (current)) {
 		case GTK_HTML_FONT_STYLE_SIZE_1:
 			command = "size-minus-2";
@@ -1081,6 +1096,9 @@ action_strikethrough_cb (GtkToggleAction *action,
 {
 	const gchar *command;
 
+	if (editor->priv->ignore_style_change)
+		return;
+
 	if (gtk_toggle_action_get_active (action))
 		command = "strikeout-on";
 	else
@@ -1111,6 +1129,9 @@ action_underline_cb (GtkToggleAction *action,
                      GtkhtmlEditor *editor)
 {
 	const gchar *command;
+
+	if (editor->priv->ignore_style_change)
+		return;
 
 	if (gtk_toggle_action_get_active (action))
 		command = "underline-on";

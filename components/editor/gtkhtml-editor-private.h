@@ -172,6 +172,7 @@ struct _GtkhtmlEditorPrivate {
 	gchar *current_folder;
 	GtkhtmlColorPalette *palette;
 	GtkhtmlColorState *text_color;
+	guint ignore_style_change;
 	gboolean changed;
 };
 
