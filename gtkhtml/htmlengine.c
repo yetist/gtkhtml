@@ -941,7 +941,14 @@ insert_text (HTMLEngine *e,
 	            if (' ' == (HTML_TEXT (prev)->text)[HTML_TEXT (prev)->text_bytes - 1])
 	                prev_text_ends_in_space = TRUE ;
 
-	if (e->flow == NULL || ((prev == NULL || prev_text_ends_in_space) && !e->inPre)) {
+	if (e->flow == NULL) {
+		/* Preserve one leading space. */
+		if (*text == ' ') {
+			while (*text == ' ')
+				text++;
+			text--;
+		}
+	} else if ((prev == NULL || prev_text_ends_in_space) && !e->inPre) {
 		while (*text == ' ')
 			text++;
 		if (*text == 0)

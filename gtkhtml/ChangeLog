@@ -1,4 +1,13 @@
-2008-01-11  Matthew Barnes  <mbarnes@redhat.com>
+2009-01-11  Matthew Barnes  <mbarnes@redhat.com>
+
+	** Fixes bug #565491
+
+	* htmlengine.c (insert_text):
+	Preserve up to one leading space when parsing HTML.  Eliminates
+	strange cut-and-paste behavior when the text segment has leading
+	whitespace.
+
+2009-01-11  Matthew Barnes  <mbarnes@redhat.com>
 
 	* gtkhtml.c:
 	* gtkhtml-embedded.c:
@@ -12,7 +21,7 @@
 	* testgtkhtml.c:
 	Fix what we can with GSEAL_ENABLE defined.
 
-2008-01-05  Matthew Barnes  <mbarnes@redhat.com>
+2009-01-05  Matthew Barnes  <mbarnes@redhat.com>
 
 	* htmltokenizer.c:
 	Fix coding style and compiler warnings.
