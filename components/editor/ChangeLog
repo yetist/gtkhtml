@@ -1,5 +1,30 @@
 2009-01-12  Matthew Barnes  <mbarnes@redhat.com>
 
+	** Fixes bug #566014
+
+	* gtkhtml-color-combo.c:
+	* gtkhtml-color-state.c:
+	New 'default-transparent' boolean property indicates the default
+	color should be treated as transparent.
+
+	* gtkhtml-color-combo.c (color_combo_notify_current_color_cb):
+	Set the color swatch color to NULL if the default color was chosen
+	and the 'default-transparent' property is TRUE.
+
+	* gtkhtml-color-swatch.c (gtkhtml_color_swatch_set_color):
+	Allow color to be NULL.
+
+	* gtkhtml-editor-signals.c (cell_properties_set_background_color_cb),
+	gtkhtml_editor_table_properties_color_changed_cb):
+	Treat the default color as transparent.
+
+	* gtkhtml-editor-signals.c
+	gtkhtml_editor_cell_properties_show_window_cb),
+	gtkhtml_editor_table_properties_show_window_cb):
+	Initialize the color combo.
+
+2009-01-12  Matthew Barnes  <mbarnes@redhat.com>
+
 	** Fixes bug #565493
 
 	* gtkhtml-editor-actions.c (action_bold_cb), (action_italic_cb),
