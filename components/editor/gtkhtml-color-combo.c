@@ -39,6 +39,7 @@ enum {
 	PROP_CURRENT_COLOR,
 	PROP_DEFAULT_COLOR,
 	PROP_DEFAULT_LABEL,
+	PROP_DEFAULT_TRANSPARENT,
 	PROP_PALETTE,
 	PROP_POPUP_SHOWN,
 	PROP_STATE
@@ -128,8 +129,12 @@ color_combo_notify_current_color_cb (GtkhtmlColorCombo *combo)
 	GdkColor color;
 
 	swatch = GTKHTML_COLOR_SWATCH (combo->priv->swatch);
-	gtkhtml_color_combo_get_current_color (combo, &color);
-	gtkhtml_color_swatch_set_color (swatch, &color);
+	if (gtkhtml_color_combo_get_current_color (combo, &color))
+		gtkhtml_color_swatch_set_color (swatch, &color);
+	else if (gtkhtml_color_combo_get_default_transparent (combo))
+		gtkhtml_color_swatch_set_color (swatch, NULL);
+	else
+		gtkhtml_color_swatch_set_color (swatch, &color);
 
 	g_signal_emit (G_OBJECT (combo), signals[CHANGED], 0);
 }
@@ -444,6 +449,12 @@ color_combo_set_property (GObject *object,
 				g_value_get_string (value));
 			return;
 
+		case PROP_DEFAULT_TRANSPARENT:
+			gtkhtml_color_combo_set_default_transparent (
+				GTKHTML_COLOR_COMBO (object),
+				g_value_get_boolean (value));
+			return;
+
 		case PROP_PALETTE:
 			gtkhtml_color_combo_set_palette (
 				GTKHTML_COLOR_COMBO (object),
@@ -496,6 +507,13 @@ color_combo_get_property (GObject *object,
 		case PROP_DEFAULT_LABEL:
 			g_value_set_string (
 				value, gtkhtml_color_combo_get_default_label (
+				GTKHTML_COLOR_COMBO (object)));
+			return;
+
+		case PROP_DEFAULT_TRANSPARENT:
+			g_value_set_boolean (
+				value,
+				gtkhtml_color_combo_get_default_transparent (
 				GTKHTML_COLOR_COMBO (object)));
 			return;
 
@@ -715,6 +733,17 @@ color_combo_class_init (GtkhtmlColorComboClass *class)
 			_("Default label"),
 			_("The label for the default button"),
 			_("Default"),
+			G_PARAM_CONSTRUCT |
+			G_PARAM_READWRITE));
+
+	g_object_class_install_property (
+		object_class,
+		PROP_DEFAULT_TRANSPARENT,
+		g_param_spec_boolean (
+			"default-transparent",
+			_("Default is transparent"),
+			_("Whether the default color is transparent"),
+			FALSE,
 			G_PARAM_CONSTRUCT |
 			G_PARAM_READWRITE));
 
@@ -1080,6 +1109,24 @@ gtkhtml_color_combo_set_default_label (GtkhtmlColorCombo *combo,
 	g_return_if_fail (GTKHTML_IS_COLOR_COMBO (combo));
 
 	gtkhtml_color_state_set_default_label (combo->priv->state, text);
+}
+
+gboolean
+gtkhtml_color_combo_get_default_transparent (GtkhtmlColorCombo *combo)
+{
+	g_return_val_if_fail (GTKHTML_IS_COLOR_COMBO (combo), FALSE);
+
+	return gtkhtml_color_state_get_default_transparent (combo->priv->state);
+}
+
+void
+gtkhtml_color_combo_set_default_transparent (GtkhtmlColorCombo *combo,
+                                             gboolean transparent)
+{
+	g_return_if_fail (GTKHTML_IS_COLOR_COMBO (combo));
+
+	gtkhtml_color_state_set_default_transparent (
+		combo->priv->state, transparent);
 }
 
 GtkhtmlColorPalette *

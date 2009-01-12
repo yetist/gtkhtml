@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.1 on Tue Apr  1 08:13:39 2008 -->
+<!--Generated with glade3 3.4.5 on Wed Dec 31 00:39:22 2008 -->
 <glade-interface>
   <requires lib="gtkhtml-editor"/>
   <widget class="GtkWindow" id="text-properties-window">
@@ -1717,6 +1717,8 @@ Right</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                         <property name="default_color">#000000000000</property>
                         <property name="default_label">Transparent</property>
+                        <property name="default_transparent">True</property>
+                        <signal name="changed" handler="gtkhtml_editor_table_properties_color_changed_cb" object="table-properties-window"/>
                       </widget>
                       <packing>
                         <property name="left_attach">1</property>
@@ -2614,6 +2616,8 @@ Right</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                         <property name="default_color">#000000000000</property>
                         <property name="default_label">Transparent</property>
+                        <property name="default_transparent">True</property>
+                        <signal name="changed" handler="gtkhtml_editor_cell_properties_color_changed_cb" object="cell-properties-window"/>
                       </widget>
                       <packing>
                         <property name="left_attach">1</property>
@@ -3156,7 +3160,6 @@ Bottom</property>
                   <widget class="GtkTable" id="image-properties-link-table">
                     <property name="visible">True</property>
                     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                    <property name="n_rows">1</property>
                     <property name="n_columns">3</property>
                     <property name="column_spacing">6</property>
                     <property name="row_spacing">6</property>

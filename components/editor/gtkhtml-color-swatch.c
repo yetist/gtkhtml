@@ -278,7 +278,6 @@ gtkhtml_color_swatch_set_color (GtkhtmlColorSwatch *swatch,
 	GtkWidget *drawing_area;
 
 	g_return_if_fail (GTKHTML_IS_COLOR_SWATCH (swatch));
-	g_return_if_fail (color != NULL);
 
 	drawing_area = swatch->priv->drawing_area;
 	gtk_widget_modify_bg (drawing_area, GTK_STATE_NORMAL, color);

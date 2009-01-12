@@ -31,6 +31,7 @@ enum {
 	PROP_CURRENT_COLOR,
 	PROP_DEFAULT_COLOR,
 	PROP_DEFAULT_LABEL,
+	PROP_DEFAULT_TRANSPARENT,
 	PROP_PALETTE
 };
 
@@ -45,6 +46,7 @@ struct _GtkhtmlColorStatePrivate {
 	gchar *default_label;
 	GtkhtmlColorPalette *palette;
 	gulong palette_handler_id;
+	gboolean default_transparent;
 };
 
 static gpointer parent_class;
@@ -83,6 +85,12 @@ color_state_set_property (GObject *object,
 				g_value_get_string (value));
 			return;
 
+		case PROP_DEFAULT_TRANSPARENT:
+			gtkhtml_color_state_set_default_transparent (
+				GTKHTML_COLOR_STATE (object),
+				g_value_get_boolean (value));
+			return;
+
 		case PROP_PALETTE:
 			gtkhtml_color_state_set_palette (
 				GTKHTML_COLOR_STATE (object),
@@ -117,6 +125,13 @@ color_state_get_property (GObject *object,
 		case PROP_DEFAULT_LABEL:
 			g_value_set_string (
 				value, gtkhtml_color_state_get_default_label (
+				GTKHTML_COLOR_STATE (object)));
+			return;
+
+		case PROP_DEFAULT_TRANSPARENT:
+			g_value_set_boolean (
+				value,
+				gtkhtml_color_state_get_default_transparent (
 				GTKHTML_COLOR_STATE (object)));
 			return;
 
@@ -211,6 +226,17 @@ color_state_class_init (GtkhtmlColorStateClass *class)
 			_("Default label"),
 			_("Description of the default color"),
 			_("Default"),
+			G_PARAM_CONSTRUCT |
+			G_PARAM_READWRITE));
+
+	g_object_class_install_property (
+		object_class,
+		PROP_DEFAULT_TRANSPARENT,
+		g_param_spec_boolean (
+			"default-transparent",
+			_("Default is transparent"),
+			_("Whether the default color is transparent"),
+			FALSE,
 			G_PARAM_CONSTRUCT |
 			G_PARAM_READWRITE));
 
@@ -383,6 +409,25 @@ gtkhtml_color_state_set_default_label (GtkhtmlColorState *state,
 	state->priv->default_label = g_strdup (text);
 
 	g_object_notify (G_OBJECT (state), "default-label");
+}
+
+gboolean
+gtkhtml_color_state_get_default_transparent (GtkhtmlColorState *state)
+{
+	g_return_val_if_fail (GTKHTML_IS_COLOR_STATE (state), FALSE);
+
+	return state->priv->default_transparent;
+}
+
+void
+gtkhtml_color_state_set_default_transparent (GtkhtmlColorState *state,
+                                             gboolean transparent)
+{
+	g_return_if_fail (GTKHTML_IS_COLOR_STATE (state));
+
+	state->priv->default_transparent = transparent;
+
+	g_object_notify (G_OBJECT (state), "default-transparent");
 }
 
 GtkhtmlColorPalette *

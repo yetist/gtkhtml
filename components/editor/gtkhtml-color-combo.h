@@ -86,6 +86,11 @@ const gchar *	gtkhtml_color_combo_get_default_label
 void		gtkhtml_color_combo_set_default_label
 						(GtkhtmlColorCombo *combo,
 						 const gchar *text);
+gboolean	gtkhtml_color_combo_get_default_transparent
+						(GtkhtmlColorCombo *combo);
+void		gtkhtml_color_combo_set_default_transparent
+						(GtkhtmlColorCombo *combo,
+						 gboolean transparent);
 GtkhtmlColorPalette *
 		gtkhtml_color_combo_get_palette	(GtkhtmlColorCombo *combo);
 void		gtkhtml_color_combo_set_palette	(GtkhtmlColorCombo *combo,

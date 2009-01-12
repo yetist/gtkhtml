@@ -86,6 +86,11 @@ const gchar *	gtkhtml_color_state_get_default_label
 void		gtkhtml_color_state_set_default_label
 						(GtkhtmlColorState *state,
 						 const gchar *text);
+gboolean	gtkhtml_color_state_get_default_transparent
+						(GtkhtmlColorState *state);
+void		gtkhtml_color_state_set_default_transparent
+						(GtkhtmlColorState *state,
+						 gboolean transparent);
 GtkhtmlColorPalette *
 		gtkhtml_color_state_get_palette	(GtkhtmlColorState *state);
 void		gtkhtml_color_state_set_palette (GtkhtmlColorState *state,

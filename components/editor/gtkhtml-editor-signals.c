@@ -183,14 +183,19 @@ cell_properties_set_background_color_cb (GtkhtmlEditor *editor,
                                          HTMLTableCell *cell,
                                          GtkWidget *widget)
 {
+	GtkhtmlColorCombo *combo;
 	GtkHTML *html;
 	GdkColor color;
+	gboolean got_color;
 
+	combo = GTKHTML_COLOR_COMBO (widget);
 	html = gtkhtml_editor_get_html (editor);
-	gtkhtml_color_combo_get_current_color (
-		GTKHTML_COLOR_COMBO (widget), &color);
 
-	html_engine_table_cell_set_bg_color (html->engine, cell, &color);
+	/* The default table cell color is transparent. */
+	got_color = gtkhtml_color_combo_get_current_color (combo, &color);
+
+	html_engine_table_cell_set_bg_color (
+		html->engine, cell, got_color ? &color : NULL);
 }
 
 static void
@@ -463,9 +468,9 @@ gtkhtml_editor_cell_properties_show_window_cb (GtkWidget *window))
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), TRUE);
 
 	widget = WIDGET (CELL_PROPERTIES_COLOR_COMBO);
-	if (cell->have_bg)
-		gtkhtml_color_combo_set_current_color (
-			GTKHTML_COLOR_COMBO (widget), &cell->bg);
+	gtkhtml_color_combo_set_current_color (
+		GTKHTML_COLOR_COMBO (widget),
+		cell->have_bg ? &cell->bg : NULL);
 
 	widget = WIDGET (CELL_PROPERTIES_IMAGE_FILE_CHOOSER);
 	if (cell->have_bgPixmap) {
@@ -1693,6 +1698,27 @@ gtkhtml_editor_table_properties_border_changed_cb (GtkWidget *window,
 }
 
 AUTOCONNECTED_SIGNAL_HANDLER (void
+gtkhtml_editor_table_properties_color_changed_cb (GtkWidget *window,
+                                                  GtkhtmlColorCombo *combo))
+{
+	GtkhtmlEditor *editor;
+	HTMLTable *table;
+	GtkHTML *html;
+	GdkColor color;
+	gboolean got_color;
+
+	editor = extract_gtkhtml_editor (window);
+	html = gtkhtml_editor_get_html (editor);
+	table = HTML_TABLE (editor->priv->table_object);
+
+	/* The default table color is transparent. */
+	got_color = gtkhtml_color_combo_get_current_color (combo, &color);
+
+	html_engine_table_set_bg_color (
+		html->engine, table, got_color ? &color : NULL);
+}
+
+AUTOCONNECTED_SIGNAL_HANDLER (void
 gtkhtml_editor_table_properties_cols_changed_cb (GtkWidget *window,
                                                  GtkSpinButton *button))
 {
@@ -1866,7 +1892,9 @@ gtkhtml_editor_table_properties_show_window_cb (GtkWidget *window))
 	widget = WIDGET (TABLE_PROPERTIES_BORDER_SPIN_BUTTON);
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (widget), value);
 
-	/* TODO - Initialize color combo */
+	widget = WIDGET (TABLE_PROPERTIES_COLOR_COMBO);
+	gtkhtml_color_combo_set_current_color (
+		GTKHTML_COLOR_COMBO (widget), table->bgColor);
 
 	if (table->bgPixmap != NULL) {
 		gchar *filename;
