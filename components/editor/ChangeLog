@@ -1,3 +1,10 @@
+2009-01-12  Takao Fujiwara  <Takao.Fujiwara@Sun.COM>
+
+	** Fix for bug #567130
+
+	* gtkhtml-editor-private.c (gtkhtml_editor_private_init): Use the 
+	localization domain when initializing the Glade UI.
+
 2009-01-11  Matthew Barnes  <mbarnes@redhat.com>
 
 	** Fixes part of bug #564529
