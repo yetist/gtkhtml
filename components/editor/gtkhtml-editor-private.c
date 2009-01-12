@@ -198,7 +198,7 @@ gtkhtml_editor_private_init (GtkhtmlEditor *editor)
 	glade_provide ("gtkhtml-editor");
 
 	filename = gtkhtml_editor_find_data_file ("gtkhtml-editor.glade");
-	priv->glade_xml = glade_xml_new (filename, NULL, NULL);
+	priv->glade_xml = glade_xml_new (filename, NULL, GETTEXT_PACKAGE);
 	glade_xml_signal_autoconnect (priv->glade_xml);
 	g_free (filename);
 
