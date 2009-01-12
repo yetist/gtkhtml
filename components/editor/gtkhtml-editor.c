@@ -102,6 +102,8 @@ editor_font_style_changed_cb (GtkhtmlEditor *editor,
 {
 	GtkHTMLFontStyle size;
 
+	editor->priv->ignore_style_change++;
+
 	gtk_toggle_action_set_active (
 		GTK_TOGGLE_ACTION (ACTION (BOLD)),
 		style & GTK_HTML_FONT_STYLE_BOLD);
@@ -128,6 +130,8 @@ editor_font_style_changed_cb (GtkhtmlEditor *editor,
 
 	gtk_radio_action_set_current_value (
 		GTK_RADIO_ACTION (ACTION (SIZE_PLUS_ZERO)), size);
+
+	editor->priv->ignore_style_change--;
 }
 
 static void
@@ -141,8 +145,12 @@ static void
 editor_paragraph_style_changed_cb (GtkhtmlEditor *editor,
                                    GtkHTMLParagraphStyle style)
 {
+	editor->priv->ignore_style_change++;
+
 	gtk_radio_action_set_current_value (
 		GTK_RADIO_ACTION (ACTION (STYLE_NORMAL)), style);
+
+	editor->priv->ignore_style_change--;
 }
 
 static void

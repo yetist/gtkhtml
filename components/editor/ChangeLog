@@ -1,3 +1,20 @@
+2009-01-12  Matthew Barnes  <mbarnes@redhat.com>
+
+	** Fixes bug #565493
+
+	* gtkhtml-editor-actions.c (action_bold_cb), (action_italic_cb),
+	(action_monospaced_cb), (action_style_cb), (action_size_cb),
+	(action_strikethrough_cb), (action_underline_cb):
+	Ignore the action activation if 'ignore_style_change' is set.
+	Means we're moving the cursor around and updating the toolbar.
+
+	* gtkhtml-editor.c (editor_font_style_changed_cb),
+	(editor_paragraph_style_changed_cb):
+	Set 'ignore_style_change' for the duration of the function.
+
+	* gtkhtml-editor-private.h:
+	Add 'ignore_style_change' counter to the private struct.
+
 2009-01-12  Takao Fujiwara  <Takao.Fujiwara@Sun.COM>
 
 	** Fix for bug #567130
