@@ -1,3 +1,12 @@
+2009-01-11  Matthew Barnes  <mbarnes@redhat.com>
+
+	** Fixes bug #565491
+
+	* htmlengine.c (insert_text):
+	Preserve up to one leading space when parsing HTML.  Eliminates
+	strange cut-and-paste behavior when the text segment has leading
+	whitespace.
+
 2008-12-09  Milan Crha  <mcrha@redhat.com>
 
 	** Fix for bug #555388
