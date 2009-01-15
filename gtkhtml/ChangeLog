@@ -1,3 +1,10 @@
+2009-01-15  Milan Crha  <mcrha@redhat.com>
+
+	** Fix for bug #565491
+
+	* htmlengine.c (insert_text): Preserve leading space only
+	when in the editing mode, otherwise strip it as before.
+
 2009-01-11  Matthew Barnes  <mbarnes@redhat.com>
 
 	** Fixes bug #565491
