@@ -1,3 +1,24 @@
+GtkHTML-3.25.5 2009-01-19
+-------------------------
+
+Updated Translations:
+	Hendrik Richter (de)
+	Jorge Gonzalez (es)
+	Kjartan Maraas (nb)
+
+Bug Fixes:
+	#564529 : Fix what we can with GSEAL_ENABLE defined. (Matthew Barnes)
+	#565491 : Preserve up to one leading space when parsing HTML. Eliminates strange cut-and-paste behavior when the text segment has leading whitespace (Matthew Barnes)
+	#565491 : Preserve leading space only when in the editing mode, otherwise strip it as before. (Milan Crha)
+	#565493 : Ignore the action activation if 'ignore_style_change' is set. Means we're moving the cursor around and updating the toolbar. Set 'ignore_style_change' for the duration of the function. Add 'ignore_style_change' counter to the private struct. (Matthew Barnes)
+	#566014 : New 'default-transparent' boolean property indicates the default color should be treated as transparent. Set the color swatch color to NULL if the default color was chosen and the 'default-transparent' property is TRUE. Allow color to be NULL. Treat the default color as transparent. Initialize the color combo. (Matthew Barnes)
+	#567130 : Use the localization domain when initializing the Glade UI. (Takao Fujiwara)
+
+Other contributions:
+	 Bump gtk_minimum_version to 2.14.0 for gtk_show_uri(). (Matthew Barnes)
+	 Fix what we can with GSEAL_ENABLE defined. (Matthew Barnes)
+	 New convenience function calls gtk_show_uri() and displays an error dialog if the URI cannot be shown. Call gtkhtml_editor_show_uri() instead of gnome_url_show(). (Matthew Barnes)
+
 GtkHTML-3.25.4 2009-01-05
 -------------------------
 
