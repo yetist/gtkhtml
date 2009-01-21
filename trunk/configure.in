@@ -1,0 +1,243 @@
+dnl Initialization
+
+AC_INIT(gtkhtml/gtkhtml.c)
+AM_CONFIG_HEADER(config.h)
+
+PACKAGE=gtkhtml
+
+# Required Package Versions
+m4_define([gtk_minimum_version], [2.14.0])
+m4_define([gail_minimum_version], [1.1.0])
+m4_define([gnome_icon_theme_minimum_version], [2.22.0])
+m4_define([libbonobo_minimum_version], [2.20.3])
+m4_define([libbonoboui_minimum_version], [2.2.4])
+m4_define([libglade_minimum_version], [2.0.0])
+m4_define([libgnomeui_minimum_version], [2.0.0])
+
+GTKHTML_API_VERSION=3.14
+AC_DEFINE_UNQUOTED(GTKHTML_API_VERSION, "${GTKHTML_API_VERSION}", [GtkHTML API Version])
+AC_SUBST(GTKHTML_API_VERSION)
+
+EDITOR_API_VERSION=3.14
+AC_DEFINE_UNQUOTED(EDITOR_API_VERSION, "${EDITOR_API_VERSION}", [Editor API Version])
+AC_SUBST(EDITOR_API_VERSION)
+
+GTKHTML_RELEASE_STRING=${PACKAGE}-${GTKHTML_API_VERSION}
+AC_DEFINE_UNQUOTED(GTKHTML_RELEASE_STRING, "${GTKHTML_RELEASE_STRING}",
+					   [GtkHTML Release String])
+AC_SUBST(GTKHTML_RELEASE_STRING)
+
+GETTEXT_PACKAGE=${GTKHTML_RELEASE_STRING}
+AC_SUBST(GETTEXT_PACKAGE)
+AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Package name for gettext])
+
+I18N_LIB_CFLAGS="-DGNOME_EXPLICIT_TRANSLATION_DOMAIN=\\\"${GTKHTML_RELEASE_STRING}\\\""
+AC_SUBST(I18N_LIB_CFLAGS)
+
+AC_DEFINE(BONOBO_DISABLE_DEPRECATED,1,[No deprecated bonobo functions])
+
+AM_INIT_AUTOMAKE($PACKAGE, 3.25.90)
+
+AM_MAINTAINER_MODE
+
+dnl
+dnl Due to the sed scripts being split on 90 line
+dnl blocks, this macro needs to be right at the beggining.
+dnl
+IT_PROG_INTLTOOL([0.36.3])
+
+AC_ISC_POSIX
+AC_PROG_CC
+AC_STDC_HEADERS
+AC_LIBTOOL_WIN32_DLL
+AM_PROG_LIBTOOL
+DOLT
+
+AC_PATH_PROG(GLIB_GENMARSHAL, glib-genmarshal)
+
+dnl Win32
+AC_MSG_CHECKING([for Win32])
+case "$host" in
+*-mingw*)
+    os_win32=yes
+    SOEXT='.dll'
+    ;;
+*)  os_win32=no
+    SOEXT='.so'
+    ;;
+esac
+AC_MSG_RESULT([$os_win32])
+AM_CONDITIONAL(OS_WIN32, [test $os_win32 = yes])
+AC_SUBST(SOEXT)
+
+GNOME_COMPILE_WARNINGS(yes)
+CFLAGS="$CFLAGS $warning_flags"
+
+AC_SUBST(CFLAGS)
+AC_SUBST(CPPFLAGS)
+AC_SUBST(LDFLAGS)
+
+AM_GLIB_GNU_GETTEXT
+
+GAIL_MODULES="gail >= gail_minimum_version"
+PKG_CHECK_MODULES(GAIL, $GAIL_MODULES)
+AC_SUBST(GAIL_CFLAGS)
+AC_SUBST(GAIL_LIBS)
+AC_SUBST(GAIL_MODULES)
+
+GTKHTML_MODULES="gtk+-2.0 >= gtk_minimum_version libgnomeui-2.0 >= libgnomeui_minimum_version libglade-2.0 >= libglade_minimum_version enchant gconf-2.0 iso-codes"
+PKG_CHECK_MODULES(GTKHTML, $GTKHTML_MODULES)
+AC_SUBST(GTKHTML_CFLAGS)
+AC_SUBST(GTKHTML_LIBS)
+AC_SUBST(GTKHTML_MODULES)
+
+# Bonobo editor module
+AC_ARG_WITH(bonobo-editor,
+        AC_HELP_STRING([--with-bonobo-editor],
+                [build the older Bonobo-based editor [[default=no]]]),
+        bonobo_editor="$withval", bonobo_editor="no")
+if test "x$bonobo_editor" = "xyes"; then
+        EDITOR_MODULES="${GTKHTML_MODULES} libbonobo-2.0 >= libbonobo_minimum_version libbonoboui-2.0 >= libbonoboui_minimum_version"
+        PKG_CHECK_MODULES(EDITOR, $EDITOR_MODULES)
+        AC_SUBST(EDITOR_CFLAGS)
+        AC_SUBST(EDITOR_LIBS)
+fi
+AM_CONDITIONAL(BONOBO_EDITOR, test x$bonobo_editor = xyes)
+
+# Glade catalog files
+AC_ARG_WITH(glade-catalog,
+	AC_HELP_STRING([--with-glade-catalog],
+		[install the catalog files for Glade 3 ]
+		[(for maintainers only) [[default=no]]]),
+	glade_catalog="$withval", glade_catalog="no")
+if test "x$glade_catalog" = "xyes"; then
+	PKG_CHECK_MODULES(GLADEUI, gladeui-1.0)
+fi
+AM_CONDITIONAL(GLADE_CATALOG, test x$glade_catalog = xyes)
+
+# These are still needed for 'dist' targets.
+BONOBO_IDL_INCLUDES="-I`$PKG_CONFIG --variable=idldir libbonobo-2.0` -I`$PKG_CONFIG --variable=idldir bonobo-activation-2.0`"
+AC_SUBST(BONOBO_IDL_INCLUDES)
+ORBIT_IDL="`$PKG_CONFIG --variable=orbit_idl ORBit-2.0`"
+AC_SUBST(ORBIT_IDL)
+
+dnl **********************************
+dnl soup for testgtkhtml
+dnl **********************************
+
+PKG_CHECK_MODULES(SOUP, libsoup-2.4, have_soup="yes", have_soup="no")
+AM_CONDITIONAL(HAVE_SOUP, test x$have_soup != xno)
+AC_SUBST(SOUP_CFLAGS)
+AC_SUBST(SOUP_LIBS)
+
+dnl **************************************************
+dnl * Gnome Icon Theme
+dnl **************************************************
+PKG_CHECK_MODULES(GIT, gnome-icon-theme >= gnome_icon_theme_minimum_version)
+
+dnl **************************************************
+dnl * iso-codes
+dnl **************************************************
+
+AC_MSG_CHECKING([for iso-codes package])
+have_iso_codes=no
+if $PKG_CONFIG --exists iso-codes; then
+	if $PKG_CONFIG iso-codes --atleast-version=0.49; then
+		have_iso_codes=yes
+		AC_MSG_RESULT([$have_iso_codes])
+	else
+		AC_MSG_WARN([iso-codes detected, but version 0.49 or later is required due to licensing])
+	fi
+else
+	AC_MSG_RESULT([$have_iso_codes])
+fi
+
+if test "x$have_iso_codes" = "xyes"; then
+	AC_MSG_CHECKING([whether iso-codes has iso-639 and iso-3166 domains])
+	if $PKG_CONFIG --variable=domains iso-codes | grep -q 639 && \
+		$PKG_CONFIG --variable=domains iso-codes | grep -q 3166 ; then
+			result=yes
+	else
+		result=no
+		have_iso_codes=no
+	fi
+	AC_MSG_RESULT([$result])
+fi
+
+if test "x$have_iso_codes" = "xyes"; then
+	AC_DEFINE_UNQUOTED([ISO_CODES_PREFIX],
+		["`$PKG_CONFIG --variable=prefix iso-codes`"],
+		[ISO codes prefix])
+	AC_DEFINE([HAVE_ISO_CODES], [1],
+		[Define if you have the iso-codes package])
+fi
+
+dnl **************************************************
+dnl * regex library
+dnl **************************************************
+AC_CHECK_FUNCS(regexec,,[AC_CHECK_LIB(regex,regexec,[REGEX_LIBS=-lregex],[AC_MSG_ERROR([No regex library found])])])
+AC_SUBST(REGEX_LIBS)
+
+dnl ******************************
+dnl shlib factory
+dnl ******************************
+
+AC_ARG_ENABLE(shlib-factory, [  --enable-shlib-factory  build editor factory as shared library [default=yes]],shlib_factory="$enableval", shlib_factory="yes")
+
+if test "x$shlib_factory" = "xyes"; then
+	GNOME_GTKHTML_EDITOR_SHLIB=1
+	GNOME_GTKHTML_EDITOR_TYPE="shlib"
+	AC_DEFINE(GNOME_GTKHTML_EDITOR_SHLIB,, [Editor shlib])
+else
+	GNOME_GTKHTML_EDITOR_TYPE="exe"
+fi
+
+AC_SUBST(GNOME_GTKHTML_EDITOR_TYPE)
+AM_CONDITIONAL(EDITOR_SHLIB, test x$shlib_factory = xyes)
+
+dnl **********************************
+dnl Library version information.
+dnl **********************************
+ 
+dnl Increment the following if the interface has additions, changes,
+dnl removals.
+GTKHTML_CURRENT=20
+
+dnl Increment any time the source changes; set to 0 if you
+dnl increment CURRENT.
+GTKHTML_REVISION=0
+
+dnl Increment if any interfaces have been added; set to 0
+dnl if any interfaces have been removed. removal has 
+dnl precedence over adding, so set to 0 if both happened.
+GTKHTML_AGE=1
+
+AC_SUBST(GTKHTML_CURRENT)
+AC_SUBST(GTKHTML_REVISION)
+AC_SUBST(GTKHTML_AGE)
+
+dnl **************
+dnl Done.
+dnl **************
+
+AC_OUTPUT([
+Makefile
+gtkhtml.spec
+gtkhtml-zip
+po/Makefile.in
+gtkhtml/Makefile
+gtkhtml/libgtkhtml.pc
+a11y/Makefile
+components/Makefile
+components/html-editor/Makefile
+components/editor/Makefile
+components/editor/gtkhtml-editor.pc
+art/Makefile
+])
+
+echo "
+
+Configuration:
+
+	Editor component type:		${GNOME_GTKHTML_EDITOR_TYPE}
+"

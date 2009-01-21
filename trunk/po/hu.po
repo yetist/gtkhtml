@@ -1,0 +1,2738 @@
+# Hungarian translation of gtkhtml.
+# Copyright (C) 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008 Free Software Foundation, Inc.
+# This file is distributed under the same license as the gtkhtml package.
+#
+# Andras Timar <timar@gnome.hu>, 2001, 2002, 2003.
+# Laszlo Dvornik <dvornik@gnome.hu>, 2004.
+# Gabor Kelemen <kelemeng@gnome.hu>, 2004, 2005, 2006, 2007, 2008.
+# Mate ORY <orymate at gmail d0t com>, 2006.
+# Mate Ory <orymate@gmail.com>, 2008.
+msgid ""
+msgstr ""
+"Project-Id-Version: gtkhtml.HEAD.hu\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-09-01 04:13+0000\n"
+"PO-Revision-Date: 2008-09-17 01:37+0200\n"
+"Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
+"Language-Team: Hungarian <gnome@fsf.hu>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+
+#: ../a11y/image.c:151
+#, c-format
+msgid "URL is %s, Alternative Text is %s"
+msgstr "Az URL: %s, az alternatív szöveg: %s"
+
+#: ../a11y/image.c:153
+#, c-format
+msgid "URL is %s"
+msgstr "Az URL: %s"
+
+#: ../a11y/object.c:52 ../a11y/object.c:61 ../a11y/text.c:126
+msgid "grab focus"
+msgstr "fókusz elkapása"
+
+#: ../a11y/object.c:259
+msgid "Panel containing HTML"
+msgstr "HTML-t tartalmazó panel"
+
+#: ../components/editor/gtkhtml-color-combo.c:78
+#: ../components/html-editor/gi-color-palette.c:555
+msgid "black"
+msgstr "fekete"
+
+#: ../components/editor/gtkhtml-color-combo.c:79
+#: ../components/html-editor/gi-color-palette.c:556
+msgid "light brown"
+msgstr "világosbarna"
+
+#: ../components/editor/gtkhtml-color-combo.c:80
+#: ../components/html-editor/gi-color-palette.c:557
+msgid "brown gold"
+msgstr "aranybarna"
+
+#: ../components/editor/gtkhtml-color-combo.c:81
+#: ../components/html-editor/gi-color-palette.c:558
+msgid "dark green #2"
+msgstr "sötétzöld #2"
+
+#: ../components/editor/gtkhtml-color-combo.c:82
+#: ../components/html-editor/gi-color-palette.c:559
+msgid "navy"
+msgstr "tengerkék"
+
+#: ../components/editor/gtkhtml-color-combo.c:83
+#: ../components/html-editor/gi-color-palette.c:560
+#: ../components/html-editor/gi-color-palette.c:616
+msgid "dark blue"
+msgstr "sötétkék"
+
+#: ../components/editor/gtkhtml-color-combo.c:84
+#: ../components/html-editor/gi-color-palette.c:561
+msgid "purple #2"
+msgstr "bíbor #2"
+
+#: ../components/editor/gtkhtml-color-combo.c:85
+#: ../components/html-editor/gi-color-palette.c:562
+msgid "very dark gray"
+msgstr "nagyon sötét szürke"
+
+#: ../components/editor/gtkhtml-color-combo.c:87
+#: ../components/html-editor/gi-color-palette.c:565
+#: ../components/html-editor/gi-color-palette.c:621
+msgid "dark red"
+msgstr "sötétvörös"
+
+#: ../components/editor/gtkhtml-color-combo.c:88
+#: ../components/html-editor/gi-color-palette.c:566
+msgid "red-orange"
+msgstr "narancsvörös"
+
+#: ../components/editor/gtkhtml-color-combo.c:89
+#: ../components/html-editor/gi-color-palette.c:567
+msgid "gold"
+msgstr "arany"
+
+#: ../components/editor/gtkhtml-color-combo.c:90
+#: ../components/html-editor/gi-color-palette.c:568
+msgid "dark green"
+msgstr "sötétzöld"
+
+#: ../components/editor/gtkhtml-color-combo.c:91
+#: ../components/html-editor/gi-color-palette.c:569
+#: ../components/html-editor/gi-color-palette.c:622
+msgid "dull blue"
+msgstr "matt kék"
+
+#: ../components/editor/gtkhtml-color-combo.c:92
+#: ../components/html-editor/gi-color-palette.c:570
+#: ../components/html-editor/gi-color-palette.c:623
+msgid "blue"
+msgstr "kék"
+
+#: ../components/editor/gtkhtml-color-combo.c:93
+#: ../components/html-editor/gi-color-palette.c:571
+msgid "dull purple"
+msgstr "matt bíbor"
+
+#: ../components/editor/gtkhtml-color-combo.c:94
+#: ../components/html-editor/gi-color-palette.c:572
+msgid "dark grey"
+msgstr "sötétszürke"
+
+#: ../components/editor/gtkhtml-color-combo.c:96
+#: ../components/html-editor/gi-color-palette.c:575
+msgid "red"
+msgstr "vörös"
+
+#: ../components/editor/gtkhtml-color-combo.c:97
+#: ../components/html-editor/gi-color-palette.c:576
+msgid "orange"
+msgstr "narancs"
+
+#: ../components/editor/gtkhtml-color-combo.c:98
+#: ../components/html-editor/gi-color-palette.c:577
+msgid "lime"
+msgstr "zöldcitrom"
+
+#: ../components/editor/gtkhtml-color-combo.c:99
+#: ../components/html-editor/gi-color-palette.c:578
+msgid "dull green"
+msgstr "matt zöld"
+
+#: ../components/editor/gtkhtml-color-combo.c:100
+#: ../components/html-editor/gi-color-palette.c:579
+msgid "dull blue #2"
+msgstr "matt kék #2"
+
+#: ../components/editor/gtkhtml-color-combo.c:101
+#: ../components/html-editor/gi-color-palette.c:580
+msgid "sky blue #2"
+msgstr "égszínkék #2"
+
+#: ../components/editor/gtkhtml-color-combo.c:102
+#: ../components/html-editor/gi-color-palette.c:581
+#: ../components/html-editor/gi-color-palette.c:620
+msgid "purple"
+msgstr "bíbor"
+
+#: ../components/editor/gtkhtml-color-combo.c:103
+#: ../components/html-editor/gi-color-palette.c:582
+msgid "gray"
+msgstr "szürke"
+
+#: ../components/editor/gtkhtml-color-combo.c:105
+#: ../components/html-editor/gi-color-palette.c:585
+#: ../components/html-editor/gi-color-palette.c:617
+msgid "magenta"
+msgstr "lila"
+
+#: ../components/editor/gtkhtml-color-combo.c:106
+#: ../components/html-editor/gi-color-palette.c:586
+msgid "bright orange"
+msgstr "világos narancs"
+
+#: ../components/editor/gtkhtml-color-combo.c:107
+#: ../components/html-editor/gi-color-palette.c:587
+#: ../components/html-editor/gi-color-palette.c:618
+msgid "yellow"
+msgstr "sárga"
+
+#: ../components/editor/gtkhtml-color-combo.c:108
+#: ../components/html-editor/gi-color-palette.c:588
+msgid "green"
+msgstr "zöld"
+
+#: ../components/editor/gtkhtml-color-combo.c:109
+#: ../components/html-editor/gi-color-palette.c:589
+#: ../components/html-editor/gi-color-palette.c:619
+msgid "cyan"
+msgstr "cián"
+
+#: ../components/editor/gtkhtml-color-combo.c:110
+#: ../components/html-editor/gi-color-palette.c:590
+msgid "bright blue"
+msgstr "világoskék"
+
+#: ../components/editor/gtkhtml-color-combo.c:111
+#: ../components/html-editor/gi-color-palette.c:591
+#: ../components/html-editor/gi-color-palette.c:608
+msgid "red purple"
+msgstr "bíborvörös"
+
+#: ../components/editor/gtkhtml-color-combo.c:112
+#: ../components/html-editor/gi-color-palette.c:592
+msgid "light grey"
+msgstr "világosszürke"
+
+#: ../components/editor/gtkhtml-color-combo.c:114
+#: ../components/html-editor/gi-color-palette.c:595
+#: ../components/html-editor/gi-color-palette.c:612
+msgid "pink"
+msgstr "rózsaszín"
+
+#: ../components/editor/gtkhtml-color-combo.c:115
+#: ../components/html-editor/gi-color-palette.c:596
+msgid "light orange"
+msgstr "világos narancs"
+
+#: ../components/editor/gtkhtml-color-combo.c:116
+#: ../components/html-editor/gi-color-palette.c:597
+#: ../components/html-editor/gi-color-palette.c:609
+msgid "light yellow"
+msgstr "világos sárga"
+
+#: ../components/editor/gtkhtml-color-combo.c:117
+#: ../components/html-editor/gi-color-palette.c:598
+msgid "light green"
+msgstr "világoszöld"
+
+#: ../components/editor/gtkhtml-color-combo.c:118
+#: ../components/html-editor/gi-color-palette.c:599
+msgid "light cyan"
+msgstr "világos cián"
+
+#: ../components/editor/gtkhtml-color-combo.c:119
+#: ../components/html-editor/gi-color-palette.c:600
+#: ../components/html-editor/gi-color-palette.c:610
+msgid "light blue"
+msgstr "világoskék"
+
+#: ../components/editor/gtkhtml-color-combo.c:120
+#: ../components/html-editor/gi-color-palette.c:601
+#: ../components/html-editor/gi-color-palette.c:614
+msgid "light purple"
+msgstr "világosbíbor"
+
+#: ../components/editor/gtkhtml-color-combo.c:121
+#: ../components/html-editor/gi-color-palette.c:602
+msgid "white"
+msgstr "fehér"
+
+#: ../components/editor/gtkhtml-color-combo.c:269
+#: ../components/html-editor/gi-color-palette.c:422
+msgid "Choose Custom Color"
+msgstr "Egyéni szín kiválasztása"
+
+#: ../components/editor/gtkhtml-color-combo.c:693
+#: ../components/editor/gtkhtml-color-state.c:190
+msgid "Current color"
+msgstr "Jelenlegi szín"
+
+#: ../components/editor/gtkhtml-color-combo.c:694
+msgid "The currently selected color"
+msgstr "A jelenleg kiválasztott szín"
+
+#: ../components/editor/gtkhtml-color-combo.c:703
+#: ../components/editor/gtkhtml-color-state.c:200
+msgid "Default color"
+msgstr "Alapértelmezett szín"
+
+#: ../components/editor/gtkhtml-color-combo.c:704
+msgid "The color associated with the default button"
+msgstr "Az alapértelmezett gombhoz társított szín"
+
+#: ../components/editor/gtkhtml-color-combo.c:714
+#: ../components/editor/gtkhtml-color-state.c:211
+msgid "Default label"
+msgstr "Alapértelmezett címke"
+
+#: ../components/editor/gtkhtml-color-combo.c:715
+msgid "The label for the default button"
+msgstr "Az alapértelmezett gombhoz társított címke"
+
+#: ../components/editor/gtkhtml-color-combo.c:716
+#: ../components/editor/gtkhtml-color-state.c:213
+msgid "Default"
+msgstr "Alapértelmezett"
+
+#: ../components/editor/gtkhtml-color-combo.c:725
+#: ../components/editor/gtkhtml-color-state.c:222
+msgid "Color palette"
+msgstr "Színpaletta"
+
+#: ../components/editor/gtkhtml-color-combo.c:726
+#: ../components/editor/gtkhtml-color-state.c:223
+msgid "Custom color palette"
+msgstr "Egyéni színpaletta"
+
+#: ../components/editor/gtkhtml-color-combo.c:735
+msgid "Popup shown"
+msgstr "Legördülő mutatása"
+
+#: ../components/editor/gtkhtml-color-combo.c:736
+msgid "Whether the combo's dropdown is shown"
+msgstr "Megjelenjen-e a kombinált listamező legördülő része"
+
+#: ../components/editor/gtkhtml-color-combo.c:745
+msgid "Color state"
+msgstr "Színállapot"
+
+#: ../components/editor/gtkhtml-color-combo.c:746
+msgid "State of the color combo"
+msgstr "A kombinált listamező állapota"
+
+#. This is the default custom color
+#: ../components/editor/gtkhtml-color-combo.c:928
+#: ../components/html-editor/gi-color-palette.c:374
+msgid "custom"
+msgstr "egyéni"
+
+#: ../components/editor/gtkhtml-color-combo.c:936
+msgid "Custom Color..."
+msgstr "Egyéni szín…"
+
+#: ../components/editor/gtkhtml-color-state.c:191
+#: ../components/editor/gtkhtml-color-swatch.c:178
+msgid "The current color"
+msgstr "Jelenlegi szín"
+
+#: ../components/editor/gtkhtml-color-state.c:201
+msgid "The default color"
+msgstr "Alapértelmezett szín"
+
+#: ../components/editor/gtkhtml-color-state.c:212
+msgid "Description of the default color"
+msgstr "Az alapértelmezett szín leírása"
+
+#: ../components/editor/gtkhtml-color-swatch.c:177
+msgid "Color"
+msgstr "Szín"
+
+#: ../components/editor/gtkhtml-color-swatch.c:187
+msgid "Frame Shadow"
+msgstr "Keret árnyéka"
+
+#: ../components/editor/gtkhtml-color-swatch.c:188
+msgid "Appearance of the frame border"
+msgstr "Keretszegély megjelenése"
+
+#: ../components/editor/gtkhtml-combo-box.c:323
+msgid "Action"
+msgstr "Művelet"
+
+#: ../components/editor/gtkhtml-combo-box.c:324
+msgid "A GtkRadioAction"
+msgstr "Egy GtkRadiAction objektum"
+
+#: ../components/editor/gtkhtml-editor-actions.c:633
+#: ../components/html-editor/menubar.c:348
+msgid "Insert HTML File"
+msgstr "HTML fájl beszúrása"
+
+#: ../components/editor/gtkhtml-editor-actions.c:642
+#: ../components/editor/gtkhtml-editor-actions.c:1760
+msgid "Insert Image"
+msgstr "Kép beszúrása"
+
+#: ../components/editor/gtkhtml-editor-actions.c:808
+#: ../components/html-editor/menubar.c:348
+msgid "Insert Text File"
+msgstr "szövegfájl beszúrása"
+
+#. Replace Button
+#: ../components/editor/gtkhtml-editor-actions.c:1269
+#: ../components/editor/gtkhtml-spell-dialog.c:522
+#: ../components/html-editor/replace.c:85
+msgid "_Replace"
+msgstr "_Csere"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1276
+#: ../components/html-editor/replace.c:82
+msgid "Replace _All"
+msgstr "Mindet _cseréli"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1290
+#: ../components/html-editor/replace.c:83
+msgid "_Next"
+msgstr "_Következő"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1297
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:111
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
+msgid "_Copy"
+msgstr "_Másolás"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1304
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:18
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:18
+msgid "Cu_t"
+msgstr "_Kivágás"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1318
+msgid "Find A_gain"
+msgstr "Keresés meg_ismétlése"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1332
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:120
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
+msgid "_Increase Indent"
+msgstr "Behúzás _növelése"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1334
+msgid "Increase Indent"
+msgstr "Behúzás növelése"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1339
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:117
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
+msgid "_HTML File..."
+msgstr "_HTML-fájl…"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1346
+msgid "_Angel"
+msgstr "_Angyal"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1353
+msgid "_Cool"
+msgstr "_Hűvös"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1360
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:17
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:17
+msgid "Cr_ying"
+msgstr "_Sírás"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1367
+msgid "_Devilish"
+msgstr "Ör_dögi"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1374
+msgid "_Embarrassed"
+msgstr "_Zavart"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1381
+msgid "_Kiss"
+msgstr "_Csók"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1388
+msgid "_Monkey"
+msgstr "Maj_om"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1395
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:121
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
+msgid "_Indifferent"
+msgstr "Kö_zömbös"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1402
+msgid "_Tongue"
+msgstr "_Nyelvöltés"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1409
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:116
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
+msgid "_Frown"
+msgstr "_Rosszalló"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1416
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:137
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
+msgid "_Smile"
+msgstr "_Mosoly"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1423
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:123
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
+msgid "_Laughing"
+msgstr "Ne_vető"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1430
+msgid "Smi_rk"
+msgstr "Ön_elégült vigyor"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1437
+msgid "Sur_prised"
+msgstr "Me_glepett"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1444
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:160
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:160
+msgid "_Wink"
+msgstr "_Kacsintás"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1451
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:157
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:157
+msgid "_Undecided"
+msgstr "_Határozatlan"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1458
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:91
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
+msgid "S_ick"
+msgstr "_Beteg"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1465
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:100
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
+msgid "Te_xt File..."
+msgstr "_Szövegfájl…"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1472
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:129
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
+msgid "_Paste"
+msgstr "_Beillesztés"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1479
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:79
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
+#: ../components/html-editor/popup.c:446
+msgid "Paste _Quotation"
+msgstr "_Idézet beillesztése"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1486
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:132
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
+msgid "_Redo"
+msgstr "Új_ra"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1493
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:92
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
+msgid "Select _All"
+msgstr "Mindent ki_jelöl"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1500
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:114
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
+msgid "_Find..."
+msgstr "_Keresés…"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1507
+msgid "Re_place..."
+msgstr "_Csere…"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1514
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:12
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
+msgid "Check _Spelling..."
+msgstr "Helyesírá_s-ellenőrzés…"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1521
+#: ../components/editor/gtkhtml-editor.glade.h:77
+#: ../components/html-editor/utils.c:205
+msgid "_Test URL..."
+msgstr "_Teszt URL…"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1528
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:159
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:159
+msgid "_Undo"
+msgstr "_Visszavonás"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1535
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:112
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
+msgid "_Decrease Indent"
+msgstr "Behúzás _csökkentése"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1537
+msgid "Decrease Indent"
+msgstr "Behúzás csökkentése"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1542
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:161
+msgid "_Wrap Lines"
+msgstr "Sorok tör_delése"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1551
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:113
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
+msgid "_Edit"
+msgstr "S_zerkesztés"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1558
+#: ../components/editor/main.c:324
+msgid "_File"
+msgstr "_Fájl"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1565
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:28
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:28
+msgid "For_mat"
+msgstr "F_ormátum"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1572
+msgid "_Paragraph Style"
+msgstr "_Bekezdés stílusa…"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1579
+msgid "_Emoticon"
+msgstr "_Hangulatjel"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1586
+msgid "_Insert"
+msgstr "_Beszúrás"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1593
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:106
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
+msgid "_Alignment"
+msgstr "_Igazítás"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1600
+#: ../components/html-editor/spellchecker.c:424
+msgid "Current _Languages"
+msgstr "Jelenlegi _nyelvek"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1607
+#: ../components/editor/main.c:355
+msgid "_View"
+msgstr "_Nézet"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1617
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
+msgid "_Center"
+msgstr "_Középen"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1619
+msgid "Center Alignment"
+msgstr "Középre igazítás"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1624
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
+msgid "_Left"
+msgstr "_Balra"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1626
+msgid "Left Alignment"
+msgstr "Balra igazítás"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1631
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:134
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:134
+msgid "_Right"
+msgstr "_Jobbra"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1633
+msgid "Right Alignment"
+msgstr "Jobbra igazítás"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1641
+msgid "_HTML"
+msgstr "_HTML"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1643
+msgid "HTML editing mode"
+msgstr "HTML-szerkesztési mód"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1648
+msgid "Plain _Text"
+msgstr "_Egyszerű szöveg"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1650
+msgid "Plain text editing mode"
+msgstr "Egyszerű szöveges szerkesztési mód"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1658
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:126
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
+msgid "_Normal"
+msgstr "_Normál"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1665
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:29
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:29
+msgid "Header _1"
+msgstr "Címsor _1"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1672
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:30
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:30
+msgid "Header _2"
+msgstr "Címsor _2"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1679
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:31
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:31
+msgid "Header _3"
+msgstr "Címsor _3"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1686
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:32
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:32
+msgid "Header _4"
+msgstr "Címsor _4"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1693
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:33
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:33
+msgid "Header _5"
+msgstr "Címsor _5"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1700
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:34
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:34
+msgid "Header _6"
+msgstr "Címsor _6"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1707
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:8
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:8
+msgid "A_ddress"
+msgstr "_Cím"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1714
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:131
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
+msgid "_Preformatted"
+msgstr "E_lőre formázott"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1721
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:109
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
+msgid "_Bulleted List"
+msgstr "_Felsorolás"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1728
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:135
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
+msgid "_Roman Numeral List"
+msgstr "_Római számokkal számozott lista"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1735
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:76
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
+msgid "Numbered _List"
+msgstr "Számozott _lista"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1742
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:107
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
+msgid "_Alphabetical List"
+msgstr "_Betűkkel jelölt lista"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1758
+#: ../components/editor/gtkhtml-editor-actions.c:1793
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:119
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
+msgid "_Image..."
+msgstr "_Kép…"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1765
+#: ../components/editor/gtkhtml-editor-actions.c:1800
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:125
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
+msgid "_Link..."
+msgstr "Hiv_atkozás…"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1767
+msgid "Insert Link"
+msgstr "Hivatkozás beszúrása"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1772
+#: ../components/editor/gtkhtml-editor-actions.c:1814
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:136
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
+msgid "_Rule..."
+msgstr "_Vonal…"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1774
+msgid "Insert Rule"
+msgstr "Vonal beszúrása"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1779
+#: ../components/editor/gtkhtml-editor-actions.c:1821
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:140
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:140
+msgid "_Table..."
+msgstr "_Táblázat…"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1781
+msgid "Insert Table"
+msgstr "Táblázat beszúrása"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1786
+msgid "_Cell..."
+msgstr "_Cella…"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1807
+msgid "Pa_ge..."
+msgstr "_Oldal…"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1830
+msgid "Font _Size"
+msgstr "_Betűméret"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1837
+msgid "_Font Style"
+msgstr "_Betűstílus"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1847
+#: ../components/editor/gtkhtml-editor.glade.h:58
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:108
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:59
+msgid "_Bold"
+msgstr "_Félkövér"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1849
+#: ../components/html-editor/toolbar.c:441
+msgid "Bold"
+msgstr "Félkövér"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1855
+#: ../components/editor/gtkhtml-editor.glade.h:65
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:122
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:65
+msgid "_Italic"
+msgstr "_Dőlt"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1857
+#: ../components/html-editor/toolbar.c:444
+msgid "Italic"
+msgstr "Dőlt"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1863
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:130
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
+msgid "_Plain Text"
+msgstr "_Egyszerű szöveg"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1865
+msgid "Plain Text"
+msgstr "Egyszerű szöveg"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1871
+#: ../components/editor/gtkhtml-editor.glade.h:74
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:138
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:71
+msgid "_Strikethrough"
+msgstr "Á_thúzott"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1873
+msgid "Strikethrough"
+msgstr "Áthúzott"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1879
+#: ../components/editor/gtkhtml-editor.glade.h:80
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:158
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:158
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:74
+msgid "_Underline"
+msgstr "A_láhúzott"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1881
+#: ../components/html-editor/toolbar.c:447
+msgid "Underline"
+msgstr "Aláhúzott"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1890
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:7
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:7
+msgid "-2"
+msgstr "-2"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1897
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:6
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:6
+msgid "-1"
+msgstr "-1"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1904
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:1
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
+msgid "+0"
+msgstr "+0"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1911
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:2
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:2
+msgid "+1"
+msgstr "+1"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1918
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:3
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:3
+msgid "+2"
+msgstr "+2"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1925
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:4
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:4
+msgid "+3"
+msgstr "+3"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1932
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:5
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:5
+msgid "+4"
+msgstr "+4"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1951
+msgid "Cell Contents"
+msgstr "Cellatartalom"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1958
+#: ../components/html-editor/popup.c:523
+msgid "Column"
+msgstr "Oszlop"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1965
+#: ../components/html-editor/popup.c:522
+msgid "Row"
+msgstr "Sor"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1972
+#: ../components/editor/gtkhtml-editor-actions.c:2055
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:50
+#: ../components/html-editor/menubar.c:217
+#: ../components/html-editor/popup.c:235 ../components/html-editor/popup.c:509
+#: ../components/html-editor/popup.c:521
+msgid "Table"
+msgstr "Táblázat"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1981
+msgid "Table Delete"
+msgstr "Táblázat törlése"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1988
+#: ../components/html-editor/popup.c:584
+msgid "Input Methods"
+msgstr "Beviteli módok"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1995
+msgid "Table Insert"
+msgstr "Táblázat beszúrása"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2002
+#: ../components/html-editor/editor-control-factory.c:187
+#: ../components/html-editor/popup.c:191 ../components/html-editor/popup.c:268
+msgid "Properties"
+msgstr "Tulajdonságok"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2020
+msgid "Column After"
+msgstr "Oszlop mögé"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2027
+msgid "Column Before"
+msgstr "Oszlop elé"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2034
+#: ../components/html-editor/popup.c:450
+msgid "Insert _Link"
+msgstr "Hi_vatkozás beszúrása"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2041
+msgid "Row Above"
+msgstr "Sor fölé"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2048
+msgid "Row Below"
+msgstr "Sor alá"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2062
+msgid "Cell..."
+msgstr "Cella…"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2069
+msgid "Image..."
+msgstr "Kép…"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2076
+msgid "Link..."
+msgstr "Hivatkozás…"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2083
+msgid "Page..."
+msgstr "Oldal…"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2090
+msgid "Paragraph..."
+msgstr "Bekezdés…"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2097
+msgid "Rule..."
+msgstr "Vonal…"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2104
+msgid "Table..."
+msgstr "Táblázat…"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2111
+msgid "Text..."
+msgstr "Szöveg…"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2118
+#: ../components/html-editor/popup.c:457
+msgid "Remove Link"
+msgstr "Hivatkozás eltávolítása"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2135
+#: ../components/html-editor/popup.c:578
+msgid "Add Word to Dictionary"
+msgstr "Szó hozzáadása a szótárhoz"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2142
+#: ../components/html-editor/popup.c:559
+msgid "Ignore Misspelled Word"
+msgstr "Rosszul írt szó mellőzése"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2149
+msgid "Add Word To"
+msgstr "Szó hozzáadása ehhez"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2367
+msgid "_Find"
+msgstr "_Keresés"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2370
+msgid "Re_place"
+msgstr "_Csere"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2373
+msgid "_Image"
+msgstr "Ké_p"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2376
+msgid "_Link"
+msgstr "Hi_vatkozás"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2379
+msgid "_Rule"
+msgstr "_Vonal"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2382
+#: ../components/editor/gtkhtml-editor.glade.h:76
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:72
+msgid "_Table"
+msgstr "_Táblázat"
+
+#: ../components/editor/gtkhtml-editor-private.c:253
+msgid "Paragraph Style"
+msgstr "Bekezdés stílusa"
+
+#: ../components/editor/gtkhtml-editor-private.c:267
+msgid "Editing Mode"
+msgstr "Szerkesztési mód"
+
+#: ../components/editor/gtkhtml-editor-private.c:279
+msgid "Font Color"
+msgstr "Betűszín"
+
+#: ../components/editor/gtkhtml-editor-private.c:289
+msgid "Font Size"
+msgstr "Betűméret"
+
+#: ../components/editor/gtkhtml-editor-private.c:316
+#: ../components/html-editor/body.c:237 ../components/html-editor/text.c:171
+#: ../components/html-editor/toolbar.c:199
+msgid "Automatic"
+msgstr "Automatikus"
+
+#: ../components/editor/gtkhtml-editor.c:702
+msgid "Current Folder"
+msgstr "Jelenlegi mappa"
+
+#: ../components/editor/gtkhtml-editor.c:703
+msgid "The initial folder for file chooser dialogs"
+msgstr "Kezdeti mappa a fájlválasztó ablakokhoz"
+
+#: ../components/editor/gtkhtml-editor.c:713
+msgid "Filename"
+msgstr "Fájlnév"
+
+#: ../components/editor/gtkhtml-editor.c:714
+msgid "The filename to use when saving"
+msgstr "A mentéshez használt fájlnév"
+
+#: ../components/editor/gtkhtml-editor.c:724
+msgid "HTML Mode"
+msgstr "HTML mód"
+
+#: ../components/editor/gtkhtml-editor.c:725
+msgid "Edit HTML or plain text"
+msgstr "HTMl vagy egyszerű szöveg szerkesztése"
+
+#: ../components/editor/gtkhtml-editor.c:735
+msgid "Inline Spelling"
+msgstr "Helyesírás-ellenőrzés"
+
+#: ../components/editor/gtkhtml-editor.c:736
+msgid "Check your spelling as you type"
+msgstr "A dokumentum helyesírás-ellenőrzése gépelés közben"
+
+#: ../components/editor/gtkhtml-editor.c:746
+msgid "Magic Links"
+msgstr "Varázshivatkozások"
+
+#: ../components/editor/gtkhtml-editor.c:747
+msgid "Make URIs clickable as you type"
+msgstr "URI-k kattinthatóvá tétele gépelés közben"
+
+#: ../components/editor/gtkhtml-editor.c:757
+msgid "Magic Smileys"
+msgstr "Varázsmosolyok"
+
+#: ../components/editor/gtkhtml-editor.c:758
+msgid "Convert emoticons to images as you type"
+msgstr "Hangulatjelek átalakítása képpé gépelés közben"
+
+#: ../components/editor/gtkhtml-editor.glade.h:1
+msgid "<b>Alignment &amp; Behavior</b>"
+msgstr "<b>Igazítás és viselkedés</b>"
+
+#: ../components/editor/gtkhtml-editor.glade.h:2
+msgid "<b>Alignment</b>"
+msgstr "<b>Igazítás</b>"
+
+#: ../components/editor/gtkhtml-editor.glade.h:3
+msgid "<b>Background Image</b>"
+msgstr "<b>Háttérkép</b>"
+
+#: ../components/editor/gtkhtml-editor.glade.h:4
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:11
+msgid "<b>Background</b>"
+msgstr "<b>Háttér</b>"
+
+#: ../components/editor/gtkhtml-editor.glade.h:5
+msgid "<b>Colors</b>"
+msgstr "<b>Színek</b>"
+
+#: ../components/editor/gtkhtml-editor.glade.h:6
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:12
+msgid "<b>General</b>"
+msgstr "<b>Általános</b>"
+
+#: ../components/editor/gtkhtml-editor.glade.h:7
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:13
+msgid "<b>Layout</b>"
+msgstr "<b>Elrendezés</b>"
+
+#: ../components/editor/gtkhtml-editor.glade.h:8
+msgid "<b>Link</b>"
+msgstr "<b>Hivatkozás</b>"
+
+#: ../components/editor/gtkhtml-editor.glade.h:9
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:14
+msgid "<b>Scope</b>"
+msgstr "<b>Címtartomány</b>"
+
+#: ../components/editor/gtkhtml-editor.glade.h:10
+msgid "<b>Size</b>"
+msgstr "<b>Méret</b>"
+
+#: ../components/editor/gtkhtml-editor.glade.h:11
+msgid "<b>Style</b>"
+msgstr "<b>Stílus</b>"
+
+#: ../components/editor/gtkhtml-editor.glade.h:12
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:23
+msgid "C_ell"
+msgstr "C_ella"
+
+#: ../components/editor/gtkhtml-editor.glade.h:13
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:24
+msgid "C_olor:"
+msgstr "_Szín:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:14
+msgid "C_olumns:"
+msgstr "_Oszlopok:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:15
+#: ../components/html-editor/body.c:286
+msgid "C_ustom:"
+msgstr "_Egyéni:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:16
+#: ../components/html-editor/replace.c:180
+#: ../components/html-editor/search.c:116
+msgid "Case _sensitive"
+msgstr "Kis- és _nagybetű"
+
+#: ../components/editor/gtkhtml-editor.glade.h:17
+msgid "Cell Properties"
+msgstr "Cellatulajdonságok"
+
+#: ../components/editor/gtkhtml-editor.glade.h:18
+msgid "Co_lor:"
+msgstr "_Szín:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:19
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:26
+msgid "Col_umn"
+msgstr "O_szlop"
+
+#: ../components/editor/gtkhtml-editor.glade.h:20
+msgid "Column Span:"
+msgstr "Oszlopátnyúlás:"
+
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
+#: ../components/editor/gtkhtml-editor.glade.h:21
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:23
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:23
+#: ../components/html-editor/search.c:110
+#: ../components/html-editor/search.c:171
+msgid "Find"
+msgstr "Keresés"
+
+#: ../components/editor/gtkhtml-editor.glade.h:22
+msgid "Hea_der Style"
+msgstr "_Címsorstílus"
+
+#: ../components/editor/gtkhtml-editor.glade.h:23
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:34
+msgid "I_mage:"
+msgstr "_Kép:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:24
+msgid "Image Properties"
+msgstr "Képtulajdonságok"
+
+#: ../components/editor/gtkhtml-editor.glade.h:25
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:36
+msgid ""
+"Left\n"
+"Center\n"
+"Right"
+msgstr ""
+"Balra\n"
+"Középre\n"
+"Jobbra"
+
+#: ../components/editor/gtkhtml-editor.glade.h:28
+msgid "Link Properties"
+msgstr "Hivatkozás tulajdonságai"
+
+#: ../components/editor/gtkhtml-editor.glade.h:29
+msgid ""
+"None\n"
+"Perforated Paper\n"
+"Blue Ink\n"
+"Paper\n"
+"Ribbon\n"
+"Midnight\n"
+"Confidential\n"
+"Draft\n"
+"Graph Paper"
+msgstr ""
+"Nincs\n"
+"Perforált papír\n"
+"Kék tinta\n"
+"Papír\n"
+"Szalag\n"
+"Éjfél\n"
+"Bizalmas\n"
+"Vázlat\n"
+"Füzetlap"
+
+#: ../components/editor/gtkhtml-editor.glade.h:38
+msgid "Page Properties"
+msgstr "Oldaltulajdonságok"
+
+#: ../components/editor/gtkhtml-editor.glade.h:39
+msgid "Paragraph Properties"
+msgstr "Bekezdéstulajdonságok"
+
+#: ../components/editor/gtkhtml-editor.glade.h:40
+#: ../components/html-editor/replace.c:190
+msgid "R_eplace:"
+msgstr "C_sere:"
+
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
+#: ../components/editor/gtkhtml-editor.glade.h:41
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:87
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
+#: ../components/html-editor/replace.c:171
+#: ../components/html-editor/replace.c:236
+msgid "Replace"
+msgstr "Csere"
+
+#: ../components/editor/gtkhtml-editor.glade.h:42
+msgid "Replace Confirmation"
+msgstr "Megerősítés csere előtt"
+
+#: ../components/editor/gtkhtml-editor.glade.h:43
+msgid "Row Span:"
+msgstr "Sorátnyúlás:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:44
+msgid "Rule Properties"
+msgstr "Vonaltulajdonságok"
+
+#: ../components/editor/gtkhtml-editor.glade.h:45
+msgid "S_haded"
+msgstr "Á_rnyékos"
+
+#: ../components/editor/gtkhtml-editor.glade.h:46
+msgid "Search _backwards"
+msgstr "Keresés _visszafelé"
+
+#: ../components/editor/gtkhtml-editor.glade.h:47
+msgid "Select An Image"
+msgstr "Válasszon képet"
+
+#: ../components/editor/gtkhtml-editor.glade.h:48
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:48
+msgid "Si_ze:"
+msgstr "_Méret:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:49
+#: ../components/html-editor/body.c:282
+msgid "T_emplate:"
+msgstr "_Sablon:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:50
+msgid "Table Properties"
+msgstr "Táblázattulajdonságok"
+
+#: ../components/editor/gtkhtml-editor.glade.h:51
+msgid "Text Properties"
+msgstr "Szövegtulajdonságok"
+
+#: ../components/editor/gtkhtml-editor.glade.h:52
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:53
+msgid ""
+"Top\n"
+"Middle\n"
+"Bottom"
+msgstr ""
+"Fent\n"
+"Középen\n"
+"Lent"
+
+#: ../components/editor/gtkhtml-editor.glade.h:55
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:57
+msgid "Width:"
+msgstr "Szélesség:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:56
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:58
+msgid "_Alignment:"
+msgstr "_Igazítás:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:57
+#: ../components/html-editor/body.c:252
+msgid "_Background:"
+msgstr "_Háttér:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:59
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:60
+msgid "_Border:"
+msgstr "_Keret:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:60
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:61
+msgid "_Color:"
+msgstr "S_zín:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:61
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:62
+msgid "_Description:"
+msgstr "L_eírás:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:62
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:63
+msgid "_Height:"
+msgstr "_Magasság:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:63
+msgid "_Horizontal:"
+msgstr "_Vízszintes:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:64
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:64
+msgid "_Image:"
+msgstr "Ké_p:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:66
+#: ../components/html-editor/body.c:251
+msgid "_Link:"
+msgstr "Hi_vatkozás:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:67
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:66
+msgid "_Padding:"
+msgstr "_Helykihagyás:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:68
+msgid "_Regular expression"
+msgstr "_Reguláris kifejezés"
+
+#: ../components/editor/gtkhtml-editor.glade.h:69
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:67
+msgid "_Row"
+msgstr "_Sor"
+
+#: ../components/editor/gtkhtml-editor.glade.h:70
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:68
+msgid "_Rows:"
+msgstr "So_rok:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:71
+msgid "_Size:"
+msgstr "_Méret:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:72
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:69
+msgid "_Source:"
+msgstr "_Forrás:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:73
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:70
+msgid "_Spacing:"
+msgstr "_Távolság:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:75
+#: ../components/html-editor/paragraph.c:69
+msgid "_Style:"
+msgstr "_Stílus:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:78
+#: ../components/html-editor/body.c:250
+msgid "_Text:"
+msgstr "S_zöveg:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:79
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:73
+msgid "_URL:"
+msgstr "_URL:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:81
+msgid "_Vertical:"
+msgstr "_Függőleges:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:82
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:75
+msgid "_Width:"
+msgstr "_Szélesség:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:83
+#: ../components/html-editor/replace.c:194
+msgid "_With:"
+msgstr "_Ezzel:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:84
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:76
+msgid "_Wrap Text"
+msgstr "_Szöveg tördelése"
+
+#: ../components/editor/gtkhtml-editor.glade.h:85
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:77
+msgid "_X-Padding:"
+msgstr "_X-helykihagyás:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:86
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:78
+msgid "_Y-Padding:"
+msgstr "_Y-helykihagyás:"
+
+#: ../components/editor/gtkhtml-editor.glade.h:87
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:79
+msgid "px"
+msgstr "px"
+
+#: ../components/editor/gtkhtml-editor.glade.h:89
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:81
+#, no-c-format
+msgid ""
+"px\n"
+"%"
+msgstr ""
+"kp\n"
+"%"
+
+#: ../components/editor/gtkhtml-editor.glade.h:92
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:84
+#, no-c-format
+msgid ""
+"px\n"
+"%\n"
+"follow"
+msgstr ""
+"kp\n"
+"%\n"
+"követés"
+
+#: ../components/editor/gtkhtml-spell-checker.c:200
+msgid "Language"
+msgstr "Nyelv"
+
+#: ../components/editor/gtkhtml-spell-checker.c:201
+msgid "The language used by the spell checker"
+msgstr "A helyesírás-ellenőrzés nyelve"
+
+#: ../components/editor/gtkhtml-spell-dialog.c:117
+#, c-format
+msgid "Suggestions for \"%s\""
+msgstr "Javaslatok ehhez: %s"
+
+#: ../components/editor/gtkhtml-spell-dialog.c:358
+msgid "Misspelled Word"
+msgstr "Rosszul írt szó"
+
+#: ../components/editor/gtkhtml-spell-dialog.c:359
+msgid "The current misspelled word"
+msgstr "Jelenlegi rosszul írt szó"
+
+#: ../components/editor/gtkhtml-spell-dialog.c:449
+msgid "Spell Checker"
+msgstr "Helyesírás-ellenőrző"
+
+#. Replace All Button
+#: ../components/editor/gtkhtml-spell-dialog.c:536
+msgid "R_eplace All"
+msgstr "Mindet _cseréli"
+
+#. Ignore Button
+#: ../components/editor/gtkhtml-spell-dialog.c:550
+msgid "_Ignore"
+msgstr "_Mellőzés"
+
+#. Skip Button
+#: ../components/editor/gtkhtml-spell-dialog.c:564
+msgid "_Skip"
+msgstr "_Kihagyás"
+
+#. Back Button
+#: ../components/editor/gtkhtml-spell-dialog.c:577
+msgid "_Back"
+msgstr "_Vissza"
+
+#. Dictionary Label
+#: ../components/editor/gtkhtml-spell-dialog.c:590
+msgid "Dictionary"
+msgstr "Szótár"
+
+#. Add Word Button
+#: ../components/editor/gtkhtml-spell-dialog.c:619
+msgid "_Add Word"
+msgstr "_Szó hozzáadása"
+
+#. Translators: %s is the language ISO code.
+#: ../components/editor/gtkhtml-spell-language.c:180
+#, c-format
+msgctxt "language"
+msgid "Unknown (%s)"
+msgstr "Ismeretlen (%s)"
+
+#. Translators: The first %s is the language name, and the
+#. * second is the country name. Example: "French (France)"
+#: ../components/editor/gtkhtml-spell-language.c:195
+#: ../components/editor/gtkhtml-spell-language.c:200
+#, c-format
+msgctxt "language"
+msgid "%s (%s)"
+msgstr "%s (%s)"
+
+#. Translators: This refers to the default language used
+#. * by the spell checker.
+#: ../components/editor/gtkhtml-spell-language.c:385
+msgctxt "language"
+msgid "Default"
+msgstr "Alapértelmezett"
+
+#: ../components/editor/main.c:93
+msgid "Save As"
+msgstr "Mentés másként"
+
+#: ../components/editor/main.c:111
+msgid "Untitled document"
+msgstr "Névtelen dokumentum"
+
+#: ../components/editor/main.c:268
+msgid "HTML Output"
+msgstr "HTML-kimenet"
+
+#: ../components/editor/main.c:275
+msgid "HTML Source"
+msgstr "HTML-forrás"
+
+#: ../components/editor/main.c:282
+msgid "Plain Source"
+msgstr "Egyszerű forrás"
+
+#: ../components/editor/main.c:289
+msgid "_Print..."
+msgstr "_Nyomtatás…"
+
+#: ../components/editor/main.c:296
+msgid "Print Pre_view"
+msgstr "Nyomtatási _kép"
+
+#: ../components/editor/main.c:303
+msgid "_Quit"
+msgstr "_Kilépés"
+
+#: ../components/editor/main.c:310
+msgid "_Save"
+msgstr "_Mentés"
+
+#: ../components/editor/main.c:317
+msgid "Save _As..."
+msgstr "Mentés más_ként…"
+
+#: ../components/editor/main.c:334
+msgid "HTML _Output"
+msgstr "HTML-_kimenet"
+
+#: ../components/editor/main.c:341
+msgid "_HTML Source"
+msgstr "HTML-_forrás"
+
+#: ../components/editor/main.c:348
+msgid "_Plain Source"
+msgstr "_Egyszerű forrás"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:9
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:9
+#: ../components/html-editor/paragraph-style.c:56
+msgid "Alphabetical List"
+msgstr "Betűrendi lista"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:10
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:10
+#: ../components/html-editor/paragraph-style.c:47
+msgid "Bulleted List"
+msgstr "Felsorolás"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:11
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:11
+#: ../components/html-editor/toolbar.c:415
+msgid "Center justifies the paragraphs"
+msgstr "Középre igazítja a bekezdést"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:13
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:13
+msgid "Check spelling of the document"
+msgstr "A dokumentum helyesírás-ellenőrzése"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:14
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:14
+msgid "Copy"
+msgstr "Másolás"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:15
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:15
+msgid "Copy selection to clipboard"
+msgstr "Kijelölés másolása a vágólapra"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:16
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:16
+msgid "Copy the selection"
+msgstr "Kijelölés másolása"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:19
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:19
+msgid "Cut"
+msgstr "Kivágás"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:20
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:20
+msgid "Cut selection to clipboard"
+msgstr "Kijelölés kivágása a vágólapra"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:21
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:21
+msgid "Cut the selection"
+msgstr "Kijelölés kivágása"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
+msgid "Emoti_con"
+msgstr "_Hangulatjel"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:24
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:24
+msgid "Find _Again"
+msgstr "Következő _találat"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:25
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:25
+msgid "Find again"
+msgstr "Következő találat"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:26
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:26
+msgid "Find and Replace"
+msgstr "Keresés és csere"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:27
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:27
+msgid "Find and replace"
+msgstr "Keresés és csere"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:35
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
+msgid "I_nsert"
+msgstr "_Beszúrás"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:36
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
+#: ../components/html-editor/editor-control-factory.c:197
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:35
+#: ../components/html-editor/popup.c:211
+msgid "Image"
+msgstr "Kép"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:37
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
+msgid "Insert Crying emoticon into document..."
+msgstr "Síró hangulatjel beszúrása a dokumentumba…"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:38
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
+msgid "Insert Frown emoticon into document..."
+msgstr "Rosszalló hangulatjel beszúrása a dokumentumba…"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:39
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
+msgid "Insert HTML file into document..."
+msgstr "HTML-fájl beszúrása a dokumentumba…"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:40
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:40
+msgid "Insert HTML link into document..."
+msgstr "HTML hivatkozás beszúrása a dokumentumba…"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:41
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
+msgid "Insert HTML template into document..."
+msgstr "HTML sablon beszúrása a dokumentumba…"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:42
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
+msgid "Insert Indifferent emoticon into document..."
+msgstr "Közömbös hangulatjel beszúrása a dokumentumba…"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:43
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
+msgid "Insert Laughing emoticon into document..."
+msgstr "Nevető hangulatjel beszúrása a dokumentumba…"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:44
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
+msgid "Insert Oh no! emoticon into document..."
+msgstr "Ó, ne! hangulatjel beszúrása a dokumentumba…"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:45
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
+msgid "Insert Sick emoticon into document..."
+msgstr "Beteg hangulatjel beszúrása a dokumentumba…"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:46
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
+msgid "Insert Smile emoticon into document..."
+msgstr "Mosolygó hangulatjel beszúrása a dokumentumba…"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:47
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
+msgid "Insert Surprised emoticon into document..."
+msgstr "Meglepett hangulatjel beszúrása a dokumentumba…"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:48
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
+msgid "Insert Tongue emoticon into document..."
+msgstr "Nyelvöltő hangulatjel beszúrása a dokumentumba…"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:49
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
+msgid "Insert Undecided emoticon into document..."
+msgstr "Határozatlan hangulatjel beszúrása a dokumentumba…"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:50
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
+msgid "Insert Wink emoticon into document..."
+msgstr "Kacsintó hangulatjel beszúrása a dokumentumba…"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:51
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
+#: ../components/html-editor/menubar.c:129
+msgid "Insert image"
+msgstr "Kép beszúrása"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:52
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:52
+msgid "Insert image into document..."
+msgstr "Kép beszúrása a dokumentumba…"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:53
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:53
+msgid "Insert link"
+msgstr "Hivatkozás beszúrása"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:54
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
+msgid "Insert rule"
+msgstr "Szabály beszúrása"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
+msgid "Insert rule into document..."
+msgstr "Vonal beszúrása a dokumentumba…"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:56
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
+msgid "Insert table"
+msgstr "Táblázat beszúrása"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:57
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
+msgid "Insert table into document..."
+msgstr "Táblázat beszúrása a dokumentumba…"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:58
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:58
+msgid "Insert text file into document..."
+msgstr "Szövegfájl beszúrása a dokumentumba…"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:59
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
+#: ../components/html-editor/toolbar.c:412
+msgid "Left justifies the paragraphs"
+msgstr "Balra igazítja a bekezdést"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:60
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
+#: ../components/html-editor/menubar.c:174
+#: ../components/html-editor/popup.c:111 ../components/html-editor/popup.c:205
+#: ../components/html-editor/popup.c:271
+msgid "Link"
+msgstr "Hivatkozás"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:61
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
+msgid "Make the current Paragraph style Normal"
+msgstr "A jelenlegi bekezdés stílusa legyen normál"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:62
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
+msgid "Make the current Paragraph style Preformat"
+msgstr "A jelenlegi bekezdés stílusa legyen előre formázott"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:63
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:63
+msgid "Make the current paragraph a bulleted list"
+msgstr "A jelenlegi bekezdés legyen felsorolás"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:64
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:64
+msgid "Make the current paragraph a list with roman numerals"
+msgstr "A jelenlegi bekezdés legyen római számos lista"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:65
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:65
+msgid "Make the current paragraph a numbered list"
+msgstr "A jelenlegi bekezdés legyen számozott lista"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:66
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:66
+msgid "Make the current paragraph an H1 header"
+msgstr "A jelenlegi bekezdés legyen H1 címsor"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:67
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:67
+msgid "Make the current paragraph an H2 header"
+msgstr "A jelenlegi bekezdés legyen H2 címsor"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:68
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:68
+msgid "Make the current paragraph an H3 header"
+msgstr "A jelenlegi bekezdés legyen H3 címsor"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:69
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:69
+msgid "Make the current paragraph an H4 header"
+msgstr "A jelenlegi bekezdés legyen H4 címsor"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:70
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:70
+msgid "Make the current paragraph an H5 header"
+msgstr "A jelenlegi bekezdés legyen H5 címsor"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:71
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
+msgid "Make the current paragraph an H6 header"
+msgstr "A jelenlegi bekezdés legyen H6 címsor"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:72
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
+msgid "Make the current paragraph an address"
+msgstr "A jelenlegi bekezdés legyen cím"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:73
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
+msgid "Make the current paragraph an alphabetical list"
+msgstr "A jelenlegi bekezdés legyen betűkkel jelölt lista"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:74
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
+#: ../components/html-editor/paragraph-style.c:41
+msgid "Normal"
+msgstr "Normál"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:75
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:75
+#: ../components/html-editor/paragraph-style.c:50
+msgid "Numbered List"
+msgstr "Számozott lista"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:77
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
+msgid "Oh _No!"
+msgstr "Ó, _ne!"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:78
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
+msgid "Paste"
+msgstr "Beillesztés"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:80
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
+msgid "Paste from clipboard"
+msgstr "Beillesztés a vágólapról"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:81
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
+msgid "Paste the clipboard"
+msgstr "Vágólap beillesztése"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:82
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
+msgid "Paste the clipboard as a quotation"
+msgstr "Vágólap beillesztése idézetként"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:83
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
+#: ../components/html-editor/paragraph-style.c:44
+msgid "Preformat"
+msgstr "Előre formázott"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:84
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
+msgid "Redo"
+msgstr "Újra"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:85
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
+msgid "Redo previously undone change"
+msgstr "Az előzőleg visszavont művelet ismételt végrehajtása"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
+msgid "Redo the undone action"
+msgstr "A visszavont művelet ismételt végrehajtása"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:88
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
+#: ../components/html-editor/toolbar.c:418
+msgid "Right justifies the paragraphs"
+msgstr "Jobbra igazítja a bekezdést"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:89
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
+msgid "Roman Numeral List"
+msgstr "Római számos lista"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:90
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
+#: ../components/html-editor/editor-control-factory.c:215
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:46
+#: ../components/html-editor/menubar.c:193
+#: ../components/html-editor/popup.c:229
+msgid "Rule"
+msgstr "Vonal"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:93
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
+msgid "Select the entire contents of the document"
+msgstr "Kijelöli a dokumentum teljes tartalmát"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:94
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
+#: ../components/html-editor/toolbar.c:450
+msgid "Strikeout"
+msgstr "Áthúzott"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:95
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
+msgid "Su_rprised"
+msgstr "Me_glepett"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:96
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
+msgid "Subscript"
+msgstr "Felső index"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:97
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
+msgid "Superscript"
+msgstr "Alsó index"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:99
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
+msgid "Te_mplate..."
+msgstr "S_ablon…"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:101
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
+msgid "Ton_gue"
+msgstr "_Nyelvöltés"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:102
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
+#: ../components/html-editor/toolbar.c:439
+msgid "Typewriter"
+msgstr "Írógép"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:103
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
+msgid "Undo"
+msgstr "Visszavonás"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:104
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
+msgid "Undo previous changes"
+msgstr "Előző változtatások visszavonása"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:105
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
+msgid "Undo the last action"
+msgstr "Az utolsó művelet visszavonása"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:115
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
+msgid "_Font Size"
+msgstr "_Betűméret"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:118
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
+msgid "_Heading"
+msgstr "Cí_msor"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:127
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:127
+msgid "_Page..."
+msgstr "_Oldal…"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:128
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:128
+msgid "_Paragraph..."
+msgstr "Beke_zdés…"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:133
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:133
+msgid "_Replace..."
+msgstr "_Csere…"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:139
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:139
+msgid "_Style"
+msgstr "S_tílus"
+
+#.
+#. <submenu name="BackgroundColor" _label="Background Color">
+#. <menuitem name="ColorRed" verb="" _label="Red"/>
+#. <menuitem name="ColorOrange" verb="" _label="Orange"/>
+#. <menuitem name="ColorYellow" verb="" _label="Yellow"/>
+#. <menuitem name="ColorGreen" verb="" _label="Green"/>
+#. <menuitem name="ColorBlue" verb="" _label="Blue"/>
+#. <menuitem name="ColorPurple" verb="" _label="Purple"/>
+#. <menuitem name="etc" verb="" _label="etc..."/>
+#.
+#. <separator/>
+#.
+#. <menuitem name="Other" verb="" _label="Other..."/>
+#. </submenu>
+#.
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:156
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:156
+msgid "_Text..."
+msgstr "_Szöveg…"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:1
+msgid "GNOME HTML Editor"
+msgstr "GNOME HTML-szerkesztő"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:2
+msgid "GNOME HTML Editor Control"
+msgstr "GNOME HTML-szerkesztő kontroll"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:3
+msgid "GNOME HTML Editor Factory"
+msgstr "GNOME HTML-szerkesztő factory"
+
+#: ../components/html-editor/body.c:64
+msgid "None"
+msgstr "Nincs"
+
+#: ../components/html-editor/body.c:72
+msgid "Perforated paper"
+msgstr "Perforált papír"
+
+#: ../components/html-editor/body.c:80
+msgid "Blue ink"
+msgstr "Kék tinta"
+
+#: ../components/html-editor/body.c:88
+msgid "Paper"
+msgstr "Papír"
+
+#: ../components/html-editor/body.c:96
+msgid "Ribbon"
+msgstr "Sáv"
+
+#: ../components/html-editor/body.c:104
+msgid "Midnight"
+msgstr "Éjfél"
+
+#: ../components/html-editor/body.c:112
+msgid "Confidential"
+msgstr "Bizalmas"
+
+#: ../components/html-editor/body.c:120
+msgid "Draft"
+msgstr "Piszkozat"
+
+#: ../components/html-editor/body.c:128
+msgid "Graph paper"
+msgstr "Milliméterpapír"
+
+#: ../components/html-editor/body.c:254
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:27
+msgid "Colors"
+msgstr "Színek"
+
+#: ../components/html-editor/body.c:256 ../components/html-editor/body.c:288
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:22
+msgid "Background Image"
+msgstr "Háttérkép"
+
+#: ../components/html-editor/body.c:267
+msgid "Background Image File Path"
+msgstr "Háttérkép fájl útvonala"
+
+#: ../components/html-editor/body.c:275
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:51
+#: ../components/html-editor/menubar.c:239
+msgid "Template"
+msgstr "Sablon"
+
+#: ../components/html-editor/cell.c:342 ../components/html-editor/image.c:345
+#: ../components/html-editor/link.c:215 ../components/html-editor/rule.c:179
+#: ../components/html-editor/table.c:229
+#: ../components/html-editor/template.c:287
+#: ../components/html-editor/text.c:168
+msgid "Could not load glade file."
+msgstr "A glade fájl nem tölthető be."
+
+#: ../components/html-editor/cell.c:346 ../components/html-editor/table.c:233
+msgid "Transparent"
+msgstr "Átlátszó"
+
+#: ../components/html-editor/editor-control-factory.c:205
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:52
+#: ../components/html-editor/menubar.c:425
+#: ../components/html-editor/popup.c:199
+msgid "Text"
+msgstr "Szöveg"
+
+#: ../components/html-editor/editor-control-factory.c:224
+#: ../components/html-editor/menubar.c:442
+#: ../components/html-editor/popup.c:217
+msgid "Paragraph"
+msgstr "Bekezdés"
+
+#: ../components/html-editor/editor-control-factory.c:228
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:44
+#: ../components/html-editor/menubar.c:408
+#: ../components/html-editor/popup.c:223
+msgid "Page"
+msgstr "Oldal"
+
+#: ../components/html-editor/gi-color-combo.c:189
+msgid "color preview"
+msgstr "szín előnézete"
+
+#. "Custom" color - we'll pop up a GtkColorDialog
+#: ../components/html-editor/gi-color-palette.c:414
+msgid "Custom Color:"
+msgstr "Egyéni szín:"
+
+#: ../components/html-editor/gi-color-palette.c:607
+msgid "purplish blue"
+msgstr "bíborkék"
+
+#: ../components/html-editor/gi-color-palette.c:611
+msgid "dark purple"
+msgstr "sötétbíbor"
+
+#: ../components/html-editor/gi-color-palette.c:613
+msgid "sky blue"
+msgstr "égszínkék"
+
+#. set the a11y name
+#: ../components/html-editor/gi-combo-box.c:411
+msgid "Popup"
+msgstr "Felbukkanó"
+
+#: ../components/html-editor/gnome-gtkhtml-editor.c:74
+msgid "GtkHTML Editor Control"
+msgstr "GtkHTML-szerkesztő vezérlőelem"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:1
+msgid "    "
+msgstr "    "
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:2
+msgid "*"
+msgstr "*"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:3
+msgid ""
+"-2\n"
+"-1\n"
+"Standard\n"
+"+1\n"
+"+2\n"
+"+3\n"
+"+4"
+msgstr ""
+"-2\n"
+"-1\n"
+"Szabványos\n"
+"+1\n"
+"+2\n"
+"+3\n"
+"+4"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:10
+msgid "<b>Alignment &amp; Behaviour</b>"
+msgstr "<b>Igazítás &amp; viselkedés</b>"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:15
+msgid "<span weight=\"bold\">General</span>"
+msgstr "<span weight=\"bold\">Általános</span>"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:16
+msgid "<span weight=\"bold\">Layout</span>"
+msgstr "<span weight=\"bold\">Elrendezés</span>"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:17
+msgid "<span weight=\"bold\">Link</span>"
+msgstr "<span weight=\"bold\">Hivatkozás</span>"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:18
+msgid "<span weight=\"bold\">Size</span>"
+msgstr "<span weight=\"bold\">Méret</span>"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:19
+msgid "<span weight=\"bold\">Style</span>"
+msgstr "<span weight=\"bold\">Stílus</span>"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:20
+msgid "<span weight=\"bold\">Template</span>"
+msgstr "<span weight=\"bold\">Sablon</span>"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:21
+msgid "Alignment:"
+msgstr "Igazítás:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:25
+#: ../components/html-editor/popup.c:241
+msgid "Cell"
+msgstr "Cella"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:28
+msgid "Colu_mns:"
+msgstr "_Oszlopok:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:29
+msgid "Column span:"
+msgstr "Átnyúló oszlop:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:30
+msgid "Enable"
+msgstr "Engedélyezés"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:31
+msgid "Hea_der style"
+msgstr "_Címsorstílus"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:32
+msgid "Horizontal alignment:"
+msgstr "Vízszintes igazítás:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:33
+msgid "Horizontal:"
+msgstr "Vízszintes:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:39
+msgid ""
+"Left\n"
+"Center\n"
+"Right\n"
+"None"
+msgstr ""
+"Balra\n"
+"Középre\n"
+"Jobbra\n"
+"Nincs"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:43
+msgid "Link properties"
+msgstr "Hivatkozás tulajdonságai"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:45
+msgid "Row span:"
+msgstr "Átnyúló sor:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:47
+msgid "Shade"
+msgstr "Árnyék"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:49
+msgid "Size:"
+msgstr "Méret:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:56
+msgid "Vertical:"
+msgstr "Függőleges:"
+
+#: ../components/html-editor/gtkhtml-editor-properties.glade.h:87
+msgid "xxxxxxxxxxxxxx"
+msgstr "xxxxxxxxxxxxxx"
+
+#: ../components/html-editor/link.c:227
+msgid "URL:"
+msgstr "URL:"
+
+#: ../components/html-editor/link.c:231
+msgid "Description:"
+msgstr "Leírás:"
+
+#: ../components/html-editor/menubar.c:171
+#: ../components/html-editor/menubar.c:190
+#: ../components/html-editor/menubar.c:214
+#: ../components/html-editor/menubar.c:236
+#: ../components/html-editor/popup.c:108
+msgid "Insert"
+msgstr "Beszúrás"
+
+#: ../components/html-editor/menubar.c:323
+#, c-format
+msgid "Error loading file '%s': %s"
+msgstr "Hiba a(z) „%s” fájl betöltése közben: %s"
+
+#: ../components/html-editor/menubar.c:405
+#: ../components/html-editor/menubar.c:422
+#: ../components/html-editor/menubar.c:439
+msgid "Format"
+msgstr "Formátum"
+
+#: ../components/html-editor/paragraph.c:72
+msgid "General"
+msgstr "Általános"
+
+#: ../components/html-editor/paragraph.c:87
+msgid "Left"
+msgstr "Balra"
+
+#: ../components/html-editor/paragraph.c:88
+#: ../components/html-editor/toolbar.c:415
+msgid "Center"
+msgstr "Középen"
+
+#: ../components/html-editor/paragraph.c:89
+msgid "Right"
+msgstr "Jobbra"
+
+#: ../components/html-editor/paragraph.c:91
+msgid "Alignment"
+msgstr "Igazítás"
+
+#: ../components/html-editor/paragraph-style.c:53
+msgid "Roman List"
+msgstr "Római számos lista"
+
+#: ../components/html-editor/paragraph-style.c:59
+msgid "Header 1"
+msgstr "Címsor 1"
+
+#: ../components/html-editor/paragraph-style.c:62
+msgid "Header 2"
+msgstr "Címsor 2"
+
+#: ../components/html-editor/paragraph-style.c:65
+msgid "Header 3"
+msgstr "Címsor 3"
+
+#: ../components/html-editor/paragraph-style.c:68
+msgid "Header 4"
+msgstr "Címsor 4"
+
+#: ../components/html-editor/paragraph-style.c:71
+msgid "Header 5"
+msgstr "Címsor 5"
+
+#: ../components/html-editor/paragraph-style.c:74
+msgid "Header 6"
+msgstr "Címsor 6"
+
+#: ../components/html-editor/paragraph-style.c:77
+msgid "Address"
+msgstr "Cím"
+
+#: ../components/html-editor/popup.c:464
+msgid "Style"
+msgstr "Stílus"
+
+#: ../components/html-editor/popup.c:467
+msgid "Text Style..."
+msgstr "Szöveg stílusa…"
+
+#: ../components/html-editor/popup.c:469 ../components/html-editor/popup.c:475
+#: ../components/html-editor/popup.c:485
+msgid "Paragraph Style..."
+msgstr "Bekezdés stílusa…"
+
+#: ../components/html-editor/popup.c:473
+msgid "Link Style..."
+msgstr "Hivatkozás stílusa…"
+
+#: ../components/html-editor/popup.c:479
+msgid "Rule Style..."
+msgstr "Vonal stílusa…"
+
+#: ../components/html-editor/popup.c:483
+msgid "Image Style..."
+msgstr "Kép stílusa…"
+
+#: ../components/html-editor/popup.c:494
+msgid "Cell Style..."
+msgstr "Cella stílusa…"
+
+#: ../components/html-editor/popup.c:497
+msgid "Table Style..."
+msgstr "Táblázat stílusa…"
+
+#: ../components/html-editor/popup.c:503
+msgid "Page Style..."
+msgstr "Oldal stílusa…"
+
+#: ../components/html-editor/popup.c:508
+msgid "Table insert"
+msgstr "Táblázat beszúrása"
+
+#: ../components/html-editor/popup.c:511
+msgid "Row above"
+msgstr "Egy sorral feljebb"
+
+#: ../components/html-editor/popup.c:512
+msgid "Row below"
+msgstr "Egy sorral lejjebb"
+
+#: ../components/html-editor/popup.c:514
+msgid "Column before"
+msgstr "Egy oszloppal előtte"
+
+#: ../components/html-editor/popup.c:515
+msgid "Column after"
+msgstr "Egy oszloppal utána"
+
+#: ../components/html-editor/popup.c:520
+msgid "Table delete"
+msgstr "Táblázat törlése"
+
+#: ../components/html-editor/popup.c:524
+msgid "Cell contents"
+msgstr "Cellatartalom"
+
+#: ../components/html-editor/popup.c:564
+msgid "Add Word to"
+msgstr "Szó hozzáadása ehhez"
+
+#. Translators: %s is the language name.
+#: ../components/html-editor/popup.c:569
+#, c-format
+msgid "%s Dictionary"
+msgstr "%s szótár"
+
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
+#: ../components/html-editor/replace.c:81
+msgid "Replace confirmation"
+msgstr "Megerősítés csere előtt"
+
+#: ../components/html-editor/replace.c:179
+msgid "Search _backward"
+msgstr "Keresés _visszafelé"
+
+#: ../components/html-editor/search.c:115
+msgid "_Backward"
+msgstr "_Visszafelé"
+
+#: ../components/html-editor/search.c:117
+msgid "_Regular Expression"
+msgstr "_Reguláris kifejezés"
+
+#: ../components/html-editor/search.c:121
+msgid "Input the words you want to search here"
+msgstr "Írja be a keresendő szavakat"
+
+#: ../components/html-editor/spellchecker.c:116
+msgid ""
+"Unable to add word to dictionary,\n"
+"language settings are broken.\n"
+msgstr ""
+"A szó nem adható hozzá a szótárhoz,\n"
+"a nyelvi beállítások hibásak.\n"
+
+#: ../components/html-editor/spellchecker.c:322
+msgid "No misspelled word found"
+msgstr "Nem volt rosszul írt szó"
+
+#: ../components/html-editor/spellchecker.c:329
+msgid "Spell checker"
+msgstr "Helyesírás-ellenőrző"
+
+#: ../components/html-editor/template.c:90
+msgid "Note"
+msgstr "Megjegyzés"
+
+#: ../components/html-editor/template.c:101
+#: ../components/html-editor/template.c:121
+msgid "Place your text here"
+msgstr "Írja ide a szöveget"
+
+#: ../components/html-editor/template.c:104
+msgid "Image frame"
+msgstr "Képkeret"
+
+#: ../components/html-editor/template.c:296
+msgid "Template Labels"
+msgstr "Sablon címkék"
+
+#: ../components/html-editor/test-html-editor-control.c:263
+msgid "Open file..."
+msgstr "Fájl megnyitása…"
+
+#: ../components/html-editor/test-html-editor-control.c:270
+msgid "Save file as..."
+msgstr "Fájl mentése másként…"
+
+#: ../components/html-editor/test-html-editor-control.c:542
+msgid "GtkHTML Editor Test Container"
+msgstr "GtkHTML szerkesztő tesztkonténer"
+
+#: ../components/html-editor/toolbar.c:412
+msgid "Left align"
+msgstr "Balra igazítás"
+
+#: ../components/html-editor/toolbar.c:418
+msgid "Right align"
+msgstr "Jobbra igazítás"
+
+#: ../components/html-editor/toolbar.c:439
+msgid "Toggle typewriter font style"
+msgstr "Ki-be kapcsolja az írógépbetűt"
+
+#: ../components/html-editor/toolbar.c:441
+msgid "Makes the text bold"
+msgstr "Félkövérré teszi a szöveget"
+
+#: ../components/html-editor/toolbar.c:444
+msgid "Makes the text italic"
+msgstr "Dőltté teszi a szöveget"
+
+#: ../components/html-editor/toolbar.c:447
+msgid "Underlines the text"
+msgstr "Aláhúzza a szöveget"
+
+#: ../components/html-editor/toolbar.c:450
+msgid "Strikes out the text"
+msgstr "Áthúzza a szöveget"
+
+#: ../components/html-editor/toolbar.c:460
+msgid "Unindent"
+msgstr "Behúzás megszüntetése"
+
+#: ../components/html-editor/toolbar.c:460
+msgid "Indents the paragraphs less"
+msgstr "Csökkenti a behúzást"
+
+#: ../components/html-editor/toolbar.c:463
+msgid "Indent"
+msgstr "Behúzás"
+
+#: ../components/html-editor/toolbar.c:463
+msgid "Indents the paragraphs more"
+msgstr "Növeli a behúzást"
+
+#: ../components/html-editor/toolbar.c:540
+msgid "Text Color"
+msgstr "Szövegszín"
+
+#: ../components/html-editor/utils.c:132
+msgid "Sample"
+msgstr "Minta"
+
+#: ../components/html-editor/utils.c:248
+msgid ""
+"The edited object was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+"A szerkesztett objektum el lett távolítva a dokumentumból.\n"
+"A változtatások nem alkalmazhatók."
+
+#: ../gtkhtml/gtkhtml.c:2927
+msgid "Editable"
+msgstr "Szerkeszthető"
+
+#: ../gtkhtml/gtkhtml.c:2928
+msgid "Whether the html can be edited"
+msgstr "Szerkeszthető-e a HTML"
+
+#: ../gtkhtml/gtkhtml.c:2934
+msgid "Document Title"
+msgstr "Dokumentum címe"
+
+#: ../gtkhtml/gtkhtml.c:2935
+msgid "The title of the current document"
+msgstr "A jelenlegi dokumentum címe"
+
+#: ../gtkhtml/gtkhtml.c:2941
+msgid "Document Base"
+msgstr "Dokumentum báziscíme"
+
+#: ../gtkhtml/gtkhtml.c:2942
+msgid "The base URL for relative references"
+msgstr "A relatív hivatkozások bázis URL címe"
+
+#: ../gtkhtml/gtkhtml.c:2948
+msgid "Target Base"
+msgstr "Cél báziscíme"
+
+#: ../gtkhtml/gtkhtml.c:2949
+msgid "The base URL of the target frame"
+msgstr "A célkeret alap URL címe"
+
+#: ../gtkhtml/gtkhtml.c:2958
+msgid "Fixed Width Font"
+msgstr "Rögzített szélességű betű"
+
+#: ../gtkhtml/gtkhtml.c:2959
+msgid "The Monospace font to use for typewriter text"
+msgstr "Az írógépszöveghez alkalmazott Monospace betűkészlet"
+
+#: ../gtkhtml/gtkhtml.c:2965
+msgid "New Link Color"
+msgstr "Új hivatkozás színe"
+
+#: ../gtkhtml/gtkhtml.c:2966
+msgid "The color of new link elements"
+msgstr "Az új hivatkozáselemek színe"
+
+#: ../gtkhtml/gtkhtml.c:2971
+msgid "Visited Link Color"
+msgstr "Látogatott hivatkozás színe"
+
+#: ../gtkhtml/gtkhtml.c:2972
+msgid "The color of visited link elements"
+msgstr "A látogatott hivatkozáselemek színe"
+
+#: ../gtkhtml/gtkhtml.c:2977
+msgid "Active Link Color"
+msgstr "Aktív hivatkozás színe"
+
+#: ../gtkhtml/gtkhtml.c:2978
+msgid "The color of active link elements"
+msgstr "Az aktív hivatkozáselemek színe"
+
+#: ../gtkhtml/gtkhtml.c:2983
+msgid "Spelling Error Color"
+msgstr "Helyesírási hiba színe"
+
+#: ../gtkhtml/gtkhtml.c:2984
+msgid "The color of the spelling error markers"
+msgstr "A helyesírási hibákat jelölő szín"
+
+#: ../gtkhtml/gtkhtml.c:2989
+msgid "Cite Quotation Color"
+msgstr "Idézet színe"
+
+#: ../gtkhtml/gtkhtml.c:2990
+msgid "The color of the cited text"
+msgstr "Az idézett szöveg színe"
+
+#: ../gtkhtml/htmlbutton.c:139
+msgid "Submit Query"
+msgstr "Lekérdezés elküldése"
+
+#: ../gtkhtml/htmlbutton.c:142
+msgid "Reset"
+msgstr "Visszaállítás"
+
+#. TODO2 dialog instead of warning
+#: ../gtkhtml/htmlengine-print.c:231 ../gtkhtml/htmlengine-print.c:310
+msgid "Cannot allocate default font for printing"
+msgstr "Az alapértelmezett betűkészlet nem tölthető be  a nyomtatáshoz"
+
+#: ../gtkhtml/test.c:365
+msgid "GtkHTML Test"
+msgstr "GtkHTML-teszt"
+
+#: ../gtkhtml/testgtkhtml.c:114
+msgid "Print pre_view"
+msgstr "Nyomtatási _kép"
+
+#: ../gtkhtml/testgtkhtml.c:114
+msgid "Print preview"
+msgstr "Nyomtatási kép"
+
+#: ../gtkhtml/testgtkhtml.c:1018
+msgid "GtkHTML Test Application"
+msgstr "GtkHTML-tesztalkalmazás"
+
