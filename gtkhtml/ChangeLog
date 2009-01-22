@@ -1,5 +1,23 @@
 2009-01-22  Bharath Acharya  <abharath@novell.com>
 
+	** Fix for bug #465432 (BNC)
+
+	* htmlengine-edit-cut-and-paste.c (html_engine_delete): cluev end is in
+	the selection. Lets handle this case just like simple delete.
+
+	The bugzilla report:
+	If you create a table and then put text into the table and then attempt
+	to remove parts of that text; the text is removed to end of string.
+
+	1) Create a 3x3 table
+	2) click into a cell, and type in "This is how it deletes badly"
+	3) Highlight the word "how" and then hit backspace to remove it.
+
+	the rest of the words gets deleted as well. This is not picked up by 
+	Redo and the user will lose all of their text.
+
+2009-01-22  Bharath Acharya  <abharath@novell.com>
+
 	** Fix for bug #464064 (BNC)
 
 	* htmlengine-edit-table.c (table_set_bg_color_undo_action): The undo 

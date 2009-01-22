@@ -1902,9 +1902,18 @@ html_engine_delete (HTMLEngine *e)
 					}
 				} while (prev && prev->parent->next && (cur = html_object_head (prev->parent->next)));
 
-				if (prev)
-				        /* cluev end is in the selection */
-					delete_upto (e, &start, &end, prev, html_object_get_length (prev));
+				if (prev) {
+				        /* cluev end is in the selection. Lets handle this case just like simple delete 
+					since text is the selection itself*/
+					if (e->mark)
+						html_cursor_destroy (e->mark);
+					html_cursor_destroy (e->cursor);
+					e->mark = start;
+					e->cursor = end;
+					start = end = NULL;
+					delete_object (e, NULL, NULL, HTML_UNDO_UNDO, TRUE);
+					break;
+				}
 			}
 		}
 
