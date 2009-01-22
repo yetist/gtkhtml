@@ -1,3 +1,19 @@
+2009-01-22  Bharath Acharya  <abharath@novell.com>
+
+	** Fix for bug #464064 (BNC)
+
+	* htmlengine-edit-table.c (table_set_bg_color_undo_action): The undo 
+	for the second iteration makes table go null. Just have a check to 
+	prevent the unwanted call.
+
+	The bugzilla report.
+	Steps
+	-> open a new composer window.
+	-> create a table with background color.
+	-> type few characters.
+	-> now do ctrl+z till all the characters are removed.
+	-> evolution will crash at the end.
+
 2009-01-15  Milan Crha  <mcrha@redhat.com>
 
 	** Fix for bug #565491

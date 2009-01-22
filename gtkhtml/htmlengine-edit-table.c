@@ -840,8 +840,12 @@ static void
 table_set_bg_color_undo_action (HTMLEngine *e, HTMLUndoData *undo_data, HTMLUndoDirection dir, guint position_after)
 {
 	HTMLTableSetAttrUndo *data = (HTMLTableSetAttrUndo *) undo_data;
+	HTMLTable *table = html_engine_get_table (e);
 
-	table_set_bg_color (e, html_engine_get_table (e), data->attr.color.has_bg_color
+	if (!table)
+		return;
+
+	table_set_bg_color (e, table, data->attr.color.has_bg_color
 			    ? &data->attr.color.color : NULL, html_undo_direction_reverse (dir));
 }
 
