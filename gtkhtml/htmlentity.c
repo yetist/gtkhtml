@@ -870,6 +870,6 @@ html_entity_parse (const gchar *s, guint len)
 {
 	struct _EntityEntry * result = html_entity_hash( s, len);
 	if (result == NULL )
-		return ' ';
+		return INVALID_ENTITY_CHARACTER_MARKER;
 	return result->value;
 }

@@ -1,3 +1,13 @@
+2009-01-23  Denis Pauk  <pauk.denis@gmail.com>
+
+	** Fix for bug #567697
+
+	* htmlentity.h: (INVALID_ENTITY_CHARACTER_MARKER):
+	* htmlentity.c: (html_entity_parse):
+	* htmltokenizer.c: (html_tokenizer_convert_entity),
+	(convert_text_encoding):
+	Do not strip invalid entities, rather return them back as text.
+
 2009-01-22  Bharath Acharya  <abharath@novell.com>
 
 	** Fix for bug #465432 (BNC)

@@ -41,7 +41,6 @@ enum {
 static guint html_tokenizer_signals[HTML_TOKENIZER_LAST_SIGNAL] = { 0 };
 
 #define TOKEN_BUFFER_SIZE (1 << 10)
-#define INVALID_CHARACTER_MARKER '?'
 
 #define dt(x)
 
@@ -470,11 +469,13 @@ html_tokenizer_convert_entity (gchar *token)
 		if (read_pos < full_pos)
 			if (*read_pos == '&') {
 				/*value to add*/
-				gunichar value = INVALID_CHARACTER_MARKER;
+				gunichar value = INVALID_ENTITY_CHARACTER_MARKER;
 				/*skip not needed &*/
 				read_pos ++;
 				count_chars = strcspn (read_pos, ";");
 				if (count_chars < 14 && count_chars > 1) {
+					/*save for recovery*/
+					gchar save_gchar = *(read_pos + count_chars);
 					*(read_pos + count_chars)=0;
 					/* &#******; */
 					if (*read_pos == '#') {
@@ -488,9 +489,18 @@ html_tokenizer_convert_entity (gchar *token)
 					} else {
 						value = html_entity_parse (read_pos, strlen (read_pos));
 					}
-					read_pos += (count_chars + 1);
-					write_pos += g_unichar_to_utf8 (value, write_pos);
+					if(value != INVALID_ENTITY_CHARACTER_MARKER){							
+						write_pos += g_unichar_to_utf8 (value, write_pos);
+						read_pos += (count_chars + 1);
+					} else {
+						/*recovery old value - it's not entity*/
+						write_pos += g_unichar_to_utf8 ('&', write_pos);
+						*(read_pos + count_chars) = save_gchar;
+					}					
 				}
+				else
+					/*very large string*/
+					write_pos += g_unichar_to_utf8 ('&', write_pos);
 			}
 	}
 	*write_pos = 0;
@@ -527,7 +537,7 @@ convert_text_encoding (const GIConv iconv_cd,
 			g_iconv (iconv_cd, (gchar **)&current, &currlength, &newbuffer, &newlength);
 			if (currlength > 0) {
 				g_warning ("IconvError=%s", current);
-				*newbuffer = INVALID_CHARACTER_MARKER;
+				*newbuffer = INVALID_ENTITY_CHARACTER_MARKER;
 				newbuffer ++;
 				current ++;
 				currlength --;
