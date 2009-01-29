@@ -149,8 +149,9 @@ destroy (HTMLObject *o)
 {
 	HTMLImage *image = HTML_IMAGE (o);
 
-	html_image_factory_unregister (image->image_ptr->factory,
-				       image->image_ptr, HTML_IMAGE (image));
+	if (image->image_ptr->factory)
+		html_image_factory_unregister (image->image_ptr->factory,
+					       image->image_ptr, HTML_IMAGE (image));
 
 	g_free (image->url);
 	g_free (image->target);
@@ -1060,6 +1061,10 @@ update_or_redraw (HTMLImagePointer *ip){
 	GSList *list;
 	gboolean update = FALSE;
 
+	/* do nothing when factory gone; maybe the message drawing has been cancelled */
+	if (!ip->factory)
+		return;
+
 	for (list = ip->interests; list; list = list->next) {
 		if (list->data == NULL)
 			update = TRUE;
@@ -1164,10 +1169,12 @@ html_image_pointer_queue_animation (HTMLImagePointer *ip)
 static gint
 html_image_pointer_update (HTMLImagePointer *ip)
 {
-	HTMLEngine *engine = ip->factory->engine;
+	HTMLEngine *engine;
 	GSList *cur;
 
 	g_return_val_if_fail (ip->factory != NULL, FALSE);
+
+	engine = ip->factory->engine;
 	ip->animation_timeout = 0;
 
 	DA (printf ("animation_timeout (%p)\n", ip);)
@@ -1400,7 +1407,7 @@ html_image_pointer_unref (HTMLImagePointer *ip)
 static GtkHTMLStream *
 html_image_pointer_load (HTMLImagePointer *ip)
 {
-	if (ip->factory->engine->stopped)
+	if (!ip->factory || ip->factory->engine->stopped)
 		return NULL;
 
 	html_image_pointer_ref (ip);

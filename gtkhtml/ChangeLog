@@ -1,3 +1,11 @@
+2009-01-29  Milan Crha  <mcrha@redhat.com>
+
+	** Fix for bug #532165
+
+	* htmlimage.c: (destroy), (update_or_redraw),
+	(html_image_pointer_queue_animation),
+	(html_image_pointer_load): Do not crash when factory gone.
+
 2009-01-23  Denis Pauk  <pauk.denis@gmail.com>
 
 	** Fix for bug #567697
