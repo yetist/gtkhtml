@@ -55,27 +55,18 @@ editor_alignment_changed_cb (GtkhtmlEditor *editor,
 		GTK_RADIO_ACTION (ACTION (JUSTIFY_CENTER)), alignment);
 }
 
-static gboolean
-editor_button_press_event_cb (GtkhtmlEditor *editor,
-                              GdkEventButton *event)
+static void
+editor_show_popup_menu (GtkhtmlEditor *editor,
+                        GdkEventButton *event,
+                        HTMLObject *object)
 {
 	GtkHTML *html;
 	GtkWidget *menu;
-	HTMLObject *object;
 	gboolean in_selection;
-	guint offset;
+	guint offset = 0;
 
 	html = gtkhtml_editor_get_html (editor);
 	menu = gtkhtml_editor_get_managed_widget (editor, "/context-menu");
-
-	object = html_engine_get_object_at (
-		html->engine, event->x, event->y, &offset, FALSE);
-
-	if (event->type != GDK_BUTTON_PRESS)
-		return FALSE;
-
-	if (event->button != 3)
-		return FALSE;
 
 	/* Did we right-click in a selection? */
 	in_selection =
@@ -84,14 +75,43 @@ editor_button_press_event_cb (GtkhtmlEditor *editor,
 
 	if (!in_selection) {
 		html_engine_disable_selection (html->engine);
-		html_engine_jump_at (html->engine, event->x, event->y);
+		if (event != NULL)
+			html_engine_jump_at (
+				html->engine, event->x, event->y);
 	}
 
 	gtkhtml_editor_update_context (editor);
 
-	gtk_menu_popup (
-		GTK_MENU (menu), NULL, NULL, NULL, NULL,
-		event->button, event->time);
+	if (event != NULL)
+		gtk_menu_popup (
+			GTK_MENU (menu), NULL, NULL, NULL, NULL,
+			event->button, event->time);
+	else
+		gtk_menu_popup (
+			GTK_MENU (menu), NULL, NULL, NULL, NULL,
+			0, gtk_get_current_event_time ());
+}
+
+static gboolean
+editor_button_press_event_cb (GtkhtmlEditor *editor,
+                              GdkEventButton *event)
+{
+	GtkHTML *html;
+	HTMLObject *object;
+	guint offset;
+
+	if (event->type != GDK_BUTTON_PRESS)
+		return FALSE;
+
+	if (event->button != 3)
+		return FALSE;
+
+	html = gtkhtml_editor_get_html (editor);
+
+	object = html_engine_get_object_at (
+		html->engine, event->x, event->y, &offset, FALSE);
+
+	editor_show_popup_menu (editor, event, object);
 
 	return FALSE;
 }
@@ -151,6 +171,20 @@ editor_paragraph_style_changed_cb (GtkhtmlEditor *editor,
 		GTK_RADIO_ACTION (ACTION (STYLE_NORMAL)), style);
 
 	editor->priv->ignore_style_change--;
+}
+
+static gboolean
+editor_popup_menu_cb (GtkhtmlEditor *editor)
+{
+	GtkHTML *html;
+	HTMLObject *object;
+
+	html = gtkhtml_editor_get_html (editor);
+	object = html->engine->cursor->object;
+
+	editor_show_popup_menu (editor, NULL, object);
+
+	return TRUE;
 }
 
 static void
@@ -855,33 +889,31 @@ editor_init (GtkhtmlEditor *editor)
 	/* Listen for events from core and update the UI accordingly. */
 
 	g_signal_connect_swapped (
-		gtkhtml_editor_get_html (editor),
-		"button_press_event",
+		html, "button_press_event",
 		G_CALLBACK (editor_button_press_event_cb), editor);
 
 	g_signal_connect_swapped (
-		gtkhtml_editor_get_html (editor),
-		"current_paragraph_alignment_changed",
+		html, "current_paragraph_alignment_changed",
 		G_CALLBACK (editor_alignment_changed_cb), editor);
 
 	g_signal_connect_swapped (
-		gtkhtml_editor_get_html (editor),
-		"current_paragraph_indentation_changed",
+		html, "current_paragraph_indentation_changed",
 		G_CALLBACK (editor_indentation_changed_cb), editor);
 
 	g_signal_connect_swapped (
-		gtkhtml_editor_get_html (editor),
-		"current_paragraph_style_changed",
+		html, "current_paragraph_style_changed",
 		G_CALLBACK (editor_paragraph_style_changed_cb), editor);
 
 	g_signal_connect_swapped (
-		gtkhtml_editor_get_html (editor),
-		"insertion_font_style_changed",
+		html, "insertion_font_style_changed",
 		G_CALLBACK (editor_font_style_changed_cb), editor);
 
 	g_signal_connect_swapped (
-		gtkhtml_editor_get_html (editor),
-		"url_requested",
+		html, "popup-menu",
+		G_CALLBACK (editor_popup_menu_cb), editor);
+
+	g_signal_connect_swapped (
+		html, "url_requested",
 		G_CALLBACK (editor_url_requested_cb), editor);
 }
 
