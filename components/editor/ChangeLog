@@ -1,3 +1,11 @@
+2009-02-02  Matthew Barnes  <mbarnes@redhat.com>
+
+	** Fix for bug #567733
+
+	* gtkhtml-editor.c (editor_show_popup_menu),
+	(editor_button_press_event_cb), (editor_popup_menu_cb),
+	(editor_init): Handle the "popup-menu" signal.
+
 2009-01-12  Matthew Barnes  <mbarnes@redhat.com>
 
 	** Fixes bug #566014
