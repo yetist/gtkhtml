@@ -1,3 +1,15 @@
+GtkHTML-3.25.90 2009-02-02
+--------------------------
+Updated Translations:
+	Changwoo Ryu (ko)
+
+Bug Fixes:
+	#464064 (BNC) : Evolution crashed - pressing ctrl+z (undo) in composer window  (Bharath Acharya)
+	#465432 (BNC) : Deleting Text In Table Deletes To End Of String  (Bharath Acharya)
+	#532165 : Do not crash when factory gone. (Milan Crha)
+	#567697 : Do not strip invalid entities, rather return them back as text. (Denis Pauk)
+	#567733 : Handle the "popup-menu" signal. (Matthew Barnes)
+
 GtkHTML-3.25.5 2009-01-19
 -------------------------
 
