@@ -1,3 +1,15 @@
+GtkHTML-3.24.4 2009-01-30
+-------------------------
+
+Updated Translations:
+	Hendrik Richter (de)
+
+Bug Fixes:
+	#464064 (BNC) : Evolution crashed - pressing ctrl+z (undo) in composer window (Bharath)
+	#465432 (BNC) : Evolution: Deleting Text In Table Deletes To End Of String (Bharath)
+	#532165 : Do not crash when factory gone. (Milan Crha)
+	#565491 : when in the editing mode, otherwise strip it as before. (Milan Crha)
+
 GtkHTML-3.24.3 2009-01-12
 -------------------------
 
