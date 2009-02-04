@@ -1565,7 +1565,7 @@ static GtkActionEntry core_entries[] = {
 	{ "wrap-lines",
 	  NULL,
 	  N_("_Wrap Lines"),
-	  "<Control>backslash",
+	  "<Control>k",
 	  NULL,
 	  G_CALLBACK (action_wrap_lines_cb) },
 
