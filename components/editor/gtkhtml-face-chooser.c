@@ -23,26 +23,47 @@
 #include <glib/gi18n-lib.h>
 
 static GtkhtmlFace available_faces[] = {
+	/* Translators: :-) */
 	{ N_("_Smile"),		"face-smile",		":-)"	},
+	/* Translators: :-( */
 	{ N_("S_ad"),		"face-sad",		":-("	},
+	/* Translators: ;-) */
 	{ N_("_Wink"),		"face-wink",		";-)"	},
+	/* Translators: :-P */
 	{ N_("Ton_gue"),	"face-raspberry",	":-P"	},
+	/* Translators: :-)) */
 	{ N_("Laug_h"),		"face-laugh",		":-))"	},
+	/* Translators: :-| */
 	{ N_("_Plain"),		"face-plain",		":-|"	},
+	/* Translators: :-! */
 	{ N_("Smi_rk"),		"face-smirk",		":-!"	},
+	/* Translators: :"-) */
 	{ N_("_Embarrassed"),	"face-embarrassed",	":\"-)"	},
+	/* Translators: :-D */
 	{ N_("_Big Smile"),	"face-smile-big",	":-D"	},
+	/* Translators: :-/ */
 	{ N_("Uncer_tain"),	"face-uncertain",	":-/"	},
+	/* Translators: :-O */
 	{ N_("S_urprise"),	"face-surprise",	":-O"	},
+	/* Translators: :-S */
 	{ N_("W_orried"),	"face-worried",		":-S"	},
+	/* Translators: :-* */
 	{ N_("_Kiss"),		"face-kiss",		":-*"	},
+	/* Translators: X-( */
 	{ N_("A_ngry"),		"face-angry",		"X-("	},
+	/* Translators: B-) */
 	{ N_("_Cool"),		"face-cool",		"B-)"	},
+	/* Translators: O:-) */
 	{ N_("Ange_l"),		"face-angel",		"O:-)"	},
+	/* Translators: :'( */
 	{ N_("Cr_ying"),	"face-crying",		":'("	},
+	/* Translators: :-Q */
 	{ N_("S_ick"),		"face-sick",		":-Q"	},
+	/* Translators: |-) */
 	{ N_("Tire_d"),		"face-tired",		"|-)"	},
+	/* Translators: >:-) */
 	{ N_("De_vilish"),	"face-devilish",	">:-)"	},
+	/* Translators: :-(|) */
 	{ N_("_Monkey"),	"face-monkey",		":-(|)"	}
 };
 
