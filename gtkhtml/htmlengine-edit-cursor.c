@@ -123,7 +123,7 @@ draw_cursor_rectangle (HTMLEngine *e, gint x1, gint y1, gint x2, gint y2,
 	GdkColor color;
 	gint8 dashes [2] = { 1, 3 };
 
-	if (x1 > x2 || y1 > y2)
+	if (x1 > x2 || y1 > y2 || !e->window)
 		return;
 
 	gc = gdk_gc_new (e->window);
@@ -303,7 +303,7 @@ html_engine_draw_cursor_in_area (HTMLEngine *engine,
 		return;
 
 	obj = engine->cursor->object;
-	if (obj == NULL)
+	if (obj == NULL || engine->window == NULL)
 		return;
 
 	offset = engine->cursor->offset;

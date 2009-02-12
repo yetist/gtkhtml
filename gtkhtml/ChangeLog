@@ -1,3 +1,11 @@
+2009-02-12  Milan Crha  <mcrha@redhat.com>
+
+	** Fix for bug #569365
+
+	* htmlengine-edit-cursor.c: (draw_cursor_rectangle),
+	(html_engine_draw_cursor_in_area):
+	Do not draw a cursor without a window.
+
 2009-01-29  Milan Crha  <mcrha@redhat.com>
 
 	** Fix for bug #532165
