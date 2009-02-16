@@ -1,3 +1,10 @@
+2009-02-16  Milan Crha  <mcrha@redhat.com>
+
+	** Fix for bug #571654
+
+	* htmlselection.c: (html_engine_clear_selection):
+	Clear also primary selection.
+
 2009-02-12  Milan Crha  <mcrha@redhat.com>
 
 	** Fix for bug #569365

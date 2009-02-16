@@ -228,6 +228,8 @@ html_engine_clear_selection (HTMLEngine *e)
 						 html_selection_current_time ());
 		*/
 	}
+
+	clear_primary (e);
 }
 
 void
