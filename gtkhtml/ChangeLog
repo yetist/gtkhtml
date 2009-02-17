@@ -1,3 +1,11 @@
+2009-02-16  Matthew Barnes  <mbarnes@redhat.com>
+
+	** Fixes bug #571621
+
+	* htmlengine-print.c (engine_print_draw_page):
+	Replace a g_assert() with g_return_if_fail().
+	Avoids a crash caused by a GtkPrint page range bug.
+
 2009-02-12  Milan Crha  <mcrha@redhat.com>
 
 	** Fix for bug #569365
