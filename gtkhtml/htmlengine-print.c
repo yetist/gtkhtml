@@ -393,7 +393,7 @@ engine_print_draw_page (GtkPrintOperation *operation,
 	gint offset[2];
 	cairo_t *cr;
 
-	g_assert (data->offsets->len > page_nr);
+	g_return_if_fail (data->offsets->len > page_nr);
 	offset[0] = g_array_index (data->offsets, gint, page_nr + 0);
 	offset[1] = g_array_index (data->offsets, gint, page_nr + 1);
 
