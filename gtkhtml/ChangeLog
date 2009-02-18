@@ -1,3 +1,12 @@
+2009-02-18  Matthew Barnes  <mbarnes@redhat.com>
+
+	* htmlenum.c:
+	* gtkhtml-propmanager.h:
+	Remove these dead files.
+
+	* Makefile.am:
+	htmlengine-edit-table.h listed twice.
+
 2009-02-16  Matthew Barnes  <mbarnes@redhat.com>
 
 	** Fixes bug #571621

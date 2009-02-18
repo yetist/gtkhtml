@@ -204,7 +204,6 @@ libgtkhtml_3_14_la_SOURCES =			\
 	htmlframe.h				\
 	htmlframeset.h				\
 	htmlutils.h				\
-	htmlengine-edit-table.h			\
 	$(PLATFORM_DEP_SOURCES)			\
 	$(NULL)
 
