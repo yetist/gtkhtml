@@ -28,7 +28,6 @@
 #include <glib/gi18n.h>
 #endif
 #include <glade/glade.h>
-#include <libgnome/libgnome.h>
 
 #include "htmlcolor.h"
 #include "htmlcolorset.h"
@@ -198,7 +197,7 @@ test_url_clicked (GtkWidget *w, GtkHTMLEditLinkProperties *d)
 	const char *url = gtk_entry_get_text (GTK_ENTRY (d->entry_url));
 
 	if (url)
-		gnome_url_show (url, NULL);
+		gtk_show_uri (NULL, url, GDK_CURRENT_TIME, NULL);
 }
 
 static GtkWidget *

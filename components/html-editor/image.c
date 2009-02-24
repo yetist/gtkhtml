@@ -29,7 +29,6 @@
 #include <unistd.h>
 #include <string.h>
 #include <glade/glade.h>
-#include <libgnome/libgnome.h>
 
 #include "gtkhtml.h"
 #include "htmlcolorset.h"
@@ -205,7 +204,7 @@ test_url_clicked (GtkWidget *w, GtkHTMLEditImageProperties *d)
 	const char *url = gtk_entry_get_text (GTK_ENTRY (d->entry_url));
 
 	if (url)
-		gnome_url_show (url, NULL);
+		gtk_show_uri (NULL, url, GDK_CURRENT_TIME, NULL);
 }
 
 static void

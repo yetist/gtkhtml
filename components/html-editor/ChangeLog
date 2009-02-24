@@ -1,3 +1,10 @@
+2009-02-23  Tobias Mueller  <tobiasmue@svn.gnome.org>
+
+	* image.c: 
+	* link.c: Don't use the deprecated function gnome_url_show from 
+	libgnome. Instead, use gtk_show_uri. Patch by Paweł Zembrzuski.
+	Fixes bug 570728.
+
 2008-10-30  Matthew Barnes  <mbarnes@redhat.com>
 
 	* gnome-gtkhtml-editor.c:
