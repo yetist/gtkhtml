@@ -23,7 +23,6 @@
 
 #include <config.h>
 #include <glib.h>
-#include <libart_lgpl/art_rect.h>
 #include <string.h>
 #include "htmlcluev.h"
 #include "htmlengine-edit.h"
