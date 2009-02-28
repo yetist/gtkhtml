@@ -1,15 +1,16 @@
 # Italian translation of GtkHTML.
-# Copyright (C) 2001 Free Software Foundation, Inc.
+# Copyright (C) 2001-2008, 2009 Free Software Foundation, Inc.
+# This file is distributed under the same license as the gtkhtml package.
 # Pier Luigi Fiorini <plfiorini@libero.it>, 2001.
 # Luca Ferretti <elle.uca@libero.it>, 2003-2008.
-# Milo Casagrande <milo@ubuntu.com>, 2008
+# Milo Casagrande <milo@ubuntu.com>, 2008-2009
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-15 09:46+0000\n"
-"PO-Revision-Date: 2008-09-15 22:20+0200\n"
+"POT-Creation-Date: 2009-02-21 21:27-0500\n"
+"PO-Revision-Date: 2009-02-24 22:27+0100\n"
 "Last-Translator: Milo Casagrande <milo@ubuntu.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
@@ -34,840 +35,854 @@ msgstr "prendi il focus"
 msgid "Panel containing HTML"
 msgstr "Riquadro che contiene HTML"
 
-#: ../components/editor/gtkhtml-color-combo.c:78
+#: ../components/editor/gtkhtml-color-combo.c:79
 #: ../components/html-editor/gi-color-palette.c:555
 msgid "black"
 msgstr "nero"
 
-#: ../components/editor/gtkhtml-color-combo.c:79
+#: ../components/editor/gtkhtml-color-combo.c:80
 #: ../components/html-editor/gi-color-palette.c:556
 msgid "light brown"
 msgstr "marrone chiaro"
 
-#: ../components/editor/gtkhtml-color-combo.c:80
+#: ../components/editor/gtkhtml-color-combo.c:81
 #: ../components/html-editor/gi-color-palette.c:557
 msgid "brown gold"
 msgstr "marrone dorato"
 
-#: ../components/editor/gtkhtml-color-combo.c:81
+#: ../components/editor/gtkhtml-color-combo.c:82
 #: ../components/html-editor/gi-color-palette.c:558
 msgid "dark green #2"
 msgstr "verde scuro n.2"
 
-#: ../components/editor/gtkhtml-color-combo.c:82
+#: ../components/editor/gtkhtml-color-combo.c:83
 #: ../components/html-editor/gi-color-palette.c:559
 msgid "navy"
 msgstr "blu navy"
 
-#: ../components/editor/gtkhtml-color-combo.c:83
+#: ../components/editor/gtkhtml-color-combo.c:84
 #: ../components/html-editor/gi-color-palette.c:560
 #: ../components/html-editor/gi-color-palette.c:616
 msgid "dark blue"
 msgstr "blu scuro"
 
-#: ../components/editor/gtkhtml-color-combo.c:84
+#: ../components/editor/gtkhtml-color-combo.c:85
 #: ../components/html-editor/gi-color-palette.c:561
 msgid "purple #2"
 msgstr "viola n.2"
 
-#: ../components/editor/gtkhtml-color-combo.c:85
+#: ../components/editor/gtkhtml-color-combo.c:86
 #: ../components/html-editor/gi-color-palette.c:562
 msgid "very dark gray"
 msgstr "grigio molto scuro"
 
-#: ../components/editor/gtkhtml-color-combo.c:87
+#: ../components/editor/gtkhtml-color-combo.c:88
 #: ../components/html-editor/gi-color-palette.c:565
 #: ../components/html-editor/gi-color-palette.c:621
 msgid "dark red"
 msgstr "rosso scuro"
 
-#: ../components/editor/gtkhtml-color-combo.c:88
+#: ../components/editor/gtkhtml-color-combo.c:89
 #: ../components/html-editor/gi-color-palette.c:566
 msgid "red-orange"
 msgstr "rosso arancio"
 
-#: ../components/editor/gtkhtml-color-combo.c:89
+#: ../components/editor/gtkhtml-color-combo.c:90
 #: ../components/html-editor/gi-color-palette.c:567
 msgid "gold"
 msgstr "oro"
 
-#: ../components/editor/gtkhtml-color-combo.c:90
+#: ../components/editor/gtkhtml-color-combo.c:91
 #: ../components/html-editor/gi-color-palette.c:568
 msgid "dark green"
 msgstr "verde scuro"
 
-#: ../components/editor/gtkhtml-color-combo.c:91
+#: ../components/editor/gtkhtml-color-combo.c:92
 #: ../components/html-editor/gi-color-palette.c:569
 #: ../components/html-editor/gi-color-palette.c:622
 msgid "dull blue"
 msgstr "blu spento"
 
-#: ../components/editor/gtkhtml-color-combo.c:92
+#: ../components/editor/gtkhtml-color-combo.c:93
 #: ../components/html-editor/gi-color-palette.c:570
 #: ../components/html-editor/gi-color-palette.c:623
 msgid "blue"
 msgstr "blu"
 
-#: ../components/editor/gtkhtml-color-combo.c:93
+#: ../components/editor/gtkhtml-color-combo.c:94
 #: ../components/html-editor/gi-color-palette.c:571
 msgid "dull purple"
 msgstr "viola spento"
 
-#: ../components/editor/gtkhtml-color-combo.c:94
+#: ../components/editor/gtkhtml-color-combo.c:95
 #: ../components/html-editor/gi-color-palette.c:572
 msgid "dark grey"
 msgstr "grigio scuro"
 
-#: ../components/editor/gtkhtml-color-combo.c:96
+#: ../components/editor/gtkhtml-color-combo.c:97
 #: ../components/html-editor/gi-color-palette.c:575
 msgid "red"
 msgstr "rosso"
 
-#: ../components/editor/gtkhtml-color-combo.c:97
+#: ../components/editor/gtkhtml-color-combo.c:98
 #: ../components/html-editor/gi-color-palette.c:576
 msgid "orange"
 msgstr "arancione"
 
-#: ../components/editor/gtkhtml-color-combo.c:98
+#: ../components/editor/gtkhtml-color-combo.c:99
 #: ../components/html-editor/gi-color-palette.c:577
 msgid "lime"
 msgstr "lime"
 
-#: ../components/editor/gtkhtml-color-combo.c:99
+#: ../components/editor/gtkhtml-color-combo.c:100
 #: ../components/html-editor/gi-color-palette.c:578
 msgid "dull green"
 msgstr "verde spento"
 
-#: ../components/editor/gtkhtml-color-combo.c:100
+#: ../components/editor/gtkhtml-color-combo.c:101
 #: ../components/html-editor/gi-color-palette.c:579
 msgid "dull blue #2"
 msgstr "blu spento n.2"
 
-#: ../components/editor/gtkhtml-color-combo.c:101
+#: ../components/editor/gtkhtml-color-combo.c:102
 #: ../components/html-editor/gi-color-palette.c:580
 msgid "sky blue #2"
 msgstr "blu cielo n.2"
 
-#: ../components/editor/gtkhtml-color-combo.c:102
+#: ../components/editor/gtkhtml-color-combo.c:103
 #: ../components/html-editor/gi-color-palette.c:581
 #: ../components/html-editor/gi-color-palette.c:620
 msgid "purple"
 msgstr "viola"
 
-#: ../components/editor/gtkhtml-color-combo.c:103
+#: ../components/editor/gtkhtml-color-combo.c:104
 #: ../components/html-editor/gi-color-palette.c:582
 msgid "gray"
 msgstr "grigio"
 
-#: ../components/editor/gtkhtml-color-combo.c:105
+#: ../components/editor/gtkhtml-color-combo.c:106
 #: ../components/html-editor/gi-color-palette.c:585
 #: ../components/html-editor/gi-color-palette.c:617
 msgid "magenta"
 msgstr "magenta"
 
-#: ../components/editor/gtkhtml-color-combo.c:106
+#: ../components/editor/gtkhtml-color-combo.c:107
 #: ../components/html-editor/gi-color-palette.c:586
 msgid "bright orange"
 msgstr "arancione vivace"
 
-#: ../components/editor/gtkhtml-color-combo.c:107
+#: ../components/editor/gtkhtml-color-combo.c:108
 #: ../components/html-editor/gi-color-palette.c:587
 #: ../components/html-editor/gi-color-palette.c:618
 msgid "yellow"
 msgstr "giallo"
 
-#: ../components/editor/gtkhtml-color-combo.c:108
+#: ../components/editor/gtkhtml-color-combo.c:109
 #: ../components/html-editor/gi-color-palette.c:588
 msgid "green"
 msgstr "verde"
 
-#: ../components/editor/gtkhtml-color-combo.c:109
+#: ../components/editor/gtkhtml-color-combo.c:110
 #: ../components/html-editor/gi-color-palette.c:589
 #: ../components/html-editor/gi-color-palette.c:619
 msgid "cyan"
 msgstr "ciano"
 
-#: ../components/editor/gtkhtml-color-combo.c:110
+#: ../components/editor/gtkhtml-color-combo.c:111
 #: ../components/html-editor/gi-color-palette.c:590
 msgid "bright blue"
 msgstr "blu vivace"
 
-#: ../components/editor/gtkhtml-color-combo.c:111
+#: ../components/editor/gtkhtml-color-combo.c:112
 #: ../components/html-editor/gi-color-palette.c:591
 #: ../components/html-editor/gi-color-palette.c:608
 msgid "red purple"
 msgstr "rosso porpora"
 
-#: ../components/editor/gtkhtml-color-combo.c:112
+#: ../components/editor/gtkhtml-color-combo.c:113
 #: ../components/html-editor/gi-color-palette.c:592
 msgid "light grey"
 msgstr "grigio chiaro"
 
-#: ../components/editor/gtkhtml-color-combo.c:114
+#: ../components/editor/gtkhtml-color-combo.c:115
 #: ../components/html-editor/gi-color-palette.c:595
 #: ../components/html-editor/gi-color-palette.c:612
 msgid "pink"
 msgstr "rosa"
 
-#: ../components/editor/gtkhtml-color-combo.c:115
+#: ../components/editor/gtkhtml-color-combo.c:116
 #: ../components/html-editor/gi-color-palette.c:596
 msgid "light orange"
 msgstr "arancione chiaro"
 
-#: ../components/editor/gtkhtml-color-combo.c:116
+#: ../components/editor/gtkhtml-color-combo.c:117
 #: ../components/html-editor/gi-color-palette.c:597
 #: ../components/html-editor/gi-color-palette.c:609
 msgid "light yellow"
 msgstr "giallo chiaro"
 
-#: ../components/editor/gtkhtml-color-combo.c:117
+#: ../components/editor/gtkhtml-color-combo.c:118
 #: ../components/html-editor/gi-color-palette.c:598
 msgid "light green"
 msgstr "verde chiaro"
 
-#: ../components/editor/gtkhtml-color-combo.c:118
+#: ../components/editor/gtkhtml-color-combo.c:119
 #: ../components/html-editor/gi-color-palette.c:599
 msgid "light cyan"
 msgstr "ciano chiaro"
 
-#: ../components/editor/gtkhtml-color-combo.c:119
+#: ../components/editor/gtkhtml-color-combo.c:120
 #: ../components/html-editor/gi-color-palette.c:600
 #: ../components/html-editor/gi-color-palette.c:610
 msgid "light blue"
 msgstr "blu chiaro"
 
-#: ../components/editor/gtkhtml-color-combo.c:120
+#: ../components/editor/gtkhtml-color-combo.c:121
 #: ../components/html-editor/gi-color-palette.c:601
 #: ../components/html-editor/gi-color-palette.c:614
 msgid "light purple"
 msgstr "viola chiaro"
 
-#: ../components/editor/gtkhtml-color-combo.c:121
+#: ../components/editor/gtkhtml-color-combo.c:122
 #: ../components/html-editor/gi-color-palette.c:602
 msgid "white"
 msgstr "bianco"
 
-#: ../components/editor/gtkhtml-color-combo.c:269
+#: ../components/editor/gtkhtml-color-combo.c:274
 #: ../components/html-editor/gi-color-palette.c:422
 msgid "Choose Custom Color"
 msgstr "Scelta colore personalizzato"
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-color-combo.c:693
-#: ../components/editor/gtkhtml-color-state.c:190
+#: ../components/editor/gtkhtml-color-combo.c:712
+#: ../components/editor/gtkhtml-color-state.c:205
 msgid "Current color"
 msgstr "Colore attuale"
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-color-combo.c:694
+#: ../components/editor/gtkhtml-color-combo.c:713
 msgid "The currently selected color"
 msgstr "Il colore attualmente selezionato"
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-color-combo.c:703
-#: ../components/editor/gtkhtml-color-state.c:200
+#: ../components/editor/gtkhtml-color-combo.c:722
+#: ../components/editor/gtkhtml-color-state.c:215
 msgid "Default color"
 msgstr "Colore predefinito"
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-color-combo.c:704
+#: ../components/editor/gtkhtml-color-combo.c:723
 msgid "The color associated with the default button"
 msgstr "Il colore associato con il pulsante predefinito"
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-color-combo.c:714
-#: ../components/editor/gtkhtml-color-state.c:211
+#: ../components/editor/gtkhtml-color-combo.c:733
+#: ../components/editor/gtkhtml-color-state.c:226
 msgid "Default label"
 msgstr "Etichetta predefinita"
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-color-combo.c:715
+#: ../components/editor/gtkhtml-color-combo.c:734
 msgid "The label for the default button"
 msgstr "L'etichetta per il pulsante predefinito"
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-color-combo.c:716
-#: ../components/editor/gtkhtml-color-state.c:213
+#: ../components/editor/gtkhtml-color-combo.c:735
+#: ../components/editor/gtkhtml-color-state.c:228
 msgid "Default"
 msgstr "Predefinito"
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-color-combo.c:725
-#: ../components/editor/gtkhtml-color-state.c:222
+#: ../components/editor/gtkhtml-color-combo.c:744
+#: ../components/editor/gtkhtml-color-state.c:237
+msgid "Default is transparent"
+msgstr "Predefinito è trasparente"
+
+#: ../components/editor/gtkhtml-color-combo.c:745
+#: ../components/editor/gtkhtml-color-state.c:238
+msgid "Whether the default color is transparent"
+msgstr "Indica se il colore predefinito è trasparente"
+
+#: ../components/editor/gtkhtml-color-combo.c:755
+#: ../components/editor/gtkhtml-color-state.c:248
 msgid "Color palette"
 msgstr "Tavolozza colore"
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-color-combo.c:726
-#: ../components/editor/gtkhtml-color-state.c:223
+#: ../components/editor/gtkhtml-color-combo.c:756
+#: ../components/editor/gtkhtml-color-state.c:249
 msgid "Custom color palette"
 msgstr "Tavolozza colore personalizzata"
 
 #. Translators: This is the nickname for a
 #. * GtkhtmlColorCombo property named "popup-shown",
 #. * based on a similar property in GtkComboBox.
-#: ../components/editor/gtkhtml-color-combo.c:738
+#: ../components/editor/gtkhtml-color-combo.c:768
 msgid "Popup shown"
 msgstr "Mostra pop-up"
 
-# GNOME 2.24
-#
 # FIXME
 #. Translators: This is the blurb for a
 #. * GtkhtmlColorCombo property named "popup-shown",
 #. * based on a similar property in GtkComboBox.
-#: ../components/editor/gtkhtml-color-combo.c:742
+#: ../components/editor/gtkhtml-color-combo.c:772
 msgid "Whether the combo's dropdown is shown"
 msgstr "Indica se il pulsante combinato viene mostrato"
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-color-combo.c:751
+#. Translators: This is the nickname for a
+#. GtkHtmlColorCombo property named "state". It holds all
+#. the internal values for a GtkHtml color combination box.
+#.
+#: ../components/editor/gtkhtml-color-combo.c:785
 msgid "Color state"
 msgstr "Stato colore"
 
-# GNOME 2.24
-#
 # FIXME
-#: ../components/editor/gtkhtml-color-combo.c:752
-msgid "State of the color combo"
-msgstr "Stato del colore combinato"
+#. Translators: This is the blurb for a
+#. GtkHtmlColorCombo property named "state". It holds all
+#. the internal values for a GtkHtml color combination box.
+#.
+#: ../components/editor/gtkhtml-color-combo.c:790
+msgid "The state of a color combo box"
+msgstr "Stato della casella combinata del colore"
 
 #. This is the default custom color
-#: ../components/editor/gtkhtml-color-combo.c:934
+#: ../components/editor/gtkhtml-color-combo.c:972
 #: ../components/html-editor/gi-color-palette.c:374
 msgid "custom"
 msgstr "personalizzato"
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-color-combo.c:942
+#
+#: ../components/editor/gtkhtml-color-combo.c:980
 msgid "Custom Color..."
 msgstr "Colore personalizzato..."
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-color-state.c:191
-#: ../components/editor/gtkhtml-color-swatch.c:178
+#
+#: ../components/editor/gtkhtml-color-state.c:206
+#: ../components/editor/gtkhtml-color-swatch.c:183
 msgid "The current color"
 msgstr "Il colore attuale"
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-color-state.c:201
+#
+#: ../components/editor/gtkhtml-color-state.c:216
 msgid "The default color"
 msgstr "Il colore predefinito"
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-color-state.c:212
+#
+#: ../components/editor/gtkhtml-color-state.c:227
 msgid "Description of the default color"
 msgstr "Descrizione del colore predefinito"
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-color-swatch.c:177
+#
+#: ../components/editor/gtkhtml-color-swatch.c:182
 msgid "Color"
 msgstr "Colore"
 
-# GNOME 2.24
-#
 # FIXME
-#: ../components/editor/gtkhtml-color-swatch.c:187
+#: ../components/editor/gtkhtml-color-swatch.c:192
 msgid "Frame Shadow"
 msgstr "Ombra cornice"
 
-# GNOME 2.24
-#
 # FIXME
-#: ../components/editor/gtkhtml-color-swatch.c:188
+#: ../components/editor/gtkhtml-color-swatch.c:193
 msgid "Appearance of the frame border"
 msgstr "Aspetto del bordo della cornice"
 
-# GNOME 2.24
+#
 #: ../components/editor/gtkhtml-combo-box.c:323
 msgid "Action"
 msgstr "Azione"
 
-# GNOME 2.24
+#
 #: ../components/editor/gtkhtml-combo-box.c:324
 msgid "A GtkRadioAction"
 msgstr "Un GtkRadioAction"
 
-# titolo di dialogo selezione file
-#: ../components/editor/gtkhtml-editor-actions.c:633
-#: ../components/html-editor/menubar.c:348
-msgid "Insert HTML File"
-msgstr "Inserimento file HTML"
-
-# GNOME 2.24
-#: ../components/editor/gtkhtml-editor-actions.c:642
-#: ../components/editor/gtkhtml-editor-actions.c:1760
-msgid "Insert Image"
-msgstr "Inserimento immagine"
-
-# come sopra
-#: ../components/editor/gtkhtml-editor-actions.c:808
-#: ../components/html-editor/menubar.c:348
-msgid "Insert Text File"
-msgstr "Inserimento file di testo"
-
-#. Replace Button
-#: ../components/editor/gtkhtml-editor-actions.c:1269
-#: ../components/editor/gtkhtml-spell-dialog.c:522
-#: ../components/html-editor/replace.c:85
-msgid "_Replace"
-msgstr "_Sostituisci"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1276
-#: ../components/html-editor/replace.c:82
-msgid "Replace _All"
-msgstr "Sostituisci _tutto"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1290
-#: ../components/html-editor/replace.c:83
-msgid "_Next"
-msgstr "S_uccessivo"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1297
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:111
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
-msgid "_Copy"
-msgstr "_Copia"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1304
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:18
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:18
-msgid "Cu_t"
-msgstr "_Taglia"
-
-# GNOME 2.24
-#: ../components/editor/gtkhtml-editor-actions.c:1318
-msgid "Find A_gain"
-msgstr "Trova successi_vo"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1332
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:120
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
-msgid "_Increase Indent"
-msgstr "Aum_enta rientro"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1334
-msgid "Increase Indent"
-msgstr "Aumenta rientro"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1339
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:117
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
-msgid "_HTML File..."
-msgstr "File _HTML..."
-
-# (ndt) e metterle tutte al femminile? alla fine sono le 'faccine'...
-#
-# GNOME 2.24
-#: ../components/editor/gtkhtml-editor-actions.c:1346
-msgid "_Angel"
-msgstr "_Angioletto"
-
-# GNOME 2.24
-#: ../components/editor/gtkhtml-editor-actions.c:1353
-msgid "_Cool"
-msgstr "_Figo"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1360
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:17
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:17
-msgid "Cr_ying"
-msgstr "_Pianto"
-
-# GNOME 2.24
-#: ../components/editor/gtkhtml-editor-actions.c:1367
-msgid "_Devilish"
-msgstr "_Diabolico"
-
-# GNOME 2.24
-#: ../components/editor/gtkhtml-editor-actions.c:1374
-msgid "_Embarrassed"
-msgstr "_Imbarazzato"
-
-# GNOME 2.24
-#: ../components/editor/gtkhtml-editor-actions.c:1381
-msgid "_Kiss"
-msgstr "_Bacio"
-
-# GNOME 2.24
-#: ../components/editor/gtkhtml-editor-actions.c:1388
-msgid "_Monkey"
-msgstr "_Scimmia"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1395
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:121
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
-msgid "_Indifferent"
-msgstr "In_differente"
-
-# GNOME 2.24
-#: ../components/editor/gtkhtml-editor-actions.c:1402
-msgid "_Tongue"
-msgstr "Lin_guaccia"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1409
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:116
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
-msgid "_Frown"
-msgstr "_Disapprovazione"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1416
+#. Translators: :-)
+#: ../components/editor/gtkhtml-face-chooser.c:27
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:137
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
 msgid "_Smile"
 msgstr "_Sorriso"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1423
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:123
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
-msgid "_Laughing"
-msgstr "A_llegro"
+#. Translators: :-(
+#: ../components/editor/gtkhtml-face-chooser.c:29
+msgid "S_ad"
+msgstr "T_riste"
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-editor-actions.c:1430
-msgid "Smi_rk"
-msgstr "Sogg_higno"
-
-# GNOME 2.24
-#: ../components/editor/gtkhtml-editor-actions.c:1437
-msgid "Sur_prised"
-msgstr "So_rpreso"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1444
+#. Translators: ;-)
+#: ../components/editor/gtkhtml-face-chooser.c:31
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:160
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:160
 msgid "_Wink"
 msgstr "A_mmiccante"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1451
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:157
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:157
-msgid "_Undecided"
-msgstr "_Indeciso"
+#. Translators: :-P
+#: ../components/editor/gtkhtml-face-chooser.c:33
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:101
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
+msgid "Ton_gue"
+msgstr "Lin_guaccia"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1458
+#. Translators: :-))
+#: ../components/editor/gtkhtml-face-chooser.c:35
+msgid "Laug_h"
+msgstr "A_llegro"
+
+#. Translators: :-|
+#: ../components/editor/gtkhtml-face-chooser.c:37
+msgid "_Plain"
+msgstr "_Semplice"
+
+#. Translators: :-!
+#: ../components/editor/gtkhtml-face-chooser.c:39
+msgid "Smi_rk"
+msgstr "Sogg_higno"
+
+#. Translators: :"-)
+#: ../components/editor/gtkhtml-face-chooser.c:41
+msgid "_Embarrassed"
+msgstr "_Imbarazzato"
+
+#. Translators: :-D
+#: ../components/editor/gtkhtml-face-chooser.c:43
+msgid "_Big Smile"
+msgstr "_Sorrisone"
+
+#. Translators: :-/
+#: ../components/editor/gtkhtml-face-chooser.c:45
+msgid "Uncer_tain"
+msgstr "Incer_to"
+
+#. Translators: :-O
+#: ../components/editor/gtkhtml-face-chooser.c:47
+msgid "S_urprise"
+msgstr "So_rpreso"
+
+#. Translators: :-S
+#: ../components/editor/gtkhtml-face-chooser.c:49
+msgid "W_orried"
+msgstr "Pre_occupato"
+
+#. Translators: :-*
+#: ../components/editor/gtkhtml-face-chooser.c:51
+msgid "_Kiss"
+msgstr "_Bacio"
+
+#. Translators: X-(
+#: ../components/editor/gtkhtml-face-chooser.c:53
+msgid "A_ngry"
+msgstr "Arra_bbiato"
+
+#. Translators: B-)
+#: ../components/editor/gtkhtml-face-chooser.c:55
+msgid "_Cool"
+msgstr "_Figo"
+
+# (ndt) e metterle tutte al femminile? alla fine sono le 'faccine'...
+#. Translators: O:-)
+#: ../components/editor/gtkhtml-face-chooser.c:57
+msgid "Ange_l"
+msgstr "_Angioletto"
+
+#. Translators: :'(
+#: ../components/editor/gtkhtml-face-chooser.c:59
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:17
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:17
+msgid "Cr_ying"
+msgstr "_Pianto"
+
+#. Translators: :-Q
+#: ../components/editor/gtkhtml-face-chooser.c:61
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:91
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
 msgid "S_ick"
 msgstr "Ammala_to"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1465
+#. Translators: |-)
+#: ../components/editor/gtkhtml-face-chooser.c:63
+msgid "Tire_d"
+msgstr "_Stanco"
+
+#. Translators: >:-)
+#: ../components/editor/gtkhtml-face-chooser.c:65
+msgid "De_vilish"
+msgstr "_Diabolico"
+
+#. Translators: :-(|)
+#: ../components/editor/gtkhtml-face-chooser.c:67
+msgid "_Monkey"
+msgstr "_Scimmia"
+
+# titolo di dialogo selezione file
+#: ../components/editor/gtkhtml-editor-actions.c:632
+#: ../components/html-editor/menubar.c:348
+msgid "Insert HTML File"
+msgstr "Inserimento file HTML"
+
+#: ../components/editor/gtkhtml-editor-actions.c:641
+#: ../components/editor/gtkhtml-editor-actions.c:1540
+msgid "Insert Image"
+msgstr "Inserimento immagine"
+
+# come sopra
+#: ../components/editor/gtkhtml-editor-actions.c:688
+#: ../components/html-editor/menubar.c:348
+msgid "Insert Text File"
+msgstr "Inserimento file di testo"
+
+#. Replace Button
+#: ../components/editor/gtkhtml-editor-actions.c:1175
+#: ../components/editor/gtkhtml-spell-dialog.c:522
+#: ../components/html-editor/replace.c:85
+msgid "_Replace"
+msgstr "_Sostituisci"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1182
+#: ../components/html-editor/replace.c:82
+msgid "Replace _All"
+msgstr "Sostituisci _tutto"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1196
+#: ../components/html-editor/replace.c:83
+msgid "_Next"
+msgstr "S_uccessivo"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1203
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:111
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
+msgid "_Copy"
+msgstr "_Copia"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1210
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:18
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:18
+msgid "Cu_t"
+msgstr "_Taglia"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1224
+msgid "Find A_gain"
+msgstr "Trova successi_vo"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1238
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:120
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
+msgid "_Increase Indent"
+msgstr "Aum_enta rientro"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1240
+msgid "Increase Indent"
+msgstr "Aumenta rientro"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1245
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:117
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
+msgid "_HTML File..."
+msgstr "File _HTML..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1252
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:100
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 msgid "Te_xt File..."
 msgstr "File di _testo..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1472
+#: ../components/editor/gtkhtml-editor-actions.c:1259
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:129
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
 msgid "_Paste"
 msgstr "_Incolla"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1479
+#: ../components/editor/gtkhtml-editor-actions.c:1266
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:79
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
 #: ../components/html-editor/popup.c:446
 msgid "Paste _Quotation"
 msgstr "Incolla cita_zione"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1486
+#: ../components/editor/gtkhtml-editor-actions.c:1273
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:132
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
 msgid "_Redo"
 msgstr "_Ripeti"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1493
+#: ../components/editor/gtkhtml-editor-actions.c:1280
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:92
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
 msgid "Select _All"
 msgstr "_Seleziona tutto"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1500
+#: ../components/editor/gtkhtml-editor-actions.c:1287
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:114
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
 msgid "_Find..."
 msgstr "Tr_ova..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1507
+#: ../components/editor/gtkhtml-editor-actions.c:1294
 msgid "Re_place..."
 msgstr "Sostit_uisci..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1514
+#: ../components/editor/gtkhtml-editor-actions.c:1301
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:12
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
 msgid "Check _Spelling..."
 msgstr "Controllo orto_grafico..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1521
+#: ../components/editor/gtkhtml-editor-actions.c:1308
 #: ../components/editor/gtkhtml-editor.glade.h:77
 #: ../components/html-editor/utils.c:205
 msgid "_Test URL..."
 msgstr "C_ontrolla URL..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1528
+#: ../components/editor/gtkhtml-editor-actions.c:1315
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:159
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:159
 msgid "_Undo"
 msgstr "_Annulla"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1535
+#: ../components/editor/gtkhtml-editor-actions.c:1322
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:112
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
 msgid "_Decrease Indent"
 msgstr "Rid_uci rientro"
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-editor-actions.c:1537
+#
+#: ../components/editor/gtkhtml-editor-actions.c:1324
 msgid "Decrease Indent"
 msgstr "Riduci rientro"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-editor-actions.c:1542
+#: ../components/editor/gtkhtml-editor-actions.c:1329
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:161
 msgid "_Wrap Lines"
 msgstr "_Linee a capo"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1551
+#: ../components/editor/gtkhtml-editor-actions.c:1338
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:113
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
 msgid "_Edit"
 msgstr "_Modifica"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1558
-#: ../components/editor/main.c:324
+#: ../components/editor/gtkhtml-editor-actions.c:1345
+#: ../components/editor/main.c:327
 msgid "_File"
 msgstr "_File"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1565
+#: ../components/editor/gtkhtml-editor-actions.c:1352
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:28
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:28
 msgid "For_mat"
 msgstr "F_ormato"
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-editor-actions.c:1572
+#
+#: ../components/editor/gtkhtml-editor-actions.c:1359
 msgid "_Paragraph Style"
 msgstr "Stile _paragrafo"
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-editor-actions.c:1579
-msgid "_Emoticon"
-msgstr "_Faccine"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1586
+#: ../components/editor/gtkhtml-editor-actions.c:1366
 msgid "_Insert"
 msgstr "_Inserisci"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1593
+#: ../components/editor/gtkhtml-editor-actions.c:1373
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:106
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
 msgid "_Alignment"
 msgstr "_Allineamento"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1600
+#: ../components/editor/gtkhtml-editor-actions.c:1380
 #: ../components/html-editor/spellchecker.c:424
 msgid "Current _Languages"
 msgstr "_Lingue disponibili"
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-editor-actions.c:1607
-#: ../components/editor/main.c:355
+#
+#: ../components/editor/gtkhtml-editor-actions.c:1387
+#: ../components/editor/main.c:358
 msgid "_View"
 msgstr "_Visualizza"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1617
+#: ../components/editor/gtkhtml-editor-actions.c:1397
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
 msgid "_Center"
 msgstr "_Centro"
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-editor-actions.c:1619
+#
+#: ../components/editor/gtkhtml-editor-actions.c:1399
 msgid "Center Alignment"
 msgstr "Allineamento centrato"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1624
+#: ../components/editor/gtkhtml-editor-actions.c:1404
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
 msgid "_Left"
 msgstr "_Sinistra"
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-editor-actions.c:1626
+#
+#: ../components/editor/gtkhtml-editor-actions.c:1406
 msgid "Left Alignment"
 msgstr "Allineamento a sinistra"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1631
+#: ../components/editor/gtkhtml-editor-actions.c:1411
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:134
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:134
 msgid "_Right"
 msgstr "_Destra"
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-editor-actions.c:1633
+#
+#: ../components/editor/gtkhtml-editor-actions.c:1413
 msgid "Right Alignment"
 msgstr "Allineamento a destra"
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-editor-actions.c:1641
+#
+#: ../components/editor/gtkhtml-editor-actions.c:1421
 msgid "_HTML"
 msgstr "_HTML"
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-editor-actions.c:1643
+#
+#: ../components/editor/gtkhtml-editor-actions.c:1423
 msgid "HTML editing mode"
 msgstr "Modalità modifica HTML"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1648
+#: ../components/editor/gtkhtml-editor-actions.c:1428
 msgid "Plain _Text"
 msgstr "_Testo semplice"
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-editor-actions.c:1650
+#
+#: ../components/editor/gtkhtml-editor-actions.c:1430
 msgid "Plain text editing mode"
 msgstr "Modalità modifica testo semplice"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1658
+#: ../components/editor/gtkhtml-editor-actions.c:1438
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:126
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
 msgid "_Normal"
 msgstr "_Normale"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1665
+#: ../components/editor/gtkhtml-editor-actions.c:1445
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:29
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:29
 msgid "Header _1"
 msgstr "Intestazione _1"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1672
+#: ../components/editor/gtkhtml-editor-actions.c:1452
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:30
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:30
 msgid "Header _2"
 msgstr "Intestazione _2"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1679
+#: ../components/editor/gtkhtml-editor-actions.c:1459
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:31
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:31
 msgid "Header _3"
 msgstr "Intestazione _3"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1686
+#: ../components/editor/gtkhtml-editor-actions.c:1466
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:32
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:32
 msgid "Header _4"
 msgstr "Intestazione _4"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1693
+#: ../components/editor/gtkhtml-editor-actions.c:1473
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:33
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:33
 msgid "Header _5"
 msgstr "Intestazione _5"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1700
+#: ../components/editor/gtkhtml-editor-actions.c:1480
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:34
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:34
 msgid "Header _6"
 msgstr "Intestazione _6"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1707
+#: ../components/editor/gtkhtml-editor-actions.c:1487
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:8
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:8
 msgid "A_ddress"
 msgstr "Indiri_zzo"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1714
+#: ../components/editor/gtkhtml-editor-actions.c:1494
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:131
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
 msgid "_Preformatted"
 msgstr "_Preformattato"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1721
+#: ../components/editor/gtkhtml-editor-actions.c:1501
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:109
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
 msgid "_Bulleted List"
 msgstr "Elenco _puntato"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1728
+#: ../components/editor/gtkhtml-editor-actions.c:1508
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:135
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
 msgid "_Roman Numeral List"
 msgstr "Elenco numeri _romani"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1735
+#: ../components/editor/gtkhtml-editor-actions.c:1515
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:76
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
 msgid "Numbered _List"
 msgstr "Elenco _numerato"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1742
+#: ../components/editor/gtkhtml-editor-actions.c:1522
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:107
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
 msgid "_Alphabetical List"
 msgstr "Elenco _alfabetico"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1758
-#: ../components/editor/gtkhtml-editor-actions.c:1793
+#: ../components/editor/gtkhtml-editor-actions.c:1538
+#: ../components/editor/gtkhtml-editor-actions.c:1573
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:119
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
 msgid "_Image..."
 msgstr "I_mmagine..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1765
-#: ../components/editor/gtkhtml-editor-actions.c:1800
+#: ../components/editor/gtkhtml-editor-actions.c:1545
+#: ../components/editor/gtkhtml-editor-actions.c:1580
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:125
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
 msgid "_Link..."
 msgstr "Co_llegamento..."
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-editor-actions.c:1767
+#
+#: ../components/editor/gtkhtml-editor-actions.c:1547
 msgid "Insert Link"
 msgstr "Inserisce un collegamento"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1772
-#: ../components/editor/gtkhtml-editor-actions.c:1814
+#: ../components/editor/gtkhtml-editor-actions.c:1552
+#: ../components/editor/gtkhtml-editor-actions.c:1594
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:136
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
 msgid "_Rule..."
 msgstr "Li_nea..."
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-editor-actions.c:1774
+#
+#: ../components/editor/gtkhtml-editor-actions.c:1554
 msgid "Insert Rule"
 msgstr "Inserisce una linea"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1779
-#: ../components/editor/gtkhtml-editor-actions.c:1821
+#: ../components/editor/gtkhtml-editor-actions.c:1559
+#: ../components/editor/gtkhtml-editor-actions.c:1601
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:140
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:140
 msgid "_Table..."
 msgstr "_Tabella..."
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-editor-actions.c:1781
+#
+#: ../components/editor/gtkhtml-editor-actions.c:1561
 msgid "Insert Table"
 msgstr "Inserisce una tabella"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1786
+#: ../components/editor/gtkhtml-editor-actions.c:1566
 msgid "_Cell..."
 msgstr "_Cella..."
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-editor-actions.c:1807
+#
+#: ../components/editor/gtkhtml-editor-actions.c:1587
 msgid "Pa_ge..."
 msgstr "_Pagina..."
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-editor-actions.c:1830
+#
+#: ../components/editor/gtkhtml-editor-actions.c:1610
 msgid "Font _Size"
 msgstr "_Dimensione carattere"
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-editor-actions.c:1837
+#
+#: ../components/editor/gtkhtml-editor-actions.c:1617
 msgid "_Font Style"
 msgstr "_Stile carattere"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1847
+#: ../components/editor/gtkhtml-editor-actions.c:1627
 #: ../components/editor/gtkhtml-editor.glade.h:58
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:108
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
@@ -875,12 +890,12 @@ msgstr "_Stile carattere"
 msgid "_Bold"
 msgstr "_Grassetto"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1849
+#: ../components/editor/gtkhtml-editor-actions.c:1629
 #: ../components/html-editor/toolbar.c:441
 msgid "Bold"
 msgstr "Grassetto"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1855
+#: ../components/editor/gtkhtml-editor-actions.c:1635
 #: ../components/editor/gtkhtml-editor.glade.h:65
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:122
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
@@ -888,22 +903,22 @@ msgstr "Grassetto"
 msgid "_Italic"
 msgstr "C_orsivo"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1857
+#: ../components/editor/gtkhtml-editor-actions.c:1637
 #: ../components/html-editor/toolbar.c:444
 msgid "Italic"
 msgstr "Corsivo"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1863
+#: ../components/editor/gtkhtml-editor-actions.c:1643
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:130
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
 msgid "_Plain Text"
 msgstr "_Testo semplice"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1865
+#: ../components/editor/gtkhtml-editor-actions.c:1645
 msgid "Plain Text"
 msgstr "Testo semplice"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1871
+#: ../components/editor/gtkhtml-editor-actions.c:1651
 #: ../components/editor/gtkhtml-editor.glade.h:74
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:138
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
@@ -911,11 +926,11 @@ msgstr "Testo semplice"
 msgid "_Strikethrough"
 msgstr "_Barrato"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1873
+#: ../components/editor/gtkhtml-editor-actions.c:1653
 msgid "Strikethrough"
 msgstr "Barrato"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1879
+#: ../components/editor/gtkhtml-editor-actions.c:1659
 #: ../components/editor/gtkhtml-editor.glade.h:80
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:158
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:158
@@ -923,69 +938,69 @@ msgstr "Barrato"
 msgid "_Underline"
 msgstr "_Sottolineato"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1881
+#: ../components/editor/gtkhtml-editor-actions.c:1661
 #: ../components/html-editor/toolbar.c:447
 msgid "Underline"
 msgstr "Sottolineato"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1890
+#: ../components/editor/gtkhtml-editor-actions.c:1670
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:7
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:7
 msgid "-2"
 msgstr "-2"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1897
+#: ../components/editor/gtkhtml-editor-actions.c:1677
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:6
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:6
 msgid "-1"
 msgstr "-1"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1904
+#: ../components/editor/gtkhtml-editor-actions.c:1684
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:1
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
 msgid "+0"
 msgstr "+0"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1911
+#: ../components/editor/gtkhtml-editor-actions.c:1691
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:2
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:2
 msgid "+1"
 msgstr "+1"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1918
+#: ../components/editor/gtkhtml-editor-actions.c:1698
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:3
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:3
 msgid "+2"
 msgstr "+2"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1925
+#: ../components/editor/gtkhtml-editor-actions.c:1705
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:4
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:4
 msgid "+3"
 msgstr "+3"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1932
+#: ../components/editor/gtkhtml-editor-actions.c:1712
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:5
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:5
 msgid "+4"
 msgstr "+4"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1951
+#: ../components/editor/gtkhtml-editor-actions.c:1731
 msgid "Cell Contents"
 msgstr "Contenuto della cella"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1958
+#: ../components/editor/gtkhtml-editor-actions.c:1738
 #: ../components/html-editor/popup.c:523
 msgid "Column"
 msgstr "Colonna"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1965
+#: ../components/editor/gtkhtml-editor-actions.c:1745
 #: ../components/html-editor/popup.c:522
 msgid "Row"
 msgstr "Riga"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1972
-#: ../components/editor/gtkhtml-editor-actions.c:2055
+#: ../components/editor/gtkhtml-editor-actions.c:1752
+#: ../components/editor/gtkhtml-editor-actions.c:1835
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:50
@@ -995,221 +1010,217 @@ msgstr "Riga"
 msgid "Table"
 msgstr "Tabella"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1981
+#: ../components/editor/gtkhtml-editor-actions.c:1761
 msgid "Table Delete"
 msgstr "Elimina tabella"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1988
+#: ../components/editor/gtkhtml-editor-actions.c:1768
 #: ../components/html-editor/popup.c:584
 msgid "Input Methods"
 msgstr "Metodi di inserimento"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1995
+#: ../components/editor/gtkhtml-editor-actions.c:1775
 msgid "Table Insert"
 msgstr "Inserisci nella tabella"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2002
+#: ../components/editor/gtkhtml-editor-actions.c:1782
 #: ../components/html-editor/editor-control-factory.c:187
 #: ../components/html-editor/popup.c:191 ../components/html-editor/popup.c:268
 msgid "Properties"
 msgstr "Proprietà"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2020
+#: ../components/editor/gtkhtml-editor-actions.c:1800
 msgid "Column After"
 msgstr "Colonna dopo"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2027
+#: ../components/editor/gtkhtml-editor-actions.c:1807
 msgid "Column Before"
 msgstr "Colonna prima"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2034
+#: ../components/editor/gtkhtml-editor-actions.c:1814
 #: ../components/html-editor/popup.c:450
 msgid "Insert _Link"
 msgstr "Inserisci co_llegamento"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2041
+#: ../components/editor/gtkhtml-editor-actions.c:1821
 msgid "Row Above"
 msgstr "Riga sopra"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2048
+#: ../components/editor/gtkhtml-editor-actions.c:1828
 msgid "Row Below"
 msgstr "Riga sotto"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2062
+#: ../components/editor/gtkhtml-editor-actions.c:1842
 msgid "Cell..."
 msgstr "Cella..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:2069
+#: ../components/editor/gtkhtml-editor-actions.c:1849
 msgid "Image..."
 msgstr "Immagine..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:2076
+#: ../components/editor/gtkhtml-editor-actions.c:1856
 msgid "Link..."
 msgstr "Collegamento..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:2083
+#: ../components/editor/gtkhtml-editor-actions.c:1863
 msgid "Page..."
 msgstr "Pagina..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:2090
+#: ../components/editor/gtkhtml-editor-actions.c:1870
 msgid "Paragraph..."
 msgstr "Paragrafo..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:2097
+#: ../components/editor/gtkhtml-editor-actions.c:1877
 msgid "Rule..."
 msgstr "Linea..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:2104
+#: ../components/editor/gtkhtml-editor-actions.c:1884
 msgid "Table..."
 msgstr "Tabella..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:2111
+#: ../components/editor/gtkhtml-editor-actions.c:1891
 msgid "Text..."
 msgstr "Testo..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:2118
+#: ../components/editor/gtkhtml-editor-actions.c:1898
 #: ../components/html-editor/popup.c:457
 msgid "Remove Link"
 msgstr "Rimuovi collegamento"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2135
+#: ../components/editor/gtkhtml-editor-actions.c:1915
 #: ../components/html-editor/popup.c:578
 msgid "Add Word to Dictionary"
 msgstr "Aggiungi parola al dizionario"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2142
+#: ../components/editor/gtkhtml-editor-actions.c:1922
 #: ../components/html-editor/popup.c:559
 msgid "Ignore Misspelled Word"
 msgstr "Ignora parole errate"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2149
+#: ../components/editor/gtkhtml-editor-actions.c:1929
 msgid "Add Word To"
 msgstr "Aggiungi parola a"
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-editor-actions.c:2367
+#: ../components/editor/gtkhtml-editor-actions.c:1938
+msgid "More Suggestions"
+msgstr "Ulteriori suggerimenti"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2105
+msgid "_Emoticon"
+msgstr "_Faccine"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2106
+msgid "Insert Emoticon"
+msgstr "Inserisci faccina"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2167
 msgid "_Find"
 msgstr "Tr_ova"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2370
+#: ../components/editor/gtkhtml-editor-actions.c:2170
 msgid "Re_place"
 msgstr "So_stituisci"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2373
+#: ../components/editor/gtkhtml-editor-actions.c:2173
 msgid "_Image"
 msgstr "_Immagine"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2376
+#: ../components/editor/gtkhtml-editor-actions.c:2176
 msgid "_Link"
 msgstr "C_ollegamento"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2379
+#: ../components/editor/gtkhtml-editor-actions.c:2179
 msgid "_Rule"
 msgstr "_Linea"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2382
+#: ../components/editor/gtkhtml-editor-actions.c:2182
 #: ../components/editor/gtkhtml-editor.glade.h:76
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:72
 msgid "_Table"
 msgstr "_Tabella"
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-editor-private.c:253
+#: ../components/editor/gtkhtml-editor-private.c:273
 msgid "Paragraph Style"
 msgstr "Stile del paragrafo"
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-editor-private.c:267
+#: ../components/editor/gtkhtml-editor-private.c:287
 msgid "Editing Mode"
 msgstr "Modalità modifica"
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-editor-private.c:279
+#: ../components/editor/gtkhtml-editor-private.c:299
 msgid "Font Color"
 msgstr "Colore carattere"
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-editor-private.c:289
+#: ../components/editor/gtkhtml-editor-private.c:309
 msgid "Font Size"
 msgstr "Dimensione carattere"
 
-#: ../components/editor/gtkhtml-editor-private.c:316
+#: ../components/editor/gtkhtml-editor-private.c:336
 #: ../components/html-editor/body.c:237 ../components/html-editor/text.c:171
 #: ../components/html-editor/toolbar.c:199
 msgid "Automatic"
 msgstr "Automatico"
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-editor.c:702
+#: ../components/editor/gtkhtml-editor-private.c:608
+msgid "Could not open the link."
+msgstr "Impossibile aprire il collegamento."
+
+#: ../components/editor/gtkhtml-editor.c:750
 msgid "Current Folder"
 msgstr "Cartella corrente"
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-editor.c:703
+#: ../components/editor/gtkhtml-editor.c:751
 msgid "The initial folder for file chooser dialogs"
 msgstr "La cartella iniziale per il dialogo di scelta dei file"
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-editor.c:713
+#: ../components/editor/gtkhtml-editor.c:761
 msgid "Filename"
 msgstr "Nome file"
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-editor.c:714
+#: ../components/editor/gtkhtml-editor.c:762
 msgid "The filename to use when saving"
 msgstr "Il nome del file da usare quando si salva"
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-editor.c:724
+#: ../components/editor/gtkhtml-editor.c:772
 msgid "HTML Mode"
 msgstr "Modalità HTML"
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-editor.c:725
+#: ../components/editor/gtkhtml-editor.c:773
 msgid "Edit HTML or plain text"
 msgstr "Modifica HTML o testo semplice"
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-editor.c:735
+#: ../components/editor/gtkhtml-editor.c:783
 msgid "Inline Spelling"
 msgstr "Controllo ortografico incorporato"
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-editor.c:736
+#: ../components/editor/gtkhtml-editor.c:784
 msgid "Check your spelling as you type"
 msgstr "Controlla l'ortografia mentre si digita"
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-editor.c:746
+#: ../components/editor/gtkhtml-editor.c:794
 msgid "Magic Links"
 msgstr "Collegamenti magici"
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-editor.c:747
+#: ../components/editor/gtkhtml-editor.c:795
 msgid "Make URIs clickable as you type"
 msgstr "È possibile fare clic sugli URL mentre si digita"
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-editor.c:757
+#: ../components/editor/gtkhtml-editor.c:805
 msgid "Magic Smileys"
 msgstr "Faccine magiche"
 
-# GNOME 2.24
-#: ../components/editor/gtkhtml-editor.c:758
+#: ../components/editor/gtkhtml-editor.c:806
 msgid "Convert emoticons to images as you type"
 msgstr "Converte le faccine in immagini mentre si digita"
 
-# GNOME 2.24
 #: ../components/editor/gtkhtml-editor.glade.h:1
 msgid "<b>Alignment &amp; Behavior</b>"
 msgstr "<b>Allineamento e comportamento</b>"
 
-# GNOME 2.24
 #: ../components/editor/gtkhtml-editor.glade.h:2
 msgid "<b>Alignment</b>"
 msgstr "<b>Allineamento</b>"
 
-# GNOME 2.24
 #: ../components/editor/gtkhtml-editor.glade.h:3
 msgid "<b>Background Image</b>"
 msgstr "<b>Immagine di sfondo</b>"
@@ -1219,7 +1230,6 @@ msgstr "<b>Immagine di sfondo</b>"
 msgid "<b>Background</b>"
 msgstr "<b>Sfondo</b>"
 
-# GNOME 2.24
 #: ../components/editor/gtkhtml-editor.glade.h:5
 msgid "<b>Colors</b>"
 msgstr "<b>Colori</b>"
@@ -1234,23 +1244,19 @@ msgstr "<b>Generale</b>"
 msgid "<b>Layout</b>"
 msgstr "<b>Impaginazione</b>"
 
-# GNOME 2.24
 #: ../components/editor/gtkhtml-editor.glade.h:8
 msgid "<b>Link</b>"
 msgstr "<b>Collegamento</b>"
 
-# Novell Translation
 #: ../components/editor/gtkhtml-editor.glade.h:9
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:14
 msgid "<b>Scope</b>"
 msgstr "<b>Ambito</b>"
 
-# GNOME 2.24
 #: ../components/editor/gtkhtml-editor.glade.h:10
 msgid "<b>Size</b>"
 msgstr "<b>Dimensione</b>"
 
-# GNOME 2.24
 #: ../components/editor/gtkhtml-editor.glade.h:11
 msgid "<b>Style</b>"
 msgstr "<b>Stile</b>"
@@ -1281,7 +1287,6 @@ msgstr "_Personalizzata:"
 msgid "Case _sensitive"
 msgstr "_Maiuscole/minuscole"
 
-# GNOME 2.24
 #: ../components/editor/gtkhtml-editor.glade.h:17
 msgid "Cell Properties"
 msgstr "Proprietà cella"
@@ -1295,7 +1300,6 @@ msgstr "C_olore:"
 msgid "Col_umn"
 msgstr "Colo_nna"
 
-# GNOME 2.24
 #: ../components/editor/gtkhtml-editor.glade.h:20
 msgid "Column Span:"
 msgstr "Estensione colonna:"
@@ -1337,7 +1341,6 @@ msgstr ""
 msgid "Link Properties"
 msgstr "Proprietà collegamento"
 
-# GNOME 2.24
 #: ../components/editor/gtkhtml-editor.glade.h:29
 msgid ""
 "None\n"
@@ -1355,7 +1358,7 @@ msgstr ""
 "Inchiostro blu\n"
 "Carta\n"
 "Nastro\n"
-"Midnight\n"
+"Mezzanotte\n"
 "Confidenziale\n"
 "Bozza\n"
 "Carta millimetrata"
@@ -1386,17 +1389,14 @@ msgstr "Sostituisci"
 msgid "Replace Confirmation"
 msgstr "Conferma sostituzione"
 
-# GNOME 2.24
 #: ../components/editor/gtkhtml-editor.glade.h:43
 msgid "Row Span:"
 msgstr "Estensione riga:"
 
-# GNOME 2.24
 #: ../components/editor/gtkhtml-editor.glade.h:44
 msgid "Rule Properties"
 msgstr "Proprietà linea"
 
-# GNOME 2.24
 #: ../components/editor/gtkhtml-editor.glade.h:45
 msgid "S_haded"
 msgstr "Om_breggiata"
@@ -1405,7 +1405,6 @@ msgstr "Om_breggiata"
 msgid "Search _backwards"
 msgstr "Cerca in_dietro"
 
-# GNOME 2.24
 #: ../components/editor/gtkhtml-editor.glade.h:47
 msgid "Select An Image"
 msgstr "Seleziona immagine"
@@ -1420,12 +1419,10 @@ msgstr "_Dimensione:"
 msgid "T_emplate:"
 msgstr "_Modello:"
 
-# GNOME 2.24
 #: ../components/editor/gtkhtml-editor.glade.h:50
 msgid "Table Properties"
 msgstr "Proprietà tabella"
 
-# GNOME 2.24
 #: ../components/editor/gtkhtml-editor.glade.h:51
 msgid "Text Properties"
 msgstr "Proprietà testo"
@@ -1476,7 +1473,6 @@ msgstr "_Descrizione:"
 msgid "_Height:"
 msgstr "Al_tezza:"
 
-# GNOME 2.24
 #: ../components/editor/gtkhtml-editor.glade.h:63
 msgid "_Horizontal:"
 msgstr "Ori_zzontale:"
@@ -1539,7 +1535,6 @@ msgstr "_Testo:"
 msgid "_URL:"
 msgstr "_URL:"
 
-# GNOME 2.24
 #: ../components/editor/gtkhtml-editor.glade.h:81
 msgid "_Vertical:"
 msgstr "_Verticale:"
@@ -1563,12 +1558,12 @@ msgstr "Testo _a capo"
 #: ../components/editor/gtkhtml-editor.glade.h:85
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:77
 msgid "_X-Padding:"
-msgstr "Margine _oriz.:"
+msgstr "Riempimento _oriz.:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:86
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:78
 msgid "_Y-Padding:"
-msgstr "Margine _vert.:"
+msgstr "Riempimento _vert.:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:87
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:79
@@ -1597,17 +1592,14 @@ msgstr ""
 "%\n"
 "segue"
 
-# GNOME 2.24
 #: ../components/editor/gtkhtml-spell-checker.c:200
 msgid "Language"
 msgstr "Lingua"
 
-# GNOME 2.24
 #: ../components/editor/gtkhtml-spell-checker.c:201
 msgid "The language used by the spell checker"
 msgstr "La lingua usata per il controllo ortografico"
 
-# GNOME 2.24
 #: ../components/editor/gtkhtml-spell-dialog.c:117
 #, c-format
 msgid "Suggestions for \"%s\""
@@ -1617,29 +1609,24 @@ msgstr "Suggerimenti per «%s»"
 msgid "Misspelled Word"
 msgstr "Parole errate"
 
-# GNOME 2.24
 #: ../components/editor/gtkhtml-spell-dialog.c:359
 msgid "The current misspelled word"
 msgstr "La parola errata"
 
-# GNOMe 2.24
 #: ../components/editor/gtkhtml-spell-dialog.c:449
 msgid "Spell Checker"
 msgstr "Correttore ortografico"
 
-# GNOME 2.24
 #. Replace All Button
 #: ../components/editor/gtkhtml-spell-dialog.c:536
 msgid "R_eplace All"
 msgstr "Sostituisci _tutti"
 
-# GNOME 2.24
 #. Ignore Button
 #: ../components/editor/gtkhtml-spell-dialog.c:550
 msgid "_Ignore"
 msgstr "_Ignora"
 
-# GNOME 2.24
 #. Skip Button
 #: ../components/editor/gtkhtml-spell-dialog.c:564
 msgid "_Skip"
@@ -1655,13 +1642,11 @@ msgstr "I_ndietro"
 msgid "Dictionary"
 msgstr "Dizionario"
 
-# GNOME 2.24
 #. Add Word Button
 #: ../components/editor/gtkhtml-spell-dialog.c:619
 msgid "_Add Word"
 msgstr "A_ggiungi parola"
 
-# GNOME 2.24
 #. Translators: %s is the language ISO code.
 #: ../components/editor/gtkhtml-spell-language.c:180
 #, c-format
@@ -1669,7 +1654,6 @@ msgctxt "language"
 msgid "Unknown (%s)"
 msgstr "Sconosciuta (%s)"
 
-# GNOME 2.24
 #. Translators: The first %s is the language name, and the
 #. * second is the country name. Example: "French (France)"
 #: ../components/editor/gtkhtml-spell-language.c:195
@@ -1679,7 +1663,6 @@ msgctxt "language"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-# GNOME 2.24
 #. Translators: This refers to the default language used
 #. * by the spell checker.
 #: ../components/editor/gtkhtml-spell-language.c:385
@@ -1687,67 +1670,59 @@ msgctxt "language"
 msgid "Default"
 msgstr "Predefinita"
 
-# GNOME 2.24
 #: ../components/editor/main.c:93
 msgid "Save As"
 msgstr "Salva come"
 
-# GNOME 2.24
 #: ../components/editor/main.c:111
 msgid "Untitled document"
 msgstr "Documento senza nome"
 
-# GNOME 2.24
-#: ../components/editor/main.c:268
+#: ../components/editor/main.c:271
 msgid "HTML Output"
 msgstr "Output HTML"
 
-# GNOME 2.24
-#: ../components/editor/main.c:275
+#: ../components/editor/main.c:278
 msgid "HTML Source"
 msgstr "Sorgente HTML"
 
-# GNOME 2.24
-#: ../components/editor/main.c:282
+#: ../components/editor/main.c:285
 msgid "Plain Source"
 msgstr "Sorgente semplice"
 
-# GNOME 2.24
-#: ../components/editor/main.c:289
+#: ../components/editor/main.c:292
 msgid "_Print..."
 msgstr "Stam_pa..."
 
-#: ../components/editor/main.c:296
+#: ../components/editor/main.c:299
 msgid "Print Pre_view"
 msgstr "Antepri_ma di stampa"
 
-# GNOME 2.24
-#: ../components/editor/main.c:303
+#: ../components/editor/main.c:306
 msgid "_Quit"
 msgstr "_Esci"
 
-# GNOME 2.24
-#: ../components/editor/main.c:310
+#: ../components/editor/main.c:313
 msgid "_Save"
 msgstr "_Salva"
 
-# GNOME 2.24
-#: ../components/editor/main.c:317
+#
+#: ../components/editor/main.c:320
 msgid "Save _As..."
 msgstr "Sa_lva come..."
 
-# GNOME 2.24
-#: ../components/editor/main.c:334
+#
+#: ../components/editor/main.c:337
 msgid "HTML _Output"
 msgstr "_Output HTML"
 
-# GNOME 2.24
-#: ../components/editor/main.c:341
+#
+#: ../components/editor/main.c:344
 msgid "_HTML Source"
 msgstr "Sorgente _HTML"
 
-# GNOME 2.24
-#: ../components/editor/main.c:348
+#
+#: ../components/editor/main.c:351
 msgid "_Plain Source"
 msgstr "Sor_gente semplice"
 
@@ -2141,11 +2116,6 @@ msgstr "Apice"
 msgid "Te_mplate..."
 msgstr "Mo_dello..."
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:101
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
-msgid "Ton_gue"
-msgstr "Lin_guaccia"
-
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:102
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
 #: ../components/html-editor/toolbar.c:439
@@ -2172,10 +2142,25 @@ msgstr "Annulla l'ultima azione"
 msgid "_Font Size"
 msgstr "_Dimensione carattere"
 
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:116
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
+msgid "_Frown"
+msgstr "_Disapprovazione"
+
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:118
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
 msgid "_Heading"
 msgstr "_Intestazione"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:121
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
+msgid "_Indifferent"
+msgstr "In_differente"
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:123
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
+msgid "_Laughing"
+msgstr "A_llegro"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:127
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:127
@@ -2216,6 +2201,11 @@ msgstr "S_tile"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:156
 msgid "_Text..."
 msgstr "_Testo..."
+
+#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:157
+#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:157
+msgid "_Undecided"
+msgstr "_Indeciso"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:1
 msgid "GNOME HTML Editor"
@@ -2452,7 +2442,7 @@ msgstr "Proprietà collegamento"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:45
 msgid "Row span:"
-msgstr "Spaziatura riga:"
+msgstr "Estensione riga:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:47
 msgid "Shade"
@@ -2751,85 +2741,85 @@ msgstr ""
 "L'oggetto modificato è stato rimosso dal documento.\n"
 "Impossibile applicare le modifiche."
 
-#: ../gtkhtml/gtkhtml.c:2942
+#: ../gtkhtml/gtkhtml.c:3033
 msgid "Editable"
 msgstr "Modificabile"
 
-#: ../gtkhtml/gtkhtml.c:2943
+#: ../gtkhtml/gtkhtml.c:3034
 msgid "Whether the html can be edited"
 msgstr "Indica se l'html può essere modificato"
 
-#: ../gtkhtml/gtkhtml.c:2949
+#: ../gtkhtml/gtkhtml.c:3040
 msgid "Document Title"
 msgstr "Titolo del documento"
 
-#: ../gtkhtml/gtkhtml.c:2950
+#: ../gtkhtml/gtkhtml.c:3041
 msgid "The title of the current document"
 msgstr "Il titolo del documento corrente"
 
-#: ../gtkhtml/gtkhtml.c:2956
+#: ../gtkhtml/gtkhtml.c:3047
 msgid "Document Base"
-msgstr "Documento base"
+msgstr "Base del documento"
 
-#: ../gtkhtml/gtkhtml.c:2957
+#: ../gtkhtml/gtkhtml.c:3048
 msgid "The base URL for relative references"
 msgstr "L'URL di base per riferimenti relativi"
 
-#: ../gtkhtml/gtkhtml.c:2963
+#: ../gtkhtml/gtkhtml.c:3054
 msgid "Target Base"
-msgstr "Destinazione base"
+msgstr "Base della destinazione"
 
-#: ../gtkhtml/gtkhtml.c:2964
+#: ../gtkhtml/gtkhtml.c:3055
 msgid "The base URL of the target frame"
 msgstr "L'URL di base della cornice destinazione"
 
-#: ../gtkhtml/gtkhtml.c:2973
+#: ../gtkhtml/gtkhtml.c:3064
 msgid "Fixed Width Font"
 msgstr "Carattere a larghezza fissa"
 
-#: ../gtkhtml/gtkhtml.c:2974
+#: ../gtkhtml/gtkhtml.c:3065
 msgid "The Monospace font to use for typewriter text"
 msgstr ""
 "Il tipo di carattere a spaziatura fissa da usare nel testo tipo macchina da "
 "scrivere"
 
-#: ../gtkhtml/gtkhtml.c:2980
+#: ../gtkhtml/gtkhtml.c:3071
 msgid "New Link Color"
 msgstr "Colore collegamento nuovo"
 
-#: ../gtkhtml/gtkhtml.c:2981
+#: ../gtkhtml/gtkhtml.c:3072
 msgid "The color of new link elements"
 msgstr "Il colore di un elemento collegamento nuovo"
 
-#: ../gtkhtml/gtkhtml.c:2986
+#: ../gtkhtml/gtkhtml.c:3077
 msgid "Visited Link Color"
 msgstr "Colore collegamento visitato"
 
-#: ../gtkhtml/gtkhtml.c:2987
+#: ../gtkhtml/gtkhtml.c:3078
 msgid "The color of visited link elements"
 msgstr "Il colore di un elemento collegamento visitato"
 
-#: ../gtkhtml/gtkhtml.c:2992
+#: ../gtkhtml/gtkhtml.c:3083
 msgid "Active Link Color"
 msgstr "Colore collegamento attivo"
 
-#: ../gtkhtml/gtkhtml.c:2993
+#: ../gtkhtml/gtkhtml.c:3084
 msgid "The color of active link elements"
 msgstr "Il colore di un elemento collegamento attivo"
 
-#: ../gtkhtml/gtkhtml.c:2998
+#: ../gtkhtml/gtkhtml.c:3089
 msgid "Spelling Error Color"
 msgstr "Colore errore ortografico"
 
-#: ../gtkhtml/gtkhtml.c:2999
+#: ../gtkhtml/gtkhtml.c:3090
 msgid "The color of the spelling error markers"
 msgstr "Il colore per contraddistinguere un errore ortografico"
 
-#: ../gtkhtml/gtkhtml.c:3004
+#: ../gtkhtml/gtkhtml.c:3095
 msgid "Cite Quotation Color"
 msgstr "Colore citazione"
 
-#: ../gtkhtml/gtkhtml.c:3005
+#: ../gtkhtml/gtkhtml.c:3096
 msgid "The color of the cited text"
 msgstr "Il colore del testo citato"
 
@@ -2858,6 +2848,6 @@ msgstr "Antepri_ma di stampa"
 msgid "Print preview"
 msgstr "Anteprima di stampa"
 
-#: ../gtkhtml/testgtkhtml.c:1019
+#: ../gtkhtml/testgtkhtml.c:1028
 msgid "GtkHTML Test Application"
 msgstr "Applicazione test GtkHTML"
