@@ -1,3 +1,33 @@
+2009-03-02  Matt McCutchen  <matt@mattmccutchen.net>
+
+	Now that gtkhtml's handling of entities in input has been fixed
+	comprehensively in bug 552357, revert previous workarounds, as 
+	follows:
+
+	* gtkhtml/gtkhtml/htmltokenizer.c:
+	* gtkhtml/gtkhtml/ChangeLog:
+	* gtkhtml/gtkhtml/htmltext.c:
+	* gtkhtml/gtkhtml/htmlutils.c:
+	* gtkhtml/gtkhtml/htmlutils.h:
+	* gtkhtml/gtkhtml/Makefile.am:
+	* gtkhtml/gtkhtml/htmlobject.c:
+	* gtkhtml/gtkhtml/gtkhtml.c:
+	Revert gtkhtml revision 8605 (workaround for bug 485700).
+
+	* gtkhtml/gtkhtml/htmlengine-save.h, gtkhtml/gtkhtml/htmlengine-save.c
+	(html_engine_save_delims_and_vals): New function to help output
+	properly entity-encoded tags with attributes.
+
+	* gtkhtml/gtkhtml/htmltext.c:
+	* gtkhtml/gtkhtml/htmlimage.c:
+	* gtkhtml/gtkhtml/htmlobject.c:
+	* gtkhtml/gtkhtml/htmliframe.c:
+	* gtkhtml/gtkhtml/htmltablecell.c:
+	* gtkhtml/gtkhtml/htmltable.c: Entity-encode attributes where
+	appropriate.
+	
+	** Part of the fix for bug #549838
+   
 2009-02-18  Matthew Barnes  <mbarnes@redhat.com>
 
 	* htmlenum.c:

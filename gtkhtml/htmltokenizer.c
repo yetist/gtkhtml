@@ -90,7 +90,6 @@ struct _HTMLTokenizerPrivate {
 	gint     pre; /* Are we in a <pre> block? */
 	gboolean select; /* Are we in a <select> block? */
 	gboolean extension; /* Are we in an <!-- +GtkHTML: sequence? */
-	gboolean aTag; /* Are we in a <a/> tag*/
 
 	enum {
 		NoneDiscard = 0,
@@ -275,7 +274,6 @@ html_tokenizer_init (HTMLTokenizer *t)
 	p->pre = 0;
 	p->select = FALSE;
 	p->extension = FALSE;
-	p->aTag = FALSE;
 
 	p->discard = NoneDiscard;
 	p->pending = NonePending;
@@ -1166,7 +1164,6 @@ end_tag (HTMLTokenizer *t, const gchar **src)
 	p->dest = p->buffer;
 
 	p->tag = FALSE;
-	p->aTag = FALSE;
 	p->pending = NonePending;
 	(*src)++;
 
@@ -1280,8 +1277,6 @@ in_space_or_tab (HTMLTokenizer *t, const gchar **src)
 		if (t->priv->discard == NoneDiscard)
 			t->priv->pending = SpacePending;
 		ptr = t->priv->buffer;
-		if (strlen (ptr) == 3 && ptr[1] == '<' && ptr[2] == 'a')
-			t->priv->aTag = TRUE;
 	}
 	else if (t->priv->pre || t->priv->textarea) {
 		if (t->priv->pending)

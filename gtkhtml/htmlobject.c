@@ -45,7 +45,6 @@
 #include "htmlrule.h"
 #include "htmltype.h"
 #include "htmlsettings.h"
-#include "htmlutils.h"
 
 #include "gtkhtmldebug.h"
 
@@ -1172,16 +1171,11 @@ gchar *
 html_object_get_complete_url (HTMLObject *o, gint offset)
 {
 	const gchar *url, *target;
-	gchar *url2, *url3;
 
 	url = html_object_get_url (o, offset);
 	target = html_object_get_target (o, offset);
-	url2 = url || target ? g_strconcat (url ? url : "#", url ? (target && *target ? "#" : NULL) : target,
-					    url ? target : NULL, NULL) : NULL;
-	url3 = html_utils_maybe_unescape_amp (url2);
-	g_free (url2);
-
-	return url3;
+	return url || target ? g_strconcat (url ? url : "#", url ? (target && *target ? "#" : NULL) : target,
+					      url ? target : NULL, NULL) : NULL;
 }
 
 const gchar *
@@ -1857,8 +1851,11 @@ object_save_data (GQuark key_id, gpointer data, gpointer user_data)
 	/* printf ("object %s %s\n", g_quark_to_string (key_id), str); */
 	if (!str) {
 		/* printf ("save %s %s -> %s\n", state->save_data_class_name, g_quark_to_string (key_id), (gchar *) data); */
-		html_engine_save_output_string (state, "<!--+GtkHTML:<DATA class=\"%s\" key=\"%s\" value=\"%s\">-->",
-						state->save_data_class_name, g_quark_to_string (key_id), (char *) data);
+		html_engine_save_delims_and_vals (state,
+				"<!--+GtkHTML:<DATA class=\"", state->save_data_class_name,
+				"\" key=\"", g_quark_to_string (key_id),
+				"\" value=\"", (char *) data,
+				"\">-->", NULL);
 		html_engine_set_class_data (state->engine, state->save_data_class_name, g_quark_to_string (key_id), data);
 	}
 }
@@ -1873,13 +1870,18 @@ handle_object_data (gpointer key, gpointer value, gpointer data)
 	/* printf ("handle: %s %s %s %s\n", state->save_data_class_name, key, value, str); */
 	if (!str) {
 		/* printf ("clear\n"); */
-		html_engine_save_output_string (state, "<!--+GtkHTML:<DATA class=\"%s\" clear=\"%s\">-->",
-						state->save_data_class_name, (char *) key);
+		html_engine_save_delims_and_vals (state,
+				"<!--+GtkHTML:<DATA class=\"", state->save_data_class_name,
+				"\" clear=\"", (char *) key,
+				"\">-->", NULL);
 		state->data_to_remove = g_slist_prepend (state->data_to_remove, key);
 	} else if (strcmp (value, str)) {
 		/* printf ("change\n"); */
-		html_engine_save_output_string (state, "<!--+GtkHTML:<DATA class=\"%s\" key=\"%s\" value=\"%s\">-->",
-						state->save_data_class_name, (char *) key, str);
+		html_engine_save_delims_and_vals (state,
+				"<!--+GtkHTML:<DATA class=\"", state->save_data_class_name,
+				"\" key=\"", (char *) key,
+				"\" value=\"", str,
+				"\">-->", NULL);
 		html_engine_set_class_data (state->engine, state->save_data_class_name, key, value);
 	}
 }

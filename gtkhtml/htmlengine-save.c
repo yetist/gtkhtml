@@ -202,6 +202,29 @@ html_engine_save_output_buffer (HTMLEngineSaveState *state, const gchar *buffer,
 		bytes = strlen (buffer);
 	return state->receiver (state->engine, buffer, bytes, state->user_data);
 }
+
+gboolean
+html_engine_save_delims_and_vals (HTMLEngineSaveState *state,
+				  const gchar *first,
+				  ...)
+{
+  va_list args;
+  gboolean retval;
+  const gchar *value, *after;
+
+  g_return_val_if_fail (state != NULL, FALSE);
+
+  retval = html_engine_save_output_buffer (state, first, -1);
+  va_start (args, first);
+  while (retval && (value = va_arg (args, const gchar *)) != NULL) {
+    after = va_arg (args, const gchar *);
+    retval = html_engine_save_encode_string (state, value)
+	    && html_engine_save_output_buffer (state, after, -1);
+  }
+  va_end (args);
+
+  return retval;
+}
 
 
 static gchar *
@@ -280,9 +303,9 @@ write_header (HTMLEngineSaveState *state)
 	if (state->engine->title != NULL
 	    && state->engine->title->str != NULL
 	    && state->engine->title->str[0] != '\0') {
-		if (! html_engine_save_output_string (state, "  <TITLE>")
-		    || ! html_engine_save_encode_string (state, state->engine->title->str)
-		    || ! html_engine_save_output_string (state, "</TITLE>\n"))
+		if (! html_engine_save_delims_and_vals (state,
+				"  <TITLE>", state->engine->title->str,
+				"</TITLE>\n", NULL))
 			return FALSE;
 	}
 

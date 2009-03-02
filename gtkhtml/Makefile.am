@@ -128,7 +128,6 @@ libgtkhtml_3_14_la_SOURCES =			\
 	htmliframe.c				\
 	htmlframe.c				\
 	htmlframeset.c				\
-	htmlutils.c				\
 	gtkhtml-compat.h			\
 	gtkhtml-keybinding.h			\
 	gtkhtml-private.h			\
@@ -203,7 +202,6 @@ libgtkhtml_3_14_la_SOURCES =			\
 	htmliframe.h				\
 	htmlframe.h				\
 	htmlframeset.h				\
-	htmlutils.h				\
 	$(PLATFORM_DEP_SOURCES)			\
 	$(NULL)
 

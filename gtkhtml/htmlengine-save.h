@@ -64,6 +64,16 @@ gboolean             html_engine_save_output_buffer             (HTMLEngineSaveS
 								 const gchar               *buffer,
 								 int                        len);
 
+/* Takes a string sequence of the form (delim, (val, delim)*, NULL)
+   and outputs the delimiters verbatim and the values entity-encoded.
+   Useful for writing properly-encoded tags with attributes.
+
+   Example: html_engine_save_delims_and_vals (state, "<TAG ATTR1=\"", attr1, "\" ATTR2=\"", attr2, "\">", NULL);
+   */
+gboolean             html_engine_save_delims_and_vals           (HTMLEngineSaveState *state,
+								 const gchar *first,
+								 ...);
+
 /* Saving a whole tree.  */
 gboolean             html_engine_save                           (HTMLEngine                *engine,
 								 HTMLEngineSaveReceiverFn   receiver,

@@ -288,7 +288,11 @@ save (HTMLObject *self,
 
 	if (cell->have_bgPixmap) {
 		gchar * url = html_image_resolve_image_url (state->engine->widget, cell->bgPixmap->url);
-		SB " BACKGROUND=\"%s\"", url SE;
+		if (!html_engine_save_delims_and_vals (state, " BACKGROUND=\"", url, "\"", NULL))
+		{
+			g_free (url);
+			return FALSE;
+		}
 		g_free (url);
 	}
 	if (cell->cspan != 1)

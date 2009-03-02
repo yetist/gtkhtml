@@ -493,7 +493,7 @@ save (HTMLObject *s,
 		}
 		html_engine_save_buffer_free (buffer, TRUE);
 	} else {
-		if (!html_engine_save_output_string (state, "<IFRAME SRC=\"%s\"", iframe->url))
+		if (!html_engine_save_delims_and_vals (state, "<IFRAME SRC=\"", iframe->url, "\"", NULL))
 			 return FALSE;
 
 		 if (iframe->width >= 0)

@@ -599,14 +599,14 @@ save (HTMLObject *self,
 	if (image->url && *image->url) {
 		url  = g_strconcat (image->url, image->target ? "#" : "", image->target, NULL);
 		link = TRUE;
-		result = html_engine_save_output_string (state, "<A HREF=\"%s\">", url);
+		result = html_engine_save_delims_and_vals (state, "<A HREF=\"", url, "\">", NULL);
 		g_free (url);
 		if (!result)
 			return FALSE;
 	}
 
 	url    = html_image_resolve_image_url (state->engine->widget, image->image_ptr->url);
-	result = html_engine_save_output_string (state, "<IMG SRC=\"%s\"", url);
+	result = html_engine_save_delims_and_vals (state, "<IMG SRC=\"", url, "\"", NULL);
 	g_free (url);
 	if (!result)
 		return FALSE;
@@ -648,7 +648,7 @@ save (HTMLObject *self,
 	}
 
 	if (image->alt) {
-		if (!html_engine_save_output_string (state, " ALT=\"%s\"", image->alt))
+		if (!html_engine_save_delims_and_vals (state, " ALT=\"", image->alt, "\"", NULL))
 			return FALSE;
 	}
 

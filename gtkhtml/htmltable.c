@@ -2129,7 +2129,11 @@ save (HTMLObject *self,
 			table->bgColor->blue >> 8 SE;
 	if (table->bgPixmap) {
 		gchar * url = html_image_resolve_image_url (state->engine->widget, table->bgPixmap->url);
-		SB " BACKGROUND=\"%s\"", url SE;
+		if (!html_engine_save_delims_and_vals (state, " BACKGROUND=\"", url, "\"", NULL))
+		{
+			g_free (url);
+			return FALSE;
+		}
 		g_free (url);
 	}
 	if (table->spacing != 2)
