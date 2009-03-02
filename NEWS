@@ -1,3 +1,11 @@
+GtkHTML-3.24.5 2009-02-25
+-------------------------
+
+Bug Fixes:
+»·······#569365 : Do not draw a cursor without a window. (Milan Crha)
+»·······#570276 : Change Word Wrap accelerator to CtrlK, since CtrlBackspace doesn't work apparently. (Matthew Barnes)
+»·······#571621 : Replace a g_assert() with g_return_if_fail(). (Matthew Barnes)
+
 GtkHTML-3.24.4 2009-01-30
 -------------------------
 
