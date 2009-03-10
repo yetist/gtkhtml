@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gtkhtml&component=general\n"
 "POT-Creation-Date: 2009-01-29 02:07+0900\n"
-"PO-Revision-Date: 2009-01-29 02:13+0900\n"
+"PO-Revision-Date: 2009-03-10 22:58+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: GNOME Korea <gnome-kr-hackers@lists.kldp.net>\n"
 "MIME-Version: 1.0\n"
@@ -763,7 +763,7 @@ msgstr "점 목록(_B)"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:135
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
 msgid "_Roman Numeral List"
-msgstr "로마숫자 매기기(_R)"
+msgstr "로마 숫자 목록(_R)"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1515
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:76
@@ -775,7 +775,7 @@ msgstr "번호 목록(_L)"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:107
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
 msgid "_Alphabetical List"
-msgstr "알파벳 매기기(_A)"
+msgstr "알파벳 목록(_A)"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1538
 #: ../components/editor/gtkhtml-editor-actions.c:1573
@@ -1906,7 +1906,7 @@ msgstr "현재 문단을 점 붙은 목록으로 만듭니다"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:64
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:64
 msgid "Make the current paragraph a list with roman numerals"
-msgstr "현재 문단에 로마숫자 붙은 목록으로 만듭니다"
+msgstr "현재 문단에 로마 숫자 붙은 목록으로 만듭니다"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:65
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:65
@@ -1988,7 +1988,7 @@ msgstr "클립보드의 내용을 붙여넣습니다"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:82
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
 msgid "Paste the clipboard as a quotation"
-msgstr "클립보드를 인용문으로 붙여 넣습니다"
+msgstr "클립보드를 인용문으로 붙여넣습니다"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:83
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
@@ -2020,7 +2020,7 @@ msgstr "문단을 오른쪽으로 정렬합니다"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:89
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
 msgid "Roman Numeral List"
-msgstr "로마 숫자 매기기"
+msgstr "로마 숫자 목록"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:90
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
@@ -2456,7 +2456,7 @@ msgstr "정렬"
 
 #: ../components/html-editor/paragraph-style.c:53
 msgid "Roman List"
-msgstr "로마숫자 목록"
+msgstr "로마 숫자 목록"
 
 #: ../components/html-editor/paragraph-style.c:59
 msgid "Header 1"
@@ -2830,10 +2830,10 @@ msgstr "GtkHTML 테스트 프로그램"
 #~ msgstr "텍스트 파일 넣기(_I)... (FIXME)"
 
 #~ msgid "_Paste Quotation"
-#~ msgstr "인용문 붙여 넣기(_P)"
+#~ msgstr "인용문 붙여넣기(_P)"
 
 #~ msgid "_Properties..."
 #~ msgstr "속성(_P)..."
 
 #~ msgid "Paste Quotation"
-#~ msgstr "인용문 붙여 넣기"
+#~ msgstr "인용문 붙여넣기"
