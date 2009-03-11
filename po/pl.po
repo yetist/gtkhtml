@@ -657,7 +657,7 @@ msgstr "_Styl akapitu"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1366
 msgid "_Insert"
-msgstr "_Wstaw"
+msgstr "W_staw"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1373
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:106
