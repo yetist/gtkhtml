@@ -8,14 +8,15 @@
 # Hendrik Richter <hendrikr@gnome.org>, 2004, 2005, 2006, 2007, 2008.
 # Hendrik Brandt <heb@gnome-de.org>, 2007.
 # Andre Klapper <ak-47@gmx.net>, 2008.
+# Mario Blättermann <mariobl@gnome.org>, 2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-16 20:30+0100\n"
-"PO-Revision-Date: 2009-01-16 20:31+0100\n"
-"Last-Translator: Hendrik Richter <hendrikr@gnome.org>\n"
+"POT-Creation-Date: 2009-03-13 17:05+0100\n"
+"PO-Revision-Date: 2009-03-13 17:05+0100\n"
+"Last-Translator: Mario Blättermann\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -292,14 +293,13 @@ msgstr "Vorgabe"
 
 #: ../components/editor/gtkhtml-color-combo.c:744
 #: ../components/editor/gtkhtml-color-state.c:237
-#, fuzzy
 msgid "Default is transparent"
-msgstr "Transparent"
+msgstr "Vorgabe ist transparent"
 
 #: ../components/editor/gtkhtml-color-combo.c:745
 #: ../components/editor/gtkhtml-color-state.c:238
 msgid "Whether the default color is transparent"
-msgstr ""
+msgstr "Legt fest, ob die Vorgabefarbe transparent ist"
 
 #: ../components/editor/gtkhtml-color-combo.c:755
 #: ../components/editor/gtkhtml-color-state.c:248
@@ -338,7 +338,6 @@ msgstr "Farbzustand"
 #. the internal values for a GtkHtml color combination box.
 #.
 #: ../components/editor/gtkhtml-color-combo.c:790
-#, fuzzy
 msgid "The state of a color combo box"
 msgstr "Zustand des Farb-Popups"
 
@@ -385,110 +384,120 @@ msgstr "Aktion"
 msgid "A GtkRadioAction"
 msgstr "Eine GtkRadioAction"
 
-#: ../components/editor/gtkhtml-face-chooser.c:26
+#. Translators: :-)
+#: ../components/editor/gtkhtml-face-chooser.c:27
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:137
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
 msgid "_Smile"
 msgstr "_Freundlich"
 
-#: ../components/editor/gtkhtml-face-chooser.c:27
-#, fuzzy
+#. Translators: :-(
+#: ../components/editor/gtkhtml-face-chooser.c:29
 msgid "S_ad"
-msgstr "S_chattiert"
+msgstr "T_raurig"
 
-#: ../components/editor/gtkhtml-face-chooser.c:28
+#. Translators: ;-)
+#: ../components/editor/gtkhtml-face-chooser.c:31
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:160
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:160
 msgid "_Wink"
-msgstr "Zwin_kernd"
+msgstr "Z_winkernd"
 
-#: ../components/editor/gtkhtml-face-chooser.c:29
+#. Translators: :-P
+#: ../components/editor/gtkhtml-face-chooser.c:33
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:101
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
 msgid "Ton_gue"
 msgstr "_Zunge"
 
-#: ../components/editor/gtkhtml-face-chooser.c:30
-#, fuzzy
+#. Translators: :-))
+#: ../components/editor/gtkhtml-face-chooser.c:35
 msgid "Laug_h"
 msgstr "_Lachend"
 
-#: ../components/editor/gtkhtml-face-chooser.c:31
-#, fuzzy
+#. Translators: :-|
+#: ../components/editor/gtkhtml-face-chooser.c:37
 msgid "_Plain"
-msgstr "_Einfacher Text"
+msgstr "_Gleichgültig"
 
-#: ../components/editor/gtkhtml-face-chooser.c:32
+#. Translators: :-!
+#: ../components/editor/gtkhtml-face-chooser.c:39
 msgid "Smi_rk"
 msgstr "Grin_sen"
 
-#: ../components/editor/gtkhtml-face-chooser.c:33
+#. Translators: :"-)
+#: ../components/editor/gtkhtml-face-chooser.c:41
 msgid "_Embarrassed"
 msgstr "_Verlegen"
 
-#: ../components/editor/gtkhtml-face-chooser.c:34
-#, fuzzy
+#. Translators: :-D
+#: ../components/editor/gtkhtml-face-chooser.c:43
 msgid "_Big Smile"
-msgstr "_Freundlich"
+msgstr "L_achend"
 
-#: ../components/editor/gtkhtml-face-chooser.c:35
-#, fuzzy
+#. Translators: :-/
+#: ../components/editor/gtkhtml-face-chooser.c:45
 msgid "Uncer_tain"
-msgstr "Unterstrichen"
+msgstr "_Unentschlossen"
 
-#: ../components/editor/gtkhtml-face-chooser.c:36
-#, fuzzy
+#. Translators: :-O
+#: ../components/editor/gtkhtml-face-chooser.c:47
 msgid "S_urprise"
 msgstr "Überrasc_ht"
 
-#: ../components/editor/gtkhtml-face-chooser.c:37
-#, fuzzy
+#. Translators: :-S
+#: ../components/editor/gtkhtml-face-chooser.c:49
 msgid "W_orried"
-msgstr "Ü_berrascht"
+msgstr "Bes_orgt"
 
-#: ../components/editor/gtkhtml-face-chooser.c:38
+#. Translators: :-*
+#: ../components/editor/gtkhtml-face-chooser.c:51
 msgid "_Kiss"
 msgstr "_Kuss"
 
-#: ../components/editor/gtkhtml-face-chooser.c:39
-#, fuzzy
+#. Translators: X-(
+#: ../components/editor/gtkhtml-face-chooser.c:53
 msgid "A_ngry"
-msgstr "grau"
+msgstr "Ä_ngstlich"
 
-#: ../components/editor/gtkhtml-face-chooser.c:40
+#. Translators: B-)
+#: ../components/editor/gtkhtml-face-chooser.c:55
 msgid "_Cool"
 msgstr "_Cool"
 
-#: ../components/editor/gtkhtml-face-chooser.c:41
-#, fuzzy
+#. Translators: O:-)
+#: ../components/editor/gtkhtml-face-chooser.c:57
 msgid "Ange_l"
 msgstr "_Engel"
 
-#: ../components/editor/gtkhtml-face-chooser.c:42
+#. Translators: :'(
+#: ../components/editor/gtkhtml-face-chooser.c:59
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:17
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:17
 msgid "Cr_ying"
 msgstr "_Weinend"
 
-#: ../components/editor/gtkhtml-face-chooser.c:43
+#. Translators: :-Q
+#: ../components/editor/gtkhtml-face-chooser.c:61
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:91
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
 msgid "S_ick"
 msgstr "Ü_bel"
 
-#: ../components/editor/gtkhtml-face-chooser.c:44
-#, fuzzy
+#. Translators: |-)
+#: ../components/editor/gtkhtml-face-chooser.c:63
 msgid "Tire_d"
-msgstr "rot"
+msgstr "Mü_de"
 
-#: ../components/editor/gtkhtml-face-chooser.c:45
-#, fuzzy
+#. Translators: >:-)
+#: ../components/editor/gtkhtml-face-chooser.c:65
 msgid "De_vilish"
 msgstr "_Teuflisch"
 
-#: ../components/editor/gtkhtml-face-chooser.c:46
+#. Translators: :-(|)
+#: ../components/editor/gtkhtml-face-chooser.c:67
 msgid "_Monkey"
-msgstr "_Affe"
+msgstr "A_ffe"
 
 #: ../components/editor/gtkhtml-editor-actions.c:632
 #: ../components/html-editor/menubar.c:348
@@ -1069,18 +1078,16 @@ msgid "Add Word To"
 msgstr "Wort hinzufügen zu"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1938
-#, fuzzy
 msgid "More Suggestions"
-msgstr "Vorschläge für »%s«"
+msgstr "Weitere Vorschläge"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2105
 msgid "_Emoticon"
 msgstr "_Smiley"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2106
-#, fuzzy
 msgid "Insert Emoticon"
-msgstr "_Link einfügen"
+msgstr "Smiley einfügen"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2167
 msgid "_Find"
@@ -1131,55 +1138,54 @@ msgid "Automatic"
 msgstr "Automatisch"
 
 #: ../components/editor/gtkhtml-editor-private.c:608
-#, fuzzy
 msgid "Could not open the link."
-msgstr "Glade-Datei konnte nicht geladen werden."
+msgstr "Link konnte nicht geöffnet werden."
 
-#: ../components/editor/gtkhtml-editor.c:716
+#: ../components/editor/gtkhtml-editor.c:750
 msgid "Current Folder"
 msgstr "Aktueller Ordner"
 
-#: ../components/editor/gtkhtml-editor.c:717
+#: ../components/editor/gtkhtml-editor.c:751
 msgid "The initial folder for file chooser dialogs"
 msgstr "Vorgabeordner für den Dateiauswahl-Dialog"
 
-#: ../components/editor/gtkhtml-editor.c:727
+#: ../components/editor/gtkhtml-editor.c:761
 msgid "Filename"
 msgstr "Dateiname"
 
-#: ../components/editor/gtkhtml-editor.c:728
+#: ../components/editor/gtkhtml-editor.c:762
 msgid "The filename to use when saving"
 msgstr "Beim Speichern zu benutzender Dateiname"
 
-#: ../components/editor/gtkhtml-editor.c:738
+#: ../components/editor/gtkhtml-editor.c:772
 msgid "HTML Mode"
 msgstr "HTML-Modus"
 
-#: ../components/editor/gtkhtml-editor.c:739
+#: ../components/editor/gtkhtml-editor.c:773
 msgid "Edit HTML or plain text"
 msgstr "HTML oder Text bearbeiten"
 
-#: ../components/editor/gtkhtml-editor.c:749
+#: ../components/editor/gtkhtml-editor.c:783
 msgid "Inline Spelling"
 msgstr "Sofortige Rechtschreibprüfung"
 
-#: ../components/editor/gtkhtml-editor.c:750
+#: ../components/editor/gtkhtml-editor.c:784
 msgid "Check your spelling as you type"
 msgstr "Rechtschreibprüfung während der Eingabe durchführen"
 
-#: ../components/editor/gtkhtml-editor.c:760
+#: ../components/editor/gtkhtml-editor.c:794
 msgid "Magic Links"
 msgstr "Magische Links"
 
-#: ../components/editor/gtkhtml-editor.c:761
+#: ../components/editor/gtkhtml-editor.c:795
 msgid "Make URIs clickable as you type"
 msgstr "Link-Adressen während des Schreibens klickbar machen"
 
-#: ../components/editor/gtkhtml-editor.c:771
+#: ../components/editor/gtkhtml-editor.c:805
 msgid "Magic Smileys"
 msgstr "Magische Emoticons"
 
-#: ../components/editor/gtkhtml-editor.c:772
+#: ../components/editor/gtkhtml-editor.c:806
 msgid "Convert emoticons to images as you type"
 msgstr "Während des Schreibens Emoticons zu Bildern umwandeln"
 
@@ -2241,8 +2247,8 @@ msgstr "Dateipfad des Hintergrundbilds"
 msgid "Template"
 msgstr "Vorlage"
 
-#: ../components/html-editor/cell.c:342 ../components/html-editor/image.c:345
-#: ../components/html-editor/link.c:215 ../components/html-editor/rule.c:179
+#: ../components/html-editor/cell.c:342 ../components/html-editor/image.c:344
+#: ../components/html-editor/link.c:214 ../components/html-editor/rule.c:179
 #: ../components/html-editor/table.c:229
 #: ../components/html-editor/template.c:287
 #: ../components/html-editor/text.c:168
@@ -2427,11 +2433,11 @@ msgstr "Vertikal:"
 msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
-#: ../components/html-editor/link.c:227
+#: ../components/html-editor/link.c:226
 msgid "URL:"
 msgstr "URL:"
 
-#: ../components/html-editor/link.c:231
+#: ../components/html-editor/link.c:230
 msgid "Description:"
 msgstr "Beschreibung:"
 
@@ -2708,83 +2714,83 @@ msgstr ""
 "Das bearbeitete Objekt wurde aus dem Dokument entfernt.\n"
 "Ihre Änderungen konnten daher nicht übernommen werden."
 
-#: ../gtkhtml/gtkhtml.c:3033
+#: ../gtkhtml/gtkhtml.c:3032
 msgid "Editable"
 msgstr "Bearbeitbar"
 
-#: ../gtkhtml/gtkhtml.c:3034
+#: ../gtkhtml/gtkhtml.c:3033
 msgid "Whether the html can be edited"
 msgstr "Soll das HTML bearbeitet werden können?"
 
-#: ../gtkhtml/gtkhtml.c:3040
+#: ../gtkhtml/gtkhtml.c:3039
 msgid "Document Title"
 msgstr "Titel des Dokuments"
 
-#: ../gtkhtml/gtkhtml.c:3041
+#: ../gtkhtml/gtkhtml.c:3040
 msgid "The title of the current document"
 msgstr "Der Titel des momentan geöffneten Dokuments"
 
-#: ../gtkhtml/gtkhtml.c:3047
+#: ../gtkhtml/gtkhtml.c:3046
 msgid "Document Base"
 msgstr "Dokumentenbasis"
 
-#: ../gtkhtml/gtkhtml.c:3048
+#: ../gtkhtml/gtkhtml.c:3047
 msgid "The base URL for relative references"
 msgstr "Die Basisadresse für relative Verweise"
 
-#: ../gtkhtml/gtkhtml.c:3054
+#: ../gtkhtml/gtkhtml.c:3053
 msgid "Target Base"
 msgstr "Zielbasis"
 
-#: ../gtkhtml/gtkhtml.c:3055
+#: ../gtkhtml/gtkhtml.c:3054
 msgid "The base URL of the target frame"
 msgstr "Die Basisadresse des Zielrahmens"
 
-#: ../gtkhtml/gtkhtml.c:3064
+#: ../gtkhtml/gtkhtml.c:3063
 msgid "Fixed Width Font"
 msgstr "Dicktengleiche Schrift"
 
-#: ../gtkhtml/gtkhtml.c:3065
+#: ../gtkhtml/gtkhtml.c:3064
 msgid "The Monospace font to use for typewriter text"
 msgstr "Die für typewriter-Text zu verwendende dicktengleiche Schrift"
 
-#: ../gtkhtml/gtkhtml.c:3071
+#: ../gtkhtml/gtkhtml.c:3070
 msgid "New Link Color"
 msgstr "Farbe für neue Links"
 
-#: ../gtkhtml/gtkhtml.c:3072
+#: ../gtkhtml/gtkhtml.c:3071
 msgid "The color of new link elements"
 msgstr "Die Farbe für neue Link-Elemente"
 
-#: ../gtkhtml/gtkhtml.c:3077
+#: ../gtkhtml/gtkhtml.c:3076
 msgid "Visited Link Color"
 msgstr "Farbe für besuchte Links"
 
-#: ../gtkhtml/gtkhtml.c:3078
+#: ../gtkhtml/gtkhtml.c:3077
 msgid "The color of visited link elements"
 msgstr "Die Farbe für besuchte Link-Elemente"
 
-#: ../gtkhtml/gtkhtml.c:3083
+#: ../gtkhtml/gtkhtml.c:3082
 msgid "Active Link Color"
 msgstr "Farbe für aktive Links"
 
-#: ../gtkhtml/gtkhtml.c:3084
+#: ../gtkhtml/gtkhtml.c:3083
 msgid "The color of active link elements"
 msgstr "Die Farbe für aktive Link-Elemente"
 
-#: ../gtkhtml/gtkhtml.c:3089
+#: ../gtkhtml/gtkhtml.c:3088
 msgid "Spelling Error Color"
 msgstr "Farbe für Rechtschreibfehler"
 
-#: ../gtkhtml/gtkhtml.c:3090
+#: ../gtkhtml/gtkhtml.c:3089
 msgid "The color of the spelling error markers"
 msgstr "Die für die Hervorhebung von Rechtschreibfehlern verwendete Farbe"
 
-#: ../gtkhtml/gtkhtml.c:3095
+#: ../gtkhtml/gtkhtml.c:3094
 msgid "Cite Quotation Color"
 msgstr "Zitatfarbe"
 
-#: ../gtkhtml/gtkhtml.c:3096
+#: ../gtkhtml/gtkhtml.c:3095
 msgid "The color of the cited text"
 msgstr "Die Farbe des zitierten Texts"
 
