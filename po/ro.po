@@ -9,31 +9,30 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.gnome-2-20.ro\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gtkhtml&component=general\n"
-"POT-Creation-Date: 2009-01-12 04:53+0000\n"
-"PO-Revision-Date: 2009-02-23 02:02+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-03-14 17:30+0200\n"
+"PO-Revision-Date: 2009-03-14 15:47+0200\n"
 "Last-Translator: Adi Roiban <adi@roiban.ro>\n"
 "Language-Team: Gnome Romanian Team <gnomero-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1 ? 0: (((n % 100 > 19) || ((n % 100 == 0) && (n != 0))) ? 2: 1));\n"
+"Plural-Forms: nplurals=3; plural=(n == 1 ? 0: (((n % 100 > 19) || ((n % 100 "
+"== 0) && (n != 0))) ? 2: 1));\n"
 
 #: ../a11y/image.c:151
 #, c-format
 msgid "URL is %s, Alternative Text is %s"
-msgstr "URL este %s, Textul Alternativ este %s"
+msgstr "URL este %s, Textul alternativ este %s"
 
 #: ../a11y/image.c:153
 #, c-format
 msgid "URL is %s"
 msgstr "URL este %s"
 
-#: ../a11y/object.c:52
-#: ../a11y/object.c:61
-#: ../a11y/text.c:126
+#: ../a11y/object.c:52 ../a11y/object.c:61 ../a11y/text.c:126
 msgid "grab focus"
-msgstr "capturează focusul"
+msgstr "capturează focalizarea"
 
 #: ../a11y/object.c:259
 msgid "Panel containing HTML"
@@ -259,7 +258,6 @@ msgstr "Alegeți culoarea personalizată"
 
 #: ../components/editor/gtkhtml-color-combo.c:712
 #: ../components/editor/gtkhtml-color-state.c:205
-#| msgid "Custom Color:"
 msgid "Current color"
 msgstr "Culoare curentă"
 
@@ -292,7 +290,6 @@ msgstr "Implicit"
 
 #: ../components/editor/gtkhtml-color-combo.c:744
 #: ../components/editor/gtkhtml-color-state.c:237
-#| msgid "Transparent"
 msgid "Default is transparent"
 msgstr "Implicit transparent"
 
@@ -303,13 +300,11 @@ msgstr "Dacă culoarea implicită este transparentă"
 
 #: ../components/editor/gtkhtml-color-combo.c:755
 #: ../components/editor/gtkhtml-color-state.c:248
-#| msgid "color preview"
 msgid "Color palette"
 msgstr "Paletă culori"
 
 #: ../components/editor/gtkhtml-color-combo.c:756
 #: ../components/editor/gtkhtml-color-state.c:249
-#| msgid "Custom Color:"
 msgid "Custom color palette"
 msgstr "Paletă culoari personalizată"
 
@@ -317,23 +312,21 @@ msgstr "Paletă culoari personalizată"
 #. * GtkhtmlColorCombo property named "popup-shown",
 #. * based on a similar property in GtkComboBox.
 #: ../components/editor/gtkhtml-color-combo.c:768
-#| msgid "Popup"
 msgid "Popup shown"
-msgstr ""
+msgstr "Dacă să fi afișat meniul contextual"
 
 #. Translators: This is the blurb for a
 #. * GtkhtmlColorCombo property named "popup-shown",
 #. * based on a similar property in GtkComboBox.
 #: ../components/editor/gtkhtml-color-combo.c:772
 msgid "Whether the combo's dropdown is shown"
-msgstr ""
+msgstr "Dacă să fie afișată lista contextuală a listei de selecție"
 
 #. Translators: This is the nickname for a
 #. GtkHtmlColorCombo property named "state". It holds all
 #. the internal values for a GtkHtml color combination box.
 #.
 #: ../components/editor/gtkhtml-color-combo.c:785
-#| msgid "Colors"
 msgid "Color state"
 msgstr "Stare culoare"
 
@@ -352,7 +345,6 @@ msgid "custom"
 msgstr "personalizat"
 
 #: ../components/editor/gtkhtml-color-combo.c:980
-#| msgid "Custom Color:"
 msgid "Custom Color..."
 msgstr "Culoare personalizată..."
 
@@ -370,7 +362,6 @@ msgid "Description of the default color"
 msgstr "Descrierea culorii implicite"
 
 #: ../components/editor/gtkhtml-color-swatch.c:182
-#| msgid "Colors"
 msgid "Color"
 msgstr "Culoare"
 
@@ -388,109 +379,120 @@ msgstr "Acțiune"
 
 #: ../components/editor/gtkhtml-combo-box.c:324
 msgid "A GtkRadioAction"
-msgstr ""
+msgstr "O acțiune GtkRadio"
 
-#: ../components/editor/gtkhtml-face-chooser.c:26
+#. Translators: :-)
+#: ../components/editor/gtkhtml-face-chooser.c:27
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:137
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
 msgid "_Smile"
 msgstr "_Surâs"
 
-#: ../components/editor/gtkhtml-face-chooser.c:27
-#| msgid "Shade"
+#. Translators: :-(
+#: ../components/editor/gtkhtml-face-chooser.c:29
 msgid "S_ad"
 msgstr "_Trist"
 
-#: ../components/editor/gtkhtml-face-chooser.c:28
+#. Translators: ;-)
+#: ../components/editor/gtkhtml-face-chooser.c:31
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:160
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:160
 msgid "_Wink"
 msgstr "_Fă cu ochiul"
 
-#: ../components/editor/gtkhtml-face-chooser.c:29
+#. Translators: :-P
+#: ../components/editor/gtkhtml-face-chooser.c:33
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:101
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
 msgid "Ton_gue"
 msgstr "_Limbă"
 
-#: ../components/editor/gtkhtml-face-chooser.c:30
-#| msgid "_Laughing"
+#. Translators: :-))
+#: ../components/editor/gtkhtml-face-chooser.c:35
 msgid "Laug_h"
 msgstr "_Zâmbet"
 
-#: ../components/editor/gtkhtml-face-chooser.c:31
-#| msgid "_Plain Text"
+#. Translators: :-|
+#: ../components/editor/gtkhtml-face-chooser.c:37
 msgid "_Plain"
 msgstr "_Senin"
 
-#: ../components/editor/gtkhtml-face-chooser.c:32
+#. Translators: :-!
+#: ../components/editor/gtkhtml-face-chooser.c:39
 msgid "Smi_rk"
 msgstr "_Rânjet"
 
-#: ../components/editor/gtkhtml-face-chooser.c:33
+#. Translators: :"-)
+#: ../components/editor/gtkhtml-face-chooser.c:41
 msgid "_Embarrassed"
 msgstr "J_enat"
 
-#: ../components/editor/gtkhtml-face-chooser.c:34
-#| msgid "_Smile"
+#. Translators: :-D
+#: ../components/editor/gtkhtml-face-chooser.c:43
 msgid "_Big Smile"
 msgstr "Zâm_bet mare"
 
-#: ../components/editor/gtkhtml-face-chooser.c:35
-#| msgid "Underline"
+#. Translators: :-/
+#: ../components/editor/gtkhtml-face-chooser.c:45
 msgid "Uncer_tain"
 msgstr "_Nesigur"
 
-#: ../components/editor/gtkhtml-face-chooser.c:36
-#| msgid "Su_rprised"
+#. Translators: :-O
+#: ../components/editor/gtkhtml-face-chooser.c:47
 msgid "S_urprise"
 msgstr "S_urprins"
 
-#: ../components/editor/gtkhtml-face-chooser.c:37
-#| msgid "Su_rprised"
+#. Translators: :-S
+#: ../components/editor/gtkhtml-face-chooser.c:49
 msgid "W_orried"
 msgstr "Îngrij_orat"
 
-#: ../components/editor/gtkhtml-face-chooser.c:38
+#. Translators: :-*
+#: ../components/editor/gtkhtml-face-chooser.c:51
 msgid "_Kiss"
 msgstr "_Sărut"
 
-#: ../components/editor/gtkhtml-face-chooser.c:39
-#| msgid "gray"
+#. Translators: X-(
+#: ../components/editor/gtkhtml-face-chooser.c:53
 msgid "A_ngry"
 msgstr "_Nervos"
 
-#: ../components/editor/gtkhtml-face-chooser.c:40
-#| msgid "_Color:"
+#. Translators: B-)
+#: ../components/editor/gtkhtml-face-chooser.c:55
 msgid "_Cool"
 msgstr "_Cool"
 
-#: ../components/editor/gtkhtml-face-chooser.c:41
+#. Translators: O:-)
+#: ../components/editor/gtkhtml-face-chooser.c:57
 msgid "Ange_l"
 msgstr "Înge_r"
 
-#: ../components/editor/gtkhtml-face-chooser.c:42
+#. Translators: :'(
+#: ../components/editor/gtkhtml-face-chooser.c:59
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:17
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:17
 msgid "Cr_ying"
 msgstr "Plân_gând"
 
-#: ../components/editor/gtkhtml-face-chooser.c:43
+#. Translators: :-Q
+#: ../components/editor/gtkhtml-face-chooser.c:61
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:91
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
 msgid "S_ick"
 msgstr "_Bolnav"
 
-#: ../components/editor/gtkhtml-face-chooser.c:44
-#| msgid "red"
+#. Translators: |-)
+#: ../components/editor/gtkhtml-face-chooser.c:63
 msgid "Tire_d"
 msgstr "_Obosit"
 
-#: ../components/editor/gtkhtml-face-chooser.c:45
+#. Translators: >:-)
+#: ../components/editor/gtkhtml-face-chooser.c:65
 msgid "De_vilish"
 msgstr "Drăc_ușor"
 
-#: ../components/editor/gtkhtml-face-chooser.c:46
+#. Translators: :-(|)
+#: ../components/editor/gtkhtml-face-chooser.c:67
 msgid "_Monkey"
 msgstr "_Maimuță"
 
@@ -501,7 +503,6 @@ msgstr "Introdu fișier HTML"
 
 #: ../components/editor/gtkhtml-editor-actions.c:641
 #: ../components/editor/gtkhtml-editor-actions.c:1540
-#| msgid "Insert image"
 msgid "Insert Image"
 msgstr "Intodu imagine"
 
@@ -540,7 +541,6 @@ msgid "Cu_t"
 msgstr "_Taie"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1224
-#| msgid "Find _Again"
 msgid "Find A_gain"
 msgstr "_Caută din nou"
 
@@ -551,7 +551,6 @@ msgid "_Increase Indent"
 msgstr "Mărește _indentarea"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1240
-#| msgid "_Increase Indent"
 msgid "Increase Indent"
 msgstr "Mărește indentarea"
 
@@ -599,7 +598,6 @@ msgid "_Find..."
 msgstr "Cău_tă..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1294
-#| msgid "_Replace..."
 msgid "Re_place..."
 msgstr "Î_nlocuiește..."
 
@@ -628,7 +626,6 @@ msgid "_Decrease Indent"
 msgstr "Re_du indentarea"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1324
-#| msgid "_Decrease Indent"
 msgid "Decrease Indent"
 msgstr "Redu indentarea"
 
@@ -645,7 +642,6 @@ msgstr "_Editare"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1345
 #: ../components/editor/main.c:327
-#| msgid "_Smile"
 msgid "_File"
 msgstr "_Fișier"
 
@@ -656,12 +652,10 @@ msgid "For_mat"
 msgstr "For_mat"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1359
-#| msgid "Paragraph Style..."
 msgid "_Paragraph Style"
 msgstr "Stil _paragraf"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1366
-#| msgid "Insert"
 msgid "_Insert"
 msgstr "_Inserează"
 
@@ -688,7 +682,6 @@ msgid "_Center"
 msgstr "_Centru"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1399
-#| msgid "Alignment"
 msgid "Center Alignment"
 msgstr "Aliniere centrală"
 
@@ -699,7 +692,6 @@ msgid "_Left"
 msgstr "_Stânga"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1406
-#| msgid "Alignment"
 msgid "Left Alignment"
 msgstr "Aliniere stânga"
 
@@ -710,7 +702,6 @@ msgid "_Right"
 msgstr "D_reapta"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1413
-#| msgid "Right align"
 msgid "Right Alignment"
 msgstr "Aliniere dreapta"
 
@@ -723,7 +714,6 @@ msgid "HTML editing mode"
 msgstr "Mod editare HTML"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1428
-#| msgid "_Plain Text"
 msgid "Plain _Text"
 msgstr "_Text simplu"
 
@@ -824,7 +814,6 @@ msgid "_Link..."
 msgstr "_Legătură..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1547
-#| msgid "Insert _Link"
 msgid "Insert Link"
 msgstr "Introdu _legătură"
 
@@ -836,7 +825,6 @@ msgid "_Rule..."
 msgstr "_Riglă..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1554
-#| msgid "Insert rule"
 msgid "Insert Rule"
 msgstr "Introdu riglă"
 
@@ -848,27 +836,22 @@ msgid "_Table..."
 msgstr "_Tabel..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1561
-#| msgid "Insert table"
 msgid "Insert Table"
 msgstr "Introdu tabel"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1566
-#| msgid "Cell"
 msgid "_Cell..."
 msgstr "_Celulă..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1587
-#| msgid "_Page..."
 msgid "Pa_ge..."
 msgstr "Pa_gină..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1610
-#| msgid "_Font Size"
 msgid "Font _Size"
 msgstr "Mărime _font"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1617
-#| msgid "_Font Size"
 msgid "_Font Style"
 msgstr "Stil _font"
 
@@ -905,7 +888,6 @@ msgid "_Plain Text"
 msgstr "Text _simplu"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1645
-#| msgid "_Plain Text"
 msgid "Plain Text"
 msgstr "Text simplu"
 
@@ -918,7 +900,6 @@ msgid "_Strikethrough"
 msgstr "Tăi_ere"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1653
-#| msgid "_Strikethrough"
 msgid "Strikethrough"
 msgstr "Tăiat"
 
@@ -978,7 +959,6 @@ msgid "+4"
 msgstr "+4"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1731
-#| msgid "Cell contents"
 msgid "Cell Contents"
 msgstr "Conținut celulă"
 
@@ -998,14 +978,12 @@ msgstr "Rând"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:50
 #: ../components/html-editor/menubar.c:217
-#: ../components/html-editor/popup.c:235
-#: ../components/html-editor/popup.c:509
+#: ../components/html-editor/popup.c:235 ../components/html-editor/popup.c:509
 #: ../components/html-editor/popup.c:521
 msgid "Table"
 msgstr "Tabel"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1761
-#| msgid "Table delete"
 msgid "Table Delete"
 msgstr "Șterge tabel"
 
@@ -1015,24 +993,20 @@ msgid "Input Methods"
 msgstr "Metode de intrare"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1775
-#| msgid "Table insert"
 msgid "Table Insert"
 msgstr "Introducere tabel"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1782
 #: ../components/html-editor/editor-control-factory.c:187
-#: ../components/html-editor/popup.c:191
-#: ../components/html-editor/popup.c:268
+#: ../components/html-editor/popup.c:191 ../components/html-editor/popup.c:268
 msgid "Properties"
 msgstr "Proprietăți"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1800
-#| msgid "Column after"
 msgid "Column After"
 msgstr "Coloană după"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1807
-#| msgid "Column before"
 msgid "Column Before"
 msgstr "Coloană înainte"
 
@@ -1042,52 +1016,42 @@ msgid "Insert _Link"
 msgstr "Introdu _legătură"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1821
-#| msgid "Row above"
 msgid "Row Above"
 msgstr "Rând deasupra"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1828
-#| msgid "Row below"
 msgid "Row Below"
 msgstr "Rând dedesupt"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1842
-#| msgid "Cell"
 msgid "Cell..."
 msgstr "Celulă..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1849
-#| msgid "_Image..."
 msgid "Image..."
 msgstr "Imagine..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1856
-#| msgid "_Link..."
 msgid "Link..."
 msgstr "Legătură..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1863
-#| msgid "_Page..."
 msgid "Page..."
 msgstr "Pagină..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1870
-#| msgid "_Paragraph..."
 msgid "Paragraph..."
 msgstr "Paragraf..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1877
-#| msgid "_Rule..."
 msgid "Rule..."
 msgstr "Riglă..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1884
-#| msgid "_Table..."
 msgid "Table..."
 msgstr "Tabel..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1891
-#| msgid "_Text..."
 msgid "Text..."
 msgstr "Text..."
 
@@ -1107,7 +1071,6 @@ msgid "Ignore Misspelled Word"
 msgstr "Ignoră cuvânt incorect"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1929
-#| msgid "Add Word to"
 msgid "Add Word To"
 msgstr "Adaugă cuvântul în"
 
@@ -1116,37 +1079,30 @@ msgid "More Suggestions"
 msgstr "Mai multe sugestii"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2105
-#| msgid "Emoti_con"
 msgid "_Emoticon"
 msgstr "Iconiță _simbolică"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2106
-#| msgid "Insert link"
 msgid "Insert Emoticon"
 msgstr "Introdu iconiță simbolică"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2167
-#| msgid "Find"
 msgid "_Find"
 msgstr "_Caută"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2170
-#| msgid "Replace"
 msgid "Re_place"
 msgstr "În_locuiește"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2173
-#| msgid "_Image:"
 msgid "_Image"
 msgstr "_Imagine"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2176
-#| msgid "_Link:"
 msgid "_Link"
 msgstr "_Legătură"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2179
-#| msgid "Rule"
 msgid "_Rule"
 msgstr "_Riglă"
 
@@ -1157,7 +1113,6 @@ msgid "_Table"
 msgstr "_Tabel"
 
 #: ../components/editor/gtkhtml-editor-private.c:273
-#| msgid "Paragraph Style..."
 msgid "Paragraph Style"
 msgstr "Stil paragraf"
 
@@ -1166,90 +1121,80 @@ msgid "Editing Mode"
 msgstr "Mod editare"
 
 #: ../components/editor/gtkhtml-editor-private.c:299
-#| msgid "Colors"
 msgid "Font Color"
 msgstr "Culori font"
 
 #: ../components/editor/gtkhtml-editor-private.c:309
-#| msgid "_Font Size"
 msgid "Font Size"
 msgstr "Mărime font"
 
 #: ../components/editor/gtkhtml-editor-private.c:336
-#: ../components/html-editor/body.c:237
-#: ../components/html-editor/text.c:171
+#: ../components/html-editor/body.c:237 ../components/html-editor/text.c:171
 #: ../components/html-editor/toolbar.c:199
 msgid "Automatic"
 msgstr "Automat"
 
 #: ../components/editor/gtkhtml-editor-private.c:608
-#| msgid "Could not load glade file."
 msgid "Could not open the link."
 msgstr "Nu s-a putut deschide legătura."
 
-#: ../components/editor/gtkhtml-editor.c:716
-#| msgid "Center"
+#: ../components/editor/gtkhtml-editor.c:750
 msgid "Current Folder"
 msgstr "Dosar curent"
 
-#: ../components/editor/gtkhtml-editor.c:717
+#: ../components/editor/gtkhtml-editor.c:751
 msgid "The initial folder for file chooser dialogs"
 msgstr "Dosarul inițial pentru dialogul de alegere fișier"
 
-#: ../components/editor/gtkhtml-editor.c:727
+#: ../components/editor/gtkhtml-editor.c:761
 msgid "Filename"
 msgstr "Nume fișier"
 
-#: ../components/editor/gtkhtml-editor.c:728
+#: ../components/editor/gtkhtml-editor.c:762
 msgid "The filename to use when saving"
 msgstr "Numele de fișier folosit la salvare"
 
-#: ../components/editor/gtkhtml-editor.c:738
+#: ../components/editor/gtkhtml-editor.c:772
 msgid "HTML Mode"
 msgstr "Mod HTML"
 
-#: ../components/editor/gtkhtml-editor.c:739
+#: ../components/editor/gtkhtml-editor.c:773
 msgid "Edit HTML or plain text"
 msgstr "Editare HTML sau text simplu"
 
-#: ../components/editor/gtkhtml-editor.c:749
-#| msgid "Check _Spelling..."
+#: ../components/editor/gtkhtml-editor.c:783
 msgid "Inline Spelling"
 msgstr "Verificare ortografică în text"
 
-#: ../components/editor/gtkhtml-editor.c:750
-#| msgid "Check spelling of the document"
+#: ../components/editor/gtkhtml-editor.c:784
 msgid "Check your spelling as you type"
 msgstr "Verifică ortografia în timp ce tastați"
 
-#: ../components/editor/gtkhtml-editor.c:760
+#: ../components/editor/gtkhtml-editor.c:794
 msgid "Magic Links"
 msgstr "Legături magice"
 
-#: ../components/editor/gtkhtml-editor.c:761
+#: ../components/editor/gtkhtml-editor.c:795
 msgid "Make URIs clickable as you type"
 msgstr "URI-uri active la clic în timp ce tastați"
 
-#: ../components/editor/gtkhtml-editor.c:771
+#: ../components/editor/gtkhtml-editor.c:805
 msgid "Magic Smileys"
 msgstr "Iconițe simbolice magice"
 
-#: ../components/editor/gtkhtml-editor.c:772
+#: ../components/editor/gtkhtml-editor.c:806
 msgid "Convert emoticons to images as you type"
 msgstr "Conversie iconițe simbolice în imagine în timp ce tastați"
 
 #: ../components/editor/gtkhtml-editor.glade.h:1
-#| msgid "<b>Alignment &amp; Behaviour</b>"
 msgid "<b>Alignment &amp; Behavior</b>"
 msgstr "<b>Aliniere &amp; comportament</b>"
 
 #: ../components/editor/gtkhtml-editor.glade.h:2
-#| msgid "Alignment"
 msgid "<b>Alignment</b>"
 msgstr "<b>Aliniere</b>"
 
 #: ../components/editor/gtkhtml-editor.glade.h:3
-#| msgid "<b>Background</b>"
 msgid "<b>Background Image</b>"
 msgstr "<b>Imagine fundal</b>"
 
@@ -1259,7 +1204,6 @@ msgid "<b>Background</b>"
 msgstr "<b>Fundal</b>"
 
 #: ../components/editor/gtkhtml-editor.glade.h:5
-#| msgid "<b>Scope</b>"
 msgid "<b>Colors</b>"
 msgstr "<b>Culori</b>"
 
@@ -1274,7 +1218,6 @@ msgid "<b>Layout</b>"
 msgstr "<b>Aspect</b>"
 
 #: ../components/editor/gtkhtml-editor.glade.h:8
-#| msgid "<b>Layout</b>"
 msgid "<b>Link</b>"
 msgstr "<b>Legătură</b>"
 
@@ -1284,12 +1227,10 @@ msgid "<b>Scope</b>"
 msgstr "<b>Domeniu</b>"
 
 #: ../components/editor/gtkhtml-editor.glade.h:10
-#| msgid "<b>Scope</b>"
 msgid "<b>Size</b>"
 msgstr "<b>Dimensiune</b>"
 
 #: ../components/editor/gtkhtml-editor.glade.h:11
-#| msgid "<b>Scope</b>"
 msgid "<b>Style</b>"
 msgstr "<b>Stil</b>"
 
@@ -1304,7 +1245,6 @@ msgid "C_olor:"
 msgstr "Cul_oare:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:14
-#| msgid "_Columns:"
 msgid "C_olumns:"
 msgstr "C_oloane:"
 
@@ -1320,12 +1260,10 @@ msgid "Case _sensitive"
 msgstr "Majuscule _semnificative"
 
 #: ../components/editor/gtkhtml-editor.glade.h:17
-#| msgid "Properties"
 msgid "Cell Properties"
 msgstr "Proprietăți celulă"
 
 #: ../components/editor/gtkhtml-editor.glade.h:18
-#| msgid "C_olor:"
 msgid "Co_lor:"
 msgstr "Cu_loare:"
 
@@ -1335,7 +1273,6 @@ msgid "Col_umn"
 msgstr "Col_oană"
 
 #: ../components/editor/gtkhtml-editor.glade.h:20
-#| msgid "Column span:"
 msgid "Column Span:"
 msgstr "Întindere coloană:"
 
@@ -1349,7 +1286,6 @@ msgid "Find"
 msgstr "Caută"
 
 #: ../components/editor/gtkhtml-editor.glade.h:22
-#| msgid "Hea_der style"
 msgid "Hea_der Style"
 msgstr "Stil _subtitlu"
 
@@ -1359,7 +1295,6 @@ msgid "I_mage:"
 msgstr "I_magine:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:24
-#| msgid "Properties"
 msgid "Image Properties"
 msgstr "Proprietăți imagine"
 
@@ -1375,7 +1310,6 @@ msgstr ""
 "Dreapta"
 
 #: ../components/editor/gtkhtml-editor.glade.h:28
-#| msgid "Link properties"
 msgid "Link Properties"
 msgstr "Proprietăți legătură"
 
@@ -1402,12 +1336,10 @@ msgstr ""
 "Hârtie hașurată"
 
 #: ../components/editor/gtkhtml-editor.glade.h:38
-#| msgid "Properties"
 msgid "Page Properties"
 msgstr "Proprietăți pagină"
 
 #: ../components/editor/gtkhtml-editor.glade.h:39
-#| msgid "Properties"
 msgid "Paragraph Properties"
 msgstr "Proprietăți paragraf"
 
@@ -1426,32 +1358,26 @@ msgid "Replace"
 msgstr "Înlocuiește"
 
 #: ../components/editor/gtkhtml-editor.glade.h:42
-#| msgid "Replace confirmation"
 msgid "Replace Confirmation"
 msgstr "Confirmare înlocuire"
 
 #: ../components/editor/gtkhtml-editor.glade.h:43
-#| msgid "Row span:"
 msgid "Row Span:"
 msgstr "Întindere rânduri:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:44
-#| msgid "Properties"
 msgid "Rule Properties"
 msgstr "Proprietăți riglă"
 
 #: ../components/editor/gtkhtml-editor.glade.h:45
-#| msgid "Shade"
 msgid "S_haded"
 msgstr "U_mbrit"
 
 #: ../components/editor/gtkhtml-editor.glade.h:46
-#| msgid "Search _backward"
 msgid "Search _backwards"
 msgstr "Caută îna_poi"
 
 #: ../components/editor/gtkhtml-editor.glade.h:47
-#| msgid "Select _All"
 msgid "Select An Image"
 msgstr "Alegeți o imagine"
 
@@ -1466,12 +1392,10 @@ msgid "T_emplate:"
 msgstr "Șa_blon:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:50
-#| msgid "Properties"
 msgid "Table Properties"
 msgstr "Proprietăți tabel"
 
 #: ../components/editor/gtkhtml-editor.glade.h:51
-#| msgid "Properties"
 msgid "Text Properties"
 msgstr "Proprietăți text"
 
@@ -1522,7 +1446,6 @@ msgid "_Height:"
 msgstr "Înă_lțime:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:63
-#| msgid "Horizontal:"
 msgid "_Horizontal:"
 msgstr "_Orizontal:"
 
@@ -1542,7 +1465,6 @@ msgid "_Padding:"
 msgstr "S_pațiu interior:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:68
-#| msgid "_Regular Expression"
 msgid "_Regular expression"
 msgstr "Expresie _regulată"
 
@@ -1557,7 +1479,6 @@ msgid "_Rows:"
 msgstr "_Rânduri:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:71
-#| msgid "Size:"
 msgid "_Size:"
 msgstr "_Mărime:"
 
@@ -1587,7 +1508,6 @@ msgid "_URL:"
 msgstr "_URL:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:81
-#| msgid "Vertical:"
 msgid "_Vertical:"
 msgstr "_Vertical:"
 
@@ -1644,7 +1564,6 @@ msgstr ""
 "urmează"
 
 #: ../components/editor/gtkhtml-spell-checker.c:200
-#| msgid "Current _Languages"
 msgid "Language"
 msgstr "Limbă"
 
@@ -1658,23 +1577,19 @@ msgid "Suggestions for \"%s\""
 msgstr "Sugestii pentru „%s”"
 
 #: ../components/editor/gtkhtml-spell-dialog.c:358
-#| msgid "Ignore Misspelled Word"
 msgid "Misspelled Word"
 msgstr "Cuvânt scris greșit"
 
 #: ../components/editor/gtkhtml-spell-dialog.c:359
-#| msgid "Ignore Misspelled Word"
 msgid "The current misspelled word"
 msgstr "Cuvânt scris greșit curent"
 
 #: ../components/editor/gtkhtml-spell-dialog.c:449
-#| msgid "Spell checker"
 msgid "Spell Checker"
 msgstr "Corector ortografic"
 
 #. Replace All Button
 #: ../components/editor/gtkhtml-spell-dialog.c:536
-#| msgid "Replace _All"
 msgid "R_eplace All"
 msgstr "Înlocui_ește tot"
 
@@ -1690,19 +1605,16 @@ msgstr "_Omite"
 
 #. Back Button
 #: ../components/editor/gtkhtml-spell-dialog.c:577
-#| msgid "_Backward"
 msgid "_Back"
 msgstr "Îna_poi"
 
 #. Dictionary Label
 #: ../components/editor/gtkhtml-spell-dialog.c:590
-#| msgid "%s Dictionary"
 msgid "Dictionary"
 msgstr "Dicționar"
 
 #. Add Word Button
 #: ../components/editor/gtkhtml-spell-dialog.c:619
-#| msgid "Add Word to"
 msgid "_Add Word"
 msgstr "_Adaugă cuvânt"
 
@@ -1734,7 +1646,6 @@ msgid "Save As"
 msgstr "Salvează ca"
 
 #: ../components/editor/main.c:111
-#| msgid "Insert table into document..."
 msgid "Untitled document"
 msgstr "Document fără titlu"
 
@@ -1743,37 +1654,30 @@ msgid "HTML Output"
 msgstr "Ieșire HTML"
 
 #: ../components/editor/main.c:278
-#| msgid "_Source:"
 msgid "HTML Source"
 msgstr "Sursă HTML"
 
 #: ../components/editor/main.c:285
-#| msgid "_Plain Text"
 msgid "Plain Source"
 msgstr "Sursă în clar"
 
 #: ../components/editor/main.c:292
-#| msgid "_Find..."
 msgid "_Print..."
 msgstr "Ti_părire..."
 
 #: ../components/editor/main.c:299
-#| msgid "Print pre_view"
 msgid "Print Pre_view"
 msgstr "Pre_vizualizare tipărire"
 
 #: ../components/editor/main.c:306
-#| msgid "_Edit"
 msgid "_Quit"
 msgstr "_Ieșire"
 
 #: ../components/editor/main.c:313
-#| msgid "Shade"
 msgid "_Save"
 msgstr "_Salvează"
 
 #: ../components/editor/main.c:320
-#| msgid "Save file as..."
 msgid "Save _As..."
 msgstr "Salvează _ca..."
 
@@ -1782,12 +1686,10 @@ msgid "HTML _Output"
 msgstr "_Ieșire HTML"
 
 #: ../components/editor/main.c:344
-#| msgid "_Source:"
 msgid "_HTML Source"
 msgstr "Sursă _HTML"
 
 #: ../components/editor/main.c:351
-#| msgid "_Plain Text"
 msgid "_Plain Source"
 msgstr "Sursă în _clar"
 
@@ -2002,8 +1904,7 @@ msgstr "Paragrafe aliniate la stânga"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:60
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
 #: ../components/html-editor/menubar.c:174
-#: ../components/html-editor/popup.c:111
-#: ../components/html-editor/popup.c:205
+#: ../components/html-editor/popup.c:111 ../components/html-editor/popup.c:205
 #: ../components/html-editor/popup.c:271
 msgid "Link"
 msgstr "Legătură"
@@ -2327,8 +2228,7 @@ msgstr "Hârtie hașurată"
 msgid "Colors"
 msgstr "Culori"
 
-#: ../components/html-editor/body.c:256
-#: ../components/html-editor/body.c:288
+#: ../components/html-editor/body.c:256 ../components/html-editor/body.c:288
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:22
 msgid "Background Image"
 msgstr "Imagine fundal"
@@ -2343,18 +2243,15 @@ msgstr "Calea către imaginea fundal"
 msgid "Template"
 msgstr "Șablon"
 
-#: ../components/html-editor/cell.c:342
-#: ../components/html-editor/image.c:345
-#: ../components/html-editor/link.c:215
-#: ../components/html-editor/rule.c:179
+#: ../components/html-editor/cell.c:342 ../components/html-editor/image.c:344
+#: ../components/html-editor/link.c:214 ../components/html-editor/rule.c:179
 #: ../components/html-editor/table.c:229
 #: ../components/html-editor/template.c:287
 #: ../components/html-editor/text.c:168
 msgid "Could not load glade file."
 msgstr "Nu s-a putut încărca fișierul glade."
 
-#: ../components/html-editor/cell.c:346
-#: ../components/html-editor/table.c:233
+#: ../components/html-editor/cell.c:346 ../components/html-editor/table.c:233
 msgid "Transparent"
 msgstr "Transparent"
 
@@ -2402,7 +2299,7 @@ msgstr "albastru cer"
 #. set the a11y name
 #: ../components/html-editor/gi-combo-box.c:411
 msgid "Popup"
-msgstr ""
+msgstr "Meniu contextual"
 
 #: ../components/html-editor/gnome-gtkhtml-editor.c:74
 msgid "GtkHTML Editor Control"
@@ -2472,7 +2369,6 @@ msgid "Cell"
 msgstr "Celulă"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:28
-#| msgid "_Columns:"
 msgid "Colu_mns:"
 msgstr "_Coloane:"
 
@@ -2532,11 +2428,11 @@ msgstr "Vertical:"
 msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
-#: ../components/html-editor/link.c:227
+#: ../components/html-editor/link.c:226
 msgid "URL:"
 msgstr "URL:"
 
-#: ../components/html-editor/link.c:231
+#: ../components/html-editor/link.c:230
 msgid "Description:"
 msgstr "Descriere:"
 
@@ -2620,8 +2516,7 @@ msgstr "Stil"
 msgid "Text Style..."
 msgstr "Stil text..."
 
-#: ../components/html-editor/popup.c:469
-#: ../components/html-editor/popup.c:475
+#: ../components/html-editor/popup.c:469 ../components/html-editor/popup.c:475
 #: ../components/html-editor/popup.c:485
 msgid "Paragraph Style..."
 msgstr "Stil paragraf..."
@@ -2800,7 +2695,6 @@ msgid "Indents the paragraphs more"
 msgstr "Identează paragraful mai mult"
 
 #: ../components/html-editor/toolbar.c:540
-#| msgid "Colors"
 msgid "Text Color"
 msgstr "Culoare text"
 
@@ -2816,86 +2710,86 @@ msgstr ""
 "Obiectul editat a fost eliminat din document.\n"
 "Nu se pot efectua modificările."
 
-#: ../gtkhtml/gtkhtml.c:3033
+#: ../gtkhtml/gtkhtml.c:3032
 msgid "Editable"
 msgstr "Editabil"
 
-#: ../gtkhtml/gtkhtml.c:3034
+#: ../gtkhtml/gtkhtml.c:3033
 msgid "Whether the html can be edited"
 msgstr "Dacă HTML-ul poate fi editat"
 
-#: ../gtkhtml/gtkhtml.c:3040
+#: ../gtkhtml/gtkhtml.c:3039
 msgid "Document Title"
 msgstr "Titlu document"
 
-#: ../gtkhtml/gtkhtml.c:3041
+#: ../gtkhtml/gtkhtml.c:3040
 msgid "The title of the current document"
 msgstr "Titlul documentului curent"
 
-#: ../gtkhtml/gtkhtml.c:3047
+#: ../gtkhtml/gtkhtml.c:3046
 msgid "Document Base"
 msgstr "Bază document"
 
-#: ../gtkhtml/gtkhtml.c:3048
+#: ../gtkhtml/gtkhtml.c:3047
 msgid "The base URL for relative references"
 msgstr "URL-ul de bază pentru referințele relative"
 
 # de văzut în surse: ținta de bază sau baza țintei
 # dand: e vorba de fereastra destinație in care se va deschide un URL,
 # vezi următorul mesaj
-#: ../gtkhtml/gtkhtml.c:3054
+#: ../gtkhtml/gtkhtml.c:3053
 msgid "Target Base"
 msgstr "Bază destinație"
 
-#: ../gtkhtml/gtkhtml.c:3055
+#: ../gtkhtml/gtkhtml.c:3054
 msgid "The base URL of the target frame"
 msgstr "URL de bază pentru cadrul destinație"
 
-#: ../gtkhtml/gtkhtml.c:3064
+#: ../gtkhtml/gtkhtml.c:3063
 msgid "Fixed Width Font"
 msgstr "Font cu lățime fixă"
 
-#: ../gtkhtml/gtkhtml.c:3065
+#: ../gtkhtml/gtkhtml.c:3064
 msgid "The Monospace font to use for typewriter text"
 msgstr "Font monospațiat utilizat pentru text de tipul dactilografiat"
 
-#: ../gtkhtml/gtkhtml.c:3071
+#: ../gtkhtml/gtkhtml.c:3070
 msgid "New Link Color"
 msgstr "Culoare legătură nouă"
 
-#: ../gtkhtml/gtkhtml.c:3072
+#: ../gtkhtml/gtkhtml.c:3071
 msgid "The color of new link elements"
 msgstr "Culoarea legăturilor noi"
 
-#: ../gtkhtml/gtkhtml.c:3077
+#: ../gtkhtml/gtkhtml.c:3076
 msgid "Visited Link Color"
 msgstr "Culoare legătură vizitată"
 
-#: ../gtkhtml/gtkhtml.c:3078
+#: ../gtkhtml/gtkhtml.c:3077
 msgid "The color of visited link elements"
 msgstr "Culoarea legăturilor vizitate"
 
-#: ../gtkhtml/gtkhtml.c:3083
+#: ../gtkhtml/gtkhtml.c:3082
 msgid "Active Link Color"
 msgstr "Culoarea legăturii active"
 
-#: ../gtkhtml/gtkhtml.c:3084
+#: ../gtkhtml/gtkhtml.c:3083
 msgid "The color of active link elements"
 msgstr "Culoarea legăturilor active"
 
-#: ../gtkhtml/gtkhtml.c:3089
+#: ../gtkhtml/gtkhtml.c:3088
 msgid "Spelling Error Color"
 msgstr "Culoare greșeli ortografice"
 
-#: ../gtkhtml/gtkhtml.c:3090
+#: ../gtkhtml/gtkhtml.c:3089
 msgid "The color of the spelling error markers"
 msgstr "Culoarea marcajelor de erori ortografice"
 
-#: ../gtkhtml/gtkhtml.c:3095
+#: ../gtkhtml/gtkhtml.c:3094
 msgid "Cite Quotation Color"
 msgstr "Culoare marcaj de citat"
 
-#: ../gtkhtml/gtkhtml.c:3096
+#: ../gtkhtml/gtkhtml.c:3095
 msgid "The color of the cited text"
 msgstr "Culoarea textului citat"
 
@@ -2908,8 +2802,7 @@ msgid "Reset"
 msgstr "Resetează"
 
 #. TODO2 dialog instead of warning
-#: ../gtkhtml/htmlengine-print.c:231
-#: ../gtkhtml/htmlengine-print.c:310
+#: ../gtkhtml/htmlengine-print.c:231 ../gtkhtml/htmlengine-print.c:310
 msgid "Cannot allocate default font for printing"
 msgstr "Nu s-a putut aloca fontul implicit pentru tipărire"
 
@@ -2931,8 +2824,9 @@ msgstr "Aplicație de Test GtkHTML"
 
 #~ msgid "Make the current Paragraph style Preformatted"
 #~ msgstr "Aplică stilul „Preformatat” paragrafului curent"
+
 #~ msgid "Preformatted"
 #~ msgstr "Preformatat"
+
 #~ msgid "Cannot allocate default font for printing\n"
 #~ msgstr "Nu pot aloca fontul implicit pentru tipărire\n"
-
