@@ -1,36 +1,37 @@
 # translation of gtkhtml.HEAD.po to Greek
+# translation of el.po to
+# Greek gtkhtml translation
+# Copyright (C) 2001, 2004, 2005, 2006, 2009 Free Software Foundation, Inc.
+# Nikos Charonitakis <frolix68@yahoo.gr> 2004.
 # Nikos 27Jan2004 convertion to utf8 and  fixes, 424 messages.
 # Simos Xenitellis <simos@hellug.gr>, 2001.
 # Kostas Papadimas <pkst@gnome.org>, 2004, 2006.
 # Nikos Charonitakis <charosn@her.forthnet.gr>, 2005.
 # Fotis Tsamis <ftsamis@gmail.com>, 2009.
-# translation of el.po to
-# Greek gtkhtml translation
-# Copyright (C) 2001, 2004, 2005, 2006, 2009 Free Software Foundation, Inc.
-# Nikos Charonitakis <frolix68@yahoo.gr> 2004.
+# Jennie Petoumenou <epetoumenou@gmail.com>, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.HEAD\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gtkhtml&component=general\n"
-"POT-Creation-Date: 2009-01-12 04:53+0000\n"
-"PO-Revision-Date: 2009-03-12 17:40+0200\n"
-"Last-Translator: Fotis Tsamis <ftsamis@gmail.com>\n"
-"Language-Team: Greek\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-03-15 09:04+0200\n"
+"PO-Revision-Date: 2009-03-14 09:09+0100\n"
+"Last-Translator: Jennie Petoumenou <epetoumenou@gmail.com>\n"
+"Language-Team: Greek <team@gnome.gr>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 0.2\n"
 
 #: ../a11y/image.c:151
 #, c-format
 msgid "URL is %s, Alternative Text is %s"
-msgstr "URL is %s, Εναλλακτικό κείμενο είναι %s"
+msgstr "Το URL είναι %s, το εναλλακτικό κείμενο είναι %s"
 
 #: ../a11y/image.c:153
 #, c-format
 msgid "URL is %s"
-msgstr "URL είναι %s"
+msgstr "Το URL είναι %s"
 
 #: ../a11y/object.c:52 ../a11y/object.c:61 ../a11y/text.c:126
 msgid "grab focus"
@@ -264,13 +265,12 @@ msgstr "Επιλογή Προσαρμοσμένου Χρώματος"
 #
 #: ../components/editor/gtkhtml-color-combo.c:712
 #: ../components/editor/gtkhtml-color-state.c:205
-#| msgid "Custom Color:"
 msgid "Current color"
-msgstr "Τρέχων χρώμα"
+msgstr "Τρέχον χρώμα"
 
 #: ../components/editor/gtkhtml-color-combo.c:713
 msgid "The currently selected color"
-msgstr "Το τρέχων επιλεγμένο χρώμα"
+msgstr "Το τρέχον επιλεγμένο χρώμα"
 
 #: ../components/editor/gtkhtml-color-combo.c:722
 #: ../components/editor/gtkhtml-color-state.c:215
@@ -279,7 +279,7 @@ msgstr "Προεπιλεγμένο χρώμα"
 
 #: ../components/editor/gtkhtml-color-combo.c:723
 msgid "The color associated with the default button"
-msgstr "Το χρώμα που συσχετίζεται με το προεπιλεγμένο κουμπί"
+msgstr "Το χρώμα που συσχετίζεται με το κουμπί Προεπιλογής"
 
 #: ../components/editor/gtkhtml-color-combo.c:733
 #: ../components/editor/gtkhtml-color-state.c:226
@@ -288,7 +288,7 @@ msgstr "Προεπιλεγμένη ετικέτα"
 
 #: ../components/editor/gtkhtml-color-combo.c:734
 msgid "The label for the default button"
-msgstr "Η ετικέτα για το προεπιλεγμένο κουμπί"
+msgstr "Η ετικέτα για το κουμπί Προεπιλογής"
 
 #: ../components/editor/gtkhtml-color-combo.c:735
 #: ../components/editor/gtkhtml-color-state.c:228
@@ -297,7 +297,6 @@ msgstr "Προεπιλογή"
 
 #: ../components/editor/gtkhtml-color-combo.c:744
 #: ../components/editor/gtkhtml-color-state.c:237
-#| msgid "Transparent"
 msgid "Default is transparent"
 msgstr "Η προεπιλογή είναι διαφανές"
 
@@ -308,14 +307,12 @@ msgstr "Αν το προεπιλεγμένο χρώμα είναι διαφαν�
 
 #: ../components/editor/gtkhtml-color-combo.c:755
 #: ../components/editor/gtkhtml-color-state.c:248
-#| msgid "color preview"
 msgid "Color palette"
 msgstr "Παλέτα χρωμάτων"
 
 #
 #: ../components/editor/gtkhtml-color-combo.c:756
 #: ../components/editor/gtkhtml-color-state.c:249
-#| msgid "Custom Color:"
 msgid "Custom color palette"
 msgstr "Προσαρμοσμένη παλέτα χρωμάτων"
 
@@ -323,16 +320,15 @@ msgstr "Προσαρμοσμένη παλέτα χρωμάτων"
 #. * GtkhtmlColorCombo property named "popup-shown",
 #. * based on a similar property in GtkComboBox.
 #: ../components/editor/gtkhtml-color-combo.c:768
-#| msgid "Popup"
 msgid "Popup shown"
-msgstr ""
+msgstr "Εμφάνιση αναδυόμενου"
 
 #. Translators: This is the blurb for a
 #. * GtkhtmlColorCombo property named "popup-shown",
 #. * based on a similar property in GtkComboBox.
 #: ../components/editor/gtkhtml-color-combo.c:772
 msgid "Whether the combo's dropdown is shown"
-msgstr ""
+msgstr "Αν θα εμφανίζεται το αναδυόμενο μενού του πλαισίου επιλογών"
 
 #
 #. Translators: This is the nickname for a
@@ -340,9 +336,8 @@ msgstr ""
 #. the internal values for a GtkHtml color combination box.
 #.
 #: ../components/editor/gtkhtml-color-combo.c:785
-#| msgid "Colors"
 msgid "Color state"
-msgstr "Κατάσταση χρώματος"
+msgstr "Κατάσταση χρωμάτων"
 
 #. Translators: This is the blurb for a
 #. GtkHtmlColorCombo property named "state". It holds all
@@ -350,7 +345,7 @@ msgstr "Κατάσταση χρώματος"
 #.
 #: ../components/editor/gtkhtml-color-combo.c:790
 msgid "The state of a color combo box"
-msgstr ""
+msgstr "Η κατάσταση (state) του πλαισίου επιλογής χρωμάτων"
 
 #. This is the default custom color
 #: ../components/editor/gtkhtml-color-combo.c:972
@@ -360,14 +355,13 @@ msgstr "προσαρμοσμένο"
 
 #
 #: ../components/editor/gtkhtml-color-combo.c:980
-#| msgid "Custom Color:"
 msgid "Custom Color..."
 msgstr "Προσαρμοσμένο Χρώμα..."
 
 #: ../components/editor/gtkhtml-color-state.c:206
 #: ../components/editor/gtkhtml-color-swatch.c:183
 msgid "The current color"
-msgstr "Το τρέχων χρώμα"
+msgstr "Το τρέχον χρώμα"
 
 #: ../components/editor/gtkhtml-color-state.c:216
 msgid "The default color"
@@ -379,17 +373,16 @@ msgstr "Περιγραφή του προεπιλεγμένου χρώματος"
 
 #
 #: ../components/editor/gtkhtml-color-swatch.c:182
-#| msgid "Colors"
 msgid "Color"
 msgstr "Χρώμα"
 
 #: ../components/editor/gtkhtml-color-swatch.c:192
 msgid "Frame Shadow"
-msgstr "Σκιά περιγράμματος"
+msgstr "Σκιά πλαισίου"
 
 #: ../components/editor/gtkhtml-color-swatch.c:193
 msgid "Appearance of the frame border"
-msgstr "Εμφάνιση του ορίου περιγράμματος"
+msgstr "Εμφάνιση του περιγράμματος του πλαισίου"
 
 #: ../components/editor/gtkhtml-combo-box.c:323
 msgid "Action"
@@ -397,115 +390,126 @@ msgstr "Ενέργεια"
 
 #: ../components/editor/gtkhtml-combo-box.c:324
 msgid "A GtkRadioAction"
-msgstr ""
+msgstr "Ενέργεια GtkRadioAction"
 
-#: ../components/editor/gtkhtml-face-chooser.c:26
+#. Translators: :-)
+#: ../components/editor/gtkhtml-face-chooser.c:27
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:137
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
 msgid "_Smile"
 msgstr "_Χαμόγελο"
 
-#: ../components/editor/gtkhtml-face-chooser.c:27
-#| msgid "Shade"
+#. Translators: :-(
+#: ../components/editor/gtkhtml-face-chooser.c:29
 msgid "S_ad"
-msgstr "Λύ_πη"
+msgstr "_Λυπημένος/η"
 
 #
-#: ../components/editor/gtkhtml-face-chooser.c:28
+#. Translators: ;-)
+#: ../components/editor/gtkhtml-face-chooser.c:31
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:160
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:160
 msgid "_Wink"
-msgstr "_Wink"
+msgstr "Κλείνει το μά_τι"
 
-#: ../components/editor/gtkhtml-face-chooser.c:29
+#. Translators: :-P
+#: ../components/editor/gtkhtml-face-chooser.c:33
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:101
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
 msgid "Ton_gue"
-msgstr "Ton_gue"
+msgstr "Βγά_ζει τη γλώσσα"
 
-#: ../components/editor/gtkhtml-face-chooser.c:30
-#| msgid "_Laughing"
+#. Translators: :-))
+#: ../components/editor/gtkhtml-face-chooser.c:35
 msgid "Laug_h"
-msgstr "_Γέλιο"
+msgstr "Γέλ_ιο"
 
-#: ../components/editor/gtkhtml-face-chooser.c:31
-#| msgid "_Plain Text"
+#. Translators: :-|
+#: ../components/editor/gtkhtml-face-chooser.c:37
 msgid "_Plain"
-msgstr "Απ_λό"
+msgstr "Α_πλό"
 
-#: ../components/editor/gtkhtml-face-chooser.c:32
+#. Translators: :-!
+#: ../components/editor/gtkhtml-face-chooser.c:39
 msgid "Smi_rk"
-msgstr ""
+msgstr "_Ειρωνεία"
 
-#: ../components/editor/gtkhtml-face-chooser.c:33
+#. Translators: :"-)
+#: ../components/editor/gtkhtml-face-chooser.c:41
 msgid "_Embarrassed"
-msgstr "_Ντροπαλός"
+msgstr "_Ντρέπεται"
 
-#: ../components/editor/gtkhtml-face-chooser.c:34
-#| msgid "_Smile"
+#. Translators: :-D
+#: ../components/editor/gtkhtml-face-chooser.c:43
 msgid "_Big Smile"
-msgstr "Μεγάλο χαμόγελ_ο"
+msgstr "_Μεγάλο χαμόγελο"
 
 #
-#: ../components/editor/gtkhtml-face-chooser.c:35
-#| msgid "Underline"
+#. Translators: :-/
+#: ../components/editor/gtkhtml-face-chooser.c:45
 msgid "Uncer_tain"
-msgstr "Α_βέβαιος"
+msgstr "Α_βέβαιος/η"
 
-#: ../components/editor/gtkhtml-face-chooser.c:36
-#| msgid "Su_rprised"
+#. Translators: :-O
+#: ../components/editor/gtkhtml-face-chooser.c:47
 msgid "S_urprise"
-msgstr "Έκπληκ_τος"
+msgstr "Έκπλη_ξη"
 
-#: ../components/editor/gtkhtml-face-chooser.c:37
-#| msgid "Su_rprised"
+#. Translators: :-S
+#: ../components/editor/gtkhtml-face-chooser.c:49
 msgid "W_orried"
-msgstr "Ανήσ_υχος"
+msgstr "Ανήσ_υχος/η"
 
-#: ../components/editor/gtkhtml-face-chooser.c:38
+#. Translators: :-*
+#: ../components/editor/gtkhtml-face-chooser.c:51
 msgid "_Kiss"
 msgstr "_Φιλί"
 
-#: ../components/editor/gtkhtml-face-chooser.c:39
-#| msgid "gray"
+#. Translators: X-(
+#: ../components/editor/gtkhtml-face-chooser.c:53
 msgid "A_ngry"
-msgstr "_Θυμωμένος"
+msgstr "_Θυμωμένος/η"
 
 #
-#: ../components/editor/gtkhtml-face-chooser.c:40
-#| msgid "_Color:"
+#. Translators: B-)
+#: ../components/editor/gtkhtml-face-chooser.c:55
 msgid "_Cool"
-msgstr ""
+msgstr "_Cool"
 
-#: ../components/editor/gtkhtml-face-chooser.c:41
+#. Translators: O:-)
+#: ../components/editor/gtkhtml-face-chooser.c:57
 msgid "Ange_l"
-msgstr "Άγγ_ελος"
+msgstr "_Αγγελάκι"
 
-#: ../components/editor/gtkhtml-face-chooser.c:42
+#. Translators: :'(
+#: ../components/editor/gtkhtml-face-chooser.c:59
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:17
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:17
 msgid "Cr_ying"
 msgstr "_Κλαίει"
 
 #
-#: ../components/editor/gtkhtml-face-chooser.c:43
+#. Translators: :-Q
+#: ../components/editor/gtkhtml-face-chooser.c:61
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:91
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
 msgid "S_ick"
-msgstr "Άρ_ρωστος"
+msgstr "Ά_ρρωστος/η"
 
-#: ../components/editor/gtkhtml-face-chooser.c:44
-#| msgid "red"
+#. Translators: |-)
+#: ../components/editor/gtkhtml-face-chooser.c:63
 msgid "Tire_d"
-msgstr "Κουρ_ασμένος"
+msgstr "Κουρα_σμένος/η"
 
-#: ../components/editor/gtkhtml-face-chooser.c:45
+#. Translators: >:-)
+#: ../components/editor/gtkhtml-face-chooser.c:65
 msgid "De_vilish"
-msgstr ""
+msgstr "_Διάβολος"
 
-#: ../components/editor/gtkhtml-face-chooser.c:46
+#. Translators: :-(|)
+#: ../components/editor/gtkhtml-face-chooser.c:67
 msgid "_Monkey"
-msgstr "Μαϊ_μού"
+msgstr "Μαϊμ_ού"
 
 #: ../components/editor/gtkhtml-editor-actions.c:632
 #: ../components/html-editor/menubar.c:348
@@ -514,7 +518,6 @@ msgstr "Εισαγωγή αρχείου HTML"
 
 #: ../components/editor/gtkhtml-editor-actions.c:641
 #: ../components/editor/gtkhtml-editor-actions.c:1540
-#| msgid "Insert image"
 msgid "Insert Image"
 msgstr "Εισαγωγή εικόνας"
 
@@ -555,7 +558,6 @@ msgid "Cu_t"
 msgstr "Αποκο_πή"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1224
-#| msgid "Find _Again"
 msgid "Find A_gain"
 msgstr "Εύρεση _Ξανά"
 
@@ -566,7 +568,6 @@ msgid "_Increase Indent"
 msgstr "Αύ_ξηση Εσοχής"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1240
-#| msgid "_Increase Indent"
 msgid "Increase Indent"
 msgstr "Αύξηση Εσοχής"
 
@@ -614,7 +615,6 @@ msgid "_Find..."
 msgstr "_Εύρεση..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1294
-#| msgid "_Replace..."
 msgid "Re_place..."
 msgstr "_Αντικατάσταση..."
 
@@ -644,7 +644,6 @@ msgid "_Decrease Indent"
 msgstr "_Μείωση Εσοχής"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1324
-#| msgid "_Decrease Indent"
 msgid "Decrease Indent"
 msgstr "Μείωση Εσοχής"
 
@@ -661,7 +660,6 @@ msgstr "_Επεξεργασία"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1345
 #: ../components/editor/main.c:327
-#| msgid "_Smile"
 msgid "_File"
 msgstr "Α_ρχείο"
 
@@ -672,12 +670,10 @@ msgid "For_mat"
 msgstr "_Μορφοποίηση"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1359
-#| msgid "Paragraph Style..."
 msgid "_Paragraph Style"
 msgstr "Στυ_λ Παραγράφου..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1366
-#| msgid "Insert"
 msgid "_Insert"
 msgstr "Ει_σαγωγή"
 
@@ -704,7 +700,6 @@ msgid "_Center"
 msgstr "_Κέντρο"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1399
-#| msgid "Alignment"
 msgid "Center Alignment"
 msgstr "Στοίχιση στο κέντρο"
 
@@ -715,7 +710,6 @@ msgid "_Left"
 msgstr "Α_ριστερά"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1406
-#| msgid "Alignment"
 msgid "Left Alignment"
 msgstr "Στοίχιση στα αριστερά"
 
@@ -726,7 +720,6 @@ msgid "_Right"
 msgstr "Δε_ξιά"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1413
-#| msgid "Right align"
 msgid "Right Alignment"
 msgstr "Στοίχιση στα δεξιά"
 
@@ -739,13 +732,12 @@ msgid "HTML editing mode"
 msgstr "Λειτουργία επεξεργασίας HTML"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1428
-#| msgid "_Plain Text"
 msgid "Plain _Text"
 msgstr "Απ_λό κείμενο"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1430
 msgid "Plain text editing mode"
-msgstr "λειτουργία επεξεργασίας απλού κειμένου"
+msgstr "Λειτουργία επεξεργασίας απλού κειμένου"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1438
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:126
@@ -842,7 +834,7 @@ msgstr "_Σύνδεσμος..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1547
 msgid "Insert Link"
-msgstr "Εισαγωγή δεσμού"
+msgstr "Εισαγωγή συνδέσμου"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1552
 #: ../components/editor/gtkhtml-editor-actions.c:1594
@@ -852,7 +844,6 @@ msgid "_Rule..."
 msgstr "_Κανόνας..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1554
-#| msgid "Insert rule"
 msgid "Insert Rule"
 msgstr "Εισαγωγή κανόνα"
 
@@ -864,28 +855,23 @@ msgid "_Table..."
 msgstr "_Πίνακας..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1561
-#| msgid "Insert table"
 msgid "Insert Table"
 msgstr "Εισαγωγή πίνακα"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1566
-#| msgid "Cell"
 msgid "_Cell..."
 msgstr "Κε_λί..."
 
 #
 #: ../components/editor/gtkhtml-editor-actions.c:1587
-#| msgid "_Page..."
 msgid "Pa_ge..."
 msgstr "_Σελίδα..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1610
-#| msgid "_Font Size"
 msgid "Font _Size"
 msgstr "Μέγε_θος Γραμματοσειράς"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1617
-#| msgid "_Font Size"
 msgid "_Font Style"
 msgstr "Στύ_λ Γραμματοσειράς"
 
@@ -926,7 +912,6 @@ msgid "_Plain Text"
 msgstr "Απ_λό κείμενο"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1645
-#| msgid "_Plain Text"
 msgid "Plain Text"
 msgstr "Απλό κείμενο"
 
@@ -936,12 +921,11 @@ msgstr "Απλό κείμενο"
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:71
 msgid "_Strikethrough"
-msgstr "_Strikethrough"
+msgstr "_Διακριτή διαγραφή"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1653
-#| msgid "_Strikethrough"
 msgid "Strikethrough"
-msgstr "Strikethrough"
+msgstr "Διακριτή διαγραφή"
 
 #
 #: ../components/editor/gtkhtml-editor-actions.c:1659
@@ -1001,7 +985,6 @@ msgid "+4"
 msgstr "+4"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1731
-#| msgid "Cell contents"
 msgid "Cell Contents"
 msgstr "Περιεχόμενα κελιού"
 
@@ -1028,7 +1011,6 @@ msgid "Table"
 msgstr "Πίνακας"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1761
-#| msgid "Table delete"
 msgid "Table Delete"
 msgstr "Διαγραφή πίνακα"
 
@@ -1038,7 +1020,6 @@ msgid "Input Methods"
 msgstr "Μέθοδοι Εισαγωγής"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1775
-#| msgid "Table insert"
 msgid "Table Insert"
 msgstr "Εισαγωγή πίνακα"
 
@@ -1050,71 +1031,58 @@ msgid "Properties"
 msgstr "Ιδιότητες"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1800
-#| msgid "Column after"
 msgid "Column After"
 msgstr "Στήλη μετά"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1807
-#| msgid "Column before"
 msgid "Column Before"
 msgstr "Στήλη πριν"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1814
 #: ../components/html-editor/popup.c:450
-#| msgid "Insert Link"
 msgid "Insert _Link"
-msgstr "Εισαγωγή _δεσμού"
+msgstr "Εισαγωγή _συνδέσμου"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1821
-#| msgid "Row above"
 msgid "Row Above"
 msgstr "Γραμμή πάνω"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1828
-#| msgid "Row below"
 msgid "Row Below"
 msgstr "Γραμμή κάτω"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1842
-#| msgid "Cell"
 msgid "Cell..."
 msgstr "Κελί..."
 
 #
 #: ../components/editor/gtkhtml-editor-actions.c:1849
-#| msgid "_Image..."
 msgid "Image..."
 msgstr "Εικόνα..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1856
-#| msgid "_Link..."
 msgid "Link..."
 msgstr "Σύνδεσμος..."
 
 #
 #: ../components/editor/gtkhtml-editor-actions.c:1863
-#| msgid "_Page..."
 msgid "Page..."
 msgstr "Σελίδα..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1870
-#| msgid "_Paragraph..."
 msgid "Paragraph..."
 msgstr "Παράγραφος..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1877
-#| msgid "_Rule..."
 msgid "Rule..."
 msgstr "Κανόνας..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1884
-#| msgid "_Table..."
 msgid "Table..."
 msgstr "Πίνακας..."
 
 #
 #: ../components/editor/gtkhtml-editor-actions.c:1891
-#| msgid "_Text..."
 msgid "Text..."
 msgstr "Κείμενο..."
 
@@ -1134,7 +1102,6 @@ msgid "Ignore Misspelled Word"
 msgstr "Παράβλεψη Λανθασμένης Λέξης"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1929
-#| msgid "Add Word to"
 msgid "Add Word To"
 msgstr "Προσθήκη Λέξης σε"
 
@@ -1143,39 +1110,32 @@ msgid "More Suggestions"
 msgstr "Περισσότερες προτάσεις"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2105
-#| msgid "Emoti_con"
 msgid "_Emoticon"
 msgstr "_Emoticon"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2106
-#| msgid "Insert link"
 msgid "Insert Emoticon"
 msgstr "Εισαγωγή emoticon"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2167
-#| msgid "Find"
 msgid "_Find"
 msgstr "Εύρ_εση"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2170
-#| msgid "Replace"
 msgid "Re_place"
 msgstr "Αντικα_τάσταση"
 
 #
 #: ../components/editor/gtkhtml-editor-actions.c:2173
-#| msgid "_Image:"
 msgid "_Image"
-msgstr "Ει_κόνα"
+msgstr "_Εικόνα"
 
 #
 #: ../components/editor/gtkhtml-editor-actions.c:2176
-#| msgid "_Link:"
 msgid "_Link"
 msgstr "Σύνδεσ_μος"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2179
-#| msgid "Rule"
 msgid "_Rule"
 msgstr "_Κανόνας"
 
@@ -1186,7 +1146,6 @@ msgid "_Table"
 msgstr "_Πίνακας"
 
 #: ../components/editor/gtkhtml-editor-private.c:273
-#| msgid "Paragraph Style..."
 msgid "Paragraph Style"
 msgstr "Στυλ Παραγράφου"
 
@@ -1196,12 +1155,10 @@ msgstr "Λειτουργία επεξεργασίας"
 
 #
 #: ../components/editor/gtkhtml-editor-private.c:299
-#| msgid "Colors"
 msgid "Font Color"
 msgstr "Χρώμα γραμματοσειράς"
 
 #: ../components/editor/gtkhtml-editor-private.c:309
-#| msgid "_Font Size"
 msgid "Font Size"
 msgstr "Μέγεθος Γραμματοσειράς"
 
@@ -1212,73 +1169,66 @@ msgid "Automatic"
 msgstr "Αυτόματο"
 
 #: ../components/editor/gtkhtml-editor-private.c:608
-#| msgid "Could not load glade file."
 msgid "Could not open the link."
-msgstr "Αδυναμία ανοίγματος του δέσμου."
+msgstr "Αδυναμία ανοίγματος συνδέσμου."
 
-#: ../components/editor/gtkhtml-editor.c:716
-#| msgid "Center"
+#: ../components/editor/gtkhtml-editor.c:750
 msgid "Current Folder"
 msgstr "Τρέχων φάκελος"
 
-#: ../components/editor/gtkhtml-editor.c:717
+#: ../components/editor/gtkhtml-editor.c:751
 msgid "The initial folder for file chooser dialogs"
-msgstr ""
+msgstr "Ο φάκελος που εμφανίζεται αρχικά στους διαλόγους επιλογής αρχείων"
 
-#: ../components/editor/gtkhtml-editor.c:727
+#: ../components/editor/gtkhtml-editor.c:761
 msgid "Filename"
 msgstr "Όνομα αρχείου"
 
-#: ../components/editor/gtkhtml-editor.c:728
+#: ../components/editor/gtkhtml-editor.c:762
 msgid "The filename to use when saving"
-msgstr "Το όνομα του αρχείου που θα χρησιμοποιείται στην αποθήκευση"
+msgstr "Το όνομα αρχείου που χρησιμοποιείται για την αποθήκευση"
 
-#: ../components/editor/gtkhtml-editor.c:738
+#: ../components/editor/gtkhtml-editor.c:772
 msgid "HTML Mode"
 msgstr "Λειτουργία HTML"
 
-#: ../components/editor/gtkhtml-editor.c:739
+#: ../components/editor/gtkhtml-editor.c:773
 msgid "Edit HTML or plain text"
 msgstr "Επεξεργασία HTML ή απλού κειμένου"
 
-#: ../components/editor/gtkhtml-editor.c:749
-#| msgid "Check _Spelling..."
+#: ../components/editor/gtkhtml-editor.c:783
 msgid "Inline Spelling"
-msgstr ""
+msgstr "Επισήμανση ορθογραφικών λαθών"
 
-#: ../components/editor/gtkhtml-editor.c:750
-#| msgid "Check spelling of the document"
+#: ../components/editor/gtkhtml-editor.c:784
 msgid "Check your spelling as you type"
 msgstr "Έλεγχος ορθογραφίας κατά την πληκτρολόγηση"
 
-#: ../components/editor/gtkhtml-editor.c:760
+#: ../components/editor/gtkhtml-editor.c:794
 msgid "Magic Links"
-msgstr "Μαγικοί δέσμοι"
+msgstr "Μαγικοί σύνδεσμοι"
 
-#: ../components/editor/gtkhtml-editor.c:761
+#: ../components/editor/gtkhtml-editor.c:795
 msgid "Make URIs clickable as you type"
-msgstr ""
+msgstr "Όταν πληκτρολογείτε URI, να μετατρέπονται αυτόματα σε συνδέσμους"
 
-#: ../components/editor/gtkhtml-editor.c:771
+#: ../components/editor/gtkhtml-editor.c:805
 msgid "Magic Smileys"
-msgstr "Μαγικά χαμόγελα"
+msgstr "Μαγικά emoticon"
 
-#: ../components/editor/gtkhtml-editor.c:772
+#: ../components/editor/gtkhtml-editor.c:806
 msgid "Convert emoticons to images as you type"
 msgstr "Μετατροπή των emoticon σε εικόνες καθώς πληκτρολογείτε"
 
 #: ../components/editor/gtkhtml-editor.glade.h:1
-#| msgid "<b>Alignment &amp; Behaviour</b>"
 msgid "<b>Alignment &amp; Behavior</b>"
 msgstr "<b>Στοίχιση &amp; Συμπεριφορά</b>"
 
 #: ../components/editor/gtkhtml-editor.glade.h:2
-#| msgid "Alignment"
 msgid "<b>Alignment</b>"
 msgstr "<b>Στοίχιση</b>"
 
 #: ../components/editor/gtkhtml-editor.glade.h:3
-#| msgid "<b>Background</b>"
 msgid "<b>Background Image</b>"
 msgstr "<b>Εικόνα παρασκηνίου</b>"
 
@@ -1288,7 +1238,6 @@ msgid "<b>Background</b>"
 msgstr "<b>Παρασκήνιο</b>"
 
 #: ../components/editor/gtkhtml-editor.glade.h:5
-#| msgid "<b>Scope</b>"
 msgid "<b>Colors</b>"
 msgstr "<b>Χρώματα</b>"
 
@@ -1303,9 +1252,8 @@ msgid "<b>Layout</b>"
 msgstr "<b>Διάταξη</b>"
 
 #: ../components/editor/gtkhtml-editor.glade.h:8
-#| msgid "<b>Layout</b>"
 msgid "<b>Link</b>"
-msgstr "<b>Δέσμος</b>"
+msgstr "<b>Σύνδεσμος</b>"
 
 #: ../components/editor/gtkhtml-editor.glade.h:9
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:14
@@ -1313,12 +1261,10 @@ msgid "<b>Scope</b>"
 msgstr "<b>Σκοπός</b>"
 
 #: ../components/editor/gtkhtml-editor.glade.h:10
-#| msgid "<b>Scope</b>"
 msgid "<b>Size</b>"
 msgstr "<b>Μέγεθος</b>"
 
 #: ../components/editor/gtkhtml-editor.glade.h:11
-#| msgid "<b>Scope</b>"
 msgid "<b>Style</b>"
 msgstr "<b>Στυλ</b>"
 
@@ -1335,7 +1281,6 @@ msgstr "_Χρώμα:"
 
 #
 #: ../components/editor/gtkhtml-editor.glade.h:14
-#| msgid "_Columns:"
 msgid "C_olumns:"
 msgstr "Σ_τήλες:"
 
@@ -1352,13 +1297,11 @@ msgstr "_Διάκριση πεζών από κεφαλαία"
 
 #
 #: ../components/editor/gtkhtml-editor.glade.h:17
-#| msgid "Properties"
 msgid "Cell Properties"
 msgstr "Ιδιότητες κελιού"
 
 #
 #: ../components/editor/gtkhtml-editor.glade.h:18
-#| msgid "C_olor:"
 msgid "Co_lor:"
 msgstr "_Χρώμα:"
 
@@ -1370,9 +1313,8 @@ msgstr "Στή_λη"
 
 #
 #: ../components/editor/gtkhtml-editor.glade.h:20
-#| msgid "Column span:"
 msgid "Column Span:"
-msgstr "Διάστημα στήλης:"
+msgstr "Span στηλών:"
 
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: ../components/editor/gtkhtml-editor.glade.h:21
@@ -1384,7 +1326,6 @@ msgid "Find"
 msgstr "Εύρεση"
 
 #: ../components/editor/gtkhtml-editor.glade.h:22
-#| msgid "Hea_der style"
 msgid "Hea_der Style"
 msgstr "Στυλ κε_φαλίδας"
 
@@ -1396,7 +1337,6 @@ msgstr "Ε_ικόνα:"
 
 #
 #: ../components/editor/gtkhtml-editor.glade.h:24
-#| msgid "Properties"
 msgid "Image Properties"
 msgstr "Ιδιότητες εικόνας"
 
@@ -1413,7 +1353,6 @@ msgstr ""
 
 #
 #: ../components/editor/gtkhtml-editor.glade.h:28
-#| msgid "Link properties"
 msgid "Link Properties"
 msgstr "Ιδιότητες συνδέσμου"
 
@@ -1429,16 +1368,23 @@ msgid ""
 "Draft\n"
 "Graph Paper"
 msgstr ""
+"Κανένα\n"
+"Διάτρητο χαρτί\n"
+"Μπλε μελάνι\n"
+"Χαρτί\n"
+"Ταινία\n"
+"Midnight\n"
+"Εμπιστευτικό\n"
+"Πρόχειρο\n"
+"Μιλιμετρέ"
 
 #
 #: ../components/editor/gtkhtml-editor.glade.h:38
-#| msgid "Properties"
 msgid "Page Properties"
 msgstr "Ιδιότητες σελίδας"
 
 #
 #: ../components/editor/gtkhtml-editor.glade.h:39
-#| msgid "Properties"
 msgid "Paragraph Properties"
 msgstr "Ιδιότητες παραγράφου"
 
@@ -1457,35 +1403,29 @@ msgid "Replace"
 msgstr "Αντικατάσταση"
 
 #: ../components/editor/gtkhtml-editor.glade.h:42
-#| msgid "Replace confirmation"
 msgid "Replace Confirmation"
 msgstr "Επιβεβαίωση αντικατάστασης"
 
 #: ../components/editor/gtkhtml-editor.glade.h:43
-#| msgid "Row span:"
 msgid "Row Span:"
-msgstr "Διάστημα γραμμής:"
+msgstr "Span γραμμών:"
 
 #
 #: ../components/editor/gtkhtml-editor.glade.h:44
-#| msgid "Properties"
 msgid "Rule Properties"
 msgstr "Ιδιότητες χάρακα"
 
 #: ../components/editor/gtkhtml-editor.glade.h:45
-#| msgid "Shade"
 msgid "S_haded"
 msgstr "Σκιασμέ_νο"
 
 #: ../components/editor/gtkhtml-editor.glade.h:46
-#| msgid "Search _backward"
 msgid "Search _backwards"
 msgstr "Αναζήτηση προς τα _πίσω"
 
 #: ../components/editor/gtkhtml-editor.glade.h:47
-#| msgid "Select _All"
 msgid "Select An Image"
-msgstr "Επιλογή μιας εικόνας"
+msgstr "Επιλογή εικόνας"
 
 #
 #: ../components/editor/gtkhtml-editor.glade.h:48
@@ -1500,13 +1440,11 @@ msgstr "Π_ρότυπο:"
 
 #
 #: ../components/editor/gtkhtml-editor.glade.h:50
-#| msgid "Properties"
 msgid "Table Properties"
 msgstr "Ιδιότητες πίνακα"
 
 #
 #: ../components/editor/gtkhtml-editor.glade.h:51
-#| msgid "Properties"
 msgid "Text Properties"
 msgstr "Ιδιότητες κειμένου"
 
@@ -1517,7 +1455,7 @@ msgid ""
 "Middle\n"
 "Bottom"
 msgstr ""
-"Κορυφή\n"
+"Πάνω\n"
 "Μέση\n"
 "Κάτω"
 
@@ -1558,7 +1496,6 @@ msgid "_Height:"
 msgstr "Ύ_ψος:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:63
-#| msgid "Horizontal:"
 msgid "_Horizontal:"
 msgstr "Ορι_ζόντια:"
 
@@ -1580,7 +1517,6 @@ msgid "_Padding:"
 msgstr "Γέ_μισμα:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:68
-#| msgid "_Regular Expression"
 msgid "_Regular expression"
 msgstr "_Κανονική έκφραση"
 
@@ -1596,7 +1532,6 @@ msgstr "_Γραμμές:"
 
 #
 #: ../components/editor/gtkhtml-editor.glade.h:71
-#| msgid "Size:"
 msgid "_Size:"
 msgstr "Μέγε_θος:"
 
@@ -1629,7 +1564,6 @@ msgid "_URL:"
 msgstr "_URL:"
 
 #: ../components/editor/gtkhtml-editor.glade.h:81
-#| msgid "Vertical:"
 msgid "_Vertical:"
 msgstr "Κα_τακόρυφη:"
 
@@ -1666,7 +1600,6 @@ msgstr "px"
 #: ../components/editor/gtkhtml-editor.glade.h:89
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:81
 #, no-c-format
-#| msgid "px"
 msgid ""
 "px\n"
 "%"
@@ -1677,7 +1610,6 @@ msgstr ""
 #: ../components/editor/gtkhtml-editor.glade.h:92
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:84
 #, no-c-format
-#| msgid "follow"
 msgid ""
 "px\n"
 "%\n"
@@ -1688,44 +1620,39 @@ msgstr ""
 "ακολούθηση"
 
 #: ../components/editor/gtkhtml-spell-checker.c:200
-#| msgid "Current _Languages"
 msgid "Language"
 msgstr "Γλώσσα"
 
 #: ../components/editor/gtkhtml-spell-checker.c:201
 msgid "The language used by the spell checker"
-msgstr "Η γλώσσα που χρησιμοποιείται από τον ορθογραφικό έλεγχο"
+msgstr "Η γλώσσα που χρησιμοποιείται για τον έλεγχο ορθογραφίας"
 
 #: ../components/editor/gtkhtml-spell-dialog.c:117
 #, c-format
 msgid "Suggestions for \"%s\""
-msgstr "Προτάσεις για \"%s\""
+msgstr "Προτάσεις για το \"%s\""
 
 #: ../components/editor/gtkhtml-spell-dialog.c:358
-#| msgid "Ignore Misspelled Word"
 msgid "Misspelled Word"
 msgstr "Λανθασμένη λέξη"
 
 #: ../components/editor/gtkhtml-spell-dialog.c:359
-#| msgid "Ignore Misspelled Word"
 msgid "The current misspelled word"
 msgstr "Η τρέχουσα λανθασμένη λέξη"
 
 #: ../components/editor/gtkhtml-spell-dialog.c:449
-#| msgid "Spell checker"
 msgid "Spell Checker"
 msgstr "Έλεγχος ορθογραφίας"
 
 #. Replace All Button
 #: ../components/editor/gtkhtml-spell-dialog.c:536
-#| msgid "Replace _All"
 msgid "R_eplace All"
 msgstr "Αντικατάσταση Ό_λων"
 
 #. Ignore Button
 #: ../components/editor/gtkhtml-spell-dialog.c:550
 msgid "_Ignore"
-msgstr "Πα_ράβλεψη"
+msgstr "Α_γνόηση"
 
 #. Skip Button
 #: ../components/editor/gtkhtml-spell-dialog.c:564
@@ -1734,19 +1661,16 @@ msgstr "Παράλει_ψη"
 
 #. Back Button
 #: ../components/editor/gtkhtml-spell-dialog.c:577
-#| msgid "_Backward"
 msgid "_Back"
 msgstr "_Πίσω"
 
 #. Dictionary Label
 #: ../components/editor/gtkhtml-spell-dialog.c:590
-#| msgid "%s Dictionary"
 msgid "Dictionary"
 msgstr "Λεξικό"
 
 #. Add Word Button
 #: ../components/editor/gtkhtml-spell-dialog.c:619
-#| msgid "Add Word to"
 msgid "_Add Word"
 msgstr "Προσθήκη _λέξης"
 
@@ -1755,7 +1679,7 @@ msgstr "Προσθήκη _λέξης"
 #, c-format
 msgctxt "language"
 msgid "Unknown (%s)"
-msgstr "Άγνωστο (%s)"
+msgstr "Άγνωστη (%s)"
 
 #. Translators: The first %s is the language name, and the
 #. * second is the country name. Example: "French (France)"
@@ -1778,61 +1702,51 @@ msgid "Save As"
 msgstr "Αποθήκευση ως"
 
 #: ../components/editor/main.c:111
-#| msgid "Insert table into document..."
 msgid "Untitled document"
-msgstr "Έγγραφο χωρίς τίτλο"
+msgstr "Ανώνυμο έγγραφο"
 
 #: ../components/editor/main.c:271
 msgid "HTML Output"
-msgstr "Έξοδος HTML"
+msgstr "Αποτέλεσμα HTML"
 
 #: ../components/editor/main.c:278
-#| msgid "_Source:"
 msgid "HTML Source"
 msgstr "Πηγή HTML"
 
 #: ../components/editor/main.c:285
-#| msgid "_Plain Text"
 msgid "Plain Source"
 msgstr "Απλή πηγή"
 
 #: ../components/editor/main.c:292
-#| msgid "_Find..."
 msgid "_Print..."
 msgstr "_Εκτύπω_ση..."
 
 #: ../components/editor/main.c:299
-#| msgid "Print pre_view"
 msgid "Print Pre_view"
 msgstr "Προεπισκόπηση εκ_τύπωσης"
 
 #: ../components/editor/main.c:306
-#| msgid "_Edit"
 msgid "_Quit"
 msgstr "Έ_ξοδος"
 
 #: ../components/editor/main.c:313
-#| msgid "Shade"
 msgid "_Save"
 msgstr "Αποθή_κευση"
 
 #
 #: ../components/editor/main.c:320
-#| msgid "Save file as..."
 msgid "Save _As..."
 msgstr "Απο_θήκευση ως..."
 
 #: ../components/editor/main.c:337
 msgid "HTML _Output"
-msgstr "Έξο_δος HTML"
+msgstr "Απο_τέλεσμα HTML"
 
 #: ../components/editor/main.c:344
-#| msgid "_Source:"
 msgid "_HTML Source"
 msgstr "Πη_γή HTML"
 
 #: ../components/editor/main.c:351
-#| msgid "_Plain Text"
 msgid "_Plain Source"
 msgstr "Απ_λή πηγή"
 
@@ -1935,12 +1849,12 @@ msgstr "Εικόνα"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:37
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
 msgid "Insert Crying emoticon into document..."
-msgstr "Εισαγωγή Crying emoticon στο έγγραφο..."
+msgstr "Εισαγωγή emoticon Κλαίει στο έγγραφο..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:38
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
 msgid "Insert Frown emoticon into document..."
-msgstr "Εισαγωγή Frown emoticon στο έγγραφο..."
+msgstr "Εισαγωγή emoticon Κατσουφιάζει στο έγγραφο..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:39
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
@@ -1950,7 +1864,7 @@ msgstr "Εισαγωγή  αρχείου HTML στο έγγραφο..."
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:40
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:40
 msgid "Insert HTML link into document..."
-msgstr "Εισαγωγή δεσμού HTML στο έγγραφο..."
+msgstr "Εισαγωγή συνδέσμου HTML στο έγγραφο..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:41
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
@@ -1960,47 +1874,47 @@ msgstr "Εισαγωγή προτύπου HTML στο έγγραφο..."
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:42
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
 msgid "Insert Indifferent emoticon into document..."
-msgstr "Εισαγωγή Indifferent emoticon στο έγγραφο..."
+msgstr "Εισαγωγή emoticon Αδιαφορεί στο έγγραφο..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:43
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
 msgid "Insert Laughing emoticon into document..."
-msgstr "Εισαγωγή Laughing emoticon στο έγγραφο..."
+msgstr "Εισαγωγή emoticon Γελάει στο έγγραφο..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:44
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
 msgid "Insert Oh no! emoticon into document..."
-msgstr "Εισαγωγή Oh no! emoticon στο έγγραφο..."
+msgstr "Εισαγωγή emoticon Ωχ, όχι! στο έγγραφο..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:45
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
 msgid "Insert Sick emoticon into document..."
-msgstr "Εισαγωγή  Sick emoticon στο έγγραφο..."
+msgstr "Εισαγωγή emoticon Άρρωστος/η στο έγγραφο..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:46
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
 msgid "Insert Smile emoticon into document..."
-msgstr "Εισαγωγή Smile emoticon στο έγγραφο..."
+msgstr "Εισαγωγή emoticon Χαμόγελο στο έγγραφο..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:47
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
 msgid "Insert Surprised emoticon into document..."
-msgstr "Εισαγωγή Surprised emoticon στο έγγραφο..."
+msgstr "Εισαγωγή emoticon Έκπληκτος/η στο έγγραφο..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:48
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
 msgid "Insert Tongue emoticon into document..."
-msgstr "Εισαγωγή Tongue emoticon στο έγγραφο..."
+msgstr "Εισαγωγή emoticon Βγάζει τη γλώσσα στο έγγραφο..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:49
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
 msgid "Insert Undecided emoticon into document..."
-msgstr "Εισαγωγή Undecided emoticon στο έγγραφο..."
+msgstr "Εισαγωγή emoticon Αναποφάσιστος/η στο έγγραφο..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:50
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
 msgid "Insert Wink emoticon into document..."
-msgstr "Εισαγωγή Wink emoticon στο έγγραφο..."
+msgstr "Εισαγωγή emoticon Κλείνει το μάτι στο έγγραφο..."
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:51
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
@@ -2016,7 +1930,7 @@ msgstr "Εισαγωγή εικόνας στο έγγραφο..."
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:53
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:53
 msgid "Insert link"
-msgstr "Εισαγωγή δεσμού"
+msgstr "Εισαγωγή συνδέσμου"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:54
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
@@ -2138,7 +2052,7 @@ msgstr "Αριθμημένη Λίστα"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:77
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
 msgid "Oh _No!"
-msgstr "Oh _no!"
+msgstr "_Ωχ, όχι!"
 
 #
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:78
@@ -2217,7 +2131,7 @@ msgstr "Strikeout"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:95
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
 msgid "Su_rprised"
-msgstr "Su_rprised"
+msgstr "Έκ_πληκτος/η"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:96
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
@@ -2263,7 +2177,7 @@ msgstr "Μέγε_θος Γραμματοσειράς"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:116
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
 msgid "_Frown"
-msgstr "_Frown"
+msgstr "Κατσουφ_ιάζει"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:118
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
@@ -2273,12 +2187,12 @@ msgstr "Κε_φαλίδα"
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:121
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
 msgid "_Indifferent"
-msgstr "_Indifferent"
+msgstr "Αδιαφ_ορεί"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:123
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
 msgid "_Laughing"
-msgstr "_Laughing"
+msgstr "_Γελάει"
 
 #
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:127
@@ -2326,7 +2240,7 @@ msgstr "_Κείμενο..."
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:157
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:157
 msgid "_Undecided"
-msgstr "_Undecided"
+msgstr "Αναποφάσιστο_ς/η"
 
 #: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:1
 msgid "GNOME HTML Editor"
@@ -2346,7 +2260,7 @@ msgstr "Κανένα"
 
 #: ../components/html-editor/body.c:72
 msgid "Perforated paper"
-msgstr "Τρυπημένο Χαρτί"
+msgstr "Διάτρητο χαρτί"
 
 #: ../components/html-editor/body.c:80
 msgid "Blue ink"
@@ -2358,11 +2272,11 @@ msgstr "Χαρτί"
 
 #: ../components/html-editor/body.c:96
 msgid "Ribbon"
-msgstr "Κορδέλα"
+msgstr "Ταινία"
 
 #: ../components/html-editor/body.c:104
 msgid "Midnight"
-msgstr "Μεσάνυχτα"
+msgstr "Midnight"
 
 #: ../components/html-editor/body.c:112
 msgid "Confidential"
@@ -2374,7 +2288,7 @@ msgstr "Πρόχειρο"
 
 #: ../components/html-editor/body.c:128
 msgid "Graph paper"
-msgstr "Χαρτί γραφήματος"
+msgstr "Μιλιμετρέ"
 
 #
 #: ../components/html-editor/body.c:254
@@ -2397,8 +2311,8 @@ msgstr "Διαδρομή Αρχείου Εικόνας Παρασκηνίου"
 msgid "Template"
 msgstr "Πρότυπο"
 
-#: ../components/html-editor/cell.c:342 ../components/html-editor/image.c:345
-#: ../components/html-editor/link.c:215 ../components/html-editor/rule.c:179
+#: ../components/html-editor/cell.c:342 ../components/html-editor/image.c:344
+#: ../components/html-editor/link.c:214 ../components/html-editor/rule.c:179
 #: ../components/html-editor/table.c:229
 #: ../components/html-editor/template.c:287
 #: ../components/html-editor/text.c:168
@@ -2481,7 +2395,7 @@ msgid ""
 msgstr ""
 "-2\n"
 "-1\n"
-"Standard\n"
+"Κανονικό\n"
 "+1\n"
 "+2\n"
 "+3\n"
@@ -2526,14 +2440,13 @@ msgstr "Κελί"
 
 #
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:28
-#| msgid "_Columns:"
 msgid "Colu_mns:"
 msgstr "Σ_τήλες:"
 
 #
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:29
 msgid "Column span:"
-msgstr "Span στήλης:"
+msgstr "Span στηλών:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:30
 msgid "Enable"
@@ -2561,7 +2474,7 @@ msgstr ""
 "Αριστερά\n"
 "Κέντρο\n"
 "Δεξιά\n"
-"Κανένα"
+"Καθόλου"
 
 #
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:43
@@ -2570,7 +2483,7 @@ msgstr "Ιδιότητες συνδέσμου"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:45
 msgid "Row span:"
-msgstr "Span γραμμής:"
+msgstr "Span γραμμών:"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:47
 msgid "Shade"
@@ -2589,11 +2502,11 @@ msgstr "Κατακόρυφη:"
 msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
-#: ../components/html-editor/link.c:227
+#: ../components/html-editor/link.c:226
 msgid "URL:"
 msgstr "URL:"
 
-#: ../components/html-editor/link.c:231
+#: ../components/html-editor/link.c:230
 msgid "Description:"
 msgstr "Περιγραφή:"
 
@@ -2777,7 +2690,7 @@ msgstr ""
 
 #: ../components/html-editor/spellchecker.c:322
 msgid "No misspelled word found"
-msgstr "Δε βρέθηκε ανορθόγραφη λέξη"
+msgstr "Δε βρέθηκε λανθασμένη λέξη"
 
 #: ../components/html-editor/spellchecker.c:329
 msgid "Spell checker"
@@ -2862,7 +2775,6 @@ msgstr "Εσοχή στις παράγραφους"
 
 #
 #: ../components/html-editor/toolbar.c:540
-#| msgid "Colors"
 msgid "Text Color"
 msgstr "Χρώμα κειμένου"
 
@@ -2878,83 +2790,83 @@ msgstr ""
 "Το επεξεργασμένο κείμενο αφαιρέθηκε από το έγγραφο.\n"
 "Αδύνατη η εφαρμογή των αλλαγών."
 
-#: ../gtkhtml/gtkhtml.c:3033
+#: ../gtkhtml/gtkhtml.c:3032
 msgid "Editable"
 msgstr "Επεξεργάσιμο"
 
-#: ../gtkhtml/gtkhtml.c:3034
+#: ../gtkhtml/gtkhtml.c:3033
 msgid "Whether the html can be edited"
 msgstr "Αν θα μπορεί να γίνει επεξεργασία στο html"
 
-#: ../gtkhtml/gtkhtml.c:3040
+#: ../gtkhtml/gtkhtml.c:3039
 msgid "Document Title"
 msgstr "Τίτλος Εγγράφου"
 
-#: ../gtkhtml/gtkhtml.c:3041
+#: ../gtkhtml/gtkhtml.c:3040
 msgid "The title of the current document"
 msgstr "Ο τίτλος του τρέχοντος εγγράφου"
 
-#: ../gtkhtml/gtkhtml.c:3047
+#: ../gtkhtml/gtkhtml.c:3046
 msgid "Document Base"
 msgstr "Βάση Εγγράφου"
 
-#: ../gtkhtml/gtkhtml.c:3048
+#: ../gtkhtml/gtkhtml.c:3047
 msgid "The base URL for relative references"
 msgstr "Το URL βάσης γα σχετικές αναφορές"
 
-#: ../gtkhtml/gtkhtml.c:3054
+#: ../gtkhtml/gtkhtml.c:3053
 msgid "Target Base"
 msgstr "Βάση Στόχου"
 
-#: ../gtkhtml/gtkhtml.c:3055
+#: ../gtkhtml/gtkhtml.c:3054
 msgid "The base URL of the target frame"
 msgstr "Το URL βάσης του πλαισίου στόχου"
 
-#: ../gtkhtml/gtkhtml.c:3064
+#: ../gtkhtml/gtkhtml.c:3063
 msgid "Fixed Width Font"
 msgstr "Γραμματοσειρά Σταθερού Πλάτους"
 
-#: ../gtkhtml/gtkhtml.c:3065
+#: ../gtkhtml/gtkhtml.c:3064
 msgid "The Monospace font to use for typewriter text"
 msgstr "Η γραμματοσειρά Monospace που χρησιμοποιείται για κείμενο γραφομηχανής"
 
-#: ../gtkhtml/gtkhtml.c:3071
+#: ../gtkhtml/gtkhtml.c:3070
 msgid "New Link Color"
 msgstr "Χρώμα Νέου Συνδέσμου"
 
-#: ../gtkhtml/gtkhtml.c:3072
+#: ../gtkhtml/gtkhtml.c:3071
 msgid "The color of new link elements"
 msgstr "Το χρώμα για στοιχεία νέων συνδέσμων"
 
-#: ../gtkhtml/gtkhtml.c:3077
+#: ../gtkhtml/gtkhtml.c:3076
 msgid "Visited Link Color"
-msgstr "Χρώμα Αναγνωσμένου Δεσμού"
+msgstr "Χρώμα αναγνωσμένου συνδέσμου"
 
-#: ../gtkhtml/gtkhtml.c:3078
+#: ../gtkhtml/gtkhtml.c:3077
 msgid "The color of visited link elements"
-msgstr "Το χρώμα για στοιχεία αναγνωσμένων δεσμών"
+msgstr "Το χρώμα για στοιχεία αναγνωσμένων συνδέσμων"
 
-#: ../gtkhtml/gtkhtml.c:3083
+#: ../gtkhtml/gtkhtml.c:3082
 msgid "Active Link Color"
 msgstr "Χρώμα Ενεργού Συνδέσμου"
 
-#: ../gtkhtml/gtkhtml.c:3084
+#: ../gtkhtml/gtkhtml.c:3083
 msgid "The color of active link elements"
-msgstr "Το χρώμα για στοιχεία ενεργών δεσμών"
+msgstr "Το χρώμα για στοιχεία ενεργών συνδέσμων"
 
-#: ../gtkhtml/gtkhtml.c:3089
+#: ../gtkhtml/gtkhtml.c:3088
 msgid "Spelling Error Color"
 msgstr "Χρώμα Ορθογραφικού Λάθους"
 
-#: ../gtkhtml/gtkhtml.c:3090
+#: ../gtkhtml/gtkhtml.c:3089
 msgid "The color of the spelling error markers"
 msgstr "Το χρώμα σήμανσης ορθογραφικών λαθών"
 
-#: ../gtkhtml/gtkhtml.c:3095
+#: ../gtkhtml/gtkhtml.c:3094
 msgid "Cite Quotation Color"
 msgstr "Χρώμα παράθεσης"
 
-#: ../gtkhtml/gtkhtml.c:3096
+#: ../gtkhtml/gtkhtml.c:3095
 msgid "The color of the cited text"
 msgstr "Το χρώμα του κειμένου παράθεσης"
 
@@ -2969,7 +2881,6 @@ msgstr "Επαναφορά"
 
 #. TODO2 dialog instead of warning
 #: ../gtkhtml/htmlengine-print.c:231 ../gtkhtml/htmlengine-print.c:310
-#| msgid "Cannot allocate default font for printing\n"
 msgid "Cannot allocate default font for printing"
 msgstr "Αδυναμία διάθεσης προεπιλεγμένης γραμματοσειράς για εκτύπωση"
 
@@ -2988,4 +2899,3 @@ msgstr "Προεπισκόπηση εκτύπωσης"
 #: ../gtkhtml/testgtkhtml.c:1028
 msgid "GtkHTML Test Application"
 msgstr "Εφαρμογή Δοκιμής GtkHTML"
-
