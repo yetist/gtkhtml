@@ -1,3 +1,8 @@
+2009-04-07  Thomas H.P. Andersen  <phomes@gmail.com>
+
+    * gtkhtml-decl.txt: Replace deprecated GTK_CHECK_* with G_TYPE_CHECK_* 
+    equivalents. Bug #573046
+
 2001-07-18  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml.types: add gtkhtml-embedded initializer.
