@@ -1,14 +1,14 @@
 <MACRO>
 <NAME>GTK_HTML_EMBEDDED</NAME>
-#define GTK_HTML_EMBEDDED(obj)         GTK_CHECK_CAST (obj, gtk_html_embedded_get_type (), GtkHTMLEmbedded)
+#define GTK_HTML_EMBEDDED(obj)         G_TYPE_CHECK_INSTANCE_CAST (obj, gtk_html_embedded_get_type (), GtkHTMLEmbedded)
 </MACRO>
 <MACRO>
 <NAME>GTK_HTML_EMBEDDED_CLASS</NAME>
-#define GTK_HTML_EMBEDDED_CLASS(klass) GTK_CHECK_CLASS_CAST (klass, gtk_html_embedded_get_type (), GtkHTMLEmbeddedClass)
+#define GTK_HTML_EMBEDDED_CLASS(klass) G_TYPE_CHECK_CLASS_CAST (klass, gtk_html_embedded_get_type (), GtkHTMLEmbeddedClass)
 </MACRO>
 <MACRO>
 <NAME>GTK_IS_HTML_EMBEDDED</NAME>
-#define GTK_IS_HTML_EMBEDDED(obj)      GTK_CHECK_TYPE (obj, gtk_html_embedded_get_type ())
+#define GTK_IS_HTML_EMBEDDED(obj)      G_TYPE_CHECK_INSTANCE_TYPE (obj, gtk_html_embedded_get_type ())
 </MACRO>
 <STRUCT>
 <NAME>GtkHTMLEmbedded</NAME>
@@ -414,19 +414,19 @@ GtkHTML *html, GnomePrintContext *print_context,
 </MACRO>
 <MACRO>
 <NAME>GTK_HTML</NAME>
-#define GTK_HTML(obj)                  (GTK_CHECK_CAST ((obj), GTK_TYPE_HTML, GtkHTML))
+#define GTK_HTML(obj)                  (G_TYPE_CHECK_INSTANCE_CAST ((obj), GTK_TYPE_HTML, GtkHTML))
 </MACRO>
 <MACRO>
 <NAME>GTK_HTML_CLASS</NAME>
-#define GTK_HTML_CLASS(klass)          (GTK_CHECK_CLASS_CAST ((klass), GTK_TYPE_HTML, GtkHTMLClass))
+#define GTK_HTML_CLASS(klass)          (G_TYPE_CHECK_CLASS_CAST ((klass), GTK_TYPE_HTML, GtkHTMLClass))
 </MACRO>
 <MACRO>
 <NAME>GTK_IS_HTML</NAME>
-#define GTK_IS_HTML(obj)               (GTK_CHECK_TYPE ((obj), GTK_TYPE_HTML))
+#define GTK_IS_HTML(obj)               (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GTK_TYPE_HTML))
 </MACRO>
 <MACRO>
 <NAME>GTK_IS_HTML_CLASS</NAME>
-#define GTK_IS_HTML_CLASS(klass)       (GTK_CHECK_CLASS_TYPE ((klass), GTK_TYPE_HTML))
+#define GTK_IS_HTML_CLASS(klass)       (G_TYPE_CHECK_CLASS_TYPE ((klass), GTK_TYPE_HTML))
 </MACRO>
 <STRUCT>
 <NAME>GtkHTML</NAME>
@@ -2114,19 +2114,19 @@ HTMLEngine *e,const gchar *text,gboolean forward
 </MACRO>
 <MACRO>
 <NAME>HTML_ENGINE</NAME>
-#define HTML_ENGINE(obj)                 (GTK_CHECK_CAST ((obj), HTML_TYPE_ENGINE, HTMLEngine))
+#define HTML_ENGINE(obj)                 (G_TYPE_CHECK_INSTANCE_CAST ((obj), HTML_TYPE_ENGINE, HTMLEngine))
 </MACRO>
 <MACRO>
 <NAME>HTML_ENGINE_CLASS</NAME>
-#define HTML_ENGINE_CLASS(klass)         (GTK_CHECK_CLASS_CAST ((klass), HTML_TYPE_ENGINE, HTMLEngineClass))
+#define HTML_ENGINE_CLASS(klass)         (G_TYPE_CHECK_CLASS_CAST ((klass), HTML_TYPE_ENGINE, HTMLEngineClass))
 </MACRO>
 <MACRO>
 <NAME>HTML_IS_ENGINE</NAME>
-#define HTML_IS_ENGINE(obj)              (GTK_CHECK_TYPE ((obj), HTML_TYPE_ENGINE))
+#define HTML_IS_ENGINE(obj)              (G_TYPE_CHECK_INSTANCE_TYPE ((obj), HTML_TYPE_ENGINE))
 </MACRO>
 <MACRO>
 <NAME>HTML_IS_ENGINE_CLASS</NAME>
-#define HTML_IS_ENGINE_CLASS(klass)      (GTK_CHECK_CLASS_TYPE ((klass), HTML_TYPE_ENGINE))
+#define HTML_IS_ENGINE_CLASS(klass)      (G_TYPE_CHECK_CLASS_TYPE ((klass), HTML_TYPE_ENGINE))
 </MACRO>
 <MACRO>
 <NAME>LEFT_BORDER</NAME>
@@ -3003,19 +3003,19 @@ HTMLForm *form
 </MACRO>
 <MACRO>
 <NAME>HTML_GDK_PAINTER</NAME>
-#define HTML_GDK_PAINTER(obj)                 (GTK_CHECK_CAST ((obj), HTML_TYPE_GDK_PAINTER, HTMLGdkPainter))
+#define HTML_GDK_PAINTER(obj)                 (G_TYPE_CHECK_INSTANCE_CAST ((obj), HTML_TYPE_GDK_PAINTER, HTMLGdkPainter))
 </MACRO>
 <MACRO>
 <NAME>HTML_GDK_PAINTER_CLASS</NAME>
-#define HTML_GDK_PAINTER_CLASS(klass)         (GTK_CHECK_CLASS_CAST ((klass), HTML_TYPE_GDK_PAINTER, HTMLGdkPainterClass))
+#define HTML_GDK_PAINTER_CLASS(klass)         (G_TYPE_CHECK_CLASS_CAST ((klass), HTML_TYPE_GDK_PAINTER, HTMLGdkPainterClass))
 </MACRO>
 <MACRO>
 <NAME>HTML_IS_GDK_PAINTER</NAME>
-#define HTML_IS_GDK_PAINTER(obj)              (GTK_CHECK_TYPE ((obj), HTML_TYPE_GDK_PAINTER))
+#define HTML_IS_GDK_PAINTER(obj)              (G_TYPE_CHECK_INSTANCE_TYPE ((obj), HTML_TYPE_GDK_PAINTER))
 </MACRO>
 <MACRO>
 <NAME>HTML_IS_GDK_PAINTER_CLASS</NAME>
-#define HTML_IS_GDK_PAINTER_CLASS(klass)      (GTK_CHECK_CLASS_TYPE ((klass), HTML_TYPE_GDK_PAINTER))
+#define HTML_IS_GDK_PAINTER_CLASS(klass)      (G_TYPE_CHECK_CLASS_TYPE ((klass), HTML_TYPE_GDK_PAINTER))
 </MACRO>
 <STRUCT>
 <NAME>HTMLGdkPainter</NAME>
@@ -4097,19 +4097,19 @@ HTMLObject *self,HTMLObject *replacement,GList      *left,GList      *right
 </MACRO>
 <MACRO>
 <NAME>HTML_PAINTER</NAME>
-#define HTML_PAINTER(obj)                 (GTK_CHECK_CAST ((obj), HTML_TYPE_PAINTER, HTMLPainter))
+#define HTML_PAINTER(obj)                 (G_TYPE_CHECK_INSTANCE_CAST ((obj), HTML_TYPE_PAINTER, HTMLPainter))
 </MACRO>
 <MACRO>
 <NAME>HTML_PAINTER_CLASS</NAME>
-#define HTML_PAINTER_CLASS(klass)         (GTK_CHECK_CLASS_CAST ((klass), HTML_TYPE_PAINTER, HTMLPainterClass))
+#define HTML_PAINTER_CLASS(klass)         (G_TYPE_CHECK_CLASS_CAST ((klass), HTML_TYPE_PAINTER, HTMLPainterClass))
 </MACRO>
 <MACRO>
 <NAME>HTML_IS_PAINTER</NAME>
-#define HTML_IS_PAINTER(obj)              (GTK_CHECK_TYPE ((obj), HTML_TYPE_PAINTER))
+#define HTML_IS_PAINTER(obj)              (G_TYPE_CHECK_INSTANCE_TYPE ((obj), HTML_TYPE_PAINTER))
 </MACRO>
 <MACRO>
 <NAME>HTML_IS_PAINTER_CLASS</NAME>
-#define HTML_IS_PAINTER_CLASS(klass)      (GTK_CHECK_CLASS_TYPE ((klass), HTML_TYPE_PAINTER))
+#define HTML_IS_PAINTER_CLASS(klass)      (G_TYPE_CHECK_CLASS_TYPE ((klass), HTML_TYPE_PAINTER))
 </MACRO>
 <STRUCT>
 <NAME>HTMLPainter</NAME>
@@ -4328,19 +4328,19 @@ HTMLPainter       *painter,GtkHTMLFontStyle   font_style,HTMLFontFace      *face
 </MACRO>
 <MACRO>
 <NAME>HTML_PRINTER</NAME>
-#define HTML_PRINTER(obj)                 (GTK_CHECK_CAST ((obj), HTML_TYPE_PRINTER, HTMLPrinter))
+#define HTML_PRINTER(obj)                 (G_TYPE_CHECK_INSTANCE_CAST ((obj), HTML_TYPE_PRINTER, HTMLPrinter))
 </MACRO>
 <MACRO>
 <NAME>HTML_PRINTER_CLASS</NAME>
-#define HTML_PRINTER_CLASS(klass)         (GTK_CHECK_CLASS_CAST ((klass), HTML_TYPE_PRINTER, HTMLPrinterClass))
+#define HTML_PRINTER_CLASS(klass)         (G_TYPE_CHECK_CLASS_CAST ((klass), HTML_TYPE_PRINTER, HTMLPrinterClass))
 </MACRO>
 <MACRO>
 <NAME>HTML_IS_PRINTER</NAME>
-#define HTML_IS_PRINTER(obj)              (GTK_CHECK_TYPE ((obj), HTML_TYPE_PRINTER))
+#define HTML_IS_PRINTER(obj)              (G_TYPE_CHECK_INSTANCE_TYPE ((obj), HTML_TYPE_PRINTER))
 </MACRO>
 <MACRO>
 <NAME>HTML_IS_PRINTER_CLASS</NAME>
-#define HTML_IS_PRINTER_CLASS(klass)      (GTK_CHECK_CLASS_TYPE ((klass), HTML_TYPE_PRINTER))
+#define HTML_IS_PRINTER_CLASS(klass)      (G_TYPE_CHECK_CLASS_TYPE ((klass), HTML_TYPE_PRINTER))
 </MACRO>
 <STRUCT>
 <NAME>HTMLPrinter</NAME>
