@@ -96,7 +96,7 @@ html_search_new (HTMLEngine *e, const gchar *text, gboolean case_sensitive, gboo
 		if (rv_int) {
 			char buf[1024];
 			if (regerror(rv_int, ns->reb, buf, sizeof(buf))) {
-				g_warning (buf);
+				g_warning ("%s", buf);
 			} else {
 				g_warning ("regcomp failed, error code %d", rv_int);
 			}

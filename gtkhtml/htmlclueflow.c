@@ -1687,7 +1687,7 @@ write_flow_tag (HTMLClueFlow *self, HTMLEngineSaveState *state)
 		char *p_str = get_p_str (self, state);
 
 		if (p_str) {
-			if (! html_engine_save_output_string (state, p_str))
+			if (! html_engine_save_output_string (state, "%s", p_str))
 				return FALSE;
 		}
 	}
@@ -1738,13 +1738,13 @@ write_flow_tag (HTMLClueFlow *self, HTMLEngineSaveState *state)
 
 	if (is_item (self)) {
 		if (next && is_levels_equal (self, next) && !is_item (next) && !html_clueflow_contains_table (self)) {
-			if (!html_engine_save_output_string (state, br_str))
+			if (!html_engine_save_output_string (state, "%s", br_str))
 				return FALSE;
 		} else if (!html_engine_save_output_string (state, "\n"))
 			return FALSE;
 	} else if (is_levels_equal (self, next) && self->style == next->style) {
 		if (self->style != HTML_CLUEFLOW_STYLE_PRE && !html_clueflow_contains_table (self)) {
-			if (!html_engine_save_output_string (state, br_str))
+			if (!html_engine_save_output_string (state, "%s", br_str))
 				return FALSE;
 		} else {
 			if (!html_engine_save_output_string (state, "\n"))
@@ -1755,7 +1755,7 @@ write_flow_tag (HTMLClueFlow *self, HTMLEngineSaveState *state)
 
 		if (self->style != HTML_CLUEFLOW_STYLE_PRE) {
 			if ((!html_clueflow_contains_table (self) && !end && next && self->style == next->style) || html_clueflow_is_empty (self)) {
-				if (!html_engine_save_output_string (state, br_str))
+				if (!html_engine_save_output_string (state, "%s", br_str))
 					return FALSE;
 			} else {
 				if (!html_engine_save_output_string (state, "\n"))

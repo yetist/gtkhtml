@@ -1,3 +1,13 @@
+2009-04-08  Tobias Mueller  <tobiasmue@svn.gnome.org>
+
+	* htmlsearch.c (html_search_new):
+	Use a proper format string ("%s") for g_warning.
+
+	* htmlclueflow.c (write_flow_tag):
+	Use a proper format string ("%s") for html_engine_save_output_string.
+
+	Fixes bug #574335
+
 2009-03-02  Matt McCutchen  <matt@mattmccutchen.net>
 
 	Now that gtkhtml's handling of entities in input has been fixed
