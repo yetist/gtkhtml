@@ -1,3 +1,17 @@
+2009-04-09  Tobias Mueller  <tobiasmue@svn.gnome.org>
+
+	* gtkhtml.c (gtk_html_set_fonts):
+	* htmlpainter.c (html_painter_alloc_font):
+	Use the  boolean parameter "points" properly to know whether
+	a font is point or pixel sized.
+	
+	* testgtkhtml.c (draw_page_cb):
+	Have a testcase for that as well.
+	
+	Patch by Alexander Sack <asac@jwsdot.com>
+
+	Fixes bug #576684
+
 2009-04-08  Tobias Mueller  <tobiasmue@svn.gnome.org>
 
 	* htmlsearch.c (html_search_new):

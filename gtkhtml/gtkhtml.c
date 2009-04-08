@@ -887,8 +887,10 @@ gtk_html_set_fonts (GtkHTML *html, HTMLPainter *painter)
 	char *fixed_name = NULL;
 	const char *fixed_family = NULL;
 	gint  fixed_size = 0;
+	gboolean  fixed_points = FALSE;
 	const char *font_var = NULL;
 	gint  font_var_size = 0;
+	gboolean  font_var_points = FALSE;
 	cairo_font_options_t *font_options;
 
 	top_level = GTK_WIDGET (gtk_html_get_top_html (html));
@@ -896,12 +898,14 @@ gtk_html_set_fonts (GtkHTML *html, HTMLPainter *painter)
 
 	font_var = pango_font_description_get_family (style->font_desc);
 	font_var_size = pango_font_description_get_size (style->font_desc);
+	font_var_points = !pango_font_description_get_size_is_absolute (style->font_desc);
 
 	gtk_widget_style_get (GTK_WIDGET (top_level), "fixed_font_name", &fixed_name, NULL);
 	if (fixed_name) {
 		fixed_desc = pango_font_description_from_string (fixed_name);
 		if (pango_font_description_get_family (fixed_desc)) {
 			fixed_size = pango_font_description_get_size (fixed_desc);
+			fixed_points = !pango_font_description_get_size_is_absolute (fixed_desc);
 			fixed_family = pango_font_description_get_family (fixed_desc);
 		} else {
 			g_free (fixed_name);
@@ -918,6 +922,7 @@ gtk_html_set_fonts (GtkHTML *html, HTMLPainter *painter)
 			fixed_desc = pango_font_description_from_string (fixed_name);
 			if (fixed_desc) {
 				fixed_size = pango_font_description_get_size (fixed_desc);
+				fixed_points = !pango_font_description_get_size_is_absolute (fixed_desc);
 				fixed_family = pango_font_description_get_family (fixed_desc);
 			} else {
 				g_free (fixed_name);
@@ -934,8 +939,8 @@ gtk_html_set_fonts (GtkHTML *html, HTMLPainter *painter)
 
 	html_font_manager_set_default (&painter->font_manager,
 				       (char *)font_var, (char *)fixed_family,
-				       font_var_size, FALSE,
-				       fixed_size, FALSE);
+				       font_var_size, font_var_points,
+				       fixed_size, fixed_points);
 	if (fixed_desc)
 		pango_font_description_free (fixed_desc);
 

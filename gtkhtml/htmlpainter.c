@@ -833,7 +833,10 @@ html_painter_alloc_font (HTMLPainter *painter, gchar *face, gdouble size, gboole
 
 	if (face) {
 		desc = pango_font_description_from_string (face);
-		pango_font_description_set_size (desc, (gint) size);
+		if (points)
+			pango_font_description_set_size (desc, (gint) size);
+		else
+			pango_font_description_set_absolute_size (desc, (gint) size);
 	}
 
 	if (!desc || !pango_font_description_get_family (desc)) {
@@ -843,7 +846,11 @@ html_painter_alloc_font (HTMLPainter *painter, gchar *face, gdouble size, gboole
 		desc = pango_font_description_copy (gtk_widget_get_style (painter->widget)->font_desc);
 	}
 
-	pango_font_description_set_size (desc, size);
+	if (points)
+		pango_font_description_set_size (desc, size);
+	else
+		pango_font_description_set_absolute_size (desc, (gint) size);
+
 	pango_font_description_set_style (desc, style & GTK_HTML_FONT_STYLE_ITALIC ? PANGO_STYLE_ITALIC : PANGO_STYLE_NORMAL);
 	pango_font_description_set_weight (desc, style & GTK_HTML_FONT_STYLE_BOLD ? PANGO_WEIGHT_BOLD : PANGO_WEIGHT_NORMAL);
 

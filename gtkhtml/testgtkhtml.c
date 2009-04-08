@@ -315,7 +315,7 @@ draw_page_cb (GtkPrintOperation *operation, GtkPrintContext *context,
 	PangoFontMetrics *metrics;
 	gdouble footer_height;
 
-	desc = pango_font_description_from_string ("Helvetica 12");
+	desc = pango_font_description_from_string ("Helvetica 16px");
 
 	layout = gtk_print_context_create_pango_layout (context);
 	pango_layout_set_alignment (layout, PANGO_ALIGN_CENTER);
