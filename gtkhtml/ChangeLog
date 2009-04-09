@@ -1,3 +1,12 @@
+2009-04-09  Milan Crha  <mcrha@redhat.com>
+
+	** Fix for bug #494986
+
+	* gtkhtml-private.h: (struct _GtkHTMLPrivate):
+	* gtkhtml.c: (idle_handler), (html_engine_draw_pending_cb),
+	(button_release_event), (gtk_html_init):
+	Do not centre to cursor position on click over URL and draw event.
+
 2009-04-09  Tobias Mueller  <tobiasmue@svn.gnome.org>
 
 	* gtkhtml.c (gtk_html_set_fonts):

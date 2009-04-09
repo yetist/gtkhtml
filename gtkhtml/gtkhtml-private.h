@@ -36,6 +36,7 @@ struct _GtkHTMLPrivate {
 	GtkHTMLFontStyle insertion_font_style;
 
 	gboolean update_styles;
+	gboolean skip_update_cursor;
 
 	gint selection_type;
 

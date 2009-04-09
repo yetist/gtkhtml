@@ -378,21 +378,27 @@ idle_handler (gpointer data)
 {
 	GtkHTML *html;
 	HTMLEngine *engine;
+	gboolean also_update_cursor;
 
 	html = GTK_HTML (data);
 	engine = html->engine;
 
+	also_update_cursor = !html->priv->skip_update_cursor;
+
 	if (html->engine->thaw_idle_id == 0 && !html_engine_frozen (html->engine))
 		html_engine_flush_draw_queue (engine);
 
-	gtk_html_adjust_cursor_position (html);
-
+	if (also_update_cursor)
+		gtk_html_adjust_cursor_position (html);
 
  	html->priv->idle_handler_id = 0;
+	html->priv->skip_update_cursor = FALSE;
 
-	while (html->iframe_parent) {
-		html = GTK_HTML (html->iframe_parent);
-		gtk_html_adjust_cursor_position (html);
+	if (also_update_cursor) {
+		while (html->iframe_parent) {
+			html = GTK_HTML (html->iframe_parent);
+			gtk_html_adjust_cursor_position (html);
+		}
 
 	}
 	return FALSE;
@@ -494,6 +500,7 @@ html_engine_draw_pending_cb (HTMLEngine *engine,
 	GtkHTML *html;
 
 	html = GTK_HTML (data);
+	html->priv->skip_update_cursor = TRUE;
 	queue_draw (html);
 }
 
@@ -2044,6 +2051,8 @@ button_release_event (GtkWidget *initial_widget,
 				if (HTML_IS_TEXT (focus_object))
 					html_text_set_link_visited (HTML_TEXT (focus_object), (gint) offset, html->engine, TRUE);
 			}
+
+			html->priv->skip_update_cursor = TRUE;
 		}
 	}
 
@@ -3411,6 +3420,7 @@ gtk_html_init (GtkHTML* html)
 	html->priv = g_new0 (GtkHTMLPrivate, 1);
 	html->priv->idle_handler_id = 0;
 	html->priv->scroll_timeout_id = 0;
+	html->priv->skip_update_cursor = FALSE;
 	html->priv->paragraph_style = GTK_HTML_PARAGRAPH_STYLE_NORMAL;
 	html->priv->paragraph_alignment = GTK_HTML_PARAGRAPH_ALIGNMENT_LEFT;
 	html->priv->paragraph_indentation = 0;
