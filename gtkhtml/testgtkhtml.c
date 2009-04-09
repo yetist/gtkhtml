@@ -1007,7 +1007,6 @@ motion_notify_event (GtkHTML *html, GdkEventMotion *event, gpointer data)
 gint
 main (gint argc, gchar *argv[])
 {
-	SoupCookieJar *cookie_jar;
 	GtkWidget *app, *bar, *main_table;
 	GtkWidget *html_widget;
 	GtkWidget *scrolled_window;
