@@ -1,5 +1,11 @@
 2009-04-09  Matthew Barnes  <mbarnes@redhat.com>
 
+	* testgtkhtml.c (main):
+	Rip out the SoupCookieJar code, since it requires libsoup 2.26
+	and it's not worth a dependency bump just for a test program.
+
+2009-04-09  Matthew Barnes  <mbarnes@redhat.com>
+
 	* testgtkhtml.c:
 	Fix compiler warnings and coding style.
 

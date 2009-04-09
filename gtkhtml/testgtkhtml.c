@@ -1059,9 +1059,6 @@ main (gint argc, gchar *argv[])
 
 	session = soup_session_async_new ();
 
-	cookie_jar = soup_cookie_jar_text_new("./cookies.txt", FALSE);
-	soup_session_add_feature(session, SOUP_SESSION_FEATURE(cookie_jar));
-
 	html_widget = gtk_html_new ();
 	html = GTK_HTML (html_widget);
 	gtk_html_set_allow_frameset (html, TRUE);
