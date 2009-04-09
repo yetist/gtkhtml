@@ -186,86 +186,88 @@ create_toolbars ()
 {
 	GtkWidget * label;
 	GtkToolItem *item;
+	GtkWidget * action_table;
 
-	GtkWidget * action_table = gtk_table_new (7, 1, FALSE);
-	{
-		item = gtk_tool_button_new_from_stock (GTK_STOCK_GO_BACK);
-		gtk_tool_item_set_tooltip_text (item, "Move back");
-		g_signal_connect (item, "clicked", G_CALLBACK (back_cb), NULL);
-		gtk_widget_set_sensitive (GTK_WIDGET (item), FALSE);
-		toolbar_back = GTK_WIDGET (item);
-		gtk_table_attach (GTK_TABLE (action_table),
-                        GTK_WIDGET (item),
-                        /* X direction */       /* Y direction */
-                        0, 1,                   0, 1,
-                        GTK_SHRINK,  			GTK_SHRINK,
-                        0,                      0);
-	}
-	{
-		item = gtk_tool_button_new_from_stock (GTK_STOCK_GO_FORWARD);
-		gtk_tool_item_set_tooltip_text (item, "Move forward");
-		g_signal_connect (item, "clicked", G_CALLBACK (forward_cb), NULL);
-		gtk_widget_set_sensitive (GTK_WIDGET (item), FALSE);
-		toolbar_forward = GTK_WIDGET (item);
-		gtk_table_attach (GTK_TABLE (action_table),
-                        GTK_WIDGET (item),
-                        /* X direction */       /* Y direction */
-                        1, 2,                   0, 1,
-                        GTK_SHRINK,  			GTK_SHRINK,
-                        0,                      0);
-	}
-	{
-		item = gtk_tool_button_new_from_stock (GTK_STOCK_STOP);
-		gtk_tool_item_set_tooltip_text (item, "Stop loading");
-		g_signal_connect (item, "clicked", G_CALLBACK (stop_cb), NULL);
-		gtk_table_attach (GTK_TABLE (action_table),
-                        GTK_WIDGET (item),
-                        /* X direction */       /* Y direction */
-                        2, 3,                   0, 1,
-                        GTK_SHRINK,  			GTK_SHRINK,
-                        0,                      0);
-	}
-	{
-		item = gtk_tool_button_new_from_stock (GTK_STOCK_REFRESH);
-		gtk_tool_item_set_tooltip_text (item, "Reload page");
-		g_signal_connect (item, "clicked", G_CALLBACK (reload_cb), NULL);
-		gtk_table_attach (GTK_TABLE (action_table),
-                        GTK_WIDGET (item),
-                        /* X direction */       /* Y direction */
-                        3, 4,                   0, 1,
-                        GTK_SHRINK,  			GTK_SHRINK,
-                        0,                      0);
-	}
-	{
-		item = gtk_tool_button_new_from_stock (GTK_STOCK_HOME);
-		gtk_tool_item_set_tooltip_text (item, "Home page");
-		g_signal_connect (item, "clicked", G_CALLBACK (home_cb), NULL);
-		gtk_table_attach (GTK_TABLE (action_table),
-                        GTK_WIDGET (item),
-                        /* X direction */       /* Y direction */
-                        4, 5,                   0, 1,
-                        GTK_SHRINK,  			GTK_SHRINK,
-                        0,                      0);
-	}
-	{
-		label = gtk_label_new ("Location:");
-		gtk_table_attach (GTK_TABLE (action_table),
-                        label,
-                        /* X direction */       /* Y direction */
-                        5, 6,                   0, 1,
-                        GTK_SHRINK,  			GTK_SHRINK,
-                        0,                      0);
-	}
-	{
-		entry = gtk_entry_new ();
-		g_signal_connect (entry, "activate", G_CALLBACK (entry_goto_url), NULL);
-		gtk_table_attach (GTK_TABLE (action_table),
-                        entry,
-                        /* X direction */       /* Y direction */
-                        6, 7,                   0, 1,
-                        GTK_EXPAND | GTK_FILL,  GTK_EXPAND | GTK_FILL,
-                        0,                      0);
-	}
+	action_table = gtk_table_new (7, 1, FALSE);
+
+	item = gtk_tool_button_new_from_stock (GTK_STOCK_GO_BACK);
+	gtk_tool_item_set_tooltip_text (item, "Move back");
+	g_signal_connect (item, "clicked", G_CALLBACK (back_cb), NULL);
+	gtk_widget_set_sensitive (GTK_WIDGET (item), FALSE);
+	toolbar_back = GTK_WIDGET (item);
+	gtk_table_attach (
+		GTK_TABLE (action_table),
+		GTK_WIDGET (item),
+		/* X direction */       /* Y direction */
+		0, 1,                   0, 1,
+		GTK_SHRINK,  			GTK_SHRINK,
+		0,                      0);
+
+	item = gtk_tool_button_new_from_stock (GTK_STOCK_GO_FORWARD);
+	gtk_tool_item_set_tooltip_text (item, "Move forward");
+	g_signal_connect (item, "clicked", G_CALLBACK (forward_cb), NULL);
+	gtk_widget_set_sensitive (GTK_WIDGET (item), FALSE);
+	toolbar_forward = GTK_WIDGET (item);
+	gtk_table_attach (
+		GTK_TABLE (action_table),
+		GTK_WIDGET (item),
+		/* X direction */       /* Y direction */
+		1, 2,                   0, 1,
+		GTK_SHRINK,  			GTK_SHRINK,
+		0,                      0);
+
+	item = gtk_tool_button_new_from_stock (GTK_STOCK_STOP);
+	gtk_tool_item_set_tooltip_text (item, "Stop loading");
+	g_signal_connect (item, "clicked", G_CALLBACK (stop_cb), NULL);
+	gtk_table_attach (
+		GTK_TABLE (action_table),
+		GTK_WIDGET (item),
+		/* X direction */       /* Y direction */
+		2, 3,                   0, 1,
+		GTK_SHRINK,  			GTK_SHRINK,
+		0,                      0);
+
+	item = gtk_tool_button_new_from_stock (GTK_STOCK_REFRESH);
+	gtk_tool_item_set_tooltip_text (item, "Reload page");
+	g_signal_connect (item, "clicked", G_CALLBACK (reload_cb), NULL);
+	gtk_table_attach (
+		GTK_TABLE (action_table),
+		GTK_WIDGET (item),
+		/* X direction */       /* Y direction */
+		3, 4,                   0, 1,
+		GTK_SHRINK,  			GTK_SHRINK,
+		0,                      0);
+
+	item = gtk_tool_button_new_from_stock (GTK_STOCK_HOME);
+	gtk_tool_item_set_tooltip_text (item, "Home page");
+	g_signal_connect (item, "clicked", G_CALLBACK (home_cb), NULL);
+	gtk_table_attach (
+		GTK_TABLE (action_table),
+		GTK_WIDGET (item),
+		/* X direction */       /* Y direction */
+		4, 5,                   0, 1,
+		GTK_SHRINK,  			GTK_SHRINK,
+		0,                      0);
+
+	label = gtk_label_new ("Location:");
+	gtk_table_attach (
+		GTK_TABLE (action_table),
+		label,
+		/* X direction */       /* Y direction */
+		5, 6,                   0, 1,
+		GTK_SHRINK,  			GTK_SHRINK,
+		0,                      0);
+
+	entry = gtk_entry_new ();
+	g_signal_connect (entry, "activate", G_CALLBACK (entry_goto_url), NULL);
+	gtk_table_attach (
+		GTK_TABLE (action_table),
+		entry,
+		/* X direction */       /* Y direction */
+		6, 7,                   0, 1,
+		GTK_EXPAND | GTK_FILL,  GTK_EXPAND | GTK_FILL,
+		0,                      0);
+
 	return action_table;
 }
 
@@ -1005,6 +1007,7 @@ motion_notify_event (GtkHTML *html, GdkEventMotion *event, gpointer data)
 gint
 main (gint argc, gchar *argv[])
 {
+	SoupCookieJar *cookie_jar;
 	GtkWidget *app, *bar, *main_table;
 	GtkWidget *html_widget;
 	GtkWidget *scrolled_window;
@@ -1056,7 +1059,7 @@ main (gint argc, gchar *argv[])
 
 	session = soup_session_async_new ();
 
-	SoupCookieJar * cookie_jar = soup_cookie_jar_text_new("./cookies.txt", FALSE);
+	cookie_jar = soup_cookie_jar_text_new("./cookies.txt", FALSE);
 	soup_session_add_feature(session, SOUP_SESSION_FEATURE(cookie_jar));
 
 	html_widget = gtk_html_new ();
