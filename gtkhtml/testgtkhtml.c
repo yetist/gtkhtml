@@ -19,7 +19,6 @@
 #include "config.h"
 #include <glib/gi18n.h>
 #include <gnome.h>
-#include <bonobo.h>
 #include <sys/types.h>
 
 #include <glib.h>
@@ -182,100 +181,92 @@ static GnomeUIInfo main_menu[] = {
 	GNOMEUIINFO_END
 };
 
-static void
-create_toolbars (GtkWidget *app)
+static GtkWidget *
+create_toolbars ()
 {
-	GtkWidget *dock;
-	GtkWidget *hbox;
-	GtkWidget *frame;
-	GtkWidget *toolbar;
+	GtkWidget * label;
 	GtkToolItem *item;
-	/* char *imgloc; */
 
-	dock = bonobo_dock_item_new ("testgtkhtml-toolbar1",
-				    (BONOBO_DOCK_ITEM_BEH_EXCLUSIVE));
-	hbox = gtk_hbox_new (FALSE, 0);
-	gtk_container_add (GTK_CONTAINER (dock), hbox);
-	gtk_container_set_border_width (GTK_CONTAINER (dock), 2);
-
-	toolbar = gtk_toolbar_new ();
-	gtk_toolbar_set_style (GTK_TOOLBAR (toolbar), GTK_TOOLBAR_ICONS);
-	gtk_box_pack_start (GTK_BOX (hbox), toolbar, FALSE, FALSE, 0);
-
-	item = gtk_tool_button_new_from_stock (GTK_STOCK_GO_BACK);
-	gtk_tool_item_set_tooltip_text (item, "Move back");
-	g_signal_connect (item, "clicked", G_CALLBACK (back_cb), NULL);
-	gtk_toolbar_insert (GTK_TOOLBAR (toolbar), item, -1);
-	gtk_widget_set_sensitive (GTK_WIDGET (item), FALSE);
-	toolbar_back = GTK_WIDGET (item);
-
-	item = gtk_tool_button_new_from_stock (GTK_STOCK_GO_FORWARD);
-	gtk_tool_item_set_tooltip_text (item, "Move forward");
-	g_signal_connect (item, "clicked", G_CALLBACK (forward_cb), NULL);
-	gtk_toolbar_insert (GTK_TOOLBAR (toolbar), item, -1);
-	gtk_widget_set_sensitive (GTK_WIDGET (item), FALSE);
-	toolbar_forward = GTK_WIDGET (item);
-
-	item = gtk_separator_tool_item_new ();
-	gtk_toolbar_insert (GTK_TOOLBAR (toolbar), item, -1);
-
-	item = gtk_tool_button_new_from_stock (GTK_STOCK_STOP);
-	gtk_tool_item_set_tooltip_text (item, "Stop loading");
-	g_signal_connect (item, "clicked", G_CALLBACK (stop_cb), NULL);
-	gtk_toolbar_insert (GTK_TOOLBAR (toolbar), item, -1);
-
-	item = gtk_tool_button_new_from_stock (GTK_STOCK_REFRESH);
-	gtk_tool_item_set_tooltip_text (item, "Reload page");
-	g_signal_connect (item, "clicked", G_CALLBACK (reload_cb), NULL);
-	gtk_toolbar_insert (GTK_TOOLBAR (toolbar), item, -1);
-
-	item = gtk_tool_button_new_from_stock (GTK_STOCK_HOME);
-	gtk_tool_item_set_tooltip_text (item, "Home page");
-	g_signal_connect (item, "clicked", G_CALLBACK (home_cb), NULL);
-
-	item = gtk_separator_tool_item_new ();
-	gtk_toolbar_insert (GTK_TOOLBAR (toolbar), item, -1);
-
-	/* animator = gnome_animator_new_with_size (32, 32);
-
-	if (g_file_exists("32.png"))
-	  imgloc = "32.png";
-	else if (g_file_exists(SRCDIR "/32.png"))
-	  imgloc = SRCDIR "/32.png";
-	else
-	  imgloc = "32.png";
-	gnome_animator_append_frames_from_file_at_size (GNOME_ANIMATOR (animator),
-							imgloc,
-							0, 0,
-							25,
-							32,
-							32, 32); */
-
-	frame = gtk_frame_new (NULL);
-	/* TODO2 gtk_container_add (GTK_CONTAINER (frame), animator); */
-	gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_IN);
-	gtk_box_pack_end (GTK_BOX (hbox), frame, FALSE, FALSE, 0);
-	/* gnome_animator_set_loop_type (GNOME_ANIMATOR (animator),
-	   GNOME_ANIMATOR_LOOP_RESTART); */
-	gtk_widget_show_all (dock);
-	bonobo_dock_add_item (BONOBO_DOCK (GNOME_APP (app)->dock),
-			      BONOBO_DOCK_ITEM (dock), BONOBO_DOCK_TOP, 1, 0, 0, FALSE);
-
-	/* Create the location bar */
-	dock = bonobo_dock_item_new ("testgtkhtml-toolbar2",
-				     (BONOBO_DOCK_ITEM_BEH_EXCLUSIVE));
-	hbox = gtk_hbox_new (FALSE, 2);
-	gtk_container_add (GTK_CONTAINER (dock), hbox);
-	gtk_container_set_border_width (GTK_CONTAINER (dock), 2);
-	gtk_box_pack_start (GTK_BOX (hbox),
-			    gtk_label_new ("Location:"), FALSE, FALSE, 0);
-	entry = gtk_entry_new ();
-	g_signal_connect (entry, "activate", G_CALLBACK (entry_goto_url), NULL);
-	gtk_box_pack_start (GTK_BOX (hbox),
-			    entry, TRUE, TRUE, 0);
-	bonobo_dock_add_item (BONOBO_DOCK (GNOME_APP (app)->dock),
-			      BONOBO_DOCK_ITEM (dock), BONOBO_DOCK_TOP, 2, 0, 0, FALSE);
-
+	GtkWidget * action_table = gtk_table_new (7, 1, FALSE);
+	{
+		item = gtk_tool_button_new_from_stock (GTK_STOCK_GO_BACK);
+		gtk_tool_item_set_tooltip_text (item, "Move back");
+		g_signal_connect (item, "clicked", G_CALLBACK (back_cb), NULL);
+		gtk_widget_set_sensitive (GTK_WIDGET (item), FALSE);
+		toolbar_back = GTK_WIDGET (item);
+		gtk_table_attach (GTK_TABLE (action_table),
+                        GTK_WIDGET (item),
+                        /* X direction */       /* Y direction */
+                        0, 1,                   0, 1,
+                        GTK_SHRINK,  			GTK_SHRINK,
+                        0,                      0);
+	}
+	{
+		item = gtk_tool_button_new_from_stock (GTK_STOCK_GO_FORWARD);
+		gtk_tool_item_set_tooltip_text (item, "Move forward");
+		g_signal_connect (item, "clicked", G_CALLBACK (forward_cb), NULL);
+		gtk_widget_set_sensitive (GTK_WIDGET (item), FALSE);
+		toolbar_forward = GTK_WIDGET (item);
+		gtk_table_attach (GTK_TABLE (action_table),
+                        GTK_WIDGET (item),
+                        /* X direction */       /* Y direction */
+                        1, 2,                   0, 1,
+                        GTK_SHRINK,  			GTK_SHRINK,
+                        0,                      0);
+	}
+	{
+		item = gtk_tool_button_new_from_stock (GTK_STOCK_STOP);
+		gtk_tool_item_set_tooltip_text (item, "Stop loading");
+		g_signal_connect (item, "clicked", G_CALLBACK (stop_cb), NULL);
+		gtk_table_attach (GTK_TABLE (action_table),
+                        GTK_WIDGET (item),
+                        /* X direction */       /* Y direction */
+                        2, 3,                   0, 1,
+                        GTK_SHRINK,  			GTK_SHRINK,
+                        0,                      0);
+	}
+	{
+		item = gtk_tool_button_new_from_stock (GTK_STOCK_REFRESH);
+		gtk_tool_item_set_tooltip_text (item, "Reload page");
+		g_signal_connect (item, "clicked", G_CALLBACK (reload_cb), NULL);
+		gtk_table_attach (GTK_TABLE (action_table),
+                        GTK_WIDGET (item),
+                        /* X direction */       /* Y direction */
+                        3, 4,                   0, 1,
+                        GTK_SHRINK,  			GTK_SHRINK,
+                        0,                      0);
+	}
+	{
+		item = gtk_tool_button_new_from_stock (GTK_STOCK_HOME);
+		gtk_tool_item_set_tooltip_text (item, "Home page");
+		g_signal_connect (item, "clicked", G_CALLBACK (home_cb), NULL);
+		gtk_table_attach (GTK_TABLE (action_table),
+                        GTK_WIDGET (item),
+                        /* X direction */       /* Y direction */
+                        4, 5,                   0, 1,
+                        GTK_SHRINK,  			GTK_SHRINK,
+                        0,                      0);
+	}
+	{
+		label = gtk_label_new ("Location:");
+		gtk_table_attach (GTK_TABLE (action_table),
+                        label,
+                        /* X direction */       /* Y direction */
+                        5, 6,                   0, 1,
+                        GTK_SHRINK,  			GTK_SHRINK,
+                        0,                      0);
+	}
+	{
+		entry = gtk_entry_new ();
+		g_signal_connect (entry, "activate", G_CALLBACK (entry_goto_url), NULL);
+		gtk_table_attach (GTK_TABLE (action_table),
+                        entry,
+                        /* X direction */       /* Y direction */
+                        6, 7,                   0, 1,
+                        GTK_EXPAND | GTK_FILL,  GTK_EXPAND | GTK_FILL,
+                        0,                      0);
+	}
+	return action_table;
 }
 
 static gint page_num, pages;
@@ -1014,7 +1005,7 @@ motion_notify_event (GtkHTML *html, GdkEventMotion *event, gpointer data)
 gint
 main (gint argc, gchar *argv[])
 {
-	GtkWidget *app, *bar;
+	GtkWidget *app, *bar, *main_table;
 	GtkWidget *html_widget;
 	GtkWidget *scrolled_window;
 
@@ -1032,7 +1023,6 @@ main (gint argc, gchar *argv[])
 
 	g_signal_connect (app, "delete_event", G_CALLBACK (exit_cb), NULL);
 
-	create_toolbars (app);
 	bar = gnome_appbar_new (FALSE, TRUE, GNOME_PREFERENCES_USER);
 	gnome_app_set_statusbar (GNOME_APP (app), bar);
 	gnome_app_create_menus (GNOME_APP (app), main_menu);
@@ -1048,10 +1038,26 @@ main (gint argc, gchar *argv[])
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
 					GTK_POLICY_AUTOMATIC,
 					GTK_POLICY_AUTOMATIC);
-
-	gnome_app_set_contents (GNOME_APP (app), scrolled_window);
+					
+	main_table = gtk_table_new (1, 2, FALSE);
+	gnome_app_set_contents (GNOME_APP (app), main_table);
+	gtk_table_attach (GTK_TABLE (main_table),
+                        scrolled_window,
+                        /* X direction */       /* Y direction */
+                        0, 1,                   1, 2,
+                        GTK_EXPAND | GTK_FILL,  GTK_EXPAND | GTK_FILL,
+                        0,                      0);
+	gtk_table_attach (GTK_TABLE (main_table),
+                        create_toolbars (),
+                        /* X direction */       /* Y direction */
+                        0, 1,                   0, 1,
+                        GTK_EXPAND | GTK_FILL,  GTK_SHRINK,
+                        0,                      0);
 
 	session = soup_session_async_new ();
+
+	SoupCookieJar * cookie_jar = soup_cookie_jar_text_new("./cookies.txt", FALSE);
+	soup_session_add_feature(session, SOUP_SESSION_FEATURE(cookie_jar));
 
 	html_widget = gtk_html_new ();
 	html = GTK_HTML (html_widget);

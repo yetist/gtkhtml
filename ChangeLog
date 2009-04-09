@@ -1,3 +1,16 @@
+2009-04-08  Matthew Barnes  <mbarnes@redhat.com>
+
+	** Fixes bug #571743
+
+	* Makefile.am:
+	* configure.in:
+	* gtkhtml.spec.in:
+	* components/Makefile.am:
+	* components/html-editor/*:
+	* gtkhtml/testgtkhtml.c:
+	Kill the deprecated html-editor component and remove any
+	trace of it from the build files.  Buh bye, Bonobo.
+
 2009-03-16  Srinivasa Ragavan  <sragavan@novell.com>
 
 	* NEWS: GtkHTML 3.26.0 release and version bump

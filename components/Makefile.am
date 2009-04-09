@@ -1,5 +1,2 @@
-if BONOBO_EDITOR
-BONOBO_EDITOR_SUBDIR = html-editor
-endif
 
-SUBDIRS = editor $(BONOBO_EDITOR_SUBDIR)
+SUBDIRS = editor

@@ -9,8 +9,6 @@ PACKAGE=gtkhtml
 m4_define([gtk_minimum_version], [2.14.0])
 m4_define([gail_minimum_version], [1.1.0])
 m4_define([gnome_icon_theme_minimum_version], [2.22.0])
-m4_define([libbonobo_minimum_version], [2.20.3])
-m4_define([libbonoboui_minimum_version], [2.2.4])
 m4_define([libglade_minimum_version], [2.0.0])
 m4_define([libgnomeui_minimum_version], [2.0.0])
 
@@ -33,8 +31,6 @@ AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Package name for gettex
 
 I18N_LIB_CFLAGS="-DGNOME_EXPLICIT_TRANSLATION_DOMAIN=\\\"${GTKHTML_RELEASE_STRING}\\\""
 AC_SUBST(I18N_LIB_CFLAGS)
-
-AC_DEFINE(BONOBO_DISABLE_DEPRECATED,1,[No deprecated bonobo functions])
 
 AM_INIT_AUTOMAKE($PACKAGE, 3.26.1)
 
@@ -91,19 +87,6 @@ AC_SUBST(GTKHTML_CFLAGS)
 AC_SUBST(GTKHTML_LIBS)
 AC_SUBST(GTKHTML_MODULES)
 
-# Bonobo editor module
-AC_ARG_WITH(bonobo-editor,
-        AC_HELP_STRING([--with-bonobo-editor],
-                [build the older Bonobo-based editor [[default=no]]]),
-        bonobo_editor="$withval", bonobo_editor="no")
-if test "x$bonobo_editor" = "xyes"; then
-        EDITOR_MODULES="${GTKHTML_MODULES} libbonobo-2.0 >= libbonobo_minimum_version libbonoboui-2.0 >= libbonoboui_minimum_version"
-        PKG_CHECK_MODULES(EDITOR, $EDITOR_MODULES)
-        AC_SUBST(EDITOR_CFLAGS)
-        AC_SUBST(EDITOR_LIBS)
-fi
-AM_CONDITIONAL(BONOBO_EDITOR, test x$bonobo_editor = xyes)
-
 # Glade catalog files
 AC_ARG_WITH(glade-catalog,
 	AC_HELP_STRING([--with-glade-catalog],
@@ -116,8 +99,6 @@ fi
 AM_CONDITIONAL(GLADE_CATALOG, test x$glade_catalog = xyes)
 
 # These are still needed for 'dist' targets.
-BONOBO_IDL_INCLUDES="-I`$PKG_CONFIG --variable=idldir libbonobo-2.0` -I`$PKG_CONFIG --variable=idldir bonobo-activation-2.0`"
-AC_SUBST(BONOBO_IDL_INCLUDES)
 ORBIT_IDL="`$PKG_CONFIG --variable=orbit_idl ORBit-2.0`"
 AC_SUBST(ORBIT_IDL)
 
@@ -229,7 +210,6 @@ gtkhtml/Makefile
 gtkhtml/libgtkhtml.pc
 a11y/Makefile
 components/Makefile
-components/html-editor/Makefile
 components/editor/Makefile
 components/editor/gtkhtml-editor.pc
 art/Makefile
