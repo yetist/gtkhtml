@@ -197,6 +197,8 @@ static gint     mouse_change_pos       (GtkWidget *widget, GdkWindow *window, gi
 static void     add_bindings           (GtkHTMLClass *klass);
 static const gchar * get_value_nick    (GtkHTMLCommandType com_type);
 static void	gtk_html_adjust_cursor_position (GtkHTML *html);
+static gboolean any_has_cursor_moved (GtkHTML *html);
+static gboolean any_has_skip_update_cursor (GtkHTML *html);
 
 /* Interval for scrolling during selection.  */
 #define SCROLL_TIMEOUT_INTERVAL 10
@@ -383,7 +385,7 @@ idle_handler (gpointer data)
 	html = GTK_HTML (data);
 	engine = html->engine;
 
-	also_update_cursor = !html->priv->skip_update_cursor;
+	also_update_cursor = any_has_cursor_moved (html) || !any_has_skip_update_cursor (html);
 
 	if (html->engine->thaw_idle_id == 0 && !html_engine_frozen (html->engine))
 		html_engine_flush_draw_queue (engine);
@@ -393,14 +395,20 @@ idle_handler (gpointer data)
 
  	html->priv->idle_handler_id = 0;
 	html->priv->skip_update_cursor = FALSE;
+	html->priv->cursor_moved = FALSE;
 
-	if (also_update_cursor) {
-		while (html->iframe_parent) {
-			html = GTK_HTML (html->iframe_parent);
-			gtk_html_adjust_cursor_position (html);
+	while (html->iframe_parent) {
+		html = GTK_HTML (html->iframe_parent);
+
+		if (html) {
+			html->priv->skip_update_cursor = FALSE;
+			html->priv->cursor_moved = FALSE;
 		}
 
+		if (also_update_cursor)
+			gtk_html_adjust_cursor_position (html);
 	}
+
 	return FALSE;
 }
 
@@ -1985,6 +1993,32 @@ button_press_event (GtkWidget *widget,
 	return FALSE;
 }
 
+static gboolean
+any_has_cursor_moved (GtkHTML *html)
+{
+	while (html) {
+		if (html->priv->cursor_moved)
+			return TRUE;
+
+		html = html->iframe_parent ? GTK_HTML (html->iframe_parent) : NULL;
+	}
+
+	return FALSE;
+}
+
+static gboolean
+any_has_skip_update_cursor (GtkHTML *html)
+{
+	while (html) {
+		if (html->priv->skip_update_cursor)
+			return TRUE;
+
+		html = html->iframe_parent ? GTK_HTML (html->iframe_parent) : NULL;
+	}
+
+	return FALSE;
+}
+
 static gint
 button_release_event (GtkWidget *initial_widget,
 		      GdkEventButton *event)
@@ -3421,6 +3455,7 @@ gtk_html_init (GtkHTML* html)
 	html->priv->idle_handler_id = 0;
 	html->priv->scroll_timeout_id = 0;
 	html->priv->skip_update_cursor = FALSE;
+	html->priv->cursor_moved = FALSE;
 	html->priv->paragraph_style = GTK_HTML_PARAGRAPH_STYLE_NORMAL;
 	html->priv->paragraph_alignment = GTK_HTML_PARAGRAPH_ALIGNMENT_LEFT;
 	html->priv->paragraph_indentation = 0;
@@ -4832,6 +4867,8 @@ cursor_move (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType ski
 	if (!html->engine->caret_mode && !html_engine_get_editable (html->engine))
 		return;
 
+	html->priv->cursor_moved = TRUE;
+
 	if (skip == GTK_HTML_CURSOR_SKIP_NONE) {
 		update_primary_selection (html);
 		g_signal_emit (GTK_HTML (html), signals [CURSOR_CHANGED], 0);
@@ -4943,6 +4980,7 @@ move_selection (GtkHTML *html, GtkHTMLCommandType com_type)
 	if (!html_engine_get_editable (html->engine) && !html->engine->caret_mode)
 		return FALSE;
 
+	html->priv->cursor_moved = TRUE;
 	html->engine->shift_selection = TRUE;
 	if (!html->engine->mark)
 		html_engine_set_mark (html->engine);

@@ -1,3 +1,13 @@
+2009-04-10  Milan Crha  <mcrha@redhat.com>
+
+	** Fix for bug #494986
+
+	* gtkhtml-private.h: (struct _GtkHTMLPrivate):
+	* gtkhtml.c: (any_has_cursor_moved), (any_has_skip_update_cursor),
+	(idle_handler), (gtk_html_init), (cursor_move), (move_selection):
+	Do not block view update when cursor changed in any frame of the
+	whole hierarchy.
+
 2009-04-09  Matthew Barnes  <mbarnes@redhat.com>
 
 	* testgtkhtml.c (main):

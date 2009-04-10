@@ -37,6 +37,7 @@ struct _GtkHTMLPrivate {
 
 	gboolean update_styles;
 	gboolean skip_update_cursor;
+	gboolean cursor_moved;
 
 	gint selection_type;
 
