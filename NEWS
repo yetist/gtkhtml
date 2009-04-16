@@ -1,3 +1,19 @@
+GtkHTML-3.26.1.1 2009-04-14
+
+3.26.1 published tarballs are corrupted.
+
+GtkHTML-3.26.1 2009-04-13
+--------------------------
+
+Bug Fixes:
+	#573046 : Replace deprecated GTK_CHECK_* with G_TYPE_CHECK_* equivalents (Thomas H.P. Andersen)
+	#574335 : Use proper format strings ("%s") (Tobias Mueller)
+
+Updated Translations:
+	Amitakhya Phukan (as)
+	Djihed Afifi (ar)
+	Shankar Prasad (kn)
+
 GtkHTML-3.26.0 2009-03-16
 --------------------------
 

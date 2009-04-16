@@ -1,3 +1,11 @@
+2009-04-14  Johnny Jacob  <jjohnny@novell.com>
+
+	* configure.in: Version bumped to 3.26.1.1
+
+2009-04-14  Johnny Jacob  <jjohnny@novell.com>
+
+	* NEWS: 3.26.1 release updates.
+
 2009-03-16  Srinivasa Ragavan  <sragavan@novell.com>
 
 	* NEWS: GtkHTML 3.26.0 release and version bump
