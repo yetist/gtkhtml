@@ -5989,7 +5989,6 @@ gtk_html_editor_event_command (GtkHTML *html, GtkHTMLCommandType com_type, gbool
 	g_value_init (&arg, G_TYPE_STRING);
 	g_value_set_string (&arg, get_value_nick (com_type));
 
-	/* printf ("sending %s\n", GTK_VALUE_STRING (*args [0])); */
 	gtk_html_editor_event (html, before ? GTK_HTML_EDITOR_EVENT_COMMAND_BEFORE : GTK_HTML_EDITOR_EVENT_COMMAND_AFTER,
 			       &arg);
 

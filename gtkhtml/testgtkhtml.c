@@ -528,9 +528,6 @@ on_button_press_event (GtkWidget *widget, GdkEventButton *event)
 	g_return_val_if_fail (widget != NULL, FALSE);
 	g_return_val_if_fail (event != NULL, FALSE);
 
-	/* The "widget" is the menu that was supplied when
-	 * gtk_signal_connect_object was called.
-	 */
 	menu = GTK_MENU (popup_menu);
 
 	if (event->type == GDK_BUTTON_PRESS) {
