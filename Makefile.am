@@ -45,3 +45,5 @@ EXTRA_DIST =					\
 	intltool-extract.in			\
 	intltool-update.in			\
 	intltool-merge.in
+
+-include $(top_srcdir)/git.mk

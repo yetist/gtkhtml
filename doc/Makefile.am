@@ -100,3 +100,5 @@ dist-hook:
 	-cp $(srcdir)/sgml/*.bottom $(srcdir)/sgml/*.top $(distdir)/sgml
 
 .PHONY : html sgml templates scan
+
+-include $(top_srcdir)/git.mk

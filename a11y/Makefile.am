@@ -28,3 +28,5 @@ libgtkhtml_a11y_la_SOURCES =				\
 	utils.h						\
 	utils.c						\
 	$(END)
+
+-include $(top_srcdir)/git.mk

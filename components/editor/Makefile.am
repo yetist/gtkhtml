@@ -137,3 +137,5 @@ libglade_gtkhtml_editor_la_LIBADD = @GTKHTML_CFLAGS@
 EXTRA_DIST += $(gladecatalog_DATA)
 
 endif
+
+-include $(top_srcdir)/git.mk

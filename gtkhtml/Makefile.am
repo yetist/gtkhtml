@@ -289,3 +289,5 @@ stress-test:	test-stress
 stress-test-memcheck:	test-stress
 	./test-stress dont-run > /dev/null 2>&1 # 1st run to make sure .libs/lt-test-suite is available
 	valgrind --num-callers=64 --tool=memcheck --run-libc-freeres=no --alignment=8 --db-attach=no .libs/lt-test-stress
+
+-include $(top_srcdir)/git.mk
