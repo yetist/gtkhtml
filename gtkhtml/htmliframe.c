@@ -649,20 +649,15 @@ html_iframe_init (HTMLIFrame *iframe,
 	 * on_url and link_clicked are emitted from the toplevel widget not
 	 * proxied like url_requested is.
 	 */
-	gtk_signal_connect (GTK_OBJECT (new_html), "on_url",
-			    G_CALLBACK (iframe_on_url),
-			    (gpointer)iframe);
-	gtk_signal_connect (GTK_OBJECT (new_html), "link_clicked",
-			    G_CALLBACK (iframe_link_clicked),
-			    (gpointer)iframe);
+	g_signal_connect (new_html, "on_url", G_CALLBACK (iframe_on_url), iframe);
+	g_signal_connect (new_html, "link_clicked", G_CALLBACK (iframe_link_clicked), iframe);
 #endif
 	g_signal_connect (new_html, "size_changed", G_CALLBACK (iframe_size_changed), iframe);
 	g_signal_connect (new_html, "set_base", G_CALLBACK (iframe_set_base), iframe);
 	g_signal_connect (new_html, "object_requested", G_CALLBACK (iframe_object_requested), iframe);
 
 	/*
-	  gtk_signal_connect (GTK_OBJECT (html), "button_press_event",
-	  G_CALLBACK (iframe_button_press_event), iframe);
+	  g_signal_connect (html, "button_press_event", G_CALLBACK (iframe_button_press_event), iframe);
 	*/
 
 	gtk_widget_set_size_request (scrolled_window, width, height);
@@ -680,14 +675,10 @@ html_iframe_init (HTMLIFrame *iframe,
 				     parent_html->engine->settings->color_set);
 	html_painter_set_focus (new_html->engine->painter, parent_html->engine->have_focus);
 	/*
-	gtk_signal_connect (GTK_OBJECT (html), "title_changed",
-			    G_CALLBACK (title_changed_cb), (gpointer)app);
-	gtk_signal_connect (GTK_OBJECT (html), "button_press_event",
-			    G_CALLBACK (on_button_press_event), popup_menu);
-	gtk_signal_connect (GTK_OBJECT (html), "redirect",
-			    G_CALLBACK (on_redirect), NULL);
-	gtk_signal_connect (GTK_OBJECT (html), "object_requested",
-			    G_CALLBACK (object_requested_cmd), NULL);
+	g_signal_connect (html, "title_changed", G_CALLBACK (title_changed_cb), (gpointer)app);
+	g_signal_connect (html, "button_press_event", G_CALLBACK (on_button_press_event), popup_menu);
+	g_signal_connect (html, "redirect", G_CALLBACK (on_redirect), NULL);
+	g_signal_connect (html, "object_requested", G_CALLBACK (object_requested_cmd), NULL);
 	*/
 }
 

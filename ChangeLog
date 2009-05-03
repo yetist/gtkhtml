@@ -1,3 +1,21 @@
+2009-05-03  Thomas H.P. Andersen  <phomes@gmail.com>
+
+	* components/editor/gtkhtml-editor.c:
+	* gtkhtml/htmlframe.c:
+	* gtkhtml/htmliframe.c:
+	* gtkhtml/testgtkhtml.c:
+	* configure.in:
+	Remove usage of deprecated gtk api
+	
+	Replaces:
+	gtk_signal_connect with g_signal_connect
+	gtk_action_connect_proxy with gtk_activatable_set_related_action
+	gtk_box_pack_start_defaults with gtk_box_pack_start
+	
+	Gtk 2.16 is needed for gtk_activatable_set_related_action so bumping the
+	required version in configure.in too.
+	GNOME Bug #580946
+
 2009-04-08  Matthew Barnes  <mbarnes@redhat.com>
 
 	** Fixes bug #571743

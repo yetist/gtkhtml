@@ -514,12 +514,8 @@ html_frame_init (HTMLFrame *frame,
 	 * on_url and link_clicked are emitted from the toplevel widget not
 	 * proxied like url_requested is.
 	 */
-	gtk_signal_connect (GTK_OBJECT (new_html), "on_url",
-			    G_CALLBACK (frame_on_url),
-			    (gpointer)frame);
-	gtk_signal_connect (GTK_OBJECT (new_html), "link_clicked",
-			    G_CALLBACK (frame_link_clicked),
-			    (gpointer)frame);
+	g_signal_connect (new_html, "on_url", G_CALLBACK (frame_on_url), frame);
+	g_signal_connect (new_html, "link_clicked", G_CALLBACK (frame_link_clicked), frame);
 #endif
 	g_signal_connect (new_html, "size_changed", G_CALLBACK (frame_size_changed), frame);
 	g_signal_connect (new_html, "object_requested", G_CALLBACK (frame_object_requested), frame);
@@ -530,8 +526,7 @@ html_frame_init (HTMLFrame *frame,
 	html_frame_set_margin_width (frame, 0);
 
 	/*
-	  gtk_signal_connect (GTK_OBJECT (html), "button_press_event",
-	  G_CALLBACK (frame_button_press_event), frame);
+	  g_signal_connect (html, "button_press_event", G_CALLBACK (frame_button_press_event), frame);
 	*/
 
 	gtk_widget_set_size_request (scrolled_window, width, height);

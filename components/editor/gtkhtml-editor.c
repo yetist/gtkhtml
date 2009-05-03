@@ -510,48 +510,48 @@ editor_constructor (GType type,
 	gtk_container_add (GTK_CONTAINER (object), editor->vbox);
 	gtk_window_set_default_size (GTK_WINDOW (object), 600, 440);
 
-	gtk_action_connect_proxy (
-		ACTION (BOLD),
-		WIDGET (TEXT_PROPERTIES_BOLD_BUTTON));
-	gtk_action_connect_proxy (
-		ACTION (CONFIRM_REPLACE),
-		WIDGET (REPLACE_CONFIRMATION_REPLACE_BUTTON));
-	gtk_action_connect_proxy (
-		ACTION (CONFIRM_REPLACE_ALL),
-		WIDGET (REPLACE_CONFIRMATION_REPLACE_ALL_BUTTON));
-	gtk_action_connect_proxy (
-		ACTION (CONFIRM_REPLACE_CANCEL),
-		WIDGET (REPLACE_CONFIRMATION_CLOSE_BUTTON));
-	gtk_action_connect_proxy (
-		ACTION (CONFIRM_REPLACE_NEXT),
-		WIDGET (REPLACE_CONFIRMATION_NEXT_BUTTON));
-	gtk_action_connect_proxy (
-		ACTION (FIND),
-		WIDGET (FIND_BUTTON));
-	gtk_action_connect_proxy (
-		ACTION (FIND_AND_REPLACE),
-		WIDGET (REPLACE_BUTTON));
-	gtk_action_connect_proxy (
-		ACTION (ITALIC),
-		WIDGET (TEXT_PROPERTIES_ITALIC_BUTTON));
-	gtk_action_connect_proxy (
-		ACTION (JUSTIFY_CENTER),
-		WIDGET (PARAGRAPH_PROPERTIES_CENTER_BUTTON));
-	gtk_action_connect_proxy (
-		ACTION (JUSTIFY_LEFT),
-		WIDGET (PARAGRAPH_PROPERTIES_LEFT_BUTTON));
-	gtk_action_connect_proxy (
-		ACTION (JUSTIFY_RIGHT),
-		WIDGET (PARAGRAPH_PROPERTIES_RIGHT_BUTTON));
-	gtk_action_connect_proxy (
-		ACTION (STRIKETHROUGH),
-		WIDGET (TEXT_PROPERTIES_STRIKETHROUGH_BUTTON));
-	gtk_action_connect_proxy (
-		ACTION (TEST_URL),
-		WIDGET (LINK_PROPERTIES_TEST_BUTTON));
-	gtk_action_connect_proxy (
-		ACTION (UNDERLINE),
-		WIDGET (TEXT_PROPERTIES_UNDERLINE_BUTTON));
+	gtk_activatable_set_related_action (
+		GTK_ACTIVATABLE (WIDGET (TEXT_PROPERTIES_BOLD_BUTTON)),
+		ACTION (BOLD));
+	gtk_activatable_set_related_action (
+		GTK_ACTIVATABLE (WIDGET (REPLACE_CONFIRMATION_REPLACE_BUTTON)),
+		ACTION (CONFIRM_REPLACE));
+	gtk_activatable_set_related_action (
+		GTK_ACTIVATABLE (WIDGET (REPLACE_CONFIRMATION_REPLACE_ALL_BUTTON)),
+		ACTION (CONFIRM_REPLACE_ALL));
+	gtk_activatable_set_related_action (
+		GTK_ACTIVATABLE (WIDGET (REPLACE_CONFIRMATION_CLOSE_BUTTON)),
+		ACTION (CONFIRM_REPLACE_CANCEL));
+	gtk_activatable_set_related_action (
+		GTK_ACTIVATABLE (WIDGET (REPLACE_CONFIRMATION_NEXT_BUTTON)),
+		ACTION (CONFIRM_REPLACE_NEXT));
+	gtk_activatable_set_related_action (
+		GTK_ACTIVATABLE (WIDGET (FIND_BUTTON)),
+		ACTION (FIND));
+	gtk_activatable_set_related_action (
+		GTK_ACTIVATABLE (WIDGET (REPLACE_BUTTON)),
+		ACTION (FIND_AND_REPLACE));
+	gtk_activatable_set_related_action (
+		GTK_ACTIVATABLE (WIDGET (TEXT_PROPERTIES_ITALIC_BUTTON)),
+		ACTION (ITALIC));
+	gtk_activatable_set_related_action (
+		GTK_ACTIVATABLE (WIDGET (PARAGRAPH_PROPERTIES_CENTER_BUTTON)),
+		ACTION (JUSTIFY_CENTER));
+	gtk_activatable_set_related_action (
+		GTK_ACTIVATABLE (WIDGET (PARAGRAPH_PROPERTIES_LEFT_BUTTON)),
+		ACTION (JUSTIFY_LEFT));
+	gtk_activatable_set_related_action (
+		GTK_ACTIVATABLE (WIDGET (PARAGRAPH_PROPERTIES_RIGHT_BUTTON)),
+		ACTION (JUSTIFY_RIGHT));
+	gtk_activatable_set_related_action (
+		GTK_ACTIVATABLE (WIDGET (TEXT_PROPERTIES_STRIKETHROUGH_BUTTON)),
+		ACTION (STRIKETHROUGH));
+	gtk_activatable_set_related_action (
+		GTK_ACTIVATABLE (WIDGET (LINK_PROPERTIES_TEST_BUTTON)),
+		ACTION (TEST_URL));
+	gtk_activatable_set_related_action (
+		GTK_ACTIVATABLE (WIDGET (TEXT_PROPERTIES_UNDERLINE_BUTTON)),
+		ACTION (UNDERLINE));
 
 	gtk_window_set_transient_for (
 		GTK_WINDOW (WIDGET (CELL_PROPERTIES_WINDOW)),

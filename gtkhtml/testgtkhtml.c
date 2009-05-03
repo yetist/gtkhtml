@@ -1101,7 +1101,7 @@ main (gint argc, gchar *argv[])
 	g_signal_connect (html, "motion_notify_event", G_CALLBACK (motion_notify_event), app);
 
 #if 0
-	gtk_box_pack_start_defaults (GTK_BOX (hbox), GTK_WIDGET (html));
+	gtk_box_pack_start (GTK_BOX (hbox), GTK_WIDGET (html), TRUE, TRUE, 0);
 	vscrollbar = gtk_vscrollbar_new (GTK_LAYOUT (html)->vadjustment);
 	gtk_box_pack_start (GTK_BOX (hbox), vscrollbar, FALSE, TRUE, 0);
 
