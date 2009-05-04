@@ -1,3 +1,24 @@
+GtkHTML-3.27.1 2009-05-04
+--------------------------
+
+Bug Fixes:
+	#494986 - Do not block view update when cursor changed in any frame of the whole hierarchy.
+	#581228 - tarball does not provide gtkhtml-editor
+	#580946 - Remove usage of deprecated gtk api
+	#494986 - Do not centre to cursor position on click over URL and draw event.
+	#571743 - Kill the deprecated html-editor component and remove any trace of it from the build files.  Buh bye, Bonobo.
+	#576684 - implement pixel sized font units in gtk_html_set_fonts and html_painter_alloc_font
+	#574335 - Use a proper format string ("%s") for g_warning.
+	#573046 - Get rid of deprecated GTK_CHECK_*
+
+Updated Translations:
+	Miloš Popović (sr)
+	Amitakhya Phukan(as)
+	Shankar Prasad (kn)
+	Djihed Afifi(ar)
+	Ignacio Casal Quinteiro(gl)
+
+
 GtkHTML-3.26.0 2009-03-16
 --------------------------
 
