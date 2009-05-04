@@ -113,6 +113,8 @@ MAINTAINERCLEANFILES = \
 	gtkhtml-editor.glade.bak		\
 	gtkhtml-editor.gladep.bak
 
+EXTRA_DIST += gtkhtml-editor.xml
+
 if GLADE_CATALOG
 
 gladecatalog_DATA = gtkhtml-editor.xml
@@ -133,8 +135,6 @@ libglade_gtkhtml_editor_la_SOURCES = \
 libglade_gtkhtml_editor_la_LDFLAGS = -module -avoid-version -no-undefined
 
 libglade_gtkhtml_editor_la_LIBADD = @GTKHTML_CFLAGS@
-
-EXTRA_DIST += $(gladecatalog_DATA)
 
 endif
 
