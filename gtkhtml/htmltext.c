@@ -2490,7 +2490,7 @@ html_text_get_cursor_base (HTMLObject *self,
 	if (slave)
 		html_text_slave_get_cursor_base (slave, painter, offset - slave->posStart, x, y);
 	else {
-		g_warning ("Getting cursor base for an HTMLText with no slaves -- %p\n", self);
+		g_warning ("Getting cursor base for an HTMLText with no slaves -- %p\n", (gpointer) self);
 		html_object_calc_abs_position (self, x, y);
 	}
 }

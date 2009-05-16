@@ -69,7 +69,7 @@ debug_location (const HTMLCursor *cursor)
 
 	g_print ("Cursor in %s (%p), offset %d, position %d\n",
 		 html_type_name (HTML_OBJECT_TYPE (object)),
-		 object, cursor->offset, cursor->position);
+		 (gpointer) object, cursor->offset, cursor->position);
 }
 #else
 #define debug_location(cursor)

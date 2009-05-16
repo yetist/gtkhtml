@@ -80,7 +80,7 @@ enum DndTargetType {
 	DND_TARGET_TYPE_TEXT_HTML,
 	DND_TARGET_TYPE_UTF8_STRING,
 	DND_TARGET_TYPE_TEXT_PLAIN,
-	DND_TARGET_TYPE_STRING,
+	DND_TARGET_TYPE_STRING
 };
 
 static GtkTargetEntry dnd_link_sources [] = {

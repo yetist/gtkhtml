@@ -2856,7 +2856,7 @@ html_clueflow_get_indentation (HTMLClueFlow *flow)
 {
 	g_return_val_if_fail (flow != NULL, 0);
 
-	// FIXME levels
+	/* FIXME levels */
 	return flow->levels->len;
 }
 
@@ -2891,7 +2891,7 @@ html_clueflow_get_properties (HTMLClueFlow *flow,
 	if (style_return != NULL)
 		*style_return = flow->style;
 	if (indentation_return != NULL)
-		// FIXME levels
+		/* FIXME levels */
 		*indentation_return = flow->levels->len;
 	if (alignment_return != NULL)
 		*alignment_return = HTML_CLUE (flow)->halign;

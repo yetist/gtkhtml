@@ -97,7 +97,7 @@ scan_host_info (HTMLURL *url, const gchar *s)
 	} else {
 		guint port;
 
-		if (sscanf (colon_ptr + 1, "%d", &port) == 1)
+		if (sscanf (colon_ptr + 1, "%ud", &port) == 1)
 			url->port = (guint16) port;
 
 		url->hostname = strndup_nonempty_or_null
