@@ -11,11 +11,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml HEAD\n"
+"Project-Id-Version: gtkhtml 3.16\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gtkhtml&component=general\n"
-"POT-Creation-Date: 2009-01-12 04:53+0000\n"
-"PO-Revision-Date: 2009-02-25 15:40+0200\n"
+"POT-Creation-Date: 2009-04-16 02:29+0000\n"
+"PO-Revision-Date: 2009-05-16 11:07+0300\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -250,80 +250,87 @@ msgstr "Tegevus"
 msgid "A GtkRadioAction"
 msgstr "GtkRadioAction"
 
+#. Translators: :-)
 msgid "_Smile"
 msgstr "_Naeratav"
 
-#, fuzzy
-#| msgid "S_haded"
+#. Translators: :-(
 msgid "S_ad"
-msgstr "_Varjutatud"
+msgstr "_Kurb"
 
+#. Translators: ;-)
 msgid "_Wink"
 msgstr "_Silma pilgutav"
 
+#. Translators: :-P
 msgid "Ton_gue"
 msgstr "K_eelt näitav"
 
-#, fuzzy
-#| msgid "_Laughing"
+#. Translators: :-))
 msgid "Laug_h"
 msgstr "N_aerev"
 
+#. Translators: :-|
 msgid "_Plain"
 msgstr ""
 
+#. Translators: :-!
 msgid "Smi_rk"
 msgstr "_Irvitav"
 
+#. Translators: :"-)
 msgid "_Embarrassed"
 msgstr "_Kimbatuses"
 
-#, fuzzy
-#| msgid "_Smile"
+#. Translators: :-D
 msgid "_Big Smile"
-msgstr "_Naeratav"
+msgstr "_Laia naeratusega"
 
+#. Translators: :-/
 msgid "Uncer_tain"
-msgstr ""
+msgstr "_Ebamäärane"
 
-#, fuzzy
-#| msgid "Sur_prised"
+#. Translators: :-O
 msgid "S_urprise"
 msgstr "Ül_latunud"
 
-#, fuzzy
-#| msgid "Su_rprised"
+#. Translators: :-S
 msgid "W_orried"
-msgstr "Ül_latunud"
+msgstr "_Murelik"
 
+#. Translators: :-*
 msgid "_Kiss"
 msgstr "Suu_dlus"
 
+#. Translators: X-(
 msgid "A_ngry"
-msgstr ""
+msgstr "_Vihane"
 
+#. Translators: B-)
 msgid "_Cool"
 msgstr "_Vinge"
 
-#, fuzzy
-#| msgid "_Angel"
+#. Translators: O:-)
 msgid "Ange_l"
 msgstr "In_gel"
 
+#. Translators: :'(
 msgid "Cr_ying"
 msgstr "Nu_ttev"
 
+#. Translators: :-Q
 msgid "S_ick"
 msgstr "_Haige"
 
+#. Translators: |-)
 msgid "Tire_d"
-msgstr ""
+msgstr "_Väsinud"
 
-#, fuzzy
-#| msgid "_Devilish"
+#. Translators: >:-)
 msgid "De_vilish"
 msgstr "_Saatanlik"
 
+#. Translators: :-(|)
 msgid "_Monkey"
 msgstr "_Ahv"
 
