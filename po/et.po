@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: gtkhtml HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gtkhtml&component=general\n"
-"POT-Creation-Date: 2009-01-12 04:53+0000\n"
-"PO-Revision-Date: 2009-02-25 15:40+0200\n"
+"POT-Creation-Date: 2009-04-17 19:45+0000\n"
+"PO-Revision-Date: 2009-05-16 11:07+0300\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -219,7 +219,6 @@ msgstr "Värvuse olek"
 msgid "The state of a color combo box"
 msgstr "Värvusevalija olek"
 
-#. This is the default custom color
 msgid "custom"
 msgstr "kohandatud"
 
@@ -250,80 +249,87 @@ msgstr "Tegevus"
 msgid "A GtkRadioAction"
 msgstr "GtkRadioAction"
 
+#. Translators: :-)
 msgid "_Smile"
 msgstr "_Naeratav"
 
-#, fuzzy
-#| msgid "S_haded"
+#. Translators: :-(
 msgid "S_ad"
-msgstr "_Varjutatud"
+msgstr "_Kurb"
 
+#. Translators: ;-)
 msgid "_Wink"
 msgstr "_Silma pilgutav"
 
+#. Translators: :-P
 msgid "Ton_gue"
 msgstr "K_eelt näitav"
 
-#, fuzzy
-#| msgid "_Laughing"
+#. Translators: :-))
 msgid "Laug_h"
 msgstr "N_aerev"
 
+#. Translators: :-|
 msgid "_Plain"
 msgstr ""
 
+#. Translators: :-!
 msgid "Smi_rk"
 msgstr "_Irvitav"
 
+#. Translators: :"-)
 msgid "_Embarrassed"
 msgstr "_Kimbatuses"
 
-#, fuzzy
-#| msgid "_Smile"
+#. Translators: :-D
 msgid "_Big Smile"
-msgstr "_Naeratav"
+msgstr "_Laia naeratusega"
 
+#. Translators: :-/
 msgid "Uncer_tain"
-msgstr ""
+msgstr "_Ebamäärane"
 
-#, fuzzy
-#| msgid "Sur_prised"
+#. Translators: :-O
 msgid "S_urprise"
 msgstr "Ül_latunud"
 
-#, fuzzy
-#| msgid "Su_rprised"
+#. Translators: :-S
 msgid "W_orried"
-msgstr "Ül_latunud"
+msgstr "_Murelik"
 
+#. Translators: :-*
 msgid "_Kiss"
 msgstr "Suu_dlus"
 
+#. Translators: X-(
 msgid "A_ngry"
-msgstr ""
+msgstr "_Vihane"
 
+#. Translators: B-)
 msgid "_Cool"
 msgstr "_Vinge"
 
-#, fuzzy
-#| msgid "_Angel"
+#. Translators: O:-)
 msgid "Ange_l"
 msgstr "In_gel"
 
+#. Translators: :'(
 msgid "Cr_ying"
 msgstr "Nu_ttev"
 
+#. Translators: :-Q
 msgid "S_ick"
 msgstr "_Haige"
 
+#. Translators: |-)
 msgid "Tire_d"
-msgstr ""
+msgstr "_Väsinud"
 
-#, fuzzy
-#| msgid "_Devilish"
+#. Translators: >:-)
 msgid "De_vilish"
 msgstr "_Saatanlik"
 
+#. Translators: :-(|)
 msgid "_Monkey"
 msgstr "_Ahv"
 
@@ -796,7 +802,6 @@ msgstr "_Veerg"
 msgid "Column Span:"
 msgstr "Veeru ulatus:"
 
-#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 msgid "Find"
 msgstr "Otsimine"
 
@@ -851,7 +856,6 @@ msgstr "Lõigu omadused"
 msgid "R_eplace:"
 msgstr "_Asenda:"
 
-#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 msgid "Replace"
 msgstr "Asendamine"
 
@@ -1093,678 +1097,6 @@ msgstr "_HTML-allikas"
 
 msgid "_Plain Source"
 msgstr "_Lihtallikas"
-
-msgid "Alphabetical List"
-msgstr "Tähestikuline loetelu"
-
-msgid "Bulleted List"
-msgstr "Täpploetelu"
-
-msgid "Center justifies the paragraphs"
-msgstr "Lõikude joondamine keskele"
-
-msgid "Check spelling of the document"
-msgstr "Dokumendi õigekirjakontroll"
-
-msgid "Copy"
-msgstr "Kopeeri"
-
-msgid "Copy selection to clipboard"
-msgstr "Valiku kopeerimine lõikelauale"
-
-msgid "Copy the selection"
-msgstr "Valiku kopeerimine"
-
-msgid "Cut"
-msgstr "Lõika"
-
-msgid "Cut selection to clipboard"
-msgstr "Valiku tõstmine lõikelauale"
-
-msgid "Cut the selection"
-msgstr "Valiku väljalõikamine"
-
-msgid "Emoti_con"
-msgstr "_Tujunägu"
-
-msgid "Find _Again"
-msgstr "Otsi _uuesti"
-
-msgid "Find again"
-msgstr "Uuestiotsimine"
-
-msgid "Find and Replace"
-msgstr "Otsib ja asendab"
-
-msgid "Find and replace"
-msgstr "Otsimine ja asendamine"
-
-msgid "I_nsert"
-msgstr "_Lisa"
-
-msgid "Image"
-msgstr "Pilt"
-
-msgid "Insert Crying emoticon into document..."
-msgstr "Nutva tujunäo lisamine dokumendile..."
-
-msgid "Insert Frown emoticon into document..."
-msgstr "Kulmu kortsutava tujunäo lisamine dokumendile..."
-
-msgid "Insert HTML file into document..."
-msgstr "HTML-faili lisamine dokumendile..."
-
-msgid "Insert HTML link into document..."
-msgstr "HTML-viida lisamine dokumendile..."
-
-msgid "Insert HTML template into document..."
-msgstr "HTML-malli lisamine dokumendile..."
-
-msgid "Insert Indifferent emoticon into document..."
-msgstr "Ükskõikse tujunäo lisamine dokumendile..."
-
-msgid "Insert Laughing emoticon into document..."
-msgstr "Naerva tujunäo lisamine dokumendile..."
-
-msgid "Insert Oh no! emoticon into document..."
-msgstr "Oh ei! tujunäo lisamine dokumendile..."
-
-msgid "Insert Sick emoticon into document..."
-msgstr "Haige tujunäo lisamine dokumendile..."
-
-msgid "Insert Smile emoticon into document..."
-msgstr "Naeratava tujunäo lisamine dokumendile..."
-
-msgid "Insert Surprised emoticon into document..."
-msgstr "Üllatunud tujunäo lisamine dokumendile..."
-
-msgid "Insert Tongue emoticon into document..."
-msgstr "Keelt näitava tujunäo lisamine dokumendile..."
-
-msgid "Insert Undecided emoticon into document..."
-msgstr "Kõhkleva tujunäo lisamine dokumendile..."
-
-msgid "Insert Wink emoticon into document..."
-msgstr "Silma pilgutava tujunäo lisamine dokumendile..."
-
-msgid "Insert image"
-msgstr "Pildi lisamine"
-
-msgid "Insert image into document..."
-msgstr "Pildi lisamine dokumendile..."
-
-msgid "Insert link"
-msgstr "Lisa viit"
-
-msgid "Insert rule"
-msgstr "Lisa vahejoon"
-
-msgid "Insert rule into document..."
-msgstr "Rõhtjoone lisamine dokumendile..."
-
-msgid "Insert table"
-msgstr "Pildi lisamine"
-
-msgid "Insert table into document..."
-msgstr "Tabeli lisamine dokumendile..."
-
-msgid "Insert text file into document..."
-msgstr "Tekstifaili lisamine dokumendile ..."
-
-msgid "Left justifies the paragraphs"
-msgstr "Lõikude vasakjoondamine"
-
-msgid "Link"
-msgstr "Viit"
-
-msgid "Make the current Paragraph style Normal"
-msgstr "Tavalaadi määramine käesoleva lõigu laadiks "
-
-msgid "Make the current Paragraph style Preformat"
-msgstr "Eelvormindatud laadi määramine käesoleva lõigu laadiks"
-
-msgid "Make the current paragraph a bulleted list"
-msgstr "Täppidega loetelu laadi määramine käesoleva lõigu laadiks"
-
-msgid "Make the current paragraph a list with roman numerals"
-msgstr "Rooma numbritega loetelu määramine käesoleva lõigu laadiks"
-
-msgid "Make the current paragraph a numbered list"
-msgstr "Nummerdatud loetelu määramine käesoleva lõigu laadiks"
-
-msgid "Make the current paragraph an H1 header"
-msgstr "H1-päise määramine käesoleva lõigu laadiks"
-
-msgid "Make the current paragraph an H2 header"
-msgstr "H2-päise määramine käesoleva lõigu laadiks"
-
-msgid "Make the current paragraph an H3 header"
-msgstr "H3-päise määramine käesoleva lõigu laadiks"
-
-msgid "Make the current paragraph an H4 header"
-msgstr "H4-päise määramine käesoleva lõigu laadiks"
-
-msgid "Make the current paragraph an H5 header"
-msgstr "H5-päise määramine käesoleva lõigu laadiks"
-
-msgid "Make the current paragraph an H6 header"
-msgstr "H6-päise määramine käesoleva lõigu laadiks"
-
-msgid "Make the current paragraph an address"
-msgstr "Aadressi määramine käesoleva lõigu laadiks"
-
-msgid "Make the current paragraph an alphabetical list"
-msgstr "Tähestikulise loetelu määramine käesoleva lõigu laadiks"
-
-msgid "Normal"
-msgstr "Tavaline"
-
-msgid "Numbered List"
-msgstr "Nummerdatud loetelu"
-
-msgid "Oh _No!"
-msgstr "_Oh ei!"
-
-msgid "Paste"
-msgstr "Aseta"
-
-msgid "Paste from clipboard"
-msgstr "Lõikepuhvrist asetamine"
-
-msgid "Paste the clipboard"
-msgstr "Lõikepuhvri sisu asetamine"
-
-msgid "Paste the clipboard as a quotation"
-msgstr "Lõikepuhvri sisu asetamine tsitaadina"
-
-msgid "Preformat"
-msgstr "Eelvormindatud"
-
-msgid "Redo"
-msgstr "Taasta"
-
-msgid "Redo previously undone change"
-msgstr "Unustatud muudatuste taastamine"
-
-msgid "Redo the undone action"
-msgstr "Tühistatud tegevuse uuestisooritamine"
-
-msgid "Right justifies the paragraphs"
-msgstr "Lõikude paremjoondamine"
-
-msgid "Roman Numeral List"
-msgstr "Rooma numbrite loetelu"
-
-msgid "Rule"
-msgstr "Vahejoon"
-
-msgid "Select the entire contents of the document"
-msgstr "Kogu dokumendi sisu valimine"
-
-msgid "Strikeout"
-msgstr "Läbikriipsutatud"
-
-msgid "Su_rprised"
-msgstr "Ül_latunud"
-
-msgid "Subscript"
-msgstr "Alakiri"
-
-msgid "Superscript"
-msgstr "Ülakiri"
-
-msgid "Te_mplate..."
-msgstr "_Mall..."
-
-msgid "Typewriter"
-msgstr "Masinakiri"
-
-msgid "Undo"
-msgstr "Tühista"
-
-msgid "Undo previous changes"
-msgstr "Eelmiste muudatuste unustamine"
-
-msgid "Undo the last action"
-msgstr "Viimase tegevuse tühistamine"
-
-msgid "_Font Size"
-msgstr "_Kirja suurus"
-
-msgid "_Frown"
-msgstr "K_ulmu kortsutav"
-
-msgid "_Heading"
-msgstr "_Pealkiri"
-
-msgid "_Indifferent"
-msgstr "Ükskõ_ikne"
-
-msgid "_Laughing"
-msgstr "N_aerev"
-
-msgid "_Page..."
-msgstr "_Lehekülg"
-
-msgid "_Paragraph..."
-msgstr "_Lõik..."
-
-msgid "_Replace..."
-msgstr "_Asenda..."
-
-msgid "_Style"
-msgstr "_Laad"
-
-#.
-#. <submenu name="BackgroundColor" _label="Background Color">
-#. <menuitem name="ColorRed" verb="" _label="Red"/>
-#. <menuitem name="ColorOrange" verb="" _label="Orange"/>
-#. <menuitem name="ColorYellow" verb="" _label="Yellow"/>
-#. <menuitem name="ColorGreen" verb="" _label="Green"/>
-#. <menuitem name="ColorBlue" verb="" _label="Blue"/>
-#. <menuitem name="ColorPurple" verb="" _label="Purple"/>
-#. <menuitem name="etc" verb="" _label="etc..."/>
-#.
-#. <separator/>
-#.
-#. <menuitem name="Other" verb="" _label="Other..."/>
-#. </submenu>
-#.
-msgid "_Text..."
-msgstr "_Tekst..."
-
-msgid "_Undecided"
-msgstr "Kõhkle_v"
-
-msgid "GNOME HTML Editor"
-msgstr "GNOME HTML-Redaktor"
-
-msgid "GNOME HTML Editor Control"
-msgstr "GNOME HTML-redaktori juhtimine"
-
-msgid "GNOME HTML Editor Factory"
-msgstr "GNOME-i HTML-redaktori Factory"
-
-msgid "None"
-msgstr "Puudub"
-
-msgid "Perforated paper"
-msgstr "Perforeeritud paber"
-
-msgid "Blue ink"
-msgstr "Sinine tint"
-
-msgid "Paper"
-msgstr "Paber"
-
-msgid "Ribbon"
-msgstr "Lint"
-
-msgid "Midnight"
-msgstr "Kesköö"
-
-msgid "Confidential"
-msgstr "Salajane"
-
-msgid "Draft"
-msgstr "Mustand"
-
-msgid "Graph paper"
-msgstr "Millimeeterpaber"
-
-msgid "Colors"
-msgstr "Värvid"
-
-msgid "Background Image"
-msgstr "Taustapilt"
-
-msgid "Background Image File Path"
-msgstr "Taustapildi faili rada"
-
-msgid "Template"
-msgstr "Mall"
-
-msgid "Could not load glade file."
-msgstr "Glade faili pole võimalik laadida."
-
-msgid "Transparent"
-msgstr "Läbipaistev"
-
-msgid "Text"
-msgstr "Tekst"
-
-msgid "Paragraph"
-msgstr "Lõik"
-
-msgid "Page"
-msgstr "Lehekülg"
-
-msgid "color preview"
-msgstr "värvuse eelvaade"
-
-#. "Custom" color - we'll pop up a GtkColorDialog
-msgid "Custom Color:"
-msgstr "Kohandatud värvus:"
-
-msgid "purplish blue"
-msgstr "purpurne sinine"
-
-msgid "dark purple"
-msgstr "tumelilla"
-
-msgid "sky blue"
-msgstr "taevasinine"
-
-#. set the a11y name
-msgid "Popup"
-msgstr "Hüpik"
-
-msgid "GtkHTML Editor Control"
-msgstr "GtkHTML-redaktori juhtimine"
-
-msgid "    "
-msgstr "    "
-
-msgid "*"
-msgstr "*"
-
-msgid ""
-"-2\n"
-"-1\n"
-"Standard\n"
-"+1\n"
-"+2\n"
-"+3\n"
-"+4"
-msgstr ""
-"-2\n"
-"-1\n"
-"Standardne\n"
-"+1\n"
-"+2\n"
-"+3\n"
-"+4"
-
-msgid "<b>Alignment &amp; Behaviour</b>"
-msgstr "<b>Joondus ja käitumine</b>"
-
-msgid "<span weight=\"bold\">General</span>"
-msgstr "<span weight=\"bold\">Üldine</span>"
-
-msgid "<span weight=\"bold\">Layout</span>"
-msgstr "<span weight=\"bold\">Paigutus</span>"
-
-msgid "<span weight=\"bold\">Link</span>"
-msgstr "<span weight=\"bold\">Viit</span>"
-
-msgid "<span weight=\"bold\">Size</span>"
-msgstr "<span weight=\"bold\">Suurus</span>"
-
-msgid "<span weight=\"bold\">Style</span>"
-msgstr "<span weight=\"bold\">Laad</span>"
-
-msgid "<span weight=\"bold\">Template</span>"
-msgstr "<span weight=\"bold\">Mall</span>"
-
-msgid "Alignment:"
-msgstr "Joondus:"
-
-msgid "Cell"
-msgstr "Lahter"
-
-msgid "Colu_mns:"
-msgstr "_Veerud:"
-
-msgid "Column span:"
-msgstr "Veeru ulatus:"
-
-msgid "Enable"
-msgstr "Luba"
-
-msgid "Hea_der style"
-msgstr "_Päise laad"
-
-msgid "Horizontal alignment:"
-msgstr "Horisontaalne joondus:"
-
-msgid "Horizontal:"
-msgstr "Horisontaalne:"
-
-msgid ""
-"Left\n"
-"Center\n"
-"Right\n"
-"None"
-msgstr ""
-"Vasakul\n"
-"Keskel\n"
-"Paremal\n"
-"Puudub"
-
-msgid "Link properties"
-msgstr "Viida omadused"
-
-msgid "Row span:"
-msgstr "Rea ulatus:"
-
-msgid "Shade"
-msgstr "Varjutatud"
-
-msgid "Size:"
-msgstr "Suurus:"
-
-msgid "Vertical:"
-msgstr "Püstine:"
-
-msgid "xxxxxxxxxxxxxx"
-msgstr "xxxxxxxxxxxxxx"
-
-msgid "URL:"
-msgstr "URL:"
-
-msgid "Description:"
-msgstr "Kirjeldus:"
-
-msgid "Insert"
-msgstr "Lisa"
-
-#, c-format
-msgid "Error loading file '%s': %s"
-msgstr "Viga faili '%s' laadimisel: %s"
-
-msgid "Format"
-msgstr "Vorming"
-
-msgid "General"
-msgstr "Üldine"
-
-msgid "Left"
-msgstr "Vasak"
-
-msgid "Center"
-msgstr "Keskel"
-
-msgid "Right"
-msgstr "Parem"
-
-msgid "Alignment"
-msgstr "Joondus"
-
-msgid "Roman List"
-msgstr "Rooma numbritega loetelu"
-
-msgid "Header 1"
-msgstr "Päis 1"
-
-msgid "Header 2"
-msgstr "Päis 2"
-
-msgid "Header 3"
-msgstr "Päis 3"
-
-msgid "Header 4"
-msgstr "Päis 4"
-
-msgid "Header 5"
-msgstr "Päis 5"
-
-msgid "Header 6"
-msgstr "Päis 6"
-
-msgid "Address"
-msgstr "Aadress"
-
-msgid "Style"
-msgstr "Laad"
-
-msgid "Text Style..."
-msgstr "Teksti laad..."
-
-msgid "Paragraph Style..."
-msgstr "Lõigu laad..."
-
-msgid "Link Style..."
-msgstr "Viida laad..."
-
-msgid "Rule Style..."
-msgstr "Vahejoone laad..."
-
-msgid "Image Style..."
-msgstr "Pildi laad..."
-
-msgid "Cell Style..."
-msgstr "Lahtri laad..."
-
-msgid "Table Style..."
-msgstr "Tabeli laad..."
-
-msgid "Page Style..."
-msgstr "Lehekülje laad..."
-
-msgid "Table insert"
-msgstr "Tabeli lisamine"
-
-msgid "Row above"
-msgstr "Rida ülalpool"
-
-msgid "Row below"
-msgstr "Rida allpool"
-
-msgid "Column before"
-msgstr "Veerg enne"
-
-msgid "Column after"
-msgstr "Veerg pärast"
-
-msgid "Table delete"
-msgstr "Tabeli kustutamine"
-
-msgid "Cell contents"
-msgstr "Lahtri sisu"
-
-msgid "Add Word to"
-msgstr "Lisa sõna"
-
-#. Translators: %s is the language name.
-#, c-format
-msgid "%s Dictionary"
-msgstr "%s sõnastik"
-
-#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
-msgid "Replace confirmation"
-msgstr "Asendamise kinnitus"
-
-msgid "Search _backward"
-msgstr "Otsi _tahapoole"
-
-msgid "_Backward"
-msgstr "_Tagasi"
-
-msgid "_Regular Expression"
-msgstr "_Regulaaravaldis"
-
-msgid "Input the words you want to search here"
-msgstr "Sisesta otsitavad sõnad siia"
-
-msgid ""
-"Unable to add word to dictionary,\n"
-"language settings are broken.\n"
-msgstr ""
-"Sõna pole võimalik sõnastikku lisada,\n"
-"keelesätted on katki.\n"
-
-msgid "No misspelled word found"
-msgstr "Ühtki kirjaveaga sõna ei leitud"
-
-msgid "Spell checker"
-msgstr "Õigekirja kontrollimine"
-
-msgid "Note"
-msgstr "Märkus"
-
-msgid "Place your text here"
-msgstr "Aseta oma tekst siia"
-
-msgid "Image frame"
-msgstr "Pildi raam"
-
-msgid "Template Labels"
-msgstr "Mallide etiketid"
-
-msgid "Open file..."
-msgstr "Ava fail..."
-
-msgid "Save file as..."
-msgstr "Salvesta fail kui..."
-
-msgid "GtkHTML Editor Test Container"
-msgstr "GtkHTML-redaktori testkonteiner"
-
-msgid "Left align"
-msgstr "Vasakjoondus"
-
-msgid "Right align"
-msgstr "Paremjoondus"
-
-msgid "Toggle typewriter font style"
-msgstr "Trükimasina kirjastiili sisse-/väljalülitamine"
-
-msgid "Makes the text bold"
-msgstr "Teksti rasvaseks tegemine"
-
-msgid "Makes the text italic"
-msgstr "Teksti kursiivi panemine"
-
-msgid "Underlines the text"
-msgstr "Teksti allajoonimine"
-
-msgid "Strikes out the text"
-msgstr "Teksti läbikriipsutamine"
-
-msgid "Unindent"
-msgstr "Eemalda taane"
-
-msgid "Indents the paragraphs less"
-msgstr "Lõigu taande vähendamine"
-
-msgid "Indent"
-msgstr "Taane"
-
-msgid "Indents the paragraphs more"
-msgstr "Lõigu taande suurendamine"
-
-msgid "Text Color"
-msgstr "Teksti värvus"
-
-msgid "Sample"
-msgstr "Näidis"
-
-msgid ""
-"The edited object was removed from the document.\n"
-"Cannot apply your changes."
-msgstr ""
-"Redigeeritav objekt eemaldati dokumendist.\n"
-"Sinu muudatusi pole võimalik rakendada."
 
 msgid "Editable"
 msgstr "Redigeeritav"
