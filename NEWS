@@ -1,4 +1,15 @@
+GtkHTML-3.26.2 2009-05-18
+-------------------------
+
+Bug Fixes:
+	#581228 - tarball does not provide gtkhtml-editor (Gilles Dartiguelongue)
+	#578394 – HTML images cannot be scaled to more than 100 px (Matthew Barnes)
+Updated Translations:
+	krishnababu (te)
+	Ivar Smolin (et)
+
 GtkHTML-3.26.1.1 2009-04-14
+---------------------------
 
 3.26.1 published tarballs are corrupted.
 
