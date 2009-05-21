@@ -8,7 +8,7 @@ test -z "$srcdir" && srcdir=.
 
 PKG_NAME="gtkhtml"
 
-(test -f $srcdir/configure.in \
+(test -f $srcdir/configure.ac \
   && test -d $srcdir/gtkhtml \
   && test -f $srcdir/gtkhtml/gtkhtml.h) || {
     echo -n "**Error**: Directory "\`$srcdir\'" does not look like the"
