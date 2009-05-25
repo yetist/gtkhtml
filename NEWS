@@ -1,3 +1,14 @@
+GtkHTML-3.27.2 2009-05-25
+-------------------------
+
+Bug Fixes:
+	#578213 - The -q of grep should not use in Solaris (Jeff Cai)
+	#578394 - HTML images cannot be scaled to more than 100 px
+                  (Matthew Barnes)
+
+Updated Translations:
+	Ivar Smolin (et)
+
 GtkHTML-3.27.1 2009-05-04
 --------------------------
 
