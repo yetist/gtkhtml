@@ -22,7 +22,14 @@
 
 #include <glib/gi18n-lib.h>
 
-static GtkhtmlFace available_faces[] = {
+/* Constant version of GtkhtmlFace. */
+typedef struct {
+	const gchar *label;
+	const gchar *icon_name;
+	const gchar *text_face;
+} ConstantFace;
+
+static ConstantFace available_faces[] = {
 	/* Translators: :-) */
 	{ N_("_Smile"),		"face-smile",		":-)"	},
 	/* Translators: :-( */

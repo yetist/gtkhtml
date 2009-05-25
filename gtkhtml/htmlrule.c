@@ -206,14 +206,16 @@ static gboolean
 save (HTMLObject *self,
       HTMLEngineSaveState *state)
 {
-	gchar *size, *shade, *length;
+	gchar *size;
+	const gchar *shade;
+	gchar *length;
 	gboolean rv;
 
-	size   = HTML_RULE (self)->size == 2 ? "" : g_strdup_printf (" SIZE=\"%d\"", HTML_RULE (self)->size);
+	size   = HTML_RULE (self)->size == 2 ? g_strdup ("") : g_strdup_printf (" SIZE=\"%d\"", HTML_RULE (self)->size);
 	shade  = HTML_RULE (self)->shade ? "" : " NOSHADE";
 	length = HTML_RULE (self)->length
 		? g_strdup_printf (" LENGTH=\"%d\"", HTML_RULE (self)->length)
-		: (self->percent > 0 && self->percent != 100 ? g_strdup_printf (" LENGTH=\"%d%%\"", self->percent) : "");
+		: (self->percent > 0 && self->percent != 100 ? g_strdup_printf (" LENGTH=\"%d%%\"", self->percent) : g_strdup (""));
 
 	rv = html_engine_save_output_string (state, "\n<HR%s%s%s>\n", shade, size, length);
 

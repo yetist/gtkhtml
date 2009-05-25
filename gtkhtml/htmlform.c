@@ -26,7 +26,7 @@
 
 
 HTMLForm *
-html_form_new (HTMLEngine *engine, gchar *_action, gchar *_method)
+html_form_new (HTMLEngine *engine, const gchar *_action, const gchar *_method)
 {
 	HTMLForm *new;
 
@@ -60,11 +60,11 @@ html_form_add_hidden (HTMLForm *form, HTMLHidden *hidden)
 }
 
 void
-html_form_add_radio (HTMLForm *form, char *name, GtkRadioButton *button)
+html_form_add_radio (HTMLForm *form, const char *name, GtkRadioButton *button)
 {
 	GtkWidget *master;
 	GSList *group;
-	char *key = name;
+	const char *key = name;
 
 	/*
 	 * FIXME a null name makes them all share the same "" group.  I doubt this

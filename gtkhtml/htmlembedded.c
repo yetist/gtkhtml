@@ -236,7 +236,7 @@ gchar *
 html_embedded_encode_string (const gchar *before, const gchar *codepage)
 {
 	    const gchar* str = before;
-	    static gchar *safe = "$-._!*(),"; /* RFC 1738 */
+	    static const gchar *safe = "$-._!*(),"; /* RFC 1738 */
         unsigned pos = 0;
         GString *encoded = g_string_new ("");
         gchar buffer[5], *ptr;
@@ -321,8 +321,8 @@ void
 html_embedded_init (HTMLEmbedded *element,
 		   HTMLEmbeddedClass *klass,
 		   GtkWidget *parent,
-		   gchar *name,
-		   gchar *value)
+		   const gchar *name,
+		   const gchar *value)
 {
 	HTMLObject *object;
 

@@ -60,8 +60,8 @@ void          html_embedded_class_init     (HTMLEmbeddedClass *klass,
 void          html_embedded_init           (HTMLEmbedded      *element,
 					    HTMLEmbeddedClass *klass,
 					    GtkWidget         *parent,
-					    gchar             *name,
-					    gchar             *value);
+					    const gchar       *name,
+					    const gchar       *value);
 void          html_embedded_set_widget     (HTMLEmbedded      *element,
 					    GtkWidget         *widget);
 GtkWidget    *html_embedded_get_widget     (HTMLEmbedded      *element);

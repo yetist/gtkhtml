@@ -53,12 +53,6 @@ int            gtk_html_stream_vprintf   (GtkHTMLStream *stream,
 					  va_list ap);
 int            gtk_html_stream_printf    (GtkHTMLStream *stream,
 					  const char *format,
-					  ...);
+					  ...) G_GNUC_PRINTF (2, 3);
 
 #endif /* _GTKHTML_STREAM_H */
-
-
-
-
-
-

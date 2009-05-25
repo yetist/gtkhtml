@@ -1009,7 +1009,7 @@ html_image_set_size (HTMLImage *image, gint w, gint h, gboolean pw, gboolean ph)
 	}
 }
 
-static char *fallback_image_content_types[] = {"image/*", NULL};
+static char *fallback_image_content_types[] = { (char *) "image/*", NULL};
 
 static char **
 html_image_factory_types (GtkHTMLStream *stream,

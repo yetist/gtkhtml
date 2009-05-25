@@ -35,8 +35,8 @@ struct _HTMLShape {
 };
 
 static HTMLLength *
-parse_length (char **str) {
-	char *cur = *str;
+parse_length (const char **str) {
+	const char *cur = *str;
 	HTMLLength *len = g_new0 (HTMLLength, 1);
 
 	/* g_warning ("begin \"%s\"", *str); */
@@ -78,7 +78,7 @@ parse_length (char **str) {
 }
 
 void
-html_length_array_parse (GPtrArray *array, char *str)
+html_length_array_parse (GPtrArray *array, const char *str)
 {
 	HTMLLength *length;
 

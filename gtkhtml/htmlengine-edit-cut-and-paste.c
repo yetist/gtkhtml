@@ -1266,7 +1266,7 @@ html_engine_insert_empty_paragraph (HTMLEngine *e)
 	html_engine_thaw (e);
 }
 
-static char *picto_chars =
+static const char *picto_chars =
 	/*  0 */ "DO)(|/PQ*!"
 	/* 10 */ "S\0:-\0:\0:-\0"
 	/* 20 */ ":\0:;=-\"\0:;"
@@ -1284,7 +1284,7 @@ static gint picto_states [] = {
 	/* 50 */   0, -19,   0, -11,  56,   0, -11,   0, -13,  61,
 	/* 60 */   0, -13,   0,  -6,   0,  68,  -7,   0,  -7,   0,
 	/* 70 */ -16,  73,   0, -16,   0, -21,  78,   0, -21,   0 };
-static gchar *picto_icon_names [] = {
+static const gchar *picto_icon_names [] = {
 	"face-angel",
 	"face-angry",
 	"face-cool",

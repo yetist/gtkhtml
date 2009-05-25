@@ -21,7 +21,7 @@
 #include "htmltext.h"
 
 typedef struct {
-	char *name;
+	const char *name;
 	int (*test_function) (GtkHTML *html);
 } Test;
 

@@ -228,7 +228,7 @@ html_engine_save_delims_and_vals (HTMLEngineSaveState *state,
 
 
 static gchar *
-color_to_string (gchar *s, HTMLColor *c)
+color_to_string (const gchar *s, HTMLColor *c)
 {
 	gchar color [20];
 

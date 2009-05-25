@@ -413,7 +413,7 @@ html_element_free (HTMLElement *element)
 }
 
 static void
-push_element (HTMLEngine *e, char *name, char *class, HTMLStyle *style)
+push_element (HTMLEngine *e, const char *name, const char *class, HTMLStyle *style)
 {
 	HTMLElement *element;
 
@@ -726,7 +726,7 @@ pop_clueflow_style (HTMLEngine *e)
 static void new_flow (HTMLEngine *e, HTMLObject *clue, HTMLObject *first_object, HTMLClearType clear, HTMLDirection dir);
 static void close_flow (HTMLEngine *e, HTMLObject *clue);
 static void finish_flow (HTMLEngine *e, HTMLObject *clue);
-static void pop_element (HTMLEngine *e, char *name);
+static void pop_element (HTMLEngine *e, const char *name);
 
 static HTMLObject *
 text_new (HTMLEngine *e, const gchar *text, GtkHTMLFontStyle style, HTMLColor *color)
@@ -1024,7 +1024,7 @@ html_element_push (HTMLElement *node, HTMLEngine *e, HTMLObject *clue)
 
 static void
 push_block_element (HTMLEngine *e,
-		    char *name,
+		    const char *name,
 		    HTMLStyle *style,
 		    HTMLDisplayType level,
 		    BlockFunc exitFunc,
@@ -1048,7 +1048,7 @@ push_block_element (HTMLEngine *e,
 
 static void
 push_block (HTMLEngine *e,
-	    char *name,
+	    const char *name,
 	    gint level,
 	    BlockFunc exitFunc,
 	    gint miscData1,
@@ -1165,7 +1165,7 @@ pop_element_by_type (HTMLEngine *e, HTMLDisplayType display)
 
 
 static void
-pop_element (HTMLEngine *e, char *name)
+pop_element (HTMLEngine *e, const char *name)
 {
 	HTMLElement *elem = NULL;
 	GList *l;
@@ -2263,7 +2263,11 @@ element_parse_data (HTMLEngine *e, HTMLObject *clue, const char *str)
 
 
 static void
-form_begin (HTMLEngine *e, HTMLObject *clue, gchar *action, gchar *method, gboolean close_paragraph)
+form_begin (HTMLEngine *e,
+            HTMLObject *clue,
+            const gchar *action,
+            const gchar *method,
+            gboolean close_paragraph)
 {
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
@@ -2426,7 +2430,7 @@ static void
 element_parse_form (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	gchar *action = NULL;
-	gchar *method = "GET";
+	const gchar *method = "GET";
 	gchar *target = NULL;
 
 	g_return_if_fail (HTML_IS_ENGINE (e));
@@ -3848,7 +3852,7 @@ element_parse_font (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 /* Parsing dispatch table.  */
 typedef void (*HTMLParseFunc)(HTMLEngine *p, HTMLObject *clue, const gchar *str);
 typedef struct _HTMLDispatchEntry {
-	char *name;
+	const char *name;
 	HTMLParseFunc func;
 } HTMLDispatchEntry;
 
@@ -3942,7 +3946,8 @@ dispatch_table_new (HTMLDispatchEntry *entry)
 	gint i = 0;
 
 	while (entry[i].name) {
-		g_hash_table_insert (table, entry[i].name, &entry[i]);
+		g_hash_table_insert (
+			table, (gpointer) entry[i].name, &entry[i]);
 		i++;
 	}
 
@@ -4640,7 +4645,7 @@ html_engine_class_data_clear (HTMLEngine *e)
 #define LOG_INPUT 1
 
 GtkHTMLStream *
-html_engine_begin (HTMLEngine *e, char *content_type)
+html_engine_begin (HTMLEngine *e, const char *content_type)
 {
 	GtkHTMLStream *new_stream;
 
@@ -4702,7 +4707,7 @@ html_engine_stop (HTMLEngine *e)
 	html_object_forall (e->clue, e, html_engine_stop_forall, NULL);
 }
 
-static char *engine_content_types[]= {"text/html", NULL};
+static char *engine_content_types[]= { (char *) "text/html", NULL};
 
 static char **
 html_engine_stream_types (GtkHTMLStream *handle,
@@ -6211,7 +6216,7 @@ html_engine_spell_word_is_valid (HTMLEngine *e)
 void
 html_engine_replace_spell_word_with (HTMLEngine *e, const gchar *word)
 {
-	HTMLObject *replace = NULL;
+	HTMLObject *replace_text = NULL;
 	HTMLText   *orig;
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
@@ -6220,19 +6225,20 @@ html_engine_replace_spell_word_with (HTMLEngine *e, const gchar *word)
 	orig = HTML_TEXT (e->mark->object);
 	switch (HTML_OBJECT_TYPE (e->mark->object)) {
 	case HTML_TYPE_TEXT:
-		replace = text_new (e, word, orig->font_style, orig->color);
+		replace_text = text_new (e, word, orig->font_style, orig->color);
 		break;
 		/* FIXME-link case HTML_TYPE_LINKTEXT:
-		replace = html_link_text_new (word, orig->font_style, orig->color,
-					      HTML_LINK_TEXT (orig)->url,
-					      HTML_LINK_TEXT (orig)->target);
-					      break; */
+		replace_text = html_link_text_new (
+			word, orig->font_style, orig->color,
+			HTML_LINK_TEXT (orig)->url,
+			HTML_LINK_TEXT (orig)->target);
+		break; */
 	default:
 		g_assert_not_reached ();
 	}
 	html_text_set_font_face (HTML_TEXT (replace), HTML_TEXT (orig)->face);
 	html_engine_edit_selection_updater_update_now (e->selection_updater);
-	html_engine_paste_object (e, replace, html_object_get_length (replace));
+	html_engine_paste_object (e, replace_text, html_object_get_length (replace_text));
 }
 
 HTMLCursor *
@@ -6503,7 +6509,7 @@ html_engine_set_language (HTMLEngine *e, const gchar *language)
 const gchar *
 html_engine_get_language (HTMLEngine *e)
 {
-	gchar *language;
+	const gchar *language;
 
 	g_return_val_if_fail (HTML_IS_ENGINE (e), NULL);
 

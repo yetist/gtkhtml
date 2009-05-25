@@ -213,7 +213,10 @@ html_frameset_real_calc_size (HTMLObject *o, HTMLPainter *painter, GList **chang
 }
 
 void
-html_frameset_init (HTMLFrameset *set, GtkHTML *parent, char *rows, char *cols)
+html_frameset_init (HTMLFrameset *set,
+                    GtkHTML *parent,
+                    const gchar *rows,
+                    const gchar *cols)
 {
 	html_object_init (HTML_OBJECT (set), HTML_OBJECT_CLASS (&html_frameset_class));
 	set->parent = parent;

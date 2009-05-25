@@ -67,7 +67,7 @@ typedef enum _QuoteType QuoteType;
 void
 html_string_tokenizer_tokenize (HTMLStringTokenizer *t,
 				const gchar *str,
-				gchar *separators)
+				const gchar *separators)
 {
 	const gchar *src, *x;
 	QuoteType quoted;

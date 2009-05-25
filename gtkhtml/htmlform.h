@@ -41,14 +41,14 @@ struct _HTMLForm {
 };
 
 
-HTMLForm *html_form_new (HTMLEngine *engine, gchar *_action, gchar *_method);
+HTMLForm *html_form_new (HTMLEngine *engine, const gchar *_action, const gchar *_method);
 void html_form_add_element (HTMLForm *form, HTMLEmbedded *e);
 void html_form_add_hidden (HTMLForm *form, HTMLHidden *h);
 void html_form_remove_element (HTMLForm *form, HTMLEmbedded *e);
 void html_form_submit (HTMLForm *form);
 void html_form_reset (HTMLForm *form);
 void html_form_destroy (HTMLForm *form);
-void html_form_add_radio (HTMLForm *form, char *name, GtkRadioButton *button);
+void html_form_add_radio (HTMLForm *form, const char *name, GtkRadioButton *button);
 void html_form_set_engine (HTMLForm *form, HTMLEngine *engine);
 
 #endif /* _HTMLFORM_H_ */

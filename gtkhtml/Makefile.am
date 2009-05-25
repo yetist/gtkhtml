@@ -19,18 +19,14 @@ INCLUDES = 				\
 	-DG_LOG_DOMAIN=\"gtkhtml\"
 
 AM_CFLAGS = 						\
-	-DGDK_DISABLE_DEPRECATED=1			\
-	-DG_DISABLE_DEPRECATED=1			\
-	-DGNOME_DISABLE_DEPRECATED=1			\
 	-DPREFIX=\""$(prefix)"\"			\
 	-DLIBDIR=\""$(datadir)"\"			\
 	-DDATADIR=\""$(datadir)"\"			\
 	-DSYSCONFDIR=\""$(sysconfdir)"\"		\
 	-DICONDIR=\"$(gtkhtml_data)/icons\"		\
-        -DGTKHTML_DATADIR=\""$(gtkhtml_data)"\"		\
+	-DGTKHTML_DATADIR=\""$(gtkhtml_data)"\"		\
 	-DGLADE_DATADIR=\"$(gladedir)\"			\
-        -DGNOMELOCALEDIR=\""$(prefix)/$(DATADIRNAME)/locale"\"
-#	-DGTK_DISABLE_DEPRECATED=1
+	-DGNOMELOCALEDIR=\""$(prefix)/$(DATADIRNAME)/locale"\"
 
 lib_LTLIBRARIES = libgtkhtml-3.14.la
 

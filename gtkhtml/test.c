@@ -50,7 +50,7 @@ static GPtrArray *examples;
 
 GtkWidget *html;
 
-static gchar *welcome =
+static const gchar *welcome =
 "Czech (&#268;e&#353;tina) &#268;au, Ahoj, Dobr&#253; den<BR>"
 "French (Français) Bonjour, Salut<BR>"
 "Korean (한글)   안녕하세요, 안녕하십니까<BR>"
@@ -60,7 +60,7 @@ static gchar *welcome =
 "Japanese <span lang=\"ja\">元気	開発<BR></FONT>";
 
 static void
-url_requested (GtkHTML *html, const char *url, GtkHTMLStream *stream, gpointer data)
+url_requested (GtkHTML *unused, const char *url, GtkHTMLStream *stream, gpointer data)
 {
 	int fd;
 	gchar *filename;
@@ -86,7 +86,7 @@ url_requested (GtkHTML *html, const char *url, GtkHTMLStream *stream, gpointer d
 }
 
 static gchar *
-encode_html (gchar *txt)
+encode_html (const gchar *txt)
 {
 	GString *str;
 	gchar *rv;

@@ -271,7 +271,7 @@ html_select_new (GtkWidget *parent,
 }
 
 void
-html_select_add_option (HTMLSelect *select, gchar *value, gboolean selected)
+html_select_add_option (HTMLSelect *select, const gchar *value, gboolean selected)
 {
 	GtkListStore *store;
 	GtkTreeIter iter;
@@ -315,7 +315,7 @@ html_select_add_option (HTMLSelect *select, gchar *value, gboolean selected)
 }
 
 void
-html_select_set_text (HTMLSelect *select, gchar *text)
+html_select_set_text (HTMLSelect *select, const gchar *text)
 {
 	GtkWidget *w = GTK_WIDGET (HTML_EMBEDDED (select)->widget);
 	GtkListStore *store;

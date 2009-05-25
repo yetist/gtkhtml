@@ -42,6 +42,35 @@ dnl blocks, this macro needs to be right at the beggining.
 dnl
 IT_PROG_INTLTOOL([0.36.3])
 
+# Compiler Warning Flags
+
+AS_COMPILER_FLAGS(WARNING_FLAGS,
+	"-DG_DISABLE_DEPRECATED
+	-DPANGO_DISABLE_DEPRECATED
+	-DGDK_DISABLE_DEPRECATED
+	-DGDK_PIXBUF_DISABLE_DEPRECATED
+	-DGTK_DISABLE_DEPRECATED
+	-DGNOME_DISABLE_DEPRECATED
+	-Wall -Wextra
+	-Wno-missing-field-initializers
+	-Wno-sign-compare
+	-Wno-unused-parameter
+	-Wdeclaration-after-statement
+	-Werror-implicit-function-declaration
+	-Wformat-nonliteral -Wformat-security -Winit-self
+	-Wmissing-declarations -Wmissing-include-dirs
+	-Wmissing-noreturn -Wnested-externs -Wpointer-arith
+	-Wredundant-decls -Wundef -Wwrite-strings")
+AC_SUBST(WARNING_FLAGS)
+
+# Other useful compiler warnings for test builds only.
+# These may produce warnings we have no control over.
+#
+#	-Wmissing-format-attribute
+#	-Wshadow
+
+CFLAGS="$CFLAGS $WARNING_FLAGS"
+
 AC_ISC_POSIX
 AC_PROG_CC
 AC_STDC_HEADERS
@@ -65,9 +94,6 @@ esac
 AC_MSG_RESULT([$os_win32])
 AM_CONDITIONAL(OS_WIN32, [test $os_win32 = yes])
 AC_SUBST(SOEXT)
-
-GNOME_COMPILE_WARNINGS(yes)
-CFLAGS="$CFLAGS $warning_flags"
 
 AC_SUBST(CFLAGS)
 AC_SUBST(CPPFLAGS)

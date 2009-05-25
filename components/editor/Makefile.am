@@ -41,7 +41,6 @@ libgtkhtml_editor_la_SOURCES = \
 	gtkhtml-editor-private.c		\
 	gtkhtml-editor-private.h		\
 	gtkhtml-editor-signals.c		\
-	gtkhtml-editor-signals.h		\
 	gtkhtml-face.c				\
 	gtkhtml-face.h				\
 	gtkhtml-face-action.c			\

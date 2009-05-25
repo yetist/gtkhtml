@@ -158,7 +158,7 @@ void                       gtk_html_select_all                    (GtkHTML      
 GtkHTMLStream             *gtk_html_begin                         (GtkHTML                   *html);
 GtkHTMLStream             *gtk_html_begin_full                    (GtkHTML                   *html,
 								   char                      *target_frame,
-								   char                      *content_type,
+								   const char                *content_type,
 								   GtkHTMLBeginFlags         flags);
 
 void                       gtk_html_write                         (GtkHTML                   *html,
@@ -348,7 +348,7 @@ gboolean                   gtk_html_save                          (GtkHTML      
 								   GtkHTMLSaveReceiverFn      receiver,
 								   gpointer                   data);
 GtkHTMLStream             *gtk_html_begin_content                 (GtkHTML                   *html,
-								   gchar                     *content_type);
+								   const gchar               *content_type);
 void                       gtk_html_drag_dest_set                 (GtkHTML                   *html);
 
 #endif

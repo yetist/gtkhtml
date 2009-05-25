@@ -28,9 +28,5 @@
 void  html_table_alloc_cell  (HTMLTable     *table,
 			      gint           r,
 			      gint           c);
-void  html_table_set_cell    (HTMLTable     *table,
-			      gint           r,
-			      gint           c,
-			      HTMLTableCell *cell);
 
 #endif

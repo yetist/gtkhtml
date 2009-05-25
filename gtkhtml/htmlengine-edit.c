@@ -226,15 +226,13 @@ html_engine_spell_check_range (HTMLEngine *e, HTMLCursor *begin, HTMLCursor *end
 
 	cited = FALSE;
 	while (html_selection_spell_word (html_cursor_get_prev_char (begin), &cited) || cited) {
-		if (html_cursor_backward (begin, e))
-			;
+		if (html_cursor_backward (begin, e)) { ; }
 		cited = FALSE;
 	}
 
 	cited = FALSE;
 	while (html_selection_spell_word (html_cursor_get_current_char (end), &cited) || cited) {
-		if (html_cursor_forward (end, e))
-			;
+		if (html_cursor_forward (end, e)) { ; }
 		cited = FALSE;
 	}
 

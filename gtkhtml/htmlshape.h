@@ -31,7 +31,7 @@ typedef enum {
 
 typedef struct _HTMLShape HTMLShape;
 
-void         html_length_array_parse   (GPtrArray *array, char *str);
+void         html_length_array_parse   (GPtrArray *array, const char *str);
 void         html_length_array_destroy (GPtrArray *array);
 
 HTMLShape *  html_shape_new      (char *type, char *coords, char *href, char *target);

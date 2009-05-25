@@ -84,16 +84,16 @@ enum DndTargetType {
 };
 
 static GtkTargetEntry dnd_link_sources [] = {
-	{ "message/rfc822", 0, DND_TARGET_TYPE_MESSAGE_RFC822 },
-	{ "x-uid-list", 0, DND_TARGET_TYPE_X_UID_LIST },
-	{ "text/uri-list", 0, DND_TARGET_TYPE_TEXT_URI_LIST },
-	{ "_NETSCAPE_URL", 0, DND_TARGET_TYPE_MOZILLA_URL },
-	{ "text/x-vcard", 0, DND_TARGET_TYPE_TEXT_VCARD },
-	{ "text/calendar", 0, DND_TARGET_TYPE_TEXT_CALENDAR },
-	{ "text/html", 0, DND_TARGET_TYPE_TEXT_HTML },
-	{ "UTF8_STRING", 0, DND_TARGET_TYPE_UTF8_STRING },
-	{ "text/plain", 0, DND_TARGET_TYPE_TEXT_PLAIN },
-	{ "STRING", 0, DND_TARGET_TYPE_STRING },
+	{ (gchar *) "message/rfc822", 0, DND_TARGET_TYPE_MESSAGE_RFC822 },
+	{ (gchar *) "x-uid-list", 0, DND_TARGET_TYPE_X_UID_LIST },
+	{ (gchar *) "text/uri-list", 0, DND_TARGET_TYPE_TEXT_URI_LIST },
+	{ (gchar *) "_NETSCAPE_URL", 0, DND_TARGET_TYPE_MOZILLA_URL },
+	{ (gchar *) "text/x-vcard", 0, DND_TARGET_TYPE_TEXT_VCARD },
+	{ (gchar *) "text/calendar", 0, DND_TARGET_TYPE_TEXT_CALENDAR },
+	{ (gchar *) "text/html", 0, DND_TARGET_TYPE_TEXT_HTML },
+	{ (gchar *) "UTF8_STRING", 0, DND_TARGET_TYPE_UTF8_STRING },
+	{ (gchar *) "text/plain", 0, DND_TARGET_TYPE_TEXT_PLAIN },
+	{ (gchar *) "STRING", 0, DND_TARGET_TYPE_STRING },
 };
 #define DND_LINK_SOURCES sizeof (dnd_link_sources) / sizeof (GtkTargetEntry)
 
@@ -108,11 +108,11 @@ enum _TargetInfo {
 typedef enum _TargetInfo TargetInfo;
 
 static const GtkTargetEntry selection_targets[] = {
-	{ "text/html", GTK_TARGET_SAME_APP, TARGET_HTML },
-	{ "UTF8_STRING", 0, TARGET_UTF8_STRING },
-	{ "COMPOUND_TEXT", 0, TARGET_COMPOUND_TEXT },
-	{ "STRING", 0, TARGET_STRING },
-	{ "TEXT",   0, TARGET_TEXT }
+	{ (gchar *) "text/html", GTK_TARGET_SAME_APP, TARGET_HTML },
+	{ (gchar *) "UTF8_STRING", 0, TARGET_UTF8_STRING },
+	{ (gchar *) "COMPOUND_TEXT", 0, TARGET_COMPOUND_TEXT },
+	{ (gchar *) "STRING", 0, TARGET_STRING },
+	{ (gchar *) "TEXT", 0, TARGET_TEXT }
 };
 
 static const guint n_selection_targets = G_N_ELEMENTS (selection_targets);
@@ -2205,7 +2205,7 @@ enter_notify_event (GtkWidget *widget, GdkEventCrossing *event)
 
 /* X11 selection support.  */
 
-static char *
+static const char *
 utf16_order (gboolean swap)
 {
 	gboolean be;
@@ -2294,7 +2294,7 @@ gtk_html_get_selection_plain_text (GtkHTML *html, int *len)
 
 static gchar *
 utf16_to_utf8_with_bom_check (guchar  *data, guint len) {
-	char    *fromcode = NULL;
+	const char *fromcode = NULL;
 	GError  *error = NULL;
 	guint16 c;
 	gsize read_len, written_len;
@@ -2372,7 +2372,7 @@ setup_class_properties (GtkHTML *html)
 		klass->properties = gtk_html_class_properties_new (GTK_WIDGET (html));
 
 		if (!gconf_is_initialized ()) {
-			char *argv[] = { "gtkhtml", NULL };
+			char *argv[] = { (char *) "gtkhtml", NULL };
 
 			g_warning ("gconf is not initialized, please call gconf_init before using GtkHTML library. "
 				   "Meanwhile it's initialized by gtkhtml itself.");
@@ -2564,7 +2564,7 @@ drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkSelectionData *sel
 					char *utf16;
 					char *utf8;
 					gsize written_len;
-					GdkAtom target;
+					GdkAtom atom;
 
 					if (HTML_IS_TEXT (obj)) {
 						Link *link = html_text_get_link_at_offset (HTML_TEXT (obj), offset);
@@ -2577,17 +2577,17 @@ drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkSelectionData *sel
 						utf8 = g_strconcat (complete_url, "\n", complete_url, NULL);
 
 					utf16 = g_convert (utf8, strlen (utf8), "UTF-16", "UTF-8", NULL, &written_len, NULL);
-					target = gtk_selection_data_get_target (selection_data);
-					gtk_selection_data_set (selection_data, target, 8,
+					atom = gtk_selection_data_get_target (selection_data);
+					gtk_selection_data_set (selection_data, atom, 8,
 								(guchar *) utf16, written_len);
 					g_free (utf8);
 					g_free (complete_url);
 					GTK_HTML (widget)->priv->dnd_url = utf16;
 				} else {
-					GdkAtom target;
+					GdkAtom atom;
 
-					target = gtk_selection_data_get_target (selection_data);
-					gtk_selection_data_set (selection_data, target, 8,
+					atom = gtk_selection_data_get_target (selection_data);
+					gtk_selection_data_set (selection_data, atom, 8,
 								(guchar *) complete_url, strlen (complete_url));
 				        /* printf ("complete URL %s\n", complete_url); */
 					GTK_HTML (widget)->priv->dnd_url = complete_url;
@@ -3629,7 +3629,7 @@ gtk_html_allow_selection (GtkHTML *html,
 GtkHTMLStream *
 gtk_html_begin_full (GtkHTML           *html,
 		     char              *target_frame,
-		     char              *content_type,
+		     const char        *content_type,
 		     GtkHTMLBeginFlags flags)
 {
 	GtkHTMLStream *handle;
@@ -3700,7 +3700,7 @@ gtk_html_begin (GtkHTML *html)
  * Returns: a new GtkHTMLStream to store new content.
  **/
 GtkHTMLStream *
-gtk_html_begin_content (GtkHTML *html, gchar *content_type)
+gtk_html_begin_content (GtkHTML *html, const gchar *content_type)
 {
 	g_return_val_if_fail (! gtk_html_get_editable (html), NULL);
 

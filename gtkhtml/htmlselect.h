@@ -61,9 +61,9 @@ HTMLObject *html_select_new         (GtkWidget       *parent,
 				     gint             size,
 				     gboolean         multi);
 void        html_select_add_option  (HTMLSelect      *select,
-				     gchar           *value,
+				     const gchar     *value,
 				     gboolean         selected);
 void        html_select_set_text    (HTMLSelect      *select,
-				     gchar           *text);
+				     const gchar     *text);
 
 #endif /* _HTMLSELECT_H_ */

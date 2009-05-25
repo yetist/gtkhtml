@@ -586,13 +586,13 @@ append_selection_string (HTMLObject *self,
 }
 
 static HTMLObject *
-head (HTMLObject *self)
+clue_head (HTMLObject *self)
 {
 	return HTML_CLUE (self)->head;
 }
 
 static HTMLObject *
-tail (HTMLObject *self)
+clue_tail (HTMLObject *self)
 {
 	HTMLObject *obj;
 
@@ -642,8 +642,8 @@ html_clue_class_init (HTMLClueClass *klass,
 	object_class->save_plain = save_plain;
 	object_class->search = search;
 	object_class->append_selection_string = append_selection_string;
-	object_class->head = head;
-	object_class->tail = tail;
+	object_class->head = clue_head;
+	object_class->tail = clue_tail;
 	object_class->get_recursive_length = get_recursive_length;
 	object_class->get_n_children = get_n_children;
 	object_class->get_child = get_child;

@@ -44,7 +44,7 @@ struct _HTMLFramesetClass {
 
 
 HTMLObject   *html_frameset_new        (GtkHTML *parent, char *rows, char *cols);
-void          html_frameset_init       (HTMLFrameset *set, GtkHTML *parent, char *rows, char *cols);
+void          html_frameset_init       (HTMLFrameset *set, GtkHTML *parent, const char *rows, const char *cols);
 void          html_frameset_class_init (HTMLFramesetClass *klass, HTMLType type, guint object_size);
 gboolean      html_frameset_append     (HTMLFrameset *set, HTMLObject *o);
 void          html_frameset_type_init  (void);

@@ -40,7 +40,7 @@ HTMLStringTokenizer *html_string_tokenizer_new              (void);
 void                 html_string_tokenizer_destroy          (HTMLStringTokenizer *st);
 void                 html_string_tokenizer_tokenize         (HTMLStringTokenizer *t,
 							     const gchar         *str,
-							     gchar               *separators);
+							     const gchar         *separators);
 gboolean             html_string_tokenizer_has_more_tokens  (HTMLStringTokenizer *t);
 gchar               *html_string_tokenizer_next_token       (HTMLStringTokenizer *t);
 

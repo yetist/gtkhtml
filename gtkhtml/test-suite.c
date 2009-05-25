@@ -18,7 +18,7 @@
 #include "htmltext.h"
 
 typedef struct {
-	char *name;
+	const char *name;
 	int (*test_function) (GtkHTML *html);
 } Test;
 
@@ -66,7 +66,7 @@ static Test tests[] = {
 	{ NULL, NULL }
 };
 
-static void load_editable (GtkHTML *html, char *s)
+static void load_editable (GtkHTML *html, const char *s)
 {
 	gtk_html_set_editable (html, FALSE);
 	gtk_html_load_from_string (html, s, -1);

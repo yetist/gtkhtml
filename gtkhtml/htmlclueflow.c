@@ -1129,7 +1129,8 @@ static gchar *
 get_roman_value (gint value, gboolean lower)
 {
 	GString *str;
-	gchar *rv, *base = "IVXLCDM";
+	const gchar *base = "IVXLCDM";
+	gchar *rv;
 	gint b, r, add = lower ? 'a' - 'A' : 0;
 
 	if (value > 3999)
@@ -1203,7 +1204,7 @@ get_item_marker_str (HTMLClueFlow *flow, gboolean ascii_only)
 }
 
 static void
-draw_cite_line (HTMLObject *cur, HTMLPainter *p, char *cite_str, gint offset, gint x, gint y)
+draw_cite_line (HTMLObject *cur, HTMLPainter *p, const char *cite_str, gint offset, gint x, gint y)
 {
 	gint cy, w, a, d;
 
@@ -1277,7 +1278,7 @@ draw_quotes (HTMLObject *self, HTMLPainter *painter,
 			} else {
 				HTMLObject *cur = HTML_CLUE (self)->head;
 				int x_pos, baseline = 0;
-				char *cite_str = dir == HTML_DIRECTION_RTL ? HTML_BLOCK_CITE_RTL : HTML_BLOCK_CITE_LTR;
+				const char *cite_str = dir == HTML_DIRECTION_RTL ? HTML_BLOCK_CITE_RTL : HTML_BLOCK_CITE_LTR;
 
 				while (cur) {
 					if (cur->y != 0) {
@@ -1520,7 +1521,7 @@ get_list_start_tag (HTMLClueFlow *self)
 }
 
 
-static gchar *
+static const gchar *
 get_start_tag (HTMLClueFlow *self)
 {
 	switch (self->style) {
@@ -1633,10 +1634,10 @@ save_indent_string (HTMLClueFlow *self, HTMLEngineSaveState *state, const char *
 	return retval;
 }
 
-static char *
+static const char *
 get_p_str (HTMLClueFlow *self, HTMLEngineSaveState *state)
 {
-	char *p_str = NULL;
+	const char *p_str = NULL;
 
 	if (self->dir != html_object_get_direction (state->engine->clue)) {
 		switch (self->dir) {
@@ -1661,7 +1662,7 @@ write_flow_tag (HTMLClueFlow *self, HTMLEngineSaveState *state)
 	HTMLClueFlow *next = NULL;
 	HTMLClueFlow *prev = NULL;
 	HTMLHAlignType halign;
-	char *br_str = "<BR>\n";
+	const char *br_str = "<BR>\n";
 
 	if (HTML_IS_CLUEFLOW (HTML_OBJECT (self)->next))
 		next = HTML_CLUEFLOW (HTML_OBJECT (self)->next);
@@ -1684,7 +1685,7 @@ write_flow_tag (HTMLClueFlow *self, HTMLEngineSaveState *state)
 	}
 
 	if (!prev) {
-		char *p_str = get_p_str (self, state);
+		const char *p_str = get_p_str (self, state);
 
 		if (p_str) {
 			if (! html_engine_save_output_string (state, "%s", p_str))
@@ -1703,7 +1704,7 @@ write_flow_tag (HTMLClueFlow *self, HTMLEngineSaveState *state)
 		if (!save_indent_string (self, state, ""))
 			return FALSE;
 	} else {
-		char *start = get_start_tag (self);
+		const char *start = get_start_tag (self);
 
 		if (start) {
 			if (!save_indent_string (self, state, "<%s>\n", start))
@@ -1751,7 +1752,7 @@ write_flow_tag (HTMLClueFlow *self, HTMLEngineSaveState *state)
 				return FALSE;
 		}
 	} else {
-		char *end = get_start_tag (self);
+		const char *end = get_start_tag (self);
 
 		if (self->style != HTML_CLUEFLOW_STYLE_PRE) {
 			if ((!html_clueflow_contains_table (self) && !end && next && self->style == next->style) || html_clueflow_is_empty (self)) {
@@ -1777,7 +1778,7 @@ write_flow_tag (HTMLClueFlow *self, HTMLEngineSaveState *state)
 			HTMLObject *head = HTML_CLUE (HTML_OBJECT (self)->parent)->head;
 
 			if (head && HTML_IS_CLUEFLOW (head)) {
-				char *head_p_str = get_p_str (HTML_CLUEFLOW (head), state);
+				const char *head_p_str = get_p_str (HTML_CLUEFLOW (head), state);
 
 				if (head_p_str) {
 					if (! html_engine_save_output_string (state, "</P>\n"))

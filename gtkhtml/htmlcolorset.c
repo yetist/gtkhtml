@@ -136,7 +136,10 @@ html_colorset_set_unchanged (HTMLColorSet *s, HTMLColorSet *o)
 }
 
 static GdkColor *
-get_prop_color  (GtkWidget *w, char *name, char *dv, GdkColor *gdk_color)
+get_prop_color (GtkWidget *w,
+                const char *name,
+                const char *dv,
+                GdkColor *gdk_color)
 {
 	GdkColor c;
 	GdkColor *color = NULL;

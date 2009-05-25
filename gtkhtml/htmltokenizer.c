@@ -168,7 +168,7 @@ static gchar   *html_tokenizer_converted_token (HTMLTokenizer *t,const gchar* to
 static HTMLTokenizer *html_tokenizer_real_clone     (HTMLTokenizer *);
 
 /* blocking tokens */
-static gchar             *html_tokenizer_blocking_get_name   (HTMLTokenizer  *t);
+static const gchar       *html_tokenizer_blocking_get_name   (HTMLTokenizer  *t);
 static void               html_tokenizer_blocking_pop        (HTMLTokenizer  *t);
 static void               html_tokenizer_blocking_push       (HTMLTokenizer  *t,
 							      HTMLTokenType   tt);
@@ -1429,7 +1429,7 @@ html_tokenizer_real_write (HTMLTokenizer *t, const gchar *string, size_t size)
 		html_tokenizer_tokenize_one_char (t, &src);
 }
 
-static gchar *
+static const gchar *
 html_tokenizer_blocking_get_name (HTMLTokenizer *t)
 {
 	switch (GPOINTER_TO_INT (t->priv->blocking->data)) {

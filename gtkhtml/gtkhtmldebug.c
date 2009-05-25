@@ -100,7 +100,7 @@ clueflow_style_to_string (HTMLClueFlowStyle style)
 	}
 }
 
-static char *
+static const char *
 direction_to_string (HTMLDirection dir)
 {
 	switch (dir) {

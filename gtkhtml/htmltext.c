@@ -1620,7 +1620,7 @@ save_open_attrs (HTMLEngineSaveState *state, GSList *attrs)
 	for (; attrs; attrs = attrs->next) {
 		PangoAttribute *attr = (PangoAttribute *) attrs->data;
 		HTMLEngine *e = state->engine;
-		gchar *tag = NULL;
+		const gchar *tag = NULL;
 		gboolean free_tag = FALSE;
 
 		switch (attr->klass->type) {
@@ -1669,7 +1669,7 @@ save_open_attrs (HTMLEngineSaveState *state, GSList *attrs)
 			if (!html_engine_save_output_string (state, "%s", tag))
 				rv = FALSE;
 			if (free_tag)
-				g_free (tag);
+				g_free ((gpointer) tag);
 			if (!rv)
 				break;
 		}
@@ -1684,7 +1684,7 @@ save_close_attrs (HTMLEngineSaveState *state, GSList *attrs)
 	for (; attrs; attrs = attrs->next) {
 		PangoAttribute *attr = (PangoAttribute *) attrs->data;
 		HTMLEngine *e = state->engine;
-		gchar *tag = NULL;
+		const gchar *tag = NULL;
 
 		switch (attr->klass->type) {
 		case PANGO_ATTR_WEIGHT:
@@ -3142,9 +3142,9 @@ html_text_get_char (HTMLText *text, guint offset)
 
 struct _HTMLMagicInsertMatch
 {
-	gchar *regex;
+	const gchar *regex;
 	regex_t *preg;
-	gchar *prefix;
+	const gchar *prefix;
 };
 
 typedef struct _HTMLMagicInsertMatch HTMLMagicInsertMatch;
@@ -3178,7 +3178,7 @@ html_engine_init_magic_links (void)
 }
 
 static void
-paste_link (HTMLEngine *engine, HTMLText *text, gint so, gint eo, gchar *prefix)
+paste_link (HTMLEngine *engine, HTMLText *text, gint so, gint eo, const gchar *prefix)
 {
 	gchar *href;
 	gchar *base;

@@ -53,6 +53,8 @@ HTMLObjectClass html_object_class;
 
 #define HO_CLASS(x) HTML_OBJECT_CLASS (HTML_OBJECT (x)->klass)
 
+static void remove_child (HTMLObject *self, HTMLObject *child) G_GNUC_NORETURN;
+
 static void
 destroy (HTMLObject *self)
 {
