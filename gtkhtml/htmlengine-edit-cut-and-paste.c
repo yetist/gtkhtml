@@ -1903,7 +1903,7 @@ html_engine_delete (HTMLEngine *e)
 				} while (prev && prev->parent->next && (cur = html_object_head (prev->parent->next)));
 
 				if (prev) {
-				        /* cluev end is in the selection. Lets handle this case just like simple delete 
+				        /* cluev end is in the selection. Lets handle this case just like simple delete
 					since text is the selection itself*/
 					if (e->mark)
 						html_cursor_destroy (e->mark);

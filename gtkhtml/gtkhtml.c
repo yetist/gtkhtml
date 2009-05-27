@@ -3668,7 +3668,7 @@ gtk_html_begin_full (GtkHTML           *html,
 
 	/* Enable change content type in engine */
 	if (flags & GTK_HTML_BEGIN_CHANGECONTENTTYPE)
-		gtk_html_set_default_engine(html, TRUE);		
+		gtk_html_set_default_engine(html, TRUE);
 
 	return handle;
 }
@@ -4666,13 +4666,13 @@ gtk_html_get_default_engine(GtkHTML *html)
 
 void
 gtk_html_set_default_content_type (GtkHTML *html, const gchar *content_type)
-{   
+{
     html_engine_set_content_type( html->engine, content_type);
 }
 
 const gchar*
 gtk_html_get_default_content_type (GtkHTML *html)
-{   
+{
     return html_engine_get_content_type( html->engine);
 }
 
@@ -6085,7 +6085,7 @@ reparent_embedded (HTMLObject *o, HTMLEngine *e, gpointer data)
 	    GTK_HTML (GTK_HTML (HTML_FRAME (o)->html)->iframe_parent)->iframe_parent == NULL)
 		gtk_html_set_iframe_parent (GTK_HTML (HTML_FRAME (o)->html), data, o);
 
-	if (HTML_IS_FRAMESET (o) && HTML_FRAMESET (o)->parent && 
+	if (HTML_IS_FRAMESET (o) && HTML_FRAMESET (o)->parent &&
 	    HTML_FRAMESET (o)->parent->iframe_parent == NULL) {
 		HTML_FRAMESET (o)->parent = data;
 	}

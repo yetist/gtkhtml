@@ -117,9 +117,9 @@ struct _HTMLTokenizerPrivate {
 	GList *blocking; /* Blocking tokens */
 
 	const gchar *searchFor;
-	
+
 	gboolean enableconvert;
-	
+
 	gchar * content_type;
 	/*convert*/
 	GIConv iconv_cd;
@@ -289,10 +289,10 @@ html_tokenizer_init (HTMLTokenizer *t)
 	p->blocking = NULL;
 
 	p->searchFor = NULL;
-	
+
 	/* Use old logic and not convert charset */
 	p->enableconvert = FALSE;
-	
+
 	p->content_type = g_strdup ("html/text; charset=utf-8");
 }
 
@@ -300,15 +300,15 @@ static void
 html_tokenizer_finalize (GObject *obj)
 {
 	HTMLTokenizer *t = HTML_TOKENIZER (obj);
-	
+
 	html_tokenizer_reset (t);
-	
+
 	if(is_valid_g_iconv (t->priv->iconv_cd))
 		g_iconv_close (t->priv->iconv_cd);
-		
+
 	if(t->priv->content_type)
 		g_free(t->priv->content_type);
-		
+
 	g_free (t->priv);
 	t->priv = NULL;
 
@@ -419,7 +419,7 @@ html_tokenizer_real_peek_token (HTMLTokenizer *t)
 		/* finally get first token */
 		token = buffer->data;
 	}
-	
+
 	return html_tokenizer_converted_token (t,token);
 }
 
@@ -487,14 +487,14 @@ html_tokenizer_convert_entity (gchar *token)
 					} else {
 						value = html_entity_parse (read_pos, strlen (read_pos));
 					}
-					if(value != INVALID_ENTITY_CHARACTER_MARKER){							
+					if(value != INVALID_ENTITY_CHARACTER_MARKER){
 						write_pos += g_unichar_to_utf8 (value, write_pos);
 						read_pos += (count_chars + 1);
 					} else {
 						/*recovery old value - it's not entity*/
 						write_pos += g_unichar_to_utf8 ('&', write_pos);
 						*(read_pos + count_chars) = save_gchar;
-					}					
+					}
 				}
 				else
 					/*very large string*/
@@ -618,7 +618,7 @@ html_tokenizer_real_next_token (HTMLTokenizer *t)
 
 	p->tokens_num--;
 	g_assert (p->tokens_num >= 0);
-	
+
 	return html_tokenizer_converted_token (t, token);
 }
 
@@ -691,7 +691,7 @@ get_encoding_from_content_type(const gchar * content_type)
 		charset =  g_strrstr (content_type, "encoding=");
 		if(charset != NULL)
 			return charset + strlen ("encoding=");
-		
+
 	}
 	return NULL;
 }
@@ -727,32 +727,32 @@ html_tokenizer_real_engine_type (HTMLTokenizer *t, gboolean engine_type)
 {
 	struct _HTMLTokenizerPrivate *p;
 	p = t->priv;
-	
+
 	p->enableconvert = engine_type;
 }
 
 static void
 html_tokenizer_real_change (HTMLTokenizer *t, const gchar *content_type)
-{	
+{
 	struct _HTMLTokenizerPrivate *p;
 	if(!is_text (content_type))
 		return;
-			
+
 	p = t->priv;
-	
+
 	if (!p->enableconvert)
 		return;
-	
+
 	if(p->content_type)
 		g_free(p->content_type);
-	
+
 	p->content_type = g_ascii_strdown ( content_type, -1);
-	
+
 	if(is_valid_g_iconv (p->iconv_cd))
 		g_iconv_close (p->iconv_cd);
-		
+
 	p->iconv_cd = generate_iconv_from (p->content_type);
-	
+
 #if 0
 	if (charset_is_utf8 (p->content_type))
 		g_warning ("Trying UTF-8");
@@ -1052,13 +1052,13 @@ in_script_or_style (HTMLTokenizer *t, const gchar **src)
 			while (isspace (**p))
 				(*p)++;
 
-			
+
 			if (**p == '>')
 				*src = *p;
 			else
 				put_to_script = TRUE;
 		}
-		else 
+		else
 			put_to_script = TRUE;
 
 		if (put_to_script) {
@@ -1424,7 +1424,7 @@ static void
 html_tokenizer_real_write (HTMLTokenizer *t, const gchar *string, size_t size)
 {
 	const gchar *src = string;
-	
+
 	while ((src - string) < size)
 		html_tokenizer_tokenize_one_char (t, &src);
 }
@@ -1472,7 +1472,7 @@ html_tokenizer_blocking_pop (HTMLTokenizer *t)
 void
 html_tokenizer_begin (HTMLTokenizer *t, const gchar *content_type)
 {
-	
+
 	g_return_if_fail (t && HTML_IS_TOKENIZER (t));
 
 	g_signal_emit (t, html_tokenizer_signals [HTML_TOKENIZER_BEGIN_SIGNAL], 0, content_type);
@@ -1488,7 +1488,7 @@ html_tokenizer_set_engine_type (HTMLTokenizer *t, gboolean engine_type)
 
 void
 html_tokenizer_change_content_type (HTMLTokenizer *t,const gchar *content_type)
-{	
+{
 	g_return_if_fail (t && HTML_IS_TOKENIZER (t));
 
 	g_signal_emit (t, html_tokenizer_signals [HTML_TOKENIZER_CHANGECONTENT_SIGNAL], 0, content_type);
@@ -1542,7 +1542,7 @@ html_tokenizer_get_content_type(HTMLTokenizer *t)
 	g_return_val_if_fail (t && HTML_IS_TOKENIZER (t), NULL);
 
 	klass = HTML_TOKENIZER_CLASS (G_OBJECT_GET_CLASS (t));
-		
+
 	if(klass->get_content_type)
 		return  klass->get_content_type(t);
 
@@ -1551,7 +1551,7 @@ html_tokenizer_get_content_type(HTMLTokenizer *t)
 
 }
 
-gboolean       
+gboolean
 html_tokenizer_get_engine_type (HTMLTokenizer *t)
 {
 	HTMLTokenizerClass *klass;
@@ -1559,7 +1559,7 @@ html_tokenizer_get_engine_type (HTMLTokenizer *t)
 	g_return_val_if_fail (t && HTML_IS_TOKENIZER (t),FALSE);
 
 	klass = HTML_TOKENIZER_CLASS (G_OBJECT_GET_CLASS (t));
-		
+
 	if(klass->get_engine_type)
 		return  klass->get_engine_type(t);
 

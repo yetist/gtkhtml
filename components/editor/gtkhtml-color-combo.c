@@ -376,7 +376,7 @@ color_combo_swatch_release_event_cb (GtkhtmlColorCombo *combo,
 
 	return FALSE;
 }
-                                     
+
 
 static void
 color_combo_toggled_cb (GtkhtmlColorCombo *combo)
@@ -892,7 +892,7 @@ color_combo_init (GtkhtmlColorCombo *combo)
 	/* Build the pop-up window. */
 
 	window = gtk_window_new (GTK_WINDOW_POPUP);
-	toplevel = gtk_widget_get_toplevel (GTK_WIDGET (combo));	
+	toplevel = gtk_widget_get_toplevel (GTK_WIDGET (combo));
 	gtk_window_set_resizable (GTK_WINDOW (window), FALSE);
 	gtk_window_set_type_hint (
 		GTK_WINDOW (window), GDK_WINDOW_TYPE_HINT_COMBO);

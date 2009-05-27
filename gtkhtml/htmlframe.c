@@ -484,7 +484,7 @@ html_frame_init (HTMLFrame *frame,
 
 	gtk_html_set_default_engine (new_html,
 					   gtk_html_get_default_engine(parent_html));
-					   
+
 	frame->html = new_widget;
 	frame->url = g_strdup (src);
 	frame->width = width;

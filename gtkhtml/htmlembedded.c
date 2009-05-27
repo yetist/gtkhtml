@@ -241,7 +241,7 @@ html_embedded_encode_string (const gchar *before, const gchar *codepage)
         GString *encoded = g_string_new ("");
         gchar buffer[5], *ptr;
 		guchar c;
-		
+
 	    GIConv iconv_cd = generate_iconv_to (codepage);
 	    if( is_valid_g_iconv (iconv_cd))
 	    {

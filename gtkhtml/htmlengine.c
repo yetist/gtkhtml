@@ -418,7 +418,7 @@ push_element (HTMLEngine *e, const char *name, const char *class, HTMLStyle *sty
 	HTMLElement *element;
 
 	g_return_if_fail (HTML_IS_ENGINE (e));
-	
+
 	element = html_element_new (e, name);
 	element->style = html_style_set_display (style, DISPLAY_INLINE);
 	html_stack_push (e->span_stack, element);
@@ -430,7 +430,7 @@ static HTMLColor *
 current_color (HTMLEngine *e) {
 	HTMLElement *span;
 	GList *item;
-	
+
 	g_return_val_if_fail( HTML_IS_ENGINE(e), NULL );
 
 	for (item = e->span_stack->list; item; item = item->next) {
@@ -982,7 +982,7 @@ static void
 html_element_push (HTMLElement *node, HTMLEngine *e, HTMLObject *clue)
 {
 	HTMLObject *block_clue;
-	
+
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
 	switch (node->style->display) {
@@ -1081,7 +1081,7 @@ static void
 pop_block (HTMLEngine *e, HTMLElement *elem)
 {
 	GList *l;
-	
+
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
 	l = e->span_stack->list;
@@ -1105,7 +1105,7 @@ pop_inline (HTMLEngine *e, HTMLElement *elem)
 	GList *l;
 
 	g_return_if_fail (HTML_IS_ENGINE (e));
-	
+
 	l = e->span_stack->list;
 	while (l) {
 		HTMLElement *cur = l->data;
@@ -2796,14 +2796,14 @@ html_engine_get_engine_type( HTMLEngine *e)
 	return html_tokenizer_get_engine_type(e->ht);
 }
 
-void 
+void
 html_engine_set_content_type(HTMLEngine *e, const gchar* content_type)
 {
 	g_return_if_fail (HTML_IS_ENGINE (e));
 	html_tokenizer_change_content_type(e->ht, content_type);
 }
 
-const gchar *  
+const gchar *
 html_engine_get_content_type(HTMLEngine *e)
 {
 	g_return_val_if_fail (HTML_IS_ENGINE (e), NULL);
@@ -2830,7 +2830,7 @@ element_parse_meta (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 				contenttype = 1;
 		} else if (g_ascii_strncasecmp(token, "content=", 8) == 0) {
 			const gchar *content;
-			content = token + 8;	
+			content = token + 8;
 			if(contenttype)
 			{
 				contenttype = 0;
@@ -2838,7 +2838,7 @@ element_parse_meta (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 			}
 			if (refresh) {
 				refresh = 0;
-				
+
 				/* The time in seconds until the refresh */
 				refresh_delay = atoi(content);
 
@@ -3380,7 +3380,7 @@ block_end_row (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 	HTMLTable *table;
 
 	g_return_if_fail (HTML_IS_ENGINE (e));
-	
+
 	table = html_stack_top (e->table_stack);
 	if (table) {
 		html_table_end_row (table);
@@ -6005,7 +6005,7 @@ replace (HTMLEngine *e)
 	HTMLObject *first;
 
 	g_return_if_fail (HTML_IS_ENGINE (e));
-	
+
 	first = HTML_OBJECT (e->search_info->found->data);
 	html_engine_edit_selection_updater_update_now (e->selection_updater);
 
@@ -6295,7 +6295,7 @@ html_engine_add_object_with_id (HTMLEngine *e, const gchar *id, HTMLObject *obj)
 	gpointer old_val;
 
 	g_return_if_fail (HTML_IS_ENGINE (e));
-	
+
 	if (e->id_table == NULL)
 		e->id_table = g_hash_table_new (g_str_hash, g_str_equal);
 
@@ -6542,12 +6542,12 @@ html_engine_get_focus_object (HTMLEngine *e, gint *offset)
 {
 	HTMLObject *o;
 	HTMLEngine *object_engine;
-	
+
 	g_return_val_if_fail (HTML_IS_ENGINE (e), NULL);
-	
+
 	o = e->focus_object;
 	object_engine = e;
-	
+
 	while (html_object_is_frame (o)) {
 		object_engine = html_object_get_engine (o, e);
 		o = object_engine->focus_object;
@@ -6927,7 +6927,7 @@ void
 html_engine_opened_streams_increment (HTMLEngine *e)
 {
 	g_return_if_fail (HTML_IS_ENGINE (e));
-	
+
 	html_engine_opened_streams_set (e, e->opened_streams + 1);
 }
 
@@ -6935,7 +6935,7 @@ void
 html_engine_opened_streams_decrement (HTMLEngine *e)
 {
 	g_return_if_fail (HTML_IS_ENGINE (e));
-	
+
 	html_engine_opened_streams_set (e, e->opened_streams - 1);
 }
 
@@ -6943,7 +6943,7 @@ void
 html_engine_opened_streams_set (HTMLEngine *e, int value)
 {
 	g_return_if_fail (HTML_IS_ENGINE (e));
-	
+
 	e->opened_streams = value;
 
 	if (value == 0 && e->keep_scroll) {
@@ -6977,7 +6977,7 @@ void
 html_engine_refresh_fonts (HTMLEngine *e)
 {
 	g_return_if_fail (HTML_IS_ENGINE (e));
-	
+
 	if (e->clue) {
 		html_object_forall (e->clue, e, calc_font_size, NULL);
 		html_object_change_set_down (e->clue, HTML_CHANGE_ALL);

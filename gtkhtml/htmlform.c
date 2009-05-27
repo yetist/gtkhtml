@@ -125,9 +125,9 @@ html_form_submit (HTMLForm *form)
 	gint first = TRUE;
 	GList *i = form->elements;
 	gchar *ptr;
-	
+
 	const gchar * codepage = html_engine_get_content_type(form->engine);
-	
+
 	while (i) {
 		ptr = html_embedded_encode (HTML_EMBEDDED (i->data), codepage);
 		if (strlen (ptr)) {

@@ -615,7 +615,7 @@ html_iframe_init (HTMLIFrame *iframe,
 
 	gtk_html_set_default_engine (new_html,
 					   gtk_html_get_default_engine(parent_html));
-					   
+
 	iframe->html = new_widget;
 	iframe->url = g_strdup (src);
 	iframe->width = width;

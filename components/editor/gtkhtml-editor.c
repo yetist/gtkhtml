@@ -1608,7 +1608,7 @@ gtkhtml_editor_insert_image	(GtkhtmlEditor *editor,
 
 	if (html) {
 		HTMLObject *image;
-		
+
 		image = html_image_new (
 			html_engine_get_image_factory (html->engine), filename_uri,
 			NULL, NULL, 0, 0, 0, 0, 0, NULL, HTML_VALIGN_NONE, FALSE);

@@ -30,7 +30,7 @@
 
 #ifdef G_OS_WIN32
 /* Clashes with objidl.h, which gets included through a chain of includes from libsoup/soup.h */
-#undef DATADIR			
+#undef DATADIR
 #endif
 
 #include <libsoup/soup.h>
@@ -662,7 +662,7 @@ got_data (SoupSession *session, SoupMessage *msg, gpointer user_data)
 	}
 	/* Enable change content type in engine */
 	gtk_html_set_default_engine(html, TRUE);
-	
+
 	ContentType = soup_message_headers_get (msg->response_headers, "Content-type");
 
 	if (ContentType != NULL)
@@ -1037,7 +1037,7 @@ main (gint argc, gchar *argv[])
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
 					GTK_POLICY_AUTOMATIC,
 					GTK_POLICY_AUTOMATIC);
-					
+
 	main_table = gtk_table_new (1, 2, FALSE);
 	gnome_app_set_contents (GNOME_APP (app), main_table);
 	gtk_table_attach (GTK_TABLE (main_table),
