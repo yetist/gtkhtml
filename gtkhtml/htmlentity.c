@@ -84,7 +84,7 @@ inline
 #endif
 #endif
 static unsigned int
-hash (register const char *str, register unsigned int len)
+hash (register const gchar *str, register guint len)
 {
   static unsigned short asso_values[] =
     {
@@ -115,7 +115,7 @@ hash (register const char *str, register unsigned int len)
       739, 739, 739, 739, 739, 739, 739, 739, 739, 739,
       739, 739, 739, 739, 739, 739, 739
     };
-  register int hval = len;
+  register gint hval = len;
 
   switch (hval)
     {
@@ -143,9 +143,9 @@ __attribute__ ((__gnu_inline__))
 #endif
 #endif
 static struct _EntityEntry *
-html_entity_hash (register const char *str, register unsigned int len)
+html_entity_hash (register const gchar *str, register guint len)
 {
-  static unsigned char lengthtable[] =
+  static guchar lengthtable[] =
     {
        0,  0,  0,  0,  0,  0,  0,  0,  3,  0,  0,  0,  0,  3,
        0,  0,  0,  0,  3,  0,  0,  0,  0,  0,  4,  0,  0,  0,
@@ -850,12 +850,12 @@ html_entity_hash (register const char *str, register unsigned int len)
 
   if (len <= MAX_WORD_LENGTH && len >= MIN_WORD_LENGTH)
     {
-      register int key = hash (str, len);
+      register gint key = hash (str, len);
 
       if (key <= MAX_HASH_VALUE && key >= 0)
         if (len == lengthtable[key])
           {
-            register const char *s = wordlist[key].name;
+            register const gchar *s = wordlist[key].name;
 
             if (*str == *s && !memcmp (str + 1, s + 1, len - 1))
               return &wordlist[key];

@@ -31,12 +31,12 @@ typedef enum {
 
 typedef struct _HTMLShape HTMLShape;
 
-void         html_length_array_parse   (GPtrArray *array, const char *str);
+void         html_length_array_parse   (GPtrArray *array, const gchar *str);
 void         html_length_array_destroy (GPtrArray *array);
 
-HTMLShape *  html_shape_new      (char *type, char *coords, char *href, char *target);
+HTMLShape *  html_shape_new      (gchar *type, gchar *coords, gchar *href, gchar *target);
 gboolean     html_shape_point    (HTMLShape *shape, gint x, gint y);
-char *       html_shape_get_url  (HTMLShape *shape);
+gchar *       html_shape_get_url  (HTMLShape *shape);
 void         html_shape_destroy  (HTMLShape *shape);
 
 #endif /* HTML_SHAPE_H_ */

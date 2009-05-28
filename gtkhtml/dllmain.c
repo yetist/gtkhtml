@@ -27,23 +27,23 @@
 /* localedir uses system codepage as it is passed to the non-UTF8ified
  * gettext library
  */
-static const char *localedir = NULL;
+static const gchar *localedir = NULL;
 
 /* The others are in UTF-8 */
-static char *prefix;
-static const char *libdir;
-static const char *datadir;
-static const char *sysconfdir;
-static const char *icondir;
-static const char *gtkhtml_datadir;
-static const char *glade_datadir;
+static gchar *prefix;
+static const gchar *libdir;
+static const gchar *datadir;
+static const gchar *sysconfdir;
+static const gchar *icondir;
+static const gchar *gtkhtml_datadir;
+static const gchar *glade_datadir;
 
 static gpointer hmodule;
 G_LOCK_DEFINE_STATIC (mutex);
 
-static char *
-replace_prefix (const char *runtime_prefix,
-                const char *configure_time_path)
+static gchar *
+replace_prefix (const gchar *runtime_prefix,
+                const gchar *configure_time_path)
 {
         if (runtime_prefix &&
             strncmp (configure_time_path, PREFIX "/",
@@ -58,7 +58,7 @@ replace_prefix (const char *runtime_prefix,
 static void
 setup (void)
 {
-	char *cp_prefix;
+	gchar *cp_prefix;
 
         G_LOCK (mutex);
         if (localedir != NULL) {
@@ -114,7 +114,7 @@ DllMain (HINSTANCE hinstDLL,
 #include "gtkhtml-private.h"
 
 #define GETTER(varbl)				\
-const char *					\
+const gchar *					\
 _get_##varbl (void)				\
 {						\
         setup ();				\

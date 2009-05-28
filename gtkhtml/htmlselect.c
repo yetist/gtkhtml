@@ -103,7 +103,7 @@ add_selected (GtkTreeModel *model,
               GtkTreePath *path,
               GtkTreeIter *iter,
               struct EmbeddedSelectionInfo *info,
-              const gchar* codepage)
+              const gchar * codepage)
 {
 	gchar *value, *encoded;
 

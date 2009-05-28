@@ -355,7 +355,7 @@ relayout (HTMLObject *self,
 	  HTMLEngine *engine,
 	  HTMLObject *child)
 {
-	/* FIXME int types of this stuff might change in `htmlobject.h',
+	/* FIXME gint types of this stuff might change in `htmlobject.h',
            remember to sync.  */
 	guint prev_width;
 	guint prev_ascent, prev_descent;
@@ -737,13 +737,13 @@ html_object_real_backspace (HTMLObject *self, HTMLCursor *cursor, HTMLEngine *en
 }
 
 static int
-html_object_real_get_right_edge_offset (HTMLObject *o, HTMLPainter *painter, int offset)
+html_object_real_get_right_edge_offset (HTMLObject *o, HTMLPainter *painter, gint offset)
 {
 	return html_object_get_length (o);
 }
 
 static int
-html_object_real_get_left_edge_offset (HTMLObject *o, HTMLPainter *painter, int offset)
+html_object_real_get_left_edge_offset (HTMLObject *o, HTMLPainter *painter, gint offset)
 {
 	return 0;
 }
@@ -982,7 +982,7 @@ html_object_calc_abs_position (HTMLObject *o,
 }
 
 void
-html_object_calc_abs_position_in_frame (HTMLObject *o, int *x_return, int *y_return)
+html_object_calc_abs_position_in_frame (HTMLObject *o, gint *x_return, gint *y_return)
 {
 	HTMLObject *p;
 
@@ -1151,7 +1151,7 @@ html_object_calc_preferred_width (HTMLObject *o,
 
 #if 0
 gint
-html_object_get_uris (HTMLObject *o, char **link, char **target, char **src)
+html_object_get_uris (HTMLObject *o, gchar **link, gchar **target, gchar **src)
 {
 	return TRUE;
 }
@@ -1798,7 +1798,7 @@ html_object_set_data_nocp (HTMLObject *object, const gchar *key, const gchar *va
 }
 
 void
-html_object_set_data_full_nocp (HTMLObject *object, const gchar *key, const gpointer value, GDestroyNotify func)
+html_object_set_data_full_nocp (HTMLObject *object, const gchar *key, gconstpointer value, GDestroyNotify func)
 {
 	g_datalist_set_data_full (&object->object_data_nocp, key, value, func);
 }
@@ -1816,7 +1816,7 @@ html_object_set_data (HTMLObject *object, const gchar *key, const gchar *value)
 }
 
 void
-html_object_set_data_full (HTMLObject *object, const gchar *key, const gpointer value, GDestroyNotify func)
+html_object_set_data_full (HTMLObject *object, const gchar *key, gconstpointer value, GDestroyNotify func)
 {
 	g_datalist_set_data_full (&object->object_data, key, value, func);
 }
@@ -1856,7 +1856,7 @@ object_save_data (GQuark key_id, gpointer data, gpointer user_data)
 		html_engine_save_delims_and_vals (state,
 				"<!--+GtkHTML:<DATA class=\"", state->save_data_class_name,
 				"\" key=\"", g_quark_to_string (key_id),
-				"\" value=\"", (char *) data,
+				"\" value=\"", (gchar *) data,
 				"\">-->", NULL);
 		html_engine_set_class_data (state->engine, state->save_data_class_name, g_quark_to_string (key_id), data);
 	}
@@ -1874,14 +1874,14 @@ handle_object_data (gpointer key, gpointer value, gpointer data)
 		/* printf ("clear\n"); */
 		html_engine_save_delims_and_vals (state,
 				"<!--+GtkHTML:<DATA class=\"", state->save_data_class_name,
-				"\" clear=\"", (char *) key,
+				"\" clear=\"", (gchar *) key,
 				"\">-->", NULL);
 		state->data_to_remove = g_slist_prepend (state->data_to_remove, key);
 	} else if (strcmp (value, str)) {
 		/* printf ("change\n"); */
 		html_engine_save_delims_and_vals (state,
 				"<!--+GtkHTML:<DATA class=\"", state->save_data_class_name,
-				"\" key=\"", (char *) key,
+				"\" key=\"", (gchar *) key,
 				"\" value=\"", str,
 				"\">-->", NULL);
 		html_engine_set_class_data (state->engine, state->save_data_class_name, key, value);
@@ -2131,7 +2131,7 @@ html_object_get_insert_level (HTMLObject *o)
 	switch (HTML_OBJECT_TYPE (o)) {
 	case HTML_TYPE_TABLECELL:
 	case HTML_TYPE_CLUEV: {
-		int level = 3;
+		gint level = 3;
 
 		while (o && (HTML_IS_CLUEV (o) || HTML_IS_TABLE_CELL (o))
 		       && HTML_CLUE (o)->head && (HTML_IS_CLUEV (HTML_CLUE (o)->head) || HTML_IS_TABLE_CELL (HTML_CLUE (o)->head))) {
@@ -2282,14 +2282,14 @@ html_object_get_direction (HTMLObject *o)
 	return (* HO_CLASS (o)->get_direction) (o);
 }
 
-const char *
+const gchar *
 html_object_get_id (HTMLObject *o)
 {
 	return o->id;
 }
 
 void
-html_object_set_id (HTMLObject *o, const char *id)
+html_object_set_id (HTMLObject *o, const gchar *id)
 {
 	g_free (o->id);
 	o->id = g_strdup (id);
@@ -2304,14 +2304,14 @@ html_object_get_flow (HTMLObject *o)
 	return HTML_CLUEFLOW (o);
 }
 
-int
-html_object_get_right_edge_offset (HTMLObject *o, HTMLPainter *painter, int offset)
+gint
+html_object_get_right_edge_offset (HTMLObject *o, HTMLPainter *painter, gint offset)
 {
 	return (* HO_CLASS (o)->get_right_edge_offset) (o, painter, offset);
 }
 
-int
-html_object_get_left_edge_offset (HTMLObject *o, HTMLPainter *painter, int offset)
+gint
+html_object_get_left_edge_offset (HTMLObject *o, HTMLPainter *painter, gint offset)
 {
 	return (* HO_CLASS (o)->get_left_edge_offset) (o, painter, offset);
 }

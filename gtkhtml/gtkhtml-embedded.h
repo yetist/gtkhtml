@@ -36,18 +36,18 @@ struct _GtkHTMLEmbedded {
 	GtkBin bin;
 
 	/* class id of this object */
-	char *classid;
-	char *name;
-        char *type;
-        char *data;
+	gchar *classid;
+	gchar *name;
+        gchar *type;
+        gchar *data;
 
 	/* parameters to class */
-	int width, height;
+	gint width, height;
 	GHashTable *params;
 
 	GtkHTMLEmbeddedPrivate *priv;
 
-	int descent;
+	gint descent;
 };
 
 struct _GtkHTMLEmbeddedClass {
@@ -63,10 +63,10 @@ struct _GtkHTMLEmbeddedClass {
    themselves for a form */
 
 GType		 gtk_html_embedded_get_type	(void);
-GtkWidget	*gtk_html_embedded_new (char *classid, char *name, char *type, char *data, int width, int height);
+GtkWidget	*gtk_html_embedded_new (gchar *classid, gchar *name, gchar *type, gchar *data, gint width, gint height);
 
-void gtk_html_embedded_set_parameter (GtkHTMLEmbedded *ge, char *param, char *value);
-char *gtk_html_embedded_get_parameter (GtkHTMLEmbedded *ge, char *param);
-void gtk_html_embedded_set_descent (GtkHTMLEmbedded *ge, int descent);
+void gtk_html_embedded_set_parameter (GtkHTMLEmbedded *ge, gchar *param, gchar *value);
+gchar *gtk_html_embedded_get_parameter (GtkHTMLEmbedded *ge, gchar *param);
+void gtk_html_embedded_set_descent (GtkHTMLEmbedded *ge, gint descent);
 
 #endif /* ! _GTK_HTML_EMBEDDED_H */

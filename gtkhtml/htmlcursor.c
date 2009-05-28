@@ -44,7 +44,7 @@ static gboolean move_left (HTMLCursor *cursor, HTMLEngine *e);
 #define _HTML_CURSOR_DEBUG
 
 #ifdef _HTML_CURSOR_DEBUG
-static int gtk_html_cursor_debug_flag = -1;
+static gint gtk_html_cursor_debug_flag = -1;
 
 static void
 debug_location (const HTMLCursor *cursor)

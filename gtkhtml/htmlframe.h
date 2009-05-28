@@ -31,7 +31,7 @@
 struct _HTMLFrame {
 	HTMLEmbedded embedded;
 
-	char *url;
+	gchar *url;
 	GtkWidget *scroll;
 	GtkWidget *html;
 	HTMLPainter *gdk_painter;
@@ -65,13 +65,13 @@ void           html_frame_set_scrolling         (HTMLFrame *frame,
 void           html_frame_init                  (HTMLFrame        *frame,
 						 HTMLFrameClass   *klass,
 						 GtkWidget         *parent,
-						 char              *url,
+						 gchar              *url,
 						 gint               width,
 						 gint               height,
 						 gboolean           border);
 
 HTMLObject *   html_frame_new                   (GtkWidget *parent,
-						 char *src,
+						 gchar *src,
 						 gint width,
 						 gint height,
 						 gboolean border);

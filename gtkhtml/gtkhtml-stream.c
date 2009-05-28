@@ -79,16 +79,16 @@ gtk_html_stream_write (GtkHTMLStream *stream,
 		stream->write_func (stream, buffer, size, stream->user_data);
 }
 
-int
+gint
 gtk_html_stream_vprintf (GtkHTMLStream *stream,
-			 const char *format,
+			 const gchar *format,
 			 va_list ap)
 {
 	size_t len;
-	char *buf = NULL;
-	char *mbuf = NULL;
-	char *result_string = NULL;
-	int rv;
+	gchar *buf = NULL;
+	gchar *mbuf = NULL;
+	gchar *result_string = NULL;
+	gint rv;
 	va_list ap_copy;
 
 	G_VA_COPY (ap_copy, ap);
@@ -112,13 +112,13 @@ gtk_html_stream_vprintf (GtkHTMLStream *stream,
 	return rv;
 }
 
-int
+gint
 gtk_html_stream_printf (GtkHTMLStream *stream,
-			const char *format,
+			const gchar *format,
 			...)
 {
 	va_list ap;
-	int rv;
+	gint rv;
 
 	va_start (ap, format);
 	rv = gtk_html_stream_vprintf (stream, format, ap);
@@ -139,7 +139,7 @@ gtk_html_stream_close (GtkHTMLStream *stream,
 	gtk_html_stream_destroy (stream);
 }
 
-char **
+gchar **
 gtk_html_stream_get_types (GtkHTMLStream *stream)
 {
 	if (stream->types_func != NULL)
@@ -154,7 +154,7 @@ struct _GtkHTMLLog {
 	FILE *file;
 };
 
-static char **
+static gchar **
 stream_log_types (GtkHTMLStream *stream,
 		  gpointer user_data)
 {
@@ -198,7 +198,7 @@ gtk_html_stream_log_new (GtkHTML *html, GtkHTMLStream *stream)
 	GtkHTMLLog *log;
 	GtkHTMLStream *new_stream;
 	gchar *fname;
-	static int log_num = 0;
+	static gint log_num = 0;
 
 	log = g_new (GtkHTMLLog, 1);
 	log->stream = stream;

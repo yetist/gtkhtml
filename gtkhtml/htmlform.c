@@ -60,11 +60,11 @@ html_form_add_hidden (HTMLForm *form, HTMLHidden *hidden)
 }
 
 void
-html_form_add_radio (HTMLForm *form, const char *name, GtkRadioButton *button)
+html_form_add_radio (HTMLForm *form, const gchar *name, GtkRadioButton *button)
 {
 	GtkWidget *master;
 	GSList *group;
-	const char *key = name;
+	const gchar *key = name;
 
 	/*
 	 * FIXME a null name makes them all share the same "" group.  I doubt this
@@ -91,7 +91,7 @@ destroy_hidden (gpointer o, gpointer data)
 }
 
 static void
-destroy_radio (char *key, gpointer *master)
+destroy_radio (gchar *key, gpointer *master)
 {
 	g_free (key);
 	g_object_unref (master);

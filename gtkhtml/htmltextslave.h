@@ -67,7 +67,7 @@ HTMLObject *html_text_slave_new                   (HTMLText           *owner,
 gint        html_text_slave_get_line_offset       (HTMLTextSlave      *slave,
 						   gint                offset,
 						   HTMLPainter        *p);
-char       *html_text_slave_get_text              (HTMLTextSlave      *slave);
+gchar       *html_text_slave_get_text              (HTMLTextSlave      *slave);
 gint        html_text_slave_nb_width              (HTMLTextSlave      *slave,
 						   HTMLPainter        *painter,
 						   gint                words);
@@ -102,8 +102,8 @@ void        html_text_slave_get_cursor_base       (HTMLTextSlave      *slave,
 						   guint               offset,
 						   gint               *x,
 						   gint               *y);
-int         html_text_slave_get_left_edge_offset  (HTMLTextSlave      *slave,
+gint         html_text_slave_get_left_edge_offset  (HTMLTextSlave      *slave,
 						   HTMLPainter        *painter);
-int         html_text_slave_get_right_edge_offset (HTMLTextSlave      *slave,
+gint         html_text_slave_get_right_edge_offset (HTMLTextSlave      *slave,
 						   HTMLPainter        *painter);
 #endif /* _HTMLTEXTSLAVE_H_ */

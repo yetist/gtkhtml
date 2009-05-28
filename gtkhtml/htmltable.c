@@ -1315,7 +1315,7 @@ calc_preferred_width (HTMLObject *o,
 		      HTMLPainter *painter)
 {
 	HTMLTable *table = HTML_TABLE (o);
-	int min_width;
+	gint min_width;
 
 	/* note that calculating min width prepares columnPref for us */
 	min_width = html_object_calc_min_width (o, painter);
@@ -1782,12 +1782,12 @@ reset (HTMLObject *o)
 }
 
 static HTMLAnchor *
-find_anchor (HTMLObject *self, const char *name, gint *x, gint *y)
+find_anchor (HTMLObject *self, const gchar *name, gint *x, gint *y)
 {
 	HTMLTable *table;
 	HTMLTableCell *cell;
 	HTMLAnchor *anchor;
-	unsigned int r, c;
+	guint r, c;
 
 	table = HTML_TABLE (self);
 
@@ -2225,7 +2225,7 @@ static gint
 check_page_split (HTMLObject *self, HTMLPainter *painter, gint y)
 {
 	HTMLTable     *table;
-	int r, min_y;
+	gint r, min_y;
 
 	table = HTML_TABLE (self);
 	r     = to_index (bin_search_index (table->rowHeights, 0, table->totalRows, y), 0, table->totalRows - 1);

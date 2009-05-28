@@ -232,7 +232,7 @@ save_plain (HTMLObject *self,
 	    HTMLEngineSaveState *state,
 	    gint requested_width)
 {
-	int i;
+	gint i;
 
 	if (!html_engine_save_output_string (state, "\n"))
 		return FALSE;

@@ -103,11 +103,11 @@ html_engine_upcase_downcase_word (HTMLEngine *e, gboolean up)
 static void
 set_link (HTMLObject *obj, HTMLEngine *e, gpointer data)
 {
-	const char *complete_url = data;
+	const gchar *complete_url = data;
 
 	if (html_object_is_text (obj) || HTML_IS_IMAGE (obj)) {
-		char *url = NULL;
-		char *target = NULL;
+		gchar *url = NULL;
+		gchar *target = NULL;
 
 		if (complete_url) {
 			url = g_strdup (complete_url);
@@ -140,7 +140,7 @@ set_link (HTMLObject *obj, HTMLEngine *e, gpointer data)
 }
 
 void
-html_engine_set_link (HTMLEngine *e, const char *complete_url)
+html_engine_set_link (HTMLEngine *e, const gchar *complete_url)
 {
 	html_engine_cut_and_paste (e,
 				   complete_url ? "Set link" : "Remove link",

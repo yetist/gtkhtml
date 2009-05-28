@@ -469,8 +469,8 @@ html_url_to_string (const HTMLURL *url)
 #define PATH_SEP '/'
 #define PATH_SEP_STR "/"
 
-static char *
-concat_dir_and_file (const char *dir, const char *file)
+static gchar *
+concat_dir_and_file (const gchar *dir, const gchar *file)
 {
         /* If the directory name doesn't have a / on the end, we need
 	   to add one so we get a proper path to the file */
@@ -486,7 +486,7 @@ html_url_append_path (const HTMLURL *url,
 {
 	HTMLURL *new;
 	gchar *new_path, *tmppath, *ptr;
-	int i;
+	gint i;
 
 	new = html_url_dup (url, HTML_URL_DUP_NOPATH);
 

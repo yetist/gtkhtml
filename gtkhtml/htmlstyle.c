@@ -51,8 +51,8 @@ html_parse_color (const gchar *text,
 }
 
 static HTMLLength *
-parse_length (char *str) {
-	char *cur = str;
+parse_length (gchar *str) {
+	gchar *cur = str;
 	HTMLLength *len;
 
 	len = g_new0 (HTMLLength, 1);
@@ -274,7 +274,7 @@ html_style_set_clear (HTMLStyle *style, HTMLClearType clear)
 }
 
 HTMLStyle *
-html_style_add_width (HTMLStyle *style, char *len)
+html_style_add_width (HTMLStyle *style, gchar *len)
 {
 	if (!style)
 		style = html_style_new ();
@@ -287,7 +287,7 @@ html_style_add_width (HTMLStyle *style, char *len)
 }
 
 HTMLStyle *
-html_style_add_height (HTMLStyle *style, char *len)
+html_style_add_height (HTMLStyle *style, gchar *len)
 {
 	if (!style)
 		style = html_style_new ();
@@ -300,7 +300,7 @@ html_style_add_height (HTMLStyle *style, char *len)
 }
 
 HTMLStyle *
-html_style_add_background_image (HTMLStyle *style, const char *url)
+html_style_add_background_image (HTMLStyle *style, const gchar *url)
 {
 	if (!style)
 		style = html_style_new ();
@@ -323,7 +323,7 @@ html_style_set_border_style (HTMLStyle *style, HTMLBorderStyle bstyle)
 }
 
 HTMLStyle *
-html_style_set_border_width (HTMLStyle *style, int width)
+html_style_set_border_width (HTMLStyle *style, gint width)
 {
 	if (!style)
 		style = html_style_new ();
@@ -334,7 +334,7 @@ html_style_set_border_width (HTMLStyle *style, int width)
 }
 
 HTMLStyle *
-html_style_set_padding (HTMLStyle *style, int padding)
+html_style_set_padding (HTMLStyle *style, gint padding)
 {
 	if (!style)
 		style = html_style_new ();
@@ -366,7 +366,7 @@ html_style_set_border_color (HTMLStyle *style, HTMLColor *color)
 }
 
 static HTMLStyle *
-parse_border_style (HTMLStyle *style, char *value)
+parse_border_style (HTMLStyle *style, gchar *value)
 {
 	while (isspace (*value))
 		value ++;
@@ -380,7 +380,7 @@ parse_border_style (HTMLStyle *style, char *value)
 }
 
 static HTMLStyle *
-parse_border_color (HTMLStyle *style, char *value)
+parse_border_color (HTMLStyle *style, gchar *value)
 {
 	GdkColor color;
 
@@ -394,7 +394,7 @@ parse_border_color (HTMLStyle *style, char *value)
 }
 
 static HTMLStyle *
-parse_border_width (HTMLStyle *style, char *value)
+parse_border_width (HTMLStyle *style, gchar *value)
 {
 	while (isspace (*value))
 		value ++;
@@ -412,12 +412,12 @@ parse_border_width (HTMLStyle *style, char *value)
 }
 
 static HTMLStyle *
-parse_border (HTMLStyle *style, char *value)
+parse_border (HTMLStyle *style, gchar *value)
 {
 	while (value && *value) {
-		char *next;
-		int modified;
-		char orig = 0;
+		gchar *next;
+		gint modified;
+		gchar orig = 0;
 
 		while (isspace (*value))
 			value ++;
@@ -448,7 +448,7 @@ parse_border (HTMLStyle *style, char *value)
 }
 
 HTMLStyle *
-html_style_add_attribute (HTMLStyle *style, const char *attr)
+html_style_add_attribute (HTMLStyle *style, const gchar *attr)
 {
 	gchar **prop;
 
@@ -456,7 +456,7 @@ html_style_add_attribute (HTMLStyle *style, const char *attr)
 	if (prop) {
 		gint i;
 		for (i = 0; prop[i]; i++) {
-			char *text;
+			gchar *text;
 
 			text = g_strstrip (prop[i]);
 			if (!g_ascii_strncasecmp ("color: ", text, 7)) {
@@ -496,7 +496,7 @@ html_style_add_attribute (HTMLStyle *style, const char *attr)
 			} else if (!g_ascii_strncasecmp ("border-width: ", text, 14)) {
 				style = parse_border_width (style, text + 14);
 			} else if (!g_ascii_strncasecmp ("padding: ", text, 9)) {
-				char *value = text + 9;
+				gchar *value = text + 9;
 
 				style = html_style_set_padding (style, atoi (value));
 			} else if (!g_ascii_strncasecmp ("white-space: ", text, 13)) {
@@ -519,7 +519,7 @@ html_style_add_attribute (HTMLStyle *style, const char *attr)
 			} else if (!g_ascii_strncasecmp ("text-decoration: none", text, 21)) {
 				style = html_style_unset_decoration (style, ~GTK_HTML_FONT_STYLE_SIZE_MASK);
 			} else if (!g_ascii_strncasecmp ("display: ", text, 9)) {
-				char *value = text + 9;
+				gchar *value = text + 9;
 				if (!g_ascii_strcasecmp ("block", value)) {
 					style = html_style_set_display (style, DISPLAY_BLOCK);
 				} else if (!g_ascii_strcasecmp ("inline", value)) {
@@ -536,7 +536,7 @@ html_style_add_attribute (HTMLStyle *style, const char *attr)
 			} else if (!g_ascii_strncasecmp ("height: ", text, 8)) {
 				style = html_style_add_height (style, text + 8);
 			} else if (!g_ascii_strncasecmp ("clear: ", text, 7)) {
-				char *value = text + 7;
+				gchar *value = text + 7;
 
 				if (!g_ascii_strcasecmp ("left", value)) {
 					style = html_style_set_clear (style, HTML_CLEAR_LEFT);

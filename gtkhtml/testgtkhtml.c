@@ -84,9 +84,9 @@ static void redraw_cb (GtkWidget *widget, gpointer data);
 static void resize_cb (GtkWidget *widget, gpointer data);
 static void select_all_cb (GtkWidget *widget, gpointer data);
 static void title_changed_cb (GtkHTML *html, const gchar *title, gpointer data);
-static void url_requested (GtkHTML *html, const char *url, GtkHTMLStream *handle, gpointer data);
+static void url_requested (GtkHTML *html, const gchar *url, GtkHTMLStream *handle, gpointer data);
 static void entry_goto_url(GtkWidget *widget, gpointer data);
-static void goto_url(const char *url, int back_or_forward);
+static void goto_url(const gchar *url, gint back_or_forward);
 static void on_set_base (GtkHTML *html, const gchar *url, gpointer data);
 
 static gchar *parse_href (const gchar *s);
@@ -102,7 +102,7 @@ static GtkWidget *toolbar_back, *toolbar_forward;
 static HTMLURL *baseURL = NULL;
 
 static GList *go_list;
-static int go_position;
+static gint go_position;
 
 static gboolean slow_loading = FALSE;
 
@@ -567,7 +567,7 @@ redirect_timer_event (gpointer data) {
 }
 
 static void
-on_redirect (GtkHTML *html, const gchar *url, int delay, gpointer data) {
+on_redirect (GtkHTML *html, const gchar *url, gint delay, gpointer data) {
 	g_print("Redirecting to '%s' in %d seconds\n", url, delay);
 
 	if(redirect_timerId == 0) {
@@ -635,7 +635,7 @@ object_timeout(GtkHTMLEmbedded *eb)
 }
 
 static gboolean
-object_requested_cmd (GtkHTML *html, GtkHTMLEmbedded *eb, void *data)
+object_requested_cmd (GtkHTML *html, GtkHTMLEmbedded *eb, gpointer data)
 {
 	/* printf("object requested, wiaint a bit before creating it ...\n"); */
 
@@ -674,7 +674,7 @@ got_data (SoupSession *session, SoupMessage *msg, gpointer user_data)
 }
 
 static void
-url_requested (GtkHTML *html, const char *url, GtkHTMLStream *handle, gpointer data)
+url_requested (GtkHTML *html, const gchar *url, GtkHTMLStream *handle, gpointer data)
 {
 	gchar *full_url = NULL;
 
@@ -685,10 +685,10 @@ url_requested (GtkHTML *html, const char *url, GtkHTMLStream *handle, gpointer d
 		msg = soup_message_new (SOUP_METHOD_GET, full_url);
 		soup_session_queue_message (session, msg, got_data, handle);
 	} else if (full_url && !strncmp (full_url, "file:", 5)) {
-		char *filename = gtk_html_filename_from_uri (full_url);
+		gchar *filename = gtk_html_filename_from_uri (full_url);
 		struct stat st;
-		char *buf;
-		int fd, nread, total;
+		gchar *buf;
+		gint fd, nread, total;
 
 		fd = g_open (filename, O_RDONLY|O_BINARY, 0);
 		g_free (filename);
@@ -782,7 +782,7 @@ static void
 go_list_cb (GtkWidget *widget, gpointer data)
 {
 	go_item *item;
-	int num;
+	gint num;
 	/* Only if the item was selected, not deselected */
 	if (gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM (widget))) {
 
@@ -825,9 +825,9 @@ static void remove_go_list(gpointer data, gpointer user_data) {
 }
 
 static void
-goto_url(const char *url, int back_or_forward)
+goto_url(const gchar *url, gint back_or_forward)
 {
-	int tmp, i;
+	gint tmp, i;
 	go_item *item;
 	GSList *group = NULL;
 	gchar *full_url;
@@ -987,7 +987,7 @@ exit_cb (GtkWidget *widget, gpointer data)
 static gboolean
 motion_notify_event (GtkHTML *html, GdkEventMotion *event, gpointer data)
 {
-	const char *id;
+	const gchar *id;
 	GnomeApp *app;
 
 	app = GNOME_APP (data);
@@ -1009,7 +1009,7 @@ main (gint argc, gchar *argv[])
 	GtkWidget *scrolled_window;
 
 #ifdef MEMDEBUG
-	void *p = malloc (1024);	/* to make linker happy with ccmalloc */
+	gpointer p = malloc (1024);	/* to make linker happy with ccmalloc */
 #endif
 	/* gnome_init_with_popt_table (PACKAGE, VERSION,
 	   argc, argv, options, 0, &ctx); */

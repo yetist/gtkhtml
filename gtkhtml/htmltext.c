@@ -276,7 +276,7 @@ cut_attr_list (HTMLText *text, gint begin_index, gint end_index)
 }
 
 static void
-cut_links_full (HTMLText *text, int start_offset, int end_offset, int start_index, int end_index, int shift_offset, int shift_index)
+cut_links_full (HTMLText *text, gint start_offset, gint end_offset, gint start_index, gint end_index, gint shift_offset, gint shift_index)
 {
 	GSList *l, *next;
 	Link *link;
@@ -329,7 +329,7 @@ cut_links_full (HTMLText *text, int start_offset, int end_offset, int start_inde
 }
 
 static void
-cut_links (HTMLText *text, int start_offset, int end_offset, int start_index, int end_index)
+cut_links (HTMLText *text, gint start_offset, gint end_offset, gint start_index, gint end_index)
 {
 	cut_links_full (text, start_offset, end_offset, start_index, end_index, end_offset - start_offset, end_index - start_index);
 }
@@ -844,11 +844,11 @@ html_text_get_line_offset (HTMLText *text, HTMLPainter *painter, gint offset)
 	return line_offset;
 }
 
-int
-html_text_get_item_index (HTMLText *text, HTMLPainter *painter, int offset, int *item_offset)
+gint
+html_text_get_item_index (HTMLText *text, HTMLPainter *painter, gint offset, gint *item_offset)
 {
 	HTMLTextPangoInfo *pi = html_text_get_pango_info (text, painter);
-	int idx = 0;
+	gint idx = 0;
 
 	if (pi->n > 0) {
 		while (idx < pi->n - 1 && offset >= pi->entries [idx].glyph_item.item->num_chars) {
@@ -931,14 +931,14 @@ html_text_calc_text_size (HTMLText *t, HTMLPainter *painter,
 			  guint len, HTMLTextPangoInfo *pi, GList *glyphs, gint *line_offset,
 			  gint *width, gint *asc, gint *dsc)
 {
-		char *text = t->text + start_byte_offset;
+		gchar *text = t->text + start_byte_offset;
 
 		html_painter_calc_entries_size (painter, text, len, pi, glyphs,
 						line_offset, width, asc, dsc);
 }
 
 gint
-html_text_calc_part_width (HTMLText *text, HTMLPainter *painter, char *start, gint offset, gint len, gint *asc, gint *dsc)
+html_text_calc_part_width (HTMLText *text, HTMLPainter *painter, gchar *start, gint offset, gint len, gint *asc, gint *dsc)
 {
 	gint idx, width = 0, line_offset;
 	gint ascent = 0, descent = 0; /* Quiet GCC */
@@ -978,7 +978,7 @@ html_text_calc_part_width (HTMLText *text, HTMLPainter *painter, char *start, gi
 		language = pi->entries [idx].glyph_item.item->analysis.language;
 	}
 	while (len > 0) {
-		int old_idx;
+		gint old_idx;
 
 		if (*s == '\t') {
 			gint skip = 8 - (line_offset % 8);
@@ -1160,9 +1160,9 @@ html_text_add_cite_color (PangoAttrList *attrs, HTMLText *text, HTMLClueFlow *fl
 }
 
 void
-html_text_remove_unwanted_line_breaks (char *s, int len, PangoLogAttr *attrs)
+html_text_remove_unwanted_line_breaks (gchar *s, gint len, PangoLogAttr *attrs)
 {
-	int i;
+	gint i;
 	gunichar last_uc = 0;
 
 	for (i = 0; i < len; i ++) {
@@ -1311,29 +1311,29 @@ get_pango_base_direction (HTMLText *text)
 
 void
 html_tmp_fix_pango_glyph_string_get_logical_widths (PangoGlyphString *glyphs,
-						    const char       *text,
-						    int               length,
-						    int               embedding_level,
-						    int              *logical_widths)
+						    const gchar       *text,
+						    gint               length,
+						    gint               embedding_level,
+						    gint              *logical_widths)
 {
-  int i, j;
-  int last_cluster = 0;
-  int width = 0;
-  int last_cluster_width = 0;
-  const char *p = text;		/* Points to start of current cluster */
+  gint i, j;
+  gint last_cluster = 0;
+  gint width = 0;
+  gint last_cluster_width = 0;
+  const gchar *p = text;		/* Points to start of current cluster */
 
   /* printf ("html_tmp_fix_pango_glyph_string_get_logical_widths"); */
 
   for (i=0; i<=glyphs->num_glyphs; i++)
     {
-      int glyph_index = (embedding_level % 2 == 0) ? i : glyphs->num_glyphs - i - 1;
+      gint glyph_index = (embedding_level % 2 == 0) ? i : glyphs->num_glyphs - i - 1;
 
       /* If this glyph belongs to a new cluster, or we're at the end, find
        * the start of the next cluster, and assign the widths for this cluster.
        */
       if (i == glyphs->num_glyphs || p != text + glyphs->log_clusters[glyph_index])
 	{
-	  int next_cluster = last_cluster;
+	  gint next_cluster = last_cluster;
 
 	  if (i < glyphs->num_glyphs)
 	    {
@@ -1396,7 +1396,7 @@ html_text_get_pango_info (HTMLText *text, HTMLPainter *painter)
 	if (!text->pi) {
 		GList *items, *cur;
 		PangoAttrList *attrs;
-		int i, offset;
+		gint i, offset;
 
 		attrs = html_text_prepare_attrs (text, painter);
 		items = pango_itemize_with_base_dir (painter->pango_context, get_pango_base_direction (text), text->text, 0, text->text_bytes, attrs, NULL);
@@ -1414,7 +1414,7 @@ html_text_get_pango_info (HTMLText *text, HTMLPainter *painter)
 		for (cur = items; cur; cur = cur->next) {
 			PangoItem tmp_item;
 			PangoItem *item;
-			int start_offset;
+			gint start_offset;
 
 			start_offset = offset;
 			item = (PangoItem *) cur->data;
@@ -1464,7 +1464,7 @@ html_text_get_pango_info (HTMLText *text, HTMLPainter *painter)
 }
 
 gboolean
-html_text_pi_backward (HTMLTextPangoInfo *pi, int *ii, int *io)
+html_text_pi_backward (HTMLTextPangoInfo *pi, gint *ii, gint *io)
 {
 	if (*io <= 0) {
 		if (*ii <= 0)
@@ -1478,7 +1478,7 @@ html_text_pi_backward (HTMLTextPangoInfo *pi, int *ii, int *io)
 }
 
 gboolean
-html_text_pi_forward (HTMLTextPangoInfo *pi, int *ii, int *io)
+html_text_pi_forward (HTMLTextPangoInfo *pi, gint *ii, gint *io)
 {
 	if (*io >= pi->entries [*ii].glyph_item.item->num_chars - 1) {
 		if (*ii >= pi->n -1)
@@ -1506,12 +1506,12 @@ html_text_pi_forward (HTMLTextPangoInfo *pi, int *ii, int *io)
  *
  * Return value: width of found trailing white space, in Pango units
  **/
-int
-html_text_tail_white_space (HTMLText *text, HTMLPainter *painter, int offset, int ii, int io, int *white_len, int line_offset, char *s)
+gint
+html_text_tail_white_space (HTMLText *text, HTMLPainter *painter, gint offset, gint ii, gint io, gint *white_len, gint line_offset, gchar *s)
 {
 	HTMLTextPangoInfo *pi = html_text_get_pango_info (text, painter);
-	int wl = 0;
-	int ww = 0;
+	gint wl = 0;
+	gint ww = 0;
 
 	if (html_text_pi_backward (pi, &ii, &io)) {
 		s = g_utf8_prev_char (s);
@@ -1858,8 +1858,8 @@ get_length (HTMLObject *self)
 
 struct TmpDeltaRecord
 {
-	int index;		/* Byte index within original string  */
-	int delta;		/* New delta (character at index was modified,
+	gint index;		/* Byte index within original string  */
+	gint delta;		/* New delta (character at index was modified,
 				 * new delta applies to characters afterwards)
 				 */
 };
@@ -1889,7 +1889,7 @@ check_prev_white (gint white_space, gunichar last_white, gint *delta_out)
 }
 
 static GSList *
-add_change (GSList *list, int index, int delta)
+add_change (GSList *list, gint index, gint delta)
 {
 	struct TmpDeltaRecord *rec = g_new (struct TmpDeltaRecord, 1);
 
@@ -2020,7 +2020,7 @@ update_index_interval (guint *start_index,
 		       GSList *changes)
 {
 	GSList *c;
-	int index, delta;
+	gint index, delta;
 
 	index = delta = 0;
 
@@ -2527,7 +2527,7 @@ get_target (HTMLObject *object, gint offset)
 }
 
 HTMLTextSlave *
-html_text_get_slave_at_offset (HTMLText *text, HTMLTextSlave *start, int offset)
+html_text_get_slave_at_offset (HTMLText *text, HTMLTextSlave *start, gint offset)
 {
 	HTMLObject *obj = start ? HTML_OBJECT (start) : HTML_OBJECT (text)->next;
 
@@ -2543,7 +2543,7 @@ html_text_get_slave_at_offset (HTMLText *text, HTMLTextSlave *start, int offset)
 static gboolean
 html_text_cursor_prev_slave (HTMLObject *slave, HTMLPainter *painter, HTMLCursor *cursor)
 {
-	int offset = cursor->offset;
+	gint offset = cursor->offset;
 
 	while (slave->prev && HTML_IS_TEXT_SLAVE (slave->prev)) {
 		if (HTML_TEXT_SLAVE (slave->prev)->posLen) {
@@ -2562,7 +2562,7 @@ html_text_cursor_prev_slave (HTMLObject *slave, HTMLPainter *painter, HTMLCursor
 static gboolean
 html_text_cursor_next_slave (HTMLObject *slave, HTMLPainter *painter, HTMLCursor *cursor)
 {
-	int offset = cursor->offset;
+	gint offset = cursor->offset;
 
 	while (slave->next && HTML_IS_TEXT_SLAVE (slave->next)) {
 		if (HTML_TEXT_SLAVE (slave->next)->posLen) {
@@ -2794,7 +2794,7 @@ html_text_backspace (HTMLObject *self, HTMLCursor *cursor, HTMLEngine *engine)
 }
 
 static int
-html_text_get_right_edge_offset (HTMLObject *o, HTMLPainter *painter, int offset)
+html_text_get_right_edge_offset (HTMLObject *o, HTMLPainter *painter, gint offset)
 {
 	HTMLTextSlave *slave = html_text_get_slave_at_offset (HTML_TEXT (o), NULL, offset);
 
@@ -2808,7 +2808,7 @@ html_text_get_right_edge_offset (HTMLObject *o, HTMLPainter *painter, int offset
 }
 
 static int
-html_text_get_left_edge_offset (HTMLObject *o, HTMLPainter *painter, int offset)
+html_text_get_left_edge_offset (HTMLObject *o, HTMLPainter *painter, gint offset)
 {
 	HTMLTextSlave *slave = html_text_get_slave_at_offset (HTML_TEXT (o), NULL, offset);
 
@@ -3199,7 +3199,7 @@ html_text_magic_link (HTMLText *text, HTMLEngine *engine, guint offset)
 	gboolean rv = FALSE, exec = TRUE;
 	gint saved_position;
 	gunichar uc;
-	char *str, *cur;
+	gchar *str, *cur;
 
 	if (!offset)
 		return FALSE;

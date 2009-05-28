@@ -28,7 +28,7 @@
 #include <glib.h>
 
 /* We name it with correct unicode name, but OK, later... Lauris */
-/* char used for &nbsp; - must correspond to table below */
+/* gchar used for &nbsp; - must correspond to table below */
 #define ENTITY_NBSP 160
 #define INVALID_ENTITY_CHARACTER_MARKER '?'
 #define IS_UTF8_NBSP(s) (*s == (guchar)0xc2 && *(s + 1) == (guchar)0xa0)

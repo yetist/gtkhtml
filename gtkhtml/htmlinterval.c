@@ -397,7 +397,7 @@ html_interval_intersection (HTMLInterval *a, HTMLInterval *b)
 		html_interval_new_from_points (from, to) : NULL;
 }
 
-void *
+gpointer
 html_interval_substract (HTMLInterval *a, HTMLInterval *b, HTMLInterval **s1, HTMLInterval **s2)
 {
 	return NULL;

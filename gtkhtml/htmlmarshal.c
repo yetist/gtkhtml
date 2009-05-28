@@ -17,7 +17,7 @@
 #define g_marshal_value_peek_flags(v)    g_value_get_flags (v)
 #define g_marshal_value_peek_float(v)    g_value_get_float (v)
 #define g_marshal_value_peek_double(v)   g_value_get_double (v)
-#define g_marshal_value_peek_string(v)   (char*) g_value_get_string (v)
+#define g_marshal_value_peek_string(v)   (gchar *) g_value_get_string (v)
 #define g_marshal_value_peek_param(v)    g_value_get_param (v)
 #define g_marshal_value_peek_boxed(v)    g_value_get_boxed (v)
 #define g_marshal_value_peek_pointer(v)  g_value_get_pointer (v)

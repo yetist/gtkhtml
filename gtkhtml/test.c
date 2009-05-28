@@ -42,8 +42,8 @@
 typedef struct _Example Example;
 
 struct _Example {
-	const char *filename;
-	const char *title;
+	const gchar *filename;
+	const gchar *title;
 };
 
 static GPtrArray *examples;
@@ -60,9 +60,9 @@ static const gchar *welcome =
 "Japanese <span lang=\"ja\">元気	開発<BR></FONT>";
 
 static void
-url_requested (GtkHTML *unused, const char *url, GtkHTMLStream *stream, gpointer data)
+url_requested (GtkHTML *unused, const gchar *url, GtkHTMLStream *stream, gpointer data)
 {
-	int fd;
+	gint fd;
 	gchar *filename;
 
 	filename = g_strconcat ("tests/", url, NULL);
@@ -113,7 +113,7 @@ encode_html (const gchar *txt)
 static void
 example_changed_cb (GtkComboBox *combo_box, gpointer data)
 {
-	int i = gtk_combo_box_get_active (combo_box);
+	gint i = gtk_combo_box_get_active (combo_box);
 	Example *example = examples->pdata[i];
 
 	if (example->filename) {
@@ -180,14 +180,14 @@ print_cb (GtkWidget *widget, gpointer data)
  * overengineered
  */
 static int
-compare_examples (const void *a,
-		  const void *b)
+compare_examples (gconstpointer a,
+		  gconstpointer b)
 {
 	const Example *example_a = *(const Example *const *)a;
 	const Example *example_b = *(const Example *const *)b;
-	char *a_fold, *b_fold;
+	gchar *a_fold, *b_fold;
 	const guchar *p, *q;
-	int result = 0;
+	gint result = 0;
 
 	/* Special case "Welcome" to sort first */
 	if (!example_a->filename)
@@ -214,8 +214,8 @@ compare_examples (const void *a,
 		}
 
 		if (p_digit) {
-			int num_a = atoi ((const gchar *) p);
-			int num_b = atoi ((const gchar *) q);
+			gint num_a = atoi ((const gchar *) p);
+			gint num_b = atoi ((const gchar *) q);
 
 			if (num_a < num_b) {
 				result = -1;
@@ -232,8 +232,8 @@ compare_examples (const void *a,
 				q++;
 
 		} else {
-			int p_len = 1, q_len = 1;
-			char *p_str, *q_str;
+			gint p_len = 1, q_len = 1;
+			gchar *p_str, *q_str;
 
 			while (*(p + p_len) && !g_ascii_isdigit (*(p + p_len)))
 				p_len++;
@@ -305,14 +305,14 @@ find_examples (void)
 		example->title = g_strndup (name, strlen (name) - 5);
 
 		g_ptr_array_add (examples, example);
-		qsort (examples->pdata, examples->len, sizeof (void *), compare_examples);
+		qsort (examples->pdata, examples->len, sizeof (gpointer), compare_examples);
 	}
 
 	g_dir_close (dir);
 }
 
-int
-main (int argc, char **argv)
+gint
+main (gint argc, gchar **argv)
 {
 	GtkWidget *window;
 	GtkWidget *vbox;
@@ -320,7 +320,7 @@ main (int argc, char **argv)
 	GtkWidget *combo_box;
 	GtkWidget *swindow;
 	GtkWidget *action_button;
-	int i = 0;
+	gint i = 0;
 
 	gnome_program_init ("libgtkhtml test", "0.0", LIBGNOMEUI_MODULE, argc, argv, NULL);
 

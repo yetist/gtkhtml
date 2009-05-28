@@ -51,7 +51,7 @@ draw_background_helper (HTMLTableCell *cell,
 	HTMLClueV *cluev;
 	GdkPixbuf  *pixbuf = NULL;
 	GdkColor   *color = NULL;
-	int pixel_size = html_painter_get_pixel_size (p);
+	gint pixel_size = html_painter_get_pixel_size (p);
 
 	o = HTML_OBJECT (cell);
 	cluev = HTML_CLUEV (cell);

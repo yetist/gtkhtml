@@ -58,7 +58,7 @@ html_colorset_new (GtkWidget *w)
 void
 html_colorset_destroy (HTMLColorSet *set)
 {
-	int i;
+	gint i;
 
 	g_return_if_fail (set != NULL);
 
@@ -137,8 +137,8 @@ html_colorset_set_unchanged (HTMLColorSet *s, HTMLColorSet *o)
 
 static GdkColor *
 get_prop_color (GtkWidget *w,
-                const char *name,
-                const char *dv,
+                const gchar *name,
+                const gchar *dv,
                 GdkColor *gdk_color)
 {
 	GdkColor c;

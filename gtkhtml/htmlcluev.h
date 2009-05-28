@@ -37,7 +37,7 @@ struct _HTMLClueV {
 	gushort padding;
 
 	/* border */
-	int border_width;
+	gint border_width;
 	HTMLBorderStyle border_style;
 	HTMLColor *border_color;
 

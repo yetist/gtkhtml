@@ -45,7 +45,7 @@ get_n_actions (AtkAction *action)
 	return 1;
 }
 
-static G_CONST_RETURN gchar*
+static G_CONST_RETURN gchar *
 get_description (AtkAction *action, gint i)
 {
 	if (i == 0)
@@ -54,7 +54,7 @@ get_description (AtkAction *action, gint i)
 	return NULL;
 }
 
-static G_CONST_RETURN gchar*
+static G_CONST_RETURN gchar *
 action_get_name (AtkAction *action, gint i)
 {
 	if (i == 0)
@@ -249,7 +249,7 @@ gtk_html_a11y_ref_child (AtkObject *accessible, gint index)
 	return accessible_child;
 }
 
-static G_CONST_RETURN gchar*
+static G_CONST_RETURN gchar *
 gtk_html_a11y_get_name (AtkObject *obj)
 {
 	if (obj->name != NULL) {
@@ -347,7 +347,7 @@ gtk_html_a11y_cursor_changed_cb (GtkWidget *widget)
 }
 
 static void
-gtk_html_a11y_insert_object_cb (GtkWidget * widget, int pos, int len)
+gtk_html_a11y_insert_object_cb (GtkWidget * widget, gint pos, gint len)
 {
 	AtkObject * a11y, *obj;
 
@@ -371,7 +371,7 @@ gtk_html_a11y_insert_object_cb (GtkWidget * widget, int pos, int len)
 }
 
 static void
-gtk_html_a11y_delete_object_cb (GtkWidget * widget, int pos, int len)
+gtk_html_a11y_delete_object_cb (GtkWidget * widget, gint pos, gint len)
 {
 	AtkObject * a11y, *obj;
 

@@ -80,7 +80,7 @@ struct _GtkHTMLClass {
 	void (* set_base_target) (GtkHTML *html, const gchar *base_url);
 
 	void (* on_url)		 (GtkHTML *html, const gchar *url);
-	void (* redirect)        (GtkHTML *html, const gchar *url, int delay);
+	void (* redirect)        (GtkHTML *html, const gchar *url, gint delay);
 	void (* submit)          (GtkHTML *html, const gchar *method, const gchar *url, const gchar *encoding);
 	gboolean (* object_requested)(GtkHTML *html, GtkHTMLEmbedded *);
 
@@ -99,8 +99,8 @@ struct _GtkHTMLClass {
 	void     (* cursor_move)          (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType skip);
 	gboolean (* command)              (GtkHTML *html, GtkHTMLCommandType com_type);
 	void (* cursor_changed)       (GtkHTML *html);
-	void (* object_inserted)       (GtkHTML *html, int pos, int len);
-	void (* object_delete)        (GtkHTML *html, int pos, int len);
+	void (* object_inserted)       (GtkHTML *html, gint pos, gint len);
+	void (* object_delete)        (GtkHTML *html, gint pos, gint len);
 
 	/* properties */
 	GtkHTMLClassProperties *properties;
@@ -157,8 +157,8 @@ void                       gtk_html_select_all                    (GtkHTML      
 /* Loading.  */
 GtkHTMLStream             *gtk_html_begin                         (GtkHTML                   *html);
 GtkHTMLStream             *gtk_html_begin_full                    (GtkHTML                   *html,
-								   char                      *target_frame,
-								   const char                *content_type,
+								   gchar                      *target_frame,
+								   const gchar                *content_type,
 								   GtkHTMLBeginFlags         flags);
 
 void                       gtk_html_write                         (GtkHTML                   *html,
@@ -176,13 +176,13 @@ void                       gtk_html_load_from_string              (GtkHTML      
 
 /* Saving.  */
 gboolean                   gtk_html_export                        (GtkHTML                   *html,
-								   const char                *type,
+								   const gchar                *type,
 								   GtkHTMLSaveReceiverFn      receiver,
 								   gpointer                   data);
-char *                     gtk_html_get_selection_html            (GtkHTML                   *html,
-								   int                       *len);
-char *                     gtk_html_get_selection_plain_text      (GtkHTML                   *html,
-								   int                       *len);
+gchar *                     gtk_html_get_selection_html            (GtkHTML                   *html,
+								   gint                       *len);
+gchar *                     gtk_html_get_selection_plain_text      (GtkHTML                   *html,
+								   gint                       *len);
 
 /* Editable support.  */
 void                       gtk_html_set_editable                  (GtkHTML                   *html,
@@ -204,7 +204,7 @@ void                       gtk_html_set_caret_mode                (GtkHTML      
 gboolean                   gtk_html_get_caret_mode                (const GtkHTML             *html);
 
 void			   gtk_html_set_caret_first_focus_anchor  (GtkHTML		     *html,
-								   const char                *name);
+								   const gchar                *name);
 
 /* Animated Images */
 void                       gtk_html_set_animate                   (GtkHTML                   *html,
@@ -238,7 +238,7 @@ GtkPrintOperationResult	   gtk_html_print_operation_run		  (GtkHTML             
 
 /* Title.  */
 const gchar               *gtk_html_get_title                     (GtkHTML                   *html);
-void                       gtk_html_set_title                     (GtkHTML                   *html, const char *title);
+void                       gtk_html_set_title                     (GtkHTML                   *html, const gchar *title);
 
 /* Anchors.  */
 gboolean                   gtk_html_jump_to_anchor                (GtkHTML                   *html,
@@ -281,9 +281,9 @@ void                       gtk_html_append_html                   (GtkHTML      
 /* misc utils */
 gpointer                   gtk_html_get_object_by_id              (GtkHTML                   *html,
 								   const gchar               *id);
-const char *               gtk_html_get_object_id_at              (GtkHTML                   *html,
-								   int                        x,
-								   int                        y);
+const gchar *               gtk_html_get_object_id_at              (GtkHTML                   *html,
+								   gint                        x,
+								   gint                        y);
 gboolean                   gtk_html_command                       (GtkHTML                   *html,
 								   const gchar               *command_name);
 gboolean                   gtk_html_edit_make_cursor_visible      (GtkHTML                   *html);
@@ -298,13 +298,13 @@ void                       gtk_html_set_allow_frameset            (GtkHTML      
 								   gboolean                   allow);
 gboolean                   gtk_html_get_allow_frameset            (GtkHTML                   *html);
 void                       gtk_html_set_base                      (GtkHTML                   *html,
-								   const char                *url);
-const char                *gtk_html_get_base                      (GtkHTML                   *html);
-char                      *gtk_html_get_url_base_relative         (GtkHTML                   *html,
-								   const char                *url);
-char                      *gtk_html_get_url_object_relative       (GtkHTML                   *html,
+								   const gchar                *url);
+const gchar                *gtk_html_get_base                      (GtkHTML                   *html);
+gchar                      *gtk_html_get_url_base_relative         (GtkHTML                   *html,
+								   const gchar                *url);
+gchar                      *gtk_html_get_url_object_relative       (GtkHTML                   *html,
 								   HTMLObject                *o,
-								   const char                *url);
+								   const gchar                *url);
 void                       gtk_html_images_ref                    (GtkHTML                   *html);
 void                       gtk_html_images_unref                  (GtkHTML                   *html);
 void                       gtk_html_image_ref                     (GtkHTML                   *html,
@@ -319,15 +319,15 @@ void                       gtk_html_set_images_blocking           (GtkHTML      
 								   gboolean                   block);
 gboolean                   gtk_html_has_undo                      (GtkHTML                   *html);
 void                       gtk_html_drop_undo                     (GtkHTML                   *html);
-char *                     gtk_html_get_url_at                    (GtkHTML                   *html,
-								   int                        x,
-								   int                        y);
-char *                     gtk_html_get_cursor_url                (GtkHTML                   *html);
+gchar *                     gtk_html_get_url_at                    (GtkHTML                   *html,
+								   gint                        x,
+								   gint                        y);
+gchar *                     gtk_html_get_cursor_url                (GtkHTML                   *html);
 
-char *                     gtk_html_get_image_src_at              (GtkHTML                   *html,
-								   int                        x,
-								   int                        y);
-char *                     gtk_html_get_cursor_image_src          (GtkHTML                   *html);
+gchar *                     gtk_html_get_image_src_at              (GtkHTML                   *html,
+								   gint                        x,
+								   gint                        y);
+gchar *                     gtk_html_get_cursor_image_src          (GtkHTML                   *html);
 
 void                       gtk_html_set_tokenizer                 (GtkHTML                   *html,
 								   HTMLTokenizer             *tokenizer);
@@ -335,7 +335,7 @@ void                       gtk_html_set_tokenizer                 (GtkHTML      
 /* DEPRECATED */
 #if 1
 gboolean                   gtk_html_build_with_gconf              (void);
-const gchar*               gtk_html_get_default_content_type              (GtkHTML                   *html);
+const gchar *               gtk_html_get_default_content_type              (GtkHTML                   *html);
 void                       gtk_html_set_default_content_type              (GtkHTML                   *html,
 								   const gchar                     *content_type);
 void			   gtk_html_set_default_engine		  (GtkHTML *html,

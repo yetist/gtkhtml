@@ -96,7 +96,7 @@ GIConv     generate_iconv_from (const gchar * content_type);
 /*for convert resulted query to needed encoding <--utf*/
 GIConv     generate_iconv_to (const gchar * content_type);
 /*convert test to needed encoding*/
-gchar*     convert_text_encoding (const GIConv iconv_cd, const gchar * token);
+gchar *     convert_text_encoding (const GIConv iconv_cd, const gchar * token);
 /*validate result g_iconv_open*/
 gboolean   is_valid_g_iconv (const GIConv iconv_cd);
 #endif /* _HTMLTOKENIZER_H_ */

@@ -90,10 +90,10 @@ static void
 calc_dimension (GPtrArray *dim, gint *span, gint total)
 {
 	HTMLLength *len;
-	int i;
-	int adj;
-	int remain;
-	int num_frac = 0;
+	gint i;
+	gint adj;
+	gint remain;
+	gint num_frac = 0;
 	gboolean changed;
 
 	g_return_if_fail (dim != NULL && span != NULL);
@@ -249,7 +249,7 @@ draw (HTMLObject *o,
       gint tx, gint ty)
 {
 	HTMLFrameset *set;
-	int i;
+	gint i;
 	set = HTML_FRAMESET (o);
 
 	tx += o->x;
@@ -313,7 +313,7 @@ check_point (HTMLObject *self,
 {
 	HTMLFrameset *set = HTML_FRAMESET (self);
 	HTMLObject   *obj;
-	int i;
+	gint i;
 
 
 	x -= self->x;

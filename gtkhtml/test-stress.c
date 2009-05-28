@@ -21,11 +21,11 @@
 #include "htmltext.h"
 
 typedef struct {
-	const char *name;
-	int (*test_function) (GtkHTML *html);
+	const gchar *name;
+	gint (*test_function) (GtkHTML *html);
 } Test;
 
-static int test_level_1 (GtkHTML *html);
+static gint test_level_1 (GtkHTML *html);
 
 static Test tests[] = {
 	{ "cursor movement", NULL },
@@ -78,17 +78,17 @@ set_format (GtkHTML *html, gboolean format_html)
 
 }
 
-static int test_level_1 (GtkHTML *html)
+static gint test_level_1 (GtkHTML *html)
 {
-	int i, total_len = 0;
+	gint i, total_len = 0;
 
 	set_format (html, FALSE);
 
 	srand (2);
 
 	for (i = 0; i < 200; i ++) {
-		int j, len = 1 + (int) (10.0*rand()/(RAND_MAX+1.0));
-		char word [12];
+		gint j, len = 1 + (int) (10.0*rand()/(RAND_MAX+1.0));
+		gchar word [12];
 
 		for (j = 0; j < len; j ++)
 			word [j] = 'a' + (int) (26.0*rand()/(RAND_MAX+1.0));
@@ -106,7 +106,7 @@ static int test_level_1 (GtkHTML *html)
 		return FALSE;
 
 	for (i = 0; i < 1000; i ++) {
-		int j, new_pos, pos, len;
+		gint j, new_pos, pos, len;
 
 		len = 1 + (int) (120.0*rand()/(RAND_MAX+1.0));
 		pos = MAX (0, (int) (((double) (total_len - len))*rand()/(RAND_MAX+1.0)));
@@ -132,11 +132,11 @@ static int test_level_1 (GtkHTML *html)
 			printf ("insert text\n");
 			html_cursor_jump_to_position (html->engine->cursor, html->engine, pos);
 			for (j = 0; j < len; j ++) {
-				int et = (int) (10.0*rand()/(RAND_MAX+1.0));
+				gint et = (int) (10.0*rand()/(RAND_MAX+1.0));
 				if (et == 0)
 					gtk_html_command (html, "insert-tab");
 				else {
-					char ch [2];
+					gchar ch [2];
 
 					if (et == 1)
 						ch [0] = ' ';
@@ -227,11 +227,11 @@ static int test_level_1 (GtkHTML *html)
 	return TRUE;
 }
 
-int main (int argc, char *argv[])
+gint main (gint argc, gchar *argv[])
 {
 	GtkWidget *win, *html_widget, *sw;
 	GtkHTML *html;
-	int i = 0, n_all, n_successful;
+	gint i = 0, n_all, n_successful;
 
 	if (argc > 1)
 		return 0;
@@ -256,7 +256,7 @@ int main (int argc, char *argv[])
 	fprintf (stderr, "\nGtkHTML test suite\n");
 	fprintf (stderr, "--------------------------------------------------------------------------------\n");
 	for (i = 0; tests [i].name; i ++) {
-		int j, result;
+		gint j, result;
 
 		if (tests [i].test_function) {
 			fprintf (stderr, "  %s ", tests [i].name);

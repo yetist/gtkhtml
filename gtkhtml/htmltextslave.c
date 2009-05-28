@@ -47,7 +47,7 @@ static HTMLObjectClass *parent_class = NULL;
 
 static void    clear_glyph_items (HTMLTextSlave *slave);
 
-char *
+gchar *
 html_text_slave_get_text (HTMLTextSlave *slave)
 {
 	if (!slave->charStart)
@@ -58,7 +58,7 @@ html_text_slave_get_text (HTMLTextSlave *slave)
 
 /* Split this TextSlave at the specified offset.  */
 static void
-split (HTMLTextSlave *slave, guint offset, int skip, char *start_pointer)
+split (HTMLTextSlave *slave, guint offset, gint skip, gchar *start_pointer)
 {
 	HTMLObject *obj;
 	HTMLObject *new;
@@ -129,7 +129,7 @@ hts_calc_width (HTMLTextSlave *slave, HTMLPainter *painter, gint *asc, gint *dsc
 	GSList *cur, *gilist = html_text_slave_get_glyph_items (slave, painter);
 	PangoLanguage *language = NULL;
 	PangoFont *font = NULL;
-	int width = 0;
+	gint width = 0;
 
 	if (asc)
 		*asc = html_painter_engine_to_pango (painter,
@@ -335,7 +335,7 @@ html_text_slave_get_nb_width (HTMLTextSlave *slave, HTMLPainter *painter, gboole
 }
 
 /*
- * offset: current position - char offset
+ * offset: current position - gchar offset
  * s: current position - string pointer
  * ii: current position - index of item
  * io: current position - offset within item
@@ -404,7 +404,7 @@ hts_fit_line (HTMLObject *o, HTMLPainter *painter,
 
 		if (io == 0 && slave->owner->text [pi->entries [ii].glyph_item.item->offset]  == '\t') {
 			GtkHTMLFontStyle font_style;
-			char *face;
+			gchar *face;
 			gint skip = 8 - (line_offset % 8);
 
 			if (HTML_IS_PLAIN_PAINTER (painter)) {
@@ -513,11 +513,11 @@ html_get_glyphs_non_tab (GList *glyphs, PangoItem *item, gint ii, const gchar *t
  */
 
 static GSList *
-reorder_glyph_items (GSList *glyph_items, int n_items)
+reorder_glyph_items (GSList *glyph_items, gint n_items)
 {
 	GSList *tmp_list, *level_start_node;
-	int i, level_start_i;
-	int min_level = G_MAXINT;
+	gint i, level_start_i;
+	gint min_level = G_MAXINT;
 	GSList *result = NULL;
 
 	if (n_items == 0)
@@ -568,10 +568,10 @@ reorder_glyph_items (GSList *glyph_items, int n_items)
 }
 
 static GSList *
-get_glyph_items_in_range (HTMLTextSlave *slave, HTMLPainter *painter, int start_offset, int len)
+get_glyph_items_in_range (HTMLTextSlave *slave, HTMLPainter *painter, gint start_offset, gint len)
 {
 	HTMLTextPangoInfo *pi = html_text_get_pango_info (slave->owner, painter);
-	int i, offset, end_offset, n_items = 0;
+	gint i, offset, end_offset, n_items = 0;
 	GSList *glyph_items = NULL;
 
 	start_offset += slave->posStart;
@@ -592,7 +592,7 @@ get_glyph_items_in_range (HTMLTextSlave *slave, HTMLPainter *painter, int start_
 			if (start_offset > offset) {
 				/* need to cut the beginning of current glyph item */
 				PangoGlyphItem *tmp_gi;
-				int split_index;
+				gint split_index;
 
 				glyph_item->type = HTML_TEXT_SLAVE_GLYPH_ITEM_CREATED;
 				glyph_item->widths = NULL;
@@ -611,7 +611,7 @@ get_glyph_items_in_range (HTMLTextSlave *slave, HTMLPainter *painter, int start_
 			if (offset + item->num_chars > end_offset) {
 				/* need to cut the ending of current glyph item */
 				PangoGlyphItem tmp_gi1, *tmp_gi2;
-				int split_index;
+				gint split_index;
 
 				if (glyph_item->type == HTML_TEXT_SLAVE_GLYPH_ITEM_PARENTAL) {
 					tmp_gi1.item = pango_item_copy (glyph_item->glyph_item.item);
@@ -670,9 +670,9 @@ html_text_slave_get_glyph_items (HTMLTextSlave *slave, HTMLPainter *painter)
 }
 
 static gboolean
-calc_glyph_range_size (HTMLText *text, PangoGlyphItem *glyph_item, int start_index, int end_index, int *x_offset, int *width, int *asc, int *height)
+calc_glyph_range_size (HTMLText *text, PangoGlyphItem *glyph_item, gint start_index, gint end_index, gint *x_offset, gint *width, gint *asc, gint *height)
 {
-	int isect_start, isect_end;
+	gint isect_start, isect_end;
 
 	isect_start = MAX (glyph_item->item->offset, start_index);
 	isect_end = MIN (glyph_item->item->offset + glyph_item->item->length, end_index);
@@ -684,7 +684,7 @@ calc_glyph_range_size (HTMLText *text, PangoGlyphItem *glyph_item, int start_ind
 
 	if (isect_start <= isect_end) {
 		PangoRectangle log_rect;
-		int start_x, end_x;
+		gint start_x, end_x;
 
 		pango_glyph_string_index_to_x (glyph_item->glyphs,
 					       text->text + glyph_item->item->offset,
@@ -739,10 +739,10 @@ draw_text (HTMLTextSlave *self,
 	HTMLObject *obj;
 	HTMLText *text = self->owner;
 	GSList *cur;
-	int run_width;
-	int selection_start_index = 0;
-	int selection_end_index = 0;
-	int isect_start, isect_end;
+	gint run_width;
+	gint selection_start_index = 0;
+	gint selection_end_index = 0;
+	gint isect_start, isect_end;
 	gboolean selection;
 	GdkColor selection_fg, selection_bg;
 	HTMLEngine *e = NULL;
@@ -782,7 +782,7 @@ draw_text (HTMLTextSlave *self,
 	for (cur = html_text_slave_get_glyph_items (self, p); cur; cur = cur->next) {
 		HTMLTextSlaveGlyphItem *gi = (HTMLTextSlaveGlyphItem *) cur->data;
 		GList *cur_se;
-		int cur_width;
+		gint cur_width;
 
 		if (e)
 			html_painter_set_pen (p, &html_colorset_get_color_allocated (e->settings->color_set,
@@ -791,8 +791,8 @@ draw_text (HTMLTextSlave *self,
 						      obj->y + ty + get_ys (text, p), gi->glyph_item.item, gi->glyph_item.glyphs, NULL, NULL);
 
 		if (selection) {
-			int start_x, width, asc, height;
-			int cx, cy, cw, ch;
+			gint start_x, width, asc, height;
+			gint cx, cy, cw, ch;
 
 			if (calc_glyph_range_size (text, &gi->glyph_item, selection_start_index, selection_end_index, &start_x, &width, &asc, &height) && width > 0) {
 				html_painter_get_clip_rectangle (p, &cx, &cy, &cw, &ch);
@@ -821,11 +821,11 @@ draw_text (HTMLTextSlave *self,
 			mi = MIN (se->off + se->len, self->posStart + self->posLen);
 
 			if (ma < mi) {
-				int width, height, asc, start_x;
+				gint width, height, asc, start_x;
 
 				gchar *end;
 				gchar *start;
-				int se_start_index, se_end_index;
+				gint se_start_index, se_end_index;
 
 				start = html_text_get_text (text, ma);
 				end = g_utf8_offset_to_pointer (start, mi - ma);
@@ -955,11 +955,11 @@ static gint
 calc_offset (HTMLTextSlave *slave, HTMLPainter *painter, gint x)
 {
 	GSList *cur, *glyphs = html_text_slave_get_glyph_items (slave, painter);
-	int width = 0, offset = html_object_get_direction (HTML_OBJECT (slave->owner)) == HTML_DIRECTION_RTL ? slave->posLen : 0;
+	gint width = 0, offset = html_object_get_direction (HTML_OBJECT (slave->owner)) == HTML_DIRECTION_RTL ? slave->posLen : 0;
 	PangoItem *item = NULL;
 
 	if (glyphs) {
-		int i = 0;
+		gint i = 0;
 
 		for (cur = glyphs; cur; cur = cur->next) {
 			HTMLTextSlaveGlyphItem *gi = (HTMLTextSlaveGlyphItem *) cur->data;
@@ -1139,7 +1139,7 @@ html_text_slave_new (HTMLText *owner, guint posStart, guint posLen)
 }
 
 static gboolean
-html_text_slave_is_index_in_glyph (HTMLTextSlave *slave, HTMLTextSlave *next_slave, GSList *cur, int index, PangoItem *item)
+html_text_slave_is_index_in_glyph (HTMLTextSlave *slave, HTMLTextSlave *next_slave, GSList *cur, gint index, PangoItem *item)
 {
 	if (item->analysis.level % 2 == 0) {
 		/* LTR */
@@ -1161,13 +1161,13 @@ html_text_slave_is_index_in_glyph (HTMLTextSlave *slave, HTMLTextSlave *next_sla
 }
 
 static HTMLTextSlaveGlyphItem *
-html_text_slave_get_glyph_item_at_offset (HTMLTextSlave *slave, HTMLPainter *painter, int offset, HTMLTextSlaveGlyphItem **prev, HTMLTextSlaveGlyphItem **next, int *start_width, int *index_out)
+html_text_slave_get_glyph_item_at_offset (HTMLTextSlave *slave, HTMLPainter *painter, gint offset, HTMLTextSlaveGlyphItem **prev, HTMLTextSlaveGlyphItem **next, gint *start_width, gint *index_out)
 {
 	HTMLTextSlaveGlyphItem *rv = NULL;
 	HTMLTextSlaveGlyphItem *prev_gi, *next_gi;
 	HTMLTextSlave *next_slave = HTML_OBJECT (slave)->next && HTML_IS_TEXT_SLAVE (HTML_OBJECT (slave)->next) ? HTML_TEXT_SLAVE (HTML_OBJECT (slave)->next) : NULL;
 	GSList *cur;
-	int index;
+	gint index;
 
 	prev_gi = next_gi = NULL;
 
@@ -1213,7 +1213,7 @@ html_text_slave_get_glyph_item_at_offset (HTMLTextSlave *slave, HTMLPainter *pai
 static gboolean
 html_text_slave_gi_left_edge (HTMLTextSlave *slave, HTMLCursor *cursor, HTMLTextSlaveGlyphItem *gi)
 {
-	int old_offset = cursor->offset;
+	gint old_offset = cursor->offset;
 
 	if (gi->glyph_item.item->analysis.level % 2 == 0) {
 		/* LTR */
@@ -1233,7 +1233,7 @@ html_text_slave_gi_left_edge (HTMLTextSlave *slave, HTMLCursor *cursor, HTMLText
 static gboolean
 html_text_slave_gi_right_edge (HTMLTextSlave *slave, HTMLCursor *cursor, HTMLTextSlaveGlyphItem *gi)
 {
-	int old_offset = cursor->offset;
+	gint old_offset = cursor->offset;
 
 	if (gi->glyph_item.item->analysis.level % 2 == 0) {
 		/* LTR */
@@ -1254,7 +1254,7 @@ static gboolean
 html_text_slave_cursor_right_one (HTMLTextSlave *slave, HTMLPainter *painter, HTMLCursor *cursor)
 {
 	HTMLTextSlaveGlyphItem *prev, *next;
-	int index;
+	gint index;
 	HTMLTextSlaveGlyphItem *gi = html_text_slave_get_glyph_item_at_offset (slave, painter, cursor->offset - slave->posStart, &prev, &next, NULL, &index);
 
 	if (!gi)
@@ -1314,7 +1314,7 @@ static gboolean
 html_text_slave_cursor_left_one (HTMLTextSlave *slave, HTMLPainter *painter, HTMLCursor *cursor)
 {
 	HTMLTextSlaveGlyphItem *prev, *next;
-	int index;
+	gint index;
 	HTMLObject *prev_obj = HTML_OBJECT (slave->owner)->prev;
 	HTMLTextSlaveGlyphItem *gi = html_text_slave_get_glyph_item_at_offset (slave, painter, cursor->offset - slave->posStart, &prev, &next, NULL, &index);
 
@@ -1379,8 +1379,8 @@ static gboolean
 html_text_slave_get_left_edge (HTMLTextSlave *slave, HTMLPainter *painter, HTMLCursor *cursor)
 {
 	HTMLTextPangoInfo *pi = html_text_get_pango_info (slave->owner, painter);
-	int old_offset = cursor->offset;
-	int old_position = cursor->position;
+	gint old_offset = cursor->offset;
+	gint old_position = cursor->position;
 
 	cursor->offset = html_text_slave_get_left_edge_offset (slave, painter);
 
@@ -1400,8 +1400,8 @@ static gboolean
 html_text_slave_get_right_edge (HTMLTextSlave *slave, HTMLPainter *painter, HTMLCursor *cursor)
 {
 	HTMLTextPangoInfo *pi = html_text_get_pango_info (slave->owner, painter);
-	int old_offset = cursor->offset;
-	int old_position = cursor->position;
+	gint old_offset = cursor->offset;
+	gint old_position = cursor->position;
 
 	cursor->offset = html_text_slave_get_right_edge_offset (slave, painter);
 
@@ -1457,7 +1457,7 @@ void
 html_text_slave_get_cursor_base (HTMLTextSlave *slave, HTMLPainter *painter, guint offset, gint *x, gint *y)
 {
 	HTMLTextSlaveGlyphItem *gi;
-	int index, start_width;
+	gint index, start_width;
 
 	html_object_calc_abs_position (HTML_OBJECT (slave), x, y);
 
@@ -1468,7 +1468,7 @@ html_text_slave_get_cursor_base (HTMLTextSlave *slave, HTMLPainter *painter, gui
 /*		gi ? gi->glyph_item.item->offset + gi->glyph_item.item->length : -1); */
 
 	if (gi) {
-		int start_x;
+		gint start_x;
 
 		if (calc_glyph_range_size (slave->owner, &gi->glyph_item, index, index, &start_x, NULL, NULL, NULL) && x) {
 /*			printf ("start_width: %d start_x: %d\n", start_width, start_x); */
@@ -1477,7 +1477,7 @@ html_text_slave_get_cursor_base (HTMLTextSlave *slave, HTMLPainter *painter, gui
 	}
 }
 
-int
+gint
 html_text_slave_get_left_edge_offset (HTMLTextSlave *slave, HTMLPainter *painter)
 {
 	GSList *gis = html_text_slave_get_glyph_items (slave, painter);
@@ -1502,7 +1502,7 @@ html_text_slave_get_left_edge_offset (HTMLTextSlave *slave, HTMLPainter *painter
 	}
 }
 
-int
+gint
 html_text_slave_get_right_edge_offset (HTMLTextSlave *slave, HTMLPainter *painter)
 {
 	GSList *gis = html_text_slave_get_glyph_items (slave, painter);

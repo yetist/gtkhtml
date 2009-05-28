@@ -277,9 +277,9 @@ struct _HTMLEngineClass {
 	void (* set_base) (HTMLEngine *engine, const gchar *base);
 	void (* set_base_target) (HTMLEngine *engine, const gchar *base_target);
 	void (* load_done) (HTMLEngine *engine);
-        void (* url_requested) (HTMLEngine *engine, const char *url, GtkHTMLStream *handle);
+        void (* url_requested) (HTMLEngine *engine, const gchar *url, GtkHTMLStream *handle);
 	void (* draw_pending) (HTMLEngine *engine);
-        void (* redirect) (HTMLEngine *engine, const char *url, int delay);
+        void (* redirect) (HTMLEngine *engine, const gchar *url, gint delay);
         void (* submit) (HTMLEngine *engine, const gchar *method, const gchar *action, const gchar *encoding);
 	gboolean (* object_requested) (HTMLEngine *engine, GtkHTMLEmbedded *);
 };
@@ -310,7 +310,7 @@ void html_engine_set_tokenizer (HTMLEngine *engine,
 
 /* Parsing control.  */
 GtkHTMLStream *html_engine_begin            (HTMLEngine  *p,
-					     const char  *content_type);
+					     const gchar  *content_type);
 void           html_engine_parse            (HTMLEngine  *p);
 void           html_engine_stop_parser      (HTMLEngine  *e);
 void           html_engine_stop             (HTMLEngine  *e);
@@ -319,7 +319,7 @@ void           html_engine_set_engine_type   (HTMLEngine *e,
 					 gboolean engine_type);
 gboolean       html_engine_get_engine_type   (HTMLEngine *e);
 void		   html_engine_set_content_type(HTMLEngine *e,
-					const gchar* content_type);
+					const gchar * content_type);
 const gchar *  html_engine_get_content_type(HTMLEngine *e);
 
 /* Rendering control.  */
@@ -387,7 +387,7 @@ void  html_engine_form_submitted  (HTMLEngine  *engine,
 
 /* Misc.  (FIXME: Should die?) */
 gchar *html_engine_canonicalize_url  (HTMLEngine *e,
-				      const char *in_url);
+				      const gchar *in_url);
 
 /* Cursor */
 HTMLCursor *html_engine_get_cursor        (HTMLEngine *e);
@@ -494,7 +494,7 @@ gint  html_engine_get_bottom_border  (HTMLEngine *e);
 HTMLImageFactory *html_engine_get_image_factory (HTMLEngine *e);
 void html_engine_opened_streams_increment (HTMLEngine *e);
 void html_engine_opened_streams_decrement (HTMLEngine *e);
-void html_engine_opened_streams_set (HTMLEngine *e, int value);
+void html_engine_opened_streams_set (HTMLEngine *e, gint value);
 
 void html_engine_refresh_fonts (HTMLEngine *e);
 

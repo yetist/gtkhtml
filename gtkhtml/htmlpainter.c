@@ -139,7 +139,7 @@ text_width (HTMLPainter *painter, PangoFontDescription *desc, const gchar *text,
 
 	if (pi && glyphs) {
 		GList *list;
-		int i;
+		gint i;
 		for (list = glyphs, i = 0; list; list = list->next->next, i++) {
 			PangoGlyphString *str = (PangoGlyphString *) list->data;
 			for (i=0; i < str->num_glyphs; i ++)
@@ -285,7 +285,7 @@ html_painter_get_type (void)
 
 void
 html_painter_begin (HTMLPainter *painter,
-		    int x1, int y1, int x2, int y2)
+		    gint x1, gint y1, gint x2, gint y2)
 {
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
@@ -571,8 +571,8 @@ html_painter_draw_entries (HTMLPainter *painter, gint x, gint y,
 	const gchar *tab, *c_text;
 	gint bytes;
 	GList *gl;
-	int first_item_offset = -1;
-	int space_width = -1;
+	gint first_item_offset = -1;
+	gint space_width = -1;
 
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
@@ -631,8 +631,8 @@ html_painter_draw_entries (HTMLPainter *painter, gint x, gint y,
 	}
 }
 
-int
-html_painter_draw_glyphs (HTMLPainter *painter, int x, int y, PangoItem *item, PangoGlyphString *glyphs, GdkColor *fg, GdkColor *bg)
+gint
+html_painter_draw_glyphs (HTMLPainter *painter, gint x, gint y, PangoItem *item, PangoGlyphString *glyphs, GdkColor *fg, GdkColor *bg)
 {
 	return (* HP_CLASS (painter)->draw_glyphs) (painter, x, y, item, glyphs, fg, bg);
 }
@@ -820,7 +820,7 @@ html_painter_get_pixel_size (HTMLPainter *painter)
 }
 
 gint
-html_painter_draw_spell_error (HTMLPainter *painter, int x, int y, int width)
+html_painter_draw_spell_error (HTMLPainter *painter, gint x, gint y, gint width)
 {
 	return (* HP_CLASS (painter)->draw_spell_error) (painter, x, y, width);
 }

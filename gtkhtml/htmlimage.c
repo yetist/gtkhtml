@@ -63,7 +63,7 @@ struct _HTMLImageFactory {
 static HTMLImageClass html_image_class;
 static HTMLObjectClass *parent_class = NULL;
 
-static HTMLImagePointer   *html_image_pointer_new               (const char *filename, HTMLImageFactory *factory);
+static HTMLImagePointer   *html_image_pointer_new               (const gchar *filename, HTMLImageFactory *factory);
 static void                html_image_pointer_ref               (HTMLImagePointer *ip);
 static void                html_image_pointer_unref             (HTMLImagePointer *ip);
 static gboolean            html_image_pointer_timeout           (HTMLImagePointer *ip);
@@ -213,7 +213,7 @@ image_update_url (HTMLImage *image, gint x, gint y)
 {
 	HTMLMap *map;
 	HTMLObject *o = HTML_OBJECT (image);
-	char *url = NULL;
+	gchar *url = NULL;
 
 	/*
 	 * FIXME this is a huge hack waiting until we implement events for now we write
@@ -965,7 +965,7 @@ html_image_set_alt (HTMLImage *image, const gchar *alt)
 void
 html_image_set_map (HTMLImage *image, gchar *usemap, gboolean ismap)
 {
-	char *url = NULL;
+	gchar *url = NULL;
 
 	g_free (image->usemap);
 
@@ -1009,13 +1009,13 @@ html_image_set_size (HTMLImage *image, gint w, gint h, gboolean pw, gboolean ph)
 	}
 }
 
-static char *fallback_image_content_types[] = { (char *) "image/*", NULL};
+static gchar *fallback_image_content_types[] = { (gchar *) "image/*", NULL};
 
-static char **
+static gchar **
 html_image_factory_types (GtkHTMLStream *stream,
 			  gpointer user_data)
 {
-	static char**image_content_types = NULL;
+	static gchar **image_content_types = NULL;
 
 #if 0
 	/* this code should work in gtk+-2.2 but it is untested */
@@ -1029,7 +1029,7 @@ html_image_factory_types (GtkHTMLStream *stream,
 
 		for (cur = formats; cur; cur = cur->next) {
 			GdkPixbufFormat *format = cur->data;
-			char **mime;
+			gchar **mime;
 
 			mime = gdk_pixbuf_formats_get_mime_types ();
 			for (i = 0; mime && mime[i]; i++)
@@ -1039,7 +1039,7 @@ html_image_factory_types (GtkHTMLStream *stream,
 		g_slist_free (formats);
 
 		if (types) {
-			image_content_types = g_new0 (char *, g_slist_length (types) + 1);
+			image_content_types = g_new0 (gchar *, g_slist_length (types) + 1);
 
 			for (cur = types, i = 0; cur; cur = cur->next, i++) {
 				image_content_types[i] = cur->data;
@@ -1303,7 +1303,7 @@ html_image_factory_free (HTMLImageFactory *factory)
 #define STALL_INTERVAL 1000
 
 static HTMLImagePointer *
-html_image_pointer_new (const char *filename, HTMLImageFactory *factory)
+html_image_pointer_new (const gchar *filename, HTMLImageFactory *factory)
 {
 	HTMLImagePointer *retval;
 
@@ -1422,7 +1422,7 @@ html_image_pointer_load (HTMLImagePointer *ip)
 }
 
 HTMLImagePointer *
-html_image_factory_register (HTMLImageFactory *factory, HTMLImage *i, const char *url, gboolean reload)
+html_image_factory_register (HTMLImageFactory *factory, HTMLImage *i, const gchar *url, gboolean reload)
 {
 	HTMLImagePointer *ip;
 	GtkHTMLStream *stream = NULL;

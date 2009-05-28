@@ -490,7 +490,7 @@ html_engine_url_requested_cb (HTMLEngine *engine,
 			      gpointer data)
 {
 	GtkHTML *gtk_html;
-	char *expanded = NULL;
+	gchar *expanded = NULL;
 	gtk_html = GTK_HTML (data);
 
 	if (engine->stopped)
@@ -515,7 +515,7 @@ html_engine_draw_pending_cb (HTMLEngine *engine,
 static void
 html_engine_redirect_cb (HTMLEngine *engine,
 			 const gchar *url,
-			 int delay,
+			 gint delay,
 			 gpointer data)
 {
 	GtkHTML *gtk_html;
@@ -835,7 +835,7 @@ gtk_html_get_top_html (GtkHTML *html)
 static cairo_font_options_t *
 get_font_options (void)
 {
-	char *antialiasing, *hinting, *subpixel_order;
+	gchar *antialiasing, *hinting, *subpixel_order;
 	GConfClient *gconf = gconf_client_get_default ();
 	cairo_font_options_t *font_options = cairo_font_options_create ();
 
@@ -899,11 +899,11 @@ gtk_html_set_fonts (GtkHTML *html, HTMLPainter *painter)
 	GtkWidget *top_level;
 	GtkStyle *style;
 	PangoFontDescription *fixed_desc = NULL;
-	char *fixed_name = NULL;
-	const char *fixed_family = NULL;
+	gchar *fixed_name = NULL;
+	const gchar *fixed_family = NULL;
 	gint  fixed_size = 0;
 	gboolean  fixed_points = FALSE;
-	const char *font_var = NULL;
+	const gchar *font_var = NULL;
 	gint  font_var_size = 0;
 	gboolean  font_var_points = FALSE;
 	cairo_font_options_t *font_options;
@@ -953,7 +953,7 @@ gtk_html_set_fonts (GtkHTML *html, HTMLPainter *painter)
 	}
 
 	html_font_manager_set_default (&painter->font_manager,
-				       (char *)font_var, (char *)fixed_family,
+				       (gchar *)font_var, (gchar *)fixed_family,
 				       font_var_size, font_var_points,
 				       fixed_size, fixed_points);
 	if (fixed_desc)
@@ -1244,7 +1244,7 @@ gtk_html_size_request (GtkWidget *widget, GtkRequisition *requisition)
 {
 	HTMLEngine *e = GTK_HTML (widget)->engine;
 	if (!e->writing) {
-		int old_width, old_height;
+		gint old_width, old_height;
 
 		old_width = e->width;
 		old_height = e->height;
@@ -1341,7 +1341,7 @@ size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 }
 
 static void
-set_pointer_url (GtkHTML *html, const char *url)
+set_pointer_url (GtkHTML *html, const gchar *url)
 {
 	if (url == html->pointer_url)
 		return;
@@ -1526,10 +1526,10 @@ mouse_change_pos (GtkWidget *widget, GdkWindow *window, gint x, gint y, gint sta
 	return TRUE;
 }
 
-static const char *
-skip_host (const char *url)
+static const gchar *
+skip_host (const gchar *url)
 {
-	const char *host;
+	const gchar *host;
 
 	host = url;
 	while (*host && (*host != '/') && (*host != ':'))
@@ -1557,11 +1557,11 @@ skip_host (const char *url)
 }
 
 static size_t
-path_len (const char *base, gboolean absolute)
+path_len (const gchar *base, gboolean absolute)
 {
-	const char *last;
-	const char *cur;
-	const char *start;
+	const gchar *last;
+	const gchar *cur;
+	const gchar *start;
 
 	start = last = skip_host (base);
 	if (!absolute) {
@@ -1575,12 +1575,12 @@ path_len (const char *base, gboolean absolute)
 }
 
 #if 0
-char *
-collapse_path (char *url)
+gchar *
+collapse_path (gchar *url)
 {
-	char *start;
-	char *end;
-	char *cur;
+	gchar *start;
+	gchar *end;
+	gchar *cur;
 	size_t len;
 
 	start = skip_host (url);
@@ -1609,7 +1609,7 @@ collapse_path (char *url)
 #endif
 
 static gboolean
-url_is_absolute (const char *url)
+url_is_absolute (const gchar *url)
 {
 	/*
 	  URI Syntactic Components
@@ -1635,10 +1635,10 @@ url_is_absolute (const char *url)
 	return *url && *url == ':';
 }
 
-static char *
-expand_relative (const char *base, const char *url)
+static gchar *
+expand_relative (const gchar *base, const gchar *url)
 {
-	char *new_url = NULL;
+	gchar *new_url = NULL;
 	size_t base_len, url_len;
 	gboolean absolute = FALSE;
 
@@ -1678,20 +1678,20 @@ expand_relative (const char *base, const char *url)
 	return new_url;
 }
 
-char *
-gtk_html_get_url_base_relative (GtkHTML *html, const char *url)
+gchar *
+gtk_html_get_url_base_relative (GtkHTML *html, const gchar *url)
 {
 	return expand_relative (gtk_html_get_base (html), url);
 }
 
-static char *
-expand_frame_url (GtkHTML *html, const char *url)
+static gchar *
+expand_frame_url (GtkHTML *html, const gchar *url)
 {
-	char *new_url;
+	gchar *new_url;
 
 	new_url = gtk_html_get_url_base_relative (html, url);
 	while (html->iframe_parent) {
-		char *expanded;
+		gchar *expanded;
 
 		expanded = gtk_html_get_url_base_relative (GTK_HTML (html->iframe_parent),
 						       new_url);
@@ -1703,8 +1703,8 @@ expand_frame_url (GtkHTML *html, const char *url)
 	return new_url;
 }
 
-char *
-gtk_html_get_url_object_relative (GtkHTML *html, HTMLObject *o, const char *url)
+gchar *
+gtk_html_get_url_object_relative (GtkHTML *html, HTMLObject *o, const gchar *url)
 {
 	HTMLEngine *e;
 	HTMLObject *parent;
@@ -2107,7 +2107,7 @@ gtk_html_keymap_direction_changed (GdkKeymap *keymap, GtkHTML *html)
 static gboolean
 goto_caret_anchor (GtkHTML *html)
 {
-	int x = 0, y = 0;
+	gint x = 0, y = 0;
 
 	g_return_val_if_fail (html != NULL, FALSE);
 	g_return_val_if_fail (GTK_IS_HTML (html), FALSE);
@@ -2205,7 +2205,7 @@ enter_notify_event (GtkWidget *widget, GdkEventCrossing *event)
 
 /* X11 selection support.  */
 
-static const char *
+static const gchar *
 utf16_order (gboolean swap)
 {
 	gboolean be;
@@ -2227,11 +2227,11 @@ utf16_order (gboolean swap)
 
 }
 
-static char *
-get_selection_string (GtkHTML *html, int *len, gboolean selection, gboolean primary, gboolean html_format)
+static gchar *
+get_selection_string (GtkHTML *html, gint *len, gboolean selection, gboolean primary, gboolean html_format)
 {
 	HTMLObject *selection_object = NULL;
-	char *selection_string = NULL;
+	gchar *selection_string = NULL;
 	gboolean free_object = FALSE;
 
 	if (selection && html_engine_is_selection_active (html->engine)) {
@@ -2279,22 +2279,22 @@ get_selection_string (GtkHTML *html, int *len, gboolean selection, gboolean prim
 }
 
 /* returned pointer should be freed with g_free */
-char *
-gtk_html_get_selection_html (GtkHTML *html, int *len)
+gchar *
+gtk_html_get_selection_html (GtkHTML *html, gint *len)
 {
 	return get_selection_string (html, len, TRUE, FALSE, TRUE);
 }
 
 /* returned pointer should be freed with g_free */
-char *
-gtk_html_get_selection_plain_text (GtkHTML *html, int *len)
+gchar *
+gtk_html_get_selection_plain_text (GtkHTML *html, gint *len)
 {
 	return get_selection_string (html, len, TRUE, FALSE, FALSE);
 }
 
 static gchar *
 utf16_to_utf8_with_bom_check (guchar  *data, guint len) {
-	const char *fromcode = NULL;
+	const gchar *fromcode = NULL;
 	GError  *error = NULL;
 	guint16 c;
 	gsize read_len, written_len;
@@ -2372,7 +2372,7 @@ setup_class_properties (GtkHTML *html)
 		klass->properties = gtk_html_class_properties_new (GTK_WIDGET (html));
 
 		if (!gconf_is_initialized ()) {
-			char *argv[] = { (char *) "gtkhtml", NULL };
+			gchar *argv[] = { (gchar *) "gtkhtml", NULL };
 
 			g_warning ("gconf is not initialized, please call gconf_init before using GtkHTML library. "
 				   "Meanwhile it's initialized by gtkhtml itself.");
@@ -2561,14 +2561,14 @@ drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkSelectionData *sel
 					 * The data contains the URL, a \n, then the
 					 * title of the web page.
 					 */
-					char *utf16;
-					char *utf8;
+					gchar *utf16;
+					gchar *utf8;
 					gsize written_len;
 					GdkAtom atom;
 
 					if (HTML_IS_TEXT (obj)) {
 						Link *link = html_text_get_link_at_offset (HTML_TEXT (obj), offset);
-						char *text;
+						gchar *text;
 
 						g_return_if_fail (link);
 						text = g_strndup (HTML_TEXT (obj)->text + link->start_index, link->end_index - link->start_index);
@@ -2630,12 +2630,12 @@ next_uri (guchar **uri_list, gint *len, gint *list_len)
 }
 
 static HTMLObject *
-new_img_obj_from_uri (HTMLEngine *e, char *uri, char *title, gint len)
+new_img_obj_from_uri (HTMLEngine *e, gchar *uri, gchar *title, gint len)
 {
 	if (!strncmp (uri, "file:", 5)) {
 		if (!HTML_IS_PLAIN_PAINTER(e->painter)) {
 			GdkPixbuf *pixbuf = NULL;
-			char *img_path = g_filename_from_uri (uri, NULL, NULL);
+			gchar *img_path = g_filename_from_uri (uri, NULL, NULL);
 			if (img_path) {
 				pixbuf = gdk_pixbuf_new_from_file(img_path, NULL);
 				g_free(img_path);
@@ -3401,7 +3401,7 @@ gtk_html_im_retrieve_surrounding_cb (GtkIMContext *context, GtkHTML *html)
 
 	text = get_surrounding_text (html->engine, &offset);
 	if (text) {
-		/* convert char offset to byte offset */
+		/* convert gchar offset to byte offset */
 		offset = g_utf8_offset_to_pointer (text, offset) - text;
 		gtk_im_context_set_surrounding (context, text, -1, offset);
 		g_free (text);
@@ -3628,8 +3628,8 @@ gtk_html_allow_selection (GtkHTML *html,
  */
 GtkHTMLStream *
 gtk_html_begin_full (GtkHTML           *html,
-		     char              *target_frame,
-		     const char        *content_type,
+		     gchar              *target_frame,
+		     const gchar        *content_type,
 		     GtkHTMLBeginFlags flags)
 {
 	GtkHTMLStream *handle;
@@ -3785,7 +3785,7 @@ gtk_html_get_title (GtkHTML *html)
  *
  **/
 void
-gtk_html_set_title (GtkHTML *html, const char *title)
+gtk_html_set_title (GtkHTML *html, const gchar *title)
 {
 	g_return_if_fail (html != NULL);
 	g_return_if_fail (GTK_IS_HTML (html));
@@ -3841,7 +3841,7 @@ gtk_html_save (GtkHTML *html,
  **/
 gboolean
 gtk_html_export (GtkHTML *html,
-		 const char *content_type,
+		 const gchar *content_type,
 		 GtkHTMLSaveReceiverFn receiver,
 		 gpointer user_data)
 {
@@ -4134,7 +4134,7 @@ gtk_html_get_caret_mode(const GtkHTML *html)
  *             or NULL to not look for the anchor.
  **/
 void
-gtk_html_set_caret_first_focus_anchor (GtkHTML *html, const char *name)
+gtk_html_set_caret_first_focus_anchor (GtkHTML *html, const gchar *name)
 {
 	g_return_if_fail (GTK_IS_HTML (html));
 	g_return_if_fail (html->priv != NULL);
@@ -4183,7 +4183,7 @@ gtk_html_load_from_string  (GtkHTML *html, const gchar *str, gint len)
 }
 
 void
-gtk_html_set_base (GtkHTML *html, const char *url)
+gtk_html_set_base (GtkHTML *html, const gchar *url)
 {
 	g_return_if_fail (GTK_IS_HTML (html));
 
@@ -4191,7 +4191,7 @@ gtk_html_set_base (GtkHTML *html, const char *url)
 	html->priv->base_url = g_strdup (url);
 }
 
-const char *
+const gchar *
 gtk_html_get_base (GtkHTML *html)
 {
 	g_return_val_if_fail (GTK_IS_HTML (html), NULL);
@@ -4478,7 +4478,7 @@ clipboard_paste_received_cb (GtkClipboard     *clipboard,
 		} else if ((utf8 = (gchar *) gtk_selection_data_get_text (selection_data))) {
 			utf8 = utf8_filter_out_bom (utf8);
 			if (as_cite) {
-				char *encoded;
+				gchar *encoded;
 
 				encoded = html_encode_entities (utf8, g_utf8_strlen (utf8, -1), NULL);
 				g_free (utf8);
@@ -4520,7 +4520,7 @@ static ClipboardContents *
 create_clipboard_contents (GtkHTML *html)
 {
 	ClipboardContents *contents;
-	int html_len, text_len;
+	gint html_len, text_len;
 
 	contents = g_new0 (ClipboardContents, 1);
 
@@ -4606,7 +4606,7 @@ static void
 update_primary_selection (GtkHTML *html)
 {
 	GtkClipboard *clipboard;
-	int text_len;
+	gint text_len;
 	gchar *text;
 
 	g_return_if_fail (html != NULL);
@@ -4670,7 +4670,7 @@ gtk_html_set_default_content_type (GtkHTML *html, const gchar *content_type)
     html_engine_set_content_type( html->engine, content_type);
 }
 
-const gchar*
+const gchar *
 gtk_html_get_default_content_type (GtkHTML *html)
 {
     return html_engine_get_content_type( html->engine);
@@ -6340,11 +6340,11 @@ gtk_html_flush (GtkHTML *html)
 	html_engine_flush (html->engine);
 }
 
-const char *
-gtk_html_get_object_id_at (GtkHTML *html, int x, int y)
+const gchar *
+gtk_html_get_object_id_at (GtkHTML *html, gint x, gint y)
 {
 	HTMLObject *o = html_engine_get_object_at (html->engine, x, y, NULL, FALSE);
-	const char *id = NULL;
+	const gchar *id = NULL;
 
 	while (o) {
 		id = html_object_get_id (o);
@@ -6356,11 +6356,11 @@ gtk_html_get_object_id_at (GtkHTML *html, int x, int y)
 	return id;
 }
 
-char *
-gtk_html_get_url_at (GtkHTML *html, int x, int y)
+gchar *
+gtk_html_get_url_at (GtkHTML *html, gint x, gint y)
 {
 	HTMLObject *obj;
-	int offset;
+	gint offset;
 
 	g_return_val_if_fail (GTK_IS_HTML (html), NULL);
 
@@ -6372,11 +6372,11 @@ gtk_html_get_url_at (GtkHTML *html, int x, int y)
 	return NULL;
 }
 
-char *
+gchar *
 gtk_html_get_cursor_url (GtkHTML *html)
 {
 	HTMLObject *obj;
-	int offset;
+	gint offset;
 
 	g_return_val_if_fail (GTK_IS_HTML (html), NULL);
 
@@ -6392,8 +6392,8 @@ gtk_html_get_cursor_url (GtkHTML *html)
 	return NULL;
 }
 
-char *
-gtk_html_get_image_src_at (GtkHTML *html, int x, int y)
+gchar *
+gtk_html_get_image_src_at (GtkHTML *html, gint x, gint y)
 {
 	HTMLObject *obj;
 	gint offset;
@@ -6414,7 +6414,7 @@ gtk_html_get_image_src_at (GtkHTML *html, int x, int y)
 	return NULL;
 }
 
-char *
+gchar *
 gtk_html_get_cursor_image_src (GtkHTML *html)
 {
 	HTMLObject *obj;
@@ -6535,8 +6535,8 @@ gchar *
 gtk_html_filename_to_uri (const gchar *filename)
 {
 	gchar *fake_filename, *fake_uri, *retval;
-	const char dummy_prefix[] = "file:///dummy/";
-	const int dummy_prefix_len = sizeof (dummy_prefix) - 1;
+	const gchar dummy_prefix[] = "file:///dummy/";
+	const gint dummy_prefix_len = sizeof (dummy_prefix) - 1;
 #ifdef G_OS_WIN32
 	gchar drive_letter = 0;
 #else
@@ -6623,7 +6623,7 @@ gtk_html_filename_to_uri (const gchar *filename)
  * build with -DUNIT_TEST_URI_CONVERSIONS.
  */
 
-static const char *const tests[][3] = {
+static const gchar *const tests[][3] = {
 	/* Each test case has three strings:
 	 *
 	 * 0) a URI, the source for the uri->filename conversion test,
@@ -6670,11 +6670,11 @@ static const char *const tests[][3] = {
   { NULL, NULL }
 };
 
-int
-main (int argc, char **argv)
+gint
+main (gint argc, gchar **argv)
 {
-	int failures = 0;
-	int i;
+	gint failures = 0;
+	gint i;
 
 	for (i = 0; i < G_N_ELEMENTS (tests); i++) {
 		gchar *filename;

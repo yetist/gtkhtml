@@ -85,8 +85,8 @@ finalize (GObject *object)
 
 static void
 begin (HTMLPainter *painter,
-       int x1, int y1,
-       int x2, int y2)
+       gint x1, gint y1,
+       gint x2, gint y2)
 {
 	HTMLPrinter *printer;
 	GtkPrintContext *pc;

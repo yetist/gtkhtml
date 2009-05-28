@@ -119,7 +119,7 @@ get_n_actions (AtkAction *action)
         return 1;
 }
 
-static G_CONST_RETURN gchar*
+static G_CONST_RETURN gchar *
 action_get_name (AtkAction *action, gint      i)
 {
         if (i == 0)

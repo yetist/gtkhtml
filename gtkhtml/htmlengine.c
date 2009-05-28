@@ -110,7 +110,7 @@ static void      html_engine_init             (HTMLEngine          *engine);
 static gboolean  html_engine_timer_event      (HTMLEngine          *e);
 static gboolean  html_engine_update_event     (HTMLEngine          *e);
 static void      html_engine_queue_redraw_all (HTMLEngine *e);
-static char **   html_engine_stream_types     (GtkHTMLStream       *stream,
+static gchar **   html_engine_stream_types     (GtkHTMLStream       *stream,
 					       gpointer            data);
 static void      html_engine_stream_write     (GtkHTMLStream       *stream,
 					       const gchar         *buffer,
@@ -136,7 +136,7 @@ static void      update_embedded           (GtkWidget *widget,
 
 static void      html_engine_map_table_clear (HTMLEngine *e);
 static void      html_engine_id_table_clear (HTMLEngine *e);
-static void      html_engine_add_map (HTMLEngine *e, const char *);
+static void      html_engine_add_map (HTMLEngine *e, const gchar *);
 static void      clear_pending_expose (HTMLEngine *e);
 static void      push_clue (HTMLEngine *e, HTMLObject *clue);
 static void      pop_clue (HTMLEngine *e);
@@ -234,10 +234,10 @@ struct _HTMLElement {
 	BlockFunc exitFunc;
 };
 
-static char *
-parse_element_name (const char *str)
+static gchar *
+parse_element_name (const gchar *str)
 {
-	const char *ep = str;
+	const gchar *ep = str;
 
 	ep = str;
 	if (*ep == '/')
@@ -255,7 +255,7 @@ parse_element_name (const char *str)
 }
 
 static HTMLElement *
-html_element_new (HTMLEngine *e, const char *name)
+html_element_new (HTMLEngine *e, const gchar *name)
 {
 	HTMLElement *element;
 
@@ -267,9 +267,9 @@ html_element_new (HTMLEngine *e, const char *name)
 }
 
 static HTMLElement *
-html_element_new_parse (HTMLEngine *e, const char *str) {
+html_element_new_parse (HTMLEngine *e, const gchar *str) {
 	HTMLElement *element;
-	char *name;
+	gchar *name;
 
 	name = parse_element_name (str);
 
@@ -290,7 +290,7 @@ html_element_new_parse (HTMLEngine *e, const char *str) {
 		attr = g_strsplit (token, "=", 2);
 
 		if (attr[0]) {
-			char *lower = g_ascii_strdown (attr[0], -1);
+			gchar *lower = g_ascii_strdown (attr[0], -1);
 
 			if (!g_hash_table_lookup (element->attributes, lower)) {
 				DE (g_print ("attrs (%s, %s)", attr[0], attr[1]));
@@ -320,9 +320,9 @@ html_element_new_parse (HTMLEngine *e, const char *str) {
 #define html_element_has_attr(node, key) g_hash_table_lookup_extended (node->attributes, key, NULL, NULL)
 #else
 gboolean
-html_element_get_attr (HTMLElement *node, char *name, char **value)
+html_element_get_attr (HTMLElement *node, gchar *name, gchar **value)
 {
-	char *orig_key;
+	gchar *orig_key;
 
 	g_return_if_fail (node->attributes != NULL);
 
@@ -334,7 +334,7 @@ html_element_get_attr (HTMLElement *node, char *name, char **value)
 static void
 html_element_parse_i18n (HTMLElement *node)
 {
-	char *value;
+	gchar *value;
 	/*
 	  <!ENTITY % i18n
 	  "lang        %LanguageCode; #IMPLIED  -- language code --
@@ -355,7 +355,7 @@ html_element_parse_i18n (HTMLElement *node)
 static void
 html_element_parse_coreattrs (HTMLElement *node)
 {
-	char *value;
+	gchar *value;
 
 	/*
 	  <!ENTITY % coreattrs
@@ -373,7 +373,7 @@ html_element_parse_coreattrs (HTMLElement *node)
 static void
 html_element_set_coreattr_to_object (HTMLElement *element, HTMLObject *o, HTMLEngine *engine)
 {
-	char *value;
+	gchar *value;
 
 	if (html_element_get_attr (element, "id", &value)) {
 		html_object_set_id (o, value);
@@ -413,7 +413,7 @@ html_element_free (HTMLElement *element)
 }
 
 static void
-push_element (HTMLEngine *e, const char *name, const char *class, HTMLStyle *style)
+push_element (HTMLEngine *e, const gchar *name, const gchar *class, HTMLStyle *style)
 {
 	HTMLElement *element;
 
@@ -490,7 +490,7 @@ current_row_bg_color (HTMLEngine *e)
 	return NULL;
 }
 
-static char *
+static gchar *
 current_row_bg_image (HTMLEngine *e)
 {
 	HTMLElement *span;
@@ -658,7 +658,7 @@ current_alignment (HTMLEngine *e)
 }
 
 static GtkPolicyType
-parse_scroll (const char *token)
+parse_scroll (const gchar *token)
 {
 	GtkPolicyType scroll;
 
@@ -673,7 +673,7 @@ parse_scroll (const char *token)
 }
 
 static HTMLHAlignType
-parse_halign (const char *token, HTMLHAlignType default_val)
+parse_halign (const gchar *token, HTMLHAlignType default_val)
 {
 	if (g_ascii_strcasecmp (token, "right") == 0)
 		return HTML_HALIGN_RIGHT;
@@ -726,7 +726,7 @@ pop_clueflow_style (HTMLEngine *e)
 static void new_flow (HTMLEngine *e, HTMLObject *clue, HTMLObject *first_object, HTMLClearType clear, HTMLDirection dir);
 static void close_flow (HTMLEngine *e, HTMLObject *clue);
 static void finish_flow (HTMLEngine *e, HTMLObject *clue);
-static void pop_element (HTMLEngine *e, const char *name);
+static void pop_element (HTMLEngine *e, const gchar *name);
 
 static HTMLObject *
 text_new (HTMLEngine *e, const gchar *text, GtkHTMLFontStyle style, HTMLColor *color)
@@ -1024,7 +1024,7 @@ html_element_push (HTMLElement *node, HTMLEngine *e, HTMLObject *clue)
 
 static void
 push_block_element (HTMLEngine *e,
-		    const char *name,
+		    const gchar *name,
 		    HTMLStyle *style,
 		    HTMLDisplayType level,
 		    BlockFunc exitFunc,
@@ -1048,7 +1048,7 @@ push_block_element (HTMLEngine *e,
 
 static void
 push_block (HTMLEngine *e,
-	    const char *name,
+	    const gchar *name,
 	    gint level,
 	    BlockFunc exitFunc,
 	    gint miscData1,
@@ -1165,7 +1165,7 @@ pop_element_by_type (HTMLEngine *e, HTMLDisplayType display)
 
 
 static void
-pop_element (HTMLEngine *e, const char *name)
+pop_element (HTMLEngine *e, const gchar *name)
 {
 	HTMLElement *elem = NULL;
 	GList *l;
@@ -1364,7 +1364,7 @@ element_parse_title (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 }
 
 static void
-parse_text (HTMLEngine *e, HTMLObject *clue, char *str)
+parse_text (HTMLEngine *e, HTMLObject *clue, gchar *str)
 {
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
@@ -1423,7 +1423,7 @@ new_parse_body (HTMLEngine *e, const gchar *end[])
 				if (e->inPre)
 					add_line_break (e, clue, HTML_CLEAR_NONE, HTML_DIRECTION_DERIVED);
 				else {
-					char *str_copy = g_strdup (str);
+					gchar *str_copy = g_strdup (str);
 					*str_copy = ' ';
 					parse_text (e, clue, str_copy);
 					g_free (str_copy);
@@ -1500,7 +1500,7 @@ element_parse_param (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	GtkHTMLEmbedded *eb;
 	HTMLElement *element;
-	char *name = NULL, *value = NULL;
+	gchar *name = NULL, *value = NULL;
 
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
@@ -1569,12 +1569,12 @@ block_end_object (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 static void
 element_parse_object (HTMLEngine *e, HTMLObject *clue, const gchar *attr)
 {
-	char *classid = NULL;
-	char *name    = NULL;
-	char *type    = NULL;
-	char *data    = NULL;
-	char *value   = NULL;
-	int width=-1,height=-1;
+	gchar *classid = NULL;
+	gchar *name    = NULL;
+	gchar *type    = NULL;
+	gchar *data    = NULL;
+	gchar *value   = NULL;
+	gint width=-1,height=-1;
 	static const gchar *end[] = { "</object", 0};
 	GtkHTMLEmbedded *eb;
 	HTMLEmbedded *el;
@@ -1661,7 +1661,7 @@ element_parse_object (HTMLEngine *e, HTMLObject *clue, const gchar *attr)
 static void
 element_parse_noframe (HTMLEngine *e, HTMLObject *clue, const gchar *str )
 {
-	static const char *end[] = {"</noframe", NULL};
+	static const gchar *end[] = {"</noframe", NULL};
 
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
@@ -1683,9 +1683,9 @@ element_parse_frameset (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	HTMLElement *element;
 	HTMLObject *set;
-	char *value = NULL;
-	char *rows  = NULL;
-	char *cols  = NULL;
+	gchar *value = NULL;
+	gchar *rows  = NULL;
+	gchar *cols  = NULL;
 
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
@@ -1724,11 +1724,11 @@ element_parse_frameset (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 }
 
 static void
-element_parse_iframe (HTMLEngine *e, HTMLObject *clue, const char *str)
+element_parse_iframe (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	HTMLElement *element;
-	char *value = NULL;
-	char *src   = NULL;
+	gchar *value = NULL;
+	gchar *src   = NULL;
 	HTMLObject *iframe;
 	static const gchar *end[] = { "</iframe", 0};
 	gint width           = -1;
@@ -1817,10 +1817,10 @@ static void
 element_parse_area (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	HTMLShape *shape;
-	char *type = NULL;
-	char *href = NULL;
-	char *coords = NULL;
-	char *target = NULL;
+	gchar *type = NULL;
+	gchar *href = NULL;
+	gchar *coords = NULL;
+	gchar *target = NULL;
 
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
@@ -1876,10 +1876,10 @@ element_parse_a (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	HTMLElement *element;
 	gchar *url = NULL;
 	gchar *id = NULL;
-	char *type = NULL;
-	char *coords = NULL;
-	char *target = NULL;
-	char *value;
+	gchar *type = NULL;
+	gchar *coords = NULL;
+	gchar *target = NULL;
+	gchar *value;
 
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
@@ -1942,7 +1942,7 @@ block_end_clueflow_style (HTMLEngine *e,
 }
 
 static void
-element_parse_address (HTMLEngine *e, HTMLObject *clue, const char *str)
+element_parse_address (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	HTMLStyle *style = NULL;
 
@@ -2000,10 +2000,10 @@ element_parse_center (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 }
 
 static void
-element_parse_html (HTMLEngine *e, HTMLObject *clue, const char *str)
+element_parse_html (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	HTMLElement *element;
-	char *value;
+	gchar *value;
 
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
@@ -2022,10 +2022,10 @@ element_parse_html (HTMLEngine *e, HTMLObject *clue, const char *str)
 }
 
 static void
-element_parse_div (HTMLEngine *e, HTMLObject *clue, const char *str)
+element_parse_div (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	HTMLElement *element;
-	char *value;
+	gchar *value;
 
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
@@ -2213,13 +2213,13 @@ element_parse_body (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 }
 
 static void
-element_parse_base (HTMLEngine *e, HTMLObject *clue, const char *str)
+element_parse_base (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
 	html_string_tokenizer_tokenize( e->st, str + 5, " >" );
 	while ( html_string_tokenizer_has_more_tokens (e->st) ) {
-		const char* token = html_string_tokenizer_next_token(e->st);
+		const gchar * token = html_string_tokenizer_next_token(e->st);
 		if ( g_ascii_strncasecmp( token, "target=", 7 ) == 0 ) {
 			g_signal_emit (e, signals [SET_BASE_TARGET], 0, token + 7);
 		} else if ( g_ascii_strncasecmp( token, "href=", 5 ) == 0 ) {
@@ -2230,7 +2230,7 @@ element_parse_base (HTMLEngine *e, HTMLObject *clue, const char *str)
 
 
 static void
-element_parse_data (HTMLEngine *e, HTMLObject *clue, const char *str)
+element_parse_data (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	gchar *key = NULL;
 	gchar *class_name = NULL;
@@ -2299,16 +2299,16 @@ element_parse_input (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	enum InputType { CheckBox, Hidden, Radio, Reset, Submit, Text, Image,
 			 Button, Password, Undefined };
 	HTMLObject *element = NULL;
-	const char *p;
+	const gchar *p;
 	enum InputType type = Text;
 	gchar *name = NULL;
 	gchar *value = NULL;
 	gchar *imgSrc = NULL;
 	gboolean checked = FALSE;
-	int size = 20;
-	int maxLen = -1;
-	int imgHSpace = 0;
-	int imgVSpace = 0;
+	gint size = 20;
+	gint maxLen = -1;
+	gint imgHSpace = 0;
+	gint imgVSpace = 0;
 	gboolean fix_form = FALSE;
 
 	g_return_if_fail (HTML_IS_ENGINE (e));
@@ -2460,8 +2460,8 @@ static void
 element_parse_frame (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	HTMLElement *element;
-	char *value = NULL;
-	char *src = NULL;
+	gchar *value = NULL;
+	gchar *src = NULL;
 	HTMLObject *frame = NULL;
 	gint margin_height = -1;
 	gint margin_width = -1;
@@ -2528,7 +2528,7 @@ element_parse_hr (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	gint percent = 100;
 	HTMLHAlignType align = HTML_HALIGN_CENTER;
 	gboolean shade = TRUE;
-	char *value;
+	gchar *value;
 	HTMLLength *len;
 
 
@@ -2647,7 +2647,7 @@ element_parse_heading (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 
 	/* FIXME this is temporary until the paring can be moved.*/
 	{
-		char *name = parse_element_name (str);
+		gchar *name = parse_element_name (str);
 		push_block_element (e, name, style, DISPLAY_BLOCK, block_end_heading, 0, 0);
 		g_free (name);
 	}
@@ -2797,7 +2797,7 @@ html_engine_get_engine_type( HTMLEngine *e)
 }
 
 void
-html_engine_set_content_type(HTMLEngine *e, const gchar* content_type)
+html_engine_set_content_type(HTMLEngine *e, const gchar * content_type)
 {
 	g_return_if_fail (HTML_IS_ENGINE (e));
 	html_tokenizer_change_content_type(e->ht, content_type);
@@ -2813,16 +2813,16 @@ html_engine_get_content_type(HTMLEngine *e)
 static void
 element_parse_meta (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
-	int refresh = 0;
-	int contenttype = 0;
-	int refresh_delay = 0;
+	gint refresh = 0;
+	gint contenttype = 0;
+	gint refresh_delay = 0;
 	gchar *refresh_url = NULL;
 
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
 	html_string_tokenizer_tokenize(e->st, str + 5, " >");
 	while (html_string_tokenizer_has_more_tokens (e->st)) {
-		const gchar* token = html_string_tokenizer_next_token(e->st);
+		const gchar * token = html_string_tokenizer_next_token(e->st);
 		if (g_ascii_strncasecmp(token, "http-equiv=", 11) == 0 ) {
 			if (g_ascii_strncasecmp(token + 11, "refresh", 7) == 0 )
 				refresh = 1;
@@ -2866,9 +2866,9 @@ element_parse_map (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 
 	html_string_tokenizer_tokenize (e->st, str + 3, " >");
 	while (html_string_tokenizer_has_more_tokens (e->st)) {
-		const char* token = html_string_tokenizer_next_token (e->st);
+		const gchar * token = html_string_tokenizer_next_token (e->st);
 		if (g_ascii_strncasecmp (token, "name=", 5) == 0) {
-			const char *name = token + 5;
+			const gchar *name = token + 5;
 
 			html_engine_add_map (e, name);
 		}
@@ -2977,7 +2977,7 @@ element_parse_ol (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	html_string_tokenizer_tokenize( e->st, str + 3, " >" );
 
 	while (html_string_tokenizer_has_more_tokens (e->st)) {
-		const char* token;
+		const gchar * token;
 
 		token = html_string_tokenizer_next_token (e->st);
 		if (g_ascii_strncasecmp( token, "type=", 5 ) == 0)
@@ -3017,7 +3017,7 @@ element_parse_blockquote (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 
 	html_string_tokenizer_tokenize (e->st, str + 11, " >");
 	while (html_string_tokenizer_has_more_tokens (e->st)) {
-		const char *token = html_string_tokenizer_next_token (e->st);
+		const gchar *token = html_string_tokenizer_next_token (e->st);
 		if (g_ascii_strncasecmp (token, "type=", 5) == 0) {
 			if (g_ascii_strncasecmp (token + 5, "cite", 5) == 0) {
 				type = HTML_LIST_TYPE_BLOCKQUOTE_CITE;
@@ -3078,7 +3078,7 @@ element_parse_dl (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 }
 
 static void
-element_parse_dir (HTMLEngine *e, HTMLObject *clue, const char *str)
+element_parse_dir (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
@@ -3126,9 +3126,9 @@ static void
 element_parse_select (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	HTMLElement *element;
-	char *value;
-	char *name = NULL;
-	int size = 0;
+	gchar *value;
+	gchar *name = NULL;
+	gint size = 0;
 	gboolean multi = FALSE;
 
 	g_return_if_fail (HTML_IS_ENGINE (e));
@@ -3266,7 +3266,7 @@ element_parse_table (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	HTMLElement *element;
 	HTMLTable *table;
-	char *value;
+	gchar *value;
 	HTMLLength *len;
 
 	gint padding = 1;
@@ -3422,7 +3422,7 @@ static void
 element_parse_tr (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	HTMLElement *element;
-	char *value;
+	gchar *value;
 
 	element = html_element_new_parse (e, str);
 
@@ -3486,7 +3486,7 @@ element_parse_caption (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 
 	html_string_tokenizer_tokenize( e->st, str + 7, " >" );
 	while ( html_string_tokenizer_has_more_tokens (e->st) ) {
-		const char* token = html_string_tokenizer_next_token(e->st);
+		const gchar * token = html_string_tokenizer_next_token(e->st);
 		if ( g_ascii_strncasecmp( token, "align=", 6 ) == 0) {
 			if ( g_ascii_strncasecmp( token+6, "top", 3 ) == 0)
 				capAlign = HTML_VALIGN_TOP;
@@ -3514,11 +3514,11 @@ element_parse_cell (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	gint rowSpan = 1;
 	gint colSpan = 1;
 	HTMLTableCell *cell = NULL;
-	char *image_url = NULL;
+	gchar *image_url = NULL;
 	gboolean heading;
 	gboolean no_wrap = FALSE;
 	HTMLElement *element;
-	char *value;
+	gchar *value;
 	HTMLLength *len;
 	HTMLDirection dir = HTML_DIRECTION_DERIVED;
 
@@ -3762,7 +3762,7 @@ element_parse_u (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 }
 
 static void
-element_parse_inline_fixed (HTMLEngine *e, HTMLObject *clue, const char *str )
+element_parse_inline_fixed (HTMLEngine *e, HTMLObject *clue, const gchar *str )
 {
 	HTMLElement *element = html_element_new_parse (e, str);
 
@@ -3812,7 +3812,7 @@ static void
 element_parse_font (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	HTMLElement *element = html_element_new_parse (e, str);
-	char *value;
+	gchar *value;
 
 	if (html_element_get_attr (element, "size", &value)) {
 		gint size = atoi (value);
@@ -3852,7 +3852,7 @@ element_parse_font (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 /* Parsing dispatch table.  */
 typedef void (*HTMLParseFunc)(HTMLEngine *p, HTMLObject *clue, const gchar *str);
 typedef struct _HTMLDispatchEntry {
-	const char *name;
+	const gchar *name;
 	HTMLParseFunc func;
 } HTMLDispatchEntry;
 
@@ -3959,7 +3959,7 @@ static void
 parse_one_token (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	static GHashTable *basic = NULL;
-	char *name = NULL;
+	gchar *name = NULL;
 	HTMLDispatchEntry *entry;
 
 	if (basic == NULL)
@@ -4645,7 +4645,7 @@ html_engine_class_data_clear (HTMLEngine *e)
 #define LOG_INPUT 1
 
 GtkHTMLStream *
-html_engine_begin (HTMLEngine *e, const char *content_type)
+html_engine_begin (HTMLEngine *e, const gchar *content_type)
 {
 	GtkHTMLStream *new_stream;
 
@@ -4707,9 +4707,9 @@ html_engine_stop (HTMLEngine *e)
 	html_object_forall (e->clue, e, html_engine_stop_forall, NULL);
 }
 
-static char *engine_content_types[]= { (char *) "text/html", NULL};
+static gchar *engine_content_types[]= { (gchar *) "text/html", NULL};
 
-static char **
+static gchar **
 html_engine_stream_types (GtkHTMLStream *handle,
 			  gpointer data)
 {
@@ -6767,7 +6767,7 @@ html_engine_saved (HTMLEngine *e)
 }
 
 static void
-html_engine_add_map (HTMLEngine *e, const char *name)
+html_engine_add_map (HTMLEngine *e, const gchar *name)
 {
 	gpointer old_key = NULL, old_val;
 
@@ -6940,7 +6940,7 @@ html_engine_opened_streams_decrement (HTMLEngine *e)
 }
 
 void
-html_engine_opened_streams_set (HTMLEngine *e, int value)
+html_engine_opened_streams_set (HTMLEngine *e, gint value)
 {
 	g_return_if_fail (HTML_IS_ENGINE (e));
 

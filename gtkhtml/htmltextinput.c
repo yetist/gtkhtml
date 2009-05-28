@@ -108,7 +108,7 @@ html_text_input_key_pressed (GtkWidget *w, GdkEventKey *ev, gpointer p)
 /* HTMLEmbedded methods.  */
 
 static gchar *
-encode (HTMLEmbedded *e, const gchar* codepage)
+encode (HTMLEmbedded *e, const gchar * codepage)
 {
 	GString *encoding = g_string_new ("");
 	gchar *ptr;

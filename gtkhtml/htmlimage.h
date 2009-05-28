@@ -153,7 +153,7 @@ gboolean          html_image_factory_get_animate            (HTMLImageFactory *f
 void              html_image_factory_deactivate_animations  (HTMLImageFactory *factory);
 HTMLImagePointer *html_image_factory_register               (HTMLImageFactory *factory,
 							     HTMLImage        *i,
-							     const char       *filename,
+							     const gchar       *filename,
 							     gboolean          reload);
 void              html_image_factory_unregister             (HTMLImageFactory *factory,
 							     HTMLImagePointer *pointer,

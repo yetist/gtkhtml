@@ -57,7 +57,7 @@ struct _HTMLPainterClass {
 	GObjectClass   base;
 
 	void (* set_widget)       (HTMLPainter *painter, GtkWidget *widget);
-	void (* begin)            (HTMLPainter *painter, int x1, int y1, int x2, int y2);
+	void (* begin)            (HTMLPainter *painter, gint x1, gint y1, gint x2, gint y2);
 	void (* end)              (HTMLPainter *painter);
 
         HTMLFont * (* alloc_font) (HTMLPainter *p, gchar *face_name, gdouble size, gboolean points, GtkHTMLFontStyle  style);
@@ -72,7 +72,7 @@ struct _HTMLPainterClass {
 	void (* draw_line)        (HTMLPainter *painter, gint x1, gint y1, gint x2, gint y2);
 	void (* draw_rect)        (HTMLPainter *painter, gint x, gint y, gint width, gint height);
 	gint (* draw_glyphs)      (HTMLPainter *painter, gint x, gint y, PangoItem *item, PangoGlyphString *glyphs, GdkColor *fg, GdkColor *bg);
-	gint (* draw_spell_error) (HTMLPainter *painter, int x, int y, int width);
+	gint (* draw_spell_error) (HTMLPainter *painter, gint x, gint y, gint width);
 	void (* fill_rect)        (HTMLPainter *painter, gint x, gint y, gint width, gint height);
 	void (* draw_pixmap)      (HTMLPainter *painter, GdkPixbuf *pixbuf,
 				   gint x, gint y,
@@ -113,10 +113,10 @@ void              html_painter_set_widget                              (HTMLPain
 
 /* Functions to drive the painting process.  */
 void              html_painter_begin                                   (HTMLPainter       *painter,
-									int                x1,
-									int                y1,
-									int                x2,
-									int                y2);
+									gint                x1,
+									gint                y1,
+									gint                x2,
+									gint                y2);
 void              html_painter_end                                     (HTMLPainter       *painter);
 
 /* Color control.  */
@@ -178,9 +178,9 @@ void              html_painter_draw_text                               (HTMLPain
 									gint               y,
 									const gchar       *text,
 									gint               len);
-int               html_painter_draw_glyphs                             (HTMLPainter       *painter,
-									int                x,
-									int                y,
+gint               html_painter_draw_glyphs                             (HTMLPainter       *painter,
+									gint                x,
+									gint                y,
 									PangoItem         *item,
 									PangoGlyphString  *glyphs,
 									GdkColor          *fg,
@@ -250,9 +250,9 @@ void              html_painter_draw_background                         (HTMLPain
 									gint               tile_y);
 guint             html_painter_get_pixel_size                          (HTMLPainter       *painter);
 gint              html_painter_draw_spell_error                        (HTMLPainter       *painter,
-									int                x,
-									int                y,
-									int                width);
+									gint                x,
+									gint                y,
+									gint                width);
 HTMLFont         *html_painter_alloc_font                              (HTMLPainter       *painter,
 									gchar             *face_name,
 									gdouble            size,

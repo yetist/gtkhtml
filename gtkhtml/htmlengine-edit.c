@@ -771,10 +771,10 @@ void html_engine_edit_set_direction (HTMLEngine *e,
 	}
 }
 
-int
+gint
 html_engine_get_insert_level_for_object (HTMLEngine *e, HTMLObject *o)
 {
-	int cursor_level = 3, level = html_object_get_insert_level (o);
+	gint cursor_level = 3, level = html_object_get_insert_level (o);
 
 	if (level > 3) {
 		if (e && e->cursor->object && e->cursor->object->parent && e->cursor->object->parent->parent && html_object_is_clue (e->cursor->object->parent->parent)) {

@@ -88,7 +88,7 @@ free_color (HTMLPainter *painter,
 
 
 static void
-begin (HTMLPainter *painter, int x1, int y1, int x2, int y2)
+begin (HTMLPainter *painter, gint x1, gint y1, gint x2, gint y2)
 {
 	HTMLGdkPainter *gdk_painter;
 
@@ -100,8 +100,8 @@ begin (HTMLPainter *painter, int x1, int y1, int x2, int y2)
 	set_clip_rectangle (painter, 0, 0, 0, 0);
 
 	if (gdk_painter->double_buffer){
-		const int width = x2 - x1 + 1;
-		const int height = y2 - y1 + 1;
+		const gint width = x2 - x1 + 1;
+		const gint height = y2 - y1 + 1;
 
 
 		/* FIXME: Ideally it should be NULL before coming here. */
@@ -472,8 +472,8 @@ draw_background (HTMLPainter *painter,
 			g_object_unref (pixmap);
 			g_object_unref (gc);
 		} else {
-			int incr_x = 0;
-			int incr_y = 0;
+			gint incr_x = 0;
+			gint incr_y = 0;
 
 			cy = paint.y;
 			ch = paint.height;
@@ -666,7 +666,7 @@ fill_rect (HTMLPainter *painter,
 }
 
 static gint
-draw_spell_error (HTMLPainter *painter, int x, int y, int width)
+draw_spell_error (HTMLPainter *painter, gint x, gint y, gint width)
 {
 	HTMLGdkPainter *gdk_painter;
 	GdkGCValues values;

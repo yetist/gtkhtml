@@ -174,30 +174,30 @@ gint              html_text_text_line_length             (const gchar        *te
 							  gint               *tabs);
 gint              html_text_calc_part_width              (HTMLText           *text,
 							  HTMLPainter        *painter,
-							  char               *start,
+							  gchar               *start,
 							  gint                offset,
 							  gint                len,
 							  gint               *asc,
 							  gint               *dsc);
 gint              html_text_get_item_index               (HTMLText           *text,
 							  HTMLPainter        *painter,
-							  int                 offset,
-							  int                *item_offset);
+							  gint                 offset,
+							  gint                *item_offset);
 gboolean          html_text_pi_backward                  (HTMLTextPangoInfo  *pi,
-							  int                *ii,
-							  int                *io);
+							  gint                *ii,
+							  gint                *io);
 gboolean          html_text_pi_forward                   (HTMLTextPangoInfo  *pi,
-							  int                *ii,
-							  int                *io);
+							  gint                *ii,
+							  gint                *io);
 void              html_text_free_attrs                   (GSList             *attrs);
 gint              html_text_tail_white_space             (HTMLText           *text,
 							  HTMLPainter        *painter,
-							  int                 offset,
-							  int                 ii,
-							  int                 io,
-							  int                *white_len,
-							  int                 line_offset,
-							  char               *s);
+							  gint                 offset,
+							  gint                 ii,
+							  gint                 io,
+							  gint                *white_len,
+							  gint                 line_offset,
+							  gchar               *s);
 void              html_text_append_link                  (HTMLText           *text,
 							  gchar              *url,
 							  gchar              *target,
@@ -240,7 +240,7 @@ Link             *html_text_get_link_at_offset           (HTMLText           *te
 							  gint                offset);
 HTMLTextSlave    *html_text_get_slave_at_offset          (HTMLText           *text,
 							  HTMLTextSlave      *start,
-							  int                 offset);
+							  gint                 offset);
 Link             *html_text_get_link_slaves_at_offset    (HTMLText           *text,
 							  gint                offset,
 							  HTMLTextSlave     **start,
@@ -340,8 +340,8 @@ PangoDirection     html_text_get_pango_direction      (HTMLText              *te
 HTMLDirection      html_text_direction_pango_to_html  (PangoDirection         pdir);
 
 gboolean  html_text_is_line_break                (PangoLogAttr  attr);
-void      html_text_remove_unwanted_line_breaks  (char         *s,
-						  int           len,
+void      html_text_remove_unwanted_line_breaks  (gchar         *s,
+						  gint           len,
 						  PangoLogAttr *attrs);
 
 typedef HTMLObject * (* HTMLTextHelperFunc)       (HTMLText *, gint begin, gint end);
@@ -358,10 +358,10 @@ HTMLObject *html_text_op_cut_helper     (HTMLText           *text,
 					 guint              *len);
 void
 html_tmp_fix_pango_glyph_string_get_logical_widths (PangoGlyphString *glyphs,
-						    const char       *text,
-						    int               length,
-						    int               embedding_level,
-						    int              *logical_widths);
+						    const gchar       *text,
+						    gint               length,
+						    gint               embedding_level,
+						    gint              *logical_widths);
 
 PangoAttrList *html_text_prepare_attrs (HTMLText *text,
 					HTMLPainter *painter);

@@ -28,13 +28,13 @@
 #define HTML_MAP(x) ((HTMLMap *) x)
 
 struct _HTMLMap {
-	char *name;
+	gchar *name;
         GPtrArray *shapes;
 };
 
 HTMLMap     *html_map_new         (const gchar     *name);
 void         html_map_destroy     (HTMLMap         *map);
-char *       html_map_calc_point  (HTMLMap         *map,
+gchar *       html_map_calc_point  (HTMLMap         *map,
 				   gint             x,
 				   gint             y);
 void         html_map_add_shape  (HTMLMap          *map,

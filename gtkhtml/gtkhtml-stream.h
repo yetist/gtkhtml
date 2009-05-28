@@ -44,15 +44,15 @@ void           gtk_html_stream_write     (GtkHTMLStream          *stream,
 void           gtk_html_stream_destroy   (GtkHTMLStream          *stream);
 void           gtk_html_stream_close     (GtkHTMLStream          *stream,
 					  GtkHTMLStreamStatus     status);
-char **        gtk_html_stream_get_types (GtkHTMLStream *stream);
+gchar **        gtk_html_stream_get_types (GtkHTMLStream *stream);
 
 GtkHTMLStream *gtk_html_stream_log_new   (GtkHTML *html, GtkHTMLStream *stream);
 
-int            gtk_html_stream_vprintf   (GtkHTMLStream *stream,
-					  const char *format,
+gint            gtk_html_stream_vprintf   (GtkHTMLStream *stream,
+					  const gchar *format,
 					  va_list ap);
-int            gtk_html_stream_printf    (GtkHTMLStream *stream,
-					  const char *format,
+gint            gtk_html_stream_printf    (GtkHTMLStream *stream,
+					  const gchar *format,
 					  ...) G_GNUC_PRINTF (2, 3);
 
 #endif /* _GTKHTML_STREAM_H */

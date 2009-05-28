@@ -49,10 +49,10 @@ html_map_add_shape (HTMLMap *map, HTMLShape *shape)
 	g_ptr_array_add (map->shapes, shape);
 }
 
-char *
+gchar *
 html_map_calc_point (HTMLMap *map, gint x, gint y)
 {
-	int i;
+	gint i;
 
 	for (i = 0; i < map->shapes->len; i++) {
 		HTMLShape *shape;

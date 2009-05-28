@@ -31,7 +31,7 @@
 struct _HTMLIFrame {
 	HTMLEmbedded embedded;
 
-	char *url;
+	gchar *url;
 	GtkWidget *scroll;
 	GtkWidget *html;
 	HTMLPainter *gdk_painter;
@@ -53,13 +53,13 @@ void           html_iframe_class_init            (HTMLIFrameClass *klass,
 void           html_iframe_init                  (HTMLIFrame        *iframe,
 						  HTMLIFrameClass   *klass,
 						  GtkWidget         *parent,
-						  char              *url,
+						  gchar              *url,
 						  gint               width,
 						  gint               height,
 						  gboolean           border);
 
 HTMLObject *   html_iframe_new                   (GtkWidget *parent,
-						  char *src,
+						  gchar *src,
 						  gint width,
 						  gint height,
 						  gboolean border);

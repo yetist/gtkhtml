@@ -40,7 +40,7 @@ HTMLFrameClass html_frame_class;
 static HTMLEmbeddedClass *parent_class = NULL;
 
 static void
-frame_url_requested (GtkHTML *html, const char *url, GtkHTMLStream *handle, gpointer data)
+frame_url_requested (GtkHTML *html, const gchar *url, GtkHTMLStream *handle, gpointer data)
 {
 	HTMLFrame *frame = HTML_FRAME (data);
 	GtkHTML *parent = GTK_HTML (HTML_EMBEDDED(frame)->parent);
@@ -52,7 +52,7 @@ frame_url_requested (GtkHTML *html, const char *url, GtkHTMLStream *handle, gpoi
 static void
 frame_set_base (GtkHTML *html, const gchar *url, gpointer data)
 {
-	char *new_url = NULL;
+	gchar *new_url = NULL;
 
 	new_url = gtk_html_get_url_base_relative (html, url);
 	gtk_html_set_base (html, new_url);
@@ -107,7 +107,7 @@ frame_set_gdk_painter (HTMLFrame *frame, HTMLPainter *painter)
 
 HTMLObject *
 html_frame_new (GtkWidget *parent,
-		 char *src,
+		 gchar *src,
 		 gint width,
 		 gint height,
 		 gboolean border)
@@ -138,7 +138,7 @@ static gint
 calc_min_width (HTMLObject *o,
 		HTMLPainter *painter)
 {
-  int min_width;
+  gint min_width;
 
   if (HTML_FRAME (o)->width < 0)
 	  min_width =  html_engine_calc_min_width (GTK_HTML (HTML_FRAME (o)->html)->engine);
@@ -378,7 +378,7 @@ destroy (HTMLObject *o)
 }
 
 static HTMLAnchor *
-find_anchor (HTMLObject *self, const char *name, gint *x, gint *y)
+find_anchor (HTMLObject *self, const gchar *name, gint *x, gint *y)
 {
 	HTMLFrame *frame;
 	HTMLAnchor *anchor;
@@ -448,7 +448,7 @@ void
 html_frame_init (HTMLFrame *frame,
 		  HTMLFrameClass *klass,
 		  GtkWidget *parent,
-		  char *src,
+		  gchar *src,
 		  gint width,
 		  gint height,
 		  gboolean border)

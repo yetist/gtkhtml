@@ -18,29 +18,29 @@
 #include "htmltext.h"
 
 typedef struct {
-	const char *name;
-	int (*test_function) (GtkHTML *html);
+	const gchar *name;
+	gint (*test_function) (GtkHTML *html);
 } Test;
 
-static int test_cursor_beol (GtkHTML *html);
-static int test_cursor_beol_rtl (GtkHTML *html);
-static int test_cursor_left_right_on_items_boundaries (GtkHTML *html);
-static int test_cursor_left_right_on_lines_boundaries (GtkHTML *html);
-static int test_cursor_left_right_on_lines_boundaries_rtl (GtkHTML *html);
-static int test_cursor_left_right_on_lines_boundaries_wo_white (GtkHTML *html);
-static int test_cursor_around_containers (GtkHTML *html);
-static int test_cursor_around_image (GtkHTML *html);
-static int test_cursor_around_anchors (GtkHTML *html);
+static gint test_cursor_beol (GtkHTML *html);
+static gint test_cursor_beol_rtl (GtkHTML *html);
+static gint test_cursor_left_right_on_items_boundaries (GtkHTML *html);
+static gint test_cursor_left_right_on_lines_boundaries (GtkHTML *html);
+static gint test_cursor_left_right_on_lines_boundaries_rtl (GtkHTML *html);
+static gint test_cursor_left_right_on_lines_boundaries_wo_white (GtkHTML *html);
+static gint test_cursor_around_containers (GtkHTML *html);
+static gint test_cursor_around_image (GtkHTML *html);
+static gint test_cursor_around_anchors (GtkHTML *html);
 
-static int test_quotes_in_div_block (GtkHTML *html);
-static int test_quotes_in_table (GtkHTML *html);
-static int test_capitalize_upcase_lowcase_word (GtkHTML *html);
-static int test_delete_nested_cluevs_and_undo (GtkHTML *html);
-static int test_insert_nested_cluevs (GtkHTML *html);
-static int test_indentation_plain_text (GtkHTML *html);
-static int test_indentation_plain_text_rtl (GtkHTML *html);
-static int test_table_cell_parsing (GtkHTML *html);
-static int test_delete_around_table (GtkHTML *html);
+static gint test_quotes_in_div_block (GtkHTML *html);
+static gint test_quotes_in_table (GtkHTML *html);
+static gint test_capitalize_upcase_lowcase_word (GtkHTML *html);
+static gint test_delete_nested_cluevs_and_undo (GtkHTML *html);
+static gint test_insert_nested_cluevs (GtkHTML *html);
+static gint test_indentation_plain_text (GtkHTML *html);
+static gint test_indentation_plain_text_rtl (GtkHTML *html);
+static gint test_table_cell_parsing (GtkHTML *html);
+static gint test_delete_around_table (GtkHTML *html);
 
 static Test tests[] = {
 	{ "cursor movement", NULL },
@@ -66,7 +66,7 @@ static Test tests[] = {
 	{ NULL, NULL }
 };
 
-static void load_editable (GtkHTML *html, const char *s)
+static void load_editable (GtkHTML *html, const gchar *s)
 {
 	gtk_html_set_editable (html, FALSE);
 	gtk_html_load_from_string (html, s, -1);
@@ -75,7 +75,7 @@ static void load_editable (GtkHTML *html, const char *s)
 }
 
 static gboolean
-plain_save_receiver (gpointer engine, const char *data, size_t len, gpointer user_data)
+plain_save_receiver (gpointer engine, const gchar *data, size_t len, gpointer user_data)
 {
 	GString *str = (GString *) user_data;
 
@@ -84,11 +84,11 @@ plain_save_receiver (gpointer engine, const char *data, size_t len, gpointer use
 	return TRUE;
 }
 
-static char *
+static gchar *
 get_plain (GtkHTML *html)
 {
 	GString *str = g_string_new (NULL);
-	char *rv;
+	gchar *rv;
 
 	html_engine_save_plain (html->engine, plain_save_receiver, str);
 
@@ -98,7 +98,7 @@ get_plain (GtkHTML *html)
 	return rv;
 }
 
-static int test_delete_nested_cluevs_and_undo (GtkHTML *html)
+static gint test_delete_nested_cluevs_and_undo (GtkHTML *html)
 {
 	load_editable (html, "<div>abc</div><div>efg</div>");
 
@@ -130,7 +130,7 @@ static int test_delete_nested_cluevs_and_undo (GtkHTML *html)
 	return TRUE;
 }
 
-static int test_insert_nested_cluevs (GtkHTML *html)
+static gint test_insert_nested_cluevs (GtkHTML *html)
 {
 	load_editable (html, "text");
 
@@ -139,9 +139,9 @@ static int test_insert_nested_cluevs (GtkHTML *html)
 	return TRUE;
 }
 
-static int test_indentation_plain_text (GtkHTML *html)
+static gint test_indentation_plain_text (GtkHTML *html)
 {
-	char *str;
+	gchar *str;
 
 	load_editable (html, "abc<div align=right>abc</div>");
 
@@ -154,9 +154,9 @@ static int test_indentation_plain_text (GtkHTML *html)
 	return TRUE;
 }
 
-static int test_indentation_plain_text_rtl (GtkHTML *html)
+static gint test_indentation_plain_text_rtl (GtkHTML *html)
 {
-	char *str;
+	gchar *str;
 
 	load_editable (html, "שנבגקכעי<div align=left>שנבגקכעי</div>");
 
@@ -169,7 +169,7 @@ static int test_indentation_plain_text_rtl (GtkHTML *html)
 	return TRUE;
 }
 
-static int test_cursor_around_containers (GtkHTML *html)
+static gint test_cursor_around_containers (GtkHTML *html)
 {
 	load_editable (html, "abc<table><tr><td>abc</td></tr></table>");
 
@@ -208,7 +208,7 @@ static int test_cursor_around_containers (GtkHTML *html)
 	return TRUE;
 }
 
-static int test_cursor_around_image (GtkHTML *html)
+static gint test_cursor_around_image (GtkHTML *html)
 {
 	load_editable (html, "<pre>abc <img src=none> abc");
 
@@ -239,7 +239,7 @@ static int test_cursor_around_image (GtkHTML *html)
 	return TRUE;
 }
 
-static int test_cursor_around_anchors (GtkHTML *html)
+static gint test_cursor_around_anchors (GtkHTML *html)
 {
 	load_editable (html, "<pre>a<a name=anchor>b");
 
@@ -306,7 +306,7 @@ static int test_cursor_around_anchors (GtkHTML *html)
 	return TRUE;
 }
 
-static int test_cursor_left_right_on_items_boundaries (GtkHTML *html)
+static gint test_cursor_left_right_on_items_boundaries (GtkHTML *html)
 {
 	load_editable (html, "ab<b>cde</b>ef");
 
@@ -360,7 +360,7 @@ static int test_cursor_left_right_on_items_boundaries (GtkHTML *html)
 	return TRUE;
 }
 
-static int test_cursor_left_right_on_lines_boundaries (GtkHTML *html)
+static gint test_cursor_left_right_on_lines_boundaries (GtkHTML *html)
 {
 	load_editable (html, "<pre>first line\nsecond line\nthird line");
 
@@ -391,7 +391,7 @@ static int test_cursor_left_right_on_lines_boundaries (GtkHTML *html)
 	return TRUE;
 }
 
-static int test_cursor_left_right_on_lines_boundaries_rtl (GtkHTML *html)
+static gint test_cursor_left_right_on_lines_boundaries_rtl (GtkHTML *html)
 {
 	load_editable (html, "<pre>أوروبا, برمجيات الحاسوب + انترنيت :\nتصبح عالميا مع يونيكود\nأوروبا, برمجيات الحاسوب + انترنيت :");
 
@@ -422,7 +422,7 @@ static int test_cursor_left_right_on_lines_boundaries_rtl (GtkHTML *html)
 	return TRUE;
 }
 
-static int test_cursor_left_right_on_lines_boundaries_wo_white (GtkHTML *html)
+static gint test_cursor_left_right_on_lines_boundaries_wo_white (GtkHTML *html)
 {
 	load_editable (html, "oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo%next line");
 
@@ -443,7 +443,7 @@ static int test_cursor_left_right_on_lines_boundaries_wo_white (GtkHTML *html)
 	return TRUE;
 }
 
-static int test_cursor_beol (GtkHTML *html)
+static gint test_cursor_beol (GtkHTML *html)
 {
 	load_editable (html, "<pre>simple line\nsecond line\n");
 
@@ -482,7 +482,7 @@ static int test_cursor_beol (GtkHTML *html)
 	return TRUE;
 }
 
-static int test_cursor_beol_rtl (GtkHTML *html)
+static gint test_cursor_beol_rtl (GtkHTML *html)
 {
 	load_editable (html, "<pre>أوروبا, برمجيات الحاسوب + انترنيت :\nتصبح عالميا مع يونيكود\n");
 
@@ -724,11 +724,11 @@ test_table_cell_parsing (GtkHTML *html)
 	return TRUE;
 }
 
-int main (int argc, char *argv[])
+gint main (gint argc, gchar *argv[])
 {
 	GtkWidget *win, *sw, *html_widget;
 	GtkHTML *html;
-	int i = 0, n_all, n_successful;
+	gint i = 0, n_all, n_successful;
 
 	gtk_init (&argc, &argv);
 
@@ -750,7 +750,7 @@ int main (int argc, char *argv[])
 	fprintf (stderr, "\nGtkHTML test suite\n");
 	fprintf (stderr, "--------------------------------------------------------------------------------\n");
 	for (i = 0; tests [i].name; i ++) {
-		int j, result;
+		gint j, result;
 
 		if (tests [i].test_function) {
 			fprintf (stderr, "  %s ", tests [i].name);

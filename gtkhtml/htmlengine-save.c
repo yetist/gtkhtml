@@ -106,7 +106,7 @@ html_encode_entities (const gchar *input, guint len, guint *encoded_len_return)
 			/* Default case, just copy. */
 			*out++ = uc;
 		} else {
-			char buf[10], *ptr;
+			gchar buf[10], *ptr;
 
 			g_snprintf(buf, 9, "&#%d;", uc);
 
@@ -164,10 +164,10 @@ html_engine_save_encode_string (HTMLEngineSaveState *state,
 
 gboolean
 html_engine_save_output_stringv (HTMLEngineSaveState *state,
-				 const char *format,
+				 const gchar *format,
 				 va_list ap)
 {
-	char *string;
+	gchar *string;
 	gboolean retval;
 
 	string = g_strdup_vprintf (format, ap);
@@ -196,7 +196,7 @@ html_engine_save_output_string (HTMLEngineSaveState *state,
 }
 
 gboolean
-html_engine_save_output_buffer (HTMLEngineSaveState *state, const gchar *buffer, int bytes)
+html_engine_save_output_buffer (HTMLEngineSaveState *state, const gchar *buffer, gint bytes)
 {
 	if (bytes == -1)
 		bytes = strlen (buffer);
@@ -409,11 +409,11 @@ html_engine_save_buffer_receiver (const HTMLEngine *engine,
 	return TRUE;
 }
 
-char *
+gchar *
 html_engine_save_buffer_free (HTMLEngineSaveState *state, gboolean free_string)
 {
 	GString *string;
-	char *rv = NULL;
+	gchar *rv = NULL;
 
 	g_return_val_if_fail (state != NULL, NULL);
 	string = (GString *)state->user_data;
@@ -438,7 +438,7 @@ html_engine_save_buffer_peek_text (HTMLEngineSaveState *state)
 	return (guchar *) string->str;
 }
 
-int
+gint
 html_engine_save_buffer_peek_text_bytes (HTMLEngineSaveState *state)
 {
 	GString *string;

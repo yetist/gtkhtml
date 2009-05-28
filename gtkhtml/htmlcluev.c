@@ -457,7 +457,7 @@ check_point (HTMLObject *self,
 	HTMLObject *p;
 	HTMLObject *obj;
 	HTMLClueAligned *clue;
-	int padding = HTML_CLUEV (self)->padding;
+	gint padding = HTML_CLUEV (self)->padding;
 
 	if (x < self->x || x >= self->x + self->width
 	    || y < self->y - self->ascent || y >= self->y + self->descent)

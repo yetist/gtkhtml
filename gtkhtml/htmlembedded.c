@@ -203,7 +203,7 @@ accepts_cursor (HTMLObject *o)
 }
 
 static gchar *
-encode (HTMLEmbedded *e, const gchar* codepage)
+encode (HTMLEmbedded *e, const gchar * codepage)
 {
 	return g_strdup ("");
 }
@@ -215,7 +215,7 @@ html_embedded_reset (HTMLEmbedded *e)
 }
 
 gchar *
-html_embedded_encode (HTMLEmbedded *e, const gchar* codepage)
+html_embedded_encode (HTMLEmbedded *e, const gchar * codepage)
 {
 	return HTML_EMBEDDED_CLASS (HTML_OBJECT (e)->klass)->encode (e, codepage);
 }
@@ -235,7 +235,7 @@ html_embedded_set_form (HTMLEmbedded *e, HTMLForm *form)
 gchar *
 html_embedded_encode_string (const gchar *before, const gchar *codepage)
 {
-	    const gchar* str = before;
+	    const gchar * str = before;
 	    static const gchar *safe = "$-._!*(),"; /* RFC 1738 */
         unsigned pos = 0;
         GString *encoded = g_string_new ("");

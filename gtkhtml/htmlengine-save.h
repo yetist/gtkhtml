@@ -62,7 +62,7 @@ gboolean             html_engine_save_output_string             (HTMLEngineSaveS
 								 ...) G_GNUC_PRINTF (2, 3);
 gboolean             html_engine_save_output_buffer             (HTMLEngineSaveState       *state,
 								 const gchar               *buffer,
-								 int                        len);
+								 gint                        len);
 
 /* Takes a string sequence of the form (delim, (val, delim)*, NULL)
    and outputs the delimiters verbatim and the values entity-encoded.
@@ -81,10 +81,10 @@ gboolean             html_engine_save                           (HTMLEngine     
 gboolean             html_engine_save_plain                     (HTMLEngine                *engine,
 								 HTMLEngineSaveReceiverFn   receiver,
 								 gpointer                   user_data);
-char                *html_engine_save_buffer_free               (HTMLEngineSaveState       *state,
+gchar                *html_engine_save_buffer_free               (HTMLEngineSaveState       *state,
 								 gboolean                   free_string);
 guchar              *html_engine_save_buffer_peek_text          (HTMLEngineSaveState       *state);
-int                  html_engine_save_buffer_peek_text_bytes    (HTMLEngineSaveState       *state);
+gint                  html_engine_save_buffer_peek_text_bytes    (HTMLEngineSaveState       *state);
 void                 html_engine_save_buffer_clear_line_breaks  (HTMLEngineSaveState       *state,
 								 PangoLogAttr              *attrs);
 HTMLEngineSaveState *html_engine_save_buffer_new                (HTMLEngine                *engine,

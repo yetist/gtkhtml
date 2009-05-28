@@ -100,7 +100,7 @@ clueflow_style_to_string (HTMLClueFlowStyle style)
 	}
 }
 
-static const char *
+static const gchar *
 direction_to_string (HTMLDirection dir)
 {
 	switch (dir) {
@@ -171,8 +171,8 @@ gtk_html_debug_dump_object (HTMLObject *obj,
 	}
 	else if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_TEXTSLAVE) {
 		GSList *cur;
-		int width;
-		int ii, io, tw, offset;
+		gint width;
+		gint ii, io, tw, offset;
 		gchar *sl_text = g_strndup (html_text_get_text (HTML_TEXT (HTML_TEXT_SLAVE (obj)->owner),
 								HTML_TEXT_SLAVE (obj)->posStart),
 					    html_text_get_index (HTML_TEXT (HTML_TEXT_SLAVE (obj)->owner),

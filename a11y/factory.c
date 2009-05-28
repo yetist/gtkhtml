@@ -49,7 +49,7 @@ gtk_html_a11y_factory_get_type (void)
 	return t;
 }
 
-static int accessibility_initialized = FALSE;
+static gint accessibility_initialized = FALSE;
 
 void
 gtk_html_accessibility_init (void)

@@ -71,7 +71,7 @@ struct _HTMLObject {
 	GData *object_data;
 	GData *object_data_nocp;
 
-	char *id;
+	gchar *id;
 };
 
 struct _HTMLObjectClearRectangle {
@@ -267,8 +267,8 @@ struct _HTMLObjectClass {
 	gboolean (*cursor_right)         (HTMLObject *self, HTMLPainter *painter, HTMLCursor *cursor);
 	gboolean (*cursor_left)          (HTMLObject *self, HTMLPainter *painter, HTMLCursor *cursor);
 
-	int (*get_right_edge_offset) (HTMLObject *o, HTMLPainter *painter, int offset);
-	int (*get_left_edge_offset) (HTMLObject *o, HTMLPainter *painter, int offset);
+	gint (*get_right_edge_offset) (HTMLObject *o, HTMLPainter *painter, gint offset);
+	gint (*get_left_edge_offset) (HTMLObject *o, HTMLPainter *painter, gint offset);
 
 	gboolean (*backspace)       (HTMLObject *self, HTMLCursor *cursor, HTMLEngine *engine);
 };
@@ -399,8 +399,8 @@ void            html_object_calc_abs_position     (HTMLObject            *o,
 						   gint                  *x_return,
 						   gint                  *y_return);
 void            html_object_calc_abs_position_in_frame (HTMLObject       *o,
-							int              *x_return,
-							int              *y_return);
+							gint              *x_return,
+							gint              *y_return);
 gboolean        html_object_intersect             (HTMLObject            *o,
 						   GdkRectangle          *intersection,
 						   gint                   x,
@@ -549,7 +549,7 @@ void      html_object_set_data               (HTMLObject          *object,
 					      const gchar         *value);
 void      html_object_set_data_full          (HTMLObject          *object,
 					      const gchar         *key,
-					      const gpointer       value,
+					      gconstpointer       value,
 					      GDestroyNotify       func);
 gpointer  html_object_get_data               (HTMLObject          *object,
 					      const gchar         *key);
@@ -564,7 +564,7 @@ void      html_object_set_data_nocp          (HTMLObject          *object,
 					      const gchar         *value);
 void      html_object_set_data_full_nocp     (HTMLObject          *object,
 					      const gchar         *key,
-					      const gpointer       value,
+					      gconstpointer       value,
 					      GDestroyNotify       func);
 gpointer  html_object_get_data_nocp          (HTMLObject          *object,
 					      const gchar         *key);
@@ -627,16 +627,16 @@ HTMLObject *html_object_next_cursor_leaf    (HTMLObject *o,
 HTMLObject *html_object_prev_cursor_leaf    (HTMLObject *o,
 					     HTMLEngine *e);
 
-int  html_object_get_right_edge_offset  (HTMLObject *o,
+gint  html_object_get_right_edge_offset  (HTMLObject *o,
 					 HTMLPainter *painter,
-					 int offset);
-int  html_object_get_left_edge_offset   (HTMLObject *o,
+					 gint offset);
+gint  html_object_get_left_edge_offset   (HTMLObject *o,
 					 HTMLPainter *painter,
-					 int offset);
+					 gint offset);
 
-const char *html_object_get_id  (HTMLObject *o);
+const gchar *html_object_get_id  (HTMLObject *o);
 void        html_object_set_id  (HTMLObject *o,
-				 const char *id);
+				 const gchar *id);
 
 HTMLDirection html_object_get_direction (HTMLObject *o);
 HTMLClueFlow * html_object_get_flow (HTMLObject *o);

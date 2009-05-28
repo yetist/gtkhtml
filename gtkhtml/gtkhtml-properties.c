@@ -46,7 +46,7 @@ get_locale_language (void)
 	locale = g_win32_getlocale ();
 #endif
 	if (locale && strcmp (locale, "C") && strcmp (locale, "POSIX")) {
-		char *codeset, *lang;
+		gchar *codeset, *lang;
 
 		if ((codeset = strchr (locale, '.')))
 			lang = g_strndup (locale, codeset - locale);

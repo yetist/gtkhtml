@@ -54,7 +54,7 @@ copy (HTMLObject *self,
 }
 
 static HTMLAnchor *
-find_anchor (HTMLObject *o, const char *name, gint *x, gint *y)
+find_anchor (HTMLObject *o, const gchar *name, gint *x, gint *y)
 {
 	if (strcmp (name, HTML_ANCHOR(o)->name->str) == 0) {
 		*x += o->x;

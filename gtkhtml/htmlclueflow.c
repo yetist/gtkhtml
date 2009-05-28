@@ -58,13 +58,13 @@ static HTMLClueClass *parent_class = NULL;
 static gchar *        get_item_marker_str                   (HTMLClueFlow *flow, gboolean ascii_only);
 static guint          get_post_padding                      (HTMLClueFlow *flow,
 							     guint pad);
-static int            get_similar_depth                     (HTMLClueFlow *self,
+static gint            get_similar_depth                     (HTMLClueFlow *self,
 							     HTMLClueFlow *neighbor);
 
 static void
 copy_levels (GByteArray *dst, GByteArray *src)
 {
-	int i;
+	gint i;
 
 	g_byte_array_set_size (dst, src->len);
 
@@ -440,7 +440,7 @@ is_header (HTMLClueFlow *flow)
 static gboolean
 need_blockquote_padding  (HTMLClueFlow *flow, HTMLClueFlow *prev)
 {
-	int i = get_similar_depth (flow, prev);
+	gint i = get_similar_depth (flow, prev);
 
 	/*
 	 * If the levels don't match up the the current flow
@@ -687,9 +687,9 @@ calc_min_width (HTMLObject *o,
 }
 
 static gint
-pref_left_margin (HTMLPainter *p, HTMLObject *o, int indent)
+pref_left_margin (HTMLPainter *p, HTMLObject *o, gint indent)
 {
-	int margin = html_object_get_left_margin (o->parent, p, o->y, TRUE);
+	gint margin = html_object_get_left_margin (o->parent, p, o->y, TRUE);
 
 	if (html_object_get_direction (o) == HTML_DIRECTION_RTL) {
 		if (HTML_CLUEFLOW (o)->style != HTML_CLUEFLOW_STYLE_PRE && HTML_IS_PLAIN_PAINTER(p))
@@ -704,7 +704,7 @@ pref_left_margin (HTMLPainter *p, HTMLObject *o, int indent)
 }
 
 static gint
-pref_right_margin (HTMLPainter *p, HTMLObject *o, int indent)
+pref_right_margin (HTMLPainter *p, HTMLObject *o, gint indent)
 {
 	gint margin = html_object_get_right_margin (o->parent, p, o->y, TRUE);
 
@@ -1172,7 +1172,7 @@ get_item_marker_str (HTMLClueFlow *flow, gboolean ascii_only)
 	HTMLListType type = flow->item_type;
 
 	if (type == HTML_LIST_TYPE_BLOCKQUOTE && flow->levels->len > 0) {
-		int i;
+		gint i;
 
 		for (i = flow->levels->len - 1; i >= 0; i --) {
 			if (flow->levels->data [i] != HTML_LIST_TYPE_BLOCKQUOTE) {
@@ -1204,7 +1204,7 @@ get_item_marker_str (HTMLClueFlow *flow, gboolean ascii_only)
 }
 
 static void
-draw_cite_line (HTMLObject *cur, HTMLPainter *p, const char *cite_str, gint offset, gint x, gint y)
+draw_cite_line (HTMLObject *cur, HTMLPainter *p, const gchar *cite_str, gint offset, gint x, gint y)
 {
 	gint cy, w, a, d;
 
@@ -1234,9 +1234,9 @@ draw_quotes (HTMLObject *self, HTMLPainter *painter,
 {
 	HTMLClueFlow *flow;
 	GdkRectangle paint, area, clip;
-	int i;
-	int indent = 0;
-	int last_indent = 0;
+	gint i;
+	gint indent = 0;
+	gint last_indent = 0;
 	gint pixel_size = html_painter_get_pixel_size (painter);
 	gboolean is_plain = HTML_IS_PLAIN_PAINTER (painter);
 	HTMLDirection dir = html_object_get_direction (self);
@@ -1277,8 +1277,8 @@ draw_quotes (HTMLObject *self, HTMLPainter *painter,
 							paint.width, paint.height);
 			} else {
 				HTMLObject *cur = HTML_CLUE (self)->head;
-				int x_pos, baseline = 0;
-				const char *cite_str = dir == HTML_DIRECTION_RTL ? HTML_BLOCK_CITE_RTL : HTML_BLOCK_CITE_LTR;
+				gint x_pos, baseline = 0;
+				const gchar *cite_str = dir == HTML_DIRECTION_RTL ? HTML_BLOCK_CITE_RTL : HTML_BLOCK_CITE_LTR;
 
 				while (cur) {
 					if (cur->y != 0) {
@@ -1549,7 +1549,7 @@ get_start_tag (HTMLClueFlow *self)
 	}
 }
 
-static const char *
+static const gchar *
 get_start_indent_item (HTMLListType type)
 {
 	switch (type) {
@@ -1578,7 +1578,7 @@ get_start_indent_item (HTMLListType type)
 	return "";
 }
 
-static const char *
+static const gchar *
 get_end_indent_item (HTMLListType type)
 {
 	switch (type) {
@@ -1601,8 +1601,8 @@ get_end_indent_item (HTMLListType type)
 static int
 get_similar_depth (HTMLClueFlow *self, HTMLClueFlow *neighbor)
 {
-	int i;
-	int max_depth;
+	gint i;
+	gint max_depth;
 
 	if (neighbor == NULL)
 		return 0;
@@ -1618,7 +1618,7 @@ get_similar_depth (HTMLClueFlow *self, HTMLClueFlow *neighbor)
 }
 
 static gboolean
-save_indent_string (HTMLClueFlow *self, HTMLEngineSaveState *state, const char *format, ...)
+save_indent_string (HTMLClueFlow *self, HTMLEngineSaveState *state, const gchar *format, ...)
 {
 	va_list args;
 	gboolean retval;
@@ -1634,10 +1634,10 @@ save_indent_string (HTMLClueFlow *self, HTMLEngineSaveState *state, const char *
 	return retval;
 }
 
-static const char *
+static const gchar *
 get_p_str (HTMLClueFlow *self, HTMLEngineSaveState *state)
 {
-	const char *p_str = NULL;
+	const gchar *p_str = NULL;
 
 	if (self->dir != html_object_get_direction (state->engine->clue)) {
 		switch (self->dir) {
@@ -1662,7 +1662,7 @@ write_flow_tag (HTMLClueFlow *self, HTMLEngineSaveState *state)
 	HTMLClueFlow *next = NULL;
 	HTMLClueFlow *prev = NULL;
 	HTMLHAlignType halign;
-	const char *br_str = "<BR>\n";
+	const gchar *br_str = "<BR>\n";
 
 	if (HTML_IS_CLUEFLOW (HTML_OBJECT (self)->next))
 		next = HTML_CLUEFLOW (HTML_OBJECT (self)->next);
@@ -1685,7 +1685,7 @@ write_flow_tag (HTMLClueFlow *self, HTMLEngineSaveState *state)
 	}
 
 	if (!prev) {
-		const char *p_str = get_p_str (self, state);
+		const gchar *p_str = get_p_str (self, state);
 
 		if (p_str) {
 			if (! html_engine_save_output_string (state, "%s", p_str))
@@ -1694,7 +1694,7 @@ write_flow_tag (HTMLClueFlow *self, HTMLEngineSaveState *state)
 	}
 
 	if (is_item (self)) {
-		char *li = get_list_start_tag (self);
+		gchar *li = get_list_start_tag (self);
 
 		if (li && !save_indent_string (self, state, "<%s>", li)) {
 			g_free (li);
@@ -1704,7 +1704,7 @@ write_flow_tag (HTMLClueFlow *self, HTMLEngineSaveState *state)
 		if (!save_indent_string (self, state, ""))
 			return FALSE;
 	} else {
-		const char *start = get_start_tag (self);
+		const gchar *start = get_start_tag (self);
 
 		if (start) {
 			if (!save_indent_string (self, state, "<%s>\n", start))
@@ -1752,7 +1752,7 @@ write_flow_tag (HTMLClueFlow *self, HTMLEngineSaveState *state)
 				return FALSE;
 		}
 	} else {
-		const char *end = get_start_tag (self);
+		const gchar *end = get_start_tag (self);
 
 		if (self->style != HTML_CLUEFLOW_STYLE_PRE) {
 			if ((!html_clueflow_contains_table (self) && !end && next && self->style == next->style) || html_clueflow_is_empty (self)) {
@@ -1778,7 +1778,7 @@ write_flow_tag (HTMLClueFlow *self, HTMLEngineSaveState *state)
 			HTMLObject *head = HTML_CLUE (HTML_OBJECT (self)->parent)->head;
 
 			if (head && HTML_IS_CLUEFLOW (head)) {
-				const char *head_p_str = get_p_str (HTML_CLUEFLOW (head), state);
+				const gchar *head_p_str = get_p_str (HTML_CLUEFLOW (head), state);
 
 				if (head_p_str) {
 					if (! html_engine_save_output_string (state, "</P>\n"))
@@ -1798,8 +1798,8 @@ save (HTMLObject *s,
 	HTMLClueFlow *self = HTML_CLUEFLOW (s);
 	HTMLClueFlow *next = NULL;
 	HTMLClueFlow *prev = NULL;
-	int d;
-	int i;
+	gint d;
+	gint i;
 
 	if (HTML_IS_CLUEFLOW (HTML_OBJECT (self)->next))
 		next = HTML_CLUEFLOW (HTML_OBJECT (self)->next);
@@ -1809,7 +1809,7 @@ save (HTMLObject *s,
 
 	d = i = get_similar_depth (self, prev);
 	while (i < self->levels->len) {
-		const char *stag = get_start_indent_item (self->levels->data[i]);
+		const gchar *stag = get_start_indent_item (self->levels->data[i]);
 
 		if (!write_indent (state, i)
 		    || !html_engine_save_output_string (state, "<%s>\n", stag))
@@ -1824,7 +1824,7 @@ save (HTMLObject *s,
 	i = self->levels->len - 1;
 	d = get_similar_depth (self, next);
 	while (i >= d) {
-		const char *stag = get_end_indent_item (self->levels->data[i]);
+		const gchar *stag = get_end_indent_item (self->levels->data[i]);
 
 		if (!write_indent (state, i)
 		    || !html_engine_save_output_string (state, "</%s>\n", stag))
@@ -1839,14 +1839,14 @@ save (HTMLObject *s,
 static void
 write_item_marker (GString *pad_string, HTMLClueFlow *flow)
 {
-	char *marker;
+	gchar *marker;
 
 	marker = get_item_marker_str (flow, TRUE);
 
 	if (marker) {
 		gint marker_len = strlen (marker);
 		gint len = pad_string->len - 1;
-		char *str = pad_string->str;
+		gchar *str = pad_string->str;
 
 		while (len > 0) {
 			if ((str[len - 1] != ' ') || (pad_string->len - len >= marker_len))
@@ -1923,7 +1923,7 @@ append_selection_string (HTMLObject *self,
  * zero-width or combined characters.)
  */
 static gint
-utf8_width (const char *str, gint len)
+utf8_width (const gchar *str, gint len)
 {
 	gunichar c;
 	gint width = 0;
@@ -1941,7 +1941,7 @@ utf8_width (const char *str, gint len)
  * not exceeding the given width.
  */
 static gint
-utf8_length_in_width (const char *str, gint len, gint width)
+utf8_length_in_width (const gchar *str, gint len, gint width)
 {
 	gunichar c;
 	gint l = 0;
@@ -1983,7 +1983,7 @@ save_plain (HTMLObject *self,
 							      buffer_state,
 							      max_width)) {
 		guchar *s;
-		int offset;
+		gint offset;
 
 		if (get_pre_padding (flow, calc_padding (state->engine->painter)) > 0) {
 			plain_padding (flow, out, FALSE);
@@ -2014,7 +2014,7 @@ save_plain (HTMLObject *self,
 			offset = 0;
 			for (i = 0; i < n_items; i ++) {
 				PangoItem tmp_item;
-				int start_offset;
+				gint start_offset;
 
 				start_offset = offset;
 				offset += items [i]->num_chars;
@@ -2287,7 +2287,7 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 
 		/* make shorter text instead */
 		if (!info->forward && index + info->text_bytes < text_bytes) {
-			guchar* tmp = (guchar *)(par + index + info->text_bytes);
+			guchar * tmp = (guchar *)(par + index + info->text_bytes);
 			*tmp = '\0';
 		}
 
@@ -2830,7 +2830,7 @@ html_clueflow_set_indentation (HTMLClueFlow *flow,
 			       guint8 *indentation_levels)
 {
 	HTMLObject *next_relative;
-	int i;
+	gint i;
 	g_return_if_fail (flow != NULL);
 	g_return_if_fail (engine != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (engine));

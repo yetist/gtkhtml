@@ -43,16 +43,16 @@ HTMLIFrameClass html_iframe_class;
 static HTMLEmbeddedClass *parent_class = NULL;
 
 static void
-iframe_set_base (GtkHTML *html, const char *url, gpointer data)
+iframe_set_base (GtkHTML *html, const gchar *url, gpointer data)
 {
-	char *new_url = gtk_html_get_url_base_relative (html, url);
+	gchar *new_url = gtk_html_get_url_base_relative (html, url);
 
 	gtk_html_set_base (html, new_url);
 	g_free (new_url);
 }
 
 static void
-iframe_url_requested (GtkHTML *html, const char *url, GtkHTMLStream *handle, gpointer data)
+iframe_url_requested (GtkHTML *html, const gchar *url, GtkHTMLStream *handle, gpointer data)
 {
 	HTMLIFrame *iframe = HTML_IFRAME (data);
 	GtkHTML *parent = GTK_HTML (HTML_EMBEDDED(iframe)->parent);
@@ -96,7 +96,7 @@ iframe_set_gdk_painter (HTMLIFrame *iframe, HTMLPainter *painter)
 
 HTMLObject *
 html_iframe_new (GtkWidget *parent,
-		 char *src,
+		 gchar *src,
 		 gint width,
 		 gint height,
 		 gboolean border)
@@ -216,7 +216,7 @@ static gint
 check_page_split (HTMLObject *self, HTMLPainter *p, gint y)
 {
 	HTMLEngine *e = GTK_HTML (HTML_IFRAME (self)->html)->engine;
-	int y1, y2, pixel_size = html_painter_get_pixel_size (p);
+	gint y1, y2, pixel_size = html_painter_get_pixel_size (p);
 
 	y1 = self->y - self->ascent + pixel_size*html_engine_get_top_border (e);
 	y2 = self->y + self->descent + pixel_size*html_engine_get_bottom_border (e);
@@ -274,7 +274,7 @@ op_copy (HTMLObject *self, HTMLObject *parent, HTMLEngine *e, GList *from, GList
 }
 
 static HTMLAnchor *
-find_anchor (HTMLObject *self, const char *name, gint *x, gint *y)
+find_anchor (HTMLObject *self, const gchar *name, gint *x, gint *y)
 {
 	HTMLIFrame *iframe;
 	HTMLAnchor *anchor;
@@ -569,7 +569,7 @@ void
 html_iframe_init (HTMLIFrame *iframe,
 		  HTMLIFrameClass *klass,
 		  GtkWidget *parent,
-		  char *src,
+		  gchar *src,
 		  gint width,
 		  gint height,
 		  gboolean border)

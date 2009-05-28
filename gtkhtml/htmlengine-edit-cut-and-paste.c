@@ -817,7 +817,7 @@ html_engine_cut (HTMLEngine *e)
 		gint start_position = start->position;
 		gint end_position = end->position;
 		if (end_position - start_position > 0) {
-			int len = end_position - start_position;
+			gint len = end_position - start_position;
 			g_signal_emit_by_name (e->widget, "object_delete", start_position, len);
 		}
 		html_cursor_destroy (start);
@@ -1266,7 +1266,7 @@ html_engine_insert_empty_paragraph (HTMLEngine *e)
 	html_engine_thaw (e);
 }
 
-static const char *picto_chars =
+static const gchar *picto_chars =
 	/*  0 */ "DO)(|/PQ*!"
 	/* 10 */ "S\0:-\0:\0:-\0"
 	/* 20 */ ":\0:;=-\"\0:;"
@@ -1475,9 +1475,9 @@ html_engine_paste_text (HTMLEngine *e, const gchar *text, guint len)
 }
 
 void
-html_engine_paste_link (HTMLEngine *e, const char *text, int len, const char *complete_url)
+html_engine_paste_link (HTMLEngine *e, const gchar *text, gint len, const gchar *complete_url)
 {
-	char *url, *target;
+	gchar *url, *target;
 
 	if (len == -1)
 		len = g_utf8_strlen (text, -1);
@@ -1542,7 +1542,7 @@ html_engine_delete_n (HTMLEngine *e, guint len, gboolean forward)
 			}
 		}
 		if (forward) {
-			int i;
+			gint i;
 
 			for (i = len; i > 0; i--)
 				html_cursor_forward (e->cursor, e);
@@ -1865,7 +1865,7 @@ html_engine_delete (HTMLEngine *e)
 		gint end_position = end->position;
 
 		if (end_position - start_position > 0) {
-			int len = end_position - start_position;
+			gint len = end_position - start_position;
 			g_signal_emit_by_name (e->widget, "object_delete", start_position, len);
 		}
 

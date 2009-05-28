@@ -48,15 +48,15 @@ struct _HTMLStyle {
 	HTMLLength     *width;
 	HTMLLength     *height;
 
-	char           *bg_image;
+	gchar           *bg_image;
 	HTMLColor      *bg_color;
 	HTMLDisplayType display;
 
 	/* border */
-	int border_width;
+	gint border_width;
 	HTMLBorderStyle border_style;
 	HTMLColor *border_color;
-	int padding;
+	gint padding;
 };
 
 HTMLStyle *html_style_new                  (void);
@@ -67,18 +67,18 @@ HTMLStyle *html_style_set_size             (HTMLStyle *style, GtkHTMLFontStyle s
 HTMLStyle *html_style_set_display          (HTMLStyle *style, HTMLDisplayType display);
 HTMLStyle *html_style_set_clear            (HTMLStyle *style, HTMLClearType clear);
 HTMLStyle *html_style_set_border_style     (HTMLStyle *style, HTMLBorderStyle bstyle);
-HTMLStyle *html_style_set_border_width     (HTMLStyle *style, int width);
+HTMLStyle *html_style_set_border_width     (HTMLStyle *style, gint width);
 HTMLStyle *html_style_set_border_color     (HTMLStyle *style, HTMLColor *color);
-HTMLStyle *html_style_set_padding          (HTMLStyle *style, int padding);
+HTMLStyle *html_style_set_padding          (HTMLStyle *style, gint padding);
 HTMLStyle *html_style_add_text_align       (HTMLStyle *style, HTMLHAlignType type);
 HTMLStyle *html_style_add_text_valign      (HTMLStyle *style, HTMLVAlignType type);
 HTMLStyle *html_style_add_font_face        (HTMLStyle *style, const HTMLFontFace *face);
 HTMLStyle *html_style_add_color            (HTMLStyle *style, HTMLColor *face);
-HTMLStyle *html_style_add_attribute        (HTMLStyle *style, const char *attr);
-HTMLStyle *html_style_add_background_image (HTMLStyle *style, const char *url);
+HTMLStyle *html_style_add_attribute        (HTMLStyle *style, const gchar *attr);
+HTMLStyle *html_style_add_background_image (HTMLStyle *style, const gchar *url);
 HTMLStyle *html_style_add_background_color (HTMLStyle *style, HTMLColor *color);
-HTMLStyle *html_style_add_width            (HTMLStyle *style, char *width);
-HTMLStyle *html_style_add_height           (HTMLStyle *style, char *height);
+HTMLStyle *html_style_add_width            (HTMLStyle *style, gchar *width);
+HTMLStyle *html_style_add_height           (HTMLStyle *style, gchar *height);
 void       html_style_free                 (HTMLStyle *style);
 
 gboolean   html_parse_color                (const gchar *text, GdkColor *color);

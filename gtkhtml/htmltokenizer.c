@@ -162,7 +162,7 @@ static gboolean
 static gchar   *html_tokenizer_real_peek_token      (HTMLTokenizer *);
 static gchar   *html_tokenizer_real_next_token      (HTMLTokenizer *);
 static gboolean html_tokenizer_real_has_more_tokens (HTMLTokenizer *);
-static gchar   *html_tokenizer_converted_token (HTMLTokenizer *t,const gchar* token);
+static gchar   *html_tokenizer_converted_token (HTMLTokenizer *t,const gchar * token);
 
 
 static HTMLTokenizer *html_tokenizer_real_clone     (HTMLTokenizer *);
@@ -176,9 +176,9 @@ static void               html_tokenizer_tokenize_one_char   (HTMLTokenizer  *t,
 							      const gchar  **src);
 static void				  add_char(HTMLTokenizer *t, gchar c);
 
-gboolean				  is_need_convert(const gchar* token);
+gboolean				  is_need_convert(const gchar * token);
 
-gchar*					  html_tokenizer_convert_entity(gchar * token);
+gchar *					  html_tokenizer_convert_entity(gchar * token);
 
 static GObjectClass *parent_class = NULL;
 
@@ -432,9 +432,9 @@ is_valid_g_iconv (const GIConv iconv_cd)
 
 /*Convert only chars when code >127*/
 gboolean
-is_need_convert (const gchar* token)
+is_need_convert (const gchar * token)
 {
-	int i=strlen (token);
+	gint i=strlen (token);
 	for (;i>=0;i--)
 		if (token[i]&128)
 			return TRUE;
@@ -551,7 +551,7 @@ convert_text_encoding (const GIConv iconv_cd,
 
 static gchar *
 html_tokenizer_converted_token (HTMLTokenizer *t,
-                                const gchar* token)
+                                const gchar * token)
 {
 	if (token != NULL) {
 		struct _HTMLTokenizerPrivate *p = t->priv;
@@ -679,7 +679,7 @@ is_text (const gchar *content_type)
 	return content_type && strstr (content_type, "text/") != NULL;
 }
 
-static const gchar*
+static const gchar *
 get_encoding_from_content_type(const gchar * content_type)
 {
 	gchar * charset;

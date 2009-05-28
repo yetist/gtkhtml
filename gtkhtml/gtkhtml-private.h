@@ -41,7 +41,7 @@ struct _GtkHTMLPrivate {
 
 	gint selection_type;
 
-	char  *base_url;
+	gchar  *base_url;
 
 	GtkWidget *search_input_line;
 
@@ -78,7 +78,7 @@ struct _GtkHTMLPrivate {
 
 	gboolean in_key_binding;
 
-	char *caret_first_focus_anchor;
+	gchar *caret_first_focus_anchor;
 };
 
 void  gtk_html_private_calc_scrollbars  (GtkHTML                *html,
@@ -100,14 +100,14 @@ gchar *gtk_html_filename_from_uri	(const gchar		*uri);
 
 #ifdef G_OS_WIN32
 
-const char *_get_icondir (void) G_GNUC_CONST;
-const char *_get_gtkhtml_datadir (void) G_GNUC_CONST;
-const char *_get_localedir (void) G_GNUC_CONST;
-const char *_get_glade_datadir (void) G_GNUC_CONST;
-const char *_get_prefix (void) G_GNUC_CONST;
-const char *_get_sysconfdir (void) G_GNUC_CONST;
-const char *_get_datadir (void) G_GNUC_CONST;
-const char *_get_libdir (void) G_GNUC_CONST;
+const gchar *_get_icondir (void) G_GNUC_CONST;
+const gchar *_get_gtkhtml_datadir (void) G_GNUC_CONST;
+const gchar *_get_localedir (void) G_GNUC_CONST;
+const gchar *_get_glade_datadir (void) G_GNUC_CONST;
+const gchar *_get_prefix (void) G_GNUC_CONST;
+const gchar *_get_sysconfdir (void) G_GNUC_CONST;
+const gchar *_get_datadir (void) G_GNUC_CONST;
+const gchar *_get_libdir (void) G_GNUC_CONST;
 
 #undef ICONDIR
 #define ICONDIR _get_icondir ()

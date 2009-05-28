@@ -35,8 +35,8 @@ struct _HTMLShape {
 };
 
 static HTMLLength *
-parse_length (const char **str) {
-	const char *cur = *str;
+parse_length (const gchar **str) {
+	const gchar *cur = *str;
 	HTMLLength *len = g_new0 (HTMLLength, 1);
 
 	/* g_warning ("begin \"%s\"", *str); */
@@ -78,7 +78,7 @@ parse_length (const char **str) {
 }
 
 void
-html_length_array_parse (GPtrArray *array, const char *str)
+html_length_array_parse (GPtrArray *array, const gchar *str)
 {
 	HTMLLength *length;
 
@@ -93,7 +93,7 @@ html_length_array_parse (GPtrArray *array, const char *str)
 void
 html_length_array_destroy (GPtrArray *array)
 {
-	int i;
+	gint i;
 
 	for (i = 0; i < array->len; i++)
 		g_free (g_ptr_array_index (array, i));
@@ -104,9 +104,9 @@ html_length_array_destroy (GPtrArray *array)
 gboolean
 html_shape_point (HTMLShape *shape, gint x, gint y)
 {
-	int i;
-	int j = 0;
-	int odd = 0;
+	gint i;
+	gint j = 0;
+	gint odd = 0;
 
 	HTMLLength **poly = (HTMLLength **)shape->coords->pdata;
 
@@ -155,7 +155,7 @@ html_shape_point (HTMLShape *shape, gint x, gint y)
 }
 
 static HTMLShapeType
-parse_shape_type (char *token) {
+parse_shape_type (gchar *token) {
 	HTMLShapeType type = HTML_SHAPE_RECT;
 
 	if (!token || g_ascii_strncasecmp (token, "rect", 4) == 0)
@@ -170,14 +170,14 @@ parse_shape_type (char *token) {
 	return type;
 }
 
-char *
+gchar *
 html_shape_get_url (HTMLShape *shape)
 {
 	return shape->url;
 }
 
 HTMLShape *
-html_shape_new (char *type_str, char *coords, char *url, char *target)
+html_shape_new (gchar *type_str, gchar *coords, gchar *url, gchar *target)
 {
 	HTMLShape *shape;
 	HTMLShapeType type = parse_shape_type (type_str);

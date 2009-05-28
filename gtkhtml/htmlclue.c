@@ -370,7 +370,7 @@ calc_min_width (HTMLObject *o,
 }
 
 static HTMLAnchor *
-find_anchor (HTMLObject *self, const char *name, gint *x, gint *y)
+find_anchor (HTMLObject *self, const gchar *name, gint *x, gint *y)
 {
 	HTMLClue *clue;
 	HTMLObject *obj;
