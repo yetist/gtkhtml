@@ -1884,9 +1884,9 @@ html_engine_delete (HTMLEngine *e)
 
 				/* go thru current cluev */
 				do {
-				        /* go thru current flow */
+					/* go thru current flow */
 					while (cur) {
-				                /* lets look if container is whole contained in the selection */
+						/* lets look if container is whole contained in the selection */
 						if (html_object_is_container (cur)) {
 							html_cursor_jump_to (e->cursor, e, cur, html_object_get_length (cur));
 							if (e->cursor->position > end->position) {
@@ -1903,7 +1903,7 @@ html_engine_delete (HTMLEngine *e)
 				} while (prev && prev->parent->next && (cur = html_object_head (prev->parent->next)));
 
 				if (prev) {
-				        /* cluev end is in the selection. Lets handle this case just like simple delete
+					/* cluev end is in the selection. Lets handle this case just like simple delete
 					since text is the selection itself*/
 					if (e->mark)
 						html_cursor_destroy (e->mark);

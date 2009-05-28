@@ -219,7 +219,7 @@ html_cluev_do_layout (HTMLObject *o, HTMLPainter *painter, gboolean calc_size, G
 				/* printf ("y: %d ", o->ascent - clue->curr->descent); */
 				if (first_change) {
 					first_change = FALSE;
-				        /* if it's new one (y == 0) clear from new y_off, else from old one or new one,
+					/* if it's new one (y == 0) clear from new y_off, else from old one or new one,
 					   which one is higher */
 					first_y_off = old_y && old_y_off < new_y_off ? old_y_off : new_y_off;
 					/* printf ("\nfirst_y_off: %d x %d --> %d\n", old_y_off, new_y_off, first_y_off); */

@@ -212,18 +212,18 @@ void                       gtk_html_set_animate                   (GtkHTML      
 gboolean                   gtk_html_get_animate                   (const GtkHTML             *html);
 
 /* Printing support.  */
-void 			   gtk_html_print_page_with_header_footer (GtkHTML		     *html,
-								   GtkPrintContext 	     *context,
-			   					   gdouble		      header_height,
+void			   gtk_html_print_page_with_header_footer (GtkHTML		     *html,
+								   GtkPrintContext	     *context,
+								   gdouble		      header_height,
 								   gdouble		      footer_height,
 								   GtkHTMLPrintCallback       header_print,
-							           GtkHTMLPrintCallback       footer_print,
-								   gpointer 		      user_data);
+								   GtkHTMLPrintCallback       footer_print,
+								   gpointer		      user_data);
 void			   gtk_html_print_page			   (GtkHTML		      *html,
 								    GtkPrintContext	      *context);
-gint 			   gtk_html_print_page_get_pages_num 	  (GtkHTML		      *html,
+gint			   gtk_html_print_page_get_pages_num	  (GtkHTML		      *html,
 								   GtkPrintContext            *context,
-					 			   gdouble		       header_height,
+								   gdouble		       header_height,
 								   gdouble                     footer_height);
 GtkPrintOperationResult	   gtk_html_print_operation_run		  (GtkHTML                    *html,
 								   GtkPrintOperation          *operation,

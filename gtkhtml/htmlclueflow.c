@@ -498,7 +498,7 @@ get_pre_padding (HTMLClueFlow *flow, guint pad)
 				return pad;
 			else
 				return 0;
-  		}
+		}
 
 		if (flow->style == HTML_CLUEFLOW_STYLE_PRE
 		    && prev->style != HTML_CLUEFLOW_STYLE_PRE
@@ -1284,9 +1284,9 @@ draw_quotes (HTMLObject *self, HTMLPainter *painter,
 					if (cur->y != 0) {
 						baseline = cur->y;
 						break;
-  					}
-  					cur = cur->next;
-  				}
+					}
+					cur = cur->next;
+				}
 
 
 				/* draw "> " quote characters in the plain case */
@@ -1986,14 +1986,14 @@ save_plain (HTMLObject *self,
 		int offset;
 
 		if (get_pre_padding (flow, calc_padding (state->engine->painter)) > 0) {
-		        plain_padding (flow, out, FALSE);
+			plain_padding (flow, out, FALSE);
 			g_string_append (out, "\n");
 		}
 
 		s = html_engine_save_buffer_peek_text (buffer_state);
 
 		if (*s == 0) {
-		        plain_padding (flow, out, TRUE);
+			plain_padding (flow, out, TRUE);
 			g_string_append (out, "\n");
 		} else {
 			PangoAttrList *attrs = pango_attr_list_new ();
@@ -2352,10 +2352,10 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 					unicode_par = g_utf8_get_char ((gchar *) par + index);
 					if (!info->case_sensitive) {
                                              unicode_info = g_unichar_toupper (unicode_info);
-				 	     unicode_par  = g_unichar_toupper (unicode_par);
+					     unicode_par  = g_unichar_toupper (unicode_par);
 					}
 
-               				if (unicode_info == unicode_par) {
+					if (unicode_info == unicode_par) {
 						eq_bytes += (guchar *)g_utf8_next_char (par + index) - par - index;
 
 						if (eq_bytes == info->text_bytes) {
@@ -2543,7 +2543,7 @@ html_clueflow_class_init (HTMLClueFlowClass *klass,
 void
 html_clueflow_init (HTMLClueFlow *clueflow, HTMLClueFlowClass *klass,
 		    HTMLClueFlowStyle style, GByteArray *levels, HTMLListType item_type, gint item_number,
- 		    HTMLClearType clear)
+		    HTMLClearType clear)
 {
 	HTMLObject *object;
 	HTMLClue *clue;

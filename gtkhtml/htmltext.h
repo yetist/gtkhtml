@@ -97,7 +97,7 @@ struct _HTMLText {
 struct _HTMLTextClass {
 	HTMLObjectClass object_class;
 
-        void         	   (* queue_draw)     (HTMLText *text, HTMLEngine *engine,
+        void		   (* queue_draw)     (HTMLText *text, HTMLEngine *engine,
 					       guint offset, guint len);
 
 	GtkHTMLFontStyle   (* get_font_style) (const HTMLText *text);
@@ -224,7 +224,7 @@ void              html_text_add_link_full                (HTMLText           *te
 							  gint                end_index,
 							  gint                start_offset,
 							  gint                end_offset);
-void              html_text_set_link_visited 		 (HTMLText *text,
+void              html_text_set_link_visited		 (HTMLText *text,
 							  gint offset,
 							  HTMLEngine *engine,
 							  gboolean is_visited);

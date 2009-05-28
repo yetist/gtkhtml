@@ -84,8 +84,8 @@ struct _HTMLPainterClass {
 	void (* set_background_color) (HTMLPainter *painter, const GdkColor *color);
 	void (* draw_shade_line)  (HTMLPainter *p, gint x, gint y, gint width);
 	void (* draw_border)      (HTMLPainter *painter, GdkColor *bg,
-			           gint x, gint y, gint width, gint height,
-			           HTMLBorderStyle style, gint bordersize);
+				   gint x, gint y, gint width, gint height,
+				   HTMLBorderStyle style, gint bordersize);
 
 	void (* set_clip_rectangle) (HTMLPainter *painter, gint x, gint y, gint width, gint height);
 	void (* draw_background)    (HTMLPainter *painter, GdkColor *color, GdkPixbuf *pixbuf,
@@ -286,9 +286,9 @@ void              html_painter_draw_embedded                           (HTMLPain
 									gint               x,
 									gint               y);
 guint             html_painter_get_page_width                          (HTMLPainter       *painter,
-								        HTMLEngine        *e);
+									HTMLEngine        *e);
 guint             html_painter_get_page_height                         (HTMLPainter       *painter,
-								        HTMLEngine        *e);
+									HTMLEngine        *e);
 gint              html_painter_pango_to_engine                         (HTMLPainter       *painter,
 									gint               pango_units);
 gint              html_painter_engine_to_pango                         (HTMLPainter       *painter,

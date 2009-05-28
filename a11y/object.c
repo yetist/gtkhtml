@@ -335,7 +335,7 @@ gtk_html_a11y_cursor_changed_cb (GtkWidget *widget)
 
 	if (gtk_html_a11y_focus_object != focus_object) {
 		gtk_html_a11y_focus_object = focus_object;
-        	atk_focus_tracker_notify (focus_object);
+		atk_focus_tracker_notify (focus_object);
 	} else {
 		if (G_IS_HTML_A11Y_TEXT(focus_object)) {
 			gint offset;
@@ -361,7 +361,7 @@ gtk_html_a11y_insert_object_cb (GtkWidget * widget, int pos, int len)
 
 	if (gtk_html_a11y_focus_object != a11y) {
 		gtk_html_a11y_focus_object = a11y;
-        	atk_focus_tracker_notify (a11y);
+		atk_focus_tracker_notify (a11y);
 	}
 
 	if (G_IS_HTML_A11Y_TEXT(a11y)) {
@@ -381,7 +381,7 @@ gtk_html_a11y_delete_object_cb (GtkWidget * widget, int pos, int len)
 
 	if (gtk_html_a11y_focus_object != a11y) {
 		gtk_html_a11y_focus_object = a11y;
-        	atk_focus_tracker_notify (a11y);
+		atk_focus_tracker_notify (a11y);
 	}
 
 	if (G_IS_HTML_A11Y_TEXT(a11y)) {

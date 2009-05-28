@@ -402,8 +402,8 @@ void            html_object_calc_abs_position_in_frame (HTMLObject       *o,
 							int              *x_return,
 							int              *y_return);
 gboolean        html_object_intersect             (HTMLObject            *o,
-					           GdkRectangle          *intersection,
-					           gint                   x,
+						   GdkRectangle          *intersection,
+						   gint                   x,
 						   gint                   y,
 						   gint                   width,
 						   gint                   height);

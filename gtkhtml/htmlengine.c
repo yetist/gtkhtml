@@ -937,9 +937,9 @@ insert_text (HTMLEngine *e,
 
 	if (NULL != prev)
 	    if (HTML_IS_TEXT (prev))
-	        if (HTML_TEXT (prev)->text_bytes > 0)
-	            if (' ' == (HTML_TEXT (prev)->text)[HTML_TEXT (prev)->text_bytes - 1])
-	                prev_text_ends_in_space = TRUE ;
+		if (HTML_TEXT (prev)->text_bytes > 0)
+		    if (' ' == (HTML_TEXT (prev)->text)[HTML_TEXT (prev)->text_bytes - 1])
+			prev_text_ends_in_space = TRUE ;
 
 	if (e->flow == NULL && e->editable) {
 		/* Preserve one leading space. */
@@ -2744,7 +2744,7 @@ element_parse_img (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	}
 
 	if (element->style->height) {
-	        height = element->style->height->val;
+		height = element->style->height->val;
 		percent_height = element->style->height->type == HTML_LENGTH_TYPE_PERCENT;
 	}
 
@@ -3113,7 +3113,7 @@ element_parse_option (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	element->style = html_style_set_display (element->style, DISPLAY_NONE);
 
 	pop_element (e,  ID_OPTION);
-  	html_select_add_option (e->formSelect, value, selected);
+	html_select_add_option (e->formSelect, value, selected);
 
 	e->inOption = TRUE;
 	g_string_assign (e->formText, "");
@@ -3191,7 +3191,7 @@ block_end_table (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 
 		if (table_align != HTML_HALIGN_LEFT && table_align != HTML_HALIGN_RIGHT) {
 
-		        finish_flow (e, clue);
+			finish_flow (e, clue);
 
 			DT(printf ("unaligned table(%p)\n", table);)
 			append_element (e, clue, HTML_OBJECT (table));
@@ -3296,7 +3296,7 @@ element_parse_table (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		element->style = html_style_add_width (element->style, value);
 
 	if (html_element_get_attr (element, "align", &value))
-	        element->style = html_style_add_text_align (element->style, parse_halign (value, HTML_HALIGN_NONE));
+		element->style = html_style_add_text_align (element->style, parse_halign (value, HTML_HALIGN_NONE));
 
 	if (html_element_get_attr (element, "bgcolor", &value)
 	    && !e->defaultSettings->forceDefault) {
@@ -3599,7 +3599,7 @@ element_parse_cell (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 
 	cell = HTML_TABLE_CELL (html_table_cell_new (rowSpan, colSpan, table->padding));
 
- 	html_element_set_coreattr_to_object (element, HTML_OBJECT (cell), e);
+	html_element_set_coreattr_to_object (element, HTML_OBJECT (cell), e);
 	html_style_set_padding (element->style, table->padding);
 	html_cluev_set_style (HTML_CLUEV (cell), element->style);
 
@@ -4510,7 +4510,7 @@ html_engine_unrealize (HTMLEngine *e)
 
      HTMLClueV (cluev)
        HTMLClueFlow (head)
- 	 HTMLObject (child) */
+	 HTMLObject (child) */
 void
 html_engine_ensure_editable (HTMLEngine *engine)
 {

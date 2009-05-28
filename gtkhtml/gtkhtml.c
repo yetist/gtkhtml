@@ -358,7 +358,7 @@ gtk_html_update_styles (GtkHTML *html)
 	}
 
 	alignment = html_alignment_to_paragraph (html_engine_get_current_clueflow_alignment (engine));
- 	if (alignment != html->priv->paragraph_alignment) {
+	if (alignment != html->priv->paragraph_alignment) {
 		html->priv->paragraph_alignment = alignment;
 		g_signal_emit (html, signals [CURRENT_PARAGRAPH_ALIGNMENT_CHANGED], 0, alignment);
 	}
@@ -393,7 +393,7 @@ idle_handler (gpointer data)
 	if (also_update_cursor)
 		gtk_html_adjust_cursor_position (html);
 
- 	html->priv->idle_handler_id = 0;
+	html->priv->idle_handler_id = 0;
 	html->priv->skip_update_cursor = FALSE;
 	html->priv->cursor_moved = FALSE;
 
@@ -1299,8 +1299,8 @@ size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 	   and we know the children positions */
 	children = GTK_LAYOUT (widget)->children;
 	GTK_LAYOUT (widget)->children = NULL;
- 	if (GTK_WIDGET_CLASS (parent_class)->size_allocate)
- 		(*GTK_WIDGET_CLASS (parent_class)->size_allocate) (widget, allocation);
+	if (GTK_WIDGET_CLASS (parent_class)->size_allocate)
+		(*GTK_WIDGET_CLASS (parent_class)->size_allocate) (widget, allocation);
 	GTK_LAYOUT (widget)->children = children;
 
 	if (html->engine->width != allocation->width
@@ -2256,9 +2256,9 @@ get_selection_string (GtkHTML *html, int *len, gboolean selection, gboolean prim
 			GString *buffer;
 
 			state = html_engine_save_buffer_new (html->engine, TRUE);
-  			buffer = (GString *)state->user_data;
+			buffer = (GString *)state->user_data;
 
-       			html_object_save (selection_object, state);
+			html_object_save (selection_object, state);
 			g_string_append_unichar (buffer, 0x0000);
 
 			if (len)
@@ -2589,7 +2589,7 @@ drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkSelectionData *sel
 					atom = gtk_selection_data_get_target (selection_data);
 					gtk_selection_data_set (selection_data, atom, 8,
 								(guchar *) complete_url, strlen (complete_url));
-				        /* printf ("complete URL %s\n", complete_url); */
+					/* printf ("complete URL %s\n", complete_url); */
 					GTK_HTML (widget)->priv->dnd_url = complete_url;
 				}
 			}
@@ -4071,7 +4071,7 @@ gtk_html_get_magic_links (const GtkHTML *html)
 	g_return_val_if_fail (html != NULL, FALSE);
 	g_return_val_if_fail (GTK_IS_HTML (html), FALSE);
 
-	return 	html->priv->magic_links;
+	return	html->priv->magic_links;
 }
 
 void
@@ -4090,7 +4090,7 @@ gtk_html_get_magic_smileys (const GtkHTML *html)
 	g_return_val_if_fail (html != NULL, FALSE);
 	g_return_val_if_fail (GTK_IS_HTML (html), FALSE);
 
-	return 	html->priv->magic_smileys;
+	return	html->priv->magic_smileys;
 }
 
 static void
@@ -4408,7 +4408,7 @@ clipboard_get_contents_cb (GtkClipboard     *clipboard,
 {
 	ClipboardContents *contents = (ClipboardContents *) data;
 
- 	if (info == TARGET_HTML && contents->html_text) {
+	if (info == TARGET_HTML && contents->html_text) {
 		gtk_selection_data_set (selection_data,
 					gdk_atom_intern ("text/html", FALSE), 8,
 					(const guchar *) contents->html_text,
@@ -5843,7 +5843,7 @@ gtk_html_set_iframe_parent (GtkHTML *html, GtkWidget *parent, HTMLObject *frame)
 
 	while (html->iframe_parent) {
 		depth++;
-	        html = GTK_HTML (html->iframe_parent);
+		html = GTK_HTML (html->iframe_parent);
 	}
 
 	return depth;

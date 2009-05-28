@@ -58,8 +58,8 @@ gboolean             html_engine_save_output_stringv            (HTMLEngineSaveS
 								 const gchar               *format,
 								 va_list                    ap);
 gboolean             html_engine_save_output_string             (HTMLEngineSaveState       *state,
-							         const gchar               *format,
-							         ...) G_GNUC_PRINTF (2, 3);
+								 const gchar               *format,
+								 ...) G_GNUC_PRINTF (2, 3);
 gboolean             html_engine_save_output_buffer             (HTMLEngineSaveState       *state,
 								 const gchar               *buffer,
 								 int                        len);

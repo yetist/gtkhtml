@@ -200,7 +200,7 @@ create_toolbars ()
 		GTK_WIDGET (item),
 		/* X direction */       /* Y direction */
 		0, 1,                   0, 1,
-		GTK_SHRINK,  			GTK_SHRINK,
+		GTK_SHRINK,			GTK_SHRINK,
 		0,                      0);
 
 	item = gtk_tool_button_new_from_stock (GTK_STOCK_GO_FORWARD);
@@ -213,7 +213,7 @@ create_toolbars ()
 		GTK_WIDGET (item),
 		/* X direction */       /* Y direction */
 		1, 2,                   0, 1,
-		GTK_SHRINK,  			GTK_SHRINK,
+		GTK_SHRINK,			GTK_SHRINK,
 		0,                      0);
 
 	item = gtk_tool_button_new_from_stock (GTK_STOCK_STOP);
@@ -224,7 +224,7 @@ create_toolbars ()
 		GTK_WIDGET (item),
 		/* X direction */       /* Y direction */
 		2, 3,                   0, 1,
-		GTK_SHRINK,  			GTK_SHRINK,
+		GTK_SHRINK,			GTK_SHRINK,
 		0,                      0);
 
 	item = gtk_tool_button_new_from_stock (GTK_STOCK_REFRESH);
@@ -235,7 +235,7 @@ create_toolbars ()
 		GTK_WIDGET (item),
 		/* X direction */       /* Y direction */
 		3, 4,                   0, 1,
-		GTK_SHRINK,  			GTK_SHRINK,
+		GTK_SHRINK,			GTK_SHRINK,
 		0,                      0);
 
 	item = gtk_tool_button_new_from_stock (GTK_STOCK_HOME);
@@ -246,7 +246,7 @@ create_toolbars ()
 		GTK_WIDGET (item),
 		/* X direction */       /* Y direction */
 		4, 5,                   0, 1,
-		GTK_SHRINK,  			GTK_SHRINK,
+		GTK_SHRINK,			GTK_SHRINK,
 		0,                      0);
 
 	label = gtk_label_new ("Location:");
@@ -255,7 +255,7 @@ create_toolbars ()
 		label,
 		/* X direction */       /* Y direction */
 		5, 6,                   0, 1,
-		GTK_SHRINK,  			GTK_SHRINK,
+		GTK_SHRINK,			GTK_SHRINK,
 		0,                      0);
 
 	entry = gtk_entry_new ();

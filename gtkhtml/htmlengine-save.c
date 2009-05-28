@@ -286,7 +286,7 @@ write_header (HTMLEngineSaveState *state)
 	html_engine_clear_all_class_data (state->engine);
 	/* Preface.  */
 	if (! html_engine_save_output_string
-	            (state,
+		    (state,
 		     "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 TRANSITIONAL//EN\">\n"
 		     "<HTML>\n"))
 		return FALSE;

@@ -245,8 +245,8 @@ html_embedded_encode_string (const gchar *before, const gchar *codepage)
 	    GIConv iconv_cd = generate_iconv_to (codepage);
 	    if( is_valid_g_iconv (iconv_cd))
 	    {
-	    	str= convert_text_encoding(iconv_cd, before);
-	    	g_iconv_close(iconv_cd);
+		str= convert_text_encoding(iconv_cd, before);
+		g_iconv_close(iconv_cd);
 	    }
 
         while ( pos < strlen(str) ) {

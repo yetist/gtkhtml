@@ -85,7 +85,7 @@ static gint html_a11y_text_get_link_index (AtkHypertext *hypertext, gint char_in
 
 
 /* Editable text interface. */
-static void 	atk_editable_text_interface_init      (AtkEditableTextIface *iface);
+static void	atk_editable_text_interface_init      (AtkEditableTextIface *iface);
 static void	html_a11y_text_set_text_contents	(AtkEditableText      *text,
 							 const gchar          *string);
 static void	html_a11y_text_insert_text	(AtkEditableText      *text,
@@ -1101,7 +1101,7 @@ html_a11y_text_cut_text (AtkEditableText *text,
 
 static void
 html_a11y_text_delete_text	(AtkEditableText *text,
-		  	 gint            start_pos,
+			 gint            start_pos,
 			 gint            end_pos)
 {
 	GtkHTML * html;
@@ -1120,7 +1120,7 @@ html_a11y_text_delete_text	(AtkEditableText *text,
 
 static void
 html_a11y_text_paste_text	(AtkEditableText *text,
-			 	 gint            position)
+				 gint            position)
 {
 	GtkHTML * html;
 	HTMLText *t;

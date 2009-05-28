@@ -118,53 +118,53 @@ html_type_name (HTMLType type)
 	case HTML_TYPE_ANCHOR:
 		return "Anchor";
 	case HTML_TYPE_BULLET:
- 		return "Bullet";
+		return "Bullet";
 	case HTML_TYPE_BUTTON:
- 		return "Button";
+		return "Button";
 	case HTML_TYPE_CHECKBOX:
- 		return "CheckBox";
+		return "CheckBox";
 	case HTML_TYPE_CLUE:
- 		return "Clue";
+		return "Clue";
 	case HTML_TYPE_CLUEALIGNED:
- 		return "ClueAligned";
+		return "ClueAligned";
 	case HTML_TYPE_CLUEFLOW:
- 		return "ClueFlow";
+		return "ClueFlow";
 	case HTML_TYPE_CLUEH:
- 		return "ClueH";
+		return "ClueH";
 	case HTML_TYPE_CLUEV:
- 		return "ClueV";
+		return "ClueV";
 	case HTML_TYPE_EMBEDDED:
- 		return "Embedded";
+		return "Embedded";
 	case HTML_TYPE_HIDDEN:
- 		return "Hidden";
+		return "Hidden";
 	case HTML_TYPE_HSPACE:
- 		return "HSpace";
+		return "HSpace";
 	case HTML_TYPE_IMAGE:
- 		return "Image";
+		return "Image";
 	case HTML_TYPE_IMAGEINPUT:
- 		return "ImageInput";
+		return "ImageInput";
 	case HTML_TYPE_LINKTEXT:
- 		return "LinkText";
+		return "LinkText";
 	case HTML_TYPE_OBJECT:
- 		return "Object";
+		return "Object";
 	case HTML_TYPE_RADIO:
- 		return "Radio";
+		return "Radio";
 	case HTML_TYPE_RULE:
- 		return "Rule";
+		return "Rule";
 	case HTML_TYPE_SELECT:
- 		return "Select";
+		return "Select";
 	case HTML_TYPE_TABLE:
- 		return "Table";
+		return "Table";
 	case HTML_TYPE_TABLECELL:
- 		return "TableCell";
+		return "TableCell";
 	case HTML_TYPE_TEXT:
- 		return "Text";
+		return "Text";
 	case HTML_TYPE_TEXTAREA:
- 		return "TextArea";
+		return "TextArea";
 	case HTML_TYPE_TEXTINPUT:
- 		return "TextInput";
+		return "TextInput";
 	case HTML_TYPE_TEXTSLAVE:
- 		return "TextSlave";
+		return "TextSlave";
 	case HTML_TYPE_IFRAME:
 		return "IFrame";
 	case HTML_TYPE_FRAME:
@@ -172,7 +172,7 @@ html_type_name (HTMLType type)
 	case HTML_TYPE_FRAMESET:
 		return "Framset";
 	case HTML_TYPE_NONE:
- 	case HTML_NUM_TYPES:
+	case HTML_NUM_TYPES:
 		/* Make compiler happy.  */
 		g_assert_not_reached ();
 	}

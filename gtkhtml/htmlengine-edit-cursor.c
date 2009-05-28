@@ -68,7 +68,7 @@ html_engine_hide_cursor  (HTMLEngine *engine)
 			if (e) {
 				e->caret_mode = engine->caret_mode;
 				html_cursor_copy(e->cursor, engine->cursor);
-			} else 	e = engine;
+			} else	e = engine;
 		}
 		html_engine_draw_cursor_in_area (e, 0, 0, -1, -1);
 	}

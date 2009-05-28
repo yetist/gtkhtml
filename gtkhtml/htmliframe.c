@@ -691,7 +691,7 @@ html_iframe_type_init (void)
 void
 html_iframe_class_init (HTMLIFrameClass *klass,
 			HTMLType type,
-		        guint size)
+			guint size)
 {
 	HTMLEmbeddedClass *embedded_class;
 	HTMLObjectClass  *object_class;

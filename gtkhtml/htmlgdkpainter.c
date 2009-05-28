@@ -442,7 +442,7 @@ draw_background (HTMLPainter *painter,
 
 		gc = gdk_gc_new (gdk_painter->window);
 
-  		if (color || !gdk_pixbuf_get_has_alpha (pixbuf)) {
+		if (color || !gdk_pixbuf_get_has_alpha (pixbuf)) {
 			pixmap = gdk_pixmap_new (gdk_painter->window, dw, dh, -1);
 
 			if (color) {

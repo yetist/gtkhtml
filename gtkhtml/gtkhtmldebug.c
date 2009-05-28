@@ -228,7 +228,7 @@ gtk_html_debug_dump_object (HTMLObject *obj,
 			g_print (" ");
 		g_print ("Text (len %d bytes %d): \"%s\"\n",
 			 text->text_len, text->text_bytes, text->text);
-/* 		debug_spell_errors (text->spell_errors); */
+/*		debug_spell_errors (text->spell_errors); */
 		if (text->pi) {
 			for (i =0; i < text->pi->n; i ++)
 				g_print ("item %d offset: %d length: %d\n", i, text->pi->entries [i].glyph_item.item->offset, text->pi->entries [i].glyph_item.item->length);
@@ -338,7 +338,7 @@ dump_object_simple (HTMLObject *obj,
 		g_print ("%s `%s'\n",
 			 html_type_name (HTML_OBJECT_TYPE (obj)),
 			 text->text);
-/* 		g_print ("len %d bytes %d\n", text->text_len, text->text_bytes); */
+/*		g_print ("len %d bytes %d\n", text->text_len, text->text_bytes); */
 	} else if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_TEXTSLAVE) {
 		HTMLTextSlave *slave = HTML_TEXT_SLAVE (obj);
 		gchar *text;

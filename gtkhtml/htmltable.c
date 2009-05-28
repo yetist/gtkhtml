@@ -1540,7 +1540,7 @@ divide_upto_preferred_width (HTMLTable *table, HTMLPainter *painter, GArray *pre
 					added        += part;
 					max_size [c] += part;
 					left         -= part;
-				        /* printf ("cell %d add: %d --> %d\n", c, part, max_size [c]); */
+					/* printf ("cell %d add: %d --> %d\n", c, part, max_size [c]); */
 				}
 			}
 		}

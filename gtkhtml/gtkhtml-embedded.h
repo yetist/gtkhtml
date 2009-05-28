@@ -62,7 +62,7 @@ struct _GtkHTMLEmbeddedClass {
 /* FIXME: There needs to be a way for embedded objects in forms to encode
    themselves for a form */
 
-GType	 	 gtk_html_embedded_get_type	(void);
+GType		 gtk_html_embedded_get_type	(void);
 GtkWidget	*gtk_html_embedded_new (char *classid, char *name, char *type, char *data, int width, int height);
 
 void gtk_html_embedded_set_parameter (GtkHTMLEmbedded *ge, char *param, char *value);

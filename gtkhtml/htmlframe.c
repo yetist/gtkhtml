@@ -562,7 +562,7 @@ html_frame_type_init (void)
 void
 html_frame_class_init (HTMLFrameClass *klass,
 			HTMLType type,
-		        guint size)
+			guint size)
 {
 	HTMLEmbeddedClass *embedded_class;
 	HTMLObjectClass  *object_class;

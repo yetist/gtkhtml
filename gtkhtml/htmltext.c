@@ -987,7 +987,7 @@ html_text_calc_part_width (HTMLText *text, HTMLPainter *painter, char *start, gi
 		} else {
 			width += pi->entries [idx].widths [offset];
 			line_offset ++;
-  		}
+		}
 		len --;
 
 		old_idx = idx;
@@ -998,7 +998,7 @@ html_text_calc_part_width (HTMLText *text, HTMLPainter *painter, char *start, gi
 			}
 
 		s = g_utf8_next_char (s);
-  	}
+	}
 
 out:
 	if (asc)
@@ -2133,8 +2133,8 @@ move_spell_errors (GList *spell_errors, guint offset, gint delta)
 		se = (SpellError *) spell_errors->data;
 		if (se->off >= offset)
 			se->off += delta;
- 		spell_errors = spell_errors->next;
-  	}
+		spell_errors = spell_errors->next;
+	}
 }
 
 static GList *
@@ -2176,8 +2176,8 @@ remove_spell_errors (GList *spell_errors, guint offset, guint len)
 					spell_errors = remove_one (spell_errors, cur);
 			}
 		}
- 		cur = cnext;
-  	}
+		cur = cnext;
+	}
 	return spell_errors;
 }
 
@@ -2867,7 +2867,7 @@ html_text_class_init (HTMLTextClass *klass,
 	object_class->cursor_right = html_text_cursor_right;
 	object_class->cursor_left = html_text_cursor_left;
 	object_class->backspace = html_text_backspace;
- 	object_class->get_right_edge_offset = html_text_get_right_edge_offset;
+	object_class->get_right_edge_offset = html_text_get_right_edge_offset;
 	object_class->get_left_edge_offset = html_text_get_left_edge_offset;
 
 	/* HTMLText methods.  */
@@ -3383,21 +3383,21 @@ html_text_remove_links (HTMLText *text)
 /* HTMLTextSlave * */
 /* html_text_get_slave_at_offset (HTMLObject *o, gint offset) */
 /* { */
-/* 	if (!o || (!HTML_IS_TEXT (o) && !HTML_IS_TEXT_SLAVE (o))) */
-/* 		return NULL; */
+/*	if (!o || (!HTML_IS_TEXT (o) && !HTML_IS_TEXT_SLAVE (o))) */
+/*		return NULL; */
 
-/* 	if (HTML_IS_TEXT (o)) */
-/* 		o = o->next; */
+/*	if (HTML_IS_TEXT (o)) */
+/*		o = o->next; */
 
-/* 	while (o && HTML_IS_TEXT_SLAVE (o)) { */
-/* 		if (HTML_IS_TEXT_SLAVE (o) && HTML_TEXT_SLAVE (o)->posStart <= offset */
-/* 		    && (offset < HTML_TEXT_SLAVE (o)->posStart + HTML_TEXT_SLAVE (o)->posLen */
-/* 			|| (offset == HTML_TEXT_SLAVE (o)->posStart + HTML_TEXT_SLAVE (o)->posLen && HTML_TEXT_SLAVE (o)->owner->text_len == offset))) */
-/* 			return HTML_TEXT_SLAVE (o); */
-/* 		o = o->next; */
-/* 	} */
+/*	while (o && HTML_IS_TEXT_SLAVE (o)) { */
+/*		if (HTML_IS_TEXT_SLAVE (o) && HTML_TEXT_SLAVE (o)->posStart <= offset */
+/*		    && (offset < HTML_TEXT_SLAVE (o)->posStart + HTML_TEXT_SLAVE (o)->posLen */
+/*			|| (offset == HTML_TEXT_SLAVE (o)->posStart + HTML_TEXT_SLAVE (o)->posLen && HTML_TEXT_SLAVE (o)->owner->text_len == offset))) */
+/*			return HTML_TEXT_SLAVE (o); */
+/*		o = o->next; */
+/*	} */
 
-/* 	return NULL; */
+/*	return NULL; */
 /* } */
 
 Link *

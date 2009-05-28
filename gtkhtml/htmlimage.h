@@ -148,7 +148,7 @@ void              html_image_factory_cleanup                (HTMLImageFactory *f
 void              html_image_factory_stop_animations        (HTMLImageFactory *factory);
 void              html_image_factory_start_animations       (HTMLImageFactory *factory);
 void              html_image_factory_set_animate            (HTMLImageFactory *factory,
-						             gboolean animate);
+							     gboolean animate);
 gboolean          html_image_factory_get_animate            (HTMLImageFactory *factory);
 void              html_image_factory_deactivate_animations  (HTMLImageFactory *factory);
 HTMLImagePointer *html_image_factory_register               (HTMLImageFactory *factory,

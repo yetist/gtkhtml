@@ -30,7 +30,7 @@
 struct _HTMLUndoAction {
 
 	gchar *description;             /* A text description of the action, to be displayed in the menus.  */
-	HTMLUndoFunc function;	        /* Function to call when the action is performed.  */
+	HTMLUndoFunc function;		/* Function to call when the action is performed.  */
 	HTMLUndoData *data;             /* Data to pass to the action function when it's called.  */
 	guint position;                 /* Cursor position, to be set when the action is executed.  */
 	guint position_after;           /* cursor position to go after undo action executed */

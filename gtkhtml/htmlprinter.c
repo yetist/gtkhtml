@@ -398,7 +398,7 @@ draw_pixmap (HTMLPainter *painter, GdkPixbuf *pixbuf, gint x, gint y, gint scale
 	cairo_t *cr;
 
 	printer = HTML_PRINTER (painter);
-       	g_return_if_fail (printer->context != NULL);
+	g_return_if_fail (printer->context != NULL);
 	cr = gtk_print_context_get_cairo_context (printer->context);
 	page_height =(double) gtk_print_context_get_height (printer->context);
 	print_x = SCALE_ENGINE_TO_GNOME_PRINT (x);
@@ -454,7 +454,7 @@ draw_lines (HTMLPrinter *printer, double x, double y, double width, PangoAnalysi
 		double position = pango_units_to_double (pango_font_metrics_get_underline_position (metrics));
 		double ly = y + position - thickness / 2;
 
-	    	cairo_new_path (cr);
+		cairo_new_path (cr);
 		cairo_move_to (cr, x, ly + 4);
 		cairo_line_to (cr, x + width, ly + 4);
 		cairo_set_line_width (cr, thickness);
@@ -495,12 +495,12 @@ draw_glyphs (HTMLPainter *painter, gint x, gint y, PangoItem *item, PangoGlyphSt
 	html_pango_get_item_properties (item, &properties);
 	pango_glyph_string_extents (glyphs, item->analysis.font, NULL, &log_rect);
 
-       	if (properties.bg_color) {
+	if (properties.bg_color) {
 		   cairo_set_source_rgb (cr,
 					 properties.bg_color->red / 65535.0,
 					 properties.bg_color->green / 65535.0,
 					 properties.bg_color->blue / 65535.0);
-		        cairo_rectangle (cr,
+			cairo_rectangle (cr,
 					 print_x,
 					 print_y + pango_units_to_double (log_rect.y + log_rect.height),
 					 pango_units_to_double (log_rect.width),
@@ -514,7 +514,7 @@ draw_glyphs (HTMLPainter *painter, gint x, gint y, PangoItem *item, PangoGlyphSt
 					 properties.fg_color->green / 65535.0,
 					 properties.fg_color->blue / 65535.0);
 	} else {
-		        cairo_set_source_rgb (cr, 0., 0., 0.);
+			cairo_set_source_rgb (cr, 0., 0., 0.);
 	}
 	cairo_move_to (cr, print_x, print_y);
 	pango_cairo_show_glyph_string (cr,

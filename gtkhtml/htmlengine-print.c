@@ -141,7 +141,7 @@ print_all_pages (HTMLPainter *painter,
 	if (header_height + footer_height >= page_height) {
 		header_print = footer_print = NULL;
 		g_warning ("Page header height + footer height >= "
-		           "page height, disabling header/footer printing");
+			   "page height, disabling header/footer printing");
 	}
 
 	body_height = page_height -
@@ -348,7 +348,7 @@ engine_print_begin_print (GtkPrintOperation *operation,
 	if (data->header_height + data->footer_height >= page_height) {
 		data->draw_header = data->draw_footer = NULL;
 		g_warning ("Page header height + footer height >= "
-		           "page height, disabling header/footer printing");
+			   "page height, disabling header/footer printing");
 	}
 
 	/* Calculate page offsets */

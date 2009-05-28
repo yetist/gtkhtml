@@ -465,7 +465,7 @@ html_style_add_attribute (HTMLStyle *style, const char *attr)
 				if (html_parse_color (g_strstrip (text + 7), &color)) {
 					HTMLColor *hc = html_color_new_from_gdk_color (&color);
 					style = html_style_add_color (style, hc);
-				        html_color_unref (hc);
+					html_color_unref (hc);
 
 				}
 			} else if (!g_ascii_strncasecmp ("background: ", text, 12)) {
@@ -474,7 +474,7 @@ html_style_add_attribute (HTMLStyle *style, const char *attr)
 				if (html_parse_color (text + 12, &color)) {
 					HTMLColor *hc = html_color_new_from_gdk_color (&color);
 					style = html_style_add_background_color (style, hc);
-				        html_color_unref (hc);
+					html_color_unref (hc);
 				}
 			} else if (!g_ascii_strncasecmp ("background-color: ", text, 18)) {
 				GdkColor color;
@@ -482,7 +482,7 @@ html_style_add_attribute (HTMLStyle *style, const char *attr)
 				if (html_parse_color (text + 18, &color)) {
 					HTMLColor *hc = html_color_new_from_gdk_color (&color);
 					style = html_style_add_background_color (style, hc);
-				        html_color_unref (hc);
+					html_color_unref (hc);
 				}
 			} else if (!g_ascii_strncasecmp ("background-image: ", text, 18)) {
 				style = html_style_add_background_image (style, text + 18);

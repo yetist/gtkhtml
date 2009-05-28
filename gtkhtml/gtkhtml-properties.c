@@ -62,7 +62,7 @@ get_locale_language (void)
 
 				/* validate the country code */
 				if (strlen (lang + 3) > 2) {
-				        /* invalid country code */
+					/* invalid country code */
 					lang[2] = '\0';
 				} else {
 					lang[2] = '-';

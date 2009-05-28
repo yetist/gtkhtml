@@ -176,7 +176,7 @@ static void               html_tokenizer_tokenize_one_char   (HTMLTokenizer  *t,
 							      const gchar  **src);
 static void				  add_char(HTMLTokenizer *t, gchar c);
 
-gboolean 				  is_need_convert(const gchar* token);
+gboolean				  is_need_convert(const gchar* token);
 
 gchar*					  html_tokenizer_convert_entity(gchar * token);
 
@@ -953,7 +953,7 @@ in_comment (HTMLTokenizer *t, const gchar **src)
 {
 	struct _HTMLTokenizerPrivate *p = t->priv;
 
-	if (**src == '-') {	             /* Look for "-->" */
+	if (**src == '-') {		     /* Look for "-->" */
 		if (p->searchCount < 2)
 			p->searchCount++;
 	} else if (p->searchCount == 2 && (**src == '>')) {
@@ -1147,7 +1147,7 @@ end_tag (HTMLTokenizer *t, const gchar **src)
 	/* Make the tag lower case */
 	ptr = p->buffer + 2;
 	if (p->pre || *ptr == '/') {
-	    	/* End tag */
+		/* End tag */
 		p->discard = NoneDiscard;
 	}
 	else {

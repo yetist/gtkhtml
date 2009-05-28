@@ -140,7 +140,7 @@ static int test_level_1 (GtkHTML *html)
 
 					if (et == 1)
 						ch [0] = ' ';
-				        else
+					else
 						ch [0] = 'a' + (int) (26.0*rand()/(RAND_MAX+1.0));
 					ch [1] = 0;
 					html_engine_insert_text (html->engine, ch, 1);

@@ -74,7 +74,7 @@ void           html_tokenizer_begin           (HTMLTokenizer *t,
 
 const gchar *  html_tokenizer_get_content_type(HTMLTokenizer *t);
 void           html_tokenizer_change_content_type
-				              (HTMLTokenizer *t,
+					      (HTMLTokenizer *t,
 					       const gchar *content_type);
 
 void	       html_tokenizer_set_engine_type (HTMLTokenizer *t,

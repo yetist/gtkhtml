@@ -67,7 +67,7 @@ html_search_new (HTMLEngine *e, const gchar *text, gboolean case_sensitive, gboo
 			html_search_push (ns, o);
 		ns->stack = g_slist_reverse (ns->stack);
 		if (e->cursor->object)
-  		ns->found = g_list_append (ns->found, e->cursor->object);
+		ns->found = g_list_append (ns->found, e->cursor->object);
 	} else {
 		ns->stack     = NULL;
 		ns->start_pos = 0;

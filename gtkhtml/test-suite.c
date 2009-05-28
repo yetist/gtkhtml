@@ -70,7 +70,7 @@ static void load_editable (GtkHTML *html, const char *s)
 {
 	gtk_html_set_editable (html, FALSE);
 	gtk_html_load_from_string (html, s, -1);
-/* 	gtk_html_debug_dump_tree_simple (html->engine->clue, 0); */
+/*	gtk_html_debug_dump_tree_simple (html->engine->clue, 0); */
 	gtk_html_set_editable (html, TRUE);
 }
 
@@ -570,11 +570,11 @@ test_quotes_in_table (GtkHTML *html)
 	    || !HTML_CLUE (HTML_CLUE (e->clue)->head->next)->head || !HTML_IS_TABLE (HTML_CLUE (HTML_CLUE (e->clue)->head->next)->head))
 		return FALSE;
 
- 	table = HTML_TABLE (HTML_CLUE (HTML_CLUE (e->clue)->head->next)->head);
+	table = HTML_TABLE (HTML_CLUE (HTML_CLUE (e->clue)->head->next)->head);
 
- 	if (table->totalCols != 1 || table->totalRows != 1 || !table->cells [0][0] || !HTML_IS_TABLE_CELL (table->cells [0][0])
+	if (table->totalCols != 1 || table->totalRows != 1 || !table->cells [0][0] || !HTML_IS_TABLE_CELL (table->cells [0][0])
 	    || !HTML_CLUE (table->cells [0][0])->head || !HTML_IS_CLUEFLOW (HTML_CLUE (table->cells [0][0])->head))
- 		return FALSE;
+		return FALSE;
 
 	flow_levels = HTML_CLUEFLOW (HTML_CLUE (table->cells [0][0])->head)->levels;
 
@@ -742,8 +742,8 @@ int main (int argc, char *argv[])
 	gtk_container_add (GTK_CONTAINER (sw), html_widget);
 	gtk_container_add (GTK_CONTAINER (win), sw);
 
-/* 	gtk_widget_show_all (win); */
-/* 	gtk_widget_show_now (win); */
+/*	gtk_widget_show_all (win); */
+/*	gtk_widget_show_now (win); */
 
 	n_all = n_successful = 0;
 

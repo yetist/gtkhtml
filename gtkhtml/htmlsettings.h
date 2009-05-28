@@ -51,14 +51,14 @@ HTMLSettings *   html_settings_new                   (GtkWidget *w);
 void             html_settings_reset                 (HTMLSettings *settings,
 						      HTMLSettings *orig,
 						      HTMLPainter  *painter);
-void          	 html_settings_destroy               (HTMLSettings *settings);
-void   	         html_settings_set_font_sizes        (HTMLSettings *settings,
+void		 html_settings_destroy               (HTMLSettings *settings);
+void		 html_settings_set_font_sizes        (HTMLSettings *settings,
 						      const gint *newFontSizes);
-void 	      	 html_settings_get_font_sizes        (HTMLSettings *settings,
+void		 html_settings_get_font_sizes        (HTMLSettings *settings,
 						      gint *fontSizes);
-void 	      	 html_settings_reset_font_sizes      (HTMLSettings *settings);
-void 	      	 html_settings_copy                  (HTMLSettings *dest, HTMLSettings *src);
-void 	      	 html_settings_set_font_base_face    (HTMLSettings *settings, const gchar *face);
-void 	      	 html_settings_set_fixed_font_face   (HTMLSettings *settings, const gchar *face);
+void		 html_settings_reset_font_sizes      (HTMLSettings *settings);
+void		 html_settings_copy                  (HTMLSettings *dest, HTMLSettings *src);
+void		 html_settings_set_font_base_face    (HTMLSettings *settings, const gchar *face);
+void		 html_settings_set_fixed_font_face   (HTMLSettings *settings, const gchar *face);
 
 #endif /* _HTMLSETTINGS_H_ */

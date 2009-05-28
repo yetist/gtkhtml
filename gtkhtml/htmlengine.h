@@ -318,7 +318,7 @@ void           html_engine_flush            (HTMLEngine  *e);
 void           html_engine_set_engine_type   (HTMLEngine *e,
 					 gboolean engine_type);
 gboolean       html_engine_get_engine_type   (HTMLEngine *e);
-void 		   html_engine_set_content_type(HTMLEngine *e,
+void		   html_engine_set_content_type(HTMLEngine *e,
 					const gchar* content_type);
 const gchar *  html_engine_get_content_type(HTMLEngine *e);
 
