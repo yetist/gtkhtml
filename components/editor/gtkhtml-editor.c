@@ -1166,7 +1166,7 @@ gtkhtml_editor_set_html_mode (GtkhtmlEditor *editor,
 	mode = html_mode ? EDITOR_MODE_HTML : EDITOR_MODE_TEXT;
 	gtk_radio_action_set_current_value (action, mode);
 
-	g_object_notify (G_OBJECT (editor), "html-mode");
+	/* We emit "notify::html-mode" in the action handler. */
 }
 
 gboolean

@@ -855,6 +855,8 @@ action_mode_cb (GtkRadioAction *action,
 
 	html_engine_set_painter (html->engine, new_painter);
 	html_engine_schedule_redraw (html->engine);
+
+	g_object_notify (G_OBJECT (editor), "html-mode");
 }
 
 static void
