@@ -235,13 +235,13 @@ gtkhtml_editor_private_init (GtkhtmlEditor *editor)
 	gtk_widget_show (widget);
 
 	widget = gtkhtml_editor_get_managed_widget (editor, "/edit-toolbar");
-	gtk_toolbar_set_style (GTK_TOOLBAR (widget), GTK_TOOLBAR_ICONS);
+	gtk_toolbar_set_style (GTK_TOOLBAR (widget), GTK_TOOLBAR_BOTH_HORIZ);
 	gtk_box_pack_start (GTK_BOX (editor->vbox), widget, FALSE, FALSE, 0);
 	priv->edit_toolbar = g_object_ref (widget);
 	gtk_widget_show (widget);
 
 	widget = gtkhtml_editor_get_managed_widget (editor, "/html-toolbar");
-	gtk_toolbar_set_style (GTK_TOOLBAR (widget), GTK_TOOLBAR_ICONS);
+	gtk_toolbar_set_style (GTK_TOOLBAR (widget), GTK_TOOLBAR_BOTH_HORIZ);
 	gtk_box_pack_start (GTK_BOX (editor->vbox), widget, FALSE, FALSE, 0);
 	priv->html_toolbar = g_object_ref (widget);
 	gtk_widget_show (widget);
