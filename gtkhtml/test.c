@@ -31,7 +31,6 @@
 
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
-#include <libgnomeui/gnome-ui-init.h>
 
 #include "gtkhtml.h"
 #include "gtkhtmldebug.h"
@@ -322,7 +321,7 @@ main (gint argc, gchar **argv)
 	GtkWidget *action_button;
 	gint i = 0;
 
-	gnome_program_init ("libgtkhtml test", "0.0", LIBGNOMEUI_MODULE, argc, argv, NULL);
+	gtk_init (&argc, &argv);
 
 	find_examples ();
 

@@ -22,8 +22,6 @@
  * Most of these handlers will be auto-connected by libglade.  GtkAction
  * callbacks belong in gtkhtml-editor-actions.c. */
 
-#include <libgnome/gnome-url.h>
-
 #include "gtkhtml-editor-private.h"
 
 /* Think of this as a Python decorator.  It silences compiler

@@ -68,7 +68,6 @@
 #include "gtkhtml-private.h"
 #include "gtkhtml-properties.h"
 #include "math.h"
-#include <libgnome/gnome-util.h>
 
 enum DndTargetType {
 	DND_TARGET_TYPE_MESSAGE_RFC822,

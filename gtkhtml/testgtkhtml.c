@@ -17,14 +17,18 @@
 */
 
 #include "config.h"
-#include <glib/gi18n.h>
-#include <gnome.h>
+
+#include <errno.h>
+#include <fcntl.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/stat.h>
 #include <sys/types.h>
+#include <unistd.h>
 
 #include <glib.h>
+#include <glib/gi18n.h>
 #include <glib/gstdio.h>
-#include <sys/stat.h>
-#include <fcntl.h>
 
 #include <gtk/gtk.h>
 
@@ -34,11 +38,6 @@
 #endif
 
 #include <libsoup/soup.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <errno.h>
-#include <unistd.h>
-#include <string.h>
 
 #include "config.h"
 #include "gtkhtml.h"
@@ -53,6 +52,14 @@
 #ifndef O_BINARY
 #define O_BINARY 0
 #endif
+
+typedef struct _Example Example;
+
+struct _Example {
+	const gchar *filename;
+	const gchar *title;
+};
+static GPtrArray *examples;
 
 typedef struct {
   FILE *fil;
@@ -69,10 +76,8 @@ typedef struct {
 
 static void exit_cb (GtkWidget *widget, gpointer data);
 static void print_preview_cb (GtkWidget *widget, gpointer data);
-static void test_cb (GtkWidget *widget, gpointer data);
 static void bug_cb (GtkWidget *widget, gpointer data);
-static void slow_cb (GtkWidget *widget, gpointer data);
-static void animate_cb (GtkWidget *widget, gpointer data);
+static void animate_cb (GtkToggleButton *togglebutton, gpointer data);
 static void stop_cb (GtkWidget *widget, gpointer data);
 static void dump_cb (GtkWidget *widget, gpointer data);
 static void dump_simple_cb (GtkWidget *widget, gpointer data);
@@ -95,100 +100,271 @@ static SoupSession *session;
 
 static GtkHTML *html;
 static GtkHTMLStream *html_stream_handle = NULL;
-/* static GtkWidget *animator; */
 static GtkWidget *entry;
 static GtkWidget *popup_menu, *popup_menu_back, *popup_menu_forward, *popup_menu_home;
 static GtkWidget *toolbar_back, *toolbar_forward;
+static GtkWidget *statusbar;
 static HTMLURL *baseURL = NULL;
 
 static GList *go_list;
 static gint go_position;
 
-static gboolean slow_loading = FALSE;
-
 static gint redirect_timerId = 0;
 static gchar *redirect_url = NULL;
 
-static GnomeUIInfo file_menu [] = {
-	{ GNOME_APP_UI_ITEM, N_("Print pre_view"), N_("Print preview"),
-	  print_preview_cb },
-	GNOMEUIINFO_SEPARATOR,
-	GNOMEUIINFO_MENU_EXIT_ITEM (exit_cb, NULL),
-	GNOMEUIINFO_END
+static GtkActionEntry entries[] = {
+
+	{ "FileMenu",
+	  NULL,
+	  "_File",
+	  NULL,
+	  NULL },
+
+	{ "DebugMenu",
+	  NULL,
+	  "_Debug",
+	  NULL,
+	  NULL },
+
+	{ "Preview",
+	  GTK_STOCK_PRINT_PREVIEW,
+	  NULL,
+	  NULL,
+	  NULL,
+	  G_CALLBACK (print_preview_cb) },
+
+	{ "Quit",
+	  GTK_STOCK_QUIT,
+	  NULL,
+	  NULL,
+	  NULL,
+	  G_CALLBACK (exit_cb) },
+
+	{ "DumpObjectTree",
+	  NULL,
+	  "Dump _Object tree",
+	  "<control>o",
+	  NULL,
+	  G_CALLBACK (dump_cb) },
+
+	{ "DumpObjectTreeSimple",
+	  NULL,
+	  "Dump Object tree (_simple)",
+	  "<control>s",
+	  NULL,
+	  G_CALLBACK (dump_simple_cb) },
+
+	{ "ForceRepaint",
+	  NULL,                   /* name, stock id */
+	  "Force _Repaint",
+	  "<control>r",         /* label, accelerator */
+	  "ForceRepaint",                         /* tooltip */
+	  G_CALLBACK (redraw_cb) },
+
+	{ "ForceResize",
+	  NULL,
+	  "Force R_esize",
+	  "<control>e",
+	  NULL,
+	  G_CALLBACK (resize_cb) },
+
+	{ "SelectAll",
+	  NULL,
+	  "Select _All",
+	  "<control>a",
+	  NULL,
+	  G_CALLBACK (select_all_cb)},
+
+	{ "ShowBugList",
+	  NULL,
+	  "Show _Bug List",
+	  "<control>b",
+	  "ShowBugList",
+	  G_CALLBACK (bug_cb)},
 };
 
-static GnomeUIInfo test_menu[] = {
-	{ GNOME_APP_UI_ITEM, "Test 1", "Run test 1",
-	  test_cb, GINT_TO_POINTER (1), NULL, 0, NULL, 0, 0},
-	{ GNOME_APP_UI_ITEM, "Test 2", "Run test 2",
-	  test_cb, GINT_TO_POINTER (2), NULL, 0, NULL, 0, 0},
-	{ GNOME_APP_UI_ITEM, "Test 3", "Run test 3",
-	  test_cb, GINT_TO_POINTER (3), NULL, 0, NULL, 0, 0},
-	{ GNOME_APP_UI_ITEM, "Test 4", "Run test 4",
-	  test_cb, GINT_TO_POINTER (4), NULL, 0, NULL, 0, 0},
-	{ GNOME_APP_UI_ITEM, "Test 5", "Run test 5",
-	  test_cb, GINT_TO_POINTER (5), NULL, 0, NULL, 0, 0},
-	{ GNOME_APP_UI_ITEM, "Test 6", "Run test 6",
-	  test_cb, GINT_TO_POINTER (6), NULL, 0, NULL, 0, 0},
-	{ GNOME_APP_UI_ITEM, "Test 7", "Run test 7 (FreshMeat)",
-	  test_cb, GINT_TO_POINTER (7), NULL, 0, NULL, 0, 0},
-	{ GNOME_APP_UI_ITEM, "Test 8", "Run test 8 (local test)",
-	  test_cb, GINT_TO_POINTER (8), NULL, 0, NULL, 0, 0},
-	{ GNOME_APP_UI_ITEM, "Test 9", "Run test 9 (Form Test)",
-	  test_cb, GINT_TO_POINTER (9), NULL, 0, NULL, 0, 0},
-	{ GNOME_APP_UI_ITEM, "Test 10", "Run test 10 (Object Test)",
-	  test_cb, GINT_TO_POINTER (10), NULL, 0, NULL, 0, 0},
-	{ GNOME_APP_UI_ITEM, "Test 11", "Run test 11 (Nowrap)",
-	  test_cb, GINT_TO_POINTER (11), NULL, 0, NULL, 0, 0},
-	GNOMEUIINFO_END
-};
+static const gchar *ui_info =
+"<ui>"
+"  <menubar name='MenuBar'>"
+"    <menu action='FileMenu'>"
+"      <menuitem action='Preview'/>"
+"      <separator/>"
+"      <menuitem action='Quit'/>"
+"    </menu>"
+"    <menu action='DebugMenu'>"
+"       <menuitem action='ShowBugList'/>"
+"       <menuitem action='DumpObjectTree'/>"
+"       <menuitem action='DumpObjectTreeSimple'/>"
+"       <menuitem action='ForceResize'/>"
+"       <menuitem action='ForceRepaint'/>"
+"       <menuitem action='SelectAll'/>"
+"    </menu>"
+"  </menubar>"
+"</ui>";
 
-static GnomeUIInfo debug_menu[] = {
-	{ GNOME_APP_UI_ITEM, "Show bug list", "Show the layout bug list",
-	  bug_cb, NULL, NULL, 0, NULL, 0, 0},
-	{ GNOME_APP_UI_ITEM, "Dump Object tree", "Dump Object tree to stdout",
-	  dump_cb, NULL, NULL, 0, NULL, 0, 0},
-	{ GNOME_APP_UI_ITEM, "Dump Object tree (simple)", "Dump Simple Object tree to stdout",
-	  dump_simple_cb, NULL, NULL, 0, NULL, 0, 0},
-	GNOMEUIINFO_TOGGLEITEM("Slow loading", "Load documents slowly", slow_cb, NULL),
-	{ GNOME_APP_UI_ITEM, "Force resize", "Force a resize event",
-	  resize_cb, NULL, NULL, 0, NULL, 0 },
-	{ GNOME_APP_UI_ITEM, "Force repaint", "Force a repaint event",
-	  redraw_cb, NULL, NULL, 0, NULL, 0 },
-	{ GNOME_APP_UI_ITEM, "Select all", "Select all",
-	  select_all_cb, NULL, NULL, 0, NULL, 0 },
-	GNOMEUIINFO_TOGGLEITEM ("Disable Animations", "Disable Animated Images",  animate_cb, NULL),
+/* find examples*/
+static void
+example_changed_cb (GtkComboBox *combo_box, gpointer data)
+{
+	gint i = gtk_combo_box_get_active (combo_box);
+	Example *example = examples->pdata[i];
 
-	GNOMEUIINFO_END
-};
+	if (example->filename) {
+		goto_url(example->filename, 0);
+	} else
+		goto_url("http://www.gnome.org", 0);
+}
 
-static GnomeUIInfo go_menu[] = {
-	{ GNOME_APP_UI_ITEM, "Back", "Return to the previous page in history list",
-	  back_cb, NULL, NULL, 0, NULL, 0, 0},
-	{ GNOME_APP_UI_ITEM, "Forward", "Go to the next page in history list",
-	  forward_cb, NULL, NULL, 0, NULL, 0, 0},
-	{ GNOME_APP_UI_ITEM, "Home", "Go to the homepage",
-	  home_cb, NULL, NULL, 0, NULL, 0 },
-	GNOMEUIINFO_SEPARATOR,
-	GNOMEUIINFO_END
-};
+/* We want to sort "a2" < "b1" < "B1" < "b2" < "b12". Vastly
+ * overengineered
+ */
+static gint
+compare_examples (gconstpointer a,
+		  gconstpointer b)
+{
+	const Example *example_a = *(const Example *const *)a;
+	const Example *example_b = *(const Example *const *)b;
+	gchar *a_fold, *b_fold;
+	const guchar *p, *q;
+	gint result = 0;
 
-static GnomeUIInfo main_menu[] = {
-	GNOMEUIINFO_MENU_FILE_TREE (file_menu),
-	GNOMEUIINFO_SUBTREE (("_Tests"), test_menu),
-	GNOMEUIINFO_SUBTREE (("_Debug"), debug_menu),
-	GNOMEUIINFO_SUBTREE (("_Go"), go_menu),
-	GNOMEUIINFO_END
-};
+	/* Special case "Welcome" to sort first */
+	if (!example_a->filename)
+		return -1;
+	if (!example_b->filename)
+		return 1;
+
+	a_fold = g_utf8_casefold (example_a->title, -1);
+	b_fold = g_utf8_casefold (example_b->title, -1);
+	p = (const guchar *)a_fold;
+	q = (const guchar *)b_fold;
+
+	while (*p && *q) {
+		gboolean p_digit = g_ascii_isdigit (*p);
+		gboolean q_digit = g_ascii_isdigit (*q);
+
+		if (p_digit && !q_digit) {
+			result = 1;
+			goto out;
+		}
+		else if (!p_digit && q_digit) {
+			result = -1;
+			goto out;
+		}
+
+		if (p_digit) {
+			gint num_a = atoi ((const gchar *) p);
+			gint num_b = atoi ((const gchar *) q);
+
+			if (num_a < num_b) {
+				result = -1;
+				goto out;
+			}
+			else if (num_a > num_b) {
+				result = 1;
+				goto out;
+			}
+
+			while (g_ascii_isdigit (*p))
+				p++;
+			while (g_ascii_isdigit (*q))
+				q++;
+
+		} else {
+			gint p_len = 1, q_len = 1;
+			gchar *p_str, *q_str;
+
+			while (*(p + p_len) && !g_ascii_isdigit (*(p + p_len)))
+				p_len++;
+			while (*(q + q_len) && !g_ascii_isdigit (*(q + q_len)))
+				q_len++;
+
+			p_str = g_strndup ((gchar *) p, p_len);
+			q_str = g_strndup ((gchar *) q, q_len);
+
+			result = g_utf8_collate (p_str, q_str);
+			g_free (p_str);
+			g_free (q_str);
+
+			if (result != 0)
+				goto out;
+
+			p += p_len;
+			q += p_len;
+		}
+
+		p++;
+		q++;
+	}
+
+	if (*p)
+		result = 1;
+	else if (*q)
+		result = -1;
+	else
+		result = g_utf8_collate (example_a->title, example_b->title);
+
+ out:
+	g_free (a_fold);
+	g_free (b_fold);
+
+	return result;
+}
+
+static void
+find_examples (void)
+{
+	GDir *dir;
+	GError *error = NULL;
+	gchar *cwd;
+	Example *example;
+
+	examples = g_ptr_array_new ();
+
+	example = g_new (Example, 1);
+	example->filename = NULL;
+	example->title = "Home";
+	g_ptr_array_add (examples, example);
+
+	dir = g_dir_open ("tests", 0, &error);
+	if (!dir) {
+		g_printerr ("Cannot open tests directory: %s\n", error->message);
+		return;
+	}
+	cwd = g_get_current_dir ();
+	while (TRUE) {
+		const gchar *name = g_dir_read_name (dir);
+
+		if (!name)
+			break;
+		if (!g_str_has_suffix (name, ".html"))
+			continue;
+
+		example = g_new (Example, 1);
+		example->filename = g_strdup_printf ("file://%s/tests/%s",
+					cwd,
+					name);
+		example->title = g_strndup (name, strlen (name) - 5);
+
+		g_ptr_array_add (examples, example);
+		qsort (examples->pdata, examples->len, sizeof (gpointer), compare_examples);
+	}
+
+	g_dir_close (dir);
+}
+/* find exaples */
 
 static GtkWidget *
 create_toolbars ()
 {
-	GtkWidget * label;
+	gint i;
+	GtkWidget  *animate_checkbox;
+	GtkWidget  *test_combo_box;
+	GtkWidget  *label;
 	GtkToolItem *item;
-	GtkWidget * action_table;
+	GtkWidget *action_table;
 
-	action_table = gtk_table_new (7, 1, FALSE);
+	action_table = gtk_table_new (9, 1, FALSE);
 
 	item = gtk_tool_button_new_from_stock (GTK_STOCK_GO_BACK);
 	gtk_tool_item_set_tooltip_text (item, "Move back");
@@ -266,6 +442,32 @@ create_toolbars ()
 		/* X direction */       /* Y direction */
 		6, 7,                   0, 1,
 		GTK_EXPAND | GTK_FILL,  GTK_EXPAND | GTK_FILL,
+		0,                      0);
+
+	find_examples ();
+	test_combo_box = gtk_combo_box_new_text ();
+	for (i = 0; i < examples->len; i++) {
+		Example *example = examples->pdata[i];
+		gtk_combo_box_append_text (GTK_COMBO_BOX (test_combo_box), example->title);
+	}
+	gtk_combo_box_set_active (GTK_COMBO_BOX (test_combo_box), 0);
+	g_signal_connect (test_combo_box, "changed", G_CALLBACK (example_changed_cb), NULL);
+	gtk_table_attach (
+		GTK_TABLE (action_table),
+		test_combo_box,
+		/* X direction */       /* Y direction */
+		7, 8,                   0, 1,
+		GTK_SHRINK,  GTK_SHRINK,
+		0,                      0);
+
+	animate_checkbox = gtk_check_button_new_with_label ("Disable Animations");
+	g_signal_connect (animate_checkbox, "toggled", G_CALLBACK (animate_cb), NULL);
+	gtk_table_attach (
+		GTK_TABLE (action_table),
+		animate_checkbox,
+		/* X direction */       /* Y direction */
+		8, 9,                   0, 1,
+		GTK_SHRINK,  GTK_SHRINK,
 		0,                      0);
 
 	return action_table;
@@ -393,15 +595,9 @@ redraw_cb (GtkWidget *widget, gpointer data)
 }
 
 static void
-slow_cb (GtkWidget *widget, gpointer data)
+animate_cb (GtkToggleButton *togglebutton, gpointer data)
 {
-	slow_loading = !slow_loading;
-}
-
-static void
-animate_cb (GtkWidget *widget, gpointer data)
-{
-	/* gtk_html_set_animate (html, !gtk_html_get_animate (html)); */
+	gtk_html_set_animate (html, !gtk_toggle_button_get_mode(togglebutton));
 }
 
 static void
@@ -454,13 +650,11 @@ back_cb (GtkWidget *widget, gpointer data)
 		goto_url(item->url, 1);
 		gtk_widget_set_sensitive(popup_menu_forward, TRUE);
 		gtk_widget_set_sensitive(toolbar_forward, TRUE);
-		gtk_widget_set_sensitive(go_menu[1].widget, TRUE);
 
 		if(go_position == (g_list_length(go_list) - 1)) {
 
 			gtk_widget_set_sensitive(popup_menu_back, FALSE);
 			gtk_widget_set_sensitive(toolbar_back, FALSE);
-			gtk_widget_set_sensitive(go_menu[0].widget, FALSE);
 		}
 
 	} else
@@ -480,12 +674,10 @@ forward_cb (GtkWidget *widget, gpointer data)
 
 		gtk_widget_set_sensitive(popup_menu_back, TRUE);
 		gtk_widget_set_sensitive(toolbar_back, TRUE);
-		gtk_widget_set_sensitive(go_menu[0].widget, TRUE);
 
 		if(go_position == 0) {
 			gtk_widget_set_sensitive(popup_menu_forward, FALSE);
 			gtk_widget_set_sensitive(toolbar_forward, FALSE);
-			gtk_widget_set_sensitive(go_menu[1].widget, FALSE);
 		}
 	} else
 		go_position++;
@@ -513,11 +705,11 @@ stop_cb (GtkWidget *widget, gpointer data)
 static void
 load_done (GtkHTML *html)
 {
-	/* TODO2 gnome_animator_stop (GNOME_ANIMATOR (animator));
-	gnome_animator_goto_frame (GNOME_ANIMATOR (animator), 1);
+	/* TODO2 animator stop
 
 	if (exit_when_done)
-	gtk_main_quit(); */
+		gtk_main_quit();
+	*/
 }
 
 static gint
@@ -599,16 +791,28 @@ on_submit (GtkHTML *html, const gchar *method, const gchar *action, const gchar 
 }
 
 static void
+change_status_bar(GtkStatusbar * statusbar, const gchar * text)
+{
+	gchar *msg;
+
+	if (!text)
+		msg = g_strdup ("");
+	else
+		msg = g_strdup (text);
+
+	gtk_statusbar_pop (statusbar, 0);
+	 /* clear any previous message,
+	  * underflow is allowed
+	  */
+	gtk_statusbar_push (statusbar, 0, msg);
+
+	g_free (msg);
+}
+
+static void
 on_url (GtkHTML *html, const gchar *url, gpointer data)
 {
-	GnomeApp *app;
-
-	app = GNOME_APP (data);
-
-	if (url == NULL)
-		gnome_appbar_set_status (GNOME_APPBAR (app->statusbar), "");
-	else
-		gnome_appbar_set_status (GNOME_APPBAR (app->statusbar), url);
+	change_status_bar (GTK_STATUSBAR(statusbar), url);
 }
 
 static void
@@ -766,9 +970,12 @@ parse_href (const gchar *s)
 			}
 		} else {
 			html_url_destroy (tmpurl);
-			tmpurl = html_url_append_path (baseURL, s);
-			retval = html_url_to_string (tmpurl);
-			html_url_destroy (tmpurl);
+			if(baseURL) {
+				tmpurl = html_url_append_path (baseURL, s);
+				retval = html_url_to_string (tmpurl);
+				html_url_destroy (tmpurl);
+			} else
+				retval = g_strdup (s);
 		}
 	} else {
 		retval = html_url_to_string (tmpurl);
@@ -796,20 +1003,16 @@ go_list_cb (GtkWidget *widget, gpointer data)
 			if(go_position == 0 || num < 2) {
 				gtk_widget_set_sensitive(popup_menu_forward, FALSE);
 				gtk_widget_set_sensitive(toolbar_forward, FALSE);
-				gtk_widget_set_sensitive(go_menu[1].widget, FALSE);
 			} else {
 				gtk_widget_set_sensitive(popup_menu_forward, TRUE);
 				gtk_widget_set_sensitive(toolbar_forward, TRUE);
-				gtk_widget_set_sensitive(go_menu[1].widget, TRUE);
 			}
 			if(go_position == (num - 1) || num < 2) {
 				gtk_widget_set_sensitive(popup_menu_back, FALSE);
 				gtk_widget_set_sensitive(toolbar_back, FALSE);
-				gtk_widget_set_sensitive(go_menu[0].widget, FALSE);
 			} else {
 				gtk_widget_set_sensitive(popup_menu_back, TRUE);
 				gtk_widget_set_sensitive(toolbar_back, TRUE);
-				gtk_widget_set_sensitive(go_menu[0].widget, TRUE);
 			}
 		}
 	}
@@ -842,7 +1045,7 @@ goto_url(const gchar *url, gint back_or_forward)
 		redirect_timerId = 0;
 	}
 
-	/* TODO2 gnome_animator_start (GNOME_ANIMATOR (animator)); */
+	/* TODO2 animator start */
 	html_stream_handle = gtk_html_begin_content (html, (gchar *)gtk_html_get_default_content_type (html));
 
 	/* Yuck yuck yuck.  Well this code is butt-ugly already
@@ -888,7 +1091,6 @@ goto_url(const gchar *url, gint back_or_forward)
 		}
 		gtk_widget_set_sensitive(popup_menu_forward, FALSE);
 		gtk_widget_set_sensitive(toolbar_forward, FALSE);
-		gtk_widget_set_sensitive(go_menu[1].widget, FALSE);
 
 		item = g_malloc0(sizeof(go_item));
 		item->url = g_strdup(full_url);
@@ -904,7 +1106,6 @@ goto_url(const gchar *url, gint back_or_forward)
 		group = NULL;
 
 		for(i=0;i<tmp;i++) {
-			GtkWidget *submenu;
 
 			item = g_list_nth_data(go_list, i);
 			item->widget = gtk_radio_menu_item_new_with_label(group, item->url);
@@ -917,8 +1118,6 @@ goto_url(const gchar *url, gint back_or_forward)
 			if(i == 0)
 				gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item->widget), TRUE);
 
-			submenu = gtk_menu_item_get_submenu (GTK_MENU_ITEM (main_menu[3].widget));
-			gtk_menu_shell_append (GTK_MENU_SHELL (submenu), item->widget);
 			gtk_widget_show(item->widget);
 
 		}
@@ -927,7 +1126,6 @@ goto_url(const gchar *url, gint back_or_forward)
 
 			gtk_widget_set_sensitive(popup_menu_back, TRUE);
 			gtk_widget_set_sensitive(toolbar_back, TRUE);
-			gtk_widget_set_sensitive(go_menu[0].widget, TRUE);
 		}
 	} else {
 		/* Update current link in the go list */
@@ -958,45 +1156,19 @@ bug_cb (GtkWidget *widget, gpointer data)
 }
 
 static void
-test_cb (GtkWidget *widget, gpointer data)
-{
-	gchar *cwd, *filename, *url;
-
-	cwd = g_get_current_dir ();
-	filename = g_strdup_printf ("%s/tests/test%d.html", cwd,
-				    GPOINTER_TO_INT (data));
-	url = g_filename_to_uri (filename, NULL, NULL);
-	goto_url(url, 0);
-	g_free(url);
-	g_free(filename);
-	g_free(cwd);
-}
-
-static void
 exit_cb (GtkWidget *widget, gpointer data)
 {
 	gtk_main_quit ();
 }
 
-/* static struct poptOption options[] = {
-  {"slow-loading", '\0', POPT_ARG_NONE, &slow_loading, 0, "Load the document as slowly as possible", NULL},
-  {"exit-when-done", '\0', POPT_ARG_NONE, &exit_when_done, 0, "Exit the program as soon as the document is loaded", NULL},
-  {NULL}
-  }; */
-
 static gboolean
 motion_notify_event (GtkHTML *html, GdkEventMotion *event, gpointer data)
 {
 	const gchar *id;
-	GnomeApp *app;
-
-	app = GNOME_APP (data);
 
 	id = gtk_html_get_object_id_at (html, event->x, event->y);
 	if (id)
-		gnome_appbar_set_status (GNOME_APPBAR (app->statusbar), id);
-	else
-		gnome_appbar_set_status (GNOME_APPBAR (app->statusbar), "");
+		change_status_bar(GTK_STATUSBAR (statusbar), id);
 
 	return FALSE;
 }
@@ -1007,30 +1179,19 @@ main (gint argc, gchar *argv[])
 	GtkWidget *app, *bar, *main_table;
 	GtkWidget *html_widget;
 	GtkWidget *scrolled_window;
+	GtkActionGroup *action_group;
+	GtkUIManager *merge;
+	GError *error = NULL;
 
 #ifdef MEMDEBUG
 	gpointer p = malloc (1024);	/* to make linker happy with ccmalloc */
 #endif
-	/* gnome_init_with_popt_table (PACKAGE, VERSION,
-	   argc, argv, options, 0, &ctx); */
-	gnome_program_init ("testgtkhtml", VERSION, LIBGNOMEUI_MODULE, argc, argv,
 
-			    GNOME_PARAM_HUMAN_READABLE_NAME, _("GtkHTML Test Application"),
-			    NULL);
+	gtk_init(&argc, &argv);
 
-	app = gnome_app_new ("testgtkhtml", "GtkHTML: testbed application");
+	app = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 
 	g_signal_connect (app, "delete_event", G_CALLBACK (exit_cb), NULL);
-
-	bar = gnome_appbar_new (FALSE, TRUE, GNOME_PREFERENCES_USER);
-	gnome_app_set_statusbar (GNOME_APP (app), bar);
-	gnome_app_create_menus (GNOME_APP (app), main_menu);
-
-	/* Disable back and forward on the Go menu */
-	gtk_widget_set_sensitive(go_menu[0].widget, FALSE);
-	gtk_widget_set_sensitive(go_menu[1].widget, FALSE);
-
-	gnome_app_install_menu_hints (GNOME_APP (app), main_menu);
 
 	scrolled_window = gtk_scrolled_window_new (NULL, NULL);
 
@@ -1038,22 +1199,57 @@ main (gint argc, gchar *argv[])
 					GTK_POLICY_AUTOMATIC,
 					GTK_POLICY_AUTOMATIC);
 
-	main_table = gtk_table_new (1, 2, FALSE);
-	gnome_app_set_contents (GNOME_APP (app), main_table);
+	statusbar = gtk_statusbar_new ();
+	/* Menus */
+	action_group = gtk_action_group_new ("AppWindowActions");
+	gtk_action_group_add_actions (action_group,
+	    entries, G_N_ELEMENTS (entries),
+	    scrolled_window);
+
+	merge = gtk_ui_manager_new ();
+	g_object_set_data_full (G_OBJECT (scrolled_window), "ui-manager", merge,
+			      g_object_unref);
+
+	gtk_ui_manager_insert_action_group (merge, action_group, 0);
+	gtk_window_add_accel_group (GTK_WINDOW (app),
+				  gtk_ui_manager_get_accel_group (merge));
+
+	if (!gtk_ui_manager_add_ui_from_string (merge, ui_info, -1, &error)) {
+	  g_message ("building menus failed: %s", error->message);
+	  g_error_free (error);
+	}
+
+	bar = gtk_ui_manager_get_widget (merge, "/MenuBar");
+	gtk_widget_show (bar);
+	/* main table*/
+	main_table = gtk_table_new (1, 4, FALSE);
+
 	gtk_table_attach (GTK_TABLE (main_table),
-                        scrolled_window,
-                        /* X direction */       /* Y direction */
-                        0, 1,                   1, 2,
-                        GTK_EXPAND | GTK_FILL,  GTK_EXPAND | GTK_FILL,
-                        0,                      0);
-	gtk_table_attach (GTK_TABLE (main_table),
-                        create_toolbars (),
+                        bar,
                         /* X direction */       /* Y direction */
                         0, 1,                   0, 1,
                         GTK_EXPAND | GTK_FILL,  GTK_SHRINK,
                         0,                      0);
-
-	session = soup_session_async_new ();
+	gtk_table_attach (GTK_TABLE (main_table),
+                        create_toolbars (),
+                        /* X direction */       /* Y direction */
+                        0, 1,                   1, 2,
+                        GTK_EXPAND | GTK_FILL,  GTK_SHRINK,
+                        0,                      0);
+	gtk_table_attach (GTK_TABLE (main_table),
+                        scrolled_window,
+                        /* X direction */       /* Y direction */
+                        0, 1,                   2, 3,
+                        GTK_EXPAND | GTK_FILL,  GTK_EXPAND | GTK_FILL,
+                        0,                      0);
+	gtk_table_attach (GTK_TABLE (main_table),
+                        statusbar,
+                        /* X direction */       /* Y direction */
+                        0, 1,                   3, 4,
+                        GTK_EXPAND | GTK_FILL,  GTK_SHRINK,
+                        0,                      0);
+	/*app*/
+	gtk_container_add (GTK_CONTAINER (app), main_table);
 
 	html_widget = gtk_html_new ();
 	html = GTK_HTML (html_widget);
@@ -1112,6 +1308,8 @@ main (gint argc, gchar *argv[])
 	gtk_window_set_focus (GTK_WINDOW (app), GTK_WIDGET (html));
 
 	gtk_widget_show_all (app);
+
+	session = soup_session_async_new ();
 
 	if (argc > 1 && *argv [argc - 1] != '-')
 		goto_url (argv [argc - 1], 0);

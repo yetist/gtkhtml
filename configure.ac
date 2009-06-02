@@ -10,7 +10,6 @@ m4_define([gtk_minimum_version], [2.16.0])
 m4_define([gail_minimum_version], [1.1.0])
 m4_define([gnome_icon_theme_minimum_version], [2.22.0])
 m4_define([libglade_minimum_version], [2.0.0])
-m4_define([libgnomeui_minimum_version], [2.0.0])
 
 GTKHTML_API_VERSION=3.14
 AC_DEFINE_UNQUOTED(GTKHTML_API_VERSION, "${GTKHTML_API_VERSION}", [GtkHTML API Version])
@@ -107,7 +106,7 @@ AC_SUBST(GAIL_CFLAGS)
 AC_SUBST(GAIL_LIBS)
 AC_SUBST(GAIL_MODULES)
 
-GTKHTML_MODULES="gtk+-2.0 >= gtk_minimum_version libgnomeui-2.0 >= libgnomeui_minimum_version libglade-2.0 >= libglade_minimum_version enchant gconf-2.0 iso-codes"
+GTKHTML_MODULES="gtk+-2.0 >= gtk_minimum_version libglade-2.0 >= libglade_minimum_version enchant gconf-2.0 iso-codes"
 PKG_CHECK_MODULES(GTKHTML, $GTKHTML_MODULES)
 AC_SUBST(GTKHTML_CFLAGS)
 AC_SUBST(GTKHTML_LIBS)

@@ -101,9 +101,6 @@
 #include "htmlstyle.h"
 
 /* #define CHECK_CURSOR */
-#ifdef CHECK_CURSOR
-#include <libgnomeui/gnome-dialog-util.h>
-#endif
 
 static void      html_engine_class_init       (HTMLEngineClass     *klass);
 static void      html_engine_init             (HTMLEngine          *engine);
@@ -5839,14 +5836,17 @@ check_cursor (HTMLEngine *e)
 		;
 
 	if (cursor->position != 0) {
+		GtkWidget *dialog;
 		g_warning ("check cursor failed (%d)\n", cursor->position);
-		gnome_ok_dialog ("Eeek, BAD cursor position!\n"
-				 "\n"
-				 "If you know how to get editor to this state,\n"
-				 "please mail to gtkhtml-maintainers@ximian.com\n"
-				 "detailed description\n"
-				 "\n"
-				 "Thank you");
+		dialog = gtk_message_dialog_new (
+			NULL, 0, GTK_MESSAGE_INFO, GTK_BUTTONS_OK,
+			"Eeek, BAD cursor position!\n\n"
+			"If you know how to get editor to this state,\n"
+			"please mail to gtkhtml-maintainers@ximian.com\n"
+			"detailed description\n\n"
+			"Thank you");
+		gtk_dialog_run (GTK_DIALOG (dialog));
+		gtk_widget_destroy (dialog);
 		e->cursor->position -= cursor->position;
 	}
 
