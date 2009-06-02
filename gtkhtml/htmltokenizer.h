@@ -54,7 +54,7 @@ struct _HTMLTokenizerClass {
 	void     (*end)             (HTMLTokenizer *);
 
 	/* virtual functions */
-	void           (*write)      (HTMLTokenizer *, const gchar *string, size_t size);
+	void           (*write)      (HTMLTokenizer *, const gchar *string, gsize size);
 	gchar         *(*peek_token) (HTMLTokenizer *);
 	gchar         *(*next_token) (HTMLTokenizer *);
 	const gchar   *(*get_content_type) (HTMLTokenizer *);
@@ -83,7 +83,7 @@ gboolean       html_tokenizer_get_engine_type (HTMLTokenizer *t);
 
 void           html_tokenizer_write           (HTMLTokenizer *t,
 					       const gchar *string,
-					       size_t size);
+					       gsize size);
 void           html_tokenizer_end             (HTMLTokenizer *t);
 gchar *        html_tokenizer_peek_token      (HTMLTokenizer *t);
 gchar *        html_tokenizer_next_token      (HTMLTokenizer *t);

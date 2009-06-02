@@ -114,7 +114,7 @@ static gchar **   html_engine_stream_types     (GtkHTMLStream       *stream,
 					       gpointer            data);
 static void      html_engine_stream_write     (GtkHTMLStream       *stream,
 					       const gchar         *buffer,
-					       size_t               size,
+					       gsize               size,
 					       gpointer             data);
 static void      html_engine_stream_end       (GtkHTMLStream       *stream,
 					       GtkHTMLStreamStatus  status,
@@ -159,9 +159,9 @@ enum {
 static guint signals [LAST_SIGNAL] = { 0 };
 
 #define TIMER_INTERVAL 300
-#define DT(x) ;
-#define DF(x) ;
-#define DE(x) ;
+#define DT(x);
+#define DF(x);
+#define DE(x);
 
 #define ID_A "a"
 #define ID_ADDRESS "address"
@@ -909,7 +909,7 @@ insert_text (HTMLEngine *e,
 	gboolean create_link;
 	gint last_pos = 0;
 	gint last_bytes = 0;
-	gboolean prev_text_ends_in_space = FALSE ;
+	gboolean prev_text_ends_in_space = FALSE;
 
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
@@ -939,7 +939,7 @@ insert_text (HTMLEngine *e,
 	    if (HTML_IS_TEXT (prev))
 		if (HTML_TEXT (prev)->text_bytes > 0)
 		    if (' ' == (HTML_TEXT (prev)->text)[HTML_TEXT (prev)->text_bytes - 1])
-			prev_text_ends_in_space = TRUE ;
+			prev_text_ends_in_space = TRUE;
 
 	if (e->flow == NULL && e->editable) {
 		/* Preserve one leading space. */
@@ -4719,7 +4719,7 @@ html_engine_stream_types (GtkHTMLStream *handle,
 static void
 html_engine_stream_write (GtkHTMLStream *handle,
 			  const gchar *buffer,
-			  size_t size,
+			  gsize size,
 			  gpointer data)
 {
 	HTMLEngine *e;

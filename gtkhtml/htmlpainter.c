@@ -389,7 +389,7 @@ get_font_info (HTMLPainter       *painter,
 }
 
 
-static int
+static gint
 get_space_width (HTMLPainter       *painter,
 		 HTMLTextPangoInfo *pi)
 {
@@ -529,7 +529,7 @@ html_replace_tabs (const gchar *text, gchar *translated, guint bytes)
 	tt = translated;
 
 	do {
-		tab = memchr (t, (unsigned char) '\t', bytes - (t - text));
+		tab = memchr (t, (guchar) '\t', bytes - (t - text));
 		if (tab) {
 			strncpy (tt, t, tab - t);
 			tt += tab - t;
@@ -580,7 +580,7 @@ html_painter_draw_entries (HTMLPainter *painter, gint x, gint y,
 	c_text = text;
 	bytes = g_utf8_offset_to_pointer (text, len) - text;
 	gl = glyphs;
-	tab = memchr (c_text, (unsigned char) '\t', bytes);
+	tab = memchr (c_text, (guchar) '\t', bytes);
 
 	/* We iterate through the string by tabs and non-tab segments, skipping over
 	 * the tabs and drawing the non-tab segments.
@@ -616,7 +616,7 @@ html_painter_draw_entries (HTMLPainter *painter, gint x, gint y,
 				line_offset += 8 - (line_offset % 8);
 			}
 
-			tab = memchr (c_text + 1, (unsigned char) '\t', bytes - 1);
+			tab = memchr (c_text + 1, (guchar) '\t', bytes - 1);
 		} else {
 			x += html_painter_pango_to_engine (painter, (* HP_CLASS (painter)->draw_glyphs) (painter, x, y, item, gl->data, NULL, NULL));
 
@@ -915,7 +915,7 @@ guint
 html_painter_get_block_cite_width (HTMLPainter *painter, GtkHTMLFontStyle style, HTMLFontFace *face, HTMLDirection dir)
 {
 	HTMLFont *font = html_font_manager_get_font (&painter->font_manager, face, style);
-	return dir == HTML_DIRECTION_RTL ? font->cite_width_rtl : font->cite_width_ltr ;
+	return dir == HTML_DIRECTION_RTL ? font->cite_width_rtl : font->cite_width_ltr;
 }
 
 guint

@@ -69,7 +69,7 @@ gtk_html_stream_destroy (GtkHTMLStream *stream)
 void
 gtk_html_stream_write (GtkHTMLStream *stream,
 		       const gchar *buffer,
-		       size_t size)
+		       gsize size)
 {
 	g_return_if_fail (stream != NULL);
 	g_return_if_fail (buffer != NULL);
@@ -84,7 +84,7 @@ gtk_html_stream_vprintf (GtkHTMLStream *stream,
 			 const gchar *format,
 			 va_list ap)
 {
-	size_t len;
+	gsize len;
 	gchar *buf = NULL;
 	gchar *mbuf = NULL;
 	gchar *result_string = NULL;
@@ -166,7 +166,7 @@ stream_log_types (GtkHTMLStream *stream,
 static void
 stream_log_write (GtkHTMLStream *stream,
 	       const gchar *buffer,
-	       size_t size,
+	       gsize size,
 	       gpointer user_data)
 {
 	GtkHTMLLog *log = user_data;

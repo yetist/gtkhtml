@@ -43,13 +43,13 @@ typedef void   (* GtkHTMLStreamCloseFunc) (GtkHTMLStream *stream,
 					   gpointer user_data);
 typedef void   (* GtkHTMLStreamWriteFunc) (GtkHTMLStream *stream,
 					   const gchar *buffer,
-					   size_t size,
+					   gsize size,
 					   gpointer user_data);
 
 /* FIXME 1st param should be Engine */
 typedef gboolean (* GtkHTMLSaveReceiverFn)   (gpointer     engine,
 					      const gchar *data,
-					      size_t       len,
+					      gsize       len,
 					      gpointer     user_data);
 
 typedef gint    (*GtkHTMLPrintCalcHeight) (GtkHTML *html,

@@ -2793,7 +2793,7 @@ html_text_backspace (HTMLObject *self, HTMLCursor *cursor, HTMLEngine *engine)
 	return retval;
 }
 
-static int
+static gint
 html_text_get_right_edge_offset (HTMLObject *o, HTMLPainter *painter, gint offset)
 {
 	HTMLTextSlave *slave = html_text_get_slave_at_offset (HTML_TEXT (o), NULL, offset);
@@ -2807,7 +2807,7 @@ html_text_get_right_edge_offset (HTMLObject *o, HTMLPainter *painter, gint offse
 	}
 }
 
-static int
+static gint
 html_text_get_left_edge_offset (HTMLObject *o, HTMLPainter *painter, gint offset)
 {
 	HTMLTextSlave *slave = html_text_get_slave_at_offset (HTML_TEXT (o), NULL, offset);

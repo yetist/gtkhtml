@@ -164,7 +164,7 @@ GtkHTMLStream             *gtk_html_begin_full                    (GtkHTML      
 void                       gtk_html_write                         (GtkHTML                   *html,
 								   GtkHTMLStream             *handle,
 								   const gchar               *buffer,
-								   size_t                     size);
+								   gsize                     size);
 void                       gtk_html_end                           (GtkHTML                   *html,
 								   GtkHTMLStream             *handle,
 								   GtkHTMLStreamStatus        status);

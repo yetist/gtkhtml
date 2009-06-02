@@ -200,7 +200,7 @@ gtk_html_debug_dump_object (HTMLObject *obj,
 
 			}
 
-		g_print ("total width by glyph string extents (in engine units): %d\n", (int)(0.5 + width / PANGO_SCALE));
+		g_print ("total width by glyph string extents (in engine units): %d\n", (gint)(0.5 + width / PANGO_SCALE));
 
 		ii = html_text_get_item_index (HTML_TEXT_SLAVE (obj)->owner, NULL, HTML_TEXT_SLAVE (obj)->posStart, &io);
 		tw = 0;
@@ -212,7 +212,7 @@ gtk_html_debug_dump_object (HTMLObject *obj,
 			offset ++;
 		}
 
-		g_print ("\ntotal width by widths in entries (in engine units): %d", (int)(0.5 + tw / PANGO_SCALE));
+		g_print ("\ntotal width by widths in entries (in engine units): %d", (gint)(0.5 + tw / PANGO_SCALE));
 	}
 
 	g_print ("\n");

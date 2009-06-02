@@ -693,7 +693,7 @@ pref_left_margin (HTMLPainter *p, HTMLObject *o, gint indent)
 
 	if (html_object_get_direction (o) == HTML_DIRECTION_RTL) {
 		if (HTML_CLUEFLOW (o)->style != HTML_CLUEFLOW_STYLE_PRE && HTML_IS_PLAIN_PAINTER(p))
-			return MAX (margin, o->width - (int)(72 * (MAX (html_painter_get_space_width (p, GTK_HTML_FONT_STYLE_SIZE_3 | GTK_HTML_FONT_STYLE_FIXED, NULL),
+			return MAX (margin, o->width - (gint)(72 * (MAX (html_painter_get_space_width (p, GTK_HTML_FONT_STYLE_SIZE_3 | GTK_HTML_FONT_STYLE_FIXED, NULL),
 									html_painter_get_e_width (p, GTK_HTML_FONT_STYLE_SIZE_3 | GTK_HTML_FONT_STYLE_FIXED, NULL)))));
 	} else {
 		if (indent > margin)
@@ -1598,7 +1598,7 @@ get_end_indent_item (HTMLListType type)
 	return "";
 }
 
-static int
+static gint
 get_similar_depth (HTMLClueFlow *self, HTMLClueFlow *neighbor)
 {
 	gint i;

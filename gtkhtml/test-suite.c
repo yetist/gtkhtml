@@ -75,7 +75,7 @@ static void load_editable (GtkHTML *html, const gchar *s)
 }
 
 static gboolean
-plain_save_receiver (gpointer engine, const gchar *data, size_t len, gpointer user_data)
+plain_save_receiver (gpointer engine, const gchar *data, gsize len, gpointer user_data)
 {
 	GString *str = (GString *) user_data;
 
@@ -521,7 +521,7 @@ static gint test_cursor_beol_rtl (GtkHTML *html)
 	return TRUE;
 }
 
-static int
+static gint
 test_quotes_in_div_block (GtkHTML *html)
 {
 	GByteArray *flow_levels;
@@ -549,7 +549,7 @@ test_quotes_in_div_block (GtkHTML *html)
 	return TRUE;
 }
 
-static int
+static gint
 test_quotes_in_table (GtkHTML *html)
 {
 	GByteArray *flow_levels;
@@ -585,7 +585,7 @@ test_quotes_in_table (GtkHTML *html)
 	return TRUE;
 }
 
-static int
+static gint
 test_capitalize_upcase_lowcase_word (GtkHTML *html)
 {
 	HTMLObject *text_object;
@@ -648,7 +648,7 @@ test_capitalize_upcase_lowcase_word (GtkHTML *html)
 	return TRUE;
 }
 
-static int
+static gint
 test_delete_around_table (GtkHTML *html)
 {
 	load_editable (html, "<table><tr><td></td></tr></table><br>abc");
@@ -674,7 +674,7 @@ test_delete_around_table (GtkHTML *html)
 	return TRUE;
 }
 
-static int
+static gint
 test_table_cell_parsing (GtkHTML *html)
 {
 	load_editable (html, "<table><tr><td></td></tr></table>");

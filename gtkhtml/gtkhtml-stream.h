@@ -40,7 +40,7 @@ GtkHTMLStream *gtk_html_stream_new       (GtkHTML                *html,
 					  gpointer                user_data);
 void           gtk_html_stream_write     (GtkHTMLStream          *stream,
 					  const gchar            *buffer,
-					  size_t                  size);
+					  gsize                  size);
 void           gtk_html_stream_destroy   (GtkHTMLStream          *stream);
 void           gtk_html_stream_close     (GtkHTMLStream          *stream,
 					  GtkHTMLStreamStatus     status);

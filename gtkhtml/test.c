@@ -71,7 +71,7 @@ url_requested (GtkHTML *unused, const gchar *url, GtkHTMLStream *stream, gpointe
 	if (fd != -1) {
 #define MY_BUF_SIZE 32768
 		gchar *buf;
-		size_t size;
+		gsize size;
 
 		buf = alloca (MY_BUF_SIZE);
 		while ((size = read (fd, buf, MY_BUF_SIZE)) > 0) {
@@ -179,7 +179,7 @@ print_cb (GtkWidget *widget, gpointer data)
 /* We want to sort "a2" < "b1" < "B1" < "b2" < "b12". Vastly
  * overengineered
  */
-static int
+static gint
 compare_examples (gconstpointer a,
 		  gconstpointer b)
 {

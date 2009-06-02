@@ -189,7 +189,7 @@ html_engine_search_next_int (HTMLEngine *e)
 			retval = html_object_search (HTML_OBJECT (info->stack->data), info);
 		else {
 			html_search_push (info, e->clue);
-			retval = e->clue ? html_object_search (e->clue, info) : FALSE ;
+			retval = e->clue ? html_object_search (e->clue, info) : FALSE;
 		}
 		if (retval)
 			display_search_results (info);

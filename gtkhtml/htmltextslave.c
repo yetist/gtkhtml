@@ -113,7 +113,7 @@ hts_update_asc_dsc (HTMLPainter *painter, PangoItem *item, gint *asc, gint *dsc)
 	pango_font_metrics_unref (pfm);
 }
 
-static int
+static gint
 hts_calc_width (HTMLTextSlave *slave, HTMLPainter *painter, gint *asc, gint *dsc)
 {
 	/*HTMLText *text = slave->owner;
@@ -493,7 +493,7 @@ html_get_glyphs_non_tab (GList *glyphs, PangoItem *item, gint ii, const gchar *t
 {
 	gchar *tab;
 
-	while ((tab = memchr (text, (unsigned char) '\t', bytes))) {
+	while ((tab = memchr (text, (guchar) '\t', bytes))) {
 		gint c_bytes = tab - text;
 		if (c_bytes > 0)
 			glyphs = get_glyphs_base_text (glyphs, item, ii, text, c_bytes);
@@ -1461,7 +1461,7 @@ html_text_slave_get_cursor_base (HTMLTextSlave *slave, HTMLPainter *painter, gui
 
 	html_object_calc_abs_position (HTML_OBJECT (slave), x, y);
 
-	gi = html_text_slave_get_glyph_item_at_offset (slave, painter, (int) offset, NULL, NULL, &start_width, &index);
+	gi = html_text_slave_get_glyph_item_at_offset (slave, painter, (gint) offset, NULL, NULL, &start_width, &index);
 
 /*	printf ("gi: %p index: %d start_width: %d item indexes %d %d\n", */
 /*		gi, index, start_width, gi ? gi->glyph_item.item->offset : -1, */

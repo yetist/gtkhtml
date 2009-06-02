@@ -1141,7 +1141,7 @@ html_image_factory_end_pixbuf (GtkHTMLStream *stream,
 static void
 html_image_factory_write_pixbuf (GtkHTMLStream *stream,
 				 const gchar *buffer,
-				 size_t size,
+				 gsize size,
 				 gpointer user_data)
 {
 	HTMLImagePointer *p = user_data;

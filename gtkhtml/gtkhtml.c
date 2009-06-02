@@ -1556,7 +1556,7 @@ skip_host (const gchar *url)
 	return url;
 }
 
-static size_t
+static gsize
 path_len (const gchar *base, gboolean absolute)
 {
 	const gchar *last;
@@ -1581,7 +1581,7 @@ collapse_path (gchar *url)
 	gchar *start;
 	gchar *end;
 	gchar *cur;
-	size_t len;
+	gsize len;
 
 	start = skip_host (url);
 
@@ -1639,7 +1639,7 @@ static gchar *
 expand_relative (const gchar *base, const gchar *url)
 {
 	gchar *new_url = NULL;
-	size_t base_len, url_len;
+	gsize base_len, url_len;
 	gboolean absolute = FALSE;
 
 	if (!base || url_is_absolute (url)) {
@@ -3720,7 +3720,7 @@ void
 gtk_html_write (GtkHTML *html,
 		GtkHTMLStream *handle,
 		const gchar *buffer,
-		size_t size)
+		gsize size)
 {
 	gtk_html_stream_write (handle, buffer, size);
 }

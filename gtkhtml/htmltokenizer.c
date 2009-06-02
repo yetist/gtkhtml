@@ -153,7 +153,7 @@ static void     html_tokenizer_finalize             (GObject *);
 static void     html_tokenizer_real_change          (HTMLTokenizer *, const gchar *content_type);
 static void     html_tokenizer_real_begin           (HTMLTokenizer *, const gchar *content_type);
 static void     html_tokenizer_real_engine_type (HTMLTokenizer *t, gboolean engine_type);
-static void     html_tokenizer_real_write           (HTMLTokenizer *, const gchar *str, size_t size);
+static void     html_tokenizer_real_write           (HTMLTokenizer *, const gchar *str, gsize size);
 static void     html_tokenizer_real_end             (HTMLTokenizer *);
 static const gchar *
 				html_tokenizer_real_get_content_type(HTMLTokenizer *);
@@ -459,7 +459,7 @@ html_tokenizer_convert_entity (gchar *token)
 	write_pos = resulted;
 	read_pos = token;
 	while (read_pos < full_pos) {
-		size_t count_chars = strcspn (read_pos, "&");
+		gsize count_chars = strcspn (read_pos, "&");
 		memcpy (write_pos, read_pos, count_chars);
 		write_pos += count_chars;
 		read_pos += count_chars;
@@ -512,12 +512,12 @@ gchar *
 convert_text_encoding (const GIConv iconv_cd,
                        const gchar *token)
 {
-	size_t currlength;
+	gsize currlength;
 	gchar *newbuffer;
 	gchar *returnbuffer;
 	const gchar *current;
-	size_t newlength;
-	size_t oldlength;
+	gsize newlength;
+	gsize oldlength;
 
 	if (token == NULL)
 		return NULL;
@@ -1421,7 +1421,7 @@ html_tokenizer_tokenize_one_char (HTMLTokenizer *t, const gchar **src)
 }
 
 static void
-html_tokenizer_real_write (HTMLTokenizer *t, const gchar *string, size_t size)
+html_tokenizer_real_write (HTMLTokenizer *t, const gchar *string, gsize size)
 {
 	const gchar *src = string;
 
@@ -1504,7 +1504,7 @@ html_tokenizer_end (HTMLTokenizer *t)
 }
 
 void
-html_tokenizer_write (HTMLTokenizer *t, const gchar *str, size_t size)
+html_tokenizer_write (HTMLTokenizer *t, const gchar *str, gsize size)
 {
 	HTMLTokenizerClass *klass;
 

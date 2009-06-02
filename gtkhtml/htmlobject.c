@@ -736,13 +736,13 @@ html_object_real_backspace (HTMLObject *self, HTMLCursor *cursor, HTMLEngine *en
 	return TRUE;
 }
 
-static int
+static gint
 html_object_real_get_right_edge_offset (HTMLObject *o, HTMLPainter *painter, gint offset)
 {
 	return html_object_get_length (o);
 }
 
-static int
+static gint
 html_object_real_get_left_edge_offset (HTMLObject *o, HTMLPainter *painter, gint offset)
 {
 	return 0;
@@ -1800,7 +1800,7 @@ html_object_set_data_nocp (HTMLObject *object, const gchar *key, const gchar *va
 void
 html_object_set_data_full_nocp (HTMLObject *object, const gchar *key, gconstpointer value, GDestroyNotify func)
 {
-	g_datalist_set_data_full (&object->object_data_nocp, key, value, func);
+	g_datalist_set_data_full (&object->object_data_nocp, key, (gpointer) value, func);
 }
 
 gpointer
@@ -1818,7 +1818,7 @@ html_object_set_data (HTMLObject *object, const gchar *key, const gchar *value)
 void
 html_object_set_data_full (HTMLObject *object, const gchar *key, gconstpointer value, GDestroyNotify func)
 {
-	g_datalist_set_data_full (&object->object_data, key, value, func);
+	g_datalist_set_data_full (&object->object_data, key, (gpointer) value, func);
 }
 
 gpointer

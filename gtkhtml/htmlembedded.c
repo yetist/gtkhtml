@@ -251,7 +251,7 @@ html_embedded_encode_string (const gchar *before, const gchar *codepage)
 
         while ( pos < strlen(str) ) {
 
-		c = (unsigned char) str[pos];
+		c = (guchar) str[pos];
 
 		if ( (( c >= 'A') && ( c <= 'Z')) ||
 		     (( c >= 'a') && ( c <= 'z')) ||
@@ -271,7 +271,7 @@ html_embedded_encode_string (const gchar *before, const gchar *codepage)
 			}
 		else if ( c != '\r' )
 			{
-				sprintf( buffer, "%%%02X", (int)c );
+				sprintf( buffer, "%%%02X", (gint)c );
 				encoded = g_string_append (encoded, buffer);
 				}
 		pos++;

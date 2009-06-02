@@ -520,7 +520,7 @@ load_done (GtkHTML *html)
 	gtk_main_quit(); */
 }
 
-static int
+static gint
 on_button_press_event (GtkWidget *widget, GdkEventButton *event)
 {
 	GtkMenu *menu;
@@ -618,7 +618,7 @@ on_link_clicked (GtkHTML *html, const gchar *url, gpointer data)
 }
 
 /* simulate an async object isntantiation */
-static int
+static gint
 object_timeout(GtkHTMLEmbedded *eb)
 {
 	GtkWidget *w;
