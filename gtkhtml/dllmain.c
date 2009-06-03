@@ -65,7 +65,7 @@ setup (void)
         }
 		
         prefix = g_win32_get_package_installation_directory_of_module(hmodule);
-		cp_prefix = g_win32_locale_filename_from_utf8(prefix);
+        cp_prefix = g_win32_locale_filename_from_utf8(prefix);
 
         localedir = replace_prefix (cp_prefix, GNOMELOCALEDIR);
         g_free (cp_prefix);
