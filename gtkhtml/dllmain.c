@@ -22,8 +22,6 @@
 #include <string.h>
 #include <glib.h>
 
-#include <libgnome/gnome-init.h>
-
 /* localedir uses system codepage as it is passed to the non-UTF8ified
  * gettext library
  */
@@ -58,15 +56,16 @@ replace_prefix (const gchar *runtime_prefix,
 static void
 setup (void)
 {
-	gchar *cp_prefix;
+        gchar *cp_prefix;
 
         G_LOCK (mutex);
         if (localedir != NULL) {
                 G_UNLOCK (mutex);
                 return;
         }
-
-        gnome_win32_get_prefixes (hmodule, &prefix, &cp_prefix);
+		
+        prefix = g_win32_get_package_installation_directory_of_module(hmodule);
+		cp_prefix = g_win32_locale_filename_from_utf8(prefix);
 
         localedir = replace_prefix (cp_prefix, GNOMELOCALEDIR);
         g_free (cp_prefix);
@@ -74,9 +73,9 @@ setup (void)
         libdir = replace_prefix (prefix, LIBDIR);
         datadir = replace_prefix (prefix, DATADIR);
         sysconfdir = replace_prefix (prefix, SYSCONFDIR);
-	icondir = replace_prefix (prefix, ICONDIR);
-	gtkhtml_datadir = replace_prefix (prefix, GTKHTML_DATADIR);
-	glade_datadir = replace_prefix (prefix, GLADE_DATADIR);
+        icondir = replace_prefix (prefix, ICONDIR);
+        gtkhtml_datadir = replace_prefix (prefix, GTKHTML_DATADIR);
+        glade_datadir = replace_prefix (prefix, GLADE_DATADIR);
 
         G_UNLOCK (mutex);
 }
