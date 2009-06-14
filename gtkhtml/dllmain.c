@@ -63,7 +63,7 @@ setup (void)
                 G_UNLOCK (mutex);
                 return;
         }
-		
+
         prefix = g_win32_get_package_installation_directory_of_module(hmodule);
         cp_prefix = g_win32_locale_filename_from_utf8(prefix);
 
