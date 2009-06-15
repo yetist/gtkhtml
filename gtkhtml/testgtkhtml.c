@@ -1182,6 +1182,9 @@ main (gint argc, gchar *argv[])
 	GtkActionGroup *action_group;
 	GtkUIManager *merge;
 	GError *error = NULL;
+#ifdef HAVE_NEWSOUP
+	SoupCookieJar *cookie_jar;
+#endif
 
 #ifdef MEMDEBUG
 	gpointer p = malloc (1024);	/* to make linker happy with ccmalloc */
@@ -1310,6 +1313,11 @@ main (gint argc, gchar *argv[])
 	gtk_widget_show_all (app);
 
 	session = soup_session_async_new ();
+
+#ifdef HAVE_NEWSOUP
+	cookie_jar = soup_cookie_jar_text_new ("./cookies.txt", FALSE);
+	soup_session_add_feature (session, SOUP_SESSION_FEATURE (cookie_jar));
+#endif
 
 	if (argc > 1 && *argv [argc - 1] != '-')
 		goto_url (argv [argc - 1], 0);

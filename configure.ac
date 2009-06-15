@@ -70,6 +70,27 @@ AC_SUBST(WARNING_FLAGS)
 
 CFLAGS="$CFLAGS $WARNING_FLAGS"
 
+AC_C_INLINE
+AC_FUNC_ALLOCA
+AC_FUNC_MALLOC
+AC_PROG_CXX
+AC_PROG_RANLIB
+AC_TYPE_SIZE_T
+
+AC_CHECK_FUNCS([memchr])
+AC_CHECK_FUNCS([memmove])
+AC_CHECK_FUNCS([memset])
+AC_CHECK_FUNCS([regcomp])
+AC_CHECK_FUNCS([setlocale])
+AC_CHECK_FUNCS([strchr])
+AC_CHECK_FUNCS([strcspn])
+AC_CHECK_FUNCS([strrchr])
+AC_CHECK_FUNCS([strstr])
+AC_CHECK_FUNCS([strtol])
+AC_CHECK_FUNCS([strtoull])
+AC_CHECK_HEADERS([fcntl.h])
+AC_CHECK_HEADERS([libintl.h])
+
 AC_ISC_POSIX
 AC_PROG_CC
 AC_STDC_HEADERS
@@ -131,10 +152,21 @@ dnl **********************************
 dnl soup for testgtkhtml
 dnl **********************************
 
-PKG_CHECK_MODULES(SOUP, libsoup-2.4, have_soup="yes", have_soup="no")
+HAVE_NEWSOUP="no"
+have_newsoup="no"
+PKG_CHECK_MODULES(SOUP, libsoup-2.4  >= 2.26.0,
+  [
+    HAVE_NEWSOUP="yes"
+    have_soup="yes"
+  ],
+  [
+    PKG_CHECK_MODULES(SOUP, libsoup-2.4,
+	have_soup="yes",
+	have_soup="no")
+  ])
+AC_SUBST(HAVE_NEWSOUP)
 AM_CONDITIONAL(HAVE_SOUP, test x$have_soup != xno)
-AC_SUBST(SOUP_CFLAGS)
-AC_SUBST(SOUP_LIBS)
+AM_CONDITIONAL(HAVE_NEWSOUP, test x$HAVE_NEWSOUP != xno)
 
 dnl **************************************************
 dnl * Gnome Icon Theme
@@ -244,5 +276,6 @@ echo "
 
 Configuration:
 
-	Editor component type:		${GNOME_GTKHTML_EDITOR_TYPE}
+	Cookies support in soup :		${HAVE_NEWSOUP}
+	Editor component type   :		${GNOME_GTKHTML_EDITOR_TYPE}
 "

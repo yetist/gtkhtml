@@ -7,7 +7,10 @@ endif
 NULL=
 
 gtkhtml_data = $(datadir)/gtkhtml-@GTKHTML_API_VERSION@
-gladedir = $(gtkhtml_data)
+
+if HAVE_NEWSOUP
+have_new_soup = -DHAVE_NEWSOUP
+endif
 
 INCLUDES = 				\
 	-I$(top_srcdir)			\
@@ -16,7 +19,8 @@ INCLUDES = 				\
 	$(GTKHTML_CFLAGS)		\
 	$(SOUP_CFLAGS)			\
 	$(I18N_LIB_CFLAGS)		\
-	-DG_LOG_DOMAIN=\"gtkhtml\"
+	-DG_LOG_DOMAIN=\"gtkhtml\"	\
+	${have_new_soup}
 
 AM_CFLAGS = 						\
 	-DPREFIX=\""$(prefix)"\"			\
@@ -25,7 +29,6 @@ AM_CFLAGS = 						\
 	-DSYSCONFDIR=\""$(sysconfdir)"\"		\
 	-DICONDIR=\"$(gtkhtml_data)/icons\"		\
 	-DGTKHTML_DATADIR=\""$(gtkhtml_data)"\"		\
-	-DGLADE_DATADIR=\"$(gladedir)\"			\
 	-DGNOMELOCALEDIR=\""$(prefix)/$(DATADIRNAME)/locale"\"
 
 lib_LTLIBRARIES = libgtkhtml-3.14.la
