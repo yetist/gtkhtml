@@ -1,3 +1,14 @@
+GtkHTML-3.27.3 2009-06-15
+-------------------------
+
+Bug Fixes:
+	#584762: support cookies if libsoup>2.26 (Denis Pauk)
+	#582784: Get rid of deprecated libgnome(ui) (Denis Pauk)
+
+Other fixes:
+	Killing libgnome by removing libgnome function by equivalent glib functions (Fridrich Strba)
+	Code cleanup (Matthew Barnes)
+
 GtkHTML-3.27.2 2009-05-25
 -------------------------
 
