@@ -239,7 +239,11 @@ editor_url_requested_cb (GtkhtmlEditor *editor,
 		g_mapped_file_get_contents (mapped_file),
 		g_mapped_file_get_length (mapped_file));
 
+#if GLIB_CHECK_VERSION(2,21,3)
+	g_mapped_file_unref (mapped_file);
+#else
 	g_mapped_file_free (mapped_file);
+#endif
 
 exit:
 	if (error == NULL)
