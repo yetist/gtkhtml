@@ -73,6 +73,7 @@ libgtkhtml_editor_la_LDFLAGS = -no-undefined
 gtkhtml_editor_test_SOURCES = main.c
 
 gtkhtml_editor_test_LDADD = \
+	$(GTHREAD_LIBS)				\
 	libgtkhtml-editor.la			\
 	$(top_builddir)/gtkhtml/libgtkhtml-@GTKHTML_API_VERSION@.la
 
