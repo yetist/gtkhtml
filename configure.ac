@@ -33,6 +33,9 @@ AC_SUBST(I18N_LIB_CFLAGS)
 
 AM_INIT_AUTOMAKE($PACKAGE, 3.27.4)
 
+# Automake 1.11 - Silent Build Rules
+m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
+
 AM_MAINTAINER_MODE
 
 dnl
