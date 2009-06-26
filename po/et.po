@@ -8,6 +8,7 @@
 # Tõivo Leedjärv <leedjarv@interest.ee>, 2002.
 # Priit Laes <amd@store20.com>, 2004-2006.
 # Ivar Smolin <okul@linux.ee>, 2005-2009.
+# Mattias Põldaru <mahfiaz gmail com>, 2009.
 #
 msgid ""
 msgstr ""
