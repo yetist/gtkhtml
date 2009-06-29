@@ -259,6 +259,8 @@ keybindingsdir = $(datadir)/gtkhtml-@GTKHTML_API_VERSION@
 keybindings_DATA =		\
 	keybindingsrc.emacs
 
+DISTCLEANFILES = libgtkhtml-@GTKHTML_API_VERSION@.pc
+
 EXTRA_DIST =			\
 	htmlclosures.list	\
 	$(keybindings_DATA)	\
