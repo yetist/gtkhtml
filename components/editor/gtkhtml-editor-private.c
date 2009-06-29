@@ -22,9 +22,6 @@
 
 #include <stdlib.h>
 
-#include <glade/glade.h>
-#include <glade/glade-build.h>
-
 /* Regular expressions */
 #define CTL	"\\x00-\\x1f\\x7f"
 #define SEP	"\\x09\\x20\\(\\)<>@,;:\\\\\"/\\[\\]\\?=\\{\\}"
@@ -187,15 +184,24 @@ gtkhtml_editor_private_init (GtkhtmlEditor *editor)
 	priv->spell_suggestion_menus =
 		g_hash_table_new (g_direct_hash, g_direct_equal);
 
-	filename = gtkhtml_editor_find_data_file ("gtkhtml-editor.ui");
-	gtk_ui_manager_add_ui_from_file (priv->manager, filename, &error);
-	g_free (filename);
+	filename = gtkhtml_editor_find_data_file ("gtkhtml-editor-manager.ui");
 
-	if (error != NULL) {
-		/* Henceforth, bad things start happening. */
-		g_critical ("%s", error->message);
+	if (!gtk_ui_manager_add_ui_from_file (priv->manager, filename, &error)) {
+		g_critical ("Couldn't load builder file: %s\n", error->message);
 		g_clear_error (&error);
 	}
+
+	g_free (filename);
+
+	filename = gtkhtml_editor_find_data_file ("gtkhtml-editor-builder.ui");
+
+	priv->builder = gtk_builder_new ();
+	if (!gtk_builder_add_from_file (priv->builder, filename, &error)) {
+		g_critical ("Couldn't load builder file: %s\n", error->message);
+		g_clear_error (&error);
+	}
+
+	g_free (filename);
 
 	gtkhtml_editor_actions_init (editor);
 
@@ -203,24 +209,7 @@ gtkhtml_editor_private_init (GtkhtmlEditor *editor)
 		GTK_WINDOW (editor),
 		gtk_ui_manager_get_accel_group (priv->manager));
 
-	glade_register_widget (
-		GTKHTML_TYPE_COLOR_COMBO,
-		glade_standard_build_widget, NULL, NULL);
-
-	glade_register_widget (
-		GTKHTML_TYPE_COLOR_SWATCH,
-		glade_standard_build_widget, NULL, NULL);
-
-	glade_register_widget (
-		GTKHTML_TYPE_COMBO_BOX,
-		glade_standard_build_widget, NULL, NULL);
-
-	glade_provide ("gtkhtml-editor");
-
-	filename = gtkhtml_editor_find_data_file ("gtkhtml-editor.glade");
-	priv->glade_xml = glade_xml_new (filename, NULL, GETTEXT_PACKAGE);
-	glade_xml_signal_autoconnect (priv->glade_xml);
-	g_free (filename);
+	gtk_builder_connect_signals (priv->builder, NULL);
 
 	/* Construct main window widgets. */
 
@@ -389,7 +378,7 @@ gtkhtml_editor_private_dispose (GtkhtmlEditor *editor)
 	DISPOSE (priv->language_actions);
 	DISPOSE (priv->spell_check_actions);
 	DISPOSE (priv->suggestion_actions);
-	DISPOSE (priv->glade_xml);
+	DISPOSE (priv->builder);
 
 	DISPOSE (priv->html_painter);
 	DISPOSE (priv->plain_painter);

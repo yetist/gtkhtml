@@ -96,8 +96,8 @@ pkgconfig_DATA = gtkhtml-editor.pc
 
 uidir = $(gtkhtml_data)
 ui_DATA = \
-	gtkhtml-editor.glade			\
-	gtkhtml-editor.ui
+	gtkhtml-editor-builder.ui		\
+	gtkhtml-editor-manager.ui
 
 EXTRA_DIST = \
 	ChangeLog				\
@@ -108,12 +108,6 @@ EXTRA_DIST = \
 
 CLEANFILES = \
 	$(BUILT_SOURCES)
-
-MAINTAINERCLEANFILES = \
-	gtkhtml-editor.glade.bak		\
-	gtkhtml-editor.gladep.bak
-
-EXTRA_DIST += gtkhtml-editor.xml
 
 if GLADE_CATALOG
 

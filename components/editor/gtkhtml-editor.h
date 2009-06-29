@@ -89,6 +89,7 @@ struct _GtkhtmlEditorClass {
 GType		gtkhtml_editor_get_type		(void);
 GtkWidget *	gtkhtml_editor_new		(void);
 GtkHTML *	gtkhtml_editor_get_html		(GtkhtmlEditor *editor);
+GtkBuilder *	gtkhtml_editor_get_builder	(GtkhtmlEditor *editor);
 GtkUIManager *	gtkhtml_editor_get_ui_manager	(GtkhtmlEditor *editor);
 GtkAction *	gtkhtml_editor_get_action	(GtkhtmlEditor *editor,
 						 const gchar *action_name);

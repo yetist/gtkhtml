@@ -15,7 +15,6 @@ endif
 INCLUDES = 				\
 	-I$(top_srcdir)			\
 	-I$(srcdir)			\
-	-I$(includedir)			\
 	$(GTKHTML_CFLAGS)		\
 	$(SOUP_CFLAGS)			\
 	$(I18N_LIB_CFLAGS)		\

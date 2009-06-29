@@ -961,6 +961,14 @@ gtkhtml_editor_get_html (GtkhtmlEditor *editor)
 	return GTK_HTML (editor->priv->edit_area);
 }
 
+GtkBuilder *
+gtkhtml_editor_get_builder (GtkhtmlEditor *editor)
+{
+	g_return_val_if_fail (GTKHTML_IS_EDITOR (editor), NULL);
+
+	return editor->priv->builder;
+}
+
 GtkUIManager *
 gtkhtml_editor_get_ui_manager (GtkhtmlEditor *editor)
 {
@@ -1027,15 +1035,17 @@ GtkWidget *
 gtkhtml_editor_get_widget (GtkhtmlEditor *editor,
                            const gchar *widget_name)
 {
-	GtkWidget *widget;
+	GtkBuilder *builder;
+	GObject *object;
 
 	g_return_val_if_fail (GTKHTML_IS_EDITOR (editor), NULL);
 	g_return_val_if_fail (widget_name != NULL, NULL);
 
-	widget = glade_xml_get_widget (editor->priv->glade_xml, widget_name);
-	g_return_val_if_fail (widget != NULL, NULL);
+	builder = gtkhtml_editor_get_builder (editor);
+	object = gtk_builder_get_object (builder, widget_name);
+	g_return_val_if_fail (GTK_IS_WIDGET (object), NULL);
 
-	return widget;
+	return GTK_WIDGET (object);
 }
 
 GtkWidget *

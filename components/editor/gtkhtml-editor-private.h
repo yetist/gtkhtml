@@ -23,7 +23,6 @@
 
 #include <gtkhtml-editor.h>
 
-#include <glade/glade.h>
 #include <glib/gi18n-lib.h>
 
 /* Custom Widgets */
@@ -109,7 +108,7 @@ struct _GtkhtmlEditorPrivate {
 	GtkActionGroup *language_actions;
 	GtkActionGroup *spell_check_actions;
 	GtkActionGroup *suggestion_actions;
-	GladeXML *glade_xml;
+	GtkBuilder *builder;
 
 	/*** Rendering ***/
 

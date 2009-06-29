@@ -34,7 +34,6 @@ static const gchar *datadir;
 static const gchar *sysconfdir;
 static const gchar *icondir;
 static const gchar *gtkhtml_datadir;
-static const gchar *glade_datadir;
 
 static gpointer hmodule;
 G_LOCK_DEFINE_STATIC (mutex);
@@ -75,7 +74,6 @@ setup (void)
         sysconfdir = replace_prefix (prefix, SYSCONFDIR);
         icondir = replace_prefix (prefix, ICONDIR);
         gtkhtml_datadir = replace_prefix (prefix, GTKHTML_DATADIR);
-        glade_datadir = replace_prefix (prefix, GLADE_DATADIR);
 
         G_UNLOCK (mutex);
 }
@@ -127,4 +125,3 @@ GETTER (datadir)
 GETTER (sysconfdir)
 GETTER (icondir)
 GETTER (gtkhtml_datadir)
-GETTER (glade_datadir)

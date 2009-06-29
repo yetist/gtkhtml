@@ -103,7 +103,6 @@ gchar *gtk_html_filename_from_uri	(const gchar		*uri);
 const gchar *_get_icondir (void) G_GNUC_CONST;
 const gchar *_get_gtkhtml_datadir (void) G_GNUC_CONST;
 const gchar *_get_localedir (void) G_GNUC_CONST;
-const gchar *_get_glade_datadir (void) G_GNUC_CONST;
 const gchar *_get_prefix (void) G_GNUC_CONST;
 const gchar *_get_sysconfdir (void) G_GNUC_CONST;
 const gchar *_get_datadir (void) G_GNUC_CONST;
@@ -117,9 +116,6 @@ const gchar *_get_libdir (void) G_GNUC_CONST;
 
 #undef GNOMELOCALEDIR
 #define GNOMELOCALEDIR _get_localedir ()
-
-#undef GLADE_DATADIR
-#define GLADE_DATADIR _get_glade_datadir ()
 
 #undef PREFIX
 #define PREFIX _get_prefix ()
