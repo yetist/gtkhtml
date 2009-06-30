@@ -12,7 +12,7 @@ if HAVE_NEWSOUP
 have_new_soup = -DHAVE_NEWSOUP
 endif
 
-INCLUDES = 				\
+AM_CPPFLAGS = 				\
 	-I$(top_srcdir)			\
 	-I$(srcdir)			\
 	$(GTKHTML_CFLAGS)		\
