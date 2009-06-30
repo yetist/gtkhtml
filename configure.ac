@@ -1,7 +1,10 @@
 dnl Initialization
 
-AC_INIT(gtkhtml/gtkhtml.c)
+AC_PREREQ(2.54)
+AC_INIT(gtkhtml, [3.27.4], http://bugzilla.gnome.org/enter_bug.cgi?product=GtkHtml)
+AM_INIT_AUTOMAKE([gnu 1.9])
 AM_CONFIG_HEADER(config.h)
+AC_CONFIG_SRCDIR(README)
 
 PACKAGE=gtkhtml
 
@@ -29,8 +32,6 @@ AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Package name for gettex
 
 I18N_LIB_CFLAGS="-DGNOME_EXPLICIT_TRANSLATION_DOMAIN=\\\"${GTKHTML_RELEASE_STRING}\\\""
 AC_SUBST(I18N_LIB_CFLAGS)
-
-AM_INIT_AUTOMAKE($PACKAGE, 3.27.4)
 
 # Automake 1.11 - Silent Build Rules
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
