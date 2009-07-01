@@ -1,3 +1,13 @@
+GtkHTML-3.26.3 2009-06-29
+-------------------------
+
+Fixes:
+	Editor wasn't emitting "notify::html-mode" when it should (Matthew Barnes)
+	Change the toolbar style from ICONS to BOTH_HORIZ (Matthew Barnes)
+
+Updated Translations:
+	Rajesh Ranjan (hi)
+
 GtkHTML-3.26.2 2009-05-18
 -------------------------
 
