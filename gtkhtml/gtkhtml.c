@@ -4580,7 +4580,6 @@ gtk_html_copy (GtkHTML *html)
 					  contents)) {
 		free_contents (contents);
 	}
-	g_warning("oo");
 	gtk_clipboard_set_can_store (clipboard,
 			NULL,
 			0);
