@@ -1162,7 +1162,6 @@ get_bounds (HTMLTable *table, gint x, gint y, gint width, gint height, gint *sc,
 	g_return_if_fail (table->rowHeights->data);
 	g_return_if_fail (table->columnOpt->data);
 
-
 	*sr = to_index (bin_search_index (table->rowHeights, 0, table->totalRows, y), 0, table->totalRows - 1);
 	if (y < ROW_HEIGHT (table, *sr) && (*sr) > 0)
 		(*sr)--;
@@ -1818,7 +1817,6 @@ find_anchor (HTMLObject *self, const gchar *name, gint *x, gint *y)
 
 	return 0;
 }
-
 
 static HTMLObject *
 check_point (HTMLObject *self,

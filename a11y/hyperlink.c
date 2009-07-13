@@ -99,7 +99,6 @@ html_a11y_hyper_link_finalize (GObject *obj)
 	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
-
 static gint
 html_a11y_hyper_link_get_start_index (AtkHyperlink *link)
 {
@@ -108,7 +107,6 @@ html_a11y_hyper_link_get_start_index (AtkHyperlink *link)
 	Link *a = (Link *) g_slist_nth_data (text->links, hl->num);
 	return a ? a->start_offset : -1;
 }
-
 
 static gint
 html_a11y_hyper_link_get_end_index (AtkHyperlink *link)

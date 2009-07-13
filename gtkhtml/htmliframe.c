@@ -38,7 +38,6 @@
 #include "htmltokenizer.h"
 #include "htmlembedded.h"
 
-
 HTMLIFrameClass html_iframe_class;
 static HTMLEmbeddedClass *parent_class = NULL;
 

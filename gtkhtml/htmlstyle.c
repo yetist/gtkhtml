@@ -92,7 +92,6 @@ parse_length (gchar *str) {
 	return len;
 }
 
-
 HTMLStyle *
 html_style_new (void)
 {

@@ -348,7 +348,6 @@ html_embedded_init (HTMLEmbedded *element,
 	element->changed_id = 0;
 }
 
-
 static gboolean
 html_embedded_grab_cursor(GtkWidget *eb, GdkEvent *event)
 {

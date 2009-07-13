@@ -203,7 +203,6 @@ gtk_html_stream_log_new (GtkHTML *html, GtkHTMLStream *stream)
 	log = g_new (GtkHTMLLog, 1);
 	log->stream = stream;
 
-
 	fname = g_strdup_printf ("gtkhtml.log.%d.html", log_num);
 	log->file = fopen (fname, "w+");
 	g_free (fname);
@@ -218,7 +217,4 @@ gtk_html_stream_log_new (GtkHTML *html, GtkHTMLStream *stream)
 
 	return new_stream;
 }
-
-
-
 

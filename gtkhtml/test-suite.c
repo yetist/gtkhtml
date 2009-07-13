@@ -332,7 +332,6 @@ static gint test_cursor_left_right_on_items_boundaries (GtkHTML *html)
 	    || html->engine->cursor->position != 1)
 		return FALSE;
 
-
 	html_cursor_jump_to_position (html->engine->cursor, html->engine, 4);
 	if (html->engine->cursor->position != html->engine->cursor->offset
 	    || html->engine->cursor->position != 4

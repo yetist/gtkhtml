@@ -675,7 +675,6 @@ html_engine_space_and_fill_line (HTMLEngine *e)
 	g_assert (e->cursor->object);
 	html_undo_level_begin (e->undo, "insert and fill", "reverse insert and fill");
 
-
 	html_engine_disable_selection (e);
 	html_engine_freeze (e);
 	html_engine_insert_text (e, " ", 1);

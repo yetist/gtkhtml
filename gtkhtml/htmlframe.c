@@ -597,5 +597,3 @@ html_frame_class_init (HTMLFrameClass *klass,
 	embedded_class->reparent = reparent;
 }
 
-
-

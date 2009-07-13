@@ -87,7 +87,6 @@ encode (HTMLEmbedded *e,const gchar *codepage)
 	return ptr;
 }
 
-
 void
 html_button_type_init (void)
 {

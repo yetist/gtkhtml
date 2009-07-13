@@ -37,7 +37,6 @@ static HTMLObjectClass *parent_class = NULL;
 
 static void set_parent (HTMLObject *o, HTMLObject *tail, HTMLObject *parent);
 
-
 /* HTMLObject methods.  */
 
 static void

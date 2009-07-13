@@ -269,7 +269,6 @@ html_draw_queue_flush (HTMLDrawQueue *queue)
 		clear_element_destroy (clear_elem);
 	}
 
-
 	/* Draw objects.  */
 
 	if (vis) {
@@ -284,12 +283,4 @@ html_draw_queue_flush (HTMLDrawQueue *queue)
 	}
 	html_draw_queue_clear (queue);
 }
-
-
-
-
-
-
-
-
 

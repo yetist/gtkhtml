@@ -52,7 +52,6 @@ html_a11y_cell_get_type (void)
 			NULL                                                       /* value cell */
 		};
 
-
 		type = g_type_register_static (G_TYPE_HTML_A11Y, "HTMLA11YCell", &tinfo, 0);
 	}
 

@@ -377,7 +377,6 @@ color_combo_swatch_release_event_cb (GtkhtmlColorCombo *combo,
 	return FALSE;
 }
 
-
 static void
 color_combo_toggled_cb (GtkhtmlColorCombo *combo)
 {

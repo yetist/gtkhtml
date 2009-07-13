@@ -1105,7 +1105,6 @@ min_word_width_calc_tabs (HTMLText *text, HTMLPainter *p, gint idx, gint *len)
 		epos++;
 	}
 
-
 	if (tab) {
 		line_offset = 0;
 
@@ -1142,7 +1141,6 @@ html_text_pango_info_get_index (HTMLTextPangoInfo *pi, gint byte_offset, gint id
 
 	return idx;
 }
-
 
 static void
 html_text_add_cite_color (PangoAttrList *attrs, HTMLText *text, HTMLClueFlow *flow, HTMLEngine *e)
@@ -1200,7 +1198,6 @@ html_text_prepare_attrs (HTMLText *text, HTMLPainter *painter)
 
 	attrs = pango_attr_list_new ();
 
-
 	if (HTML_OBJECT (text)->parent && HTML_IS_CLUEFLOW (HTML_OBJECT (text)->parent))
 		flow = HTML_CLUEFLOW (HTML_OBJECT (text)->parent);
 
@@ -1210,7 +1207,6 @@ html_text_prepare_attrs (HTMLText *text, HTMLPainter *painter)
 	if (flow && e) {
 		html_text_add_cite_color (attrs, text, flow, e);
         }
-
 
 	if (HTML_IS_PLAIN_PAINTER (painter)) {
 		attr = pango_attr_family_new (painter->font_manager.fixed.face);
@@ -1939,7 +1935,6 @@ is_convert_nbsp_needed (const gchar *s, gint *delta_out, GSList **changes_out)
 	if (check_last_white (white_space, last_white, delta_out))
 		*changes_out = add_change (*changes_out, last_p - s, *delta_out);
 
-
 	*changes_out = g_slist_reverse (*changes_out);
 
 	return *changes_out != NULL;
@@ -2323,7 +2318,6 @@ destroy (HTMLObject *obj)
 
 	HTML_OBJECT_CLASS (parent_class)->destroy (obj);
 }
-
 
 static gboolean
 select_range (HTMLObject *self,

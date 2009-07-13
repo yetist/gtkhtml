@@ -888,7 +888,6 @@ update_line_positions (HTMLObject *clue, HTMLObject *begin, HTMLObject *end, gin
 	}
 }
 
-
 static HTMLObject *
 layout_line (HTMLObject *o, HTMLPainter *painter, HTMLObject *begin,
 	     GList **changed_objs, gboolean *leaf_children_changed_size,
@@ -1288,7 +1287,6 @@ draw_quotes (HTMLObject *self, HTMLPainter *painter,
 					cur = cur->next;
 				}
 
-
 				/* draw "> " quote characters in the plain case */
 				html_painter_set_font_style (painter, GTK_HTML_FONT_STYLE_SIZE_3 | GTK_HTML_FONT_STYLE_FIXED);
 				html_painter_set_font_face  (painter, NULL);
@@ -1519,7 +1517,6 @@ get_list_start_tag (HTMLClueFlow *self)
 
 	return NULL;
 }
-
 
 static const gchar *
 get_start_tag (HTMLClueFlow *self)

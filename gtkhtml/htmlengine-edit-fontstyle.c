@@ -55,7 +55,6 @@ get_font_style_from_selection (HTMLEngine *engine)
 		engine->mark, engine->mark->position,
 		engine->cursor, engine->cursor->position); */
 
-
 	style = GTK_HTML_FONT_STYLE_DEFAULT;
 	conflicts = GTK_HTML_FONT_STYLE_DEFAULT;
 	first = TRUE;

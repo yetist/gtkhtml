@@ -50,7 +50,6 @@ set_format (GtkHTML *html, gboolean format_html)
 		g_object_ref (G_OBJECT (gdk_painter));
 	}
 
-
 	if (format_html) {
 		p = gdk_painter;
 		old_p = plain_painter;

@@ -948,7 +948,6 @@ html_object_set_parent (HTMLObject *o, HTMLObject *parent)
 	o->parent = parent;
 }
 
-
 static void
 frame_offset (HTMLObject *o,
 	      gint *x_return, gint *y_return)
@@ -1953,7 +1952,6 @@ html_object_check_cut_lists (HTMLObject *self, HTMLObject *replacement, GList *l
 		right->data = replacement;
 }
 
-
 typedef struct {
 	HTMLInterval *i;
 	GString *buffer;
@@ -2212,7 +2210,6 @@ html_object_get_child (HTMLObject *self, gint index)
 {
 	return HO_CLASS (self)->get_child ? (* HO_CLASS (self)->get_child) (self, index) : NULL;
 }
-
 
 gint
 html_object_get_child_index (HTMLObject *self, HTMLObject *child)

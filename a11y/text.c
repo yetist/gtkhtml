@@ -83,7 +83,6 @@ static AtkHyperlink * html_a11y_text_get_link (AtkHypertext *hypertext, gint lin
 static gint html_a11y_text_get_n_links (AtkHypertext *hypertext);
 static gint html_a11y_text_get_link_index (AtkHypertext *hypertext, gint char_index);
 
-
 /* Editable text interface. */
 static void	atk_editable_text_interface_init      (AtkEditableTextIface *iface);
 static void	html_a11y_text_set_text_contents	(AtkEditableText      *text,
@@ -149,7 +148,6 @@ atk_action_interface_init (AtkActionIface *iface)
         iface->get_name = action_get_name;
 }
 
-
 GType
 html_a11y_text_get_type (void)
 {
@@ -210,7 +208,6 @@ html_a11y_text_get_type (void)
 
 	return type;
 }
-
 
 static void
 atk_component_interface_init (AtkComponentIface *iface)
@@ -350,7 +347,6 @@ html_a11y_text_ref_state_set (AtkObject *accessible)
  * AtkComponent interface
  */
 
-
 static void
 html_a11y_text_get_extents (AtkComponent *component, gint *x, gint *y, gint *width, gint *height, AtkCoordType coord_type)
 {
@@ -397,7 +393,6 @@ html_a11y_text_get_extents (AtkComponent *component, gint *x, gint *y, gint *wid
 	*x -=  top_engine->x_offset;
 	*y -=  top_engine->y_offset;
 }
-
 
 static void
 html_a11y_text_get_size (AtkComponent *component, gint *width, gint *height)
@@ -731,7 +726,6 @@ html_a11y_text_set_selection (AtkText *text, gint selection_num, gint start_offs
 	return html_a11y_text_add_selection (text, start_offset, end_offset);
 }
 
-
 /* Most of the code of the following function is copied from */
 /* libgail-util/gailmisc.c gail_misc_layout_get_run_attributes */
 
@@ -772,7 +766,6 @@ html_a11y_text_get_run_attributes (AtkText *text,
 	e = html->engine;
 	attr = html_text_prepare_attrs (t, e->painter);
 	g_return_val_if_fail (attr, NULL);
-
 
 	len = g_utf8_strlen (textstring, -1);
 	iter = pango_attr_list_get_iterator (attr);
@@ -1139,7 +1132,6 @@ html_a11y_text_paste_text	(AtkEditableText *text,
 
         g_signal_emit_by_name(html, "grab_focus");
 }
-
 
 static void
 atk_hyper_text_interface_init (AtkHypertextIface *iface)

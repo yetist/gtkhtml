@@ -307,7 +307,6 @@ HTMLTextPangoInfo *html_painter_text_itemize_and_prepare_glyphs  (HTMLPainter   
 								  PangoAttrList         *attrs);
 void               html_painter_glyphs_destroy                   (GList                 *glyphs);
 
-
 /* Retrieves the properties we care about for a single run in an
  * easily accessible structure rather than a list of attributes
  */

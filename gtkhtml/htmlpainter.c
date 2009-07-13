@@ -388,7 +388,6 @@ get_font_info (HTMLPainter       *painter,
 	}
 }
 
-
 static gint
 get_space_width (HTMLPainter       *painter,
 		 HTMLTextPangoInfo *pi)

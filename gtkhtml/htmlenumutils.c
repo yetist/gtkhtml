@@ -40,7 +40,6 @@ html_valign_name (HTMLVAlignType va)
 	}
 }
 
-
 const gchar *
 html_halign_name (HTMLHAlignType ha)
 {

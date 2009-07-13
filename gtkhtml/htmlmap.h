@@ -42,4 +42,3 @@ void         html_map_add_shape  (HTMLMap          *map,
 
 #endif /* _HTMLMAP_H */
 
-

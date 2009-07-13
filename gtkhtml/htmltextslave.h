@@ -51,7 +51,6 @@ struct _HTMLTextSlaveGlyphItem {
 	HTMLTextSlaveGlyphItemType type;
 };
 
-
 void        html_text_slave_type_init             (void);
 void        html_text_slave_class_init            (HTMLTextSlaveClass *klass,
 						   HTMLType            type,

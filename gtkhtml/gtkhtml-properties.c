@@ -112,7 +112,6 @@ gtk_html_class_properties_load (GtkHTMLClassProperties *p, GConfClient *client)
         gconf_client_set_ ## t (client, key, p->prop, NULL); \
         g_free (key); }
 
-
 void
 gtk_html_class_properties_update (GtkHTMLClassProperties *p, GConfClient *client, GtkHTMLClassProperties *old)
 {

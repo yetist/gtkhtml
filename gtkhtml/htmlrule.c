@@ -329,13 +329,3 @@ html_rule_new (gint length,
 	return HTML_OBJECT (rule);
 }
 
-
-
-
-
-
-
-
-
-
-

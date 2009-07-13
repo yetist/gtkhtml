@@ -54,7 +54,6 @@ html_colorset_new (GtkWidget *w)
 	return s;
 }
 
-
 void
 html_colorset_destroy (HTMLColorSet *set)
 {

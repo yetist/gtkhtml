@@ -1923,7 +1923,6 @@ html_engine_delete (HTMLEngine *e)
 			html_cursor_destroy (end);
 		html_cursor_jump_to_position (e->cursor, e, start_position);
 
-
 	}
 	html_undo_level_end (e->undo);
 }

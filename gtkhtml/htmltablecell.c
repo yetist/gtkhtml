@@ -178,7 +178,6 @@ draw (HTMLObject *o,
 	HTMLTableCell *cell = HTML_TABLE_CELL (o);
 	GdkRectangle paint;
 
-
 	if (!html_object_intersect (o, &paint, x, y, width, height))
 		return;
 
@@ -266,7 +265,6 @@ get_bg_color (HTMLObject *o,
 		? &HTML_TABLE_CELL (o)->bg
 		: html_object_get_bg_color (o->parent, p);
 }
-
 
 #define SB if (!html_engine_save_output_string (state,
 #define SE )) return FALSE

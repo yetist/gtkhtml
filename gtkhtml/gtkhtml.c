@@ -411,7 +411,6 @@ idle_handler (gpointer data)
 	return FALSE;
 }
 
-
 static void
 gtk_html_adjust_cursor_position (GtkHTML *html)
 {
@@ -433,7 +432,6 @@ gtk_html_adjust_cursor_position (GtkHTML *html)
 	gtk_html_private_calc_scrollbars (html, NULL, NULL);
 
 }
-
 
 static void
 queue_draw (GtkHTML *html)
@@ -1003,7 +1001,6 @@ style_set (GtkWidget *widget, GtkStyle  *previous_style)
 		gtk_html_set_fonts (GTK_HTML (widget), engine->painter);
 		html_engine_refresh_fonts (engine);
 	}
-
 
 	html_colorset_set_style (engine->defaultSettings->color_set, widget);
 	html_colorset_set_unchanged (engine->settings->color_set,
@@ -1747,7 +1744,6 @@ shift_to_iframe_parent (GtkWidget *widget, gint *x, gint *y)
 
 		widget = GTK_HTML (widget)->iframe_parent;
 
-
 	}
 
 	return widget;
@@ -1786,7 +1782,6 @@ motion_notify_event (GtkWidget *widget,
 		html_engine_jump_at (engine, x, y);
 	return TRUE;
 }
-
 
 static gboolean
 toplevel_unmap (GtkWidget *widget, GdkEvent *event, GtkHTML *html)
@@ -3068,7 +3063,6 @@ gtk_html_class_init (GtkHTMLClass *klass)
 			      G_TYPE_INT, G_TYPE_INT);
 	object_class->destroy = destroy;
 
-
 #ifdef USE_PROPS
 	gobject_class->get_property = gtk_html_get_property;
 	gobject_class->set_property = gtk_html_set_property;
@@ -3101,7 +3095,6 @@ gtk_html_class_init (GtkHTMLClass *klass)
 							      _("The base URL of the target frame"),
 							      NULL,
 							      G_PARAM_WRITABLE | G_PARAM_READABLE));
-
 
 #endif
 
@@ -3142,7 +3135,6 @@ gtk_html_class_init (GtkHTMLClass *klass)
 								     _("The color of the cited text"),
 								     GDK_TYPE_COLOR,
 								     G_PARAM_READABLE));
-
 
 	widget_class->realize = realize;
 	widget_class->unrealize = unrealize;
@@ -3611,7 +3603,6 @@ gtk_html_allow_selection (GtkHTML *html,
 
 	html->allow_selection = allow;
 }
-
 
 /**
  * gtk_html_begin_full:
@@ -4661,7 +4652,6 @@ gtk_html_get_default_engine(GtkHTML *html)
 	return html_engine_get_engine_type( html->engine);
 }
 
-
 void
 gtk_html_set_default_content_type (GtkHTML *html, const gchar *content_type)
 {
@@ -4919,7 +4909,6 @@ cursor_move (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType ski
 
 		line_height =  GTK_WIDGET (html)->allocation.height > (3 * get_line_height (html))
 			? get_line_height (html) : 0;
-
 
 		switch (dir_type) {
 		case GTK_DIR_UP:

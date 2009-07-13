@@ -76,8 +76,5 @@ HTMLObject *   html_frame_new                   (GtkWidget *parent,
 						 gint height,
 						 gboolean border);
 
-
-
 #endif
-
 

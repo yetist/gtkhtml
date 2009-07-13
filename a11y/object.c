@@ -38,7 +38,6 @@ static void gtk_html_a11y_init       (GtkHTMLA11Y *a11y);
 
 static GtkAccessibleClass *parent_class = NULL;
 
-
 static gint
 get_n_actions (AtkAction *action)
 {
@@ -63,8 +62,6 @@ action_get_name (AtkAction *action, gint i)
 	return NULL;
 }
 
-
-
 static gboolean
 do_action (AtkAction * action, gint i)
 {
@@ -82,7 +79,6 @@ do_action (AtkAction * action, gint i)
 
 	if (!GTK_WIDGET_SENSITIVE (widget) || !GTK_WIDGET_VISIBLE (widget))
 		return FALSE;
-
 
 	switch (i) {
 	case 0:
@@ -169,7 +165,6 @@ gtk_html_a11y_initialize (AtkObject *obj, gpointer data)
 	g_object_set_data (G_OBJECT (obj), GTK_HTML_ID, data);
 }
 
-
 static gint
 gtk_html_a11y_get_n_children (AtkObject *accessible)
 {
@@ -201,7 +196,6 @@ gtk_html_a11y_get_n_children (AtkObject *accessible)
 
 		n_children = html_object_get_n_children (GTK_HTML_A11Y_GTKHTML (accessible)->engine->clue);
 	}
-
 
 	/* printf ("gtk_html_a11y_get_n_children resolves to %d\n", n_children); */
 
@@ -310,7 +304,6 @@ gtk_html_a11y_grab_focus_cb(GtkWidget * widget)
 {
         AtkObject *focus_object, *obj, *clue;
 
-
 	focus_object = gtk_html_a11y_get_focus_object (widget);
 	if (focus_object == NULL)
 		return;
@@ -351,9 +344,7 @@ gtk_html_a11y_insert_object_cb (GtkWidget * widget, gint pos, gint len)
 {
 	AtkObject * a11y, *obj;
 
-
 	HTMLCursor *cursor = GTK_HTML (widget)->engine->cursor;
-
 
         obj = gtk_widget_get_accessible (widget);
 	a11y = gtk_html_a11y_get_focus_object (widget);

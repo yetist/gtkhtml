@@ -267,7 +267,6 @@ html_engine_print_set_min_split_index (HTMLEngine *engine, gdouble index)
 	engine->min_split_index = index;
 }
 
-
 typedef struct {
 	HTMLEngine *engine;
 	HTMLPainter *painter;

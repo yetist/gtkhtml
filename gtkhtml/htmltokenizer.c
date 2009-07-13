@@ -104,7 +104,6 @@ struct _HTMLTokenizerPrivate {
 		TabPending
 	} pending;
 
-
 	gchar searchBuffer[20];
 	gint searchCount;
 	gint searchGtkHTMLCount;
@@ -125,8 +124,6 @@ struct _HTMLTokenizerPrivate {
 	GIConv iconv_cd;
 
 };
-
-
 
 static const gchar *commentStart = "<!--";
 static const gchar *scriptEnd = "</script>";
@@ -163,7 +160,6 @@ static gchar   *html_tokenizer_real_peek_token      (HTMLTokenizer *);
 static gchar   *html_tokenizer_real_next_token      (HTMLTokenizer *);
 static gboolean html_tokenizer_real_has_more_tokens (HTMLTokenizer *);
 static gchar   *html_tokenizer_converted_token (HTMLTokenizer *t,const gchar * token);
-
 
 static HTMLTokenizer *html_tokenizer_real_clone     (HTMLTokenizer *);
 
@@ -761,7 +757,6 @@ html_tokenizer_real_change (HTMLTokenizer *t, const gchar *content_type)
 #endif
 }
 
-
 static void
 html_tokenizer_real_begin (HTMLTokenizer *t, const gchar *content_type)
 {
@@ -1051,7 +1046,6 @@ in_script_or_style (HTMLTokenizer *t, const gchar **src)
 			const gchar **p = src;
 			while (isspace (**p))
 				(*p)++;
-
 
 			if (**p == '>')
 				*src = *p;
@@ -1493,7 +1487,6 @@ html_tokenizer_change_content_type (HTMLTokenizer *t,const gchar *content_type)
 
 	g_signal_emit (t, html_tokenizer_signals [HTML_TOKENIZER_CHANGECONTENT_SIGNAL], 0, content_type);
 }
-
 
 void
 html_tokenizer_end (HTMLTokenizer *t)

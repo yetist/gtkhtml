@@ -103,7 +103,6 @@ begin (HTMLPainter *painter, gint x1, gint y1, gint x2, gint y2)
 		const gint width = x2 - x1 + 1;
 		const gint height = y2 - y1 + 1;
 
-
 		/* FIXME: Ideally it should be NULL before coming here. */
 		if (gdk_painter->pixmap && gdk_painter->pixmap != gdk_painter->window)
 			g_object_unref (gdk_painter->pixmap);
@@ -573,7 +572,6 @@ draw_pixmap (HTMLPainter *painter,
 				 paint.x, paint.y);
 		return;
 	}
-
 
 	tmp_pixbuf = gdk_pixbuf_new (GDK_COLORSPACE_RGB,
 				     gdk_pixbuf_get_has_alpha (pixbuf),

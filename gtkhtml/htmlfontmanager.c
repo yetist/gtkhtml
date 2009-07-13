@@ -259,7 +259,6 @@ html_font_manager_get_attr (gchar *font_name, gint n)
 	    return g_strdup ("Unknown");
 }
 
-
 static gboolean
 get_points (HTMLFontManager *manager, GtkHTMLFontStyle style)
 {

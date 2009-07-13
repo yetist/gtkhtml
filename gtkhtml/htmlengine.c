@@ -26,7 +26,6 @@
 /* RULE: You should never create a new flow without inserting anything in it.
    If `e->flow' is not NULL, it must contain something.  */
 
-
 #include <config.h>
 #include "gtkhtml-compat.h"
 
@@ -258,7 +257,6 @@ html_element_new (HTMLEngine *e, const gchar *name)
 
 	element = g_new0 (HTMLElement, 1);
 	element->id = g_quark_from_string (name);
-
 
 	return element;
 }
@@ -588,7 +586,6 @@ static HTMLFontFace *
 current_font_face (HTMLEngine *e)
 {
 
-
 	HTMLElement *span;
 	GList *item;
 
@@ -716,7 +713,6 @@ pop_clueflow_style (HTMLEngine *e)
 	html_stack_pop (e->clueflow_style_stack);
 }
 
-
 
 /* Utility functions.  */
 
@@ -798,7 +794,6 @@ finish_flow (HTMLEngine *e, HTMLObject *clue) {
 	}
 	close_flow (e, clue);
 }
-
 
 static void
 close_flow (HTMLEngine *e, HTMLObject *clue)
@@ -917,7 +912,6 @@ insert_text (HTMLEngine *e,
 			e->eat_space = TRUE;
 	} else
 		e->eat_space = FALSE;
-
 
 	if (e->url != NULL || e->target != NULL)
 		create_link = TRUE;
@@ -1159,7 +1153,6 @@ pop_element_by_type (HTMLEngine *e, HTMLDisplayType display)
 		pop_block (e, elem);
 	}
 }
-
 
 static void
 pop_element (HTMLEngine *e, const gchar *name)
@@ -1580,7 +1573,6 @@ element_parse_object (HTMLEngine *e, HTMLObject *clue, const gchar *attr)
 
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
-
 	/* this might have to do something different for form object
 	   elements - check the spec MPZ */
 
@@ -1652,7 +1644,6 @@ element_parse_object (HTMLEngine *e, HTMLObject *clue, const gchar *attr)
 	g_free (classid);
 	g_free (name);
 }
-
 
 /* Frame parsers */
 static void
@@ -1926,7 +1917,6 @@ element_parse_a (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	element->exitFunc = block_end_anchor;
 	html_element_push (element, e, clue);
 }
-
 
 /* block parsing */
 static void
@@ -2258,7 +2248,6 @@ element_parse_data (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	g_free (key);
 }
 
-
 static void
 form_begin (HTMLEngine *e,
             HTMLObject *clue,
@@ -2511,7 +2500,6 @@ element_parse_frame (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	if (scroll != GTK_POLICY_AUTOMATIC)
 		html_frame_set_scrolling (HTML_FRAME (frame), scroll);
 
-
 	html_element_free (element);
 }
 
@@ -2527,7 +2515,6 @@ element_parse_hr (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	gboolean shade = TRUE;
 	gchar *value;
 	HTMLLength *len;
-
 
 	element = html_element_new_parse (e, str);
 
@@ -2562,14 +2549,12 @@ element_parse_hr (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	if (len)
 		size = len->val;
 
-
 	append_element (e, clue, html_rule_new (length, percent, size, shade, align));
 	close_flow (e, clue);
 
 	/* no close tag */
 	html_element_free (element);
 }
-
 
 static void
 block_end_heading (HTMLEngine *e,
@@ -3368,7 +3353,6 @@ element_parse_table (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		break;
 	}
 
-
 }
 
 static void
@@ -3433,7 +3417,6 @@ element_parse_tr (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	}
 	else
 		element->style = html_style_add_text_valign (element->style, HTML_VALIGN_MIDDLE);
-
 
 	if (html_element_get_attr (element, "align", &value))
 		element->style = html_style_add_text_align (element->style, parse_halign (value, HTML_HALIGN_NONE));
@@ -3950,7 +3933,6 @@ dispatch_table_new (HTMLDispatchEntry *entry)
 
 	return table;
 }
-
 
 static void
 parse_one_token (HTMLEngine *e, HTMLObject *clue, const gchar *str)
@@ -4516,7 +4498,6 @@ html_engine_ensure_editable (HTMLEngine *engine)
 	HTMLObject *child;
 	g_return_if_fail (HTML_IS_ENGINE (engine));
 
-
 	cluev = engine->clue;
 	if (cluev == NULL)
 		engine->clue = engine->parser_clue = cluev = html_cluev_new (0, 0, 100);
@@ -4910,7 +4891,6 @@ html_engine_get_object_base (HTMLEngine *e, HTMLObject *o)
 
 	html_object_forall (o, e, find_engine, &parent_engine);
 
-
 }
 #endif
 
@@ -5166,7 +5146,6 @@ html_engine_block_redraw (HTMLEngine *e)
 		e->need_redraw = TRUE;
 	}
 }
-
 
 void
 html_engine_unblock_redraw (HTMLEngine *e)
@@ -5675,7 +5654,6 @@ html_engine_freeze (HTMLEngine *engine)
 		gdk_window_process_updates (HTML_GDK_PAINTER (engine->painter)->window, FALSE);
 	}
 
-
 	html_engine_flush_draw_queue (engine);
 	DF (printf ("html_engine_freeze %d\n", engine->freeze_count); fflush (stdout));
 
@@ -5727,7 +5705,6 @@ html_engine_intersection (HTMLEngine *e, gint *x1, gint *y1, gint *x2, gint *y2)
 			return FALSE;
 	}
 
-
 	*x1 = paint.x;
 	*x2 = paint.x + paint.width;
 	*y1 = paint.y;
@@ -5775,7 +5752,6 @@ get_changed_objects (HTMLEngine *e, GdkRegion *region, GList *changed_objs)
 	}
 	/* printf ("draw_changed_objects END\n"); */
 }
-
 
 struct HTMLEngineExpose {
 	GdkRectangle area;
@@ -6437,7 +6413,6 @@ html_engine_set_object_data (HTMLEngine *e, HTMLObject *o)
 	if (t)
 		g_hash_table_foreach (t, set_object_data, o);
 }
-
 
 HTMLEngine *
 html_engine_get_top_html_engine (HTMLEngine *e)

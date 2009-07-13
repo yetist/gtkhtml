@@ -41,7 +41,6 @@ struct _HTMLFramesetClass {
 	HTMLObjectClass object_class;
 };
 
-
 
 HTMLObject   *html_frameset_new        (GtkHTML *parent, gchar *rows, gchar *cols);
 void          html_frameset_init       (HTMLFrameset *set, GtkHTML *parent, const gchar *rows, const gchar *cols);

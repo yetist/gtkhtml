@@ -49,7 +49,6 @@ static gint html_a11y_table_get_row_extent_at (AtkTable *table, gint row, gint c
 static AtkObject * html_a11y_table_get_column_header (AtkTable *table, gint column);
 static AtkObject * html_a11y_table_get_row_header (AtkTable *table, gint row);
 
-
 static AtkObjectClass *parent_class = NULL;
 
 GType
@@ -191,7 +190,6 @@ html_a11y_table_ref_at (AtkTable *table, gint row, gint column)
 	HTMLTable *to = HTML_TABLE (HTML_A11Y_HTML (table));
 	HTMLTableCell *cell;
 
-
 	if (!is_valid (ATK_OBJECT (table)))
 		return NULL;
 
@@ -303,7 +301,6 @@ html_a11y_table_get_row_extent_at (AtkTable *table, gint row, gint column)
 
 	return to->cells [row][column]->rspan;
 }
-
 
 static AtkObject *
 html_a11y_table_get_column_header (AtkTable *table, gint column)

@@ -108,7 +108,6 @@ get_props (HTMLClueFlow *clueflow)
 	return props;
 }
 
-
 static void
 set_props (HTMLEngine *engine,
 	   HTMLClueFlow *clueflow,

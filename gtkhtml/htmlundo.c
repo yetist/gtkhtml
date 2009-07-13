@@ -483,7 +483,6 @@ html_undo_level_end (HTMLUndo *undo)
 	if (save_undo.size) {
 		HTMLUndoAction *action;
 
-
 		/* we use position from last undo action on the stack */
 		action = html_undo_action_new (level->description [HTML_UNDO_UNDO],
 					       undo_step_action,

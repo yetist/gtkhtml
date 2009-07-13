@@ -80,7 +80,6 @@ html_frameset_append (HTMLFrameset *set, HTMLObject *frame)
 	if (set->frames->len >= set->cols->len * set->rows->len)
 		return FALSE;
 
-
 	g_ptr_array_add (set->frames, frame);
 	html_object_set_parent (frame, HTML_OBJECT (set));
 	return TRUE;
@@ -112,7 +111,6 @@ calc_dimension (GPtrArray *dim, gint *span, gint total)
 
 		remain -= span[i];
 	}
-
 
 	if (remain > 0 && num_frac) {
 		adj = remain / num_frac;
@@ -240,7 +238,6 @@ html_frameset_init (HTMLFrameset *set,
 	set->frames = g_ptr_array_new ();
 }
 
-
 static void
 draw (HTMLObject *o,
       HTMLPainter *p,
@@ -254,7 +251,6 @@ draw (HTMLObject *o,
 
 	tx += o->x;
 	ty += o->y - o->ascent;
-
 
 	/* Do nothing by default.  We don't know how to paint ourselves.  */
 	for (i = 0; i < set->frames->len; i++) {
@@ -315,7 +311,6 @@ check_point (HTMLObject *self,
 	HTMLObject   *obj;
 	gint i;
 
-
 	x -= self->x;
 	y -= self->y - self->ascent;
 
@@ -364,7 +359,6 @@ forall (HTMLObject *self,
 		     html_object_forall (g_ptr_array_index (set->frames, i), e, func, data);
 	(* func) (self, e, data);
 }
-
 
 HTMLObject *
 html_frameset_new (GtkHTML *parent, gchar *rows, gchar *cols)
@@ -439,7 +433,4 @@ html_frameset_class_init (HTMLFramesetClass *klass,
 
 	parent_class = &html_object_class;
 }
-
-
-
 

@@ -419,7 +419,6 @@ html_url_to_string (const HTMLURL *url)
 #define APPEND_CHAR(c)				\
 	*(p++) = c;
 
-
 	if (protocol_length != 0) {
 		APPEND_MEMBER (protocol);
 		APPEND_CHAR (':');

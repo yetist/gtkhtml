@@ -83,7 +83,6 @@ html_checkbox_class_init (HTMLCheckBoxClass *klass,
 	HTMLEmbeddedClass *element_class;
 	HTMLObjectClass *object_class;
 
-
 	element_class = HTML_EMBEDDED_CLASS (klass);
 	object_class = HTML_OBJECT_CLASS (klass);
 

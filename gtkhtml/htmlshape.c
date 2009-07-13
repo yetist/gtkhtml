@@ -225,5 +225,3 @@ html_shape_destroy (HTMLShape *shape)
 	g_free (shape);
 }
 
-
-

@@ -205,7 +205,6 @@ html_cluev_do_layout (HTMLObject *o, HTMLPainter *painter, gboolean calc_size, G
 		o->ascent = clue->curr->y;
 		lmargin = get_lmargin (o, painter);
 
-
 		if (calc_size)
 			changed |= html_object_calc_size (clue->curr, painter, changed_objs);
 

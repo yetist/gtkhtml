@@ -315,7 +315,6 @@ html_engine_draw_cursor_in_area (HTMLEngine *engine,
 		y = 0;
 	}
 
-
 	html_object_get_cursor (obj, engine->painter, offset, &x1, &y1, &x2, &y2);
 	while (obj) {
 		if (html_object_is_frame(obj)) {

@@ -93,7 +93,6 @@ html_clueh_real_calc_size (HTMLObject *clue, HTMLPainter *painter, GList **chang
 			d = obj->descent;
 	}
 
-
 	switch (HTML_CLUE (clue)->valign) {
 	case HTML_VALIGN_TOP:
 		clue->ascent = a + d;

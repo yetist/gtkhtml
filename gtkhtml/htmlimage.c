@@ -1576,7 +1576,6 @@ deactivate_anim (gpointer key, gpointer value, gpointer user_data)
 	GSList *cur = ip->interests;
 	HTMLImage *image;
 
-
 	while (cur) {
 		if (cur->data) {
 			image = (HTMLImage *) cur->data;
