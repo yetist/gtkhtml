@@ -6212,7 +6212,7 @@ html_engine_replace_spell_word_with (HTMLEngine *e, const gchar *word)
 	default:
 		g_assert_not_reached ();
 	}
-	html_text_set_font_face (HTML_TEXT (replace), HTML_TEXT (orig)->face);
+	html_text_set_font_face (HTML_TEXT (replace_text), HTML_TEXT (orig)->face);
 	html_engine_edit_selection_updater_update_now (e->selection_updater);
 	html_engine_paste_object (e, replace_text, html_object_get_length (replace_text));
 }
